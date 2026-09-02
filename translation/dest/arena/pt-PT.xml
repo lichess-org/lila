@@ -7,7 +7,7 @@
   <string name="isRated">Este torneio é por pontos e afetará a tua pontuação.</string>
   <string name="isNotRated">Este torneio *não* é por pontos e *não* afetará a tua pontuação.</string>
   <string name="someRated">Alguns torneios são por pontos e afetarão a tua pontuação.</string>
-  <string name="howAreScoresCalculated">Como é que as pontuações são calculadas?</string>
+  <string name="howAreScoresCalculated">Como são calculadas as pontuações?</string>
   <string name="howAreScoresCalculatedAnswer">Uma vitória tem uma pontuação base de 2 pontos, um empate 1 ponto, e uma derrota não vale quaisquer pontos.
 Se ganhares dois jogos seguidos, começarás com uma sequência de duplos pontos, representada por um ícone de chama.
 Nos jogos seguintes continuarás a receber o dobro dos pontos até perderes algum jogo.
@@ -22,11 +22,12 @@ Ficar frenético em jogos com incremento de tempo também cancela o incremento, 
 O modo frenético não está disponível para jogos com tempo inicial de zero, (0+1, 0+2).
 
 O modo frenético apenas dá pontos extra se jogares um mínimo 7 movimentos no jogo.</string>
-  <string name="howIsTheWinnerDecided">Como é que o vencedor é decidido?</string>
-  <string name="howIsTheWinnerDecidedAnswer">O jogador(es) com mais pontos no final do tempo do torneio serão anunciados como vencedor(es).
+  <string name="howIsTheWinnerDecided">Com é decidido o vencedor?</string>
+  <string name="howIsTheWinnerDecidedAnswer">O jogador com mais pontos no final do tempo do torneio serão anunciados como vencedor.
 
 Quando dois ou mais jogadores tiverem o mesmo número de pontos, o desempenho no torneio é o critério de desempate.</string>
   <string name="howDoesPairingWork">Como é que funciona o emparelhamento?</string>
+  <string name="howArePlayersPaired" comment="Replaces old string howDoesPairingWork">Como são os jogadores emparelhados?</string>
   <string name="howDoesPairingWorkAnswer">No inicio do torneio, os jogadores são emparelhados com base na sua pontuação. Assim que terminares um jogo, volta ao vestíbulo do torneio: então, serás emparelhado com um jogador com uma classificação próxima à tua. Isto garante o mínimo tempo de espera, contudo poderás não jogar contra todos os jogadores no torneio.
 Joga rápido e volta ao vestíbulo para jogares mais jogos e ganhares mais pontos.</string>
   <string name="howDoesItEnd">Como é que termina?</string>
@@ -64,9 +65,10 @@ Joga rápido e volta ao vestíbulo para jogares mais jogos e ganhares mais ponto
   <string name="editTournament">Editar torneio</string>
   <string name="editTeamBattle">Editar batalha de equipa</string>
   <string name="defender">Defensor</string>
+  <string name="defenderLabel" comment="In this context, this is the current holder of a shield trophy, who is defending their trophy in the next shield tournament of that variant. https://lichess.org/tournament/shields Replaces old string defender">Defensor:</string>
   <string name="pickYourTeam">Escolhe a tua equipa</string>
   <string name="whichTeamWillYouRepresentInThisBattle">Qual equipa vais representar nesta batalha?</string>
-  <string name="youMustJoinOneOfTheseTeamsToParticipate">Deves juntar a uma destas equipas para participar!</string>
+  <string name="youMustJoinOneOfTheseTeamsToParticipate">Tens de te juntar a uma destas equipas para participar!</string>
   <string name="created">Criado</string>
   <string name="recentlyPlayed">Jogado recentemente</string>
   <string name="bestResults">Melhores resultados</string>
@@ -74,6 +76,10 @@ Joga rápido e volta ao vestíbulo para jogares mais jogos e ganhares mais ponto
   <string name="rankAvgHelp">A média da classificação é uma percentagem da tua classificação. Menor é melhor.
 
 Por exemplo, ficar em 3º lugar num torneio de 100 jogadores = 3%. Estar em 10º lugar num torneio de 1000 jogadores = 1%.</string>
+  <string name="rankAverageHelp" comment="Replaces old string rankAvgHelp">A tua classificação média representa a tua classificação final habitual, em relação ao número total de jogadores em cada torneio.
+É uma medida da tua posição no torneio, e não da tua pontuação geral.
+
+Por exemplo, uma classificação média de 3% significa que, normalmente, terminas no top 3% (por exemplo, em 30º lugar entre 1000 jogadores).</string>
   <string name="medians">médias</string>
   <string name="allAveragesAreX">Todas as médias desta página são %s.</string>
   <string name="total">Total</string>

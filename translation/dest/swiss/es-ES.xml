@@ -66,6 +66,7 @@ Se suman las puntuaciones de todos los oponentes a los que haya vencido el jugad
   <string name="moreRoundsThanPlayersQ">¿Qué pasa si el torneo tiene más rondas que jugadores?</string>
   <string name="moreRoundsThanPlayersA">Cuando se hayan jugado todos los emparejamientos posibles, el torneo se acaba y proclama el ganador.</string>
   <string name="restrictedToTeamsQ">¿Por qué está limitado a los equipos?</string>
+  <string name="whyAreSwissTournamentsRestrictedToTeams" comment="Replaces old string restrictedToTeamsQ">¿Por qué los torneos suizos están restringidos a equipos?</string>
   <string name="restrictedToTeamsA">Los torneos suizos no se diseñaron para el ajedrez en línea. Exigen puntualidad, dedicación y paciencia por parte de los jugadores.
 Creemos que es más probable que estas condiciones se cumplan en un equipo que en torneos abiertos.</string>
   <string name="numberOfByesQ">¿Cuántos byes puede recibir un jugador?</string>
@@ -87,6 +88,7 @@ Los jugadores que se unan a un torneo empezado recibirán un único bye, incluso
   <string name="willSwissReplaceArenasQ">¿Reemplazarán los torneos suizos a los torneos estándar?</string>
   <string name="willSwissReplaceArenasA">No, son características complementarias.</string>
   <string name="roundRobinQ">¿Qué ocurre con los emparejamientos de todos contra todos?</string>
+  <string name="canPlayRoundRobinTournaments" comment="roundRobinQ&#10;&#10;Round-robin is a simple tournament format with some similarities to Swiss. It is not supported by Lichess. Replaces old string roundRobinQ">¿Puedo jugar torneos de todos contra todos en Lichess?</string>
   <string name="roundRobinA">Nos gustaría agregarlos, pero este tipo de emparejamientos no suelen funcionar en los entornos en línea.
 El motivo es que no existe una forma justa de penalizar a los jugadores que abandonen el torneo de forma temprana. No podemos esperar que todos los participantes jueguen todas sus partidas en un evento en línea. Es algo que simplemente no ocurrirá y, como resultado, la mayoría de los torneos de todos contra todos serán imperfectos e injustos, lo que hace que su principal finalidad sea inválida.
 El formato más próximo a un torneo en línea de todos contra todos es un torneo suizo con un número de rondas muy elevado. De esta forma, se jugarán todos los posibles emparejamientos antes de que finalice el torneo.</string>
@@ -123,6 +125,8 @@ El formato más próximo a un torneo en línea de todos contra todos es un torne
   <string name="unlimitedAndFree">Ilimitado y gratuito</string>
   <string name="predefinedUsers">Permitir unirse únicamente a usuarios predefinidos</string>
   <string name="forbiddedUsers">Si esta lista no está vacía, a los usuarios ausentes de esta lista les estará prohibido unirse. Un nombre de usuario por línea.</string>
+  <string name="predefinedUsersHelp" comment="Replaces old string forbiddedUsers">Introduce un nombre de usuario por línea. Solo estos jugadores podrán entrar.
+Deja en blanco para permitir a todos los jugadores elegibles.</string>
   <string name="playYourGames">Juega tus partidas</string>
   <string name="byes">Libranzas</string>
   <string name="absences">Ausencias</string>

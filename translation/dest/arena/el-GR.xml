@@ -27,6 +27,7 @@ To Berserk δεν ισχύει για παρτίδες με μηδενικό α�
 
 Για την άρση ισοβαθμίας, χρησιμοποιείται ως μοναδικό κριτήριο η απόδοση στο τουρνουά.</string>
   <string name="howDoesPairingWork">Πώς πραγματοποιούνται οι κληρώσεις;</string>
+  <string name="howArePlayersPaired" comment="Replaces old string howDoesPairingWork">Πώς επιλέγονται οι αντίπαλοι;</string>
   <string name="howDoesPairingWorkAnswer">Στην αρχή του τουρνουά, οι παίκτες κληρώνονται με βάση τη βαθμολογία τους.
 Μόλις τελειώσετε την παρτίδα σας, επιστρέψτε στον χώρο αναμονής του τουρνουά — εκεί, θα κληρωθείτε με κάποιον παίκτη ο οποίος έχει παρόμοια κατάταξη με εσάς. Με αυτόν τον τρόπο, ο χρόνος αναμονής γίνεται ο ελάχιστος δυνατός, αλλά πάντως ενδέχεται να μην αντιμετωπίσετε όλους τους παίκτες που συμμετέχουν στο τουρνουά πριν τη λήξη του.
 Σας προτείνουμε να ολοκληρώνετε γρήγορα τις παρτίδες σας και να επιστρέφετε αμέσως στον χώρο αναμονής ώστε να παίζετε όσο το δυνατόν περισσότερες παρτίδες και να κερδίζετε όσο το δυνατόν περισσότερους βαθμούς.</string>
@@ -65,6 +66,7 @@ To Berserk δεν ισχύει για παρτίδες με μηδενικό α�
   <string name="editTournament">Επεξεργασία τουρνουά</string>
   <string name="editTeamBattle">Επεξεργασία ομαδικής μάχης</string>
   <string name="defender">Υπερασπιστής</string>
+  <string name="defenderLabel" comment="In this context, this is the current holder of a shield trophy, who is defending their trophy in the next shield tournament of that variant. https://lichess.org/tournament/shields Replaces old string defender">Υπερασπιστής:</string>
   <string name="pickYourTeam">Διαλέξτε την ομάδα σας</string>
   <string name="whichTeamWillYouRepresentInThisBattle">Ποια ομάδα θα αντιπροσωπεύσετε σε αυτή τη μάχη;</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">Πρέπει να μπείτε σε μία από αυτές τις ομάδες για να συμμετάσχετε!</string>
@@ -75,6 +77,9 @@ To Berserk δεν ισχύει για παρτίδες με μηδενικό α�
   <string name="rankAvgHelp">Ο μέσος όρος κατάταξης είναι ένα ποσοστό της θέσης σας. Όσο χαμηλότερος είναι ο μέσος όρος αυτός, τόσο καλύτερη ήταν η επίδοσή σας στο τουρνουά.
 
 Για παράδειγμα, αν είστε τρίτος σε ένα τουρνουά 100 παικτών το ποσοστό είναι 3%, ενώ αν είστε δέκατος σε ένα τουρνουά 1000 παικτών, το ποσοστό σας είναι 1%.</string>
+  <string name="rankAverageHelp" comment="Replaces old string rankAvgHelp">Η μέση κατάταξή σας δείχνει τη συνήθη θέση τερματισμού σας συγκριτικά με τον συνολικό αριθμό παικτών ενός τουρνουά. Πρόκειται για ένα μέτρο επίδοσής στα τουρνουά και όχι της γενικής βαθμολογίας σας.
+
+Για παράδειγμα, μία μέση κατάταξη 3% σημαίνει ότι συνήθως τερματίζετε στο κορυφαίο 3% των παικτών (π.χ. 30ος από 1.000 παίκτες).</string>
   <string name="medians">διάμεσες τιμές</string>
   <string name="allAveragesAreX">Όλοι οι μέσοι όροι που αναφέρονται σε αυτήν τη σελίδα είναι %s.</string>
   <string name="total">Σύνολο</string>

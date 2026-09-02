@@ -33,8 +33,14 @@
       border-radius: 50%;
 
       &.nobg {
+        @include backdrop-blur-if-transparent;
+
         background: $c-bg-box;
         border: 2px solid $c-contours;
+
+        @include if-transp {
+          background: hsl(from $c-bg-box h s l / 0.9);
+        }
       }
     }
 

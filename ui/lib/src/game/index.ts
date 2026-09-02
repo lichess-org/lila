@@ -87,7 +87,7 @@ export const nbMoves = (data: GameData, color: Color): number =>
   Math.floor((playedTurns(data) + (color === 'white' ? 1 : 0)) / 2);
 
 export const isSwitchable = (data: GameData): boolean =>
-  !hasAi(data) && (!!data.simul || isCorrespondence(data));
+  isCorrespondence(data) || (!hasAi(data) && !!data.simul);
 
 export const clockToSpeed = (initial: Seconds, increment: Seconds): Exclude<Speed, 'correspondence'> => {
   const total = initial + increment * 40;

@@ -23,6 +23,7 @@ import * as xhr from './xhr';
 export default class StormCtrl implements PuzCtrl {
   private readonly data: StormData;
   private readonly redraw: () => void;
+  readonly duration = 900;
   pref: StormPrefs;
   run: Run;
   vm: StormVm;
@@ -87,6 +88,7 @@ export default class StormCtrl implements PuzCtrl {
   };
 
   endNow = (): void => {
+    this.run.unfinishedId = this.run.current.puzzle.id;
     this.pushToHistory(false);
     this.end();
   };

@@ -21,6 +21,7 @@ Berserk gjev eitt ekstrapoeng berre om du spelar minst 7 trekk i partiet.</strin
   <string name="howIsTheWinnerDecided">Korleis avgjer ein kven som vinn?</string>
   <string name="howIsTheWinnerDecidedAnswer">Spelaren eller spelarane med flest poeng ved slutten av turneringsfristen vil verta utropt som vinnar(ar).</string>
   <string name="howDoesPairingWork">Korleis vert turneringspara sett saman?</string>
+  <string name="howArePlayersPaired" comment="Replaces old string howDoesPairingWork">Korleis vert spelarpara samansett?</string>
   <string name="howDoesPairingWorkAnswer">Når turneringa startar er spelarane sett saman på grunnlag av ratinga deira. Gå attende til turneringslobbyen straks du er ferdig med eit spel, og du vert då sett saman med ein spelar nær rangeringa di på turneringsstigen. Dette sikrar minimal ventetid, men du møter ikkje nødvendigvis alle dei andre spelarane i turneringa. Spel snøgt og gå attende til lobbyen for å spela fleire parti og vinna fleire poeng.</string>
   <string name="howDoesItEnd">Korleis vert turneringa avgjort?</string>
   <string name="howDoesItEndAnswer">Turneringa har ei nedteljingsklokke. Turneringsrangeringa vert fryst og vinnaren utropa når nedteljongsklokka er nede i null. Parti som framleis er i spel må spelast til endes, men dei reknast ikkje med i turneringa.</string>
@@ -57,6 +58,7 @@ Berserk gjev eitt ekstrapoeng berre om du spelar minst 7 trekk i partiet.</strin
   <string name="editTournament">Rediger turnering</string>
   <string name="editTeamBattle">Rediger lagkamp</string>
   <string name="defender">Forsvarar</string>
+  <string name="defenderLabel" comment="In this context, this is the current holder of a shield trophy, who is defending their trophy in the next shield tournament of that variant. https://lichess.org/tournament/shields Replaces old string defender">Forsvarar:</string>
   <string name="pickYourTeam">Vel ut laget ditt</string>
   <string name="whichTeamWillYouRepresentInThisBattle">Kva lag vil du spela på i denne kampen?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">For å delta må du bli med i eit av desse laga!</string>
@@ -67,6 +69,10 @@ Berserk gjev eitt ekstrapoeng berre om du spelar minst 7 trekk i partiet.</strin
   <string name="rankAvgHelp">Plasseringssnittet er eit prosentverde av plasseringa di. Jo lågare, dess betre.
 
 Til dømes vil ein tredjeplass i ei turnering med 100 deltakarar gje plasseringssnittet 3%. Tiandeplass i ei turnering med 1000 deltakarar = 1%.</string>
+  <string name="rankAverageHelp" comment="Replaces old string rankAvgHelp">Ditt ranggjennemsnitt representerar din vanlege sluttplassering i forhold til det samla antal spelarar i kvar turnering.
+Dette er eit mål for di plassering i turneringa, og er ikkje din generelle rating.
+
+Eit ranggjennemsnitt på 3 % tyder til dømes at du til vanleg endar mellom dei øvste 3 % (t. d. på 30. plass av 1000 spelarar).</string>
   <string name="medians">medianar</string>
   <string name="allAveragesAreX">Alle snittverdiar på denne sida er %s.</string>
   <string name="total">Totalt</string>

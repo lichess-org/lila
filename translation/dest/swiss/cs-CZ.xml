@@ -48,7 +48,7 @@
   </plurals>
   <string name="tournStartDate">Zahajovací datum turnaje</string>
   <string name="numberOfRounds">Počet kol</string>
-  <string name="numberOfRoundsHelp">Lichý počet kol umžňuje hrát vyváženě oběma barvami.</string>
+  <string name="numberOfRoundsHelp">Lichý počet kol umožňuje hrát vyváženě oběma barvami.</string>
   <string name="roundInterval">Interval mezi koly</string>
   <string name="forbiddenPairings">Tato možnost zabraňuje párování určitých hráčů</string>
   <string name="forbiddenPairingsHelp">Jména hráčů, kteří nesmí spolu hrát (například sourozenci). Dvě jména na řádek, oddělená mezerou.</string>
@@ -134,6 +134,8 @@ Nejvíce se tomu blíží Švýcarský systém s velkým počtem kol, kdy je mo�
   <string name="unlimitedAndFree">Neomezené a zdarma</string>
   <string name="predefinedUsers">Povolit připojení pouze předem definovaným uživatelům</string>
   <string name="forbiddedUsers">Pokud nebude tento seznam prázdný. Uživatelé uvedení v tomto seznamu se nebudou moct připojit. Pište jedno uživatelské jméno na řádek.</string>
+  <string name="predefinedUsersHelp" comment="Replaces old string forbiddedUsers">Zadejte jedno uživatelské jméno na řádek. Pouze tito hráči se budou moci připojit.
+Nechte prázdné pro povolení všech způsobilých hráčů.</string>
   <string name="playYourGames">Hrajte své hry</string>
   <string name="byes">Propustky</string>
   <string name="absences">Absence</string>

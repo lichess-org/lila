@@ -49,8 +49,8 @@ final class TournamentShieldApi(
       tournamentRepo.coll
         .find:
           $doc(
-            "schedule.freq" -> (Schedule.Freq.Shield: Schedule.Freq),
-            "status" -> (Status.finished: Status)
+            "schedule.freq" -> Schedule.Freq.Shield,
+            "status" -> Status.finished
           )
         .sort($sort.asc("startsAt"))
         .cursor[Tournament](ReadPref.sec)
@@ -131,7 +131,7 @@ object TournamentShield:
 The winner keeps it for one month,
 then must defend it during the next $name Shield tournament!""".some,
     spotlight = Spotlight(
-      iconFont = Icon.Shield.some,
+      icon = Icon.Shield.some,
       headline = s"Battle for the $name Shield",
       homepageHours = 6.some
     ).some

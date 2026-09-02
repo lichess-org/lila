@@ -28,17 +28,18 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
     s"""<meta http-equiv="Content-Security-Policy" content="${lila.web.ContentSecurityPolicy.render(csp)}">"""
   def metaCsp(csp: Option[ContentSecurityPolicy])(using Context, Option[Nonce]): Frag =
     metaCsp(csp.getOrElse(defaultCsp))
-  def systemThemeScript(nonce: Option[Nonce]) =
+  def systemThemeScript(nonce: Option[Nonce], isTransparent: Boolean = false) =
     embedJsUnsafe(
-      "if (window.matchMedia('(prefers-color-scheme: light)')?.matches) " +
-        "document.documentElement.classList.add('light');"
+      "if (window.matchMedia('(prefers-color-scheme: light)')?.matches) {" +
+        "document.documentElement.classList.add('light');" +
+        "}" +
+        isTransparent.so("document.documentElement.classList.add('transp');")
     )(nonce)
   val noTranslate = raw("""<meta name="google" content="notranslate">""")
 
   private def fontPreload(path: String) = preload(assetUrl(s"font/$path"), "font", true, "font/woff2".some)
 
   def fontsPreload(using ctx: Context) = frag(
-    fontPreload("lichess.woff2"),
     fontPreload("noto-sans-latin.woff2"),
     fontPreload("roboto-latin.woff2"),
     ctx.pref.pieceNotationIsLetter.not.option(fontPreload("lichess-chess.woff2"))
@@ -47,25 +48,37 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
   def allNotifications(challenges: Int, notifs: Int)(using Translate) =
     val challengeTitle = trans.challenge.challengesX.txt(challenges)
     val notifTitle = trans.site.notificationsX.txt(notifs)
-    spaceless:
-      s"""
-<div>
-  <button id="challenge-toggle" class="toggle link" type="button">
-    <span title="$challengeTitle" role="status" aria-label="$challengeTitle" class="data-count" data-count="$challenges" data-icon="${Icon.Swords}"></span>
-  </button>
-  <div id="challenge-app" class="dropdown"></div>
-</div>
-<div>
-  <button id="notify-toggle" class="toggle link" type="button">
-    <span title="$notifTitle" role="status" aria-label="$notifTitle" class="data-count" data-count="$notifs" data-icon="${Icon.BellOutline}"></span>
-  </button>
-  <div id="notify-app" class="dropdown"></div>
-</div>"""
+    frag(
+      div(
+        button(id := "challenge-toggle", cls := "toggle link", tpe := "button")(
+          span(
+            title := challengeTitle,
+            role := "status",
+            aria.label := challengeTitle,
+            cls := "data-count",
+            dataCount := challenges
+          )(iconEl(Icon.Swords))
+        ),
+        div(id := "challenge-app", cls := "dropdown")
+      ),
+      div(
+        button(id := "notify-toggle", cls := "toggle link", tpe := "button")(
+          span(
+            title := notifTitle,
+            role := "status",
+            aria.label := notifTitle,
+            cls := "data-count",
+            dataCount := notifs
+          )(iconEl(Icon.BellOutline))
+        ),
+        div(id := "notify-app", cls := "dropdown")
+      )
+    )
 
   def clinput(using ctx: Context) =
     val label = trans.search.search.txt()
     div(id := "clinput")(
-      a(cls := "link", dataIcon := Icon.Search),
+      a(cls := "link")(iconEl(Icon.Search)),
       input(
         spellcheck := "false",
         autocomplete := ctx.blind.toString,
@@ -77,7 +90,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
 
   val warnNoAutoplay =
     div(id := "warn-no-autoplay")(
-      a(dataIcon := Icon.Mute, targetBlank, href := s"${routes.Main.faq}#autoplay")
+      a(targetBlank, href := s"${routes.Main.faq}#autoplay")(iconEl(Icon.Mute))
     )
 
   def botImage = img(
@@ -110,17 +123,21 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
   val assetsMissingTroubleshooting = raw:
     """<h2 id="assets-missing"><a href="/page/network-administrators">Your network blocks the Lichess assets!</a></h2>"""
 
-  def zenZone(using Translate) = spaceless:
-    s"""
-<div id="zenzone">
-  <a href="/" class="zen-home"></a>
-  <a data-icon="${Icon.Checkmark}" id="zentog" class="text fbt active">${trans.preferences.zenMode
-        .txt()}</a>
-</div>"""
+  def zenZone(using Translate) =
+    div(id := "zenzone")(
+      a(href := "/", cls := "zen-home"),
+      a(id := "zentog", cls := "text fbt active")(
+        iconEl(Icon.Checkmark),
+        trans.preferences.zenMode()
+      )
+    )
 
   def dasher(me: User) =
     div(cls := "dasher")(
-      button(id := "user_tag", cls := "toggle link")(me.username),
+      button(id := "user_tag", cls := "toggle link")(
+        me.username,
+        iconEl(Icon.AccountCircle)(cls := "svg-icon large")
+      ),
       div(id := "dasher_app", cls := "dropdown")
     )
 
@@ -138,7 +155,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
         a(href := routes.Auth.signup, cls := "button signup")(trans.site.signUp())
       ),
       div(cls := "dasher")(
-        button(cls := "toggle anon link", title := prefs, aria.label := prefs, dataIcon := Icon.Gear),
+        button(cls := "toggle anon link", title := prefs, aria.label := prefs)(iconEl(Icon.Gear)),
         div(id := "dasher_app", cls := "dropdown")
       )
     )
@@ -208,20 +225,10 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
   val spinnerMask = raw:
     """<svg width="0" height="0"><mask id="spinner-mask"><path fill="#fff" stroke="#fff" stroke-linejoin="round" d="M38.956.5c-3.53.418-6.452.902-9.286 2.984C5.534 1.786-.692 18.533.68 29.364 3.493 50.214 31.918 55.785 41.329 41.7c-7.444 7.696-19.276 8.752-28.323 3.084C3.959 39.116-.506 27.392 4.683 17.567 9.873 7.742 18.996 4.535 29.03 6.405c2.43-1.418 5.225-3.22 7.655-3.187l-1.694 4.86 12.752 21.37c-.439 5.654-5.459 6.112-5.459 6.112-.574-1.47-1.634-2.942-4.842-6.036-3.207-3.094-17.465-10.177-15.788-16.207-2.001 6.967 10.311 14.152 14.04 17.663 3.73 3.51 5.426 6.04 5.795 6.756 0 0 9.392-2.504 7.838-8.927L37.4 7.171z"/></mask></svg>"""
 
-  val networkAlert = a(id := "network-status", cls := "link text", dataIcon := Icon.ChasingArrows)
+  val networkAlert = a(id := "network-status", cls := "link text", iconEl := Icon.ChasingArrows)
 
   private val spaceRegex = """\s{2,}+""".r
   def spaceless(html: String) = raw(spaceRegex.replaceAllIn(html.replace("\\n", ""), ""))
-
-  def lichessFontFaceCss = spaceless:
-    s"""
-<style>
-  @font-face {
-    font-family: 'lichess';
-    font-display: block;
-    src: url('${assetUrl("font/lichess.woff2")}') format('woff2')
-  }
-</style>"""
 
   def bottomHtml(using ctx: Context) = frag(
     ctx.me
@@ -229,7 +236,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
       .option(
         div(id := "friend_box")(
           div(cls := "friend_box_title")(
-            trans.site.nbFriendsOnline.plural(0, iconTag(Icon.UpTriangle))
+            trans.site.nbFriendsOnline.plural(0, iconEl(Icon.UpTriangle))
           ),
           div(cls := "content_wrap none")(
             div(cls := "content list")
@@ -260,24 +267,21 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
           ),
           title := "Moderation",
           href := routes.Report.list,
-          dataCount := maxScore,
-          dataIcon := Icon.Agent
-        ).some
+          dataCount := maxScore
+        )(iconEl(Icon.Agent)).some
       else if Granter.opt(_.PublicChatView) then
         a(
           cls := "link",
           title := "Moderation",
-          href := routes.Mod.publicChat,
-          dataIcon := Icon.Agent
-        ).some
+          href := routes.Mod.publicChat
+        )(iconEl(Icon.Agent)).some
       else
         (Granter.opt(_.Pages) || Granter.opt(_.ManageEvent)).option(
           a(
             cls := "link",
             title := "Content",
-            href := Granter.opt(_.Pages).option(routes.Cms.index).orElse(routes.Event.manager().some),
-            dataIcon := Icon.InkQuill
-          )
+            href := Granter.opt(_.Pages).option(routes.Cms.index).orElse(routes.Event.manager().some)
+          )(iconEl(Icon.InkQuill))
         )
 
     private def teamRequests(nb: Int)(using Translate) =
@@ -286,9 +290,8 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
           cls := "link data-count link-center",
           href := routes.Team.requests,
           dataCount := nb,
-          dataIcon := Icon.Group,
           title := trans.team.teams.txt()
-        )
+        )(iconEl(Icon.Group))
 
     private val siteNameFrag: Frag =
       if siteName == "lichess.org" then frag("lichess", span(".org"))
@@ -308,14 +311,17 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
           a(cls := "site-title", href := langHref("/"), testId("site-title"))(
             if ctx.kid.yes then span(title := trans.site.kidMode.txt(), cls := "kiddo")(":)")
             else ctx.isBot.option(botImage),
-            div(cls := "site-icon", dataIcon := Icon.Logo),
+            div(cls := "site-icon")(iconEl(Icon.Logo)),
             div(cls := "site-name")(siteNameFrag)
           ),
           (!isAppealUser).option(
             frag(
               topnav,
               (ctx.kid.no && !ctx.me.exists(_.isPatron) && !zenable).option(
-                a(cls := "site-title-nav__donate")(href := routes.Plan.index())(trans.patron.donate())
+                a(cls := "site-title-nav__donate")(href := routes.Plan.index())(
+                  iconEl(Icon.Wings),
+                  trans.patron.donate()
+                )
               )
             )
           ),

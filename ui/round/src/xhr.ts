@@ -1,4 +1,4 @@
-import { text, json, form } from 'lib/xhr';
+import { json } from 'lib/xhr';
 
 import type RoundController from './ctrl';
 import type { RoundData } from './interfaces';
@@ -8,13 +8,10 @@ export const reload = (d: RoundData): Promise<RoundData> => {
   return json(url);
 };
 
-export const setPreference = (key: string, value: string): Promise<string> =>
-  text(`/pref/${key}`, { method: 'post', body: form({ [key]: value }) });
-
 export const whatsNext = (ctrl: RoundController): Promise<{ next?: string }> =>
   json(`/whats-next/${ctrl.data.game.id}${ctrl.data.player.id}`);
 
-export const challengeRematch = (gameId: string): Promise<unknown> =>
+export const challengeRematch = (gameId: string): Promise<void> =>
   json('/challenge/rematch-of/' + gameId, {
     method: 'post',
   });

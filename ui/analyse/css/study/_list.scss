@@ -3,6 +3,7 @@
   @include prevent-select;
 
   background: $c-bg-box;
+  overflow: hidden;
 
   .study-list > div,
   button {
@@ -22,7 +23,6 @@
   }
 
   .act {
-    @extend %flex-center-center;
     @include transition;
 
     color: $c-font;
@@ -32,17 +32,19 @@
     font-size: 0.9em;
     opacity: 0.15;
     padding: 0.25em;
+    line-height: 1;
     margin-inline-end: 0.25em;
+
+    &:hover,
+    &:focus-visible {
+      background: $c-primary;
+      color: $c-over;
+      opacity: 1 !important;
+    }
   }
 
   .study-list > :hover .act {
     opacity: 0.7;
-
-    &:hover {
-      background: $c-primary;
-      color: $c-over;
-      opacity: 1;
-    }
   }
 
   .add {
@@ -58,7 +60,7 @@
       margin: 0.5em 0;
     }
 
-    icon {
+    .svg-icon {
       color: $c-link;
       margin-top: -2px;
     }

@@ -27,6 +27,7 @@ Berserk chỉ thêm điểm nếu bạn chơi ít nhất 7 nước trong một v
 
 Nếu hai kỳ thủ bằng điểm nhau, kết quả sẽ quyết định qua điểm số phụ.</string>
   <string name="howDoesPairingWork">Cặp đấu được chọn ra sao?</string>
+  <string name="howArePlayersPaired" comment="Replaces old string howDoesPairingWork">Các kỳ thủ được ghép đấu như thế nào?</string>
   <string name="howDoesPairingWorkAnswer">Lúc bắt đầu giải đấu, các kỳ thủ sẽ được xếp cặp dựa theo hệ số của họ. Ngay khi bạn kết thúc một ván và trở lại phòng chờ: bạn sẽ được xếp cặp với kỳ thủ có thứ hạng gần bạn. Điều này giúp giảm thời gian chờ, tuy nhiên bạn có thể không được đấu với mọi kỳ thủ khác trong giải đấu.
 Chơi nhanh và trở lại phòng chờ để chơi được nhiều ván và giành nhiều điểm hơn.</string>
   <string name="howDoesItEnd">Giải kết thúc ra sao?</string>
@@ -62,6 +63,7 @@ Chơi nhanh và trở lại phòng chờ để chơi được nhiều ván và g
   <string name="editTournament">Chỉnh sửa giải đấu</string>
   <string name="editTeamBattle">Chỉnh sửa trận chiến đội</string>
   <string name="defender">Người giữ khiên</string>
+  <string name="defenderLabel" comment="In this context, this is the current holder of a shield trophy, who is defending their trophy in the next shield tournament of that variant. https://lichess.org/tournament/shields Replaces old string defender">Người giữ khiên:</string>
   <string name="pickYourTeam">Chọn đội của bạn</string>
   <string name="whichTeamWillYouRepresentInThisBattle">Bạn sẽ đại diện cho đội nào trong trận chiến này?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">Bạn phải tham gia một trong những đội này để tham gia!</string>
@@ -72,6 +74,9 @@ Chơi nhanh và trở lại phòng chờ để chơi được nhiều ván và g
   <string name="rankAvgHelp">Thứ hạng trung bình là phần trăm thứ hạng của bạn. Thấp hơn là tốt hơn.
 
 Ví dụ: được hạng 3 trong một giải đấu có 100 kỳ thủ = 3%. Hạng 10 trong giải đấu 1000 kỳ thủ = 1%.</string>
+  <string name="rankAverageHelp" comment="Replaces old string rankAvgHelp">Thứ hạng trung bình của bạn thể hiện thứ hạng đạt được của bạn so với tổng số người chơi trong mỗi giải đấu. Đây là thước đo thành tích của bạn trong giải đấu, chứ không phải xếp hạng chung của bạn.
+
+Ví dụ, xếp hạng trung bình 3% có nghĩa là bạn nằm trong top 3% (chẳng hạn như vị trí thứ 30 trong số 1.000 người chơi).</string>
   <string name="medians">trung vị</string>
   <string name="allAveragesAreX">Tất cả các giá trị trung bình trên trang này đều là %s.</string>
   <string name="total">Tổng</string>

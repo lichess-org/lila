@@ -15,7 +15,7 @@
   <string name="backRankMate">Mat del passadís</string>
   <string name="backRankMateDescription">Fes escac i mat al rei a la primera fila, quan està atrapat per les seves pròpies peces.</string>
   <string name="balestraMate">Mat de la balestra</string>
-  <string name="balestraMateDescription">Un alfil fa el mat, mentre una dama bloqueja les caselles d\'escapada restants</string>
+  <string name="balestraMateDescription">Un alfil fa el mat mentre la dama bloqueja la resta de caselles.</string>
   <string name="blindSwineMate">Mat del porc cec</string>
   <string name="blindSwineMateDescription">Dues torres treballen en equip per tal de fer mat al rei en una àrea de 2x2 caselles.</string>
   <string name="bishopEndgame">Final d’alfils</string>
@@ -30,6 +30,7 @@
   <string name="collinearMoveDescription">Dues peces oposades es miren l\'una a l\'altra i una de les dues s\'aparta de la línia d\'atac sense captura la peça enemiga.</string>
   <string name="cornerMate">Mat de la cantonada</string>
   <string name="cornerMateDescription">Confina el rei a una cantonada utilitzant una torre o una dama i donar li mat amb un cavall.</string>
+  <string name="cornerMateKnightDeliversDescription" comment="Description for the &quot;Corner mate&quot; puzzle theme. Replaces old string cornerMateDescription">Confina el rei a una cantonada utilitzant una torre o una dama i donar li mat amb un cavall.</string>
   <string name="crushing">Fort avantatge</string>
   <string name="crushingDescription">Veure l\'error de l\'adversari per a obtenir un gran avantatge (aval ≥ 600cp)</string>
   <string name="discoveredCheck">Escac a la descoberta</string>
@@ -55,16 +56,19 @@
   <string name="endgame">Final</string>
   <string name="endgameDescription">Una tàctica durant la última fase del joc.</string>
   <string name="enPassantDescription">Una tàctica que involucra la regla de captura de pas, on un peó pot capturar el peó d\'un oponent que l\'ha passat utilitzant el seu moviment inicial de dues caselles.</string>
+  <string name="enPassantAdjacentCaptureDescription" comment="Replaces old string enPassantDescription">Una tàctica que involucra la regla de captura de pas, on un peó pot capturar el peó d\'un oponent que l\'ha passat utilitzant el seu moviment inicial de dues caselles.</string>
   <string name="epauletteMate">Mat de l\'espatllera</string>
   <string name="epauletteMateDescription">Dues caselles adjacents al rei escaquejat estan ocupades per altres peces.</string>
   <string name="exposedKing">Rei exposat</string>
   <string name="exposedKingDescription">Una tàctica que involucra un rei amb alguns defensors al seu voltant, sovint acabant amb escac i mat.</string>
   <string name="fork">Doble</string>
   <string name="forkDescription">Un moviment on la peça moguda ataca dos peces de l\'oponent a la vegada.</string>
+  <string name="forkOpposingPiecesDescription" comment="Replaces old string forkDescription">Un moviment on una peça ataca dos o més peces oposades a la vegada.</string>
   <string name="hangingPiece">Peça penjant</string>
   <string name="hangingPieceDescription">Una tàctica que involucra una peça de l\'oponent que no està suficientment defensada i que es pot capturar.</string>
   <string name="hookMate">Mat de la cantonada</string>
   <string name="hookMateDescription">Escac i mat amb una torre, un cavall i un peó junt amb un peó enemic que limita l\'escapada del rei enemic.</string>
+  <string name="hookMateOpposingPawnDescription" comment="Replaces old string hookMateDescription">Escac i mat utilitzant una torre, un cavall i un peó quan un peó rival bloqueja l\'escapada del rei rival.</string>
   <string name="interference">Interferència</string>
   <string name="interferenceDescription">Moure una peça entre dues peces de l\'oponent que deixa una o dues peces enemigues indefenses, com un cavall en una casella defensada entre dues torres.</string>
   <string name="intermezzo">Intermèdia</string>
@@ -115,6 +119,7 @@
   <string name="pinDescription">Una tàctica que involucra clavades, on una peça no es pot moure sense revelar un atac a una altra peça amb més valor.</string>
   <string name="promotion">Promoció</string>
   <string name="promotionDescription">Un peó que promociona o que amenaça a promocionar és clau de la tàctica.</string>
+  <string name="promotePawnToQueenRookOrMinor" comment="Replaces old string promotionDescription">Promociona un dels teus peus a Dama, Torre o pressa menor.</string>
   <string name="queenEndgame">Final de dames</string>
   <string name="queenEndgameDescription">Un final només amb reines i peons.</string>
   <string name="queenRookEndgame">Dama i Torre</string>

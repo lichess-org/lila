@@ -30,6 +30,7 @@
   <string name="collinearMoveDescription">Kaksi eriväristä nappulaa ovat hyökkäyssuunnissaan kohdakkain, ja toinen niistä siirtyy tätä hyökkäyssuuntaa pitkin lyömättä kuitenkaan vastustajan nappulaa.</string>
   <string name="cornerMate">Kulmamatti</string>
   <string name="cornerMateDescription">Kahlitse kuningas laudan nurkkaan tornilla tai daamilla ja tee sitten matti ratsulla.</string>
+  <string name="cornerMateKnightDeliversDescription" comment="Description for the &quot;Corner mate&quot; puzzle theme. Replaces old string cornerMateDescription">Kahlitse kuningas laudan nurkkaan tornilla tai daamilla ja tee sitten matti ratsulla.</string>
   <string name="crushing">Murskaava etu</string>
   <string name="crushingDescription">Löydä vastustajan vakava virhe ja hanki murskaava etu. (eval ≥ 600cp)</string>
   <string name="discoveredCheck">Paljastusshakki</string>
@@ -55,16 +56,19 @@
   <string name="endgame">Loppupeli</string>
   <string name="endgameDescription">Taktiikka pelin viimeisessä vaiheessa.</string>
   <string name="enPassantDescription">Taktiikka, jossa sovelletaan ohestalyöntisääntöä, eli jossa sotilas voi lyödä sellaisen vastustajan sotilaan, joka on juuri ensimmäisellä kahden ruudun siirrollaan ohittanut sen.</string>
+  <string name="enPassantAdjacentCaptureDescription" comment="Replaces old string enPassantDescription">Taktiikka, jossa sovelletaan ohestalyöntisääntöä, eli jossa sotilas voi lyödä sellaisen vastustajan sotilaan, joka on juuri ensimmäisellä kahden ruudun siirrollaan siirtynyt tämän viereen.</string>
   <string name="epauletteMate">Epolettimatti</string>
   <string name="epauletteMateDescription">Kahdessa ruudussa shakatun kuninkaan molemmin puolin on kussakin pakoruudun vievä nappula.</string>
   <string name="exposedKing">Suojaton kuningas</string>
   <string name="exposedKingDescription">Taktiikka, jossa kuninkaan ympärillä on vain vähän puolustajia, ja joka usein johtaa mattiin.</string>
   <string name="fork">Haarukka</string>
   <string name="forkDescription">Siirto, jolla siirrettävä nappula uhkaa samanaikaisesti kahta vastustajan nappulaa.</string>
+  <string name="forkOpposingPiecesDescription" comment="Replaces old string forkDescription">Siirto, jolla nappula uhkaa samanaikaisesti kahta tai useampaa vastustajan nappulaa.</string>
   <string name="hangingPiece">Ilmainen nappula</string>
   <string name="hangingPieceDescription">Taktiikka, jossa vastustajan nappulaa ei ole suojattu lainkaan tai ei riittävästi, ja jossa se on vapaasti lyötävissä.</string>
   <string name="hookMate">Koukkumatti</string>
   <string name="hookMateDescription">Tornin, ratsun ja sotilaan yhteispelillä syntyvä matti, jossa vastustajan sotilas vie kuninkaaltaan yhden pakoruudun.</string>
+  <string name="hookMateOpposingPawnDescription" comment="Replaces old string hookMateDescription">Matti tornilla, ratsulla ja sotilaalla, jossa vastustajan oma nappula vie kuninkaalta pakoruudun.</string>
   <string name="interference">Katko</string>
   <string name="interferenceDescription">Siirrä nappulasi kahden vastustajan nappulan väliin niin, että yksi tai molemmat vastustajan nappuloista jäävät ilman suojaa, esimerkiksi ratsusi suojattuun ruutuun kahden tornin väliin.</string>
   <string name="intermezzo">Välisiirto</string>
@@ -73,8 +77,10 @@
   <string name="killBoxMateDescription">Torni on vastustajan kuninkaan vieressä, ja sitä suojelee daami, joka myös vie kuninkaalta pakoruudut. Vastustajan kuningas jää kiinni tornin ja daamin muodostamaan 3x3-ruudun \"tapponeliöön\".</string>
   <string name="pillsburysMate">Pillsburyn matti</string>
   <string name="pillsburysMateDescription">Torni matittaa kuninkaan samalla kun lähetti vie kuninkaalta pakoruudut.</string>
+  <string name="pillsburyMateRookAndBishopDescription" comment="Replaces old string pillsburysMateDescription">Torni matittaa kuninkaan samalla kun lähetti vie kuninkaalta pakoruudut.</string>
   <string name="morphysMate">Morphyn matti</string>
   <string name="morphysMateDescription">Matita vastustajan kuningas lähetilläsi samalla kun torni vie kuninkaalta pakoruudut.</string>
+  <string name="morphyMateBishopAndRookDescription" comment="Replaces old string morphysMateDescription">Lähetti matittaa kuninkaan samalla kun torni vie kuninkaalta pakoruudut.</string>
   <string name="swallowstailMate">Pääskynpyrstömatti</string>
   <string name="swallowstailMateDescription">Mattikuvio, jonka V-muoto muistuttaa pääskyn pyrstön muotoa.</string>
   <string name="triangleMate">Kolmiomatti</string>
@@ -115,6 +121,7 @@
   <string name="pinDescription">Taktiikka, jossa kiinnitetty nappula ei pysty liikkumaan paljastamatta arvokkaampaan nappulaan kohdistuvaa hyökkäystä.</string>
   <string name="promotion">Korotus</string>
   <string name="promotionDescription">Taktiikassa keskeistä on sotilas, joka korottuu tai uhkaa korottua.</string>
+  <string name="promotePawnToQueenRookOrMinor" comment="Replaces old string promotionDescription">Taktiikassa keskeistä on sotilas, joka korottuu tai uhkaa korottua daamiksi, torniksi tai kevyeksi upseeriksi.</string>
   <string name="queenEndgame">Daamiloppupeli</string>
   <string name="queenEndgameDescription">Loppupeli, jossa on vain daamit ja sotilaita.</string>
   <string name="queenRookEndgame">Daami- ja torniloppupeli</string>

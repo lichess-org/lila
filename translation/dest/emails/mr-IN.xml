@@ -19,6 +19,7 @@
 मजा करा, आणि आम्ही अशी आशा करतो की आपल्या सोंगट्या नेहमी समोरच्या राजापर्यंत मार्ग हुडकतील!</string>
   <string name="logInToLichess">lichess. org वरती लॉग इन करा, %s</string>
   <string name="common_orPaste">(क्लिक काम करत नाही? आपल्या ब्राऊजर मध्ये पेस्ट करून बघा!)</string>
+  <string name="common_linkNotWorking" comment="common_orPaste&#10;&#10;Part of the e-mail received from lichess when changing your e-mail address. Replaces old string common_orPaste">(लिंक काम नाही करत? तुमच्या ब्राउझरवर प्रत करून बघा!)</string>
   <string name="common_note">हा एक %s शी संबंधित सर्विस ईमेल आहे.</string>
   <string name="common_contact">आमच्याशी संपर्क करण्यासाठी कृपया %s चा वापर करा.</string>
 </resources>

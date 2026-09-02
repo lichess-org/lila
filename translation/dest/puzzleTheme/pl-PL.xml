@@ -29,6 +29,7 @@
   <string name="collinearMove">Ruch współliniowy</string>
   <string name="cornerMate">Mat w narożniku szachownicy</string>
   <string name="cornerMateDescription">Zagoń króla przeciwnika do narożnika szachownicy przy pomocy wieży lub hetmana i zamatuj skoczkiem.</string>
+  <string name="cornerMateKnightDeliversDescription" comment="Description for the &quot;Corner mate&quot; puzzle theme. Replaces old string cornerMateDescription">Zagoń króla do rogu szachownicy za pomocą wieży lub hetmana, użyj skoczka do zamatowania go.</string>
   <string name="crushing">Decydująca przewaga</string>
   <string name="crushingDescription">Znajdź błąd przeciwnika i zdobądź decydującą przewagę (ocena pozycji: powyżej 600cp)</string>
   <string name="discoveredCheck">Szach z odsłony</string>
@@ -54,15 +55,19 @@
   <string name="endgame">Końcówka</string>
   <string name="endgameDescription">Taktyka w ostatniej fazie gry.</string>
   <string name="enPassantDescription">Taktyka wykorzystująca bicie w przelocie, gdzie pion może zbić piona przeciwnika, który minął go, wykonawszy swoje początkowe posunięcie o dwa pola.</string>
+  <string name="enPassantAdjacentCaptureDescription" comment="Replaces old string enPassantDescription">Taktyka wykorzystująca bicie w przelocie, gdzie pion może zbić piona przeciwnika, który minął go, wykonawszy swoje początkowe posunięcie o dwa pola.</string>
   <string name="epauletteMate">Mat naramiennikowy</string>
+  <string name="epauletteMateDescription">Oba pola ucieczki w bok są zajęte przez inne bierki.</string>
   <string name="exposedKing">Odsłonięty król</string>
   <string name="exposedKingDescription">Taktyka z udziałem króla z kilkoma jego obrońcami, często prowadząca do mata.</string>
   <string name="fork">Widełki</string>
   <string name="forkDescription">Ruch, w którym poruszona bierka atakuje jednocześnie dwie bierki przeciwnika.</string>
+  <string name="forkOpposingPiecesDescription" comment="Replaces old string forkDescription">Posunięcie, którym bierka atakuje równocześnie dwie lub więcej bierek przeciwnika.</string>
   <string name="hangingPiece">Wisząca figura</string>
   <string name="hangingPieceDescription">Taktyka wykorzystująca możliwość zbicia niebronionej lub niedostatecznie bronionej bierki przeciwnika.</string>
   <string name="hookMate">Mat haka</string>
   <string name="hookMateDescription">Mat wieżą, skoczkiem i pionkiem z wrogim pionem blokującym ucieczkę króla.</string>
+  <string name="hookMateOpposingPawnDescription" comment="Replaces old string hookMateDescription">Mat za pomocą wieży, skoczka i piona, gdzie pion przeciwnika blokuje ucieczkę króla.</string>
   <string name="interference">Przesłona</string>
   <string name="interferenceDescription">Ruch figurą pomiędzy dwie figury przeciwnika, tak, że jedna lub obydwie są niebronione. Na przykład ruch skoczkiem na bronione pole pomiędzy dwie wieże.</string>
   <string name="intermezzo">Wtrącony ruch</string>
@@ -71,9 +76,12 @@
   <string name="killBoxMateDescription">Wieża stoi obok wrogiego króla i broniona jest przez hetmana, który równocześnie blokuje wszystkie pola ucieczki tego króla. Wieża i hetman łapią króla przeciwnika w klatce 3 na 3 (tzw. \"kill box\").</string>
   <string name="pillsburysMate">Mat Pillsbury\'ego</string>
   <string name="pillsburysMateDescription">Wieża daje mata, a goniec blokuje pola ucieczki.</string>
+  <string name="pillsburyMateRookAndBishopDescription" comment="Replaces old string pillsburysMateDescription">Wieża matuje króla, podczas gdy goniec pomaga go ograniczyć.</string>
   <string name="morphysMate">Mat Morphy\'ego</string>
   <string name="morphysMateDescription">Goniec daje mata w narożniku, a wieża blokuje pola ucieczki w sąsiedniej kolumnie.</string>
+  <string name="morphyMateBishopAndRookDescription" comment="Replaces old string morphysMateDescription">Goniec matuje króla, podczas gdy wieża pomaga go ograniczyć.</string>
   <string name="swallowstailMate">Mat \"jaskółczy ogon\"</string>
+  <string name="swallowstailMateDescription">Wzorzec mata, który wizualnie przypomina jaskółczy ogon w kształcie litery V.</string>
   <string name="triangleMate">Mat trójkątny</string>
   <string name="triangleMateDescription">Hetman i wieża ustawione na tej samej linii matują króla przeciwnika, stojąc bezpośrednio przy nim i tworząc trójkąt.</string>
   <string name="vukovicMate">Mat Vukovic\'a</string>
@@ -112,6 +120,7 @@
   <string name="pinDescription">Taktyka wykorzystująca związania, czyli sytuacje, w których ruch bierki naraża na atak figurę o wyższej wartości.</string>
   <string name="promotion">Przemiana piona</string>
   <string name="promotionDescription">Zaawansowany pion lub pion grożący przemianą jest kluczowy w tej taktyce.</string>
+  <string name="promotePawnToQueenRookOrMinor" comment="Replaces old string promotionDescription">Promuj swojego piona do hetmana, wieży lub figury lekkiej.</string>
   <string name="queenEndgame">Końcówka hetmańska</string>
   <string name="queenEndgameDescription">Gra końcowa wyłącznie z hetmanami i pionami.</string>
   <string name="queenRookEndgame">Końcówka wieżowo-hetmańska</string>

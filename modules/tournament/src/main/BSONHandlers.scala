@@ -40,6 +40,7 @@ object BSONHandlers:
   import TournamentCondition.bsonHandler
 
   given tourHandler: BSON[Tournament] with
+
     def reads(r: BSON.Reader) =
       val variant = Variant.idOrDefault(r.getO[Variant.Id]("variant"))
       val position: Option[Fen.Standard] =
@@ -49,7 +50,7 @@ object BSONHandlers:
           .orElse(r.getO[chess.opening.Eco]("eco").flatMap(Thematic.byEco).map(_.fen)) // for BC
       val startsAt = r.date("startsAt")
       val conditions = r.getD[TournamentCondition.All]("conditions")
-      Tournament(
+      val tour = Tournament(
         id = r.get[TourId]("_id"),
         name = r.str("name"),
         status = r.get[Status]("status"),
@@ -76,8 +77,11 @@ object BSONHandlers:
         featured = r.getO[GameId]("featured"),
         spotlight = r.getO[Spotlight]("spotlight"),
         description = r.strO("description"),
+        payouts = r.getO[Payouts]("payouts"),
         hasChat = r.boolO("chat").getOrElse(true)
       )
+      if false && tour.realNames then tour.copy(conditions = conditions.withPublicTitle) else tour
+
     def writes(w: BSON.Writer, o: Tournament) =
       $doc(
         "_id" -> o.id,
@@ -102,6 +106,7 @@ object BSONHandlers:
         "featured" -> o.featured,
         "spotlight" -> o.spotlight,
         "description" -> o.description,
+        "payouts" -> o.payouts,
         "chat" -> (!o.hasChat).option(false)
       )
 

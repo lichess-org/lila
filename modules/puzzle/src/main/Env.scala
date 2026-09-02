@@ -29,8 +29,8 @@ final class Env(
     mongo: lila.db.Env
 )(using
     Executor,
-    akka.actor.ActorSystem,
-    akka.stream.Materializer,
+    org.apache.pekko.actor.ActorSystem,
+    org.apache.pekko.stream.Materializer,
     lila.core.i18n.Translator,
     lila.core.config.RateLimit
 )(using
@@ -106,7 +106,7 @@ final class Env(
       jsonView.streak(puzzle = puzzle, ids = ids).dmap(some)
     }
 
-  lila.common.Cli.handle:
+  lila.common.Cli.handle():
     case "puzzle" :: "opening" :: "recompute" :: "all" :: Nil =>
       opening.recomputeAll
       fuccess("started in background")

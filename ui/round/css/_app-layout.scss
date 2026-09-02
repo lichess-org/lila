@@ -46,6 +46,13 @@
 .round__app {
   display: grid;
 
+  a,
+  button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
   @include mq-is-col1 {
     grid-template-rows: auto $col1-user-height $col1-mat-height auto auto $col1-mat-height $col1-user-height auto auto auto auto 0;
     grid-template-areas: 'pocket-top' 'user-top' 'mat-top' 'board' 'expi-bot' 'mat-bot' 'user-bot' 'pocket-bot' 'controls' 'moves' 'voice' 'kb-move';
@@ -114,11 +121,15 @@
       'board .'
       'kb-move .';
     grid-template-columns: var(---col2-uniboard-width) $col2-uniboard-table;
-    grid-template-rows: 0 auto; // 0 to prevent `voice` from moving the table off center
+    grid-template-rows: minmax(0, 1fr) 0 repeat(10, auto) minmax(0, 1fr);
     column-gap: $block-gap;
 
     &__table {
       grid-area: 5 / 2 / 11 / 3;
+    }
+
+    #voice-bar {
+      margin-block-end: 2px;
     }
 
     .expiration-top {

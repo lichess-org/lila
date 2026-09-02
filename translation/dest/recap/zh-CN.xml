@@ -43,7 +43,7 @@
 	<string name="puzzlesYouWonOnFirstTry">其中有 %s 道您一次就解对了！</string>
 	<string name="sourcesTitle">您都在哪里对弈？</string>
 	<string name="perfsTitle">您常玩什么时限和棋类变体？</string>
-	<string name="malwareNoneLoaded" comment="%s is 0">已加载 %s 个广告与跟踪器</string>
+	<string name="malwareNoneLoaded" comment="%s is 0">%s 广告和跟踪器已加载</string>
 	<string name="malwareNoSell">我们没有出售您的个人数据</string>
 	<string name="malwareNoAbuse">我们没有利用您的设备攻击您</string>
 	<string name="malwareWarningPrefix" comment="%s is 'be careful'">但其他网站会这样做，所以请您 %s。</string>

@@ -48,14 +48,14 @@
     <item quantity="one">Sarrera bat ikusi</item>
     <item quantity="other">%s sarrera guztiak ikusi</item>
   </plurals>
-  <string name="uploadAnImageForYourPost">Kargatu zure sarreraren irudia</string>
   <string name="imageAlt">Irudiaren ordezko testua</string>
   <string name="imageCredit">Irudiaren oina</string>
   <string name="deleteBlog">Sarrera hau betiko ezabatu</string>
-  <string name="safeToUseImages">Webgune hauetako irudiak erabili ditzakezu: </string>
+  <string name="safeToUseImages">Segurua da webgune hauetako bateko irudiak erabiltzea: </string>
+  <string name="freeImagesComplyWithLicensing" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement. Replaces old string safeToUseImages">Webgune hauek doako irudiak eskaintzen dituzte. Ziurtatu darabilzun irudiaren lizentzia-baldintzak betetzen dituzula.</string>
   <string name="selectPostTopics">Aukeratu zure sarreraren gaiak</string>
-  <string name="useImagesYouMadeYourself">Zuk egindako irudiak, egindako argazkiak, Lichessen pantaila-irudiak eta beste norbaiten copyrightik ez duen edozer erabili dezakeu.</string>
   <string name="safeAndRespectfulContent">Eduki seguru eta errespetuzkoa bakarrik argitaratu. Ez kopiatu beste norbaiten edukirik.</string>
+  <string name="noCopyrightedImages">Beste norbaiteen copyrighta ez duten irudiak erabili bakarrik.</string>
   <string name="inappropriateContentAccountClosed">Errespetua galduz gero, zure kontua itxiko dugu.</string>
   <string name="blogTips">Blogeko sarrerak idazteko gure aholkuak</string>
   <string name="discussThisBlogPostInTheForum">Eztabaidatu artikulu honi buruz foroan</string>

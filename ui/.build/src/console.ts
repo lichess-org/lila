@@ -21,25 +21,25 @@ export async function startConsole() {
     let body = '';
 
     req.on('data', chunk => (body += chunk.toString()));
-    req.on('end', () => {
+    return req.on('end', () => {
       try {
         const [levelAndVal] = Object.entries<string>(JSON.parse(body));
         const level = levelAndVal[0];
         let val = levelAndVal[1];
         const mark = level === 'error' ? `${errorMark} ` : level === 'warn' ? `${warnMark} ` : '';
 
-        if (!Array.isArray(val)) throw new Error();
+        if (!Array.isArray(val)) throw new Error('Incorrect value');
         else if (val.length <= 1) val = val[0] ?? '';
         else if (val.every(x => typeof x !== 'object')) val = val.join(' ');
 
         if (typeof val !== 'string') val = stringify(val, { indent: 2, maxLength: 80 });
 
         env.log(`${mark}${c.grey(val)}`, ip);
-        res
+        return res
           .writeHead(200, { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'POST' })
           .end();
       } catch (_) {
-        res.writeHead(400).end();
+        return res.writeHead(400).end();
       }
     });
   }).listen(8666);

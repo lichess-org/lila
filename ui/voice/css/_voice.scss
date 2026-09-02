@@ -2,7 +2,6 @@
   @include prevent-select;
 
   position: relative;
-  flex: 1 1 auto;
   grid-area: voice;
 }
 
@@ -24,12 +23,10 @@
 
   > button {
     color: $c-font-dim;
-    font-size: 16px;
     padding: 0 6px;
-
-    &::before {
-      vertical-align: sub;
-    }
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     &:hover {
       color: $c-font;
@@ -75,6 +72,10 @@ button#microphone-button {
     &:hover {
       background-color: $c-font-dimmer;
     }
+  }
+
+  .svg-icon {
+    width: 24px;
   }
 
   &.push-to-talk {

@@ -1,6 +1,6 @@
-import { licon } from 'lib/licon';
+import { icons } from 'lib/icons';
 import { richHTML } from 'lib/richText';
-import { type VNode, bind, onInsert, hl, confirm } from 'lib/view';
+import { type VNode, bind, onInsert, hl, confirm, snabIcon } from 'lib/view';
 
 import type StudyCtrl from './studyCtrl';
 
@@ -33,23 +33,31 @@ export function view(study: StudyCtrl, chapter: boolean): VNode | undefined {
     contrib = study.members.canContribute() && !study.gamebookPlay;
   if (desc.edit) return edit(desc, chapter ? study.data.chapter.id : study.data.id, chapter);
   const isEmpty = desc.text === '-';
-  if (!desc.text || (isEmpty && !contrib)) return;
+  if (!desc.text || (isEmpty && !contrib)) return undefined;
   return hl(`div.study-desc${chapter ? '.chapter-desc' : ''}${isEmpty ? '.empty' : ''}`, [
     contrib &&
       !isEmpty &&
       hl('div.contrib', [
         hl('span', descTitle(chapter)),
         !isEmpty &&
-          hl('a', {
-            attrs: { 'data-icon': licon.Pencil, title: 'Edit' },
-            hook: bind('click', () => (desc.edit = true), desc.redraw),
-          }),
-        hl('a', {
-          attrs: { 'data-icon': licon.Trash, title: 'Delete' },
-          hook: bind('click', async () => {
-            if (await confirm('Delete permanent description?')) desc.save('');
-          }),
-        }),
+          hl(
+            'a',
+            {
+              attrs: { 'aria-label': 'Edit', title: 'Edit' },
+              hook: bind('click', () => (desc.edit = true), desc.redraw),
+            },
+            [snabIcon(icons.Pencil)],
+          ),
+        hl(
+          'a',
+          {
+            attrs: { 'aria-label': 'Delete', title: 'Delete' },
+            hook: bind('click', async () => {
+              if (await confirm('Delete permanent description?')) desc.save('');
+            }),
+          },
+          [snabIcon(icons.Trash)],
+        ),
       ]),
     isEmpty
       ? hl(
@@ -65,10 +73,14 @@ const edit = (ctrl: DescriptionCtrl, id: string, chapter: boolean): VNode =>
   hl('div.study-desc-form', [
     hl('div.title', [
       descTitle(chapter),
-      hl('button.button.button-empty.button-green', {
-        attrs: { 'data-icon': licon.Checkmark, title: 'Save and close' },
-        hook: bind('click', () => (ctrl.edit = false), ctrl.redraw),
-      }),
+      hl(
+        'button.button.button-empty.button-green',
+        {
+          attrs: { 'aria-label': 'Save and close', title: 'Save and close' },
+          hook: bind('click', () => (ctrl.edit = false), ctrl.redraw),
+        },
+        [snabIcon(icons.Checkmark)],
+      ),
     ]),
     hl('form.form3', [
       hl('div.form-group', [

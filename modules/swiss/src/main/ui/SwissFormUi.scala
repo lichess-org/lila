@@ -22,19 +22,17 @@ final class SwissFormUi(helpers: Helpers)(
     Page(trans.swiss.newSwiss.txt())
       .css("swiss.form")
       .js(Esm("bits.tourForm")):
-        val fields = new SwissFields(form, none)
+        val fields = SwissFields(form, none)
         main(cls := "page-small")(
           div(cls := "swiss__form tour__form box box-pad")(
             h1(cls := "box__top")(trans.swiss.newSwiss()),
             postForm(cls := "form3", action := routes.Swiss.create(teamId))(
               div(cls := "form-group")(
                 a(
-                  dataIcon := Icon.InfoCircle,
+                  iconEl := Icon.InfoCircle,
                   cls := "text",
                   href := routes.Cms.lonePage(lila.core.id.CmsPageKey("event-tips"))
-                )(
-                  trans.site.ourEventTips()
-                )
+                )(trans.site.ourEventTips())
               ),
               fields.tournamentFields,
               fields.gameFields,
@@ -56,7 +54,7 @@ final class SwissFormUi(helpers: Helpers)(
     Page(swiss.name)
       .css("swiss.form")
       .js(Esm("bits.tourForm")):
-        val fields = new SwissFields(form, swiss.some)
+        val fields = SwissFields(form, swiss.some)
         main(cls := "page-small")(
           div(cls := "swiss__form box box-pad")(
             h1(cls := "box__top")("Edit ", swiss.name),
@@ -73,7 +71,10 @@ final class SwissFormUi(helpers: Helpers)(
               )
             ),
             postForm(cls := "terminate", action := routes.Swiss.terminate(swiss.id))(
-              submitButton(dataIcon := Icon.CautionCircle, cls := "text button button-red yes-no-confirm")(
+              submitButton(
+                iconEl := Icon.CautionCircle,
+                cls := "text button button-red yes-no-confirm"
+              )(
                 trans.site.cancelTournament()
               )
             )
@@ -87,7 +88,8 @@ final class SwissFormUi(helpers: Helpers)(
     def tournamentFields =
       form3.fieldset("Tournament", toggle = true.some)(
         form3.split(name, nbRounds),
-        form3.split(startsAt, description)
+        form3.split(startsAt, description),
+        gatheringFormUi.payouts(form("payouts"))
       )
 
     def gameFields =

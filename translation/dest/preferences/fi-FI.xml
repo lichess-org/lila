@@ -57,12 +57,16 @@
   <string name="correspondenceEmailNotification">Päivittäinen sähköposti-ilmoitus, jossa listataan kirjeshakkipelisi</string>
   <string name="notifyStreamStart">Striimaaja aloittaa striimin</string>
   <string name="notifyInboxMsg">Uusi saapunut viesti</string>
+  <string name="notifyDirectMessage" comment="notifyInboxMsg&#10;&#10;A notification setting - notifies players when they receive a new message in their Lichess inbox Replaces old string notifyInboxMsg">Uusi suora viesti</string>
   <string name="notifyForumMention">Sinut mainitaan foorumin kommentissa</string>
+  <string name="notifyForumMentions" comment="notifyForumMention&#10;&#10; A notification setting - notifies players when someone has @mentioned their name in the Lichess Forum (https://lichess.org/forum) Replaces old string notifyForumMention">Maininnat foorumilla</string>
   <string name="notifyInvitedStudy">Kutsu tutkielmaan</string>
+  <string name="notifyStudyInvites" comment="notifyInvitedStudy&#10;&#10; A notification setting - notifies players about invites to studies (https://lichess.org/study/) Replaces old string notifyInvitedStudy">Kutsut tutkielmiin</string>
   <string name="notifyGameEvent">Kirjeshakkipelien uudet tapahtumat</string>
   <string name="notifyChallenge">Haasteet</string>
   <string name="notifyTournamentSoon">Turnaus alkamassa pian</string>
-  <string name="notifyBroadcasts">Lähetykset, jotka olet tilannut</string>
+  <string name="notifyTournamentStartReminders" comment="notifyTournamentSoon&#10;&#10;A notification setting - notifies players if a tournament is starting soon. Replaces old string notifyTournamentSoon">Muistutukset turnausten alkamisesta</string>
+  <string name="notifyBroadcasts">Lähetykset</string>
   <string name="notifyTimeAlarm">Kirjeshakkipelin aika loppumassa</string>
   <string name="notifyBell">Kilahtava ilmoitus Lichessissä</string>
   <string name="notifyPush">Laitteen ilmoitus, kun et ole Lichessissä</string>

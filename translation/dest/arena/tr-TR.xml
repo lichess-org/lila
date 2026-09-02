@@ -24,6 +24,7 @@ Divane açılan bir oyun en az 7 hamle oynanmadan bitmiş ise ek puan geçerli d
   <string name="howIsTheWinnerDecided">Kazanan nasıl belirleniyor?</string>
   <string name="howIsTheWinnerDecidedAnswer">Turnuva sona erdiğinde en fazla puana sahip oyuncu(lar) galip ilan edilir.</string>
   <string name="howDoesPairingWork">Eşleştirme nasıl yapılıyor?</string>
+  <string name="howArePlayersPaired" comment="Replaces old string howDoesPairingWork">Oyuncular nasıl eşleştiriliyor?</string>
   <string name="howDoesPairingWorkAnswer">Turnuvanın başında eşleştirmeler oyuncuların puanlarına göre yapılır. Oyunu bitirip lobiye döndüğünüz anda ise kendi sıralamanıza yakın bir rakip ile eşleştirilirsiniz. Böylece bekleme süresi en aza indirgenmiş olur fakat turnuvadaki tüm oyuncularla karşılaşamayabilirsiniz.
 
 Daha fazla oyun oynayıp daha çok puan kazanmak için hızlıca oynayın ve lobiye dönün.</string>
@@ -72,6 +73,7 @@ Daha fazla oyun oynayıp daha çok puan kazanmak için hızlıca oynayın ve lob
   <string name="rankAvgHelp">Sıralama ortalaması, sıralamanızın yüzdesidir. Daha düşük olması daha iyidir.
 
 Örneğin, 100 oyunculu bir turnuvada 3. sırada olmak = %3. 1000 oyunculu bir turnuvada 10. sırada olmak = %1.</string>
+  <string name="rankAverageHelp" comment="Replaces old string rankAvgHelp">Sıralama ortalamanız, her turnuvadaki toplam oyuncu sayısına göre tipik bitirme sıranızı gösterir. Bu, genel puanınızın değil, turnuvadaki yerinizin bir ölçüsüdür. Örneğin, %3\'lük bir sıralama ortalaması, genellikle ilk %3 içinde bitirdiğiniz anlamına gelir (örneğin 1.000 oyuncu arasından 30. sırada).</string>
   <string name="medians">ortancadır</string>
   <string name="allAveragesAreX">Bu sayfadaki tüm değerler %s.</string>
   <string name="total">Toplam</string>

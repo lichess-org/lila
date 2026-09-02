@@ -12,15 +12,19 @@ db.simul.createIndex({ status: 1, createdAt: -1 });
 db.simul.createIndex({ hostSeenAt: -1 }, { partialFilterExpression: { status: 10, featurable: true } });
 db.simul.createIndex({ finishedAt: -1, featurable: 1 });
 db.simul.createIndex({ hostId: 1 });
-db.ublog_post.createIndex({ blog: 1, 'live.at': -1 }, { partialFilterExpression: { live: true } });
+db.ublog_post.createIndex({ blog: 1, 'lived.at': -1 }, { partialFilterExpression: { live: true } });
 db.ublog_post.createIndex({ blog: 1, 'created.at': -1 }, { partialFilterExpression: { live: false } });
 db.ublog_post.createIndex({ rank: -1 }, { partialFilterExpression: { live: true } });
 db.ublog_post.createIndex({ likers: 1, rank: -1 }, { partialFilterExpression: { live: true } });
 db.ublog_post.createIndex({ language: 1, rank: -1 }, { partialFilterExpression: { live: true } });
 db.ublog_post.createIndex({ topics: 1, rank: -1 }, { partialFilterExpression: { live: true } });
 db.ublog_post.createIndex({ topics: 1, 'lived.at': -1 }, { partialFilterExpression: { live: true } });
-db.ublog_post.createIndex({ likers: 1, 'live.at': -1 }, { partialFilterExpression: { live: true } });
+db.ublog_post.createIndex({ likers: 1, 'lived.at': -1 }, { partialFilterExpression: { live: true } });
 db.ublog_post.createIndex({ prismicId: 1 }, { partialFilterExpression: { prismicId: { $exists: 1 } } });
+db.ublog_post.createIndex(
+  { 'lived.at': -1 },
+  { name: 'pendingReview', partialFilterExpression: { live: true, 'automod.quality': 2, quality: 1 } },
+);
 db.report2.createIndex({ room: 1, score: -1 }, { partialFilterExpression: { open: true } });
 db.report2.createIndex(
   { 'inquiry.mod': 1 },
@@ -58,6 +62,13 @@ db.relay_tour.createIndex(
 db.relay_tour.createIndex({ ownerIds: 1, syncedAt: -1 });
 db.relay_tour.createIndex({ ownerIds: 1, createdAt: -1 });
 db.relay_tour.createIndex({ subscribers: 1, createdAt: -1 });
+db.relay_tour.createIndex(
+  { syncedAt: -1 },
+  {
+    partialFilterExpression: { tier: { $exists: true }, visibility: 'public', active: false },
+    name: 'inactivePager',
+  },
+);
 db.relation_subs.createIndex({ s: 1 });
 db.round_alarm.createIndex({ ringsAt: 1 });
 db.round_alarm.createIndex({ expiresAt: 1 }, { expireAfterSeconds: 0 });
@@ -173,13 +184,13 @@ db.team.createIndex({ enabled: 1, nbMembers: -1 });
 db.team.createIndex({ createdAt: -1 });
 db.team.createIndex({ createdBy: 1 });
 db.team.createIndex({ leaders: 1 });
+db.team_update.createIndex({ team: 1, date: -1 });
 db.swiss.createIndex({ teamId: 1, startsAt: 1 });
 db.swiss.createIndex({ nextRoundAt: 1 }, { partialFilterExpression: { nextRoundAt: { $exists: true } } });
 db.swiss.createIndex(
   { featurable: 1 },
   { partialFilterExpression: { featurable: true, 'settings.i': { $lte: 600 } } },
 );
-db.coach_review.createIndex({ coachId: 1 });
 db.analysis_requester.createIndex({ total: -1 });
 db.plan_patron.createIndex(
   { 'stripe.customerId': 1 },

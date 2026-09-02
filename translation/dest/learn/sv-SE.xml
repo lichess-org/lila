@@ -10,18 +10,20 @@
   <string name="chessPieces">Schackpjäser</string>
   <string name="theRook">Tornet</string>
   <string name="itMovesInStraightLines">Det rör sig i raka linjer</string>
-  <string name="rookIntro">Tornet är en kraftfull pjäs. Är du redo att styra det?</string>
-  <string name="rookGoal">Klicka på tornet för att föra det till stjärnan!</string>
+  <string name="rookIntro">Tornet är en mäktig pjäs. Är du redo att styra det?</string>
+  <string name="rookGoal">Klicka på tornet
+för att föra det till stjärnan!</string>
   <string name="grabAllTheStars">Ta alla stjärnor!</string>
   <string name="theFewerMoves">Ju färre drag du gör desto fler poäng vinner du!</string>
-  <string name="useTwoRooks">Använd två torn så går det snabbare!</string>
+  <string name="useTwoRooks">Använd två torn
+för att snabba på det!</string>
   <string name="rookComplete">Grattis! Du har bemästrat tornet.</string>
   <string name="theBishop">Löparen</string>
   <string name="itMovesDiagonally">Den rör sig diagonalt</string>
-  <string name="bishopIntro">Härnäst kommer vi lära dig att manövrera en löpare!</string>
-  <string name="youNeedBothBishops">En ljus löpare,
-en mörk löpare.
-Du behöver bägge!</string>
+  <string name="bishopIntro">Härnäst lär du dig att manövrera en löpare!</string>
+  <string name="youNeedBothBishops">En vitfältslöpare,
+en svartfältslöpare.
+Du behöver båda!</string>
   <string name="bishopComplete">Grattis! Du behärskar löparen.</string>
   <string name="theQueen">Drottningen</string>
   <string name="queenCombinesRookAndBishop">Drottning = torn + löpare</string>
@@ -29,20 +31,22 @@ Du behöver bägge!</string>
   <string name="queenComplete">Grattis! Drottningen har inga hemligheter för dig.</string>
   <string name="theKing">Kungen</string>
   <string name="theMostImportantPiece">Den viktigaste pjäsen</string>
-  <string name="kingIntro">Du är kungen. Om du faller i strid, är spelet förlorat.</string>
+  <string name="kingIntro">Du är kungen. Om du faller i strid är spelet förlorat.</string>
   <string name="theKingIsSlow">Kungen är långsam.</string>
   <string name="lastOne">Sista!</string>
   <string name="kingComplete">Nu vet du hur man kontrollerar befälhavaren!</string>
   <string name="theKnight">Springaren</string>
   <string name="itMovesInAnLShape">Den rör sig i formen av ett \'L\'</string>
   <string name="knightIntro">Här kommer en utmaning till dig. Springaren är... en knepig pjäs.</string>
-  <string name="knightsHaveAFancyWay">Springare hoppar runt på ett riktigt snyggt sätt!</string>
+  <string name="knightsHaveAFancyWay">Springare har ett elegant sätt
+att hoppa runt på!</string>
   <string name="knightsCanJumpOverObstacles">Hinder är inga problem för springare! Fly och besegra alla stjärnor!</string>
   <string name="knightComplete">Grattis! Du bemästrar nu springaren.</string>
   <string name="thePawn">Bonden</string>
   <string name="itMovesForwardOnly">Den rör sig endast framåt</string>
-  <string name="pawnIntro">Bönder är svaga, men mycket potential.</string>
-  <string name="pawnsMoveOneSquareOnly">Bönder flyttar oftast en ruta i taget, men när de når andra sidan av brädet så promoveras de till en starkare pjäs!</string>
+  <string name="pawnIntro">Bänder är svaga, men de har mycket potential.</string>
+  <string name="pawnsMoveOneSquareOnly">Bönder flyttar sig oftast en ruta i taget.
+Men när de når andra sidan av brädet så promoveras de till en starkare pjäs!</string>
   <string name="mostOfTheTimePromotingToAQueenIsBest">Oftast är det bäst att promovera till en dam, men ibland kan en springare vara till nytta!</string>
   <string name="pawnsMoveForward">Bönder flyttar framåt, men slår diagonalt!</string>
   <string name="captureThenPromote">Slå först och promovera därefter!</string>

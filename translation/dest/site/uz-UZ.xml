@@ -271,6 +271,7 @@
   <string name="emailCanTakeSomeTime">Xat yetib kelishi uchun biroz vaqt ketishi mumkin.</string>
   <string name="refreshInboxAfterFiveMinutes">5 minut kutib e‑pochta qutingizni yangilang.</string>
   <string name="checkSpamFolder">Shuningdek, spam jildini ham tekshiring, xat u yerga tushib qolgan boʻlishi mumkin. Agar shunday boʻlsa, uni “Spam emas” deb belgilang.</string>
+  <string name="checkSpamOrJunkFolder" comment="checkSpamFolder&#10;It = The confirmation email Replaces old string checkSpamFolder">Agar tasdiqlash xatini olmagan boʻlsangiz, spam yoki keraksiz xatlar jildini tekshiring. Muhim xabarlardan xabardor boʻlib turish uchun lichess.org saytidan keladigan xatlarni xavfsiz va \"spam emas\" deb belgilang.</string>
   <string name="sendEmailForAccountVerification">Agar tasdiqlash xatini topa olmasangiz, %s manziliga xat yuboring va biz hisobingizni tasdiqlab beramiz.</string>
   <string name="accountConfirmed">Foydalanuvchi %s muvaffaqiyatli tasdiqlandi.</string>
   <string name="accountCanLogin">Hozirning oʻzidayoq %s sifatida tizimga kirishingiz mumkin.</string>
@@ -295,7 +296,9 @@
   <string name="ok">OK</string>
   <string name="cancel">Bekor qilish</string>
   <string name="whiteTimeOut">Oqlar vaqti tugadi</string>
+  <string name="whiteRanOutOfTime" comment="whiteTimeOut&#10;&#10;Shows when White's time has run out. Is followed by the end condition, for example&#10;'White ran out of time · Draw' Replaces old string whiteTimeOut">Oqlarning vaqti tugadi</string>
   <string name="blackTimeOut">Qoralar vaqti tugadi</string>
+  <string name="blackRanOutOfTime" comment="blackTimeOut&#10;&#10;Shows when Black's time has run out. Is followed by the end condition, for example&#10;'Black ran out of time · Draw' Replaces old string blackTimeOut">Qoralarning vaqti tugadi</string>
   <string name="drawOfferSent">Durang taklifi yuborildi</string>
   <string name="drawOfferAccepted">Durang taklifi qabul qilindi</string>
   <string name="whiteOffersDraw">Oqlar durang taklif qilishdi</string>
@@ -392,8 +395,8 @@
     <item quantity="other">%s saboq</item>
   </plurals>
   <plurals name="nbSimuls">
-    <item quantity="one">%s biryoʻla seans</item>
-    <item quantity="other">%s biryoʻla seans</item>
+    <item quantity="one">%s sinxron seans</item>
+    <item quantity="other">%s sinxron seans</item>
   </plurals>
   <string name="viewTournament">Turnirni koʻrish</string>
   <string name="backToTournament">Turnirga qaytish</string>
@@ -438,6 +441,7 @@
   <string name="save">Saqlash</string>
   <string name="leaderboard">Peshqadamlar jadvali</string>
   <string name="screenshotCurrentPosition">Joriy pozitsiyani skrinshot qilish</string>
+  <string name="positionAsImage" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position. Replaces old string screenshotCurrentPosition">Pozitsiya rasm sifatida</string>
   <string name="gameAsGIF">Oʻyin GIF formatida</string>
   <string name="playerNames">Oʻyinchilar ismlari</string>
   <string name="moveAnnotations">Yurish annotatsiyalari</string>
@@ -484,6 +488,7 @@
     <item quantity="one">%s obuna</item>
     <item quantity="other">%s obuna</item>
   </plurals>
+  <string name="less">Kamroq</string>
   <string name="more">Koʻproq</string>
   <string name="memberSince">Roʻyxatdan oʻtgan kuni</string>
   <string name="lastSeenActive">%s onlayn edi</string>
@@ -580,6 +585,9 @@
   <string name="replies">Javoblar soni</string>
   <string name="replyToThisTopic">Ushbu mavzuda javob qoldirish</string>
   <string name="reply">Javob yozish</string>
+  <string name="reopen">Qayta ochish</string>
+  <string name="quote">Iqtibos qilish</string>
+  <string name="postEdited">tahrirlangan</string>
   <string name="message">Xabar</string>
   <string name="createTheTopic">Mavzuni yaratish</string>
   <string name="reportAUser">Foydalanuvchi haqida shikoyat qilish</string>
@@ -592,6 +600,7 @@
   <string name="reportCheatBoostHelp">Oʻyin(lar) havolasini joylashtiring va bu foydalanuvchining xatti‑harakatlarida nima notoʻgʻri ekanligini tushuntiring. Shunchaki “gʻirromlik qilyapti” deb cheklanib qolmay, qanday qilib bu xulosaga kelganingizni ayting.</string>
   <string name="reportUsernameHelp">Ushbu foydalanuvchi nomi nima uchun haqoratli ekanligini tushuntiring. Shunchaki “bu haqoratomuz/nooʻrin” deb qoʻya qolmasdan, nima sababdan bunday deb oʻylashingizni asoslab bering. Ayniqsa, haqorat yashirin boʻlsa, ingliz tilida boʻlmasa, jargon (sleng) boʻlsa yoki tarixiy/madaniy mazmunga ega boʻlsa.</string>
   <string name="reportProcessedFasterInEnglish">Ingliz tilida shikoyat joʻnatsangiz, tezroq koʻrib chiqiladi.</string>
+  <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it. Replaces old string reportProcessedFasterInEnglish">Agar shikoyatingizni ingliz tilida yozsangiz, uni tezroq koʻrib chiqa olamiz.</string>
   <string name="error.provideOneCheatedGameLink">Iltimos kamida bitta o\'yinga havolani keltiring.</string>
   <string name="by">%s tomonidan yaratildi</string>
   <string name="importedByX">%s tomonidan import qilindi</string>
@@ -699,23 +708,24 @@
   <string name="termsOfService">Foydalanish shartlari</string>
   <string name="titleVerification">Unvonni tasdiqlash</string>
   <string name="sourceCode">Dastur kodi</string>
-  <string name="simultaneousExhibitions">Biryoʻla seanslar</string>
+  <string name="simultaneousExhibitions">Sinxron seanslar</string>
   <string name="host">Seans oʻtkazuvchi</string>
   <string name="hostColorX">Seans oʻtkazuvchi rangi: %s</string>
   <string name="yourPendingSimuls">Kutilayotgan seanslaringiz</string>
-  <string name="createdSimuls">Yangi biryoʻla seanslar</string>
-  <string name="hostANewSimul">Yangi biryoʻla seans yaratish</string>
-  <string name="signUpToHostOrJoinASimul">Biryoʻla seans oʻtkazish yoki seansda qatnashish uchun roʻyxatdan oʻting</string>
-  <string name="noSimulFound">Biryoʻla seans topilmadi</string>
-  <string name="noSimulExplanation">Usbu biryoʻla seans mavjud emas.</string>
-  <string name="returnToSimulHomepage">Biryoʻla seanslar sahifasiga qaytish</string>
-  <string name="aboutSimul">Biryoʻla seansda bir oʻyinchi bir vaqtning oʻzida bir nechta raqibga qarshi oʻynaydi.</string>
+  <string name="createdSimuls">Yangi sinxron seanslar</string>
+  <string name="hostANewSimul">Yangi sinxron seans yaratish</string>
+  <string name="signUpToHostOrJoinASimul">Sinxron seans oʻtkazish yoki seansda qatnashish uchun roʻyxatdan oʻting</string>
+  <string name="noSimulFound">Sinxron seans topilmadi</string>
+  <string name="noSimulExplanation">Usbu sinxron seans mavjud emas.</string>
+  <string name="returnToSimulHomepage">Sinxron seanslar sahifasiga qaytish</string>
+  <string name="aboutSimul">Sinxron seansda bir oʻyinchi bir vaqtning oʻzida bir nechta raqibga qarshi oʻynaydi.</string>
   <string name="aboutSimulImage">Fisher 50 ta raqibdan 47 tasini magʻlub qilgan, 2 ta oʻyinda durang oʻynagan va bittasiga magʻlub boʻlgan.</string>
   <string name="aboutSimulRealLife">Ushbu tushuncha hayotiy voqealardan olingan. Real hayotda seans oʻtkazuvchisi stoldan‑stolga yurib bittadan yurish amalga oshiradi.</string>
   <string name="aboutSimulRules">Seans boshlanganda, har bir ishtirokchi seans oʻtkazuvchi bilan oʻyinni boshlaydi. Seans hamma oʻyinlar tugaganda yakunlanadi.</string>
   <string name="aboutSimulSettings">Seanslar reytingsiz oʻynaladi. Revanshlar, yurishni ortga qaytarish va vaqt qoʻshib berish imkoniyatlari oʻchirilgan.</string>
   <string name="create">Yaratish</string>
-  <string name="whenCreateSimul">Biryoʻla seans yaratganingizda bir vaqtni oʻzida bir nechta oʻyinchilar bilan oʻynaysiz.</string>
+  <string name="whenCreateSimul">Sinxron seans yaratganingizda bir vaqtni oʻzida bir nechta oʻyinchilar bilan oʻynaysiz.</string>
+  <string name="creatingASimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new Replaces old string whenCreateSimul">Sinxron oʻyin yaratish bir vaqtning oʻzida bir nechta raqiblarga qarshi oʻynash imkonini beradi.</string>
   <string name="simulVariantsHint">Bir nechta variant tanlasangiz, har bir oʻyinchi qaysi variantda oʻynashni oʻzi tanlaydi.</string>
   <string name="simulClockHint">Fisher soati sozlamalari. Raqiblaringiz qancha koʻp boʻlsa, sizga shuncha koʻp vaqt kerak boʻlishi mumkin.</string>
   <string name="simulAddExtraTime">Seans davomida ulgurishingiz uchun oʻz soatingizga qoʻshimcha boshlangʻich vaqt qoʻshishingiz mumkin.</string>
@@ -806,7 +816,7 @@
     <item quantity="one">%s ta tilda mavjud!</item>
     <item quantity="other">%s ta tilda mavjud!</item>
   </plurals>
-  <string name="xHostsY">%1$s %2$s biryoʻla seansini qildi</string>
+  <string name="xHostsY">%1$s %2$s sinxron seansini qildi</string>
   <string name="xJoinsY">%1$s %2$sʼga qatnashdi</string>
   <string name="xLikesY">%1$sʼga shu yoqdi: %2$s</string>
   <string name="like">Yoqdi</string>
@@ -822,11 +832,16 @@
   <string name="language">Til</string>
   <string name="allLanguages">Barcha tillar</string>
   <string name="background">Orqa fon</string>
+  <string name="theme">Tema</string>
   <string name="light">Yorugʻ</string>
   <string name="dark">Qorongʻu</string>
   <string name="transparent">Shaffof</string>
+  <string name="picture">Rasm</string>
   <string name="deviceTheme">Qurilma temasi</string>
+  <string name="roundness">Burchaklar yumaloqligi</string>
+  <string name="backgroundImage">Orqa fon rasmi</string>
   <string name="backgroundImageUrl">Orqa fon havolasi:</string>
+  <string name="imageOpacity">Rasm shaffofligi</string>
   <string name="board">Taxta</string>
   <string name="size">Oʻlchami</string>
   <string name="opacity">Shaffoflik</string>
@@ -850,6 +865,7 @@
   <string name="notifications">Bildirishnomalar</string>
   <string name="notificationsX">%1$s ta bildirishnoma</string>
   <string name="perfRatingX">Reyting: %s</string>
+  <string name="perfRatingLabel" comment="Replaces old string perfRatingX">Reyting: %s.</string>
   <string name="yourRatingIsX">Sizning reytingingiz %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">Birinchi yurish qilish uchun %s sekund qoldi</item>
@@ -963,7 +979,6 @@
   <string name="xInvitedYouToY">%1$s sizni \"%2$s\"ga taklif qildi.</string>
   <string name="youAreNowPartOfTeam">Siz endi jamoa a‘zosisiz.</string>
   <string name="youHaveJoinedTeamX">Siz \"%1$s\" ga qo‘shildingiz.</string>
-  <string name="someoneYouReportedWasBanned">Siz shikoyat qilgan odam ban qilindi</string>
   <string name="congratsYouWon">Tabriklaymiz siz yutdingiz!</string>
   <string name="gameVsX">%1$sga qarshi o‘yin</string>
   <string name="resVsX">%1$s vs %2$s</string>
@@ -987,14 +1002,15 @@
 Bu faqat standart oʻyinlar uchun amal qiladi, variantlar uchun ishlamaydi.
 FEN pozitsiyani yaratish uchun %s boʻlimidan foydalanishingiz mumkin.
 Oʻyinlarni boshlangʻich pozitsiyadan boshlash uchun boʻsh qoldiring.</string>
-  <string name="cancelSimul">Biryoʻla seansni bekor qilish</string>
-  <string name="simulHostcolor">Har bir oʻyin uchun biryoʻla seans oʻtkazuvchining rangi</string>
+  <string name="cancelSimul">Sinxron seansni bekor qilish</string>
+  <string name="simulHostcolor">Har bir oʻyin uchun sinxron seans oʻtkazuvchining rangi</string>
   <string name="estimatedStart">Taxminiy boshlanish vaqti</string>
   <string name="simulFeatured">%s mazilida koʻrsatish</string>
-  <string name="simulFeaturedHelp">Biryoʻla seansingizni %sʼdagi barchaga koʻrsatish. Shaxsiy biryoʻla seanslar uchun buni oʻchirib qoʻying.</string>
+  <string name="simulFeaturedHelp">Sinxron seansingizni %sʼdagi barchaga koʻrsatish. Shaxsiy sinxron seanslar uchun buni oʻchirib qoʻying.</string>
   <string name="simulDescription">Seans haqida</string>
   <string name="simulDescriptionHelp">Ishtirokchilarga aytadigan gapingiz bormi?</string>
   <string name="markdownIsAvailable">Matnni formatlash uchun %sʼdan foydalanishingiz mumkin.</string>
+  <string name="youCanFormatTextUsing" comment="%s is &quot;Markdown&quot;, a proper noun. As such, the word is intentionally kept as a variable.&#10;&#10;Markdown is a markup language - a type of code that lets you format text (e.g. to create bold text).&#10;&#10;The text links to a reference guide for using Markdown to format text. Replaces old string markdownIsAvailable">Matnni %s yordamida formatlashingiz mumkin.</string>
   <string name="embedsAvailable">Biriktirish uchun oʻyin yoki dars bobi havolasini qoʻying.</string>
   <string name="inYourLocalTimezone">Mahalliy vaqtingiz boʻyicha</string>
   <string name="tournChat">Turnir chati</string>
@@ -1002,6 +1018,7 @@ Oʻyinlarni boshlangʻich pozitsiyadan boshlash uchun boʻsh qoldiring.</string>
   <string name="onlyTeamLeaders">Faqat jamoa sardorlari</string>
   <string name="onlyTeamMembers">Faqat jamoa a‘zlolari</string>
   <string name="navigateMoveTree">Yurishlar daraxti bo‘ylab harakatlaning</string>
+  <string name="moveListNavigation" comment="navigateMoveTree&#10;&#10;Appears in the keyboard shortcuts/help screen. The 'move tree' is simply the list of moves. Replaces old string navigateMoveTree">Yurishlar roʻyxatida harakatlanish</string>
   <string name="mouseTricks">Sichqoncha imkoniyatlari</string>
   <string name="toggleLocalAnalysis">Oʻz kompyuteringiz tahlilini yoqing</string>
   <string name="toggleAllAnalysis">Kompyuter barcha tahlillarini ulang</string>

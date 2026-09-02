@@ -62,7 +62,6 @@
   <string name="notifyGameEvent">Levelező mérkőzés</string>
   <string name="notifyChallenge">Kihívás</string>
   <string name="notifyTournamentSoon">Hamarosan kezdődő verseny</string>
-  <string name="notifyBroadcasts">Közvetítések amikre feliratkoztál</string>
   <string name="notifyTimeAlarm">Hamarosan lejár az idő levelezős játszmában</string>
   <string name="notifyBell">Hangjelzés a Lichessen belül</string>
   <string name="notifyPush">Értesítés mobileszközön, amikor nem vagy fenn Lichessen</string>

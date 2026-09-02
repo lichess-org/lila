@@ -30,6 +30,7 @@
   <string name="collinearMoveDescription">Deux pièces opposées se font face et l\'une des deux se déplace sur la même ligne sans capturer l\'autre pièce.</string>
   <string name="cornerMate">Mat en coin</string>
   <string name="cornerMateDescription">Le roi adverse est confiné dans un coin de l\'échiquier par une tour ou la dame, puis un cavalier le met mat.</string>
+  <string name="cornerMateKnightDeliversDescription" comment="Description for the &quot;Corner mate&quot; puzzle theme. Replaces old string cornerMateDescription">Utilisez la tour et la dame pour confiner le roi dans le coin de l\'échiquier, puis faites mat avec le cavalier.</string>
   <string name="crushing">Écrasant</string>
   <string name="crushingDescription">Repérez la gaffe de l\'adversaire pour obtenir un avantage écrasant. (évaluation &gt; 600cp)</string>
   <string name="discoveredCheck">Échec à la découverte</string>
@@ -55,16 +56,19 @@
   <string name="endgame">Finale</string>
   <string name="endgameDescription">Une tactique lors de la dernière phase du jeu.</string>
   <string name="enPassantDescription">Une tactique impliquant la règle de la prise en passant, où un pion peut capturer un pion adverse qui l\'a croisé lors de son déplacement initial de deux cases.</string>
+  <string name="enPassantAdjacentCaptureDescription" comment="Replaces old string enPassantDescription">Tactique utilisant la « prise en passant », où un pion peut capturer un pion adverse qui vient de se placer à côté de lui en se déplaçant de deux cases au premier coup.</string>
   <string name="epauletteMate">Mat des épaulettes</string>
   <string name="epauletteMateDescription">Deux cases de fuite des deux côtés du roi en échec sont occupées par des pièces.</string>
   <string name="exposedKing">Roi exposé</string>
   <string name="exposedKingDescription">Une tactique impliquant un Roi avec peu de défenseurs autour de lui, menant souvent à l\'échec et mat.</string>
   <string name="fork">Fourchette</string>
   <string name="forkDescription">Un coup où la pièce déplacée attaque deux pièces de l\'adversaire à la fois.</string>
+  <string name="forkOpposingPiecesDescription" comment="Replaces old string forkDescription">Un coup où une pièce attaque simultanément deux pièces ou plus.</string>
   <string name="hangingPiece">Pièce en prise</string>
   <string name="hangingPieceDescription">Une tactique impliquant une pièce adverse non protégée ou insuffisamment défendue et libre d\'être capturée.</string>
   <string name="hookMate">Mat du hameçon</string>
   <string name="hookMateDescription">Mat avec une Tour, un Cavalier et un pion, avec un pion adverse qui empêche la fuite du roi ennemi.</string>
+  <string name="hookMateOpposingPawnDescription" comment="Replaces old string hookMateDescription">Faire mat en utilisant une tour, un cavalier et un pion lorsque le roi adverse est bloqué par un de ses pions.</string>
   <string name="interference">Interception</string>
   <string name="interferenceDescription">Déplacer une pièce entre deux pièces adverses pour en laisser l\'une ou les deux non protégées, comme un Cavalier sur une case défendue entre deux Tours.</string>
   <string name="intermezzo">Coup intermédiaire</string>
@@ -73,8 +77,10 @@
   <string name="killBoxMateDescription">La tour, protégée par la dame, met le roi adverse en échec et la dame bloque la seule case de fuite du roi (le roi est enfermé dans une boîte de 3 cases par 3 cases formée par la tour et la dame).</string>
   <string name="pillsburysMate">Mat de Pillsbury</string>
   <string name="pillsburysMateDescription">La tour met le roi adverse mat avec l\'aide du fou.</string>
+  <string name="pillsburyMateRookAndBishopDescription" comment="Replaces old string pillsburysMateDescription">La tour met le roi mat avec l\'aide du fou.</string>
   <string name="morphysMate">Mat de Morphy</string>
   <string name="morphysMateDescription">Le fou met le roi adverse échec et mat avec l\'aide de la tour.</string>
+  <string name="morphyMateBishopAndRookDescription" comment="Replaces old string morphysMateDescription">Le fou met le roi mat avec l\'aide de la tour.</string>
   <string name="swallowstailMate">Mat du guéridon</string>
   <string name="swallowstailMateDescription">Motif de mat qui ressemble visuellement à un guéridon (une petite table soutenue par un pied central).</string>
   <string name="triangleMate">Mat du triangle</string>
@@ -115,6 +121,7 @@
   <string name="pinDescription">Une tactique impliquant des clouages, où une pièce est incapable de se déplacer sans qu\'une pièce de valeur supérieure soit attaquée.</string>
   <string name="promotion">Promotion</string>
   <string name="promotionDescription">Un pion promouvant ou menaçant d\'être promu est essentiel à la tactique.</string>
+  <string name="promotePawnToQueenRookOrMinor" comment="Replaces old string promotionDescription">Promouvez l\'un de vos pions en une dame, une tour ou une pièce mineure.</string>
   <string name="queenEndgame">Finale de Dames</string>
   <string name="queenEndgameDescription">Une finale avec seulement des Dames et des pions.</string>
   <string name="queenRookEndgame">Dames et Tours</string>

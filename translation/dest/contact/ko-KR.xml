@@ -26,6 +26,7 @@
   <string name="orCloseAccount">그러나 현재 계정을 폐쇄하고 새 계정을 만들 수 있습니다.</string>
   <string name="wantClearHistory">레이팅과 기록을 초기화하고 싶습니다</string>
   <string name="cantClearHistory">게임 이력, 퍼즐 이력, 레이팅을 초기화 할 수 없습니다.</string>
+  <string name="cantClearHistoryOrResetRatings" comment="Replaces old string cantClearHistory">게임 이력 및 퍼즐 이력을 지우거나 레이팅을 초기화할 수 없습니다.</string>
   <string name="wantReport">이용자 신고하기</string>
   <string name="toReportAPlayerUseForm">플레이어를 신고하려면 신고 양식을 사용하세요</string>
   <string name="youCanAlsoReachReportPage">프로필 페이지에서 %s 신고 버튼을 눌러 해당 페이지로 이동할 수도 있습니다.</string>
@@ -74,4 +75,13 @@
   <string name="noneOfTheAbove">해당 사항 없음</string>
   <string name="sendEmailAt">%s로 이메일을 보내주세요.</string>
   <string name="explainYourRequest">당신의 요청을 명확하게 설명해주세요. Lichess 사용자 이름 및 도움이 될 수 있는 정보를 알려주세요.</string>
+  <string name="monetiseNotInterested">저희는 Lichess를 통해 어떤 방식으로든 수익을 창출하는 것에 관심이 없습니다.</string>
+  <string name="monetiseNoAdsTrackingOrTraffic">어떤 종류의 광고도 표시하지 않을 것이고, 플레이어들을 트래킹하지도 않을 것이며, 트래픽이나 유저를 사고팔지도 않을 것입니다.</string>
+  <string name="monetiseNoMarketingEmail">마케팅이나 트래킹, 광고 등에 관해서 이메일로 문의하지 말아 주십시오.</string>
+  <string name="monetiseEncourageEveryoneTo" comment="string is value of key monetiseBlockAllAdsAndTrackers">저희는 모든 분이 %s하기를 권장합니다.</string>
+  <string name="monetiseBlockAllAdsAndTrackers">모든 광고와 트래커를 차단</string>
+  <string name="broadcastTournamentOnLichess">Lichess에서 토너먼트 방송하기</string>
+  <string name="ifYouWantToBroadcastClause1">만약 Lichess에서 토너먼트를 공식적으로 방송하고 싶거나, 방송에 대해 질문이 있으시다면:</string>
+  <string name="ifYouWantToBroadcastClause2" comment="string1 is Lichess email, string2 is value of key ourDiscordServer">%1$s 혹은 %2$s에서 방송 팀에게 문의하세요.</string>
+  <string name="ourDiscordServer">저희 디스코드 서버</string>
 </resources>

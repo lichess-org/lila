@@ -27,7 +27,7 @@ final class EmailAddressValidator(
     else Valid
 
   def uniqueAsync(email: EmailAddress, forUser: Option[User]): Fu[Boolean] =
-    isTakenBySomeoneElse(email, forUser).zip(wasUsedTwiceRecently(email)).dmap(!_ && !_)
+    isTakenBySomeoneElse(email, forUser).not
 
   def uniqueConstraint(forUser: Option[User]) =
     Constraint[EmailAddress]("constraint.email_unique"): email =>
@@ -116,10 +116,6 @@ final class EmailAddressValidator(
      * luzkruegel.xnp17+mtcwg275w2@gmail.com */
     private val regex = """\+(\w{4,10})@(outlook|gmail|googlemail|hotmail)\.com$""".r.unanchored
     def is(e: EmailAddress): Boolean = regex.matches(e.value)
-
-  private def wasUsedTwiceRecently(email: EmailAddress): Fu[Boolean] =
-    userRepo.countRecentByPrevEmail(email.normalize, nowInstant.minusWeeks(1)).dmap(_ >= 2) >>|
-      userRepo.countRecentByPrevEmail(email.normalize, nowInstant.minusMonths(1)).dmap(_ >= 4)
 
 object EmailAddressValidator:
   enum Result(val error: Option[String]):

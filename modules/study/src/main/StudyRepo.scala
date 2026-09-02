@@ -1,7 +1,7 @@
 package lila.study
 
-import akka.stream.scaladsl.*
-import reactivemongo.akkastream.{ AkkaStreamCursor, cursorProducer }
+import org.apache.pekko.stream.scaladsl.*
+import reactivemongo.pekkostream.{ PekkoStreamCursor, cursorProducer }
 import reactivemongo.api.*
 
 import lila.core.study as hub
@@ -11,7 +11,7 @@ import lila.db.dsl.{ *, given }
 
 final class StudyRepo(private[study] val coll: AsyncColl)(using
     Executor,
-    akka.stream.Materializer
+    org.apache.pekko.stream.Materializer
 ):
 
   import BSONHandlers.given
@@ -28,12 +28,6 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
     F.uids -> false,
     F.likers -> false,
     F.rank -> false
-  )
-
-  private[study] val lightProjection = $doc(
-    "_id" -> false,
-    "visibility" -> true,
-    "members" -> true
   )
 
   def byId(id: StudyId) = coll(_.find($id(id), projection.some).one[Study])
@@ -69,14 +63,11 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
 
   def byOrderedIds(ids: Seq[StudyId]) = coll(_.byOrderedIds[Study, StudyId](ids, projection.some)(_.id))
 
-  def lightById(id: StudyId): Fu[Option[Study.LightStudy]] =
-    coll(_.find($id(id), lightProjection.some).one[Study.LightStudy])
-
   def sortedCursor(
       selector: Bdoc,
       sort: Bdoc,
       readPref: ReadPref = _.pri
-  ): Fu[AkkaStreamCursor[Study]] =
+  ): Fu[PekkoStreamCursor[Study]] =
     coll.map(_.find(selector, projection.some).sort(sort).cursor[Study](readPref))
 
   def exists(id: StudyId) = coll(_.exists($id(id)))

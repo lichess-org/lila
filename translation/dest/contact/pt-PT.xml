@@ -26,13 +26,14 @@
   <string name="orCloseAccount">No entanto, podes fechar tua conta atual e criar uma nova.</string>
   <string name="wantClearHistory">Quero limpar o meu histórico ou pontuação</string>
   <string name="cantClearHistory">Não é possível limpar o teu histórico de jogos, histórico de problemas ou pontuações.</string>
+  <string name="cantClearHistoryOrResetRatings" comment="Replaces old string cantClearHistory">Não é possível limpar o teu histórico de jogos, histórico de problemas ou redefinir as tuas pontuações.</string>
   <string name="wantReport">Quero denunciar um jogador</string>
   <string name="toReportAPlayerUseForm">Para denunciar um jogador, usa o formulário de denúncia</string>
   <string name="youCanAlsoReachReportPage">Também podes aceder a essa página clicando no botão de denúncia %s numa página de perfil.</string>
   <string name="doNotReportInForum">Não denuncies jogadores no fórum.</string>
   <string name="doNotSendReportEmails">Não nos envies emails de denúncias.</string>
   <string name="doNotMessageModerators">Não envies mensagens diretamente aos moderadores.</string>
-  <string name="onlyReports">Só denunciar jogadores através do formulário de denúnica é que é eficaz.</string>
+  <string name="onlyReports">Só denunciar jogadores através do formulário de denúncia é que é eficaz.</string>
   <string name="wantReportBug">Quero reportar um erro</string>
   <string name="reportBugInForum">Na secção Feedback do Lichess no fórum</string>
   <string name="reportWebsiteIssue">Como um problema no sítio do Lichess no GitHub</string>
@@ -54,7 +55,7 @@
   <string name="ratedGame">Certifica-te que jogaste uma partida a valer pontos. Jogos amigáveis não afetam as pontuações dos jogadores.</string>
   <string name="botRatingAbuse">Em certas circunstâncias, ao jogar contra uma conta bot, uma partida a valer pontos pode não premiar pontos se for determinado que o jogador está abusando do bot para ganhar pontos.</string>
   <string name="errorPage">Página de erro</string>
-  <string name="reportErrorPage">Se encontras uma página de erro, podes reportá-lo:</string>
+  <string name="reportErrorPage">Se encontrares uma página de erro, podes reportá-lo:</string>
   <string name="learnHowToMakeBroadcasts">Aprende a fazer as tuas próprias transmissões no Lichess</string>
   <string name="banAppeal">Apelar de um banimento ou restrição de IP</string>
   <string name="engineAppeal">Por fazer batota ou usar assistência do computador</string>
@@ -69,9 +70,18 @@
   <string name="buyingLichess">Comprar o Lichess</string>
   <string name="authorizationToUse">Autorização para utilizar o Lichess</string>
   <string name="welcomeToUse">És bem-vindo para utilizar o Lichess para a tua atividade, mesmo que seja comercial.</string>
-  <string name="videosAndBooks">Podes mostrá-lo em vídeo teus e podes imprimir capturas de ecrã do Lichess em teus livros.</string>
+  <string name="videosAndBooks">Podes mostrá-lo nos vídeos e podes imprimir capturas de ecrã do Lichess nos teus livros.</string>
   <string name="creditAppreciated">O crédito é apreciado, mas não exigido.</string>
   <string name="noneOfTheAbove">Nenhuma das anteriores</string>
   <string name="sendEmailAt">Envia-nos um email para %s.</string>
-  <string name="explainYourRequest">Por favor, explica o teu pedido de forma clara e completa. Menciona o teu nome de utilizador no Lichess e qualquer outra informação que nos possa nos ajudar a ajudar-te.</string>
+  <string name="explainYourRequest">Por favor, explica o teu pedido de forma clara e completa. Menciona o teu nome de utilizador no Lichess e qualquer outra informação que nos possa ajudar a ajudar-te.</string>
+  <string name="monetiseNotInterested">Não estamos interessados em nenhuma forma de monetizar o Lichess.</string>
+  <string name="monetiseNoAdsTrackingOrTraffic">Nós nunca mostraremos nenhum tipo de anúncio, não rastrearemos os nossos jogadores e não venderemos ou compraremos tráfego ou utlizadores.</string>
+  <string name="monetiseNoMarketingEmail">Por favor, não nos envies nenhum email sobre marketing, rastreamento ou publicidade.</string>
+  <string name="monetiseEncourageEveryoneTo" comment="string is value of key monetiseBlockAllAdsAndTrackers">Encorajamos todos a %s.</string>
+  <string name="monetiseBlockAllAdsAndTrackers">bloquear todos os anúncios e rastreadores</string>
+  <string name="broadcastTournamentOnLichess">Transmitir um torneio no Lichess</string>
+  <string name="ifYouWantToBroadcastClause1">Se quiseres transmitir oficialmente um torneio no Lichess, ou tiveres alguma dúvida sobre as nossas transmissões:</string>
+  <string name="ifYouWantToBroadcastClause2" comment="string1 is Lichess email, string2 is value of key ourDiscordServer">Por favor, entra em contacto com a nossa Equipa de Transmissão através do email %1$s ou no %2$s.</string>
+  <string name="ourDiscordServer">nosso servidor Discord</string>
 </resources>

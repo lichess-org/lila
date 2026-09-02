@@ -38,10 +38,10 @@
     }
 
     @include if-transp {
-      @include back-blur(6px);
+      @include back-blur;
 
       border: none;
-      background: hsl(0 0% 20% / 0.15);
+      background: linear-gradient(180deg, color-mix(in oklab, $c-bg 60%, transparent) 20%, transparent 90%);
     }
 
     .dropdown {
@@ -80,12 +80,9 @@ body.zen {
 #topnav .community-patron {
   @extend %flex-center;
 
-  &::after {
-    @extend %data-icon;
+  .svg-icon {
     @include margin-direction(0, 0, 0.08ch, 0.3ch);
 
-    content: $licon-Wings;
-    font-size: 1.3em;
     color: $c-brag;
     transform: scaleX(-1);
 
@@ -110,14 +107,11 @@ body.zen {
     padding: 0 1.1rem 0 1.3rem;
     margin: 6px 0 5px 0;
 
-    &::before {
-      @extend %data-icon;
+    .svg-icon {
       @include inline-end(5px);
 
       position: relative;
-      content: $licon-Wings;
       top: -1px;
-      font-size: 1.2em;
       color: $c-brag;
     }
 

@@ -1,6 +1,6 @@
 package lila.common
 
-import akka.actor.*
+import org.apache.pekko.actor.*
 
 object Lilakka:
 
@@ -13,4 +13,4 @@ object Lilakka:
       lila.log.system.info(s"shutdown $msg")
       f().dmap: _ =>
         lila.log.system.info(s"shutdown $msg done")
-        akka.Done
+        org.apache.pekko.Done

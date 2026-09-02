@@ -1,4 +1,6 @@
 .lobby__streams {
+  @include backdrop-blur-if-transparent;
+
   &:empty {
     display: none;
   }
@@ -19,8 +21,8 @@
       color: $c-brag;
     }
 
-    strong::before {
-      font-size: 1.5em;
+    strong .svg-icon {
+      width: 1.5em;
       margin-inline-end: 0.1rem;
     }
   }

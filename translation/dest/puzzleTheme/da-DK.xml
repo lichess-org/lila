@@ -30,6 +30,7 @@
   <string name="collinearMoveDescription">To modspillende brikker står over for hinanden, og den ene glider langs angrebslinjen uden at slå den fjendtlige brik.</string>
   <string name="cornerMate">Hjørnemat</string>
   <string name="cornerMateDescription">Træng kongen op i hjørnet ved hjælp af et tårn eller dronning og en springer til at udføre skakmat.</string>
+  <string name="cornerMateKnightDeliversDescription" comment="Description for the &quot;Corner mate&quot; puzzle theme. Replaces old string cornerMateDescription">Træng kongen op i hjørnet ved hjælp af et tårn eller dronning og brug en springer til at udføre skakmat.</string>
   <string name="crushing">Knusende</string>
   <string name="crushingDescription">Spot modstanderens brøler for at opnå en knusende fordel. (eval ≥ 600cb)</string>
   <string name="discoveredCheck">Afdækkertræk</string>
@@ -55,16 +56,19 @@
   <string name="endgame">Slutspil</string>
   <string name="endgameDescription">En taktik i den sidste fase af spillet.</string>
   <string name="enPassantDescription">En taktik som inkluderer En passant-reglen, hvor en bonde kan tage en modstanderbonde, der er flyttet forbi med dens første to-felts-træk.</string>
+  <string name="enPassantAdjacentCaptureDescription" comment="Replaces old string enPassantDescription">En taktik som inkluderer En passant-reglen, hvor en bonde kan tage en modstanderbonde, der er flyttet forbi med dens første to-felts-træk.</string>
   <string name="epauletteMate">Epaulet-mat</string>
   <string name="epauletteMateDescription">To tilstødende flugtfelter for en konge i skak er blokeret af andre brikker.</string>
   <string name="exposedKing">Eksponeret konge</string>
   <string name="exposedKingDescription">En taktik der involverer en konge med få forsvarere omkring sig, hvilket ofte fører til skakmat.</string>
   <string name="fork">Gaffel</string>
   <string name="forkDescription">Et træk hvor den flyttede brik angriber to af modstanderens brikker på én gang.</string>
+  <string name="forkOpposingPiecesDescription" comment="Replaces old string forkDescription">Et træk, hvor en brik angriber to eller flere modstanderbrikker på samme tid.</string>
   <string name="hangingPiece">Hængende brik</string>
   <string name="hangingPieceDescription">En taktik der indebærer, at en af modstanderens brikker, der ikke forsvares eller ikke forsvares tilstrækkeligt, frit kan tages.</string>
   <string name="hookMate">Krog-mat</string>
   <string name="hookMateDescription">Skakmat med tårn, springer og bonde, som sammen med en fjendtlig bonde hindrer modstanderens konge i at undslippe.</string>
+  <string name="hookMateOpposingPawnDescription" comment="Replaces old string hookMateDescription">Skakmat ved hjælp af et tårn, en springer og en bonde, hvor en af modstanderens bønder blokerer kongens flugtvej.</string>
   <string name="interference">Obstruktion</string>
   <string name="interferenceDescription">Flytte en brik ind mellem to af modstanderens brikker, så den ene eller begge er uden forsvar, såsom en springer på et forsvaret felt mellem to tårne.</string>
   <string name="intermezzo">Mellemtræk</string>
@@ -73,8 +77,10 @@
   <string name="killBoxMateDescription">Et tårn står ved siden af fjendens konge og støttes af en dronning, som også blokerer kongens flugtfelter. Tårnet og dronningen fanger fjendens konge i en 3 x 3 \"kill box\".</string>
   <string name="pillsburysMate">Pillsbury\'s mat</string>
   <string name="pillsburysMateDescription">Tårnet sætter skakmat, mens løberen hjælper med at spærre af.</string>
+  <string name="pillsburyMateRookAndBishopDescription" comment="Replaces old string pillsburysMateDescription">Et tårn sætter kongen skakmat, mens en løber er med til at indespærre den.</string>
   <string name="morphysMate">Morphy\'s mat</string>
   <string name="morphysMateDescription">Brug løberen til at sætte kongen skak, mens tårnet hjælper med at spærre den inde.</string>
+  <string name="morphyMateBishopAndRookDescription" comment="Replaces old string morphysMateDescription">En løber sætter kongen skakmat, mens et tårn er med til at indespærre den.</string>
   <string name="swallowstailMate">Svalehale-mat</string>
   <string name="swallowstailMateDescription">Et skakmatmønster, der visuelt minder om en svalehale, svarende til en V-form.</string>
   <string name="triangleMate">Trekantmat</string>
@@ -115,6 +121,7 @@
   <string name="pinDescription">En taktik med bindinger, hvor en brik er ude af stand til at bevæge sig uden at afdække et angreb på en brik af højere værdi.</string>
   <string name="promotion">Bondeforvandling</string>
   <string name="promotionDescription">En bonde, der forvandles eller truer med at forvandle, er nøglen til taktikken.</string>
+  <string name="promotePawnToQueenRookOrMinor" comment="Replaces old string promotionDescription">Forfrem en af dine bønder til en dronning, et tårn eller en mindre brik.</string>
   <string name="queenEndgame">Dronningeslutspil</string>
   <string name="queenEndgameDescription">Et slutspil med kun dronninger og bønder.</string>
   <string name="queenRookEndgame">Dronning og tårn-slutspil</string>

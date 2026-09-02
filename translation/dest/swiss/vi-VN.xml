@@ -59,6 +59,7 @@ Cộng điểm số của tất cả người chơi mà người này thắng v�
   <string name="moreRoundsThanPlayersQ">Điều gì xẩy ra khi giải đấu có số lượng vòng đấu lớn hơn số lượng người chơi?</string>
   <string name="moreRoundsThanPlayersA">Khi tất cả các cặp đấu có thể đã được chơi, giải đấu kết thúc và sẽ có một người thắng cuộc.</string>
   <string name="restrictedToTeamsQ">Tại sao lại chỉ có đội được dùng?</string>
+  <string name="whyAreSwissTournamentsRestrictedToTeams" comment="Replaces old string restrictedToTeamsQ">Tại sao các giải đấu hệ Thụy Sĩ chỉ dành cho các đội?</string>
   <string name="restrictedToTeamsA">Các giải đấu hệ Thụy Sĩ không được thiết kế cho cờ vua trực tuyến. Chúng đòi hỏi sự đúng giờ, sự tận tâm và sự kiên nhẫn từ người chơi.
 Chúng tôi nghĩ những điều kiện trên sẽ dễ được đáp ứng trong một đội hơn là một giải đấu toàn cầu.</string>
   <string name="numberOfByesQ">Người chơi sẽ được miễn đấu bao nhiêu lần?</string>
@@ -80,6 +81,7 @@ Người vào muộn sẽ chỉ được cộng 1 điểm \"bye\" kể cả nế
   <string name="willSwissReplaceArenasQ">Liệu các giải đấu hệ Thụy Sĩ có thay thế các giải đấu Đấu trường không?</string>
   <string name="willSwissReplaceArenasA">Không. Chúng là những tính năng phụ.</string>
   <string name="roundRobinQ">Vậy còn các giải đấu vòng tròn?</string>
+  <string name="canPlayRoundRobinTournaments" comment="roundRobinQ&#10;&#10;Round-robin is a simple tournament format with some similarities to Swiss. It is not supported by Lichess. Replaces old string roundRobinQ">Tôi có thể tham gia các giải đấu vòng tròn trên Lichess không?</string>
   <string name="roundRobinA">Chúng tôi cũng rất muốn thêm chúng, nhưng đáng tiếc là giải đấu vòng tròn không thể thực hiện được khi chơi trực tuyến.
 Lý do là chúng không có một cách công bằng nào có thể giải quyết trường hợp có người chơi rời khỏi giải trước khi giải đấu kết thúc. Không thể mong đợi tất cả mọi người đều có thể chơi hết các ván đấu của họ trong một giải đấu trực tuyến. Điều đó không thể xẩy ra và vì thế, hầu hết các giải đấu vòng tròn sẽ không hoạt động một cách công bằng, điều đó mâu thuẫn với lý do nó tồn tại ngay từ đầu.
 Thứ gần nhất bạn có thể có với một giải đấu vòng tròn là một giải đấu hệ Thụy Sĩ có số ván đấu rất cao. Như vậy, tất cả các cặp đấu có thể xảy ra sẽ được chơi trước khi giải đấu kết thúc.</string>
@@ -115,6 +117,8 @@ Thứ gần nhất bạn có thể có với một giải đấu vòng tròn là
   <string name="unlimitedAndFree">Không giới hạn và miễn phí</string>
   <string name="predefinedUsers">Chỉ cho phép những người dùng được chỉ định trước tham gia</string>
   <string name="forbiddedUsers">Ngoại trừ những người trong danh sách này, những người khác đều bị cấm tham gia. Mỗi dòng một tên người dùng.</string>
+  <string name="predefinedUsersHelp" comment="Replaces old string forbiddedUsers">Nhập một tên người dùng mỗi dòng. Chỉ những người chơi có tên trong danh sách này mới được phép tham gia.
+Để trống nếu muốn cho phép tất cả người chơi đủ điều kiện tham gia.</string>
   <string name="playYourGames">Chơi các ván đấu của bạn</string>
   <string name="byes">Được miễn</string>
   <string name="absences">Vắng mặt</string>

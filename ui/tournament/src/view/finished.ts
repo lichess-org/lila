@@ -1,8 +1,8 @@
 import { h, type VNode } from 'snabbdom';
 
-import { licon } from 'lib/licon';
+import { icons } from 'lib/icons';
 import { once } from 'lib/storage';
-import { type MaybeVNodes } from 'lib/view';
+import { type MaybeVNodes, snabIcon } from 'lib/view';
 import { numberRow } from 'lib/view/util';
 
 import type TournamentController from '../ctrl';
@@ -51,47 +51,32 @@ function stats(ctrl: TournamentController): VNode | undefined {
             h('br'),
           ]
         : []),
-      h(
-        'a.text',
-        { attrs: { 'data-icon': licon.Download, href: `/api/tournament/${data.id}/games`, download: true } },
+      h('a.text', { attrs: { href: `/api/tournament/${data.id}/games`, download: true } }, [
+        snabIcon(icons.Download),
         i18n.site.downloadAllGames,
-      ),
+      ]),
       data.me &&
         h(
           'a.text',
-          {
-            attrs: {
-              'data-icon': licon.Download,
-              href: `/api/tournament/${data.id}/games?player=${ctrl.opts.userId}`,
-              download: true,
-            },
-          },
-          'Download my games',
+          { attrs: { href: `/api/tournament/${data.id}/games?player=${ctrl.opts.userId}`, download: true } },
+          [snabIcon(icons.Download), 'Download my games'],
         ),
-      h(
-        'a.text',
-        {
-          attrs: { 'data-icon': licon.Download, href: `/api/tournament/${data.id}/results`, download: true },
-        },
+      h('a.text', { attrs: { href: `/api/tournament/${data.id}/results`, download: true } }, [
+        snabIcon(icons.Download),
         'Download results as NDJSON',
-      ),
+      ]),
       h(
         'a.text',
         {
-          attrs: {
-            'data-icon': licon.Download,
-            href: `/api/tournament/${data.id}/results?as=csv`,
-            download: true,
-          },
+          attrs: { href: `/api/tournament/${data.id}/results?as=csv`, download: true },
         },
-        'Download results as CSV',
+        [snabIcon(icons.Download), 'Download results as CSV'],
       ),
       h('br'),
-      h(
-        'a.text',
-        { attrs: { 'data-icon': licon.InfoCircle, href: '/api#tag/arena-tournaments' } },
+      h('a.text', { attrs: { href: '/api#tag/arena-tournaments' } }, [
+        snabIcon(icons.InfoCircle),
         'Arena API documentation',
-      ),
+      ]),
     ]),
   ]);
 }

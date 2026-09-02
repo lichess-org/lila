@@ -2,14 +2,26 @@
 <resources>
   <string name="broadcasts">Преноси</string>
   <string name="myBroadcasts">Моји преноси</string>
+  <plurals name="nbBroadcasts">
+    <item quantity="one">%s пренос</item>
+    <item quantity="few">%s преноса</item>
+    <item quantity="other">%s преноса</item>
+  </plurals>
   <string name="liveBroadcasts">Преноси турнира уживо</string>
   <string name="broadcastCalendar">Календар преноса</string>
   <string name="newBroadcast">Нови пренос уживо</string>
   <string name="aboutBroadcasts">О преносима</string>
+  <string name="addRound">Додај рунду</string>
   <string name="ongoing">У току</string>
   <string name="upcoming">Предстојећи</string>
+  <string name="roundName">Назив рунде</string>
+  <string name="tournamentName">Назив догађаја</string>
+  <string name="tournamentDescription">Кратак опис турнира</string>
   <string name="fullDescription">Потпуни опис турнира</string>
   <string name="fullDescriptionHelp">Опциони дуги опис турнира. %1$s је доступан. Дужина мора бити мања од %2$s знакова.</string>
   <string name="sourceUrlHelp">Линк који ће Lichess проверити да добије ажурирања PGN-а. Мора бити јавно доступан са интернета.</string>
   <string name="startDateHelp">Опционо, ако знаш када почиње догађај</string>
+  <string name="currentGameUrl">Линк тренутне партије</string>
+  <string name="resetRound">Ресетуј ову рунду</string>
+  <string name="deleteRound">Избриши ову рунду</string>
 </resources>

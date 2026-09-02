@@ -18,7 +18,7 @@ final class RelayUi(helpers: Helpers)(
 ):
   import helpers.{ *, given }
 
-  def broadcastH1 = h1(dataIcon := Icon.RadioTower, cls := "text")
+  def broadcastH1 = h1(iconEl := Icon.RadioTower, cls := "text")
 
   def show(
       rt: WithTourAndStudy,
@@ -72,6 +72,7 @@ final class RelayUi(helpers: Helpers)(
 
   def showPreload(rt: WithTourAndStudy, data: RelayJsonView.JsData)(using Translate): Tag =
     main(cls := "analyse is-relay has-relay-tour")(
+      st.aside(cls := "relay-tour__side")(div(cls := "relay-tour__side__preload")),
       div(cls := "box relay-tour")(
         div(cls := "relay-tour__header")(
           div(cls := "relay-tour__header__content")(
@@ -85,8 +86,7 @@ final class RelayUi(helpers: Helpers)(
             rt.tour.image.map: imgId =>
               img(src := thumbnail.url(imgId, _.Size.Large))
         )
-      ),
-      st.aside(cls := "relay-tour__side")(div(cls := "relay-tour__side__preload"))
+      )
     )
 
   object thumbnail:
@@ -98,7 +98,7 @@ final class RelayUi(helpers: Helpers)(
           heightA := size(RelayTour.thumbnail).height,
           src := url(id, size)
         )
-    def fallback = iconTag(Icon.RadioTower)(cls := "relay-image--fallback")
+    def fallback = iconTag(cls := "relay-image--fallback")(iconEl(Icon.RadioTower))
     def url(id: ImageId, size: RelayTour.thumbnail.SizeSelector) =
       RelayTour.thumbnail(picfitUrl, id, size)
 
@@ -113,7 +113,7 @@ final class RelayUi(helpers: Helpers)(
       href := tr.path,
       cls := s"tour-spotlight event-spotlight relay-spotlight id_${tr.tour.id}"
     )(
-      iconTag(Icon.RadioTower)(cls := "img"),
+      iconEl(Icon.RadioTower)(cls := "img"),
       span(cls := "content")(
         span(cls := "name")(tr.tour.spotlight.flatMap(_.title) | tr.tour.name.value),
         span(cls := "more")(
@@ -127,6 +127,6 @@ final class RelayUi(helpers: Helpers)(
     )
 
   def howToUse(using Translate) =
-    a(dataIcon := Icon.InfoCircle, cls := "text", href := routes.RelayTour.help)(
+    a(iconEl := Icon.InfoCircle, cls := "text", href := routes.RelayTour.help)(
       trans.broadcast.howToUseLichessBroadcasts()
     )

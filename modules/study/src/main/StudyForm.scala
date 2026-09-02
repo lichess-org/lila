@@ -7,16 +7,7 @@ import play.api.data.*
 import play.api.data.Forms.*
 import play.api.data.format.Formatter
 
-import lila.common.Form.{
-  cleanNonEmptyText,
-  defaulting,
-  formatter,
-  into,
-  typeIn,
-  stringIn,
-  tagifyValues,
-  given
-}
+import lila.common.Form.{ cleanNonEmptyText, defaulting, formatter, into, typeIn, tagifyValues, given }
 import lila.core.study.Visibility
 
 object StudyForm:
@@ -43,24 +34,14 @@ object StudyForm:
       cloneable: Settings.UserSelection,
       shareable: Settings.UserSelection,
       chat: Settings.UserSelection,
-      sticky: Option[String],
-      description: Option[String]
+      sticky: Option[Boolean],
+      description: Option[Boolean]
   ):
-    def studyName = StudyName(lila.common.String.fullCleanUp(name).take(100))
-    def settings =
-      Settings(
-        computer,
-        explorer,
-        cloneable,
-        shareable,
-        chat,
-        sticky.forall(_ == "true"),
-        description.has("true")
-      )
+    def studyName = StudyName.from(lila.common.String.fullCleanUp(name).take(100).nonEmptyOption)
+    def settings = Settings(computer, explorer, cloneable, shareable, chat, sticky | true, ~description)
 
   val form: Form[FormData] = Form:
     val userSelectionField = typeIn(Settings.UserSelection.values.toSet)
-    val boolStrField = stringIn(Set("true", "false"))
     mapping(
       "name" -> nonEmptyText(minLength = 1, maxLength = 100),
       "flair" -> optional(nonEmptyText(maxLength = 100)),
@@ -70,8 +51,8 @@ object StudyForm:
       "cloneable" -> userSelectionField,
       "shareable" -> userSelectionField,
       "chat" -> userSelectionField,
-      "sticky" -> optional(boolStrField),
-      "description" -> optional(boolStrField)
+      "sticky" -> optional(boolean),
+      "description" -> optional(boolean)
     )(FormData.apply)(unapply)
 
   object importGame:
@@ -163,7 +144,7 @@ object StudyForm:
   def topicsForm = Form:
     single:
       "topics" -> tagifyValues.field[String, StudyTopics]("value"): strs =>
-        StudyTopics.fromStrs(strs, StudyTopics.studyMax)
+        StudyTopics.fromStrs(strs, StudyTopics.userMax)
 
   def topicsForm(topics: StudyTopics) =
     Form(single("topics" -> text)).fill(topics.value.mkString(","))

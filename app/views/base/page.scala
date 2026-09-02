@@ -36,6 +36,10 @@ object page:
       s"---board-hue:${ctx.pref.board.hue};" +
       zoomable.so(s"---zoom:$pageZoom;")
 
+  def htmlStyle(using ctx: Context) =
+    s"---ui-roundness:${ctx.pref.uiRoundness}px;" +
+      s"---bg-opacity:${ctx.pref.bgOpacity};"
+
   def apply(p: Page)(using ctx: PageContext): RenderedPage =
     import ctx.pref
     val anonOnboarding = ctx.isAnon.so(lila.security.EmailConfirm.cookie.get(ctx.req))
@@ -48,8 +52,8 @@ object page:
     val pageFrag = frag(
       doctype,
       htmlTag(
-        (ctx.impersonatedBy.isEmpty && !ctx.blind)
-          .option(cls := ctx.pref.themeColorClass),
+        (ctx.impersonatedBy.isEmpty && !ctx.blind).option(cls := ctx.pref.currentBg),
+        style := htmlStyle,
         topComment,
         head(
           charset,
@@ -78,25 +82,27 @@ object page:
           noTranslate,
           p.openGraph.map(lila.web.ui.openGraph),
           p.atomLinkTag | dailyNewsAtom,
-          (pref.bg == lila.pref.Pref.Bg.TRANSPARENT).option(pref.bgImgOrDefault).map { loc =>
-            val url =
-              if loc.startsWith("/assets/") then assetUrl(loc.drop(8))
-              else escapeHtmlRaw(loc).replace("&amp;", "&")
-            raw(s"""<style id="bg-data">html.transp::before{background-image:url("$url");}</style>""")
-          },
+          pref.isTransparentBg
+            .option(pref.bgImgUrl)
+            .map: loc =>
+              val url =
+                if loc.startsWith("/assets/") then assetUrl(loc.drop(8))
+                else escapeHtmlRaw(loc).replace("&amp;", "&")
+              raw:
+                s"""<style id="bg-data">html.transp::before{background-image:url("$url");opacity:calc(var(---bg-opacity)/100);}</style>"""
+          ,
           fontsPreload,
           boardPreload,
           manifests,
           p.withHrefLangs.map(hrefLangs),
           sitePreload(p.i18nModules, ctx.data.inquiry.isDefined.option(Esm("mod.inquiry")) :: allModules),
-          lichessFontFaceCss,
           pieceSetImages.load(ctx.pref.currentPieceSet.name),
-          (ctx.pref.bg === lila.pref.Pref.Bg.SYSTEM || ctx.impersonatedBy.isDefined)
-            .so(systemThemeScript(ctx.nonce))
+          (ctx.pref.bg === lila.pref.Pref.Bg.SYSTEM || ctx.pref.bg === lila.pref.Pref.Bg.SYSTEM_TRANSP || ctx.impersonatedBy.isDefined)
+            .so(systemThemeScript(ctx.nonce, ctx.pref.isTransparentBg))
         ).pipe(p.transformHead),
         st.body(
           cls := {
-            val baseClass = s"${pref.currentBg} coords-${pref.coordsClass}"
+            val baseClass = s"coords-${pref.coordsClass}"
             List(
               baseClass -> true,
               "simple-board" -> pref.simpleBoard,

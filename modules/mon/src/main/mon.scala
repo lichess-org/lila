@@ -26,6 +26,7 @@ object http:
   private val reqTime = timer("http.time")
   private val reqCount = counter("http.count")
   private val mobCount = counter("http.mobile.count")
+  private val agentCount = counter("http.agent.count")
 
   def time(action: String) = reqTime.withTag("action", action)
 
@@ -45,6 +46,9 @@ object http:
         "auth" -> (if auth then "auth" else "anon"),
         "os" -> os
       )
+
+  def apiAgentCount(action: String, agent: String) =
+    agentCount.withTags(tags("action" -> action, "agent" -> agent))
 
   def path(p: String) = counter("http.path.count").withTag("path", p.escape)
   val userGamesCost = counter("http.userGames.cost").withoutTags()
@@ -246,8 +250,8 @@ object user:
     def reopenRequest(s: String) = counter("user.auth.reopenRequest").withTag("type", s)
     def reopenConfirm(s: String) = counter("user.auth.reopenConfirm").withTag("type", s)
   object oauth:
-    def request(success: Boolean) = counter("user.oauth.request").withTags:
-      tags("success" -> successTag(success))
+    def request(success: Boolean) = counter("user.oauth.request").withTag("success", successTag(success))
+    def authorize(result: String) = counter("user.oauth.authorize").withTag("result", result)
   private val userSegment = timer("user.segment")
   def segment(seg: String) = userSegment.withTag("segment", seg)
   def leaderboardCompute = future("user.leaderboard.compute")
@@ -343,6 +347,7 @@ object email:
     private val c = counter("email.send")
     val resetPassword = c.withTag("type", "resetPassword")
     val magicLink = c.withTag("type", "magicLink")
+    val storedCode = c.withTag("type", "storedCode")
     val reopen = c.withTag("type", "reopen")
     val fix = c.withTag("type", "fix")
     val change = c.withTag("type", "change")
@@ -363,6 +368,8 @@ object security:
       counter("security.proxy.hit").withTags(tags("proxy" -> prox, "action" -> action))
   def rateLimit(key: String) = counter("security.rateLimit.count").withTag("key", key)
   def concurrencyLimit(key: String) = counter("security.concurrencyLimit.count").withTag("key", key)
+  def concurrencyLevel(key: String, client: String) =
+    gauge("security.concurrencyLimit.level").withTags(tags("key" -> key, "client" -> client))
   object dnsApi:
     val mx = future("security.dnsApi.mx.time")
   object verifyMailApi:
@@ -496,10 +503,8 @@ object forum:
     val view = counter("forum.topic.view").withoutTags()
   def reaction(r: String) = counter("forum.reaction").withTag("reaction", r)
 object msg:
-  def post(verdict: String, isNew: Boolean, multi: Boolean) = counter("msg.post").withTags(
+  def post(verdict: String, isNew: Boolean, multi: Boolean) = counter("msg.post").withTags:
     tags("verdict" -> verdict, "isNew" -> isNew, "multi" -> multi)
-  )
-  val teamBulk = histogram("msg.bulk.team").withoutTags()
   def clasBulk(clasId: ClasId) = histogram("msg.bulk.clas").withTag("id", clasId.value)
 object puzzle:
   object selector:
@@ -629,6 +634,7 @@ object push:
     val invitedStudy = send("invitedStudy")
     val streamStart = send("streamStart")
     val broadcastRound = send("broadcastRound")
+    val recap = send("recap")
 
     object challenge:
       val create = send("challengeCreate")
@@ -740,17 +746,21 @@ object recap:
   val puzzles = future("recap.build.puzzles.time")
 object signedClient:
   final class AuthPage(name: String):
-    def load(client: String) = counter(s"signedClient.$name.load").withTag("client", client)
-    def success(client: String) = counter(s"signedClient.$name.success").withTag("client", client)
+    def load(unique: Boolean)(client: String) = counter(s"signedClient.$name.load")
+      .withTags(tags("client" -> client, "unique" -> unique))
+    def success(hasFailed: Boolean)(client: String) =
+      counter(s"signedClient.$name.success").withTags(tags("client" -> client, "hasFailed" -> hasFailed))
     def step(s: String)(client: String) =
       counter(s"signedClient.$name.step").withTags(tags("client" -> client, "step" -> s))
-    def failure(reason: String)(client: String) =
-      counter(s"signedClient.$name.failure").withTags(tags("client" -> client, "reason" -> reason))
+    def failure(reason: String, unique: Boolean)(client: String) =
+      counter(s"signedClient.$name.failure")
+        .withTags(tags("client" -> client, "reason" -> reason, "unique" -> unique))
+    def formError(keys: String, messages: String)(client: String) =
+      counter(s"signedClient.$name.formError").withTags:
+        tags("client" -> client, "key" -> keys, "msg" -> messages)
     def alreadyLoggedIn(client: String, loggedIn: Boolean) =
       counter(s"signedClient.$name.alreadyLoggedIn").withTags:
         tags("client" -> client, "loggedIn" -> loggedIn)
-  val login = AuthPage("login")
-  val signup = AuthPage("signup")
 
 object jvm:
   def threads() =

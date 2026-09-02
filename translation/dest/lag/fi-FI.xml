@@ -8,6 +8,7 @@
   <string name="andNowTheLongAnswerLagComposedOfTwoValues">Ja nyt seuraa pitkä vastaus! Pelin viive koostuu kahdesta toisistaan riippumattomasta arvosta (matalampi on parempi):</string>
   <string name="lichessServerLatency">Lichessin palvelinviive</string>
   <string name="lichessServerLatencyExplanation">Aika, joka kuluu siirron käsittelemiseen palvelimella. Se on kaikille sama ja riippuu palvelinten kuormituksesta. Se on sitä korkeampi, mitä enemmän on pelaajia, mutta Lichessin kehittäjät tekevät parhaansa pitääkseen sen alhaisena. Vain hyvin harvoin se ylittää 10 ms.</string>
+  <string name="serverLatencyAndLoadExplanation" comment="Replaces old string lichessServerLatencyExplanation">Aika, joka kuluu siirron käsittelemiseen palvelimella. Se on kaikille sama ja riippuu palvelimen kuormituksesta. Se on sitä korkeampi, mitä enemmän on pelaajia, mutta teemme parhaamme pitääksemme sen alhaisena. Vain hyvin harvoin se ylittää 10 ms.</string>
   <string name="networkBetweenLichessAndYou">Lichessin ja sinun välinen vasteaika</string>
   <string name="networkBetweenLichessAndYouExplanation">Aika, joka kuluu siirron lähettämiseen sinun laitteeltasi Lichessin palvelimelle ja siihen vastauksen saamiseen. Se riippuu sinun etäisyydestäsi Lichessiin (Ranskaan) ja internet-yhteytesi laadusta. Lichessin kehittäjät eivät voi korjata lähiverkkoasi eivätkä saada valoa kulkemaan nopeammin.</string>
   <string name="youCanFindTheseValuesAtAnyTimeByClickingOnYourUsername">Voit tarkistaa molemmat arvot milloin tahansa napsauttamalla yläpalkissa käyttäjänimeäsi.</string>

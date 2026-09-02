@@ -10,6 +10,7 @@ import { commands, boardCommands } from 'lib/nvui/command';
 import { scanDirectionsHandler } from 'lib/nvui/directionScan';
 import { renderSetting } from 'lib/nvui/setting';
 import { type LooseVNodes, type VNode, bind, hl, noTrans, onInsert } from 'lib/view';
+import { profileUrl } from 'lib/view/userLink';
 
 import renderCorresClock from '../corresClock/corresClockView';
 import type RoundController from '../ctrl';
@@ -106,9 +107,9 @@ function inputForm(ctx: RoundNvuiContext): LooseVNodes {
     hl(
       'form#move-form',
       {
-        hook: onInsert(el => {
-          const $form = $(el as HTMLFormElement),
-            $input = $form.find('.move').val('');
+        hook: onInsert<HTMLFormElement>(el => {
+          const $form = $(el);
+          const $input = $form.find('.move').val('');
           nvui.submitMove = createSubmitHandler(ctrl, notify.set, moveStyle.get, $input);
           $form.on('submit', (ev: SubmitEvent) => {
             ev.preventDefault();
@@ -299,7 +300,7 @@ function boardEventsHook(ctx: RoundNvuiContext, el: HTMLElement): void {
 
   $board.on('keydown.nvui', 'button', (e: KeyboardEvent) => {
     if (e.shiftKey && e.key.match(/^[ad]$/i)) nextOrPrev(ctrl)(e);
-    else if (e.key.match(/^x$/i))
+    else if (/^x$/i.test(e.key))
       scanDirectionsHandler(
         ctrl.flip ? opposite(ctrl.data.player.color) : ctrl.data.player.color,
         ctrl.chessground.state.pieces,
@@ -319,8 +320,8 @@ function boardEventsHook(ctx: RoundNvuiContext, el: HTMLElement): void {
         pieceStyle.get(),
         prefixStyle.get(),
       )();
-    else if (e.code.match(/^Digit([1-8])$/)) nv.positionJumpHandler()(e);
-    else if (e.key.match(/^[kqrbnp]$/i))
+    else if (/^Digit([1-8])$/.test(e.code)) nv.positionJumpHandler()(e);
+    else if (/^[kqrbnp]$/i.test(e.key))
       nv.pieceJumpingHandler(selectSound, errorSound, ctrl.data.game.variant.key === 'antichess')(e);
     else if (e.key.toLowerCase() === 'm')
       nv.possibleMovesHandler(
@@ -522,7 +523,7 @@ function playerHtml(ctrl: RoundController, player: Player) {
     ? hl('span', [
         hl(
           'a',
-          { attrs: { href: '/@/' + user.username } },
+          { attrs: { href: profileUrl(user.username) } },
           user.title ? `${user.title} ${user.username}` : user.username,
         ),
         rating ? ` ${rating}` : ``,

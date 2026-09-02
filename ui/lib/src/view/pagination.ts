@@ -1,6 +1,7 @@
 import { h, type VNode } from 'snabbdom';
 
-import { licon } from '../licon';
+import { icons, type Icon } from '../icons';
+import { snabIcon } from './makeIcon';
 import { bind, onInsert, type MaybeVNodes } from './snabbdom';
 import { userComplete, type UserCompleteOpts } from './userComplete';
 
@@ -30,25 +31,27 @@ export interface PaginatedCtrl<A> {
   userLastPage(): void;
 }
 
-function navButton(
-  text: string,
-  icon: string,
-  click: () => void,
-  enable: boolean,
-  redraw: () => void,
-): VNode {
-  return h('button.fbt.is', {
-    attrs: { 'data-icon': icon, disabled: !enable, title: text },
-    hook: bind('mousedown', click, redraw),
-  });
+function navButton(text: string, icon: Icon, click: () => void, enable: boolean, redraw: () => void): VNode {
+  return h(
+    'button.fbt.is',
+    {
+      attrs: { disabled: !enable, title: text },
+      hook: bind('mousedown', click, redraw),
+    },
+    [snabIcon(icon)],
+  );
 }
 
 function scrollToMeButton(ctrl: PaginatedCtrl<unknown>): VNode | undefined {
   return ctrl.data.me && myPage(ctrl) !== ctrl.page
-    ? h('button.fbt', {
-        attrs: { 'data-icon': licon.Target, title: 'Scroll to your player' },
-        hook: bind('mousedown', ctrl.toggleFocusOnMe, ctrl.redraw),
-      })
+    ? h(
+        'button.fbt',
+        {
+          attrs: { title: 'Scroll to your player' },
+          hook: bind('mousedown', ctrl.toggleFocusOnMe, ctrl.redraw),
+        },
+        [snabIcon(icons.Target)],
+      )
     : undefined;
 }
 
@@ -63,23 +66,23 @@ export function renderPager<A>(ctrl: PaginatedCtrl<A>, searchButton: VNode, sear
           : [
               navButton(
                 'First',
-                licon.JumpFirst,
+                icons.JumpFirst,
                 () => ctrl.userSetPage(1),
                 enabled && ctrl.page > 1,
                 ctrl.redraw,
               ),
-              navButton('Prev', licon.JumpPrev, ctrl.userPrevPage, enabled && ctrl.page > 1, ctrl.redraw),
+              navButton('Prev', icons.JumpPrev, ctrl.userPrevPage, enabled && ctrl.page > 1, ctrl.redraw),
               h('span.page', (pag.nbResults ? pag.from + 1 : 0) + '-' + pag.to + ' / ' + pag.nbResults),
               navButton(
                 'Next',
-                licon.JumpNext,
+                icons.JumpNext,
                 ctrl.userNextPage,
                 enabled && ctrl.page < pag.nbPages,
                 ctrl.redraw,
               ),
               navButton(
                 'Last',
-                licon.JumpLast,
+                icons.JumpLast,
                 ctrl.userLastPage,
                 enabled && ctrl.page < pag.nbPages,
                 ctrl.redraw,
@@ -109,11 +112,15 @@ export function myPage(ctrl: PaginatedCtrl<unknown>): number | undefined {
 }
 
 export function searchButton(ctrl: PaginatedCtrl<unknown>): VNode {
-  return h('button.fbt', {
-    class: { active: ctrl.searching },
-    attrs: { 'data-icon': ctrl.searching ? licon.X : licon.Search, title: 'Search tournament players' },
-    hook: bind('click', ctrl.toggleSearch, ctrl.redraw),
-  });
+  return h(
+    'button.fbt',
+    {
+      class: { active: ctrl.searching },
+      attrs: { title: 'Search tournament players' },
+      hook: bind('click', ctrl.toggleSearch, ctrl.redraw),
+    },
+    [snabIcon(ctrl.searching ? icons.X : icons.Search)],
+  );
 }
 
 export function searchInput(ctrl: PaginatedCtrl<unknown>, completeOpts: Partial<UserCompleteOpts>): VNode {

@@ -41,6 +41,10 @@ body {
 
   gap: $block-gap;
   overflow: hidden;
+
+  .entries {
+    @include backdrop-blur-if-transparent;
+  }
 }
 
 .lobby__nope {
@@ -51,13 +55,10 @@ body {
   .lobby__app__content {
     @extend %flex-column;
 
+    justify-content: center;
     height: 100%;
     align-items: center;
     padding-top: 2em;
-
-    &.lobby__app__content {
-      justify-content: center;
-    }
   }
 
   ul {
@@ -125,7 +126,7 @@ body {
     }
 
     .user-link {
-      border-radius: $box-radius-size 0 0 0;
+      border-radius: $small-box-radius-size 0 0 0;
     }
   }
 }

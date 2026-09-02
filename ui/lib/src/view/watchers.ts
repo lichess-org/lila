@@ -1,6 +1,9 @@
 import { get, set } from '@/data';
-import { licon } from '@/licon';
+import { icons } from '@/icons';
 import { pubsub } from '@/pubsub';
+
+import { domIcon } from './makeIcon';
+import { profileUrl } from './userLink';
 
 export interface Data {
   nb: number;
@@ -17,9 +20,9 @@ export function watchers(element: HTMLElement, withUserList = true): void {
   if (element.dataset.watched) return;
   element.dataset.watched = '1';
   const $innerElement = $('<div class="chat__members__inner">').appendTo(element);
-  const $numberEl = $(
-    `<div class="chat__members__number" data-icon="${licon.User}" title="Spectators"></div>`,
-  ).appendTo($innerElement);
+  const $numberEl = $('<div class="chat__members__number" title="Spectators">')
+    .append(domIcon(icons.User))
+    .appendTo($innerElement);
   const $listEl = $('<div>').appendTo($innerElement);
   const listEl = $listEl[0] as HTMLElement;
 
@@ -42,7 +45,7 @@ export function watchers(element: HTMLElement, withUserList = true): void {
         set(listEl, 'prevUsers', currUsers);
         set(listEl, 'prevAnons', currAnons);
         const tags = data.users.map(u =>
-          u ? `<a class="user-link ulpt" href="/@/${name(u)}">${u}</a>` : i18n.site.anonymous,
+          u ? `<a class="user-link ulpt" href="${profileUrl(name(u))}">${u}</a>` : i18n.site.anonymous,
         );
         if (currAnons) tags.push(i18n.site.nbAnonymous(currAnons));
         $listEl.html(tags.join(', '));

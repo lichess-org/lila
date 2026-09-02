@@ -27,6 +27,7 @@
 
 当两名或多名棋手得分相同时，以锦标赛表现分作为破同分依据。</string>
   <string name="howDoesPairingWork">配对如何运作？</string>
+  <string name="howArePlayersPaired" comment="Replaces old string howDoesPairingWork">棋手之间如何配对？</string>
   <string name="howDoesPairingWorkAnswer">锦标赛开始时，棋手根据其等级分进行配对。
 一旦您结束一局对局，请返回锦标赛大厅：您将被与排名相近的棋手配对。这确保了最短的等待时间，但您可能不会遇到锦标赛中的所有其他棋手。
 快速对弈并返回大厅，以进行更多对局并赢得更多分数。</string>
@@ -63,6 +64,7 @@
   <string name="editTournament">编辑锦标赛</string>
   <string name="editTeamBattle">编辑团队战</string>
   <string name="defender">防守方</string>
+  <string name="defenderLabel" comment="In this context, this is the current holder of a shield trophy, who is defending their trophy in the next shield tournament of that variant. https://lichess.org/tournament/shields Replaces old string defender">防守方：</string>
   <string name="pickYourTeam">请选择您的团队</string>
   <string name="whichTeamWillYouRepresentInThisBattle">您将在此战中代表哪支团队？</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">您必须加入其中一支团队才能参与！</string>
@@ -73,6 +75,10 @@
   <string name="rankAvgHelp">排名平均值是您排名的百分比。数值越低越好。
 
 例如，在 100 名棋手的锦标赛中排名第 3 = 3%。在 1000 名棋手的锦标赛中排名第 10 = 1%。</string>
+  <string name="rankAverageHelp" comment="Replaces old string rankAvgHelp">您的排名平均值代表您在每场锦标赛中相对于总参赛人数的典型最终名次。
+这是衡量您在锦标赛中的排名表现，而非您的通用等级分。
+
+例如，排名平均值 3% 意味着您通常处于前 3% 的位置（例如在 1,000 名选手中排名第 30）。</string>
   <string name="medians">中位数</string>
   <string name="allAveragesAreX">本页所有平均值均为 %s。</string>
   <string name="total">总计</string>

@@ -13,6 +13,7 @@
 .cmn-toggle label {
   @include prevent-select;
   @include transition(background box-shadow);
+  @extend %box-radius;
 
   display: block;
   position: relative;
@@ -22,7 +23,6 @@
   width: 40px;
   height: 24px;
   border: $border;
-  border-radius: 24px;
   background-clip: padding-box;
   background-color: $c-font-dimmer;
 
@@ -31,34 +31,36 @@
     display: block;
     position: absolute;
     content: '';
-    width: 22px;
-    height: 22px;
+    width: 23px;
+    aspect-ratio: 1;
     bottom: 0;
-
-    @include inline-start(0);
   }
 
   &::before {
-    @extend %data-icon;
-    @include transition(margin color);
+    @extend %box-radius;
+    @include icon-mask($icon-X);
+    @include transition(margin-inline-start color);
 
-    font-size: 1em;
+    align-self: center;
+    inset: 6px;
     z-index: 1;
-    text-align: center;
-    line-height: 22px;
-    content: $licon-X;
+    width: 10px;
     color: $c-font-dimmer;
-    border-radius: 100%;
   }
 
   &::after {
     @extend %metal;
-    @include transition(margin box-shadow);
+    @include transition(margin-inline-start box-shadow);
+    @include inline-start(0);
 
-    border-radius: 100%;
+    border-radius: calc($box-radius-size - 1px);
 
     @include if-transp {
       background: linear-gradient(to bottom, hsl(var(---site-hue) 7% 22%), hsl(var(---site-hue) 5% 19%) 100%);
+    }
+
+    @include if-transp-light {
+      background: linear-gradient(to bottom, hsl(var(---site-hue) 7% 88%), hsl(var(---site-hue) 5% 91%) 100%);
     }
   }
 
@@ -69,6 +71,18 @@
           to bottom,
           hsl(var(---site-hue) 7% 26%),
           hsl(var(---site-hue) 5% 23%) 100%
+        );
+      }
+    }
+  }
+
+  @include if-transp-light {
+    &:hover {
+      &::after {
+        background: linear-gradient(
+          to bottom,
+          hsl(var(---site-hue) 7% 90%),
+          hsl(var(---site-hue) 5% 93%) 100%
         );
       }
     }
@@ -84,7 +98,8 @@
   }
 
   &::before {
-    content: $licon-Checkmark;
+    @include icon-mask($icon-Checkmark);
+
     color: $c-good;
   }
 }
@@ -93,7 +108,6 @@
   opacity: 0.6;
   cursor: not-allowed !important;
 
-  &::before,
   &::after {
     @extend %metal-bg;
 

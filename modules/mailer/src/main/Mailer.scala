@@ -2,7 +2,7 @@ package lila.mailer
 
 import scala.concurrent.blocking
 
-import akka.actor.ActorSystem
+import org.apache.pekko.actor.ActorSystem
 import play.api.ConfigLoader
 import play.api.libs.mailer.{ Email, SMTPConfiguration, SMTPMailer }
 import scalatags.Text.all.{ html as htmlTag, * }
@@ -146,6 +146,7 @@ $serviceNote"""
 
     val emailMessage = div(itemscope, itemtype := "http://schema.org/EmailMessage")
     val pDesc = p(itemprop := "description")
+    val loginCode = div(itemprop := "identifier", itemscope, itemtype := "http://schema.org/ViewAction")
     val potentialAction =
       div(itemprop := "potentialAction", itemscope, itemtype := "http://schema.org/ViewAction")
     def metaName(cont: String) = meta(itemprop := "name", content := cont)

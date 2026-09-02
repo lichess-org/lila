@@ -1,9 +1,9 @@
 import { repeater, blurIfPrimaryClick } from 'lib';
 import { renderEval, view as cevalView } from 'lib/ceval';
 import { displayColumns, isTouchDevice } from 'lib/device';
-import { licon, type LiconValue } from 'lib/licon';
+import { icons, type Icon } from 'lib/icons';
 import { addPointerListeners } from 'lib/pointer';
-import { type VNode, type LooseVNode, onInsert, hl } from 'lib/view';
+import { type VNode, type LooseVNode, onInsert, hl, snabIcon } from 'lib/view';
 
 import type AnalyseCtrl from '../ctrl';
 
@@ -27,53 +27,69 @@ export function renderControls(ctrl: AnalyseCtrl) {
     },
     [
       hl('div.jumps', [
-        jumpButton(licon.JumpFirst, 'first', canJumpPrev),
-        jumpButton(licon.LessThan, 'prev', canJumpPrev),
-        jumpButton(licon.GreaterThan, 'next', canJumpNext),
-        jumpButton(licon.JumpLast, 'last', ctrl.node !== ctrl.mainline[ctrl.mainline.length - 1]),
+        jumpButton(icons.JumpFirst, 'first', canJumpPrev),
+        jumpButton(icons.LessThan, 'prev', canJumpPrev),
+        jumpButton(icons.GreaterThan, 'next', canJumpNext),
+        jumpButton(icons.JumpLast, 'last', ctrl.node !== ctrl.mainline[ctrl.mainline.length - 1]),
       ]),
       ctrl.study?.practice
-        ? hl('button.fbt', {
-            attrs: { title: i18n.site.analysis, 'data-act': 'analysis', 'data-icon': licon.Microscope },
-          })
+        ? hl(
+            'button.fbt',
+            {
+              attrs: { 'aria-label': i18n.site.analysis, title: i18n.site.analysis, 'data-act': 'analysis' },
+            },
+            [snabIcon(icons.Microscope)],
+          )
         : [
             displayColumns() === 1 && ctrl.isCevalAllowed() && renderMobileCevalTab(ctrl),
-            hl('button.fbt', {
-              attrs: {
-                title: i18n.site.openingExplorerAndTablebase,
-                'data-act': 'opening-explorer',
-                'data-icon': licon.Book,
+            hl(
+              'button.fbt',
+              {
+                attrs: {
+                  'aria-label': i18n.site.openingExplorerAndTablebase,
+                  title: i18n.site.openingExplorerAndTablebase,
+                  'data-act': 'opening-explorer',
+                },
+                class: {
+                  hidden: !ctrl.explorer.allowed() || (!!ctrl.retro && !isMobileUi()),
+                  active: ctrl.activeControlBarTool() === 'opening-explorer',
+                },
               },
-              class: {
-                hidden: !ctrl.explorer.allowed() || (!!ctrl.retro && !isMobileUi()),
-                active: ctrl.activeControlBarTool() === 'opening-explorer',
-              },
-            }),
+              [snabIcon(icons.Book)],
+            ),
             displayColumns() > 1 && !ctrl.retro && !ctrl.ongoing && renderPracticeTab(ctrl),
           ],
       ctrl.study?.practice
         ? hl('div.noop')
-        : hl('button.fbt', {
-            class: { active: ctrl.activeControlBarTool() === 'action-menu' },
-            attrs: { title: i18n.site.menu, 'data-act': 'menu', 'data-icon': licon.Hamburger },
-          }),
+        : hl(
+            'button.fbt',
+            {
+              class: { active: ctrl.activeControlBarTool() === 'action-menu' },
+              attrs: { 'aria-label': i18n.site.menu, title: i18n.site.menu, 'data-act': 'menu' },
+            },
+            [snabIcon(icons.Hamburger)],
+          ),
     ],
   );
 }
 
 const renderPracticeTab = (ctrl: AnalyseCtrl): LooseVNode =>
-  hl('button.fbt', {
-    attrs: {
-      title: i18n.site.practiceWithComputer,
-      'data-act': 'engine-mode',
-      'data-mode': 'practice',
-      'data-icon': licon.Bullseye,
+  hl(
+    'button.fbt',
+    {
+      attrs: {
+        'aria-label': i18n.site.practiceWithComputer,
+        title: i18n.site.practiceWithComputer,
+        'data-act': 'engine-mode',
+        'data-mode': 'practice',
+      },
+      class: {
+        active: !!ctrl.practice && !ctrl.activeControlBarTool(),
+        latent: !!ctrl.practice && !!ctrl.activeControlBarTool(),
+      },
     },
-    class: {
-      active: !!ctrl.practice && !ctrl.activeControlBarTool(),
-      latent: !!ctrl.practice && !!ctrl.activeControlBarTool(),
-    },
-  });
+    [snabIcon(icons.Bullseye)],
+  );
 
 function renderMobileCevalTab(ctrl: AnalyseCtrl): LooseVNode {
   const engineMode = ctrl.activeControlMode() || 'ceval',
@@ -138,7 +154,7 @@ function clickControl(ctrl: AnalyseCtrl, e: PointerEvent) {
   ctrl.redraw();
 }
 
-const jumpButton = (icon: LiconValue, effect: string, enabled: boolean): VNode =>
-  hl('button.fbt.move', { attrs: { disabled: !enabled, 'data-act': effect, 'data-icon': icon } });
+const jumpButton = (icon: Icon, effect: string, enabled: boolean): VNode =>
+  hl('button.fbt.move', { attrs: { disabled: !enabled, 'data-act': effect } }, [snabIcon(icon)]);
 
 const isMobileUi = (): boolean => displayColumns() === 1 && isTouchDevice();

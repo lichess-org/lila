@@ -59,6 +59,7 @@ Lichess가 자동으로 쌍을 만들 수 있도록 하려면 이 필드를 비�
   <string name="moreRoundsThanPlayersQ">플레이어 수 보다 라운드 수가 많으면 어떻게 하나요?</string>
   <string name="moreRoundsThanPlayersA">가능한 모든 페어링이 완료되면 토너먼트가 종료되며 승자가 결정됩니다.</string>
   <string name="restrictedToTeamsQ">왜 팀만 참여할 수 있나요?</string>
+  <string name="whyAreSwissTournamentsRestrictedToTeams" comment="Replaces old string restrictedToTeamsQ">왜 스위스 토너먼트는 팀만 참여할 수 있나요?</string>
   <string name="restrictedToTeamsA">스위스 토너먼트는 온라인 체스를 위해 디자인되지 않았습니다. 이 토너먼트는 플레이어의 시간 엄수, 헌신과 기다림을 필요로 합니다.
 우리는 이러한 조건이 글로벌 토너먼트보다는 팀 내에서 충족할 가능성이 높다고 생각합니다.</string>
   <string name="numberOfByesQ">플레이어가 얼마나 많은 부전승을 얻을 수 있나요?</string>
@@ -80,6 +81,7 @@ Lichess가 자동으로 쌍을 만들 수 있도록 하려면 이 필드를 비�
   <string name="willSwissReplaceArenasQ">스위스 토너먼트가 아레나 토너먼트를 대체하나요?</string>
   <string name="willSwissReplaceArenasA">아니요. 서로 보완관계입니다.</string>
   <string name="roundRobinQ">라운드 로빈은 어떤가요?</string>
+  <string name="canPlayRoundRobinTournaments" comment="roundRobinQ&#10;&#10;Round-robin is a simple tournament format with some similarities to Swiss. It is not supported by Lichess. Replaces old string roundRobinQ">Lichess에서 라운드 로빈 토너먼트를 플레이할 수 있나요?</string>
   <string name="roundRobinA">우리도 추가하고 싶지만, 안타깝게도 라운드 로빈 방식은 온라인에서 작동하지 않습니다.
 그 이유는 토너먼트에서 중간에 떠나는 플레이어를 처리하는 공정한 방법이 없기 때문입니다. 우리는 온라인 이벤트에서 모든 플레이어가 다른 모든 플레이어들과 게임을 할 것이라고 기대하지 않습니다. 이런일은 일어나지 않을 것이며, 따라서 대부분의 라운드 로빈 토너먼트는 결함이 있고 불공정하며 존재할 이유가 없습니다.
 온라인으로 라운드 로빈에 가장 가깝게 플레이할 수 있는 방법은 스위스 토너먼트를 매우 많은 라운드로 진행하는 것입니다. 토너먼트가 끝나기 전에 모든 가능한 매칭이 이루어질 것입니다.</string>
@@ -116,6 +118,8 @@ Lichess가 자동으로 쌍을 만들 수 있도록 하려면 이 필드를 비�
   <string name="unlimitedAndFree">무제한이며 무료인가</string>
   <string name="predefinedUsers">특정한 사용자만 참가할 수 있도록 허용</string>
   <string name="forbiddedUsers">이 목록이 비어있지 않다면, 이 목록에 없는 사용자는 가입이 금지됩니다. 한 줄에 한 사용자 이름을 적으세요.</string>
+  <string name="predefinedUsersHelp" comment="Replaces old string forbiddedUsers">한 줄에 유저명을 하나씩 입력하세요. 해당 플레이어만 참가할 수 있습니다.
+참가 가능한 모든 유저를 허용하려면 비워두세요.</string>
   <string name="playYourGames">게임을 더 플레이하고 오세요</string>
   <string name="byes">Byes</string>
   <string name="absences">Absences</string>

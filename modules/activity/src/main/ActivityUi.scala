@@ -7,6 +7,7 @@ import lila.core.forum.{ ForumPostMini, ForumTopicMini }
 import lila.core.i18n.Translate
 import lila.core.perf.UserWithPerfs
 import lila.core.rating.{ RatingProg, Score }
+import lila.core.game.{ LightPlayer, LightPov }
 import lila.rating.UserPerfsExt.dubiousPuzzle
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
@@ -56,7 +57,7 @@ final class ActivityUi(helpers: Helpers)(
 
   private def renderPatron(p: Patron)(using Context) =
     div(cls := "entry plan")(
-      iconTag(Icon.Wings),
+      entryMarker(Icon.Wings),
       div(
         if p.months == 0 then a(href := routes.Plan.index())("Lifetime Patron!")
         else
@@ -68,7 +69,7 @@ final class ActivityUi(helpers: Helpers)(
   private def renderPractice(p: Map[lila.core.practice.Study, Int])(using Context) =
     val ps = p.toSeq.sortBy(-_._2)
     entryTag(
-      iconTag(Icon.Bullseye),
+      entryMarker(Icon.Bullseye),
       div(
         ps.headOption.map(onePractice),
         ps match
@@ -87,7 +88,7 @@ final class ActivityUi(helpers: Helpers)(
 
   private def renderPuzzles(u: UserWithPerfs)(p: Puzzles)(using ctx: Context) =
     entryTag(
-      iconTag(Icon.ArcheryTarget),
+      entryMarker(Icon.ArcheryTarget),
       div(
         trans.activity.solvedNbPuzzles.pluralSame(p.value.size),
         p.value.rp.filterNot(_.isEmpty || (u.perfs.dubiousPuzzle && ctx.isnt(u))).map(ratingProgFrag)
@@ -97,7 +98,7 @@ final class ActivityUi(helpers: Helpers)(
 
   private def renderStorm(s: Storm)(using Context) =
     entryTag(
-      iconTag(Icon.Storm),
+      entryMarker(Icon.Storm),
       div(
         trans.storm.playedNbRunsOfPuzzleStorm
           .plural(s.runs, s.runs.localize, a(href := routes.Storm.home)("Puzzle Storm"))
@@ -107,7 +108,7 @@ final class ActivityUi(helpers: Helpers)(
 
   private def renderRacer(s: Racer)(using Context) =
     entryTag(
-      iconTag(Icon.FlagChessboard),
+      entryMarker(Icon.FlagChessboard),
       div(
         trans.storm.playedNbRunsOfPuzzleStorm
           .plural(s.runs, s.runs.localize, a(href := routes.Racer.home)("Puzzle Racer"))
@@ -117,7 +118,7 @@ final class ActivityUi(helpers: Helpers)(
 
   private def renderStreak(s: Streak)(using Context) =
     entryTag(
-      iconTag(Icon.ArrowThruApple),
+      entryMarker(Icon.ArrowThruApple),
       div(
         trans.storm.playedNbRunsOfPuzzleStorm
           .plural(s.runs, s.runs.localize, a(href := routes.Puzzle.streak)("Puzzle Streak"))
@@ -129,7 +130,7 @@ final class ActivityUi(helpers: Helpers)(
     games.value.toSeq.sortBy(-_._2.size).map { (pk, score) =>
       val pt = lila.rating.PerfType(pk)
       entryTag(
-        iconTag(pt.icon),
+        entryMarker(pt.icon),
         div(
           trans.activity.playedNbGames.plural(score.size, score.size, pt.trans),
           score.rp.filterNot(_.isEmpty).map(ratingProgFrag)
@@ -143,7 +144,7 @@ final class ActivityUi(helpers: Helpers)(
   ) =
     ctx.kid.no.option(
       entryTag(
-        iconTag(Icon.BubbleConvo),
+        entryMarker(Icon.BubbleConvo),
         div(
           posts.toSeq.map: (topic, posts) =>
             frag(
@@ -166,9 +167,9 @@ final class ActivityUi(helpers: Helpers)(
       )
     )
 
-  private def renderCorresMoves(nb: Int, povs: List[lila.core.game.LightPov])(using Context) =
+  private def renderCorresMoves(nb: Int, povs: List[LightPov])(using Context) =
     entryTag(
-      iconTag(Icon.PaperAirplane),
+      entryMarker(Icon.PaperAirplane),
       div(
         trans.activity.playedNbMoves.pluralSame(nb),
         " ",
@@ -178,20 +179,14 @@ final class ActivityUi(helpers: Helpers)(
             frag(
               a(cls := "glpt", href := routes.Round.watcher(pov.gameId, pov.color))("Game"),
               " vs ",
-              lightPlayerLink(
-                pov.opponent,
-                withRating = true,
-                withDiff = false,
-                withOnline = true,
-                link = true
-              ),
+              lightPlayerLink(pov.opponent),
               br
             )
         )
       )
     )
 
-  private def renderCorresEnds(corresEnds: Map[PerfKey, (Score, List[lila.core.game.LightPov])])(using
+  private def renderCorresEnds(corresEnds: Map[PerfKey, (Score, List[LightPov])])(using
       Context
   ) =
     corresEnds.toSeq.map { case (pk, (score, povs)) =>
@@ -206,7 +201,7 @@ final class ActivityUi(helpers: Helpers)(
             pt.trans
           )
       entryTag(
-        iconTag(if pk == PerfKey.correspondence then Icon.PaperAirplane else pt.icon),
+        entryMarker(if pk == PerfKey.correspondence then Icon.PaperAirplane else pt.icon),
         div(
           text,
           score.rp.filterNot(_.isEmpty).map(ratingProgFrag),
@@ -221,13 +216,7 @@ final class ActivityUi(helpers: Helpers)(
                     case _ => "Draw"
                 ),
                 " vs ",
-                lightPlayerLink(
-                  pov.opponent,
-                  withRating = true,
-                  withDiff = false,
-                  withOnline = true,
-                  link = true
-                ),
+                lightPlayerLink(pov.opponent),
                 br
               )
           )
@@ -237,7 +226,7 @@ final class ActivityUi(helpers: Helpers)(
 
   private def renderFollows(all: Follows)(using Context) =
     entryTag(
-      iconTag(Icon.ThumbsUp),
+      entryMarker(Icon.ThumbsUp),
       div(
         List(all.in.map(_ -> true), all.out.map(_ -> false)).flatten.map { (f, in) =>
           frag(
@@ -256,7 +245,7 @@ final class ActivityUi(helpers: Helpers)(
 
   private def renderSimuls(u: User)(simuls: List[lila.core.simul.Simul])(using Context) =
     entryTag(
-      iconTag(Icon.Group),
+      entryMarker(Icon.Group),
       div(
         simuls.groupBy(_.hostId.is(u)).toSeq.map { (isHost, simuls) =>
           frag(
@@ -281,7 +270,7 @@ final class ActivityUi(helpers: Helpers)(
 
   private def renderStudies(studies: List[lila.core.study.IdName])(using Context) =
     entryTag(
-      iconTag(Icon.StudyBoard),
+      entryMarker(Icon.StudyBoard),
       div(
         trans.activity.createdNbStudies.pluralSame(studies.size),
         subTag:
@@ -293,7 +282,7 @@ final class ActivityUi(helpers: Helpers)(
   private def renderTeams(teams: Teams)(using ctx: Context) =
     ctx.kid.no.option(
       entryTag(
-        iconTag(Icon.Group),
+        entryMarker(Icon.Group),
         div(
           trans.activity.joinedNbTeams.pluralSame(teams.value.size),
           subTag(fragList(teams.value.map(id => teamLink(id))))
@@ -303,7 +292,7 @@ final class ActivityUi(helpers: Helpers)(
 
   private def renderTours(u: User)(tours: lila.activity.ActivityView.Tours)(using Context, ClientName) =
     entryTag(
-      iconTag(Icon.Trophy),
+      entryMarker(Icon.Trophy),
       div(
         trans.activity.competedInNbTournaments.pluralSame(tours.nb),
         subTag:
@@ -313,7 +302,7 @@ final class ActivityUi(helpers: Helpers)(
                 "is-gold" -> (t.rank == Rank(1)),
                 "text" -> (t.rank <= 3)
               ),
-              dataIcon := (t.rank <= 3).option(Icon.Trophy)
+              iconEl := (t.rank <= 3).option(Icon.Trophy)
             )(
               trans.activity.rankedInTournament.plural(
                 t.nbGames,
@@ -331,7 +320,7 @@ final class ActivityUi(helpers: Helpers)(
 
   private def renderSwisses(swisses: List[(lila.core.swiss.IdName, Rank)])(using Context) =
     entryTag(
-      iconTag(Icon.Trophy),
+      entryMarker(Icon.Trophy),
       div(
         trans.activity.competedInNbSwissTournaments.pluralSame(swisses.size),
         subTag:
@@ -341,7 +330,7 @@ final class ActivityUi(helpers: Helpers)(
                 "is-gold" -> (rank == Rank(1)),
                 "text" -> (rank <= 3)
               ),
-              dataIcon := (rank <= 3).option(Icon.Trophy)
+              iconEl := (rank <= 3).option(Icon.Trophy)
             )(
               trans.activity.rankedInSwissTournament(
                 strong(rank),
@@ -355,16 +344,18 @@ final class ActivityUi(helpers: Helpers)(
   private def renderStream(u: User)(using ctx: Context) =
     ctx.kid.no.option(
       entryTag(
-        iconTag(Icon.Mic),
+        entryMarker(Icon.Mic),
         a(href := routes.Streamer.show(u.username, true))(trans.activity.hostedALiveStream())
       )
     )
 
   private def renderSignup(using Context) =
     entryTag(
-      iconTag(Icon.StarOutline),
+      entryMarker(Icon.StarOutline),
       div(trans.activity.signedUp())
     )
+
+  private def entryMarker(icon: Icon) = span(cls := "entry-marker")(iconEl(icon))
 
   val entryTag = div(cls := "entry")
   val subTag = div(cls := "sub")
@@ -391,3 +382,24 @@ final class ActivityUi(helpers: Helpers)(
 
   private val wrapNumberRegex = """(\d++)""".r
   private def wrapNumber(str: String) = wrapNumberRegex.replaceAllIn(str, "<strong>$1</strong>")
+
+  private def lightPlayerLink(player: LightPlayer)(using ctx: Context): Frag =
+    player.userId.flatMap(lightUserSync) match
+      case None =>
+        span(cls := "user-link")(
+          player.aiLevel.fold(trans.site.anonymous())(aiNameFrag),
+          player.rating.ifTrue(ctx.pref.showRatings).map { rating => s" ($rating)" }
+        )
+      case Some(user) =>
+        a(
+          cls := userClass(user.id, none, true),
+          href := routes.User.show(user.name)
+        )(
+          lineIcon(user),
+          " ",
+          playerUsername(
+            player,
+            user.some,
+            withRating = ctx.pref.showRatings
+          )
+        )

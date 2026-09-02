@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="cleanAllGood">Dis Konto isch nöd markiert oder gschperrt. Alles isch OK!</string>
-  <string name="engineMarked">Dis Konto isch wäge externer Underschtützig bim Schpille markiert.</string>
+  <string name="engineMarked">Din Account ish iigschrenkt worde wegem Gbruch vomeneme Schachprogramm i dine Partie.</string>
   <string name="engineMarkedInfo">Mir definiered das als d\'Verwändig vu externer Hilf, zum dis Wüsse und/oder dini Kobinationsfähigkeit z\'verschtärche und en Vorteil gägenüber dim Gegner z\'erlange. Witeri Einzelheite findsch uf de Site %s.</string>
   <string name="arenaBanned">Dis Konto isch gschperrt für Spiel - Arenas.</string>
   <string name="prizeBanned">Dis Konto isch gschperrt, für Turnier mit ächte Prise.</string>
-  <string name="boosterMarked">Dis Konto isch markiert wäge Wertigs - Manipulation.</string>
-  <string name="boosterMarkedInfo">Mir definiereds Wertigs-Manipulation so: Absichtlichs Verlüre vu Schpil oder s\'Schpille mit Gägner, wo absichtlich ihri Schpil verlüred.</string>
+  <string name="boosterMarked">Din Account ish iigschrenkt worde wege Rating Manipulation odr Account Sharing.</string>
   <string name="accountMuted">Dis Konto isch schtumm g\'schaltet.</string>
   <string name="accountMutedInfo">Lies euseri %s. D\'Nödihaltig vu de Kommunikationsrichtlinie chann dezue fühere, dass Konte schtumm g\'eschaltet werded.</string>
   <string name="excludedFromLeaderboards">Dis Konto isch vu de Beschtelischte usgschlosse.</string>
-  <string name="excludedFromLeaderboardsInfo">Mir definiered das als es Usnütze vu jegliche unfaire Methode, zum uf d\'Beschtelischte zcho.</string>
+  <string name="onlyOneAccountOnLeaderboards">Nume ei Account pro Person cha uf em Leaderboard agzeigt werde.</string>
   <string name="closedByModerators">Dis Konto isch vu de Moderatore g\'schlosse worde.</string>
-  <string name="hiddenBlog">Moderatore händ dini Blogs unsichtbar g\'macht.</string>
-  <string name="hiddenBlogInfo">Lies unbedingt nomal euseri %s.</string>
+  <string name="blogRestriction">Du hesch a blog-ischränkig.</string>
+  <string name="blogRestrictionInfo">Lis bitte üsi %s, en Verstoss gäge disi Regle cha zue Verschidnigi Sanktione führe.</string>
   <string name="playTimeout">Du häsch es Schpil - Timeout.</string>
+  <string name="reportBanned">Du chasch chei meldige a d\'Moderatore sende</string>
+  <string name="reportBannedInfo">Mir hend festg\'stellt, dass du s\'reportsystem missbruchsch. Da cha verschidniges heisse, zum Biispil widerholt d\'falsche Chategorie us\'zwäle, offensivi Sprach z\'verwende, e z\'grossi Azahl vo gmeldete Partie, odr chei Demonstration dervo, wogege d\'Gegner verschtosse hend.</string>
+  <string name="temporarilyRestrictedFromPlaying" comment="play timeout = Lichess prevents you temporarily from playing any games Replaces old string playTimeout">Diin Account isch duurhaft vom Schpille usgschlosse worde.</string>
   <string name="communicationGuidelines">Kommunikations - Richtlinie</string>
-  <string name="blogRules">Blog-Regle</string>
+  <string name="blogEtiquette">blog etiquette</string>
   <string name="fairPlay">Fair Play</string>
 </resources>

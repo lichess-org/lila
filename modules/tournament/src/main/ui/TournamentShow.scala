@@ -102,7 +102,7 @@ final class TournamentShow(helpers: Helpers, gathering: GatheringUi)(
     )(using ctx: Context) =
       frag(
         div(cls := "tour__meta")(
-          st.section(cls := "tour__meta__head", dataIcon := tour.perfType.icon.toString)(
+          st.section(cls := "tour__meta__head", iconEl := tour.perfType.icon)(
             div(
               p(
                 tour.clock.show,
@@ -119,7 +119,7 @@ final class TournamentShow(helpers: Helpers, gathering: GatheringUi)(
                 frag(
                   " ",
                   a(href := routes.Tournament.edit(tour.id), title := trans.arena.editTournament.txt())(
-                    iconTag(Icon.Gear)
+                    iconEl(Icon.Gear)
                   )
                 )
               ),
@@ -131,7 +131,7 @@ final class TournamentShow(helpers: Helpers, gathering: GatheringUi)(
                     a(
                       href := routes.Tournament.moderation(tour.id, "recentlyCreated"),
                       title := "Moderation"
-                    )(iconTag(Icon.Agent))
+                    )(iconEl(Icon.Agent))
                   )
                 )
             )
@@ -147,21 +147,22 @@ final class TournamentShow(helpers: Helpers, gathering: GatheringUi)(
                 else trans.team.joinLichessVariantTeam(link)
               ),
           div(cls := "scrollable-content")(
-            tour.description.map: d =>
+            shieldOwner.map: owner =>
               st.section(cls := "description")(
-                shieldOwner.map: owner =>
-                  p(cls := "defender", dataIcon := Icon.Shield)(
-                    trans.arena.defender(),
-                    userIdLink(owner.some)
-                  ),
-                markdownLinksOrRichText(d)
+                p(cls := "defender", iconEl := Icon.Shield)(
+                  trans.arena.defender(),
+                  userIdLink(owner.some)
+                )
               ),
+            tour.description.map: d =>
+              st.section(cls := "description")(markdownLinksOrRichText(d)),
+            tour.payouts.map(gathering.payouts),
             List(
               tour.noBerserk.option(
-                div(cls := "text", dataIcon := Icon.Berserk)(trans.arena.noBerserkAllowed())
+                div(cls := "text", iconEl := Icon.Berserk)(trans.arena.noBerserkAllowed())
               ),
               tour.noStreak.option(
-                div(cls := "text", dataIcon := Icon.Fire)(trans.arena.noArenaStreaks())
+                div(cls := "text", iconEl := Icon.Fire)(trans.arena.noArenaStreaks())
               ),
               tour.isScheduled.not.option(frag(small(trans.site.by(userIdLink(tour.createdBy.some))), br)),
               (!tour.isStarted || (tour.isScheduled && tour.position.isDefined))
@@ -180,7 +181,9 @@ final class TournamentShow(helpers: Helpers, gathering: GatheringUi)(
           ),
           gathering.verdicts(verdicts, tour.perfType, tour.isEnterable),
           tour.looksLikePrize.option(gathering.userPrizeDisclaimer(tour.createdBy)),
-          tour.description.isDefined.option(button(cls := "disclosure"))
+          List(shieldOwner, tour.description, tour.payouts)
+            .exists(_.isDefined)
+            .option(button(cls := "disclosure"))
         ),
         streamers,
         sideBotsWarning(tour),
@@ -203,20 +206,20 @@ final class TournamentShow(helpers: Helpers, gathering: GatheringUi)(
         )
 
     private def teamBattle(tour: Tournament)(battle: TeamBattle)(using ctx: Context) =
-      st.section(cls := "team-battle", dataIcon := Icon.Group):
+      st.section(cls := "team-battle", iconEl := Icon.Group):
         div(
           p(
             trans.team.battleOfNbTeams.pluralSame(battle.teams.size),
             " ",
             a(href := routes.Cms.lonePage(lila.core.id.CmsPageKey("team-battle-faq"))):
-              iconTag(Icon.InfoCircle)
+              iconEl(Icon.InfoCircle)
           ),
           trans.team.nbLeadersPerTeam.pluralSame(battle.nbLeaders),
           (ctx.is(tour.createdBy) || Granter.opt(_.ManageTournament)).option(
             frag(
               " ",
               a(href := routes.Tournament.teamBattleEdit(tour.id), title := trans.arena.editTeamBattle.txt()):
-                iconTag(Icon.Gear)
+                iconEl(Icon.Gear)
             )
           )
         )
@@ -233,7 +236,7 @@ final class TournamentShow(helpers: Helpers, gathering: GatheringUi)(
       main(cls := "page-small box box-pad page")(
         boxTop(
           h1(
-            a(href := routes.Tournament.home, dataIcon := Icon.LessThan, cls := "text"),
+            a(href := routes.Tournament.home, iconEl := Icon.LessThan, cls := "text"),
             trans.site.tournamentFAQ()
           )
         ),

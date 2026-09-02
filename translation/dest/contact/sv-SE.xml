@@ -74,4 +74,6 @@
   <string name="noneOfTheAbove">Inget av ovanstående</string>
   <string name="sendEmailAt">Skicka ett mejl till oss på %s.</string>
   <string name="explainYourRequest">Vänligen förklara din begäran tydligt och grundligt. Ange ditt Lichess-användarnamn och annan information som kan hjälpa oss att hjälpa dig.</string>
+  <string name="monetiseEncourageEveryoneTo" comment="string is value of key monetiseBlockAllAdsAndTrackers">Vi uppmuntrar alla att %s.</string>
+  <string name="ourDiscordServer">vår Discord-server</string>
 </resources>

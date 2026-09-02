@@ -43,7 +43,7 @@ export default new (class implements SoundI {
     const ctx = await this.ctxPromise;
     if (path) this.paths.set(name, path);
     else path = this.paths.get(name) ?? this.resolvePath(name);
-    if (!path) return;
+    if (!path) return undefined;
     if (this.sounds.has(path)) return this.sounds.get(path);
 
     const result = await fetch(path);
@@ -60,10 +60,10 @@ export default new (class implements SoundI {
   }
 
   resolvePath(name: Name): string | undefined {
-    if (!this.enabled()) return;
+    if (!this.enabled()) return undefined;
     let dir = this.theme;
     if (this.theme === 'music' || this.speech()) {
-      if (['move', 'capture', 'check', 'checkmate'].includes(name)) return;
+      if (['move', 'capture', 'check', 'checkmate'].includes(name)) return undefined;
       dir = 'standard';
     }
     return this.url(`${dir}/${name[0].toUpperCase() + name.slice(1)}.mp3`);
@@ -207,7 +207,7 @@ export default new (class implements SoundI {
 
   saySan = (san?: San, cut?: boolean, force?: boolean) => this.sayLazy(() => speakable(san), cut, force);
 
-  sayOrPlay = (name: string, text: string) => this.say(text) || this.play(name);
+  sayOrPlay = (name: string, text: string, cut = false) => this.say(text, cut) || this.play(name);
 
   changeSet = (s: string) => {
     if (isIos()) this.ctx?.resume();

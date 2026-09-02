@@ -98,6 +98,12 @@
     flex: auto;
     padding: 0.2em;
     gap: 0;
+    background: none;
+    border: none;
+
+    a {
+      font-size: 1.25em;
+    }
 
     div {
       gap: 0.5em;
@@ -109,15 +115,15 @@
   }
 
   .descending::after {
+    @include icon-mask($icon-DownTriangle);
+
     margin-inline-start: 1ch;
-    font-family: lichess;
-    content: $licon-DownTriangle;
   }
 
   .ascending::after {
+    @include icon-mask($icon-UpTriangle);
+
     margin-inline-start: 1ch;
-    font-family: lichess;
-    content: $licon-UpTriangle;
   }
 
   @media (max-width: at-most($x-large)) {
@@ -162,13 +168,18 @@
   }
 
   .pull {
-    font-family: lichess;
     font-size: 1rem;
     color: $c-bad;
     padding: 1.5px;
     border-radius: 50%;
     border: 2px solid $c-bad;
     cursor: pointer;
+
+    .svg-icon {
+      display: block;
+      width: 1em;
+      height: 1em;
+    }
 
     &:hover {
       filter: brightness(1.2);
@@ -208,16 +219,7 @@
   text-align: center;
 }
 
-.ublog-mod-assess-footer span {
-  margin-inline-start: auto;
-}
-
-.ublog-mod-assess-footer .spinner {
-  width: 2em;
-  height: 2em;
-}
-
-#mod-tools,
+#ublog-mod-tools,
 .filter-and-sort,
 .search-sort {
   .btn-rack__btn {

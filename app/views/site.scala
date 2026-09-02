@@ -35,6 +35,15 @@ object page:
   def webmasters(using Context) =
     ui.webmasters(lila.pref.PieceSet.all.map(_.name))
 
+  def survey =
+    Page(title = "User Survey")
+      .flag(_.noRobots)
+      .js(Esm("bits.survey"))(
+        main(cls := "survey-redirect")(
+          h1("Redirecting...")
+        )
+      )
+
 object variant:
 
   def show(
@@ -46,10 +55,10 @@ object variant:
       title = s"${variant.variantTrans.txt()} • ${variant.variantTitleTrans.txt()}",
       klass = "box-pad page variant",
       active = perfType.key.some
-    ).csp(_.withInlineIconFont)
+    )
       .headAppend(views.cms.alternateMarkdown(p)):
         frag(
-          boxTop(h1(cls := "text", dataIcon := perfType.icon)(variant.variantTrans())),
+          boxTop(h1(cls := "text", iconEl := perfType.icon)(variant.variantTrans())),
           h2(cls := "headline")(variant.variantTitleTrans()),
           div(cls := "body expand-text")(views.cms.render(p))
         )
@@ -68,7 +77,7 @@ object variant:
             a(
               cls := "variant text box__pad",
               href := routes.Cms.variant(variant.key),
-              dataIcon := pt.icon
+              iconEl := pt.icon
             ):
               span(
                 h2(variant.variantTrans()),
@@ -89,7 +98,7 @@ object variant:
               a(
                 cls := List("text" -> true, "active" -> active.contains(pk)),
                 href := routes.Cms.variant(variant.key),
-                dataIcon := pk.perfIcon
+                iconEl := pk.perfIcon
               )(variant.variantTrans())
           ),
           div(cls := s"page-menu__content box $klass")(body)

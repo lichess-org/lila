@@ -26,6 +26,8 @@
     }
 
     .liking {
+      @extend %flex-center;
+
       margin-inline-start: 1rem;
       font-weight: bold;
       cursor: pointer;
@@ -82,10 +84,9 @@
   }
 
   select {
-    cursor: pointer;
     border: none;
-    background: none;
-    padding: 0;
+    padding-block: 4px;
+    min-width: 120px;
   }
 }
 

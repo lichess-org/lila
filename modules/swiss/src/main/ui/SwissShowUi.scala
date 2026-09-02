@@ -118,7 +118,7 @@ final class SwissShowUi(helpers: Helpers, ui: SwissBitsUi, gathering: GatheringU
   ) =
     frag(
       div(cls := "swiss__meta")(
-        st.section(dataIcon := s.perfType.icon.toString)(
+        st.section(iconEl := s.perfType.icon)(
           div(
             p(
               s.clock.show,
@@ -136,7 +136,7 @@ final class SwissShowUi(helpers: Helpers, ui: SwissBitsUi, gathering: GatheringU
               (Granter.opt(_.ManageTournament) || (ctx.is(s.createdBy) && s.isNotFinished)).option:
                 frag(
                   " ",
-                  a(href := routes.Swiss.edit(s.id), title := "Edit tournament")(iconTag(Icon.Gear))
+                  a(href := routes.Swiss.edit(s.id), title := "Edit tournament")(iconEl(Icon.Gear))
                 )
             ),
             ui.showInterval(s)
@@ -144,6 +144,7 @@ final class SwissShowUi(helpers: Helpers, ui: SwissBitsUi, gathering: GatheringU
         ),
         s.settings.description.map: d =>
           st.section(cls := "description")(markdownLinksOrRichText(d)),
+        s.settings.payouts.map(gathering.payouts),
         s.looksLikePrize.option(gathering.userPrizeDisclaimer(s.createdBy)),
         s.settings.position
           .flatMap(p => lila.gathering.Thematic.byFen(p.opening))

@@ -1,7 +1,7 @@
 package lila.game
 
-import akka.stream.scaladsl.*
-import akka.util.ByteString
+import org.apache.pekko.stream.scaladsl.*
+import org.apache.pekko.util.ByteString
 import chess.format.{ Fen, Uci, UciDump }
 import chess.{ Position, Centis, Color }
 import play.api.libs.json.*
@@ -111,7 +111,7 @@ final class GifExport(
           ) ::: List(
             white.map { "white" -> _ },
             black.map { "black" -> _ },
-            lastMove.map { lm => "lastMove" -> UciDump.lastMove(lm, position.variant) },
+            lastMove.map { lm => "lastMove" -> UciDump.lastMove(lm, position) },
             position.checkSquare.map { "check" -> _.key }
           ).flatten*
         )
@@ -200,7 +200,7 @@ final class GifExport(
     Json
       .obj(
         "fen" -> (Fen.write(position)),
-        "lastMove" -> uci.map(UciDump.lastMove(_, position.variant))
+        "lastMove" -> uci.map(UciDump.lastMove(_, position))
       )
       .add("check", position.checkSquare.map(_.key))
       .add("delay", delay.map(_.centis))

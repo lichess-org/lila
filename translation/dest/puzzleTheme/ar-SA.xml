@@ -30,6 +30,7 @@
   <string name="collinearMoveDescription">تواجه قطعتان متعارضتان بعضهما البعض، وتنزلق واحدة على طول خط الهجوم دون التقاط قطعة العدو.</string>
   <string name="cornerMate">كش الزوايا</string>
   <string name="cornerMateDescription">قم بصقل الملك إلى الزاوية باستخدام قلعة أو ملكة وحصان لتحقيق الكش.</string>
+  <string name="cornerMateKnightDeliversDescription" comment="Description for the &quot;Corner mate&quot; puzzle theme. Replaces old string cornerMateDescription">احصر الملك في الزاوية بالرخ أو الوزير، ثم استخدم الحصان لتنفيذ كش مات.</string>
   <string name="crushing">سحق</string>
   <string name="crushingDescription">اكتشف خطأ الخصم الفادح للحصول على تفوق ساحق (يساوي 600 جزء بالمئة من البيدق أو أكثر)</string>
   <string name="discoveredCheck">كش بالكشف</string>
@@ -55,16 +56,19 @@
   <string name="endgame">مرحلة نهاية المباراة</string>
   <string name="endgameDescription">تكتيك خلال مرحلة نهاية المباراة.</string>
   <string name="enPassantDescription">تكتيك يستخدم قاعدة الأخذ بالتجاوز، وهي إمكانية البيدق أن يأخذ بيدق الخَصْم الذي تجاوزه إذا تحرك حركة مربعين الأولية.</string>
+  <string name="enPassantAdjacentCaptureDescription" comment="Replaces old string enPassantDescription">تكتيك يستخدم قاعدة الأخذ بالتجاوز، التي تسمح للبيدق بأسر بيدق الخَصْم الذي تحرك للتو مربعين في حركته الأولى وأصبح ملاصقًا له، كما لو أنه تحرك مربعًا واحدًا فقط.</string>
   <string name="epauletteMate">كش الإيبوليت</string>
   <string name="epauletteMateDescription">تشغل قطعتان أخريان مربعان متلاصقين للهروب من الملك الذي تم الكش به.</string>
   <string name="exposedKing">ملك غير محمي</string>
   <string name="exposedKingDescription">تكتيك يتضمن القليل من المدافعين حول ملك الخَصْم فيكون غير محمي مما يؤدي غالباً إلى كش مات.</string>
   <string name="fork">شوكة</string>
   <string name="forkDescription">نقلة تهاجم قطعتين للخصم في آن واحد.</string>
+  <string name="forkOpposingPiecesDescription" comment="Replaces old string forkDescription">نقلة تُهاجم فيها قطعةٌ واحدة قطعتين أو أكثر من قطع الخَصْم في آنٍ واحد.</string>
   <string name="hangingPiece">قطعة معلقة</string>
   <string name="hangingPieceDescription">تكتيك حيث تكون قطعة للخصم غير مدافع عنها أو دفاع غير كافي بالتالي يمكن التقاطها بدون خسارة أي قطع من طرفك.</string>
   <string name="hookMate">كش مات بالخطاف</string>
   <string name="hookMateDescription">نمط الكش مات باستخدام قلعة و حصان و جندي بالإضافة إلى جندي الخصم ليحد من حركات الملك للهروب.</string>
+  <string name="hookMateOpposingPawnDescription" comment="Replaces old string hookMateDescription">كش مات يتحقق بالقلعة والحصان والبيدق، ويكون بيدق الخَصْم نفسه هو الذي يسدّ على ملكه مربعات الهروب.</string>
   <string name="interference">التشوش</string>
   <string name="interferenceDescription">نقلة تحجب خط التفاعل بين قطع الخصم بعيدة المدى، ونتيجة لذلك تصبح إحدى القطعتين أو كلاهما بلا حماية. على سبيل المثال، يقف الحصان في مربع بين قلعتين.</string>
   <string name="intermezzo">النقلة البينيّة</string>
@@ -73,8 +77,10 @@
   <string name="killBoxMateDescription">يقف الرخ بجانب ملك العدو ويدعمه وزير يساهم أيضًا في حجب خانات هروب الملك. يقوم الرخ والوزير بمحاصرة ملك العدو داخل \"صندوق قتل\" بمساحة 3×3.</string>
   <string name="pillsburysMate">كش بيلسبوري</string>
   <string name="pillsburysMateDescription">القلعة تقوم بالكش بينما الفيل يحبس الملك</string>
+  <string name="pillsburyMateRookAndBishopDescription" comment="Replaces old string pillsburysMateDescription">ينفّذ الرخ كش مات للملك، بينما يساعد الفيل على تقييد حركته.</string>
   <string name="morphysMate">كش مورفي</string>
   <string name="morphysMateDescription">استخدم الفيل لكش الملك، بينما القلعة تحبسه.</string>
+  <string name="morphyMateBishopAndRookDescription" comment="Replaces old string morphysMateDescription">ينفّذ الفيل كش مات للملك، بينما يساعد الرخ في تقييد حركته.</string>
   <string name="swallowstailMate">كش ذيل السنونو</string>
   <string name="swallowstailMateDescription">نمط كش يشبه بصرياً مظهر ذيل السنونو يشبه شكل V.</string>
   <string name="triangleMate">كش مثلث</string>
@@ -115,6 +121,7 @@
   <string name="pinDescription">تكتيك يستخدم التثبيت حيث تكون القطعة غير قادرة على الحركة لأنها ستعرض قطعة ذات قيمة أكبر للهجوم.</string>
   <string name="promotion">ترقية</string>
   <string name="promotionDescription">ترقية جنديك إلى وزير أو أي قطعة أخرى.</string>
+  <string name="promotePawnToQueenRookOrMinor" comment="Replaces old string promotionDescription">قم بترقية أحد بيادقك إلى وزير أو رخ أو فيل أو حصان.</string>
   <string name="queenEndgame">نهاية مباراة الوزير</string>
   <string name="queenEndgameDescription">نهاية المباراة بالوزير و الجنود.</string>
   <string name="queenRookEndgame">وزير و قلعة</string>

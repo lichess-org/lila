@@ -26,6 +26,7 @@
   <string name="orCloseAccount">Baina zure kontua itxi egin dezakezu eta berri bat sortu.</string>
   <string name="wantClearHistory">Nire historikoa edo puntuazioa berrezarri nahi ditut</string>
   <string name="cantClearHistory">Ezin da zure partiden historikoa, ariketena edo puntuazioa berrezarri.</string>
+  <string name="cantClearHistoryOrResetRatings" comment="Replaces old string cantClearHistory">Ez da posible zure partiden eta ariketen historia edo zure puntuazioa berrezartzea.</string>
   <string name="wantReport">Erabiltzaile baten inguruko kexa jarri nahi dut</string>
   <string name="toReportAPlayerUseForm">Jokalari bati buruzko kexa egiteko, erabili kexa formularioa</string>
   <string name="youCanAlsoReachReportPage">Orrialde horretara jokalariaren profilaren orrialdeko %s berri emateko botoian sakatuta hel zaitezke.</string>
@@ -74,4 +75,13 @@
   <string name="noneOfTheAbove">Aurreko bat ere ez</string>
   <string name="sendEmailAt">Bidali email bat hona %s.</string>
   <string name="explainYourRequest">Azaldu zure eskaera ahalik eta argien. Esan zein den zure erabiltzaile-izena eta laguntzeko beste edozein informazio.</string>
+  <string name="monetiseNotInterested">Ez dugu Lichessekin dirua irabazteko interesik.</string>
+  <string name="monetiseNoAdsTrackingOrTraffic">Ez dugu sekulara iragarkirik erakutsiko, ez ditugu gure jokalariak jarraituko eta ez dugu trafikorik edo erabiltzailerik saldu edo erosiko.</string>
+  <string name="monetiseNoMarketingEmail">Ez idatzi marketing, jarraipen edo iragarki kontuengatik.</string>
+  <string name="monetiseEncourageEveryoneTo" comment="string is value of key monetiseBlockAllAdsAndTrackers">Guztiok %s animatzen zaituztegu.</string>
+  <string name="monetiseBlockAllAdsAndTrackers">iragarki eta jarraipen tresna guztiak blokeatzera</string>
+  <string name="broadcastTournamentOnLichess">Txapelketa bat zuzenean eman Lichessen</string>
+  <string name="ifYouWantToBroadcastClause1">Txapelketa bat Lichess bidez zuzenean eman nahi baduzu eta gure zuzenekoei buruzko galderak badituzu:</string>
+  <string name="ifYouWantToBroadcastClause2" comment="string1 is Lichess email, string2 is value of key ourDiscordServer">Jarri zaitez zure Zuzenekoen Taldearekin harremanetan %1$s edo %2$s erabiliz.</string>
+  <string name="ourDiscordServer">gure Discord zerbitzarian</string>
 </resources>

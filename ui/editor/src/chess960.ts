@@ -1,6 +1,8 @@
 // Best description is found at https://fr.wikipedia.org/wiki/%C3%89checs_al%C3%A9atoires_Fischer#Identification_des_positions_initiales
 
-import { FILE_NAMES } from 'chessops';
+import { FILE_NAMES, SquareSet } from 'chessops';
+import type { Board } from 'chessops/board';
+import type { Square } from 'chessops/types';
 
 // Square on rank 1
 const darkSquares = [0, 2, 4, 6];
@@ -48,6 +50,25 @@ export function chess960CastlingSquares(id: number | undefined): ByColor<Castlin
       rookK: FILE_NAMES[rookKFile] + '8',
       rookQ: FILE_NAMES[rookQFile] + '8',
     },
+  };
+}
+
+export interface CastlingRooks {
+  rookQ?: Square;
+  rookK?: Square;
+}
+
+export function castlingRooksFromBoard(board: Board, color: Color): CastlingRooks {
+  const backRank = SquareSet.fromRank(color === 'white' ? 0 : 7),
+    king = board.king.intersect(board[color]).intersect(backRank).singleSquare();
+  if (king === undefined) return {};
+
+  const rooks = board.rook.intersect(board[color]).intersect(backRank),
+    queenside = rooks.first(),
+    kingside = rooks.last();
+  return {
+    rookQ: queenside !== undefined && queenside < king ? queenside : undefined,
+    rookK: kingside !== undefined && kingside > king ? kingside : undefined,
   };
 }
 

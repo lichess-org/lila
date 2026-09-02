@@ -141,11 +141,11 @@
         box-shadow: none;
         opacity: 1;
 
-        icon {
+        .svg-icon {
           opacity: 1;
           color: color-mix(in oklab, $c-primary 70%, $c-bg);
           position: absolute;
-          font-size: 5.5em !important;
+          width: 5.5em !important;
           margin-bottom: 0.2em;
         }
       }
@@ -156,8 +156,8 @@
         align-items: center;
       }
 
-      icon {
-        font-size: 4em;
+      .svg-icon {
+        width: 4em;
         opacity: 0.8;
         color: $c-over;
       }
@@ -172,7 +172,7 @@
 
   &__global .puzzle-dashboard__metric {
     padding: 1em 1em 1.5em 1em;
-    border-radius: 8px;
+    border-radius: $box-radius-size;
 
     strong {
       font-size: 5em;
@@ -223,8 +223,8 @@
     }
 
     .puzzle-dashboard__metric--fix {
-      icon {
-        font-size: 1.6em;
+      .svg-icon {
+        width: 1.6em;
         margin-inline-start: 0.3em;
       }
     }

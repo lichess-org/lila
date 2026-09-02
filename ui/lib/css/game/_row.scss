@@ -41,8 +41,8 @@
   .header {
     @extend %flex-center;
 
-    &::before {
-      font-size: 3em;
+    .svg-icon {
+      width: 3em;
       opacity: 0.7;
       margin-inline-end: 0.7rem;
     }
@@ -53,8 +53,13 @@
 
         font-weight: normal;
         font-size: 1.4em;
+        line-height: 1;
         text-transform: uppercase;
         display: block;
+
+        .separator {
+          color: $c-font-dim;
+        }
       }
     }
   }
@@ -103,6 +108,10 @@
   .result {
     display: block;
     text-align: center;
+
+    .separator {
+      opacity: 0.75;
+    }
   }
 
   .win {

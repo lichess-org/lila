@@ -1,7 +1,7 @@
 package lila.notify
 
-import akka.stream.Materializer
-import akka.stream.scaladsl.*
+import org.apache.pekko.stream.Materializer
+import org.apache.pekko.stream.scaladsl.*
 
 import lila.db.dsl.{ *, given }
 import lila.core.user.UserRepo
@@ -9,7 +9,7 @@ import lila.ui.Icon
 
 final private class NotifyCli(api: NotifyApi, userRepo: UserRepo)(using Materializer, Executor):
 
-  lila.common.Cli.handle:
+  lila.common.Cli.handle(_.Admin):
     case "notify" :: "url" :: "users" :: users :: url :: words =>
       val userIds = users.split(',').flatMap(UserStr.read).map(_.id).toIndexedSeq
       notifyUrlTo(Source(userIds), url, words)
@@ -29,7 +29,7 @@ final private class NotifyCli(api: NotifyApi, userRepo: UserRepo)(using Material
   ) =
     val title = words.takeWhile(_ != "|").mkString(" ").nonEmptyOption
     val text = words.dropWhile(_ != "|").drop(1).mkString(" ").nonEmptyOption
-    val notification = lila.core.notify.NotificationContent.GenericLink(url, title, text, icon.value)
+    val notification = lila.core.notify.NotificationContent.GenericLink(url, title, text, icon.name)
     userIds
       .grouped(20)
       .mapAsyncUnordered(1): uids =>
@@ -40,7 +40,7 @@ final private class NotifyCli(api: NotifyApi, userRepo: UserRepo)(using Material
 
   private def enabledTitledSource(proj: Option[Bdoc]) =
     import lila.core.user.BSONFields
-    import reactivemongo.akkastream.cursorProducer
+    import reactivemongo.pekkostream.cursorProducer
     userRepo.coll
       .find(
         $doc(

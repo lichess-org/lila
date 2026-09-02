@@ -1,13 +1,13 @@
 package lila.study
 
-import akka.stream.scaladsl.*
+import org.apache.pekko.stream.scaladsl.*
 import play.api.mvc.RequestHeader
 import chess.format.pgn as chessPgn
 import chess.format.pgn.{ Comment, Glyphs, InitialComments, Pgn, PgnStr, PgnTree, Tag, Tags }
 import scalalib.StringOps.slug
 
 import lila.tree.Node.{ Shape, Shapes }
-import lila.tree.{ Analysis, Metas, NewBranch, NewRoot, NewTree, Root }
+import lila.tree.{ Analysis, Branch, Node, Root }
 
 final class PgnDump(
     chapterRepo: ChapterRepo,
@@ -79,7 +79,10 @@ final class PgnDump(
   private def makeTags(study: Study, chapter: Chapter)(using flags: WithFlags): Tags =
     flags.updateTags:
       Tags:
-        val opening = chapter.opening
+        val opening =
+          chess.variant.Variant.list
+            .openingSensibleVariants(chapter.setup.variant)
+            .so(chess.opening.OpeningDb.searchInFens(chapter.root.mainline.take(40).map(_.fen.opening)))
         val genTags = List(
           Tag(_.Event, s"${study.name}: ${chapter.name}"),
           Tag(_.Variant, chapter.setup.variant.name.capitalize),
@@ -137,37 +140,45 @@ object PgnDump:
   val withoutOrientation = fullFlags.copy(orientation = false)
 
   def rootToPgn(root: Root, tags: Tags, comments: InitialComments)(using WithFlags): Pgn =
-    rootToPgn(NewRoot(root), tags, comments)
+    lila.mon.Chronometer.syncMon(lila.mon.study.pgn.time):
+      Pgn(
+        tags,
+        comments,
+        root.children.first.map(branchToTree(_, root.children.variationsOnly)),
+        root.ply.next
+      )
 
-  def rootToPgn(root: Root, tags: Tags)(using WithFlags): Pgn =
-    rootToPgn(NewRoot(root), tags)
-
-  def rootToPgn(root: NewRoot, tags: Tags)(using flags: WithFlags): Pgn =
+  def rootToPgn(root: Root, tags: Tags)(using flags: WithFlags): Pgn =
     val comments =
-      if flags.comments then InitialComments(root.metas.commentWithShapes)
+      if flags.comments then InitialComments(commentsWithShapes(root))
       else InitialComments.empty
     rootToPgn(root, tags, comments)
 
-  private def rootToPgn(root: NewRoot, tags: Tags, comments: InitialComments)(using WithFlags): Pgn =
-    lila.mon.Chronometer.syncMon(lila.mon.study.pgn.time):
-      Pgn(tags, comments, root.tree.map(treeToTree), root.ply.next)
+  private def branchToTree(branch: Branch, variations: List[Branch])(using flags: WithFlags): PgnTree =
+    chess.Node(
+      value = branchToMove(branch),
+      child = branch.children.first.map(branchToTree(_, branch.children.variationsOnly)),
+      variations = flags.variations.so(variations.map(branchToVariation))
+    )
 
-  def treeToTree(tree: NewTree)(using flags: WithFlags): PgnTree =
-    if flags.variations then tree.map(branchToMove) else tree.mapMainline(branchToMove)
+  private def branchToVariation(branch: Branch)(using flags: WithFlags) =
+    chess.Variation(
+      value = branchToMove(branch),
+      child = branch.children.first.map(branchToTree(_, branch.children.variationsOnly))
+    )
 
-  private def branchToMove(node: NewBranch)(using flags: WithFlags) =
+  private def branchToMove(node: Branch)(using flags: WithFlags) =
     chessPgn.Move(
       san = node.move.san,
-      glyphs = flags.comments.so(node.metas.glyphs),
-      comments = flags.comments.so(node.metas.commentWithShapes),
+      glyphs = flags.comments.so(node.glyphs),
+      comments = flags.comments.so(commentsWithShapes(node)),
       opening = none,
       result = none,
       timeLeft = flags.clocks.so(node.clock.map(_.centis.roundSeconds))
     )
 
-  extension (metas: Metas)
-    def commentWithShapes: List[Comment] =
-      metas.comments.value.map(_.text.into(Comment)) ::: shapeComment(metas.shapes).toList
+  private def commentsWithShapes(node: Node): List[Comment] =
+    node.comments.value.map(_.text.into(Comment)) ::: shapeComment(node.shapes).toList
 
   // [%csl Gb4,Yd5,Rf6][%cal Ge2e4,Ye2d4,Re2g4]
   private def shapeComment(shapes: Shapes): Option[Comment] =

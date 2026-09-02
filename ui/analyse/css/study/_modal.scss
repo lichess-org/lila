@@ -20,14 +20,9 @@
   h2 {
     margin-bottom: 0.5em;
 
-    icon {
-      font-size: 0.6em;
-
-      &,
-      &::before {
-        vertical-align: top;
-      }
-
+    .svg-icon {
+      width: 0.6em;
+      vertical-align: top;
       margin-inline-start: 1rem;
       opacity: 0.5;
       cursor: pointer;
@@ -89,16 +84,22 @@
     }
   }
 
-  &.study-edit .flair-and-name {
-    gap: 4%;
-
-    .form-group:last-child {
-      flex: 1 1 auto;
+  &.study-edit {
+    @media (min-width: at-least($x-small)) {
+      min-width: 600px;
     }
 
-    .uflair {
-      margin: 0;
-      font-size: 1.3em;
+    .flair-and-name {
+      gap: 4%;
+
+      .form-group:last-child {
+        flex: 1 1 auto;
+      }
+
+      .uflair {
+        margin: 0;
+        font-size: 1.3em;
+      }
     }
   }
 }

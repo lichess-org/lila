@@ -17,6 +17,8 @@ $label-width: 5ch;
   }
 
   .copyable {
+    @include backdrop-blur-if-transparent;
+
     flex: 1 1 auto;
   }
 

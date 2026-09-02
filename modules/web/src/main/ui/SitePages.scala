@@ -18,7 +18,7 @@ final class SitePages(helpers: Helpers):
 
   def menu(active: String)(using Translate) =
     val sep = div(cls := "sep")
-    val external = frag(" ", iconTag(Icon.ExternalArrow))
+    val external = frag(" ", iconEl(Icon.ExternalArrow))
     def activeCls(c: String) = cls := active.activeO(c)
     lila.ui.bits.pageMenuSubnav(
       a(activeCls("about"), href := "/about")(trans.site.aboutX("lichess.org")),
@@ -209,15 +209,17 @@ final class SitePages(helpers: Helpers):
           }
         )
 
-  def source(title: String, rendered: Frag, version: Option[WebConfig.LilaVersion])(using
+  private val repoRoot = "https://github.com/lichess-org/lila"
+
+  def source(pageTitle: String, rendered: Frag, version: Option[WebConfig.LilaVersion])(using
       Context
   ) =
-    SitePage(title = title, active = "source", contentCls = "page force-ltr")
+    SitePage(title = pageTitle, active = "source", contentCls = "page force-ltr")
       .css("bits.source")
       .js(esmInitBit("setAssetInfo")):
         frag(
           st.section(cls := "box")(
-            h1(cls := "box__top")(title),
+            h1(cls := "box__top")(pageTitle),
             table(cls := "slist slist-pad", id := "version")(
               thead(
                 tr(
@@ -230,27 +232,28 @@ final class SitePages(helpers: Helpers):
                   tr(
                     td(
                       span("Server"),
-                      timeTag(v.date),
-                      span(a(href := s"https://github.com/lichess-org/lila/commits/${v.commit}"):
-                        pre(v.commit.take(7)))
+                      timeTag(v.date)
                     ),
-                    td(v.message),
-                    td:
-                      a(href := s"https://github.com/lichess-org/lila/compare/${v.commit}...master"):
+                    td(span(a(href := s"$repoRoot/commits/${v.commit}"):
+                      pre(v.commit.take(7)))),
+                    td(
+                      a(href := s"$repoRoot/compare/${v.commit}...master", title := "Upcoming changes")(
                         pre("...")
+                      )
+                    )
                   ),
                 tr(
                   td(
                     "Assets",
-                    timeTag(id := "asset-version-date"),
-                    span(a(id := "asset-version-commit")(pre))
+                    timeTag(id := "asset-version-date")
                   ),
-                  td(id := "asset-version-message"),
-                  td(a(id := "asset-version-upcoming")(pre("...")))
+                  td(a(id := "asset-version-commit")(pre)),
+                  td(a(id := "asset-version-upcoming", title := "Upcoming changes")(pre("...")))
                 )
               )
             )
           ),
+          br,
           st.section(cls := "box box-pad body")(rendered)
         )
 

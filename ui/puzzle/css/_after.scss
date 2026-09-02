@@ -19,8 +19,8 @@
       background: hsl(from $c-primary h s calc(l + 10));
     }
 
-    icon::before {
-      font-size: 2.5em;
+    .svg-icon {
+      width: 2em;
       margin-inline-end: 10px;
     }
   }
@@ -36,6 +36,7 @@
       border-bottom: $border;
       padding-bottom: 0.5em;
       margin-bottom: 0.5em;
+      text-transform: uppercase;
     }
 
     .puzzle--streak & {
@@ -88,9 +89,7 @@
     padding: 0.8em 1.3em;
 
     &::before {
-      @extend %data-icon;
-
-      content: $licon-ThumbsUp;
+      @include icon-mask($icon-ThumbsUp);
     }
 
     &.vote-down {

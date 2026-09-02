@@ -23,14 +23,11 @@
   }
 }
 
-$auth-input-radius: 16px;
-$auth-input-bg: rgb(26 22 16 / 1);
-
 .auth {
   width: 100%;
   margin: 0 auto;
   height: min-content;
-  border-radius: $auth-input-radius;
+  border-radius: $box-radius-size;
   border: $border;
 
   &__brand {
@@ -129,13 +126,9 @@ $auth-input-bg: rgb(26 22 16 / 1);
   .form-group input {
     height: 50px;
     font-size: 16px;
-    border: none;
-    border-radius: $auth-input-radius;
-    background: $auth-input-bg;
-
-    @include if-light {
-      background: rgb(245 242 237 / 1);
-    }
+    border: $border;
+    border-radius: $box-radius-size;
+    background: $c-bg-input;
 
     &:focus-visible {
       outline: $outline;
@@ -195,8 +188,8 @@ $auth-input-bg: rgb(26 22 16 / 1);
       align-items: center;
       gap: 0.2em;
 
-      &::before {
-        font-size: 1.3em;
+      > .svg-icon {
+        width: 1.3em;
       }
     }
   }
@@ -208,7 +201,7 @@ $auth-input-bg: rgb(26 22 16 / 1);
   .button {
     width: 100%;
     padding: 1.3rem;
-    border-radius: $auth-input-radius;
+    border-radius: $box-radius-size;
   }
 
   .submit.button {

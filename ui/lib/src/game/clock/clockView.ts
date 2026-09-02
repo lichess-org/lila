@@ -101,7 +101,7 @@ function showBar(ctrl: ClockCtrl, color: Color) {
   const update = (el: HTMLElement) => {
     if (el.animate !== undefined) {
       let anim = ctrl.elements[color].barAnim;
-      if (anim === undefined || !anim.effect || (anim.effect as KeyframeEffect).target !== el) {
+      if (!anim?.effect || (anim.effect as KeyframeEffect).target !== el) {
         anim = el.animate([{ transform: 'scale(1)' }, { transform: 'scale(0, 1)' }], {
           duration: ctrl.barTime,
           fill: 'both',

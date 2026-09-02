@@ -25,9 +25,10 @@ Berserkkitilan lisäpisteen saa vain, jos pelaa vähintään seitsemän siirtoa 
   <string name="howIsTheWinnerDecided">Kuinka voittaja määräytyy?</string>
   <string name="howIsTheWinnerDecidedAnswer">Pelaaja(t) jo(i)lla on eniten pisteitä turnausajan päättyessä julistetaan voittajaksi tai voittajiksi.</string>
   <string name="howDoesPairingWork">Kuinka peliparit määriytyvät?</string>
-  <string name="howDoesPairingWorkAnswer">Turnauksen alussa peliparit määriytyvät vahvuuslukujen perusteella.
+  <string name="howArePlayersPaired" comment="Replaces old string howDoesPairingWork">Kuinka peliparit määräytyvät?</string>
+  <string name="howDoesPairingWorkAnswer">Turnauksen alussa peliparit määräytyvät vahvuuslukujen perusteella.
 Kun pelisi on ohi, palaa turnausaulaan. Saat seuraavaksi vastustajaksesi pelaajan, jonka sijoitus on lähellä omaasi. Siten odotusaika pysyy mahdollisimman lyhyenä. Et välttämättä kuitenkaan kohtaa turnauksessa kaikkia siihen osallistuvia pelaajia.
-Pelaa nopeasti ja palaa aulaan, niin voit pelata lisää pelejä ja ansaita lisää pisteitä.</string>
+Jos pelaat nopeasti, ehdit pelata enemmän pelejä ja ansaita enemmän pisteitä.</string>
   <string name="howDoesItEnd">Kuinka turnaus päättyy?</string>
   <string name="howDoesItEndAnswer">Turnauksella on kohti nollaa juokseva ajastin. Kun se menee nollaan, turnauksen sijoitukset virallistetaan ja voittaja julistetaan. Käynnissä olevat pelit tulee pelata loppuun, mutta ne eivät vaikuta sijoituksiin turnauksessa.</string>
   <string name="otherRules">Muita tärkeitä sääntöjä</string>
@@ -73,6 +74,10 @@ Pelaa nopeasti ja palaa aulaan, niin voit pelata lisää pelejä ja ansaita lis�
   <string name="rankAvgHelp">Sijoitusten keskiarvo on sijoituksesi prosenttiarvo. Matalampi luku on parempi.
 
 Esimerkiksi sijoittuminen 3. sijalle 100 pelaajan turnauksessa = 3%. Sijoittuminen 10. sijalle 1 000 pelaajan turnauksessa = 1%.</string>
+  <string name="rankAverageHelp" comment="Replaces old string rankAvgHelp">Sijoituskeskiarvosi kuvaa tyypillistä sijoitustasi turnauksen lopussa suhteessa kunkin turnauksen pelaajien kokonaismäärään.
+Tällä mitataan sijoituksiasi turnauksissa, ei yleistä vahvuuslukua.
+
+Esimerkiksi 3%:n sijoituskeskiarvo merkitsee sitä, että sijoitut tavallisesti turnauksen parhaan 3%:n joukkoon (kuten 30. sijalle 1 000 pelaajan turnauksessa).</string>
   <string name="medians">mediaaneja</string>
   <string name="allAveragesAreX">Kaikki keskiarvot tällä sivulla ovat %s.</string>
   <string name="total">Yhteensä</string>

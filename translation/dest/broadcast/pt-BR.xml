@@ -15,9 +15,9 @@
   <string name="newBroadcast">Nova transmissão ao vivo</string>
   <string name="subscribedBroadcasts">Transmissões em que você se inscreveu</string>
   <string name="aboutBroadcasts">Sobre as transmissões</string>
-  <string name="howToUseLichessBroadcasts">Como usar as transmissões do Lichess.</string>
+  <string name="howToUseLichessBroadcasts">Como usar as Transmissões do Lichess.</string>
   <string name="theNewRoundHelp">A nova rodada terá os mesmos membros e colaboradores que a anterior.</string>
-  <string name="addRound">Adicionar uma rodada</string>
+  <string name="addRound">Adicionar uma ronda</string>
   <string name="ongoing">Em andamento</string>
   <string name="upcoming">Próximos</string>
   <string name="roundName">Nome da rodada</string>
@@ -57,6 +57,7 @@
   <string name="subscribeTitle">Inscreva-se para ser notificado no início de cada rodada. Você pode configurar as notificações de transmissões nas suas preferências.</string>
   <string name="uploadImage">Enviar imagem de torneio</string>
   <string name="noBoardsYet">Sem tabuleiros ainda. Eles vão aparecer quando os jogos forem enviados.</string>
+  <string name="noPlayersYet">Sem jogadores ainda. Eles vão aparecer quando os jogos forem enviados.</string>
   <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Tabuleiros são carregados com uma fonte ou pelo %s</string>
   <string name="startsAfter">Começa após %s</string>
   <string name="startVerySoon">A transmissão começará em breve.</string>
@@ -107,6 +108,6 @@
   <string name="tiebreaks">Desempates</string>
   <string name="gameX">Partida %s</string>
   <string name="knockouts">Mata-matas</string>
-  <string name="underXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament. e.g.    'U18' will mean it is an tournament for under-18 years.    Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">Sub %s</string>
-  <string name="underXEloTournament" comment="%s is the maximum Elo rating set by the organiser for a tournament.     e.g. 'U2000' will mean it is an tournament for players with Elo under 2000.    Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">Sub %s</string>
+  <string name="underXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament. e.g.  'U18' will mean it is an tournament for under-18 years.  Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">Sub %s</string>
+  <string name="underXEloTournament" comment="%s is the maximum Elo rating set by the organiser for a tournament.  e.g. 'U2000' will mean it is an tournament for players with Elo under 2000.  Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">Sub %s</string>
 </resources>

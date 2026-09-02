@@ -44,7 +44,17 @@
   <string name="variant">Варијанта</string>
   <string name="minimumGameLength">Минимална дужина партије</string>
   <string name="history">Историја Арена</string>
+  <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
+    <item quantity="one">Погледај тим</item>
+    <item quantity="few">Погледај сва %s тима</item>
+    <item quantity="other">Погледај свих %s тимова</item>
+  </plurals>
   <string name="newTeamBattle">Нова Борба Тимова</string>
+  <string name="customStartDate">Прилагођени почетни датум</string>
+  <string name="customStartDateHelp">У твојој локалној временској зони. Ово надјачава \"Време пре него што турнир започне\" поставку</string>
+  <string name="allowBerserk">Дозволи Берсерк</string>
+  <string name="allowBerserkHelp">Допусти играчима да преполове своје време сата да добију додатни бод</string>
+  <string name="allowChatHelp">Допусти играчима да дискутују у соби за ћаскање</string>
   <string name="pointsSum">Збир бодова</string>
   <string name="tournamentWinners">Победници турнира</string>
 </resources>

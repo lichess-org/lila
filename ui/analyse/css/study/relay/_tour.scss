@@ -14,8 +14,6 @@
   &__side {
     @extend %flex-column;
 
-    overflow: hidden;
-
     &__preload {
       @extend %box-neat;
 
@@ -26,6 +24,7 @@
     &__header {
       @extend %flex-center-nowrap, %box-radius-top;
       @include prevent-select;
+      @include backdrop-blur-if-transparent;
 
       position: relative;
       overflow: hidden;
@@ -55,8 +54,8 @@
       display: none;
       flex-flow: column;
 
-      &::before {
-        font-size: 6em;
+      > .svg-icon {
+        width: 6em;
         color: $c-font-dimmer;
       }
 
@@ -81,19 +80,17 @@
       font-weight: bold;
 
       &::before {
-        @extend %data-icon;
+        @include icon-mask($icon-LessThan, 1.5em);
 
-        content: $licon-LessThan;
-        font-size: 1.5em;
         color: $c-font-dim;
+
+        @include if-rtl {
+          transform: scaleX(-1);
+        }
       }
 
       main.has-relay-tour &::before {
-        content: $licon-RadioTower;
-      }
-
-      main.has-relay-tour & {
-        background: $c-bg-zebra;
+        @include icon-mask($icon-RadioTower);
       }
     }
 
@@ -176,8 +173,8 @@
         color: $c-font-dimmer;
       }
 
-      &::before {
-        font-size: 1.3em;
+      > .svg-icon {
+        width: 1.3em;
       }
 
       &:hover {
@@ -325,18 +322,18 @@
     }
 
     .tour-state {
-      &.finished::before {
+      &.finished .svg-icon {
         color: $c-good;
-        font-size: 0.8em;
+        width: 0.8em;
       }
 
-      &.ongoing::before {
+      &.ongoing .svg-icon {
         color: $c-bad;
-        font-size: 0.7em;
+        width: 0.7em;
       }
     }
 
-    a:hover .tour-state::before {
+    a:hover .tour-state .svg-icon {
       color: $c-over;
     }
   }
@@ -362,11 +359,11 @@
       }
     }
 
-    .ongoing::before {
+    .round-state.ongoing .svg-icon {
       color: $c-bad;
     }
 
-    .finished::before {
+    .round-state.finished .svg-icon {
       color: $c-good;
     }
 
@@ -401,7 +398,7 @@
         background: $c-primary;
 
         *,
-        .round-state::before {
+        .round-state .svg-icon {
           color: $c-over;
         }
       }
@@ -439,14 +436,11 @@
     white-space: pre-line;
 
     &::before {
-      @extend %data-icon;
-
-      content: $licon-InfoCircle;
-      font-size: 2.5em;
+      @include icon-mask($icon-InfoCircle, 2.5em);
     }
 
     &.pinned::before {
-      content: $licon-RadioTower;
+      @include icon-mask($icon-RadioTower);
     }
 
     small {
@@ -821,6 +815,7 @@
 
 .relay-games {
   @extend %flex-column, %box-radius-bottom, %box-shadow;
+  @include backdrop-blur-if-transparent;
 
   background: $c-bg-box;
   flex: 1 1 auto;

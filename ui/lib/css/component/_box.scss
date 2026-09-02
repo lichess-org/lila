@@ -3,6 +3,7 @@ $vp-max-width: 1200px;
 
 .box {
   @extend %box-shadow;
+  @include backdrop-blur-if-transparent;
 
   background: $c-bg-box;
 
@@ -24,6 +25,12 @@ $vp-max-width: 1200px;
 
       .button {
         @extend %flex-center;
+
+        gap: 4px;
+
+        .svg-icon {
+          width: 1em;
+        }
       }
 
       gap: 1rem;
@@ -32,12 +39,6 @@ $vp-max-width: 1200px;
 
   &__pad {
     @extend %box-padding-horiz;
-  }
-
-  @include if-transp {
-    position: relative;
-
-    @include back-blur;
   }
 }
 

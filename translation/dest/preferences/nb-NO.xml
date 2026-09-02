@@ -57,12 +57,16 @@
   <string name="correspondenceEmailNotification">Daglig oversikt over fjernsjakkpartiene dine tilsendt på e-post</string>
   <string name="notifyStreamStart">Strømmer begynner å strømme</string>
   <string name="notifyInboxMsg">Ny melding i innboksen</string>
+  <string name="notifyDirectMessage" comment="notifyInboxMsg&#10;&#10;A notification setting - notifies players when they receive a new message in their Lichess inbox Replaces old string notifyInboxMsg">Ny direktemelding</string>
   <string name="notifyForumMention">Forumkommentar nevner deg</string>
+  <string name="notifyForumMentions" comment="notifyForumMention&#10;&#10; A notification setting - notifies players when someone has @mentioned their name in the Lichess Forum (https://lichess.org/forum) Replaces old string notifyForumMention">Omtaler i forumet</string>
   <string name="notifyInvitedStudy">Invitasjon til studie</string>
+  <string name="notifyStudyInvites" comment="notifyInvitedStudy&#10;&#10; A notification setting - notifies players about invites to studies (https://lichess.org/study/) Replaces old string notifyInvitedStudy">Invitasjoner til studier</string>
   <string name="notifyGameEvent">Oppdateringer for fjernsjakkpartier</string>
   <string name="notifyChallenge">Utfordringer</string>
   <string name="notifyTournamentSoon">Turnering starter snart</string>
-  <string name="notifyBroadcasts">Overføringer du abonnerer på</string>
+  <string name="notifyTournamentStartReminders" comment="notifyTournamentSoon&#10;&#10;A notification setting - notifies players if a tournament is starting soon. Replaces old string notifyTournamentSoon">Påminnelser om turneringsstart</string>
+  <string name="notifyBroadcasts">Direkteoverføringer</string>
   <string name="notifyTimeAlarm">Fjernsjakkur i ferd med å løpe ut</string>
   <string name="notifyBell">Bjellevarsel innenfor Lichess</string>
   <string name="notifyPush">Enhetsvarsel utenfor Lichess</string>
@@ -71,4 +75,22 @@
   <string name="bellNotificationSound">Bjellevarsel med lyd</string>
   <string name="blindfold" comment="As in Blindfold chess">Blindsjakk</string>
   <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">Vis til venstre på mobile enheter</string>
+  <string name="inlineNotation">Innebygd notasjon</string>
+  <string name="showServerAnalysis">Vis serveranalyse</string>
+  <string name="showBestMoveArrows">Vis piler for beste trekk</string>
+  <string name="showManeuverArrows">Vis manøverpiler</string>
+  <string name="showGauge">Vis evalueringsmåler</string>
+  <string name="showMoveAnnotationsOnBoard">Vis trekkvurderinger på brettet</string>
+  <string name="showVariationArrows">Vis variantpiler</string>
+  <string name="showLiveGlyphs">Trekkvurderinger fra sjakkmotoren i sanntid</string>
+  <string name="showUndefendedPieces">Vis udekkede brikker</string>
+  <string name="showPinnedPieces">Vis bundne brikker</string>
+  <string name="showCheckableKing">Vis sjakkbar konge</string>
+  <string name="disclosureMode">Skjul varianter</string>
+  <string name="generalSettings">Generelt</string>
+  <string name="moveListSettings">Trekkliste</string>
+  <string name="boardSettings">Brett</string>
+  <string name="analysisSettings">Analyseinnstillinger</string>
+  <string name="maneuverArrowsHelp">Trekkrekkefølge fra sjakkmotoren for én brikke</string>
+  <string name="hoverOverSettingLabelsForHelp">Hold pekeren over innstillingsnavnene for hjelp</string>
 </resources>

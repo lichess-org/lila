@@ -26,6 +26,7 @@
   <string name="orCloseAccount">De todos os xeitos, podes pechar a túa conta actual e crear unha nova.</string>
   <string name="wantClearHistory">Quero eliminar o meu historial ou puntuación</string>
   <string name="cantClearHistory">Non é posible eliminar o teu historial de partidas e de crebacabezas, nin a túa puntuación.</string>
+  <string name="cantClearHistoryOrResetRatings" comment="Replaces old string cantClearHistory">Non é posible eliminar o teu historial de partidas ou de crebacabezas nin reiniciar a túa puntuación.</string>
   <string name="wantReport">Quero denunciar a un xogador</string>
   <string name="toReportAPlayerUseForm">Para denunciar a un xogador, emprega o formulario de denuncia</string>
   <string name="youCanAlsoReachReportPage">Tamén podes acceder a esa páxina pulsando no botón de denuncia %s nunha páxina de perfil.</string>
@@ -74,4 +75,13 @@
   <string name="noneOfTheAbove">Ningún dos anteriores</string>
   <string name="sendEmailAt">Envíanos un correo a %s.</string>
   <string name="explainYourRequest">Por favor explica a túa solicitude de forma clara e exhaustiva. Especifica o teu nome de usuario de Lichess e calquera información que nos poida ser útil.</string>
+  <string name="monetiseNotInterested">De ningún xeito nos interesa gañar cartos con Lichess.</string>
+  <string name="monetiseNoAdsTrackingOrTraffic">Endexamais amosaremos ningún tipo de anuncio, non rastrexaremos ós nosos xogadores nin venderemos ou mercaremos tráfico ou usuarios.</string>
+  <string name="monetiseNoMarketingEmail">Por favor, non nos envíes correos de mercadotecnia, rastrexo ou propaganda.</string>
+  <string name="monetiseEncourageEveryoneTo" comment="string is value of key monetiseBlockAllAdsAndTrackers">Afoutamos a todo o mundo a %s.</string>
+  <string name="monetiseBlockAllAdsAndTrackers">bloquear todos os anuncios e rastrexadores</string>
+  <string name="broadcastTournamentOnLichess">Emitir un torneo en Lichess</string>
+  <string name="ifYouWantToBroadcastClause1">Se queres realizar unha emisión oficial dun torneo en Lichess ou tes algunha dúbida sobre as emisións:</string>
+  <string name="ifYouWantToBroadcastClause2" comment="string1 is Lichess email, string2 is value of key ourDiscordServer">Por favor, contacta co noso Equipo de Emisións en %1$s ou %2$s.</string>
+  <string name="ourDiscordServer">no noso servidor de Discord</string>
 </resources>

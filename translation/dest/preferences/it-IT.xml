@@ -57,12 +57,15 @@
   <string name="correspondenceEmailNotification">Notifica di posta giornaliera che elenca le tue partite per corrispondenza</string>
   <string name="notifyStreamStart">Lo streamer va in diretta</string>
   <string name="notifyInboxMsg">Nuovo messaggio</string>
+  <string name="notifyDirectMessage" comment="notifyInboxMsg&#10;&#10;A notification setting - notifies players when they receive a new message in their Lichess inbox Replaces old string notifyInboxMsg">Nuovo messaggio diretto</string>
   <string name="notifyForumMention">Un commento nel forum ti ha menzionato</string>
+  <string name="notifyForumMentions" comment="notifyForumMention&#10;&#10; A notification setting - notifies players when someone has @mentioned their name in the Lichess Forum (https://lichess.org/forum) Replaces old string notifyForumMention">Menzioni del forum</string>
   <string name="notifyInvitedStudy">Invito ad uno Studio</string>
+  <string name="notifyStudyInvites" comment="notifyInvitedStudy&#10;&#10; A notification setting - notifies players about invites to studies (https://lichess.org/study/) Replaces old string notifyInvitedStudy">Inviti di studio</string>
   <string name="notifyGameEvent">Aggiornamenti in una partita per corrispondenza</string>
   <string name="notifyChallenge">Sfide</string>
   <string name="notifyTournamentSoon">Il torneo sta per iniziare</string>
-  <string name="notifyBroadcasts">Canali a cui ti sei iscritto</string>
+  <string name="notifyBroadcasts">Dirette</string>
   <string name="notifyTimeAlarm">Il tempo sta per scadere in una partita per corrispondenza</string>
   <string name="notifyBell">Notifica sonora in Lichess</string>
   <string name="notifyPush">Notifiche dispositivo (push) quando non sei collegato a Lichess</string>
@@ -71,4 +74,8 @@
   <string name="bellNotificationSound">Tono notifica</string>
   <string name="blindfold" comment="As in Blindfold chess">Alla cieca</string>
   <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">Mostra sulla sinistra nei dispositivi mobili</string>
+  <string name="inlineNotation">Notazione in linea</string>
+  <string name="generalSettings">Generale</string>
+  <string name="boardSettings">Bacheca</string>
+  <string name="analysisSettings">Impostazioni analisi</string>
 </resources>

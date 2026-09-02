@@ -40,6 +40,7 @@
   -webkit-tap-highlight-color: transparent;
   gap: 2em;
   height: 100%;
+  text-align: start;
 
   @media (max-width: at-most(600px)) {
     flex-direction: column;
@@ -58,7 +59,7 @@
   fieldset {
     flex: initial;
     border: 1px solid $c-border;
-    border-radius: 6px;
+    border-radius: $box-radius-size;
     background: $c-bg-mid;
     padding: 1em;
 
@@ -73,11 +74,7 @@
 
   .column {
     justify-content: space-between;
-    flex: 40%;
-
-    @media (max-width: at-most(600px)) {
-      flex: 1;
-    }
+    flex: 1;
   }
 
   .setting {
@@ -111,11 +108,10 @@
     font-size: 1.2em;
     color: $c-font-dim;
     outline: none;
-    display: none;
   }
 
-  .help-button::before {
-    font-size: 18px;
+  .help-button .svg-icon {
+    width: 18px;
     margin-inline-end: 0.5em;
     vertical-align: sub;
   }
@@ -135,21 +131,11 @@
         display: block;
       }
     }
-
-    @media (max-width: at-most(600px)) {
-      .help-button {
-        display: block;
-      }
-    }
   }
 
   @include mq-no-hover {
     legend {
       display: none;
-    }
-
-    .help-button {
-      display: block;
     }
   }
 }

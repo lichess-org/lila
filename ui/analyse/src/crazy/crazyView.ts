@@ -11,7 +11,7 @@ const oKeys = ['pawn', 'knight', 'bishop', 'rook', 'queen'] as const;
 type Position = 'top' | 'bottom';
 
 export default function (ctrl: AnalyseCtrl, color: Color, position: Position) {
-  if (!ctrl.node.crazy || ctrl.data.game.variant.key !== 'crazyhouse') return;
+  if (!ctrl.node.crazy || ctrl.data.game.variant.key !== 'crazyhouse') return undefined;
   const pocket = ctrl.node.crazy.pockets[color === 'white' ? 0 : 1];
   const dropped = ctrl.justDropped;
   const captured = ctrl.justCaptured;

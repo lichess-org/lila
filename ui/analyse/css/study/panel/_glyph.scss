@@ -1,9 +1,14 @@
 .study__glyphs {
-  @extend %box-neat, %flex-center;
+  @extend %flex-center;
   @include prevent-select;
 
-  background: $c-bg-box;
   white-space: nowrap;
+
+  &:not(&:has(.study__message)) {
+    @extend %box-neat;
+
+    background: $c-bg-box;
+  }
 
   > div {
     flex: 1 0 30%;

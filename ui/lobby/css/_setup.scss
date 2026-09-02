@@ -61,6 +61,10 @@ $c-slider: $c-setup;
 
       .icon {
         padding-inline-end: 0;
+
+        .svg-icon {
+          width: 1em;
+        }
       }
 
       .name {
@@ -72,9 +76,15 @@ $c-slider: $c-setup;
         white-space: normal;
       }
 
-      &:hover * {
-        background: $c-primary;
-        color: $c-over;
+      &:hover {
+        * {
+          background: $c-primary;
+          color: $c-over;
+        }
+
+        .svg-icon {
+          background: $c-over;
+        }
       }
     }
   }
@@ -90,6 +100,10 @@ $c-slider: $c-setup;
     padding: 1.8rem 1.2rem;
     gap: 1.8rem;
     background: $c-bg-zebra;
+
+    .tabs-horiz {
+      backdrop-filter: none;
+    }
   }
 
   .disabled {
@@ -100,8 +114,10 @@ $c-slider: $c-setup;
   group.radio input:checked + label {
     background: $c-setup;
 
-    &:hover {
-      background: hsl(from $c-secondary h s calc(l + 5));
+    @media (hover: hover) {
+      &:hover {
+        background: hsl(from $c-secondary h s calc(l + 5));
+      }
     }
   }
 
@@ -263,7 +279,7 @@ $c-slider: $c-setup;
           .val-box {
             background: $c-font-dim;
             padding: 0.1rem 0.5rem;
-            border-radius: $box-radius-size / 2;
+            border-radius: $small-box-radius-size;
             font-weight: bold;
             color: $c-bg;
           }

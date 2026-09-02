@@ -30,6 +30,7 @@
   <string name="collinearMoveDescription">同種の駒が向き合っている時に、一方が両者を結ぶ線上を動く手。</string>
   <string name="cornerMate">コーナー・メイト</string>
   <string name="cornerMateDescription">ルークかクイーンでキングを隅に追い詰め、ナイトでメイトする形。</string>
+  <string name="cornerMateKnightDeliversDescription" comment="Description for the &quot;Corner mate&quot; puzzle theme. Replaces old string cornerMateDescription">ルークかクイーンでキングを隅に追い詰め、ナイトでメイトする形。</string>
   <string name="crushing">圧倒</string>
   <string name="crushingDescription">相手の悪手をとがめて圧倒的な優位を築きます。（評価値は 600cp 以上）</string>
   <string name="discoveredCheck">ディスカバード・チェック</string>
@@ -55,16 +56,19 @@
   <string name="endgame">エンドゲーム</string>
   <string name="endgameDescription">ゲームの終盤でのタクティクス。</string>
   <string name="enPassantDescription">アンパッサン、つまり相手の 2 マス前進したポーンを途中で取る手を含むタクティクス。</string>
+  <string name="enPassantAdjacentCaptureDescription" comment="Replaces old string enPassantDescription">アンパッサン、つまり相手の 2 マス前進したポーンを途中で取る手を含むタクティクス。</string>
   <string name="epauletteMate">肩章（エポレット）のメイト</string>
   <string name="epauletteMateDescription">チェックされたキングの両脇のマスが味方の駒でふさがっている形。</string>
   <string name="exposedKing">危険なキング</string>
   <string name="exposedKingDescription">守り駒の少ないキングを攻める問題、多くの場合メイトにつながる。</string>
   <string name="fork">フォーク（両取り）</string>
   <string name="forkDescription">動いた駒が相手の 2 つの駒を同時に攻撃する手。</string>
+  <string name="forkOpposingPiecesDescription" comment="Replaces old string forkDescription">ひとつの駒が相手の複数の駒を同時に攻撃する手。</string>
   <string name="hangingPiece">浮き駒</string>
   <string name="hangingPieceDescription">守りのない駒、または守り駒の足りない駒をただで取る問題。</string>
   <string name="hookMate">釣り針のメイト</string>
   <string name="hookMateDescription">ポーンの隣にいるキングを、ルーク、ナイト、ポーンでメイトする形。</string>
+  <string name="hookMateOpposingPawnDescription" comment="Replaces old string hookMateDescription">ポーンの隣にいるキングを、ルーク、ナイト、ポーンでメイトする形。</string>
   <string name="interference">インターフェア（干渉）</string>
   <string name="interferenceDescription">相手の 2 つの駒の間に駒を入れて浮き駒を作る問題。相手の 2 個のルークの間に守られたナイトを入れる、など。</string>
   <string name="intermezzo">ツヴィッシェンツーク（利かし）</string>
@@ -73,8 +77,10 @@
   <string name="killBoxMateDescription">ルークが敵キングの隣にあり、クイーンがルークを守ると同時にキングの逃げ道をふさいでいる。ルークとクイーンが 3 × 3 の「キルボックス」に敵キングを捕えた形。</string>
   <string name="pillsburysMate">ピルズベリーのメイト</string>
   <string name="pillsburysMateDescription">ルークがチェックをかけ、ビショップがルークを守っているメイト。</string>
+  <string name="pillsburyMateRookAndBishopDescription" comment="Replaces old string pillsburysMateDescription">ルークがチェックし、ビショップが逃げ道を防ぐ形のメイト。</string>
   <string name="morphysMate">モーフィのメイト</string>
   <string name="morphysMateDescription">ビショップがチェックをかけ、ルークがキングの逃げ道を抑えているメイト。</string>
+  <string name="morphyMateBishopAndRookDescription" comment="Replaces old string morphysMateDescription">ビショップがチェックし、ルークが逃げ道を防ぐ形のメイト。</string>
   <string name="swallowstailMate">燕尾のメイト</string>
   <string name="swallowstailMateDescription">駒がツバメの尾に似た V 字型を作るメイト。</string>
   <string name="triangleMate">三角のメイト</string>
@@ -115,6 +121,7 @@
   <string name="pinDescription">ピンを含む問題。ラインピースに狙われた駒が動くと、より価値の高い駒が取られてしまう状況。</string>
   <string name="promotion">プロモーション</string>
   <string name="promotionDescription">ポーンの昇格かその狙いがテーマの問題。</string>
+  <string name="promotePawnToQueenRookOrMinor" comment="Replaces old string promotionDescription">ポーンをクイーンかルーク、マイナーピースに昇格させます。</string>
   <string name="queenEndgame">クイーン・エンドゲーム</string>
   <string name="queenEndgameDescription">クイーンとポーンだけの終盤。</string>
   <string name="queenRookEndgame">クイーンとルーク</string>

@@ -69,4 +69,9 @@
   <string name="notifyDevice">Enhet</string>
   <string name="bellNotificationSound">Klock-notisljud</string>
   <string name="blindfold" comment="As in Blindfold chess">I blindo</string>
+  <string name="generalSettings">Allmänt</string>
+  <string name="moveListSettings">Draglista</string>
+  <string name="boardSettings">Bräde</string>
+  <string name="analysisSettings">Analysinställningar</string>
+  <string name="hoverOverSettingLabelsForHelp">Håll muspekaren över inställningsetiketterna för hjälp</string>
 </resources>

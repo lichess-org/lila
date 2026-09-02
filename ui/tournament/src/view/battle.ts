@@ -2,7 +2,7 @@ import { h, type VNode } from 'snabbdom';
 
 import { shuffle } from 'lib/algo';
 import { bind, type MaybeVNode, snabDialog } from 'lib/view';
-import { fullName, userFlair } from 'lib/view/userLink';
+import { fullName, profileUrl, userFlair } from 'lib/view/userLink';
 
 import type TournamentController from '../ctrl';
 import type { TeamBattle, RankedTeam, LightTeam } from '../interfaces';
@@ -107,8 +107,8 @@ function teamTr(ctrl: TournamentController, battle: TeamBattle, team: RankedTeam
         {
           key: p.user.name,
           class: { top: i === 0 },
-          attrs: { 'data-href': '/@/' + p.user.name },
-          hook: { destroy: vnode => $.powerTip.destroy(vnode.elm as HTMLElement) },
+          attrs: { 'data-href': profileUrl(p.user.name) },
+          hook: { destroy: vnode => $.powerTip.destroy(vnode.elm) },
         },
         [...(i === 0 ? [h('username', fullName(p.user)), ' '] : []), p.score],
       ),

@@ -7,9 +7,9 @@ import { h } from 'snabbdom';
 import { type Prop, type Toggle, defined, notNull, prop, toggle } from 'lib';
 import { fenColor } from 'lib/game/chess';
 import { otbClockIsRunning, formatMs } from 'lib/game/clock/clockWidget';
-import { licon } from 'lib/licon';
+import { icons, type Icon } from 'lib/icons';
 import { storage, storedBooleanProp } from 'lib/storage';
-import { type MaybeVNode, type VNode, bind, dataIcon, onInsert, hl } from 'lib/view';
+import { type MaybeVNode, type VNode, bind, onInsert, hl, requiresI18n, snabIcon } from 'lib/view';
 import { cmnToggleWrapProp } from 'lib/view/cmn-toggle';
 import { userTitle } from 'lib/view/userLink';
 
@@ -53,6 +53,14 @@ export class MultiBoardCtrl {
       (!t || c.players?.white.team === t || c.players?.black.team === t)
     );
   };
+  private readonly chapterTeamPov = (c: ChapterPreview) => {
+    const t = this.teamSelect();
+    return t && c.players?.white.team === t
+      ? 'white'
+      : t && c.players?.black.team === t
+        ? 'black'
+        : undefined;
+  };
   private readonly chapterSorter = (pins: RelayPlayerPin) => (a: ChapterPreview, b: ChapterPreview) => {
     const aPinned = pins.isChapterPinned(a);
     const bPinned = pins.isChapterPinned(b);
@@ -68,9 +76,13 @@ export class MultiBoardCtrl {
   pager = (): Paginator<ChapterPreview> => {
     const maxPerPage = this.maxPerPage();
     const filteredResults = this.chapters.all().filter(this.chapterFilter);
+    const withTeamPOV = filteredResults.map(c => ({
+      ...c,
+      orientation: this.chapterTeamPov(c) ?? c.orientation,
+    }));
     const sortedResults = this.relay?.players.pins.anyPinned()
-      ? filteredResults.sort(this.chapterSorter(this.relay.players.pins))
-      : filteredResults;
+      ? withTeamPOV.sort(this.chapterSorter(this.relay.players.pins))
+      : withTeamPOV;
     const currentPageResults = sortedResults.slice((this.page - 1) * maxPerPage, this.page * maxPerPage);
     const nbResults = sortedResults.length;
     const nbPages = Math.floor((nbResults + maxPerPage - 1) / maxPerPage);
@@ -142,18 +154,12 @@ export function view(ctrl: MultiBoardCtrl, study: StudyCtrl): MaybeVNode {
       ]),
     ]),
     !ctrl.showResults()
-      ? h(
-          'div.empty-boards-note.text',
-          { attrs: dataIcon(licon.InfoCircle) },
-          i18n.broadcast.sinceHideResults,
-        )
+      ? h('div.empty-boards-note.text', [snabIcon(icons.InfoCircle), i18n.broadcast.sinceHideResults])
       : undefined,
     h(
       'div.now-playing',
       {
-        hook: {
-          insert: gameLinksListener(study.chapterSelect),
-        },
+        hook: onInsert(gameLinksListener(study.chapterSelect)),
       },
       makePreviews(
         pager.currentPageResults,
@@ -188,11 +194,11 @@ function renderPagerNav(pager: Paginator<ChapterPreview>, ctrl: MultiBoardCtrl):
     to = Math.min(pager.nbResults, page * pager.maxPerPage),
     max = ctrl.maxPerPage();
   return h('div.study__multiboard__pager', [
-    pagerButton(licon.JumpFirst, () => ctrl.setPage(1), page > 1, ctrl),
-    pagerButton(licon.JumpPrev, ctrl.prevPage, page > 1, ctrl),
+    pagerButton(icons.JumpFirst, () => ctrl.setPage(1), page > 1, ctrl),
+    pagerButton(icons.JumpPrev, ctrl.prevPage, page > 1, ctrl),
     h('span.page', `${from}-${to} / ${pager.nbResults}`),
-    pagerButton(licon.JumpNext, ctrl.nextPage, page < pager.nbPages, ctrl),
-    pagerButton(licon.JumpLast, ctrl.lastPage, page < pager.nbPages, ctrl),
+    pagerButton(icons.JumpNext, ctrl.nextPage, page < pager.nbPages, ctrl),
+    pagerButton(icons.JumpLast, ctrl.lastPage, page < pager.nbPages, ctrl),
     teamSelector(ctrl),
     h(
       'select.study__multiboard__pager__max-per-page',
@@ -208,23 +214,25 @@ const teamSelector = (ctrl: MultiBoardCtrl) => {
   const allTeams = ctrl.computeTeamList();
   const currentTeam = ctrl.teamSelect();
   return allTeams.length
-    ? h(
-        'select',
-        {
-          hook: bind('change', e => ctrl.teamSelect((e.target as HTMLOptionElement).value), ctrl.redraw),
-        },
-        [i18n.broadcast?.allTeams || 'All teams', ...allTeams].map((t, i) =>
-          h('option', { attrs: { value: i ? t : '', selected: i && t === currentTeam } }, t),
+    ? requiresI18n('broadcast', ctrl.redraw, broadcast =>
+        h(
+          'select',
+          {
+            hook: bind('change', e => ctrl.teamSelect((e.target as HTMLOptionElement).value), ctrl.redraw),
+          },
+
+          [broadcast.allTeams, ...allTeams].map((t, i) =>
+            h('option', { attrs: { value: i ? t : '', selected: i && t === currentTeam } }, t),
+          ),
         ),
       )
     : undefined;
 };
 
-function pagerButton(icon: string, click: () => void, enable: boolean, ctrl: MultiBoardCtrl): VNode {
-  return h('button.fbt', {
-    attrs: { 'data-icon': icon, disabled: !enable },
-    hook: bind('mousedown', click, ctrl.redraw),
-  });
+function pagerButton(icon: Icon, click: () => void, enable: boolean, ctrl: MultiBoardCtrl): VNode {
+  return h('button.fbt', { attrs: { disabled: !enable }, hook: bind('mousedown', click, ctrl.redraw) }, [
+    snabIcon(icon),
+  ]);
 }
 
 const previewToCgConfig = (cp: ChapterPreview): CgConfig => ({

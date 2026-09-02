@@ -27,6 +27,7 @@ Berserk only grants an extra point if you play at least 7 moves in the game.</st
 
 If two or more players are tied for points, tournament performance is the tie-break.</string>
   <string name="howDoesPairingWork">How does the pairing work?</string>
+  <string name="howArePlayersPaired" comment="Replaces old string howDoesPairingWork">How are players paired?</string>
   <string name="howDoesPairingWorkAnswer">At the start of the tournament, players are paired based on their rating.
 As soon as you finish a game and return to the tournament lobby, you will be paired with a new opponent close to your rank in the tournament. This keeps waiting times short. Note that you may not face every other player in the tournament.
 Play quickly to play more games and score more points.</string>
@@ -75,6 +76,10 @@ Play quickly to play more games and score more points.</string>
   <string name="rankAvgHelp">The rank average is a percentage of your ranking. Lower is better.
 
 For instance, being ranked 3 in a tournament of 100 players = 3%. Being ranked 10 in a tournament of 1000 players = 1%.</string>
+  <string name="rankAverageHelp" comment="Replaces old string rankAvgHelp">Your rank average represents your typical finishing position, relative to the total number of players in each tournament.
+This is a measure of your tournament placement, not your general rating.
+
+For example, a rank average of 3% means you typically finish in the top 3% (such as 30th place out of 1,000 players).</string>
   <string name="medians">medians</string>
   <string name="allAveragesAreX">All averages on this page are %s.</string>
   <string name="total">Total</string>

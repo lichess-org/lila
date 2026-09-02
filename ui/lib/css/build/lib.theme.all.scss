@@ -1,10 +1,7 @@
 @import '../theme/font-face';
+@import '../theme/icons';
 @import '../theme/theme.default';
-@import '../theme/pieces';
-
-:root {
-  @include shared-color-defs;
-}
-
 @import '../theme/theme.light';
-@import '../theme/theme.transp';
+@import '../theme/theme.transp.dark';
+@import '../theme/theme.transp.light';
+@import '../theme/pieces';

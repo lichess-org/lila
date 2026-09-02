@@ -16,6 +16,7 @@ trait Pref:
   val highlight: Boolean
   val is3d: Boolean
   val resizeHandle: Int
+  val uiRoundness: Int
   val theme: String
   val pieceSet: String
   val usingAltSocket: Option[Boolean]
@@ -31,14 +32,15 @@ trait Pref:
   def animationMillisForSpeedPuzzles: Int
   def pieceNotationIsLetter: Boolean
   def currentBg: String
+  def bgOpacity: Int
 
 trait PrefApi:
   def followable(userId: UserId): Fu[Boolean]
   def mentionableIds(userIds: Set[UserId]): Fu[Set[UserId]]
   def getMessage(userId: UserId): Fu[Int]
-  def getInsightShare(userId: UserId): Future[Int]
-  def getChallenge(userId: UserId): Future[Int]
-  def getStudyInvite(userId: UserId): Future[Int]
+  def getInsightShare(userId: UserId): Fu[Int]
+  def getChallenge(userId: UserId): Fu[Int]
+  def getStudyInvite(userId: UserId): Fu[Int]
   def isolate(user: User): Funit
 
 object Message:

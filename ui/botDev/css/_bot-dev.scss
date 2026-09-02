@@ -39,12 +39,12 @@
     display: none;
   }
 
-  .preview-sound::before {
+  .preview-sound > .svg-icon {
     color: $c-secondary;
+  }
 
-    &:hover {
-      color: hsl(from $c-secondary h s calc(l + 11));
-    }
+  .preview-sound:hover > .svg-icon {
+    color: hsl(from $c-secondary h s calc(l + 11));
   }
 
   .icon-btn {
@@ -252,9 +252,8 @@ main.round {
   }
 
   .reset::before {
-    @extend %data-icon;
+    @include icon-mask($icon-X);
 
-    content: $licon-X;
     color: $c-bad;
 
     &:hover {
@@ -266,10 +265,9 @@ main.round {
     margin-inline-start: auto;
 
     &.play::before {
-      @extend %data-icon;
+      @include icon-mask($icon-PlayTriangle);
 
       color: $c-secondary;
-      content: $licon-PlayTriangle;
 
       &:hover {
         color: hsl(from $c-secondary h s calc(l + 4));
@@ -277,10 +275,9 @@ main.round {
     }
 
     &.pause::before {
-      @extend %data-icon;
+      @include icon-mask($icon-Pause);
 
       color: $c-bad;
-      content: $licon-Pause;
 
       &:hover {
         color: hsl(from $c-bad h s calc(l + 11));

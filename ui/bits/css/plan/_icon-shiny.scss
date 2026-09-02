@@ -1,20 +1,10 @@
 @import '../../../lib/css/abstract/patron-colors';
 
 .patron-icon--shiny {
-  icon {
-    @extend %data-icon;
-  }
-
-  icon::before {
-    content: $licon-Wings !important;
-    background-clip: text;
-    color: transparent;
-  }
-
   @for $id from 1 through $patron-levels {
     $color: var(--c-patron-#{$id});
     &--#{$id} {
-      icon::before {
+      .svg-icon {
         background-image: linear-gradient(
           65deg,
           $color 35%,

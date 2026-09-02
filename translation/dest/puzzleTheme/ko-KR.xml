@@ -30,6 +30,7 @@
   <string name="collinearMoveDescription">마주 보는 두 기물이 있을 때, 한 말이 공격선을 따라 이동하되 상대 말을 잡지 않는 수입니다.</string>
   <string name="cornerMate">코너 메이트</string>
   <string name="cornerMateDescription">킹을 룩이나 퀸으로 구석에 가두고, 나이트로 체크메이트를 가합니다.</string>
+  <string name="cornerMateKnightDeliversDescription" comment="Description for the &quot;Corner mate&quot; puzzle theme. Replaces old string cornerMateDescription">킹을 룩이나 퀸으로 구석에 가두고, 나이트로 체크메이트를 가합니다.</string>
   <string name="crushing">박살내기</string>
   <string name="crushingDescription">상대의 블런더를 포착하고 박살내어 이득을 얻으세요. (eval ≥ 600cp)</string>
   <string name="discoveredCheck">디스커버드 체크</string>
@@ -46,7 +47,7 @@
   <string name="clearanceDescription">이어지는 전술적 아이디어를 위해 칸, 파일 또는 대각선을 비우는 수입니다.</string>
   <string name="defensiveMove">방어적인 수</string>
   <string name="defensiveMoveDescription">기물을 잃거나 다른 손실을 피하기 위해 필요한 정확한 수입니다.</string>
-  <string name="deflection">굴절</string>
+  <string name="deflection">디플렉션</string>
   <string name="deflectionDescription">중요한 칸을 수비하는 등 다른 역할을 수행하는 상대 기물의 주의를 분산시키는 수입니다. \"과부하\"라고도 불립니다.</string>
   <string name="discoveredAttack">디스커버드 어택</string>
   <string name="discoveredAttackDescription">장거리 기물(예: 룩)의 길을 막고 있는 기물(예: 나이트)을 이동시켜 공격합니다.</string>
@@ -55,16 +56,19 @@
   <string name="endgame">엔드게임</string>
   <string name="endgameDescription">게임 종반부에서의 전략</string>
   <string name="enPassantDescription">앙파상 규칙을 포함한 전술입니다. 상대 폰이 처음에 두 칸 이동해서 내 폰을 지나쳤을 경우, 그 폰을 잡을 수 있습니다.</string>
+  <string name="enPassantAdjacentCaptureDescription" comment="Replaces old string enPassantDescription">앙파상 규칙을 포함한 전술입니다. 상대 폰이 처음에 두 칸 이동해서 자신의 폰 바로 옆 칸으로 이동했을 경우, 그 폰을 잡을 수 있습니다.</string>
   <string name="epauletteMate">에팔레트 메이트</string>
-  <string name="epauletteMateDescription">체크된 킹의 두 인접한 탈출로가 다른 기물에 의해 막혀 있습니다.</string>
+  <string name="epauletteMateDescription">체크당한 킹의 두 인접한 탈출로가 다른 기물에 의해 막혀 있습니다.</string>
   <string name="exposedKing">노출된 킹</string>
   <string name="exposedKingDescription">주변에 방어자가 얼마 없는 킹에 대한 전술입니다. 종종 체크메이트가 되기도 합니다.</string>
   <string name="fork">포크</string>
   <string name="forkDescription">이동한 기물이 두 개의 상대 기물을 동시에 공격하는 수입니다.</string>
+  <string name="forkOpposingPiecesDescription" comment="Replaces old string forkDescription">기물이 두 개 이상의 상대 기물을 동시에 공격하는 수입니다.</string>
   <string name="hangingPiece">보호받지 않는 기물</string>
   <string name="hangingPieceDescription">상대 기물이 지켜지지 않거나 불충분하게 지켜져 공짜로 잡을 수 있는 전술입니다.</string>
   <string name="hookMate">훅 메이트</string>
   <string name="hookMateDescription">상대의 폰에 의해 탈출로가 막힌 킹을 룩, 나이트, 폰으로 체크메이트 합니다.</string>
+  <string name="hookMateOpposingPawnDescription" comment="Replaces old string hookMateDescription">상대 폰이 킹의 탈출로를 막고 있는 상태에서 룩, 나이트, 폰으로 가하는 체크메이트입니다.</string>
   <string name="interference">간섭</string>
   <string name="interferenceDescription">상대의 두 기물 사이에 기물을 집어넣어 그 기물들을 지켜지지 않게 만듭니다. 두 룩 사이의 나이트처럼요.</string>
   <string name="intermezzo">사잇수</string>
@@ -73,8 +77,10 @@
   <string name="killBoxMateDescription">킹 옆에서는 룩이 체크를 넣고, 퀸이 그 룩을 지켜주면서 킹의 도주로를 차단하는 체크메이트 패턴입니다. 룩과 퀸이 3 x 3 \"킬 박스\" 안에서 킹을 공격합니다.</string>
   <string name="pillsburysMate">필즈버리 메이트</string>
   <string name="pillsburysMateDescription">비숍이 킹을 가두어두는 동안 룩을 이용해 메이트를 합니다.</string>
+  <string name="pillsburyMateRookAndBishopDescription" comment="Replaces old string pillsburysMateDescription">비숍이 킹을 가두어두는 동안 룩을 이용해 메이트를 합니다.</string>
   <string name="morphysMate">모피 메이트</string>
   <string name="morphysMateDescription">룩으로 킹의 퇴로를 차단하고, 비숍으로 킹에게 체크합니다.</string>
+  <string name="morphyMateBishopAndRookDescription" comment="Replaces old string morphysMateDescription">룩이 킹을 가두어두는 동안 비숍을 이용해 메이트를 합니다.</string>
   <string name="swallowstailMate">스왈로우테일 메이트</string>
   <string name="swallowstailMateDescription">V자 모양인 제비의 꼬리를 시각적으로 닮은 체크메이트 패턴입니다.</string>
   <string name="triangleMate">트라이앵글 메이트</string>
@@ -115,6 +121,7 @@
   <string name="pinDescription">더 높은 가치의 기물이 공격받게 되기 때문에 기물을 움직이지 못하게 하는 전술입니다.</string>
   <string name="promotion">프로모션</string>
   <string name="promotionDescription">폰을 퀸이나 다른 기물로 승진</string>
+  <string name="promotePawnToQueenRookOrMinor" comment="Replaces old string promotionDescription">폰을 퀸, 룩 혹은 마이너 피스로 프로모션합니다.</string>
   <string name="queenEndgame">퀸 엔딩</string>
   <string name="queenEndgameDescription">퀸과 폰만 있는 엔드게임</string>
   <string name="queenRookEndgame">퀸과 룩</string>
@@ -143,7 +150,7 @@
   <string name="veryLongDescription">승리까지 네 수 이상이 걸립니다.</string>
   <string name="xRayAttack">X-Ray 공격</string>
   <string name="xRayAttackDescription">기물이 상대 기물 너머의 칸을 공격 또는 방어합니다.</string>
-  <string name="zugzwang">추크추방</string>
+  <string name="zugzwang">추크츠방</string>
   <string name="zugzwangDescription">상대가 둘 수 있는 수는 제한되어 있으며, 모든 수가 포지션을 악화시킵니다.</string>
   <string name="mix">골고루 섞기</string>
   <string name="mixDescription">전부 다. 무엇이 나올지 모르기 때문에 모든 것에 준비되어 있어야 합니다. 마치 진짜 게임처럼요.</string>

@@ -44,13 +44,10 @@
   <plurals name="viewAllNbPosts">
     <item quantity="other">ดู %s โพสต์</item>
   </plurals>
-  <string name="uploadAnImageForYourPost">อัปโหลดรูปสำหรับบล็อกของคุณ</string>
   <string name="imageAlt">ข้อความแสดงแทนรูปภาพ</string>
   <string name="imageCredit">เครดิตภาพ</string>
   <string name="deleteBlog">ลบโพสต์บล็อกนี้อย่างถาวร</string>
-  <string name="safeToUseImages">สามารถใช้รูปภาพจากเว็บไซต์ต่อไปนี้ได้อย่างปลอดภัย: </string>
   <string name="selectPostTopics">เลือกหัวข้อที่โพสต์ของคุณเกี่ยวกับ</string>
-  <string name="useImagesYouMadeYourself">คุณสามารถใช้รูปภาพที่คุณสร้างเอง รูปภาพที่คุณถ่าย ภาพหน้าจอจาก Lichess... หรืออะไรก็ตามที่ไม่ละเมิดลิขสิทธิ์ของผู้อื่นได้</string>
   <string name="safeAndRespectfulContent">กรุณาโพสต์เฉพาะเนื้อหาที่ปลอดภัยและสุภาพเท่านั้น ห้ามคัดลอกเนื้อหาของผู้อื่น</string>
   <string name="inappropriateContentAccountClosed">อะไรก็ตามที่ไม่เหมาะสมอาจทำให้บัญชีของคุณโดนปิดได้</string>
   <string name="blogTips">เคล็ดลับง่ายๆของเราในการเขียนบล็อกที่ดี</string>

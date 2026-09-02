@@ -10,9 +10,10 @@
   padding: 0.8em 1em;
   border: none;
   cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   text-align: center;
-  white-space: nowrap;
-  display: inline-block;
   text-shadow: 0.5px 0.5px 0 rgb(from $c-dimmer r g b / calc(alpha * 0.8));
 
   @include if-light {
@@ -34,7 +35,7 @@
 
   &:not(.disabled):hover {
     color: $c-over;
-    background: hsl(from $c-primary h s calc(l + 7));
+    filter: brightness(1.15);
   }
 
   &:not(.disabled):focus-visible {
@@ -74,7 +75,7 @@
       hsl(from $c-bad h s calc(l + 32)),
       hsl(from $c-bad h s calc(l - 15)),
       hsl(from $c-bad h s calc(l + 44)),
-      hsl(from $c-bad h s calc(l - 12))
+      hsl(from $c-bad h s calc(l - 10))
     );
 
     background: $c-bad;
@@ -148,6 +149,12 @@
     &,
     &:not(.disabled):hover {
       color: $c-font;
+    }
+
+    @include if-light {
+      &:hover {
+        filter: none;
+      }
     }
   }
 

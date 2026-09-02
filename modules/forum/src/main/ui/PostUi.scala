@@ -42,7 +42,10 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
                 post.updatedAt
                   .map: updatedAt =>
                     frag(
-                      span(cls := "post-edited")("edited "),
+                      span(cls := "post-edited")(
+                        trans.site.postEdited(),
+                        " "
+                      ),
                       momentFromNow(updatedAt)
                     )
                   .getOrElse:
@@ -52,10 +55,8 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
                 button(
                   cls := "forum-post__button edit button button-empty text",
                   tpe := "button",
-                  dataIcon := Icon.Pencil
-                )(
-                  "Edit"
-                )
+                  iconEl := Icon.Pencil
+                )(trans.site.edit())
               ),
               ctx.me.flatMap: me =>
                 given Me = me
@@ -63,8 +64,8 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
                   button(
                     cls := "forum-post__button quote button button-empty text",
                     tpe := "button",
-                    dataIcon := "❝"
-                  )("Quote")
+                    cls := "quote"
+                  )(trans.site.quote())
                 )
                 if !post.erased && post.canBeEditedByMe
                 then
@@ -72,8 +73,8 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
                     postForm(action := routes.ForumPost.delete(post.id))(
                       submitButton(
                         cls := "forum-post__button delete button button-empty yes-no-confirm",
-                        dataIcon := Icon.Trash,
-                        title := "Delete"
+                        iconEl := Icon.Trash,
+                        title := trans.site.delete.txt()
                       )
                     ),
                     quoteButton
@@ -84,7 +85,7 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
                       a(
                         cls := "forum-post__button mod-relocate button button-empty",
                         href := routes.ForumPost.relocate(post.id),
-                        dataIcon := Icon.Forward,
+                        iconEl := Icon.Forward,
                         title := "Relocate"
                       )
                     ,
@@ -93,8 +94,8 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
                         a(
                           cls := "forum-post__button delete button button-empty",
                           href := routes.ForumPost.delete(post.id),
-                          dataIcon := Icon.Trash,
-                          title := "Delete"
+                          iconEl := Icon.Trash,
+                          title := trans.site.delete.txt()
                         ),
                         quoteButton
                       )
@@ -109,7 +110,7 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
                               routes.Report.form.url,
                               Map("username" -> userId.value, "postUrl" -> postUrl.value, "from" -> "forum")
                             ),
-                            dataIcon := Icon.CautionTriangle
+                            iconEl := Icon.CautionTriangle
                           ),
                           quoteButton
                         )
@@ -131,7 +132,7 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
         ctx.me.soUse[Option[Tag]]:
           post.shouldShowEditForm.option:
             postForm(cls := "edit-post-form none", action := routes.ForumPost.edit(post.id))(
-              lila.ui.bits.markdownTextarea("forumPostBody".some):
+              lila.ui.bits.markdownEditor(MarkdownRealm.forum):
                 textarea(
                   bits.dataTopic := topic.id,
                   name := "changes",
@@ -160,7 +161,7 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
       ForumPost.Reaction.list.forall(r => (~post.reactions.flatMap(_.get(r))).nonEmpty)
     div(cls := List("reactions" -> true, "reactions-auth" -> canActuallyReact), tabindex := -1)(
       (canActuallyReact && !allReactionsVisible).option(
-        button(cls := "reactions-toggle", tpe := "button", dataIcon := Icon.PlusButton)
+        button(cls := "reactions-toggle", tpe := "button", iconEl := Icon.PlusButton)
       ),
       ForumPost.Reaction.list.map: r =>
         val users = ~post.reactions.flatMap(_.get(r))
@@ -193,7 +194,7 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
       .js(infiniteScrollEsmInit):
         main(cls := "box search")(
           boxTop(
-            h1(a(href := routes.ForumCateg.index, dataIcon := Icon.LessThan, cls := "text"), title),
+            h1(a(href := routes.ForumCateg.index, iconEl := Icon.LessThan, cls := "text"), title),
             bits.searchForm(text)
           ),
           strong(cls := "nb-results box__pad")(trans.site.nbForumPosts.pluralSame(pager.nbResults)),

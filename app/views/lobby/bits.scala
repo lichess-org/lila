@@ -16,7 +16,7 @@ object bits:
     div(cls := "lobby__tournaments-simuls")(
       div(cls := "lobby__tournaments lobby__box")(
         a(cls := "lobby__box__top", href := routes.Tournament.home)(
-          h2(cls := "title text", dataIcon := Icon.Trophy)(trans.site.openTournaments()),
+          h2(cls := "title text", iconEl := Icon.Trophy)(trans.site.openTournaments()),
           span(cls := "more")(trans.site.more(), " »")
         ),
         div(cls := "lobby__box__content"):
@@ -25,7 +25,7 @@ object bits:
       simuls.nonEmpty.option(
         div(cls := "lobby__simuls lobby__box")(
           a(cls := "lobby__box__top", href := routes.Simul.home)(
-            h2(cls := "title text", dataIcon := Icon.Group)(trans.site.simultaneousExhibitions()),
+            h2(cls := "title text", iconEl := Icon.Group)(trans.site.simultaneousExhibitions()),
             span(cls := "more")(trans.site.more(), " »")
           ),
           div(cls := "lobby__box__content"):
@@ -79,7 +79,7 @@ object bits:
       br,
       a(
         cls := "text button button-fat",
-        dataIcon := Icon.PlayTriangle,
+        iconEl := Icon.PlayTriangle,
         href := routes.Round.player(current.pov.fullId)
       )(
         trans.site.joinTheGame()
@@ -90,7 +90,7 @@ object bits:
       br,
       br,
       postForm(action := routes.Round.resign(current.pov.fullId))(
-        button(cls := "text button button-red", dataIcon := Icon.X):
+        button(cls := "text button button-red", iconEl := Icon.X):
           if current.pov.game.abortableByUser then trans.site.abortTheGame() else trans.site.resignTheGame()
       ),
       br,

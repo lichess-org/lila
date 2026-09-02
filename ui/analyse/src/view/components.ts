@@ -8,7 +8,7 @@ import { isMobile } from 'lib/device';
 import { playable } from 'lib/game';
 import { fixCrazySan, plyToTurn } from 'lib/game/chess';
 import statusView from 'lib/game/view/status';
-import { licon } from 'lib/licon';
+import { icons } from 'lib/icons';
 import * as Prefs from 'lib/prefs';
 import { storage } from 'lib/storage';
 import { path as treePath } from 'lib/tree/tree';
@@ -19,8 +19,8 @@ import {
   bind,
   bindNonPassive,
   onInsert,
-  dataIcon,
   hl,
+  snabIcon,
   spinnerVdom as spinner,
 } from 'lib/view';
 import stepwiseScroll from 'lib/view/stepwiseScroll';
@@ -77,7 +77,7 @@ export function viewContext(ctrl: AnalyseCtrl, deps?: typeof studyDeps): ViewCon
     playerBars,
     playerStrips: playerBars ? undefined : renderPlayerStrips(ctrl),
     gaugeOn: ctrl.showEvalGauge(),
-    needsInnerCoords: ctrl.data.pref.showCaptured || ctrl.showEvalGauge() || !!playerBars,
+    needsInnerCoords: ctrl.showEvalGauge() || !!playerBars,
     hasRelayTour: ctrl.study?.relay?.tourShow() || false,
   };
 }
@@ -165,7 +165,7 @@ export const renderUnderboard = ({ ctrl, deps, study }: ViewContext): VNode =>
   );
 
 export function renderInputs(ctrl: AnalyseCtrl): VNode | undefined {
-  if (ctrl.ongoing || !ctrl.data.userAnalysis) return;
+  if (ctrl.ongoing || !ctrl.data.userAnalysis) return undefined;
   if (ctrl.redirecting) return spinner();
   return hl('div.copyables', [
     hl('div.pair', [
@@ -211,6 +211,7 @@ export function renderInputs(ctrl: AnalyseCtrl): VNode | undefined {
                 if (e.key !== 'Enter' || e.shiftKey || e.ctrlKey || e.altKey || e.metaKey || isMobile())
                   return undefined;
                 else if (changePgnIfDifferent()) e.preventDefault();
+                return undefined;
               });
               if (isMobile()) el.addEventListener('focusout', changePgnIfDifferent);
             }),
@@ -225,19 +226,17 @@ export function renderInputs(ctrl: AnalyseCtrl): VNode | undefined {
           hl(
             'button.button.button-thin.bottom-item.bottom-action.text',
             {
-              attrs: dataIcon(licon.PlayTriangle),
               hook: bind('click', _ => {
                 const pgn = $('.copyables .pgn textarea').val() as string;
                 if (pgn !== pgnExport.renderFullTxt(ctrl)) ctrl.changePgn(pgn, true);
               }),
             },
-            i18n.site.importPgn,
+            [snabIcon(icons.PlayTriangle), i18n.site.importPgn],
           ),
-        hl(
-          'div.bottom-item.bottom-error',
-          { attrs: dataIcon(licon.CautionTriangle), class: { 'is-error': !!ctrl.pgnError } },
+        hl('div.bottom-item.bottom-error', { class: { 'is-error': !!ctrl.pgnError } }, [
+          snabIcon(icons.CautionTriangle),
           renderPgnError(ctrl.pgnError),
-        ),
+        ]),
       ]),
     ]),
   ]);

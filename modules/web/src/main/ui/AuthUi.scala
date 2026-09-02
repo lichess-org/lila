@@ -32,7 +32,7 @@ final class AuthUi(helpers: Helpers):
         cls := "oauth__connection__service"
       ),
       div(cls := "oauth__connection__between"):
-        iconTag(Icon.Checkmark)(cls := "oauth__connection__check")
+        iconEl(Icon.Checkmark)(cls := "oauth__connection__check")
       ,
       lila.web.ui.bits.logo
     )
@@ -93,7 +93,7 @@ final class AuthUi(helpers: Helpers):
               form3.group(
                 form("token"),
                 trans.tfa.authenticationCode(),
-                help = Some(span(dataIcon := Icon.PhoneMobile)(trans.tfa.openTwoFactorApp()))
+                help = Some(span(iconEl := Icon.PhoneMobile)(trans.tfa.openTwoFactorApp()))
               )(
                 form3.input(_)(
                   attr("inputmode") := "numeric",
@@ -174,7 +174,7 @@ final class AuthUi(helpers: Helpers):
               ),
             input(id := "signup-fp-input", name := "fp", tpe := "hidden"),
             simple.not.option:
-              div(cls := "form-group text", dataIcon := Icon.InfoCircle)(
+              div(cls := "form-group text", iconEl := Icon.InfoCircle)(
                 trans.site.computersAreNotAllowedToPlay(),
                 br,
                 small(
@@ -212,7 +212,7 @@ final class AuthUi(helpers: Helpers):
               if form.exists(_.hasErrors) then "error" else "anim"
             }"
         )(
-          boxTop(h1(cls := "is-green text", dataIcon := Icon.Checkmark)(trans.site.checkYourEmail())),
+          boxTop(h1(cls := "is-green text", iconEl := Icon.Checkmark)(trans.site.checkYourEmail())),
           p(trans.site.weHaveSentYouAnEmailClickTheLink()),
           h2("Not receiving it?"),
           ol(
@@ -258,10 +258,7 @@ final class AuthUi(helpers: Helpers):
           )
         )
 
-  def signupConfirm(
-      user: User,
-      token: String
-  )(using Context, Option[ValidReferrer]) =
+  def signupConfirm(user: User, token: String)(using Context, Option[ValidReferrer]) =
     Page(trans.site.signUp.txt())
       .css("bits.email-confirm"):
         main(cls := "page-small box box-pad signup-confirm")(
@@ -279,7 +276,7 @@ final class AuthUi(helpers: Helpers):
         main(cls := "auth auth-signup box box-pad")(
           boxTop(
             h1(
-              fail.isDefined.option(iconTag(Icon.X)(cls := "is-red")),
+              fail.isDefined.option(iconEl(Icon.X)(cls := "is-red")),
               trans.site.passwordReset()
             )
           ),
@@ -293,10 +290,10 @@ final class AuthUi(helpers: Helpers):
           )
         )
 
-  def passwordResetSent(email: String)(using Context) =
+  def passwordResetSent(email: EmailAddress)(using Context) =
     Page(trans.site.passwordReset.txt()).css("bits.auth"):
       main(cls := "page-small box box-pad")(
-        boxTop(h1(cls := "is-green text", dataIcon := Icon.Checkmark)(trans.site.checkYourEmail())),
+        boxTop(h1(cls := "is-green text", iconEl := Icon.Checkmark)(trans.site.checkYourEmail())),
         p(trans.site.weHaveSentYouAnEmailTo(email)),
         p(trans.site.ifYouDoNotGetTheEmail()),
         ul(cls := "checklist")(
@@ -314,8 +311,8 @@ final class AuthUi(helpers: Helpers):
         main(cls := "auth page-small box box-pad")(
           boxTop(
             (ok match
-              case Some(true) => h1(cls := "is-green text", dataIcon := Icon.Checkmark)
-              case Some(false) => h1(cls := "is-red text", dataIcon := Icon.X)
+              case Some(true) => h1(cls := "is-green text", iconEl := Icon.Checkmark)
+              case Some(false) => h1(cls := "is-red text", iconEl := Icon.X)
               case _ => h1
             )(
               userLink(me, withOnline = false),
@@ -345,7 +342,7 @@ final class AuthUi(helpers: Helpers):
         main(cls := "auth auth-signup box box-pad")(
           boxTop(
             h1(
-              fail.option(iconTag(Icon.X)(cls := "is-red")),
+              fail.option(iconEl(Icon.X)(cls := "is-red")),
               "Log in by email"
             )
           ),
@@ -362,7 +359,7 @@ final class AuthUi(helpers: Helpers):
   def magicLinkSent(using Context) =
     Page(trans.site.logInByEmail.txt()):
       main(cls := "page-small box box-pad")(
-        boxTop(h1(cls := "is-green text", dataIcon := Icon.Checkmark)(trans.site.checkYourEmail())),
+        boxTop(h1(cls := "is-green text", iconEl := Icon.Checkmark)(trans.site.checkYourEmail())),
         p(trans.site.sentEmailWithLink()),
         p(trans.site.ifYouDoNotSeeTheEmailCheckOtherPlaces())
       )
@@ -430,14 +427,14 @@ final class AuthUi(helpers: Helpers):
   private def authGlobalError(form: Form[?])(using Translate): Option[Frag] =
     form.globalError.map: err =>
       div(cls := "form-group is-invalid auth-global-error")(
-        span(cls := "text", dataIcon := Icon.CautionCircle)(transKey(trans(err.message), err.args))
+        span(cls := "text", iconEl := Icon.CautionCircle)(transKey(trans(err.message), err.args))
       )
 
   private def clearFieldButton(using Context) =
     button(
       cls := "text-clear",
       tpe := "button",
-      dataIcon := Icon.Cancel,
+      iconEl := Icon.Cancel,
       title := trans.site.clearField.txt(),
       aria.label := trans.site.clearField.txt(),
       tabindex := -1

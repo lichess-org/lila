@@ -48,7 +48,7 @@ export class InlineView {
   constructor(readonly ctrl: AnalyseCtrl) {}
 
   renderNodes([child, ...siblings]: TreeNode[], args: Args): LooseVNodes {
-    if (!child) return;
+    if (!child) return undefined;
     const { isMainline, parentDisclose } = args;
     return child.forceVariation && isMainline
       ? hl('interrupt', this.lines([child, ...siblings], args))
@@ -69,19 +69,23 @@ export class InlineView {
         this.ctrl.retro?.hideComputerLine(node) && this.isLichessComment(comment)
           ? hl('comment', i18n.site.learnFromThisMistake)
           : (!this.isLichessComment(comment) || this.ctrl.settings.showStaticAnalysis) &&
-            hl('comment', {
-              class: {
-                inaccuracy: comment.text.startsWith('Inaccuracy.'),
-                mistake: comment.text.startsWith('Mistake.'),
-                blunder: comment.text.startsWith('Blunder.'),
-                ...classes,
+            hl(
+              'comment',
+              {
+                class: {
+                  inaccuracy: comment.text.startsWith('Inaccuracy.'),
+                  mistake:
+                    comment.text.startsWith('Mistake.') ||
+                    comment.text.startsWith('Checkmate is now unavoidable.'),
+                  blunder: comment.text.startsWith('Blunder.'),
+                  ...classes,
+                },
               },
-              hook: innerHTML(comment.text, text =>
-                node.comments?.[1]
-                  ? `<span class="by">${authorText(comment.by)}</span> ` + enrichText(text)
-                  : enrichText(text),
-              ),
-            }),
+              [
+                Boolean(node.comments?.[1]) && [hl('span.by', authorText(comment.by)), ' '],
+                hl('span', { hook: innerHTML(comment.text, enrichText) }),
+              ],
+            ),
       )
       .filter(Boolean);
   }
@@ -92,7 +96,7 @@ export class InlineView {
 
   protected lines(lines: TreeNode[], args: Args): LooseVNodes {
     const { parentDisclose, parentPath, parentNode, isMainline } = args;
-    if (!lines.length || parentDisclose === 'collapsed') return;
+    if (!lines.length || parentDisclose === 'collapsed') return undefined;
     const anchor = parentDisclose === 'expanded' && (this.inline || !isMainline);
     const lineArgs = { parentPath, parentNode, isMainline: false };
 
@@ -107,7 +111,7 @@ export class InlineView {
   }
 
   private sidelineNodes([child, ...siblings]: TreeNode[], args: Args): LooseVNodes {
-    if (!child) return;
+    if (!child) return undefined;
     const childArgs = this.childArgs(child, args, false);
     const sideline = [
       this.moveNode(child, args),
@@ -164,7 +168,7 @@ export class InlineView {
         !currentPath && !!ctrl.gamePath && treePath.contains(path, ctrl.gamePath) && path !== ctrl.gamePath,
       'context-menu': path === ctrl.contextMenuPath,
       'pending-deletion': path.startsWith(ctrl.pendingDeletionPath() || ' '),
-      'pending-copy': !!ctrl.pendingCopyPath()?.startsWith(path),
+      'pending-copy': ctrl.isPendingCopy(path, isMainline),
     };
     const glyphs = [...(node.glyphs ?? [])];
     const liveGlyph = ctrl.liveAnnotate?.get(path);

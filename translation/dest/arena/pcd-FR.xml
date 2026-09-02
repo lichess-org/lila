@@ -24,6 +24,7 @@ L\'option Berserk ne rapporte de point supplémentaire que si vous jouez au moin
 
 En cas d\'égalité au nombre de points, les joueurs sont départagés par leur cote de performance lors du tournoi.</string>
   <string name="howDoesPairingWork">Comment sont déterminés les appariements ?</string>
+  <string name="howArePlayersPaired" comment="Replaces old string howDoesPairingWork">Comment les joueurs sont-ils appariés?</string>
   <string name="howDoesPairingWorkAnswer">Au début du tournoi, les joueurs sont appariés en fonction de leur cote.
 Dès que vous avez terminé votre partie, retournez à la page d\'accueil du tournoi : vous serez alors apparié avec un joueur qui possède un classement proche du vôtre. Cela garantit un temps d\'attente minimum entre les parties, toutefois il est possible que vous n\'affrontiez pas tous les autres joueurs du tournoi.
 Jouez vite et retournez à la page d\'accueil du tournoi pour jouer plus de parties et gagner plus de points.</string>
@@ -62,6 +63,7 @@ Jouez vite et retournez à la page d\'accueil du tournoi pour jouer plus de part
   <string name="editTournament">Modifier le tournoi</string>
   <string name="editTeamBattle">Modifier la bataille en équipe</string>
   <string name="defender">Défenseur</string>
+  <string name="defenderLabel" comment="In this context, this is the current holder of a shield trophy, who is defending their trophy in the next shield tournament of that variant. https://lichess.org/tournament/shields Replaces old string defender">Défenseur :</string>
   <string name="pickYourTeam">Choisissez votre équipe</string>
   <string name="whichTeamWillYouRepresentInThisBattle">Quelle équipe représenterez-vous dans cette bataille?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">Vous devez rejoindre l\'une de ces équipes pour participer!</string>
@@ -72,6 +74,9 @@ Jouez vite et retournez à la page d\'accueil du tournoi pour jouer plus de part
   <string name="rankAvgHelp">Le classement moyen est un pourcentage de votre classement. Plus il est bas, mieux c\'est.
 
 Par exemple, être classé 3e dans un tournoi de 100 joueurs = 3 %. Être classé 10e dans un tournoi de 1 000 joueurs = 1 %.</string>
+  <string name="rankAverageHelp" comment="Replaces old string rankAvgHelp">Votre rang moyen correspond à votre rang final habituel, relativement au nombre total de joueurs par tournoi. C\'est une mesure de votre rang dans les tournois et non de votre classement (c.-à-d. de votre cote).
+
+Par exemple, un rang moyen de 3 % signifie que vous êtes habituellement parmi la première tranche de 3 % des joueurs (p. ex. la 30e place dans un groupe de 1 000 joueurs).</string>
   <string name="medians">médianes</string>
   <string name="allAveragesAreX">Toutes les moyennes sur cette page sont des %s.</string>
   <string name="total">Total</string>

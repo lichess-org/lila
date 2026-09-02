@@ -17,13 +17,16 @@ final class Env(
     cacheApi: lila.memo.CacheApi,
     lightUserApi: lila.core.user.LightUserApi,
     userJson: lila.core.user.JsonView,
+    userRepo: lila.core.user.UserRepo,
     db: lila.db.Db,
-    mongoRateLimitApi: lila.memo.MongoRateLimitApi
-)(using Executor, Scheduler, akka.stream.Materializer):
+    mongoRateLimitApi: lila.memo.MongoRateLimitApi,
+    spamApi: lila.core.security.SpamApi
+)(using Executor, Scheduler, org.apache.pekko.stream.Materializer):
 
   lazy val teamRepo = TeamRepo(db(CollName("team")))
   lazy val memberRepo = TeamMemberRepo(db(CollName("team_member")))
   lazy val requestRepo = TeamRequestRepo(db(CollName("team_request")))
+  private lazy val updateRepo = TeamUpdateRepo(db(CollName("team_update")))
 
   lazy val forms = wire[TeamForm]
 
@@ -39,13 +42,11 @@ final class Env(
 
   def version(teamId: TeamId) = teamSocket.rooms.ask[SocketVersion](teamId.into(RoomId))(GetVersion.apply)
 
-  private lazy val notifier = wire[Notifier]
-
   export cached.{ lightApi as lightTeamApi, async as lightTeam, sync as lightTeamSync }
 
   def isBetaTester(using myId: MyId) = cached.isMember(TeamId("lichess-beta-testers"))
 
-  lazy val limiter = wire[TeamLimiter]
+  lazy val update = wire[TeamUpdateApi]
 
   lazy val security = wire[TeamSecurity]
 
@@ -53,7 +54,7 @@ final class Env(
 
   wire[TeamClasSync]
 
-  lila.common.Cli.handle:
+  lila.common.Cli.handle():
     case "team" :: "members" :: "add" :: teamId :: members :: Nil =>
       for
         team <- teamRepo.byId(TeamId(teamId)).orFail(s"Team $teamId not found")

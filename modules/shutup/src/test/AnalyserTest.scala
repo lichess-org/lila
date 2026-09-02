@@ -15,6 +15,7 @@ class AnalyserTest extends munit.FunSuite:
     assert(grave("kys"))
     assert(grave("kill you motherfucker"))
     assert(grave("kill your father"))
+    assert(grave("rope"))
 
   test("find one bad word"):
     assertEquals(find("cheater"), List("cheater"))
@@ -38,6 +39,7 @@ class AnalyserTest extends munit.FunSuite:
   test("find no bad words"):
     assertEquals(find(""), Nil)
     assertEquals(find("hello there"), Nil)
+    assertEquals(find("on the ropes"), Nil)
     assertEquals(
       find:
         "A sonnet is a poetic form which originated in Italy; Giacomo Da Lentini is credited with its invention."
@@ -50,15 +52,15 @@ class AnalyserTest extends munit.FunSuite:
 
   test("find badly spelled words"):
     assertEquals(find("cheatedd cheaterr"), List("cheatedd", "cheaterr"))
-    assertEquals(find("pnis pusy quer"), List("pnis", "pusy", "quer"))
+    assertEquals(find("kil u killl u pnis pusy quer"), List("kil u", "killl u", "pnis", "pusy", "quer"))
     assertEquals(find("foo ashole bar fuks"), List("ashole", "fuks"))
     assertEquals(find("faaaaaaaaagg faaaagot fag"), List("faaaaaaaaagg", "faaaagot", "fag"))
 
   test("find variants"):
     assertEquals(find("cunt kunt cunting kawa kunting"), List("cunt", "kunt", "cunting", "kunting"))
     assertEquals(
-      find("@$$ as 4sh0l3 ky5 l0s3r n1g3r 53x"),
-      List("ass", "ashole", "kys", "loser", "niger", "sex")
+      find("@$$ as 4sh0l3 groid ky5 l0s3r n1g3r 53x"),
+      List("ass", "ashole", "groid", "kys", "loser", "niger", "sex")
     )
 
   test("find plurals"):
@@ -97,21 +99,36 @@ class AnalyserTest extends munit.FunSuite:
   test("rat false positives"):
     assertEquals(find("test rat is rate some rates what rated"), List("rat"))
 
+  test("french inflection"):
+    assertEquals(find("blaireau connard f2p fdp"), List("blaireau", "connard", "f2p", "fdp"))
+
+  test("german inflection"):
+    assertEquals(find("feigling feiglinge"), List("feigling", "feiglinge"))
+
+  test("hindi inflection"):
+    assertEquals(find("laude krle"), List("laude krle"))
+
+  test("spanish inflection"):
+    assertEquals(find("hdp hdtpm madre chupapollas"), List("hdp", "hdtpm", "madre", "chupapollas"))
+
   test("russian chars"):
     assertEquals(find("sеx"), List("sex"))
 
   test("russian"):
-    assertEquals(find("сука пизда пиздюк"), List("сука", "пизда", "пиздюк"))
+    assertEquals(find("сука пидор пидорас пизда пиздюк"), List("сука", "пидор", "пидорас", "пизда", "пиздюк"))
 
   test("russian with punctuation"):
     assertEquals(find("сука! ?пизда"), List("сука", "пизда"))
 
   test("with punctuation"):
     assertEquals(find("nigger?"), List("nigger"))
+    assertEquals(find("d|e in hel"), List("d|e in hel"))
 
   test("with slash and plural"):
     assertEquals(find("/Vigger"), List("vigger"))
     assertEquals(find("V/igger"), List("vigger"))
+    assertEquals(find("n/gger"), List("ngger"))
+    assertEquals(find("n\\gger"), List("n\\gger"))
     assertEquals(find("/vigger"), List("vigger"))
     assertEquals(find("I like /Viggers"), List("viggers"))
 

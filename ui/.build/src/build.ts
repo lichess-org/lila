@@ -1,6 +1,5 @@
 import { execSync } from 'node:child_process';
 import fs from 'node:fs';
-import { relative, join } from 'node:path';
 import { chdir } from 'node:process';
 
 import { definedUnique } from './algo.ts';
@@ -48,6 +47,8 @@ export async function build(pkgs: string[]): Promise<void> {
 }
 
 export function stopBuild(): Promise<any> {
+  env.mustSucceed.clear();
+  env.onSuccess.clear();
   stopTask();
   stopSass();
   stopManifest(true);
@@ -55,29 +56,30 @@ export function stopBuild(): Promise<any> {
 }
 
 function monitor(pkgs: string[]) {
-  if (!env.watch) return;
+  if (!env.watch) return undefined;
   return makeTask({
     key: 'monitor',
     includes: [
       { cwd: env.rootDir, path: 'package.json' },
       { cwd: env.typesDir, path: '*/package.json' },
-      { cwd: env.uiDir, path: '*/package.json' },
       { cwd: env.typesDir, path: '*/*.d.ts' },
+      { cwd: env.uiDir, path: '*/package.json' },
       { cwd: env.uiDir, path: '*/tsconfig.json' },
     ],
     debounce: 1000,
     monitorOnly: true,
     execute: async files => {
-      if (files.some(x => x.endsWith('package.json'))) {
+      const cleanTsc = files.some(name => name.endsWith('tsconfig.json') || name.endsWith('.d.ts'));
+      if (files.some(name => name.endsWith('package.json'))) {
         if (!env.install) env.exit('Exiting due to package.json change');
         await stopBuild();
         if (env.clean) await clean();
-        else await clean([relative(env.rootDir, join(env.buildTempDir, 'noCheck/*'))]);
+        else if (cleanTsc) await clean(['ui/*/tsconfig.tsbuildinfo']);
         build(pkgs);
-      } else if (files.some(x => x.endsWith('.d.ts') || x.endsWith('tsconfig.json'))) {
+      } else if (cleanTsc) {
         stopManifest();
         await Promise.allSettled([stopTsc(), stopEsbuild()]);
-        await clean([relative(env.rootDir, join(env.buildTempDir, 'noCheck/*'))]);
+        await clean(['ui/*/tsconfig.tsbuildinfo']);
         tsc();
         esbuild();
       }

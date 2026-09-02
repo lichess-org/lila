@@ -59,11 +59,6 @@
     margin-bottom: 2em;
     background: $c-bg-zebra;
 
-    &::before {
-      font-size: 2em;
-      margin-inline-end: 0.4em;
-    }
-
     form {
       display: inline;
     }
@@ -90,9 +85,8 @@
   text-indent: -2.2em;
 
   &::before {
-    font-family: lichess;
-    content: $licon-Checkmark;
-    font-size: 1.5em;
+    @include icon-mask($icon-Checkmark, 1.5em);
+
     margin-inline-end: 0.5em;
     vertical-align: middle;
     opacity: 0.8;

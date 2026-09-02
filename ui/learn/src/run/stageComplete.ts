@@ -1,8 +1,8 @@
 import { h } from 'snabbdom';
 
 import { numberSpread } from 'lib/i18n';
-import { licon } from 'lib/licon';
-import { bind, iconTag, onInsert } from 'lib/view';
+import { icons } from 'lib/icons';
+import { bind, icon, onInsert } from 'lib/view';
 
 import { hashNavigate } from '../hashRouting';
 import { getStageRank } from '../score';
@@ -49,11 +49,11 @@ export default function (ctrl: RunCtrl) {
         next
           ? h('button.button', { hook: bind('click', () => hashNavigate(next.id)) }, [
               i18n.learn.nextX(next.title),
-              iconTag(licon.GreaterThan),
+              icon(icons.GreaterThan)(),
             ])
           : null,
         h(`button.button.button-empty`, { hook: bind('click', () => hashNavigate()) }, [
-          iconTag(licon.LessThan),
+          icon(icons.LessThan)(),
           i18n.learn.backToMenu,
         ]),
       ]),

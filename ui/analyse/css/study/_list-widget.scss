@@ -73,13 +73,24 @@
         color: $c-font-dim;
       }
 
+      .study-meta {
+        display: flex;
+        align-items: center;
+        gap: 0.5em;
+      }
+
       .study__icon {
         flex: 0 0 auto;
         color: color-mix(in oklab, $c-primary 80%, $c-bg);
-        font-size: 3em;
+
+        .svg-icon {
+          width: 3em;
+        }
 
         img {
           margin: 0;
+          width: 3em;
+          height: 3em;
         }
       }
 
@@ -94,6 +105,24 @@
       .top::before {
         color: $c-link;
       }
+    }
+  }
+
+  &.compact {
+    position: relative;
+
+    // Mask the container edge so only internal right borders remain visible.
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0 0 0 auto;
+      width: 1px;
+      background: $c-bg-box;
+      pointer-events: none;
+    }
+
+    .study.compact > .study__icon {
+      margin-inline-end: 0.3em;
     }
   }
 

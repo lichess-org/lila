@@ -39,8 +39,7 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
           st.title := trans.ublog.xBlog.txt(user.username)
         ).some
       )
-      .flag(_.noRobots, !blog.listed || !post.indexable || blog.tier < UblogBlog.Tier.HIGH)
-      .csp(_.withTwitter.withInlineIconFont):
+      .flag(_.noRobots, !blog.listed || !post.indexable || blog.tier < UblogBlog.Tier.HIGH):
         main(cls := "page-menu page-small")(
           ui.menu(Left(user.id)),
           div(cls := "page-menu__content box box-pad ublog-post")(
@@ -54,7 +53,7 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
             Granter
               .opt(_.ModerateBlog)
               .option:
-                div(id := "mod-tools-container")(modTools(post, isInCarousel))
+                div(id := "ublog-mod-tools-container")(modTools(post, isInCarousel))
             ,
             div(cls := "ublog-post__meta")(
               a(
@@ -62,7 +61,7 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
                 href := routes.Ublog.index(user.username),
                 dataHref := routes.User.show(user.username)
               )(userLinkContent(user)),
-              iconTag(Icon.InfoCircle)(
+              iconEl(Icon.InfoCircle)(
                 cls := "ublog-post__meta__disclaimer",
                 st.title := "Opinions expressed by Lichess contributors are their own."
               ),
@@ -96,7 +95,7 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
                       "from" -> "ublog"
                     )
                   ),
-                  dataIcon := Icon.CautionTriangle
+                  iconEl := Icon.CautionTriangle
                 )
               ,
               langList.nameByLanguage(post.language)
@@ -106,7 +105,7 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
                 a(href := routes.Ublog.topic(topic.url, none, lila.core.ublog.BlogsBy.newest, 1))(topic.value)
             ),
             (~post.ads).option(
-              div(dataIcon := Icon.InfoCircle, cls := "ublog-post__ads-disclosure text")(
+              div(iconEl := Icon.InfoCircle, cls := "ublog-post__ads-disclosure text")(
                 "Contains sponsored content, affiliate links or commercial advertisement"
               )
             ),
@@ -123,7 +122,7 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
                 a(
                   href := routes.Ublog.discuss(post.id),
                   cls := "button text ublog-post__discuss",
-                  dataIcon := Icon.BubbleConvo
+                  iconEl := Icon.BubbleConvo
                 )(trans.ublog.discussThisBlogPostInTheForum())
               ),
               (ctx.isAuth && ctx.isnt(user)).option(
@@ -145,24 +144,15 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
           )
         )
 
-  def markdownForAgents(post: UblogPost): String =
-    s"""---
-title: ${post.title}
-description: ${post.intro}
-image: ${ui.thumbnailUrl(post, _.Size.Large)}
----
-
-${post.markdown}
-"""
-
   private def editButton(post: UblogPost)(using Context) = a(
     href := ui.editUrlOfPost(post),
     cls := "button button-empty text",
-    dataIcon := Icon.Pencil
+    iconEl := Icon.Pencil
   )(trans.site.edit())
 
   private def likeButton(post: UblogPost, liked: Boolean, showText: Boolean)(using Context) =
     val text = if liked then trans.site.liked.txt() else trans.site.like.txt()
+    val icon = if liked then Icon.Heart else Icon.HeartOutline
     button(
       tpe := "button",
       cls := List(
@@ -174,18 +164,14 @@ ${post.markdown}
       dataRel := post.id,
       title := text
     )(
-      span(cls := "ublog-post__like__nb")(post.likes.value.localize),
-      showText.option(
-        span(
-          cls := "button-label"
-        )(text)
-      )
+      span(iconEl(icon), span(cls := "ublog-post__like__nb")(post.likes.value.localize)),
+      showText.option(span(cls := "button-label")(text))
     )
 
   private def followButton(user: User, followed: Boolean)(using Context) =
-    val (text, route) =
-      if followed then (trans.site.unfollowX, routes.Relation.unfollow)
-      else (trans.site.followX, routes.Relation.follow)
+    val (text, route, icon) =
+      if followed then (trans.site.unfollowX, routes.Relation.unfollow, Icon.Checkmark)
+      else (trans.site.followX, routes.Relation.follow, Icon.ThumbsUp)
     button(
       cls := List(
         "ublog-post__follow button button-metal is" -> true,
@@ -193,23 +179,26 @@ ${post.markdown}
       ),
       dataRel := s"${route(user.id)}?mini=1"
     )(
+      iconEl(icon),
       span(cls := "button-label", attr("data-username") := user.titleUsername)(text(user.titleUsername))
     )
 
   def modTools(post: UblogPost, isInCarousel: Boolean) =
-    val am = post.automod
-    val evergreen = ~am.flatMap(_.evergreen)
-    val flagged = ~am.flatMap(_.flagged)
-    val comm = ~am.flatMap(_.commercial)
-
-    div(id := "mod-tools", data("url") := routes.Ublog.modPost(post.id).url)(
+    val nonPendingQuality = post.isPendingQuality.not.option(post.quality)
+    div(id := "ublog-mod-tools", data("url") := routes.Ublog.modPost(post.id).url)(
       div(
-        span(cls := "btn-rack")(
-          lila.core.ublog.Quality.values.map: q =>
-            button(
-              cls := s"quality-btn btn-rack__btn ${am.exists(_.quality == q).so("lit")}",
-              value := q.ordinal.toString
-            )(q.name.capitalize)
+        div(
+          span(cls := "btn-rack")(
+            lila.core.ublog.Quality.values.map: q =>
+              button(
+                cls := s"quality-btn btn-rack__btn ${(nonPendingQuality.contains(q)).so("lit")}",
+                value := q.name
+              )(q.name.capitalize)
+          ),
+          post.automod
+            .ifTrue(post.modQuality.isEmpty)
+            .map: auto =>
+              span("AI thought it was ", auto.quality.name, ".")
         ),
         fieldset(cls := "carousel-fields")(
           legend(a(href := routes.Ublog.modShowCarousel)("Edit Carousel"), isInCarousel.option("(live)")),
@@ -220,28 +209,33 @@ ${post.markdown}
               "or",
               button(cls := "button button-metal carousel-pin-btn")("pin")
             )
-        ),
-        span(cls := "ublog-mod-assess-footer")(
-          button(cls := "button button-metal assess-btn", data("url") := routes.Ublog.modAssess(post.id))(
-            if am.isDefined then "reassess" else "assess"
-          ),
-          am.flatMap(_.lockedBy).map(u => span(s"* $u"))
         )
       ),
       fieldset(cls := "submit-fields")(
         legend("Tags", button(cls := "button button-empty none submit")("Submit")),
         span(
           "Evergreen",
-          input(id := "evergreen", tpe := "checkbox", evergreen.option(checked)),
+          input(
+            id := "evergreen",
+            tpe := "checkbox",
+            post.automod.flatMap(_.evergreen).orZero.option(checked)
+          ),
           "(for recommendations)"
         ),
-        span(cls := s"commercial ${comm.isEmpty.so("empty")}", title := comm)(
+        span(
           "Commercial",
-          input(id := "commercial", value := comm)
+          input(id := "commercial", value := ~post.automod.flatMap(_.commercial))
         ),
-        span(cls := s"flagged ${flagged.isEmpty.so("empty")}", title := flagged)(
-          "Flagged",
-          input(id := "flagged", value := flagged)
-        )
+        span("Flagged", input(id := "flagged", value := ~post.automod.flatMap(_.flagged)))
       )
     )
+
+  def markdownForAgents(post: UblogPost): String =
+    s"""---
+title: ${post.title}
+description: ${post.intro}
+image: ${ui.thumbnailUrl(post, _.Size.Large)}
+---
+
+${post.markdown}
+"""

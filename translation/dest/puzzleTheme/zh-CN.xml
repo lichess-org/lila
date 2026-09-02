@@ -30,6 +30,7 @@
   <string name="collinearMoveDescription">两枚对立的棋子彼此面对，其中一枚棋子沿攻击线移动但不吃子。</string>
   <string name="cornerMate">角落将杀</string>
   <string name="cornerMateDescription">用车或后与马配合，将对方的王困在角落并将其将杀。</string>
+  <string name="cornerMateKnightDeliversDescription" comment="Description for the &quot;Corner mate&quot; puzzle theme. Replaces old string cornerMateDescription">用车或后把对方的王逼到角落，再用马将其将杀。</string>
   <string name="crushing">压倒性优势</string>
   <string name="crushingDescription">利用对手失误以获得压倒性优势（评估 ≥ 600 厘兵）</string>
   <string name="discoveredCheck">闪将</string>
@@ -55,16 +56,19 @@
   <string name="endgame">残局</string>
   <string name="endgameDescription">对局最后阶段的战术。</string>
   <string name="enPassantDescription">涉及吃过路兵规则的战术，兵可以吃掉利用初始两格移动越过它的对方兵。</string>
+  <string name="enPassantAdjacentCaptureDescription" comment="Replaces old string enPassantDescription">一种涉及吃过路兵规则的战术，即当对方兵以初始两步着法移动到己方兵旁边时，己方兵可以将其吃掉。</string>
   <string name="epauletteMate">肩章将杀</string>
   <string name="epauletteMateDescription">被将杀的王有两个相邻的逃逸格，但均被其他棋子占据。</string>
   <string name="exposedKing">暴露的王</string>
   <string name="exposedKingDescription">针对周围防御子稀少的王的战术，通常会导致将杀。</string>
   <string name="fork">捉双</string>
   <string name="forkDescription">一步棋同时攻击对方两个棋子。</string>
+  <string name="forkOpposingPiecesDescription" comment="Replaces old string forkDescription">一步同时攻击两个或多个对方棋子的着法。</string>
   <string name="hangingPiece">悬子</string>
   <string name="hangingPieceDescription">针对对方未被保护或保护不足、可以免费吃掉的棋子的战术。</string>
   <string name="hookMate">钩形将杀</string>
   <string name="hookMateDescription">用车、马和兵，配合对方的一个兵来限制对方王的逃跑路线，从而完成将杀。</string>
+  <string name="hookMateOpposingPawnDescription" comment="Replaces old string hookMateDescription">使用车、马和兵进行将杀，其中对方兵阻挡了其王的逃逸。</string>
   <string name="interference">拦截</string>
   <string name="interferenceDescription">将己方棋子走到对方两个棋子之间，使得其中一个或两个对方棋子失去保护，例如将一个马走到被保护的两个车之间的格子上。</string>
   <string name="intermezzo">过渡着</string>
@@ -73,8 +77,10 @@
   <string name="killBoxMateDescription">车紧邻对方王，并得到后的支持，后也同时封锁了王的逃逸格。车和后将对方王困在一个 3x3 的“杀王箱”中。</string>
   <string name="pillsburysMate">皮尔斯伯里将杀</string>
   <string name="pillsburysMateDescription">车执行将杀，而象协助限制王移动。</string>
+  <string name="pillsburyMateRookAndBishopDescription" comment="Replaces old string pillsburysMateDescription">车执行将杀，同时象协助限制王移动。</string>
   <string name="morphysMate">摩菲将杀</string>
   <string name="morphysMateDescription">利用象来将军，同时您的车协助限制王移动。</string>
+  <string name="morphyMateBishopAndRookDescription" comment="Replaces old string morphysMateDescription">象执行将杀，同时车协助限制王移动。</string>
   <string name="swallowstailMate">燕尾杀王</string>
   <string name="swallowstailMateDescription">一种呈 V 字形、视觉上形似燕尾的将杀模式。</string>
   <string name="triangleMate">三角将杀</string>
@@ -115,6 +121,7 @@
   <string name="pinDescription">涉及牵制的战术，即一个棋子若移动，会暴露对其后方更高价值棋子的攻击。</string>
   <string name="promotion">升变</string>
   <string name="promotionDescription">将兵升变为后或轻子。</string>
+  <string name="promotePawnToQueenRookOrMinor" comment="Replaces old string promotionDescription">兵升变或威胁升变是战术的关键。</string>
   <string name="queenEndgame">后残局</string>
   <string name="queenEndgameDescription">只有后和兵的残局。</string>
   <string name="queenRookEndgame">后车残局</string>

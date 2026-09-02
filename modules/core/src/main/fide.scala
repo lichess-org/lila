@@ -4,6 +4,7 @@ package fide
 import _root_.chess.{ FideId, FideTC, PlayerName, PlayerTitle }
 import _root_.chess.rating.{ Elo, KFactor }
 import play.api.libs.json.JsObject
+
 import lila.core.userId.UserId
 
 object Federation:
@@ -45,6 +46,11 @@ object Tokenize extends FunctionWrapper[Tokenize, String => PlayerToken]
 enum FidePlayerOrder:
   case name, standard, rapid, blitz, year, follow
   def key = toString
+  // which time control activity applies to that ordering
+  def fideTC: FideTC = this match
+    case FidePlayerOrder.rapid => FideTC.rapid
+    case FidePlayerOrder.blitz => FideTC.blitz
+    case _ => FideTC.standard
 
 object FidePlayerOrder:
   def all: List[FidePlayerOrder] = values.toList

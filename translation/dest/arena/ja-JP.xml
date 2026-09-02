@@ -20,6 +20,7 @@
   <string name="howIsTheWinnerDecided">優勝者の決め方は？</string>
   <string name="howIsTheWinnerDecidedAnswer">トーナメントの予定終了時刻の時点でもっともポイント数の多いプレイヤーが優勝です。</string>
   <string name="howDoesPairingWork">対局の組み合わせはどう決まりますか？</string>
+  <string name="howArePlayersPaired" comment="Replaces old string howDoesPairingWork">対戦組み合わせはどう決まりますか？</string>
   <string name="howDoesPairingWorkAnswer">トーナメントの最初はレーティングによって組み合わせが決まります。対局が終わったらすぐにトーナメント・ロビーに戻ってください。間もなく順位の近い相手と対局の組み合わせが決まります。これによって待ち時間は少なくなりますが、ただし他のすべての参加者とは対局しないかもしれません。
 早く指して早くロビーに戻れば、それだけ対局数が増えてポイントも増えるでしょう。</string>
   <string name="howDoesItEnd">終了のしかたは？</string>
@@ -55,6 +56,7 @@
   <string name="editTournament">トーナメントを編集</string>
   <string name="editTeamBattle">チームバトルを編集</string>
   <string name="defender">保持者</string>
+  <string name="defenderLabel" comment="In this context, this is the current holder of a shield trophy, who is defending their trophy in the next shield tournament of that variant. https://lichess.org/tournament/shields Replaces old string defender">シールド保持者：</string>
   <string name="pickYourTeam">チームを選択</string>
   <string name="whichTeamWillYouRepresentInThisBattle">このバトルでどのチームに所属しますか？</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">参加するにはどれかのチームに入ってください！</string>
@@ -65,6 +67,10 @@
   <string name="rankAvgHelp">平均順位はあなたの順位の百分位です。低いほど優秀です。
 
 たとえば 100 人参加のトーナメントで 3 位なら 3 %、 1000 人参加のトーナメントで 10 位なら 1 %となります。</string>
+  <string name="rankAverageHelp" comment="Replaces old string rankAvgHelp">平均順位は各トーナメントで参加者全体の上位何％に入ったかの平均を示します。
+これはトーナメントでの順位の指標で、レーティングとは無関係です。
+
+たとえば平均順位が 3 ％であれば、平均して上位 3 ％以内（たとえば 1000 人中 30 位以内）に入っているということです。</string>
   <string name="medians">中央値</string>
   <string name="allAveragesAreX">このページで言う「平均」はすべて %s です。</string>
   <string name="total">合計</string>

@@ -26,6 +26,7 @@
   <string name="orCloseAccount">Du kan dog lukke din konto og oprette en ny.</string>
   <string name="wantClearHistory">Jeg vil slette min historik eller rating</string>
   <string name="cantClearHistory">Det er ikke muligt at slette din historik for partier, taktikopgaver eller ratinger.</string>
+  <string name="cantClearHistoryOrResetRatings" comment="Replaces old string cantClearHistory">Det er ikke muligt at rydde din historik for partier, taktikopgaver eller nulstille dine ratings.</string>
   <string name="wantReport">Jeg vil anmelde en spiller</string>
   <string name="toReportAPlayerUseForm">Brug anmeldelsesformularen for at anmelde en spiller</string>
   <string name="youCanAlsoReachReportPage">Du kan også komme frem til den side ved at klikke på %s anmeldelsesknappen på en profilside.</string>
@@ -74,4 +75,13 @@
   <string name="noneOfTheAbove">Intet af det ovenstående</string>
   <string name="sendEmailAt">Send os en e-mail på %s.</string>
   <string name="explainYourRequest">Beskriv venligst din anmodning klart og grundigt. Oplys dit Lichess-brugernavn og enhver anden information, som kan hjælpe os med at hjælpe dig.</string>
+  <string name="monetiseNotInterested">Vi er ikke interesseret i at tjene penge på Lichess.</string>
+  <string name="monetiseNoAdsTrackingOrTraffic">Vi vil aldrig vise nogen form for annoncer, vi vil ikke spore vores spillere, og vi vil ikke sælge eller købe trafik eller brugere.</string>
+  <string name="monetiseNoMarketingEmail">Kontakt os venligst ikke os om markedsføring, tracking eller annoncering.</string>
+  <string name="monetiseEncourageEveryoneTo" comment="string is value of key monetiseBlockAllAdsAndTrackers">Vi opfordrer alle til at %s.</string>
+  <string name="monetiseBlockAllAdsAndTrackers">blokere alle annoncer og trackere</string>
+  <string name="broadcastTournamentOnLichess">Transmitter en turnering på Lichess</string>
+  <string name="ifYouWantToBroadcastClause1">Hvis du ønsker at transmittere en turnering officielt på Lichess, eller hvis du har spørgsmål vedrørende vores transmissioner:</string>
+  <string name="ifYouWantToBroadcastClause2" comment="string1 is Lichess email, string2 is value of key ourDiscordServer">Kontakt vores Broadcast Team på %1$s eller på %2$s.</string>
+  <string name="ourDiscordServer">vores Discord-server</string>
 </resources>

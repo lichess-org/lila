@@ -6,6 +6,7 @@
     margin-top: 30px;
     margin-bottom: 6px;
     border-bottom: $border;
+    padding-bottom: 4px;
 
     a {
       color: $c-font;
@@ -46,6 +47,7 @@
 
 .tour__links {
   margin-top: 1em;
+  line-height: 1.5;
 
   a {
     color: $c-font;
@@ -59,24 +61,27 @@
 }
 
 .scheduled {
+  margin-bottom: 6px;
+
   a {
-    color: $c-font;
-
-    @include padding-direction(0.5em, 0, 0.5em, 2.7em);
-
-    display: block;
-    position: relative;
-    line-height: 1.2;
+    padding: 0.5em 0;
 
     @include transition;
+
+    color: $c-font;
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    line-height: 1.2;
+    min-height: 48px;
 
     &:hover {
       @extend %box-radius;
 
-      padding-inline-start: 3.2rem;
+      padding-inline-start: 0.5rem;
       background: color-mix(in oklab, $c-brag 20%, $c-bg-page);
 
-      &::before {
+      .svg-icon {
         @include inline-start(0.5rem);
 
         opacity: 1;
@@ -89,15 +94,11 @@
     display: block;
   }
 
-  a::before {
+  a .svg-icon {
     @include transition;
-
-    position: absolute;
-    top: 0.3rem;
-
     @include inline-start(0);
 
-    font-size: 2.2em;
+    width: 2.2em;
     opacity: 0.6;
     color: $c-brag;
   }

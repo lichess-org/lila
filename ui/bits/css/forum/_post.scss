@@ -42,10 +42,6 @@
     border-bottom: $border;
   }
 
-  &__message a {
-    overflow-wrap: anywhere;
-  }
-
   &.erased {
     color: $c-font-dimmer;
 
@@ -89,6 +85,12 @@
   }
 }
 
+.forum-post__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
 .button.forum-post__button {
   @media (hover: hover) {
     visibility: hidden;
@@ -120,14 +122,18 @@
 .forum-post__message {
   @extend %break-word, %zalgoverflow;
 
+  margin-top: 1em;
+  margin-bottom: 1em;
+  text-align: start;
+
+  a {
+    overflow-wrap: anywhere;
+  }
+
   p {
     margin-block: 0;
     overflow-wrap: anywhere;
   }
-
-  margin-top: 1em;
-  margin-bottom: 1em;
-  text-align: start;
 
   .lpv {
     margin: $block-gap auto;
@@ -137,10 +143,6 @@
     @extend %video;
 
     margin: $block-gap auto;
-  }
-
-  .twitter-tweet {
-    color-scheme: normal;
   }
 
   .hidden-quotes {
@@ -158,12 +160,12 @@
   display: none;
 }
 
-.comment-preview {
+.preview {
   font-size: 1.1rem;
 }
 
 .forum-topic .forum-post__message,
-.forum-topic .comment-preview {
+.forum-topic .preview {
   @include rendered-markdown(1em, 1600px);
   @include rendered-markdown-code;
   @include rendered-markdown-quote;
@@ -172,8 +174,19 @@
 
   blockquote {
     padding: 0 0.7em;
-    border-left: 0.3em solid;
     unicode-bidi: plaintext;
     position: relative;
   }
+
+  h2 {
+    font-size: 1.4em;
+  }
+
+  h3 {
+    font-size: 1.2em;
+  }
+}
+
+.forum-topic .preview {
+  @include backdrop-blur-if-transparent;
 }

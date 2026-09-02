@@ -9,6 +9,7 @@
   <string name="gameOver">musi li pini</string>
   <string name="waitingForOpponent">o awen. jan ante li kama.</string>
   <string name="orLetYourOpponentScanQrCode">anu, jan ante li kepeken e sitelen leko ni</string>
+  <string name="reusableChallengeUrl">sitelen URL pi utala sin</string>
   <string name="waiting">o awen</string>
   <string name="yourTurn">sina o musi</string>
   <string name="aiNameLevelAiLevel">ilo %1$s pi wawa %2$s</string>
@@ -80,6 +81,7 @@
   <string name="expandVariations">o suli e nasin ante</string>
   <string name="forceVariation">ni o linja ante</string>
   <string name="copyVariationPgn">o tu e sitelen pi nasin ante</string>
+  <string name="copyMainLinePgn">pali e sitelen PGN awen</string>
   <string name="move">tawa</string>
   <string name="variantLoss">pini ike pi musi ante</string>
   <string name="variantWin">pini pona pi musi ante</string>
@@ -94,6 +96,8 @@
   <string name="database">poki sona</string>
   <string name="whiteDrawBlack">walo / anpa ala / pimeja</string>
   <string name="averageRatingX">nanpa wawa meso: %s</string>
+  <string name="minRatingX">nanpa wawa pi lili nanpa wan pi %s</string>
+  <string name="maxRatingX">nanpa wawa pi suli nanpa wan pi %s</string>
   <string name="recentGames">musi lon tenpo pini lili</string>
   <string name="topGames">musi pi jan wawa</string>
   <string name="masterDbExplanation">jan musi pi nanpa wawa %1$s (anu sewi) li musi lon tenpo mute mute tan tenpo sike nanpa %2$s tawa tenpo sike nanpa %3$s.</string>
@@ -125,10 +129,16 @@
   <string name="enable">o open</string>
   <string name="bestMoveArrow">palisa alasa pi tawa pona</string>
   <string name="showVariationArrows">o sitelen linja e tawa ante</string>
+  <string name="visualMotifs">pali pona sitelen</string>
+  <string name="undefendedPieces">i
+jo musi pi awen ala</string>
+  <string name="pinnedPieces">ijo musi pi ken ala tawa</string>
+  <string name="checkableKing">lawa mije pi ken utala</string>
   <string name="multipleLines">mute linja</string>
   <string name="searchTime">o alasa e tenpo</string>
   <string name="cpus">pilin pi ilo sona</string>
   <string name="memory">awen sona ilo</string>
+  <string name="memoryDescription">nanpa suli li ken pana pona e ilo</string>
   <string name="infiniteAnalysis">alasa sona pi pini ala</string>
   <string name="removesTheDepthLimit">ni li weka e pini pi alasa sona. ilo sona sina li ken kama seli a</string>
   <string name="blunder">pakala suli</string>
@@ -162,6 +172,7 @@
   <string name="flipBoard">o jasima e supa</string>
   <string name="threefoldRepetition">tenpo tu wan la supa li sama</string>
   <string name="claimADraw">o kama jo e pini pi anpa ala</string>
+  <string name="drawClaimed">anpa ala</string>
   <string name="offerDraw">o toki e wile pi anpa ala</string>
   <string name="draw">pini pi anpa ala</string>
   <plurals name="nbPlayers">
@@ -255,9 +266,11 @@
   <string name="emailCanTakeSomeTime">lipu toki li kepeken tenpo tawa kama la sina o awen.</string>
   <string name="refreshInboxAfterFiveMinutes">o awen lon tenpo Minuta kama 5. pini la o open sin e poki sina pi lipu toki.</string>
   <string name="checkSpamFolder">o lukin e poki pi lipu jaki. ken la lipu mi li lon ni. ona li lon ni la o toki e ni tawa ilo sina: lipu mi li jaki ala.</string>
+  <string name="checkSpamOrJunkFolder" comment="checkSpamFolder&#10;It = The confirmation email Replaces old string checkSpamFolder">sina jo ala e lipu pi jan sina, la o lukin e toki mute ike anu jaki pi ma ona. o sitelen e ni. lipu pi lipu Lichess.org li pona li toki mute ike ala, la sina ken sona e ale tawa toki suli.</string>
   <string name="sendEmailForAccountVerification">sina lukin ala a e lipu mi la o pana e lipu tawa poki %s. ni la mi ken e sina.</string>
   <string name="accountConfirmed">jan %s li lon</string>
   <string name="accountCanLogin">sina ken kama lon lipu sina kepeken nimi %s.</string>
+  <string name="accountConfirmationEmailNotNeeded">sina wile ala e lipu pi jan sina.</string>
   <string name="accountClosed">lipu jan %s lon ala.</string>
   <string name="accountRegisteredWithoutEmail">sijelo %s li kepeken ala poki lipu.</string>
   <string name="rank">nanpa</string>
@@ -296,6 +309,7 @@
   <string name="standard">nasin pi ante ala</string>
   <string name="customPosition">musi lon wile sina</string>
   <string name="unlimited">tenpo pi pini ala</string>
+  <string name="unlimitedDescription">o kepeken e tenpo ale pi sina wile</string>
   <string name="mode">nasin</string>
   <string name="casual">musi pi nanpa wawa ala</string>
   <string name="rated">musi pi nanpa wawa</string>
@@ -350,7 +364,15 @@
   <string name="openingExplorerAndTablebase">lipu sona pi open musi en pini musi</string>
   <string name="takeback">kama jo sin</string>
   <string name="proposeATakeback">o toki e kama jo sin</string>
+  <string name="whiteProposesTakeback">walo li wile tawa tawa pi sin ala</string>
+  <string name="blackProposesTakeback">pimeja li wile tawa tawa pi sin ala</string>
   <string name="takebackPropositionSent">jan li sona e toki sina pi kama jo sin</string>
+  <string name="whiteDeclinesTakeback">walo li wile ala tawa tawa pi sin ala</string>
+  <string name="blackDeclinesTakeback">pimeja li wile ala tawa tawa pi sin ala</string>
+  <string name="whiteAcceptsTakeback">walo li wile tawa tawa pi sina ala</string>
+  <string name="blackAcceptsTakeback">pimera li wile tawa tawa pi sina ala</string>
+  <string name="whiteCancelsTakeback">walo li weka e wile tawa tawa pi sin ala</string>
+  <string name="blackCancelsTakeback">pimeja li weka e wile tawa tawa pi sin ala</string>
   <string name="yourOpponentProposesATakeback">jan ante li toki: sina ken kama jo sin</string>
   <string name="bookmarkThisGame">o awen e musi ni</string>
   <string name="tournament">musi pi musi mute</string>
@@ -370,6 +392,7 @@
   </plurals>
   <string name="viewTournament">o lukin e musi pi musi mute</string>
   <string name="backToTournament">o tawa musi</string>
+  <string name="noDrawBeforeSwissLimit">sina ken ala wile pini pi anpa ala la tawa 30 li kama ala.</string>
   <string name="thematic">nasin suli</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">musi %s (anu mute pi ante suli) pi nanpa wawa</item>
@@ -419,6 +442,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="toStudy">o pali e lipu sona</string>
   <string name="importGame">o pana e musi</string>
   <string name="importGameExplanation">o pana e lipu PGN kepeken poki pana. sina pali e ni la, sina ken lukin e musi kepeken ilo. sina ken toki e musi. sina ken jo e nimi nasin URL pi musi ni.</string>
+  <string name="importGameDataPrivacyWarning">ale li ken lukin e PGN ni. sina wile jo e musi len, la kepeken e kama sona.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">musi %s tan ante</item>
     <item quantity="other">musi %s tan ante</item>
@@ -454,6 +478,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
     <item quantity="one">tawa poka jan %s</item>
     <item quantity="other">tawa poka jan %s</item>
   </plurals>
+  <string name="less">mute ni ala</string>
   <string name="more">o sona e mute</string>
   <string name="memberSince">tenpo pi kama lon ma ni</string>
   <string name="lastSeenActive">tenpo pini pi lon ma ni %s</string>
@@ -464,6 +489,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="openTournaments">musi open</string>
   <string name="duration">tenpo</string>
   <string name="winner">jan li pini pona</string>
+  <string name="standings">kama nanpa</string>
   <string name="createANewTournament">pali e musi sin</string>
   <string name="tournamentCalendar">lipu tenpo pi utala musi</string>
   <string name="conditionOfEntry">sina wile musi lon utala musi ni la, sina wile e ni:</string>
@@ -496,6 +522,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="popularOpenings">open musi pi jan mute</string>
   <string name="endgamePositions">nasin pi tenpo pi musi open</string>
   <string name="chess960StartPosition">Chess960 nasin open: %s</string>
+  <string name="randomChess960Position">musi pi lawa mije moli pi nasin ala</string>
   <string name="startPosition">musi lon open</string>
   <string name="clearBoard">supa musi sin</string>
   <string name="loadPosition">o kama jo e musi lon open</string>
@@ -516,6 +543,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="socialMediaLinks">nimi nasin pi lipu toki jan</string>
   <string name="oneUrlPerLine">insa linja la URL wan li lon.</string>
   <string name="inlineNotation">o sitelen e tawa lon linja wan</string>
+  <string name="makeAStudy">awen en pana la, o pali e sona.</string>
   <string name="clearSavedMoves">o weka e tawa</string>
   <string name="previouslyOnLichessTV">musi pini pi jan ante</string>
   <string name="onlinePlayers">jan lon</string>
@@ -547,6 +575,9 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="replies">toki tawa ni</string>
   <string name="replyToThisTopic">o toki tawa lipu toki ni</string>
   <string name="reply">o toki tawa ni</string>
+  <string name="reopen">open pi sin ala</string>
+  <string name="quote">toki</string>
+  <string name="postEdited">pali ante</string>
   <string name="message">sitelen toki</string>
   <string name="createTheTopic">o open e lipu toki</string>
   <string name="reportAUser">toki ike lon jan</string>
@@ -556,6 +587,8 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="cheat">musi ike</string>
   <string name="troll">pakala e musi</string>
   <string name="other">ijo ante</string>
+  <string name="reportCheatBoostHelp">o mute e nimi nasin musi (mute) o toki e ni. jan ni li pali seme ike. o toki ala e ni. \"ona li musi kepeken ilo.\" sina wile toki tawa mi e ni. nasin seme la sina toki e ni.</string>
+  <string name="reportUsernameHelp">o toki e ni. nimi pi jan ni li ike tan seme. o toki ala e ni. \"nimi li ike/ jaki\". o toki tawa mi e ni. sina toki e ni tan seme kin e ni. nimi ike li nasa, li lon toki Inli, li toki nasa, li tenpo pini pi nimi.</string>
   <string name="reportProcessedFasterInEnglish">toki Inli la, toki li pali pi tenpo lili</string>
   <string name="error.provideOneCheatedGameLink">o pana e nimi nasin tawa musi pi pali ike.</string>
   <string name="by">pi %s</string>
@@ -711,6 +744,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="yourPerfTypeRatingIsRating">nanpa %1$s sina li nanpa %2$s</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">sina wawa suli. jan musi %1$s pi nasin %2$s li wawa lili.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">jan %1$s li pona mute. jan %2$s lon %3$s li pona lili.</string>
+  <string name="betterThanPercentPlayers">sina pona tawa jan %1$s lon jan %2$s</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">sina jo ala e nanpa %s</string>
   <string name="yourRating">pona sina</string>
   <string name="cumulative">pi pali nanpa poka</string>
@@ -718,6 +752,9 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="checkYourEmail">o lukin e poki sitelen Email sina.</string>
   <string name="weHaveSentYouAnEmailClickTheLink">mi pana e lipu tawa sina. o lukin e ona. nimi nasin li lon ona. sina ken open e lipu sina kepeken ona.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">ken la, sitelen Email ni li lon poki pi sitelen esun, anu lon poki pi sitelen ike, anu lon poki pi sitelen tan lipu toki jan.</string>
+  <string name="ifYouDoNotGetTheEmail">sina jo ala e lipu toki la:</string>
+  <string name="checkAllEmailFolders">o lukin e jaki ale, e toki mute ike ale e sitelen ante.</string>
+  <string name="verifyYourAddress">o lon e ni. %s li nimi pi lipu toki sina.</string>
   <string name="weHaveSentYouAnEmailTo">mi pana e lipu tawa poki %s. o lukin e ona. nimi nasin li lon ona. sina ken ante e nimi awen sina kepeken ona.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">sina open e lipu sina la, sina toki e ni: nasin \"%s\" li pona tawa mi.</string>
   <string name="readAboutOur">o lukin e lipu \"%s\".</string>
@@ -731,6 +768,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">sin la, sina ken tawa lon tenpo tawa kepeken ilo sike nasin pi ilo nasin sina.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">ilo nasin sina li lon sona pi tawa ken la, lipu lili pi tawa ken ni li lon.</string>
   <string name="analysisShapesHowTo">sina wile sitelen lon supa musi la, o pilin e nena \"Shift\", e nena #1 pi ilo nasin. anu la, o pilin e nena #2 pi ilo nasin.</string>
+  <string name="primaryColorArrowsHowTo">ilo Ctrl en ilo Shift = loje; ilo Command en ilo Alt en ilo Meta = laso; ilo tu lon kulupu pi ilo ni = jelo.</string>
   <string name="letOtherPlayersMessageYou">jan ante li ken ala ken toki tawa sina?</string>
   <string name="receiveForumNotifications">jan li toki e nimi sina lon ma toki la, o kama jo e pana</string>
   <string name="shareYourInsightsData">o pana e sona pi nasin musi mi</string>
@@ -741,6 +779,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="kidModeIsEnabled">nasin pi jan lili li lon</string>
   <string name="kidModeExplanation">nasin pi jan lili li awen e jan musi. jan li ken ala toki lon nasin ni. jan lili li musi kepeken ilo Lichess la, nasin pi jan lili li pali e ni: ona li ken ala lukin e toki ike tan jan ante.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">nasin pi jan lili li lon, sitelen lawa pi ilo Lichess li kama jo e sitelen \"%s\". ona li toki e ni: nasin pi jan lili li lon, jan lili sina li awen.</string>
+  <string name="askYourChessTeacherAboutLiftingKidMode">linluwi awen li lawa. o toki seme tawa jan pi pana sona sina e ni. ona li weka e jan lili pi nasin.</string>
   <string name="enableKidMode">o kepeken e nasin pi jan lili</string>
   <string name="disableKidMode">o kepeken ala e nasin pi jan lili</string>
   <string name="security">awen sona</string>
@@ -762,6 +801,10 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="quickPairing">o open musi kepeken tenpo lili</string>
   <string name="lobby">o kama tawa musi open</string>
   <string name="anonymous">jan pi nimi ala</string>
+  <plurals name="nbAnonymous">
+    <item quantity="one">jan pi sona ala</item>
+    <item quantity="other">jan pi sona ala (%s)</item>
+  </plurals>
   <string name="yourScore">nanpa sina: %s</string>
   <string name="language">toki</string>
   <string name="allLanguages">toki ale</string>
@@ -906,7 +949,6 @@ sina wile e ni la, o pali e tawa ken pi jan musi tu.</string>
   <string name="xInvitedYouToY">jan %1$s li sin e sina tawa musi pi kama sona \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">sina lon kulupu.</string>
   <string name="youHaveJoinedTeamX">sina kama tawa kulupu \"%1$s\".</string>
-  <string name="someoneYouReportedWasBanned">sina toki e ni: jan musi ante li ike. mi mute li weka wawa e ona</string>
   <string name="congratsYouWon">sina anpa e jan musi ante!</string>
   <string name="gameVsX">musi pi jan %1$s</string>
   <string name="resVsX">jan %1$s en jan %2$s</string>

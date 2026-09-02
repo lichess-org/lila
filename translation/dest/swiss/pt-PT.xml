@@ -66,6 +66,7 @@ Adiciona as pontuações de cada adversário que o jogador vence e metade da pon
   <string name="moreRoundsThanPlayersQ">O que acontece se o torneio tiver mais rondas que jogadores?</string>
   <string name="moreRoundsThanPlayersA">Quando forem jogadas todas as rondas possíveis, o torneio será encerrado e declarado um vencedor.</string>
   <string name="restrictedToTeamsQ">Por que é limitado às equipas?</string>
+  <string name="whyAreSwissTournamentsRestrictedToTeams" comment="Replaces old string restrictedToTeamsQ">Por que são os torneios suíços restritos a equipas?</string>
   <string name="restrictedToTeamsA">Os torneios suíços não foram pensados para o xadrez online. Exigem pontualidade, dedicação e paciência dos jogadores.
 Julgamos que essas condições são mais suscetíveis de serem cumpridas numa equipa do que em torneios globais.</string>
   <string name="numberOfByesQ">Quantas byes pode obter um jogador?</string>
@@ -86,6 +87,7 @@ Jogadores que entraram mais tarde só têm um bye, mesmo que tenham perdido vár
   <string name="willSwissReplaceArenasQ">Os Suíços irão substituir os torneios de arena?</string>
   <string name="willSwissReplaceArenasA">Não. São características complementares.</string>
   <string name="roundRobinQ">E no que diz respeito ao Round Robin?</string>
+  <string name="canPlayRoundRobinTournaments" comment="roundRobinQ&#10;&#10;Round-robin is a simple tournament format with some similarities to Swiss. It is not supported by Lichess. Replaces old string roundRobinQ">Posso jogar torneios round-robin no Lichess?</string>
   <string name="roundRobinA">Nós gostávemos de adiconá-lo, mas infelizmente o Round robin não funciona online.
 A razão é porque não há maneira justa de ligar com pessoas a abandonar o torneio mais cedo. Não podemos esperar que todos jogadores joguem todas as suas partidas num evento online. Simplesmente não vai acontecer, e como resultado, a maior parte dos torneios Round Robin seriam injustos, o que vai contra a sua existência.
 O mais perto que podes ter do Round Robin é jogar um torneio suiço com um número muito elevado de rondas. Depois todos os emparelhamentos possíveis serão jogadas antes do torneio acabar.</string>
@@ -122,6 +124,8 @@ O mais perto que podes ter do Round Robin é jogar um torneio suiço com um núm
   <string name="unlimitedAndFree">Ilimitado e livre</string>
   <string name="predefinedUsers">Permitir que se juntem apenas utilizadores pré-definidos</string>
   <string name="forbiddedUsers">Se esta lista não estiver vazia, então os nomes de utilizador ausentes desta lista serão impedidos de entrar. Um nome de utilizador por linha.</string>
+  <string name="predefinedUsersHelp" comment="Replaces old string forbiddedUsers">Insere um nome de utilizador por linha. Apenas estes jogadores vão poder juntar-se.
+Deixa em branco para permitir que todos os jogadores elegíveis possam entrar.</string>
   <string name="playYourGames">Jogar os seus jogos</string>
   <string name="byes">Byes</string>
   <string name="absences">Ausências</string>

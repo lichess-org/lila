@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="hiUser" comment="%s is the title+username e.g. 'GM ABC' or simply ABC if there is no title">Ahoj, %s</string>
+	<string name="awaitQuestion" comment="Displayed while waiting for results">Co jste dělali tento rok?</string>
 	<string name="initTitle">Měli jste rok plný šachů!</string>
 	<string name="noGamesText">Letos jsi nehrál jsi žádnou šachovou hru.</string>
 	<string name="noGamesCta">Chceš si zahrát teď?</string>
 	<string name="gamesYouWon" comment="%s is the number of games won">A vyhrál jsi %s!</string>
+	<string name="gamesNextQuestion">Jak jste toho dosáhli?</string>
 	<string name="timeSpentPlayingExclam" comment="%s is the time spent playing animated from 0 e.g. '1 day, 17 hours'. The time is also translated">%s stráveno hraním!</string>
 	<string name="timeTooMuch">To je příliš mnoho šachů.</string>
 	<string name="timeALot">To je mnoho šachů.</string>
@@ -24,6 +26,7 @@
 		<item quantity="many">%s tahů</item>
 		<item quantity="other">%s tahy</item>
 	</plurals>
+	<string name="chessFoes">Vaši nejsilnější soupeři</string>
 	<plurals name="nbGrams">
 		<item quantity="one">%s gram</item>
 		<item quantity="few">%s gramů</item>
@@ -36,6 +39,19 @@
 		<item quantity="many">%s kilogramů</item>
 		<item quantity="other">%s kilogramů</item>
 	</plurals>
+	<string name="firstMoveStats" comment="Subtitle to your most played move e.g. '1. e4'. %s is the number of games played and its percentage in parentheses. e.g. '50 (67%)'">takto jste začali %s her jako bílý</string>
+	<plurals name="openingsMostPlayedAsWhite" comment="%s is the number of games">
+		<item quantity="one">Vaše nejčastěji hrané zahájení jako bílý s %s hrou</item>
+		<item quantity="few">Vaše nejčastěji hrané zahájení jako bílý se %s hrami</item>
+		<item quantity="many">Vaše nejčastěji hrané zahájení jako bílý s %s hrami</item>
+		<item quantity="other">Vaše nejčastěji hrané zahájení jako bílý s %s hrami</item>
+	</plurals>
+	<plurals name="openingsMostPlayedAsBlack" comment="%s is the number of games">
+		<item quantity="one">Vaše nejčastěji hrané zahájení jako černý s %s hrou</item>
+		<item quantity="few">Vaše nejčastěji hrané zahájení jako černý se %s hrami</item>
+		<item quantity="many">Vaše nejčastěji hrané zahájení jako černý s %s hrami</item>
+		<item quantity="other">Vaše nejčastěji hrané zahájení jako černý s %s hrami</item>
+	</plurals>
 	<plurals name="puzzlesThanksVoting" comment="%s is the number of puzzles. It is also translated.">
 		<item quantity="one">Děkujeme za hlasování o %s úloze.</item>
 		<item quantity="few">Děkujeme za hlasování o %s úlohách.</item>
@@ -47,6 +63,7 @@
 	<string name="puzzlesTryNow">Chcete to zkusit nyní?</string>
 	<string name="puzzlesYouWonOnFirstTry">Vyhráli jste z nich %s na první pokus!</string>
 	<string name="sourcesTitle">Kde jste hledali hry?</string>
+	<string name="perfsTitle">Jaké časové tempo a varianty jste hráli?</string>
 	<string name="malwareNoneLoaded" comment="%s is 0">%s reklam a trackerů načteno</string>
 	<string name="malwareNoSell">Neprodávali jsme vaše osobní údaje</string>
 	<string name="malwareNoAbuse">Nepoužili jsme vaše zařízení proti vám</string>
@@ -57,7 +74,7 @@
 	<string name="thanksTitle">Děkujeme za hraní na Lichess!</string>
 	<string name="thanksHaveAGreat" comment="%s is the next year">Jsme moc rádi, že jste tady. Mějte krásný %s!</string>
 	<string name="patronCostsThisYear" comment="%1$s is 'costs'. %2$s is the cost with currency symbol e.g. '$750,000'">%1$s Lichessu byly tento rok %2$s.</string>
-	<string name="patronCosts" comment="It is a link to lichess.org/costs">Náklady</string>
+	<string name="patronCosts" comment="It is a link to lichess.org/costs">náklady</string>
 	<string name="patronCharity">Jsme dobročinná organizace, která běží čistě na finančních darech.</string>
 	<string name="patronConsiderDonating" comment="%s is 'supporting us with a donation'">Pokud jsme vás tento rok zabavili naší prací, prosím, zvažte %s!</string>
 	<string name="patronMakeDonation" comment="It is a link to https://lichess.org/patron">nás podpořit finančním darem</string>

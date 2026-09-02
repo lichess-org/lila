@@ -61,7 +61,7 @@ final class AccountSecurity(helpers: Helpers)(
           td(cls := "icon")(
             span(
               cls := curSessionId.map { cur => s"is-${if cur == s.session.id then "gold" else "green"}" },
-              dataIcon := (if s.session.isMobile then Icon.PhoneMobile else Icon.ScreenDesktop)
+              iconEl := (if s.session.isMobile then Icon.PhoneMobile else Icon.ScreenDesktop)
             )
           ),
           td(cls := "info")(
@@ -83,7 +83,7 @@ final class AccountSecurity(helpers: Helpers)(
                   submitButton(
                     cls := "button button-red",
                     title := trans.site.logOut.txt(),
-                    dataIcon := Icon.X
+                    iconEl := Icon.X
                   )
                 )
               )
@@ -93,7 +93,7 @@ final class AccountSecurity(helpers: Helpers)(
       },
       clients.map { client =>
         tr(
-          td(cls := "icon")(span(cls := "is-green", dataIcon := Icon.ThreeCheckStack)),
+          td(cls := "icon")(span(cls := "is-green", iconEl := Icon.ThreeCheckStack)),
           td(cls := "info")(
             strong(client.origin),
             p(cls := "ua")(
@@ -114,14 +114,14 @@ final class AccountSecurity(helpers: Helpers)(
           td(
             postForm(action := routes.OAuth.revokeClient)(
               form3.hidden("origin", client.origin),
-              submitButton(cls := "button button-red", title := "Revoke", dataIcon := Icon.X)
+              submitButton(cls := "button button-red", title := "Revoke", iconEl := Icon.X)
             )
           )
         )
       },
       (personalAccessTokens > 0).option(
         tr(
-          td(cls := "icon")(span(cls := "is-green", dataIcon := Icon.Tools)),
+          td(cls := "icon")(span(cls := "is-green", iconEl := Icon.Tools)),
           td(cls := "info")(
             strong("Personal access tokens"),
             " can be used to access your account. Revoke any that you do not recognize."
@@ -131,7 +131,7 @@ final class AccountSecurity(helpers: Helpers)(
               href := routes.OAuthToken.index,
               cls := "button",
               title := trans.oauthScope.apiAccessTokens.txt(),
-              dataIcon := Icon.Gear
+              iconEl := Icon.Gear
             )
           )
         )
@@ -140,7 +140,7 @@ final class AccountSecurity(helpers: Helpers)(
 
   import lila.security.EmailConfirm.Help.Status
   def emailConfirmHelp(form: Form[?], status: Option[Status])(using Context) =
-    Page(trans.site.emailConfirmHelp.txt()).css("email-confirm"):
+    Page(trans.site.emailConfirmHelp.txt()).css("bits.email-confirm"):
       frag(
         main(cls := "page-small box box-pad email-confirm-help")(
           h1(cls := "box__top")(trans.site.emailConfirmHelp()),

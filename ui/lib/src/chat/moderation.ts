@@ -2,10 +2,10 @@ import { h, type VNode } from 'snabbdom';
 
 import { numberFormat } from '@/i18n';
 import { pubsub } from '@/pubsub';
-import { bind, confirm, dataIcon } from '@/view';
-import { userLink } from '@/view/userLink';
+import { bind, confirm, onInsert, snabIcon } from '@/view';
+import { profileUrl, userLink } from '@/view/userLink';
 
-import { licon } from '../licon';
+import { icons } from '../icons';
 import type {
   ModerationCtrl,
   ModerationOpts,
@@ -72,13 +72,13 @@ async function reportUserText(resourceId: string, username: string, text: string
   if (await confirm(`Report "${text}" to moderators?`)) flag(resourceId, username, text);
 }
 
-export const lineAction = (): VNode => h('action.mod', { attrs: dataIcon(licon.Agent) });
+export const lineAction = (): VNode => h('action.mod', [snabIcon(icons.Agent)]);
 
 export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
-  if (!ctrl) return;
+  if (!ctrl) return undefined;
   if (ctrl.loading()) return [h('div.loading')];
   const data = ctrl.data();
-  if (!data) return;
+  if (!data) return undefined;
   const perms = ctrl.opts.permissions;
 
   const infos = data.history
@@ -91,7 +91,7 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
               'a',
               {
                 attrs: {
-                  href: '/@/' + data.name + '?mod',
+                  href: profileUrl(data.name) + '?mod',
                 },
               },
               'profile',
@@ -120,36 +120,27 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
       ? h('div.timeout.block', [
           h('strong', 'Timeout 15 minutes for'),
           ...ctrl.opts.reasons.map(r =>
-            h(
-              'a.text',
-              {
-                attrs: dataIcon(licon.Clock),
-                hook: bind('click', () => ctrl.timeout(r, data.text)),
-              },
+            h('a.text', { hook: bind('click', () => ctrl.timeout(r, data.text)) }, [
+              snabIcon(icons.Clock),
               r.name,
-            ),
+            ]),
           ),
         ])
       : h('div.timeout.block', [
           h('strong', 'Moderation'),
-          h(
-            'a.text',
-            {
-              attrs: dataIcon(licon.Clock),
-              hook: bind('click', () => ctrl.timeout(ctrl.opts.reasons[0], data.text)),
-            },
+          h('a.text', { hook: bind('click', () => ctrl.timeout(ctrl.opts.reasons[0], data.text)) }, [
+            snabIcon(icons.Clock),
             'Timeout 15 minutes',
-          ),
+          ]),
           h(
             'a.text',
             {
-              attrs: dataIcon(licon.Clock),
               hook: bind('click', async () => {
                 await reportUserText(ctrl.opts.resourceId, data.name, data.text);
                 ctrl.timeout(ctrl.opts.reasons[0], data.text);
               }),
             },
-            'Timeout and report to Lichess',
+            [snabIcon(icons.Clock), 'Timeout and report to Lichess'],
           ),
         ]);
 
@@ -161,11 +152,7 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
           h(
             'tbody.slist',
             {
-              hook: {
-                insert() {
-                  pubsub.emit('content-loaded');
-                },
-              },
+              hook: onInsert(() => pubsub.emit('content-loaded')),
             },
             data.history.map(function (e) {
               return h('tr', [
@@ -181,8 +168,8 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
 
   return [
     h('div.top', { key: 'mod-' + data.id }, [
-      h('span.text', { attrs: dataIcon(licon.Agent) }, [userLink(data)]),
-      h('a', { attrs: dataIcon(licon.X), hook: bind('click', ctrl.close) }),
+      h('span.text', [snabIcon(icons.Agent), userLink(data)]),
+      h('a', { hook: bind('click', ctrl.close) }, [snabIcon(icons.X)]),
     ]),
     h('div.mchat__content.moderation', [
       h('i.line-text.block', ['"', data.text, '"']),

@@ -1,26 +1,37 @@
 import { Editor } from '@toast-ui/editor';
-import type { Node as NodeType, Schema as SchemaType } from 'prosemirror-model';
-import type { EditorState as EditorStateType } from 'prosemirror-state';
+import type { Node as NodeType } from 'prosemirror-model';
+import type { Selection as SelectionType } from 'prosemirror-state';
 import type { EditorView as EditorViewType } from 'prosemirror-view';
 
+import { frag } from 'lib';
 import { currentTheme } from 'lib/device';
-import { alert, enter } from 'lib/view';
+import { pubsub } from 'lib/pubsub';
+import { alert, enter, spinnerHtml } from 'lib/view';
 import { wireMarkdownImgResizers, wrapImg, naturalSize } from 'lib/view/markdownImgResizer';
-import { ValidationError, json as xhrJson } from 'lib/xhr';
+import { ValidationError, json as xhrJson, text as xhrText } from 'lib/xhr';
 
-export function makeToastEditor(el: HTMLTextAreaElement, text = '', height = '60vh'): Editor {
+export function makeToastEditor(el: HTMLElement, text = '', height = '60vh'): Editor {
   const rewire = () =>
     wireMarkdownImgResizers({
       root: document.querySelector<HTMLElement>('.toastui-editor-ww-container .ProseMirror')!,
       update: { url: updateImage },
       designWidth: Number(el.dataset.imageDesignWidth),
       origin: el.dataset.imageDownloadOrigin!,
+      realm: el.dataset.markdownRealm!,
     });
+  const toastUi = el.querySelector<HTMLElement>('.toastui-container')!;
   const editor = newToast(el, text, rewire, height);
+
+  setupTabListeners(el);
   rewire();
 
+  pubsub.on('theme', () => {
+    const themer = toastUi.querySelector<HTMLElement>('.toastui-editor-defaultUI')!;
+    themer.classList.remove('toastui-editor-light', 'toastui-editor-dark');
+    themer.classList.add(`toastui-editor-${currentTheme()}`);
+  });
   // in a modal, <Enter> should complete the action, not submit the post form
-  $(el).on(
+  toastUi.addEventListener(
     'keypress',
     enter(target => {
       const okButton = $(target).parents('.toastui-editor-popup-body').find('.toastui-editor-ok-button')[0];
@@ -28,10 +39,9 @@ export function makeToastEditor(el: HTMLTextAreaElement, text = '', height = '60
       return !okButton;
     }),
   );
-  $(el)
-    .find('button.link')
-    .on('click', () => $('#toastuiLinkUrlInput')[0]?.focus());
-
+  toastUi.querySelector<HTMLElement>('button.link')?.addEventListener('click', () => {
+    document.querySelector<HTMLElement>('#toastuiLinkUrlInput')?.focus();
+  });
   return editor;
 }
 
@@ -42,11 +52,11 @@ export function getSanitizedMarkdown(editor: Editor): string {
     .replace(/\n\s*#\s/g, '\n## ');
 }
 
-function newToast(el: HTMLElement, initialValue: string, rewire: () => void, editorHeightStyle: string) {
+function newToast(el: HTMLElement, initialValue: string, rewire: () => void, height: string) {
   return new Editor({
-    el,
+    el: el.matches('.toastui-container') ? el : el.querySelector<HTMLElement>('.toastui-container')!,
     usageStatistics: false,
-    height: editorHeightStyle,
+    height,
     theme: currentTheme(),
     initialValue,
     initialEditType: 'wysiwyg',
@@ -69,38 +79,104 @@ function newToast(el: HTMLElement, initialValue: string, rewire: () => void, edi
 function initProseMirror(view: EditorViewType, rewire: () => void) {
   if (!view) return;
 
-  const old = view.state.schema;
-  const imageSpec = old.nodes['image'].spec;
-  // can't import the ProseMirror javascript because toastui bundles it,
-  // so put on the gloves, reach in, and grab some constructors
-  const Schema = old.constructor as new (cfg: { nodes: any; marks: any }) => SchemaType;
-  const EditorState = view.state.constructor as typeof EditorStateType & {
-    create(cfg: any): EditorStateType;
-  };
-  const Node = view.state.doc.constructor as typeof NodeType & {
-    fromJSON(s: SchemaType, j: any): NodeType;
-  };
-  const nodes = old.spec.nodes.update('image', {
-    ...imageSpec,
-    attrs: { ...imageSpec.attrs, styleWidth: { default: null } },
+  view.setProps({
+    nodeViews: { image: imageNodeView(rewire) },
+    handleClick: clickOutsideTable,
   });
-  const schema = new Schema({ nodes, marks: old.spec.marks });
-  const newState = EditorState.create({
-    schema,
-    doc: Node.fromJSON(schema, view.state.doc.toJSON()),
-    plugins: view.state.plugins,
-  });
+}
 
-  view.updateState(newState);
-  view.setProps({ nodeViews: { image: imageNodeView(rewire) } });
-
-  let transaction = view.state.tr;
-  view.state.doc.descendants((n: NodeType, pos: number) => {
-    if (n.type?.name === 'image') {
-      transaction = transaction.setNodeMarkup(pos, n.type, n.attrs, n.marks);
+function toastImageUploadHook(el: HTMLElement) {
+  if (!el.dataset.imageUploadUrl) return () => alert('Image upload not available.');
+  return async (image: Blob, setUrlCallback: (url: string, name?: string) => void) => {
+    try {
+      if (el.querySelectorAll('.markdown-img-resizer').length >= Number(el.dataset.imageCountMax)) {
+        throw `You can only upload ${el.dataset.imageCountMax} images here.`;
+      }
+      const name = image instanceof File ? image.name : 'image';
+      const desc = el.querySelector<HTMLInputElement>('#toastuiAltTextInput')?.value;
+      const { width, height } = await naturalSize(image);
+      if (!width || !height) throw `Unsupported image '${name}'`;
+      const formData = new FormData();
+      formData.append('context', el.dataset.imageContext ?? location.href);
+      formData.append('dim.width', String(width));
+      formData.append('dim.height', String(height));
+      formData.append('image', image);
+      const { imageUrl } = await xhrJson(el.dataset.imageUploadUrl!, {
+        method: 'POST',
+        body: formData,
+      });
+      setUrlCallback(imageUrl, desc || name);
+    } catch (e) {
+      setUrlCallback('');
+      alert(e instanceof ValidationError ? e.message : `Image upload failed: ${e}`);
     }
+  };
+}
+
+function setupTabListeners(el: HTMLElement) {
+  const toastUi = el.querySelector<HTMLElement>('.toastui-container')!;
+  const previewTab = el.querySelector<HTMLButtonElement>('.preview-tab')!;
+  const writeTab = el.querySelector<HTMLButtonElement>('.write-tab')!;
+  const content = el.querySelector<HTMLTextAreaElement>('.markdown-content-textarea')!;
+  const preview = el.querySelector<HTMLElement>('.preview')!;
+  const toastUiPanes = () => toastUi.querySelectorAll<HTMLElement>('.toastui-editor-defaultUI > *');
+
+  previewTab.addEventListener('click', async () => {
+    preview.innerHTML = `<div class="busy">${spinnerHtml}</div>`;
+    preview.classList.remove('none');
+    writeTab.classList.remove('active');
+    previewTab.classList.add('active');
+    toastUiPanes().forEach(el => (el.style.visibility = 'hidden'));
+    const rendered = frag<HTMLElement>(
+      await xhrText(`/markdown/preview/${el.dataset.markdownRealm}`, {
+        method: 'POST',
+        body: content.value,
+      }),
+    );
+    await Promise.all([
+      rendered.querySelector('.lpv--autostart') && site.asset.loadEsm('bits.lpv', { init: { el: rendered } }),
+      rendered.querySelector('a') && site.asset.loadEsm('bits.expandText', { init: rendered }),
+    ]);
+    preview.replaceChildren(rendered);
   });
-  if (transaction.docChanged) view.dispatch(transaction);
+
+  writeTab.addEventListener('focus', () => {
+    previewTab.classList.remove('active');
+    writeTab.classList.add('active');
+    toastUiPanes().forEach(el => (el.style.visibility = 'visible'));
+    preview.classList.add('none');
+    preview.innerHTML = '';
+    toastUi.querySelector<HTMLElement>('.toastui-editor-ww-container .ProseMirror')?.focus();
+  });
+}
+
+// interpret clicks outside of a document ending table's inline-end boundary as intent to advance the
+// insertion cursor past it, inserting a newline
+function clickOutsideTable(view: EditorViewType, _pos: number, event: MouseEvent) {
+  if (event.button !== 0) return false;
+  let tablePos: number | undefined;
+  view.state.doc.forEach((node: NodeType, pos: number) => {
+    if (node.type.name !== 'table') return;
+    const table = view.nodeDOM(pos);
+    if (!(table instanceof HTMLElement)) return;
+    const bounds = table.getBoundingClientRect();
+    const beyondInlineEnd =
+      window.getComputedStyle(table).direction === 'rtl'
+        ? event.clientX < bounds.left
+        : event.clientX > bounds.right;
+    if (beyondInlineEnd && event.clientY >= bounds.top && event.clientY <= bounds.bottom) tablePos = pos;
+  });
+  if (tablePos === undefined) return false;
+
+  const table = view.state.doc.nodeAt(tablePos)!;
+  const afterTable = tablePos + table.nodeSize;
+  if (view.state.doc.resolve(afterTable).nodeAfter) return false;
+  const transaction = view.state.tr.insert(afterTable, view.state.schema.nodes.paragraph.create());
+  const Selection = view.state.selection.constructor as typeof SelectionType;
+  view.dispatch(
+    transaction.setSelection(Selection.near(transaction.doc.resolve(afterTable), 1)).scrollIntoView(),
+  );
+  return true;
 }
 
 type ProseMirrorProps = { getPos: () => number | undefined; view: EditorViewType };
@@ -140,30 +216,4 @@ function updateImage(img: HTMLElement, imageUrl: string, widthRatio?: number) {
       imageUrl,
     }),
   );
-}
-
-function toastImageUploadHook(el: HTMLElement) {
-  return async (image: Blob, setUrlCallback: (url: string, name?: string) => void) => {
-    try {
-      if (el.querySelectorAll('.markdown-img-resizer').length >= Number(el.dataset.imageCountMax)) {
-        throw `You can only upload ${el.dataset.imageCountMax} images here.`;
-      }
-      const name = image instanceof File ? image.name : 'image';
-      const { width, height } = await naturalSize(image);
-      if (!width || !height) throw `Unsupported image '${name}'`;
-      const formData = new FormData();
-      formData.append('context', el.dataset.imageContext ?? location.href);
-      formData.append('dim.width', String(width));
-      formData.append('dim.height', String(height));
-      formData.append('image', image);
-      const { imageUrl } = await xhrJson(el.dataset.imageUploadUrl!, {
-        method: 'POST',
-        body: formData,
-      });
-      setUrlCallback(imageUrl, name);
-    } catch (e) {
-      setUrlCallback('');
-      alert(e instanceof ValidationError ? e.message : `Image upload failed: ${e}`);
-    }
-  };
 }

@@ -27,6 +27,7 @@ O modo Berserk só garante un punto adicional no caso de que se realicen polo me
 
 Se dous ou máis xogadores empatan a puntos o criterio de desempate é o rendemento no torneo.</string>
   <string name="howDoesPairingWork">Como funcionan os emparellamentos?</string>
+  <string name="howArePlayersPaired" comment="Replaces old string howDoesPairingWork">Como se emparellan os xogadores?</string>
   <string name="howDoesPairingWorkAnswer">Ao comezo do torneo os xogadores son emparellados segundo a súa puntuación.
 Así que rematas unha partida e voltas á sala de espera serás emparellado cun novo opoñente que estea preto na clasificación. Isto garante un mínimo tempo de espera. Así e todo pode que non xogues contra todos os participantes do torneo.
 Xoga rápido para disputar máis partidas e gañar máis puntos.</string>
@@ -65,6 +66,7 @@ Xoga rápido para disputar máis partidas e gañar máis puntos.</string>
   <string name="editTournament">Editar o torneo</string>
   <string name="editTeamBattle">Editar a batalla por equipos</string>
   <string name="defender">Defensor</string>
+  <string name="defenderLabel" comment="In this context, this is the current holder of a shield trophy, who is defending their trophy in the next shield tournament of that variant. https://lichess.org/tournament/shields Replaces old string defender">Defensor:</string>
   <string name="pickYourTeam">Escolle o teu equipo</string>
   <string name="whichTeamWillYouRepresentInThisBattle">A que equipo representarás nesta batalla?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">Tes que unirte a algún destes equipos para participar!</string>
@@ -75,6 +77,10 @@ Xoga rápido para disputar máis partidas e gañar máis puntos.</string>
   <string name="rankAvgHelp">A clasificación media é unha porcentaxe da túa clasificación. Canto máis baixa, mellor.
 
 Por exemplo, ficar en 3º lugar nun torneo de 100 xogadores = 3%. Ficar 10º nun torneo de 1000 xogadores = 1%.</string>
+  <string name="rankAverageHelp" comment="Replaces old string rankAvgHelp">A túa clasificación media representa a túa posición final típica en relación ó número total de xogadores de cada torneo.
+É unha medida da túa posición final nun torneo, non da túa puntuación xeral.
+
+Así, unha clasificación media do 3% significa que tipicamente ficas no 3% superior, é dicir, rematarías no posto 30 dun total de 1000 xogadores.</string>
   <string name="medians">medianas</string>
   <string name="allAveragesAreX">Todas as medias nesta páxina son %s.</string>
   <string name="total">Total</string>

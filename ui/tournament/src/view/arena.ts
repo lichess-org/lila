@@ -1,17 +1,16 @@
 import { h, type VNode } from 'snabbdom';
 
-import { defined } from 'lib';
-import { licon } from 'lib/licon';
-import { bind, dataIcon, iconTag, type MaybeVNodes } from 'lib/view';
+import { icons } from 'lib/icons';
+import { bind, icon, type MaybeVNodes, snabIcon } from 'lib/view';
 import { renderPager, searchButton, searchInput } from 'lib/view/pagination';
-import { userLink } from 'lib/view/userLink';
+import { userLine, userLinkData } from 'lib/view/userLink';
 import { numberRow } from 'lib/view/util';
 
 import type TournamentController from '../ctrl';
 import type { PodiumPlayer, StandingPlayer } from '../interfaces';
 import { teamName } from './battle';
 import { joinWithdraw } from './button';
-import { player as renderPlayer } from './util';
+import { fullName, player as renderPlayer } from './util';
 
 const renderScoreString = (scoreString: string, streakable: boolean) => {
   const values = scoreString.split('').map(s => parseInt(s));
@@ -49,7 +48,7 @@ function playerTr(ctrl: TournamentController, player: StandingPlayer) {
       hook: bind('click', _ => ctrl.showPlayerInfo(player), ctrl.redraw),
     },
     [
-      h('td.rank', player.withdraw ? iconTag(licon.Pause, { title: i18n.site.pause }) : player.rank),
+      h('td.rank', player.withdraw ? icon(icons.Pause)({ title: i18n.site.pause }) : player.rank),
       h('td.player', [
         renderPlayer(player, false, ctrl.opts.showRatings, userId === ctrl.data.defender),
         ...(battle && player.team ? [' ', teamName(battle, player.team)] : []),
@@ -57,7 +56,7 @@ function playerTr(ctrl: TournamentController, player: StandingPlayer) {
       h('td.sheet', renderScoreString(player.sheet.scores, !ctrl.data.noStreak)),
       h('td.total', [
         player.sheet.fire && !ctrl.data.isFinished
-          ? h('strong.is-gold', { attrs: dataIcon(licon.Fire) }, player.score)
+          ? h('strong.is-gold', [snabIcon(icons.Fire), player.score])
           : h('strong', player.score),
       ]),
     ],
@@ -88,12 +87,7 @@ export function podium(ctrl: TournamentController) {
     p
       ? h('div.' + pos, [
           h('div.trophy'),
-          userLink({
-            ...p,
-            line: defined(p.patronColor),
-            online: defined(p.patronColor),
-            rating: undefined,
-          }),
+          h('a', userLinkData(p), [p.patronColor && userLine(p), ...fullName(p)]),
           podiumStats(p, ctrl.data.berserkable, ctrl),
         ])
       : undefined;

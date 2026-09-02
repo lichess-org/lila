@@ -86,7 +86,9 @@
         $name-override: map-get($theme, name-override);
         $file-name: if($name-override, $name-override, $name);
 
-        @if $file-name == 'newspaper' {
+        // svg boards live in a subdirectory and ship no thumbnail, so they scale the
+        // board itself. Keyed on the extension, as in _board-2d.scss.
+        @if $file-ext == 'svg' {
           background-image: url(../images/board/svg/#{$file-name}.svg);
           background-size: 256px;
         } @else {
@@ -99,7 +101,7 @@
   &.d3 {
     @each $name in map-keys($board-themes-3d) {
       .#{$name} {
-        background-image: url(../images/staunton/board/#{$name}.thumbnail.png);
+        background-image: url(../images/staunton/board/#{$name}.thumbnail.webp);
       }
     }
   }

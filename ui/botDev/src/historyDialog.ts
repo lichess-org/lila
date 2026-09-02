@@ -3,8 +3,8 @@ import stringify from 'json-stringify-pretty-compact';
 
 import { frag, escapeHtml, myUserId } from 'lib';
 import type { BotInfo } from 'lib/bot/types';
-import { licon } from 'lib/licon';
-import { domDialog, type Dialog } from 'lib/view';
+import { icons } from 'lib/icons';
+import { domDialog, type Dialog, domIcon } from 'lib/view';
 
 import { env } from './devEnv';
 import type { EditDialog } from './editDialog';
@@ -38,12 +38,13 @@ class HistoryDialog {
           <button class="button button-empty button-clas" data-action="push">push</button>
         </div>
         <div class="actions">
-          <button class="button button-empty button-dim" data-icon="${licon.Clipboard}" data-action="copy"></button>
+          <button class="button button-empty button-dim" data-action="copy" title="Copy JSON" aria-label="Copy JSON"></button>
         </div>
       </div>`);
+    this.view.querySelector('[data-action="copy"]')?.append(domIcon(icons.Clipboard));
     await this.updateHistory();
     this.dlg = await domDialog({
-      append: [{ node: this.view }],
+      insert: [{ nodes: this.view }],
       easyClose: 'clickOutside',
       actions: [
         { selector: '[data-action="pull"]', listener: this.pull },
@@ -81,7 +82,7 @@ class HistoryDialog {
       );
       const versionStr = typeof version === 'number' ? `#${version}` : version;
       const span = frag(`<span class="author">${bot.author}</span>`);
-      if (isLive) span.appendChild(frag(`<icon data-icon="${licon.Checkmark}" class="live">`));
+      if (isLive) span.appendChild(domIcon(icons.Checkmark, 'live'));
       div.append(frag(`<span class="version-number">${versionStr}</span>`), span);
       versionsEl.append(div);
     }
@@ -109,7 +110,7 @@ class HistoryDialog {
   }
 
   version(version: string | number | undefined): BotVersionInfo | undefined {
-    if (!version) return;
+    if (!version) return undefined;
     return this.versions.find(b => String(b.version) === String(version));
   }
 
@@ -119,7 +120,8 @@ class HistoryDialog {
 
   copy = async () => {
     await navigator.clipboard.writeText(stringify(this.selected!));
-    const copied = frag<HTMLElement>(`<div data-icon="${licon.Checkmark}" class="good"> COPIED</div>`);
+    const copied = frag<HTMLElement>('<div class="good"> COPIED</div>');
+    copied.prepend(domIcon(icons.Checkmark));
     this.view.querySelector('[data-action="copy"]')?.before(copied);
     setTimeout(() => copied.remove(), 2000);
   };

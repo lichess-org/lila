@@ -20,13 +20,13 @@ final class SwissHomeUi(helpers: Helpers):
           ),
           div(cls := "box swiss-home__infos")(
             div(cls := "box__pad main-point")(
-              iconTag(Icon.InfoCircle),
+              iconEl(Icon.InfoCircle),
               p:
                 trans.swiss.swissDescription:
                   a(href := "https://en.wikipedia.org/wiki/Swiss-system_tournament")("(wiki)")
             ),
             div(cls := "box__pad main-point")(
-              iconTag(Icon.Group),
+              iconEl(Icon.Group),
               p:
                 trans.swiss.teamOnly:
                   a(href := routes.Team.home())(trans.swiss.joinOrCreateTeam.txt())
@@ -43,7 +43,7 @@ final class SwissHomeUi(helpers: Helpers):
         swisses.map: s =>
           val team = teamIdToLight(s.teamId)
           tr(
-            td(cls := "icon")(iconTag(s.perfType.icon)),
+            td(cls := "icon")(iconEl(s.perfType.icon)),
             td(cls := "header")(
               a(href := routes.Swiss.show(s.id))(
                 span(cls := "name")(s.name),
@@ -67,7 +67,7 @@ final class SwissHomeUi(helpers: Helpers):
             td(
               momentFromNow(s.startsAt),
               br,
-              span(cls := "players text", dataIcon := Icon.User)(s.nbPlayers.localize)
+              span(cls := "players text", iconEl := Icon.User)(s.nbPlayers.localize)
             )
           )
     )
@@ -136,7 +136,6 @@ final class SwissHomeUi(helpers: Helpers):
 
   private def faqEntry(title: Frag, content: Frag) =
     div(cls := "faq")(
-      iconTag("?"),
       p(strong(title), content)
     )
 

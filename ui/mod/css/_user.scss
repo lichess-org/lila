@@ -206,7 +206,7 @@
       background: #484541;
       border-radius: 4px 0 0 4px;
 
-      icon {
+      > span {
         display: block;
         height: 30px;
         width: 30px;
@@ -273,7 +273,7 @@
         }
       }
 
-      icon {
+      .svg-icon {
         margin-inline-start: 0.5ch;
       }
 
@@ -340,7 +340,7 @@
         color: $c-brag;
       }
 
-      icon {
+      .line {
         margin: 0;
 
         &::before {
@@ -359,6 +359,10 @@
 
     .appeal-closed {
       color: $c-good;
+    }
+
+    .appeal-muted {
+      color: $c-bad;
     }
 
     .add-to-note {

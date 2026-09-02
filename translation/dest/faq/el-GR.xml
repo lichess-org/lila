@@ -155,6 +155,10 @@
 2. Κάντε κλικ στο εικονίδιο κλειδώματος στη γραμμή διεύθυνσης ιστοσελίδας
 3. Κάντε κλικ στο στοιχείο Ρυθμίσεις ιστοσελίδας
 4. Να επιτρέπεται ο ήχος</string>
+  <string name="enableAutoplayForSoundsChromeSiteInformation" comment="Guidance for Google Chrome users on how to enable audio auto-play if they have sound issues. Replaces old string enableAutoplayForSoundsChrome">1. Μεταβείτε στο lichess.org.
+2. Κάντε κλικ στο εικονίδιο στα αριστερά της γραμμής διεύθυνσης.
+3. Επιλέξτε Ρυθμίσεις ιστοτόπου.
+4. Στην επιλογή Ήχος, επιλέξτε Να επιτρέπεται</string>
   <string name="enableAutoplayForSoundsSafari">1. Μεταβείτε στο lichess.org
 2. Κάντε κλικ στο Safari στη γραμμή μενού
 3. Κάντε κλικ στις Ρυθμίσεις για το lichess.org ...

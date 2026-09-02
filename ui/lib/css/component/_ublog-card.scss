@@ -75,13 +75,13 @@
   time {
     @include inline-start(0);
 
-    border-radius: $box-radius-size 0 $box-radius-size 0;
+    border-radius: $box-radius-size 0 $small-box-radius-size 0;
   }
 
   .user-link {
     @include inline-end(0);
 
-    border-radius: 0 $box-radius-size 0 $box-radius-size;
+    border-radius: 0 $box-radius-size 0 $small-box-radius-size;
   }
 
   &__image {

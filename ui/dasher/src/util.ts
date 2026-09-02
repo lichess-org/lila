@@ -1,19 +1,18 @@
 import { memoize, type Toggle } from 'lib';
-import { licon } from 'lib/licon';
-import { bind, hl, type VNode } from 'lib/view';
+import { icons } from 'lib/icons';
+import { bind, hl, snabIcon, type VNode } from 'lib/view';
 
 export const header = (name: string, close: () => void): VNode =>
-  hl(
-    'button.head.text',
-    { attrs: { 'data-icon': licon.LessThan, type: 'button' }, hook: bind('click', close) },
+  hl('button.head.text', { attrs: { type: 'button' }, hook: bind('click', close) }, [
+    snabIcon(icons.LessThan),
     name,
-  );
+  ]);
 
 export const moreButton = (toggle: Toggle): VNode =>
   hl(
     'button.button.more',
     {
-      attrs: { title: i18n.site.more },
+      attrs: { title: toggle() ? i18n.site.less : i18n.site.more },
       hook: bind('click', toggle.toggle),
     },
     toggle() ? '-' : '+',

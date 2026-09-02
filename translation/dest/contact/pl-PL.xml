@@ -26,6 +26,7 @@
   <string name="orCloseAccount">Możesz jednak zamknąć swoje bieżące konto i utworzyć nowe.</string>
   <string name="wantClearHistory">Chcę wyczyścić swoją historię lub swój ranking</string>
   <string name="cantClearHistory">Nie jest możliwe wyczyszczenie Twojej historii i rankingu.</string>
+  <string name="cantClearHistoryOrResetRatings" comment="Replaces old string cantClearHistory">Nie można wyczyścić historii Twoich partii, historii rozwiązywanych zadań ani zresetować rankingu.</string>
   <string name="wantReport">Chcę zgłosić gracza</string>
   <string name="toReportAPlayerUseForm">Aby zgłosić gracza, użyj formularza</string>
   <string name="youCanAlsoReachReportPage">Możesz również dotrzeć do tej strony klikając przycisk raportu %s na stronie profilowej.</string>
@@ -74,4 +75,13 @@
   <string name="noneOfTheAbove">Żadne z powyższych</string>
   <string name="sendEmailAt">Wyślij nam e-mail na %s.</string>
   <string name="explainYourRequest">Prosimy o jasne i dokładne wyjaśnienie Twojego wniosku. Podaj swoją nazwę użytkownika Lichess oraz wszelkie informacje, które pomogą nam pomóc Tobie.</string>
+  <string name="monetiseNotInterested">Nie interesuje nas żaden sposób monetyzacji Lichess.</string>
+  <string name="monetiseNoAdsTrackingOrTraffic">Nigdy nie wyświetlamy żadnych reklam, nie będziemy śledzić naszych graczy i nie będziemy sprzedawać ani kupować ruchu ani użytkowników.</string>
+  <string name="monetiseNoMarketingEmail">Nie kontaktuj się z nami w sprawie marketingu, śledzeniu użytkowników czy reklamie.</string>
+  <string name="monetiseEncourageEveryoneTo" comment="string is value of key monetiseBlockAllAdsAndTrackers">Zachęcamy wszystkich do %s.</string>
+  <string name="monetiseBlockAllAdsAndTrackers">blokowania wszystkich reklam i aplikacji śledzących</string>
+  <string name="broadcastTournamentOnLichess">Transmituj turniej na Lichess</string>
+  <string name="ifYouWantToBroadcastClause1">Jeśli chcesz oficjalnie transmitopwać turniej na Lichess lub masz jakiekolwiek pytania dotyczące naszych transmisji:</string>
+  <string name="ifYouWantToBroadcastClause2" comment="string1 is Lichess email, string2 is value of key ourDiscordServer">Skontaktuj się z naszym zespołem na adres %1$s lub %2$s.</string>
+  <string name="ourDiscordServer">nasz serwer Discorda</string>
 </resources>

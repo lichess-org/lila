@@ -10,9 +10,12 @@ final class TimelineUi(helpers: Helpers):
   import helpers.{ *, given }
 
   def entries(entries: Vector[Entry])(using Context) =
-    div(cls := "entries"):
+    div(cls := "entries")(
       filterEntries(entries).map: entry =>
-        div(cls := "entry")(renderEntry(entry))
+        div(cls := "entry")(renderEntry(entry)),
+      entries.nonEmpty.option:
+        a(cls := "more", href := routes.Timeline.home)(trans.site.more(), " »")
+    )
 
   def more(entries: Vector[Entry])(using Context) =
     Page(trans.site.timeline.txt())
@@ -80,7 +83,7 @@ final class TimelineUi(helpers: Helpers):
           )(
             a(
               href := routes.Round.player(playerId),
-              dataIcon := perfKey.perfIcon,
+              iconEl := perfKey.perfIcon,
               cls := "text glpt"
             )(win match
               case Some(true) => trans.site.victory()

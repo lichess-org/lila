@@ -104,8 +104,8 @@ final class GameUi(helpers: Helpers):
     game.abortedBy match
       case Some(chess.White) => trans.site.whiteAborted
       case Some(chess.Black) => trans.site.blackAborted
-      case _ if game.playedPlies == chess.Ply.initial => trans.site.whiteDidntMove
-      case _ => trans.site.blackDidntMove
+      case None if game.playedPlies.turn.white => trans.site.whiteDidntMove
+      case None => trans.site.blackDidntMove
 
   def gameEndStatus(game: Game)(using Translate): String =
     import chess.{ White, Black, Status as S }
@@ -224,7 +224,7 @@ final class GameUi(helpers: Helpers):
             p(cls := "explanation")(
               trans.site.importGameExplanation(),
               br,
-              a(cls := "text", dataIcon := Icon.InfoCircle, href := routes.Study.allDefault(1)):
+              a(cls := "text", iconEl := Icon.InfoCircle, href := routes.Study.allDefault(1)):
                 trans.site.importGameDataPrivacyWarning()
             ),
             standardFlash,
@@ -251,7 +251,7 @@ final class GameUi(helpers: Helpers):
 
   object widgets:
 
-    val separator = " • "
+    val separator = span(" • ")(cls := "separator")
 
     def apply(g: Game, user: Option[User], ownerLink: Boolean)(
         contextLink: Option[Tag]
@@ -262,7 +262,7 @@ final class GameUi(helpers: Helpers):
         a(cls := "game-row__overlay", href := gameLink(g, firstPlayer.color, ownerLink)),
         div(cls := "game-row__board")(miniBoard(Pov(g, firstPlayer))(span)),
         div(cls := "game-row__infos")(
-          div(cls := "header", dataIcon := gameIcon(g))(
+          div(cls := "header", iconEl := gameIcon(g))(
             div(cls := "header__text")(
               source(g),
               g.pgnImport.flatMap(_.date).fold[Frag](pastMomentWithPreload(g.createdAt))(frag(_)),
@@ -271,13 +271,15 @@ final class GameUi(helpers: Helpers):
           ),
           div(cls := "versus")(
             gamePlayer(g.whitePlayer),
-            div(cls := "swords", dataIcon := Icon.Swords),
+            div(cls := "swords", iconEl := Icon.Swords),
             gamePlayer(g.blackPlayer)
           ),
           result(g, fromPlayer),
           if g.playedPlies > 0 && ctx.isAuth then opening(g) else frag(br, br),
           g.metadata.analysed.option(
-            div(cls := "metadata text", dataIcon := Icon.BarChart)(trans.site.computerAnalysisAvailable())
+            div(cls := "metadata text", iconEl := Icon.BarChart)(
+              trans.site.computerAnalysisAvailable()
+            )
           ),
           g.pgnImport.flatMap(_.user).map { user =>
             div(cls := "metadata")("PGN import by ", userIdLink(user.some))
@@ -348,7 +350,7 @@ final class GameUi(helpers: Helpers):
 
     private def opening(g: Game) =
       div(cls := "opening")(
-        quickOpening(g).map(o => strong(o.name)),
+        gameOpening(g, false).map(o => strong(o.name)),
         div(cls := "pgn")(
           g.sans
             .take(6)
@@ -370,7 +372,7 @@ final class GameUi(helpers: Helpers):
           gameEndStatus(g),
           g.winner.map: winner =>
             frag(
-              " • ",
+              span(" • ")(cls := "separator"),
               winner.color.fold(trans.site.whiteIsVictorious(), trans.site.blackIsVictorious())
             )
         )

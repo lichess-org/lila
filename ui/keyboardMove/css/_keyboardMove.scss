@@ -4,13 +4,14 @@
   height: fit-content;
 
   input {
+    @include transition;
+    @include backdrop-blur-if-transparent;
+
     width: 4.5em;
     font-size: 1.1em;
     font-weight: bold;
     margin-inline-end: 1rem;
     border: $border;
-
-    @include transition;
 
     &.wrong {
       background: $c-bad;
@@ -24,6 +25,13 @@
 
   kbd {
     margin-inline: 3px;
+  }
+}
+
+// outer coordinates hang 15px below the board, see lib/css/theme/board/_coords.scss
+@include mq-at-least-col2 {
+  .coords-out .keyboard-move {
+    margin-block-start: calc(15px + 0.5rem);
   }
 }
 

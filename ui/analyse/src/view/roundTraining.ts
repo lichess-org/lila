@@ -1,9 +1,9 @@
 import { h, thunk, type VNode } from 'snabbdom';
 
 import { getPlayer } from 'lib/game';
-import { licon } from 'lib/licon';
-import { bind, dataIcon, onInsert } from 'lib/view';
-import { ratingDiff } from 'lib/view/userLink';
+import { icons } from 'lib/icons';
+import { bind, onInsert, snabIcon } from 'lib/view';
+import { ratingDiff, profileUrl } from 'lib/view/userLink';
 
 import type AnalyseCtrl from '@/ctrl';
 import { findTag } from '@/study/studyChapters';
@@ -21,7 +21,7 @@ interface Advice {
 const renderPlayer = ({ data, study }: AnalyseCtrl, color: Color): VNode => {
   const player = getPlayer(data, color);
   if (player.user)
-    return h('a.user-link.ulpt', { attrs: { href: '/@/' + player.user.username } }, [
+    return h('a.user-link.ulpt', { attrs: { href: profileUrl(player.user.username) } }, [
       player.user.username,
       ' ',
       ratingDiff(player),
@@ -106,10 +106,9 @@ const doRender = (ctrl: AnalyseCtrl): VNode => {
             'a.button.text',
             {
               class: { active: !!ctrl.retro },
-              attrs: dataIcon(licon.PlayTriangle),
               hook: bind('click', ctrl.toggleRetro, ctrl.redraw),
             },
-            i18n.site.learnFromYourMistakes,
+            [snabIcon(icons.PlayTriangle), i18n.site.learnFromYourMistakes],
           ),
       playerTable(ctrl, 'black'),
     ],
@@ -125,11 +124,10 @@ export function puzzleLink(ctrl: AnalyseCtrl): VNode | undefined {
       'a.button-link.text',
       {
         attrs: {
-          ...dataIcon(licon.ArcheryTarget),
           href: `/training/${puzzle.key}/${ctrl.bottomColor()}`,
         },
       },
-      ['Recommended puzzle training', h('br'), puzzle.name],
+      [snabIcon(icons.ArcheryTarget), 'Recommended puzzle training', h('br'), puzzle.name],
     ),
   );
 }
@@ -141,8 +139,10 @@ export function render(ctrl: AnalyseCtrl): VNode | undefined {
     !ctrl.data.analysis ||
     !ctrl.settings.showStaticAnalysis ||
     (ctrl.study && ctrl.study.vm.toolTab() !== 'serverEval')
-  )
+  ) {
+    if (!ctrl.data.puzzle) return h('div.analyse__round-training');
     return h('div.analyse__round-training', puzzleLink(ctrl));
+  }
 
   // don't cache until the analysis is complete!
   const buster = ctrl.data.analysis.partial ? Math.random() : '';

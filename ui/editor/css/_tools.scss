@@ -3,12 +3,15 @@
     @extend %flex-column;
 
     cursor: default;
+    grid-area: tools;
+    align-self: center;
 
     button,
     .button,
     select,
     label,
     input[type='checkbox'] {
+      justify-content: start;
       cursor: pointer;
     }
 
@@ -23,15 +26,13 @@
       cursor: not-allowed;
     }
 
-    grid-area: tools;
-    align-self: center;
-
     > * {
       margin: 0.5rem 0;
     }
 
     select {
       @extend %page-link !optional;
+      @include backdrop-blur-if-transparent;
 
       width: 100%;
 
@@ -58,7 +59,8 @@
 
         label,
         input {
-          display: inline-block;
+          display: flex;
+          align-items: center;
           margin: 3px;
           vertical-align: middle;
         }
@@ -105,7 +107,7 @@
     }
 
     .actions {
-      @extend %flex-column;
+      @extend %flex-column, %box-radius;
       @include backdrop-blur-if-transparent;
 
       justify-content: stretch;

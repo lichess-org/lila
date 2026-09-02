@@ -129,5 +129,5 @@ export const byKey = stagesByKey;
 export function stageIdToCategId(stageId: number): number | undefined {
   const stage = stagesById[stageId];
   const maybeFound = categs.findIndex(c => c.stages.some(s => s.key === stage.key));
-  return maybeFound >= 0 ? maybeFound : undefined;
+  return maybeFound !== -1 ? maybeFound : undefined;
 }

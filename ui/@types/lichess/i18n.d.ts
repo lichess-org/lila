@@ -87,36 +87,40 @@ interface I18n {
     accountMutedInfo: I18nFormat;
     /** Your account is banned from joining arena tournaments. */
     arenaBanned: string;
-    /** blog rules */
-    blogRules: string;
-    /** Your account is marked for rating manipulation. */
+    /** blog etiquette */
+    blogEtiquette: string;
+    /** You have a blog restriction. */
+    blogRestriction: string;
+    /** Read our %s, violating these rules may result in different actions. */
+    blogRestrictionInfo: I18nFormat;
+    /** Your account was restricted for rating manipulation/account sharing. */
     boosterMarked: string;
-    /** We define this as deliberately manipulating a rating by losing games on purpose or by playing against another account that is deliberately losing games. */
-    boosterMarkedInfo: string;
     /** Your account is not marked or restricted. You're all good! */
     cleanAllGood: string;
     /** Your account was closed by moderators. */
     closedByModerators: string;
     /** communication guidelines */
     communicationGuidelines: string;
-    /** Your account has been restricted for using external assistance in games. */
+    /** Your account was restricted for use of engine/computer assistance in games. */
     engineMarked: string;
     /** We define this as using any external help to reinforce your knowledge and/or calculation skills to gain an unfair advantage over your opponent. See the %s page for more details. */
     engineMarkedInfo: I18nFormat;
     /** Your account has been excluded from leaderboards. */
     excludedFromLeaderboards: string;
-    /** We define this as using any unfair way to get on the leaderboard. */
-    excludedFromLeaderboardsInfo: string;
     /** Fair Play */
     fairPlay: string;
-    /** Your blogs have been hidden by moderators. */
-    hiddenBlog: string;
-    /** Make sure to read again our %s. */
-    hiddenBlogInfo: I18nFormat;
+    /** Only one account per person can appear on leaderboards. */
+    onlyOneAccountOnLeaderboards: string;
     /** You have a play timeout. */
     playTimeout: string;
     /** Your account is banned from tournaments with real prizes. */
     prizeBanned: string;
+    /** You can’t send reports to moderators */
+    reportBanned: string;
+    /** We have noticed a pattern of abuse of our report system. This can be due to various reasons, such as continuously selecting the wrong categories, using foul, inappropriate, or offensive language, reporting an excessive number of games, or not demonstrating why you think the opponent violated the rules. */
+    reportBannedInfo: string;
+    /** Your account is temporarily restricted from playing. */
+    temporarilyRestrictedFromPlaying: string;
   };
   arena: {
     /** All averages on this page are %s. */
@@ -155,6 +159,8 @@ interface I18n {
     customStartDateHelp: string;
     /** Defender */
     defender: string;
+    /** Defender: */
+    defenderLabel: string;
     /** Drawing the game within the first %s moves will earn neither player any points. */
     drawingWithinNbMoves: I18nPlural;
     /** Draw streaks: When a player has consecutive draws in an arena, only the first draw will result in a point or draws lasting more than %s moves in standard games. The draw streak can only be broken by a win, not a loss or a draw. */
@@ -167,6 +173,8 @@ interface I18n {
     editTournament: string;
     /** Arena History */
     history: string;
+    /** How are players paired? */
+    howArePlayersPaired: string;
     /** How are scores calculated? */
     howAreScoresCalculated: string;
     /** A win has a base score of 2 points, a draw 1 point, and a loss is worth no points. */
@@ -213,6 +221,8 @@ interface I18n {
     pointsAvg: string;
     /** Points sum */
     pointsSum: string;
+    /** Your rank average represents your typical finishing position, relative to the total number of players in each tournament. */
+    rankAverageHelp: string;
     /** Rank average */
     rankAvg: string;
     /** The rank average is a percentage of your ranking. Lower is better. */
@@ -353,6 +363,8 @@ interface I18n {
     newBroadcast: string;
     /** No boards yet. These will appear once games are uploaded. */
     noBoardsYet: string;
+    /** No players yet. They will appear once games are uploaded. */
+    noPlayersYet: string;
     /** The broadcast has not yet started. */
     notYetStarted: string;
     /** Official standings */
@@ -373,6 +385,10 @@ interface I18n {
     overview: string;
     /** Past broadcasts */
     pastBroadcasts: string;
+    /** Permanently delete this round and all its games? */
+    permanentlyDeleteRound: string;
+    /** Permanently delete this tournament, including all rounds and games? */
+    permanentlyDeleteTournament: string;
     /** Quarterfinals */
     quarterfinals: string;
     /** Rating diff */
@@ -797,6 +813,8 @@ interface I18n {
     banAppeal: string;
     /** In certain circumstances when playing against a bot account, a rated game may not award points if we determine that the player is abusing the bot for rating points. */
     botRatingAbuse: string;
+    /** Broadcast a tournament on Lichess */
+    broadcastTournamentOnLichess: string;
     /** Buying Lichess */
     buyingLichess: string;
     /** It is called "en passant" and is one of the rules of chess. */
@@ -805,6 +823,8 @@ interface I18n {
     cantChangeMore: string;
     /** It's not possible to clear your game history, puzzle history, or ratings. */
     cantClearHistory: string;
+    /** It's not possible to clear your game history, puzzle history, or reset your ratings. */
+    cantClearHistoryOrResetRatings: string;
     /** If you imported the game, or started it from a position, make sure you correctly set the castling rights. */
     castlingImported: string;
     /** Castling is only prevented if the king goes through a controlled square. */
@@ -857,6 +877,10 @@ interface I18n {
     iCantLogIn: string;
     /** If your appeal is legitimate, we will lift the ban ASAP. */
     ifLegit: string;
+    /** If you want to officially broadcast a tournament on Lichess, or have any questions about our broadcasts: */
+    ifYouWantToBroadcastClause1: string;
+    /** Please contact our Broadcast Team at %1$s or on %2$s. */
+    ifYouWantToBroadcastClause2: I18nFormat;
     /** Illegal or impossible castling */
     illegalCastling: string;
     /** Illegal pawn capture */
@@ -869,6 +893,16 @@ interface I18n {
     learnHowToMakeBroadcasts: string;
     /** I lost access to my two-factor authentication codes */
     lost2FA: string;
+    /** block all ads and trackers */
+    monetiseBlockAllAdsAndTrackers: string;
+    /** We encourage everyone to %s. */
+    monetiseEncourageEveryoneTo: I18nFormat;
+    /** We will never display any kind of ads, we won't track our players, and we won't sell or buy traffic or users. */
+    monetiseNoAdsTrackingOrTraffic: string;
+    /** Please do not email us about marketing, tracking, or advertising. */
+    monetiseNoMarketingEmail: string;
+    /** We are not interested in any way of monetising Lichess. */
+    monetiseNotInterested: string;
     /** Monetising Lichess */
     monetizing: string;
     /** I didn't receive my confirmation email */
@@ -883,6 +917,8 @@ interface I18n {
     orCloseAccount: string;
     /** Other restriction */
     otherRestriction: string;
+    /** our Discord server */
+    ourDiscordServer: string;
     /** Make sure you have played a rated game. Casual games do not affect your rating. */
     ratedGame: string;
     /** You can reopen your account on this page. */
@@ -995,6 +1031,8 @@ interface I18n {
     configure: string;
     /** Configure voice narration of the played moves, so you can keep your eyes on the board. */
     configureVoiceNarration: string;
+    /** Configure your DGT board */
+    configureYourDgtBoard: string;
     /** Debug */
     debug: string;
     /** DGT board */
@@ -1069,6 +1107,8 @@ interface I18n {
   emails: {
     /** To contact us, please use %s. */
     common_contact: I18nFormat;
+    /** (Link not working? Try pasting it into your browser!) */
+    common_linkNotWorking: string;
     /** This is a service email related to your use of %s. */
     common_note: I18nFormat;
     /** (Clicking not working? Try pasting it into your browser!) */
@@ -1143,6 +1183,8 @@ interface I18n {
     enableAutoplayForSoundsA: string;
     /** 1. Go to lichess.org */
     enableAutoplayForSoundsChrome: string;
+    /** 1. Go to lichess.org */
+    enableAutoplayForSoundsChromeSiteInformation: string;
     /** 1. Go to lichess.org */
     enableAutoplayForSoundsFirefox: string;
     /** 1. Click the three dots in the top right corner */
@@ -1237,6 +1279,8 @@ interface I18n {
     lMtitleComesToYouDoNotRequestIt: string;
     /** stand-alone mental health condition */
     mentalHealthCondition: string;
+    /** Most browsers prevent sound from playing on newly-visited pages to protect users. */
+    mostBrowsersPreventSoundAutoplay: string;
     /** The player has not yet finished enough rated games against %1$s in the rating category. */
     notPlayedEnoughRatedGamesAgainstX: I18nFormat;
     /** The player hasn't played enough recent games. Depending on the number of games you've played, it might take around a year of inactivity for your rating to become provisional again. */
@@ -1469,6 +1513,8 @@ interface I18n {
     noAndYourNetworkIsBad: string;
     /** No. And your network is good. */
     noAndYourNetworkIsGood: string;
+    /** The time it takes to process a move on the server. It's the same for everybody, and only depends on the server's load. The more players there are, the higher the load becomes, but we do our best to keep it low. It rarely exceeds 10ms. */
+    serverLatencyAndLoadExplanation: string;
     /** Yes. It will be fixed soon! */
     yesItWillBeFixedSoon: string;
     /** You can find both these values at any time, by clicking your username in the top bar. */
@@ -1825,6 +1871,8 @@ interface I18n {
     lichobileNewAppAvailable: string;
     /** Please download the new official Lichess app at %s. */
     lichobileNewAppDownload: I18nFormat;
+    /** Hello, */
+    modActionFeedback: string;
   };
   nvui: {
     /** Actions */
@@ -2005,6 +2053,8 @@ interface I18n {
     insteadGenerateToken: I18nFormat;
     /** Last used %s */
     lastUsed: I18nFormat;
+    /** Manage teams you lead: send direct messages, kick members */
+    manageTeamsYouLead: string;
     /** Send private messages to other players */
     msgWrite: string;
     /** New personal API access token */
@@ -2387,14 +2437,18 @@ interface I18n {
     notifications: string;
     /** Notification within Lichess */
     notifyBell: string;
-    /** Broadcasts you have subscribed to */
+    /** Broadcasts */
     notifyBroadcasts: string;
     /** Challenges */
     notifyChallenge: string;
     /** Device */
     notifyDevice: string;
+    /** New direct message */
+    notifyDirectMessage: string;
     /** Forum comment mentions you */
     notifyForumMention: string;
+    /** Forum mentions */
+    notifyForumMentions: string;
     /** Correspondence game updates */
     notifyGameEvent: string;
     /** New inbox message */
@@ -2405,10 +2459,14 @@ interface I18n {
     notifyPush: string;
     /** Streamer goes live */
     notifyStreamStart: string;
+    /** Study invites */
+    notifyStudyInvites: string;
     /** Correspondence time running out */
     notifyTimeAlarm: string;
     /** Tournament starting soon */
     notifyTournamentSoon: string;
+    /** Tournaments start reminders */
+    notifyTournamentStartReminders: string;
     /** Browser */
     notifyWeb: string;
     /** Only on initial position */
@@ -2695,6 +2753,8 @@ interface I18n {
     cornerMate: string;
     /** Confine the king to the corner using a rook or queen and a knight to engage the checkmate. */
     cornerMateDescription: string;
+    /** Confine the king to the corner using a rook or queen, and use a knight to deliver the checkmate. */
+    cornerMateKnightDeliversDescription: string;
     /** Crushing */
     crushing: string;
     /** Spot the opponent blunder to obtain a crushing advantage. (eval ≥ 600cp) */
@@ -2731,6 +2791,8 @@ interface I18n {
     endgame: string;
     /** A tactic during the last phase of the game. */
     endgameDescription: string;
+    /** A tactic involving the en passant rule, where a pawn can capture an opposing pawn that has just moved next to it with its initial two-square move. */
+    enPassantAdjacentCaptureDescription: string;
     /** A tactic involving the en passant rule, where a pawn can capture an opponent pawn that has bypassed it using its initial two-square move. */
     enPassantDescription: string;
     /** Epaulette mate */
@@ -2749,6 +2811,8 @@ interface I18n {
     fork: string;
     /** A move where the moved piece attacks two opponent pieces at once. */
     forkDescription: string;
+    /** A move where a piece attacks two or more opposing pieces simultaneously. */
+    forkOpposingPiecesDescription: string;
     /** Hanging piece */
     hangingPiece: string;
     /** A tactic involving an opponent piece being undefended or insufficiently defended and free to capture. */
@@ -2757,6 +2821,8 @@ interface I18n {
     hookMate: string;
     /** Checkmate with a rook, knight, and pawn along with one enemy pawn to limit the enemy king's escape. */
     hookMateDescription: string;
+    /** Checkmate using a rook, knight, and pawn, where an opposing pawn blocks the king's escape. */
+    hookMateOpposingPawnDescription: string;
     /** Interference */
     interference: string;
     /** Moving a piece between two opponent pieces to leave one or both opponent pieces undefended, such as a knight on a defended square between two rooks. */
@@ -2821,6 +2887,8 @@ interface I18n {
     mix: string;
     /** A bit of everything. You don't know what to expect, so be ready for anything! Just like in real games. */
     mixDescription: string;
+    /** A bishop delivers checkmate to the king, while a rook helps confine it. */
+    morphyMateBishopAndRookDescription: string;
     /** Morphy's mate */
     morphysMate: string;
     /** Use the bishop to check the king, while your rook helps to confine it. */
@@ -2841,6 +2909,8 @@ interface I18n {
     pawnEndgame: string;
     /** An endgame with only pawns. */
     pawnEndgameDescription: string;
+    /** A rook delivers checkmate to the king, while a bishop helps confine it. */
+    pillsburyMateRookAndBishopDescription: string;
     /** Pillsbury's mate */
     pillsburysMate: string;
     /** The rook delivers checkmate, while the bishop helps to confine it. */
@@ -2853,6 +2923,8 @@ interface I18n {
     playerGames: string;
     /** View puzzles generated from your games, or from another player's games */
     playerGamesDescription: string;
+    /** Promote one of your pawns to a queen, rook or minor piece. */
+    promotePawnToQueenRookOrMinor: string;
     /** Promotion */
     promotion: string;
     /** Promote one of your pawn to a queen or minor piece. */
@@ -3203,6 +3275,8 @@ interface I18n {
     averageRatingX: I18nFormat;
     /** Background */
     background: string;
+    /** Background image */
+    backgroundImage: string;
     /** Background image URL: */
     backgroundImageUrl: string;
     /** Back to game */
@@ -3249,6 +3323,8 @@ interface I18n {
     blackPlays: string;
     /** Black proposes takeback */
     blackProposesTakeback: string;
+    /** Black ran out of time */
+    blackRanOutOfTime: string;
     /** Black resigned */
     blackResigned: string;
     /** Black time out */
@@ -3303,6 +3379,8 @@ interface I18n {
     cancelSimul: string;
     /** Cancel the tournament */
     cancelTournament: string;
+    /** It is not possible to filter by rating because your rating is not stable. */
+    cannotFilterByUnstableRating: string;
     /** Please solve the chess captcha. */
     'captcha.fail': string;
     /** Capture */
@@ -3343,6 +3421,8 @@ interface I18n {
     checkmate: string;
     /** Also check your spam folder, it might end up there. If so, mark it as not spam. */
     checkSpamFolder: string;
+    /** If you do not receive a confirmation email, check your Spam or Junk folder. Be sure to indicate messages from lichess.org as safe and "not spam", so you can stay informed of important communications. */
+    checkSpamOrJunkFolder: string;
     /** Check your Email */
     checkYourEmail: string;
     /** Chess960 start position: %s */
@@ -3447,6 +3527,8 @@ interface I18n {
     createTheGame: string;
     /** Create the topic */
     createTheTopic: string;
+    /** Creating a simul lets you play against multiple opponents at the same time. */
+    creatingASimul: string;
     /** Crosstable */
     crosstable: string;
     /** Cumulative */
@@ -3615,6 +3697,8 @@ interface I18n {
     expandVariations: string;
     /** Export games */
     exportGames: string;
+    /** Extra clock time for the host: */
+    extraClockTimeForHost: string;
     /** Fast */
     fast: string;
     /** Favourite opponents */
@@ -3713,6 +3797,8 @@ interface I18n {
     ifYouDoNotGetTheEmail: string;
     /** If you don't see the email, check other places it might be, like your junk, spam, social, or other folders. */
     ifYouDoNotSeeTheEmailCheckOtherPlaces: string;
+    /** Image opacity */
+    imageOpacity: string;
     /** Important */
     important: string;
     /** Imported by %s */
@@ -3817,6 +3903,8 @@ interface I18n {
     learnFromYourMistakes: string;
     /** Learn */
     learnMenu: string;
+    /** Less */
+    less: string;
     /** Let other players challenge you */
     letOtherPlayersChallengeYou: string;
     /** Let other players follow you */
@@ -3935,6 +4023,8 @@ interface I18n {
     move: string;
     /** Move annotations */
     moveAnnotations: string;
+    /** Move list navigation */
+    moveListNavigation: string;
     /** Moves played */
     movesPlayed: string;
     /** Move times */
@@ -4155,10 +4245,14 @@ interface I18n {
     pawnMove: string;
     /** Performance */
     performance: string;
+    /** Rating: %s. */
+    perfRatingLabel: I18nFormat;
     /** Rating: %s */
     perfRatingX: I18nFormat;
     /** A permanent link for anyone to challenge you with these exact settings. */
     permanentLinkForAnyoneToChallengeYou: string;
+    /** Picture */
+    picture: string;
     /** Piece set */
     pieceSet: string;
     /** Pinned pieces */
@@ -4199,8 +4293,12 @@ interface I18n {
     points: string;
     /** Popular openings */
     popularOpenings: string;
+    /** Position as image */
+    positionAsImage: string;
     /** Paste a valid FEN to start every game from a given position. */
     positionInputHelp: I18nFormat;
+    /** edited */
+    postEdited: string;
     /** Posts */
     posts: string;
     /** When a potential problem is detected, we display this message. */
@@ -4219,6 +4317,8 @@ interface I18n {
     privacyPolicy: string;
     /** Proceed to %s */
     proceedToX: I18nFormat;
+    /** We can process your report faster if you write in English. */
+    processReportFasterInEnglish: string;
     /** Profile */
     profile: string;
     /** Profile completion: %s */
@@ -4233,6 +4333,8 @@ interface I18n {
     puzzles: string;
     /** Quick pairing */
     quickPairing: string;
+    /** Quote */
+    quote: string;
     /** Race finished */
     raceFinished: string;
     /** Random Chess960 position */
@@ -4271,6 +4373,8 @@ interface I18n {
     ratingXOverYGames: I18nPlural;
     /** Read about our %s. */
     readAboutOur: I18nFormat;
+    /** Read the message */
+    readTheMessage: string;
     /** really */
     really: string;
     /** Real name */
@@ -4305,6 +4409,8 @@ interface I18n {
     rememberMe: string;
     /** Removes the depth limit, and keeps your computer warm */
     removesTheDepthLimit: string;
+    /** Reopen */
+    reopen: string;
     /** Reopen your account */
     reopenYourAccount: string;
     /** If you closed your account, but have since changed your mind, you get a chance of getting your account back. */
@@ -4361,6 +4467,8 @@ interface I18n {
     reviewWhiteMistakes: string;
     /** revoke all sessions */
     revokeAllSessions: string;
+    /** Roundness */
+    roundness: string;
     /** Pick a very safe name for the tournament. */
     safeTournamentName: string;
     /** Save */
@@ -4457,8 +4565,6 @@ interface I18n {
     socialMediaLinks: string;
     /** Solution */
     solution: string;
-    /** Someone you reported was banned */
-    someoneYouReportedWasBanned: string;
     /** Sorry :( */
     sorry: string;
     /** Sound */
@@ -4527,6 +4633,8 @@ interface I18n {
     theGameIsADraw: string;
     /** Thematic */
     thematic: string;
+    /** Theme */
+    theme: string;
     /** No results for "%s" */
     thereAreNoResultsForX: I18nFormat;
     /** The Lichess Terms of Service were violated on this account */
@@ -4785,6 +4893,8 @@ interface I18n {
     whitePlays: string;
     /** White proposes takeback */
     whiteProposesTakeback: string;
+    /** White ran out of time */
+    whiteRanOutOfTime: string;
     /** White resigned */
     whiteResigned: string;
     /** White time out */
@@ -4869,6 +4979,8 @@ interface I18n {
     youCanAlsoScrollOverTheBoardToMoveInTheGame: string;
     /** You can do better */
     youCanDoBetter: string;
+    /** You can format text using %s. */
+    youCanFormatTextUsing: I18nFormat;
     /** There is a setting to hide all user flairs across the entire site. */
     youCanHideFlair: string;
     /** You can't post in the forums yet. Play some games! */
@@ -5111,6 +5223,8 @@ interface I18n {
     whenApproved: string;
     /** When you are ready to be listed as a Lichess streamer, %s */
     whenReady: I18nFormat;
+    /** When you are ready to be listed as a Lichess streamer, %s. */
+    whenReadyToBeListedAsStreamer: I18nFormat;
     /** %s is streaming */
     xIsStreaming: I18nFormat;
     /** %s streamer picture */
@@ -5299,6 +5413,10 @@ interface I18n {
     loadExistingLichessGameText: string;
     /** Load an existing lichess game */
     loadExistingLichessGameTitle: string;
+    /** Paste a game URL<br>(like lichess.org/7fHIU0XI)<br>to load game moves in the chapter. */
+    loadGameFromTheWebText: string;
+    /** Load a game from the web */
+    loadGameFromTheWebTitle: string;
     /** Make sure the chapter is complete. You can only request analysis once. */
     makeSureTheChapterIsComplete: string;
     /** Manage topics */
@@ -5357,6 +5475,8 @@ interface I18n {
     open: string;
     /** Orientation */
     orientation: string;
+    /** You can paste this in the forum or your Lichess blog to embed the chapter. */
+    pasteToEmbedChapterInForumOrBlog: string;
     /** Paste games as PGN text here. For each game, a new chapter is created. The study can have up to %s chapters. */
     pasteYourPgnTextHereUpToNbGames: I18nPlural;
     /** %s per page */
@@ -5499,6 +5619,8 @@ interface I18n {
     absences: string;
     /** Byes */
     byes: string;
+    /** Can I play round-robin tournaments on Lichess? */
+    canPlayRoundRobinTournaments: string;
     /** Comparison */
     comparison: string;
     /** Predefined max rounds, but duration unknown */
@@ -5605,6 +5727,8 @@ interface I18n {
     predefinedDuration: string;
     /** Only allow specific players to join */
     predefinedUsers: string;
+    /** Enter one username per line. Only these players will be allowed to join. */
+    predefinedUsersHelp: string;
     /** Players who sign up for Swiss events but don't play their games can be problematic. */
     protectionAgainstNoShowA: string;
     /** What is done regarding no-shows? */
@@ -5659,6 +5783,8 @@ interface I18n {
     whatIfOneDoesntPlayA: string;
     /** What happens if a player doesn't play a game? */
     whatIfOneDoesntPlayQ: string;
+    /** Why are Swiss tournaments restricted to teams? */
+    whyAreSwissTournamentsRestrictedToTeams: string;
     /** No. They're complementary features. */
     willSwissReplaceArenasA: string;
     /** Will Swiss replace arena tournaments? */
@@ -5711,12 +5837,6 @@ interface I18n {
     manuallyReviewAdmissionRequests: string;
     /** If checked, players will need to request to join the team, which you can accept or decline. */
     manuallyReviewAdmissionRequestsHelp: string;
-    /** Message all members */
-    messageAllMembers: string;
-    /** Send a private message to ALL members of the team. */
-    messageAllMembersLongDescription: string;
-    /** Send a private message to every member of the team */
-    messageAllMembersOverview: string;
     /** My teams */
     myTeams: string;
     /** %s leaders per team */
@@ -5725,6 +5845,8 @@ interface I18n {
     nbMembers: I18nPlural;
     /** New team */
     newTeam: string;
+    /** New team update */
+    newTeamUpdate: string;
     /** No team found */
     noTeamFound: string;
     /** Number of leaders per team. The sum of their score is the score of the team. */
@@ -5741,8 +5863,8 @@ interface I18n {
     quitTeam: string;
     /** Your join request was declined by a team leader. */
     requestDeclined: string;
-    /** Subscribe to team messages */
-    subToTeamMessages: string;
+    /** Subscribe to team updates */
+    subToTeamUpdates: string;
     /** A Swiss tournament that only members of your team can join */
     swissTournamentOverview: string;
     /** Team */
@@ -5769,6 +5891,8 @@ interface I18n {
     teamTournament: string;
     /** An Arena tournament that only members of your team can join */
     teamTournamentOverview: string;
+    /** Team updates */
+    teamUpdates: string;
     /** This tournament is over, and the teams can no longer be updated. */
     thisTeamBattleIsOver: string;
     /** Upcoming tournaments */
@@ -5967,6 +6091,8 @@ interface I18n {
     drafts: string;
     /** Edit your blog post */
     editYourBlogPost: string;
+    /** The following websites provide images for free. Please ensure you comply with licensing conditions for the image you use. */
+    freeImagesComplyWithLicensing: string;
     /** Image alternative text */
     imageAlt: string;
     /** Image credit */
@@ -5989,6 +6115,8 @@ interface I18n {
     nbViews: I18nPlural;
     /** New post */
     newPost: string;
+    /** Only use images that are not copyrighted by someone else. */
+    noCopyrightedImages: string;
     /** No drafts to show. */
     noDrafts: string;
     /** No posts in this blog, yet. */
@@ -6025,10 +6153,6 @@ interface I18n {
     thisIsADraft: string;
     /** This post is published */
     thisPostIsPublished: string;
-    /** Upload an image for your post */
-    uploadAnImageForYourPost: string;
-    /** You can also use images that you made yourself, pictures you took, screenshots of Lichess... anything that is not copyrighted by someone else. */
-    useImagesYouMadeYourself: string;
     /** View all %s posts */
     viewAllNbPosts: I18nPlural;
     /** %s's Blog */

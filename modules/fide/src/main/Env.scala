@@ -1,24 +1,28 @@
 package lila.fide
 
 import com.softwaremill.macwire.*
+import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
 import chess.FideId
 
 import lila.core.config.CollName
 import lila.core.fide.*
+import lila.common.autoconfig.given
 import lila.memo.{ CacheApi, PicfitApi, PicfitUrl }
 import scalalib.paginator.Paginator
 
 @Module
 final class Env(
+    appConfig: Configuration,
     db: lila.db.Db,
     cacheApi: CacheApi,
     picfitApi: PicfitApi,
     picfitUrl: PicfitUrl,
-    ws: StandaloneWSClient
+    ws: StandaloneWSClient,
+    httpProxy: lila.memo.HttpProxy
 )(using
     Executor,
-    akka.stream.Materializer
+    org.apache.pekko.stream.Materializer
 )(using mode: play.api.Mode, scheduler: Scheduler):
 
   val repo =
@@ -61,14 +65,20 @@ final class Env(
 
   given Federation.Guess = lila.fide.Federation.find
 
-  private lazy val fideSync = wire[FidePlayerSync]
+  private lazy val fideSync = FidePlayerSync(
+    repo,
+    ws,
+    httpProxy,
+    appConfig.get[Url]("fide.players.url"),
+    appConfig.get[Url]("fide.ratings.url")
+  )
 
   if mode.isProd then
     scheduler.scheduleWithFixedDelay(1.hour, 1.hour): () =>
       if nowDateTime.getHour == 4
       then fideSync()
 
-  lila.common.Cli.handle:
+  lila.common.Cli.handle(_.FidePlayer):
     case "fide" :: "player" :: "sync" :: Nil =>
       fideSync()
       fuccess("Updating the player database in the background.")

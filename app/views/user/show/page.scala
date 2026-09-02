@@ -97,7 +97,7 @@ object page:
       Context,
       Translate
   ): Frag =
-    if filter == GameFilter.search then frag(iconTag(Icon.Search), br, trans.search.advancedSearch())
+    if filter == GameFilter.search then frag(iconEl(Icon.Search), br, trans.search.advancedSearch())
     else lila.web.ui.bits.splitNumber(userGameFilterTitleNoTag(u, nbs, filter))
 
   def userGameFilterTitleNoTag(u: User, nbs: UserInfo.NbGames, filter: GameFilter)(using Translate): String =

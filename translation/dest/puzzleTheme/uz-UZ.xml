@@ -55,16 +55,19 @@
   <string name="endgame">Endshpil</string>
   <string name="endgameDescription">Oʻyinning yakuniy bosqichidagi taktik usul.</string>
   <string name="enPassantDescription">\"En passant\" qoidasiga asoslangan taktika; raqib piyodasi ikki qadam yurib sizning piyodangiz bilan yonma-yon kelib qolsa, uni goʻyo bir qadam yurganidek urib olishingiz mumkin.</string>
+  <string name="enPassantAdjacentCaptureDescription" comment="Replaces old string enPassantDescription">“En passant” olish qoidasini oʻz ichiga olgan taktika, bunda piyoda oʻzining dastlabki ikki katakli yurishi bilan yoniga kelib qolgan raqib piyodasini urib olishi mumkin.</string>
   <string name="epauletteMate">Epolet moti</string>
   <string name="epauletteMateDescription">Shohga shoh berilganda, uning ikki yonidagi kataklarni oʻzining donalari toʻsib turgan boʻladi.</string>
   <string name="exposedKing">Ochiq qolgan shoh</string>
   <string name="exposedKingDescription">Atrofida himoyachilari kam qolgan shohga qarshi taktik zarba; bu holat koʻpincha mot bilan yakunlanadi.</string>
   <string name="fork">Vilka</string>
   <string name="forkDescription">Bitta yurish orqali raqibning ikki donasiga baravar hujum qilish.</string>
+  <string name="forkOpposingPiecesDescription" comment="Replaces old string forkDescription">Bir dona bir vaqtning oʻzida ikkita yoki undan ortiq raqib donalariga hujum qiladigan yurish (vilka).</string>
   <string name="hangingPiece">Himoyasiz dona</string>
   <string name="hangingPieceDescription">Raqibning yetarlicha himoya qilinmagan donasini tekinga urib olish imkonini beruvchi taktik holat.</string>
   <string name="hookMate">Qarmoq moti</string>
   <string name="hookMateDescription">Rux, ot va piyoda ishtirokidagi mot; bunda raqibning oʻz piyodasi ham shohning qochish yoʻllarini cheklashda “yordam beradi”.</string>
+  <string name="hookMateOpposingPawnDescription" comment="Replaces old string hookMateDescription">Rux, ot va piyoda yordamida mot qilish. Bunda raqib piyodasi shohning qochishiga xalaqit beradi.</string>
   <string name="interference">Toʻsiq</string>
   <string name="interferenceDescription">Raqibning ikki donasi orasiga oʻz donangizni qoʻyib, ularning bir-birini himoya qilishiga toʻsqinlik qilish (masalan, ikkita rux orasidagi katakka otni qoʻyish).</string>
   <string name="intermezzo">Oraliq yurish</string>
@@ -73,8 +76,10 @@
   <string name="killBoxMateDescription">Rux shohning yonida turadi va farzin tomonidan himoya qilinadi, farzin esa qolgan qochish yoʻllarini ham toʻsib qoʻyadi. Rux va farzin raqib shohini 3 ga 3 katakli \"qopqon\"ga solib mot qiladi.</string>
   <string name="pillsburysMate">Pillsbury moti</string>
   <string name="pillsburysMateDescription">Rux bilan beriladigan mot; bunda fil raqib shohini burchakka siqib chiqarishga va qochish yoʻllarini yopishga yordam beradi.</string>
+  <string name="pillsburyMateRookAndBishopDescription" comment="Replaces old string pillsburysMateDescription">Rux shohga mot qoʻyadi, fil esa shohni cheklashga yordam beradi.</string>
   <string name="morphysMate">Morphy moti</string>
   <string name="morphysMateDescription">Fil bilan shohga mot berish; bunda rux shohning qochish yoʻllarini toʻsib, uning harakatini cheklab turadi.</string>
+  <string name="morphyMateBishopAndRookDescription" comment="Replaces old string morphysMateDescription">Fil shohga mot qoʻyadi, rux esa shohni cheklashga yordam beradi.</string>
   <string name="swallowstailMate">Qaldirgʻoch dumi moti</string>
   <string name="swallowstailMateDescription">Tashqi koʻrinishi qaldirgʻoch dumiga yoki \"V\" shakliga oʻxshash boʻlgan mot turi.</string>
   <string name="triangleMate">Uchburchak mot</string>

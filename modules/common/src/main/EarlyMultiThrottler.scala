@@ -1,6 +1,6 @@
 package lila.common
 
-import akka.actor.*
+import org.apache.pekko.actor.*
 
 import lila.log.Logger
 

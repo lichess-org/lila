@@ -139,6 +139,7 @@
   <string name="pinnedPieces">Připnuté figury</string>
   <string name="checkableKing">Král, kterého lze dát do šachu</string>
   <string name="multipleLines">Počet variant</string>
+  <string name="multipleLinesDescription">Nastavit počet vyhodnocených variant a šipek na šachovnici</string>
   <string name="searchTime">Čas hledání</string>
   <string name="searchTimeDescription">Nastavit čas pro vyhodnocení čerstvých pozic</string>
   <string name="threads">Vlákna</string>
@@ -300,6 +301,7 @@
   <string name="emailCanTakeSomeTime">Může to chvíli trvat.</string>
   <string name="refreshInboxAfterFiveMinutes">Počkejte 5 minut a obnovte vaši e-mailovou schránku.</string>
   <string name="checkSpamFolder">Také zkontrolujte složku nevyžádané pošty. Pokud ano, označte mail jako vyžádaný.</string>
+  <string name="checkSpamOrJunkFolder" comment="checkSpamFolder&#10;It = The confirmation email Replaces old string checkSpamFolder">Pokud neobdržíte potvrzovací e-mail, zkontrolujte složku Nevyžádaná pošta nebo Spam. Nezapomeňte označit zprávy z lichess.org jako bezpečné a \"ne spam\", abyste byli informováni o důležitých informacích i v budoucnu.</string>
   <string name="sendEmailForAccountVerification">Pokud nemůžete najít svůj potvrzovací e-mail, pošlete nám e-mail na adresu %s a potvrdíme vám váš účet.</string>
   <string name="accountConfirmed">Uživatel %s byl úspěšně potvrzen.</string>
   <string name="accountCanLogin">Nyní se můžete přihlásit jako %s.</string>
@@ -553,6 +555,7 @@
     <item quantity="many">%s sleduje</item>
     <item quantity="other">%s sleduje</item>
   </plurals>
+  <string name="less">Méně</string>
   <string name="more">Více</string>
   <string name="memberSince">Členem od</string>
   <string name="lastSeenActive">Poslední přihlášení %s</string>
@@ -651,6 +654,9 @@
   <string name="replies">Odpovědi</string>
   <string name="replyToThisTopic">Odpovědět na toto téma</string>
   <string name="reply">Odpovědět</string>
+  <string name="reopen">Znovu otevřít</string>
+  <string name="quote">Citovat</string>
+  <string name="postEdited">upraveno</string>
   <string name="message">Zpráva</string>
   <string name="createTheTopic">Vytvořit téma</string>
   <string name="reportAUser">Nahlásit uživatele</string>
@@ -663,6 +669,7 @@
   <string name="reportCheatBoostHelp">Zde vlož odkaz na hru(hry) a napiš co dělal tento uživatel. Nepiš pouze \"on podváděl\", ale napiš proč si myslíš že podváděl.</string>
   <string name="reportUsernameHelp">Vysvětli co je urážlivého na jeho u6ivatelském jménu. Nepiš pouze \"Je urážlivé/nevhodné\", ale řekni i důvod proč to tak je, zejména pokud je urážka zatemněná, nebo je v jiném jazyce než v angličtině, nebo je ve slangu či jde o historickou nebokulturní referenci.</string>
   <string name="reportProcessedFasterInEnglish">Nahlášení bude rychlejší pokud bude v angličtině.</string>
+  <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it. Replaces old string reportProcessedFasterInEnglish">Vaše hlášení můžeme zpracovat rychleji, pokud jej napíšete anglicky.</string>
   <string name="error.provideOneCheatedGameLink">Prosím, uveďte alespoň jeden link na partii, ve které se podvádělo.</string>
   <string name="by">od %s</string>
   <string name="importedByX">Importováno uživatelem %s</string>
@@ -793,6 +800,7 @@
   <string name="aboutSimulSettings">Simultánka je vždy neformální. Je nemožné nabízet odvety, vracení tahu a přidávat čas.</string>
   <string name="create">Vytvořte</string>
   <string name="whenCreateSimul">Když vytvoříte simultánku, budete hrát proti více hráčům najednou.</string>
+  <string name="creatingASimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new Replaces old string whenCreateSimul">Vytvoření simultánky umožňuje hrát proti více soupeřům zároveň.</string>
   <string name="simulVariantsHint">Pokud vyberete více variant, každý ze soupeřů si může vybrat.</string>
   <string name="simulClockHint">Nastavení Fisherových hodin. Čím víc hráčů přijmete, tím víc času budete potřebovat.</string>
   <string name="simulAddExtraTime">Můžete si přidat více času, abyste  tu simultánku lépe zvládli.</string>
@@ -905,11 +913,15 @@
   <string name="language">Jazyk</string>
   <string name="allLanguages">Všechny jazyky</string>
   <string name="background">Pozadí</string>
+  <string name="theme">Motiv</string>
   <string name="light">Světlé</string>
   <string name="dark">Tmavé</string>
   <string name="transparent">Průhledné</string>
+  <string name="picture">Obrázek</string>
   <string name="deviceTheme">Motiv podle zařízení</string>
+  <string name="roundness">Míra zaoblení</string>
   <string name="backgroundImageUrl">URL zdroj obrázku na pozadí:</string>
+  <string name="imageOpacity">Průhlednost obrázku</string>
   <string name="board">Šachovnice</string>
   <string name="size">Velikost</string>
   <string name="opacity">Průhlednost</string>
@@ -1052,7 +1064,6 @@
   <string name="xInvitedYouToY">%1$s vás pozval ke studii \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Nyní jste součástí týmu.</string>
   <string name="youHaveJoinedTeamX">Připojili jste se k týmu \"%1$s\".</string>
-  <string name="someoneYouReportedWasBanned">Někdo, koho jste nahlásili, byl zablokován</string>
   <string name="congratsYouWon">Gratulujeme, zvítězili jste!</string>
   <string name="gameVsX">Partie proti %1$s</string>
   <string name="resVsX">%1$s vs. %2$s</string>
@@ -1084,6 +1095,7 @@ Nechte toto pole prázdné, pokud chcete začínat z běžného základního pos
   <string name="simulDescription">Popis simultánky</string>
   <string name="simulDescriptionHelp">Je tu něco co by jste chtěli sdělit účastníkům?</string>
   <string name="markdownIsAvailable">%s je k dispozici k formátování.</string>
+  <string name="youCanFormatTextUsing" comment="%s is &quot;Markdown&quot;, a proper noun. As such, the word is intentionally kept as a variable.&#10;&#10;Markdown is a markup language - a type of code that lets you format text (e.g. to create bold text).&#10;&#10;The text links to a reference guide for using Markdown to format text. Replaces old string markdownIsAvailable">Můžete formátovat text pomocí %s.</string>
   <string name="embedsAvailable">Vložte URL hry nebo kapitoly studie pro zobrazení.</string>
   <string name="inYourLocalTimezone">Ve vašem časovém pásmu</string>
   <string name="tournChat">Turnajový chat</string>
@@ -1091,6 +1103,7 @@ Nechte toto pole prázdné, pokud chcete začínat z běžného základního pos
   <string name="onlyTeamLeaders">Pouze vedoucí týmu</string>
   <string name="onlyTeamMembers">Pouze členové týmu</string>
   <string name="navigateMoveTree">Navigovat seznamem tahů</string>
+  <string name="moveListNavigation" comment="navigateMoveTree&#10;&#10;Appears in the keyboard shortcuts/help screen. The 'move tree' is simply the list of moves. Replaces old string navigateMoveTree">Navigace seznamu tahů</string>
   <string name="mouseTricks">Klávesové zkratky</string>
   <string name="toggleLocalAnalysis">Zapnout/vypnout lokální počítačovou analýzu</string>
   <string name="toggleAllAnalysis">Zapnout/vypnout všechny počítačové analýzy</string>
@@ -1107,6 +1120,7 @@ Nechte toto pole prázdné, pokud chcete začínat z běžného základního pos
   <string name="gameInProgress">Již probíhá hra s %s.</string>
   <string name="abortTheGame">Zrušit hru</string>
   <string name="resignTheGame">Vzdát hru</string>
+  <string name="youCantStartNewGame">Nelze zahájit novou hru, pokud jste na tahu.</string>
   <string name="since">Od</string>
   <string name="until">Do</string>
   <string name="lichessDbExplanation">Hodnocené hry od všech Lichess hráčů</string>

@@ -1,5 +1,5 @@
+import { icons, type Icon } from './icons';
 import { memoize } from './index';
-import { licon, type LiconValue } from './licon';
 import { bind, type Hooks } from './view/snabbdom';
 
 export const hookMobileMousedown = (f: (e: MouseEvent) => void): Hooks =>
@@ -11,7 +11,7 @@ export const prefersLightThemeQuery = (): MediaQueryList =>
 export const currentTheme = (): 'light' | 'dark' => {
   const dataTheme = document.body.dataset.theme!;
   if (dataTheme === 'system') return prefersLightThemeQuery().matches ? 'light' : 'dark';
-  return dataTheme === 'light' ? 'light' : 'dark';
+  return dataTheme.includes('light') ? 'light' : 'dark';
 };
 
 let colCache: number | undefined;
@@ -65,7 +65,7 @@ const webkitVersion = memoize<string | false>(
     false,
 );
 
-export const shareIcon: () => LiconValue = () => (isApple() ? licon.ShareIos : licon.ShareAndroid);
+export const shareIcon: () => Icon = () => (isApple() ? icons.ShareIos : icons.ShareAndroid);
 
 export type Feature =
   | 'wasm'

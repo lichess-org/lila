@@ -1,7 +1,7 @@
 {
   "name": "build",
   "type": "module",
-  "packageManager": "pnpm@11.5.1",
+  "packageManager": "pnpm@11.22.0",
   "engines": {
     "node": ">=24",
     "pnpm": "11"
@@ -17,14 +17,26 @@
   "dependencies": {
     "@types/micromatch": "4.0.10",
     "@types/node": "24.13.3",
-    "esbuild": "0.28.1",
+    "autoprefixer": "^10.5.4",
+    "esbuild": "0.28.2",
     "fast-glob": "3.3.3",
-    "fast-xml-parser": "5.9.3",
+    "fast-xml-parser": "5.11.1",
     "json-stringify-pretty-compact": "4.0.0",
     "micromatch": "4.0.8",
-    "typescript": "6.0.3"
+    "postcss": "^8.5.26",
+    "typescript": "7.0.2"
   },
   "scripts": {
     "dev": "node --no-warnings src/main.ts $@"
-  }
+  },
+  "browserslist": [
+    "defaults",
+    "not op_mini all",
+    "not kaios <= 4",
+    "firefox >= 115",
+    "chrome >= 112",
+    "edge >= 111",
+    "opera >= 97",
+    "safari >= 16.2"
+  ]
 }

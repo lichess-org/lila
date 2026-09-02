@@ -14,7 +14,6 @@ final class OpeningBits(helpers: Helpers):
   private[ui] def openingPage(title: String, about: Option[OpeningPage]) =
     Page(title)
       .css("opening")
-      .csp(_.withInlineIconFont) // because opening.scss imports pgn-viewer
       .js:
         PageModule(
           "opening",
@@ -68,7 +67,7 @@ final class OpeningBits(helpers: Helpers):
     details(cls := "opening__config")(
       summary(cls := "opening__config__summary")(
         div(cls := "opening__config__summary__short")(
-          iconTag(Icon.Gear)
+          iconEl(Icon.Gear)
         ),
         div(cls := "opening__config__summary__large")(
           "Speed: ",

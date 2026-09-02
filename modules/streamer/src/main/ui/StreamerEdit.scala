@@ -49,7 +49,7 @@ final class StreamerEdit(helpers: Helpers, bits: StreamerBits):
               frag(
                 (ctx.is(s.user) && s.streamer.listed.value)
                   .option(
-                    div(cls := clas, dataIcon := icon)(
+                    div(cls := clas, iconEl := icon)(
                       if granted then
                         frag(
                           if requested then "Changes are under review." else trs.approved(),

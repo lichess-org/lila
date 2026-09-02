@@ -1,6 +1,6 @@
 package lila.security
 
-import akka.actor.*
+import org.apache.pekko.actor.*
 import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
 import play.api.Configuration
@@ -10,7 +10,7 @@ import lila.core.config.*
 import lila.core.data.Strings
 import lila.memo.SettingStore
 import lila.memo.SettingStore.Strings.given
-import lila.oauth.OAuthServer
+import lila.oauth.{ OAuthServer, AccessTokenApi }
 import lila.common.config.GetRelativeFile
 
 @Module
@@ -25,6 +25,7 @@ final class Env(
     cacheApi: lila.memo.CacheApi,
     settingStore: lila.memo.SettingStore.Builder,
     oAuthServer: OAuthServer,
+    accessTokenApi: AccessTokenApi,
     mongoCache: lila.memo.MongoCache.Api,
     canSendEmails: SettingStore[Boolean] @@ lila.mailer.CanSendEmails,
     cookieBaker: play.api.mvc.SessionCookieBaker,
@@ -35,7 +36,7 @@ final class Env(
 )(using
     Executor,
     play.api.Mode,
-    akka.stream.Materializer,
+    org.apache.pekko.stream.Materializer,
     lila.core.i18n.Translator,
     lila.core.config.RateLimit
 )(using scheduler: Scheduler):

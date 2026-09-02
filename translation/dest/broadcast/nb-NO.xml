@@ -35,10 +35,12 @@
   <string name="resetRound">Nullstill denne runden</string>
   <string name="deleteRound">Slett denne runden</string>
   <string name="definitivelyDeleteRound">Slett runden og tilhørende partier ugjenkallelig.</string>
+  <string name="permanentlyDeleteRound" comment="Refers to live tournaments being broadcast on Lichess (https://lichess.org/broadcast).&#10;&#10;Description (also translateable): Delete all games of this round. The source will need to be active in order to re-create them. This string has been amended since its initial publication; it didn't say &quot;all its games&quot; at the time.&#10;&#10;Replaces old string definitivelyDeleteRound.">Vil du slette denne runden og alle partiene i den permanent?</string>
   <string name="deleteAllGamesOfThisRound">Slett alle partiene i denne runden. Kilden må være aktiv for å gjenopprette dem.</string>
   <string name="editRoundStudy">Rediger rundestudie</string>
   <string name="deleteTournament">Slett denne turneringen</string>
   <string name="definitivelyDeleteTournament">Slett hele turneringen for godt, sammen med alle rundene og alle partiene.</string>
+  <string name="permanentlyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast Replaces old string definitivelyDeleteTournament">Vil du slette denne turneringen permanent, inkludert alle runder og partier?</string>
   <string name="showScores">Vis poeng for spillerne basert på resultater av partiene</string>
   <string name="replacePlayerTags">Valgfritt: erstatt spillernavn, ratinger og titler</string>
   <string name="fideFederations">FIDE-forbund</string>
@@ -57,6 +59,7 @@
   <string name="subscribeTitle">Abonner for å bli varslet når hver runde starter. Du kan velge varselform i kontoinnstillingene dine.</string>
   <string name="uploadImage">Last opp bilde for turneringen</string>
   <string name="noBoardsYet">Ingen brett. De vises når partiene er lastet opp.</string>
+  <string name="noPlayersYet">Ingen spillere ennå. De vises når partiene er lastet opp.</string>
   <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Brett kan lastes med en kilde eller via %s</string>
   <string name="startsAfter">Starter etter %s</string>
   <string name="startVerySoon">Overføringen starter straks.</string>
@@ -107,6 +110,6 @@
   <string name="tiebreaks">Kvalitet</string>
   <string name="gameX">Parti %s</string>
   <string name="knockouts">Utslagsrunder</string>
-  <string name="underXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament. e.g.    'U18' will mean it is an tournament for under-18 years.    Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">U%s</string>
-  <string name="underXEloTournament" comment="%s is the maximum Elo rating set by the organiser for a tournament.     e.g. 'U2000' will mean it is an tournament for players with Elo under 2000.    Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">U%s</string>
+  <string name="underXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament. e.g.  'U18' will mean it is an tournament for under-18 years.  Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">U%s</string>
+  <string name="underXEloTournament" comment="%s is the maximum Elo rating set by the organiser for a tournament.  e.g. 'U2000' will mean it is an tournament for players with Elo under 2000.  Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">U%s</string>
 </resources>

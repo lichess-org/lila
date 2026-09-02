@@ -1,4 +1,10 @@
 #dasher_app {
+  .links {
+    @extend %box-radius-top-left;
+
+    overflow: hidden;
+  }
+
   .links,
   .subs {
     padding: 5px 0;
@@ -9,39 +15,23 @@
   .subs .sub {
     @extend %nowrap-hidden;
 
-    display: block;
+    display: flex;
+    align-items: center;
     padding: 0.5rem 1rem;
     width: 100%;
     text-align: start;
   }
 
-  .links a::before,
-  .links button::before {
-    position: relative;
-    bottom: 0.05em;
-  }
-
-  .links .line {
-    width: auto;
-
-    &::before {
-      display: inline-block;
-      margin-inline: 0 0.4em;
-
-      @include if-rtl {
-        transform: scaleX(-1);
-      }
-    }
-  }
-
   .links a:hover,
-  .links a:hover::before,
-  .links a:hover .line::before,
   .links button:hover,
   .subs .sub:hover {
     background: $c-dasher;
     color: $c-over !important;
     opacity: 1;
+  }
+
+  .links a:hover .line {
+    color: $c-over;
   }
 
   .logout button:hover {
@@ -58,14 +48,20 @@
   }
 
   .sub {
-    &::before {
-      float: inline-end;
-      font-size: 80%;
-      margin-top: 0.25rem;
+    justify-content: start;
+
+    > .svg-icon {
+      width: 1.2em;
+      margin-inline-end: 0.4em;
+    }
+
+    > .svg-icon:last-child {
+      width: 0.8em;
+      margin-inline-start: auto;
       color: $c-dasher;
     }
 
-    &:hover::before {
+    &:hover > .svg-icon {
       color: $c-over;
       opacity: 0.9;
     }

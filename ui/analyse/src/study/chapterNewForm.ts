@@ -3,7 +3,7 @@ import type { LichessEditor } from 'editor';
 import { chess960IdToFEN, randomPositionId } from 'editor/chess960';
 
 import { defined, prop, type Prop, toggle } from 'lib';
-import { licon } from 'lib/licon';
+import { icons } from 'lib/icons';
 import { pubsub } from 'lib/pubsub';
 import { storedProp } from 'lib/storage';
 import {
@@ -13,11 +13,10 @@ import {
   bindSubmit,
   onInsert,
   hl,
-  dataIcon,
   spinnerVdom,
   type Dialog,
   type VNode,
-  iconCls,
+  snabIcon,
 } from 'lib/view';
 import { json as xhrJson, text as xhrText } from 'lib/xhr';
 
@@ -59,7 +58,7 @@ export class StudyChapterNewForm {
   isDefaultName = toggle(true);
   orientation: Color | 'automatic';
   chess960Position: Prop<number> = prop(518); // 518 = standard chess starting position
-  selectedVariant: Prop<VariantKey> = prop('standard' as VariantKey);
+  selectedVariant: Prop<VariantKey> = prop('standard');
 
   constructor(
     private readonly send: StudySocketSend,
@@ -178,7 +177,7 @@ export function view(ctrl: StudyChapterNewForm): VNode {
       activeTab !== 'edit' &&
         hl('h2', [
           i18n.study.newChapter,
-          hl('icon.help', { attrs: dataIcon(licon.InfoCircle), hook: bind('click', ctrl.startTour) }),
+          hl('span.help', { hook: bind('click', ctrl.startTour) }, [snabIcon(icons.InfoCircle)]),
         ]),
       hl(
         'form.form3',
@@ -299,7 +298,7 @@ export function view(ctrl: StudyChapterNewForm): VNode {
                 {
                   hook: bind('click', () => ctrl.tab('edit'), ctrl.root.redraw),
                 },
-                [iconCls(licon.Eye, 'text'), i18n.study.editor],
+                [snabIcon(icons.Eye, '.text'), i18n.study.editor],
               ),
             ]),
           activeTab === 'pgn' &&
@@ -397,17 +396,21 @@ export function view(ctrl: StudyChapterNewForm): VNode {
                     });
                   }),
                 }),
-                hl('button.button.button-empty', {
-                  attrs: {
-                    type: 'button',
-                    title: i18n.site.randomChess960Position,
-                    ...dataIcon(licon.DieSix),
+                hl(
+                  'button.button.button-empty',
+                  {
+                    attrs: {
+                      type: 'button',
+                      'aria-label': i18n.site.randomChess960Position,
+                      title: i18n.site.randomChess960Position,
+                    },
+                    hook: bind('click', () => {
+                      ctrl.chess960Position(randomPositionId());
+                      ctrl.redraw();
+                    }),
                   },
-                  hook: bind('click', () => {
-                    ctrl.chess960Position(randomPositionId());
-                    ctrl.redraw();
-                  }),
-                }),
+                  [snabIcon(icons.DieSix)],
+                ),
               ]),
             ]),
           hl('div.form-group' + (ctrl.isBroadcast ? '.none' : ''), [

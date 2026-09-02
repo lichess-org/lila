@@ -12,11 +12,7 @@ final class AuthorizeUi(helpers: Helpers)(
 ):
   import helpers.{ *, given }
 
-  def apply(
-      prompt: AuthorizationRequest.Prompt,
-      signedClient: Option[OAuthSignedClient],
-      switchLoginRoute: play.api.mvc.Call
-  )(using
+  def apply(prompt: AuthorizationRequest.Prompt, signedClient: Option[OAuthSignedClient])(using
       ctx: Context,
       me: Me
   ) =
@@ -25,7 +21,7 @@ final class AuthorizeUi(helpers: Helpers)(
     val otherUserRequested = prompt.userId.filterNot(me.is(_)).map(lightUserFallback)
     val cssClass = customUi.map(_.cssClass)
     val logo = customUi.map(customLogo) |
-      iconTag(Icon.Logo)(alt := "lichess logo", cls := "oauth__logo--font")
+      iconEl(Icon.Logo)(alt := "lichess logo", cls := "oauth__logo--font")
     Page(signedClient.fold("Authorization")(c => s"Allow ${c.displayName}"))
       .css("bits.oauth")
       .js(Esm("bits.oauth"))
@@ -60,7 +56,7 @@ final class AuthorizeUi(helpers: Helpers)(
             div(cls := "oauth__action")(
               otherUserRequested match
                 case Some(otherUser) =>
-                  a(cls := "button", href := switchLoginUrl(switchLoginRoute, otherUser.name.some))(
+                  a(cls := "button", href := switchLoginUrl(otherUser.name.some))(
                     "Log in as ",
                     otherUser.name
                   )
@@ -76,25 +72,24 @@ final class AuthorizeUi(helpers: Helpers)(
                       "disabled" -> signedClient.isEmpty,
                       "auto-click" -> autoClick
                     ),
-                    dataIcon := danger.option(Icon.CautionTriangle),
+                    iconEl := danger.option(Icon.CautionTriangle),
                     signedClient.isEmpty.option(disabled),
                     title := s"The website ${prompt.redirectUri.host | prompt.redirectUri.withoutQuery} will get access to your Lichess account. Continue?"
                   ):
                     signedClient.fold("Authorize"): c =>
                       s"Sign in with ${c.displayName}"
             ),
-            footer(prompt, signedClient, otherUserRequested, switchLoginRoute)
+            footer(prompt, signedClient, otherUserRequested)
           )
         )
 
-  private def switchLoginUrl(route: play.api.mvc.Call, to: Option[UserName])(using ctx: Context) =
-    addQueryParams(route.url, Map("switch" -> to.fold("1")(_.value), "referrer" -> ctx.req.uri))
+  private def switchLoginUrl(to: Option[UserName])(using ctx: Context) =
+    addQueryParams(routes.Auth.login.url, Map("switch" -> to.fold("1")(_.value), "referrer" -> ctx.req.uri))
 
   private def footer(
       prompt: AuthorizationRequest.Prompt,
       signedClient: Option[OAuthSignedClient],
-      otherUserRequested: Option[LightUser],
-      switchLoginRoute: play.api.mvc.Call
+      otherUserRequested: Option[LightUser]
   )(using ctx: Context) =
     div(cls := "oauth__footer")(
       ctx.me.ifTrue(otherUserRequested.isEmpty).map { me =>
@@ -102,7 +97,7 @@ final class AuthorizeUi(helpers: Helpers)(
           "Not ",
           me.username,
           "? ",
-          a(href := switchLoginUrl(switchLoginRoute, none))(trans.site.signIn())
+          a(href := switchLoginUrl(none))(trans.site.signIn())
         )
       },
       signedClient match

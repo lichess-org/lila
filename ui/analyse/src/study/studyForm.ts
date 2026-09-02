@@ -1,8 +1,18 @@
 import flairPickerLoader from 'bits/flairPicker';
 
 import { toggle } from 'lib';
-import { licon } from 'lib/licon';
-import { snabDialog, confirm, prompt, type VNode, bindSubmit, bindNonPassive, onInsert, hl } from 'lib/view';
+import { icons } from 'lib/icons';
+import {
+  snabDialog,
+  confirm,
+  prompt,
+  type VNode,
+  bindSubmit,
+  bindNonPassive,
+  onInsert,
+  hl,
+  snabIcon,
+} from 'lib/view';
 
 import { emptyRedButton } from '../view/util';
 import type { StudyData } from './interfaces';
@@ -10,15 +20,15 @@ import type RelayCtrl from './relay/relayCtrl';
 
 export interface FormData {
   name: string;
-  flair?: string;
+  flair?: Flair;
   visibility: string;
   computer: string;
   explorer: string;
   cloneable: string;
   shareable: string;
   chat: string;
-  sticky: 'true' | 'false';
-  description: 'true' | 'false';
+  sticky: boolean;
+  description: boolean;
 }
 
 interface Select {
@@ -218,17 +228,15 @@ export function view(ctrl: StudyForm): VNode {
         'a.text',
         {
           attrs: {
-            'data-icon': licon.RadioTower,
             href: `/broadcast/${ctrl.relay.data.tour.id}/edit`,
           },
         },
-        'Tournament settings',
+        [snabIcon(icons.RadioTower), 'Tournament settings'],
       ),
-      hl(
-        'a.text',
-        { attrs: { 'data-icon': licon.RadioTower, href: `/broadcast/round/${data.id}/edit` } },
+      hl('a.text', { attrs: { href: `/broadcast/round/${data.id}/edit` } }, [
+        snabIcon(icons.RadioTower),
         'Round settings',
-      ),
+      ]),
     ]);
   const deleteForms = hl('div', { attrs: { style: 'display: flex' } }, [
     hl(
@@ -292,8 +300,8 @@ export function view(ctrl: StudyForm): VNode {
                 cloneable: getVal('cloneable'),
                 shareable: getVal('shareable'),
                 chat: getVal('chat'),
-                sticky: getVal('sticky') as 'true' | 'false',
-                description: getVal('description') as 'true' | 'false',
+                sticky: getVal('sticky') === 'true',
+                description: getVal('description') === 'true',
               },
               isNew,
             );

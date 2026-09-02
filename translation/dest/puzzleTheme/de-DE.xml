@@ -30,6 +30,7 @@
   <string name="collinearMoveDescription">Zwei gegnerische Figuren stehen sich gegenüber und eine zieht vorbei auf der Angriffslinie vorbei, ohne die gegnerische Figur zu schlagen.</string>
   <string name="cornerMate">Eck-Matt</string>
   <string name="cornerMateDescription">Sperrt den König in einer Ecke des Bretts ein, um dann mit Turm oder Dame und einem Springer Matt zu setzen.</string>
+  <string name="cornerMateKnightDeliversDescription" comment="Description for the &quot;Corner mate&quot; puzzle theme. Replaces old string cornerMateDescription">Sperre den König in einer Ecke des Bretts mittels Turm oder Dame ein, um dann mit einem Springer Matt zu setzen.</string>
   <string name="crushing">Vernichtend</string>
   <string name="crushingDescription">Finde den gegnerischen Patzer, um einen vernichtenden Vorteil zu erhalten. (Bewertung ≥ 600 Hundertstel-Bauern)</string>
   <string name="discoveredCheck">Abzugsschach</string>
@@ -55,16 +56,19 @@
   <string name="endgame">Endspiel</string>
   <string name="endgameDescription">Eine Taktik in der letzten Phase der Partie.</string>
   <string name="enPassantDescription">Eine Taktik, die die Schachregel \"en passant\" einbezieht, bei der ein Bauer einen gegnerischen Bauer schlagen kann, der an ihm mit seinem Doppelschritt aus der Ausgangsstellung vorbeigegangen ist.</string>
+  <string name="enPassantAdjacentCaptureDescription" comment="Replaces old string enPassantDescription">Eine Taktik, die die Schachregel \"en passant\" einbezieht, bei der ein Bauer einen gegnerischen Bauer schlagen kann, der an ihm mit seinem Doppelschritt aus der Ausgangsstellung vorbeigegangen ist.</string>
   <string name="epauletteMate">Epaulette-Matt</string>
   <string name="epauletteMateDescription">Zwei benachbarte Fluchtfelder für einen im Schach stehenden König werden von anderen Figuren besetzt.</string>
   <string name="exposedKing">Exponierter König</string>
   <string name="exposedKingDescription">Eine Taktik, bei der der König nur von wenigen Figuren verteidigt wird, was oft zum Matt führt.</string>
   <string name="fork">Gabel</string>
   <string name="forkDescription">Ein Zug, bei dem die gezogene Figur zwei gegnerische Figuren auf einmal angreift.</string>
+  <string name="forkOpposingPiecesDescription" comment="Replaces old string forkDescription">Ein Zug, bei dem eine Figur zwei oder mehr gegnerische Figuren gleichzeitig angreift.</string>
   <string name="hangingPiece">Hängende Figur</string>
   <string name="hangingPieceDescription">Eine Taktik, bei der eine gegnerische Figur nicht oder nur unzureichend gedeckt ist und deshalb mit Vorteil geschlagen werden kann.</string>
   <string name="hookMate">Hakenmatt</string>
   <string name="hookMateDescription">Matt mit Turm, Springer und Bauer, zusammen mit einem gegnerischen Bauern, der dessen König ein Fluchtfeld nimmt.</string>
+  <string name="hookMateOpposingPawnDescription" comment="Replaces old string hookMateDescription">Schachmatt mit einem Turm, Springer und Bauern, bei dem ein gegnerischer Bauer den Fluchtweg des Königs blockiert.</string>
   <string name="interference">Unterbrechung</string>
   <string name="interferenceDescription">Eine Figur zwischen zwei gegnerischen Figuren ziehen, um eine oder beide gegnerische Figuren ungedeckt zu lassen, wie etwa einen Springer auf einem gedeckten Feld zwischen zwei Türmen.</string>
   <string name="intermezzo">Zwischenzug</string>
@@ -73,8 +77,10 @@
   <string name="killBoxMateDescription">Ein Turm befindet sich neben dem gegnerischen König und wird durch die Dame unterstützt, welche ebenfalls die Fluchtfelder des Königs blockiert. Der Turm und die Dame halten den gegnerischen König in einer 3x3 \"Killbox\".</string>
   <string name="pillsburysMate">Pillsburys Matt</string>
   <string name="pillsburysMateDescription">Der Turm setzt Matt, während der Läufer hilft, ihn zu beschränken.</string>
+  <string name="pillsburyMateRookAndBishopDescription" comment="Replaces old string pillsburysMateDescription">Der Turm setzt den König Matt, während der Läufer hilft, ihn zu beschränken.</string>
   <string name="morphysMate">Morphys Matt</string>
   <string name="morphysMateDescription">Benutze den Läufer, um den König ins Schach zu stellen, während dein Turm ihn weiter beschränkt.</string>
+  <string name="morphyMateBishopAndRookDescription" comment="Replaces old string morphysMateDescription">Der Läufer setzt den König Matt, während der Turm hilft, ihn zu beschränken.</string>
   <string name="swallowstailMate">Schwalbenschwanz-Matt</string>
   <string name="swallowstailMateDescription">Ein Mattmuster, das dem Erscheinungsbild eines Schwalbenschwanzes ähnelt, ähnlich einer V-Form.</string>
   <string name="triangleMate">Dreiecks-Matt</string>
@@ -115,6 +121,7 @@
   <string name="pinDescription">Eine Taktik mit Fesselung, bei der eine Figur sich nicht bewegen kann, ohne einen Angriff auf eine höherwertige Figur zuzulassen.</string>
   <string name="promotion">Bauernumwandlung</string>
   <string name="promotionDescription">Ein Bauer verwandelt sich in eine Figur (Dame, Turm, Springer oder Läufer).</string>
+  <string name="promotePawnToQueenRookOrMinor" comment="Replaces old string promotionDescription">Wandle einen deiner Bauern zu einer Dame, zu einem Turm oder zu einer Leichtfigur um.</string>
   <string name="queenEndgame">Damenendspiel</string>
   <string name="queenEndgameDescription">Ein Endspiel nur mit Damen und Bauern.</string>
   <string name="queenRookEndgame">Damen- und Turmendspiel</string>

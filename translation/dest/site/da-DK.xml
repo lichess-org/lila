@@ -271,6 +271,7 @@
   <string name="emailCanTakeSomeTime">Det kan tage lidt tid for den at ankomme.</string>
   <string name="refreshInboxAfterFiveMinutes">Vent 5 minutter og opdater din e-mails indbakke.</string>
   <string name="checkSpamFolder">Tjek også din spam-mappe, det kan være, at den havner der. Hvis det er tilfældet, skal du markere den som ikke-spam.</string>
+  <string name="checkSpamOrJunkFolder" comment="checkSpamFolder&#10;It = The confirmation email Replaces old string checkSpamFolder">Modtager du ikke en bekræftelses-e-mail, skal du tjekke din spam- eller junk-mappe. Sørg for at markere beskeder fra lichess.org som sikre og \"ikke spam\", så du kan holde dig opdateret om vigtige meddelelser.</string>
   <string name="sendEmailForAccountVerification">Hvis du ikke kan finde din bekræftelsesmail, kan du sende en e-mail til %s, så bekræfter vi din konto for dig.</string>
   <string name="accountConfirmed">Brugeren %s er blevet bekræftet.</string>
   <string name="accountCanLogin">Du kan nu logge ind som %s.</string>
@@ -295,7 +296,9 @@
   <string name="ok">Ok</string>
   <string name="cancel">Annuller</string>
   <string name="whiteTimeOut">Tid udløbet for hvid</string>
+  <string name="whiteRanOutOfTime" comment="whiteTimeOut&#10;&#10;Shows when White's time has run out. Is followed by the end condition, for example&#10;'White ran out of time · Draw' Replaces old string whiteTimeOut">Hvid løb tør for tid</string>
   <string name="blackTimeOut">Tid udløbet for sort</string>
+  <string name="blackRanOutOfTime" comment="blackTimeOut&#10;&#10;Shows when Black's time has run out. Is followed by the end condition, for example&#10;'Black ran out of time · Draw' Replaces old string blackTimeOut">Sort løb tør for tid</string>
   <string name="drawOfferSent">Remistilbud afsendt</string>
   <string name="drawOfferAccepted">Remistilbud accepteret</string>
   <string name="whiteOffersDraw">Hvid tilbyder remis</string>
@@ -417,6 +420,8 @@
   </plurals>
   <string name="yourPerfRatingIsProvisional">Din %s rating er provisorisk</string>
   <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Rating-filtre er låst, fordi din rating ikke er stabil. Stabiliteten øges ved at spille ratede partier.</string>
+  <string name="cannotFilterByUnstableRating" comment="Tooltip to explain why the control for filtering by rating is disabled Replaces old string ratingRangeIsDisabledBecauseYourRatingIsProvisional">Det er ikke muligt at filtrere efter rating, da din rating ikke er stabil.
+At spille ratede partier vil øge stabiliteten.</string>
   <string name="yourPerfRatingIsTooHigh">Din %1$s rating (%2$s) er for høj</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Din ugentlige %1$s toprating (%2$s) er for høj</string>
   <string name="yourPerfRatingIsTooLow">Din %1$s rating (%2$s) er for lav</string>
@@ -438,6 +443,7 @@
   <string name="save">Gem</string>
   <string name="leaderboard">Rangliste</string>
   <string name="screenshotCurrentPosition">Tag et skræmbillede af den aktuelle stilling</string>
+  <string name="positionAsImage" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position. Replaces old string screenshotCurrentPosition">Position som billede</string>
   <string name="gameAsGIF">Parti som GIF</string>
   <string name="playerNames">Spillernavne</string>
   <string name="moveAnnotations">Trækannotationer</string>
@@ -484,6 +490,7 @@
     <item quantity="one">%s følger</item>
     <item quantity="other">%s følger</item>
   </plurals>
+  <string name="less">Færre</string>
   <string name="more">Mere</string>
   <string name="memberSince">Medlem siden</string>
   <string name="lastSeenActive">Sidst logget ind %s</string>
@@ -580,6 +587,9 @@
   <string name="replies">Svar</string>
   <string name="replyToThisTopic">Svar på dette emne</string>
   <string name="reply">Svar</string>
+  <string name="reopen">Genåbn</string>
+  <string name="quote">Citér</string>
+  <string name="postEdited">redigeret</string>
   <string name="message">Meddelelse</string>
   <string name="createTheTopic">Opret emnet</string>
   <string name="reportAUser">Anmeld en bruger</string>
@@ -592,6 +602,7 @@
   <string name="reportCheatBoostHelp">Indsæt linket til partiet (eller partierne) og forklar hvad der er i vejen med brugerens opførsel. Sig ikke blot \"de snyder\", men fortæl os, hvordan du nåede frem til den konklusion.</string>
   <string name="reportUsernameHelp">Forklar, hvad der er stødende ved dette brugernavn. Sig ikke blot \"det er stødende/upassende\", men fortæl os, hvordan du nåede frem til denne konklusion, især hvis fornærmelsen er sløret, ikke er på engelsk, er slang eller er en historisk/kulturel reference.</string>
   <string name="reportProcessedFasterInEnglish">Din indberetning vil blive behandlet hurtigere, hvis den er skrevet på engelsk.</string>
+  <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it. Replaces old string reportProcessedFasterInEnglish">Vi kan behandle din anmeldelse hurtigere, hvis du skriver på engelsk.</string>
   <string name="error.provideOneCheatedGameLink">Angiv mindst ét link til et parti med snyd.</string>
   <string name="by">Af %s</string>
   <string name="importedByX">Importeret af %s</string>
@@ -716,10 +727,12 @@
   <string name="aboutSimulSettings">Simultanspil er altid \"uformelle\". Revanche, omtræk og \"ekstra tid\" er deaktiverede.</string>
   <string name="create">Opret</string>
   <string name="whenCreateSimul">Når du opretter et simultanspil, spiller du mod adskillige modstandere på én gang.</string>
+  <string name="creatingASimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new Replaces old string whenCreateSimul">Når du opretter en simul, kan du spille mod flere modstandere på samme tid.</string>
   <string name="simulVariantsHint">Hvis du vælger flere varianter, kan hver enkelt spiller vælge, hvilken der skal spilles.</string>
   <string name="simulClockHint">Fischer Clock opsætning. Jo flere spillere du udfordrer, jo mere tid kan være nødvendig.</string>
   <string name="simulAddExtraTime">Du kan tilføje ekstra tid til dit ur for at hjælpe med at klare simultanspillet.</string>
   <string name="simulHostExtraTime">Ekstra tid til værtsuret</string>
+  <string name="extraClockTimeForHost" comment="Appears on: https://lichess.org/simul/new&#10;&#10;Allows a simul host to select extra time for the simul.&#10;&#10;Please note this string used to state &quot;Host extra clock time&quot;, without the word &quot;initial&quot; Replaces old string simulHostExtraTime">Ekstra tid på uret for værten:</string>
   <string name="simulAddExtraTimePerPlayer">Læg den indledende tid til dit ur igen for hver spiller, der melder sig til simultanspillet.</string>
   <string name="simulHostExtraTimePerPlayer">Ekstra tid på arrangørens ur pr. spiller</string>
   <string name="lichessTournaments">Lichess-turneringer</string>
@@ -822,11 +835,16 @@
   <string name="language">Sprog</string>
   <string name="allLanguages">Alle sprog</string>
   <string name="background">Baggrund</string>
+  <string name="theme">Tema</string>
   <string name="light">Lys</string>
   <string name="dark">Mørk</string>
   <string name="transparent">Gennemsigtigt</string>
+  <string name="picture">Billede</string>
   <string name="deviceTheme">Enhedstema</string>
+  <string name="roundness">Afrunding</string>
+  <string name="backgroundImage">Baggrundsbillede</string>
   <string name="backgroundImageUrl">Baggrundsbillede URL:</string>
+  <string name="imageOpacity">Billede gennemsigtighed</string>
   <string name="board">Bræt</string>
   <string name="size">Størrelse</string>
   <string name="opacity">Uigennemsigtighed</string>
@@ -850,6 +868,7 @@
   <string name="notifications">Notifikationer</string>
   <string name="notificationsX">Notifikationer: %1$s</string>
   <string name="perfRatingX">Rating: %s</string>
+  <string name="perfRatingLabel" comment="Replaces old string perfRatingX">Rating: %s.</string>
   <string name="yourRatingIsX">Din rating er %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekund til at lave det første træk</item>
@@ -909,6 +928,7 @@
   </plurals>
   <string name="showUnreadLichessMessage">Du har modtaget en privat besked fra Lichess.</string>
   <string name="clickHereToReadIt">Klik her for at læse den</string>
+  <string name="readTheMessage" comment="'It' refers to a private message. This text follows after a different string which advises players they have received a private message from Lichess. For users, this is appears as a regular private message from the Lichess account: https://lichess.org/@/Lichess Replaces old string clickHereToReadIt">Læs beskeden</string>
   <string name="sorry">Beklager :(</string>
   <string name="weHadToTimeYouOutForAWhile">Vi måtte give dig en timeout.</string>
   <string name="why">Hvorfor?</string>
@@ -963,7 +983,6 @@
   <string name="xInvitedYouToY">%1$s inviterede dig til \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Du er nu en del af holdet.</string>
   <string name="youHaveJoinedTeamX">Du har sluttet dig til \"%1$s\".</string>
-  <string name="someoneYouReportedWasBanned">Nogen du rapporterede blev udelukket</string>
   <string name="congratsYouWon">Tillykke, du vandt!</string>
   <string name="gameVsX">Parti mod %1$s</string>
   <string name="resVsX">%1$s mod %2$s</string>
@@ -996,6 +1015,7 @@ Lad stå tomt for at starte partier fra den normale udgangsstilling.</string>
   <string name="simulDescription">Simultanbeskrivelse</string>
   <string name="simulDescriptionHelp">Noget du ønsker at fortælle deltagerne?</string>
   <string name="markdownIsAvailable">%s er tilgængelig til formatering.</string>
+  <string name="youCanFormatTextUsing" comment="%s is &quot;Markdown&quot;, a proper noun. As such, the word is intentionally kept as a variable.&#10;&#10;Markdown is a markup language - a type of code that lets you format text (e.g. to create bold text).&#10;&#10;The text links to a reference guide for using Markdown to format text. Replaces old string markdownIsAvailable">Du kan formatere tekst ved hjælp af %s.</string>
   <string name="embedsAvailable">Indsæt URL på et parti eller på et studiekaptitel for at indlejre det.</string>
   <string name="inYourLocalTimezone">I din egen lokale tidszone</string>
   <string name="tournChat">Turneringschat</string>
@@ -1003,6 +1023,7 @@ Lad stå tomt for at starte partier fra den normale udgangsstilling.</string>
   <string name="onlyTeamLeaders">Kun holdledere</string>
   <string name="onlyTeamMembers">Kun holdmedlemmer</string>
   <string name="navigateMoveTree">Navigér i træk-træet</string>
+  <string name="moveListNavigation" comment="navigateMoveTree&#10;&#10;Appears in the keyboard shortcuts/help screen. The 'move tree' is simply the list of moves. Replaces old string navigateMoveTree">Trækliste-navigation</string>
   <string name="mouseTricks">Tricks med mus</string>
   <string name="toggleLocalAnalysis">Slå lokal computeranalyse til/fra</string>
   <string name="toggleAllAnalysis">Slå al computeranalyse til/fra</string>

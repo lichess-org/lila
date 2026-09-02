@@ -10,8 +10,6 @@ object PrefSingleChange:
   val changes: Map[String, Change[?]] = List[Change[?]](
     changing(_.bg): v =>
       Pref.Bg.fromString.get(v).fold[Pref => Pref](identity)(bg => _.copy(bg = bg)),
-    changing(_.bgImg): v =>
-      _.copy(bgImg = v.some.filterNot(_.isBlank)),
     changing(_.theme): v =>
       _.copy(theme = v),
     changing(_.pieceSet): v =>
@@ -66,6 +64,10 @@ object PrefSingleChange:
       _.focus(_.board.opacity).replace(v),
     changing(_.board.hue): v =>
       _.focus(_.board.hue).replace(v),
+    changing(_.uiRoundness): v =>
+      _.focus(_.uiRoundness).replace(v),
+    changing(_.bgImg)(v => _.setBgImgUrl(v)),
+    changing(_.bgOpacity)(v => _.setBgOpacity(v)),
     changing(_.sayGG): v =>
       _.copy(sayGG = v)
   ).map: change =>

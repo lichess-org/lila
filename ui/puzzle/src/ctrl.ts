@@ -83,7 +83,7 @@ export default class PuzzleCtrl implements CevalHandler {
   autoScrollNow: boolean;
   isDaily: boolean;
   blindfolded: StoredProp<boolean>;
-  cgVersion = 1;
+  cgVersion = 0;
 
   private report: Report;
 
@@ -126,17 +126,21 @@ export default class PuzzleCtrl implements CevalHandler {
         })) || [],
       initialFen: undefined, // always standard starting position
       emit: (ev, meta) => {
-        this.tree.updateAt(meta.path, node => {
-          if (meta.threatMode) {
-            const threat = ev;
-            if (!node.threat || node.threat.depth <= threat.depth) node.threat = threat;
-          } else if (!node.ceval || node.ceval.depth <= ev.depth) node.ceval = ev;
-          if (meta.path === this.path) {
-            this.report.checkForMultipleSolutions(ev, this, meta.threatMode);
-            this.setAutoShapes();
-            this.redraw();
-          }
-        });
+        if (!ev) {
+          this.cevalEnabled(false);
+        } else {
+          this.tree.updateAt(meta.path, node => {
+            if (meta.threatMode) {
+              const threat = ev;
+              if (!node.threat || node.threat.depth <= threat.depth) node.threat = threat;
+            } else if (!node.ceval || node.ceval.depth <= ev.depth) node.ceval = ev;
+            if (meta.path === this.path) {
+              this.report.checkForMultipleSolutions(ev, this, meta.threatMode);
+              this.setAutoShapes();
+              this.redraw();
+            }
+          });
+        }
       },
       onUciHover: this.setAutoShapes,
     });
@@ -151,7 +155,13 @@ export default class PuzzleCtrl implements CevalHandler {
     document.addEventListener('visibilitychange', () =>
       requestIdleCallbackSafe(() => this.jump(this.path), 500),
     );
-
+    pubsub.on('board.change', (is3d: boolean) => {
+      this.withGround(g => {
+        g.state.addPieceZIndex = is3d;
+        g.redrawAll();
+      });
+      this.setAutoShapes();
+    });
     pubsub.on('zen', toggleZenMode);
     $('body').addClass('playing'); // for zen
     $('#zentog').on('click', () => pubsub.emit('zen'));
@@ -204,13 +214,6 @@ export default class PuzzleCtrl implements CevalHandler {
       this.keyboardMove.update(up);
     }
     requestAnimationFrame(() => this.redraw());
-    pubsub.on('board.change', (is3d: boolean) => {
-      this.withGround(g => {
-        g.state.addPieceZIndex = is3d;
-        g.redrawAll();
-      });
-      this.setAutoShapes();
-    });
 
     this.googlyEyesAuto();
   };
@@ -276,12 +279,7 @@ export default class PuzzleCtrl implements CevalHandler {
       this.rated() ? 4000 : 2000,
     );
 
-    this.withGround(g => {
-      g.selectSquare(null);
-      g.setAutoShapes([]);
-      g.setShapes([]);
-      this.showGround(g);
-    });
+    this.cgVersion++;
   };
 
   position = (): Chess => {

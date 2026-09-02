@@ -27,6 +27,7 @@ Boshlangʻich vaqti nolga teng boʻlgan (0+1, 0+2) oʻyinlarda “Berserk” qil
 
 Kamida ikkita oʻyinchi bir xil natija qayd etsa turnir natijalari tay-breyk vazifasini oʻtaydi.</string>
   <string name="howDoesPairingWork">Qura tashlash qanday amalga oshadi?</string>
+  <string name="howArePlayersPaired" comment="Replaces old string howDoesPairingWork">Qura tashlash qanday amalga oshadi?</string>
   <string name="howDoesPairingWorkAnswer">Turnir boshida oʻyinchilar oʻz reytingiga mos ravishda bir biriga qarshi keladilar. 
 Oʻyin tugagach turnir kutish zaliga qayting: siz turnirda toʻplagan reytingingizga mos raqib bilan bellashasiz. Bu sizga minimal vaqt ichida raqib topib beradi‑yu, lekin siz turnirdagi barcha oʻyinchilar bilan oʻynashga ulgurmasligingiz mumkin.
 Tezroq gʻalaba qozonib, kutish zaliga qayting — koʻproq oʻyin oʻynang va koʻproq ball toʻplang.</string>
@@ -75,6 +76,10 @@ Tezroq gʻalaba qozonib, kutish zaliga qayting — koʻproq oʻyin oʻynang va k
   <string name="rankAvgHelp">Oʻrtacha oʻrin — bu sizning turnirdagi oʻrningizning foizdagi ifodasidir. Pastroq qiymat — yaxshiroq degani.
 
 Masalan, 100 kishilik turnirda 3-oʻrinni egallash — 3% oʻrtacha oʻrin beradi. 1000 kishilik turnirda 10‑oʻrinni egallash — 1% oʻrtacha oʻrin beradi.</string>
+  <string name="rankAverageHelp" comment="Replaces old string rankAvgHelp">Sizning oʻrtacha oʻrningiz har bir turnirdagi umumiy oʻyinchilar soniga nisbatan odatiy yakuniy oʻrningizni koʻrsatadi.
+Bu umumiy reytingingiz emas, balki turnirdagi natijangiz koʻrsatkichidir.
+
+Masalan, 3% o\'rtacha o\'rin — siz odatda eng yaxshi 3% ichida yakunlaysiz deganidir (masalan, 1000 ta o\'yinchidan 30‑o\'rin).</string>
   <string name="medians">medianalar</string>
   <string name="allAveragesAreX">Bu sahifadagi barcha oʻrtacha koʻrsatkichlar %sdir.</string>
   <string name="total">Jami</string>

@@ -59,21 +59,20 @@ final class Challenge(env: Env) extends LilaController(env):
     json = env.challenge.jsonView.websiteAndLichobile(c, version, direction)
     res <- negotiate(
       html =
-        val color = get("color").flatMap(Color.fromName)
         if mine then
           targetSuggestions.flatMap: targets =>
-            val page = views.challenge.mine(c, json, targets, error, color)
+            val page = views.challenge.mine(c, json, targets, error, getColor())
             if error.isDefined then BadRequest.page(page) else Ok.page(page)
         else
           Ok.async:
             for
               challenger <- c.challengerUserId.so(env.user.api.byIdWithPerf(_, c.perfType))
               relation <- (ctx.userId, c.challengerUserId).tupled.so(env.relation.api.fetchRelation.tupled)
-            yield views.challenge.theirs(c, json, challenger, color, relation)
+            yield views.challenge.theirs(c, json, challenger, getColor(), relation)
       ,
       json = Ok(json)
     ).flatMap(withChallengeAnonCookie(mine && c.challengerIsAnon, c, owner = true))
-  yield env.security.lilaCookie.ensure(ctx.req)(res)
+  yield env.security.lilaCookie.ensure(res)
 
   private def targetSuggestions(using me: Option[Me]) = me.so: me =>
     for
@@ -100,7 +99,7 @@ final class Challenge(env: Env) extends LilaController(env):
       isForMe(c).so:
         allow:
           api
-            .accept(c, ctx.req.sid, color)
+            .accept(c, ctx.req.sid.map(_.value), color)
             .flatMap:
               _.fold("The Challenge has already been accepted".raise): pov =>
                 negotiateApi(
@@ -391,4 +390,4 @@ final class Challenge(env: Env) extends LilaController(env):
   }
 
   private def anonSecretFromCookieOrMobileSri(using RequestHeader) =
-    req.sid orElse lila.security.Mobile.LichessMobileUa.sriFromUA.map(_.value)
+    req.sid.map(_.value) orElse lila.security.Mobile.LichessMobileUa.sriFromUA.map(_.value)

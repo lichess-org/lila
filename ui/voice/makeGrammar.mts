@@ -42,7 +42,9 @@ async function main() {
 
     builder = new Builder(lexicon);
     const entries = lexicon.crowdv
-      ? ((await parseCrowdvData(lexicon.crowdv)).map(data => makeLexEntry(data)).filter(x => x) as LexEntry[])
+      ? ((await parseCrowdvData(lexicon.crowdv))
+          .map(data => makeLexEntry(data))
+          .filter(Boolean) as LexEntry[])
       : [];
 
     for (const e of entries.filter(e => e.h !== e.x)) {

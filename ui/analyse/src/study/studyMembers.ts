@@ -1,8 +1,8 @@
 import { prop, type Prop, scrollTo } from 'lib';
-import { licon } from 'lib/licon';
+import { icons } from 'lib/icons';
 import { pubsub } from 'lib/pubsub';
 import { once } from 'lib/storage';
-import { type VNode, iconTag, bind, onInsert, dataIcon, bindNonPassive, hl } from 'lib/view';
+import { type VNode, bind, onInsert, bindNonPassive, hl, snabIcon, button } from 'lib/view';
 import { cmnToggleWrap } from 'lib/view/cmn-toggle';
 import { userLink } from 'lib/view/userLink';
 import { textRaw as xhrTextRaw } from 'lib/xhr';
@@ -134,65 +134,71 @@ export class StudyMemberCtrl {
 }
 
 export function view(ctrl: StudyCtrl): VNode {
-  const members = ctrl.members,
-    isOwner = members.isOwner();
+  const { members, data } = ctrl;
+  const isOwner = members.isOwner();
 
-  function statusIcon(member: StudyMember) {
-    const contrib = member.role === 'w';
+  function statusIcon({ user, role }: StudyMember) {
+    const contrib = role === 'w';
     return hl(
       'span.status',
       {
         class: {
           contrib,
-          active: members.active.has(member.user.id),
-          online: members.isOnline(member.user.id),
+          active: members.active.has(user.id),
+          online: members.isOnline(user.id),
         },
         attrs: { title: i18n.study[contrib ? 'contributor' : 'spectator'] },
       },
-      [iconTag(contrib ? licon.User : licon.Eye)],
+      snabIcon(contrib ? icons.User : icons.Eye),
     );
   }
 
-  function configButton(ctrl: StudyCtrl, member: StudyMember) {
-    if (isOwner && (member.user.id !== members.opts.myId || ctrl.data.admin))
-      return hl('icon.act', {
-        attrs: dataIcon(licon.Gear),
-        hook: bind(
-          'click',
-          () => members.config(members.config() === member.user.id ? null : member.user.id),
-          ctrl.redraw,
-        ),
-      });
-    if (!isOwner && member.user.id === members.opts.myId)
-      return hl('icon.act.leave', {
-        attrs: { 'data-icon': licon.InternalArrow, title: i18n.study.leaveTheStudy },
-        hook: bind('click', members.leave, ctrl.redraw),
-      });
+  function configButton(ctrl: StudyCtrl, { user }: StudyMember) {
+    if (isOwner && (user.id !== members.opts.myId || data.admin))
+      return button(
+        '.act',
+        {
+          hook: bind(
+            'click',
+            () => members.config(members.config() === user.id ? null : user.id),
+            ctrl.redraw,
+          ),
+        },
+        snabIcon(icons.Gear),
+      );
+    if (!isOwner && user.id === members.opts.myId)
+      return button(
+        '.act.leave',
+        {
+          title: i18n.study.leaveTheStudy,
+          hook: bind('click', members.leave, ctrl.redraw),
+        },
+        snabIcon(icons.InternalArrow),
+      );
     return undefined;
   }
 
-  function memberConfig(member: StudyMember): VNode {
-    const roleId = 'member-role';
+  function memberConfig({ user, role }: StudyMember): VNode {
     return hl(
       'm-config',
       {
-        key: member.user.id + '-config',
+        key: user.id + '-config',
         hook: onInsert(el => scrollTo(el.closest('.study-list')!, el)),
       },
       [
         cmnToggleWrap({
-          id: roleId,
+          id: 'member-role',
           name: i18n.study.contributor,
-          checked: member.role === 'w',
-          change: v => members.setRole(member.user.id, v ? 'w' : 'r'),
+          checked: role === 'w',
+          change: v => members.setRole(user.id, v ? 'w' : 'r'),
           redraw: ctrl.redraw,
         }),
         hl(
           'div.kick',
-          hl(
-            'a.button.button-red.button-empty.text',
-            { attrs: dataIcon(licon.X), hook: bind('click', _ => members.kick(member.user.id), ctrl.redraw) },
-            i18n.study.kick,
+          button(
+            '.button.button-red.button-empty.text',
+            { hook: bind('click', _ => members.kick(user.id), ctrl.redraw) },
+            [snabIcon(icons.X), i18n.study.kick],
           ),
         ),
       ],
@@ -217,22 +223,22 @@ export function view(ctrl: StudyCtrl): VNode {
     ),
     isOwner &&
       ordered.length < members.max &&
-      hl('button.add', { key: 'add', hook: bind('click', members.inviteForm.toggle) }, [
-        iconTag(licon.PlusButton),
+      button('.add', { key: 'add', hook: bind('click', members.inviteForm.toggle) }, [
+        snabIcon(icons.PlusButton),
         hl('h3', i18n.study.addMembers),
       ]),
     !members.canContribute() &&
-      ctrl.data.admin &&
+      data.admin &&
       hl(
         'form.admin',
         {
           key: ':admin',
           hook: bindNonPassive('submit', () => {
-            xhrTextRaw(`/study/${ctrl.data.id}/admin`, { method: 'post' }).then(() => location.reload());
+            xhrTextRaw(`/study/${data.id}/admin`, { method: 'post' }).then(() => location.reload());
             return false;
           }),
         },
-        [hl('button.button.button-red.button-thin', 'Enter as admin')],
+        button('.button.button-red.button-thin', 'Enter as admin'),
       ),
   ]);
 }

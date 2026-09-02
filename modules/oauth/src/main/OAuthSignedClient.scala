@@ -49,12 +49,13 @@ final class OAuthSignedClients(appConfig: Configuration, baseUrl: BaseUrl)(using
     OAuthScope.Web.Takex3,
     signersOf("takex3"),
     displayName = "Take Take Take",
-    design = AuthCustomUi(
-      name = "Take Take Take",
-      imagePath = "images/t3-logo.svg",
-      cssClass = "takex3",
-      lang = lila.core.i18n.enUsLang
-    ).some
+    design = Some:
+      AuthCustomUi(
+        name = "Take Take Take",
+        imagePath = "images/t3-logo.svg",
+        cssClass = "takex3",
+        lang = lila.core.i18n.enUsLang
+      )
   )
 
   def forPromptAndMonitor(prompt: AuthorizationRequest.Prompt, action: Action)(using
@@ -128,5 +129,4 @@ final class OAuthSignedClients(appConfig: Configuration, baseUrl: BaseUrl)(using
         loggedIn: Boolean
     ): Unit =
       if newOauthAttempts((prompt, action)) then
-        val monitor = if action == "signup" then lila.mon.signedClient.signup else lila.mon.signedClient.login
-        monitor.alreadyLoggedIn(clientId.value, loggedIn).increment()
+        lila.mon.signedClient.AuthPage(action).alreadyLoggedIn(clientId.value, loggedIn).increment()

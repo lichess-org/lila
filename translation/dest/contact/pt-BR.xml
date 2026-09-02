@@ -74,4 +74,11 @@
   <string name="noneOfTheAbove">Nenhuma das opções acima</string>
   <string name="sendEmailAt">Envie-nos um e-mail para %s.</string>
   <string name="explainYourRequest">Por favor, explique sua solicitação de forma clara e completa. Informe seu nome de usuário no Lichess e qualquer informação que possa nos ajudar a ajudá-lo.</string>
+  <string name="monetiseNotInterested">Nós não estamos interessados em nenhuma maneira de monetizar Lichess.</string>
+  <string name="monetiseNoAdsTrackingOrTraffic">Nós nunca apresentaremos nenhuma forma de anúncios, nós não rastrearemos nossos jogadores, e nós não vamos comprar ou vender tráfego ou usuários.</string>
+  <string name="monetiseNoMarketingEmail">Por favor não nos mande email sobre marketing, rastreamento ou propaganda.</string>
+  <string name="monetiseEncourageEveryoneTo" comment="string is value of key monetiseBlockAllAdsAndTrackers">Nós encorajamos todos a %s.</string>
+  <string name="monetiseBlockAllAdsAndTrackers">bloquear todos os anúncios e rastreadores</string>
+  <string name="broadcastTournamentOnLichess">Transmita um torneio em Lichess</string>
+  <string name="ourDiscordServer">nosso servidor no Discord</string>
 </resources>

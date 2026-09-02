@@ -91,9 +91,9 @@
       opacity: 0;
 
       &::before {
+        @include icon-mask($icon-Link);
+
         color: $c-font-dimmer;
-        content: $licon-Link;
-        font-family: lichess;
         margin-left: -3rem;
         width: 3rem;
         position: absolute;
@@ -188,7 +188,7 @@
 @mixin rendered-markdown-quote {
   blockquote {
     color: $c-font-dim;
-    border-inline-start: 0.3em solid $c-font-dimmer;
+    border-inline-start: 0.3em solid hsl(from var(--c-font-dimmer) h s l / 80);
     padding-inline-start: 1em;
   }
 }
@@ -224,11 +224,6 @@
     > iframe {
       left: 0;
     }
-  }
-
-  .twitter-tweet {
-    color-scheme: normal;
-    margin: auto;
   }
 
   .private-study {

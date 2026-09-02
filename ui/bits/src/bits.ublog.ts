@@ -1,7 +1,8 @@
 import { escapeHtml } from 'lib';
 import { throttlePromiseDelay } from 'lib/async';
-import { alert, prompt, domDialog, spinnerHtml } from 'lib/view';
+import { alert, prompt, domDialog } from 'lib/view';
 import * as xhr from 'lib/xhr';
+import { textRaw, form } from 'lib/xhr';
 
 site.load.then(() => {
   $('.flash').addClass('fade');
@@ -21,7 +22,9 @@ site.load.then(() => {
             const label = $('.ublog-post__like .button-label');
             const newText = liked ? i18n.site.liked : i18n.site.like;
             label.text(newText);
-            $('.ublog-post__like').toggleClass(likeClass, liked).attr('title', newText);
+            const icon = this.querySelector<HTMLElement>('.svg-icon')!;
+            icon.classList.toggle('icon-heart', liked);
+            icon.classList.toggle('icon-heart-outline', !liked);
             $('.ublog-post__like__nb').text(likes);
           });
       },
@@ -42,6 +45,9 @@ site.load.then(() => {
           .then(() => {
             button.toggleClass(followClass);
             const label = button.find('.button-label');
+            const icon = this.querySelector<HTMLElement>('.svg-icon')!;
+            icon.classList.toggle('icon-checkmark', followed);
+            icon.classList.toggle('icon-thumbs-up', !followed);
             const username = label.data('username');
             label.text(followed ? i18n.site.unfollowX(username) : i18n.site.followX(username));
           });
@@ -93,7 +99,7 @@ async function showModBlogSubmitDlg(e: Event) {
 }
 
 type SubmitForm = {
-  quality?: number;
+  quality?: string;
   evergreen?: boolean;
   flagged?: string;
   commercial?: string;
@@ -102,30 +108,34 @@ type SubmitForm = {
 };
 
 function rewireModPost() {
-  const modToolsContainer = document.querySelector<HTMLElement>('#mod-tools-container');
+  const modToolsContainer = document.querySelector<HTMLElement>('#ublog-mod-tools-container');
   if (!modToolsContainer?.firstElementChild) return;
   const modTools = modToolsContainer.firstElementChild as HTMLElement;
   const submitBtn = modTools.querySelector<HTMLButtonElement>('.submit')!;
-  const assessBtn = modTools.querySelector<HTMLButtonElement>('.assess-btn')!;
   const submit = async (o: SubmitForm) => {
-    const rsp = await xhr.textRaw(modTools.dataset.url!, {
-      headers: { 'Content-Type': 'application/json' },
-      method: 'POST',
-      body: JSON.stringify(o),
+    const rsp = await textRaw(modTools.dataset.url!, {
+      method: 'post',
+      body: form(o),
     });
+    // redirect if response is a redirect
+    if (rsp.redirected) {
+      location.href = rsp.url;
+      return;
+    }
     if (!rsp.ok) return alert(`Error ${rsp.status}: ${rsp.statusText}`);
     modToolsContainer.innerHTML = await rsp.text();
     rewireModPost();
   };
 
-  modTools
-    .querySelectorAll<HTMLButtonElement>('.quality-btn')
-    .forEach(btn => btn.addEventListener('click', () => submit({ quality: Number(btn.value) })));
+  $(modTools)
+    .find('.quality-btn')
+    .on('click', function (this: HTMLButtonElement) {
+      submit({ quality: this.value });
+    });
 
   const submitFields = modTools.querySelector<HTMLElement>('.submit-fields')!;
   submitFields.querySelectorAll<HTMLInputElement>('input').forEach(input =>
     input.addEventListener('input', () => {
-      input.parentElement!.classList.toggle('empty', !input.value.trim());
       submitBtn.classList.remove('none');
       submitBtn.disabled = false;
     }),
@@ -146,14 +156,5 @@ function rewireModPost() {
   modTools.querySelector<HTMLElement>('.carousel-pin-btn')?.addEventListener('click', async () => {
     const days = await prompt('How many days?', '7', (n: string) => Number(n) > 0 && Number(n) < 31);
     if (days) await submit({ featured: true, featuredUntil: Number(days) });
-  });
-  assessBtn.addEventListener('click', async () => {
-    assessBtn.insertAdjacentHTML('afterend', spinnerHtml);
-    assessBtn.disabled = true;
-    assessBtn.classList.add('disabled');
-    const rsp = await xhr.textRaw(assessBtn.dataset.url!, { method: 'POST' });
-    if (!rsp.ok) return alert(`Error ${rsp.status}: ${rsp.statusText}`);
-    modToolsContainer.innerHTML = await rsp.text();
-    rewireModPost();
   });
 }

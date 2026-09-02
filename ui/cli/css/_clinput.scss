@@ -59,13 +59,16 @@ body.clinput #top {
 #clinput {
   .complete-result--menu {
     &::before {
-      @extend %data-icon;
+      @include icon-mask($icon-GreaterThan, 1.5em);
 
-      content: $licon-GreaterThan;
       display: inline-block;
       text-align: center;
-      width: 1.5em;
       color: $c-link;
+
+      @include if-rtl {
+        transform: scaleX(-1);
+      }
+
       opacity: 0.5;
     }
 

@@ -223,7 +223,7 @@ export default function (token: string): void {
 
     Examples:
     {"type":"gameStart","game":{"id":"kjKzl2MO"}}
-    {"type":"challenge","challenge":{"id":"WTr3JNcm","status":"created","challenger":{"id":"andrescavallin","name":"andrescavallin","title":null,"rating":1362,"provisional":true,"online":true,"lag":3},"destUser":{"id":"godking666","name":"Godking666","title":null,"rating":1910,"online":true,"lag":3},"variant":{"key":"standard","name":"Standard","short":"Std"},"rated":false,"speed":"rapid","timeControl":{"type":"clock","limit":900,"increment":10,"show":"15+10"},"color":"white","perf":{"icon":licon.Rabbit,"name":"Rapid"}}}
+    {"type":"challenge","challenge":{"id":"WTr3JNcm","status":"created","challenger":{"id":"andrescavallin","name":"andrescavallin","title":null,"rating":1362,"provisional":true,"online":true,"lag":3},"destUser":{"id":"godking666","name":"Godking666","title":null,"rating":1910,"online":true,"lag":3},"variant":{"key":"standard","name":"Standard","short":"Std"},"rated":false,"speed":"rapid","timeControl":{"type":"clock","limit":900,"increment":10,"show":"15+10"},"color":"white","perf":{"icon":"rabbit","name":"Rapid"}}}
     {"type":"gameFinish","game":{"id":"MhG878ij"}}
  */
   async function connectToEventStream() {
@@ -542,7 +542,7 @@ export default function (token: string): void {
       for (let i = 0; i < moves.length; i++) {
         if (moves[i] !== '') {
           //Make any move that may have been already played on the ChessBoard. Useful when reconnecting
-          const uciMove = <NormalMove>parseUci(moves[i]);
+          const uciMove = parseUci(moves[i]) as NormalMove;
           const normalizedMove = normalizeMove(chess, uciMove); //This is because chessops uses UCI_960
           if (normalizedMove && chess.isLegal(normalizedMove)) chess.play(normalizedMove);
         }
@@ -580,7 +580,7 @@ export default function (token: string): void {
         for (let i = 0; i < moves.length; i++) {
           if (moves[i] !== '') {
             //Make the new move
-            const uciMove = <NormalMove>parseUci(moves[i]);
+            const uciMove = parseUci(moves[i]) as NormalMove;
             const normalizedMove = normalizeMove(chess, uciMove); //This is because chessops uses UCI_960
             if (normalizedMove && chess.isLegal(normalizedMove)) {
               //This is a good chance to get the move in SAN format
@@ -927,7 +927,7 @@ export default function (token: string): void {
             //Get first move to process, usually the last since movesToProcess is usually 1
             SANMove = String(message.param.san[message.param.san.length - i]).trim();
             if (verbose) console.info('onmessage - SANMove = ' + SANMove);
-            const moveObject = <NormalMove | undefined>parseSan(localBoard, SANMove); //get move from DGT LiveChess
+            const moveObject = parseSan(localBoard, SANMove) as NormalMove | undefined; //get move from DGT LiveChess
             //if valid move on local chessops
             if (moveObject && localBoard.isLegal(moveObject)) {
               if (verbose) console.info('onmessage - Move is legal');

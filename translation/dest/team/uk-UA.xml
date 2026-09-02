@@ -36,17 +36,14 @@
   <string name="willBeReviewed">Ваш запит на приєднання буде розглянуто лідером команди.</string>
   <string name="beingReviewed">Ваш запит на приєднання розглядається лідером команди.</string>
   <string name="requestDeclined">Ваш запит на приєднання було відхилено лідером команди.</string>
-  <string name="subToTeamMessages">Підписатися на повідомлення команди</string>
   <string name="teamBattle">Битва команд</string>
   <string name="teamBattleOverview">Битва кількох команд, кожен гравець заробляє очки своїй команді</string>
   <string name="teamTournament">Командний турнір</string>
   <string name="teamTournamentOverview">Турнір у форматі Арени, до якого можуть приєднатися лише члени вашої команди</string>
   <string name="swissTournamentOverview">Турнір за швейцарською системою, до якого можуть приєднатися лише члени вашої команди</string>
-  <string name="messageAllMembers">Повідомити усіх учасників</string>
-  <string name="messageAllMembersOverview">Надіслати особисте повідомлення кожному членові команди</string>
-  <string name="messageAllMembersLongDescription">Надіслати особисте повідомлення ВСІМ членам команди.
-Ви можете використати це, щоб скликати гравців для приєднання до турніру або командного бою.
-Гравці, яким не подобається отримувати повідомлення, можуть покинути команду.</string>
+  <string name="teamUpdates">Новини команди</string>
+  <string name="subToTeamUpdates">Підписатися на новини команди</string>
+  <string name="newTeamUpdate">Свіжі новини в команді</string>
   <string name="teamsIlead">Команди, лідером яких я є</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Можливо, ви захочете приєднати посилання на один з цих турнірів?</string>
   <string name="leadersChat">Чат лідерів</string>

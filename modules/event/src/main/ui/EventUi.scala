@@ -48,8 +48,8 @@ final class EventUi(helpers: Helpers)(modMenu: Context ?=> Frag):
 
   def iconOf(e: Event) =
     e.icon match
-      case None => iconTag(Icon.Mic)(cls := "img")
-      case Some(c) if c == EventForm.icon.broadcast => iconTag(Icon.RadioTower)(cls := "img")
+      case None => iconEl(Icon.Mic)(cls := "img")
+      case Some(c) if c == EventForm.icon.broadcast => iconEl(Icon.RadioTower)(cls := "img")
       case Some(c) => img(cls := "img", src := assetUrl(s"images/$c"))
 
   def show(e: Event, description: Option[Html])(using Context) =
@@ -80,7 +80,7 @@ final class EventUi(helpers: Helpers)(modMenu: Context ?=> Frag):
         boxTop(
           h1(title),
           div(cls := "box__top__actions")(
-            a(cls := "button button-green", href := routes.Event.form, dataIcon := Icon.PlusButton)
+            a(cls := "button button-green", href := routes.Event.form, iconEl := Icon.PlusButton)
           )
         ),
         table(cls := "slist slist-pad")(
@@ -109,7 +109,7 @@ final class EventUi(helpers: Helpers)(modMenu: Context ?=> Frag):
                   showInstant(e.finishesAt),
                   momentFromNow(e.finishesAt)
                 ),
-                td(a(cls := "text", href := routes.Event.show(e.id), dataIcon := Icon.Eye))
+                td(a(cls := "text", href := routes.Event.show(e.id), iconEl := Icon.Eye))
               ),
             pagerNextTable(pager, p => routes.Event.manager(p).url)
           )

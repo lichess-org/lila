@@ -81,14 +81,14 @@
   }
 
   &__like {
-    &::before {
-      margin-right: 0.4em;
+    .svg-icon {
       color: $c-bad;
-      content: $licon-HeartOutline;
     }
 
-    &.ublog-post__like--liked::before {
-      content: $licon-Heart;
+    > span {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
     }
 
     &--mini {
@@ -170,6 +170,7 @@
 
     .button {
       padding: 0.8em 1.5em;
+      flex-direction: column;
 
       &-label {
         display: block;
@@ -180,19 +181,12 @@
     }
   }
 
-  &__follow {
-    &::before {
-      color: $c-primary;
-      content: $licon-ThumbsUp;
-    }
-
-    &.ublog-post__follow__followed::before {
-      content: $licon-Checkmark;
-    }
+  &__follow .svg-icon {
+    color: $c-primary;
   }
 }
 
-#mod-tools {
+#ublog-mod-tools {
   display: flex;
   gap: 2rem;
 
@@ -213,7 +207,8 @@
   }
 
   fieldset {
-    border: $border-width $border-style $c-border;
+    border: $border;
+    border-radius: $box-radius-size;
     padding: 1rem 1.5rem 1.5rem;
   }
 
@@ -281,18 +276,6 @@
       flex: none;
       width: 1.2rem;
       height: 1.2rem;
-    }
-
-    .commercial {
-      color: $c-secondary;
-    }
-
-    .flagged {
-      color: $c-bad;
-    }
-
-    .empty {
-      color: $c-font-dimmer;
     }
   }
 }

@@ -12,7 +12,7 @@ export interface PubsubEvents {
   'analysis.change': (fen: FEN, path: TreePath) => void;
   'analysis.chart.click': (index: number) => void;
   'analysis.comp.toggle': (enabled: boolean) => void;
-  'analysis.eval': (ev: ClientEval, meta: EvalMeta) => void;
+  'analysis.eval': (ev: ClientEval | undefined, meta: EvalMeta) => void;
   'analysis.server.progress': (analyseData: any) => void;
   'board.change': (is3d: boolean) => void;
   'challenge-app.open': () => void;
@@ -24,7 +24,6 @@ export interface PubsubEvents {
   jump: (ply: string) => void;
   'botdev.import.book': (key: string, oldKey?: string) => void;
   'notify-app.set-read': (user: string) => void;
-  'voiceChat.toggle': (enabled: boolean) => void;
   ply: (ply: number, isMainline?: boolean) => void;
   'ply.trigger': () => void;
   'round.suggestion': (text: string | null) => void;
@@ -60,7 +59,6 @@ export interface PubsubEvents {
   'socket.in.msgNew': (data: { text: string; user: UserId; date: number }) => void;
   'socket.in.msgType': (userId: UserId) => void;
   'socket.in.notifications': (data: { notifications: Paginator<any>; unread: number }) => void;
-  'socket.in.voiceChat': (uids: UserId[]) => void;
   'socket.in.redirect': (d: RedirectTo) => void;
   'socket.in.reload': (data: any) => void;
   'socket.in.sk1': (signed: string) => void;

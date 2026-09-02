@@ -63,6 +63,7 @@
   <string name="studyUrl">URL nghiên cứu</string>
   <string name="currentChapterUrl">URL chương hiện tại</string>
   <string name="youCanPasteThisInTheForumToEmbed">Bạn có thể dán cái này để nhúng vào diễn đàn hoặc blog Lichess cá nhân của bạn</string>
+  <string name="pasteToEmbedChapterInForumOrBlog" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.&#10;&#10;Please note this used to say &quot;in the forum to embed&quot;. It was then changed to include &quot;or a Lichess Blog&quot;. A further update was made to say &quot;or your Lichess blog&quot;, since you can only create blog posts as an individual.  Replaces old string youCanPasteThisInTheForumToEmbed">Bạn có thể dán cái này vào diễn đàn hoặc blog Lichess của mình để nhúng chương này.</string>
   <string name="startAtInitialPosition">Bắt đầu từ thế cờ ban đầu</string>
   <string name="startAtX">Bắt đầu tại nước %s</string>
   <string name="embedInYourWebsite">Nhúng vào trang web của bạn</string>
@@ -163,7 +164,7 @@
   <string name="perPage">%s mỗi trang</string>
   <string name="getTheTour">Cần giúp đỡ? Khám phá nào!</string>
   <string name="welcomeToLichessStudyTitle">Chào mừng đến với Lichess Study!</string>
-  <string name="welcomeToLichessStudyText">Đây là một bàn cờ phân tích được chia sẻ.&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;Sử dụng nó để phân tích và chú thích các trò chơi,&lt;br&gt;thảo luận về các vị trí với bạn bè, &lt;br&gt;và tất nhiên cho các bài học cờ vua!&lt;br&gt;&lt;br&gt;Đó là một công cụ mạnh mẽ, hãy dành một chút thời gian để xem nó hoạt động như thế nào.</string>
+  <string name="welcomeToLichessStudyText">Đây là một bàn cờ phân tích được chia sẻ.&lt;br&gt;&lt;br&gt;Sử dụng nó để phân tích và chú thích các ván đấu,&lt;br&gt;thảo luận về các thế cờ với bạn bè, &lt;br&gt;và tất nhiên cho các bài học cờ vua!&lt;br&gt;&lt;br&gt;Đây là một công cụ mạnh mẽ. Hãy dành một chút thời gian để xem nó hoạt động như thế nào.</string>
   <string name="sharedAndSaveTitle" comment="As in: shared with other members and saved to database">Đã lưu và chia sẻ</string>
   <string name="sharedAndSavedText">Các thành viên khác có thể thấy các nước đi của bạn trong thời gian thực!&lt;br&gt;Ngoài ra, mọi thứ được lưu mãi mãi.</string>
   <string name="studyMembersTitle">Thành viên nghiên cứu</string>
@@ -184,7 +185,9 @@
   <string name="customPositionTitle">Thế cờ tùy chỉnh</string>
   <string name="customPositionText">Thiết lập bàn cờ theo cách của bạn.&lt;br&gt;phù hợp để khám phá cờ tàn, tàn cuộc.</string>
   <string name="loadExistingLichessGameTitle">Tải một ván cờ Lichess hiện có</string>
+  <string name="loadGameFromTheWebTitle" comment="Replaces old string loadExistingLichessGameTitle">Tải ván đấu từ trang web</string>
   <string name="loadExistingLichessGameText">Dán URL một ván cờ trên lichess&lt;br&gt;(kiểu như lichess.org/7fhiu0xi)&lt;br&gt;để tải các nước cờ trong chương.</string>
+  <string name="loadGameFromTheWebText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text. Replaces old string loadExistingLichessGameText">Dán URL ván cờ&lt;br&gt;(ví dụ: lichess.org/7fHIU0XI)&lt;br&gt;để tải các nước cờ trong chương.</string>
   <string name="fromFenStringTitle">Từ một chuỗi FEN</string>
   <string name="fromFenStringText">Dán một thế cờ ở định dạng FEN&lt;br&gt;&lt;i&gt;4K3/4RB2/8/7P/8/5Q2/1PP5/1K6 W&lt;/i&gt;&lt;br&gt;để bắt đầu chương từ một thế cờ.</string>
   <string name="fromPgnGameTitle">Từ một PGN của ván cờ</string>

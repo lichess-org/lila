@@ -3,9 +3,9 @@ import fs from 'node:fs';
 import { relative, join, resolve } from 'node:path';
 
 import { isEquivalent } from './algo.ts';
-import { env, c } from './env.ts';
+import { env, c, type Package } from './env.ts';
 import { type Manifest, updateManifest } from './manifest.ts';
-import { type Package, isClose } from './parse.ts';
+import { isClose } from './parse.ts';
 import { makeTask } from './task.ts';
 
 export async function hash(): Promise<void> {
@@ -64,7 +64,7 @@ export async function hash(): Promise<void> {
 }
 
 export async function symlinkTargetHashes(newLinks?: string[]) {
-  const targetHashes = {} as Record<string, string>;
+  const targetHashes: Record<string, string> = {};
   if (newLinks?.length === 0) return targetHashes;
 
   await fs.promises.readdir(env.hashOutDir).then(files =>
@@ -86,7 +86,7 @@ export async function symlinkTargetHashes(newLinks?: string[]) {
 export function hashedBasename(path: string, hash: string) {
   const name = path.slice(path.lastIndexOf('/') + 1);
   const extPos = name.lastIndexOf('.');
-  return extPos < 0 ? `${name}.${hash}` : `${name.slice(0, extPos)}.${hash}${name.slice(extPos)}`;
+  return extPos === -1 ? `${name}.${hash}` : `${name.slice(0, extPos)}.${hash}${name.slice(extPos)}`;
 }
 
 async function isLinkStale(symlink: string | undefined) {

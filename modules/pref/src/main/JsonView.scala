@@ -3,9 +3,7 @@ package lila.pref
 import play.api.libs.json.*
 
 def toJson(p: Pref, lichobileCompat: Boolean) = Json.obj(
-  "dark" -> (p.bg != Pref.Bg.LIGHT),
-  "transp" -> (p.bg == Pref.Bg.TRANSPARENT),
-  "bgImg" -> p.bgImgOrDefault,
+  "bgImg" -> p.bgImgUrl,
   "is3d" -> p.is3d,
   "theme" -> p.theme,
   "pieceSet" -> p.pieceSet,

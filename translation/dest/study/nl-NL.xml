@@ -155,7 +155,7 @@
   <string name="withTheIdea" comment="withTheIdea&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Shows that the player was following the theory around an opening, even after the initial opening moves.">Met het idee</string>
   <string name="nextChapter">Volgende hoofdstuk</string>
   <string name="prevChapter">Vorige hoofdstuk</string>
-  <string name="studyActions">Studie sneltoetsen</string>
+  <string name="studyActions">Studie</string>
   <string name="topics">Onderwerpen</string>
   <string name="myTopics">Mijn onderwerpen</string>
   <string name="popularTopics">Populaire onderwerpen</string>
@@ -188,7 +188,9 @@
   <string name="customPositionTitle">Aangepaste stelling</string>
   <string name="customPositionText">Richt het bord op jouw manier in &lt;br&gt;Geschikt om eindspellen te verkennen.</string>
   <string name="loadExistingLichessGameTitle">Laad een bestaande lichess-partij</string>
+  <string name="loadGameFromTheWebTitle" comment="Replaces old string loadExistingLichessGameTitle">Laad een partij van het web</string>
   <string name="loadExistingLichessGameText">Plak een lichess partij link&lt;br&gt;(zoals lichess.org/7fHIU0XI)&lt;br&gt;om de partijzetten in het hoofdstuk te laden.</string>
+  <string name="loadGameFromTheWebText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text. Replaces old string loadExistingLichessGameText">Plak een partij-link&lt;br&gt;(zoals lichess.org/7fHIU0XI)&lt;br&gt;om partijzetten in het hoofdstuk te laden.</string>
   <string name="fromFenStringTitle">Van een FEN-tekenreeks</string>
   <string name="fromFenStringText">Plak een stelling in FEN-formaat&lt;br&gt;&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;&lt;br&gt;om het hoofdstuk te beginnen vanaf een bepaalde stelling.</string>
   <string name="fromPgnGameTitle">Van een PGN-bestand</string>

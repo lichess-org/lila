@@ -8,9 +8,10 @@ import lila.common.Form.{
   cleanNonEmptyText,
   cleanTextWithSymbols,
   into,
-  playerTitle
+  playerTitle,
+  readonly
 }
-import lila.core.user.{ FlagCode, Profile }
+import lila.core.user.{ FlagCode, Profile, RealName }
 
 final class UserForm:
 
@@ -31,12 +32,14 @@ final class UserForm:
 
   def usernameOf(user: User) = username(user).fill(user.username)
 
-  val profile: Form[Profile] = Form:
+  def profileOf(user: User, fixedRealName: Option[RealName]) = Form:
     mapping(
       "flag" -> optional(text.into[FlagCode].verifying(Flags.codeSet contains _)),
       "location" -> optional(cleanFewSymbolsAndNonEmptyText(maxLength = 80)),
       "bio" -> optional(cleanFewSymbolsAndNonEmptyText(maxLength = 400, maxSymbols = 10)),
-      "realName" -> optional(cleanFewSymbolsText(minLength = 1, maxLength = 100)),
+      "realName" -> fixedRealName.match
+        case None => optional(cleanFewSymbolsText(minLength = 1, maxLength = 100).into[RealName])
+        case Some(name) => optional(readonly(user.profile.flatMap(_.realName) | name)),
       "fideRating" -> optional(number(min = 1400, max = 3000)),
       "uscfRating" -> optional(number(min = 100, max = 3000)),
       "ecfRating" -> optional(number(min = 0, max = 3000)),
@@ -45,8 +48,7 @@ final class UserForm:
       "dsbRating" -> optional(number(min = 0, max = 3000)),
       "links" -> optional(cleanFewSymbolsAndNonEmptyText(maxLength = 3000))
     )(Profile.apply)(unapply)
-
-  def profileOf(user: User) = profile.fill(user.profileOrDefault)
+  .fill(user.profileOrDefault)
 
   def flair(asMod: Boolean) = Form[Option[Flair]]:
     single(FlairApi.formPair(asMod))

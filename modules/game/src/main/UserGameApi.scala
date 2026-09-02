@@ -12,8 +12,7 @@ import lila.ui.Context
 
 final class UserGameApi(
     lightUser: lila.core.user.LightUserApi,
-    getTourName: => lila.core.tournament.GetTourName,
-    quickOpening: GameQuickOpening
+    getTourName: => lila.core.tournament.GetTourName
 )(using Executor):
 
   def jsPaginator(pag: Paginator[Game])(using ctx: Context): Fu[JsObject] =
@@ -53,7 +52,6 @@ final class UserGameApi(
         "bookmarks" -> g.bookmarks
       )
       .add("analysed" -> g.metadata.analysed)
-      .add("opening" -> quickOpening(g))
       .add("lastMove" -> g.lastMoveKeys)
       .add("clock" -> g.clock)
       .add("correspondence" -> g.daysPerTurn.map { d =>

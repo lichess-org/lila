@@ -19,8 +19,8 @@ final class IrwinUi(helpers: Helpers)(menu: String => Context ?=> Frag):
         link = false
       ),
       br,
-      pov.game.isTournament.so(frag(iconTag(Icon.Trophy), " ")),
-      iconTag(pov.game.perfKey.perfIcon),
+      pov.game.isTournament.so(frag(iconEl(Icon.Trophy), " ")),
+      iconEl(pov.game.perfKey.perfIcon),
       shortClockName(pov.game.clock.map(_.config)),
       " ",
       pastMomentServer(pov.game.createdAt)

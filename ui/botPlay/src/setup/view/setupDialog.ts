@@ -9,7 +9,7 @@ import type SetupCtrl from '../setupCtrl';
 
 export const setupDialog = (ctrl: SetupCtrl) => {
   const bot = ctrl.selectedBot;
-  if (!bot) return;
+  if (!bot) return undefined;
   return snabDialog({
     class: `bot-setup__dialog bot-color--${bot.key}`,
     onClose: ctrl.cancel,

@@ -46,6 +46,12 @@
     td {
       padding-top: 1.5rem;
       padding-bottom: 1.5rem;
+
+      span {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
     }
 
     &.topics {

@@ -57,12 +57,16 @@
   <string name="correspondenceEmailNotification">Notificações diárias por email listando os teus jogos por correspondência</string>
   <string name="notifyStreamStart">Um Streamer começou uma transmissão em direto</string>
   <string name="notifyInboxMsg">Nova mensagem na caixa de entrada</string>
+  <string name="notifyDirectMessage" comment="notifyInboxMsg&#10;&#10;A notification setting - notifies players when they receive a new message in their Lichess inbox Replaces old string notifyInboxMsg">Nova mensagem direta</string>
   <string name="notifyForumMention">Um comentário do fórum menciona-te</string>
+  <string name="notifyForumMentions" comment="notifyForumMention&#10;&#10; A notification setting - notifies players when someone has @mentioned their name in the Lichess Forum (https://lichess.org/forum) Replaces old string notifyForumMention">Menções no fórum</string>
   <string name="notifyInvitedStudy">Convite para estudo</string>
+  <string name="notifyStudyInvites" comment="notifyInvitedStudy&#10;&#10; A notification setting - notifies players about invites to studies (https://lichess.org/study/) Replaces old string notifyInvitedStudy">Convites para estudos</string>
   <string name="notifyGameEvent">Atualizações dos jogos por correspondência</string>
   <string name="notifyChallenge">Desafios</string>
   <string name="notifyTournamentSoon">O torneio começará em breve</string>
-  <string name="notifyBroadcasts">Transmissões que subscreveste</string>
+  <string name="notifyTournamentStartReminders" comment="notifyTournamentSoon&#10;&#10;A notification setting - notifies players if a tournament is starting soon. Replaces old string notifyTournamentSoon">Lembretes de começo de torneios</string>
+  <string name="notifyBroadcasts">Transmissões</string>
   <string name="notifyTimeAlarm">Está a acabar o tempo no jogo por correspondência</string>
   <string name="notifyBell">Notificação do sino no Lichess</string>
   <string name="notifyPush">Notificação do dispositivo quando não estás no Lichess</string>

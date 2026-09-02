@@ -45,9 +45,9 @@ class PgnImportTest extends LilaTest:
       .result("{test 1 } {test 2} 1.d4 {test 3} { test 4}", Nil)
       .assertRight: parsed =>
         val rootComments = parsed.root.comments.value.map(_.text)
-        assertEquals(rootComments, Comment.from(List("test 1", "test 2")))
+        assertEquals(rootComments, Comment.from(List("test 1\ntest 2")))
         val firstMoveComments = parsed.root.mainlineNodeList(1).comments.value.map(_.text)
-        assertEquals(firstMoveComments, Comment.from(List("test 3", "test 4")))
+        assertEquals(firstMoveComments, Comment.from(List("test 3\ntest 4")))
 
   test("import a simple pgn with a clock comment"):
     val x = StudyPgnImport.result("1.d4 {[%clk 1:59:59]}", Nil).toOption.get
@@ -219,7 +219,7 @@ Rad1 {[%clk 1:24:50]} b6 {[%clk 1:09:49]} 18. g4 {[%clk 1:03:52]} *""",
         val e4 = parsed.root.next
         val nf3 = e4.next.next
         assertEquals(nf3.nextSans, List("Nc6", "d6"))
-        val d6 = nf3.children.variations.head
+        val d6 = nf3.children.variationsOnly.head
         assertEquals(d6.nextSans, List("d4", "Bc4"))
         val expectedPgn = "1. e4 e5 2. Nf3 Nc6 (2... d6 3. d4 (3. Bc4))"
         assertEquals(Helpers.rootToPgn(parsed.root).value, expectedPgn)

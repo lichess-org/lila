@@ -10,7 +10,7 @@ import { makeTask, stopTask } from './task.ts';
 let esbuildCtx: es.BuildContext | undefined;
 
 export async function esbuild(): Promise<[string, string] | undefined> {
-  if (!env.begin('esbuild')) return;
+  if (!env.begin('esbuild')) return undefined;
 
   const options: es.BuildOptions = {
     bundle: true,
@@ -176,7 +176,7 @@ const plugins = [
         esbuildLog(result.errors, true);
         esbuildLog(result.warnings);
         env.begin('esbuild');
-        env.done('esbuild', result.errors.length > 0 ? -3 : 0);
+        env.setStatus('esbuild', result.errors.length > 0 ? -3 : 0);
         if (result.errors.length === 0) bundleManifest(result.metafile);
       });
     },
@@ -193,6 +193,7 @@ function condenseLiterals(text: string) {
       if (text.startsWith('html', i + 1)) return [i + 6, true];
       if (text.startsWith('trim', i + 1)) return [i + 6, false];
     }
+    return undefined;
   };
   const condense = (str: string, isHtml: boolean) =>
     isHtml

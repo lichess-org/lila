@@ -1,5 +1,5 @@
 import { option } from 'lib/setup/option';
-import { dataIcon, enter, hl } from 'lib/view';
+import { enter, hl, snabIcon } from 'lib/view';
 
 import { variants, variantsForGameType } from '@/options';
 import type SetupController from '@/setupCtrl';
@@ -44,15 +44,15 @@ export const variantPicker = (setupCtrl: SetupController) => {
         attrs: { for: inputId },
       },
       [
-        hl('span.icon', { attrs: dataIcon(currentVariant.icon) }),
+        snabIcon(currentVariant.icon),
         hl('div.text', [hl('span.name', currentVariant.name), hl('span.desc', currentVariant.description)]),
       ],
     ),
   ];
 
   if (isOpen) {
-    children.push(hl('label.fullscreen-mask', { on: { click: updateCheckboxAndToggle } }));
     children.push(
+      hl('div.fullscreen-mask', { on: { click: updateCheckboxAndToggle } }),
       hl(
         'div.mselect__list',
         hl(
@@ -76,11 +76,7 @@ export const variantPicker = (setupCtrl: SetupController) => {
                     }),
                   },
                 },
-                [
-                  hl('td.icon', hl('span', { attrs: dataIcon(v.icon) })),
-                  hl('td.name', v.name),
-                  hl('td.desc', v.description),
-                ],
+                [hl('td.icon', snabIcon(v.icon)), hl('td.name', v.name), hl('td.desc', v.description)],
               ),
             ),
           ),

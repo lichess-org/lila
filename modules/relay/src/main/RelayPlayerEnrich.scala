@@ -40,6 +40,11 @@ private object RelayPlayerLine:
         .sorted
         .mkString(" ")
 
+  enum Matching:
+    case Found(player: RelayPlayerLine)
+    case NotFound
+    case Ambiguous(players: List[RelayPlayerLine])
+
   case class Ambiguous(name: PlayerName, players: List[RelayPlayerLine])
 
 private case class RelayPlayersTextarea(text: String):
@@ -49,25 +54,28 @@ private case class RelayPlayersTextarea(text: String):
   lazy val parse: RelayPlayerLines = RelayPlayerLines:
     val lines = text.linesIterator
     lines.nonEmpty.so:
-      text.linesIterator.take(1000).toList.flatMap(parse).toMap
+      text.linesIterator.take(1000).toList.flatMap(RelayPlayersTextarea.parse).toMap
 
+private object RelayPlayersTextarea:
   // Original name / Optional FideID / Optional title / Optional rating / Optional replacement name
-  private def parse(line: String): Option[(PlayerName, RelayPlayerLine)] =
-    val arr = line.split('/').map(_.trim)
-    arr
-      .lift(0)
-      .map: fromName =>
-        PlayerName(fromName) -> RelayPlayerLine(
-          name = PlayerName.from(arr.lift(4).filter(_.nonEmpty)),
-          rating = IntRating.from(arr.lift(3).flatMap(_.toIntOption)),
-          title = arr.lift(2).flatMap(PlayerTitle.get),
-          fideId = arr.lift(1).flatMap(_.toIntOption).map(FideId(_)),
-          fideFed = arr.lift(5)
-        )
+  def parse(line: String): Option[(PlayerName, RelayPlayerLine)] =
+    def parseData(str: String) =
+      val arr = str.split('/').map(_.trim)
+      RelayPlayerLine(
+        name = PlayerName.from(arr.lift(3).filter(_.nonEmpty)),
+        rating = IntRating.from(arr.lift(2).flatMap(_.toIntOption)),
+        title = arr.lift(1).flatMap(PlayerTitle.get),
+        fideId = arr.lift(0).flatMap(_.toIntOption).map(FideId(_)),
+        fideFed = arr.lift(4)
+      )
+    def trySplit(sep: String) = line.split(sep, 2) match
+      case Array(name, rest) => (PlayerName(name.trim), parseData(rest)).some
+      case _ => none
+    trySplit(" /") orElse trySplit("/")
 
 private case class RelayPlayerLines(players: Map[PlayerName, RelayPlayerLine]):
 
-  import RelayPlayerLine.tokenize
+  import RelayPlayerLine.{ tokenize, Matching }
 
   def diff(prev: Option[RelayPlayerLines]): Option[RelayPlayerLines] =
     val prevPlayers = prev.so(_.players)
@@ -134,12 +142,7 @@ private case class RelayPlayerLines(players: Map[PlayerName, RelayPlayerLine]):
           case _ => ambiguous
         (newTags, newAmbiguous)
 
-  enum Matching:
-    case Found(player: RelayPlayerLine)
-    case NotFound
-    case Ambiguous(players: List[RelayPlayerLine])
-
-  private def findMatching(name: PlayerName): Matching =
+  private[relay] def findMatching(name: PlayerName): Matching =
     players
       .get(name)
       .map(Matching.Found.apply)
@@ -162,7 +165,7 @@ private final class RelayPlayerEnrich(
     fidePlayerApi: RelayFidePlayerApi,
     studyApi: StudyApi,
     chapterRepo: ChapterRepo
-)(using Federation.Guess, Executor, akka.stream.Materializer):
+)(using Federation.Guess, Executor, org.apache.pekko.stream.Materializer):
 
   private val once = scalalib.cache.OnceEvery.hashCode[List[RelayPlayerLine.Ambiguous]](1.hour)
 

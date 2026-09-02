@@ -11,7 +11,7 @@ final private class InsightIndexer(
     povToEntry: PovToEntry,
     gameRepo: GameRepo,
     storage: InsightStorage
-)(using Executor, Scheduler, akka.stream.Materializer):
+)(using Executor, Scheduler, org.apache.pekko.stream.Materializer):
 
   import gameRepo.gameHandler
 

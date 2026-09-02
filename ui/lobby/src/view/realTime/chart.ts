@@ -1,8 +1,9 @@
 import { h, type VNode } from 'snabbdom';
 
 import perfIcons from 'lib/game/perfIcons';
-import { licon } from 'lib/licon';
-import { bind } from 'lib/view';
+import { icons } from 'lib/icons';
+import { bind, onInsert, snabIcon, htmlIcon } from 'lib/view';
+import { profileUrl } from 'lib/view/userLink';
 
 import type LobbyController from '@/ctrl';
 import type { Hook } from '@/interfaces';
@@ -32,45 +33,49 @@ const clockX = (dur: number) => {
   return Math.round((durLog(Math.min(clockMax, dur || clockMax)) / durLog(clockMax)) * 100);
 };
 
-function renderPlot(ctrl: LobbyController, hook: Hook, translate: [number, number]) {
-  const bottom = Math.max(0, ratingY(hook.rating) - translate[1]),
-    left = Math.max(0, clockX(hook.t) - translate[0]),
+function renderPlot(ctrl: LobbyController, hook: Hook) {
+  const bottom = Math.max(0, ratingY(hook.rating)),
+    left = Math.max(0, clockX(hook.t)),
     klass = [
       hook.id,
       'plot.new',
       hook.ra ? 'rated' : 'casual',
       hook.action === 'cancel' ? 'cancel' : '',
     ].join('.');
-  return h('span#' + klass, {
-    key: hook.id,
-    attrs: { 'data-icon': perfIcons[hook.perf], style: `bottom:${percents(bottom)};left:${percents(left)}` },
-    hook: {
-      insert(vnode) {
-        $(vnode.elm as HTMLElement).powerTip({
-          placement: hook.rating && hook.rating > 1800 ? 's' : 'n',
-          closeDelay: 200,
-          defaultSize: [120, 80],
-          popupId: 'hook',
-          preRender() {
-            $('#hook')
-              .html(renderHook(ctrl, hook))
-              .find('.inner-clickable')
-              .on('click', () => ctrl.clickHook(hook.id));
-          },
-        });
-        setTimeout(function () {
-          (vnode.elm as HTMLElement).classList.remove('new');
-        }, 20);
+  return h(
+    'span#' + klass,
+    {
+      key: hook.id,
+      attrs: { style: `bottom:${percents(bottom)};left:${percents(left)}` },
+      hook: {
+        ...onInsert(el => {
+          $(el).powerTip({
+            placement: hook.rating && hook.rating > 1800 ? 's' : 'n',
+            closeDelay: 200,
+            defaultSize: [120, 80],
+            popupId: 'hook',
+            async render() {
+              $('#hook')
+                .html(renderHook(ctrl, hook))
+                .find('.inner-clickable')
+                .on('click', () => ctrl.clickHook(hook.id));
+            },
+          });
+          setTimeout(() => {
+            el.classList.remove('new');
+          }, 20);
+        }),
+        destroy: vnode => $.powerTip.destroy(vnode.elm),
       },
-      destroy: vnode => $.powerTip.destroy(vnode.elm as HTMLElement),
     },
-  });
+    [snabIcon(perfIcons[hook.perf])],
+  );
 }
 
 function renderHook(ctrl: LobbyController, hook: Hook): string {
   let html = '<div class="inner">';
   if (hook.rating) {
-    html += '<a class="opponent ulpt is color-icon" href="/@/' + hook.u + '">';
+    html += `<a class="opponent ulpt is color-icon" href="${hook.u ? profileUrl(hook.u) : '#'}">`;
     html += ' ' + hook.u;
     if (ctrl.opts.showRatings) html += ' (' + hook.rating + (hook.prov ? '?' : '') + ')';
     html += '</a>';
@@ -79,8 +84,7 @@ function renderHook(ctrl: LobbyController, hook: Hook): string {
   }
   html += '<div class="inner-clickable">';
   html += `<div>${hook.clock}</div>`;
-  html +=
-    '<icon data-icon="' + perfIcons[hook.perf] + '"> ' + i18n.site[hook.ra ? 'rated' : 'casual'] + '</icon>';
+  html += `<span>${htmlIcon(perfIcons[hook.perf])} ${i18n.site[hook.ra ? 'rated' : 'casual']}</span>`;
   html += '</div></div>';
   return html;
 }
@@ -91,8 +95,10 @@ function renderXAxis() {
   const tags: VNode[] = [];
   xMarks.forEach(v => {
     const l = clockX(v * 60);
-    tags.push(h('span.x.label', { attrs: { style: 'left:' + percents(l - 1.5) } }, v));
-    tags.push(h('div.grid.vert', { attrs: { style: 'width:' + percents(l) } }));
+    tags.push(
+      h('span.x.label', { attrs: { style: 'left:' + percents(l - 1.5) } }, v),
+      h('div.grid.vert', { attrs: { style: 'width:' + percents(l) } }),
+    );
   });
   return tags;
 }
@@ -103,28 +109,27 @@ function renderYAxis() {
   const tags: VNode[] = [];
   yMarks.forEach(function (v) {
     const b = ratingY(v);
-    tags.push(h('span.y.label', { attrs: { style: 'bottom:' + percents(b + 1) } }, v));
-    tags.push(h('div.grid.horiz', { attrs: { style: 'height:' + percents(b + 0.8) } }));
+    tags.push(
+      h('span.y.label', { attrs: { style: 'bottom:' + percents(b + 1) } }, v),
+      h('div.grid.horiz', { attrs: { style: 'height:' + percents(b + 0.8) } }),
+    );
   });
   return tags;
 }
 
 export function toggle(ctrl: LobbyController) {
-  return h('button.toggle', {
-    key: 'set-mode-list',
-    attrs: { title: i18n.site.list, 'data-icon': licon.List },
-    hook: bind('click', _ => ctrl.setMode('list'), ctrl.redraw),
-  });
+  return h(
+    'button.toggle',
+    {
+      key: 'set-mode-list',
+      attrs: { title: i18n.site.list, 'aria-label': i18n.site.list },
+      hook: bind('click', _ => ctrl.setMode('list'), ctrl.redraw),
+    },
+    [snabIcon(icons.List)],
+  );
 }
 
 export function render(ctrl: LobbyController, hooks: Hook[]) {
-  let translate: [number, number] = [0, 0];
-  const chart = document.querySelector('.hooks__chart') as HTMLElement;
-  if (chart) {
-    const fontSize = parseFloat(window.getComputedStyle(chart).fontSize);
-    translate = [(fontSize / chart.clientWidth) * 95, (fontSize / chart.clientHeight) * 75];
-  }
-
   return h('div.hooks__chart', [
     h(
       'div.canvas',
@@ -132,13 +137,13 @@ export function render(ctrl: LobbyController, hooks: Hook[]) {
         hook: bind(
           'click',
           e => {
-            if ((e.target as HTMLElement).classList.contains('plot'))
-              ctrl.clickHook((e.target as HTMLElement).id);
+            const plot = (e.target as HTMLElement).closest<HTMLElement>('.plot');
+            if (plot) ctrl.clickHook(plot.id);
           },
           ctrl.redraw,
         ),
       },
-      hooks.map(hook => renderPlot(ctrl, hook, translate)),
+      hooks.map(hook => renderPlot(ctrl, hook)),
     ),
     ...renderYAxis(),
     ...renderXAxis(),

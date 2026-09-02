@@ -1,7 +1,7 @@
 import type { VNode } from 'snabbdom';
 
-import { licon } from 'lib/licon';
-import { spinnerVdom, bind, dataIcon, hl } from 'lib/view';
+import { icons } from 'lib/icons';
+import { spinnerVdom, bind, hl, snabIcon } from 'lib/view';
 import { fullName } from 'lib/view/userLink';
 import { numberRow } from 'lib/view/util';
 
@@ -11,7 +11,7 @@ import { isOutcome } from '../util';
 import { player as renderPlayer } from './util';
 
 export default function (ctrl: SwissCtrl): VNode | undefined {
-  if (!ctrl.playerInfoId) return;
+  if (!ctrl.playerInfoId) return undefined;
   const data = ctrl.data.playerInfo;
   const tag = 'div.swiss__player-info.swiss__table';
   if (data?.user.id !== ctrl.playerInfoId)
@@ -22,10 +22,14 @@ export default function (ctrl: SwissCtrl): VNode | undefined {
     ? Math.round(data.sheet.reduce((r, p) => r + (!isOutcome(p) ? p.rating : 1), 0) / games)
     : undefined;
   return hl(tag, { hook: { insert: setup, postpatch: (_, vnode) => setup(vnode) } }, [
-    hl('button.close', {
-      attrs: dataIcon(licon.X),
-      hook: bind('click', () => ctrl.showPlayerInfo(data), ctrl.redraw),
-    }),
+    hl(
+      'button.close',
+      {
+        attrs: { title: i18n.site.close, 'aria-label': i18n.site.close },
+        hook: bind('click', () => ctrl.showPlayerInfo(data), ctrl.redraw),
+      },
+      [snabIcon(icons.X)],
+    ),
     hl('div.stats', [
       hl('h2', [hl('span.rank', data.rank + '. '), renderPlayer(data, true, false)]),
       hl('table', [
@@ -63,7 +67,7 @@ export default function (ctrl: SwissCtrl): VNode | undefined {
             {
               key: round,
               attrs: { 'data-href': '/' + p.g + (p.c ? '' : '/black') },
-              hook: { destroy: vnode => $.powerTip.destroy(vnode.elm as HTMLElement) },
+              hook: { destroy: vnode => $.powerTip.destroy(vnode.elm) },
             },
             [
               hl('th', round),

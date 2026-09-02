@@ -32,7 +32,8 @@ final class GatheringUi(helpers: Helpers)(prizeTournamentMakers: () => UserIds):
       .nonEmptyOption
       .map: list =>
         st.section(
-          dataIcon := relevant.option(if ctx.isAuth && vs.accepted then Icon.Checkmark else Icon.Padlock),
+          iconEl := relevant.option(if ctx.isAuth && vs.accepted then Icon.Checkmark
+          else Icon.Padlock),
           cls := List(
             "conditions" -> true,
             "accepted" -> (relevant && ctx.isAuth && vs.accepted),
@@ -63,6 +64,13 @@ final class GatheringUi(helpers: Helpers)(prizeTournamentMakers: () => UserIds):
                         )
                       case _ => condition.name(pk)
           )
+
+  def payouts(txt: Payouts) =
+    st.section(cls := "description"):
+      p(
+        a(href := routes.Cms.lonePage(lila.core.id.CmsPageKey("lichess-prizes")))("Prizes: "),
+        txt
+      )
 
 final class GatheringFormUi(helpers: Helpers):
   import helpers.*
@@ -123,3 +131,20 @@ final class GatheringFormUi(helpers: Helpers):
       ).some,
       disabled = disabledAfterStart
     )
+
+  def payouts(field: Field)(using Option[Me], Translate) =
+    Granter
+      .opt(_.ManageTournament)
+      .option:
+        form3.group(
+          field,
+          frag("Prize payouts"),
+          help = frag(
+            "Only if Lichess is responsible for the payout",
+            br,
+            "Amounts in USD: e.g. $500/$250/$100/$50/$25",
+            br,
+            "If set, winners will automatically be sent a DM to claim their prize via the Payment Portal"
+          ).some,
+          half = true
+        )(form3.input(_))

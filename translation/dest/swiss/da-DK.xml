@@ -66,6 +66,7 @@ Tilføj scorerne for hver modstander spilleren slår og halvdelen af scoren for 
   <string name="moreRoundsThanPlayersQ">Hvad sker der, hvis turneringen har flere runder end spillere?</string>
   <string name="moreRoundsThanPlayersA">Når alle mulige pardannelser er blevet spillet, vil turneringen blive afsluttet og en vinder erklæret.</string>
   <string name="restrictedToTeamsQ">Hvorfor er den begrænset til hold?</string>
+  <string name="whyAreSwissTournamentsRestrictedToTeams" comment="Replaces old string restrictedToTeamsQ">Hvorfor er schweiziske turneringer begrænset til hold?</string>
   <string name="restrictedToTeamsA">Schweiziske turneringer blev ikke designet til online skak. De kræver punktlighed, dedikation og tålmodighed fra spillere.
 Vi mener, at disse betingelser har større chance for at blive opfyldt inden for et hold end i åbne turneringer.</string>
   <string name="numberOfByesQ">Hvor mange byes kan en spiller få?</string>
@@ -86,6 +87,7 @@ Skaberen af en schweizerturnering kan beslutte at lade dem deltage i turneringen
   <string name="willSwissReplaceArenasQ">Vil schweizer erstatte arenaturneringer?</string>
   <string name="willSwissReplaceArenasA">Nej. De er komplementære funktioner.</string>
   <string name="roundRobinQ">Hvad med Round Robin?</string>
+  <string name="canPlayRoundRobinTournaments" comment="roundRobinQ&#10;&#10;Round-robin is a simple tournament format with some similarities to Swiss. It is not supported by Lichess. Replaces old string roundRobinQ">Kan jeg spille round-robin-turneringer på Lichess?</string>
   <string name="roundRobinA">Vi vil gerne tilføje det, men Round Robin fungerer desværre ikke online.
 Grunden er, at det ikke har nogen fair måde at håndtere folk, der forlader turneringen tidligt. Vi kan ikke forvente, at alle spillere vil spille alle deres partier i en online begivenhed. Det vil simpelthen bare ikke ske, og som et resultat ville de fleste runde Robin turneringer være fejlbehæftede og uretfærdige, hvilket fjerner hele deres eksistensgrundlag.
 Det tætteste du kan komme på Round Robin online er at spille en schweizisk turnering med et meget højt antal runder. Så vil alle mulige parringer blive spillet, før turneringen slutter.</string>
@@ -122,6 +124,8 @@ Det tætteste du kan komme på Round Robin online er at spille en schweizisk tur
   <string name="unlimitedAndFree">Ubegrænset og fri</string>
   <string name="predefinedUsers">Tillad kun bestemte brugere at deltage</string>
   <string name="forbiddedUsers">Hvis denne liste ikke er tom, vil brugernavne, der ikke findes på listen, ikke kunne deltage. Ét brugernavn pr. linje.</string>
+  <string name="predefinedUsersHelp" comment="Replaces old string forbiddedUsers">Indtast ét brugernavn pr. linje. Kun disse spillere får lov til at deltage.
+Lad være blank for at tillade alle spillere.</string>
   <string name="playYourGames">Spil dine partier</string>
   <string name="byes">Byes</string>
   <string name="absences">Fravær</string>

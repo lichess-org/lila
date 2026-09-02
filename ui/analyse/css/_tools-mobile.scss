@@ -33,11 +33,14 @@
     flex-wrap: wrap;
 
     .fbt {
+      display: flex;
+      align-items: center;
+      justify-content: center;
       flex: 1;
       margin: 3px 2px 0;
       border: 1px solid rgb(from $c-clearer r g b / calc(alpha * 0.05));
       border-bottom: none;
-      border-radius: 6px 6px 0 0;
+      border-radius: $box-radius-size $box-radius-size 0 0;
       background: color-mix(in oklab, $c-bg 50%, $c-bg-page);
 
       &:not(.move) {
@@ -75,12 +78,17 @@
       pointer-events: none;
     }
 
+    [data-act],
+    [data-mode] {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
     [data-mode] {
       position: relative;
       overflow-x: hidden;
       min-width: calc(max(24vw, 80px));
-      display: flex;
-      align-items: center;
       text-shadow: none;
 
       .cmn-toggle {
@@ -97,20 +105,14 @@
       }
     }
 
-    [data-mode]::before,
-    [data-mode]::after {
-      font-size: 1.3em;
-      font-family: lichess;
-    }
-
     [data-mode='practice']::before {
-      content: $licon-Bullseye;
+      @include icon-mask($icon-Bullseye);
+
       padding-inline-end: 8px;
     }
 
     [data-mode='retro']::before {
-      font-size: 1.5em;
-      content: $licon-GraduateCap;
+      @include icon-mask($icon-GraduateCap, 1.5em);
     }
 
     [data-mode='practice'].active::after,
@@ -118,15 +120,17 @@
       position: absolute;
       top: -2px;
       right: 1px;
-      font-size: 0.9em;
       color: color-mix(in oklab, $c-bg 50%, $c-secondary);
-      content: $licon-X;
+
+      @include icon-mask($icon-X, 0.9em);
     }
 
     [data-mode='ceval']::after {
-      content: $licon-Cogs;
+      @include icon-mask($icon-Cogs);
+
       color: $c-font-dimmer;
-      padding-inline-end: 10px;
+      width: 18px;
+      margin-inline-end: 10px;
     }
 
     [data-mode='ceval']:has(eval)::after {
@@ -138,6 +142,9 @@
     }
 
     [data-mode]:not(.active) .bar {
+      $good-10: rgb(from $c-good r g b / 0.1);
+      $good-70: rgb(from $c-good r g b / 0.7);
+
       position: absolute;
       display: block;
       left: 0;
@@ -150,15 +157,8 @@
         opacity 0.6s ease-out;
       animation: computing 1.6s linear reverse infinite paused;
       background:
-        linear-gradient(
-            to bottom,
-            rgb(from $c-good r g b / calc(alpha * 0.1)),
-            rgb(from $c-good r g b / calc(alpha * 0.7)),
-            rgb(from $c-good r g b / calc(alpha * 0.1))
-          )
-          0 0 / 100% 100% no-repeat,
-        linear-gradient(45deg, transparent, rgb(from $c-good r g b / calc(alpha * 0.7)), transparent) -100%
-          0 / 200% 100% no-repeat;
+        linear-gradient(to bottom, $good-10, $good-70, $good-10) 0 0 / 100% 100% no-repeat,
+        linear-gradient(45deg, transparent, $good-70, transparent) -100% 0 / 200% 100% no-repeat;
     }
 
     [data-mode].computing:not([data-mode='ceval'].active) .bar {

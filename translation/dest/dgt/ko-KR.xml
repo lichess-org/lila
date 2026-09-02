@@ -21,6 +21,7 @@
   <string name="asALastResort">마지막 수단으로 보드를 Liches와 동일하게 설정한 다음 %s</string>
   <string name="reloadThisPage">이 페이지를 다시 로드하세요</string>
   <string name="dgtConfigure">DGT - 설정</string>
+  <string name="configureYourDgtBoard" comment="Replaces old string dgtConfigure">DGT 보드 설정</string>
   <string name="lichessConnectivity">Lichess 연결</string>
   <string name="validDgtOauthToken">DGT 플레이에 적합한 OAuth 토큰이 있습니다.</string>
   <string name="dgtPlayMenuEntryAdded">%s 입장이 당신의 플레이 메뉴 상단에 추가되었습니다.</string>
@@ -36,7 +37,7 @@
   <string name="announceAllMoves">모든 수 알리기</string>
   <string name="selectAnnouncePreference">YES를 선택하면 자신의 수와 상대의 수를 모두 알 수 있고, NO를 선택하면 상대의 수만 알 수 있습니다.</string>
   <string name="announceMoveFormat">수 알림 표기법</string>
-  <string name="moveFormatDescription">SAN은 \"Nf6\"과 같은, Lichess에서 쓰이는 표준 표기법입니다. UCI는 \"g8f6\"과 같은, 체스 엔진에서 흔이 쓰이는 표기법입니다.</string>
+  <string name="moveFormatDescription">SAN은 \"Nf6\"과 같은, Lichess에서 쓰이는 표준 표기법입니다. UCI는 \"g8f6\"과 같은, 체스 엔진에서 흔히 쓰이는 표기법입니다.</string>
   <string name="keywords">키워드</string>
   <string name="keywordFormatDescription">키워드는 JSON 형식입니다. 이동 및 결과를 언어로 변환하는 데 사용됩니다. 기본값은 영어이지만, 자유롭게 변경하셔도 좋습니다.</string>
   <string name="debug">디버깅</string>

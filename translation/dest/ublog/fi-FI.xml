@@ -48,14 +48,14 @@
     <item quantity="one">Näytä yksi kirjoitus</item>
     <item quantity="other">Näytä kaikki %s kirjoitusta</item>
   </plurals>
-  <string name="uploadAnImageForYourPost">Lataa kirjoitukseesi kuva</string>
   <string name="imageAlt">Vaihtoehtoinen kuvateksti</string>
   <string name="imageCredit">Kuvan lähde</string>
   <string name="deleteBlog">Poista blogikirjoitus lopullisesti</string>
   <string name="safeToUseImages">Seuraavilta sivustoilta peräisin olevia kuvia saa käyttää: </string>
+  <string name="freeImagesComplyWithLicensing" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement. Replaces old string safeToUseImages">Seuraavat sivustot tarjoavat kuvia ilmaiseksi. Varmista, että noudatat käyttämäsi kuvan lisenssiehtoja.</string>
   <string name="selectPostTopics">Valitse kirjoituksesi teemat</string>
-  <string name="useImagesYouMadeYourself">Voit myös käyttää itse tekemiäsi tai ottamiasi kuvia, kuvakaappauksia Lichessistä... mitä tahansa sisältöä, jota eivät suojaa jonkun muun tekijänoikeudet.</string>
   <string name="safeAndRespectfulContent">Julkaise vain turvallista ja muita kunnioittavaa sisältöä. Älä kopioi toisten luomaa sisältöä.</string>
+  <string name="noCopyrightedImages">Käytä vain kuvia, joita ei suojaa jonkun muun tekijänoikeus.</string>
   <string name="inappropriateContentAccountClosed">Epäasiallisen sisällön julkaisu voi johtaa käyttäjätunnuksesi sulkemiseen.</string>
   <string name="blogTips">Yksinkertaiset vinkkimme erinomaisten blogikirjoitusten laatimiseen</string>
   <string name="discussThisBlogPostInTheForum">Keskustele tästä blogikirjoituksesta foorumissa</string>

@@ -35,6 +35,7 @@ case class Tournament(
     featured: Option[GameId] = None,
     spotlight: Option[Spotlight] = None,
     description: Option[String] = None,
+    payouts: Option[Payouts] = None,
     hasChat: Boolean = true
 ) extends lila.core.tournament.Tournament:
 
@@ -166,6 +167,8 @@ case class Tournament(
         case _ => 20
       if variant.exotic && freq != Unique then base / 3 else base
 
+  def realNames = scheduleFreq.has(Schedule.Freq.Unique) && name.contains("Titled Arena")
+
   override def toString =
     s"$id $startsAt $name $minutes minutes, $clock, $nbPlayers players"
 
@@ -199,6 +202,7 @@ object Tournament:
       startsAt =
         setup.startDate | nowInstant.plusMinutes(setup.waitMinutes | TournamentForm.waitMinuteDefault),
       description = setup.description,
+      payouts = setup.payouts,
       hasChat = setup.hasChat | true
     )
 
@@ -220,7 +224,7 @@ object Tournament:
       startsAt = startsAt
     )
 
-  def tournamentUrl(tourId: TourId): String = s"https://lichess.org/tournament/$tourId"
+  def tournamentUrl(tourId: TourId) = Url(s"https://lichess.org/tournament/$tourId")
 
   def makeId = TourId(ThreadLocalRandom.nextString(8))
 

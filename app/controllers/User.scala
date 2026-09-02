@@ -1,6 +1,6 @@
 package controllers
 
-import akka.stream.scaladsl.*
+import org.apache.pekko.stream.scaladsl.*
 import play.api.http.ContentTypes
 import play.api.libs.EventSource
 import play.api.libs.json.*
@@ -13,6 +13,7 @@ import lila.common.Json.given
 import lila.core.user.LightPerf
 import lila.core.userId.UserSearch
 import lila.core.security.IsProxy
+import lila.core.perf.UserWithPerfs
 import lila.game.GameFilter
 import lila.mod.UserWithModlog
 import lila.rating.PerfType
@@ -31,6 +32,8 @@ final class User(
   import env.relation.api as relationApi
   import env.gameSearch.userGameSearch
   import env.user.lightUserApi
+
+  private given Conversion[UserWithPerfs, UserModel] = _.user
 
   def tv(username: UserStr) = Open:
     Found(meOrFetch(username)): user =>
@@ -51,7 +54,7 @@ final class User(
         case None => NotFound("No ongoing game")
         case Some(gameId) => gameC.exportGame(gameId)
 
-  private def apiGames(u: UserModel, filter: String, page: Int)(using BodyContext[?]) =
+  private def gamesForLichobile(u: UserModel, filter: String, page: Int)(using BodyContext[?]) =
     userGames(u, filter, page).flatMap(env.game.userGameApi.jsPaginator).map { res =>
       Ok(res ++ Json.obj("filter" -> GameFilter.all.name))
     }
@@ -63,7 +66,7 @@ final class User(
     EnabledUser(username): u =>
       negotiate(
         renderShow(u),
-        apiGames(u, GameFilter.all.name, 1)
+        gamesForLichobile(u, GameFilter.all.name, 1)
       )
 
   def search(term: String) = Open: _ ?=>
@@ -77,7 +80,7 @@ final class User(
 
   private def renderShow(u: UserModel, status: Results.Status = Results.Ok)(using Context): Fu[Result] =
     WithProxy: proxy ?=>
-      limit.enumeration.userProfile(rateLimited)(ctx.req.uri):
+      limit.enumeration.userProfile(rateLimited):
         val showActivityAndGames = isRestricted.not && !UserId.isOfficial(u.id)
         def fetchActivity = showActivityAndGames.so(env.activity.read.recentAndPreload(u))
         if HTTPRequest.isSynchronousHttp(ctx.req)
@@ -115,7 +118,7 @@ final class User(
   def games(username: UserStr, filter: String, page: Int) = OpenBody:
     Reasonable(page):
       WithProxy: proxy ?=>
-        limit.enumeration.userProfile(rateLimited)(ctx.req.uri):
+        limit.enumeration.userProfile(rateLimited):
           EnabledUser(username): u =>
             val isSearch = filter == GameFilter.search.name
             if isSearch && ctx.isAnon
@@ -131,9 +134,10 @@ final class User(
                   filters = lila.app.mashup.GameFilterMenu(u, nbs, filter, ctx.isAuth)
                   pag <- env.gamePaginator(user = u, nbs = nbs.some, filter = filters.current, page = page)
                   _ <- lightUserApi.preloadMany(pag.currentPageResults.flatMap(_.userIds))
-                  _ <- env.tournament.cached.nameCache.preloadMany {
-                    pag.currentPageResults.flatMap((_: GameModel).tournamentId).map(tid => tid -> ctx.lang)
-                  }
+                  _ <- env.tournament.cached.nameCache.preloadMany:
+                    pag.currentPageResults.flatMap(_.tournamentId).map(tid => tid -> ctx.lang)
+                  _ <- env.swiss.cache.name.preloadMany:
+                    pag.currentPageResults.flatMap(_.swissId)
                   res <-
                     if HTTPRequest.isSynchronousHttp(ctx.req) then
                       for
@@ -148,7 +152,7 @@ final class User(
                       yield res
                     else Ok.snip(views.user.show.gamesContent(u, nbs, pag, filters, filter)).toFuccess
                 yield res.withCanonical(routes.User.games(u.username, filters.current.name)),
-                json = apiGames(u, filter, page)
+                json = gamesForLichobile(u, filter, page)
               )
 
   private def EnabledUser(username: UserStr)(f: UserModel => Fu[Result])(using ctx: Context): Fu[Result] =
@@ -215,10 +219,10 @@ final class User(
               .map: u =>
                 env.user.jsonView.full(u.user, u.perfs.some, withProfile = true)
 
-  def ratingHistory(username: UserStr) = Open:
+  def ratingHistory(username: UserStr) = OpenOrScoped():
     EnabledUser(username): u =>
       env.history
-        .ratingChartApi(u)
+        .ratingChartApi(u, computeIfNeeded = ctx.isAuth)
         .dmap: // send an empty JSON array if no history JSON is available
           _ | lila.core.data.SafeJsonStr("[]")
         .dmap(jsonStr => Ok(jsonStr).as(JSON))
@@ -267,12 +271,6 @@ final class User(
       import lila.user.JsonView.leaderboardsWrites
       JsonOk(leaderboards)
     }
-
-  // redirect /player/top/:nb/:perfKey to /user/top/:perfKey
-  // TODO move to a NotFound general handler?
-  // to avoid adding (yet another) route
-  def topBcRedirect(@annotation.unused nb: Int, perfKey: PerfKey) = Anon:
-    Redirect(routes.User.top(perfKey))
 
   def top(perfKey: PerfKey, page: Int) = Open:
     Reasonable(page, Max(20)):
@@ -467,7 +465,7 @@ final class User(
       err => BadRequest(err.errors.toString).toFuccess,
       data =>
         doWriteNote(username, data): user =>
-          if getBool("inquiry") then
+          if getBool("inquiry") && isGranted(_.ModNote) then
             Ok.snipAsync:
               env.user.noteApi.toUserForMod(user.id).map {
                 views.mod.inquiryUi.noteZone(user, _)
@@ -546,7 +544,7 @@ final class User(
       negotiate(
         Ok.async:
           env.history
-            .ratingChartApi(data.user.user)
+            .ratingChartApi(data.user.user, computeIfNeeded = canCompute)
             .map:
               views.user.perfStatPage(data, _)
         ,
@@ -623,10 +621,6 @@ final class User(
                     .flatMap: u =>
                       Ok.page(views.user.perfStat.ratingDistribution(perfKey, data, u.some))
               case _ => Ok.page(views.user.perfStat.ratingDistribution(perfKey, data, none))
-
-  def myself = Auth { _ ?=> me ?=>
-    Redirect(routes.User.show(me.username))
-  }
 
   def redirect(path: String) = Open:
     staticRedirect(path) |

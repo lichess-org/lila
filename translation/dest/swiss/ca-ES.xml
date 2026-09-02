@@ -66,6 +66,7 @@ Quan un jugador no es pot emparellar en una ronda obté un bye d\'un punt.</stri
   <string name="moreRoundsThanPlayersQ">Què passa si el torneig té més rondes que jugadors?</string>
   <string name="moreRoundsThanPlayersA">Quan s\'hagin jugat tots els emparellaments possibles, el torneig finalitzarà i es declararà un guanyador.</string>
   <string name="restrictedToTeamsQ">Perquè està restringit només a equips?</string>
+  <string name="whyAreSwissTournamentsRestrictedToTeams" comment="Replaces old string restrictedToTeamsQ">Per què els tornejos suïssos estan restringits als equips?</string>
   <string name="restrictedToTeamsA">Els tornejos suïssos no van ser dissenyats pels escacs en línia. Requereixen puntualitat, dedicació i paciència per part dels jugadors.
 Creiem que és més probable que aquestes condicions es compleixin dins d\'un equip que en tornejos globals.</string>
   <string name="numberOfByesQ">Quants descansos pot rebre un jugador?</string>
@@ -87,6 +88,7 @@ El jugadors que s\'afegeixin a un torneig ja començat rebran un únic bye, enca
   <string name="willSwissReplaceArenasQ">Els tornejos suïssos substituiran als arena?</string>
   <string name="willSwissReplaceArenasA">No, son funcionalitats complementaries.</string>
   <string name="roundRobinQ">Que passa amb els emparellament de tots contra tots?</string>
+  <string name="canPlayRoundRobinTournaments" comment="roundRobinQ&#10;&#10;Round-robin is a simple tournament format with some similarities to Swiss. It is not supported by Lichess. Replaces old string roundRobinQ">Puc jugar tornejos round-robin a Lichess?</string>
   <string name="roundRobinA">Ens agradaria afegir-lo, però malauradament l\'emparellament de tots contra tots no funciona en línia.
 La raó per això és que no hi ha una manera justa de gestionar els jugadors que abandonen el torneig abans d\'hora. No podem esperar que tots els jugadors juguin tots els seus jocs en un esdeveniment en línia. Senzillament, no passarà i, com a resultat, la majoria dels tornejos de tots contra tots serien defectuosos i injustos, cosa que anul·laria la seva raó de ser.
 El més a prop que pots arribar a un emparellament de tots contra tots en línia és jugar un torneig suís amb un nombre molt elevat de rondes. En aquest cas, es jugaran tots els aparellaments possibles abans que finalitzi el torneig.</string>
@@ -123,6 +125,8 @@ El més a prop que pots arribar a un emparellament de tots contra tots en línia
   <string name="unlimitedAndFree">Il·limitat i gratuït</string>
   <string name="predefinedUsers">Permet només entrar usuaris predefinits</string>
   <string name="forbiddedUsers">Si aquesta llista no es buida els noms d\'usuaris que no estan a la llista no podran entrar al torneig. Un nom d\'usuari per línia.</string>
+  <string name="predefinedUsersHelp" comment="Replaces old string forbiddedUsers">Entreu un jugador per línia. Només es permetrà entrar aquests jugadors.
+Deixeu-ho en blanc per permetre tots els jugadors elegibles.</string>
   <string name="playYourGames">Juga les teves partides</string>
   <string name="byes">Descansos</string>
   <string name="absences">Absències</string>

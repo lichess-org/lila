@@ -117,7 +117,7 @@ final class ReportUi(helpers: Helpers)(menu: Context ?=> Frag):
   private val aboutReports = p(
     a(
       href := routes.Cms.lonePage(lila.core.id.CmsPageKey("report-faq")),
-      dataIcon := Icon.InfoCircle,
+      iconEl := Icon.InfoCircle,
       cls := "text"
     ):
       "Read more about Lichess reports"
@@ -174,7 +174,7 @@ final class ReportUi(helpers: Helpers)(menu: Context ?=> Frag):
                 attr("data-action") := s"${routes.Relation.block(userId)}?mini=1",
                 cls := "report-block button",
                 st.title := trans.site.block.txt()
-              )(span(cls := "text", dataIcon := Icon.NotAllowed)("Block ", titleNameOrId(userId)))
+              )(span(cls := "text", iconEl := Icon.NotAllowed)("Block ", titleNameOrId(userId)))
             )
           ),
           br,
@@ -204,7 +204,7 @@ final class ReportUi(helpers: Helpers)(menu: Context ?=> Frag):
             menu,
             div(id := "report_list", cls := "page-menu__content box")(
               div(cls := "header")(
-                iconTag(cls := "icon"),
+                span(cls := "icon"),
                 span(cls := "tabs")(
                   Granter(_.SeeReport).option:
                     a(
@@ -308,20 +308,20 @@ final class ReportUi(helpers: Helpers)(menu: Context ?=> Frag):
                           )
                         )(shortenRight(a.text, 200))
                       ),
-                  (r.atoms.size > 3).option(iconTag(cls := "more")("And ", r.atoms.size - 3, " more"))
+                  (r.atoms.size > 3).option(span(cls := "more")("And ", r.atoms.size - 3, " more"))
                 ),
                 td(
                   r.inquiry match
                     case None =>
                       if r.done.isDefined then
                         postForm(action := routes.Report.inquiry(r.id.value), cls := "reopen")(
-                          submitButton(dataIcon := Icon.PlayTriangle, cls := "text button button-metal")(
+                          submitButton(iconEl := Icon.PlayTriangle, cls := "text button button-metal")(
                             "Reopen"
                           )
                         )
                       else
                         postForm(action := routes.Report.inquiry(r.id.value), cls := "inquiry")(
-                          submitButton(dataIcon := Icon.PlayTriangle, cls := "button button-metal")
+                          submitButton(iconEl := Icon.PlayTriangle, cls := "button button-metal")
                         )
                     case Some(inquiry) =>
                       frag(

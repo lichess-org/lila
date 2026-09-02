@@ -1,7 +1,8 @@
 import { h, type VNode } from 'snabbdom';
 
-import { licon } from 'lib/licon';
-import { iconTag } from 'lib/view';
+import { icons } from 'lib/icons';
+import { icon } from 'lib/view';
+import { profileUrl } from 'lib/view/userLink';
 
 import type { LearnCtrl } from './ctrl';
 import { hashHref } from './hashRouting';
@@ -45,7 +46,7 @@ const mapView = (ctrl: LearnCtrl) =>
     ]),
   ]);
 
-const makeStars = (rank: scoring.Rank): VNode[] => Array(4 - rank).fill(iconTag(licon.Star));
+const makeStars = (rank: scoring.Rank): VNode[] => Array(4 - rank).fill(icon(icons.Star)());
 
 const ongoingStr = (ctrl: LearnCtrl, s: Stage): string => {
   const progress = ctrl.stageProgress(s);
@@ -76,7 +77,7 @@ function whatNext(ctrl: LearnCtrl) {
     h('div.categ_stages', [
       userId
         ? makeStage(
-            '/@/' + userId,
+            profileUrl(userId),
             'beams-aura',
             i18n.learn.register,
             i18n.learn.getAFreeLichessAccount,

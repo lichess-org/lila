@@ -70,7 +70,7 @@ final class StreamerUi(helpers: Helpers, bits: StreamerBits)(using netDomain: Ne
         main(cls := "page-menu")(
           bits.menu(if requests then "requests" else "index", none)(cls := " page-menu__menu"),
           div(cls := "page-menu__content box streamer-list")(
-            boxTop(h1(dataIcon := Icon.Mic, cls := "text")(title)),
+            boxTop(h1(iconEl := Icon.Mic, cls := "text")(title)),
             (!requests).option:
               div(cls := "list force-ltr live"):
                 live.map: s =>
@@ -161,7 +161,7 @@ final class StreamerUi(helpers: Helpers, bits: StreamerBits)(using netDomain: Ne
             standardFlash,
             div(cls := "box streamer")(
               bits.header(s),
-              div(cls := "description")(richText(s.streamer.description.fold("")(_.value))),
+              div(cls := "description")(richText(s.streamer.description.so(_.value))),
               ctx.pref.showRatings.option(a(cls := "ratings", href := routes.User.show(s.user.username)):
                 perfRatings),
               activities

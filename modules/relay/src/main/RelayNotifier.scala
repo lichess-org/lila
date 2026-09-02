@@ -1,6 +1,7 @@
 package lila.relay
 
 import scalalib.cache.OnceEvery
+import scalalib.StringOps.addQueryParam
 
 import lila.core.notify.{ NotifyApi, NotificationContent }
 import lila.study.Chapter
@@ -29,7 +30,7 @@ final private class RelayNotifier(
               _ <- notifyApi.notifyMany(
                 followers,
                 NotificationContent.BroadcastRound(
-                  url = rt.call(chapter.id).url,
+                  url = addQueryParam(rt.call(chapter.id).url, "pov", color.name),
                   title = rt.tour.name.value,
                   text = s"${name} is playing${opponent}in ${rt.round.name}"
                 )

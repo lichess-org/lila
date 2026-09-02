@@ -203,7 +203,6 @@ final private class RelayFetch(
     moves = true,
     tags = true,
     evals = false,
-    opening = none,
     literate = false,
     pgnInJson = false,
     delayMoves = true
@@ -254,7 +253,7 @@ final private class RelayFetch(
     upgraded <- gameProxy.upgradeIfPresent(dbGames)
     withFen <- gameRepo.withInitialFens(upgraded)
     pgnFlags = gameIdsUpstreamPgnFlags.copy(delayMoves = !tour.official)
-    pgn <- withFen.sequentially((game, fen) => pgnDump(game, fen, pgnFlags).map(_.render))
+    pgn <- withFen.sequentially((game, fen) => pgnDump(game, fen, none, pgnFlags).map(_.render))
     games <- multiPgnToGames.future(MultiPgn(pgn))
   yield games
 
@@ -394,7 +393,7 @@ private object RelayFetch:
 
   object multiPgnToGames:
 
-    def either(multiPgn: MultiPgn): Either[LilaInvalid, Vector[RelayGame]] =
+    def parseAndCache(multiPgn: MultiPgn): Either[LilaInvalid, Vector[RelayGame]] =
       multiPgn.value
         .foldLeftM(Vector.empty[RelayGame] -> 0):
           case ((acc, index), pgn) =>
@@ -405,7 +404,7 @@ private object RelayFetch:
                 else (acc :+ game, index + 1).asRight
         ._1F
 
-    def future(multiPgn: MultiPgn): Fu[Vector[RelayGame]] = either(multiPgn).toFuture
+    def future(multiPgn: MultiPgn): Fu[Vector[RelayGame]] = parseAndCache(multiPgn).toFuture
 
     private val pgnCache: LoadingCache[PgnStr, Either[LilaInvalid, RelayGame]] =
       CacheApi

@@ -66,6 +66,7 @@ Adder poenga til dei motspelarane som spelaren vann over og halvparten av poenga
   <string name="moreRoundsThanPlayersQ">Kva skjer dersom turneringa har fleire rundar enn spelarar?</string>
   <string name="moreRoundsThanPlayersA">Når alle parsamansetjingar har spela ferdig vil turneringa avsluttast og ein vinnar utropa.</string>
   <string name="restrictedToTeamsQ">Kvifor avgrensinga til lag?</string>
+  <string name="whyAreSwissTournamentsRestrictedToTeams" comment="Replaces old string restrictedToTeamsQ">Kvifor er sveitsarturneringar avgrensa til lag?</string>
   <string name="restrictedToTeamsA">Sveitsarturneringar er laga for tradisjonelle turneringar med brett og brikker og ikkje for online spel. Turneringsforma krev punktlege, dediserte og tolmodige spelarar.
 Desse eigenskapane finn ein truleg heller innan lag enn i opne, globale turneringar.</string>
   <string name="numberOfByesQ">Kor mange halve poeng kan ein spelar få om motspelaren ikkje møter opp i rett tid?</string>
@@ -84,6 +85,7 @@ Spelarar som kjem til turneringa etter at den er starta vert godskrivne med berr
   <string name="willSwissReplaceArenasQ">Vil sveitsarturneringar ta over for andre turneringsformer?</string>
   <string name="willSwissReplaceArenasA">Nei. Dei utfyller kvarandre.</string>
   <string name="roundRobinQ">Kva med round robin-turneringar?</string>
+  <string name="canPlayRoundRobinTournaments" comment="roundRobinQ&#10;&#10;Round-robin is a simple tournament format with some similarities to Swiss. It is not supported by Lichess. Replaces old string roundRobinQ">Kan eg spela rundeturneringar sokalla round-robin eller alle mot alle -turneringar på Lichess?</string>
   <string name="roundRobinA">Vi skulle gjerne hatt med Round Robin-turneringar, men diverre fungerar dei ikkje online.
 Grunnen er at det ikke finst ein rettvis måte å handtera spelarar som forlet turneringa før den er ferdigspela. Det er ikkje å forvente at alle online-spelarar vil spele alle sine parti, og difor vil dei fleste Round Robin-turneringar verte feilaktige og urettvise. Det næraste ein kjem Round Robin-spel online er i sveitsarturneringar med svært mange rundar. I slike høve vil alle moglege parsamansetjingar verte spela før turneringa endar.</string>
   <string name="otherSystemsQ">Kva med andre turneringssystem?</string>
@@ -119,6 +121,8 @@ Grunnen er at det ikke finst ein rettvis måte å handtera spelarar som forlet t
   <string name="unlimitedAndFree">Uavgrensa og fritt tilgjengeleg</string>
   <string name="predefinedUsers">Tillat berre førehandsbestemde brukarar å delta</string>
   <string name="forbiddedUsers">Så sant denne lista ikkje er tom vil brukarar som ikkje er oppførde bli nekta å vera med. Eit brukarnamn per linje.</string>
+  <string name="predefinedUsersHelp" comment="Replaces old string forbiddedUsers">Skriv inn eiyt brukarnamn per line. Berre desse spelarana kan bli med.
+Lata stå tomt for å tillata alle kvalifiserte spelarar.</string>
   <string name="playYourGames">Spel partia dine</string>
   <string name="byes">Walkover</string>
   <string name="absences">Fråverande</string>

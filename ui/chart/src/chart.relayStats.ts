@@ -21,7 +21,7 @@ chart.Chart.register(
 
 chart.Chart.defaults.font = fontFamily();
 
-interface RelayChart extends chart.Chart {
+interface RelayChart extends chart.Chart<'line'> {
   updateData(d: RoundStats): void;
 }
 

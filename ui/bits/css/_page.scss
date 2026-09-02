@@ -1,15 +1,48 @@
-.page {
-  .body {
-    @include rendered-markdown(2em, 450vh);
-    @include rendered-markdown-code;
-    @include rendered-markdown-img;
-    @include rendered-markdown-embed;
+.page .body,
+.cms-preview {
+  @include rendered-markdown(2em, 450vh);
+  @include rendered-markdown-code;
+  @include rendered-markdown-img;
+  @include rendered-markdown-embed;
 
-    font-size: 1.1em;
-    overflow-wrap: anywhere;
+  font-size: 1.1em;
+  overflow-wrap: anywhere;
 
-    .center {
-      text-align: center;
+  center,
+  .center {
+    text-align: center;
+  }
+
+  details {
+    @extend %box-bordered;
+
+    background: $c-bg-zebra;
+    padding: 1em 2em;
+
+    &:open {
+      summary,
+      summary::marker {
+        color: $c-accent;
+      }
+    }
+
+    summary {
+      font-size: 1.3em;
+      padding-top: 0;
+      cursor: pointer;
+      font-weight: bold;
+
+      &::marker {
+        color: $c-font-dim;
+      }
+
+      span {
+        margin-left: 0.25em;
+      }
+    }
+
+    & *:last-child {
+      margin-bottom: 0.25em;
     }
   }
 }

@@ -73,7 +73,7 @@ site.load.then(() => {
     $(el).replaceWith($('.forum-post__message', el));
   });
   $('.forum-post__message').each(function (this: HTMLElement) {
-    if (this.innerHTML.match(/(^|<br>)&gt;/)) {
+    if (/(^|<br>)&gt;/.test(this.innerHTML)) {
       const hiddenQuotes = '<span class=hidden-quotes>&gt;</span>';
       let result = '';
       let quote = [];
@@ -121,7 +121,7 @@ site.load.then(() => {
       const lines = quotedMarkdown(this.closest('article'))
         .replace(/!\[([^\]]*)]\(([^)]+)\)/g, '$1 ($2)') // unlink images
         .split('\n');
-      if (lines[0].match(/^(?:> )*@.+ said (?:in #\d+:$|\[\^\]\()/)) lines.shift();
+      if (/^(?:> )*@.+ said (?:in #\d+:$|\[\^\]\()/.test(lines[0])) lines.shift();
 
       if (lines.length === 0) return;
 
@@ -206,7 +206,7 @@ site.load.then(() => {
   });
 
   $('form.reply').on('submit', () => {
-    if (submittingReply) return false;
+    if (submittingReply) return;
     replyStorage.remove();
     submittingReply = true;
   });

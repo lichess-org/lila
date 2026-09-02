@@ -1,6 +1,6 @@
 package lila.fishnet
 
-import akka.actor.*
+import org.apache.pekko.actor.*
 import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
 import io.lettuce.core.*
@@ -36,8 +36,8 @@ final class Env(
     settingStore: lila.memo.SettingStore.Builder,
     ws: StandaloneWSClient,
     sink: lila.analyse.Analyser,
-    shutdown: akka.actor.CoordinatedShutdown
-)(using Executor, ActorSystem, Scheduler, akka.stream.Materializer, lila.core.config.RateLimit):
+    shutdown: org.apache.pekko.actor.CoordinatedShutdown
+)(using Executor, ActorSystem, Scheduler, org.apache.pekko.stream.Materializer, lila.core.config.RateLimit):
 
   private val config = appConfig.get[FishnetConfig]("fishnet")(using AutoConfig.loader)
 
@@ -92,7 +92,7 @@ final class Env(
   private def disable(keyOrUser: String) =
     repo.toKey(keyOrUser).flatMap { repo.enableClient(_, v = false) }
 
-  lila.common.Cli.handle:
+  lila.common.Cli.handle():
     case "fishnet" :: "client" :: "create" :: name :: Nil =>
       userApi
         .enabledById(UserStr(name))

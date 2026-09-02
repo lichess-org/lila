@@ -27,12 +27,12 @@ final class Lobby(env: Env) extends LilaController(env):
         Ok(lobbyJson).headerCacheSeconds(expiration)
     )
 
-  private def serveHtmlHome(using ctx: Context) =
+  private def serveHtmlHome(using Context) =
     env
       .pageCache: () =>
         keyPages.homeHtml.map: html =>
           Ok(html).withCanonical("").noCache
-      .map(env.security.lilaCookie.ensure(ctx.req))
+      .map(env.security.lilaCookie.ensure)
 
   def homeLang(lang: Language) =
     staticRedirect(lang.value).map(Action.async(_)).getOrElse(LangPage("/")(serveHtmlHome)(lang))

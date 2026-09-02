@@ -49,7 +49,7 @@ final class UserList(helpers: Helpers, bits: UserBits):
                 userTopPerf(leaderboards.ultraBullet, PerfKey.ultraBullet),
                 userTopActive(nbAllTime, trans.site.activePlayers(), icon = Icon.Swords.some),
                 st.section(cls := "user-top")(
-                  h2(cls := "text", dataIcon := Icon.Trophy)(
+                  h2(cls := "text", iconEl := Icon.Trophy)(
                     a(href := routes.Tournament.leaderboard)(trans.site.tournament())
                   ),
                   tournamentWinners
@@ -69,7 +69,7 @@ final class UserList(helpers: Helpers, bits: UserBits):
 
   private def userTopPerf(users: List[LightPerf], pk: PerfKey)(using ctx: Context) =
     st.section(cls := "user-top")(
-      h2(cls := "text", dataIcon := pk.perfIcon)(
+      h2(cls := "text", iconEl := pk.perfIcon)(
         a(href := routes.User.top(pk))(pk.perfTrans)
       ),
       ol(users.map: l =>
@@ -81,7 +81,7 @@ final class UserList(helpers: Helpers, bits: UserBits):
 
   private def userTopActive(users: List[LightCount], hTitle: Frag, icon: Option[Icon])(using Context) =
     st.section(cls := "user-top")(
-      h2(cls := "text", dataIcon := icon.map(_.toString))(hTitle),
+      h2(cls := "text", iconEl := icon)(hTitle),
       ol(users.map: u =>
         li(
           lightUserLink(u.user),
@@ -102,7 +102,7 @@ final class UserList(helpers: Helpers, bits: UserBits):
         description = s"The top rated players in ${perf.trans}, sorted by rating"
       ):
         main(cls := "page-small box")(
-          boxTop(h1(a(href := routes.User.list, dataIcon := Icon.LessThan, cls := "text"), title)),
+          boxTop(h1(a(href := routes.User.list, iconEl := Icon.LessThan, cls := "text"), title)),
           table(cls := "slist slist-pad slist-invert slist-leaderboard")(
             tbody(cls := "infinite-scroll")(
               pager.currentPageResults.mapWithIndex: (u, i) =>
@@ -146,14 +146,14 @@ final class UserList(helpers: Helpers, bits: UserBits):
           div(cls := "bots page-menu__content")(
             div(cls := "box box-pad bots__categ")(
               boxTop(h1("Featured bots")),
-              h3("Try playing these innovative chess engines! These are our favourites."),
+              p("Try playing these innovative chess engines! These are our favourites."),
               div(cls := "bots__featured")(
                 botGrid(featured, bestPerfs)
               )
             ),
             div(cls := "box box-pad bots__categ")(
               boxTop(h1("Community bots"), aboutLink),
-              h3(
+              p(
                 "More chess engines created by the Lichess community. They are hosted by their creators, and as such might not always be online."
               ),
               botGrid(community, bestPerfs)
@@ -178,7 +178,7 @@ final class UserList(helpers: Helpers, bits: UserBits):
           .flatMap(_.nonEmptyBio)
           .map { bio => div(cls := "bots__list__entry__bio")(shorten(bio, 400)) },
         a(
-          dataIcon := Icon.Swords,
+          iconEl := Icon.Swords,
           cls := List("bots__list__entry__play text" -> true),
           st.title := trans.challenge.challengeToPlay.txt(),
           href := s"${routes.Lobby.home}?user=${u.username}#friend"

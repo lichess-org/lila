@@ -179,38 +179,38 @@ final class RelayRound(
       )
 
   private def doApiShow(id: RelayRoundId)(using Context): Fu[Result] =
-    Found(env.relay.api.byIdWithTour(id))(doApiShow)
-
-  def doApiShow(rt: RoundModel.WithTour)(using Context): Fu[Result] =
-    Found(env.study.studyRepo.byId(rt.round.studyId)): study =>
-      studyC.CanView(study)(
-        for
-          group <- env.relay.api.withTours.get(rt.tour.id)
-          previews <- env.study.preview.jsonList.withoutInitialEmpty(study.id)
-          targetRound <- env.relay.api.officialTarget(rt.round)
-          isSubscribed <- ctx.userId.traverse(env.relay.api.isSubscribed(rt.tour.id, _))
-          sVersion <- HTTPRequest.isLichessMobile(ctx.req).optionFu(env.study.version(study.id))
-          photos <- env.relay.playerApi.photosJson(rt.tour.id)
-          _ = env.relay.stats.viewers.hit(rt)
-        yield JsonOk:
-          env.relay.jsonView
-            .withUrlAndPreviews(
-              rt.withStudy(study),
-              previews,
-              group,
-              targetRound,
-              isSubscribed,
-              sVersion,
-              photos
-            )
-      )(studyC.privateUnauthorizedJson, studyC.privateForbiddenJson)
+    limit.relay.apiGet(rateLimited):
+      Found(env.relay.api.byIdWithTour(id)): rt =>
+        Found(env.study.studyRepo.byId(rt.round.studyId)): study =>
+          studyC.CanView(study)(
+            for
+              group <- env.relay.api.withTours.get(rt.tour.id)
+              previews <- env.study.preview.jsonList.withoutInitialEmpty(study.id)
+              targetRound <- env.relay.api.officialTarget(rt.round)
+              isSubscribed <- ctx.userId.traverse(env.relay.api.isSubscribed(rt.tour.id, _))
+              sVersion <- HTTPRequest.isLichessMobile(ctx.req).optionFu(env.study.version(study.id))
+              photos <- env.relay.playerApi.photosJson(rt.tour.id)
+              _ = env.relay.stats.viewers.hit(rt)
+            yield JsonOk:
+              env.relay.jsonView
+                .withUrlAndPreviews(
+                  rt.withStudy(study),
+                  previews,
+                  group,
+                  targetRound,
+                  isSubscribed,
+                  sVersion,
+                  photos
+                )
+          )(studyC.privateUnauthorizedJson, studyC.privateForbiddenJson)
 
   def pgn(ts: String, rs: String, id: RelayRoundId) = Open:
     pgnWithFlags(ts, rs, id)
 
   def apiPgn(id: RelayRoundId) = AnonOrScoped(_.Study.Read): ctx ?=>
     env.relay.pgnStream.parseExportDate(id) match
-      case Some(since) if isGrantedOpt(_.StudyAdmin) => Ok.chunked(env.relay.pgnStream.exportFullMonth(since))
+      case Some(since) if isGrantedOpt(_.StudyAdmin) =>
+        Ok.chunked(env.relay.pgnStream.exportFullMonth(since))
       case _ => pgnWithFlags("-", "-", id)
 
   private def pgnWithFlags(ts: String, rs: String, id: RelayRoundId)(using Context): Fu[Result] =
@@ -241,12 +241,16 @@ final class RelayRound(
         pgnStream(env.relay.pgnStream.streamRoundGames(rs))
       }(Unauthorized, Forbidden)
 
+  def streamTour(id: RelayTourId) = AnonOrScoped(): ctx ?=>
+    Found(env.relay.api.tourById(id)): tour =>
+      pgnStream(env.relay.pgnStream.streamTourGames(tour))
+
   def streamGroup(id: RelayGroupId) = AnonOrScoped(): ctx ?=>
     Found(env.relay.api.groupById(id)): group =>
       pgnStream(env.relay.pgnStream.streamGroupGames(group))
 
-  private def pgnStream(source: akka.stream.scaladsl.Source[PgnStr, ?])(using Context) =
-    apiC.GlobalConcurrencyLimitPerIP.events(req.ipAddress)(source): limited =>
+  private def pgnStream(source: => org.apache.pekko.stream.scaladsl.Source[PgnStr, ?])(using Context) =
+    limit.relay.stream()(source): limited =>
       Ok.chunked[PgnStr](limited.keepAlive(60.seconds, () => PgnStr(" "))).noProxyBuffer
 
   def chapter(ts: String, rs: String, id: RelayRoundId, chapterId: StudyChapterId) =
@@ -365,4 +369,4 @@ final class RelayRound(
       else if isGranted(_.Relay) then 2
       else if me.hasTitle || me.isVerified then 5
       else 10
-    limit.relay(me.userId -> req.ipAddress, fail, cost)(create)
+    limit.relay.roundCreate(me.userId -> req.ipAddress, fail, cost)(create)

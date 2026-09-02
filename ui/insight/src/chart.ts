@@ -15,8 +15,8 @@ import ChartDataLabels from 'chartjs-plugin-datalabels';
 import { h, type VNode } from 'snabbdom';
 
 import { currentTheme } from 'lib/device';
-import { licon } from 'lib/licon';
-import { iconTag, spinnerHtml } from 'lib/view';
+import { icons } from 'lib/icons';
+import { spinnerHtml, snabIcon } from 'lib/view';
 
 import type Ctrl from './ctrl';
 import type { InsightChart, InsightData } from './interfaces';
@@ -178,7 +178,7 @@ function scaleBuilder(d: InsightData): ChartOptions<'bar'>['scales'] {
   };
 }
 function empty(txt: string) {
-  return h('div.chart.empty', [iconTag(licon.Target), txt]);
+  return h('div.chart.empty', [snabIcon(icons.Target), txt]);
 }
 
 let chart: InsightChart;

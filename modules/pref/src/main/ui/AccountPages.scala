@@ -23,7 +23,7 @@ final class AccountPages(helpers: Helpers, ui: AccountUi, flagApi: lila.core.use
   def close(form: Form[?], managed: Boolean)(using Context)(using me: Me) =
     AccountPage(s"${me.username} - ${trans.settings.closeAccount.txt()}", "close"):
       div(cls := "box box-pad")(
-        boxTop(h1(cls := "text", dataIcon := Icon.CautionCircle)(trs.closeAccount())),
+        boxTop(h1(cls := "text", iconEl := Icon.CautionCircle)(trs.closeAccount())),
         if managed then p(trs.managedAccountCannotBeClosed())
         else
           postForm(cls := "form3", action := routes.Account.closeConfirm)(
@@ -38,7 +38,7 @@ final class AccountPages(helpers: Helpers, ui: AccountUi, flagApi: lila.core.use
                   form("token"),
                   trans.tfa.authenticationCode(),
                   half = true,
-                  help = Some(span(dataIcon := Icon.PhoneMobile)(trans.tfa.openTwoFactorApp()))
+                  help = Some(span(iconEl := Icon.PhoneMobile)(trans.tfa.openTwoFactorApp()))
                 )(form3.totpTokenInput)
               else form3.hidden(form("token")),
               form3.checkboxGroup(
@@ -66,7 +66,7 @@ final class AccountPages(helpers: Helpers, ui: AccountUi, flagApi: lila.core.use
   def delete(form: Form[?], managed: Boolean)(using Context)(using me: Me) =
     AccountPage(s"${me.username} - Delete your account", "delete"):
       div(cls := "box box-pad")(
-        boxTop(h1(cls := "text", dataIcon := Icon.CautionCircle)("Delete your account")),
+        boxTop(h1(cls := "text", iconEl := Icon.CautionCircle)("Delete your account")),
         if managed then p(trs.managedAccountCannotBeClosed())
         else
           postForm(cls := "form3", action := routes.Account.deleteConfirm)(
@@ -134,7 +134,7 @@ final class AccountPages(helpers: Helpers, ui: AccountUi, flagApi: lila.core.use
   private lazy val flagPairs = flagApi.all.map: c =>
     c.code -> c.name
 
-  def profile(u: User, form: Form[?])(using ctx: Context) =
+  def profile(u: User, form: Form[?], fixedRealName: Boolean)(using ctx: Context) =
     AccountPage(s"${u.username} - ${trans.site.editProfile.txt()}", "editProfile"):
       div(cls := "box box-pad")(
         h1(cls := "box__top")(trans.site.editProfile()),
@@ -157,17 +157,23 @@ final class AccountPages(helpers: Helpers, ui: AccountUi, flagApi: lila.core.use
                 a(
                   href := s"${routes.Pref.form("display")}#showFlairs",
                   cls := "text",
-                  dataIcon := Icon.InfoCircle
+                  iconEl := Icon.InfoCircle
                 ):
                   trans.site.youCanHideFlair()
           ),
           form3.split(
             form3.group(form("flag"), trans.site.countryRegion(), half = true): f =>
-              form3.select(f, flagPairs, default = "".some),
+              form3.select(f, flagPairs, default = trans.site.unknown.txt().some),
             form3.group(form("location"), trans.site.location(), half = true)(form3.input(_))
           ),
           form3.split(
-            form3.group(form("realName"), trans.site.realName(), half = true)(form3.input(_))
+            form3.group(
+              form("realName"),
+              trans.site.realName(),
+              half = true,
+              help = fixedRealName.option("Publicly titled profiles cannot change their real name")
+            ): field =>
+              form3.input(field)(fixedRealName.option(disabled))
           ),
           form3.split(
             List("fide", "uscf", "ecf", "rcf", "cfc", "dsb").map: rn =>
@@ -313,7 +319,7 @@ final class AccountPages(helpers: Helpers, ui: AccountUi, flagApi: lila.core.use
     def sent(using Context) =
       Page(trans.site.reopenYourAccount.txt()):
         main(cls := "page-small box box-pad")(
-          boxTop(h1(cls := "is-green text", dataIcon := Icon.Checkmark)(trans.site.checkYourEmail())),
+          boxTop(h1(cls := "is-green text", iconEl := Icon.Checkmark)(trans.site.checkYourEmail())),
           p(trans.site.sentEmailWithLink()),
           p(trans.site.ifYouDoNotSeeTheEmailCheckOtherPlaces())
         )

@@ -33,7 +33,7 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, pageMenu: RelayMenuUi):
     def tourAndRounds(shortName: Option[RelayTour.Name]) = frag(
       a(
         href := routes.RelayTour.edit(nav.tour.id),
-        dataIcon := Icon.RadioTower,
+        iconEl := Icon.RadioTower,
         cls := List(
           "text" -> true,
           "relay-form__subnav__tour-parent" -> shortName.isDefined,
@@ -47,7 +47,7 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, pageMenu: RelayMenuUi):
           a(
             href := routes.RelayRound.edit(r.id),
             cls := List("subnav__subitem text" -> true, "active" -> nav.roundId.has(r.id)),
-            dataIcon := (
+            iconEl := (
               if r.isFinished then Icon.Checkmark
               else if r.hasStarted then Icon.DiscBig
               else Icon.DiscOutline
@@ -61,7 +61,7 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, pageMenu: RelayMenuUi):
               "active" -> nav.newRound,
               "button" -> (nav.rounds.isEmpty && !nav.newRound)
             ),
-            dataIcon := Icon.PlusButton
+            iconEl := Icon.PlusButton
           )(trb.addRound())
         )
       )
@@ -141,7 +141,7 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, pageMenu: RelayMenuUi):
             flashMessage("success")(
               "Your tournament round is officially broadcasted by Lichess!",
               br,
-              strong(a(href := tr.path, cls := "text", dataIcon := Icon.RadioTower)(tr.fullName)),
+              strong(a(href := tr.path, cls := "text", iconEl := Icon.RadioTower)(tr.fullName)),
               "."
             ),
           inner(form, routes.RelayRound.update(r.id), nav),
@@ -210,7 +210,7 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, pageMenu: RelayMenuUi):
           div(cls := "form-group")(
             div(cls := "form-group")(ui.howToUse),
             (nav.round.isEmpty && nav.tour.createdAt.isBefore(nowInstant.minusMinutes(1))).option:
-              p(dataIcon := Icon.InfoCircle, cls := "text"):
+              p(iconEl := Icon.InfoCircle, cls := "text"):
                 trb.theNewRoundHelp()
           )
         ,
@@ -495,7 +495,7 @@ Hanna Marie ; Kozul, Zdenko"""),
     def create(form: Form[lila.relay.RelayTourForm.Data])(using Context, Me) =
       page(trb.newBroadcast.txt(), menu = Left("new")).markdownTextarea:
         frag(
-          boxTop(h1(dataIcon := Icon.RadioTower, cls := "text")(trb.newBroadcast())),
+          boxTop(h1(iconEl := Icon.RadioTower, cls := "text")(trb.newBroadcast())),
           postForm(cls := "form3", action := routes.RelayTour.create)(
             inner(form, none),
             form3.actions(
@@ -653,7 +653,7 @@ Hanna Marie ; Kozul, Zdenko"""),
               )
               .some
           ): field =>
-            lila.ui.bits.markdownTextarea("broadcastDescription".some):
+            lila.ui.bits.markdownEditor(MarkdownRealm.broadcast):
               form3.textarea(field)(rows := 10)
         ),
         form3
@@ -745,7 +745,7 @@ Team Dogs ; Scooby Doo"""),
                   default = "Optional. Select a tiebreak".some
                 )
             ,
-            p(dataIcon := Icon.InfoCircle, cls := "text")(
+            p(iconEl := Icon.InfoCircle, cls := "text")(
               "Tiebreaks are best suited for round-robin tournaments where all games are broadcasted and played. ",
               "Tiebreaks will differ from official results if the tiebreak method utilises byes and forfeits."
             )
@@ -812,42 +812,43 @@ Team Dogs ; Scooby Doo"""),
                     )
                   )
                 )
-            ),
-            (tg.isDefined && Granter.opt(_.StudyAdmin)).option:
-              form3.fieldset("Pinned stream", toggle = form("pinnedStream.url").value.isDefined.some)(
-                form3.split(
-                  form3.group(
-                    form("pinnedStream.url"),
-                    "Stream URL",
-                    help = frag(
-                      p("Embed a live stream in the broadcast. Examples:"),
-                      ul(
-                        li("https://www.youtube.com/live/Lg0askmGqvo"),
-                        li("https://www.twitch.tv/tcec_chess_tv")
-                      )
-                    ).some,
-                    half = true
-                  )(form3.input(_)),
-                  form3.group(
-                    form("pinnedStream.name"),
-                    "Stream name",
-                    half = true
-                  )(form3.input(_))
-                ),
-                form3.split(
-                  form3.group(
-                    form("pinnedStream.text"),
-                    "Stream link label",
-                    help = frag(
-                      "Optional. Show a label on the image link to your live stream.",
-                      br,
-                      "Example: 'Watch us live on YouTube!'"
-                    ).some
-                  )(form3.input(_))
-                )
-              )
+            )
           )
         else form3.hidden(form("tier")),
+        (tg.isDefined && Granter.opt(_.RelayStream)).option(
+          form3.fieldset("Pinned stream", toggle = form("pinnedStream.url").value.isDefined.some)(
+            form3.split(
+              form3.group(
+                form("pinnedStream.url"),
+                "Stream URL",
+                help = frag(
+                  p("Embed a live stream in the broadcast. Examples:"),
+                  ul(
+                    li("https://www.youtube.com/live/Lg0askmGqvo"),
+                    li("https://www.twitch.tv/tcec_chess_tv")
+                  )
+                ).some,
+                half = true
+              )(form3.input(_)),
+              form3.group(
+                form("pinnedStream.name"),
+                "Stream name",
+                half = true
+              )(form3.input(_))
+            ),
+            form3.split(
+              form3.group(
+                form("pinnedStream.text"),
+                "Stream link label",
+                help = frag(
+                  "Optional. Show a label on the image link to your live stream.",
+                  br,
+                  "Example: 'Watch us live on YouTube!'"
+                ).some
+              )(form3.input(_))
+            )
+          )
+        ),
         form3.fieldset("Broadcaster note", toggle = tg.flatMap(_.tour.note).isDefined.some)(
           form3.group(
             form("note"),
@@ -856,7 +857,7 @@ Team Dogs ; Scooby Doo"""),
         )
       )
 
-  private def nameHelp = small(cls := "form-help relay-name-help text none", dataIcon := Icon.Checkmark)
+  private def nameHelp = small(cls := "form-help relay-name-help text none", iconEl := Icon.Language)
 
   private def image(t: RelayTour)(using ctx: Context) =
     form3.fieldset("Image", toggle = true.some):
@@ -881,18 +882,24 @@ Team Dogs ; Scooby Doo"""),
 
   private def grouping(form: Form[RelayTourForm.Data], twg: RelayTour.WithGroupTours)(using Context) =
     val tour = twg.tour
-    val disabledGroup = (tour.tier.isDefined && !Granter.opt(_.Relay)).option(disabled)
+    val isDisabled = tour.tier.isDefined && !Granter.opt(_.Relay)
+    val disable = isDisabled.option(disabled)
     def scoreGroupInput(sgIndex: Int) =
       form3.group(form(s"grouping.scoreGroups[$sgIndex]"), s"Score Group ${sgIndex + 1}")(
-        form3.textarea(_)(rows := 1, spellcheck := "false", cls := "monospace", disabledGroup)
+        form3.textarea(_)(rows := 1, spellcheck := "false", cls := "monospace", disable)
       )
     div(cls := "relay-form__grouping")(
+      isDisabled.option:
+        div(cls := "form-group"):
+          span(iconEl := Icon.CautionTriangle, cls := "text"):
+            "This broadcast is now official. Please contact the Lichess broadcast team to request changes."
+      ,
       form3.group(
         form("grouping.info.name"),
         "Optional: Group name",
         help = frag("Name of the overall group. Example: Dutch Championships 2025").some
       )(
-        form3.input(_)(disabledGroup)
+        form3.input(_)(disable)
       ),
       form3.group(
         form("grouping.info.tours"),
@@ -911,7 +918,7 @@ Team Dogs ; Scooby Doo"""),
           rows := 5,
           spellcheck := "false",
           cls := "monospace",
-          disabledGroup
+          disable
         )
       ),
       form3.group(

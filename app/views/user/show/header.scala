@@ -69,7 +69,7 @@ object header:
               href := routes.Plan.index(),
               cls := "trophy award patron icon3d",
               ariaTitle(trans.patron.patronSince.txt(showDate(u.plan.sinceDate)))
-            )(patronIconChar)
+            )(iconEl(patronIconChar))
           )
         ),
         u.enabled.no.option(span(cls := "closed")("CLOSED"))
@@ -101,10 +101,12 @@ object header:
               splitNumber(trans.broadcast.nbBroadcasts.pluralSame(info.nbRelays))
             )
           ),
-          a(href := routes.Study.byOwnerDefault(u.username), cls := "nm-item")(
-            splitNumber(trans.site.`nbStudies`.pluralSame(info.nbStudies))
+          (info.nbStudies > 0).option(
+            a(href := routes.Study.byOwnerDefault(u.username), cls := "nm-item")(
+              splitNumber(trans.site.`nbStudies`.pluralSame(info.nbStudies))
+            )
           ),
-          ctx.kid.no.option(
+          (ctx.kid.no && info.nbForumPosts > 0).option(
             a(
               cls := "nm-item",
               href := routes.ForumPost.search("user:" + u.username, 1).url
@@ -146,7 +148,7 @@ object header:
               div(cls := "user-infos")(
                 (u.lame && ctx.isnt(u)).option:
                   div(cls := "warning tos_warning")(
-                    span(dataIcon := Icon.CautionCircle, cls := "is4"),
+                    span(iconEl := Icon.CautionCircle, cls := "is4"),
                     trans.site.thisAccountViolatedTos()
                   )
                 ,
@@ -222,7 +224,7 @@ object header:
                 )
               ),
               info.insightVisible.option(
-                a(cls := "insight", href := routes.Insight.index(u.username), dataIcon := Icon.Target):
+                a(cls := "insight", href := routes.Insight.index(u.username), iconEl := Icon.Target):
                   span(
                     strong("Chess Insights"),
                     em("Analytics from ", if ctx.is(u) then "your" else s"${u.username}'s", " games")

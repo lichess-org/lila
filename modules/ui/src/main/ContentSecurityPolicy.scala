@@ -22,21 +22,12 @@ case class ContentSecurityPolicy(
 
   def withExternalEngine(url: String) = copy(connectSrc = url :: connectSrc)
 
-  def withTwitter =
-    copy(
-      scriptSrc = "https://platform.twitter.com" :: "https://*.twimg.com" :: scriptSrc,
-      frameSrc = "https://twitter.com" :: "https://platform.twitter.com" :: frameSrc,
-      styleSrc = "https://platform.twitter.com" :: styleSrc
-    )
-
   def withGoogleForm = copy(frameSrc = "https://docs.google.com" :: frameSrc)
 
   def withTurnstile = copy(
     scriptSrc = "https://challenges.cloudflare.com" :: scriptSrc,
     frameSrc = "https://challenges.cloudflare.com" :: frameSrc
   )
-
-  def withPeer = copy(connectSrc = "wss://0.peerjs.com" :: connectSrc)
 
   def withAnyWs = copy(connectSrc = "ws:" :: "wss:" :: connectSrc)
 
@@ -49,5 +40,3 @@ case class ContentSecurityPolicy(
   def withExternalAnalysisApis = withWikiBooks.withChessDbCn
 
   def withLilaHttp = copy(connectSrc = "http.lichess.org" :: connectSrc)
-
-  def withInlineIconFont = copy(fontSrc = "data:" :: fontSrc)

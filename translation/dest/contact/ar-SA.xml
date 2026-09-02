@@ -26,6 +26,7 @@
   <string name="orCloseAccount">على الرغم من ذلك، يمكنك إغلاق حسابك الحالي، وإنشاء حساب جديد.</string>
   <string name="wantClearHistory">أريد مسح تاريخي أو تقييمي</string>
   <string name="cantClearHistory">لا يمكن مسح تاريخ المباريات أو تاريخ الألغاز أو التقييم.</string>
+  <string name="cantClearHistoryOrResetRatings" comment="Replaces old string cantClearHistory">لا يمكنك مسح سجل مبارياتك أو سجل ألغازك أو إعادة ضبط تصنيفاتك.</string>
   <string name="wantReport">أريد أن أبلغ عن لاعب</string>
   <string name="toReportAPlayerUseForm">للإبلاغ عن لاعب، استعمل(ي) استمارة التبليغ</string>
   <string name="youCanAlsoReachReportPage">يمكنك أيضا الوصول إلى هذه الصفحة بالنقر على زر التبليغ %s في صفحة الملف الشخصي.</string>
@@ -74,4 +75,13 @@
   <string name="noneOfTheAbove">لا شيء مما سبق</string>
   <string name="sendEmailAt">راسلنا عبر البريد الإلكتروني %s.</string>
   <string name="explainYourRequest">يرجى شرح طلبك بوضوح ودقة. حدد اسم المستخدم الخاص بك في Lichess، وأي معلومات يمكن أن تساعدنا في مساعدتك.</string>
+  <string name="monetiseNotInterested">لسنا مهتمين بأي شكل من أشكال تحقيق الدخل من Lichess.</string>
+  <string name="monetiseNoAdsTrackingOrTraffic">لن نعرض أي نوع من الإعلانات أبدًا، ولن نتتبع لاعبينا، ولن نبيع أو نشتري الزيارات أو المستخدمين.</string>
+  <string name="monetiseNoMarketingEmail">يُرجى عدم مراسلتنا عبر البريد الإلكتروني بشأن التسويق أو التتبع أو الإعلانات.</string>
+  <string name="monetiseEncourageEveryoneTo" comment="string is value of key monetiseBlockAllAdsAndTrackers">نشجّع الجميع على %s.</string>
+  <string name="monetiseBlockAllAdsAndTrackers">حظر جميع الإعلانات والمتعقبين</string>
+  <string name="broadcastTournamentOnLichess">بث بطولة على ليشيس</string>
+  <string name="ifYouWantToBroadcastClause1">إذا كنت ترغب في بث بطولة رسمية على Lichess، أو لديك أي أسئلة حول بثنا:</string>
+  <string name="ifYouWantToBroadcastClause2" comment="string1 is Lichess email, string2 is value of key ourDiscordServer">يرجى الاتصال بفريق البث الخاص بنا على %1$s أو على %2$s.</string>
+  <string name="ourDiscordServer">خادم ديسكورد الخاص بنا</string>
 </resources>

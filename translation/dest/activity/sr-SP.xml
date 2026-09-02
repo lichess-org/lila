@@ -77,7 +77,12 @@
     <item quantity="few">Рангиран/а #%1$s (првих %2$s%%) са %3$s партије у %4$s</item>
     <item quantity="other">Рангиран/а #%1$s (првих %2$s%%) са %3$s партија у %4$s</item>
   </plurals>
-  <string name="rankedInSwissTournament">Рангиран #%1$s у %2$s</string>
+  <plurals name="competedInNbSwissTournaments">
+    <item quantity="one">Такмичио/ла се у %s Швајцарском турниру</item>
+    <item quantity="few">Такмичио/ла се у %s Швајцарска турнира</item>
+    <item quantity="other">Такмичио/ла се у %s Швајцарских турнира</item>
+  </plurals>
+  <string name="rankedInSwissTournament">Рангиран/а #%1$s у %2$s</string>
   <string name="signedUp">Пријавио/ла се за lichess.org</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Придружио/ла се %s тиму</item>

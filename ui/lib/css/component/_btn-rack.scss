@@ -38,10 +38,24 @@
       border: 0;
     }
 
-    icon {
+    &:first-child:last-child {
+      @extend %box-radius;
+    }
+
+    .svg-icon {
       @extend %roboto;
 
       letter-spacing: -1px;
+    }
+  }
+
+  > form {
+    overflow: hidden;
+
+    .btn-rack__btn {
+      border-radius: 0 !important;
+      border: 0;
+      box-shadow: none;
     }
   }
 

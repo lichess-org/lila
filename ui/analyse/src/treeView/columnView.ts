@@ -34,11 +34,11 @@ class ColumnView extends InlineView {
   }
 
   renderNodes([child, ...siblings]: TreeNode[], opts: Args): LooseVNodes {
-    if (!child) return;
+    if (!child) return undefined;
     const { parentPath, parentDisclose } = opts;
     const childPath = parentPath + child.id;
     const conceal = opts.conceal ?? this.concealOf(true)(childPath, child);
-    if (conceal === 'hide') return;
+    if (conceal === 'hide') return undefined;
     const emptyMove = () => hl('move.empty', { class: { conceal: conceal === 'conceal' } }, '...');
     const isWhite = child.ply % 2 === 1;
     const comments = this.commentNodes(child, { conceal: conceal === 'conceal' });

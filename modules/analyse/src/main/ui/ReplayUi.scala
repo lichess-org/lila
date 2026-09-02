@@ -18,17 +18,16 @@ final class ReplayUi(helpers: Helpers)(analyseUi: AnalyseUi):
       pov: Pov,
       pgn: PgnStr,
       graph: OpenGraph,
+      chessground: Frag,
       gameSide: Option[Frag],
       crosstable: Option[Tag]
-  )(using Context) =
-    Page(analyseUi.titleOf(pov))
+  ) =
+    Page(analyseUi.titlePlayerVs(pov.game))
       .css("analyse.round")
-      .graph(graph)
-      .csp(analyseUi.bits.cspExternalEngine)
-      .flag(_.noRobots):
+      .graph(graph):
         main(cls := "analyse")(
           st.aside(cls := "analyse__side")(gameSide),
-          div(cls := "analyse__board main-board")(chessgroundBoard),
+          div(cls := "analyse__board main-board")(chessground),
           div(cls := "analyse__tools")(div(cls := "ceval")),
           div(cls := "analyse__controls"),
           div(cls := "analyse__underboard")(
@@ -60,7 +59,7 @@ final class ReplayUi(helpers: Helpers)(analyseUi: AnalyseUi):
     import pov.*
 
     val imageLinks = frag(
-      a(cls := "text game-gif", dataIcon := Icon.Download)(trans.site.gameAsGIF()),
+      a(cls := "text game-gif", iconEl := Icon.Download)(trans.site.gameAsGIF()),
       copyMeLink(
         fenThumbnailUrl(Fen.write(pov.game.position).opening, pov.color.some, pov.game.variant),
         trans.site.screenshotCurrentPosition()
@@ -68,7 +67,7 @@ final class ReplayUi(helpers: Helpers)(analyseUi: AnalyseUi):
     )
 
     val shareLinks = frag(
-      a(dataIcon := Icon.Expand, cls := "text embed-howto")(trans.site.embedInYourWebsite()),
+      a(iconEl := Icon.Expand, cls := "text embed-howto")(trans.site.embedInYourWebsite()),
       copyMeInput(routeUrl(routes.Round.watcher(pov.gameId, pov.color)).value)
     )
     val pgnLinks = frag(
@@ -79,7 +78,7 @@ final class ReplayUi(helpers: Helpers)(analyseUi: AnalyseUi):
     )
 
     analyseUi.bits
-      .page(analyseUi.titleOf(pov))
+      .page(analyseUi.titleFull(pov))
       .css("analyse.round")
       .css((pov.game.variant == Crazyhouse).option("analyse.zh"))
       .css(ctx.blind.option("round.nvui"))
@@ -141,7 +140,7 @@ final class ReplayUi(helpers: Helpers)(analyseUi: AnalyseUi):
                             action := routes.Analyse.requestAnalysis(gameId)
                           ):
                             submitButton(cls := "button text"):
-                              span(cls := "is3 text", dataIcon := Icon.BarChart)(
+                              span(cls := "is3 text", iconEl := Icon.BarChart)(
                                 trans.site.requestAComputerAnalysis()
                               )
                       )

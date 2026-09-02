@@ -75,6 +75,10 @@
     ---font: #{$c-secondary};
     ---bg: #{color-mix(in oklab, $c-secondary 10%, $c-bg)};
 
+    @include if-transp {
+      ---bg: #{color-mix(in oklab, $c-secondary 10%, transparent)};
+    }
+
     padding: $block-gap 4vw;
     margin-bottom: 4rem;
     font-size: 1.5em;
@@ -94,9 +98,9 @@
 
         @extend %flex-center, %roboto;
 
-        &::before {
+        > .svg-icon {
           color: var(---font);
-          font-size: 6rem;
+          width: 6rem;
           margin-inline-end: 0.2em;
 
           @media (max-width: at-most($xx-small)) {
@@ -150,14 +154,13 @@
   }
 
   .mobile-instructions::before {
-    font-family: lichess;
-    font-size: 3rem;
+    @include icon-mask($icon-ShareAndroid, 3rem);
+
     padding-inline-end: 1rem;
-    content: $licon-ShareAndroid;
   }
 
   .mobile-instructions.is-ios::before {
-    content: $licon-ShareIos;
+    @include icon-mask($icon-ShareIos);
   }
 
   &.challenge--declined .details {

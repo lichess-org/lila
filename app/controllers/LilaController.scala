@@ -24,6 +24,7 @@ abstract private[controllers] class LilaController(val env: Env)
     with lila.web.ResponseHeaders
     with lila.web.ResponseWriter
     with lila.web.CtrlExtensions
+    with lila.web.CtrlGivens
     with http.CtrlFilters(using env.executor)
     with http.CtrlPage(using env.executor)
     with http.RequestContext(using env.executor)
@@ -52,15 +53,14 @@ abstract private[controllers] class LilaController(val env: Env)
 
   /* Anonymous requests */
   def Anon(f: Context ?=> Fu[Result]): EssentialAction =
-    action(parse.empty)(req ?=> f(using Context.minimal(req)))
+    action(parse.empty)(f(using Context.minimal))
 
   /* Anonymous requests, with a body */
   def AnonBody(f: BodyContext[?] ?=> Fu[Result]): EssentialAction =
-    action(parse.anyContent)(req ?=> f(using Context.minimalBody(req)))
-
+    action(parse.anyContent)(f(using Context.minimalBody))
   /* Anonymous requests, with a body */
   def AnonBodyOf[A](parser: BodyParser[A])(f: BodyContext[A] ?=> A => Fu[Result]): EssentialAction =
-    action(parser)(req ?=> f(using Context.minimalBody(req))(req.body))
+    action(parser)(req ?=> f(using Context.minimalBody)(req.body))
 
   /* Anonymous and authenticated requests */
   def Open(f: Context ?=> Fu[Result]): EssentialAction =
@@ -112,7 +112,7 @@ abstract private[controllers] class LilaController(val env: Env)
     action(parse.empty): req ?=>
       if HTTPRequest.isOAuth(req)
       then handleScoped(selectors)(f)
-      else f(using Context.minimal(req))
+      else f(using Context.minimal)
 
   /* Anonymous and oauth requests with a body */
   def AnonOrScopedBody[A](parser: BodyParser[A])(selectors: OAuthScope.Selector*)(
@@ -121,7 +121,7 @@ abstract private[controllers] class LilaController(val env: Env)
     action(parser): req ?=>
       if HTTPRequest.isOAuth(req)
       then handleScopedBody[A](selectors)(f)
-      else f(using Context.minimalBody(req))
+      else f(using Context.minimalBody)
 
   /* Authenticated and oauth requests */
   def AuthOrScoped(selectors: OAuthScope.Selector*)(
@@ -250,13 +250,13 @@ abstract private[controllers] class LilaController(val env: Env)
       oauthBodyContext(scoped).flatMap: ctx =>
         f(using ctx)(using scoped.me)
 
-  private def handleScopedCommon(selectors: Seq[OAuthScope.Selector])(using
-      req: RequestHeader
-  )(f: OAuthScope.Scoped => Fu[Result]) =
+  private def handleScopedCommon(selectors: Seq[OAuthScope.Selector])(f: OAuthScope.Scoped => Fu[Result])(
+      using RequestHeader
+  ) =
     val accepted = OAuthScope.select(selectors).into(EndpointScopes)
     allow:
       for
-        scoped <- env.security.api.oauthScoped(req, accepted)
+        scoped <- env.security.api.oauthScoped(accepted)
         res <- f(scoped)
       yield OAuthServer.responseHeaders(accepted, scoped.scopes)(res)
     .rescue(handleScopedFail(accepted, _))

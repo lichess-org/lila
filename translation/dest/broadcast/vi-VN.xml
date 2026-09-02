@@ -33,10 +33,12 @@
   <string name="resetRound">Đặt lại vòng này</string>
   <string name="deleteRound">Xóa vòng này</string>
   <string name="definitivelyDeleteRound">Dứt khoát xóa tất cả vòng đấu và các ván đấu trong đó.</string>
+  <string name="permanentlyDeleteRound" comment="Refers to live tournaments being broadcast on Lichess (https://lichess.org/broadcast).&#10;&#10;Description (also translateable): Delete all games of this round. The source will need to be active in order to re-create them. This string has been amended since its initial publication; it didn't say &quot;all its games&quot; at the time.&#10;&#10;Replaces old string definitivelyDeleteRound.">Xóa vĩnh viễn vòng này và tất cả các ván đấu trong đó?</string>
   <string name="deleteAllGamesOfThisRound">Xóa toàn bộ ván cờ trong vòng này. Để tạo lại chúng bạn cần thêm lại nguồn.</string>
   <string name="editRoundStudy">Chỉnh sửa vòng nghiên cứu</string>
   <string name="deleteTournament">Xóa giải đấu này</string>
   <string name="definitivelyDeleteTournament">Xóa dứt khoát toàn bộ giải đấu, tất cả các vòng và tất cả ván cờ trong đó.</string>
+  <string name="permanentlyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast Replaces old string definitivelyDeleteTournament">Xóa vĩnh viễn giải đấu này, bao gồm tất cả các vòng đấu và ván đấu?</string>
   <string name="showScores">Hiển thị điểm số của người chơi dựa trên kết quả ván đấu</string>
   <string name="replacePlayerTags">Tùy chọn: biệt danh, hệ số Elo và danh hiệu</string>
   <string name="fideFederations">Các liên đoàn FIDE</string>
@@ -55,6 +57,7 @@
   <string name="subscribeTitle">Đăng ký để được thông báo khi mỗi vòng bắt đầu. Bạn có thể chuyển đổi chuông hoặc thông báo đẩy cho các chương trình phát sóng trong tùy chọn tài khoản của mình.</string>
   <string name="uploadImage">Tải hình ảnh giải đấu lên</string>
   <string name="noBoardsYet">Chưa có bàn nào. Chúng sẽ xuất hiện khi ván đấu được tải lên.</string>
+  <string name="noPlayersYet">Hiện chưa có kỳ thủ nào. Họ sẽ xuất hiện khi các trận đấu được tải lên.</string>
   <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Bàn đấu có thể được tải bằng nguồn hoặc thông qua %s</string>
   <string name="startsAfter">Bắt đầu sau %s</string>
   <string name="startVerySoon">Chương trình phát sóng sẽ sớm bắt đầu.</string>
@@ -105,6 +108,6 @@
   <string name="tiebreaks">Tiebreak</string>
   <string name="gameX">Trận thứ %s</string>
   <string name="knockouts">Loại trực tiếp</string>
-  <string name="underXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament. e.g.    'U18' will mean it is an tournament for under-18 years.    Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">U%s</string>
-  <string name="underXEloTournament" comment="%s is the maximum Elo rating set by the organiser for a tournament.     e.g. 'U2000' will mean it is an tournament for players with Elo under 2000.    Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">U%s</string>
+  <string name="underXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament. e.g.  'U18' will mean it is an tournament for under-18 years.  Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">U%s</string>
+  <string name="underXEloTournament" comment="%s is the maximum Elo rating set by the organiser for a tournament.  e.g. 'U2000' will mean it is an tournament for players with Elo under 2000.  Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">U%s</string>
 </resources>

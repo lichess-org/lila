@@ -11,7 +11,8 @@ import lila.gathering.Condition.GetMyTeamIds
 import lila.tournament.{ MyInfo, Tournament as Tour, TournamentForm }
 import lila.mon.extensions.*
 
-final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) extends LilaController(env):
+final class Tournament(env: Env, apiC: => Api)(using org.apache.pekko.stream.Materializer)
+    extends LilaController(env):
 
   private def repo = env.tournament.tournamentRepo
   private def api = env.tournament.api
@@ -357,23 +358,20 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
         bindForm(lila.tournament.TeamBattle.DataForm.empty)(
           jsonFormError,
           res =>
-            api.teamBattleUpdate(tour, res, env.team.api.filterExistingIdsNoClas) >> {
-              cachedTour(tour.id)
-                .map(_ | tour)
-                .flatMap { tour =>
-                  jsonView(
-                    tour,
-                    none,
-                    none,
-                    none,
-                    partial = false,
-                    withScores = true,
-                    withAllowList = true,
-                    withDescription = true
-                  )
-                }
-                .map { Ok(_) }
-            }
+            for
+              _ <- api.teamBattleUpdate(tour, res, env.team.api.filterExistingIdsNoClas)
+              tour <- cachedTour(tour.id).map(_ | tour)
+              json <- jsonView(
+                tour,
+                none,
+                none,
+                none,
+                partial = false,
+                withScores = true,
+                withAllowList = true,
+                withDescription = true
+              )
+            yield Ok(json)
         )
       case _ => BadRequest(jsonError("Can't update that tournament."))
   }

@@ -1,11 +1,13 @@
 import { h, type VNode } from 'snabbdom';
 
-import { licon } from 'lib/licon';
+import { icons } from 'lib/icons';
 import { richHTML } from 'lib/richText';
-import { bind, confirm } from 'lib/view';
+import { bind, confirm, snabIcon } from 'lib/view';
+import { profileUrl } from 'lib/view/userLink';
 
-import type AnalyseCtrl from '../ctrl';
-import { nodeFullName } from '../view/util';
+import type AnalyseCtrl from '@/ctrl';
+import { nodeFullName } from '@/view/util';
+
 import type StudyCtrl from './studyCtrl';
 
 export type AuthorObj = {
@@ -17,7 +19,7 @@ export type Author = AuthorObj | string;
 function authorDom(author: Author): string | VNode {
   if (!author) return 'Unknown';
   if (typeof author === 'string') return author;
-  return h('span.user-link.ulpt', { attrs: { 'data-href': '/@/' + author.id } }, author.name);
+  return h('span.user-link.ulpt', { attrs: { 'data-href': profileUrl(author.id) } }, author.name);
 }
 
 export const isAuthorObj = (author: Author): author is AuthorObj => typeof author === 'object';
@@ -26,29 +28,33 @@ export const authorText = (author?: Author): string =>
   !author ? 'Unknown' : typeof author === 'string' ? author : author.name;
 
 export function currentComments(ctrl: AnalyseCtrl, includingMine: boolean): VNode | undefined {
-  if (!ctrl.node.comments) return;
+  if (!ctrl.node.comments) return undefined;
   const node = ctrl.node,
     study: StudyCtrl = ctrl.study!,
     chapter = study.currentChapter(),
     comments = node.comments!;
-  if (!comments.length) return;
+  if (!comments.length) return undefined;
   return h(
     'div',
     comments.map(comment => {
       const by: Author = comment.by;
       const isMine = isAuthorObj(by) && by.id === ctrl.opts.userId;
-      if (!includingMine && isMine) return;
+      if (!includingMine && isMine) return undefined;
       return h('div.study__comment.' + comment.id, [
         study.members.canContribute() && study.vm.mode.write
-          ? h('a.edit', {
-              attrs: { 'data-icon': licon.Trash, title: 'Delete' },
-              hook: bind('click', async () => {
-                if (await confirm('Delete ' + authorText(by) + "'s comment?")) {
-                  study.commentForm.delete(chapter.id, ctrl.path, comment.id);
-                  ctrl.redraw();
-                }
-              }),
-            })
+          ? h(
+              'a.edit',
+              {
+                attrs: { 'aria-label': 'Delete', title: 'Delete' },
+                hook: bind('click', async () => {
+                  if (await confirm('Delete ' + authorText(by) + "'s comment?")) {
+                    study.commentForm.delete(chapter.id, ctrl.path, comment.id);
+                    ctrl.redraw();
+                  }
+                }),
+              },
+              [snabIcon(icons.Trash)],
+            )
           : null,
         authorDom(by),
         ...(node.san ? [' on ', h('span.node', nodeFullName(node))] : []),

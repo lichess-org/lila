@@ -5,8 +5,8 @@ import { renderChat } from 'lib/chat/renderChat';
 import { displayColumns } from 'lib/device';
 import { playable } from 'lib/game';
 import * as router from 'lib/game/router';
-import { licon } from 'lib/licon';
-import { type VNode, onInsert, hl } from 'lib/view';
+import { icons } from 'lib/icons';
+import { type VNode, onInsert, hl, snabIcon } from 'lib/view';
 import { watchers } from 'lib/view/watchers';
 
 import crazyView from '@/crazy/crazyView';
@@ -52,7 +52,7 @@ function analyseView(ctrl: AnalyseCtrl, deps?: typeof studyDeps): VNode {
     crazyView(ctrl, ctrl.bottomColor(), 'bottom'),
     renderControls(ctrl),
     renderUnderboard(ctx),
-    ctrl.keyboardMove && renderKeyboardMove(ctrl.keyboardMove),
+    ctrl.data.pref.keyboardMove && renderKeyboardMove(ctrl.keyboardMove),
     trainingView(ctrl),
     hl(
       'aside.analyse__side',
@@ -75,10 +75,9 @@ function analyseView(ctrl: AnalyseCtrl, deps?: typeof studyDeps): VNode {
               {
                 attrs: {
                   href: router.game(ctrl.data, ctrl.data.player.color),
-                  'data-icon': licon.Back,
                 },
               },
-              i18n.site.backToGame,
+              [snabIcon(icons.Back), i18n.site.backToGame],
             ),
           ),
       ],

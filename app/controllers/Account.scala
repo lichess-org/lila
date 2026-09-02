@@ -23,40 +23,46 @@ final class Account(
 
   private given (using Context): Option[ValidReferrer] = env.web.referrerRedirect.fromReq
 
-  def profile = Auth { _ ?=> me ?=>
-    Ok.page:
-      pages.profile(me, env.user.forms.profileOf(me))
-  }
-
   def username = Auth { _ ?=> me ?=>
     Ok.page:
       pages.username(me, env.user.forms.usernameOf(me))
   }
 
-  def profileApply = AuthOrScopedBody(_.Web.Mobile) { _ ?=> me ?=>
-    bindForm(env.user.forms.profile)(
-      err =>
-        negotiate(
-          BadRequest.page(pages.profile(me, err)),
-          jsonFormError(err)
-        ),
-      profile =>
-        for
-          _ <- profile.bio
-            .exists(env.security.spam.detect)
-            .option("profile.bio" -> ~profile.bio)
-            .orElse:
-              profile.links.exists(env.security.spam.detect).option("profile.links" -> ~profile.links)
-            .so: (resource, text) =>
-              env.report.api.autoCommFlag(lila.report.Suspect(me).id, resource, text)
-          _ <- env.user.repo.setProfile(me, profile)
-          flairForm = env.user.forms.flair(asMod = isGranted(_.LichessTeam))
-          _ <- bindForm(flairForm)(_ => funit, env.user.repo.setFlair(me, _))
-        yield
-          env.user.lightUserApi.invalidate(me)
-          Redirect(routes.User.show(me.username)).flashSuccess
-    )
+  def profile = Auth { _ ?=> me ?=>
+    Ok.async:
+      profileForm(me).map: (form, realName) =>
+        pages.profile(me, form, realName.isDefined)
   }
+
+  def profileApply = AuthOrScopedBody(_.Web.Mobile) { _ ?=> me ?=>
+    profileForm(me).flatMap: (form, realName) =>
+      bindForm(form)(
+        err =>
+          negotiate(
+            BadRequest.page(pages.profile(me, err, realName.isDefined)),
+            jsonFormError(err)
+          ),
+        profile =>
+          for
+            _ <- profile.bio
+              .exists(env.security.spam.detect)
+              .option("profile.bio" -> ~profile.bio)
+              .orElse:
+                profile.links.exists(env.security.spam.detect).option("profile.links" -> ~profile.links)
+              .so: (resource, text) =>
+                env.report.api.autoCommFlag(lila.report.Suspect(me).id, resource, text)
+            _ <- env.user.repo.setProfile(me, profile)
+            flairForm = env.user.forms.flair(asMod = isGranted(_.LichessTeam))
+            _ <- bindForm(flairForm)(_ => funit, env.user.repo.setFlair(me, _))
+          yield
+            env.user.lightUserApi.invalidate(me)
+            Redirect(routes.User.show(me.username)).flashSuccess
+      )
+  }
+
+  private def profileForm(me: Me) =
+    for realName <- env.title.api.publicTitle.realName(me.light)
+    yield (env.user.forms.profileOf(me, realName), realName)
 
   def usernameApply = AuthBody { _ ?=> me ?=>
     FormFuResult(env.user.forms.username(me))(err => renderPage(pages.username(me, err))): username =>
@@ -128,18 +134,6 @@ final class Account(
         "nowPlaying" -> JsArray(povs),
         "nbMyTurn" -> all.value.count(_.isMyTurn)
       )
-
-  def dasher = Auth { _ ?=> me ?=>
-    negotiateJson:
-      env.pref.api
-        .get(me)
-        .map: prefs =>
-          Ok:
-            lila.common.Json.lightUser.write(me.light) ++ Json.obj(
-              "coach" -> isGranted(_.Coach),
-              "prefs" -> lila.pref.toJson(prefs, lichobileCompat = false)
-            )
-  }
 
   def passwd = Auth { _ ?=> me ?=>
     env.security.forms.passwdChange.flatMap: form =>
@@ -380,7 +374,7 @@ final class Account(
                 env.security.reopen
                   .prepare(data.username, data.email, env.mod.logApi.closedByMod)
                   .flatMap: user =>
-                    env.security.loginToken.rateLimit[Result](user, data.email, ctx.req, rateLimited):
+                    env.security.loginToken.rateLimit[Result](data.email.normalize, rateLimited):
                       lila.mon.user.auth.reopenRequest("success").increment()
                       env.security.reopen
                         .send(user, data.email)
