@@ -64,6 +64,7 @@ Speel snel en ga terug naar de toernooilobby om meer partijen te spelen en meer 
   <string name="editTournament">Bewerk toernooi</string>
   <string name="editTeamBattle">Bewerk toernooi</string>
   <string name="defender">Verdediger</string>
+  <string name="defenderLabel" comment="In this context, this is the current holder of a shield trophy, who is defending their trophy in the next shield tournament of that variant. https://lichess.org/tournament/shields Replaces old string defender">Verdediger:</string>
   <string name="pickYourTeam">Kies je team</string>
   <string name="whichTeamWillYouRepresentInThisBattle">Welk team vertegenwoordig jij in dit toernooi?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">Je moet lid worden van één van deze teams om deel te kunnen nemen!</string>

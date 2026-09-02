@@ -296,6 +296,7 @@
   <string name="ok">بسیار خب</string>
   <string name="cancel">لغو</string>
   <string name="whiteTimeOut">زمان سفید تمام شد</string>
+  <string name="whiteRanOutOfTime" comment="whiteTimeOut&#10;&#10;Shows when White's time has run out. Is followed by the end condition, for example&#10;'White ran out of time · Draw' Replaces old string whiteTimeOut">سفید تایمش افتاد</string>
   <string name="blackTimeOut">زمان سیاه تمام شد</string>
   <string name="drawOfferSent">پیشنهاد تساوی ارسال شد</string>
   <string name="drawOfferAccepted">پیشنهاد تساوی پذیرفته شد</string>

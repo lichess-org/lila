@@ -21,7 +21,7 @@
   <string name="asALastResort">Como último recurso, configura el tablero idénticamente a cómo está en Lichess, luego %s</string>
   <string name="reloadThisPage">Recargar esta página</string>
   <string name="dgtConfigure">DGT - Configurar</string>
-  <string name="configureYourDgtBoard" comment="Replaces old string dgtConfigure">Configurar tu tablero DGT</string>
+  <string name="configureYourDgtBoard" comment="Replaces old string dgtConfigure">Configura tu tablero DGT</string>
   <string name="lichessConnectivity">Conectividad con Lichess</string>
   <string name="validDgtOauthToken">Tienes un token de OAuth adecuado para jugar con DGT.</string>
   <string name="dgtPlayMenuEntryAdded">La entrada %s fue añadida al menú JUGAR en la parte superior.</string>

@@ -296,7 +296,9 @@
   <string name="ok">OK</string>
   <string name="cancel">Peruuta</string>
   <string name="whiteTimeOut">Valkealta loppui aika</string>
+  <string name="whiteRanOutOfTime" comment="whiteTimeOut&#10;&#10;Shows when White's time has run out. Is followed by the end condition, for example&#10;'White ran out of time · Draw' Replaces old string whiteTimeOut">Valkealta loppui aika</string>
   <string name="blackTimeOut">Mustalta loppui aika</string>
+  <string name="blackRanOutOfTime" comment="blackTimeOut&#10;&#10;Shows when Black's time has run out. Is followed by the end condition, for example&#10;'Black ran out of time · Draw' Replaces old string blackTimeOut">Mustalta loppui aika</string>
   <string name="drawOfferSent">Tasapeliehdotus lähetetty</string>
   <string name="drawOfferAccepted">Tasapeliehdotus hyväksytty</string>
   <string name="whiteOffersDraw">Valkea ehdottaa tasapeliä</string>
@@ -418,6 +420,7 @@
   </plurals>
   <string name="yourPerfRatingIsProvisional">Vahvuuslukusi %s on tilapäinen</string>
   <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Vahvuuslukusuodatin ei ole käytettävissäsi, koska vahvuuslukusi ei ole vakaa. Voit vakauttaa sitä pelaamalla pisteytettyjä pelejä.</string>
+  <string name="cannotFilterByUnstableRating" comment="Tooltip to explain why the control for filtering by rating is disabled Replaces old string ratingRangeIsDisabledBecauseYourRatingIsProvisional">Et voi tällä hetkellä suodattaa vahvuusluvun perusteella, sillä oma vahvuuslukusi ei ole vakaa. Voit vakauttaa sitä pelaamalla pisteytettyjä pelejä.</string>
   <string name="yourPerfRatingIsTooHigh">%1$s-vahvuuslukusi (%2$s) on liian suuri</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Viikon korkein %1$s-vahvuuslukusi (%2$s) on liian suuri</string>
   <string name="yourPerfRatingIsTooLow">%1$s-vahvuuslukusi (%2$s) ei riitä</string>
@@ -439,6 +442,7 @@
   <string name="save">Tallenna</string>
   <string name="leaderboard">Pistetaulukko</string>
   <string name="screenshotCurrentPosition">Ota tämänhetkisestä asemasta kuvakaappaus</string>
+  <string name="positionAsImage" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position. Replaces old string screenshotCurrentPosition">Asema kuvana</string>
   <string name="gameAsGIF">Tallenna peli GIF:nä</string>
   <string name="playerNames">Pelaajien nimet</string>
   <string name="moveAnnotations">Siirtokommentit</string>
@@ -862,6 +866,7 @@
   <string name="notifications">Ilmoitukset</string>
   <string name="notificationsX">Ilmoitukset: %1$s</string>
   <string name="perfRatingX">Vahvuusluku: %s</string>
+  <string name="perfRatingLabel" comment="Replaces old string perfRatingX">Vahvuusluku: %s.</string>
   <string name="yourRatingIsX">Vahvuuslukusi on %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekuntia aikaa pelata ensimmäinen siirto</item>
@@ -921,6 +926,7 @@
   </plurals>
   <string name="showUnreadLichessMessage">Olet saanut henkilökohtaisen viestin Lichessiltä.</string>
   <string name="clickHereToReadIt">Lue se napsauttamalla tästä</string>
+  <string name="readTheMessage" comment="'It' refers to a private message. This text follows after a different string which advises players they have received a private message from Lichess. For users, this is appears as a regular private message from the Lichess account: https://lichess.org/@/Lichess Replaces old string clickHereToReadIt">Lue viesti</string>
   <string name="sorry">Pahoittelumme :(</string>
   <string name="weHadToTimeYouOutForAWhile">Meidän täytyi komentaa sinut jäähylle hetkeksi.</string>
   <string name="why">Miksi?</string>
