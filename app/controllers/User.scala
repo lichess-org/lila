@@ -574,7 +574,7 @@ final class User(
                 case (_, Some(swissId), _) =>
                   env.swiss.api.searchPlayers(SwissId(swissId), term, 10)
                 case (_, _, Some(teamId)) =>
-                  val showHidden = ctx.webAuthOrScope(_.Team.Read)
+                  val showHidden = ctx.fullAuthOrScope(_.Team.Read)
                   env.team.api.searchMembersAs(TeamId(teamId), term, 10, showHidden)
                 case _ =>
                   ctx.me.ifTrue(getBool("friend")) match

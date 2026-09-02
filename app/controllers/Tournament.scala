@@ -52,7 +52,7 @@ final class Tournament(env: Env, apiC: => Api)(using org.apache.pekko.stream.Mat
     yield Ok(page)
 
   private[controllers] def canHaveChat(tour: Tour, json: Option[JsObject])(using ctx: Context): Boolean =
-    val authorizedMe = ctx.webAuthOrScope(_.Tournament.Read).so(ctx.me)
+    val authorizedMe = ctx.fullAuthOrScope(_.Tournament.Read).so(ctx.me)
     tour.hasChat && ctx.kid.no && ctx.noBot && // no public chats for kids
     // anon can see public chats, except for private tournaments
     authorizedMe.fold(!tour.isPrivate && ctx.req.client.isHuman): me =>

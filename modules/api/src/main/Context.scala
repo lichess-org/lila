@@ -51,7 +51,7 @@ class Context(
   def kid = KidMode(HTTPRequest.isKid(req) || loginContext.user.exists(_.kid.yes))
   def withLang(l: Lang) = new Context(req, l, loginContext, pref)
   def updatePref(f: Update[Pref]) = new Context(req, lang, loginContext, f(pref))
-  def webAuthOrScope(s: OAuthScope.Selector) = isWebAuth || scopes.has(s)
+  def fullAuthOrScope(s: OAuthScope.Selector) = isWebAuth || isMobileOauth || scopes.has(s)
   lazy val translate = Translate(lila.i18n.Translator, lang)
 
 object Context:
