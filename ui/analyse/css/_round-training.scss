@@ -20,9 +20,8 @@
   font-size: 0.9em;
 
   &__player {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    @extend %flex-center-center;
+
     font-weight: bold;
     margin-bottom: 0.5em;
   }
