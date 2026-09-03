@@ -90,12 +90,15 @@ $user-list-width: 35ch;
 }
 
 .tournament-categ-shields {
-  font-size: 1.1em;
-
   .shield-trophy {
     @include inline-start(calc($box-padding - 10px));
 
     transform: scale(0.7);
+
+    .svg-icon {
+      margin-top: 24px;
+      transform: scale(1.2);
+    }
   }
 
   li {
