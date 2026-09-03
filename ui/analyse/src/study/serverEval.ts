@@ -83,7 +83,7 @@ function requestButton(ctrl: ServerEval) {
                 attrs: { disabled: root.mainline.length < 5 },
                 hook: bind('click', ctrl.request, root.redraw),
               },
-              [snabIcon('BarChart'), i18n.site.requestAComputerAnalysis],
+              [snabIcon('barChart'), i18n.site.requestAComputerAnalysis],
             ),
           ],
   );

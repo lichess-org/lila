@@ -18,7 +18,7 @@ final class StreamerBits(helpers: Helpers)(picfitUrl: lila.memo.PicfitUrl):
       br,
       br,
       p(style := "text-align: center")(
-        submitButton(cls := "button button-fat text", iconEl := Icon.Mic)(trans.streamer.hereWeGo())
+        submitButton(cls := "button button-fat text", iconEl := Icon.mic)(trans.streamer.hereWeGo())
       )
     )
 
@@ -123,7 +123,7 @@ final class StreamerBits(helpers: Helpers)(picfitUrl: lila.memo.PicfitUrl):
           )("Approval requests")
         ),
       a(
-        iconEl := Icon.InfoCircle,
+        iconEl := Icon.infoCircle,
         cls := "text",
         href := "/blog/Wk5z0R8AACMf6ZwN/join-the-lichess-streamer-community"
       )(
@@ -139,7 +139,7 @@ final class StreamerBits(helpers: Helpers)(picfitUrl: lila.memo.PicfitUrl):
     st.section(cls := "lobby__streams")(
       l.live.streams.map: s =>
         redirectLink(s.streamer.id.into(UserStr))(cls := "stream highlight")(
-          strong(cls := "text", iconEl := Icon.Mic)(l.titleName(s)),
+          strong(cls := "text", iconEl := Icon.mic)(l.titleName(s)),
           " ",
           s.cleanStatus
         ),
@@ -156,7 +156,7 @@ final class StreamerBits(helpers: Helpers)(picfitUrl: lila.memo.PicfitUrl):
       div(cls := "context-streamers")(streamers.map(contextual))
 
   def contextual(userId: UserId)(using Translate): Tag =
-    redirectLink(userId)(cls := "context-streamer text", iconEl := Icon.Mic):
+    redirectLink(userId)(cls := "context-streamer text", iconEl := Icon.mic):
       trs.xIsStreaming(strong(titleNameOrId(userId)))
 
   def rules(using Translate) =
@@ -183,7 +183,7 @@ final class StreamerBits(helpers: Helpers)(picfitUrl: lila.memo.PicfitUrl):
 
   def streamerTitle(s: Streamer.WithContext) =
     span(cls := "streamer-title")(
-      h1(iconEl := Icon.Mic)(titleTag(s.user.title), s.streamer.name),
+      h1(iconEl := Icon.mic)(titleTag(s.user.title), s.streamer.name),
       s.streamer.lastStreamLang.map: language =>
         span(cls := "streamer-lang")(langList.nameByLanguage(language))
     )

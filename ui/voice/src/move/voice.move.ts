@@ -545,11 +545,11 @@ export function initModule({
       no: { action: () => command?.action?.(false), key: 'no' },
     });
     return command?.key === 'resign'
-      ? mkOpts('Confirm resignation', 'FlagOutline')
+      ? mkOpts('Confirm resignation', 'flagOutline')
       : command?.key === 'draw'
-        ? mkOpts('Confirm draw offer', 'OneHalf')
+        ? mkOpts('Confirm draw offer', 'oneHalf')
         : command?.key === 'takeback'
-          ? mkOpts('Confirm takeback request', 'Back')
+          ? mkOpts('Confirm takeback request', 'back')
           : false;
   }
 

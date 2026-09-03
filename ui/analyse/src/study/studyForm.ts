@@ -230,10 +230,10 @@ export function view(ctrl: StudyForm): VNode {
             href: `/broadcast/${ctrl.relay.data.tour.id}/edit`,
           },
         },
-        [snabIcon('RadioTower'), 'Tournament settings'],
+        [snabIcon('radioTower'), 'Tournament settings'],
       ),
       hl('a.text', { attrs: { href: `/broadcast/round/${data.id}/edit` } }, [
-        snabIcon('RadioTower'),
+        snabIcon('radioTower'),
         'Round settings',
       ]),
     ]);

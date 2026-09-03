@@ -10,7 +10,7 @@ export class LinksCtrl extends PaneCtrl {
     return hl('div', [
       this.userLinks(),
       hl('div.subs', [
-        this.modeButton('langs', i18n.site.language, 'Language'),
+        this.modeButton('langs', i18n.site.language, 'language'),
         this.modeButton('sound', i18n.site.sound),
         this.modeButton('theme', i18n.site.theme),
         this.modeButton('board', i18n.site.board),
@@ -23,7 +23,7 @@ export class LinksCtrl extends PaneCtrl {
                 attrs: { title: 'Keyboard: z', type: 'button' },
                 hook: bind('click', () => pubsub.emit('zen')),
               },
-              [snabIcon('DiscBigOutline'), i18n.preferences.zenMode],
+              [snabIcon('discBigOutline'), i18n.preferences.zenMode],
             ),
           ]),
       ]),
@@ -44,21 +44,21 @@ export class LinksCtrl extends PaneCtrl {
             i18n.site.profile,
           ]),
 
-          this.link('/inbox', 'Envelope', i18n.site.inbox),
+          this.link('/inbox', 'envelope', i18n.site.inbox),
 
           this.link(
             '/account/profile',
-            'Gear',
+            'gear',
             i18n.preferences.preferences,
             this.root.opts.playing ? { target: '_blank' } : undefined,
           ),
 
-          d.coach && this.link('/coach/edit', 'GraduateCap', i18n.site.coachManager),
+          d.coach && this.link('/coach/edit', 'graduateCap', i18n.site.coachManager),
 
-          d.streamer && this.link('/streamer/edit', 'Mic', i18n.site.streamerManager),
+          d.streamer && this.link('/streamer/edit', 'mic', i18n.site.streamerManager),
 
           hl('form.logout', { attrs: { method: 'post', action: '/logout' } }, [
-            hl('button', { attrs: { type: 'submit' } }, [snabIcon('Power'), i18n.site.logOut]),
+            hl('button', { attrs: { type: 'submit' } }, [snabIcon('power'), i18n.site.logOut]),
           ]),
         ])
       : null;
@@ -68,7 +68,7 @@ export class LinksCtrl extends PaneCtrl {
     hl('button.sub', { hook: bind('click', () => this.root.setMode(mode)), attrs: { type: 'button' } }, [
       icon && snabIcon(icon),
       label,
-      snabIcon('GreaterThan'),
+      snabIcon('greaterThan'),
     ]);
 
   private readonly link = (href: string, icon: Icon, label: string, more?: Attrs) =>

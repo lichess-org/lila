@@ -21,7 +21,7 @@ final class AuthorizeUi(helpers: Helpers)(
     val otherUserRequested = prompt.userId.filterNot(me.is(_)).map(lightUserFallback)
     val cssClass = customUi.map(_.cssClass)
     val logo = customUi.map(customLogo) |
-      iconEl(Icon.Logo)(alt := "lichess logo", cls := "oauth__logo--font")
+      iconEl(Icon.logo)(alt := "lichess logo", cls := "oauth__logo--font")
     Page(signedClient.fold("Authorization")(c => s"Allow ${c.displayName}"))
       .css("bits.oauth")
       .js(Esm("bits.oauth"))
@@ -72,7 +72,7 @@ final class AuthorizeUi(helpers: Helpers)(
                       "disabled" -> signedClient.isEmpty,
                       "auto-click" -> autoClick
                     ),
-                    iconEl := danger.option(Icon.CautionTriangle),
+                    iconEl := danger.option(Icon.cautionTriangle),
                     signedClient.isEmpty.option(disabled),
                     title := s"The website ${prompt.redirectUri.host | prompt.redirectUri.withoutQuery} will get access to your Lichess account. Continue?"
                   ):

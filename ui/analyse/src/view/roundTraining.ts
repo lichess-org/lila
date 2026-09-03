@@ -107,7 +107,7 @@ const doRender = (ctrl: AnalyseCtrl): VNode => {
               class: { active: !!ctrl.retro },
               hook: bind('click', ctrl.toggleRetro, ctrl.redraw),
             },
-            [snabIcon('PlayTriangle'), i18n.site.learnFromYourMistakes],
+            [snabIcon('playTriangle'), i18n.site.learnFromYourMistakes],
           ),
       playerTable(ctrl, 'black'),
     ],
@@ -126,7 +126,7 @@ export function puzzleLink(ctrl: AnalyseCtrl): VNode | undefined {
           href: `/training/${puzzle.key}/${ctrl.bottomColor()}`,
         },
       },
-      [snabIcon('ArcheryTarget'), 'Recommended puzzle training', h('br'), puzzle.name],
+      [snabIcon('archeryTarget'), 'Recommended puzzle training', h('br'), puzzle.name],
     ),
   );
 }

@@ -65,7 +65,7 @@ final class FidePlayerUi(helpers: Helpers, fideUi: FideUi, picfitUrl: lila.memo.
         autocomplete := "off",
         spellcheck := "false"
       ),
-      submitButton(cls := "button", iconEl := Icon.Search)
+      submitButton(cls := "button", iconEl := Icon.search)
     )
 
   def playerList(

@@ -27,7 +27,7 @@ final class StudyBits(helpers: Helpers):
     postForm(cls := "new-study", action := routes.Study.create)(
       submitButton(
         cls := "button button-green",
-        iconEl := Icon.PlusButton,
+        iconEl := Icon.plusButton,
         title := trans.study.createStudy.txt()
       )
     )
@@ -59,18 +59,18 @@ final class StudyBits(helpers: Helpers):
         div(cls := "study__icon")(
           s.study.flair
             .map(iconFlair)
-            .getOrElse(iconEl(Icon.StudyBoard))
+            .getOrElse(iconEl(Icon.studyBoard))
         ),
         div(
           tag(cls := "study-name")(s.study.name),
           span(cls := "study-meta")(
             (!s.study.isPublic).option(
               frag(
-                iconEl(Icon.Padlock)(cls := "private", ariaTitle(trans.study.`private`.txt())),
+                iconEl(Icon.padlock)(cls := "private", ariaTitle(trans.study.`private`.txt())),
                 " "
               )
             ),
-            iconEl(if s.liked then Icon.Heart else Icon.HeartOutline),
+            iconEl(if s.liked then Icon.heart else Icon.heartOutline),
             " ",
             s.study.likes.value,
             " • ",
@@ -83,7 +83,7 @@ final class StudyBits(helpers: Helpers):
       div(cls := "body")(
         ol(cls := "chapters")(
           s.chapters.map: name =>
-            li(cls := "text", iconEl := Icon.DiscBigOutline)(
+            li(cls := "text", iconEl := Icon.discBigOutline)(
               if ctx.userId.exists(s.study.isMember) then name
               else removeMultibyteSymbols(name.value)
             )
@@ -92,7 +92,7 @@ final class StudyBits(helpers: Helpers):
           s.study.members.members.values
             .take(Study.previewNbMembers)
             .map: m =>
-              li(cls := "text", iconEl := (if m.canContribute then Icon.RadioTower else Icon.Eye))(
+              li(cls := "text", iconEl := (if m.canContribute then Icon.radioTower else Icon.eye))(
                 titleNameOrId(m.id)
               )
             .toList
@@ -104,6 +104,6 @@ final class StudyBits(helpers: Helpers):
     postForm(cls := "study-unfeature", action := s"${routes.Study.admin(s.study.id)}?unfeature=1"):
       submitButton(
         cls := "button button-red button-empty yes-no-confirm",
-        iconEl := Icon.Trash,
+        iconEl := Icon.trash,
         title := "Unfeature trash study"
       )

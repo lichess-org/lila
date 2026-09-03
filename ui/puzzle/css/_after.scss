@@ -89,7 +89,7 @@
     padding: 0.8em 1.3em;
 
     &::before {
-      @include icon-mask($icon-ThumbsUp);
+      @include icon-mask($icon-thumbsUp);
     }
 
     &.vote-down {

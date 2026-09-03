@@ -50,7 +50,7 @@ export function initModule(): StudyTour {
       },
       {
         title: i18n.study.studyMembersTitle,
-        text: i18n.study.studyMembersText(iconI18nTag('Eye'), iconI18nTag('User')),
+        text: i18n.study.studyMembersText(iconI18nTag('eye'), iconI18nTag('user')),
         attachTo: { element: '.study__members', on: 'right' },
         when: onTab('members'),
       },
@@ -59,7 +59,7 @@ export function initModule(): StudyTour {
     if (ctrl.study?.members.isOwner()) {
       steps.push({
         title: i18n.study.addMembers,
-        text: i18n.study.addMembersText(iconI18nTag('PlusButton')),
+        text: i18n.study.addMembersText(iconI18nTag('plusButton')),
         attachTo: { element: '.study__members .add', on: 'right' },
         when: onTab('members'),
       });
@@ -76,7 +76,7 @@ export function initModule(): StudyTour {
       steps.push(
         {
           title: i18n.study.commentPositionTitle,
-          text: i18n.study.commentPositionText(iconI18nTag('BubbleSpeech')),
+          text: i18n.study.commentPositionText(iconI18nTag('bubbleSpeech')),
           attachTo: { element: '.study__buttons .left-buttons .comments', on: 'top' },
         },
         {
@@ -93,7 +93,7 @@ export function initModule(): StudyTour {
       attachTo: { element: helpButtonSelector, on: 'top' },
       buttons: [
         {
-          text: iconI18nTag('Checkmark'),
+          text: iconI18nTag('checkmark'),
           action: tourCtrl.tour.next,
         },
       ],
@@ -158,7 +158,7 @@ export function initModule(): StudyTour {
         text: i18n.study.chapterConclusionText,
         buttons: [
           {
-            text: iconI18nTag('Checkmark'),
+            text: iconI18nTag('checkmark'),
             action: tourCtrl.tour.next,
           },
         ],

@@ -103,5 +103,5 @@ final class JsonView(
 
   private def iconOf(c: Challenge): Icon =
     if c.variant == chess.variant.FromPosition
-    then Icon.Feather
+    then Icon.feather
     else c.perfType.icon

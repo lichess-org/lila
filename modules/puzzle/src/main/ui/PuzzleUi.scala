@@ -96,7 +96,7 @@ final class PuzzleUi(helpers: Helpers, val bits: PuzzleBits)(
         )
 
   private def themeInfo(using Context) =
-    p(cls := "puzzle-themes__db text", iconEl := Icon.Heart):
+    p(cls := "puzzle-themes__db text", iconEl := Icon.heart):
       trans.puzzleTheme.puzzleDownloadInformation:
         a(href := "https://database.lichess.org/")("database.lichess.org")
 
@@ -156,9 +156,9 @@ final class PuzzleUi(helpers: Helpers, val bits: PuzzleBits)(
               mine.isEmpty.option(
                 frag(
                   p(cls := "help help-touchscreen")(
-                    iconEl(Icon.InfoCircle, trans.puzzle.useFindInPage())
+                    iconEl(Icon.infoCircle, trans.puzzle.useFindInPage())
                   ),
-                  p(cls := "help help-keyboard")(iconEl(Icon.InfoCircle, trans.puzzle.useCtrlF()))
+                  p(cls := "help help-keyboard")(iconEl(Icon.infoCircle, trans.puzzle.useCtrlF()))
                 )
               ),
               div(cls := "puzzle-themes")(

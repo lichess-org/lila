@@ -84,11 +84,11 @@ function inButtons(ctrl: ChallengeCtrl, c: Challenge): VNode[] {
           },
           hook: onClick(ctrl.onRedirect),
         },
-        [snabIcon('Checkmark')],
+        [snabIcon('checkmark')],
       ),
     ]);
   const viewElement = () =>
-    h('a.view', { attrs: { href: '/' + c.id, title: i18n.site.viewInFullSize } }, [snabIcon('Eye')]);
+    h('a.view', { attrs: { href: '/' + c.id, title: i18n.site.viewInFullSize } }, [snabIcon('eye')]);
 
   return [
     viewInsteadOfAccept ? viewElement() : acceptElement(),
@@ -98,7 +98,7 @@ function inButtons(ctrl: ChallengeCtrl, c: Challenge): VNode[] {
         attrs: { type: 'submit', title: i18n.site.decline },
         hook: onClick(() => ctrl.decline(c.id, 'generic')),
       },
-      [snabIcon('X')],
+      [snabIcon('x')],
     ),
     h(
       'select.decline-reason',
@@ -117,10 +117,10 @@ function inButtons(ctrl: ChallengeCtrl, c: Challenge): VNode[] {
 const outButtons = (ctrl: ChallengeCtrl, c: Challenge) => [
   h('div.owner', [
     h('span.waiting', i18n.site.waiting),
-    h('a.view', { attrs: { href: '/' + c.id, title: i18n.site.viewInFullSize } }, [snabIcon('Eye')]),
+    h('a.view', { attrs: { href: '/' + c.id, title: i18n.site.viewInFullSize } }, [snabIcon('eye')]),
   ]),
   h('button.button.decline', { attrs: { title: i18n.site.cancel }, hook: onClick(() => ctrl.cancel(c.id)) }, [
-    snabIcon('X'),
+    snabIcon('x'),
   ]),
 ];
 
@@ -146,7 +146,7 @@ const renderLag = (u?: ChallengeUser) =>
   u &&
   h('signal', u.lag === undefined ? [] : [1, 2, 3, 4].map(i => h('icon', { class: { off: u.lag! < i } })));
 
-const empty = (): VNode => h('div.empty.text', [snabIcon('InfoCircle'), i18n.site.noChallenges]);
+const empty = (): VNode => h('div.empty.text', [snabIcon('infoCircle'), i18n.site.noChallenges]);
 
 const onClick = (f: (e: Event) => void) =>
   onInsert<HTMLElement>(elem => {

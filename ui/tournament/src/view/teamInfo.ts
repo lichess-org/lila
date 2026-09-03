@@ -22,7 +22,7 @@ export default function (ctrl: TournamentController): VNode | undefined {
   };
   return h(tag, { hook: { insert: setup, postpatch: (_, vnode) => setup(vnode) } }, [
     h('button.close', { hook: bind('click', () => ctrl.showTeamInfo(data.id), ctrl.redraw) }, [
-      snabIcon('X'),
+      snabIcon('x'),
     ]),
     h('div.stats', [
       h('h2', h('a', { attrs: { href: `/team/${data.id}` } }, teamTag)),
@@ -62,7 +62,7 @@ export default function (ctrl: TournamentController): VNode | undefined {
             h('td', renderPlayer(p, false, ctrl.opts.showRatings, false, i < nbLeaders)),
             h('td.total', [
               p.fire && !ctrl.data.isFinished
-                ? h('strong.is-gold', [snabIcon('Fire'), p.score])
+                ? h('strong.is-gold', [snabIcon('fire'), p.score])
                 : h('strong', p.score),
             ]),
           ]),

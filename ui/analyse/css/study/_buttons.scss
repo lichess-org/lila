@@ -43,14 +43,14 @@ $c-study-button: $c-accent;
     opacity: 0.8;
 
     icon::before {
-      @include icon-mask($icon-X, 1.2em);
+      @include icon-mask($icon-x, 1.2em);
 
       color: $c-bad;
       margin-inline-end: 0.2rem;
     }
 
     &.on icon::before {
-      @include icon-mask($icon-Checkmark);
+      @include icon-mask($icon-checkmark);
 
       color: $c-good;
     }

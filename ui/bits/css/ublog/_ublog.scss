@@ -115,13 +115,13 @@
   }
 
   .descending::after {
-    @include icon-mask($icon-DownTriangle);
+    @include icon-mask($icon-downTriangle);
 
     margin-inline-start: 1ch;
   }
 
   .ascending::after {
-    @include icon-mask($icon-UpTriangle);
+    @include icon-mask($icon-upTriangle);
 
     margin-inline-start: 1ch;
   }

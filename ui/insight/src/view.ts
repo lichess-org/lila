@@ -47,7 +47,7 @@ const renderMain = (ctrl: Ctrl, _cacheKey: string | boolean) => {
     return hl('div'); // returning undefined breaks snabbdom's thunks
   } else if (ctrl.vm.broken) {
     return hl('div.broken', [
-      icon('DiscBig')(),
+      icon('discBig')(),
       'Insights are unavailable.',
       hl('br'),
       'Please try again later.',
@@ -71,9 +71,9 @@ const viewTabData = (ctrl: Ctrl, view: ViewTab) => ({
 function header(ctrl: Ctrl) {
   return hl('header', widthStyle(mainW()), [
     isAtLeastXSmall(mainW())
-      ? hl('h2.text', [snabIcon('Target'), 'Chess Insights'])
+      ? hl('h2.text', [snabIcon('target'), 'Chess Insights'])
       : isAtLeastXXSmall(mainW())
-        ? hl('h2.text', [snabIcon('Target'), 'Insights'])
+        ? hl('h2.text', [snabIcon('target'), 'Insights'])
         : mainW() >= 460 && hl('h2.text', 'Insights'),
     axis(ctrl, mainW() < 460 ? { attrs: { style: 'justify-content: space-evenly;' } } : null),
   ]);
@@ -129,7 +129,7 @@ function clearBtn(ctrl: Ctrl) {
     hl(
       'a.clear',
       { attrs: { title: 'Clear all filters' }, hook: bind('click', ctrl.clearFilters.bind(ctrl)) },
-      [snabIcon('X'), isLandscapeLayout() ? 'CLEAR' : 'CLEAR FILTERS'],
+      [snabIcon('x'), isLandscapeLayout() ? 'CLEAR' : 'CLEAR FILTERS'],
     );
   return isLandscapeLayout() ? btn() : hl('div.center-clear', btn());
 }

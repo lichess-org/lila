@@ -45,7 +45,7 @@ const mapView = (ctrl: LearnCtrl) =>
     ]),
   ]);
 
-const makeStars = (rank: scoring.Rank): VNode[] => Array(4 - rank).fill(icon('Star')());
+const makeStars = (rank: scoring.Rank): VNode[] => Array(4 - rank).fill(icon('star')());
 
 const ongoingStr = (ctrl: LearnCtrl, s: Stage): string => {
   const progress = ctrl.stageProgress(s);

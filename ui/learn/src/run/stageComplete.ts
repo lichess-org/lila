@@ -48,11 +48,11 @@ export default function (ctrl: RunCtrl) {
         next
           ? h('button.button', { hook: bind('click', () => hashNavigate(next.id)) }, [
               i18n.learn.nextX(next.title),
-              icon('GreaterThan')(),
+              icon('greaterThan')(),
             ])
           : null,
         h(`button.button.button-empty`, { hook: bind('click', () => hashNavigate()) }, [
-          icon('LessThan')(),
+          icon('lessThan')(),
           i18n.learn.backToMenu,
         ]),
       ]),

@@ -20,9 +20,15 @@
   font-size: 0.9em;
 
   &__player {
-    text-align: center;
+    @extend %flex-center-center;
+
     font-weight: bold;
     margin-bottom: 0.5em;
+  }
+
+  .user-link,
+  &__player {
+    gap: 1ch;
   }
 
   &__sections {

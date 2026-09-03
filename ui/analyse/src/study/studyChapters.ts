@@ -227,7 +227,7 @@ export function view(ctrl: StudyCtrl): VNode {
                     },
                   },
                 },
-                snabIcon('Gear'),
+                snabIcon('gear'),
               ),
           ],
         );
@@ -246,7 +246,7 @@ export function view(ctrl: StudyCtrl): VNode {
             ctrl.redraw,
           ),
         },
-        [snabIcon('PlusButton'), hl('h3', i18n.study.addNewChapter)],
+        [snabIcon('plusButton'), hl('h3', i18n.study.addNewChapter)],
       ),
   ]);
 }

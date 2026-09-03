@@ -96,7 +96,7 @@
       position: absolute;
 
       &::before {
-        @include icon-mask($icon-Link);
+        @include icon-mask($icon-link);
 
         color: $c-font-dimmer;
         width: 1.75rem;

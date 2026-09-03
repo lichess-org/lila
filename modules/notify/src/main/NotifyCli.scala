@@ -16,7 +16,7 @@ final private class NotifyCli(api: NotifyApi, userRepo: UserRepo)(using Material
     case "notify" :: "url" :: "titled" :: url :: words =>
       notifyUrlTo(titledUserIds, url, words)
     case "notify" :: "url" :: "titled-arena" :: url :: words =>
-      notifyUrlTo(titledUserIds, url, words, Icon.Trophy)
+      notifyUrlTo(titledUserIds, url, words, Icon.trophy)
 
   private def titledUserIds =
     enabledTitledSource($id(true).some).mapConcat(_.getAsOpt[UserId]("_id").toList)
@@ -25,7 +25,7 @@ final private class NotifyCli(api: NotifyApi, userRepo: UserRepo)(using Material
       userIds: Source[UserId, ?],
       url: String,
       words: List[String],
-      icon: Icon = Icon.InfoCircle
+      icon: Icon = Icon.infoCircle
   ) =
     val title = words.takeWhile(_ != "|").mkString(" ").nonEmptyOption
     val text = words.dropWhile(_ != "|").drop(1).mkString(" ").nonEmptyOption

@@ -84,7 +84,7 @@ export function renderRemoveButton(cls = ''): Node {
   const button = frag<HTMLButtonElement>(
     `<button class="button button-empty button-red icon-btn ${cls}" type="button" data-action="remove" title="Remove" aria-label="Remove">`,
   );
-  button.append(domIcon('Cancel'));
+  button.append(domIcon('cancel'));
   return button;
 }
 

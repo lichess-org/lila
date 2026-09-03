@@ -41,11 +41,11 @@ final class StreamerEdit(helpers: Helpers, bits: StreamerBits):
               val requested = s.streamer.approval.requested
               val declined = s.streamer.approval.reason.nonEmpty
               val (clas, icon) = (granted, requested, declined) match
-                case (true, true, _) => ("status is-green", Icon.Search)
-                case (true, false, _) => ("status is-green", Icon.Checkmark)
-                case (false, true, _) => ("status is-gold", Icon.CautionTriangle)
-                case (false, false, true) => ("status is-red", Icon.X)
-                case (false, false, false) => ("status is", Icon.InfoCircle)
+                case (true, true, _) => ("status is-green", Icon.search)
+                case (true, false, _) => ("status is-green", Icon.checkmark)
+                case (false, true, _) => ("status is-gold", Icon.cautionTriangle)
+                case (false, false, true) => ("status is-red", Icon.x)
+                case (false, false, false) => ("status is", Icon.infoCircle)
               frag(
                 (ctx.is(s.user) && s.streamer.listed.value)
                   .option(
@@ -129,7 +129,7 @@ final class StreamerEdit(helpers: Helpers, bits: StreamerBits):
                               name := "approval.quick",
                               value := "approve"
                             ),
-                          form3.submit("Decline and next", icon = Icon.X.some)(
+                          form3.submit("Decline and next", icon = Icon.x.some)(
                             cls := "button-red",
                             name := "approval.quick",
                             value := "decline"

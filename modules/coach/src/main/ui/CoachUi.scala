@@ -97,8 +97,8 @@ final class CoachUi(helpers: Helpers)(
                 th(trc.availability()),
                 td:
                   if c.coach.available.yes
-                  then span(cls := "text", iconEl := Icon.Checkmark)(trc.accepting())
-                  else span(cls := "text", iconEl := Icon.X)(trc.notAccepting())
+                  then span(cls := "text", iconEl := Icon.checkmark)(trc.accepting())
+                  else span(cls := "text", iconEl := Icon.x)(trc.notAccepting())
               )
             ),
             c.user.seenAt.map: seen =>
@@ -142,14 +142,14 @@ final class CoachUi(helpers: Helpers)(
               frag(
                 if c.coach.listed.value then p("This page is now public.")
                 else "This page is not public yet. ",
-                a(href := routes.Coach.edit, cls := "text", iconEl := Icon.Pencil)(
+                a(href := routes.Coach.edit, cls := "text", iconEl := Icon.pencil)(
                   "Edit my coach profile"
                 )
               )
             else
               a(
                 cls := "text button button-empty",
-                iconEl := Icon.BubbleSpeech,
+                iconEl := Icon.bubbleSpeech,
                 href := s"${routes.Msg.convo(c.user.username)}"
               )(trc.sendPM())
           ),

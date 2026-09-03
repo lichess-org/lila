@@ -42,7 +42,7 @@ final class TitleModUi(helpers: Helpers)(ui: TitleUi)(using NetDomain):
                 cls := "button button-empty mod-zone-toggle",
                 href := routes.User.mod(user.id),
                 titleOrText("Mod zone (Hotkey: m)"),
-                iconEl := Icon.Agent
+                iconEl := Icon.agent
               )
             )
           ),

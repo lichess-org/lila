@@ -27,10 +27,10 @@ export function renderControls(ctrl: AnalyseCtrl) {
     },
     [
       hl('div.jumps', [
-        jumpButton('JumpFirst', 'first', canJumpPrev),
-        jumpButton('LessThan', 'prev', canJumpPrev),
-        jumpButton('GreaterThan', 'next', canJumpNext),
-        jumpButton('JumpLast', 'last', ctrl.node !== ctrl.mainline[ctrl.mainline.length - 1]),
+        jumpButton('jumpFirst', 'first', canJumpPrev),
+        jumpButton('lessThan', 'prev', canJumpPrev),
+        jumpButton('greaterThan', 'next', canJumpNext),
+        jumpButton('jumpLast', 'last', ctrl.node !== ctrl.mainline[ctrl.mainline.length - 1]),
       ]),
       ctrl.study?.practice
         ? hl(
@@ -38,7 +38,7 @@ export function renderControls(ctrl: AnalyseCtrl) {
             {
               attrs: { 'aria-label': i18n.site.analysis, title: i18n.site.analysis, 'data-act': 'analysis' },
             },
-            [snabIcon('Microscope')],
+            [snabIcon('microscope')],
           )
         : [
             displayColumns() === 1 && ctrl.isCevalAllowed() && renderMobileCevalTab(ctrl),
@@ -55,7 +55,7 @@ export function renderControls(ctrl: AnalyseCtrl) {
                   active: ctrl.activeControlBarTool() === 'opening-explorer',
                 },
               },
-              [snabIcon('Book')],
+              [snabIcon('book')],
             ),
             displayColumns() > 1 && !ctrl.retro && !ctrl.ongoing && renderPracticeTab(ctrl),
           ],
@@ -67,7 +67,7 @@ export function renderControls(ctrl: AnalyseCtrl) {
               class: { active: ctrl.activeControlBarTool() === 'action-menu' },
               attrs: { 'aria-label': i18n.site.menu, title: i18n.site.menu, 'data-act': 'menu' },
             },
-            [snabIcon('Hamburger')],
+            [snabIcon('hamburger')],
           ),
     ],
   );
@@ -88,7 +88,7 @@ const renderPracticeTab = (ctrl: AnalyseCtrl): LooseVNode =>
         latent: !!ctrl.practice && !!ctrl.activeControlBarTool(),
       },
     },
-    [snabIcon('Bullseye')],
+    [snabIcon('bullseye')],
   );
 
 function renderMobileCevalTab(ctrl: AnalyseCtrl): LooseVNode {

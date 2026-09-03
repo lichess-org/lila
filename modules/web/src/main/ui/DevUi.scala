@@ -30,7 +30,7 @@ final class DevUi(helpers: Helpers)(modMenu: String => Context ?=> Frag):
                         case Some(v: lila.core.data.Text) => textarea(name := "v")(v.value)
                         case v => input(name := "v", value := v.map(_.toString))
                       ,
-                      submitButton(cls := "button button-empty", iconEl := Icon.Checkmark)
+                      submitButton(cls := "button button-empty", iconEl := Icon.checkmark)
                     )
         )
       )

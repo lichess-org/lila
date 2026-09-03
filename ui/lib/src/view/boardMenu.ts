@@ -25,7 +25,7 @@ export const toggleButton = (toggle: Toggle, title: string): VNode =>
         }),
       ),
     },
-    [snabIcon('Hamburger')],
+    [snabIcon('hamburger')],
   );
 
 export const boardMenu = (
@@ -54,7 +54,7 @@ export class BoardMenu {
         attrs: { title: 'Hotkey: f' },
         hook: onInsert(el => addPointerListeners(el, { click: onChange })),
       },
-      [snabIcon('ChasingArrows'), name],
+      [snabIcon('chasingArrows'), name],
     );
 
   zenMode = (enabled = true): VNode =>
