@@ -16,6 +16,12 @@ const replacements = [
   ['', 'atom'],
   ['', 'keypad'],
   ['', 'globe'],
+  ['ink-quill', 'inkQuill'],
+  ['radio-tower', 'radioTower'],
+  ['flag-king-hill', 'flagKingHill'],
+  ['die-six', 'dieSix'],
+  ['three-check-stack', 'threeCheckStack'],
+  ['flag-racing-kings', 'flagRacingKings'],
 ];
 
 replacements.forEach(([char, svg]) => {
