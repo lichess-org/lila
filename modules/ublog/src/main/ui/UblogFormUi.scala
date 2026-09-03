@@ -57,7 +57,9 @@ final class UblogFormUi(helpers: Helpers, ui: UblogUi)(
                   ),
                   form3.group(form("language"), trans.site.language(), half = true): field =>
                     form3.select(
-                      field.copy(value = field.value.orElse(post.isEmpty.option(fixJavaLanguage(ctx.lang).value))),
+                      field.copy(value =
+                        field.value.orElse(post.isEmpty.option(fixJavaLanguage(ctx.lang).value))
+                      ),
                       langList.popularLanguagesForm.choices
                     )
                 ),
