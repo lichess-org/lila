@@ -92,6 +92,7 @@ export type Icon =
   | 'playTriangle'
   | 'plusButton'
   | 'power'
+  | 'prune'
   | 'rabbit'
   | 'radioTower'
   | 'randomColor'
