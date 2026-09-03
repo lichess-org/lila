@@ -32,6 +32,23 @@
     @extend %flex-center;
   }
 
+  h1 .user-link {
+    gap: 0.5rem;
+
+    .line {
+      width: 36px;
+
+      &::before {
+        width: 100%;
+      }
+
+      &.patron::before {
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+
   .box__top__actions {
     justify-content: center;
     gap: 2rem;
