@@ -148,14 +148,6 @@ final private[simul] class SimulRepo(val coll: Coll, gameRepo: GameRepo)(using E
       )
       .void
 
-  def setText(simul: Simul, text: String) =
-    coll.update
-      .one(
-        $id(simul.id),
-        $set("text" -> text)
-      )
-      .void
-
   private[simul] def anonymizeHost(id: UserId) =
     coll.update.one($doc("hostId" -> id), $set("hostId" -> UserId.ghost), multi = true)
 

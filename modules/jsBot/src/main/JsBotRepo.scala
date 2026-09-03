@@ -62,7 +62,4 @@ final private class JsBotRepo(bots: Coll, assets: Coll)(using Executor):
       assets.update.one($id(id), $doc("$set" -> setDoc), upsert = true).void
     else funit
 
-  def deleteAsset(key: String): Funit =
-    assets.delete.one($id(key)).void
-
 end JsBotRepo
