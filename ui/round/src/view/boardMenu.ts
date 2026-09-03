@@ -30,7 +30,7 @@ export default function (ctrl: RoundController): LooseVNode {
             id: 'haptics',
             name: 'Vibration feedback',
             checked: ctrl.vibration(),
-            change: v => ctrl.vibration(v),
+            change: ctrl.vibration,
             redraw: ctrl.redraw,
           }),
         !portraitMobile &&
@@ -38,7 +38,7 @@ export default function (ctrl: RoundController): LooseVNode {
             id: 'streamer',
             name: 'Streamer mode',
             checked: ctrl.streamer(),
-            change: v => ctrl.streamerMode(v),
+            change: ctrl.streamerMode,
             redraw: ctrl.redraw,
           }),
         portraitMobile &&
@@ -46,7 +46,7 @@ export default function (ctrl: RoundController): LooseVNode {
             id: 'swapClock',
             name: 'Show clock on left',
             checked: swapClockStorage.get(),
-            change: v => swapClockStorage.set(v),
+            change: swapClockStorage.set,
             redraw: ctrl.redraw,
           }),
 
