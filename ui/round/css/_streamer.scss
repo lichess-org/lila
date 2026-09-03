@@ -1,4 +1,4 @@
-body.streamer {
+main.round--streamer {
   @include mq-at-least-col2 {
     .round__underboard {
       display: none;
