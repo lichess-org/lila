@@ -222,8 +222,7 @@ export default class RoundController implements MoveRootCtrl {
   };
 
   streamerMode = (v: boolean): void => {
-    const body = $('body');
-    this.streamer(v) ? body.addClass('streamer') : body.removeClass('streamer');
+    $('body').toggleClass('streamer', this.streamer(v));
   };
 
   lastPly = (): number => util.lastPly(this.data);
