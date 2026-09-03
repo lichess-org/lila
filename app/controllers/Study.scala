@@ -608,7 +608,7 @@ final class Study(
   def CanView(study: StudyModel, userSelection: Option[Settings.UserSelection] = none)(
       f: => Fu[Result]
   )(unauthorized: => Fu[Result], forbidden: => Fu[Result])(using ctx: Context): Fu[Result] =
-    val authorizedMe = ctx.webAuthOrScope(_.Study.Read).so(ctx.me)
+    val authorizedMe = ctx.fullAuthOrScope(_.Study.Read).so(ctx.me)
     def withUserSelection =
       if userSelection.forall(Settings.UserSelection.allows(_, study, authorizedMe)) then f
       else forbidden

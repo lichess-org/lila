@@ -21,7 +21,7 @@ final class CategUi(helpers: Helpers, bits: ForumBits):
         val (teamCategs, globalCategs) = categs.partition(_.categ.isTeam)
         main(cls := "forum index box")(
           boxTop(
-            h1(iconEl := Icon.BubbleConvo, cls := "text")("Lichess Forum"),
+            h1(iconEl := Icon.bubbleConvo, cls := "text")("Lichess Forum"),
             bits.searchForm()
           ),
           showCategs(globalCategs),
@@ -70,7 +70,7 @@ final class CategUi(helpers: Helpers, bits: ForumBits):
             h1(
               a(
                 href := categ.team.fold(routes.ForumCateg.index)(routes.Team.show(_)),
-                iconEl := Icon.LessThan,
+                iconEl := Icon.lessThan,
                 cls := "text"
               ),
               categ.team.fold(frag(categ.name))(teamLink(_, true))
@@ -88,7 +88,7 @@ final class CategUi(helpers: Helpers, bits: ForumBits):
                 a(
                   href := routes.ForumTopic.form(categ.id),
                   cls := "button button-empty button-green text",
-                  iconEl := Icon.Pencil
+                  iconEl := Icon.pencil
                 )(trans.site.createANewTopic())
               )
             )
@@ -164,7 +164,7 @@ final class CategUi(helpers: Helpers, bits: ForumBits):
             h1(
               a(
                 href := routes.ForumCateg.show(categ.id),
-                iconEl := Icon.LessThan,
+                iconEl := Icon.lessThan,
                 cls := "text"
               )(categ.name),
               " mod feed"

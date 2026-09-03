@@ -117,7 +117,7 @@ final class ReportUi(helpers: Helpers)(menu: Context ?=> Frag):
   private val aboutReports = p(
     a(
       href := routes.Cms.lonePage(lila.core.id.CmsPageKey("report-faq")),
-      iconEl := Icon.InfoCircle,
+      iconEl := Icon.infoCircle,
       cls := "text"
     ):
       "Read more about Lichess reports"
@@ -174,7 +174,7 @@ final class ReportUi(helpers: Helpers)(menu: Context ?=> Frag):
                 attr("data-action") := s"${routes.Relation.block(userId)}?mini=1",
                 cls := "report-block button",
                 st.title := trans.site.block.txt()
-              )(span(cls := "text", iconEl := Icon.NotAllowed)("Block ", titleNameOrId(userId)))
+              )(span(cls := "text", iconEl := Icon.notAllowed)("Block ", titleNameOrId(userId)))
             )
           ),
           br,
@@ -315,13 +315,13 @@ final class ReportUi(helpers: Helpers)(menu: Context ?=> Frag):
                     case None =>
                       if r.done.isDefined then
                         postForm(action := routes.Report.inquiry(r.id.value), cls := "reopen")(
-                          submitButton(iconEl := Icon.PlayTriangle, cls := "text button button-metal")(
+                          submitButton(iconEl := Icon.playTriangle, cls := "text button button-metal")(
                             "Reopen"
                           )
                         )
                       else
                         postForm(action := routes.Report.inquiry(r.id.value), cls := "inquiry")(
-                          submitButton(iconEl := Icon.PlayTriangle, cls := "button button-metal")
+                          submitButton(iconEl := Icon.playTriangle, cls := "button button-metal")
                         )
                     case Some(inquiry) =>
                       frag(

@@ -103,7 +103,7 @@ export class AssetDialog {
         const push = frag<HTMLButtonElement>(
           '<button class="button button-empty icon-btn upper-left" type="button" data-action="push" title="Upload asset to server" aria-label="Upload asset to server">',
         );
-        push.append(domIcon('UploadCloud'));
+        push.append(domIcon('uploadCloud'));
         wrap.append(push);
       }
     }
@@ -357,7 +357,7 @@ export class AssetDialog {
         const buttonEl = frag<HTMLButtonElement>(
           `<button class="button button-empty preview-sound" type="button" data-play="${key}" title="Preview sound"><span>0.00s</span></button>`,
         );
-        buttonEl.prepend(domIcon('PlayTriangle'));
+        buttonEl.prepend(domIcon('playTriangle'));
         buttonEl.addEventListener('click', e => {
           audioEl.play();
           e.stopPropagation();

@@ -18,7 +18,7 @@ export function renderVoiceBar(ctrl: VoiceCtrl, redraw: () => void, cls?: string
       hl(
         'button#voice-help-button',
         { attrs: { title: 'Voice help' }, hook: bind('click', () => ctrl.showHelp(true), undefined, false) },
-        [snabIcon('InfoCircle')],
+        [snabIcon('infoCircle')],
       ),
       hl(
         'button#voice-settings-button',
@@ -27,7 +27,7 @@ export function renderVoiceBar(ctrl: VoiceCtrl, redraw: () => void, cls?: string
           class: { active: ctrl.showPrefs() },
           hook: bind('click', () => ctrl.showPrefs.toggle(), redraw, false),
         },
-        [snabIcon('Gear')],
+        [snabIcon('gear')],
       ),
     ]),
     ctrl.showPrefs() &&
@@ -48,7 +48,7 @@ function voiceBarUpdater(ctrl: VoiceCtrl, el: HTMLElement) {
     voiceBtn.toggleClass('error', tpe === 'error');
     voiceBtn.toggleClass('push-to-talk', ctrl.pushTalk() && !ctrl.mic.isListening && !ctrl.mic.isBusy);
     if (ctrl.mic.isBusy) voiceBtn.html('<span class="ddloader"></span>');
-    else voiceBtn[0]?.replaceChildren(domIcon(tpe === 'error' ? 'Cancel' : 'Voice'));
+    else voiceBtn[0]?.replaceChildren(domIcon(tpe === 'error' ? 'cancel' : 'voice'));
 
     if (tpe !== 'partial') el.innerText = txt;
   };
@@ -69,7 +69,7 @@ function langSetting(ctrl: VoiceCtrl) {
   return (
     supportedLangs.length > 1 &&
     hl('div.voice-setting', [
-      hl('label', { attrs: { for: 'voice-lang' } }, 'Language'),
+      hl('label', { attrs: { for: 'voice-lang' } }, 'language'),
       hl(
         'select#voice-lang',
         {

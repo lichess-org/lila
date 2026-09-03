@@ -52,7 +52,7 @@ object otherTrophies:
           href := routes.Coach.show(info.user.username),
           cls := "trophy award icon3d coach",
           ariaTitle(trans.coach.lichessCoach.txt())
-        )(iconEl(Icon.GraduateCap))
+        )(iconEl(Icon.graduateCap))
       ),
       (info.isStreamer && ctx.kid.no).option:
         val streaming = isStreaming(info.user.id)
@@ -62,5 +62,5 @@ object otherTrophies:
             "streaming" -> streaming
           ),
           ariaTitle(if streaming then "Live now!" else "Lichess Streamer")
-        )(iconEl(Icon.Mic))
+        )(iconEl(Icon.mic))
     )

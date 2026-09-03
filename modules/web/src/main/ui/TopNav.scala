@@ -33,7 +33,7 @@ final class TopNav(helpers: Helpers):
               (ctx.kid.no && !ctx.me.exists(_.isPatron)).option:
                 a(cls := "community-patron mobile-only", href := routes.Plan.index())(
                   trans.patron.donate(),
-                  iconEl(Icon.Wings)
+                  iconEl(Icon.wings)
                 )
             )
         )
@@ -92,7 +92,7 @@ final class TopNav(helpers: Helpers):
             .option:
               a(cls := "community-patron", href := routes.Plan.index())(
                 trans.patron.donate(),
-                iconEl(Icon.Wings)
+                iconEl(Icon.wings)
               )
         )
       ),

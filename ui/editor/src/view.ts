@@ -62,7 +62,7 @@ function studyButton(ctrl: EditorCtrl, state: EditorState): VNode {
         disabled: !state.legalFen,
         class: { button: true, 'button-empty': true, text: true, disabled: !state.legalFen },
       },
-      [snabIcon('StudyBoard'), i18n.site.toStudy],
+      [snabIcon('studyBoard'), i18n.site.toStudy],
     ),
   ]);
 }
@@ -165,7 +165,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
                   },
                 },
               },
-              [snabIcon('DieSix')],
+              [snabIcon('dieSix')],
             ),
           ]),
         ]);
@@ -285,8 +285,8 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
           ]),
           chess960PositionIdSelector,
           div('.actions', [
-            controlsButtonStart(ctrl, 'Reload'),
-            controlsButtonClear(ctrl, 'Trash'),
+            controlsButtonStart(ctrl, 'reload'),
+            controlsButtonClear(ctrl, 'trash'),
             button(
               '.button.button-empty.text',
               {
@@ -297,7 +297,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
                   },
                 },
               },
-              [snabIcon('ChasingArrows'), i18n.site.flipBoard],
+              [snabIcon('chasingArrows'), i18n.site.flipBoard],
             ),
             a(state.legalFen ? ctrl.makeAnalysisUrl(state.legalFen, ctrl.bottomColor()) : '')(
               {
@@ -309,7 +309,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
                   disabled: !state.legalFen,
                 },
               },
-              [snabIcon('Microscope'), i18n.site.analysis],
+              [snabIcon('microscope'), i18n.site.analysis],
             ),
             button(
               {
@@ -327,7 +327,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
                   },
                 },
               },
-              [span('.text', [snabIcon('Swords'), i18n.site.continueFromHere])],
+              [span('.text', [snabIcon('swords'), i18n.site.continueFromHere])],
             ),
             studyButton(ctrl, state),
           ]),

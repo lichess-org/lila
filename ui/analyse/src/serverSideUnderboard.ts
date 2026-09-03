@@ -168,7 +168,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
         '</pre><br />' +
         iframe +
         '<br /><br />' +
-        `<a class="text" href="/developers#embed-game">${htmlIcon('InfoCircle')}Read more about embedding games</a></div>`,
+        `<a class="text" href="/developers#embed-game">${htmlIcon('infoCircle')}Read more about embedding games</a></div>`,
     });
   });
 

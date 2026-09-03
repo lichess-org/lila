@@ -128,13 +128,13 @@ function joinButton(ctrl: SwissCtrl): VNode | undefined {
   const d = ctrl.data;
   if (!ctrl.opts.userId)
     return hl('a.fbt.text.highlight', { attrs: { href: '/login?referrer=' + window.location.pathname } }, [
-      snabIcon('PlayTriangle'),
+      snabIcon('playTriangle'),
       i18n.site.signIn,
     ]);
 
   if (d.joinTeam)
     return hl('a.fbt.text.highlight', { attrs: { href: `/team/${d.joinTeam}` } }, [
-      snabIcon('Group'),
+      snabIcon('group'),
       i18n.team.joinTeam,
     ]);
 
@@ -152,11 +152,11 @@ function joinButton(ctrl: SwissCtrl): VNode | undefined {
   if (d.me && d.status !== 'finished')
     return d.me.absent
       ? hl('button.fbt.text.highlight', { hook: bind('click', promptEntryCodeOrJoin, ctrl.redraw) }, [
-          snabIcon('PlayTriangle'),
+          snabIcon('playTriangle'),
           i18n.site.join,
         ])
       : hl('button.fbt.text', { hook: bind('click', ctrl.withdraw, ctrl.redraw) }, [
-          snabIcon('FlagOutline'),
+          snabIcon('flagOutline'),
           i18n.site.withdraw,
         ]);
 
@@ -165,7 +165,7 @@ function joinButton(ctrl: SwissCtrl): VNode | undefined {
     {
       hook: bind('click', promptEntryCodeOrJoin, ctrl.redraw),
     },
-    [snabIcon('PlayTriangle'), i18n.site.join],
+    [snabIcon('playTriangle'), i18n.site.join],
   );
 }
 
@@ -215,11 +215,11 @@ function stats(ctrl: SwissCtrl) {
       ),
       hl('br'),
       hl('a.text', { attrs: { href: `/swiss/${ctrl.data.id}.trf`, download: true } }, [
-        snabIcon('Download'),
+        snabIcon('download'),
         'Download TRF file',
       ]),
       hl('a.text', { attrs: { href: `/api/swiss/${ctrl.data.id}/games`, download: true } }, [
-        snabIcon('Download'),
+        snabIcon('download'),
         i18n.site.downloadAllGames,
       ]),
       hl(
@@ -227,7 +227,7 @@ function stats(ctrl: SwissCtrl) {
         {
           attrs: { href: `/api/swiss/${ctrl.data.id}/results`, download: true },
         },
-        [snabIcon('Download'), 'Download results as NDJSON'],
+        [snabIcon('download'), 'Download results as NDJSON'],
       ),
       hl(
         'a.text',
@@ -237,7 +237,7 @@ function stats(ctrl: SwissCtrl) {
             download: true,
           },
         },
-        [snabIcon('Download'), 'Download results as CSV'],
+        [snabIcon('download'), 'Download results as CSV'],
       ),
       hl('br'),
       hl(
@@ -245,7 +245,7 @@ function stats(ctrl: SwissCtrl) {
         {
           attrs: { href: '/api#tag/swiss-tournaments' },
         },
-        [snabIcon('InfoCircle'), 'Swiss API documentation'],
+        [snabIcon('infoCircle'), 'Swiss API documentation'],
       ),
     ]),
   ]);

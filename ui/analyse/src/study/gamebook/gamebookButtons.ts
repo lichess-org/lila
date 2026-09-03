@@ -19,7 +19,7 @@ export function playButtons(root: AnalyseCtrl): VNode | undefined {
           attrs: { type: 'button' },
           hook: bind('click', () => root.userJump(''), ctrl.redraw),
         },
-        [snabIcon('LessThan'), i18n.study.back],
+        [snabIcon('lessThan'), i18n.study.back],
       ),
     myTurn &&
       hl(
@@ -28,7 +28,7 @@ export function playButtons(root: AnalyseCtrl): VNode | undefined {
           attrs: { type: 'button' },
           hook: bind('click', ctrl.solution, ctrl.redraw),
         },
-        [snabIcon('PlayTriangle'), i18n.site.viewTheSolution],
+        [snabIcon('playTriangle'), i18n.site.viewTheSolution],
       ),
     overrideButton(study),
   ]);
@@ -49,7 +49,7 @@ export function overrideButton(study: StudyCtrl): VNode | undefined {
             study.redraw,
           ),
         },
-        [snabIcon('Eye'), 'Preview'],
+        [snabIcon('eye'), 'Preview'],
       );
     else {
       const isAnalyse = o === 'analyse',
@@ -65,7 +65,7 @@ export function overrideButton(study: StudyCtrl): VNode | undefined {
               study.redraw,
             ),
           },
-          [snabIcon('Microscope'), i18n.site.analysis],
+          [snabIcon('microscope'), i18n.site.analysis],
         );
     }
   }

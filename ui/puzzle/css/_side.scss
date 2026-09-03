@@ -292,7 +292,7 @@
     }
 
     &::before {
-      @include icon-mask($icon-ThumbsUp, 1.3em);
+      @include icon-mask($icon-thumbsUp, 1.3em);
     }
 
     &.vote-down::before {

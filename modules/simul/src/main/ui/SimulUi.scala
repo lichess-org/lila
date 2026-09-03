@@ -42,8 +42,8 @@ final class SimulUi(helpers: Helpers):
             if withName then userIdLink(simul.hostId.some)
             else a(href := url)(userIdSpanMini(simul.hostId, true))
           ,
-          td(cls := "text", iconEl := Icon.Clock)(simul.clock.config.show),
-          td(cls := "text", iconEl := Icon.User)(simul.applicants.size)
+          td(cls := "text", iconEl := Icon.clock)(simul.clock.config.show),
+          td(cls := "text", iconEl := Icon.user)(simul.applicants.size)
         )
 
   def setup(sim: Simul) =

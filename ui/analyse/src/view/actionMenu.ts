@@ -73,7 +73,7 @@ function studyButton(ctrl: AnalyseCtrl) {
       hiddenInput('orientation', ctrl.bottomColor()),
       hiddenInput('variant', ctrl.data.game.variant.key),
       hiddenInput('fen', ctrl.tree.root.fen),
-      hl('button', { attrs: { type: 'submit' } }, [snabIcon('StudyBoard'), i18n.site.toStudy]),
+      hl('button', { attrs: { type: 'submit' } }, [snabIcon('studyBoard'), i18n.site.toStudy]),
     ],
   );
 }
@@ -97,7 +97,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
           }),
           attrs: { title: 'Hotkey: f' },
         },
-        [snabIcon('ChasingArrows'), i18n.site.flipBoard],
+        [snabIcon('chasingArrows'), i18n.site.flipBoard],
       ),
       !ctrl.ongoing &&
         hl(
@@ -115,17 +115,17 @@ export function view(ctrl: AnalyseCtrl): VNode {
               ...linkAttrs,
             },
           },
-          [snabIcon('Pencil'), i18n.site.boardEditor],
+          [snabIcon('pencil'), i18n.site.boardEditor],
         ),
       displayColumns() === 1 &&
         canPractice &&
         hl('a', { hook: bind('click', () => ctrl.togglePractice()) }, [
-          snabIcon('Bullseye'),
+          snabIcon('bullseye'),
           i18n.site.practiceWithComputer,
         ]),
       canRetro &&
         hl('a', { hook: bind('click', ctrl.toggleRetro, ctrl.redraw) }, [
-          snabIcon('GraduateCap'),
+          snabIcon('graduateCap'),
           i18n.site.learnFromYourMistakes,
         ]),
       canContinue &&
@@ -141,7 +141,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
               }),
             ),
           },
-          [snabIcon('Swords'), i18n.site.continueFromHere],
+          [snabIcon('swords'), i18n.site.continueFromHere],
         ),
       studyButton(ctrl),
       ctrl.idbTree.movesDirty &&
@@ -153,7 +153,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
             },
             hook: bind('click', () => ctrl.idbTree.clear('moves')),
           },
-          [snabIcon('Trash'), i18n.site.clearSavedMoves],
+          [snabIcon('trash'), i18n.site.clearSavedMoves],
         ),
       hl(
         'button',
@@ -161,7 +161,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
           attrs: { title: i18n.site.settings },
           on: { click: () => showSettingsDialog(ctrl) },
         },
-        [snabIcon('Gear'), i18n.site.settings],
+        [snabIcon('gear'), i18n.site.settings],
       ),
     ]),
   ];

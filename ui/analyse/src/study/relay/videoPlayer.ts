@@ -18,7 +18,7 @@ export class VideoPlayer {
     this.iframe.src = o.embed;
     this.iframe.allow = 'autoplay';
 
-    this.close = domIcon('X', 'video-player-close');
+    this.close = domIcon('x', 'video-player-close');
     this.close.addEventListener('click', () => this.onEmbed('no'), true);
 
     this.addWindowResizer();
@@ -87,7 +87,7 @@ export class VideoPlayer {
               attrs: { 'aria-label': i18n.site.close, type: 'button' },
               hook: onInsert(el => el.addEventListener('click', () => this.onEmbed('no'))),
             },
-            [snabIcon('X')],
+            [snabIcon('x')],
           ),
           this.o.text && hl('div.text-box', hl('div', this.o.text)),
           hl(

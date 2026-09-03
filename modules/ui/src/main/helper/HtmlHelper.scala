@@ -29,7 +29,7 @@ object HtmlHelper:
   private def copyMe(target: Tag): Tag =
     div(cls := "copy-me")(
       target(cls := "copy-me__target"),
-      button(cls := "copy-me__button button button-metal", iconEl := Icon.Clipboard)
+      button(cls := "copy-me__button button button-metal", iconEl := Icon.clipboard)
     )
 
 trait HtmlHelper:

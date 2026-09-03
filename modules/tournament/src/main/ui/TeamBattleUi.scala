@@ -108,7 +108,7 @@ final class TeamBattleUi(helpers: Helpers):
                 tr(
                   td(index + 1),
                   td(
-                    (index < tour.teamBattle.so(_.nbLeaders)).option(iconEl(Icon.Crown)),
+                    (index < tour.teamBattle.so(_.nbLeaders)).option(iconEl(Icon.crown)),
                     userIdLink(player.userId.some)
                   ),
                   td(player.score),

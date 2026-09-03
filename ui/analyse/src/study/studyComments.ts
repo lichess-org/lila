@@ -52,7 +52,7 @@ export function currentComments(ctrl: AnalyseCtrl, includingMine: boolean): VNod
                   }
                 }),
               },
-              [snabIcon('Trash')],
+              [snabIcon('trash')],
             )
           : null,
         authorDom(by),

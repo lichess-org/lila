@@ -44,7 +44,7 @@ final class TournamentForm(val helpers: Helpers, showUi: TournamentShow)(
             postForm(cls := "form3", action := routes.Tournament.webCreate)(
               div(cls := "form-group")(
                 a(
-                  iconEl := Icon.InfoCircle,
+                  iconEl := Icon.infoCircle,
                   cls := "text",
                   href := routes.Cms.lonePage(lila.core.id.CmsPageKey("event-tips"))
                 )(trans.site.ourEventTips())
@@ -52,7 +52,7 @@ final class TournamentForm(val helpers: Helpers, showUi: TournamentShow)(
               setupCreate(form, leaderTeams),
               form3.actions(
                 a(href := routes.Tournament.home)(trans.site.cancel()),
-                form3.submit(trans.site.createANewTournament(), icon = Icon.Trophy.some)
+                form3.submit(trans.site.createANewTournament(), icon = Icon.trophy.some)
               )
             )
           ),
@@ -71,7 +71,7 @@ final class TournamentForm(val helpers: Helpers, showUi: TournamentShow)(
               setupEdit(tour, form, myTeams),
               form3.actions(
                 a(href := routes.Tournament.show(tour.id))(trans.site.cancel()),
-                form3.submit(trans.site.save(), icon = Icon.Trophy.some)
+                form3.submit(trans.site.save(), icon = Icon.trophy.some)
               )
             ),
             hr,
@@ -79,7 +79,7 @@ final class TournamentForm(val helpers: Helpers, showUi: TournamentShow)(
             br,
             postForm(cls := "terminate", action := routes.Tournament.terminate(tour.id)):
               submitButton(
-                iconEl := Icon.CautionCircle,
+                iconEl := Icon.cautionCircle,
                 cls := "text button button-red yes-no-confirm"
               ):
                 trans.site.cancelTournament()
@@ -273,7 +273,7 @@ final class TournamentForm(val helpers: Helpers, showUi: TournamentShow)(
                 a(
                   cls := "button button-green",
                   href := routes.TournamentCrud.form,
-                  iconEl := Icon.PlusButton
+                  iconEl := Icon.plusButton
                 )
               )
             ),
@@ -305,7 +305,7 @@ final class TournamentForm(val helpers: Helpers, showUi: TournamentShow)(
                     td(
                       a(
                         href := routes.Tournament.show(tour.id),
-                        iconEl := Icon.Eye,
+                        iconEl := Icon.eye,
                         title := "View on site"
                       )
                     )
@@ -328,7 +328,7 @@ final class TournamentForm(val helpers: Helpers, showUi: TournamentShow)(
               cls := "box__top__actions",
               action := routes.TournamentCrud.cloneT(tour.id),
               method := "get"
-            )(form3.submit("Clone", Icon.Trophy.some)(cls := "button-green button-empty"))
+            )(form3.submit("Clone", Icon.trophy.some)(cls := "button-green button-empty"))
           ),
           standardFlash,
           postForm(cls := "form3", action := routes.TournamentCrud.update(tour.id))(
