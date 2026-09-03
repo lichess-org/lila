@@ -83,7 +83,7 @@ object Icon:
   import play.api.libs.json.*
   given Writes[Icon] = Writes(icon => JsString(icon.name))
 
-  def unsafeExplodesIfMissingArrrgh = valueOf
+  val byName = values.mapBy(_.name)
 
   val rtlMirrored: Set[Icon] = Set(\n{mirrored}\n  )\n"""
 
