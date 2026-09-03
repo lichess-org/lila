@@ -69,24 +69,23 @@ $user-list-width: 35ch;
   height: 80px;
   background: url('../images/trophy/shield-gold.png') no-repeat;
   background-size: contain;
-  font-size: 40px;
-  line-height: 76px;
   text-align: center;
-  letter-spacing: normal;
-  color: #333;
-  text-shadow: 0 0 6px #fff;
   filter: drop-shadow(0 0 10px $c-brag);
 
-  > .svg-icon {
-    width: 1em;
-    height: 1em;
+  .svg-icon {
+    background: linear-gradient(90deg, #000 0%, #444 100%);
+    width: 1.75em;
+    margin-top: 18px;
   }
 
   @media (max-width: at-most($small)) {
     width: 50.25px;
     height: 60px;
-    font-size: 30px;
-    line-height: 57px;
+
+    .svg-icon {
+      width: 1.45em;
+      margin-top: 14px;
+    }
   }
 }
 
