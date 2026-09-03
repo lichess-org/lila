@@ -321,7 +321,7 @@ final class TournamentList(helpers: Helpers, ui: TournamentUi)(
 
     def byCateg(categ: TournamentShield.Category, awards: List[TournamentShield.Award])(using Context) =
       Page("Tournament shields")
-        .css("tournament.leaderboard", "slist"):
+        .css("tournament.leaderboard"):
           main(cls := "page-menu page-small tournament-categ-shields")(
             shieldMenu,
             div(cls := "page-menu__content box")(
