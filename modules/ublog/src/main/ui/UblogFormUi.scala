@@ -5,6 +5,7 @@ import play.api.data.Form
 
 import lila.core.captcha.Captcha
 import lila.core.id.CmsPageKey
+import lila.core.i18n.fixJavaLanguage
 import lila.ui.*
 
 import ScalatagsTemplate.{ *, given }
@@ -54,8 +55,11 @@ final class UblogFormUi(helpers: Helpers, ui: UblogUi)(
                   form3.group(form("topics"), frag(trans.ublog.selectPostTopics()), half = true)(
                     form3.textarea(_)(dataRel := UblogTopic.all.mkString(","))
                   ),
-                  form3.group(form("language"), trans.site.language(), half = true):
-                    form3.select(_, langList.popularLanguagesForm.choices)
+                  form3.group(form("language"), trans.site.language(), half = true): field =>
+                    form3.select(
+                      field.copy(value = field.value.orElse(post.isEmpty.option(fixJavaLanguage(ctx.lang).value))),
+                      langList.popularLanguagesForm.choices
+                    )
                 ),
                 form3.split(
                   form3.checkboxGroup(
