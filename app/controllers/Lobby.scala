@@ -46,11 +46,3 @@ final class Lobby(env: Env) extends LilaController(env):
       ctx.me.fold(env.lobby.seekApi.forAnon)(me => env.lobby.seekApi.forMe(using me)).map { seeks =>
         Ok(JsArray(seeks.map(_.render))).headerCacheSeconds(10)
       }
-
-  def timeline = Auth { _ ?=> me ?=>
-    Ok.snipAsync:
-      env.timeline.entryApi
-        .userEntries(me)
-        .map(views.timeline.entries)
-    .map(_.headerCacheSeconds(20))
-  }
