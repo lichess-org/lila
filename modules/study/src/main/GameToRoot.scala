@@ -9,7 +9,12 @@ import lila.tree.{ ExportOptions, Root, TreeBuilder }
 
 object GameToRoot:
 
-  def apply(game: Game, initialFen: Option[Fen.Full], withClocks: Boolean): Root =
+  def apply(
+      game: Game,
+      initialFen: Option[Fen.Full],
+      withClocks: Boolean,
+      withEndComment: Boolean = true
+  ): Root =
     val root = TreeBuilder(
       game = game,
       analysis = none,
@@ -17,7 +22,9 @@ object GameToRoot:
       withFlags = ExportOptions(clocks = withClocks),
       logChessError = logger.warn
     )
-    endComment(game).fold(root)(comment => root.updateMainlineLast(_.setComment(comment)))
+    if withEndComment then
+      endComment(game).fold(root)(comment => root.updateMainlineLast(_.setComment(comment)))
+    else root
 
   private def endComment(game: Game) =
     game.finished.option:

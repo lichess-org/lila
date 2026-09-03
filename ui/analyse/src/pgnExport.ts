@@ -3,7 +3,7 @@ import { h } from 'snabbdom';
 
 import { fixCrazySan, plyToTurn } from 'lib/game/chess';
 import { plyPrefix, renderNodesTxt } from 'lib/game/nodePGN';
-import type { TreeNode } from 'lib/tree/types';
+import type { TreeNodeLite } from 'lib/tree/types';
 import { type MaybeVNodes } from 'lib/view';
 
 import type AnalyseCtrl from './ctrl';
@@ -23,8 +23,8 @@ function renderPgnTags(game: Game): string {
   return txt;
 }
 
-export const renderFullTxt = (ctrl: AnalyseCtrl): string =>
-  renderPgnTags(ctrl.data.game) + renderNodesTxt(ctrl.tree.root, true);
+export const renderFullTxt = (ctrl: AnalyseCtrl, root: TreeNodeLite = ctrl.tree.root): string =>
+  renderPgnTags(ctrl.data.game) + renderNodesTxt(root, true);
 
 export function renderNodesHtml(nodes: PgnNode[]): MaybeVNodes {
   if (!nodes[0]) return [];
@@ -40,7 +40,7 @@ export function renderNodesHtml(nodes: PgnNode[]): MaybeVNodes {
   return tags;
 }
 
-export function renderNodesPgn(game: Game, nodeList: TreeNode[], includeSubVariations: boolean): string {
+export function renderNodesPgn(game: Game, nodeList: TreeNodeLite[], includeSubVariations: boolean): string {
   const nonRootNodes = nodeList.filter(node => node.san);
   let pgn = '';
 

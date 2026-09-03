@@ -171,7 +171,7 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
     });
   }
   if (ctrl.showMoveAnnotations()) {
-    const glyphs = [...(ctrl.node.glyphs ?? [])];
+    const glyphs = ctrl.visibleGlyphs();
     const liveGlyph = ctrl.liveAnnotate?.get(ctrl.path);
     if (liveGlyph && ctrl.settings.showLiveAnnotations && !glyphs.some(g => g.id <= 6))
       glyphs.push(liveGlyph);

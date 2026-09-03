@@ -31,7 +31,7 @@ import { pubsub } from 'lib/pubsub';
 import { storedBooleanProp } from 'lib/storage';
 import { makeTree, treePath, treeOps, type TreeWrapper } from 'lib/tree';
 import { completeNode } from 'lib/tree/node';
-import type { ClientEval, LocalEval, ServerEval, TreeNode, TreePath } from 'lib/tree/types';
+import type { ClientEval, Glyph, LocalEval, ServerEval, TreeNode, TreePath } from 'lib/tree/types';
 import { confirm } from 'lib/view';
 
 import { Autoplay, type AutoplayDelay } from './autoplay';
@@ -57,7 +57,7 @@ import type GamebookPlayCtrl from './study/gamebook/gamebookPlayCtrl';
 import type { AnaMove } from './study/interfaces';
 import type StudyCtrl from './study/studyCtrl';
 import { TreeView } from './treeView/treeView';
-import { treeReconstruct, addCrazyData } from './util';
+import { treeReconstruct, addCrazyData, hasUserContent } from './util';
 import { plural } from './view/util';
 import wikiTheory, { wikiClear, type WikiTheory } from './wiki';
 
@@ -661,7 +661,10 @@ export default class AnalyseCtrl implements CevalHandler {
   }
 
   allowedEval(node: TreeNode = this.node): ClientEval | ServerEval | false | undefined {
-    return (this.cevalEnabled() && node.ceval) || (this.settings.showStaticAnalysis && node.eval);
+    return (
+      (this.cevalEnabled() && node.ceval) ||
+      ((!node.eval?.static || this.settings.showStaticAnalysis) && node.eval)
+    );
   }
 
   motifAllowed = (): boolean => this.study?.isCevalAllowed() !== false && !this.retro?.isSolving();
@@ -694,8 +697,13 @@ export default class AnalyseCtrl implements CevalHandler {
       kid =>
         !kid.comp ||
         (this.settings.showStaticAnalysis && !this.retro?.hideComputerLine(kid)) ||
-        (treeOps.contains(kid, this.node) && !this.retro?.forceCeval()),
+        (treeOps.contains(kid, this.node) && !this.retro?.forceCeval()) ||
+        hasUserContent(kid),
     );
+  }
+
+  visibleGlyphs(node: TreeNode = this.node): Glyph[] {
+    return (node.glyphs ?? []).filter(glyph => !glyph.comp || this.settings.showStaticAnalysis);
   }
 
   reset(): void {

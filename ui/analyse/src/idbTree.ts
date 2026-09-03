@@ -5,6 +5,7 @@ import * as treeOps from 'lib/tree/ops';
 import type { TreeNodeLite, TreePath } from 'lib/tree/types';
 
 import type AnalyseCtrl from './ctrl';
+import { pruneStaticAnalysis } from './util';
 
 export type DiscloseState = undefined | 'expanded' | 'collapsed';
 export class IdbTree {
@@ -94,9 +95,9 @@ export class IdbTree {
 
   async saveMoves(force = false): Promise<IDBValidKey | undefined> {
     if (this.noop || this.ctrl.study || !(this.cache.movesDirty || force)) return undefined;
-    return this.moveDb().then(db =>
-      db.put(this.id, { root: treeOps.structuredCloneLite(this.ctrl.tree.root) }),
-    );
+    const root = treeOps.structuredCloneLite(this.ctrl.tree.root);
+    pruneStaticAnalysis(root);
+    return this.moveDb().then(db => db.put(this.id, { root }));
   }
 
   async merge(): Promise<void> {
@@ -160,7 +161,7 @@ export class IdbTree {
       (second && treeOps.hasBranching(second, 6)) ||
       (isMainline &&
         this.ctrl.treeView.mode === 'column' &&
-        (second || first?.comments?.filter(Boolean).length)),
+        (second || first?.comments?.filter(Boolean).filter(comment => !comment.comp).length)),
     );
   }
 
