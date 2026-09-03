@@ -94,6 +94,7 @@ enum Icon:
   case playTriangle
   case plusButton
   case power
+  case prune
   case rabbit
   case radioTower
   case randomColor
