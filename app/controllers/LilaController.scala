@@ -361,12 +361,12 @@ abstract private[controllers] class LilaController(val env: Env)
     .flatMap:
       f(using _)
 
-  def meOrFetch[U: UserIdOf](id: U)(using ctx: Context): Fu[Option[lila.user.User]] =
-    if id.is(UserId("me")) then fuccess(ctx.user)
-    else ctx.user.filter(_.is(id)).fold(env.user.repo.byId(id))(u => fuccess(u.some))
+  def meOrFetch[U: UserIdOf](id: U)(using me: Option[Me]): Fu[Option[lila.user.User]] =
+    if id.is(UserId("me")) then fuccess(me)
+    else me.filter(_.is(id)).fold(env.user.repo.byId(id))(u => fuccess(u.some))
 
-  def meOrFetch[U: UserIdOf](id: Option[U])(using ctx: Context): Fu[Option[lila.user.User]] =
-    id.fold(fuccess(ctx.user))(meOrFetch)
+  def meOrFetch[U: UserIdOf](id: Option[U])(using me: Option[Me]): Fu[Option[lila.user.User]] =
+    id.fold(fuccess(me.map(_.value)))(meOrFetch)
 
   def anyCaptcha = env.game.captcha.any
 
