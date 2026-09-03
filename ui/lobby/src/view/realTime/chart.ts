@@ -124,7 +124,7 @@ export function toggle(ctrl: LobbyController) {
       attrs: { title: i18n.site.list, 'aria-label': i18n.site.list },
       hook: bind('click', _ => ctrl.setMode('list'), ctrl.redraw),
     },
-    [snabIcon('List')],
+    [snabIcon('list')],
   );
 }
 

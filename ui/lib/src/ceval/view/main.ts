@@ -40,7 +40,7 @@ function localEvalNodes(ctrl: CevalHandler, evs: NodeEvals): Array<VNode | strin
   if (!ceval.opts.custom && ceval.canGoDeeper)
     t.push(
       hl('a.deeper', { attrs: { title: i18n.site.goDeeper }, hook: bind('click', ceval.goDeeper) }, [
-        snabIcon('PlusButton'),
+        snabIcon('plusButton'),
       ]),
     );
   const { depthText, npsText } = localInfo(ctrl, evs.client);
@@ -95,7 +95,7 @@ const threatButton = (ctrl: CevalHandler): VNode | null =>
             blurIfPrimaryClick(e);
           }),
         },
-        [snabIcon('Target')],
+        [snabIcon('target')],
       );
 
 function engineName(ctrl: CevalCtrl): VNode[] {
@@ -176,7 +176,7 @@ export function renderCeval(ctrl: CevalHandler): VNode[] {
   } else {
     if (!enabled) pearl = h('pearl', h('icon'));
     else if (node.outcome() || node.threefold) pearl = h('pearl', '-');
-    else if (ceval.state === CevalState.Failed) pearl = h('pearl', icon('CautionCircle')('.is-red'));
+    else if (ceval.state === CevalState.Failed) pearl = h('pearl', icon('cautionCircle')('.is-red'));
     else pearl = h('pearl', h('icon.ddloader'));
     percent = node.outcome() ? 100 : 0;
   }
@@ -249,7 +249,7 @@ export function renderCeval(ctrl: CevalHandler): VNode[] {
         false,
       ),
     },
-    [snabIcon('Gear')],
+    [snabIcon('gear')],
   );
   return [
     hl('div.ceval' + (enabled ? '.enabled' : ''), { class: { computing: ceval.isComputing } }, [

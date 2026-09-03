@@ -252,7 +252,7 @@ main.round {
   }
 
   .reset::before {
-    @include icon-mask($icon-X);
+    @include icon-mask($icon-x);
 
     color: $c-bad;
 
@@ -265,7 +265,7 @@ main.round {
     margin-inline-start: auto;
 
     &.play::before {
-      @include icon-mask($icon-PlayTriangle);
+      @include icon-mask($icon-playTriangle);
 
       color: $c-secondary;
 
@@ -275,7 +275,7 @@ main.round {
     }
 
     &.pause::before {
-      @include icon-mask($icon-Pause);
+      @include icon-mask($icon-pause);
 
       color: $c-bad;
 

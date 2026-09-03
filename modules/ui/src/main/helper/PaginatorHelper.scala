@@ -15,16 +15,16 @@ trait PaginatorHelper:
   def pagination(url: Int => String, page: Int, nbPages: Int, showPost: Boolean): Tag =
     st.nav(cls := "pagination")(
       if page > 1
-      then a(href := url(page - 1), iconEl := Icon.LessThan)
-      else span(cls := "disabled", iconEl := Icon.LessThan),
+      then a(href := url(page - 1), iconEl := Icon.lessThan)
+      else span(cls := "disabled", iconEl := Icon.lessThan),
       sliding(page, nbPages, 3, showPost = showPost).map:
         case None => raw(" &hellip; ")
         case Some(p) if p == page => span(cls := "current")(p)
         case Some(p) => a(href := url(p))(p)
       ,
       if page < nbPages
-      then a(rel := "next", iconEl := Icon.GreaterThan, href := url(page + 1))
-      else span(cls := "disabled", iconEl := Icon.GreaterThan)
+      then a(rel := "next", iconEl := Icon.greaterThan, href := url(page + 1))
+      else span(cls := "disabled", iconEl := Icon.greaterThan)
     )
 
   def pagerNext(pager: Paginator[?], url: Int => String): Option[Tag] =

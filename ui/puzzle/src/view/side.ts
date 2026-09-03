@@ -87,10 +87,10 @@ const renderStreak = (streak: PuzzleStreak) =>
     'div.puzzle__side__streak',
     streak.data.index === 0
       ? hl('div.puzzle__side__streak__info', [
-          hl('h1.text', [snabIcon('ArrowThruApple'), 'Puzzle Streak']),
+          hl('h1.text', [snabIcon('arrowThruApple'), 'Puzzle Streak']),
           hl('p', i18n.puzzle.streakDescription),
         ])
-      : hl('div.puzzle__side__streak__score.text', [snabIcon('ArrowThruApple'), `${streak.data.index}`]),
+      : hl('div.puzzle__side__streak__score.text', [snabIcon('arrowThruApple'), `${streak.data.index}`]),
   );
 
 export const userBox = (ctrl: PuzzleCtrl): VNode => {

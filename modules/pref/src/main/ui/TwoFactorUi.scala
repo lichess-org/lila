@@ -63,7 +63,7 @@ final class TwoFactorUi(helpers: Helpers, ui: AccountUi)(
       div(cls := "twofactor box box-pad")(
         boxTop(
           h1(
-            iconEl(Icon.Checkmark)(cls := "is-green text"),
+            iconEl(Icon.checkmark)(cls := "is-green text"),
             trt.twoFactorEnabled()
           )
         ),

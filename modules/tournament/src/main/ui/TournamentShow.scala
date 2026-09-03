@@ -119,7 +119,7 @@ final class TournamentShow(helpers: Helpers, gathering: GatheringUi)(
                 frag(
                   " ",
                   a(href := routes.Tournament.edit(tour.id), title := trans.arena.editTournament.txt())(
-                    iconEl(Icon.Gear)
+                    iconEl(Icon.gear)
                   )
                 )
               ),
@@ -131,7 +131,7 @@ final class TournamentShow(helpers: Helpers, gathering: GatheringUi)(
                     a(
                       href := routes.Tournament.moderation(tour.id, "recentlyCreated"),
                       title := "Moderation"
-                    )(iconEl(Icon.Agent))
+                    )(iconEl(Icon.agent))
                   )
                 )
             )
@@ -149,7 +149,7 @@ final class TournamentShow(helpers: Helpers, gathering: GatheringUi)(
           div(cls := "scrollable-content")(
             shieldOwner.map: owner =>
               st.section(cls := "description")(
-                p(cls := "defender", iconEl := Icon.Shield)(
+                p(cls := "defender", iconEl := Icon.shield)(
                   trans.arena.defender(),
                   userIdLink(owner.some)
                 )
@@ -159,10 +159,10 @@ final class TournamentShow(helpers: Helpers, gathering: GatheringUi)(
             tour.payouts.map(gathering.payouts),
             List(
               tour.noBerserk.option(
-                div(cls := "text", iconEl := Icon.Berserk)(trans.arena.noBerserkAllowed())
+                div(cls := "text", iconEl := Icon.berserk)(trans.arena.noBerserkAllowed())
               ),
               tour.noStreak.option(
-                div(cls := "text", iconEl := Icon.Fire)(trans.arena.noArenaStreaks())
+                div(cls := "text", iconEl := Icon.fire)(trans.arena.noArenaStreaks())
               ),
               tour.isScheduled.not.option(frag(small(trans.site.by(userIdLink(tour.createdBy.some))), br)),
               (!tour.isStarted || (tour.isScheduled && tour.position.isDefined))
@@ -206,20 +206,20 @@ final class TournamentShow(helpers: Helpers, gathering: GatheringUi)(
         )
 
     private def teamBattle(tour: Tournament)(battle: TeamBattle)(using ctx: Context) =
-      st.section(cls := "team-battle", iconEl := Icon.Group):
+      st.section(cls := "team-battle", iconEl := Icon.group):
         div(
           p(
             trans.team.battleOfNbTeams.pluralSame(battle.teams.size),
             " ",
             a(href := routes.Cms.lonePage(lila.core.id.CmsPageKey("team-battle-faq"))):
-              iconEl(Icon.InfoCircle)
+              iconEl(Icon.infoCircle)
           ),
           trans.team.nbLeadersPerTeam.pluralSame(battle.nbLeaders),
           (ctx.is(tour.createdBy) || Granter.opt(_.ManageTournament)).option(
             frag(
               " ",
               a(href := routes.Tournament.teamBattleEdit(tour.id), title := trans.arena.editTeamBattle.txt()):
-                iconEl(Icon.Gear)
+                iconEl(Icon.gear)
             )
           )
         )
@@ -236,7 +236,7 @@ final class TournamentShow(helpers: Helpers, gathering: GatheringUi)(
       main(cls := "page-small box box-pad page")(
         boxTop(
           h1(
-            a(href := routes.Tournament.home, iconEl := Icon.LessThan, cls := "text"),
+            a(href := routes.Tournament.home, iconEl := Icon.lessThan, cls := "text"),
             trans.site.tournamentFAQ()
           )
         ),

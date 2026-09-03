@@ -73,7 +73,7 @@ function rematchButtons(ctrl: RoundController): LooseVNodes {
           attrs: { 'aria-label': i18n.site.decline, title: i18n.site.decline },
           hook: bind('click', () => ctrl.socket.send('rematch-no')),
         },
-        ctrl.nvui ? i18n.site.decline : [snabIcon('X')],
+        ctrl.nvui ? i18n.site.decline : [snabIcon('x')],
       ),
     hl(
       'button.fbt.rematch.white',
@@ -163,7 +163,7 @@ const fbtCancel = (f: (v: boolean) => void) =>
       attrs: { 'aria-label': i18n.site.cancel, title: i18n.site.cancel },
       hook: bind('click', () => f(false)),
     },
-    [snabIcon('X')],
+    [snabIcon('x')],
   );
 
 export const resignConfirm = (ctrl: RoundController): VNode =>
@@ -174,7 +174,7 @@ export const resignConfirm = (ctrl: RoundController): VNode =>
         attrs: { 'aria-label': i18n.site.resign, title: i18n.site.resign },
         hook: bind('click', () => ctrl.resign(true)),
       },
-      [snabIcon('FlagOutline')],
+      [snabIcon('flagOutline')],
     ),
     fbtCancel(ctrl.resign),
   ]);
@@ -187,7 +187,7 @@ export const drawConfirm = (ctrl: RoundController): VNode =>
         attrs: { 'aria-label': i18n.site.offerDraw, title: i18n.site.offerDraw },
         hook: bind('click', () => ctrl.offerDraw(true)),
       },
-      [snabIcon('OneHalf')],
+      [snabIcon('oneHalf')],
     ),
     fbtCancel(ctrl.offerDraw),
   ]);
@@ -226,10 +226,10 @@ export function backToTournament(ctrl: RoundController): LooseVNode {
           attrs: { href: '/tournament/' + d.tournament.id },
           hook: bind('click', ctrl.setRedirecting),
         },
-        [snabIcon('PlayTriangle'), i18n.site.backToTournament],
+        [snabIcon('playTriangle'), i18n.site.backToTournament],
       ),
       hl('form', { attrs: { method: 'post', action: '/tournament/' + d.tournament.id + '/withdraw' } }, [
-        hl('button.text.fbt.weak', [snabIcon('Pause'), i18n.site.pause]),
+        hl('button.text.fbt.weak', [snabIcon('pause'), i18n.site.pause]),
       ]),
       analysisButton(ctrl),
     ])
@@ -247,7 +247,7 @@ export function backToSwiss(ctrl: RoundController): LooseVNode {
           attrs: { href: '/swiss/' + d.swiss.id },
           hook: bind('click', ctrl.setRedirecting),
         },
-        [snabIcon('PlayTriangle'), i18n.site.backToTournament],
+        [snabIcon('playTriangle'), i18n.site.backToTournament],
       ),
       analysisButton(ctrl),
     ])
@@ -270,7 +270,7 @@ export function moretime(ctrl: RoundController): LooseVNode {
         },
         hook: bind('click', ctrl.socket.moreTime),
       },
-      [snabIcon('PlusButton')],
+      [snabIcon('plusButton')],
     )
   );
 }

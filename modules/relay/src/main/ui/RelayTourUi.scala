@@ -130,7 +130,7 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi, card: RelayCardUi, pageMe
           a(
             href := routes.RelayTour.form,
             cls := "button button-green text",
-            iconEl := Icon.PlusButton
+            iconEl := Icon.plusButton
           )(
             trc.newBroadcast()
           )
@@ -175,7 +175,7 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi, card: RelayCardUi, pageMe
           pageMenu("calendar"),
           div(cls := "page-menu__content box box-pad")(
             boxTop(
-              h1(iconEl := Icon.RadioTower, cls := "text")(trc.broadcastCalendar()),
+              h1(iconEl := Icon.radioTower, cls := "text")(trc.broadcastCalendar()),
               searchForm("")
             ),
             announcement.map: html =>

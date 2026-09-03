@@ -30,7 +30,7 @@ const renderStreak = (ctrl: PuzzleCtrl): VNode[] => [
     span('.game-over', i18n.site.gameOver),
     span(i18n.puzzle.yourStreakX.asArray(strong(ctrl.streak?.data.index ?? 0))),
   ]),
-  a(ctrl.routerWithLang('/streak'))('.continue', [icon('PlayTriangle')(), i18n.puzzle.newStreak]),
+  a(ctrl.routerWithLang('/streak'))('.continue', [icon('playTriangle')(), i18n.puzzle.newStreak]),
 ];
 
 export default function (ctrl: PuzzleCtrl): VNode {
@@ -43,7 +43,7 @@ export default function (ctrl: PuzzleCtrl): VNode {
       : [
           div('.complete', i18n.puzzle[win ? 'puzzleSuccess' : 'puzzleComplete']),
           button('.continue', { hook: bind('click', ctrl.nextPuzzle) }, [
-            icon('PlayTriangle')(),
+            icon('playTriangle')(),
             i18n.puzzle[ctrl.streak ? 'continueTheStreak' : 'continueTraining'],
           ]),
           div('.puzzle__more', [
@@ -55,7 +55,7 @@ export default function (ctrl: PuzzleCtrl): VNode {
                     'aria-label': i18n.site.playAgainstComputer,
                     target: '_blank',
                   },
-                  [icon('Bullseye')()],
+                  [icon('bullseye')()],
                 )
               : null,
             renderVote(ctrl),

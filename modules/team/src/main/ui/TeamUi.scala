@@ -53,7 +53,7 @@ final class TeamUi(helpers: Helpers, markdownCache: lila.memo.MarkdownCache):
     tr(cls := "paginated")(
       td(cls := "subject")(
         a(
-          iconEl := Icon.Group,
+          iconEl := Icon.group,
           cls := List(
             "team-name text" -> true,
             "mine" -> isMine
@@ -235,7 +235,7 @@ final class TeamUi(helpers: Helpers, markdownCache: lila.memo.MarkdownCache):
             a(
               href := routes.Tournament.teamBattleForm(team.id),
               cls := "button button-empty text",
-              iconEl := Icon.Trophy
+              iconEl := Icon.trophy
             ):
               span(
                 strong(trt.teamBattle()),
@@ -248,7 +248,7 @@ final class TeamUi(helpers: Helpers, markdownCache: lila.memo.MarkdownCache):
               Map("team" -> team.id.value) ++ team.isClas.so(Map("clas" -> "1"))
             ),
             cls := "button button-empty text",
-            iconEl := Icon.Trophy
+            iconEl := Icon.trophy
           ):
             span(
               strong(trt.teamTournament()),
@@ -258,7 +258,7 @@ final class TeamUi(helpers: Helpers, markdownCache: lila.memo.MarkdownCache):
           a(
             href := s"${routes.Swiss.form(team.id)}",
             cls := "button button-empty text",
-            iconEl := Icon.Trophy
+            iconEl := Icon.trophy
           ):
             span(
               strong(trans.swiss.swissTournaments()),
@@ -271,7 +271,7 @@ final class TeamUi(helpers: Helpers, markdownCache: lila.memo.MarkdownCache):
           a(
             href := routes.Team.updateNew(team.id),
             cls := "button button-empty text",
-            iconEl := Icon.InkQuill
+            iconEl := Icon.inkQuill
           )(trt.newTeamUpdate())
         )
       ),
@@ -279,28 +279,28 @@ final class TeamUi(helpers: Helpers, markdownCache: lila.memo.MarkdownCache):
         a(
           href := routes.Team.edit(team.id),
           cls := "button button-empty text",
-          iconEl := Icon.Gear
+          iconEl := Icon.gear
         )(trans.settings.settings())
       ),
       ((team.enabled && hasPerm(_.Admin)) || canManage).option(
         a(
           cls := "button button-empty text",
           href := routes.Team.leaders(team.id),
-          iconEl := Icon.Group
+          iconEl := Icon.group
         )(trt.teamLeaders())
       ),
       ((team.enabled && hasPerm(_.Kick)) || canManage).option(
         a(
           cls := "button button-empty text",
           href := routes.Team.kick(team.id),
-          iconEl := Icon.InternalArrow
+          iconEl := Icon.internalArrow
         )(trt.kickSomeone())
       ),
       ((team.enabled && hasPerm(_.Request)) || canManage).option(
         a(
           cls := "button button-empty text",
           href := routes.Team.declinedRequests(team.id),
-          iconEl := Icon.Cancel
+          iconEl := Icon.cancel
         )(trt.declinedRequests())
       ),
       ((Granter.opt(_.ManageTeam) || Granter.opt(_.Shusher)) && !asMod).option(

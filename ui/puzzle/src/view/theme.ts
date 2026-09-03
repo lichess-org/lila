@@ -91,7 +91,7 @@ const editor = (ctrl: PuzzleCtrl): VNode[] => {
             hl(
               'div.puzzle__themes__votes',
               allThemes.static.has(key)
-                ? [hl('div.puzzle__themes__lock', icon('Padlock')())]
+                ? [hl('div.puzzle__themes__lock', icon('padlock')())]
                 : [
                     hl('button.puzzle__themes__vote.vote-up', {
                       class: { active: !!votedThemes[key] },
@@ -133,7 +133,7 @@ const editor = (ctrl: PuzzleCtrl): VNode[] => {
             ],
           ),
           hl('a.puzzle__themes__study.text', { attrs: { href: STUDY_URL, target: '_blank' } }, [
-            icon('InfoCircle')(),
+            icon('infoCircle')(),
             'About puzzle themes',
           ]),
         ]

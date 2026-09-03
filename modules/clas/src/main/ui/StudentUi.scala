@@ -84,7 +84,7 @@ final class StudentUi(helpers: Helpers, clasUi: ClasUi)(using NetDomain):
   def top(clas: Clas, s: Student.WithUserLike)(using Context) =
     div(cls := "student-show__top")(
       boxTop(
-        h1(iconEl := Icon.User)(
+        h1(iconEl := Icon.user)(
           span(
             strong(s.user.username),
             em(s.student.realName)
@@ -152,7 +152,7 @@ final class StudentUi(helpers: Helpers, clasUi: ClasUi)(using NetDomain):
                   form3.submit(
                     trans.site.decline(),
                     nameValue = ("v" -> false.toString).some,
-                    icon = Icon.X.some
+                    icon = Icon.x.some
                   )(cls := "button-red button-fat")
                 else p,
                 form3.submit(

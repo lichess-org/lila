@@ -133,7 +133,7 @@ const renderControls = (ctrl: RacerCtrl) =>
         title: i18n.site.flipBoard + ' (Keyboard: f)',
         hook: bind('click', ctrl.flip),
       },
-      [snabIcon('ChasingArrows')],
+      [snabIcon('chasingArrows')],
     ),
   );
 

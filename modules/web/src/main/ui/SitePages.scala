@@ -18,7 +18,7 @@ final class SitePages(helpers: Helpers):
 
   def menu(active: String)(using Translate) =
     val sep = div(cls := "sep")
-    val external = frag(" ", iconEl(Icon.ExternalArrow))
+    val external = frag(" ", iconEl(Icon.externalArrow))
     def activeCls(c: String) = cls := active.activeO(c)
     lila.ui.bits.pageMenuSubnav(
       a(activeCls("about"), href := "/about")(trans.site.aboutX("lichess.org")),

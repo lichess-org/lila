@@ -105,8 +105,8 @@ export default class Report {
         '</p><br />' +
         hideButtonDiv +
         '<br /><br />' +
-        `<button type="reset" class="button button-empty button-red text reset">${htmlIcon('X')}No</button>` +
-        `<button type="submit" class="button button-green text apply">${htmlIcon('Checkmark')}Yes</button>`,
+        `<button type="reset" class="button button-empty button-red text reset">${htmlIcon('x')}No</button>` +
+        `<button type="submit" class="button button-green text apply">${htmlIcon('checkmark')}Yes</button>`,
     }).then(dlg => {
       $('.switch-report-puzzle', dlg.view).on('click', () => {
         const input = hideDialogInput();

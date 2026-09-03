@@ -51,17 +51,17 @@ function stats(ctrl: TournamentController): VNode | undefined {
           ]
         : []),
       h('a.text', { attrs: { href: `/api/tournament/${data.id}/games`, download: true } }, [
-        snabIcon('Download'),
+        snabIcon('download'),
         i18n.site.downloadAllGames,
       ]),
       data.me &&
         h(
           'a.text',
           { attrs: { href: `/api/tournament/${data.id}/games?player=${ctrl.opts.userId}`, download: true } },
-          [snabIcon('Download'), 'Download my games'],
+          [snabIcon('download'), 'Download my games'],
         ),
       h('a.text', { attrs: { href: `/api/tournament/${data.id}/results`, download: true } }, [
-        snabIcon('Download'),
+        snabIcon('download'),
         'Download results as NDJSON',
       ]),
       h(
@@ -69,11 +69,11 @@ function stats(ctrl: TournamentController): VNode | undefined {
         {
           attrs: { href: `/api/tournament/${data.id}/results?as=csv`, download: true },
         },
-        [snabIcon('Download'), 'Download results as CSV'],
+        [snabIcon('download'), 'Download results as CSV'],
       ),
       h('br'),
       h('a.text', { attrs: { href: '/api#tag/arena-tournaments' } }, [
-        snabIcon('InfoCircle'),
+        snabIcon('infoCircle'),
         'Arena API documentation',
       ]),
     ]),

@@ -59,7 +59,7 @@ final class ReplayUi(helpers: Helpers)(analyseUi: AnalyseUi):
     import pov.*
 
     val imageLinks = frag(
-      a(cls := "text game-gif", iconEl := Icon.Download)(trans.site.gameAsGIF()),
+      a(cls := "text game-gif", iconEl := Icon.download)(trans.site.gameAsGIF()),
       copyMeLink(
         fenThumbnailUrl(Fen.write(pov.game.position).opening, pov.color.some, pov.game.variant),
         trans.site.screenshotCurrentPosition()
@@ -67,7 +67,7 @@ final class ReplayUi(helpers: Helpers)(analyseUi: AnalyseUi):
     )
 
     val shareLinks = frag(
-      a(iconEl := Icon.Expand, cls := "text embed-howto")(trans.site.embedInYourWebsite()),
+      a(iconEl := Icon.expand, cls := "text embed-howto")(trans.site.embedInYourWebsite()),
       copyMeInput(routeUrl(routes.Round.watcher(pov.gameId, pov.color)).value)
     )
     val pgnLinks = frag(
@@ -140,7 +140,7 @@ final class ReplayUi(helpers: Helpers)(analyseUi: AnalyseUi):
                             action := routes.Analyse.requestAnalysis(gameId)
                           ):
                             submitButton(cls := "button text"):
-                              span(cls := "is3 text", iconEl := Icon.BarChart)(
+                              span(cls := "is3 text", iconEl := Icon.barChart)(
                                 trans.site.requestAComputerAnalysis()
                               )
                       )

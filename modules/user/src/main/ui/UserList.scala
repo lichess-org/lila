@@ -47,9 +47,9 @@ final class UserList(helpers: Helpers, bits: UserBits):
                 userTopPerf(leaderboards.rapid, PerfKey.rapid),
                 userTopPerf(leaderboards.classical, PerfKey.classical),
                 userTopPerf(leaderboards.ultraBullet, PerfKey.ultraBullet),
-                userTopActive(nbAllTime, trans.site.activePlayers(), icon = Icon.Swords.some),
+                userTopActive(nbAllTime, trans.site.activePlayers(), icon = Icon.swords.some),
                 st.section(cls := "user-top")(
-                  h2(cls := "text", iconEl := Icon.Trophy)(
+                  h2(cls := "text", iconEl := Icon.trophy)(
                     a(href := routes.Tournament.leaderboard)(trans.site.tournament())
                   ),
                   tournamentWinners
@@ -102,7 +102,7 @@ final class UserList(helpers: Helpers, bits: UserBits):
         description = s"The top rated players in ${perf.trans}, sorted by rating"
       ):
         main(cls := "page-small box")(
-          boxTop(h1(a(href := routes.User.list, iconEl := Icon.LessThan, cls := "text"), title)),
+          boxTop(h1(a(href := routes.User.list, iconEl := Icon.lessThan, cls := "text"), title)),
           table(cls := "slist slist-pad slist-invert slist-leaderboard")(
             tbody(cls := "infinite-scroll")(
               pager.currentPageResults.mapWithIndex: (u, i) =>
@@ -178,7 +178,7 @@ final class UserList(helpers: Helpers, bits: UserBits):
           .flatMap(_.nonEmptyBio)
           .map { bio => div(cls := "bots__list__entry__bio")(shorten(bio, 400)) },
         a(
-          iconEl := Icon.Swords,
+          iconEl := Icon.swords,
           cls := List("bots__list__entry__play text" -> true),
           st.title := trans.challenge.challengeToPlay.txt(),
           href := s"${routes.Lobby.home}?user=${u.username}#friend"

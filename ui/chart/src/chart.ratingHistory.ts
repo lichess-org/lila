@@ -52,17 +52,17 @@ const noDash: number[] = [];
 const longDash = [10, 5];
 // order from RatingChartApi
 const styles: ChartPerf[] = [
-  { color: '#009E73', borderDash: longDash, symbol: 'triangle', name: 'UltraBullet' },
-  { color: '#56B4E9', borderDash: noDash, symbol: 'circle', name: 'Bullet' },
+  { color: '#009E73', borderDash: longDash, symbol: 'triangle', name: 'ultraBullet' },
+  { color: '#56B4E9', borderDash: noDash, symbol: 'circle', name: 'bullet' },
   { color: '#0072B2', borderDash: noDash, symbol: 'rectRot', name: 'Blitz' },
   { color: '#009E73', borderDash: noDash, symbol: 'rect', name: 'Rapid' },
   { color: '#459f3b', borderDash: noDash, symbol: 'triangle', name: 'Classical' },
   { color: '#F0E442', borderDash: shortDash, symbol: 'triangle', name: 'Correspondence' },
-  { color: '#56B4E9', borderDash: longDash, symbol: 'rectRounded', name: 'Crazyhouse' },
+  { color: '#56B4E9', borderDash: longDash, symbol: 'rectRounded', name: 'crazyhouse' },
   { color: '#E69F00', borderDash: shortDash, symbol: 'circle', name: 'Chess960' },
   { color: '#D55E00', borderDash: shortDash, symbol: 'rectRot', name: 'KingOfTheHill' },
   { color: '#CC79A7', borderDash: shortDash, symbol: 'rect', name: 'ThreeCheck' },
-  { color: '#DF5353', borderDash: shortDash, symbol: 'triangle', name: 'Antichess' },
+  { color: '#DF5353', borderDash: shortDash, symbol: 'triangle', name: 'antichess' },
   { color: '#66558C', borderDash: shortDash, symbol: 'triangle', name: 'Atomic' },
   { color: '#99E699', borderDash: longDash, symbol: 'circle', name: 'Horde' },
   { color: '#FFAEAA', borderDash: shortDash, symbol: 'rectRot', name: 'RacingKings' },

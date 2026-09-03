@@ -28,10 +28,10 @@ export function addDomHandlers() {
     .on('click', '.copy-me__button', function (this: HTMLElement, e: Event) {
       blurIfPrimaryClick(e);
       const showCheckmark = () => {
-        this.querySelector(':scope > .svg-icon')?.replaceWith(domIcon('Checkmark'));
+        this.querySelector(':scope > .svg-icon')?.replaceWith(domIcon('checkmark'));
         $(this).removeClass('button-metal');
         setTimeout(() => {
-          this.querySelector(':scope > .svg-icon')?.replaceWith(domIcon('Clipboard'));
+          this.querySelector(':scope > .svg-icon')?.replaceWith(domIcon('clipboard'));
           $(this).addClass('button-metal');
         }, 1000);
       };

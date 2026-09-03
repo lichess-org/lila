@@ -11,7 +11,7 @@ export default function makeRenderers(): Renderers {
   return {
     streamStart: {
       html: n =>
-        generic(n, `/streamer/${n.content.sid}?redirect=1`, 'Mic', [
+        generic(n, `/streamer/${n.content.sid}?redirect=1`, 'mic', [
           h('span', [h('strong', n.content.name), drawTime(n)]),
           h('span', i18n.site.startedStreaming),
         ]),
@@ -27,7 +27,7 @@ export default function makeRenderers(): Renderers {
     },
     broadcastRound: {
       html: n =>
-        generic(n, n.content.url, 'RadioTower', [
+        generic(n, n.content.url, 'radioTower', [
           h('span', [h('strong', n.content.title), drawTime(n)]),
           h('span', n.content.text),
         ]),
@@ -35,7 +35,7 @@ export default function makeRenderers(): Renderers {
     },
     mention: {
       html: n =>
-        generic(n, `/forum/redirect/post/${n.content.postId}`, 'BubbleConvo', [
+        generic(n, `/forum/redirect/post/${n.content.postId}`, 'bubbleConvo', [
           h('span', [h('strong', userFullName(n.content.mentionedBy)), drawTime(n)]),
           h('span', i18n.site.mentionedYouInX(n.content.topic)),
         ]),
@@ -43,7 +43,7 @@ export default function makeRenderers(): Renderers {
     },
     invitedStudy: {
       html: n =>
-        generic(n, '/study/' + n.content.studyId, 'StudyBoard', [
+        generic(n, '/study/' + n.content.studyId, 'studyBoard', [
           h('span', [h('strong', userFullName(n.content.invitedBy)), drawTime(n)]),
           h('span', i18n.site.invitedYouToX(n.content.studyName)),
         ]),
@@ -51,7 +51,7 @@ export default function makeRenderers(): Renderers {
     },
     privateMessage: {
       html: n =>
-        generic(n, '/inbox/' + n.content.user!.name, 'BubbleSpeech', [
+        generic(n, '/inbox/' + n.content.user!.name, 'bubbleSpeech', [
           h('span', [h('strong', userFullName(n.content.user)), drawTime(n)]),
           h('span', n.content.text),
         ]),
@@ -59,7 +59,7 @@ export default function makeRenderers(): Renderers {
     },
     teamJoined: {
       html: n =>
-        generic(n, '/team/' + n.content.id, 'Group', [
+        generic(n, '/team/' + n.content.id, 'group', [
           h('span', [h('strong', n.content.name), drawTime(n)]),
           h('span', i18n.site.youAreNowPartOfTeam),
         ]),
@@ -67,7 +67,7 @@ export default function makeRenderers(): Renderers {
     },
     teamUpdate: {
       html: n =>
-        generic(n, '/team/updates/' + n.content.id, 'Group', [
+        generic(n, '/team/updates/' + n.content.id, 'group', [
           h('span', [h('strong', n.content.name)]),
           h('span', n.content.text),
         ]),
@@ -75,7 +75,7 @@ export default function makeRenderers(): Renderers {
     },
     titledTourney: {
       html: n =>
-        generic(n, '/tournament/' + n.content.id, 'Trophy', [
+        generic(n, '/tournament/' + n.content.id, 'trophy', [
           h('span', [h('strong', 'Lichess Titled Arena'), drawTime(n)]),
           h('span', n.content.text),
         ]),
@@ -83,7 +83,7 @@ export default function makeRenderers(): Renderers {
     },
     reportedBanned: {
       html: n =>
-        generic(n, undefined, 'InfoCircle', [
+        generic(n, undefined, 'infoCircle', [
           h('span', [h('strong', 'Someone you reported was banned')]),
           h('span', i18n.site.thankYou),
         ]),
@@ -102,7 +102,7 @@ export default function makeRenderers(): Renderers {
           default:
             result = i18n.site.draw;
         }
-        return generic(n, '/' + n.content.id, 'PaperAirplane', [
+        return generic(n, '/' + n.content.id, 'paperAirplane', [
           h('span', [h('strong', i18n.site.gameVsX(userFullName(n.content.opponent))), drawTime(n)]),
           h('span', result),
         ]);
@@ -124,19 +124,19 @@ export default function makeRenderers(): Renderers {
     },
     planStart: {
       html: n =>
-        generic(n, '/patron', 'Wings', [
+        generic(n, '/patron', 'wings', [
           h('span', [h('strong', 'You just became a lichess Patron.'), drawTime(n)]),
         ]),
       text: _ => 'You just became a lichess Patron.',
     },
     planExpire: {
       html: n =>
-        generic(n, '/patron', 'Wings', [h('span', [h('strong', 'Patron account expired'), drawTime(n)])]),
+        generic(n, '/patron', 'wings', [h('span', [h('strong', 'Patron account expired'), drawTime(n)])]),
       text: _ => 'Patron account expired',
     },
     ratingRefund: {
       html: n =>
-        generic(n, '/faq#rating-refund', 'InfoCircle', [
+        generic(n, '/faq#rating-refund', 'infoCircle', [
           h('span', [h('strong', i18n.site.lostAgainstTOSViolator), drawTime(n)]),
           h('span', i18n.site.refundXpointsTimeControlY(n.content.points, n.content.perf)),
         ]),
@@ -144,7 +144,7 @@ export default function makeRenderers(): Renderers {
     },
     corresAlarm: {
       html: n =>
-        generic(n, '/' + n.content.id, 'PaperAirplane', [
+        generic(n, '/' + n.content.id, 'paperAirplane', [
           h('span', [h('strong', i18n.site.timeAlmostUp), drawTime(n)]),
           // not a `LightUser`, could be a game against Stockfish
           h('span', i18n.site.gameVsX(n.content.op)),
@@ -158,7 +158,7 @@ export default function makeRenderers(): Renderers {
         site.asset.loadI18n('recap');
         const title = i18n.recap?.recapReady?.(n.content.year) || `Your ${n.content.year} recap is ready!`;
         const text = i18n.recap?.awaitQuestion || 'What have you been up to this year?';
-        return generic(n, '/recap', 'Logo', [h('span', h('strong', title)), h('span', text)]);
+        return generic(n, '/recap', 'logo', [h('span', h('strong', title)), h('span', text)]);
       },
       text: n => {
         site.asset.loadI18n('recap');
@@ -170,7 +170,7 @@ export default function makeRenderers(): Renderers {
 
 const jobDone = (name: string): Renderer => ({
   html: n =>
-    generic(n, profileUrl(n.content.user!.name) + '?mod', 'Agent', [
+    generic(n, profileUrl(n.content.user!.name) + '?mod', 'agent', [
       h('span', [h('strong', userFullName(n.content.user)), drawTime(n)]),
       h('span', `${name} job complete!`),
     ]),

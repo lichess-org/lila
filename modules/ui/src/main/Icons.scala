@@ -2,148 +2,146 @@
 
 package lila.ui
 
-enum Icon(val name: String):
-  case AccountCircle extends Icon("account-circle")
-  case Agent extends Icon("agent")
-  case AnalogTv extends Icon("analog-tv")
-  case Antichess extends Icon("antichess")
-  case ArcheryTarget extends Icon("archery-target")
-  case ArrowDownRight extends Icon("arrow-down-right")
-  case ArrowThruApple extends Icon("arrow-thru-apple")
-  case ArrowUpRight extends Icon("arrow-up-right")
-  case Atom extends Icon("atom")
-  case Back extends Icon("back")
-  case BarChart extends Icon("bar-chart")
-  case BarGraph extends Icon("bar-graph")
-  case BellOutline extends Icon("bell-outline")
-  case Berserk extends Icon("berserk")
-  case Book extends Icon("book")
-  case BubbleConvo extends Icon("bubble-convo")
-  case BubbleSpeech extends Icon("bubble-speech")
-  case Bullet extends Icon("bullet")
-  case Bullseye extends Icon("bullseye")
-  case Cancel extends Icon("cancel")
-  case CautionCircle extends Icon("caution-circle")
-  case CautionTriangle extends Icon("caution-triangle")
-  case ChasingArrows extends Icon("chasing-arrows")
-  case Checkmark extends Icon("checkmark")
-  case Clipboard extends Icon("clipboard")
-  case Clock extends Icon("clock")
-  case Cogs extends Icon("cogs")
-  case Cpu extends Icon("cpu")
-  case Crazyhouse extends Icon("crazyhouse")
-  case CrownElite extends Icon("crown-elite")
-  case Crown extends Icon("crown")
-  case DieSix extends Icon("die-six")
-  case DiscBigOutline extends Icon("disc-big-outline")
-  case DiscBig extends Icon("disc-big")
-  case DiscOutline extends Icon("disc-outline")
-  case Disc extends Icon("disc")
-  case DownTriangle extends Icon("down-triangle")
-  case Download extends Icon("download")
-  case Envelope extends Icon("envelope")
-  case Expand extends Icon("expand")
-  case ExternalArrow extends Icon("external-arrow")
-  case Eye extends Icon("eye")
-  case Feather extends Icon("feather")
-  case Fire extends Icon("fire")
-  case FlagChessboard extends Icon("flag-chessboard")
-  case FlagKingHill extends Icon("flag-king-hill")
-  case FlagOutline extends Icon("flag-outline")
-  case FlagRacingKings extends Icon("flag-racing-kings")
-  case FlameBlitz extends Icon("flame-blitz")
-  case Forward extends Icon("forward")
-  case Funnel extends Icon("funnel")
-  case Gear extends Icon("gear")
-  case Globe extends Icon("globe")
-  case GraduateCap extends Icon("graduate-cap")
-  case GreaterThan extends Icon("greater-than")
-  case Group extends Icon("group")
-  case Hamburger extends Icon("hamburger")
-  case HeartOutline extends Icon("heart-outline")
-  case Heart extends Icon("heart")
-  case Ibeam extends Icon("ibeam")
-  case InfoCircle extends Icon("info-circle")
-  case InkQuill extends Icon("ink-quill")
-  case InternalArrow extends Icon("internal-arrow")
-  case JumpFirst extends Icon("jump-first")
-  case JumpLast extends Icon("jump-last")
-  case JumpNext extends Icon("jump-next")
-  case JumpPrev extends Icon("jump-prev")
-  case Keypad extends Icon("keypad")
-  case Language extends Icon("language")
-  case LessThan extends Icon("less-than")
-  case LineGraph extends Icon("line-graph")
-  case Link extends Icon("link")
-  case List extends Icon("list")
-  case Logo extends Icon("logo")
-  case Mic extends Icon("mic")
-  case Microscope extends Icon("microscope")
-  case MinusButton extends Icon("minus-button")
-  case MoreTriangle extends Icon("more-triangle")
-  case Move extends Icon("move")
-  case Multiboard extends Icon("multiboard")
-  case Mute extends Icon("mute")
-  case NotAllowed extends Icon("not-allowed")
-  case OneHalf extends Icon("one-half")
-  case Padlock extends Icon("padlock")
-  case PaperAirplane extends Icon("paper-airplane")
-  case Pause extends Icon("pause")
-  case Pencil extends Icon("pencil")
-  case PhoneMobile extends Icon("phone-mobile")
-  case PlayTriangle extends Icon("play-triangle")
-  case PlusButton extends Icon("plus-button")
-  case Power extends Icon("power")
-  case Prune extends Icon("prune")
-  case Rabbit extends Icon("rabbit")
-  case RadioTower extends Icon("radio-tower")
-  case RandomColor extends Icon("random-color")
-  case Reload extends Icon("reload")
-  case RssFeed extends Icon("rss-feed")
-  case ScreenDesktop extends Icon("screen-desktop")
-  case Search extends Icon("search")
-  case ShareAndroid extends Icon("share-android")
-  case ShareIos extends Icon("share-ios")
-  case Shield extends Icon("shield")
-  case StarOutline extends Icon("star-outline")
-  case Star extends Icon("star")
-  case Storm extends Icon("storm")
-  case StudyBoard extends Icon("study-board")
-  case Switch extends Icon("switch")
-  case Swords extends Icon("swords")
-  case Tag extends Icon("tag")
-  case Target extends Icon("target")
-  case ThreeCheckStack extends Icon("three-check-stack")
-  case ThumbsUp extends Icon("thumbs-up")
-  case Tools extends Icon("tools")
-  case Trash extends Icon("trash")
-  case Trophy extends Icon("trophy")
-  case Tshirt extends Icon("tshirt")
-  case Turtle extends Icon("turtle")
-  case UltraBullet extends Icon("ultra-bullet")
-  case UpTriangle extends Icon("up-triangle")
-  case UploadCloud extends Icon("upload-cloud")
-  case User extends Icon("user")
-  case Voice extends Icon("voice")
-  case Wings extends Icon("wings")
-  case X extends Icon("x")
-  case ZoomIn extends Icon("zoom-in")
+enum Icon:
+  case accountCircle
+  case agent
+  case analogTv
+  case antichess
+  case archeryTarget
+  case arrowDownRight
+  case arrowThruApple
+  case arrowUpRight
+  case atom
+  case back
+  case barChart
+  case barGraph
+  case bellOutline
+  case berserk
+  case book
+  case bubbleConvo
+  case bubbleSpeech
+  case bullet
+  case bullseye
+  case cancel
+  case cautionCircle
+  case cautionTriangle
+  case chasingArrows
+  case checkmark
+  case clipboard
+  case clock
+  case cogs
+  case cpu
+  case crazyhouse
+  case crown
+  case crownElite
+  case dieSix
+  case disc
+  case discBig
+  case discBigOutline
+  case discOutline
+  case downTriangle
+  case download
+  case envelope
+  case expand
+  case externalArrow
+  case eye
+  case feather
+  case fire
+  case flagChessboard
+  case flagKingHill
+  case flagOutline
+  case flagRacingKings
+  case flameBlitz
+  case forward
+  case funnel
+  case gear
+  case globe
+  case graduateCap
+  case greaterThan
+  case group
+  case hamburger
+  case heart
+  case heartOutline
+  case ibeam
+  case infoCircle
+  case inkQuill
+  case internalArrow
+  case jumpFirst
+  case jumpLast
+  case jumpNext
+  case jumpPrev
+  case keypad
+  case language
+  case lessThan
+  case lineGraph
+  case link
+  case list
+  case logo
+  case mic
+  case microscope
+  case minusButton
+  case moreTriangle
+  case move
+  case multiboard
+  case mute
+  case notAllowed
+  case oneHalf
+  case padlock
+  case paperAirplane
+  case pause
+  case pencil
+  case phoneMobile
+  case playTriangle
+  case plusButton
+  case power
+  case rabbit
+  case radioTower
+  case randomColor
+  case reload
+  case rssFeed
+  case screenDesktop
+  case search
+  case shareAndroid
+  case shareIos
+  case shield
+  case star
+  case starOutline
+  case storm
+  case studyBoard
+  case switch
+  case swords
+  case tag
+  case target
+  case threeCheckStack
+  case thumbsUp
+  case tools
+  case trash
+  case trophy
+  case tshirt
+  case turtle
+  case ultraBullet
+  case upTriangle
+  case uploadCloud
+  case user
+  case voice
+  case wings
+  case x
+  case zoomIn
+  def name: String = productPrefix
 
 object Icon:
   import play.api.libs.json.*
-  given Writes[Icon] = Writes(icon => JsString(icon.productPrefix))
+  given Writes[Icon] = Writes(icon => JsString(icon.name))
 
-  private val byName = values.mapBy(_.name)
-
-  def unsafeExplodesIfMissingArrrgh = byName.apply
+  val byName = values.mapBy(_.name)
 
   val rtlMirrored: Set[Icon] = Set(
-    GreaterThan,
-    JumpFirst,
-    JumpLast,
-    JumpNext,
-    JumpPrev,
-    LessThan,
-    PlayTriangle,
-    Wings
+    greaterThan,
+    jumpFirst,
+    jumpLast,
+    jumpNext,
+    jumpPrev,
+    lessThan,
+    playTriangle,
+    wings
   )

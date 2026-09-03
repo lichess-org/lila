@@ -12,7 +12,7 @@ final class SwissBitsUi(helpers: Helpers, getName: GetSwissName):
   def link(swissId: SwissId)(using ClientName): Tag = link(swissId, idToName(swissId))
   def link(swissId: SwissId, name: String): Tag =
     a(
-      iconEl := Icon.Trophy,
+      iconEl := Icon.trophy,
       cls := "text",
       href := routes.Swiss.show(swissId).url
     )(name)
@@ -80,5 +80,5 @@ final class SwissBitsUi(helpers: Helpers, getName: GetSwissName):
         br,
         if s.isStarted then trans.site.eventInProgress() else momentFromNow(s.startsAt)
       ),
-      td(cls := "text", iconEl := Icon.User)(s.nbPlayers.localize)
+      td(cls := "text", iconEl := Icon.user)(s.nbPlayers.localize)
     )

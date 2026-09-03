@@ -353,13 +353,11 @@ final class UblogApi(
           "image".$exists(false)
         )
       )
-      .flatMap:
-        case Some(post) => fuccess(post)
-        case _ =>
-          val post = UblogPost.empty(author)
-          colls.post.insert
-            .one(bsonWriteObjTry[UblogPost](post).get ++ $doc("likers" -> List(author.id)))
-            .inject(post)
+      .getOrElse:
+        val post = UblogPost.empty(author)
+        colls.post.insert
+          .one(bsonWriteObjTry[UblogPost](post).get ++ $doc("likers" -> List(author.id)))
+          .inject(post)
 
   private def onTierChange(blog: UblogBlog.Id, tier: Tier): Funit =
     (tier <= Tier.LOW).so(unfeatureAllOf(blog))

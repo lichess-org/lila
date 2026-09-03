@@ -148,7 +148,7 @@ export function view(ctrl: StudyCtrl): VNode {
         },
         attrs: { title: i18n.study[contrib ? 'contributor' : 'spectator'] },
       },
-      snabIcon(contrib ? 'User' : 'Eye'),
+      snabIcon(contrib ? 'user' : 'eye'),
     );
   }
 
@@ -163,7 +163,7 @@ export function view(ctrl: StudyCtrl): VNode {
             ctrl.redraw,
           ),
         },
-        snabIcon('Gear'),
+        snabIcon('gear'),
       );
     if (!isOwner && user.id === members.opts.myId)
       return button(
@@ -172,7 +172,7 @@ export function view(ctrl: StudyCtrl): VNode {
           title: i18n.study.leaveTheStudy,
           hook: bind('click', members.leave, ctrl.redraw),
         },
-        snabIcon('InternalArrow'),
+        snabIcon('internalArrow'),
       );
     return undefined;
   }
@@ -197,7 +197,7 @@ export function view(ctrl: StudyCtrl): VNode {
           button(
             '.button.button-red.button-empty.text',
             { hook: bind('click', _ => members.kick(user.id), ctrl.redraw) },
-            [snabIcon('X'), i18n.study.kick],
+            [snabIcon('x'), i18n.study.kick],
           ),
         ),
       ],
@@ -223,7 +223,7 @@ export function view(ctrl: StudyCtrl): VNode {
     isOwner &&
       ordered.length < members.max &&
       button('.add', { key: 'add', hook: bind('click', members.inviteForm.toggle) }, [
-        snabIcon('PlusButton'),
+        snabIcon('plusButton'),
         hl('h3', i18n.study.addMembers),
       ]),
     !members.canContribute() &&

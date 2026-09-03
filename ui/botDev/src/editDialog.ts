@@ -313,7 +313,7 @@ export class EditDialog {
           <button class="button button-empty" data-action="save">save</button>
           </div>
       </div>`);
-    view.querySelector('[data-action="copy"]')?.append(domIcon('Clipboard'));
+    view.querySelector('[data-action="copy"]')?.append(domIcon('clipboard'));
     const dlg = await domDialog({
       insert: [{ nodes: view }],
       easyClose: 'clickOutside',
@@ -326,7 +326,7 @@ export class EditDialog {
           listener: async () => {
             await navigator.clipboard.writeText(view.querySelector<HTMLTextAreaElement>('.json')!.value);
             const copied = frag<HTMLElement>('<div class="good"> COPIED</div>');
-            copied.prepend(domIcon('Checkmark'));
+            copied.prepend(domIcon('checkmark'));
             view.querySelector('[data-action="copy"]')?.before(copied);
             setTimeout(() => copied.remove(), 2000);
           },

@@ -50,7 +50,7 @@ function scrollToMeButton(ctrl: PaginatedCtrl<unknown>): VNode | undefined {
           attrs: { title: 'Scroll to your player' },
           hook: bind('mousedown', ctrl.toggleFocusOnMe, ctrl.redraw),
         },
-        [snabIcon('Target')],
+        [snabIcon('target')],
       )
     : undefined;
 }
@@ -66,23 +66,23 @@ export function renderPager<A>(ctrl: PaginatedCtrl<A>, searchButton: VNode, sear
           : [
               navButton(
                 'First',
-                'JumpFirst',
+                'jumpFirst',
                 () => ctrl.userSetPage(1),
                 enabled && ctrl.page > 1,
                 ctrl.redraw,
               ),
-              navButton('Prev', 'JumpPrev', ctrl.userPrevPage, enabled && ctrl.page > 1, ctrl.redraw),
+              navButton('Prev', 'jumpPrev', ctrl.userPrevPage, enabled && ctrl.page > 1, ctrl.redraw),
               h('span.page', (pag.nbResults ? pag.from + 1 : 0) + '-' + pag.to + ' / ' + pag.nbResults),
               navButton(
                 'Next',
-                'JumpNext',
+                'jumpNext',
                 ctrl.userNextPage,
                 enabled && ctrl.page < pag.nbPages,
                 ctrl.redraw,
               ),
               navButton(
                 'Last',
-                'JumpLast',
+                'jumpLast',
                 ctrl.userLastPage,
                 enabled && ctrl.page < pag.nbPages,
                 ctrl.redraw,
@@ -119,7 +119,7 @@ export function searchButton(ctrl: PaginatedCtrl<unknown>): VNode {
       attrs: { title: 'Search tournament players' },
       hook: bind('click', ctrl.toggleSearch, ctrl.redraw),
     },
-    [snabIcon(ctrl.searching ? 'X' : 'Search')],
+    [snabIcon(ctrl.searching ? 'x' : 'search')],
   );
 }
 

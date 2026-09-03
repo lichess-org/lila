@@ -35,7 +35,7 @@ function ongoing(ctrl: SwissCtrl): VNode | undefined {
 export default function (ctrl: SwissCtrl): VNode {
   const greatPlayer = ctrl.data.greatPlayer;
   return h('div.swiss__main__header', [
-    icon('Trophy')('.img'),
+    icon('trophy')('.img'),
     h(
       'h1',
       greatPlayer
