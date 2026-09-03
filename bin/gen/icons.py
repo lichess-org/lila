@@ -83,12 +83,15 @@ package lila.ui
 
 enum Icon(val name: String):
 {constants}
-  def key: String = productPrefix
 
 object Icon:
-  given play.api.libs.json.Writes[Icon] =
-    play.api.libs.json.Writes(icon => play.api.libs.json.JsString(icon.name))
-  def unsafe(name: String): Icon = values.find(_.name == name).get
+  import play.api.libs.json.*
+  given Writes[Icon] = Writes(icon => JsString(icon.name))
+
+  private val byName = values.mapBy(_.name)
+
+  def unsafeExplodesIfMissingArrrgh = byName.apply
+
   val rtlMirrored: Set[Icon] = Set(\n{mirrored}\n  )\n"""
 
 

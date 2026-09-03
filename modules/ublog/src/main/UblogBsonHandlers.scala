@@ -8,7 +8,7 @@ import lila.db.dsl.{ *, given }
 
 private object UblogBsonHandlers:
 
-  import UblogPost.{ LightPost, PreviewPost, Recorded, Featured }
+  import UblogPost.{ Approval, LightPost, PreviewPost, Recorded, Featured }
   import UblogAutomod.Assessment
   import lila.core.ublog.Quality
 
@@ -29,6 +29,10 @@ private object UblogBsonHandlers:
     v => v.asOpt[Int].flatMap(Quality.values.lift).toTry(s"bad quality $v"),
     quality => BSONInteger(quality.ordinal)
   )
+  given BSONHandler[Approval] = tryHandler(
+    v => v.asOpt[String].flatMap(Approval.apply).toTry(s"bad approval $v"),
+    approval => BSONString(approval.toString)
+  )
   given BSONDocumentHandler[UblogAutomod.Assessment] = Macros.handler
 
   val postProjection = $doc("likers" -> false)
@@ -41,6 +45,7 @@ private object UblogBsonHandlers:
       "image" -> true,
       "created" -> true,
       "lived" -> true,
+      "listedAt" -> true,
       "featured" -> true,
       "topics" -> true,
       "sticky" -> true
@@ -51,7 +56,7 @@ private object UblogBsonHandlers:
   def pendingReviewSelect = $doc(
     "automod.quality" -> Quality.good,
     "quality" -> Quality.weak,
-    "modQuality".$exists(false),
+    "approval" -> Approval.unverified,
     "live" -> true,
     "lived.at".$gt(nowInstant.minusMonths(1))
   )
