@@ -144,7 +144,7 @@ export default class RoundController implements MoveRootCtrl {
 
     setTimeout(this.showExpiration, 350);
 
-    setTimeout(() => this.streamerMode(this.streamer()), 350);
+    if (this.streamer()) this.streamerMode(true);
 
     if (!document.referrer?.includes('/serviceWorker.')) setTimeout(this.showYourMoveNotification, 500);
 
