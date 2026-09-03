@@ -17,7 +17,7 @@ export class BooksPane extends Pane {
     const add = frag<HTMLButtonElement>(
       '<button type="button" data-action="add" title="Add book" aria-label="Add book">',
     );
-    add.append(domIcon('PlusButton'));
+    add.append(domIcon('plusButton'));
     this.label?.prepend(add);
     this.template = {
       type: 'range',

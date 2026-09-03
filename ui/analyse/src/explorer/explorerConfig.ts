@@ -149,7 +149,7 @@ export const view = (ctrl: ExplorerConfigCtrl): VNode[] => [
   h(
     'section.save',
     h('button.button.button-green.text', { hook: bind('click', ctrl.toggleOpen) }, [
-      snabIcon('Checkmark'),
+      snabIcon('checkmark'),
       i18n.site.allSet,
     ]),
   ),
@@ -180,7 +180,7 @@ const playerDb = (ctrl: ExplorerConfigCtrl) => {
           {
             hook: bind('click', ctrl.toggleColor, ctrl.root.redraw),
           },
-          [snabIcon('ChasingArrows'), i18n.site[ctrl.data.color() === 'white' ? 'asWhite' : 'asBlack']],
+          [snabIcon('chasingArrows'), i18n.site[ctrl.data.color() === 'white' ? 'asWhite' : 'asBlack']],
         ),
       ]),
     ]),
@@ -364,7 +364,7 @@ const playerModal = (ctrl: ExplorerConfigCtrl) => {
                     attrs: { 'aria-label': i18n.site.delete },
                     hook: bind('click', () => ctrl.removePlayer(name), ctrl.root.redraw),
                   },
-                  [snabIcon('X')],
+                  [snabIcon('x')],
                 )
               : null,
           ]),

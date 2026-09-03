@@ -37,7 +37,7 @@ export class LangsCtrl extends PaneCtrl {
         ),
       ),
       h('a.help.text', { attrs: { href: 'https://crowdin.com/project/lichess' } }, [
-        snabIcon('Heart'),
+        snabIcon('heart'),
         'Help translate Lichess',
       ]),
     ]);

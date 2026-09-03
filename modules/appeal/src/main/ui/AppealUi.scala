@@ -30,7 +30,7 @@ final class AppealUi(helpers: Helpers):
     )
 
   def backLink =
-    a(href := routes.Appeal.modQueue, iconEl := Icon.LessThan, cls := "text")
+    a(href := routes.Appeal.modQueue, iconEl := Icon.lessThan, cls := "text")
 
   def list(user: User, appeals: List[Appeal])(using Context) =
     val muted = appeals.exists(_.muted)

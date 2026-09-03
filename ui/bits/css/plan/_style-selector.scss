@@ -53,7 +53,7 @@
       position: relative;
 
       &::after {
-        @include icon-mask($icon-Padlock, 2.5rem);
+        @include icon-mask($icon-padlock, 2.5rem);
 
         position: absolute;
         opacity: 1;

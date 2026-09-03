@@ -44,7 +44,7 @@ final class UserTournament(helpers: Helpers, ui: TournamentUi):
                     td(cls := "winner")(
                       t.winnerId.isDefined.option(userIdLink(t.winnerId, withOnline = false))
                     ),
-                    td(cls := "text", iconEl := Icon.User)(t.nbPlayers.localize)
+                    td(cls := "text", iconEl := Icon.user)(t.nbPlayers.localize)
                   )
                 },
                 pagerNextTable(pager, np => routes.UserTournament.path(u.username, "created", np).url)
@@ -74,7 +74,7 @@ final class UserTournament(helpers: Helpers, ui: TournamentUi):
                   td(cls := "icon")(iconEl(ui.tournamentIcon(t))),
                   ui.finishedList.header(t),
                   td(momentFromNow(t.startsAt)),
-                  td(cls := "text", iconEl := Icon.User)(t.nbPlayers.localize)
+                  td(cls := "text", iconEl := Icon.user)(t.nbPlayers.localize)
                 )
           )
         )

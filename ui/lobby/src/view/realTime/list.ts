@@ -50,7 +50,7 @@ export const toggle = (ctrl: LobbyController) =>
       'aria-label': i18n.site.graph,
       hook: bind('click', _ => ctrl.setMode('chart'), ctrl.redraw),
     },
-    [snabIcon('LineGraph')],
+    [snabIcon('lineGraph')],
   );
 
 export const render = (ctrl: LobbyController, allHooks: Hook[]) => {
@@ -87,7 +87,7 @@ export const render = (ctrl: LobbyController, allHooks: Hook[]) => {
                 class: { sortable: true, sort: ctrl.sort === 'rating' },
                 hook: bind('click', _ => ctrl.setSort('rating'), ctrl.redraw),
               },
-              [icon('DownTriangle')('.is'), i18n.site.rating],
+              [icon('downTriangle')('.is'), i18n.site.rating],
             )
           : null,
         th(
@@ -100,7 +100,7 @@ export const render = (ctrl: LobbyController, allHooks: Hook[]) => {
             : {
                 key: 'time-header-without-rating',
               },
-          [icon('DownTriangle')('.is'), i18n.site.time],
+          [icon('downTriangle')('.is'), i18n.site.time],
         ),
         th(i18n.site.mode),
       ]),

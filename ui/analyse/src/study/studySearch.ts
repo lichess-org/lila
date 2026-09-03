@@ -89,7 +89,7 @@ export function view(ctrl: SearchCtrl) {
                   c.name,
                 ),
                 c.playing
-                  ? h('ongoing', { attrs: { title: 'Ongoing' } }, [snabIcon('DiscBig')])
+                  ? h('ongoing', { attrs: { title: 'Ongoing' } }, [snabIcon('discBig')])
                   : c.status && h('res', c.status),
               ]),
             )

@@ -62,11 +62,11 @@ const viewActions = (ctrl: PlayCtrl) =>
   hl('div.bot-game__actions', [
     ctrl.game.end && hl('button.bot-game__rematch', { hook: bind('click', ctrl.opts.rematch) }, 'Rematch'),
     hl('button.bot-game__close.text', { hook: bind('click', ctrl.opts.close) }, [
-      snabIcon('Back'),
+      snabIcon('back'),
       'More opponents',
     ]),
     hl('button.bot-game__restart.text', { hook: bind('click', ctrl.opts.rematch) }, [
-      snabIcon('Reload'),
+      snabIcon('reload'),
       'New game',
     ]),
   ]);
@@ -146,10 +146,10 @@ const viewNavigation = (ctrl: PlayCtrl) => {
     boardMenu(ctrl),
     hl('div.noop'),
     [
-      ['JumpFirst', 0],
-      ['JumpPrev', ctrl.board.onPly - 1],
-      ['JumpNext', ctrl.board.onPly + 1],
-      ['JumpLast', ctrl.game.ply()],
+      ['jumpFirst', 0],
+      ['jumpPrev', ctrl.board.onPly - 1],
+      ['jumpNext', ctrl.board.onPly + 1],
+      ['jumpLast', ctrl.game.ply()],
     ].map((b: [Icon, number], i) => {
       const enabled = ctrl.board.onPly !== b[1] && b[1] >= 0 && b[1] <= ctrl.game.ply();
       return hl(

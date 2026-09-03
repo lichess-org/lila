@@ -35,7 +35,7 @@
     gap: 0.5em;
 
     &::after {
-      @include icon-mask($icon-GreaterThan, 14px);
+      @include icon-mask($icon-greaterThan, 14px);
 
       transform: rotate(-90deg);
 

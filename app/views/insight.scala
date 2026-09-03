@@ -38,7 +38,7 @@ def empty(u: User)(using Context) =
     .js(Esm("insight.refresh"))
     .css("insight"):
       main(cls := "box box-pad page-small")(
-        boxTop(h1(cls := "text", iconEl := Icon.Target)(trans.insight.xChessInsights(u.username))),
+        boxTop(h1(cls := "text", iconEl := Icon.target)(trans.insight.xChessInsights(u.username))),
         p(trans.insight.xHasNoChessInsights(userLink(u))),
         refreshForm(u, trans.insight.generateInsights.txt(u.username))
       )
@@ -60,7 +60,7 @@ def forbidden(u: User)(using Context) =
 
 def refreshForm(u: User, action: String)(using Translate) =
   postForm(cls := "insight-refresh", st.action := routes.Insight.refresh(u.username))(
-    button(iconEl := Icon.Checkmark, cls := "button text")(action),
+    button(iconEl := Icon.checkmark, cls := "button text")(action),
     div(cls := "crunching none")(
       spinner,
       br,

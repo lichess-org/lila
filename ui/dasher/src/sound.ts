@@ -66,7 +66,7 @@ export class SoundCtrl extends PaneCtrl {
                   class: { active: this.getCurrent() === s[0] },
                   attrs: { type: 'button' },
                 },
-                [snabIcon('Checkmark'), s[1], s[0] === 'speech' ? '...' : ''],
+                [snabIcon('checkmark'), s[1], s[0] === 'speech' ? '...' : ''],
               ),
             ),
           ),
@@ -120,7 +120,7 @@ export class SoundCtrl extends PaneCtrl {
                   class: { active: name === selectedVoice?.name },
                   attrs: { type: 'button' },
                 },
-                name === selectedVoice?.name ? [snabIcon('Checkmark'), name] : [name],
+                name === selectedVoice?.name ? [snabIcon('checkmark'), name] : [name],
               ),
             ),
         );

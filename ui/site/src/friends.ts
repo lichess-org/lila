@@ -64,7 +64,7 @@ export default class OnlineFriends {
         : '',
       url = '/@/' + friend.name,
       tvButton = friend.playing
-        ? `<a class="tv ulpt" data-pt-pos="nw" href="${url}/tv" data-href="${url}">${htmlIcon('AnalogTv')}</a>`
+        ? `<a class="tv ulpt" data-pt-pos="nw" href="${url}/tv" data-href="${url}">${htmlIcon('analogTv')}</a>`
         : '';
     return `<div><a class="online user-link ulpt" data-pt-pos="nw" href="${url}">${icon}${titleTag}${friend.name}</a>${tvButton}</div>`;
   };

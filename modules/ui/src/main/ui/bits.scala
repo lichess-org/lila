@@ -51,7 +51,7 @@ object bits:
     div(cls := s"$prefix $prefix--$id")(
       a(
         href := prev.map(urlOf),
-        iconEl := Icon.LessThan,
+        iconEl := Icon.lessThan,
         cls := List("disabled" -> prev.isEmpty)
       ),
       div(cls := prefixed("__selects"))(
@@ -76,7 +76,7 @@ object bits:
       ),
       a(
         href := next.map(urlOf),
-        iconEl := Icon.GreaterThan,
+        iconEl := Icon.greaterThan,
         cls := List("disabled" -> next.isEmpty)
       )
     )

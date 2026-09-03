@@ -21,7 +21,7 @@ export const player = (
     },
     [
       h('span.name' + (defender ? '.defender' : leader ? '.leader' : ''), [
-        defender ? snabIcon('Shield') : leader ? snabIcon('Crown') : null,
+        defender ? snabIcon('shield') : leader ? snabIcon('crown') : null,
         p.patronColor && userLine({ patronColor: p.patronColor }),
         ...fullName(p),
       ]),

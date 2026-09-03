@@ -58,6 +58,6 @@ const renderBackToLiveButton = (ctrl: AnalyseCtrl) =>
             ctrl.redraw,
           ),
         },
-        [snabIcon('PlayTriangle'), i18n.broadcast.backToLiveMove],
+        [snabIcon('playTriangle'), i18n.broadcast.backToLiveMove],
       )
     : undefined;

@@ -126,23 +126,23 @@ function view(ctrl: AnalyseCtrl, path: TreePath, coords: Coords): VNode {
       hl('p.title', nodeFullName(node)),
 
       idbTree.someCollapsedOf(false) && // with variation hiding enabled, collapse/expand all are most common
-        action('MinusButton', 'Collapse all', () => idbTree.setCollapsedFrom('', true)),
+        action('minusButton', 'Collapse all', () => idbTree.setCollapsedFrom('', true)),
 
       idbTree.someCollapsedOf(true) &&
-        action('PlusButton', 'Expand all', () => idbTree.setCollapsedFrom('', false)),
+        action('plusButton', 'Expand all', () => idbTree.setCollapsedFrom('', false)),
 
-      canPrune && action('Trash', 'Prune to main line', () => ctrl.pruneToMainline(path)), // correspondence
+      canPrune && action('trash', 'Prune to main line', () => ctrl.pruneToMainline(path)), // correspondence
 
-      canPromote && action('UpTriangle', i18n.site.promoteVariation, () => ctrl.promote(path, false)),
-      !onMainline && action('Checkmark', i18n.site.makeMainLine, () => ctrl.promote(path, true)),
+      canPromote && action('upTriangle', i18n.site.promoteVariation, () => ctrl.promote(path, false)),
+      !onMainline && action('checkmark', i18n.site.makeMainLine, () => ctrl.promote(path, true)),
       path && ctrl.study && studyView.contextMenu(ctrl.study, path, node),
 
       path &&
         onMainline &&
-        action('InternalArrow', i18n.site.forceVariation, () => ctrl.forceVariation(path, true)),
+        action('internalArrow', i18n.site.forceVariation, () => ctrl.forceVariation(path, true)),
 
       action(
-        'Clipboard',
+        'clipboard',
         onMainline ? i18n.site.copyMainLinePgn : i18n.site.copyVariationPgn,
         () =>
           navigator.clipboard.writeText(
@@ -154,7 +154,7 @@ function view(ctrl: AnalyseCtrl, path: TreePath, coords: Coords): VNode {
 
       path &&
         action(
-          'Trash',
+          'trash',
           i18n.site.deleteFromHere,
           () => ctrl.deleteNode(path),
           () => ctrl.pendingDeletionPath(path),

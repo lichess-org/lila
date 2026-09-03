@@ -30,7 +30,7 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
     private def atTheTop(c: Clas, active: String)(using Context) =
       frag(
         div(cls := "clas-show__top")(
-          h1(iconEl := Icon.Group, cls := "text")(c.name),
+          h1(iconEl := Icon.group, cls := "text")(c.name),
           c.isActive.option:
             st.nav(cls := "dashboard-nav")(
               a(cls := active.active("overview"), href := routes.Clas.show(c.id))(trans.clas.overview()),
@@ -60,14 +60,14 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
           frag(
             div(cls := "clas-wall__actions")(
               a(
-                iconEl := Icon.Pencil,
+                iconEl := Icon.pencil,
                 href := routes.Clas.wallEdit(c.id),
                 cls := "button button-clas text"
               )(
                 trans.clas.editNews()
               ),
               a(
-                iconEl := Icon.Envelope,
+                iconEl := Icon.envelope,
                 href := routes.Clas.notifyStudents(c.id),
                 cls := "button button-clas text"
               )(
@@ -119,7 +119,7 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
                   val url = c.teamId match
                     case Some(teamId) => routes.Team.show(teamId).url
                     case None => routes.Clas.edit(c.id).url + "#clas-team"
-                  a(href := url, cls := "text", iconEl := Icon.Trophy):
+                  a(href := url, cls := "text", iconEl := Icon.trophy):
                     trans.site.tournaments()
             )
           ),
@@ -134,7 +134,7 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
       val classButtons: Frag = otherClasses.map: toClass =>
         form3.submit(
           toClass.name,
-          icon = Icon.InternalArrow.some,
+          icon = Icon.internalArrow.some,
           ("action", s"move-to-${toClass.id}").some
         )(
           cls := "yes-no-confirm button-blue button-empty button-no-upper",
@@ -187,7 +187,7 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
                 form3.submit("Restore", icon = none, ("action", "restore").some)(
                   cls := "yes-no-confirm button-blue button-empty"
                 ),
-                form3.submit("Remove", icon = Icon.Trash.some, ("action", "remove").some)(
+                form3.submit("Remove", icon = Icon.trash.some, ("action", "remove").some)(
                   cls := "yes-no-confirm button-red button-empty"
                 )
               )
@@ -200,7 +200,7 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
                 frag("Invites")
               )(form3.textarea(_)(rows := 7)),
               div(cls := "form-group")(
-                form3.submit("Delete", icon = Icon.Trash.some, ("action", "delete-invites").some)(
+                form3.submit("Delete", icon = Icon.trash.some, ("action", "delete-invites").some)(
                   cls := "yes-no-confirm button-red button-empty"
                 )
               )
@@ -227,15 +227,15 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
                 a(
                   href := routes.Clas.studentForm(c.id),
                   cls := "button button-clas text",
-                  iconEl := Icon.PlusButton
+                  iconEl := Icon.plusButton
                 )(trans.clas.addStudent()),
                 a(
                   href := routes.Clas.bulkActions(c.id),
                   cls := "button button-clas text",
-                  iconEl := Icon.Tools
+                  iconEl := Icon.tools
                 )("Bulk actions"),
                 postForm(action := routes.Clas.loginCreate(c.id))(
-                  submitButton(cls := "button button-clas text", iconEl := Icon.Group)(
+                  submitButton(cls := "button button-clas text", iconEl := Icon.group)(
                     trans.clas.quickLoginCodes()
                   )
                 )
@@ -287,7 +287,7 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
           yield div(cls := "clas-login__card")(
             h3(student.realName),
             userIdLink(student.userId.some, withOnline = false),
-            c.map(_.code).fold(iconEl(Icon.X, "not managed"))(code(_))
+            c.map(_.code).fold(iconEl(Icon.x, "not managed"))(code(_))
           )
       )
 
@@ -471,7 +471,7 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
               thSortNumber(trans.site.games()),
               thSortNumber(trans.site.puzzles()),
               thSortNumber(trans.clas.lastActiveDate()),
-              th(iconEl(Icon.Shield)(title := trans.clas.managed.txt()))
+              th(iconEl(Icon.shield)(title := trans.clas.managed.txt()))
             )
           ,
           tbody:
@@ -485,7 +485,7 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
                   td(dataSort := user.seenAt.map(_.toMillis.toString))(user.seenAt.map(momentFromNowOnce)),
                   td(
                     dataSort := (if student.managed then 1 else 0),
-                    student.managed.option(iconEl(Icon.Shield)(title := trans.clas.managed.txt()))
+                    student.managed.option(iconEl(Icon.shield)(title := trans.clas.managed.txt()))
                   )
                 )
             }
@@ -512,7 +512,7 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
       ClasPage(c.name, Left(c.withStudents(Nil)))(cls := "clas-show dashboard dashboard-student"):
         frag(
           div(cls := "clas-show__top")(
-            h1(iconEl := Icon.Group, cls := "text")(c.name),
+            h1(iconEl := Icon.group, cls := "text")(c.name),
             c.desc.trim.nonEmpty.option(div(cls := "clas-show__desc")(richText(c.desc)))
           ),
           standardFlash,
@@ -589,7 +589,7 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
         val online = isOnline.exec(user.id)
         td(
           a(
-            iconEl := Icon.Swords,
+            iconEl := Icon.swords,
             cls := List("button button-empty text" -> true, "disabled" -> !online),
             title := trans.challenge.challengeToPlay.txt(),
             href := online.option(s"${routes.Lobby.home}?user=${user.username}#friend")

@@ -132,7 +132,7 @@ $disclosure-btn-size: calc(15px + var(---button-size-pointer-adjust, 0px));
   color: $c-good;
 
   &::before {
-    @include icon-mask($icon-DiscBigOutline, 12px);
+    @include icon-mask($icon-discBigOutline, 12px);
   }
 }
 

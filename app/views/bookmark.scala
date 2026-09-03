@@ -12,12 +12,12 @@ def toggle(g: Game, bookmarked: Boolean)(using ctx: Context) =
       href := routes.Game.bookmark(g.id),
       title := trans.site.bookmarkThisGame.txt()
     )(
-      iconEl(Icon.Star)(cls := "on is3"),
-      iconEl(Icon.StarOutline)(cls := "off is3"),
+      iconEl(Icon.star)(cls := "on is3"),
+      iconEl(Icon.starOutline)(cls := "off is3"),
       span((g.bookmarks > 0).option(g.bookmarks))
     )
   else if g.bookmarks > 0 then
     span(cls := "bookmark")(
-      span(iconEl := Icon.StarOutline, cls := "is3")(g.bookmarks)
+      span(iconEl := Icon.starOutline, cls := "is3")(g.bookmarks)
     )
   else emptyFrag

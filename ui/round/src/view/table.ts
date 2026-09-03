@@ -52,8 +52,8 @@ const prompt = (ctrl: RoundController) => {
       ? hl('button', { hook: bind('click', action) }, text)
       : hl(`a.${tpe}`, { attrs: { 'aria-label': text }, hook: bind('click', action) }, [snabIcon(icon)]);
 
-  const noBtn = o.no && btn('no', o.no.icon || 'X', o.no.text || i18n.site.decline, o.no.action);
-  const yesBtn = o.yes && btn('yes', o.yes.icon || 'Checkmark', o.yes.text || i18n.site.accept, o.yes.action);
+  const noBtn = o.no && btn('no', o.no.icon || 'x', o.no.text || i18n.site.decline, o.no.action);
+  const yesBtn = o.yes && btn('yes', o.yes.icon || 'checkmark', o.yes.text || i18n.site.accept, o.yes.action);
 
   return {
     promptVNode: hl('div.question', { key: o.prompt }, [noBtn, hl('p', o.prompt), yesBtn]),
@@ -70,11 +70,11 @@ export const renderTablePlay = (ctrl: RoundController): LooseVNodes => {
         ? []
         : [
             abortable(d)
-              ? button.standard(ctrl, undefined, 'X', i18n.site.abortGame, 'abort')
+              ? button.standard(ctrl, undefined, 'x', i18n.site.abortGame, 'abort')
               : button.standard(
                   ctrl,
                   d => ({ enabled: takebackable(d) }),
-                  'Back',
+                  'back',
                   i18n.site.proposeATakeback,
                   'takeback-yes',
                   ctrl.takebackYes,
@@ -95,7 +95,7 @@ export const renderTablePlay = (ctrl: RoundController): LooseVNodes => {
                       enabled: ctrl.canOfferDraw(),
                       overrideHint: drawableSwiss(d) ? undefined : i18n.site.noDrawBeforeSwissLimit,
                     }),
-                    'OneHalf',
+                    'oneHalf',
                     i18n.site.offerDraw,
                     'draw-yes',
                     () => ctrl.offerDraw(true),
@@ -105,7 +105,7 @@ export const renderTablePlay = (ctrl: RoundController): LooseVNodes => {
               : button.standard(
                   ctrl,
                   d => ({ enabled: resignable(d) }),
-                  'FlagOutline',
+                  'flagOutline',
                   i18n.site.resign,
                   'resign',
                   () => ctrl.resign(true),

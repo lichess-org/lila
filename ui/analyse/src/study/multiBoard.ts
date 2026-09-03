@@ -154,7 +154,7 @@ export function view(ctrl: MultiBoardCtrl, study: StudyCtrl): MaybeVNode {
       ]),
     ]),
     !ctrl.showResults()
-      ? h('div.empty-boards-note.text', [snabIcon('InfoCircle'), i18n.broadcast.sinceHideResults])
+      ? h('div.empty-boards-note.text', [snabIcon('infoCircle'), i18n.broadcast.sinceHideResults])
       : undefined,
     h(
       'div.now-playing',
@@ -194,11 +194,11 @@ function renderPagerNav(pager: Paginator<ChapterPreview>, ctrl: MultiBoardCtrl):
     to = Math.min(pager.nbResults, page * pager.maxPerPage),
     max = ctrl.maxPerPage();
   return h('div.study__multiboard__pager', [
-    pagerButton('JumpFirst', () => ctrl.setPage(1), page > 1, ctrl),
-    pagerButton('JumpPrev', ctrl.prevPage, page > 1, ctrl),
+    pagerButton('jumpFirst', () => ctrl.setPage(1), page > 1, ctrl),
+    pagerButton('jumpPrev', ctrl.prevPage, page > 1, ctrl),
     h('span.page', `${from}-${to} / ${pager.nbResults}`),
-    pagerButton('JumpNext', ctrl.nextPage, page < pager.nbPages, ctrl),
-    pagerButton('JumpLast', ctrl.lastPage, page < pager.nbPages, ctrl),
+    pagerButton('jumpNext', ctrl.nextPage, page < pager.nbPages, ctrl),
+    pagerButton('jumpLast', ctrl.lastPage, page < pager.nbPages, ctrl),
     teamSelector(ctrl),
     h(
       'select.study__multiboard__pager__max-per-page',

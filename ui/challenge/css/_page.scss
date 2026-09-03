@@ -154,13 +154,13 @@
   }
 
   .mobile-instructions::before {
-    @include icon-mask($icon-ShareAndroid, 3rem);
+    @include icon-mask($icon-shareAndroid, 3rem);
 
-    padding-inline-end: 1rem;
+    margin-inline-end: 1rem;
   }
 
   .mobile-instructions.is-ios::before {
-    @include icon-mask($icon-ShareIos);
+    @include icon-mask($icon-shareIos, 3rem);
   }
 
   &.challenge--declined .details {

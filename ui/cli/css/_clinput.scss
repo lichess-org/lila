@@ -59,7 +59,7 @@ body.clinput #top {
 #clinput {
   .complete-result--menu {
     &::before {
-      @include icon-mask($icon-GreaterThan, 1.5em);
+      @include icon-mask($icon-greaterThan, 1.5em);
 
       display: inline-block;
       text-align: center;

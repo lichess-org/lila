@@ -68,7 +68,7 @@ final class UserShowSide(helpers: Helpers):
             )
           }
         ),
-        ctx.pref.showRatings.option(iconEl(Icon.PlayTriangle))
+        ctx.pref.showRatings.option(iconEl(Icon.playTriangle))
       )
 
     div(cls := "side sub-ratings")(
@@ -104,7 +104,7 @@ final class UserShowSide(helpers: Helpers):
 
   private def showStorm(storm: PuzPerf, user: User)(using Translate) =
     a(
-      iconEl := Icon.Storm,
+      iconEl := Icon.storm,
       cls := List(
         "empty" -> !storm.nonEmpty
       ),
@@ -121,12 +121,12 @@ final class UserShowSide(helpers: Helpers):
           )
         )
       ),
-      iconEl(Icon.PlayTriangle)
+      iconEl(Icon.playTriangle)
     )
 
   private def showRacer(racer: PuzPerf)(using Translate) =
     a(
-      iconEl := Icon.FlagChessboard,
+      iconEl := Icon.flagChessboard,
       cls := List(
         "empty" -> !racer.nonEmpty
       ),
@@ -143,12 +143,12 @@ final class UserShowSide(helpers: Helpers):
           )
         )
       ),
-      iconEl(Icon.PlayTriangle)
+      iconEl(Icon.playTriangle)
     )
 
   private def showStreak(streak: PuzPerf)(using Translate) =
     a(
-      iconEl := Icon.ArrowThruApple,
+      iconEl := Icon.arrowThruApple,
       cls := List(
         "empty" -> !streak.nonEmpty
       ),
@@ -165,5 +165,5 @@ final class UserShowSide(helpers: Helpers):
           )
         )
       ),
-      iconEl(Icon.PlayTriangle)
+      iconEl(Icon.playTriangle)
     )

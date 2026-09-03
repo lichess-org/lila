@@ -130,7 +130,7 @@ function tournamentClass(tour: Tournament): Classes {
   return classes;
 }
 
-const iconOf = (tour: Tournament) => (tour.schedule?.freq === 'shield' ? 'Shield' : perfIcons[tour.perf.key]);
+const iconOf = (tour: Tournament) => (tour.schedule?.freq === 'shield' ? 'shield' : perfIcons[tour.perf.key]);
 
 let mousedownAt: number[] | undefined;
 
@@ -181,7 +181,7 @@ function renderTournament(tour: Tournament) {
             tour.position ? 'Thematic ' : null,
             i18n.site[tour.rated ? 'ratedTournament' : 'casualTournament'],
           ]),
-          tour.nbPlayers ? h('span.nb-players', [snabIcon('User'), tour.nbPlayers]) : null,
+          tour.nbPlayers ? h('span.nb-players', [snabIcon('user'), tour.nbPlayers]) : null,
         ]),
       ]),
     ],

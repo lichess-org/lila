@@ -29,7 +29,7 @@ final class SwissFormUi(helpers: Helpers)(
             postForm(cls := "form3", action := routes.Swiss.create(teamId))(
               div(cls := "form-group")(
                 a(
-                  iconEl := Icon.InfoCircle,
+                  iconEl := Icon.infoCircle,
                   cls := "text",
                   href := routes.Cms.lonePage(lila.core.id.CmsPageKey("event-tips"))
                 )(trans.site.ourEventTips())
@@ -42,7 +42,7 @@ final class SwissFormUi(helpers: Helpers)(
               form3.globalError(form),
               form3.actions(
                 a(href := routes.Team.show(teamId))(trans.site.cancel()),
-                form3.submit(trans.site.createANewTournament(), icon = Icon.Trophy.some)
+                form3.submit(trans.site.createANewTournament(), icon = Icon.trophy.some)
               )
             )
           )
@@ -67,12 +67,12 @@ final class SwissFormUi(helpers: Helpers)(
               form3.globalError(form),
               form3.actions(
                 a(href := routes.Swiss.show(swiss.id))(trans.site.cancel()),
-                form3.submit(trans.site.save(), icon = Icon.Trophy.some)
+                form3.submit(trans.site.save(), icon = Icon.trophy.some)
               )
             ),
             postForm(cls := "terminate", action := routes.Swiss.terminate(swiss.id))(
               submitButton(
-                iconEl := Icon.CautionCircle,
+                iconEl := Icon.cautionCircle,
                 cls := "text button button-red yes-no-confirm"
               )(
                 trans.site.cancelTournament()

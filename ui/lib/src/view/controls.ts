@@ -47,7 +47,7 @@ export function copyMeInput(content: string, opts: { inputAttrs?: Attrs; on?: On
       on: opts.on,
     }),
     h('button.copy-me__button.button.button-metal', { attrs: { title: i18n.site.copyToClipboard } }, [
-      snabIcon('Clipboard'),
+      snabIcon('clipboard'),
     ]),
   ]);
 }

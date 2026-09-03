@@ -58,7 +58,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)
         if showAuthor != ShowAt.none
         then userIdSpanMini(post.created.by)(cls := s"ublog-post-card__over-image pos-$showAuthor")
         else if ~post.sticky
-        then span(iconEl(Icon.Star))(cls := "user-link ublog-post-card__over-image pos-top")
+        then span(iconEl(Icon.star))(cls := "user-link ublog-post-card__over-image pos-top")
         else emptyFrag
       ),
       span(cls := "ublog-post-card__content")(
@@ -82,7 +82,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)
   def newPostLink(user: User)(using Context) = a(
     href := routes.Ublog.getEditForm(user.username),
     cls := "button button-green",
-    iconEl := Icon.PlusButton,
+    iconEl := Icon.plusButton,
     title := trans.ublog.newPost.txt()
   )
 
@@ -285,7 +285,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)
                 span(cls := "search-input")(
                   input(name := "text", value := text, size := "8", enterkeyhint := "search"),
                   submitButton(cls := "button", name := "by", value := by.toString)(
-                    iconEl := Icon.Search
+                    iconEl := Icon.search
                   )
                 ),
                 span(cls := "search-sort")(
@@ -324,7 +324,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)
             postForm(action := routes.Ublog.modSetCarouselSize)(
               label("Carousel size: "),
               input(name := "size", size := "2", value := s"$carouselSize", enterkeyhint := "set"),
-              submitButton(cls := "button button-empty", iconEl := Icon.Checkmark)
+              submitButton(cls := "button button-empty", iconEl := Icon.checkmark)
             ),
             div(cls := "ublog-index__posts ublog-mod-carousel")(
               (posts.pinned ++ posts.queue).map: p =>
@@ -341,7 +341,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)
                       .map(until => label("Pinned by ", by, s" until ${showDate(until)}")),
                     p.featured.so(_.at).map(at => label("Added by ", by, s" ${showDate(at)}")),
                     form(action := routes.Ublog.modPull(p.id), method := "POST")(
-                      button(tpe := "submit", cls := "pull")(iconEl(Icon.X))
+                      button(tpe := "submit", cls := "pull")(iconEl(Icon.x))
                     )
                   ),
                   card(p, showAuthor = ShowAt.top, showIntro = false)
@@ -426,8 +426,8 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)
           card(_, showAuthor = ShowAt.bottom, showIntro = false, strictDate = false)
       ,
       div(cls := "carousel__controls")(
-        button(cls := "carousel__prev", iconEl := Icon.LessThan),
-        button(cls := "carousel__next", iconEl := Icon.GreaterThan)
+        button(cls := "carousel__prev", iconEl := Icon.lessThan),
+        button(cls := "carousel__next", iconEl := Icon.greaterThan)
       )
     )
 
@@ -505,7 +505,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)
     postForm(cls := s"ublog-mod-blog-form", action := routes.Ublog.modBlog(blog.id.full))(
       button(
         cls := s"ublog-mod-note-btn button button-empty $colorCls",
-        iconEl := Icon.Pencil,
+        iconEl := Icon.pencil,
         title := "Edit this blog's moderation note"
       ),
       form3.hidden(form("note"), blog.modNote),

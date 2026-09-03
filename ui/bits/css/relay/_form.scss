@@ -41,7 +41,7 @@
   &::before {
     color: $c-brag;
 
-    @include icon-mask($icon-InfoCircle, 4em);
+    @include icon-mask($icon-infoCircle, 4em);
   }
 }
 
@@ -51,7 +51,7 @@
   &::before {
     color: $c-secondary;
 
-    @include icon-mask($icon-UploadCloud, 4em);
+    @include icon-mask($icon-uploadCloud, 4em);
   }
 }
 
@@ -62,7 +62,7 @@
   &::before {
     color: $c-good;
 
-    @include icon-mask($icon-Checkmark, 4em);
+    @include icon-mask($icon-checkmark, 4em);
   }
 }
 

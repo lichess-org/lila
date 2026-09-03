@@ -252,8 +252,8 @@ trait UserHelper:
     case d if d > 0 => goodTag(s"+$d")
     case d => badTag(s"−${-d}")
 
-  val patronIconChar = Icon.Wings
-  val lineIconChar = Icon.Disc
+  val patronIconChar = Icon.wings
+  val lineIconChar = Icon.disc
 
   val lineIcon: Frag = span(cls := "line")
 
