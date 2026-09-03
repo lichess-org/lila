@@ -201,7 +201,7 @@ final class ClasApi(
     def archiveAllInactive: Funit =
       for
         inactiveClasses <- coll
-          .find(selectArchived(false) ++ "viewedAt".$lte(nowInstant.minusDays(30)))
+          .find(selectArchived(false) ++ "viewedAt".$lte(nowInstant.minusDays(100)))
           .cursor[Clas](ReadPref.sec)
           .list(100)
         _ = inactiveClasses.nonEmptyOption.foreach: classes =>
