@@ -83,4 +83,4 @@ final class ViewerCountApi(db: lila.db.Db, cacheApi: CacheApi)(using scheduler: 
     cache.underlying.synchronous
       .asMap()
       .forEach: (key, vc) =>
-        coll.update.one(bid(key), $set("v" -> vc.get), upsert = true)
+        coll.update.one(bid(key), set("v" -> vc.get), upsert = true)

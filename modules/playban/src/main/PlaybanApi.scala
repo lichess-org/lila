@@ -191,7 +191,7 @@ final class PlaybanApi(
     (!cleanUserIds.get(user.id)).so:
       coll
         .find(
-          bdoc("_id" -> user.id, "b.0".$exists(true)),
+          bdoc("_id" -> user.id, "b.0".exists(true)),
           bdoc("_id" -> false, "b" -> bdoc("$slice" -> -1)).some
         )
         .one[Bdoc]
@@ -206,7 +206,7 @@ final class PlaybanApi(
     coll
       .aggregateList(Int.MaxValue, _.pri): framework =>
         import framework.*
-        Match(inIds(userIds) ++ bdoc("b".$exists(true))) -> List(
+        Match(inIds(userIds) ++ bdoc("b".exists(true))) -> List(
           Project(bdoc("bans" -> bdoc("$size" -> "$b")))
         )
       .map: res =>
@@ -220,7 +220,7 @@ final class PlaybanApi(
   def bans(userId: UserId): Fu[Int] = coll
     .aggregateOne(_.sec): framework =>
       import framework.*
-      Match(bid(userId) ++ bdoc("b".$exists(true))) -> List(
+      Match(bid(userId) ++ bdoc("b".exists(true))) -> List(
         Project(bdoc("bans" -> bdoc("$size" -> "$b")))
       )
     .map { ~_.flatMap { _.getAsOpt[Int]("bans") } }
@@ -231,7 +231,7 @@ final class PlaybanApi(
     _.expireAfterAccess(10.minutes)
       .buildAsyncFuture: userId =>
         coll
-          .primitiveOne[RageSitCounter](bdoc("_id" -> userId, "c".$exists(true)), "c")
+          .primitiveOne[RageSitCounter](bdoc("_id" -> userId, "c".exists(true)), "c")
           .map(_ | RageSit.empty)
 
   private def save(
@@ -246,10 +246,10 @@ final class PlaybanApi(
         .findAndUpdateSimplified[UserRecord](
           selector = bid(userId),
           update = bdoc(
-            $push("o" -> bdoc("$each" -> List(outcome), "$slice" -> -30)) ++ {
+            push("o" -> bdoc("$each" -> List(outcome), "$slice" -> -30)) ++ {
               rsUpdate match
-                case RageSit.Update.Reset => $min("c" -> 0)
-                case RageSit.Update.Inc(v) if v != 0 => $inc("c" -> v)
+                case RageSit.Update.Reset => min("c" -> 0)
+                case RageSit.Update.Inc(v) if v != 0 => inc("c" -> v)
                 case _ => emptyBdoc
             }
           ),
@@ -280,7 +280,7 @@ final class PlaybanApi(
         coll
           .findAndUpdateSimplified[UserRecord](
             selector = bid(record.userId),
-            update = $unset("o") ++ $push(
+            update = unset("o") ++ push(
               "b" -> bdoc(
                 "$each" -> List(ban),
                 "$slice" -> -30

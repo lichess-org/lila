@@ -90,8 +90,8 @@ final class ClasProgressApi(
         import framework.*
         Match(
           bdoc(
-            PuzzleRound.BSONFields.user.$in(userIds),
-            PuzzleRound.BSONFields.date.$gt(nowInstant.minusDays(days.value))
+            PuzzleRound.BSONFields.user.in(userIds),
+            PuzzleRound.BSONFields.date.gt(nowInstant.minusDays(days.value))
           )
         ) -> List:
           GroupField("u")(
@@ -124,8 +124,8 @@ final class ClasProgressApi(
         import framework.*
         Match(
           bdoc(
-            F.playerUids.$in(userIds),
-            F.createdAt.$gte(nowInstant.minusDays(days.value)),
+            F.playerUids.in(userIds),
+            F.createdAt.gte(nowInstant.minusDays(days.value)),
             gamePerfField -> perfType.id
           )
         ) -> List(
@@ -138,7 +138,7 @@ final class ClasProgressApi(
             )
           ),
           UnwindField(F.playerUids),
-          Match(bdoc(F.playerUids.$in(userIds))),
+          Match(bdoc(F.playerUids.in(userIds))),
           GroupField(F.playerUids)(
             "nb" -> SumAll,
             "win" -> Sum(

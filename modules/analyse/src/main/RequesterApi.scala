@@ -14,7 +14,7 @@ final class RequesterApi(coll: Coll)(using Executor):
     coll.update
       .one(
         bid(requester),
-        $inc(
+        inc(
           "total" -> 1,
           formatter.print(nowInstant) -> (if ownGame then 1 else 2)
         ),

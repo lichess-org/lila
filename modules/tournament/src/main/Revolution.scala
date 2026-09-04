@@ -24,8 +24,8 @@ final class RevolutionApi(
         .find(
           bdoc(
             "schedule.freq" -> (Schedule.Freq.Unique: Schedule.Freq),
-            "startsAt".$lt(nowInstant).$gt(nowInstant.minusYears(1).minusDays(1)),
-            "name".$regex(Revolution.namePattern),
+            "startsAt".lt(nowInstant).gt(nowInstant.minusYears(1).minusDays(1)),
+            "name".regex(Revolution.namePattern),
             "status" -> (Status.finished: Status)
           ),
           bdoc("winner" -> true, "variant" -> true).some

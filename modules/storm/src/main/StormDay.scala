@@ -91,7 +91,7 @@ final class StormDayApi(coll: Coll, highApi: StormHighApi, userApi: lila.core.us
         collection = coll,
         selector = idRegexFor(userId),
         projection = none,
-        sort = $sort.desc("_id")
+        sort = sort.desc("_id")
       ),
       page,
       MaxPerPage(30)
@@ -100,8 +100,8 @@ final class StormDayApi(coll: Coll, highApi: StormHighApi, userApi: lila.core.us
   def apiHistory(userId: UserId, days: Int): Fu[List[StormDay]] =
     coll
       .find(idRegexFor(userId))
-      .sort($sort.desc("_id"))
+      .sort(sort.desc("_id"))
       .cursor[StormDay](ReadPref.sec)
       .list(days)
 
-  private def idRegexFor(userId: UserId) = bdoc("_id".$startsWith(s"${userId}:"))
+  private def idRegexFor(userId: UserId) = bdoc("_id".regexStart(s"${userId}:"))

@@ -263,7 +263,7 @@ final class ReportApi(
         coll.update
           .one(
             inIds(closed.map(_.id)),
-            $set("open" -> true) ++ $unset("done"),
+            set("open" -> true) ++ unset("done"),
             multi = true
           )
           .void
@@ -318,7 +318,7 @@ final class ReportApi(
   yield onReportClose(report.room)
 
   def autoProcess(sus: Suspect, rooms: Set[Room])(using MyId): Funit =
-    val selector = bdoc("user" -> sus.user.id, "room".$in(rooms), "open" -> true)
+    val selector = bdoc("user" -> sus.user.id, "room".in(rooms), "open" -> true)
     for
       reports <- coll.list[Report](selector)
       _ <- reports.sequentiallyVoid: report =>
@@ -387,10 +387,10 @@ final class ReportApi(
     coll.update
       .one(
         selector,
-        $set(
+        set(
           "open" -> false,
           "done" -> Report.Done(me.modId, nowInstant)
-        ) ++ (unsetInquiry.so($unset("inquiry"))),
+        ) ++ (unsetInquiry.so(unset("inquiry"))),
         multi = true
       )
       .void
@@ -415,7 +415,7 @@ final class ReportApi(
     coll.update
       .one(
         bid(id),
-        $set("room" -> Room.Xfiles.key) ++ $unset("inquiry")
+        bset("room" -> Room.Xfiles.key) ++ unset("inquiry")
       )
       .void
 
@@ -423,16 +423,16 @@ final class ReportApi(
   private val sortLastAtomAt = bdoc("atoms.0.at" -> -1)
 
   private def roomSelect(room: Option[Room]): Bdoc =
-    room.fold(bdoc("room".$in(Room.allButXfiles))): r =>
+    room.fold(bdoc("room".in(Room.allButXfiles))): r =>
       bdoc("room" -> r)
 
   private def selectOpenInRoom(room: Option[Room], exceptIds: Iterable[ReportId]) =
     bdoc("open" -> true) ++ roomSelect(room) ++ {
-      exceptIds.nonEmpty.so(bdoc("_id".$nin(exceptIds)))
+      exceptIds.nonEmpty.so(bdoc("_id".nin(exceptIds)))
     }
 
   private def selectOpenAvailableInRoom(room: Option[Room], exceptIds: Iterable[ReportId]) =
-    selectOpenInRoom(room, exceptIds) ++ bdoc("inquiry".$exists(false))
+    selectOpenInRoom(room, exceptIds) ++ bdoc("inquiry".exists(false))
 
   private val maxScoreCache = cacheApi.unit[Room.Scores]("report.maxScore"):
     _.refreshAfterWrite(5.minutes).buildAsyncTimeout(): _ =>
@@ -441,7 +441,7 @@ final class ReportApi(
           coll // hits the best_open partial index
             .primitiveOne[Float](
               selectOpenAvailableInRoom(room.some, Nil),
-              $sort.desc("score"),
+              sort.desc("score"),
               "score"
             )
             .dmap(room -> _)
@@ -469,7 +469,7 @@ final class ReportApi(
 
   def moreLike(report: Report, nb: Max): Fu[List[Report]] =
     coll
-      .find(bdoc("user" -> report.user, "_id".$ne(report.id)))
+      .find(bdoc("user" -> report.user, "_id".neq(report.id)))
       .sort(sortLastAtomAt)
       .cursor[Report]()
       .list(nb.value)
@@ -521,10 +521,10 @@ final class ReportApi(
         "atoms.by",
         bdoc(
           "user" -> sus.user.id,
-          "atoms.0.at".$gt(nowInstant.minusDays(7)),
+          "atoms.0.at".gt(nowInstant.minusDays(7)),
           "room" -> room.key
         ) ++ (room == Room.Other).so:
-          bdoc("inquiry".$exists(false))
+          bdoc("inquiry".exists(false))
         ,
         _.sec
       )
@@ -600,11 +600,11 @@ final class ReportApi(
     (nb > 0).so(coll.find(selector).sort(sortLastAtomAt).cursor[Report]().list(nb))
 
   private def findBest(nb: Int, selector: Bdoc): Fu[List[Report]] =
-    (nb > 0).so(coll.find(selector).sort($sort.desc("score")).cursor[Report]().list(nb))
+    (nb > 0).so(coll.find(selector).sort(sort.desc("score")).cursor[Report]().list(nb))
 
   private def selectRecent(suspect: SuspectId, reason: Reason): Bdoc =
     bdoc(
-      "atoms.0.at".$gt(nowInstant.minusDays(7)),
+      "atoms.0.at".gt(nowInstant.minusDays(7)),
       "user" -> suspect.value,
       "atoms.reason" -> reason
     )
@@ -616,9 +616,9 @@ final class ReportApi(
         if a.by.is(u)
         then a.copy(by = UserId.ghost.into(ReporterId))
         else a
-      coll.update.one(bid(r.id), $set("atoms" -> newAtoms))
+      coll.update.one(bid(r.id), bset("atoms" -> newAtoms))
     _ <- u.marks.clean.so:
-      coll.update.one(bdoc("user" -> u.id), $set("user" -> UserId.ghost)).void
+      coll.update.one(bdoc("user" -> u.id), bset("user" -> UserId.ghost)).void
   yield ()
 
   object inquiries:
@@ -632,7 +632,7 @@ final class ReportApi(
 
     def allBySuspect: Fu[Map[UserId, Report.Inquiry]] =
       coll
-        .list[Report](bdoc("inquiry.mod".$exists(true)))
+        .list[Report](bdoc("inquiry.mod".exists(true)))
         .map:
           _.view
             .flatMap: r =>
@@ -643,15 +643,15 @@ final class ReportApi(
     def ofModId[U: UserIdOf](mod: U): Fu[Option[Report]] = coll.one[Report](bdoc("inquiry.mod" -> mod.id))
 
     def ofSuspectId(suspectId: UserId): Fu[Option[Report.Inquiry]] =
-      coll.primitiveOne[Report.Inquiry](bdoc("inquiry.mod".$exists(true), "user" -> suspectId), "inquiry")
+      coll.primitiveOne[Report.Inquiry](bdoc("inquiry.mod".exists(true), "user" -> suspectId), "inquiry")
 
     def ongoingAppealOf(suspectId: UserId): Fu[Option[Report.Inquiry]] =
       coll.primitiveOne[Report.Inquiry](
         bdoc(
-          "inquiry.mod".$exists(true),
+          "inquiry.mod".exists(true),
           "user" -> suspectId,
           "room" -> Room.Other.key,
-          "atoms.0.text".$startsWith(Report.appealTextPrefix)
+          "atoms.0.text".regexStart(Report.appealTextPrefix)
         ),
         "inquiry"
       )
@@ -672,7 +672,7 @@ final class ReportApi(
         id: String | Either[ReportId, UserId],
         onlyOpen: Boolean
     )(using mod: Me): Fu[(Option[Report], Option[Report])] =
-      def findByUser(userId: UserId) = coll.one[Report](bdoc("user" -> userId, "inquiry.mod".$exists(true)))
+      def findByUser(userId: UserId) = coll.one[Report](bdoc("user" -> userId, "inquiry.mod".exists(true)))
       for
         report <- id match
           case Left(reportId) => coll.byId[Report](reportId)
@@ -706,7 +706,7 @@ final class ReportApi(
         coll.update
           .one(
             bid(report.id),
-            $unset("inquiry", "done") ++ $set("open" -> true)
+            unset("inquiry", "done") ++ bset("open" -> true)
           )
           .void
 
@@ -743,8 +743,8 @@ final class ReportApi(
     private[report] def expire: Funit =
       workQueue:
         val selector = bdoc(
-          "inquiry.mod".$exists(true),
-          "inquiry.seenAt".$lt(nowInstant.minusMinutes(20))
+          "inquiry.mod".exists(true),
+          "inquiry.seenAt".lt(nowInstant.minusMinutes(20))
         )
         coll.delete.one(selector ++ bdoc("text" -> Report.spontaneousText)) >>
-          coll.update.one(selector, $unset("inquiry"), multi = true).void
+          coll.update.one(selector, unset("inquiry"), multi = true).void

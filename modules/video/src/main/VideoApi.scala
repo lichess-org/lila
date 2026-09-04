@@ -47,7 +47,7 @@ final private[video] class VideoApi(
       Paginator(
         adapter = new Adapter[Video](
           collection = videoColl,
-          selector = $text(q),
+          selector = textSearch(q),
           projection = textScore.some,
           sort = textScore,
           _.sec
@@ -66,7 +66,7 @@ final private[video] class VideoApi(
         .void
 
     def removeNotIn(ids: List[Video.ID]): Fu[Int] =
-      videoColl.delete.one(bdoc("_id".$nin(ids))).map(_.n)
+      videoColl.delete.one(bdoc("_id".nin(ids))).map(_.n)
 
     def setMetadata(id: Video.ID, metadata: Youtube.Metadata) =
       videoColl.updateField(bid(id), "metadata", metadata).void
@@ -93,7 +93,7 @@ final private[video] class VideoApi(
         Paginator(
           adapter = new Adapter[Video](
             collection = videoColl,
-            selector = bdoc("tags".$all(tags)),
+            selector = bdoc("tags".all(tags)),
             projection = none,
             sort = bdoc("metadata.refreshedAt" -> -1),
             _.sec
@@ -121,8 +121,8 @@ final private[video] class VideoApi(
           import framework.*
           Match(
             bdoc(
-              "tags".$in(video.tags),
-              "_id".$ne(video.id)
+              "tags".in(video.tags),
+              "_id".neq(video.id)
             )
           ) -> List(
             AddFields:
@@ -198,7 +198,7 @@ final private[video] class VideoApi(
             videoColl
               .aggregateList(maxDocs = Int.MaxValue, _.sec): framework =>
                 import framework.*
-                Match(bdoc("tags".$all(filterTags))) -> List(
+                Match(bdoc("tags".all(filterTags))) -> List(
                   Project(bdoc("tags" -> true)),
                   UnwindField("tags"),
                   GroupField("tags")("nb" -> SumAll)

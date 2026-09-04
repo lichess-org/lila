@@ -74,10 +74,10 @@ final class WinnersApi(
       .find:
         bdoc(
           "schedule.freq" -> freq.name,
-          "startsAt".$gt(since.minusHours(12)),
-          "winner".$exists(true)
+          "startsAt".gt(since.minusHours(12)),
+          "winner".exists(true)
         )
-      .sort($sort.desc("startsAt"))
+      .sort(sort.desc("startsAt"))
       .cursor[Tournament](ReadPref.sec)
       .list(Int.MaxValue)
 

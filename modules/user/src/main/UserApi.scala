@@ -114,7 +114,7 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
         .aggregateOne(): framework =>
           import framework.*
           Match(bid(u.id)) -> List:
-            PipelineOperator(perfsRepo.aggregate.lookup)
+            PipelineOperator(perfsRepo.aggregate.byId)
         .map: docO =>
           for
             doc <- docO
@@ -136,8 +136,8 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
         .aggregateList(Int.MaxValue, if fromPri then _.pri else _.sec): framework =>
           import framework.*
           Match(inIds(ids) ++ includeClosed.not.so(userRepo.enabledSelect)) -> List(
-            PipelineOperator(perfsRepo.aggregate.lookup),
-            AddFields($sort.orderField(ids)),
+            PipelineOperator(perfsRepo.aggregate.byId),
+            AddFields(sort.orderField(ids)),
             Sort(Ascending("_order"))
           )
         .map: docs =>
@@ -164,8 +164,8 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
       .aggregateList(Int.MaxValue, readPref): framework =>
         import framework.*
         Match(inIds(ids)) -> List(
-          PipelineOperator(perfsRepo.aggregate.lookup(pk)),
-          AddFields($sort.orderField(ids)),
+          PipelineOperator(perfsRepo.aggregate.byPk(pk)),
+          AddFields(sort.orderField(ids)),
           Sort(Ascending("_order"))
         )
       .map: docs =>
@@ -251,7 +251,7 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
         ) -> List(
           Sort(Descending(BSONFields.roles), Descending("time.human")),
           Limit(max),
-          PipelineOperator(perfsRepo.aggregate.lookup)
+          PipelineOperator(perfsRepo.aggregate.byId)
         )
       .map: docs =>
         for
@@ -266,12 +266,12 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
         import framework.*
         import lila.user.BSONFields as F
         Match(
-          inIds(ids) ++ bdoc("standard.gl.d".$lt(chess.rating.glicko.provisionalDeviation))
+          inIds(ids) ++ bdoc("standard.gl.d".lt(chess.rating.glicko.provisionalDeviation))
         ) -> List(
           Sort(Descending("standard.gl.r")),
           Limit(nb * 5),
           PipelineOperator:
-            $lookup.simple(
+            lookup.simple(
               from = userRepo.coll,
               as = "user",
               local = "_id",
@@ -282,8 +282,8 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
           Match:
             bdoc(
               s"user.${F.enabled}" -> true,
-              s"user.${F.marks}".$nin(List(UserMark.engine, UserMark.boost)),
-              s"user.${F.title}".$ne(PlayerTitle.BOT)
+              s"user.${F.marks}".nin(List(UserMark.engine, UserMark.boost)),
+              s"user.${F.title}".neq(PlayerTitle.BOT)
             )
           ,
           Limit(nb)

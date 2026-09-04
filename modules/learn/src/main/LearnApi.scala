@@ -28,7 +28,7 @@ final class LearnApi(coll: Coll)(using Executor):
     coll
       .aggregateList(maxDocs = Int.MaxValue, _.sec): framework =>
         import framework.*
-        Match(bdoc("_id".$in(userIds))) -> List(
+        Match(bdoc("_id".in(userIds))) -> List(
           Project(bdoc("stages" -> bdoc("$objectToArray" -> "$stages"))),
           UnwindField("stages"),
           Project(

@@ -63,9 +63,9 @@ object PuzzleRound:
 
   import lila.db.dsl.*
   def puzzleLookup(colls: PuzzleColls, pipeline: List[Bdoc] = Nil) =
-    $lookup.pipelineFull(
+    lookup.pipelineFull(
       from = colls.puzzle.name.value,
       as = "puzzle",
       let = bdoc("pid" -> bdoc("$arrayElemAt" -> barr(bdoc("$split" -> barr("$_id", ":")), 1))),
-      pipe = bdoc("$match" -> $expr(bdoc("$eq" -> barr("$_id", "$$pid")))) :: pipeline
+      pipe = bdoc("$match" -> expr(bdoc("$eq" -> barr("$_id", "$$pid")))) :: pipeline
     )

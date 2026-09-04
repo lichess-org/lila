@@ -14,10 +14,10 @@ final private class ForumCategRepo(val coll: Coll)(using Executor):
       (Granter.of(_.ModerateForum)(u), Granter.of(_.Diagnostics)(u))
     coll
       .find(
-        $or(
+        or(
           List(
-            (bdoc("team".$exists(false)) ++ (!isMod).so(bdoc("hidden".$ne(true)))).some,
-            teams.nonEmpty.option(bdoc("team".$in(teams))),
+            (bdoc("team".exists(false)) ++ (!isMod).so(bdoc("hidden".neq(true)))).some,
+            teams.nonEmpty.option(bdoc("team".in(teams))),
             isDev.option(bid(ForumCateg.diagnosticId))
           ).flatten*
         )

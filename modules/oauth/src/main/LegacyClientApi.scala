@@ -11,7 +11,7 @@ final class LegacyClientApi(val coll: Coll)(using Executor):
     coll
       .findAndUpdate(
         bdoc(F.id -> clientId.value, F.redirectUri -> redirectUri.value.toString),
-        $set(F.usedAt -> nowInstant)
+        set(F.usedAt -> nowInstant)
       )
       .map:
         _.result[Bdoc].flatMap(_.getAsOpt[String](F.hashedSecret)).map(HashedClientSecret.apply)

@@ -115,21 +115,21 @@ final class TeamUpdateApi(
       .aggregateWith[Bdoc](readPreference = ReadPref.sec): framework =>
         import framework.*
         List(
-          Match(bdoc("team" -> teamId, "unsub".$ne(true))),
+          Match(bdoc("team" -> teamId, "unsub".neq(true))),
           Project(bdoc("user" -> true, "_id" -> false)),
           PipelineOperator:
-            $lookup.simple(
+            lookup.simple(
               from = userRepo.coll,
               local = "user",
               foreign = "_id",
               as = "recent",
               pipe = List(
-                bdoc("$match" -> bdoc("seenAt".$gt(nowInstant.minusMonths(1)))),
+                bdoc("$match" -> bdoc("seenAt".gt(nowInstant.minusMonths(1)))),
                 bdoc("$project" -> bid(true))
               )
             )
           ,
-          Match("recent".$ne(barr())),
+          Match("recent".neq(barr())),
           Project(bdoc("user" -> true))
         )
       .documentSource()

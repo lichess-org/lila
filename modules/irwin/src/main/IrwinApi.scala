@@ -31,7 +31,7 @@ final class IrwinApi(
   def dashboard: Fu[IrwinReport.Dashboard] =
     reportColl
       .find(emptyBdoc)
-      .sort($sort.desc("date"))
+      .sort(sort.desc("date"))
       .cursor[IrwinReport]()
       .list(20)
       .dmap(IrwinReport.Dashboard.apply)

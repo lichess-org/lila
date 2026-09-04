@@ -14,7 +14,7 @@ final class CrosstableApi(
 
   lila.common.Bus.sub[lila.core.user.UserDelete]: del =>
     matchupColl:
-      _.delete.one(bdoc("_id".$startsWith(s"${del.id}/"))).void
+      _.delete.one(bdoc("_id".regexStart(s"${del.id}/"))).void
 
   def apply(game: Game): Fu[Option[Crosstable]] =
     game.twoUserIds.traverse(apply.tupled)
@@ -61,10 +61,10 @@ final class CrosstableApi(
         val inc2 = incScore(u2)
         val updateCrosstable = coll.update.one(
           select(u1, u2),
-          $inc(
+          inc(
             F.score1 -> inc1,
             F.score2 -> inc2
-          ) ++ $push(
+          ) ++ push(
             Crosstable.BSONFields.results -> bdoc(
               "$each" -> List(bsonResult),
               "$slice" -> -Crosstable.maxGames
@@ -76,10 +76,10 @@ final class CrosstableApi(
           _.update
             .one(
               select(u1, u2),
-              $inc(
+              inc(
                 F.score1 -> inc1,
                 F.score2 -> inc2
-              ) ++ $set(
+              ) ++ set(
                 F.lastPlayed -> nowInstant
               ),
               upsert = true

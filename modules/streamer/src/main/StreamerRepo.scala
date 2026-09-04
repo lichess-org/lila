@@ -31,7 +31,7 @@ final class StreamerRepo(
     coll.countSel(bdoc("approval.requested" -> true, "approval.ignored" -> false))
 
   private[streamer] def setSeenAt(userId: UserId): Funit =
-    coll.update.one(bid(userId), $set("seenAt" -> nowInstant)).void
+    coll.update.one(bid(userId), set("seenAt" -> nowInstant)).void
 
   private[streamer] def setLangLiveNow(streams: List[Stream]): Funit =
     val update: coll.UpdateBuilder = coll.update(ordered = false)
@@ -39,7 +39,7 @@ final class StreamerRepo(
       elements <- streams.parallel: s =>
         update.element(
           q = bid(s.streamer.id),
-          u = $set(
+          u = set(
             "liveAt" -> nowInstant,
             "lastStreamLang" -> s.language
           )
@@ -57,7 +57,7 @@ final class StreamerRepo(
     coll
       .aggregateOne(_.sec): framework =>
         import framework.*
-        Match(bdoc(field.$exists(true), "approval.granted" -> true)) -> List(
+        Match(bdoc(field.exists(true), "approval.granted" -> true)) -> List(
           Sort(Descending("seenAt")),
           Limit(limit),
           Group(BSONNull)("ids" -> PushField(field))
@@ -68,7 +68,7 @@ final class StreamerRepo(
   private[streamer] def approvedByChannelId(channelId: String): Fu[Option[Streamer]] =
     coll
       .find(bdoc("youtube.channelId" -> channelId, "approval.granted" -> true))
-      .sort($sort.desc("seenAt"))
+      .sort(sort.desc("seenAt"))
       .cursor[Streamer]()
       .uno
 
@@ -76,7 +76,7 @@ final class StreamerRepo(
     coll
       .findAndUpdate(
         bid(userId),
-        $set("approval.requested" -> false, "approval.granted" -> false),
+        set("approval.requested" -> false, "approval.granted" -> false),
         fetchNewObject = true
       )
       .map(_.value.flatMap(_.asOpt[Streamer]))
@@ -86,11 +86,11 @@ final class StreamerRepo(
     coll.update
       .one(
         bdoc(
-          "liveAt".$exists(false),
+          "liveAt".exists(false),
           "approval.granted" -> true,
-          "approval.lastGrantedAt".$lt(nowInstant.minusWeeks(6))
+          "approval.lastGrantedAt".lt(nowInstant.minusWeeks(6))
         ),
-        $set("approval.granted" -> false, "demoted" -> true),
+        set("approval.granted" -> false, "demoted" -> true),
         multi = true
       )
       .void
@@ -107,17 +107,17 @@ final class StreamerRepo(
           q = bid(tuber.streamer.id),
           u = bdoc(
             liveVid match
-              case Some(v) => $set("youtube.liveVideoId" -> v.videoId) ++ $unset("youtube.pubsubVideoId")
-              case None => $unset("youtube.liveVideoId", "youtube.pubsubVideoId")
+              case Some(v) => set("youtube.liveVideoId" -> v.videoId) ++ unset("youtube.pubsubVideoId")
+              case None => unset("youtube.liveVideoId", "youtube.pubsubVideoId")
           )
         )
       .map(bulk.many(_))
 
   private[streamer] def setTwitchLogin(id: Streamer.Id, login: Twitch.TwitchLogin): Funit =
-    coll.update.one(bid(id), $set("twitch.login" -> login)).void
+    coll.update.one(bid(id), set("twitch.login" -> login)).void
 
   private[streamer] def setYoutubePubsubVideo(id: Streamer.Id, videoId: String): Funit =
-    coll.update.one(bdoc("_id" -> id), $set("youtube.pubsubVideoId" -> videoId)).void
+    coll.update.one(bdoc("_id" -> id), set("youtube.pubsubVideoId" -> videoId)).void
 
   private[streamer] def unignore(userId: UserId): Funit =
     coll.updateField(bid(userId), "approval.ignored", false).void
@@ -130,7 +130,7 @@ final class StreamerRepo(
     val candidateIds = cacheApi.unit[Set[Streamer.Id]]("streamer.candidateIds"):
       _.refreshAfterWrite(1.hour).buildAsyncTimeout(): _ =>
         coll.secondary
-          .distinctEasy[Streamer.Id, Set]("_id", selectListedApproved ++ bdoc("liveAt".$exists(false)))
+          .distinctEasy[Streamer.Id, Set]("_id", selectListedApproved ++ bdoc("liveAt".exists(false)))
     (listedIds, candidateIds)
 
   object oauth:
@@ -138,18 +138,18 @@ final class StreamerRepo(
       if platform == "youtube" then "youtube" else "twitch"
 
     def unlink(streamer: Streamer, platform: Platform): Funit =
-      coll.update.one(bid(streamer.id), $unset(dbKey(platform)) ++ $set("updatedAt" -> nowInstant)).void
+      coll.update.one(bid(streamer.id), unset(dbKey(platform)) ++ set("updatedAt" -> nowInstant)).void
 
     def linkTwitch(streamer: Streamer, tu: Streamer.Twitch): Fu[String] =
-      val clearQuery = $or(bdoc("twitch.id" -> tu.id), bdoc("twitch.login" -> tu.login))
+      val clearQuery = or(bdoc("twitch.id" -> tu.id), bdoc("twitch.login" -> tu.login))
       for
         _ <- coll
           .update(ordered = false)
-          .one(clearQuery, $unset("twitch"), upsert = false, multi = true)
+          .one(clearQuery, unset("twitch"), upsert = false, multi = true)
         _ <- coll.update
           .one(
             bid(streamer.id),
-            $set("twitch" -> tu, "updatedAt" -> nowInstant)
+            set("twitch" -> tu, "updatedAt" -> nowInstant)
           )
       yield tu.fullUrl
 
@@ -159,7 +159,7 @@ final class StreamerRepo(
       for
         _ <- coll
           .update(ordered = false)
-          .one(bdoc("youtube.channelId" -> channelId), $unset("youtube"), upsert = false, multi = true)
+          .one(bdoc("youtube.channelId" -> channelId), unset("youtube"), upsert = false, multi = true)
         _ <- coll.update
-          .one(bid(streamer.id), $set("youtube" -> newYoutube, "updatedAt" -> nowInstant))
+          .one(bid(streamer.id), set("youtube" -> newYoutube, "updatedAt" -> nowInstant))
       yield newYoutube.fullUrl

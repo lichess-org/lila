@@ -128,7 +128,7 @@ final class PersonalDataExport(
             ReplaceRootField("chat"),
             Project(bdoc("_id" -> false, "l" -> true)),
             Unwind("l"),
-            Match("l".$startsWith(s"${user.id} ", "i"))
+            Match("l".regexStart(s"${user.id} ", "i"))
           )
         .documentSource()
         .map { _.string("l").so(_.drop(user.id.value.size + 1)) }
@@ -136,11 +136,11 @@ final class PersonalDataExport(
 
     val spectatorGameChats =
       Source(List(textTitle("Spectator game chat messages"))).concat(gameChatsLookup:
-        $lookup.pipelineFull(
+        lookup.pipelineFull(
           from = chatEnv.coll.name,
           as = "chat",
           let = bdoc("id" -> bdoc("$concat" -> barr("$_id", "/w"))),
-          pipe = List(bdoc("$match" -> $expr(bdoc("$eq" -> barr("$_id", "$$id")))))
+          pipe = List(bdoc("$match" -> expr(bdoc("$eq" -> barr("$_id", "$$id")))))
         ))
 
     val gameNotes =
@@ -152,11 +152,11 @@ final class PersonalDataExport(
               Match(bdoc(Game.BSONFields.playerUids -> user.id)),
               Project(bid(true)),
               PipelineOperator(
-                $lookup.pipelineFull(
+                lookup.pipelineFull(
                   from = noteApi.collName,
                   as = "note",
                   let = bdoc("id" -> bdoc("$concat" -> barr("$_id", user.id))),
-                  pipe = List(bdoc("$match" -> $expr(bdoc("$eq" -> barr("$_id", "$$id")))))
+                  pipe = List(bdoc("$match" -> expr(bdoc("$eq" -> barr("$_id", "$$id")))))
                 )
               ),
               Unwind("note"),

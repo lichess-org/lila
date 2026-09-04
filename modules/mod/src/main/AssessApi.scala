@@ -40,7 +40,7 @@ final class AssessApi(
   private def getPlayerAssessmentsByUserId(userId: UserId, nb: Int) =
     assessRepo.coll
       .find(bdoc("userId" -> userId))
-      .sort($sort.desc("date"))
+      .sort(sort.desc("date"))
       .cursor[PlayerAssessment](ReadPref.sec)
       .list(nb)
 

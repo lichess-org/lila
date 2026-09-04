@@ -71,7 +71,7 @@ final class UserPerfsRepo(c: Coll)(using Executor) extends lila.core.user.PerfsR
     coll.update.one(bid(id), lila.rating.UserPerfs.defaultBot(id), upsert = true).void
 
   def setPerf(userId: UserId, pk: PerfKey, perf: Perf): Funit =
-    coll.update.one(bid(userId), $set(pk.value -> perf), upsert = true).void
+    coll.update.one(bid(userId), set(pk.value -> perf), upsert = true).void
 
   def glicko(userId: UserId, perf: PerfKey): Fu[Option[Glicko]] =
     coll
@@ -85,7 +85,7 @@ final class UserPerfsRepo(c: Coll)(using Executor) extends lila.core.user.PerfsR
     coll.update
       .one(
         bid(userId),
-        $inc(s"$field.runs" -> 1) ++
+        inc(s"$field.runs" -> 1) ++
           bdoc("$max" -> bdoc(s"$field.score" -> score)),
         upsert = true
       )
@@ -166,11 +166,11 @@ final class UserPerfsRepo(c: Coll)(using Executor) extends lila.core.user.PerfsR
         _.forall(lila.rating.UserPerfs.dubiousPuzzle(puzzle, _))
 
   object aggregate:
-    val lookup = $lookup.simple(coll, "perfs", "_id", "_id")
+    val byId = lookup.simple(coll, "perfs", "_id", "_id")
 
-    def lookup(pk: PerfKey): Bdoc =
+    def byPk(pk: PerfKey): Bdoc =
       val pipe = List(bdoc("$project" -> bdoc(pk.value -> true)))
-      $lookup.simple(coll, "perfs", "_id", "_id", pipe)
+      lookup.simple(coll, "perfs", "_id", "_id", pipe)
 
     def readFirst[U: UserIdOf](root: Bdoc, u: U): UserPerfs =
       root
@@ -187,4 +187,4 @@ final class UserPerfsRepo(c: Coll)(using Executor) extends lila.core.user.PerfsR
     def readFrom[U: UserIdOf](doc: Bdoc, u: U): UserPerfs =
       doc.asOpt[UserPerfs].getOrElse(lila.rating.UserPerfs.default(u.id))
 
-  export aggregate.{ lookup as aggregateLookup, readFirst as aggregateReadFirst }
+  export aggregate.{ byId as aggregateLookup, readFirst as aggregateReadFirst }

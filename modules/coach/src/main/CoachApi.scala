@@ -46,12 +46,12 @@ final class CoachApi(
 
   def setSeenAt(user: User): Funit =
     canCoach(user).so:
-      coll.update.one(bid(user.id), $set("user.seenAt" -> nowInstant)).void
+      coll.update.one(bid(user.id), set("user.seenAt" -> nowInstant)).void
 
   def updateRatingFromDb(user: User): Funit =
     canCoach(user).so:
       userApi.perfsOf(user).flatMap { perfs =>
-        coll.update.one(bid(perfs.id), $set("user.rating" -> perfs.bestStandardRating)).void
+        coll.update.one(bid(perfs.id), set("user.rating" -> perfs.bestStandardRating)).void
       }
 
   def update(c: Coach.WithUser, data: CoachProfileForm.Data): Funit =
@@ -66,7 +66,7 @@ final class CoachApi(
   def uploadPicture(c: Coach.WithUser, picture: PicfitApi.FilePart): Funit =
     for
       pic <- picfitApi.uploadFile(picture, c.user.id, s"coach:${c.coach.id}".some, requestAutomod = false)
-      _ <- coll.update.one(bid(c.coach.id), $set("picture" -> pic.id))
+      _ <- coll.update.one(bid(c.coach.id), set("picture" -> pic.id))
     yield ()
 
   private val languagesCache = cacheApi.unit[Set[String]]("coach.languages"):

@@ -96,7 +96,7 @@ final class ActivityWriteApi(
             all.toList.sequentiallyVoid: userId =>
               coll.update.one(
                 regexId(userId) ++ bdoc("f.i.ids" -> from.id),
-                $pull("f.i.ids" -> from.id)
+                pull("f.i.ids" -> from.id)
               )
 
   def study(id: StudyId) =
@@ -134,7 +134,7 @@ final class ActivityWriteApi(
         val setters = makeSetters(activity)
         setters.isEmpty.not.so:
           coll.update
-            .one(bid(activity.id), $set(setters), upsert = true)
+            .one(bid(activity.id), set(setters), upsert = true)
             .flatMap:
               _.upserted.nonEmpty.so(truncateAfterInserting(coll, activity.id))
             .void
@@ -146,7 +146,7 @@ final class ActivityWriteApi(
   }.so:
     coll
       .find(regexId(id.userId), bid(true).some)
-      .sort($sort.desc("_id"))
+      .sort(sort.desc("_id"))
       .skip(Activity.recentNb)
       .one[Bdoc]
       .flatMap:

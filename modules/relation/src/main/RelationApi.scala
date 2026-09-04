@@ -185,7 +185,7 @@ final class RelationApi(
   def isBlockedByAny(by: Iterable[UserId])(using me: Option[Me]): Fu[Boolean] =
     me.ifTrue(by.nonEmpty)
       .so: me =>
-        coll.exists(bdoc("_id".$in(by.map(makeId(_, me.userId))), "r" -> Block))
+        coll.exists(bdoc("_id".in(by.map(makeId(_, me.userId))), "r" -> Block))
 
   def searchFollowedBy(u: UserId, term: UserSearch, max: Int): Fu[List[UserId]] =
     repo

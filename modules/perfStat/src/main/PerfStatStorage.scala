@@ -29,7 +29,7 @@ final class PerfStatStorage(coll: AsyncCollFailingSilently)(using Executor):
     coll(_.insert.one(perfStat).void)
 
   private[perfStat] def deleteAllFor(userId: UserId): Funit =
-    coll(_.delete.one(bdoc("_id".$regex(s"^$userId/"))).void)
+    coll(_.delete.one(bdoc("_id".regex(s"^$userId/"))).void)
 
   def update(a: PerfStat, b: PerfStat): Funit = coll: c =>
     val sets = bdoc(

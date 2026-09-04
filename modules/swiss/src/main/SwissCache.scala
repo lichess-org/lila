@@ -40,14 +40,14 @@ final class SwissCache(
       val max = 5
       for
         enterable <- mongo.swiss.primitive[SwissId](
-          bdoc("teamId" -> teamId, "finishedAt".$exists(false)),
-          $sort.asc("startsAt"),
+          bdoc("teamId" -> teamId, "finishedAt".exists(false)),
+          sort.asc("startsAt"),
           nb = max,
           "_id"
         )
         finished <- mongo.swiss.primitive[SwissId](
-          bdoc("teamId" -> teamId, "finishedAt".$exists(true)),
-          $sort.desc("startsAt"),
+          bdoc("teamId" -> teamId, "finishedAt".exists(true)),
+          sort.desc("startsAt"),
           nb = max - enterable.size,
           "_id"
         )

@@ -45,12 +45,12 @@ final class KaladinApi(
   def dashboard: Fu[KaladinUser.Dashboard] = for
     c <- coll.get
     completed <- c
-      .find(bdoc("response.at".$exists(true)))
+      .find(bdoc("response.at".exists(true)))
       .sort(bdoc("response.at" -> -1))
       .cursor[KaladinUser]()
       .list(30)
     queued <- c
-      .find(bdoc("response.at".$exists(false)))
+      .find(bdoc("response.at".exists(false)))
       .sort(bdoc("queuedAt" -> -1))
       .cursor[KaladinUser]()
       .list(30)
@@ -82,14 +82,14 @@ final class KaladinApi(
       // hits a mongodb index
       // db.kaladin_queue.createIndex({'response.at':1,'response.read':1},{partialFilterExpression:{'response.at':{$exists:true}}})
       coll
-        .find(bdoc("response.at".$exists(true), "response.read" -> false))
+        .find(bdoc("response.at".exists(true), "response.read" -> false))
         .sort(bdoc("response.at" -> 1))
         .hint(coll.hint("response.at_1_response.read_1"))
         .cursor[KaladinUser]()
         .list(50)
         .flatMap: docs =>
           docs.nonEmpty.so:
-            coll.update.one(inIds(docs.map(_.id)), $set("response.read" -> true), multi = true) >>
+            coll.update.one(inIds(docs.map(_.id)), set("response.read" -> true), multi = true) >>
               docs.sequentiallyVoid(readResponse)
         .void
 
@@ -154,7 +154,7 @@ final class KaladinApi(
     coll {
       _.aggregateList(Int.MaxValue, _.sec): framework =>
         import framework.*
-        Match(bdoc("response.at".$exists(false))) -> List(GroupField("priority")("nb" -> SumAll))
+        Match(bdoc("response.at".exists(false))) -> List(GroupField("priority")("nb" -> SumAll))
       .map: res =>
         for
           obj <- res

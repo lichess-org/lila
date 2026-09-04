@@ -62,7 +62,7 @@ final class CmsApi(coll: Coll, markdown: lila.memo.MarkdownCache, langList: Lang
       case Some(query) => List(query)
       case None => langPicker.preferedLanguages(ctx.req, ctx.lang) :+ defaultLanguage
     coll
-      .list[CmsPage](bdoc("key" -> key, "language".$in(prefered)))
+      .list[CmsPage](bdoc("key" -> key, "language".in(prefered)))
       .map: pages =>
         prefered.collectFirstSome: language =>
           pages.find(_.language == language)

@@ -31,7 +31,7 @@ final class TeamMemberStream(
   ): Source[Seq[(UserId, Instant)], ?] =
     memberRepo.coll
       .find(bdoc("team" -> team.id) ++ selector, bdoc("user" -> true, "date" -> true).some)
-      .sort($sort.desc("date"))
+      .sort(sort.desc("date"))
       .batchSize(perSecond.value)
       .cursor[Bdoc](ReadPref.sec)
       .documentSource()

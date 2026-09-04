@@ -37,7 +37,7 @@ final class PlanApi(
   lila.common.Bus.sub[lila.core.user.UserDelete]: del =>
     for
       _ <- mongo.patron.delete.one(bid(del.id))
-      _ <- mongo.charge.update.one(bdoc("userId" -> del.id), $set("userId" -> UserId.ghost), multi = true)
+      _ <- mongo.charge.update.one(bdoc("userId" -> del.id), set("userId" -> UserId.ghost), multi = true)
     yield ()
 
   def switch(user: User, money: Money): Fu[StripeSubscription] =
@@ -58,7 +58,7 @@ final class PlanApi(
   def cancelIfAny(user: User): Fu[Boolean] =
     def onCancel = for
       _ <- user.plan.lifetime.not.so(setDbUserPlan(user.mapPlan(_.disable)))
-      _ <- mongo.patron.update.one(bid(user.id), $unset("stripe", "payPal", "payPalCheckout", "expiresAt"))
+      _ <- mongo.patron.update.one(bid(user.id), unset("stripe", "payPal", "payPalCheckout", "expiresAt"))
       _ = logger.info(s"Canceled subscription of ${user.username}")
     yield true
     stripe
@@ -234,9 +234,9 @@ final class PlanApi(
                   .countSel:
                     bdoc(
                       "userId" -> me.userId,
-                      "date".$gt(nowInstant.minusWeeks(1)),
-                      "stripe".$exists(true),
-                      "giftTo".$exists(false)
+                      "date".gt(nowInstant.minusWeeks(1)),
+                      "stripe".exists(true),
+                      "giftTo".exists(false)
                     )
                   .map(_ < maxPerWeek)
               )
@@ -244,7 +244,7 @@ final class PlanApi(
               StripeCanUse.from(
                 mongo.charge
                   .countSel:
-                    bdoc("userId" -> me.userId, "date".$gt(nowInstant.minusWeeks(1)), "stripe".$exists(true))
+                    bdoc("userId" -> me.userId, "date".gt(nowInstant.minusWeeks(1)), "stripe".exists(true))
                   .map(_ < maxPerWeek)
               )
       }
@@ -545,7 +545,7 @@ final class PlanApi(
       _ <- mongo.patron.update
         .one(
           bid(user.id),
-          $set(
+          set(
             "lastLevelUp" -> nowInstant,
             "free" -> Patron.Free(nowInstant, by = none)
           ),
@@ -564,7 +564,7 @@ final class PlanApi(
     for _ <- mongo.patron.update
         .one(
           bid(user.id),
-          $set(
+          set(
             "lastLevelUp" -> nowInstant,
             "free" -> Patron.Free(nowInstant, by = none),
             "expiresAt" -> nowInstant.plusMonths(nbMonths)
@@ -580,7 +580,7 @@ final class PlanApi(
       hasLifetime = to.plan.lifetime || lifetimeGift
       _ <- mongo.patron.update.one(
         bid(to.id),
-        $set(
+        set(
           "lastLevelUp" -> nowInstant,
           "free" -> Patron.Free(nowInstant, by = from.id.some),
           "expiresAt" -> Option.unless(hasLifetime)(nowInstant.plusMonths(1))
@@ -598,10 +598,10 @@ final class PlanApi(
       .find(
         bdoc(
           "free.by" -> from.id,
-          "free.at".$gt(nowInstant.minusMinutes(2))
+          "free.at".gt(nowInstant.minusMinutes(2))
         )
       )
-      .sort($sort.desc("free.at"))
+      .sort(sort.desc("free.at"))
       .one[Patron]
       .flatMapz: gift =>
         lightUserApi.async(gift.userId)
@@ -615,7 +615,7 @@ final class PlanApi(
     _.refreshAfterWrite(30.minutes).buildAsyncTimeout(): _ =>
       mongo.charge
         .primitive[UserId](
-          bdoc("date" -> $gt(nowInstant.minusWeeks(1))),
+          bdoc("date" -> gt(nowInstant.minusWeeks(1))),
           sort = bdoc("date" -> -1),
           nb = recentChargeUserIdsNb * 3 / 2,
           "userId"
@@ -634,7 +634,7 @@ final class PlanApi(
   def recentChargesOf(user: User): Fu[List[Charge]] =
     mongo.charge
       .find(
-        $or(
+        or(
           bdoc("userId" -> user.id),
           bdoc("giftTo" -> user.id)
         )
@@ -645,7 +645,7 @@ final class PlanApi(
 
   def giftsFrom(user: User): Fu[List[Charge.Gift]] =
     mongo.charge
-      .find(bdoc("userId" -> user.id, "giftTo".$exists(true)))
+      .find(bdoc("userId" -> user.id, "giftTo".exists(true)))
       .sort(bdoc("date" -> -1))
       .cursor[Charge]()
       .list(200)

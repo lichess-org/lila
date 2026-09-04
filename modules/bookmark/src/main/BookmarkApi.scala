@@ -21,13 +21,13 @@ final class BookmarkApi(val coll: Coll, gameApi: GameApi, paginator: PaginatorBu
       val candidateIds = games.collect { case g if g.bookmarks > 0 => g.id }
       candidateIds.nonEmpty.so:
         coll.secondary
-          .distinctEasy[GameId, Set]("g", userIdQuery(u.id) ++ bdoc("g".$in(candidateIds)))
+          .distinctEasy[GameId, Set]("g", userIdQuery(u.id) ++ bdoc("g".in(candidateIds)))
 
   def removeByGameId(gameId: GameId): Funit =
     coll.delete.one(bdoc("g" -> gameId)).void
 
   def removeByGameIds(gameIds: List[GameId]): Funit =
-    coll.delete.one(bdoc("g".$in(gameIds))).void
+    coll.delete.one(bdoc("g".in(gameIds))).void
 
   def remove(gameId: GameId, userId: UserId): Funit = coll.delete.one(selectId(gameId, userId)).void
 

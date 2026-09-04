@@ -46,7 +46,7 @@ final private class SwissDirector(
               mongo.swiss.update
                 .one(
                   bid(swiss.id),
-                  $unset("nextRoundAt", "settings.mp") ++ $set(
+                  unset("nextRoundAt", "settings.mp") ++ set(
                     "round" -> swiss.round,
                     "nbOngoing" -> pairings.size,
                     "lastRoundAt" -> nowInstant
@@ -57,8 +57,8 @@ final private class SwissDirector(
             _ <- SwissPlayer.fields { f =>
               mongo.player.update
                 .one(
-                  bdoc(f.userId.$in(byes), f.swissId -> swiss.id),
-                  $addToSet(f.byes -> swiss.round),
+                  bdoc(f.userId.in(byes), f.swissId -> swiss.id),
+                  addToSet(f.byes -> swiss.round),
                   multi = true
                 )
                 .void

@@ -38,7 +38,7 @@ final private class InsightStorage(val coll: AsyncColl)(using Executor):
     coll {
       _.aggregateOne() { framework =>
         import framework.*
-        Match(selectUserId(userId) ++ bdoc(F.opening.$exists(true))) -> List(
+        Match(selectUserId(userId) ++ bdoc(F.opening.exists(true))) -> List(
           Sort(Descending(F.date)),
           Limit(maxGames.value),
           Facet(
@@ -79,9 +79,9 @@ object InsightStorage:
 
   def selectId(id: String) = bdoc(F.id -> id)
   def selectUserId(id: UserId) = bdoc(F.userId -> id)
-  def selectPeers(peers: PeersRatingRange) = bdoc(F.rating.$inRange(peers.value))
-  val sortChronological = $sort.asc(F.date)
-  val sortAntiChronological = $sort.desc(F.date)
+  def selectPeers(peers: PeersRatingRange) = bdoc(F.rating.inRange(peers.value))
+  val sortChronological = sort.asc(F.date)
+  val sortAntiChronological = sort.desc(F.date)
 
   def gameMatcher(filters: List[Filter[?]]) = combineDocs(filters.collect {
     case f if f.dimension.isInGame => f.matcher

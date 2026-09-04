@@ -66,7 +66,7 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(using Executor
             ratingBuckets.map: (rating, nbPuzzles) =>
               val target = f"${theme}${sep}${tier}${sep}${rating}%04d"
               rating.toString -> List(
-                Match(bdoc("min".$lte(target), "max".$gte(target))),
+                Match(bdoc("min".lte(target), "max".gte(target))),
                 Sample(nbSets),
                 Project(bdoc("_id" -> false, "ids" -> true)),
                 UnwindField("ids"),
@@ -102,14 +102,14 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(using Executor
       .addEffect(monitor)
 
   private def withPuzzlePipeline(color: chess.Color) =
-    $lookup.pipelineFull(
+    lookup.pipelineFull(
       from = colls.puzzle.name.value,
       as = "puzzle",
       let = bdoc("id" -> "$ids"),
       pipe = List(
         bdoc:
-          "$match" -> $expr:
-            $and(
+          "$match" -> expr:
+            and(
               bdoc("$eq" -> barr("$_id", "$$id")),
               bdoc("$lte" -> barr("$glicko.d", maxDeviation)),
               bdoc(

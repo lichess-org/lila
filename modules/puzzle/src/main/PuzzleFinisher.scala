@@ -150,8 +150,8 @@ final private[puzzle] class PuzzleFinisher(
                     _ <- colls.puzzle.map:
                       _.updateUnchecked(
                         bid(puzzle.id),
-                        $inc(Puzzle.BSONFields.plays -> $int(1)) ++ newPuzzleGlicko.so { glicko =>
-                          $set(Puzzle.BSONFields.glicko -> glicko)
+                        inc(Puzzle.BSONFields.plays -> bint(1)) ++ newPuzzleGlicko.so { glicko =>
+                          set(Puzzle.BSONFields.glicko -> glicko)
                         }
                       )
                     _ = if prevRound.isEmpty then

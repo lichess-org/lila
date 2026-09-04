@@ -39,7 +39,7 @@ final private class PuzzleTagger(colls: PuzzleColls, openingApi: PuzzleOpeningAp
           _.update
             .one(
               bid(puzzle.id),
-              $addToSet(Puzzle.BSONFields.themes -> theme.key) ++ $unset(Puzzle.BSONFields.tagMe)
+              addToSet(Puzzle.BSONFields.themes -> theme.key) ++ unset(Puzzle.BSONFields.tagMe)
             )
             .void
       case None =>
@@ -60,12 +60,12 @@ final private class PuzzleTagger(colls: PuzzleColls, openingApi: PuzzleOpeningAp
           _.update
             .one(
               bid(PuzzleRound.Id(UserId.lichess, puzzle.id).toString),
-              $addToSet(PuzzleRound.BSONFields.themes -> PuzzleRound.Theme(PuzzleTheme.checkFirst.key, true))
+              addToSet(PuzzleRound.BSONFields.themes -> PuzzleRound.Theme(PuzzleTheme.checkFirst.key, true))
             )
         .zip(colls.puzzle {
           _.update.one(
             bid(puzzle.id),
-            $addToSet(Puzzle.BSONFields.themes -> PuzzleTheme.checkFirst.key)
+            addToSet(Puzzle.BSONFields.themes -> PuzzleTheme.checkFirst.key)
           )
         })
         .void

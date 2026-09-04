@@ -49,7 +49,7 @@ final private[api] class GameApi(
           if ~playing then lila.game.Query.nowPlayingVs(users._1.id, users._2.id)
           else
             lila.game.Query.opponents(users._1, users._2) ++ bdoc(
-              G.status.$gte(chess.Status.Mate.id),
+              G.status.gte(chess.Status.Mate.id),
               G.analysed -> analysed.map[BSONValue] {
                 if _ then BSONBoolean(true)
                 else bdoc("$exists" -> false)
@@ -93,7 +93,7 @@ final private[api] class GameApi(
           if ~playing then lila.game.Query.nowPlayingVs(userIds)
           else
             lila.game.Query.opponents(userIds) ++ bdoc(
-              G.status.$gte(chess.Status.Mate.id),
+              G.status.gte(chess.Status.Mate.id),
               G.analysed -> analysed.map[BSONValue] {
                 if _ then BSONBoolean(true)
                 else bdoc("$exists" -> false)
@@ -104,7 +104,7 @@ final private[api] class GameApi(
             if _ then BSONBoolean(true)
             else bdoc("$exists" -> false)
           },
-          G.createdAt.$gte(since)
+          G.createdAt.gte(since)
         ),
         projection = none,
         sort = bdoc(G.createdAt -> -1),

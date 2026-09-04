@@ -20,15 +20,15 @@ final class ClasUserFilters(using Executor, Materializer, Scheduler)(colls: Clas
       .aggregateWith[Bdoc](readPreference = ReadPref.sec): framework =>
         import framework.*
         List(
-          Match("archived".$exists(false)),
+          Match("archived".exists(false)),
           PipelineOperator:
-            $lookup.simple(
+            lookup.simple(
               from = colls.student,
               as = "s",
               local = "_id",
               foreign = "clasId",
               pipe = List(
-                bdoc("$match" -> bdoc("archived".$exists(false))),
+                bdoc("$match" -> bdoc("archived".exists(false))),
                 bdoc("$project" -> bdoc("_id" -> false, "userId" -> true))
               )
             )
@@ -48,7 +48,7 @@ final class ClasUserFilters(using Executor, Materializer, Scheduler)(colls: Clas
   val teacher = ClasUserCache("teacher")(
     estimatedCount = if mode == Mode.Dev then 50 else 4_000,
     source = colls.clas
-      .find(bdoc("archived".$exists(false)), bdoc("teachers" -> true, "_id" -> false).some)
+      .find(bdoc("archived".exists(false)), bdoc("teachers" -> true, "_id" -> false).some)
       .cursor[Bdoc](ReadPref.sec)
       .documentSource()
       .mapConcat(_.getAsOpt[List[UserId]]("teachers").orZero)

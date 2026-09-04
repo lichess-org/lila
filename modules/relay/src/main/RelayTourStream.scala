@@ -14,14 +14,14 @@ final class RelayTourStream(colls: RelayColls, jsonView: RelayJsonView)(using
 
   import RelayTourRepo.selectors
 
-  private val roundLookup = $lookup.simple(
+  private val roundLookup = lookup.simple(
     from = colls.round,
     as = "rounds",
     local = "_id",
     foreign = "tourId",
     pipe = List(bdoc("$sort" -> RelayRoundRepo.sort.asc))
   )
-  private val groupLookup = $lookup.pipelineFull(
+  private val groupLookup = lookup.pipelineFull(
     from = colls.group.name,
     as = "group",
     let = bdoc("tourId" -> "$_id"),

@@ -25,15 +25,15 @@ final private class FideRepo(
     given BSONHandler[FideTC] = stringAnyValHandler(_.toString, FideTC.valueOf)
     given handler: BSONDocumentHandler[FidePlayer] = Macros.handler
     // players unrated in that time control have no flag, and are active as far as we know
-    def selectActive(tc: FideTC): Bdoc = bdoc("inactive".$ne(tc))
+    def selectActive(tc: FideTC): Bdoc = bdoc("inactive".neq(tc))
     def selectFed(fed: Federation.Id): Bdoc = bdoc("fed" -> fed)
-    def sortStandard: Bdoc = $sort.desc("standard")
+    def sortStandard: Bdoc = sort.desc("standard")
     def sortBy(o: FidePlayerOrder) = o match
-      case FidePlayerOrder.name => $sort.asc("name")
-      case FidePlayerOrder.standard => $sort.desc("standard")
-      case FidePlayerOrder.rapid => $sort.desc("rapid")
-      case FidePlayerOrder.blitz => $sort.desc("blitz")
-      case FidePlayerOrder.year => $sort.desc("year")
+      case FidePlayerOrder.name => sort.asc("name")
+      case FidePlayerOrder.standard => sort.desc("standard")
+      case FidePlayerOrder.rapid => sort.desc("rapid")
+      case FidePlayerOrder.blitz => sort.desc("blitz")
+      case FidePlayerOrder.year => sort.desc("year")
       case FidePlayerOrder.follow => emptyBdoc // TODO
     def fetch(id: FideId): Fu[Option[FidePlayer]] = playerColl.byId[FidePlayer](id)
     def fetch(ids: Seq[FideId]): Fu[List[FidePlayer]] =
@@ -42,7 +42,7 @@ final private class FideRepo(
     def setPhoto(id: FideId, photo: FidePlayer.PlayerPhoto): Funit =
       playerColl.updateField(bid(id), "photo", photo).void
     def setPhotoCredit(p: FidePlayer, credit: Option[String]): Funit =
-      playerColl.updateOrUnsetField(bid(p.id) ++ bdoc("photo.id".$exists(true)), "photo.credit", credit).void
+      playerColl.updateOrUnsetField(bid(p.id) ++ bdoc("photo.id".exists(true)), "photo.credit", credit).void
     def setDeceasedYear(id: FideId, year: Option[Int]): Funit =
       playerColl.updateOrUnsetField(bid(id), "deceasedYear", year).void
 
@@ -73,7 +73,7 @@ final private class FideRepo(
       def toFideId(id: FollowId): FideId = FideId(id.takeWhile(_ != '/').toInt)
 
     def followers(p: FideId): Fu[Set[UserId]] = (p.value > 0).so:
-      for ids <- followerColl.distinctEasy[FollowId, Set]("_id", "_id".$startsWith(s"$p/"))
+      for ids <- followerColl.distinctEasy[FollowId, Set]("_id", "_id".regexStart(s"$p/"))
       yield ids.map(followId.toUserId)
     def follow(u: UserId, p: FideId) = playerColl
       .exists(bid(p))
@@ -87,7 +87,7 @@ final private class FideRepo(
     def withFollows(players: Seq[FidePlayer], u: UserId): Fu[Seq[FidePlayer.WithFollow]] =
       val ids = players.map(_.id).map(followId.make(_, u))
       followerColl
-        .distinctEasy[FollowId, Set]("_id", "_id".$in(ids))
+        .distinctEasy[FollowId, Set]("_id", "_id".in(ids))
         .map(_.map(followId.toFideId))
         .map: followedIds =>
           players.map: p =>

@@ -62,7 +62,7 @@ final class InsightPerfStatsApi(storage: InsightStorage)(using Executor):
               "ids" -> bdoc("$slice" -> barr("$ids", gameIdsPerPerf.value))
             )
           ),
-          Match(bdoc("total".$gte(5)))
+          Match(bdoc("total".gte(5)))
         )
       .map: docs =>
         for

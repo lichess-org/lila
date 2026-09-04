@@ -85,7 +85,7 @@ final private class StudyInvite(
       _.update
         .one(
           bid(study.id),
-          $set(s"members.${me}" -> bdoc("role" -> "w", "admin" -> true)) ++
-            $addToSet("uids" -> me)
+          set(s"members.${me}" -> bdoc("role" -> "w", "admin" -> true)) ++
+            addToSet("uids" -> me)
         )
         .void

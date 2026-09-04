@@ -37,7 +37,7 @@ final private class SwissScoring(mongo: SwissMongo)(using Scheduler, Executor):
                 mongo.player.update
                   .one(
                     bid(player.id),
-                    $set(
+                    set(
                       f.points -> player.points,
                       f.tieBreak -> player.tieBreak,
                       f.performance -> player.performance,
@@ -59,7 +59,7 @@ final private class SwissScoring(mongo: SwissMongo)(using Scheduler, Executor):
     SwissPlayer.fields: f =>
       mongo.player
         .find(bdoc(f.swissId -> swiss.id))
-        .sort($sort.asc(f.score))
+        .sort(sort.asc(f.score))
         .cursor[SwissPlayer]()
         .listAll()
 

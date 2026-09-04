@@ -89,7 +89,7 @@ final class UserLoginsApi(
     }
 
   private[security] def userHasPrint(u: User): Fu[Boolean] =
-    store.coll.secondary.exists(bdoc("user" -> u.id, "fp".$exists(true)))
+    store.coll.secondary.exists(bdoc("user" -> u.id, "fp".exists(true)))
 
   private def fetchOtherUsers(
       user: User,
@@ -104,12 +104,12 @@ final class UserLoginsApi(
           import FingerHash.given
           Match(
             bdoc(
-              $or(
-                "ip".$in(ipSet),
-                "fp".$in(fpSet)
+              or(
+                "ip".in(ipSet),
+                "fp".in(fpSet)
               ),
-              "user".$ne(user.id),
-              "date".$gt(nowInstant.minusYears(1))
+              "user".neq(user.id),
+              "date".gt(nowInstant.minusYears(1))
             )
           ) -> List(
             GroupField("user")(
@@ -132,7 +132,7 @@ final class UserLoginsApi(
             Sort(Descending("score")),
             Limit(max),
             PipelineOperator(
-              $lookup.simple(
+              lookup.simple(
                 from = userRepo.coll,
                 as = "user",
                 local = "_id",
@@ -159,9 +159,9 @@ final class UserLoginsApi(
         store.coll.secondary.distinctEasy[UserId, Set](
           "user",
           bdoc(
-            "ip".$in(ips),
-            "fp".$in(fps),
-            "user".$ne(userId)
+            "ip".in(ips),
+            "fp".in(fps),
+            "user".neq(userId)
           )
         )
       )

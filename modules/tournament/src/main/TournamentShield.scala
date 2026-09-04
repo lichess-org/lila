@@ -52,7 +52,7 @@ final class TournamentShieldApi(
             "schedule.freq" -> Schedule.Freq.Shield,
             "status" -> Status.finished
           )
-        .sort($sort.asc("startsAt"))
+        .sort(sort.asc("startsAt"))
         .cursor[Tournament](ReadPref.sec)
         .listAll()
         .map: tours =>

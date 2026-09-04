@@ -18,7 +18,7 @@ final class ForumPostRepo(val coll: Coll, filter: Filter = Safe)(using Executor)
   private val noTroll = bdoc("troll" -> false)
   private val trollFilter = filter match
     case Safe => noTroll
-    case SafeAnd(u) => $or(noTroll, bdoc("userId" -> u))
+    case SafeAnd(u) => or(noTroll, bdoc("userId" -> u))
     case Unsafe => emptyBdoc
 
   private val miniProjection = bdoc(
@@ -33,31 +33,31 @@ final class ForumPostRepo(val coll: Coll, filter: Filter = Safe)(using Executor)
     coll.byOrderedIds[ForumPostMini, ForumPostId](ids, miniProjection.some)(_.id)
 
   def countBeforePost(post: ForumPost): Fu[Int] =
-    coll.countSel(selectTopic(post.topicId) ++ bdoc("createdAt" -> $lt(post.createdAt)))
+    coll.countSel(selectTopic(post.topicId) ++ bdoc("createdAt" -> lt(post.createdAt)))
 
   def isFirstPost(topicId: ForumTopicId, postId: ForumPostId): Fu[Boolean] =
-    coll.primitiveOne[ForumPostId](selectTopic(topicId), $sort.createdAsc, "_id").dmap { _ contains postId }
+    coll.primitiveOne[ForumPostId](selectTopic(topicId), sort.createdAsc, "_id").dmap { _ contains postId }
 
   def countByTopic(topic: ForumTopic): Fu[Int] =
     coll.countSel(selectTopic(topic.id))
 
   def lastByCateg(categ: ForumCateg): Fu[Option[ForumPost]] =
-    coll.find(selectCateg(categ.id)).sort($sort.createdDesc).one[ForumPost]
+    coll.find(selectCateg(categ.id)).sort(sort.createdDesc).one[ForumPost]
 
   def lastByTopic(topic: ForumTopic): Fu[Option[ForumPost]] =
-    coll.find(selectTopic(topic.id)).sort($sort.createdDesc).one[ForumPost]
+    coll.find(selectTopic(topic.id)).sort(sort.createdDesc).one[ForumPost]
 
   def recentInCategs(nb: Int)(categIds: List[ForumCategId], langs: List[String]): Fu[List[ForumPost]] =
     coll
       .find(selectCategs(categIds) ++ selectLangs(langs) ++ selectNotErased)
-      .sort($sort.createdDesc)
+      .sort(sort.createdDesc)
       .cursor[ForumPost]()
       .list(nb)
 
   def recentIdsInCateg(categId: ForumCategId, nb: Int): Fu[List[ForumPostId]] =
     coll
       .find(selectCateg(categId) ++ selectNotErased, bid(true).some)
-      .sort($sort.createdDesc)
+      .sort(sort.createdDesc)
       .cursor[Bdoc]()
       .list(nb)
       .map:
@@ -81,18 +81,18 @@ final class ForumPostRepo(val coll: Coll, filter: Filter = Safe)(using Executor)
   def selectTopic(topicId: ForumTopicId) = bdoc("topicId" -> topicId) ++ trollFilter
 
   def selectCateg(categId: ForumCategId) = bdoc("categId" -> categId) ++ trollFilter
-  def selectCategs(categIds: List[ForumCategId]) = bdoc("categId".$in(categIds)) ++ trollFilter
+  def selectCategs(categIds: List[ForumCategId]) = bdoc("categId".in(categIds)) ++ trollFilter
 
-  val selectNotErased = bdoc("erasedAt".$exists(false))
+  val selectNotErased = bdoc("erasedAt".exists(false))
 
   def selectLangs(langs: List[String]) =
     if langs.isEmpty then emptyBdoc
-    else bdoc("lang".$in(langs))
+    else bdoc("lang".in(langs))
 
   def findDuplicate(post: ForumPost): Fu[Option[ForumPost]] =
     coll.one:
       bdoc(
-        "createdAt".$gt(nowInstant.minusHours(1)),
+        "createdAt".gt(nowInstant.minusHours(1)),
         "userId" -> post.userId,
         "text" -> post.text
       )
@@ -106,6 +106,6 @@ final class ForumPostRepo(val coll: Coll, filter: Filter = Safe)(using Executor)
   def eraseAllBy(id: UserId) =
     coll.update.one(
       bdoc("userId" -> id),
-      $set(bdoc("userId" -> UserId.ghost, "text" -> "", "erasedAt" -> nowInstant)),
+      set(bdoc("userId" -> UserId.ghost, "text" -> "", "erasedAt" -> nowInstant)),
       multi = true
     )

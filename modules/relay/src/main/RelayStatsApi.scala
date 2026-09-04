@@ -72,7 +72,7 @@ final class RelayStatsApi(colls: RelayColls, viewerCount: lila.memo.ViewerCountA
         update
           .element(
             q = bid(roundId),
-            u = $push("d" -> bdoc("$each" -> barr(nowMinutes, crowd))),
+            u = push("d" -> bdoc("$each" -> barr(nowMinutes, crowd))),
             upsert = true
           )
           .dmap(some)
@@ -87,7 +87,7 @@ final class RelayStatsApi(colls: RelayColls, viewerCount: lila.memo.ViewerCountA
         import framework.*
         // lila-ws sets crowdAt along with crowd
         // so we can use crowdAt to know which rounds are being monitored
-        Match(bdoc("crowdAt".$gt(nowInstant.minusMinutes(1)))) ->
+        Match(bdoc("crowdAt".gt(nowInstant.minusMinutes(1)))) ->
           List(Project(bdoc("_id" -> 1, "crowd" -> 1)))
       .map: docs =>
         lila.mon.relay.crowdMonitor.update(docs.size)

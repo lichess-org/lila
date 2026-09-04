@@ -55,7 +55,7 @@ final class StudyPager(
     val showFeatured = (order == StudyOrder.hot || order == StudyOrder.popular) && page == 1
     val featuredIds = showFeatured.so(featured.setting.get())
     paginator(
-      accessSelect() ++ featuredIds.nonEmptyOption.so(ids => bdoc("_id".$nin(ids))),
+      accessSelect() ++ featuredIds.nonEmptyOption.so(ids => bdoc("_id".nin(ids))),
       order,
       page,
       fuccess(9999).some
@@ -97,14 +97,14 @@ final class StudyPager(
 
   def mineMember(order: StudyOrder, page: Int)(using me: Me)(using StudyFormat) =
     paginator(
-      selectMemberId(me) ++ bdoc("ownerId".$ne(me.userId)),
+      selectMemberId(me) ++ bdoc("ownerId".neq(me.userId)),
       order,
       page
     )
 
   def mineLikes(order: StudyOrder, page: Int)(using me: Me)(using StudyFormat) =
     paginator(
-      selectLiker(me) ++ accessSelect(unlisted = true, trash = true) ++ bdoc("ownerId".$ne(me.userId)),
+      selectLiker(me) ++ accessSelect(unlisted = true, trash = true) ++ bdoc("ownerId".neq(me.userId)),
       order,
       page
     )
@@ -123,8 +123,8 @@ final class StudyPager(
   ) =
     val public = if trash then selectPublic else selectPublicFeaturable
     me.fold(public): u =>
-      if unlisted then $or(public, selectMemberId(u), selectUnlisted)
-      else $or(public, selectMemberId(u))
+      if unlisted then or(public, selectMemberId(u), selectUnlisted)
+      else or(public, selectMemberId(u))
 
   private def paginator(
       selector: Bdoc,
@@ -136,19 +136,19 @@ final class StudyPager(
     studyRepo.coll: coll =>
       val adapter = Adapter[Study](
         collection = coll,
-        selector = selector ++ selector.contains("topics").not.so(bdoc("topics".$ne("Broadcast"))),
+        selector = selector ++ selector.contains("topics").not.so(bdoc("topics".neq("Broadcast"))),
         projection = studyRepo.projection.some,
         sort = order match
-          case StudyOrder.hot => $sort.desc("rank")
-          case StudyOrder.newest => $sort.desc("createdAt")
-          case StudyOrder.oldest => $sort.asc("createdAt")
-          case StudyOrder.updated => $sort.desc("updatedAt")
-          case StudyOrder.popular => $sort.desc("likes")
-          case StudyOrder.alphabetical => $sort.asc("name")
+          case StudyOrder.hot => sort.desc("rank")
+          case StudyOrder.newest => sort.desc("createdAt")
+          case StudyOrder.oldest => sort.asc("createdAt")
+          case StudyOrder.updated => sort.desc("updatedAt")
+          case StudyOrder.popular => sort.desc("likes")
+          case StudyOrder.alphabetical => sort.asc("name")
           // mine filter for topic view
-          case StudyOrder.mine => $sort.desc("rank")
+          case StudyOrder.mine => sort.desc("rank")
           // relevant not used here
-          case StudyOrder.relevant => $sort.desc("rank")
+          case StudyOrder.relevant => sort.desc("rank")
         ,
         hint = hint
       ).mapFutureList(withChaptersAndLiking())

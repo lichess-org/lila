@@ -39,7 +39,7 @@ final class ChallengeBulkApi(
   )
 
   def scheduledBy(me: User): Fu[List[ScheduledBulk]] =
-    coll.find(bdoc("by" -> me.id)).sort($sort.desc("pairAt")).cursor[ScheduledBulk]().list(100)
+    coll.find(bdoc("by" -> me.id)).sort(sort.desc("pairAt")).cursor[ScheduledBulk]().list(100)
 
   def findBy(id: String, me: User): Fu[Option[ScheduledBulk]] =
     coll.one[ScheduledBulk](bdoc("_id" -> id, "by" -> me.id))
@@ -49,12 +49,12 @@ final class ChallengeBulkApi(
 
   def startClocksAsap(id: String, me: User): Fu[Boolean] =
     coll
-      .updateField(bdoc("_id" -> id, "by" -> me.id, "pairedAt".$exists(true)), "startClocksAt", nowInstant)
+      .updateField(bdoc("_id" -> id, "by" -> me.id, "pairedAt".exists(true)), "startClocksAt", nowInstant)
       .map(_.n == 1)
 
   def schedule(bulk: ScheduledBulk): FuRaise[String, ScheduledBulk] = workQueue(bulk.by):
     for
-      bulks <- coll.list[ScheduledBulk](bdoc("by" -> bulk.by, "pairedAt".$exists(false)))
+      bulks <- coll.list[ScheduledBulk](bdoc("by" -> bulk.by, "pairedAt".exists(false)))
       _ <- raiseIf(bulks.sizeIs >= maxBulks)("Already too many bulks queued")
       _ <- raiseIf(bulks.map(_.games.size).sum >= 1000)("Already too many games queued")
       _ <- raiseIf(bulks.exists(_.collidesWith(bulk))):
@@ -68,7 +68,7 @@ final class ChallengeBulkApi(
 
   private def checkForPairing: Funit =
     coll
-      .one[ScheduledBulk](bdoc("pairAt".$lte(nowInstant), "pairedAt".$exists(false)))
+      .one[ScheduledBulk](bdoc("pairAt".lte(nowInstant), "pairedAt".exists(false)))
       .flatMapz: bulk =>
         workQueue(bulk.by):
           makePairings(bulk).void
@@ -76,7 +76,7 @@ final class ChallengeBulkApi(
   private def checkForClocks: Funit =
     coll
       .one[ScheduledBulk](
-        bdoc("startClocksAt".$lte(nowInstant), "startedClocksAt".$exists(false), "pairedAt".$exists(true))
+        bdoc("startClocksAt".lte(nowInstant), "startedClocksAt".exists(false), "pairedAt".exists(true))
       )
       .flatMapz: bulk =>
         workQueue(bulk.by):

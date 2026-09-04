@@ -107,7 +107,7 @@ final class Gamify(
         Match(
           bdoc(
             "date" -> dateRange(after, before),
-            "mod" -> $nin(hidden)
+            "mod" -> nin(hidden)
           )
         ) -> List(
           GroupField("mod")("nb" -> SumAll),
@@ -125,7 +125,7 @@ final class Gamify(
         Match(
           bdoc(
             "done.at" -> dateRange(after, before),
-            "done.by" -> $nin(hidden),
+            "done.by" -> nin(hidden),
             "open" -> false
           )
         ) -> List(

@@ -137,14 +137,14 @@ final class RelayPager(
 
     val day = 1000L * 3600 * 24
 
-    val (textSearch, nameFilter) = query match
+    val (textQuery, nameFilter) = query match
       case RelayPager.yearRegex(pre, year, post) =>
         val remaining = s"$pre $post".trim
-        (if remaining.isEmpty then query else remaining, bdoc("name".$regex(s"\\b$year\\b")))
+        (if remaining.isEmpty then query else remaining, bdoc("name".regex(s"\\b$year\\b")))
       case q => (q, emptyBdoc)
 
     // We add quotes to the query to perform an exact match even when the query contains whitespaces
-    val textSelector = $text(s"\"$textSearch\"") ++ nameFilter ++ selectors.officialPublic
+    val textSelector = textSearch(s"\"$textQuery\"") ++ nameFilter ++ selectors.officialPublic
 
     for
       pager <- forSelector(
@@ -178,7 +178,7 @@ final class RelayPager(
   // select the first round of the tour, that is not yet finished
   private val roundPipelineFirstUnfinished = List(
     bdoc("$sort" -> RelayRoundRepo.sort.asc),
-    bdoc("$match" -> bdoc("finishedAt".$exists(false))),
+    bdoc("$match" -> bdoc("finishedAt".exists(false))),
     bdoc("$limit" -> 1)
   )
 

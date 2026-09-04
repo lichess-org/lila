@@ -189,7 +189,7 @@ final private class ForumTopicApi(
       topicRepo.coll.update
         .one(
           bid(topic.id),
-          $set:
+          set:
             ~lila.db.BSON.toBdoc:
               topic.copy(
                 nbPosts = nbPosts,
@@ -227,6 +227,6 @@ final private class ForumTopicApi(
       slug = fromTopic.slug.map(_ + "-" + scalalib.ThreadLocalRandom.nextString(4))
     )
     for
-      _ <- topicRepo.coll.update.one(bid(topic.id), $set("categId" -> to, "slug" -> topic.slug))
-      _ <- postRepo.coll.update.one(bdoc("topicId" -> topic.id), $set("categId" -> to))
+      _ <- topicRepo.coll.update.one(bid(topic.id), set("categId" -> to, "slug" -> topic.slug))
+      _ <- postRepo.coll.update.one(bdoc("topicId" -> topic.id), set("categId" -> to))
     yield topic

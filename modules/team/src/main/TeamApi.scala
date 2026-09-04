@@ -295,8 +295,8 @@ final class TeamApi(
       val canSee = fuccess(team.publicMembers) >>| me.ifTrue(showHidden).soUse(cached.isMember(teamId))
       canSee.flatMapz:
         memberRepo.coll.primitive[UserId](
-          selector = memberRepo.teamQuery(teamId) ++ bdoc("user".$startsWith(term.value)),
-          sort = $sort.desc("user"),
+          selector = memberRepo.teamQuery(teamId) ++ bdoc("user".regexStart(term.value)),
+          sort = sort.desc("user"),
           nb = nb,
           field = "user"
         )
@@ -421,10 +421,10 @@ final class TeamApi(
     teamRepo.coll
       .find:
         bdoc(
-          "name".$startsWith(java.util.regex.Pattern.quote(term), "i"),
+          "name".regexStart(java.util.regex.Pattern.quote(term), "i"),
           "enabled" -> true
         )
-      .sort($sort.desc("nbMembers"))
+      .sort(sort.desc("nbMembers"))
       .cursor[Team](ReadPref.sec)
       .list(max)
 

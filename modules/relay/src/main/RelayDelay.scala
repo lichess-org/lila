@@ -104,9 +104,9 @@ final private class RelayDelay(colls: RelayColls, cacheApi: CacheApi)(using Exec
     private def getPgn(key: CacheKey, delay: Seconds): Fu[Option[PgnStr]] =
       colls.delay:
         _.find(
-          bdoc("_id".$gt(idOf(key, longPast)).$lte(idOf(key, nowInstant.minus(delay.duration)))),
+          bdoc("_id".gt(idOf(key, longPast)).lte(idOf(key, nowInstant.minus(delay.duration)))),
           bdoc("pgn" -> true).some
-        ).sort($sort.desc("_id"))
+        ).sort(sort.desc("_id"))
           .one[Bdoc]
           .map:
             _.flatMap(_.getAsOpt[PgnStr]("pgn"))
@@ -116,10 +116,10 @@ final private class RelayDelay(colls: RelayColls, cacheApi: CacheApi)(using Exec
         colls.delay:
           _.primitiveOne[Instant](
             bdoc(
-              "_id".$gt(idOf(key, longPast)),
-              "pgn".$regex("\n1\\. ")
+              "_id".gt(idOf(key, longPast)),
+              "pgn".regex("\n1\\. ")
             ),
-            $sort.asc("_id"),
+            sort.asc("_id"),
             "at"
           )
 

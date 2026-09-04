@@ -48,19 +48,19 @@ final class PuzzleStreakApi(colls: PuzzleColls, cacheApi: CacheApi)(using Execut
                   if rating > 2300 then (PuzzleTier.good, 5, 110) else (PuzzleTier.top, 1, 85)
                 val target = f"${theme}${sep}${tier}${sep}${rating}%04d"
                 rating.toString -> List(
-                  Match(bdoc("min".$lte(target), "max".$gte(target))),
+                  Match(bdoc("min".lte(target), "max".gte(target))),
                   Sample(samples),
                   Project(bdoc("_id" -> false, "ids" -> true)),
                   UnwindField("ids"),
                   // ensure we have enough after filtering deviation
                   Sample(nbPuzzles * 4),
                   PipelineOperator(
-                    $lookup.simple(
+                    lookup.simple(
                       from = colls.puzzle.name,
                       as = "puzzle",
                       local = "ids",
                       foreign = "_id",
-                      pipe = List(bdoc("$match" -> bdoc("glicko.d".$lte(deviation))))
+                      pipe = List(bdoc("$match" -> bdoc("glicko.d".lte(deviation))))
                     )
                   ),
                   UnwindField("puzzle"),

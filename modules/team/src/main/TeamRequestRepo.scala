@@ -28,14 +28,14 @@ final class TeamRequestRepo(val coll: Coll)(using Executor):
 
   def selectId(teamId: TeamId, userId: UserId) = bid(TeamRequest.makeId(teamId, userId))
   def teamQuery(teamId: TeamId) = bdoc("team" -> teamId)
-  def teamsQuery(teamIds: List[TeamId]) = bdoc("team".$in(teamIds))
+  def teamsQuery(teamIds: List[TeamId]) = bdoc("team".in(teamIds))
   def teamDeclinedQuery(teamId: TeamId, userQuery: Option[UserStr] = None) =
-    val baseQuery = $and(teamQuery(teamId), bdoc("declined" -> true))
+    val baseQuery = and(teamQuery(teamId), bdoc("declined" -> true))
     userQuery.fold(baseQuery): userStr =>
-      $and(baseQuery, bdoc("user" -> userStr.id))
+      and(baseQuery, bdoc("user" -> userStr.id))
 
-  def teamActiveQuery(teamId: TeamId) = $and(teamQuery(teamId), bdoc("declined".$ne(true)))
-  def teamsActiveQuery(teamIds: List[TeamId]) = $and(teamsQuery(teamIds), bdoc("declined".$ne(true)))
+  def teamActiveQuery(teamId: TeamId) = and(teamQuery(teamId), bdoc("declined".neq(true)))
+  def teamsActiveQuery(teamIds: List[TeamId]) = and(teamsQuery(teamIds), bdoc("declined".neq(true)))
 
   def getByUserId(userId: UserId) =
     coll.list[TeamRequest](bdoc("user" -> userId))
@@ -50,4 +50,4 @@ final class TeamRequestRepo(val coll: Coll)(using Executor):
   def removeByUser(userId: UserId) = coll.delete.one(bdoc("user" -> userId))
 
   def countPendingForTeams(teams: Iterable[TeamId]): Fu[Int] =
-    teams.nonEmpty.so(coll.secondary.countSel(bdoc("team".$in(teams), "declined".$ne(true))))
+    teams.nonEmpty.so(coll.secondary.countSel(bdoc("team".in(teams), "declined".neq(true))))

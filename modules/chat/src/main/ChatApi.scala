@@ -232,7 +232,7 @@ final class ChatApi(
 
     def removeMessagesBy(gameIds: Seq[GameId], userId: UserId) =
       val regex = s"^$userId[" + Line.separatorChars.mkString("") + "]"
-      val update = $pull("l".$regex(regex, "i"))
+      val update = pull("l".regex(regex, "i"))
       val allIds = for
         id <- gameIds
         both <- List(id.value, s"${id.value}/w")

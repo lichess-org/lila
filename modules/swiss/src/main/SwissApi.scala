@@ -142,7 +142,7 @@ final class SwissApi(
     elements <- perfs.parallel: (userId, perf) =>
       update.element(
         q = bid(SwissPlayer.makeId(swiss.id, userId)),
-        u = $set(
+        u = bset(
           SwissPlayer.Fields.rating -> perf.intRating,
           SwissPlayer.Fields.provisional -> perf.provisional.yes.option(true)
         )
@@ -238,7 +238,7 @@ final class SwissApi(
     SwissPairing.fields: f =>
       mongo.pairing
         .find(bdoc(f.swissId -> swissId) ++ player.so(u => bdoc(f.players -> u)), bid(true).some)
-        .sort($sort.asc(f.round))
+        .sort(sort.asc(f.round))
         .batchSize(batchSize)
         .cursor[Bdoc](readPref)
         .documentSource()
@@ -253,16 +253,16 @@ final class SwissApi(
     (nbPast > 0)
       .so:
         mongo.swiss
-          .find(bdoc("teamId" -> teamId, "finishedAt".$exists(true)))
-          .sort($sort.desc("startsAt"))
+          .find(bdoc("teamId" -> teamId, "finishedAt".exists(true)))
+          .sort(sort.desc("startsAt"))
           .cursor[Swiss]()
           .list(nbPast)
       .zip((nbSoon > 0).so {
         mongo.swiss
           .find(
-            bdoc("teamId" -> teamId, "startsAt".$gt(nowInstant.minusWeeks(2)), "finishedAt".$exists(false))
+            bdoc("teamId" -> teamId, "startsAt".gt(nowInstant.minusWeeks(2)), "finishedAt".exists(false))
           )
-          .sort($sort.asc("startsAt"))
+          .sort(sort.asc("startsAt"))
           .cursor[Swiss]()
           .list(nbSoon)
       })
@@ -275,7 +275,7 @@ final class SwissApi(
           .fields { f =>
             mongo.pairing
               .find(bdoc(f.swissId -> swiss.id, f.players -> player.userId))
-              .sort($sort.asc(f.round))
+              .sort(sort.asc(f.round))
               .cursor[SwissPairing]()
               .listAll()
           }
@@ -284,7 +284,7 @@ final class SwissApi(
           .flatMap { pairings =>
             SwissPlayer
               .fields { f =>
-                mongo.player.countSel(bdoc(f.swissId -> swiss.id, f.score.$gt(player.score))).dmap(1.+)
+                mongo.player.countSel(bdoc(f.swissId -> swiss.id, f.score.gt(player.score))).dmap(1.+)
               }
               .map { rank =>
                 val pairingMap = pairings.mapBy(_.pairing.round)
@@ -332,9 +332,9 @@ final class SwissApi(
       mongo.player.primitive[UserId](
         selector = bdoc(
           f.swissId -> id,
-          f.userId.$startsWith(term.value)
+          f.userId.regexStart(term.value)
         ),
-        sort = $sort.desc(f.score),
+        sort = sort.desc(f.score),
         nb = nb,
         field = f.userId
       )
@@ -373,9 +373,9 @@ final class SwissApi(
     mongo.swiss
       .aggregateList(100, _.sec): framework =>
         import framework.*
-        Match(bdoc("teamId".$in(teamIds), "featurable" -> true)) -> List(
+        Match(bdoc("teamId".in(teamIds), "featurable" -> true)) -> List(
           PipelineOperator(
-            $lookup.simple(
+            lookup.simple(
               from = mongo.player,
               as = "player",
               local = "_id",
@@ -383,7 +383,7 @@ final class SwissApi(
               pipe = List(bdoc("$match" -> bdoc("u" -> userId)))
             )
           ),
-          Match("player".$ne(barr())),
+          Match("player".neq(barr())),
           Limit(100),
           Project(bid(true))
         )
@@ -499,11 +499,11 @@ final class SwissApi(
           else destroy(swiss)
   private def doFinish(swiss: Swiss): Funit = for
     winnerUserId <- SwissPlayer.fields: f =>
-      mongo.player.primitiveOne[UserId](bdoc(f.swissId -> swiss.id), $sort.desc(f.score), f.userId)
+      mongo.player.primitiveOne[UserId](bdoc(f.swissId -> swiss.id), sort.desc(f.score), f.userId)
     _ <- mongo.swiss.update
       .one(
         bid(swiss.id),
-        $unset("nextRoundAt", "lastRoundAt", "featurable") ++ $set(
+        unset("nextRoundAt", "lastRoundAt", "featurable") ++ bset(
           "settings.n" -> swiss.round,
           "finishedAt" -> nowInstant,
           "winnerId" -> winnerUserId
@@ -530,7 +530,7 @@ final class SwissApi(
       SwissPlayer.fields: f =>
         mongo.player
           .find(bdoc(f.swissId -> swiss.id))
-          .sort($sort.desc(f.score))
+          .sort(sort.desc(f.score))
           .cursor[SwissPlayer](ReadPref.sec)
           .list(payouts.nbWinners)
           .map: players =>
@@ -557,14 +557,14 @@ final class SwissApi(
   ) =
     val statusSel = status.so:
       case Swiss.Status.created => bdoc("round" -> 0)
-      case Swiss.Status.started => bdoc("round".$gt(0), "finishedAt" -> $exists(false))
-      case Swiss.Status.finished => bdoc("finishedAt" -> $exists(true))
+      case Swiss.Status.started => bdoc("round".gt(0), "finishedAt" -> exists(false))
+      case Swiss.Status.finished => bdoc("finishedAt" -> exists(true))
     val creatorSel = createdBy.so(u => bdoc("createdBy" -> u))
     val nameSel = name.so(n => bdoc("name" -> n))
     mongo.swiss
       .find:
         bdoc("teamId" -> teamId) ++ statusSel ++ creatorSel ++ nameSel
-      .sort($sort.desc("startsAt"))
+      .sort(sort.desc("startsAt"))
       .cursor[Swiss]()
 
   def teamOf(id: SwissId): Fu[Option[TeamId]] =
@@ -598,7 +598,7 @@ final class SwissApi(
 
   private[swiss] def startPendingRounds: Funit =
     mongo.swiss
-      .find(bdoc("nextRoundAt".$lt(nowInstant)), bid(true).some)
+      .find(bdoc("nextRoundAt".lt(nowInstant)), bid(true).some)
       .cursor[Bdoc]()
       .list(10)
       .map(_.flatMap(_.getAsOpt[SwissId]("_id")))
@@ -607,7 +607,7 @@ final class SwissApi(
           Sequencing(id)(cache.swissCache.byId) { swiss =>
             if swiss.isFinished then
               logger.info(s"Swiss ${swiss.id} is finished but still has a pending round, cleaning up.")
-              mongo.swiss.update.one(bid(swiss.id), $unset("nextRoundAt")).void
+              mongo.swiss.update.one(bid(swiss.id), unset("nextRoundAt")).void
             else if swiss.round.value >= swiss.settings.nbRounds then doFinish(swiss)
             else if swiss.nbPlayers >= 2 then
               countPresentPlayers(swiss).flatMap { nbPresent =>
@@ -627,7 +627,7 @@ final class SwissApi(
                       case Some(s) =>
                         systemChat(s.id, s"Round ${s.round.value} failed.", volatile = true)
                         mongo.swiss.update
-                          .one(bid(s.id), $set("nextRoundAt" -> nowInstant.plusSeconds(61)))
+                          .one(bid(s.id), bset("nextRoundAt" -> nowInstant.plusSeconds(61)))
                           .void
                   yield cache.swissCache.clear(swiss.id)
               }
@@ -636,14 +636,14 @@ final class SwissApi(
               systemChat(swiss.id, "Not enough players for first round; delaying start.", volatile = true)
               for _ <- mongo.swiss.update.one(
                   bid(swiss.id),
-                  $set("nextRoundAt" -> nowInstant.plusSeconds(121))
+                  bset("nextRoundAt" -> nowInstant.plusSeconds(121))
                 )
               yield cache.swissCache.clear(swiss.id)
           } >> recomputeAndUpdateAll(id)
       .monSuccess(lila.mon.swiss.tick)
 
   private def countPresentPlayers(swiss: Swiss) = SwissPlayer.fields: f =>
-    mongo.player.countSel(bdoc(f.swissId -> swiss.id, f.absent.$ne(true)))
+    mongo.player.countSel(bdoc(f.swissId -> swiss.id, f.absent.neq(true)))
 
   private[swiss] def checkOngoingGames: Funit =
     SwissPairing
@@ -695,17 +695,17 @@ final class SwissApi(
       .aggregateList(Int.MaxValue, _.sec): framework =>
         import framework.*
         Match(
-          bdoc("finishedAt".$exists(false), Swiss.Fields.nbPlayers.$gt(0), "teamId".$in(teamIds))
+          bdoc("finishedAt".exists(false), Swiss.Fields.nbPlayers.gt(0), "teamId".in(teamIds))
         ) -> List(
           PipelineOperator(
-            $lookup.pipelineFull(
+            lookup.pipelineFull(
               from = mongo.player.name,
               let = bdoc("s" -> "$_id"),
               as = "player",
               pipe = List(
                 bdoc(
-                  "$match" -> $expr(
-                    $and(
+                  "$match" -> expr(
+                    and(
                       bdoc("$eq" -> barr("$u", user.id)),
                       bdoc("$eq" -> barr("$s", "$$s"))
                     )
@@ -714,7 +714,7 @@ final class SwissApi(
               )
             )
           ),
-          Match("player".$ne(barr())),
+          Match("player".neq(barr())),
           Project(bid(true))
         )
       .map(_.flatMap(_.getAsOpt[SwissId]("_id")))
@@ -722,18 +722,18 @@ final class SwissApi(
         _.sequentiallyVoid { withdraw(_, user.id) }
 
   def isUnfinished(id: SwissId): Fu[Boolean] =
-    mongo.swiss.exists(bid(id) ++ bdoc("finishedAt".$exists(false)))
+    mongo.swiss.exists(bid(id) ++ bdoc("finishedAt".exists(false)))
 
   def filterPlaying(id: SwissId, userIds: Seq[UserId]): Fu[List[UserId]] =
     userIds.nonEmpty
-      .so(mongo.swiss.exists(bid(id) ++ bdoc("finishedAt".$exists(false))))
+      .so(mongo.swiss.exists(bid(id) ++ bdoc("finishedAt".exists(false))))
       .flatMapz:
         SwissPlayer.fields: f =>
           mongo.player.distinctEasy[UserId, List](
             f.userId,
             bdoc(
-              f.id.$in(userIds.map(SwissPlayer.makeId(id, _))),
-              f.absent.$ne(true)
+              f.id.in(userIds.map(SwissPlayer.makeId(id, _))),
+              f.absent.neq(true)
             )
           )
 
@@ -741,7 +741,7 @@ final class SwissApi(
     SwissPlayer.fields: f =>
       mongo.player
         .find(bdoc(f.swissId -> swiss.id))
-        .sort($sort.desc(f.score))
+        .sort(sort.desc(f.score))
         .batchSize(perSecond.value)
         .cursor[SwissPlayer](ReadPref.sec)
         .documentSource(nb)
@@ -758,7 +758,7 @@ final class SwissApi(
   def onUserDelete(u: UserId, ids: Set[SwissId]) = for
     _ <- mongo.swiss.update.one(
       inIds(ids) ++ bdoc("winnerId" -> u),
-      $set("winnerId" -> UserId.ghost),
+      set("winnerId" -> UserId.ghost),
       multi = true
     )
     playerIds = ids.map(SwissPlayer.makeId(_, u))
@@ -770,7 +770,7 @@ final class SwissApi(
       p.copy(id = SwissPlayer.makeId(p.swissId, ghostId), userId = ghostId)
     _ <- mongo.player.delete.one(inIds(playerIds))
     _ <- mongo.player.insert.many(newPlayers)
-    _ <- mongo.pairing.update.one(bdoc("s".$in(ids), "p" -> u), $set("p.$" -> ghostId), multi = true)
+    _ <- mongo.pairing.update.one(bdoc("s".in(ids), "p" -> u), set("p.$" -> ghostId), multi = true)
   yield ()
 
   private def Sequencing[A <: Matchable: alleycats.Zero](

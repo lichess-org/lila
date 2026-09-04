@@ -78,7 +78,7 @@ final class Authenticator(
     userRepo.coll.update
       .one(
         bid(id),
-        $set(F.bpass -> passEnc(p).bytes) ++ $unset(F.salt, F.sha512)
+        set(F.bpass -> passEnc(p).bytes) ++ unset(F.salt, F.sha512)
       )
       .void
 

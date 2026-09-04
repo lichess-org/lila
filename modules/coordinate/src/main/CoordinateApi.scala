@@ -19,7 +19,7 @@ final class CoordinateApi(scoreColl: Coll)(using Executor):
     scoreColl.update
       .one(
         bid(me),
-        $push(
+        push(
           bdoc(
             s"${color.name}${(mode == CoordMode.nameSquare).so("NameSquare")}" -> bdoc(
               "$each" -> barr(hits),
@@ -35,7 +35,7 @@ final class CoordinateApi(scoreColl: Coll)(using Executor):
     scoreColl
       .aggregateList(maxDocs = Int.MaxValue, _.sec): framework =>
         import framework.*
-        Match(bdoc("_id".$in(userIds))) -> List(
+        Match(bdoc("_id".in(userIds))) -> List(
           Project(
             bdoc(
               "white" -> bdoc("$max" -> "$white"),

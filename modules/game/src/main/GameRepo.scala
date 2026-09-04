@@ -111,7 +111,7 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
   // only one player needs to be in the userId set
   def ongoingByOneOfUserIdsCursor(userIds: Iterable[UserId]): PekkoStreamCursor[Game] =
     coll
-      .find(bdoc(F.playingUids.$in(userIds)))
+      .find(bdoc(F.playingUids.in(userIds)))
       .cursor[Game](ReadPref.sec)
 
   def finishedByOneOfUserIdsSince(userIds: Iterable[UserId], since: Instant): PekkoStreamCursor[Game] =
@@ -120,7 +120,7 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
         Query.finished ++
           Query.users(userIds) ++
           Query.createdSince(since.minusHours(3)) ++
-          bdoc(F.movedAt.$gt(since))
+          bdoc(F.movedAt.gt(since))
       .hint(coll.hint("us_1_ca_-1")) // important index hit. Do not sort the query.
       .cursor[Game](ReadPref.sec)
 
@@ -134,7 +134,7 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
           ++ Query.turnsGt(20)
           ++ Query.clockHistory(true)
       )
-      .sort($sort.asc(F.createdAt))
+      .sort(sort.asc(F.createdAt))
       .cursor[Game](ReadPref.sec)
       .list(nb)
 
@@ -148,7 +148,7 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
           ++ Query.variantStandard
           ++ Query.clock(true)
       )
-      .sort($sort.asc(F.createdAt))
+      .sort(sort.asc(F.createdAt))
       .cursor[Game](ReadPref.sec)
       .list(nb)
 
@@ -196,7 +196,7 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
 
   def setBlindfold(pov: Pov, blindfold: Boolean): Funit =
     val field = s"${pov.color.fold(F.whitePlayer, F.blackPlayer)}.${PF.blindfold}"
-    coll.update.one(bid(pov.gameId), $setBoolOrUnset(field, blindfold)).void
+    coll.update.one(bid(pov.gameId), setBoolOrUnset(field, blindfold)).void
 
   def update(progress: Progress): Funit =
     saveDiff(progress.origin.id, GameDiff(progress.origin, progress.game))
@@ -218,7 +218,7 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
   def setRatingDiffs(id: GameId, diffs: ByColor[IntRatingDiff]) =
     coll.update.one(
       bid(id),
-      $set(
+      set(
         s"${F.whitePlayer}.${PF.ratingDiff}" -> diffs.white,
         s"${F.blackPlayer}.${PF.ratingDiff}" -> diffs.black
       )
@@ -266,7 +266,7 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
   def lastPlayed(userId: UserId): Fu[Option[Pov]] =
     coll
       .find(Query.user(userId))
-      .sort($sort.desc(F.createdAt))
+      .sort(sort.desc(F.createdAt))
       .cursor[Game]()
       .list(2)
       .dmap { _.sortBy(_.movedAt).lastOption.flatMap(Pov(_, userId)) }
@@ -274,7 +274,7 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
   def quickLastPlayedId(userId: UserId): Fu[Option[GameId]] =
     coll
       .find(Query.user(userId), bid(true).some)
-      .sort($sort.desc(F.createdAt))
+      .sort(sort.desc(F.createdAt))
       .one[Bdoc]
       .dmap { _.flatMap(_.getAsOpt[GameId](F.id)) }
 
@@ -294,7 +294,7 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
   def tournamentId(id: GameId): Fu[Option[String]] = coll.primitiveOne[String](bid(id), F.tournamentId)
 
   def incBookmarks(id: GameId, value: Int) =
-    coll.update.one(bid(id), $inc(F.bookmarks -> value)).void
+    coll.update.one(bid(id), inc(F.bookmarks -> value)).void
 
   def setHoldAlert(pov: Pov, alert: HoldAlert): Funit =
     coll
@@ -306,9 +306,9 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
       .void
 
   object holdAlert:
-    private val holdAlertSelector = $or(
-      holdAlertField(chess.White).$exists(true),
-      holdAlertField(chess.Black).$exists(true)
+    private val holdAlertSelector = or(
+      holdAlertField(chess.White).exists(true),
+      holdAlertField(chess.Black).exists(true)
     )
     private val holdAlertProjection = bdoc(
       holdAlertField(chess.White) -> true,
@@ -353,7 +353,7 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
     coll.exists(
       bdoc(
         bid(pov.gameId),
-        holdAlertField(pov.color).$exists(true)
+        holdAlertField(pov.color).exists(true)
       )
     )
 
@@ -447,7 +447,7 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
           Match(Query.friend ++ Query.noAnon),
           Project(bdoc(F.playerUids -> true, F.id -> false)),
           UnwindField(F.playerUids),
-          Match(bdoc(F.playerUids.$ne(userId))),
+          Match(bdoc(F.playerUids.neq(userId))),
           PipelineOperator(bdoc("$sortByCount" -> s"$$${F.playerUids}")),
           Limit(max.value),
           Group(BSONNull)("users" -> PushField("_id"))
@@ -463,7 +463,7 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
     coll.unsetField(bid(id), F.checkAt).void
 
   def unsetPlayingUids(g: Game): Unit =
-    coll.update(ordered = false, WriteConcern.Unacknowledged).one(bid(g.id), $unset(F.playingUids))
+    coll.update(ordered = false, WriteConcern.Unacknowledged).one(bid(g.id), unset(F.playingUids))
 
   private def initialFen(gameId: GameId, readPref: ReadPref): Fu[Option[Fen.Full]] =
     coll.withReadPreference(readPref).primitiveOne[Fen.Full](bid(gameId), F.initialFen)
@@ -509,7 +509,7 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
             )
           ),
           UnwindField(F.playerUids),
-          Match(bdoc(F.playerUids.$ne(userId))),
+          Match(bdoc(F.playerUids.neq(userId))),
           GroupField(F.playerUids)("gs" -> SumAll),
           Sort(Descending("gs")),
           Limit(opponentLimit)
@@ -531,8 +531,8 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
   def lastGameBetween(u1: UserId, u2: UserId, since: Instant): Fu[Option[Game]] =
     coll.one[Game](
       bdoc(
-        F.playerUids.$all(List(u1, u2)),
-        F.createdAt.$gt(since)
+        F.playerUids.all(List(u1, u2)),
+        F.createdAt.gt(since)
       )
     )
 
@@ -542,8 +542,8 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
       .so(
         coll.secondary.list[Game](
           bdoc(
-            F.playerUids.$all(List(u1.id, u2.id)),
-            F.createdAt.$gt(since)
+            F.playerUids.all(List(u1.id, u2.id)),
+            F.createdAt.gt(since)
           ),
           nb
         )
@@ -577,4 +577,4 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
 
   // expensive, enumerates all the player's games
   def swissIdsOf(id: UserId): Fu[Set[SwissId]] =
-    coll.distinctEasy[SwissId, Set](F.swissId, Query.user(id) ++ F.swissId.$exists(true))
+    coll.distinctEasy[SwissId, Set](F.swissId, Query.user(id) ++ F.swissId.exists(true))

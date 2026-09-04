@@ -92,7 +92,7 @@ final class PracticeApi(
       coll
         .aggregateList(Int.MaxValue, _.sec): framework =>
           import framework.*
-          Match(bdoc("_id".$in(userIds))) -> List(
+          Match(bdoc("_id".in(userIds))) -> List(
             Project(
               bdoc(
                 "nb" -> bdoc(

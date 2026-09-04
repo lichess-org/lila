@@ -67,7 +67,7 @@ final class RelationStream(colls: Colls, userRepo: UserRepo, isOnline: IsOnline)
         List(
           Match(bdoc(F.from -> me.userId, "r" -> lila.core.relation.Relation.Follow)),
           PipelineOperator(
-            $lookup.simple(
+            lookup.simple(
               from = userRepo.coll,
               as = "user",
               local = F.to,

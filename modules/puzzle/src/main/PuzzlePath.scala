@@ -50,7 +50,7 @@ h":"5B7ADA38","planCacheKey":"7FF0C349","queryFramework":"classic","reslen":286,
           val ratingFlex = (100 + math.abs(1500 - rating.value) / 4) * compromise.atMost(4)
           Match(
             select(angle, actualTier, (rating.value - ratingFlex) to (rating.value + ratingFlex)) ++
-              ((compromise != 5 && previousPaths.nonEmpty).so(bdoc("_id".$nin(previousPaths))))
+              ((compromise != 5 && previousPaths.nonEmpty).so(bdoc("_id".nin(previousPaths))))
           ) -> List(
             Sample(1),
             Project(bid(true))
@@ -69,8 +69,8 @@ h":"5B7ADA38","planCacheKey":"7FF0C349","queryFramework":"classic","reslen":286,
     lila.mon.puzzle.nextPathFor(angle.categ, requester)
 
   def select(angle: PuzzleAngle, tier: PuzzleTier, rating: Range) = bdoc(
-    "min".$lte(f"${angle.key}${sep}${tier}${sep}${rating.max}%04d"),
-    "max".$gte(f"${angle.key}${sep}${tier}${sep}${rating.min}%04d")
+    "min".lte(f"${angle.key}${sep}${tier}${sep}${rating.max}%04d"),
+    "max".gte(f"${angle.key}${sep}${tier}${sep}${rating.min}%04d")
   )
 
   def isStale = colls

@@ -27,18 +27,17 @@ final class ClasMates(colls: ClasColls, cacheApi: CacheApi, filters: ClasUserFil
             List(
               "mates" -> List(
                 PipelineOperator(
-                  $lookup.pipelineFull(
+                  lookup.pipelineFull(
                     from = colls.student.name,
                     as = "mates",
                     let = bdoc("ids" -> "$classes"),
                     pipe = List(
                       bdoc(
-                        "$match" -> $expr(
-                          $and(
+                        "$match" -> expr:
+                          and(
                             bdoc("$in" -> barr("$clasId", "$$ids")),
                             bdoc("$ne" -> barr("$userId", studentId))
                           )
-                        )
                       ),
                       bdoc(
                         "$group" -> bdoc(
@@ -50,19 +49,19 @@ final class ClasMates(colls: ClasColls, cacheApi: CacheApi, filters: ClasUserFil
                   )
                 ),
                 ReplaceRoot:
-                  $ifNull(
+                  ifNull(
                     bdoc("$arrayElemAt" -> barr("$mates", 0)),
                     bdoc("mates" -> barr())
                   )
               ),
               "teachers" -> List(
                 PipelineOperator(
-                  $lookup.pipelineFull(
+                  lookup.pipelineFull(
                     from = colls.clas.name,
                     as = "teachers",
                     let = bdoc("ids" -> "$classes"),
                     pipe = List(
-                      bdoc("$match" -> $expr(bdoc("$in" -> barr("$_id", "$$ids")))),
+                      bdoc("$match" -> expr(bdoc("$in" -> barr("$_id", "$$ids")))),
                       bdoc("$unwind" -> "$teachers"),
                       bdoc(
                         "$group" -> bdoc(
@@ -74,7 +73,7 @@ final class ClasMates(colls: ClasColls, cacheApi: CacheApi, filters: ClasUserFil
                   )
                 ),
                 ReplaceRoot:
-                  $ifNull(
+                  ifNull(
                     bdoc("$arrayElemAt" -> barr("$teachers", 0)),
                     bdoc("teachers" -> barr())
                   )

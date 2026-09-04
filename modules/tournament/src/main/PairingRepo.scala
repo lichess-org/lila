@@ -18,8 +18,8 @@ final class PairingRepo(coll: Coll)(using Executor, Materializer):
       "tid" -> tourId,
       "u" -> userId
     )
-  private val selectPlaying = bdoc("s".$lt(chess.Status.Mate.id)) // hits a sparse index
-  private val selectFinished = bdoc("s".$gte(chess.Status.Mate.id))
+  private val selectPlaying = bdoc("s".lt(chess.Status.Mate.id)) // hits a sparse index
+  private val selectFinished = bdoc("s".gte(chess.Status.Mate.id))
   private val recentSort = bdoc("d" -> -1)
   private val chronoSort = bdoc("d" -> 1)
 
@@ -35,7 +35,7 @@ final class PairingRepo(coll: Coll)(using Executor, Materializer):
         val nbUsers = userIds.size
         coll
           .find(
-            selectTour(tourId) ++ bdoc("u".$in(userIds)),
+            selectTour(tourId) ++ bdoc("u".in(userIds)),
             bdoc("_id" -> false, "u" -> true).some
           )
           .sort(recentSort)
@@ -106,7 +106,7 @@ final class PairingRepo(coll: Coll)(using Executor, Materializer):
           .map: p =>
             coll.update.one(
               bid(p.id),
-              $set(
+              set(
                 "w" -> p.colorOf(userId).map(_.black)
               )
             )
@@ -143,7 +143,7 @@ final class PairingRepo(coll: Coll)(using Executor, Materializer):
   def isRecentPlayer(tourId: TourId, userId: UserId): Fu[Boolean] =
     coll.exists:
       selectTourUser(tourId, userId) ++
-        $or(selectPlaying, bdoc("d".$gte(nowInstant.minusMinutes(15))))
+        or(selectPlaying, bdoc("d".gte(nowInstant.minusMinutes(15))))
 
   def isPlaying(tourId: TourId, userId: UserId): Fu[Boolean] =
     coll.exists(selectTourUser(tourId, userId) ++ selectPlaying)
@@ -173,7 +173,7 @@ final class PairingRepo(coll: Coll)(using Executor, Materializer):
     else
       coll.findAndUpdateSimplified[Pairing](
         selector = bid(g.id),
-        update = $set(
+        update = set(
           "s" -> g.status.id,
           "w" -> g.winnerColor.map(_.white),
           "t" -> g.ply
@@ -222,4 +222,4 @@ final class PairingRepo(coll: Coll)(using Executor, Materializer):
       )
 
   private[tournament] def anonymize(tourId: TourId, userId: UserId)(ghostId: UserId) =
-    coll.update.one(bdoc("tid" -> tourId, "u" -> userId), $set("u.$" -> ghostId)).void
+    coll.update.one(bdoc("tid" -> tourId, "u" -> userId), set("u.$" -> ghostId)).void

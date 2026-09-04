@@ -105,7 +105,7 @@ final class SwissJson(
             mongo.player.update
               .one(
                 bid(SwissPlayer.makeId(swiss.id, user.id)),
-                $set(f.rating -> perf.intRating)
+                set(f.rating -> perf.intRating)
               )
               .void
       yield ()
@@ -115,7 +115,7 @@ final class SwissJson(
       SwissPlayer.fields { f =>
         mongo.player
           .find(bdoc(f.swissId -> swiss.id))
-          .sort($sort.desc(f.score))
+          .sort(sort.desc(f.score))
           .cursor[SwissPlayer]()
           .list(3)
           .flatMap { top3 =>

@@ -48,4 +48,4 @@ private object BsonHandlers:
 
   def selectNotDeleted(using me: Me) =
     if UserId.lichess.is(me) then emptyBdoc // using "del" is too expensive
-    else bdoc("del".$ne(me.userId))
+    else bdoc("del".neq(me.userId))

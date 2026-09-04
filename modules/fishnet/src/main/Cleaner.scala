@@ -20,8 +20,8 @@ final private class Cleaner(
 
   private def cleanAnalysis: Funit =
     analysisColl
-      .find(bdoc("acquired.date".$lt(durationAgo(analysisTimeoutBase))))
-      .sort($sort.desc("acquired.date"))
+      .find(bdoc("acquired.date".lt(durationAgo(analysisTimeoutBase))))
+      .sort(sort.desc("acquired.date"))
       .cursor[Work.Analysis]()
       .documentSource()
       .filter: ana =>

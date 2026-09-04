@@ -104,7 +104,7 @@ final class PuzzleDashboardApi(
           "fixes" -> Sum(countField("f")),
           "rating" -> AvgField("puzzle.rating")
         )
-        Match(bdoc("u" -> userId, "d".$gt(nowInstant.minusDays(days.value)))) -> List(
+        Match(bdoc("u" -> userId, "d".gt(nowInstant.minusDays(days.value)))) -> List(
           Sort(Descending("d")),
           Limit(10_000),
           PipelineOperator(
@@ -154,4 +154,4 @@ final class PuzzleDashboardApi(
     rating <- doc.double("rating")
   yield Results(nb, wins, fixes, IntRating(rating.toInt))
 
-  val relevantThemesSelect = bdoc("puzzle.themes".$nin(irrelevantThemes))
+  val relevantThemesSelect = bdoc("puzzle.themes".nin(irrelevantThemes))
