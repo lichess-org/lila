@@ -73,7 +73,7 @@ final class TournamentList(helpers: Helpers, ui: TournamentUi)(
                       div(strong(tour.name(full = false)), momentFromNow(tour.startsAt))
                     )
             ),
-            a(href := routes.Tournament.calendar)(trans.site.seeMoreTournaments())
+            a(href := routes.Tournament.calendar)(trans.arena.seeMoreTournaments())
           ),
           st.section(cls := "tour-home__schedule box")(
             boxTop(

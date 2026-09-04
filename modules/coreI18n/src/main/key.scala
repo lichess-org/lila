@@ -146,6 +146,7 @@ object I18nKey:
     val `onlyTitledHelp`: I18nKey = "arena:onlyTitledHelp"
     val `tournamentPairingsAreNowClosed`: I18nKey = "arena:tournamentPairingsAreNowClosed"
     val `berserkRate`: I18nKey = "arena:berserkRate"
+    val `seeMoreTournaments`: I18nKey = "arena:seeMoreTournaments"
     val `drawingWithinNbMoves`: I18nKey = "arena:drawingWithinNbMoves"
     val `viewAllXTeams`: I18nKey = "arena:viewAllXTeams"
 
@@ -2521,7 +2522,6 @@ object I18nKey:
     val `tags`: I18nKey = "tags"
     val `enPassant`: I18nKey = "enPassant"
     val `settings`: I18nKey = "settings"
-    val `seeMoreTournaments`: I18nKey = "seeMoreTournaments"
     val `opponentLeftCounter`: I18nKey = "opponentLeftCounter"
     val `mateInXHalfMoves`: I18nKey = "mateInXHalfMoves"
     val `nbBlunders`: I18nKey = "nbBlunders"
