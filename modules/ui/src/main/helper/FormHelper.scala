@@ -94,7 +94,7 @@ trait FormHelper:
           else script(src := scriptUrl, deferAttr, async)
         frag(scriptTag, widget, div(cls := "cf-turnstile-error error none"))
 
-    def submit(content: Frag) =
+    def submit(content: Frag)(using ctx: Context) =
       form3.submit(
         frag(
           span(cls := "button__ready")(content),

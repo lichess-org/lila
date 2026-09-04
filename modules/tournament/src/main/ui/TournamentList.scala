@@ -47,7 +47,8 @@ final class TournamentList(helpers: Helpers, ui: TournamentUi)(
               br,
               a(href := routes.Tournament.help)(trans.site.tournamentFAQ()),
               br,
-              a(href := routes.Cms.lonePage(lila.core.id.CmsPageKey("leagues-and-battles")))(trans.site.leaguesAndStreamerBattles()
+              a(href := routes.Cms.lonePage(lila.core.id.CmsPageKey("leagues-and-battles")))(
+                trans.site.leaguesAndStreamerBattles()
               )
             ),
             h2(
@@ -128,7 +129,7 @@ final class TournamentList(helpers: Helpers, ui: TournamentUi)(
         )
 
   def calendar(json: play.api.libs.json.JsObject)(using Context) =
-    Page(trans.site.tournamentCalendar())
+    Page(trans.site.tournamentCalendar.txt())
       .js(PageModule("tournament.calendar", Json.obj("data" -> json)))
       .css("tournament.calendar"):
         main(cls := "box")(
