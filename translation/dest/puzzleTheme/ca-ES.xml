@@ -77,8 +77,10 @@
   <string name="killBoxMateDescription">Una torre està al costat del rei enemic sostinguda per una dama que també bloqueja les caselles d\'escapament. La torre i la dama cacen el rei enemic amb una \"caixa de matar\" de 3 per 3.</string>
   <string name="pillsburysMate">Mat de Pillsbury</string>
   <string name="pillsburysMateDescription">La torre fa escac i mat mentre l\'alfil ajuda a confinar el rei.</string>
+  <string name="pillsburyMateRookAndBishopDescription" comment="Replaces old string pillsburysMateDescription">Una torre dona escac i mat al rei mentre un alfil ajuda a no deixar escapar el rei.</string>
   <string name="morphysMate">Mat de Morphy</string>
   <string name="morphysMateDescription">Utilitza l\'alfil per fer escac al rei mentre la torre ajuda a confinar-lo.</string>
+  <string name="morphyMateBishopAndRookDescription" comment="Replaces old string morphysMateDescription">Un alfil dona escac i mat al rei mentre una torre ajuda a no deixar escapar el rei.</string>
   <string name="swallowstailMate">Mat de la cua d\'oreneta</string>
   <string name="swallowstailMateDescription">Un mat que visualment ens recorda la forma de la cua d\'una oreneta, similar a una forma de V.</string>
   <string name="triangleMate">Mat del triangle</string>
