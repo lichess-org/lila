@@ -188,6 +188,7 @@
   <string name="customPositionTitle">Özel konum</string>
   <string name="customPositionText">Tahtayı istediğiniz gibi ayarlayın.&lt;br&gt;Son oyunları keşfetmek için uygun.</string>
   <string name="loadExistingLichessGameTitle">Mevcut bir lichess oyununu yükle</string>
+  <string name="loadGameFromTheWebTitle" comment="Replaces old string loadExistingLichessGameTitle">Web\'den bir oyun yükle</string>
   <string name="loadExistingLichessGameText">Lichess oyun URL\'sini yapıştırın&lt;br&gt;(örneğin lichess.org/7fHIU0XI)&lt;br&gt;bölümdeki oyun hamlelerini yüklemek için.</string>
   <string name="fromFenStringTitle">Bir FEN dizisinden</string>
   <string name="fromFenStringText">FEN formatında bir pozisyon &lt;br&gt;&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;&lt;br&gt; yapıştırarak bölümü belirli bir yerden başlat.</string>

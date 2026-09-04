@@ -114,8 +114,6 @@ object SimulForm:
         .verifying("Invalid host extra time.", _.clock.valid)
     )
 
-  def setText = Form(single("text" -> text))
-
   case class Setup(
       name: String,
       clockTime: LimitMinutes,

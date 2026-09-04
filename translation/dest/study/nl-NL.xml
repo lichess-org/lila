@@ -66,6 +66,7 @@
   <string name="studyUrl">Studie URL</string>
   <string name="currentChapterUrl">Huidige hoofdstuk URL</string>
   <string name="youCanPasteThisInTheForumToEmbed">Je kunt deze link plakken wanneer je een bericht schrijft op het forum om de partij interactief weer te geven</string>
+  <string name="pasteToEmbedChapterInForumOrBlog" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.&#10;&#10;Please note this used to say &quot;in the forum to embed&quot;. It was then changed to include &quot;or a Lichess Blog&quot;. A further update was made to say &quot;or your Lichess blog&quot;, since you can only create blog posts as an individual.  Replaces old string youCanPasteThisInTheForumToEmbed">Je kunt deze link plakken in het forum of je blog om het hoofdstuk in te sluiten.</string>
   <string name="startAtInitialPosition">Begin bij de startpositie</string>
   <string name="startAtX">Beginnen bij %s</string>
   <string name="embedInYourWebsite">Insluiten in blog of website</string>
