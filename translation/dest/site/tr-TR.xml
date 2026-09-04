@@ -727,6 +727,7 @@
   <string name="simulClockHint">Fischer Saati formatı. Ne kadar fazla oyuncu ile yüzleşirseniz, o kadar fazla zamana ihtiyaç duyabilirsiniz.</string>
   <string name="simulAddExtraTime">Eş zamanlı gösteride süreyi idare edebilmek için kendi saatinize fazladan zaman ekleyebilirsiniz.</string>
   <string name="simulHostExtraTime">Ev sahibinin fazladan süresi</string>
+  <string name="extraClockTimeForHost" comment="Appears on: https://lichess.org/simul/new&#10;&#10;Allows a simul host to select extra time for the simul.&#10;&#10;Please note this string used to state &quot;Host extra clock time&quot;, without the word &quot;initial&quot; Replaces old string simulHostExtraTime">Ev sahibi için ekstra süre:</string>
   <string name="simulAddExtraTimePerPlayer">Eş zamanlı gösteriye katılan her oyuncu için saatinize başlangıç süresi ekleyin.</string>
   <string name="simulHostExtraTimePerPlayer">Ev sahibi, katılan her oyuncu için ekstra süre alır</string>
   <string name="lichessTournaments">Lichess turnuvaları</string>
@@ -862,6 +863,7 @@
   <string name="notifications">Bildirimler</string>
   <string name="notificationsX">Bildirimler: %1$s</string>
   <string name="perfRatingX">Puan: %s</string>
+  <string name="perfRatingLabel" comment="Replaces old string perfRatingX">Puan: %s.</string>
   <string name="yourRatingIsX">Derecen %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">İlk hamle için son %s saniye</item>
@@ -921,6 +923,7 @@
   </plurals>
   <string name="showUnreadLichessMessage">Lichess size bir özel mesaj gönderdi.</string>
   <string name="clickHereToReadIt">Okumak için buraya tıklayın</string>
+  <string name="readTheMessage" comment="'It' refers to a private message. This text follows after a different string which advises players they have received a private message from Lichess. For users, this is appears as a regular private message from the Lichess account: https://lichess.org/@/Lichess Replaces old string clickHereToReadIt">Mesajı oku</string>
   <string name="sorry">Üzgünüz :(</string>
   <string name="weHadToTimeYouOutForAWhile">Sizi bir süreliğine oyunlardan men etmek zorunda kaldık.</string>
   <string name="why">Neden?</string>
