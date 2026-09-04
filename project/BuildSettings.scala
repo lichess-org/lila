@@ -5,7 +5,7 @@ object BuildSettings:
   import Dependencies.*
 
   val lilaVersion = "4.0"
-  val globalScalaVersion = "3.8.4"
+  val globalScalaVersion = "3.9.0"
 
   def buildSettings =
     // NB: do NOT prepend Defaults.coreDefaultSettings here. Under sbt 2.0 those base settings are

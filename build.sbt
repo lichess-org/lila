@@ -38,7 +38,7 @@ lazy val root = Project("lila", file("."))
     // path (.github/workflows/server.yml). Scope this to Universal/target rather than overriding the
     // whole project `target`: stagingDirectory = Universal/target / "stage", and the default
     // Universal/target = <project target> / "universal". Overriding only Universal/target leaves the
-    // project target at sbt 2.0's default, so crossTarget stays target/out/jvm/scala-3.8.4/lila and
+    // project target at sbt 2.0's default, so crossTarget stays target/out/jvm/scala-3.9.0/lila and
     // zinc's inc_compile_3.zip stays inside the cache root — no "Cannot cache" warning.
     Universal / target := baseDirectory.value / "target" / "universal"
   )
