@@ -394,6 +394,7 @@ object Node:
 
   case class Comment(id: Comment.Id, text: CommentStr, by: Comment.Author):
     def removeMeta = Comment.removeMeta(text).trimNonEmpty.map(t => copy(text = t))
+    def same(other: Comment) = text == other.text && by == other.by
 
   object Comment:
     opaque type Id = String
@@ -465,7 +466,7 @@ object Node:
         else a.value :+ comment
       def delete(commentId: Comment.Id): Comments = a.value.filterNot(_.id == commentId)
       def +(comment: Comment): Comments = comment :: a.value
-      def ++(comments: Comments): Comments = a.value ::: comments.value
+      def ++(comments: Comments): Comments = a ::: comments.filterNot(c => a.exists(_.same(c)))
       def filterEmpty: Comments = a.value.filter(_.text.value.nonEmpty)
       def hasLichessComment = a.value.exists(_.by == Comment.Author.Lichess)
     val empty = Comments(Nil)
