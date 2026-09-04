@@ -37,7 +37,7 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
           usermod.fold[Frag](
             frag(
               st.section(cls := "warning")(
-                h2(iconEl := Icon.CautionTriangle, cls := "text")(trans.site.important()),
+                h2(iconEl := Icon.cautionTriangle, cls := "text")(trans.site.important()),
                 p:
                   trans.site.yourQuestionMayHaveBeenAnswered:
                     strong(a(href := routes.Main.faq)(trans.site.inTheFAQ()))
@@ -66,7 +66,7 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
                   help = span(cls := "space-between")(
                     span(markdownIsAvailable),
                     a(
-                      iconEl := Icon.InfoCircle,
+                      iconEl := Icon.infoCircle,
                       cls := "text",
                       href := routes.Cms.lonePage(CmsPageKey("forum-etiquette"))
                     )(trans.site.theForumEtiquette())
@@ -81,7 +81,7 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
                       form3.submit(
                         frag("Create as a mod"),
                         nameValue = (form("post")("modIcon").name, "true").some,
-                        icon = Icon.Agent.some
+                        icon = Icon.agent.some
                       )
                     ),
                   form3.submit(trans.site.createTheTopic())
