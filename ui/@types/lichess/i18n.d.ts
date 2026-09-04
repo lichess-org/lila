@@ -4837,6 +4837,8 @@ interface I18n {
     variantWin: string;
     /** Variation arrows let you navigate without using the move list. */
     variationArrowsInfo: string;
+    /** Verifying your device... */
+    verifyingYourDevice: string;
     /** Verify that %s is your email address */
     verifyYourAddress: I18nFormat;
     /** Victory */

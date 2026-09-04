@@ -2526,6 +2526,7 @@ object I18nKey:
     val `enPassant`: I18nKey = "enPassant"
     val `settings`: I18nKey = "settings"
     val `screenshot`: I18nKey = "screenshot"
+    val `verifyingYourDevice`: I18nKey = "verifyingYourDevice"
     val `opponentLeftCounter`: I18nKey = "opponentLeftCounter"
     val `mateInXHalfMoves`: I18nKey = "mateInXHalfMoves"
     val `nbBlunders`: I18nKey = "nbBlunders"
