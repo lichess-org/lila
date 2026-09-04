@@ -1780,6 +1780,7 @@ object I18nKey:
     val `inaccuracy`: I18nKey = "inaccuracy"
     val `moveTimes`: I18nKey = "moveTimes"
     val `flipBoard`: I18nKey = "flipBoard"
+    val `toggleLocalEngine`: I18nKey = "toggleLocalEngine"
     val `threefoldRepetition`: I18nKey = "threefoldRepetition"
     val `claimADraw`: I18nKey = "claimADraw"
     val `drawClaimed`: I18nKey = "drawClaimed"
