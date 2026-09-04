@@ -499,17 +499,6 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
   def magicLinkSent = Open:
     Ok.page(views.auth.magicLinkSent)
 
-  def makeLoginTokenLichobile = Auth { ctx ?=> me ?=>
-    JsonOk:
-      env.security.loginToken.magicLink
-        .generate(me)
-        .map: token =>
-          Json.obj(
-            "userId" -> me.userId,
-            "url" -> routeUrl(routes.Auth.loginWithToken(token))
-          )
-  }
-
   def loginWithToken(token: String) = Open:
     if ctx.isAuth then Redirect(referrerOr(routes.Lobby.home))
     else
