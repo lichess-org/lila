@@ -3435,6 +3435,10 @@ interface I18n {
     chess960StartPosition: I18nFormat;
     /** Chess basics */
     chessBasics: string;
+    /** Chess openings */
+    chessOpenings: string;
+    /** Chess openings name tree */
+    chessOpeningsNameTree: string;
     /** Claim a draw */
     claimADraw: string;
     /** Classical */
@@ -3707,6 +3711,8 @@ interface I18n {
     everybodyGetsAllFeaturesForFree: string;
     /** Expand variations */
     expandVariations: string;
+    /** Explore the chess openings */
+    exploreChessOpenings: string;
     /** Export games */
     exportGames: string;
     /** Extra clock time for the host: */
@@ -4501,6 +4507,8 @@ interface I18n {
     scrollOverComputerVariationsToPreviewThem: string;
     /** Search */
     search: string;
+    /** Search for openings */
+    searchForOpenings: string;
     /** Search or start new conversation */
     searchOrStartNewDiscussion: string;
     /** Search time */

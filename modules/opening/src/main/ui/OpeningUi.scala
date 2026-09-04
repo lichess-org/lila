@@ -16,16 +16,16 @@ final class OpeningUi(helpers: Helpers, bits: OpeningBits, wiki: WikiUi):
         OpenGraph(
           `type` = "article",
           image = fenThumbnailUrl(page.query.fen).some,
-          title = "Chess openings",
+          title = trans.site.chessOpenings.txt(),
           url = routeUrl(routes.Opening.index()),
-          description = "Explore the chess openings"
+          description = trans.site.exploreChessOpenings.txt()
         )
       ):
         main(cls := "page box box-pad opening opening--index")(
           searchAndConfig(page.query.config, "", ""),
           resultsList(Nil),
           boxTop(
-            h1("Chess openings"),
+            h1(trans.site.chessOpenings()),
             div(cls := "box__top__actions")(
               a(href := routes.Opening.tree)("Name tree"),
               a(href := s"${routes.UserAnalysis.index}#explorer")("Explorer")
@@ -41,7 +41,7 @@ final class OpeningUi(helpers: Helpers, bits: OpeningBits, wiki: WikiUi):
         searchAndConfig(config, "", "tree"),
         resultsList(Nil),
         boxTop(
-          h1("Chess openings name tree"),
+          h1(trans.site.chessOpeningsNameTree()),
           div(cls := "box__top__actions")(
             a(href := routes.Opening.index())("Opening pages"),
             a(href := s"${routes.UserAnalysis.index}#explorer")("Explorer")
@@ -142,16 +142,16 @@ final class OpeningUi(helpers: Helpers, bits: OpeningBits, wiki: WikiUi):
     openingPage(s"${trans.site.opening.txt()} • $q", none):
       main(cls := "page box box-pad opening opening--search")(
         searchAndConfig(config, q, s"q:$q", searchFocus = true),
-        h1(cls := "box__top")("Chess openings"),
+        h1(cls := "box__top")(trans.site.chessOpenings()),
         resultsList(results)
       )
 
-  private def searchForm(q: String, focus: Boolean) =
+  private def searchForm(q: String, focus: Boolean)(using Context) =
     st.form(cls := "opening__search-form", action := routes.Opening.index(), method := "get")(
       input(
         cls := "opening__search-form__input",
         name := "q",
-        st.placeholder := "Search for openings",
+        st.placeholder := trans.site.searchForOpenings.txt(),
         st.value := q,
         autofocus := focus.option("true"),
         autocomplete := "off",
