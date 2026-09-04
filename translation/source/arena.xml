@@ -94,4 +94,5 @@ For example, a rank average of 3% means you typically finish in the top 3% (such
   <string name="tournamentPairingsAreNowClosed">The tournament pairings are now closed.</string>
   <string name="berserkRate">Berserk rate</string>
   <string name="seeMoreTournaments">See more tournaments on the calendar</string>
+  <string name="leaguesAndStreamerBattles">Leagues &amp; Streamer Battles</string>
 </resources>

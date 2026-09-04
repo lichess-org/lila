@@ -48,7 +48,7 @@ final class TournamentList(helpers: Helpers, ui: TournamentUi)(
               a(href := routes.Tournament.help)(trans.site.tournamentFAQ()),
               br,
               a(href := routes.Cms.lonePage(lila.core.id.CmsPageKey("leagues-and-battles")))(
-                "Leagues & Streamer Battles"
+                trans.arena.leaguesAndStreamerBattles()
               )
             ),
             h2(
