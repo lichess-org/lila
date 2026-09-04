@@ -22,9 +22,9 @@ final class SwissFeature(
         .find:
           bdoc(
             "teamId" -> lichessTeamId,
-            "startsAt".$gt(nowInstant.minusMinutes(5)).$lt(nowInstant.plusMinutes(10))
+            "startsAt".gt(nowInstant.minusMinutes(5)).lt(nowInstant.plusMinutes(10))
           )
-        .sort($sort.asc("startsAt"))
+        .sort(sort.asc("startsAt"))
         .one[Swiss]
 
   def get(teams: Seq[TeamId]): Fu[FeaturedSwisses] =
@@ -69,22 +69,22 @@ final class SwissFeature(
         Match(
           bdoc(
             "featurable" -> true,
-            "settings.i".$lte(600), // hits the partial index
+            "settings.i".lte(600), // hits the partial index
             "settings.o.playYourGames" -> true,
             "startsAt" -> startsAtRange,
-            "garbage".$ne(true)
+            "garbage".neq(true)
           )
         ) -> List(
           Sort(Descending(Swiss.Fields.nbPlayers)),
           Limit(nb * 50),
           PipelineOperator(
-            $lookup.simple(
+            lookup.simple(
               from = lila.core.config.CollName("team"),
               as = "team",
               local = "teamId",
               foreign = "_id",
               pipe = List(
-                bdoc("$match" -> bdoc("open" -> true, "password".$exists(false))),
+                bdoc("$match" -> bdoc("open" -> true, "password".exists(false))),
                 bdoc("$project" -> bid(true))
               )
             )

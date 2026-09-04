@@ -34,7 +34,7 @@ final class WebSubscriptionApi(coll: Coll)(using Executor):
   // userIds is necessary to match the mongodb index
   def unsubscribeByEndpoints(endpoints: Iterable[String], userIds: Iterable[UserId]): Fu[Int] =
     endpoints.nonEmpty.so:
-      coll.delete.one(bdoc("userId".$in(userIds), "endpoint".$in(endpoints))).map(_.n)
+      coll.delete.one(bdoc("userId".in(userIds), "endpoint".in(endpoints))).map(_.n)
 
   private[push] def getSubscriptions(max: Int)(userId: UserId): Fu[List[WebSubscription]] =
     coll
@@ -54,7 +54,7 @@ final class WebSubscriptionApi(coll: Coll)(using Executor):
         coll
           .aggregateList(100_000, _.sec): framework =>
             import framework.*
-            Match(bdoc("userId".$in(userIds))) -> List(
+            Match(bdoc("userId".in(userIds))) -> List(
               Sort(Descending("seenAt")),
               GroupField("userId")("subs" -> Push(BSONString("$$ROOT"))),
               Project(bdoc("subs" -> Slice(BSONString("$subs"), BSONInteger(maxPerUser)), "_id" -> false)),

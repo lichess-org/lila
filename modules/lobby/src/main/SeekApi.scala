@@ -19,7 +19,7 @@ final class SeekApi(
   private def allCursor =
     coll
       .find(emptyBdoc)
-      .sort($sort.desc("createdAt"))
+      .sort(sort.desc("createdAt"))
       .cursor[Seek]()
 
   private val cache = cacheApi[CacheKey, List[Seek]](2, "lobby.seek.list"):
@@ -74,7 +74,7 @@ final class SeekApi(
   def findByUser(userId: UserId): Fu[List[Seek]] =
     coll
       .find(bdoc("user.id" -> userId))
-      .sort($sort.desc("createdAt"))
+      .sort(sort.desc("createdAt"))
       .cursor[Seek]()
       .list(100)
 

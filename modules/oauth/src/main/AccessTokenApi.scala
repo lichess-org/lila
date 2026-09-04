@@ -29,7 +29,7 @@ final class AccessTokenApi(
       .listAll()
     oldIds = oldDocs.flatMap { _.getAsOpt[AccessTokenId](F.id) }
     _ <- oldIds.nonEmpty.so:
-      coll.delete.one(bdoc(F.id.$in(oldIds))).void
+      coll.delete.one(bdoc(F.id.in(oldIds))).void
     _ <- coll.insert.one(token)
   yield
     lila.common.Bus.pub(AccessToken.Create(token))
@@ -128,9 +128,9 @@ final class AccessTokenApi(
       .find:
         bdoc(
           F.userId -> me,
-          F.clientOrigin -> $exists(false)
+          F.clientOrigin -> exists(false)
         )
-      .sort($sort.desc(F.created)) // c.f. isBrandNew
+      .sort(sort.desc(F.created)) // c.f. isBrandNew
       .cursor[AccessToken]()
       .list(100)
 
@@ -141,8 +141,8 @@ final class AccessTokenApi(
         Match(
           bdoc(
             F.userId -> user,
-            F.scopes.$in(OAuthScope.relevantToMods.value.map(_.key)),
-            F.usedAt.$exists(true)
+            F.scopes.in(OAuthScope.relevantToMods.value.map(_.key)),
+            F.usedAt.exists(true)
           )
         ) -> List(
           Sort(Descending(F.usedAt)),
@@ -161,15 +161,15 @@ final class AccessTokenApi(
     coll.countSel:
       bdoc(
         F.userId -> me,
-        F.clientOrigin -> $exists(false)
+        F.clientOrigin -> exists(false)
       )
 
   def findCompatiblePersonal(scopes: OAuthScopes)(using me: MyId): Fu[Option[AccessToken]] =
     coll.one[AccessToken]:
       bdoc(
         F.userId -> me,
-        F.clientOrigin -> $exists(false),
-        F.scopes.$all(scopes.value)
+        F.clientOrigin -> exists(false),
+        F.scopes.all(scopes.value)
       )
 
   def listClients(limit: Int)(using me: MyId): Fu[List[AccessTokenApi.Client]] =
@@ -179,7 +179,7 @@ final class AccessTokenApi(
         Match(
           bdoc(
             F.userId -> me,
-            F.clientOrigin -> $exists(true)
+            F.clientOrigin -> exists(true)
           )
         ) -> List(
           Unwind(path = F.scopes, includeArrayIndex = None, preserveNullAndEmptyArrays = Some(true)),
@@ -242,7 +242,7 @@ final class AccessTokenApi(
     coll
       .aggregateOne(readPref = _.sec): framework =>
         import framework.*
-        Match(bdoc(F.clientOrigin -> clientOrigin) ++ F.usedAt.$gt(since)) -> List(
+        Match(bdoc(F.clientOrigin -> clientOrigin) ++ F.usedAt.gt(since)) -> List(
           Group(BSONNull)("u" -> AddFieldToSet("userId")),
           Project(bdoc("_id" -> 0))
         )
@@ -288,7 +288,7 @@ final class AccessTokenApi(
   private def fetchAccessToken(id: AccessTokenId): Fu[Option[AccessToken.ForAuth]] =
     coll.findAndUpdateSimplified[AccessToken.ForAuth](
       selector = bid(id),
-      update = $set(F.usedAt -> nowInstant),
+      update = set(F.usedAt -> nowInstant),
       fields = AccessToken.forAuthProjection.some
     )
 

@@ -29,7 +29,7 @@ final private class ChallengeRepo(colls: ChallengeColls)(using
   def update(c: Challenge): Funit = coll.update.one(bid(c.id), c).void
 
   private def createdList(selector: Bdoc, max: Int): Fu[List[Challenge]] =
-    coll.find(selectCreated ++ selector).sort($sort.asc("createdAt")).cursor[Challenge]().list(max)
+    coll.find(selectCreated ++ selector).sort(sort.asc("createdAt")).cursor[Challenge]().list(max)
 
   def createdByChallengerId(max: Int = 50)(userId: UserId): Fu[List[Challenge]] =
     createdList(bdoc("challenger.id" -> userId), max)
@@ -38,10 +38,10 @@ final private class ChallengeRepo(colls: ChallengeColls)(using
     createdList(bdoc("destUser.id" -> userId), max)
 
   def createdByPopularDestId(max: Int = 50)(userId: UserId): Fu[List[Challenge]] = for
-    realTime <- createdList(bdoc("destUser.id" -> userId, "timeControl.l".$exists(true)), max)
+    realTime <- createdList(bdoc("destUser.id" -> userId, "timeControl.l".exists(true)), max)
     corres <- (realTime.sizeIs < max).so(
       createdList(
-        bdoc(bdoc("destUser.id" -> userId), "timeControl.l".$exists(false)),
+        bdoc(bdoc("destUser.id" -> userId), "timeControl.l".exists(false)),
         max - realTime.size
       )
     )
@@ -51,7 +51,7 @@ final private class ChallengeRepo(colls: ChallengeColls)(using
     coll.update
       .one(
         bid(c.id),
-        $set(bdoc("challenger" -> c.challenger) ++ color.so { c =>
+        set(bdoc("challenger" -> c.challenger) ++ color.so { c =>
           bdoc("colorChoice" -> Challenge.ColorChoice(c), "finalColor" -> c)
         })
       )
@@ -88,16 +88,16 @@ final private class ChallengeRepo(colls: ChallengeColls)(using
     coll
       .find(
         bdoc(
-          "seenAt".$lt(date),
+          "seenAt".lt(date),
           "status" -> Status.Created.id,
-          "timeControl.l".$exists(true)
+          "timeControl.l".exists(true)
         )
       )
       .cursor[Challenge]()
       .list(max)
 
   private[challenge] def expired(max: Int): Fu[List[Challenge]] =
-    coll.list[Challenge]("expiresAt".$lt(nowInstant), max)
+    coll.list[Challenge]("expiresAt".lt(nowInstant), max)
 
   def setSeenAgain(id: ChallengeId) =
     coll.update
@@ -144,4 +144,4 @@ final private class ChallengeRepo(colls: ChallengeColls)(using
   private[challenge] def remove(id: ChallengeId) = coll.delete.one(bid(id)).void
 
   private val selectCreated = bdoc("status" -> Status.Created)
-  private val selectCreatedOrOffline = bdoc("status".$in(List(Status.Created, Status.Offline)))
+  private val selectCreatedOrOffline = bdoc("status".in(List(Status.Created, Status.Offline)))

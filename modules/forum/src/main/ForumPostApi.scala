@@ -127,10 +127,10 @@ final class ForumPostApi(
       for
         post <- postRepo.coll
           .findAndUpdateSimplified[ForumPost](
-            selector = bid(postId) ++ bdoc("categId" -> categId, "userId".$ne(me.userId)),
+            selector = bid(postId) ++ bdoc("categId" -> categId, "userId".neq(me.userId)),
             update =
-              if v then $addToSet(s"reactions.$reaction" -> me.userId)
-              else $pull(s"reactions.$reaction" -> me.userId),
+              if v then addToSet(s"reactions.$reaction" -> me.userId)
+              else pull(s"reactions.$reaction" -> me.userId),
             fetchNewObject = true
           )
         _ =
@@ -224,7 +224,7 @@ final class ForumPostApi(
         "userId",
         bdoc(
           "topicId" -> topic.id,
-          "createdAt".$gt(nowInstant.minusDays(2))
+          "createdAt".gt(nowInstant.minusDays(2))
         ),
         _.sec
       )

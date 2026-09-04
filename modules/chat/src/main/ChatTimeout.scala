@@ -40,17 +40,17 @@ final class ChatTimeout(
       bdoc(
         "chat" -> chatId,
         "user" -> userId,
-        "expiresAt".$exists(true)
+        "expiresAt".exists(true)
       )
 
   def history(user: User, nb: Int): Fu[List[UserEntry]] =
-    coll.find(bdoc("user" -> user.id)).sort($sort.desc("createdAt")).cursor[UserEntry]().list(nb)
+    coll.find(bdoc("user" -> user.id)).sort(sort.desc("createdAt")).cursor[UserEntry]().list(nb)
 
   def checkExpired: Fu[List[Reinstate]] =
     coll
       .list[Reinstate](
         bdoc(
-          "expiresAt".$lt(nowInstant)
+          "expiresAt".lt(nowInstant)
         )
       )
       .flatMap:

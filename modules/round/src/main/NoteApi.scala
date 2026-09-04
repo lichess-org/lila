@@ -17,7 +17,7 @@ final class NoteApi(coll: Coll)(using Executor):
     else
       coll.update.one(
         bid(makeId(gameId, userId)),
-        $set(noteField -> text),
+        bset(noteField -> text),
         upsert = true
       )
   }.void

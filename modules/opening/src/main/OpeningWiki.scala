@@ -55,7 +55,7 @@ final class OpeningWikiApi(coll: Coll, explorer: OpeningExplorer, cacheApi: Cach
         import framework.*
         Project(bdoc("popularity" -> true, "rev" -> bdoc("$first" -> "$revisions"))) -> List(
           AddFields(bdoc("len" -> bdoc("$strLenBytes" -> bdoc("$ifNull" -> barr("$rev.text", ""))))),
-          Match(bdoc("len".$lt(300))),
+          Match(bdoc("len".lt(300))),
           Sort(Descending("popularity")),
           Project(bdoc("_id" -> true))
         )
@@ -97,7 +97,7 @@ final class OpeningWikiApi(coll: Coll, explorer: OpeningExplorer, cacheApi: Cach
       explorer
         .simplePopularity(op)
         .flatMapz: popularity =>
-          val update = $set("popularity" -> popularity, "popularityAt" -> nowInstant)
+          val update = bset("popularity" -> popularity, "popularityAt" -> nowInstant)
           coll.update.one(bid(key), update, upsert = true).inject(popularity)
     }
 

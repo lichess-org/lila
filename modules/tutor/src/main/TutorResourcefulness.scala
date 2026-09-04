@@ -23,7 +23,7 @@ object TutorResourcefulness:
     )
     val select = bdoc(
       F.analysed -> true,
-      F.moves -> bdoc("$elemMatch" -> bdoc("w".$lt(WinPercent(33.3)), "i".$lt(-1)))
+      F.moves -> bdoc("$elemMatch" -> bdoc("w".lt(WinPercent(33.3)), "i".lt(-1)))
     )
     val compute = TutorCustomInsight(users, question, "resourcefulness", _.resourcefulness): docs =>
       for

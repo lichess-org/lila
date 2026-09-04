@@ -122,7 +122,7 @@ final class PuzzleOpeningApi(
       key.fold(f => coll.familyMap.get(f).so(_.count), o => coll.openingMap.get(o).so(_.count))
 
   def recomputeAll: Funit = colls.puzzle:
-    _.find(bdoc(Puzzle.BSONFields.opening.$exists(true)))
+    _.find(bdoc(Puzzle.BSONFields.opening.exists(true)))
       .cursor[Puzzle]()
       .documentSource()
       .mapAsyncUnordered(2)(updateOpening)

@@ -68,15 +68,16 @@ final class ShutupApi(
                   )
                 )
               }
-              push = bdoc(
-                textType.key -> bdoc(
-                  "$each" -> List(BSONDouble(analysed.ratio)),
-                  "$slice" -> -textType.rotation
-                )
-              ) ++ pushPublicLine
               res <- coll.findAndUpdateSimplified[UserRecord](
                 selector = bid(userId),
-                update = $push(push),
+                update = push:
+                  bdoc(
+                    textType.key -> bdoc(
+                      "$each" -> List(BSONDouble(analysed.ratio)),
+                      "$slice" -> -textType.rotation
+                    )
+                  ) ++ pushPublicLine
+                ,
                 fetchNewObject = true,
                 upsert = true
               )
@@ -95,7 +96,7 @@ final class ShutupApi(
         _ <- reportApi.autoCommReport(userRecord.userId, text, analysed.critical)
         _ <- coll.update.one(
           bid(userRecord.userId),
-          $unset(TextType.values.map(_.key))
+          unset(TextType.values.map(_.key))
         )
       yield ()
 

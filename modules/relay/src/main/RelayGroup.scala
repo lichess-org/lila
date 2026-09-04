@@ -152,7 +152,7 @@ final private class RelayGroupRepo(coll: Coll)(using Executor):
     coll.primitiveOne[RelayGroupId](bdoc("tours" -> tourId), "_id")
 
   def byTours(tourIds: Seq[RelayTourId]): Fu[List[RelayGroup]] =
-    coll.find(bdoc("tours".$in(tourIds))).cursor[RelayGroup](ReadPref.sec).listAll()
+    coll.find(bdoc("tours".in(tourIds))).cursor[RelayGroup](ReadPref.sec).listAll()
 
   def allTourIdsOfGroup(tourId: RelayTourId): Fu[NonEmptyList[RelayTourId]] =
     byTour(tourId).map(_.fold(NonEmptyList.one(tourId))(_.tours))
@@ -172,7 +172,7 @@ final private class RelayGroupRepo(coll: Coll)(using Executor):
       _ <- current.so: cur =>
         for
           tourIdSet = current.so(_.tours.toList.toSet)
-          otherGroups <- coll.list[RelayGroup]("tours".$in(tourIdSet) ++ "_id".$ne(cur.id))
+          otherGroups <- coll.list[RelayGroup]("tours".in(tourIdSet) ++ "_id".neq(cur.id))
           _ <- otherGroups.traverseVoid: otherGroup =>
             otherGroup.remove(tourIdSet) match
               case None => coll.delete.one(bid(otherGroup.id))
@@ -196,7 +196,7 @@ final class RelayGroupCrowdSumCache(
       tourIds <- groupRepo.allTourIdsOfGroup(tourId)
       res <- colls.round.aggregateOne(_.sec): framework =>
         import framework.*
-        Match(bdoc("tourId".$in(tourIds.toList), "crowdAt".$gt(nowInstant.minus(1.hours)))) ->
+        Match(bdoc("tourId".in(tourIds.toList), "crowdAt".gt(nowInstant.minus(1.hours)))) ->
           List(Group(BSONNull)("sum" -> SumField("crowd")))
     yield res.headOption.flatMap(_.int("sum")).orZero
 

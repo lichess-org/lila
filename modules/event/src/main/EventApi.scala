@@ -31,9 +31,9 @@ final class EventApi(
       .find:
         bdoc(
           "enabled" -> true,
-          "startsAt".$gt(nowInstant.minusDays(1)).$lt(nowInstant.plusDays(1))
+          "startsAt".gt(nowInstant.minusDays(1)).lt(nowInstant.plusDays(1))
         )
-      .sort($sort.asc("startsAt"))
+      .sort(sort.asc("startsAt"))
       .cursor[Event]()
       .list(50)
       .dmap:
@@ -44,11 +44,11 @@ final class EventApi(
       adapter = Adapter[Event](
         collection = coll,
         selector = bdoc(
-          "startsAt".$lt(to),
-          "finishesAt".$gt(from)
+          "startsAt".lt(to),
+          "finishesAt".gt(from)
         ),
         projection = none,
-        sort = $sort.asc("startsAt")
+        sort = sort.asc("startsAt")
       ),
       currentPage = page,
       maxPerPage = MaxPerPage(50)
@@ -59,7 +59,7 @@ final class EventApi(
       collection = coll,
       selector = emptyBdoc,
       projection = none,
-      sort = $sort.desc("startsAt"),
+      sort = sort.desc("startsAt"),
       _.sec
     ),
     currentPage = page,

@@ -31,10 +31,10 @@ final class MsgUnreadCount(colls: MsgColls, cacheApi: lila.memo.CacheApi)(using 
       colls.thread
         .aggregateOne(_.sec): framework =>
           import framework.*
-          Match(bdoc("users" -> userId, "del".$ne(userId))) -> List(
+          Match(bdoc("users" -> userId, "del".neq(userId))) -> List(
             Sort(Descending("lastMsg.date")),
             Limit(20),
-            Match(bdoc("lastMsg.read" -> false, "lastMsg.user".$ne(userId))),
+            Match(bdoc("lastMsg.read" -> false, "lastMsg.user".neq(userId))),
             Count("nb")
           )
         .mapz(~_.getAsOpt[Int]("nb"))

@@ -107,7 +107,7 @@ final private class FidePlayerSync(
                 ),
                 "count" -> List(
                   active,
-                  Match(tc.toString.$exists(true)),
+                  Match(tc.toString.exists(true)),
                   Group(BSONString(s"$tc-count"))("v" -> SumAll)
                 )
               )

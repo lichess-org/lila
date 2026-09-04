@@ -194,8 +194,8 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
 
   def teamLog(teamId: TeamId): Fu[List[Modlog]] =
     repo.coll
-      .find(bdoc("index" -> "team", "details".$startsWith(s"$teamId: ")))
-      .sort($sort.desc("date"))
+      .find(bdoc("index" -> "team", "details".regexStart(s"$teamId: ")))
+      .sort(sort.desc("date"))
       .cursor[Modlog]()
       .list(30)
 
@@ -221,23 +221,23 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
     yield ()
 
   def wasUnteachered(user: UserId): Fu[Boolean] =
-    coll.exists(bdoc("user" -> user, "details".$regex(s"-${Permission.Teacher.toString}")))
+    coll.exists(bdoc("user" -> user, "details".regex(s"-${Permission.Teacher.toString}")))
 
   def wasMarkedBy(user: UserId)(using me: Me): Fu[Boolean] =
     coll.secondary.exists:
       bdoc(
         "user" -> user,
         "mod" -> me.userId,
-        "action".$in(markActions)
+        "action".in(markActions)
       )
 
   def wereMarkedBy(users: List[UserId])(using me: Me): Fu[Set[UserId]] =
     coll.distinctEasy[UserId, Set](
       "user",
       bdoc(
-        "user".$in(users),
+        "user".in(users),
         "mod" -> me.userId,
-        "action".$in(markActions)
+        "action".in(markActions)
       ),
       _.sec
     )
@@ -293,7 +293,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
     bdoc(
       "user" -> sus.user.id,
       "action" -> Modlog.unengine
-    ) ++ after.so(d => bdoc("date".$gte(d)))
+    ) ++ after.so(d => bdoc("date".gte(d)))
 
   def wasUnbooster(userId: UserId) = coll.exists:
     bdoc(
@@ -309,7 +309,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
           "action" -> Modlog.chatTimeout
         )
       )
-      .sort($sort.desc("date"))
+      .sort(sort.desc("date"))
       .cursor[Modlog]()
       .list(100)
 
@@ -318,7 +318,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
       .find(
         bdoc(
           "user" -> userId,
-          "action".$nin(
+          "action".nin(
             List(
               Modlog.teamKick,
               Modlog.teamEdit
@@ -326,7 +326,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
           )
         )
       )
-      .sort($sort.desc("date"))
+      .sort(sort.desc("date"))
       .cursor[Modlog]()
       .list(100)
 
@@ -335,39 +335,39 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
       bdoc(
         "user" -> userId,
         "action" -> Modlog.cheatDetected,
-        "date".$gt(nowInstant.minusMonths(6))
+        "date".gt(nowInstant.minusMonths(6))
       )
 
   def recentActionsOf(userId: UserId): Fu[List[String]] =
-    coll.secondary.primitive[String](bdoc("user" -> userId, "date".$gt(nowInstant.minusWeeks(1))), "action")
+    coll.secondary.primitive[String](bdoc("user" -> userId, "date".gt(nowInstant.minusWeeks(1))), "action")
 
   def countRecentRatingManipulationsWarnings(userId: UserId): Fu[Int] =
     coll.secondary.countSel:
       bdoc(
         "user" -> userId,
         "action" -> Modlog.modMessage,
-        $or(
+        or(
           bdoc("details" -> SandbagWatch.msgPreset.sandbagAuto.name),
           bdoc("details" -> SandbagWatch.msgPreset.boostAuto.name)
         ),
-        "date".$gte(nowInstant.minusMonths(6))
+        "date".gte(nowInstant.minusMonths(6))
       )
 
   def recentOf(id: Option[String] = None) =
     coll.secondary
       .find(
-        "mod".$nin(List(UserId.lichess, UserId.irwin, UserId.kaladin)) ++ id.so(cid =>
+        "mod".nin(List(UserId.lichess, UserId.irwin, UserId.kaladin)) ++ id.so(cid =>
           bdoc("context.id" -> cid)
         )
       )
-      .sort($sort.desc("date"))
+      .sort(sort.desc("date"))
       .cursor[Modlog]()
       .list(300)
 
   def recentBy(mod: Mod) =
     coll.secondary
       .find(bdoc("mod" -> mod.id))
-      .sort($sort.desc("date"))
+      .sort(sort.desc("date"))
       .cursor[Modlog]()
       .list(200)
 
@@ -377,8 +377,8 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
     coll.secondary
       .find(
         bdoc(
-          "user".$in(onlyUsers.map(_.id)),
-          "action".$in(
+          "user".in(onlyUsers.map(_.id)),
+          "action".in(
             List(
               Modlog.engine,
               Modlog.troll,
@@ -392,7 +392,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
         ),
         bdoc("user" -> true, "action" -> true, "date" -> true, "details" -> true).some
       )
-      .sort($sort.asc("date"))
+      .sort(sort.asc("date"))
       .cursor[Modlog.UserEntry]()
       .listAll()
       .map:

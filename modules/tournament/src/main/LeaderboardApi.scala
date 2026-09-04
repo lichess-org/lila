@@ -33,9 +33,9 @@ final class LeaderboardApi(
       .find:
         bdoc(
           "u" -> userId,
-          "d".$gte(range.start).$lt(range.end)
+          "d".gte(range.start).lt(range.end)
         )
-      .sort($sort.desc("d"))
+      .sort(sort.desc("d"))
       .cursor[Entry](ReadPref.sec)
       .list(100)
 
@@ -63,7 +63,7 @@ final class LeaderboardApi(
             .sortLike(lila.rating.PerfType.leaderboardable, _._1)
 
   def getAndDeleteRecent(userId: UserId, since: Instant): Fu[List[TourId]] = for
-    entries <- repo.coll.list[Entry](bdoc("u" -> userId, "d".$gt(since)))
+    entries <- repo.coll.list[Entry](bdoc("u" -> userId, "d".gt(since)))
     _ <- entries.nonEmpty.so:
       repo.coll.delete.one(inIds(entries.map(_.id))).void
   yield entries.map(_.tourId)
@@ -97,7 +97,7 @@ final class LeaderboardApi(
         Skip(offset),
         Limit(nb),
         PipelineOperator(
-          $lookup.simple(
+          lookup.simple(
             from = tournamentRepo.coll,
             as = "tour",
             local = "t",
@@ -110,7 +110,7 @@ final class LeaderboardApi(
         withPerformance.so:
           List(
             PipelineOperator:
-              $lookup.simple(
+              lookup.simple(
                 from = playerRepo.coll,
                 as = "player",
                 local = "_id",

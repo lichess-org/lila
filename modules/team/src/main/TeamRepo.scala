@@ -41,12 +41,12 @@ final class TeamRepo(val coll: Coll)(using Executor):
   private[team] def countCreatedSince(userId: UserId, duration: Period): Fu[Int] =
     coll.countSel:
       bdoc(
-        "createdAt".$gt(nowInstant.minus(duration)),
+        "createdAt".gt(nowInstant.minus(duration)),
         "createdBy" -> userId
       )
 
   def incMembers(teamId: TeamId, by: Int): Funit =
-    coll.update.one(bid(teamId), $inc("nbMembers" -> by)).void
+    coll.update.one(bid(teamId), inc("nbMembers" -> by)).void
 
   def enable(team: Team): Funit =
     coll.updateField(bid(team.id), "enabled", true).void
@@ -57,8 +57,8 @@ final class TeamRepo(val coll: Coll)(using Executor):
   def addRequest(teamId: TeamId, request: TeamRequest): Funit =
     coll.update
       .one(
-        bid(teamId) ++ bdoc("requests.user".$ne(request.user)),
-        $push("requests" -> request.user)
+        bid(teamId) ++ bdoc("requests.user".neq(request.user)),
+        push("requests" -> request.user)
       )
       .void
 
@@ -77,21 +77,21 @@ final class TeamRepo(val coll: Coll)(using Executor):
 
   def filterHideForum(ids: Iterable[TeamId]): Fu[Set[TeamId]] =
     ids.nonEmpty.so:
-      coll.secondary.distinctEasy[TeamId, Set]("_id", inIds(ids) ++ bdoc("forum".$ne(Access.Everyone)))
+      coll.secondary.distinctEasy[TeamId, Set]("_id", inIds(ids) ++ bdoc("forum".neq(Access.Everyone)))
 
   def onUserDelete(userId: UserId): Funit = for
-    _ <- coll.update.one(bdoc("createdBy" -> userId), $set("createdBy" -> UserId.ghost), multi = true)
-    _ <- coll.update.one(bdoc("leaders" -> userId), $pull("leaders" -> userId), multi = true)
+    _ <- coll.update.one(bdoc("createdBy" -> userId), set("createdBy" -> UserId.ghost), multi = true)
+    _ <- coll.update.one(bdoc("leaders" -> userId), pull("leaders" -> userId), multi = true)
   yield ()
 
   def deleteNewlyCreatedBy(userId: UserId): Funit =
-    coll.delete.one(bdoc("createdBy" -> userId, "createdAt" -> $gte(nowInstant.minusDays(2)))).void
+    coll.delete.one(bdoc("createdBy" -> userId, "createdAt" -> gte(nowInstant.minusDays(2)))).void
 
   def isClas(id: TeamId): Fu[Boolean] = coll.secondary.exists(bid(id) ++ clasSelect)
   def byClasId(id: TeamId): Fu[Option[Team]] = coll.secondary.one[Team](bid(id) ++ clasSelect)
 
   private[team] val enabledSelect = bdoc("enabled" -> true)
   private val clasSelect = bdoc("ofClas" -> true)
-  val noClasSelect = "ofClas".$ne(true)
+  val noClasSelect = "ofClas".neq(true)
 
-  private[team] val sortPopular = $sort.desc("nbMembers")
+  private[team] val sortPopular = sort.desc("nbMembers")

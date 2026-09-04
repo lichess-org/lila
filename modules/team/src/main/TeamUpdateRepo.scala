@@ -12,7 +12,7 @@ private final class TeamUpdateRepo(val coll: Coll)(using Executor):
 
   private val history = 90.days
   private def historyAgo = nowInstant.minus(history)
-  private def dateSelect = "date".$gt(historyAgo)
+  private def dateSelect = "date".gt(historyAgo)
   private def teamSelect(team: TeamId) = bdoc("team" -> team)
 
   // never load the seenBy field in memory! it could be huge
@@ -25,15 +25,15 @@ private final class TeamUpdateRepo(val coll: Coll)(using Executor):
   def countUnread(teams: Team.IdsStr)(using me: Me): Fu[Int] =
     coll.secondary.countSel:
       bdoc(
-        "team".$in(teams.toArray),
+        "team".in(teams.toArray),
         dateSelect,
-        "seenBy".$ne(me.userId)
+        "seenBy".neq(me.userId)
       )
 
   def markSeen(team: TeamId)(using me: Me): Funit =
     coll.update
       .one(
-        teamSelect(team) ++ bdoc("seenBy".$ne(me.userId)),
+        teamSelect(team) ++ bdoc("seenBy".neq(me.userId)),
         bdoc("$addToSet" -> bdoc("seenBy" -> me.userId)),
         multi = true
       )
@@ -42,7 +42,7 @@ private final class TeamUpdateRepo(val coll: Coll)(using Executor):
   def teamLatest(team: TeamId): Fu[Option[DbTeamUpdate]] =
     coll.secondary
       .find(teamSelect(team) ++ dateSelect)
-      .sort($sort.desc("date"))
+      .sort(sort.desc("date"))
       .one[DbTeamUpdate]
 
   def teamRecent(team: TeamId)(using Me): AdapterLike[DbTeamUpdateSeen] =
@@ -51,7 +51,7 @@ private final class TeamUpdateRepo(val coll: Coll)(using Executor):
   def allRecent(teams: Seq[TeamId])(using me: Me): AdapterLike[DbTeamUpdateSeen] = new:
     private val teamSelector = teams match
       case Seq(single) => teamSelect(single)
-      case many => bdoc("team".$in(many))
+      case many => bdoc("team".in(many))
     def nbResults: Fu[Int] = coll.secondary.countSel(teamSelector ++ dateSelect)
     def slice(offset: Int, length: Int): Fu[List[DbTeamUpdateSeen]] =
       coll
@@ -77,8 +77,8 @@ private final class TeamUpdateRepo(val coll: Coll)(using Executor):
         import framework.*
         Match(
           bdoc(
-            "team".$in(teams.toArray),
-            "date".$gt(nowInstant.minusMonths(1))
+            "team".in(teams.toArray),
+            "date".gt(nowInstant.minusMonths(1))
           )
         ) ->
           List(

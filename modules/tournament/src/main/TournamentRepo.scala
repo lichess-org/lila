@@ -12,21 +12,21 @@ import lila.mon.extensions.*
 final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Executor):
   import BSONHandlers.given
 
-  private val enterableSelect = bdoc("status".$lt(Status.finished.id))
+  private val enterableSelect = bdoc("status".lt(Status.finished.id))
   private val createdSelect = bdoc("status" -> Status.created.id)
   private val startedSelect = bdoc("status" -> Status.started.id)
   private[tournament] val finishedSelect = bdoc("status" -> Status.finished.id)
-  private val unfinishedSelect = bdoc("status".$ne(Status.finished.id))
-  private[tournament] val scheduledSelect = bdoc("schedule".$exists(true))
+  private val unfinishedSelect = bdoc("status".neq(Status.finished.id))
+  private[tournament] val scheduledSelect = bdoc("schedule".exists(true))
   private[tournament] val scheduledButNotHourly =
-    scheduledSelect ++ bdoc("schedule.freq".$ne(Schedule.Freq.Hourly))
+    scheduledSelect ++ bdoc("schedule.freq".neq(Schedule.Freq.Hourly))
   private def forTeamSelect(id: TeamId) = bdoc("forTeams" -> id)
-  private def forTeamsSelect(ids: Seq[TeamId]) = bdoc("forTeams".$in(ids))
-  private def sinceSelect(date: Instant) = bdoc("startsAt".$gt(date))
+  private def forTeamsSelect(ids: Seq[TeamId]) = bdoc("forTeams".in(ids))
+  private def sinceSelect(date: Instant) = bdoc("startsAt".gt(date))
   private def variantSelect(variant: Variant) =
-    if variant.standard then bdoc("variant".$exists(false))
+    if variant.standard then bdoc("variant".exists(false))
     else bdoc("variant" -> variant.id)
-  private def nbPlayersSelect(nb: Int) = bdoc("nbPlayers".$gte(nb))
+  private def nbPlayersSelect(nb: Int) = bdoc("nbPlayers".gte(nb))
   private val nonEmptySelect = nbPlayersSelect(1)
   private[tournament] val selectUnique = bdoc("schedule.freq" -> "unique")
 
@@ -56,8 +56,8 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
   private[tournament] def standardPublicStartedFromSecondary: Fu[List[Tournament]] =
     coll.list[Tournament](
       startedSelect ++ bdoc(
-        "password".$exists(false),
-        "variant".$exists(false)
+        "password".exists(false),
+        "variant".exists(false)
       ),
       _.sec
     )
@@ -65,7 +65,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
   private[tournament] def notableFinished(limit: Int): Fu[List[Tournament]] =
     coll
       .find(finishedSelect ++ scheduledSelect)
-      .sort($sort.desc("startsAt"))
+      .sort(sort.desc("startsAt"))
       .cursor[Tournament]()
       .list(limit)
 
@@ -74,19 +74,19 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
       collection = coll,
       selector = bdoc("createdBy" -> owner.id),
       projection = none,
-      sort = $sort.desc("startsAt"),
+      sort = sort.desc("startsAt"),
       _.sec
     )
 
   private def lookupPlayer(userId: UserId, project: Option[Bdoc]) =
-    $lookup.pipelineFull(
+    lookup.pipelineFull(
       from = playerCollName.value,
       as = "player",
       let = bdoc("tid" -> "$_id"),
       pipe = List(
         bdoc(
-          "$match" -> $expr(
-            $and(
+          "$match" -> expr(
+            and(
               bdoc("$eq" -> barr("$uid", userId)),
               bdoc("$eq" -> barr("$tid", "$$tid"))
             )
@@ -102,7 +102,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
         import framework.*
         Match(enterableSelect ++ nonEmptySelect) -> List(
           PipelineOperator(lookupPlayer(userId, bdoc("tid" -> true, "_id" -> false).some)),
-          Match("player".$ne(barr())),
+          Match("player".neq(barr())),
           Sort(Ascending("startsAt")),
           Limit(max)
         )
@@ -115,7 +115,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
         collection = coll,
         selector = bdoc("schedule.freq" -> freq, "status" -> Status.finished.id),
         projection = none,
-        sort = $sort.desc("startsAt"),
+        sort = sort.desc("startsAt"),
         _.sec
       )
       .withLotsOfResults
@@ -134,7 +134,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
     val nameSel = name.so(n => bdoc("name" -> n))
     coll
       .find(forTeamSelect(teamId) ++ statusSel ++ creatorSel ++ nameSel)
-      .sort($sort.desc("startsAt"))
+      .sort(sort.desc("startsAt"))
       .cursor[Tournament]()
 
   private[tournament] def upcomingByTeam(teamId: TeamId, nb: Int) =
@@ -142,10 +142,10 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
       coll
         .find(
           forTeamSelect(teamId) ++ enterableSelect ++ bdoc(
-            "startsAt".$gt(nowInstant.minusDays(1))
+            "startsAt".gt(nowInstant.minusDays(1))
           )
         )
-        .sort($sort.asc("startsAt"))
+        .sort(sort.asc("startsAt"))
         .cursor[Tournament]()
         .list(nb)
 
@@ -153,12 +153,12 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
     (nb > 0).so:
       coll
         .find(forTeamSelect(teamId) ++ finishedSelect)
-        .sort($sort.desc("startsAt"))
+        .sort(sort.desc("startsAt"))
         .cursor[Tournament]()
         .list(nb)
 
   private[tournament] def setForTeam(tourId: TourId, teamId: TeamId) =
-    coll.update.one(bid(tourId), $addToSet("forTeams" -> teamId))
+    coll.update.one(bid(tourId), addToSet("forTeams" -> teamId))
 
   def isForTeam(tourId: TourId, teamId: TeamId) =
     coll.exists(bid(tourId) ++ bdoc("forTeams" -> teamId))
@@ -173,7 +173,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
         import framework.*
         Match(enterableSelect ++ nonEmptySelect ++ teamId.so(forTeamSelect)) -> List(
           PipelineOperator(lookupPlayer(userId, none)),
-          Match("player".$ne(barr())),
+          Match("player".neq(barr())),
           Project(bid(true))
         )
       .map(_.flatMap(_.getAsOpt[TourId]("_id")))
@@ -198,13 +198,13 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
     coll.primitiveOne[TeamBattle](bid(tourId), "teamBattle")
 
   def isTeamBattle(tourId: TourId): Fu[Boolean] =
-    coll.exists(bid(tourId) ++ bdoc("teamBattle".$exists(true)))
+    coll.exists(bid(tourId) ++ bdoc("teamBattle".exists(true)))
 
   def featuredGameId(tourId: TourId) = coll.primitiveOne[GameId](bid(tourId), "featured")
 
   private def startingSoonSelect(ahead: Minutes) =
     createdSelect ++
-      bdoc("startsAt".$lt(nowInstant.plusMinutes(ahead.value)))
+      bdoc("startsAt".lt(nowInstant.plusMinutes(ahead.value)))
 
   private[tournament] def scheduledCreated(ahead: Minutes): Fu[List[Tournament]] =
     coll.list[Tournament](startingSoonSelect(ahead) ++ scheduledSelect)
@@ -219,20 +219,20 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
   ): Fu[List[Tournament]] =
     teamIds.nonEmpty.so:
       coll
-        .find(forTeamsSelect(teamIds) ++ $or(startedSelect, startingSoonSelect(ahead)))
-        .sort($sort.asc("startsAt"))
+        .find(forTeamsSelect(teamIds) ++ or(startedSelect, startingSoonSelect(ahead)))
+        .sort(sort.asc("startsAt"))
         .cursor[Tournament](ReadPref.sec)
         .list(max.value)
 
   private[tournament] def shouldStartCursor =
     coll
-      .find(bdoc("startsAt".$lt(nowInstant)) ++ createdSelect)
+      .find(bdoc("startsAt".lt(nowInstant)) ++ createdSelect)
       .batchSize(1)
       .cursor[Tournament]()
 
   private[tournament] def soonStarting(from: Instant, to: Instant, notIds: Iterable[TourId]) =
     coll
-      .find(createdSelect ++ bdoc("nbPlayers".$gt(0), "startsAt".$gt(from).$lt(to), "_id".$nin(notIds)))
+      .find(createdSelect ++ bdoc("nbPlayers".gt(0), "startsAt".gt(from).lt(to), "_id".nin(notIds)))
       .cursor[Tournament]()
       .list(5)
 
@@ -264,7 +264,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
     coll
       .find(
         createdSelect ++ scheduledButNotHourly ++ bdoc(
-          "startsAt".$lt(nowInstant.plusDays(21))
+          "startsAt".lt(nowInstant.plusDays(21))
         )
       )
       .sort(bdoc("startsAt" -> 1))
@@ -291,10 +291,10 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
       .find(
         finishedSelect ++ sinceSelect(since) ++ variantSelect(chess.variant.Standard) ++ bdoc(
           "schedule.freq" -> freq.name,
-          "schedule.speed".$in(Schedule.Speed.mostPopular.map(_.key))
+          "schedule.speed".in(Schedule.Speed.mostPopular.map(_.key))
         )
       )
-      .sort($sort.desc("startsAt"))
+      .sort(sort.desc("startsAt"))
       .cursor[Tournament]()
       .list(Schedule.Speed.mostPopular.size)
 
@@ -304,13 +304,13 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
         finishedSelect ++ sinceSelect(nowInstant.minusDays(1)) ++ variantSelect(variant) ++
           bdoc("schedule.freq" -> Schedule.Freq.Daily.name)
       )
-      .sort($sort.desc("startsAt"))
+      .sort(sort.desc("startsAt"))
       .one[Tournament]
 
   def update(tour: Tournament) =
     coll.update.one(
       bid(tour.id),
-      $set(tourHandler.write(tour)) ++ $unset(
+      set(tourHandler.write(tour)) ++ unset(
         List(
           // tour.conditions.titled.isEmpty option "conditions.titled",
           tour.rated.yes.option("mode"),
@@ -339,10 +339,10 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
     coll
       .find:
         bdoc(
-          "startsAt".$gte(from).$lte(to),
-          "schedule.freq".$in(Schedule.Freq.list.filter(_.isWeeklyOrBetter))
+          "startsAt".gte(from).lte(to),
+          "schedule.freq".in(Schedule.Freq.list.filter(_.isWeeklyOrBetter))
         )
-      .sort($sort.asc("startsAt"))
+      .sort(sort.asc("startsAt"))
       .cursor[Tournament](ReadPref.sec)
       .list(500)
 
@@ -358,7 +358,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
       readPref: ReadPref = _.sec
   ): PekkoStreamCursor[Tournament] =
     coll
-      .find(bdoc("createdBy" -> owner.id) ++ (status.nonEmpty.so(bdoc("status".$in(status)))))
-      .sort($sort.desc("startsAt"))
+      .find(bdoc("createdBy" -> owner.id) ++ (status.nonEmpty.so(bdoc("status".in(status)))))
+      .sort(sort.desc("startsAt"))
       .batchSize(batchSize)
       .cursor[Tournament](readPref)

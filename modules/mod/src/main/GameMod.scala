@@ -40,7 +40,7 @@ object GameMod:
         bdoc(lila.game.Game.BSONFields.tournamentId -> id)
       } ++ filter.swiss.so { id =>
         bdoc(lila.game.Game.BSONFields.swissId -> id)
-      } ++ $and(
+      } ++ and(
         Query.user(user),
         filter.opponentIds.match
           case Nil => Query.noAnon

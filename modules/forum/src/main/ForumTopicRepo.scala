@@ -22,7 +22,7 @@ final private class ForumTopicRepo(val coll: Coll, filter: Filter = Safe)(using
   private val noTroll = bdoc("troll" -> false)
   private val trollFilter = filter match
     case Safe => noTroll
-    case SafeAnd(u) => $or(noTroll, bdoc("userId" -> u))
+    case SafeAnd(u) => or(noTroll, bdoc("userId" -> u))
     case Unsafe => emptyBdoc
 
   def byId(id: ForumTopicId): Fu[Option[ForumTopic]] = coll.byId[ForumTopic](id)
@@ -32,7 +32,7 @@ final private class ForumTopicRepo(val coll: Coll, filter: Filter = Safe)(using
 
   def close(id: ForumTopicId, value: Boolean, byMod: Boolean): Funit =
     coll.update
-      .one(bid(id), $set("closed" -> value, "closedByMod" -> (value && byMod)))
+      .one(bid(id), set("closed" -> value, "closedByMod" -> (value && byMod)))
       .void
 
   def closedByMod(id: ForumTopicId): Fu[Boolean] = coll.exists(bid(id) ++ bdoc("closedByMod" -> true))
@@ -56,7 +56,7 @@ final private class ForumTopicRepo(val coll: Coll, filter: Filter = Safe)(using
     coll.exists(bdoc("categId" -> categId, "slug" -> slug))
 
   private[forum] def stickyByCateg(categ: ForumCategId): Fu[List[ForumTopic]] =
-    coll.list(byCategQuery(categ) ++ "sticky".$exists(true))
+    coll.list(byCategQuery(categ) ++ "sticky".exists(true))
 
   def nextSlug(categ: ForumCateg, name: String, it: Int = 1): Fu[ForumTopicSlug] =
     val slug = ForumTopicSlug:
@@ -68,4 +68,4 @@ final private class ForumTopicRepo(val coll: Coll, filter: Filter = Safe)(using
     }
 
   def byCategQuery(categ: ForumCategId) = bdoc("categId" -> categ) ++ trollFilter
-  def byCategNotStickyQuery(categ: ForumCategId) = byCategQuery(categ) ++ "sticky".$exists(false)
+  def byCategNotStickyQuery(categ: ForumCategId) = byCategQuery(categ) ++ "sticky".exists(false)

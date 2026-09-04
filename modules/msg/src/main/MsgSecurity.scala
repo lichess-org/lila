@@ -163,7 +163,7 @@ final private class MsgSecurity(
     private def reply(contacts: Contacts): Fu[Boolean] =
       colls.thread.exists(
         bid(MsgThread.id(contacts.orig.id, contacts.dest.id)) ++
-          bdoc("del".$ne(contacts.dest.id))
+          bdoc("del".neq(contacts.dest.id))
       )
 
     private def kidCheck(contacts: Contacts, isNew: Boolean): Fu[Boolean] =

@@ -49,12 +49,12 @@ final class MsgSearch(
       .find:
         bdoc(
           "users" -> bdoc(
-            $eq(me.userId),
+            "$eq" -> me.userId,
             "$regex" -> BSONRegex(s"^${java.util.regex.Pattern.quote(q)}", "")
           ),
           selectNotDeleted
         )
-      .sort($sort.desc("lastMsg.date"))
+      .sort(sort.desc("lastMsg.date"))
       .hint:
         colls.thread.hint(
           bdoc(

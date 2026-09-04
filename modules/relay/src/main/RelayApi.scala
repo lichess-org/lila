@@ -108,7 +108,7 @@ final class RelayApi(
       unfinished <- roundRepo.coll.exists(unfinishedSelector)
       dates <- computeDates(tourId)
       active = unfinished && dates.flatMap(_.end).forall(_.isAfter(nowInstant.minusDays(1)))
-      live <- active.so(roundRepo.coll.exists(unfinishedSelector ++ bdoc("startedAt".$exists(true))))
+      live <- active.so(roundRepo.coll.exists(unfinishedSelector ++ bdoc("startedAt".exists(true))))
       _ <- tourRepo.denormalize(tourId, active, live, dates)
     yield ()
 
@@ -123,7 +123,7 @@ final class RelayApi(
     roundRepo.coll
       .aggregateOne(): framework =>
         import framework.*
-        Match(bdoc("tourId" -> tourId, "startsAt".$ne(BSONHandlers.startsAfterPrevious))) -> List(
+        Match(bdoc("tourId" -> tourId, "startsAt".neq(BSONHandlers.startsAfterPrevious))) -> List(
           Project(bdoc("at" -> bdoc("$ifNull" -> barr("$startsAt", "$startedAt")))),
           Sort(Ascending("at")),
           Group(BSONNull)("at" -> PushField("at")),
@@ -148,7 +148,7 @@ final class RelayApi(
       .aggregateOne(): framework =>
         import framework.*
         Match(bid(id)) -> List(
-          PipelineOperator(tourRepo.lookup("tourId")),
+          PipelineOperator(tourRepo.lookupByTourId),
           UnwindField("tour"),
           PipelineOperator(bdoc("$replaceWith" -> bdoc("tier" -> "$tour.tier")))
         )
@@ -167,18 +167,18 @@ final class RelayApi(
     def invalidate(id: RelayTourId) = cache.underlying.synchronous.invalidate(id)
 
   private def toSyncSelect(onlyIds: Option[List[RelayTourId]]) = bdoc(
-    "sync.until".$exists(true),
-    "sync.nextAt".$lt(nowInstant)
-  ) ++ onlyIds.so(ids => bdoc("tourId".$in(ids)))
+    "sync.until".exists(true),
+    "sync.nextAt".lt(nowInstant)
+  ) ++ onlyIds.so(ids => bdoc("tourId".in(ids)))
 
   private[relay] def toSyncOfficial(max: Max, onlyIds: Option[List[RelayTourId]]): Fu[List[WithTour]] =
     roundRepo.coll
       .aggregateList(max.value, _.pri): framework =>
         import framework.*
         Match(toSyncSelect(onlyIds)) -> List(
-          PipelineOperator(tourRepo.lookup("tourId")),
+          PipelineOperator(tourRepo.lookupByTourId),
           UnwindField("tour"),
-          Match(bdoc("tour.tier".$exists(true))),
+          Match(bdoc("tour.tier".exists(true))),
           Sort(Descending("tour.tier"), Ascending("sync.nextAt")),
           Limit(max.value)
         )
@@ -193,9 +193,9 @@ final class RelayApi(
       .aggregateList(max.value, _.pri): framework =>
         import framework.*
         Match(toSyncSelect(onlyIds)) -> List(
-          PipelineOperator(tourRepo.lookup("tourId")),
+          PipelineOperator(tourRepo.lookupByTourId),
           UnwindField("tour"),
-          Match(bdoc("tour.tier".$exists(false))),
+          Match(bdoc("tour.tier".exists(false))),
           Sort(Ascending("sync.nextAt")),
           GroupField("tour.ownerIds")("relays" -> PushField("$ROOT")),
           Project:
@@ -229,7 +229,7 @@ final class RelayApi(
     for
       _ <- tourRepo.coll.update.one(
         bid(tour.id),
-        $setsAndUnsets(
+        setsAndUnsets(
           "name" -> tour.name.some,
           "info" -> tour.info.some,
           "markup" -> tour.markup,
@@ -348,7 +348,7 @@ final class RelayApi(
         round <- copyRoundSourceSettings(updated)
         _ <- (from.name != round.name).so(studyApi.rename(round.studyId, round.name.into(StudyName)))
         setters <- tryBdoc(round).toEither.toFuture
-        unsets = $unsetCompute(
+        unsets = unsetCompute(
           from,
           updated,
           ("caption", _.caption),
@@ -359,7 +359,7 @@ final class RelayApi(
           ("teamCustomScoring", _.teamCustomScoring),
           ("fideTCOverride", _.fideTCOverride)
         )
-        _ <- roundRepo.coll.update.one(bid(round.id), $set(setters) ++ unsets).void
+        _ <- roundRepo.coll.update.one(bid(round.id), set(setters) ++ unsets).void
         _ <- (round.sync.playing != from.sync.playing)
           .so(sendToContributors(round.id, "relaySync", jsonView.sync(round)))
         _ <- denormalizeTour(round.tourId)
@@ -395,9 +395,9 @@ final class RelayApi(
         .aggregateOne(): framework =>
           import framework.*
           Match(bdoc("sync.upstream.roundIds" -> source.id)) -> List(
-            PipelineOperator(tourRepo.lookup("tourId")),
+            PipelineOperator(tourRepo.lookupByTourId),
             UnwindField("tour"),
-            Match(bdoc("tour.tier".$exists(true))),
+            Match(bdoc("tour.tier".exists(true))),
             Sort(Descending("tour.tier"), Descending("tour.createdAt")),
             Limit(1)
           )
@@ -410,7 +410,7 @@ final class RelayApi(
         _ <- roundRepo.coll.unsetField(bid(relay.id), "finishedAt")
         _ <- old.hasStartedEarly.so:
           roundRepo.coll.unsetField(bid(relay.id), "startedAt").void
-        _ <- roundRepo.coll.update.one(bid(relay.id), $set("sync.log" -> barr()))
+        _ <- roundRepo.coll.update.one(bid(relay.id), set("sync.log" -> barr()))
       yield
         teamLeaderboard.invalidate(relay.tourId)
         players.invalidate(relay.tourId)
@@ -561,12 +561,12 @@ final class RelayApi(
         bdoc(
           "startsAt"
             // start early to fetch boards
-            .$lt(nowInstant.plusSeconds(RelayDelay.maxSeconds.value))
-            .$gt(nowInstant.minusDays(1)), // bit late now
-          "startedAt".$exists(false),
-          "finishedAt".$exists(false),
-          "sync.upstream".$exists(true),
-          $or("sync.until".$exists(false), "sync.until".$lt(nowInstant))
+            .lt(nowInstant.plusSeconds(RelayDelay.maxSeconds.value))
+            .gt(nowInstant.minusDays(1)), // bit late now
+          "startedAt".exists(false),
+          "finishedAt".exists(false),
+          "sync.upstream".exists(true),
+          or("sync.until".exists(false), "sync.until".lt(nowInstant))
         ) ++ only.so(bid(_))
       )
       .flatMap:
@@ -583,14 +583,14 @@ final class RelayApi(
       .list[RelayRound]:
         RelayRoundRepo.selectors.finished(false) ++
           bdoc(
-            "sync.upstream".$exists(true),
-            "sync.until".$exists(false),
-            "startedAt".$lt(nowInstant.minusHours(3)),
-            $or(
-              "startsAt".$exists(false),
-              "startsAt".$lt(nowInstant)
+            "sync.upstream".exists(true),
+            "sync.until".exists(false),
+            "startedAt".lt(nowInstant.minusHours(3)),
+            or(
+              "startsAt".exists(false),
+              "startsAt".lt(nowInstant)
             )
-          ) ++ onlyIds.so(ids => bdoc("tourId".$in(ids)))
+          ) ++ onlyIds.so(ids => bdoc("tourId".in(ids)))
       .flatMap:
         _.sequentiallyVoid: relay =>
           logger.info(s"Automatically finish $relay")

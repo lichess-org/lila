@@ -26,7 +26,7 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
   def withColl[A](f: Coll => A): A = f(coll)
 
   def topNbGame(nb: Int): Fu[List[User]] =
-    coll.find(enabledNoBotSelect ++ notLame).sort($sort.desc("count.game")).cursor[User]().list(nb)
+    coll.find(enabledNoBotSelect ++ notLame).sort(sort.desc("count.game")).cursor[User]().list(nb)
 
   def byId[U: UserIdOf](u: U): Fu[Option[User]] =
     u.id.noGhost.so:
@@ -83,10 +83,10 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
     coll.list[User](bdoc(F.prevEmail -> email), readPref)
 
   def idByAnyEmail(emails: List[NormalizedEmailAddress]): Fu[Option[UserId]] =
-    coll.primitiveOne[UserId](F.email.$in(emails), "_id")
+    coll.primitiveOne[UserId](F.email.in(emails), "_id")
 
   def countRecentByPrevEmail(email: NormalizedEmailAddress, since: Instant): Fu[Int] =
-    coll.countSel(bdoc(F.prevEmail -> email, F.createdAt.$gt(since)))
+    coll.countSel(bdoc(F.prevEmail -> email, F.createdAt.gt(since)))
 
   def pair(x: Option[UserId], y: Option[UserId]): Fu[(Option[User], Option[User])] =
     coll.byIds[User, UserId](List(x, y).flatten).map { users =>
@@ -165,8 +165,8 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
       .update(ordered = false, WriteConcern.Unacknowledged)
       .one(
         // limit to -3 <= colorIt <= 5 but set when undefined
-        bid(userId) ++ bdoc(F.colorIt -> $not(color.fold($gte(5), $lte(-3)))),
-        $inc(F.colorIt -> color.fold(1, -1))
+        bid(userId) ++ bdoc(F.colorIt -> not(color.fold(gte(5), lte(-3)))),
+        inc(F.colorIt -> color.fold(1, -1))
       )
 
   def mustPlayAsColor(userId: UserId): Fu[Option[Color]] =
@@ -195,8 +195,8 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
     if id.is(name) then
       coll.update
         .one(
-          bid(id) ++ F.changedCase.$exists(false),
-          $set(F.username -> name.value, F.changedCase -> true)
+          bid(id) ++ F.changedCase.exists(false),
+          set(F.username -> name.value, F.changedCase -> true)
         )
         .flatMap: result =>
           if result.n == 0 then fufail(s"You have already changed your username")
@@ -214,19 +214,19 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
 
   val enabledSelect = bdoc(F.enabled -> true)
   val disabledSelect = bdoc(F.enabled -> false)
-  val notForeverClosedSelect = F.foreverClosed.$ne(true)
+  val notForeverClosedSelect = F.foreverClosed.neq(true)
   def markSelect(mark: UserMark)(v: Boolean): Bdoc =
     if v then bdoc(F.marks -> mark.key)
-    else F.marks.$ne(mark.key)
+    else F.marks.neq(mark.key)
   def engineSelect = markSelect(UserMark.engine)
   def trollSelect = markSelect(UserMark.troll)
-  val lame = bdoc(F.marks.$in(List(UserMark.engine, UserMark.boost)))
-  val lameOrTroll = bdoc(F.marks.$in(List(UserMark.engine, UserMark.boost, UserMark.troll)))
-  val notLame = bdoc(F.marks.$nin(List(UserMark.engine, UserMark.boost)))
-  val enabledNoBotSelect = enabledSelect ++ bdoc(F.title.$ne(PlayerTitle.BOT))
+  val lame = bdoc(F.marks.in(List(UserMark.engine, UserMark.boost)))
+  val lameOrTroll = bdoc(F.marks.in(List(UserMark.engine, UserMark.boost, UserMark.troll)))
+  val notLame = bdoc(F.marks.nin(List(UserMark.engine, UserMark.boost)))
+  val enabledNoBotSelect = enabledSelect ++ bdoc(F.title.neq(PlayerTitle.BOT))
   val patronSelect = bdoc(s"${F.plan}.active" -> true)
 
-  val sortCreatedAtDesc = $sort.desc(F.createdAt)
+  val sortCreatedAtDesc = sort.desc(F.createdAt)
 
   def incNbGames(
       id: UserId,
@@ -251,10 +251,10 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
       totalTime.ifTrue(botVsHuman).map(v => BSONElement(s"${F.playTime}.human", BSONInteger(v + 2)))
     ).flatten
 
-    coll.update.one(bid(id), $inc(bdoc(incs*)))
+    coll.update.one(bid(id), inc(bdoc(incs*)))
 
-  def incToints(id: UserId, nb: Int): Funit = coll.update.one(bid(id), $inc("toints" -> nb)).void
-  def removeAllToints = coll.update.one(emptyBdoc, $unset("toints"), multi = true)
+  def incToints(id: UserId, nb: Int): Funit = coll.update.one(bid(id), inc("toints" -> nb)).void
+  def removeAllToints = coll.update.one(emptyBdoc, unset("toints"), multi = true)
 
   def create(
       name: UserName,
@@ -265,12 +265,12 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
       lang: Option[LangTag] = None,
       kid: KidMode = KidMode.No
   ): Fu[Option[User]] =
-    exists(name).not.flatMapz:
+    existsPri(name).not.flatMapz:
       val doc = newUser(name, passwordHash, email, blind, mustConfirmEmail, lang, kid) ++
         ("len" -> BSONInteger(name.value.length))
       coll.insert.one(doc) >> byId(name.id)
 
-  def exists[U: UserIdOf](u: U): Fu[Boolean] = coll.exists(bid(u.id))
+  def existsPri[U: UserIdOf](u: U): Fu[Boolean] = coll.exists(bid(u.id))
   def existsSec[U: UserIdOf](u: U): Fu[Boolean] = coll.secondary.exists(bid(u.id))
 
   def filterExists(ids: Set[UserId]): Fu[List[UserId]] =
@@ -285,7 +285,7 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
   private[user] def userIdsLikeFilter(text: UserSearch, filter: Bdoc, max: Int): Fu[List[UserId]] =
     coll
       .find(
-        bdoc(F.id.$startsWith(text.value)) ++ enabledSelect ++ filter,
+        bdoc(F.id.regexStart(text.value)) ++ enabledSelect ++ filter,
         bdoc(F.id -> true).some
       )
       .sort(bdoc("len" -> 1))
@@ -295,10 +295,10 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
         _.flatMap { _.getAsOpt[UserId](F.id) }
 
   def idLikeCanBeVeryExpensive(regex: String, closed: Boolean): Fu[List[User]] =
-    coll.find(F.id.$regex(regex) ++ bdoc(F.enabled -> !closed)).cursor[User](ReadPref.sec).list(200)
+    coll.find(F.id.regex(regex) ++ bdoc(F.enabled -> !closed)).cursor[User](ReadPref.sec).list(200)
 
   private def setMark(mark: UserMark)(id: UserId, v: Boolean): Funit =
-    coll.update.one(bid(id), $addOrPull(F.marks, mark, v)).void
+    coll.update.one(bid(id), addOrPull(F.marks, mark, v)).void
 
   def setEngine = setMark(UserMark.engine)
   def setBoost = setMark(UserMark.boost)
@@ -321,10 +321,10 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
     coll.distinct[UserId, Set]("_id", Some(inIds(ids) ++ lame))
 
   def filterNotKid(ids: Seq[UserId]): Fu[Set[UserId]] =
-    coll.distinct[UserId, Set]("_id", Some(inIds(ids) ++ bdoc(F.kid.$ne(true))))
+    coll.distinct[UserId, Set]("_id", Some(inIds(ids) ++ bdoc(F.kid.neq(true))))
 
   def filterKid[U: UserIdOf](ids: Seq[U]): Fu[Set[UserId]] =
-    coll.distinct[UserId, Set]("_id", Some(inIds(ids.map(_.id)) ++ bdoc(F.kid.$eq(true))))
+    coll.distinct[UserId, Set]("_id", Some(inIds(ids.map(_.id)) ++ bdoc(F.kid -> true)))
 
   def isTroll(id: UserId): Fu[Boolean] = coll.exists(bid(id) ++ trollSelect(true))
 
@@ -333,7 +333,7 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
   def isAlt(id: UserId): Fu[Boolean] = coll.exists(bid(id) ++ markSelect(UserMark.alt)(true))
 
   def isCreatedSince(id: UserId, since: Instant): Fu[Boolean] =
-    coll.exists(bid(id) ++ bdoc(F.createdAt.$lt(since)))
+    coll.exists(bid(id) ++ bdoc(F.createdAt.lt(since)))
 
   def setRoles(id: UserId, roles: List[RoleDbKey]): Funit =
     coll.updateOrUnsetField(bid(id), F.roles, Option.when(roles.nonEmpty)(roles)).void
@@ -342,7 +342,7 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
     coll.primitiveOne[List[RoleDbKey]](bid(u.id), BSONFields.roles).dmap(_.orZero)
 
   def addPermission(id: UserId, perm: lila.core.perm.Permission): Funit =
-    coll.update.one(bid(id), $push(F.roles -> perm.dbKey)).void
+    coll.update.one(bid(id), push(F.roles -> perm.dbKey)).void
 
   def accountAge(id: UserId): Fu[Days] =
     coll
@@ -351,24 +351,24 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
         _.fold(Days(0)): date =>
           Days(scalalib.time.daysBetween(date.withTimeAtStartOfDay, nowInstant.withTimeAtStartOfDay))
 
-  def disableTwoFactor(id: UserId) = coll.update.one(bid(id), $unset(F.totpSecret))
+  def disableTwoFactor(id: UserId) = coll.update.one(bid(id), unset(F.totpSecret))
 
   def setupTwoFactor(id: UserId, totp: TotpSecret): Funit =
     coll.update
       .one(
-        bid(id) ++ (F.totpSecret.$exists(false)), // never overwrite existing secret
-        $set(F.totpSecret -> totp.secret)
+        bid(id) ++ (F.totpSecret.exists(false)), // never overwrite existing secret
+        set(F.totpSecret -> totp.secret)
       )
       .void
 
   def reopen(id: UserId) =
     coll.update.one(
       bid(id),
-      $set(F.enabled -> true) ++ $unset(F.delete) ++ $pull(F.marks, UserMark.alt)
+      set(F.enabled -> true) ++ unset(F.delete) ++ pull(F.marks, UserMark.alt)
     ) >>
       coll.update
         .one(
-          bid(id) ++ bdoc(F.email.$exists(false)),
+          bid(id) ++ bdoc(F.email.exists(false)),
           bdoc("$rename" -> bdoc(F.prevEmail -> F.email))
         )
         .void
@@ -381,7 +381,7 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
       .one(
         bid(user.id),
         bdoc("$set" -> sets) ++
-          $unset(unsets) ++
+          unset(unsets) ++
           keepEmail.not.so(bdoc("$rename" -> bdoc(F.email -> F.prevEmail)))
       )
       .void
@@ -411,7 +411,7 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
       )
       coll.update.one(
         bid(user.id),
-        $unset(fields) ++ $set("deletedAt" -> nowInstant)
+        unset(fields) ++ set("deletedAt" -> nowInstant)
       )
 
     def nowFully(user: User) = for
@@ -431,7 +431,7 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
       coll
         .find:
           bdoc( // hits the delete.requested_1 index
-            s"${F.delete}.requested".$lt(requestedAt),
+            s"${F.delete}.requested".lt(requestedAt),
             s"${F.delete}.done" -> false
           )
         .sort(bdoc(s"${F.delete}.requested" -> 1))
@@ -452,8 +452,8 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
       .one(
         bid(id),
         if email.value == normalized.value then
-          $set(F.email -> normalized) ++ $unset(F.prevEmail, F.verbatimEmail)
-        else $set(F.email -> normalized, F.verbatimEmail -> email) ++ $unset(F.prevEmail)
+          set(F.email -> normalized) ++ unset(F.prevEmail, F.verbatimEmail)
+        else set(F.email -> normalized, F.verbatimEmail -> email) ++ unset(F.prevEmail)
       )
       .map: _ =>
         lila.common.Bus.pub(lila.core.user.ChangeEmail(id, email))
@@ -517,9 +517,9 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
 
   def botSelect(v: Boolean) =
     if v then bdoc(F.title -> PlayerTitle.BOT)
-    else bdoc(F.title -> $ne(PlayerTitle.BOT))
+    else bdoc(F.title -> neq(PlayerTitle.BOT))
 
-  def botWithBioSelect = botSelect(true) ++ bdoc(s"${F.profile}.bio" -> $exists(true))
+  def botWithBioSelect = botSelect(true) ++ bdoc(s"${F.profile}.bio" -> exists(true))
 
   private[user] def botIds =
     coll.distinctEasy[UserId, Set]("_id", botSelect(true) ++ enabledSelect, _.sec)
@@ -554,7 +554,7 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
       coll.secondary.exists(inIds(userIds) ++ disabledSelect)
 
   def userIdsWithRoles(roles: List[RoleDbKey]): Fu[Set[UserId]] =
-    coll.distinctEasy[UserId, Set]("_id", bdoc("roles".$in(roles)))
+    coll.distinctEasy[UserId, Set]("_id", bdoc("roles".in(roles)))
 
   def countEngines(userIds: List[UserId]): Fu[Int] =
     coll.secondary.countSel(inIds(userIds) ++ engineSelect(true))
@@ -569,10 +569,10 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
     coll.exists(inIds(userIds) ++ engineSelect(true))
 
   def mustConfirmEmail(id: UserId): Fu[Boolean] =
-    coll.exists(bid(id) ++ bdoc(F.mustConfirmEmail.$exists(true)))
+    coll.exists(bid(id) ++ bdoc(F.mustConfirmEmail.exists(true)))
 
   def setEmailConfirmed(id: UserId): Fu[Option[EmailAddress]] = for
-    res <- coll.update.one(bid(id) ++ bdoc(F.mustConfirmEmail.$exists(true)), $unset(F.mustConfirmEmail))
+    res <- coll.update.one(bid(id) ++ bdoc(F.mustConfirmEmail.exists(true)), unset(F.mustConfirmEmail))
     email <- (res.nModified == 1).so(email(id))
   yield email
 
@@ -597,10 +597,10 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
         .map(ClosedFlags(_, _).some)
 
   def filterClosedOrInactiveIds(since: Instant)(ids: Iterable[UserId]): Fu[List[UserId]] =
-    coll.distinctEasy[UserId, List](F.id, inIds(ids) ++ $or(disabledSelect, F.seenAt.$lt(since)), _.sec)
+    coll.distinctEasy[UserId, List](F.id, inIds(ids) ++ or(disabledSelect, F.seenAt.lt(since)), _.sec)
 
   def filterSeenSince(since: Instant)(ids: Iterable[UserId]): Fu[List[UserId]] =
-    coll.distinctEasy[UserId, List](F.id, inIds(ids) ++ F.seenAt.$gt(since), _.sec)
+    coll.distinctEasy[UserId, List](F.id, inIds(ids) ++ F.seenAt.gt(since), _.sec)
 
   private val defaultCount = lila.core.user.Count(0, 0, 0, 0, 0)
 

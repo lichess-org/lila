@@ -47,7 +47,7 @@ final class RankingApi(
 
   def remove(userId: UserId): Funit =
     coll:
-      _.delete.one(bdoc("_id".$startsWith(s"$userId:"))).void
+      _.delete.one(bdoc("_id".regexStart(s"$userId:"))).void
 
   private def makeId(userId: UserId, perfType: PerfType) = s"$userId:${perfType.id}"
 

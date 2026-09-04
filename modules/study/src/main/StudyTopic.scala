@@ -52,8 +52,8 @@ final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTop
       favsFu.flatMap: favs =>
         topicRepo
           .coll:
-            _.find(bdoc("_id".$startsWith(java.util.regex.Pattern.quote(str), "i")))
-              .sort($sort.naturalAsc)
+            _.find(bdoc("_id".regexStart(java.util.regex.Pattern.quote(str), "i")))
+              .sort(sort.naturalAsc)
               .cursor[Bdoc]()
               .list(nb - favs.size)
           .dmap { _.flatMap(docTopic) }
@@ -69,7 +69,7 @@ final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTop
       .coll:
         _.update.one(
           bid(user.id),
-          $set("topics" -> topics),
+          set("topics" -> topics),
           upsert = true
         )
       .void
@@ -80,7 +80,7 @@ final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTop
       (newTopics != prev).so(
         userTopicRepo
           .coll:
-            _.update.one(bid(userId), $set("topics" -> newTopics), upsert = true)
+            _.update.one(bid(userId), set("topics" -> newTopics), upsert = true)
           .void
       )
     })
@@ -93,7 +93,7 @@ final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTop
       topicRepo
         .coll:
           _.find(emptyBdoc)
-            .sort($sort.naturalAsc)
+            .sort(sort.naturalAsc)
             .cursor[Bdoc]()
             .list(nb)
         .dmap:

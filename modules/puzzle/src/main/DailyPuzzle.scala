@@ -43,8 +43,8 @@ final private[puzzle] class DailyPuzzle(
   }
 
   private def findCurrent = colls.puzzle:
-    _.find(bdoc(F.day.$gt(nowInstant.minusDays(1))))
-      .sort($sort.desc(F.day))
+    _.find(bdoc(F.day.gt(nowInstant.minusDays(1))))
+      .sort(sort.desc(F.day))
       .one[Puzzle]
 
   private val maxTries = 10
@@ -71,7 +71,7 @@ final private[puzzle] class DailyPuzzle(
             Project(bdoc("ids" -> true, "_id" -> false)),
             UnwindField("ids"),
             PipelineOperator:
-              $lookup.simple(
+              lookup.simple(
                 from = colls.puzzle.name,
                 as = "puzzle",
                 local = "ids",
@@ -79,10 +79,10 @@ final private[puzzle] class DailyPuzzle(
                 pipe = List(
                   bdoc(
                     "$match" -> bdoc(
-                      Puzzle.BSONFields.plays.$gt(minPlays),
-                      Puzzle.BSONFields.day.$exists(false),
-                      Puzzle.BSONFields.issue.$exists(false),
-                      Puzzle.BSONFields.themes.$nin(forbiddenThemes.map(_.key))
+                      Puzzle.BSONFields.plays.gt(minPlays),
+                      Puzzle.BSONFields.day.exists(false),
+                      Puzzle.BSONFields.issue.exists(false),
+                      Puzzle.BSONFields.themes.nin(forbiddenThemes.map(_.key))
                     )
                   )
                 )

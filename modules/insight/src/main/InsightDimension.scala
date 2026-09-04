@@ -372,9 +372,9 @@ object InsightDimension:
       case many =>
         bdoc(
           "$or" -> many.map(toRange).map {
-            case (min, max) if min == fromPercent(0) => bdoc(d.dbKey.$lt(max))
-            case (min, max) if max == fromPercent(100) => bdoc(d.dbKey.$gte(min)) // hole at 90%? #TODO
-            case (min, max) => bdoc(d.dbKey.$gte(min).$lt(max))
+            case (min, max) if min == fromPercent(0) => bdoc(d.dbKey.lt(max))
+            case (min, max) if max == fromPercent(100) => bdoc(d.dbKey.gte(min)) // hole at 90%? #TODO
+            case (min, max) => bdoc(d.dbKey.gte(min).lt(max))
           }
         )
     d match
@@ -384,16 +384,16 @@ object InsightDimension:
           case many =>
             bdoc(
               "$or" -> many.map(lila.insight.MovetimeRange.toRange).map { range =>
-                bdoc(d.dbKey.$gte(range._1).$lt(range._2))
+                bdoc(d.dbKey.gte(range._1).lt(range._2))
               }
             )
       case InsightDimension.Period =>
         selected.maximumByOption(_.days).fold(emptyBdoc) { period =>
-          bdoc(d.dbKey.$gt(period.min))
+          bdoc(d.dbKey.gt(period.min))
         }
       case InsightDimension.Date => // for tutor config date range filtering
         selected match
-          case List(range) => bdoc(d.dbKey.$gt(range.min).$lte(range.max))
+          case List(range) => bdoc(d.dbKey.gt(range.min).lte(range.max))
           case _ => emptyBdoc
       case InsightDimension.MaterialRange =>
         selected match
@@ -403,8 +403,8 @@ object InsightDimension:
               "$or" -> many.map { range =>
                 val intRange = lila.insight.MaterialRange.toRange(range)
                 if intRange._1 == intRange._2 then bdoc(d.dbKey -> intRange._1)
-                else if range.negative then bdoc(d.dbKey.$gte(intRange._1).$lt(intRange._2))
-                else bdoc(d.dbKey.$gt(intRange._1).$lte(intRange._2))
+                else if range.negative then bdoc(d.dbKey.gte(intRange._1).lt(intRange._2))
+                else bdoc(d.dbKey.gt(intRange._1).lte(intRange._2))
               }
             )
       case InsightDimension.EvalRange =>
@@ -414,8 +414,8 @@ object InsightDimension:
             bdoc(
               "$or" -> many.map { range =>
                 val intRange = lila.insight.EvalRange.toRange(range)
-                if range.eval < 0 then bdoc(d.dbKey.$gte(intRange._1).$lt(intRange._2))
-                else bdoc(d.dbKey.$gt(intRange._1).$lte(intRange._2))
+                if range.eval < 0 then bdoc(d.dbKey.gte(intRange._1).lt(intRange._2))
+                else bdoc(d.dbKey.gt(intRange._1).lte(intRange._2))
               }
             )
       case InsightDimension.WinPercentRange =>
@@ -430,14 +430,14 @@ object InsightDimension:
           case many =>
             bdoc(
               "$or" -> many.map(lila.insight.TimeVariance.toRange).map { range =>
-                bdoc(d.dbKey.$gt(range._1).$lte(range._2))
+                bdoc(d.dbKey.gt(range._1).lte(range._2))
               }
             )
       case _ =>
         selected.flatMap(d.bson.writeOpt) match
           case Nil => emptyBdoc
           case List(x) => bdoc(d.dbKey -> x)
-          case xs => d.dbKey.$in(xs)
+          case xs => d.dbKey.in(xs)
 
   def requiresAnalysis(d: InsightDimension[?]) =
     d match

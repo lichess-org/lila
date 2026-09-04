@@ -20,7 +20,7 @@ final private class RelayRoundRepo(val coll: Coll, tourRepo: RelayTourRepo)(usin
       .aggregateOne(): framework =>
         import framework.*
         Match(bid(id)) -> List(
-          PipelineOperator(tourRepo.lookup("tourId")),
+          PipelineOperator(tourRepo.lookupByTourId),
           UnwindField("tour")
         )
       .map(_.flatMap(BSONHandlers.readRoundWithTour))
@@ -36,7 +36,7 @@ final private class RelayRoundRepo(val coll: Coll, tourRepo: RelayTourRepo)(usin
 
   def byToursOrdered(tourIds: Seq[RelayTourId], selector: Bdoc = emptyBdoc): Fu[List[RelayRound]] =
     coll
-      .find(bdoc("tourId".$in(tourIds)) ++ selector)
+      .find(bdoc("tourId".in(tourIds)) ++ selector)
       .sort(sort.asc)
       .cursor[RelayRound]()
       .list(RelayTour.maxRelays.value * tourIds.size)
@@ -76,8 +76,8 @@ final private class RelayRoundRepo(val coll: Coll, tourRepo: RelayTourRepo)(usin
   def syncTargetsOfSource(source: RelayRoundId): Funit =
     coll.update
       .one(
-        bdoc("sync.until".$exists(true), "sync.upstream.roundIds" -> source),
-        $set("sync.nextAt" -> nowInstant)
+        bdoc("sync.until".exists(true), "sync.upstream.roundIds" -> source),
+        set("sync.nextAt" -> nowInstant)
       )
       .void
 
@@ -107,7 +107,7 @@ final private class RelayRoundRepo(val coll: Coll, tourRepo: RelayTourRepo)(usin
     yield n
 
   private[relay] val tourRoundPipeline: Bdoc =
-    $lookup.simple(
+    lookup.simple(
       from = coll,
       as = "rounds",
       local = "_id",
@@ -118,9 +118,9 @@ final private class RelayRoundRepo(val coll: Coll, tourRepo: RelayTourRepo)(usin
   private[relay] def isInternalWithoutDelay(id: RelayRoundId): Fu[Boolean] = coll.exists:
     bid(id) ++ selectors.finished(false) ++
       bdoc(
-        "sync.delay".$exists(false) ++ $or(
-          bdoc("sync.upstream.ids".$exists(true)),
-          bdoc("sync.upstream.users".$exists(true))
+        "sync.delay".exists(false) ++ or(
+          bdoc("sync.upstream.ids".exists(true)),
+          bdoc("sync.upstream.users".exists(true))
         )
       )
 
@@ -132,10 +132,10 @@ private object RelayRoundRepo:
 
   object selectors:
     def tour(id: RelayTourId) = bdoc("tourId" -> id)
-    def started(v: Boolean) = bdoc("startedAt".$exists(v))
-    def finished(v: Boolean) = bdoc("finishedAt".$exists(v))
+    def started(v: Boolean) = bdoc("startedAt".exists(v))
+    def finished(v: Boolean) = bdoc("finishedAt".exists(v))
     val notLongFinished =
-      $or(
-        bdoc("finishedAt".$exists(false)),
-        bdoc("finishedAt" -> $gt(nowInstant.minusHours(1)))
+      or(
+        bdoc("finishedAt".exists(false)),
+        bdoc("finishedAt" -> gt(nowInstant.minusHours(1)))
       )

@@ -70,7 +70,7 @@ object GameFilterMenu:
         case GameFilter.imported =>
           pagBuilder(
             selector = Query.imported(user.id),
-            sort = $sort.desc("pgni.ca"),
+            sort = sort.desc("pgni.ca"),
             nb = nb
           )(page)
         case GameFilter.all =>

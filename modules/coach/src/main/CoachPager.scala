@@ -59,7 +59,7 @@ final class CoachPager(
                   s"_user.${lila.core.user.BSONFields.roles}" -> Permission.Coach.dbKey,
                   s"_user.${lila.core.user.BSONFields.enabled}" -> true,
                   s"_user.${lila.core.user.BSONFields.marks}"
-                    .$nin(List(UserMark.engine, UserMark.boost, UserMark.troll))
+                    .nin(List(UserMark.engine, UserMark.boost, UserMark.troll))
                 ) ++ country.so: c =>
                   bdoc("_user.profile.country" -> c.code)
               ),

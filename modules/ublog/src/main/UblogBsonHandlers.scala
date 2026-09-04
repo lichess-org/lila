@@ -51,7 +51,7 @@ private object UblogBsonHandlers:
   def pendingReviewSelect = bdoc(
     "automod.quality" -> Quality.good,
     "quality" -> Quality.weak,
-    "modQuality".$exists(false),
+    "modQuality".exists(false),
     "live" -> true,
-    "lived.at".$gt(nowInstant.minusMonths(1))
+    "lived.at".gt(nowInstant.minusMonths(1))
   )

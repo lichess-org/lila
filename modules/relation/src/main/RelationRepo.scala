@@ -21,18 +21,18 @@ final private class RelationRepo(colls: Colls, userRepo: lila.core.user.UserRepo
         import framework.*
         Match(bdoc("u2" -> userId, "r" -> Follow)) -> List(
           PipelineOperator(
-            $lookup.simple(
+            lookup.simple(
               from = userRepo.coll,
               as = "follower",
               local = "u1",
               foreign = "_id",
               pipe = List(
-                bdoc("$match" -> bdoc("seenAt".$gt(nowInstant.minusDays(10)))),
+                bdoc("$match" -> bdoc("seenAt".gt(nowInstant.minusDays(10)))),
                 bdoc("$project" -> bid(true))
               )
             )
           ),
-          Match("follower".$ne(barr())),
+          Match("follower".neq(barr())),
           Group(BSONNull)("ids" -> PushField("u1"))
         )
       .map(~_.flatMap(_.getAsOpt[List[UserId]]("ids")))
@@ -42,7 +42,7 @@ final private class RelationRepo(colls: Colls, userRepo: lila.core.user.UserRepo
       "u2",
       bdoc(
         "u1" -> userId,
-        "u2".$startsWith(term.value),
+        "u2".regexStart(term.value),
         "r" -> Follow
       )
     )
@@ -101,7 +101,7 @@ final private class RelationRepo(colls: Colls, userRepo: lila.core.user.UserRepo
         coll.delete.one(inIds(ids)).void
 
   def filterBlocked(by: UserId, candidates: Iterable[UserId]): Fu[Set[UserId]] =
-    coll.distinctEasy[UserId, Set]("u2", bdoc("u2".$in(candidates), "u1" -> by, "r" -> Block))
+    coll.distinctEasy[UserId, Set]("u2", bdoc("u2".in(candidates), "u1" -> by, "r" -> Block))
 
   def filterBlocking(candidates: Iterable[UserId], blocked: UserId): Fu[Set[UserId]] =
-    coll.distinctEasy[UserId, Set]("u1", bdoc("u1".$in(candidates), "u2" -> blocked, "r" -> Block))
+    coll.distinctEasy[UserId, Set]("u1", bdoc("u1".in(candidates), "u2" -> blocked, "r" -> Block))

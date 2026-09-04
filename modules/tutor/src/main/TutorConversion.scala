@@ -22,7 +22,7 @@ object TutorConversion:
       List(Filter(InsightDimension.Perf, perfs))
     )
     val select =
-      bdoc(F.analysed -> true, F.moves -> bdoc("$elemMatch" -> bdoc("w".$gt(WinPercent(66.6)), "i".$gt(1))))
+      bdoc(F.analysed -> true, F.moves -> bdoc("$elemMatch" -> bdoc("w".gt(WinPercent(66.6)), "i".gt(1))))
     val compute = TutorCustomInsight(users, question, "conversion", _.conversion) { docs =>
       for
         doc <- docs

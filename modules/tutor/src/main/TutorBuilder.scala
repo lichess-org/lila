@@ -79,10 +79,10 @@ final private class TutorBuilder(
               TutorFullReport.F.perfs -> bdoc(
                 "$elemMatch" -> bdoc(
                   "perf" -> pt.id,
-                  "stats.rating".$gte(rating.map(_ - ratingDelta)).$lte(rating.map(_ + ratingDelta))
+                  "stats.rating".gte(rating.map(_ - ratingDelta)).lte(rating.map(_ + ratingDelta))
                 )
               ),
-              TutorFullReport.F.at.$gt(nowInstant.minusMonths(1)) // index hit
+              TutorFullReport.F.at.gt(nowInstant.minusMonths(1)) // index hit
             ),
             bdoc(s"${TutorFullReport.F.perfs}.$$" -> true)
           )

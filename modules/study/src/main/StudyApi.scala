@@ -792,7 +792,7 @@ final class StudyApi(
   def sortChapters(studyId: StudyId, chapterIds: List[StudyChapterId])(who: Who): Funit =
     sequenceStudy(studyId): study =>
       Contribute(who.u, study):
-        for _ <- chapterRepo.sort(study, chapterIds)
+        for _ <- chapterRepo.updateOrders(study, chapterIds)
         yield
           sendChapterPreviews(study)
           setStudyUpdated(study)

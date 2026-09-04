@@ -51,7 +51,7 @@ final class UblogApi(
     blog <- getUserBlog(author, insertMissing = true)
     post = data.update(me.value, prev)
     isFirstPublish = prev.lived.isEmpty && post.live
-    _ <- colls.post.update.one(bid(prev.id), $set(bsonWriteObjTry[UblogPost](post).get))
+    _ <- colls.post.update.one(bid(prev.id), set(bsonWriteObjTry[UblogPost](post).get))
     _ <- picfitApi.addRef(post.markdown, s"ublog:${post.id}", routes.Ublog.redirect(post.id).url.some)
     _ = if isFirstPublish then onFirstPublish(author.light, blog, post)
   yield
@@ -119,14 +119,14 @@ final class UblogApi(
   def fetchCarouselFromDb(): Fu[UblogPost.CarouselPosts] =
     for
       pinned <- colls.post
-        .find(bdoc("live" -> true, "featured.until" -> $gte(nowInstant)), previewPostProjection.some)
+        .find(bdoc("live" -> true, "featured.until" -> gte(nowInstant)), previewPostProjection.some)
         .sort(bdoc("featured.until" -> -1))
         .cursor[UblogPost.PreviewPost](ReadPref.sec)
         .list(carouselSizeSetting.get())
 
       queue <- colls.post
         .find(
-          bdoc("live" -> true, "featured.at" -> $gte(nowInstant.minusMonths(1))),
+          bdoc("live" -> true, "featured.at" -> gte(nowInstant.minusMonths(1))),
           previewPostProjection.some
         )
         .sort(bdoc("featured.at" -> -1))
@@ -150,15 +150,15 @@ final class UblogApi(
       me: Option[MyId]
   ): Fu[List[UblogPost.PreviewPost]] =
     val postFilter = me.so: myId =>
-      $nor(likedBdoc(myId), authoredBdoc(myId))
+      nor(likedBdoc(myId), authoredBdoc(myId))
     for
       sameAuthor <- colls.post
         .find(
           bdoc(
             "blog" -> blog,
             "live" -> true,
-            "_id".$ne(post.id),
-            "automod.evergreen".$ne(false)
+            "_id".neq(post.id),
+            "automod.evergreen".neq(false)
           ) ++ postFilter,
           previewPostProjection.some
         )
@@ -168,7 +168,7 @@ final class UblogApi(
       similarIds = post.similar.so(_.filterNot(s => s.count < 4 || sameAuthor.exists(_.id == s.id)).map(_.id))
       similar <- colls.post
         .find(
-          inIds(similarIds) ++ bdoc("live" -> true, "automod.evergreen".$ne(false)) ++ postFilter,
+          inIds(similarIds) ++ bdoc("live" -> true, "automod.evergreen".neq(false)) ++ postFilter,
           previewPostProjection.some
         )
         .cursor[UblogPost.PreviewPost](ReadPref.sec)
@@ -225,7 +225,7 @@ final class UblogApi(
   def nextToReview: Fu[Option[UblogPost]] =
     colls.post
       .find(pendingReviewSelect, postProjection.some)
-      .sort($sort.desc("lived.at"))
+      .sort(sort.desc("lived.at"))
       .one[UblogPost]
 
   def liveLightsByIds(ids: List[UblogPostId]): Fu[List[UblogPost.LightPost]] =
@@ -266,12 +266,12 @@ final class UblogApi(
     colls.post.exists(bid(post.id) ++ likedBdoc(user.id))
 
   def like(postId: UblogPostId, v: Boolean)(using me: Me): Fu[UblogPost.Likes] = for
-    res <- colls.post.update.one(bid(postId), $addOrPull("likers", me.userId, v))
+    res <- colls.post.update.one(bid(postId), addOrPull("likers", me.userId, v))
     aggResult <- colls.post.aggregateOne(): framework =>
       import framework.*
       Match(bid(postId)) -> List(
         PipelineOperator(
-          $lookup.simple(from = colls.blog, as = "blog", local = "blog", foreign = "_id")
+          lookup.simple(from = colls.blog, as = "blog", local = "blog", foreign = "_id")
         ),
         UnwindField("blog"),
         Project(bdoc("tier" -> "$blog.tier", "likes" -> bdoc("$size" -> "$likers"), "title" -> true))
@@ -298,11 +298,11 @@ final class UblogApi(
   def modBlog(blogger: UserId, tier: Option[Tier], note: Option[String], mod: Option[Me] = None): Funit =
     val setFields = tier.so(t => bdoc("modTier" -> t, "tier" -> t))
       ++ note.filter(_ != "").so(n => bdoc("modNote" -> n))
-    val unsets = note.exists(_ == "").so($unset("modNote")) // "" is unset, none to ignore
+    val unsets = note.exists(_ == "").so(unset("modNote")) // "" is unset, none to ignore
     mod.foreach(m => irc.ublogBlog(blogger, m.username, tier.map(Tier.name), note))
     val id = UblogBlog.Id.User(blogger)
     for
-      _ <- colls.blog.update.one(bid(id), $set(setFields) ++ unsets, upsert = true)
+      _ <- colls.blog.update.one(bid(id), set(setFields) ++ unsets, upsert = true)
       _ <- tier.so(onTierChange(id, _))
     yield ()
 
@@ -314,13 +314,13 @@ final class UblogApi(
     val sets = bdoc("quality" -> post.quality) ++
       post.automod.so(a => bdoc("automod" -> a)) ++
       post.modQuality.so(mq => bdoc("modQuality" -> mq))
-    colls.post.update.one(bid(post.id), $set(sets)).void
+    colls.post.update.one(bid(post.id), set(sets)).void
 
   private def isAuthorTrusted(userId: UserId): Fu[Boolean] =
     val nbPosts = 4
     colls.post
       .find(bdoc("live" -> true, "blog" -> UblogBlog.Id.User(userId)), bdoc("quality" -> true).some)
-      .sort($sort.desc("lived.at"))
+      .sort(sort.desc("lived.at"))
       .cursor[Bdoc](ReadPref.sec)
       .list(nbPosts)
       .map: docs =>
@@ -350,7 +350,7 @@ final class UblogApi(
           "title" -> "",
           "intro" -> "",
           "markdown" -> "",
-          "image".$exists(false)
+          "image".exists(false)
         )
       )
       .getOrElse:
@@ -408,20 +408,20 @@ final class UblogApi(
     import framework.*
     List(
       PipelineOperator:
-        $lookup.simple(
+        lookup.simple(
           from = colls.blog,
           as = "blog",
           local = "blog",
           foreign = "_id",
           pipe = List(
-            bdoc("$match" -> $expr(bdoc("$gt" -> barr("$tier", Tier.UNLISTED)))),
+            bdoc("$match" -> expr(bdoc("$gt" -> barr("$tier", Tier.UNLISTED)))),
             bdoc("$project" -> bid(true))
           )
         )
       ,
       UnwindField("blog"),
       PipelineOperator:
-        $lookup.simple(
+        lookup.simple(
           from = userRepo.coll,
           as = "user",
           local = "created.by",

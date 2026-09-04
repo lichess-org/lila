@@ -232,7 +232,7 @@ final class SecurityApi(
       "user",
       bdoc(
         field -> value,
-        "date".$gt(nowInstant.minusYears(1))
+        "date".gt(nowInstant.minusYears(1))
       ),
       _.sec
     )

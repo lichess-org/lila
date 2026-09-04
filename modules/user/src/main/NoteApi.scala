@@ -37,7 +37,7 @@ final class NoteApi(coll: Coll)(using Executor) extends lila.core.user.NoteApi:
       .find(
         bdoc("to" -> user.id) ++ {
           if Granter(_.ModNote) then
-            $or(
+            or(
               bdoc("from" -> me.userId),
               bdoc("mod" -> true)
             )
@@ -45,14 +45,14 @@ final class NoteApi(coll: Coll)(using Executor) extends lila.core.user.NoteApi:
         } ++
           (!Granter(_.Admin)).so(bdoc("dox" -> false))
       )
-      .sort($sort.desc("date"))
+      .sort(sort.desc("date"))
       .cursor[Note]()
       .list(max.value)
 
   def toUserForMod(id: UserId, max: Max = Max(50)): Fu[List[Note]] =
     coll
       .find(bdoc("to" -> id, "mod" -> true))
-      .sort($sort.desc("date"))
+      .sort(sort.desc("date"))
       .cursor[Note]()
       .list(max.value)
 
@@ -62,8 +62,8 @@ final class NoteApi(coll: Coll)(using Executor) extends lila.core.user.NoteApi:
 
   def byUsersForMod(ids: List[UserId]): Fu[List[Note]] =
     coll
-      .find(bdoc("to".$in(ids), "mod" -> true))
-      .sort($sort.desc("date"))
+      .find(bdoc("to".in(ids), "mod" -> true))
+      .sort(sort.desc("date"))
       .cursor[Note]()
       .list(100)
 
@@ -101,7 +101,7 @@ final class NoteApi(coll: Coll)(using Executor) extends lila.core.user.NoteApi:
         private val selector =
           val base = searchableBsonFlag ++ (!withDox).so(bdoc("dox" -> false))
           if query.nonEmpty
-          then base ++ $text(query)
+          then base ++ textSearch(query)
           else base
         def nbResults: Fu[Int] =
           if query.nonEmpty

@@ -23,21 +23,20 @@ final private class RelayTourRepo(val coll: Coll)(using Executor):
       live: Boolean,
       dates: Option[RelayTour.Dates]
   ): Funit =
-    coll.update.one(bid(tourId), $set("active" -> active, "live" -> live, "dates" -> dates)).void
+    coll.update.one(bid(tourId), set("active" -> active, "live" -> live, "dates" -> dates)).void
 
   def oldActiveCursor =
     coll
-      .find(bdoc("active" -> true, "dates.end".$lt(nowInstant.minusDays(1))))
+      .find(bdoc("active" -> true, "dates.end".lt(nowInstant.minusDays(1))))
       .cursor[RelayTour]()
 
-  def lookup(local: String) =
-    $lookup.simple(
-      coll,
-      "tour",
-      local,
-      "_id",
-      pipe = List(bdoc("$project" -> modelProjection))
-    )
+  def lookupByTourId = lookup.simple(
+    coll,
+    "tour",
+    "tourId",
+    "_id",
+    pipe = List(bdoc("$project" -> modelProjection))
+  )
 
   def countByOwner(owner: UserId, publicOnly: Boolean): Fu[Int] =
     coll.secondary.countSel(selectors.ownerId(owner) ++ publicOnly.so(selectors.vis.public))
@@ -47,7 +46,7 @@ final private class RelayTourRepo(val coll: Coll)(using Executor):
 
   def setSubscribed(tid: RelayTourId, uid: UserId, isSubscribed: Boolean): Funit =
     coll.update
-      .one(bid(tid), if isSubscribed then $addToSet("subscribers" -> uid) else $pull("subscribers" -> uid))
+      .one(bid(tid), if isSubscribed then addToSet("subscribers" -> uid) else pull("subscribers" -> uid))
       .void
 
   def isSubscribed(tid: RelayTourId, uid: UserId): Fu[Boolean] =
@@ -60,7 +59,7 @@ final private class RelayTourRepo(val coll: Coll)(using Executor):
     coll.exists(bdoc(bid(rt.tour.id), "notified" -> rt.round.id))
 
   def setNotified(rt: RelayRound.WithTour): Funit =
-    coll.update.one(bid(rt.tour.id), $addToSet("notified" -> rt.round.id)).void
+    coll.update.one(bid(rt.tour.id), addToSet("notified" -> rt.round.id)).void
 
   def delete(tour: RelayTour): Funit =
     coll.delete.one(bid(tour.id)).void
@@ -78,11 +77,11 @@ final private class RelayTourRepo(val coll: Coll)(using Executor):
     coll.exists(inIds(ids) ++ selectors.official)
 
   def isOwnerOfAll(u: UserId, ids: List[RelayTourId]): Fu[Boolean] =
-    coll.exists(bdoc(inIds(ids), "ownerIds".$ne(u))).not
+    coll.exists(bdoc(inIds(ids), "ownerIds".neq(u))).not
 
   def addOwnerToTours(tourIds: List[RelayTourId], userId: UserId): Funit =
     coll.update
-      .one(inIds(tourIds), $addToSet("ownerIds" -> userId), multi = true)
+      .one(inIds(tourIds), addToSet("ownerIds" -> userId), multi = true)
       .void
 
   def showTeamScores(id: RelayTourId): Fu[Boolean] =
@@ -110,7 +109,7 @@ final private class RelayTourRepo(val coll: Coll)(using Executor):
       )
     ) ::: List(
       framework.PipelineOperator:
-        $lookup.simple(
+        lookup.simple(
           from = otherColls.round,
           as = "round",
           local = "_id",
@@ -130,7 +129,7 @@ private object RelayTourRepo:
     // look at the groups where the tour appears.
     // only keep the tour if there is no group,
     // or if the tour is the first in the group.
-    def firstLookup(groupColl: Coll) = $lookup.pipelineFull(
+    def firstLookup(groupColl: Coll) = lookup.pipelineFull(
       from = groupColl.name,
       as = "group",
       let = bdoc("tourId" -> "$_id"),
@@ -144,7 +143,7 @@ private object RelayTourRepo:
           )
       )
     )
-    val firstFilter = bdoc("group.0.isFirst".$ne(false))
+    val firstFilter = bdoc("group.0.isFirst".neq(false))
 
     def readFrom(doc: Bdoc): Option[RelayGroup.Name] = for
       garr <- doc.getAsOpt[Barr]("group")
@@ -158,11 +157,11 @@ private object RelayTourRepo:
     yield name
 
   object selectors:
-    val official = bdoc("tier".$exists(true))
-    val nonOfficial = bdoc("tier".$exists(false))
+    val official = bdoc("tier".exists(true))
+    val nonOfficial = bdoc("tier".exists(false))
     object vis:
       val public = bdoc("visibility" -> Visibility.public)
-      val notPublic = bdoc("visibility".$ne(Visibility.public))
+      val notPublic = bdoc("visibility".neq(Visibility.public))
       val `private` = bdoc("visibility" -> Visibility.`private`)
     val officialPublic = official ++ vis.public
     val officialNotPublic = official ++ vis.notPublic
@@ -177,9 +176,9 @@ private object RelayTourRepo:
       val date = java.time.LocalDate.of(at.getYear, at.getMonth, 1)
       bdoc(
         "dates.start" -> bdoc("$lte" -> date.plusMonths(1)),
-        $or( // uses 2 index scans then OR on mongodb 7, or one index scan on mongodb 8. Both are ok with current volume
-          "dates.end".$gte(date),
-          "dates.end".$exists(false)
+        or( // uses 2 index scans then OR on mongodb 7, or one index scan on mongodb 8. Both are ok with current volume
+          "dates.end".gte(date),
+          "dates.end".exists(false)
         )
       )
 

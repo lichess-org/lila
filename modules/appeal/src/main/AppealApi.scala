@@ -21,10 +21,10 @@ final class AppealApi(
     coll.find(bdoc("user" -> u.id, "topic" -> topic)).one[Appeal]
 
   def findAll[U: UserIdOf](u: U): Fu[List[Appeal]] =
-    coll.find(bdoc("user" -> u.id)).sort($sort.desc("updatedAt")).cursor[Appeal]().listAll()
+    coll.find(bdoc("user" -> u.id)).sort(sort.desc("updatedAt")).cursor[Appeal]().listAll()
 
   def byUserIds(userIds: List[UserId]): Fu[List[Appeal]] =
-    coll.find(bdoc("user".$in(userIds))).cursor[Appeal]().listAll()
+    coll.find(bdoc("user".in(userIds))).cursor[Appeal]().listAll()
 
   def exists(user: User) = coll.exists(bid(user.id))
 
@@ -66,7 +66,7 @@ final class AppealApi(
         Match(bdoc("msgs.by" -> mod)) -> List(
           Project(bdoc("msgs" -> 1)),
           Unwind("msgs"),
-          Match(bdoc("msgs.by" -> mod, "msgs.at".$gt(since))),
+          Match(bdoc("msgs.by" -> mod, "msgs.at".gt(since))),
           Sort(Descending("msgs.at")),
           Limit(50)
         )
@@ -81,11 +81,11 @@ final class AppealApi(
     val snoozedIds = snoozer.snoozedKeysOf(me.userId).map(_.appealId)
     val selector =
       bdoc("status" -> Appeal.Status.unread) ++
-        snoozedIds.nonEmpty.so(bdoc("_id".$nin(snoozedIds))) ++
+        snoozedIds.nonEmpty.so(bdoc("_id".nin(snoozedIds))) ++
         topic.so(t => bdoc("topic" -> t))
     coll
       .find(selector)
-      .sort($sort.asc("firstUnrepliedAt"))
+      .sort(sort.asc("firstUnrepliedAt"))
       .cursor[Appeal]()
       .list(nb * 2)
       .map(_.sortBy(a => (!a.participated(me.userId), a.firstUnrepliedAt)))
@@ -124,11 +124,11 @@ final class AppealApi(
       coll.update
         .one(
           bdoc("user" -> user),
-          $set("muted" -> true, "status" -> Appeal.Status.read),
+          set("muted" -> true, "status" -> Appeal.Status.read),
           multi = true
         )
         .void
-    else coll.update.one(bdoc("user" -> user), $unset("muted"), multi = true).void
+    else coll.update.one(bdoc("user" -> user), unset("muted"), multi = true).void
 
   def setReadById(userId: UserId) = for
     appeals <- findAll(userId)
@@ -146,7 +146,7 @@ final class AppealApi(
     snoozer.set(Appeal.SnoozeKey(mod.userId, appealId), duration)
 
   private[appeal] def reopenPausedAppeals(): Funit = for
-    appeals <- coll.list[Appeal]("closedUntil".$lt(nowInstant), 20)
+    appeals <- coll.list[Appeal]("closedUntil".lt(nowInstant), 20)
     _ <- appeals.sequentiallyVoid: appeal =>
       update(appeal.toggleClosed(false))
   yield ()

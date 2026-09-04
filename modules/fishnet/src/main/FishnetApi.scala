@@ -62,10 +62,10 @@ final class FishnetApi(
     workQueue {
       analysisColl
         .find(
-          bdoc("acquired".$exists(false)) ++ {
-            (!client.offline).so(bdoc("lastTryByKey".$ne(client.key))) // client alternation
+          bdoc("acquired".exists(false)) ++ {
+            (!client.offline).so(bdoc("lastTryByKey".neq(client.key))) // client alternation
           } ++ {
-            slow.so(bdoc("origin".$in(Work.Origin.slowOk)))
+            slow.so(bdoc("origin".in(Work.Origin.slowOk)))
           }
         )
         .sort(

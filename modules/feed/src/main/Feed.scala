@@ -56,7 +56,7 @@ final class FeedApi(coll: Coll, cacheApi: CacheApi, flairApi: FlairApi)(using Ex
       _.refreshAfterWrite(1.minute).buildAsyncTimeout(): _ =>
         coll
           .find(emptyBdoc)
-          .sort($sort.desc("at"))
+          .sort(sort.desc("at"))
           .cursor[Update]()
           .list(max.value)
           .addEffect: ups =>
@@ -104,9 +104,9 @@ final class FeedPaginatorBuilder(coll: Coll)(using Executor):
         collection = coll,
         selector =
           if includeAll then emptyBdoc
-          else bdoc("public" -> true, "at".$lt(nowInstant)),
+          else bdoc("public" -> true, "at".lt(nowInstant)),
         projection = none,
-        sort = $sort.desc("at")
+        sort = sort.desc("at")
       ),
       page,
       MaxPerPage(25)

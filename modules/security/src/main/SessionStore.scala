@@ -72,7 +72,7 @@ final class SessionStore(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Exe
         val doc = newDoc ++ bdoc("signup" -> true, "up" -> false)
         coll.insert.one(doc).void
       else
-        val prevSelector = baseDoc ++ bdoc("up" -> false, "signup".$ne(true))
+        val prevSelector = baseDoc ++ bdoc("up" -> false, "signup".neq(true))
         for
           _ <- coll.delete.one(prevSelector)
           doc = newDoc ++ bdoc("up" -> true)
@@ -107,17 +107,17 @@ final class SessionStore(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Exe
       .void
 
   def delete(sessionId: SessionId): Funit =
-    for _ <- coll.update.one(bid(sessionId), $set("up" -> false))
+    for _ <- coll.update.one(bid(sessionId), set("up" -> false))
     yield uncache(sessionId)
 
   def closeUserAndSessionId(userId: UserId, sessionId: SessionId): Funit =
-    for _ <- coll.update.one(bdoc("user" -> userId, "_id" -> sessionId, "up" -> true), $set("up" -> false))
+    for _ <- coll.update.one(bdoc("user" -> userId, "_id" -> sessionId, "up" -> true), set("up" -> false))
     yield uncache(sessionId)
 
   def closeUserExceptSessionId(userId: UserId, sessionId: SessionId): Funit =
     for _ <- coll.update.one(
-        bdoc("user" -> userId, "_id" -> $ne(sessionId), "up" -> true),
-        $set("up" -> false),
+        bdoc("user" -> userId, "_id" -> neq(sessionId), "up" -> true),
+        set("up" -> false),
         multi = true
       )
     yield uncacheAllOf(userId)
@@ -125,7 +125,7 @@ final class SessionStore(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Exe
   def closeAllSessionsOf(userId: UserId): Funit =
     for _ <- coll.update.one(
         bdoc("user" -> userId, "up" -> true),
-        $set("up" -> false),
+        set("up" -> false),
         multi = true
       )
     yield uncacheAllOf(userId)
@@ -164,16 +164,16 @@ final class SessionStore(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Exe
       .find(
         bdoc(
           "user" -> user.id,
-          "date".$gt(nowInstant.minusYears(1))
+          "date".gt(nowInstant.minusYears(1))
         )
       )
-      .sort($sort.desc("date"))
+      .sort(sort.desc("date"))
       .cursor[Info](ReadPref.sec)
       .list(1000)
 
   // remains of never-confirmed accounts that got cleaned up
   private[security] def deletePreviousSessions(user: User) =
-    coll.delete.one(bdoc("user" -> user.id, "date".$lt(user.createdAt))).void
+    coll.delete.one(bdoc("user" -> user.id, "date".lt(user.createdAt))).void
 
   private case class DedupInfo(_id: SessionId, ip: String, ua: String):
     def compositeKey = s"$ip $ua"
@@ -199,7 +199,7 @@ final class SessionStore(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Exe
   def shareAnIpOrFp(users: PairOf[UserId]): Fu[Boolean] =
     coll.aggregateExists(_.sec): framework =>
       import framework.*
-      Match(bdoc("user".$in(users.asList))) -> List(
+      Match(bdoc("user".in(users.asList))) -> List(
         Limit(500),
         Project(
           bdoc(
@@ -212,8 +212,8 @@ final class SessionStore(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Exe
         GroupField("x")("users" -> AddFieldToSet("user")),
         Match(
           bdoc(
-            "_id".$ne(BSONNull),
-            "users.1".$exists(true)
+            "_id".neq(BSONNull),
+            "users.1".exists(true)
           )
         ),
         Limit(1)
@@ -221,12 +221,12 @@ final class SessionStore(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Exe
 
   private[security] def recentByIpExists(ip: IpAddress, since: FiniteDuration): Fu[Boolean] =
     coll.secondary.exists:
-      bdoc("ip" -> ip, "date" -> $gt(nowInstant.minusMinutes(since.toMinutes.toInt)))
+      bdoc("ip" -> ip, "date" -> gt(nowInstant.minusMinutes(since.toMinutes.toInt)))
 
   private[security] def recentByPrintExists(fp: FingerPrint): Fu[Boolean] =
     lila.security.FingerHash.from(fp).so { hash =>
       coll.secondary.exists:
-        bdoc("fp" -> hash, "date" -> $gt(nowInstant.minusDays(7)))
+        bdoc("fp" -> hash, "date" -> gt(nowInstant.minusDays(7)))
     }
 
 object SessionStore:

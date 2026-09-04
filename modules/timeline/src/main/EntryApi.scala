@@ -22,11 +22,11 @@ final class EntryApi(coll: Coll, userMax: Max)(using Executor):
         .find(
           bdoc(
             "users" -> userId,
-            "date".$gt(since.getOrElse(nowInstant.minusWeeks(2)))
+            "date".gt(since.getOrElse(nowInstant.minusWeeks(2)))
           ),
           projection
         )
-        .sort($sort.desc("date"))
+        .sort(sort.desc("date"))
         .cursor[Entry](ReadPref.sec)
         .vector(max.value)
 
@@ -35,7 +35,7 @@ final class EntryApi(coll: Coll, userMax: Max)(using Executor):
       bdoc(
         "users" -> userId,
         "chan" -> channel,
-        "date".$gt(nowInstant.minusDays(7))
+        "date".gt(nowInstant.minusDays(7))
       )
 
   private[timeline] def insert(e: Entry.ForUsers) =
@@ -46,8 +46,8 @@ final class EntryApi(coll: Coll, userMax: Max)(using Executor):
   private[timeline] def removeRecentFollowsBy(userId: UserId): Funit =
     coll.update
       .one(
-        bdoc("typ" -> "follow", "data.u1" -> userId, "date".$gt(nowInstant.minusHours(1))),
-        $set("date" -> nowInstant.minusDays(365)),
+        bdoc("typ" -> "follow", "data.u1" -> userId, "date".gt(nowInstant.minusHours(1))),
+        set("date" -> nowInstant.minusDays(365)),
         multi = true
       )
       .void

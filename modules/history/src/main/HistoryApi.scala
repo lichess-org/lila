@@ -27,7 +27,7 @@ final class HistoryApi(
       coll.update
         .one(
           bid(user.id),
-          $set(s"puzzle.$days" -> perf.intRating),
+          set(s"puzzle.$days" -> perf.intRating),
           upsert = true
         )
         .void
@@ -57,7 +57,7 @@ final class HistoryApi(
       .one(
         bid(user.id),
         bdoc("$set" -> bdoc(changes.map: (perf, rating) =>
-          (s"$perf.$days", $int(rating)))),
+          (s"$perf.$days", bint(rating)))),
         upsert = true
       )
       .void
@@ -68,7 +68,7 @@ final class HistoryApi(
     coll.update
       .one(
         bid(user.id),
-        $set(s"$perf.$days" -> $int(rating))
+        set(s"$perf.$days" -> bint(rating))
       )
       .void
 

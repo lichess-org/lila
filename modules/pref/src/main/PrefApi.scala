@@ -26,8 +26,8 @@ final class PrefApi(
   def saveTag(user: User, tag: Pref.Tag.type => String, value: Boolean) =
     for _ <-
         if value
-        then coll.update.one(bid(user.id), $set(s"tags.${tag(Pref.Tag)}" -> "1"), upsert = true)
-        else coll.update.one(bid(user.id), $unset(s"tags.${tag(Pref.Tag)}"))
+        then coll.update.one(bid(user.id), set(s"tags.${tag(Pref.Tag)}" -> "1"), upsert = true)
+        else coll.update.one(bid(user.id), unset(s"tags.${tag(Pref.Tag)}"))
     yield cache.invalidate(user.id)
 
   def get(user: User): Fu[Pref] = cache.get(user.id).dmap(_ | Pref.create(user))
@@ -96,7 +96,7 @@ final class PrefApi(
   def isolate(user: User) = setPref(user, identity[Pref])
 
   def agree(user: User): Funit =
-    for _ <- coll.update.one(bid(user.id), $set("agreement" -> Pref.Agreement.current), upsert = true)
+    for _ <- coll.update.one(bid(user.id), set("agreement" -> Pref.Agreement.current), upsert = true)
     yield cache.invalidate(user.id)
 
   def setBot(user: User): Funit = setPref(

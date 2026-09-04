@@ -43,7 +43,7 @@ final class TitleApi(
   private val updatedAtField = "history.0.at"
 
   def getCurrent(using me: Me): Fu[Option[TitleRequest]] =
-    coll.find(bdoc("userId" -> me.userId)).sort($sort.desc(updatedAtField)).one[TitleRequest]
+    coll.find(bdoc("userId" -> me.userId)).sort(sort.desc(updatedAtField)).one[TitleRequest]
 
   def getForMe(id: TitleRequestId)(using me: Me): Fu[Option[TitleRequest]] =
     coll
@@ -61,8 +61,8 @@ final class TitleApi(
     ).flatten.map: (k, v) =>
       bdoc(k -> v)
     coll
-      .find($or(search*) ++ bdoc("userId".$ne(req.userId), statusField -> $nin(Status.building)))
-      .sort($sort.desc(updatedAtField))
+      .find(or(search*) ++ bdoc("userId".neq(req.userId), statusField -> nin(Status.building)))
+      .sort(sort.desc(updatedAtField))
       .cursor[TitleRequest]()
       .list(30)
 
@@ -83,7 +83,7 @@ final class TitleApi(
   def queue(nb: Int): Fu[List[TitleRequest]] =
     coll
       .find(bdoc(s"$statusField.n" -> Status.pending.toString))
-      .sort($sort.asc(updatedAtField))
+      .sort(sort.asc(updatedAtField))
       .cursor[TitleRequest]()
       .list(nb)
 
@@ -100,7 +100,7 @@ final class TitleApi(
   def publicUserOf(fideId: FideId): Fu[Option[User]] = for
     ids <- coll.secondary.primitive[UserId](
       bdoc("data.fideId" -> fideId, s"$statusField.n" -> Status.approved.toString, "data.public" -> true),
-      $sort.desc(updatedAtField),
+      sort.desc(updatedAtField),
       "userId"
     )
     users <- userApi.enabledByIds(ids)
@@ -119,7 +119,7 @@ final class TitleApi(
               ),
               bdoc("data.fideId" -> true, "data.public" -> true, "data.realName" -> true).some
             )
-            .sort($sort.desc("createdAt"))
+            .sort(sort.desc("createdAt"))
             .one[Bdoc]
             .dmap: docOpt =>
               for
@@ -175,10 +175,10 @@ $baseUrl/verify-title
     oldPics <- coll
       .find:
         bdoc(
-          updatedAtField -> $lt(nowInstant.minusMonths(1)),
-          $or("idDocument".$exists(true), "selfie".$exists(true))
+          updatedAtField -> lt(nowInstant.minusMonths(1)),
+          or("idDocument".exists(true), "selfie".exists(true))
         )
-      .sort($sort.asc(updatedAtField))
+      .sort(sort.asc(updatedAtField))
       .cursor[TitleRequest]()
       .list(20)
     _ <- oldPics.sequentiallyVoid(image.delete(_, "idDocument"))

@@ -13,7 +13,7 @@ case class SwissBan(_id: UserId, until: Instant, hours: Int)
 final class SwissBanApi(mongo: SwissMongo)(using Executor):
 
   def bannedUntil(user: UserId): Fu[Option[Instant]] =
-    mongo.ban.primitiveOne[Instant](bid(user) ++ bdoc("until".$gt(nowInstant)), "until")
+    mongo.ban.primitiveOne[Instant](bid(user) ++ bdoc("until".gt(nowInstant)), "until")
 
   def get(user: UserId): Fu[Option[SwissBan]] = mongo.ban.byId[SwissBan](user)
 

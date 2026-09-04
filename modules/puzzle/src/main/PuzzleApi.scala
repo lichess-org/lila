@@ -32,7 +32,7 @@ final class PuzzleApi(
             collection = coll,
             selector = bdoc("users" -> user.id),
             projection = none,
-            sort = $sort.desc("glicko.r")
+            sort = sort.desc("glicko.r")
           ),
           page,
           MaxPerPage(30)
@@ -109,14 +109,14 @@ final class PuzzleApi(
             coll.update
               .one(
                 bid(puzzleId),
-                $set(
+                set(
                   F.voteUp -> up.atLeast(0),
                   F.voteDown -> down.atLeast(0),
                   F.vote -> ((up - down).toFloat / (up + down)).atLeast(0).atMost(1)
                 ) ++ {
                   newVote <= -100 &&
                   doc.getAsOpt[Instant](F.day).exists(_.isAfter(nowInstant.minusDays(1)))
-                }.so($unset(F.day))
+                }.so(unset(F.day))
               )
               .void
 
@@ -135,7 +135,7 @@ final class PuzzleApi(
 
     private def updateRoundThemes(puzzle: PuzzleId, themes: List[PuzzleRound.Theme], weight: Option[Int]) =
       import PuzzleRound.BSONFields as F
-      $set(F.themes -> themes, F.puzzle -> puzzle, F.weight -> weight)
+      set(F.themes -> themes, F.puzzle -> puzzle, F.weight -> weight)
 
     def vote(id: PuzzleId, themeStr: String, vote: Option[Boolean])(using
         me: Me
@@ -156,7 +156,7 @@ final class PuzzleApi(
               newThemes <- PuzzleRound.themeVote(puzRound.themes)(theme.key, vote).raiseIfNone(Unchanged)
               update <-
                 if newThemes.isEmpty || !PuzzleRound.themesLookSane(newThemes)
-                then fuccess($unset(F.themes, F.puzzle).some)
+                then fuccess(unset(F.themes, F.puzzle).some)
                 if vote.isEmpty then fuccess(updateRoundThemes(id, newThemes, none).some)
                 else trustApi.theme(me).map2(t => updateRoundThemes(id, newThemes, t.some))
               _ <- update.so(up => colls.round(_.update.one(bid(puzRound.id), up)).void)

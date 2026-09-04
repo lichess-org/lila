@@ -15,7 +15,7 @@ private object BSONHandlers:
   import activities.*
 
   val idSep = ':'
-  def regexId(userId: UserId): Bdoc = "_id".$startsWith(s"$userId$idSep")
+  def regexId(userId: UserId): Bdoc = "_id".regexStart(s"$userId$idSep")
 
   given BSONHandler[Id] = tryHandler(
     { case BSONString(v) =>

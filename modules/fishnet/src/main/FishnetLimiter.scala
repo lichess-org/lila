@@ -30,7 +30,7 @@ final private class FishnetLimiter(
       case Work.Sender(userId, ip, _, _) =>
         analysisColl
           .exists(
-            $or(
+            or(
               bdoc("sender.ip" -> ip),
               bdoc("sender.userId" -> userId)
             )

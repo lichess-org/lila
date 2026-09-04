@@ -43,7 +43,7 @@ final class PuzzleBatch(
                     Unwind("puzzleId"),
                     Sample(nb),
                     PipelineOperator:
-                      $lookup.simple(
+                      lookup.simple(
                         from = colls.puzzle.name,
                         local = "puzzleId",
                         foreign = "_id",

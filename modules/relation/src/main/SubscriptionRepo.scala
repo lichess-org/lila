@@ -17,18 +17,18 @@ final class SubscriptionRepo(colls: Colls, userRepo: lila.core.user.UserRepo)(us
         import framework.*
         Match(bdoc("s" -> streamerId)) -> List(
           PipelineOperator(
-            $lookup.simple(
+            lookup.simple(
               from = userRepo.coll,
               as = "user",
               local = "u",
               foreign = "_id",
               pipe = List(
-                bdoc("$match" -> bdoc("seenAt".$gt(nowInstant.minusDays(daysAgo)))),
+                bdoc("$match" -> bdoc("seenAt".gt(nowInstant.minusDays(daysAgo)))),
                 bdoc("$project" -> bid(true))
               )
             )
           ),
-          Match("user".$ne(barr())),
+          Match("user".neq(barr())),
           Group(BSONNull)(
             "ids" -> PushField("u")
           )

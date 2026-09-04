@@ -26,7 +26,7 @@ final class StreamerPager(
 
   def nextRequestId: Fu[Option[Streamer.Id]] = coll.primitiveOne[Streamer.Id](
     bdoc("approval.requested" -> true, "approval.ignored" -> false),
-    $sort.asc("updatedAt"),
+    sort.asc("updatedAt"),
     "_id"
   )
 
@@ -42,7 +42,7 @@ final class StreamerPager(
             bdoc(
               "approval.granted" -> true,
               "listed" -> Streamer.Listed(true),
-              "_id".$nin(live.streams.map(_.streamer.id))
+              "_id".nin(live.streams.map(_.streamer.id))
             )
           ) -> List(
             Sort(Descending("liveAt")),
@@ -89,7 +89,7 @@ final class StreamerPager(
             user <- doc.getAsOpt[User]("user")
           yield Streamer.WithUser(streamer, user)
 
-  private val userLookup = $lookup.simple(
+  private val userLookup = lookup.simple(
     from = userRepo.coll,
     as = "user",
     local = "_id",

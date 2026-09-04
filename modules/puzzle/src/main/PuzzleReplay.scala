@@ -61,24 +61,24 @@ final class PuzzleReplayApi(
           Match(
             bdoc(
               "u" -> user.id,
-              "d".$gt(nowInstant.minusDays(days.value)),
-              "w".$ne(true)
+              "d".gt(nowInstant.minusDays(days.value)),
+              "w".neq(true)
             )
           ) -> List(
             Sort(Ascending("d")),
             PipelineOperator(
-              $lookup.pipelineFull(
+              lookup.pipelineFull(
                 from = colls.puzzle.name.value,
                 as = "puzzle",
                 let = bdoc("pid" -> bdoc("$arrayElemAt" -> barr(bdoc("$split" -> barr("$_id", ":")), 1))),
                 pipe = List(
                   bdoc(
                     "$match" -> bdoc(
-                      $expr:
+                      expr:
                         if theme == PuzzleTheme.mix.key then bdoc("$eq" -> barr("$_id", "$$pid"))
                         else
                           bdoc:
-                            $and(
+                            and(
                               bdoc("$eq" -> barr("$_id", "$$pid")),
                               bdoc("$in" -> barr(theme, "$themes"))
                             )

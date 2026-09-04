@@ -60,7 +60,7 @@ final class ParallelMongoQueue[A: BSONHandler](
   LilaScheduler(s"ParallelQueue($name).poll", _.Every(1.second), _.AtMost(5.seconds), _.Delay(startAfter)):
 
     def fetchEntriesToProcess: Fu[List[Entry[A]]] =
-      coll.find(emptyBdoc).sort($sort.asc(F.createdAt)).cursor[Entry[A]]().list(parallelism())
+      coll.find(emptyBdoc).sort(sort.asc(F.createdAt)).cursor[Entry[A]]().list(parallelism())
 
     def start(id: A): Funit = coll.updateField(bid(id), F.startedAt, nowInstant).void
 

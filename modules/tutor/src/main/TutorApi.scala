@@ -31,7 +31,7 @@ final class TutorApi(
   )
   def previews(userId: UserId): Fu[List[TutorFullReport.Preview]] = colls.report:
     _.find(bdoc(TutorFullReport.F.user -> userId), previewProjection.some)
-      .sort($sort.desc(TutorFullReport.F.at))
+      .sort(sort.desc(TutorFullReport.F.at))
       .cursor[TutorFullReport.Preview]()
       .list(16)
 

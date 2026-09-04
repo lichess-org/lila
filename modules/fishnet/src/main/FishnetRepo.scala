@@ -25,18 +25,18 @@ final private class FishnetRepo(
       .updateInstance(instance)
       .fold(fuccess(client)): updated =>
         for
-          _ <- clientColl.update.one(bid(client.key), $set("instance" -> updated.instance))
+          _ <- clientColl.update.one(bid(client.key), set("instance" -> updated.instance))
           _ = clientCache.invalidate(client.key)
         yield updated
   def addClient(client: Client) = clientColl.insert.one(client)
   def deleteClient(key: Client.Key) = for _ <- clientColl.delete.one(bid(key))
   yield clientCache.invalidate(key)
   def enableClient(key: Client.Key, v: Boolean): Funit =
-    for _ <- clientColl.update.one(bid(key), $set("enabled" -> v)) yield clientCache.invalidate(key)
+    for _ <- clientColl.update.one(bid(key), set("enabled" -> v)) yield clientCache.invalidate(key)
   def allRecentClients =
     clientColl.list[Client]:
       bdoc:
-        "instance.seenAt".$gt(Client.Instance.recentSince)
+        "instance.seenAt".gt(Client.Instance.recentSince)
 
   def addAnalysis(ana: Work.Analysis) = analysisColl.insert.one(ana).void
   def getAnalysis(id: Work.Id) = analysisColl.byId[Work.Analysis](id)
@@ -50,11 +50,11 @@ final private class FishnetRepo(
 
   object status:
     private def system(v: Boolean) = bdoc("sender.system" -> v)
-    private def acquired(v: Boolean) = bdoc("acquired".$exists(v))
+    private def acquired(v: Boolean) = bdoc("acquired".exists(v))
     private def oldestSeconds(system: Boolean): Fu[Int] =
       analysisColl
         .find(bdoc("sender.system" -> system) ++ acquired(false), bdoc("createdAt" -> true).some)
-        .sort($sort.asc("createdAt"))
+        .sort(sort.asc("createdAt"))
         .one[Bdoc]
         .map(~_.flatMap(_.getAsOpt[Instant]("createdAt").map { date =>
           (nowSeconds - date.toSeconds).toInt.atLeast(0)
@@ -80,9 +80,9 @@ final private class FishnetRepo(
   private[fishnet] def toKey(keyOrUser: String): Fu[Client.Key] =
     clientColl
       .primitiveOne[String](
-        $or(
-          "_id".$eq(keyOrUser),
-          "userId".$eq(UserStr(keyOrUser).id)
+        or(
+          bdoc("_id" -> keyOrUser),
+          bdoc("userId" -> UserStr(keyOrUser).id)
         ),
         "_id"
       )

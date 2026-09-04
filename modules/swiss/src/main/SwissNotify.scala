@@ -14,10 +14,10 @@ final private class SwissNotify(mongo: SwissMongo)(using Executor, Scheduler):
       .find(
         bdoc(
           "featurable" -> true,
-          "settings.i".$lte(600) // hits the partial index
+          "settings.i".lte(600) // hits the partial index
         ) ++ bdoc(
-          "startsAt".$gt(nowInstant.plusMinutes(10)).$lt(nowInstant.plusMinutes(11)),
-          "_id".$nin(doneMemo.keys)
+          "startsAt".gt(nowInstant.plusMinutes(10)).lt(nowInstant.plusMinutes(11)),
+          "_id".nin(doneMemo.keys)
         )
       )
       .cursor[Swiss]()

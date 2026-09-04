@@ -32,8 +32,8 @@ final class ClasApi(
   export filters.{ student as isStudent, teacher as isTeacher }
 
   Bus.sub[lila.core.user.UserDelete]: del =>
-    colls.clas.update.one(bdoc("created.by" -> del.id), $set("created.by" -> UserId.ghost), multi = true)
-    colls.clas.update.one(bdoc("teachers" -> del.id), $pull("teachers" -> del.id), multi = true)
+    colls.clas.update.one(bdoc("created.by" -> del.id), set("created.by" -> UserId.ghost), multi = true)
+    colls.clas.update.one(bdoc("teachers" -> del.id), pull("teachers" -> del.id), multi = true)
     colls.student.delete.one(bdoc("userId" -> del.id))
 
   object clas:
@@ -55,7 +55,7 @@ final class ClasApi(
     private def activeByIds(clasIds: List[ClasId], nb: Int): Fu[List[Clas]] =
       coll
         .find(inIds(clasIds) ++ selectArchived(false))
-        .sort($sort.desc("createdAt"))
+        .sort(sort.desc("createdAt"))
         .cursor[Clas]()
         .list(nb)
 
@@ -88,7 +88,7 @@ final class ClasApi(
       coll
         .findAndUpdateSimplified[Clas](
           selector = bid(id) ++ bdoc("teachers" -> teacher.userId),
-          update = $set("viewedAt" -> nowInstant),
+          update = bset("viewedAt" -> nowInstant),
           fetchNewObject = true
         )
 
@@ -102,7 +102,7 @@ final class ClasApi(
           coll.exists(bid(clasId) ++ bdoc("teachers" -> teacher.id))
 
     private def lookupClasOfTeacher(teacher: UserId) =
-      $lookup.simple(
+      lookup.simple(
         from = colls.clas,
         as = "clasId",
         local = "clasId",
@@ -121,7 +121,7 @@ final class ClasApi(
           Match(bdoc("userId" -> student)) -> List(
             Project(bdoc("clasId" -> true)),
             PipelineOperator(lookupClasOfTeacher(teacher)),
-            Match("clasId".$ne(barr())),
+            Match("clasId".neq(barr())),
             Limit(1),
             Project(bid(true))
           )
@@ -135,10 +135,10 @@ final class ClasApi(
             colls.student
               .aggregateList(128, _.sec): framework =>
                 import framework.*
-                Match("userId".$in(potentialStudents)) -> List(
+                Match("userId".in(potentialStudents)) -> List(
                   Project(bdoc("userId" -> true, "clasId" -> true, "realName" -> true)),
                   PipelineOperator(lookupClasOfTeacher(me.userId)),
-                  Match("clasId".$ne(barr())),
+                  Match("clasId".neq(barr())),
                   GroupField("userId")("realName" -> LastField("realName"))
                 )
               .map:
@@ -170,9 +170,9 @@ final class ClasApi(
       fuccess(isStudent(kid1) && isStudent(kid2)) >>&
         colls.student.aggregateExists(_.sec): framework =>
           import framework.*
-          Match(bdoc("userId".$in(List(kid1.id, kid2.id)))) -> List(
+          Match(bdoc("userId".in(List(kid1.id, kid2.id)))) -> List(
             PipelineOperator(
-              $lookup.simple(
+              lookup.simple(
                 from = colls.clas,
                 as = "clas",
                 local = "clasId",
@@ -201,7 +201,7 @@ final class ClasApi(
     def archiveAllInactive: Funit =
       for
         inactiveClasses <- coll
-          .find(selectArchived(false) ++ "viewedAt".$lte(nowInstant.minusDays(100)))
+          .find(selectArchived(false) ++ "viewedAt".lte(nowInstant.minusDays(100)))
           .cursor[Clas](ReadPref.sec)
           .list(100)
         _ = inactiveClasses.nonEmptyOption.foreach: classes =>
@@ -230,7 +230,7 @@ You can re-open it at ${routeUrl(routes.Clas.show(clas.id))}"""
       of(bdoc("clasId" -> clas.id) ++ selectArchived(false))
 
     def activeUserIdsOf(clas: ClasId): Fu[List[UserId]] =
-      coll.primitive[UserId](bdoc("clasId" -> clas) ++ selectArchived(false), $sort.asc("userId"), "userId")
+      coll.primitive[UserId](bdoc("clasId" -> clas) ++ selectArchived(false), sort.asc("userId"), "userId")
 
     def allWithUsers(clas: Clas, selector: Bdoc = emptyBdoc): Fu[List[Student.WithUser]] =
       colls.student
@@ -238,7 +238,7 @@ You can re-open it at ${routeUrl(routes.Clas.show(clas.id))}"""
           import framework.*
           Match(bdoc("clasId" -> clas.id) ++ selector) -> List(
             PipelineOperator(
-              $lookup.simple(
+              lookup.simple(
                 from = userRepo.coll,
                 as = "user",
                 local = "userId",
@@ -275,7 +275,7 @@ You can re-open it at ${routeUrl(routes.Clas.show(clas.id))}"""
     private def of(selector: Bdoc): Fu[List[Student]] =
       coll
         .find(selector)
-        .sort($sort.asc("userId"))
+        .sort(sort.asc("userId"))
         .cursor[Student]()
         .list(500)
 
@@ -309,7 +309,7 @@ You can re-open it at ${routeUrl(routes.Clas.show(clas.id))}"""
             import framework.*
             Match(bdoc("userId" -> s.user.id, "managed" -> true)) -> List(
               PipelineOperator(
-                $lookup.simple(
+                lookup.simple(
                   from = colls.clas,
                   as = "clas",
                   local = "clasId",
@@ -399,8 +399,8 @@ You can re-open it at ${routeUrl(routes.Clas.show(clas.id))}"""
           .findAndUpdateSimplified[Student](
             selector = bid(sId),
             update =
-              if v then $set("archived" -> Clas.Recorded(me, nowInstant))
-              else $unset("archived"),
+              if v then bset("archived" -> Clas.Recorded(me, nowInstant))
+              else unset("archived"),
             fetchNewObject = true
           )
         _ = teamSync(clas)
@@ -481,13 +481,13 @@ ${clas.desc}""",
       colls.invite
         .findAndUpdateSimplified[ClasInvite](
           selector = bid(id),
-          update = $set("accepted" -> false)
+          update = bset("accepted" -> false)
         )
 
     def listPending(clas: Clas): Fu[List[ClasInvite]] =
       colls.invite
-        .find(bdoc("clasId" -> clas.id, "accepted".$ne(true)))
-        .sort($sort.desc("created.at"))
+        .find(bdoc("clasId" -> clas.id, "accepted".neq(true)))
+        .sort(sort.desc("created.at"))
         .cursor[ClasInvite]()
         .list(100)
 
@@ -499,7 +499,7 @@ ${clas.desc}""",
         colls.invite.delete
           .one(
             bdoc(
-              "userId".$in(userIds),
+              "userId".in(userIds),
               "clasId" -> id
             )
           )

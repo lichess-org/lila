@@ -13,11 +13,11 @@ final private class JsBotRepo(bots: Coll, assets: Coll)(using Executor):
       JSON.jval(r.doc) - "_id" + ("key" -> JsString(r.str("uid").drop(1)))
     def writes(w: BSON.Writer, b: BotJson) = JSON.bdoc(b.value)
 
-  private def $uid(uid: BotUid) = bdoc("uid" -> uid)
+  private def uid(id: BotUid) = bdoc("uid" -> id)
 
   def getVersions(botId: Option[BotUid] = none): Fu[List[BotJson]] =
     bots
-      .find(botId.so(v => $uid(v)))
+      .find(botId.so(uid))
       .sort(bdoc("version" -> -1))
       .cursor[BotJson]()
       .list(Int.MaxValue)
@@ -35,7 +35,7 @@ final private class JsBotRepo(bots: Coll, assets: Coll)(using Executor):
       .list(Int.MaxValue)
 
   private[jsBot] def putBot(bot: BotJson, author: UserId): Fu[BotJson] = for
-    fullBot <- bots.find($uid(bot.uid)).sort(bdoc("version" -> -1)).one[Bdoc]
+    fullBot <- bots.find(uid(bot.uid)).sort(bdoc("version" -> -1)).one[Bdoc]
     nextVersion = fullBot.flatMap(_.int("version")).getOrElse(-1) + 1 // race condition
     newBot = bot.withMeta(BotMeta(bot.uid, author, nextVersion, nowInstant))
     _ <- bots.insert.one(newBot)
