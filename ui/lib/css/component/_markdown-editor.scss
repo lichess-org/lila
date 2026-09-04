@@ -115,8 +115,4 @@
     border-color: rgb(from $c-border r g b / calc(alpha * 0.4));
     color: $c-font;
   }
-
-  .markdown-editor .upload-image:hover:not(.disabled) {
-    background-color: $c-primary;
-  }
 }

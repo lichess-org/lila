@@ -2,6 +2,7 @@
 
 export type Icon =
   | 'accountCircle'
+  | 'addPhotoOutline'
   | 'agent'
   | 'analogTv'
   | 'antichess'
