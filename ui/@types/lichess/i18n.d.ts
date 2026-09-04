@@ -3659,6 +3659,12 @@ interface I18n {
     endgamePositions: string;
     /** Error loading engine */
     engineFailed: string;
+    /** Engine information */
+    engineInformation: string;
+    /** Engine settings */
+    engineSettings: string;
+    /** Engines from strongest to weakest */
+    enginesFromStrongestToWeakest: string;
     /** En passant rights */
     enPassant: string;
     /** This email address is invalid */
@@ -3799,6 +3805,8 @@ interface I18n {
     ifYouDoNotGetTheEmail: string;
     /** If you don't see the email, check other places it might be, like your junk, spam, social, or other folders. */
     ifYouDoNotSeeTheEmailCheckOtherPlaces: string;
+    /** Illegal positions cannot be analyzed */
+    illegalPositions: string;
     /** Image opacity */
     imageOpacity: string;
     /** Important */
