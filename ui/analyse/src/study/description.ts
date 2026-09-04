@@ -45,7 +45,7 @@ export function view(study: StudyCtrl, chapter: boolean): VNode | undefined {
               attrs: { 'aria-label': 'Edit', title: 'Edit' },
               hook: bind('click', () => (desc.edit = true), desc.redraw),
             },
-            [snabIcon('Pencil')],
+            [snabIcon('pencil')],
           ),
         hl(
           'a',
@@ -55,7 +55,7 @@ export function view(study: StudyCtrl, chapter: boolean): VNode | undefined {
               if (await confirm('Delete permanent description?')) desc.save('');
             }),
           },
-          [snabIcon('Trash')],
+          [snabIcon('trash')],
         ),
       ]),
     isEmpty
@@ -78,7 +78,7 @@ const edit = (ctrl: DescriptionCtrl, id: string, chapter: boolean): VNode =>
           attrs: { 'aria-label': 'Save and close', title: 'Save and close' },
           hook: bind('click', () => (ctrl.edit = false), ctrl.redraw),
         },
-        [snabIcon('Checkmark')],
+        [snabIcon('checkmark')],
       ),
     ]),
     hl('form.form3', [

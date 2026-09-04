@@ -139,7 +139,7 @@ export function analysisButton(ctrl: RoundController): LooseVNode {
           href: gameRoute(ctrl.data, ctrl.data.player.color) + '/analysis#' + ctrl.ply,
         },
       },
-      [snabIcon('Microscope'), !!forecastCount && String(forecastCount)],
+      [snabIcon('microscope'), !!forecastCount && String(forecastCount)],
     )
   );
 }
@@ -162,10 +162,10 @@ function renderButtons(ctrl: RoundController) {
   return hl(rbuttonsTag, [
     analysisButton(ctrl) || hl('div.noop'),
     [
-      ['JumpFirst', firstPly],
-      ['JumpPrev', ctrl.ply - 1],
-      ['JumpNext', ctrl.ply + 1],
-      ['JumpLast', lastPly],
+      ['jumpFirst', firstPly],
+      ['jumpPrev', ctrl.ply - 1],
+      ['jumpNext', ctrl.ply + 1],
+      ['jumpLast', lastPly],
     ].map((b: [Icon, number], i) => {
       const enabled = ctrl.ply !== b[1] && b[1] >= firstPly && b[1] <= lastPly;
       return hl(
@@ -198,7 +198,7 @@ function initMessage(ctrl: RoundController) {
     d.game.turns === 0 &&
     !d.player.spectator &&
     hl('div.message', [
-      snabIcon('InfoCircle'),
+      snabIcon('infoCircle'),
       hl('div', [
         i18n.site[d.player.color === 'white' ? 'youPlayTheWhitePieces' : 'youPlayTheBlackPieces'],
         d.player.color === 'white' && [hl('br'), hl('strong', i18n.site.itsYourTurn)],
@@ -260,9 +260,9 @@ export function render(ctrl: RoundController): LooseVNode {
       initMessage(ctrl) ||
         (displayColumns() === 1
           ? hl('div.col1-moves', [
-              col1Button(ctrl, -1, 'JumpPrev', ctrl.ply === util.firstPly(d)),
+              col1Button(ctrl, -1, 'jumpPrev', ctrl.ply === util.firstPly(d)),
               renderMovesOrResult,
-              col1Button(ctrl, 1, 'JumpNext', ctrl.ply === util.lastPly(d)),
+              col1Button(ctrl, 1, 'jumpNext', ctrl.ply === util.lastPly(d)),
             ])
           : renderMovesOrResult),
     ])

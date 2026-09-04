@@ -57,7 +57,7 @@ final class ChallengeUi(helpers: Helpers):
       div(cls := "content")(
         div(
           cls := "variant",
-          iconEl := (if c.initialFen.isDefined then Icon.Feather else c.perfType.icon)
+          iconEl := (if c.initialFen.isDefined then Icon.feather else c.perfType.icon)
         )(
           div(
             variantLink(c.variant, c.perfType, c.initialFen),
@@ -109,7 +109,7 @@ final class ChallengeUi(helpers: Helpers):
 
     val cancelForm =
       postForm(action := routes.Challenge.cancel(c.id), cls := "cancel xhr"):
-        submitButton(cls := "button button-red text", iconEl := Icon.X)(trans.site.cancel())
+        submitButton(cls := "button button-red text", iconEl := Icon.x)(trans.site.cancel())
 
     page(c, json, owner = true):
       val challengeLink = routeUrl(routes.Round.watcher(c.gameId, Color.white))
@@ -126,7 +126,7 @@ final class ChallengeUi(helpers: Helpers):
                   div(cls := "waiting")(
                     userIdLink(destId.some, cssClass = "target".some),
                     if c.clock.isEmpty then
-                      div(cls := "correspondence-waiting text", iconEl := Icon.Checkmark):
+                      div(cls := "correspondence-waiting text", iconEl := Icon.checkmark):
                         "Challenge sent"
                     else spinner,
                     p(trans.site.waitingForOpponent())
@@ -264,7 +264,7 @@ final class ChallengeUi(helpers: Helpers):
                   (c.rated.yes && c.unlimited)
                     .option(badTag(trans.site.bewareTheGameIsRatedButHasNoClock())),
                   postForm(cls := "accept", action := routes.Challenge.accept(c.id, color))(
-                    submitButton(cls := "text button button-fat", iconEl := Icon.PlayTriangle)(
+                    submitButton(cls := "text button button-fat", iconEl := Icon.playTriangle)(
                       trans.site.joinTheGame()
                     )
                   )

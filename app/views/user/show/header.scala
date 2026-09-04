@@ -148,7 +148,7 @@ object header:
               div(cls := "user-infos")(
                 (u.lame && ctx.isnt(u)).option:
                   div(cls := "warning tos_warning")(
-                    span(iconEl := Icon.CautionCircle, cls := "is4"),
+                    span(iconEl := Icon.cautionCircle, cls := "is4"),
                     trans.site.thisAccountViolatedTos()
                   )
                 ,
@@ -224,7 +224,7 @@ object header:
                 )
               ),
               info.insightVisible.option(
-                a(cls := "insight", href := routes.Insight.index(u.username), iconEl := Icon.Target):
+                a(cls := "insight", href := routes.Insight.index(u.username), iconEl := Icon.target):
                   span(
                     strong("Chess Insights"),
                     em("Analytics from ", if ctx.is(u) then "your" else s"${u.username}'s", " games")

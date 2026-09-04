@@ -10,7 +10,7 @@
     padding: 2em;
 
     &::before {
-      @include icon-mask($icon-InfoCircle, 5em);
+      @include icon-mask($icon-infoCircle, 5em);
 
       opacity: 0.5;
       margin-inline: 0 2rem;

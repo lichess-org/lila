@@ -20,7 +20,7 @@ object home:
       )
     val swagLink =
       a(cls := "lobby__support-link", href := "/swag")(
-        iconEl(Icon.Tshirt),
+        iconEl(Icon.tshirt),
         span(cls := "lobby__support-link__text")(
           strong("Swag Store"),
           span(trans.site.playChessInStyle())
@@ -86,7 +86,7 @@ object home:
             classes.nonEmpty.option:
               div(cls := "lobby__classes"):
                 classes.map: clas =>
-                  a(href := routes.Clas.show(clas.id), iconEl := Icon.Group)(clas.name)
+                  a(href := routes.Clas.show(clas.id), iconEl := Icon.group)(clas.name)
             ,
             if ctx.isAuth then
               div(cls := "lobby__timeline")(

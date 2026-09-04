@@ -71,7 +71,7 @@
     color: $c-good;
 
     &::before {
-      @include icon-mask($icon-Checkmark);
+      @include icon-mask($icon-checkmark);
     }
   }
 
@@ -79,7 +79,7 @@
     color: $c-bad;
 
     &::before {
-      @include icon-mask($icon-X);
+      @include icon-mask($icon-x);
     }
   }
 }

@@ -213,7 +213,7 @@ const playerView = (ctrl: RelayPlayers, show: PlayerToShow): VNode => {
                       hl('tr', [
                         hl('th', 'Team'),
                         hl('td.text', [
-                          snabIcon('Group'),
+                          snabIcon('group'),
                           hl('a', matchOrResultsTeamLink(ctrl, p.team), p.team),
                         ]),
                       ]),
@@ -288,7 +288,7 @@ export const renderPlayers = (
   return [
     withRank &&
       hl('p.relay-tour__standings--disclaimer.text', [
-        snabIcon('InfoCircle'),
+        snabIcon('infoCircle'),
         i18n.broadcast.standingsDisclaimer,
       ]),
     hasPlayers
@@ -302,7 +302,7 @@ export const renderPlayers = (
               'thead',
               hl('tr', [
                 hl('th.pin', defaultSort),
-                withRank && hl('th.rank', defaultSort, [snabIcon('Trophy')]),
+                withRank && hl('th.rank', defaultSort, [snabIcon('trophy')]),
                 hl('th.player-name', { attrs: { 'data-sort-reverse': true } }, i18n.site.player),
                 withRating && hl('th', ((!withScores && !withRank) || forceEloSort) && defaultSort, 'Elo'),
                 withScores && hl('th.score', !withRank && !forceEloSort && defaultSort, i18n.broadcast.score),

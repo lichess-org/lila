@@ -24,7 +24,7 @@ final class TournamentUi(helpers: Helpers)(getTourName: GetTourName):
         td(cls := "date")(momentFromNow(t.startsAt)),
         td(cls := "players")(
           span(
-            iconEl(Icon.Trophy)(cls := "text"),
+            iconEl(Icon.trophy)(cls := "text"),
             userIdLink(t.winnerId, withOnline = false)
           ),
           span(trans.site.nbPlayers.plural(t.nbPlayers, t.nbPlayers.localize))
@@ -82,30 +82,30 @@ final class TournamentUi(helpers: Helpers)(getTourName: GetTourName):
           td(tour.durationString),
           tour.conditions.teamMember match
             case Some(t) =>
-              td(iconEl := Icon.Group, cls := "text tour-team-icon", title := t.teamName)(
+              td(iconEl := Icon.group, cls := "text tour-team-icon", title := t.teamName)(
                 visiblePlayers
               )
             case _ if tour.isTeamBattle =>
               td(
-                iconEl := Icon.Group,
+                iconEl := Icon.group,
                 cls := "text tour-team-icon",
                 title := trans.team.teamBattle.txt()
               ):
                 visiblePlayers
-            case None => td(iconEl := Icon.User, cls := "text")(visiblePlayers)
+            case None => td(iconEl := Icon.user, cls := "text")(visiblePlayers)
         )
     )
 
   def tournamentLink(tour: Tournament)(using Translate): Tag =
     a(
-      iconEl := Icon.Trophy,
+      iconEl := Icon.trophy,
       cls := (if tour.isScheduled then "text is-gold" else "text"),
       href := routes.Tournament.show(tour.id).url
     )(tour.name())
 
   def tournamentLink(tourId: TourId)(using Translate, ClientName): Tag =
     a(
-      iconEl := Icon.Trophy,
+      iconEl := Icon.trophy,
       cls := "text",
       href := routes.Tournament.show(tourId).url
     )(tournamentIdToName(tourId))
@@ -138,7 +138,7 @@ final class TournamentUi(helpers: Helpers)(getTourName: GetTourName):
         if t.isEnterable && t.startsAt.isBeforeNow then trans.site.eventInProgress()
         else momentFromNowOnce(t.startsAt)
       ),
-      td(cls := "text", iconEl := Icon.User)(t.nbPlayers.localize)
+      td(cls := "text", iconEl := Icon.user)(t.nbPlayers.localize)
     )
 
   object scheduledTournamentNameShortHtml:
@@ -147,7 +147,7 @@ final class TournamentUi(helpers: Helpers)(getTourName: GetTourName):
       given lila.core.i18n.Translate = transDefault
       List(
         "Lichess " -> "",
-        "Marathon" -> icon(Icon.Globe),
+        "Marathon" -> icon(Icon.globe),
         "HyperBullet" -> s"H${icon(PerfType.Bullet.icon)}",
         "SuperBlitz" -> s"S${icon(PerfType.Blitz.icon)}"
       ) ::: lila.rating.PerfType.leaderboardable
@@ -160,5 +160,5 @@ final class TournamentUi(helpers: Helpers)(getTourName: GetTourName):
         case (n, (from, to)) => n.replace(from, to)
 
   def tournamentIcon(tour: Tournament): Icon =
-    if tour.isMarathon then Icon.Globe
+    if tour.isMarathon then Icon.globe
     else tour.spotlight.flatMap(_.icon) | tour.perfType.icon

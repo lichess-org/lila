@@ -21,7 +21,7 @@ function onMyTurn(fctrl: ForecastCtrl, cNodes: ForecastStep[]): VNode | undefine
       hook: bind('click', () => fctrl.playAndSave(firstNode)),
     },
     [
-      snabIcon('Checkmark'),
+      snabIcon('checkmark'),
       h('span', [
         h('strong', i18n.site.playX(fixCrazySan(cNodes[0].san))),
         lines.length
@@ -72,14 +72,14 @@ export default function (ctrl: AnalyseCtrl, fctrl: ForecastCtrl): VNode {
               ),
             },
             [
-              snabIcon('PlayTriangle'),
+              snabIcon('playTriangle'),
               h(
                 'button.del',
                 {
                   hook: bind('click', _ => fctrl.removeIndex(i), ctrl.redraw),
                   attrs: { 'aria-label': i18n.site.delete, type: 'button' },
                 },
-                [snabIcon('X')],
+                [snabIcon('x')],
               ),
               h('sans', renderNodesHtml(nodes)),
             ],
@@ -93,7 +93,7 @@ export default function (ctrl: AnalyseCtrl, fctrl: ForecastCtrl): VNode {
           hook: bind('click', () => fctrl.addNodes(makeCnodes(ctrl, fctrl)), ctrl.redraw),
         },
         [
-          snabIcon(isCandidate ? 'PlusButton' : 'InfoCircle'),
+          snabIcon(isCandidate ? 'plusButton' : 'infoCircle'),
           isCandidate
             ? h('span', [h('span', i18n.site.addCurrentVariation), h('sans', renderNodesHtml(cNodes))])
             : h('span', i18n.site.playVariationToCreateConditionalPremoves),

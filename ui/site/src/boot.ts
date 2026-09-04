@@ -91,13 +91,13 @@ export function boot() {
       const url = '/tournament/' + data.id;
       $('body').append(
         $('<div id="announce">')
-          .append($('<a class="text">').attr('href', url).append(domIcon('Trophy'), data.name))
+          .append($('<a class="text">').attr('href', url).append(domIcon('trophy'), data.name))
           .append(
             $('<div class="actions">')
               .append(
                 $('<a class="withdraw text">')
                   .attr('href', url + '/withdraw')
-                  .append(domIcon('Pause'), i18n.site.pause)
+                  .append(domIcon('pause'), i18n.site.pause)
                   .on('click', function (this: HTMLAnchorElement) {
                     xhrText(this.href, { method: 'post' });
                     $('#announce').remove();
@@ -105,7 +105,7 @@ export function boot() {
                   }),
               )
               .append(
-                $('<a class="text">').attr('href', url).append(domIcon('PlayTriangle'), i18n.site.resume),
+                $('<a class="text">').attr('href', url).append(domIcon('playTriangle'), i18n.site.resume),
               ),
           ),
       );

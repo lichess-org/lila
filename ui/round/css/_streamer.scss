@@ -1,0 +1,100 @@
+main.round--streamer {
+  @include mq-at-least-col2 {
+    .round__underboard {
+      display: none;
+    }
+
+    .round__app {
+      grid-template-columns: minmax(
+          calc(70vmin * var(---board-scale)),
+          calc(
+            100vh * var(---board-scale) - calc(var(---site-header-height) + var(---site-header-margin)) - 3rem
+          )
+        ) minmax(240px, 400px);
+      grid-template-rows: 30px 1fr auto min-content auto auto min-content auto 1fr 30px;
+      grid-template-areas: 'user-top .' 'board .' 'board mat-top' 'board expi-top' 'board moves' 'board controls' 'board expi-bot' 'board mat-bot' 'board .' 'user-bot .' 'kb-move .';
+
+      &__board {
+        z-index: 2;
+      }
+
+      &__table {
+        grid-area: 4 / 2 / 8 / 3;
+      }
+    }
+
+    .rclock {
+      /* that weird shit is required so the clock goes above the player since they share the same grid cell */
+      justify-self: flex-end;
+      z-index: 1;
+
+      &-top,
+      &-bottom {
+        grid-area: 1 / 1 / 2 / 2;
+      }
+
+      &-bottom {
+        transform: translateY(calc(var(---cg-height) + 30px));
+      }
+
+      .tour-rank,
+      .moretime,
+      .berserked {
+        order: -1;
+      }
+
+      .bar {
+        display: none;
+      }
+
+      .time {
+        font-size: 1.7em !important;
+        line-height: 30px;
+      }
+    }
+
+    .ruser {
+      font-size: 1.4em;
+      padding: 0 0.3em;
+      line-height: 30px;
+
+      a {
+        flex: none;
+      }
+    }
+  }
+
+  @include mq-at-least-col3 {
+    &.playing {
+      height: 100vh;
+      overflow: hidden !important;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Layout to re-align board */
+    .round {
+      --chat-top-margin: calc(30px - 0.5rem);
+
+      grid-template-areas: 'side app app' 'uchat app app';
+      grid-template-rows: calc(var(--chat-top-margin) + var(---cg-height)) 30px;
+      row-gap: 0;
+
+      /* Re-align left sidebar to top of board */
+      &__side {
+        margin-top: var(--chat-top-margin);
+      }
+
+      /* Vertically center list of spectators underneath chat */
+      &__underchat {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+    }
+
+    .chat__members {
+      height: auto !important;
+    }
+  }
+}

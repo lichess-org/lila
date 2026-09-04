@@ -47,7 +47,7 @@ final class TeamShowUi(helpers: Helpers, teamUi: TeamUi, requestUi: TeamRequestU
         val canSeeMembers = canManage || (team.enabled && (team.publicMembers || mine))
         main(cls := "team-show box")(
           boxTop(
-            h1(cls := "text", iconEl := Icon.Group)(team.name, teamFlair(team.light)),
+            h1(cls := "text", iconEl := Icon.group)(team.name, teamFlair(team.light)),
             div:
               if team.disabled then span(cls := "staff")("CLOSED")
               else
@@ -67,7 +67,7 @@ final class TeamShowUi(helpers: Helpers, teamUi: TeamUi, requestUi: TeamRequestU
                   ),
                   ledByMe.option(
                     a(
-                      iconEl := Icon.InfoCircle,
+                      iconEl := Icon.infoCircle,
                       href := routes.Cms.lonePage(lila.core.id.CmsPageKey("team-etiquette")),
                       cls := "text"
                     )("Team Etiquette")
@@ -109,7 +109,7 @@ final class TeamShowUi(helpers: Helpers, teamUi: TeamUi, requestUi: TeamRequestU
                   st.section(cls := "team-show__tour team-events team-tournaments")(
                     h2(
                       a(
-                        iconEl := Icon.Trophy,
+                        iconEl := Icon.trophy,
                         cls := "text",
                         href := routes.Team.tournaments(team.id)
                       )(
@@ -122,7 +122,7 @@ final class TeamShowUi(helpers: Helpers, teamUi: TeamUi, requestUi: TeamRequestU
                 ),
                 st.section(cls := "team-show__forum")(
                   h2(
-                    a(iconEl := Icon.BubbleConvo, cls := "text", href := teamForumUrl(team.id))(
+                    a(iconEl := Icon.bubbleConvo, cls := "text", href := teamForumUrl(team.id))(
                       trans.site.forum()
                     )
                   ),

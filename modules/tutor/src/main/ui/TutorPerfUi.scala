@@ -16,7 +16,7 @@ final class TutorPerfUi(helpers: Helpers, bits: TutorBits):
         div(cls := "tutor-header box")(
           boxTop(
             h1(
-              a(href := full.url.root, iconEl := Icon.LessThan),
+              a(href := full.url.root, iconEl := Icon.lessThan),
               "Tutor",
               bits.perfSelector(full, report.perf, none),
               bits.otherUser(full.user)
@@ -168,12 +168,12 @@ final class TutorPerfUi(helpers: Helpers, bits: TutorBits):
                 div(cls := "tutor__phases__phase__buttons")(
                   a(
                     cls := "button button-no-upper text",
-                    iconEl := Icon.ArcheryTarget,
+                    iconEl := Icon.archeryTarget,
                     href := routes.Puzzle.show(phase.phase.name)
                   )("Train with ", phase.phase.name, " puzzles"),
                   a(
                     cls := "button button-no-upper text",
-                    iconEl := Icon.AnalogTv,
+                    iconEl := Icon.analogTv,
                     href := s"${routes.Video.index}?tags=${phase.phase.name}"
                   )("Watch ", phase.phase.name, " videos")
                 ),
@@ -259,7 +259,7 @@ final class TutorPerfUi(helpers: Helpers, bits: TutorBits):
   ) =
     boxTop:
       h1(
-        a(href := full.url.perf(report.perf), iconEl := Icon.LessThan),
+        a(href := full.url.perf(report.perf), iconEl := Icon.lessThan),
         bits.perfSelector(full, report.perf, angle.some),
         bits.reportSelector(report, angle),
         bits.otherUser(full.user)

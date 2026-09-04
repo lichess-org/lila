@@ -176,7 +176,7 @@ export function view(ctrl: StudyChapterNewForm): VNode {
       activeTab !== 'edit' &&
         hl('h2', [
           i18n.study.newChapter,
-          hl('span.help', { hook: bind('click', ctrl.startTour) }, [snabIcon('InfoCircle')]),
+          hl('span.help', { hook: bind('click', ctrl.startTour) }, [snabIcon('infoCircle')]),
         ]),
       hl(
         'form.form3',
@@ -297,7 +297,7 @@ export function view(ctrl: StudyChapterNewForm): VNode {
                 {
                   hook: bind('click', () => ctrl.tab('edit'), ctrl.root.redraw),
                 },
-                [snabIcon('Eye', '.text'), i18n.study.editor],
+                [snabIcon('eye', '.text'), i18n.study.editor],
               ),
             ]),
           activeTab === 'pgn' &&
@@ -408,7 +408,7 @@ export function view(ctrl: StudyChapterNewForm): VNode {
                       ctrl.redraw();
                     }),
                   },
-                  [snabIcon('DieSix')],
+                  [snabIcon('dieSix')],
                 ),
               ]),
             ]),

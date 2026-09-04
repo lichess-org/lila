@@ -60,7 +60,7 @@ final class GamifyUi(helpers: Helpers)(modMenu: Context ?=> Frag):
         div(id := "mod-gamify", cls := "page-menu__content box")(
           boxTop(
             h1(
-              a(href := routes.Mod.gamify, iconEl := Icon.LessThan),
+              a(href := routes.Mod.gamify, iconEl := Icon.lessThan),
               title
             )
           ),

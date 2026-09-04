@@ -111,12 +111,12 @@ def meta(
       ,
       userTv.map: u =>
         st.section(cls := "game__tv"):
-          h2(cls := "top user-tv text", dataUserTv := u.id, iconEl := Icon.AnalogTv)(u.titleUsername)
+          h2(cls := "top user-tv text", dataUserTv := u.id, iconEl := Icon.analogTv)(u.titleUsername)
       ,
       tour
         .map: t =>
           st.section(cls := "game__tournament")(
-            a(cls := "text", iconEl := Icon.Trophy, href := routes.Tournament.show(t.tour.id)):
+            a(cls := "text", iconEl := Icon.trophy, href := routes.Tournament.show(t.tour.id)):
               t.tour.name()
             ,
             div(cls := "clock", dataTime := t.tour.secondsToFinish)(t.tour.clockStatus)

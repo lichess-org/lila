@@ -142,7 +142,7 @@ object contact:
             ),
             p(
               youCanAlsoReachReportPage(
-                button(cls := "thin button button-empty", iconEl := Icon.CautionTriangle)
+                button(cls := "thin button button-empty", iconEl := Icon.cautionTriangle)
               )
             ),
             p(

@@ -69,7 +69,7 @@ export function view(ctrl: ReturnType<typeof makeCtrl>): VNode {
     easyClose: 'clickOutside',
     vnodes: [
       h('h2', i18n.study.inviteToTheStudy),
-      h('p.info', [snabIcon('InfoCircle'), i18n.study.pleaseOnlyInvitePeopleYouKnow]),
+      h('p.info', [snabIcon('infoCircle'), i18n.study.pleaseOnlyInvitePeopleYouKnow]),
       h('div.input-wrapper', [
         // because typeahead messes up with snabbdom
         h('input', {

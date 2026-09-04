@@ -4,24 +4,24 @@
   gap: 1ch;
 
   &.white::before {
-    @include icon-mask($icon-DiscBig);
+    @include icon-mask($icon-discBig);
   }
 
   &.black::before {
-    @include icon-mask($icon-DiscBigOutline);
+    @include icon-mask($icon-discBigOutline);
   }
 
   @include if-light {
     &.white::before {
-      @include icon-mask($icon-DiscBigOutline);
+      @include icon-mask($icon-discBigOutline);
     }
 
     &.black::before {
-      @include icon-mask($icon-DiscBig);
+      @include icon-mask($icon-discBig);
     }
   }
 
   &.random::before {
-    @include icon-mask($icon-RandomColor);
+    @include icon-mask($icon-randomColor);
   }
 }

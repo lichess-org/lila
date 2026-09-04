@@ -128,7 +128,7 @@ export function side(ctrl: StudyCtrl): VNode {
             },
             [
               h('span.status.' + completion, [
-                snabIcon((loading || active) && completion === 'ongoing' ? 'PlayTriangle' : 'Checkmark'),
+                snabIcon((loading || active) && completion === 'ongoing' ? 'playTriangle' : 'checkmark'),
               ]),
               h('h3', name),
             ],
@@ -138,7 +138,7 @@ export function side(ctrl: StudyCtrl): VNode {
     ),
     h('div.finally', [
       h('a.back', { attrs: { 'aria-label': 'More practice', href: '/practice', title: 'More practice' } }, [
-        snabIcon('LessThan'),
+        snabIcon('lessThan'),
       ]),
       thunk('select.selector', selector, [data]),
     ]),

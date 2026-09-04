@@ -15,7 +15,7 @@
     font-weight: bold;
 
     &.result-empty::before {
-      @include icon-mask($icon-Checkmark, 0.9em);
+      @include icon-mask($icon-checkmark, 0.9em);
     }
 
     &.result-true {
@@ -26,7 +26,7 @@
       background: $c-bad;
 
       &.result-empty::before {
-        @include icon-mask-only($icon-X);
+        @include icon-mask-only($icon-x);
       }
     }
 

@@ -315,7 +315,7 @@ export const patron = (opts: Opts): VNode =>
       ),
     ),
     hl('p', i18n.recap.patronCharity),
-    icon('Wings')('.text'),
+    icon('wings')('.text'),
 
     opts.user.patron
       ? hl('p', i18n.patron.thankYou)

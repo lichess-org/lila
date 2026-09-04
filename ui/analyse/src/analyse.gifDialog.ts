@@ -68,18 +68,18 @@ export function initModule(ctrl: AnalyseCtrl): void {
         <strong style="font-size:1.5em">${i18n.site.gameAsGIF}</strong>
         <div class="gif-options">
           <button class="button button-empty text gif-flip">
-            ${htmlIcon('ChasingArrows')}
+            ${htmlIcon('chasingArrows')}
             ${i18n.site[gifOrientation]}
           </button>
           ${Object.keys(gifPrefs).map(makeToggle).join('')}
         </div>
         <div class="gif-actions">
           <button class="button button-metal text gif-copy">
-            ${htmlIcon('Clipboard')}
+            ${htmlIcon('clipboard')}
             ${i18n.site.copyToClipboard}
           </button>
           <a class="button button-green text gif-download" href="${buildGifUrl()}" target="_blank">
-            ${htmlIcon('Download')}
+            ${htmlIcon('download')}
             ${i18n.site.download}
           </a>
         </div>
@@ -91,7 +91,7 @@ export function initModule(ctrl: AnalyseCtrl): void {
           gifOrientation = opposite(gifOrientation);
           dlg.view
             .querySelector('.gif-flip')!
-            .replaceChildren(domIcon('ChasingArrows'), i18n.site[gifOrientation]);
+            .replaceChildren(domIcon('chasingArrows'), i18n.site[gifOrientation]);
           updateUrl(dlg);
         },
       },
@@ -101,10 +101,10 @@ export function initModule(ctrl: AnalyseCtrl): void {
           const url = dlg.view.querySelector<HTMLAnchorElement>('.gif-download')!.href;
           navigator.clipboard.writeText(url).then(() => {
             const btn = dlg.view.querySelector<HTMLButtonElement>('.gif-copy')!;
-            btn.querySelector(':scope > .svg-icon')?.replaceWith(domIcon('Checkmark'));
+            btn.querySelector(':scope > .svg-icon')?.replaceWith(domIcon('checkmark'));
             btn.classList.remove('button-metal');
             setTimeout(() => {
-              btn.querySelector(':scope > .svg-icon')?.replaceWith(domIcon('Clipboard'));
+              btn.querySelector(':scope > .svg-icon')?.replaceWith(domIcon('clipboard'));
               btn.classList.add('button-metal');
             }, 1000);
           });

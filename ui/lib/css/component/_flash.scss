@@ -6,7 +6,7 @@
   background: $c-good;
 
   &::before {
-    @include icon-mask($icon-Checkmark, 1.5em);
+    @include icon-mask($icon-checkmark, 1.5em);
 
     margin-inline: 0 2rem;
   }
@@ -27,7 +27,7 @@
     color: $c-over;
 
     &::before {
-      @include icon-mask($icon-InfoCircle);
+      @include icon-mask($icon-infoCircle);
     }
   }
 
@@ -36,7 +36,7 @@
     color: $c-over;
 
     &::before {
-      @include icon-mask($icon-CautionCircle);
+      @include icon-mask($icon-cautionCircle);
     }
   }
 

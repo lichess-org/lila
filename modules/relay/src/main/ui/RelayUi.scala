@@ -18,7 +18,7 @@ final class RelayUi(helpers: Helpers)(
 ):
   import helpers.{ *, given }
 
-  def broadcastH1 = h1(iconEl := Icon.RadioTower, cls := "text")
+  def broadcastH1 = h1(iconEl := Icon.radioTower, cls := "text")
 
   def show(
       rt: WithTourAndStudy,
@@ -98,7 +98,7 @@ final class RelayUi(helpers: Helpers)(
           heightA := size(RelayTour.thumbnail).height,
           src := url(id, size)
         )
-    def fallback = iconTag(cls := "relay-image--fallback")(iconEl(Icon.RadioTower))
+    def fallback = iconTag(cls := "relay-image--fallback")(iconEl(Icon.radioTower))
     def url(id: ImageId, size: RelayTour.thumbnail.SizeSelector) =
       RelayTour.thumbnail(picfitUrl, id, size)
 
@@ -113,7 +113,7 @@ final class RelayUi(helpers: Helpers)(
       href := tr.path,
       cls := s"tour-spotlight event-spotlight relay-spotlight id_${tr.tour.id}"
     )(
-      iconEl(Icon.RadioTower)(cls := "img"),
+      iconEl(Icon.radioTower)(cls := "img"),
       span(cls := "content")(
         span(cls := "name")(tr.tour.spotlight.flatMap(_.title) | tr.tour.name.value),
         span(cls := "more")(
@@ -127,6 +127,6 @@ final class RelayUi(helpers: Helpers)(
     )
 
   def howToUse(using Translate) =
-    a(iconEl := Icon.InfoCircle, cls := "text", href := routes.RelayTour.help)(
+    a(iconEl := Icon.infoCircle, cls := "text", href := routes.RelayTour.help)(
       trans.broadcast.howToUseLichessBroadcasts()
     )

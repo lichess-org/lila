@@ -52,8 +52,7 @@ object navTree:
       .map(p =>
         a(
           makeLink(p.id),
-          cls := List("back text" -> true, "no-mirror" -> forceLtr),
-          iconEl := Icon.LessThan,
+          cls := List("back svg-icon icon-less-than" -> true, "no-mirror" -> forceLtr),
           title := "Go back"
         )
       )

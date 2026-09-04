@@ -9,7 +9,7 @@
     cursor: pointer;
 
     &::before {
-      @include icon-mask($icon-UpTriangle);
+      @include icon-mask($icon-upTriangle);
     }
 
     &:hover {
@@ -19,7 +19,7 @@
 
   &.collapsed {
     .disclosure::before {
-      @include icon-mask($icon-DownTriangle);
+      @include icon-mask($icon-downTriangle);
     }
 
     .tour__meta > * {

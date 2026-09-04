@@ -139,7 +139,7 @@
     @include transition(color);
 
     color: color-mix(in oklab, $c-font 85%, $c-dimmer);
-    margin-left: 0.5rem;
+    margin-inline-start: 0.5rem;
   }
 
   &:hover .svg-icon {

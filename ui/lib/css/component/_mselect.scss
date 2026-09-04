@@ -19,7 +19,7 @@ $c-mselect: $c-primary;
     cursor: pointer;
 
     &::after {
-      @include icon-mask($icon-MoreTriangle, 0.7rem);
+      @include icon-mask($icon-moreTriangle, 0.7rem);
 
       color: $c-mselect;
       margin-inline: 0.4em 0;

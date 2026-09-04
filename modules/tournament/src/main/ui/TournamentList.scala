@@ -83,7 +83,7 @@ final class TournamentList(helpers: Helpers, ui: TournamentUi)(
                   a(
                     href := routes.Tournament.form,
                     cls := "button button-green text",
-                    iconEl := Icon.PlusButton
+                    iconEl := Icon.plusButton
                   )(trans.site.createANewTournament())
                 )
               )
@@ -152,8 +152,8 @@ final class TournamentList(helpers: Helpers, ui: TournamentUi)(
                 img(cls := "img", src := assetUrl(s"images/$i"))
               }
               .getOrElse {
-                spot.icon.fold[Frag](iconEl(Icon.Trophy)(cls := "img")) {
-                  case Icon.Globe => img(cls := "img icon", src := assetUrl(s"images/globe.svg"))
+                spot.icon.fold[Frag](iconEl(Icon.trophy)(cls := "img")) {
+                  case Icon.globe => img(cls := "img icon", src := assetUrl(s"images/globe.svg"))
                   case i => iconEl(i)(cls := "img")
                 }
               },
@@ -181,7 +181,7 @@ final class TournamentList(helpers: Helpers, ui: TournamentUi)(
             span(cls := "name")(
               tour.name(),
               tour.isTeamRelated.option(
-                iconEl(Icon.Group)(
+                iconEl(Icon.group)(
                   cls := "tour-team-icon",
                   title := tour.conditions.teamMember.fold(trans.team.teamBattle.txt())(_.teamName)
                 )
@@ -238,7 +238,7 @@ final class TournamentList(helpers: Helpers, ui: TournamentUi)(
 
     def apply(winners: AllWinners)(using Context) =
       def eliteWinners = section(
-        h2(cls := "text", iconEl := Icon.CrownElite)("Elite Arena"),
+        h2(cls := "text", iconEl := Icon.crownElite)("Elite Arena"),
         ul(
           winners.elite.map: w =>
             li(
@@ -248,7 +248,7 @@ final class TournamentList(helpers: Helpers, ui: TournamentUi)(
         )
       )
       def marathonWinners = section(
-        h2(cls := "text", iconEl := Icon.Globe)("Marathon"),
+        h2(cls := "text", iconEl := Icon.globe)("Marathon"),
         ul(
           winners.marathon.map { w =>
             li(
@@ -320,13 +320,13 @@ final class TournamentList(helpers: Helpers, ui: TournamentUi)(
 
     def byCateg(categ: TournamentShield.Category, awards: List[TournamentShield.Award])(using Context) =
       Page("Tournament shields")
-        .css("tournament.leaderboard", "slist"):
+        .css("tournament.leaderboard"):
           main(cls := "page-menu page-small tournament-categ-shields")(
             shieldMenu,
             div(cls := "page-menu__content box")(
               boxTop(
                 h1(
-                  a(href := routes.Tournament.shields, iconEl := Icon.LessThan, cls := "text"),
+                  a(href := routes.Tournament.shields, iconEl := Icon.lessThan, cls := "text"),
                   frag(categ.name, " • ", trans.arena.tournamentShields())
                 )
               ),

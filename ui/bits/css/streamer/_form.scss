@@ -85,7 +85,7 @@
   text-indent: -2.2em;
 
   &::before {
-    @include icon-mask($icon-Checkmark, 1.5em);
+    @include icon-mask($icon-checkmark, 1.5em);
 
     margin-inline-end: 0.5em;
     vertical-align: middle;

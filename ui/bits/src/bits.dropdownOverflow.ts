@@ -127,7 +127,7 @@ function renderMenu(container: HTMLElement): void {
       menuContainer.classList.remove('btn-rack');
       dropdownDiv.classList.remove('btn-rack__btn');
       moreButton.textContent = '';
-      moreButton.append(domIcon('Hamburger'));
+      moreButton.append(domIcon('hamburger'));
     }
 
     const dropdownWindow = document.createElement('div');

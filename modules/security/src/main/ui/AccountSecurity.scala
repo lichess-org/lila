@@ -61,7 +61,7 @@ final class AccountSecurity(helpers: Helpers)(
           td(cls := "icon")(
             span(
               cls := curSessionId.map { cur => s"is-${if cur == s.session.id then "gold" else "green"}" },
-              iconEl := (if s.session.isMobile then Icon.PhoneMobile else Icon.ScreenDesktop)
+              iconEl := (if s.session.isMobile then Icon.phoneMobile else Icon.screenDesktop)
             )
           ),
           td(cls := "info")(
@@ -83,7 +83,7 @@ final class AccountSecurity(helpers: Helpers)(
                   submitButton(
                     cls := "button button-red",
                     title := trans.site.logOut.txt(),
-                    iconEl := Icon.X
+                    iconEl := Icon.x
                   )
                 )
               )
@@ -93,7 +93,7 @@ final class AccountSecurity(helpers: Helpers)(
       },
       clients.map { client =>
         tr(
-          td(cls := "icon")(span(cls := "is-green", iconEl := Icon.ThreeCheckStack)),
+          td(cls := "icon")(span(cls := "is-green", iconEl := Icon.threeCheckStack)),
           td(cls := "info")(
             strong(client.origin),
             p(cls := "ua")(
@@ -114,14 +114,14 @@ final class AccountSecurity(helpers: Helpers)(
           td(
             postForm(action := routes.OAuth.revokeClient)(
               form3.hidden("origin", client.origin),
-              submitButton(cls := "button button-red", title := "Revoke", iconEl := Icon.X)
+              submitButton(cls := "button button-red", title := "Revoke", iconEl := Icon.x)
             )
           )
         )
       },
       (personalAccessTokens > 0).option(
         tr(
-          td(cls := "icon")(span(cls := "is-green", iconEl := Icon.Tools)),
+          td(cls := "icon")(span(cls := "is-green", iconEl := Icon.tools)),
           td(cls := "info")(
             strong("Personal access tokens"),
             " can be used to access your account. Revoke any that you do not recognize."
@@ -131,7 +131,7 @@ final class AccountSecurity(helpers: Helpers)(
               href := routes.OAuthToken.index,
               cls := "button",
               title := trans.oauthScope.apiAccessTokens.txt(),
-              iconEl := Icon.Gear
+              iconEl := Icon.gear
             )
           )
         )

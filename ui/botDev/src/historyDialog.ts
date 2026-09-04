@@ -40,7 +40,7 @@ class HistoryDialog {
           <button class="button button-empty button-dim" data-action="copy" title="Copy JSON" aria-label="Copy JSON"></button>
         </div>
       </div>`);
-    this.view.querySelector('[data-action="copy"]')?.append(domIcon('Clipboard'));
+    this.view.querySelector('[data-action="copy"]')?.append(domIcon('clipboard'));
     await this.updateHistory();
     this.dlg = await domDialog({
       insert: [{ nodes: this.view }],
@@ -81,7 +81,7 @@ class HistoryDialog {
       );
       const versionStr = typeof version === 'number' ? `#${version}` : version;
       const span = frag(`<span class="author">${bot.author}</span>`);
-      if (isLive) span.appendChild(domIcon('Checkmark', 'live'));
+      if (isLive) span.appendChild(domIcon('checkmark', 'live'));
       div.append(frag(`<span class="version-number">${versionStr}</span>`), span);
       versionsEl.append(div);
     }
@@ -120,7 +120,7 @@ class HistoryDialog {
   copy = async () => {
     await navigator.clipboard.writeText(stringify(this.selected!));
     const copied = frag<HTMLElement>('<div class="good"> COPIED</div>');
-    copied.prepend(domIcon('Checkmark'));
+    copied.prepend(domIcon('checkmark'));
     this.view.querySelector('[data-action="copy"]')?.before(copied);
     setTimeout(() => copied.remove(), 2000);
   };
