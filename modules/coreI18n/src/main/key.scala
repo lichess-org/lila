@@ -1600,6 +1600,8 @@ object I18nKey:
 
   object search:
     val `search`: I18nKey = "search:search"
+    val `searchForOpenings`: I18nKey = "searchForOpenings"
+    val `searchForPlayers`: I18nKey = "searchForPlayers"
     val `advancedSearch`: I18nKey = "search:advancedSearch"
     val `opponentName`: I18nKey = "search:opponentName"
     val `loser`: I18nKey = "search:loser"
@@ -2573,6 +2575,11 @@ object I18nKey:
     val `andSaveNbPremoveLines`: I18nKey = "andSaveNbPremoveLines"
     val `screenshot`: I18nKey = "screenshot"
     val `showAll`: I18nKey = "showAll"
+    val `chessOpenings`: I18nKey = "chessOpenings"
+    val `nameTree`: I18nKey = "nameTree"
+    val `chessOpeningsNameTree`: I18nKey = "chessOpeningsNameTree"
+    val `openingPages`: I18nKey = "openingPages"
+    val `explorer`: I18nKey = "explorer"
 
   object storm:
     val `moveToStart`: I18nKey = "storm:moveToStart"

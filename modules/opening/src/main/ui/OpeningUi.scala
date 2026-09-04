@@ -16,7 +16,7 @@ final class OpeningUi(helpers: Helpers, bits: OpeningBits, wiki: WikiUi):
         OpenGraph(
           `type` = "article",
           image = fenThumbnailUrl(page.query.fen).some,
-          title = "Chess openings",
+          title = trans.site.chessOpenings(),
           url = routeUrl(routes.Opening.index()),
           description = "Explore the chess openings"
         )
@@ -25,10 +25,10 @@ final class OpeningUi(helpers: Helpers, bits: OpeningBits, wiki: WikiUi):
           searchAndConfig(page.query.config, "", ""),
           resultsList(Nil),
           boxTop(
-            h1("Chess openings"),
+            h1(trans.site.chessOpenings()),
             div(cls := "box__top__actions")(
-              a(href := routes.Opening.tree)("Name tree"),
-              a(href := s"${routes.UserAnalysis.index}#explorer")("Explorer")
+              a(href := routes.Opening.tree)(trans.site.nameTree()),
+              a(href := s"${routes.UserAnalysis.index}#explorer")(trans.site.explorer())
             )
           ),
           whatsNext(page),
@@ -41,10 +41,10 @@ final class OpeningUi(helpers: Helpers, bits: OpeningBits, wiki: WikiUi):
         searchAndConfig(config, "", "tree"),
         resultsList(Nil),
         boxTop(
-          h1("Chess openings name tree"),
+          h1(trans.site.chessOpeningsNameTree()),
           div(cls := "box__top__actions")(
-            a(href := routes.Opening.index())("Opening pages"),
-            a(href := s"${routes.UserAnalysis.index}#explorer")("Explorer")
+            a(href := routes.Opening.index())(trans.site.openingPages()),
+            a(href := s"${routes.UserAnalysis.index}#explorer")(trans.site.explorer())
           )
         ),
         div(cls := "opening__tree")(
@@ -142,7 +142,7 @@ final class OpeningUi(helpers: Helpers, bits: OpeningBits, wiki: WikiUi):
     openingPage(s"${trans.site.opening.txt()} • $q", none):
       main(cls := "page box box-pad opening opening--search")(
         searchAndConfig(config, q, s"q:$q", searchFocus = true),
-        h1(cls := "box__top")("Chess openings"),
+        h1(cls := "box__top")(trans.site.chessOpenings()),
         resultsList(results)
       )
 
@@ -151,7 +151,7 @@ final class OpeningUi(helpers: Helpers, bits: OpeningBits, wiki: WikiUi):
       input(
         cls := "opening__search-form__input",
         name := "q",
-        st.placeholder := "Search for openings",
+        st.placeholder := trans.search.searchForOpenings.txt(),
         st.value := q,
         autofocus := focus.option("true"),
         autocomplete := "off",

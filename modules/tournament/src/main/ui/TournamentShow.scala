@@ -280,15 +280,15 @@ final class TournamentShow(helpers: Helpers, gathering: GatheringUi)(
           ),
           tbody(
             tr(
-              td(trans.site.standard(), ", Chess960, Horde"),
+              td(f"{trans.site.standard()}, {trans.variant.chess960()}, {trans.variant.horde()}"),
               td(30)
             ),
             tr(
-              td("Antichess, Crazyhouse, King of the Hill"),
+              td(f"{trans.variant.antichess()}, {trans.variant.crazyhouse()}, {trans.variant.kingOfTheHill()}"),
               td(20)
             ),
             tr(
-              td("Three check, Atomic, Racing Kings"),
+              td(f"{trans.variant.threeChecks()}, {trans.variant.atomic()}, {trans.variant.racingKings()}"),
               td(10)
             )
           )

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
   <string name="search">Search</string>
+  <string name="searchForOpenings">Search for openings</string>
+  <string name="searchForPlayers">Search for players</string>
   <string name="advancedSearch">Advanced search</string>
   <plurals name="searchInXGames">
     <item quantity="one">Search in %s chess game</item>

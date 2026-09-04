@@ -59,7 +59,7 @@ final class FidePlayerUi(helpers: Helpers, fideUi: FideUi, picfitUrl: lila.memo.
       input(
         cls := "fide-players__search-form__input",
         name := "q",
-        st.placeholder := "Search for players",
+        st.placeholder := trans.search.searchForPlayers.txt(),
         st.value := q,
         autofocus := true,
         autocomplete := "off",

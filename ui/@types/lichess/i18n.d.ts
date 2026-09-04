@@ -3151,6 +3151,10 @@ interface I18n {
     result: string;
     /** Search */
     search: string;
+    /** Search for openings */
+    searchForOpenings: string;
+    /** Search for players */
+    searchForPlayers: string;
     /** Search in %s chess games */
     searchInXGames: I18nPlural;
     /** Sort by */
@@ -3431,6 +3435,10 @@ interface I18n {
     chess960StartPosition: I18nFormat;
     /** Chess basics */
     chessBasics: string;
+    /** Chess openings */
+    chessOpenings: string;
+    /** Chess openings name tree */
+    chessOpeningsNameTree: string;
     /** Claim a draw */
     claimADraw: string;
     /** Classical */
@@ -3703,6 +3711,8 @@ interface I18n {
     everybodyGetsAllFeaturesForFree: string;
     /** Expand variations */
     expandVariations: string;
+    /** Explorer */
+    explorer: string;
     /** Export games */
     exportGames: string;
     /** Extra clock time for the host: */
@@ -4053,6 +4063,8 @@ interface I18n {
     mustBeInTeam: I18nFormat;
     /** Name */
     name: string;
+    /** Name tree */
+    nameTree: string;
     /** Navigate the move tree */
     navigateMoveTree: string;
     /** Anonymous (%s) */
@@ -4221,6 +4233,8 @@ interface I18n {
     openingExplorer: string;
     /** Opening explorer & tablebase */
     openingExplorerAndTablebase: string;
+    /** Opening pages */
+    openingPages: string;
     /** Openings */
     openings: string;
     /** Open tournaments */
