@@ -229,6 +229,8 @@ interface I18n {
     rankAvgHelp: string;
     /** Last played */
     recentlyPlayed: string;
+    /** See more tournaments on the calendar */
+    seeMoreTournaments: string;
     /** Share this URL to let people join: %s */
     shareUrl: I18nFormat;
     /** Some tournaments are rated and will affect your rating. */
@@ -4483,6 +4485,8 @@ interface I18n {
     safeTournamentName: string;
     /** Save */
     save: string;
+    /** Screenshot */
+    screenshot: string;
     /** Screenshot current position */
     screenshotCurrentPosition: string;
     /** Scroll over computer variations to preview them. */
@@ -4499,8 +4503,6 @@ interface I18n {
     security: string;
     /** See best move */
     seeBestMove: string;
-    /** See more tournaments on the calendar */
-    seeMoreTournaments: string;
     /** Send */
     send: string;
     /** If you can't find your confirmation email, send an email to %s and we'll confirm your account for you. */

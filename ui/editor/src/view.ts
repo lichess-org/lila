@@ -396,7 +396,7 @@ function inputs(ctrl: EditorCtrl, fen: FEN): MaybeVNode {
       {
         download: true,
       },
-      'SCREENSHOT',
+      i18n.site.screenshot.toUpperCase(),
     ),
   ]);
 }
