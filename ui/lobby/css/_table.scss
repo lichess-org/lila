@@ -34,19 +34,19 @@
       }
 
       &--hook.button::before {
-        @include icon-mask($icon-group, 32px);
+        @include icon-mask($icon-group, 28px);
       }
 
       &--friend.button::before {
-        @include icon-mask($icon-user, 32px);
+        @include icon-mask($icon-user, 28px);
       }
 
       &--ai.button::before {
-        @include icon-mask($icon-cpu, 32px);
+        @include icon-mask($icon-cpu, 28px);
       }
 
       &--friend-user.button::before {
-        @include icon-mask($icon-swords, 32px);
+        @include icon-mask($icon-swords, 28px);
       }
 
       @media (hover: hover) {
