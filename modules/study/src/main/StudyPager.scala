@@ -55,7 +55,7 @@ final class StudyPager(
     val showFeatured = (order == StudyOrder.hot || order == StudyOrder.popular) && page == 1
     val featuredIds = showFeatured.so(featured.setting.get())
     paginator(
-      accessSelect() ++ featuredIds.nonEmptyOption.so(ids => $doc("_id".$nin(ids))),
+      accessSelect() ++ featuredIds.nonEmptyOption.so(ids => bdoc("_id".$nin(ids))),
       order,
       page,
       fuccess(9999).some
@@ -97,14 +97,14 @@ final class StudyPager(
 
   def mineMember(order: StudyOrder, page: Int)(using me: Me)(using StudyFormat) =
     paginator(
-      selectMemberId(me) ++ $doc("ownerId".$ne(me.userId)),
+      selectMemberId(me) ++ bdoc("ownerId".$ne(me.userId)),
       order,
       page
     )
 
   def mineLikes(order: StudyOrder, page: Int)(using me: Me)(using StudyFormat) =
     paginator(
-      selectLiker(me) ++ accessSelect(unlisted = true, trash = true) ++ $doc("ownerId".$ne(me.userId)),
+      selectLiker(me) ++ accessSelect(unlisted = true, trash = true) ++ bdoc("ownerId".$ne(me.userId)),
       order,
       page
     )
@@ -115,7 +115,7 @@ final class StudyPager(
       selectTopic(topic) ++ onlyMine.fold(accessSelect())(selectMemberId(_)),
       order,
       page,
-      hint = onlyMine.isDefined.option($doc("uids" -> 1, "rank" -> -1))
+      hint = onlyMine.isDefined.option(bdoc("uids" -> 1, "rank" -> -1))
     )
 
   private def accessSelect(unlisted: Boolean = false, trash: Boolean = false)(using
@@ -136,7 +136,7 @@ final class StudyPager(
     studyRepo.coll: coll =>
       val adapter = Adapter[Study](
         collection = coll,
-        selector = selector ++ selector.contains("topics").not.so($doc("topics".$ne("Broadcast"))),
+        selector = selector ++ selector.contains("topics").not.so(bdoc("topics".$ne("Broadcast"))),
         projection = studyRepo.projection.some,
         sort = order match
           case StudyOrder.hot => $sort.desc("rank")

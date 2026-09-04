@@ -30,7 +30,7 @@ final private[simul] class SimulRepo(val coll: Coll, gameRepo: GameRepo)(using E
         hostColor = r.strO("hostColor").flatMap(Color.fromName) | chess.White
       )
     def writes(w: BSON.Writer, o: SimulPairing) =
-      $doc(
+      bdoc(
         "player" -> o.player,
         "gameId" -> o.gameId,
         "status" -> o.status,
@@ -42,9 +42,9 @@ final private[simul] class SimulRepo(val coll: Coll, gameRepo: GameRepo)(using E
 
   private given BSONDocumentHandler[Simul] = Macros.handler
 
-  private val createdSelect = $doc("status" -> SimulStatus.Created.id)
-  private val startedSelect = $doc("status" -> SimulStatus.Started.id)
-  private val finishedSelect = $doc("status" -> SimulStatus.Finished.id)
+  private val createdSelect = bdoc("status" -> SimulStatus.Created.id)
+  private val startedSelect = bdoc("status" -> SimulStatus.Started.id)
+  private val finishedSelect = bdoc("status" -> SimulStatus.Finished.id)
   private val createdSort = $sort.desc("createdAt")
 
   def find(id: SimulId): Fu[Option[Simul]] =
@@ -54,7 +54,7 @@ final private[simul] class SimulRepo(val coll: Coll, gameRepo: GameRepo)(using E
     coll.byIds[Simul, SimulId](ids)
 
   def exists(id: SimulId): Fu[Boolean] =
-    coll.exists($id(id))
+    coll.exists(bid(id))
 
   def findStarted(id: SimulId): Fu[Option[Simul]] =
     find(id).map(_.filter(_.isStarted))
@@ -63,35 +63,35 @@ final private[simul] class SimulRepo(val coll: Coll, gameRepo: GameRepo)(using E
     find(id).map(_.filter(_.isCreated))
 
   def findPending(hostId: UserId): Fu[List[Simul]] =
-    coll.list[Simul](createdSelect ++ $doc("hostId" -> hostId))
+    coll.list[Simul](createdSelect ++ bdoc("hostId" -> hostId))
 
   def byHostAdapter(hostId: UserId) =
     lila.db.paginator.Adapter[Simul](
       collection = coll,
-      selector = finishedSelect ++ $doc("hostId" -> hostId),
+      selector = finishedSelect ++ bdoc("hostId" -> hostId),
       projection = none,
       sort = createdSort,
       _.sec
     )
 
   def hostId(id: SimulId): Fu[Option[UserId]] =
-    coll.primitiveOne[UserId]($id(id), "hostId")
+    coll.primitiveOne[UserId](bid(id), "hostId")
 
-  def countByHost(hostId: UserId) = coll.secondary.countSel($doc("hostId" -> hostId))
+  def countByHost(hostId: UserId) = coll.secondary.countSel(bdoc("hostId" -> hostId))
 
-  private val featurableSelect = $doc("featurable" -> true)
+  private val featurableSelect = bdoc("featurable" -> true)
 
   def allCreatedFeaturable: Fu[List[Simul]] =
     coll
       .find(
         // hits partial index hostSeenAt_-1
-        createdSelect ++ featurableSelect ++ $doc(
+        createdSelect ++ featurableSelect ++ bdoc(
           "hostSeenAt".$gte(nowInstant.minusSeconds(12)),
           "createdAt".$gte(nowInstant.minusHours(1))
         )
       )
       .sort(createdSort)
-      .hint(coll.hint($doc("hostSeenAt" -> -1)))
+      .hint(coll.hint(bdoc("hostSeenAt" -> -1)))
       .cursor[Simul]()
       .list(50)
       .map:
@@ -115,7 +115,7 @@ final private[simul] class SimulRepo(val coll: Coll, gameRepo: GameRepo)(using E
       .list(max)
 
   def allNotFinished =
-    coll.list[Simul]($doc("status".$ne(SimulStatus.Finished.id)))
+    coll.list[Simul](bdoc("status".$ne(SimulStatus.Finished.id)))
 
   def create(simul: Simul): Funit =
     coll.insert.one(simul).void
@@ -123,19 +123,19 @@ final private[simul] class SimulRepo(val coll: Coll, gameRepo: GameRepo)(using E
   def update(simul: Simul) =
     coll.update
       .one(
-        $id(simul.id),
+        bid(simul.id),
         $set(bsonWriteObjTry[Simul](simul).get) ++
           simul.estimatedStartAt.isEmpty.so($unset("estimatedStartAt"))
       )
       .void
 
   def remove(simul: Simul) =
-    coll.delete.one($id(simul.id)).void
+    coll.delete.one(bid(simul.id)).void
 
   def setHostGameId(simul: Simul, gameId: GameId) =
     coll.update
       .one(
-        $id(simul.id),
+        bid(simul.id),
         $set("hostGameId" -> gameId)
       )
       .void
@@ -143,17 +143,17 @@ final private[simul] class SimulRepo(val coll: Coll, gameRepo: GameRepo)(using E
   def setHostSeenNow(simul: Simul) =
     coll.update
       .one(
-        $id(simul.id),
+        bid(simul.id),
         $set("hostSeenAt" -> nowInstant)
       )
       .void
 
   private[simul] def anonymizeHost(id: UserId) =
-    coll.update.one($doc("hostId" -> id), $set("hostId" -> UserId.ghost), multi = true)
+    coll.update.one(bdoc("hostId" -> id), $set("hostId" -> UserId.ghost), multi = true)
 
   private[simul] def anonymizePlayers(id: UserId) =
     coll.update.one(
-      $doc("pairings.player.user" -> id),
+      bdoc("pairings.player.user" -> id),
       $set("pairings.$.player.user" -> UserId.ghost),
       multi = true
     )

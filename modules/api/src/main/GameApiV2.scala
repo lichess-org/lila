@@ -167,9 +167,9 @@ final class GameApiV2(
   def exportByIds(config: ByIdsConfig)(using Lang): Source[String, ?] =
     gameRepo
       .sortedCursor(
-        $inIds(config.ids),
+        inIds(config.ids),
         Query.sortCreated,
-        hint = $id(1).some,
+        hint = bid(1).some,
         batchSize = config.perSecond.value
       )
       .documentSource()

@@ -16,9 +16,9 @@ final class PrefApi(
   import PrefHandlers.given
 
   lila.common.Bus.sub[lila.core.user.UserDelete]: del =>
-    coll.delete.one($id(del.id)).void
+    coll.delete.one(bid(del.id)).void
 
-  private def fetchPref(id: UserId): Fu[Option[Pref]] = coll.find($id(id)).one[Pref]
+  private def fetchPref(id: UserId): Fu[Option[Pref]] = coll.find(bid(id)).one[Pref]
 
   private val cache = cacheApi[UserId, Option[Pref]](200_000, "pref.fetchPref"):
     _.expireAfterAccess(10.minutes).buildAsyncFuture(fetchPref)
@@ -26,8 +26,8 @@ final class PrefApi(
   def saveTag(user: User, tag: Pref.Tag.type => String, value: Boolean) =
     for _ <-
         if value
-        then coll.update.one($id(user.id), $set(s"tags.${tag(Pref.Tag)}" -> "1"), upsert = true)
-        else coll.update.one($id(user.id), $unset(s"tags.${tag(Pref.Tag)}"))
+        then coll.update.one(bid(user.id), $set(s"tags.${tag(Pref.Tag)}" -> "1"), upsert = true)
+        else coll.update.one(bid(user.id), $unset(s"tags.${tag(Pref.Tag)}"))
     yield cache.invalidate(user.id)
 
   def get(user: User): Fu[Pref] = cache.get(user.id).dmap(_ | Pref.create(user))
@@ -61,12 +61,12 @@ final class PrefApi(
   def getStudyInvite(userId: UserId): Future[Int] = get(userId, _.studyInvite)
 
   def followable(userId: UserId): Fu[Boolean] =
-    coll.primitiveOne[Boolean]($id(userId), "follow").map(_ | Pref.default.follow)
+    coll.primitiveOne[Boolean](bid(userId), "follow").map(_ | Pref.default.follow)
 
   private def unfollowableIds(userIds: List[UserId]): Fu[Set[UserId]] =
     coll.secondary.distinctEasy[UserId, Set](
       "_id",
-      $inIds(userIds) ++ $doc("follow" -> false)
+      inIds(userIds) ++ bdoc("follow" -> false)
     )
 
   def followableIds(userIds: List[UserId]): Fu[Set[UserId]] =
@@ -79,7 +79,7 @@ final class PrefApi(
   private def unmentionableIds(userIds: Set[UserId]): Fu[Set[UserId]] =
     coll.secondary.distinctEasy[UserId, Set](
       "_id",
-      $inIds(userIds) ++ $doc("mention" -> false)
+      inIds(userIds) ++ bdoc("mention" -> false)
     )
 
   def mentionableIds(userIds: Set[UserId]): Fu[Set[UserId]] =
@@ -87,7 +87,7 @@ final class PrefApi(
 
   def setPref(user: User, pre: Pref): Funit =
     val pref = pre.isolate(user.marks.isolate)
-    for _ <- coll.update.one($id(pref.id), pref, upsert = true)
+    for _ <- coll.update.one(bid(pref.id), pref, upsert = true)
     yield cache.put(pref.id, fuccess(pref.some))
 
   def setPref(user: User, change: Pref => Pref): Funit =
@@ -96,7 +96,7 @@ final class PrefApi(
   def isolate(user: User) = setPref(user, identity[Pref])
 
   def agree(user: User): Funit =
-    for _ <- coll.update.one($id(user.id), $set("agreement" -> Pref.Agreement.current), upsert = true)
+    for _ <- coll.update.one(bid(user.id), $set("agreement" -> Pref.Agreement.current), upsert = true)
     yield cache.invalidate(user.id)
 
   def setBot(user: User): Funit = setPref(

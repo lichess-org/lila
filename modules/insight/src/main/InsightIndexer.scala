@@ -82,7 +82,7 @@ final private class InsightIndexer(
             .addFailureEffect: e =>
               logger.warn(e.getMessage, e)
             .map(_.toOption)
-        val query = gameQuery(user) ++ $doc(lila.game.Game.BSONFields.createdAt.$gte(from))
+        val query = gameQuery(user) ++ bdoc(lila.game.Game.BSONFields.createdAt.$gte(from))
         gameRepo
           .sortedCursor(query, Query.sortChronological)
           .documentSource(maxGames.value)

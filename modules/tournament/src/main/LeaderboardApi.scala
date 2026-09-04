@@ -31,7 +31,7 @@ final class LeaderboardApi(
   def timeRange(userId: UserId, range: TimeInterval): Fu[List[Entry]] =
     repo.coll
       .find:
-        $doc(
+        bdoc(
           "u" -> userId,
           "d".$gte(range.start).$lt(range.end)
         )
@@ -43,7 +43,7 @@ final class LeaderboardApi(
     repo.coll
       .aggregateList(Int.MaxValue, _.sec): framework =>
         import framework.*
-        Match($doc("u" -> user.id)) -> List(
+        Match(bdoc("u" -> user.id)) -> List(
           GroupField("v")("nb" -> SumAll, "points" -> PushField("s"), "ratios" -> PushField("w"))
         )
       .map:
@@ -63,9 +63,9 @@ final class LeaderboardApi(
             .sortLike(lila.rating.PerfType.leaderboardable, _._1)
 
   def getAndDeleteRecent(userId: UserId, since: Instant): Fu[List[TourId]] = for
-    entries <- repo.coll.list[Entry]($doc("u" -> userId, "d".$gt(since)))
+    entries <- repo.coll.list[Entry](bdoc("u" -> userId, "d".$gt(since)))
     _ <- entries.nonEmpty.so:
-      repo.coll.delete.one($inIds(entries.map(_.id))).void
+      repo.coll.delete.one(inIds(entries.map(_.id))).void
   yield entries.map(_.tourId)
 
   def byPlayerStream(
@@ -92,7 +92,7 @@ final class LeaderboardApi(
     import framework.*
     NonEmptyList
       .of(
-        Match($doc("u" -> userId)),
+        Match(bdoc("u" -> userId)),
         Sort(sort),
         Skip(offset),
         Limit(nb),
@@ -115,10 +115,10 @@ final class LeaderboardApi(
                 as = "player",
                 local = "_id",
                 foreign = "_id",
-                pipe = List($doc("$project" -> $doc("_id" -> false, "e" -> true)))
+                pipe = List(bdoc("$project" -> bdoc("_id" -> false, "e" -> true)))
               )
             ,
-            AddFields($doc("perf" -> $doc("$first" -> "$player.e")))
+            AddFields(bdoc("perf" -> bdoc("$first" -> "$player.e")))
           )
 
   private def paginator(user: User, page: Int, sortBest: Boolean): Fu[Paginator[TourEntry]] =
@@ -126,7 +126,7 @@ final class LeaderboardApi(
       currentPage = page,
       maxPerPage = maxPerPage,
       adapter = new AdapterLike[TourEntry]:
-        private val selector = $doc("u" -> user.id)
+        private val selector = bdoc("u" -> user.id)
         def nbResults: Fu[Int] = repo.coll.countSel(selector)
         def slice(offset: Int, length: Int): Fu[Seq[TourEntry]] =
           repo.coll

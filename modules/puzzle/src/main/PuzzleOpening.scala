@@ -67,7 +67,7 @@ final class PuzzleOpeningApi(
       _.aggregateList(maxOpenings): framework =>
         import framework.*
         UnwindField(opening) -> List(
-          PipelineOperator($doc("$sortByCount" -> s"$$$opening")),
+          PipelineOperator(bdoc("$sortByCount" -> s"$$$opening")),
           Limit(maxOpenings)
         )
 
@@ -122,7 +122,7 @@ final class PuzzleOpeningApi(
       key.fold(f => coll.familyMap.get(f).so(_.count), o => coll.openingMap.get(o).so(_.count))
 
   def recomputeAll: Funit = colls.puzzle:
-    _.find($doc(Puzzle.BSONFields.opening.$exists(true)))
+    _.find(bdoc(Puzzle.BSONFields.opening.$exists(true)))
       .cursor[Puzzle]()
       .documentSource()
       .mapAsyncUnordered(2)(updateOpening)
@@ -142,7 +142,7 @@ final class PuzzleOpeningApi(
           case Some(o) =>
             val keys = List(o.family.key.value, o.key.value)
             colls.puzzle:
-              _.updateField($id(puzzle.id), Puzzle.BSONFields.opening, keys).void
+              _.updateField(bid(puzzle.id), Puzzle.BSONFields.opening, keys).void
       }
 
 object PuzzleOpening:

@@ -28,8 +28,8 @@ final class NotifyApi(
 
   Bus.sub[lila.core.user.UserDelete]: del =>
     for
-      _ <- colls.pref.delete.one($id(del.id))
-      _ <- colls.notif.delete.one($doc("notifies" -> del.id))
+      _ <- colls.pref.delete.one(bid(del.id))
+      _ <- colls.notif.delete.one(bdoc("notifies" -> del.id))
     yield ()
 
   object prefs:
@@ -42,17 +42,17 @@ final class NotifyApi(
         .map(NotificationPref.form.form.fill)
 
     def set[U: UserIdOf](me: U, pref: NotificationPref) =
-      colls.pref.update.one($id(me.id), pref, upsert = true).void
+      colls.pref.update.one(bid(me.id), pref, upsert = true).void
 
     def allows(userId: UserId, event: PrefEvent): Fu[Allows] =
       colls.pref.secondary
-        .primitiveOne[Allows]($id(userId), event.key)
+        .primitiveOne[Allows](bid(userId), event.key)
         .dmap(_ | default.allows(event))
 
     def getAllows(userIds: Iterable[UserId], event: PrefEvent): Fu[List[NotifyAllows]] =
       userIds.nonEmpty.so:
         colls.pref.secondary
-          .find($inIds(userIds), $doc(event.key -> true).some)
+          .find(inIds(userIds), bdoc(event.key -> true).some)
           .cursor[Bdoc]()
           .listAll()
           .map: docs =>
@@ -102,13 +102,13 @@ final class NotifyApi(
     for _ <- repo.insert(notification)
     yield unreadCountCache.update(notification.to, _ + 1)
 
-  def remove(to: UserId, selector: Bdoc = $empty): Funit =
+  def remove(to: UserId, selector: Bdoc = emptyBdoc): Funit =
     for _ <- repo.remove(to, selector)
     yield unreadCountCache.invalidate(to)
 
   def markRead(to: UserId, selector: Bdoc): Funit =
     repo
-      .markManyRead(selector ++ $doc("notifies" -> to, "read" -> false))
+      .markManyRead(selector ++ bdoc("notifies" -> to, "read" -> false))
       .map: nb =>
         if nb > 0 then unreadCountCache.invalidate(to)
 

@@ -140,8 +140,8 @@ final class RelayPager(
     val (textSearch, nameFilter) = query match
       case RelayPager.yearRegex(pre, year, post) =>
         val remaining = s"$pre $post".trim
-        (if remaining.isEmpty then query else remaining, $doc("name".$regex(s"\\b$year\\b")))
-      case q => (q, $empty)
+        (if remaining.isEmpty then query else remaining, bdoc("name".$regex(s"\\b$year\\b")))
+      case q => (q, emptyBdoc)
 
     // We add quotes to the query to perform an exact match even when the query contains whitespaces
     val textSelector = $text(s"\"$textSearch\"") ++ nameFilter ++ selectors.officialPublic
@@ -151,12 +151,12 @@ final class RelayPager(
         selector = textSelector,
         page = page,
         onlyKeepGroupFirst = false,
-        addFields = $doc(
-          "searchDate" -> $doc(
-            "$add" -> $arr(
-              $doc("$ifNull" -> $arr("$syncedAt", "$createdAt")),
-              $doc("$multiply" -> $arr($doc("$add" -> $arr("$tier", -RelayTour.Tier.normal.v)), 60 * day)),
-              $doc("$multiply" -> $arr($doc("$meta" -> "textScore"), 30 * day))
+        addFields = bdoc(
+          "searchDate" -> bdoc(
+            "$add" -> barr(
+              bdoc("$ifNull" -> barr("$syncedAt", "$createdAt")),
+              bdoc("$multiply" -> barr(bdoc("$add" -> barr("$tier", -RelayTour.Tier.normal.v)), 60 * day)),
+              bdoc("$multiply" -> barr(bdoc("$meta" -> "textScore"), 30 * day))
             )
           )
         ).some,
@@ -169,7 +169,7 @@ final class RelayPager(
 
   def byIds(ids: List[RelayTourId], page: Int): Fu[Paginator[WithLastRound]] =
     forSelector(
-      $inIds(ids) ++ selectors.officialPublic,
+      inIds(ids) ++ selectors.officialPublic,
       page = page,
       onlyKeepGroupFirst = false,
       sortFields = List("syncedAt")
@@ -177,9 +177,9 @@ final class RelayPager(
 
   // select the first round of the tour, that is not yet finished
   private val roundPipelineFirstUnfinished = List(
-    $doc("$sort" -> RelayRoundRepo.sort.asc),
-    $doc("$match" -> $doc("finishedAt".$exists(false))),
-    $doc("$limit" -> 1)
+    bdoc("$sort" -> RelayRoundRepo.sort.asc),
+    bdoc("$match" -> bdoc("finishedAt".$exists(false))),
+    bdoc("$limit" -> 1)
   )
 
   private def forSelector(

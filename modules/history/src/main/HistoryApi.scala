@@ -19,14 +19,14 @@ final class HistoryApi(
   import History.given
 
   lila.common.Bus.sub[lila.core.user.UserDelete]: del =>
-    withColl(_.delete.one($id(del.id)).void)
+    withColl(_.delete.one(bid(del.id)).void)
 
   def addPuzzle(user: User, completedAt: Instant, perf: lila.core.perf.Perf): Funit =
     withColl: coll =>
       val days = daysBetween(user.createdAt, completedAt)
       coll.update
         .one(
-          $id(user.id),
+          bid(user.id),
           $set(s"puzzle.$days" -> perf.intRating),
           upsert = true
         )
@@ -55,8 +55,8 @@ final class HistoryApi(
     val days = daysBetween(user.createdAt, game.movedAt)
     coll.update
       .one(
-        $id(user.id),
-        $doc("$set" -> $doc(changes.map: (perf, rating) =>
+        bid(user.id),
+        bdoc("$set" -> bdoc(changes.map: (perf, rating) =>
           (s"$perf.$days", $int(rating)))),
         upsert = true
       )
@@ -67,7 +67,7 @@ final class HistoryApi(
     val days = daysBetween(user.createdAt, nowInstant)
     coll.update
       .one(
-        $id(user.id),
+        bid(user.id),
         $set(s"$perf.$days" -> $int(rating))
       )
       .void
@@ -75,10 +75,10 @@ final class HistoryApi(
   private def daysBetween(from: Instant, to: Instant): Int =
     scalalib.time.daysBetween(from.withTimeAtStartOfDay, to.withTimeAtStartOfDay)
 
-  def get(userId: UserId): Fu[Option[History]] = withColl(_.one[History]($id(userId)))
+  def get(userId: UserId): Fu[Option[History]] = withColl(_.one[History](bid(userId)))
 
   def ratingsMap[U: UserIdOf](user: U, perf: PerfKey): Fu[RatingsMap] =
-    withColl(_.primitiveOne[RatingsMap]($id(user.id), perf.value).dmap(~_))
+    withColl(_.primitiveOne[RatingsMap](bid(user.id), perf.value).dmap(~_))
 
   def progresses(
       users: List[lila.core.user.WithPerf],
@@ -88,7 +88,7 @@ final class HistoryApi(
     withColl:
       _.optionsByOrderedIds[Bdoc, UserId](
         users.map(_.id),
-        $doc(perfKey.value -> true).some
+        bdoc(perfKey.value -> true).some
       )(_.getAsTry[UserId]("_id").get).map { hists =>
         import History.ratingsReader
         users.zip(hists).map { (user, doc) =>
@@ -116,10 +116,10 @@ final class HistoryApi(
         .flatMap: (user, currentRating) =>
           val firstDay = daysBetween(user.createdAt, nowInstant.minusWeeks(1))
           val days = (firstDay to (firstDay + 6)).toList
-          val project = $doc:
+          val project = bdoc:
             ("_id" -> BSONBoolean(false)) :: days.map: d =>
               s"$perf.$d" -> BSONBoolean(true)
-          withColl(_.find($id(user.id), project.some).one[Bdoc].map {
+          withColl(_.find(bid(user.id), project.some).one[Bdoc].map {
             _.flatMap:
               _.child(perf.value).map {
                 _.elements.foldLeft(currentRating):

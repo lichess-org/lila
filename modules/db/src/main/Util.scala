@@ -8,7 +8,7 @@ object Util:
 
   def findNextId(coll: Coll)(using Executor): Fu[Int] =
     coll
-      .find($empty, $id(true).some)
+      .find(emptyBdoc, bid(true).some)
       .sort($sort.desc("_id"))
       .one[Bdoc]
       .dmap:

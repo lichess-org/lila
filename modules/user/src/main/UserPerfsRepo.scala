@@ -30,7 +30,7 @@ final class UserPerfsRepo(c: Coll)(using Executor) extends lila.core.user.PerfsR
   def idsMap[U: UserIdOf](u: Seq[U], pk: PerfKey, readPref: ReadPref): Fu[Map[UserId, Perf]] =
     given BSONDocumentReader[(UserId, Perf)] = lila.rating.UserPerfs.idPerfReader(pk)
     coll
-      .find($inIds(u.map(_.id)), $doc(pk.value -> true).some)
+      .find(inIds(u.map(_.id)), bdoc(pk.value -> true).some)
       .cursor[(UserId, Perf)](readPref)
       .listAll()
       .map(_.toMap)
@@ -63,19 +63,19 @@ final class UserPerfsRepo(c: Coll)(using Executor) extends lila.core.user.PerfsR
       if cur(pt).nb != prev(pt).nb
       bson <- summon[BSONWriter[Perf]].writeOpt(cur(pt))
     yield BSONElement(pt.key.value, bson)
-    diff.nonEmpty.so(coll.update.one($id(cur.id), $doc("$set" -> $doc(diff*)), upsert = true).void)
+    diff.nonEmpty.so(coll.update.one(bid(cur.id), bdoc("$set" -> bdoc(diff*)), upsert = true).void)
 
   def setManagedUserInitialPerfs(id: UserId) =
-    coll.update.one($id(id), lila.rating.UserPerfs.defaultManaged(id), upsert = true).void
+    coll.update.one(bid(id), lila.rating.UserPerfs.defaultManaged(id), upsert = true).void
   def setBotInitialPerfs(id: UserId) =
-    coll.update.one($id(id), lila.rating.UserPerfs.defaultBot(id), upsert = true).void
+    coll.update.one(bid(id), lila.rating.UserPerfs.defaultBot(id), upsert = true).void
 
   def setPerf(userId: UserId, pk: PerfKey, perf: Perf): Funit =
-    coll.update.one($id(userId), $set(pk.value -> perf), upsert = true).void
+    coll.update.one(bid(userId), $set(pk.value -> perf), upsert = true).void
 
   def glicko(userId: UserId, perf: PerfKey): Fu[Option[Glicko]] =
     coll
-      .find($id(userId), $doc(s"$perf.gl" -> true).some)
+      .find(bid(userId), bdoc(s"$perf.gl" -> true).some)
       .one[Bdoc]
       .dmap:
         _.flatMap(_.child(perf.value))
@@ -84,9 +84,9 @@ final class UserPerfsRepo(c: Coll)(using Executor) extends lila.core.user.PerfsR
   def addPuzRun(field: String, userId: UserId, score: Int): Funit =
     coll.update
       .one(
-        $id(userId),
+        bid(userId),
         $inc(s"$field.runs" -> 1) ++
-          $doc("$max" -> $doc(s"$field.score" -> score)),
+          bdoc("$max" -> bdoc(s"$field.score" -> score)),
         upsert = true
       )
       .void
@@ -97,8 +97,8 @@ final class UserPerfsRepo(c: Coll)(using Executor) extends lila.core.user.PerfsR
   def perfOptionOf[U: UserIdOf](u: U, perfKey: PerfKey): Fu[Option[Perf]] =
     coll
       .find(
-        $id(u.id),
-        $doc(perfKey.value -> true).some
+        bid(u.id),
+        bdoc(perfKey.value -> true).some
       )
       .one[Bdoc]
       .dmap:
@@ -116,8 +116,8 @@ final class UserPerfsRepo(c: Coll)(using Executor) extends lila.core.user.PerfsR
   def perfOf(ids: Iterable[UserId], perfKey: PerfKey): Fu[Map[UserId, Perf]] = ids.nonEmpty.so:
     coll
       .find(
-        $inIds(ids),
-        $doc(perfKey.value -> true).some
+        inIds(ids),
+        bdoc(perfKey.value -> true).some
       )
       .cursor[Bdoc]()
       .listAll()
@@ -132,7 +132,7 @@ final class UserPerfsRepo(c: Coll)(using Executor) extends lila.core.user.PerfsR
         ids.map(id => id -> h.getOrElse(id, Perf.default)).toMap
 
   def perfsOf(ids: Iterable[UserId]): Fu[Map[UserId, UserPerfs]] = ids.nonEmpty.so:
-    coll.find($inIds(ids)).cursor[UserPerfs]().listAll().map(_.mapBy(_.id))
+    coll.find(inIds(ids)).cursor[UserPerfs]().listAll().map(_.mapBy(_.id))
 
   def withPerf(users: List[User], perfKey: PerfKey): Fu[List[WithPerf]] =
     perfOf(users.map(_.id), perfKey).map: perfs =>
@@ -152,7 +152,7 @@ final class UserPerfsRepo(c: Coll)(using Executor) extends lila.core.user.PerfsR
 
   def perfOf(userId: UserId, pk: PerfKey): Fu[Perf] =
     coll
-      .find($id(userId), $doc(pk.value -> true).some)
+      .find(bid(userId), bdoc(pk.value -> true).some)
       .one[Bdoc]
       .dmap:
         _.flatMap(_.getAsOpt[Perf](pk.value)).getOrElse(Perf.default)
@@ -169,7 +169,7 @@ final class UserPerfsRepo(c: Coll)(using Executor) extends lila.core.user.PerfsR
     val lookup = $lookup.simple(coll, "perfs", "_id", "_id")
 
     def lookup(pk: PerfKey): Bdoc =
-      val pipe = List($doc("$project" -> $doc(pk.value -> true)))
+      val pipe = List(bdoc("$project" -> bdoc(pk.value -> true)))
       $lookup.simple(coll, "perfs", "_id", "_id", pipe)
 
     def readFirst[U: UserIdOf](root: Bdoc, u: U): UserPerfs =

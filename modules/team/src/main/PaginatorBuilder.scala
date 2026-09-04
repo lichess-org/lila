@@ -67,7 +67,7 @@ final private[team] class PaginatorBuilder(
       for
         docs <-
           memberRepo.coll
-            .find(selector, $doc("user" -> true, "_id" -> false).some)
+            .find(selector, bdoc("user" -> true, "_id" -> false).some)
             .sort(sorting)
             .skip(offset)
             .cursor[Bdoc]()
@@ -83,7 +83,7 @@ final private[team] class PaginatorBuilder(
       for
         docs <-
           memberRepo.coll
-            .find(selector, $doc("user" -> true, "date" -> true, "_id" -> false).some)
+            .find(selector, bdoc("user" -> true, "date" -> true, "_id" -> false).some)
             .sort(sorting)
             .skip(offset)
             .cursor[Bdoc]()

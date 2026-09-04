@@ -31,8 +31,8 @@ final private class FishnetLimiter(
         analysisColl
           .exists(
             $or(
-              $doc("sender.ip" -> ip),
-              $doc("sender.userId" -> userId)
+              bdoc("sender.ip" -> ip),
+              bdoc("sender.userId" -> userId)
             )
           )
           .not

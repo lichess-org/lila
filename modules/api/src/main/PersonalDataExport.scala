@@ -121,12 +121,12 @@ final class PersonalDataExport(
         .aggregateWith[Bdoc](readPreference = ReadPref.sec): framework =>
           import framework.*
           List(
-            Match($doc(Game.BSONFields.playerUids -> user.id)),
-            Project($id(true)),
+            Match(bdoc(Game.BSONFields.playerUids -> user.id)),
+            Project(bid(true)),
             PipelineOperator(lookup),
             Unwind("chat"),
             ReplaceRootField("chat"),
-            Project($doc("_id" -> false, "l" -> true)),
+            Project(bdoc("_id" -> false, "l" -> true)),
             Unwind("l"),
             Match("l".$startsWith(s"${user.id} ", "i"))
           )
@@ -139,8 +139,8 @@ final class PersonalDataExport(
         $lookup.pipelineFull(
           from = chatEnv.coll.name,
           as = "chat",
-          let = $doc("id" -> $doc("$concat" -> $arr("$_id", "/w"))),
-          pipe = List($doc("$match" -> $expr($doc("$eq" -> $arr("$_id", "$$id")))))
+          let = bdoc("id" -> bdoc("$concat" -> barr("$_id", "/w"))),
+          pipe = List(bdoc("$match" -> $expr(bdoc("$eq" -> barr("$_id", "$$id")))))
         ))
 
     val gameNotes =
@@ -149,19 +149,19 @@ final class PersonalDataExport(
           .aggregateWith[Bdoc](readPreference = ReadPref.sec): framework =>
             import framework.*
             List(
-              Match($doc(Game.BSONFields.playerUids -> user.id)),
-              Project($id(true)),
+              Match(bdoc(Game.BSONFields.playerUids -> user.id)),
+              Project(bid(true)),
               PipelineOperator(
                 $lookup.pipelineFull(
                   from = noteApi.collName,
                   as = "note",
-                  let = $doc("id" -> $doc("$concat" -> $arr("$_id", user.id))),
-                  pipe = List($doc("$match" -> $expr($doc("$eq" -> $arr("$_id", "$$id")))))
+                  let = bdoc("id" -> bdoc("$concat" -> barr("$_id", user.id))),
+                  pipe = List(bdoc("$match" -> $expr(bdoc("$eq" -> barr("$_id", "$$id")))))
                 )
               ),
               Unwind("note"),
               ReplaceRootField("note"),
-              Project($doc("_id" -> false, "t" -> true))
+              Project(bdoc("_id" -> false, "t" -> true))
             )
           .documentSource()
           .map(~_.string("t"))

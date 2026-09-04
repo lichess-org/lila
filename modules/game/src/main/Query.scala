@@ -53,12 +53,12 @@ object Query:
   def user[U: UserIdOf](u: U): Bdoc = F.playerUids.$eq(u.id)
   def users(u: Iterable[UserId]): Bdoc = F.playerUids.$in(u)
 
-  val noAnon = $doc(
+  val noAnon = bdoc(
     "p0.e".$exists(true),
     "p1.e".$exists(true)
   )
 
-  val noAi: Bdoc = $doc(
+  val noAi: Bdoc = bdoc(
     "p0.ai".$exists(false),
     "p1.ai".$exists(false)
   )
@@ -68,48 +68,48 @@ object Query:
     "p1.ai".$exists(true)
   )
 
-  def nowPlaying[U: UserIdOf](u: U) = $doc(F.playingUids -> u.id)
+  def nowPlaying[U: UserIdOf](u: U) = bdoc(F.playingUids -> u.id)
 
   def recentlyPlaying(u: UserId) =
-    nowPlaying(u) ++ $doc(F.movedAt.$gt(nowInstant.minusMinutes(5)))
+    nowPlaying(u) ++ bdoc(F.movedAt.$gt(nowInstant.minusMinutes(5)))
 
-  def nowPlayingVs(u1: UserId, u2: UserId) = $doc(F.playingUids.$all(List(u1, u2)))
+  def nowPlayingVs(u1: UserId, u2: UserId) = bdoc(F.playingUids.$all(List(u1, u2)))
 
   def nowPlayingVs(userIds: Iterable[UserId]) =
-    $doc(
+    bdoc(
       F.playingUids.$in(userIds), // as to use the index
       s"${F.playingUids}.0".$in(userIds),
       s"${F.playingUids}.1".$in(userIds)
     )
 
   // use the us index
-  def win(u: UserId) = user(u) ++ $doc(F.winnerId -> u)
+  def win(u: UserId) = user(u) ++ bdoc(F.winnerId -> u)
 
   def loss(u: UserId) =
-    user(u) ++ $doc(
+    user(u) ++ bdoc(
       F.status.$in(Status.finishedWithWinner.map(_.id)),
-      F.winnerId -> $doc(
+      F.winnerId -> bdoc(
         "$exists" -> true,
         "$ne" -> u
       )
     )
 
   def opponents(u1: User, u2: User) =
-    $doc(F.playerUids.$all(List(u1, u2).sortBy(_.count.game).map(_.id)))
+    bdoc(F.playerUids.$all(List(u1, u2).sortBy(_.count.game).map(_.id)))
 
   def opponents(userIds: Iterable[UserId]) =
-    $doc(
+    bdoc(
       F.playerUids.$in(userIds), // as to use the index
       s"${F.playerUids}.0".$in(userIds),
       s"${F.playerUids}.1".$in(userIds)
     )
 
-  val noProvisional: Bdoc = $doc(
+  val noProvisional: Bdoc = bdoc(
     "p0.p".$exists(false),
     "p1.p".$exists(false)
   )
 
-  def bothRatingsGreaterThan(v: Int) = $doc("p0.e".$gt(v), "p1.e".$gt(v))
+  def bothRatingsGreaterThan(v: Int) = bdoc("p0.e".$gt(v), "p1.e".$gt(v))
 
   def turnsGt(nb: Int) = F.turns.$gt(nb)
   def turns(range: PairOf[Int]) = F.turns.$inRange(range)
@@ -119,7 +119,7 @@ object Query:
   def checkableOld = F.checkAt.$lt(nowInstant.minusHours(1))
 
   def variant(v: chess.variant.Variant) =
-    $doc(F.variant -> (if v.standard then $exists(false) else $int(v.id)))
+    bdoc(F.variant -> (if v.standard then $exists(false) else $int(v.id)))
 
   val variantStandard = variant(chess.variant.Standard)
 

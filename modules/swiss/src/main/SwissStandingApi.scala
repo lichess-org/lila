@@ -75,7 +75,7 @@ final class SwissStandingApi(
       rankedPlayers <- bestWithRankByPage(swiss.id, perPage, page.atLeast(1))
       pairings <- (!swiss.isCreated).so(SwissPairing.fields { f =>
         mongo.pairing
-          .find($doc(f.swissId -> swiss.id, f.players.$in(rankedPlayers.map(_.player.userId))))
+          .find(bdoc(f.swissId -> swiss.id, f.players.$in(rankedPlayers.map(_.player.userId))))
           .sort($sort.asc(f.round))
           .cursor[SwissPairing]()
           .listAll()
@@ -111,7 +111,7 @@ final class SwissStandingApi(
   private def best(id: SwissId, nb: Int, skip: Int): Fu[List[SwissPlayer]] =
     SwissPlayer.fields { f =>
       mongo.player
-        .find($doc(f.swissId -> id))
+        .find(bdoc(f.swissId -> id))
         .sort($sort.desc(f.score))
         .skip(skip)
         .cursor[SwissPlayer]()

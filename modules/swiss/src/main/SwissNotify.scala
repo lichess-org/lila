@@ -12,10 +12,10 @@ final private class SwissNotify(mongo: SwissMongo)(using Executor, Scheduler):
   LilaScheduler("SwissNotify", _.Every(20.seconds), _.AtMost(10.seconds), _.Delay(1.minute)):
     mongo.swiss
       .find(
-        $doc(
+        bdoc(
           "featurable" -> true,
           "settings.i".$lte(600) // hits the partial index
-        ) ++ $doc(
+        ) ++ bdoc(
           "startsAt".$gt(nowInstant.plusMinutes(10)).$lt(nowInstant.plusMinutes(11)),
           "_id".$nin(doneMemo.keys)
         )
@@ -27,7 +27,7 @@ final private class SwissNotify(mongo: SwissMongo)(using Executor, Scheduler):
           doneMemo.put(swiss.id)
           SwissPlayer.fields: f =>
             mongo.player
-              .distinctEasy[UserId, List](f.userId, $doc(f.swissId -> swiss.id))
+              .distinctEasy[UserId, List](f.userId, bdoc(f.swissId -> swiss.id))
               .map: userIds =>
                 lila.common.Bus.pub:
                   TourSoon(tourId = swiss.id.value, tourName = swiss.name, userIds, swiss = true)

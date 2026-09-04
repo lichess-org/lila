@@ -10,7 +10,7 @@ final class LegacyClientApi(val coll: Coll)(using Executor):
   def apply(clientId: Protocol.ClientId, redirectUri: Protocol.RedirectUri): Fu[Option[HashedClientSecret]] =
     coll
       .findAndUpdate(
-        $doc(F.id -> clientId.value, F.redirectUri -> redirectUri.value.toString),
+        bdoc(F.id -> clientId.value, F.redirectUri -> redirectUri.value.toString),
         $set(F.usedAt -> nowInstant)
       )
       .map:

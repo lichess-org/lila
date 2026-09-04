@@ -69,15 +69,15 @@ final class Authenticator(
     loginCandidateById(me.userId).dmap { _ | LoginCandidate(me, _ => false, false) }
 
   def loginCandidateById(id: UserId): Fu[Option[LoginCandidate]] =
-    loginCandidate($id(id))
+    loginCandidate(bid(id))
 
   def loginCandidateByEmail(email: NormalizedEmailAddress): Fu[Option[LoginCandidate]] =
-    loginCandidate($doc(F.email -> email))
+    loginCandidate(bdoc(F.email -> email))
 
   def setPassword(id: UserId, p: ClearPassword): Funit =
     userRepo.coll.update
       .one(
-        $id(id),
+        bid(id),
         $set(F.bpass -> passEnc(p).bytes) ++ $unset(F.salt, F.sha512)
       )
       .void

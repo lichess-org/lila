@@ -19,11 +19,11 @@ final class ShutupApi(
   import lila.shutup.PublicLine.given
 
   lila.common.Bus.sub[lila.core.user.UserDelete]: del =>
-    coll.delete.one($id(del.id))
+    coll.delete.one(bid(del.id))
 
   def getPublicLines(userId: UserId): Fu[List[PublicLine]] =
     coll
-      .find($id(userId), $doc("pub" -> 1).some)
+      .find(bid(userId), bdoc("pub" -> 1).some)
       .one[Bdoc]
       .map:
         ~_.flatMap(_.getAsOpt[List[PublicLine]]("pub"))
@@ -61,21 +61,21 @@ final class ShutupApi(
             for
               analysed <- Analyser(text).removeEngineIfBot(userApi.isBot(userId))
               pushPublicLine = source.ifTrue(analysed.badWords.nonEmpty).so { source =>
-                $doc(
-                  "pub" -> $doc(
+                bdoc(
+                  "pub" -> bdoc(
                     "$each" -> List(lila.shutup.PublicLine.make(text, source)),
                     "$slice" -> -20
                   )
                 )
               }
-              push = $doc(
-                textType.key -> $doc(
+              push = bdoc(
+                textType.key -> bdoc(
                   "$each" -> List(BSONDouble(analysed.ratio)),
                   "$slice" -> -textType.rotation
                 )
               ) ++ pushPublicLine
               res <- coll.findAndUpdateSimplified[UserRecord](
-                selector = $id(userId),
+                selector = bid(userId),
                 update = $push(push),
                 fetchNewObject = true,
                 upsert = true
@@ -94,7 +94,7 @@ final class ShutupApi(
       for
         _ <- reportApi.autoCommReport(userRecord.userId, text, analysed.critical)
         _ <- coll.update.one(
-          $id(userRecord.userId),
+          bid(userRecord.userId),
           $unset(TextType.values.map(_.key))
         )
       yield ()

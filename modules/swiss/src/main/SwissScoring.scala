@@ -36,7 +36,7 @@ final private class SwissScoring(mongo: SwissMongo)(using Scheduler, Executor):
               .map: (_, player) =>
                 mongo.player.update
                   .one(
-                    $id(player.id),
+                    bid(player.id),
                     $set(
                       f.points -> player.points,
                       f.tieBreak -> player.tieBreak,
@@ -58,7 +58,7 @@ final private class SwissScoring(mongo: SwissMongo)(using Scheduler, Executor):
   private def fetchPlayers(swiss: Swiss) =
     SwissPlayer.fields: f =>
       mongo.player
-        .find($doc(f.swissId -> swiss.id))
+        .find(bdoc(f.swissId -> swiss.id))
         .sort($sort.asc(f.score))
         .cursor[SwissPlayer]()
         .listAll()
@@ -66,7 +66,7 @@ final private class SwissScoring(mongo: SwissMongo)(using Scheduler, Executor):
   private def fetchPairings(swiss: Swiss) =
     (!swiss.isCreated).so:
       SwissPairing.fields: f =>
-        mongo.pairing.list[SwissPairing]($doc(f.swissId -> swiss.id))
+        mongo.pairing.list[SwissPairing](bdoc(f.swissId -> swiss.id))
 
 private object SwissScoring:
 

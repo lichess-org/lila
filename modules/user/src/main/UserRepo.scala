@@ -43,16 +43,16 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
   def enabledById[U: UserIdOf](u: U): Fu[Option[User]] =
     u.id.noGhost.so:
       recoverDeleted:
-        coll.one[User](enabledSelect ++ $id(u.id))
+        coll.one[User](enabledSelect ++ bid(u.id))
 
   def notForeverClosedById[U: UserIdOf](u: U): Fu[Option[User]] =
     u.id.noGhost.so:
       recoverDeleted:
-        coll.one[User](notForeverClosedSelect ++ $id(u.id))
+        coll.one[User](notForeverClosedSelect ++ bid(u.id))
 
   def enabledByIds[U: UserIdOf](us: Iterable[U]): Fu[List[User]] =
     val ids = us.map(_.id).filter(_.noGhost)
-    coll.list[User](enabledSelect ++ $inIds(ids), _.sec)
+    coll.list[User](enabledSelect ++ inIds(ids), _.sec)
 
   def byIdOrGhost(id: UserId): Fu[Option[Either[LightUser.Ghost, User]]] =
     if id.isGhost
@@ -66,7 +66,7 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
 
   def meWithConfirmedEmail(id: UserId): Fu[Option[Either[Unit, Me]]] =
     recoverDeleted:
-      for opt <- coll.one[Bdoc](enabledSelect ++ $id(id))
+      for opt <- coll.one[Bdoc](enabledSelect ++ bid(id))
       yield
         for
           doc <- opt
@@ -75,18 +75,18 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
           if doc.contains(F.mustConfirmEmail) then Left(())
           else Right(Me(user))
 
-  def byEmail(email: NormalizedEmailAddress): Fu[Option[User]] = coll.one[User]($doc(F.email -> email))
+  def byEmail(email: NormalizedEmailAddress): Fu[Option[User]] = coll.one[User](bdoc(F.email -> email))
   def byPrevEmail(
       email: NormalizedEmailAddress,
       readPref: ReadPref = _.sec
   ): Fu[List[User]] =
-    coll.list[User]($doc(F.prevEmail -> email), readPref)
+    coll.list[User](bdoc(F.prevEmail -> email), readPref)
 
   def idByAnyEmail(emails: List[NormalizedEmailAddress]): Fu[Option[UserId]] =
     coll.primitiveOne[UserId](F.email.$in(emails), "_id")
 
   def countRecentByPrevEmail(email: NormalizedEmailAddress, since: Instant): Fu[Int] =
-    coll.countSel($doc(F.prevEmail -> email, F.createdAt.$gt(since)))
+    coll.countSel(bdoc(F.prevEmail -> email, F.createdAt.$gt(since)))
 
   def pair(x: Option[UserId], y: Option[UserId]): Fu[(Option[User], Option[User])] =
     coll.byIds[User, UserId](List(x, y).flatten).map { users =>
@@ -114,25 +114,25 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
     coll.optionsByOrderedIds[User, UserId](userIds, readPref = _.sec)(_.id)
 
   def isEnabled(id: UserId): Fu[Boolean] =
-    id.noGhost.so(coll.exists(enabledSelect ++ $id(id)))
+    id.noGhost.so(coll.exists(enabledSelect ++ bid(id)))
 
   def disabledById(id: UserId): Fu[Option[User]] =
-    id.noGhost.so(coll.one[User](disabledSelect ++ $id(id)))
+    id.noGhost.so(coll.one[User](disabledSelect ++ bid(id)))
 
   def usernameById(id: UserId): Fu[Option[UserName]] =
-    coll.primitiveOne[UserName]($id(id), F.username)
+    coll.primitiveOne[UserName](bid(id), F.username)
 
   def usernamesByIds(ids: List[UserId]): Fu[List[UserName]] =
-    coll.distinctEasy[UserName, List](F.username, $inIds(ids), _.sec)
+    coll.distinctEasy[UserName, List](F.username, inIds(ids), _.sec)
 
   def createdAtById(id: UserId): Fu[Option[Instant]] =
-    coll.primitiveOne[Instant]($id(id), F.createdAt)
+    coll.primitiveOne[Instant](bid(id), F.createdAt)
 
   def orderByGameCount(u1: UserId, u2: UserId): Fu[Option[(UserId, UserId)]] =
     coll
       .find(
-        $inIds(List(u1, u2)),
-        $doc(s"${F.count}.game" -> true).some
+        inIds(List(u1, u2)),
+        bdoc(s"${F.count}.game" -> true).some
       )
       .cursor[Bdoc]()
       .listAll()
@@ -146,8 +146,8 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
 
   def firstGetsWhite(u1: UserId, u2: UserId): Fu[Boolean] =
     coll
-      .find($inIds(List(u1, u2)), $id(true).some)
-      .sort($doc(F.colorIt -> 1))
+      .find(inIds(List(u1, u2)), bid(true).some)
+      .sort(bdoc(F.colorIt -> 1))
       .one[Bdoc]
       .map:
         _.fold(ThreadLocalRandom.nextBoolean()): doc =>
@@ -165,13 +165,13 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
       .update(ordered = false, WriteConcern.Unacknowledged)
       .one(
         // limit to -3 <= colorIt <= 5 but set when undefined
-        $id(userId) ++ $doc(F.colorIt -> $not(color.fold($gte(5), $lte(-3)))),
+        bid(userId) ++ bdoc(F.colorIt -> $not(color.fold($gte(5), $lte(-3)))),
         $inc(F.colorIt -> color.fold(1, -1))
       )
 
   def mustPlayAsColor(userId: UserId): Fu[Option[Color]] =
     coll
-      .primitiveOne[Int]($id(userId), F.colorIt)
+      .primitiveOne[Int](bid(userId), F.colorIt)
       .map:
         _.flatMap: i =>
           if i > 2 then Color.black.some
@@ -179,14 +179,14 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
           else none
 
   def setProfile(id: UserId, profile: Profile): Funit =
-    coll.updateField($id(id), F.profile, profile).void
+    coll.updateField(bid(id), F.profile, profile).void
 
   def setRealName(id: UserId, name: RealName): Funit =
-    coll.updateField($id(id), s"${F.profile}.realName", name).void
+    coll.updateField(bid(id), s"${F.profile}.realName", name).void
 
   def realName(id: UserId): Fu[Option[RealName]] =
     coll
-      .find($id(id) ++ enabledSelect, $doc(s"${F.profile}.realName" -> true).some)
+      .find(bid(id) ++ enabledSelect, bdoc(s"${F.profile}.realName" -> true).some)
       .one[Bdoc]
       .dmap:
         _.flatMap(_.child(F.profile).flatMap(_.getAsOpt[RealName]("realName")))
@@ -195,7 +195,7 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
     if id.is(name) then
       coll.update
         .one(
-          $id(id) ++ F.changedCase.$exists(false),
+          bid(id) ++ F.changedCase.$exists(false),
           $set(F.username -> name.value, F.changedCase -> true)
         )
         .flatMap: result =>
@@ -204,27 +204,27 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
     else fufail(s"Proposed username $name does not match old username $id")
 
   def setTitle(id: UserId, title: PlayerTitle): Funit =
-    coll.updateField($id(id), F.title, title).void
+    coll.updateField(bid(id), F.title, title).void
 
   def removeTitle(id: UserId): Funit =
-    coll.unsetField($id(id), F.title).void
+    coll.unsetField(bid(id), F.title).void
 
   def getPlayTime(id: UserId): Fu[Option[PlayTime]] =
-    coll.primitiveOne[PlayTime]($id(id), F.playTime)
+    coll.primitiveOne[PlayTime](bid(id), F.playTime)
 
-  val enabledSelect = $doc(F.enabled -> true)
-  val disabledSelect = $doc(F.enabled -> false)
+  val enabledSelect = bdoc(F.enabled -> true)
+  val disabledSelect = bdoc(F.enabled -> false)
   val notForeverClosedSelect = F.foreverClosed.$ne(true)
   def markSelect(mark: UserMark)(v: Boolean): Bdoc =
-    if v then $doc(F.marks -> mark.key)
+    if v then bdoc(F.marks -> mark.key)
     else F.marks.$ne(mark.key)
   def engineSelect = markSelect(UserMark.engine)
   def trollSelect = markSelect(UserMark.troll)
-  val lame = $doc(F.marks.$in(List(UserMark.engine, UserMark.boost)))
-  val lameOrTroll = $doc(F.marks.$in(List(UserMark.engine, UserMark.boost, UserMark.troll)))
-  val notLame = $doc(F.marks.$nin(List(UserMark.engine, UserMark.boost)))
-  val enabledNoBotSelect = enabledSelect ++ $doc(F.title.$ne(PlayerTitle.BOT))
-  val patronSelect = $doc(s"${F.plan}.active" -> true)
+  val lame = bdoc(F.marks.$in(List(UserMark.engine, UserMark.boost)))
+  val lameOrTroll = bdoc(F.marks.$in(List(UserMark.engine, UserMark.boost, UserMark.troll)))
+  val notLame = bdoc(F.marks.$nin(List(UserMark.engine, UserMark.boost)))
+  val enabledNoBotSelect = enabledSelect ++ bdoc(F.title.$ne(PlayerTitle.BOT))
+  val patronSelect = bdoc(s"${F.plan}.active" -> true)
 
   val sortCreatedAtDesc = $sort.desc(F.createdAt)
 
@@ -251,10 +251,10 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
       totalTime.ifTrue(botVsHuman).map(v => BSONElement(s"${F.playTime}.human", BSONInteger(v + 2)))
     ).flatten
 
-    coll.update.one($id(id), $inc($doc(incs*)))
+    coll.update.one(bid(id), $inc(bdoc(incs*)))
 
-  def incToints(id: UserId, nb: Int): Funit = coll.update.one($id(id), $inc("toints" -> nb)).void
-  def removeAllToints = coll.update.one($empty, $unset("toints"), multi = true)
+  def incToints(id: UserId, nb: Int): Funit = coll.update.one(bid(id), $inc("toints" -> nb)).void
+  def removeAllToints = coll.update.one(emptyBdoc, $unset("toints"), multi = true)
 
   def create(
       name: UserName,
@@ -270,35 +270,35 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
         ("len" -> BSONInteger(name.value.length))
       coll.insert.one(doc) >> byId(name.id)
 
-  def exists[U: UserIdOf](u: U): Fu[Boolean] = coll.exists($id(u.id))
-  def existsSec[U: UserIdOf](u: U): Fu[Boolean] = coll.secondary.exists($id(u.id))
+  def exists[U: UserIdOf](u: U): Fu[Boolean] = coll.exists(bid(u.id))
+  def existsSec[U: UserIdOf](u: U): Fu[Boolean] = coll.secondary.exists(bid(u.id))
 
   def filterExists(ids: Set[UserId]): Fu[List[UserId]] =
-    coll.primitive[UserId]($inIds(ids), F.id)
+    coll.primitive[UserId](inIds(ids), F.id)
 
   def userIdsLikeWithRole(text: UserSearch, role: RoleDbKey, max: Int = 10): Fu[List[UserId]] =
-    userIdsLikeFilter(text, $doc(F.roles -> role), max)
+    userIdsLikeFilter(text, bdoc(F.roles -> role), max)
 
   def userIdsLikeClosed(text: UserSearch, max: Int = 10): Fu[List[UserId]] =
-    userIdsLikeFilter(text, $doc(F.enabled -> false), max)
+    userIdsLikeFilter(text, bdoc(F.enabled -> false), max)
 
   private[user] def userIdsLikeFilter(text: UserSearch, filter: Bdoc, max: Int): Fu[List[UserId]] =
     coll
       .find(
-        $doc(F.id.$startsWith(text.value)) ++ enabledSelect ++ filter,
-        $doc(F.id -> true).some
+        bdoc(F.id.$startsWith(text.value)) ++ enabledSelect ++ filter,
+        bdoc(F.id -> true).some
       )
-      .sort($doc("len" -> 1))
+      .sort(bdoc("len" -> 1))
       .cursor[Bdoc](ReadPref.sec)
       .list(max)
       .map:
         _.flatMap { _.getAsOpt[UserId](F.id) }
 
   def idLikeCanBeVeryExpensive(regex: String, closed: Boolean): Fu[List[User]] =
-    coll.find(F.id.$regex(regex) ++ $doc(F.enabled -> !closed)).cursor[User](ReadPref.sec).list(200)
+    coll.find(F.id.$regex(regex) ++ bdoc(F.enabled -> !closed)).cursor[User](ReadPref.sec).list(200)
 
   private def setMark(mark: UserMark)(id: UserId, v: Boolean): Funit =
-    coll.update.one($id(id), $addOrPull(F.marks, mark, v)).void
+    coll.update.one(bid(id), $addOrPull(F.marks, mark, v)).void
 
   def setEngine = setMark(UserMark.engine)
   def setBoost = setMark(UserMark.boost)
@@ -310,79 +310,79 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
   def setPrizeban = setMark(UserMark.prizeban)
   def setAlt = setMark(UserMark.alt)
 
-  private[user] def setKid(user: User, v: KidMode) = coll.updateField($id(user.id), F.kid, v).void
+  private[user] def setKid(user: User, v: KidMode) = coll.updateField(bid(user.id), F.kid, v).void
 
   def isKid[U: UserIdOf](u: U): Fu[KidMode] = KidMode.from:
-    coll.exists($id(u.id) ++ $doc(F.kid -> true))
+    coll.exists(bid(u.id) ++ bdoc(F.kid -> true))
 
   def updateTroll(user: User) = setTroll(user.id, user.marks.troll)
 
   def filterLame(ids: Seq[UserId]): Fu[Set[UserId]] =
-    coll.distinct[UserId, Set]("_id", Some($inIds(ids) ++ lame))
+    coll.distinct[UserId, Set]("_id", Some(inIds(ids) ++ lame))
 
   def filterNotKid(ids: Seq[UserId]): Fu[Set[UserId]] =
-    coll.distinct[UserId, Set]("_id", Some($inIds(ids) ++ $doc(F.kid.$ne(true))))
+    coll.distinct[UserId, Set]("_id", Some(inIds(ids) ++ bdoc(F.kid.$ne(true))))
 
   def filterKid[U: UserIdOf](ids: Seq[U]): Fu[Set[UserId]] =
-    coll.distinct[UserId, Set]("_id", Some($inIds(ids.map(_.id)) ++ $doc(F.kid.$eq(true))))
+    coll.distinct[UserId, Set]("_id", Some(inIds(ids.map(_.id)) ++ bdoc(F.kid.$eq(true))))
 
-  def isTroll(id: UserId): Fu[Boolean] = coll.exists($id(id) ++ trollSelect(true))
+  def isTroll(id: UserId): Fu[Boolean] = coll.exists(bid(id) ++ trollSelect(true))
 
-  def isBot(id: UserId): Fu[Boolean] = coll.exists($id(id) ++ botSelect(true))
+  def isBot(id: UserId): Fu[Boolean] = coll.exists(bid(id) ++ botSelect(true))
 
-  def isAlt(id: UserId): Fu[Boolean] = coll.exists($id(id) ++ markSelect(UserMark.alt)(true))
+  def isAlt(id: UserId): Fu[Boolean] = coll.exists(bid(id) ++ markSelect(UserMark.alt)(true))
 
   def isCreatedSince(id: UserId, since: Instant): Fu[Boolean] =
-    coll.exists($id(id) ++ $doc(F.createdAt.$lt(since)))
+    coll.exists(bid(id) ++ bdoc(F.createdAt.$lt(since)))
 
   def setRoles(id: UserId, roles: List[RoleDbKey]): Funit =
-    coll.updateOrUnsetField($id(id), F.roles, Option.when(roles.nonEmpty)(roles)).void
+    coll.updateOrUnsetField(bid(id), F.roles, Option.when(roles.nonEmpty)(roles)).void
 
   def getRoles[U: UserIdOf](u: U): Fu[List[RoleDbKey]] =
-    coll.primitiveOne[List[RoleDbKey]]($id(u.id), BSONFields.roles).dmap(_.orZero)
+    coll.primitiveOne[List[RoleDbKey]](bid(u.id), BSONFields.roles).dmap(_.orZero)
 
   def addPermission(id: UserId, perm: lila.core.perm.Permission): Funit =
-    coll.update.one($id(id), $push(F.roles -> perm.dbKey)).void
+    coll.update.one(bid(id), $push(F.roles -> perm.dbKey)).void
 
   def accountAge(id: UserId): Fu[Days] =
     coll
-      .primitiveOne[Instant]($id(id), F.createdAt)
+      .primitiveOne[Instant](bid(id), F.createdAt)
       .map:
         _.fold(Days(0)): date =>
           Days(scalalib.time.daysBetween(date.withTimeAtStartOfDay, nowInstant.withTimeAtStartOfDay))
 
-  def disableTwoFactor(id: UserId) = coll.update.one($id(id), $unset(F.totpSecret))
+  def disableTwoFactor(id: UserId) = coll.update.one(bid(id), $unset(F.totpSecret))
 
   def setupTwoFactor(id: UserId, totp: TotpSecret): Funit =
     coll.update
       .one(
-        $id(id) ++ (F.totpSecret.$exists(false)), // never overwrite existing secret
+        bid(id) ++ (F.totpSecret.$exists(false)), // never overwrite existing secret
         $set(F.totpSecret -> totp.secret)
       )
       .void
 
   def reopen(id: UserId) =
     coll.update.one(
-      $id(id),
+      bid(id),
       $set(F.enabled -> true) ++ $unset(F.delete) ++ $pull(F.marks, UserMark.alt)
     ) >>
       coll.update
         .one(
-          $id(id) ++ $doc(F.email.$exists(false)),
-          $doc("$rename" -> $doc(F.prevEmail -> F.email))
+          bid(id) ++ bdoc(F.email.$exists(false)),
+          bdoc("$rename" -> bdoc(F.prevEmail -> F.email))
         )
         .void
         .recover(lila.db.recoverDuplicateKey(_ => ()))
 
   def disable(user: User, keepEmail: Boolean, forever: Boolean): Funit =
-    val sets = $doc(F.enabled -> false).++(forever.so($doc(F.foreverClosed -> true)))
+    val sets = bdoc(F.enabled -> false).++(forever.so(bdoc(F.foreverClosed -> true)))
     val unsets = List(F.roles.some, keepEmail.option(F.mustConfirmEmail)).flatten
     coll.update
       .one(
-        $id(user.id),
-        $doc("$set" -> sets) ++
+        bid(user.id),
+        bdoc("$set" -> sets) ++
           $unset(unsets) ++
-          keepEmail.not.so($doc("$rename" -> $doc(F.email -> F.prevEmail)))
+          keepEmail.not.so(bdoc("$rename" -> bdoc(F.email -> F.prevEmail)))
       )
       .void
 
@@ -410,15 +410,15 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
         F.delete
       )
       coll.update.one(
-        $id(user.id),
+        bid(user.id),
         $unset(fields) ++ $set("deletedAt" -> nowInstant)
       )
 
     def nowFully(user: User) = for
       lockEmail <- emailOrPrevious(user.id)
       _ <- coll.update.one(
-        $id(user.id),
-        $doc(
+        bid(user.id),
+        bdoc(
           "prevEmail" -> lockEmail,
           "createdAt" -> user.createdAt,
           "deletedAt" -> nowInstant
@@ -430,27 +430,27 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
       val requestedAt = nowInstant.minusDays(7)
       coll
         .find:
-          $doc( // hits the delete.requested_1 index
+          bdoc( // hits the delete.requested_1 index
             s"${F.delete}.requested".$lt(requestedAt),
             s"${F.delete}.done" -> false
           )
-        .sort($doc(s"${F.delete}.requested" -> 1))
+        .sort(bdoc(s"${F.delete}.requested" -> 1))
         .one[User]
 
     def schedule(userId: UserId, delete: Option[UserDelete]): Funit =
-      coll.updateOrUnsetField($id(userId), F.delete, delete).void
+      coll.updateOrUnsetField(bid(userId), F.delete, delete).void
 
   def getPasswordHash(id: UserId): Fu[Option[String]] =
     coll.byId[AuthData](id, AuthData.projection).map2(_.bpass.bytes.sha512.hex)
 
   def blankPassword(id: UserId): Funit =
-    coll.updateField($id(id), F.bpass, HashedPassword(Array.empty)).void
+    coll.updateField(bid(id), F.bpass, HashedPassword(Array.empty)).void
 
   def setEmail(id: UserId, email: EmailAddress): Funit =
     val normalized = email.normalize
     coll.update
       .one(
-        $id(id),
+        bid(id),
         if email.value == normalized.value then
           $set(F.email -> normalized) ++ $unset(F.prevEmail, F.verbatimEmail)
         else $set(F.email -> normalized, F.verbatimEmail -> email) ++ $unset(F.prevEmail)
@@ -466,19 +466,19 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
 
   def email(id: UserId): Fu[Option[EmailAddress]] =
     coll
-      .find($id(id), $doc(F.email -> true, F.verbatimEmail -> true).some)
+      .find(bid(id), bdoc(F.email -> true, F.verbatimEmail -> true).some)
       .one[Bdoc]
       .mapz(anyEmail)
 
   def emailOrPrevious(id: UserId): Fu[Option[EmailAddress]] =
     coll
-      .find($id(id), $doc(F.email -> true, F.verbatimEmail -> true, F.prevEmail -> true).some)
+      .find(bid(id), bdoc(F.email -> true, F.verbatimEmail -> true, F.prevEmail -> true).some)
       .one[Bdoc]
       .mapz(anyEmailOrPrevious)
 
   def notClosedForeverWithEmail(email: NormalizedEmailAddress): Fu[Option[(User, EmailAddress)]] =
     coll
-      .find($doc(F.email -> email, notForeverClosedSelect))
+      .find(bdoc(F.email -> email, notForeverClosedSelect))
       .one[Bdoc]
       .map: maybeDoc =>
         for
@@ -488,11 +488,11 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
         yield (user, storedEmail)
 
   def prevEmail(id: UserId): Fu[Option[EmailAddress]] =
-    coll.primitiveOne[EmailAddress]($id(id), F.prevEmail)
+    coll.primitiveOne[EmailAddress](bid(id), F.prevEmail)
 
   def currentOrPrevEmail(id: UserId): Fu[Option[EmailAddress]] =
     coll
-      .find($id(id), $doc(F.email -> true, F.verbatimEmail -> true, F.prevEmail -> true).some)
+      .find(bid(id), bdoc(F.email -> true, F.verbatimEmail -> true, F.prevEmail -> true).some)
       .one[Bdoc]
       .mapz: doc =>
         anyEmail(doc).orElse(doc.getAsOpt[EmailAddress](F.prevEmail))
@@ -500,8 +500,8 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
   def emailMap(ids: List[UserId]): Fu[Map[UserId, EmailAddress]] =
     coll
       .find(
-        $inIds(ids),
-        $doc(F.verbatimEmail -> true, F.email -> true, F.prevEmail -> true).some
+        inIds(ids),
+        bdoc(F.verbatimEmail -> true, F.email -> true, F.prevEmail -> true).some
       )
       .cursor[Bdoc](ReadPref.sec)
       .listAll()
@@ -516,91 +516,91 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
   def isManaged(id: UserId): Fu[Boolean] = email(id).dmap(_.exists(_.isNoReply))
 
   def botSelect(v: Boolean) =
-    if v then $doc(F.title -> PlayerTitle.BOT)
-    else $doc(F.title -> $ne(PlayerTitle.BOT))
+    if v then bdoc(F.title -> PlayerTitle.BOT)
+    else bdoc(F.title -> $ne(PlayerTitle.BOT))
 
-  def botWithBioSelect = botSelect(true) ++ $doc(s"${F.profile}.bio" -> $exists(true))
+  def botWithBioSelect = botSelect(true) ++ bdoc(s"${F.profile}.bio" -> $exists(true))
 
   private[user] def botIds =
     coll.distinctEasy[UserId, Set]("_id", botSelect(true) ++ enabledSelect, _.sec)
 
-  def getTitle(id: UserId): Fu[Option[PlayerTitle]] = coll.primitiveOne[PlayerTitle]($id(id), F.title)
+  def getTitle(id: UserId): Fu[Option[PlayerTitle]] = coll.primitiveOne[PlayerTitle](bid(id), F.title)
 
   def hasTitle(id: UserId): Fu[Boolean] = getTitle(id).dmap(_.exists(PlayerTitle.BOT != _))
 
   def setPlan(user: User, plan: Option[Plan]): Funit =
-    coll.updateOrUnsetField($id(user.id), BSONFields.plan, plan).void
+    coll.updateOrUnsetField(bid(user.id), BSONFields.plan, plan).void
 
   def setSeenAt(id: UserId): Unit =
-    coll.updateFieldUnchecked($id(id), F.seenAt, nowInstant)
+    coll.updateFieldUnchecked(bid(id), F.seenAt, nowInstant)
 
   def setLang(user: User, lang: play.api.i18n.Lang) =
-    coll.updateField($id(user.id), "lang", lang.code).void
+    coll.updateField(bid(user.id), "lang", lang.code).void
 
-  def langOf(id: UserId): Fu[Option[LangTag]] = coll.primitiveOne[LangTag]($id(id), "lang")
+  def langOf(id: UserId): Fu[Option[LangTag]] = coll.primitiveOne[LangTag](bid(id), "lang")
 
   def filterByEnabledPatrons(userIds: List[UserId]): Fu[Set[UserId]] =
-    coll.distinctEasy[UserId, Set](F.id, $inIds(userIds) ++ enabledSelect ++ patronSelect, _.sec)
+    coll.distinctEasy[UserId, Set](F.id, inIds(userIds) ++ enabledSelect ++ patronSelect, _.sec)
 
   def filterEnabled(userIds: Seq[UserId]): Fu[Set[UserId]] =
-    coll.distinctEasy[UserId, Set](F.id, $inIds(userIds) ++ enabledSelect, _.sec)
+    coll.distinctEasy[UserId, Set](F.id, inIds(userIds) ++ enabledSelect, _.sec)
 
   def filterDisabled(userIds: Iterable[UserId]): Fu[Set[UserId]] =
     userIds.nonEmpty.so:
-      coll.distinctEasy[UserId, Set](F.id, $inIds(userIds) ++ disabledSelect, _.sec)
+      coll.distinctEasy[UserId, Set](F.id, inIds(userIds) ++ disabledSelect, _.sec)
 
   def containsDisabled(userIds: Iterable[UserId]): Fu[Boolean] =
     userIds.nonEmpty.so:
-      coll.secondary.exists($inIds(userIds) ++ disabledSelect)
+      coll.secondary.exists(inIds(userIds) ++ disabledSelect)
 
   def userIdsWithRoles(roles: List[RoleDbKey]): Fu[Set[UserId]] =
-    coll.distinctEasy[UserId, Set]("_id", $doc("roles".$in(roles)))
+    coll.distinctEasy[UserId, Set]("_id", bdoc("roles".$in(roles)))
 
   def countEngines(userIds: List[UserId]): Fu[Int] =
-    coll.secondary.countSel($inIds(userIds) ++ engineSelect(true))
+    coll.secondary.countSel(inIds(userIds) ++ engineSelect(true))
 
   def filterEngines(userIds: Seq[UserId]): Fu[Set[UserId]] =
-    coll.distinctEasy[UserId, Set](F.id, $inIds(userIds) ++ engineSelect(true), _.sec)
+    coll.distinctEasy[UserId, Set](F.id, inIds(userIds) ++ engineSelect(true), _.sec)
 
   def countLameOrTroll(userIds: List[UserId]): Fu[Int] =
-    coll.secondary.countSel($inIds(userIds) ++ lameOrTroll)
+    coll.secondary.countSel(inIds(userIds) ++ lameOrTroll)
 
   def containsEngine(userIds: List[UserId]): Fu[Boolean] =
-    coll.exists($inIds(userIds) ++ engineSelect(true))
+    coll.exists(inIds(userIds) ++ engineSelect(true))
 
   def mustConfirmEmail(id: UserId): Fu[Boolean] =
-    coll.exists($id(id) ++ $doc(F.mustConfirmEmail.$exists(true)))
+    coll.exists(bid(id) ++ bdoc(F.mustConfirmEmail.$exists(true)))
 
   def setEmailConfirmed(id: UserId): Fu[Option[EmailAddress]] = for
-    res <- coll.update.one($id(id) ++ $doc(F.mustConfirmEmail.$exists(true)), $unset(F.mustConfirmEmail))
+    res <- coll.update.one(bid(id) ++ bdoc(F.mustConfirmEmail.$exists(true)), $unset(F.mustConfirmEmail))
     email <- (res.nModified == 1).so(email(id))
   yield email
 
   def setFlair(user: User, flair: Option[Flair]): Funit =
-    coll.updateOrUnsetField($id(user.id), F.flair, flair).void
+    coll.updateOrUnsetField(bid(user.id), F.flair, flair).void
 
   def unsetFlairs(all: Set[(UserId, Flair)]): Funit = all.nonEmpty.so:
     all.toList.sequentiallyVoid: (userId, flair) =>
-      coll.unsetField($id(userId) ++ $doc(BSONFields.flair -> flair), BSONFields.flair)
+      coll.unsetField(bid(userId) ++ bdoc(BSONFields.flair -> flair), BSONFields.flair)
 
   def unsetBio(id: UserId): Funit =
-    coll.unsetField($id(id), s"${F.profile}.bio").void
+    coll.unsetField(bid(id), s"${F.profile}.bio").void
 
   def byIdAs[A: BSONDocumentReader](id: String, proj: Bdoc): Fu[Option[A]] =
-    coll.one[A]($id(id), proj)
+    coll.one[A](bid(id), proj)
 
   def closedFlags(user: User): Fu[Option[ClosedFlags]] =
     user.enabled.no.so:
       coll
-        .exists($id(user.id) ++ $doc(F.foreverClosed -> true))
-        .zip(coll.exists($id(user.id) ++ $doc(s"${F.delete}.done" -> true)))
+        .exists(bid(user.id) ++ bdoc(F.foreverClosed -> true))
+        .zip(coll.exists(bid(user.id) ++ bdoc(s"${F.delete}.done" -> true)))
         .map(ClosedFlags(_, _).some)
 
   def filterClosedOrInactiveIds(since: Instant)(ids: Iterable[UserId]): Fu[List[UserId]] =
-    coll.distinctEasy[UserId, List](F.id, $inIds(ids) ++ $or(disabledSelect, F.seenAt.$lt(since)), _.sec)
+    coll.distinctEasy[UserId, List](F.id, inIds(ids) ++ $or(disabledSelect, F.seenAt.$lt(since)), _.sec)
 
   def filterSeenSince(since: Instant)(ids: Iterable[UserId]): Fu[List[UserId]] =
-    coll.distinctEasy[UserId, List](F.id, $inIds(ids) ++ F.seenAt.$gt(since), _.sec)
+    coll.distinctEasy[UserId, List](F.id, inIds(ids) ++ F.seenAt.$gt(since), _.sec)
 
   private val defaultCount = lila.core.user.Count(0, 0, 0, 0, 0)
 
@@ -615,7 +615,7 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
   ) =
     val normalizedEmail = email.normalize
     val now = nowInstant
-    $doc(
+    bdoc(
       F.id -> name.id,
       F.username -> name.value,
       F.email -> normalizedEmail,
@@ -628,9 +628,9 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
       F.playTime -> PlayTime(0, 0, none),
       F.lang -> lang
     ) ++ {
-      (email.value != normalizedEmail.value).so($doc(F.verbatimEmail -> email))
+      (email.value != normalizedEmail.value).so(bdoc(F.verbatimEmail -> email))
     } ++ {
-      blind.so($doc(F.blind -> true))
+      blind.so(bdoc(F.blind -> true))
     } ++ {
-      kid.yes.so($doc(F.kid -> kid))
+      kid.yes.so(bdoc(F.kid -> kid))
     }

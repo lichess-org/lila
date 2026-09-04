@@ -55,7 +55,7 @@ final class FeedApi(coll: Coll, cacheApi: CacheApi, flairApi: FlairApi)(using Ex
     val store = cacheApi.unit[List[Update]]("feed.store"):
       _.refreshAfterWrite(1.minute).buildAsyncTimeout(): _ =>
         coll
-          .find($empty)
+          .find(emptyBdoc)
           .sort($sort.desc("at"))
           .cursor[Update]()
           .list(max.value)
@@ -74,10 +74,10 @@ final class FeedApi(coll: Coll, cacheApi: CacheApi, flairApi: FlairApi)(using Ex
   def get(id: ID): Fu[Option[Update]] = coll.byId[Update](id)
 
   def set(update: Update): Funit =
-    for _ <- coll.update.one($id(update.id), update, upsert = true) yield cache.clear()
+    for _ <- coll.update.one(bid(update.id), update, upsert = true) yield cache.clear()
 
   def delete(id: ID): Funit =
-    for _ <- coll.delete.one($id(id)) yield cache.clear()
+    for _ <- coll.delete.one(bid(id)) yield cache.clear()
 
   case class UpdateData(content: Markdown, public: Boolean, at: Instant, flair: Option[Flair]):
     def toUpdate(id: Option[ID]) = Update(id | makeId, content, public, at, flair)
@@ -103,8 +103,8 @@ final class FeedPaginatorBuilder(coll: Coll)(using Executor):
       adapter = Adapter[Update](
         collection = coll,
         selector =
-          if includeAll then $empty
-          else $doc("public" -> true, "at".$lt(nowInstant)),
+          if includeAll then emptyBdoc
+          else bdoc("public" -> true, "at".$lt(nowInstant)),
         projection = none,
         sort = $sort.desc("at")
       ),

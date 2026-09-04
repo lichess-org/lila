@@ -89,7 +89,7 @@ final class UserLoginsApi(
     }
 
   private[security] def userHasPrint(u: User): Fu[Boolean] =
-    store.coll.secondary.exists($doc("user" -> u.id, "fp".$exists(true)))
+    store.coll.secondary.exists(bdoc("user" -> u.id, "fp".$exists(true)))
 
   private def fetchOtherUsers(
       user: User,
@@ -103,7 +103,7 @@ final class UserLoginsApi(
           import framework.*
           import FingerHash.given
           Match(
-            $doc(
+            bdoc(
               $or(
                 "ip".$in(ipSet),
                 "fp".$in(fpSet)
@@ -117,15 +117,15 @@ final class UserLoginsApi(
               "fps" -> AddFieldToSet("fp")
             ),
             AddFields(
-              $doc(
-                "nbIps" -> $doc("$size" -> "$ips"),
-                "nbFps" -> $doc("$size" -> "$fps")
+              bdoc(
+                "nbIps" -> bdoc("$size" -> "$ips"),
+                "nbFps" -> bdoc("$size" -> "$fps")
               )
             ),
             AddFields(
-              $doc(
-                "score" -> $doc(
-                  "$add" -> $arr("$nbIps", "$nbFps", $doc("$multiply" -> $arr("$nbIps", "$nbFps")))
+              bdoc(
+                "score" -> bdoc(
+                  "$add" -> barr("$nbIps", "$nbFps", bdoc("$multiply" -> barr("$nbIps", "$nbFps")))
                 )
               )
             ),
@@ -158,7 +158,7 @@ final class UserLoginsApi(
       users <- (ips.nonEmpty && fps.nonEmpty).so(
         store.coll.secondary.distinctEasy[UserId, Set](
           "user",
-          $doc(
+          bdoc(
             "ip".$in(ips),
             "fp".$in(fps),
             "user".$ne(userId)
@@ -168,7 +168,7 @@ final class UserLoginsApi(
     yield users
 
   private def nextValues(field: String, userId: UserId): Fu[Set[String]] =
-    store.coll.secondary.distinctEasy[String, Set](field, $doc("user" -> userId))
+    store.coll.secondary.distinctEasy[String, Set](field, bdoc("user" -> userId))
 
 object UserLogins:
 

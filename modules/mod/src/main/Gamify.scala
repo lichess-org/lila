@@ -26,9 +26,9 @@ final class Gamify(
     val until = nowDateTime.minusMonths(1).withDayOfMonth(1)
     val lastId = HistoryMonth.makeId(until.getYear, until.getMonthValue)
     historyRepo.coll
-      .find($empty)
+      .find(emptyBdoc)
       .sort(
-        $doc(
+        bdoc(
           "year" -> -1,
           "month" -> -1
         )
@@ -62,7 +62,7 @@ final class Gamify(
       .map(_.flatten)
       .flatMap:
         _.parallelVoid: month =>
-          historyRepo.coll.update.one($doc("_id" -> month._id), month, upsert = true).void
+          historyRepo.coll.update.one(bdoc("_id" -> month._id), month, upsert = true).void
 
   def leaderboards = leaderboardsCache.getUnit
 
@@ -94,8 +94,8 @@ final class Gamify(
       .sortBy(-_.score)
 
   private def dateRange(from: Instant, toOption: Option[Instant]) =
-    $doc("$gte" -> from) ++ toOption.so { to =>
-      $doc("$lt" -> to)
+    bdoc("$gte" -> from) ++ toOption.so { to =>
+      bdoc("$lt" -> to)
     }
 
   private val hidden = List(UserId.lichess, UserId.irwin)
@@ -105,7 +105,7 @@ final class Gamify(
       .aggregateList(maxDocs = 100, _.sec): framework =>
         import framework.*
         Match(
-          $doc(
+          bdoc(
             "date" -> dateRange(after, before),
             "mod" -> $nin(hidden)
           )
@@ -123,7 +123,7 @@ final class Gamify(
       .aggregateList(maxDocs = Int.MaxValue, _.sec): framework =>
         import framework.*
         Match(
-          $doc(
+          bdoc(
             "done.at" -> dateRange(after, before),
             "done.by" -> $nin(hidden),
             "open" -> false
@@ -131,8 +131,8 @@ final class Gamify(
         ) -> List(
           GroupField("done.by")(
             "nb" -> Sum(
-              $doc(
-                "$cond" -> $arr($doc("$eq" -> $arr("$room", Room.Cheat.key)), 3, 1)
+              bdoc(
+                "$cond" -> barr(bdoc("$eq" -> barr("$room", Room.Cheat.key)), 3, 1)
               )
             )
           ),

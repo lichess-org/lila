@@ -35,15 +35,15 @@ final class TitleApi(
         case _ => Status.building
     def writes(w: lila.db.BSON.Writer, s: Status) =
       s.textOpt match
-        case Some(t) => $doc("n" -> s.name, "t" -> t)
-        case None => $doc("n" -> s.name)
+        case Some(t) => bdoc("n" -> s.name, "t" -> t)
+        case None => bdoc("n" -> s.name)
   private given BSONDocumentHandler[StatusAt] = Macros.handler
   private given BSONDocumentHandler[TitleRequest] = Macros.handler
   private val statusField = "history.0.status"
   private val updatedAtField = "history.0.at"
 
   def getCurrent(using me: Me): Fu[Option[TitleRequest]] =
-    coll.find($doc("userId" -> me.userId)).sort($sort.desc(updatedAtField)).one[TitleRequest]
+    coll.find(bdoc("userId" -> me.userId)).sort($sort.desc(updatedAtField)).one[TitleRequest]
 
   def getForMe(id: TitleRequestId)(using me: Me): Fu[Option[TitleRequest]] =
     coll
@@ -52,16 +52,16 @@ final class TitleApi(
         _.filter(_.userId.is(me) || Granter(_.Admin))
 
   def allOf(u: User): Fu[List[TitleRequest]] =
-    coll.list[TitleRequest]($doc("userId" -> u.id))
+    coll.list[TitleRequest](bdoc("userId" -> u.id))
 
   def findSimilar(req: TitleRequest): Fu[List[TitleRequest]] =
     val search = List(
       ("data.realName" -> BSONString(req.data.realName.value)).some,
       req.data.fideId.map(id => "data.fideId" -> BSONInteger(id.value))
     ).flatten.map: (k, v) =>
-      $doc(k -> v)
+      bdoc(k -> v)
     coll
-      .find($or(search*) ++ $doc("userId".$ne(req.userId), statusField -> $nin(Status.building)))
+      .find($or(search*) ++ bdoc("userId".$ne(req.userId), statusField -> $nin(Status.building)))
       .sort($sort.desc(updatedAtField))
       .cursor[TitleRequest]()
       .list(30)
@@ -72,17 +72,17 @@ final class TitleApi(
 
   def update(req: TitleRequest, data: FormData): Fu[TitleRequest] =
     val newReq = req.update(data)
-    coll.update.one($id(req.id), newReq).inject(newReq)
+    coll.update.one(bid(req.id), newReq).inject(newReq)
 
   def delete(req: TitleRequest): Funit =
-    coll.delete.one($id(req.id)).void
+    coll.delete.one(bid(req.id)).void
 
   def countPending: Fu[Int] =
-    coll.countSel($doc(s"$statusField.n" -> Status.pending.toString))
+    coll.countSel(bdoc(s"$statusField.n" -> Status.pending.toString))
 
   def queue(nb: Int): Fu[List[TitleRequest]] =
     coll
-      .find($doc(s"$statusField.n" -> Status.pending.toString))
+      .find(bdoc(s"$statusField.n" -> Status.pending.toString))
       .sort($sort.asc(updatedAtField))
       .cursor[TitleRequest]()
       .list(nb)
@@ -92,14 +92,14 @@ final class TitleApi(
     newReq.status match
       case Status.feedback(feedback) => sendFeedback(req.userId, feedback)
       case _ =>
-    coll.update.one($id(req.id), newReq).inject(newReq)
+    coll.update.one(bid(req.id), newReq).inject(newReq)
 
   def tryAgain(req: TitleRequest) =
-    coll.update.one($id(req.id), req.tryAgain).void
+    coll.update.one(bid(req.id), req.tryAgain).void
 
   def publicUserOf(fideId: FideId): Fu[Option[User]] = for
     ids <- coll.secondary.primitive[UserId](
-      $doc("data.fideId" -> fideId, s"$statusField.n" -> Status.approved.toString, "data.public" -> true),
+      bdoc("data.fideId" -> fideId, s"$statusField.n" -> Status.approved.toString, "data.public" -> true),
       $sort.desc(updatedAtField),
       "userId"
     )
@@ -113,11 +113,11 @@ final class TitleApi(
         _.expireAfterWrite(1.hour).buildAsyncFuture: id =>
           coll.secondary
             .find(
-              $doc(
+              bdoc(
                 "userId" -> id,
                 s"$statusField.n" -> Status.approved.toString
               ),
-              $doc("data.fideId" -> true, "data.public" -> true, "data.realName" -> true).some
+              bdoc("data.fideId" -> true, "data.public" -> true, "data.realName" -> true).some
             )
             .sort($sort.desc("createdAt"))
             .one[Bdoc]
@@ -163,18 +163,18 @@ $baseUrl/verify-title
             ref(req, tag).some,
             requestAutomod = false
           )
-          _ <- coll.updateField($id(req.id), tag, image.id)
+          _ <- coll.updateField(bid(req.id), tag, image.id)
         yield req.focusImage(tag).replace(image.id.some)
 
     def delete(req: TitleRequest, tag: String): Fu[TitleRequest] = for
       _ <- picfitApi.pullRef(ref(req, tag))
-      _ <- coll.unsetField($id(req.id), tag)
+      _ <- coll.unsetField(bid(req.id), tag)
     yield req.focusImage(tag).replace(none)
 
   private[title] def cleanupOldPics: Funit = for
     oldPics <- coll
       .find:
-        $doc(
+        bdoc(
           updatedAtField -> $lt(nowInstant.minusMonths(1)),
           $or("idDocument".$exists(true), "selfie".$exists(true))
         )

@@ -13,7 +13,7 @@ final class RequesterApi(coll: Coll)(using Executor):
   def add(requester: UserId, ownGame: Boolean): Funit =
     coll.update
       .one(
-        $id(requester),
+        bid(requester),
         $inc(
           "total" -> 1,
           formatter.print(nowInstant) -> (if ownGame then 1 else 2)
@@ -26,8 +26,8 @@ final class RequesterApi(coll: Coll)(using Executor):
     val now = nowInstant
     coll
       .one(
-        $id(userId),
-        $doc:
+        bid(userId),
+        bdoc:
           (7 to 0 by -1).toList.map(now.minusDays).map(formatter.print).map(_ -> BSONBoolean(true))
       )
       .map: doc =>
@@ -39,4 +39,4 @@ final class RequesterApi(coll: Coll)(using Executor):
         (~daily, weekly)
 
   lila.common.Bus.sub[lila.core.user.UserDelete]: del =>
-    coll.delete.one($id(del.id)).void
+    coll.delete.one(bid(del.id)).void

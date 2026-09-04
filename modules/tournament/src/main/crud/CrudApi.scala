@@ -37,7 +37,7 @@ final class CrudApi(tournamentRepo: TournamentRepo, tourApi: TournamentApi, crud
         collection = tournamentRepo.coll,
         selector = tournamentRepo.selectUnique,
         projection = none,
-        sort = $doc("startsAt" -> -1)
+        sort = bdoc("startsAt" -> -1)
       ),
       currentPage = page,
       maxPerPage = MaxPerPage(20)

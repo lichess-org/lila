@@ -66,9 +66,9 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(using Executor
             ratingBuckets.map: (rating, nbPuzzles) =>
               val target = f"${theme}${sep}${tier}${sep}${rating}%04d"
               rating.toString -> List(
-                Match($doc("min".$lte(target), "max".$gte(target))),
+                Match(bdoc("min".$lte(target), "max".$gte(target))),
                 Sample(nbSets),
-                Project($doc("_id" -> false, "ids" -> true)),
+                Project(bdoc("_id" -> false, "ids" -> true)),
                 UnwindField("ids"),
                 // ensure we have enough after filtering deviation & color
                 Sample(nbPuzzles * nbSets * 8),
@@ -78,7 +78,7 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(using Executor
                 ReplaceRootField("puzzle")
               )
           ) -> List(
-            Project($doc("all" -> $doc("$setUnion" -> ratingBuckets.map(r => s"$$${r._1}")))),
+            Project(bdoc("all" -> bdoc("$setUnion" -> ratingBuckets.map(r => s"$$${r._1}")))),
             UnwindField("all"),
             ReplaceRootField("all"),
             Sort(Ascending("rating")),
@@ -105,26 +105,26 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(using Executor
     $lookup.pipelineFull(
       from = colls.puzzle.name.value,
       as = "puzzle",
-      let = $doc("id" -> "$ids"),
+      let = bdoc("id" -> "$ids"),
       pipe = List(
-        $doc:
+        bdoc:
           "$match" -> $expr:
             $and(
-              $doc("$eq" -> $arr("$_id", "$$id")),
-              $doc("$lte" -> $arr("$glicko.d", maxDeviation)),
-              $doc(
-                "$regexMatch" -> $doc(
+              bdoc("$eq" -> barr("$_id", "$$id")),
+              bdoc("$lte" -> barr("$glicko.d", maxDeviation)),
+              bdoc(
+                "$regexMatch" -> bdoc(
                   "input" -> "$fen",
                   "regex" -> { if color.white then " w " else " b " }
                 )
               )
             )
         ,
-        $doc:
-          "$project" -> $doc(
+        bdoc:
+          "$project" -> bdoc(
             "fen" -> true,
             "line" -> true,
-            "rating" -> $doc("$toInt" -> "$glicko.r")
+            "rating" -> bdoc("$toInt" -> "$glicko.r")
           )
       )
     )

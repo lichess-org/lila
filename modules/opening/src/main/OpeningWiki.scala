@@ -29,16 +29,16 @@ final class OpeningWikiApi(coll: Coll, explorer: OpeningExplorer, cacheApi: Cach
     wiki <- cache.get(op.key)
     withRevisions = Granter.opt(_.OpeningWiki)
     revisions <- withRevisions.so:
-      coll.primitiveOne[List[Revision]]($id(op.key), "revisions")
+      coll.primitiveOne[List[Revision]](bid(op.key), "revisions")
   yield wiki.copy(revisions = (~revisions).take(25))
 
   def write(op: Opening, text: String, by: UserId): Funit =
     for _ <- coll.update
         .one(
-          $id(op.key),
-          $doc(
-            "$push" -> $doc(
-              "revisions" -> $doc(
+          bid(op.key),
+          bdoc(
+            "$push" -> bdoc(
+              "revisions" -> bdoc(
                 "$each" -> List(Revision(Markdown(text), by.id, nowInstant)),
                 "$position" -> 0,
                 "$slice" -> 30
@@ -53,11 +53,11 @@ final class OpeningWikiApi(coll: Coll, explorer: OpeningExplorer, cacheApi: Cach
     coll
       .aggregateList(100, _.sec): framework =>
         import framework.*
-        Project($doc("popularity" -> true, "rev" -> $doc("$first" -> "$revisions"))) -> List(
-          AddFields($doc("len" -> $doc("$strLenBytes" -> $doc("$ifNull" -> $arr("$rev.text", ""))))),
-          Match($doc("len".$lt(300))),
+        Project(bdoc("popularity" -> true, "rev" -> bdoc("$first" -> "$revisions"))) -> List(
+          AddFields(bdoc("len" -> bdoc("$strLenBytes" -> bdoc("$ifNull" -> barr("$rev.text", ""))))),
+          Match(bdoc("len".$lt(300))),
           Sort(Descending("popularity")),
-          Project($doc("_id" -> true))
+          Project(bdoc("_id" -> true))
         )
       .map: docs =>
         for
@@ -86,7 +86,7 @@ final class OpeningWikiApi(coll: Coll, explorer: OpeningExplorer, cacheApi: Cach
 
   private def compute(key: OpeningKey): Fu[OpeningWiki] = for
     docOpt <- coll.aggregateOne(): F =>
-      F.Match($id(key)) -> List(F.Project($doc("lastRev" -> $doc("$first" -> "$revisions"))))
+      F.Match(bid(key)) -> List(F.Project(bdoc("lastRev" -> bdoc("$first" -> "$revisions"))))
     popularity <- updatePopularity(key)
     lastRev = docOpt.flatMap(_.getAsOpt[Revision]("lastRev"))
     text = lastRev.map(_.text)
@@ -98,7 +98,7 @@ final class OpeningWikiApi(coll: Coll, explorer: OpeningExplorer, cacheApi: Cach
         .simplePopularity(op)
         .flatMapz: popularity =>
           val update = $set("popularity" -> popularity, "popularityAt" -> nowInstant)
-          coll.update.one($id(key), update, upsert = true).inject(popularity)
+          coll.update.one(bid(key), update, upsert = true).inject(popularity)
     }
 
 object OpeningWiki:

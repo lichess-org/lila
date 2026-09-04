@@ -16,10 +16,10 @@ final class ModStream(logRepo: ModlogRepo, userRepo: UserRepo)(using org.apache.
   def markedSince(since: Instant): Source[UserId, ?] =
     logRepo.coll
       .find(
-        $doc("action".$in(List("engine", "booster", "cheatDetected")), "date" -> $doc("$gt" -> since)),
-        $doc("user" -> true).some
+        bdoc("action".$in(List("engine", "booster", "cheatDetected")), "date" -> bdoc("$gt" -> since)),
+        bdoc("user" -> true).some
       )
-      .sort($doc("date" -> 1))
+      .sort(bdoc("date" -> 1))
       .batchSize(100)
       .cursor[Bdoc]()
       .documentSource()
