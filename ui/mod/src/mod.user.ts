@@ -153,7 +153,7 @@ site.load.then(() => {
             .find('td.ips-prints')
             .addClass('add-to-note text')
             .attr('title', 'Add to note')
-            .each((_, el) => el.prepend(domIcon('Clipboard')));
+            .each((_, el) => el.prepend(domIcon('clipboard')));
         }
       }
     });

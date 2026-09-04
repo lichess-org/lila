@@ -17,7 +17,7 @@ export default function renderConvo(ctrl: MsgCtrl, convo: Convo): VNode {
     h('div.msg-app__convo__head', [
       h('div.msg-app__convo__head__left', [
         h('span.msg-app__convo__head__back', { hook: hookMobileMousedown(ctrl.showSide) }, [
-          snabIcon('LessThan'),
+          snabIcon('lessThan'),
         ]),
         contactLink(user, ctrl),
         convo.modDetails?.kid ? h('bad', 'KID') : undefined,
@@ -45,4 +45,4 @@ const contactLink = (user: User, ctrl: MsgCtrl): VNode => {
     : userLink({ ...user, moderator: user.id === 'lichess' });
 };
 
-const blocked = (msg: string) => h('div.msg-app__convo__reply__block.text', [snabIcon('NotAllowed'), msg]);
+const blocked = (msg: string) => h('div.msg-app__convo__reply__block.text', [snabIcon('notAllowed'), msg]);

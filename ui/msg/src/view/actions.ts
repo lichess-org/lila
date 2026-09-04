@@ -16,7 +16,7 @@ export default function renderActions(ctrl: MsgCtrl, convo: Convo): VNode[] {
         key: 'play',
         attrs: { href: `/?user=${convo.user.name}#friend`, title: i18n.challenge.challengeToPlay },
       },
-      [snabIcon('Swords')],
+      [snabIcon('swords')],
     ),
     h('div.msg-app__convo__action__sep', '|'),
   );
@@ -29,7 +29,7 @@ export default function renderActions(ctrl: MsgCtrl, convo: Convo): VNode[] {
           attrs: { title: i18n.site.blocked, type: 'button', 'data-hover-text': i18n.site.unblock },
           hook: bind('click', ctrl.unblock),
         },
-        [snabIcon('NotAllowed')],
+        [snabIcon('notAllowed')],
       ),
     );
   else
@@ -41,7 +41,7 @@ export default function renderActions(ctrl: MsgCtrl, convo: Convo): VNode[] {
           attrs: { type: 'button', title: i18n.site.block },
           hook: bind('click', withConfirm(ctrl.block)),
         },
-        [snabIcon('NotAllowed')],
+        [snabIcon('notAllowed')],
       ),
     );
   nodes.push(
@@ -52,7 +52,7 @@ export default function renderActions(ctrl: MsgCtrl, convo: Convo): VNode[] {
         attrs: { type: 'button', title: i18n.site.delete },
         hook: bind('click', withConfirm(ctrl.delete)),
       },
-      [snabIcon('Trash')],
+      [snabIcon('trash')],
     ),
     h(
       `a.${cls}.bad`,
@@ -63,7 +63,7 @@ export default function renderActions(ctrl: MsgCtrl, convo: Convo): VNode[] {
           title: i18n.site.reportXToModerators(convo.user.name),
         },
       },
-      [snabIcon('CautionTriangle')],
+      [snabIcon('cautionTriangle')],
     ),
   );
   return nodes;

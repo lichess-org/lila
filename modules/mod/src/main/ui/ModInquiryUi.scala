@@ -171,10 +171,10 @@ final class ModInquiryUi(helpers: Helpers)(
       val url = routes.Mod.engine(in.user.username, !in.user.marks.engine).url
       div(cls := "dropper engine buttons")(
         postForm(action := url, cls := "main", title := "Mark as cheat")(
-          markButton(in.user.marks.engine, Left(Icon.Cogs)),
+          markButton(in.user.marks.engine, Left(Icon.cogs)),
           autoNextInput
         ),
-        thenForms(url, markButton(false, Left(Icon.Cogs)))(
+        thenForms(url, markButton(false, Left(Icon.cogs)))(
           presets.get(Permission.CheatHunter).map(presetForms(in))
         )
       )
@@ -183,10 +183,10 @@ final class ModInquiryUi(helpers: Helpers)(
       val url = routes.Mod.booster(in.user.username, !in.user.marks.boost).url
       div(cls := "dropper booster buttons")(
         postForm(action := url, cls := "main", title := "Mark as booster or sandbagger")(
-          markButton(in.user.marks.boost, Left(Icon.LineGraph)),
+          markButton(in.user.marks.boost, Left(Icon.lineGraph)),
           autoNextInput
         ),
-        thenForms(url, markButton(false, Left(Icon.LineGraph)))(
+        thenForms(url, markButton(false, Left(Icon.lineGraph)))(
           presets.get(Permission.BoostHunter).map(presetForms(in))
         )
       )
@@ -199,10 +199,10 @@ final class ModInquiryUi(helpers: Helpers)(
           title := (if in.user.marks.troll then "Un-shadowban" else "Shadowban"),
           cls := "main"
         )(
-          markButton(in.user.marks.troll, Left(Icon.BubbleSpeech)),
+          markButton(in.user.marks.troll, Left(Icon.bubbleSpeech)),
           autoNextInput
         ),
-        thenForms(url, markButton(false, Left(Icon.BubbleSpeech)))(
+        thenForms(url, markButton(false, Left(Icon.bubbleSpeech)))(
           presets.get(Permission.Shusher).map(presetForms(in))
         )
       )
@@ -220,7 +220,7 @@ final class ModInquiryUi(helpers: Helpers)(
 
   private def dropperButtons(in: Inquiry)(using Me) =
     div(cls := "dropper more buttons")(
-      iconEl(Icon.MoreTriangle),
+      iconEl(Icon.moreTriangle),
       div(
         Granter(_.SendToZulip).option:
           val url =
@@ -260,7 +260,7 @@ final class ModInquiryUi(helpers: Helpers)(
         title := "Dismiss this report as processed. (Hotkey: d)",
         cls := "process"
       )(
-        submitButton(iconEl := Icon.Checkmark, cls := "fbt"),
+        submitButton(iconEl := Icon.checkmark, cls := "fbt"),
         autoNextInput
       ),
       postForm(
@@ -268,7 +268,7 @@ final class ModInquiryUi(helpers: Helpers)(
         title := "Cancel the inquiry, re-instore the report",
         cls := "cancel"
       ):
-        submitButton(iconEl := Icon.X, cls := "fbt")(in.alreadyMarked.option(disabled))
+        submitButton(iconEl := Icon.x, cls := "fbt")(in.alreadyMarked.option(disabled))
     )
 
   private def autoNextInput = form3.hidden("next", "1")(cls := "auto-next")
@@ -326,7 +326,7 @@ final class ModInquiryUi(helpers: Helpers)(
         div(cls := "separator"),
         presets.map: preset =>
           postForm(action := routes.Mod.warn(in.user.username, preset.name))(
-            submitButton(cls := "fbt text", title := preset.text, iconEl := Icon.Envelope)(
+            submitButton(cls := "fbt text", title := preset.text, iconEl := Icon.envelope)(
               preset.name
             ),
             autoNextInput

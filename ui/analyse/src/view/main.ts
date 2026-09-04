@@ -76,7 +76,7 @@ function analyseView(ctrl: AnalyseCtrl, deps?: typeof studyDeps): VNode {
                   href: router.game(ctrl.data, ctrl.data.player.color),
                 },
               },
-              [snabIcon('Back'), i18n.site.backToGame],
+              [snabIcon('back'), i18n.site.backToGame],
             ),
           ),
       ],

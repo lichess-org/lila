@@ -230,10 +230,10 @@ export function renderInputs(ctrl: AnalyseCtrl): VNode | undefined {
                 if (pgn !== pgnExport.renderFullTxt(ctrl)) ctrl.changePgn(pgn, true);
               }),
             },
-            [snabIcon('PlayTriangle'), i18n.site.importPgn],
+            [snabIcon('playTriangle'), i18n.site.importPgn],
           ),
         hl('div.bottom-item.bottom-error', { class: { 'is-error': !!ctrl.pgnError } }, [
-          snabIcon('CautionTriangle'),
+          snabIcon('cautionTriangle'),
           renderPgnError(ctrl.pgnError),
         ]),
       ]),

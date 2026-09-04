@@ -21,7 +21,7 @@ final class ClasPages(helpers: Helpers, clasUi: ClasUi, dashUi: DashboardUi):
             href := routes.Clas.form,
             cls := "new button button-empty",
             title := trans.clas.newClass.txt(),
-            iconEl := Icon.PlusButton
+            iconEl := Icon.plusButton
           )
         ),
         if current.isEmpty then frag(hr, p(cls := "box__pad classes__empty")(trans.clas.noClassesYet()))
@@ -50,7 +50,7 @@ final class ClasPages(helpers: Helpers, clasUi: ClasUi, dashUi: DashboardUi):
       classes.map { clas =>
         div(
           cls := List("clas-widget" -> true, "clas-widget-archived" -> clas.isArchived),
-          iconEl := Icon.Group
+          iconEl := Icon.group
         )(
           a(cls := "overlay", href := routes.Clas.show(clas.id)),
           div(

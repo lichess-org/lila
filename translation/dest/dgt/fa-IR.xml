@@ -21,6 +21,7 @@
   <string name="asALastResort">به‌عنوان آخرین راه‌حل، تخته را دقیقاً مثل لیچس بچینید و سپس روی %s کلیک کنید.</string>
   <string name="reloadThisPage">بارگذاری مجدد صفحه</string>
   <string name="dgtConfigure">DGT - پیکربندی</string>
+  <string name="configureYourDgtBoard" comment="Replaces old string dgtConfigure">پیکربندیِ میزِ «ف‌ب‌ر»</string>
   <string name="lichessConnectivity">اتصال‌‏دهندگی لیچس</string>
   <string name="validDgtOauthToken">یک توکن OAuth مناسب برای بازی با DGT دارید.</string>
   <string name="dgtPlayMenuEntryAdded">دَرآیه %s به نام‌چین پخش‌تان در بالا افزوده شد.</string>

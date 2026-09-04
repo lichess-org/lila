@@ -39,7 +39,7 @@ export class BoardCtrl extends PaneCtrl {
             attrs: { type: 'button' },
             hook: bind('click', () => this.set3d(false)),
           },
-          [snabIcon('Checkmark'), '2D'],
+          [snabIcon('checkmark'), '2D'],
         ),
         hl(
           'button.text',
@@ -48,7 +48,7 @@ export class BoardCtrl extends PaneCtrl {
             attrs: { type: 'button' },
             hook: bind('click', () => this.set3d(true)),
           },
-          [snabIcon('Checkmark'), '3D'],
+          [snabIcon('checkmark'), '3D'],
         ),
       ]),
       this.propSliders(),
@@ -59,7 +59,7 @@ export class BoardCtrl extends PaneCtrl {
             attrs: { type: 'button' },
             hook: bind('click', this.reset),
           },
-          [snabIcon('Back'), i18n.site.boardReset],
+          [snabIcon('back'), i18n.site.boardReset],
         ),
       hl(
         'div.list',

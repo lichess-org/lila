@@ -38,7 +38,7 @@
 
   &::before {
     @extend %box-radius;
-    @include icon-mask($icon-X);
+    @include icon-mask($icon-x);
     @include transition(margin-inline-start color);
 
     align-self: center;
@@ -98,7 +98,7 @@
   }
 
   &::before {
-    @include icon-mask($icon-Checkmark);
+    @include icon-mask($icon-checkmark);
 
     color: $c-good;
   }

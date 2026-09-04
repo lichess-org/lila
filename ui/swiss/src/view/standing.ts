@@ -18,7 +18,7 @@ function playerTr(ctrl: SwissCtrl, player: Player) {
     [
       h(
         'td.rank',
-        player.absent && ctrl.data.status !== 'finished' ? icon('Pause')({ title: 'Absent' }) : player.rank,
+        player.absent && ctrl.data.status !== 'finished' ? icon('pause')({ title: 'Absent' }) : player.rank,
       ),
       h('td.player', renderPlayer(player, false, ctrl.opts.showRatings)),
       h(

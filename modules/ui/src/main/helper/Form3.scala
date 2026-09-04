@@ -185,7 +185,7 @@ final class Form3(formHelper: FormHelper & I18nHelper & AssetHelper, flairApi: F
 
   def submit(
       content: Frag,
-      icon: Option[Icon] = Some(Icon.Checkmark),
+      icon: Option[Icon] = Some(Icon.checkmark),
       nameValue: Option[(String, String)] = None,
       confirm: Option[String] = None
   ): Tag =
@@ -235,7 +235,7 @@ final class Form3(formHelper: FormHelper & I18nHelper & AssetHelper, flairApi: F
       )
 
   def passwordRevealButton =
-    button(cls := "password-reveal", tpe := "button")(iconEl(Icon.Eye))
+    button(cls := "password-reveal", tpe := "button")(iconEl(Icon.eye))
 
   def passwordComplexityMeter(labelContent: Frag): Tag =
     div(cls := "password-complexity")(

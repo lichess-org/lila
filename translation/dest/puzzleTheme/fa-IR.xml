@@ -30,6 +30,7 @@
   <string name="collinearMoveDescription">دو مهرهٔ مخالف با همدیگر رودررو می‌شوند و یکی بدون گرفتن مهرهٔ حریف، در امتداد خط حمله حرکت می‌کند.</string>
   <string name="cornerMate">ماتِ کُنج</string>
   <string name="cornerMateDescription">شاه را به کنج محدود کنید و با استفاده از یک رخ یا وزیر و یک اسب، او را مات کنید.</string>
+  <string name="cornerMateKnightDeliversDescription" comment="Description for the &quot;Corner mate&quot; puzzle theme. Replaces old string cornerMateDescription">شاه را با استفاده از رخ یا وزیر به گوشه محدود کنید و از یک اسب برای مات کردن ببَهرید.</string>
   <string name="crushing">تخریب</string>
   <string name="crushingDescription">تشخیص اشتباه فاحش حریف، برای رسیدن به برتری‌ای کوبنده. (ارزیابی ≥ ۶۰۰ص‌پ)</string>
   <string name="discoveredCheck">کیشِ برخاست</string>
@@ -120,6 +121,7 @@
   <string name="pinDescription">راهکنش آچمزی، که یک مهره نمی‌تواند حرکت کند، مگر اینکه به مهره ارزشمندتر پشتش حمله می‌شود.</string>
   <string name="promotion">ارتقا</string>
   <string name="promotionDescription">یکی از پیاده‌های‌تان را به وزیر یا سواری دیگر ارتقا دهید.</string>
+  <string name="promotePawnToQueenRookOrMinor" comment="Replaces old string promotionDescription">یکی از پیاده‌های‌تان را به یک وزیر، رخ یا سواری سبُک ارتقا دهید.</string>
   <string name="queenEndgame">آخربازی وزیر</string>
   <string name="queenEndgameDescription">آخربازی، تنها با وزیرها و پیاده‌ها.</string>
   <string name="queenRookEndgame">وزیر و رخ</string>

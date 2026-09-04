@@ -17,7 +17,7 @@ final class SiteMessage(helpers: Helpers):
             cls := List("text" -> (icon.isDefined && back.isEmpty))
           )(
             back.map: url =>
-              a(href := url, iconEl := Icon.LessThan, cls := "text"),
+              a(href := url, iconEl := Icon.lessThan, cls := "text"),
             title
           )
         ),

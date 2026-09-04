@@ -28,7 +28,7 @@
     background: $c-bg-zebra;
 
     &::before {
-      @include icon-mask($icon-InfoCircle, 2em);
+      @include icon-mask($icon-infoCircle, 2em);
 
       margin-inline: 0 0.4em;
     }

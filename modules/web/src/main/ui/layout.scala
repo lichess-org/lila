@@ -57,7 +57,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
             aria.label := challengeTitle,
             cls := "data-count",
             dataCount := challenges
-          )(iconEl(Icon.Swords))
+          )(iconEl(Icon.swords))
         ),
         div(id := "challenge-app", cls := "dropdown")
       ),
@@ -69,7 +69,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
             aria.label := notifTitle,
             cls := "data-count",
             dataCount := notifs
-          )(iconEl(Icon.BellOutline))
+          )(iconEl(Icon.bellOutline))
         ),
         div(id := "notify-app", cls := "dropdown")
       )
@@ -78,7 +78,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
   def clinput(using ctx: Context) =
     val label = trans.search.search.txt()
     div(id := "clinput")(
-      a(cls := "link")(iconEl(Icon.Search)),
+      a(cls := "link")(iconEl(Icon.search)),
       input(
         spellcheck := "false",
         autocomplete := ctx.blind.toString,
@@ -90,7 +90,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
 
   val warnNoAutoplay =
     div(id := "warn-no-autoplay")(
-      a(targetBlank, href := s"${routes.Main.faq}#autoplay")(iconEl(Icon.Mute))
+      a(targetBlank, href := s"${routes.Main.faq}#autoplay")(iconEl(Icon.mute))
     )
 
   def botImage = img(
@@ -127,7 +127,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
     div(id := "zenzone")(
       a(href := "/", cls := "zen-home"),
       a(id := "zentog", cls := "text fbt active")(
-        iconEl(Icon.Checkmark),
+        iconEl(Icon.checkmark),
         trans.preferences.zenMode()
       )
     )
@@ -136,7 +136,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
     div(cls := "dasher")(
       button(id := "user_tag", cls := "toggle link")(
         me.username,
-        iconEl(Icon.AccountCircle)(cls := "svg-icon large")
+        iconEl(Icon.accountCircle)(cls := "svg-icon large")
       ),
       div(id := "dasher_app", cls := "dropdown")
     )
@@ -155,7 +155,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
         a(href := routes.Auth.signup, cls := "button signup")(trans.site.signUp())
       ),
       div(cls := "dasher")(
-        button(cls := "toggle anon link", title := prefs, aria.label := prefs)(iconEl(Icon.Gear)),
+        button(cls := "toggle anon link", title := prefs, aria.label := prefs)(iconEl(Icon.gear)),
         div(id := "dasher_app", cls := "dropdown")
       )
     )
@@ -225,7 +225,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
   val spinnerMask = raw:
     """<svg width="0" height="0"><mask id="spinner-mask"><path fill="#fff" stroke="#fff" stroke-linejoin="round" d="M38.956.5c-3.53.418-6.452.902-9.286 2.984C5.534 1.786-.692 18.533.68 29.364 3.493 50.214 31.918 55.785 41.329 41.7c-7.444 7.696-19.276 8.752-28.323 3.084C3.959 39.116-.506 27.392 4.683 17.567 9.873 7.742 18.996 4.535 29.03 6.405c2.43-1.418 5.225-3.22 7.655-3.187l-1.694 4.86 12.752 21.37c-.439 5.654-5.459 6.112-5.459 6.112-.574-1.47-1.634-2.942-4.842-6.036-3.207-3.094-17.465-10.177-15.788-16.207-2.001 6.967 10.311 14.152 14.04 17.663 3.73 3.51 5.426 6.04 5.795 6.756 0 0 9.392-2.504 7.838-8.927L37.4 7.171z"/></mask></svg>"""
 
-  val networkAlert = a(id := "network-status", cls := "link text", iconEl := Icon.ChasingArrows)
+  val networkAlert = a(id := "network-status", cls := "link text", iconEl := Icon.chasingArrows)
 
   private val spaceRegex = """\s{2,}+""".r
   def spaceless(html: String) = raw(spaceRegex.replaceAllIn(html.replace("\\n", ""), ""))
@@ -236,7 +236,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
       .option(
         div(id := "friend_box")(
           div(cls := "friend_box_title")(
-            trans.site.nbFriendsOnline.plural(0, iconEl(Icon.UpTriangle))
+            trans.site.nbFriendsOnline.plural(0, iconEl(Icon.upTriangle))
           ),
           div(cls := "content_wrap none")(
             div(cls := "content list")
@@ -268,20 +268,20 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
           title := "Moderation",
           href := routes.Report.list,
           dataCount := maxScore
-        )(iconEl(Icon.Agent)).some
+        )(iconEl(Icon.agent)).some
       else if Granter.opt(_.PublicChatView) then
         a(
           cls := "link",
           title := "Moderation",
           href := routes.Mod.publicChat
-        )(iconEl(Icon.Agent)).some
+        )(iconEl(Icon.agent)).some
       else
         (Granter.opt(_.Pages) || Granter.opt(_.ManageEvent)).option(
           a(
             cls := "link",
             title := "Content",
             href := Granter.opt(_.Pages).option(routes.Cms.index).orElse(routes.Event.manager().some)
-          )(iconEl(Icon.InkQuill))
+          )(iconEl(Icon.inkQuill))
         )
 
     private def teamRequests(nb: Int)(using Translate) =
@@ -291,7 +291,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
           href := routes.Team.requests,
           dataCount := nb,
           title := trans.team.teams.txt()
-        )(iconEl(Icon.Group))
+        )(iconEl(Icon.group))
 
     private val siteNameFrag: Frag =
       if siteName == "lichess.org" then frag("lichess", span(".org"))
@@ -311,7 +311,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
           a(cls := "site-title", href := langHref("/"), testId("site-title"))(
             if ctx.kid.yes then span(title := trans.site.kidMode.txt(), cls := "kiddo")(":)")
             else ctx.isBot.option(botImage),
-            div(cls := "site-icon")(iconEl(Icon.Logo)),
+            div(cls := "site-icon")(iconEl(Icon.logo)),
             div(cls := "site-name")(siteNameFrag)
           ),
           (!isAppealUser).option(
@@ -319,7 +319,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
               topnav,
               (ctx.kid.no && !ctx.me.exists(_.isPatron) && !zenable).option(
                 a(cls := "site-title-nav__donate")(href := routes.Plan.index())(
-                  iconEl(Icon.Wings),
+                  iconEl(Icon.wings),
                   trans.patron.donate()
                 )
               )

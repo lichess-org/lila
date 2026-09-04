@@ -48,7 +48,7 @@ function player(color: Color): VNode {
               e.stopPropagation();
             }),
           },
-          [snabIcon('Cancel')],
+          [snabIcon('cancel')],
         ),
       hl('img', { attrs: { src: imgUrl } }),
       (!(env.bot.white || env.bot.black) || (p && !('level' in p))) &&
@@ -110,15 +110,15 @@ function ratingSpan(p: Bot): VNode {
 function speedIcon(speed: LocalSpeed = env.game.speed): Icon {
   switch (speed) {
     case 'rapid':
-      return 'Rabbit';
+      return 'rabbit';
     case 'blitz':
-      return 'Fire';
+      return 'fire';
     case 'bullet':
     case 'ultraBullet':
-      return 'Bullet';
+      return 'bullet';
     case 'classical':
     default:
-      return 'Turtle';
+      return 'turtle';
   }
 }
 
@@ -199,7 +199,7 @@ function dashboard() {
           attrs: { title: 'Report', 'aria-label': 'Report' },
           hook: bind('click', () => report()),
         },
-        [snabIcon('ShareIos')],
+        [snabIcon('shareIos')],
       ),
       hl(
         `button.board-action.button.button-metal`,
@@ -210,7 +210,7 @@ function dashboard() {
             env.redraw();
           }),
         },
-        [snabIcon('Switch')],
+        [snabIcon('switch')],
       ),
       hl(
         `button.board-action.button.button-metal`,
@@ -223,7 +223,7 @@ function dashboard() {
             }),
           ),
         },
-        [snabIcon('Reload')],
+        [snabIcon('reload')],
       ),
       renderPlayPause(),
     ]),
@@ -243,7 +243,7 @@ function progress() {
               env.redraw();
             }),
           },
-          [snabIcon('Cancel')],
+          [snabIcon('cancel')],
         ),
       playersWithResults(env.dev.log).map(p => {
         const bot = env.bot.info(p)!;

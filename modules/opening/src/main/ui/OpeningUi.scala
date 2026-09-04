@@ -69,8 +69,8 @@ final class OpeningUi(helpers: Helpers, bits: OpeningBits, wiki: WikiUi):
           resultsList(Nil),
           h1(cls := "opening__title")(
             page.query.prev match
-              case Some(prev) => a(href := queryUrl(prev), title := prev.name, iconEl := Icon.LessThan)
-              case None => a(href := routes.Opening.index(), iconEl := Icon.LessThan)
+              case Some(prev) => a(href := queryUrl(prev), title := prev.name, iconEl := Icon.lessThan)
+              case None => a(href := routes.Opening.index(), iconEl := Icon.lessThan)
             ,
             span(cls := "opening__name")(
               page.nameParts.mapWithIndex: (part, i) =>
@@ -108,7 +108,7 @@ final class OpeningUi(helpers: Helpers, bits: OpeningBits, wiki: WikiUi):
                   puzzleKey.map { key =>
                     a(
                       cls := "button text",
-                      iconEl := Icon.ArcheryTarget,
+                      iconEl := Icon.archeryTarget,
                       href := routes.Puzzle.show(key)
                     )(
                       "Train with puzzles"
@@ -116,7 +116,7 @@ final class OpeningUi(helpers: Helpers, bits: OpeningBits, wiki: WikiUi):
                   },
                   a(
                     cls := "button text",
-                    iconEl := Icon.Book,
+                    iconEl := Icon.book,
                     href := s"${routes.UserAnalysis.pgn(page.query.sans.mkString("_"))}#explorer"
                   )(trans.site.openingExplorer())
                 ),
@@ -157,7 +157,7 @@ final class OpeningUi(helpers: Helpers, bits: OpeningBits, wiki: WikiUi):
         autocomplete := "off",
         spellcheck := "false"
       ),
-      submitButton(cls := "button", iconEl := Icon.Search)
+      submitButton(cls := "button", iconEl := Icon.search)
     )
 
   def resultsList(results: List[OpeningSearchResult]) =

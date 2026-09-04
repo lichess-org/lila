@@ -18,16 +18,16 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi, mailerEventsUrl: Url):
 
   val dataValue = attr("data-value")
   val dataTags = attr("data-tags")
-  val playban = iconEl(Icon.Clock)
+  val playban = iconEl(Icon.clock)
   val alt: Frag = span("A")
-  val shadowban: Frag = iconEl(Icon.BubbleSpeech)
-  val boosting: Frag = iconEl(Icon.LineGraph)
-  val engine: Frag = iconEl(Icon.Cogs)
-  val closed: Frag = iconEl(Icon.NotAllowed)
-  val modClosed: Frag = iconEl(Icon.Trash)
-  val clean: Frag = iconEl(Icon.User)
-  val reportban = iconEl(Icon.CautionTriangle)
-  val notesText = iconEl(Icon.Pencil)
+  val shadowban: Frag = iconEl(Icon.bubbleSpeech)
+  val boosting: Frag = iconEl(Icon.lineGraph)
+  val engine: Frag = iconEl(Icon.cogs)
+  val closed: Frag = iconEl(Icon.notAllowed)
+  val modClosed: Frag = iconEl(Icon.trash)
+  val clean: Frag = iconEl(Icon.user)
+  val reportban = iconEl(Icon.cautionTriangle)
+  val notesText = iconEl(Icon.pencil)
   val rankban = span("R")
 
   def menu = mzSection("menu")(
@@ -281,7 +281,7 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi, mailerEventsUrl: Url):
                 placeholder := "Email address",
                 autocomplete := "off"
               ),
-              submitButton(cls := "button", iconEl := Icon.Checkmark)
+              submitButton(cls := "button", iconEl := Icon.checkmark)
             ),
             emails.previous.map: email =>
               s"Previously $email",
@@ -339,7 +339,7 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi, mailerEventsUrl: Url):
       ),
       prefList.nonEmpty.option:
         mzSection("preferences")(
-          strong(cls := "text inline", iconEl := Icon.Gear)("Notable preferences"),
+          strong(cls := "text inline", iconEl := Icon.gear)("Notable preferences"),
           ul(prefList)
         )
     )
@@ -358,7 +358,7 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi, mailerEventsUrl: Url):
       )
 
   def reportLog(u: User, reports: List[Report])(using Translate): Frag =
-    val title = strong(cls := "text", iconEl := Icon.CautionTriangle)(
+    val title = strong(cls := "text", iconEl := Icon.cautionTriangle)(
       pluralizeLocalize("report", reports.size),
       " sent by ",
       u.username
@@ -385,7 +385,7 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi, mailerEventsUrl: Url):
   ): Frag =
     mzSection("assessments")(
       pag.pag.sfAvgBlurs.map { blursYes =>
-        p(cls := "text", iconEl := Icon.CautionCircle)(
+        p(cls := "text", iconEl := Icon.cautionCircle)(
           "ACPL in games with blurs is ",
           strong(blursYes._1),
           " [",
@@ -406,7 +406,7 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi, mailerEventsUrl: Url):
         )
       },
       pag.pag.sfAvgLowVar.map { lowVar =>
-        p(cls := "text", iconEl := Icon.CautionCircle)(
+        p(cls := "text", iconEl := Icon.cautionCircle)(
           "ACPL in games with consistent move times is ",
           strong(lowVar._1),
           " [",
@@ -427,7 +427,7 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi, mailerEventsUrl: Url):
         )
       },
       pag.pag.sfAvgHold.map { holdYes =>
-        p(cls := "text", iconEl := Icon.CautionCircle)(
+        p(cls := "text", iconEl := Icon.cautionCircle)(
           "ACPL in games with bot signature ",
           strong(holdYes._1),
           " [",
@@ -478,29 +478,29 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi, mailerEventsUrl: Url):
                     .pov(result)
                     .map: p =>
                       a(href := routes.Round.watcher(p.gameId, p.color))(
-                        p.game.isTournament.option(iconEl(Icon.Trophy)),
+                        p.game.isTournament.option(iconEl(Icon.trophy)),
                         iconEl(p.game.perfKey.perfIcon)(cls := "text"),
                         shortClockName(p.game.clock.map(_.config))
                       )
                 ),
                 td(
-                  span(cls := s"sig sig_${Display.stockfishSig(result)}", iconEl := Icon.DiscBig),
+                  span(cls := s"sig sig_${Display.stockfishSig(result)}", iconEl := Icon.discBig),
                   s" ${result.analysis}"
                 ),
                 td(
-                  span(cls := s"sig sig_${Display.moveTimeSig(result)}", iconEl := Icon.DiscBig),
+                  span(cls := s"sig sig_${Display.moveTimeSig(result)}", iconEl := Icon.discBig),
                   s" ${result.basics.moveTimes / 10}",
                   result.basics.mtStreak.so(frag(br, "streak"))
                 ),
                 td(
-                  span(cls := s"sig sig_${Display.blurSig(result)}", iconEl := Icon.DiscBig),
+                  span(cls := s"sig sig_${Display.blurSig(result)}", iconEl := Icon.discBig),
                   s" ${result.basics.blurs}%",
                   result.basics.blurStreak.filter(8.<=).map { s =>
                     frag(br, s"streak $s/12")
                   }
                 ),
                 td(
-                  span(cls := s"sig sig_${Display.holdSig(result)}", iconEl := Icon.DiscBig),
+                  span(cls := s"sig sig_${Display.holdSig(result)}", iconEl := Icon.discBig),
                   if result.basics.hold then "Yes" else "No"
                 ),
                 td(

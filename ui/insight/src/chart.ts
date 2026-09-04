@@ -177,7 +177,7 @@ function scaleBuilder(d: InsightData): ChartOptions<'bar'>['scales'] {
   };
 }
 function empty(txt: string) {
-  return h('div.chart.empty', [snabIcon('Target'), txt]);
+  return h('div.chart.empty', [snabIcon('target'), txt]);
 }
 
 let chart: InsightChart;

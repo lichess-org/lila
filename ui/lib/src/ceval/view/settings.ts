@@ -221,7 +221,7 @@ function engineSelection({ ceval }: CevalHandler) {
               ceval.engines.deleteExternal(external.id).then(ok => ok && ceval.opts.redraw());
           }),
         },
-        [snabIcon('Trash')],
+        [snabIcon('trash')],
       ),
     hl(
       'button.engine-info-button',
@@ -231,7 +231,7 @@ function engineSelection({ ceval }: CevalHandler) {
           click: () => engineInfo(ceval.engines.supporting(ceval.opts.variant.key, undefined, 'browser')),
         },
       },
-      [snabIcon('InfoCircle')],
+      [snabIcon('infoCircle')],
     ),
   ]);
 }

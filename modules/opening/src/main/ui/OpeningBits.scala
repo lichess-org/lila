@@ -67,7 +67,7 @@ final class OpeningBits(helpers: Helpers):
     details(cls := "opening__config")(
       summary(cls := "opening__config__summary")(
         div(cls := "opening__config__summary__short")(
-          iconEl(Icon.Gear)
+          iconEl(Icon.gear)
         ),
         div(cls := "opening__config__summary__large")(
           "Speed: ",

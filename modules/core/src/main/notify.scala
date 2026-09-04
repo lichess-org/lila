@@ -33,7 +33,7 @@ enum NotificationContent(val key: String):
       url: String,
       title: Option[String],
       text: Option[String],
-      icon: String // Stable kebab-case Icon name; consumed by ui/notify.
+      icon: String // Stable lower camelCase Icon name; consumed by ui/notify.
   ) extends NotificationContent("genericLink")
   case ReportedBanned extends NotificationContent("reportedBanned") // BC
   case RatingRefund(perf: String, points: Int) extends NotificationContent("ratingRefund")

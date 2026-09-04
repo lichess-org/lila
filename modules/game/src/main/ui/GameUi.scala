@@ -94,10 +94,10 @@ final class GameUi(helpers: Helpers):
   end mini
 
   def gameIcon(game: Game): Icon =
-    if game.fromPosition then Icon.Feather
-    else if game.sourceIs(_.Import) then Icon.UploadCloud
+    if game.fromPosition then Icon.feather
+    else if game.sourceIs(_.Import) then Icon.uploadCloud
     else if game.variant.exotic then game.perfType.icon
-    else if game.hasAi then Icon.Cogs
+    else if game.hasAi then Icon.cogs
     else game.perfType.icon
 
   def abortReason(game: Game): I18nKey =
@@ -224,7 +224,7 @@ final class GameUi(helpers: Helpers):
             p(cls := "explanation")(
               trans.site.importGameExplanation(),
               br,
-              a(cls := "text", iconEl := Icon.InfoCircle, href := routes.Study.allDefault(1)):
+              a(cls := "text", iconEl := Icon.infoCircle, href := routes.Study.allDefault(1)):
                 trans.site.importGameDataPrivacyWarning()
             ),
             standardFlash,
@@ -245,7 +245,7 @@ final class GameUi(helpers: Helpers):
                 trans.site.requestAComputerAnalysis(),
                 help = analyseHelp
               ),
-              form3.action(form3.submit(trans.site.importGame(), Icon.UploadCloud.some))
+              form3.action(form3.submit(trans.site.importGame(), Icon.uploadCloud.some))
             )
           )
 
@@ -271,13 +271,13 @@ final class GameUi(helpers: Helpers):
           ),
           div(cls := "versus")(
             gamePlayer(g.whitePlayer),
-            div(cls := "swords", iconEl := Icon.Swords),
+            div(cls := "swords", iconEl := Icon.swords),
             gamePlayer(g.blackPlayer)
           ),
           result(g, fromPlayer),
           if g.playedPlies > 0 && ctx.isAuth then opening(g) else frag(br, br),
           g.metadata.analysed.option(
-            div(cls := "metadata text", iconEl := Icon.BarChart)(
+            div(cls := "metadata text", iconEl := Icon.barChart)(
               trans.site.computerAnalysisAvailable()
             )
           ),

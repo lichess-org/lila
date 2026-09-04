@@ -15,7 +15,7 @@ export default function (ctrl: Ctrl) {
           class: { active: ctrl.makeUrl(p.dimension, p.metric, p.filters) === ctrl.makeCurrentUrl() },
           hook: bind('click', () => ctrl.setQuestion(p)),
         },
-        [snabIcon('Target'), p.name],
+        [snabIcon('target'), p.name],
       ),
     ),
   );

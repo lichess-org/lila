@@ -63,7 +63,7 @@ export class ThemeCtrl extends PaneCtrl {
                 current.includes('transp') ? this.set(`transp ${bg.key}`) : this.set(bg.key);
               }),
             },
-            [snabIcon('Checkmark'), bg.name],
+            [snabIcon('checkmark'), bg.name],
           );
         }),
         this.propSlider('ui-roundness', i18n.site.roundness, { min: 0, max: 15, step: 1 }),

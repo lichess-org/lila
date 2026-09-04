@@ -12,7 +12,7 @@ export function withdraw(ctrl: TournamentController): VNode {
   return orJoinSpinner(ctrl, () => {
     const pause = ctrl.data.isStarted;
     return h('button.fbt.text', { hook: bind('click', ctrl.withdraw, ctrl.redraw) }, [
-      snabIcon(pause ? 'Pause' : 'FlagOutline'),
+      snabIcon(pause ? 'pause' : 'flagOutline'),
       i18n.site[pause ? 'pause' : 'withdraw'],
     ]);
   });
@@ -28,7 +28,7 @@ export function join(ctrl: TournamentController): VNode {
         attrs: { disabled: !joinable },
         hook: bind('click', _ => ctrl.join(), ctrl.redraw),
       },
-      [snabIcon('PlayTriangle'), i18n.site.join],
+      [snabIcon('playTriangle'), i18n.site.join],
     );
     return delay
       ? h('div.delay-wrap', { attrs: { title: 'Waiting to be able to re-join the tournament' } }, [
@@ -55,7 +55,7 @@ export function join(ctrl: TournamentController): VNode {
 export function joinWithdraw(ctrl: TournamentController): VNode | undefined {
   if (!ctrl.opts.userId)
     return h('a.button.button-green', { attrs: { href: '/login?referrer=' + window.location.pathname } }, [
-      snabIcon('PlayTriangle'),
+      snabIcon('playTriangle'),
       i18n.site.signIn,
     ]);
   if (!ctrl.data.isFinished) return ctrl.isIn() ? withdraw(ctrl) : join(ctrl);

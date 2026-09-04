@@ -115,7 +115,7 @@ object mod:
             thSortNumber(closed)(cls := "i", title := "Closed"),
             thSortNumber(reportban)(cls := "i", title := "Reportban"),
             thSortNumber(notesText)(cls := "i", title := "Notes"),
-            thSortNumber(iconEl(Icon.InkQuill))(cls := "i", title := "Appeals"),
+            thSortNumber(iconEl(Icon.inkQuill))(cls := "i", title := "Appeals"),
             thSortNumber("Created"),
             thSortNumber("Active"),
             readOnly.not.option(ModUserTableUi.selectAltAll)
@@ -196,7 +196,7 @@ object mod:
                         "appeal-closed" -> closed,
                         "appeal-muted" -> muted
                       ),
-                      iconEl := Icon.InkQuill,
+                      iconEl := Icon.inkQuill,
                       title := s"${pluralize("appeal message", nbMsgs)}${
                           if muted then " [MUTED]" else if closed then " [CLOSED]" else ""
                         }\nLast message: ${pastMomentServerText(appeals.map(_.updatedAt).max)}"

@@ -60,7 +60,7 @@
       padding: 0.3em 0.8em;
 
       &::before {
-        @include icon-mask($icon-CautionTriangle, 1.5em);
+        @include icon-mask($icon-cautionTriangle, 1.5em);
 
         margin-inline: 0 0.2em;
         color: $c-over;

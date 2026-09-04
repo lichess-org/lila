@@ -61,7 +61,7 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
                 href := routes.Ublog.index(user.username),
                 dataHref := routes.User.show(user.username)
               )(userLinkContent(user)),
-              iconEl(Icon.InfoCircle)(
+              iconEl(Icon.infoCircle)(
                 cls := "ublog-post__meta__disclaimer",
                 st.title := "Opinions expressed by Lichess contributors are their own."
               ),
@@ -95,7 +95,7 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
                       "from" -> "ublog"
                     )
                   ),
-                  iconEl := Icon.CautionTriangle
+                  iconEl := Icon.cautionTriangle
                 )
               ,
               langList.nameByLanguage(post.language)
@@ -105,7 +105,7 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
                 a(href := routes.Ublog.topic(topic.url, none, lila.core.ublog.BlogsBy.newest, 1))(topic.value)
             ),
             (~post.ads).option(
-              div(iconEl := Icon.InfoCircle, cls := "ublog-post__ads-disclosure text")(
+              div(iconEl := Icon.infoCircle, cls := "ublog-post__ads-disclosure text")(
                 "Contains sponsored content, affiliate links or commercial advertisement"
               )
             ),
@@ -122,7 +122,7 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
                 a(
                   href := routes.Ublog.discuss(post.id),
                   cls := "button text ublog-post__discuss",
-                  iconEl := Icon.BubbleConvo
+                  iconEl := Icon.bubbleConvo
                 )(trans.ublog.discussThisBlogPostInTheForum())
               ),
               (ctx.isAuth && ctx.isnt(user)).option(
@@ -147,12 +147,12 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
   private def editButton(post: UblogPost)(using Context) = a(
     href := ui.editUrlOfPost(post),
     cls := "button button-empty text",
-    iconEl := Icon.Pencil
+    iconEl := Icon.pencil
   )(trans.site.edit())
 
   private def likeButton(post: UblogPost, liked: Boolean, showText: Boolean)(using Context) =
     val text = if liked then trans.site.liked.txt() else trans.site.like.txt()
-    val icon = if liked then Icon.Heart else Icon.HeartOutline
+    val icon = if liked then Icon.heart else Icon.heartOutline
     button(
       tpe := "button",
       cls := List(
@@ -170,8 +170,8 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
 
   private def followButton(user: User, followed: Boolean)(using Context) =
     val (text, route, icon) =
-      if followed then (trans.site.unfollowX, routes.Relation.unfollow, Icon.Checkmark)
-      else (trans.site.followX, routes.Relation.follow, Icon.ThumbsUp)
+      if followed then (trans.site.unfollowX, routes.Relation.unfollow, Icon.checkmark)
+      else (trans.site.followX, routes.Relation.follow, Icon.thumbsUp)
     button(
       cls := List(
         "ublog-post__follow button button-metal is" -> true,

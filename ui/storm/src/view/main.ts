@@ -75,15 +75,15 @@ const renderControls = (ctrl: StormCtrl): VNode =>
         title: i18n.site.flipBoard + ' (Keyboard: f)',
         hook: onInsert(el => el.addEventListener('click', ctrl.flip)),
       },
-      [snabIcon('ChasingArrows')],
+      [snabIcon('chasingArrows')],
     ),
     a('/storm')('.puz-side__control__reload.button.button-empty', { title: i18n.storm.newRun }, [
-      snabIcon('Trash'),
+      snabIcon('trash'),
     ]),
     button(
       '.puz-side__control__end.button.button-empty',
       { title: i18n.storm.endRun, hook: onInsert(el => el.addEventListener('click', ctrl.endNow)) },
-      [snabIcon('FlagOutline')],
+      [snabIcon('flagOutline')],
     ),
   ]);
 
@@ -93,7 +93,7 @@ const startNode = div('.puz-side__top.puz-side__start', [
 
 const renderReload = (text: string) =>
   div('.storm.storm--reload.box.box-pad', [
-    icon('Storm')(),
+    icon('storm')(),
     p(text),
     a('/storm')('.storm--dup__reload.button', i18n.storm.clickToReload),
   ]);

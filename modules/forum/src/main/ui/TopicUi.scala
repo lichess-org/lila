@@ -30,7 +30,7 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
         main(cls := "forum forum-topic topic-form page-small box box-pad")(
           boxTop(
             h1(
-              a(href := routes.ForumCateg.show(categ.id), iconEl := Icon.LessThan, cls := "text"),
+              a(href := routes.ForumCateg.show(categ.id), iconEl := Icon.lessThan, cls := "text"),
               categ.name
             )
           ),
@@ -129,7 +129,7 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
           data("valid-downvote-reasons") := validDownvoteReasons.map(_.key).mkString(",")
         )(
           boxTop(
-            h1(a(href := backUrl, iconEl := Icon.LessThan, cls := "text"), headerText),
+            h1(a(href := backUrl, iconEl := Icon.lessThan, cls := "text"), headerText),
             isDiagnostic.option(
               postForm(action := routes.ForumTopic.clearDiagnostic(topic.slug))(
                 button(cls := "button button-red")("erase diagnostics")
@@ -175,14 +175,14 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
                 )(
                   button(
                     cls := "button button-empty text on",
-                    iconEl := Icon.Eye,
+                    iconEl := Icon.eye,
                     bits.dataUnsub := "off"
                   ):
                     trans.site.subscribe()
                   ,
                   button(
                     cls := "button button-empty text off",
-                    iconEl := Icon.Eye,
+                    iconEl := Icon.eye,
                     bits.dataUnsub := "on"
                   ):
                     trans.site.unsubscribe()
@@ -217,7 +217,7 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
               help = span(cls := "space-between")(
                 plaintext.not.option(span(markdownIsAvailable)),
                 a(
-                  iconEl := Icon.InfoCircle,
+                  iconEl := Icon.infoCircle,
                   cls := "text",
                   href := routes.Cms.lonePage(CmsPageKey("forum-etiquette"))
                 )(trans.site.theForumEtiquette())
@@ -239,7 +239,7 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
                 form3.submit(
                   frag(s"Reply as a mod ${(!Granter.opt(_.PublicMod)).so("(anonymously)")}"),
                   nameValue = (form("modIcon").name, "true").some,
-                  icon = Icon.Agent.some
+                  icon = Icon.agent.some
                 )
               ),
               form3.submit(trans.site.reply())
@@ -261,9 +261,9 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
       .js(esmInitBit("autoForm", "selector" -> ".post-text-area", "ops" -> "focus begin"))
       .js(captchaEsm):
         main(cls := "forum forum-topic topic-form page-small box box-pad")(
-          boxTop(h1(iconEl := Icon.BubbleConvo, cls := "text")("Diagnostics")),
+          boxTop(h1(iconEl := Icon.bubbleConvo, cls := "text")("Diagnostics")),
           st.section(cls := "warning")(
-            h2(iconEl := Icon.CautionTriangle, cls := "text")(trans.site.important()),
+            h2(iconEl := Icon.cautionTriangle, cls := "text")(trans.site.important()),
             p("Describe your issue above the report. Unsolicited diagnostics will be ignored."),
             p("Only you and the Lichess moderators can see this forum.")
           ),

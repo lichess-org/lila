@@ -59,7 +59,7 @@ export function userHtml(ctrl: RoundController, player: Player, position: TopOrB
         !!rating && hl('rating', rating + (player.provisional ? '?' : '')),
         !!rating && ratingDiff(player),
         player.engine &&
-          hl('span', { attrs: { title: i18n.site.thisAccountViolatedTos } }, [snabIcon('CautionCircle')]),
+          hl('span', { attrs: { title: i18n.site.thisAccountViolatedTos } }, [snabIcon('cautionCircle')]),
       ],
     );
   }

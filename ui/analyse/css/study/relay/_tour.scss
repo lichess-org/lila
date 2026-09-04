@@ -80,7 +80,7 @@
       font-weight: bold;
 
       &::before {
-        @include icon-mask($icon-LessThan, 1.5em);
+        @include icon-mask($icon-lessThan, 1.5em);
 
         color: $c-font-dim;
 
@@ -90,7 +90,7 @@
       }
 
       main.has-relay-tour &::before {
-        @include icon-mask($icon-RadioTower);
+        @include icon-mask($icon-radioTower);
       }
     }
 
@@ -436,11 +436,11 @@
     white-space: pre-line;
 
     &::before {
-      @include icon-mask($icon-InfoCircle, 2.5em);
+      @include icon-mask($icon-infoCircle, 2.5em);
     }
 
     &.pinned::before {
-      @include icon-mask($icon-RadioTower);
+      @include icon-mask($icon-radioTower);
     }
 
     small {

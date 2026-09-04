@@ -41,7 +41,7 @@ final class SimulShow(helpers: Helpers, gathering: GatheringUi):
             div(cls := "simul__meta")(
               div(cls := "game-infos")(
                 div(cls := "header")(
-                  iconEl(Icon.Group),
+                  iconEl(Icon.group),
                   div(
                     span(cls := "clock")(sim.clock.config.show),
                     div(cls := "setup")(
@@ -52,7 +52,7 @@ final class SimulShow(helpers: Helpers, gathering: GatheringUi):
                         frag(
                           " • ",
                           a(href := routes.Simul.edit(sim.id), title := "Edit simul")(
-                            iconEl(Icon.Gear)
+                            iconEl(Icon.gear)
                           )
                         )
                       )

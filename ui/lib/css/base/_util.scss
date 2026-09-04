@@ -13,14 +13,14 @@
 }
 
 .rp::before {
-  @include icon-mask($icon-ArrowUpRight);
+  @include icon-mask($icon-arrowUpRight);
 
   margin-right: 0.2em;
 }
 
 bad.rp {
   &::before {
-    @include icon-mask($icon-ArrowDownRight);
+    @include icon-mask($icon-arrowDownRight);
   }
 }
 
