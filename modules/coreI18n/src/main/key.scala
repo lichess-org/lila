@@ -147,6 +147,7 @@ object I18nKey:
     val `tournamentPairingsAreNowClosed`: I18nKey = "arena:tournamentPairingsAreNowClosed"
     val `berserkRate`: I18nKey = "arena:berserkRate"
     val `seeMoreTournaments`: I18nKey = "arena:seeMoreTournaments"
+    val `leaguesAndStreamerBattles`: I18nKey = "arena:leaguesAndStreamerBattles"
     val `drawingWithinNbMoves`: I18nKey = "arena:drawingWithinNbMoves"
     val `viewAllXTeams`: I18nKey = "arena:viewAllXTeams"
 
@@ -2529,7 +2530,10 @@ object I18nKey:
     val `screenshot`: I18nKey = "screenshot"
     val `verifyingYourDevice`: I18nKey = "verifyingYourDevice"
     val `chessOpenings`: I18nKey = "chessOpenings"
+    val `openingPages`: I18nKey = "openingPages"
     val `chessOpeningsNameTree`: I18nKey = "chessOpeningsNameTree"
+    val `nameTree`: I18nKey = "nameTree"
+    val `explorer`: I18nKey = "explorer"
     val `searchForOpenings`: I18nKey = "searchForOpenings"
     val `exploreChessOpenings`: I18nKey = "exploreChessOpenings"
     val `opponentLeftCounter`: I18nKey = "opponentLeftCounter"

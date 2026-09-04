@@ -197,6 +197,8 @@ interface I18n {
     isNotRated: string;
     /** This tournament is rated and will affect your rating. */
     isRated: string;
+    /** Leagues & Streamer Battles */
+    leaguesAndStreamerBattles: string;
     /** medians */
     medians: string;
     /** Minimum game length */
@@ -3713,6 +3715,8 @@ interface I18n {
     expandVariations: string;
     /** Explore the chess openings */
     exploreChessOpenings: string;
+    /** Explorer */
+    explorer: string;
     /** Export games */
     exportGames: string;
     /** Extra clock time for the host: */
@@ -4063,6 +4067,8 @@ interface I18n {
     mustBeInTeam: I18nFormat;
     /** Name */
     name: string;
+    /** Name tree */
+    nameTree: string;
     /** Navigate the move tree */
     navigateMoveTree: string;
     /** Anonymous (%s) */
@@ -4231,6 +4237,8 @@ interface I18n {
     openingExplorer: string;
     /** Opening explorer & tablebase */
     openingExplorerAndTablebase: string;
+    /** Opening pages */
+    openingPages: string;
     /** Openings */
     openings: string;
     /** Open tournaments */
