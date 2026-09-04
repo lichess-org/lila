@@ -26,7 +26,7 @@ object Dependencies:
   val nettyTransport =
     ("io.netty" % s"netty-transport-native-$notifier" % "4.2.17.Final").classifier(s"$os-$arch")
   val lilaSearch = ("com.github.lichess-org.lila-search" %% "client" % "3.6.0")
-  val munit = "org.scalameta" %% "munit" % "1.3.5" % Test
+  val munit = "org.scalameta" %% "munit" % "1.3.6" % Test
   val uaparser = "org.uaparser" %% "uap-scala" % "0.21.0"
   val apacheText = "org.apache.commons" % "commons-text" % "1.15.0"
   val apacheMath = "org.apache.commons" % "commons-math3" % "3.6.1"
