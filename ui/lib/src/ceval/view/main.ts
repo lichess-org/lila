@@ -234,7 +234,7 @@ export function renderCeval(ctrl: CevalHandler): VNode[] {
   const settingsGear = hl(
     'button.settings-gear',
     {
-      attrs: { role: 'button', title: 'Engine settings' },
+      attrs: { role: 'button', title: i18n.site.engineSettings },
       class: { active: ceval.showEnginePrefs() },
       hook: bind(
         'click',

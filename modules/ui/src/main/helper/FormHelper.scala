@@ -100,7 +100,7 @@ trait FormHelper:
           span(cls := "button__ready")(content),
           span(cls := "button__verifying")(
             span(cls := "button__loader white")(HtmlHelper.spinner),
-            " Verifying your device..."
+            trans.site.verifyingYourDevice()
           )
         ),
         icon = none

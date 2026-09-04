@@ -2155,6 +2155,8 @@ interface I18n {
     changeSupport: I18nFormat;
     /** Check out your profile page! */
     checkOutProfile: string;
+    /** Click donate to view payment options based on your device and currency. */
+    clickDonateToViewPaymentOptions: string;
     /** contact Lichess support */
     contactSupport: string;
     /** See the detailed cost breakdown */
@@ -3655,8 +3657,14 @@ interface I18n {
     endgame: string;
     /** Endgame positions */
     endgamePositions: string;
+    /** Engine: */
+    engine: string;
     /** Error loading engine */
     engineFailed: string;
+    /** Engine information */
+    engineInformation: string;
+    /** Engine settings */
+    engineSettings: string;
     /** En passant rights */
     enPassant: string;
     /** This email address is invalid */
@@ -3869,6 +3877,8 @@ interface I18n {
     keyCycleSelectedVariation: string;
     /** enter/exit variation */
     keyEnterOrExitVariation: string;
+    /** Go to previous/next branch */
+    keyGoToPreviousOrNextBranch: string;
     /** go to start/end */
     keyGoToStartOrEnd: string;
     /** move backward/forward */
@@ -3879,6 +3889,10 @@ interface I18n {
     keyPreviousBranch: string;
     /** show/hide comments */
     keyShowOrHideComments: string;
+    /** Step to previous/next line */
+    keyStepToPreviousOrNextLine: string;
+    /** Show/hide current variation */
+    keyToggleCurrentVariation: string;
     /** Kid mode */
     kidMode: string;
     /** This is about safety. In kid mode, all site communications are disabled. Enable this for your children and school students, to protect them from other internet users. */
@@ -3897,6 +3911,8 @@ interface I18n {
     latestForumPosts: string;
     /** Leaderboard */
     leaderboard: string;
+    /** Leagues & Streamer Battles */
+    leaguesAndStreamerBattles: string;
     /** Learn from this mistake */
     learnFromThisMistake: string;
     /** Learn from your mistakes */
@@ -4473,6 +4489,8 @@ interface I18n {
     safeTournamentName: string;
     /** Save */
     save: string;
+    /** SCREENSHOT */
+    screenshot: string;
     /** Screenshot current position */
     screenshotCurrentPosition: string;
     /** Scroll over computer variations to preview them. */
@@ -4489,6 +4507,8 @@ interface I18n {
     security: string;
     /** See best move */
     seeBestMove: string;
+    /** See more tournaments on the calendar */
+    seeMoreTournamentsOnTheCalendar: string;
     /** Send */
     send: string;
     /** If you can't find your confirmation email, send an email to %s and we'll confirm your account for you. */
@@ -4505,6 +4525,8 @@ interface I18n {
     settings: string;
     /** Share your chess insights data */
     shareYourInsightsData: string;
+    /** Show all */
+    showAll: string;
     /** View this help overlay */
     showHelpDialog: string;
     /** Show me everything */
@@ -4679,6 +4701,8 @@ interface I18n {
     toggleGlyphAnnotations: string;
     /** Toggle local computer analysis */
     toggleLocalAnalysis: string;
+    /** Toggle local engine */
+    toggleLocalEngine: string;
     /** Toggle local evaluation */
     toggleLocalEvaluation: string;
     /** Toggle observation annotations */
@@ -4817,6 +4841,8 @@ interface I18n {
     variationArrowsInfo: string;
     /** Verify that %s is your email address */
     verifyYourAddress: I18nFormat;
+    /**  Verifying your device... */
+    verifyingYourDevice: string;
     /** Victory */
     victory: string;
     /** %1$s vs %2$s in %3$s */

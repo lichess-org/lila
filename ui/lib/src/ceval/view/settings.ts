@@ -197,7 +197,7 @@ function engineSelection({ ceval }: CevalHandler) {
   const external = ceval.engines.external;
 
   return hl('div.setting', [
-    hl('label', { attrs: { for: 'select-engine' } }, 'Engine:'),
+    hl('label', { attrs: { for: 'select-engine' } }, i18n.site.engine),
     hl(
       'select#select-engine',
       {
@@ -226,7 +226,7 @@ function engineSelection({ ceval }: CevalHandler) {
     hl(
       'button.engine-info-button',
       {
-        attrs: { title: 'Engine information' },
+        attrs: { title: i18n.site.engineInformation },
         on: {
           click: () => engineInfo(ceval.engines.supporting(ceval.opts.variant.key, undefined, 'browser')),
         },

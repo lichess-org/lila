@@ -74,6 +74,8 @@
   <string name="goDeeper">Go deeper</string>
   <string name="showThreat">Show threat</string>
   <string name="inLocalBrowser">in local browser</string>
+  <string name="engineSettings">Engine settings</string>
+  <string name="engineInformation">Engine information</string>
   <string name="toggleLocalEvaluation">Toggle local evaluation</string>
   <string name="promoteVariation">Promote variation</string>
   <string name="makeMainLine">Make main line</string>
@@ -144,6 +146,7 @@
   <string name="cpus">CPUs</string>
   <string name="memory">Memory</string>
   <string name="memoryDescription">Higher values may improve performance</string>
+  <string name="engine">Engine:</string>
   <string name="infiniteAnalysis">Infinite analysis</string>
   <string name="removesTheDepthLimit">Removes the depth limit, and keeps your computer warm</string>
   <string name="blunder">Blunder</string>
@@ -175,6 +178,7 @@
   </plurals>
   <string name="moveTimes">Move times</string>
   <string name="flipBoard">Flip board</string>
+  <string name="toggleLocalEngine">Toggle local engine</string>
   <string name="threefoldRepetition">Threefold repetition</string>
   <string name="claimADraw">Claim a draw</string>
   <string name="drawClaimed">Draw claimed</string>
@@ -206,6 +210,7 @@
   <string name="rememberMe">Keep me logged in</string>
   <string name="youNeedAnAccountToDoThat">You need an account to do that</string>
   <string name="signUp">Register</string>
+  <string name="verifyingYourDevice"> Verifying your device...</string>
   <string name="computersAreNotAllowedToPlay">Computers and computer-assisted players are not allowed to play. Please do not get assistance from chess engines, databases, or from other players while playing. Also note that making multiple accounts is strongly discouraged and excessive multi-accounting will lead to being banned.</string>
   <string name="games">Games</string>
   <string name="forum">Forum</string>
@@ -504,6 +509,8 @@ Playing rated games will increase stability.</string>
   <string name="standings">Standings</string>
   <string name="createANewTournament">Create a new tournament</string>
   <string name="tournamentCalendar">Tournament calendar</string>
+  <string name="leaguesAndStreamerBattles">Leagues &amp; Streamer Battles</string>
+  <string name="seeMoreTournamentsOnTheCalendar">See more tournaments on the calendar</string>
   <string name="conditionOfEntry">Entry requirements:</string>
   <string name="advancedSettings">Advanced settings</string>
   <string name="safeTournamentName">Pick a very safe name for the tournament.</string>
@@ -744,6 +751,9 @@ Playing rated games will increase stability.</string>
   <string name="keyMoveBackwardOrForward">move backward/forward</string>
   <string name="keyGoToStartOrEnd">go to start/end</string>
   <string name="keyCycleSelectedVariation">Cycle selected variation</string>
+  <string name="keyGoToPreviousOrNextBranch">Go to previous/next branch</string>
+  <string name="keyStepToPreviousOrNextLine">Step to previous/next line</string>
+  <string name="keyToggleCurrentVariation">Show/hide current variation</string>
   <string name="keyShowOrHideComments">show/hide comments</string>
   <string name="keyEnterOrExitVariation">enter/exit variation</string>
   <string name="keyPreviousBranch">Previous branch</string>
@@ -1064,4 +1074,6 @@ Leave empty to start games from the normal initial position.</string>
   <string name="tags">Tags</string>
   <string name="enPassant">En passant rights</string>
   <string name="settings">Settings</string>
+  <string name="screenshot">SCREENSHOT</string>
+  <string name="showAll">Show all</string>
 </resources>

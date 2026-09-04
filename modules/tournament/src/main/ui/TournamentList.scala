@@ -47,8 +47,7 @@ final class TournamentList(helpers: Helpers, ui: TournamentUi)(
               br,
               a(href := routes.Tournament.help)(trans.site.tournamentFAQ()),
               br,
-              a(href := routes.Cms.lonePage(lila.core.id.CmsPageKey("leagues-and-battles")))(
-                "Leagues & Streamer Battles"
+              a(href := routes.Cms.lonePage(lila.core.id.CmsPageKey("leagues-and-battles")))(trans.site.leaguesAndStreamerBattles()
               )
             ),
             h2(
@@ -73,7 +72,7 @@ final class TournamentList(helpers: Helpers, ui: TournamentUi)(
                       div(strong(tour.name(full = false)), momentFromNow(tour.startsAt))
                     )
             ),
-            a(href := routes.Tournament.calendar)("See more tournaments on the calendar")
+            a(href := routes.Tournament.calendar)(trans.site.seeMoreTournamentsOnTheCalendar())
           ),
           st.section(cls := "tour-home__schedule box")(
             boxTop(
@@ -129,7 +128,7 @@ final class TournamentList(helpers: Helpers, ui: TournamentUi)(
         )
 
   def calendar(json: play.api.libs.json.JsObject)(using Context) =
-    Page("Tournament calendar")
+    Page(trans.site.tournamentCalendar())
       .js(PageModule("tournament.calendar", Json.obj("data" -> json)))
       .css("tournament.calendar"):
         main(cls := "box")(
