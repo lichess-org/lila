@@ -748,8 +748,11 @@ Playing rated games will increase stability.</string>
   <string name="keyboardShortcuts">Keyboard shortcuts</string>
   <string name="keyMoveBackwardOrForward">move backward/forward</string>
   <string name="keyGoToStartOrEnd">go to start/end</string>
+  <string name="keyGoToPreviousOrNextBranch">go to previous/next branch</string>
+  <string name="keyGoToPreviousOrNextLine">go to previous/next line</string>
   <string name="keyCycleSelectedVariation">Cycle selected variation</string>
   <string name="keyShowOrHideComments">show/hide comments</string>
+  <string name="keyShowOrHideCurrentVariation">show/hide current variation</string>
   <string name="keyEnterOrExitVariation">enter/exit variation</string>
   <string name="keyPreviousBranch">Previous branch</string>
   <string name="keyNextBranch">Next branch</string>

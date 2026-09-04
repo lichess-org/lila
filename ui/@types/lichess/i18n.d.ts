@@ -3881,6 +3881,10 @@ interface I18n {
     keyCycleSelectedVariation: string;
     /** enter/exit variation */
     keyEnterOrExitVariation: string;
+    /** go to previous/next branch */
+    keyGoToPreviousOrNextBranch: string;
+    /** go to previous/next line */
+    keyGoToPreviousOrNextLine: string;
     /** go to start/end */
     keyGoToStartOrEnd: string;
     /** move backward/forward */
@@ -3891,6 +3895,8 @@ interface I18n {
     keyPreviousBranch: string;
     /** show/hide comments */
     keyShowOrHideComments: string;
+    /** show/hide current variation */
+    keyShowOrHideCurrentVariation: string;
     /** Kid mode */
     kidMode: string;
     /** This is about safety. In kid mode, all site communications are disabled. Enable this for your children and school students, to protect them from other internet users. */
