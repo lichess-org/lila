@@ -103,21 +103,21 @@ object TournamentShield:
       then ~(of.left.toOption, tour.scheduleSpeed).mapN(_ == _)
       else of.toOption.has(tour.variant)
 
-    case Bullet extends Category(Left(Schedule.Speed.Bullet), Icon.Bullet)
-    case SuperBlitz extends Category(Left(Schedule.Speed.SuperBlitz), Icon.FlameBlitz)
-    case Blitz extends Category(Left(Schedule.Speed.Blitz), Icon.FlameBlitz)
-    case Rapid extends Category(Left(Schedule.Speed.Rapid), Icon.Rabbit)
-    case Classical extends Category(Left(Schedule.Speed.Classical), Icon.Turtle)
-    case HyperBullet extends Category(Left(Schedule.Speed.HyperBullet), Icon.Bullet)
-    case UltraBullet extends Category(Left(Schedule.Speed.UltraBullet), Icon.UltraBullet)
-    case Chess960 extends Category(Right(chess.variant.Chess960), Icon.DieSix)
-    case Crazyhouse extends Category(Right(chess.variant.Crazyhouse), Icon.Crazyhouse)
-    case KingOfTheHill extends Category(Right(chess.variant.KingOfTheHill), Icon.FlagKingHill)
-    case ThreeCheck extends Category(Right(chess.variant.ThreeCheck), Icon.ThreeCheckStack)
-    case Antichess extends Category(Right(chess.variant.Antichess), Icon.Antichess)
-    case Atomic extends Category(Right(chess.variant.Atomic), Icon.Atom)
-    case Horde extends Category(Right(chess.variant.Horde), Icon.Keypad)
-    case RacingKings extends Category(Right(chess.variant.RacingKings), Icon.FlagRacingKings)
+    case Bullet extends Category(Left(Schedule.Speed.Bullet), Icon.bullet)
+    case SuperBlitz extends Category(Left(Schedule.Speed.SuperBlitz), Icon.flameBlitz)
+    case Blitz extends Category(Left(Schedule.Speed.Blitz), Icon.flameBlitz)
+    case Rapid extends Category(Left(Schedule.Speed.Rapid), Icon.rabbit)
+    case Classical extends Category(Left(Schedule.Speed.Classical), Icon.turtle)
+    case HyperBullet extends Category(Left(Schedule.Speed.HyperBullet), Icon.bullet)
+    case UltraBullet extends Category(Left(Schedule.Speed.UltraBullet), Icon.ultraBullet)
+    case Chess960 extends Category(Right(chess.variant.Chess960), Icon.dieSix)
+    case Crazyhouse extends Category(Right(chess.variant.Crazyhouse), Icon.crazyhouse)
+    case KingOfTheHill extends Category(Right(chess.variant.KingOfTheHill), Icon.flagKingHill)
+    case ThreeCheck extends Category(Right(chess.variant.ThreeCheck), Icon.threeCheckStack)
+    case Antichess extends Category(Right(chess.variant.Antichess), Icon.antichess)
+    case Atomic extends Category(Right(chess.variant.Atomic), Icon.atom)
+    case Horde extends Category(Right(chess.variant.Horde), Icon.keypad)
+    case RacingKings extends Category(Right(chess.variant.RacingKings), Icon.flagRacingKings)
 
   object Category:
     val list = values.toList
@@ -131,7 +131,7 @@ object TournamentShield:
 The winner keeps it for one month,
 then must defend it during the next $name Shield tournament!""".some,
     spotlight = Spotlight(
-      iconFont = Icon.Shield.some,
+      icon = Icon.shield.some,
       headline = s"Battle for the $name Shield",
       homepageHours = 6.some
     ).some

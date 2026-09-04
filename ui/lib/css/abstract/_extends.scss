@@ -284,31 +284,9 @@
   }
 }
 
-%data-icon {
-  font-size: 1.2em;
-  vertical-align: middle;
-  font-family: lichess;
-  font-style: normal;
-  font-weight: normal;
-  text-transform: none;
-  speak: none;
-  content: attr(data-icon);
-  opacity: 0.9;
-  unicode-bidi: isolate;
-}
-
-%data-icon-top {
-  &::before {
-    vertical-align: text-top;
-  }
-}
-
 %fullscreen-mask {
   position: fixed;
-  top: -100vh;
-  left: -100vw;
-  width: 300vw;
-  height: 300vh;
+  inset: 0;
   background: $c-page-mask;
   z-index: $z-fullscreen-mask-110;
 }

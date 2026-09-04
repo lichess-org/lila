@@ -16,16 +16,22 @@ final class OAuthServer(
 
   import OAuthServer.*
 
+  private type Signature = Option[String]
+
   def authReq(accepted: EndpointScopes)(using req: RequestHeader): AccessFu =
     val res = for
-      bearer <- HTTPRequest.bearer(req).raiseIfNone(MissingAuthorizationHeader)
+      bearer <- HTTPRequest.bearer.raiseIfNone(MissingAuthorizationHeader)
       res <- auth(bearer, accepted, req.some)
       _ <- checkOauthUaUser(res, HTTPRequest.userAgent(req)).raiseIfSome(funit)
     yield res
     res.onComplete(x => monitorAuth(x.isSuccess))
     res
 
-  def auth(bearer: Bearer, accepted: EndpointScopes, andLogReq: Option[RequestHeader]): AccessFu = for
+  def auth(
+      bearer: (Bearer, Signature),
+      accepted: EndpointScopes,
+      andLogReq: Option[RequestHeader]
+  ): AccessFu = for
     at <- getTokenFromSignedBearer(bearer)
     at <- at.raiseIfNone(NoSuchToken)
     _ <- raiseIf(!accepted.isEmpty && !accepted.compatible(at.scopes)):
@@ -48,8 +54,8 @@ final class OAuthServer(
       token1: Bearer,
       token2: Bearer
   ): FuRaise[AuthError, (User, User)] = for
-    auth1 <- auth(token1, scopes, req.some)
-    auth2 <- auth(token2, scopes, req.some)
+    auth1 <- auth(token1 -> none, scopes, req.some)
+    auth2 <- auth(token2 -> none, scopes, req.some)
     _ <- raiseIf(auth1.user.is(auth2.user))(OneUserWithTwoTokens)
   yield auth1.user -> auth2.user
 
@@ -59,10 +65,8 @@ final class OAuthServer(
       case UaUserRegex(u) if access.me.isnt(UserStr(u)) => UserAgentMismatch.some
       case _ => none
 
-  private def getTokenFromSignedBearer(full: Bearer): Fu[Option[AccessToken.ForAuth]] =
-    val (bearer, signature) = full.value.split(':') match
-      case Array(bearer, sign) => Bearer(bearer) -> sign.some
-      case _ => (full, none)
+  private def getTokenFromSignedBearer(pair: (Bearer, Signature)): Fu[Option[AccessToken.ForAuth]] =
+    val (bearer, signature) = pair
     tokenApi
       .get(bearer)
       .mapz: token =>

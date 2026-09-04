@@ -38,13 +38,13 @@ final class UserTournament(helpers: Helpers, ui: TournamentUi):
               tbody(cls := "infinite-scroll")(
                 pager.currentPageResults.map { t =>
                   tr(cls := "paginated")(
-                    td(cls := "icon")(iconTag(ui.tournamentIcon(t))),
+                    td(cls := "icon")(iconEl(ui.tournamentIcon(t))),
                     ui.finishedList.header(t),
                     td(momentFromNow(t.startsAt)),
                     td(cls := "winner")(
                       t.winnerId.isDefined.option(userIdLink(t.winnerId, withOnline = false))
                     ),
-                    td(cls := "text", dataIcon := Icon.User)(t.nbPlayers.localize)
+                    td(cls := "text", iconEl := Icon.user)(t.nbPlayers.localize)
                   )
                 },
                 pagerNextTable(pager, np => routes.UserTournament.path(u.username, "created", np).url)
@@ -71,10 +71,10 @@ final class UserTournament(helpers: Helpers, ui: TournamentUi):
             tbody:
               pager.currentPageResults.map: t =>
                 tr(
-                  td(cls := "icon")(iconTag(ui.tournamentIcon(t))),
+                  td(cls := "icon")(iconEl(ui.tournamentIcon(t))),
                   ui.finishedList.header(t),
                   td(momentFromNow(t.startsAt)),
-                  td(cls := "text", dataIcon := Icon.User)(t.nbPlayers.localize)
+                  td(cls := "text", iconEl := Icon.user)(t.nbPlayers.localize)
                 )
           )
         )
@@ -101,7 +101,7 @@ final class UserTournament(helpers: Helpers, ui: TournamentUi):
           tbody(
             data.perfResults.map { case (pt, res) =>
               tr(
-                th(iconTag(pt.icon, pt.trans)),
+                th(iconEl(pt.icon, pt.trans)),
                 td(res.nb.localize),
                 td(res.points.median.map(_.toInt)),
                 td(res.points.sum.localize),
@@ -142,7 +142,7 @@ final class UserTournament(helpers: Helpers, ui: TournamentUi):
           tbody(cls := "infinite-scroll")(
             pager.currentPageResults.map { e =>
               tr(cls := List("paginated" -> true, "scheduled" -> e.tour.isScheduled))(
-                td(cls := "icon")(iconTag(ui.tournamentIcon(e.tour))),
+                td(cls := "icon")(iconEl(ui.tournamentIcon(e.tour))),
                 td(cls := "header")(
                   a(href := addQueryParam(routes.Tournament.show(e.tour.id).url, "player", u.username.value))(
                     span(cls := "name")(e.tour.name()),

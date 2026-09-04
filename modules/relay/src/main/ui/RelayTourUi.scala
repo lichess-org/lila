@@ -127,7 +127,11 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi, card: RelayCardUi, pageMe
           else frag(lightUserLink(owner), " ", trc.liveBroadcasts())
         ),
         div(cls := "box__top__actions")(
-          a(href := routes.RelayTour.form, cls := "button button-green text", dataIcon := Icon.PlusButton)(
+          a(
+            href := routes.RelayTour.form,
+            cls := "button button-green text",
+            iconEl := Icon.plusButton
+          )(
             trc.newBroadcast()
           )
         )
@@ -170,7 +174,10 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi, card: RelayCardUi, pageMe
         main(cls := "relay-calendar page-menu")(
           pageMenu("calendar"),
           div(cls := "page-menu__content box box-pad")(
-            boxTop(h1(dataIcon := Icon.RadioTower, cls := "text")(trc.broadcastCalendar()), searchForm("")),
+            boxTop(
+              h1(iconEl := Icon.radioTower, cls := "text")(trc.broadcastCalendar()),
+              searchForm("")
+            ),
             announcement.map: html =>
               div(cls := "relay__announcement page"):
                 div(cls := "body expand-text")(html)

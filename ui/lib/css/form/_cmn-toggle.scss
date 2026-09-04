@@ -32,27 +32,26 @@
     position: absolute;
     content: '';
     width: 23px;
-    height: 23px;
+    aspect-ratio: 1;
     bottom: 0;
-
-    @include inline-start(0);
   }
 
   &::before {
-    @extend %data-icon, %box-radius;
-    @include transition(margin color);
+    @extend %box-radius;
+    @include icon-mask($icon-x);
+    @include transition(margin-inline-start color);
 
-    font-size: 1em;
+    align-self: center;
+    inset: 6px;
     z-index: 1;
-    text-align: center;
-    line-height: 23px;
-    content: $licon-X;
+    width: 10px;
     color: $c-font-dimmer;
   }
 
   &::after {
     @extend %metal;
-    @include transition(margin box-shadow);
+    @include transition(margin-inline-start box-shadow);
+    @include inline-start(0);
 
     border-radius: calc($box-radius-size - 1px);
 
@@ -99,7 +98,8 @@
   }
 
   &::before {
-    content: $licon-Checkmark;
+    @include icon-mask($icon-checkmark);
+
     color: $c-good;
   }
 }
@@ -108,7 +108,6 @@
   opacity: 0.6;
   cursor: not-allowed !important;
 
-  &::before,
   &::after {
     @extend %metal-bg;
 

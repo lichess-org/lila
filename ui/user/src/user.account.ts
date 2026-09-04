@@ -1,9 +1,8 @@
 import flairPickerLoader from 'bits/flairPicker';
 import { createSelectSearch } from 'bits/selectSearch';
 
-import { licon } from 'lib/licon';
 import { storage } from 'lib/storage';
-import { addPasswordVisibilityToggleListener, confirm } from 'lib/view';
+import { addPasswordVisibilityToggleListener, confirm, domIcon } from 'lib/view';
 import * as xhr from 'lib/xhr';
 
 site.load.then(() => {
@@ -61,7 +60,13 @@ site.load.then(() => {
     const checkDanger = () => {
       isDanger = !!form.find('.danger input:checked').length;
       submit.toggleClass('button-red', isDanger);
-      submit.attr('data-icon', isDanger ? licon.CautionTriangle : licon.Checkmark);
+      const button = submit[0];
+      if (button) {
+        const icon = domIcon(isDanger ? 'cautionTriangle' : 'checkmark');
+        const currentIcon = button.querySelector(':scope > .svg-icon');
+        if (currentIcon) currentIcon.replaceWith(icon);
+        else button.prepend(icon);
+      }
       submit.attr('title', isDanger ? submit.data('danger-title') : '');
     };
     checkDanger();

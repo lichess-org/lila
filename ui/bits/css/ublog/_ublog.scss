@@ -115,15 +115,15 @@
   }
 
   .descending::after {
+    @include icon-mask($icon-downTriangle);
+
     margin-inline-start: 1ch;
-    font-family: lichess;
-    content: $licon-DownTriangle;
   }
 
   .ascending::after {
+    @include icon-mask($icon-upTriangle);
+
     margin-inline-start: 1ch;
-    font-family: lichess;
-    content: $licon-UpTriangle;
   }
 
   @media (max-width: at-most($x-large)) {
@@ -168,13 +168,18 @@
   }
 
   .pull {
-    font-family: lichess;
     font-size: 1rem;
     color: $c-bad;
     padding: 1.5px;
     border-radius: 50%;
     border: 2px solid $c-bad;
     cursor: pointer;
+
+    .svg-icon {
+      display: block;
+      width: 1em;
+      height: 1em;
+    }
 
     &:hover {
       filter: brightness(1.2);

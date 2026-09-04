@@ -87,16 +87,23 @@
   h2,
   h3,
   h4 {
+    position: relative;
+
     a[id] {
       opacity: 0;
+      width: 3rem;
+      left: -2.5rem;
+      position: absolute;
 
       &::before {
+        @include icon-mask($icon-link);
+
         color: $c-font-dimmer;
-        content: $licon-Link;
-        font-family: lichess;
-        margin-left: -3rem;
-        width: 3rem;
-        position: absolute;
+        width: 1.75rem;
+
+        &:hover {
+          opacity: 0.8;
+        }
       }
     }
 

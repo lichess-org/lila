@@ -4,7 +4,7 @@ import { renderVoiceBar } from 'voice';
 
 import { view as cevalView } from 'lib/ceval';
 import { dispatchChessgroundResize } from 'lib/chessgroundResize';
-import { licon, type LiconValue } from 'lib/licon';
+import { type Icon } from 'lib/icons';
 import { addPointerListeners } from 'lib/pointer';
 import { Coords } from 'lib/prefs';
 import { storage } from 'lib/storage';
@@ -13,6 +13,7 @@ import {
   onInsert,
   bindNonPassive,
   hl,
+  snabIcon,
   type MaybeVNode,
 } from 'lib/view';
 import { renderBlindfoldToggle } from 'lib/view/blindfold';
@@ -32,12 +33,11 @@ import { render as treeView } from './tree';
 const renderAnalyse = (ctrl: PuzzleCtrl): VNode => hl('div.puzzle__moves.areplay', [treeView(ctrl)]);
 
 function dataAct(e: Event): string | null {
-  const target = e.target as HTMLElement;
-  return target.getAttribute('data-act') || (target.parentNode as HTMLElement).getAttribute('data-act');
+  return (e.target as HTMLElement).closest<HTMLElement>('[data-act]')?.dataset.act ?? null;
 }
 
-function jumpButton(icon: LiconValue, effect: string, disabled: boolean, glowing = false): VNode {
-  return hl('button.fbt', { class: { glowing }, attrs: { disabled, 'data-act': effect, 'data-icon': icon } });
+function jumpButton(icon: Icon, effect: string, disabled: boolean, glowing = false): VNode {
+  return hl('button.fbt', { class: { glowing }, attrs: { disabled, 'data-act': effect } }, [snabIcon(icon)]);
 }
 
 function controls(ctrl: PuzzleCtrl): VNode {
@@ -62,10 +62,10 @@ function controls(ctrl: PuzzleCtrl): VNode {
         ),
       },
       [
-        jumpButton(licon.JumpFirst, 'first', !node.ply),
-        jumpButton(licon.JumpPrev, 'prev', !node.ply),
-        jumpButton(licon.JumpNext, 'next', !nextNode),
-        jumpButton(licon.JumpLast, 'last', !nextNode, notOnLastMove),
+        jumpButton('jumpFirst', 'first', !node.ply),
+        jumpButton('jumpPrev', 'prev', !node.ply),
+        jumpButton('jumpNext', 'next', !nextNode),
+        jumpButton('jumpLast', 'last', !nextNode, notOnLastMove),
         boardMenuToggleButton(ctrl.menu, i18n.site.menu),
       ],
     ),

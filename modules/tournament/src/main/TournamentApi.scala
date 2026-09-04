@@ -218,7 +218,7 @@ final class TournamentApi(
   yield
     cached.tourCache.clear(tour.id)
     publish()
-    socket.reload(tour.id)
+    socket.finish(tour.id)
 
   private[tournament] def finish(oldTour: Tournament): Funit =
     Parallel(oldTour.id, "finish")(cached.tourCache.started) { tour =>
@@ -797,14 +797,16 @@ final class TournamentApi(
         _.flatMap { LightPov(_, userId) }
 
   private def notifyBBB(next: Tournament, prev: Option[Tournament])(using me: MyId) =
-    lila.common
-      .ProductDiff(
-        prev,
-        next,
-        ignoredFields = Set("id", "status", "nbPlayers", "createdAt", "createdBy", "winnerId", "featuredId"),
-        nestedFields = Set("spotlight", "conditions", "teamBattle", "schedule")
-      )
-      .foreach(ircApi.bbb(me, "arena", next.name, routes.Tournament.show(next.id), _))
+    if next.isScheduled then
+      lila.common
+        .ProductDiff(
+          prev,
+          next,
+          ignoredFields =
+            Set("id", "status", "nbPlayers", "createdAt", "createdBy", "winnerId", "featuredId"),
+          nestedFields = Set("spotlight", "conditions", "teamBattle", "schedule")
+        )
+        .foreach(ircApi.bbb(me, "arena", next.name, routes.Tournament.show(next.id), _))
 
   private def Parallel[A: Zero](tourId: TourId, action: String)(
       fetch: TourId => Fu[Option[Tournament]]

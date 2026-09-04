@@ -1,7 +1,8 @@
 %top-icon {
   display: block;
   height: $site-header-height;
-  line-height: $site-header-height;
+
+  // line-height: $site-header-height;
 }
 
 .site-buttons {
@@ -13,6 +14,9 @@
     @include transition(color);
     @extend %top-icon;
 
+    display: flex;
+    align-items: center;
+    justify-content: center;
     color: $c-font;
     font-size: 1.1rem;
     padding: 0 20px;
@@ -27,11 +31,6 @@
 
     &:hover {
       color: $c-font-clearer !important;
-    }
-
-    &::before,
-    span::before {
-      vertical-align: top;
     }
 
     &:focus-visible {
@@ -110,6 +109,8 @@
     }
 
     a {
+      display: flex;
+      align-items: center;
       color: $c-bad;
     }
 
@@ -124,22 +125,24 @@
 }
 
 #user_tag {
-  @extend %flex-center-nowrap, %nowrap-ellipsis;
+  @extend %flex-center-nowrap;
 
   max-width: 40vw;
-  display: inline-block;
 
-  &::after {
-    @include transition(color);
-    @extend %data-icon;
+  .user-tag__name {
+    @extend %nowrap-ellipsis;
 
-    color: color-mix(in oklab, $c-font 85%, $c-dimmer);
-    content: $licon-AccountCircle;
-    font-size: 2rem;
-    margin-left: 0.5rem;
+    min-width: 0;
   }
 
-  &:hover::after {
+  .svg-icon {
+    @include transition(color);
+
+    color: color-mix(in oklab, $c-font 85%, $c-dimmer);
+    margin-inline-start: 0.5rem;
+  }
+
+  &:hover .svg-icon {
     color: $c-font-clearer;
   }
 }

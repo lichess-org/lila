@@ -1,5 +1,6 @@
 package lila.fide
 
+import chess.FideTC
 import reactivemongo.api.*
 import scalalib.paginator.{ AdapterLike, Paginator }
 
@@ -36,7 +37,7 @@ final class FidePaginator(repo: FideRepo)(using Executor):
         def nbResults: Fu[Int] = fuccess(100 * maxPerPage.value)
         def slice(offset: Int, length: Int) =
           repo.playerColl
-            .find(repo.player.selectActive ++ repo.player.selectFed(fed.id))
+            .find(repo.player.selectActive(FideTC.standard) ++ repo.player.selectFed(fed.id))
             .sort(repo.player.sortStandard)
             .skip(offset)
             .cursor[FidePlayer](ReadPref.sec)
@@ -88,7 +89,7 @@ final class FidePaginator(repo: FideRepo)(using Executor):
               CachedAdapter(
                 Adapter[FidePlayer](
                   collection = repo.playerColl,
-                  selector = repo.player.selectActive,
+                  selector = repo.player.selectActive(order.fideTC),
                   projection = none,
                   sort = repo.player.sortBy(order),
                   _.sec

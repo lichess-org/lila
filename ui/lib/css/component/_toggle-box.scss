@@ -28,18 +28,21 @@
   legend {
     @include backdrop-blur-if-transparent(10px);
 
-    padding: 0.5em 2.5em 0.5em 1.5em;
+    display: flex;
+    align-items: center;
+    padding: 0.5em 1.5em;
     cursor: pointer;
-    position: relative;
+    gap: 0.5em;
 
     &::after {
-      @extend %data-icon;
+      @include icon-mask($icon-greaterThan, 14px);
 
-      content: $licon-GreaterThan;
-      position: absolute;
-      font-size: 14px;
       transform: rotate(-90deg);
-      margin-left: 0.5em;
+
+      @include if-rtl {
+        transform: rotate(-90deg) scaleX(-1);
+      }
+
       opacity: 0.66;
       transition: transform 0.2s ease-in-out;
     }

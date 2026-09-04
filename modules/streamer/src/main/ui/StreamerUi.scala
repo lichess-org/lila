@@ -70,7 +70,7 @@ final class StreamerUi(helpers: Helpers, bits: StreamerBits)(using netDomain: Ne
         main(cls := "page-menu")(
           bits.menu(if requests then "requests" else "index", none)(cls := " page-menu__menu"),
           div(cls := "page-menu__content box streamer-list")(
-            boxTop(h1(dataIcon := Icon.Mic, cls := "text")(title)),
+            boxTop(h1(iconEl := Icon.mic, cls := "text")(title)),
             (!requests).option:
               div(cls := "list force-ltr live"):
                 live.map: s =>

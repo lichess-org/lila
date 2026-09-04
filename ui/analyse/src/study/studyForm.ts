@@ -1,8 +1,17 @@
 import flairPickerLoader from 'bits/flairPicker';
 
 import { toggle } from 'lib';
-import { licon } from 'lib/licon';
-import { snabDialog, confirm, prompt, type VNode, bindSubmit, bindNonPassive, onInsert, hl } from 'lib/view';
+import {
+  snabDialog,
+  confirm,
+  prompt,
+  type VNode,
+  bindSubmit,
+  bindNonPassive,
+  onInsert,
+  hl,
+  snabIcon,
+} from 'lib/view';
 
 import { emptyRedButton } from '../view/util';
 import type { StudyData } from './interfaces';
@@ -218,17 +227,15 @@ export function view(ctrl: StudyForm): VNode {
         'a.text',
         {
           attrs: {
-            'data-icon': licon.RadioTower,
             href: `/broadcast/${ctrl.relay.data.tour.id}/edit`,
           },
         },
-        'Tournament settings',
+        [snabIcon('radioTower'), 'Tournament settings'],
       ),
-      hl(
-        'a.text',
-        { attrs: { 'data-icon': licon.RadioTower, href: `/broadcast/round/${data.id}/edit` } },
+      hl('a.text', { attrs: { href: `/broadcast/round/${data.id}/edit` } }, [
+        snabIcon('radioTower'),
         'Round settings',
-      ),
+      ]),
     ]);
   const deleteForms = hl('div', { attrs: { style: 'display: flex' } }, [
     hl(

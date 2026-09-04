@@ -47,6 +47,8 @@
   <string name="imageAlt">Văn bản thay thế cho hình ảnh</string>
   <string name="imageCredit">Nguồn ảnh</string>
   <string name="deleteBlog">Xóa dứt khoát bài blog này</string>
+  <string name="safeToUseImages">Bạn có thể sử dụng hình ảnh từ các trang web sau một cách an toàn: </string>
+  <string name="freeImagesComplyWithLicensing" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement. Replaces old string safeToUseImages">Các trang web sau đây cung cấp hình ảnh miễn phí. Vui lòng đảm bảo bạn tuân thủ các điều kiện cấp phép đối với hình ảnh bạn sử dụng.</string>
   <string name="selectPostTopics">Chọn các chủ đề mà bài đăng của bạn liên quan</string>
   <string name="safeAndRespectfulContent">Vui lòng chỉ đăng những nội dung an toàn và có tính tôn trọng. Không được phép sao chép nội dung của bất kì ai.</string>
   <string name="noCopyrightedImages">Chỉ sử dụng những hình ảnh không thuộc bản quyền của người khác.</string>

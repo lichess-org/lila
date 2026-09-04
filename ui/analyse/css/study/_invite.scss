@@ -11,8 +11,8 @@
     margin-bottom: 2em;
     text-align: left;
 
-    &::before {
-      font-size: 3.6em;
+    > .svg-icon {
+      width: 3.6em;
       margin-inline-end: 1rem;
     }
   }

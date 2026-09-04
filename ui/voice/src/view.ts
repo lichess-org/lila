@@ -1,6 +1,5 @@
 import { onClickAway } from 'lib';
-import { licon } from 'lib/licon';
-import { onInsert, bind, hl, type VNode, snabDialog, type Dialog, dataIcon } from 'lib/view';
+import { onInsert, bind, hl, type VNode, snabDialog, type Dialog, domIcon, snabIcon } from 'lib/view';
 import { cmnToggleProp } from 'lib/view/cmn-toggle';
 import { jsonSimple } from 'lib/xhr';
 
@@ -16,15 +15,20 @@ export function renderVoiceBar(ctrl: VoiceCtrl, redraw: () => void, cls?: string
       hl('span#voice-status', {
         hook: onInsert(el => ctrl.mic.setController(voiceBarUpdater(ctrl, el))),
       }),
-      hl('button#voice-help-button', {
-        attrs: { ...dataIcon(licon.InfoCircle), title: 'Voice help' },
-        hook: bind('click', () => ctrl.showHelp(true), undefined, false),
-      }),
-      hl('button#voice-settings-button', {
-        attrs: { ...dataIcon(licon.Gear), title: 'Voice settings' },
-        class: { active: ctrl.showPrefs() },
-        hook: bind('click', () => ctrl.showPrefs.toggle(), redraw, false),
-      }),
+      hl(
+        'button#voice-help-button',
+        { attrs: { title: 'Voice help' }, hook: bind('click', () => ctrl.showHelp(true), undefined, false) },
+        [snabIcon('infoCircle')],
+      ),
+      hl(
+        'button#voice-settings-button',
+        {
+          attrs: { title: 'Voice settings' },
+          class: { active: ctrl.showPrefs() },
+          hook: bind('click', () => ctrl.showPrefs.toggle(), redraw, false),
+        },
+        [snabIcon('gear')],
+      ),
     ]),
     ctrl.showPrefs() &&
       hl('div#voice-settings', { hook: onInsert(onClickAway(() => ctrl.showPrefs(false))) }, [
@@ -43,10 +47,8 @@ function voiceBarUpdater(ctrl: VoiceCtrl, el: HTMLElement) {
     voiceBtn.toggleClass('listening', ctrl.mic.isListening);
     voiceBtn.toggleClass('error', tpe === 'error');
     voiceBtn.toggleClass('push-to-talk', ctrl.pushTalk() && !ctrl.mic.isListening && !ctrl.mic.isBusy);
-    voiceBtn.html(ctrl.mic.isBusy ? '<span class="ddloader"></span>' : '');
-
-    if (ctrl.mic.isBusy) voiceBtn.removeAttr('data-icon');
-    else voiceBtn.attr('data-icon', tpe === 'error' ? licon.Cancel : licon.Voice);
+    if (ctrl.mic.isBusy) voiceBtn.html('<span class="ddloader"></span>');
+    else voiceBtn[0]?.replaceChildren(domIcon(tpe === 'error' ? 'cancel' : 'voice'));
 
     if (tpe !== 'partial') el.innerText = txt;
   };
@@ -57,7 +59,7 @@ function pushTalkSetting(ctrl: VoiceCtrl) {
     hl('label.cmn-toggle-wrap', { attrs: { title: 'Hold the shift key while speaking' } }, [
       cmnToggleProp({ id: 'wake-mode', prop: ctrl.pushTalk }),
       'Push ',
-      hl('strong', 'shift'),
+      hl('kbd', 'shift'),
       ' key to talk',
     ]),
   ]);
@@ -67,7 +69,7 @@ function langSetting(ctrl: VoiceCtrl) {
   return (
     supportedLangs.length > 1 &&
     hl('div.voice-setting', [
-      hl('label', { attrs: { for: 'voice-lang' } }, 'Language'),
+      hl('label', { attrs: { for: 'voice-lang' } }, 'language'),
       hl(
         'select#voice-lang',
         {

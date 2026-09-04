@@ -216,9 +216,9 @@ object help:
               ul(
                 li(
                   instructions1(
-                    iconTag(Icon.Voice),
-                    iconTag(Icon.InfoCircle),
-                    iconTag(Icon.Gear)
+                    iconEl(Icon.voice),
+                    iconEl(Icon.infoCircle),
+                    iconEl(Icon.gear)
                   )
                 ),
                 li(instructions2()),

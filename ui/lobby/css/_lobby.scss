@@ -55,13 +55,10 @@ body {
   .lobby__app__content {
     @extend %flex-column;
 
+    justify-content: center;
     height: 100%;
     align-items: center;
     padding-top: 2em;
-
-    &.lobby__app__content {
-      justify-content: center;
-    }
   }
 
   ul {

@@ -1,7 +1,6 @@
 import { frag } from 'lib';
 import { isTouchDevice } from 'lib/device';
-import { licon } from 'lib/licon';
-import { domDialog, type Dialog } from 'lib/view';
+import { domDialog, htmlIcon, type Dialog } from 'lib/view';
 
 import type AnalyseCtrl from '@/ctrl';
 import type { SettingsCtrl, SettingKey } from '@/settingsCtrl';
@@ -174,6 +173,7 @@ function setupTouchHelp(view: HTMLElement) {
         noCloseButton: true,
         show: true,
         easyClose: 'anyClick',
+        onShow: dlg => dlg.view.querySelector('video')?.play(),
       }),
     );
   });
@@ -222,7 +222,7 @@ function defaultToggleHtml(ctrl: SettingsCtrl, key: SettingKey) {
   const setting = settings[key];
   const label =
     setting.helpHtml && isTouchDevice()
-      ? `<button class="help-button" data-key="${key}" data-icon="${licon.InfoCircle}">${setting.label}</button>`
+      ? `<button class="help-button" data-key="${key}">${htmlIcon('infoCircle')}${setting.label}</button>`
       : `<span>${setting.label}</span>`;
   return $html`
     <span class="setting${setting.helpHtml ? ' hover-help' : ''}" data-key="${key}">

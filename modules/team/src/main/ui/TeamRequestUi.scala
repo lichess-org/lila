@@ -58,7 +58,7 @@ final class TeamRequestUi(helpers: Helpers, bits: TeamUi):
           tr(
             if t.isEmpty then td(userLink(request.user), " ", teamLink(request.team))
             else td(userLink(request.user)),
-            td(request.message),
+            td(cls := "message")(request.message),
             td(momentFromNow(request.date)),
             td(cls := "process")(
               postForm(cls := "process-request", action := routes.Team.requestProcess(request.id))(
@@ -101,7 +101,7 @@ final class TeamRequestUi(helpers: Helpers, bits: TeamUi):
                   value := search,
                   placeholder := trans.search.search.txt()
                 ),
-                submitButton(cls := "button", dataIcon := Icon.Search)
+                submitButton(cls := "button", iconEl := Icon.search)
               )
             )
           ),

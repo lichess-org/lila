@@ -2,7 +2,6 @@ import { h, type VNode } from 'snabbdom';
 
 import { hookMobileMousedown } from 'lib/device';
 import { timeago } from 'lib/i18n';
-import { licon } from 'lib/licon';
 import { icon } from 'lib/view';
 import type { MaybeVNodes } from 'lib/view/snabbdom';
 import { fullName, userLine } from 'lib/view/userLink';
@@ -34,7 +33,7 @@ export default function renderContact(ctrl: MsgCtrl, contact: Contact, active?: 
             { class: { 'msg-app__side__contact__msg--new': isNew } },
             msg.text,
           ),
-          isNew ? icon(licon.BellOutline)('.msg-app__side__contact__new') : null,
+          isNew ? icon('bellOutline')('.msg-app__side__contact__new') : null,
         ]),
       ]),
     ],

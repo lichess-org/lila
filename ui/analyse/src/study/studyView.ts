@@ -4,9 +4,8 @@ import { blurIfPrimaryClick } from 'lib';
 import { view as cevalView } from 'lib/ceval';
 import { renderChat } from 'lib/chat/renderChat';
 import { displayColumns, shareIcon } from 'lib/device';
-import { licon } from 'lib/licon';
 import type { TreeNode, TreePath } from 'lib/tree/types';
-import { type VNode, bind, dataIcon, type LooseVNodes, onInsert, hl, icon } from 'lib/view';
+import { type VNode, bind, type LooseVNodes, onInsert, hl, snabIcon } from 'lib/view';
 import { verticalResize } from 'lib/view/verticalResize';
 import { watchers } from 'lib/view/watchers';
 
@@ -101,19 +100,27 @@ export function studySideNodes(ctrl: StudyCtrl, withSearch: boolean): LooseVNode
     chaptersTab,
     ctrl.members.size() > 0 && makeTab('members', i18n.study.nbMembers(ctrl.members.size())),
     withSearch &&
-      hl('button.search.narrow', {
-        attrs: { ...dataIcon(licon.Search) },
-        on: {
-          click: () => ctrl.search.open(true),
+      hl(
+        'button.search.narrow',
+        {
+          attrs: { 'aria-label': i18n.site.search },
+          on: {
+            click: () => ctrl.search.open(true),
+          },
         },
-      }),
+        [snabIcon('search')],
+      ),
     ctrl.members.isOwner() &&
-      hl('button.more.narrow', {
-        attrs: { ...dataIcon(licon.Hamburger), title: i18n.study.editStudy },
-        on: {
-          click: () => ctrl.toggleStudyFormIfAllowed(),
+      hl(
+        'button.more.narrow',
+        {
+          attrs: { 'aria-label': i18n.study.editStudy, title: i18n.study.editStudy },
+          on: {
+            click: () => ctrl.toggleStudyFormIfAllowed(),
+          },
         },
-      }),
+        [snabIcon('hamburger')],
+      ),
   ]);
 
   const content = (activeTab === 'members' ? memberView : chapterView)(ctrl);
@@ -130,23 +137,22 @@ export const contextMenu = (ctrl: StudyCtrl, path: TreePath, node: TreeNode): VN
         hl(
           'a',
           {
-            attrs: dataIcon(licon.BubbleSpeech),
             hook: bind('click', () => {
               ctrl.vm.toolTab('comments');
               ctrl.commentForm.start(ctrl.currentChapter().id, path, node);
             }),
           },
-          i18n.study.commentThisMove,
+          [snabIcon('bubbleSpeech'), i18n.study.commentThisMove],
         ),
         hl(
-          'a.glyph-icon',
+          'a',
           {
             hook: bind('click', () => {
               ctrl.vm.toolTab('glyphs');
               ctrl.ctrl.userJump(path);
             }),
           },
-          i18n.study.annotateWithGlyphs,
+          [hl('span.glyph-icon'), i18n.study.annotateWithGlyphs],
         ),
       ]
     : [];
@@ -271,7 +277,7 @@ function buttons(root: AnalyseCtrl): VNode {
         ctrl,
         tab: 'tags',
         hint: i18n.study.pgnTags,
-        icon: icon(licon.Tag)(),
+        icon: snabIcon('tag'),
         shouldBlurIfPrimaryClick: true,
       }),
       canContribute &&
@@ -279,7 +285,7 @@ function buttons(root: AnalyseCtrl): VNode {
           ctrl,
           tab: 'comments',
           hint: i18n.study.commentThisPosition,
-          icon: icon(licon.BubbleSpeech)(),
+          icon: snabIcon('bubbleSpeech'),
           onClick() {
             ctrl.commentForm.start(ctrl.vm.chapterId, root.path, root.node);
           },
@@ -299,15 +305,15 @@ function buttons(root: AnalyseCtrl): VNode {
           ctrl,
           tab: 'serverEval',
           hint: i18n.site.computerAnalysis,
-          icon: icon(licon.BarChart)(),
+          icon: snabIcon('barChart'),
           count: root.data.analysis && '✓',
           shouldBlurIfPrimaryClick: true,
         }),
       toolButton({
         ctrl,
         tab: 'multiBoard',
-        hint: 'Multiboard',
-        icon: icon(licon.Multiboard)(),
+        hint: 'multiboard',
+        icon: snabIcon('multiboard'),
         shouldBlurIfPrimaryClick: true,
       }),
       ctrl.share.shareable() &&
@@ -315,15 +321,19 @@ function buttons(root: AnalyseCtrl): VNode {
           ctrl,
           tab: 'share',
           hint: i18n.study.shareAndExport,
-          icon: icon(shareIcon())(),
+          icon: snabIcon(shareIcon()),
           shouldBlurIfPrimaryClick: true,
         }),
       !ctrl.relay &&
         !ctrl.data.chapter.gamebook &&
-        hl('button.help', {
-          attrs: { title: i18n.study.getTheTour, ...dataIcon(licon.InfoCircle) },
-          hook: bind('click', ctrl.startTour),
-        }),
+        hl(
+          'button.help',
+          {
+            attrs: { 'aria-label': i18n.study.getTheTour, title: i18n.study.getTheTour },
+            hook: bind('click', ctrl.startTour),
+          },
+          [snabIcon('infoCircle')],
+        ),
     ]),
     gbButton && hl('div.right', gbButton),
   ]);
@@ -343,12 +353,11 @@ function metadata(ctrl: StudyCtrl): VNode {
         {
           class: { liked: d.liked },
           attrs: {
-            ...dataIcon(d.liked ? licon.Heart : licon.HeartOutline),
             title: d.liked ? i18n.site.liked : i18n.site.like,
           },
           hook: bind('click', ctrl.toggleLike),
         },
-        d.likes,
+        [snabIcon(d.liked ? 'heart' : 'heartOutline'), d.likes],
       ),
     ]),
     topicsView(ctrl),

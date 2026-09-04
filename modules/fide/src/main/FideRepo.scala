@@ -22,8 +22,10 @@ final private class FideRepo(
       { case BSONString(g) if g.nonEmpty => FidePlayer.Gender(g.head) },
       g => BSONString(g.toString)
     )
+    given BSONHandler[FideTC] = stringAnyValHandler(_.toString, FideTC.valueOf)
     given handler: BSONDocumentHandler[FidePlayer] = Macros.handler
-    val selectActive: Bdoc = $doc("inactive".$ne(true))
+    // players unrated in that time control have no flag, and are active as far as we know
+    def selectActive(tc: FideTC): Bdoc = $doc("inactive".$ne(tc))
     def selectFed(fed: Federation.Id): Bdoc = $doc("fed" -> fed)
     def sortStandard: Bdoc = $sort.desc("standard")
     def sortBy(o: FidePlayerOrder) = o match

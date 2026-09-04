@@ -296,7 +296,9 @@
   <string name="ok">Ok</string>
   <string name="cancel">Avbryt</string>
   <string name="whiteTimeOut">Tida er ute for kvit</string>
+  <string name="whiteRanOutOfTime" comment="whiteTimeOut&#10;&#10;Shows when White's time has run out. Is followed by the end condition, for example&#10;'White ran out of time · Draw' Replaces old string whiteTimeOut">Kvit gjekk over tida si</string>
   <string name="blackTimeOut">Tida er ute for svart</string>
+  <string name="blackRanOutOfTime" comment="blackTimeOut&#10;&#10;Shows when Black's time has run out. Is followed by the end condition, for example&#10;'Black ran out of time · Draw' Replaces old string blackTimeOut">Svart gjekk over tida si</string>
   <string name="drawOfferSent">Tilbod om remis er sendt</string>
   <string name="drawOfferAccepted">Remistilbod godtatt</string>
   <string name="whiteOffersDraw">Kvit tilbyr remis</string>
@@ -418,6 +420,7 @@
   </plurals>
   <string name="yourPerfRatingIsProvisional">Ratinga di på %s er mellombels</string>
   <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Rating-filtra er låst fordi ratinga di ikkje er stabil. Stabiliteten aukar om du spelar rata parti.</string>
+  <string name="cannotFilterByUnstableRating" comment="Tooltip to explain why the control for filtering by rating is disabled Replaces old string ratingRangeIsDisabledBecauseYourRatingIsProvisional">Rating-filtra er låst fordi ratinga di ikkje er stabil. Stabiliteten aukar om du spelar rata parti.</string>
   <string name="yourPerfRatingIsTooHigh">Ratinga di i %1$s (%2$s) er for høg</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Den beste vekesratinga di i %1$s (%2$s) er for høg</string>
   <string name="yourPerfRatingIsTooLow">Ratinga di i %1$s (%2$s) er for låg</string>
@@ -439,6 +442,7 @@
   <string name="save">Lagre</string>
   <string name="leaderboard">Leiartabell</string>
   <string name="screenshotCurrentPosition">Ta eit skjermbilete av gjeldande stilling</string>
+  <string name="positionAsImage" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position. Replaces old string screenshotCurrentPosition">Stilling som bilde</string>
   <string name="gameAsGIF">Parti som GIF</string>
   <string name="playerNames">Namn på spelarane</string>
   <string name="moveAnnotations">Trekknotasjon</string>
@@ -728,6 +732,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="simulClockHint">Fischer klokkesett. Jo fleire spelarar du tar med, jo meir tid kan du trengje.</string>
   <string name="simulAddExtraTime">Du kan legge til ekstra tid på di eiga klokka for å makte simultanframsyninga.</string>
   <string name="simulHostExtraTime">Ekstra tid for simultanoppvisaren</string>
+  <string name="extraClockTimeForHost" comment="Appears on: https://lichess.org/simul/new&#10;&#10;Allows a simul host to select extra time for the simul.&#10;&#10;Please note this string used to state &quot;Host extra clock time&quot;, without the word &quot;initial&quot; Replaces old string simulHostExtraTime">Ekstra klokketid for verten:</string>
   <string name="simulAddExtraTimePerPlayer">Legg ekstra tenketid til klokka di for kvar spelar som melder seg på simultanspelet.</string>
   <string name="simulHostExtraTimePerPlayer">Ekstra tenketid som simultanverten får for kvar spelar</string>
   <string name="lichessTournaments">Lichess-turnering</string>
@@ -863,6 +868,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="notifications">Meldingar</string>
   <string name="notificationsX">Varsel: %1$s</string>
   <string name="perfRatingX">Rating: %s</string>
+  <string name="perfRatingLabel" comment="Replaces old string perfRatingX">Rating: %s.</string>
   <string name="yourRatingIsX">Ratinga di er %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekund til å ta det første trekket</item>
@@ -922,6 +928,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   </plurals>
   <string name="showUnreadLichessMessage">Du har fått ei privat melding frå Lichess.</string>
   <string name="clickHereToReadIt">Klikk her for å lesa den</string>
+  <string name="readTheMessage" comment="'It' refers to a private message. This text follows after a different string which advises players they have received a private message from Lichess. For users, this is appears as a regular private message from the Lichess account: https://lichess.org/@/Lichess Replaces old string clickHereToReadIt">Les meldinga</string>
   <string name="sorry">Beklagar :(</string>
   <string name="weHadToTimeYouOutForAWhile">Vi måtte gje deg ein timeout.</string>
   <string name="why">Kvifor?</string>

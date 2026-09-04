@@ -8,7 +8,6 @@ import { isMobile } from 'lib/device';
 import { playable } from 'lib/game';
 import { fixCrazySan, plyToTurn } from 'lib/game/chess';
 import statusView from 'lib/game/view/status';
-import { licon } from 'lib/licon';
 import * as Prefs from 'lib/prefs';
 import { storage } from 'lib/storage';
 import { path as treePath } from 'lib/tree/tree';
@@ -19,8 +18,8 @@ import {
   bind,
   bindNonPassive,
   onInsert,
-  dataIcon,
   hl,
+  snabIcon,
   spinnerVdom as spinner,
 } from 'lib/view';
 import stepwiseScroll from 'lib/view/stepwiseScroll';
@@ -77,7 +76,7 @@ export function viewContext(ctrl: AnalyseCtrl, deps?: typeof studyDeps): ViewCon
     playerBars,
     playerStrips: playerBars ? undefined : renderPlayerStrips(ctrl),
     gaugeOn: ctrl.showEvalGauge(),
-    needsInnerCoords: ctrl.data.pref.showCaptured || ctrl.showEvalGauge() || !!playerBars,
+    needsInnerCoords: ctrl.showEvalGauge() || !!playerBars,
     hasRelayTour: ctrl.study?.relay?.tourShow() || false,
   };
 }
@@ -226,19 +225,17 @@ export function renderInputs(ctrl: AnalyseCtrl): VNode | undefined {
           hl(
             'button.button.button-thin.bottom-item.bottom-action.text',
             {
-              attrs: dataIcon(licon.PlayTriangle),
               hook: bind('click', _ => {
                 const pgn = $('.copyables .pgn textarea').val() as string;
                 if (pgn !== pgnExport.renderFullTxt(ctrl)) ctrl.changePgn(pgn, true);
               }),
             },
-            i18n.site.importPgn,
+            [snabIcon('playTriangle'), i18n.site.importPgn],
           ),
-        hl(
-          'div.bottom-item.bottom-error',
-          { attrs: dataIcon(licon.CautionTriangle), class: { 'is-error': !!ctrl.pgnError } },
+        hl('div.bottom-item.bottom-error', { class: { 'is-error': !!ctrl.pgnError } }, [
+          snabIcon('cautionTriangle'),
           renderPgnError(ctrl.pgnError),
-        ),
+        ]),
       ]),
     ]),
   ]);

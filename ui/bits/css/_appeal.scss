@@ -28,10 +28,8 @@
     background: $c-bg-zebra;
 
     &::before {
-      @extend %data-icon;
+      @include icon-mask($icon-infoCircle, 2em);
 
-      content: $licon-InfoCircle;
-      font-size: 2em;
       margin-inline: 0 0.4em;
     }
   }

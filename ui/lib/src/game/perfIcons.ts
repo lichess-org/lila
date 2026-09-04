@@ -1,20 +1,20 @@
-import { licon, type LiconValue } from '@/licon';
+import { type Icon } from '@/icons';
 
-const perfIcons: Record<Exclude<Perf, 'fromPosition'>, LiconValue> = {
-  ultraBullet: licon.UltraBullet,
-  bullet: licon.Bullet,
-  blitz: licon.FlameBlitz,
-  rapid: licon.Rabbit,
-  classical: licon.Turtle,
-  correspondence: licon.PaperAirplane,
-  chess960: licon.DieSix,
-  kingOfTheHill: licon.FlagKingHill,
-  antichess: licon.Antichess,
-  atomic: licon.Atom,
-  threeCheck: licon.ThreeCheckStack,
-  horde: licon.Keypad,
-  racingKings: licon.FlagRacingKings,
-  crazyhouse: licon.Crazyhouse,
+const perfIcons: Record<Exclude<Perf, 'fromPosition'>, Icon> = {
+  ultraBullet: 'ultraBullet',
+  bullet: 'bullet',
+  blitz: 'flameBlitz',
+  rapid: 'rabbit',
+  classical: 'turtle',
+  correspondence: 'paperAirplane',
+  chess960: 'dieSix',
+  kingOfTheHill: 'flagKingHill',
+  antichess: 'antichess',
+  atomic: 'atom',
+  threeCheck: 'threeCheckStack',
+  horde: 'keypad',
+  racingKings: 'flagRacingKings',
+  crazyhouse: 'crazyhouse',
 };
 
 export default perfIcons;

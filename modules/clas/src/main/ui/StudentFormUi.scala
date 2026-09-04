@@ -12,7 +12,7 @@ final class StudentFormUi(helpers: Helpers, clasUi: ClasUi, studentUi: StudentUi
   import clasUi.ClasPage
 
   private def maxStudentsWarning(using Translate) =
-    p(dataIcon := Icon.InfoCircle, cls := "text")(
+    p(iconEl := Icon.infoCircle, cls := "text")(
       trans.clas.maxStudentsNote(
         Clas.maxStudents,
         a(href := routes.Clas.form)(trans.clas.createMoreClasses())
@@ -263,7 +263,7 @@ final class StudentFormUi(helpers: Helpers, clasUi: ClasUi, studentUi: StudentUi
 
       val classForms: Frag = otherClasses.map: toClass =>
         postForm(action := routes.Clas.studentMovePost(clas.id, s.student.userId, toClass.id))(
-          form3.submit(toClass.name, icon = Icon.InternalArrow.some)(
+          form3.submit(toClass.name, icon = Icon.internalArrow.some)(
             cls := "yes-no-confirm button-blue button-empty",
             title := trans.clas.moveToClass.txt(toClass.name)
           )
@@ -295,7 +295,7 @@ final class StudentFormUi(helpers: Helpers, clasUi: ClasUi, studentUi: StudentUi
           postForm(cls := "form3", action := routes.Clas.studentClosePost(clas.id, s.user.username))(
             form3.actions(
               a(href := routes.Clas.studentShow(clas.id, s.user.username))(trans.site.cancel()),
-              form3.submit(trans.clas.closeTheAccount(), icon = Icon.CautionCircle.some)(
+              form3.submit(trans.clas.closeTheAccount(), icon = Icon.cautionCircle.some)(
                 cls := "button-red yes-no-confirm"
               )
             )

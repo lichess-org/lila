@@ -47,7 +47,7 @@ final class TutorReportsUi(helpers: Helpers, bits: TutorBits):
           p.perfs
             .take(3)
             .map: perf =>
-              span(cls := "tutor-preview__perf", dataIcon := perf.perf.icon)(
+              span(cls := "tutor-preview__perf", iconEl := perf.perf.icon)(
                 span(cls := "tutor-preview__perf__data")(
                   span(cls := "tutor-preview__perf__nb"):
                     trans.site.nbGames

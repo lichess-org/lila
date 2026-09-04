@@ -1,8 +1,8 @@
 import { h } from 'snabbdom';
 
 import { abortable, playable, drawableSwiss, resignable, takebackable, type TopOrBottom } from 'lib/game';
-import { licon, type LiconValue } from 'lib/licon';
-import { type LooseVNodes, hl, bind, toggleButton as boardMenuToggleButton, dataIcon } from 'lib/view';
+import { type Icon } from 'lib/icons';
+import { type LooseVNodes, hl, bind, toggleButton as boardMenuToggleButton, snabIcon } from 'lib/view';
 
 import type RoundController from '../ctrl';
 import * as button from './button';
@@ -47,14 +47,13 @@ const prompt = (ctrl: RoundController) => {
   const o = ctrl.question();
   if (!o) return {};
 
-  const btn = (tpe: 'yes' | 'no', icon: LiconValue, text: string, action: () => void) =>
+  const btn = (tpe: 'yes' | 'no', icon: Icon, text: string, action: () => void) =>
     ctrl.nvui
       ? hl('button', { hook: bind('click', action) }, text)
-      : hl(`a.${tpe}`, { attrs: dataIcon(icon), hook: bind('click', action) });
+      : hl(`a.${tpe}`, { attrs: { 'aria-label': text }, hook: bind('click', action) }, [snabIcon(icon)]);
 
-  const noBtn = o.no && btn('no', o.no.icon || licon.X, o.no.text || i18n.site.decline, o.no.action);
-  const yesBtn =
-    o.yes && btn('yes', o.yes.icon || licon.Checkmark, o.yes.text || i18n.site.accept, o.yes.action);
+  const noBtn = o.no && btn('no', o.no.icon || 'x', o.no.text || i18n.site.decline, o.no.action);
+  const yesBtn = o.yes && btn('yes', o.yes.icon || 'checkmark', o.yes.text || i18n.site.accept, o.yes.action);
 
   return {
     promptVNode: hl('div.question', { key: o.prompt }, [noBtn, hl('p', o.prompt), yesBtn]),
@@ -71,11 +70,11 @@ export const renderTablePlay = (ctrl: RoundController): LooseVNodes => {
         ? []
         : [
             abortable(d)
-              ? button.standard(ctrl, undefined, licon.X, i18n.site.abortGame, 'abort')
+              ? button.standard(ctrl, undefined, 'x', i18n.site.abortGame, 'abort')
               : button.standard(
                   ctrl,
                   d => ({ enabled: takebackable(d) }),
-                  licon.Back,
+                  'back',
                   i18n.site.proposeATakeback,
                   'takeback-yes',
                   ctrl.takebackYes,
@@ -96,7 +95,7 @@ export const renderTablePlay = (ctrl: RoundController): LooseVNodes => {
                       enabled: ctrl.canOfferDraw(),
                       overrideHint: drawableSwiss(d) ? undefined : i18n.site.noDrawBeforeSwissLimit,
                     }),
-                    licon.OneHalf,
+                    'oneHalf',
                     i18n.site.offerDraw,
                     'draw-yes',
                     () => ctrl.offerDraw(true),
@@ -106,7 +105,7 @@ export const renderTablePlay = (ctrl: RoundController): LooseVNodes => {
               : button.standard(
                   ctrl,
                   d => ({ enabled: resignable(d) }),
-                  licon.FlagOutline,
+                  'flagOutline',
                   i18n.site.resign,
                   'resign',
                   () => ctrl.resign(true),

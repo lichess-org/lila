@@ -1,8 +1,7 @@
 import { prop, type Prop, scrollTo } from 'lib';
-import { licon } from 'lib/licon';
 import { pubsub } from 'lib/pubsub';
 import { once } from 'lib/storage';
-import { type VNode, bind, onInsert, dataIcon, bindNonPassive, hl, icon, button } from 'lib/view';
+import { type VNode, bind, onInsert, bindNonPassive, hl, snabIcon, button } from 'lib/view';
 import { cmnToggleWrap } from 'lib/view/cmn-toggle';
 import { userLink } from 'lib/view/userLink';
 import { textRaw as xhrTextRaw } from 'lib/xhr';
@@ -149,7 +148,7 @@ export function view(ctrl: StudyCtrl): VNode {
         },
         attrs: { title: i18n.study[contrib ? 'contributor' : 'spectator'] },
       },
-      icon(contrib ? licon.User : licon.Eye)(),
+      snabIcon(contrib ? 'user' : 'eye'),
     );
   }
 
@@ -164,7 +163,7 @@ export function view(ctrl: StudyCtrl): VNode {
             ctrl.redraw,
           ),
         },
-        icon(licon.Gear)(),
+        snabIcon('gear'),
       );
     if (!isOwner && user.id === members.opts.myId)
       return button(
@@ -173,7 +172,7 @@ export function view(ctrl: StudyCtrl): VNode {
           title: i18n.study.leaveTheStudy,
           hook: bind('click', members.leave, ctrl.redraw),
         },
-        icon(licon.InternalArrow)(),
+        snabIcon('internalArrow'),
       );
     return undefined;
   }
@@ -197,8 +196,8 @@ export function view(ctrl: StudyCtrl): VNode {
           'div.kick',
           button(
             '.button.button-red.button-empty.text',
-            { ...dataIcon(licon.X), hook: bind('click', _ => members.kick(user.id), ctrl.redraw) },
-            i18n.study.kick,
+            { hook: bind('click', _ => members.kick(user.id), ctrl.redraw) },
+            [snabIcon('x'), i18n.study.kick],
           ),
         ),
       ],
@@ -224,7 +223,7 @@ export function view(ctrl: StudyCtrl): VNode {
     isOwner &&
       ordered.length < members.max &&
       button('.add', { key: 'add', hook: bind('click', members.inviteForm.toggle) }, [
-        icon(licon.PlusButton)(),
+        snabIcon('plusButton'),
         hl('h3', i18n.study.addMembers),
       ]),
     !members.canContribute() &&

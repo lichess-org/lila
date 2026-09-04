@@ -53,7 +53,7 @@ final class NoteUi(helpers: Helpers)(using NetDomain):
                 submitButton(
                   cls := "button-empty button-red yes-no-confirm button text",
                   style := "float:right",
-                  dataIcon := Icon.Trash
+                  iconEl := Icon.trash
                 )(trans.site.delete())
               )
             )

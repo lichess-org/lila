@@ -32,6 +32,7 @@ Eden od vaših kmetov je globoko na nasprotnikovem področju in ima morda možno
   <string name="collinearMoveDescription">Dve nasprotni figuri se soočita druga z drugo, ena pa drsi vzdolž napadalne linije, ne da bi zajela sovražnikovo figuro.</string>
   <string name="cornerMate">Mat v kotu</string>
   <string name="cornerMateDescription">Kralja omejite v kot z uporabo trdnjave ali dame in skakača, da se spopadete z matom.</string>
+  <string name="cornerMateKnightDeliversDescription" comment="Description for the &quot;Corner mate&quot; puzzle theme. Replaces old string cornerMateDescription">Kralja omejite v kot z uporabo trdnjave ali dame in s konjem postavite šah-mat.</string>
   <string name="crushing">Odločilna prednost</string>
   <string name="crushingDescription">Spoznanje nasprotnikove napake, za odločilno prednost. (ocena ≥ 600sk)</string>
   <string name="discoveredCheck">Odkrit šah</string>
@@ -117,6 +118,7 @@ Eden od vaših kmetov je globoko na nasprotnikovem področju in ima morda možno
   <string name="pinDescription">Taktika, ki vključuje vezavo, kjer se figura ne more premakniti, ne da bi razkrila napad na figuro višje vrednosti.</string>
   <string name="promotion">Promocija</string>
   <string name="promotionDescription">Promovirajte enega svojega kmeta v kraljico ali lahko figuro.</string>
+  <string name="promotePawnToQueenRookOrMinor" comment="Replaces old string promotionDescription">Enega od svojih kmetov premaknite v damo, trdnjavo ali manjšo figuro.</string>
   <string name="queenEndgame">Končnica z damo</string>
   <string name="queenEndgameDescription">Končina samo z damama in kmeti.</string>
   <string name="queenRookEndgame">Končnica z damo in trdnjavo</string>

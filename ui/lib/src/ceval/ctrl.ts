@@ -247,8 +247,10 @@ export class CevalCtrl {
     };
 
     if (s.threatMode) {
-      const c = step.ply % 2 === 1 ? 'w' : 'b';
-      const fen = step.fen.replace(/ (w|b) /, ' ' + c + ' ');
+      const fields = step.fen.split(' ');
+      fields[1] = step.ply % 2 === 1 ? 'w' : 'b';
+      fields[3] = '-'; // no en passant square in threat mode
+      const fen = fields.join(' ');
       work.currentFen = fen;
       work.initialFen = fen;
     } else {

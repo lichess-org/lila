@@ -1,10 +1,9 @@
 import { h, type VNode } from 'snabbdom';
 
 import { prop, type Prop } from 'lib';
-import { licon } from 'lib/licon';
 import { pubsub } from 'lib/pubsub';
 import { storedSet, type StoredSet } from 'lib/storage';
-import { bind, dataIcon, onInsert, snabDialog } from 'lib/view';
+import { bind, onInsert, snabDialog, snabIcon } from 'lib/view';
 import { userComplete } from 'lib/view/userComplete';
 
 import type { AnalyseSocketSend } from '../socket';
@@ -70,7 +69,7 @@ export function view(ctrl: ReturnType<typeof makeCtrl>): VNode {
     easyClose: 'clickOutside',
     vnodes: [
       h('h2', i18n.study.inviteToTheStudy),
-      h('p.info', { attrs: dataIcon(licon.InfoCircle) }, i18n.study.pleaseOnlyInvitePeopleYouKnow),
+      h('p.info', [snabIcon('infoCircle'), i18n.study.pleaseOnlyInvitePeopleYouKnow]),
       h('div.input-wrapper', [
         // because typeahead messes up with snabbdom
         h('input', {

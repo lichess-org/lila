@@ -170,7 +170,7 @@ final class ModUi(helpers: Helpers):
               ).some
             )(form3.textarea(_)(rows := 20)),
             form3.action(
-              submitButton(cls := "button text", dataIcon := Icon.Checkmark)("Save")
+              submitButton(cls := "button text", iconEl := Icon.checkmark)("Save")
             )
           )
         )
@@ -220,8 +220,8 @@ final class ModUi(helpers: Helpers):
                     td(momentFromNow(u.createdAt)),
                     td(u.seenAt.map(momentFromNow(_))),
                     td(style := "font-size:2em")(
-                      if !u.everLoggedIn then iconTag(Icon.Checkmark)(cls := "is-green")
-                      else iconTag(Icon.X)(cls := "is-red")
+                      if !u.everLoggedIn then iconEl(Icon.checkmark)(cls := "is-green")
+                      else iconEl(Icon.x)(cls := "is-red")
                     )
                   )
               )

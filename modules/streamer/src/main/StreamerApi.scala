@@ -114,7 +114,7 @@ final class StreamerApi(
           url = streamerPageActivationRoute.url,
           title = "Streamer application declined".some,
           text = current.approval.reason,
-          icon = lila.ui.Icon.Mic.value
+          icon = lila.ui.Icon.mic.name
         )
       )
     else if !prevGranted && currGranted then
@@ -124,7 +124,7 @@ final class StreamerApi(
           url = routes.Streamer.edit.url,
           title = "Streamer application approved".some,
           text = "Your streamer page is now visible to others".some,
-          icon = lila.ui.Icon.Mic.value
+          icon = lila.ui.Icon.mic.name
         )
       )
     Streamer.ModChange(

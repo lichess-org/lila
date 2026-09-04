@@ -2,9 +2,8 @@ import { h, type Hooks, type VNode } from 'snabbdom';
 
 import { requestIdleCallbackSafe } from 'lib';
 import { throttle } from 'lib/async';
-import { licon } from 'lib/licon';
 import type { Gamebook, TreeNode } from 'lib/tree/types';
-import { bind, type MaybeVNodes, onInsert, icon } from 'lib/view';
+import { bind, type MaybeVNodes, onInsert, snabIcon } from 'lib/view';
 
 import type AnalyseCtrl from '@/ctrl';
 
@@ -42,7 +41,7 @@ export function render(ctrl: AnalyseCtrl): VNode {
     if (isMyMove)
       content = [
         h('div.legend.todo.clickable', { hook: commentHook, class: { done: isCommented } }, [
-          icon(licon.BubbleSpeech)(),
+          snabIcon('bubbleSpeech'),
           h('p', 'Help the player find the initial move, with a comment.'),
         ]),
         renderHint(ctrl),
@@ -50,11 +49,11 @@ export function render(ctrl: AnalyseCtrl): VNode {
     else
       content = [
         h('div.legend.clickable', { hook: commentHook }, [
-          icon(licon.BubbleSpeech)(),
+          snabIcon('bubbleSpeech'),
           h('p', 'Introduce the gamebook with a comment'),
         ]),
         h('div.legend.todo', { class: { done: !!ctrl.node.children[0] } }, [
-          icon(licon.PlayTriangle)(),
+          snabIcon('playTriangle'),
           h('p', "Put the opponent's first move on the board."),
         ]),
       ];
@@ -62,7 +61,7 @@ export function render(ctrl: AnalyseCtrl): VNode {
     if (isMyMove)
       content = [
         h('div.legend.todo.clickable', { hook: commentHook, class: { done: isCommented } }, [
-          icon(licon.BubbleSpeech)(),
+          snabIcon('bubbleSpeech'),
           h('p', 'Explain the opponent move, and help the player find the next move, with a comment.'),
         ]),
         renderHint(ctrl),
@@ -70,7 +69,7 @@ export function render(ctrl: AnalyseCtrl): VNode {
     else
       content = [
         h('div.legend.clickable', { hook: commentHook }, [
-          icon(licon.BubbleSpeech)(),
+          snabIcon('bubbleSpeech'),
           h(
             'p',
             "You may reflect on the player's correct move, with a comment; or leave empty to jump immediately to the next move.",
@@ -79,7 +78,7 @@ export function render(ctrl: AnalyseCtrl): VNode {
         hasVariation
           ? null
           : h('div.legend.clickable', { hook: bind('click', ctrl.navigate.prev, ctrl.redraw) }, [
-              icon(licon.PlayTriangle)(),
+              snabIcon('playTriangle'),
               h('p', 'Add variation moves to explain why specific other moves are wrong.'),
             ]),
         renderDeviation(ctrl),
@@ -87,7 +86,7 @@ export function render(ctrl: AnalyseCtrl): VNode {
   } else
     content = [
       h('div.legend.todo.clickable', { hook: commentHook, class: { done: isCommented } }, [
-        icon(licon.BubbleSpeech)(),
+        snabIcon('bubbleSpeech'),
         h('p', 'Explain why this move is wrong in a comment'),
       ]),
       h('div.legend', [h('p', 'Or promote it as the mainline if it is the right move.')]),
@@ -104,7 +103,7 @@ function renderDeviation(ctrl: AnalyseCtrl): VNode {
   const field = 'deviation';
   return h('div.deviation', [
     h('div.legend.todo', { class: { done: nodeGamebookValue(ctrl.node, field).length > 2 } }, [
-      icon(licon.BubbleSpeech)(),
+      snabIcon('bubbleSpeech'),
       h('p', 'When any other wrong move is played:'),
     ]),
     h('textarea', {
@@ -116,7 +115,7 @@ function renderDeviation(ctrl: AnalyseCtrl): VNode {
 
 const renderHint = (ctrl: AnalyseCtrl): VNode =>
   h('div.hint', [
-    h('div.legend', [icon(licon.InfoCircle)(), h('p', 'Optional, on-demand hint for the player:')]),
+    h('div.legend', [snabIcon('infoCircle'), h('p', 'Optional, on-demand hint for the player:')]),
     h('textarea', {
       attrs: { placeholder: 'Give the player a tip so they can find the right move' },
       hook: textareaHook(ctrl, 'hint'),

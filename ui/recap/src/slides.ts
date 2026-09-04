@@ -3,9 +3,8 @@ import { COLORS } from 'chessops';
 import { shuffle } from 'lib/algo';
 import perfIcons from 'lib/game/perfIcons';
 import { currencyFormat, numberFormat, percentFormat } from 'lib/i18n';
-import { licon } from 'lib/licon';
 import { onInsert, hl, type LooseVNodes, type VNode, spinnerVdom, icon } from 'lib/view';
-import { fullName, userFlair, userTitle } from 'lib/view/userLink';
+import { fullName, profileUrl, userFlair, userTitle } from 'lib/view/userLink';
 
 import { pieceGrams, totalGames } from './constants';
 import type { Counted, Opening, Recap, Sources, RecapPerf, Opts } from './interfaces';
@@ -107,7 +106,7 @@ export const opponents = (r: Recap): VNode => {
 };
 
 const opponentLink = (o: LightUser): VNode =>
-  hl('a', { attrs: { href: `/@/${o.name}` } }, [userFlair(o) || noFlair(o), userTitle(o), o.name]);
+  hl('a', { attrs: { href: profileUrl(o.name) } }, [userFlair(o) || noFlair(o), userTitle(o), o.name]);
 
 const userFallbackFlair = new Map<string, string>();
 const noFlair = (o: LightUser): VNode => {
@@ -316,7 +315,7 @@ export const patron = (opts: Opts): VNode =>
       ),
     ),
     hl('p', i18n.recap.patronCharity),
-    icon(licon.Wings)('.text'),
+    icon('wings')('.text'),
 
     opts.user.patron
       ? hl('p', i18n.patron.thankYou)

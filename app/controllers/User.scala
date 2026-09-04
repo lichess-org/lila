@@ -478,16 +478,15 @@ final class User(
     )
   }
 
-  def apiReadNote(username: UserStr) = Scoped() { _ ?=> me ?=>
+  def apiReadNote(username: UserStr) = Scoped(_.Note.Write) { _ ?=> me ?=>
     Found(meOrFetch(username)):
       env.user.noteApi
         .getForMyPermissions(_)
-        .flatMap:
-          lila.user.JsonView.notes(_)(using lightUserApi)
+        .flatMap(lila.user.JsonView.notes)
         .map(JsonOk)
   }
 
-  def apiWriteNote(username: UserStr) = ScopedBody() { ctx ?=> me ?=>
+  def apiWriteNote(username: UserStr) = ScopedBody(_.Note.Write) { ctx ?=> me ?=>
     bindForm(lila.user.UserForm.apiNote)(
       doubleJsonFormError,
       data => doWriteNote(username, data)(_ => jsonOkResult)
@@ -573,7 +572,9 @@ final class User(
                   env.tournament.playerRepo.searchPlayers(TourId(tourId), term, 10)
                 case (_, Some(swissId), _) =>
                   env.swiss.api.searchPlayers(SwissId(swissId), term, 10)
-                case (_, _, Some(teamId)) => env.team.api.searchMembersAs(TeamId(teamId), term, 10)
+                case (_, _, Some(teamId)) =>
+                  val showHidden = ctx.fullAuthOrScope(_.Team.Read)
+                  env.team.api.searchMembersAs(TeamId(teamId), term, 10, showHidden)
                 case _ =>
                   ctx.me.ifTrue(getBool("friend")) match
                     case Some(follower) =>

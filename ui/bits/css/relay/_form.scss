@@ -40,8 +40,8 @@
 
   &::before {
     color: $c-brag;
-    content: $licon-InfoCircle;
-    font-size: 4em;
+
+    @include icon-mask($icon-infoCircle, 4em);
   }
 }
 
@@ -50,8 +50,8 @@
 
   &::before {
     color: $c-secondary;
-    content: $licon-UploadCloud;
-    font-size: 4em;
+
+    @include icon-mask($icon-uploadCloud, 4em);
   }
 }
 
@@ -61,8 +61,8 @@
 
   &::before {
     color: $c-good;
-    content: $licon-Checkmark;
-    font-size: 4em;
+
+    @include icon-mask($icon-checkmark, 4em);
   }
 }
 

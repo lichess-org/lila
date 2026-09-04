@@ -3,7 +3,7 @@
 import { h, type Hooks, type VNode, type Attrs, type On } from 'snabbdom';
 
 import { toggle as baseToggle, type Toggle } from '@/index';
-import { licon } from '@/licon';
+import { snabIcon } from '@/view/makeIcon';
 import { onInsert } from '@/view/snabbdom';
 import * as xhr from '@/xhr';
 
@@ -46,9 +46,9 @@ export function copyMeInput(content: string, opts: { inputAttrs?: Attrs; on?: On
       props: { value: content },
       on: opts.on,
     }),
-    h('button.copy-me__button.button.button-metal', {
-      attrs: { 'data-icon': licon.Clipboard, title: i18n.site.copyToClipboard },
-    }),
+    h('button.copy-me__button.button.button-metal', { attrs: { title: i18n.site.copyToClipboard } }, [
+      snabIcon('clipboard'),
+    ]),
   ]);
 }
 

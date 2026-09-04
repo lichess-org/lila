@@ -47,7 +47,7 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
           h1(cls := "box__pad")(
             a(
               cls := "is4 text",
-              dataIcon := Icon.Back,
+              iconEl := Icon.back,
               href := s"${langHref(routes.Video.index)}?${control.queryString}"
             ),
             video.title
@@ -63,7 +63,7 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
             video.tags.map: tag =>
               a(
                 cls := "tag",
-                dataIcon := Icon.Tag,
+                iconEl := Icon.tag,
                 href := s"${langHref(routes.Video.index)}?tags=${tag.replace(" ", "+")}"
               )(tag.capitalize),
             video.metadata.description.map: desc =>
@@ -113,7 +113,7 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
                   frag(
                     a(
                       cls := "tag",
-                      dataIcon := Icon.Tag,
+                      iconEl := Icon.tag,
                       href := s"${langHref(routes.Video.index)}?tags=$tag"
                     )(tag.capitalize),
                     " "
@@ -152,7 +152,7 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
       div(cls := "under-tags")(
         if control.filter.tags.nonEmpty then
           a(cls := "button button-empty", href := langHref(routes.Video.index))(trans.site.clearSearch())
-        else a(dataIcon := Icon.Tag, href := langHref(routes.Video.tags))(trv.viewMoreTags())
+        else a(iconEl := Icon.tag, href := langHref(routes.Video.tags))(trv.viewMoreTags())
       )
     )
 
@@ -180,7 +180,7 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
           h1(
             a(
               cls := "is4 text",
-              dataIcon := Icon.Back,
+              iconEl := Icon.back,
               href := s"${langHref(routes.Video.index)}?${control.queryString}"
             ),
             name
@@ -202,7 +202,7 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
         h1(
           a(
             cls := "is4 text",
-            dataIcon := Icon.Back,
+            iconEl := Icon.back,
             href := s"${langHref(routes.Video.index)}"
           ),
           trv.videoNotFound()
@@ -220,7 +220,7 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
           h1(
             a(
               cls := "text",
-              dataIcon := Icon.Back,
+              iconEl := Icon.back,
               href := s"${langHref(routes.Video.index)}?${control.queryString}"
             )(
               trv.allNbVideoTags(ts.size.toString())

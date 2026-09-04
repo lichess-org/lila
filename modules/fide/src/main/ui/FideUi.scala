@@ -14,9 +14,9 @@ final class FideUi(helpers: Helpers)(menu: String => Context ?=> Frag):
 
   private[ui] val tcTrans: List[(FideTC, I18nKey, Icon)] =
     List(
-      (FideTC.standard, trs.classical, Icon.Turtle),
-      (FideTC.rapid, trs.rapid, Icon.Rabbit),
-      (FideTC.blitz, trs.blitz, Icon.Fire)
+      (FideTC.standard, trs.classical, Icon.turtle),
+      (FideTC.rapid, trs.rapid, Icon.rabbit),
+      (FideTC.blitz, trs.blitz, Icon.fire)
     )
 
   private[ui] def page(title: String, active: String, pageMods: Update[Page] = identity)(
@@ -86,7 +86,7 @@ final class FideUi(helpers: Helpers)(menu: String => Context ?=> Frag):
           tcTrans.map: (tc, name, icon) =>
             val stats = fed.stats(tc)
             card(
-              em(dataIcon := icon, cls := "text")(name()),
+              em(iconEl := icon, cls := "text")(name()),
               frag(
                 p(trs.rank(), strong(stats.get.rank)),
                 p(trb.top10Rating(), strong(stats.get.top10Rating)),

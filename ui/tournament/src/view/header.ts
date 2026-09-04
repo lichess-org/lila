@@ -2,8 +2,7 @@ import { h, type Hooks, type VNode } from 'snabbdom';
 
 import { setClockWidget } from 'lib/game/clock/clockWidget';
 import perfIcons from 'lib/game/perfIcons';
-import { licon } from 'lib/licon';
-import { dataIcon, icon, onInsert } from 'lib/view';
+import { icon, onInsert, snabIcon } from 'lib/view';
 import { userTitle } from 'lib/view/userLink';
 
 import type TournamentController from '../ctrl';
@@ -47,15 +46,15 @@ function image(d: TournamentData): VNode | undefined {
   if (hasFreq('shield', d) || hasFreq('marathon', d)) return undefined;
   const s = d.spotlight;
   if (s?.iconImg) return h('img.img', { attrs: { src: site.asset.url('images/' + s.iconImg) } });
-  return icon(s?.iconFont || licon.Trophy)('.img');
+  return icon(s?.iconFont || 'trophy')('.img');
 }
 
 function title(ctrl: TournamentController) {
   const d = ctrl.data;
-  if (hasFreq('marathon', d)) return h('h1', [icon(licon.Globe)('.fire-trophy'), d.fullName]);
+  if (hasFreq('marathon', d)) return h('h1', [icon('globe')('.fire-trophy'), d.fullName]);
   if (hasFreq('shield', d))
     return h('h1', [
-      h('a.shield-trophy', { attrs: { href: '/tournament/shields' } }, perfIcons[d.perf.key]),
+      h('a.shield-trophy', { attrs: { href: '/tournament/shields' } }, [snabIcon(perfIcons[d.perf.key])]),
       d.fullName,
     ]);
   const baseName = d.greatPlayer
@@ -64,7 +63,7 @@ function title(ctrl: TournamentController) {
   return h('h1', [
     ...(ctrl.data.botsAllowed ? [userTitle({ title: 'BOT' })] : []),
     ...baseName,
-    ...(d.private ? [' ', h('span', { attrs: dataIcon(licon.Padlock) })] : []),
+    ...(d.private ? [' ', snabIcon('padlock')] : []),
   ]);
 }
 

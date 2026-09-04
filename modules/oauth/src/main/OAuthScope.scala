@@ -52,6 +52,7 @@ object OAuthScope:
     case object Write extends OAuthScope("study:write", trans.studyWrite)
 
   object Tournament:
+    case object Read extends OAuthScope("tournament:read", I18nKey("Read private tournaments"))
     case object Write extends OAuthScope("tournament:write", trans.tournamentWrite)
 
   object Racer:
@@ -72,6 +73,9 @@ object OAuthScope:
 
   object Msg:
     case object Write extends OAuthScope("msg:write", trans.msgWrite)
+
+  object Note:
+    case object Write extends OAuthScope("note:write", I18nKey("Read and write notes on other players"))
 
   object Board:
     case object Play extends OAuthScope("board:play", trans.boardPlay)
@@ -126,10 +130,11 @@ object OAuthScope:
 
   val classified: List[(I18nKey, List[OAuthScope])] = List(
     I18nKey("User account") -> List(Email.Read, Preference.Read, Preference.Write, Web.Mod),
-    I18nKey("Interactions") -> List(Follow.Read, Follow.Write, Msg.Write),
-    I18nKey("Play games") -> List(Challenge.Read, Challenge.Write, Challenge.Bulk, Tournament.Write),
+    I18nKey("Interactions") -> List(Follow.Read, Follow.Write, Msg.Write, Note.Write),
+    I18nKey("Play games") -> List(Challenge.Read, Challenge.Write, Challenge.Bulk),
     I18nKey("Teams") -> List(Team.Read, Team.Write, Team.Lead),
     I18nKey("Puzzles") -> List(Puzzle.Read, Puzzle.Write, Racer.Write),
+    I18nKey("Tournaments") -> List(Tournament.Read, Tournament.Write),
     I18nKey("Studies & Broadcasts") -> List(Study.Read, Study.Write),
     I18nKey("External play") -> List(Board.Play, Bot.Play),
     I18nKey("External engine") -> List(Engine.Read, Engine.Write)

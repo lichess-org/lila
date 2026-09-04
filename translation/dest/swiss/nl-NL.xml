@@ -65,6 +65,7 @@ Voeg de punten toe van elke tegenstander van wie de speler heeft gewonnen plus d
   <string name="moreRoundsThanPlayersQ">Wat gebeurt er als het toernooi meer rondes heeft dan spelers?</string>
   <string name="moreRoundsThanPlayersA">Als alle mogelijke paringen zijn afgewerkt, wordt het toernooi beëindigd en een winnaar uitgeroepen.</string>
   <string name="restrictedToTeamsQ">Waarom is het beperkt tot teams?</string>
+  <string name="whyAreSwissTournamentsRestrictedToTeams" comment="Replaces old string restrictedToTeamsQ">Waarom worden Zwitserse toernooien beperkt tot teams?</string>
   <string name="restrictedToTeamsA">Zwitserse toernooien zijn niet ontworpen voor online schaken. Ze vereisen punctualiteit, toewijding en geduld van de spelers.
 Wij denken dat deze voorwaarden binnen een team waarschijnlijk eerder zullen worden vervuld dan in wereldwijde toernooien.</string>
   <string name="numberOfByesQ">Hoeveel byes kan een speler krijgen?</string>
@@ -85,6 +86,7 @@ Late deelnemers krijgen een enkele bye, ook als ze meerdere rondes gemist hebben
   <string name="willSwissReplaceArenasQ">Zullen Zwitserse toernooien de arena-toernooien vervangen?</string>
   <string name="willSwissReplaceArenasA">Nee. Het zijn aanvullende functies.</string>
   <string name="roundRobinQ">Hoe zit het met Round Robin?</string>
+  <string name="canPlayRoundRobinTournaments" comment="roundRobinQ&#10;&#10;Round-robin is a simple tournament format with some similarities to Swiss. It is not supported by Lichess. Replaces old string roundRobinQ">Kan ik Round-robintoernooien spelen op Lichess?</string>
   <string name="roundRobinA">We zouden het graag toevoegen, maar helaas round-robin werkt niet online.
 De reden is dat het geen eerlijke manier biedt om om te gaan met mensen die het toernooi vroegtijdig verlaten. We kunnen niet verwachten dat alle spelers al hun partijen in een online evenement ook zullen spelen. Dat gebeurt gewoonweg niet, en als gevolg daarvan zouden de meeste round-robintoernooien fouten bevatten en oneerlijk zijn, wat afbreuk doet aan hun bestaansrecht.
 Wat het meest in de buurt komt van een online round-robin is een Zwitsers toernooi met een zeer groot aantal rondes. Dan worden alle mogelijke paringen gespeeld voordat het toernooi eindigt.</string>

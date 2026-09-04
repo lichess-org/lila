@@ -1,7 +1,7 @@
 import { isTouchDevice } from 'lib/device';
-import { licon, type LiconValue } from 'lib/licon';
+import { type Icon } from 'lib/icons';
 import type { TreePath } from 'lib/tree/types';
-import { type VNode, onInsert, hl, dataIcon } from 'lib/view';
+import { type VNode, onInsert, hl, snabIcon } from 'lib/view';
 
 import type AnalyseCtrl from '@/ctrl';
 import { renderNodesPgn } from '@/pgnExport';
@@ -72,7 +72,7 @@ function positionMenu(menu: HTMLElement, coords: Coords): void {
 }
 
 function action(
-  icon: LiconValue,
+  icon: Icon,
   text: string,
   onClick: () => void,
   onHover?: () => void,
@@ -81,7 +81,6 @@ function action(
   return hl(
     'a',
     {
-      attrs: dataIcon(icon),
       hook: onInsert(elm => {
         elm.addEventListener('click', onClick);
         if (onHover && !isTouchDevice())
@@ -98,7 +97,7 @@ function action(
           });
       }),
     },
-    text,
+    [snabIcon(icon), text],
   );
 }
 
@@ -127,23 +126,23 @@ function view(ctrl: AnalyseCtrl, path: TreePath, coords: Coords): VNode {
       hl('p.title', nodeFullName(node)),
 
       idbTree.someCollapsedOf(false) && // with variation hiding enabled, collapse/expand all are most common
-        action(licon.MinusButton, 'Collapse all', () => idbTree.setCollapsedFrom('', true)),
+        action('minusButton', 'Collapse all', () => idbTree.setCollapsedFrom('', true)),
 
       idbTree.someCollapsedOf(true) &&
-        action(licon.PlusButton, 'Expand all', () => idbTree.setCollapsedFrom('', false)),
+        action('plusButton', 'Expand all', () => idbTree.setCollapsedFrom('', false)),
 
-      canPrune && action(licon.Trash, 'Prune to main line', () => ctrl.pruneToMainline(path)), // correspondence
+      canPrune && action('prune', 'Prune to main line', () => ctrl.pruneToMainline(path)),
 
-      canPromote && action(licon.UpTriangle, i18n.site.promoteVariation, () => ctrl.promote(path, false)),
-      !onMainline && action(licon.Checkmark, i18n.site.makeMainLine, () => ctrl.promote(path, true)),
+      canPromote && action('upTriangle', i18n.site.promoteVariation, () => ctrl.promote(path, false)),
+      !onMainline && action('checkmark', i18n.site.makeMainLine, () => ctrl.promote(path, true)),
       path && ctrl.study && studyView.contextMenu(ctrl.study, path, node),
 
       path &&
         onMainline &&
-        action(licon.InternalArrow, i18n.site.forceVariation, () => ctrl.forceVariation(path, true)),
+        action('internalArrow', i18n.site.forceVariation, () => ctrl.forceVariation(path, true)),
 
       action(
-        licon.Clipboard,
+        'clipboard',
         onMainline ? i18n.site.copyMainLinePgn : i18n.site.copyVariationPgn,
         () =>
           navigator.clipboard.writeText(
@@ -155,7 +154,7 @@ function view(ctrl: AnalyseCtrl, path: TreePath, coords: Coords): VNode {
 
       path &&
         action(
-          licon.Trash,
+          'trash',
           i18n.site.deleteFromHere,
           () => ctrl.deleteNode(path),
           () => ctrl.pendingDeletionPath(path),

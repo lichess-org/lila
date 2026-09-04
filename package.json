@@ -14,17 +14,18 @@
     "@types/node": "^24.13.3",
     "ab": "github:lichess-org/ab-stub",
     "chessops": "^0.15.1",
-    "jsdom": "^27.4.0",
-    "lint-staged": "^16.4.0",
+    "jsdom": "^29.1.1",
+    "lint-staged": "^17.4.1",
     "oxfmt": "0.61.0",
-    "oxlint": "1.78.0",
+    "oxlint": "1.79.0",
+    "oxlint-plugin-golden": "^0.1.2",
     "oxlint-tsgolint": "7.0.2001",
     "snabbdom": "3.5.1",
     "stylelint": "^17.14.1",
     "stylelint-config-standard-scss": "^17.0.0",
     "stylelint-scss": "^7.2.0",
-    "svgo": "^4.0.2",
-    "tsx": "^4.23.12",
+    "svgo": "^4.1.0",
+    "tsx": "^4.23.13",
     "typescript": "^7.0.2"
   },
   "//": [
@@ -45,16 +46,10 @@
     "metals": "tail -F .metals/metals.log",
     "serverlog": "journalctl --user -fu lila -o cat & tail -F .metals/metals.log",
     "i18n-file-gen": "pnpx tsx bin/i18n-file-gen.ts",
-    "icon-files-gen": "python3 bin/gen/licon.py",
+    "icon-files-gen": "python3 bin/gen/icons.py",
     "multilog": "pnpm serverlog & ui/build -w",
     "workspace-check": "pnpx @manypkg/cli check",
     "add-hooks": "git config get --all core.hooksPath | grep -Fxq bin/git-hooks || git config set --append core.hooksPath bin/git-hooks",
     "remove-hooks": "git config unset --value=bin/git-hooks core.hooksPath || true"
-  },
-  "browserslist": [
-    "defaults",
-    "not op_mini all",
-    "not kaios <= 4",
-    "firefox >= 115"
-  ]
+  }
 }

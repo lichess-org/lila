@@ -238,7 +238,7 @@ export function renderMainline(
 export const renderComments = (node: TreeNode, style: MoveStyle): string =>
   node.comments?.map(c => ` ${augmentLichessComment(c, style)}`).join('.') ?? '';
 
-export const isKey = (maybeKey: string): maybeKey is Key => !!maybeKey.match(/^[a-h][1-8]$/);
+export const isKey = (maybeKey: string): maybeKey is Key => /^[a-h][1-8]$/.test(maybeKey);
 
 export const keyFromAttrs = (el: HTMLElement): Key | undefined => {
   const maybeKey = `${el.getAttribute('file') ?? ''}${el.getAttribute('rank') ?? ''}`;

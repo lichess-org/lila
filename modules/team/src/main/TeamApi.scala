@@ -288,9 +288,11 @@ final class TeamApi(
     _ = cached.invalidateTeamIds(userId)
   yield teamIds
 
-  def searchMembersAs(teamId: TeamId, term: UserSearch, nb: Int)(using me: Option[MyId]): Fu[List[UserId]] =
+  def searchMembersAs(teamId: TeamId, term: UserSearch, nb: Int, showHidden: Boolean)(using
+      me: Option[MyId]
+  ): Fu[List[UserId]] =
     team(teamId).flatMapz: team =>
-      val canSee = fuccess(team.publicMembers) >>| me.soUse(cached.isMember(teamId))
+      val canSee = fuccess(team.publicMembers) >>| me.ifTrue(showHidden).soUse(cached.isMember(teamId))
       canSee.flatMapz:
         memberRepo.coll.primitive[UserId](
           selector = memberRepo.teamQuery(teamId) ++ $doc("user".$startsWith(term.value)),

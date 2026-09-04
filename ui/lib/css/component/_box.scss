@@ -25,6 +25,12 @@ $vp-max-width: 1200px;
 
       .button {
         @extend %flex-center;
+
+        gap: 4px;
+
+        .svg-icon {
+          width: 1em;
+        }
       }
 
       gap: 1rem;

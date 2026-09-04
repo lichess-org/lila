@@ -1,8 +1,7 @@
 import { opposite } from 'chessops';
 
-import { licon } from 'lib/licon';
 import { storedBooleanProp } from 'lib/storage';
-import { domDialog, type Dialog } from 'lib/view';
+import { domIcon, domDialog, htmlIcon, type Dialog } from 'lib/view';
 import { url as xhrUrl } from 'lib/xhr';
 
 import type AnalyseCtrl from './ctrl';
@@ -68,16 +67,19 @@ export function initModule(ctrl: AnalyseCtrl): void {
       <div class="gif-export-dialog">
         <strong style="font-size:1.5em">${i18n.site.gameAsGIF}</strong>
         <div class="gif-options">
-          <button class="button button-empty text gif-flip" data-icon="${licon.ChasingArrows}">
+          <button class="button button-empty text gif-flip">
+            ${htmlIcon('chasingArrows')}
             ${i18n.site[gifOrientation]}
           </button>
           ${Object.keys(gifPrefs).map(makeToggle).join('')}
         </div>
         <div class="gif-actions">
-          <button class="button button-metal text gif-copy" data-icon="${licon.Clipboard}">
+          <button class="button button-metal text gif-copy">
+            ${htmlIcon('clipboard')}
             ${i18n.site.copyToClipboard}
           </button>
-          <a class="button button-green text gif-download" data-icon="${licon.Download}" href="${buildGifUrl()}" target="_blank">
+          <a class="button button-green text gif-download" href="${buildGifUrl()}" target="_blank">
+            ${htmlIcon('download')}
             ${i18n.site.download}
           </a>
         </div>
@@ -87,7 +89,9 @@ export function initModule(ctrl: AnalyseCtrl): void {
         selector: '.gif-flip',
         listener: (_, dlg) => {
           gifOrientation = opposite(gifOrientation);
-          dlg.view.querySelector('.gif-flip')!.textContent = i18n.site[gifOrientation];
+          dlg.view
+            .querySelector('.gif-flip')!
+            .replaceChildren(domIcon('chasingArrows'), i18n.site[gifOrientation]);
           updateUrl(dlg);
         },
       },
@@ -97,10 +101,10 @@ export function initModule(ctrl: AnalyseCtrl): void {
           const url = dlg.view.querySelector<HTMLAnchorElement>('.gif-download')!.href;
           navigator.clipboard.writeText(url).then(() => {
             const btn = dlg.view.querySelector<HTMLButtonElement>('.gif-copy')!;
-            btn.dataset.icon = licon.Checkmark;
+            btn.querySelector(':scope > .svg-icon')?.replaceWith(domIcon('checkmark'));
             btn.classList.remove('button-metal');
             setTimeout(() => {
-              btn.dataset.icon = licon.Clipboard;
+              btn.querySelector(':scope > .svg-icon')?.replaceWith(domIcon('clipboard'));
               btn.classList.add('button-metal');
             }, 1000);
           });

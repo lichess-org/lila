@@ -18,7 +18,6 @@ import { game as gameRoute } from 'lib/game/router';
 import { readFen, almostSanOf, speakable } from 'lib/game/sanWriter';
 import { playing } from 'lib/game/status';
 import viewStatus from 'lib/game/view/status';
-import { licon } from 'lib/licon';
 import notify from 'lib/notification';
 import * as poolRangeStorage from 'lib/poolRangeStorage';
 import { Replay } from 'lib/prefs';
@@ -27,6 +26,7 @@ import { type SocketSendOpts } from 'lib/socket';
 import { storage, once, storedBooleanProp, type LichessBooleanStorage } from 'lib/storage';
 import type { NodeCrazy } from 'lib/tree/types';
 import type { QuestionOpts } from 'lib/types';
+import { domIcon } from 'lib/view';
 import { toggleZenMode } from 'lib/view/zen';
 import * as wakeLock from 'lib/wakeLock';
 
@@ -98,6 +98,7 @@ export default class RoundController implements MoveRootCtrl {
   server: Server;
   nvui?: NvuiPlugin;
   vibration: Prop<boolean> = storedBooleanProp('vibration', false);
+  streamer: Prop<boolean> = storedBooleanProp('streamermode', false);
 
   constructor(
     readonly opts: RoundOpts,
@@ -142,6 +143,8 @@ export default class RoundController implements MoveRootCtrl {
     }, 200);
 
     setTimeout(this.showExpiration, 350);
+
+    if (this.streamer()) this.streamerMode(true);
 
     if (!document.referrer?.includes('/serviceWorker.')) setTimeout(this.showYourMoveNotification, 500);
 
@@ -216,6 +219,10 @@ export default class RoundController implements MoveRootCtrl {
     const pos = (dest[0] + orig[1]) as Key;
     this.chessground.setPieces(new Map([[pos, undefined]]));
     return true;
+  };
+
+  streamerMode = (v: boolean): void => {
+    $('main.round').toggleClass('round--streamer', this.streamer(v));
   };
 
   lastPly = (): number => util.lastPly(this.data);
@@ -698,13 +705,13 @@ export default class RoundController implements MoveRootCtrl {
     else if (this.data.opponent.offeringDraw)
       return {
         prompt: i18n.site.yourOpponentOffersADraw,
-        yes: { action: () => this.socket.send('draw-yes'), icon: licon.OneHalf },
+        yes: { action: () => this.socket.send('draw-yes'), icon: 'oneHalf' },
         no: { action: () => this.socket.send('draw-no') },
       };
     else if (this.data.opponent.proposingTakeback)
       return {
         prompt: i18n.site.yourOpponentProposesATakeback,
-        yes: { action: this.takebackYes, icon: licon.Back },
+        yes: { action: this.takebackYes, icon: 'back' },
         no: { action: () => this.socket.send('takeback-no') },
       };
     else if (this.voiceMove) return this.voiceMove.question();
@@ -754,7 +761,7 @@ export default class RoundController implements MoveRootCtrl {
     this.goneBerserk[color] = true;
     if (color !== this.data.player.color) site.sound.play('berserk');
     this.redraw();
-    $(`<icon data-icon="${licon.Berserk}">`).appendTo($(`.game__meta .player.${color} .user-link`));
+    $(`.game__meta .player.${color} .user-link`).append(domIcon('berserk'));
   };
 
   setLoading = (v: boolean, duration = 1500): void => {

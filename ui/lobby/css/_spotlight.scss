@@ -9,7 +9,7 @@
   @include transition;
 
   flex: 0 0 auto;
-  padding: 0.3em;
+  padding: 0.5em;
   opacity: 0.8;
   color: $c-font;
 
@@ -44,24 +44,11 @@
   }
 
   .img {
-    flex: 0 0 42px;
+    flex: 0 0 auto;
     width: 44px;
+    aspect-ratio: 1;
     margin: 0 0.7em 0 0.4em;
-  }
-
-  icon.img::before {
-    color: #fff;
-    font-size: 42px;
-
-    @include if-light {
-      text-shadow: 1px 1px 2px $c-link;
-    }
-  }
-
-  img.img.icon {
-    @include if-light {
-      filter: drop-shadow(1px 1px 1px $c-link);
-    }
+    align-self: center;
   }
 
   .name {
@@ -86,12 +73,7 @@
 
   &.little {
     .img {
-      flex: 0 0 40px;
-      margin: 0 0.7em 0 0.4em;
-
-      &::before {
-        font-size: 40px;
-      }
+      width: 36px;
     }
   }
 

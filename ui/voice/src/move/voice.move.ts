@@ -3,7 +3,7 @@ import { charToRole } from 'chessops';
 import { readFen, destsToUcis, square, type Board } from 'lib/game';
 import type { MoveRootCtrl, MoveUpdate } from 'lib/game/moveRootCtrl';
 import { type PromotionCtrl, promote } from 'lib/game/promotion';
-import { licon, type LiconValue } from 'lib/licon';
+import { type Icon } from 'lib/icons';
 import { storedIntProp, storedBooleanPropWithEffect, storedIntPropWithEffect } from 'lib/storage';
 import type { QuestionOpts } from 'lib/types';
 import { jsonSimple } from 'lib/xhr';
@@ -432,7 +432,7 @@ export function initModule({
         addToks(udest, uci); // includes en passant
         if (uci.startsWith(uci[2])) {
           addToks(`P${udest}`);
-        } else if (dp) {
+        } else {
           addToks(`${usrc}x${udest}`);
           addToks(`Px${udest}`);
           addToks(`${uci[0]}x${udest}`, uci);
@@ -539,17 +539,17 @@ export function initModule({
   }
 
   function question(): QuestionOpts | false {
-    const mkOpts = (prompt: string, yesIcon: LiconValue) => ({
+    const mkOpts = (prompt: string, yesIcon: Icon) => ({
       prompt,
       yes: { action: () => command?.action?.(true), key: 'yes', icon: yesIcon },
       no: { action: () => command?.action?.(false), key: 'no' },
     });
     return command?.key === 'resign'
-      ? mkOpts('Confirm resignation', licon.FlagOutline)
+      ? mkOpts('Confirm resignation', 'flagOutline')
       : command?.key === 'draw'
-        ? mkOpts('Confirm draw offer', licon.OneHalf)
+        ? mkOpts('Confirm draw offer', 'oneHalf')
         : command?.key === 'takeback'
-          ? mkOpts('Confirm takeback request', licon.Back)
+          ? mkOpts('Confirm takeback request', 'back')
           : false;
   }
 

@@ -33,6 +33,9 @@
     flex-wrap: wrap;
 
     .fbt {
+      display: flex;
+      align-items: center;
+      justify-content: center;
       flex: 1;
       margin: 3px 2px 0;
       border: 1px solid rgb(from $c-clearer r g b / calc(alpha * 0.05));
@@ -75,14 +78,18 @@
       pointer-events: none;
     }
 
+    [data-act],
+    [data-mode] {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
     [data-mode] {
       position: relative;
       overflow-x: hidden;
       min-width: calc(max(24vw, 80px));
-      display: flex;
-      align-items: center;
       text-shadow: none;
-      justify-content: center;
 
       .cmn-toggle {
         margin-inline-start: 10px;
@@ -98,20 +105,14 @@
       }
     }
 
-    [data-mode]::before,
-    [data-mode]::after {
-      font-size: 1.3em;
-      font-family: lichess;
-    }
-
     [data-mode='practice']::before {
-      content: $licon-Bullseye;
+      @include icon-mask($icon-bullseye);
+
       padding-inline-end: 8px;
     }
 
     [data-mode='retro']::before {
-      font-size: 1.5em;
-      content: $licon-GraduateCap;
+      @include icon-mask($icon-graduateCap, 1.5em);
     }
 
     [data-mode='practice'].active::after,
@@ -119,15 +120,17 @@
       position: absolute;
       top: -2px;
       right: 1px;
-      font-size: 0.9em;
       color: color-mix(in oklab, $c-bg 50%, $c-secondary);
-      content: $licon-X;
+
+      @include icon-mask($icon-x, 0.9em);
     }
 
     [data-mode='ceval']::after {
-      content: $licon-Cogs;
+      @include icon-mask($icon-cogs);
+
       color: $c-font-dimmer;
-      padding-inline-end: 10px;
+      width: 18px;
+      margin-inline-end: 10px;
     }
 
     [data-mode='ceval']:has(eval)::after {

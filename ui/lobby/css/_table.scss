@@ -16,6 +16,7 @@
     &__button {
       display: flex;
       align-items: center;
+      justify-content: start;
       font-size: 1.2em;
       gap: 1em;
       padding-inline: 2em 3em;
@@ -28,26 +29,24 @@
 
       &::before {
         @include transition(color);
-        @extend %data-icon;
 
-        font-size: 32px;
         color: $c-font-dimmer;
       }
 
       &--hook.button::before {
-        content: $licon-Group;
+        @include icon-mask($icon-group, 28px);
       }
 
       &--friend.button::before {
-        content: $licon-User;
+        @include icon-mask($icon-user, 28px);
       }
 
       &--ai.button::before {
-        content: $licon-Cpu;
+        @include icon-mask($icon-cpu, 28px);
       }
 
       &--friend-user.button::before {
-        content: $licon-Swords;
+        @include icon-mask($icon-swords, 28px);
       }
 
       @media (hover: hover) {

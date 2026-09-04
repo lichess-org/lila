@@ -17,8 +17,8 @@
     font-weight: bold;
     padding: 0.8em 0.5em 0.8em 1.5em;
 
-    &::before {
-      font-size: 1.7em;
+    > .svg-icon {
+      width: 1.7em;
       margin-inline-end: 0.5em;
     }
 

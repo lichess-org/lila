@@ -314,7 +314,9 @@
   <string name="ok">OK</string>
   <string name="cancel">Anulare</string>
   <string name="whiteTimeOut">Timpul pentru alb a expirat</string>
+  <string name="whiteRanOutOfTime" comment="whiteTimeOut&#10;&#10;Shows when White's time has run out. Is followed by the end condition, for example&#10;'White ran out of time · Draw' Replaces old string whiteTimeOut">Albul a rămas fără timp</string>
   <string name="blackTimeOut">Timpul pentru negru a expirat</string>
+  <string name="blackRanOutOfTime" comment="blackTimeOut&#10;&#10;Shows when Black's time has run out. Is followed by the end condition, for example&#10;'Black ran out of time · Draw' Replaces old string blackTimeOut">Negrul a rămas fără timp</string>
   <string name="drawOfferSent">Propunere de remiză trimisă</string>
   <string name="drawOfferAccepted">Propunere de remiză acceptată</string>
   <string name="whiteOffersDraw">Albul a oferit remiza</string>
@@ -449,6 +451,8 @@
   </plurals>
   <string name="yourPerfRatingIsProvisional">Scorul tău la %s este provizoriu</string>
   <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Filtrele de rating sunt blocate pentru că ratingul tău nu este stabil. Jucarea partidelor cu rating va crește stabilitatea.</string>
+  <string name="cannotFilterByUnstableRating" comment="Tooltip to explain why the control for filtering by rating is disabled Replaces old string ratingRangeIsDisabledBecauseYourRatingIsProvisional">Nu este posibil să filtrezi după rating pentru că ratingul tău nu este stabil.
+Jucarea de jocuri oficiale va crește stabilitatea.</string>
   <string name="yourPerfRatingIsTooHigh">Scorul tău la %1$s (%2$s) este prea mare</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Scorul tău săptămânal la %1$s (%2$s) este prea mare</string>
   <string name="yourPerfRatingIsTooLow">Scorul tău la %1$s (%2$s) este prea mic</string>
@@ -470,6 +474,7 @@
   <string name="save">Salvează</string>
   <string name="leaderboard">Clasament</string>
   <string name="screenshotCurrentPosition">Captură de ecran cu poziția curentă</string>
+  <string name="positionAsImage" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position. Replaces old string screenshotCurrentPosition">Poziția ca imagine</string>
   <string name="gameAsGIF">Salvați jocul ca fișier GIF</string>
   <string name="playerNames">Nume jucători</string>
   <string name="moveAnnotations">Notație mutări</string>
@@ -766,6 +771,7 @@
   <string name="simulClockHint">Cu cât joci împotriva mai multor jucători, cu atât mai mult vei avea nevoie de timp.</string>
   <string name="simulAddExtraTime">Poți adăuga timp în plus pe ceasul tău pentru a te ajuta să faci față simultanului.</string>
   <string name="simulHostExtraTime">Timp suplimentar pe ceasul gazdei</string>
+  <string name="extraClockTimeForHost" comment="Appears on: https://lichess.org/simul/new&#10;&#10;Allows a simul host to select extra time for the simul.&#10;&#10;Please note this string used to state &quot;Host extra clock time&quot;, without the word &quot;initial&quot; Replaces old string simulHostExtraTime">Timp suplimentar pentru gazdă:</string>
   <string name="simulAddExtraTimePerPlayer">Adaugă timp inițial la ceasul tău pentru fiecare jucător care se alătură jocului simultan.</string>
   <string name="simulHostExtraTimePerPlayer">Timp suplimentar pentru ceasul gazdei, pentru fiecare jucător</string>
   <string name="lichessTournaments">Turnee Lichess</string>
@@ -904,6 +910,7 @@
   <string name="notifications">Notificări</string>
   <string name="notificationsX">Notificări: %1$s</string>
   <string name="perfRatingX">Rating: %s</string>
+  <string name="perfRatingLabel" comment="Replaces old string perfRatingX">Rating: %s.</string>
   <string name="yourRatingIsX">Ratingul tău este %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s secundă rămasă pentru a începe jocul</item>
@@ -966,6 +973,7 @@
   </plurals>
   <string name="showUnreadLichessMessage">Ați primit un mesaj privat de la Lichess.</string>
   <string name="clickHereToReadIt">Click aici pentru a-l citi</string>
+  <string name="readTheMessage" comment="'It' refers to a private message. This text follows after a different string which advises players they have received a private message from Lichess. For users, this is appears as a regular private message from the Lichess account: https://lichess.org/@/Lichess Replaces old string clickHereToReadIt">Citește mesajul</string>
   <string name="sorry">Scuze :(</string>
   <string name="weHadToTimeYouOutForAWhile">Am fost nevoiți să suspendăm activitatea pentru puțin timp.</string>
   <string name="why">De ce?</string>

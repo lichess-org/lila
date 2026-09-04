@@ -2,7 +2,7 @@ import * as co from 'chessops';
 
 import { frag } from 'lib';
 import type { BotInfo } from 'lib/bot/types';
-import { licon } from 'lib/licon';
+import { domIcon } from 'lib/view';
 
 import type { Result } from './devCtrl';
 import type { NumberInfo, RangeInfo } from './devTypes';
@@ -81,9 +81,11 @@ export function playersWithResults(results: Result[]): string[] {
 }
 
 export function renderRemoveButton(cls = ''): Node {
-  return frag(
-    `<button class="button button-empty button-red icon-btn ${cls}" tabindex="0" data-icon="${licon.Cancel}" data-action="remove">`,
+  const button = frag<HTMLButtonElement>(
+    `<button class="button button-empty button-red icon-btn ${cls}" type="button" data-action="remove" title="Remove" aria-label="Remove">`,
   );
+  button.append(domIcon('cancel'));
+  return button;
 }
 
 function pathToKeys({ path, obj }: ObjectPath): string[] {

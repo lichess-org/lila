@@ -15,8 +15,8 @@
 
     margin-inline-end: 1ch;
 
-    &::before {
-      font-size: 1em;
+    .svg-icon {
+      width: 1em;
       color: $c-font-dim;
       margin-inline-end: 0.2ch;
     }

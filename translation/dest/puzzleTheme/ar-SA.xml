@@ -30,6 +30,7 @@
   <string name="collinearMoveDescription">تواجه قطعتان متعارضتان بعضهما البعض، وتنزلق واحدة على طول خط الهجوم دون التقاط قطعة العدو.</string>
   <string name="cornerMate">كش الزوايا</string>
   <string name="cornerMateDescription">قم بصقل الملك إلى الزاوية باستخدام قلعة أو ملكة وحصان لتحقيق الكش.</string>
+  <string name="cornerMateKnightDeliversDescription" comment="Description for the &quot;Corner mate&quot; puzzle theme. Replaces old string cornerMateDescription">احصر الملك في الزاوية بالرخ أو الوزير، ثم استخدم الحصان لتنفيذ كش مات.</string>
   <string name="crushing">سحق</string>
   <string name="crushingDescription">اكتشف خطأ الخصم الفادح للحصول على تفوق ساحق (يساوي 600 جزء بالمئة من البيدق أو أكثر)</string>
   <string name="discoveredCheck">كش بالكشف</string>
@@ -120,6 +121,7 @@
   <string name="pinDescription">تكتيك يستخدم التثبيت حيث تكون القطعة غير قادرة على الحركة لأنها ستعرض قطعة ذات قيمة أكبر للهجوم.</string>
   <string name="promotion">ترقية</string>
   <string name="promotionDescription">ترقية جنديك إلى وزير أو أي قطعة أخرى.</string>
+  <string name="promotePawnToQueenRookOrMinor" comment="Replaces old string promotionDescription">قم بترقية أحد بيادقك إلى وزير أو رخ أو فيل أو حصان.</string>
   <string name="queenEndgame">نهاية مباراة الوزير</string>
   <string name="queenEndgameDescription">نهاية المباراة بالوزير و الجنود.</string>
   <string name="queenRookEndgame">وزير و قلعة</string>

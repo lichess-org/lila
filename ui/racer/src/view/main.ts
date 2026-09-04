@@ -1,9 +1,21 @@
-import { licon } from 'lib/licon';
 import { povMessage } from 'lib/puz/run';
 import renderClock from 'lib/puz/view/clock';
 import renderHistory from 'lib/puz/view/history';
 import { playModifiers, renderCombo } from 'lib/puz/view/util';
-import { copyMeInput, type MaybeVNodes, bind, div, p, button, strong, span, a, form, h2 } from 'lib/view';
+import {
+  copyMeInput,
+  type MaybeVNodes,
+  bind,
+  div,
+  p,
+  button,
+  strong,
+  span,
+  a,
+  form,
+  h2,
+  snabIcon,
+} from 'lib/view';
 
 import config from '@/config';
 import type RacerCtrl from '@/ctrl';
@@ -114,12 +126,15 @@ const renderBonus = (bonus: number) => `+${bonus}`;
 const renderControls = (ctrl: RacerCtrl) =>
   div(
     '.puz-side__control',
-    button('.puz-side__control__flip.button', {
-      class: { active: ctrl.flipped, 'button-empty': !ctrl.flipped },
-      'data-icon': licon.ChasingArrows,
-      title: i18n.site.flipBoard + ' (Keyboard: f)',
-      hook: bind('click', ctrl.flip),
-    }),
+    button(
+      '.puz-side__control__flip.button',
+      {
+        class: { active: ctrl.flipped, 'button-empty': !ctrl.flipped },
+        title: i18n.site.flipBoard + ' (Keyboard: f)',
+        hook: bind('click', ctrl.flip),
+      },
+      [snabIcon('chasingArrows')],
+    ),
   );
 
 const comboZone = (ctrl: RacerCtrl) =>

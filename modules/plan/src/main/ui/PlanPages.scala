@@ -14,8 +14,8 @@ final class PlanPages(helpers: Helpers)(fishnetPerDay: Int):
       st.tr(th(name), th(trp.freeAccount()), th(trp.lichessPatron()))
     )
     val unlimited =
-      span(dataIcon := Icon.Checkmark, cls := "is is-green text unlimited")(trans.site.unlimited())
-    val custom = span(dataIcon := Icon.Checkmark, cls := "is is-green text check")
+      span(iconEl := Icon.checkmark, cls := "is is-green text unlimited")(trans.site.unlimited())
+    val custom = span(iconEl := Icon.checkmark, cls := "is is-green text check")
     val check = custom(trans.site.yes())
     def all(content: Frag) = frag(td(content), td(content))
     def tr(value: Frag)(text: Frag*) = st.tr(th(text), all(value))
@@ -29,7 +29,7 @@ final class PlanPages(helpers: Helpers)(fishnetPerDay: Int):
       ):
         main(cls := "box box-pad features")(
           table(
-            header(h1(dataIcon := Icon.ScreenDesktop)(trans.site.website())),
+            header(h1(iconEl := Icon.screenDesktop)(trans.site.website())),
             tbody(
               tr(check)(
                 strong(trans.features.zeroAdsAndNoTracking())
@@ -122,7 +122,7 @@ final class PlanPages(helpers: Helpers)(fishnetPerDay: Int):
                 strong(trans.features.allFeaturesToCome())
               )
             ),
-            header(h1(dataIcon := Icon.PhoneMobile)(trans.site.mobile())),
+            header(h1(iconEl := Icon.phoneMobile)(trans.site.mobile())),
             tbody(
               tr(check)(
                 strong(trans.features.zeroAdsAndNoTracking())
@@ -174,7 +174,7 @@ final class PlanPages(helpers: Helpers)(fishnetPerDay: Int):
     Page(trans.patron.thankYou.txt())
       .css("bits.page"):
         main(cls := "page-small page box box-pad")(
-          boxTop(h1(cls := "text", dataIcon := patronIconChar)(trp.thankYou())),
+          boxTop(h1(cls := "text", iconEl := patronIconChar)(trp.thankYou())),
           p(trp.tyvm()),
           p(trp.transactionCompleted()),
           (giftTo, patron) match

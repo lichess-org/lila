@@ -91,9 +91,8 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
       BadRequest(err.toJson)
 
   def tokenRevoke = Scoped() { ctx ?=> _ ?=>
-    HTTPRequest.bearer(ctx.req).so { token =>
-      env.oAuth.tokenApi.revoke(token).inject(NoContent)
-    }
+    HTTPRequest.bearer.so: (bearer, _) =>
+      env.oAuth.tokenApi.revoke(bearer).inject(NoContent)
   }
 
   def revokeClient = AuthBody { ctx ?=> _ ?=>

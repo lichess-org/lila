@@ -6,10 +6,9 @@ import { parseFen } from 'chessops/fen';
 import { parseSquare, makeSquare } from 'chessops/util';
 
 import { fenToEpd } from 'lib/game/chess';
-import { licon, type LiconValue } from 'lib/licon';
+import { type Icon } from 'lib/icons';
 import {
   copyMeInput,
-  dataIcon,
   domDialog,
   enter,
   input,
@@ -27,6 +26,7 @@ import {
   makeExoticTag,
   type VNode,
   type MaybeVNode,
+  snabIcon,
 } from 'lib/view';
 import { url as xhrUrl } from 'lib/xhr';
 
@@ -59,11 +59,10 @@ function studyButton(ctrl: EditorCtrl, state: EditorState): VNode {
     button(
       {
         type: 'submit',
-        ...dataIcon(licon.StudyBoard),
         disabled: !state.legalFen,
         class: { button: true, 'button-empty': true, text: true, disabled: !state.legalFen },
       },
-      i18n.site.toStudy,
+      [snabIcon('studyBoard'), i18n.site.toStudy],
     ),
   ]);
 }
@@ -95,7 +94,7 @@ const ALL_VARIANTS: Array<[VariantKey, string]> = [
   ['racingKings', i18n.variant.racingKings],
 ];
 
-function controlsButtonStart(ctrl: EditorCtrl, icon?: LiconValue) {
+function controlsButtonStart(ctrl: EditorCtrl, icon?: Icon) {
   return button(
     `.button.button-empty${icon ? '.text' : ''}`,
     {
@@ -106,13 +105,12 @@ function controlsButtonStart(ctrl: EditorCtrl, icon?: LiconValue) {
         },
       },
       type: 'button',
-      ...(icon ? dataIcon(icon) : {}),
     },
-    i18n.site.startPosition,
+    [icon && snabIcon(icon), i18n.site.startPosition],
   );
 }
 
-function controlsButtonClear(ctrl: EditorCtrl, icon?: LiconValue) {
+function controlsButtonClear(ctrl: EditorCtrl, icon?: Icon) {
   return button(
     `.button.button-empty${icon ? '.text' : ''}`,
     {
@@ -123,9 +121,8 @@ function controlsButtonClear(ctrl: EditorCtrl, icon?: LiconValue) {
         },
       },
       type: 'button',
-      ...(icon ? dataIcon(icon) : {}),
     },
-    i18n.site.clearBoard,
+    [icon && snabIcon(icon), i18n.site.clearBoard],
   );
 }
 
@@ -155,17 +152,21 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
                 keydown: enter(target => target.blur()),
               },
             }),
-            button('.button.button-empty', {
-              type: 'button',
-              title: i18n.site.randomChess960Position,
-              ...dataIcon(licon.DieSix),
-              on: {
-                click(e) {
-                  e.preventDefault();
-                  ctrl.setRandom960Position();
+            button(
+              '.button.button-empty',
+              {
+                type: 'button',
+                'aria-label': i18n.site.randomChess960Position,
+                title: i18n.site.randomChess960Position,
+                on: {
+                  click(e) {
+                    e.preventDefault();
+                    ctrl.setRandom960Position();
+                  },
                 },
               },
-            }),
+              [snabIcon('dieSix')],
+            ),
           ]),
         ]);
 
@@ -284,12 +285,11 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
           ]),
           chess960PositionIdSelector,
           div('.actions', [
-            controlsButtonStart(ctrl, licon.Reload),
-            controlsButtonClear(ctrl, licon.Trash),
+            controlsButtonStart(ctrl, 'reload'),
+            controlsButtonClear(ctrl, 'trash'),
             button(
               '.button.button-empty.text',
               {
-                ...dataIcon(licon.ChasingArrows),
                 on: {
                   click() {
                     ctrl.chessground!.toggleOrientation();
@@ -297,11 +297,10 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
                   },
                 },
               },
-              i18n.site.flipBoard,
+              [snabIcon('chasingArrows'), i18n.site.flipBoard],
             ),
             a(state.legalFen ? ctrl.makeAnalysisUrl(state.legalFen, ctrl.bottomColor()) : '')(
               {
-                ...dataIcon(licon.Microscope),
                 rel: 'nofollow',
                 class: {
                   button: true,
@@ -310,7 +309,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
                   disabled: !state.legalFen,
                 },
               },
-              i18n.site.analysis,
+              [snabIcon('microscope'), i18n.site.analysis],
             ),
             button(
               {
@@ -328,7 +327,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
                   },
                 },
               },
-              [span('.text', dataIcon(licon.Swords), i18n.site.continueFromHere)],
+              [span('.text', [snabIcon('swords'), i18n.site.continueFromHere])],
             ),
             studyButton(ctrl, state),
           ]),

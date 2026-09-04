@@ -26,6 +26,7 @@
   <string name="orCloseAccount">Du kan likevel lukke kontoen din og opprette en ny.</string>
   <string name="wantClearHistory">Jeg vil slette historikken eller ratingen min</string>
   <string name="cantClearHistory">Det er ikke mulig å slette historikken din for partier, sjakknøtter eller ratinger.</string>
+  <string name="cantClearHistoryOrResetRatings" comment="Replaces old string cantClearHistory">Det er ikke mulig å slette historikken for partier eller sjakknøtter eller å nullstille ratingene dine.</string>
   <string name="wantReport">Jeg vil rapportere en spiller</string>
   <string name="toReportAPlayerUseForm">Bruk rapportskjemaet for å rapportere en spiller</string>
   <string name="youCanAlsoReachReportPage">Du kan også komme til den sida ved å klikke på %s meldingsknappen på ei brukerside.</string>
@@ -74,4 +75,13 @@
   <string name="noneOfTheAbove">Intet av det ovenstående</string>
   <string name="sendEmailAt">Send oss en e-post på %s.</string>
   <string name="explainYourRequest">Forklar forespørselen din tydelig og grundig. Oppgi Lichess-brukernavnet ditt og all annen informasjon som kan hjelpe oss med å hjelpe deg.</string>
+  <string name="monetiseNotInterested">Vi er ikke interessert i å kommersialisere Lichess på noen måte.</string>
+  <string name="monetiseNoAdsTrackingOrTraffic">Vi kommer aldri til å vise noen form for reklame, spore spillerne våre eller selge eller kjøpe trafikk eller brukere.</string>
+  <string name="monetiseNoMarketingEmail">Ikke send oss e-post om markedsføring, sporing eller reklame.</string>
+  <string name="monetiseEncourageEveryoneTo" comment="string is value of key monetiseBlockAllAdsAndTrackers">Vi oppfordrer alle til å %s.</string>
+  <string name="monetiseBlockAllAdsAndTrackers">blokkere all reklame og alle sporingsverktøy</string>
+  <string name="broadcastTournamentOnLichess">Direkteoverfør en turnering på Lichess</string>
+  <string name="ifYouWantToBroadcastClause1">Hvis du vil direkteoverføre en turnering offisielt på Lichess eller har spørsmål om direkteoverføringene våre:</string>
+  <string name="ifYouWantToBroadcastClause2" comment="string1 is Lichess email, string2 is value of key ourDiscordServer">Ta kontakt med teamet for direkteoverføringer på %1$s eller via %2$s.</string>
+  <string name="ourDiscordServer">Discord-serveren vår</string>
 </resources>

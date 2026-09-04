@@ -10,8 +10,10 @@
   padding: 0.8em 1em;
   border: none;
   cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   text-align: center;
-  display: inline-block;
   text-shadow: 0.5px 0.5px 0 rgb(from $c-dimmer r g b / calc(alpha * 0.8));
 
   @include if-light {
@@ -147,6 +149,12 @@
     &,
     &:not(.disabled):hover {
       color: $c-font;
+    }
+
+    @include if-light {
+      &:hover {
+        filter: none;
+      }
     }
   }
 

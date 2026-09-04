@@ -3,8 +3,8 @@
 @import 'announcement';
 
 .relay-index {
-  .new::before {
-    font-size: 3em;
+  .new > .svg-icon {
+    width: 3em;
   }
 
   &__section {
@@ -28,6 +28,7 @@
 
   .button {
     padding: 1.5em 4em;
+    flex-direction: column;
     white-space: normal;
 
     strong {

@@ -1,7 +1,6 @@
 import { h, type VNode } from 'snabbdom';
 
-import { licon } from 'lib/licon';
-import { spinnerVdom, bind, dataIcon } from 'lib/view';
+import { spinnerVdom, bind, snabIcon } from 'lib/view';
 import { numberRow } from 'lib/view/util';
 
 import type TournamentController from '../ctrl';
@@ -22,10 +21,9 @@ export default function (ctrl: TournamentController): VNode | undefined {
     site.powertip.manualUserIn(vnode.elm as HTMLElement);
   };
   return h(tag, { hook: { insert: setup, postpatch: (_, vnode) => setup(vnode) } }, [
-    h('button.close', {
-      attrs: dataIcon(licon.X),
-      hook: bind('click', () => ctrl.showTeamInfo(data.id), ctrl.redraw),
-    }),
+    h('button.close', { hook: bind('click', () => ctrl.showTeamInfo(data.id), ctrl.redraw) }, [
+      snabIcon('x'),
+    ]),
     h('div.stats', [
       h('h2', h('a', { attrs: { href: `/team/${data.id}` } }, teamTag)),
       h('table', [
@@ -64,7 +62,7 @@ export default function (ctrl: TournamentController): VNode | undefined {
             h('td', renderPlayer(p, false, ctrl.opts.showRatings, false, i < nbLeaders)),
             h('td.total', [
               p.fire && !ctrl.data.isFinished
-                ? h('strong.is-gold', { attrs: dataIcon(licon.Fire) }, p.score)
+                ? h('strong.is-gold', [snabIcon('fire'), p.score])
                 : h('strong', p.score),
             ]),
           ]),

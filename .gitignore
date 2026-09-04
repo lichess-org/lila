@@ -27,6 +27,9 @@ logs/
 /public/lifat/nnue/*.tmp
 /public/lifat/nnue/*.gz
 /public/lifat/nnue/*.br
+/public/lifat/maia/*.tmp
+/public/lifat/maia/*.gz
+/public/lifat/maia/*.br
 /public/npm/
 /public/css/
 /public/json/

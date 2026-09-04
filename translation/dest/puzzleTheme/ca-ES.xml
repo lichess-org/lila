@@ -30,6 +30,7 @@
   <string name="collinearMoveDescription">Dues peces oposades es miren l\'una a l\'altra i una de les dues s\'aparta de la línia d\'atac sense captura la peça enemiga.</string>
   <string name="cornerMate">Mat de la cantonada</string>
   <string name="cornerMateDescription">Confina el rei a una cantonada utilitzant una torre o una dama i donar li mat amb un cavall.</string>
+  <string name="cornerMateKnightDeliversDescription" comment="Description for the &quot;Corner mate&quot; puzzle theme. Replaces old string cornerMateDescription">Confina el rei a una cantonada utilitzant una torre o una dama i donar li mat amb un cavall.</string>
   <string name="crushing">Fort avantatge</string>
   <string name="crushingDescription">Veure l\'error de l\'adversari per a obtenir un gran avantatge (aval ≥ 600cp)</string>
   <string name="discoveredCheck">Escac a la descoberta</string>
@@ -76,8 +77,10 @@
   <string name="killBoxMateDescription">Una torre està al costat del rei enemic sostinguda per una dama que també bloqueja les caselles d\'escapament. La torre i la dama cacen el rei enemic amb una \"caixa de matar\" de 3 per 3.</string>
   <string name="pillsburysMate">Mat de Pillsbury</string>
   <string name="pillsburysMateDescription">La torre fa escac i mat mentre l\'alfil ajuda a confinar el rei.</string>
+  <string name="pillsburyMateRookAndBishopDescription" comment="Replaces old string pillsburysMateDescription">Una torre dona escac i mat al rei mentre un alfil ajuda a no deixar escapar el rei.</string>
   <string name="morphysMate">Mat de Morphy</string>
   <string name="morphysMateDescription">Utilitza l\'alfil per fer escac al rei mentre la torre ajuda a confinar-lo.</string>
+  <string name="morphyMateBishopAndRookDescription" comment="Replaces old string morphysMateDescription">Un alfil dona escac i mat al rei mentre una torre ajuda a no deixar escapar el rei.</string>
   <string name="swallowstailMate">Mat de la cua d\'oreneta</string>
   <string name="swallowstailMateDescription">Un mat que visualment ens recorda la forma de la cua d\'una oreneta, similar a una forma de V.</string>
   <string name="triangleMate">Mat del triangle</string>
@@ -118,6 +121,7 @@
   <string name="pinDescription">Una tàctica que involucra clavades, on una peça no es pot moure sense revelar un atac a una altra peça amb més valor.</string>
   <string name="promotion">Promoció</string>
   <string name="promotionDescription">Un peó que promociona o que amenaça a promocionar és clau de la tàctica.</string>
+  <string name="promotePawnToQueenRookOrMinor" comment="Replaces old string promotionDescription">Promociona un dels teus peus a Dama, Torre o pressa menor.</string>
   <string name="queenEndgame">Final de dames</string>
   <string name="queenEndgameDescription">Un final només amb reines i peons.</string>
   <string name="queenRookEndgame">Dama i Torre</string>

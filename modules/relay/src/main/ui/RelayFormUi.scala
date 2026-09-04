@@ -33,7 +33,7 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, pageMenu: RelayMenuUi):
     def tourAndRounds(shortName: Option[RelayTour.Name]) = frag(
       a(
         href := routes.RelayTour.edit(nav.tour.id),
-        dataIcon := Icon.RadioTower,
+        iconEl := Icon.radioTower,
         cls := List(
           "text" -> true,
           "relay-form__subnav__tour-parent" -> shortName.isDefined,
@@ -47,10 +47,10 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, pageMenu: RelayMenuUi):
           a(
             href := routes.RelayRound.edit(r.id),
             cls := List("subnav__subitem text" -> true, "active" -> nav.roundId.has(r.id)),
-            dataIcon := (
-              if r.isFinished then Icon.Checkmark
-              else if r.hasStarted then Icon.DiscBig
-              else Icon.DiscOutline
+            iconEl := (
+              if r.isFinished then Icon.checkmark
+              else if r.hasStarted then Icon.discBig
+              else Icon.discOutline
             )
           )(r.name.translate),
         (Granter.opt(_.StudyAdmin) || ctx.me.exists(nav.tour.isOwnedBy)).option(
@@ -61,7 +61,7 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, pageMenu: RelayMenuUi):
               "active" -> nav.newRound,
               "button" -> (nav.rounds.isEmpty && !nav.newRound)
             ),
-            dataIcon := Icon.PlusButton
+            iconEl := Icon.plusButton
           )(trb.addRound())
         )
       )
@@ -141,7 +141,7 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, pageMenu: RelayMenuUi):
             flashMessage("success")(
               "Your tournament round is officially broadcasted by Lichess!",
               br,
-              strong(a(href := tr.path, cls := "text", dataIcon := Icon.RadioTower)(tr.fullName)),
+              strong(a(href := tr.path, cls := "text", iconEl := Icon.radioTower)(tr.fullName)),
               "."
             ),
           inner(form, routes.RelayRound.update(r.id), nav),
@@ -210,7 +210,7 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, pageMenu: RelayMenuUi):
           div(cls := "form-group")(
             div(cls := "form-group")(ui.howToUse),
             (nav.round.isEmpty && nav.tour.createdAt.isBefore(nowInstant.minusMinutes(1))).option:
-              p(dataIcon := Icon.InfoCircle, cls := "text"):
+              p(iconEl := Icon.infoCircle, cls := "text"):
                 trb.theNewRoundHelp()
           )
         ,
@@ -495,7 +495,7 @@ Hanna Marie ; Kozul, Zdenko"""),
     def create(form: Form[lila.relay.RelayTourForm.Data])(using Context, Me) =
       page(trb.newBroadcast.txt(), menu = Left("new")).markdownTextarea:
         frag(
-          boxTop(h1(dataIcon := Icon.RadioTower, cls := "text")(trb.newBroadcast())),
+          boxTop(h1(iconEl := Icon.radioTower, cls := "text")(trb.newBroadcast())),
           postForm(cls := "form3", action := routes.RelayTour.create)(
             inner(form, none),
             form3.actions(
@@ -745,7 +745,7 @@ Team Dogs ; Scooby Doo"""),
                   default = "Optional. Select a tiebreak".some
                 )
             ,
-            p(dataIcon := Icon.InfoCircle, cls := "text")(
+            p(iconEl := Icon.infoCircle, cls := "text")(
               "Tiebreaks are best suited for round-robin tournaments where all games are broadcasted and played. ",
               "Tiebreaks will differ from official results if the tiebreak method utilises byes and forfeits."
             )
@@ -857,7 +857,7 @@ Team Dogs ; Scooby Doo"""),
         )
       )
 
-  private def nameHelp = small(cls := "form-help relay-name-help text none", dataIcon := Icon.Checkmark)
+  private def nameHelp = small(cls := "form-help relay-name-help text none", iconEl := Icon.language)
 
   private def image(t: RelayTour)(using ctx: Context) =
     form3.fieldset("Image", toggle = true.some):
@@ -891,7 +891,7 @@ Team Dogs ; Scooby Doo"""),
     div(cls := "relay-form__grouping")(
       isDisabled.option:
         div(cls := "form-group"):
-          span(dataIcon := Icon.CautionTriangle, cls := "text"):
+          span(iconEl := Icon.cautionTriangle, cls := "text"):
             "This broadcast is now official. Please contact the Lichess broadcast team to request changes."
       ,
       form3.group(

@@ -1,4 +1,3 @@
-import { licon } from 'lib/licon';
 import { type VNode, bind, icon, div, button, span, strong, a, type MaybeVNode } from 'lib/view';
 
 import type PuzzleCtrl from '../ctrl';
@@ -31,7 +30,7 @@ const renderStreak = (ctrl: PuzzleCtrl): VNode[] => [
     span('.game-over', i18n.site.gameOver),
     span(i18n.puzzle.yourStreakX.asArray(strong(ctrl.streak?.data.index ?? 0))),
   ]),
-  a(ctrl.routerWithLang('/streak'))('.continue', [icon(licon.PlayTriangle)(), i18n.puzzle.newStreak]),
+  a(ctrl.routerWithLang('/streak'))('.continue', [icon('playTriangle')(), i18n.puzzle.newStreak]),
 ];
 
 export default function (ctrl: PuzzleCtrl): VNode {
@@ -44,7 +43,7 @@ export default function (ctrl: PuzzleCtrl): VNode {
       : [
           div('.complete', i18n.puzzle[win ? 'puzzleSuccess' : 'puzzleComplete']),
           button('.continue', { hook: bind('click', ctrl.nextPuzzle) }, [
-            icon(licon.PlayTriangle)(),
+            icon('playTriangle')(),
             i18n.puzzle[ctrl.streak ? 'continueTheStreak' : 'continueTraining'],
           ]),
           div('.puzzle__more', [
@@ -52,10 +51,11 @@ export default function (ctrl: PuzzleCtrl): VNode {
               ? a(`/analysis/${ctrl.node.fen.replace(/ /g, '_')}?color=${ctrl.pov}#practice`)(
                   '.practice.button.button-empty',
                   {
-                    'data-icon': licon.Bullseye,
                     title: i18n.site.playAgainstComputer,
+                    'aria-label': i18n.site.playAgainstComputer,
                     target: '_blank',
                   },
+                  [icon('bullseye')()],
                 )
               : null,
             renderVote(ctrl),

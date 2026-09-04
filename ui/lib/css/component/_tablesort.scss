@@ -5,20 +5,17 @@ th[role='columnheader']:not([data-sort-method='none']) {
 }
 
 th[role='columnheader']:not([data-sort-method='none'])::after {
-  @extend %data-icon;
+  @include icon-mask($icon-upTriangle, 14px);
   @include prevent-select;
 
-  content: $licon-UpTriangle;
-  display: inline;
   margin-inline-start: 0.5em;
   color: $c-accent;
   visibility: hidden;
   opacity: 0;
-  font-size: 14px;
 }
 
 th[aria-sort='descending']:not([data-sort-method='none'])::after {
-  content: $licon-DownTriangle;
+  @include icon-mask($icon-downTriangle);
 }
 
 th[aria-sort]:not([data-sort-method='none']) {

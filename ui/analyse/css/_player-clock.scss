@@ -21,6 +21,11 @@ $clock-height: 20px;
     top: var(---cg-height, 100%);
     z-index: 1; // over the board coords
 
+    // outer file coordinates hang 15px below the board, see lib/css/theme/board/_coords.scss
+    .coords-out .is2d & {
+      top: calc(var(---cg-height, 100%) + 15px);
+    }
+
     .is3d & {
       top: calc(var(---cg-height, 100%) + 15px);
     }
@@ -51,8 +56,8 @@ $clock-height: 20px;
     font-size: 80%;
   }
 
-  icon {
-    font-size: 0.7em;
+  .svg-icon {
+    width: 0.7em;
     margin-inline-end: 0.4em;
     color: $c-accent;
   }

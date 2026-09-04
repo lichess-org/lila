@@ -109,7 +109,7 @@ final private class TutorBuilder(
           if report.nbGames > 0
           then s"${report.nbGames} games analyzed".some
           else "Not enough games in the time range".some,
-        icon = lila.ui.Icon.Checkmark.value
+        icon = lila.ui.Icon.checkmark.name
       )
     )
 

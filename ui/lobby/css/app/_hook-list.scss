@@ -39,6 +39,7 @@
     @extend %roboto;
 
     padding: 1em 0.7em;
+    vertical-align: baseline;
 
     &.sortable {
       cursor: pointer;
@@ -55,8 +56,9 @@
 
     &.sort .is {
       opacity: 0.7;
-      margin-inline-end: 3px;
+      margin-inline-end: 4px;
       visibility: visible;
+      float: left;
     }
 
     &.player {
@@ -86,13 +88,13 @@
       padding-inline-start: 2em;
     }
 
-    &:last-child ::before {
+    &:last-child .svg-icon {
       margin-inline-end: 8px;
       line-height: 0.9;
-      font-size: 1.6em;
+      width: 1.6em;
     }
 
-    ::before {
+    .svg-icon {
       opacity: 0.6;
     }
 

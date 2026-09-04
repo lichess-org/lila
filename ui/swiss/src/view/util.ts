@@ -1,14 +1,15 @@
 import { h } from 'snabbdom';
 
-import { fullName, userLine, userRating } from 'lib/view/userLink';
+import { fullName, profileUrl, userLine, userRating } from 'lib/view/userLink';
 
 import type { BasePlayer } from '../interfaces';
 
 export function player(p: BasePlayer, asLink: boolean, withRating: boolean) {
+  const profileHref = profileUrl(p.user.name);
   return h(
     'a.ulpt.user-link.online' + (((p.user.title || '') + p.user.name).length > 15 ? '.long' : ''),
     {
-      attrs: asLink ? { href: '/@/' + p.user.name } : { 'data-href': '/@/' + p.user.name },
+      attrs: asLink ? { href: profileHref } : { 'data-href': profileHref },
       hook: { destroy: vnode => $.powerTip.destroy(vnode.elm) },
     },
     [

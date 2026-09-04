@@ -29,6 +29,7 @@
   <string name="pendingReview">您的直播正在由版主审核。</string>
   <string name="pleaseFillIn">请填写您的主播信息，并上传一张图片。</string>
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">当您准备好被列为 Lichess 主播时，请 %s。</string>
+  <string name="whenReadyToBeListedAsStreamer" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot; Replaces old string whenReady">当您准备好在 Lichess 主播列表中展示时，%s。</string>
   <string name="submitForReview">提交审核</string>
   <string name="streamerLanguageSettings">Lichess 主播页面会根据您的直播平台提供的语言信息来定位您的受众。请在您用于直播的应用或服务中，为您的国象直播设置正确的默认语言。</string>
   <string name="pleaseAllow">您的主播徽章和列表在审核通过前，最多可能需要 72 小时。</string>

@@ -23,7 +23,7 @@ final class RelationUi(helpers: Helpers):
         val isLong = name.sizeIs > 8
         a(
           cls := s"btn-rack__btn relation-button${(!isLong).so(" text")}",
-          dataIcon := Icon.ThumbsUp,
+          iconEl := Icon.thumbsUp,
           href := s"${routes.Relation.follow(userId)}?mini=1",
           title := isLong.option(name)
         )((!isLong).option(name))
@@ -32,14 +32,14 @@ final class RelationUi(helpers: Helpers):
           cls := "btn-rack__btn relation-button text",
           title := trans.site.unfollow.txt(),
           href := s"${routes.Relation.unfollow(userId)}?mini=1",
-          dataIcon := Icon.ThumbsUp
+          iconEl := Icon.thumbsUp
         )(trans.site.following())
       case Some(Relation.Block) =>
         a(
           cls := "btn-rack__btn relation-button text",
           title := trans.site.unblock.txt(),
           href := s"${routes.Relation.unblock(userId)}?mini=1",
-          dataIcon := Icon.NotAllowed
+          iconEl := Icon.notAllowed
         )(trans.site.blocked())
       case _ => emptyFrag
 
@@ -54,7 +54,7 @@ final class RelationUi(helpers: Helpers):
       (ctx.isnt(user) && !blocked && !blocks).option(
         MenuItem(
           trans.challenge.challengeToPlay.txt(),
-          Icon.Swords,
+          Icon.swords,
           s"${routes.Lobby.home}?user=${user.name}#friend",
           Some("relation")
         )
@@ -68,7 +68,7 @@ final class RelationUi(helpers: Helpers):
                 (followable && !blocked).option(
                   MenuItem(
                     trans.site.follow.txt(),
-                    Icon.ThumbsUp,
+                    Icon.thumbsUp,
                     routes.Relation.follow(user.name).url,
                     Some("relation"),
                     Some("relation-button")
@@ -76,7 +76,7 @@ final class RelationUi(helpers: Helpers):
                 ),
                 MenuItem(
                   trans.site.block.txt(),
-                  Icon.NotAllowed,
+                  Icon.notAllowed,
                   routes.Relation.block(user.name).url,
                   Some("relation"),
                   Some("relation-button")
@@ -86,7 +86,7 @@ final class RelationUi(helpers: Helpers):
             blocks.option:
               MenuItem(
                 trans.site.unblock.txt(),
-                Icon.NotAllowed,
+                Icon.notAllowed,
                 routes.Relation.unblock(user.name).url,
                 Some("relation"),
                 Some("relation-button")
@@ -95,7 +95,7 @@ final class RelationUi(helpers: Helpers):
             (!blocked && !blocks && !user.isBot).option(
               MenuItem(
                 trans.site.composeMessage.txt(),
-                Icon.BubbleSpeech,
+                Icon.bubbleSpeech,
                 routes.Msg.convo(user.name).url,
                 Some("relation")
               )
@@ -104,7 +104,7 @@ final class RelationUi(helpers: Helpers):
               val url = if me.isPatron then routes.Plan.list else routes.Plan.index()
               MenuItem(
                 trans.patron.giftPatronWingsShort.txt(),
-                Icon.Wings,
+                Icon.wings,
                 s"$url?dest=gift&giftUsername=${user.name}",
                 Some("relation")
               )
@@ -114,7 +114,7 @@ final class RelationUi(helpers: Helpers):
               .option:
                 MenuItem(
                   trans.site.unfollow.txt(),
-                  Icon.ThumbsUp,
+                  Icon.thumbsUp,
                   routes.Relation.unfollow(user.name).url,
                   Some("relation"),
                   Some("relation-button")
@@ -127,7 +127,7 @@ final class RelationUi(helpers: Helpers):
       frag(
         boxTop(
           h1(
-            a(href := routes.User.show(u.username), dataIcon := Icon.LessThan, cls := "text"),
+            a(href := routes.User.show(u.username), iconEl := Icon.lessThan, cls := "text"),
             trans.site.friends()
           )
         ),
@@ -149,7 +149,7 @@ final class RelationUi(helpers: Helpers):
       frag(
         boxTop:
           h1(
-            a(href := routes.User.show(u.username), dataIcon := Icon.LessThan, cls := "text"),
+            a(href := routes.User.show(u.username), iconEl := Icon.lessThan, cls := "text"),
             trans.site.favoriteOpponents(),
             " (",
             trans.site.nbGames.pluralSame(lila.core.game.favOpponentOverGames),

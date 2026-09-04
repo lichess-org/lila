@@ -1,6 +1,5 @@
-import { licon } from 'lib/licon';
 import { richHTML } from 'lib/richText';
-import { type VNode, bind, dataIcon, hl, requiresI18n, onInsert, icon } from 'lib/view';
+import { type VNode, bind, hl, requiresI18n, onInsert, snabIcon } from 'lib/view';
 
 import GamebookPlayCtrl, { type State } from './gamebookPlayCtrl';
 
@@ -43,11 +42,11 @@ function renderFeedback(ctrl: GamebookPlayCtrl, state: State) {
     return hl(
       'button.feedback.act.bad' + (state.comment ? '.com' : ''),
       { attrs: { type: 'button' }, hook: bind('click', ctrl.retry) },
-      [icon(licon.Reload)(), hl('span', i18n.site.retry)],
+      [snabIcon('reload'), hl('span', i18n.site.retry)],
     );
   if (fb === 'good' && state.comment)
     return hl('button.feedback.act.good.com', { attrs: { type: 'button' }, hook: bind('click', ctrl.next) }, [
-      hl('span.text', { attrs: dataIcon(licon.PlayTriangle) }, i18n.study.next),
+      hl('span.text', [snabIcon('playTriangle'), i18n.study.next]),
       hl('kbd', 'space'),
     ]);
   if (fb === 'end') return renderEnd(ctrl);
@@ -77,27 +76,27 @@ function renderEnd(ctrl: GamebookPlayCtrl) {
       hl(
         'button.next.text',
         {
-          attrs: { 'data-icon': licon.PlayTriangle, type: 'button' },
+          attrs: { type: 'button' },
           hook: bind('click', study.goToNextChapter),
         },
-        i18n.study.nextChapter,
+        [snabIcon('playTriangle'), i18n.study.nextChapter],
       ),
     hl(
       'button.retry',
       {
-        attrs: { 'data-icon': licon.Reload, type: 'button' },
+        attrs: { type: 'button' },
         hook: bind('click', () => ctrl.root.userJump(''), ctrl.redraw),
       },
-      i18n.study.playAgain,
+      [snabIcon('reload'), i18n.study.playAgain],
     ),
     !study.vm.gamebookOverride &&
       hl(
         'button.analyse',
         {
-          attrs: { 'data-icon': licon.Microscope, type: 'button' },
+          attrs: { type: 'button' },
           hook: bind('click', () => study.setGamebookOverride('analyse'), ctrl.redraw),
         },
-        i18n.site.analysis,
+        [snabIcon('microscope'), i18n.site.analysis],
       ),
   ]);
 }

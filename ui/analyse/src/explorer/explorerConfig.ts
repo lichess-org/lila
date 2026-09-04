@@ -3,9 +3,8 @@ import { h, type VNode } from 'snabbdom';
 
 import { myUsername, type Prop, prop } from 'lib';
 import perfIcons from 'lib/game/perfIcons';
-import { licon } from 'lib/licon';
 import { storedProp, storedJsonProp, type StoredProp, storedStringProp } from 'lib/storage';
-import { type Dialog, snabDialog, bind, dataIcon, icon, onInsert } from 'lib/view';
+import { type Dialog, snabDialog, bind, snabIcon, onInsert } from 'lib/view';
 import { userComplete } from 'lib/view/userComplete';
 
 import type AnalyseCtrl from '../ctrl';
@@ -149,11 +148,10 @@ export const view = (ctrl: ExplorerConfigCtrl): VNode[] => [
       : playerDb(ctrl),
   h(
     'section.save',
-    h(
-      'button.button.button-green.text',
-      { attrs: dataIcon(licon.Checkmark), hook: bind('click', ctrl.toggleOpen) },
+    h('button.button.button-green.text', { hook: bind('click', ctrl.toggleOpen) }, [
+      snabIcon('checkmark'),
       i18n.site.allSet,
-    ),
+    ]),
   ),
 ];
 
@@ -180,10 +178,9 @@ const playerDb = (ctrl: ExplorerConfigCtrl) => {
         h(
           'button.button-link.text.color',
           {
-            attrs: dataIcon(licon.ChasingArrows),
             hook: bind('click', ctrl.toggleColor, ctrl.root.redraw),
           },
-          ` ${i18n.site[ctrl.data.color() === 'white' ? 'asWhite' : 'asBlack']}`,
+          [snabIcon('chasingArrows'), i18n.site[ctrl.data.color() === 'white' ? 'asWhite' : 'asBlack']],
         ),
       ]),
     ]),
@@ -229,7 +226,7 @@ const lichessDb = (ctrl: ExplorerConfigCtrl) =>
 const speedSection = (ctrl: ExplorerConfigCtrl) =>
   h('section.speed', [
     h('label', i18n.site.timeControl),
-    h('div.choices', allSpeeds.map(radioButton(ctrl, ctrl.data.speed, s => icon(perfIcons[s])()))),
+    h('div.choices', allSpeeds.map(radioButton(ctrl, ctrl.data.speed, s => snabIcon(perfIcons[s])))),
   ]);
 
 const modeSection = (ctrl: ExplorerConfigCtrl) =>
@@ -361,10 +358,14 @@ const playerModal = (ctrl: ExplorerConfigCtrl) => {
               name,
             ),
             name && ctrl.data.playerName.previous().includes(name)
-              ? h('button.remove', {
-                  attrs: dataIcon(licon.X),
-                  hook: bind('click', () => ctrl.removePlayer(name), ctrl.root.redraw),
-                })
+              ? h(
+                  'button.remove',
+                  {
+                    attrs: { 'aria-label': i18n.site.delete },
+                    hook: bind('click', () => ctrl.removePlayer(name), ctrl.root.redraw),
+                  },
+                  [snabIcon('x')],
+                )
               : null,
           ]),
         ),

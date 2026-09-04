@@ -31,7 +31,7 @@ final class SimulFormUi(helpers: Helpers)(
             formContent(Right(form), teams, none),
             form3.actions(
               a(href := routes.Simul.home)(trans.site.cancel()),
-              form3.submit(trans.site.hostANewSimul(), icon = Icon.Trophy.some)
+              form3.submit(trans.site.hostANewSimul(), icon = Icon.trophy.some)
             )
           )
         )
@@ -46,12 +46,15 @@ final class SimulFormUi(helpers: Helpers)(
             formContent(form, teams, simul.some),
             form3.actions(
               a(href := routes.Simul.show(simul.id))(trans.site.cancel()),
-              form3.submit(trans.site.save(), icon = Icon.Trophy.some)
+              form3.submit(trans.site.save(), icon = Icon.trophy.some)
             )
           ),
           form.isRight.option:
             postForm(cls := "terminate", action := routes.Simul.abort(simul.id))(
-              submitButton(dataIcon := Icon.CautionCircle, cls := "text button button-red yes-no-confirm")(
+              submitButton(
+                iconEl := Icon.cautionCircle,
+                cls := "text button button-red yes-no-confirm"
+              )(
                 trans.site.cancelSimul()
               )
             )

@@ -3,10 +3,9 @@ import { h, thunk, type VNode, type VNodeData } from 'snabbdom';
 import { blurIfEscape } from '@/common';
 import { pubsub } from '@/pubsub';
 import { tempStorage } from '@/storage';
-import { enter, alert, onInsert } from '@/view';
+import { enter, alert, onInsert, snabIcon } from '@/view';
 import { userLink } from '@/view/userLink';
 
-import { licon } from '../licon';
 import * as enhance from '../richText';
 import type { ChatCtrl } from './chatCtrl';
 import type { Line } from './interfaces';
@@ -178,7 +177,7 @@ const setupHooks = (ctrl: ChatCtrl, chatEl: HTMLInputElement) => {
         txt = el.value;
 
       el.removeAttribute('placeholder');
-      if (!ctrl.opts.public) el.classList.toggle('whisper', !!txt.match(whisperRegex));
+      if (!ctrl.opts.public) el.classList.toggle('whisper', whisperRegex.test(txt));
       storage.set(txt);
     }),
   );
@@ -254,17 +253,11 @@ const actionIcons = (ctrl: ChatCtrl, line: Line): Array<VNode | null> => {
   if (!ctrl.data.userId || !line.u || ctrl.data.userId === line.u) return [];
   const icons = [];
   if (ctrl.canPostArbitraryText() && !ctrl.data.resourceId.startsWith('game'))
-    icons.push(
-      h('action.reply', {
-        attrs: { 'data-icon': licon.Back, title: 'Reply' },
-      }),
-    );
+    icons.push(h('action.reply', { attrs: { title: 'Reply' } }, [snabIcon('back')]));
   icons.push(
     ctrl.moderation
       ? modLineAction()
-      : h('action.flag', {
-          attrs: { 'data-icon': licon.CautionTriangle, title: 'Report', 'data-text': line.t },
-        }),
+      : h('action.flag', { attrs: { title: 'Report', 'data-text': line.t } }, [snabIcon('cautionTriangle')]),
   );
   return icons;
 };

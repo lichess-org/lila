@@ -21,6 +21,7 @@
   <string name="asALastResort">Oxirgi chora sifatida, taxtadagi donalarni Lichessʼdagi bilan bir xil qilib tering, soʻng %s</string>
   <string name="reloadThisPage">ushbu sahifani yangilang</string>
   <string name="dgtConfigure">DGT sozlash</string>
+  <string name="configureYourDgtBoard" comment="Replaces old string dgtConfigure">DGT taxtani sozlash</string>
   <string name="lichessConnectivity">Lichess bilan ulanish</string>
   <string name="validDgtOauthToken">Sizda DGT orqali oʻynash uchun mos keladigan OAuth tokeni mavjud.</string>
   <string name="dgtPlayMenuEntryAdded">Yuqoridagi \"OʻYNASH\" menyusiga %s yozuvi qoʻshildi.</string>

@@ -35,6 +35,10 @@
 
     overflow-x: hidden;
     overflow-y: auto;
+
+    .create button {
+      margin: auto;
+    }
   }
 
   .lredir {
@@ -52,10 +56,10 @@
     @include transition;
 
     position: absolute;
-    padding: 0.6em;
+    padding: 0.75em 0.6em;
     cursor: pointer;
     z-index: 2;
-    font-size: 1.3em;
+    font-size: 1.2em;
 
     &.toggle-filter {
       @include inline-end(0);

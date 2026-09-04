@@ -40,5 +40,3 @@ case class ContentSecurityPolicy(
   def withExternalAnalysisApis = withWikiBooks.withChessDbCn
 
   def withLilaHttp = copy(connectSrc = "http.lichess.org" :: connectSrc)
-
-  def withInlineIconFont = copy(fontSrc = "data:" :: fontSrc)
