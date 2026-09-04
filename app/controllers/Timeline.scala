@@ -32,8 +32,8 @@ final class Timeline(env: Env) extends LilaController(env):
     )
   }
 
-  def api = AuthOrScoped():
-    apiOutput(getIntAs[Max]("nb").fold(Max(15))(_.atMost(Max(30))))
+  def api = Auth: _ ?=>
+    _ ?=> apiOutput(getIntAs[Max]("nb").fold(Max(15))(_.atMost(Max(30))))
 
   private def apiOutput(max: Max)(using ctx: Context, me: Me) = for
     entries <- env.timeline.entryApi.moreUserEntries(me, max, since = getTimestamp("since"))
