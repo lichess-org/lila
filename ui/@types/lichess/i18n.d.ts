@@ -2155,6 +2155,8 @@ interface I18n {
     changeSupport: I18nFormat;
     /** Check out your profile page! */
     checkOutProfile: string;
+    /** Click donate to view payment options based on your device and currency. */
+    clickDonateToView: string;
     /** contact Lichess support */
     contactSupport: string;
     /** See the detailed cost breakdown */
