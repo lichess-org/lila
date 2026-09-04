@@ -22,6 +22,11 @@ The Lichess project has strict rules for AI usage:
   Text and code are the only acceptable AI-generated content, per the
   other rules in this policy.
 
+- The code must be run and tested by a human
+  - [Install lichess](https://github.com/lichess-org/lila/wiki) so that you can manually run and test your changes.
+  - If you fix a bug, first reproduce it yourself - don't just make the AI write a test.
+  - Provide proof of human testing of the changes, with screenshots or ideally a video.
+
 ## There are Humans Here
 
 Please remember that Lichess is maintained by humans.
