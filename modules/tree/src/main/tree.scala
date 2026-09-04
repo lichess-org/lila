@@ -394,6 +394,7 @@ object Node:
 
   case class Comment(id: Comment.Id, text: CommentStr, by: Comment.Author):
     def removeMeta = Comment.removeMeta(text).trimNonEmpty.map(t => copy(text = t))
+    def same(other: Comment) = text == other.text && by == other.by
 
   object Comment:
     opaque type Id = String
@@ -456,18 +457,17 @@ object Node:
   opaque type Comments = List[Comment]
   object Comments extends TotalWrapper[Comments, List[Comment]]:
     extension (a: Comments)
-      def findBy(author: Comment.Author) = a.value.find(_.by.is(author))
+      def findBy(author: Comment.Author) = a.find(_.by.is(author))
       def set(comment: Comment): Comments =
-        if a.value.exists(_.by.is(comment.by)) then
-          a.value.map:
-            case c if c.by.is(comment.by) => c.copy(text = comment.text, by = comment.by)
-            case c => c
-        else a.value :+ comment
-      def delete(commentId: Comment.Id): Comments = a.value.filterNot(_.id == commentId)
-      def +(comment: Comment): Comments = comment :: a.value
-      def ++(comments: Comments): Comments = a.value ::: comments.value
-      def filterEmpty: Comments = a.value.filter(_.text.value.nonEmpty)
-      def hasLichessComment = a.value.exists(_.by == Comment.Author.Lichess)
+        if a.exists(_.by.is(comment.by)) then
+          a.map: c =>
+            if c.by.is(comment.by) then c.copy(text = comment.text, by = comment.by) else c
+        else a :+ comment
+      def delete(commentId: Comment.Id): Comments = a.filterNot(_.id == commentId)
+      def +(comment: Comment): Comments = comment :: a
+      def ++(comments: Comments): Comments = a ::: comments.filterNot(c => a.exists(_.same(c)))
+      def filterEmpty: Comments = a.filter(_.text.value.nonEmpty)
+      def hasLichessComment = a.exists(_.by == Comment.Author.Lichess)
     val empty = Comments(Nil)
 
   case class Gamebook(deviation: Option[String], hint: Option[String]):
@@ -486,11 +486,11 @@ object Node:
     case s: Shape.Circle => shapeCircleWrites.writes(s)
     case s: Shape.Arrow => shapeArrowWrites.writes(s)
   given Writes[Node.Shapes] = Writes[Node.Shapes] { s =>
-    JsArray(s.value.map(shapeWrites.writes))
+    JsArray(s.map(shapeWrites.writes))
   }
 
   given Writes[Comment.Author] = Writes[Comment.Author]:
-    case Comment.Author.User(id, name) => Json.obj("id" -> id.value, "name" -> name)
+    case Comment.Author.User(id, name) => Json.obj("id" -> id, "name" -> name)
     case Comment.Author.External(name) => JsString(s"${name.trim}")
     case Comment.Author.Lichess => JsString("lichess")
     case Comment.Author.Unknown => JsNull
@@ -505,7 +505,7 @@ object Node:
   private def makeNodeJsonWriter(lichobile: Boolean): Writes[Node] = Writes: node =>
     import node.*
     try
-      val comments = node.comments.value.flatMap(_.removeMeta)
+      val comments = node.comments.flatMap(_.removeMeta)
       Json
         .obj(
           "ply" -> ply,
@@ -515,10 +515,10 @@ object Node:
         .add("uci", moveOption.map(_.uci.uci))
         .add("san", moveOption.map(_.san))
         .add("eval", eval.filterNot(_.isEmpty))
-        .add("comments", if comments.nonEmpty then Some(comments) else None)
+        .add("comments", comments.nonEmpty.option(comments))
         .add("gamebook", gamebook)
         .add("glyphs", glyphs.nonEmpty)
-        .add("shapes", if shapes.value.nonEmpty then Some(shapes.value) else None)
+        .add("shapes", shapes.nonEmpty.option(shapes))
         .add("clock", clock.map(_.centis))
         .add("crazy", crazyData)
         .add("comp", comp)

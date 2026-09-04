@@ -9,7 +9,7 @@
   @include transition;
 
   flex: 0 0 auto;
-  padding: 0.3em;
+  padding: 0.5em;
   opacity: 0.8;
   color: $c-font;
 
@@ -73,7 +73,7 @@
 
   &.little {
     .img {
-      width: 40px;
+      width: 36px;
     }
   }
 

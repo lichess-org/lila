@@ -275,7 +275,7 @@
   <string name="sendEmailForAccountVerification">Si no pots trobar el teu correu electrònic de confirmació, envia\'ns un correu a %s i confirmarem el compte per tu.</string>
   <string name="accountConfirmed">L\'usuari %s està confirmat correctament.</string>
   <string name="accountCanLogin">Pots entrar ara com a %s.</string>
-  <string name="accountConfirmationEmailNotNeeded">No necestites un correu de confirmació.</string>
+  <string name="accountConfirmationEmailNotNeeded">No necesites un correu de confirmació.</string>
   <string name="accountClosed">El compte %s està tancat.</string>
   <string name="accountRegisteredWithoutEmail">El compte %s es va registrar sense correu electrònic.</string>
   <string name="rank">Classificació</string>
@@ -835,9 +835,11 @@ Juga partides puntuades per augmentar l\'estabilitat.</string>
   <string name="language">Llengua</string>
   <string name="allLanguages">Tots els idiomes</string>
   <string name="background">Fons</string>
+  <string name="theme">Tema</string>
   <string name="light">Clar</string>
   <string name="dark">Fosc</string>
   <string name="transparent">Transparent</string>
+  <string name="picture">Imatge</string>
   <string name="deviceTheme">Tema del dispositiu</string>
   <string name="roundness">Rodonesa</string>
   <string name="backgroundImage">Imatge de fons</string>
@@ -1042,7 +1044,7 @@ Deixa-ho en blanc per començar els jocs de la posició inicial.</string>
   <string name="since">Des de</string>
   <string name="until">Fins</string>
   <string name="lichessDbExplanation">Mostra de partides puntuades de tots els jugadors de Lichess</string>
-  <string name="switchSides">Canviar de bandòl</string>
+  <string name="switchSides">Canviar de bàndol</string>
   <string name="closingAccountWithdrawAppeal">El tancament del vostre compte eliminarà la vostra queixa</string>
   <string name="ourEventTips">Els nostres consells per organitzar esdeveniments</string>
   <string name="instructions">Instruccions</string>

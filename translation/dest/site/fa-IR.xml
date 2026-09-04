@@ -295,9 +295,10 @@
   </plurals>
   <string name="ok">بسیار خب</string>
   <string name="cancel">لغو</string>
-  <string name="whiteTimeOut">زمان سفید تمام شد</string>
-  <string name="whiteRanOutOfTime" comment="whiteTimeOut&#10;&#10;Shows when White's time has run out. Is followed by the end condition, for example&#10;'White ran out of time · Draw' Replaces old string whiteTimeOut">سفید تایمش افتاد</string>
-  <string name="blackTimeOut">زمان سیاه تمام شد</string>
+  <string name="whiteTimeOut">وقتِ سفید تمام شد</string>
+  <string name="whiteRanOutOfTime" comment="whiteTimeOut&#10;&#10;Shows when White's time has run out. Is followed by the end condition, for example&#10;'White ran out of time · Draw' Replaces old string whiteTimeOut">وقتِ سفید تمام شد</string>
+  <string name="blackTimeOut">وقتِ سیاه تمام شد</string>
+  <string name="blackRanOutOfTime" comment="blackTimeOut&#10;&#10;Shows when Black's time has run out. Is followed by the end condition, for example&#10;'Black ran out of time · Draw' Replaces old string blackTimeOut">وقتِ سیاه تمام شد</string>
   <string name="drawOfferSent">پیشنهاد تساوی ارسال شد</string>
   <string name="drawOfferAccepted">پیشنهاد تساوی پذیرفته شد</string>
   <string name="whiteOffersDraw">سفید پیشنهاد تساوی می دهد</string>
@@ -419,6 +420,8 @@
   </plurals>
   <string name="yourPerfRatingIsProvisional">درجه‌بندی %s شما موقتی است</string>
   <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">پالاگرهای درجه‌بندی قفل شده‌اند زیرا درجه‌بندی‌تان پایدار نیست. انجامِ بازی‌های رسمی، پایداری را می‌اَفزایند.</string>
+  <string name="cannotFilterByUnstableRating" comment="Tooltip to explain why the control for filtering by rating is disabled Replaces old string ratingRangeIsDisabledBecauseYourRatingIsProvisional">پالایش بر اساس درجه‌بندی ممکن نیست زیرا درجه‌بندی‌تان پایدار نیست.
+انجام بازی‌های رسمی، پایداری را می‌افزاید.</string>
   <string name="yourPerfRatingIsTooHigh">درجه‌بندی %1$s شما (%2$s) بیش از حد بالاست</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">درجه‌بندی %1$s هفتگی‌تان (%2$s) بیش از حد بالاست</string>
   <string name="yourPerfRatingIsTooLow">درجه‌بندی %1$s شما (%2$s) بیش از حد پایین است</string>
@@ -440,6 +443,7 @@
   <string name="save">ذخیره</string>
   <string name="leaderboard">جدول رده‌بندی</string>
   <string name="screenshotCurrentPosition">از وضعیت فعلی عکس‌پَرده بگیرید</string>
+  <string name="positionAsImage" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position. Replaces old string screenshotCurrentPosition">وضعیت به شکلِ تصویر</string>
   <string name="gameAsGIF">بارگیری GIF بازی</string>
   <string name="playerNames">نام‌های بازیکن</string>
   <string name="moveAnnotations">حرکت‌نویسی</string>
@@ -726,8 +730,9 @@
   <string name="creatingASimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new Replaces old string whenCreateSimul">ایجادِ هَمگاه به شما امکان می‌دهد همزمان مقابلِ چندین حریف بازی کنید.</string>
   <string name="simulVariantsHint">اگر چندین وَرتا را برگزینید، هر بازیکن می‌تواند انتخاب کند که کدام‌یک را بازی کند.</string>
   <string name="simulClockHint">تنظیم ساعت فیشر. هرچه از بازیکنان بیشتری برنده شوید، زمان بیشتری نیاز دارید</string>
-  <string name="simulAddExtraTime">برای کمک در چالشِ هَمگاه، می‌توانید زمانِ اضافیِ اولیه به خودتان بیفزایید.</string>
-  <string name="simulHostExtraTime">زمان اضافی میزبان</string>
+  <string name="simulAddExtraTime">برای کمک در چالشِ هَمگاه، می‌توانید زمانِ اولیهٔ اضافه به خودتان بیفزایید.</string>
+  <string name="simulHostExtraTime">زمانِ اولیهٔ اضافهٔ میزبان</string>
+  <string name="extraClockTimeForHost" comment="Appears on: https://lichess.org/simul/new&#10;&#10;Allows a simul host to select extra time for the simul.&#10;&#10;Please note this string used to state &quot;Host extra clock time&quot;, without the word &quot;initial&quot; Replaces old string simulHostExtraTime">زمانِ اضافه برای میزبان:</string>
   <string name="simulAddExtraTimePerPlayer">به ازای پیوستنِ هر بازیکن به هَمگاه، به زمان اولیه‌تان بیفزایید.</string>
   <string name="simulHostExtraTimePerPlayer">زمان اضافه میزبان به ازای بازیکن</string>
   <string name="lichessTournaments">مسابقات Lichess</string>
@@ -838,6 +843,7 @@
   <string name="picture">تصویر</string>
   <string name="deviceTheme">پوستهٔ اَفزاره</string>
   <string name="roundness">گِردی</string>
+  <string name="backgroundImage">تصویرِ زمینه</string>
   <string name="backgroundImageUrl">وب‌نشانی تصویر پس‌زمینه:</string>
   <string name="imageOpacity">کدریِ تصویر</string>
   <string name="board">میز</string>
@@ -863,6 +869,7 @@
   <string name="notifications">اعلان</string>
   <string name="notificationsX">اعلان: %1$s</string>
   <string name="perfRatingX">درجه‌بندی: %s</string>
+  <string name="perfRatingLabel" comment="Replaces old string perfRatingX">درجه‌بندی: %s.</string>
   <string name="yourRatingIsX">درجه‌بندی‌تان %s است |  </string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s ثانیه برای شروع اولین حرکت</item>
@@ -922,6 +929,7 @@
   </plurals>
   <string name="showUnreadLichessMessage">شما یک پیام خصوصی از Lichess دریافت کرده‌اید.</string>
   <string name="clickHereToReadIt">برای خواندن، این را بزنید</string>
+  <string name="readTheMessage" comment="'It' refers to a private message. This text follows after a different string which advises players they have received a private message from Lichess. For users, this is appears as a regular private message from the Lichess account: https://lichess.org/@/Lichess Replaces old string clickHereToReadIt">خواندنِ پیام</string>
   <string name="sorry">متاسفم :(</string>
   <string name="weHadToTimeYouOutForAWhile">شما برای مدتی مسدود شدید.</string>
   <string name="why">چرا؟</string>
