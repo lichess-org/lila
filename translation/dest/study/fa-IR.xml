@@ -66,6 +66,7 @@
   <string name="studyUrl">وب‌نشانی مطالعه</string>
   <string name="currentChapterUrl">وب‌نشانی بخش جاری</string>
   <string name="youCanPasteThisInTheForumToEmbed">می‌توانید این را در انجمن یا وبنوشت Lichessتان برای جاسازی قرار دهید</string>
+  <string name="pasteToEmbedChapterInForumOrBlog" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.&#10;&#10;Please note this used to say &quot;in the forum to embed&quot;. It was then changed to include &quot;or a Lichess Blog&quot;. A further update was made to say &quot;or your Lichess blog&quot;, since you can only create blog posts as an individual.  Replaces old string youCanPasteThisInTheForumToEmbed">می‌توانید این را در انجمن یا وبنوشت‌تان جایگذارید تا بخش را جاساز کنید.</string>
   <string name="startAtInitialPosition">در وضعیت نخستین بیاغازید</string>
   <string name="startAtX">آغاز از %s</string>
   <string name="embedInYourWebsite">در وبگاهتان قرار دهید</string>
@@ -188,7 +189,9 @@
   <string name="customPositionTitle">وضعیت سفارشی</string>
   <string name="customPositionText">صفحه را به روش خود بچینید. مناسب برای بررسی آخر بازی‌ها.</string>
   <string name="loadExistingLichessGameTitle">بازی قبلی در لیچس را بارگذاری کن</string>
+  <string name="loadGameFromTheWebTitle" comment="Replaces old string loadExistingLichessGameTitle">بار کردنِ یک بازی از وب</string>
   <string name="loadExistingLichessGameText">یک آدرس بازی از لیچس (مانند lichess.org/7fHIU0XI) جای‌گذاری کنید تا حرکات بازی در این فصل بارگذاری شود.</string>
+  <string name="loadGameFromTheWebText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text. Replaces old string loadExistingLichessGameText">برای بار کردنِ حرکت‌های بازی درونِ بخش، وب‌نشانیِ بازی &lt;br&gt;(مثل lichess.org/7fHIU0XI)&lt;br&gt; را جایگذارید.</string>
   <string name="fromFenStringTitle">از یک رشتهٔ FEN</string>
   <string name="fromFenStringText">یک وضعیت با فرمت FEN مانند r1b2rk1/pp3ppp/1qnbpn2/3p4/3P1B2/2PB1N2/PP1N1PPP/R2Q1RK1 w - - 1 10 جای‌گذاری کنید تا فصل از آن وضعیت شروع شود.</string>
   <string name="fromPgnGameTitle">از بازی یک فایل PGN</string>
