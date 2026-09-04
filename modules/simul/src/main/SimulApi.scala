@@ -164,11 +164,6 @@ final class SimulApi(
           publish()
       }
 
-  def setText(simulId: SimulId, text: String): Funit =
-    repo.find(simulId).flatMapz { simul =>
-      for _ <- repo.setText(simul, text) yield socket.reload(simulId)
-    }
-
   private[simul] def finishGame(game: Game): Funit =
     game.simulId.so:
       finishGame(_, game.id, game.status, game.winnerUserId)
