@@ -1,5 +1,5 @@
 .markdown-textarea {
-  &:has(:focus) .write-tab.active {
+  &:has(textarea:focus) .write-tab.active {
     outline: $outline;
     outline-offset: -2px;
 
@@ -9,18 +9,37 @@
     }
   }
 
+  .write-tab:focus:not(.active) {
+    outline: $outline;
+    outline-offset: -2px;
+  }
+
+  .preview-tab:focus:not(.active) {
+    outline: $outline;
+    outline-offset: -2px;
+  }
+
   .upload-image {
     all: unset;
     margin: 0 16px;
-    width: 24px;
     height: 24px;
-    background-color: $c-font-dimmer;
+    color: $c-font-dimmer;
     cursor: pointer;
-    mask: url('../images/buttons/add-photo-outline-material.svg') 0 0 / contain no-repeat;
+
+    .svg-icon {
+      width: 24px;
+    }
   }
 
-  .upload-image.disabled {
-    background-color: $c-border;
-    cursor: default;
+  .upload-image:focus {
+    outline: $outline;
+    outline-offset: 2px;
+    color: $c-primary;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .upload-image:hover {
+      color: $c-primary;
+    }
   }
 }

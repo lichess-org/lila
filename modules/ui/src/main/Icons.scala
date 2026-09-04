@@ -4,6 +4,7 @@ package lila.ui
 
 enum Icon:
   case accountCircle
+  case addPhotoOutline
   case agent
   case analogTv
   case antichess
