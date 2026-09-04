@@ -54,7 +54,7 @@ final class FidePlayerUi(helpers: Helpers, fideUi: FideUi, picfitUrl: lila.memo.
       )
     )
 
-  def searchForm(q: String) =
+  def searchForm(q: String)(using Context) =
     st.form(cls := "fide-players__search-form", action := routes.Fide.index(), method := "get")(
       input(
         cls := "fide-players__search-form__input",

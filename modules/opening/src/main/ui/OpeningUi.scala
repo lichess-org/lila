@@ -16,7 +16,7 @@ final class OpeningUi(helpers: Helpers, bits: OpeningBits, wiki: WikiUi):
         OpenGraph(
           `type` = "article",
           image = fenThumbnailUrl(page.query.fen).some,
-          title = trans.site.chessOpenings(),
+          title = trans.site.chessOpenings.txt(),
           url = routeUrl(routes.Opening.index()),
           description = "Explore the chess openings"
         )
@@ -146,7 +146,7 @@ final class OpeningUi(helpers: Helpers, bits: OpeningBits, wiki: WikiUi):
         resultsList(results)
       )
 
-  private def searchForm(q: String, focus: Boolean) =
+  private def searchForm(q: String, focus: Boolean)(using Context) =
     st.form(cls := "opening__search-form", action := routes.Opening.index(), method := "get")(
       input(
         cls := "opening__search-form__input",
