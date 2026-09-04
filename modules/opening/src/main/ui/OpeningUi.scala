@@ -27,8 +27,8 @@ final class OpeningUi(helpers: Helpers, bits: OpeningBits, wiki: WikiUi):
           boxTop(
             h1(trans.site.chessOpenings()),
             div(cls := "box__top__actions")(
-              a(href := routes.Opening.tree)("Name tree"),
-              a(href := s"${routes.UserAnalysis.index}#explorer")("Explorer")
+              a(href := routes.Opening.tree)(trans.site.nameTree()),
+              a(href := s"${routes.UserAnalysis.index}#explorer")(trans.site.explorer())
             )
           ),
           whatsNext(page),
@@ -43,8 +43,8 @@ final class OpeningUi(helpers: Helpers, bits: OpeningBits, wiki: WikiUi):
         boxTop(
           h1(trans.site.chessOpeningsNameTree()),
           div(cls := "box__top__actions")(
-            a(href := routes.Opening.index())("Opening pages"),
-            a(href := s"${routes.UserAnalysis.index}#explorer")("Explorer")
+            a(href := routes.Opening.index())(trans.site.openingPages()),
+            a(href := s"${routes.UserAnalysis.index}#explorer")(trans.site.explorer())
           )
         ),
         div(cls := "opening__tree")(

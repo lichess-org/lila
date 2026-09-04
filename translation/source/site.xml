@@ -1075,7 +1075,10 @@ Leave empty to start games from the normal initial position.</string>
   <string name="screenshot" comment="Screenshot of a position">Screenshot</string>
   <string name="verifyingYourDevice">Verifying your device...</string>
   <string name="chessOpenings">Chess openings</string>
+  <string name="openingPages">Opening pages</string>
   <string name="chessOpeningsNameTree">Chess openings name tree</string>
+  <string name="nameTree">Name tree</string>
+  <string name="explorer">Explorer</string>
   <string name="searchForOpenings">Search for openings</string>
   <string name="exploreChessOpenings">Explore the chess openings</string>
 </resources>
