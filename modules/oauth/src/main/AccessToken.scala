@@ -50,7 +50,7 @@ object AccessToken:
   import lila.db.dsl.{ *, given }
   import OAuthScope.given
 
-  private[oauth] val forAuthProjection = $doc(
+  private[oauth] val forAuthProjection = bdoc(
     BSONFields.userId -> true,
     BSONFields.scopes -> true,
     BSONFields.clientOrigin -> true

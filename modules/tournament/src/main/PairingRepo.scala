@@ -11,19 +11,19 @@ import BSONHandlers.given
 
 final class PairingRepo(coll: Coll)(using Executor, Materializer):
 
-  def selectTour(tourId: TourId) = $doc("tid" -> tourId)
-  def selectUser(userId: UserId) = $doc("u" -> userId)
+  def selectTour(tourId: TourId) = bdoc("tid" -> tourId)
+  def selectUser(userId: UserId) = bdoc("u" -> userId)
   private def selectTourUser(tourId: TourId, userId: UserId) =
-    $doc(
+    bdoc(
       "tid" -> tourId,
       "u" -> userId
     )
-  private val selectPlaying = $doc("s".$lt(chess.Status.Mate.id)) // hits a sparse index
-  private val selectFinished = $doc("s".$gte(chess.Status.Mate.id))
-  private val recentSort = $doc("d" -> -1)
-  private val chronoSort = $doc("d" -> 1)
+  private val selectPlaying = bdoc("s".$lt(chess.Status.Mate.id)) // hits a sparse index
+  private val selectFinished = bdoc("s".$gte(chess.Status.Mate.id))
+  private val recentSort = bdoc("d" -> -1)
+  private val chronoSort = bdoc("d" -> 1)
 
-  def byId(id: GameId): Fu[Option[Pairing]] = coll.find($id(id)).one[Pairing]
+  def byId(id: GameId): Fu[Option[Pairing]] = coll.find(bid(id)).one[Pairing]
 
   private[tournament] def lastOpponents(
       tourId: TourId,
@@ -35,8 +35,8 @@ final class PairingRepo(coll: Coll)(using Executor, Materializer):
         val nbUsers = userIds.size
         coll
           .find(
-            selectTour(tourId) ++ $doc("u".$in(userIds)),
-            $doc("_id" -> false, "u" -> true).some
+            selectTour(tourId) ++ bdoc("u".$in(userIds)),
+            bdoc("_id" -> false, "u" -> true).some
           )
           .sort(recentSort)
           .batchSize(20)
@@ -62,7 +62,7 @@ final class PairingRepo(coll: Coll)(using Executor, Materializer):
     coll
       .find(
         selectTourUser(tourId, userId),
-        $doc("_id" -> false, "u" -> true).some
+        bdoc("_id" -> false, "u" -> true).some
       )
       .cursor[Bdoc]()
       .listAll()
@@ -77,7 +77,7 @@ final class PairingRepo(coll: Coll)(using Executor, Materializer):
     coll
       .find(
         selectTourUser(tourId, userId),
-        $doc("_id" -> true).some
+        bdoc("_id" -> true).some
       )
       .sort(recentSort)
       .cursor[Bdoc]()
@@ -89,7 +89,7 @@ final class PairingRepo(coll: Coll)(using Executor, Materializer):
     coll
       .find(
         selectTourUser(tourId, userId) ++ selectPlaying,
-        $doc("_id" -> true).some
+        bdoc("_id" -> true).some
       )
       .sort(recentSort)
       .one[Bdoc]
@@ -105,7 +105,7 @@ final class PairingRepo(coll: Coll)(using Executor, Materializer):
         _.withFilter(_.notLostBy(userId))
           .map: p =>
             coll.update.one(
-              $id(p.id),
+              bid(p.id),
               $set(
                 "w" -> p.colorOf(userId).map(_.black)
               )
@@ -121,7 +121,7 @@ final class PairingRepo(coll: Coll)(using Executor, Materializer):
       .aggregateList(maxDocs = max, _.sec): framework =>
         import framework.*
         Match(selectTour(tourId)) -> List(
-          Project($doc("u" -> true, "_id" -> false)),
+          Project(bdoc("u" -> true, "_id" -> false)),
           UnwindField("u"),
           GroupField("u")("nb" -> SumAll),
           Sort(Descending("nb")),
@@ -143,7 +143,7 @@ final class PairingRepo(coll: Coll)(using Executor, Materializer):
   def isRecentPlayer(tourId: TourId, userId: UserId): Fu[Boolean] =
     coll.exists:
       selectTourUser(tourId, userId) ++
-        $or(selectPlaying, $doc("d".$gte(nowInstant.minusMinutes(15))))
+        $or(selectPlaying, bdoc("d".$gte(nowInstant.minusMinutes(15))))
 
   def isPlaying(tourId: TourId, userId: UserId): Fu[Boolean] =
     coll.exists(selectTourUser(tourId, userId) ++ selectPlaying)
@@ -164,15 +164,15 @@ final class PairingRepo(coll: Coll)(using Executor, Materializer):
   def insert(pairings: List[Pairing]) =
     coll.insert.many {
       pairings.map { p =>
-        pairingHandler.write(p) ++ $doc("d" -> nowInstant)
+        pairingHandler.write(p) ++ bdoc("d" -> nowInstant)
       }
     }.void
 
   def finishAndGet(g: Game): Fu[Option[Pairing]] =
-    if g.aborted then coll.delete.one($id(g.id)).inject(none)
+    if g.aborted then coll.delete.one(bid(g.id)).inject(none)
     else
       coll.findAndUpdateSimplified[Pairing](
-        selector = $id(g.id),
+        selector = bid(g.id),
         update = $set(
           "s" -> g.status.id,
           "w" -> g.winnerColor.map(_.white),
@@ -186,7 +186,7 @@ final class PairingRepo(coll: Coll)(using Executor, Materializer):
     else if pairing.user2.is(userId) then "b2".some
     else none
   }.so: field =>
-    coll.updateField($id(pairing.id), field, true).void
+    coll.updateField(bid(pairing.id), field, true).void
 
   def sortedCursor(
       tournamentId: TourId,
@@ -205,12 +205,12 @@ final class PairingRepo(coll: Coll)(using Executor, Materializer):
       import framework.*
       Match(selectTour(tourId)) -> List(
         Project(
-          $doc(
+          bdoc(
             "_id" -> false,
             "w" -> true,
             "t" -> true,
-            "b1" -> $doc("$cond" -> $arr("$b1", 1, 0)),
-            "b2" -> $doc("$cond" -> $arr("$b2", 1, 0))
+            "b1" -> bdoc("$cond" -> barr("$b1", 1, 0)),
+            "b2" -> bdoc("$cond" -> barr("$b2", 1, 0))
           )
         ),
         GroupField("w")(
@@ -222,4 +222,4 @@ final class PairingRepo(coll: Coll)(using Executor, Materializer):
       )
 
   private[tournament] def anonymize(tourId: TourId, userId: UserId)(ghostId: UserId) =
-    coll.update.one($doc("tid" -> tourId, "u" -> userId), $set("u.$" -> ghostId)).void
+    coll.update.one(bdoc("tid" -> tourId, "u" -> userId), $set("u.$" -> ghostId)).void

@@ -19,7 +19,7 @@ final class TournamentModeration(playerRepo: PlayerRepo, userRepo: UserRepo)(usi
       case View.recentlyCreated => aggregate(tourId, ordering = some(_.Descending("user.createdAt")))
       case View.fewGamesPlayed => aggregate(tourId, ordering = some(_.Ascending("user.count.game")))
       case View.provisional =>
-        aggregate(tourId, playerSelect = $doc("pr" -> true).some, ordering = some(_.Descending("r")))
+        aggregate(tourId, playerSelect = bdoc("pr" -> true).some, ordering = some(_.Descending("r")))
     players.map(view -> _)
 
   private def aggregate(

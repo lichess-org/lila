@@ -32,9 +32,9 @@ final class ClasApi(
   export filters.{ student as isStudent, teacher as isTeacher }
 
   Bus.sub[lila.core.user.UserDelete]: del =>
-    colls.clas.update.one($doc("created.by" -> del.id), $set("created.by" -> UserId.ghost), multi = true)
-    colls.clas.update.one($doc("teachers" -> del.id), $pull("teachers" -> del.id), multi = true)
-    colls.student.delete.one($doc("userId" -> del.id))
+    colls.clas.update.one(bdoc("created.by" -> del.id), $set("created.by" -> UserId.ghost), multi = true)
+    colls.clas.update.one(bdoc("teachers" -> del.id), $pull("teachers" -> del.id), multi = true)
+    colls.student.delete.one(bdoc("userId" -> del.id))
 
   object clas:
 
@@ -44,17 +44,17 @@ final class ClasApi(
 
     def of(teacher: User): Fu[List[Clas]] =
       coll
-        .find($doc("teachers" -> teacher.id))
-        .sort($doc("archived" -> 1, "viewedAt" -> -1))
+        .find(bdoc("teachers" -> teacher.id))
+        .sort(bdoc("archived" -> 1, "viewedAt" -> -1))
         .cursor[Clas]()
         .list(100)
 
     def countOf(teacher: User): Fu[Int] =
-      coll.countSel($doc("teachers" -> teacher.id))
+      coll.countSel(bdoc("teachers" -> teacher.id))
 
     private def activeByIds(clasIds: List[ClasId], nb: Int): Fu[List[Clas]] =
       coll
-        .find($inIds(clasIds) ++ selectArchived(false))
+        .find(inIds(clasIds) ++ selectArchived(false))
         .sort($sort.desc("createdAt"))
         .cursor[Clas]()
         .list(nb)
@@ -76,18 +76,18 @@ final class ClasApi(
         enabledTeachers <- userRepo.filterEnabled(clas.teachers.toList)
         fixedTeachers = clas.teachers.toList.filter(enabledTeachers.contains).toNel | from.teachers
         checked = clas.copy(teachers = fixedTeachers)
-        _ <- coll.update.one($id(clas.id), checked)
+        _ <- coll.update.one(bid(clas.id), checked)
         _ = fixedTeachers.toList.foreach(filters.teacher.add)
         _ = teamSync(checked)
       yield checked
 
     def updateWall(clas: Clas, text: Markdown): Funit =
-      coll.updateField($id(clas.id), "wall", text).void
+      coll.updateField(bid(clas.id), "wall", text).void
 
     def getAndView(id: ClasId)(using teacher: Me): Fu[Option[Clas]] =
       coll
         .findAndUpdateSimplified[Clas](
-          selector = $id(id) ++ $doc("teachers" -> teacher.userId),
+          selector = bid(id) ++ bdoc("teachers" -> teacher.userId),
           update = $set("viewedAt" -> nowInstant),
           fetchNewObject = true
         )
@@ -99,7 +99,7 @@ final class ClasApi(
       Granter
         .of(_.Teacher)(teacher)
         .so:
-          coll.exists($id(clasId) ++ $doc("teachers" -> teacher.id))
+          coll.exists(bid(clasId) ++ bdoc("teachers" -> teacher.id))
 
     private def lookupClasOfTeacher(teacher: UserId) =
       $lookup.simple(
@@ -108,9 +108,9 @@ final class ClasApi(
         local = "clasId",
         foreign = "_id",
         pipe = List(
-          $doc("$match" -> $doc("teachers" -> teacher)),
-          $doc("$limit" -> 1),
-          $doc("$project" -> $id(true))
+          bdoc("$match" -> bdoc("teachers" -> teacher)),
+          bdoc("$limit" -> 1),
+          bdoc("$project" -> bid(true))
         )
       )
 
@@ -118,12 +118,12 @@ final class ClasApi(
       (isTeacher(teacher) && isStudent(student)).so:
         colls.student.aggregateExists(_.sec): framework =>
           import framework.*
-          Match($doc("userId" -> student)) -> List(
-            Project($doc("clasId" -> true)),
+          Match(bdoc("userId" -> student)) -> List(
+            Project(bdoc("clasId" -> true)),
             PipelineOperator(lookupClasOfTeacher(teacher)),
-            Match("clasId".$ne($arr())),
+            Match("clasId".$ne(barr())),
             Limit(1),
-            Project($id(true))
+            Project(bid(true))
           )
 
     def myPotentialStudentNames(userIds: Iterable[UserId])(using me: Me): Fu[Map[UserId, Student.RealName]] =
@@ -136,9 +136,9 @@ final class ClasApi(
               .aggregateList(128, _.sec): framework =>
                 import framework.*
                 Match("userId".$in(potentialStudents)) -> List(
-                  Project($doc("userId" -> true, "clasId" -> true, "realName" -> true)),
+                  Project(bdoc("userId" -> true, "clasId" -> true, "realName" -> true)),
                   PipelineOperator(lookupClasOfTeacher(me.userId)),
-                  Match("clasId".$ne($arr())),
+                  Match("clasId".$ne(barr())),
                   GroupField("userId")("realName" -> LastField("realName"))
                 )
               .map:
@@ -170,7 +170,7 @@ final class ClasApi(
       fuccess(isStudent(kid1) && isStudent(kid2)) >>&
         colls.student.aggregateExists(_.sec): framework =>
           import framework.*
-          Match($doc("userId".$in(List(kid1.id, kid2.id)))) -> List(
+          Match(bdoc("userId".$in(List(kid1.id, kid2.id)))) -> List(
             PipelineOperator(
               $lookup.simple(
                 from = colls.clas,
@@ -178,14 +178,14 @@ final class ClasApi(
                 local = "clasId",
                 foreign = "_id",
                 pipe = List(
-                  $doc("$match" -> $doc("canMsg" -> true)),
-                  $doc("$project" -> $id(true))
+                  bdoc("$match" -> bdoc("canMsg" -> true)),
+                  bdoc("$project" -> bid(true))
                 )
               )
             ),
             Unwind("clas"),
             GroupField("clas._id")("nb" -> SumAll),
-            Match($doc("nb" -> 2)),
+            Match(bdoc("nb" -> 2)),
             Limit(1)
           )
 
@@ -195,7 +195,7 @@ final class ClasApi(
 
     private def doArchiveOnly(from: Clas, v: Boolean)(using me: MyId): Fu[Clas] =
       val clas = from.copy(archived = v.option(Clas.Recorded(me.userId, nowInstant)))
-      for _ <- coll.updateOrUnsetField($id(clas.id), "archived", clas.archived)
+      for _ <- coll.updateOrUnsetField(bid(clas.id), "archived", clas.archived)
       yield clas
 
     def archiveAllInactive: Funit =
@@ -227,16 +227,16 @@ You can re-open it at ${routeUrl(routes.Clas.show(clas.id))}"""
     private def coll = colls.student
 
     def activeOf(clas: Clas): Fu[List[Student]] =
-      of($doc("clasId" -> clas.id) ++ selectArchived(false))
+      of(bdoc("clasId" -> clas.id) ++ selectArchived(false))
 
     def activeUserIdsOf(clas: ClasId): Fu[List[UserId]] =
-      coll.primitive[UserId]($doc("clasId" -> clas) ++ selectArchived(false), $sort.asc("userId"), "userId")
+      coll.primitive[UserId](bdoc("clasId" -> clas) ++ selectArchived(false), $sort.asc("userId"), "userId")
 
-    def allWithUsers(clas: Clas, selector: Bdoc = $empty): Fu[List[Student.WithUser]] =
+    def allWithUsers(clas: Clas, selector: Bdoc = emptyBdoc): Fu[List[Student.WithUser]] =
       colls.student
         .aggregateList(Int.MaxValue, _.sec): framework =>
           import framework.*
-          Match($doc("clasId" -> clas.id) ++ selector) -> List(
+          Match(bdoc("clasId" -> clas.id) ++ selector) -> List(
             PipelineOperator(
               $lookup.simple(
                 from = userRepo.coll,
@@ -279,16 +279,16 @@ You can re-open it at ${routeUrl(routes.Clas.show(clas.id))}"""
         .cursor[Student]()
         .list(500)
 
-    def count(clasId: ClasId): Fu[Int] = coll.countSel($doc("clasId" -> clasId))
+    def count(clasId: ClasId): Fu[Int] = coll.countSel(bdoc("clasId" -> clasId))
 
     def isManaged(user: User): Fu[Boolean] =
-      coll.exists($doc("userId" -> user.id, "managed" -> true))
+      coll.exists(bdoc("userId" -> user.id, "managed" -> true))
 
     def release(user: User): Funit =
-      coll.updateField($doc("userId" -> user.id, "managed" -> true), "managed", false).void
+      coll.updateField(bdoc("userId" -> user.id, "managed" -> true), "managed", false).void
 
     def findManaged(user: User): Fu[Option[Student.ManagedInfo]] =
-      coll.find($doc("userId" -> user.id, "managed" -> true)).one[Student].flatMapz { student =>
+      coll.find(bdoc("userId" -> user.id, "managed" -> true)).one[Student].flatMapz { student =>
         userRepo
           .byId(student.created.by)
           .zip(clas.byId(student.clasId))
@@ -296,7 +296,7 @@ You can re-open it at ${routeUrl(routes.Clas.show(clas.id))}"""
       }
 
     def get(clas: Clas, userId: UserId): Fu[Option[Student]] =
-      coll.one[Student]($id(Student.makeId(userId, clas.id)))
+      coll.one[Student](bid(Student.makeId(userId, clas.id)))
 
     def get(clas: Clas, user: User): Fu[Option[Student.WithUser]] =
       get(clas, user.id).map2 { Student.WithUser(_, user) }
@@ -307,7 +307,7 @@ You can re-open it at ${routeUrl(routes.Clas.show(clas.id))}"""
         colls.student
           .aggregateOne(_.sec): framework =>
             import framework.*
-            Match($doc("userId" -> s.user.id, "managed" -> true)) -> List(
+            Match(bdoc("userId" -> s.user.id, "managed" -> true)) -> List(
               PipelineOperator(
                 $lookup.simple(
                   from = colls.clas,
@@ -324,7 +324,7 @@ You can re-open it at ${routeUrl(routes.Clas.show(clas.id))}"""
 
     def update(from: Student, data: ClasForm.StudentData): Fu[Student] =
       val student = data.update(from)
-      coll.update.one($id(student.id), student).inject(student)
+      coll.update.one(bid(student.id), student).inject(student)
 
     def create(
         clas: Clas,
@@ -397,7 +397,7 @@ You can re-open it at ${routeUrl(routes.Clas.show(clas.id))}"""
       for
         student <- coll
           .findAndUpdateSimplified[Student](
-            selector = $id(sId),
+            selector = bid(sId),
             update =
               if v then $set("archived" -> Clas.Recorded(me, nowInstant))
               else $unset("archived"),
@@ -408,11 +408,11 @@ You can re-open it at ${routeUrl(routes.Clas.show(clas.id))}"""
 
     def archiveMany(clas: Clas, studentIds: List[StudentId], v: Boolean)(using me: Me): Funit =
       val archived = v.option(Clas.Recorded(me.userId, nowInstant))
-      for _ <- coll.updateOrUnsetField($inIds(studentIds), "archived", archived, multi = true)
+      for _ <- coll.updateOrUnsetField(inIds(studentIds), "archived", archived, multi = true)
       yield teamSync(clas)
 
     def deleteStudent(clas: Clas, s: Student.WithUser)(using Me): Funit =
-      for _ <- coll.delete.one($id(s.student.id))
+      for _ <- coll.delete.one(bid(s.student.id))
       yield teamSync(clas)
 
     private[ClasApi] def sendWelcomeMessage(teacherId: UserId, student: User, clas: Clas): Funit =
@@ -453,20 +453,20 @@ ${clas.desc}""",
             .recover:
               lila.db.recoverDuplicateKey(_ => Found)
 
-    def get(id: ClasInviteId) = colls.invite.one[ClasInvite]($id(id))
+    def get(id: ClasInviteId) = colls.invite.one[ClasInvite](bid(id))
 
     def view(id: ClasInviteId, user: User): Fu[Option[(ClasInvite, Clas)]] =
-      colls.invite.one[ClasInvite]($id(id) ++ $doc("userId" -> user.id)).flatMapz { invite =>
+      colls.invite.one[ClasInvite](bid(id) ++ bdoc("userId" -> user.id)).flatMapz { invite =>
         colls.clas.byId[Clas](invite.clasId.value).map2 { invite -> _ }
       }
 
     def accept(id: ClasInviteId, user: User): Fu[Option[Student]] =
-      colls.invite.one[ClasInvite]($id(id) ++ $doc("userId" -> user.id)).flatMapz { invite =>
-        colls.clas.one[Clas]($id(invite.clasId)).flatMapz { clas =>
+      colls.invite.one[ClasInvite](bid(id) ++ bdoc("userId" -> user.id)).flatMapz { invite =>
+        colls.clas.one[Clas](bid(invite.clasId)).flatMapz { clas =>
           val stu = Student.make(user, clas, invite.created.by, invite.realName, managed = false)
           val done = for
             _ <- colls.student.insert.one(stu)
-            _ <- colls.invite.updateField($id(id), "accepted", true)
+            _ <- colls.invite.updateField(bid(id), "accepted", true)
             _ <- student.sendWelcomeMessage(invite.created.by, user, clas)
             _ = filters.student.add(user.id)
             _ = teamSync(clas)(using none)
@@ -480,25 +480,25 @@ ${clas.desc}""",
     def decline(id: ClasInviteId): Fu[Option[ClasInvite]] =
       colls.invite
         .findAndUpdateSimplified[ClasInvite](
-          selector = $id(id),
+          selector = bid(id),
           update = $set("accepted" -> false)
         )
 
     def listPending(clas: Clas): Fu[List[ClasInvite]] =
       colls.invite
-        .find($doc("clasId" -> clas.id, "accepted".$ne(true)))
+        .find(bdoc("clasId" -> clas.id, "accepted".$ne(true)))
         .sort($sort.desc("created.at"))
         .cursor[ClasInvite]()
         .list(100)
 
     def delete(id: ClasInviteId): Funit =
-      colls.invite.delete.one($id(id)).void
+      colls.invite.delete.one(bid(id)).void
 
     def deleteInvites(id: ClasId, userIds: List[UserId]): Funit =
       userIds.nonEmpty.so:
         colls.invite.delete
           .one(
-            $doc(
+            bdoc(
               "userId".$in(userIds),
               "clasId" -> id
             )

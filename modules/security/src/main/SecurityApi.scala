@@ -222,15 +222,15 @@ final class SecurityApi(
   export store.shareAnIpOrFp
 
   def ipUas(ip: IpAddress): Fu[List[String]] =
-    store.coll.distinctEasy[String, List]("ua", $doc("ip" -> ip.value), _.sec)
+    store.coll.distinctEasy[String, List]("ua", bdoc("ip" -> ip.value), _.sec)
 
   def printUas(fh: FingerHash): Fu[List[String]] =
-    store.coll.distinctEasy[String, List]("ua", $doc("fp" -> fh.value), _.sec)
+    store.coll.distinctEasy[String, List]("ua", bdoc("fp" -> fh.value), _.sec)
 
   private def recentUserIdsByField(field: String)(value: String): Fu[List[UserId]] =
     store.coll.distinctEasy[UserId, List](
       "user",
-      $doc(
+      bdoc(
         field -> value,
         "date".$gt(nowInstant.minusYears(1))
       ),

@@ -112,14 +112,14 @@ final class RelayPgnStream(
             $lookup.pipelineFull(
               from = tourRepo.coll.name,
               as = "tour",
-              let = $doc("tourId" -> "$tourId"),
+              let = bdoc("tourId" -> "$tourId"),
               pipe = List(
-                $doc:
+                bdoc:
                   "$match" -> $expr:
-                    $doc(
-                      "$and" -> $arr(
-                        $doc("$eq" -> $arr("$_id", "$$tourId")),
-                        $doc("$gte" -> $arr("$tier", RelayTour.Tier.normal))
+                    bdoc(
+                      "$and" -> barr(
+                        bdoc("$eq" -> barr("$_id", "$$tourId")),
+                        bdoc("$gte" -> barr("$tier", RelayTour.Tier.normal))
                       )
                     )
               )

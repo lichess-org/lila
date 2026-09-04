@@ -10,20 +10,20 @@ final private class DeviceApi(coll: Coll)(using Executor):
   private given BSONDocumentHandler[Device] = Macros.handler
 
   lila.common.Bus.sub[lila.core.user.UserDelete]: del =>
-    coll.delete.one($doc("userId" -> del.id)).void
+    coll.delete.one(bdoc("userId" -> del.id)).void
 
   private[push] def findByDeviceId(deviceId: String): Fu[Option[Device]] =
-    coll.find($id(deviceId)).one[Device]
+    coll.find(bid(deviceId)).one[Device]
 
   private[push] def findLastManyByUserId(platform: String, max: Int)(userId: UserId): Fu[List[Device]] =
     coll
       .find(
-        $doc(
+        bdoc(
           "platform" -> platform,
           "userId" -> userId
         )
       )
-      .sort($doc("seenAt" -> -1))
+      .sort(bdoc("seenAt" -> -1))
       .cursor[Device]()
       .list(max)
 
@@ -34,7 +34,7 @@ final private class DeviceApi(coll: Coll)(using Executor):
     lila.mon.push.register.in(platform).increment()
     coll.update
       .one(
-        $id(deviceId),
+        bid(deviceId),
         Device(
           _id = deviceId,
           platform = platform,
@@ -48,7 +48,7 @@ final private class DeviceApi(coll: Coll)(using Executor):
 
   def unregister(user: User) =
     lila.mon.push.register.out.increment()
-    coll.delete.one($doc("userId" -> user.id)).void
+    coll.delete.one(bdoc("userId" -> user.id)).void
 
   def delete(device: Device) =
-    coll.delete.one($id(device._id)).void
+    coll.delete.one(bid(device._id)).void

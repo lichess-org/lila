@@ -11,7 +11,7 @@ final private class RelayRoundRepo(val coll: Coll, tourRepo: RelayTourRepo)(usin
   import RelayRoundRepo.*
   import BSONHandlers.given
 
-  def exists(id: RelayRoundId): Fu[Boolean] = coll.exists($id(id))
+  def exists(id: RelayRoundId): Fu[Boolean] = coll.exists(bid(id))
 
   def byId(id: RelayRoundId) = coll.byId[RelayRound](id)
 
@@ -19,24 +19,24 @@ final private class RelayRoundRepo(val coll: Coll, tourRepo: RelayTourRepo)(usin
     coll
       .aggregateOne(): framework =>
         import framework.*
-        Match($id(id)) -> List(
+        Match(bid(id)) -> List(
           PipelineOperator(tourRepo.lookup("tourId")),
           UnwindField("tour")
         )
       .map(_.flatMap(BSONHandlers.readRoundWithTour))
 
-  def byTourOrderedCursor(tourId: RelayTourId, selector: Bdoc = $empty) =
+  def byTourOrderedCursor(tourId: RelayTourId, selector: Bdoc = emptyBdoc) =
     coll
       .find(selectors.tour(tourId) ++ selector)
       .sort(sort.asc)
       .cursor[RelayRound]()
 
-  def byTourOrdered(tourId: RelayTourId, selector: Bdoc = $empty): Fu[List[RelayRound]] =
+  def byTourOrdered(tourId: RelayTourId, selector: Bdoc = emptyBdoc): Fu[List[RelayRound]] =
     byTourOrderedCursor(tourId, selector).list(RelayTour.maxRelays.value)
 
-  def byToursOrdered(tourIds: Seq[RelayTourId], selector: Bdoc = $empty): Fu[List[RelayRound]] =
+  def byToursOrdered(tourIds: Seq[RelayTourId], selector: Bdoc = emptyBdoc): Fu[List[RelayRound]] =
     coll
-      .find($doc("tourId".$in(tourIds)) ++ selector)
+      .find(bdoc("tourId".$in(tourIds)) ++ selector)
       .sort(sort.asc)
       .cursor[RelayRound]()
       .list(RelayTour.maxRelays.value * tourIds.size)
@@ -52,7 +52,7 @@ final private class RelayRoundRepo(val coll: Coll, tourRepo: RelayTourRepo)(usin
     idsByTourOrdered(tourId).map(StudyId.from)
 
   def tourIdByStudyId(studyId: StudyId): Fu[Option[RelayTourId]] =
-    coll.primitiveOne[RelayTourId]($id(studyId), "tourId")
+    coll.primitiveOne[RelayTourId](bid(studyId), "tourId")
 
   def lastByTour(tour: RelayTour): Fu[Option[RelayRound]] =
     coll
@@ -62,13 +62,13 @@ final private class RelayRoundRepo(val coll: Coll, tourRepo: RelayTourRepo)(usin
 
   def nextOrderByTour(tourId: RelayTourId): Fu[RelayRound.Order] =
     coll
-      .primitiveOne[RelayRound.Order]($doc("tourId" -> tourId), sort.desc, "order")
+      .primitiveOne[RelayRound.Order](bdoc("tourId" -> tourId), sort.desc, "order")
       .dmap:
         case None => RelayRound.Order(1)
         case Some(order) => order.map(_ + 1)
 
   def orderOf(roundId: RelayRoundId): Fu[RelayRound.Order] =
-    coll.primitiveOne[RelayRound.Order]($id(roundId), "order").dmap(_ | RelayRound.Order(1))
+    coll.primitiveOne[RelayRound.Order](bid(roundId), "order").dmap(_ | RelayRound.Order(1))
 
   def deleteByTour(tour: RelayTour): Funit =
     coll.delete.one(selectors.tour(tour.id)).void
@@ -76,18 +76,18 @@ final private class RelayRoundRepo(val coll: Coll, tourRepo: RelayTourRepo)(usin
   def syncTargetsOfSource(source: RelayRoundId): Funit =
     coll.update
       .one(
-        $doc("sync.until".$exists(true), "sync.upstream.roundIds" -> source),
+        bdoc("sync.until".$exists(true), "sync.upstream.roundIds" -> source),
         $set("sync.nextAt" -> nowInstant)
       )
       .void
 
   def currentCrowd(id: RelayRoundId): Fu[Option[Int]] =
-    coll.primitiveOne[Int]($id(id), "crowd")
+    coll.primitiveOne[Int](bid(id), "crowd")
 
   def nextRoundThatStartsAfterThisOneCompletes(round: RelayRound): Fu[Option[RelayRound]] = for
     next <- coll
       .find(
-        $doc(
+        bdoc(
           "tourId" -> round.tourId,
           selectors.started(false),
           "startsAt" -> BSONHandlers.startsAfterPrevious
@@ -112,30 +112,30 @@ final private class RelayRoundRepo(val coll: Coll, tourRepo: RelayTourRepo)(usin
       as = "rounds",
       local = "_id",
       foreign = "tourId",
-      pipe = List($doc("$sort" -> RelayRoundRepo.sort.asc))
+      pipe = List(bdoc("$sort" -> RelayRoundRepo.sort.asc))
     )
 
   private[relay] def isInternalWithoutDelay(id: RelayRoundId): Fu[Boolean] = coll.exists:
-    $id(id) ++ selectors.finished(false) ++
-      $doc(
+    bid(id) ++ selectors.finished(false) ++
+      bdoc(
         "sync.delay".$exists(false) ++ $or(
-          $doc("sync.upstream.ids".$exists(true)),
-          $doc("sync.upstream.users".$exists(true))
+          bdoc("sync.upstream.ids".$exists(true)),
+          bdoc("sync.upstream.users".$exists(true))
         )
       )
 
 private object RelayRoundRepo:
 
   object sort:
-    val asc = $doc("order" -> 1)
-    val desc = $doc("order" -> -1)
+    val asc = bdoc("order" -> 1)
+    val desc = bdoc("order" -> -1)
 
   object selectors:
-    def tour(id: RelayTourId) = $doc("tourId" -> id)
-    def started(v: Boolean) = $doc("startedAt".$exists(v))
-    def finished(v: Boolean) = $doc("finishedAt".$exists(v))
+    def tour(id: RelayTourId) = bdoc("tourId" -> id)
+    def started(v: Boolean) = bdoc("startedAt".$exists(v))
+    def finished(v: Boolean) = bdoc("finishedAt".$exists(v))
     val notLongFinished =
       $or(
-        $doc("finishedAt".$exists(false)),
-        $doc("finishedAt" -> $gt(nowInstant.minusHours(1)))
+        bdoc("finishedAt".$exists(false)),
+        bdoc("finishedAt" -> $gt(nowInstant.minusHours(1)))
       )

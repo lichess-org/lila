@@ -48,7 +48,7 @@ final class TournamentShieldApi(
     _.refreshAfterWrite(1.day).buildAsyncTimeout(1.minute): _ =>
       tournamentRepo.coll
         .find:
-          $doc(
+          bdoc(
             "schedule.freq" -> Schedule.Freq.Shield,
             "status" -> Status.finished
           )

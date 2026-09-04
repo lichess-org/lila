@@ -84,7 +84,7 @@ object GameFilterMenu:
         case GameFilter.playing =>
           pagBuilder(
             selector = Query.nowPlaying(user.id),
-            sort = $empty,
+            sort = emptyBdoc,
             nb = nb
           )(page)
             .flatMap:

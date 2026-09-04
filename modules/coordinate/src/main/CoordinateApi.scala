@@ -10,7 +10,7 @@ final class CoordinateApi(scoreColl: Coll)(using Executor):
   private given BSONDocumentHandler[Score] = Macros.handler[Score]
 
   lila.common.Bus.sub[lila.core.user.UserDelete]: del =>
-    scoreColl.delete.one($id(del.id)).void
+    scoreColl.delete.one(bid(del.id)).void
 
   def getScore(userId: UserId): Fu[Score] =
     scoreColl.byId[Score](userId).dmap(_ | Score(userId))
@@ -18,11 +18,11 @@ final class CoordinateApi(scoreColl: Coll)(using Executor):
   def addScore(mode: CoordMode, color: Color, hits: Int)(using me: MyId): Funit =
     scoreColl.update
       .one(
-        $id(me),
+        bid(me),
         $push(
-          $doc(
-            s"${color.name}${(mode == CoordMode.nameSquare).so("NameSquare")}" -> $doc(
-              "$each" -> $arr(hits),
+          bdoc(
+            s"${color.name}${(mode == CoordMode.nameSquare).so("NameSquare")}" -> bdoc(
+              "$each" -> barr(hits),
               "$slice" -> -20
             )
           )
@@ -35,11 +35,11 @@ final class CoordinateApi(scoreColl: Coll)(using Executor):
     scoreColl
       .aggregateList(maxDocs = Int.MaxValue, _.sec): framework =>
         import framework.*
-        Match($doc("_id".$in(userIds))) -> List(
+        Match(bdoc("_id".$in(userIds))) -> List(
           Project(
-            $doc(
-              "white" -> $doc("$max" -> "$white"),
-              "black" -> $doc("$max" -> "$black")
+            bdoc(
+              "white" -> bdoc("$max" -> "$white"),
+              "black" -> bdoc("$max" -> "$black")
             )
           )
         )

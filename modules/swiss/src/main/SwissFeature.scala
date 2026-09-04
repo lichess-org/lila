@@ -20,7 +20,7 @@ final class SwissFeature(
     _.refreshAfterWrite(30.seconds).buildAsyncTimeout(): _ =>
       mongo.swiss
         .find:
-          $doc(
+          bdoc(
             "teamId" -> lichessTeamId,
             "startsAt".$gt(nowInstant.minusMinutes(5)).$lt(nowInstant.plusMinutes(10))
           )
@@ -57,8 +57,8 @@ final class SwissFeature(
   private val cache = cacheApi.unit[FeaturedSwisses]("swiss.featured"):
     _.refreshAfterWrite(10.seconds).buildAsyncTimeout(): _ =>
       val now = nowInstant
-      cacheCompute($doc("$gt" -> now, "$lt" -> now.plusHours(1)))
-        .zip(cacheCompute($doc("$gt" -> now.minusHours(3), "$lt" -> now)))
+      cacheCompute(bdoc("$gt" -> now, "$lt" -> now.plusHours(1)))
+        .zip(cacheCompute(bdoc("$gt" -> now.minusHours(3), "$lt" -> now)))
         .map(FeaturedSwisses.apply)
 
   // causes heavy team reads
@@ -67,7 +67,7 @@ final class SwissFeature(
       .aggregateList(nb, _.sec): framework =>
         import framework.*
         Match(
-          $doc(
+          bdoc(
             "featurable" -> true,
             "settings.i".$lte(600), // hits the partial index
             "settings.o.playYourGames" -> true,
@@ -84,8 +84,8 @@ final class SwissFeature(
               local = "teamId",
               foreign = "_id",
               pipe = List(
-                $doc("$match" -> $doc("open" -> true, "password".$exists(false))),
-                $doc("$project" -> $id(true))
+                bdoc("$match" -> bdoc("open" -> true, "password".$exists(false))),
+                bdoc("$project" -> bid(true))
               )
             )
           ),

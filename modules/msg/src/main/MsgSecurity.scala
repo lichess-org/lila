@@ -162,8 +162,8 @@ final private class MsgSecurity(
     // unless they deleted the thread.
     private def reply(contacts: Contacts): Fu[Boolean] =
       colls.thread.exists(
-        $id(MsgThread.id(contacts.orig.id, contacts.dest.id)) ++
-          $doc("del".$ne(contacts.dest.id))
+        bid(MsgThread.id(contacts.orig.id, contacts.dest.id)) ++
+          bdoc("del".$ne(contacts.dest.id))
       )
 
     private def kidCheck(contacts: Contacts, isNew: Boolean): Fu[Boolean] =

@@ -80,7 +80,7 @@ final private class FidePlayerSync(
         .aggregateList(500, _.sec): framework =>
           import framework.*
           Match(repo.player.selectActive(FideTC.standard)) ->
-            List(PipelineOperator($doc("$sortByCount" -> "$fed")))
+            List(PipelineOperator(bdoc("$sortByCount" -> "$fed")))
         .map: objs =>
           for
             obj <- objs
@@ -100,7 +100,7 @@ final private class FidePlayerSync(
               facet <- List(
                 "top" -> List(
                   active,
-                  Project($doc("_id" -> 0, tc.toString -> 1)),
+                  Project(bdoc("_id" -> 0, tc.toString -> 1)),
                   Sort(Descending(tc.toString)),
                   Limit(10),
                   Group(BSONString(s"$tc-top"))("v" -> AvgField(tc.toString))
@@ -112,15 +112,15 @@ final private class FidePlayerSync(
                 )
               )
             yield s"$tc-${facet._1}" -> facet._2
-            Match($doc("fed" -> code)) ->
+            Match(bdoc("fed" -> code)) ->
               List(
                 Facet(facets),
-                Project($doc("all" -> $doc("$setUnion" -> facets.map((k, _) => s"$$$k").toList))),
+                Project(bdoc("all" -> bdoc("$setUnion" -> facets.map((k, _) => s"$$$k").toList))),
                 UnwindField("all"),
                 ReplaceRootField("all"),
-                Project($doc("k" -> "$_id", "v" -> true, "_id" -> false)),
+                Project(bdoc("k" -> "$_id", "v" -> true, "_id" -> false)),
                 Group(BSONNull)("all" -> PushField("$ROOT")),
-                Project($doc("_id" -> $doc("$arrayToObject" -> "$all"))),
+                Project(bdoc("_id" -> bdoc("$arrayToObject" -> "$all"))),
                 ReplaceRootField("_id")
               )
           .map2: o =>
@@ -181,7 +181,7 @@ final private class FidePlayerSync(
             for
               elements <- changed.sequentially: p =>
                 update.element(
-                  q = $id(p.id),
+                  q = bid(p.id),
                   u = repo.player.handler.writeOpt(p).get,
                   upsert = true
                 )

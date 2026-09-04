@@ -83,8 +83,8 @@ final class SwissJson(
             .so:
               mongo.pairing
                 .find(
-                  $doc(f.swissId -> swiss.id, f.players -> player.userId, f.status -> SwissPairing.ongoing),
-                  $doc(f.id -> true).some
+                  bdoc(f.swissId -> swiss.id, f.players -> player.userId, f.status -> SwissPairing.ongoing),
+                  bdoc(f.id -> true).some
                 )
                 .one[Bdoc]
                 .dmap { _.flatMap(_.getAsOpt[GameId](f.id)) }
@@ -104,7 +104,7 @@ final class SwissJson(
           SwissPlayer.fields: f =>
             mongo.player.update
               .one(
-                $id(SwissPlayer.makeId(swiss.id, user.id)),
+                bid(SwissPlayer.makeId(swiss.id, user.id)),
                 $set(f.rating -> perf.intRating)
               )
               .void
@@ -114,7 +114,7 @@ final class SwissJson(
     swiss.isFinished.so:
       SwissPlayer.fields { f =>
         mongo.player
-          .find($doc(f.swissId -> swiss.id))
+          .find(bdoc(f.swissId -> swiss.id))
           .sort($sort.desc(f.score))
           .cursor[SwissPlayer]()
           .list(3)
@@ -124,7 +124,7 @@ final class SwissJson(
               .map(_.userId)
               .filter(w => swiss.winnerId.forall(w !=))
               .foreach:
-                mongo.swiss.updateField($id(swiss.id), "winnerId", _).void
+                mongo.swiss.updateField(bid(swiss.id), "winnerId", _).void
 
             userApi.filterLame(top3.map(_.userId)).map { lame =>
               JsArray(

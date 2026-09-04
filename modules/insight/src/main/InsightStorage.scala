@@ -38,16 +38,16 @@ final private class InsightStorage(val coll: AsyncColl)(using Executor):
     coll {
       _.aggregateOne() { framework =>
         import framework.*
-        Match(selectUserId(userId) ++ $doc(F.opening.$exists(true))) -> List(
+        Match(selectUserId(userId) ++ bdoc(F.opening.$exists(true))) -> List(
           Sort(Descending(F.date)),
           Limit(maxGames.value),
           Facet(
             List(
               "families" -> List(
-                PipelineOperator($doc("$sortByCount" -> s"$$${F.openingFamily}")),
+                PipelineOperator(bdoc("$sortByCount" -> s"$$${F.openingFamily}")),
                 Limit(24)
               ),
-              "openings" -> List(PipelineOperator($doc("$sortByCount" -> s"$$${F.opening}")), Limit(64))
+              "openings" -> List(PipelineOperator(bdoc("$sortByCount" -> s"$$${F.opening}")), Limit(64))
             )
           )
         )
@@ -62,7 +62,7 @@ final private class InsightStorage(val coll: AsyncColl)(using Executor):
     coll:
       _.aggregateList(lila.rating.PerfType.nonPuzzle.size) { framework =>
         import framework.*
-        Match($doc(F.userId -> userId)) -> List(
+        Match(bdoc(F.userId -> userId)) -> List(
           GroupField(F.perf)("nb" -> SumAll)
         )
       }.map:
@@ -77,9 +77,9 @@ object InsightStorage:
 
   import InsightEntry.BSONFields as F
 
-  def selectId(id: String) = $doc(F.id -> id)
-  def selectUserId(id: UserId) = $doc(F.userId -> id)
-  def selectPeers(peers: PeersRatingRange) = $doc(F.rating.$inRange(peers.value))
+  def selectId(id: String) = bdoc(F.id -> id)
+  def selectUserId(id: UserId) = bdoc(F.userId -> id)
+  def selectPeers(peers: PeersRatingRange) = bdoc(F.rating.$inRange(peers.value))
   val sortChronological = $sort.asc(F.date)
   val sortAntiChronological = $sort.desc(F.date)
 

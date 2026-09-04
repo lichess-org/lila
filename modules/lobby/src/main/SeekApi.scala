@@ -18,7 +18,7 @@ final class SeekApi(
 
   private def allCursor =
     coll
-      .find($empty)
+      .find(emptyBdoc)
       .sort($sort.desc("createdAt"))
       .cursor[Seek]()
 
@@ -61,7 +61,7 @@ final class SeekApi(
       .reverse
 
   def find(id: String): Fu[Option[Seek]] =
-    coll.find($id(id)).one[Seek]
+    coll.find(bid(id)).one[Seek]
 
   def insert(seek: Seek) = for
     _ <- coll.insert.one(seek)
@@ -73,18 +73,18 @@ final class SeekApi(
 
   def findByUser(userId: UserId): Fu[List[Seek]] =
     coll
-      .find($doc("user.id" -> userId))
+      .find(bdoc("user.id" -> userId))
       .sort($sort.desc("createdAt"))
       .cursor[Seek]()
       .list(100)
 
   def remove(seek: Seek) =
-    for _ <- coll.delete.one($doc("_id" -> seek.id))
+    for _ <- coll.delete.one(bdoc("_id" -> seek.id))
     yield cacheClear()
 
   def archive(seek: Seek, gameId: GameId) = for
-    _ <- coll.delete.one($id(seek.id))
-    archiveDoc = bsonWriteObjTry[Seek](seek).get ++ $doc(
+    _ <- coll.delete.one(bid(seek.id))
+    archiveDoc = bsonWriteObjTry[Seek](seek).get ++ bdoc(
       "gameId" -> gameId,
       "archivedAt" -> nowInstant
     )
@@ -92,14 +92,14 @@ final class SeekApi(
   yield cacheClear()
 
   def findArchived(gameId: GameId): Fu[Option[Seek]] =
-    archiveColl.find($doc("gameId" -> gameId)).one[Seek]
+    archiveColl.find(bdoc("gameId" -> gameId)).one[Seek]
 
   def removeBy(seekId: String, userId: UserId) =
-    for _ <- coll.delete.one($doc("_id" -> seekId, "user.id" -> userId))
+    for _ <- coll.delete.one(bdoc("_id" -> seekId, "user.id" -> userId))
     yield cacheClear()
 
   def removeByUser(user: User) =
-    for _ <- coll.delete.one($doc("user.id" -> user.id)) yield cacheClear()
+    for _ <- coll.delete.one(bdoc("user.id" -> user.id)) yield cacheClear()
 
 private object SeekApi:
 

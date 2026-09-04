@@ -34,7 +34,7 @@ final class SettingStore[A: BSONHandler: SettingStore.StringReader: SettingStore
 
   def setString(str: String): Funit = (summon[SettingStore.StringReader[A]].read(str)).so(set)
 
-  private val dbId = $id(id)
+  private val dbId = bid(id)
 
   coll.primitiveOne[A](dbId, dbField).map2 { (v: A) =>
     value = init(ConfigValue(default), DbValue(v))

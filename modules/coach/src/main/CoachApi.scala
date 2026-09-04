@@ -18,7 +18,7 @@ final class CoachApi(
   import BsonHandlers.given
 
   lila.common.Bus.sub[lila.core.user.UserDelete]: del =>
-    coll.delete.one($id(del.id)).void
+    coll.delete.one(bid(del.id)).void
 
   def byId[U: UserIdOf](u: U): Fu[Option[Coach]] = coll.byId[Coach](u.id)
 
@@ -42,22 +42,22 @@ final class CoachApi(
 
   def isListedCoach(user: User): Fu[Boolean] =
     (canCoach(user) && user.enabled.yes && user.marks.clean).so:
-      coll.secondary.exists($id(user.id) ++ $doc("listed" -> true))
+      coll.secondary.exists(bid(user.id) ++ bdoc("listed" -> true))
 
   def setSeenAt(user: User): Funit =
     canCoach(user).so:
-      coll.update.one($id(user.id), $set("user.seenAt" -> nowInstant)).void
+      coll.update.one(bid(user.id), $set("user.seenAt" -> nowInstant)).void
 
   def updateRatingFromDb(user: User): Funit =
     canCoach(user).so:
       userApi.perfsOf(user).flatMap { perfs =>
-        coll.update.one($id(perfs.id), $set("user.rating" -> perfs.bestStandardRating)).void
+        coll.update.one(bid(perfs.id), $set("user.rating" -> perfs.bestStandardRating)).void
       }
 
   def update(c: Coach.WithUser, data: CoachProfileForm.Data): Funit =
     coll.update
       .one(
-        $id(c.coach.id),
+        bid(c.coach.id),
         data(c.coach),
         upsert = true
       )
@@ -66,12 +66,12 @@ final class CoachApi(
   def uploadPicture(c: Coach.WithUser, picture: PicfitApi.FilePart): Funit =
     for
       pic <- picfitApi.uploadFile(picture, c.user.id, s"coach:${c.coach.id}".some, requestAutomod = false)
-      _ <- coll.update.one($id(c.coach.id), $set("picture" -> pic.id))
+      _ <- coll.update.one(bid(c.coach.id), $set("picture" -> pic.id))
     yield ()
 
   private val languagesCache = cacheApi.unit[Set[String]]("coach.languages"):
     _.refreshAfterWrite(1.hour).buildAsyncTimeout(): _ =>
-      coll.secondary.distinctEasy[String, Set]("languages", $empty)
+      coll.secondary.distinctEasy[String, Set]("languages", emptyBdoc)
 
   def allLanguages: Fu[Set[String]] = languagesCache.get {}
 
@@ -81,7 +81,7 @@ final class CoachApi(
       userRepo.coll.secondary
         .distinctEasy[FlagCode, Set](
           "profile.country",
-          $doc("roles" -> lila.core.perm.Permission.Coach.dbKey, "enabled" -> true)
+          bdoc("roles" -> lila.core.perm.Permission.Coach.dbKey, "enabled" -> true)
         )
         .map: codes =>
           flagApi.all

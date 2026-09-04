@@ -37,22 +37,22 @@ trait dsl:
 
   def bsonWriteObjTry[A](a: A)(using writer: BSONDocumentWriter[A]) = writer.writeTry(a)
   def bsonWriteOpt[A](a: A)(using writer: BSONWriter[A]) = writer.writeOpt(a)
-  def bsonWriteDoc[A](a: A)(using writer: BSONDocumentWriter[A]) = writer.writeOpt(a) | $empty
+  def bsonWriteDoc[A](a: A)(using writer: BSONDocumentWriter[A]) = writer.writeOpt(a) | emptyBdoc
 
   // **********************************************************************************************//
   // Helpers
-  val $empty: Bdoc = document.asStrict
+  val emptyBdoc: Bdoc = document.asStrict
 
-  def $doc(elements: ElementProducer*): Bdoc = BSONDocument.strict(elements*)
+  def bdoc(elements: ElementProducer*): Bdoc = BSONDocument.strict(elements*)
 
-  def $doc(elements: Iterable[(String, BSONValue)]): Bdoc = BSONDocument.strict(elements)
+  def bdoc(elements: Iterable[(String, BSONValue)]): Bdoc = BSONDocument.strict(elements)
 
-  def $arr(elements: Producer[BSONValue]*): Barr = BSONArray(elements*)
+  def barr(elements: Producer[BSONValue]*): Barr = BSONArray(elements*)
 
-  def $id[T: BSONWriter](id: T): Bdoc = $doc("_id" -> id)
+  def bid[T: BSONWriter](id: T): Bdoc = bdoc("_id" -> id)
 
-  def $inIds[T: BSONWriter](ids: Iterable[T]): Bdoc =
-    $id($doc("$in" -> ids))
+  def inIds[T: BSONWriter](ids: Iterable[T]): Bdoc =
+    bid(bdoc("$in" -> ids))
 
   def $boolean(b: Boolean) = BSONBoolean(b)
   def $string(s: String) = BSONString(s)
@@ -63,42 +63,42 @@ trait dsl:
   // End of Helpers
   // **********************************************************************************************//
 
-  given Zero[Bdoc] = Zero($empty)
+  given Zero[Bdoc] = Zero(emptyBdoc)
 
   // **********************************************************************************************//
   // Top Level Logical Operators
-  def $or(expressions: Bdoc*): Bdoc = $doc("$or" -> expressions)
-  def $and(expressions: Bdoc*): Bdoc = $doc("$and" -> expressions)
-  def $nor(expressions: Bdoc*): Bdoc = $doc("$nor" -> expressions)
-  def $not(expression: Bdoc): Bdoc = $doc("$not" -> expression)
-  def $expr(expression: Bdoc): Bdoc = $doc("$expr" -> expression)
+  def $or(expressions: Bdoc*): Bdoc = bdoc("$or" -> expressions)
+  def $and(expressions: Bdoc*): Bdoc = bdoc("$and" -> expressions)
+  def $nor(expressions: Bdoc*): Bdoc = bdoc("$nor" -> expressions)
+  def $not(expression: Bdoc): Bdoc = bdoc("$not" -> expression)
+  def $expr(expression: Bdoc): Bdoc = bdoc("$expr" -> expression)
 
   // End of Top Level Logical Operators
   // **********************************************************************************************//
 
   // **********************************************************************************************//
   // Top Level Evaluation Operators
-  def $text(term: String): Bdoc = $doc("$text" -> $doc("$search" -> term))
-  def $text(term: String, lang: String): Bdoc = $doc:
-    "$text" -> $doc("$search" -> term, f"$$language" -> lang)
+  def $text(term: String): Bdoc = bdoc("$text" -> bdoc("$search" -> term))
+  def $text(term: String, lang: String): Bdoc = bdoc:
+    "$text" -> bdoc("$search" -> term, f"$$language" -> lang)
 
   // End of Top Level Evaluation Operators
   // **********************************************************************************************//
 
   // **********************************************************************************************//
   // Top Level Field Update Operators
-  def $inc(item: ElementProducer, items: ElementProducer*): Bdoc = $doc("$inc" -> $doc((Seq(item) ++ items)*))
-  def $inc(doc: Bdoc): Bdoc = $doc("$inc" -> doc)
+  def $inc(item: ElementProducer, items: ElementProducer*): Bdoc = bdoc("$inc" -> bdoc((Seq(item) ++ items)*))
+  def $inc(doc: Bdoc): Bdoc = bdoc("$inc" -> doc)
 
   def $mul(item: ElementProducer): Bdoc =
-    $doc("$mul" -> $doc(item))
+    bdoc("$mul" -> bdoc(item))
 
-  def $set(items: ElementProducer*): Bdoc = $doc:
-    "$set" -> items.nonEmpty.so($doc(items*))
-  def $unset(fields: Iterable[String]): Bdoc = $doc:
-    "$unset" -> fields.nonEmpty.so($doc(fields.map(k => (k, BSONString("")))))
-  def $unset(field: String, fields: String*): Bdoc = $doc:
-    "$unset" -> $doc((Seq(field) ++ fields).map(k => (k, BSONString(""))))
+  def $set(items: ElementProducer*): Bdoc = bdoc:
+    "$set" -> items.nonEmpty.so(bdoc(items*))
+  def $unset(fields: Iterable[String]): Bdoc = bdoc:
+    "$unset" -> fields.nonEmpty.so(bdoc(fields.map(k => (k, BSONString("")))))
+  def $unset(field: String, fields: String*): Bdoc = bdoc:
+    "$unset" -> bdoc((Seq(field) ++ fields).map(k => (k, BSONString(""))))
 
   def $unsetCompute[A](prev: A, next: A, fields: (String, A => Option[?])*): Bdoc =
     $unset:
@@ -109,21 +109,21 @@ trait dsl:
     if value then $set(field -> true) else $unset(field)
   def $setsAndUnsets(items: (String, Option[BSONValue])*): Bdoc =
     $set(items.collect { case (k, Some(v)) => k -> v }*) ++ $unset(items.collect { case (k, None) => k })
-  def $min(item: ElementProducer): Bdoc = $doc("$min" -> $doc(item))
-  def $max(item: ElementProducer): Bdoc = $doc("$max" -> $doc(item))
-  def $divide[A: BSONWriter, B: BSONWriter](a: A, b: B): Bdoc = $doc("$divide" -> $arr(a, b))
-  def $multiply[A: BSONWriter, B: BSONWriter](a: A, b: B): Bdoc = $doc("$multiply" -> $arr(a, b))
+  def $min(item: ElementProducer): Bdoc = bdoc("$min" -> bdoc(item))
+  def $max(item: ElementProducer): Bdoc = bdoc("$max" -> bdoc(item))
+  def $divide[A: BSONWriter, B: BSONWriter](a: A, b: B): Bdoc = bdoc("$divide" -> barr(a, b))
+  def $multiply[A: BSONWriter, B: BSONWriter](a: A, b: B): Bdoc = bdoc("$multiply" -> barr(a, b))
 
   // Helpers
-  def $eq[T: BSONWriter](value: T) = $doc("$eq" -> value)
-  def $gt[T: BSONWriter](value: T) = $doc("$gt" -> value)
-  def $gte[T: BSONWriter](value: T) = $doc("$gte" -> value)
-  def $in[T: BSONWriter](values: T*) = $doc("$in" -> values)
-  def $lt[T: BSONWriter](value: T) = $doc("$lt" -> value)
-  def $lte[T: BSONWriter](value: T) = $doc("$lte" -> value)
-  def $ne[T: BSONWriter](value: T) = $doc("$ne" -> value)
-  def $nin[T: BSONWriter](values: T*) = $doc("$nin" -> values)
-  def $exists(value: Boolean) = $doc("$exists" -> value)
+  def $eq[T: BSONWriter](value: T) = bdoc("$eq" -> value)
+  def $gt[T: BSONWriter](value: T) = bdoc("$gt" -> value)
+  def $gte[T: BSONWriter](value: T) = bdoc("$gte" -> value)
+  def $in[T: BSONWriter](values: T*) = bdoc("$in" -> values)
+  def $lt[T: BSONWriter](value: T) = bdoc("$lt" -> value)
+  def $lte[T: BSONWriter](value: T) = bdoc("$lte" -> value)
+  def $ne[T: BSONWriter](value: T) = bdoc("$ne" -> value)
+  def $nin[T: BSONWriter](values: T*) = bdoc("$nin" -> values)
+  def $exists(value: Boolean) = bdoc("$exists" -> value)
 
   // End of Top Level Field Update Operators
   // **********************************************************************************************//
@@ -132,27 +132,27 @@ trait dsl:
   // Top Level Array Update Operators
 
   def $addToSet(item: ElementProducer, items: ElementProducer*): Bdoc =
-    $doc("$addToSet" -> $doc((Seq(item) ++ items)*))
+    bdoc("$addToSet" -> bdoc((Seq(item) ++ items)*))
 
   def $pop(item: (String, Int)): Bdoc =
     if item._2 != -1 && item._2 != 1 then
       throw new IllegalArgumentException(s"${item._2} is not equal to: -1 | 1")
-    $doc("$pop" -> $doc(item))
+    bdoc("$pop" -> bdoc(item))
 
-  def $push(item: ElementProducer): Bdoc = $doc("$push" -> $doc(item))
+  def $push(item: ElementProducer): Bdoc = bdoc("$push" -> bdoc(item))
 
-  def $pushEach[T: BSONWriter](field: String, values: T*): Bdoc = $doc:
-    "$push" -> $doc:
-      field -> $doc:
+  def $pushEach[T: BSONWriter](field: String, values: T*): Bdoc = bdoc:
+    "$push" -> bdoc:
+      field -> bdoc:
         "$each" -> values
 
-  def $pull(item: ElementProducer): Bdoc = $doc("$pull" -> $doc(item))
+  def $pull(item: ElementProducer): Bdoc = bdoc("$pull" -> bdoc(item))
 
   def $addOrPull[T: BSONWriter](key: String, value: T, add: Boolean): Bdoc =
-    $doc((if add then "$addToSet" else "$pull") -> $doc(key -> value))
+    bdoc((if add then "$addToSet" else "$pull") -> bdoc(key -> value))
 
   def $ifNull(expr: Bdoc, replacement: Bdoc): Bdoc =
-    $doc("$ifNull" -> $arr(expr, replacement))
+    bdoc("$ifNull" -> barr(expr, replacement))
 
   // End ofTop Level Array Update Operators
   // **********************************************************************************************//
@@ -187,23 +187,23 @@ trait dsl:
     */
   class CompositeExpression(val field: String, val value: Bdoc) extends Expression[Bdoc]:
     private def and(more: Bdoc): CompositeExpression = CompositeExpression(field, value ++ more)
-    def $gt[T: BSONWriter](v: T): CompositeExpression = and($doc("$gt" -> v))
-    def $gte[T: BSONWriter](v: T): CompositeExpression = and($doc("$gte" -> v))
-    def $lt[T: BSONWriter](v: T): CompositeExpression = and($doc("$lt" -> v))
-    def $lte[T: BSONWriter](v: T): CompositeExpression = and($doc("$lte" -> v))
+    def $gt[T: BSONWriter](v: T): CompositeExpression = and(bdoc("$gt" -> v))
+    def $gte[T: BSONWriter](v: T): CompositeExpression = and(bdoc("$gte" -> v))
+    def $lt[T: BSONWriter](v: T): CompositeExpression = and(bdoc("$lt" -> v))
+    def $lte[T: BSONWriter](v: T): CompositeExpression = and(bdoc("$lte" -> v))
     def $inRange[T: BSONWriter](range: PairOf[T]): CompositeExpression =
-      and($doc("$gte" -> range._1, "$lte" -> range._2))
+      and(bdoc("$gte" -> range._1, "$lte" -> range._2))
 
   def dateBetween(field: String, since: Option[Instant], until: Option[Instant]): Bdoc = (since, until) match
     case (Some(since), None) => field.$gte(since)
     case (None, Some(until)) => field.$lt(until)
     case (Some(since), Some(until)) => field.$gte(since).$lt(until)
-    case _ => $empty
+    case _ => emptyBdoc
 
   object $sort:
 
-    def asc(field: String) = $doc(field -> 1)
-    def desc(field: String) = $doc(field -> -1)
+    def asc(field: String) = bdoc(field -> 1)
+    def desc(field: String) = bdoc(field -> -1)
 
     val naturalAsc = asc("$natural")
     val naturalDesc = desc("$natural")
@@ -213,12 +213,12 @@ trait dsl:
     val createdDesc = desc("createdAt")
 
     def orderField[A: BSONWriter](values: Iterable[A], field: String = "_id") =
-      $doc("_order" -> $doc("$indexOfArray" -> $arr(values, "$" + field)))
+      bdoc("_order" -> bdoc("$indexOfArray" -> barr(values, "$" + field)))
 
   object $lookup:
     def pipelineFull(from: String, as: String, let: Bdoc, pipe: List[Bdoc]): Bdoc =
-      $doc(
-        "$lookup" -> $doc(
+      bdoc(
+        "$lookup" -> bdoc(
           "from" -> from,
           "as" -> as,
           "let" -> let,
@@ -229,13 +229,13 @@ trait dsl:
     // mongodb 5+ Correlated Subqueries Using Concise Syntax
     // https://www.mongodb.com/docs/manual/reference/operator/aggregation/lookup/#correlated-subqueries-using-concise-syntax
     def simple(from: CollName, as: String, local: String, foreign: String, pipe: List[Bdoc]): Bdoc =
-      val lookup = $doc(
+      val lookup = bdoc(
         "from" -> from.value,
         "as" -> as,
         "localField" -> local,
         "foreignField" -> foreign
-      ) ++ pipe.nonEmpty.so($doc("pipeline" -> pipe))
-      $doc("$lookup" -> lookup)
+      ) ++ pipe.nonEmpty.so(bdoc("pipeline" -> pipe))
+      bdoc("$lookup" -> lookup)
 
     def simple(from: Coll, as: String, local: String, foreign: String, pipe: List[Bdoc] = Nil): Bdoc =
       simple(CollName(from.name), as, local, foreign, pipe)
@@ -244,37 +244,37 @@ trait dsl:
     def $eq[T: BSONWriter](value: T): SimpleExpression[BSONValue] =
       SimpleExpression(field, summon[BSONWriter[T]].writeTry(value).get)
     def $gt[T: BSONWriter](value: T): CompositeExpression =
-      CompositeExpression(field, $doc("$gt" -> value))
+      CompositeExpression(field, bdoc("$gt" -> value))
     def $gte[T: BSONWriter](value: T): CompositeExpression =
-      CompositeExpression(field, $doc("$gte" -> value))
+      CompositeExpression(field, bdoc("$gte" -> value))
     def $lt[T: BSONWriter](value: T): CompositeExpression =
-      CompositeExpression(field, $doc("$lt" -> value))
+      CompositeExpression(field, bdoc("$lt" -> value))
     def $lte[T: BSONWriter](value: T): CompositeExpression =
-      CompositeExpression(field, $doc("$lte" -> value))
+      CompositeExpression(field, bdoc("$lte" -> value))
     def $inRange[T: BSONWriter](range: PairOf[T]): CompositeExpression =
-      CompositeExpression(field, $doc("$gte" -> range._1, "$lte" -> range._2))
+      CompositeExpression(field, bdoc("$gte" -> range._1, "$lte" -> range._2))
     def $ne[T: BSONWriter](value: T): SimpleExpression[Bdoc] =
-      SimpleExpression(field, $doc("$ne" -> value))
+      SimpleExpression(field, bdoc("$ne" -> value))
     def $in[T: BSONWriter](values: Iterable[T]): SimpleExpression[Bdoc] =
-      SimpleExpression(field, $doc("$in" -> values))
+      SimpleExpression(field, bdoc("$in" -> values))
     def $nin[T: BSONWriter](values: Iterable[T]): SimpleExpression[Bdoc] =
-      SimpleExpression(field, $doc("$nin" -> values))
+      SimpleExpression(field, bdoc("$nin" -> values))
     def $exists(v: Boolean): SimpleExpression[Bdoc] =
-      SimpleExpression(field, $doc("$exists" -> v))
+      SimpleExpression(field, bdoc("$exists" -> v))
     def $mod(divisor: Int, remainder: Int): SimpleExpression[Bdoc] =
-      SimpleExpression(field, $doc("$mod" -> BSONArray(divisor, remainder)))
+      SimpleExpression(field, bdoc("$mod" -> BSONArray(divisor, remainder)))
     def $regex(value: String, options: String = ""): SimpleExpression[BSONRegex] =
       SimpleExpression(field, BSONRegex(value, options))
     def $startsWith(value: String, options: String = ""): SimpleExpression[BSONRegex] =
       field.$regex(s"^$value", options)
     def $all[T: BSONWriter](values: Seq[T]): SimpleExpression[Bdoc] =
-      SimpleExpression(field, $doc("$all" -> values))
+      SimpleExpression(field, bdoc("$all" -> values))
     def $elemMatch(query: ElementProducer*): SimpleExpression[Bdoc] =
-      SimpleExpression(field, $doc("$elemMatch" -> $doc(query*)))
-    def $size(s: Int): SimpleExpression[Bdoc] = SimpleExpression(field, $doc("$size" -> s))
+      SimpleExpression(field, bdoc("$elemMatch" -> bdoc(query*)))
+    def $size(s: Int): SimpleExpression[Bdoc] = SimpleExpression(field, bdoc("$size" -> s))
 
   given toBSONDocument[V](using BSONWriter[V]): Conversion[Expression[V], Bdoc] =
-    expression => $doc(expression.field -> expression.value)
+    expression => bdoc(expression.field -> expression.value)
 
   object toBSONValueOption:
     given [V](using w: BSONWriter[V]): Conversion[Option[V], Option[BSONValue]] =
@@ -343,16 +343,16 @@ object dsl extends dsl with Handlers:
             .writeOpt(id)
             .so:
               case BSONArray(Seq(id, proj: Bdoc)) => byIdProj[D](id, proj)
-              case id => one[D]($id(id))
+              case id => one[D](bid(id))
 
     def byIdProj[D](using BSONDocumentReader[D]): [I] => (I, Bdoc) => BSONWriter[I] ?=> Fu[Option[D]] =
-      [I] => (id: I, projection: Bdoc) => one[D]($id(id), projection)
+      [I] => (id: I, projection: Bdoc) => one[D](bid(id), projection)
 
     def byIds[D: BSONDocumentReader, I: BSONWriter](
         ids: Iterable[I],
         readPref: ReadPref = _.pri
     ): Fu[List[D]] =
-      ids.nonEmpty.so(list[D]($inIds(ids), readPref))
+      ids.nonEmpty.so(list[D](inIds(ids), readPref))
 
     def byIdsProj[D: BSONDocumentReader, I: BSONWriter](
         ids: Iterable[I],
@@ -360,7 +360,7 @@ object dsl extends dsl with Handlers:
         readPref: ReadPref = _.pri
     ): Fu[List[D]] =
       ids.nonEmpty.so:
-        coll.find($inIds(ids), projection.some).cursor[D](readPref).listAll()
+        coll.find(inIds(ids), projection.some).cursor[D](readPref).listAll()
 
     def byStringIds[D: BSONDocumentReader](
         ids: Iterable[String],
@@ -397,8 +397,8 @@ object dsl extends dsl with Handlers:
         readPref: ReadPref = _.pri
     )(docId: D => I): Fu[Map[I, D]] = ids.nonEmpty.so:
       projection
-        .fold(coll.find($inIds(ids))): proj =>
-          coll.find($inIds(ids), proj.some)
+        .fold(coll.find(inIds(ids))): proj =>
+          coll.find(inIds(ids), proj.some)
         .cursor[D](readPref)
         .collect[List](Int.MaxValue)
         .map(_.mapBy(docId))
@@ -421,7 +421,7 @@ object dsl extends dsl with Handlers:
 
     def primitive[V: BSONReader](selector: Bdoc, field: String): Fu[List[V]] =
       coll
-        .find(selector, $doc(field -> true).some)
+        .find(selector, bdoc(field -> true).some)
         .cursor[Bdoc]()
         .list(Int.MaxValue)
         .dmap:
@@ -429,7 +429,7 @@ object dsl extends dsl with Handlers:
 
     def primitive[V: BSONReader](selector: Bdoc, sort: Bdoc, field: String): Fu[List[V]] =
       coll
-        .find(selector, $doc(field -> true).some)
+        .find(selector, bdoc(field -> true).some)
         .sort(sort)
         .cursor[Bdoc]()
         .list(Int.MaxValue)
@@ -439,7 +439,7 @@ object dsl extends dsl with Handlers:
     def primitive[V: BSONReader](selector: Bdoc, sort: Bdoc, nb: Int, field: String): Fu[List[V]] =
       (nb > 0).so:
         coll
-          .find(selector, $doc(field -> true).some)
+          .find(selector, bdoc(field -> true).some)
           .sort(sort)
           .cursor[Bdoc]()
           .list(nb)
@@ -448,14 +448,14 @@ object dsl extends dsl with Handlers:
 
     def primitiveOne[V: BSONReader](selector: Bdoc, field: String): Fu[Option[V]] =
       coll
-        .find(selector, $doc(field -> true).some)
+        .find(selector, bdoc(field -> true).some)
         .one[Bdoc]
         .dmap:
           _.flatMap { _.getAsOpt[V](field) }
 
     def primitiveOne[V: BSONReader](selector: Bdoc, sort: Bdoc, field: String): Fu[Option[V]] =
       coll
-        .find(selector, $doc(field -> true).some)
+        .find(selector, bdoc(field -> true).some)
         .sort(sort)
         .one[Bdoc]
         .dmap:
@@ -467,7 +467,7 @@ object dsl extends dsl with Handlers:
         fieldExtractor: Bdoc => Option[V]
     ): Fu[Map[I, V]] =
       coll
-        .find($inIds(ids), $doc(field -> true).some)
+        .find(inIds(ids), bdoc(field -> true).some)
         .cursor[Bdoc]()
         .list(Int.MaxValue)
         .dmap:

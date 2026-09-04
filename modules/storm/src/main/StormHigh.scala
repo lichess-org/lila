@@ -46,10 +46,10 @@ final class StormHighApi(coll: Coll, cacheApi: CacheApi)(using Executor):
     coll
       .aggregateOne(_.sec): framework =>
         import framework.*
-        def matchSince(sinceId: UserId => StormDay.Id) = Match($doc("_id".$gte(sinceId(userId))))
+        def matchSince(sinceId: UserId => StormDay.Id) = Match(bdoc("_id".$gte(sinceId(userId))))
         val scoreSort = Sort(Descending("score"))
-        Match($doc("_id".$lte(StormDay.Id.today(userId)).$gt(StormDay.Id.allTime(userId)))) -> List(
-          Project($doc("score" -> true)),
+        Match(bdoc("_id".$lte(StormDay.Id.today(userId)).$gt(StormDay.Id.allTime(userId)))) -> List(
+          Project(bdoc("score" -> true)),
           Sort(Descending("_id")),
           Facet(
             List(

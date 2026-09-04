@@ -139,7 +139,7 @@ object ChapterPreview:
   object bson:
     import BSONHandlers.given
 
-    val projection = $doc(
+    val projection = bdoc(
       "name" -> true,
       "denorm" -> true,
       "tags" -> true,

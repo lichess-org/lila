@@ -15,13 +15,13 @@ final class ForumPostRepo(val coll: Coll, filter: Filter = Safe)(using Executor)
 
   import BSONHandlers.given
 
-  private val noTroll = $doc("troll" -> false)
+  private val noTroll = bdoc("troll" -> false)
   private val trollFilter = filter match
     case Safe => noTroll
-    case SafeAnd(u) => $or(noTroll, $doc("userId" -> u))
-    case Unsafe => $empty
+    case SafeAnd(u) => $or(noTroll, bdoc("userId" -> u))
+    case Unsafe => emptyBdoc
 
-  private val miniProjection = $doc(
+  private val miniProjection = bdoc(
     "topicId" -> true,
     "userId" -> true,
     "text" -> true,
@@ -33,7 +33,7 @@ final class ForumPostRepo(val coll: Coll, filter: Filter = Safe)(using Executor)
     coll.byOrderedIds[ForumPostMini, ForumPostId](ids, miniProjection.some)(_.id)
 
   def countBeforePost(post: ForumPost): Fu[Int] =
-    coll.countSel(selectTopic(post.topicId) ++ $doc("createdAt" -> $lt(post.createdAt)))
+    coll.countSel(selectTopic(post.topicId) ++ bdoc("createdAt" -> $lt(post.createdAt)))
 
   def isFirstPost(topicId: ForumTopicId, postId: ForumPostId): Fu[Boolean] =
     coll.primitiveOne[ForumPostId](selectTopic(topicId), $sort.createdAsc, "_id").dmap { _ contains postId }
@@ -56,7 +56,7 @@ final class ForumPostRepo(val coll: Coll, filter: Filter = Safe)(using Executor)
 
   def recentIdsInCateg(categId: ForumCategId, nb: Int): Fu[List[ForumPostId]] =
     coll
-      .find(selectCateg(categId) ++ selectNotErased, $id(true).some)
+      .find(selectCateg(categId) ++ selectNotErased, bid(true).some)
       .sort($sort.createdDesc)
       .cursor[Bdoc]()
       .list(nb)
@@ -66,46 +66,46 @@ final class ForumPostRepo(val coll: Coll, filter: Filter = Safe)(using Executor)
 
   def allByUserCursor(user: User): PekkoStreamCursor[ForumPost] =
     coll
-      .find($doc("userId" -> user.id))
+      .find(bdoc("userId" -> user.id))
       .cursor[ForumPost](ReadPref.sec)
 
   def countByCateg(categ: ForumCateg): Fu[Int] =
     coll.countSel(selectCateg(categ.id))
 
   def remove(post: ForumPost): Funit =
-    coll.delete.one($id(post.id)).void
+    coll.delete.one(bid(post.id)).void
 
   def removeByTopic(topicId: ForumTopicId): Funit =
     coll.delete.one(selectTopic(topicId)).void
 
-  def selectTopic(topicId: ForumTopicId) = $doc("topicId" -> topicId) ++ trollFilter
+  def selectTopic(topicId: ForumTopicId) = bdoc("topicId" -> topicId) ++ trollFilter
 
-  def selectCateg(categId: ForumCategId) = $doc("categId" -> categId) ++ trollFilter
-  def selectCategs(categIds: List[ForumCategId]) = $doc("categId".$in(categIds)) ++ trollFilter
+  def selectCateg(categId: ForumCategId) = bdoc("categId" -> categId) ++ trollFilter
+  def selectCategs(categIds: List[ForumCategId]) = bdoc("categId".$in(categIds)) ++ trollFilter
 
-  val selectNotErased = $doc("erasedAt".$exists(false))
+  val selectNotErased = bdoc("erasedAt".$exists(false))
 
   def selectLangs(langs: List[String]) =
-    if langs.isEmpty then $empty
-    else $doc("lang".$in(langs))
+    if langs.isEmpty then emptyBdoc
+    else bdoc("lang".$in(langs))
 
   def findDuplicate(post: ForumPost): Fu[Option[ForumPost]] =
     coll.one:
-      $doc(
+      bdoc(
         "createdAt".$gt(nowInstant.minusHours(1)),
         "userId" -> post.userId,
         "text" -> post.text
       )
 
   def idsByTopicId(topicId: ForumTopicId): Fu[List[ForumPostId]] =
-    coll.distinctEasy("_id", $doc("topicId" -> topicId), _.sec)
+    coll.distinctEasy("_id", bdoc("topicId" -> topicId), _.sec)
 
   def allUserIdsByTopicId(topicId: ForumTopicId): Fu[List[UserId]] =
-    coll.distinctEasy("userId", $doc("topicId" -> topicId) ++ selectNotErased, _.sec)
+    coll.distinctEasy("userId", bdoc("topicId" -> topicId) ++ selectNotErased, _.sec)
 
   def eraseAllBy(id: UserId) =
     coll.update.one(
-      $doc("userId" -> id),
-      $set($doc("userId" -> UserId.ghost, "text" -> "", "erasedAt" -> nowInstant)),
+      bdoc("userId" -> id),
+      $set(bdoc("userId" -> UserId.ghost, "text" -> "", "erasedAt" -> nowInstant)),
       multi = true
     )

@@ -23,12 +23,12 @@ final class SessionStore(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Exe
   private val authCache = cacheApi[SessionId, Option[AuthInfo]](65_536, "security.session.info"):
     _.expireAfterAccess(5.minutes).buildAsyncFuture[SessionId, Option[AuthInfo]]: id =>
       coll
-        .find($doc("_id" -> id, "up" -> true))
+        .find(bdoc("_id" -> id, "up" -> true))
         .one[Bdoc]
         .map:
           _.flatMap: doc =>
             if doc.getAsOpt[Instant]("date").forall(_.isBefore(nowInstant.minusHours(12))) then
-              coll.updateFieldUnchecked($id(id), "date", nowInstant)
+              coll.updateFieldUnchecked(bid(id), "date", nowInstant)
             doc.getAsOpt[UserId]("user").map { AuthInfo(_, doc.contains("fp")) }
 
   def authInfo(sessionId: SessionId) = authCache.get(sessionId)
@@ -36,7 +36,7 @@ final class SessionStore(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Exe
   private def uncache(sessionId: SessionId): Unit =
     blocking { blockingUncache(sessionId) }
   private def uncacheAllOf(userId: UserId): Funit =
-    coll.distinctEasy[SessionId, Seq]("_id", $doc("user" -> userId)).map { ids =>
+    coll.distinctEasy[SessionId, Seq]("_id", bdoc("user" -> userId)).map { ids =>
       blocking:
         ids.foreach(blockingUncache)
     }
@@ -54,12 +54,12 @@ final class SessionStore(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Exe
       pwned: IsPwned
   ): Fu[SessionId] =
     val sessionId = SessionId(scalalib.SecureRandom.nextString(22))
-    val baseDoc = $doc(
+    val baseDoc = bdoc(
       "user" -> userId,
       "ip" -> HTTPRequest.ipAddress(req),
       "ua" -> HTTPRequest.userAgent(req).some.filter(_ != UserAgent.zero)
     )
-    val newDoc = baseDoc ++ $doc(
+    val newDoc = baseDoc ++ bdoc(
       "_id" -> sessionId,
       "date" -> nowInstant,
       "api" -> apiVersion, // lichobile
@@ -69,13 +69,13 @@ final class SessionStore(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Exe
     )
     val updateDb =
       if isSignup then
-        val doc = newDoc ++ $doc("signup" -> true, "up" -> false)
+        val doc = newDoc ++ bdoc("signup" -> true, "up" -> false)
         coll.insert.one(doc).void
       else
-        val prevSelector = baseDoc ++ $doc("up" -> false, "signup".$ne(true))
+        val prevSelector = baseDoc ++ bdoc("up" -> false, "signup".$ne(true))
         for
           _ <- coll.delete.one(prevSelector)
-          doc = newDoc ++ $doc("up" -> true)
+          doc = newDoc ++ bdoc("up" -> true)
           _ <- coll.insert.one(doc)
         yield ()
     for _ <- updateDb yield sessionId
@@ -92,8 +92,8 @@ final class SessionStore(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Exe
       .getOrElse(HTTPRequest.userAgent(req).value)
     coll.update
       .one(
-        $id(id),
-        $doc(
+        bid(id),
+        bdoc(
           "_id" -> id,
           "user" -> userId,
           "ip" -> HTTPRequest.ipAddress(req),
@@ -107,16 +107,16 @@ final class SessionStore(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Exe
       .void
 
   def delete(sessionId: SessionId): Funit =
-    for _ <- coll.update.one($id(sessionId), $set("up" -> false))
+    for _ <- coll.update.one(bid(sessionId), $set("up" -> false))
     yield uncache(sessionId)
 
   def closeUserAndSessionId(userId: UserId, sessionId: SessionId): Funit =
-    for _ <- coll.update.one($doc("user" -> userId, "_id" -> sessionId, "up" -> true), $set("up" -> false))
+    for _ <- coll.update.one(bdoc("user" -> userId, "_id" -> sessionId, "up" -> true), $set("up" -> false))
     yield uncache(sessionId)
 
   def closeUserExceptSessionId(userId: UserId, sessionId: SessionId): Funit =
     for _ <- coll.update.one(
-        $doc("user" -> userId, "_id" -> $ne(sessionId), "up" -> true),
+        bdoc("user" -> userId, "_id" -> $ne(sessionId), "up" -> true),
         $set("up" -> false),
         multi = true
       )
@@ -124,28 +124,28 @@ final class SessionStore(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Exe
 
   def closeAllSessionsOf(userId: UserId): Funit =
     for _ <- coll.update.one(
-        $doc("user" -> userId, "up" -> true),
+        bdoc("user" -> userId, "up" -> true),
         $set("up" -> false),
         multi = true
       )
     yield uncacheAllOf(userId)
 
   def deleteAllSessionsOf(userId: UserId): Funit =
-    for _ <- coll.delete.one($doc("user" -> userId))
+    for _ <- coll.delete.one(bdoc("user" -> userId))
     yield uncacheAllOf(userId)
 
   private given BSONDocumentHandler[UserSession] = Macros.handler[UserSession]
   def openSessions(userId: UserId, nb: Int): Fu[List[UserSession]] =
     coll
-      .find($doc("user" -> userId, "up" -> true))
-      .sort($doc("date" -> -1))
+      .find(bdoc("user" -> userId, "up" -> true))
+      .sort(bdoc("date" -> -1))
       .cursor[UserSession](ReadPref.sec)
       .list(nb)
 
   def allSessions(userId: UserId): PekkoStreamCursor[UserSession] =
     coll
-      .find($doc("user" -> userId))
-      .sort($doc("date" -> -1))
+      .find(bdoc("user" -> userId))
+      .sort(bdoc("date" -> -1))
       .cursor[UserSession](ReadPref.sec)
 
   def setFingerPrint(id: SessionId, fp: FingerPrint): Fu[FingerHash] =
@@ -153,7 +153,7 @@ final class SessionStore(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Exe
       case None => fufail(s"Can't hash $id's fingerprint $fp")
       case Some(hash) =>
         for
-          _ <- coll.updateField($id(id), "fp", hash)
+          _ <- coll.updateField(bid(id), "fp", hash)
           _ = authInfo(id).foreach:
             _.foreach: i =>
               authCache.put(id, fuccess(i.copy(hasFp = true).some))
@@ -162,7 +162,7 @@ final class SessionStore(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Exe
   def chronoInfoByUser(user: User): Fu[List[Info]] =
     coll
       .find(
-        $doc(
+        bdoc(
           "user" -> user.id,
           "date".$gt(nowInstant.minusYears(1))
         )
@@ -173,7 +173,7 @@ final class SessionStore(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Exe
 
   // remains of never-confirmed accounts that got cleaned up
   private[security] def deletePreviousSessions(user: User) =
-    coll.delete.one($doc("user" -> user.id, "date".$lt(user.createdAt))).void
+    coll.delete.one(bdoc("user" -> user.id, "date".$lt(user.createdAt))).void
 
   private case class DedupInfo(_id: SessionId, ip: String, ua: String):
     def compositeKey = s"$ip $ua"
@@ -181,8 +181,8 @@ final class SessionStore(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Exe
 
   def dedup(userId: UserId, keepSessionId: SessionId): Funit = for
     sessions <- coll
-      .find($doc("user" -> userId, "up" -> true))
-      .sort($doc("date" -> -1))
+      .find(bdoc("user" -> userId, "up" -> true))
+      .sort(bdoc("date" -> -1))
       .cursor[DedupInfo]()
       .list(1000)
     olds = sessions
@@ -192,26 +192,26 @@ final class SessionStore(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Exe
       .flatMap(_.drop(1))
       .filter(_._id != keepSessionId)
       .map(_._id)
-    _ <- coll.delete.one($inIds(olds)).void
+    _ <- coll.delete.one(inIds(olds)).void
     _ <- uncacheAllOf(userId)
   yield ()
 
   def shareAnIpOrFp(users: PairOf[UserId]): Fu[Boolean] =
     coll.aggregateExists(_.sec): framework =>
       import framework.*
-      Match($doc("user".$in(users.asList))) -> List(
+      Match(bdoc("user".$in(users.asList))) -> List(
         Limit(500),
         Project(
-          $doc(
+          bdoc(
             "_id" -> false,
             "user" -> true,
-            "x" -> $arr("$ip", "$fp")
+            "x" -> barr("$ip", "$fp")
           )
         ),
         UnwindField("x"),
         GroupField("x")("users" -> AddFieldToSet("user")),
         Match(
-          $doc(
+          bdoc(
             "_id".$ne(BSONNull),
             "users.1".$exists(true)
           )
@@ -221,12 +221,12 @@ final class SessionStore(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Exe
 
   private[security] def recentByIpExists(ip: IpAddress, since: FiniteDuration): Fu[Boolean] =
     coll.secondary.exists:
-      $doc("ip" -> ip, "date" -> $gt(nowInstant.minusMinutes(since.toMinutes.toInt)))
+      bdoc("ip" -> ip, "date" -> $gt(nowInstant.minusMinutes(since.toMinutes.toInt)))
 
   private[security] def recentByPrintExists(fp: FingerPrint): Fu[Boolean] =
     lila.security.FingerHash.from(fp).so { hash =>
       coll.secondary.exists:
-        $doc("fp" -> hash, "date" -> $gt(nowInstant.minusDays(7)))
+        bdoc("fp" -> hash, "date" -> $gt(nowInstant.minusDays(7)))
     }
 
 object SessionStore:

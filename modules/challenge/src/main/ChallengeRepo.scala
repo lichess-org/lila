@@ -13,12 +13,12 @@ final private class ChallengeRepo(colls: ChallengeColls)(using
 
   import lila.core.game.maxPlayingRealtime
 
-  def byId(id: ChallengeId) = coll.find($id(id)).one[Challenge]
+  def byId(id: ChallengeId) = coll.find(bid(id)).one[Challenge]
 
   def byIdFor(id: ChallengeId, dest: User) =
-    coll.find($id(id) ++ $doc("destUser.id" -> dest.id)).one[Challenge]
+    coll.find(bid(id) ++ bdoc("destUser.id" -> dest.id)).one[Challenge]
 
-  def exists(id: ChallengeId) = coll.countSel($id(id)).dmap(0 <)
+  def exists(id: ChallengeId) = coll.countSel(bid(id)).dmap(0 <)
 
   def insert(c: Challenge): Funit =
     coll.insert.one(c) >> c.challengerUser.so: challenger =>
@@ -26,22 +26,22 @@ final private class ChallengeRepo(colls: ChallengeColls)(using
         case challenges if challenges.sizeIs <= maxPlayingRealtime.value => funit
         case challenges => challenges.drop(maxPlayingRealtime.value).map(_.id).sequentiallyVoid(remove)
 
-  def update(c: Challenge): Funit = coll.update.one($id(c.id), c).void
+  def update(c: Challenge): Funit = coll.update.one(bid(c.id), c).void
 
   private def createdList(selector: Bdoc, max: Int): Fu[List[Challenge]] =
     coll.find(selectCreated ++ selector).sort($sort.asc("createdAt")).cursor[Challenge]().list(max)
 
   def createdByChallengerId(max: Int = 50)(userId: UserId): Fu[List[Challenge]] =
-    createdList($doc("challenger.id" -> userId), max)
+    createdList(bdoc("challenger.id" -> userId), max)
 
   def createdByDestId(max: Int = 50)(userId: UserId): Fu[List[Challenge]] =
-    createdList($doc("destUser.id" -> userId), max)
+    createdList(bdoc("destUser.id" -> userId), max)
 
   def createdByPopularDestId(max: Int = 50)(userId: UserId): Fu[List[Challenge]] = for
-    realTime <- createdList($doc("destUser.id" -> userId, "timeControl.l".$exists(true)), max)
+    realTime <- createdList(bdoc("destUser.id" -> userId, "timeControl.l".$exists(true)), max)
     corres <- (realTime.sizeIs < max).so(
       createdList(
-        $doc($doc("destUser.id" -> userId), "timeControl.l".$exists(false)),
+        bdoc(bdoc("destUser.id" -> userId), "timeControl.l".$exists(false)),
         max - realTime.size
       )
     )
@@ -50,9 +50,9 @@ final private class ChallengeRepo(colls: ChallengeColls)(using
   def setChallenger(c: Challenge, color: Option[Color]) =
     coll.update
       .one(
-        $id(c.id),
-        $set($doc("challenger" -> c.challenger) ++ color.so { c =>
-          $doc("colorChoice" -> Challenge.ColorChoice(c), "finalColor" -> c)
+        bid(c.id),
+        $set(bdoc("challenger" -> c.challenger) ++ color.so { c =>
+          bdoc("colorChoice" -> Challenge.ColorChoice(c), "finalColor" -> c)
         })
       )
       .void
@@ -69,7 +69,7 @@ final private class ChallengeRepo(colls: ChallengeColls)(using
       destUserId <- c.destUserId
       if c.active
     yield coll.one[Challenge](
-      selectCreated ++ $doc(
+      selectCreated ++ bdoc(
         challengerSelect,
         "destUser.id" -> destUserId
       )
@@ -82,12 +82,12 @@ final private class ChallengeRepo(colls: ChallengeColls)(using
     case None => insert(c)
 
   private[challenge] def countCreatedByDestId(userId: UserId): Fu[Int] =
-    coll.countSel(selectCreated ++ $doc("destUser.id" -> userId))
+    coll.countSel(selectCreated ++ bdoc("destUser.id" -> userId))
 
   private[challenge] def realTimeUnseenSince(date: Instant, max: Int): Fu[List[Challenge]] =
     coll
       .find(
-        $doc(
+        bdoc(
           "seenAt".$lt(date),
           "status" -> Status.Created.id,
           "timeControl.l".$exists(true)
@@ -102,9 +102,9 @@ final private class ChallengeRepo(colls: ChallengeColls)(using
   def setSeenAgain(id: ChallengeId) =
     coll.update
       .one(
-        $id(id),
-        $doc(
-          "$set" -> $doc(
+        bid(id),
+        bdoc(
+          "$set" -> bdoc(
             "status" -> Status.Created.id,
             "seenAt" -> nowInstant,
             "expiresAt" -> inTwoWeeks
@@ -114,26 +114,26 @@ final private class ChallengeRepo(colls: ChallengeColls)(using
       .void
 
   def setSeen(id: ChallengeId) =
-    coll.updateField($id(id), "seenAt", nowInstant).void
+    coll.updateField(bid(id), "seenAt", nowInstant).void
 
   def offline(challenge: Challenge) = setStatus(challenge, Status.Offline, Some(_.plusHours(3)))
   def cancel(challenge: Challenge) = setStatus(challenge, Status.Canceled, Some(_.plusHours(3)))
   def decline(challenge: Challenge, reason: Challenge.DeclineReason) =
     setStatus(challenge, Status.Declined, Some(_.plusHours(3))) >> {
       (reason != Challenge.DeclineReason.default)
-        .so(coll.updateField($id(challenge.id), "declineReason", reason).void)
+        .so(coll.updateField(bid(challenge.id), "declineReason", reason).void)
     }
   private[challenge] def accept(challenge: Challenge) =
     setStatus(challenge, Status.Accepted, Some(_.plusHours(3)))
 
-  def statusById(id: ChallengeId) = coll.primitiveOne[Status]($id(id), "status")
+  def statusById(id: ChallengeId) = coll.primitiveOne[Status](bid(id), "status")
 
   private def setStatus(challenge: Challenge, status: Status, expiresAt: Option[Instant => Instant]) =
     coll.update
       .one(
-        selectCreatedOrOffline ++ $id(challenge.id),
-        $doc(
-          "$set" -> $doc(
+        selectCreatedOrOffline ++ bid(challenge.id),
+        bdoc(
+          "$set" -> bdoc(
             "status" -> status.id,
             "expiresAt" -> expiresAt.fold(inTwoWeeks) { _(nowInstant) }
           )
@@ -141,7 +141,7 @@ final private class ChallengeRepo(colls: ChallengeColls)(using
       )
       .void
 
-  private[challenge] def remove(id: ChallengeId) = coll.delete.one($id(id)).void
+  private[challenge] def remove(id: ChallengeId) = coll.delete.one(bid(id)).void
 
-  private val selectCreated = $doc("status" -> Status.Created)
-  private val selectCreatedOrOffline = $doc("status".$in(List(Status.Created, Status.Offline)))
+  private val selectCreated = bdoc("status" -> Status.Created)
+  private val selectCreatedOrOffline = bdoc("status".$in(List(Status.Created, Status.Offline)))

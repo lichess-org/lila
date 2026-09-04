@@ -29,7 +29,7 @@ final class EventApi(
   def fetchPromotable: Fu[List[Event]] =
     coll
       .find:
-        $doc(
+        bdoc(
           "enabled" -> true,
           "startsAt".$gt(nowInstant.minusDays(1)).$lt(nowInstant.plusDays(1))
         )
@@ -43,7 +43,7 @@ final class EventApi(
     Paginator(
       adapter = Adapter[Event](
         collection = coll,
-        selector = $doc(
+        selector = bdoc(
           "startsAt".$lt(to),
           "finishesAt".$gt(from)
         ),
@@ -57,7 +57,7 @@ final class EventApi(
   def pager(page: Int) = Paginator(
     adapter = Adapter[Event](
       collection = coll,
-      selector = $empty,
+      selector = emptyBdoc,
       projection = none,
       sort = $sort.desc("startsAt"),
       _.sec
@@ -77,7 +77,7 @@ final class EventApi(
   def update(old: Event, data: EventForm.Data)(using MyId): Fu[Int] =
     val next = data.update(old)
     for
-      res <- coll.update.one($id(old.id), next)
+      res <- coll.update.one(bid(old.id), next)
       _ = promotable.invalidateUnit()
       _ = notifyBBB(next, old.some)
     yield res.n

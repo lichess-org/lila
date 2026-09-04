@@ -21,7 +21,7 @@ final class ClasMates(colls: ClasColls, cacheApi: CacheApi, filters: ClasUserFil
     colls.student
       .aggregateOne(_.sec): framework =>
         import framework.*
-        Match($doc("userId" -> studentId)) -> List(
+        Match(bdoc("userId" -> studentId)) -> List(
           Group(BSONNull)("classes" -> PushField("clasId")),
           Facet(
             List(
@@ -30,20 +30,20 @@ final class ClasMates(colls: ClasColls, cacheApi: CacheApi, filters: ClasUserFil
                   $lookup.pipelineFull(
                     from = colls.student.name,
                     as = "mates",
-                    let = $doc("ids" -> "$classes"),
+                    let = bdoc("ids" -> "$classes"),
                     pipe = List(
-                      $doc(
+                      bdoc(
                         "$match" -> $expr(
                           $and(
-                            $doc("$in" -> $arr("$clasId", "$$ids")),
-                            $doc("$ne" -> $arr("$userId", studentId))
+                            bdoc("$in" -> barr("$clasId", "$$ids")),
+                            bdoc("$ne" -> barr("$userId", studentId))
                           )
                         )
                       ),
-                      $doc(
-                        "$group" -> $doc(
+                      bdoc(
+                        "$group" -> bdoc(
                           "_id" -> BSONNull,
-                          "mates" -> $doc("$addToSet" -> "$userId")
+                          "mates" -> bdoc("$addToSet" -> "$userId")
                         )
                       )
                     )
@@ -51,8 +51,8 @@ final class ClasMates(colls: ClasColls, cacheApi: CacheApi, filters: ClasUserFil
                 ),
                 ReplaceRoot:
                   $ifNull(
-                    $doc("$arrayElemAt" -> $arr("$mates", 0)),
-                    $doc("mates" -> $arr())
+                    bdoc("$arrayElemAt" -> barr("$mates", 0)),
+                    bdoc("mates" -> barr())
                   )
               ),
               "teachers" -> List(
@@ -60,14 +60,14 @@ final class ClasMates(colls: ClasColls, cacheApi: CacheApi, filters: ClasUserFil
                   $lookup.pipelineFull(
                     from = colls.clas.name,
                     as = "teachers",
-                    let = $doc("ids" -> "$classes"),
+                    let = bdoc("ids" -> "$classes"),
                     pipe = List(
-                      $doc("$match" -> $expr($doc("$in" -> $arr("$_id", "$$ids")))),
-                      $doc("$unwind" -> "$teachers"),
-                      $doc(
-                        "$group" -> $doc(
+                      bdoc("$match" -> $expr(bdoc("$in" -> barr("$_id", "$$ids")))),
+                      bdoc("$unwind" -> "$teachers"),
+                      bdoc(
+                        "$group" -> bdoc(
                           "_id" -> BSONNull,
-                          "teachers" -> $doc("$addToSet" -> "$teachers")
+                          "teachers" -> bdoc("$addToSet" -> "$teachers")
                         )
                       )
                     )
@@ -75,17 +75,17 @@ final class ClasMates(colls: ClasColls, cacheApi: CacheApi, filters: ClasUserFil
                 ),
                 ReplaceRoot:
                   $ifNull(
-                    $doc("$arrayElemAt" -> $arr("$teachers", 0)),
-                    $doc("teachers" -> $arr())
+                    bdoc("$arrayElemAt" -> barr("$teachers", 0)),
+                    bdoc("teachers" -> barr())
                   )
               )
             )
           ),
           ReplaceRoot:
-            $doc(
-              "$mergeObjects" -> $arr(
-                $doc("$arrayElemAt" -> $arr("$mates", 0)),
-                $doc("$arrayElemAt" -> $arr("$teachers", 0))
+            bdoc(
+              "$mergeObjects" -> barr(
+                bdoc("$arrayElemAt" -> barr("$mates", 0)),
+                bdoc("$arrayElemAt" -> barr("$teachers", 0))
               )
             )
         )
@@ -102,5 +102,5 @@ final class ClasMates(colls: ClasColls, cacheApi: CacheApi, filters: ClasUserFil
     for
       myClasIds <- colls.clasIdsOfStudent(me.userId)
       mate <- myClasIds.nonEmpty.so:
-        colls.student.one[Student]($inIds(myClasIds.map(Student.makeId(studentId, _))))
+        colls.student.one[Student](inIds(myClasIds.map(Student.makeId(studentId, _))))
     yield mate

@@ -8,7 +8,7 @@ final class EntryApi(coll: Coll, userMax: Max)(using Executor):
 
   import Entry.given
 
-  private val projection = $doc("users" -> false).some
+  private val projection = bdoc("users" -> false).some
 
   def userEntries(userId: UserId): Fu[Vector[Entry]] =
     userEntries(userId, userMax, since = none)
@@ -20,7 +20,7 @@ final class EntryApi(coll: Coll, userMax: Max)(using Executor):
     (max > 0).so:
       coll
         .find(
-          $doc(
+          bdoc(
             "users" -> userId,
             "date".$gt(since.getOrElse(nowInstant.minusWeeks(2)))
           ),
@@ -32,21 +32,21 @@ final class EntryApi(coll: Coll, userMax: Max)(using Executor):
 
   def channelUserIdRecentExists(channel: String, userId: UserId): Fu[Boolean] =
     coll.secondary.exists:
-      $doc(
+      bdoc(
         "users" -> userId,
         "chan" -> channel,
         "date".$gt(nowInstant.minusDays(7))
       )
 
   private[timeline] def insert(e: Entry.ForUsers) =
-    coll.insert.one(bsonWriteObjTry(e.entry).get ++ $doc("users" -> e.userIds)).void
+    coll.insert.one(bsonWriteObjTry(e.entry).get ++ bdoc("users" -> e.userIds)).void
 
   // can't remove from capped collection,
   // so we set a date in the past instead.
   private[timeline] def removeRecentFollowsBy(userId: UserId): Funit =
     coll.update
       .one(
-        $doc("typ" -> "follow", "data.u1" -> userId, "date".$gt(nowInstant.minusHours(1))),
+        bdoc("typ" -> "follow", "data.u1" -> userId, "date".$gt(nowInstant.minusHours(1))),
         $set("date" -> nowInstant.minusDays(365)),
         multi = true
       )

@@ -39,22 +39,22 @@ final class ChallengeBulkApi(
   )
 
   def scheduledBy(me: User): Fu[List[ScheduledBulk]] =
-    coll.find($doc("by" -> me.id)).sort($sort.desc("pairAt")).cursor[ScheduledBulk]().list(100)
+    coll.find(bdoc("by" -> me.id)).sort($sort.desc("pairAt")).cursor[ScheduledBulk]().list(100)
 
   def findBy(id: String, me: User): Fu[Option[ScheduledBulk]] =
-    coll.one[ScheduledBulk]($doc("_id" -> id, "by" -> me.id))
+    coll.one[ScheduledBulk](bdoc("_id" -> id, "by" -> me.id))
 
   def deleteBy(id: String, me: User): Fu[Boolean] =
-    coll.delete.one($doc("_id" -> id, "by" -> me.id)).map(_.n == 1)
+    coll.delete.one(bdoc("_id" -> id, "by" -> me.id)).map(_.n == 1)
 
   def startClocksAsap(id: String, me: User): Fu[Boolean] =
     coll
-      .updateField($doc("_id" -> id, "by" -> me.id, "pairedAt".$exists(true)), "startClocksAt", nowInstant)
+      .updateField(bdoc("_id" -> id, "by" -> me.id, "pairedAt".$exists(true)), "startClocksAt", nowInstant)
       .map(_.n == 1)
 
   def schedule(bulk: ScheduledBulk): FuRaise[String, ScheduledBulk] = workQueue(bulk.by):
     for
-      bulks <- coll.list[ScheduledBulk]($doc("by" -> bulk.by, "pairedAt".$exists(false)))
+      bulks <- coll.list[ScheduledBulk](bdoc("by" -> bulk.by, "pairedAt".$exists(false)))
       _ <- raiseIf(bulks.sizeIs >= maxBulks)("Already too many bulks queued")
       _ <- raiseIf(bulks.map(_.games.size).sum >= 1000)("Already too many games queued")
       _ <- raiseIf(bulks.exists(_.collidesWith(bulk))):
@@ -68,7 +68,7 @@ final class ChallengeBulkApi(
 
   private def checkForPairing: Funit =
     coll
-      .one[ScheduledBulk]($doc("pairAt".$lte(nowInstant), "pairedAt".$exists(false)))
+      .one[ScheduledBulk](bdoc("pairAt".$lte(nowInstant), "pairedAt".$exists(false)))
       .flatMapz: bulk =>
         workQueue(bulk.by):
           makePairings(bulk).void
@@ -76,12 +76,12 @@ final class ChallengeBulkApi(
   private def checkForClocks: Funit =
     coll
       .one[ScheduledBulk](
-        $doc("startClocksAt".$lte(nowInstant), "startedClocksAt".$exists(false), "pairedAt".$exists(true))
+        bdoc("startClocksAt".$lte(nowInstant), "startedClocksAt".$exists(false), "pairedAt".$exists(true))
       )
       .flatMapz: bulk =>
         workQueue(bulk.by):
           Bus.pub(TellMany(bulk.games.map(_.id), StartClock))
-          coll.updateField($id(bulk.id), "startedClocksAt", nowInstant).void
+          coll.updateField(bid(bulk.id), "startedClocksAt", nowInstant).void
 
   private def makePairings(bulk: ScheduledBulk): Funit =
     def timeControl =
@@ -124,5 +124,5 @@ final class ChallengeBulkApi(
       .runWith(LilaStream.sinkCount)
       .addEffect(lila.mon.api.challenge.bulk.createNb(bulk.by).increment(_))
       .logFailure(logger, e => s"Bulk.makePairings ${bulk.id} ${e.getMessage}") >> {
-      coll.updateField($id(bulk.id), "pairedAt", nowInstant)
+      coll.updateField(bid(bulk.id), "pairedAt", nowInstant)
     }.void

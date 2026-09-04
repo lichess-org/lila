@@ -24,7 +24,7 @@ final private class CorresAlarm(
   private given BSONDocumentHandler[Alarm] = Macros.handler
 
   Bus.sub[lila.core.game.FinishGame] { case lila.core.game.FinishGame(game, _) =>
-    if game.hasCorrespondenceClock && !game.hasAi then coll.delete.one($id(game.id))
+    if game.hasCorrespondenceClock && !game.hasAi then coll.delete.one(bid(game.id))
   }
 
   Bus.sub[lila.core.round.CorresMoveEvent] { case lila.core.round.CorresMoveEvent(move, _, _, true, _) =>
@@ -35,7 +35,7 @@ final private class CorresAlarm(
           val ringsAt = nowInstant.plusSeconds(remainingSeconds.toInt * 8 / 10)
           coll.update
             .one(
-              $id(game.id),
+              bid(game.id),
               Alarm(
                 _id = game.id,
                 ringsAt = ringsAt,
@@ -48,9 +48,9 @@ final private class CorresAlarm(
   }
 
   LilaScheduler("CorresAlarm", _.Every(10.seconds), _.AtMost(10.seconds), _.Delay(2.minutes)):
-    def deleteAlarm(id: GameId) = coll.delete.one($id(id)).void
+    def deleteAlarm(id: GameId) = coll.delete.one(bid(id)).void
     coll
-      .find($doc("ringsAt".$lt(nowInstant)))
+      .find(bdoc("ringsAt".$lt(nowInstant)))
       .cursor[Alarm]()
       .documentSource(200)
       .mapAsyncUnordered(4)(alarm => proxyGame(alarm._id).map(alarm -> _))

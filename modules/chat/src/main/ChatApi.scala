@@ -26,7 +26,7 @@ final class ChatApi(
   import Chat.given
   export userChat.{ write, volatile, timeout, system }
 
-  def exists(id: ChatId) = coll.exists($id(id))
+  def exists(id: ChatId) = coll.exists(bid(id))
 
   object userChat:
 
@@ -107,7 +107,7 @@ final class ChatApi(
       def apply(source: Option[PublicSource]) =
         source.fold(fuccess(true))(cache.get)
 
-    def clear(chatId: ChatId) = coll.delete.one($id(chatId)).void
+    def clear(chatId: ChatId) = coll.delete.one(bid(chatId)).void
 
     def system(chatId: ChatId, text: String, busChan: BusChan.Select): Funit =
       val line = UserLine(UserName.lichess, text, troll = false, deleted = false)
@@ -181,7 +181,7 @@ final class ChatApi(
             UserLine(UserName.lichess, text = lineText, troll = false, deleted = false)
           val c2 = c.markDeleted(user)
           val chat = line.fold(c2)(c2.add)
-          for _ <- coll.update.one($id(chat.id), chat)
+          for _ <- coll.update.one(bid(chat.id), chat)
           yield
             cached.invalidate(chat.id)
             publish(chat.id, OnTimeout(chat.id, user.id), busChan)
@@ -202,7 +202,7 @@ final class ChatApi(
       val change = chat != c
       change
         .so:
-          for _ <- coll.update.one($id(chat.id), chat)
+          for _ <- coll.update.one(bid(chat.id), chat)
           yield
             cached.invalidate(chat.id)
             publish(chat.id, OnTimeout(chat.id, user.id), busChan)
@@ -237,12 +237,12 @@ final class ChatApi(
         id <- gameIds
         both <- List(id.value, s"${id.value}/w")
       yield both
-      coll.update.one($inIds(allIds), update, multi = true).void
+      coll.update.one(inIds(allIds), update, multi = true).void
 
   private object Speaker:
     def get(userId: UserId): Fu[Option[Speaker]] = userApi.byIdAs[Speaker](userId.value, Speaker.projection)
     import lila.core.user.BSONFields as F
-    val projection = lila.db.dsl.$doc(
+    val projection = lila.db.dsl.bdoc(
       F.username -> true,
       F.title -> true,
       F.plan -> true,
@@ -292,18 +292,18 @@ final class ChatApi(
     for json <- jsonView.asyncLine(line)
     yield publish(chatId, ChatLine(chatId, line, json), busChan)
 
-  def remove(chatId: ChatId) = coll.delete.one($id(chatId)).void
+  def remove(chatId: ChatId) = coll.delete.one(bid(chatId)).void
 
-  def removeAll(chatIds: List[ChatId]) = coll.delete.one($inIds(chatIds)).void
+  def removeAll(chatIds: List[ChatId]) = coll.delete.one(inIds(chatIds)).void
 
   private def persistLine(chatId: ChatId, line: lila.core.chat.Line): Funit =
     import lila.chat.Line.given
     coll.update
       .one(
-        $id(chatId),
-        $doc(
-          "$push" -> $doc(
-            Chat.BSONFields.lines -> $doc(
+        bid(chatId),
+        bdoc(
+          "$push" -> bdoc(
+            Chat.BSONFields.lines -> bdoc(
               "$each" -> List(line),
               "$slice" -> -150
             )

@@ -48,9 +48,9 @@ final class PuzzleStreakApi(colls: PuzzleColls, cacheApi: CacheApi)(using Execut
                   if rating > 2300 then (PuzzleTier.good, 5, 110) else (PuzzleTier.top, 1, 85)
                 val target = f"${theme}${sep}${tier}${sep}${rating}%04d"
                 rating.toString -> List(
-                  Match($doc("min".$lte(target), "max".$gte(target))),
+                  Match(bdoc("min".$lte(target), "max".$gte(target))),
                   Sample(samples),
-                  Project($doc("_id" -> false, "ids" -> true)),
+                  Project(bdoc("_id" -> false, "ids" -> true)),
                   UnwindField("ids"),
                   // ensure we have enough after filtering deviation
                   Sample(nbPuzzles * 4),
@@ -60,7 +60,7 @@ final class PuzzleStreakApi(colls: PuzzleColls, cacheApi: CacheApi)(using Execut
                       as = "puzzle",
                       local = "ids",
                       foreign = "_id",
-                      pipe = List($doc("$match" -> $doc("glicko.d".$lte(deviation))))
+                      pipe = List(bdoc("$match" -> bdoc("glicko.d".$lte(deviation))))
                     )
                   ),
                   UnwindField("puzzle"),
@@ -68,7 +68,7 @@ final class PuzzleStreakApi(colls: PuzzleColls, cacheApi: CacheApi)(using Execut
                   ReplaceRootField("puzzle")
                 )
             ) -> List(
-              Project($doc("all" -> $doc("$setUnion" -> buckets.map(r => s"$$${r._1}")))),
+              Project(bdoc("all" -> bdoc("$setUnion" -> buckets.map(r => s"$$${r._1}")))),
               UnwindField("all"),
               ReplaceRootField("all"),
               Sort(Ascending("glicko.r")),

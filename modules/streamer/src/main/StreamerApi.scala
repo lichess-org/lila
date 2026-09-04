@@ -101,7 +101,7 @@ final class StreamerApi(
     picfitApi
       .uploadFile(picture, userId = by.id, s"streamer:${s.id}".some, requestAutomod = false)
       .flatMap: pic =>
-        repo.withColl(coll => coll.update.one($id(s.id), $set("picture" -> pic.id))).void
+        repo.withColl(coll => coll.update.one(bid(s.id), $set("picture" -> pic.id))).void
 
   private def modChange(prev: Streamer, current: Streamer): Streamer.ModChange =
     val (prevRequested, prevGranted, currRequested, currGranted) =

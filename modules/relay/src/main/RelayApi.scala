@@ -108,7 +108,7 @@ final class RelayApi(
       unfinished <- roundRepo.coll.exists(unfinishedSelector)
       dates <- computeDates(tourId)
       active = unfinished && dates.flatMap(_.end).forall(_.isAfter(nowInstant.minusDays(1)))
-      live <- active.so(roundRepo.coll.exists(unfinishedSelector ++ $doc("startedAt".$exists(true))))
+      live <- active.so(roundRepo.coll.exists(unfinishedSelector ++ bdoc("startedAt".$exists(true))))
       _ <- tourRepo.denormalize(tourId, active, live, dates)
     yield ()
 
@@ -123,11 +123,11 @@ final class RelayApi(
     roundRepo.coll
       .aggregateOne(): framework =>
         import framework.*
-        Match($doc("tourId" -> tourId, "startsAt".$ne(BSONHandlers.startsAfterPrevious))) -> List(
-          Project($doc("at" -> $doc("$ifNull" -> $arr("$startsAt", "$startedAt")))),
+        Match(bdoc("tourId" -> tourId, "startsAt".$ne(BSONHandlers.startsAfterPrevious))) -> List(
+          Project(bdoc("at" -> bdoc("$ifNull" -> barr("$startsAt", "$startedAt")))),
           Sort(Ascending("at")),
           Group(BSONNull)("at" -> PushField("at")),
-          Project($doc("start" -> $doc("$first" -> "$at"), "end" -> $doc("$last" -> "$at")))
+          Project(bdoc("start" -> bdoc("$first" -> "$at"), "end" -> bdoc("$last" -> "$at")))
         )
       .map:
         _.flatMap: doc =>
@@ -147,10 +147,10 @@ final class RelayApi(
     roundRepo.coll
       .aggregateOne(): framework =>
         import framework.*
-        Match($id(id)) -> List(
+        Match(bid(id)) -> List(
           PipelineOperator(tourRepo.lookup("tourId")),
           UnwindField("tour"),
-          PipelineOperator($doc("$replaceWith" -> $doc("tier" -> "$tour.tier")))
+          PipelineOperator(bdoc("$replaceWith" -> bdoc("tier" -> "$tour.tier")))
         )
       .map(_.exists(_.contains("tier")))
 
@@ -166,10 +166,10 @@ final class RelayApi(
       get(tour.id).map(RelayTour.WithGroupTours(tour, _))
     def invalidate(id: RelayTourId) = cache.underlying.synchronous.invalidate(id)
 
-  private def toSyncSelect(onlyIds: Option[List[RelayTourId]]) = $doc(
+  private def toSyncSelect(onlyIds: Option[List[RelayTourId]]) = bdoc(
     "sync.until".$exists(true),
     "sync.nextAt".$lt(nowInstant)
-  ) ++ onlyIds.so(ids => $doc("tourId".$in(ids)))
+  ) ++ onlyIds.so(ids => bdoc("tourId".$in(ids)))
 
   private[relay] def toSyncOfficial(max: Max, onlyIds: Option[List[RelayTourId]]): Fu[List[WithTour]] =
     roundRepo.coll
@@ -178,7 +178,7 @@ final class RelayApi(
         Match(toSyncSelect(onlyIds)) -> List(
           PipelineOperator(tourRepo.lookup("tourId")),
           UnwindField("tour"),
-          Match($doc("tour.tier".$exists(true))),
+          Match(bdoc("tour.tier".$exists(true))),
           Sort(Descending("tour.tier"), Ascending("sync.nextAt")),
           Limit(max.value)
         )
@@ -195,13 +195,13 @@ final class RelayApi(
         Match(toSyncSelect(onlyIds)) -> List(
           PipelineOperator(tourRepo.lookup("tourId")),
           UnwindField("tour"),
-          Match($doc("tour.tier".$exists(false))),
+          Match(bdoc("tour.tier".$exists(false))),
           Sort(Ascending("sync.nextAt")),
           GroupField("tour.ownerIds")("relays" -> PushField("$ROOT")),
           Project:
-            $doc(
+            bdoc(
               "_id" -> false,
-              "relays" -> $doc("$slice" -> $arr("$relays", maxPerUser))
+              "relays" -> bdoc("$slice" -> barr("$relays", maxPerUser))
             )
           ,
           UnwindField("relays"),
@@ -228,7 +228,7 @@ final class RelayApi(
     import toBSONValueOption.given
     for
       _ <- tourRepo.coll.update.one(
-        $id(tour.id),
+        bid(tour.id),
         $setsAndUnsets(
           "name" -> tour.name.some,
           "info" -> tour.info.some,
@@ -310,7 +310,7 @@ final class RelayApi(
 
   private def toBdocWithOrder(relay: RelayRound, order: RelayRound.Order): Fu[Bdoc] =
     tryBdoc(relay).toEither.toFuture.map:
-      _ ++ $doc("order" -> order)
+      _ ++ bdoc("order" -> order)
 
   private def copyRoundSourceSettings(relay: RelayRound): Fu[RelayRound] =
     relay.sync.upstream
@@ -359,7 +359,7 @@ final class RelayApi(
           ("teamCustomScoring", _.teamCustomScoring),
           ("fideTCOverride", _.fideTCOverride)
         )
-        _ <- roundRepo.coll.update.one($id(round.id), $set(setters) ++ unsets).void
+        _ <- roundRepo.coll.update.one(bid(round.id), $set(setters) ++ unsets).void
         _ <- (round.sync.playing != from.sync.playing)
           .so(sendToContributors(round.id, "relaySync", jsonView.sync(round)))
         _ <- denormalizeTour(round.tourId)
@@ -394,10 +394,10 @@ final class RelayApi(
       roundRepo.coll
         .aggregateOne(): framework =>
           import framework.*
-          Match($doc("sync.upstream.roundIds" -> source.id)) -> List(
+          Match(bdoc("sync.upstream.roundIds" -> source.id)) -> List(
             PipelineOperator(tourRepo.lookup("tourId")),
             UnwindField("tour"),
-            Match($doc("tour.tier".$exists(true))),
+            Match(bdoc("tour.tier".$exists(true))),
             Sort(Descending("tour.tier"), Descending("tour.createdAt")),
             Limit(1)
           )
@@ -407,10 +407,10 @@ final class RelayApi(
     WithRelay(old.id) { relay =>
       for
         _ <- studyApi.deleteAllChapters(relay.studyId, me)
-        _ <- roundRepo.coll.unsetField($id(relay.id), "finishedAt")
+        _ <- roundRepo.coll.unsetField(bid(relay.id), "finishedAt")
         _ <- old.hasStartedEarly.so:
-          roundRepo.coll.unsetField($id(relay.id), "startedAt").void
-        _ <- roundRepo.coll.update.one($id(relay.id), $set("sync.log" -> $arr()))
+          roundRepo.coll.unsetField(bid(relay.id), "startedAt").void
+        _ <- roundRepo.coll.update.one(bid(relay.id), $set("sync.log" -> barr()))
       yield
         teamLeaderboard.invalidate(relay.tourId)
         players.invalidate(relay.tourId)
@@ -419,7 +419,7 @@ final class RelayApi(
   def deleteRound(roundId: RelayRoundId): Fu[Option[RelayTour]] =
     byIdWithTour(roundId).flatMapz: rt =>
       for
-        _ <- roundRepo.coll.delete.one($id(rt.round.id))
+        _ <- roundRepo.coll.delete.one(bid(rt.round.id))
         _ <- denormalizeTour(rt.tour.id)
       yield rt.tour.some
 
@@ -543,7 +543,7 @@ final class RelayApi(
         impersonatedBy: Option[ModId] = None
     )(using me: Me): Fu[RelayTour] = for
       image <- picfitApi.uploadFile(picture, userId = me.userId, headRef(t, tag).some)
-      _ <- tourRepo.coll.updateField($id(t.id), tag.getOrElse("image"), image.id)
+      _ <- tourRepo.coll.updateField(bid(t.id), tag.getOrElse("image"), image.id)
       _ <- notifyAdmin.imageUpload(t, tag, impersonatedBy)
     yield t.copy(image = image.id.some)
 
@@ -551,14 +551,14 @@ final class RelayApi(
         me: Me
     ): Fu[RelayTour] = for
       _ <- picfitApi.pullRef(headRef(t, tag))
-      _ <- tourRepo.coll.unsetField($id(t.id), tag.getOrElse("image"))
+      _ <- tourRepo.coll.unsetField(bid(t.id), tag.getOrElse("image"))
       _ <- notifyAdmin.imageDelete(t, tag, impersonatedBy)
     yield t.copy(image = none)
 
   private[relay] def autoStart(only: Option[RelayRoundId] = none): Funit =
     roundRepo.coll.secondary
       .list[RelayRound](
-        $doc(
+        bdoc(
           "startsAt"
             // start early to fetch boards
             .$lt(nowInstant.plusSeconds(RelayDelay.maxSeconds.value))
@@ -567,7 +567,7 @@ final class RelayApi(
           "finishedAt".$exists(false),
           "sync.upstream".$exists(true),
           $or("sync.until".$exists(false), "sync.until".$lt(nowInstant))
-        ) ++ only.so($id(_))
+        ) ++ only.so(bid(_))
       )
       .flatMap:
         _.sequentiallyVoid: relay =>
@@ -582,7 +582,7 @@ final class RelayApi(
     roundRepo.coll
       .list[RelayRound]:
         RelayRoundRepo.selectors.finished(false) ++
-          $doc(
+          bdoc(
             "sync.upstream".$exists(true),
             "sync.until".$exists(false),
             "startedAt".$lt(nowInstant.minusHours(3)),
@@ -590,7 +590,7 @@ final class RelayApi(
               "startsAt".$exists(false),
               "startsAt".$lt(nowInstant)
             )
-          ) ++ onlyIds.so(ids => $doc("tourId".$in(ids)))
+          ) ++ onlyIds.so(ids => bdoc("tourId".$in(ids)))
       .flatMap:
         _.sequentiallyVoid: relay =>
           logger.info(s"Automatically finish $relay")
@@ -600,7 +600,7 @@ final class RelayApi(
     byId(id).flatMapz(f)
 
   private[relay] def onStudyRemove(studyId: StudyId) =
-    roundRepo.coll.delete.one($id(studyId.into(RelayRoundId))).void
+    roundRepo.coll.delete.one(bid(studyId.into(RelayRoundId))).void
 
   def becomeStudyAdmin(studyId: StudyId, me: Me): Funit =
     roundRepo

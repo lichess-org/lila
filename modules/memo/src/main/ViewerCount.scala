@@ -65,7 +65,7 @@ final class ViewerCountApi(db: lila.db.Db, cacheApi: CacheApi)(using scheduler: 
       .buildAsync()
 
   private def fetch(key: CountKey): Fu[Int] =
-    coll.primitiveOne[Int]($id(key), "v").dmap(_.orZero)
+    coll.primitiveOne[Int](bid(key), "v").dmap(_.orZero)
 
   private def build(key: CountKey, maxCount: Int) =
     fetch(key).map(ViewerCount(_, maxCount))
@@ -83,4 +83,4 @@ final class ViewerCountApi(db: lila.db.Db, cacheApi: CacheApi)(using scheduler: 
     cache.underlying.synchronous
       .asMap()
       .forEach: (key, vc) =>
-        coll.update.one($id(key), $set("v" -> vc.get), upsert = true)
+        coll.update.one(bid(key), $set("v" -> vc.get), upsert = true)

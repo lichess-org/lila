@@ -42,7 +42,7 @@ final class TeamApi(
 
   def teamEnabled(id: TeamId) = teamRepo.enabled(id)
 
-  def leaderTeam(id: TeamId) = teamRepo.coll.byId[LightTeam](id, $doc("name" -> true))
+  def leaderTeam(id: TeamId) = teamRepo.coll.byId[LightTeam](id, bdoc("name" -> true))
 
   def lightsByTourLeader[U: UserIdOf](leader: U): Fu[List[LightTeam]] =
     memberRepo.teamsLedBy(leader, Some(_.Tour)).flatMap(teamRepo.lightsByIds)
@@ -112,7 +112,7 @@ final class TeamApi(
     import reactivemongo.api.bson.*
     for
       blocklist <- blocklist.get(team)
-      _ <- teamRepo.coll.update.one($id(team.id), bsonWriteDoc(team) ++ $doc("blocklist" -> blocklist))
+      _ <- teamRepo.coll.update.one(bid(team.id), bsonWriteDoc(team) ++ bdoc("blocklist" -> blocklist))
       isLeader <- hasPerm(team.id, _.Settings)
     yield
       cached.forumAccess.invalidate(team.id)
@@ -216,7 +216,7 @@ final class TeamApi(
 
   def processRequest(team: Team, request: TeamRequest, decision: String): Funit = workQueue(team.id) {
     if decision == "decline"
-    then requestRepo.coll.updateField($id(request.id), "declined", true).void
+    then requestRepo.coll.updateField(bid(request.id), "declined", true).void
     else if decision == "accept"
     then
       for
@@ -295,7 +295,7 @@ final class TeamApi(
       val canSee = fuccess(team.publicMembers) >>| me.ifTrue(showHidden).soUse(cached.isMember(teamId))
       canSee.flatMapz:
         memberRepo.coll.primitive[UserId](
-          selector = memberRepo.teamQuery(teamId) ++ $doc("user".$startsWith(term.value)),
+          selector = memberRepo.teamQuery(teamId) ++ bdoc("user".$startsWith(term.value)),
           sort = $sort.desc("user"),
           nb = nb,
           field = "user"
@@ -312,7 +312,7 @@ final class TeamApi(
         // create a request to set declined in order to prevent kicked use to rejoin
         val request = TeamRequest.make(team.id, userId, "Kicked from team", declined = true)
         for
-          _ <- requestRepo.coll.update.one($id(request.id), request, upsert = true)
+          _ <- requestRepo.coll.update.one(bid(request.id), request, upsert = true)
           _ <- doQuit(team, userId)
         yield Bus.pub(KickFromTeam(teamId = team.id, teamName = team.name, userId = userId))
     yield ()
@@ -325,10 +325,10 @@ final class TeamApi(
 
   object blocklist:
     def set(team: Team, list: String): Funit =
-      teamRepo.coll.updateOrUnsetField($id(team.id), "blocklist", list.nonEmpty.option(list)).void
+      teamRepo.coll.updateOrUnsetField(bid(team.id), "blocklist", list.nonEmpty.option(list)).void
     def get(team: Team): Fu[String] =
       teamRepo.coll
-        .primitiveOne[String]($id(team.id), "blocklist")
+        .primitiveOne[String](bid(team.id), "blocklist")
         .dmap(~_)
     def has(team: Team, user: UserId): Fu[Boolean] =
       get(team).map: list =>
@@ -371,7 +371,7 @@ final class TeamApi(
 
   // delete forever, with members but not forums
   def delete(team: Team, by: User, explain: String): Funit = for
-    _ <- teamRepo.coll.delete.one($id(team.id))
+    _ <- teamRepo.coll.delete.one(bid(team.id))
     _ <- memberRepo.removeByTeam(team.id)
   yield logger.info(s"delete team ${team.id} by @${by.id}: $explain")
 
@@ -415,12 +415,12 @@ final class TeamApi(
     memberRepo.leaders(team.id).map(Team.WithLeaders(team, _))
 
   def filterExistingIdsNoClas(ids: Set[TeamId]): Fu[Set[TeamId]] =
-    teamRepo.coll.distinctEasy[TeamId, Set]("_id", $inIds(ids) ++ teamRepo.noClasSelect, _.sec)
+    teamRepo.coll.distinctEasy[TeamId, Set]("_id", inIds(ids) ++ teamRepo.noClasSelect, _.sec)
 
   def autocomplete(term: String, max: Int): Fu[List[Team]] =
     teamRepo.coll
       .find:
-        $doc(
+        bdoc(
           "name".$startsWith(java.util.regex.Pattern.quote(term), "i"),
           "enabled" -> true
         )

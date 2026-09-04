@@ -35,7 +35,7 @@ final private class TutorBuilder(
     _ = chrono.mon { r => lila.mon.tutor.buildFull(r.isSuccess) }
     lap <- chrono.lap
     report <- lap.result.toFuture
-    doc = bsonWriteObjTry(report).get ++ $doc("_id" -> report.id, "millis" -> lap.millis)
+    doc = bsonWriteObjTry(report).get ++ bdoc("_id" -> report.id, "millis" -> lap.millis)
     _ <- colls.report(_.insert.one(doc).void)
     _ <- notifyOf(report)
   yield report
@@ -75,16 +75,16 @@ final private class TutorBuilder(
       .map: (pt, rating) =>
         colls.report:
           _.one[Bdoc](
-            $doc(
-              TutorFullReport.F.perfs -> $doc(
-                "$elemMatch" -> $doc(
+            bdoc(
+              TutorFullReport.F.perfs -> bdoc(
+                "$elemMatch" -> bdoc(
                   "perf" -> pt.id,
                   "stats.rating".$gte(rating.map(_ - ratingDelta)).$lte(rating.map(_ + ratingDelta))
                 )
               ),
               TutorFullReport.F.at.$gt(nowInstant.minusMonths(1)) // index hit
             ),
-            $doc(s"${TutorFullReport.F.perfs}.$$" -> true)
+            bdoc(s"${TutorFullReport.F.perfs}.$$" -> true)
           )
             .map: docO =>
               for

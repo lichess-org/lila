@@ -87,7 +87,7 @@ final class PuzzleDashboardApi(
   import PuzzleDashboard.*
 
   lila.common.Bus.sub[lila.core.user.UserDelete]: del =>
-    colls.round(_.delete.one($doc("u" -> del.id)))
+    colls.round(_.delete.one(bdoc("u" -> del.id)))
 
   def apply(u: User, days: Days): Fu[Option[PuzzleDashboard]] = cache.get(u.id -> days)
 
@@ -104,13 +104,13 @@ final class PuzzleDashboardApi(
           "fixes" -> Sum(countField("f")),
           "rating" -> AvgField("puzzle.rating")
         )
-        Match($doc("u" -> userId, "d".$gt(nowInstant.minusDays(days.value)))) -> List(
+        Match(bdoc("u" -> userId, "d".$gt(nowInstant.minusDays(days.value)))) -> List(
           Sort(Descending("d")),
           Limit(10_000),
           PipelineOperator(
             PuzzleRound.puzzleLookup(
               colls,
-              List($doc("$project" -> $doc("themes" -> true, "rating" -> "$glicko.r")))
+              List(bdoc("$project" -> bdoc("themes" -> true, "rating" -> "$glicko.r")))
             )
           ),
           Unwind("puzzle"),
@@ -145,7 +145,7 @@ final class PuzzleDashboardApi(
         )
       .dmap(_.filter(_.global.nb > 0))
 
-  private def countField(field: String) = $doc("$cond" -> $arr("$" + field, 1, 0))
+  private def countField(field: String) = bdoc("$cond" -> barr("$" + field, 1, 0))
 
   private def readResults(doc: Bdoc) = for
     nb <- doc.int("nb")
@@ -154,4 +154,4 @@ final class PuzzleDashboardApi(
     rating <- doc.double("rating")
   yield Results(nb, wins, fixes, IntRating(rating.toInt))
 
-  val relevantThemesSelect = $doc("puzzle.themes".$nin(irrelevantThemes))
+  val relevantThemesSelect = bdoc("puzzle.themes".$nin(irrelevantThemes))
