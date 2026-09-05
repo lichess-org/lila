@@ -125,7 +125,12 @@ final class Dev(env: Env) extends LilaController(env):
       env.report.api.commsModelSetting,
       env.report.api.commsPromptSetting,
       env.ublog.ublogAutomod.modelSetting,
-      env.ublog.ublogAutomod.promptSetting
+      env.ublog.ublogAutomod.promptSetting,
+      env.forum.usermod.modelSetting,
+      env.forum.usermod.promptSetting,
+      env.forum.usermod.timeoutIncrementHoursSetting,
+      env.forum.usermod.sunsetPeriodDaysSetting,
+      env.forum.usermod.timeoutPointsThresholdSetting
     ),
     "Mobile" -> List(
       env.web.lichobileAnnounceApi.lichobileUpgrade

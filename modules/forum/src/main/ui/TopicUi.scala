@@ -17,7 +17,12 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
 ):
   import helpers.{ *, given }
 
-  def form(categ: lila.forum.ForumCateg, form: Form[?], captcha: Captcha)(using Context, Me) =
+  def form(
+      categ: lila.forum.ForumCateg,
+      form: Form[?],
+      captcha: Captcha,
+      usermod: Option[Usermod.NegativeReports]
+  )(using Context, Me) =
     Page("New forum topic").markdownTextarea
       .css("bits.forum")
       .js(Esm("bits.forum"))
@@ -29,57 +34,61 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
               categ.name
             )
           ),
-          st.section(cls := "warning")(
-            h2(iconEl := Icon.cautionTriangle, cls := "text")(trans.site.important()),
-            p:
-              trans.site.yourQuestionMayHaveBeenAnswered:
-                strong(a(href := routes.Main.faq)(trans.site.inTheFAQ()))
-            ,
-            p:
-              trans.site.toReportSomeoneForCheatingOrBadBehavior:
-                strong(a(href := routes.Report.form)(trans.site.useTheReportForm()))
-            ,
-            p:
-              trans.site.toRequestSupport:
-                strong(a(href := routes.Main.contact)(trans.site.tryTheContactPage()))
-            ,
-            p:
-              trans.site.makeSureToRead:
-                strong(
-                  a(href := routes.Cms.lonePage(CmsPageKey("forum-etiquette")))(
-                    trans.site.theForumEtiquette()
-                  )
+          usermod.fold[Frag](
+            frag(
+              st.section(cls := "warning")(
+                h2(iconEl := Icon.cautionTriangle, cls := "text")(trans.site.important()),
+                p:
+                  trans.site.yourQuestionMayHaveBeenAnswered:
+                    strong(a(href := routes.Main.faq)(trans.site.inTheFAQ()))
+                ,
+                p:
+                  trans.site.toReportSomeoneForCheatingOrBadBehavior:
+                    strong(a(href := routes.Report.form)(trans.site.useTheReportForm()))
+                ,
+                p:
+                  trans.site.toRequestSupport:
+                    strong(a(href := routes.Main.contact)(trans.site.tryTheContactPage()))
+                ,
+                p:
+                  trans.site.makeSureToRead:
+                    strong(
+                      a(href := routes.Cms.lonePage(CmsPageKey("forum-etiquette")))(
+                        trans.site.theForumEtiquette()
+                      )
+                    )
+              ),
+              postForm(cls := "form3", action := routes.ForumTopic.create(categ.id))(
+                form3.group(form("name"), trans.site.subject())(form3.input(_)(autofocus)),
+                form3.group(
+                  form("post")("text"),
+                  trans.site.message(),
+                  help = span(cls := "space-between")(
+                    span(markdownIsAvailable),
+                    a(
+                      iconEl := Icon.infoCircle,
+                      cls := "text",
+                      href := routes.Cms.lonePage(CmsPageKey("forum-etiquette"))
+                    )(trans.site.theForumEtiquette())
+                  ).some
+                )(bits.postTextarea(_)()),
+                renderCaptcha(form("post"), captcha),
+                form3.actions(
+                  a(href := routes.ForumCateg.show(categ.id))(trans.site.cancel()),
+                  Granter
+                    .opt(_.PublicMod)
+                    .option(
+                      form3.submit(
+                        frag("Create as a mod"),
+                        nameValue = (form("post")("modIcon").name, "true").some,
+                        icon = Icon.agent.some
+                      )
+                    ),
+                  form3.submit(trans.site.createTheTopic())
                 )
-          ),
-          postForm(cls := "form3", action := routes.ForumTopic.create(categ.id))(
-            form3.group(form("name"), trans.site.subject())(form3.input(_)(autofocus)),
-            form3.group(
-              form("post")("text"),
-              trans.site.message(),
-              help = span(cls := "space-between")(
-                span(markdownIsAvailable),
-                a(
-                  iconEl := Icon.infoCircle,
-                  cls := "text",
-                  href := routes.Cms.lonePage(CmsPageKey("forum-etiquette"))
-                )(trans.site.theForumEtiquette())
-              ).some
-            )(bits.postTextarea(_)()),
-            renderCaptcha(form("post"), captcha),
-            form3.actions(
-              a(href := routes.ForumCateg.show(categ.id))(trans.site.cancel()),
-              Granter
-                .opt(_.PublicMod)
-                .option(
-                  form3.submit(
-                    frag("Create as a mod"),
-                    nameValue = (form("post")("modIcon").name, "true").some,
-                    icon = Icon.agent.some
-                  )
-                ),
-              form3.submit(trans.site.createTheTopic())
+              )
             )
-          )
+          )(bits.usermodTimeout)
         )
 
   def show(
@@ -91,6 +100,7 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
       canModCateg: Boolean,
       formText: Option[String] = None,
       replyBlocked: Boolean = false,
+      timeoutReasons: Option[Usermod.NegativeReports] = None,
       plaintext: Boolean = false
   )(using ctx: Context) =
     val isDiagnostic = categ.isDiagnostic && (canModCateg || ctx.me.exists(topic.isAuthor))
@@ -104,6 +114,8 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
     val teamOnly = categ.team.filterNot(isMyTeamSync)
     val pager = paginationByQuery(routes.ForumTopic.show(categ.id, topic.slug, 1), posts, showPost = true)
     val topicFirstPostId = (posts.currentPage == 1).so(posts.currentPageResults.headOption).map(_.post.id)
+    val validDownvoteReasons = Usermod.Reason.values.filterNot: reason =>
+      (categ.id == ForumCateg.offTopicId && reason == Usermod.Reason.OffTopic)
     Page(s"${topic.name} • page ${posts.currentPage}/${posts.nbPages} • ${categ.name}").markdownTextarea
       .css("bits.forum")
       .js(Esm("bits.forum") ++ Esm("bits.expandText") ++ formWithCaptcha.isDefined.so(captchaEsm))
@@ -112,7 +124,10 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
         url = routeUrl(routes.ForumTopic.show(categ.id, topic.slug, posts.currentPage)),
         description = shorten(posts.currentPageResults.headOption.so(_.post.text), 152)
       ):
-        main(cls := "forum forum-topic page-small box box-pad")(
+        main(
+          cls := "forum forum-topic page-small box box-pad",
+          data("valid-downvote-reasons") := validDownvoteReasons.map(_.key).mkString(",")
+        )(
           boxTop(
             h1(a(href := backUrl, iconEl := Icon.lessThan, cls := "text"), headerText),
             isDiagnostic.option(
@@ -131,12 +146,14 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
                 canReply = formWithCaptcha.isDefined,
                 canModCateg = canModCateg,
                 canReact = teamOnly.isEmpty,
-                isTopicFirst = topicFirstPostId.has(p.post.id)
+                isTopicFirst = topicFirstPostId.has(p.post.id),
+                noTimeouts = timeoutReasons.isEmpty
               )
           ,
           pager,
           div(cls := "forum-topic__actions")(
-            if topic.isOld then p(trans.site.thisTopicIsArchived())
+            if timeoutReasons.isDefined then timeoutReasons.map(bits.usermodTimeout)
+            else if topic.isOld then p(trans.site.thisTopicIsArchived())
             else if formWithCaptcha.isDefined then h2(id := "reply")(trans.site.replyToThisTopic())
             else if topic.closed then p(trans.site.thisTopicIsNowClosed())
             else
@@ -184,7 +201,7 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
                       span(title := trans.site.by.txt(usernameOrId(by)))("Unsticky")
                 )
               ,
-              (canModCateg || ctx.me.exists(topic.isAuthor)).option(deleteModal),
+              (timeoutReasons.isEmpty && (canModCateg || ctx.me.exists(topic.isAuthor))).option(deleteModal),
               canModCateg.option(relocateModal(categ))
             )
           ),
