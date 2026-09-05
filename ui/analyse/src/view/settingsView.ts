@@ -248,7 +248,7 @@ function helpHtml() {
       <fieldset class="help-pane" data-key="keyboardShortcuts">
         <legend>${i18n.site.keyboardShortcuts}</legend>
         <div class="setting inert">${i18n.site.flipBoard}<kbd>f</kbd></div>
-        <div class="setting inert">Toggle local engine<kbd>l</kbd></div>
+        <div class="setting inert">${i18n.site.toggleLocalEngine}<kbd>l</kbd></div>
         ${settingShortcutsHtml}
         <button class="button button-empty button-dim show-all">Show all</button>
       </fieldset>

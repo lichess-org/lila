@@ -94,13 +94,13 @@ trait FormHelper:
           else script(src := scriptUrl, deferAttr, async)
         frag(scriptTag, widget, div(cls := "cf-turnstile-error error none"))
 
-    def submit(content: Frag) =
+    def submit(content: Frag)(using Translate) =
       form3.submit(
         frag(
           span(cls := "button__ready")(content),
           span(cls := "button__verifying")(
             span(cls := "button__loader white")(HtmlHelper.spinner),
-            " Verifying your device..."
+            trans.site.verifyingYourDevice()
           )
         ),
         icon = none

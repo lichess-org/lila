@@ -197,6 +197,8 @@ interface I18n {
     isNotRated: string;
     /** This tournament is rated and will affect your rating. */
     isRated: string;
+    /** Leagues & Streamer Battles */
+    leaguesAndStreamerBattles: string;
     /** medians */
     medians: string;
     /** Minimum game length */
@@ -229,6 +231,8 @@ interface I18n {
     rankAvgHelp: string;
     /** Last played */
     recentlyPlayed: string;
+    /** See more tournaments on the calendar */
+    seeMoreTournaments: string;
     /** Share this URL to let people join: %s */
     shareUrl: I18nFormat;
     /** Some tournaments are rated and will affect your rating. */
@@ -407,6 +411,8 @@ interface I18n {
     roundX: I18nFormat;
     /** Score */
     score: string;
+    /** Search for players */
+    searchForPlayers: string;
     /** Semifinals */
     semifinals: string;
     /** Show player scores based on game results */
@@ -2155,6 +2161,8 @@ interface I18n {
     changeSupport: I18nFormat;
     /** Check out your profile page! */
     checkOutProfile: string;
+    /** Click donate to view payment options based on your device and currency. */
+    clickDonateToView: string;
     /** contact Lichess support */
     contactSupport: string;
     /** See the detailed cost breakdown */
@@ -3429,6 +3437,10 @@ interface I18n {
     chess960StartPosition: I18nFormat;
     /** Chess basics */
     chessBasics: string;
+    /** Chess openings */
+    chessOpenings: string;
+    /** Chess openings name tree */
+    chessOpeningsNameTree: string;
     /** Claim a draw */
     claimADraw: string;
     /** Classical */
@@ -3657,6 +3669,12 @@ interface I18n {
     endgamePositions: string;
     /** Error loading engine */
     engineFailed: string;
+    /** Engine information */
+    engineInformation: string;
+    /** Engine settings */
+    engineSettings: string;
+    /** Engines from strongest to weakest */
+    enginesFromStrongestToWeakest: string;
     /** En passant rights */
     enPassant: string;
     /** This email address is invalid */
@@ -3695,6 +3713,10 @@ interface I18n {
     everybodyGetsAllFeaturesForFree: string;
     /** Expand variations */
     expandVariations: string;
+    /** Explore the chess openings */
+    exploreChessOpenings: string;
+    /** Explorer */
+    explorer: string;
     /** Export games */
     exportGames: string;
     /** Extra clock time for the host: */
@@ -3797,6 +3819,8 @@ interface I18n {
     ifYouDoNotGetTheEmail: string;
     /** If you don't see the email, check other places it might be, like your junk, spam, social, or other folders. */
     ifYouDoNotSeeTheEmailCheckOtherPlaces: string;
+    /** Illegal positions cannot be analyzed */
+    illegalPositions: string;
     /** Image opacity */
     imageOpacity: string;
     /** Important */
@@ -3869,6 +3893,10 @@ interface I18n {
     keyCycleSelectedVariation: string;
     /** enter/exit variation */
     keyEnterOrExitVariation: string;
+    /** go to previous/next branch */
+    keyGoToPreviousOrNextBranch: string;
+    /** go to previous/next line */
+    keyGoToPreviousOrNextLine: string;
     /** go to start/end */
     keyGoToStartOrEnd: string;
     /** move backward/forward */
@@ -3879,6 +3907,8 @@ interface I18n {
     keyPreviousBranch: string;
     /** show/hide comments */
     keyShowOrHideComments: string;
+    /** show/hide current variation */
+    keyShowOrHideCurrentVariation: string;
     /** Kid mode */
     kidMode: string;
     /** This is about safety. In kid mode, all site communications are disabled. Enable this for your children and school students, to protect them from other internet users. */
@@ -4037,6 +4067,8 @@ interface I18n {
     mustBeInTeam: I18nFormat;
     /** Name */
     name: string;
+    /** Name tree */
+    nameTree: string;
     /** Navigate the move tree */
     navigateMoveTree: string;
     /** Anonymous (%s) */
@@ -4205,6 +4237,8 @@ interface I18n {
     openingExplorer: string;
     /** Opening explorer & tablebase */
     openingExplorerAndTablebase: string;
+    /** Opening pages */
+    openingPages: string;
     /** Openings */
     openings: string;
     /** Open tournaments */
@@ -4473,12 +4507,16 @@ interface I18n {
     safeTournamentName: string;
     /** Save */
     save: string;
+    /** Screenshot */
+    screenshot: string;
     /** Screenshot current position */
     screenshotCurrentPosition: string;
     /** Scroll over computer variations to preview them. */
     scrollOverComputerVariationsToPreviewThem: string;
     /** Search */
     search: string;
+    /** Search for openings */
+    searchForOpenings: string;
     /** Search or start new conversation */
     searchOrStartNewDiscussion: string;
     /** Search time */
@@ -4679,6 +4717,8 @@ interface I18n {
     toggleGlyphAnnotations: string;
     /** Toggle local computer analysis */
     toggleLocalAnalysis: string;
+    /** Toggle local engine */
+    toggleLocalEngine: string;
     /** Toggle local evaluation */
     toggleLocalEvaluation: string;
     /** Toggle observation annotations */
@@ -4815,6 +4855,8 @@ interface I18n {
     variantWin: string;
     /** Variation arrows let you navigate without using the move list. */
     variationArrowsInfo: string;
+    /** Verifying your device... */
+    verifyingYourDevice: string;
     /** Verify that %s is your email address */
     verifyYourAddress: I18nFormat;
     /** Victory */

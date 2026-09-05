@@ -120,4 +120,5 @@ Please use your language's conventions in sporting activities for how the 'U' sh
 e.g. 'U2000' will mean it is an tournament for players with Elo under 2000.
 
 Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">U%s</string>
+  <string name="searchForPlayers">Search for players</string>
 </resources>

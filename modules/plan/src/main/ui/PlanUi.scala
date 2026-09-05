@@ -103,7 +103,7 @@ final class PlanUi(helpers: Helpers)(style: PlanStyle, contactEmail: EmailAddres
                 div(cls := "text")(
                   p(trp.weAreNonProfit()),
                   p(trp.weRelyOnSupport()),
-                  p("Click donate to view payment options based on your device and currency.")
+                  p(trp.clickDonateToView())
                 ),
                 div(cls := "content")(
                   div(
