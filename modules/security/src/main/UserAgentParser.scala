@@ -44,6 +44,8 @@ object UserAgentParser:
         str.lengthIs < 30 || isMacOsEdge(str) || !popularBrowser(str)
       }
 
+    private type UaSection = String
+
     private def popularBrowser(ua: String) =
       val sections = ua.split(' ')
       sections.exists: s =>
@@ -54,7 +56,24 @@ object UserAgentParser:
     private val isRecentFirefox = isRecentBrowser("firefox", 128)
     private val isRecentSafari = isRecentBrowser("safari", 604) // most safaris also have a chrome/ section
 
-    private def isRecentBrowser(name: String, minVersion: Int): String => Boolean =
+    // way too long since the last security update
+    def isDangerous(ua: UA): Boolean =
+      val client = parse(ua)
+      isDangerousIOS(client) ||
+      isDangerousSafari(client) ||
+      isDangerousChrome(client) ||
+      isDangerousFirefox(client)
+
+    def isDangerousIOS(c: Client) =
+      c.os.family == "iOS" && c.os.major.flatMap(_.toIntOption).exists(_.toInt < 12)
+    def isDangerousSafari(c: Client) =
+      c.userAgent.family == "Safari" && c.userAgent.major.flatMap(_.toIntOption).exists(_.toInt < 15)
+    def isDangerousChrome(c: Client) =
+      c.userAgent.family == "Chrome" && c.userAgent.major.flatMap(_.toIntOption).exists(_.toInt < 100)
+    def isDangerousFirefox(c: Client) =
+      c.userAgent.family == "Firefox" && c.userAgent.major.flatMap(_.toIntOption).exists(_.toInt < 91)
+
+    private def isRecentBrowser(name: String, minVersion: Int): UaSection => Boolean =
       val slashed = name + "/"
       val prefixLength = slashed.length
       (s: String) =>
