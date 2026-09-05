@@ -14,9 +14,9 @@ case class Eval(cp: Option[Ev.Cp], mate: Option[Ev.Mate], best: Option[Uci]):
 
   def score: Option[Score] = cp.map(Score.Cp(_)).orElse(mate.map(Score.Mate(_)))
 
-  def forceAsCp: Option[Ev.Cp] = cp.orElse(mate.map {
-    case m if m.negative => Ev.Cp(Int.MinValue - m.value)
-    case m => Ev.Cp(Int.MaxValue - m.value)
+  def forceAsCp: Option[Ev.Cp] = cp.orElse(mate.map { m =>
+    if m.signum < 0 then Ev.Cp(Int.MinValue - m.value)
+    else Ev.Cp(Int.MaxValue - m.value)
   })
 
 object evals:
