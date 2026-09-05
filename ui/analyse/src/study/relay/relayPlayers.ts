@@ -347,7 +347,7 @@ export const renderPlayers = (
                             },
                           },
                         },
-                        pinIcon(),
+                        pinIcon('.pinned-icon'),
                       ),
                   ),
                   withRank &&
