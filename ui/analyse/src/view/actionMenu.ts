@@ -138,16 +138,16 @@ export function view(ctrl: AnalyseCtrl): VNode {
           [snabIcon('swords'), i18n.site.continueFromHere],
         ),
       studyButton(ctrl),
-      ctrl.idbTree.movesDirty &&
+      (ctrl.idbTree.movesDirty || ctrl.idbTree.hasLocalCeval) &&
         hl(
           'a',
           {
             attrs: {
-              title: i18n.site.clearSavedMoves,
+              title: i18n.site.clearLocalData,
             },
-            hook: bind('click', () => ctrl.idbTree.clear('moves')),
+            hook: bind('click', () => ctrl.idbTree.clear()),
           },
-          [snabIcon('trash'), i18n.site.clearSavedMoves],
+          [snabIcon('trash'), i18n.site.clearLocalData],
         ),
       hl(
         'button',

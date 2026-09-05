@@ -57,6 +57,7 @@ export class CevalCtrl {
   curEval: LocalEval | null = null;
   lastStarted?: Started;
   showEnginePrefs: Toggle = toggle(false);
+  wasUnloadedByAnotherWindow = false;
 
   private worker?: CevalEngine;
 
@@ -67,8 +68,10 @@ export class CevalCtrl {
 
     // another tab has started ceval, we should stop:
     storage.make('ceval.fen').listen(() => {
-      this.worker?.destroy();
+      if (!this.worker) return;
+      this.worker.destroy();
       this.worker = undefined; // release memory
+      this.wasUnloadedByAnotherWindow = true;
       this.opts.redraw();
     });
 
@@ -106,13 +109,14 @@ export class CevalCtrl {
 
   reset = (): void => {
     this.worker?.stop();
+    this.wasUnloadedByAnotherWindow = false;
     this.curEval = null;
     this.lastStarted = undefined;
     this.download = undefined;
   };
 
   start = (path: string, steps: Step[], gameId: string | undefined, threatMode = false): boolean => {
-    if (!this.available() || this.wasUnloaded) return false;
+    if (!this.available() || this.wasUnloadedByAnotherWindow) return false;
     this.isDeeper(false);
     this.doStart({ path, steps, gameId, threatMode });
     return true;
@@ -189,10 +193,6 @@ export class CevalCtrl {
 
   get isCacheable(): boolean {
     return Boolean(this.engines.active()?.capabilities?.includes('cloudEval'));
-  }
-
-  get wasUnloaded(): boolean {
-    return !this.worker && Boolean(this.lastStarted); // another tab started ceval
   }
 
   get showingCloud(): boolean {
@@ -286,7 +286,9 @@ export class CevalCtrl {
     };
     const emitter = throttleWithFlush(125, (ev: LocalEval, meta: EvalMeta) => {
       this.curEval = ev;
-
+      if (this.curEval.bestmove && this.curEval.bestmove !== '(none)' && working.movetime !== false) {
+        this.curEval.millis = Math.max(this.curEval.millis, working.movetime);
+      }
       if (!working.fen) {
         working.fen = this.curEval.fen;
         storage.fire('ceval.fen', this.curEval.fen); // will pause other tabs
@@ -296,9 +298,9 @@ export class CevalCtrl {
 
       if (this.lastStarted && !working.dontStop) {
         const evNode = working.started.steps[working.started.steps.length - 1];
-        if (working.movetime && evNode.ceval?.cloud && ev.millis > 500) {
+        if (working.movetime && evNode.ceval?.cloud && this.curEval.millis > 500) {
           const targetNodes = evNode.ceval.nodes;
-          const likelyNodes = Math.round((working.movetime * ev.nodes) / ev.millis);
+          const likelyNodes = Math.round((working.movetime * this.curEval.nodes) / this.curEval.millis);
 
           if (likelyNodes < targetNodes) this.worker?.stop();
         }

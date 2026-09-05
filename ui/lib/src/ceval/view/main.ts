@@ -147,7 +147,7 @@ export function renderGauge(ctrl: CevalHandler): VNode | undefined {
 export function renderCeval(ctrl: CevalHandler): VNode[] {
   const ceval = ctrl.ceval;
   const node = ctrl.getNode(),
-    enabled = !ceval.wasUnloaded && ctrl.cevalEnabled(),
+    enabled = !ceval.wasUnloadedByAnotherWindow && ctrl.cevalEnabled(),
     client = node.ceval,
     server = node.eval,
     threatMode = ctrl.threatMode(),
@@ -269,7 +269,7 @@ export const renderCevalSwitch = (ctrl: CevalHandler): VNode | false =>
     id: 'analyse-toggle-ceval',
     title: i18n.site.toggleLocalEvaluation + ' (L)',
     checked: !!ctrl.cevalEnabled(),
-    propsChecked: !ctrl.ceval.wasUnloaded && !!ctrl.cevalEnabled(),
+    propsChecked: !ctrl.ceval.wasUnloadedByAnotherWindow && !!ctrl.cevalEnabled(),
     change: ctrl.cevalEnabled,
     disabled: !ctrl.ceval.analysable,
   });
