@@ -4509,6 +4509,8 @@ interface I18n {
     showHelpDialog: string;
     /** Show me everything */
     showMeEverything: string;
+    /** Show password */
+    showPassword: string;
     /** Show threat */
     showThreat: string;
     /** You have received a private message from Lichess. */

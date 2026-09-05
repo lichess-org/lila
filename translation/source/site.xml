@@ -249,6 +249,7 @@
   <string name="signupUsernameHint">Be sure to choose a username appropriate for all ages. You cannot change it later, and accounts with inappropriate usernames will be closed!</string>
   <string name="signupEmailPromise">We will only send you emails about your account and never share your email.</string>
   <string name="password">Password</string>
+  <string name="showPassword">Show password</string>
   <string name="changePassword">Change password</string>
   <string name="changeEmail">Change email</string>
   <string name="email">Email</string>
