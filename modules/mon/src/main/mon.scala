@@ -394,7 +394,7 @@ object security:
           "pwned" -> pwned,
           "result" -> result
         )
-    def proxy(tpe: String) = counter("security.login.proxy").withTag("proxy", tpe)
+    def must2fa(reason: String) = counter("security.login.must2fa").withTag("reason", reason.escape)
   def secretScanning(tokenType: String, source: String, hit: Boolean) =
     counter("security.githubSecretScanning.hit").withTags(
       tags("type" -> tokenType, "source" -> source.escape, "hit" -> hit)
