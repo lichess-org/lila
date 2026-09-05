@@ -143,14 +143,14 @@ final class SecurityApi(
     yield ()
 
   private type AppealOrUser = Either[AppealUser, FingerPrintedUser]
-  def restoreUser(req: RequestHeader): Fu[Option[AppealOrUser]] =
+  def restoreUser(using req: RequestHeader): Fu[Option[AppealOrUser]] =
     if HTTPRequest.isXhrFromEmbed(req) then fuccess(none)
     else
       firewall.accepts(req).so(reqSessionId(req)).so { sessionId =>
         appeal.authenticate(sessionId) match
           case Some(userId) => userRepo.byId(userId).map2 { u => Left(AppealUser(Me(u))) }
           case None =>
-            store.authInfo(sessionId).flatMapz { d =>
+            store.loginWithSessionId(sessionId).flatMapz { d =>
               userRepo
                 .me(d.user)
                 .dmap:

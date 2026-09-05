@@ -31,7 +31,14 @@ final class SessionStore(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Exe
               coll.updateFieldUnchecked(bid(id), "date", nowInstant)
             doc.getAsOpt[UserId]("user").map { AuthInfo(_, doc.contains("fp")) }
 
-  def authInfo(sessionId: SessionId) = authCache.get(sessionId)
+  def loginWithSessionId(sessionId: SessionId)(using req: RequestHeader): Fu[Option[AuthInfo]] =
+    if canLogin(sessionId) then authCache.get(sessionId)
+    else
+      logger.warn(s"oauth session login attempt ($sessionId) by ${HTTPRequest.print(req)}")
+      fuccess(none)
+
+  private def canLogin(sessionId: SessionId): Boolean =
+    sessionId.value.startsWith(oauthSessionPrefix).not
 
   private def uncache(sessionId: SessionId): Unit =
     blocking { blockingUncache(sessionId) }
@@ -80,13 +87,14 @@ final class SessionStore(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Exe
         yield ()
     for _ <- updateDb yield sessionId
 
+  // this is only about keeping a trace of the connection; it cannot be used to log in.
   private[security] def upsertOAuth(
       userId: UserId,
       tokenId: AccessTokenId,
       mobile: Option[lila.core.net.LichessMobileUa],
       req: RequestHeader
   ): Funit =
-    val id = s"TOK-${tokenId.value.take(20)}"
+    val id = s"${oauthSessionPrefix}${tokenId.value.take(20)}"
     val ua = mobile
       .map(Mobile.LichessMobileUaTrim.write)
       .getOrElse(HTTPRequest.userAgent(req).value)
@@ -154,9 +162,11 @@ final class SessionStore(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Exe
       case Some(hash) =>
         for
           _ <- coll.updateField(bid(id), "fp", hash)
-          _ = authInfo(id).foreach:
-            _.foreach: i =>
-              authCache.put(id, fuccess(i.copy(hasFp = true).some))
+          _ = canLogin(id)
+            .so(authCache.get(id))
+            .foreach:
+              _.foreach: i =>
+                authCache.put(id, fuccess(i.copy(hasFp = true).some))
         yield hash
 
   def chronoInfoByUser(user: User): Fu[List[Info]] =
@@ -230,6 +240,8 @@ final class SessionStore(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Exe
     }
 
 object SessionStore:
+
+  val oauthSessionPrefix = "TOK-"
 
   case class Info(ip: IpAddress, ua: UserAgent, fp: Option[FingerHash], date: Instant):
     def datedIp = Dated(ip, date)
