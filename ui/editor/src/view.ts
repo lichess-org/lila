@@ -269,7 +269,9 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
                   },
                 },
               },
-              Object.entries(variants).map((x: [VariantKey, string]) => variantOption(x[0], x[1], ctrl)),
+              Object.entries(variants).map(([variant, name]: [VariantKey, string]) =>
+                variantOption(variant, name, ctrl),
+              ),
             ),
           ]),
           chess960PositionIdSelector,
