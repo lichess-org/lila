@@ -7,9 +7,13 @@ import lila.tree.Node.{ Comment as TreeComment, Shape, Shapes }
 
 private[study] object CommentParser:
 
+  private val annoRegex =
+    """(?s)\[\%anno[\s\r\n]++(?:"([^"]*+)"|([^\],]++))[\s\r\n]*+(?:,[\s\r\n]*+([^\]\s]++))?[\s\r\n]*+\]""".r.unanchored
   private val circlesRegex = """(?s)\[\%csl[\s\r\n]++((?:\w{3}[,\s]*+)++)\]""".r.unanchored
   private val arrowsRegex = """(?s)\[\%cal[\s\r\n]++((?:\w{5}[,\s]*+)++)\]""".r.unanchored
   private val tcecClockRemoveRegex = """tl=[\d:\.]++""".r
+
+  case class Author(name: String, accountId: Option[UserId])
 
   case class ParsedComment(
       shapes: Shapes,
@@ -26,6 +30,16 @@ private[study] object CommentParser:
       emt(comment),
       removeMeta(comment.map(tcecClockRemoveRegex.replaceAllIn(_, ""))).map(_.trim)
     )
+
+  def author(comment: ChessComment): Option[Author] =
+    comment.value match
+      case annoRegex(quoted, bare, id) =>
+        Option(quoted)
+          .orElse(Option(bare))
+          .map(_.trim)
+          .filter(_.nonEmpty)
+          .map(name => Author(name, UserId.from(Option(id).map(_.trim.toLowerCase)).filter(_.value.nonEmpty)))
+      case _ => none
 
   private def parseShapes(comment: ChessComment): Shapes =
     parseCircles(comment) ++ parseArrows(comment)

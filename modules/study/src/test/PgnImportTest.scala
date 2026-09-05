@@ -255,3 +255,94 @@ Rad1 {[%clk 1:24:50]} b6 {[%clk 1:09:49]} 18. g4 {[%clk 1:03:52]} *""",
       .assertRight: parsed =>
         val expected = "1. e4 e5 2. Nf3 Nc6 3. Bb5 (3. Bc4) (3. d4)"
         assertEquals(Helpers.rootToPgn(parsed.root).value, expected)
+
+  // Characterization of the bug in lichess-org/lila#21211, against the current
+  // behaviour. The PGN carries no per-comment author, so every comment in the
+  // tree is attributed to whoever the Annotator tag resolves to, and two
+  // comments on the same move written by different people collapse into one.
+
+  val bobby = LightUser.fallback(UserName("Bobby"))
+  val mary = LightUser.fallback(UserName("Mary"))
+
+  test("21211: every imported comment is attributed to the annotator"):
+    val pgn: PgnStr = """[Annotator "Bobby"]
+
+1. e4 { written by the owner } 1... e5 { written by the contributor }"""
+    StudyPgnImport
+      .result(pgn, List(bobby, mary))
+      .assertRight: parsed =>
+        val authors = parsed.root.mainlineNodeList.drop(1).flatMap(_.comments.value).map(_.by)
+        assertEquals(authors, List.fill(2)(lila.tree.Node.Comment.author(bobby)))
+
+  test("21211: two comments on the same move collapse into a single one"):
+    val pgn: PgnStr = """[Annotator "Bobby"]
+
+1. e4 1... e5 { written by the contributor } { and this one by the owner }"""
+    StudyPgnImport
+      .result(pgn, List(bobby, mary))
+      .assertRight: parsed =>
+        val comments = parsed.root.mainlineNodeList(2).comments.value
+        assertEquals(comments.size, 1)
+        assertEquals(
+          comments.map(_.text),
+          Comment.from(List("written by the contributor\nand this one by the owner"))
+        )
+
+  test("21211: [%anno] keeps one author per comment"):
+    val pgn: PgnStr = """[Annotator "Bobby"]
+
+1. e4 { [%anno "Bobby", bobby] written by the owner } 1... e5 { [%anno "Mary", mary] written by the contributor }"""
+    StudyPgnImport
+      .result(pgn, List(bobby, mary))
+      .assertRight: parsed =>
+        val authors = parsed.root.mainlineNodeList.drop(1).flatMap(_.comments.value).map(_.by)
+        assertEquals(
+          authors,
+          List(lila.tree.Node.Comment.author(bobby), lila.tree.Node.Comment.author(mary))
+        )
+
+  test("21211: comments by different authors on the same move are kept apart"):
+    val pgn: PgnStr = """[Annotator "Bobby"]
+
+1. e4 1... e5 { [%anno "Mary", mary] written by the contributor } { [%anno "Bobby", bobby] and this one by the owner }"""
+    StudyPgnImport
+      .result(pgn, List(bobby, mary))
+      .assertRight: parsed =>
+        val comments = parsed.root.mainlineNodeList(2).comments.value
+        assertEquals(
+          comments.map(_.text),
+          Comment.from(List("written by the contributor", "and this one by the owner"))
+        )
+        assertEquals(
+          comments.map(_.by),
+          List(lila.tree.Node.Comment.author(mary), lila.tree.Node.Comment.author(bobby))
+        )
+
+  test("21211: two comments by the same author on the same move still collapse"):
+    val pgn: PgnStr = """[Annotator "Bobby"]
+
+1. e4 1... e5 { [%anno "Mary", mary] first } { [%anno "Mary", mary] second }"""
+    StudyPgnImport
+      .result(pgn, List(bobby, mary))
+      .assertRight: parsed =>
+        val comments = parsed.root.mainlineNodeList(2).comments.value
+        assertEquals(comments.map(_.text), Comment.from(List("first\nsecond")))
+        assertEquals(comments.map(_.by), List(lila.tree.Node.Comment.author(mary)))
+
+  test("21211: an [%anno] that matches nobody is kept verbatim"):
+    val pgn: PgnStr = """[Annotator "Bobby"]
+
+1. e4 { [%anno "Garry Kasparov"] from a foreign database }"""
+    StudyPgnImport
+      .result(pgn, List(bobby, mary))
+      .assertRight: parsed =>
+        val comments = parsed.root.mainlineNodeList(1).comments.value
+        assertEquals(comments.map(_.by), List(lila.tree.Node.Comment.Author.External("Garry Kasparov")))
+
+  test("21211: an [%anno] with a display name only resolves to that name"):
+    val pgn: PgnStr = """1. e4 { [%anno "Bobby"] no account id here }"""
+    StudyPgnImport
+      .result(pgn, List(bobby, mary))
+      .assertRight: parsed =>
+        val comments = parsed.root.mainlineNodeList(1).comments.value
+        assertEquals(comments.map(_.by), List(lila.tree.Node.Comment.Author.External("Bobby")))

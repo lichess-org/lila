@@ -10,6 +10,16 @@ import lila.tree.{ Branch, Branches, ImportResult, ParseImport, Root, Clock }
 
 object StudyPgnImport:
 
+  case class Annotators(default: Option[Comment.Author], known: Map[UserId, Comment.Author]):
+    def resolve(author: CommentParser.Author): Comment.Author =
+      author.accountId
+        .flatMap(known.get)
+        .getOrElse(Comment.Author.External(author.name))
+
+  object Annotators:
+    def apply(default: Option[Comment.Author], contributors: List[LightUser]): Annotators =
+      Annotators(default, contributors.view.map(u => u.id -> Comment.author(u)).toMap)
+
   case class Context(
       currentPosition: chess.Position,
       clocks: ByColor[Option[Clock]],
@@ -41,10 +51,11 @@ object StudyPgnImport:
   def result(importResult: ImportResult, contributors: List[LightUser], importer: Option[LightUser]): Result =
     import importResult.{ replay, initialFen, parsed }
     val annotator = findAnnotator(parsed, contributors).orElse(importer.map(Comment.author))
+    val annotators = Annotators(annotator, contributors ::: importer.toList)
 
     val timeControl = parsed.tags.timeControl
     val clock = timeControl.map(_.limit).map(Clock(_, trust = true.some))
-    parseComments(parsed.initialPosition.comments, annotator) match
+    parseComments(parsed.initialPosition.comments, annotators) match
       case (shapes, _, _, comments) =>
         val root = Root(
           ply = replay.setup.ply,
@@ -58,7 +69,7 @@ object StudyPgnImport:
             makeBranches(
               Context(replay.setup.position, ByColor.fill(clock), timeControl, replay.setup.ply),
               _,
-              annotator
+              annotators
             )
         )
 
@@ -121,7 +132,7 @@ object StudyPgnImport:
 
   def parseComments(
       comments: List[CommentStr],
-      annotator: Option[Comment.Author]
+      annotators: Annotators
   ): (Shapes, Option[Centis], Option[Centis], Comments) =
     comments.foldRight((Shapes(Nil), none[Centis], none[Centis], Comments(Nil))):
       case (txt, (shapes, clock, emt, comments)) =>
@@ -132,7 +143,10 @@ object StudyPgnImport:
               c.orElse(clock),
               e.orElse(emt),
               str.trimNonEmpty.fold(comments): text =>
-                val author = annotator | Comment.Author.Lichess
+                val author = CommentParser
+                  .author(txt)
+                  .map(annotators.resolve)
+                  .orElse(annotators.default) | Comment.Author.Lichess
                 comments
                   .findBy(author)
                   .fold(comments + Comment(Comment.Id.make, text, author)): existing =>
@@ -142,18 +156,20 @@ object StudyPgnImport:
   private def makeBranches(
       context: Context,
       node: PgnNode[PgnNodeData],
-      annotator: Option[Comment.Author]
+      annotators: Annotators
   ): Branches =
     val variations =
-      node.take(Node.MAX_PLIES).fold(Nil)(_.variations.flatMap(x => makeBranch(context, x.toNode, annotator)))
+      node
+        .take(Node.MAX_PLIES)
+        .fold(Nil)(_.variations.flatMap(x => makeBranch(context, x.toNode, annotators)))
     mergeDuplicateVariations(
-      Branches(makeBranch(context, node, annotator).fold(variations)(_ +: variations))
+      Branches(makeBranch(context, node, annotators).fold(variations)(_ +: variations))
     )
 
   private def makeBranch(
       context: Context,
       node: PgnNode[PgnNodeData],
-      annotator: Option[Comment.Author]
+      annotators: Annotators
   ): Option[Branch] =
     try
       node.value
@@ -165,7 +181,7 @@ object StudyPgnImport:
             val currentPly = context.ply.next
             val uci = moveOrDrop.toUci
             val sanStr = moveOrDrop.toSanStr
-            val (shapes, clock, emt, comments) = parseComments(node.value.metas.comments, annotator)
+            val (shapes, clock, emt, comments) = parseComments(node.value.metas.comments, annotators)
             val mover = !position.color
             val computedClock: Option[Clock] = clock
               .map(Clock(_, trust = true.some))
@@ -190,7 +206,7 @@ object StudyPgnImport:
                     currentPly
                   ),
                   _,
-                  annotator
+                  annotators
                 )
             ).some
         )

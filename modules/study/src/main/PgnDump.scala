@@ -178,7 +178,11 @@ object PgnDump:
     )
 
   private def commentsWithShapes(node: Node): List[Comment] =
-    node.comments.value.map(_.text.into(Comment)) ::: shapeComment(node.shapes).toList
+    node.comments.value.map(authoredComment) ::: shapeComment(node.shapes).toList
+
+  private def authoredComment(comment: Node.Comment): Comment = comment.by match
+    case Node.Comment.Author.User(id, name) => Comment(s"""[%anno "$name", $id] ${comment.text}""")
+    case _ => comment.text.into(Comment)
 
   // [%csl Gb4,Yd5,Rf6][%cal Ge2e4,Ye2d4,Re2g4]
   private def shapeComment(shapes: Shapes): Option[Comment] =
