@@ -211,6 +211,13 @@ final class SitePages(helpers: Helpers):
 
   private val repoRoot = "https://github.com/lichess-org/lila"
 
+  // actively maintained projects not (yet) in the CMS source page
+  private val moreProjects = List(
+    "berserk" -> "Python client for the Lichess API",
+    "broadcaster" -> "Broadcast your chess games on Lichess",
+    "dart-lc0" -> "Leela Chess Zero (lc0) bindings for the mobile app"
+  )
+
   def source(pageTitle: String, rendered: Frag, version: Option[WebConfig.LilaVersion])(using
       Context
   ) =
@@ -254,7 +261,15 @@ final class SitePages(helpers: Helpers):
             )
           ),
           br,
-          st.section(cls := "box box-pad body")(rendered)
+          st.section(cls := "box box-pad body")(rendered),
+          br,
+          st.section(cls := "box box-pad body")(
+            h2("More Lichess projects"),
+            ul(
+              moreProjects.map: (name, desc) =>
+                li(a(href := s"https://github.com/lichess-org/$name")(name), " ", desc)
+            )
+          )
         )
 
   def lag(using Context) =
