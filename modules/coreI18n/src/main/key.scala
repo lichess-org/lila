@@ -1825,6 +1825,7 @@ object I18nKey:
     val `signupUsernameHint`: I18nKey = "signupUsernameHint"
     val `signupEmailPromise`: I18nKey = "signupEmailPromise"
     val `password`: I18nKey = "password"
+    val `showPassword`: I18nKey = "showPassword"
     val `changePassword`: I18nKey = "changePassword"
     val `changeEmail`: I18nKey = "changeEmail"
     val `email`: I18nKey = "email"

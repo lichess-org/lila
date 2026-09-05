@@ -234,7 +234,13 @@ final class Form3(formHelper: FormHelper & I18nHelper & AssetHelper, flairApi: F
         reveal.option(passwordRevealButton)
       )
 
-  def passwordRevealButton = button(cls := "password-reveal", tpe := "button", dataIcon := Icon.Eye)
+  def passwordRevealButton(using Translate) =
+    button(
+      cls := "password-reveal",
+      tpe := "button",
+      ariaTitle(trans.site.showPassword.txt()),
+      aria("pressed") := "false"
+    )(iconEl(Icon.eye))
 
   def passwordComplexityMeter(labelContent: Frag): Tag =
     div(cls := "password-complexity")(
