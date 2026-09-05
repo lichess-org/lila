@@ -71,19 +71,21 @@ final class SecurityApi(
               Seq(ValidationError("This password is too easy to guess. Request a password reset email."))
             )
           case Must2fa =>
-            Invalid(Seq(ValidationError("2-Factor Authentication is required to log in from this network.")))
+            Invalid:
+              Seq:
+                ValidationError("2-Factor Authentication is required to log in from this network or device.")
           case err => Invalid(Seq(ValidationError(err.toString)))
       })
     )
 
-  private def must2fa(req: RequestHeader, pwned: IsPwned): Fu[Option[IsProxy]] =
+  private def must2fa(pwned: IsPwned)(using req: RequestHeader): Fu[Option[String]] =
     ip2proxy
       .ofReq(req)
       .map: p =>
-        if p == IsProxy.public || p == IsProxy.tor then p.some
-        else
-          pwned.yes.so:
-            p.name.exists(proxy2faSetting.get().value.has(_)).option(p)
+        if p == IsProxy.public || p == IsProxy.tor then p.value.some
+        else if pwned.yes
+        then p.name.exists(proxy2faSetting.get().value.has(_)).option(p.value)
+        else UserAgentParser.isDangerous(HTTPRequest.userAgent(req))
 
   def loadLoginForm(str: UserStrOrEmail, pwned: IsPwned)(using
       req: RequestHeader
@@ -96,9 +98,10 @@ final class SecurityApi(
       .map(_.filter(_.user.isnt(UserId.lichess)))
       .flatMap:
         _.so: candidate =>
-          must2fa(req, pwned).map:
-            _.fold(candidate.some): p =>
-              lila.mon.security.login.proxy(p.value).increment()
+          must2fa(pwned).map:
+            _.fold(candidate.some): reason =>
+              logger.info(s"Login $str must2fa: $reason (pwned: $pwned)")
+              lila.mon.security.login.must2fa(reason).increment()
               candidate.copy(must2fa = true).some
       .map(loadedLoginForm)
 
