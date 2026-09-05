@@ -68,13 +68,19 @@ export default class EditorCtrl {
     );
 
     if (this.options.bindHotkeys !== false)
-      site.mousetrap.bind('f', () => {
-        if (this.chessground) {
-          this.chessground.toggleOrientation();
-          if (this.options.orientation) this.setOrientation(opposite(this.options.orientation));
-        }
-        this.onChange();
-      });
+      site.mousetrap
+        .bind('f', () => {
+          if (this.chessground) {
+            this.chessground.toggleOrientation();
+            if (this.options.orientation) this.setOrientation(opposite(this.options.orientation));
+          }
+          this.onChange();
+        })
+        .bind('a', () => {
+          const state = this.getState();
+          if (state.legalFen)
+            window.location.assign(this.makeAnalysisUrl(state.legalFen, this.bottomColor()));
+        });
 
     this.castlingToggles = { K: false, Q: false, k: false, q: false };
     const params = new URLSearchParams(location.search);

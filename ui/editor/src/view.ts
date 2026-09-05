@@ -290,6 +290,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
             button(
               '.button.button-empty.text',
               {
+                title: 'Hotkey: f',
                 on: {
                   click() {
                     ctrl.chessground!.toggleOrientation();
@@ -302,6 +303,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
             a(state.legalFen ? ctrl.makeAnalysisUrl(state.legalFen, ctrl.bottomColor()) : '')(
               {
                 rel: 'nofollow',
+                title: 'Hotkey: a',
                 class: {
                   button: true,
                   'button-empty': true,

@@ -104,14 +104,8 @@ export function view(ctrl: AnalyseCtrl): VNode {
           'a',
           {
             attrs: {
-              href: d.userAnalysis
-                ? '/editor?' +
-                  new URLSearchParams({
-                    fen: ctrl.node.fen,
-                    variant: d.game.variant.key,
-                    color: ctrl.chessground.state.orientation,
-                  })
-                : `/${d.game.id}/edit?fen=${ctrl.node.fen}`,
+              href: ctrl.boardEditorUrl(),
+              title: 'Hotkey: b',
               ...linkAttrs,
             },
           },
