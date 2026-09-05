@@ -58,6 +58,6 @@ function troubleshooting(code: string): string {
     case '400070': // Sitekey disabled
       return 'Please report this issue to the site administrator.';
     default:
-      return 'An unknown error occurred. Please access https://browser-compat.turnstile.workers.dev/ for more information.';
+      return 'An unknown error occurred. Please access <a href="https://debug.challenges.cloudflare.com/" target="_blank">debug.challenges.cloudflare.com</a> and <a href="https://developers.cloudflare.com/turnstile/troubleshooting/client-side-errors/error-codes/#troubleshooting" target="_blank">Troubleshooting</a> to resolve.';
   }
 }
