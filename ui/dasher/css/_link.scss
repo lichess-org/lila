@@ -20,7 +20,7 @@
     padding: 0.5rem 1rem;
     width: 100%;
     text-align: start;
-    gap: 0.5em;
+    gap: 0.6em;
   }
 
   .links a:hover,
@@ -36,10 +36,14 @@
   }
 
   .links a .line {
-    width: 16px;
+    margin-inline-end: 0;
 
-    &::before {
-      width: 11px;
+    &:not(.patron) {
+      width: 16px;
+
+      &::before {
+        width: 11px;
+      }
     }
   }
 
