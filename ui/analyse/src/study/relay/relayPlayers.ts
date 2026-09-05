@@ -21,6 +21,7 @@ import { teamLinkData } from './deepLink';
 import type {
   FideTC,
   Photo,
+  RelayGroup,
   RelayRound,
   RelayTeamName,
   RelayTour,
@@ -92,8 +93,9 @@ export default class RelayPlayers {
     readonly hideResultsSinceRoundId: () => RoundId | undefined,
     readonly fidePhoto: (id: FideId) => Photo | undefined,
     private readonly redraw: Redraw,
+    group?: RelayGroup,
   ) {
-    this.pins = new RelayPlayerPin(tour.id, redraw);
+    this.pins = new RelayPlayerPin(group?.id ?? tour.id, redraw);
     const locationPlayer = location.hash.startsWith('#players/') && location.hash.slice(9);
     if (locationPlayer) this.showPlayer(locationPlayer);
   }
