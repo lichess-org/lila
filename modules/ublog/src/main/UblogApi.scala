@@ -4,6 +4,7 @@ import reactivemongo.pekkostream.{ PekkoStreamCursor, cursorProducer }
 import reactivemongo.api.*
 import reactivemongo.api.bson.BSONDocument
 
+import lila.common.Markdown
 import lila.core.shutup.ShutupApi
 import lila.core.timeline as tl
 import lila.core.LightUser
@@ -26,7 +27,8 @@ final class UblogApi(
     ublogAutomod: UblogAutomod,
     config: UblogConfig,
     settingStore: lila.memo.SettingStore.Builder,
-    cacheApi: lila.memo.CacheApi
+    cacheApi: lila.memo.CacheApi,
+    askApi: lila.core.ask.AskApi
 )(using Executor, Scheduler)
     extends lila.core.ublog.UblogApi:
 
@@ -47,12 +49,15 @@ final class UblogApi(
   def getByPrismicId(id: String): Fu[Option[UblogPost]] = colls.post.one[UblogPost]($doc("prismicId" -> id))
 
   def update(data: UblogForm.UblogPostData, prev: UblogPost)(using me: Me): Fu[UblogPost] = for
+    url = routes.Ublog.redirect(prev.id).url
+    askEncoded <- askApi.encodeAndCommit(data.markdown.value, me, url.some)
     author <- userApi.byId(prev.created.by).map(_ | me.value)
     blog <- getUserBlog(author, insertMissing = true)
-    post = data.update(me.value, prev)
+    post = data.update(me.value, prev, Markdown(askEncoded))
     isFirstPublish = prev.lived.isEmpty && post.live
     _ <- colls.post.update.one($id(prev.id), $set(bsonWriteObjTry[UblogPost](post).get))
-    _ <- picfitApi.addRef(post.markdown, s"ublog:${post.id}", routes.Ublog.redirect(post.id).url.some)
+    _ <- picfitApi.addRef(post.markdown, s"ublog:${post.id}", url.some)
+    editable <- askApi.decode(askEncoded)
     _ = if isFirstPublish then onFirstPublish(author.light, blog, post)
   yield
     triggerAutomod(post).foreach: newPost =>
@@ -60,7 +65,7 @@ final class UblogApi(
         .ifTrue(isFirstPublish && blog.visible)
         .foreach:
           sendPostToZulip(author.light, _, blog)
-    post
+    post.copy(markdown = Markdown(editable))
 
   private def onFirstPublish(author: LightUser, blog: UblogBlog, post: UblogPost) =
     lila.common.Bus.pub(UblogPost.Create(post))

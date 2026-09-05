@@ -76,6 +76,7 @@ export type Icon =
   | 'link'
   | 'list'
   | 'logo'
+  | 'mask'
   | 'mic'
   | 'microscope'
   | 'minusButton'

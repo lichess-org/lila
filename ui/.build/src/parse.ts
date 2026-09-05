@@ -112,5 +112,7 @@ async function parsePackage(root: string): Promise<Package> {
   if ('bundle' in build) {
     pkgInfo.bundle = [build.bundle].flat().map(b => (typeof b === 'string' ? { module: b } : b));
   }
+  // TODO - indecipherable and seemingly unrelated failures later on are excellent
+  // but validation of these structures in package.json would also be nice
   return pkgInfo;
 }
