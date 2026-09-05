@@ -22,6 +22,7 @@
   <string name="teamRead">Özel ekip bilgilerini okuyun</string>
   <string name="teamWrite">Takımlara katıl ve ayrıl</string>
   <string name="teamLead">Liderlik ettiğiniz ekipleri yönetin: PM\'ler gönderin, üyeleri atın</string>
+  <string name="manageTeamsYouLead" comment="Replaces old string teamLead">Lideri olduğunuz takımları yönetin: doğrudan mesaj gönderin, üyeleri çıkarın</string>
   <string name="followRead">Takip edilen oyuncuları oku</string>
   <string name="followWrite">Diğer oyuncuları takip edin ve takibi bırakın</string>
   <string name="msgWrite">Diğer oyunculara özel mesajlar gönderin</string>

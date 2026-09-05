@@ -332,7 +332,9 @@
   <string name="ok">OK</string>
   <string name="cancel">Zrušit</string>
   <string name="whiteTimeOut">Bílému došel čas</string>
+  <string name="whiteRanOutOfTime" comment="whiteTimeOut&#10;&#10;Shows when White's time has run out. Is followed by the end condition, for example&#10;'White ran out of time · Draw' Replaces old string whiteTimeOut">Bílému došel čas</string>
   <string name="blackTimeOut">Černému došel čas</string>
+  <string name="blackRanOutOfTime" comment="blackTimeOut&#10;&#10;Shows when Black's time has run out. Is followed by the end condition, for example&#10;'Black ran out of time · Draw' Replaces old string blackTimeOut">Černému došel čas</string>
   <string name="drawOfferSent">Nabídka remízy byla odeslána</string>
   <string name="drawOfferAccepted">Soupeř remízu přijal</string>
   <string name="whiteOffersDraw">Bílý nabízí remízu</string>
@@ -920,6 +922,7 @@
   <string name="picture">Obrázek</string>
   <string name="deviceTheme">Motiv podle zařízení</string>
   <string name="roundness">Míra zaoblení</string>
+  <string name="backgroundImage">Obrázek na pozadí</string>
   <string name="backgroundImageUrl">URL zdroj obrázku na pozadí:</string>
   <string name="imageOpacity">Průhlednost obrázku</string>
   <string name="board">Šachovnice</string>
@@ -945,6 +948,7 @@
   <string name="notifications">Oznámení</string>
   <string name="notificationsX">Oznámení: %1$s</string>
   <string name="perfRatingX">Rating: %s</string>
+  <string name="perfRatingLabel" comment="Replaces old string perfRatingX">Rating: %s.</string>
   <string name="yourRatingIsX">Tvůj rating je %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekunda na první tah</item>

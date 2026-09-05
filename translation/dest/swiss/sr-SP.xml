@@ -7,4 +7,5 @@
     <item quantity="few">Погледај све %s рунде</item>
     <item quantity="other">Погледај свих %s рунди</item>
   </plurals>
+  <string name="tournStartDate">Датум почетка турнира</string>
 </resources>
