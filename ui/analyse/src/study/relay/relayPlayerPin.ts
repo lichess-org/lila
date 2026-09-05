@@ -2,7 +2,6 @@ import { myUserId } from 'lib';
 import { storedMap } from 'lib/storage';
 
 import type { ChapterPreview, StudyPlayer } from '../interfaces';
-import type { GroupId, TourId } from './interfaces';
 import { playerId } from './playerId';
 import { type RelayPlayerId } from './relayPlayers';
 
@@ -11,7 +10,7 @@ export default class RelayPlayerPin {
   private readonly store = storedMap<RelayPlayerId[]>(`relay.players.pins.${myUserId()}`, 50, () => []);
 
   constructor(
-    private readonly ctxId: GroupId | TourId,
+    private readonly ctxId: string,
     private readonly redraw: () => void,
   ) {
     this.pins = new Set(this.store(this.ctxId));
