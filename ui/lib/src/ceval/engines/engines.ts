@@ -302,10 +302,11 @@ export class Engines {
   }
 
   async deleteExternal(id: string): Promise<boolean> {
-    if (this.externalEngines.every(e => e.id !== id)) return false;
+    if (!this.externalEngines.some(e => e.id === id)) return false;
     const r = await fetch(`/api/external-engine/${id}`, { method: 'DELETE', headers: xhrHeader });
     if (!r.ok) return false;
     this.externalEngines = this.externalEngines.filter(e => e.id !== id);
+    if (this.activeEngine?.id === id) this.activeEngine = undefined;
     this.active();
     return true;
   }
