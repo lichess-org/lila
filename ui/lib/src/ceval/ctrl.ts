@@ -286,26 +286,26 @@ export class CevalCtrl {
     };
     const emitter = throttleWithFlush(125, (ev: LocalEval, meta: EvalMeta) => {
       this.curEval = ev;
-      if (this.curEval.bestmove && this.curEval.bestmove !== '(none)' && working.movetime !== false) {
-        this.curEval.millis = Math.max(this.curEval.millis, working.movetime);
+      if (ev.bestmove && ev.bestmove !== '(none)' && working.movetime !== false) {
+        ev.millis = Math.max(ev.millis, working.movetime);
       }
       if (!working.fen) {
-        working.fen = this.curEval.fen;
-        storage.fire('ceval.fen', this.curEval.fen); // will pause other tabs
+        working.fen = ev.fen;
+        storage.fire('ceval.fen', ev.fen); // will pause other tabs
       }
       const color = meta.ply % 2 === (meta.threatMode ? 1 : 0) ? 'white' : 'black';
-      this.curEval.pvs.sort((a, b) => povChances(color, b) - povChances(color, a));
+      ev.pvs.sort((a, b) => povChances(color, b) - povChances(color, a));
 
       if (this.lastStarted && !working.dontStop) {
         const evNode = working.started.steps[working.started.steps.length - 1];
-        if (working.movetime && evNode.ceval?.cloud && this.curEval.millis > 500) {
+        if (working.movetime && evNode.ceval?.cloud && ev.millis > 500) {
           const targetNodes = evNode.ceval.nodes;
-          const likelyNodes = Math.round((working.movetime * this.curEval.nodes) / this.curEval.millis);
+          const likelyNodes = Math.round((working.movetime * ev.nodes) / ev.millis);
 
           if (likelyNodes < targetNodes) this.worker?.stop();
         }
       }
-      working.emit(this.curEval, meta);
+      working.emit(ev, meta);
     });
     return (ev: LocalEval | undefined, meta: EvalMeta) => {
       if (!ev) {
