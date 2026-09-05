@@ -1,9 +1,11 @@
 .eval-gauge {
+  @extend %box-radius;
+
   width: $block-gap;
   height: var(---cg-height, 100%);
   position: relative;
   background: #c0c0c0;
-  clip-path: inset(0 round $box-radius-size);
+  overflow: hidden;
 
   @include if-light {
     background: #fff;
