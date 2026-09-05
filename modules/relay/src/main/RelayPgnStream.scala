@@ -109,18 +109,16 @@ final class RelayPgnStream(
           Match(dateBetween("startedAt", since.some, since.plusMonths(1).some)),
           Sort(Ascending("startedAt")),
           PipelineOperator:
-            $lookup.pipelineFull(
+            lookup.pipelineFull(
               from = tourRepo.coll.name,
               as = "tour",
-              let = $doc("tourId" -> "$tourId"),
+              let = bdoc("tourId" -> "$tourId"),
               pipe = List(
-                $doc:
-                  "$match" -> $expr:
-                    $doc(
-                      "$and" -> $arr(
-                        $doc("$eq" -> $arr("$_id", "$$tourId")),
-                        $doc("$gte" -> $arr("$tier", RelayTour.Tier.normal))
-                      )
+                bdoc:
+                  "$match" -> expr:
+                    and(
+                      bdoc("$eq" -> barr("$_id", "$$tourId")),
+                      bdoc("$gte" -> barr("$tier", RelayTour.Tier.normal))
                     )
               )
             )

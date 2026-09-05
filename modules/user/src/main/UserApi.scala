@@ -113,8 +113,8 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
       userRepo.coll
         .aggregateOne(): framework =>
           import framework.*
-          Match($id(u.id)) -> List:
-            PipelineOperator(perfsRepo.aggregate.lookup)
+          Match(bid(u.id)) -> List:
+            PipelineOperator(perfsRepo.aggregate.byId)
         .map: docO =>
           for
             doc <- docO
@@ -135,9 +135,9 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
       userRepo.coll
         .aggregateList(Int.MaxValue, if fromPri then _.pri else _.sec): framework =>
           import framework.*
-          Match($inIds(ids) ++ includeClosed.not.so(userRepo.enabledSelect)) -> List(
-            PipelineOperator(perfsRepo.aggregate.lookup),
-            AddFields($sort.orderField(ids)),
+          Match(inIds(ids) ++ includeClosed.not.so(userRepo.enabledSelect)) -> List(
+            PipelineOperator(perfsRepo.aggregate.byId),
+            AddFields(sort.orderField(ids)),
             Sort(Ascending("_order"))
           )
         .map: docs =>
@@ -163,9 +163,9 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
     userRepo.coll
       .aggregateList(Int.MaxValue, readPref): framework =>
         import framework.*
-        Match($inIds(ids)) -> List(
-          PipelineOperator(perfsRepo.aggregate.lookup(pk)),
-          AddFields($sort.orderField(ids)),
+        Match(inIds(ids)) -> List(
+          PipelineOperator(perfsRepo.aggregate.byPk(pk)),
+          AddFields(sort.orderField(ids)),
           Sort(Ascending("_order"))
         )
       .map: docs =>
@@ -197,7 +197,7 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
 
   def withEmails[U: UserIdOf](users: List[U]): Fu[List[WithEmails]] =
     userRepo.coll
-      .list[Bdoc]($inIds(users.map(_.id)), _.sec)
+      .list[Bdoc](inIds(users.map(_.id)), _.sec)
       .map: docs =>
         for
           doc <- docs
@@ -211,7 +211,7 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
     perfs <- perfsRepo.idsMap(users, _.sec)
     ids = users.map(_.id)
     users <- userRepo.coll
-      .list[Bdoc]($inIds(ids), _.sec)
+      .list[Bdoc](inIds(ids), _.sec)
       .map: docs =>
         for
           doc <- docs
@@ -243,11 +243,15 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
     userRepo.coll
       .aggregateList(max, _.sec): framework =>
         import framework.*
-        val inIds = ids.nonEmpty.so($inIds(ids))
-        Match(inIds ++ userRepo.botWithBioSelect ++ userRepo.enabledSelect ++ userRepo.notLame) -> List(
+        Match(
+          ids.nonEmpty.so(inIds(ids)) ++
+            userRepo.botWithBioSelect ++
+            userRepo.enabledSelect ++
+            userRepo.notLame
+        ) -> List(
           Sort(Descending(BSONFields.roles), Descending("time.human")),
           Limit(max),
-          PipelineOperator(perfsRepo.aggregate.lookup)
+          PipelineOperator(perfsRepo.aggregate.byId)
         )
       .map: docs =>
         for
@@ -262,12 +266,12 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
         import framework.*
         import lila.user.BSONFields as F
         Match(
-          $inIds(ids) ++ $doc("standard.gl.d".$lt(chess.rating.glicko.provisionalDeviation))
+          inIds(ids) ++ bdoc("standard.gl.d".lt(chess.rating.glicko.provisionalDeviation))
         ) -> List(
           Sort(Descending("standard.gl.r")),
           Limit(nb * 5),
           PipelineOperator:
-            $lookup.simple(
+            lookup.simple(
               from = userRepo.coll,
               as = "user",
               local = "_id",
@@ -276,10 +280,10 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
           ,
           UnwindField("user"),
           Match:
-            $doc(
+            bdoc(
               s"user.${F.enabled}" -> true,
-              s"user.${F.marks}".$nin(List(UserMark.engine, UserMark.boost)),
-              s"user.${F.title}".$ne(PlayerTitle.BOT)
+              s"user.${F.marks}".nin(List(UserMark.engine, UserMark.boost)),
+              s"user.${F.title}".neq(PlayerTitle.BOT)
             )
           ,
           Limit(nb)

@@ -12,29 +12,29 @@ private final class TeamUpdateRepo(val coll: Coll)(using Executor):
 
   private val history = 90.days
   private def historyAgo = nowInstant.minus(history)
-  private def dateSelect = "date".$gt(historyAgo)
-  private def teamSelect(team: TeamId) = $doc("team" -> team)
+  private def dateSelect = "date".gt(historyAgo)
+  private def teamSelect(team: TeamId) = bdoc("team" -> team)
 
   // never load the seenBy field in memory! it could be huge
-  // private val project = $doc("seenBy" -> false)
+  // private val project = bdoc("seenBy" -> false)
 
   def send(msg: DbTeamUpdate, unsubed: List[UserId]): Funit =
-    val bson = toBdoc(msg).get ++ $doc("seenBy" -> unsubed)
+    val bson = toBdoc(msg).get ++ bdoc("seenBy" -> unsubed)
     coll.insert.one(bson).void
 
   def countUnread(teams: Team.IdsStr)(using me: Me): Fu[Int] =
     coll.secondary.countSel:
-      $doc(
-        "team".$in(teams.toArray),
+      bdoc(
+        "team".in(teams.toArray),
         dateSelect,
-        "seenBy".$ne(me.userId)
+        "seenBy".neq(me.userId)
       )
 
   def markSeen(team: TeamId)(using me: Me): Funit =
     coll.update
       .one(
-        teamSelect(team) ++ $doc("seenBy".$ne(me.userId)),
-        $doc("$addToSet" -> $doc("seenBy" -> me.userId)),
+        teamSelect(team) ++ bdoc("seenBy".neq(me.userId)),
+        bdoc("$addToSet" -> bdoc("seenBy" -> me.userId)),
         multi = true
       )
       .void
@@ -42,7 +42,7 @@ private final class TeamUpdateRepo(val coll: Coll)(using Executor):
   def teamLatest(team: TeamId): Fu[Option[DbTeamUpdate]] =
     coll.secondary
       .find(teamSelect(team) ++ dateSelect)
-      .sort($sort.desc("date"))
+      .sort(sort.desc("date"))
       .one[DbTeamUpdate]
 
   def teamRecent(team: TeamId)(using Me): AdapterLike[DbTeamUpdateSeen] =
@@ -51,7 +51,7 @@ private final class TeamUpdateRepo(val coll: Coll)(using Executor):
   def allRecent(teams: Seq[TeamId])(using me: Me): AdapterLike[DbTeamUpdateSeen] = new:
     private val teamSelector = teams match
       case Seq(single) => teamSelect(single)
-      case many => $doc("team".$in(many))
+      case many => bdoc("team".in(many))
     def nbResults: Fu[Int] = coll.secondary.countSel(teamSelector ++ dateSelect)
     def slice(offset: Int, length: Int): Fu[List[DbTeamUpdateSeen]] =
       coll
@@ -62,7 +62,7 @@ private final class TeamUpdateRepo(val coll: Coll)(using Executor):
               Sort(Descending("date")),
               Skip(offset),
               Limit(length),
-              AddFields($doc("seenBy" -> $doc("$in" -> $arr(me.userId, "$seenBy"))))
+              AddFields(bdoc("seenBy" -> bdoc("$in" -> barr(me.userId, "$seenBy"))))
             )
         .map: docs =>
           for
@@ -76,14 +76,14 @@ private final class TeamUpdateRepo(val coll: Coll)(using Executor):
       .aggregateList(100, _.sec): framework =>
         import framework.*
         Match(
-          $doc(
-            "team".$in(teams.toArray),
-            "date".$gt(nowInstant.minusMonths(1))
+          bdoc(
+            "team".in(teams.toArray),
+            "date".gt(nowInstant.minusMonths(1))
           )
         ) ->
           List(
             GroupField("team")(
-              "unread" -> Sum($doc("$cond" -> $arr($doc("$in" -> $arr(me.userId, "$seenBy")), 0, 1))),
+              "unread" -> Sum(bdoc("$cond" -> barr(bdoc("$in" -> barr(me.userId, "$seenBy")), 0, 1))),
               "last" -> MaxField("date")
             ),
             Sort(Descending("last"))

@@ -90,7 +90,7 @@ final class ExternalEngineApi(coll: Coll, cacheApi: CacheApi)(using Executor):
   private val userCache = cacheApi[UserId, List[ExternalEngine]](65_536, "externalEngine.user"):
     _.maximumSize(65_536).buildAsyncFuture(doFetchList)
   import lila.db.dsl.list
-  private def doFetchList(userId: UserId) = coll.list[ExternalEngine]($doc("userId" -> userId), 64)
+  private def doFetchList(userId: UserId) = coll.list[ExternalEngine](bdoc("userId" -> userId), 64)
   private def reloadCache(userId: UserId) = userCache.put(userId, doFetchList(userId))
 
   def list(by: UserId): Fu[List[ExternalEngine]] = userCache.get(by)
@@ -98,7 +98,7 @@ final class ExternalEngineApi(coll: Coll, cacheApi: CacheApi)(using Executor):
   def create(by: UserId, data: ExternalEngine.FormData, oauthTokenId: AccessTokenId): Fu[ExternalEngine] =
     val engine = data.make(by)
     val bson =
-      engineHandler.writeOpt(engine).err("external engine bson") ++ $doc("oauthToken" -> oauthTokenId)
+      engineHandler.writeOpt(engine).err("external engine bson") ++ bdoc("oauthToken" -> oauthTokenId)
     for
       _ <- coll.insert.one(bson)
       _ = reloadCache(by.id)
@@ -110,12 +110,12 @@ final class ExternalEngineApi(coll: Coll, cacheApi: CacheApi)(using Executor):
   def update(prev: ExternalEngine, data: ExternalEngine.FormData): Fu[ExternalEngine] =
     val engine = data.update(prev)
     for
-      _ <- coll.update.one($id(engine._id), engine)
+      _ <- coll.update.one(bid(engine._id), engine)
       _ = reloadCache(engine.userId)
     yield engine
 
   def delete(by: UserId, id: String): Fu[Boolean] =
-    coll.delete.one($doc("userId" -> by) ++ $id(id)).map { result =>
+    coll.delete.one(bdoc("userId" -> by) ++ bid(id)).map { result =>
       reloadCache(by.id)
       result.n > 0
     }
@@ -129,6 +129,6 @@ final class ExternalEngineApi(coll: Coll, cacheApi: CacheApi)(using Executor):
         engines.nonEmpty.so(Json.obj("externalEngines" -> engines))
 
   private[analyse] def onTokenRevoke(id: AccessTokenId) =
-    coll.primitiveOne[UserId]($doc("oauthToken" -> id), "userId").flatMapz { userId =>
-      for _ <- coll.delete.one($doc("oauthToken" -> id)) yield reloadCache(userId)
+    coll.primitiveOne[UserId](bdoc("oauthToken" -> id), "userId").flatMapz { userId =>
+      for _ <- coll.delete.one(bdoc("oauthToken" -> id)) yield reloadCache(userId)
     }

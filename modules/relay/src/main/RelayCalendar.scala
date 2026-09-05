@@ -21,22 +21,22 @@ final class RelayCalendar(
           import framework.*
           // select the first round of the tour, that starts in that month
           val roundPipeline = List(
-            $doc("$sort" -> RelayRoundRepo.sort.asc),
-            $doc(
-              "$addFields" -> $doc(
-                "sync.log" -> $arr(),
-                "startDate" -> $doc("$ifNull" -> $arr("$startedAt", "$startsAt"))
+            bdoc("$sort" -> RelayRoundRepo.sort.asc),
+            bdoc(
+              "$addFields" -> bdoc(
+                "sync.log" -> barr(),
+                "startDate" -> bdoc("$ifNull" -> barr("$startedAt", "$startsAt"))
               )
             ),
-            $doc(
-              "$match" -> $doc(
-                "startDate" -> $doc(
+            bdoc(
+              "$match" -> bdoc(
+                "startDate" -> bdoc(
                   "$gte" -> firstDay,
                   "$lt" -> firstDay.plusMonths(1)
                 )
               )
             ),
-            $doc("$limit" -> 1)
+            bdoc("$limit" -> 1)
           )
           Match(selectors.officialPublic ++ selectors.inMonth(at)) -> {
             // reduce cache size by unselecting some fields

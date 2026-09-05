@@ -19,7 +19,7 @@ final private class NotifyCli(api: NotifyApi, userRepo: UserRepo)(using Material
       notifyUrlTo(titledUserIds, url, words, Icon.trophy)
 
   private def titledUserIds =
-    enabledTitledSource($id(true).some).mapConcat(_.getAsOpt[UserId]("_id").toList)
+    enabledTitledSource(bid(true).some).mapConcat(_.getAsOpt[UserId]("_id").toList)
 
   private def notifyUrlTo(
       userIds: Source[UserId, ?],
@@ -43,9 +43,9 @@ final private class NotifyCli(api: NotifyApi, userRepo: UserRepo)(using Material
     import reactivemongo.pekkostream.cursorProducer
     userRepo.coll
       .find(
-        $doc(
+        bdoc(
           BSONFields.enabled -> true,
-          BSONFields.title -> $doc(
+          BSONFields.title -> bdoc(
             "$exists" -> true,
             "$nin" -> List(chess.PlayerTitle.LM, chess.PlayerTitle.BOT)
           )

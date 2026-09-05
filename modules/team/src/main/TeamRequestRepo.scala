@@ -26,28 +26,28 @@ final class TeamRequestRepo(val coll: Coll)(using Executor):
   def findActiveByTeams(teamIds: List[TeamId]): Fu[List[TeamRequest]] =
     teamIds.nonEmpty.so(coll.list[TeamRequest](teamsActiveQuery(teamIds)))
 
-  def selectId(teamId: TeamId, userId: UserId) = $id(TeamRequest.makeId(teamId, userId))
-  def teamQuery(teamId: TeamId) = $doc("team" -> teamId)
-  def teamsQuery(teamIds: List[TeamId]) = $doc("team".$in(teamIds))
+  def selectId(teamId: TeamId, userId: UserId) = bid(TeamRequest.makeId(teamId, userId))
+  def teamQuery(teamId: TeamId) = bdoc("team" -> teamId)
+  def teamsQuery(teamIds: List[TeamId]) = bdoc("team".in(teamIds))
   def teamDeclinedQuery(teamId: TeamId, userQuery: Option[UserStr] = None) =
-    val baseQuery = $and(teamQuery(teamId), $doc("declined" -> true))
+    val baseQuery = and(teamQuery(teamId), bdoc("declined" -> true))
     userQuery.fold(baseQuery): userStr =>
-      $and(baseQuery, $doc("user" -> userStr.id))
+      and(baseQuery, bdoc("user" -> userStr.id))
 
-  def teamActiveQuery(teamId: TeamId) = $and(teamQuery(teamId), $doc("declined".$ne(true)))
-  def teamsActiveQuery(teamIds: List[TeamId]) = $and(teamsQuery(teamIds), $doc("declined".$ne(true)))
+  def teamActiveQuery(teamId: TeamId) = and(teamQuery(teamId), bdoc("declined".neq(true)))
+  def teamsActiveQuery(teamIds: List[TeamId]) = and(teamsQuery(teamIds), bdoc("declined".neq(true)))
 
   def getByUserId(userId: UserId) =
-    coll.list[TeamRequest]($doc("user" -> userId))
+    coll.list[TeamRequest](bdoc("user" -> userId))
 
-  def remove(id: TeamRequest.ID) = coll.delete.one($id(id))
+  def remove(id: TeamRequest.ID) = coll.delete.one(bid(id))
 
   def cancel(teamId: TeamId, user: User): Fu[Boolean] =
     coll.delete.one(selectId(teamId, user.id)).map(_.n == 1)
 
   def removeByTeam(teamId: TeamId) = coll.delete.one(teamQuery(teamId))
 
-  def removeByUser(userId: UserId) = coll.delete.one($doc("user" -> userId))
+  def removeByUser(userId: UserId) = coll.delete.one(bdoc("user" -> userId))
 
   def countPendingForTeams(teams: Iterable[TeamId]): Fu[Int] =
-    teams.nonEmpty.so(coll.secondary.countSel($doc("team".$in(teams), "declined".$ne(true))))
+    teams.nonEmpty.so(coll.secondary.countSel(bdoc("team".in(teams), "declined".neq(true))))
