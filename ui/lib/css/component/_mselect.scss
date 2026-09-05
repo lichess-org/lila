@@ -13,7 +13,7 @@ $c-mselect: $c-primary;
   &__label {
     @extend %box-radius, %flex-between-nowrap, %metal-with-border;
     @include backdrop-blur-if-transparent;
-    @include padding-direction(0.3rem, 0.6rem, 0.3rem, 1rem);
+    @include padding-direction(0.3rem, 0.65rem, 0.3rem, 1rem);
 
     gap: 1ch;
     cursor: pointer;
@@ -22,11 +22,14 @@ $c-mselect: $c-primary;
       @include icon-mask($icon-moreTriangle, 0.7rem);
 
       color: $c-mselect;
-      margin-inline: 0.4em 0;
     }
 
     &:focus-visible {
       outline: $outline;
+    }
+
+    .svg-icon {
+      font-size: 85%;
     }
   }
 
@@ -77,7 +80,7 @@ $c-mselect: $c-primary;
     gap: 0.5em;
     white-space: nowrap;
     display: block;
-    padding: 0.3em 1em;
+    padding: 0.3em 1em 0.3rem calc(1rem - 3px);
     visibility: hidden;
     opacity: 0;
     color: $c-mselect;
@@ -98,6 +101,10 @@ $c-mselect: $c-primary;
     &:focus-visible {
       outline: $outline;
       outline-offset: -2px;
+    }
+
+    .svg-icon {
+      font-size: 85%;
     }
   }
 }
