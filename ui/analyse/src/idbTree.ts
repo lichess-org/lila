@@ -130,13 +130,12 @@ export class IdbTree {
         this.ctrl.tree.merge(completeNode(this.ctrl.variantKey)(moves.root));
         state.movesDirty = true;
       }
+      const multiPv = this.ctrl.ceval.search.multiPv;
       for (const { path, ceval } of cevals) {
         this.ctrl.tree.updateAt(path, node => {
-          if (
-            node.fen === ceval.fen &&
-            (!node.ceval || useFirstEval(ceval, node.ceval, this.ctrl.ceval.search.multiPv))
-          )
+          if (node.fen === ceval.fen && (!node.ceval || useFirstEval(ceval, node.ceval, multiPv))) {
             node.ceval = ceval;
+          }
         });
         state.cevals.set(path, ceval);
       }
