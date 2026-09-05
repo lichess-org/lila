@@ -1,11 +1,10 @@
+import { perfNames } from 'lib/game/perf';
 import perfIcons from 'lib/game/perfIcons';
 import { bind, confirm, tr, td, span, div, button, table, thead, tbody, th, icon } from 'lib/view';
 import { profileUrl } from 'lib/view/userLink';
 
 import type LobbyController from '@/ctrl';
 import type { Seek } from '@/interfaces';
-
-import { perfNames } from './util';
 
 function renderSeek(ctrl: LobbyController, seek: Seek) {
   const isJoinAction = seek.action === 'joinSeek';

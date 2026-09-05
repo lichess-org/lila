@@ -7,6 +7,7 @@ import { parseSquare, makeSquare } from 'chessops/util';
 import { view as cevalView } from 'lib/ceval';
 import { fenToEpd } from 'lib/game/chess';
 import { licon, type LiconValue } from 'lib/licon';
+import { variants } from 'lib/game/perf';
 import {
   copyMeInput,
   dataIcon,
@@ -82,18 +83,6 @@ function positionOption(pos: OpeningPosition): VNode {
     pos.eco ? `${pos.eco} ${pos.name}` : pos.name,
   );
 }
-
-const ALL_VARIANTS: Array<[VariantKey, string]> = [
-  ['standard', i18n.variant.standard],
-  ['chess960', i18n.variant.chess960],
-  ['kingOfTheHill', i18n.variant.kingOfTheHill],
-  ['threeCheck', i18n.variant.threeCheck],
-  ['crazyhouse', i18n.variant.crazyhouse],
-  ['antichess', i18n.variant.antichess],
-  ['atomic', i18n.variant.atomic],
-  ['horde', i18n.variant.horde],
-  ['racingKings', i18n.variant.racingKings],
-];
 
 function controlsButtonStart(ctrl: EditorCtrl, icon?: LiconValue) {
   return button(
@@ -280,7 +269,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
                   },
                 },
               },
-              ALL_VARIANTS.map(x => variantOption(x[0], x[1], ctrl)),
+              Object.entries(variants).map((x: [VariantKey, string]) => variantOption(x[0], x[1], ctrl)),
             ),
           ]),
           chess960PositionIdSelector,
