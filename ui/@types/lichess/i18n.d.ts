@@ -3439,8 +3439,8 @@ interface I18n {
     clearBoard: string;
     /** Clear field */
     clearField: string;
-    /** Clear moves */
-    clearSavedMoves: string;
+    /** Clear local data */
+    clearLocalData: string;
     /** Clear search */
     clearSearch: string;
     /** Click here to read it */

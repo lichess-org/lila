@@ -18,8 +18,11 @@ export class TreeView {
   constructor(readonly ctrl: AnalyseCtrl) {}
   private autoScrollRequest: ScrollBehavior | false = false;
 
-  hidden = true;
   mode: 'column' | 'inline';
+
+  get hidden(): boolean {
+    return !this.ctrl.asyncReady;
+  }
 
   render(concealOf?: ConcealOf): VNode {
     this.mode = concealOf || !this.ctrl.settings.inline ? 'column' : 'inline';
