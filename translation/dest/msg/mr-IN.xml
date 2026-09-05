@@ -2,4 +2,9 @@
 <resources>
   <string name="lichobileNewAppAvailable">नवीन Lichess मोबाईल अँप उपलब्ध आहे!</string>
   <string name="lichobileNewAppDownload" comment="The parameter links to https://lichess.org/app">कृपया नवीन अधिकृत Lichess अँपला इथून %s आयात करा.</string>
+  <string name="modActionFeedback">नमस्कार,
+
+आम्ही तुमच्या अहवालाची पडताळणी केली आहे आणि त्यावर आवश्यक कारवाई केली आहे. आम्ही तुम्हाला कारवाईचे तपशील सांगू शकत नाही, तरीही आम्ही तुमच्या अहवालाबद्दल आभारी आहोत.
+
+Lichess हे सर्वांसाठी एक उत्तम ठिकाण म्हणून टिकवून ठेवण्यासाठी तुम्ही केलेल्या मदतीबद्दल धन्यवाद.</string>
 </resources>

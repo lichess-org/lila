@@ -26,6 +26,7 @@
   <string name="orCloseAccount">Yine de mevcut hesabınızı kapatıp yeni bir hesap açabilirsiniz.</string>
   <string name="wantClearHistory">Oyun geçmişimi veya puanımı sıfırlamak istiyorum</string>
   <string name="cantClearHistory">Oyun geçmişinizi, bulmaca geçmişinizi veya puanlarınızı sıfırlamamız maalesef mümkün değil.</string>
+  <string name="cantClearHistoryOrResetRatings" comment="Replaces old string cantClearHistory">Oyun veya bulmaca geçmişinizi temizlemek, ya da puanlarınızı sıfırlamak mümkün değil.</string>
   <string name="wantReport">Bir oyuncuyu şikâyet etmek istiyorum</string>
   <string name="toReportAPlayerUseForm">Bir oyuncuyu şikayet etmek için şikayet formunu kullanınız</string>
   <string name="youCanAlsoReachReportPage">Ayrıca, oyuncunun profilindeki %s butonuna tıklayarak şikâyet formuna ulaşabilirsiniz.</string>

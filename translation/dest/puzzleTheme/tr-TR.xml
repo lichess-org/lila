@@ -30,6 +30,7 @@
   <string name="collinearMoveDescription">Karşılıklı duran iki taştan biri, düşman taşını ele geçirmeden saldırı hattı boyunca kayar.</string>
   <string name="cornerMate">Köşe matı</string>
   <string name="cornerMateDescription">Kale veya vezir ve at kullanarak şahı köşeye çekin ve mat girişiminde bulunun.</string>
+  <string name="cornerMateKnightDeliversDescription" comment="Description for the &quot;Corner mate&quot; puzzle theme. Replaces old string cornerMateDescription">Şahı, kale veya vezirle köşeye sıkıştırın ve atla mat yapın.</string>
   <string name="crushing">Ezici üstünlük</string>
   <string name="crushingDescription">Rakibin vahim hatasını yakalayarak ezici bir üstünlük elde et. (analiz ≥ 600sp)</string>
   <string name="discoveredCheck">Açarak şah</string>
@@ -120,6 +121,7 @@
   <string name="pinDescription">Hareket ettiği takdirde arkasında bulunan, kendisinden daha değerli bir taş tehlikeye düşeceği için olduğu yere mıhlanmış zavallı taşları içeren taktikler.</string>
   <string name="promotion">Terfi</string>
   <string name="promotionDescription">Terfi eden veya terfi etmek üzere olan bir piyon taktik bilgisinin olmazsa olmazıdır.</string>
+  <string name="promotePawnToQueenRookOrMinor" comment="Replaces old string promotionDescription">Piyonlarınızdan birini vezir, kale veya hafif taşa terfi ettirin.</string>
   <string name="queenEndgame">Vezir oyunsonu</string>
   <string name="queenEndgameDescription">Sadece vezir ve piyon içeren oyunsonu.</string>
   <string name="queenRookEndgame">Vezir ve kale oyunsonu</string>

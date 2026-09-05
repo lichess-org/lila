@@ -296,7 +296,9 @@
   <string name="ok">Tamam</string>
   <string name="cancel">İptal et</string>
   <string name="whiteTimeOut">Beyazın zamanı tükendi</string>
+  <string name="whiteRanOutOfTime" comment="whiteTimeOut&#10;&#10;Shows when White's time has run out. Is followed by the end condition, for example&#10;'White ran out of time · Draw' Replaces old string whiteTimeOut">Beyaz\'ın süresi doldu</string>
   <string name="blackTimeOut">Siyahın zamanı tükendi</string>
+  <string name="blackRanOutOfTime" comment="blackTimeOut&#10;&#10;Shows when Black's time has run out. Is followed by the end condition, for example&#10;'Black ran out of time · Draw' Replaces old string blackTimeOut">Siyah\'ın süresi doldu</string>
   <string name="drawOfferSent">Beraberlik teklifi gönderildi</string>
   <string name="drawOfferAccepted">Beraberlik teklifi kabul edildi</string>
   <string name="whiteOffersDraw">Beyaz beraberlik teklif ediyor</string>
@@ -418,6 +420,8 @@
   </plurals>
   <string name="yourPerfRatingIsProvisional">%s puanınız geçicidir</string>
   <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Derece sabit olmadığı için derece filtreleri kilitli. Dereceli oyunlar oynamak derecenin sabitliğini artırır.</string>
+  <string name="cannotFilterByUnstableRating" comment="Tooltip to explain why the control for filtering by rating is disabled Replaces old string ratingRangeIsDisabledBecauseYourRatingIsProvisional">Puanınız istikrarlı olmadığı için puana göre filtreleme yapmak mümkün değil.
+Puanlı oyunlar oynamak istikrarınızı artıracaktır.</string>
   <string name="yourPerfRatingIsTooHigh">%1$s puanınız (%2$s) gerekenden fazla</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Haftalık %1$s puanınız (%2$s) gerekenden fazla</string>
   <string name="yourPerfRatingIsTooLow">%1$s puanınız (%2$s) gerekenden az</string>
@@ -439,6 +443,7 @@
   <string name="save">Kaydet</string>
   <string name="leaderboard">Lider Tablosu</string>
   <string name="screenshotCurrentPosition">Geçerli pozisyonun ekran görüntüsünü al</string>
+  <string name="positionAsImage" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position. Replaces old string screenshotCurrentPosition">Görsel olarak pozisyon</string>
   <string name="gameAsGIF">Oyunun GIF hali</string>
   <string name="playerNames">Oyuncu isimleri</string>
   <string name="moveAnnotations">Hamle açıklamaları</string>

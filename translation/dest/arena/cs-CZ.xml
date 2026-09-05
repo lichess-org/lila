@@ -66,6 +66,7 @@ Hrajte rychle a vraťte se vždy co nejdříve do turnajové místnosti - stihne
   <string name="editTournament">Upravit turnaj</string>
   <string name="editTeamBattle">Upravit týmové bitvy</string>
   <string name="defender">Obránce</string>
+  <string name="defenderLabel" comment="In this context, this is the current holder of a shield trophy, who is defending their trophy in the next shield tournament of that variant. https://lichess.org/tournament/shields Replaces old string defender">Obránce:</string>
   <string name="pickYourTeam">Vyber si tým</string>
   <string name="whichTeamWillYouRepresentInThisBattle">Který tým budeš reprezentovat v této bitvě?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">Musíš se připojit k jednomu z těchto týmů!</string>
