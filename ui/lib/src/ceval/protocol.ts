@@ -188,6 +188,7 @@ export class Protocol {
       this.setOption('Threads', this.work.threads);
       this.setOption('Hash', this.work.hashSize || 16);
       this.setOption('MultiPV', Math.max(1, this.work.multiPv));
+      if (this.work.level !== undefined) this.setOption('Skill Level', this.work.level);
 
       if (this.gameId && this.gameId !== this.work.gameId) this.send('ucinewgame');
       this.gameId = this.work.gameId;

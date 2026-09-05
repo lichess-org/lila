@@ -25,6 +25,7 @@ export interface Work extends EvalMeta {
   stopRequested: boolean;
   search: SearchBy;
   multiPv: number;
+  level?: number; // Stockfish skill level 0-20, undefined = full strength
   initialFen: string;
   currentFen: string;
   moves: string[];
@@ -104,6 +105,7 @@ export interface EngineArgs {
 export interface CustomSearch {
   engine?: EngineArgs;
   search?: () => Search | Millis; // pass number as millis to cap user defined search
+  level?: () => number | undefined; // Stockfish skill level 0-20, undefined = full strength
 }
 
 export interface CustomCeval extends CustomSearch {

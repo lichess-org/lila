@@ -3739,6 +3739,8 @@ interface I18n {
     freeOnlineChess: string;
     /** Friends */
     friends: string;
+    /** Full */
+    fullStrength: string;
     /** Game aborted */
     gameAborted: string;
     /** Game as GIF */
@@ -4215,6 +4217,8 @@ interface I18n {
     opponentLeftChoices: string;
     /** Your opponent left the game. You can claim victory in %s seconds. */
     opponentLeftCounter: I18nPlural;
+    /** Opponent strength */
+    opponentStrength: string;
     /** Or let your opponent scan this QR code */
     orLetYourOpponentScanQrCode: string;
     /** Or */
