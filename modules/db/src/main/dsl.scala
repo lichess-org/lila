@@ -156,7 +156,7 @@ trait dsl:
    * }}}
    *
    */
-  class SimpleExpression[V <: BSONValue](val field: String, val value: V) extends Expression[V]
+  final class SimpleExpression[V <: BSONValue](val field: String, val value: V) extends Expression[V]
 
   /** Expressions of this type can be cascaded. Examples:
     *
@@ -165,7 +165,7 @@ trait dsl:
     *  "age" $gte 50 $lte 60
     * }}}
     */
-  class CompositeExpression(val field: String, val value: Bdoc) extends Expression[Bdoc]:
+  final class CompositeExpression(val field: String, val value: Bdoc) extends Expression[Bdoc]:
     private def and(more: Bdoc): CompositeExpression = CompositeExpression(field, value ++ more)
     def gt[T: BSONWriter](v: T): CompositeExpression = and(bdoc("$gt" -> v))
     def gte[T: BSONWriter](v: T): CompositeExpression = and(bdoc("$gte" -> v))
