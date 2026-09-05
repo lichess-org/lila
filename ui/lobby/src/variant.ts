@@ -1,3 +1,4 @@
+import { variants as variantNames } from 'lib/game/perf';
 import { storage } from 'lib/storage';
 import { confirm } from 'lib/view';
 
@@ -7,7 +8,7 @@ type ActualVariant = Exclude<VariantKey, 'standard' | 'fromPosition'>;
 
 const variantConfirm = (variant: ActualVariant): string => {
   const v = variants.find(({ key }) => key === variant)!;
-  return `${v.name}\n\n${v.description}`;
+  return `${variantNames[v.key]}\n\n${v.description}`;
 };
 
 const storageKey = (key: ActualVariant) => `lobby.variant.${key}`;

@@ -1,3 +1,5 @@
+import { variants as variantNames } from 'lib/game/perf';
+import perfIcons from 'lib/game/perfIcons';
 import { option } from 'lib/setup/option';
 import { dataIcon, enter, hl } from 'lib/view';
 
@@ -16,7 +18,7 @@ export const variantPicker = (setupCtrl: SetupController) => {
           },
         },
         variantsForGameType(variants, setupCtrl.gameType!).map(variant =>
-          option(variant, setupCtrl.variant()),
+          option({ key: variant.key, name: variantNames[variant.key] }, setupCtrl.variant()),
         ),
       ),
     ]);
@@ -44,8 +46,11 @@ export const variantPicker = (setupCtrl: SetupController) => {
         attrs: { for: inputId },
       },
       [
-        hl('span.icon', { attrs: dataIcon(currentVariant.icon) }),
-        hl('div.text', [hl('span.name', currentVariant.name), hl('span.desc', currentVariant.description)]),
+        hl('span.icon', { attrs: dataIcon(perfIcons[currentVariant.key]) }),
+        hl('div.text', [
+          hl('span.name', variantNames[currentVariant.key]),
+          hl('span.desc', currentVariant.description),
+        ]),
       ],
     ),
   ];
@@ -77,8 +82,8 @@ export const variantPicker = (setupCtrl: SetupController) => {
                   },
                 },
                 [
-                  hl('td.icon', hl('span', { attrs: dataIcon(v.icon) })),
-                  hl('td.name', v.name),
+                  hl('td.icon', hl('span', { attrs: dataIcon(perfIcons[v.key]) })),
+                  hl('td.name', variantNames[v.key]),
                   hl('td.desc', v.description),
                 ],
               ),

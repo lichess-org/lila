@@ -1,4 +1,3 @@
-import type { LiconValue } from 'lib/licon';
 import type { ColorChoice } from 'lib/setup/color';
 import type { ClockConfig } from 'lib/setup/interfaces';
 import type { TimeMode } from 'lib/setup/timeControl';
@@ -12,8 +11,6 @@ export type GameMode = 'casual' | 'rated';
 export interface Variant {
   id: number;
   key: VariantKey;
-  name: string;
-  icon: LiconValue;
   description: string;
 }
 

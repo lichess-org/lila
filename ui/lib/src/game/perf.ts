@@ -20,7 +20,7 @@ export const variants: Record<VariantKey, string> = {
   fromPosition: i18n.variant.fromPosition,
 };
 
-export const perfNames: Record<Perf | 'standard', string> = {
+export const perfNames: Record<Speed | VariantKey, string> = {
   ...speeds,
   ...variants,
 };
