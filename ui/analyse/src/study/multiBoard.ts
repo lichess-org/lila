@@ -361,7 +361,7 @@ const renderUser = (player: StudyPlayer, pinned?: boolean): VNode =>
     playerFedFlag(player.fed),
     h('span.name', [userTitle(player), player.name || '?']),
     player.rating ? h('span.rating', player.rating.toString()) : undefined,
-    pinned ? pinIcon() : undefined,
+    pinned ? pinIcon('.pinned-icon') : undefined,
   ]);
 
 export const renderClock = (chapter: ChapterPreview, color: Color) => {
