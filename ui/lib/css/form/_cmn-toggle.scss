@@ -37,15 +37,14 @@
   }
 
   &::before {
-    @extend %box-radius;
-    @include icon-mask($icon-x);
+    @include icon-mask($icon-x, 9px);
     @include transition(margin-inline-start color);
 
     align-self: center;
-    inset: 6px;
+    left: 7px;
+    top: 0;
     z-index: 1;
-    width: 10px;
-    color: $c-font-dimmer;
+    background-color: $c-font-dimmer;
   }
 
   &::after {
@@ -98,9 +97,10 @@
   }
 
   &::before {
-    @include icon-mask($icon-checkmark);
+    @include icon-mask($icon-checkmark, 12px);
 
     color: $c-good;
+    left: 6px;
   }
 }
 
