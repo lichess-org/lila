@@ -23,7 +23,7 @@ private final class SwissTrf(
         .concat(forbiddenPairings(swiss, playerIds))
         .concat:
           sheetApi
-            .source(swiss, sort = sorted.so($doc(f.rating -> -1)))
+            .source(swiss, sort = sorted.so(bdoc(f.rating -> -1)))
             .map((playerLine(swiss, playerIds)).tupled)
             .map(formatLine)
 
@@ -97,7 +97,7 @@ private final class SwissTrf(
       mongo.player
         .aggregateOne(): framework =>
           import framework.*
-          Match($doc(p.swissId -> swiss.id)) -> List(
+          Match(bdoc(p.swissId -> swiss.id)) -> List(
             Sort(Descending(p.rating)),
             Group(BSONNull)("us" -> PushField(p.userId))
           )

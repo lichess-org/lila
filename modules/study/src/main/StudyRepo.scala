@@ -24,16 +24,16 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
     val topics = "topics"
     val createdAt = "createdAt"
 
-  private[study] val projection = $doc(
+  private[study] val projection = bdoc(
     F.uids -> false,
     F.likers -> false,
     F.rank -> false
   )
 
-  def byId(id: StudyId) = coll(_.find($id(id), projection.some).one[Study])
-  def publicById(id: StudyId) = coll(_.find($id(id) ++ selectPublic, projection.some).one[Study])
+  def byId(id: StudyId) = coll(_.find(bid(id), projection.some).one[Study])
+  def publicById(id: StudyId) = coll(_.find(bid(id) ++ selectPublic, projection.some).one[Study])
   def publicByIds(ids: Seq[StudyId]) = coll:
-    _.find($inIds(ids) ++ selectPublic, projection.some).cursor[Study]().list(ids.size)
+    _.find(inIds(ids) ++ selectPublic, projection.some).cursor[Study]().list(ids.size)
 
   def byIdWithChapter(
       chapterColl: AsyncColl
@@ -41,15 +41,15 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
     coll:
       _.aggregateOne(): framework =>
         import framework.*
-        Match($id(id)) -> List(
+        Match(bid(id)) -> List(
           Project(projection),
           PipelineOperator(
-            $lookup.simple(
+            lookup.simple(
               from = chapterColl.name,
               local = "_id",
               foreign = "studyId",
               as = "chapter",
-              pipe = List($doc("$match" -> $doc("_id" -> chapterId)))
+              pipe = List(bdoc("$match" -> bdoc("_id" -> chapterId)))
             )
           ),
           UnwindField("chapter")
@@ -70,25 +70,25 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
   ): Fu[PekkoStreamCursor[Study]] =
     coll.map(_.find(selector, projection.some).sort(sort).cursor[Study](readPref))
 
-  def exists(id: StudyId) = coll(_.exists($id(id)))
+  def exists(id: StudyId) = coll(_.exists(bid(id)))
 
-  private[study] def selectOwnerId(ownerId: UserId) = $doc("ownerId" -> ownerId)
-  def selectMemberId(memberId: UserId) = $doc(F.uids -> memberId)
-  private[study] val selectPublic = $doc("visibility" -> Visibility.public)
-  private[study] val selectPublicFeaturable = selectPublic ++ "trash".$ne(true)
-  private[study] val selectPrivateOrUnlisted = "visibility".$ne(Visibility.public)
-  private[study] val selectUnlisted = $doc("visibility" -> Visibility.unlisted)
-  private[study] def selectLiker(userId: UserId) = $doc(F.likers -> userId)
+  private[study] def selectOwnerId(ownerId: UserId) = bdoc("ownerId" -> ownerId)
+  def selectMemberId(memberId: UserId) = bdoc(F.uids -> memberId)
+  private[study] val selectPublic = bdoc("visibility" -> Visibility.public)
+  private[study] val selectPublicFeaturable = selectPublic ++ "trash".neq(true)
+  private[study] val selectPrivateOrUnlisted = "visibility".neq(Visibility.public)
+  private[study] val selectUnlisted = bdoc("visibility" -> Visibility.unlisted)
+  private[study] def selectLiker(userId: UserId) = bdoc(F.likers -> userId)
   private[study] def selectContributorId(userId: UserId): Bdoc =
     selectMemberId(userId) ++ // use the index
-      $doc("ownerId".$ne(userId)) ++
-      $doc(s"members.$userId.role" -> "w")
-  private[study] def selectTopic(topic: StudyTopic) = $doc(F.topics -> topic)
+      bdoc("ownerId".neq(userId)) ++
+      bdoc(s"members.$userId.role" -> "w")
+  private[study] def selectTopic(topic: StudyTopic) = bdoc(F.topics -> topic)
   def selectBroadcast = selectTopic(StudyTopic.broadcast)
-  private[study] def selectNotBroadcast = $doc(F.topics.$ne(StudyTopic.broadcast))
+  private[study] def selectNotBroadcast = bdoc(F.topics.neq(StudyTopic.broadcast))
 
   private def hasMemberOrIsPublic(using as: Option[MyId]) = as.fold(selectPublic): me =>
-    $or($doc(s"members.$me".$exists(true)), selectPublic)
+    or(bdoc(s"members.$me".exists(true)), selectPublic)
 
   def countByOwner(ownerId: UserId)(using as: Option[MyId]) = coll:
     _.secondary.countSel(selectOwnerId(ownerId) ++ as.forall(_.isnt(ownerId)).so(hasMemberOrIsPublic))
@@ -97,22 +97,22 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
     Source.futureSource:
       coll.map:
         _.find(selectOwnerId(ownerId) ++ (!isMe).so(selectPublic), projection.some)
-          .sort($sort.desc("updatedAt"))
+          .sort(sort.desc("updatedAt"))
           .cursor[Study]()
           .documentSource()
 
-  def sourceByMember(memberId: UserId, isMe: Boolean, select: Bdoc = $empty): Source[Study, ?] =
+  def sourceByMember(memberId: UserId, isMe: Boolean, select: Bdoc = emptyBdoc): Source[Study, ?] =
     Source.futureSource:
       coll.map:
         _.find(selectMemberId(memberId) ++ select ++ (!isMe).so(selectPublic), projection.some)
-          .sort($sort.desc("rank"))
+          .sort(sort.desc("rank"))
           .cursor[Study]()
           .documentSource()
 
   def insert(s: Study): Funit =
     coll:
       _.insert.one:
-        studyHandler.writeTry(s).get ++ $doc(
+        studyHandler.writeTry(s).get ++ bdoc(
           F.uids -> s.members.ids,
           F.likers -> List(s.ownerId),
           F.rank -> Study.Rank.compute(s.likes, s.createdAt)
@@ -124,8 +124,8 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
     coll:
       _.update
         .one(
-          $id(s.id),
-          $setsAndUnsets(
+          bid(s.id),
+          setsAndUnsets(
             "position" -> s.position.some,
             "name" -> s.name.some,
             "flair" -> s.flair,
@@ -141,26 +141,26 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
     coll:
       _.update
         .one(
-          $id(s.id),
-          $set("topics" -> s.topics, "updatedAt" -> nowInstant)
+          bid(s.id),
+          bset("topics" -> s.topics, "updatedAt" -> nowInstant)
         )
     .void
 
-  def delete(s: Study): Funit = coll(_.delete.one($id(s.id))).void
+  def delete(s: Study): Funit = coll(_.delete.one(bid(s.id))).void
 
-  def deleteByIds(ids: List[StudyId]): Funit = coll(_.delete.one($inIds(ids))).void
+  def deleteByIds(ids: List[StudyId]): Funit = coll(_.delete.one(inIds(ids))).void
 
   def membersById(id: StudyId): Fu[Option[StudyMembers]] =
-    coll(_.primitiveOne[StudyMembers]($id(id), "members"))
+    coll(_.primitiveOne[StudyMembers](bid(id), "members"))
 
   def membersByIds(ids: Iterable[StudyId]): Fu[List[StudyMembers]] =
-    coll(_.primitive[StudyMembers]($inIds(ids), "members"))
+    coll(_.primitive[StudyMembers](inIds(ids), "members"))
 
   def setPosition(studyId: StudyId, position: Position.Ref): Funit =
     coll:
       _.update.one(
-        $id(studyId),
-        $set(
+        bid(studyId),
+        bset(
           "position" -> position,
           "updatedAt" -> nowInstant
         )
@@ -168,45 +168,45 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
     .void
 
   def setUpdatedNow(id: StudyId): Funit =
-    coll.map(_.updateFieldUnchecked($id(id), "updatedAt", nowInstant))
+    coll.map(_.updateFieldUnchecked(bid(id), "updatedAt", nowInstant))
 
   def addMember(study: StudyId, member: StudyMember): Funit =
     coll:
       _.update.one(
-        $id(study),
-        $set(s"members.${member.id}" -> member) ++ $addToSet(F.uids -> member.id)
+        bid(study),
+        bset(s"members.${member.id}" -> member) ++ addToSet(F.uids -> member.id)
       )
     .void
 
   def removeMember(study: StudyId, userId: UserId): Funit =
     coll:
       _.update.one(
-        $id(study),
-        $unset(s"members.$userId") ++ $pull(F.uids -> userId)
+        bid(study),
+        unset(s"members.$userId") ++ pull(F.uids -> userId)
       )
     .void
 
   def setRole(study: Study, userId: UserId, role: StudyMember.Role): Funit =
     coll:
       _.update.one(
-        $id(study.id),
-        $set(s"members.$userId.role" -> role)
+        bid(study.id),
+        bset(s"members.$userId.role" -> role)
       )
     .void
 
   def setOwner(study: StudyId, userId: UserId): Funit = for
     _ <- addMember(study, StudyMember(userId, StudyMember.Role.Write))
-    _ <- coll(_.update.one($id(study), $set("ownerId" -> userId)))
+    _ <- coll(_.update.one(bid(study), bset("ownerId" -> userId)))
   yield ()
 
   def membersDoc(id: StudyId): Fu[Option[Bdoc]] =
-    coll(_.primitiveOne[Bdoc]($id(id), "members"))
+    coll(_.primitiveOne[Bdoc](bid(id), "members"))
 
   def setMembersDoc(ids: Seq[StudyId], members: Bdoc): Funit =
     coll(
       _.update.one(
-        $inIds(ids),
-        $set(
+        inIds(ids),
+        set(
           "members" -> members,
           "uids" -> members.toMap.keys
         ),
@@ -214,10 +214,10 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
       )
     ).void
 
-  private val idNameProjection = $doc("name" -> true)
+  private val idNameProjection = bdoc("name" -> true)
 
   def publicIdNames(ids: List[StudyId]): Fu[List[hub.IdName]] =
-    coll(_.find($inIds(ids) ++ selectPublic, idNameProjection.some).cursor[hub.IdName]().listAll())
+    coll(_.find(inIds(ids) ++ selectPublic, idNameProjection.some).cursor[hub.IdName]().listAll())
 
   def recentByOwnerWithChapterCount(
       chapterColl: AsyncColl
@@ -239,15 +239,15 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
           Sort(Descending("updatedAt")),
           Project(idNameProjection),
           PipelineOperator(
-            $lookup.simple(
+            lookup.simple(
               from = chapterColl.name,
               as = "chapters",
               local = "_id",
               foreign = "studyId",
-              pipe = List($doc("$project" -> $id(true)))
+              pipe = List(bdoc("$project" -> bid(true)))
             )
           ),
-          AddFields($doc("chapters" -> $doc("$size" -> "$chapters")))
+          AddFields(bdoc("chapters" -> bdoc("$size" -> "$chapters")))
         )
       .map: docs =>
         for
@@ -257,14 +257,14 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
         yield (idName, nbChapters)
 
   def isContributor(studyId: StudyId, userId: UserId) =
-    coll(_.exists($id(studyId) ++ $doc(s"members.$userId.role" -> "w")))
+    coll(_.exists(bid(studyId) ++ bdoc(s"members.$userId.role" -> "w")))
 
   def isMember(studyId: StudyId, userId: UserId) =
-    coll(_.exists($id(studyId) ++ (s"members.$userId".$exists(true))))
+    coll(_.exists(bid(studyId) ++ (s"members.$userId".exists(true))))
 
   def like(studyId: StudyId, userId: UserId, v: Boolean): Fu[Study.Likes] = for
     c <- coll.get
-    _ <- c.update.one($id(studyId), if v then $addToSet(F.likers -> userId) else $pull(F.likers -> userId))
+    _ <- c.update.one(bid(studyId), if v then addToSet(F.likers -> userId) else pull(F.likers -> userId))
     likes <- countLikes(studyId)
     updated <- likes match
       case None => fuccess(Study.Likes(0))
@@ -275,28 +275,28 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
         // query will set the precisely correct value.
         c.update
           .one(
-            $id(studyId),
-            $set(F.likes -> likes, F.rank -> Study.Rank.compute(likes, createdAt))
+            bid(studyId),
+            bset(F.likes -> likes, F.rank -> Study.Rank.compute(likes, createdAt))
           )
           .inject(likes)
   yield updated
 
   def liked(study: Study, user: User): Fu[Boolean] =
-    coll(_.exists($id(study.id) ++ selectLiker(user.id)))
+    coll(_.exists(bid(study.id) ++ selectLiker(user.id)))
 
   def filterLiked(user: User, studyIds: Seq[StudyId]): Fu[Set[StudyId]] =
     studyIds.nonEmpty.so(
-      coll(_.primitive[StudyId]($inIds(studyIds) ++ selectLiker(user.id), "_id").dmap(_.toSet))
+      coll(_.primitive[StudyId](inIds(studyIds) ++ selectLiker(user.id), "_id").dmap(_.toSet))
     )
 
   def unfeature(id: StudyId, v: Boolean): Funit =
-    coll(_.updateOrUnsetField($id(id), "trash", v.option(true))).void
+    coll(_.updateOrUnsetField(bid(id), "trash", v.option(true))).void
 
   def resetAllRanks: Fu[Int] =
     coll:
       _.find(
-        $empty,
-        $doc(F.likes -> true, F.createdAt -> true).some
+        emptyBdoc,
+        bdoc(F.likes -> true, F.createdAt -> true).some
       )
         .cursor[Bdoc]()
         .foldWhileM(0): (count, doc) =>
@@ -307,14 +307,14 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
           yield coll:
             _.update
               .one(
-                $id(id),
-                $set(F.rank -> Study.Rank.compute(likes, createdAt))
+                bid(id),
+                bset(F.rank -> Study.Rank.compute(likes, createdAt))
               )
               .void
           ).orZero.inject(Cursor.Cont(count + 1))
 
   private[study] def isAdminMember(study: Study, userId: UserId): Fu[Boolean] =
-    coll(_.exists($id(study.id) ++ $doc(s"members.$userId.admin" -> true)))
+    coll(_.exists(bid(study.id) ++ bdoc(s"members.$userId.admin" -> true)))
 
   private[study] def deletePrivateByOwner(u: UserId): Fu[List[StudyId]] = for
     c <- coll.get
@@ -325,9 +325,9 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
 
   private[study] def anonymizeAllOf(u: UserId): Funit = for
     c <- coll.get
-    _ <- c.update.one(selectOwnerId(u), $set("ownerId" -> UserId.ghost), multi = true)
-    _ <- c.update.one($doc(F.likers -> u), $pull(F.likers -> u), multi = true)
-    _ <- c.update.one($doc(F.uids -> u), $pull(F.uids -> u) ++ $unset(s"members.$u"), multi = true)
+    _ <- c.update.one(selectOwnerId(u), set("ownerId" -> UserId.ghost), multi = true)
+    _ <- c.update.one(bdoc(F.likers -> u), pull(F.likers -> u), multi = true)
+    _ <- c.update.one(bdoc(F.uids -> u), pull(F.uids -> u) ++ unset(s"members.$u"), multi = true)
   yield ()
 
   private def countLikes(studyId: StudyId): Fu[Option[(Study.Likes, Instant)]] =
@@ -335,11 +335,11 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
       _.aggregateWith[Bdoc](): framework =>
         import framework.*
         List(
-          Match($id(studyId)),
+          Match(bid(studyId)),
           Project(
-            $doc(
+            bdoc(
               "_id" -> false,
-              F.likes -> $doc("$size" -> s"$$${F.likers}"), // do not use denormalized field
+              F.likes -> bdoc("$size" -> s"$$${F.likers}"), // do not use denormalized field
               F.createdAt -> true
             )
           )

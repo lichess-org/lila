@@ -15,17 +15,17 @@ final class PuzzleActivity(colls: PuzzleColls)(using Executor, org.apache.pekko.
   def stream(config: Config): Source[JsObject, ?] =
     val perSecond = MaxPerSecond(20)
 
-    val baseQuery = $doc(PuzzleRound.BSONFields.user -> config.user.id)
+    val baseQuery = bdoc(PuzzleRound.BSONFields.user -> config.user.id)
     val timeQueries = List(
-      config.before.map(before => $doc(PuzzleRound.BSONFields.date.$lt(before))),
-      config.since.map(since => $doc(PuzzleRound.BSONFields.date.$gte(since)))
+      config.before.map(before => bdoc(PuzzleRound.BSONFields.date.lt(before))),
+      config.since.map(since => bdoc(PuzzleRound.BSONFields.date.gte(since)))
     ).flatten
     val finalQuery = baseQuery.++(timeQueries*)
 
     Source.futureSource:
       colls.round
         .map(_.find(finalQuery))
-        .map(_.sort($sort.desc(PuzzleRound.BSONFields.date)))
+        .map(_.sort(sort.desc(PuzzleRound.BSONFields.date)))
         .map(_.batchSize(perSecond.value))
         .map(_.cursor[PuzzleRound]())
         .map(_.documentSource(config.max.fold(Int.MaxValue)(_.value)))

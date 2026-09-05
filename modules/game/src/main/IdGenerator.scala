@@ -18,7 +18,7 @@ final class IdGenerator(gameRepo: GameRepo)(using Executor, Scheduler) extends l
       // due to `games` calling `game` which calls `batchProvider.one`
       val ids = List.fill(512)(uncheckedGame).distinct
       gameRepo.coll
-        .distinctEasy[GameId, List]("_id", $inIds(ids), _.sec)
+        .distinctEasy[GameId, List]("_id", inIds(ids), _.sec)
         .monValue: collisions =>
           lila.mon.game.idGenerator(collisions.size)
         .map:
@@ -34,7 +34,7 @@ final class IdGenerator(gameRepo: GameRepo)(using Executor, Scheduler) extends l
     else
       val ids = Set.fill(nb)(uncheckedGame)
       gameRepo.coll
-        .distinctEasy[GameId, Set]("_id", $inIds(ids))
+        .distinctEasy[GameId, Set]("_id", inIds(ids))
         .monValue: collisions =>
           lila.mon.game.idGenerator(collisions.size)
         .flatMap: collisions =>

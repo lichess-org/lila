@@ -290,7 +290,7 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
         case None => Ok.async(accountC.renderCheckYourEmail)
         case Some(userEmail) =>
           env.user.repo
-            .exists(userEmail.username)
+            .existsPri(userEmail.username)
             .flatMap:
               if _ then Ok.async(accountC.renderCheckYourEmail)
               else Redirect(routes.Auth.signup).withCookies(env.security.lilaCookie.newSession)

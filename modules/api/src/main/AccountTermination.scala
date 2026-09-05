@@ -147,7 +147,7 @@ final class AccountTermination(
     import lila.game.Query
     import lila.core.game.Source.*
     gameRepo
-      .docCursor(Query.user(u.id) ++ Query.sourceIn(List(Lobby, Pool, Friend, Api)), $id(true).some)
+      .docCursor(Query.user(u.id) ++ Query.sourceIn(List(Lobby, Pool, Friend, Api)), bid(true).some)
       .documentSource()
       .mapConcat(_.getAsOpt[GameId]("_id").toList)
       .grouped(100)

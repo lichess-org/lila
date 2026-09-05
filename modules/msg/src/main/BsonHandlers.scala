@@ -25,7 +25,7 @@ private object BsonHandlers:
           )
         case x => sys.error(s"Invalid MsgThread users: $x")
     def writes(w: BSON.Writer, t: MsgThread) =
-      $doc(
+      bdoc(
         "_id" -> t.id,
         "users" -> t.users.sorted(using stringOrdering),
         "lastMsg" -> t.lastMsg,
@@ -36,16 +36,16 @@ private object BsonHandlers:
   given msgHandler: BSONDocumentHandler[Msg] = Macros.handler
 
   def writeMsg(msg: Msg, threadId: MsgThread.Id): Bdoc =
-    msgHandler.writeTry(msg).get ++ $doc(
+    msgHandler.writeTry(msg).get ++ bdoc(
       "_id" -> ThreadLocalRandom.nextString(10),
       "tid" -> threadId
     )
 
   def writeThread(thread: MsgThread, delBy: List[UserId], mustRead: Boolean): Bdoc =
-    threadHandler.writeTry(thread).get ++ $doc("del" -> delBy)
-      ++ $doc("maskWith" -> $doc("date" -> thread.lastMsg.date))
-      ++ mustRead.so($doc("mustRead" -> true))
+    threadHandler.writeTry(thread).get ++ bdoc("del" -> delBy)
+      ++ bdoc("maskWith" -> bdoc("date" -> thread.lastMsg.date))
+      ++ mustRead.so(bdoc("mustRead" -> true))
 
   def selectNotDeleted(using me: Me) =
-    if UserId.lichess.is(me) then $empty // using "del" is too expensive
-    else $doc("del".$ne(me.userId))
+    if UserId.lichess.is(me) then emptyBdoc // using "del" is too expensive
+    else bdoc("del".neq(me.userId))

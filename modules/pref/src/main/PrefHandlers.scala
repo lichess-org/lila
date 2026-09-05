@@ -20,7 +20,7 @@ private object PrefHandlers:
       )
 
     def writes(w: BSON.Writer, o: Pref.BoardPref) =
-      $doc(
+      bdoc(
         "brightness" -> o.brightness,
         "contrast" -> o.contrast,
         "opacity" -> o.opacity,
@@ -81,7 +81,7 @@ private object PrefHandlers:
       )
 
     def writes(w: BSON.Writer, o: Pref) =
-      $doc(
+      bdoc(
         "_id" -> o.id,
         "bg" -> o.bg,
         "bgImg" -> o.bgImg,

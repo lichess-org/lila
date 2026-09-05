@@ -242,10 +242,10 @@ object BSONHandlers:
         F.abortedBy -> o.abortedBy
       ) ++ {
         if o.variant.standard then
-          $doc(F.huffmanPgn -> PgnStorage.Huffman.encode(o.sans.take(maxPlies.value)))
+          bdoc(F.huffmanPgn -> PgnStorage.Huffman.encode(o.sans.take(maxPlies.value)))
         else
           val f = PgnStorage.OldBin
-          $doc(
+          bdoc(
             F.oldPgn -> f.encode(o.sans.take(maxPlies.value)),
             F.binaryPieces -> BinaryFormat.piece.write(o.position.pieces),
             F.positionHashes -> o.history.positionHashes.value,
@@ -261,7 +261,7 @@ object BSONHandlers:
 
     import lila.game.Game.BSONFields as F
 
-    private val emptyPlayerBuilder = lila.game.LightPlayer.builderRead($empty)
+    private val emptyPlayerBuilder = lila.game.LightPlayer.builderRead(emptyBdoc)
 
     def reads(r: BSON.Reader): LightGame =
       val winC = r.boolO(F.winnerColor).map { Color.fromWhite(_) }
