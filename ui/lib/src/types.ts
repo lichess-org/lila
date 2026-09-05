@@ -12,3 +12,12 @@ export interface QuestionOpts {
   yes?: QuestionChoice;
   no?: QuestionChoice;
 }
+
+export interface LobbyShortcut {
+  id: string;
+  name?: string;
+  iconKey?: Icon;
+  iconUrl?: string;
+  iconMaskUrl?: string;
+  url?: string;
+}

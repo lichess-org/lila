@@ -14,7 +14,7 @@ dialog {
   padding: 0;
   border: none;
   outline: none;
-  background: $c-bg-high;
+  background: $c-bg;
   z-index: $z-modal-111;
 
   @include if-rtl {
@@ -52,7 +52,7 @@ dialog {
     width: 40px; // bigger for phones
     height: 40px;
     z-index: $z-modal-111 + 1;
-    background: $c-bg-high;
+    background: $c-bg;
     color: $c-font;
     border-radius: 6px;
     border: $border;

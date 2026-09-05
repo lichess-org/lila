@@ -316,7 +316,7 @@ main.round {
   position: relative;
   padding: 0.5em;
   width: 100%;
-  background: $c-bg-high;
+  background: $c-bg;
 
   .results {
     display: grid;
@@ -337,7 +337,7 @@ main.round {
 
   z-index: z(mz-menu);
   width: 100%;
-  background: $c-bg-high;
+  background: $c-bg;
   gap: 1em;
   padding: 1.5em 1em;
 

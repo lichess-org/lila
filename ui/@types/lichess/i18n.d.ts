@@ -4495,6 +4495,8 @@ interface I18n {
     sendEmailForAccountVerification: I18nFormat;
     /** We've sent you an email with a link. */
     sentEmailWithLink: string;
+    /** • */
+    sep: string;
     /** Sessions */
     sessions: string;
     /** Set your flair */

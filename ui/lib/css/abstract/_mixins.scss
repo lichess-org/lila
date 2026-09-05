@@ -144,7 +144,7 @@
 }
 
 @mixin prevent-select {
-  user-select: none;
+  user-select: none; // don't remove this without testing on iOS Safari
 }
 
 @mixin with-metal-shadow($defaultShadow: (), $lightShadow: (), $soft: false) {
