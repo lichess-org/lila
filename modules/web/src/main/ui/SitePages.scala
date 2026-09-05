@@ -261,9 +261,8 @@ final class SitePages(helpers: Helpers):
             )
           ),
           br,
-          st.section(cls := "box box-pad body")(rendered),
-          br,
           st.section(cls := "box box-pad body")(
+            rendered,
             h2("More Lichess projects"),
             ul(
               moreProjects.map: (name, desc) =>
