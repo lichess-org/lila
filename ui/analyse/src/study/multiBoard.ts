@@ -354,7 +354,7 @@ export const verticalEvalGauge = (
       );
 };
 
-export const pinIcon = () => img(site.asset.flairSrc('objects.pushpin'), 'Pin player');
+export const pinIcon = img(site.asset.flairSrc('objects.pushpin'), 'Pin player');
 
 const renderUser = (player: StudyPlayer, pinned?: boolean): VNode =>
   h('span.mini-game__user', [
