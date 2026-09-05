@@ -44,14 +44,14 @@ final class UblogApi(
     for posts <- carouselCache.get({})
     yield posts.filter(_.isLichess || kid.no)
 
-  def getByPrismicId(id: String): Fu[Option[UblogPost]] = colls.post.one[UblogPost]($doc("prismicId" -> id))
+  def getByPrismicId(id: String): Fu[Option[UblogPost]] = colls.post.one[UblogPost](bdoc("prismicId" -> id))
 
   def update(data: UblogForm.UblogPostData, prev: UblogPost)(using me: Me): Fu[UblogPost] = for
     author <- userApi.byId(prev.created.by).map(_ | me.value)
     blog <- getUserBlog(author, insertMissing = true)
     post = data.update(me.value, prev)
     isFirstPublish = prev.lived.isEmpty && post.live
-    _ <- colls.post.update.one($id(prev.id), $set(bsonWriteObjTry[UblogPost](post).get))
+    _ <- colls.post.update.one(bid(prev.id), set(bsonWriteObjTry[UblogPost](post).get))
     _ <- picfitApi.addRef(post.markdown, s"ublog:${post.id}", routes.Ublog.redirect(post.id).url.some)
     _ = if isFirstPublish then onFirstPublish(author.light, blog, post)
   yield
@@ -76,7 +76,7 @@ final class UblogApi(
   def isHiddenWithPosts(user: User): Fu[Boolean] =
     getUserBlogOption(user).flatMapz: blog =>
       blog.visible.not.so:
-        colls.post.exists($doc("blog" -> blog.id, "live" -> true))
+        colls.post.exists(bdoc("blog" -> blog.id, "live" -> true))
 
   def getUserBlog(user: User, insertMissing: Boolean = false): Fu[UblogBlog] =
     getUserBlogOption(user).getOrElse:
@@ -97,7 +97,7 @@ final class UblogApi(
 
   def latestPosts(blogId: UblogBlog.Id, nb: Int): Fu[List[UblogPost.PreviewPost]] =
     colls.post
-      .find($doc("blog" -> blogId, "live" -> true), previewPostProjection.some)
+      .find(bdoc("blog" -> blogId, "live" -> true), previewPostProjection.some)
       .sort(userLiveSort)
       .cursor[UblogPost.PreviewPost](ReadPref.sec)
       .list(nb)
@@ -106,30 +106,30 @@ final class UblogApi(
     val blogId = UblogBlog.Id.User(user.id)
     val canView = fuccess(me.exists(_.is(user))) >>|
       colls.blog.secondary
-        .primitiveOne[Tier]($id(blogId.full), "tier")
+        .primitiveOne[Tier](bid(blogId.full), "tier")
         .dmap(_.exists(_ > Tier.HIDDEN))
     canView.flatMapz { blogPreview(blogId, nb).dmap(some) }
 
   def blogPreview(blogId: UblogBlog.Id, nb: Int): Fu[UblogPost.BlogPreview] =
     colls.post.secondary
-      .countSel($doc("blog" -> blogId, "live" -> true))
+      .countSel(bdoc("blog" -> blogId, "live" -> true))
       .zip(latestPosts(blogId, nb))
       .map((UblogPost.BlogPreview.apply).tupled)
 
   def fetchCarouselFromDb(): Fu[UblogPost.CarouselPosts] =
     for
       pinned <- colls.post
-        .find($doc("live" -> true, "featured.until" -> $gte(nowInstant)), previewPostProjection.some)
-        .sort($doc("featured.until" -> -1))
+        .find(bdoc("live" -> true, "featured.until" -> gte(nowInstant)), previewPostProjection.some)
+        .sort(bdoc("featured.until" -> -1))
         .cursor[UblogPost.PreviewPost](ReadPref.sec)
         .list(carouselSizeSetting.get())
 
       queue <- colls.post
         .find(
-          $doc("live" -> true, "featured.at" -> $gte(nowInstant.minusMonths(1))),
+          bdoc("live" -> true, "featured.at" -> gte(nowInstant.minusMonths(1))),
           previewPostProjection.some
         )
-        .sort($doc("featured.at" -> -1))
+        .sort(bdoc("featured.at" -> -1))
         .cursor[UblogPost.PreviewPost](ReadPref.sec)
         .list(carouselSizeSetting.get() - pinned.size)
     yield UblogPost.CarouselPosts(pinned, queue)
@@ -139,7 +139,7 @@ final class UblogApi(
 
   def postPreviews(ids: Seq[UblogPostId]): Future[Seq[UblogPost.PreviewPost]] = ids.nonEmpty.so:
     colls.post
-      .find($inIds(ids) ++ $doc("live" -> true), previewPostProjection.some)
+      .find(inIds(ids) ++ bdoc("live" -> true), previewPostProjection.some)
       .cursor[UblogPost.PreviewPost](ReadPref.sec)
       .list(config.searchPageSize.value)
       .map: results =>
@@ -150,25 +150,25 @@ final class UblogApi(
       me: Option[MyId]
   ): Fu[List[UblogPost.PreviewPost]] =
     val postFilter = me.so: myId =>
-      $nor(likedBdoc(myId), authoredBdoc(myId))
+      nor(likedBdoc(myId), authoredBdoc(myId))
     for
       sameAuthor <- colls.post
         .find(
-          $doc(
+          bdoc(
             "blog" -> blog,
             "live" -> true,
-            "_id".$ne(post.id),
-            "automod.evergreen".$ne(false)
+            "_id".neq(post.id),
+            "automod.evergreen".neq(false)
           ) ++ postFilter,
           previewPostProjection.some
         )
-        .sort($doc("lived.at" -> -1))
+        .sort(bdoc("lived.at" -> -1))
         .cursor[UblogPost.PreviewPost](ReadPref.sec)
         .list(3)
       similarIds = post.similar.so(_.filterNot(s => s.count < 4 || sameAuthor.exists(_.id == s.id)).map(_.id))
       similar <- colls.post
         .find(
-          $inIds(similarIds) ++ $doc("live" -> true, "automod.evergreen".$ne(false)) ++ postFilter,
+          inIds(similarIds) ++ bdoc("live" -> true, "automod.evergreen".neq(false)) ++ postFilter,
           previewPostProjection.some
         )
         .cursor[UblogPost.PreviewPost](ReadPref.sec)
@@ -225,22 +225,22 @@ final class UblogApi(
   def nextToReview: Fu[Option[UblogPost]] =
     colls.post
       .find(pendingReviewSelect, postProjection.some)
-      .sort($sort.desc("lived.at"))
+      .sort(sort.desc("lived.at"))
       .one[UblogPost]
 
   def liveLightsByIds(ids: List[UblogPostId]): Fu[List[UblogPost.LightPost]] =
     colls.post
-      .find($inIds(ids) ++ $doc("live" -> true), lightPostProjection.some)
+      .find(inIds(ids) ++ bdoc("live" -> true), lightPostProjection.some)
       .cursor[UblogPost.LightPost]()
       .list(30)
 
   def delete(post: UblogPost): Funit = for
-    _ <- colls.post.delete.one($id(post.id))
+    _ <- colls.post.delete.one(bid(post.id))
     _ <- image.deleteAll(post)
   yield ()
 
   private def setTierIfBlogExists(blog: UblogBlog.Id, tier: Tier): Funit = for
-    _ <- colls.blog.updateField($id(blog), "tier", tier)
+    _ <- colls.blog.updateField(bid(blog), "tier", tier)
     _ <- onTierChange(blog, tier)
   yield ()
 
@@ -251,30 +251,30 @@ final class UblogApi(
       setTierIfBlogExists(UblogBlog.Id.User(user.id), blog.modTier | Tier.default(user))
 
   def onAccountDelete(user: User) = for
-    _ <- colls.blog.delete.one($id(UblogBlog.Id.User(user.id)))
-    _ <- colls.post.delete.one($doc("blog" -> UblogBlog.Id.User(user.id)))
+    _ <- colls.blog.delete.one(bid(UblogBlog.Id.User(user.id)))
+    _ <- colls.post.delete.one(bdoc("blog" -> UblogBlog.Id.User(user.id)))
   yield ()
 
   def postCursor(user: User): PekkoStreamCursor[UblogPost] =
     colls.post.find(authoredBdoc(user.id)).cursor[UblogPost](ReadPref.sec)
 
-  def authoredBdoc(userId: UserId): Bdoc = $doc("blog" -> s"user:${userId}")
+  def authoredBdoc(userId: UserId): Bdoc = bdoc("blog" -> s"user:${userId}")
 
-  def likedBdoc(userId: UserId): Bdoc = $doc("likers" -> userId)
+  def likedBdoc(userId: UserId): Bdoc = bdoc("likers" -> userId)
 
   def liked(post: UblogPost)(user: User): Fu[Boolean] =
-    colls.post.exists($id(post.id) ++ likedBdoc(user.id))
+    colls.post.exists(bid(post.id) ++ likedBdoc(user.id))
 
   def like(postId: UblogPostId, v: Boolean)(using me: Me): Fu[UblogPost.Likes] = for
-    res <- colls.post.update.one($id(postId), $addOrPull("likers", me.userId, v))
+    res <- colls.post.update.one(bid(postId), addOrPull("likers", me.userId, v))
     aggResult <- colls.post.aggregateOne(): framework =>
       import framework.*
-      Match($id(postId)) -> List(
+      Match(bid(postId)) -> List(
         PipelineOperator(
-          $lookup.simple(from = colls.blog, as = "blog", local = "blog", foreign = "_id")
+          lookup.simple(from = colls.blog, as = "blog", local = "blog", foreign = "_id")
         ),
         UnwindField("blog"),
-        Project($doc("tier" -> "$blog.tier", "likes" -> $doc("$size" -> "$likers"), "title" -> true))
+        Project(bdoc("tier" -> "$blog.tier", "likes" -> bdoc("$size" -> "$likers"), "title" -> true))
       )
     found =
       for
@@ -288,7 +288,7 @@ final class UblogApi(
       case None => fuccess(UblogPost.Likes(0))
       case Some(id, likes, tier, title) =>
         for
-          _ <- colls.post.updateField($id(postId), "likes", likes)
+          _ <- colls.post.updateField(bid(postId), "likes", likes)
           _ =
             if res.nModified > 0 && v && tier > Tier.HIDDEN
             then lila.common.Bus.pub(Propagate(UblogPostLike(me, id, title)).toFollowersOf(me))
@@ -296,13 +296,13 @@ final class UblogApi(
   yield likes
 
   def modBlog(blogger: UserId, tier: Option[Tier], note: Option[String], mod: Option[Me] = None): Funit =
-    val setFields = tier.so(t => $doc("modTier" -> t, "tier" -> t))
-      ++ note.filter(_ != "").so(n => $doc("modNote" -> n))
-    val unsets = note.exists(_ == "").so($unset("modNote")) // "" is unset, none to ignore
+    val setFields = tier.so(t => bdoc("modTier" -> t, "tier" -> t))
+      ++ note.filter(_ != "").so(n => bdoc("modNote" -> n))
+    val unsets = note.exists(_ == "").so(unset("modNote")) // "" is unset, none to ignore
     mod.foreach(m => irc.ublogBlog(blogger, m.username, tier.map(Tier.name), note))
     val id = UblogBlog.Id.User(blogger)
     for
-      _ <- colls.blog.update.one($id(id), $set(setFields) ++ unsets, upsert = true)
+      _ <- colls.blog.update.one(bid(id), set(setFields) ++ unsets, upsert = true)
       _ <- tier.so(onTierChange(id, _))
     yield ()
 
@@ -311,16 +311,16 @@ final class UblogApi(
     updateQualityFields(newPost).inject(newPost)
 
   private def updateQualityFields(post: UblogPost): Funit =
-    val sets = $doc("quality" -> post.quality) ++
-      post.automod.so(a => $doc("automod" -> a)) ++
-      post.modQuality.so(mq => $doc("modQuality" -> mq))
-    colls.post.update.one($id(post.id), $set(sets)).void
+    val sets = bdoc("quality" -> post.quality) ++
+      post.automod.so(a => bdoc("automod" -> a)) ++
+      post.modQuality.so(mq => bdoc("modQuality" -> mq))
+    colls.post.update.one(bid(post.id), set(sets)).void
 
   private def isAuthorTrusted(userId: UserId): Fu[Boolean] =
     val nbPosts = 4
     colls.post
-      .find($doc("live" -> true, "blog" -> UblogBlog.Id.User(userId)), $doc("quality" -> true).some)
-      .sort($sort.desc("lived.at"))
+      .find(bdoc("live" -> true, "blog" -> UblogBlog.Id.User(userId)), bdoc("quality" -> true).some)
+      .sort(sort.desc("lived.at"))
       .cursor[Bdoc](ReadPref.sec)
       .list(nbPosts)
       .map: docs =>
@@ -338,32 +338,32 @@ final class UblogApi(
           at = data.featuredUntil.isEmpty.option(nowInstant),
           until = data.featuredUntil.map(nowInstant.plusDays)
         )
-      for _ <- colls.post.updateOrUnsetField($id(post.id), "featured", featured)
+      for _ <- colls.post.updateOrUnsetField(bid(post.id), "featured", featured)
       yield featured
 
   def newPost(author: User): Fu[UblogPost] =
     colls.post
       .one[UblogPost](
-        $doc(
+        bdoc(
           "blog" -> UblogBlog.Id.User(author.id),
           "live" -> false,
           "title" -> "",
           "intro" -> "",
           "markdown" -> "",
-          "image".$exists(false)
+          "image".exists(false)
         )
       )
       .getOrElse:
         val post = UblogPost.empty(author)
         colls.post.insert
-          .one(bsonWriteObjTry[UblogPost](post).get ++ $doc("likers" -> List(author.id)))
+          .one(bsonWriteObjTry[UblogPost](post).get ++ bdoc("likers" -> List(author.id)))
           .inject(post)
 
   private def onTierChange(blog: UblogBlog.Id, tier: Tier): Funit =
     (tier <= Tier.LOW).so(unfeatureAllOf(blog))
 
   private def unfeatureAllOf(blog: UblogBlog.Id): Funit =
-    colls.post.unsetField($doc("blog" -> blog), "featured").void
+    colls.post.unsetField(bdoc("blog" -> blog), "featured").void
 
   private[ublog] def setShadowban(userId: UserId, v: Boolean) = {
     if v then fuccess(Tier.HIDDEN)
@@ -390,7 +390,7 @@ final class UblogApi(
           case BlogsBy.oldest => Ascending("lived.at")
           case BlogsBy.likes => Descending("likes")
           case _ => Descending("lived.at")
-        Match(select ++ $doc("live" -> true)) -> {
+        Match(select ++ bdoc("live" -> true)) -> {
           Sort(aggSort) ::
             removeUnlistedOrClosedAndProjectForPreview(colls.post, framework) :::
             List(Skip(offset), Limit(length))
@@ -408,32 +408,32 @@ final class UblogApi(
     import framework.*
     List(
       PipelineOperator:
-        $lookup.simple(
+        lookup.simple(
           from = colls.blog,
           as = "blog",
           local = "blog",
           foreign = "_id",
           pipe = List(
-            $doc("$match" -> $expr($doc("$gt" -> $arr("$tier", Tier.UNLISTED)))),
-            $doc("$project" -> $id(true))
+            bdoc("$match" -> expr(bdoc("$gt" -> barr("$tier", Tier.UNLISTED)))),
+            bdoc("$project" -> bid(true))
           )
         )
       ,
       UnwindField("blog"),
       PipelineOperator:
-        $lookup.simple(
+        lookup.simple(
           from = userRepo.coll,
           as = "user",
           local = "created.by",
           foreign = "_id",
           pipe = List(
-            $doc("$match" -> $doc(lila.core.user.BSONFields.enabled -> true)),
-            $doc("$project" -> $id(true))
+            bdoc("$match" -> bdoc(lila.core.user.BSONFields.enabled -> true)),
+            bdoc("$project" -> bid(true))
           )
         )
       ,
       UnwindField("user"),
-      Project(previewPostProjection ++ $doc("blog" -> "$blog._id"))
+      Project(previewPostProjection ++ bdoc("blog" -> "$blog._id"))
     )
 
   object image:
@@ -442,7 +442,7 @@ final class UblogApi(
     def upload(user: User, post: UblogPost, picture: PicfitApi.FilePart): Fu[UblogPost] = for
       pic <- picfitApi.uploadFile(picture, userId = user.id, ref(post).some)
       image = post.image.fold(UblogImage(pic.id))(_.copy(id = pic.id))
-      _ <- colls.post.updateField($id(post.id), "image", image)
+      _ <- colls.post.updateField(bid(post.id), "image", image)
     yield post.copy(image = image.some)
 
     def deleteAll(post: UblogPost): Funit = for
@@ -452,7 +452,7 @@ final class UblogApi(
 
     def delete(post: UblogPost): Fu[UblogPost] = for
       _ <- deleteImage(post)
-      _ <- colls.post.unsetField($id(post.id), "image")
+      _ <- colls.post.unsetField(bid(post.id), "image")
     yield post.copy(image = none)
 
     def deleteImage(post: UblogPost): Funit = picfitApi.pullRef(ref(post))

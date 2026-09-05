@@ -89,7 +89,7 @@ final class UserLoginsApi(
     }
 
   private[security] def userHasPrint(u: User): Fu[Boolean] =
-    store.coll.secondary.exists($doc("user" -> u.id, "fp".$exists(true)))
+    store.coll.secondary.exists(bdoc("user" -> u.id, "fp".exists(true)))
 
   private def fetchOtherUsers(
       user: User,
@@ -103,13 +103,13 @@ final class UserLoginsApi(
           import framework.*
           import FingerHash.given
           Match(
-            $doc(
-              $or(
-                "ip".$in(ipSet),
-                "fp".$in(fpSet)
+            bdoc(
+              or(
+                "ip".in(ipSet),
+                "fp".in(fpSet)
               ),
-              "user".$ne(user.id),
-              "date".$gt(nowInstant.minusYears(1))
+              "user".neq(user.id),
+              "date".gt(nowInstant.minusYears(1))
             )
           ) -> List(
             GroupField("user")(
@@ -117,22 +117,22 @@ final class UserLoginsApi(
               "fps" -> AddFieldToSet("fp")
             ),
             AddFields(
-              $doc(
-                "nbIps" -> $doc("$size" -> "$ips"),
-                "nbFps" -> $doc("$size" -> "$fps")
+              bdoc(
+                "nbIps" -> bdoc("$size" -> "$ips"),
+                "nbFps" -> bdoc("$size" -> "$fps")
               )
             ),
             AddFields(
-              $doc(
-                "score" -> $doc(
-                  "$add" -> $arr("$nbIps", "$nbFps", $doc("$multiply" -> $arr("$nbIps", "$nbFps")))
+              bdoc(
+                "score" -> bdoc(
+                  "$add" -> barr("$nbIps", "$nbFps", bdoc("$multiply" -> barr("$nbIps", "$nbFps")))
                 )
               )
             ),
             Sort(Descending("score")),
             Limit(max),
             PipelineOperator(
-              $lookup.simple(
+              lookup.simple(
                 from = userRepo.coll,
                 as = "user",
                 local = "_id",
@@ -158,17 +158,17 @@ final class UserLoginsApi(
       users <- (ips.nonEmpty && fps.nonEmpty).so(
         store.coll.secondary.distinctEasy[UserId, Set](
           "user",
-          $doc(
-            "ip".$in(ips),
-            "fp".$in(fps),
-            "user".$ne(userId)
+          bdoc(
+            "ip".in(ips),
+            "fp".in(fps),
+            "user".neq(userId)
           )
         )
       )
     yield users
 
   private def nextValues(field: String, userId: UserId): Fu[Set[String]] =
-    store.coll.secondary.distinctEasy[String, Set](field, $doc("user" -> userId))
+    store.coll.secondary.distinctEasy[String, Set](field, bdoc("user" -> userId))
 
 object UserLogins:
 

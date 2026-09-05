@@ -90,7 +90,7 @@ final private class RelayDelay(colls: RelayColls, cacheApi: CacheApi)(using Exec
         case Some(latestPgn) if latestPgn == newPgn => funit
         case _ =>
           val now = nowInstant
-          val doc = $doc("_id" -> idOf(key, now), "at" -> now, "pgn" -> newPgn)
+          val doc = bdoc("_id" -> idOf(key, now), "at" -> now, "pgn" -> newPgn)
           colls.delay:
             _.insert.one(doc).void
 
@@ -104,9 +104,9 @@ final private class RelayDelay(colls: RelayColls, cacheApi: CacheApi)(using Exec
     private def getPgn(key: CacheKey, delay: Seconds): Fu[Option[PgnStr]] =
       colls.delay:
         _.find(
-          $doc("_id".$gt(idOf(key, longPast)).$lte(idOf(key, nowInstant.minus(delay.duration)))),
-          $doc("pgn" -> true).some
-        ).sort($sort.desc("_id"))
+          bdoc("_id".gt(idOf(key, longPast)).lte(idOf(key, nowInstant.minus(delay.duration)))),
+          bdoc("pgn" -> true).some
+        ).sort(sort.desc("_id"))
           .one[Bdoc]
           .map:
             _.flatMap(_.getAsOpt[PgnStr]("pgn"))
@@ -115,11 +115,11 @@ final private class RelayDelay(colls: RelayColls, cacheApi: CacheApi)(using Exec
       _.expireAfterWrite(1.second).buildAsyncFuture: key =>
         colls.delay:
           _.primitiveOne[Instant](
-            $doc(
-              "_id".$gt(idOf(key, longPast)),
-              "pgn".$regex("\n1\\. ")
+            bdoc(
+              "_id".gt(idOf(key, longPast)),
+              "pgn".regex("\n1\\. ")
             ),
-            $sort.asc("_id"),
+            sort.asc("_id"),
             "at"
           )
 

@@ -58,6 +58,7 @@ export const bind = (ctrl: AnalyseCtrl) => {
       ctrl.redraw();
     })
     .bind('f', ctrl.flip)
+    .bind('b', () => window.location.assign(ctrl.boardEditorUrl()))
     .bind('?', () => {
       ctrl.keyboardHelp = !ctrl.keyboardHelp;
       if (ctrl.keyboardHelp) pubsub.emit('analysis.closeAll');

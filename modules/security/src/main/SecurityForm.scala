@@ -86,7 +86,7 @@ final class SecurityForm(
 
     val uniqueUsername: Mapping[UserName] = anyUsername.verifying(
       "usernameAlreadyUsed",
-      u => u.id.noGhost && !userRepo.exists(u).await(2.seconds, "signupUsername")
+      u => u.id.noGhost && !userRepo.existsPri(u).await(2.seconds, "signupUsername")
     )
 
     def firstUsernameError(username: String)(using lila.core.i18n.Translate): Option[String] =

@@ -19,7 +19,7 @@ object Dependencies:
   val maxmind = "com.maxmind.geoip2" % "geoip2" % "4.0.1"
   val caffeine = "com.github.ben-manes.caffeine" % "caffeine" % "3.2.4" % "compile"
   val scaffeine = "com.github.blemale" %% "scaffeine" % "5.3.0" % "compile"
-  val googleOAuth = "com.google.auth" % "google-auth-library-oauth2-http" % "1.51.0"
+  val googleOAuth = "com.google.auth" % "google-auth-library-oauth2-http" % "1.52.0"
   val galimatias = "io.mola.galimatias" % "galimatias" % "0.2.2-NF"
   val scalatags = "com.lihaoyi" %% "scalatags" % "0.13.1"
   val lettuce = "io.lettuce" % "lettuce-core" % "7.7.0.RELEASE"
@@ -40,7 +40,7 @@ object Dependencies:
     val bundle = Seq(munit)
 
   object chess:
-    val version = "17.16.2"
+    val version = "17.17.0"
     val org = "com.github.lichess-org.scalachess"
     // val org = "org.lichess" // for publishLocal
     val core = org %% "scalachess" % version
@@ -51,7 +51,7 @@ object Dependencies:
     def bundle = Seq(core, testKit, playJson, rating, tiebreak)
 
   object scalalib:
-    val version = "11.10.12"
+    val version = "11.11.0"
     val org = "com.github.lichess-org.scalalib"
     // val org = "org.lichess" // for publishLocal
     val core = org %% "scalalib-core" % version

@@ -214,10 +214,10 @@ final class SimulApi(
       yield ()
 
   def idToName(id: SimulId): Fu[Option[String]] =
-    repo.coll.primitiveOne[String]($id(id), "name").dmap2(_ + " simul")
+    repo.coll.primitiveOne[String](bid(id), "name").dmap2(_ + " simul")
 
   def teamOf(id: SimulId): Fu[Option[TeamId]] =
-    repo.coll.primitiveOne[TeamId]($id(id), "team")
+    repo.coll.primitiveOne[TeamId](bid(id), "team")
 
   def hostedByUser(userId: UserId, page: Int): Fu[Paginator[Simul]] =
     Paginator(

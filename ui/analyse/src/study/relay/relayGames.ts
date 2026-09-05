@@ -81,7 +81,7 @@ const gamesList = (study: StudyCtrl, relay: RelayCtrl, pinned: boolean, cloudEva
                     hl('span.mini-game__user', [
                       playerFedFlag(p.fed),
                       hl('span.name', [userTitle(p), p.name]),
-                      pinned && relay.players.pins.isPlayerPinned(p) ? pinIcon() : undefined,
+                      pinned && relay.players.pins.isPlayerPinned(p) ? pinIcon('.pinned-icon') : undefined,
                     ]),
                     coloredResult
                       ? hl(coloredResult.tag, [coloredResult.points])

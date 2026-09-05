@@ -44,6 +44,7 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
           lila.api.UserApi.Opts(
             withTrophies = getBool("trophies"),
             withCanChallenge = getBool("challenge"),
+            withRelation = ctx.fullAuthOrScope(_.Follow.Read),
             withProfile = getBoolOpt("profile") | true,
             withRank = getBool("rank"),
             withFideId = getBool("fideId")

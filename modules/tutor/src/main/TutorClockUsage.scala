@@ -20,7 +20,7 @@ private object TutorClockUsage:
       InsightMetric.ClockPercent,
       List(Filter(InsightDimension.Perf, perfs.filter(_ != PerfType.Correspondence)))
     )
-    val select = $doc(F.result -> Result.Loss.id)
+    val select = bdoc(F.result -> Result.Loss.id)
     val insightRunner = TutorCustomInsight(users, question, "clock_usage", _.clockUsage): docs =>
       for
         doc <- docs
@@ -32,11 +32,11 @@ private object TutorClockUsage:
     insightApi.coll: coll =>
       import coll.AggregationFramework.*
       val sharedPipeline = List(
-        Project($doc(F.perf -> true, F.moves -> $doc("$last" -> s"$$${F.moves}"))),
+        Project(bdoc(F.perf -> true, F.moves -> bdoc("$last" -> s"$$${F.moves}"))),
         UnwindField(F.moves),
-        Project($doc(F.perf -> true, "cp" -> s"$$${F.moves}.s")),
+        Project(bdoc(F.perf -> true, "cp" -> s"$$${F.moves}.s")),
         GroupField(F.perf)("cp" -> AvgField("cp"), "nb" -> SumAll),
-        Project($doc(F.perf -> true, "nb" -> true, "cp" -> $doc("$toInt" -> "$cp")))
+        Project(bdoc(F.perf -> true, "nb" -> true, "cp" -> bdoc("$toInt" -> "$cp")))
       )
       insightRunner(coll)(
         aggregateMine = mineSelect =>

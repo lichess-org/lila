@@ -13,8 +13,8 @@ final class WebSubscriptionApi(coll: Coll)(using Executor):
   def subscribe(user: User, subscription: WebSubscription, id: SessionId | AccessTokenId): Funit =
     coll.update
       .one(
-        $id(id.toString),
-        $doc(
+        bid(id.toString),
+        bdoc(
           "userId" -> user.id,
           "endpoint" -> subscription.endpoint,
           "auth" -> subscription.auth,
@@ -26,20 +26,20 @@ final class WebSubscriptionApi(coll: Coll)(using Executor):
       .void
 
   def unsubscribeBySession(id: SessionId | AccessTokenId): Funit =
-    coll.delete.one($id(id.toString)).void
+    coll.delete.one(bid(id.toString)).void
 
   def unsubscribeByUser(user: User): Funit =
-    coll.delete.one($doc("userId" -> user.id)).void
+    coll.delete.one(bdoc("userId" -> user.id)).void
 
   // userIds is necessary to match the mongodb index
   def unsubscribeByEndpoints(endpoints: Iterable[String], userIds: Iterable[UserId]): Fu[Int] =
     endpoints.nonEmpty.so:
-      coll.delete.one($doc("userId".$in(userIds), "endpoint".$in(endpoints))).map(_.n)
+      coll.delete.one(bdoc("userId".in(userIds), "endpoint".in(endpoints))).map(_.n)
 
   private[push] def getSubscriptions(max: Int)(userId: UserId): Fu[List[WebSubscription]] =
     coll
-      .find($doc("userId" -> userId), $doc("endpoint" -> true, "auth" -> true, "p256dh" -> true).some)
-      .sort($doc("seenAt" -> -1))
+      .find(bdoc("userId" -> userId), bdoc("endpoint" -> true, "auth" -> true, "p256dh" -> true).some)
+      .sort(bdoc("seenAt" -> -1))
       .cursor[WebSubscription](ReadPref.sec)
       .list(max)
 
@@ -54,10 +54,10 @@ final class WebSubscriptionApi(coll: Coll)(using Executor):
         coll
           .aggregateList(100_000, _.sec): framework =>
             import framework.*
-            Match($doc("userId".$in(userIds))) -> List(
+            Match(bdoc("userId".in(userIds))) -> List(
               Sort(Descending("seenAt")),
               GroupField("userId")("subs" -> Push(BSONString("$$ROOT"))),
-              Project($doc("subs" -> Slice(BSONString("$subs"), BSONInteger(maxPerUser)), "_id" -> false)),
+              Project(bdoc("subs" -> Slice(BSONString("$subs"), BSONInteger(maxPerUser)), "_id" -> false)),
               Unwind("subs"),
               ReplaceRootField("subs")
             )

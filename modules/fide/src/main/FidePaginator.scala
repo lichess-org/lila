@@ -21,8 +21,8 @@ final class FidePaginator(repo: FideRepo)(using Executor):
         def nbResults: Fu[Int] = fuccess(Federation.names.size)
         def slice(offset: Int, length: Int) =
           repo.federationColl
-            .find($empty)
-            .sort($sort.desc("standard.top10Rating"))
+            .find(emptyBdoc)
+            .sort(sort.desc("standard.top10Rating"))
             .skip(offset)
             .cursor[lila.fide.Federation]()
             .list(length)
@@ -54,10 +54,10 @@ final class FidePaginator(repo: FideRepo)(using Executor):
     Paginator(
       adapter = search match
         case Some(search) =>
-          val textScore = $doc("score" -> $doc("$meta" -> "textScore"))
+          val textScore = bdoc("score" -> bdoc("$meta" -> "textScore"))
           Adapter[FidePlayer](
             collection = repo.playerColl,
-            selector = $text(search),
+            selector = textSearch(search),
             projection = textScore.some,
             sort = textScore ++ repo.player.sortStandard, // don't touch, hits FTS index with standard
             _.sec
@@ -72,10 +72,10 @@ final class FidePaginator(repo: FideRepo)(using Executor):
                   repo.followerColl
                     .aggregateList(length, _.sec): framework =>
                       import framework.*
-                      Match($doc("u" -> me.userId)) -> List(
-                        Project($doc("_id" -> false, "p" -> true)),
+                      Match(bdoc("u" -> me.userId)) -> List(
+                        Project(bdoc("_id" -> false, "p" -> true)),
                         PipelineOperator:
-                          $lookup.simple(from = repo.playerColl, as = "player", local = "p", foreign = "_id")
+                          lookup.simple(from = repo.playerColl, as = "player", local = "p", foreign = "_id")
                         ,
                         Unwind("player"),
                         ReplaceRootField("player"),

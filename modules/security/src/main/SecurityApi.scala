@@ -143,14 +143,14 @@ final class SecurityApi(
     yield ()
 
   private type AppealOrUser = Either[AppealUser, FingerPrintedUser]
-  def restoreUser(req: RequestHeader): Fu[Option[AppealOrUser]] =
+  def restoreUser(using req: RequestHeader): Fu[Option[AppealOrUser]] =
     if HTTPRequest.isXhrFromEmbed(req) then fuccess(none)
     else
       firewall.accepts(req).so(reqSessionId(req)).so { sessionId =>
         appeal.authenticate(sessionId) match
           case Some(userId) => userRepo.byId(userId).map2 { u => Left(AppealUser(Me(u))) }
           case None =>
-            store.authInfo(sessionId).flatMapz { d =>
+            store.loginWithSessionId(sessionId).flatMapz { d =>
               userRepo
                 .me(d.user)
                 .dmap:
@@ -222,17 +222,17 @@ final class SecurityApi(
   export store.shareAnIpOrFp
 
   def ipUas(ip: IpAddress): Fu[List[String]] =
-    store.coll.distinctEasy[String, List]("ua", $doc("ip" -> ip.value), _.sec)
+    store.coll.distinctEasy[String, List]("ua", bdoc("ip" -> ip.value), _.sec)
 
   def printUas(fh: FingerHash): Fu[List[String]] =
-    store.coll.distinctEasy[String, List]("ua", $doc("fp" -> fh.value), _.sec)
+    store.coll.distinctEasy[String, List]("ua", bdoc("fp" -> fh.value), _.sec)
 
   private def recentUserIdsByField(field: String)(value: String): Fu[List[UserId]] =
     store.coll.distinctEasy[UserId, List](
       "user",
-      $doc(
+      bdoc(
         field -> value,
-        "date".$gt(nowInstant.minusYears(1))
+        "date".gt(nowInstant.minusYears(1))
       ),
       _.sec
     )

@@ -124,12 +124,11 @@ final class StreamerUi(helpers: Helpers, bits: StreamerBits)(using netDomain: Ne
                     )
                   case _ =>
                     s.streamer.twitch.map: twitch =>
-                      val darkChat = (ctx.pref.currentBg != "light").so("darkpopout&")
                       iframe(
                         frame.credentialless,
                         st.frameborder := "0",
                         frame.scrolling := "yes",
-                        src := s"https://twitch.tv/embed/${twitch.login}/chat?${darkChat}parent=$netDomain"
+                        src := s"https://twitch.tv/embed/${twitch.login}/chat?parent=$netDomain"
                       )
               )
             ),

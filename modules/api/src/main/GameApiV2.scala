@@ -167,9 +167,9 @@ final class GameApiV2(
   def exportByIds(config: ByIdsConfig)(using Lang): Source[String, ?] =
     gameRepo
       .sortedCursor(
-        $inIds(config.ids),
+        inIds(config.ids),
         Query.sortCreated,
-        hint = $id(1).some,
+        hint = bid(1).some,
         batchSize = config.perSecond.value
       )
       .documentSource()
@@ -255,7 +255,7 @@ final class GameApiV2(
           Match(bookmarkApi.userIdQuery(config.user) ++ dateBetween("d", config.since, config.until)),
           Sort(if config.sort == GameSort.DateDesc then Descending("d") else Ascending("d")),
           Limit(config.max.fold(5000)(_.value)),
-          PipelineOperator($lookup.simple(gameRepo.coll, "game", "g", "_id")),
+          PipelineOperator(lookup.simple(gameRepo.coll, "game", "g", "_id")),
           Unwind("game"),
           ReplaceRootField("game")
         )

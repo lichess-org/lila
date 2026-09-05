@@ -1007,6 +1007,7 @@
   <string name="cancelTournament">Откажи турнир</string>
   <string name="tournDescription">Опис турнира</string>
   <string name="tournDescriptionHelp">Желиш ли нешто посебно поручити учесницима? Покушај да буде кратко. Доступни су Markdown линкови: [назив](https://url)</string>
+  <string name="ratedFormHelp">Партије су рангиране и утичу на рејтинге играча</string>
   <string name="onlyMembersOfTeam">Само чланови тима</string>
   <string name="noRestriction">Без ограничења</string>
   <string name="minimumRatedGames">Минимално рангираних партија</string>
@@ -1018,8 +1019,8 @@
 Остави празно да започнеш партије из нормалне почетне позиције.</string>
   <string name="cancelSimul">Откажи симултанку</string>
   <string name="simulHostcolor">Које фигуре има домаћин за сваку партију</string>
-  <string name="estimatedStart">Очекивано време почетка</string>
-  <string name="simulFeatured">Прикажи на %s</string>
+  <string name="estimatedStart">Предвиђено време почетка</string>
+  <string name="simulFeatured">Истакни на %s</string>
   <string name="simulFeaturedHelp">Покажи своју симултанку свима на %s. Онемогући за приватне симултанке.</string>
   <string name="simulDescription">Опис симултанке</string>
   <string name="simulDescriptionHelp">Желиш ли нешто да саопштиш учесницима?</string>

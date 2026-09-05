@@ -36,18 +36,18 @@ final class Firewall(
     for
       _ <- ips.toList.sequentiallyVoid: ip =>
         coll.update.one(
-          $id(ip),
-          $doc("_id" -> ip, "date" -> nowInstant),
+          bid(ip),
+          bdoc("_id" -> ip, "date" -> nowInstant),
           upsert = true
         )
       _ <- loadFromDb()
     yield ()
 
   def unblockIps(ips: Iterable[IpAddress]): Funit = ips.nonEmpty.so:
-    for _ <- coll.delete.one($inIds(ips)) yield loadFromDb()
+    for _ <- coll.delete.one(inIds(ips)) yield loadFromDb()
 
   private def loadFromDb(): Funit =
-    coll.distinctEasy[String, Set]("_id", $empty).map { ips =>
+    coll.distinctEasy[String, Set]("_id", emptyBdoc).map { ips =>
       current = ips
       lila.mon.security.firewall.ip.update(ips.size)
     }

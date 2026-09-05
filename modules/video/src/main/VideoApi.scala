@@ -43,11 +43,11 @@ final private[video] class VideoApi(
         .map: word =>
           s""""$word""""
         .mkString(" ")
-      val textScore = $doc("score" -> $doc("$meta" -> "textScore"))
+      val textScore = bdoc("score" -> bdoc("$meta" -> "textScore"))
       Paginator(
         adapter = new Adapter[Video](
           collection = videoColl,
-          selector = $text(q),
+          selector = textSearch(q),
           projection = textScore.some,
           sort = textScore,
           _.sec
@@ -59,28 +59,28 @@ final private[video] class VideoApi(
     def save(video: Video): Funit =
       videoColl.update
         .one(
-          $id(video.id),
-          $doc("$set" -> video),
+          bid(video.id),
+          bdoc("$set" -> video),
           upsert = true
         )
         .void
 
     def removeNotIn(ids: List[Video.ID]): Fu[Int] =
-      videoColl.delete.one($doc("_id".$nin(ids))).map(_.n)
+      videoColl.delete.one(bdoc("_id".nin(ids))).map(_.n)
 
     def setMetadata(id: Video.ID, metadata: Youtube.Metadata) =
-      videoColl.updateField($id(id), "metadata", metadata).void
+      videoColl.updateField(bid(id), "metadata", metadata).void
 
     def allIds: Fu[List[Video.ID]] =
-      videoColl.distinctEasy[String, List]("_id", $empty, _.sec)
+      videoColl.distinctEasy[String, List]("_id", emptyBdoc, _.sec)
 
     def popular(user: Option[UserId], page: Int): Fu[Paginator[VideoView]] =
       Paginator(
         adapter = new Adapter[Video](
           collection = videoColl,
-          selector = $empty,
+          selector = emptyBdoc,
           projection = none,
-          sort = $doc("metadata.refreshedAt" -> -1),
+          sort = bdoc("metadata.refreshedAt" -> -1),
           _.sec
         ).mapFutureList(videoViews(user)),
         currentPage = page,
@@ -93,9 +93,9 @@ final private[video] class VideoApi(
         Paginator(
           adapter = new Adapter[Video](
             collection = videoColl,
-            selector = $doc("tags".$all(tags)),
+            selector = bdoc("tags".all(tags)),
             projection = none,
-            sort = $doc("metadata.refreshedAt" -> -1),
+            sort = bdoc("metadata.refreshedAt" -> -1),
             _.sec
           ).mapFutureList(videoViews(user)),
           currentPage = page,
@@ -106,9 +106,9 @@ final private[video] class VideoApi(
       Paginator(
         adapter = new Adapter[Video](
           collection = videoColl,
-          selector = $doc("author" -> author),
+          selector = bdoc("author" -> author),
           projection = none,
-          sort = $doc("metadata.publishedAt" -> -1),
+          sort = bdoc("metadata.publishedAt" -> -1),
           _.sec
         ).mapFutureList(videoViews(user)),
         currentPage = page,
@@ -120,16 +120,16 @@ final private[video] class VideoApi(
         .aggregateList(maxDocs = max, _.sec): framework =>
           import framework.*
           Match(
-            $doc(
-              "tags".$in(video.tags),
-              "_id".$ne(video.id)
+            bdoc(
+              "tags".in(video.tags),
+              "_id".neq(video.id)
             )
           ) -> List(
             AddFields:
-              $doc(
-                "int" -> $doc(
-                  "$size" -> $doc(
-                    "$setIntersection" -> $arr("$tags", video.tags)
+              bdoc(
+                "int" -> bdoc(
+                  "$size" -> bdoc(
+                    "$setIntersection" -> barr("$tags", video.tags)
                   )
                 )
               )
@@ -155,7 +155,7 @@ final private[video] class VideoApi(
     def find(videoId: Video.ID, userId: UserId): Fu[Option[View]] =
       viewColl
         .find(
-          $doc(
+          bdoc(
             View.BSONFields.id -> View.makeId(videoId, userId)
           )
         )
@@ -166,7 +166,7 @@ final private[video] class VideoApi(
     def hasSeen(user: UserId, video: Video): Fu[Boolean] =
       viewColl
         .countSel(
-          $doc(
+          bdoc(
             View.BSONFields.id -> View.makeId(video.id, user)
           )
         )
@@ -175,7 +175,7 @@ final private[video] class VideoApi(
     def seenVideoIds(user: UserId, videos: Seq[Video]): Fu[Set[Video.ID]] =
       viewColl.distinctEasy[String, Set](
         View.BSONFields.videoId,
-        $inIds(videos.map: v =>
+        inIds(videos.map: v =>
           View.makeId(v.id, user)),
         _.sec
       )
@@ -198,8 +198,8 @@ final private[video] class VideoApi(
             videoColl
               .aggregateList(maxDocs = Int.MaxValue, _.sec): framework =>
                 import framework.*
-                Match($doc("tags".$all(filterTags))) -> List(
-                  Project($doc("tags" -> true)),
+                Match(bdoc("tags".all(filterTags))) -> List(
+                  Project(bdoc("tags" -> true)),
                   UnwindField("tags"),
                   GroupField("tags")("nb" -> SumAll)
                 )
@@ -225,7 +225,7 @@ final private[video] class VideoApi(
         videoColl
           .aggregateList(maxDocs = Int.MaxValue, _.sec): framework =>
             import framework.*
-            Project($doc("tags" -> true)) -> List(
+            Project(bdoc("tags" -> true)) -> List(
               UnwindField("tags"),
               GroupField("tags")("nb" -> SumAll),
               Sort(Descending("nb"))

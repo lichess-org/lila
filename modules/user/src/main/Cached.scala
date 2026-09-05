@@ -75,7 +75,7 @@ final class Cached(
   def getBotIds: Fu[Set[UserId]] = botIds.getUnit
 
   private def userIdsLikeFetch(text: UserSearch) =
-    userRepo.userIdsLikeFilter(text, $empty, 12)
+    userRepo.userIdsLikeFilter(text, emptyBdoc, 12)
 
   private val userIdsLikeCache = cacheApi[UserSearch, List[UserId]](1024, "user.like"):
     _.expireAfterWrite(5.minutes).buildAsyncTimeout()(userIdsLikeFetch)
