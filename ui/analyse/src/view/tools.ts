@@ -13,7 +13,10 @@ import { addChapterId, renderResult, type ViewContext } from '@/view/components'
 
 import { view as actionMenu } from './actionMenu';
 
-export function renderTools({ ctrl, deps, concealOf, allowVideo }: ViewContext, embeddedVideo?: LooseVNode) {
+export function renderTools(
+  { ctrl, deps, concealOf, allowVideo, recallView }: ViewContext,
+  embeddedVideo?: LooseVNode,
+) {
   const showCeval = ctrl.isCevalAllowed() && ctrl.showCeval();
   return hl(addChapterId(ctrl.study, 'div.analyse__tools'), [
     allowVideo && embeddedVideo,
@@ -21,8 +24,9 @@ export function renderTools({ ctrl, deps, concealOf, allowVideo }: ViewContext, 
     showCeval &&
       !ctrl.retro?.isSolving() &&
       !ctrl.practice &&
-      !ctrl.study?.hideMoves() &&
+      !ctrl.study?.menuCoversTools() &&
       cevalView.renderPvs(ctrl),
+    recallView,
     renderMoveList(ctrl, deps, concealOf),
     deps?.gbEdit.running(ctrl) ? deps?.gbEdit.render(ctrl) : undefined,
     renderBackToLiveButton(ctrl),
