@@ -140,13 +140,11 @@
   }
 
   &__gauge {
-    @extend %box-radius;
-
     order: 1;
     position: relative;
     flex: 0 0 4%;
     max-width: 1.5em;
-    overflow: hidden;
+    clip-path: inset(0 round $box-radius-size);
     opacity: 0.4;
     margin-left: 4px;
     background: linear-gradient(to top, var(--c-eval-mini-gauge-white), var(--c-eval-mini-gauge-black));
