@@ -303,6 +303,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
               {
                 ...dataIcon(licon.Microscope),
                 rel: 'nofollow',
+                title: 'Hotkey: a',
                 class: {
                   button: true,
                   'button-empty': true,

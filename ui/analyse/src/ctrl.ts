@@ -1067,6 +1067,16 @@ export default class AnalyseCtrl implements CevalHandler {
 
   showBestMoveArrows = () => this.settings.showBestMoveArrows && !this.retro?.hideComputerLine(this.node);
 
+  boardEditorUrl = () =>
+    this.data.userAnalysis
+      ? '/editor?' +
+        new URLSearchParams({
+          fen: this.node.fen,
+          variant: this.data.game.variant.key,
+          color: this.chessground.state.orientation,
+        })
+      : `/${this.data.game.id}/edit?fen=${this.node.fen}`;
+
   private readonly resetAutoShapes = () => {
     if (
       this.showBestMoveArrows() ||

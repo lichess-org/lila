@@ -108,6 +108,7 @@ object help:
           row(kbd("c"), trans.site.focusChat()),
           helpDialog,
           row(kbd("e"), trans.site.openingEndgameExplorer()),
+          row(kbd("b"), trans.site.boardEditor()),
           menu,
           row(
             frag(kbd("shift"), kbd("space")),
