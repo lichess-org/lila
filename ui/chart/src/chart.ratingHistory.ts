@@ -20,14 +20,15 @@ import utc from 'dayjs/plugin/utc';
 import { create as createSlider, type Options, PipsMode } from 'nouislider';
 
 import { memoize } from 'lib';
+import { perfName } from 'lib/game/perf';
 import { pubsub } from 'lib/pubsub';
 
 import { fontColor, fontFamily, gridColor, hoverBorderColor, tooltipBgColor } from './index';
-import type { PerfRatingHistory } from './interface';
+import type { PerfRatingHistory, PerfOrPuzzle } from './interface';
 
 interface Opts {
   data: PerfRatingHistory[];
-  singlePerfName?: string;
+  singlePerfName?: PerfOrPuzzle;
 }
 
 type TsAndRating = { ts: number; rating: number };
@@ -308,7 +309,7 @@ function makeDatasets(step: number, { data, singlePerfName }: Opts, singlePerfIn
     return {
       indexAxis: 'x',
       type: 'line',
-      label: serie.name,
+      label: serie.name === 'puzzle' ? i18n.site.puzzles : perfName(serie.name),
       borderColor: perfStyle.color,
       hoverBorderColor,
       backgroundColor: perfStyle.color,
