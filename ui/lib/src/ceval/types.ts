@@ -67,6 +67,7 @@ export interface BrowserEngineInfo extends BaseEngineInfo {
   assets: { root?: string; js?: string; wasm?: string; version?: string; nnue?: string[] };
   requires: Feature[];
   obsoletedBy?: Feature;
+  preferred?: boolean;
 }
 
 export type EngineInfo = BrowserEngineInfo | ExternalEngineInfo;
