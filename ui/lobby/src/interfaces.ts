@@ -47,7 +47,6 @@ export interface Seek {
 
 export interface Pool extends ClockConfig {
   id: PoolId;
-  perf: string;
 }
 
 export interface LobbyOpts {
