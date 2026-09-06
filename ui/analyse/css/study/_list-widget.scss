@@ -43,6 +43,7 @@
       display: flex;
 
       .svg-icon {
+        flex: 0 0 auto;
         color: $c-font-dimmer;
       }
     }
