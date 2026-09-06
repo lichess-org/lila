@@ -1,7 +1,7 @@
 package lila.memo
 
 import play.api.mvc.RequestHeader
-import bloomfilter.mutable.BloomFilter
+import se.thanh.pds.bloomfilter.BloomFilter
 import scalalib.net.UserAgent
 
 import lila.core.userId.UserId
@@ -28,14 +28,13 @@ private final class ViewerCount(initialCount: Int, maxCount: Int):
     if !alive then logger.warn("hit on dead viewer count")
     else
       val s = encode(a)
-      if !bloom.mightContain(s) then
+      if !bloom.contains(s) then
         bloom.add(s)
         count += 1
 
   def get: Int = count
 
   def kill(): Unit =
-    bloom.dispose()
     alive = false
 
 object ViewerCount:
