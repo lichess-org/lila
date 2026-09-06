@@ -275,6 +275,7 @@
   <string name="signupUsernameHint">Ne pozabite izbrati družini prijaznega uporabniškega imena. Pozneje ga ne morete spremeniti in vsa neprimerna uporabniška imena bodo zaprta!</string>
   <string name="signupEmailPromise">Poslali vam bomo le e-poštna sporočila o vašem računu in nikoli ne bomo delili vašega e-poštnega naslova.</string>
   <string name="password">Geslo</string>
+  <string name="showPassword">Prikaži geslo</string>
   <string name="changePassword">Zamenjaj geslo</string>
   <string name="changeEmail">Zamenjaj E-poštnega naslova</string>
   <string name="email">E-poštni naslov</string>

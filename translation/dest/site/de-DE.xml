@@ -249,6 +249,7 @@
   <string name="signupUsernameHint">Bitte wähle einen familienfreundlichen Benutzernamen. Du kannst ihn später nicht mehr ändern und Konten mit unpassenden Benutzernamen werden geschlossen!</string>
   <string name="signupEmailPromise">Wir werden dir nur E-Mails bezüglich deines Kontos senden und niemals deine E-Mail-Adresse weitergeben.</string>
   <string name="password">Passwort</string>
+  <string name="showPassword">Passwort anzeigen</string>
   <string name="changePassword">Passwort ändern</string>
   <string name="changeEmail">E-Mail-Adresse ändern</string>
   <string name="email">E-Mail</string>

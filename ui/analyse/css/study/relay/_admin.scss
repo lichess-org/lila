@@ -12,6 +12,15 @@
     font-size: 1.2em;
     padding: 0.4em 0.6em;
     border-bottom: $border;
+
+    .svg-icon {
+      width: 1em;
+    }
+
+    span,
+    a {
+      display: flex;
+    }
   }
 
   .state {

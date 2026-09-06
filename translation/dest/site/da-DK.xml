@@ -249,6 +249,7 @@
   <string name="signupUsernameHint">Sørg for at vælge et familievenligt brugernavn. Du kan ikke ændre det senere, og alle konti med upassende brugernavne vil blive lukket!</string>
   <string name="signupEmailPromise">Vi vil kun sende dig e-mails angående din konto og vil aldrig dele din e-mail.</string>
   <string name="password">Adgangskode</string>
+  <string name="showPassword">Vis adgangskode</string>
   <string name="changePassword">Skift adgangskode</string>
   <string name="changeEmail">Skift e-mail</string>
   <string name="email">E-mail</string>

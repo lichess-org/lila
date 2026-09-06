@@ -264,6 +264,7 @@
   <string name="signupUsernameHint">Asigurați-vă că alegeți un nume de utilizator decent. Nu îl puteți schimba mai târziu și orice cont cu nume de utilizator indecent va fi închis!</string>
   <string name="signupEmailPromise">Îți vom trimite doar e-mailuri despre contul tău și niciodată nu îți vom distribui e-mailul.</string>
   <string name="password">Parolă</string>
+  <string name="showPassword">Arată parola</string>
   <string name="changePassword">Schimbă parola</string>
   <string name="changeEmail">Schimbă emailul</string>
   <string name="email">Email</string>

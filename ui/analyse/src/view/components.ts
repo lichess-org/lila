@@ -285,7 +285,8 @@ export function renderMoveNodes(
       : ev?.mate !== undefined
         ? `#${ev.mate}`
         : '';
-  const nodes = [h('san', fixCrazySan(node.san!))];
+  const attrs = !withEval && ev ? { title: `${evalText} · ${evalInfo(ev)}` } : undefined;
+  const nodes = [h('san', { attrs }, fixCrazySan(node.san!))];
   const relevantGlyphs = glyphs ?? node.glyphs;
   if (withGlyphs && relevantGlyphs)
     relevantGlyphs.forEach(g => nodes.push(h('glyph', { attrs: { title: g.name } }, g.symbol)));

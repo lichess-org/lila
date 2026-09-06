@@ -19,7 +19,7 @@
     color: $c-good;
 
     &::before {
-      @include icon-mask($icon-disc, 12px);
+      @include icon-mask($icon-disc, 80%);
     }
 
     &.patron {

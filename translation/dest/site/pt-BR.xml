@@ -249,6 +249,7 @@
   <string name="signupUsernameHint">Escolha um nome de usuário apropriado. Não será possível mudá-lo, e qualquer conta que tiver um nome ofensivo ou inapropriado será excluída!</string>
   <string name="signupEmailPromise">Enviaremos apenas e-mails relacionados à sua conta e jamais compartilharemos o seu email.</string>
   <string name="password">Senha</string>
+  <string name="showPassword">Mostrar senha</string>
   <string name="changePassword">Alterar senha</string>
   <string name="changeEmail">Alterar email</string>
   <string name="email">E-mail</string>
@@ -730,6 +731,7 @@
   <string name="simulClockHint">Configuração de acréscimos no relógio. Quanto mais jogadores admitir, mais tempo pode necessitar.</string>
   <string name="simulAddExtraTime">Você pode acrescentar tempo adicional a seu relógio, para ajudá-lo a lidar com a simultânea.</string>
   <string name="simulHostExtraTime">Tempo adicional do simultanista</string>
+  <string name="extraClockTimeForHost" comment="Appears on: https://lichess.org/simul/new&#10;&#10;Allows a simul host to select extra time for the simul.&#10;&#10;Please note this string used to state &quot;Host extra clock time&quot;, without the word &quot;initial&quot; Replaces old string simulHostExtraTime">Tempo extra no relógio do anfitrião:</string>
   <string name="simulAddExtraTimePerPlayer">Adicionar tempo inicial ao seu relógio por cada jogador adversário que entrar na simultânea.</string>
   <string name="simulHostExtraTimePerPlayer">Tempo adicional do simultanista por jogador</string>
   <string name="lichessTournaments">Torneios do Lichess</string>

@@ -47,68 +47,35 @@ export class Engines {
     const browserEngines: WithMake[] = [
       ...relaxedSimdPair({
         info: {
-          id: '__sf_dev',
-          name: 'Stockfish 18 dev · 94MB',
-          short: 'SF 18 dev 94MB',
-          url: 'https://github.com/lichess-org/stockfish-web#sf_dev-stockfish-dev-20260901-3f6f417b',
+          id: '__sf_19',
+          name: 'Stockfish 19 · 94MB',
+          short: 'SF 19 94MB',
+          url: 'https://github.com/lichess-org/stockfish-web#sf_19-stockfish-19',
           tech: 'NNUE',
           requires: ['sharedMem', 'simd', 'dynamicImportFromWorker'],
           minMem: 2560,
           capabilities: ['cloudEval', 'staticAnalysis', 'puzzleReport'],
           assets: {
             root: 'npm/stockfish-web',
-            js: 'sf_dev.js',
+            js: 'sf_19.js',
           },
         },
         make: (e: BrowserEngineInfo) => new StockfishWebEngine(e, this.statusCallback),
       }),
       ...relaxedSimdPair({
         info: {
-          id: '__sf_18',
-          name: 'Stockfish 18 · 108MB',
-          short: 'SF 18 108MB',
-          url: 'https://github.com/lichess-org/stockfish-web#sf_18-stockfish-18',
-          tech: 'NNUE',
-          requires: ['sharedMem', 'simd', 'dynamicImportFromWorker'],
-          minMem: 2560,
-          capabilities: ['cloudEval', 'puzzleReport'],
-          assets: {
-            root: 'npm/stockfish-web',
-            js: 'sf_18.js',
-          },
-        },
-        make: (e: BrowserEngineInfo) => new StockfishWebEngine(e, this.statusCallback),
-      }),
-      ...relaxedSimdPair({
-        info: {
-          id: '__sf_dev_smallnet',
-          name: 'Stockfish 18 dev · 1MB',
-          short: 'SF 18 dev 1MB',
-          url: 'https://github.com/lichess-org/stockfish-web#sf_dev_smallnet-stockfish-dev-20260901-3f6f417b-with-sscg13size-optimize-nnue',
+          id: '__sf_19_smallnet',
+          name: 'Stockfish 19 · 1MB',
+          short: 'SF 19 1MB',
+          url: 'https://github.com/lichess-org/stockfish-web#sf_19_smallnet-stockfish-19-with-sscg13size-optimize-nnue',
           tech: 'NNUE',
           requires: ['sharedMem', 'simd', 'dynamicImportFromWorker'],
           minMem: 1536,
           capabilities: ['cloudEval', 'puzzleReport'],
+          preferred: true,
           assets: {
             root: 'npm/stockfish-web',
-            js: 'sf_dev_smallnet.js',
-          },
-        },
-        make: (e: BrowserEngineInfo) => new StockfishWebEngine(e, this.statusCallback),
-      }),
-      ...relaxedSimdPair({
-        info: {
-          id: '__sf_18_smallnet',
-          name: 'Stockfish 18 · 15MB',
-          short: 'SF 18 15MB',
-          url: 'https://github.com/lichess-org/stockfish-web#sf_18_smallnet-stockfish-18-with-sscg13threat-small',
-          tech: 'NNUE',
-          requires: ['sharedMem', 'simd', 'dynamicImportFromWorker'],
-          minMem: 1536,
-          capabilities: ['cloudEval', 'puzzleReport'],
-          assets: {
-            root: 'npm/stockfish-web',
-            js: 'sf_18_smallnet.js',
+            js: 'sf_19_smallnet.js',
           },
         },
         make: (e: BrowserEngineInfo) => new StockfishWebEngine(e, this.statusCallback),
@@ -276,6 +243,7 @@ export class Engines {
     return (
       this.externalEngines.find(e => e.id === id && externalEngineSupports(e, variant)) ??
       localEngines.find(e => e.id === id && e.variants?.includes(variant)) ??
+      localEngines.find(e => e.preferred && e.variants?.includes(variant)) ??
       localEngines.find(e => e.variants?.includes(variant)) ??
       this.externalEngines.find(e => externalEngineSupports(e, variant))
     );
@@ -291,10 +259,6 @@ export class Engines {
       this.activeEngine = this.getEngine({ id, variant: this.ctrl.opts.variant.key });
     }
     return this.activeEngine;
-  }
-
-  get defaultId(): string {
-    return this.localEngineMap.values().next().value!.info.id;
   }
 
   get external(): ExternalEngineInfo | undefined {

@@ -51,6 +51,8 @@
   <string name="imageAlt">Alternatif resim metni</string>
   <string name="imageCredit">Resim kaynağı</string>
   <string name="deleteBlog">Bu blog gönderisini kalıcı olarak sil</string>
+  <string name="safeToUseImages">Aşağıdaki web sitelerindeki görselleri kullanmak güvenlidir: </string>
+  <string name="freeImagesComplyWithLicensing" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement. Replaces old string safeToUseImages">Aşağıdaki web siteleri görselleri ücretsiz olarak sunar. Lütfen kullandığınız görselin lisans koşullarına uyduğunuzdan emin olun.</string>
   <string name="selectPostTopics">Gönderinizin ilgili olduğu konuları seçin</string>
   <string name="safeAndRespectfulContent">Paylaştığınız içeriklerin uygun ve orijinal olmasına lütfen dikkat edin. Başka bir kullanıcının içeriğini kopyalamayın.</string>
   <string name="noCopyrightedImages">Sadece başka birine ait telif hakkı olmayan görüntüleri kullanın.</string>

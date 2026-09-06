@@ -50,6 +50,11 @@
       span {
         display: flex;
         align-items: center;
+        gap: 0.5ch;
+      }
+
+      .user-link {
+        gap: 0;
       }
     }
 

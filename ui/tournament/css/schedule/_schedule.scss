@@ -174,7 +174,7 @@ $c-tour-variant: #7c5133;
     margin-inline-end: 4px;
   }
 
-  .svg-icon {
+  > .svg-icon {
     width: 2.8em;
     margin: 0 0.4em;
 
@@ -210,6 +210,11 @@ $c-tour-variant: #7c5133;
 
     .nb-players {
       flex: 0 0 auto;
+
+      .svg-icon {
+        height: 1em;
+        opacity: 0.75;
+      }
     }
   }
 }

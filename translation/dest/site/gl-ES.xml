@@ -249,6 +249,7 @@
   <string name="signupUsernameHint">Asegúrate de escoller un nome de usuario axeitado pra todas as idades. Logo non poderás cambialo e as contas con nome de usuario inadecuado serán pechadas!</string>
   <string name="signupEmailPromise">Só che enviaremos correos relacionados coa túa conta e nunca compartiremos o teu enderezo electrónico.</string>
   <string name="password">Contrasinal</string>
+  <string name="showPassword">Amosar o contrasinal</string>
   <string name="changePassword">Cambiar contrasinal</string>
   <string name="changeEmail">Cambiar correo</string>
   <string name="email">Correo electrónico</string>

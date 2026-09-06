@@ -3439,8 +3439,8 @@ interface I18n {
     clearBoard: string;
     /** Clear field */
     clearField: string;
-    /** Clear moves */
-    clearSavedMoves: string;
+    /** Clear local data */
+    clearLocalData: string;
     /** Clear search */
     clearSearch: string;
     /** Click here to read it */
@@ -4509,6 +4509,8 @@ interface I18n {
     showHelpDialog: string;
     /** Show me everything */
     showMeEverything: string;
+    /** Show password */
+    showPassword: string;
     /** Show threat */
     showThreat: string;
     /** You have received a private message from Lichess. */

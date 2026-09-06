@@ -37,9 +37,6 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
     val ids = us.map(_.id).filter(_.noGhost)
     ids.nonEmpty.so(coll.byIds[User, UserId](ids))
 
-  def byIdsSecondary(ids: Iterable[UserId]): Fu[List[User]] =
-    coll.byIds[User, UserId](ids, _.sec)
-
   def enabledById[U: UserIdOf](u: U): Fu[Option[User]] =
     u.id.noGhost.so:
       recoverDeleted:
@@ -85,9 +82,6 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
   def idByAnyEmail(emails: List[NormalizedEmailAddress]): Fu[Option[UserId]] =
     coll.primitiveOne[UserId](F.email.in(emails), "_id")
 
-  def countRecentByPrevEmail(email: NormalizedEmailAddress, since: Instant): Fu[Int] =
-    coll.countSel(bdoc(F.prevEmail -> email, F.createdAt.gt(since)))
-
   def pair(x: Option[UserId], y: Option[UserId]): Fu[(Option[User], Option[User])] =
     coll.byIds[User, UserId](List(x, y).flatten).map { users =>
       x.so(xx => users.find(_.id == xx)) ->
@@ -107,42 +101,17 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
   def byOrderedIds(ids: Seq[UserId], readPref: ReadPref): Fu[List[User]] =
     coll.byOrderedIds[User, UserId](ids, readPref = readPref)(_.id)
 
-  def usersFromSecondary(userIds: Seq[UserId]): Fu[List[User]] =
-    byOrderedIds(userIds, _.sec)
-
-  def optionsByIds(userIds: Seq[UserId]): Fu[List[Option[User]]] =
-    coll.optionsByOrderedIds[User, UserId](userIds, readPref = _.sec)(_.id)
-
   def isEnabled(id: UserId): Fu[Boolean] =
     id.noGhost.so(coll.exists(enabledSelect ++ bid(id)))
 
   def disabledById(id: UserId): Fu[Option[User]] =
     id.noGhost.so(coll.one[User](disabledSelect ++ bid(id)))
 
-  def usernameById(id: UserId): Fu[Option[UserName]] =
-    coll.primitiveOne[UserName](bid(id), F.username)
-
   def usernamesByIds(ids: List[UserId]): Fu[List[UserName]] =
     coll.distinctEasy[UserName, List](F.username, inIds(ids), _.sec)
 
   def createdAtById(id: UserId): Fu[Option[Instant]] =
     coll.primitiveOne[Instant](bid(id), F.createdAt)
-
-  def orderByGameCount(u1: UserId, u2: UserId): Fu[Option[(UserId, UserId)]] =
-    coll
-      .find(
-        inIds(List(u1, u2)),
-        bdoc(s"${F.count}.game" -> true).some
-      )
-      .cursor[Bdoc]()
-      .listAll()
-      .map: docs =>
-        docs
-          .sortBy:
-            _.child(F.count).flatMap(_.int("game"))
-          .flatMap(_.getAsOpt[UserId]("_id")) match
-          case List(u1, u2) => (u1, u2).some
-          case _ => none
 
   def firstGetsWhite(u1: UserId, u2: UserId): Fu[Boolean] =
     coll
@@ -209,9 +178,6 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
   def removeTitle(id: UserId): Funit =
     coll.unsetField(bid(id), F.title).void
 
-  def getPlayTime(id: UserId): Fu[Option[PlayTime]] =
-    coll.primitiveOne[PlayTime](bid(id), F.playTime)
-
   val enabledSelect = bdoc(F.enabled -> true)
   val disabledSelect = bdoc(F.enabled -> false)
   val notForeverClosedSelect = F.foreverClosed.neq(true)
@@ -254,7 +220,6 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
     coll.update.one(bid(id), inc(bdoc(incs*)))
 
   def incToints(id: UserId, nb: Int): Funit = coll.update.one(bid(id), inc("toints" -> nb)).void
-  def removeAllToints = coll.update.one(emptyBdoc, unset("toints"), multi = true)
 
   def create(
       name: UserName,
@@ -319,9 +284,6 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
 
   def filterLame(ids: Seq[UserId]): Fu[Set[UserId]] =
     coll.distinct[UserId, Set]("_id", Some(inIds(ids) ++ lame))
-
-  def filterNotKid(ids: Seq[UserId]): Fu[Set[UserId]] =
-    coll.distinct[UserId, Set]("_id", Some(inIds(ids) ++ bdoc(F.kid.neq(true))))
 
   def filterKid[U: UserIdOf](ids: Seq[U]): Fu[Set[UserId]] =
     coll.distinct[UserId, Set]("_id", Some(inIds(ids.map(_.id)) ++ bdoc(F.kid -> true)))
@@ -598,9 +560,6 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
 
   def filterClosedOrInactiveIds(since: Instant)(ids: Iterable[UserId]): Fu[List[UserId]] =
     coll.distinctEasy[UserId, List](F.id, inIds(ids) ++ or(disabledSelect, F.seenAt.lt(since)), _.sec)
-
-  def filterSeenSince(since: Instant)(ids: Iterable[UserId]): Fu[List[UserId]] =
-    coll.distinctEasy[UserId, List](F.id, inIds(ids) ++ F.seenAt.gt(since), _.sec)
 
   private val defaultCount = lila.core.user.Count(0, 0, 0, 0, 0)
 

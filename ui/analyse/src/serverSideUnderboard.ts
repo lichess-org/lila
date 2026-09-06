@@ -10,7 +10,7 @@ import type AnalyseCtrl from './ctrl';
 import type { AnalyseData } from './interfaces';
 import { baseUrl } from './view/util';
 
-export const stockfishName = 'Stockfish 18';
+export const stockfishName = 'Stockfish 19';
 
 export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
   $(element).replaceWith(ctrl.opts.$underboard);
