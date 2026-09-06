@@ -10,7 +10,6 @@ import type { CevalCtrl } from './ctrl';
 export type WinningChances = number;
 export type SearchBy = { movetime: number } | { depth: number } | { nodes: number };
 export type Search = { by: SearchBy; multiPv: number; indeterminate?: boolean };
-export type EngineCapability = 'cloudEval' | 'puzzleReport' | 'nonStandardMaterial';
 
 export interface EvalMeta {
   path: TreePath;
@@ -39,12 +38,14 @@ export interface BaseEngineInfo {
   short?: string;
   url?: string;
   variants?: Rules[];
+  supportsNonStandardMaterial?: boolean;
   minThreads?: number;
   maxThreads?: number;
   maxHash?: number;
   maxMovetime?: number;
   requires?: Feature[];
-  capabilities?: EngineCapability[];
+  supportsPuzzleReport?: boolean;
+  supportsCloudEval?: boolean;
 }
 
 export interface ExternalEngineInfoFromServer extends BaseEngineInfo {
@@ -60,7 +61,6 @@ export interface ExternalEngineInfoFromServer extends BaseEngineInfo {
 export interface ExternalEngineInfo extends ExternalEngineInfoFromServer {
   tech: 'EXTERNAL';
   preferred: true;
-  cloudEval?: false;
 }
 
 export interface BrowserEngineInfo extends BaseEngineInfo {

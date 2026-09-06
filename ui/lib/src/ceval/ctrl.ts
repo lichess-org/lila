@@ -210,7 +210,7 @@ export class CevalCtrl {
   }
 
   get isCacheable(): boolean {
-    return Boolean(this.engines.active()?.capabilities?.includes('cloudEval'));
+    return Boolean(this.engines.active()?.supportsCloudEval);
   }
 
   get showingCloud(): boolean {
