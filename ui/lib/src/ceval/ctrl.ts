@@ -209,6 +209,14 @@ export class CevalCtrl {
     this.opts.onSelectEngine?.();
   };
 
+  async deleteExternal(id: string): Promise<boolean> {
+    if (!(await this.engines.deleteExternal(id))) return false;
+    const next = this.engines.active();
+    if (next && this.storedEngine() !== next.id) this.selectEngine(next.id);
+    if (this.worker?.getInfo().id === id) this.unload();
+    return true;
+  }
+
   setPvBoard = (pvBoard: PvBoard | null): void => {
     this.pvBoard(pvBoard);
     this.opts.redraw();
