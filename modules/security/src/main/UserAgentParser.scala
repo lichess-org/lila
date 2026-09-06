@@ -74,6 +74,9 @@ object UserAgentParser:
       ua.value.startsWith("LM/") || HTTPRequest.isLichessMobile(ua)
 
   // way too long since the last security update
+  def isDangerousDevice(using req: RequestHeader): Option[String] =
+    isDangerous(HTTPRequest.userAgent(req))
+
   def isDangerous(ua: UA): Option[String] =
     val client = parseSlowly(ua)
     isDangerousIOS(client) orElse

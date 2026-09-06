@@ -20,6 +20,7 @@ import lila.core.security.{ ClearPassword, FingerHash, Ip2ProxyApi, IsProxy }
 import lila.db.dsl.{ *, given }
 import lila.oauth.{ OAuthScope, OAuthServer }
 import lila.security.LoginCandidate.Result
+import lila.security.UserAgentParser.isDangerousDevice
 
 final class SecurityApi(
     userRepo: lila.user.UserRepo,
@@ -48,7 +49,7 @@ final class SecurityApi(
 
   lazy val rememberForm = Form(single("remember" -> boolean))
 
-  private def loadedLoginForm(candidate: Option[LoginCandidate]): Form[Result] =
+  private def loadedLoginForm(candidate: Option[LoginCandidate])(using req: RequestHeader): Form[Result] =
     import LoginCandidate.Result.*
     Form(
       mapping(
@@ -67,16 +68,18 @@ final class SecurityApi(
           case BlankedPassword =>
             Invalid(Seq(ValidationError("blankedPassword")))
           case WeakPassword =>
-            Invalid(
-              Seq(ValidationError("This password is too easy to guess. Request a password reset email."))
-            )
-          case Must2fa =>
             Invalid:
-              Seq:
-                ValidationError("2-Factor Authentication is required to log in from this network or device.")
+              Seq(ValidationError("This password is too easy to guess. Request a password reset email."))
+          case Must2fa =>
+            Invalid(Seq(if isDangerousDevice.isDefined then must2faDevice else must2faNetwork))
           case err => Invalid(Seq(ValidationError(err.toString)))
       })
     )
+
+  private val must2faNetwork = ValidationError:
+    "2-Factor Authentication is required to log in from this network."
+  private val must2faDevice = ValidationError:
+    "2-Factor Authentication is required to log in from this device, because it lacks critical security updates. Please update your OS and browser, or use another one to setup 2FA on your account."
 
   private def must2fa(pwned: IsPwned)(using req: RequestHeader): Fu[Option[String]] =
     ip2proxy
