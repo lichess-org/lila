@@ -557,7 +557,7 @@ Playing rated games will increase stability.</string>
   <string name="oneUrlPerLine">One URL per line.</string>
   <string name="inlineNotation">Inline notation</string>
   <string name="makeAStudy">For safekeeping and sharing, consider making a study.</string>
-  <string name="clearSavedMoves">Clear moves</string>
+  <string name="clearLocalData">Clear local data</string>
   <string name="previouslyOnLichessTV">Previously on Lichess TV</string>
   <string name="onlinePlayers">Online players</string>
   <string name="activePlayers">Active players</string>

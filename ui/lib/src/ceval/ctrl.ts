@@ -57,6 +57,7 @@ export class CevalCtrl {
   curEval: LocalEval | null = null;
   lastStarted?: Started;
   showEnginePrefs: Toggle = toggle(false);
+  wasUnloadedByAnotherWindow = false;
 
   private worker?: CevalEngine;
 
@@ -67,8 +68,10 @@ export class CevalCtrl {
 
     // another tab has started ceval, we should stop:
     storage.make('ceval.fen').listen(() => {
-      this.worker?.destroy();
+      if (!this.worker) return;
+      this.worker.destroy();
       this.worker = undefined; // release memory
+      this.wasUnloadedByAnotherWindow = true;
       this.opts.redraw();
     });
 
@@ -106,13 +109,14 @@ export class CevalCtrl {
 
   reset = (): void => {
     this.worker?.stop();
+    this.wasUnloadedByAnotherWindow = false;
     this.curEval = null;
     this.lastStarted = undefined;
     this.download = undefined;
   };
 
   start = (path: string, steps: Step[], gameId: string | undefined, threatMode = false): boolean => {
-    if (!this.available() || this.wasUnloaded) return false;
+    if (!this.available() || this.wasUnloadedByAnotherWindow) return false;
     this.isDeeper(false);
     this.doStart({ path, steps, gameId, threatMode });
     return true;
@@ -189,10 +193,6 @@ export class CevalCtrl {
 
   get isCacheable(): boolean {
     return Boolean(this.engines.active()?.capabilities?.includes('cloudEval'));
-  }
-
-  get wasUnloaded(): boolean {
-    return !this.worker && Boolean(this.lastStarted); // another tab started ceval
   }
 
   get showingCloud(): boolean {
@@ -286,13 +286,15 @@ export class CevalCtrl {
     };
     const emitter = throttleWithFlush(125, (ev: LocalEval, meta: EvalMeta) => {
       this.curEval = ev;
-
+      if (ev.bestmove && ev.bestmove !== '(none)' && working.movetime !== false) {
+        ev.millis = Math.max(ev.millis, working.movetime); // ensure bestmove eval matches movetime target
+      }
       if (!working.fen) {
-        working.fen = this.curEval.fen;
-        storage.fire('ceval.fen', this.curEval.fen); // will pause other tabs
+        working.fen = ev.fen;
+        storage.fire('ceval.fen', ev.fen); // will pause other tabs
       }
       const color = meta.ply % 2 === (meta.threatMode ? 1 : 0) ? 'white' : 'black';
-      this.curEval.pvs.sort((a, b) => povChances(color, b) - povChances(color, a));
+      ev.pvs.sort((a, b) => povChances(color, b) - povChances(color, a));
 
       if (this.lastStarted && !working.dontStop) {
         const evNode = working.started.steps[working.started.steps.length - 1];
@@ -303,7 +305,7 @@ export class CevalCtrl {
           if (likelyNodes < targetNodes) this.worker?.stop();
         }
       }
-      working.emit(this.curEval, meta);
+      working.emit(ev, meta);
     });
     return (ev: LocalEval | undefined, meta: EvalMeta) => {
       if (!ev) {

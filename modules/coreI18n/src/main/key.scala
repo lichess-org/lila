@@ -2052,7 +2052,7 @@ object I18nKey:
     val `oneUrlPerLine`: I18nKey = "oneUrlPerLine"
     val `inlineNotation`: I18nKey = "inlineNotation"
     val `makeAStudy`: I18nKey = "makeAStudy"
-    val `clearSavedMoves`: I18nKey = "clearSavedMoves"
+    val `clearLocalData`: I18nKey = "clearLocalData"
     val `previouslyOnLichessTV`: I18nKey = "previouslyOnLichessTV"
     val `onlinePlayers`: I18nKey = "onlinePlayers"
     val `activePlayers`: I18nKey = "activePlayers"
