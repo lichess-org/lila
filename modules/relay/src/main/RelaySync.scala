@@ -110,7 +110,8 @@ final private class RelaySync(
     gameMainline.nonEmpty.so:
       chapter.root
         .nodeAt(gameMainline)
-        .map(_.children.toList.map(gameMainline + _.id))
+        .map:
+          _.children.toList.filterNot(_.forceVariation).map(gameMainline + _.id)
         .foldMap(_.sequentiallyVoid: childPath =>
           studyApi.forceVariation(
             studyId = chapter.studyId,
