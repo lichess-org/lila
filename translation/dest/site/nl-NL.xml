@@ -249,6 +249,7 @@
   <string name="signupUsernameHint">Zorg ervoor dat u een gezinsvriendelijke gebruikersnaam kiest. U kunt het later niet meer wijzigen en alle accounts met ongepaste gebruikersnamen zullen gesloten worden!</string>
   <string name="signupEmailPromise">We sturen alleen e-mails over uw account en delen uw e-mail nooit.</string>
   <string name="password">Wachtwoord</string>
+  <string name="showPassword">Wachtwoord tonen</string>
   <string name="changePassword">Wijzig wachtwoord</string>
   <string name="changeEmail">Verander email</string>
   <string name="email">Email</string>
@@ -382,7 +383,7 @@
   <string name="whiteCancelsTakeback">Wit annuleert terugnemen</string>
   <string name="blackCancelsTakeback">Zwart annuleert terugnemen</string>
   <string name="yourOpponentProposesATakeback">Uw tegenstander stelt een terugname voor</string>
-  <string name="bookmarkThisGame">Voeg deze partij toe aan uw favorieten</string>
+  <string name="bookmarkThisGame">Partij aan favorieten toevoegen</string>
   <string name="tournament">Toernooi</string>
   <string name="tournaments">Toernooien</string>
   <string name="tournamentPoints">Toernooipunten</string>

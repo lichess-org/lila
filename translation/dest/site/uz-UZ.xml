@@ -420,6 +420,8 @@
   </plurals>
   <string name="yourPerfRatingIsProvisional">Sizning %s reytingingiz hali aniqlanmagan</string>
   <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Reytingingiz barqaror boʻlmagani sababli, reyting filtrlari bloklangan. Reytingli oʻyinlarni o\'ynash reyting barqarorligini oshiradi.</string>
+  <string name="cannotFilterByUnstableRating" comment="Tooltip to explain why the control for filtering by rating is disabled Replaces old string ratingRangeIsDisabledBecauseYourRatingIsProvisional">Reytingingiz barqaror boʻlmagani sababli, reyting bilan filtrlab boʻlmaydi.
+Reytingli oʻyinlar o\'ynasangiz reyting barqarorligi oshadi.</string>
   <string name="yourPerfRatingIsTooHigh">Sizning %1$s reytingingiz (%2$s) juda yuqori</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Sizning hafatlik %1$s reytingingiz (%2$s) juda yuqori</string>
   <string name="yourPerfRatingIsTooLow">Sizning %1$s reytingingiz (%2$s) ancha past</string>
@@ -730,6 +732,7 @@
   <string name="simulClockHint">Fisher soati sozlamalari. Raqiblaringiz qancha koʻp boʻlsa, sizga shuncha koʻp vaqt kerak boʻlishi mumkin.</string>
   <string name="simulAddExtraTime">Seans davomida ulgurishingiz uchun oʻz soatingizga qoʻshimcha boshlangʻich vaqt qoʻshishingiz mumkin.</string>
   <string name="simulHostExtraTime">Seans oʻtkazuvchi uchun qoʻshimcha boshlangʻich vaqt</string>
+  <string name="extraClockTimeForHost" comment="Appears on: https://lichess.org/simul/new&#10;&#10;Allows a simul host to select extra time for the simul.&#10;&#10;Please note this string used to state &quot;Host extra clock time&quot;, without the word &quot;initial&quot; Replaces old string simulHostExtraTime">Mezbon uchun qoʻshimcha vaqt:</string>
   <string name="simulAddExtraTimePerPlayer">Seansga qoʻshilgan har bir oʻyinchi uchun soatingizga boshlangʻich vaqt qoʻshing.</string>
   <string name="simulHostExtraTimePerPlayer">Har bir oʻyinchi uchun qoʻshimcha vaqt (seans oʻtkazuvchi uchun)</string>
   <string name="lichessTournaments">Lichess turnirlar</string>
@@ -925,6 +928,7 @@
   </plurals>
   <string name="showUnreadLichessMessage">Sizga Lichessdan shaxsiy xabar keldi.</string>
   <string name="clickHereToReadIt">Uni oʻqish uchun shu yerga bosing</string>
+  <string name="readTheMessage" comment="'It' refers to a private message. This text follows after a different string which advises players they have received a private message from Lichess. For users, this is appears as a regular private message from the Lichess account: https://lichess.org/@/Lichess Replaces old string clickHereToReadIt">Xabarni oʻqish</string>
   <string name="sorry">Kechirasiz :(</string>
   <string name="weHadToTimeYouOutForAWhile">Biz sizni oʻyinlardan vaqtinchalik chetlashtirishga majbur boʻldik.</string>
   <string name="why">Nima uchun?</string>

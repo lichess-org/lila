@@ -30,6 +30,7 @@
   <string name="collinearMoveDescription">Ikki donasi bir‑biriga roʻbaroʻ kelgan holatda, bir dona dushman donasini urmasdan hujum chizigʻi boʻylab harakatlanadi.</string>
   <string name="cornerMate">Burchak moti</string>
   <string name="cornerMateDescription">Rux yoki farzin yordamida shohni burchakka qamab, ot bilan mot qilish.</string>
+  <string name="cornerMateKnightDeliversDescription" comment="Description for the &quot;Corner mate&quot; puzzle theme. Replaces old string cornerMateDescription">Rux yoki farzin yordamida shohni burchakka qamab, ot bilan mot qiling.</string>
   <string name="crushing">Mutlaq ustunlik</string>
   <string name="crushingDescription">Raqib xatosidan foydalanib, hal qiluvchi ustunlikka erishing. (eval ≥ 600cp)</string>
   <string name="discoveredCheck">Ochiq shoh</string>
@@ -120,6 +121,7 @@
   <string name="pinDescription">\"Bogʻlam\"ga asoslangan taktika; bunda bir dona oʻzidan qiymatliroq boshqa donani himoya qilib turgani sababli yurish imkoniyatidan mahrum boʻladi.</string>
   <string name="promotion">Piyodani almashtirish</string>
   <string name="promotionDescription">Piyodalaringizdan birini farzinga yoki sipohga aylantiring.</string>
+  <string name="promotePawnToQueenRookOrMinor" comment="Replaces old string promotionDescription">Piyodalaringizdan birini farzin, rux yoki boshqa sipohga aylantiring.</string>
   <string name="queenEndgame">Farzinli endshpil</string>
   <string name="queenEndgameDescription">Faqat farzin va piyodalardan iborat endshpil.</string>
   <string name="queenRookEndgame">Farzin va ruxli endshpil</string>

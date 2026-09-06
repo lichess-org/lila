@@ -35,10 +35,12 @@
   <string name="resetRound">Reiniciar esta rodada</string>
   <string name="deleteRound">Excluir esta rodada</string>
   <string name="definitivelyDeleteRound">Deletar permanentemente todas as partidas desta rodada.</string>
+  <string name="permanentlyDeleteRound" comment="Refers to live tournaments being broadcast on Lichess (https://lichess.org/broadcast).&#10;&#10;Description (also translateable): Delete all games of this round. The source will need to be active in order to re-create them. This string has been amended since its initial publication; it didn't say &quot;all its games&quot; at the time.&#10;&#10;Replaces old string definitivelyDeleteRound.">Excluir permanentemente essa rodada e todas as partidas dela?</string>
   <string name="deleteAllGamesOfThisRound">Deletar todas as partidas desta rodada. A fonte deverá estar ativa para criá-las novamente.</string>
   <string name="editRoundStudy">Editar estudo da rodada</string>
   <string name="deleteTournament">Excluir este torneio</string>
   <string name="definitivelyDeleteTournament">Excluir permanentemente todo o torneio, incluindo todas as rodadas e jogos.</string>
+  <string name="permanentlyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast Replaces old string definitivelyDeleteTournament">Excluir permanentemente esse torneio, incluindo todas as rodadas e partidas?</string>
   <string name="showScores">Mostrar pontuações dos jogadores com base nos resultados das partidas</string>
   <string name="replacePlayerTags">Opcional: substituir nomes de jogador, ratings e títulos</string>
   <string name="fideFederations">Federações FIDE</string>

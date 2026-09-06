@@ -1018,20 +1018,20 @@
 Можеш користити %s да створиш FEN позицију, затим је налепити овде.
 Остави празно да започнеш партије из нормалне почетне позиције.</string>
   <string name="cancelSimul">Откажи симултанку</string>
-  <string name="simulHostcolor">Које фигуре има домаћин за сваку партију</string>
+  <string name="simulHostcolor">Боја домаћина за сваку партију</string>
   <string name="estimatedStart">Предвиђено време почетка</string>
   <string name="simulFeatured">Истакни на %s</string>
-  <string name="simulFeaturedHelp">Покажи своју симултанку свима на %s. Онемогући за приватне симултанке.</string>
+  <string name="simulFeaturedHelp">Прикажи своју симултанку свима на %s. Онемогући за приватне симултанке.</string>
   <string name="simulDescription">Опис симултанке</string>
-  <string name="simulDescriptionHelp">Желиш ли нешто да саопштиш учесницима?</string>
+  <string name="simulDescriptionHelp">Желиш ли нешто да кажеш учесницима?</string>
   <string name="markdownIsAvailable">%s је доступан за форматирање.</string>
   <string name="youCanFormatTextUsing" comment="%s is &quot;Markdown&quot;, a proper noun. As such, the word is intentionally kept as a variable.&#10;&#10;Markdown is a markup language - a type of code that lets you format text (e.g. to create bold text).&#10;&#10;The text links to a reference guide for using Markdown to format text. Replaces old string markdownIsAvailable">Можеш форматирати текст користећи %s.</string>
   <string name="embedsAvailable">Убаци URL партије или поглавља студије.</string>
-  <string name="inYourLocalTimezone">Према твојој локалној временској зони</string>
-  <string name="tournChat">Чет на турниру</string>
-  <string name="noChat">Нема чета</string>
-  <string name="onlyTeamLeaders">Само за вође тимова</string>
-  <string name="onlyTeamMembers">Само за чланове тимова</string>
+  <string name="inYourLocalTimezone">У твојој локалној временској зони</string>
+  <string name="tournChat">Ћаскање турнира</string>
+  <string name="noChat">Без ћаскања</string>
+  <string name="onlyTeamLeaders">Само вође тима</string>
+  <string name="onlyTeamMembers">Само чланови тима</string>
   <string name="navigateMoveTree">Кретање кроз листу потеза</string>
   <string name="mouseTricks">Покрети мишем</string>
   <string name="toggleLocalAnalysis">Одабери анализу на свом компјутеру</string>

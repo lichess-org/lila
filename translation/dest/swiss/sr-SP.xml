@@ -7,4 +7,8 @@
     <item quantity="few">Погледај све %s рунде</item>
     <item quantity="other">Погледај свих %s рунди</item>
   </plurals>
+  <string name="tournStartDate">Датум почетка турнира</string>
+  <string name="lateJoinUntil">Да, док не почне више од половине кола</string>
+  <string name="streaksAndBerserk">Серије и берсерк</string>
+  <string name="absences">Одсуства</string>
 </resources>
