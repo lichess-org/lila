@@ -193,7 +193,10 @@ function setupTick(v: VNode, ceval: CevalCtrl) {
 
 function engineSelection({ ceval }: CevalHandler) {
   const active = ceval.engines.active();
-  const engines = ceval.engines.supporting(ceval.opts.variant.key);
+  const engines = ceval.engines.supporting({
+    rules: ceval.rules,
+    nonStandardMaterial: ceval.nonStandardMaterial,
+  });
   const external = ceval.engines.external;
 
   return hl('div.setting', [
@@ -228,7 +231,14 @@ function engineSelection({ ceval }: CevalHandler) {
       {
         attrs: { title: 'Engine information' },
         on: {
-          click: () => engineInfo(ceval.engines.supporting(ceval.opts.variant.key, undefined, 'browser')),
+          click: () =>
+            engineInfo(
+              ceval.engines.supporting({
+                rules: ceval.rules,
+                nonStandardMaterial: ceval.nonStandardMaterial,
+                filter: 'browser',
+              }),
+            ),
         },
       },
       [snabIcon('infoCircle')],
