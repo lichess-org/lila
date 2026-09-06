@@ -1,12 +1,6 @@
 import { type Rules } from 'chessops/types';
 
-import type {
-  BrowserEngineInfo,
-  ExternalEngineInfo,
-  EngineInfo,
-  EngineCapability,
-  CevalEngine,
-} from '@/ceval';
+import type { BrowserEngineInfo, ExternalEngineInfo, EngineInfo, CevalEngine } from '@/ceval';
 import { isAndroid, isIos, isIPad, features as browserSupport } from '@/device';
 import { log } from '@/permalog';
 import { xhrHeader } from '@/xhr';
@@ -60,7 +54,8 @@ export class Engines {
           tech: 'NNUE',
           requires: ['sharedMem', 'simd', 'dynamicImportFromWorker'],
           minMem: 2560,
-          capabilities: ['cloudEval', 'puzzleReport'],
+          supportsCloudEval: true,
+          supportsPuzzleReport: true,
           assets: {
             root: 'npm/stockfish-web',
             js: 'sf_19.js',
@@ -77,7 +72,8 @@ export class Engines {
           tech: 'NNUE',
           requires: ['sharedMem', 'simd', 'dynamicImportFromWorker'],
           minMem: 1536,
-          capabilities: ['cloudEval', 'puzzleReport'],
+          supportsCloudEval: true,
+          supportsPuzzleReport: true,
           preferred: true,
           assets: {
             root: 'npm/stockfish-web',
@@ -96,7 +92,7 @@ export class Engines {
             tech: 'NNUE',
             requires: ['sharedMem', 'simd', 'dynamicImportFromWorker'],
             variants: [key],
-            capabilities: ['cloudEval'],
+            supportsCloudEval: true,
             assets: {
               root: 'npm/stockfish-web',
               nnue: [`${nnue}.nnue`],
@@ -134,7 +130,7 @@ export class Engines {
           tech: 'HCE',
           requires: ['sharedMem', 'simd', 'dynamicImportFromWorker'],
           variants: ['chess', ...variants.map(v => v.key)],
-          capabilities: ['nonStandardMaterial'],
+          supportsNonStandardMaterial: true,
           assets: {
             root: 'npm/stockfish-web',
             js: 'fsf_14.js',
@@ -169,7 +165,7 @@ export class Engines {
           requires: ['sharedMem'],
           minThreads: 1,
           variants: ['chess', ...variants.map(v => v.key)],
-          capabilities: ['nonStandardMaterial'],
+          supportsNonStandardMaterial: true,
           assets: {
             version: 'a022fa',
             root: 'npm/stockfish-mv.wasm',
@@ -237,17 +233,11 @@ export class Engines {
       })) ?? [];
   }
 
-  getEngine(selector?: {
-    id?: string;
-    rules: Rules;
-    nonStandardMaterial: boolean;
-    capability?: EngineCapability;
-  }): EngineInfo | undefined {
+  getEngine(selector?: { id?: string; rules: Rules; nonStandardMaterial: boolean }): EngineInfo | undefined {
     const id = selector?.id ?? this.activeEngine?.id;
     const engines = this.supporting({
       rules: selector?.rules || 'chess',
-      nonStandardMaterial: selector?.nonStandardMaterial || false,
-      capability: selector?.capability,
+      nonStandardMaterial: !!selector?.nonStandardMaterial,
     });
     return engines.find(info => info.id === id) ?? engines.find(info => info.preferred) ?? engines[0];
   }
@@ -287,7 +277,6 @@ export class Engines {
   supporting(selector: {
     rules: Rules;
     nonStandardMaterial: boolean;
-    capability?: EngineCapability;
     filter?: 'browser' | 'external';
   }): EngineInfo[] {
     const engines: EngineInfo[] = [
@@ -296,9 +285,8 @@ export class Engines {
     ];
     return engines.filter(
       info =>
-        (!selector.nonStandardMaterial || info.capabilities?.includes('nonStandardMaterial')) &&
-        (info.variants ?? ['chess']).includes(selector.rules) &&
-        (!selector.capability || info.capabilities?.includes(selector.capability)),
+        (!selector.nonStandardMaterial || info.supportsNonStandardMaterial) &&
+        (info.variants ?? ['chess']).includes(selector.rules),
     );
   }
 
