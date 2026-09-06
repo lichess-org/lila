@@ -34,14 +34,14 @@
 
   .site-icon {
     display: none;
-    font-size: 24px;
 
-    .svg-icon {
+    svg {
       display: block;
-    }
-
-    @media (min-height: at-least($tall)) {
-      font-size: 36px;
+      width: 1.25em;
+      fill: $c-font-dim;
+      stroke: $c-font-dim;
+      stroke-width: 1px;
+      filter: drop-shadow(0.5px 0.5px 0 $c-shade);
     }
   }
 
