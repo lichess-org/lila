@@ -1,8 +1,9 @@
 // no side effects allowed due to re-export by index.ts
 
-import type { Rules } from 'chessops';
+import { isStandardMaterial } from 'chessops/chess';
 import { lichessRules } from 'chessops/compat';
 import { parseFen } from 'chessops/fen';
+import { type Rules } from 'chessops/types';
 import { setupPosition } from 'chessops/variant';
 
 import { clamp } from '@/algo';
@@ -45,6 +46,7 @@ interface Started {
 
 export class CevalCtrl {
   rules: Rules;
+  nonStandardMaterial: boolean;
   analysable: boolean;
   engines: Engines;
   storedEngine: Prop<string>;
@@ -89,10 +91,19 @@ export class CevalCtrl {
   init(opts?: CevalOpts): void {
     if (opts) this.opts = opts;
     this.reset();
-    this.analysable = Boolean(this.engines.getEngine({ variant: this.opts.variant.key }));
     this.rules = lichessRules(this.opts.variant.key);
-    if (this.analysable && this.opts.initialFen)
-      this.analysable = parseFen(this.opts.initialFen).chain(x => setupPosition(this.rules, x)).isOk;
+    const pos = this.opts.initialFen
+      ? parseFen(this.opts.initialFen).chain(x => setupPosition(this.rules, x))
+      : undefined;
+    this.nonStandardMaterial =
+      this.rules === 'chess' &&
+      !!pos?.unwrap(
+        pos => !isStandardMaterial(pos),
+        _ => false,
+      );
+    this.analysable =
+      !pos?.isErr &&
+      !!this.engines.getEngine({ rules: this.rules, nonStandardMaterial: this.nonStandardMaterial });
     this.engines.setActive(this.opts.custom?.engine?.id ?? this.storedEngine());
     if (this.worker?.getInfo().id !== this.engines.active()?.id) this.unload();
   }
@@ -138,7 +149,14 @@ export class CevalCtrl {
         min: 16,
         max: active.maxHash,
       }),
-      engine: (custom?.engine && this.engines.getEngine({ id: custom.engine.id })) || active,
+      engine:
+        (custom?.engine &&
+          this.engines.getEngine({
+            id: custom.engine.id,
+            rules: this.rules,
+            nonStandardMaterial: this.nonStandardMaterial,
+          })) ||
+        active,
       search:
         typeof maybeSearch === 'object'
           ? maybeSearch
@@ -230,7 +248,7 @@ export class CevalCtrl {
       return;
     }
     const work: Work = {
-      variant: this.opts.variant.key,
+      variant: this.rules,
       threads,
       hashSize,
       gameId: s.gameId,
@@ -265,7 +283,11 @@ export class CevalCtrl {
     }
 
     if (this.worker?.getInfo().id !== engine.id) this.unload();
-    this.worker ??= this.engines.makeEngine({ id: engine.id, variant: this.opts.variant.key });
+    this.worker ??= this.engines.makeEngine({
+      id: engine.id,
+      rules: this.rules,
+      nonStandardMaterial: this.nonStandardMaterial,
+    });
     this.worker.start(work);
   };
 
