@@ -68,6 +68,10 @@
     @include with-metal-hover-shadow(hsl(0 0% 0% / 0.24), hsl(0 0% 0% / 0.21));
 
     background: linear-gradient(to bottom, $c-metal-top-hover, $c-metal-bottom-hover);
+
+    @include if-transp {
+      @include with-metal-hover-shadow(hsl(0 0% 0% / 0.15), hsl(0 0% 0% / 0.12));
+    }
   }
 }
 
@@ -79,6 +83,10 @@
 
   &:hover:not(.disabled, :disabled, [disabled]) {
     @include with-metal-hover-shadow(hsl(0 0% 0% / 0.12), hsl(0 0% 0% / 0.1), true);
+
+    @include if-transp {
+      @include with-metal-hover-shadow(hsl(0 0% 0% / 0.06), hsl(0 0% 0% / 0.05), true);
+    }
   }
 }
 
@@ -152,6 +160,8 @@
 }
 
 %dropdown-shadow {
+  @include backdrop-blur-if-transparent;
+
   @include if-transp {
     @include back-blur;
   }
@@ -274,31 +284,9 @@
   }
 }
 
-%data-icon {
-  font-size: 1.2em;
-  vertical-align: middle;
-  font-family: lichess;
-  font-style: normal;
-  font-weight: normal;
-  text-transform: none;
-  speak: none;
-  content: attr(data-icon);
-  opacity: 0.9;
-  unicode-bidi: isolate;
-}
-
-%data-icon-top {
-  &::before {
-    vertical-align: text-top;
-  }
-}
-
 %fullscreen-mask {
   position: fixed;
-  top: -100vh;
-  left: -100vw;
-  width: 300vw;
-  height: 300vh;
+  inset: 0;
   background: $c-page-mask;
   z-index: $z-fullscreen-mask-110;
 }

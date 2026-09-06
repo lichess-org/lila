@@ -83,7 +83,7 @@
     overflow-y: auto;
   }
 
-  .user_marks icon {
+  .user_marks .svg-icon {
     @include user-marks;
   }
 

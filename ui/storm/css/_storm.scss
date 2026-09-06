@@ -31,9 +31,9 @@
     justify-content: stretch;
     text-align: center;
 
-    icon {
-      font-size: 15em;
-      line-height: 1.2em;
+    .svg-icon {
+      width: 15em;
+      margin: 0 auto;
     }
 
     p {

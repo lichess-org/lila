@@ -80,6 +80,7 @@ Liczba punktów pomocniczych danego uczestnika składa się z sumy punktów koń
   <string name="moreRoundsThanPlayersQ">Co się stanie, jeśli turniej ma więcej rund niż graczy?</string>
   <string name="moreRoundsThanPlayersA">Po rozegraniu wszystkich możliwych par, turniej zakończy się i zostanie ogłoszony zwycięzca.</string>
   <string name="restrictedToTeamsQ">Dlaczego tylko dla klubów?</string>
+  <string name="whyAreSwissTournamentsRestrictedToTeams" comment="Replaces old string restrictedToTeamsQ">Dlaczego turnieje w systemie szwajcarskim ograniczone są do klubów?</string>
   <string name="restrictedToTeamsA">System szwajcarski nie został opracowany dla rozgrywek online. Wymaga od uczestników punktualności i cierpliwości.
 Uważamy, że warunki te są bardziej prawdopodobne do spełnienia w klubie niż w turniejach otwartych.</string>
   <string name="numberOfByesQ">Ile wolnych losów (punktów bez gry) może otrzymać uczestnik?</string>
@@ -101,6 +102,7 @@ Uczestnicy dołączający po rozpoczęciu turnieju otrzymują jeden wolny los (p
   <string name="willSwissReplaceArenasQ">Czy system szwajcarski zastąpi areny?</string>
   <string name="willSwissReplaceArenasA">Nie. To dodatkowy system turniejowy na Lichess.</string>
   <string name="roundRobinQ">Co z systemem kołowym?</string>
+  <string name="canPlayRoundRobinTournaments" comment="roundRobinQ&#10;&#10;Round-robin is a simple tournament format with some similarities to Swiss. It is not supported by Lichess. Replaces old string roundRobinQ">Czy na Lichess mogę grać w turnieje systemem kołowym?</string>
   <string name="roundRobinA">Chcielibyśmy go dodać, ale niestety system kołowy nie sprawdza się w turniejach online.
 Problemem jest to, że nie ma sprawiedliwego sposobu radzenia sobie z uczestnikami, którzy wcześnie porzucają turniej. Trudno oczekiwać, że wszyscy uczestnicy zagrają wszystkie swoje partie. To po prostu się nie zdarza, a w rezultacie większość turniejów byłaby wadliwa i niesprawiedliwa, co podważa ich sens istnienia.
 Najbardziej zbliżoną formą do systemu kołowego jest właśnie system szwajcarski z bardzo dużą liczbą rund. W takim turnieju zagrają ze sobą wszystkie możliwe pary.</string>

@@ -167,6 +167,8 @@ case class Tournament(
         case _ => 20
       if variant.exotic && freq != Unique then base / 3 else base
 
+  def realNames = scheduleFreq.has(Schedule.Freq.Unique) && name.contains("Titled Arena")
+
   override def toString =
     s"$id $startsAt $name $minutes minutes, $clock, $nbPlayers players"
 

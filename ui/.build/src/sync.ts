@@ -16,12 +16,12 @@ export async function sync(): Promise<void[] | undefined> {
         ctx: 'sync',
         always: true,
         debounce: 300,
-        execute: (files, fullList) => {
+        execute: async (files, fullList) => {
           if (exact && files.length === 0) throw `Not found '${c.cyan(sync.src)}`;
           const logEvery = !isEquivalent(files, fullList);
           if (!logEvery)
             env.log(`${c.grey(pkg.name)} '${c.cyan(sync.src)}' -> '${c.cyan(sync.dest)}'`, 'sync');
-          return Promise.all(
+          await Promise.all(
             files.map(async f => {
               if ((await syncOne(f, join(env.rootDir, sync.dest, f.slice(root.length)))) && logEvery)
                 env.log(

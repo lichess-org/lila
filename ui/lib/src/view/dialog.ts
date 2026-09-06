@@ -3,10 +3,11 @@
 import { isTouchDevice } from '@/device';
 import { Janitor } from '@/event';
 import { frag } from '@/index';
-import { licon } from '@/licon';
 import { pubsub } from '@/pubsub';
 import * as xhr from '@/xhr';
 
+import { focusableWithin } from './focus';
+import { domIcon, snabIcon } from './makeIcon';
 import { onInsert, hl, type VNode, type Attrs, type LooseVNodes } from './snabbdom';
 
 export interface Dialog<Ctx = undefined> {
@@ -27,7 +28,7 @@ export interface DialogOpts<Ctx = undefined> {
   htmlText?: string; // content, htmlText is inserted as fragment into DOM
   cash?: Cash; // content, precedence over htmlText, cash will be cloned and any 'none' class removed
   htmlUrl?: string; // content, precedence over htmlText and cash, url will be xhr'd
-  insert?: { node: Node; selector?: string; position?: 'child' | 'before' | 'after' }[]; // default is 'child'
+  insert?: { nodes: Node | Node[]; selector?: string; position?: 'child' | 'before' | 'after' }[]; // 'child'
   attrs?: { dialog?: Attrs; view?: Attrs }; // optional attrs for dialog and view div
   focus?: string; // query selector for focus on show
   actions?: Action<Ctx> | Action<Ctx>[]; // add listeners to controls, call updateActions() to reattach
@@ -75,7 +76,9 @@ export async function domDialog<Ctx = undefined>(o: DomDialogOpts<Ctx>): Promise
 
   if (!o.noCloseButton) {
     const anchor = frag<Element>('<div class="close-button-anchor">');
-    anchor.innerHTML = `<button class="close-button" aria-label="Close" data-icon="${licon.X}">`;
+    const closeButton = frag<Element>(`<button class="close-button" aria-label="Close"></button>`);
+    closeButton.append(domIcon('x'));
+    anchor.append(closeButton);
     dialog.appendChild(anchor);
   }
 
@@ -110,7 +113,7 @@ export function snabDialog<Ctx = undefined>(o: SnabDialogOpts<Ctx>): VNode {
       o.noCloseButton ||
         hl(
           'div.close-button-anchor',
-          hl('button.close-button', { attrs: { 'data-icon': licon.X, 'aria-label': i18n.site.close } }),
+          hl('button.close-button', { attrs: { 'aria-label': i18n.site.close } }, [snabIcon('x')]),
         ),
       hl(
         'div',
@@ -193,8 +196,6 @@ class DialogWrapper<Ctx = undefined> implements Dialog<Ctx> {
           }
         }
   });
-  private readonly focusQuery =
-    'button, input, select, textarea, [href], [tabindex], [role="tab"], [role="button"], [role="link"]';
 
   constructor(
     readonly dialog: HTMLDialogElement,
@@ -217,11 +218,12 @@ class DialogWrapper<Ctx = undefined> implements Dialog<Ctx> {
         () => this.close('cancel'),
       );
     for (const app of o.insert ?? []) {
-      if (app.node === view) break;
+      if (app.nodes === view) break;
+      const nodes = Array.isArray(app.nodes) ? app.nodes : [app.nodes];
       const target = (app.selector ? view.querySelector(app.selector) : view)!;
-      if (app.position === 'before') target.before(app.node);
-      else if (app.position === 'after') target.after(app.node);
-      else target.appendChild(app.node);
+      if (app.position === 'before') target.before(...nodes);
+      else if (app.position === 'after') target.after(...nodes);
+      else target.append(...nodes);
     }
     this.updateActions();
     this.dialogEvents.addListener(this.dialog, 'keydown', this.onKeydown);
@@ -272,13 +274,7 @@ class DialogWrapper<Ctx = undefined> implements Dialog<Ctx> {
       this.close('cancel');
       e.preventDefault();
     } else if (e.key === 'Tab') {
-      const focii = [...this.dialog.querySelectorAll<HTMLElement>(this.focusQuery)].filter(
-        el =>
-          el.tabIndex !== -1 &&
-          el.checkVisibility({ visibilityProperty: true }) &&
-          !el.matches(':disabled') &&
-          !el.closest('[inert]'),
-      );
+      const focii = focusableWithin(this.dialog);
       focii.sort((a, b) => {
         const ati = Number(a.getAttribute('tabindex') ?? '0');
         const bti = Number(b.getAttribute('tabindex') ?? '0');
@@ -302,7 +298,7 @@ class DialogWrapper<Ctx = undefined> implements Dialog<Ctx> {
   private autoFocus() {
     const focus =
       (this.o.focus ? this.view.querySelector(this.o.focus) : this.view.querySelector('input[autofocus]')) ??
-      this.view.querySelector(this.focusQuery);
+      focusableWithin(this.view)[0];
 
     if (!(focus instanceof HTMLElement)) return;
     focus.focus();

@@ -110,8 +110,8 @@
     outline: none;
   }
 
-  .help-button::before {
-    font-size: 18px;
+  .help-button .svg-icon {
+    width: 18px;
     margin-inline-end: 0.5em;
     vertical-align: sub;
   }

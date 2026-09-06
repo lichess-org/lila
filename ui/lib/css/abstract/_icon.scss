@@ -1,0 +1,49 @@
+@use 'sass:map';
+
+@mixin icon-mask-only($src) {
+  -webkit-mask: $src center / contain no-repeat; /* stylelint-disable-line property-no-vendor-prefix */
+  mask: $src center / contain no-repeat;
+}
+
+@mixin icon-mask($icon, $icon-size: 1em) {
+  content: '';
+  display: inline-block;
+  background-color: currentcolor;
+  width: $icon-size;
+  aspect-ratio: 1;
+
+  @include icon-mask-only($icon);
+}
+
+.svg-icon {
+  display: inline-block;
+  background-color: currentcolor;
+
+  @include icon-mask-only(var(---icon-src));
+}
+
+.svg-icon {
+  opacity: 0.9;
+  width: 1.2em;
+  aspect-ratio: 1;
+
+  &.large {
+    width: 1.8rem;
+    height: 1.8rem;
+  }
+}
+
+.text > .svg-icon:first-child {
+  margin-inline-end: 0.4em; // this should not be here, and gaps should not be done this way.
+}
+
+html[dir='rtl'] .svg-icon.mirror-rtl {
+  transform: scaleX(-1);
+}
+
+html[dir='rtl'] {
+  .svg-icon.mirror-rtl.no-mirror,
+  .no-mirror .svg-icon.mirror-rtl {
+    transform: none;
+  }
+}

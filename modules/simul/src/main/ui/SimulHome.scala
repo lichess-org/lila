@@ -63,7 +63,7 @@ final class SimulHome(helpers: Helpers, ui: SimulUi):
                 tr(cls := "scheduled")(
                   simTd(sim),
                   simHost(sim),
-                  td(cls := "players text", dataIcon := Icon.User)(sim.applicants.size)
+                  td(cls := "players text", iconEl := Icon.user)(sim.applicants.size)
                 )
             )
           )
@@ -80,7 +80,7 @@ final class SimulHome(helpers: Helpers, ui: SimulUi):
             tr(cls := "scheduled")(
               simTd(sim),
               simHost(sim),
-              td(cls := "players text", dataIcon := Icon.User)(sim.applicants.size)
+              td(cls := "players text", iconEl := Icon.user)(sim.applicants.size)
             ),
           tr(cls := "create")(
             td(colspan := "4")(
@@ -106,7 +106,7 @@ final class SimulHome(helpers: Helpers, ui: SimulUi):
               tr(
                 simTd(sim),
                 simHost(sim),
-                td(cls := "players text", dataIcon := Icon.User)(sim.pairings.size)
+                td(cls := "players text", iconEl := Icon.user)(sim.pairings.size)
               )
           )
         ),
@@ -122,7 +122,7 @@ final class SimulHome(helpers: Helpers, ui: SimulUi):
             tr(
               simTd(sim),
               simHost(sim),
-              td(cls := "players text", dataIcon := Icon.User)(sim.pairings.size)
+              td(cls := "players text", iconEl := Icon.user)(sim.pairings.size)
             )
         )
       )
@@ -139,12 +139,7 @@ final class SimulHome(helpers: Helpers, ui: SimulUi):
   private def simHost(sim: Simul)(using ctx: Context) =
     td(cls := "host")(
       userIdLink(sim.hostId.some, withOnline = false),
-      ctx.pref.showRatings.option(
-        frag(
-          br,
-          strong(sim.hostRating)
-        )
-      )
+      ctx.pref.showRatings.option(strong(sim.hostRating))
     )
 
   def hosted(user: User, pager: Paginator[Simul])(using Context) =
@@ -167,7 +162,7 @@ final class SimulHome(helpers: Helpers, ui: SimulUi):
                 pager.currentPageResults.map: s =>
                   val hostColor = s.color | "random"
                   tr(cls := "paginated")(
-                    td(cls := "icon")(iconTag(s.mainPerfType.icon)),
+                    td(cls := "icon")(iconEl(s.mainPerfType.icon)),
                     td(cls := "name")(a(href := routes.Simul.show(s.id))(s.fullName)),
                     td(
                       span(cls := s"color-icon is $hostColor text", title := hostColor)(s.clock.config.show),

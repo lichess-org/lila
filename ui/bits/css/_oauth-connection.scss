@@ -13,7 +13,7 @@
   }
 
   &__service {
-    background: #6741ff;
+    background: #d8daff;
     border-radius: 50%;
     padding: 5px;
   }
@@ -33,10 +33,11 @@
       left: 0;
     }
 
-    icon {
+    .svg-icon {
       @extend %flex-center-center;
 
       flex: 0 0 2.5em;
+      width: 2.5em;
       height: 2.5em;
       color: $c-over;
       background: $c-good;

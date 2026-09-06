@@ -31,8 +31,8 @@ export function relayView(
     const resizable = displayColumns() > (ctx.hasRelayTour ? 1 : 2);
 
     return [
-      renderRelayTour(ctx),
       tourSide(ctx, resizable && deps.relayManager(relay, study)),
+      renderRelayTour(ctx),
       !resizable && deps.relayManager(relay, study),
     ];
   };

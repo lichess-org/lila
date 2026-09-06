@@ -35,9 +35,15 @@
   <string name="teamTournament">ತಂಡದ ಪಂದ್ಯಾವಳಿ</string>
   <string name="teamTournamentOverview">ನಿಮ್ಮ ತಂಡದ ಸದಸ್ಯರು ಮಾತ್ರ ಸೇರಬಹುದಾದ ಅರೆನಾ ಪಂದ್ಯಾವಳಿ</string>
   <string name="swissTournamentOverview">ನಿಮ್ಮ ತಂಡದ ಸದಸ್ಯರು ಮಾತ್ರ ಸೇರಬಹುದಾದ ಸ್ವಿಸ್ ಪಂದ್ಯಾವಳಿ</string>
+  <string name="teamUpdates">ತಂಡದ ನವೀಕರಣಗಳು</string>
+  <string name="subToTeamUpdates">ತಂಡದ ನವೀಕರಣಗಳಿಗೆ ಚಂದಾದಾರರಾಗಿ</string>
+  <string name="newTeamUpdate">ಹೊಸ ತಂಡದ ನವೀಕರಣಗಳು</string>
   <string name="teamsIlead">ನಾನು ಮುನ್ನಡೆಸುವ ತಂಡಗಳು</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">ಈ ಮುಂಬರುವ ಪಂದ್ಯಾವಳಿಗಳಲ್ಲಿ ಒಂದನ್ನು ನೀವು ಲಿಂಕ್ ಮಾಡಲು ಬಯಸಬಹುದು?</string>
   <string name="leadersChat">ನಾಯಕರು ಮಾತುಕತೆ</string>
+  <string name="introduction">ಪರಿಚಯ</string>
+  <string name="teamIntroductionHelp">ತಂಡಗಳ ಪಟ್ಟಿಗಳಲ್ಲಿ ಸಂಕ್ಷಿಪ್ತ ವಿವರಣೆ ಗೋಚರಿಸುತ್ತದೆ. ಗರಿಷ್ಠ 200 ಅಕ್ಷರಗಳು.</string>
+  <string name="teamDescriptionHelp">ತಂಡದ ಪುಟದಲ್ಲಿ ಪೂರ್ಣ ವಿವರಣೆ ಗೋಚರಿಸುತ್ತದೆ.</string>
   <string name="closeTeam">ತಂಡವನ್ನು ಮುಚ್ಚಿ</string>
   <string name="closeTeamDescription">ತಂಡವನ್ನು ಶಾಶ್ವತವಾಗಿ ಮುಚ್ಚುತ್ತದೆ.</string>
   <string name="entryCode">ತಂಡದ ಪ್ರವೇಶ ಕೋಡ್</string>

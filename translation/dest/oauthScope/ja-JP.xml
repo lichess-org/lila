@@ -22,6 +22,7 @@
   <string name="teamRead">非公開のチーム情報を見る</string>
   <string name="teamWrite">チームに対する加入・脱退・管理</string>
   <string name="teamLead">リーダーを務めるチームの管理：PM の送信、メンバーの追放</string>
+  <string name="manageTeamsYouLead" comment="Replaces old string teamLead">リーダーを務めるチームの管理：メッセージの送信、メンバーの追放</string>
   <string name="followRead">フォローした相手を見る</string>
   <string name="followWrite">フォローする、フォロー解除する</string>
   <string name="msgWrite">他の人にプライベートメッセージを送信する</string>

@@ -72,6 +72,7 @@ export class Protocol {
       }
       this.swapWork();
     } else if (this.work && !this.work.stopRequested && parts[0] === 'info') {
+      this.throwOnFatalError(parts);
       let depth = 0,
         nodes,
         multiPv = 1,
@@ -193,7 +194,8 @@ export class Protocol {
 
       this.send(['position fen', this.work.initialFen, 'moves', ...this.work.moves].join(' '));
       const [by, value] = Object.entries(this.work.search)[0];
-      this.send(`go ${by} ${value}`);
+      const cmd = Number.isFinite(value) ? `go ${by} ${value}` : 'go';
+      this.send(cmd);
     }
   }
 
@@ -205,5 +207,19 @@ export class Protocol {
 
   isComputing(): boolean {
     return !!this.work && !this.work.stopRequested;
+  }
+
+  private throwOnFatalError(info: string[]): void {
+    if (info[1] !== 'string' || !info.slice(2, 4).some(e => e.toLowerCase().startsWith('error'))) return;
+    if (this.currentEval) this.currentEval.bestmove = '(none)';
+    if (this.work)
+      this.work.emit(undefined, {
+        threatMode: false,
+        path: this.work.path,
+        ply: this.work.ply,
+        error: info.slice(2).join(' '),
+      });
+    this.disconnected();
+    throw new Error(info.slice(2).join(' '));
   }
 }

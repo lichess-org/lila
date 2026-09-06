@@ -56,9 +56,9 @@
     align-items: center;
     margin: 1em;
 
-    &::before {
+    > .svg-icon {
       color: $c-font-dim;
-      font-size: 3em;
+      width: 3em;
       margin-inline-end: 12px;
     }
   }
@@ -82,7 +82,11 @@
   }
 
   .board-menu {
-    border-radius: 0 0 $box-radius-size $box-radius-size;
+    &,
+    &::before {
+      border-radius: 0 0 $box-radius-size $box-radius-size;
+    }
+
     top: $buttons-height;
     border-top: 2px solid $c-secondary;
   }

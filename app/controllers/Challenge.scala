@@ -72,7 +72,7 @@ final class Challenge(env: Env) extends LilaController(env):
       ,
       json = Ok(json)
     ).flatMap(withChallengeAnonCookie(mine && c.challengerIsAnon, c, owner = true))
-  yield env.security.lilaCookie.ensure(ctx.req)(res)
+  yield env.security.lilaCookie.ensure(res)
 
   private def targetSuggestions(using me: Option[Me]) = me.so: me =>
     for
@@ -99,7 +99,7 @@ final class Challenge(env: Env) extends LilaController(env):
       isForMe(c).so:
         allow:
           api
-            .accept(c, ctx.req.sid, color)
+            .accept(c, ctx.req.sid.map(_.value), color)
             .flatMap:
               _.fold("The Challenge has already been accepted".raise): pov =>
                 negotiateApi(
@@ -227,7 +227,7 @@ final class Challenge(env: Env) extends LilaController(env):
                               val required = OAuthScope.select(_.Challenge.Write).into(EndpointScopes)
                               allow:
                                 for
-                                  access <- env.oAuth.server.auth(bearer, required, ctx.req.some)
+                                  access <- env.oAuth.server.auth(bearer -> none, required, ctx.req.some)
                                   _ <- raiseIf(!pov.opponent.isUser(access.me)):
                                     OAuthServer.AuthError("Not the opponent token")
                                 yield
@@ -254,6 +254,7 @@ final class Challenge(env: Env) extends LilaController(env):
             if game.hasAi
             then
               getAs[Bearer]("token1")
+                .map(_ -> none)
                 .traverse(env.oAuth.server.auth(_, accepted, req.some))
                 .map:
                   _.exists(a => game.hasUserId(a.scoped.user.id)).option(startNow)
@@ -390,4 +391,4 @@ final class Challenge(env: Env) extends LilaController(env):
   }
 
   private def anonSecretFromCookieOrMobileSri(using RequestHeader) =
-    req.sid orElse lila.security.Mobile.LichessMobileUa.sriFromUA.map(_.value)
+    req.sid.map(_.value) orElse lila.security.Mobile.LichessMobileUa.sriFromUA.map(_.value)

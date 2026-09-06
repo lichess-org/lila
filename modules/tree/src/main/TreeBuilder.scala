@@ -8,7 +8,7 @@ object TreeBuilder:
 
   type LogChessError = String => Unit
 
-  private[tree] def makeEval(info: Info) = Eval(cp = info.cp, mate = info.mate, best = info.best)
+  private def makeEval(info: Info) = Eval(cp = info.cp, mate = info.mate, best = info.best)
 
   def apply(
       game: Game,
@@ -80,7 +80,7 @@ object TreeBuilder:
     error.foreach(err => logChessError(formatError(game.id, err)))
     result.fold(root)(root.prependChildUnchecked)
 
-  private[tree] def makeLichessComment(c: Comment) =
+  private def makeLichessComment(c: Comment) =
     Node.Comment(
       Node.Comment.Id.make,
       c,

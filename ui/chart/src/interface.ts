@@ -2,11 +2,12 @@ import type { Chart } from 'chart.js';
 
 import type { TreeNodeBase } from 'lib/tree/types';
 
-export interface PlyChart extends Chart<'line'> {
+export interface PlyChart extends Chart<'line' | 'bar'> {
   selectPly(ply: number, isMainline: boolean): void;
 }
 
-export interface AcplChart extends PlyChart {
+export interface AcplChart extends Chart<'line'> {
+  selectPly(ply: number, isMainline: boolean): void;
   updateData(d: AnalyseData, mainline: TreeNodeBase[]): void;
 }
 

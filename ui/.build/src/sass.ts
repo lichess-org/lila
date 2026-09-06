@@ -1,8 +1,10 @@
+import autoprefixer from 'autoprefixer';
 import cps from 'node:child_process';
 import crypto from 'node:crypto';
 import fs from 'node:fs';
 import { basename, dirname, join, relative, resolve } from 'node:path';
 import ps from 'node:process';
+import postcss from 'postcss';
 
 import { c, env, errorMark, trimLines } from './env.ts';
 import { hashedBasename, symlinkTargetHashes } from './hash.ts';
@@ -111,13 +113,23 @@ async function compile(sources: string[], logAll = true): Promise<string[]> {
     sassPs.stdout?.on('data', (buf: Buffer) => sassError(buf.toString('utf8')));
     sassPs.on('close', async (code: number) => {
       sassPs = undefined;
-      if (code === 0) resolveWithErrors([]);
+      if (code === 0)
+        Promise.all(sources.map(addVendorPrefixes))
+          .then(() => resolveWithErrors([]))
+          .catch(() => resolveWithErrors(sources));
       else
         Promise.all(sources.map(async s => ({ s, exists: await readable(absTempCss(s)) })))
           .then(srcExists => resolveWithErrors(srcExists.filter(({ exists }) => !exists).map(({ s }) => s)))
           .catch(() => resolveWithErrors(sources));
     });
   });
+}
+
+async function addVendorPrefixes(src: string): Promise<void> {
+  const cssPath = absTempCss(src);
+  const css = await fs.promises.readFile(cssPath, 'utf8');
+  const result = await postcss([autoprefixer]).process(css, { from: cssPath });
+  await fs.promises.writeFile(cssPath, result.css);
 }
 
 // recursively parse scss file and its imports to build dependency maps
@@ -139,8 +151,7 @@ async function parseScss(src: string, processed: Set<string>) {
   }
 
   for (const [, cssImport] of text.matchAll(/^@(?:import|use)\s+['"](.*)['"]/gm)) {
-    if (!cssImport) continue;
-
+    if (!cssImport || /^[a-zA-Z0-9_-]*:/.test(cssImport)) continue; // ignore @use scopes
     const absDep = (await readable(resolve(dirname(src), cssImport + '.scss')))
       ? resolve(dirname(src), cssImport + '.scss')
       : resolve(dirname(src), resolvePartial(cssImport));
@@ -151,7 +162,11 @@ async function parseScss(src: string, processed: Set<string>) {
     const dep = relative(env.rootDir, absDep);
     if (!importMap.get(dep)?.add(src)) importMap.set(dep, new Set<string>([src]));
     addIncludes([{ cwd: dirname(dep), path: '*.scss' }], 'sass'); // could be outside of ui/** glob
-    await parseScss(dep, processed);
+    try {
+      await parseScss(dep, processed);
+    } catch (e) {
+      throw typeof e === 'string' ? e : `'${c.cyan(src)}' cannot read '${c.cyan(dep)}'`;
+    }
   }
 }
 

@@ -56,6 +56,10 @@
       outline-color: $c-bad;
     }
 
+    .unfinished cg-container {
+      outline-color: $c-font-dim;
+    }
+
     &:hover .puz-history__round__id {
       font-family: monospace;
       color: $c-font;
@@ -65,12 +69,11 @@
   }
 
   good,
-  bad {
+  bad,
+  unfinished {
     @extend %flex-center, %box-radius-bottom;
 
     &::before {
-      @extend %data-icon;
-
       margin-inline: 0 0.2em;
     }
   }
@@ -79,7 +82,7 @@
     color: $c-good;
 
     &::before {
-      content: $licon-Checkmark;
+      @include icon-mask($icon-checkmark);
     }
   }
 
@@ -87,7 +90,15 @@
     color: $c-bad;
 
     &::before {
-      content: $licon-X;
+      @include icon-mask($icon-x);
+    }
+  }
+
+  unfinished {
+    color: $c-font-dim;
+
+    &::before {
+      @include icon-mask($icon-clock);
     }
   }
 }

@@ -2,6 +2,12 @@
   &__box {
     @extend %flex-column, %box-neat-force;
 
+    a,
+    h2 {
+      display: flex;
+      align-items: center;
+    }
+
     &__top {
       @extend %metal, %flex-between;
 

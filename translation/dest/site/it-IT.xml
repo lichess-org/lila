@@ -485,6 +485,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
     <item quantity="one">%s persona seguita</item>
     <item quantity="other">%s persone seguite</item>
   </plurals>
+  <string name="less">Meno</string>
   <string name="more">Altro</string>
   <string name="memberSince">Membro dal</string>
   <string name="lastSeenActive">Ultimo accesso %s</string>
@@ -581,6 +582,9 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="replies">Risposte</string>
   <string name="replyToThisTopic">Rispondi a questa discussione</string>
   <string name="reply">Rispondi</string>
+  <string name="reopen">Riapri</string>
+  <string name="quote">Citazione</string>
+  <string name="postEdited">modificato</string>
   <string name="message">Messaggio</string>
   <string name="createTheTopic">Crea la discussione</string>
   <string name="reportAUser">Segnala un utente</string>
@@ -823,11 +827,15 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="language">Lingua</string>
   <string name="allLanguages">Tutte le lingue</string>
   <string name="background">Sfondo</string>
+  <string name="theme">Tema</string>
   <string name="light">Chiaro</string>
   <string name="dark">Scuro</string>
   <string name="transparent">Trasparente</string>
+  <string name="picture">Immagine</string>
   <string name="deviceTheme">Tema del dispositivo</string>
+  <string name="roundness">Sfericità</string>
   <string name="backgroundImageUrl">URL dell\'immagine di sfondo:</string>
+  <string name="imageOpacity">Opacità immagine</string>
   <string name="board">Scacchiera</string>
   <string name="size">Grandezza</string>
   <string name="opacity">Opacità</string>
@@ -996,6 +1004,7 @@ Lascia vuoto per avviare le partite dalla posizione iniziale normale.</string>
   <string name="simulDescription">Descrizione della simulazione</string>
   <string name="simulDescriptionHelp">Vuoi dire qualcosa ai partecipanti?</string>
   <string name="markdownIsAvailable">%s è disponibile per la formattazione.</string>
+  <string name="youCanFormatTextUsing" comment="%s is &quot;Markdown&quot;, a proper noun. As such, the word is intentionally kept as a variable.&#10;&#10;Markdown is a markup language - a type of code that lets you format text (e.g. to create bold text).&#10;&#10;The text links to a reference guide for using Markdown to format text. Replaces old string markdownIsAvailable">È possibile formattare il testo utilizzando %s.</string>
   <string name="embedsAvailable">Incolla l\'URL di un gioco o l\'URL di un capitolo di studio per incorporarlo.</string>
   <string name="inYourLocalTimezone">Nel tuo fuso orario locale</string>
   <string name="tournChat">Chat del torneo</string>
@@ -1042,4 +1051,5 @@ Tutti i costi operativi, lo sviluppo e i contenuti sono finanziati esclusivament
   <string name="thereAreNoResultsForX">Nessun risultato per \"%s\"</string>
   <string name="tags">Tag</string>
   <string name="enPassant">Regole En passant</string>
+  <string name="settings">Impostazioni</string>
 </resources>

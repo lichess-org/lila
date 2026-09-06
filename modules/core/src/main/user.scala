@@ -3,6 +3,7 @@ package lila.core
 import _root_.chess.{ Color, ByColor, PlayerTitle, IntRating }
 import _root_.chess.rating.IntRatingDiff
 import _root_.chess.rating.glicko.Glicko
+import _root_.chess.FideId
 import play.api.i18n.Lang
 import play.api.libs.json.JsObject
 import reactivemongo.api.bson.Macros.Annotations.Key
@@ -62,7 +63,7 @@ object user:
 
     def profileOrDefault = profile | Profile.default
 
-    def realNameOrUsername = profileOrDefault.nonEmptyRealName | username.value
+    def realNameOrUsername: String = profileOrDefault.nonEmptyRealName | username.value
 
     def titleUsername: String = title.fold(username.value)(t => s"$t $username")
 
@@ -108,6 +109,9 @@ object user:
   opaque type UserEnabled = Boolean
   object UserEnabled extends YesNo[UserEnabled]
 
+  opaque type RealName = String
+  object RealName extends OpaqueString[RealName]
+
   // in seconds
   case class PlayTime(
       total: Int,
@@ -132,7 +136,7 @@ object user:
       @Key("country") flag: Option[FlagCode] = None,
       location: Option[String] = None,
       bio: Option[String] = None,
-      realName: Option[String] = None,
+      realName: Option[RealName] = None,
       fideRating: Option[Int] = None,
       uscfRating: Option[Int] = None,
       ecfRating: Option[Int] = None,
@@ -141,7 +145,7 @@ object user:
       dsbRating: Option[Int] = None,
       links: Option[String] = None
   ):
-    def nonEmptyRealName = ne(realName)
+    def nonEmptyRealName: Option[RealName] = ne(realName)
 
     def nonEmptyLocation = ne(location)
 
@@ -185,6 +189,7 @@ object user:
     def byIds[U: UserIdOf](us: Iterable[U]): Fu[List[User]]
     def byIdAs[U: BSONDocumentReader](id: String, proj: BSONDocument): Fu[Option[U]]
     def me[U: UserIdOf](u: U): Fu[Option[Me]]
+    def meWithConfirmedEmail(u: UserId): Fu[Option[Either[Unit, Me]]]
     def email(id: UserId): Fu[Option[EmailAddress]]
     def withEmails[U: UserIdOf](user: U): Fu[Option[WithEmails]]
     def pair(x: UserId, y: UserId): Fu[Option[(User, User)]]
@@ -257,6 +262,8 @@ object user:
     def preloadMany(ids: Seq[UserId]): Funit
     def preloadUser(user: User): Unit
     def invalidate(id: UserId): Unit
+    def realName(id: UserId): Option[RealName]
+    def preloadRealNames(ids: Seq[UserId]): Funit
     val isBotSync: LightUser.IsBotSync
 
   case class Emails(current: Option[EmailAddress], previous: Option[NormalizedEmailAddress]):
@@ -362,7 +369,9 @@ object user:
   type GameUser = Option[WithPerf]
   type GameUsers = ByColor[GameUser]
 
-  type PublicFideIdOf = LightUser => Fu[Option[_root_.chess.FideId]]
+  type PublicFideIdOf = LightUser => Fu[Option[FideId]]
+  type PublicTitle = (RealName, Option[FideId])
+  type PublicTitleOf = LightUser => Fu[Option[PublicTitle]]
 
   object TrophyKind:
     val marathonWinner = "marathonWinner"

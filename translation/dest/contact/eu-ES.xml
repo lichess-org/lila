@@ -26,6 +26,7 @@
   <string name="orCloseAccount">Baina zure kontua itxi egin dezakezu eta berri bat sortu.</string>
   <string name="wantClearHistory">Nire historikoa edo puntuazioa berrezarri nahi ditut</string>
   <string name="cantClearHistory">Ezin da zure partiden historikoa, ariketena edo puntuazioa berrezarri.</string>
+  <string name="cantClearHistoryOrResetRatings" comment="Replaces old string cantClearHistory">Ez da posible zure partiden eta ariketen historia edo zure puntuazioa berrezartzea.</string>
   <string name="wantReport">Erabiltzaile baten inguruko kexa jarri nahi dut</string>
   <string name="toReportAPlayerUseForm">Jokalari bati buruzko kexa egiteko, erabili kexa formularioa</string>
   <string name="youCanAlsoReachReportPage">Orrialde horretara jokalariaren profilaren orrialdeko %s berri emateko botoian sakatuta hel zaitezke.</string>

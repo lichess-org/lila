@@ -21,7 +21,7 @@ import {
   type Prop,
   type Toggle,
 } from 'lib';
-import { CevalCtrl, isFirstEvalBetter, sanIrreversible, type CevalHandler, type CevalOpts } from 'lib/ceval';
+import { CevalCtrl, useFirstEval, sanIrreversible, type CevalHandler, type CevalOpts } from 'lib/ceval';
 import { ChatCtrl } from 'lib/chat/chatCtrl';
 import { displayColumns } from 'lib/device';
 import { playable, playedTurns, fenToEpd, validUci } from 'lib/game';
@@ -102,6 +102,7 @@ export default class AnalyseCtrl implements CevalHandler {
   onMainline = true;
   synthetic: boolean; // false if coming from a real game
   ongoing: boolean; // true if real game is ongoing
+  asyncReady = false; // cannot accurately draw movelist or start ceval until this is true
   private readonly cevalEnabledProp = storedBooleanProp('engine.enabled', false);
 
   // display flags
@@ -191,7 +192,6 @@ export default class AnalyseCtrl implements CevalHandler {
     if (location.hash === '#practice' || this.study?.data.chapter.practice) this.togglePractice();
     else if (location.hash === '#menu') requestIdleCallbackSafe(this.actionMenu.toggle, 500);
     this.setCevalPracticeOpts();
-    this.startCeval();
     keyboard.bind(this);
 
     const urlEngine = new URLSearchParams(location.search).get('engine');
@@ -230,7 +230,6 @@ export default class AnalyseCtrl implements CevalHandler {
         redraw();
       }
     });
-    this.mergeIdbThenShowTreeView();
     (window as any).lichess.analysis = {
       playUci: this.playUci,
       navigate: this.navigate,
@@ -242,7 +241,6 @@ export default class AnalyseCtrl implements CevalHandler {
     this.data = data;
     this.synthetic = data.game.id === 'synthetic';
     this.ongoing = !this.synthetic && playable(data);
-    this.treeView.hidden = true;
     const prevTree = merge && this.tree.root;
     this.tree = makeTree(treeReconstruct(this.data.treeParts, this.variantKey, this.data.sidelines));
     if (prevTree) this.tree.merge(prevTree);
@@ -260,6 +258,7 @@ export default class AnalyseCtrl implements CevalHandler {
     this.fork = new ForkCtrl(this);
 
     site.sound.preloadBoardSounds();
+    this.asyncLoadThenShow();
   }
 
   get variantKey(): VariantKey {
@@ -495,9 +494,7 @@ export default class AnalyseCtrl implements CevalHandler {
     this.setPath(treePath.root);
     this.initCeval();
     this.instanciateEvalCache();
-    this.startCeval();
     this.cgVersion.js++;
-    this.mergeIdbThenShowTreeView();
   }
 
   changePgn(pgn: string, andReload: boolean): AnalyseData | undefined {
@@ -721,15 +718,19 @@ export default class AnalyseCtrl implements CevalHandler {
 
       if (isThreat) {
         const threat = ev as LocalEval;
-        if (!node.threat || isFirstEvalBetter(threat, node.threat, this.ceval.search.multiPv))
+        if (!node.threat || useFirstEval(threat, node.threat, this.ceval.search.multiPv))
           node.threat = threat;
       } else if (
-        (!node.ceval || isFirstEvalBetter(ev, node.ceval, this.ceval.search.multiPv)) &&
+        (!node.ceval || useFirstEval(ev, node.ceval, this.ceval.search.multiPv)) &&
         !(ev.cloud && this.ceval.engines.external)
       ) {
         node.ceval = ev;
+        if (!ev.cloud) this.idbTree.saveCeval(path, ev);
       } else if (!ev.cloud) {
-        if (node.ceval?.cloud && this.ceval.isDeeper()) node.ceval = ev;
+        if (node.ceval?.cloud && this.ceval.isDeeper()) {
+          node.ceval = ev;
+          this.idbTree.saveCeval(path, ev);
+        }
       }
 
       if (!isThreat) this.liveAnnotate?.onNewCeval(path, node, this.tree);
@@ -752,7 +753,10 @@ export default class AnalyseCtrl implements CevalHandler {
     const opts: CevalOpts = {
       variant: this.data.game.variant,
       initialFen: this.data.game.initialFen,
-      emit: (ev, meta) => this.onNewCeval(ev, meta.path, meta.threatMode),
+      emit: (ev, meta) => {
+        if (ev) this.onNewCeval(ev, meta.path, meta.threatMode);
+        else this.cevalEnabled(false);
+      },
       onUciHover: this.setAutoShapes,
       redraw: this.redraw,
       externalEngines:
@@ -779,14 +783,15 @@ export default class AnalyseCtrl implements CevalHandler {
 
   cevalEnabled = (enable?: boolean): boolean | 'force' => {
     const force = Boolean(this.study?.practice || this.practice || this.retro?.forceCeval());
-    const unforcedState = this.cevalEnabledProp() && this.isCevalAllowed() && !this.ceval.wasUnloaded;
+    const unforcedState =
+      this.cevalEnabledProp() && this.isCevalAllowed() && !this.ceval.wasUnloadedByAnotherWindow;
 
     if (enable === undefined) return force ? 'force' : unforcedState;
     if (!force) {
       this.showCevalProp(enable);
       this.cevalEnabledProp(enable);
     }
-    if (enable && this.ceval.wasUnloaded) this.ceval.reset();
+    if (enable && this.ceval.wasUnloadedByAnotherWindow) this.ceval.reset();
     if (enable !== unforcedState) {
       if (enable) this.startCeval();
       else {
@@ -801,6 +806,7 @@ export default class AnalyseCtrl implements CevalHandler {
   };
 
   startCeval = () => {
+    if (!this.asyncReady) return;
     if (!this.ceval.download) this.ceval.reset();
     if (this.node.threefold || !this.cevalEnabled() || this.node.outcome()) return;
     this.ceval.start(this.path, this.nodeList, undefined, this.threatMode());
@@ -1064,6 +1070,16 @@ export default class AnalyseCtrl implements CevalHandler {
 
   showBestMoveArrows = () => this.settings.showBestMoveArrows && !this.retro?.hideComputerLine(this.node);
 
+  boardEditorUrl = () =>
+    this.data.userAnalysis
+      ? '/editor?' +
+        new URLSearchParams({
+          fen: this.node.fen,
+          variant: this.data.game.variant.key,
+          color: this.chessground.state.orientation,
+        })
+      : `/${this.data.game.id}/edit?fen=${this.node.fen}`;
+
   private readonly resetAutoShapes = () => {
     if (
       this.showBestMoveArrows() ||
@@ -1079,10 +1095,16 @@ export default class AnalyseCtrl implements CevalHandler {
     if (node.eval && !node.eval.knodes && this.data.analysis?.nodesPerMove)
       node.eval.knodes = this.data.analysis.nodesPerMove / 1000;
   };
-  private async mergeIdbThenShowTreeView() {
-    await this.idbTree.merge();
-    this.treeView.hidden = false;
+
+  private async asyncLoadThenShow() {
+    this.asyncReady = false;
+    const tree = this.tree;
+    await this.idbTree.load();
+    if (this.tree !== tree) return;
+    this.asyncReady = true;
     this.idbTree.revealNode();
+    this.setAutoShapes();
+    this.startCeval();
     this.redraw();
   }
 }

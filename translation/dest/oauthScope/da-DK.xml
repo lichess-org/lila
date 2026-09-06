@@ -22,6 +22,7 @@
   <string name="teamRead">Læs privat holdinformation</string>
   <string name="teamWrite">Tilmeld, forlad og administrer hold</string>
   <string name="teamLead">Administrer hold du leder: send PM\'er, smid medlemmer af holdet</string>
+  <string name="manageTeamsYouLead" comment="Replaces old string teamLead">Administrer de hold, du leder: send direkte beskeder, fjern medlemmer</string>
   <string name="followRead">Læs fulgte spillere</string>
   <string name="followWrite">Følg og affølg andre spillere</string>
   <string name="msgWrite">Send privat besked til andre spillere</string>

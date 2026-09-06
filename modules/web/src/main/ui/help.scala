@@ -108,6 +108,7 @@ object help:
           row(kbd("c"), trans.site.focusChat()),
           helpDialog,
           row(kbd("e"), trans.site.openingEndgameExplorer()),
+          row(kbd("b"), trans.site.boardEditor()),
           menu,
           row(
             frag(kbd("shift"), kbd("space")),
@@ -216,9 +217,9 @@ object help:
               ul(
                 li(
                   instructions1(
-                    iconTag(Icon.Voice),
-                    iconTag(Icon.InfoCircle),
-                    iconTag(Icon.Gear)
+                    iconEl(Icon.voice),
+                    iconEl(Icon.infoCircle),
+                    iconEl(Icon.gear)
                   )
                 ),
                 li(instructions2()),

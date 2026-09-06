@@ -5,13 +5,16 @@
   <string name="engineMarkedInfo">We definiëren dit als het gebruik van externe hulp om uw kennis en/of rekenvaardigheden te versterken om een oneerlijk voordeel te krijgen over uw tegenstander. Zie de %s pagina voor meer details.</string>
   <string name="arenaBanned">Uw account is verbannen van deelname aan arena\'s.</string>
   <string name="prizeBanned">Je account is verbannen van toernooien met echte prijzen.</string>
+  <string name="boosterMarked">Je account is beperkt door ratingmanipulatie/account delen.</string>
   <string name="accountMuted">Uw account is gedempt.</string>
   <string name="accountMutedInfo">Lees onze %s. Niet voldoen aan de communicatierichtlijnen kan ertoe leiden dat accounts worden gedempt.</string>
   <string name="excludedFromLeaderboards">Uw account is uitgesloten van ranglijsten.</string>
   <string name="onlyOneAccountOnLeaderboards">Slechts één account per persoon kan op ranglijsten verschijnen.</string>
   <string name="closedByModerators">Uw account is gesloten door moderators.</string>
+  <string name="blogRestriction">Je hebt een blogbeperking.</string>
   <string name="blogRestrictionInfo">Lees onze %s, het schenden van deze regels kan leiden tot diverse maatregelen.</string>
   <string name="playTimeout">Je hebt een speeltime-out.</string>
+  <string name="reportBanned">Je kunt geen rapport verzenden naar moderators</string>
   <string name="temporarilyRestrictedFromPlaying" comment="play timeout = Lichess prevents you temporarily from playing any games Replaces old string playTimeout">Je account is tijdelijk beperkt in het spelen.</string>
   <string name="communicationGuidelines">communicatierichtlijnen</string>
   <string name="blogEtiquette">blog-etiquette</string>

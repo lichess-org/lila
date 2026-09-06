@@ -30,6 +30,7 @@
   <string name="collinearMoveDescription">To modspillende brikker står over for hinanden, og den ene glider langs angrebslinjen uden at slå den fjendtlige brik.</string>
   <string name="cornerMate">Hjørnemat</string>
   <string name="cornerMateDescription">Træng kongen op i hjørnet ved hjælp af et tårn eller dronning og en springer til at udføre skakmat.</string>
+  <string name="cornerMateKnightDeliversDescription" comment="Description for the &quot;Corner mate&quot; puzzle theme. Replaces old string cornerMateDescription">Træng kongen op i hjørnet ved hjælp af et tårn eller dronning og brug en springer til at udføre skakmat.</string>
   <string name="crushing">Knusende</string>
   <string name="crushingDescription">Spot modstanderens brøler for at opnå en knusende fordel. (eval ≥ 600cb)</string>
   <string name="discoveredCheck">Afdækkertræk</string>
@@ -120,6 +121,7 @@
   <string name="pinDescription">En taktik med bindinger, hvor en brik er ude af stand til at bevæge sig uden at afdække et angreb på en brik af højere værdi.</string>
   <string name="promotion">Bondeforvandling</string>
   <string name="promotionDescription">En bonde, der forvandles eller truer med at forvandle, er nøglen til taktikken.</string>
+  <string name="promotePawnToQueenRookOrMinor" comment="Replaces old string promotionDescription">Forfrem en af dine bønder til en dronning, et tårn eller en mindre brik.</string>
   <string name="queenEndgame">Dronningeslutspil</string>
   <string name="queenEndgameDescription">Et slutspil med kun dronninger og bønder.</string>
   <string name="queenRookEndgame">Dronning og tårn-slutspil</string>

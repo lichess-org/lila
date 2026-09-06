@@ -1,5 +1,5 @@
 import { api as lichess } from 'lib/api';
-import { licon } from 'lib/licon';
+import { htmlIcon } from 'lib/view';
 
 type TitleName = string;
 
@@ -64,7 +64,7 @@ export default class OnlineFriends {
         : '',
       url = '/@/' + friend.name,
       tvButton = friend.playing
-        ? `<a data-icon="${licon.AnalogTv}" class="tv ulpt" data-pt-pos="nw" href="${url}/tv" data-href="${url}"></a>`
+        ? `<a class="tv ulpt" data-pt-pos="nw" href="${url}/tv" data-href="${url}">${htmlIcon('analogTv')}</a>`
         : '';
     return `<div><a class="online user-link ulpt" data-pt-pos="nw" href="${url}">${icon}${titleTag}${friend.name}</a>${tvButton}</div>`;
   };

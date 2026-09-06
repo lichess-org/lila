@@ -1,6 +1,5 @@
 package lila.pref
 
-import monocle.syntax.all.*
 import play.api.mvc.RequestHeader
 
 object RequestPref:
@@ -8,13 +7,10 @@ object RequestPref:
   import Pref.default
 
   def queryParamOverride(pref: Pref)(using req: RequestHeader): Pref =
-    val queryPref = queryParam("bg")
+    queryParam("bg")
       .flatMap(Pref.Bg.fromString.get)
       .fold(pref): bg =>
         pref.copy(bg = bg)
-    if queryPref.bg == Pref.Bg.DARKBOARD then
-      queryPref.copy(bg = Pref.Bg.DARK).focus(_.board.brightness).replace(60)
-    else queryPref // we can remove this darkboard hack with a db migration script
 
   def fromRequest(using req: RequestHeader): Pref =
     if req.queryString.isEmpty && req.session.isEmpty then default

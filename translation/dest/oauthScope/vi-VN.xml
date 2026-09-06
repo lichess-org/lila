@@ -22,6 +22,7 @@
   <string name="teamRead">Đọc thông tin riêng của đội</string>
   <string name="teamWrite">Tham gia và rời khỏi đội</string>
   <string name="teamLead">Quản lý các đội bạn đứng đầu: gửi tin nhắn riêng, xóa thành viên</string>
+  <string name="manageTeamsYouLead" comment="Replaces old string teamLead">Quản lý các đội bạn lãnh đạo: gửi tin nhắn trực tiếp, loại bỏ thành viên</string>
   <string name="followRead">Đọc người chơi đã theo dõi</string>
   <string name="followWrite">Theo dõi và bỏ theo dõi những người chơi khác</string>
   <string name="msgWrite">Gửi tin nhắn riêng đến những kỳ thủ khác</string>

@@ -4,10 +4,10 @@ import type { TreeNodeBase, TreeNodeLite, TreePath } from './types';
 
 export function withMainlineChild<U, T extends TreeNodeBase>(
   node: T,
-  f: (node: TreeNodeBase) => U,
+  f: (node: T) => U | undefined,
 ): U | undefined {
   const next = node.children?.[0];
-  return next ? f(next) : undefined;
+  return next ? f(next as T) : undefined;
 }
 
 export function findInMainline<T extends TreeNodeBase>(

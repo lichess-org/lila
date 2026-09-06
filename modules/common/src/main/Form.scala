@@ -14,6 +14,8 @@ object Form:
 
   type Options[A] = Iterable[(A, String)]
 
+  def readonly[A](value: A): Mapping[A] = of(using formatter.readonly(value))
+
   def options(it: Iterable[Int], pattern: String): Options[Int] =
     it.map: d =>
       d -> (pluralize(pattern, d).format(d))
@@ -223,6 +225,9 @@ object Form:
           Right(trueish(v))
         }
       def unbind(key: String, value: Boolean) = Map(key -> value.toString)
+    def readonly[A](value: A): Formatter[A] = new Formatter[A]:
+      def bind(key: String, data: Map[String, String]) = Right(value)
+      def unbind(key: String, _unused: A) = Map(key -> value.toString)
 
   object constraint:
     def minLength[A](from: A => String)(length: Int): Constraint[A] =

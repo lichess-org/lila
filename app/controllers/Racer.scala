@@ -69,5 +69,5 @@ final class Racer(env: Env) extends LilaController(env):
 
   private def WithPlayerId(f: Context ?=> RacerPlayer.Id => Fu[Result]) = Open:
     NoBot:
-      env.security.lilaCookie.ensureAndGet(ctx.req): sid =>
+      env.security.lilaCookie.ensureAndGet: sid =>
         f(env.racer.api.playerId(sid, ctx.me))

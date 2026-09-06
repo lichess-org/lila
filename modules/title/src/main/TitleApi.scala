@@ -11,6 +11,7 @@ import lila.db.dsl.{ *, given }
 import lila.memo.{ CacheApi, PicfitApi }
 import lila.core.user.UserApi
 import lila.core.LightUser
+import lila.core.user.{ RealName, PublicTitle }
 
 final class TitleApi(
     coll: Coll,
@@ -34,15 +35,15 @@ final class TitleApi(
         case _ => Status.building
     def writes(w: lila.db.BSON.Writer, s: Status) =
       s.textOpt match
-        case Some(t) => $doc("n" -> s.name, "t" -> t)
-        case None => $doc("n" -> s.name)
+        case Some(t) => bdoc("n" -> s.name, "t" -> t)
+        case None => bdoc("n" -> s.name)
   private given BSONDocumentHandler[StatusAt] = Macros.handler
   private given BSONDocumentHandler[TitleRequest] = Macros.handler
   private val statusField = "history.0.status"
   private val updatedAtField = "history.0.at"
 
   def getCurrent(using me: Me): Fu[Option[TitleRequest]] =
-    coll.find($doc("userId" -> me.userId)).sort($sort.desc(updatedAtField)).one[TitleRequest]
+    coll.find(bdoc("userId" -> me.userId)).sort(sort.desc(updatedAtField)).one[TitleRequest]
 
   def getForMe(id: TitleRequestId)(using me: Me): Fu[Option[TitleRequest]] =
     coll
@@ -51,17 +52,17 @@ final class TitleApi(
         _.filter(_.userId.is(me) || Granter(_.Admin))
 
   def allOf(u: User): Fu[List[TitleRequest]] =
-    coll.list[TitleRequest]($doc("userId" -> u.id))
+    coll.list[TitleRequest](bdoc("userId" -> u.id))
 
   def findSimilar(req: TitleRequest): Fu[List[TitleRequest]] =
     val search = List(
-      ("data.realName" -> BSONString(req.data.realName)).some,
+      ("data.realName" -> BSONString(req.data.realName.value)).some,
       req.data.fideId.map(id => "data.fideId" -> BSONInteger(id.value))
     ).flatten.map: (k, v) =>
-      $doc(k -> v)
+      bdoc(k -> v)
     coll
-      .find($or(search*) ++ $doc("userId".$ne(req.userId), statusField -> $nin(Status.building)))
-      .sort($sort.desc(updatedAtField))
+      .find(or(search*) ++ bdoc("userId".neq(req.userId), statusField -> nin(Status.building)))
+      .sort(sort.desc(updatedAtField))
       .cursor[TitleRequest]()
       .list(30)
 
@@ -71,18 +72,18 @@ final class TitleApi(
 
   def update(req: TitleRequest, data: FormData): Fu[TitleRequest] =
     val newReq = req.update(data)
-    coll.update.one($id(req.id), newReq).inject(newReq)
+    coll.update.one(bid(req.id), newReq).inject(newReq)
 
   def delete(req: TitleRequest): Funit =
-    coll.delete.one($id(req.id)).void
+    coll.delete.one(bid(req.id)).void
 
   def countPending: Fu[Int] =
-    coll.countSel($doc(s"$statusField.n" -> Status.pending.toString))
+    coll.countSel(bdoc(s"$statusField.n" -> Status.pending.toString))
 
   def queue(nb: Int): Fu[List[TitleRequest]] =
     coll
-      .find($doc(s"$statusField.n" -> Status.pending.toString))
-      .sort($sort.asc(updatedAtField))
+      .find(bdoc(s"$statusField.n" -> Status.pending.toString))
+      .sort(sort.asc(updatedAtField))
       .cursor[TitleRequest]()
       .list(nb)
 
@@ -91,44 +92,51 @@ final class TitleApi(
     newReq.status match
       case Status.feedback(feedback) => sendFeedback(req.userId, feedback)
       case _ =>
-    coll.update.one($id(req.id), newReq).inject(newReq)
+    coll.update.one(bid(req.id), newReq).inject(newReq)
 
   def tryAgain(req: TitleRequest) =
-    coll.update.one($id(req.id), req.tryAgain).void
+    coll.update.one(bid(req.id), req.tryAgain).void
 
   def publicUserOf(fideId: FideId): Fu[Option[User]] = for
     ids <- coll.secondary.primitive[UserId](
-      $doc("data.fideId" -> fideId, s"$statusField.n" -> Status.approved.toString, "data.public" -> true),
-      $sort.desc(updatedAtField),
+      bdoc("data.fideId" -> fideId, s"$statusField.n" -> Status.approved.toString, "data.public" -> true),
+      sort.desc(updatedAtField),
       "userId"
     )
     users <- userApi.enabledByIds(ids)
   yield users.sortBy(u => u.seenAt | u.createdAt).lastOption
 
-  object publicFideIdOf:
+  object publicTitle:
 
-    private val cache = cacheApi[UserId, Option[FideId]](8_192, "title.publicFideIdOf"):
-      _.expireAfterWrite(1.hour).buildAsyncFuture: id =>
-        coll.secondary
-          .find(
-            $doc(
-              "userId" -> id,
-              s"$statusField.n" -> Status.approved.toString
-            ),
-            $doc("data.fideId" -> true, "data.public" -> true).some
-          )
-          .sort($sort.desc("createdAt"))
-          .one[Bdoc]
-          .dmap: docOpt =>
-            for
-              doc <- docOpt
-              data <- doc.child("data")
-              fideId <- data.getAsOpt[FideId]("fideId")
-              if ~data.booleanLike("public")
-            yield fideId
+    private val cache =
+      cacheApi[UserId, Option[PublicTitle]](8_192, "title.publicFideIdAndName"):
+        _.expireAfterWrite(1.hour).buildAsyncFuture: id =>
+          coll.secondary
+            .find(
+              bdoc(
+                "userId" -> id,
+                s"$statusField.n" -> Status.approved.toString
+              ),
+              bdoc("data.fideId" -> true, "data.public" -> true, "data.realName" -> true).some
+            )
+            .sort(sort.desc("createdAt"))
+            .one[Bdoc]
+            .dmap: docOpt =>
+              for
+                doc <- docOpt
+                data <- doc.child("data")
+                if ~data.booleanLike("public")
+                realName <- data.getAsOpt[RealName]("realName")
+                fideId = data.getAsOpt[FideId]("fideId")
+              yield (realName, fideId)
 
-    def apply(user: LightUser): Fu[Option[FideId]] =
-      (user.title.isDefined && !user.isBot).so(cache.get(user.id))
+    private def titled(u: LightUser): Boolean = u.title.exists(_.isFederation)
+
+    def get(user: LightUser): Fu[Option[PublicTitle]] = titled(user).so(cache.get(user.id))
+
+    def fideId(user: LightUser): Fu[Option[FideId]] = get(user).dmap(_.flatMap(_._2))
+
+    def realName(user: LightUser): Fu[Option[RealName]] = get(user).dmap(_.map(_._1))
 
   private def sendFeedback(to: UserId, feedback: String): Unit =
     val pm = s"""
@@ -155,22 +163,22 @@ $baseUrl/verify-title
             ref(req, tag).some,
             requestAutomod = false
           )
-          _ <- coll.updateField($id(req.id), tag, image.id)
+          _ <- coll.updateField(bid(req.id), tag, image.id)
         yield req.focusImage(tag).replace(image.id.some)
 
     def delete(req: TitleRequest, tag: String): Fu[TitleRequest] = for
       _ <- picfitApi.pullRef(ref(req, tag))
-      _ <- coll.unsetField($id(req.id), tag)
+      _ <- coll.unsetField(bid(req.id), tag)
     yield req.focusImage(tag).replace(none)
 
   private[title] def cleanupOldPics: Funit = for
     oldPics <- coll
       .find:
-        $doc(
-          updatedAtField -> $lt(nowInstant.minusMonths(1)),
-          $or("idDocument".$exists(true), "selfie".$exists(true))
+        bdoc(
+          updatedAtField -> lt(nowInstant.minusMonths(1)),
+          or("idDocument".exists(true), "selfie".exists(true))
         )
-      .sort($sort.asc(updatedAtField))
+      .sort(sort.asc(updatedAtField))
       .cursor[TitleRequest]()
       .list(20)
     _ <- oldPics.sequentiallyVoid(image.delete(_, "idDocument"))

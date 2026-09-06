@@ -13,7 +13,7 @@ final class TutorReportUi(helpers: Helpers, bits: TutorBits, perfUi: TutorPerfUi
         div(cls := "box")(
           boxTop(
             h1(
-              a(href := routes.Tutor.user(full.user), dataIcon := Icon.LessThan),
+              a(href := routes.Tutor.user(full.user), iconEl := Icon.lessThan),
               "Lichess Tutor",
               bits.beta,
               bits.otherUser(full.user)
@@ -52,7 +52,7 @@ final class TutorReportUi(helpers: Helpers, bits: TutorBits, perfUi: TutorPerfUi
       dataHref := report.url.perf(perfReport.perf)
     )(
       div(cls := "tutor-card--perf__top")(
-        iconTag(perfReport.perf.icon),
+        iconEl(perfReport.perf.icon),
         div(cls := "tutor-card--perf__top__title")(
           h3(cls := "tutor-card--perf__top__title__text")(
             perfReport.stats.totalNbGames.localize,
@@ -93,7 +93,7 @@ final class TutorReportUi(helpers: Helpers, bits: TutorBits, perfUi: TutorPerfUi
       legend("Tutor concepts"),
       div(cls := "tutor-concepts")(
         tutorConcept(
-          iconTag(Icon.Group),
+          iconEl(Icon.group),
           "Peers",
           frag(
             strong("Players with a rating similar to yours, in a given time control."),

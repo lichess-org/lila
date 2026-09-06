@@ -11,12 +11,13 @@ import lila.core.rating.RatingRange
 import lila.core.socket.Sri
 import lila.rating.PerfType
 import lila.core.pool.IsClockCompatible
+import lila.core.id.SessionId
 
 // realtime chess, volatile
 case class Hook(
     id: String,
     sri: Sri, // owner socket sri
-    sid: Option[String], // owner cookie (used to prevent multiple hooks)
+    sid: Option[SessionId], // owner cookie (used to prevent multiple hooks)
     variant: Variant.Id,
     clock: Clock.Config,
     rated: Rated,
@@ -101,7 +102,7 @@ object Hook:
       rated: Rated,
       color: TriColor,
       user: Option[UserWithPerfs],
-      sid: Option[String],
+      sid: Option[SessionId],
       ratingRange: RatingRange,
       blocking: lila.core.pool.Blocking,
       boardApi: Boolean = false

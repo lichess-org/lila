@@ -28,6 +28,8 @@ final class Env(
 
   lazy val emailError = wire[EmailError]
 
+  lazy val t3AuthMonitor = T3AuthMonitor()
+
   private lazy val influxEvent = InfluxEvent(
     ws = ws,
     endpoint = config.influxEventEndpoint,

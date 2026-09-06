@@ -52,8 +52,7 @@ case class RelayGame(
         case _ => none
       .foldLeft(root):
           case (root, (path, centis)) =>
-            if root.nodeAt(path).exists(_.clock.isDefined) then root
-            else root.setClockAt(Clock(centis, true.some).some, path) | root
+            root.setClockAt(Clock(centis, true.some).some, path) | root
       copy(root = newRoot)
 
   def showResult = Outcome.showPoints(points)
@@ -130,7 +129,7 @@ private object RelayGame:
             .map(g => PgnDump.rootToPgn(g.root, g.tags, InitialComments.empty).render)
             .toList
       ,
-      mul => RelayFetch.multiPgnToGames.either(mul).fold(e => throw e, identity)
+      mul => RelayFetch.multiPgnToGames.parseAndCache(mul).fold(e => throw e, identity)
     )
 
   def filter(onlyRound: Option[Either[String, Int]])(games: RelayGames): RelayGames =

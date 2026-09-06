@@ -7,7 +7,9 @@ import {
   type VNodeData,
 } from 'snabbdom';
 
-import type { LiconValue } from '@/licon';
+import type { Icon } from '@/icons';
+
+import { snabIcon } from './makeIcon';
 
 type RemoveIndexSignature<T> = {
   [K in keyof T as string extends K ? never : number extends K ? never : symbol extends K ? never : K]: T[K];
@@ -170,4 +172,13 @@ export const input: TagFactory<[type: HTMLInputElement['type']]> = (type = 'text
   makeTag('input', { type });
 export const optgroup: TagFactory<[label: string]> = label => makeTag('optgroup', { label });
 
-export const icon: TagFactory<[icon: LiconValue]> = icon => makeExoticTag('icon', { 'data-icon': icon });
+export const icon: TagFactory<[icon: Icon]> = icon => {
+  const iconTag = ((selectorOrData?: Selector | TagData, data?: TagData): VNode => {
+    const selector = isSelector(selectorOrData) ? selectorOrData : '';
+    const iconData = (isSelector(selectorOrData) ? data : selectorOrData) ?? {};
+    const vnode = snabIcon(icon, selector);
+    vnode.data = { ...vnode.data, ...iconData, attrs: { ...vnode.data?.attrs, ...iconData.attrs } };
+    return vnode;
+  }) as TagFunction;
+  return iconTag;
+};

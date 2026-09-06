@@ -76,7 +76,7 @@ export async function initModule(o?: CropOpts): Promise<void> {
         <button class="button button-empty cancel">cancel</button>
         <button class="button submit">submit</button>
       </span>`,
-    insert: [{ selector: '.crop-view', node: container }],
+    insert: [{ selector: '.crop-view', nodes: container }],
     actions: [
       { selector: '.dialog-actions > .cancel', listener: (_, d) => d.close() },
       { selector: '.dialog-actions > .submit', listener: crop },

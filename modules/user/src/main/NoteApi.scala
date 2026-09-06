@@ -27,32 +27,32 @@ final class NoteApi(coll: Coll)(using Executor) extends lila.core.user.NoteApi:
 
   lila.common.Bus.sub[lila.core.user.UserDelete]: del =>
     for
-      _ <- coll.delete.one($doc("from" -> del.id, "mod" -> false)) // hits the from_1 partial index
-      maybeKeepModNotes = del.user.marks.dirty.so($doc("mod" -> false))
-      _ <- coll.delete.one($doc("to" -> del.id) ++ maybeKeepModNotes)
+      _ <- coll.delete.one(bdoc("from" -> del.id, "mod" -> false)) // hits the from_1 partial index
+      maybeKeepModNotes = del.user.marks.dirty.so(bdoc("mod" -> false))
+      _ <- coll.delete.one(bdoc("to" -> del.id) ++ maybeKeepModNotes)
     yield ()
 
   def getForMyPermissions(user: User, max: Max = Max(30))(using me: Me): Fu[List[Note]] =
     coll
       .find(
-        $doc("to" -> user.id) ++ {
+        bdoc("to" -> user.id) ++ {
           if Granter(_.ModNote) then
-            $or(
-              $doc("from" -> me.userId),
-              $doc("mod" -> true)
+            or(
+              bdoc("from" -> me.userId),
+              bdoc("mod" -> true)
             )
-          else $doc("from" -> me.userId, "mod" -> false)
+          else bdoc("from" -> me.userId, "mod" -> false)
         } ++
-          (!Granter(_.Admin)).so($doc("dox" -> false))
+          (!Granter(_.Admin)).so(bdoc("dox" -> false))
       )
-      .sort($sort.desc("date"))
+      .sort(sort.desc("date"))
       .cursor[Note]()
       .list(max.value)
 
   def toUserForMod(id: UserId, max: Max = Max(50)): Fu[List[Note]] =
     coll
-      .find($doc("to" -> id, "mod" -> true))
-      .sort($sort.desc("date"))
+      .find(bdoc("to" -> id, "mod" -> true))
+      .sort(sort.desc("date"))
       .cursor[Note]()
       .list(max.value)
 
@@ -62,8 +62,8 @@ final class NoteApi(coll: Coll)(using Executor) extends lila.core.user.NoteApi:
 
   def byUsersForMod(ids: List[UserId]): Fu[List[Note]] =
     coll
-      .find($doc("to".$in(ids), "mod" -> true))
-      .sort($sort.desc("date"))
+      .find(bdoc("to".in(ids), "mod" -> true))
+      .sort(sort.desc("date"))
       .cursor[Note]()
       .list(100)
 
@@ -89,19 +89,19 @@ final class NoteApi(coll: Coll)(using Executor) extends lila.core.user.NoteApi:
 
   def byId(id: String): Fu[Option[Note]] = coll.byId[Note](id)
 
-  def delete(id: String) = coll.delete.one($id(id))
+  def delete(id: String) = coll.delete.one(bid(id))
 
-  def setDox(id: String, dox: Boolean) = coll.updateField($id(id), "dox", dox).void
+  def setDox(id: String, dox: Boolean) = coll.updateField(bid(id), "dox", dox).void
 
-  private val searchableBsonFlag = $doc("s" -> true)
+  private val searchableBsonFlag = bdoc("s" -> true)
 
   def search(query: String, page: Int, withDox: Boolean): Fu[Paginator[Note]] =
     Paginator(
       adapter = new:
         private val selector =
-          val base = searchableBsonFlag ++ (!withDox).so($doc("dox" -> false))
+          val base = searchableBsonFlag ++ (!withDox).so(bdoc("dox" -> false))
           if query.nonEmpty
-          then base ++ $text(query)
+          then base ++ textSearch(query)
           else base
         def nbResults: Fu[Int] =
           if query.nonEmpty

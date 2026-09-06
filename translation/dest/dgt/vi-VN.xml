@@ -21,6 +21,7 @@
   <string name="asALastResort">Phương án cuối cùng là thiết lập bàn cờ giống hệt như Lichess, sau đó %s</string>
   <string name="reloadThisPage">Tải lại trang này</string>
   <string name="dgtConfigure">Bàn cờ công nghệ kỹ thuật số (DGT) - Cấu hình</string>
+  <string name="configureYourDgtBoard" comment="Replaces old string dgtConfigure">Cấu hình bàn cờ điện tử DGT của bạn</string>
   <string name="lichessConnectivity">Kết nối Lichess</string>
   <string name="validDgtOauthToken">Bạn có một mã thông báo OAuth phù hợp để chơi DGT.</string>
   <string name="dgtPlayMenuEntryAdded">Mục nhập %s đã được thêm vào mục lục PHÁT của bạn ở trên cùng.</string>

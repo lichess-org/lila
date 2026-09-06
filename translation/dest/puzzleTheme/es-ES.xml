@@ -30,6 +30,7 @@
   <string name="collinearMoveDescription">Dos piezas opuestas se enfrentan entre sí, y una se desliza a lo largo de la línea de ataque sin capturar la pieza enemiga.</string>
   <string name="cornerMate">Mate de la esquina</string>
   <string name="cornerMateDescription">Encierra al rey en una esquina usando una torre o dama y un caballo para dar mate.</string>
+  <string name="cornerMateKnightDeliversDescription" comment="Description for the &quot;Corner mate&quot; puzzle theme. Replaces old string cornerMateDescription">Encierra al rey en una esquina usando una torre o dama y un caballo para dar mate.</string>
   <string name="crushing">Aplastante</string>
   <string name="crushingDescription">Detecta el error del oponente para obtener una ventaja ganadora. (eval ≥ 600cp)</string>
   <string name="discoveredCheck">Jaque a la descubierta</string>
@@ -120,6 +121,7 @@
   <string name="pinDescription">Una táctica donde una pieza no puede moverse sin revelar un ataque a una pieza de mayor valor.</string>
   <string name="promotion">Promoción</string>
   <string name="promotionDescription">Promover uno de sus peones a una dama o una pieza menor.</string>
+  <string name="promotePawnToQueenRookOrMinor" comment="Replaces old string promotionDescription">Promociona uno de tus peones a dama, torre, alfil o caballo.</string>
   <string name="queenEndgame">Final de damas</string>
   <string name="queenEndgameDescription">Un final solo con damas y peones.</string>
   <string name="queenRookEndgame">Final de dama y torre</string>

@@ -1,6 +1,5 @@
 import { h, type VNode } from 'snabbdom';
 
-import { licon } from 'lib/licon';
 import { bind, icon, type MaybeVNodes, onInsert } from 'lib/view';
 
 import type SwissCtrl from '../ctrl';
@@ -19,9 +18,7 @@ function playerTr(ctrl: SwissCtrl, player: Player) {
     [
       h(
         'td.rank',
-        player.absent && ctrl.data.status !== 'finished'
-          ? icon(licon.Pause)({ title: 'Absent' })
-          : player.rank,
+        player.absent && ctrl.data.status !== 'finished' ? icon('pause')({ title: 'Absent' }) : player.rank,
       ),
       h('td.player', renderPlayer(player, false, ctrl.opts.showRatings)),
       h(

@@ -36,8 +36,8 @@ final class PlanApi(
 
   lila.common.Bus.sub[lila.core.user.UserDelete]: del =>
     for
-      _ <- mongo.patron.delete.one($id(del.id))
-      _ <- mongo.charge.update.one($doc("userId" -> del.id), $set("userId" -> UserId.ghost), multi = true)
+      _ <- mongo.patron.delete.one(bid(del.id))
+      _ <- mongo.charge.update.one(bdoc("userId" -> del.id), set("userId" -> UserId.ghost), multi = true)
     yield ()
 
   def switch(user: User, money: Money): Fu[StripeSubscription] =
@@ -58,7 +58,7 @@ final class PlanApi(
   def cancelIfAny(user: User): Fu[Boolean] =
     def onCancel = for
       _ <- user.plan.lifetime.not.so(setDbUserPlan(user.mapPlan(_.disable)))
-      _ <- mongo.patron.update.one($id(user.id), $unset("stripe", "payPal", "payPalCheckout", "expiresAt"))
+      _ <- mongo.patron.update.one(bid(user.id), unset("stripe", "payPal", "payPalCheckout", "expiresAt"))
       _ = logger.info(s"Canceled subscription of ${user.username}")
     yield true
     stripe
@@ -121,7 +121,7 @@ final class PlanApi(
                     .copy(lastLevelUp = prevPatron.lastLevelUp.orElse(nowInstant.some))
                     .levelUpIfPossible
                     .expireInOneMonth(freq == Freq.Onetime)
-                  _ <- mongo.patron.update.one($id(prevPatron.id), patron)
+                  _ <- mongo.patron.update.one(bid(prevPatron.id), patron)
                   _ <- setDbUserPlanOnCharge(user, prevPatron.canLevelUp)
                   _ <- isLifetime.so(setLifetime(user))
                 yield ()
@@ -138,7 +138,7 @@ final class PlanApi(
             else
               for
                 _ <- setDbUserPlan(user.mapPlan(_.disable))
-                _ <- mongo.patron.update.one($id(user.id), patron.removeStripe)
+                _ <- mongo.patron.update.one(bid(user.id), patron.removeStripe)
               yield
                 notifier.onExpire(user)
                 logger.info(s"Unsubbed ${user.username} $sub")
@@ -162,7 +162,7 @@ final class PlanApi(
         val patron = patronOpt
           .getOrElse(Patron(_id = user.id))
           .copy(stripe = Patron.Stripe(customerId).some)
-        mongo.patron.update.one($id(user.id), patron, upsert = true).void
+        mongo.patron.update.one(bid(user.id), patron, upsert = true).void
       }
 
     def userCustomerId(user: User): Fu[Option[StripeCustomerId]] =
@@ -232,11 +232,11 @@ final class PlanApi(
               StripeCanUse.from(
                 mongo.charge
                   .countSel:
-                    $doc(
+                    bdoc(
                       "userId" -> me.userId,
-                      "date".$gt(nowInstant.minusWeeks(1)),
-                      "stripe".$exists(true),
-                      "giftTo".$exists(false)
+                      "date".gt(nowInstant.minusWeeks(1)),
+                      "stripe".exists(true),
+                      "giftTo".exists(false)
                     )
                   .map(_ < maxPerWeek)
               )
@@ -244,13 +244,13 @@ final class PlanApi(
               StripeCanUse.from(
                 mongo.charge
                   .countSel:
-                    $doc("userId" -> me.userId, "date".$gt(nowInstant.minusWeeks(1)), "stripe".$exists(true))
+                    bdoc("userId" -> me.userId, "date".gt(nowInstant.minusWeeks(1)), "stripe".exists(true))
                   .map(_ < maxPerWeek)
               )
       }
 
     private def customerIdPatron(id: StripeCustomerId): Fu[Option[Patron]] =
-      mongo.patron.one[Patron]($doc("stripe.customerId" -> id))
+      mongo.patron.one[Patron](bdoc("stripe.customerId" -> id))
   end stripe
 
   object payPal:
@@ -314,7 +314,7 @@ final class PlanApi(
                         .levelUpIfPossible
                         .expireInOneMonth
                       for
-                        _ <- mongo.patron.update.one($id(patron.id), p2)
+                        _ <- mongo.patron.update.one(bid(patron.id), p2)
                         _ <- setDbUserPlanOnCharge(user, patron.canLevelUp)
                       yield ()
                   _ <- isLifetime.so(setLifetime(user))
@@ -385,7 +385,7 @@ final class PlanApi(
                         .levelUpIfPossible
                         .expireInOneMonth
                       for
-                        _ <- mongo.patron.update.one($id(patron.id), p2)
+                        _ <- mongo.patron.update.one(bid(patron.id), p2)
                         _ <- setDbUserPlanOnCharge(user, patron.canLevelUp)
                       yield ()
                   _ <- isLifetime.so(setLifetime(user))
@@ -430,8 +430,8 @@ final class PlanApi(
           // look for previous charge
           previous <- mongo.charge
             // hit the userId index
-            .find($doc("userId" -> user.id, "payPalCheckout.subscriptionId" -> subId))
-            .sort($doc("date" -> -1))
+            .find(bdoc("userId" -> user.id, "payPalCheckout.subscriptionId" -> subId))
+            .sort(bdoc("date" -> -1))
             .one[Charge]
             // avoid duplicating the initial charge
             .map(_.filter(_.date.isBefore(nowInstant.minusMinutes(3))))
@@ -463,14 +463,14 @@ final class PlanApi(
             )
             .levelUpIfPossible
             .expireInOneMonth
-          mongo.patron.update.one($id(patron.id), p2) >>
+          mongo.patron.update.one(bid(patron.id), p2) >>
             setDbUserPlanOnCharge(user, patron.canLevelUp)
       isLifetime <- pricingApi.isLifetime(charge.money)
       _ <- isLifetime.so(setLifetime(user))
     yield logger.info(s"Charged ${user.username} with paypal checkout: $charge")
 
     private def subscriptionIdPatron(id: PayPalSubscriptionId): Fu[Option[Patron]] =
-      mongo.patron.one[Patron]($doc("payPalCheckout.subscriptionId" -> id))
+      mongo.patron.one[Patron](bdoc("payPalCheckout.subscriptionId" -> id))
   end payPal
 
   private def setDbUserPlanOnCharge(from: User, levelUp: Boolean): Funit =
@@ -506,7 +506,7 @@ final class PlanApi(
               .flatMap:
                 case None =>
                   logger.warn(s"${user.username} sync: unset DB patron that's not in stripe")
-                  mongo.patron.update.one($id(patron.id), patron.removeStripe) >> sync(user)
+                  mongo.patron.update.one(bid(patron.id), patron.removeStripe) >> sync(user)
                 case Some(customer) if customer.firstSubscription.exists(_.isActive) && !user.plan.active =>
                   logger.warn(s"${user.username} sync: enable plan of customer with a stripe subscription")
                   for _ <- setDbUserPlan(user.mapPlan(_.enable)) yield ReloadUser
@@ -518,7 +518,7 @@ final class PlanApi(
               .flatMap:
                 case None =>
                   logger.warn(s"${user.username} sync: unset DB patron that's not in paypal")
-                  mongo.patron.update.one($id(patron.id), patron.removePayPalCheckout) >> sync(user)
+                  mongo.patron.update.one(bid(patron.id), patron.removePayPalCheckout) >> sync(user)
                 case Some(subscription) if subscription.isActive && !user.plan.active =>
                   logger.warn(s"${user.username} sync: enable plan of customer with a payPal subscription")
                   setDbUserPlan(user.mapPlan(_.enable)).inject(ReloadUser)
@@ -544,8 +544,8 @@ final class PlanApi(
       _ <- userApi.setPlan(user, user.plan.enable.copy(lifetime = true).some)
       _ <- mongo.patron.update
         .one(
-          $id(user.id),
-          $set(
+          bid(user.id),
+          set(
             "lastLevelUp" -> nowInstant,
             "free" -> Patron.Free(nowInstant, by = none)
           ),
@@ -563,8 +563,8 @@ final class PlanApi(
   def freeMonths(user: User, nbMonths: Int): Funit =
     for _ <- mongo.patron.update
         .one(
-          $id(user.id),
-          $set(
+          bid(user.id),
+          set(
             "lastLevelUp" -> nowInstant,
             "free" -> Patron.Free(nowInstant, by = none),
             "expiresAt" -> nowInstant.plusMonths(nbMonths)
@@ -579,8 +579,8 @@ final class PlanApi(
       lifetimeGift <- pricingApi.isLifetime(money)
       hasLifetime = to.plan.lifetime || lifetimeGift
       _ <- mongo.patron.update.one(
-        $id(to.id),
-        $set(
+        bid(to.id),
+        set(
           "lastLevelUp" -> nowInstant,
           "free" -> Patron.Free(nowInstant, by = from.id.some),
           "expiresAt" -> Option.unless(hasLifetime)(nowInstant.plusMonths(1))
@@ -596,12 +596,12 @@ final class PlanApi(
   def recentGiftFrom(from: User): Fu[Option[LightUser]] =
     mongo.patron
       .find(
-        $doc(
+        bdoc(
           "free.by" -> from.id,
-          "free.at".$gt(nowInstant.minusMinutes(2))
+          "free.at".gt(nowInstant.minusMinutes(2))
         )
       )
-      .sort($sort.desc("free.at"))
+      .sort(sort.desc("free.at"))
       .one[Patron]
       .flatMapz: gift =>
         lightUserApi.async(gift.userId)
@@ -615,8 +615,8 @@ final class PlanApi(
     _.refreshAfterWrite(30.minutes).buildAsyncTimeout(): _ =>
       mongo.charge
         .primitive[UserId](
-          $doc("date" -> $gt(nowInstant.minusWeeks(1))),
-          sort = $doc("date" -> -1),
+          bdoc("date" -> gt(nowInstant.minusWeeks(1))),
+          sort = bdoc("date" -> -1),
           nb = recentChargeUserIdsNb * 3 / 2,
           "userId"
         )
@@ -634,19 +634,19 @@ final class PlanApi(
   def recentChargesOf(user: User): Fu[List[Charge]] =
     mongo.charge
       .find(
-        $or(
-          $doc("userId" -> user.id),
-          $doc("giftTo" -> user.id)
+        or(
+          bdoc("userId" -> user.id),
+          bdoc("giftTo" -> user.id)
         )
       )
-      .sort($doc("date" -> -1))
+      .sort(bdoc("date" -> -1))
       .cursor[Charge]()
       .list(200)
 
   def giftsFrom(user: User): Fu[List[Charge.Gift]] =
     mongo.charge
-      .find($doc("userId" -> user.id, "giftTo".$exists(true)))
-      .sort($doc("date" -> -1))
+      .find(bdoc("userId" -> user.id, "giftTo".exists(true)))
+      .sort(bdoc("date" -> -1))
       .cursor[Charge]()
       .list(200)
       .map(_.flatMap(_.toGift))
@@ -655,9 +655,9 @@ final class PlanApi(
     Paginator(
       adapter = new Adapter[Bdoc](
         collection = mongo.patron,
-        selector = $empty,
-        projection = $id(true).some,
-        sort = $doc("score" -> -1),
+        selector = emptyBdoc,
+        projection = bid(true).some,
+        sort = bdoc("score" -> -1),
         _.sec
       ).map(_.getAsOpt[UserId]("_id"))
         .mapFutureList: ids =>
@@ -691,7 +691,7 @@ final class PlanApi(
       .record(charge.usd.cents)
     charge.userId.so { userId =>
       mongo.charge
-        .countSel($doc("userId" -> userId))
+        .countSel(bdoc("userId" -> userId))
         .map {
           case 1 => lila.mon.plan.charge.first(charge.serviceName).increment()
           case _ =>
@@ -718,7 +718,7 @@ final class PlanApi(
   private def setDbUserPlan(user: User): Funit =
     for _ <- userApi.setPlan(user, user.plan.some) yield lightUserApi.invalidate(user.id)
 
-  def userPatron(user: User): Fu[Option[Patron]] = mongo.patron.one[Patron]($id(user.id))
+  def userPatron(user: User): Fu[Option[Patron]] = mongo.patron.one[Patron](bid(user.id))
 
   extension (u: User) def mapPlan(f: Update[lila.core.user.Plan]) = u.copy(plan = f(u.plan))
 

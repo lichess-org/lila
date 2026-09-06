@@ -515,11 +515,7 @@ final class StudyApi(
           lightUserApi
             .async(who.u)
             .flatMapz: author =>
-              val comment = Comment(
-                id = Comment.Id.make,
-                text = text,
-                by = Comment.Author.User(author.id, author.titleName)
-              )
+              val comment = Comment(Comment.Id.make, text, Comment.author(author))
               doSetComment(study, Position(chapter, position.path), comment, who)
 
   private def doSetComment(study: Study, position: Position, comment: Comment, who: Who): Funit =
@@ -766,7 +762,7 @@ final class StudyApi(
         study.isRelay.not.so:
           Contribute(me, study):
             for
-              parsed <- chapterMaker.toStudyPgn(study, pgn, strict = true)
+              parsed <- chapterMaker.toStudyPgn(study, pgn, me.userId, strict = true)
               newChapter = chapter.copy(
                 root = parsed.root,
                 setup = chapter.setup.copy(variant = parsed.variant),
@@ -796,7 +792,7 @@ final class StudyApi(
   def sortChapters(studyId: StudyId, chapterIds: List[StudyChapterId])(who: Who): Funit =
     sequenceStudy(studyId): study =>
       Contribute(who.u, study):
-        for _ <- chapterRepo.sort(study, chapterIds)
+        for _ <- chapterRepo.updateOrders(study, chapterIds)
         yield
           sendChapterPreviews(study)
           setStudyUpdated(study)
@@ -841,7 +837,7 @@ final class StudyApi(
           .so: settings =>
             val newStudy = study
               .copy(
-                name = data.studyName,
+                name = data.studyName | study.name,
                 flair = data.flair.flatMap(flairApi.find),
                 settings = settings,
                 visibility = data.visibility,

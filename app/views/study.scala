@@ -35,7 +35,7 @@ def streamers(streamers: List[UserId])(using Translate) =
   views.streamer.bits.contextual(streamers).map(_(cls := "none"))
 
 def clone(s: lila.study.Study)(using Context) =
-  views.site.message(title = s"Clone ${s.name}", icon = Icon.StudyBoard.some)(ui.clone(s))
+  views.site.message(title = s"Clone ${s.name}", icon = Icon.studyBoard.some)(ui.clone(s))
 
 def create(
     data: lila.study.StudyForm.importGame.Data,
@@ -46,7 +46,7 @@ def create(
   views.site
     .message(
       title = trans.site.toStudy.txt(),
-      icon = Some(Icon.StudyBoard),
+      icon = Some(Icon.studyBoard),
       back = backUrl
     )
     .css("analyse.study.create")(ui.create(data, owner, contrib))
@@ -96,7 +96,7 @@ def show(
     )
     .flag(_.noRobots, !s.isPublic)
     .flag(_.zoom)
-    .csp(views.analyse.ui.bits.cspExternalEngine.compose(_.withPeer.withExternalAnalysisApis))
+    .csp(views.analyse.ui.bits.cspExternalEngine.compose(_.withExternalAnalysisApis))
     .graph(
       OpenGraph(
         title = s.name.value,

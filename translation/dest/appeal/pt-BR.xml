@@ -9,6 +9,7 @@
   <string name="excludedFromLeaderboards">Sua conta foi excluída das tabelas de classificação.</string>
   <string name="closedByModerators">Sua conta foi fechada pelos moderadores.</string>
   <string name="blogRestriction">Você tem uma restrição de blog.</string>
+  <string name="blogRestrictionInfo">Leia nossa %s, violar essas regras pode resultar em diferentes ações.</string>
   <string name="playTimeout">Você está temporariamente suspenso de jogar.</string>
   <string name="reportBanned">Você não pode enviar denúncias aos moderadores</string>
   <string name="temporarilyRestrictedFromPlaying" comment="play timeout = Lichess prevents you temporarily from playing any games Replaces old string playTimeout">Sua conta está restrita temporariamente de jogar.</string>

@@ -30,6 +30,7 @@
   <string name="collinearMoveDescription">Dúas pezas rivais enfróntanse entre si e unha delas desprázase pola liña de ataque sen capturar á rival.</string>
   <string name="cornerMate">Mate do curruncho</string>
   <string name="cornerMateDescription">Acurrala ó rei nun recanto cunha dama ou cunha torre e logo dá o xaque mate co cabalo.</string>
+  <string name="cornerMateKnightDeliversDescription" comment="Description for the &quot;Corner mate&quot; puzzle theme. Replaces old string cornerMateDescription">Acurrala ó rei nun recanto empregando unha dama ou unha torre. Logo usa o cabalo para dar o xaque mate.</string>
   <string name="crushing">Vantaxe decisiva</string>
   <string name="crushingDescription">Detecta a metida de zoca do opoñente para obter unha vantaxe decisiva. (eval ≥ 600cp)</string>
   <string name="discoveredCheck">Xaque descuberto</string>
@@ -120,6 +121,7 @@
   <string name="pinDescription">Unha táctica que involucra cravadas, onde unha peza non se pode mover sen expoñer ó ataque unha peza de maior valor.</string>
   <string name="promotion">Promoción</string>
   <string name="promotionDescription">Coroa un peón para convertelo en dama ou unha peza menor.</string>
+  <string name="promotePawnToQueenRookOrMinor" comment="Replaces old string promotionDescription">Coroa un dos teus peóns coma dama, torre ou unha peza menor.</string>
   <string name="queenEndgame">Final de damas</string>
   <string name="queenEndgameDescription">Un final no que só hai damas e peóns.</string>
   <string name="queenRookEndgame">Final de dama e torre</string>

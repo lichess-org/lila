@@ -80,6 +80,7 @@ Dodajte rezultate vsakega nasprotnika, ki ga igralec premaga, in polovico rezult
   <string name="moreRoundsThanPlayersQ">Kaj se zgodi, če ima turnir več krogov kot igralcev?</string>
   <string name="moreRoundsThanPlayersA">Ko bodo odigrani vsi možni pari, bo turnir končan in razglašen zmagovalec.</string>
   <string name="restrictedToTeamsQ">Zakaj je omejena na ekipe?</string>
+  <string name="whyAreSwissTournamentsRestrictedToTeams" comment="Replaces old string restrictedToTeamsQ">Zakaj so švicarski turnirji omejeni na ekipe?</string>
   <string name="restrictedToTeamsA">Švicarski turnirji niso bili zasnovani za spletni šah. Od igralcev zahtevajo točnost, predanost in potrpljenje.
 Menimo, da so ti pogoji bolj verjetno izpolnjeni znotraj ekipe kot na svetovnih turnirjih.</string>
   <string name="numberOfByesQ">Koliko poslov lahko dobi igralec?</string>
@@ -101,6 +102,7 @@ Pozni mizarji dobijo en sam adijo, tudi če so zamudili več krogov.</string>
   <string name="willSwissReplaceArenasQ">Bodo Švicarji zamenjali arenske turnirje?</string>
   <string name="willSwissReplaceArenasA">Ne. So komplementarne lastnosti.</string>
   <string name="roundRobinQ">Kaj pa Round Robin?</string>
+  <string name="canPlayRoundRobinTournaments" comment="roundRobinQ&#10;&#10;Round-robin is a simple tournament format with some similarities to Swiss. It is not supported by Lichess. Replaces old string roundRobinQ">Ali lahko na Lichessu igram turnirje po sistemu \"round-robin\"?</string>
   <string name="roundRobinA">Radi bi ga dodali, vendar Round Robin na spletu žal ne deluje.
 Razlog je v tem, da nima poštenega načina ravnanja z ljudmi, ki predčasno zapustijo turnir. Ne moremo pričakovati, da bodo vsi igralci igrali vse svoje igre na spletnem dogodku. To se preprosto ne bo zgodilo in posledično bi bila večina turnirjev v krogu napačna in nepoštena, kar premaga njihov razlog za obstoj.
 Najbližje, kar lahko pridete do Round Robina na spletu, je igranje švicarskega turnirja z zelo velikim številom krogov. Nato se bodo pred koncem turnirja odigrali vsi možni pari.</string>

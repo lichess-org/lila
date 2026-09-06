@@ -12,7 +12,6 @@ import {
   thunk,
 } from 'snabbdom';
 
-import type { LiconValue } from '@/licon';
 export type { Attrs, Hooks, Classes, VNode, VNodeData, VNodeChildElement, VNodeChildren };
 export type MaybeVNode = VNode | string | null | undefined;
 export type MaybeVNodes = MaybeVNode[];
@@ -50,7 +49,7 @@ export const bindNonPassive = <K extends keyof GlobalEventHandlersEventMap>(
   redraw?: Redraw,
 ): Hooks => bind(eventName, f, redraw, false);
 
-export function bindSubmit(f: (e: SubmitEvent) => unknown, redraw?: () => void): Hooks {
+export function bindSubmit(f: (e: SubmitEvent) => void, redraw?: () => void): Hooks {
   return bind(
     'submit',
     e => {
@@ -61,10 +60,6 @@ export function bindSubmit(f: (e: SubmitEvent) => unknown, redraw?: () => void):
     false,
   );
 }
-
-export const dataIcon = (icon: LiconValue): Attrs => ({
-  'data-icon': icon,
-});
 
 export const testId = (id: string): Attrs => (site.debug ? { 'data-testid': id } : {});
 

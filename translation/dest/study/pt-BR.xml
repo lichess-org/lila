@@ -188,6 +188,7 @@
   <string name="customPositionTitle">Posição personalizada</string>
   <string name="customPositionText">Monte do seu jeito.&lt;br&gt;Bom para estudar finais.</string>
   <string name="loadExistingLichessGameTitle">Carregar um jogo de lichess existente</string>
+  <string name="loadGameFromTheWebTitle" comment="Replaces old string loadExistingLichessGameTitle">Carregar uma partida da web</string>
   <string name="loadExistingLichessGameText">Cole a URL de um jogo&lt;br&gt;(como lichess.org/7fHIU0XI)&lt;br&gt;para inserir as jogadas no capítulo.</string>
   <string name="fromFenStringTitle">De uma sequência FEN</string>
   <string name="fromFenStringText">Cole uma posição FEN&lt;br&gt;&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;&lt;br&gt;para iniciar o capítulo a partir dela.</string>

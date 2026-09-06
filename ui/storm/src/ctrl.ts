@@ -88,6 +88,7 @@ export default class StormCtrl implements PuzCtrl {
   };
 
   endNow = (): void => {
+    this.run.unfinishedId = this.run.current.puzzle.id;
     this.pushToHistory(false);
     this.end();
   };

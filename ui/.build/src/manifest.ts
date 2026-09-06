@@ -50,18 +50,12 @@ export function updateManifest(update: ManifestUpdate = {}): void {
 
 async function writeManifest() {
   if (!env.buildOk()) return;
-  const commitMessage = cps
-    .execSync('git log -1 --pretty=%s', { encoding: 'utf-8' })
-    .trim()
-    .replaceAll("'", '&#39;')
-    .replaceAll('"', '&quot;');
 
   const clientJs: string[] = [
     'if (!window.site) window.site={};',
     'const s=window.site;',
     's.info={};',
     `s.info.commit='${cps.execSync('git rev-parse -q HEAD', { encoding: 'utf-8' }).trim()}';`,
-    `s.info.message='${commitMessage}';`,
     `s.debug=${env.debug};`,
     's.asset={loadEsm:(m,o)=>import(`/assets/compiled/${m}${s.manifest.js[m]?"."+s.manifest.js[m]:""}.js`)' +
       '.then(x=>(x.initModule||x.default)(o.init))};',

@@ -37,7 +37,7 @@ object StudyForm:
       sticky: Option[Boolean],
       description: Option[Boolean]
   ):
-    def studyName = StudyName(lila.common.String.fullCleanUp(name).take(100))
+    def studyName = StudyName.from(lila.common.String.fullCleanUp(name).take(100).nonEmptyOption)
     def settings = Settings(computer, explorer, cloneable, shareable, chat, sticky | true, ~description)
 
   val form: Form[FormData] = Form:

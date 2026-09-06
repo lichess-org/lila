@@ -66,6 +66,7 @@
   <string name="studyUrl">Studie URL</string>
   <string name="currentChapterUrl">Huidige hoofdstuk URL</string>
   <string name="youCanPasteThisInTheForumToEmbed">Je kunt deze link plakken wanneer je een bericht schrijft op het forum om de partij interactief weer te geven</string>
+  <string name="pasteToEmbedChapterInForumOrBlog" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.&#10;&#10;Please note this used to say &quot;in the forum to embed&quot;. It was then changed to include &quot;or a Lichess Blog&quot;. A further update was made to say &quot;or your Lichess blog&quot;, since you can only create blog posts as an individual.  Replaces old string youCanPasteThisInTheForumToEmbed">Je kunt deze link plakken in het forum of je blog om het hoofdstuk in te sluiten.</string>
   <string name="startAtInitialPosition">Begin bij de startpositie</string>
   <string name="startAtX">Beginnen bij %s</string>
   <string name="embedInYourWebsite">Insluiten in blog of website</string>
@@ -188,7 +189,9 @@
   <string name="customPositionTitle">Aangepaste stelling</string>
   <string name="customPositionText">Richt het bord op jouw manier in &lt;br&gt;Geschikt om eindspellen te verkennen.</string>
   <string name="loadExistingLichessGameTitle">Laad een bestaande lichess-partij</string>
+  <string name="loadGameFromTheWebTitle" comment="Replaces old string loadExistingLichessGameTitle">Laad een partij van het web</string>
   <string name="loadExistingLichessGameText">Plak een lichess partij link&lt;br&gt;(zoals lichess.org/7fHIU0XI)&lt;br&gt;om de partijzetten in het hoofdstuk te laden.</string>
+  <string name="loadGameFromTheWebText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text. Replaces old string loadExistingLichessGameText">Plak een partij-link&lt;br&gt;(zoals lichess.org/7fHIU0XI)&lt;br&gt;om partijzetten in het hoofdstuk te laden.</string>
   <string name="fromFenStringTitle">Van een FEN-tekenreeks</string>
   <string name="fromFenStringText">Plak een stelling in FEN-formaat&lt;br&gt;&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;&lt;br&gt;om het hoofdstuk te beginnen vanaf een bepaalde stelling.</string>
   <string name="fromPgnGameTitle">Van een PGN-bestand</string>

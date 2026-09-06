@@ -36,7 +36,7 @@ final private class StudyMaker(
       me.value,
       Study.From.Scratch,
       id = none,
-      name = data.studyName.some,
+      name = data.studyName,
       settings = data.settings.some
     )
     val chapterData = ChapterMaker.Data(StudyChapterName("Chapter 1"))

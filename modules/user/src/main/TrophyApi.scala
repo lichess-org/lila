@@ -5,6 +5,7 @@ import scalalib.ThreadLocalRandom
 
 import lila.db.dsl.{ *, given }
 import lila.memo.*
+import lila.ui.Icon
 import lila.core.perm.Granter
 
 final class TrophyApi(
@@ -13,6 +14,8 @@ final class TrophyApi(
     cacheApi: CacheApi
 )(using Executor)
     extends lila.core.user.TrophyApi:
+
+  private given BSONHandler[Icon] = BSONStringHandler.as(Icon.byName.getOrElse(_, Icon.cautionCircle), _.name)
 
   val kindCache = cacheApi.sync[String, TrophyKind](
     name = "trophy.kind",
@@ -30,10 +33,10 @@ final class TrophyApi(
   private given BSONDocumentHandler[Trophy] = Macros.handler[Trophy]
 
   lila.common.Bus.sub[lila.core.user.UserDelete]: del =>
-    coll.delete.one($doc("user" -> del.id))
+    coll.delete.one(bdoc("user" -> del.id))
 
   def findByUser(user: User, max: Int = 50): Fu[List[Trophy]] =
-    coll.list[Trophy]($doc("user" -> user.id), max).map(_.filter(_.kind != TrophyKind.Unknown))
+    coll.list[Trophy](bdoc("user" -> user.id), max).map(_.filter(_.kind != TrophyKind.Unknown))
 
   def roleBasedTrophies(user: User): List[Trophy] =
     List(
@@ -96,7 +99,7 @@ final class TrophyApi(
   def award(trophyUrl: Url, userId: UserId, kindKey: String): Funit =
     coll.insert
       .one(
-        $doc(
+        bdoc(
           "_id" -> ThreadLocalRandom.nextString(8),
           "user" -> userId,
           "kind" -> kindKey,

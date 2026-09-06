@@ -42,7 +42,7 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
       coll.byOrderedIds[LightGame, GameId](gameIds, projection = projection.some, _.sec)(_.id)
 
   def finished(gameId: GameId): Fu[Option[Game]] =
-    coll.one[Game]($id(gameId) ++ Query.finished)
+    coll.one[Game](bid(gameId) ++ Query.finished)
 
   def player(gameId: GameId, color: Color): Fu[Option[Player]] =
     game(gameId).dmap2 { _.player(color) }
@@ -64,7 +64,7 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
 
   def pov(ref: PovRef): Fu[Option[Pov]] = pov(ref.gameId, ref.color)
 
-  def remove(id: GameId): Funit = coll.delete.one($id(id)).void
+  def remove(id: GameId): Funit = coll.delete.one(bid(id)).void
 
   def userPovsByGameIds[U: UserIdOf](
       gameIds: List[GameId],
@@ -76,12 +76,12 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
       .dmap:
         _.flatMap(Pov(_, user))
 
-  def recentPovsByUserFromSecondary[U: UserIdOf](user: U, nb: Int, select: Bdoc = $empty): Fu[List[Pov]] =
+  def recentPovsByUserFromSecondary[U: UserIdOf](user: U, nb: Int, select: Bdoc = emptyBdoc): Fu[List[Pov]] =
     recentGamesFromSecondaryCursor(Query.user(user) ++ select)
       .list(nb)
       .map { _.flatMap(Pov(_, user)) }
 
-  def recentGamesFromSecondaryCursor(select: Bdoc = $empty) =
+  def recentGamesFromSecondaryCursor(select: Bdoc = emptyBdoc) =
     coll
       .find(select)
       .sort(Query.sortCreated)
@@ -100,18 +100,18 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
       .aggregateWith[Game](readPreference = ReadPref.sec): framework =>
         import framework.*
         List(
-          Match($doc(lila.game.Game.BSONFields.playingUids -> $doc("$in" -> userIds, "$size" -> 2))),
+          Match(bdoc(lila.game.Game.BSONFields.playingUids -> bdoc("$in" -> userIds, "$size" -> 2))),
           AddFields:
-            $doc:
-              "both" -> $doc("$setIsSubset" -> $arr("$" + F.playingUids, userIds))
+            bdoc:
+              "both" -> bdoc("$setIsSubset" -> barr("$" + F.playingUids, userIds))
           ,
-          Match($doc("both" -> true))
+          Match(bdoc("both" -> true))
         )
 
   // only one player needs to be in the userId set
   def ongoingByOneOfUserIdsCursor(userIds: Iterable[UserId]): PekkoStreamCursor[Game] =
     coll
-      .find($doc(F.playingUids.$in(userIds)))
+      .find(bdoc(F.playingUids.in(userIds)))
       .cursor[Game](ReadPref.sec)
 
   def finishedByOneOfUserIdsSince(userIds: Iterable[UserId], since: Instant): PekkoStreamCursor[Game] =
@@ -120,7 +120,7 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
         Query.finished ++
           Query.users(userIds) ++
           Query.createdSince(since.minusHours(3)) ++
-          $doc(F.movedAt.$gt(since))
+          bdoc(F.movedAt.gt(since))
       .hint(coll.hint("us_1_ca_-1")) // important index hit. Do not sort the query.
       .cursor[Game](ReadPref.sec)
 
@@ -134,7 +134,7 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
           ++ Query.turnsGt(20)
           ++ Query.clockHistory(true)
       )
-      .sort($sort.asc(F.createdAt))
+      .sort(sort.asc(F.createdAt))
       .cursor[Game](ReadPref.sec)
       .list(nb)
 
@@ -148,13 +148,13 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
           ++ Query.variantStandard
           ++ Query.clock(true)
       )
-      .sort($sort.asc(F.createdAt))
+      .sort(sort.asc(F.createdAt))
       .cursor[Game](ReadPref.sec)
       .list(nb)
 
   def unanalysedGames(gameIds: Seq[GameId], max: Max = Max(100)): Fu[List[Game]] =
     coll
-      .find($inIds(gameIds) ++ Query.analysed(false) ++ Query.turns(30 -> 160))
+      .find(inIds(gameIds) ++ Query.analysed(false) ++ Query.turns(30 -> 160))
       .cursor[Game](ReadPref.sec)
       .list(max.value)
 
@@ -188,15 +188,15 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
       Query.sortChronological
     )
 
-  def byIdsCursor(ids: Iterable[GameId]): Cursor[Game] = coll.find($inIds(ids)).cursor[Game]()
+  def byIdsCursor(ids: Iterable[GameId]): Cursor[Game] = coll.find(inIds(ids)).cursor[Game]()
 
   def goBerserk(pov: Pov): Funit =
     val field = s"${pov.color.fold(F.whitePlayer, F.blackPlayer)}.${PF.berserk}"
-    coll.updateField($id(pov.gameId), field, true).void
+    coll.updateField(bid(pov.gameId), field, true).void
 
   def setBlindfold(pov: Pov, blindfold: Boolean): Funit =
     val field = s"${pov.color.fold(F.whitePlayer, F.blackPlayer)}.${PF.blindfold}"
-    coll.update.one($id(pov.gameId), $setBoolOrUnset(field, blindfold)).void
+    coll.update.one(bid(pov.gameId), setBoolOrUnset(field, blindfold)).void
 
   def update(progress: Progress): Funit =
     saveDiff(progress.origin.id, GameDiff(progress.origin, progress.game))
@@ -207,18 +207,18 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
       case (sets, unsets) =>
         coll.update
           .one(
-            $id(gameId),
-            nonEmptyMod("$set", $doc(sets)) ++ nonEmptyMod("$unset", $doc(unsets))
+            bid(gameId),
+            nonEmptyMod("$set", bdoc(sets)) ++ nonEmptyMod("$unset", bdoc(unsets))
           )
           .void
 
   private def nonEmptyMod(mod: String, doc: Bdoc) =
-    if doc.isEmpty then $empty else $doc(mod -> doc)
+    if doc.isEmpty then emptyBdoc else bdoc(mod -> doc)
 
   def setRatingDiffs(id: GameId, diffs: ByColor[IntRatingDiff]) =
     coll.update.one(
-      $id(id),
-      $set(
+      bid(id),
+      set(
         s"${F.whitePlayer}.${PF.ratingDiff}" -> diffs.white,
         s"${F.blackPlayer}.${PF.ratingDiff}" -> diffs.black
       )
@@ -234,12 +234,12 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
   def countWhereUserTurn(userId: UserId): Fu[Int] = coll
     .countSel(
       // important, hits the index!
-      Query.nowPlaying(userId) ++ $doc(
+      Query.nowPlaying(userId) ++ bdoc(
         "$or" ->
           List(0, 1).map: rem =>
-            $doc(
+            bdoc(
               s"${F.playingUids}.$rem" -> userId,
-              F.turns -> $doc("$mod" -> $arr(2, rem))
+              F.turns -> bdoc("$mod" -> barr(2, rem))
             )
       )
     )
@@ -253,7 +253,7 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
 
   def lastPlayedPlayingId(userId: UserId): Fu[Option[GameId]] =
     coll
-      .find(Query.recentlyPlaying(userId), $id(true).some)
+      .find(Query.recentlyPlaying(userId), bid(true).some)
       .sort(Query.sortMovedAtNoIndex)
       .one[Bdoc](readPreference = ReadPref.pri)
       .dmap { _.flatMap(_.getAsOpt[GameId](F.id)) }
@@ -266,51 +266,51 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
   def lastPlayed(userId: UserId): Fu[Option[Pov]] =
     coll
       .find(Query.user(userId))
-      .sort($sort.desc(F.createdAt))
+      .sort(sort.desc(F.createdAt))
       .cursor[Game]()
       .list(2)
       .dmap { _.sortBy(_.movedAt).lastOption.flatMap(Pov(_, userId)) }
 
   def quickLastPlayedId(userId: UserId): Fu[Option[GameId]] =
     coll
-      .find(Query.user(userId), $id(true).some)
-      .sort($sort.desc(F.createdAt))
+      .find(Query.user(userId), bid(true).some)
+      .sort(sort.desc(F.createdAt))
       .one[Bdoc]
       .dmap { _.flatMap(_.getAsOpt[GameId](F.id)) }
 
-  def setTv(id: GameId) = coll.updateFieldUnchecked($id(id), F.tvAt, nowInstant)
+  def setTv(id: GameId) = coll.updateFieldUnchecked(bid(id), F.tvAt, nowInstant)
 
-  def setAnalysed(id: GameId, v: Boolean): Funit = coll.updateField($id(id), F.analysed, v).void
+  def setAnalysed(id: GameId, v: Boolean): Funit = coll.updateField(bid(id), F.analysed, v).void
 
   def isAnalysed(game: Game): Fu[Boolean] = GameExt
     .analysable(game)
     .so:
-      coll.exists($id(game.id) ++ Query.analysed(true))
+      coll.exists(bid(game.id) ++ Query.analysed(true))
 
-  def analysed(id: GameId): Fu[Option[Game]] = coll.one[Game]($id(id) ++ Query.analysed(true))
+  def analysed(id: GameId): Fu[Option[Game]] = coll.one[Game](bid(id) ++ Query.analysed(true))
 
-  def exists(id: GameId) = coll.exists($id(id))
+  def exists(id: GameId) = coll.exists(bid(id))
 
-  def tournamentId(id: GameId): Fu[Option[String]] = coll.primitiveOne[String]($id(id), F.tournamentId)
+  def tournamentId(id: GameId): Fu[Option[String]] = coll.primitiveOne[String](bid(id), F.tournamentId)
 
   def incBookmarks(id: GameId, value: Int) =
-    coll.update.one($id(id), $inc(F.bookmarks -> value)).void
+    coll.update.one(bid(id), inc(F.bookmarks -> value)).void
 
   def setHoldAlert(pov: Pov, alert: HoldAlert): Funit =
     coll
       .updateField(
-        $id(pov.gameId),
+        bid(pov.gameId),
         holdAlertField(pov.color),
         alert
       )
       .void
 
   object holdAlert:
-    private val holdAlertSelector = $or(
-      holdAlertField(chess.White).$exists(true),
-      holdAlertField(chess.Black).$exists(true)
+    private val holdAlertSelector = or(
+      holdAlertField(chess.White).exists(true),
+      holdAlertField(chess.Black).exists(true)
     )
-    private val holdAlertProjection = $doc(
+    private val holdAlertProjection = bdoc(
       holdAlertField(chess.White) -> true,
       holdAlertField(chess.Black) -> true
     )
@@ -320,7 +320,7 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
     def game(game: Game): Fu[HoldAlert.Map] =
       coll
         .one[Bdoc](
-          $doc(F.id -> game.id, holdAlertSelector),
+          bdoc(F.id -> game.id, holdAlertSelector),
           holdAlertProjection
         )
         .map:
@@ -331,7 +331,7 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
     def povs(povs: Seq[Pov]): Fu[Map[GameId, HoldAlert]] =
       coll
         .find(
-          $doc($inIds(povs.map(_.gameId)), holdAlertSelector),
+          bdoc(inIds(povs.map(_.gameId)), holdAlertSelector),
           holdAlertProjection.some
         )
         .cursor[Bdoc](ReadPref.sec)
@@ -351,15 +351,15 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
 
   def hasHoldAlert(pov: Pov): Fu[Boolean] =
     coll.exists(
-      $doc(
-        $id(pov.gameId),
-        holdAlertField(pov.color).$exists(true)
+      bdoc(
+        bid(pov.gameId),
+        holdAlertField(pov.color).exists(true)
       )
     )
 
   private def holdAlertField(color: Color) = s"p${color.fold(0, 1)}.${PF.holdAlert}"
 
-  private val finishUnsets = $doc(
+  private val finishUnsets = bdoc(
     F.positionHashes -> true,
     F.playingUids -> true,
     F.unmovedRooks -> true,
@@ -378,20 +378,20 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
   ): Funit =
     coll.update
       .one(
-        $id(id),
+        bid(id),
         nonEmptyMod(
           "$set",
-          $doc(
+          bdoc(
             F.winnerId -> winnerId,
             F.winnerColor -> winnerColor.map(_.white),
             F.status -> status,
             F.abortedBy -> abortBy
           )
-        ) ++ $doc(
+        ) ++ bdoc(
           "$unset" -> finishUnsets.++ {
             // keep the checkAt field when game is aborted,
             // so it gets deleted in 24h
-            (status >= Status.Mate).so($doc(F.checkAt -> true))
+            (status >= Status.Mate).so(bdoc(F.checkAt -> true))
           }
         )
       )
@@ -420,7 +420,7 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
       else if g2.sourceIs(_.Api) then some(24 * 7)
       else if g2.hasClock then 1.some
       else some(24 * 10)
-    val bson = gameHandler.write(g2) ++ $doc(
+    val bson = gameHandler.write(g2) ++ bdoc(
       F.initialFen -> fen,
       F.checkAt -> checkInHours.map(nowInstant.plusHours(_)),
       F.playingUids -> (g2.started && userIds.nonEmpty).option(userIds)
@@ -445,10 +445,10 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
           Sort(Descending(F.createdAt)),
           Limit(1000),
           Match(Query.friend ++ Query.noAnon),
-          Project($doc(F.playerUids -> true, F.id -> false)),
+          Project(bdoc(F.playerUids -> true, F.id -> false)),
           UnwindField(F.playerUids),
-          Match($doc(F.playerUids.$ne(userId))),
-          PipelineOperator($doc("$sortByCount" -> s"$$${F.playerUids}")),
+          Match(bdoc(F.playerUids.neq(userId))),
+          PipelineOperator(bdoc("$sortByCount" -> s"$$${F.playerUids}")),
           Limit(max.value),
           Group(BSONNull)("users" -> PushField("_id"))
         )
@@ -457,16 +457,16 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
           ~obj.getAsOpt[List[UserId]]("users")
 
   def setCheckAt(g: Game, at: Instant) =
-    coll.updateField($id(g.id), F.checkAt, at).void
+    coll.updateField(bid(g.id), F.checkAt, at).void
 
   def unsetCheckAt(id: GameId): Funit =
-    coll.unsetField($id(id), F.checkAt).void
+    coll.unsetField(bid(id), F.checkAt).void
 
   def unsetPlayingUids(g: Game): Unit =
-    coll.update(ordered = false, WriteConcern.Unacknowledged).one($id(g.id), $unset(F.playingUids))
+    coll.update(ordered = false, WriteConcern.Unacknowledged).one(bid(g.id), unset(F.playingUids))
 
   private def initialFen(gameId: GameId, readPref: ReadPref): Fu[Option[Fen.Full]] =
-    coll.withReadPreference(readPref).primitiveOne[Fen.Full]($id(gameId), F.initialFen)
+    coll.withReadPreference(readPref).primitiveOne[Fen.Full](bid(gameId), F.initialFen)
 
   def initialFen(game: Game): Fu[Option[Fen.Full]] =
     if game.sourceIs(_.Import) || !game.variant.standardInitialPosition then
@@ -498,18 +498,18 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
     coll
       .aggregateList(maxDocs = opponentLimit, _.sec): framework =>
         import framework.*
-        Match($doc(F.playerUids -> userId)) -> List(
-          Match($doc(F.playerUids -> $doc("$size" -> 2))),
+        Match(bdoc(F.playerUids -> userId)) -> List(
+          Match(bdoc(F.playerUids -> bdoc("$size" -> 2))),
           Sort(Descending(F.createdAt)),
           Limit(gameLimit), // only look in the last n games
           Project(
-            $doc(
+            bdoc(
               F.playerUids -> true,
               F.id -> false
             )
           ),
           UnwindField(F.playerUids),
-          Match($doc(F.playerUids.$ne(userId))),
+          Match(bdoc(F.playerUids.neq(userId))),
           GroupField(F.playerUids)("gs" -> SumAll),
           Sort(Descending("gs")),
           Limit(opponentLimit)
@@ -530,9 +530,9 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
 
   def lastGameBetween(u1: UserId, u2: UserId, since: Instant): Fu[Option[Game]] =
     coll.one[Game](
-      $doc(
-        F.playerUids.$all(List(u1, u2)),
-        F.createdAt.$gt(since)
+      bdoc(
+        F.playerUids.all(List(u1, u2)),
+        F.createdAt.gt(since)
       )
     )
 
@@ -541,9 +541,9 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
       .forall(_.count.game > 0)
       .so(
         coll.secondary.list[Game](
-          $doc(
-            F.playerUids.$all(List(u1.id, u2.id)),
-            F.createdAt.$gt(since)
+          bdoc(
+            F.playerUids.all(List(u1.id, u2.id)),
+            F.createdAt.gt(since)
           ),
           nb
         )
@@ -551,7 +551,7 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
 
   def getSourceAndUserIds(id: GameId): Fu[(Option[Source], List[UserId])] =
     coll
-      .one[Bdoc]($id(id), $doc(F.playerUids -> true, F.source -> true))
+      .one[Bdoc](bid(id), bdoc(F.playerUids -> true, F.source -> true))
       .dmap:
         _.fold(none[Source] -> List.empty[UserId]): doc =>
           (doc.int(F.source).flatMap(Source.apply), ~doc.getAsOpt[List[UserId]](F.playerUids))
@@ -572,9 +572,9 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
     aiIds <- coll.primitive[GameId](Query.user(id) ++ Query.hasAi, "_id")
     importIds <- coll.primitive[GameId](Query.imported(id), "_id")
     allIds = aiIds ::: importIds
-    _ <- coll.delete.one($inIds(allIds))
+    _ <- coll.delete.one(inIds(allIds))
   yield allIds
 
   // expensive, enumerates all the player's games
   def swissIdsOf(id: UserId): Fu[Set[SwissId]] =
-    coll.distinctEasy[SwissId, Set](F.swissId, Query.user(id) ++ F.swissId.$exists(true))
+    coll.distinctEasy[SwissId, Set](F.swissId, Query.user(id) ++ F.swissId.exists(true))

@@ -65,8 +65,13 @@ final class Env(
 
   given Federation.Guess = lila.fide.Federation.find
 
-  private lazy val fideSync =
-    FidePlayerSync(repo, ws, httpProxy, appConfig.get[Url]("fide.players.url"))
+  private lazy val fideSync = FidePlayerSync(
+    repo,
+    ws,
+    httpProxy,
+    appConfig.get[Url]("fide.players.url"),
+    appConfig.get[Url]("fide.ratings.url")
+  )
 
   if mode.isProd then
     scheduler.scheduleWithFixedDelay(1.hour, 1.hour): () =>

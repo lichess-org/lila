@@ -73,6 +73,7 @@
 
   .time {
     @extend %roboto, %box-shadow;
+    @include backdrop-blur-if-transparent;
 
     background: $c-bg-box;
     min-width: 3em;

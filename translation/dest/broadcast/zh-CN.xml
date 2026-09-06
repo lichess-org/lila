@@ -33,6 +33,7 @@
   <string name="resetRound">重置此轮次</string>
   <string name="deleteRound">删除此轮次</string>
   <string name="definitivelyDeleteRound">永久删除此轮次及其所有对局。</string>
+  <string name="permanentlyDeleteRound" comment="Refers to live tournaments being broadcast on Lichess (https://lichess.org/broadcast).&#10;&#10;Description (also translateable): Delete all games of this round. The source will need to be active in order to re-create them. This string has been amended since its initial publication; it didn't say &quot;all its games&quot; at the time.&#10;&#10;Replaces old string definitivelyDeleteRound.">永久删除此轮次及其所有对局？</string>
   <string name="deleteAllGamesOfThisRound">删除此轮次的所有对局。需要源文件处于活动状态才能重新创建它们。</string>
   <string name="editRoundStudy">编辑轮次研习</string>
   <string name="deleteTournament">删除此锦标赛</string>
@@ -54,7 +55,7 @@
   <string name="boards">棋盘</string>
   <string name="overview">概览</string>
   <string name="subscribeTitle">订阅以便在每个轮次开始时收到通知。您可以在账户设置中开启或关闭转播的铃声/推送通知。</string>
-  <string name="uploadImage">上传锦标赛图片</string>
+  <string name="uploadImage">上传锦标赛图像</string>
   <string name="noBoardsYet">尚无棋盘。上传对局后，棋盘将在此显示。</string>
   <string name="noPlayersYet">尚无棋手。上传对局后，棋手将在此显示。</string>
   <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">可通过源文件或 %s 加载棋盘。</string>

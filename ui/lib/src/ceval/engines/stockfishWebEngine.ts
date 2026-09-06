@@ -64,7 +64,14 @@ export class StockfishWebEngine implements CevalEngine {
         }),
       );
     }
-    module.listen = (data: string) => this.protocol.received(data);
+    module.listen = (data: string) => {
+      try {
+        this.protocol.received(data);
+      } catch (e) {
+        this.failed = e as Error;
+        this.status?.({ error: String(e) });
+      }
+    };
     this.protocol.connected(cmd => module.uci(cmd));
     this.module = module;
   }

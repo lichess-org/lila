@@ -85,6 +85,12 @@
   }
 }
 
+.forum-post__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
 .button.forum-post__button {
   @media (hover: hover) {
     visibility: hidden;
@@ -168,7 +174,6 @@
 
   blockquote {
     padding: 0 0.7em;
-    border-left: 0.3em solid;
     unicode-bidi: plaintext;
     position: relative;
   }
@@ -180,4 +185,8 @@
   h3 {
     font-size: 1.2em;
   }
+}
+
+.forum-topic .preview {
+  @include backdrop-blur-if-transparent;
 }

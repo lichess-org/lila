@@ -18,6 +18,6 @@
   <string name="reportBannedInfo">Reparámos num padrão de abuso do nosso sistema de denúncias. Isto pode dever-se a vários motivos, como estares constantemente a escolher as categorias erradas, usares linguagem obscena, inadequada ou ofensiva, reportares um número exagerado de jogos, ou não explicares por que achas que o adversário violou as regras.</string>
   <string name="temporarilyRestrictedFromPlaying" comment="play timeout = Lichess prevents you temporarily from playing any games Replaces old string playTimeout">A tua conta está temporariamente impedida de jogar.</string>
   <string name="communicationGuidelines">diretrizes de comunicação</string>
-  <string name="blogEtiquette">etiquetas do blog</string>
+  <string name="blogEtiquette">regras de etiqueta do blog</string>
   <string name="fairPlay">Jogo Justo</string>
 </resources>

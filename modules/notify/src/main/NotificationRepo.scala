@@ -27,7 +27,7 @@ final private class NotificationRepo(colls: NotifyColls)(using Executor):
     markManyRead(unreadOnlyQuery(notifies)).void
 
   def markManyRead(selector: Bdoc): Fu[Int] =
-    coll.update.one(selector, $set("read" -> true), multi = true).dmap(_.n)
+    coll.update.one(selector, set("read" -> true), multi = true).dmap(_.n)
 
   def expireAndCount(userId: UserId): Fu[UnreadCount] = for
     count <- UnreadCount.from(coll.countSel(unreadOnlyQuery(userId)))
@@ -42,17 +42,17 @@ final private class NotificationRepo(colls: NotifyColls)(using Executor):
 
   def usersWithRecentUnread(content: NotificationContent, since: FiniteDuration): Fu[Set[UserId]] =
     val selector =
-      $doc("read" -> false, "createdAt".$gt(nowInstant.minus(since)), "content.type" -> content.key)
+      bdoc("read" -> false, "createdAt".gt(nowInstant.minus(since)), "content.type" -> content.key)
     coll.distinctEasy[UserId, Set]("notifies", selector, _.sec)
 
   private def matchSince(since: Duration) =
-    $doc("createdAt".$gt(nowInstant.minus(since)))
+    bdoc("createdAt".gt(nowInstant.minus(since)))
 
   private def matchUnreadSince(unreadSince: Duration) =
-    $doc("read" -> false, "createdAt".$gt(nowInstant.minus(unreadSince)))
+    bdoc("read" -> false, "createdAt".gt(nowInstant.minus(unreadSince)))
 
   private def matchRecentOrUnreadSince(since: Duration) =
-    $or(matchSince(10.minutes), matchUnreadSince(since))
+    or(matchSince(10.minutes), matchUnreadSince(since))
 
   private def hasFresh(
       to: UserId,
@@ -60,18 +60,18 @@ final private class NotificationRepo(colls: NotifyColls)(using Executor):
       criteria: ElementProducer,
       freshnessSelector: Bdoc
   ): Fu[Boolean] =
-    coll.exists($doc("notifies" -> to, "content.type" -> tpe, criteria) ++ freshnessSelector)
+    coll.exists(bdoc("notifies" -> to, "content.type" -> tpe, criteria) ++ freshnessSelector)
 
   def exists(notifies: UserId, selector: Bdoc): Fu[Boolean] =
     coll.exists(userNotificationsQuery(notifies) ++ selector)
 
-  val recentSort = $sort.desc("createdAt")
+  val recentSort = sort.desc("createdAt")
 
-  def userNotificationsQuery(userId: UserId) = $doc("notifies" -> userId)
+  def userNotificationsQuery(userId: UserId) = bdoc("notifies" -> userId)
 
-  private def unreadOnlyQuery(userId: UserId) = $doc("notifies" -> userId, "read" -> false)
+  private def unreadOnlyQuery(userId: UserId) = bdoc("notifies" -> userId, "read" -> false)
 
   private def unreadOnlyQuery(userIds: Iterable[UserId]) =
-    $doc("notifies".$in(userIds), "read" -> false)
+    bdoc("notifies".in(userIds), "read" -> false)
 
-  private def expiredQuery(userId: UserId) = unreadOnlyQuery(userId) ++ $doc("expiresAt".$lt(nowInstant))
+  private def expiredQuery(userId: UserId) = unreadOnlyQuery(userId) ++ bdoc("expiresAt".lt(nowInstant))

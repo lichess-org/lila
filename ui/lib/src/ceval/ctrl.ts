@@ -57,18 +57,21 @@ export class CevalCtrl {
   curEval: LocalEval | null = null;
   lastStarted?: Started;
   showEnginePrefs: Toggle = toggle(false);
+  wasUnloadedByAnotherWindow = false;
 
   private worker?: CevalEngine;
 
   constructor(public opts: CevalOpts) {
     this.engines = new Engines(this);
-    this.storedEngine = storedStringProp(`ceval.engine.${opts.variant.key}`, this.engines.defaultId);
+    this.storedEngine = storedStringProp(`ceval.engine.${opts.variant.key}`, '');
     this.init();
 
     // another tab has started ceval, we should stop:
     storage.make('ceval.fen').listen(() => {
-      this.worker?.destroy();
+      if (!this.worker) return;
+      this.worker.destroy();
       this.worker = undefined; // release memory
+      this.wasUnloadedByAnotherWindow = true;
       this.opts.redraw();
     });
 
@@ -106,13 +109,14 @@ export class CevalCtrl {
 
   reset = (): void => {
     this.worker?.stop();
+    this.wasUnloadedByAnotherWindow = false;
     this.curEval = null;
     this.lastStarted = undefined;
     this.download = undefined;
   };
 
   start = (path: string, steps: Step[], gameId: string | undefined, threatMode = false): boolean => {
-    if (!this.available() || this.wasUnloaded) return false;
+    if (!this.available() || this.wasUnloadedByAnotherWindow) return false;
     this.isDeeper(false);
     this.doStart({ path, steps, gameId, threatMode });
     return true;
@@ -191,10 +195,6 @@ export class CevalCtrl {
     return Boolean(this.engines.active()?.capabilities?.includes('cloudEval'));
   }
 
-  get wasUnloaded(): boolean {
-    return !this.worker && Boolean(this.lastStarted); // another tab started ceval
-  }
-
   get showingCloud(): boolean {
     if (!this.lastStarted) return false;
     const curr = this.lastStarted.steps[this.lastStarted.steps.length - 1];
@@ -247,8 +247,10 @@ export class CevalCtrl {
     };
 
     if (s.threatMode) {
-      const c = step.ply % 2 === 1 ? 'w' : 'b';
-      const fen = step.fen.replace(/ (w|b) /, ' ' + c + ' ');
+      const fields = step.fen.split(' ');
+      fields[1] = step.ply % 2 === 1 ? 'w' : 'b';
+      fields[3] = '-'; // no en passant square in threat mode
+      const fen = fields.join(' ');
       work.currentFen = fen;
       work.initialFen = fen;
     } else {
@@ -283,16 +285,16 @@ export class CevalCtrl {
       dontStop: Boolean(this.engines.external || this.opts.custom || this.isDeeper() || this.isInfinite),
     };
     const emitter = throttleWithFlush(125, (ev: LocalEval, meta: EvalMeta) => {
-      if (working.fen && working.fen !== ev.fen) return emitter.clear();
-
       this.curEval = ev;
-
+      if (ev.bestmove && ev.bestmove !== '(none)' && working.movetime !== false) {
+        ev.millis = Math.max(ev.millis, working.movetime); // ensure bestmove eval matches movetime target
+      }
       if (!working.fen) {
-        working.fen = this.curEval.fen;
-        storage.fire('ceval.fen', this.curEval.fen); // will pause other tabs
+        working.fen = ev.fen;
+        storage.fire('ceval.fen', ev.fen); // will pause other tabs
       }
       const color = meta.ply % 2 === (meta.threatMode ? 1 : 0) ? 'white' : 'black';
-      this.curEval.pvs.sort((a, b) => povChances(color, b) - povChances(color, a));
+      ev.pvs.sort((a, b) => povChances(color, b) - povChances(color, a));
 
       if (this.lastStarted && !working.dontStop) {
         const evNode = working.started.steps[working.started.steps.length - 1];
@@ -303,13 +305,18 @@ export class CevalCtrl {
           if (likelyNodes < targetNodes) this.worker?.stop();
         }
       }
-      working.emit(this.curEval, meta);
+      working.emit(ev, meta);
     });
-    return (ev: LocalEval, meta: EvalMeta) => {
-      pubsub.emit('analysis.eval', structuredClone(ev), meta);
-      if (working.started !== this.lastStarted) emitter.clear();
-      else if (ev.bestmove) emitter.flush(ev, meta);
-      else emitter(ev, meta);
+    return (ev: LocalEval | undefined, meta: EvalMeta) => {
+      if (!ev) {
+        working.emit(undefined, meta); // report error
+      } else if (working.started === this.lastStarted && (!working.fen || working.fen === ev.fen)) {
+        pubsub.emit('analysis.eval', structuredClone(ev), meta);
+        if (ev.bestmove) emitter.flush(ev, meta);
+        else emitter(ev, meta);
+      } else {
+        emitter.clear();
+      }
     };
   }
 }

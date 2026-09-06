@@ -188,17 +188,20 @@ function relayForm() {
   showSource();
 }
 
+const githubRepoRoot = 'https://github.com/lichess-org/lila';
+
 function setAssetInfo() {
   $('#asset-version-date').text(site.info.date);
   $('#asset-version-commit')
-    .attr('href', 'https://github.com/lichess-org/lila/commits/' + site.info.commit)
+    .attr('href', githubRepoRoot + '/commits/' + site.info.commit)
+    .attr('target', '_blank')
     .find('pre')
     .text(site.info.commit.slice(0, 7));
   $('#asset-version-upcoming')
-    .attr('href', 'https://github.com/lichess-org/lila/compare/' + site.info.commit + '...master')
+    .attr('href', githubRepoRoot + '/compare/' + site.info.commit + '...master')
+    .attr('target', '_blank')
     .find('pre')
     .text('...');
-  $('#asset-version-message').text(site.info.message);
 }
 
 function streamerSubscribe() {

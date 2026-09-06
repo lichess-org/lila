@@ -28,7 +28,7 @@ object PuzzleHistory:
         .round:
           _.aggregateList(length): framework =>
             import framework.*
-            Match($doc("u" -> user.id)) -> List(
+            Match(bdoc("u" -> user.id)) -> List(
               Sort(Descending("d")),
               Skip(offset),
               Limit(length),

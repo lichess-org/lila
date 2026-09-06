@@ -21,6 +21,7 @@
   <string name="asALastResort">Ca o ultimă soluţie, configurează panoul identic precum Lichess, apoi %s</string>
   <string name="reloadThisPage">reîncarcă această pagină</string>
   <string name="dgtConfigure">DGT - Configurare</string>
+  <string name="configureYourDgtBoard" comment="Replaces old string dgtConfigure">Configurează-ți tabla DGT</string>
   <string name="lichessConnectivity">Conectivitate Lichess</string>
   <string name="validDgtOauthToken">Ai un token OAuth potrivit pentru jocul DGT.</string>
   <string name="dgtPlayMenuEntryAdded">O intrare %s a fost adăugată la meniul PLAY din partea de sus.</string>

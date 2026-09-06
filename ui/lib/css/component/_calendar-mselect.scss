@@ -5,6 +5,10 @@
   background: $c-bg-zebra;
   padding: 1em 2em;
 
+  @include if-transp {
+    backdrop-filter: none;
+  }
+
   &--top {
     margin-bottom: 2em;
   }

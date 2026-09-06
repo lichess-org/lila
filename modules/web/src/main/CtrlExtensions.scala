@@ -1,28 +1,13 @@
 package lila.web
 
-import play.api.i18n.Lang
 import play.api.mvc.*
-import scalalib.net.UserAgent
 
 import lila.common.{ HTTPRequest, ClientName }
 import lila.core.config.BaseUrl
-import lila.core.i18n.Translate
-import lila.core.perf.UserWithPerfs
-import lila.core.pref.Pref
-import lila.ui.Context
 
 trait CtrlExtensions extends play.api.mvc.ControllerHelpers with ResponseHeaders:
 
   def baseUrl: BaseUrl
-
-  given (using ctx: Context): Lang = ctx.lang
-  given (using ctx: Context): Translate = ctx.translate
-  given (using ctx: Context): RequestHeader = ctx.req
-  given (using ctx: Context): Pref = ctx.pref
-  given (using req: RequestHeader): UserAgent = HTTPRequest.userAgent(req)
-  given (using req: RequestHeader): ClientName = ClientName(req)
-
-  given Conversion[UserWithPerfs, User] = _.user
 
   extension (req: RequestHeader)
     def ipAddress = HTTPRequest.ipAddress(req)

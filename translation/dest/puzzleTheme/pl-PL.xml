@@ -29,6 +29,7 @@
   <string name="collinearMove">Ruch współliniowy</string>
   <string name="cornerMate">Mat w narożniku szachownicy</string>
   <string name="cornerMateDescription">Zagoń króla przeciwnika do narożnika szachownicy przy pomocy wieży lub hetmana i zamatuj skoczkiem.</string>
+  <string name="cornerMateKnightDeliversDescription" comment="Description for the &quot;Corner mate&quot; puzzle theme. Replaces old string cornerMateDescription">Zagoń króla do rogu szachownicy za pomocą wieży lub hetmana, użyj skoczka do zamatowania go.</string>
   <string name="crushing">Decydująca przewaga</string>
   <string name="crushingDescription">Znajdź błąd przeciwnika i zdobądź decydującą przewagę (ocena pozycji: powyżej 600cp)</string>
   <string name="discoveredCheck">Szach z odsłony</string>
@@ -119,6 +120,7 @@
   <string name="pinDescription">Taktyka wykorzystująca związania, czyli sytuacje, w których ruch bierki naraża na atak figurę o wyższej wartości.</string>
   <string name="promotion">Przemiana piona</string>
   <string name="promotionDescription">Zaawansowany pion lub pion grożący przemianą jest kluczowy w tej taktyce.</string>
+  <string name="promotePawnToQueenRookOrMinor" comment="Replaces old string promotionDescription">Promuj swojego piona do hetmana, wieży lub figury lekkiej.</string>
   <string name="queenEndgame">Końcówka hetmańska</string>
   <string name="queenEndgameDescription">Gra końcowa wyłącznie z hetmanami i pionami.</string>
   <string name="queenRookEndgame">Końcówka wieżowo-hetmańska</string>

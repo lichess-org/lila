@@ -8,6 +8,7 @@ import lila.core.email.EmailAddress
 import lila.core.net.IpAddress
 import lila.core.user.{ Me, User }
 import lila.core.userId.{ UserId, UserName }
+import lila.core.id.SessionId
 
 case class GarbageCollect(userId: UserId)
 case class CloseAccount(userId: UserId)
@@ -28,7 +29,7 @@ trait LilaCookie:
 object LilaCookie:
   val sessionId = "sid"
   val noRemember = "noRemember"
-  def sid(req: RequestHeader): Option[String] = req.session.get(sessionId)
+  def sid(req: RequestHeader): Option[SessionId] = SessionId.from(req.session.get(sessionId))
 
 trait SecurityApi:
   def shareAnIpOrFp(users: PairOf[UserId]): Fu[Boolean]

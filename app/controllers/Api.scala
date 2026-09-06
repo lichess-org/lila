@@ -44,6 +44,7 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
           lila.api.UserApi.Opts(
             withTrophies = getBool("trophies"),
             withCanChallenge = getBool("challenge"),
+            withRelation = ctx.fullAuthOrScope(_.Follow.Read),
             withProfile = getBoolOpt("profile") | true,
             withRank = getBool("rank"),
             withFideId = getBool("fideId")
@@ -290,13 +291,12 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
     Scoped(_.Bot.Play, _.Board.Play, _.Challenge.Read) { _ ?=> me ?=>
       def limited = rateLimited:
         "Please don't poll this endpoint, it is intended to be streamed. See https://lichess.org/api#tag/board/GET/api/board/game/stream/{gameId}."
-      HTTPRequest.bearer(ctx.req).so { bearer =>
+      HTTPRequest.bearer.so: (bearer, _) =>
         limit.eventStream(bearer, limited, msg = s"${me.username} ${HTTPRequest.printClient(req)}"):
           for
             povs <- env.round.proxyRepo.urgentGames(me)
             challenges <- env.challenge.api.createdByDestId(me)
           yield jsOptToNdJson(env.api.eventStream(povs.value.map(_.game), challenges, bearer))
-      }
     }
 
   def gameChat(gameId: GameId) = Anon:

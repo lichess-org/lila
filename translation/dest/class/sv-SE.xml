@@ -123,4 +123,5 @@ Här är länken för att komma till klassen.</string>
   <string name="quickLoginCodes">Snabba inloggningskoder</string>
   <string name="quickLoginCodesDesc1" comment="String is a URL">Använd de här koderna på din %s för att logga in dina elever på Lichess.</string>
   <string name="quickLoginCodesDesc2">När koderna går ut kommer dina elever förbli inloggade tills de själva loggar ut.</string>
+  <string name="expirationInMomentFromNow" comment="String is the translation of, for example, 'in 2 hours'">Går ut om %s</string>
 </resources>

@@ -6,6 +6,7 @@ import lila.core.perf.UserWithPerfs
 import lila.perfStat.PerfStatData
 import lila.rating.UserPerfsExt.best8Perfs
 import lila.user.Profile.flagInfo
+import lila.core.user.RealName
 
 val bits = lila.user.ui.UserBits(helpers)
 val noteUi = lila.user.ui.NoteUi(helpers)
@@ -19,7 +20,7 @@ def mini(
     relation: Option[lila.relation.Relation],
     ping: Option[Int],
     ct: Option[lila.game.Crosstable],
-    realName: Option[String]
+    realName: Option[RealName]
 )(using ctx: Context) =
   val rel = views.relation.mini(u.id, blocked, followable, relation)
   def crosstable(myId: UserId) = ct

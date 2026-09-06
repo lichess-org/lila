@@ -61,7 +61,7 @@
   }
 
   .header-tab.active.write-tab::after {
-    background-color: $c-bg-input;
+    background-color: hsl(from var(--c-bg-input) h s l / 100);
   }
 
   .content {
@@ -114,9 +114,5 @@
     background-color: rgb(from $c-border r g b / calc(alpha * 0.2));
     border-color: rgb(from $c-border r g b / calc(alpha * 0.4));
     color: $c-font;
-  }
-
-  .markdown-editor .upload-image:hover:not(.disabled) {
-    background-color: $c-primary;
   }
 }

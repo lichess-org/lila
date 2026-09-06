@@ -1,7 +1,6 @@
 import { type Toggle, toggle } from 'lib';
-import { licon } from 'lib/licon';
 import { pubsub } from 'lib/pubsub';
-import { bind, hl, onInsert, type VNode } from 'lib/view';
+import { bind, hl, onInsert, snabIcon, type VNode } from 'lib/view';
 import { text as xhrText, form as xhrForm } from 'lib/xhr';
 
 import type { DasherCtrl } from '@/ctrl';
@@ -37,19 +36,19 @@ export class BoardCtrl extends PaneCtrl {
           'button.text',
           {
             class: { active: !this.is3d },
-            attrs: { 'data-icon': licon.Checkmark, type: 'button' },
+            attrs: { type: 'button' },
             hook: bind('click', () => this.set3d(false)),
           },
-          '2D',
+          [snabIcon('checkmark'), '2D'],
         ),
         hl(
           'button.text',
           {
             class: { active: this.is3d },
-            attrs: { 'data-icon': licon.Checkmark, type: 'button' },
+            attrs: { type: 'button' },
             hook: bind('click', () => this.set3d(true)),
           },
-          '3D',
+          [snabIcon('checkmark'), '3D'],
         ),
       ]),
       this.propSliders(),
@@ -57,10 +56,10 @@ export class BoardCtrl extends PaneCtrl {
         hl(
           'button.text.reset',
           {
-            attrs: { 'data-icon': licon.Back, type: 'button' },
+            attrs: { type: 'button' },
             hook: bind('click', this.reset),
           },
-          i18n.site.boardReset,
+          [snabIcon('back'), i18n.site.boardReset],
         ),
       hl(
         'div.list',
@@ -158,7 +157,7 @@ export class BoardCtrl extends PaneCtrl {
     const sliders = [];
     if (!Number.isNaN(this.getVar('zoom')))
       sliders.push(this.propSlider('zoom', i18n.site.size, { min: 0, max: 100, step: 1 }));
-    if (document.body.dataset.theme === 'transp')
+    if (document.body.dataset.theme?.includes('transp'))
       sliders.push(this.propSlider('board-opacity', i18n.site.opacity, { min: 0, max: 100, step: 1 }));
     sliders.push(
       this.propSlider('board-brightness', i18n.site.brightness, { min: 20, max: 140, step: 1 }),

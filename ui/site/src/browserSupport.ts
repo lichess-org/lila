@@ -1,5 +1,5 @@
 import { frag, once } from 'lib';
-import { isIos, isSafari, isWebkit } from 'lib/device';
+import { isIos, isSafari, isWebkit, isFirefox, isChrome } from 'lib/device';
 import { pubsub } from 'lib/pubsub';
 import { alert } from 'lib/view';
 
@@ -38,7 +38,10 @@ export function fixBrowserStyle() {
 }
 
 export function upgradeNag() {
-  if (isWebkit({ below: '15.4' }) && once('upgrade.nag', { days: 14 })) {
+  if (
+    (isWebkit({ below: '16.2' }) || isFirefox({ below: '115' }) || isChrome({ below: '112' })) &&
+    once('upgrade.nag', { days: 7 })
+  ) {
     pubsub
       .after('polyfill.dialog')
       .then(() => alert('Your browser is out of date.\nLichess may not work properly.'));

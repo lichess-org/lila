@@ -236,10 +236,10 @@ body.no-inquiry {
     background: color-mix(in oklab, $c-primary 50%, $c-bg);
   }
 
-  .fbt.icon::before,
-  .warn icon::before,
-  .alt icon {
-    font-size: 1.7em;
+  .fbt.icon > .svg-icon,
+  .warn .svg-icon,
+  .alt .svg-icon {
+    width: 1.7em;
   }
 
   .fbt.active {
@@ -286,7 +286,7 @@ body.no-inquiry {
     height: 100%;
 
     > span,
-    > icon,
+    > .svg-icon,
     .main {
       display: block;
       height: 100%;
@@ -313,7 +313,7 @@ body.no-inquiry {
 
     &:hover {
       > span,
-      > icon,
+      > .svg-icon,
       .main {
         background: $c-bg-zebra2;
       }
@@ -328,7 +328,7 @@ body.no-inquiry {
       text-align: left;
     }
 
-    > icon {
+    > .svg-icon {
       line-height: 40px;
     }
 

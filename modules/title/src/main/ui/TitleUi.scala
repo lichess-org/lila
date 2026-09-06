@@ -78,7 +78,7 @@ Today's date is [current date]""")
       ),
       postForm(cls := "form3", action := routes.TitleVerify.cancel(req.id))(
         form3.action(
-          form3.submit("Cancel request and delete form data", icon = Icon.Trash.some)(
+          form3.submit("Cancel request and delete form data", icon = Icon.trash.some)(
             cls := "button-red button-empty yes-no-confirm"
           )
         )(cls := "title__cancel")
@@ -190,6 +190,6 @@ Today's date is [current date]""")
     def apply(image: Option[ImageId], height: Int): Tag =
       image.fold(fallback): id =>
         img(cls := "title-image", src := url(id, height))
-    def fallback = iconTag(Icon.UploadCloud)(cls := "title-image--fallback")
+    def fallback = iconEl(Icon.uploadCloud)(cls := "title-image--fallback")
     def url(id: ImageId, height: Int) = picfitUrl.resize(id, Right(height))
     def raw(id: ImageId) = picfitUrl.raw(id)

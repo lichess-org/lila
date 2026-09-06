@@ -52,11 +52,12 @@ final class Tournament(env: Env, apiC: => Api)(using org.apache.pekko.stream.Mat
     yield Ok(page)
 
   private[controllers] def canHaveChat(tour: Tour, json: Option[JsObject])(using ctx: Context): Boolean =
+    val authorizedMe = ctx.fullAuthOrScope(_.Tournament.Read).so(ctx.me)
     tour.hasChat && ctx.kid.no && ctx.noBot && // no public chats for kids
-      ctx.me.fold(!tour.isPrivate && ctx.req.client.isHuman):
-        _ => // anon can see public chats, except for private tournaments
-          (!tour.isPrivate || json.forall(jsonHasMe) || ctx.is(tour.createdBy) ||
-            isGrantedOpt(_.ChatTimeout)) // private tournament that I joined or has ChatTimeout
+    // anon can see public chats, except for private tournaments
+    authorizedMe.fold(!tour.isPrivate && ctx.req.client.isHuman): me =>
+      (!tour.isPrivate || json.forall(jsonHasMe) || me.is(tour.createdBy) ||
+        isGrantedOpt(_.ChatTimeout)) // private tournament that I joined or has ChatTimeout
 
   private def loadChat(tour: Tour, json: JsObject)(using Context): Fu[Option[lila.chat.UserChat.Mine]] =
     canHaveChat(tour, json.some).optionFu:
@@ -358,23 +359,20 @@ final class Tournament(env: Env, apiC: => Api)(using org.apache.pekko.stream.Mat
         bindForm(lila.tournament.TeamBattle.DataForm.empty)(
           jsonFormError,
           res =>
-            api.teamBattleUpdate(tour, res, env.team.api.filterExistingIdsNoClas) >> {
-              cachedTour(tour.id)
-                .map(_ | tour)
-                .flatMap { tour =>
-                  jsonView(
-                    tour,
-                    none,
-                    none,
-                    none,
-                    partial = false,
-                    withScores = true,
-                    withAllowList = true,
-                    withDescription = true
-                  )
-                }
-                .map { Ok(_) }
-            }
+            for
+              _ <- api.teamBattleUpdate(tour, res, env.team.api.filterExistingIdsNoClas)
+              tour <- cachedTour(tour.id).map(_ | tour)
+              json <- jsonView(
+                tour,
+                none,
+                none,
+                none,
+                partial = false,
+                withScores = true,
+                withAllowList = true,
+                withDescription = true
+              )
+            yield Ok(json)
         )
       case _ => BadRequest(jsonError("Can't update that tournament."))
   }

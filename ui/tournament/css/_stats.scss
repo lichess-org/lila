@@ -26,7 +26,8 @@
     margin: 2em auto 0 auto;
 
     a {
-      display: block;
+      display: flex;
+      align-items: center;
       margin: 0.5em 0;
     }
   }

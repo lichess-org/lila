@@ -71,9 +71,13 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
   def apiSinglePuzzle(puzzle: Puz)(using Context, Perf) =
     JsonOk(env.puzzle.jsonView(puzzle, none, none, withInitialPos = true))
 
-  def apiMany(idsStr: String) = Scoped(_.Web.Mobile): ctx ?=>
+  def apiMany(idsStr: String) = AnonOrScoped(_.Web.Mobile): ctx ?=>
     val ids = idsStr.split(',').take(50).flatMap(Puz.toId).toList
-    fetchRateLimit(rateLimited, cost = ids.length / 10):
+    val cost =
+      if ctx.isMobileOauth then ids.length / 10
+      else if HTTPRequest.isLichessMobile(ctx.req) then ids.length / 5
+      else ids.length
+    fetchRateLimit(rateLimited, cost = cost.atLeast(1)):
       WithPuzzlePerf:
         for
           puzzles <- env.puzzle.api.puzzle.findMany(ids)
@@ -373,11 +377,11 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
   }
 
   def apiBatchSelect(angleStr: String) = AnonOrScoped(_.Puzzle.Read, _.Web.Mobile): ctx ?=>
-    val nb = getInt("nb") | 15
+    val nb = (getInt("nb") | 15).atLeast(1).atMost(50)
     val cost =
       if ctx.isMobileOauth then 0
-      else if HTTPRequest.isLichessMobile(ctx.req) then nb / 5
-      else if ctx.isAuth then nb / 3
+      else if HTTPRequest.isLichessMobile(ctx.req) then (nb / 5).atLeast(1)
+      else if ctx.isAuth then (nb / 3).atLeast(1)
       else nb
     fetchRateLimit(rateLimited, cost = cost):
       PuzzleAngle

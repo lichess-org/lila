@@ -16,20 +16,20 @@ final private class NotifyCli(api: NotifyApi, userRepo: UserRepo)(using Material
     case "notify" :: "url" :: "titled" :: url :: words =>
       notifyUrlTo(titledUserIds, url, words)
     case "notify" :: "url" :: "titled-arena" :: url :: words =>
-      notifyUrlTo(titledUserIds, url, words, Icon.Trophy)
+      notifyUrlTo(titledUserIds, url, words, Icon.trophy)
 
   private def titledUserIds =
-    enabledTitledSource($id(true).some).mapConcat(_.getAsOpt[UserId]("_id").toList)
+    enabledTitledSource(bid(true).some).mapConcat(_.getAsOpt[UserId]("_id").toList)
 
   private def notifyUrlTo(
       userIds: Source[UserId, ?],
       url: String,
       words: List[String],
-      icon: Icon = Icon.InfoCircle
+      icon: Icon = Icon.infoCircle
   ) =
     val title = words.takeWhile(_ != "|").mkString(" ").nonEmptyOption
     val text = words.dropWhile(_ != "|").drop(1).mkString(" ").nonEmptyOption
-    val notification = lila.core.notify.NotificationContent.GenericLink(url, title, text, icon.value)
+    val notification = lila.core.notify.NotificationContent.GenericLink(url, title, text, icon.name)
     userIds
       .grouped(20)
       .mapAsyncUnordered(1): uids =>
@@ -43,9 +43,9 @@ final private class NotifyCli(api: NotifyApi, userRepo: UserRepo)(using Material
     import reactivemongo.pekkostream.cursorProducer
     userRepo.coll
       .find(
-        $doc(
+        bdoc(
           BSONFields.enabled -> true,
-          BSONFields.title -> $doc(
+          BSONFields.title -> bdoc(
             "$exists" -> true,
             "$nin" -> List(chess.PlayerTitle.LM, chess.PlayerTitle.BOT)
           )

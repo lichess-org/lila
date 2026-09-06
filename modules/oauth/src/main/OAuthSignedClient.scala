@@ -129,5 +129,4 @@ final class OAuthSignedClients(appConfig: Configuration, baseUrl: BaseUrl)(using
         loggedIn: Boolean
     ): Unit =
       if newOauthAttempts((prompt, action)) then
-        val monitor = if action == "signup" then lila.mon.signedClient.signup else lila.mon.signedClient.login
-        monitor.alreadyLoggedIn(clientId.value, loggedIn).increment()
+        lila.mon.signedClient.AuthPage(action).alreadyLoggedIn(clientId.value, loggedIn).increment()

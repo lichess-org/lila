@@ -4,8 +4,7 @@ import chess.format.pgn.{ PgnStr, Tags }
 import monocle.syntax.all.*
 import alleycats.Zero
 
-import lila.tree.Node.{ Comment, Comments }
-import lila.tree.{ Branch, Branches, Metas, NewBranch, NewRoot, NewTree, Node, Root }
+import lila.tree.Root
 
 trait LilaTest extends munit.FunSuite with EitherAssertions:
 
@@ -32,83 +31,12 @@ object Helpers:
     .rootToPgn(root, Tags.empty)(using PgnDump.withoutOrientation)
     .render
 
-  def rootToPgn(root: NewRoot): PgnStr = PgnDump
-    .rootToPgn(root, Tags.empty)(using PgnDump.withoutOrientation)
-    .render
-
   extension (root: Root)
-    def toNewRoot: NewRoot = NewRoot(root)
-
     def withoutClockTrust: Root =
-      toNewRoot.withoutClockTrust.toRoot
+      root
+        .focus(_.clock.some.trust)
+        .replace(none)
+        .focus(_.children)
+        .modify(_.updateAllWith(_.focus(_.clock.some.trust).replace(none)))
 
     def debug = root.ppAs(rootToPgn)
-
-  extension (newBranch: NewBranch)
-    def toBranch(children: Option[NewTree]): Branch = Branch(
-      newBranch.ply,
-      newBranch.move,
-      newBranch.fen,
-      newBranch.eval,
-      newBranch.shapes,
-      newBranch.comments,
-      newBranch.gamebook,
-      newBranch.glyphs,
-      children.fold(Branches.empty)(_.toBranches),
-      newBranch.comp,
-      newBranch.clock,
-      newBranch.crazyData,
-      newBranch.forceVariation
-    )
-
-  extension (newTree: NewTree)
-    // We lost variations here
-    // newTree.toBranch == newTree.withoutVariations.toBranch
-    def toBranch: Branch = newTree.value.toBranch(newTree.child)
-
-    def toBranches: Branches =
-      val variations = newTree.variations.map(_.toNode.toBranch)
-      Branches(newTree.value.toBranch(newTree.child) :: variations)
-
-  extension (root: NewRoot)
-    def toRoot =
-      Root(
-        root.ply,
-        root.fen,
-        root.eval,
-        root.shapes,
-        root.comments,
-        root.gamebook,
-        root.glyphs,
-        root.tree.fold(Branches.empty)(_.toBranches),
-        root.clock,
-        root.crazyData
-      )
-
-    def cleanup: NewRoot =
-      root
-        .focus(_.tree.some)
-        .modify(_.map(_.cleanup))
-        .focus(_.metas.comments)
-        .modify(_.cleanup)
-
-    def withoutClockTrust: NewRoot =
-      root
-        .focus(_.metas.clock.some.trust)
-        .replace(none)
-        .focus(_.tree.some)
-        .modify(_.map(_.focus(_.metas.clock.some.trust).replace(none)))
-
-    def debug = root.ppAs(rootToPgn)
-
-  extension (comments: Comments)
-    def cleanup: Comments =
-      Comments(comments.value.map(_.copy(id = Comment.Id("i"))))
-
-  extension (node: NewBranch)
-    def cleanup: NewBranch =
-      node
-        .focus(_.metas.clock)
-        .replace(none)
-        .focus(_.metas.comments)
-        .modify(_.cleanup)

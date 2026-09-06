@@ -12,6 +12,7 @@ class AnalyserTest extends munit.FunSuite:
 
   test("critical"):
     assert(grave("gets cancer"))
+    assert(grave("ki11 yourself"))
     assert(grave("kys"))
     assert(grave("kill you motherfucker"))
     assert(grave("kill your father"))
@@ -104,6 +105,9 @@ class AnalyserTest extends munit.FunSuite:
 
   test("german inflection"):
     assertEquals(find("feigling feiglinge"), List("feigling", "feiglinge"))
+
+  test("hindi inflection"):
+    assertEquals(find("laude krle"), List("laude krle"))
 
   test("spanish inflection"):
     assertEquals(find("hdp hdtpm madre chupapollas"), List("hdp", "hdtpm", "madre", "chupapollas"))

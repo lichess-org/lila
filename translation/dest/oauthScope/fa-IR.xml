@@ -22,6 +22,7 @@
   <string name="teamRead">خواندن اطلاعات خصوصی یَران</string>
   <string name="teamWrite">پیوستن و ترک کردن تیم ها</string>
   <string name="teamLead">مدیریت تیم های تحت رهبری شما: ارسال پیام ها، حذف اعضاء</string>
+  <string name="manageTeamsYouLead" comment="Replaces old string teamLead">مدیریت تیم‌هایی که رهبری می‌کنید: ارسال پیام‌های مستقیم، اخراجِ عضوها</string>
   <string name="followRead">خواندن بازیکنان دنبالیده</string>
   <string name="followWrite">دنبالیدن و وادنبالیدن دیگر بازیکنان</string>
   <string name="msgWrite">برای سایر بازیکنان پیام خصوصی بفرستید</string>

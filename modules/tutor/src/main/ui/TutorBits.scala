@@ -15,7 +15,6 @@ final class TutorBits(helpers: Helpers)(
     Page(title)
       .css("tutor.report")
       .js(Esm("tutor"))
-      .csp(_.withInlineIconFont)
       .wrap: body =>
         main(cls := List("page-menu tutor" -> true, "page-small" -> pageSmall))(
           lila.ui.bits.subnav(menu),
@@ -74,7 +73,7 @@ final class TutorBits(helpers: Helpers)(
     full.perfs.map: p =>
       a(
         cls := List("active" -> report.exists(_.perf === p.perf)),
-        dataIcon := p.perf.icon,
+        iconEl := p.perf.icon,
         href := full.url.perf(p.perf)
       )(p.perf.trans)
   )
@@ -84,12 +83,12 @@ final class TutorBits(helpers: Helpers)(
   ) =
     lila.ui.bits.mselect(
       "tutor-perf-select",
-      span(cls := "text", dataIcon := current.icon)(current.trans),
+      span(cls := "text", iconEl := current.icon)(current.trans),
       full.perfs.toList.map: r =>
         a(
           href := full.url.angle(r.perf, angle),
           cls := List("text" -> true, "current" -> (current == r.perf)),
-          dataIcon := r.perf.icon
+          iconEl := r.perf.icon
         )(r.perf.trans)
     )
 

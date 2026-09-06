@@ -19,28 +19,28 @@ object Dependencies:
   val maxmind = "com.maxmind.geoip2" % "geoip2" % "4.0.1"
   val caffeine = "com.github.ben-manes.caffeine" % "caffeine" % "3.2.4" % "compile"
   val scaffeine = "com.github.blemale" %% "scaffeine" % "5.3.0" % "compile"
-  val googleOAuth = "com.google.auth" % "google-auth-library-oauth2-http" % "1.50.0"
+  val googleOAuth = "com.google.auth" % "google-auth-library-oauth2-http" % "1.52.0"
   val galimatias = "io.mola.galimatias" % "galimatias" % "0.2.2-NF"
   val scalatags = "com.lihaoyi" %% "scalatags" % "0.13.1"
   val lettuce = "io.lettuce" % "lettuce-core" % "7.7.0.RELEASE"
   val nettyTransport =
     ("io.netty" % s"netty-transport-native-$notifier" % "4.2.17.Final").classifier(s"$os-$arch")
   val lilaSearch = ("com.github.lichess-org.lila-search" %% "client" % "3.6.0")
-  val munit = "org.scalameta" %% "munit" % "1.3.5" % Test
+  val munit = "org.scalameta" %% "munit" % "1.3.6" % Test
   val uaparser = "org.uaparser" %% "uap-scala" % "0.21.0"
   val apacheText = "org.apache.commons" % "commons-text" % "1.15.0"
   val apacheMath = "org.apache.commons" % "commons-math3" % "3.6.1"
   val bloomFilter = "com.github.alexandrnikitin" %% "bloom-filter" % "0.13.1_lila-1"
   val kittens = "org.typelevel" %% "kittens" % "3.5.0"
 
-  val scalacheck = "org.scalacheck" %% "scalacheck" % "1.19.0" % Test
-  val munitCheck = "org.scalameta" %% "munit-scalacheck" % "1.3.0" % Test
+  val scalacheck = "org.scalacheck" %% "scalacheck" % "1.20.0" % Test
+  val munitCheck = "org.scalameta" %% "munit-scalacheck" % "1.3.1" % Test
 
   object tests:
     val bundle = Seq(munit)
 
   object chess:
-    val version = "17.16.2"
+    val version = "17.17.0"
     val org = "com.github.lichess-org.scalachess"
     // val org = "org.lichess" // for publishLocal
     val core = org %% "scalachess" % version
@@ -51,7 +51,7 @@ object Dependencies:
     def bundle = Seq(core, testKit, playJson, rating, tiebreak)
 
   object scalalib:
-    val version = "11.10.12"
+    val version = "11.11.0"
     val org = "com.github.lichess-org.scalalib"
     // val org = "org.lichess" // for publishLocal
     val core = org %% "scalalib-core" % version

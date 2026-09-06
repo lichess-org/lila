@@ -40,7 +40,7 @@
       color: $c-over;
     }
 
-    &::before {
+    > .svg-icon {
       margin-inline-start: -0.6em;
       opacity: 0.4;
     }
@@ -64,8 +64,8 @@
       border-radius: 50%;
       z-index: 1;
 
-      &::before {
-        font-size: 1em;
+      .svg-icon {
+        width: 1em;
       }
     }
 
@@ -87,8 +87,8 @@
     color: $c-font-dim;
     cursor: inherit;
 
-    &::before {
-      font-size: 2.2em;
+    > .svg-icon {
+      width: 2.2em;
       opacity: 0.6;
     }
 
@@ -99,13 +99,13 @@
       cursor: pointer;
       color: $c-font;
 
-      &::before {
+      > .svg-icon {
         opacity: 0.7;
         color: $c-good;
       }
 
       &:hover {
-        &::before {
+        > .svg-icon {
           opacity: 1;
         }
       }
@@ -146,8 +146,8 @@
     font-weight: normal;
     width: 100%;
 
-    &::before {
-      font-size: 2.2em;
+    > .svg-icon {
+      width: 2.2em;
     }
 
     strong {

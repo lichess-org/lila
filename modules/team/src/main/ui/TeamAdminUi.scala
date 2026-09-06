@@ -37,7 +37,7 @@ final class TeamAdminUi(helpers: Helpers, bits: TeamUi):
               )
             ),
             postForm(cls := "team-permissions form3", action := routes.Team.permissions(t.id))(
-              globalError(permsForm).map(_(cls := "box__pad text", dataIcon := Icon.CautionTriangle)),
+              globalError(permsForm).map(_(cls := "box__pad text", iconEl := Icon.cautionTriangle)),
               div(cls := "team-permissions__table"):
                 table(cls := "slist slist-pad slist-resp")(
                   thead:
@@ -141,7 +141,7 @@ final class TeamAdminUi(helpers: Helpers, bits: TeamUi):
                       momentFromNow(startsAt),
                       " ",
                       a(
-                        dataIcon := Icon.Forward,
+                        iconEl := Icon.forward,
                         cls := "text copy-url-button",
                         data.copyurl := routeUrl(call)
                       )

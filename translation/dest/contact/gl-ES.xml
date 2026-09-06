@@ -26,6 +26,7 @@
   <string name="orCloseAccount">De todos os xeitos, podes pechar a túa conta actual e crear unha nova.</string>
   <string name="wantClearHistory">Quero eliminar o meu historial ou puntuación</string>
   <string name="cantClearHistory">Non é posible eliminar o teu historial de partidas e de crebacabezas, nin a túa puntuación.</string>
+  <string name="cantClearHistoryOrResetRatings" comment="Replaces old string cantClearHistory">Non é posible eliminar o teu historial de partidas ou de crebacabezas nin reiniciar a túa puntuación.</string>
   <string name="wantReport">Quero denunciar a un xogador</string>
   <string name="toReportAPlayerUseForm">Para denunciar a un xogador, emprega o formulario de denuncia</string>
   <string name="youCanAlsoReachReportPage">Tamén podes acceder a esa páxina pulsando no botón de denuncia %s nunha páxina de perfil.</string>

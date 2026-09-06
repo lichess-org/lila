@@ -39,6 +39,7 @@
   <string name="resetRound">Ponastavi ta krog</string>
   <string name="deleteRound">Izbriši ta krog</string>
   <string name="definitivelyDeleteRound">Dokončno izbrišite krog in njegove igre.</string>
+  <string name="permanentlyDeleteRound" comment="Refers to live tournaments being broadcast on Lichess (https://lichess.org/broadcast).&#10;&#10;Description (also translateable): Delete all games of this round. The source will need to be active in order to re-create them. This string has been amended since its initial publication; it didn't say &quot;all its games&quot; at the time.&#10;&#10;Replaces old string definitivelyDeleteRound.">Trajno izbrišem ta krog in vse njegove igre?</string>
   <string name="deleteAllGamesOfThisRound">Izbriši vse igre tega kroga. Vir bo moral biti aktiven, da jih lahko znova ustvarite.</string>
   <string name="editRoundStudy">Uredi krog študije</string>
   <string name="deleteTournament">Zbrišite ta turnir</string>

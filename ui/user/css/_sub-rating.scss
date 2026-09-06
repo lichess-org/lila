@@ -10,10 +10,11 @@
       opacity: 0.5;
     }
 
-    &::before {
-      font-size: 3em;
+    .svg-icon:first-child {
+      width: 2.6em;
+      height: 2.6em;
       opacity: 0.5;
-      margin-inline-end: 0.2em;
+      margin-inline-end: 0.5em;
 
       @include transition(opacity color);
     }
@@ -25,7 +26,7 @@
     &[href]:hover {
       background: color-mix(in oklab, $c-bg-page 50%, $c-bg);
 
-      &::before {
+      .svg-icon {
         color: $c-link;
         opacity: 0.7;
       }
@@ -36,13 +37,13 @@
 
       background: $c-bg-box;
 
-      &::before {
+      .svg-icon {
         color: $c-accent;
         opacity: 0.7;
       }
     }
 
-    > span {
+    > span:not(.svg-icon) {
       flex: 1 1 100%;
 
       @extend %flex-column;
@@ -55,20 +56,21 @@
       font-size: 0.9em;
     }
 
-    icon {
-      font-size: 0.75em;
+    .icon-playTriangle {
+      width: 0.75em;
+      height: 0.75em;
       opacity: 0.2;
       color: $c-font-dim;
 
       @include transition;
     }
 
-    &:hover icon {
+    &:hover .svg-icon {
       color: $c-link;
       opacity: 0.7;
     }
 
-    &.active icon {
+    &.active .icon-playTriangle {
       display: none;
     }
 
@@ -101,16 +103,24 @@
   }
 
   @include mq-topnav-hidden {
+    margin-block-end: 0.25em;
+    padding-inline: 0.5em;
+
     a {
       padding: 0.3em;
     }
 
-    a > icon,
+    a > .icon-playTriangle,
     h3,
     hr,
     rating .rp,
     rating span {
       display: none;
+    }
+
+    a > .svg-icon:first-child {
+      width: 1.2em;
+      height: 1.2em;
     }
   }
 
@@ -127,9 +137,9 @@
       display: flex;
       justify-content: center;
 
-      &::before {
+      > .svg-icon {
         opacity: 0.8;
-        font-size: 1.5em;
+        width: 1.5em;
       }
 
       > span {

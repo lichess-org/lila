@@ -19,7 +19,7 @@ final class RoundUi(helpers: Helpers, gameUi: lila.game.ui.GameUi):
       .i18nOpt(ctx.speechSynthesis, _.nvui)
       .i18nOpt(ctx.blind, _.keyboardMove)
       .flag(_.zoom)
-      .csp(_.withPeer.withWebAssembly)
+      .csp(_.withWebAssembly)
 
   def povOpenGraph(pov: Pov)(using Translate) =
     OpenGraph(

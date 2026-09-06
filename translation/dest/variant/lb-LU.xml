@@ -2,8 +2,22 @@
 <resources>
   <string name="standard">Standard</string>
   <string name="standardTitle">Standardschachreegelen (FIDE)</string>
+  <string name="chess960">Schach960</string>
+  <string name="chess960Title">D\'Standardpositioun vun de Figuren op der Grondrei gëtt zoufälleg festgeluecht.</string>
+  <string name="kingOfTheHill">Kinneg vum Hiwwel</string>
+  <string name="kingOfTheHillTitle">Bréng däi Kinnek an d\'Mëtt, fir d\'Partie ze gewannen.</string>
+  <string name="threeCheck">Dräimolschach</string>
+  <string name="threeCheckTitle">Bréng däi Géigner dräi mool a Schach, fir d\'Partie ze gewannen.</string>
   <string name="antichess">Raiberschach</string>
   <string name="antichessTitle">Verléier all deng Figuren (oder looss dech patt setze) fir d\'Partie ze gewannen.</string>
   <string name="atomic">Atomschach</string>
   <string name="atomicTitle">Spreng de géigneresche Kinnek an d\'Luucht fir ze gewannen.</string>
+  <string name="horde">Horde</string>
+  <string name="hordeTitle">Déi eng Säit huet eng grouss Unzuel u Baueren, déi aner eng normal Arméi.</string>
+  <string name="racingKings">Rennend Kinneken</string>
+  <string name="racingKingsTitle">Bréng däi Kinnek op déi aner Säit vum Briet, fir ze gewannen.</string>
+  <string name="crazyhouse">Crazyhouse</string>
+  <string name="crazyhouseTitle">Geschloe Figure kënnen, amplaz vun engem Zuch, op d\'Briet zeréckbruecht ginn.</string>
+  <string name="fromPosition">Aus Stellung</string>
+  <string name="fromPositionTitle">Standardschach mat enger eegener Stellung</string>
 </resources>

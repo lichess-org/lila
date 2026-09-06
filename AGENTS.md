@@ -6,7 +6,7 @@ Lila (li[chess in sca]la) is the free, open-source chess server powering lichess
 
 **Technology Stack:**
 
-- **Backend**: Scala 3.8.2 with Play Framework 2.8, SBT build system
+- **Backend**: Scala 3.8.2 with Liplay 3.2 (Lichess Play Framework fork), SBT build system
 - **Frontend**: TypeScript with Snabbdom, PNPM workspace monorepo
 - **Database**: MongoDB with Elasticsearch indexing
 - **Real-time**: WebSocket connections via separate lila-ws server, Redis for communication
@@ -19,13 +19,13 @@ Lila (li[chess in sca]la) is the free, open-source chess server powering lichess
 
 - **Java 21** (JDK, not JRE - needs jdk.compiler module)
 - **Node.js 24.15.0+** (specified in `.node-version`)
-- **PNPM 11.18.0+** (specified in `package.json`)
+- **PNPM 11.22.0+** (specified in `package.json`)
 
 **Installation:**
 
 ```bash
 # Install PNPM globally
-npm install -g pnpm@11.18.0
+npm install -g pnpm@11.22.0
 
 # Install dependencies (always run this first)
 pnpm install

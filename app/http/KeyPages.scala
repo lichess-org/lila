@@ -12,11 +12,12 @@ final class KeyPages(val env: Env)(using Executor)
     with RequestContext
     with CtrlPage
     with lila.web.CtrlErrors
+    with lila.web.CtrlGivens
     with ControllerHelpers:
 
-  def home(status: Results.Status)(using ctx: Context): Fu[Result] =
+  def home(status: Results.Status)(using Context): Fu[Result] =
     homeHtml.map: html =>
-      env.security.lilaCookie.ensure(ctx.req)(status(html))
+      env.security.lilaCookie.ensure(status(html))
 
   def homeHtml(using ctx: Context): Fu[lila.ui.RenderedPage] =
     env
@@ -43,7 +44,7 @@ final class KeyPages(val env: Env)(using Executor)
   def notFoundEmbed(msg: Option[String])(using EmbedContext): Result =
     NotFound.snip(views.base.notFoundEmbed(msg))
 
-  def blacklisted(using ctx: Context): Result =
-    if lila.security.Mobile.Api.requested(ctx.req)
+  def blacklisted(using Context): Result =
+    if lila.security.Mobile.Api.requested
     then Unauthorized(jsonError(views.site.message.blacklistedMessage))
     else Unauthorized(views.site.message.blacklistedSnippet)
