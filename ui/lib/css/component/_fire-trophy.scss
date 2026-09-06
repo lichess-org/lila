@@ -1,35 +1,20 @@
 %fire-trophy-shadow {
-  text-shadow:
-    0 0.008em 0.127em #fefcc9,
-    0.055em -0.066em 0.2em #feec85,
-    -0.111em -0.127em 0.272em #ffae34,
-    0.111em -0.272em 0.411em #ec760c,
-    -0.111em -0.456em 0.416em #cd4606,
-    0 -0.533em 0.577em #973716,
-    0.055em -0.55em 0.533em #451b0e;
+  filter: drop-shadow(0 0.008em 0.063em #fefcc9) drop-shadow(0 -0.08em 0.06em #ffae34)
+    drop-shadow(0.055em -0.19em 0.08em rgb(205 70 6 / 0.75))
+    drop-shadow(0.166em -0.05em 0.08em rgb(69 27 14 / 0.65));
 }
 
 @keyframes fire-trophy {
   0% {
-    text-shadow:
-      0 0.008em 0.127em #fefcc9,
-      0.055em -0.066em 0.2em #feec85,
-      -0.111em -0.127em 0.272em #ffae34,
-      0.111em -0.272em 0.411em #ec760c,
-      -0.111em -0.456em 0.416em #cd4606,
-      0 -0.533em 0.577em #973716,
-      0.055em -0.55em 0.533em #451b0e;
+    filter: drop-shadow(0 0.008em 0.063em #fefcc9) drop-shadow(0 -0.08em 0.06em #ffae34)
+      drop-shadow(0.055em -0.19em 0.08em rgb(205 70 6 / 0.75))
+      drop-shadow(0.166em -0.05em 0.08em rgb(69 27 14 / 0.65));
   }
 
   100% {
-    text-shadow:
-      0 0 0.111em #fefcc9,
-      0.055em -0.055em 0.166em #fefcc9,
-      -0.111em -0.111em 0.222em #feec85,
-      0.122em -0.233em 0.333em #ffae34,
-      -0.122em -0.322em 0.277em #ec760c,
-      0 -0.456em 0.444em #cd4606,
-      0.055em -0.5em 0.444em #973716;
+    filter: drop-shadow(0 0 0.055em #fefcc9) drop-shadow(0 -0.065em 0.055em #feec85)
+      drop-shadow(0.066em -0.125em 0.07em rgb(236 118 12 / 0.75))
+      drop-shadow(0.177em -0.1em 0.07em rgb(151 55 22 / 0.65));
   }
 }
 

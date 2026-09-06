@@ -145,11 +145,16 @@
 .trophy.patron {
   flex: 0 0 auto;
   font-size: 60px;
-  margin: 0 -10px 0 30px;
-  transform: scaleX(-1);
+  width: 60px;
+  height: 60px;
+  margin: -20px -10px 0 10px;
 
-  @include if-rtl {
-    transform: none;
+  .svg-icon {
+    transform: scaleX(-1);
+
+    @include if-rtl {
+      transform: none;
+    }
   }
 
   color: $c-brag;
