@@ -178,9 +178,9 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
   def removeTitle(id: UserId): Funit =
     coll.unsetField(bid(id), F.title).void
 
-  val enabledSelect = $doc(F.enabled -> true)
-  val disabledSelect = $doc(F.enabled -> false)
-  val notForeverClosedSelect = F.foreverClosed.$ne(true)
+  val enabledSelect = bdoc(F.enabled -> true)
+  val disabledSelect = bdoc(F.enabled -> false)
+  val notForeverClosedSelect = F.foreverClosed.neq(true)
   def markSelect(mark: UserMark)(v: Boolean): Bdoc =
     if v then bdoc(F.marks -> mark.key)
     else F.marks.neq(mark.key)
@@ -219,7 +219,7 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
 
     coll.update.one(bid(id), inc(bdoc(incs*)))
 
-  def incToints(id: UserId, nb: Int): Funit = coll.update.one($id(id), $inc("toints" -> nb)).void
+  def incToints(id: UserId, nb: Int): Funit = coll.update.one(bid(id), inc("toints" -> nb)).void
 
   def create(
       name: UserName,
