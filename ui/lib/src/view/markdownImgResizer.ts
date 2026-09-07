@@ -25,7 +25,7 @@ export async function wireMarkdownImgResizers({
   let matching = 0;
 
   for (const img of root.querySelectorAll<HTMLImageElement>('img')) {
-    if (!globalImageLinkRe.test(`![](${img.src})`)) continue;
+    if (`![](${img.src})`.search(globalImageLinkRe) === -1) continue;
     const index = matching++;
 
     if (img.closest('.markdown-img-resizer')) continue; // already wrapped
