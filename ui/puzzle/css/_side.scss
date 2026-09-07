@@ -16,14 +16,14 @@
     .infos {
       @extend %flex-center-nowrap, %nowrap-hidden;
 
+      gap: 1vw;
+
       &__angle-img {
         height: 3.5rem;
-        margin-inline-end: 1vw;
       }
 
-      &::before {
-        font-size: 3.5rem;
-        margin-inline-end: 1vw;
+      .svg-icon {
+        width: 2.8rem;
         color: $c-font-dim;
       }
 
@@ -89,8 +89,8 @@
         font-size: 2.2rem;
         margin-bottom: 1rem;
 
-        &::before {
-          font-size: 1.5em;
+        .svg-icon {
+          width: 1.5em;
         }
       }
     }
@@ -103,8 +103,8 @@
       justify-content: center;
       font-size: 4em;
 
-      &::before {
-        font-size: 0.9em;
+      > .svg-icon {
+        width: 0.9em;
       }
     }
   }
@@ -292,10 +292,7 @@
     }
 
     &::before {
-      @extend %data-icon;
-
-      content: $licon-ThumbsUp;
-      font-size: 1.3em;
+      @include icon-mask($icon-thumbsUp, 1.3em);
     }
 
     &.vote-down::before {

@@ -17,6 +17,10 @@
       font-weight: normal;
     }
 
+    .user-link {
+      float: left;
+    }
+
     &:hover a {
       color: $c-link;
     }

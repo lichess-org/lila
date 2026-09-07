@@ -73,9 +73,9 @@
   }
 }
 
-.mod-timeline__event:has(icon.moderator) {
+.mod-timeline__event:has(.moderator) {
   .user-link,
-  .user-link icon.line {
+  .user-link .line {
     color: color-mix(in oklab, $c-brag 60%, $c-font);
   }
 }

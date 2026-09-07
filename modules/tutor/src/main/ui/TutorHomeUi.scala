@@ -14,8 +14,7 @@ final class TutorHomeUi(helpers: Helpers, bits: TutorBits, q: TutorQueueUi, rps:
     Page("Lichess Tutor")
       .css("tutor.home")
       .js(Esm("bits.flatpickr"))
-      .js(Esm("tutor"))
-      .csp(_.withInlineIconFont):
+      .js(Esm("tutor")):
         main(cls := "page page-small tutor tutor-home"):
           if home.previews.isEmpty
           then newUser(home)

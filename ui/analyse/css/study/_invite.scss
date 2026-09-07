@@ -5,15 +5,15 @@
   .info {
     @extend %box-radius, %flex-center-nowrap;
 
+    gap: 1rem;
     background: $c-accent;
     color: $c-over;
     padding: 1em;
     margin-bottom: 2em;
     text-align: left;
 
-    &::before {
-      font-size: 3.6em;
-      margin-inline-end: 1rem;
+    > .svg-icon {
+      width: 3.6em;
     }
   }
 

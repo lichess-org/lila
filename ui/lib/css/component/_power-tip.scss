@@ -38,7 +38,6 @@
 
       .user-link {
         flex: 0 0 auto;
-        display: block;
         font-size: 1.1em;
       }
 
@@ -70,6 +69,9 @@
       margin-top: 3px;
 
       > span {
+        @extend %flex-center-nowrap;
+
+        gap: 0.4em;
         flex: 0 0 25%;
         max-width: 25%;
         padding: 2px 3px;

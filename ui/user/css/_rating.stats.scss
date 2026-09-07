@@ -8,10 +8,11 @@
   .desc {
     @extend %flex-center;
 
-    &::before {
-      font-size: 4.5em;
+    gap: 1rem;
+
+    .svg-icon {
+      width: 4.5em;
       color: $c-font-dim;
-      margin-inline-end: 1rem;
     }
   }
 

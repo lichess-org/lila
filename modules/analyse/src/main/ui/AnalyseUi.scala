@@ -70,14 +70,14 @@ final class AnalyseUi(helpers: Helpers)(endpoints: AnalyseEndpoints):
             st.aside(cls := "analyse__side")(
               lila.ui.bits.mselect(
                 "analyse-variant",
-                span(cls := "text", dataIcon := iconByVariant(pov.game.variant))(
+                span(cls := "text", iconEl := iconByVariant(pov.game.variant))(
                   pov.game.variant.variantTrans()
                 ),
                 Variant.list.all
                   .filter(FromPosition != _)
                   .map: v =>
                     a(
-                      dataIcon := iconByVariant(v),
+                      iconEl := iconByVariant(v),
                       cls := (pov.game.variant == v).option("current"),
                       href := routes.UserAnalysis.parseArg(v.key.value)
                     )(v.variantTrans())
@@ -117,7 +117,7 @@ final class AnalyseUi(helpers: Helpers)(endpoints: AnalyseEndpoints):
     )
 
   private def iconByVariant(variant: Variant): Icon =
-    PerfKey.byVariant(variant).fold(Icon.CrownElite)(_.perfIcon)
+    PerfKey.byVariant(variant).fold(Icon.crownElite)(_.perfIcon)
 
   def titleFull(pov: Pov)(using ctx: Context) =
     val openingName = gameOpening(pov.game, ctx.isAuth).fold(trans.site.analysis.txt())(_.name)
@@ -134,7 +134,7 @@ final class AnalyseUi(helpers: Helpers)(endpoints: AnalyseEndpoints):
         .flag(_.zoom)
         .flag(_.noRobots)
         .csp:
-          cspExternalEngine.compose(_.withInlineIconFont.withChessDbCn)
+          cspExternalEngine.compose(_.withChessDbCn)
 
     def cspExternalEngine: Update[ContentSecurityPolicy] =
       _.withWebAssembly.withExternalEngine(endpoints.externalEngine)

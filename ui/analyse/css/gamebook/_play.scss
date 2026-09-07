@@ -227,8 +227,8 @@
           border-inline-start: 1px solid rgb(255 255 255 / 0.3);
         }
 
-        &::before {
-          font-size: 2.2em;
+        > .svg-icon {
+          width: 2.2em;
           margin: 0.5em 0;
         }
 

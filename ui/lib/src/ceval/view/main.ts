@@ -12,9 +12,8 @@ import { h } from 'snabbdom';
 
 import { isTouchDevice } from '@/device';
 import { blurIfPrimaryClick, defined, notNull, requestIdleCallbackSafe } from '@/index';
-import { licon } from '@/licon';
 import type { ClientEval, LocalEval, PvData } from '@/tree/types';
-import { type VNode, type LooseVNode, type LooseVNodes, bind, hl, onInsert, icon } from '@/view';
+import { type VNode, type LooseVNode, type LooseVNodes, bind, hl, onInsert, icon, snabIcon } from '@/view';
 import { cmnToggle } from '@/view/cmn-toggle';
 import stepwiseScroll from '@/view/stepwiseScroll';
 
@@ -40,10 +39,9 @@ function localEvalNodes(ctrl: CevalHandler, evs: NodeEvals): Array<VNode | strin
   const t: Array<VNode | string> = [];
   if (!ceval.opts.custom && ceval.canGoDeeper)
     t.push(
-      hl('a.deeper', {
-        attrs: { title: i18n.site.goDeeper, 'data-icon': licon.PlusButton },
-        hook: bind('click', ceval.goDeeper),
-      }),
+      hl('a.deeper', { attrs: { title: i18n.site.goDeeper }, hook: bind('click', ceval.goDeeper) }, [
+        snabIcon('plusButton'),
+      ]),
     );
   const { depthText, npsText } = localInfo(ctrl, evs.client);
 
@@ -87,14 +85,18 @@ function localInfo(ctrl: CevalHandler, ev?: ClientEval | false): EvalInfo {
 const threatButton = (ctrl: CevalHandler): VNode | null =>
   ctrl.ceval.download
     ? null
-    : hl('button.show-threat', {
-        class: { active: ctrl.threatMode(), hidden: ctrl.getNode().check() },
-        attrs: { 'data-icon': licon.Target, title: i18n.site.showThreat + ' (x)' },
-        hook: bind('click', e => {
-          ctrl.toggleThreatMode();
-          blurIfPrimaryClick(e);
-        }),
-      });
+    : hl(
+        'button.show-threat',
+        {
+          class: { active: ctrl.threatMode(), hidden: ctrl.getNode().check() },
+          attrs: { title: i18n.site.showThreat + ' (x)' },
+          hook: bind('click', e => {
+            ctrl.toggleThreatMode();
+            blurIfPrimaryClick(e);
+          }),
+        },
+        [snabIcon('target')],
+      );
 
 function engineName(ctrl: CevalCtrl): VNode[] {
   const engine = ctrl.engines.active();
@@ -174,7 +176,7 @@ export function renderCeval(ctrl: CevalHandler): VNode[] {
   } else {
     if (!enabled) pearl = h('pearl', h('icon'));
     else if (node.outcome() || node.threefold) pearl = h('pearl', '-');
-    else if (ceval.state === CevalState.Failed) pearl = h('pearl', icon(licon.CautionCircle)('.is-red'));
+    else if (ceval.state === CevalState.Failed) pearl = h('pearl', icon('cautionCircle')('.is-red'));
     else pearl = h('pearl', h('icon.ddloader'));
     percent = node.outcome() ? 100 : 0;
   }
@@ -229,22 +231,26 @@ export function renderCeval(ctrl: CevalHandler): VNode[] {
         ]),
       ];
 
-  const settingsGear = hl('button.settings-gear', {
-    attrs: { role: 'button', 'data-icon': licon.Gear, title: 'Engine settings' },
-    class: { active: ceval.showEnginePrefs() },
-    hook: bind(
-      'click',
-      e => {
-        e.stopPropagation();
-        ceval.showEnginePrefs.toggle();
-        if (ceval.showEnginePrefs())
-          setTimeout(() => document.querySelector<HTMLElement>('#select-engine')?.focus()); // nvui
-        else blurIfPrimaryClick(e);
-      },
-      () => ceval.opts.redraw(),
-      false,
-    ),
-  });
+  const settingsGear = hl(
+    'button.settings-gear',
+    {
+      attrs: { role: 'button', title: 'Engine settings' },
+      class: { active: ceval.showEnginePrefs() },
+      hook: bind(
+        'click',
+        e => {
+          e.stopPropagation();
+          ceval.showEnginePrefs.toggle();
+          if (ceval.showEnginePrefs())
+            setTimeout(() => document.querySelector<HTMLElement>('#select-engine')?.focus()); // nvui
+          else blurIfPrimaryClick(e);
+        },
+        () => ceval.opts.redraw(),
+        false,
+      ),
+    },
+    [snabIcon('gear')],
+  );
   return [
     hl('div.ceval' + (enabled ? '.enabled' : ''), { class: { computing: ceval.isComputing } }, [
       renderCevalSwitch(ctrl),

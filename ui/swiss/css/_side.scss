@@ -29,13 +29,15 @@
   section {
     margin-bottom: $block-gap;
 
-    &[data-icon] {
+    &:has(> .svg-icon) {
       @extend %flex-center-nowrap;
+
+      gap: 4%;
     }
 
-    &::before {
-      font-size: 3rem;
-      margin-inline-end: 4%;
+    > .svg-icon:first-child {
+      width: 3rem;
+      height: 3rem;
     }
 
     p {

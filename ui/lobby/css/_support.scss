@@ -2,10 +2,12 @@
   @extend %flex-center-nowrap, %box-neat;
 
   display: none;
+  gap: 0.8em;
   margin-bottom: $block-gap;
   background: $c-bg-box;
   font-size: 1.3em;
   padding: 0.5em;
+  padding-inline-start: 1em;
 
   @include transition(background);
 
@@ -13,22 +15,17 @@
     background: $c-accent-glass;
 
     .lobby__support-link__text,
-    icon::before {
+    .svg-icon {
       color: $c-brag-hover;
     }
   }
 
-  icon {
+  .svg-icon {
     flex: 0 0 auto;
-    margin: 0 0.5em;
+    width: 2.6em;
+    color: $c-brag;
 
-    &::before {
-      margin-inline-end: 0.15em;
-      color: $c-brag;
-      font-size: 2.6em;
-
-      @include transition(color);
-    }
+    @include transition(color);
   }
 
   &__text {

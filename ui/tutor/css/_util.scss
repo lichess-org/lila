@@ -3,32 +3,6 @@
     text-transform: capitalize;
 
     @extend %flex-center-nowrap;
-
-    icon {
-      position: relative;
-      font-size: 0.8em;
-      margin-left: 1ch;
-      opacity: 0.5;
-
-      &:hover {
-        opacity: 1;
-
-        &::after {
-          @extend %box-neat, %popup-shadow;
-
-          font-size: 1rem;
-          background: $c-bg-popup;
-          bottom: 100%;
-          content: attr(data-title);
-          display: block;
-          left: 0%;
-          padding: 0.8em 1.5em;
-          width: 300px;
-          position: absolute;
-          z-index: $z-powertip-120;
-        }
-      }
-    }
   }
 
   .mascot-says {

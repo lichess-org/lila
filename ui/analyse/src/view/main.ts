@@ -5,8 +5,7 @@ import { renderChat } from 'lib/chat/renderChat';
 import { displayColumns } from 'lib/device';
 import { playable } from 'lib/game';
 import * as router from 'lib/game/router';
-import { licon } from 'lib/licon';
-import { type VNode, onInsert, hl } from 'lib/view';
+import { type VNode, onInsert, hl, snabIcon } from 'lib/view';
 import { watchers } from 'lib/view/watchers';
 
 import crazyView from '@/crazy/crazyView';
@@ -75,10 +74,9 @@ function analyseView(ctrl: AnalyseCtrl, deps?: typeof studyDeps): VNode {
               {
                 attrs: {
                   href: router.game(ctrl.data, ctrl.data.player.color),
-                  'data-icon': licon.Back,
                 },
               },
-              i18n.site.backToGame,
+              [snabIcon('back'), i18n.site.backToGame],
             ),
           ),
       ],

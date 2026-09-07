@@ -76,18 +76,20 @@
       &__top {
         @extend %flex-center-nowrap;
 
-        icon {
+        gap: 1rem;
+        padding-inline-start: 1rem;
+
+        .svg-icon {
           @extend %page-text-shadow;
 
-          font-size: 4em;
-          margin: 0 1rem 0 1rem;
+          width: 4em;
           opacity: 0.7;
         }
 
         &__title {
           @extend %flex-column;
 
-          icon + & {
+          .svg-icon + & {
             margin-top: 1em;
           }
 

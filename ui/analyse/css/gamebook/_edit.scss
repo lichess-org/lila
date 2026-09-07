@@ -24,11 +24,11 @@
     border-bottom: $border;
     min-height: 3.5em;
 
-    icon {
+    .svg-icon {
       @extend %flex-center-center;
 
       flex: 0 0 1.8em;
-      font-size: 1.8em;
+      width: 1.8em;
       opacity: 0.7;
     }
 
@@ -37,7 +37,7 @@
       background: $c-primary;
       color: $c-over;
 
-      icon {
+      .svg-icon {
         opacity: 0.9;
       }
     }
@@ -50,12 +50,12 @@
     }
   }
 
-  .todo icon {
+  .todo .svg-icon {
     background: $c-bad;
     color: $c-over;
   }
 
-  .done icon {
+  .done .svg-icon {
     background: $c-good;
   }
 }

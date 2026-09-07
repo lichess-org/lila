@@ -65,7 +65,7 @@ final class FidePlayerUi(helpers: Helpers, fideUi: FideUi, picfitUrl: lila.memo.
         autocomplete := "off",
         spellcheck := "false"
       ),
-      submitButton(cls := "button", dataIcon := Icon.Search)
+      submitButton(cls := "button", iconEl := Icon.search)
     )
 
   def playerList(
@@ -209,7 +209,7 @@ final class FidePlayerUi(helpers: Helpers, fideUi: FideUi, picfitUrl: lila.memo.
         fideUi.tcTrans.map: (tc, name, icon) =>
           div(cls := "fide-player__rating")(
             div(cls := "fide-player__rating__text")(
-              em(dataIcon := icon, cls := "text")(name()),
+              em(iconEl := icon, cls := "text")(name()),
               strong(player.ratingOf(tc).fold(trb.unrated())(_.toString))
             ),
             canvas(cls := s"fide-player__rating__history fide-player__rating__history--$tc")

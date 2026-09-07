@@ -39,8 +39,7 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
           st.title := trans.ublog.xBlog.txt(user.username)
         ).some
       )
-      .flag(_.noRobots, !blog.listed || !post.indexable || blog.tier < UblogBlog.Tier.HIGH)
-      .csp(_.withInlineIconFont):
+      .flag(_.noRobots, !blog.listed || !post.indexable || blog.tier < UblogBlog.Tier.HIGH):
         main(cls := "page-menu page-small")(
           ui.menu(Left(user.id)),
           div(cls := "page-menu__content box box-pad ublog-post")(
@@ -62,7 +61,7 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
                 href := routes.Ublog.index(user.username),
                 dataHref := routes.User.show(user.username)
               )(userLinkContent(user)),
-              iconTag(Icon.InfoCircle)(
+              iconEl(Icon.infoCircle)(
                 cls := "ublog-post__meta__disclaimer",
                 st.title := "Opinions expressed by Lichess contributors are their own."
               ),
@@ -96,7 +95,7 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
                       "from" -> "ublog"
                     )
                   ),
-                  dataIcon := Icon.CautionTriangle
+                  iconEl := Icon.cautionTriangle
                 )
               ,
               langList.nameByLanguage(post.language)
@@ -106,7 +105,7 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
                 a(href := routes.Ublog.topic(topic.url, none, lila.core.ublog.BlogsBy.newest, 1))(topic.value)
             ),
             (~post.ads).option(
-              div(dataIcon := Icon.InfoCircle, cls := "ublog-post__ads-disclosure text")(
+              div(iconEl := Icon.infoCircle, cls := "ublog-post__ads-disclosure text")(
                 "Contains sponsored content, affiliate links or commercial advertisement"
               )
             ),
@@ -123,7 +122,7 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
                 a(
                   href := routes.Ublog.discuss(post.id),
                   cls := "button text ublog-post__discuss",
-                  dataIcon := Icon.BubbleConvo
+                  iconEl := Icon.bubbleConvo
                 )(trans.ublog.discussThisBlogPostInTheForum())
               ),
               (ctx.isAuth && ctx.isnt(user)).option(
@@ -148,11 +147,12 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
   private def editButton(post: UblogPost)(using Context) = a(
     href := ui.editUrlOfPost(post),
     cls := "button button-empty text",
-    dataIcon := Icon.Pencil
+    iconEl := Icon.pencil
   )(trans.site.edit())
 
   private def likeButton(post: UblogPost, liked: Boolean, showText: Boolean)(using Context) =
     val text = if liked then trans.site.liked.txt() else trans.site.like.txt()
+    val icon = if liked then Icon.heart else Icon.heartOutline
     button(
       tpe := "button",
       cls := List(
@@ -164,18 +164,14 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
       dataRel := post.id,
       title := text
     )(
-      span(cls := "ublog-post__like__nb")(post.likes.value.localize),
-      showText.option(
-        span(
-          cls := "button-label"
-        )(text)
-      )
+      span(iconEl(icon), span(cls := "ublog-post__like__nb")(post.likes.value.localize)),
+      showText.option(span(cls := "button-label")(text))
     )
 
   private def followButton(user: User, followed: Boolean)(using Context) =
-    val (text, route) =
-      if followed then (trans.site.unfollowX, routes.Relation.unfollow)
-      else (trans.site.followX, routes.Relation.follow)
+    val (text, route, icon) =
+      if followed then (trans.site.unfollowX, routes.Relation.unfollow, Icon.checkmark)
+      else (trans.site.followX, routes.Relation.follow, Icon.thumbsUp)
     button(
       cls := List(
         "ublog-post__follow button button-metal is" -> true,
@@ -183,6 +179,7 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
       ),
       dataRel := s"${route(user.id)}?mini=1"
     )(
+      iconEl(icon),
       span(cls := "button-label", attr("data-username") := user.titleUsername)(text(user.titleUsername))
     )
 

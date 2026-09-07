@@ -1,5 +1,5 @@
+import { type Icon } from './icons';
 import { memoize } from './index';
-import { licon, type LiconValue } from './licon';
 import { bind, type Hooks } from './view/snabbdom';
 
 export const hookMobileMousedown = (f: (e: MouseEvent) => void): Hooks =>
@@ -65,7 +65,7 @@ const webkitVersion = memoize<string | false>(
     false,
 );
 
-export const shareIcon: () => LiconValue = () => (isApple() ? licon.ShareIos : licon.ShareAndroid);
+export const shareIcon: () => Icon = () => (isApple() ? 'shareIos' : 'shareAndroid');
 
 export type Feature =
   | 'wasm'

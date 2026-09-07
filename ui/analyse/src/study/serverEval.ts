@@ -2,10 +2,9 @@ import type { ChartGame, AcplChart } from 'chart';
 import { h, type VNode } from 'snabbdom';
 
 import { requestIdleCallbackSafe } from 'lib';
-import { licon } from 'lib/licon';
 import { pubsub } from 'lib/pubsub';
 import type { TreeNode } from 'lib/tree/types';
-import { bind, onInsert, spinnerVdom } from 'lib/view';
+import { bind, onInsert, spinnerVdom, snabIcon } from 'lib/view';
 
 import type AnalyseCtrl from '../ctrl';
 import type { AnalyseData } from '../interfaces';
@@ -81,10 +80,10 @@ function requestButton(ctrl: ServerEval) {
             h(
               'a.button.text',
               {
-                attrs: { 'data-icon': licon.BarChart, disabled: root.mainline.length < 5 },
+                attrs: { disabled: root.mainline.length < 5 },
                 hook: bind('click', ctrl.request, root.redraw),
               },
-              i18n.site.requestAComputerAnalysis,
+              [snabIcon('barChart'), i18n.site.requestAComputerAnalysis],
             ),
           ],
   );

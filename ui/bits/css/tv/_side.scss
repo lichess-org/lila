@@ -4,14 +4,14 @@
   > span {
     @extend %flex-center-nowrap;
 
+    gap: 0.8rem;
     width: 100%;
     justify-content: flex-end;
 
-    &::before {
+    .svg-icon {
       order: 2;
       color: color-mix(in oklab, $c-brag 60%, $c-bg-page);
-      font-size: 2.5em;
-      margin-inline-start: 0.8rem;
+      width: 2.5em;
     }
 
     > span {
@@ -30,7 +30,7 @@
     display: block;
   }
 
-  &.active > span::before {
+  &.active .svg-icon {
     color: $c-accent;
   }
 }

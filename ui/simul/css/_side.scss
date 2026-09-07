@@ -22,6 +22,7 @@ $chat-height: calc(90vh - 300px);
   .header {
     @extend %flex-center;
 
+    gap: 0.5em;
     flex-flow: row nowrap;
     text-transform: uppercase;
 
@@ -30,22 +31,23 @@ $chat-height: calc(90vh - 300px);
       font-size: 1.5em;
     }
 
-    > icon {
-      font-size: 2.5em;
-      margin-inline-end: 0.5em;
+    > .svg-icon {
+      width: 2.5em;
     }
   }
 
   section {
     margin-bottom: $block-gap;
 
-    &[data-icon] {
+    &:has(> .svg-icon) {
       @extend %flex-center-nowrap;
+
+      gap: 4%;
     }
 
-    &::before {
-      font-size: 3rem;
-      margin-inline-end: 4%;
+    > .svg-icon:first-child {
+      width: 3rem;
+      height: 3rem;
     }
 
     p {

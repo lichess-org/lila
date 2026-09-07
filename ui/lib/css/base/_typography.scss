@@ -40,3 +40,15 @@ h2 {
 
   font-size: 1em;
 }
+
+.is-green .svg-icon {
+  color: var(--c-good);
+}
+
+.is-red .svg-icon {
+  color: var(--c-bad);
+}
+
+.is-gold .svg-icon {
+  color: var(--c-brag);
+}

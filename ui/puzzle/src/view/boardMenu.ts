@@ -2,8 +2,7 @@ import { h } from 'snabbdom';
 
 import { toggle } from 'lib';
 import { renderNodesTxt } from 'lib/game/nodePGN';
-import { licon } from 'lib/licon';
-import { boardMenu as menuDropdown, boolPrefXhrToggle, hl } from 'lib/view';
+import { boardMenu as menuDropdown, boolPrefXhrToggle, hl, snabIcon } from 'lib/view';
 
 import type PuzzleCtrl from '../ctrl';
 
@@ -26,11 +25,10 @@ export default function (ctrl: PuzzleCtrl) {
     ]),
     studyButton(ctrl),
     h('section.board-menu__links', [
-      h(
-        'a.text',
-        { attrs: { target: '_blank', href: '/account/preferences/display', 'data-icon': licon.Gear } },
+      h('a.text', { attrs: { target: '_blank', href: '/account/preferences/display' } }, [
+        snabIcon('gear'),
         i18n.preferences.display,
-      ),
+      ]),
     ]),
   ]);
 }
@@ -58,11 +56,7 @@ function studyButton(ctrl: PuzzleCtrl) {
       hiddenInput('fen', ctrl.initialNode.fen),
       hiddenInput('orientation', ctrl.pov),
       hiddenInput('mode', 'gamebook'),
-      hl(
-        'button.button.text',
-        { attrs: { type: 'submit', 'data-icon': licon.StudyBoard } },
-        i18n.site.toStudy,
-      ),
+      hl('button.button.text', { attrs: { type: 'submit' } }, [snabIcon('studyBoard'), i18n.site.toStudy]),
     ]),
   );
 }

@@ -81,11 +81,13 @@
     }
 
     .stars {
-      margin-top: 4px;
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      margin-top: 7px;
     }
 
-    .stars icon {
-      margin: 3px;
+    .stars .svg-icon {
       animation: text-shadow-glow 1s 1;
     }
 
@@ -168,7 +170,7 @@
       margin: auto;
     }
 
-    .st3 icon:first-child {
+    .st3 .svg-icon:first-child {
       display: block;
     }
 

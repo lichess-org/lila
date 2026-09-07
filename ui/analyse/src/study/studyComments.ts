@@ -1,8 +1,7 @@
 import { h, type VNode } from 'snabbdom';
 
-import { licon } from 'lib/licon';
 import { richHTML } from 'lib/richText';
-import { bind, confirm } from 'lib/view';
+import { bind, confirm, snabIcon } from 'lib/view';
 import { profileUrl } from 'lib/view/userLink';
 
 import type AnalyseCtrl from '@/ctrl';
@@ -42,15 +41,19 @@ export function currentComments(ctrl: AnalyseCtrl, includingMine: boolean): VNod
       if (!includingMine && isMine) return undefined;
       return h('div.study__comment.' + comment.id, [
         study.members.canContribute() && study.vm.mode.write
-          ? h('a.edit', {
-              attrs: { 'data-icon': licon.Trash, title: 'Delete' },
-              hook: bind('click', async () => {
-                if (await confirm('Delete ' + authorText(by) + "'s comment?")) {
-                  study.commentForm.delete(chapter.id, ctrl.path, comment.id);
-                  ctrl.redraw();
-                }
-              }),
-            })
+          ? h(
+              'a.edit',
+              {
+                attrs: { 'aria-label': 'Delete', title: 'Delete' },
+                hook: bind('click', async () => {
+                  if (await confirm('Delete ' + authorText(by) + "'s comment?")) {
+                    study.commentForm.delete(chapter.id, ctrl.path, comment.id);
+                    ctrl.redraw();
+                  }
+                }),
+              },
+              [snabIcon('trash')],
+            )
           : null,
         authorDom(by),
         ...(node.san ? [' on ', h('span.node', nodeFullName(node))] : []),

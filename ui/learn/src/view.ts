@@ -1,6 +1,5 @@
 import { h, type VNode } from 'snabbdom';
 
-import { licon } from 'lib/licon';
 import { icon } from 'lib/view';
 import { profileUrl } from 'lib/view/userLink';
 
@@ -46,7 +45,7 @@ const mapView = (ctrl: LearnCtrl) =>
     ]),
   ]);
 
-const makeStars = (rank: scoring.Rank): VNode[] => Array(4 - rank).fill(icon(licon.Star)());
+const makeStars = (rank: scoring.Rank): VNode[] => Array(4 - rank).fill(icon('star')());
 
 const ongoingStr = (ctrl: LearnCtrl, s: Stage): string => {
   const progress = ctrl.stageProgress(s);

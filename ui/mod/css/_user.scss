@@ -206,7 +206,7 @@
       background: #484541;
       border-radius: 4px 0 0 4px;
 
-      icon {
+      > span {
         display: block;
         height: 30px;
         width: 30px;
@@ -265,16 +265,13 @@
       }
 
       .button {
+        gap: 0.5ch;
         padding: 0.4em 1em;
         color: $c-good;
 
         &-discouraging {
           color: $c-font-dimmer;
         }
-      }
-
-      icon {
-        margin-inline-start: 0.5ch;
       }
 
       &.spy_filter {
@@ -340,7 +337,7 @@
         color: $c-brag;
       }
 
-      icon {
+      .line {
         margin: 0;
 
         &::before {

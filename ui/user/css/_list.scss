@@ -26,6 +26,10 @@ $user-list-width: 30ch;
 
     .user-link {
       @extend %ellipsis;
+
+      .text {
+        display: inline-flex;
+      }
     }
 
     a:not(.user-link) {

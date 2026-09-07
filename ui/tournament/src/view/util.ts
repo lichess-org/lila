@@ -1,8 +1,7 @@
 import { h } from 'snabbdom';
 
-import { licon } from 'lib/licon';
-import { dataIcon, type MaybeVNodes } from 'lib/view';
-import { userFlair, userLine, userRating, userTitle, profileUrl } from 'lib/view/userLink';
+import { snabIcon, type MaybeVNodes } from 'lib/view';
+import { profileUrl, userFlair, userLine, userRating, userTitle } from 'lib/view/userLink';
 
 import type { SimplePlayer } from '../interfaces';
 
@@ -14,6 +13,8 @@ export const player = (
   leader = false,
 ) => {
   const profileHref = profileUrl(p.name);
+  const name = [p.patronColor && userLine({ patronColor: p.patronColor }), ...fullName(p)];
+  const statusIcon = defender ? snabIcon('shield') : leader ? snabIcon('crown') : undefined;
   return h(
     'a.ulpt.user-link.online' + (((p.title || '') + p.name).length > 15 ? '.long' : ''),
     {
@@ -22,9 +23,8 @@ export const player = (
     },
     [
       h(
-        'span.name' + (defender ? '.defender' : leader ? '.leader' : ''),
-        defender ? { attrs: dataIcon(licon.Shield) } : leader ? { attrs: dataIcon(licon.Crown) } : {},
-        [p.patronColor && userLine({ patronColor: p.patronColor }), ...fullName(p)],
+        'span.name' + (defender ? '.defender.text' : leader ? '.leader.text' : ''),
+        statusIcon ? [statusIcon, h('span', name)] : name,
       ),
       withRating ? h('span.rating', userRating({ ...p, brackets: false })) : null,
     ],

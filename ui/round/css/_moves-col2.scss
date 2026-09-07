@@ -54,12 +54,12 @@
   .message {
     display: flex;
     align-items: center;
+    gap: 12px;
     margin: 1em;
 
-    &::before {
+    > .svg-icon {
       color: $c-font-dim;
-      font-size: 3em;
-      margin-inline-end: 12px;
+      width: 3em;
     }
   }
 

@@ -63,12 +63,12 @@
         &.btn-rack {
           a,
           button {
+            gap: 0.5rem;
             padding: 0.2em 0.6em;
             color: $c-header-dropdown;
 
-            &::before {
-              margin-inline: 0 0.5rem;
-              font-size: 1.4em;
+            > .svg-icon {
+              width: 1.4em;
             }
           }
         }
@@ -110,6 +110,7 @@
           button {
             @extend %flex-center-nowrap, %break-word;
 
+            gap: 1rem;
             width: 20em;
             padding: 0.6rem 1rem;
             line-height: normal;
@@ -117,9 +118,8 @@
             text-align: start;
             color: $c-header-dropdown;
 
-            &::before {
-              margin-inline: 0 1rem;
-              font-size: 1.4em;
+            .svg-icon {
+              width: 1.4em;
             }
           }
 
