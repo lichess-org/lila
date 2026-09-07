@@ -47,17 +47,17 @@ final class MsgSearch(
   private def searchThreads(q: String)(using me: Me): Fu[List[MsgThread]] =
     colls.thread
       .find:
-        bdoc(
-          "users" -> bdoc(
-            "$eq" -> me.userId,
+        $doc(
+          "users" -> $doc(
+            $eq(me.userId),
             "$regex" -> BSONRegex(s"^${java.util.regex.Pattern.quote(q)}", "")
           ),
           selectNotDeleted
         )
-      .sort(sort.desc("lastMsg.date"))
+      .sort($sort.desc("lastMsg.date"))
       .hint:
         colls.thread.hint(
-          bdoc(
+          $doc(
             "users" -> 1,
             "lastMsg.date" -> -1
           )

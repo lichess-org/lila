@@ -21,9 +21,9 @@ object TutorResourcefulness:
       InsightMetric.MeanAccuracy,
       List(lila.insight.Filter(InsightDimension.Perf, perfs))
     )
-    val select = bdoc(
+    val select = $doc(
       F.analysed -> true,
-      F.moves -> bdoc("$elemMatch" -> bdoc("w".lt(WinPercent(33.3)), "i".lt(-1)))
+      F.moves -> $doc("$elemMatch" -> $doc("w".$lt(WinPercent(33.3)), "i".$lt(-1)))
     )
     val compute = TutorCustomInsight(users, question, "resourcefulness", _.resourcefulness): docs =>
       for
@@ -38,7 +38,7 @@ object TutorResourcefulness:
       import coll.AggregationFramework.*
       val groupByPerf = GroupField(F.perf)(
         "loss" -> Sum(
-          bdoc("$cond" -> barr(bdoc("$eq" -> barr(s"$$${F.result}", Result.Loss.id)), 1, 0))
+          $doc("$cond" -> $arr($doc("$eq" -> $arr(s"$$${F.result}", Result.Loss.id)), 1, 0))
         ),
         "nb" -> SumAll
       )

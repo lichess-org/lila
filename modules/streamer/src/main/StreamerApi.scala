@@ -101,7 +101,7 @@ final class StreamerApi(
     picfitApi
       .uploadFile(picture, userId = by.id, s"streamer:${s.id}".some, requestAutomod = false)
       .flatMap: pic =>
-        repo.withColl(coll => coll.update.one(bid(s.id), set("picture" -> pic.id))).void
+        repo.withColl(coll => coll.update.one($id(s.id), $set("picture" -> pic.id))).void
 
   private def modChange(prev: Streamer, current: Streamer): Streamer.ModChange =
     val (prevRequested, prevGranted, currRequested, currGranted) =
@@ -114,7 +114,7 @@ final class StreamerApi(
           url = streamerPageActivationRoute.url,
           title = "Streamer application declined".some,
           text = current.approval.reason,
-          icon = lila.ui.Icon.mic.name
+          icon = lila.ui.Icon.Mic.value
         )
       )
     else if !prevGranted && currGranted then
@@ -124,7 +124,7 @@ final class StreamerApi(
           url = routes.Streamer.edit.url,
           title = "Streamer application approved".some,
           text = "Your streamer page is now visible to others".some,
-          icon = lila.ui.Icon.mic.name
+          icon = lila.ui.Icon.Mic.value
         )
       )
     Streamer.ModChange(

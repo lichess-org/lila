@@ -1,6 +1,7 @@
 import { type Toggle, toggle } from 'lib';
+import { licon } from 'lib/licon';
 import { pubsub } from 'lib/pubsub';
-import { bind, hl, onInsert, snabIcon, type VNode } from 'lib/view';
+import { bind, hl, onInsert, type VNode } from 'lib/view';
 import { text as xhrText, form as xhrForm } from 'lib/xhr';
 
 import type { DasherCtrl } from '@/ctrl';
@@ -36,19 +37,19 @@ export class BoardCtrl extends PaneCtrl {
           'button.text',
           {
             class: { active: !this.is3d },
-            attrs: { type: 'button' },
+            attrs: { 'data-icon': licon.Checkmark, type: 'button' },
             hook: bind('click', () => this.set3d(false)),
           },
-          [snabIcon('checkmark'), '2D'],
+          '2D',
         ),
         hl(
           'button.text',
           {
             class: { active: this.is3d },
-            attrs: { type: 'button' },
+            attrs: { 'data-icon': licon.Checkmark, type: 'button' },
             hook: bind('click', () => this.set3d(true)),
           },
-          [snabIcon('checkmark'), '3D'],
+          '3D',
         ),
       ]),
       this.propSliders(),
@@ -56,10 +57,10 @@ export class BoardCtrl extends PaneCtrl {
         hl(
           'button.text.reset',
           {
-            attrs: { type: 'button' },
+            attrs: { 'data-icon': licon.Back, type: 'button' },
             hook: bind('click', this.reset),
           },
-          [snabIcon('back'), i18n.site.boardReset],
+          i18n.site.boardReset,
         ),
       hl(
         'div.list',

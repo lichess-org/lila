@@ -84,8 +84,8 @@ final private class StudyInvite(
     studyRepo.coll:
       _.update
         .one(
-          bid(study.id),
-          set(s"members.${me}" -> bdoc("role" -> "w", "admin" -> true)) ++
-            addToSet("uids" -> me)
+          $id(study.id),
+          $set(s"members.${me}" -> $doc("role" -> "w", "admin" -> true)) ++
+            $addToSet("uids" -> me)
         )
         .void

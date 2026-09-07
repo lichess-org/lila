@@ -74,9 +74,7 @@ export class InlineView {
               {
                 class: {
                   inaccuracy: comment.text.startsWith('Inaccuracy.'),
-                  mistake:
-                    comment.text.startsWith('Mistake.') ||
-                    comment.text.startsWith('Checkmate is now unavoidable.'),
+                  mistake: comment.text.startsWith('Mistake.'),
                   blunder: comment.text.startsWith('Blunder.'),
                   ...classes,
                 },

@@ -26,12 +26,12 @@ final class IrwinApi(
   import BSONHandlers.given
 
   lila.common.Bus.sub[lila.core.user.UserDelete]: del =>
-    reportColl.delete.one(bid(del.id))
+    reportColl.delete.one($id(del.id))
 
   def dashboard: Fu[IrwinReport.Dashboard] =
     reportColl
-      .find(emptyBdoc)
-      .sort(sort.desc("date"))
+      .find($empty)
+      .sort($sort.desc("date"))
       .cursor[IrwinReport]()
       .list(20)
       .dmap(IrwinReport.Dashboard.apply)
@@ -41,7 +41,7 @@ final class IrwinApi(
     def insert(data: IrwinReport) = for
       prev <- get(data.userId)
       report = prev.fold(data)(_.add(data))
-      _ <- reportColl.update.one(bid(report._id), report, upsert = true)
+      _ <- reportColl.update.one($id(report._id), report, upsert = true)
       _ <- markOrReport(report)
     yield
       notification(report)

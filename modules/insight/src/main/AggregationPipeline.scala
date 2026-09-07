@@ -41,52 +41,52 @@ final private class AggregationPipeline(store: InsightStorage)(using Executor):
         val regroupStacked = groupFieldOptions("_id.dimension")(
           "nb" -> SumField("v").some,
           "ids" -> withPovs.option(FirstField("ids")),
-          "stack" -> Push(bdoc("metric" -> "$_id.metric", "v" -> "$v")).some
+          "stack" -> Push($doc("metric" -> "$_id.metric", "v" -> "$v")).some
         )
 
         lazy val movetimeIdDispatcher =
           MovetimeRange.reversedNoInf.foldLeft[BSONValue](BSONInteger(MovetimeRange.MTRInf.id)): (acc, mtr) =>
-            bdoc(
-              "$cond" -> barr(
-                bdoc("$lt" -> barr("$" + F.moves("t"), mtr.tenths)),
+            $doc(
+              "$cond" -> $arr(
+                $doc("$lt" -> $arr("$" + F.moves("t"), mtr.tenths)),
                 mtr.id,
                 acc
               )
             )
         lazy val cplIdDispatcher =
           CplRange.all.reverse.foldLeft[BSONValue](BSONInteger(CplRange.worse.cpl)): (acc, cpl) =>
-            bdoc(
-              "$cond" -> barr(
-                bdoc("$lte" -> barr("$" + F.moves("c"), cpl.cpl)),
+            $doc(
+              "$cond" -> $arr(
+                $doc("$lte" -> $arr("$" + F.moves("c"), cpl.cpl)),
                 cpl.cpl,
                 acc
               )
             )
-        def roundingDispatcher(moveField: String, factor: Int) = bdoc(
-          "$multiply" -> barr(
+        def roundingDispatcher(moveField: String, factor: Int) = $doc(
+          "$multiply" -> $arr(
             factor,
-            bdoc("$toInt" -> barr(divide(s"$$${F.moves(moveField)}", percentBsonMultiplier * factor)))
+            $doc("$toInt" -> $arr($divide(s"$$${F.moves(moveField)}", percentBsonMultiplier * factor)))
           )
         )
         def clockPercentDispatcher =
           ClockPercentRange.all.tail
             .foldLeft[BSONValue](BSONInteger(ClockPercentRange.all.head.bottom.toInt)): (acc, tp) =>
-              bdoc(
-                "$cond" -> barr(
-                  bdoc("$gte" -> barr("$" + F.moves("s"), tp.bottom)),
+              $doc(
+                "$cond" -> $arr(
+                  $doc("$gte" -> $arr("$" + F.moves("s"), tp.bottom)),
                   tp.bottom.toInt,
                   acc
                 )
               )
-        lazy val materialIdDispatcher = bdoc(
-          "$cond" -> barr(
-            bdoc("$eq" -> barr("$" + F.moves("i"), 0)),
+        lazy val materialIdDispatcher = $doc(
+          "$cond" -> $arr(
+            $doc("$eq" -> $arr("$" + F.moves("i"), 0)),
             MaterialRange.Equal.id,
             MaterialRange.reversedButEqualAndLast.foldLeft[BSONValue](BSONInteger(MaterialRange.Up4.id)) {
               (acc, mat) =>
-                bdoc(
-                  "$cond" -> barr(
-                    bdoc((if mat.negative then "$lt" else "$lte") -> barr("$" + F.moves("i"), mat.imbalance)),
+                $doc(
+                  "$cond" -> $arr(
+                    $doc((if mat.negative then "$lt" else "$lte") -> $arr("$" + F.moves("i"), mat.imbalance)),
                     mat.id,
                     acc
                   )
@@ -96,9 +96,9 @@ final private class AggregationPipeline(store: InsightStorage)(using Executor):
         )
         lazy val evalIdDispatcher =
           EvalRange.reversedButLast.foldLeft[BSONValue](BSONInteger(EvalRange.Up5.id)): (acc, ev) =>
-            bdoc(
-              "$cond" -> barr(
-                bdoc("$lt" -> barr("$" + F.moves("e"), ev.eval)),
+            $doc(
+              "$cond" -> $arr(
+                $doc("$lt" -> $arr("$" + F.moves("e"), ev.eval)),
                 ev.id,
                 acc
               )
@@ -107,9 +107,9 @@ final private class AggregationPipeline(store: InsightStorage)(using Executor):
           TimeVariance.values.reverse
             .drop(1)
             .foldLeft[BSONValue](BSONInteger(TimeVariance.VeryVariable.intFactored)): (acc, tvi) =>
-              bdoc(
-                "$cond" -> barr(
-                  bdoc("$lte" -> barr("$" + F.moves("v"), tvi.intFactored)),
+              $doc(
+                "$cond" -> $arr(
+                  $doc("$lte" -> $arr("$" + F.moves("v"), tvi.intFactored)),
                   tvi.intFactored,
                   acc
                 )
@@ -133,14 +133,11 @@ final private class AggregationPipeline(store: InsightStorage)(using Executor):
             case D.Date => Grouping.BucketAuto(buckets = 12)
             case _ => Grouping.Group
 
-        def divide[A: BSONWriter, B: BSONWriter](a: A, b: B): Bdoc = bdoc("$divide" -> barr(a, b))
-        def multiply[A: BSONWriter, B: BSONWriter](a: A, b: B): Bdoc = bdoc("$multiply" -> barr(a, b))
-
-        val gameIdsSlice = withPovs.option(bdoc("ids" -> bdoc("$slice" -> barr("$ids", 4))))
+        val gameIdsSlice = withPovs.option($doc("ids" -> $doc("$slice" -> $arr("$ids", 4))))
         val includeSomeGameIds = gameIdsSlice.map(AddFields.apply)
         val addGameId = withPovs.option(AddFieldToSet("_id"))
-        val ratioToPercent = bdoc("v" -> multiply(100, "$v"))
-        val bsonRatioToPercent = bdoc("v" -> divide("$v", ratioBsonMultiplier / 100))
+        val ratioToPercent = $doc("v" -> $multiply(100, "$v"))
+        val bsonRatioToPercent = $doc("v" -> $divide("$v", ratioBsonMultiplier / 100))
 
         def group(d: InsightDimension[?], f: GroupFunction): List[Option[PipelineOperator]] =
           List(dimensionGrouping(d) match
@@ -162,7 +159,7 @@ final private class AggregationPipeline(store: InsightStorage)(using Executor):
             .match
               case Grouping.Group =>
                 List(
-                  groupOptions(bdoc("dimension" -> dimensionGroupId(d), "metric" -> s"$$$metricDbKey"))(
+                  groupOptions($doc("dimension" -> dimensionGroupId(d), "metric" -> s"$$$metricDbKey"))(
                     "v" -> SumAll.some,
                     "ids" -> addGameId
                   ).some,
@@ -173,14 +170,14 @@ final private class AggregationPipeline(store: InsightStorage)(using Executor):
                 List(
                   BucketAuto(dimensionGroupId(d), buckets, granularity)(
                     "doc" -> Push(
-                      bdoc(
+                      $doc(
                         "id" -> "$_id",
                         "metric" -> s"$$$metricDbKey"
                       )
                     )
                   ).some,
                   UnwindField("doc").some,
-                  groupOptions(bdoc("dimension" -> "$_id", "metric" -> "bdoc.metric"))(
+                  groupOptions($doc("dimension" -> "$_id", "metric" -> "$doc.metric"))(
                     "v" -> SumAll.some,
                     "ids" -> addGameId
                   ).some,
@@ -193,9 +190,9 @@ final private class AggregationPipeline(store: InsightStorage)(using Executor):
         val fieldExistsMatcher: Bdoc = dimension.some
           .filter(InsightDimension.optionalDimensions.contains)
           .filter(dim => !question.filters.exists(_.dimension == dim))
-          .so { dim => bdoc(dim.dbKey.exists(true)) }
+          .so { dim => $doc(dim.dbKey.$exists(true)) }
 
-        def matchMoves(extraMatcher: Bdoc = emptyBdoc): Option[PipelineOperator] =
+        def matchMoves(extraMatcher: Bdoc = $empty): Option[PipelineOperator] =
           combineDocs(
             extraMatcher :: question.filters.collect {
               case f if f.dimension.isInMove => f.matcher
@@ -207,10 +204,10 @@ final private class AggregationPipeline(store: InsightStorage)(using Executor):
                 case D.EvalRange => "e".some
                 case D.WinPercentRange => "w".some
                 case _ => none
-              .map(moveField => bdoc(F.moves(moveField).exists(true)))
+              .map(moveField => $doc(F.moves(moveField).$exists(true)))
               .toList :::
               metric.match
-                case InsightMetric.MeanAccuracy => List(bdoc(F.moves("a").exists(true)))
+                case InsightMetric.MeanAccuracy => List($doc(F.moves("a").$exists(true)))
                 case _ => List.empty[Bdoc]
           ).some.filterNot(_.isEmpty).map(Match.apply)
 
@@ -226,9 +223,9 @@ final private class AggregationPipeline(store: InsightStorage)(using Executor):
             gameMatcher(question.filters) ++
             fieldExistsMatcher ++
             (InsightMetric.requiresAnalysis(metric) || InsightDimension.requiresAnalysis(dimension))
-              .so(bdoc(F.analysed -> true)) ++
+              .so($doc(F.analysed -> true)) ++
             (InsightMetric.requiresStableRating(metric) || InsightDimension.requiresStableRating(dimension))
-              .so(bdoc(F.provisional.neq(true)))
+              .so($doc(F.provisional.$ne(true)))
         ) -> {
           sortDate ::: limitGames :: ((metric.match
             case M.MeanCpl =>
@@ -246,7 +243,7 @@ final private class AggregationPipeline(store: InsightStorage)(using Executor):
                 unwindMoves,
                 matchMoves(),
                 limitMoves,
-                AddFields(bdoc("cplBucket" -> cplIdDispatcher)).some
+                AddFields($doc("cplBucket" -> cplIdDispatcher)).some
               ) :::
                 groupMulti(dimension, "cplBucket")
             case M.MeanAccuracy => // harmonic mean
@@ -256,14 +253,14 @@ final private class AggregationPipeline(store: InsightStorage)(using Executor):
                 matchMoves(),
                 limitMoves,
                 AddFields(
-                  bdoc:
-                    "step" -> bdoc:
-                      "$divide" -> barr(1, bdoc("$max" -> barr(1, divide("$m.a", percentBsonMultiplier))))
+                  $doc:
+                    "step" -> $doc:
+                      "$divide" -> $arr(1, $doc("$max" -> $arr(1, $divide("$m.a", percentBsonMultiplier))))
                 ).some
               ) :::
                 group(dimension, SumField("step")) :::
                 List(
-                  AddFields(bdoc("v" -> divide("$nb", "$v"))).some,
+                  AddFields($doc("v" -> $divide("$nb", "$v"))).some,
                   includeSomeGameIds
                 )
             case M.Material =>
@@ -279,19 +276,19 @@ final private class AggregationPipeline(store: InsightStorage)(using Executor):
               List(
                 projectForMove,
                 unwindMoves,
-                matchMoves(bdoc(F.moves("o").exists(true))),
+                matchMoves($doc(F.moves("o").$exists(true))),
                 limitMoves
               ) :::
-                group(dimension, GroupFunction("$avg", bdoc("$cond" -> barr("$" + F.moves("o"), 1, 0)))) :::
+                group(dimension, GroupFunction("$avg", $doc("$cond" -> $arr("$" + F.moves("o"), 1, 0)))) :::
                 List(AddFields(~gameIdsSlice ++ ratioToPercent).some)
             case M.Luck =>
               List(
                 projectForMove,
                 unwindMoves,
-                matchMoves(bdoc(F.moves("l").exists(true))),
+                matchMoves($doc(F.moves("l").$exists(true))),
                 limitMoves
               ) :::
-                group(dimension, GroupFunction("$avg", bdoc("$cond" -> barr("$" + F.moves("l"), 1, 0)))) :::
+                group(dimension, GroupFunction("$avg", $doc("$cond" -> $arr("$" + F.moves("l"), 1, 0)))) :::
                 List(AddFields(~gameIdsSlice ++ ratioToPercent).some)
             case M.ClockPercent =>
               List(
@@ -308,7 +305,7 @@ final private class AggregationPipeline(store: InsightStorage)(using Executor):
                 matchMoves(),
                 limitMoves
               ) :::
-                group(dimension, GroupFunction("$avg", bdoc("$cond" -> barr("$" + F.moves("b"), 1, 0)))) :::
+                group(dimension, GroupFunction("$avg", $doc("$cond" -> $arr("$" + F.moves("b"), 1, 0)))) :::
                 List(AddFields(~gameIdsSlice ++ ratioToPercent).some)
             case M.NbMoves =>
               List(
@@ -320,13 +317,13 @@ final private class AggregationPipeline(store: InsightStorage)(using Executor):
                 group(dimension, SumAll) :::
                 List(
                   Project(
-                    bdoc(
+                    $doc(
                       "v" -> true,
                       "ids" -> withPovs,
-                      "nb" -> bdoc("$size" -> "$ids")
+                      "nb" -> $doc("$size" -> "$ids")
                     )
                   ).some,
-                  AddFields(bdoc("v" -> divide("$v", "$nb")) ++ ~gameIdsSlice).some
+                  AddFields($doc("v" -> $divide("$v", "$nb")) ++ ~gameIdsSlice).some
                 )
             case M.Movetime =>
               List(
@@ -335,7 +332,7 @@ final private class AggregationPipeline(store: InsightStorage)(using Executor):
                 matchMoves(),
                 limitMoves
               ) :::
-                group(dimension, GroupFunction("$avg", divide(s"$$${F.moves("t")}", 10))) :::
+                group(dimension, GroupFunction("$avg", $divide(s"$$${F.moves("t")}", 10))) :::
                 List(includeSomeGameIds)
             case M.RatingDiff =>
               group(dimension, AvgField(F.ratingDiff)) ::: List(includeSomeGameIds)
@@ -343,11 +340,11 @@ final private class AggregationPipeline(store: InsightStorage)(using Executor):
               group(
                 dimension,
                 Avg:
-                  bdoc:
-                    "$avg" -> bdoc:
-                      "$add" -> barr(
+                  $doc:
+                    "$avg" -> $doc:
+                      "$add" -> $arr(
                         "$or",
-                        bdoc("$multiply" -> barr(500, bdoc("$subtract" -> barr(2, "$r"))))
+                        $doc("$multiply" -> $arr(500, $doc("$subtract" -> $arr(2, "$r"))))
                       )
               ) ::: List(includeSomeGameIds)
             case M.OpponentRating =>
@@ -368,12 +365,12 @@ final private class AggregationPipeline(store: InsightStorage)(using Executor):
               List(
                 projectForMove,
                 unwindMoves,
-                matchMoves(bdoc(F.moves("v").exists(true))),
+                matchMoves($doc(F.moves("v").$exists(true))),
                 limitMoves
               ) :::
                 group(
                   dimension,
-                  GroupFunction("$avg", divide("$" + F.moves("v"), TimeVariance.intFactor))
+                  GroupFunction("$avg", $divide("$" + F.moves("v"), TimeVariance.intFactor))
                 ) :::
                 List(includeSomeGameIds)
           ) ::: dimension.match

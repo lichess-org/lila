@@ -20,8 +20,8 @@ final class RelationStream(colls: Colls, userRepo: UserRepo, isOnline: IsOnline)
   def follow(perSecond: MaxPerSecond)(using me: Me): Source[Seq[UserId], ?] =
     coll
       .find(
-        bdoc(F.from -> me.userId, "r" -> lila.core.relation.Relation.Follow),
-        bdoc(F.to -> true, "_id" -> false).some
+        $doc(F.from -> me.userId, "r" -> lila.core.relation.Relation.Follow),
+        $doc(F.to -> true, "_id" -> false).some
       )
       .batchSize(perSecond.value)
       .cursor[Bdoc](ReadPref.sec)
@@ -65,20 +65,20 @@ final class RelationStream(colls: Colls, userRepo: UserRepo, isOnline: IsOnline)
       .aggregateWith[Bdoc](readPreference = ReadPref.sec): framework =>
         import framework.*
         List(
-          Match(bdoc(F.from -> me.userId, "r" -> lila.core.relation.Relation.Follow)),
+          Match($doc(F.from -> me.userId, "r" -> lila.core.relation.Relation.Follow)),
           PipelineOperator(
-            lookup.simple(
+            $lookup.simple(
               from = userRepo.coll,
               as = "user",
               local = F.to,
               foreign = "_id",
               pipe = List(
-                bdoc("$match" -> bdoc("enabled" -> true, "_id" -> bdoc("$ne" -> UserId.lichess))),
-                bdoc("$project" -> (projection ++ bdoc("seenAt" -> true)))
+                $doc("$match" -> $doc("enabled" -> true, "_id" -> $doc("$ne" -> UserId.lichess))),
+                $doc("$project" -> (projection ++ $doc("seenAt" -> true)))
               )
             )
           ),
-          Project(bdoc("user" -> true, "_id" -> false)),
+          Project($doc("user" -> true, "_id" -> false)),
           UnwindField("user"),
           ReplaceRootField("user"),
           Sort(Descending("seenAt")),

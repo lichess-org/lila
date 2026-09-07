@@ -23,10 +23,12 @@
 
   > button {
     color: $c-font-dim;
+    font-size: 16px;
     padding: 0 6px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+
+    &::before {
+      vertical-align: sub;
+    }
 
     &:hover {
       color: $c-font;
@@ -72,10 +74,6 @@ button#microphone-button {
     &:hover {
       background-color: $c-font-dimmer;
     }
-  }
-
-  .svg-icon {
-    width: 24px;
   }
 
   &.push-to-talk {

@@ -148,7 +148,7 @@ object HookConfig extends BaseConfig:
       )
 
     def writes(w: BSON.Writer, o: HookConfig) =
-      bdoc(
+      $doc(
         "v" -> o.variant.id,
         "tm" -> o.timeMode.id,
         "t" -> o.time,

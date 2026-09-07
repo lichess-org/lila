@@ -8,23 +8,23 @@ private object ReportQueueMonitor:
     reportColl
       .aggregateList(50, _.sec): framework =>
         import framework.*
-        Match(bdoc("open" -> true, "score" -> bdoc("$gte" -> 20))) -> List(
+        Match($doc("open" -> true, "score" -> $doc("$gte" -> 20))) -> List(
           Group(
-            barr(
+            $arr(
               "$room",
-              bdoc(
-                "$min" -> barr(
+              $doc(
+                "$min" -> $arr(
                   80,
-                  bdoc("$multiply" -> barr(20, bdoc("$floor" -> bdoc("$divide" -> barr("$score", 20)))))
+                  $doc("$multiply" -> $arr(20, $doc("$floor" -> $doc("$divide" -> $arr("$score", 20)))))
                 )
               )
             )
           )("nb" -> SumAll),
           Project(
-            bdoc(
+            $doc(
               "_id" -> 0,
-              "room" -> bdoc("$first" -> "$_id"),
-              "score" -> bdoc("$last" -> "$_id"),
+              "room" -> $doc("$first" -> "$_id"),
+              "score" -> $doc("$last" -> "$_id"),
               "nb" -> 1
             )
           )

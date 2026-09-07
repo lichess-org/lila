@@ -112,7 +112,7 @@ object Player:
 
   def playerWrite(p: Player) =
     import BSONFields.*
-    bdoc(
+    $doc(
       aiLevel -> p.aiLevel,
       isOfferingDraw -> p.isOfferingDraw.option(true),
       proposeTakebackAt -> p.proposeTakebackAt.some.filter(_ > 0),

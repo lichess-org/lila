@@ -29,10 +29,10 @@ final class PaginatorBuilder(
             Sort(Descending("d")),
             Skip(offset),
             Limit(length),
-            Project(bdoc("_id" -> false, "g" -> true)),
+            Project($doc("_id" -> false, "g" -> true)),
             PipelineOperator(
-              bdoc(
-                "$lookup" -> bdoc(
+              $doc(
+                "$lookup" -> $doc(
                   "from" -> gameRepo.coll.name,
                   "as" -> "game",
                   "localField" -> "g",
@@ -46,4 +46,4 @@ final class PaginatorBuilder(
         .map:
           _.flatMap(gameRepo.gameHandler.readOpt)
 
-    private def selector = bdoc("u" -> user.id)
+    private def selector = $doc("u" -> user.id)

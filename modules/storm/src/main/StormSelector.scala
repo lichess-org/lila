@@ -66,9 +66,9 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(using Executor
             ratingBuckets.map: (rating, nbPuzzles) =>
               val target = f"${theme}${sep}${tier}${sep}${rating}%04d"
               rating.toString -> List(
-                Match(bdoc("min".lte(target), "max".gte(target))),
+                Match($doc("min".$lte(target), "max".$gte(target))),
                 Sample(nbSets),
-                Project(bdoc("_id" -> false, "ids" -> true)),
+                Project($doc("_id" -> false, "ids" -> true)),
                 UnwindField("ids"),
                 // ensure we have enough after filtering deviation & color
                 Sample(nbPuzzles * nbSets * 8),
@@ -78,7 +78,7 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(using Executor
                 ReplaceRootField("puzzle")
               )
           ) -> List(
-            Project(bdoc("all" -> bdoc("$setUnion" -> ratingBuckets.map(r => s"$$${r._1}")))),
+            Project($doc("all" -> $doc("$setUnion" -> ratingBuckets.map(r => s"$$${r._1}")))),
             UnwindField("all"),
             ReplaceRootField("all"),
             Sort(Ascending("rating")),
@@ -102,29 +102,29 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(using Executor
       .addEffect(monitor)
 
   private def withPuzzlePipeline(color: chess.Color) =
-    lookup.pipelineFull(
+    $lookup.pipelineFull(
       from = colls.puzzle.name.value,
       as = "puzzle",
-      let = bdoc("id" -> "$ids"),
+      let = $doc("id" -> "$ids"),
       pipe = List(
-        bdoc:
-          "$match" -> expr:
-            and(
-              bdoc("$eq" -> barr("$_id", "$$id")),
-              bdoc("$lte" -> barr("$glicko.d", maxDeviation)),
-              bdoc(
-                "$regexMatch" -> bdoc(
+        $doc:
+          "$match" -> $expr:
+            $and(
+              $doc("$eq" -> $arr("$_id", "$$id")),
+              $doc("$lte" -> $arr("$glicko.d", maxDeviation)),
+              $doc(
+                "$regexMatch" -> $doc(
                   "input" -> "$fen",
                   "regex" -> { if color.white then " w " else " b " }
                 )
               )
             )
         ,
-        bdoc:
-          "$project" -> bdoc(
+        $doc:
+          "$project" -> $doc(
             "fen" -> true,
             "line" -> true,
-            "rating" -> bdoc("$toInt" -> "$glicko.r")
+            "rating" -> $doc("$toInt" -> "$glicko.r")
           )
       )
     )

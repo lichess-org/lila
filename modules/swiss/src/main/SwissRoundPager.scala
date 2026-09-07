@@ -16,10 +16,10 @@ final class SwissRoundPager(mongo: SwissMongo)(using Executor):
       adapter = Adapter[SwissPairing](
         collection = mongo.pairing,
         selector = SwissPairing.fields { f =>
-          bdoc(f.swissId -> swiss.id, f.round -> round)
+          $doc(f.swissId -> swiss.id, f.round -> round)
         },
         projection = none,
-        sort = emptyBdoc,
+        sort = $empty,
         _.sec
       ),
       currentPage = page,

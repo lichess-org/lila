@@ -271,6 +271,5 @@ private object DisposableEmailDomain:
       "startmail.com",
       "palaciodegranda.com",
       "laudepalaciogranda.com",
-      "mozmail.com", // Mozilla Firefox Relay Domain
-      "improvmx.com" // email forwarding for domains you own
+      "mozmail.com" // Mozilla Firefox Relay Domain
     )

@@ -1,4 +1,4 @@
-import type { Icon } from 'lib/icons';
+import type { LiconValue } from 'lib/licon';
 
 export interface ChallengeOpts {
   el: Element;
@@ -40,7 +40,7 @@ export interface Challenge {
   color: Color | 'random';
   finalColor: Color;
   perf: {
-    icon: Icon;
+    icon: LiconValue;
     name: string;
   };
   declined?: boolean;

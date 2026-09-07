@@ -62,14 +62,14 @@ final class FishnetApi(
     workQueue {
       analysisColl
         .find(
-          bdoc("acquired".exists(false)) ++ {
-            (!client.offline).so(bdoc("lastTryByKey".neq(client.key))) // client alternation
+          $doc("acquired".$exists(false)) ++ {
+            (!client.offline).so($doc("lastTryByKey".$ne(client.key))) // client alternation
           } ++ {
-            slow.so(bdoc("origin".in(Work.Origin.slowOk)))
+            slow.so($doc("origin".$in(Work.Origin.slowOk)))
           }
         )
         .sort(
-          bdoc(
+          $doc(
             "sender.system" -> 1, // user requests first, then lichess auto analysis
             "createdAt" -> 1 // oldest requests first
           )
@@ -123,7 +123,7 @@ final class FishnetApi(
 
   def userAnalysisExists(gameId: GameId) =
     analysisColl.exists(
-      bdoc(
+      $doc(
         "game.id" -> gameId,
         "sender.system" -> false
       )

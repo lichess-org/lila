@@ -7,9 +7,9 @@ import { h } from 'snabbdom';
 import { type Prop, type Toggle, defined, notNull, prop, toggle } from 'lib';
 import { fenColor } from 'lib/game/chess';
 import { otbClockIsRunning, formatMs } from 'lib/game/clock/clockWidget';
-import { type Icon } from 'lib/icons';
+import { licon } from 'lib/licon';
 import { storage, storedBooleanProp } from 'lib/storage';
-import { type MaybeVNode, type VNode, bind, onInsert, hl, requiresI18n, snabIcon, img } from 'lib/view';
+import { type MaybeVNode, type VNode, bind, dataIcon, onInsert, hl, requiresI18n } from 'lib/view';
 import { cmnToggleWrapProp } from 'lib/view/cmn-toggle';
 import { userTitle } from 'lib/view/userLink';
 
@@ -154,7 +154,11 @@ export function view(ctrl: MultiBoardCtrl, study: StudyCtrl): MaybeVNode {
       ]),
     ]),
     !ctrl.showResults()
-      ? h('div.empty-boards-note.text', [snabIcon('infoCircle'), i18n.broadcast.sinceHideResults])
+      ? h(
+          'div.empty-boards-note.text',
+          { attrs: dataIcon(licon.InfoCircle) },
+          i18n.broadcast.sinceHideResults,
+        )
       : undefined,
     h(
       'div.now-playing',
@@ -194,11 +198,11 @@ function renderPagerNav(pager: Paginator<ChapterPreview>, ctrl: MultiBoardCtrl):
     to = Math.min(pager.nbResults, page * pager.maxPerPage),
     max = ctrl.maxPerPage();
   return h('div.study__multiboard__pager', [
-    pagerButton('jumpFirst', () => ctrl.setPage(1), page > 1, ctrl),
-    pagerButton('jumpPrev', ctrl.prevPage, page > 1, ctrl),
+    pagerButton(licon.JumpFirst, () => ctrl.setPage(1), page > 1, ctrl),
+    pagerButton(licon.JumpPrev, ctrl.prevPage, page > 1, ctrl),
     h('span.page', `${from}-${to} / ${pager.nbResults}`),
-    pagerButton('jumpNext', ctrl.nextPage, page < pager.nbPages, ctrl),
-    pagerButton('jumpLast', ctrl.lastPage, page < pager.nbPages, ctrl),
+    pagerButton(licon.JumpNext, ctrl.nextPage, page < pager.nbPages, ctrl),
+    pagerButton(licon.JumpLast, ctrl.lastPage, page < pager.nbPages, ctrl),
     teamSelector(ctrl),
     h(
       'select.study__multiboard__pager__max-per-page',
@@ -229,10 +233,11 @@ const teamSelector = (ctrl: MultiBoardCtrl) => {
     : undefined;
 };
 
-function pagerButton(icon: Icon, click: () => void, enable: boolean, ctrl: MultiBoardCtrl): VNode {
-  return h('button.fbt', { attrs: { disabled: !enable }, hook: bind('mousedown', click, ctrl.redraw) }, [
-    snabIcon(icon),
-  ]);
+function pagerButton(icon: string, click: () => void, enable: boolean, ctrl: MultiBoardCtrl): VNode {
+  return h('button.fbt', {
+    attrs: { 'data-icon': icon, disabled: !enable },
+    hook: bind('mousedown', click, ctrl.redraw),
+  });
 }
 
 const previewToCgConfig = (cp: ChapterPreview): CgConfig => ({
@@ -354,14 +359,15 @@ export const verticalEvalGauge = (
       );
 };
 
-export const pinIcon = img(site.asset.flairSrc('objects.pushpin'), 'Pin player');
+export const pinIcon = () =>
+  hl('img.pinned-icon', { attrs: { alt: '', src: site.asset.flairSrc('objects.pushpin') } });
 
 const renderUser = (player: StudyPlayer, pinned?: boolean): VNode =>
   h('span.mini-game__user', [
     playerFedFlag(player.fed),
     h('span.name', [userTitle(player), player.name || '?']),
     player.rating ? h('span.rating', player.rating.toString()) : undefined,
-    pinned ? pinIcon('.pinned-icon') : undefined,
+    pinned ? pinIcon() : undefined,
   ]);
 
 export const renderClock = (chapter: ChapterPreview, color: Color) => {

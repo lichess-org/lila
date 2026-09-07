@@ -27,11 +27,11 @@ final class TeamMemberStream(
   private def idsBatches(
       team: Team,
       perSecond: MaxPerSecond,
-      selector: Bdoc = emptyBdoc
+      selector: Bdoc = $empty
   ): Source[Seq[(UserId, Instant)], ?] =
     memberRepo.coll
-      .find(bdoc("team" -> team.id) ++ selector, bdoc("user" -> true, "date" -> true).some)
-      .sort(sort.desc("date"))
+      .find($doc("team" -> team.id) ++ selector, $doc("user" -> true, "date" -> true).some)
+      .sort($sort.desc("date"))
       .batchSize(perSecond.value)
       .cursor[Bdoc](ReadPref.sec)
       .documentSource()

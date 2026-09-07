@@ -1,9 +1,8 @@
 import { memoize } from 'lib';
-import { useFirstEval } from 'lib/ceval';
 import { objectStorage } from 'lib/objectStorage';
 import { completeNode } from 'lib/tree/node';
 import * as treeOps from 'lib/tree/ops';
-import type { LocalEval, TreeNodeLite, TreePath } from 'lib/tree/types';
+import type { TreeNodeLite, TreePath } from 'lib/tree/types';
 
 import type AnalyseCtrl from './ctrl';
 
@@ -13,9 +12,6 @@ export class IdbTree {
   private readonly collapseDb = memoize(() => objectStorage<TreePath[]>({ store: 'analyse-collapse' }));
   private readonly moveDb = memoize(() =>
     objectStorage<{ root: TreeNodeLite | undefined }>({ store: 'analyse-state', db: 'lichess' }),
-  );
-  private readonly cevalDb = memoize(() =>
-    objectStorage<{ path: TreePath; ceval: LocalEval }, [string, TreePath]>({ store: 'analyse-ceval' }),
   );
 
   constructor(private readonly ctrl: AnalyseCtrl) {}
@@ -87,10 +83,9 @@ export class IdbTree {
     this.cache.movesDirty = !this.ctrl.tree.pathExists(path + node.id);
   }
 
-  clear = async (what?: 'analysis' | 'ceval' | 'collapse' | 'moves'): Promise<void> => {
+  clear = async (what?: 'analysis' | 'collapse' | 'moves'): Promise<void> => {
     if (this.noop) return;
     await Promise.all([
-      (!what || what === 'ceval') && this.cevalDb().then(db => db.remove(this.cevalRange())),
       (!what || what === 'collapse') && this.collapseDb().then(db => db.remove(this.id)),
       !this.ctrl.study && (!what || what === 'moves') && this.moveDb().then(db => db.remove(this.id)),
     ]);
@@ -99,58 +94,37 @@ export class IdbTree {
 
   async saveMoves(force = false): Promise<IDBValidKey | undefined> {
     if (this.noop || this.ctrl.study || !(this.cache.movesDirty || force)) return undefined;
-    const root = treeOps.structuredCloneLite(this.ctrl.tree.root);
-    treeOps.updateAll(root, node => {
-      delete node.ceval;
-      delete node.threat;
-    });
-    return this.moveDb().then(db => db.put(this.id, { root }));
+    return this.moveDb().then(db =>
+      db.put(this.id, { root: treeOps.structuredCloneLite(this.ctrl.tree.root) }),
+    );
   }
 
-  async saveCeval(path: TreePath, ceval: LocalEval): Promise<IDBValidKey | undefined> {
-    if (this.noop) return undefined;
-    const id = this.id;
-    this.cache.cevals.set(path, ceval);
-    return this.cevalDb().then(db => db.put([id, path], { path, ceval }));
-  }
-
-  async load(): Promise<void> {
+  async merge(): Promise<void> {
     if (this.noop || !('indexedDB' in window) || !window.indexedDB) return;
     try {
-      const id = this.id;
-      const state: State = { movesDirty: false, cevals: new Map() };
-      this.cacheMap.set(id, state);
-      const [collapsedPaths, moves, cevals] = await Promise.all([
-        this.collapseDb().then(db => db.getOpt(id)),
-        !this.ctrl.study ? this.moveDb().then(db => db.getOpt(id)) : undefined,
-        this.cevalDb().then(db => db.getMany(this.cevalRange(id))),
+      this.cacheMap.set(this.id, { movesDirty: false });
+      await Promise.all([
+        this.collapseDb()
+          .then(db => db.getOpt(this.id))
+          .then(collapsedPaths => {
+            if (!collapsedPaths) return this.collapseDefault();
+            for (const path of collapsedPaths) {
+              this.ctrl.tree.updateAt(path, n => (n.collapsed = true));
+            }
+          }),
+        !this.ctrl.study &&
+          this.moveDb()
+            .then(db => db.getOpt(this.id))
+            .then(moves => {
+              if (moves?.root) {
+                this.ctrl.tree.merge(completeNode(this.ctrl.variantKey)(moves.root));
+                this.cache.movesDirty = true;
+              }
+            }),
       ]);
-      if (id !== this.id) return;
-      if (moves?.root) {
-        this.ctrl.tree.merge(completeNode(this.ctrl.variantKey)(moves.root));
-        state.movesDirty = true;
-      }
-      const multiPv = this.ctrl.ceval.search.multiPv;
-      for (const { path, ceval } of cevals) {
-        this.ctrl.tree.updateAt(path, node => {
-          if (node.fen === ceval.fen && (!node.ceval || useFirstEval(ceval, node.ceval, multiPv))) {
-            node.ceval = ceval;
-          }
-        });
-        state.cevals.set(path, ceval);
-      }
-      if (!collapsedPaths) this.collapseDefault();
-      else
-        for (const path of collapsedPaths) {
-          this.ctrl.tree.updateAt(path, n => (n.collapsed = true));
-        }
     } catch (e) {
       console.log('IDB error.', e);
     }
-  }
-
-  get hasLocalCeval(): boolean {
-    return this.cache.cevals.size > 0;
   }
 
   get movesDirty(): boolean {
@@ -158,7 +132,7 @@ export class IdbTree {
   }
 
   private get id(): string {
-    return this.ctrl.opts.study?.chapter.id ?? this.ctrl.data.game.id;
+    return this.ctrl.study?.data.chapter.id ?? this.ctrl.data.game.id;
   }
 
   private get noop(): boolean {
@@ -167,13 +141,9 @@ export class IdbTree {
 
   private get cache() {
     if (this.cacheMap.has(this.id)) return this.cacheMap.get(this.id)!;
-    const state: State = { movesDirty: false, cevals: new Map() };
+    const state: State = { movesDirty: false };
     this.cacheMap.set(this.id, state);
     return state;
-  }
-
-  private cevalRange(id = this.id): IDBKeyRange {
-    return IDBKeyRange.bound([id], [id, []]);
   }
 
   private async saveCollapsed() {
@@ -227,4 +197,4 @@ export class IdbTree {
   }
 }
 
-type State = { movesDirty: boolean; cevals: Map<TreePath, LocalEval> };
+type State = { movesDirty: boolean };

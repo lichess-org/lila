@@ -35,23 +35,23 @@ final private class CorrespondenceEmail(gameRepo: GameRepo, userRepo: UserRepo, 
         import framework.*
         // hit partial index
         List(
-          Match(bdoc("correspondenceEmail" -> true)),
-          Project(bid(true)),
+          Match($doc("correspondenceEmail" -> true)),
+          Project($id(true)),
           PipelineOperator(
-            lookup.simple(
+            $lookup.simple(
               from = userRepo.coll,
               as = "user",
               local = "_id",
               foreign = "_id",
               pipe = List(
-                bdoc("$match" -> bdoc("enabled" -> true)),
-                bdoc("$project" -> bid(true))
+                $doc("$match" -> $doc("enabled" -> true)),
+                $doc("$project" -> $id(true))
               )
             )
           ),
           Unwind("user"),
           PipelineOperator(
-            lookup.simple(
+            $lookup.simple(
               from = gameRepo.coll,
               as = "games",
               local = "_id",

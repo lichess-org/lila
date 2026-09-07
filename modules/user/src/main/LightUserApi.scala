@@ -45,7 +45,7 @@ final class LightUserApi(repo: UserRepo, cacheApi: CacheApi)(using Executor)
       if id.isGhost then fuccess(LightUser.ghost.some)
       else
         repo.coll
-          .find(bid(id), projection.some)
+          .find($id(id), projection.some)
           .one[LightUser]
           .recover:
             case _: exceptions.BSONValueNotFoundException => LightUser.ghost.some
@@ -82,7 +82,7 @@ final class LightUserApi(repo: UserRepo, cacheApi: CacheApi)(using Executor)
           )
 
   val projection =
-    bdoc(
+    $doc(
       F.id -> false,
       F.username -> true,
       F.title -> true,

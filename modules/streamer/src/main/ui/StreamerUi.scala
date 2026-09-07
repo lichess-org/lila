@@ -70,7 +70,7 @@ final class StreamerUi(helpers: Helpers, bits: StreamerBits)(using netDomain: Ne
         main(cls := "page-menu")(
           bits.menu(if requests then "requests" else "index", none)(cls := " page-menu__menu"),
           div(cls := "page-menu__content box streamer-list")(
-            boxTop(h1(iconEl := Icon.mic, cls := "text")(title)),
+            boxTop(h1(dataIcon := Icon.Mic, cls := "text")(title)),
             (!requests).option:
               div(cls := "list force-ltr live"):
                 live.map: s =>
@@ -124,11 +124,12 @@ final class StreamerUi(helpers: Helpers, bits: StreamerBits)(using netDomain: Ne
                     )
                   case _ =>
                     s.streamer.twitch.map: twitch =>
+                      val darkChat = (ctx.pref.currentBg != "light").so("darkpopout&")
                       iframe(
                         frame.credentialless,
                         st.frameborder := "0",
                         frame.scrolling := "yes",
-                        src := s"https://twitch.tv/embed/${twitch.login}/chat?parent=$netDomain"
+                        src := s"https://twitch.tv/embed/${twitch.login}/chat?${darkChat}parent=$netDomain"
                       )
               )
             ),

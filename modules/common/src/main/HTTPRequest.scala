@@ -100,14 +100,13 @@ object HTTPRequest:
   def printClient(req: RequestHeader) =
     s"${ipAddressStr(req)} origin:${origin(req).so(_.value)} referer:${~referer(req)} ua:${userAgent(req)}"
 
-  def bearer(using req: RequestHeader): Option[(Bearer, Option[String])] = for
+  def bearer(req: RequestHeader): Option[Bearer] = for
     authorization <- req.headers.get(HeaderNames.AUTHORIZATION)
     prefix = "Bearer "
     if authorization.startsWith(prefix)
-    raw = authorization.stripPrefix(prefix)
-  yield raw.split(':') match
-    case Array(bearer, sign) => Bearer(bearer) -> sign.some
-    case _ => (Bearer(raw), none)
+  yield Bearer(authorization.stripPrefix(prefix))
+
+  def isOAuth(req: RequestHeader) = bearer(req).isDefined
 
   private val webXhrAccepts = "application/web.lichess+json"
   def startsWithLichobileAccepts(a: String) = a.startsWith("application/vnd.lichess.v")

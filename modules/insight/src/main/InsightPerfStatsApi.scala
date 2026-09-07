@@ -39,30 +39,30 @@ final class InsightPerfStatsApi(storage: InsightStorage)(using Executor):
           Sort(Descending(F.date)),
           Limit(maxGames.value),
           Project(
-            bdoc(
+            $doc(
               F.perf -> true,
               F.rating -> true,
               F.color -> true,
               F.date -> true,
-              "t" -> bdoc("$sum" -> s"$$${F.moves("t")}")
+              "t" -> $doc("$sum" -> s"$$${F.moves("t")}")
             )
           ),
           GroupField(F.perf)(
             "r" -> AvgField(F.rating),
-            "nw" -> Sum(bdoc("$cond" -> barr("$c", 1, 0))),
-            "nb" -> Sum(bdoc("$cond" -> barr("$c", 0, 1))),
+            "nw" -> Sum($doc("$cond" -> $arr("$c", 1, 0))),
+            "nb" -> Sum($doc("$cond" -> $arr("$c", 0, 1))),
             "t" -> SumField("t"),
             "ids" -> PushField("_id"),
             "from" -> LastField(F.date),
             "to" -> FirstField(F.date)
           ),
           AddFields(
-            bdoc(
-              "total" -> bdoc("$add" -> barr("$nw", "$nb")),
-              "ids" -> bdoc("$slice" -> barr("$ids", gameIdsPerPerf.value))
+            $doc(
+              "total" -> $doc("$add" -> $arr("$nw", "$nb")),
+              "ids" -> $doc("$slice" -> $arr("$ids", gameIdsPerPerf.value))
             )
           ),
-          Match(bdoc("total".gte(5)))
+          Match($doc("total".$gte(5)))
         )
       .map: docs =>
         for

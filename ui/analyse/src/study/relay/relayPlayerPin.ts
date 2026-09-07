@@ -2,6 +2,7 @@ import { myUserId } from 'lib';
 import { storedMap } from 'lib/storage';
 
 import type { ChapterPreview, StudyPlayer } from '../interfaces';
+import type { TourId } from './interfaces';
 import { playerId } from './playerId';
 import { type RelayPlayerId } from './relayPlayers';
 
@@ -10,10 +11,10 @@ export default class RelayPlayerPin {
   private readonly store = storedMap<RelayPlayerId[]>(`relay.players.pins.${myUserId()}`, 50, () => []);
 
   constructor(
-    private readonly ctxId: string,
+    private readonly tourId: TourId,
     private readonly redraw: () => void,
   ) {
-    this.pins = new Set(this.store(this.ctxId));
+    this.pins = new Set(this.store(this.tourId));
   }
 
   isPinned: (id: RelayPlayerId | undefined) => boolean = id => id !== undefined && this.pins.has(id);
@@ -35,6 +36,6 @@ export default class RelayPlayerPin {
   };
 
   private save() {
-    this.store(this.ctxId, Array.from(this.pins));
+    this.store(this.tourId, Array.from(this.pins));
   }
 }

@@ -21,20 +21,20 @@
     transition: 2.5s;
   }
 
-  .svg-icon {
-    width: 1.2em;
+  icon {
+    font-size: 1.2em;
   }
 
-  .contrib .svg-icon {
+  .contrib icon {
     opacity: 0.7;
   }
 
-  .online .svg-icon {
+  .online icon {
     opacity: 0.8;
     color: $c-good;
   }
 
-  .online.contrib .svg-icon {
+  .online.contrib icon {
     opacity: 1;
   }
 
@@ -57,7 +57,7 @@
   .status.active {
     transition: none;
 
-    .svg-icon {
+    icon {
       transition: none;
       opacity: 1;
       color: #fff;
@@ -77,6 +77,11 @@
   .button-thin {
     width: 100%;
     text-align: start;
+
+    icon {
+      font-size: 1em;
+      opacity: 1;
+    }
   }
 
   .admin button {

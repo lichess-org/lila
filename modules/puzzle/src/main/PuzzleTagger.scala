@@ -15,7 +15,7 @@ final private class PuzzleTagger(colls: PuzzleColls, openingApi: PuzzleOpeningAp
 
   private[puzzle] def addAllMissing: Funit =
     colls.puzzle:
-      _.find(bdoc(Puzzle.BSONFields.tagMe -> true))
+      _.find($doc(Puzzle.BSONFields.tagMe -> true))
         .cursor[Puzzle]()
         .documentSource()
         .throttle(500, 1.second)
@@ -38,8 +38,8 @@ final private class PuzzleTagger(colls: PuzzleColls, openingApi: PuzzleOpeningAp
         colls.puzzle:
           _.update
             .one(
-              bid(puzzle.id),
-              addToSet(Puzzle.BSONFields.themes -> theme.key) ++ unset(Puzzle.BSONFields.tagMe)
+              $id(puzzle.id),
+              $addToSet(Puzzle.BSONFields.themes -> theme.key) ++ $unset(Puzzle.BSONFields.tagMe)
             )
             .void
       case None =>
@@ -59,13 +59,13 @@ final private class PuzzleTagger(colls: PuzzleColls, openingApi: PuzzleOpeningAp
         .round:
           _.update
             .one(
-              bid(PuzzleRound.Id(UserId.lichess, puzzle.id).toString),
-              addToSet(PuzzleRound.BSONFields.themes -> PuzzleRound.Theme(PuzzleTheme.checkFirst.key, true))
+              $id(PuzzleRound.Id(UserId.lichess, puzzle.id).toString),
+              $addToSet(PuzzleRound.BSONFields.themes -> PuzzleRound.Theme(PuzzleTheme.checkFirst.key, true))
             )
         .zip(colls.puzzle {
           _.update.one(
-            bid(puzzle.id),
-            addToSet(Puzzle.BSONFields.themes -> PuzzleTheme.checkFirst.key)
+            $id(puzzle.id),
+            $addToSet(Puzzle.BSONFields.themes -> PuzzleTheme.checkFirst.key)
           )
         })
         .void

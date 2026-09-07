@@ -19,11 +19,11 @@ final class ShutupApi(
   import lila.shutup.PublicLine.given
 
   lila.common.Bus.sub[lila.core.user.UserDelete]: del =>
-    coll.delete.one(bid(del.id))
+    coll.delete.one($id(del.id))
 
   def getPublicLines(userId: UserId): Fu[List[PublicLine]] =
     coll
-      .find(bid(userId), bdoc("pub" -> 1).some)
+      .find($id(userId), $doc("pub" -> 1).some)
       .one[Bdoc]
       .map:
         ~_.flatMap(_.getAsOpt[List[PublicLine]]("pub"))
@@ -61,23 +61,22 @@ final class ShutupApi(
             for
               analysed <- Analyser(text).removeEngineIfBot(userApi.isBot(userId))
               pushPublicLine = source.ifTrue(analysed.badWords.nonEmpty).so { source =>
-                bdoc(
-                  "pub" -> bdoc(
+                $doc(
+                  "pub" -> $doc(
                     "$each" -> List(lila.shutup.PublicLine.make(text, source)),
                     "$slice" -> -20
                   )
                 )
               }
+              push = $doc(
+                textType.key -> $doc(
+                  "$each" -> List(BSONDouble(analysed.ratio)),
+                  "$slice" -> -textType.rotation
+                )
+              ) ++ pushPublicLine
               res <- coll.findAndUpdateSimplified[UserRecord](
-                selector = bid(userId),
-                update = push:
-                  bdoc(
-                    textType.key -> bdoc(
-                      "$each" -> List(BSONDouble(analysed.ratio)),
-                      "$slice" -> -textType.rotation
-                    )
-                  ) ++ pushPublicLine
-                ,
+                selector = $id(userId),
+                update = $push(push),
                 fetchNewObject = true,
                 upsert = true
               )
@@ -95,8 +94,8 @@ final class ShutupApi(
       for
         _ <- reportApi.autoCommReport(userRecord.userId, text, analysed.critical)
         _ <- coll.update.one(
-          bid(userRecord.userId),
-          unset(TextType.values.map(_.key))
+          $id(userRecord.userId),
+          $unset(TextType.values.map(_.key))
         )
       yield ()
 

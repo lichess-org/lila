@@ -812,7 +812,7 @@
   <string name="analysisShapesHowTo">Притисни шифт+клик или десни-клик да нацрташ кругове и стрелице на табли.</string>
   <string name="primaryColorArrowsHowTo">Ctrl или shift = црвена, command; alt или meta = плава; по дугме из сваке = жута.</string>
   <string name="letOtherPlayersMessageYou">Допусти другим играчима да ти пошаљу поруку</string>
-  <string name="receiveForumNotifications">Прими обавештења када се поменеш на форуму</string>
+  <string name="receiveForumNotifications">Примајте обавештења када сте поменути на форуму</string>
   <string name="shareYourInsightsData">Подели податке твог шаховског увида</string>
   <string name="withNobody">Ни са ким</string>
   <string name="withFriends">Са пријатељима</string>
@@ -1007,7 +1007,6 @@
   <string name="cancelTournament">Откажи турнир</string>
   <string name="tournDescription">Опис турнира</string>
   <string name="tournDescriptionHelp">Желиш ли нешто посебно поручити учесницима? Покушај да буде кратко. Доступни су Markdown линкови: [назив](https://url)</string>
-  <string name="ratedFormHelp">Партије су рангиране и утичу на рејтинге играча</string>
   <string name="onlyMembersOfTeam">Само чланови тима</string>
   <string name="noRestriction">Без ограничења</string>
   <string name="minimumRatedGames">Минимално рангираних партија</string>
@@ -1018,20 +1017,20 @@
 Можеш користити %s да створиш FEN позицију, затим је налепити овде.
 Остави празно да започнеш партије из нормалне почетне позиције.</string>
   <string name="cancelSimul">Откажи симултанку</string>
-  <string name="simulHostcolor">Боја домаћина за сваку партију</string>
-  <string name="estimatedStart">Предвиђено време почетка</string>
-  <string name="simulFeatured">Истакни на %s</string>
-  <string name="simulFeaturedHelp">Прикажи своју симултанку свима на %s. Онемогући за приватне симултанке.</string>
+  <string name="simulHostcolor">Које фигуре има домаћин за сваку партију</string>
+  <string name="estimatedStart">Очекивано време почетка</string>
+  <string name="simulFeatured">Прикажи на %s</string>
+  <string name="simulFeaturedHelp">Покажи своју симултанку свима на %s. Онемогући за приватне симултанке.</string>
   <string name="simulDescription">Опис симултанке</string>
-  <string name="simulDescriptionHelp">Желиш ли нешто да кажеш учесницима?</string>
+  <string name="simulDescriptionHelp">Желиш ли нешто да саопштиш учесницима?</string>
   <string name="markdownIsAvailable">%s је доступан за форматирање.</string>
   <string name="youCanFormatTextUsing" comment="%s is &quot;Markdown&quot;, a proper noun. As such, the word is intentionally kept as a variable.&#10;&#10;Markdown is a markup language - a type of code that lets you format text (e.g. to create bold text).&#10;&#10;The text links to a reference guide for using Markdown to format text. Replaces old string markdownIsAvailable">Можеш форматирати текст користећи %s.</string>
   <string name="embedsAvailable">Убаци URL партије или поглавља студије.</string>
-  <string name="inYourLocalTimezone">У твојој локалној временској зони</string>
-  <string name="tournChat">Ћаскање турнира</string>
-  <string name="noChat">Без ћаскања</string>
-  <string name="onlyTeamLeaders">Само вође тима</string>
-  <string name="onlyTeamMembers">Само чланови тима</string>
+  <string name="inYourLocalTimezone">Према твојој локалној временској зони</string>
+  <string name="tournChat">Чет на турниру</string>
+  <string name="noChat">Нема чета</string>
+  <string name="onlyTeamLeaders">Само за вође тимова</string>
+  <string name="onlyTeamMembers">Само за чланове тимова</string>
   <string name="navigateMoveTree">Кретање кроз листу потеза</string>
   <string name="mouseTricks">Покрети мишем</string>
   <string name="toggleLocalAnalysis">Одабери анализу на свом компјутеру</string>

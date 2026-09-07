@@ -194,8 +194,7 @@ export class Protocol {
 
       this.send(['position fen', this.work.initialFen, 'moves', ...this.work.moves].join(' '));
       const [by, value] = Object.entries(this.work.search)[0];
-      const cmd = Number.isFinite(value) ? `go ${by} ${value}` : 'go';
-      this.send(cmd);
+      this.send(`go ${by} ${value}`);
     }
   }
 

@@ -47,13 +47,19 @@ final class UserApi(
       Json.obj("url" -> makeUrl(s"@/${light.name}")) // for app BC
   }.add("joinedTeamAt", joinedAt)
 
-  def extended(username: UserStr, opts: Opts)(using Option[Me], Lang): Fu[Option[JsObject]] =
+  def extended(
+      username: UserStr,
+      opts: Opts
+  )(using Option[Me], Lang): Fu[Option[JsObject]] =
     userApi
       .withPerfs(username)
       .flatMapz:
         extended(_, opts).dmap(some)
 
-  def extended(u: User | UserWithPerfs, opts: Opts)(using as: Option[Me], lang: Lang): Fu[JsObject] =
+  def extended(
+      u: User | UserWithPerfs,
+      opts: Opts
+  )(using as: Option[Me], lang: Lang): Fu[JsObject] =
     u.match
       case u: User => userApi.withPerfs(u)
       case u: UserWithPerfs => fuccess(u)
@@ -134,7 +140,7 @@ final class UserApi(
                             Json.obj("channel" -> y.fullUrl)
                         )
                   ) ++
-                  (opts.withRelation && as.isDefined).so:
+                  as.isDefined.so:
                     Json.obj(
                       "followable" -> followable,
                       "following" -> relation.exists(_.isFollow),
@@ -147,7 +153,6 @@ final class UserApi(
     Opts(
       withTrophies = false,
       withCanChallenge = me.exists(_.isnt(user)),
-      withRelation = true,
       withPlayban = me.exists(_.is(user)),
       urgent = urgent
     )
@@ -210,7 +215,6 @@ object UserApi:
   case class Opts(
       withTrophies: Boolean,
       withCanChallenge: Boolean,
-      withRelation: Boolean,
       withProfile: Boolean = true,
       withRank: Boolean = false,
       withPlayban: Boolean = false,

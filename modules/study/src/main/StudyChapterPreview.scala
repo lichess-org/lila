@@ -74,8 +74,8 @@ final class ChapterPreviewApi(
   private def listAll(studyId: StudyId): Fu[List[ChapterPreview]] =
     for
       withoutFeds <- chapterRepo.coll:
-        _.find(chapterRepo.studyId(studyId), projection.some)
-          .sort(chapterRepo.sortOrder)
+        _.find(chapterRepo.$studyId(studyId), projection.some)
+          .sort(chapterRepo.$sortOrder)
           .cursor[ChapterPreview]()
           .listAll()
       federations <- federationsOf(withoutFeds.flatMap(_.fideIds))
@@ -139,7 +139,7 @@ object ChapterPreview:
   object bson:
     import BSONHandlers.given
 
-    val projection = bdoc(
+    val projection = $doc(
       "name" -> true,
       "denorm" -> true,
       "tags" -> true,

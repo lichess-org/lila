@@ -78,7 +78,7 @@ def games(
                 ),
                 thSortNumber("Opponent"),
                 thSortNumber("Speed"),
-                th(iconEl(Icon.trophy)),
+                th(iconTag(Icon.Trophy)),
                 thSortNumber("Moves"),
                 thSortNumber("Result"),
                 thSortNumber("ACPL", br, "(Avg ± SD)"),
@@ -108,19 +108,19 @@ def games(
                         pov.game.correspondenceClock.fold(Int.MaxValue)(_.daysPerTurn * 3600 * 24)
                       )(_.config.estimateTotalSeconds)
                     )(
-                      iconEl(pov.game.perfType.icon)(cls := "text"),
+                      iconTag(pov.game.perfType.icon)(cls := "text"),
                       shortClockName(pov.game)
                     ),
                     td(dataSort := pov.game.tournamentId.so(_.value))(
                       pov.game.tournamentId.map: tourId =>
                         a(
-                          iconEl := Icon.trophy,
+                          dataIcon := Icon.Trophy,
                           href := routes.Tournament.show(tourId).url,
                           title := views.tournament.ui.tournamentIdToName(tourId)
                         ),
                       pov.game.swissId.map: swissId =>
                         a(
-                          iconEl := Icon.trophy,
+                          dataIcon := Icon.Trophy,
                           href := routes.Swiss.show(swissId).url,
                           title := s"Swiss #${swissId}"
                         )

@@ -77,7 +77,7 @@ object FriendConfig extends BaseConfig:
       )
 
     def writes(w: BSON.Writer, o: FriendConfig) =
-      bdoc(
+      $doc(
         "v" -> o.variant.id,
         "tm" -> o.timeMode.id,
         "t" -> o.time,

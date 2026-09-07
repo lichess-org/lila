@@ -63,6 +63,8 @@
     text-transform: uppercase;
 
     &::before {
+      @extend %data-icon;
+
       margin-inline: 0 0.2em;
     }
   }
@@ -71,7 +73,7 @@
     color: $c-good;
 
     &::before {
-      @include icon-mask($icon-checkmark);
+      content: $licon-Checkmark;
     }
   }
 
@@ -79,7 +81,7 @@
     color: $c-bad;
 
     &::before {
-      @include icon-mask($icon-x);
+      content: $licon-X;
     }
   }
 }

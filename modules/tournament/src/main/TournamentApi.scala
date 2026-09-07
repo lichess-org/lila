@@ -218,7 +218,7 @@ final class TournamentApi(
   yield
     cached.tourCache.clear(tour.id)
     publish()
-    socket.finish(tour.id)
+    socket.reload(tour.id)
 
   private[tournament] def finish(oldTour: Tournament): Funit =
     Parallel(oldTour.id, "finish")(cached.tourCache.started) { tour =>

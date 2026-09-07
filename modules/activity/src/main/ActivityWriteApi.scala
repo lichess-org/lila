@@ -24,13 +24,13 @@ final class ActivityWriteApi(
       player <- game.player(userId)
     yield update(userId): a =>
       val setGames = (!game.isCorrespondence).so(
-        bdoc(
+        $doc(
           ActivityFields.games -> a.games.orZero
             .add(game.perfKey, Score.make(game.wonBy(player.color), RatingProg.make(player.light)))
         )
       )
       val setCorres = game.isCorrespondence.so(
-        bdoc(
+        $doc(
           ActivityFields.corres -> a.corres.orZero.add(game.id, moved = false, ended = true)
         )
       )
@@ -42,13 +42,13 @@ final class ActivityWriteApi(
       .filterNot(_.is(UserId.lichess))
       .so: userId =>
         update(userId): a =>
-          bdoc(ActivityFields.forumPosts -> (~a.forumPosts + post.id))
+          $doc(ActivityFields.forumPosts -> (~a.forumPosts + post.id))
 
   def ublogPost(post: lila.core.ublog.UblogPost): Funit = update(post.created.by): a =>
-    bdoc(ActivityFields.ublogPosts -> (~a.ublogPosts + post.id))
+    $doc(ActivityFields.ublogPosts -> (~a.ublogPosts + post.id))
 
   def puzzle(res: lila.puzzle.Puzzle.UserResult): Funit = update(res.userId): a =>
-    bdoc(ActivityFields.puzzles -> {
+    $doc(ActivityFields.puzzles -> {
       ~a.puzzles + Score.make(
         res = res.win.yes.some,
         rp = lila.core.rating.RatingProg(res.rating._1, res.rating._2).some
@@ -56,35 +56,35 @@ final class ActivityWriteApi(
     })
 
   def storm(userId: UserId, score: Int): Funit = update(userId): a =>
-    bdoc(ActivityFields.storm -> { ~a.storm + score })
+    $doc(ActivityFields.storm -> { ~a.storm + score })
 
   def racer(userId: UserId, score: Int): Funit = update(userId): a =>
-    bdoc(ActivityFields.racer -> { ~a.racer + score })
+    $doc(ActivityFields.racer -> { ~a.racer + score })
 
   def streak(userId: UserId, score: Int): Funit = update(userId): a =>
-    bdoc(ActivityFields.streak -> { ~a.streak + score })
+    $doc(ActivityFields.streak -> { ~a.streak + score })
 
   def learn(userId: UserId, stage: String) = update(userId): a =>
-    bdoc(ActivityFields.learn -> { ~a.learn + LearnStage(stage) })
+    $doc(ActivityFields.learn -> { ~a.learn + LearnStage(stage) })
 
   def practice(prog: lila.core.practice.OnComplete) = update(prog.userId): a =>
-    bdoc(ActivityFields.practice -> { ~a.practice + prog.studyId })
+    $doc(ActivityFields.practice -> { ~a.practice + prog.studyId })
 
   def simul(simul: Simul): Funit =
     (simul.hostId :: simul.playerIds).sequentiallyVoid(simulParticipant(simul, _))
 
   def corresMove(gameId: GameId, userId: UserId) = update(userId): a =>
-    bdoc(ActivityFields.corres -> { (~a.corres).add(gameId, moved = true, ended = false) })
+    $doc(ActivityFields.corres -> { (~a.corres).add(gameId, moved = true, ended = false) })
 
   def plan(userId: UserId, months: Int) = update(userId): _ =>
-    bdoc(ActivityFields.patron -> Patron(months))
+    $doc(ActivityFields.patron -> Patron(months))
 
   def follow(from: UserId, to: UserId) =
     update(from) { a =>
-      bdoc(ActivityFields.follows -> { (~a.follows).addOut(to) })
+      $doc(ActivityFields.follows -> { (~a.follows).addOut(to) })
     } >>
       update(to): a =>
-        bdoc(ActivityFields.follows -> { (~a.follows).addIn(from) })
+        $doc(ActivityFields.follows -> { (~a.follows).addIn(from) })
 
   def unfollowAll(from: User, following: Set[UserId]) =
     withColl: coll =>
@@ -95,8 +95,8 @@ final class ActivityWriteApi(
           all.nonEmpty.so:
             all.toList.sequentiallyVoid: userId =>
               coll.update.one(
-                regexId(userId) ++ bdoc("f.i.ids" -> from.id),
-                pull("f.i.ids" -> from.id)
+                regexId(userId) ++ $doc("f.i.ids" -> from.id),
+                $pull("f.i.ids" -> from.id)
               )
 
   def study(id: StudyId) =
@@ -109,23 +109,23 @@ final class ActivityWriteApi(
             .not
             .flatMapz:
               update(s.ownerId): a =>
-                bdoc(ActivityFields.studies -> { ~a.studies + s.id })
+                $doc(ActivityFields.studies -> { ~a.studies + s.id })
 
   def team(id: TeamId, userId: UserId) =
     update(userId): a =>
-      bdoc(ActivityFields.teams -> { ~a.teams + id })
+      $doc(ActivityFields.teams -> { ~a.teams + id })
 
   def streamStart(userId: UserId) =
     update(userId): _ =>
-      bdoc(ActivityFields.stream -> true)
+      $doc(ActivityFields.stream -> true)
 
   def swiss(id: SwissId, ranking: lila.core.swiss.Ranking) =
     ranking.toList.sequentiallyVoid: (userId, rank) =>
       update(userId): a =>
-        bdoc(ActivityFields.swisses -> { ~a.swisses + SwissRank(id, rank) })
+        $doc(ActivityFields.swisses -> { ~a.swisses + SwissRank(id, rank) })
 
   private def simulParticipant(simul: Simul, userId: UserId) = update(userId) { a =>
-    bdoc(ActivityFields.simuls -> { ~a.simuls + simul.id })
+    $doc(ActivityFields.simuls -> { ~a.simuls + simul.id })
   }
 
   private def update(userId: UserId)(makeSetters: Activity => Bdoc): Funit =
@@ -134,7 +134,7 @@ final class ActivityWriteApi(
         val setters = makeSetters(activity)
         setters.isEmpty.not.so:
           coll.update
-            .one(bid(activity.id), set(setters), upsert = true)
+            .one($id(activity.id), $set(setters), upsert = true)
             .flatMap:
               _.upserted.nonEmpty.so(truncateAfterInserting(coll, activity.id))
             .void
@@ -145,16 +145,16 @@ final class ActivityWriteApi(
     (id.userId.hashCode % 3) == (id.day.value % 3)
   }.so:
     coll
-      .find(regexId(id.userId), bid(true).some)
-      .sort(sort.desc("_id"))
+      .find(regexId(id.userId), $id(true).some)
+      .sort($sort.desc("_id"))
       .skip(Activity.recentNb)
       .one[Bdoc]
       .flatMap:
         _.flatMap(_.getAsOpt[Activity.Id]("_id")).so { oldId =>
           coll.delete
             .one:
-              bdoc(
-                "_id" -> bdoc(
+              $doc(
+                "_id" -> $doc(
                   "$lte" -> oldId,
                   "$regex" -> BSONRegex(s"^${id.userId}$idSep", "")
                 )

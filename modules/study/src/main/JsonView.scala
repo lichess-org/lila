@@ -24,7 +24,7 @@ final class JsonView(
   )(using me: Option[Me], pref: Pref) =
 
     def allowed(selection: Settings => Settings.UserSelection): Boolean =
-      Settings.UserSelection.allows(selection(study.settings), study, me)
+      Settings.UserSelection.allows(selection(study.settings), study, me.map(_.userId))
 
     for
       liked <- me.so(studyRepo.liked(study, _))

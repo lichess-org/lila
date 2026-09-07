@@ -3,6 +3,7 @@ import { COLORS } from 'chessops';
 import { shuffle } from 'lib/algo';
 import perfIcons from 'lib/game/perfIcons';
 import { currencyFormat, numberFormat, percentFormat } from 'lib/i18n';
+import { licon } from 'lib/licon';
 import { onInsert, hl, type LooseVNodes, type VNode, spinnerVdom, icon } from 'lib/view';
 import { fullName, profileUrl, userFlair, userTitle } from 'lib/view/userLink';
 
@@ -315,7 +316,7 @@ export const patron = (opts: Opts): VNode =>
       ),
     ),
     hl('p', i18n.recap.patronCharity),
-    icon('wings')('.text'),
+    icon(licon.Wings)('.text'),
 
     opts.user.patron
       ? hl('p', i18n.patron.thankYou)

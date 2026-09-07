@@ -24,13 +24,12 @@ export interface Photo {
 }
 
 export interface RelayGroup {
-  id: GroupId;
+  id: string;
   slug: string;
   name: string;
   tours: RelayTourPreview[];
 }
 
-export type GroupId = string;
 export type TourId = string;
 export type RoundId = string;
 

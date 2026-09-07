@@ -64,7 +64,7 @@ object BSONHandlers:
       since = r.dateO("since"),
       color = r.intO("color").flatMap(PatronColor.map.get).map(PatronColorChoice.apply)
     )
-    def writes(w: BSON.Writer, o: Plan) = bdoc(
+    def writes(w: BSON.Writer, o: Plan) = $doc(
       "months" -> w.int(o.months),
       "active" -> o.active,
       "lifetime" -> w.boolO(o.lifetime),

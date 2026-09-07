@@ -11,7 +11,6 @@
     select,
     label,
     input[type='checkbox'] {
-      justify-content: start;
       cursor: pointer;
     }
 
@@ -59,8 +58,7 @@
 
         label,
         input {
-          display: flex;
-          align-items: center;
+          display: inline-block;
           margin: 3px;
           vertical-align: middle;
         }

@@ -18,19 +18,21 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
   import helpers.{ *, given }
 
   def form(categ: lila.forum.ForumCateg, form: Form[?], captcha: Captcha)(using Context, Me) =
-    Page("New forum topic").markdownTextarea
+    Page("New forum topic")
+      .csp(_.withInlineIconFont)
+      .markdownTextarea
       .css("bits.forum")
       .js(Esm("bits.forum"))
       .js(captchaEsm):
         main(cls := "forum forum-topic topic-form page-small box box-pad")(
           boxTop(
             h1(
-              a(href := routes.ForumCateg.show(categ.id), iconEl := Icon.lessThan, cls := "text"),
+              a(href := routes.ForumCateg.show(categ.id), dataIcon := Icon.LessThan, cls := "text"),
               categ.name
             )
           ),
           st.section(cls := "warning")(
-            h2(iconEl := Icon.cautionTriangle, cls := "text")(trans.site.important()),
+            h2(dataIcon := Icon.CautionTriangle, cls := "text")(trans.site.important()),
             p:
               trans.site.yourQuestionMayHaveBeenAnswered:
                 strong(a(href := routes.Main.faq)(trans.site.inTheFAQ()))
@@ -59,7 +61,7 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
               help = span(cls := "space-between")(
                 span(markdownIsAvailable),
                 a(
-                  iconEl := Icon.infoCircle,
+                  dataIcon := Icon.InfoCircle,
                   cls := "text",
                   href := routes.Cms.lonePage(CmsPageKey("forum-etiquette"))
                 )(trans.site.theForumEtiquette())
@@ -74,7 +76,7 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
                   form3.submit(
                     frag("Create as a mod"),
                     nameValue = (form("post")("modIcon").name, "true").some,
-                    icon = Icon.agent.some
+                    icon = Icon.Agent.some
                   )
                 ),
               form3.submit(trans.site.createTheTopic())
@@ -106,6 +108,7 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
     val topicFirstPostId = (posts.currentPage == 1).so(posts.currentPageResults.headOption).map(_.post.id)
     Page(s"${topic.name} • page ${posts.currentPage}/${posts.nbPages} • ${categ.name}").markdownTextarea
       .css("bits.forum")
+      .csp(_.withInlineIconFont)
       .js(Esm("bits.forum") ++ Esm("bits.expandText") ++ formWithCaptcha.isDefined.so(captchaEsm))
       .graph(
         title = topic.name,
@@ -114,7 +117,7 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
       ):
         main(cls := "forum forum-topic page-small box box-pad")(
           boxTop(
-            h1(a(href := backUrl, iconEl := Icon.lessThan, cls := "text"), headerText),
+            h1(a(href := backUrl, dataIcon := Icon.LessThan, cls := "text"), headerText),
             isDiagnostic.option(
               postForm(action := routes.ForumTopic.clearDiagnostic(topic.slug))(
                 button(cls := "button button-red")("erase diagnostics")
@@ -156,18 +159,10 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
                   cls := s"unsub ${if uns then "on" else "off"}",
                   action := routes.Timeline.unsub(s"forum:${topic.id}")
                 )(
-                  button(
-                    cls := "button button-empty text on",
-                    iconEl := Icon.eye,
-                    bits.dataUnsub := "off"
-                  ):
+                  button(cls := "button button-empty text on", dataIcon := Icon.Eye, bits.dataUnsub := "off"):
                     trans.site.subscribe()
                   ,
-                  button(
-                    cls := "button button-empty text off",
-                    iconEl := Icon.eye,
-                    bits.dataUnsub := "on"
-                  ):
+                  button(cls := "button button-empty text off", dataIcon := Icon.Eye, bits.dataUnsub := "on"):
                     trans.site.unsubscribe()
                 ),
               (canModCateg || (topic.isUblog && ctx.me.exists(topic.isAuthor))).option(
@@ -200,7 +195,7 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
               help = span(cls := "space-between")(
                 plaintext.not.option(span(markdownIsAvailable)),
                 a(
-                  iconEl := Icon.infoCircle,
+                  dataIcon := Icon.InfoCircle,
                   cls := "text",
                   href := routes.Cms.lonePage(CmsPageKey("forum-etiquette"))
                 )(trans.site.theForumEtiquette())
@@ -222,7 +217,7 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
                 form3.submit(
                   frag(s"Reply as a mod ${(!Granter.opt(_.PublicMod)).so("(anonymously)")}"),
                   nameValue = (form("modIcon").name, "true").some,
-                  icon = Icon.agent.some
+                  icon = Icon.Agent.some
                 )
               ),
               form3.submit(trans.site.reply())
@@ -244,9 +239,9 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
       .js(esmInitBit("autoForm", "selector" -> ".post-text-area", "ops" -> "focus begin"))
       .js(captchaEsm):
         main(cls := "forum forum-topic topic-form page-small box box-pad")(
-          boxTop(h1(iconEl := Icon.bubbleConvo, cls := "text")("Diagnostics")),
+          boxTop(h1(dataIcon := Icon.BubbleConvo, cls := "text")("Diagnostics")),
           st.section(cls := "warning")(
-            h2(iconEl := Icon.cautionTriangle, cls := "text")(trans.site.important()),
+            h2(dataIcon := Icon.CautionTriangle, cls := "text")(trans.site.important()),
             p("Describe your issue above the report. Unsolicited diagnostics will be ignored."),
             p("Only you and the Lichess moderators can see this forum.")
           ),

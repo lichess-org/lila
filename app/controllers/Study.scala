@@ -607,12 +607,11 @@ final class Study(
 
   def CanView(study: StudyModel, userSelection: Option[Settings.UserSelection] = none)(
       f: => Fu[Result]
-  )(unauthorized: => Fu[Result], forbidden: => Fu[Result])(using ctx: Context): Fu[Result] =
-    val authorizedMe = ctx.fullAuthOrScope(_.Study.Read).so(ctx.me)
+  )(unauthorized: => Fu[Result], forbidden: => Fu[Result])(using me: Option[Me]): Fu[Result] =
     def withUserSelection =
-      if userSelection.forall(Settings.UserSelection.allows(_, study, authorizedMe)) then f
+      if userSelection.forall(Settings.UserSelection.allows(_, study, me.map(_.userId))) then f
       else forbidden
-    authorizedMe match
+    me match
       case _ if !study.isPrivate => withUserSelection
       case None => unauthorized
       case Some(me) if study.members.contains(me.value) => withUserSelection

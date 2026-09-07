@@ -28,7 +28,7 @@ final class CoachPager(
       country: Option[Flag],
       page: Int
   ): Fu[Paginator[Coach.WithUser]] =
-    def selector = listableSelector ++ lang.so { l => bdoc("languages" -> l.code) }
+    def selector = listableSelector ++ lang.so { l => $doc("languages" -> l.code) }
 
     val adapter = new AdapterLike[Coach.WithUser]:
       def nbResults: Fu[Int] = coll.secondary.countSel(selector)
@@ -45,8 +45,8 @@ final class CoachPager(
                   case Login => Descending("user.seenAt")
               ,
               PipelineOperator:
-                bdoc:
-                  "$lookup" -> bdoc(
+                $doc:
+                  "$lookup" -> $doc(
                     "from" -> userRepo.coll.name,
                     "localField" -> "_id",
                     "foreignField" -> "_id",
@@ -55,13 +55,13 @@ final class CoachPager(
               ,
               UnwindField("_user"),
               Match(
-                bdoc(
+                $doc(
                   s"_user.${lila.core.user.BSONFields.roles}" -> Permission.Coach.dbKey,
                   s"_user.${lila.core.user.BSONFields.enabled}" -> true,
                   s"_user.${lila.core.user.BSONFields.marks}"
-                    .nin(List(UserMark.engine, UserMark.boost, UserMark.troll))
+                    .$nin(List(UserMark.engine, UserMark.boost, UserMark.troll))
                 ) ++ country.so: c =>
-                  bdoc("_user.profile.country" -> c.code)
+                  $doc("_user.profile.country" -> c.code)
               ),
               Skip(offset),
               Limit(length),
@@ -82,7 +82,7 @@ final class CoachPager(
       maxPerPage = maxPerPage
     )
 
-  private val listableSelector = bdoc(
+  private val listableSelector = $doc(
     "listed" -> Coach.Listed.Yes,
     "available" -> Coach.Available.Yes
   )

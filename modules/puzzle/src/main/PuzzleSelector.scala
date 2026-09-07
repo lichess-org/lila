@@ -97,19 +97,19 @@ final class PuzzleSelector(
       .path:
         _.aggregateOne(): framework =>
           import framework.*
-          Match(bid(session.path)) -> List(
+          Match($id(session.path)) -> List(
             // get the puzzle ID from session position
-            Project(bdoc("puzzleId" -> bdoc("$arrayElemAt" -> barr("$ids", session.positionInPath)))),
+            Project($doc("puzzleId" -> $doc("$arrayElemAt" -> $arr("$ids", session.positionInPath)))),
             Project:
-              bdoc(
+              $doc(
                 "puzzleId" -> true,
-                "roundId" -> bdoc("$concat" -> barr(s"${me.userId}${PuzzleRound.idSep}", "$puzzleId"))
+                "roundId" -> $doc("$concat" -> $arr(s"${me.userId}${PuzzleRound.idSep}", "$puzzleId"))
               )
             ,
             // fetch the puzzle
             PipelineOperator:
-              bdoc:
-                "$lookup" -> bdoc(
+              $doc:
+                "$lookup" -> $doc(
                   "from" -> colls.puzzle.name.value,
                   "localField" -> "puzzleId",
                   "foreignField" -> "_id",
@@ -118,8 +118,8 @@ final class PuzzleSelector(
             ,
             // look for existing round
             PipelineOperator:
-              bdoc:
-                "$lookup" -> bdoc(
+              $doc:
+                "$lookup" -> $doc(
                   "from" -> colls.round.name.value,
                   "localField" -> "roundId",
                   "foreignField" -> "_id",

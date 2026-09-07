@@ -68,15 +68,15 @@ final class PracticeApi(
   object progress:
 
     lila.common.Bus.sub[lila.core.user.UserDelete]: del =>
-      coll.delete.one(bid(del.id)).void
+      coll.delete.one($id(del.id)).void
 
     import PracticeProgress.NbMoves
 
     def get(user: User): Fu[PracticeProgress] =
-      coll.one[PracticeProgress](bid(user.id)).dmap(_ | PracticeProgress.empty(user.id))
+      coll.one[PracticeProgress]($id(user.id)).dmap(_ | PracticeProgress.empty(user.id))
 
     private def save(p: PracticeProgress): Funit =
-      coll.update.one(bid(p.id), p, upsert = true).void
+      coll.update.one($id(p.id), p, upsert = true).void
 
     def setNbMoves(user: User, chapterId: StudyChapterId, score: NbMoves): Funit = for
       prog <- get(user)
@@ -86,17 +86,17 @@ final class PracticeApi(
       Bus.pub(lila.core.practice.OnComplete(user.id, studyId, chapterId))
 
     def reset(user: User) =
-      coll.delete.one(bid(user.id)).void
+      coll.delete.one($id(user.id)).void
 
     def completionPercent(userIds: List[UserId]): Fu[Map[UserId, Int]] =
       coll
         .aggregateList(Int.MaxValue, _.sec): framework =>
           import framework.*
-          Match(bdoc("_id".in(userIds))) -> List(
+          Match($doc("_id".$in(userIds))) -> List(
             Project(
-              bdoc(
-                "nb" -> bdoc(
-                  "$size" -> bdoc(
+              $doc(
+                "nb" -> $doc(
+                  "$size" -> $doc(
                     "$objectToArray" -> "$chapters"
                   )
                 )

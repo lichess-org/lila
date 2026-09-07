@@ -80,7 +80,7 @@ final private class FidePlayerSync(
         .aggregateList(500, _.sec): framework =>
           import framework.*
           Match(repo.player.selectActive(FideTC.standard)) ->
-            List(PipelineOperator(bdoc("$sortByCount" -> "$fed")))
+            List(PipelineOperator($doc("$sortByCount" -> "$fed")))
         .map: objs =>
           for
             obj <- objs
@@ -100,27 +100,27 @@ final private class FidePlayerSync(
               facet <- List(
                 "top" -> List(
                   active,
-                  Project(bdoc("_id" -> 0, tc.toString -> 1)),
+                  Project($doc("_id" -> 0, tc.toString -> 1)),
                   Sort(Descending(tc.toString)),
                   Limit(10),
                   Group(BSONString(s"$tc-top"))("v" -> AvgField(tc.toString))
                 ),
                 "count" -> List(
                   active,
-                  Match(tc.toString.exists(true)),
+                  Match(tc.toString.$exists(true)),
                   Group(BSONString(s"$tc-count"))("v" -> SumAll)
                 )
               )
             yield s"$tc-${facet._1}" -> facet._2
-            Match(bdoc("fed" -> code)) ->
+            Match($doc("fed" -> code)) ->
               List(
                 Facet(facets),
-                Project(bdoc("all" -> bdoc("$setUnion" -> facets.map((k, _) => s"$$$k").toList))),
+                Project($doc("all" -> $doc("$setUnion" -> facets.map((k, _) => s"$$$k").toList))),
                 UnwindField("all"),
                 ReplaceRootField("all"),
-                Project(bdoc("k" -> "$_id", "v" -> true, "_id" -> false)),
+                Project($doc("k" -> "$_id", "v" -> true, "_id" -> false)),
                 Group(BSONNull)("all" -> PushField("$ROOT")),
-                Project(bdoc("_id" -> bdoc("$arrayToObject" -> "$all"))),
+                Project($doc("_id" -> $doc("$arrayToObject" -> "$all"))),
                 ReplaceRootField("_id")
               )
           .map2: o =>
@@ -181,7 +181,7 @@ final private class FidePlayerSync(
             for
               elements <- changed.sequentially: p =>
                 update.element(
-                  q = bid(p.id),
+                  q = $id(p.id),
                   u = repo.player.handler.writeOpt(p).get,
                   upsert = true
                 )

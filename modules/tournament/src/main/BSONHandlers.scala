@@ -13,7 +13,6 @@ import lila.db.BSON
 import lila.db.dsl.{ *, given }
 import lila.gathering.Thematic
 import lila.rating.PerfType
-import lila.ui.Icon
 
 object BSONHandlers:
 
@@ -28,8 +27,7 @@ object BSONHandlers:
 
   private given BSONHandler[chess.Clock.Config] = clockConfigHandler
 
-  private given BSONHandler[Icon] = BSONStringHandler.as(Icon.byName.getOrElse(_, Icon.trophy), _.name)
-
+  given BSONHandler[lila.ui.Icon] = isoHandler[lila.ui.Icon, String]
   private given BSONDocumentHandler[Spotlight] = Macros.handler
 
   given BSONDocumentHandler[TeamBattle] = Macros.handler
@@ -85,7 +83,7 @@ object BSONHandlers:
       if false && tour.realNames then tour.copy(conditions = conditions.withPublicTitle) else tour
 
     def writes(w: BSON.Writer, o: Tournament) =
-      bdoc(
+      $doc(
         "_id" -> o.id,
         "name" -> o.name,
         "status" -> o.status,
@@ -128,7 +126,7 @@ object BSONHandlers:
         bot = r.boolD("bot")
       )
     def writes(w: BSON.Writer, o: Player) =
-      bdoc(
+      $doc(
         "_id" -> o._id,
         "tid" -> o.tourId,
         "uid" -> o.userId,
@@ -163,7 +161,7 @@ object BSONHandlers:
         berserk2 = r.intO("b2").fold(r.boolD("b2"))(1 ==)
       )
     def writes(w: BSON.Writer, o: Pairing) =
-      bdoc(
+      $doc(
         "_id" -> o.id,
         "tid" -> o.tourId,
         "s" -> o.status.id,
@@ -190,7 +188,7 @@ object BSONHandlers:
       )
 
     def writes(w: BSON.Writer, o: LeaderboardApi.Entry) =
-      bdoc(
+      $doc(
         "_id" -> o.id,
         "u" -> o.userId,
         "t" -> o.tourId,

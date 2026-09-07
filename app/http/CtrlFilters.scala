@@ -114,9 +114,6 @@ trait CtrlFilters(using Executor) extends ControllerHelpers with ResponseBuilder
   )(result: => Fu[Result]): Fu[Result] =
     if page <= max.value && page > 0 then result else errorPage
 
-  def RequireAuthIf(cond: => Boolean)(result: Context ?=> Fu[Result])(using ctx: Context): Fu[Result] =
-    if ctx.isAnon && cond then authenticationFailed else result
-
   def NotForKids(f: => Fu[Result])(using ctx: Context): Fu[Result] =
     if ctx.kid.no then f else notFound
 

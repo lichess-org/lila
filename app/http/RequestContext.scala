@@ -15,13 +15,13 @@ trait RequestContext(using Executor):
   val env: Env
 
   def makeContext(using req: RequestHeader): Fu[Context] = for
-    userCtx <- makeUserContext
+    userCtx <- makeUserContext(req)
     lang = getAndSaveLang(req, userCtx.me)
     pref <- env.pref.api.getWithReq(userCtx.me)
   yield Context(req, lang, userCtx, pref)
 
   def makeBodyContext[A](using req: Request[A]): Fu[BodyContext[A]] = for
-    userCtx <- makeUserContext
+    userCtx <- makeUserContext(req)
     lang = getAndSaveLang(req, userCtx.me)
     pref <- env.pref.api.getWithReq(userCtx.me)
   yield BodyContext(req, lang, userCtx, pref)
@@ -78,8 +78,9 @@ trait RequestContext(using Executor):
     if env.mode.isDev then env.web.manifest.update()
     f(using EmbedContext(ctx))
 
-  private def makeUserContext(using req: RequestHeader): Fu[LoginContext] =
-    env.security.api.restoreUser
+  private def makeUserContext(req: RequestHeader): Fu[LoginContext] =
+    env.security.api
+      .restoreUser(req)
       .map:
         case Some(Left(AppealUser(me))) if lila.web.ClosedLogin.acceptsPath(req) =>
           FingerPrintedUser(me, true).some

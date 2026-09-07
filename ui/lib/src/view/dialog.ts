@@ -3,11 +3,10 @@
 import { isTouchDevice } from '@/device';
 import { Janitor } from '@/event';
 import { frag } from '@/index';
+import { licon } from '@/licon';
 import { pubsub } from '@/pubsub';
 import * as xhr from '@/xhr';
 
-import { focusableWithin } from './focus';
-import { domIcon, snabIcon } from './makeIcon';
 import { onInsert, hl, type VNode, type Attrs, type LooseVNodes } from './snabbdom';
 
 export interface Dialog<Ctx = undefined> {
@@ -76,9 +75,7 @@ export async function domDialog<Ctx = undefined>(o: DomDialogOpts<Ctx>): Promise
 
   if (!o.noCloseButton) {
     const anchor = frag<Element>('<div class="close-button-anchor">');
-    const closeButton = frag<Element>(`<button class="close-button" aria-label="Close"></button>`);
-    closeButton.append(domIcon('x'));
-    anchor.append(closeButton);
+    anchor.innerHTML = `<button class="close-button" aria-label="Close" data-icon="${licon.X}">`;
     dialog.appendChild(anchor);
   }
 
@@ -113,7 +110,7 @@ export function snabDialog<Ctx = undefined>(o: SnabDialogOpts<Ctx>): VNode {
       o.noCloseButton ||
         hl(
           'div.close-button-anchor',
-          hl('button.close-button', { attrs: { 'aria-label': i18n.site.close } }, [snabIcon('x')]),
+          hl('button.close-button', { attrs: { 'data-icon': licon.X, 'aria-label': i18n.site.close } }),
         ),
       hl(
         'div',
@@ -196,6 +193,8 @@ class DialogWrapper<Ctx = undefined> implements Dialog<Ctx> {
           }
         }
   });
+  private readonly focusQuery =
+    'button, input, select, textarea, [href], [tabindex], [role="tab"], [role="button"], [role="link"]';
 
   constructor(
     readonly dialog: HTMLDialogElement,
@@ -274,7 +273,13 @@ class DialogWrapper<Ctx = undefined> implements Dialog<Ctx> {
       this.close('cancel');
       e.preventDefault();
     } else if (e.key === 'Tab') {
-      const focii = focusableWithin(this.dialog);
+      const focii = [...this.dialog.querySelectorAll<HTMLElement>(this.focusQuery)].filter(
+        el =>
+          el.tabIndex !== -1 &&
+          el.checkVisibility({ visibilityProperty: true }) &&
+          !el.matches(':disabled') &&
+          !el.closest('[inert]'),
+      );
       focii.sort((a, b) => {
         const ati = Number(a.getAttribute('tabindex') ?? '0');
         const bti = Number(b.getAttribute('tabindex') ?? '0');
@@ -298,7 +303,7 @@ class DialogWrapper<Ctx = undefined> implements Dialog<Ctx> {
   private autoFocus() {
     const focus =
       (this.o.focus ? this.view.querySelector(this.o.focus) : this.view.querySelector('input[autofocus]')) ??
-      focusableWithin(this.view)[0];
+      this.view.querySelector(this.focusQuery);
 
     if (!(focus instanceof HTMLElement)) return;
     focus.focus();

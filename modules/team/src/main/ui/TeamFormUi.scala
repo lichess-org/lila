@@ -61,7 +61,7 @@ final class TeamFormUi(helpers: Helpers, bits: TeamUi)(
             postForm(cls := "inline", action := routes.Team.disable(t.id))(
               explainInput,
               submitButton(
-                iconEl := Icon.cautionCircle,
+                dataIcon := Icon.CautionCircle,
                 cls := "submit button text explain button-empty button-red",
                 st.title := trans.team.closeTeamDescription.txt() // can actually be reverted
               )(trt.closeTeam())
@@ -73,7 +73,7 @@ final class TeamFormUi(helpers: Helpers, bits: TeamUi)(
               postForm(cls := "inline", action := routes.Team.close(t.id))(
                 explainInput,
                 submitButton(
-                  iconEl := Icon.trash,
+                  dataIcon := Icon.Trash,
                   cls := "text button button-empty button-red explain",
                   st.title := "Deletes the team and its memberships. Cannot be reverted!"
                 )(trans.site.delete())

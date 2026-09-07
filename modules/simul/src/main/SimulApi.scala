@@ -164,6 +164,11 @@ final class SimulApi(
           publish()
       }
 
+  def setText(simulId: SimulId, text: String): Funit =
+    repo.find(simulId).flatMapz { simul =>
+      for _ <- repo.setText(simul, text) yield socket.reload(simulId)
+    }
+
   private[simul] def finishGame(game: Game): Funit =
     game.simulId.so:
       finishGame(_, game.id, game.status, game.winnerUserId)
@@ -214,10 +219,10 @@ final class SimulApi(
       yield ()
 
   def idToName(id: SimulId): Fu[Option[String]] =
-    repo.coll.primitiveOne[String](bid(id), "name").dmap2(_ + " simul")
+    repo.coll.primitiveOne[String]($id(id), "name").dmap2(_ + " simul")
 
   def teamOf(id: SimulId): Fu[Option[TeamId]] =
-    repo.coll.primitiveOne[TeamId](bid(id), "team")
+    repo.coll.primitiveOne[TeamId]($id(id), "team")
 
   def hostedByUser(userId: UserId, page: Int): Fu[Paginator[Simul]] =
     Paginator(

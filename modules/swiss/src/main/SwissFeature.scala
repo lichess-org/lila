@@ -20,11 +20,11 @@ final class SwissFeature(
     _.refreshAfterWrite(30.seconds).buildAsyncTimeout(): _ =>
       mongo.swiss
         .find:
-          bdoc(
+          $doc(
             "teamId" -> lichessTeamId,
-            "startsAt".gt(nowInstant.minusMinutes(5)).lt(nowInstant.plusMinutes(10))
+            "startsAt".$gt(nowInstant.minusMinutes(5)).$lt(nowInstant.plusMinutes(10))
           )
-        .sort(sort.asc("startsAt"))
+        .sort($sort.asc("startsAt"))
         .one[Swiss]
 
   def get(teams: Seq[TeamId]): Fu[FeaturedSwisses] =
@@ -57,8 +57,8 @@ final class SwissFeature(
   private val cache = cacheApi.unit[FeaturedSwisses]("swiss.featured"):
     _.refreshAfterWrite(10.seconds).buildAsyncTimeout(): _ =>
       val now = nowInstant
-      cacheCompute(bdoc("$gt" -> now, "$lt" -> now.plusHours(1)))
-        .zip(cacheCompute(bdoc("$gt" -> now.minusHours(3), "$lt" -> now)))
+      cacheCompute($doc("$gt" -> now, "$lt" -> now.plusHours(1)))
+        .zip(cacheCompute($doc("$gt" -> now.minusHours(3), "$lt" -> now)))
         .map(FeaturedSwisses.apply)
 
   // causes heavy team reads
@@ -67,25 +67,25 @@ final class SwissFeature(
       .aggregateList(nb, _.sec): framework =>
         import framework.*
         Match(
-          bdoc(
+          $doc(
             "featurable" -> true,
-            "settings.i".lte(600), // hits the partial index
+            "settings.i".$lte(600), // hits the partial index
             "settings.o.playYourGames" -> true,
             "startsAt" -> startsAtRange,
-            "garbage".neq(true)
+            "garbage".$ne(true)
           )
         ) -> List(
           Sort(Descending(Swiss.Fields.nbPlayers)),
           Limit(nb * 50),
           PipelineOperator(
-            lookup.simple(
+            $lookup.simple(
               from = lila.core.config.CollName("team"),
               as = "team",
               local = "teamId",
               foreign = "_id",
               pipe = List(
-                bdoc("$match" -> bdoc("open" -> true, "password".exists(false))),
-                bdoc("$project" -> bid(true))
+                $doc("$match" -> $doc("open" -> true, "password".$exists(false))),
+                $doc("$project" -> $id(true))
               )
             )
           ),

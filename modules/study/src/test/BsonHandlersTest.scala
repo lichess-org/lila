@@ -31,22 +31,22 @@ class BsonHandlersTest extends munit.FunSuite:
   test("forceVariation and node ordering"):
     // 1. e2e4 (e7e5 FV) d7d5
     val tree = treeBson.reads:
-      bdoc(
-        "_" -> bdoc("p" -> 0, "f" -> "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"),
-        "/?" -> bdoc(
+      $doc(
+        "_" -> $doc("p" -> 0, "f" -> "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"),
+        "/?" -> $doc(
           "p" -> 1,
           "u" -> "e2e4",
           "s" -> "e4",
           "f" -> "rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq - 0 1"
         ),
-        "/?WG" -> bdoc(
+        "/?WG" -> $doc(
           "p" -> 2,
           "u" -> "e7e5",
           "s" -> "e5",
           "f" -> "rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2",
           "fv" -> true
         ),
-        "/?VF" -> bdoc(
+        "/?VF" -> $doc(
           "p" -> 2,
           "u" -> "d7d5",
           "s" -> "d5",

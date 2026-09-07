@@ -18,7 +18,7 @@ import lila.game.GameFilter
 import lila.mod.UserWithModlog
 import lila.rating.PerfType
 import lila.rating.UserPerfsExt.best8Perfs
-import lila.security.{ UserAgentParser, UserLogins }
+import lila.security.UserLogins
 import lila.user.WithPerfsAndEmails
 import lila.mon.extensions.*
 
@@ -117,38 +117,43 @@ final class User(
 
   def games(username: UserStr, filter: String, page: Int) = OpenBody:
     Reasonable(page):
-      RequireAuthIf(UserAgentParser.trust.isSuspicious || page > 1):
-        WithProxy: proxy ?=>
-          limit.enumeration.userProfile(rateLimited):
-            EnabledUser(username): u =>
-              val isSearch = filter == GameFilter.search.name
-              RequireAuthIf(isSearch):
-                negotiate(
-                  html = for
-                    nbs <- env.userNbGames(u, withCrosstable = true)
-                    filters = lila.app.mashup.GameFilterMenu(u, nbs, filter, ctx.isAuth)
-                    pag <- env.gamePaginator(user = u, nbs = nbs.some, filter = filters.current, page = page)
-                    _ <- lightUserApi.preloadMany(pag.currentPageResults.flatMap(_.userIds))
-                    _ <- env.tournament.cached.nameCache.preloadMany:
-                      pag.currentPageResults.flatMap(_.tournamentId).map(tid => tid -> ctx.lang)
-                    _ <- env.swiss.cache.name.preloadMany:
-                      pag.currentPageResults.flatMap(_.swissId)
-                    res <-
-                      if HTTPRequest.isSynchronousHttp(ctx.req) then
-                        for
-                          info <- env.userInfo.fetch(u, nbs, restricted = isRestricted, withBlog = !isSearch)
-                          _ <- env.team.cached.lightCache.preloadMany(info.teamIds)
-                          social <- env.socialInfo(u)
-                          searchForm = (filters.current == GameFilter.search).option(
-                            lila.app.mashup.GameFilterMenu.searchForm(userGameSearch, filters.current)
-                          )
-                          res <- Ok.page:
-                            views.user.show.page.games(info, pag, filters, searchForm, social)
-                        yield res
-                      else Ok.snip(views.user.show.gamesContent(u, nbs, pag, filters, filter)).toFuccess
-                  yield res.withCanonical(routes.User.games(u.username, filters.current.name)),
-                  json = gamesForLichobile(u, filter, page)
-                )
+      WithProxy: proxy ?=>
+        limit.enumeration.userProfile(rateLimited):
+          EnabledUser(username): u =>
+            val isSearch = filter == GameFilter.search.name
+            if isSearch && ctx.isAnon
+            then
+              negotiate(
+                Unauthorized.page(views.gameSearch.login(u.count.game)),
+                Unauthorized(jsonError("Login required"))
+              )
+            else
+              negotiate(
+                html = for
+                  nbs <- env.userNbGames(u, withCrosstable = true)
+                  filters = lila.app.mashup.GameFilterMenu(u, nbs, filter, ctx.isAuth)
+                  pag <- env.gamePaginator(user = u, nbs = nbs.some, filter = filters.current, page = page)
+                  _ <- lightUserApi.preloadMany(pag.currentPageResults.flatMap(_.userIds))
+                  _ <- env.tournament.cached.nameCache.preloadMany:
+                    pag.currentPageResults.flatMap(_.tournamentId).map(tid => tid -> ctx.lang)
+                  _ <- env.swiss.cache.name.preloadMany:
+                    pag.currentPageResults.flatMap(_.swissId)
+                  res <-
+                    if HTTPRequest.isSynchronousHttp(ctx.req) then
+                      for
+                        info <- env.userInfo.fetch(u, nbs, restricted = isRestricted, withBlog = !isSearch)
+                        _ <- env.team.cached.lightCache.preloadMany(info.teamIds)
+                        social <- env.socialInfo(u)
+                        searchForm = (filters.current == GameFilter.search).option(
+                          lila.app.mashup.GameFilterMenu.searchForm(userGameSearch, filters.current)
+                        )
+                        res <- Ok.page:
+                          views.user.show.page.games(info, pag, filters, searchForm, social)
+                      yield res
+                    else Ok.snip(views.user.show.gamesContent(u, nbs, pag, filters, filter)).toFuccess
+                yield res.withCanonical(routes.User.games(u.username, filters.current.name)),
+                json = gamesForLichobile(u, filter, page)
+              )
 
   private def EnabledUser(username: UserStr)(f: UserModel => Fu[Result])(using ctx: Context): Fu[Result] =
     if username.id.isGhost
@@ -473,15 +478,16 @@ final class User(
     )
   }
 
-  def apiReadNote(username: UserStr) = Scoped(_.Note.Write) { _ ?=> me ?=>
+  def apiReadNote(username: UserStr) = Scoped() { _ ?=> me ?=>
     Found(meOrFetch(username)):
       env.user.noteApi
         .getForMyPermissions(_)
-        .flatMap(lila.user.JsonView.notes)
+        .flatMap:
+          lila.user.JsonView.notes(_)(using lightUserApi)
         .map(JsonOk)
   }
 
-  def apiWriteNote(username: UserStr) = ScopedBody(_.Note.Write) { ctx ?=> me ?=>
+  def apiWriteNote(username: UserStr) = ScopedBody() { ctx ?=> me ?=>
     bindForm(lila.user.UserForm.apiNote)(
       doubleJsonFormError,
       data => doWriteNote(username, data)(_ => jsonOkResult)
@@ -567,9 +573,7 @@ final class User(
                   env.tournament.playerRepo.searchPlayers(TourId(tourId), term, 10)
                 case (_, Some(swissId), _) =>
                   env.swiss.api.searchPlayers(SwissId(swissId), term, 10)
-                case (_, _, Some(teamId)) =>
-                  val showHidden = ctx.fullAuthOrScope(_.Team.Read)
-                  env.team.api.searchMembersAs(TeamId(teamId), term, 10, showHidden)
+                case (_, _, Some(teamId)) => env.team.api.searchMembersAs(TeamId(teamId), term, 10)
                 case _ =>
                   ctx.me.ifTrue(getBool("friend")) match
                     case Some(follower) =>

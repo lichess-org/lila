@@ -20,7 +20,6 @@ import lila.core.security.{ ClearPassword, FingerHash, Ip2ProxyApi, IsProxy }
 import lila.db.dsl.{ *, given }
 import lila.oauth.{ OAuthScope, OAuthServer }
 import lila.security.LoginCandidate.Result
-import lila.security.UserAgentParser.isDangerousDevice
 
 final class SecurityApi(
     userRepo: lila.user.UserRepo,
@@ -49,7 +48,7 @@ final class SecurityApi(
 
   lazy val rememberForm = Form(single("remember" -> boolean))
 
-  private def loadedLoginForm(candidate: Option[LoginCandidate])(using req: RequestHeader): Form[Result] =
+  private def loadedLoginForm(candidate: Option[LoginCandidate]): Form[Result] =
     import LoginCandidate.Result.*
     Form(
       mapping(
@@ -68,27 +67,23 @@ final class SecurityApi(
           case BlankedPassword =>
             Invalid(Seq(ValidationError("blankedPassword")))
           case WeakPassword =>
-            Invalid:
+            Invalid(
               Seq(ValidationError("This password is too easy to guess. Request a password reset email."))
+            )
           case Must2fa =>
-            Invalid(Seq(if isDangerousDevice.isDefined then must2faDevice else must2faNetwork))
+            Invalid(Seq(ValidationError("2-Factor Authentication is required to log in from this network.")))
           case err => Invalid(Seq(ValidationError(err.toString)))
       })
     )
 
-  private val must2faNetwork = ValidationError:
-    "2-Factor Authentication is required to log in from this network."
-  private val must2faDevice = ValidationError:
-    "2-Factor Authentication is required to log in from this device, because it lacks critical security updates. Please update your OS and browser, or use another one to setup 2FA on your account."
-
-  private def must2fa(pwned: IsPwned)(using req: RequestHeader): Fu[Option[String]] =
+  private def must2fa(req: RequestHeader, pwned: IsPwned): Fu[Option[IsProxy]] =
     ip2proxy
       .ofReq(req)
       .map: p =>
-        if p == IsProxy.public || p == IsProxy.tor then p.value.some
-        else if pwned.yes
-        then p.name.exists(proxy2faSetting.get().value.has(_)).option(p.value)
-        else UserAgentParser.isDangerous(HTTPRequest.userAgent(req))
+        if p == IsProxy.public || p == IsProxy.tor then p.some
+        else
+          pwned.yes.so:
+            p.name.exists(proxy2faSetting.get().value.has(_)).option(p)
 
   def loadLoginForm(str: UserStrOrEmail, pwned: IsPwned)(using
       req: RequestHeader
@@ -101,10 +96,9 @@ final class SecurityApi(
       .map(_.filter(_.user.isnt(UserId.lichess)))
       .flatMap:
         _.so: candidate =>
-          must2fa(pwned).map:
-            _.fold(candidate.some): reason =>
-              logger.info(s"Login $str must2fa: $reason (pwned: $pwned)")
-              lila.mon.security.login.must2fa(reason).increment()
+          must2fa(req, pwned).map:
+            _.fold(candidate.some): p =>
+              lila.mon.security.login.proxy(p.value).increment()
               candidate.copy(must2fa = true).some
       .map(loadedLoginForm)
 
@@ -149,14 +143,14 @@ final class SecurityApi(
     yield ()
 
   private type AppealOrUser = Either[AppealUser, FingerPrintedUser]
-  def restoreUser(using req: RequestHeader): Fu[Option[AppealOrUser]] =
+  def restoreUser(req: RequestHeader): Fu[Option[AppealOrUser]] =
     if HTTPRequest.isXhrFromEmbed(req) then fuccess(none)
     else
       firewall.accepts(req).so(reqSessionId(req)).so { sessionId =>
         appeal.authenticate(sessionId) match
           case Some(userId) => userRepo.byId(userId).map2 { u => Left(AppealUser(Me(u))) }
           case None =>
-            store.loginWithSessionId(sessionId).flatMapz { d =>
+            store.authInfo(sessionId).flatMapz { d =>
               userRepo
                 .me(d.user)
                 .dmap:
@@ -228,17 +222,17 @@ final class SecurityApi(
   export store.shareAnIpOrFp
 
   def ipUas(ip: IpAddress): Fu[List[String]] =
-    store.coll.distinctEasy[String, List]("ua", bdoc("ip" -> ip.value), _.sec)
+    store.coll.distinctEasy[String, List]("ua", $doc("ip" -> ip.value), _.sec)
 
   def printUas(fh: FingerHash): Fu[List[String]] =
-    store.coll.distinctEasy[String, List]("ua", bdoc("fp" -> fh.value), _.sec)
+    store.coll.distinctEasy[String, List]("ua", $doc("fp" -> fh.value), _.sec)
 
   private def recentUserIdsByField(field: String)(value: String): Fu[List[UserId]] =
     store.coll.distinctEasy[UserId, List](
       "user",
-      bdoc(
+      $doc(
         field -> value,
-        "date".gt(nowInstant.minusYears(1))
+        "date".$gt(nowInstant.minusYears(1))
       ),
       _.sec
     )

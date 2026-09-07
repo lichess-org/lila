@@ -95,6 +95,16 @@ final class GameSearchUi(helpers: Helpers)(
           )
         )
 
+  def login(nbGames: Long)(using Context) =
+    Page(trans.search.searchInXGames.txt(nbGames.localize, nbGames))
+      .css("bits.search"):
+        main(cls := "box box-pad page-small search search-login")(
+          h1(cls := "box__top")(trans.search.advancedSearch()),
+          div(cls := "search__login")(
+            p(a(href := routes.Auth.signup)(trans.site.youNeedAnAccountToDoThat()))
+          )
+        )
+
   def user(u: User, form: Form[?])(using Context) =
     val f = SearchForm(helpers)(form)
     st.form(

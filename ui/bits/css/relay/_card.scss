@@ -70,7 +70,7 @@
   }
 
   &__info {
-    @extend %flex-between;
+    @extend %flex-center-nowrap;
 
     margin-right: 1rem;
     color: $c-font-dim;
@@ -78,25 +78,16 @@
   }
 
   &__live {
-    @extend %flex-center;
+    @extend %flex-between;
 
+    flex: 1;
     color: $c-live;
     font-weight: bold;
-    gap: 1ch;
-
-    &__crowd text {
-      display: flex;
-
-      .svg-icon {
-        width: 1em;
-      }
-    }
   }
 
   &__finished {
     color: $c-good;
     font-weight: bold;
-    display: flex;
   }
 
   &__title {

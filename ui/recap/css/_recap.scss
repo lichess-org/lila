@@ -13,6 +13,7 @@ body {
   .site-title span,
   .site-title:hover span,
   .site-buttons .link {
+    #user_tag::after,
     &,
     &:hover {
       color: #fff;
@@ -204,8 +205,8 @@ body {
   gap: 3rem;
   padding: 0 2rem;
 
-  .svg-icon {
-    width: 3em;
+  icon {
+    font-size: 3em;
   }
 
   strong {
@@ -222,8 +223,8 @@ body {
 .recap__slide--patron {
   gap: 2em;
 
-  .svg-icon {
-    width: 3em;
+  icon {
+    font-size: 3em;
   }
 
   .cta {

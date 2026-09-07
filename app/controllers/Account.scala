@@ -115,7 +115,6 @@ final class Account(
             lila.api.UserApi.Opts(
               withTrophies = false,
               withCanChallenge = false,
-              withRelation = false,
               withPlayban = getBool("playban"),
               forWiki = wikiGranted
             )

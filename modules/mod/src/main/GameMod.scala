@@ -37,10 +37,10 @@ object GameMod:
       filter.perf.so { perf =>
         Query.clock(perf != PerfType.Correspondence.key)
       } ++ filter.arena.so { id =>
-        bdoc(lila.game.Game.BSONFields.tournamentId -> id)
+        $doc(lila.game.Game.BSONFields.tournamentId -> id)
       } ++ filter.swiss.so { id =>
-        bdoc(lila.game.Game.BSONFields.swissId -> id)
-      } ++ and(
+        $doc(lila.game.Game.BSONFields.swissId -> id)
+      } ++ $and(
         Query.user(user),
         filter.opponentIds.match
           case Nil => Query.noAnon

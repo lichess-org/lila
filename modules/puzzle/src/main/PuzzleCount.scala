@@ -30,7 +30,7 @@ final private class PuzzleCountApi(
           colls.puzzle:
             _.aggregateList(Int.MaxValue, _.sec): framework =>
               import framework.*
-              Project(bdoc(themes -> true)) -> List(
+              Project($doc(themes -> true)) -> List(
                 Unwind(themes),
                 GroupField(themes)("nb" -> SumAll)
               )

@@ -16,14 +16,14 @@ final class PrintBan(coll: Coll)(using Executor):
     if block then
       coll.update
         .one(
-          bid(hash.value),
-          bdoc("_id" -> hash.value, "date" -> nowInstant),
+          $id(hash.value),
+          $doc("_id" -> hash.value, "date" -> nowInstant),
           upsert = true
         )
         .void
-    else coll.delete.one(bid(hash.value)).void
+    else coll.delete.one($id(hash.value)).void
 
-  coll.secondary.distinctEasy[String, Set]("_id", emptyBdoc).map { hashes =>
+  coll.secondary.distinctEasy[String, Set]("_id", $empty).map { hashes =>
     current = hashes
     lila.mon.security.firewall.prints.update(hashes.size)
   }

@@ -29,7 +29,7 @@ final private class SwissDirector(
           val swiss = from.startRound
           for
             players <- SwissPlayer.fields { f =>
-              mongo.player.list[SwissPlayer](bdoc(f.swissId -> swiss.id))
+              mongo.player.list[SwissPlayer]($doc(f.swissId -> swiss.id))
             }
             ids <- idGenerator.games(pendingPairings.size)
             pairings = pendingPairings.zip(ids).map { case (SwissPairing.Pending(w, b), id) =>
@@ -45,8 +45,8 @@ final private class SwissDirector(
             _ <-
               mongo.swiss.update
                 .one(
-                  bid(swiss.id),
-                  unset("nextRoundAt", "settings.mp") ++ set(
+                  $id(swiss.id),
+                  $unset("nextRoundAt", "settings.mp") ++ $set(
                     "round" -> swiss.round,
                     "nbOngoing" -> pairings.size,
                     "lastRoundAt" -> nowInstant
@@ -57,8 +57,8 @@ final private class SwissDirector(
             _ <- SwissPlayer.fields { f =>
               mongo.player.update
                 .one(
-                  bdoc(f.userId.in(byes), f.swissId -> swiss.id),
-                  addToSet(f.byes -> swiss.round),
+                  $doc(f.userId.$in(byes), f.swissId -> swiss.id),
+                  $addToSet(f.byes -> swiss.round),
                   multi = true
                 )
                 .void

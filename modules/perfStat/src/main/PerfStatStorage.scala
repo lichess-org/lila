@@ -29,10 +29,10 @@ final class PerfStatStorage(coll: AsyncCollFailingSilently)(using Executor):
     coll(_.insert.one(perfStat).void)
 
   private[perfStat] def deleteAllFor(userId: UserId): Funit =
-    coll(_.delete.one(bdoc("_id".regex(s"^$userId/"))).void)
+    coll(_.delete.one($doc("_id".$regex(s"^$userId/"))).void)
 
   def update(a: PerfStat, b: PerfStat): Funit = coll: c =>
-    val sets = bdoc(
+    val sets = $doc(
       docDiff(a.count, b.count).mapKeys(k => s"count.$k").toList :::
         List(
           resultsDiff(a, b)(_.bestWins).map { set =>
@@ -80,7 +80,7 @@ final class PerfStatStorage(coll: AsyncCollFailingSilently)(using Executor):
         ).flatten
     )
     c.update
-      .one(bid(a.id), bdoc("$set" -> sets))
+      .one($id(a.id), $doc("$set" -> sets))
       .void
   end update
 

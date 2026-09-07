@@ -3,30 +3,26 @@
 import { h } from 'snabbdom';
 
 import { type Toggle, blurIfPrimaryClick, myUserId, onClickAway } from '@/index';
+import { licon } from '@/licon';
 import { addPointerListeners } from '@/pointer';
 import { pubsub } from '@/pubsub';
 import { cmnToggleWrap, cmnToggleWrapProp } from '@/view/cmn-toggle';
 
-import { snabIcon } from './makeIcon';
-import { type MaybeVNode, type MaybeVNodes, type VNode, onInsert } from './snabbdom';
+import { type MaybeVNode, type MaybeVNodes, type VNode, dataIcon, onInsert } from './snabbdom';
 
 export const toggleButton = (toggle: Toggle, title: string): VNode =>
-  h(
-    'button.fbt.board-menu-toggle-btn',
-    {
-      class: { active: toggle() },
-      attrs: { title },
-      hook: onInsert(el =>
-        addPointerListeners(el, {
-          click: e => {
-            toggle.toggle();
-            blurIfPrimaryClick(e);
-          },
-        }),
-      ),
-    },
-    [snabIcon('hamburger')],
-  );
+  h('button.fbt.board-menu-toggle-btn', {
+    class: { active: toggle() },
+    attrs: { title, 'data-icon': licon.Hamburger },
+    hook: onInsert(el =>
+      addPointerListeners(el, {
+        click: e => {
+          toggle.toggle();
+          blurIfPrimaryClick(e);
+        },
+      }),
+    ),
+  });
 
 export const boardMenu = (
   redraw: Redraw,
@@ -51,10 +47,10 @@ export class BoardMenu {
       'button.button.text',
       {
         class: { active },
-        attrs: { title: 'Hotkey: f' },
+        attrs: { title: 'Hotkey: f', ...dataIcon(licon.ChasingArrows) },
         hook: onInsert(el => addPointerListeners(el, { click: onChange })),
       },
-      [snabIcon('chasingArrows'), name],
+      name,
     );
 
   zenMode = (enabled = true): VNode =>
