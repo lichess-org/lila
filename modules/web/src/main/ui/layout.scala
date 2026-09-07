@@ -311,7 +311,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
           a(cls := "site-title", href := langHref("/"), testId("site-title"))(
             if ctx.kid.yes then span(title := trans.site.kidMode.txt(), cls := "kiddo")(":)")
             else ctx.isBot.option(botImage),
-            div(cls := "site-icon")(lila.web.ui.bits.logo),
+            div(cls := "site-icon")(iconEl(Icon.logo)),
             div(cls := "site-name")(siteNameFrag)
           ),
           (!isAppealUser).option(
