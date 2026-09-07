@@ -273,8 +273,7 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
     AnonOrScoped():
       WithProxy: proxy ?=>
         limit.enumeration.cloudEval(rateLimited):
-          val suspUA = UserAgentParser.trust.isSuspicious(HTTPRequest.userAgent(req))
-          val cost = if ctx.isAuth then 1 else if suspUA then 5 else 2
+          val cost = if ctx.isAuth then 1 else if UserAgentParser.trust.isSuspicious then 5 else 2
           rateLimit(rateLimited, cost = cost):
             get("fen").fold[Fu[Result]](notFoundJson("Missing FEN")): fen =>
               import chess.variant.Variant

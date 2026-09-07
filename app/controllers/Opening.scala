@@ -32,8 +32,7 @@ final class Opening(env: Env) extends LilaController(env):
         else if moves.sizeIs > 6 && proxy.couldBeEnum && ctx.isAnon then Forbidden
         else
           limit.enumeration.opening(rateLimited):
-            val suspUA = UserAgentParser.trust.isSuspicious(HTTPRequest.userAgent(req))
-            val cost = if ctx.isAuth then 1 else if suspUA then 5 else 2
+            val cost = if ctx.isAuth then 1 else if UserAgentParser.trust.isSuspicious then 5 else 2
             ipRateLimit(rateLimited, cost = cost):
               env.opening.api
                 .lookup(queryFromUrl(key, moves.some), proxy)
