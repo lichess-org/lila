@@ -9,7 +9,7 @@ import { fenColor } from 'lib/game/chess';
 import { otbClockIsRunning, formatMs } from 'lib/game/clock/clockWidget';
 import { licon } from 'lib/licon';
 import { storage, storedBooleanProp } from 'lib/storage';
-import { type MaybeVNode, type VNode, bind, dataIcon, onInsert, hl, requiresI18n } from 'lib/view';
+import { type MaybeVNode, type VNode, bind, onInsert, hl, requiresI18n, img } from 'lib/view';
 import { cmnToggleWrapProp } from 'lib/view/cmn-toggle';
 import { userTitle } from 'lib/view/userLink';
 
@@ -359,8 +359,7 @@ export const verticalEvalGauge = (
       );
 };
 
-export const pinIcon = () =>
-  hl('img.pinned-icon', { attrs: { alt: '', src: site.asset.flairSrc('objects.pushpin') } });
+export const pinIcon = () => img(site.asset.flairSrc('objects.pushpin'), 'Pin player');
 
 const renderUser = (player: StudyPlayer, pinned?: boolean): VNode =>
   h('span.mini-game__user', [
