@@ -24,7 +24,7 @@ $span-width: 1.5em;
       color: $c-primary;
     }
 
-    > span {
+    > span:not(.svg-icon) {
       @extend %flex-center-center;
 
       flex: 0 0 $span-width;
