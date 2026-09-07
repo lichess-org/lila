@@ -279,6 +279,7 @@
   <string name="signupUsernameHint">Zvolte si vhodné a nezávadné uživatelské jméno. Později ho nelze změnit a účty s nevhodnými uživatelskými jmény budou uzavřeny!</string>
   <string name="signupEmailPromise">Pošleme vám pouze e-maily týkající se vašeho účtu a váš e-mail nikdy nikomu nesdílíme.</string>
   <string name="password">Heslo</string>
+  <string name="showPassword">Zobrazit heslo</string>
   <string name="changePassword">Změnit heslo</string>
   <string name="changeEmail">Změnit email</string>
   <string name="email">Email</string>
@@ -511,7 +512,7 @@
   <string name="orUploadPgnFile">Nebo nahrajte soubor PGN</string>
   <string name="continueFromHere">Pokračovat zde</string>
   <string name="toStudy">Do studie</string>
-  <string name="importGame">Importuj hru</string>
+  <string name="importGame">Importovat hru</string>
   <string name="importGameExplanation">Vložení partie ve formátu PGN Vám umožní přehrání partie, získáte počítačovou analýzu, chat ke hře a URL ke sdílení hry.</string>
   <string name="importGameDataPrivacyWarning">K této PGN má přístup kdokoli. Chcete-li hru naimportovat soukromě, použijte studii.</string>
   <plurals name="nbImportedGames">
@@ -623,7 +624,6 @@
   <string name="oneUrlPerLine">Jedna URL na řádek.</string>
   <string name="inlineNotation">Notace v řádcích</string>
   <string name="makeAStudy">Pro bezpečné uložení a sdílení zvažte vytvoření studie.</string>
-  <string name="clearSavedMoves">Vymazat tahy</string>
   <string name="previouslyOnLichessTV">Dříve na Lichess TV</string>
   <string name="onlinePlayers">Hráči online</string>
   <string name="activePlayers">Aktivní hráči</string>

@@ -66,6 +66,7 @@
   <string name="studyUrl">URL de estudo</string>
   <string name="currentChapterUrl">URL do capítulo atual</string>
   <string name="youCanPasteThisInTheForumToEmbed">Você pode colar isso no fórum para incluir o estudo na publicação</string>
+  <string name="pasteToEmbedChapterInForumOrBlog" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.&#10;&#10;Please note this used to say &quot;in the forum to embed&quot;. It was then changed to include &quot;or a Lichess Blog&quot;. A further update was made to say &quot;or your Lichess blog&quot;, since you can only create blog posts as an individual.  Replaces old string youCanPasteThisInTheForumToEmbed">Você pode colar isto no fórum ou no seu blog do Lichess para incorporar o capítulo.</string>
   <string name="startAtInitialPosition">Começar na posição inicial</string>
   <string name="startAtX">Começar em %s</string>
   <string name="embedInYourWebsite">Incorporar em seu site ou blog</string>
@@ -190,6 +191,7 @@
   <string name="loadExistingLichessGameTitle">Carregar um jogo de lichess existente</string>
   <string name="loadGameFromTheWebTitle" comment="Replaces old string loadExistingLichessGameTitle">Carregar uma partida da web</string>
   <string name="loadExistingLichessGameText">Cole a URL de um jogo&lt;br&gt;(como lichess.org/7fHIU0XI)&lt;br&gt;para inserir as jogadas no capítulo.</string>
+  <string name="loadGameFromTheWebText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text. Replaces old string loadExistingLichessGameText">Cole a URL de uma partida&lt;br&gt;(como lichess.org/7fHIU0XI)&lt;br&gt;para carregar os lances no capítulo.</string>
   <string name="fromFenStringTitle">De uma sequência FEN</string>
   <string name="fromFenStringText">Cole uma posição FEN&lt;br&gt;&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;&lt;br&gt;para iniciar o capítulo a partir dela.</string>
   <string name="fromPgnGameTitle">A partir de um jogo PGN</string>

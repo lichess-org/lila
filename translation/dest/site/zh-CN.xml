@@ -522,7 +522,7 @@
   <string name="oneUrlPerLine">每行一个链接。</string>
   <string name="inlineNotation">紧凑棋谱</string>
   <string name="makeAStudy">如果要保管和分享，请考虑创建一个研习。</string>
-  <string name="clearSavedMoves">清空着法记录</string>
+  <string name="clearLocalData">清除本地数据</string>
   <string name="previouslyOnLichessTV">Lichess TV 近期对局</string>
   <string name="onlinePlayers">在线棋手</string>
   <string name="activePlayers">活跃棋手</string>

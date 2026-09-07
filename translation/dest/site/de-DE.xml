@@ -557,7 +557,7 @@ Wenn du gewertete Partien spielst, wird die Stabilität erhöht.</string>
   <string name="oneUrlPerLine">Eine URL pro Zeile.</string>
   <string name="inlineNotation">Inline-Notation</string>
   <string name="makeAStudy">Zur Sicherheit und zum Teilen, überlege, ob du eine Studie anlegen möchtest.</string>
-  <string name="clearSavedMoves">Züge löschen</string>
+  <string name="clearLocalData">Lokale Daten löschen</string>
   <string name="previouslyOnLichessTV">Zuletzt auf Lichess TV</string>
   <string name="onlinePlayers">Spieler online</string>
   <string name="activePlayers">Aktive Spieler</string>

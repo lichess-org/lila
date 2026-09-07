@@ -490,7 +490,6 @@
   <string name="oneUrlPerLine">ໜຶ່ງ URL ຕໍ່ແຖວ.</string>
   <string name="inlineNotation">ສັນຍະລັກໃນແຖວ</string>
   <string name="makeAStudy">ເພື່ອການເກັບຮັກສາ ແລະ ແບ່ງປັນ, ລອງສ້າງບົດສຶກສາ (Study).</string>
-  <string name="clearSavedMoves">ລຶບການເດີນໝາກ</string>
   <string name="previouslyOnLichessTV">ກ່ອນໜ້ານີ້ໃນ Lichess TV</string>
   <string name="onlinePlayers">ຜູ້ຫຼິ້ນທີ່ອອນລາຍ</string>
   <string name="activePlayers">ຜູ້ຫຼິ້ນທີ່ມີການເຄື່ອນໄຫວ</string>

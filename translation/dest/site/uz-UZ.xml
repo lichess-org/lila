@@ -249,6 +249,7 @@
   <string name="signupUsernameHint">Foydalanuvchi nomi barcha yoshdagilarga mos boʻlishi shart. Uni keyinchalik oʻzgartirib boʻlmaydi. Nooʻrin nom tanlagan akkauntlar bloklanadi!</string>
   <string name="signupEmailPromise">Biz sizga faqat akkauntizga oid xabarlarni yuboramiz va elektron pochtangizni hech kimga bermaymiz.</string>
   <string name="password">Parol</string>
+  <string name="showPassword">Parolni koʻrsatish</string>
   <string name="changePassword">Parolni oʻzgartirish</string>
   <string name="changeEmail">E‑pochta manzilini oʻzgartirish</string>
   <string name="email">E‑pochta</string>
@@ -556,7 +557,7 @@ Reytingli oʻyinlar o\'ynasangiz reyting barqarorligi oshadi.</string>
   <string name="oneUrlPerLine">Bir qatorda bir havola.</string>
   <string name="inlineNotation">Qator ichi notatsiyasi</string>
   <string name="makeAStudy">Saqlab qoʻyish va ulashish uchun saboq yaratishni tavsiya qilamiz.</string>
-  <string name="clearSavedMoves">Yurishlarni tozalash</string>
+  <string name="clearLocalData">Lokal maʼlumotlarni oʻchirish</string>
   <string name="previouslyOnLichessTV">Lichess TVdagi avvalgi koʻrsatuvlar</string>
   <string name="onlinePlayers">Onlayn oʻyinchilar</string>
   <string name="activePlayers">Faol oʻyinchilar</string>

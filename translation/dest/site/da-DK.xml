@@ -557,7 +557,7 @@ At spille ratede partier vil øge stabiliteten.</string>
   <string name="oneUrlPerLine">En URL pr. linje.</string>
   <string name="inlineNotation">Notation uden linjeskift</string>
   <string name="makeAStudy">Overvej at lave et studie for sikker opbevaring og deling.</string>
-  <string name="clearSavedMoves">Ryd træk</string>
+  <string name="clearLocalData">Ryd lokale data</string>
   <string name="previouslyOnLichessTV">Tidligere på Lichess TV</string>
   <string name="onlinePlayers">Online spillere</string>
   <string name="activePlayers">Aktive spillere</string>

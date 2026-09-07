@@ -556,7 +556,7 @@
   <string name="oneUrlPerLine">Une URL par ligne.</string>
   <string name="inlineNotation">Notation en ligne</string>
   <string name="makeAStudy">Pour conserver et partager vos analyses, créez une étude.</string>
-  <string name="clearSavedMoves">Supprimer les coups</string>
+  <string name="clearLocalData">Supprimer les données locales</string>
   <string name="previouslyOnLichessTV">Précédemment sur Lichess TV</string>
   <string name="onlinePlayers">Joueurs en ligne</string>
   <string name="activePlayers">Joueurs actifs</string>
