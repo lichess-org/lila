@@ -557,7 +557,7 @@ Para incrementar a súa estabilidade tes que xogar máis partidas puntuadas.</st
   <string name="oneUrlPerLine">Un URL por liña.</string>
   <string name="inlineNotation">Notación compacta</string>
   <string name="makeAStudy">Para gardar e partillar, conviña crear un estudo.</string>
-  <string name="clearSavedMoves">Eliminar movementos</string>
+  <string name="clearLocalData">Borrar os datos locais</string>
   <string name="previouslyOnLichessTV">Previamente en Lichess TV</string>
   <string name="onlinePlayers">Xogadores en liña</string>
   <string name="activePlayers">Xogadores activos</string>

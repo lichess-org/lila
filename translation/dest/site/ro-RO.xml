@@ -592,7 +592,7 @@ Jucarea de jocuri oficiale va crește stabilitatea.</string>
   <string name="oneUrlPerLine">Un URL pe linie.</string>
   <string name="inlineNotation">Notație integrată</string>
   <string name="makeAStudy">Pentru păstrare în siguranță și partajare, aveți în vedere crearea unui studiu.</string>
-  <string name="clearSavedMoves">Șterge mutările</string>
+  <string name="clearLocalData">Șterge datele locale</string>
   <string name="previouslyOnLichessTV">Anterior pe Lichess TV</string>
   <string name="onlinePlayers">Jucători conectați</string>
   <string name="activePlayers">Jucători activi</string>

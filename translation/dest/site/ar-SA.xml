@@ -309,6 +309,7 @@
   <string name="signupUsernameHint">تأكد من اختيار اسم مستخدم مناسب لجميع الأعمار. لا يمكنك تغييره لاحقًا، والحسابات التي تحتوي على أسماء مستخدمين غير ملائمة سوف تُغلق!</string>
   <string name="signupEmailPromise">لن نرسل لك سوى رسائل البريد الإلكتروني حول حسابك ولن نشارك بريدك الإلكتروني أبدا.</string>
   <string name="password">كلمة السر</string>
+  <string name="showPassword">إظهار كلمة المرور</string>
   <string name="changePassword">تغيير كلمة السر</string>
   <string name="changeEmail">غير البريد الإلكتروني</string>
   <string name="email">البريد الإلكتروني</string>
@@ -698,7 +699,7 @@
   <string name="oneUrlPerLine">رابط واحد لكل سطر</string>
   <string name="inlineNotation">تنسيق التدوين</string>
   <string name="makeAStudy">للحفظ الآمن و المشاركة، يمكنك إنشاء دراسة.</string>
-  <string name="clearSavedMoves">مسح النقلات</string>
+  <string name="clearLocalData">مسح البيانات المحلية</string>
   <string name="previouslyOnLichessTV">سابقاً على تلفاز ليتشيس</string>
   <string name="onlinePlayers">لاعبون متصلون</string>
   <string name="activePlayers">لاعبون نشطون</string>

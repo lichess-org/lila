@@ -522,7 +522,6 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="oneUrlPerLine">Một URL/Link mỗi dòng.</string>
   <string name="inlineNotation">Ký hiệu bên trong bàn cờ</string>
   <string name="makeAStudy">Để bảo vệ và chia sẻ an toàn, hãy xem xét thực hiện một nghiên cứu.</string>
-  <string name="clearSavedMoves">Xóa nước cờ</string>
   <string name="previouslyOnLichessTV">Ván trước được lên Lichess TV</string>
   <string name="onlinePlayers">Các kỳ thủ trực tuyến</string>
   <string name="activePlayers">Các kỳ thủ tích cực</string>

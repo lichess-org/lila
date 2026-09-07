@@ -627,7 +627,7 @@ Partie rankingowe zwiększą stabilność rankingu.</string>
   <string name="oneUrlPerLine">Jeden adres URL na linię.</string>
   <string name="inlineNotation">Notacja ciągła</string>
   <string name="makeAStudy">Aby bezpiecznie zapamiętać i udostępniać, rozważ stworzenie opracowania.</string>
-  <string name="clearSavedMoves">Usuń ruchy</string>
+  <string name="clearLocalData">Wyczyść dane lokalne</string>
   <string name="previouslyOnLichessTV">Poprzednio w Lichess TV</string>
   <string name="onlinePlayers">Gracze online</string>
   <string name="activePlayers">Aktywni gracze</string>

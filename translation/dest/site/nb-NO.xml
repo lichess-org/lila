@@ -249,6 +249,7 @@
   <string name="signupUsernameHint">Velg et sømmelig brukernavn. Det kan ikke endres, og alle kontoer med usømmelige brukernavn vil bli avsluttet.</string>
   <string name="signupEmailPromise">Vi sender deg bare e-poster om kontoen din og vil aldri dele e-postadressen din.</string>
   <string name="password">Passord</string>
+  <string name="showPassword">Vis passord</string>
   <string name="changePassword">Bytt passord</string>
   <string name="changeEmail">Endre e-postadresse</string>
   <string name="email">E-post</string>
@@ -556,7 +557,7 @@ Spill ratede partier for å øke stabiliteten.</string>
   <string name="oneUrlPerLine">Én URL per linje.</string>
   <string name="inlineNotation">Innebygd notasjon</string>
   <string name="makeAStudy">Du kan lage en studie for å bevare og dele trekkene.</string>
-  <string name="clearSavedMoves">Fjern trekk</string>
+  <string name="clearLocalData">Slett lokale data</string>
   <string name="previouslyOnLichessTV">Tidligere på Lichess TV</string>
   <string name="onlinePlayers">Påloggede spillere</string>
   <string name="activePlayers">Aktive spillere</string>

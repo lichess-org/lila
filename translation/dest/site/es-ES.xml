@@ -557,7 +557,7 @@ Jugar por puntos aumentará la estabilidad.</string>
   <string name="oneUrlPerLine">Un enlace por línea.</string>
   <string name="inlineNotation">Notación compacta</string>
   <string name="makeAStudy">Si quieres guardarlas y compartirlas, mejor haz un estudio.</string>
-  <string name="clearSavedMoves">Borrar movimientos</string>
+  <string name="clearLocalData">Borrar datos locales</string>
   <string name="previouslyOnLichessTV">Anteriormente en Lichess TV</string>
   <string name="onlinePlayers">Jugadores conectados</string>
   <string name="activePlayers">Jugadores activos</string>

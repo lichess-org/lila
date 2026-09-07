@@ -555,7 +555,7 @@
   <string name="oneUrlPerLine">Μία διεύθυνση URL ανά γραμμή.</string>
   <string name="inlineNotation">Ενσωματωμένη σημειογραφία</string>
   <string name="makeAStudy">Αν θέλετε να αποθηκεύσετε και να κοινοποιήσετε τυχόν αλλαγές, μπορείτε να δημιουργήσετε μία μελέτη.</string>
-  <string name="clearSavedMoves">Εκκαθάριση κινήσεων</string>
+  <string name="clearLocalData">Εκκαθάριση τοπικών δεδομένων</string>
   <string name="previouslyOnLichessTV">Νωρίτερα στη Tηλεόραση Lichess</string>
   <string name="onlinePlayers">Συνδεδεμένοι παίκτες</string>
   <string name="activePlayers">Ενεργοί παίκτες</string>

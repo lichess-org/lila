@@ -622,7 +622,7 @@ Igranje rangiranih iger bo povečalo stabilnost.</string>
   <string name="oneUrlPerLine">En URL na vrstico.</string>
   <string name="inlineNotation">Dodatna notacija</string>
   <string name="makeAStudy">Za varno shranjevanje in deljenje razmislite o tem, da bi naredili študijo.</string>
-  <string name="clearSavedMoves">Počisti poteze</string>
+  <string name="clearLocalData">Počisti lokalne podatke</string>
   <string name="previouslyOnLichessTV">Nazadnje na Lichess TV</string>
   <string name="onlinePlayers">Prijavljeni igralci</string>
   <string name="activePlayers">Aktivni igralci</string>

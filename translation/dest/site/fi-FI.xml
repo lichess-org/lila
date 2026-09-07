@@ -249,6 +249,7 @@
   <string name="signupUsernameHint">Nimeä käyttäjätunnuksesi niin, että se sopii kaikenikäisten nähtäväksi. Et voi muuttaa tunnusta myöhemmin. Kaikki epäasiallisesti nimetyt käyttäjätunnukset suljetaan!</string>
   <string name="signupEmailPromise">Lähetämme sinulle vain käyttäjätunnustasi koskevia sähköposteja emmekä koskaan jaa sähköpostiosoitettasi muille.</string>
   <string name="password">Salasana</string>
+  <string name="showPassword">Näytä salasana</string>
   <string name="changePassword">Vaihda salasana</string>
   <string name="changeEmail">Vaihda sähköpostiosoitetta</string>
   <string name="email">Sähköpostiosoite</string>
@@ -555,7 +556,7 @@
   <string name="oneUrlPerLine">Yksi URL per rivi.</string>
   <string name="inlineNotation">Rivinsisäinen kommentointi</string>
   <string name="makeAStudy">Tallenna analyysisi tutkielmaksi, jos haluat säilyttää sen tai jakaa sen muiden kanssa.</string>
-  <string name="clearSavedMoves">Tyhjennä siirrot</string>
+  <string name="clearLocalData">Tyhjennä paikalliset tiedot</string>
   <string name="previouslyOnLichessTV">Viimeksi Lichess TV:ssä</string>
   <string name="onlinePlayers">Paikalla olevat pelaajat</string>
   <string name="activePlayers">Aktiiviset pelaajat</string>
@@ -731,6 +732,7 @@
   <string name="simulClockHint">Fischer-kellon asetukset. Mitä enemmän pelaajia on, sitä enemmän aikaa saatat tarvita.</string>
   <string name="simulAddExtraTime">Voit lisätä aikaa kelloosi selviytyäksesi simultaanista.</string>
   <string name="simulHostExtraTime">Isännän ylimääräinen aika</string>
+  <string name="extraClockTimeForHost" comment="Appears on: https://lichess.org/simul/new&#10;&#10;Allows a simul host to select extra time for the simul.&#10;&#10;Please note this string used to state &quot;Host extra clock time&quot;, without the word &quot;initial&quot; Replaces old string simulHostExtraTime">Lisäaika isännän kellossa:</string>
   <string name="simulAddExtraTimePerPlayer">Lisää alussa kelloosi aikaa jokaista simultaaniin liittyvää pelaajaa kohden.</string>
   <string name="simulHostExtraTimePerPlayer">Lisää jokaista pelaajaa kohden isännän kelloon lisää aikaa</string>
   <string name="lichessTournaments">Lichessin turnaukset</string>
