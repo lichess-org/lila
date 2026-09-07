@@ -105,6 +105,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
           'a',
           {
             attrs: {
+              'data-icon': licon.Pencil,
               href: ctrl.boardEditorUrl(),
               title: 'Hotkey: b',
               ...linkAttrs,
