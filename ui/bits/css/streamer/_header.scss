@@ -129,6 +129,16 @@
 
   gap: 1em;
   margin: 1.5em $box-padding 1em 0;
+
+  h1 {
+    display: flex;
+    gap: 0.5ch;
+
+    .svg-icon {
+      color: $c-font-dim;
+      width: 0.55em;
+    }
+  }
 }
 
 .streamer-profile {
