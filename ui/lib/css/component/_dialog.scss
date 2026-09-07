@@ -45,8 +45,6 @@ dialog {
     @extend %flex-around;
     @include inline-end(4px);
 
-    display: flex;
-    align-items: center;
     position: absolute;
     top: 4px;
     width: 40px; // bigger for phones
@@ -56,11 +54,9 @@ dialog {
     color: $c-font;
     border-radius: 6px;
     border: $border;
+    font-size: 20px;
+    text-align: center;
     cursor: pointer;
-
-    .svg-icon {
-      width: 18px;
-    }
 
     &:not(:focus) {
       outline: none;
@@ -72,19 +68,17 @@ dialog {
     overflow: visible;
 
     button.close-button {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      border: none;
       transform: translate(18px, -18px);
 
       @include if-rtl {
         transform: translate(-18px, -18px);
       }
 
-      .svg-icon {
-        width: 14px;
-      }
+      width: 32px;
+      height: 32px;
+      font-size: 16px;
+      border-radius: 50%;
+      border: none;
 
       &:hover {
         @include box-shadow;

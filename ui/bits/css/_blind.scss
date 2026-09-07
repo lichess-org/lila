@@ -1,7 +1,10 @@
 body.blind-mode {
   @include topnav-unsticky;
 
-  .svg-icon {
+  .is::before,
+  .is::after,
+  [data-icon]::before {
+    content: none;
     display: none;
     visibility: hidden;
   }

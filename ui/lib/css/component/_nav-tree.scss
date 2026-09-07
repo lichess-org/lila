@@ -1,7 +1,5 @@
 .nav-tree {
   h2 {
-    display: flex;
-    align-items: center;
     margin-bottom: 1em;
     padding-bottom: 0.3em;
     border-bottom: $border;
@@ -22,10 +20,9 @@
   }
 
   .node .back {
-    @include transition(opacity);
-
+    width: 1em;
+    display: inline-block;
     opacity: 0.6;
-    height: 1em;
 
     &:hover {
       opacity: 1;

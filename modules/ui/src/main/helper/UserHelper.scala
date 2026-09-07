@@ -223,7 +223,7 @@ trait UserHelper:
   )(using Translate): Frag =
     span(
       title := trans.site.ratingXOverYGames.pluralTxt(nb, name, nb.localize),
-      iconEl := icon,
+      dataIcon := icon,
       cls := "text"
     )(
       if clueless then frag(nbsp, nbsp, nbsp, if nb < 1 then "-" else "?")
@@ -252,18 +252,18 @@ trait UserHelper:
     case d if d > 0 => goodTag(s"+$d")
     case d => badTag(s"−${-d}")
 
-  val patronIconChar = Icon.wings
-  val lineIconChar = Icon.disc
+  val patronIconChar = Icon.Wings
+  val lineIconChar = Icon.Disc
 
-  val lineIcon: Frag = span(cls := "line")
+  val lineIcon: Frag = iconTag(cls := "line")
 
   def patronIcon(p: PatronTier.AndColor)(using Translate): Frag =
-    span(
+    iconTag(
       cls := s"line patron ${p.color.value.cssClass}",
       title := s"${trans.patron.lichessPatron.txt()} (${p.tier.name})"
     )
 
-  val moderatorIcon: Frag = span(cls := "line moderator", title := "Lichess Mod")
+  val moderatorIcon: Frag = iconTag(cls := "line moderator", title := "Lichess Mod")
   @targetName("lineIconPatron")
   private def lineIcon(p: Option[PatronTier.AndColor])(using Translate): Frag =
     p.fold(lineIcon)(patronIcon)

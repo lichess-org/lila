@@ -45,20 +45,19 @@
   }
 
   .head {
-    display: flex;
-    align-items: center;
+    display: block;
     padding: 1rem;
     border-bottom: $border;
     width: 100%;
     text-align: start;
   }
 
-  .head > .svg-icon {
+  .head::before {
     color: $c-dasher;
     opacity: 0.8;
   }
 
-  .head:hover > .svg-icon {
+  .head:hover::before {
     opacity: 1;
   }
 
@@ -91,12 +90,11 @@
 
     .help {
       color: $c-link;
-      display: flex;
-      align-items: center;
+      display: block;
       padding: 0.7rem 0.7rem 0.7rem 1rem;
 
       &:hover {
-        @extend %box-radius-bottom-left;
+        @extend %box-radius-bottom;
 
         background: $c-link;
         color: $c-over;
@@ -109,6 +107,7 @@
     margin: 0.5rem 0;
 
     button {
+      display: block;
       padding: 0.7rem 1rem;
       width: 100%;
       text-align: start;
@@ -122,26 +121,25 @@
       }
 
       &.active {
-        background: $c-dasher;
-        color: $c-over;
+        background: $c-dasher !important;
+        color: $c-over !important;
       }
 
-      .svg-icon {
-        @include transition(opacity);
-
+      &::before {
         margin-inline: 0 8px;
         font-size: 19px;
-        width: 15px;
         justify-content: center;
         align-items: center;
         opacity: 0;
+
+        @include transition(opacity);
       }
 
       // don't show checkmarks on inactive selectors.
 
-      &.active .svg-icon {
+      &.active::before {
         opacity: 1;
-        color: $c-over;
+        color: $c-over !important;
       }
     }
 
@@ -156,14 +154,14 @@
     button {
       padding: 0.5rem 1rem;
 
-      .svg-icon {
+      &::before {
         opacity: 0.5;
         font-size: 18px;
         margin-inline: 0 0.4em;
       }
     }
 
-    &:hover button .svg-icon {
+    &:hover button::before {
       opacity: 1;
     }
   }
@@ -204,7 +202,6 @@
   .button.more {
     @extend %box-radius-bottom-left;
 
-    // justify-content: center;
     width: 100%;
     color: $c-over;
     font-size: 1.2em;

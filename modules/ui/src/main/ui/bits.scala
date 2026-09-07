@@ -51,7 +51,7 @@ object bits:
     div(cls := s"$prefix $prefix--$id")(
       a(
         href := prev.map(urlOf),
-        iconEl := Icon.lessThan,
+        dataIcon := Icon.LessThan,
         cls := List("disabled" -> prev.isEmpty)
       ),
       div(cls := prefixed("__selects"))(
@@ -76,7 +76,7 @@ object bits:
       ),
       a(
         href := next.map(urlOf),
-        iconEl := Icon.greaterThan,
+        dataIcon := Icon.GreaterThan,
         cls := List("disabled" -> next.isEmpty)
       )
     )
@@ -120,7 +120,7 @@ object bits:
     val canUploadImages = ctx.me.soUse(lila.core.security.canUploadImages(realm.key))
     val uploadUrl = canUploadImages.option(routes.Main.uploadImage(realm))
     val imageUploadButton = (!realm.toastUi && canUploadImages).option:
-      button(cls := "upload-image", tpe := "button", title := "Upload image", iconEl := Icon.addPhotoOutline)
+      button(cls := "upload-image", tpe := "button", title := "Upload image")
     val previewStyle = realm match
       case MarkdownRealm.blog => "ublog-post__markup"
       case MarkdownRealm.cms => "cms-preview"
@@ -139,7 +139,7 @@ object bits:
         imageUploadButton
       ),
       div(cls := "content")(
-        textareaTag(cls := "markdown-content-textarea", tabindex := -1),
+        textareaTag(cls := "markdown-content-textarea"),
         if realm.toastUi then div(cls := "toastui-container") else emptyFrag,
         div(cls := s"preview none $previewStyle")
       )

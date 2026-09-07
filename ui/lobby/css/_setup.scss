@@ -61,10 +61,6 @@ $c-slider: $c-setup;
 
       .icon {
         padding-inline-end: 0;
-
-        .svg-icon {
-          width: 1em;
-        }
       }
 
       .name {
@@ -76,15 +72,9 @@ $c-slider: $c-setup;
         white-space: normal;
       }
 
-      &:hover {
-        * {
-          background: $c-primary;
-          color: $c-over;
-        }
-
-        .svg-icon {
-          background: $c-over;
-        }
+      &:hover * {
+        background: $c-primary;
+        color: $c-over;
       }
     }
   }

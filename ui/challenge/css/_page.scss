@@ -98,9 +98,9 @@
 
         @extend %flex-center, %roboto;
 
-        > .svg-icon {
+        &::before {
           color: var(---font);
-          width: 6rem;
+          font-size: 6rem;
           margin-inline-end: 0.2em;
 
           @media (max-width: at-most($xx-small)) {
@@ -154,13 +154,14 @@
   }
 
   .mobile-instructions::before {
-    @include icon-mask($icon-shareAndroid, 3rem);
-
-    margin-inline-end: 1rem;
+    font-family: lichess;
+    font-size: 3rem;
+    padding-inline-end: 1rem;
+    content: $licon-ShareAndroid;
   }
 
   .mobile-instructions.is-ios::before {
-    @include icon-mask($icon-shareIos, 3rem);
+    content: $licon-ShareIos;
   }
 
   &.challenge--declined .details {

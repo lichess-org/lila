@@ -21,10 +21,10 @@ final class ImageQueueUi(helpers: Helpers, picfitUrl: PicfitUrl):
           div(cls := "image-queue--flag")(image.automod.flatMap(_.flagged)),
           div(cls := "image-queue--actions")(
             postForm(action := routes.Mod.imageAccept(image.id, true))(
-              button(cls := "button button-empty button-green", iconEl := Icon.checkmark)
+              button(cls := "button button-empty button-green", dataIcon := Icon.Checkmark)
             ),
             postForm(action := routes.Mod.imageAccept(image.id, false))(
-              button(cls := "button button-empty button-red", iconEl := Icon.trash)
+              button(cls := "button button-empty button-red", dataIcon := Icon.Trash)
             )
           )
         ),

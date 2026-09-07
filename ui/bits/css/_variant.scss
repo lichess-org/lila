@@ -25,15 +25,15 @@
       background: color-mix(in oklab, $c-primary 20%, $c-bg);
     }
 
-    > .svg-icon {
-      width: 3.5em;
+    &::before {
+      font-size: 3.5em;
       margin-inline-end: 1rem;
       opacity: 0.7;
 
       @include transition;
     }
 
-    &:hover > .svg-icon {
+    &:hover::before {
       opacity: 1;
     }
 

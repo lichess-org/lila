@@ -24,12 +24,6 @@
     cursor: pointer;
     padding: 3px 5px;
     border-bottom: $border;
-    display: flex;
-    gap: 0.5ch;
-
-    .svg-icon {
-      width: 1em;
-    }
   }
 
   .content {

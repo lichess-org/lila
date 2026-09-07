@@ -22,9 +22,7 @@ site.load.then(() => {
             const label = $('.ublog-post__like .button-label');
             const newText = liked ? i18n.site.liked : i18n.site.like;
             label.text(newText);
-            const icon = this.querySelector<HTMLElement>('.svg-icon')!;
-            icon.classList.toggle('icon-heart', liked);
-            icon.classList.toggle('icon-heartOutline', !liked);
+            $('.ublog-post__like').toggleClass(likeClass, liked).attr('title', newText);
             $('.ublog-post__like__nb').text(likes);
           });
       },
@@ -45,9 +43,6 @@ site.load.then(() => {
           .then(() => {
             button.toggleClass(followClass);
             const label = button.find('.button-label');
-            const icon = this.querySelector<HTMLElement>('.svg-icon')!;
-            icon.classList.toggle('icon-checkmark', followed);
-            icon.classList.toggle('icon-thumbsUp', !followed);
             const username = label.data('username');
             label.text(followed ? i18n.site.unfollowX(username) : i18n.site.followX(username));
           });

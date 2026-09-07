@@ -1,7 +1,8 @@
 import { isEmpty } from 'lib';
 import { displayColumns } from 'lib/device';
 import { cont as contRoute } from 'lib/game/router';
-import { domDialog, bind, hl, snabIcon, type VNode } from 'lib/view';
+import { licon } from 'lib/licon';
+import { domDialog, bind, dataIcon, hl, type VNode } from 'lib/view';
 
 import type { AutoplayDelay } from '@/autoplay';
 import type AnalyseCtrl from '@/ctrl';
@@ -73,7 +74,7 @@ function studyButton(ctrl: AnalyseCtrl) {
       hiddenInput('orientation', ctrl.bottomColor()),
       hiddenInput('variant', ctrl.data.game.variant.key),
       hiddenInput('fen', ctrl.tree.root.fen),
-      hl('button', { attrs: { type: 'submit' } }, [snabIcon('studyBoard'), i18n.site.toStudy]),
+      hl('button', { attrs: { type: 'submit', 'data-icon': licon.StudyBoard } }, i18n.site.toStudy),
     ],
   );
 }
@@ -95,33 +96,36 @@ export function view(ctrl: AnalyseCtrl): VNode {
             ctrl.actionMenu.toggle();
             ctrl.redraw();
           }),
-          attrs: { title: 'Hotkey: f' },
+          attrs: { 'data-icon': licon.ChasingArrows, title: 'Hotkey: f' },
         },
-        [snabIcon('chasingArrows'), i18n.site.flipBoard],
+        i18n.site.flipBoard,
       ),
       !ctrl.ongoing &&
         hl(
           'a',
           {
             attrs: {
+              'data-icon': licon.Pencil,
               href: ctrl.boardEditorUrl(),
               title: 'Hotkey: b',
               ...linkAttrs,
             },
           },
-          [snabIcon('pencil'), i18n.site.boardEditor],
+          i18n.site.boardEditor,
         ),
       displayColumns() === 1 &&
         canPractice &&
-        hl('a', { hook: bind('click', () => ctrl.togglePractice()) }, [
-          snabIcon('bullseye'),
+        hl(
+          'a',
+          { hook: bind('click', () => ctrl.togglePractice()), attrs: dataIcon(licon.Bullseye) },
           i18n.site.practiceWithComputer,
-        ]),
+        ),
       canRetro &&
-        hl('a', { hook: bind('click', ctrl.toggleRetro, ctrl.redraw) }, [
-          snabIcon('graduateCap'),
+        hl(
+          'a',
+          { hook: bind('click', ctrl.toggleRetro, ctrl.redraw), attrs: dataIcon(licon.GraduateCap) },
           i18n.site.learnFromYourMistakes,
-        ]),
+        ),
       canContinue &&
         hl(
           'a',
@@ -134,8 +138,9 @@ export function view(ctrl: AnalyseCtrl): VNode {
                 easyClose: 'clickOutside',
               }),
             ),
+            attrs: dataIcon(licon.Swords),
           },
-          [snabIcon('swords'), i18n.site.continueFromHere],
+          i18n.site.continueFromHere,
         ),
       studyButton(ctrl),
       (ctrl.idbTree.movesDirty || ctrl.idbTree.hasLocalCeval) &&
@@ -143,19 +148,20 @@ export function view(ctrl: AnalyseCtrl): VNode {
           'a',
           {
             attrs: {
+              'data-icon': licon.Trash,
               title: i18n.site.clearLocalData,
             },
             hook: bind('click', () => ctrl.idbTree.clear()),
           },
-          [snabIcon('trash'), i18n.site.clearLocalData],
+          i18n.site.clearLocalData,
         ),
       hl(
         'button',
         {
-          attrs: { title: i18n.site.settings },
+          attrs: { 'data-icon': licon.Gear, title: i18n.site.settings },
           on: { click: () => showSettingsDialog(ctrl) },
         },
-        [snabIcon('gear'), i18n.site.settings],
+        i18n.site.settings,
       ),
     ]),
   ];

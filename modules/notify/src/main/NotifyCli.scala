@@ -16,7 +16,7 @@ final private class NotifyCli(api: NotifyApi, userRepo: UserRepo)(using Material
     case "notify" :: "url" :: "titled" :: url :: words =>
       notifyUrlTo(titledUserIds, url, words)
     case "notify" :: "url" :: "titled-arena" :: url :: words =>
-      notifyUrlTo(titledUserIds, url, words, Icon.trophy)
+      notifyUrlTo(titledUserIds, url, words, Icon.Trophy)
 
   private def titledUserIds =
     enabledTitledSource(bid(true).some).mapConcat(_.getAsOpt[UserId]("_id").toList)
@@ -25,11 +25,11 @@ final private class NotifyCli(api: NotifyApi, userRepo: UserRepo)(using Material
       userIds: Source[UserId, ?],
       url: String,
       words: List[String],
-      icon: Icon = Icon.infoCircle
+      icon: Icon = Icon.InfoCircle
   ) =
     val title = words.takeWhile(_ != "|").mkString(" ").nonEmptyOption
     val text = words.dropWhile(_ != "|").drop(1).mkString(" ").nonEmptyOption
-    val notification = lila.core.notify.NotificationContent.GenericLink(url, title, text, icon.name)
+    val notification = lila.core.notify.NotificationContent.GenericLink(url, title, text, icon.value)
     userIds
       .grouped(20)
       .mapAsyncUnordered(1): uids =>

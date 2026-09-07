@@ -22,7 +22,7 @@ enum PerfType(
       extends PerfType(
         PerfId(0),
         key = PerfKey.ultraBullet,
-        icon = Icon.ultraBullet,
+        icon = Icon.UltraBullet,
         nameKey = I18nKey.site.ultraBullet,
         descKey = I18nKey.site.ultraBulletDesc
       )
@@ -31,7 +31,7 @@ enum PerfType(
       extends PerfType(
         PerfId(1),
         key = PerfKey.bullet,
-        icon = Icon.bullet,
+        icon = Icon.Bullet,
         nameKey = I18nKey.site.bullet,
         descKey = I18nKey.site.bulletDesc
       )
@@ -40,7 +40,7 @@ enum PerfType(
       extends PerfType(
         PerfId(2),
         key = PerfKey.blitz,
-        icon = Icon.flameBlitz,
+        icon = Icon.FlameBlitz,
         nameKey = I18nKey.site.blitz,
         descKey = I18nKey.site.blitzDesc
       )
@@ -49,7 +49,7 @@ enum PerfType(
       extends PerfType(
         PerfId(6),
         key = PerfKey.rapid,
-        icon = Icon.rabbit,
+        icon = Icon.Rabbit,
         nameKey = I18nKey.site.rapid,
         descKey = I18nKey.site.rapidDesc
       )
@@ -58,7 +58,7 @@ enum PerfType(
       extends PerfType(
         PerfId(3),
         key = PerfKey.classical,
-        icon = Icon.turtle,
+        icon = Icon.Turtle,
         nameKey = I18nKey.site.classical,
         descKey = I18nKey.site.classicalDesc
       )
@@ -67,7 +67,7 @@ enum PerfType(
       extends PerfType(
         PerfId(4),
         key = PerfKey.correspondence,
-        icon = Icon.paperAirplane,
+        icon = Icon.PaperAirplane,
         nameKey = I18nKey.site.correspondence,
         descKey = I18nKey.site.correspondenceDesc
       )
@@ -76,7 +76,7 @@ enum PerfType(
       extends PerfType(
         PerfId(5),
         key = PerfKey.standard,
-        icon = Icon.crown,
+        icon = Icon.Crown,
         nameKey = I18nKey.variant.standard,
         descKey = I18nKey.variant.standardTitle
       )
@@ -85,7 +85,7 @@ enum PerfType(
       extends PerfType(
         PerfId(11),
         key = PerfKey.chess960,
-        icon = Icon.dieSix,
+        icon = Icon.DieSix,
         nameKey = I18nKey.variant.chess960,
         descKey = I18nKey.variant.chess960Title
       )
@@ -94,7 +94,7 @@ enum PerfType(
       extends PerfType(
         PerfId(12),
         key = PerfKey.kingOfTheHill,
-        icon = Icon.flagKingHill,
+        icon = Icon.FlagKingHill,
         nameKey = I18nKey.variant.kingOfTheHill,
         descKey = I18nKey.variant.kingOfTheHillTitle
       )
@@ -103,7 +103,7 @@ enum PerfType(
       extends PerfType(
         PerfId(13),
         key = PerfKey.antichess,
-        icon = Icon.antichess,
+        icon = Icon.Antichess,
         nameKey = I18nKey.variant.antichess,
         descKey = I18nKey.variant.antichessTitle
       )
@@ -112,7 +112,7 @@ enum PerfType(
       extends PerfType(
         PerfId(14),
         key = PerfKey.atomic,
-        icon = Icon.atom,
+        icon = Icon.Atom,
         nameKey = I18nKey.variant.atomic,
         descKey = I18nKey.variant.atomicTitle
       )
@@ -121,7 +121,7 @@ enum PerfType(
       extends PerfType(
         PerfId(15),
         key = PerfKey.threeCheck,
-        icon = Icon.threeCheckStack,
+        icon = Icon.ThreeCheckStack,
         nameKey = I18nKey.variant.threeCheck,
         descKey = I18nKey.variant.threeCheckTitle
       )
@@ -130,7 +130,7 @@ enum PerfType(
       extends PerfType(
         PerfId(16),
         key = PerfKey.horde,
-        icon = Icon.keypad,
+        icon = Icon.Keypad,
         nameKey = I18nKey.variant.horde,
         descKey = I18nKey.variant.hordeTitle
       )
@@ -139,7 +139,7 @@ enum PerfType(
       extends PerfType(
         PerfId(17),
         key = PerfKey.racingKings,
-        icon = Icon.flagRacingKings,
+        icon = Icon.FlagRacingKings,
         nameKey = I18nKey.variant.racingKings,
         descKey = I18nKey.variant.racingKingsTitle
       )
@@ -148,7 +148,7 @@ enum PerfType(
       extends PerfType(
         PerfId(18),
         key = PerfKey.crazyhouse,
-        icon = Icon.crazyhouse,
+        icon = Icon.Crazyhouse,
         nameKey = I18nKey.variant.crazyhouse,
         descKey = I18nKey.variant.crazyhouseTitle
       )
@@ -157,7 +157,7 @@ enum PerfType(
       extends PerfType(
         PerfId(20),
         key = PerfKey.puzzle,
-        icon = Icon.archeryTarget,
+        icon = Icon.ArcheryTarget,
         nameKey = I18nKey.site.puzzles,
         descKey = I18nKey.site.puzzleDesc
       )
@@ -249,6 +249,6 @@ object PerfType:
       .to(Map)
 
   def iconByVariant(variant: chess.variant.Variant): Icon =
-    PerfKey.byVariant(variant).fold(Icon.crownElite)(_.icon)
+    PerfKey.byVariant(variant).fold(Icon.CrownElite)(_.icon)
 
   val translated: Set[PerfType] = Set(Bullet, Blitz, Rapid, Classical, Correspondence, Puzzle)
