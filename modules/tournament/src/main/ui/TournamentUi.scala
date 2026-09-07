@@ -90,9 +90,8 @@ final class TournamentUi(helpers: Helpers)(getTourName: GetTourName):
                 iconEl := Icon.group,
                 cls := "text tour-team-icon",
                 title := trans.team.teamBattle.txt()
-              ):
-                visiblePlayers
-            case None => td(iconEl := Icon.user, cls := "text")(visiblePlayers)
+              )(visiblePlayers)
+            case None => visiblePlayers.fold(td)(td(iconEl := Icon.user, cls := "text")(_))
         )
     )
 
