@@ -40,9 +40,12 @@
 
       color: $c-font-dim;
       unicode-bidi: plaintext;
-      display: flex;
+      display: block;
 
       .svg-icon {
+        float: left;
+        top: 1.5px;
+        position: relative;
         color: $c-font-dimmer;
       }
     }
