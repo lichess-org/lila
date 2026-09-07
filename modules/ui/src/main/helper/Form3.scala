@@ -240,7 +240,7 @@ final class Form3(formHelper: FormHelper & I18nHelper & AssetHelper, flairApi: F
       tpe := "button",
       ariaTitle(trans.site.showPassword.txt()),
       aria("pressed") := "false"
-    )(iconEl(Icon.eye))
+    )(dataIcon := Icon.Eye)
 
   def passwordComplexityMeter(labelContent: Frag): Tag =
     div(cls := "password-complexity")(
