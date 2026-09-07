@@ -69,6 +69,16 @@
           color: $c-link;
         }
       }
+
+      &.text {
+        display: flex;
+        height: 100%;
+
+        .svg-icon {
+          width: 1em;
+          color: $c-font-dim;
+        }
+      }
     }
 
     tr:last-child td {
