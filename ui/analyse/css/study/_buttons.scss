@@ -20,6 +20,17 @@ $c-study-button: $c-accent;
       display: flex;
       align-items: center;
       justify-content: center;
+
+      .data-count {
+        position: absolute;
+
+        &::after {
+          @include inline-end(-22px);
+
+          top: -12px;
+          padding: 0 4px;
+        }
+      }
     }
   }
 
