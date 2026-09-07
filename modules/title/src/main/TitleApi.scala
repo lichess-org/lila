@@ -43,7 +43,10 @@ final class TitleApi(
   private val updatedAtField = "history.0.at"
 
   def getCurrent(using me: Me): Fu[Option[TitleRequest]] =
-    coll.find(bdoc("userId" -> me.userId)).sort(sort.desc(updatedAtField)).one[TitleRequest]
+    coll
+      .find(bdoc("userId" -> me.userId, "imported".neq(true)))
+      .sort(sort.desc(updatedAtField))
+      .one[TitleRequest]
 
   def getForMe(id: TitleRequestId)(using me: Me): Fu[Option[TitleRequest]] =
     coll
