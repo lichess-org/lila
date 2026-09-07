@@ -1,4 +1,4 @@
-import type { LiconValue } from 'lib/licon';
+import type { Icon } from 'lib/icons';
 
 export interface StandingPlayer extends SimplePlayer {
   id: string;
@@ -70,7 +70,7 @@ export interface TournamentData {
   defender?: string;
   spotlight?: {
     iconImg: string;
-    iconFont: LiconValue;
+    iconFont: Icon;
   };
   schedule?: {
     freq: 'shield' | 'marathon';

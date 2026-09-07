@@ -83,7 +83,7 @@ final class TimelineUi(helpers: Helpers):
           )(
             a(
               href := routes.Round.player(playerId),
-              dataIcon := perfKey.perfIcon,
+              iconEl := perfKey.perfIcon,
               cls := "text glpt"
             )(win match
               case Some(true) => trans.site.victory()

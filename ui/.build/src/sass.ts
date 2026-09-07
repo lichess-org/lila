@@ -151,8 +151,7 @@ async function parseScss(src: string, processed: Set<string>) {
   }
 
   for (const [, cssImport] of text.matchAll(/^@(?:import|use)\s+['"](.*)['"]/gm)) {
-    if (!cssImport) continue;
-
+    if (!cssImport || /^[a-zA-Z0-9_-]*:/.test(cssImport)) continue; // ignore @use scopes
     const absDep = (await readable(resolve(dirname(src), cssImport + '.scss')))
       ? resolve(dirname(src), cssImport + '.scss')
       : resolve(dirname(src), resolvePartial(cssImport));
@@ -163,7 +162,11 @@ async function parseScss(src: string, processed: Set<string>) {
     const dep = relative(env.rootDir, absDep);
     if (!importMap.get(dep)?.add(src)) importMap.set(dep, new Set<string>([src]));
     addIncludes([{ cwd: dirname(dep), path: '*.scss' }], 'sass'); // could be outside of ui/** glob
-    await parseScss(dep, processed);
+    try {
+      await parseScss(dep, processed);
+    } catch (e) {
+      throw typeof e === 'string' ? e : `'${c.cyan(src)}' cannot read '${c.cyan(dep)}'`;
+    }
   }
 }
 

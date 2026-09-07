@@ -8,7 +8,9 @@
 
 .streamer-list {
   h1 {
-    &::before {
+    display: flex;
+
+    .svg-icon {
       display: none;
 
       @include mq-at-least-picture {
@@ -35,9 +37,8 @@
     h1 {
       @include fluid-size('font-size', 23px, 40px);
 
-      &::before {
+      .svg-icon {
         display: inline;
-        margin-inline-end: 0.2em;
 
         @include mq-at-least-picture {
           display: none;

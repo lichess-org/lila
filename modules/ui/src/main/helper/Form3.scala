@@ -185,13 +185,13 @@ final class Form3(formHelper: FormHelper & I18nHelper & AssetHelper, flairApi: F
 
   def submit(
       content: Frag,
-      icon: Option[Icon] = Some(Icon.Checkmark),
+      icon: Option[Icon] = Some(Icon.checkmark),
       nameValue: Option[(String, String)] = None,
       confirm: Option[String] = None
   ): Tag =
     button(
       tpe := "submit",
-      dataIcon := icon,
+      iconEl := icon,
       name := nameValue._1F,
       value := nameValue._2F,
       cls := List(
@@ -240,7 +240,7 @@ final class Form3(formHelper: FormHelper & I18nHelper & AssetHelper, flairApi: F
       tpe := "button",
       ariaTitle(trans.site.showPassword.txt()),
       aria("pressed") := "false"
-    )(dataIcon := Icon.Eye)
+    )(iconEl(Icon.eye))
 
   def passwordComplexityMeter(labelContent: Frag): Tag =
     div(cls := "password-complexity")(

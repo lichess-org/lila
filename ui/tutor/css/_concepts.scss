@@ -43,11 +43,6 @@ $c-tutor-concept: $c-good;
     color: $c-tutor-concept;
   }
 
-  icon {
-    font-size: 6em;
-    color: $c-tutor-concept;
-  }
-
   &__content,
   &__desc {
     @extend %flex-column;

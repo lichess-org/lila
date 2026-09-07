@@ -1,7 +1,6 @@
 import perfIcons from 'lib/game/perfIcons';
 import { numberFormat } from 'lib/i18n';
-import { licon } from 'lib/licon';
-import { type VNode, dataIcon, onInsert, type MaybeVNode, hl } from 'lib/view';
+import { type VNode, onInsert, type MaybeVNode, hl, snabIcon } from 'lib/view';
 import { cmnToggleWrap } from 'lib/view/cmn-toggle';
 import { userLink } from 'lib/view/userLink';
 
@@ -58,7 +57,8 @@ const puzzleInfos = (ctrl: PuzzleCtrl): VNode => {
 function gameInfos(ctrl: PuzzleCtrl): VNode {
   const { game, puzzle } = ctrl.data;
   const gameName = game.clock && game.perf ? `${game.clock} • ${game.perf.name}` : 'import';
-  return hl('div.infos', { attrs: game.perf && dataIcon(perfIcons[game.perf.key]) }, [
+  return hl('div.infos', [
+    game.perf && snabIcon(perfIcons[game.perf.key]),
     hl('div', [
       hl(
         'p',
@@ -87,14 +87,10 @@ const renderStreak = (streak: PuzzleStreak) =>
     'div.puzzle__side__streak',
     streak.data.index === 0
       ? hl('div.puzzle__side__streak__info', [
-          hl('h1.text', { attrs: dataIcon(licon.ArrowThruApple) }, 'Puzzle Streak'),
+          hl('h1.text', [snabIcon('arrowThruApple'), 'Puzzle Streak']),
           hl('p', i18n.puzzle.streakDescription),
         ])
-      : hl(
-          'div.puzzle__side__streak__score.text',
-          { attrs: dataIcon(licon.ArrowThruApple) },
-          `${streak.data.index}`,
-        ),
+      : hl('div.puzzle__side__streak__score.text', [snabIcon('arrowThruApple'), `${streak.data.index}`]),
   );
 
 export const userBox = (ctrl: PuzzleCtrl): VNode => {

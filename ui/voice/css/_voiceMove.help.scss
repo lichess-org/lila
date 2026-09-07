@@ -6,7 +6,7 @@
     font-size: 1.1em;
     margin: 0.8em 10%;
 
-    icon[data-icon]::before {
+    .svg-icon {
       vertical-align: sub;
     }
   }

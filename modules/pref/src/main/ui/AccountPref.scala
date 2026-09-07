@@ -78,7 +78,7 @@ final class AccountPref(helpers: Helpers, helper: PrefHelper, bits: AccountUi):
               trp.showPlayerRatings(),
               frag(
                 radios(form("ratings"), translatedRatingsChoices),
-                div(cls := "help text shy", dataIcon := Icon.InfoCircle)(trp.explainShowPlayerRatings())
+                div(cls := "help text shy", iconEl := Icon.infoCircle)(trp.explainShowPlayerRatings())
               ),
               "showRatings"
             ),
@@ -135,7 +135,7 @@ final class AccountPref(helpers: Helpers, helper: PrefHelper, bits: AccountUi):
               trp.promoteToQueenAutomatically(),
               frag(
                 radios(form("behavior.autoQueen"), translatedAutoQueenChoices),
-                div(cls := "help text shy", dataIcon := Icon.InfoCircle)(
+                div(cls := "help text shy", iconEl := Icon.infoCircle)(
                   trp.explainPromoteToQueenAutomatically()
                 )
               ),
@@ -150,7 +150,7 @@ final class AccountPref(helpers: Helpers, helper: PrefHelper, bits: AccountUi):
               trp.moveConfirmation(),
               frag(
                 bitCheckboxes(form("behavior.submitMove"), submitMoveChoices),
-                div(cls := "help text shy", dataIcon := Icon.InfoCircle)(
+                div(cls := "help text shy", iconEl := Icon.infoCircle)(
                   "Multiple choices. ",
                   trp.explainCanThenBeTemporarilyDisabled()
                 )
@@ -220,7 +220,7 @@ final class AccountPref(helpers: Helpers, helper: PrefHelper, bits: AccountUi):
               "shareYourInsightsData"
             )
           ),
-          p(cls := "saved text none", dataIcon := Icon.Checkmark)(trp.yourPreferencesHaveBeenSaved())
+          p(cls := "saved text none", iconEl := Icon.checkmark)(trp.yourPreferencesHaveBeenSaved())
         )
       )
 
@@ -239,8 +239,8 @@ final class AccountPref(helpers: Helpers, helper: PrefHelper, bits: AccountUi):
                 thead(
                   tr(
                     th,
-                    th(trp.notifyBell(), iconTag(Icon.BellOutline)),
-                    th(trp.notifyPush(), iconTag(Icon.PhoneMobile))
+                    th(trp.notifyBell(), iconEl(Icon.bellOutline)),
+                    th(trp.notifyPush(), iconEl(Icon.phoneMobile))
                   )
                 ),
                 tbody(
@@ -270,7 +270,7 @@ final class AccountPref(helpers: Helpers, helper: PrefHelper, bits: AccountUi):
                 radios(form("notification.playBellSound"), translatedBooleanIntChoices)
               )
             ),
-            p(cls := "saved text none", dataIcon := Icon.Checkmark)(trp.yourPreferencesHaveBeenSaved())
+            p(cls := "saved text none", iconEl := Icon.checkmark)(trp.yourPreferencesHaveBeenSaved())
           )
         )
 
@@ -283,14 +283,14 @@ final class AccountPref(helpers: Helpers, helper: PrefHelper, bits: AccountUi):
           td(
             if !hiddenFields(s"$filterName.$allow") then
               div(cls := "toggle", form3.nativeCheckbox(name, name, checked))
-            else if !checked then div(iconTag(Icon.X))
+            else if !checked then div(iconEl(Icon.x))
             else
               div(
                 cls := "always-on",
                 form3.hidden(name, "true"),
                 filterName match
-                  case "challenge" => iconTag(Icon.Swords)
-                  case "privateMessage" => iconTag(Icon.BellOutline)
+                  case "challenge" => iconEl(Icon.swords)
+                  case "privateMessage" => iconEl(Icon.bellOutline)
                   case _ => emptyFrag
               )
           )

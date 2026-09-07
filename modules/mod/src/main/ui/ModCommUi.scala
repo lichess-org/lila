@@ -20,7 +20,7 @@ final class ModCommUi(helpers: Helpers)(highlightBad: String => Frag):
           cls := "button button-empty mod-zone-toggle",
           href := routes.User.mod(u.username),
           titleOrText("Mod zone (Hotkey: m)"),
-          dataIcon := Icon.Agent
+          iconEl := Icon.agent
         ),
         Granter(_.ViewPrivateComms).option:
           if priv then

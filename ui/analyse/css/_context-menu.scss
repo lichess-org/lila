@@ -28,10 +28,15 @@
     @include padding-direction(0.5em, 0.6em, 0.5em, 0.3em);
 
     color: $c-font;
+    height: 36px;
 
-    &::before {
-      width: 2em;
-      text-align: center;
+    .svg-icon {
+      margin: 0.1em 0.5em;
+    }
+
+    .glyph-icon {
+      margin-inline: 0.5em;
+      font-size: 1.3em;
     }
 
     &:hover {

@@ -24,7 +24,7 @@ final class TeamUpdateUi(helpers: Helpers)(using NetDomain):
               div(cls := "team-update__convo__head__title")(
                 a(href := routes.Team.updates())(
                   cls := "team-update__convo__head__back",
-                  dataIcon := Icon.LessThan
+                  iconEl := Icon.lessThan
                 ),
                 teamLink(team.light, withIcon = false)(cls := "team-link")
               ),
@@ -54,7 +54,7 @@ final class TeamUpdateUi(helpers: Helpers)(using NetDomain):
           side(byTeam, selected = none),
           div(cls := "team-update__convo")(
             div(cls := "team-update__convo__head")(
-              h1(dataIcon := Icon.InkQuill, cls := "text", trt.teamUpdates())
+              h1(iconEl := Icon.inkQuill, cls := "text", trt.teamUpdates())
             ),
             msgList(msgs)(routes.Team.updates(_))
           )
@@ -63,7 +63,9 @@ final class TeamUpdateUi(helpers: Helpers)(using NetDomain):
   def teamLatest(team: Team, msg: TeamUpdate[?, UserId])(using Context) =
     st.section(cls := "team-show__update")(
       h2(
-        a(dataIcon := Icon.InkQuill, cls := "text", href := routes.Team.updatesOf(team.id))(trt.teamUpdates())
+        a(iconEl := Icon.inkQuill, cls := "text", href := routes.Team.updatesOf(team.id))(
+          trt.teamUpdates()
+        )
       ),
       div(cls := "team-show__update__last")(
         div(cls := "team-show__update__meta")(
@@ -101,7 +103,7 @@ final class TeamUpdateUi(helpers: Helpers)(using NetDomain):
   private def side(byTeam: TeamUpdate.ByTeams, selected: Option[TeamId])(using Context) =
     div(cls := "team-update__side")(
       div(cls := "team-update__side__top")(
-        a(href := routes.Team.mine, dataIcon := Icon.LessThan, cls := "team-update__side__back text")(
+        a(href := routes.Team.mine, iconEl := Icon.lessThan, cls := "team-update__side__back text")(
           trt.myTeams()
         )
       ),
@@ -118,7 +120,7 @@ final class TeamUpdateUi(helpers: Helpers)(using NetDomain):
             )
           )(
             span(cls := "team-update__side__team__icon")(
-              teamFlair(team) | iconTag(lila.ui.Icon.Group)
+              teamFlair(team) | iconEl(lila.ui.Icon.group)
             ),
             span(cls := "team-update__side__team__content")(
               span(cls := "team-update__side__team__name")(team.name),

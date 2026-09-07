@@ -38,7 +38,6 @@
 
       .user-link {
         flex: 0 0 auto;
-        display: block;
         font-size: 1.1em;
       }
 
@@ -74,6 +73,10 @@
         max-width: 25%;
         padding: 2px 3px;
         text-align: left;
+
+        .svg-icon {
+          float: left;
+        }
       }
 
       body.no-rating & {

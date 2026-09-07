@@ -39,7 +39,7 @@ object mod:
   def plan(u: User)(charges: List[lila.plan.Charge])(using Context): Option[Frag] =
     charges.nonEmpty.option(
       mzSection("plan")(
-        strong(cls := "text inline", dataIcon := patronIconChar)(
+        strong(cls := "text inline", iconEl := patronIconChar)(
           "Patron payments",
           Granter.opt(_.PayPal).option {
             charges.find(_.giftTo.isEmpty).flatMap(_.payPal).flatMap(_.subId).map { subId =>
@@ -101,7 +101,7 @@ object mod:
             thSortNumber(closed)(cls := "i", title := "Closed"),
             thSortNumber(reportban)(cls := "i", title := "Reportban"),
             thSortNumber(notesText)(cls := "i", title := "Notes"),
-            thSortNumber(iconTag(Icon.InkQuill))(cls := "i", title := "Appeals"),
+            thSortNumber(iconEl(Icon.inkQuill))(cls := "i", title := "Appeals"),
             thSortNumber("Created"),
             thSortNumber("Active"),
             readOnly.not.option(ModUserTableUi.selectAltAll)
@@ -182,7 +182,7 @@ object mod:
                         "appeal-closed" -> closed,
                         "appeal-muted" -> muted
                       ),
-                      dataIcon := Icon.InkQuill,
+                      iconEl := Icon.inkQuill,
                       title := s"${pluralize("appeal message", nbMsgs)}${
                           if muted then " [MUTED]" else if closed then " [CLOSED]" else ""
                         }\nLast message: ${pastMomentServerText(appeals.map(_.updatedAt).max)}"

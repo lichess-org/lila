@@ -94,8 +94,8 @@
     width: 100%;
   }
 
-  .broken icon {
-    font-size: 50px;
+  .broken .svg-icon {
+    width: 50px;
   }
 
   .chart {
@@ -117,7 +117,7 @@
     opacity: 0.7;
   }
 
-  .chart.empty icon {
+  .chart.empty .svg-icon {
     margin-bottom: 30px;
     display: block;
     font-size: 200px;

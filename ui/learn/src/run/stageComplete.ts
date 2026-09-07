@@ -1,7 +1,6 @@
 import { h } from 'snabbdom';
 
 import { numberSpread } from 'lib/i18n';
-import { licon } from 'lib/licon';
 import { bind, icon, onInsert } from 'lib/view';
 
 import { hashNavigate } from '../hashRouting';
@@ -49,11 +48,11 @@ export default function (ctrl: RunCtrl) {
         next
           ? h('button.button', { hook: bind('click', () => hashNavigate(next.id)) }, [
               i18n.learn.nextX(next.title),
-              icon(licon.GreaterThan)(),
+              icon('greaterThan')(),
             ])
           : null,
         h(`button.button.button-empty`, { hook: bind('click', () => hashNavigate()) }, [
-          icon(licon.LessThan)(),
+          icon('lessThan')(),
           i18n.learn.backToMenu,
         ]),
       ]),

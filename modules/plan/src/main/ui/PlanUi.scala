@@ -73,7 +73,7 @@ final class PlanUi(helpers: Helpers)(style: PlanStyle, contactEmail: EmailAddres
               case Some(patron) =>
                 frag(
                   div(cls := "banner one_time_active")(
-                    iconTag(patronIconChar),
+                    iconEl(patronIconChar),
                     div(
                       h1(cls := "box__top")(trp.thankYou()),
                       if ctx.me.exists(_.plan.lifetime) then trp.youHaveLifetime()
@@ -85,18 +85,18 @@ final class PlanUi(helpers: Helpers)(style: PlanStyle, contactEmail: EmailAddres
                             trp.ifNotRenewedThenAccountWillRevert()
                           )
                     ),
-                    iconTag(patronIconChar)
+                    iconEl(patronIconChar)
                   ),
                   style.selector.map(_(cls := "box__pad"))
                 )
               case None =>
                 div(cls := "banner moto")(
-                  iconTag(patronIconChar),
+                  iconEl(patronIconChar),
                   div(
                     h1(cls := "box__top")(trp.freeChess()),
                     p(trp.noAdsNoSubs())
                   ),
-                  iconTag(patronIconChar)
+                  iconEl(patronIconChar)
                 ),
             div(cls := "box__pad")(
               div(cls := "wrapper")(

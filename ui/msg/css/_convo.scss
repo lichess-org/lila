@@ -21,6 +21,7 @@
       flex: 0 0 $msg-top-height;
       background: $c-bg-zebra2;
       border-bottom: $border;
+      padding-inline-start: 1em;
 
       &__left {
         @extend %flex-center-nowrap;

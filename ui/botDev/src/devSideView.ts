@@ -3,9 +3,9 @@ import * as co from 'chessops';
 import { definedMap } from 'lib/algo';
 import { Bot } from 'lib/bot/bot';
 import type { LocalSpeed, LocalSetup } from 'lib/bot/types';
-import { licon, type LiconValue } from 'lib/licon';
+import { type Icon } from 'lib/icons';
 import { storedBooleanProp, storedIntProp } from 'lib/storage';
-import { type VNode, hl, onInsert, bind, domDialog, dataIcon, icon } from 'lib/view';
+import { type VNode, hl, onInsert, bind, domDialog, icon, snabIcon } from 'lib/view';
 
 import { domIdToUid, uidToDomId } from './devBotCtrl';
 import { env } from './devEnv';
@@ -39,13 +39,17 @@ function player(color: Color): VNode {
     },
     [
       env.bot[color] &&
-        hl(`button.upper-right`, {
-          attrs: { 'data-action': 'remove', 'data-icon': licon.Cancel },
-          hook: bind('click', e => {
-            reset({ ...env.bot.uids, [color]: undefined });
-            e.stopPropagation();
-          }),
-        }),
+        hl(
+          `button.upper-right`,
+          {
+            attrs: { 'data-action': 'remove', title: 'Remove player', 'aria-label': 'Remove player' },
+            hook: bind('click', e => {
+              reset({ ...env.bot.uids, [color]: undefined });
+              e.stopPropagation();
+            }),
+          },
+          [snabIcon('cancel')],
+        ),
       hl('img', { attrs: { src: imgUrl } }),
       (!(env.bot.white || env.bot.black) || (p && !('level' in p))) &&
         hl('div.bot-actions', [
@@ -103,18 +107,18 @@ function ratingSpan(p: Bot): VNode {
   return hl('span.stats', [icon(speedIcon(env.game.speed))(), `${glicko.r}${glicko.rd > 80 ? '?' : ''}`]);
 }
 
-function speedIcon(speed: LocalSpeed = env.game.speed): LiconValue {
+function speedIcon(speed: LocalSpeed = env.game.speed): Icon {
   switch (speed) {
     case 'rapid':
-      return licon.Rabbit;
+      return 'rabbit';
     case 'blitz':
-      return licon.Fire;
+      return 'fire';
     case 'bullet':
     case 'ultraBullet':
-      return licon.Bullet;
+      return 'bullet';
     case 'classical':
     default:
-      return licon.Turtle;
+      return 'turtle';
   }
 }
 
@@ -189,26 +193,38 @@ function dashboard() {
       ),
       hl('button.button.button-metal', { hook: bind('click', () => roundRobin()) }, 'tour'),
       hl('div.spacer'),
-      hl('button.button.button-metal', {
-        attrs: dataIcon(licon.ShareIos),
-        hook: bind('click', () => report()),
-      }),
-      hl(`button.board-action.button.button-metal`, {
-        attrs: dataIcon(licon.Switch),
-        hook: bind('click', () => {
-          env.game.load({ white: env.bot.uids.black, black: env.bot.uids.white });
-          env.redraw();
-        }),
-      }),
-      hl(`button.board-action.button.button-metal`, {
-        attrs: dataIcon(licon.Reload),
-        hook: onInsert(el =>
-          el.addEventListener('click', () => {
-            env.game.load(undefined);
+      hl(
+        'button.button.button-metal',
+        {
+          attrs: { title: 'Report', 'aria-label': 'Report' },
+          hook: bind('click', () => report()),
+        },
+        [snabIcon('shareIos')],
+      ),
+      hl(
+        `button.board-action.button.button-metal`,
+        {
+          attrs: { title: 'Swap players', 'aria-label': 'Swap players' },
+          hook: bind('click', () => {
+            env.game.load({ white: env.bot.uids.black, black: env.bot.uids.white });
             env.redraw();
           }),
-        ),
-      }),
+        },
+        [snabIcon('switch')],
+      ),
+      hl(
+        `button.board-action.button.button-metal`,
+        {
+          attrs: { title: 'Reset board', 'aria-label': 'Reset board' },
+          hook: onInsert(el =>
+            el.addEventListener('click', () => {
+              env.game.load(undefined);
+              env.redraw();
+            }),
+          ),
+        },
+        [snabIcon('reload')],
+      ),
       renderPlayPause(),
     ]),
   ]);
@@ -218,13 +234,17 @@ function progress() {
   return hl('div.dev-progress', [
     hl('div.results', [
       env.dev.log.length > 0 &&
-        hl('button.button.button-empty.button-red.icon-btn.upper-right', {
-          attrs: dataIcon(licon.Cancel),
-          hook: bind('click', () => {
-            env.dev.log = [];
-            env.redraw();
-          }),
-        }),
+        hl(
+          'button.button.button-empty.button-red.icon-btn.upper-right',
+          {
+            attrs: { title: 'Clear results', 'aria-label': 'Clear results' },
+            hook: bind('click', () => {
+              env.dev.log = [];
+              env.redraw();
+            }),
+          },
+          [snabIcon('cancel')],
+        ),
       playersWithResults(env.dev.log).map(p => {
         const bot = env.bot.info(p)!;
         return hl(

@@ -9,7 +9,7 @@
   }
 
   .icon span {
-    font-size: 3.5em;
+    width: 56px;
   }
 
   .ip {
@@ -80,16 +80,17 @@
     margin: 20px;
     display: flex;
 
-    icon {
-      font-size: 45px;
-      margin-inline-end: 15px;
-    }
-
     code {
       font-weight: bold;
       font-size: 1.5em;
       margin-top: 10px;
       display: block;
+    }
+
+    .svg-icon {
+      width: 3em;
+      color: $c-secondary;
+      margin-inline-end: 1em;
     }
   }
 
@@ -233,17 +234,13 @@
       }
 
       div {
-        background: transparent;
+        @extend %flex-center-center;
+
         color: color-mix(in oklab, $c-font 50%, $c-dimmer);
       }
 
       div.always-on {
         color: $c-good;
-      }
-
-      div.toggle {
-        display: flex;
-        justify-content: center;
       }
     }
 
@@ -251,9 +248,10 @@
       vertical-align: bottom;
       color: $c-font-dim;
 
-      icon {
-        font-size: 2em;
+      .svg-icon {
+        width: 1.75em;
         display: block;
+        margin: 0.5em auto 0;
       }
     }
   }

@@ -1,5 +1,7 @@
 package lila.user
 
+import lila.ui.Icon
+
 case class Trophy(
     _id: String, // random
     user: UserId,
@@ -19,7 +21,7 @@ case class Trophy(
 case class TrophyKind(
     _id: String,
     name: String,
-    icon: Option[String],
+    icon: Option[Icon],
     url: Option[String],
     klass: Option[String],
     order: Int,

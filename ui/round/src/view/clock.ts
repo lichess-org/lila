@@ -8,8 +8,7 @@ import {
   type TournamentRanks,
 } from 'lib/game';
 import { renderClock } from 'lib/game/clock/clockView';
-import { licon } from 'lib/licon';
-import { type LooseVNode, hl, bind, dataIcon } from 'lib/view';
+import { type LooseVNode, hl, bind, snabIcon } from 'lib/view';
 
 import renderCorresClock from '../corresClock/corresClockView';
 import type RoundController from '../ctrl';
@@ -51,15 +50,22 @@ const showBerserk = (ctrl: RoundController, color: Color): boolean =>
   ctrl.hasGoneBerserk(color) && !bothPlayersHavePlayed(ctrl.data) && playable(ctrl.data);
 
 const renderBerserk = (ctrl: RoundController, color: Color, position: TopOrBottom) =>
-  showBerserk(ctrl, color) ? hl('div.berserked.' + position, { attrs: dataIcon(licon.Berserk) }) : null;
+  showBerserk(ctrl, color) ? hl('div.berserked.' + position, [snabIcon('berserk')]) : null;
 
 const goBerserk = (ctrl: RoundController, color: Color) =>
   berserkableBy(ctrl.data) &&
   !ctrl.hasGoneBerserk(color) &&
-  hl('button.fbt.go-berserk', {
-    attrs: { title: 'GO BERSERK! Half the time, no increment, bonus point', ...dataIcon(licon.Berserk) },
-    hook: bind('click', ctrl.goBerserk),
-  });
+  hl(
+    'button.fbt.go-berserk',
+    {
+      attrs: {
+        'aria-label': 'GO BERSERK! Half the time, no increment, bonus point',
+        title: 'GO BERSERK! Half the time, no increment, bonus point',
+      },
+      hook: bind('click', ctrl.goBerserk),
+    },
+    [snabIcon('berserk')],
+  );
 
 const clockSide = (
   ctrl: RoundController,

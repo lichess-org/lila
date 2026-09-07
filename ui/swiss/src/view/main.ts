@@ -2,18 +2,17 @@ import flatpickr from 'flatpickr';
 
 import standaloneChat from 'lib/chat/standalone';
 import { use24h } from 'lib/i18n';
-import { licon } from 'lib/licon';
 import { once } from 'lib/storage';
 import {
   spinnerVdom,
   initMiniGames,
   prompt,
   type VNode,
-  dataIcon,
   bind,
   onInsert,
   type LooseVNodes,
   hl,
+  snabIcon,
 } from 'lib/view';
 import { renderPager, searchButton, searchInput } from 'lib/view/pagination';
 import { numberRow } from 'lib/view/util';
@@ -128,18 +127,16 @@ function nextRound(ctrl: SwissCtrl): VNode | undefined {
 function joinButton(ctrl: SwissCtrl): VNode | undefined {
   const d = ctrl.data;
   if (!ctrl.opts.userId)
-    return hl(
-      'a.fbt.text.highlight',
-      { attrs: { href: '/login?referrer=' + window.location.pathname, 'data-icon': licon.PlayTriangle } },
+    return hl('a.fbt.text.highlight', { attrs: { href: '/login?referrer=' + window.location.pathname } }, [
+      snabIcon('playTriangle'),
       i18n.site.signIn,
-    );
+    ]);
 
   if (d.joinTeam)
-    return hl(
-      'a.fbt.text.highlight',
-      { attrs: { href: `/team/${d.joinTeam}`, 'data-icon': licon.Group } },
+    return hl('a.fbt.text.highlight', { attrs: { href: `/team/${d.joinTeam}` } }, [
+      snabIcon('group'),
       i18n.team.joinTeam,
-    );
+    ]);
 
   if (!d.canJoin && (d.me?.absent || !d.me)) return undefined;
 
@@ -154,24 +151,21 @@ function joinButton(ctrl: SwissCtrl): VNode | undefined {
 
   if (d.me && d.status !== 'finished')
     return d.me.absent
-      ? hl(
-          'button.fbt.text.highlight',
-          { attrs: dataIcon(licon.PlayTriangle), hook: bind('click', promptEntryCodeOrJoin, ctrl.redraw) },
+      ? hl('button.fbt.text.highlight', { hook: bind('click', promptEntryCodeOrJoin, ctrl.redraw) }, [
+          snabIcon('playTriangle'),
           i18n.site.join,
-        )
-      : hl(
-          'button.fbt.text',
-          { attrs: dataIcon(licon.FlagOutline), hook: bind('click', ctrl.withdraw, ctrl.redraw) },
+        ])
+      : hl('button.fbt.text', { hook: bind('click', ctrl.withdraw, ctrl.redraw) }, [
+          snabIcon('flagOutline'),
           i18n.site.withdraw,
-        );
+        ]);
 
   return hl(
     'button.fbt.text.highlight',
     {
-      attrs: dataIcon(licon.PlayTriangle),
       hook: bind('click', promptEntryCodeOrJoin, ctrl.redraw),
     },
-    i18n.site.join,
+    [snabIcon('playTriangle'), i18n.site.join],
   );
 }
 
@@ -220,41 +214,38 @@ function stats(ctrl: SwissCtrl) {
         i18n.swiss.viewAllXRounds(ctrl.data.round),
       ),
       hl('br'),
-      hl(
-        'a.text',
-        { attrs: { 'data-icon': licon.Download, href: `/swiss/${ctrl.data.id}.trf`, download: true } },
+      hl('a.text', { attrs: { href: `/swiss/${ctrl.data.id}.trf`, download: true } }, [
+        snabIcon('download'),
         'Download TRF file',
-      ),
-      hl(
-        'a.text',
-        { attrs: { 'data-icon': licon.Download, href: `/api/swiss/${ctrl.data.id}/games`, download: true } },
+      ]),
+      hl('a.text', { attrs: { href: `/api/swiss/${ctrl.data.id}/games`, download: true } }, [
+        snabIcon('download'),
         i18n.site.downloadAllGames,
-      ),
+      ]),
       hl(
         'a.text',
         {
-          attrs: { 'data-icon': licon.Download, href: `/api/swiss/${ctrl.data.id}/results`, download: true },
+          attrs: { href: `/api/swiss/${ctrl.data.id}/results`, download: true },
         },
-        'Download results as NDJSON',
+        [snabIcon('download'), 'Download results as NDJSON'],
       ),
       hl(
         'a.text',
         {
           attrs: {
-            'data-icon': licon.Download,
             href: `/api/swiss/${ctrl.data.id}/results?as=csv`,
             download: true,
           },
         },
-        'Download results as CSV',
+        [snabIcon('download'), 'Download results as CSV'],
       ),
       hl('br'),
       hl(
         'a.text',
         {
-          attrs: { 'data-icon': licon.InfoCircle, href: '/api#tag/swiss-tournaments' },
+          attrs: { href: '/api#tag/swiss-tournaments' },
         },
-        'Swiss API documentation',
+        [snabIcon('infoCircle'), 'Swiss API documentation'],
       ),
     ]),
   ]);

@@ -1,23 +1,27 @@
 .color-icon {
+  display: flex;
+  align-items: center;
+  gap: 1ch;
+
   &.white::before {
-    content: $licon-DiscBig;
+    @include icon-mask($icon-discBig);
   }
 
   &.black::before {
-    content: $licon-DiscBigOutline;
+    @include icon-mask($icon-discBigOutline);
   }
 
   @include if-light {
     &.white::before {
-      content: $licon-DiscBigOutline;
+      @include icon-mask($icon-discBigOutline);
     }
 
     &.black::before {
-      content: $licon-DiscBig;
+      @include icon-mask($icon-discBig);
     }
   }
 
   &.random::before {
-    content: $licon-RandomColor;
+    @include icon-mask($icon-randomColor);
   }
 }

@@ -1,5 +1,6 @@
 import { frag } from 'lib';
 import { alert, info, spinnerHtml } from 'lib/view';
+import { previousFocusable } from 'lib/view/focus';
 import { wireMarkdownImgResizers, naturalSize, markdownPicfitRegex } from 'lib/view/markdownImgResizer';
 import { text as xhrText, json as xhrJson, ValidationError } from 'lib/xhr';
 
@@ -15,9 +16,9 @@ function wireMarkdownTextarea(markdown: HTMLElement) {
   const textarea = markdown.querySelector<HTMLTextAreaElement>('textarea');
   if (!textarea) return;
 
-  const previewTab = markdown.querySelector<HTMLButtonElement>('.preview-tab')!;
-  const writeTab = markdown.querySelector<HTMLButtonElement>('.write-tab')!;
-  const uploadBtn = markdown.querySelector<HTMLButtonElement>('.upload-image');
+  const previewTab = markdown.querySelector<HTMLElement>('.preview-tab')!;
+  const writeTab = markdown.querySelector<HTMLElement>('.write-tab')!;
+  const uploadBtn = markdown.querySelector<HTMLElement>('.upload-image');
   const preview = markdown.querySelector<HTMLElement>('.preview')!;
 
   previewTab.addEventListener('click', async () => {
@@ -60,6 +61,27 @@ function wireMarkdownTextarea(markdown: HTMLElement) {
     preview.classList.add('none');
     textarea.focus();
   });
+
+  writeTab.addEventListener('focusin', () => {
+    if (writeTab.classList.contains('active')) textarea.focus();
+  });
+
+  textarea.addEventListener('focusout', e => {
+    if (!(e.relatedTarget instanceof HTMLElement)) return;
+
+    let nextTarget: HTMLElement | null = e.relatedTarget;
+
+    if ([uploadBtn, previewTab].includes(nextTarget)) {
+      nextTarget = previousFocusable(writeTab);
+    } else if (e.relatedTarget.closest('.markdown-textarea') !== markdown) {
+      nextTarget = previewTab;
+    }
+    if (!nextTarget || nextTarget === e.relatedTarget) return;
+
+    nextTarget.focus();
+    e.preventDefault();
+  });
+
   if (!markdown.dataset.imageUploadUrl) return;
 
   uploadBtn?.addEventListener('click', () => {

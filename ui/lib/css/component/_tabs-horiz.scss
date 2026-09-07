@@ -13,8 +13,8 @@ $c-tabs-hover: $c-accent-cloud !default;
     font-size: 0.9em;
   }
 
-  span,
-  button {
+  > span,
+  > button {
     @extend %roboto, %nowrap-hidden;
 
     flex: 1 1 auto;

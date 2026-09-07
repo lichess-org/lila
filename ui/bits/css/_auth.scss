@@ -188,8 +188,8 @@
       align-items: center;
       gap: 0.2em;
 
-      &::before {
-        font-size: 1.3em;
+      > .svg-icon {
+        width: 1.3em;
       }
     }
   }
