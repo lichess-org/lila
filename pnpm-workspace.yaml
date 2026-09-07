@@ -1,6 +1,5 @@
-useNodeVersion: 24.15.0
-managePackageManagerVersions: true
-updateNotified: false
+nodeVersion: 24.15.0
+pmOnFail: warn
 packages:
   - 'bin'
   - 'ui/*'
