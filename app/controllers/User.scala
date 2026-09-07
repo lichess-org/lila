@@ -122,13 +122,7 @@ final class User(
           limit.enumeration.userProfile(rateLimited):
             EnabledUser(username): u =>
               val isSearch = filter == GameFilter.search.name
-              if isSearch && ctx.isAnon
-              then
-                negotiate(
-                  Unauthorized.page(views.gameSearch.login(u.count.game)),
-                  Unauthorized(jsonError("Login required"))
-                )
-              else
+              RequireAuthIf(isSearch):
                 negotiate(
                   html = for
                     nbs <- env.userNbGames(u, withCrosstable = true)
