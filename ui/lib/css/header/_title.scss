@@ -19,9 +19,8 @@
   &:hover {
     color: $c-primary;
 
-    .site-icon svg {
-      fill: $c-primary-dim;
-      stroke: $c-primary-dim;
+    span {
+      color: $c-primary-dim;
     }
   }
 
