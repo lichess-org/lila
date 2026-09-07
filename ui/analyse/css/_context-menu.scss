@@ -25,14 +25,11 @@
 
   a {
     @extend %flex-center-nowrap;
-    @include padding-direction(0.5em, 0.6em, 0.5em, 0.3em);
+    @include padding-direction(0.5em, 0.6em, 0.5em, 0.8em);
 
+    gap: 0.5em;
     color: $c-font;
     height: 36px;
-
-    .svg-icon {
-      margin: 0.1em 0.5em;
-    }
 
     .glyph-icon {
       margin-inline: 0.5em;

@@ -22,6 +22,7 @@ $chat-height: calc(90vh - 300px);
   .header {
     @extend %flex-center;
 
+    gap: 0.5em;
     flex-flow: row nowrap;
     text-transform: uppercase;
 
@@ -32,7 +33,6 @@ $chat-height: calc(90vh - 300px);
 
     > .svg-icon {
       width: 2.5em;
-      margin-inline-end: 0.5em;
     }
   }
 
@@ -41,12 +41,13 @@ $chat-height: calc(90vh - 300px);
 
     &:has(> .svg-icon) {
       @extend %flex-center-nowrap;
+
+      gap: 4%;
     }
 
     > .svg-icon:first-child {
       width: 3rem;
       height: 3rem;
-      margin-inline-end: 4%;
     }
 
     p {

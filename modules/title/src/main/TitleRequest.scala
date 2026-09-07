@@ -22,8 +22,6 @@ case class TitleRequest(
 
   def status = history.head.status
 
-  def imported = status.is(_.imported)
-
   def approved = status == Status.approved
 
   def isRejectedButCanTryAgain = status.is(_.rejected) &&

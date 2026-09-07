@@ -99,6 +99,7 @@ body.zen {
   &__donate {
     @extend %nowrap-ellipsis, %flex-center-center;
 
+    gap: 5px;
     max-width: 30vw;
     color: $c-brag;
     text-transform: uppercase;
@@ -108,10 +109,6 @@ body.zen {
     margin: 6px 0 5px 0;
 
     .svg-icon {
-      @include inline-end(5px);
-
-      position: relative;
-      top: -1px;
       color: $c-brag;
     }
 

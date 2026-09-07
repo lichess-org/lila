@@ -45,11 +45,11 @@ final class TitleUi(helpers: Helpers)(picfitUrl: lila.memo.PicfitUrl):
           then a(href := routes.TitleVerify.form)("Make a new title request")
           else if req.status.is(_.rejected)
           then emptyFrag
-          else showForms(req, form, inert = req.imported)
+          else showForms(req, form)
         )
 
-  private def showForms(req: TitleRequest, form: Form[TitleRequest.FormData], inert: Boolean)(using Context) =
-    div(
+  private def showForms(req: TitleRequest, form: Form[TitleRequest.FormData])(using Context) =
+    frag(
       div(cls := "title__images")(
         imageByTag(
           req,
@@ -74,8 +74,7 @@ Today's date is [current date]""")
       ),
       postForm(cls := "form3", action := routes.TitleVerify.update(req.id))(
         dataForm(form),
-        inert.not.option:
-          form3.action(form3.submit("Update and send for review"))
+        form3.action(form3.submit("Update and send for review"))
       ),
       postForm(cls := "form3", action := routes.TitleVerify.cancel(req.id))(
         form3.action(
@@ -84,7 +83,7 @@ Today's date is [current date]""")
           )
         )(cls := "title__cancel")
       )
-    )(attr("inert") := inert)
+    )
 
   private def showStatus(req: TitleRequest) =
     import TitleRequest.Status

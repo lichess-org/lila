@@ -41,10 +41,11 @@
   .header {
     @extend %flex-center;
 
+    gap: 0.7rem;
+
     .svg-icon {
       width: 3em;
       opacity: 0.7;
-      margin-inline-end: 0.7rem;
     }
 
     &__text {

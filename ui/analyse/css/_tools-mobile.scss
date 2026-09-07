@@ -134,7 +134,7 @@
     }
 
     [data-mode='ceval']:has(eval)::after {
-      content: '';
+      visibility: hidden;
     }
 
     [data-mode] .bar {

@@ -13,12 +13,12 @@
   &__number {
     @extend %flex-center-nowrap;
 
+    gap: 0.2ch;
     margin-inline-end: 1ch;
 
     .svg-icon {
       width: 1em;
       color: $c-font-dim;
-      margin-inline-end: 0.2ch;
     }
   }
 }

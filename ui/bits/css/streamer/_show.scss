@@ -93,11 +93,11 @@
     color: $c-font;
 
     span {
+      gap: 0.1em;
       margin-bottom: 1em;
 
       .svg-icon {
         width: 1.6em;
-        margin-inline-end: 0.1em;
       }
     }
   }

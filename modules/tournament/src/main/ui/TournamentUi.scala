@@ -82,16 +82,13 @@ final class TournamentUi(helpers: Helpers)(getTourName: GetTourName):
           td(tour.durationString),
           tour.conditions.teamMember match
             case Some(t) =>
-              td(iconEl := Icon.group, cls := "text tour-team-icon", title := t.teamName)(
-                visiblePlayers
-              )
+              td(cls := "text tour-team-icon", title := t.teamName)(iconEl(Icon.group, visiblePlayers))
             case _ if tour.isTeamBattle =>
               td(
-                iconEl := Icon.group,
                 cls := "text tour-team-icon",
                 title := trans.team.teamBattle.txt()
-              )(visiblePlayers)
-            case None => visiblePlayers.fold(td)(td(iconEl := Icon.user, cls := "text")(_))
+              )(iconEl(Icon.group, visiblePlayers))
+            case None => visiblePlayers.fold(td)(players => td(cls := "text")(iconEl(Icon.user, players)))
         )
     )
 
@@ -137,7 +134,7 @@ final class TournamentUi(helpers: Helpers)(getTourName: GetTourName):
         if t.isEnterable && t.startsAt.isBeforeNow then trans.site.eventInProgress()
         else momentFromNowOnce(t.startsAt)
       ),
-      td(cls := "text", iconEl := Icon.user)(t.nbPlayers.localize)
+      td(cls := "text")(iconEl(Icon.user, t.nbPlayers.localize))
     )
 
   object scheduledTournamentNameShortHtml:

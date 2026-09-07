@@ -79,6 +79,8 @@
     padding: 1.5em;
     margin: 20px;
     display: flex;
+    align-items: center;
+    gap: 1em;
 
     code {
       font-weight: bold;
@@ -90,7 +92,6 @@
     .svg-icon {
       width: 3em;
       color: $c-secondary;
-      margin-inline-end: 1em;
     }
   }
 

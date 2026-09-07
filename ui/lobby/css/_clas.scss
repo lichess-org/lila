@@ -7,6 +7,7 @@
     @extend %flex-center-nowrap, %nowrap-hidden, %box-neat;
     @include transition;
 
+    gap: 0.5em;
     background: linear-gradient(to right bottom, hsl(276 29% 49%), hsl(276 65% 32%), hsl(286 37% 21%));
 
     @include if-light {
@@ -19,7 +20,6 @@
 
     > .svg-icon {
       width: 1.7em;
-      margin-inline-end: 0.5em;
     }
 
     &:hover {

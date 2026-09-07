@@ -13,6 +13,8 @@ export const player = (
   leader = false,
 ) => {
   const profileHref = profileUrl(p.name);
+  const name = [p.patronColor && userLine({ patronColor: p.patronColor }), ...fullName(p)];
+  const statusIcon = defender ? snabIcon('shield') : leader ? snabIcon('crown') : undefined;
   return h(
     'a.ulpt.user-link.online' + (((p.title || '') + p.name).length > 15 ? '.long' : ''),
     {
@@ -20,11 +22,10 @@ export const player = (
       hook: { destroy: vnode => $.powerTip.destroy(vnode.elm) },
     },
     [
-      h('span.name' + (defender ? '.defender' : leader ? '.leader' : ''), [
-        defender ? snabIcon('shield') : leader ? snabIcon('crown') : null,
-        p.patronColor && userLine({ patronColor: p.patronColor }),
-        ...fullName(p),
-      ]),
+      h(
+        'span.name' + (defender ? '.defender.text' : leader ? '.leader.text' : ''),
+        statusIcon ? [statusIcon, h('span', name)] : name,
+      ),
       withRating ? h('span.rating', userRating({ ...p, brackets: false })) : null,
     ],
   );

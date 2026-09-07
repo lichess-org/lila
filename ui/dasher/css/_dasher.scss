@@ -109,6 +109,9 @@
     margin: 0.5rem 0;
 
     button {
+      display: flex;
+      align-items: center;
+      gap: 8px;
       padding: 0.7rem 1rem;
       width: 100%;
       text-align: start;
@@ -129,7 +132,6 @@
       .svg-icon {
         @include transition(opacity);
 
-        margin-inline: 0 8px;
         font-size: 19px;
         width: 15px;
         justify-content: center;
@@ -154,12 +156,14 @@
     margin: 0;
 
     button {
+      display: flex;
+      align-items: center;
+      gap: 0.4em;
       padding: 0.5rem 1rem;
 
       .svg-icon {
         opacity: 0.5;
         font-size: 18px;
-        margin-inline: 0 0.4em;
       }
     }
 

@@ -88,11 +88,12 @@
       padding-inline-start: 2em;
     }
 
-    &:last-child .svg-icon {
-      margin-inline-end: 8px;
-      line-height: 0.9;
-      width: 1.4em;
-      float: left;
+    &:last-child .text {
+      gap: 8px;
+
+      .svg-icon {
+        width: 1.4em;
+      }
     }
 
     .svg-icon {

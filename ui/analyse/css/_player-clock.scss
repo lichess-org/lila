@@ -41,6 +41,9 @@ $clock-height: 20px;
   @include backdrop-blur-if-transparent;
   @extend %metal-bg;
 
+  display: flex;
+  align-items: center;
+  gap: 0.4em;
   padding: 0 0.5em;
   margin-inline-start: 12px;
   height: $clock-height;
@@ -58,7 +61,6 @@ $clock-height: 20px;
 
   .svg-icon {
     width: 0.7em;
-    margin-inline-end: 0.4em;
     color: $c-accent;
   }
 }

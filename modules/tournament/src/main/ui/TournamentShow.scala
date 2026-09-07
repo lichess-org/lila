@@ -149,9 +149,8 @@ final class TournamentShow(helpers: Helpers, gathering: GatheringUi)(
           div(cls := "scrollable-content")(
             shieldOwner.map: owner =>
               st.section(cls := "description")(
-                p(cls := "defender", iconEl := Icon.shield)(
-                  trans.arena.defender(),
-                  userIdLink(owner.some)
+                p(cls := "defender text", iconEl := Icon.shield)(
+                  span(trans.arena.defender(), userIdLink(owner.some))
                 )
               ),
             tour.description.map: d =>

@@ -10,13 +10,12 @@
     @extend %box-radius-bottom;
     @include prevent-select;
 
+    display: flex;
+    align-items: center;
+    justify-content: center;
     line-height: unset;
     -webkit-touch-callout: none;
     text-align: center;
-
-    .svg-icon {
-      margin-top: 5px;
-    }
   }
 
   [data-act='opening-explorer'],
@@ -56,10 +55,6 @@
   }
 
   @include mq-is-col1 {
-    .fbt .svg-icon {
-      margin-top: unset;
-    }
-
     .jumps .fbt[data-act='prev'],
     .jumps .fbt[data-act='next'] {
       padding-inline: 6px;

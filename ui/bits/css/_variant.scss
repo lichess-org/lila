@@ -16,6 +16,7 @@
   .variant {
     @extend %flex-center-nowrap;
 
+    gap: 1rem;
     color: $c-font;
     height: 6em;
 
@@ -27,7 +28,6 @@
 
     > .svg-icon {
       width: 3.5em;
-      margin-inline-end: 1rem;
       opacity: 0.7;
 
       @include transition;

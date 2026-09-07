@@ -14,12 +14,12 @@
   &__infos {
     @extend %flex-center-nowrap;
 
+    gap: 4%;
     position: relative;
 
     /* for bookmark */
     > .svg-icon:first-child {
       width: 3rem;
-      margin-inline-end: 4%;
     }
 
     p {

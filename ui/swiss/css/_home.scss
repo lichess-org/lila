@@ -10,6 +10,7 @@
     .faq {
       @extend %flex-center-nowrap;
 
+      gap: 2rem;
       margin-bottom: 4em;
 
       p {
@@ -19,7 +20,6 @@
 
       .svg-icon {
         flex: 0 0 2em;
-        margin-inline-end: 2rem;
         width: 3em;
         height: 3em;
         color: $c-brag;

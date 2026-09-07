@@ -215,8 +215,10 @@ const playerView = (ctrl: RelayPlayers, show: PlayerToShow): VNode => {
                       hl('tr', [
                         hl('th', 'Team'),
                         hl('td.text', [
-                          snabIcon('group'),
-                          hl('a', matchOrResultsTeamLink(ctrl, p.team), p.team),
+                          hl('span.text', [
+                            snabIcon('group'),
+                            hl('a', matchOrResultsTeamLink(ctrl, p.team), p.team),
+                          ]),
                         ]),
                       ]),
                     age && hl('tr', [hl('th', i18n.broadcast.age), hl('td', age.toString())]),

@@ -80,5 +80,5 @@ final class SwissBitsUi(helpers: Helpers, getName: GetSwissName):
         br,
         if s.isStarted then trans.site.eventInProgress() else momentFromNow(s.startsAt)
       ),
-      td(cls := "text", iconEl := Icon.user)(s.nbPlayers.localize)
+      td(cls := "text")(iconEl(Icon.user, s.nbPlayers.localize))
     )

@@ -524,11 +524,11 @@ h1 {
     h1 {
       @extend %flex-center;
 
+      gap: 0.4em;
       margin-bottom: 0.6em;
 
       > .svg-icon {
         width: 2.5em;
-        margin-inline-end: 0.4em;
       }
 
       strong {

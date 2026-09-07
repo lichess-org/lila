@@ -30,7 +30,7 @@ function renderHook(ctrl: LobbyController, hook: Hook) {
       ),
       !ctrl.me ? null : td(!ctrl.opts.showRatings ? '' : [hook.rating + (hook.prov ? '?' : '')]),
       td(hook.clock),
-      td(span([snabIcon(perfIcons[hook.perf]), i18n.site[hook.ra ? 'rated' : 'casual']])),
+      td(span('.text', [snabIcon(perfIcons[hook.perf]), i18n.site[hook.ra ? 'rated' : 'casual']])),
     ],
   );
 }

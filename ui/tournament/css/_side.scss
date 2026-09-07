@@ -63,11 +63,12 @@
 
     &:has(> .svg-icon) {
       @extend %flex-center-nowrap;
+
+      gap: 4%;
     }
 
     > .svg-icon:first-child {
       width: 3rem;
-      margin-inline-end: 4%;
     }
 
     p {
@@ -82,10 +83,12 @@
       opacity: 1;
     }
 
-    .defender .svg-icon {
-      width: 1.6em;
-      vertical-align: -0.26em;
-      margin: 0 0.15em 0 -0.15em;
+    .defender {
+      gap: 0.15em;
+
+      .svg-icon {
+        width: 1.6em;
+      }
     }
 
     &.conditions {

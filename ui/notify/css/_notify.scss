@@ -102,6 +102,8 @@
 
 .site_notification {
   display: flex;
+  align-items: center;
+  gap: 1rem;
   padding: 0.6rem 0.6rem 0.6rem 1rem;
   border-bottom: $border;
   position: relative;
@@ -135,6 +137,5 @@
   .svg-icon {
     width: 2em;
     opacity: 0.5;
-    margin-inline-end: 1rem;
   }
 }

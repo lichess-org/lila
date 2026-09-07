@@ -265,16 +265,13 @@
       }
 
       .button {
+        gap: 0.5ch;
         padding: 0.4em 1em;
         color: $c-good;
 
         &-discouraging {
           color: $c-font-dimmer;
         }
-      }
-
-      .svg-icon {
-        margin-inline-start: 0.5ch;
       }
 
       &.spy_filter {

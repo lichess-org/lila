@@ -5,6 +5,7 @@
   .info {
     @extend %box-radius, %flex-center-nowrap;
 
+    gap: 1rem;
     background: $c-accent;
     color: $c-over;
     padding: 1em;
@@ -13,7 +14,6 @@
 
     > .svg-icon {
       width: 3.6em;
-      margin-inline-end: 1rem;
     }
   }
 

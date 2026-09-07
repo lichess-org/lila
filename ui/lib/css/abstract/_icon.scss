@@ -31,8 +31,16 @@
   }
 }
 
-.text > .svg-icon:first-child {
-  margin-inline-end: 0.4em; // this should not be here, and gaps should not be done this way.
+:is(a, button, span, strong).text:has(> .svg-icon) {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+}
+
+:is(div, p, h1, h2, h3, li).text:has(> .svg-icon) {
+  display: flex;
+  align-items: center;
+  gap: 0.4em;
 }
 
 html[dir='rtl'] .svg-icon.mirror-rtl {

@@ -73,7 +73,7 @@ export default class RelayTeamLeaderboard {
           [
             hl('thead', [
               hl('tr', [
-                hl('th.text', [snabIcon('group'), i18n.team.team]),
+                hl('th.text', [hl('span.text', [snabIcon('group'), i18n.team.team])]),
                 hl('th', i18n.broadcast.matches),
                 hl('th', { attrs: { 'data-sort-default': 1 } }, i18n.broadcast.matchPoints),
                 hl('th', i18n.broadcast.gamePoints),

@@ -31,6 +31,7 @@
 
   .continue {
     display: flex;
+    gap: 10px;
     font-size: 1.3em;
     background: rgb(56 147 232 / 0.8);
     color: #fff;
@@ -46,6 +47,5 @@
 
   .continue > .svg-icon {
     width: 2.5em;
-    margin-inline-end: 10px;
   }
 }

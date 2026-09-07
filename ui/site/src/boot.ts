@@ -91,7 +91,7 @@ export function boot() {
       const url = '/tournament/' + data.id;
       $('body').append(
         $('<div id="announce">')
-          .append($('<a class="text">').attr('href', url).append(domIcon('trophy'), data.name))
+          .append($('<a class="text">').attr('href', url).text(data.name).prepend(domIcon('trophy')))
           .append(
             $('<div class="actions">')
               .append(

@@ -4,6 +4,7 @@
     @include padding-direction(0.7em, $block-gap, 0.7em, 0.4em);
     @include transition(background);
 
+    gap: 0.5em;
     white-space: nowrap;
 
     &.empty {
@@ -14,7 +15,6 @@
       width: 2.6em;
       height: 2.6em;
       opacity: 0.5;
-      margin-inline-end: 0.5em;
 
       @include transition(opacity color);
     }
@@ -47,8 +47,6 @@
       flex: 1 1 100%;
 
       @extend %flex-column;
-
-      margin-inline-end: 0.5em;
     }
 
     rating span,

@@ -60,6 +60,7 @@
   .insight {
     @extend %flex-center-nowrap;
 
+    gap: 1rem;
     flex: 0 0 auto;
     padding: 0.3em 1em;
     border-top: $border;
@@ -77,7 +78,6 @@
 
     .svg-icon {
       width: 2.5em;
-      margin-inline-end: 1rem;
     }
 
     &:hover {

@@ -8,6 +8,7 @@
   .continue {
     @extend %flex-center-nowrap;
 
+    gap: 10px;
     justify-content: center;
     font-size: 1.3em;
     background: $c-primary;
@@ -21,7 +22,6 @@
 
     .svg-icon {
       width: 2em;
-      margin-inline-end: 10px;
     }
   }
 

@@ -81,11 +81,13 @@
     }
 
     .stars {
-      margin-top: 4px;
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      margin-top: 7px;
     }
 
     .stars .svg-icon {
-      margin: 3px;
       animation: text-shadow-glow 1s 1;
     }
 

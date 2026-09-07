@@ -15,6 +15,10 @@
 
     strong {
       @extend %base-font;
+
+      display: inline-flex;
+      align-items: center;
+      gap: 0.1rem;
     }
 
     &.highlight strong {
@@ -23,7 +27,6 @@
 
     strong .svg-icon {
       width: 1.5em;
-      margin-inline-end: 0.1rem;
     }
   }
 

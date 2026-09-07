@@ -127,6 +127,7 @@
 #user_tag {
   @extend %flex-center-nowrap;
 
+  gap: 0.5rem;
   max-width: 40vw;
 
   .user-tag__name {
@@ -139,7 +140,6 @@
     @include transition(color);
 
     color: color-mix(in oklab, $c-font 85%, $c-dimmer);
-    margin-inline-start: 0.5rem;
   }
 
   &:hover .svg-icon {

@@ -76,11 +76,13 @@
       &__top {
         @extend %flex-center-nowrap;
 
+        gap: 1rem;
+        padding-inline-start: 1rem;
+
         .svg-icon {
           @extend %page-text-shadow;
 
           width: 4em;
-          margin: 0 1rem 0 1rem;
           opacity: 0.7;
         }
 
