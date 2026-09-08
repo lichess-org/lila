@@ -239,7 +239,7 @@ final class SessionStore(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Exe
         bdoc("fp" -> hash, "date" -> gt(nowInstant.minusDays(7)))
     }
 
-object SessionStore:
+private object SessionStore:
 
   val oauthSessionPrefix = "TOK-"
 
