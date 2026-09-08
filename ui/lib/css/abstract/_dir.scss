@@ -10,23 +10,39 @@
   }
 }
 
-@mixin inline-start($x) {
+@mixin inline-start($x, $unset-end: false) {
   @include if-ltr {
     left: $x;
+
+    @if $unset-end {
+      right: unset;
+    }
   }
 
   @include if-rtl {
     right: $x;
+
+    @if $unset-end {
+      left: unset;
+    }
   }
 }
 
-@mixin inline-end($x) {
+@mixin inline-end($x, $unset-start: false) {
   @include if-ltr {
     right: $x;
+
+    @if $unset-start {
+      left: unset;
+    }
   }
 
   @include if-rtl {
     left: $x;
+
+    @if $unset-start {
+      right: unset;
+    }
   }
 }
 

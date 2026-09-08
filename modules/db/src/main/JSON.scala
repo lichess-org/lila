@@ -26,4 +26,5 @@ object JSON:
     case BSONBoolean(value) => JsBoolean(value)
     case obj: BSONDocument => jval(obj)
     case BSONArray(values) => JsArray(values.map(jval))
+    case BSONNull => JsNull
     case v => JsString(v.toString)

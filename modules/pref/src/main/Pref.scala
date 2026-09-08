@@ -1,5 +1,6 @@
 package lila.pref
 
+import play.api.libs.json.JsValue
 import reactivemongo.api.bson.Macros.Annotations.Key
 
 import lila.core.ublog.QualityFilter
@@ -51,7 +52,8 @@ case class Pref(
     board: Pref.BoardPref,
     sayGG: Int,
     hasDgt: Boolean,
-    favFed: Option[lila.core.fide.Federation.Id]
+    favFed: Option[lila.core.fide.Federation.Id],
+    lobbyShortcuts: Option[JsValue]
 ) extends lila.core.pref.Pref:
 
   import Pref.*
@@ -500,7 +502,8 @@ object Pref:
     blogFilter = QualityFilter.best,
     sayGG = SayGG.NO,
     hasDgt = false,
-    favFed = None
+    favFed = None,
+    lobbyShortcuts = none
   )
 
   import alleycats.Zero
