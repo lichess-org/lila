@@ -39,8 +39,8 @@ export async function initModule({
     modal: !isTouchDevice(),
     focus: !isTouchDevice() ? '.desktop-only .save' : undefined,
     htmlText: $html`
-      <button class="mobile-only button-empty reset">
-        <span class="svg-icon icon-ChasingArrows"></span>
+      <button class="mobile-only button-empty reset" data-icon="${licon.ChasingArrows}"
+              aria-label="Reset shortcuts">
       </button>
       <h2>Add to shortcuts</h2>
       <div class="shortcuts-view">
