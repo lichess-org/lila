@@ -4,7 +4,7 @@ db.picfit_image.createIndex(
   { 'automod.flagged': 1 },
   { partialFilterExpression: { 'automod.flagged': { $exists: true } } },
 );
-db.automod.createIndex({ createdAt: -1 });
+db.automod.createIndex({ updated: -1 });
 db.automod.createIndex({ jobType: 1, 'response.result': 1, 'response.date': -1 });
 db.automod.createIndex({ jobType: 1, 'response.result': 1, source: 1 });
 db.swiss_pairing.createIndex({ s: 1, p: 1, r: 1 });
