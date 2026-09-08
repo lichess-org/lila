@@ -10,7 +10,7 @@
   .inner {
     display: flex;
     flex-direction: column;
-    padding: $analyse-block-gap calc($analyse-block-gap * 3);
+    padding: 0 calc($analyse-block-gap * 3) calc($analyse-block-gap * 3);
     gap: $analyse-block-gap;
   }
 
@@ -60,6 +60,10 @@
 
       &:hover {
         color: $c-primary;
+
+        &::before {
+          color: $c-primary-dim;
+        }
       }
     }
   }
