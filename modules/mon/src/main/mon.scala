@@ -773,7 +773,8 @@ object jvm:
     yield perState.withTags(tags("name" -> group.name, "state" -> state.toString)).update(count)
 
 object prometheus:
-  def lines(metric: String) = gauge("prometheus.lines").withTag("metric", metric)
+  def lines = gauge("prometheus.lines").withoutTags()
+  def linesPerMetric(metric: String) = gauge("prometheus.lines.metric").withTag("metric", metric)
 
 def chronoSync[A] = Chronometer.syncMon[A]
 

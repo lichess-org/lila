@@ -84,8 +84,10 @@ object PrometheusReporter:
   private[web] def setupPeriodicMonitor()(using scheduler: Scheduler)(using Executor): Unit =
     import scala.concurrent.duration.*
     scheduler.scheduleAtFixedRate(1.minute, 1.minute): () =>
-      linesPerMetric().foreach: (name, lines) =>
-        lila.mon.prometheus.lines(name).update(lines)
+      val perMetric = linesPerMetric()
+      perMetric.foreach: (name, lines) =>
+        lila.mon.prometheus.linesPerMetric(name).update(lines)
+      lila.mon.prometheus.lines.update(perMetric.values.sum)
 
   class Factory extends ModuleFactory:
     override def create(settings: ModuleFactory.Settings): Module =
