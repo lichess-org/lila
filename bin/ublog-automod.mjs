@@ -64,7 +64,7 @@ examples:
     fetches automod assessments for ublogId1 & ublogId2 and force update ublog_post
     regardless of existing automod jobs or assessments\n`;
 
-const qualities = { spam: 0, weak: 1, good: 2, great: 3 }; // in sync with UblogAutomod.scala
+const qualities = { spam: 0, weak: 1, good: 2, great: 2 }; // in sync with UblogAutomod.scala
 const schemaVersion = 2;
 const flushEvery = 100; // bulk write after every <flushEvery> assessments
 const concurrentRequests = 32;
@@ -110,7 +110,7 @@ async function worker() {
       if (args.out) {
         await fs.promises.appendFile(args.out, JSON.stringify({ _id: post._id, automod }) + '\n');
       } else if (await needsUpdate(post.automod, automodId(post))) {
-        bulkOps.push({ updateOne: { filter: { _id: post._id }, update: { $set: { automod } } } });
+        bulkOps.push(automodUpdate(post._id, automod));
       }
     }
     progress.processed++;
@@ -209,9 +209,24 @@ async function needsUpdate(automod, id) {
   return !automod || automod.version !== schemaVersion;
 }
 
+// ===========================================================================================================
+
 function automodId(post) {
   const content = `${post.title} ${post.intro} ${post.markdown}`.slice(0, 40_000); // UblogAutomod.scala
   return `blog:${crypto.createHash('sha256').update(`blog::${content}`).digest('hex').slice(0, 16)}`; // Automod.jobId
+}
+
+// ===========================================================================================================
+
+function automodUpdate(_id, automod) {
+  return {
+    updateOne: {
+      filter: { _id },
+      update: {
+        $set: { automod, quality: Math.min(automod.quality, qualities.weak), approval: 'unverified' },
+      },
+    },
+  };
 }
 
 // ===========================================================================================================
@@ -259,9 +274,7 @@ async function mergeAndExit() {
       .split('\n')
       .filter(Boolean)
       .map(JSON.parse)) {
-      bulkOps.push({
-        updateOne: { filter: { _id }, update: { $set: { automod } } },
-      });
+      bulkOps.push(automodUpdate(_id, automod));
       await maybeBulkWrite(1000);
     }
     await maybeBulkWrite(bulkOps.length);

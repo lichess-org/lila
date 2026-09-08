@@ -28,7 +28,7 @@ case class UblogPost(
     likes: UblogPost.Likes,
     views: UblogPost.Views,
     quality: Quality = Quality.spam, // effective quality used for filtering and ordering
-    listedAt: Option[Instant] = none, // this is the sort key because lived.at is unfair to untrusteds
+    listedAt: Option[Instant] = none, // when effective quality first became good
     similar: Option[List[UblogSimilar]] = none,
     automod: Option[UblogAutomod.Assessment] = none,
     approval: UblogPost.Approval = UblogPost.Approval.unverified
@@ -64,25 +64,23 @@ case class UblogPost(
 
   def isPendingQuality =
     approval == UblogPost.Approval.unverified &&
-      automod.exists(_.quality == Quality.good) &&
-      quality == Quality.weak
+      automod.isDefined
 
   private[ublog] def computeEffectiveQuality(trustedAuthor: Boolean): UblogPost =
-    if approval == UblogPost.Approval.verified then this
-    else
-      automod
-        .map(_.quality)
-        .match
-          case None =>
-            copy(quality = if trustedAuthor then Quality.good else Quality.spam) // shouldn't happen
-          case Some(Quality.good) if trustedAuthor =>
-            copy(quality = Quality.good, approval = UblogPost.Approval.trusted)
-          case Some(Quality.good) =>
-            copy(quality = Quality.weak, approval = UblogPost.Approval.unverified)
-          case Some(notGood) => copy(quality = notGood, approval = UblogPost.Approval.unverified)
+    automod
+      .map(_.quality)
+      .match
+        case Some(notGood) if notGood != Quality.good =>
+          copy(quality = notGood, approval = UblogPost.Approval.unverified)
+        case _ if approval != UblogPost.Approval.unverified => this
+        case Some(Quality.good) if trustedAuthor =>
+          copy(quality = Quality.good, approval = UblogPost.Approval.trusted)
+        case Some(Quality.good) =>
+          copy(quality = Quality.weak, approval = UblogPost.Approval.unverified)
+        case _ => copy(quality = if trustedAuthor then Quality.good else Quality.spam)
 
-  private[ublog] def refreshListedAt(previous: Quality): UblogPost =
-    if listedAt.isEmpty && quality.ordinal > previous.ordinal then copy(listedAt = nowInstant.some) else this
+  private[ublog] def refreshListedAt: UblogPost =
+    if listedAt.isEmpty && quality == Quality.good then copy(listedAt = nowInstant.some) else this
 
 case class UblogImage(id: ImageId, alt: Option[String] = None, credit: Option[String] = None)
 

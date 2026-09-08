@@ -207,17 +207,18 @@ final class UblogApi(
 
   def triggerAutomod(post: UblogPost): Fu[Option[UblogPost]] =
     val retries = 1 // 30s, 1m, 2m, 4m, 8m
+    val assessedText = post.allText.take(40_000)
     def attempt(n: Int): Fu[Option[UblogPost]] =
       ublogAutomod(post, n * 0.1)
         .flatMapz: llm =>
           getPost(post.id).flatMapz: current =>
-            val result = current.automod.foldLeft(llm): (llm, prev) =>
-              prev.updateByLLM(llm)
-            for
-              trustedAuthor <- isAuthorTrusted(current)
-              newPost = current.copy(automod = result.some).computeEffectiveQuality(trustedAuthor)
-              _ <- updateQualityFields(newPost, current.quality)
-            yield newPost.some
+            if current.allText.take(40_000) != assessedText then fuccess(none)
+            else
+              for
+                trustedAuthor <- isAuthorTrusted(current)
+                newPost = current.copy(automod = llm.some).computeEffectiveQuality(trustedAuthor)
+                _ <- updateQualityFields(newPost)
+              yield newPost.some
         .recoverWith: e =>
           if n < retries then delay((30 * math.pow(2, n).toInt).seconds)(attempt(n + 1))
           else
@@ -292,7 +293,7 @@ final class UblogApi(
   def nextToReview: Fu[Option[UblogPost]] =
     colls.post
       .find(pendingReviewSelect, postProjection.some)
-      .sort(sort.desc("lived.at"))
+      .sort(sort.desc("updated.at"))
       .one[UblogPost]
 
   def liveLightsByIds(ids: List[UblogPostId]): Fu[List[UblogPost.LightPost]] =
@@ -375,13 +376,10 @@ final class UblogApi(
 
   def modPost(post: UblogPost, d: UblogForm.ModPostData): Fu[UblogPost] =
     val newPost = post.moderate(d)
-    updateQualityFields(newPost, post.quality).inject(newPost)
+    updateQualityFields(newPost).inject(newPost)
 
-  private def updateQualityFields(
-      post: UblogPost,
-      previousQuality: Quality
-  ): Funit =
-    val updated = post.refreshListedAt(previousQuality)
+  private def updateQualityFields(post: UblogPost): Funit =
+    val updated = post.refreshListedAt
     val sets = bdoc("quality" -> updated.quality, "approval" -> updated.approval) ++
       updated.listedAt.so(at => bdoc("listedAt" -> at)) ++
       updated.automod.so(a => bdoc("automod" -> a))

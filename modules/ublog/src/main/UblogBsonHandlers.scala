@@ -54,9 +54,8 @@ private object UblogBsonHandlers:
   val userLiveSort = bdoc("sticky" -> -1, "lived.at" -> -1)
 
   def pendingReviewSelect = bdoc(
-    "automod.quality" -> Quality.good,
-    "quality" -> Quality.weak,
     "approval" -> Approval.unverified,
+    "automod".exists(true),
     "live" -> true,
-    "lived.at".gt(nowInstant.minusMonths(1))
+    "updated.at".gt(nowInstant.minusMonths(1))
   )

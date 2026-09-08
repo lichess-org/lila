@@ -9,7 +9,6 @@ db.ublog_post.updateMany({ approval: { $exists: false } }, { $set: { approval: '
 
 db.ublog_post.updateMany({ modQuality: { $exists: true } }, { $unset: { modQuality: '' } });
 
-db.ublog_post.updateMany(
-  { quality: { $gt: 0 }, listedAt: { $exists: false }, 'lived.at': { $exists: true } },
-  [{ $set: { listedAt: '$lived.at' } }],
-);
+db.ublog_post.updateMany({ quality: 2, listedAt: { $exists: false }, 'lived.at': { $exists: true } }, [
+  { $set: { listedAt: '$lived.at' } },
+]);

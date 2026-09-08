@@ -32,12 +32,7 @@ object UblogAutomod:
       commercial: Option[String] = none,
       evergreen: Option[Boolean] = none,
       version: Int = schemaVersion
-  ):
-    def updateByLLM(llm: Assessment): Assessment =
-      llm.copy(
-        quality = Quality.fromOrdinal:
-          llm.quality.ordinal.atLeast(quality.ordinal)
-      )
+  )
 
   private case class FuzzyResult(
       quality: String,
