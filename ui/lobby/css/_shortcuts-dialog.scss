@@ -63,7 +63,7 @@ dialog .close-button-anchor .close-button {
   gap: 1em;
   touch-action: pan;
   grid-template: 'scratch shortcuts' minmax(0, 1fr) / minmax(72px, 0.25fr) minmax(0, 1fr);
-  height: min(70vh, 624px);
+  height: min(64vh, 624px);
 
   @include mq-is-col1 {
     grid-template: 'scratch' auto 'shortcuts' minmax(0, 1fr) / minmax(0, 1fr);
@@ -112,7 +112,7 @@ dialog .close-button-anchor .close-button {
       grid-template-rows: repeat(2, 48px);
       grid-auto-flow: column;
       justify-content: start;
-      font-size: 11px;
+      font-size: 10px;
     }
   }
 
