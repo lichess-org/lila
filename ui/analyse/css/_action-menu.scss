@@ -10,7 +10,7 @@
   .inner {
     display: flex;
     flex-direction: column;
-    padding: $analyse-block-gap;
+    padding: $analyse-block-gap calc($analyse-block-gap * 3);
     gap: $analyse-block-gap;
   }
 
@@ -54,7 +54,8 @@
 
       &::before {
         padding-inline-end: 8px;
-        font-size: 1.7em;
+        font-size: 1.5em;
+        color: $c-font-dim;
       }
 
       &:hover {
