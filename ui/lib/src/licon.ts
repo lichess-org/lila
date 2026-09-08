@@ -121,7 +121,7 @@ export const licon = {
   Disc: '' as const, // e06b
   Wings: '' as const, // e06c
   DiscOutline: '' as const, // e06d
-  Prune: '' as const, // e06e
+  Language: '' as const, // e06e
   ArrowThruApple: '' as const, // e06f
   Clipboard: '' as const, // e070
   Move: '' as const, // e071
@@ -135,7 +135,7 @@ export const licon = {
   Logo: '' as const, // e07a
   Switch: '' as const, // e07b
   Cpu: '' as const, // e07e
-  Language: '' as const, // e07f
+  Prune: '' as const, // e07f
 };
 
 export type Licon = typeof licon;
