@@ -1,3 +1,5 @@
+import type { Rules } from 'chessops';
+
 import type { Feature } from '@/device';
 import type { ClientEval, LocalEval, ServerEval, TreeNode, TreePath } from '@/tree/types';
 import type { MaybeVNode } from '@/view';
@@ -8,7 +10,6 @@ import type { CevalCtrl } from './ctrl';
 export type WinningChances = number;
 export type SearchBy = { movetime: number } | { depth: number } | { nodes: number };
 export type Search = { by: SearchBy; multiPv: number; indeterminate?: boolean };
-export type EngineTrust = 'cloudEval' | 'staticAnalysis' | 'puzzleReport';
 
 export interface EvalMeta {
   path: TreePath;
@@ -18,7 +19,7 @@ export interface EvalMeta {
 }
 
 export interface Work extends EvalMeta {
-  variant: VariantKey;
+  variant: Rules;
   threads: number;
   hashSize?: number;
   gameId?: string; // send ucinewgame when changed
@@ -36,17 +37,19 @@ export interface BaseEngineInfo {
   name: string;
   short?: string;
   url?: string;
-  variants?: VariantKey[];
+  variants?: Rules[];
+  supportsNonStandardMaterial?: boolean;
   minThreads?: number;
   maxThreads?: number;
   maxHash?: number;
   maxMovetime?: number;
   requires?: Feature[];
-  capabilities?: EngineTrust[];
+  supportsPuzzleReport?: boolean;
+  supportsCloudEval?: boolean;
 }
 
 export interface ExternalEngineInfoFromServer extends BaseEngineInfo {
-  variants: VariantKey[];
+  variants: Rules[];
   maxHash: number;
   maxThreads: number;
   providerData?: string;
@@ -57,7 +60,7 @@ export interface ExternalEngineInfoFromServer extends BaseEngineInfo {
 
 export interface ExternalEngineInfo extends ExternalEngineInfoFromServer {
   tech: 'EXTERNAL';
-  cloudEval?: false;
+  preferred: true;
 }
 
 export interface BrowserEngineInfo extends BaseEngineInfo {

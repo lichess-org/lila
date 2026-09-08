@@ -194,7 +194,10 @@ function setupTick(v: VNode, ceval: CevalCtrl) {
 
 function engineSelection({ ceval }: CevalHandler) {
   const active = ceval.engines.active();
-  const engines = ceval.engines.supporting(ceval.opts.variant.key);
+  const engines = ceval.engines.supporting({
+    rules: ceval.rules,
+    nonStandardMaterial: ceval.nonStandardMaterial,
+  });
   const external = ceval.engines.external;
 
   return hl('div.setting', [
@@ -222,7 +225,16 @@ function engineSelection({ ceval }: CevalHandler) {
       }),
     hl('button.engine-info-button', {
       attrs: { ...dataIcon(licon.InfoCircle), title: 'Engine information' },
-      on: { click: () => engineInfo(ceval.engines.supporting(ceval.opts.variant.key, undefined, 'browser')) },
+      on: {
+        click: () =>
+          engineInfo(
+            ceval.engines.supporting({
+              rules: ceval.rules,
+              nonStandardMaterial: ceval.nonStandardMaterial,
+              filter: 'browser',
+            }),
+          ),
+      },
     }),
   ]);
 }
