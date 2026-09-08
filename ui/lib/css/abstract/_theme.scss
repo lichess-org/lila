@@ -6,31 +6,31 @@ $border: $border-width $border-style $c-border;
 $outline: 2px solid $c-primary;
 
 @mixin if-light {
-  html.light & {
+  :where(html.light) & {
     @content;
   }
 }
 
 @mixin if-transp {
-  html.transp & {
+  :where(html.transp) & {
     @content;
   }
 }
 
 @mixin if-transp-light {
-  html.transp.light & {
+  :where(html.transp.light) & {
     @content;
   }
 }
 
 @mixin if-not-light {
-  html:not(.light) & {
+  :where(html:not(.light)) & {
     @content;
   }
 }
 
 @mixin if-not-transp {
-  html:not(.transp) & {
+  :where(html:not(.transp)) & {
     @content;
   }
 }
