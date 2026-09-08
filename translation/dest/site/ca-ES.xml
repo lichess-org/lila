@@ -249,6 +249,7 @@
   <string name="signupUsernameHint">Assegureu-vos d\'escollir un nom d\'usuari amigable. No el podreu canviar més tard i qualsevol compte amb nom d\'usuaris inapropiats es tancarà!</string>
   <string name="signupEmailPromise">Només t\'enviarem correus sobre el teu compte i mai compartirem el teu correu electrònic.</string>
   <string name="password">Contrasenya</string>
+  <string name="showPassword">Mostra la contrasenya</string>
   <string name="changePassword">Canvia la contrasenya</string>
   <string name="changeEmail">Canvia el correu electrònic</string>
   <string name="email">Correu electrònic</string>
@@ -556,6 +557,7 @@ Juga partides puntuades per augmentar l\'estabilitat.</string>
   <string name="oneUrlPerLine">Una URL per línia.</string>
   <string name="inlineNotation">Notació lineal</string>
   <string name="makeAStudy">Per salvaguardar i compartir, considera fer un estudi.</string>
+  <string name="clearLocalData">Eliminar les dades locals</string>
   <string name="previouslyOnLichessTV">Prèviament a Lichess TV</string>
   <string name="onlinePlayers">Jugadors connectats</string>
   <string name="activePlayers">Jugadors actius</string>
