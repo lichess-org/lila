@@ -322,7 +322,7 @@
 }
 
 /* presumably the keyboard is up */
-@media (height <= $x-short) {
+@media (max-height: at-most($x-short)) {
   #top {
     display: none;
   }
