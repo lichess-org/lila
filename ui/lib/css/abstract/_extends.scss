@@ -160,8 +160,6 @@
 }
 
 %dropdown-shadow {
-  @include backdrop-blur-if-transparent;
-
   @include if-transp {
     @include back-blur;
   }
