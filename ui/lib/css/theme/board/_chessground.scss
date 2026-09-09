@@ -46,58 +46,6 @@ square {
     pointer-events: auto;
   }
 
-  &.king-win::after,
-  &.king-lose::after,
-  &.king-lose-mate::after,
-  &.king-lose-resign::after,
-  &.king-lose-timeout::after,
-  &.king-draw::after {
-    @extend %flex-center-center;
-
-    position: absolute;
-    top: -10%;
-    right: -10%;
-    width: 42%;
-    height: 42%;
-    border: 0.1em solid $c-bg-box;
-    border-radius: 50%;
-    color: $c-over;
-    font-family: lichess;
-    font-size: clamp(0.7rem, 2.5vmin, 1.5rem);
-    line-height: 1;
-    z-index: 1;
-  }
-
-  &.king-win::after {
-    background: $c-good;
-    content: $licon-Trophy;
-  }
-
-  &.king-lose::after {
-    background: $c-bad;
-    content: $licon-CautionTriangle;
-  }
-
-  &.king-lose-mate::after {
-    background: $c-bad;
-    content: $licon-CautionCircle;
-  }
-
-  &.king-lose-resign::after {
-    background: $c-bad;
-    content: $licon-FlagOutline;
-  }
-
-  &.king-lose-timeout::after {
-    background: $c-bad;
-    content: $licon-Clock;
-  }
-
-  &.king-draw::after {
-    background: $c-brag;
-    content: $licon-OneHalf;
-  }
-
   &.premove-dest {
     background: radial-gradient(rgb(20 30 85 / 0.5) 19%, rgb(0 0 0 / 0) 20%);
     pointer-events: auto;
