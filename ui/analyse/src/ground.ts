@@ -5,6 +5,7 @@ import { h, type VNode } from 'snabbdom';
 
 import resizeHandle from 'lib/chessgroundResize';
 import { isSafari } from 'lib/device';
+import { plyColor } from 'lib/game/chess';
 import { endgameShapes } from 'lib/game/endgame';
 import * as Prefs from 'lib/prefs';
 import { storage } from 'lib/storage';
