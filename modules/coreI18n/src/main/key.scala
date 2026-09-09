@@ -1784,6 +1784,7 @@ object I18nKey:
     val `moveTimes`: I18nKey = "moveTimes"
     val `flipBoard`: I18nKey = "flipBoard"
     val `toggleLocalEngine`: I18nKey = "toggleLocalEngine"
+    val `showAll`: I18nKey = "showAll"
     val `engineSettings`: I18nKey = "engineSettings"
     val `engineInformation`: I18nKey = "engineInformation"
     val `enginesFromStrongestToWeakest`: I18nKey = "enginesFromStrongestToWeakest"
