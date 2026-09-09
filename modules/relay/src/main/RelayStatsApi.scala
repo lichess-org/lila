@@ -72,7 +72,7 @@ final class RelayStatsApi(colls: RelayColls, viewerCount: lila.memo.ViewerCountA
         update
           .element(
             q = bid(roundId),
-            u = push("d" -> bdoc("$each" -> barr(nowMinutes, crowd))),
+            u = pushEach("d", barr(nowMinutes, crowd)),
             upsert = true
           )
           .dmap(some)
