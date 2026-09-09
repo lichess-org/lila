@@ -104,11 +104,10 @@ export const env = new (class {
 
     const prefix = (
       (this.logTime ? `${pc.gray(prettyTime())} ` : '') +
-      (ctx && this.logCtx ? colorForCtx(ctx)(` ${ctx} `) : '')
+      (ctx && this.logCtx ? colorForCtx(ctx)(`${ctx} ${pc.dim('⏵')} `) : '')
     ).trim();
 
-    for (const line of trimLines(text))
-      console.log(`${prefix ? `${prefix} ${pc.dim(pc.gray('⏵'))} ` : ' '}${line}`);
+    for (const line of trimLines(text)) console.log(`${prefix ? prefix : ' '}${line}`);
   }
 
   exit(d?: any, ctx = 'build'): void {
@@ -178,18 +177,18 @@ export const trimLines = (s: string): string[] => s.split(/[\n\r\f]+/).filter(x 
 export type Context = 'sass' | 'tsc' | 'esbuild' | 'sync' | 'hash' | 'i18n' | 'web';
 
 const contextColors: Record<string, (text: string) => string> = {
-  build: pc.bgGreen,
-  sass: pc.bgMagenta,
-  tsc: pc.bgYellow,
-  esbuild: pc.bgBlue,
-  sync: pc.bgCyan,
-  hash: pc.bgBlackBright,
-  i18n: pc.bgBlueBright,
-  web: pc.bgCyanBright,
+  build: pc.green,
+  sass: pc.magenta,
+  tsc: pc.yellow,
+  esbuild: pc.magentaBright,
+  sync: pc.cyan,
+  hash: pc.blue,
+  i18n: pc.blueBright,
+  web: pc.cyanBright,
 };
 
 function colorForCtx(ctx: string): (text: string) => string {
-  return contextColors[ctx] ?? pc.bgWhiteBright;
+  return contextColors[ctx] ?? pc.whiteBright;
 }
 
 export const errorMark: string = pc.red('✘ ') + pc.redBright('[ERROR]');
