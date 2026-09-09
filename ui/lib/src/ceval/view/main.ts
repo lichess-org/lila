@@ -137,8 +137,8 @@ export function renderGauge(ctrl: CevalHandler): VNode | undefined {
   } else ev = gaugeLast;
   return hl(
     'div.eval-gauge',
-    { class: { empty: !defined(bestEv), reverse: ctrl.getOrientation() === 'black' } },
-    [hl('div.black', { attrs: { style: `height: ${100 - (ev + 1) * 50}%` } }), gaugeTicks],
+    { class: { empty: !defined(bestEv), reverse: ctrl.getOrientation() === 'black' }, attrs: { style: `--evalPercent: ${100 - (ev + 1) * 50}%` } },
+    [gaugeTicks],
   );
 }
 
