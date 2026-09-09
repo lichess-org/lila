@@ -130,7 +130,7 @@ export const env = new (class {
       const took =
         code === 0 && startedAt ? pc.gray(` (${((Date.now() - startedAt) / 1000).toFixed(3)}s)`) : '';
       this.log(
-        `${code === 0 ? `Done${took}` : pc.red('Failed')}${this.watch ? ` ${pc.green('⦿ Watching…')}` : ''}`,
+        `${code === 0 ? `Done${took}` : pc.red('Failed')}${this.watch ? ` ${pc.green('• Watching…')}` : ''}`,
         ctx,
       );
       this.contextStartedAt.delete(ctx);
