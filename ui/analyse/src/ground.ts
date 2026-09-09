@@ -79,7 +79,7 @@ export function makeConfig(ctrl: AnalyseCtrl): CgConfig {
       custom:
         outcome || d.game.status.id >= 30
           ? endgameHighlights(
-              opts.fen,
+              ctrl.node.fen,
               outcome?.winner || d.game.winner,
               opts.check ? 'mate' : outcome ? 'stalemate' : d.game.status.name,
             )
