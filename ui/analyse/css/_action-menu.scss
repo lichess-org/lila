@@ -10,8 +10,8 @@
   .inner {
     display: flex;
     flex-direction: column;
-    padding: 0 calc($analyse-block-gap * 3) calc($analyse-block-gap * 3);
-    gap: $analyse-block-gap;
+    padding: 0 1rem 1rem;
+    gap: 1rem;
   }
 
   h2 {
