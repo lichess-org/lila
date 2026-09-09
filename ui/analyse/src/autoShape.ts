@@ -2,7 +2,7 @@ import type { DrawModifiers, DrawShape } from '@lichess-org/chessground/draw';
 import { opposite } from '@lichess-org/chessground/util';
 import { between, ray, knightAttacks } from 'chessops/attacks';
 import { parseFen } from 'chessops/fen';
-import { isDrop, type Square } from 'chessops/types';
+import { isDrop, type NormalMove, type Square } from 'chessops/types';
 import { parseUci, makeSquare } from 'chessops/util';
 
 import { winningChances } from 'lib/ceval';
@@ -76,6 +76,14 @@ function drawManeuver(ctrl: AnalyseCtrl, color: Color, moves: Uci[], brush: stri
   } else if (moves[0]) makeShapesFromUci(color, moves[0], brush).forEach(s => shapes.push(s));
 }
 
+function castlingKingDest(move: NormalMove): Square | undefined {
+  if (move.from !== 4 && move.from !== 60) return undefined;
+  const rank = move.from === 4 ? 0 : 56;
+  if (move.to === rank) return rank + 2;
+  if (move.to === rank + 7) return rank + 6;
+  return undefined;
+}
+
 export function makeShapesFromUci(
   color: Color,
   uci: Uci | undefined,
@@ -84,9 +92,12 @@ export function makeShapesFromUci(
 ): DrawShape[] {
   if (!uci || uci === 'Current Position') return [];
   const move = parseUci(uci)!;
-  const to = makeSquare(move.to);
-  if (isDrop(move)) return [{ orig: to, brush }, pieceDrop(to, move.role, color)];
+  if (isDrop(move)) {
+    const to = makeSquare(move.to);
+    return [{ orig: to, brush }, pieceDrop(to, move.role, color)];
+  }
 
+  const to = makeSquare(castlingKingDest(move) ?? move.to);
   const shapes: DrawShape[] = [{ orig: makeSquare(move.from), dest: to, brush, modifiers }];
   if (move.promotion) shapes.push(pieceDrop(to, move.promotion, color));
   return shapes;
