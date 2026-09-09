@@ -115,7 +115,9 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, org.apache.pekko.st
     coll(_.updateField(bid(chapterId) ++ bdoc("relay.lastMoveAt".exists(true)), "relay.path", path)).void
 
   def setTagsFor(chapter: Chapter) =
-    coll(_.updateField(bid(chapter.id), "tags", chapter.tags)).void
+    coll(_.updateField(bid(chapter.id), "tags", chapter.tags))
+      .addEffect(_ => updateElasticIndex(chapter.studyId))
+      .void
 
   def setShapes(shapes: lila.tree.Node.Shapes) =
     setNodeValue(F.shapes, shapes.value.nonEmpty.option(shapes))
@@ -146,7 +148,10 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, org.apache.pekko.st
 
   def forceVariation(force: Boolean) = setNodeValue(F.forceVariation, force.option(true))
 
-  def setName(id: StudyChapterId, name: StudyChapterName) = coll(_.updateField(bid(id), "name", name)).void
+  def setName(chapter: Chapter, name: StudyChapterName) =
+    coll(_.updateField(bid(chapter.id), "name", name))
+      .addEffect(_ => updateElasticIndex(chapter.studyId))
+      .void
 
   // insert node and its children
   // and updates chapter denormalization
@@ -302,11 +307,15 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, org.apache.pekko.st
   def countByStudyId(id: StudyId): Fu[Int] =
     coll(_.countSel(studyId(id)))
 
-  def insert(s: Chapter): Funit = coll(_.insert.one(s.updateDenorm)).void
+  def insert(s: Chapter): Funit =
+    coll(_.insert.one(s.updateDenorm)).void.addEffect(_ => updateElasticIndex(s.studyId))
 
   def update(c: Chapter): Funit = coll(_.update.one(bid(c.id), c.updateDenorm)).void
 
   def delete(id: StudyChapterId): Funit = coll(_.delete.one(bid(id))).void
-  def delete(c: Chapter): Funit = delete(c.id)
+  def delete(c: Chapter): Funit = delete(c.id).addEffect(_ => updateElasticIndex(c.studyId))
 
   def studyId(id: StudyId) = bdoc("studyId" -> id)
+
+  private def updateElasticIndex(studyId: StudyId) =
+    lila.common.Bus.pub(lila.core.study.IndexStudySearch(studyId))

@@ -1,39 +1,69 @@
 package lila.gameSearch
 
-import lila.search.spec.{ DateRange, IntRange }
-
 export lila.core.lilaism.Lilaism.{ *, given }
 export lila.common.extensions.*
-
-val index = lila.search.Index.Game
 
 val perfKeys: List[PerfKey] = PerfKey.list.filter: p =>
   p != PerfKey.puzzle && p != PerfKey.standard
 
-extension (range: IntRange) def nonEmpty: Boolean = range.a.nonEmpty || range.b.nonEmpty
-extension (range: DateRange) def nonEmpty: Boolean = range.a.nonEmpty || range.b.nonEmpty
+case class IntRange(a: Option[Int] = None, b: Option[Int] = None):
+  def nonEmpty: Boolean = a.nonEmpty || b.nonEmpty
+  def sorted: IntRange =
+    (a, b) match
+      case (Some(min), Some(max)) if min > max => IntRange(max.some, min.some)
+      case _ => this
 
-extension (query: lila.search.spec.Query.Game)
+case class DateRange(a: Option[Instant] = None, b: Option[Instant] = None):
+  def nonEmpty: Boolean = a.nonEmpty || b.nonEmpty
+  def sorted: DateRange =
+    (a, b) match
+      case (Some(min), Some(max)) if min.isAfter(max) => DateRange(max.some, min.some)
+      case _ => this
+
+case class Query(
+    user1: Option[String] = None,
+    user2: Option[String] = None,
+    winner: Option[String] = None,
+    loser: Option[String] = None,
+    winnerColor: Option[Int] = None,
+    perf: List[Int] = Nil,
+    source: Option[Int] = None,
+    status: Option[Int] = None,
+    turns: IntRange = IntRange(),
+    averageRating: IntRange = IntRange(),
+    hasAi: Option[Boolean] = None,
+    aiLevel: IntRange = IntRange(),
+    rated: Option[Boolean] = None,
+    date: DateRange = DateRange(),
+    duration: IntRange = IntRange(),
+    sorting: SearchSort = SearchSort(),
+    analysed: Option[Boolean] = None,
+    whiteUser: Option[String] = None,
+    blackUser: Option[String] = None,
+    clockInit: Option[Int] = None,
+    clockInc: Option[Int] = None
+):
   def nonEmpty: Boolean =
-    query.user1.nonEmpty ||
-      query.user2.nonEmpty ||
-      query.winner.nonEmpty ||
-      query.loser.nonEmpty ||
-      query.winnerColor.nonEmpty ||
-      query.perf.nonEmpty ||
-      query.source.nonEmpty ||
-      query.status.nonEmpty ||
-      query.turns.nonEmpty ||
-      query.averageRating.nonEmpty ||
-      query.hasAi.nonEmpty ||
-      query.aiLevel.nonEmpty ||
-      query.rated.nonEmpty ||
-      query.date.nonEmpty ||
-      query.duration.nonEmpty ||
-      query.analysed.nonEmpty ||
-      query.clockInit.nonEmpty ||
-      query.clockInc.nonEmpty
+    user1.nonEmpty ||
+      user2.nonEmpty ||
+      winner.nonEmpty ||
+      loser.nonEmpty ||
+      winnerColor.nonEmpty ||
+      perf.nonEmpty ||
+      source.nonEmpty ||
+      status.nonEmpty ||
+      turns.nonEmpty ||
+      averageRating.nonEmpty ||
+      hasAi.nonEmpty ||
+      aiLevel.nonEmpty ||
+      rated.nonEmpty ||
+      date.nonEmpty ||
+      duration.nonEmpty ||
+      analysed.nonEmpty ||
+      whiteUser.nonEmpty ||
+      blackUser.nonEmpty ||
+      clockInit.nonEmpty ||
+      clockInc.nonEmpty
 
   def userIds: Set[UserId] =
-    Set(query.user1, query.user2, query.winner, query.loser, query.whiteUser, query.blackUser).flatten
-      .map(UserId.apply)
+    Set(user1, user2, winner, loser, whiteUser, blackUser).flatten.map(UserId.apply)
