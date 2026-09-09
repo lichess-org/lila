@@ -25,6 +25,7 @@ export function findKingSquare(fen: FEN, color: Color): Key | undefined {
       }
     }
   }
+  return undefined;
 }
 
 export const firstPly = (d: RoundData): number => d.steps[0].ply;
