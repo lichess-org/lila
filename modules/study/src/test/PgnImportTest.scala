@@ -7,6 +7,7 @@ import scala.language.implicitConversions
 
 import lila.core.LightUser
 import lila.tree.Clock
+import lila.tree.Node.Comment as NodeComment
 
 class PgnImportTest extends LilaTest:
 
@@ -272,7 +273,7 @@ Rad1 {[%clk 1:24:50]} b6 {[%clk 1:09:49]} 18. g4 {[%clk 1:03:52]} *""",
       .result(pgn, List(bobby, mary))
       .assertRight: parsed =>
         val authors = parsed.root.mainlineNodeList.drop(1).flatMap(_.comments.value).map(_.by)
-        assertEquals(authors, List.fill(2)(lila.tree.Node.Comment.author(bobby)))
+        assertEquals(authors, List.fill(2)(NodeComment.author(bobby)))
 
   test("21211: two comments on the same move collapse into a single one"):
     val pgn: PgnStr = """[Annotator "Bobby"]
@@ -298,7 +299,7 @@ Rad1 {[%clk 1:24:50]} b6 {[%clk 1:09:49]} 18. g4 {[%clk 1:03:52]} *""",
         val authors = parsed.root.mainlineNodeList.drop(1).flatMap(_.comments.value).map(_.by)
         assertEquals(
           authors,
-          List(lila.tree.Node.Comment.author(bobby), lila.tree.Node.Comment.author(mary))
+          List(NodeComment.author(bobby), NodeComment.author(mary))
         )
 
   test("21211: comments by different authors on the same move are kept apart"):
@@ -315,7 +316,7 @@ Rad1 {[%clk 1:24:50]} b6 {[%clk 1:09:49]} 18. g4 {[%clk 1:03:52]} *""",
         )
         assertEquals(
           comments.map(_.by),
-          List(lila.tree.Node.Comment.author(mary), lila.tree.Node.Comment.author(bobby))
+          List(NodeComment.author(mary), NodeComment.author(bobby))
         )
 
   test("21211: two comments by the same author on the same move still collapse"):
@@ -327,7 +328,7 @@ Rad1 {[%clk 1:24:50]} b6 {[%clk 1:09:49]} 18. g4 {[%clk 1:03:52]} *""",
       .assertRight: parsed =>
         val comments = parsed.root.mainlineNodeList(2).comments.value
         assertEquals(comments.map(_.text), Comment.from(List("first\nsecond")))
-        assertEquals(comments.map(_.by), List(lila.tree.Node.Comment.author(mary)))
+        assertEquals(comments.map(_.by), List(NodeComment.author(mary)))
 
   test("21211: an [%anno] that matches nobody is kept verbatim"):
     val pgn: PgnStr = """[Annotator "Bobby"]
@@ -337,7 +338,7 @@ Rad1 {[%clk 1:24:50]} b6 {[%clk 1:09:49]} 18. g4 {[%clk 1:03:52]} *""",
       .result(pgn, List(bobby, mary))
       .assertRight: parsed =>
         val comments = parsed.root.mainlineNodeList(1).comments.value
-        assertEquals(comments.map(_.by), List(lila.tree.Node.Comment.Author.External("Garry Kasparov")))
+        assertEquals(comments.map(_.by), List(NodeComment.Author.External("Garry Kasparov")))
 
   test("21211: an [%anno] with a display name only resolves to that name"):
     val pgn: PgnStr = """1. e4 { [%anno "Bobby"] no account id here }"""
@@ -345,4 +346,4 @@ Rad1 {[%clk 1:24:50]} b6 {[%clk 1:09:49]} 18. g4 {[%clk 1:03:52]} *""",
       .result(pgn, List(bobby, mary))
       .assertRight: parsed =>
         val comments = parsed.root.mainlineNodeList(1).comments.value
-        assertEquals(comments.map(_.by), List(lila.tree.Node.Comment.Author.External("Bobby")))
+        assertEquals(comments.map(_.by), List(NodeComment.Author.External("Bobby")))
