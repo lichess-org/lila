@@ -1,7 +1,9 @@
 package lila.shutup
 
-import lila.common.constants.bannedYoutubeIds
+import java.util.regex.Pattern
 import scalatags.Text.all.*
+
+import lila.common.constants.bannedYoutubeIds
 
 object Analyser extends lila.core.shutup.TextAnalyser:
 
@@ -27,13 +29,13 @@ object Analyser extends lila.core.shutup.TextAnalyser:
     val words = apply(text).badWords
     if words.isEmpty then frag(text)
     else
-      val regex = { """(?iu)""" + bounds.wrap(words.mkString("(", "|", ")")) }.r
+      val regex = { """(?iu)""" + bounds.wrap(words.map(Pattern.quote).mkString("(", "|", ")")) }.r
       def tag(word: String) = s"<bad>$word</bad>"
       raw(regex.replaceAllIn(escapeHtmlRaw(text), m => tag(m.toString)))
   catch
     case e: Exception =>
       lila.log.system.warn(s"Analyser.highlightBad: $text", e)
-      frag(text)
+      scalatags.Text.all.raw(text)
 
   private def latinify(text: String): String =
     text.map:
