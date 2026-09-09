@@ -3,6 +3,7 @@ import { h, type VNode } from 'snabbdom';
 
 import resizeHandle from 'lib/chessgroundResize';
 import { isSafari } from 'lib/device';
+import { endgameHighlights } from 'lib/game/endgame';
 import { Coords, ShowResizeHandle } from 'lib/prefs';
 import { storage } from 'lib/storage';
 import { onInsert } from 'lib/view';
@@ -65,6 +66,10 @@ export function makeConfig(ctrl: PuzzleCtrl): CgConfig {
     highlight: {
       lastMove: ctrl.pref.highlight,
       check: ctrl.pref.highlight,
+      custom:
+        ctrl.lastFeedback === 'win'
+          ? endgameHighlights(ctrl.node.fen, ctrl.pov, ctrl.node.check() ? 'mate' : 'unknownFinish')
+          : new Map<Key, string>(),
     },
     animation: {
       enabled: true,

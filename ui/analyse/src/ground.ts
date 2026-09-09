@@ -4,6 +4,7 @@ import { h, type VNode } from 'snabbdom';
 
 import resizeHandle from 'lib/chessgroundResize';
 import { isSafari } from 'lib/device';
+import { endgameHighlights } from 'lib/game/endgame';
 import * as Prefs from 'lib/prefs';
 import { storage } from 'lib/storage';
 import { onInsert } from 'lib/view';
@@ -74,6 +75,10 @@ export function makeConfig(ctrl: AnalyseCtrl): CgConfig {
     highlight: {
       lastMove: pref.highlight,
       check: pref.highlight,
+      custom:
+        d.game.status.id >= 30
+          ? endgameHighlights(opts.fen, d.game.winner, d.game.status.name)
+          : new Map<Key, string>(),
     },
     animation: {
       duration: pref.animationDuration,
