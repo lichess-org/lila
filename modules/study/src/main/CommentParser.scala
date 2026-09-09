@@ -38,7 +38,7 @@ private[study] object CommentParser:
           .orElse(Option(bare))
           .map(_.trim)
           .filter(_.nonEmpty)
-          .map(name => Author(name, UserId.from(Option(id).map(_.trim.toLowerCase)).filter(_.value.nonEmpty)))
+          .map(name => Author(name, Option(id).flatMap(UserStr.read).map(_.id)))
       case _ => none
 
   private def parseShapes(comment: ChessComment): Shapes =
