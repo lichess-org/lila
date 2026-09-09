@@ -36,19 +36,14 @@ final class ForumAccess(
   def isGrantedWrite(categId: ForumCategId, tryingToPostAsMod: Boolean = false)(using
       me: Option[Me]
   ): Fu[Boolean] =
-    if tryingToPostAsMod && Granter.opt(_.Shusher) then fuTrue
-    else if !canWriteInAnyForum then fuFalse
-    else if categId == ForumCateg.diagnosticId || Granter.opt(_.ModerateForum) then
-      isGranted(categId, Operation.Write)
-    else
-      me.fold(fuFalse): me =>
-        usermod
-          .isTimedOut(me.userId)
-          .flatMap: timedOut =>
-            if timedOut then fuFalse
-            else isGranted(categId, Operation.Write)
+    me.soUse: me ?=>
+      if tryingToPostAsMod && Granter.opt(_.Shusher) then fuTrue
+      else if !canWriteInAnyForum then fuFalse
+      else if categId == ForumCateg.diagnosticId || Granter(_.ModerateForum)
+      then isGranted(categId, Operation.Write)
+      else usermod.isTimedOut(me.userId).not.flatMapz(isGranted(categId, Operation.Write))
 
-  private def canWriteInAnyForum(using me: Option[Me]) = me.exists: me =>
+  private def canWriteInAnyForum(using me: Me) =
     !me.isBot && {
       (me.count.game > 0 && me.createdSinceDays(2)) || me.hasTitle || me.isVerified || me.isPatron
     }

@@ -52,7 +52,7 @@ final class UsermodApi(
   )
 
   def isTimedOut(userId: UserId): Fu[Boolean] =
-    coll.byId[Usermod](userId).dmap(_.exists(_.isTimedOut))
+    coll.secondary.byId[Usermod](userId).dmap(_.exists(_.isTimedOut))
 
   def active(userId: UserId): Fu[Option[Usermod.NegativeReports]] =
     coll.byId[Usermod](userId).dmap(_.flatMap(_.activeComplaints))
