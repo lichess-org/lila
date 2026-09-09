@@ -1,4 +1,4 @@
-@property --multiEvalPercent {
+@property --multi-eval-percent {
   syntax: '<percentage>';
   inherits: false;
   initial-value: 50%;
@@ -156,7 +156,7 @@
     opacity: 0.4;
     margin-left: 4px;
     background: linear-gradient(to top, var(--c-eval-mini-gauge-white), var(--c-eval-mini-gauge-black));
-    transition: --multiEvalPercent 1s ease;
+    transition: --multi-eval-percent 1s ease;
 
     &::after {
       content: '';
@@ -174,15 +174,15 @@
       opacity: 1;
       background: linear-gradient(
         to top,
-        var(--c-eval-mini-gauge-white) var(--multiEvalPercent),
-        var(--c-eval-mini-gauge-black) var(--multiEvalPercent)
+        var(--c-eval-mini-gauge-white) var(--multi-eval-percent),
+        var(--c-eval-mini-gauge-black) var(--multi-eval-percent)
       );
 
       &.mini-game__gauge--flip {
         background: linear-gradient(
           to bottom,
-          var(--c-eval-mini-gauge-white) var(--multiEvalPercent),
-          var(--c-eval-mini-gauge-black) var(--multiEvalPercent)
+          var(--c-eval-mini-gauge-white) var(--multi-eval-percent),
+          var(--c-eval-mini-gauge-black) var(--multi-eval-percent)
         );
       }
 

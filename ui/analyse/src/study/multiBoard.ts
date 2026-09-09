@@ -326,9 +326,17 @@ export const verticalEvalGauge = (
 ): MaybeVNode => {
   const baseTag = `span.mini-game__gauge${orientation === 'black' ? ' mini-game__gauge--flip' : ''}`;
   return chap.check === '#'
-    ? h(baseTag + ` mini-game__gauge--set`, { attrs: { 'data-id': chap.id, title: 'Checkmate', style: `--multiEvalPercent: ${fenColor(chap.fen) === 'white' ? 100 : 0}%` } }, [
-        h('tick'),
-      ])
+    ? h(
+        baseTag + ` mini-game__gauge--set`,
+        {
+          attrs: {
+            'data-id': chap.id,
+            title: 'Checkmate',
+            style: `--multi-eval-percent: ${fenColor(chap.fen) === 'white' ? 100 : 0}%`,
+          },
+        },
+        [h('tick')],
+      )
     : h(
         baseTag,
         {
@@ -341,7 +349,7 @@ export const verticalEvalGauge = (
               const cev = cloudEval.getCloudEval(chap.fen) || prevNodeCloud;
               if (cev?.chances !== prevNodeCloud?.chances) {
                 elm.style.setProperty(
-                  '--multiEvalPercent',
+                  '--multi-eval-percent',
                   `${Math.round(((1 - (cev?.chances || 0)) / 2) * 100)}%`,
                 );
                 if (cev) {

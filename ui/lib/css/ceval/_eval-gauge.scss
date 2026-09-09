@@ -1,4 +1,4 @@
-@property --evalPercent {
+@property --eval-percent {
   syntax: '<percentage>';
   inherits: false;
   initial-value: 50%;
@@ -10,12 +10,12 @@
   width: $block-gap;
   height: var(---cg-height, 100%);
   position: relative;
-  background: linear-gradient(to top, #c0c0c0 var(--evalPercent), #444 var(--evalPercent));
-  transition: --evalPercent 1s ease;
+  background: linear-gradient(to top, #c0c0c0 var(--eval-percent), #444 var(--eval-percent));
+  transition: --eval-percent 1s ease;
   overflow: hidden;
 
   @include if-light {
-    background: linear-gradient(to top, #fff var(--evalPercent), #606060 var(--evalPercent));
+    background: linear-gradient(to top, #fff var(--eval-percent), #606060 var(--eval-percent));
   }
 
   @include mq-is-col1 {
