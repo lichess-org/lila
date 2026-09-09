@@ -41,9 +41,6 @@ export function makeConfig(ctrl: RoundController): CgConfig {
       lastMove: data.pref.highlight,
       check: data.pref.highlight,
     },
-    drawable: {
-      autoShapes: endgame,
-    },
     events: {
       move: hooks.onMove,
       dropNewPiece: hooks.onNewPiece,
@@ -101,6 +98,7 @@ export function makeConfig(ctrl: RoundController): CgConfig {
     drawable: {
       enabled: true,
       defaultSnapToValidMove: storage.boolean('arrow.snap').getOrDefault(true),
+      autoShapes: endgame,
     },
     disableContextMenu: true,
   };
