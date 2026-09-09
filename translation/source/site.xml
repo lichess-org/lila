@@ -176,6 +176,7 @@
   <string name="moveTimes">Move times</string>
   <string name="flipBoard">Flip board</string>
   <string name="toggleLocalEngine">Toggle local engine</string>
+  <string name="showAll">Show all</string>
   <string name="engineSettings">Engine settings</string>
   <string name="engineInformation">Engine information</string>
   <string name="enginesFromStrongestToWeakest">Engines from strongest to weakest</string>

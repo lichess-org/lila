@@ -251,7 +251,7 @@ function helpHtml() {
         <div class="setting inert">${i18n.site.flipBoard}<kbd>f</kbd></div>
         <div class="setting inert">${i18n.site.toggleLocalEngine}<kbd>l</kbd></div>
         ${settingShortcutsHtml}
-        <button class="button button-empty button-dim show-all">Show all</button>
+        <button class="button button-empty button-dim show-all">${i18n.site.showAll}</button>
       </fieldset>
     </div>`;
 }

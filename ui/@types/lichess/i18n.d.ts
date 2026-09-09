@@ -4543,6 +4543,8 @@ interface I18n {
     settings: string;
     /** Share your chess insights data */
     shareYourInsightsData: string;
+    /** Show all */
+    showAll: string;
     /** View this help overlay */
     showHelpDialog: string;
     /** Show me everything */
