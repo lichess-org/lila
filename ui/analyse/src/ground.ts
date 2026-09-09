@@ -25,7 +25,8 @@ export function promote(ground: CgApi, key: Key, role: Role) {
 export function makeConfig(ctrl: AnalyseCtrl): CgConfig {
   const d = ctrl.data,
     pref = d.pref,
-    opts = ctrl.makeCgOpts();
+    opts = ctrl.makeCgOpts(),
+    outcome = ctrl.node.outcome();
   const config: CgConfig = {
     turnColor: opts.turnColor,
     fen: opts.fen,
@@ -76,8 +77,12 @@ export function makeConfig(ctrl: AnalyseCtrl): CgConfig {
       lastMove: pref.highlight,
       check: pref.highlight,
       custom:
-        d.game.status.id >= 30
-          ? endgameHighlights(opts.fen, d.game.winner, d.game.status.name)
+        outcome || d.game.status.id >= 30
+          ? endgameHighlights(
+              opts.fen,
+              outcome?.winner || d.game.winner,
+              opts.check ? 'mate' : outcome ? 'stalemate' : d.game.status.name,
+            )
           : new Map<Key, string>(),
     },
     animation: {
