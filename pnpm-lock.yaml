@@ -135,7 +135,7 @@ importers:
         specifier: 11.2.0
         version: 11.2.0
       sortablejs:
-        specifier: ^1.15.6
+        specifier: ^1.15.7
         version: 1.15.7
 
   ui/bits:
@@ -210,7 +210,7 @@ importers:
         specifier: 11.2.0
         version: 11.2.0
       sortablejs:
-        specifier: ^1.15.6
+        specifier: ^1.15.7
         version: 1.15.7
       zxcvbn:
         specifier: ^4.4.2
