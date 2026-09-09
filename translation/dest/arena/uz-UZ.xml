@@ -66,6 +66,7 @@ Tezroq gʻalaba qozonib, kutish zaliga qayting — koʻproq oʻyin oʻynang va k
   <string name="editTournament">Turnirni tahrirlash</string>
   <string name="editTeamBattle">Jamoalar jangini tahrirlash</string>
   <string name="defender">Himoyachi</string>
+  <string name="defenderLabel" comment="In this context, this is the current holder of a shield trophy, who is defending their trophy in the next shield tournament of that variant. https://lichess.org/tournament/shields Replaces old string defender">Himoya qiluvchi:</string>
   <string name="pickYourTeam">Jamoangizni tanlang</string>
   <string name="whichTeamWillYouRepresentInThisBattle">Ushbu jangda qaysi jamoa nomidan qatnashasiz?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">Ishtirok etish uchun ushbu jamoalardan biriga qoʻshilishingiz kerak!</string>

@@ -1,8 +1,7 @@
 import Shepherd from 'shepherd.js';
 
-import { type Icon } from 'lib/icons';
+import { licon } from 'lib/licon';
 import { pubsub } from 'lib/pubsub';
-import { htmlIcon } from 'lib/view';
 
 import type AnalyseCtrl from '../ctrl';
 import type { ChapterTab, StudyTour, Tab } from './interfaces';
@@ -13,8 +12,8 @@ export function initModule(): StudyTour {
     chapter,
   };
 
-  function iconI18nTag(icon: Icon) {
-    return htmlIcon(icon);
+  function iconI18nTag(i: string) {
+    return `<icon data-icon='${i}'></icon>`;
   }
 
   function study(ctrl: AnalyseCtrl) {
@@ -50,7 +49,7 @@ export function initModule(): StudyTour {
       },
       {
         title: i18n.study.studyMembersTitle,
-        text: i18n.study.studyMembersText(iconI18nTag('eye'), iconI18nTag('user')),
+        text: i18n.study.studyMembersText(iconI18nTag(licon.Eye), iconI18nTag(licon.User)),
         attachTo: { element: '.study__members', on: 'right' },
         when: onTab('members'),
       },
@@ -59,7 +58,7 @@ export function initModule(): StudyTour {
     if (ctrl.study?.members.isOwner()) {
       steps.push({
         title: i18n.study.addMembers,
-        text: i18n.study.addMembersText(iconI18nTag('plusButton')),
+        text: i18n.study.addMembersText(iconI18nTag(licon.PlusButton)),
         attachTo: { element: '.study__members .add', on: 'right' },
         when: onTab('members'),
       });
@@ -76,7 +75,7 @@ export function initModule(): StudyTour {
       steps.push(
         {
           title: i18n.study.commentPositionTitle,
-          text: i18n.study.commentPositionText(iconI18nTag('bubbleSpeech')),
+          text: i18n.study.commentPositionText(iconI18nTag(licon.BubbleSpeech)),
           attachTo: { element: '.study__buttons .left-buttons .comments', on: 'top' },
         },
         {
@@ -93,7 +92,7 @@ export function initModule(): StudyTour {
       attachTo: { element: helpButtonSelector, on: 'top' },
       buttons: [
         {
-          text: iconI18nTag('checkmark'),
+          text: iconI18nTag(licon.Checkmark),
           action: tourCtrl.tour.next,
         },
       ],
@@ -158,7 +157,7 @@ export function initModule(): StudyTour {
         text: i18n.study.chapterConclusionText,
         buttons: [
           {
-            text: iconI18nTag('checkmark'),
+            text: iconI18nTag(licon.Checkmark),
             action: tourCtrl.tour.next,
           },
         ],

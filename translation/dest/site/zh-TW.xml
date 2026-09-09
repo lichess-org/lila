@@ -516,7 +516,6 @@
   <string name="oneUrlPerLine">每行一個網址</string>
   <string name="inlineNotation">棋譜集中顯示</string>
   <string name="makeAStudy">為了安全保管和分享，考慮創建一項研討.</string>
-  <string name="clearSavedMoves">清空著法儲存</string>
   <string name="previouslyOnLichessTV">過去的Lichess TV直播</string>
   <string name="onlinePlayers">在線棋手</string>
   <string name="activePlayers">活躍棋手</string>

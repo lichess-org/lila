@@ -9,26 +9,21 @@
     }
   }
 
-  .write-tab:focus:not(.active) {
-    outline: $outline;
-    outline-offset: -2px;
-  }
-
+  .write-tab:focus:not(.active),
   .preview-tab:focus:not(.active) {
     outline: $outline;
     outline-offset: -2px;
   }
 
   .upload-image {
-    all: unset;
-    margin: 0 16px;
+    display: block;
+    pointer-events: none;
+    margin: 8px;
+    width: 24px;
     height: 24px;
-    color: $c-font-dimmer;
+    background-color: $c-font-dimmer;
     cursor: pointer;
-
-    .svg-icon {
-      width: 24px;
-    }
+    mask: url('../images/buttons/add-photo-outline-material.svg') 0 0 / contain no-repeat;
   }
 
   .upload-image:focus {
@@ -39,7 +34,7 @@
 
   @media (hover: hover) and (pointer: fine) {
     .upload-image:hover {
-      color: $c-primary;
+      background-color: $c-primary;
     }
   }
 }

@@ -581,7 +581,6 @@ GET   /password/reset/sent             controllers.Auth.passwordResetSent
 GET   /password/reset/confirm/:token   controllers.Auth.passwordResetConfirm(token)
 POST  /password/reset/confirm/:token   controllers.Auth.passwordResetConfirmApply(token)
 POST  /auth/set-fp/:fp/:ms             controllers.Auth.setFingerPrint(fp, ms: Int)
-POST  /auth/token                      controllers.Auth.makeLoginTokenLichobile
 GET   /auth/token/:token               controllers.Auth.loginWithToken(token)
 POST  /auth/token/:token               controllers.Auth.loginWithTokenPost(token)
 GET   /auth/magic-link                 controllers.Auth.magicLink

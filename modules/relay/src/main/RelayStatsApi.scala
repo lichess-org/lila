@@ -37,7 +37,7 @@ final class RelayStatsApi(colls: RelayColls, viewerCount: lila.memo.ViewerCountA
 
   private def get(id: RelayRoundId): Fu[RoundStats] =
     colls.stats
-      .primitiveOne[List[Int]]($id(id), "d")
+      .primitiveOne[List[Int]](bid(id), "d")
       .mapz:
         _.grouped(2)
           .collect:
@@ -55,8 +55,8 @@ final class RelayStatsApi(colls: RelayColls, viewerCount: lila.memo.ViewerCountA
     nowMinutes = nowSeconds / 60
     lastValuesDocs <- colls.stats.aggregateList(crowds.size): framework =>
       import framework.*
-      Match($inIds(crowds._1F)) -> List(
-        Project($doc("last" -> $doc("$arrayElemAt" -> $arr("$d", -1))))
+      Match(inIds(crowds._1F)) -> List(
+        Project(bdoc("last" -> bdoc("$arrayElemAt" -> barr("$d", -1))))
       )
     lastValues =
       for
@@ -71,8 +71,8 @@ final class RelayStatsApi(colls: RelayColls, viewerCount: lila.memo.ViewerCountA
       (lastValue != crowd).so:
         update
           .element(
-            q = $id(roundId),
-            u = $push("d" -> $doc("$each" -> $arr(nowMinutes, crowd))),
+            q = bid(roundId),
+            u = push("d" -> bdoc("$each" -> barr(nowMinutes, crowd))),
             upsert = true
           )
           .dmap(some)
@@ -87,8 +87,8 @@ final class RelayStatsApi(colls: RelayColls, viewerCount: lila.memo.ViewerCountA
         import framework.*
         // lila-ws sets crowdAt along with crowd
         // so we can use crowdAt to know which rounds are being monitored
-        Match($doc("crowdAt".$gt(nowInstant.minusMinutes(1)))) ->
-          List(Project($doc("_id" -> 1, "crowd" -> 1)))
+        Match(bdoc("crowdAt".gt(nowInstant.minusMinutes(1)))) ->
+          List(Project(bdoc("_id" -> 1, "crowd" -> 1)))
       .map: docs =>
         lila.mon.relay.crowdMonitor.update(docs.size)
         if docs.size == max

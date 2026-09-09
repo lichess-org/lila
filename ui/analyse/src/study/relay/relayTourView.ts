@@ -4,9 +4,10 @@ import { defined, memoize, onClickAway } from 'lib';
 import { renderChat } from 'lib/chat/renderChat';
 import { displayColumns } from 'lib/device';
 import { commonDateFormat, timeago } from 'lib/i18n';
+import { licon } from 'lib/licon';
 import { pubsub } from 'lib/pubsub';
 import { innerHTML, richHTML } from 'lib/richText';
-import { bind, onInsert, hl, snabIcon, type LooseVNode, copyMeInput } from 'lib/view';
+import { bind, dataIcon, onInsert, hl, type LooseVNode, copyMeInput } from 'lib/view';
 import { cmnToggleWrap } from 'lib/view/cmn-toggle';
 import { userLink } from 'lib/view/userLink';
 import { verticalResize } from 'lib/view/verticalResize';
@@ -74,28 +75,23 @@ export const tourSide = (ctx: RelayViewContext, kid: LooseVNode) => {
                 relay.round.name,
               ),
               !ctrl.isEmbed &&
-                hl(
-                  'button.streamer-show.data-count',
-                  {
-                    attrs: {
-                      'aria-label': i18n.site.streamersMenu,
-                      'data-count': relay.streams.length,
-                      title: i18n.site.streamersMenu,
-                    },
-                    class: {
-                      disabled: !relay.streams.length,
-                      active: relay.showStreamerMenu(),
-                      streaming: relay.isStreamer(),
-                    },
-                    hook: bind('click', relay.showStreamerMenu.toggle, relay.redraw),
+                hl('button.streamer-show.data-count', {
+                  attrs: {
+                    'data-icon': licon.Mic,
+                    'data-count': relay.streams.length,
+                    title: i18n.site.streamersMenu,
                   },
-                  [snabIcon('mic')],
-                ),
-              hl(
-                'button.relay-tour__side__search',
-                { attrs: { 'aria-label': i18n.site.search }, hook: bind('click', study.search.open.toggle) },
-                [snabIcon('search')],
-              ),
+                  class: {
+                    disabled: !relay.streams.length,
+                    active: relay.showStreamerMenu(),
+                    streaming: relay.isStreamer(),
+                  },
+                  hook: bind('click', relay.showStreamerMenu.toggle, relay.redraw),
+                }),
+              hl('button.relay-tour__side__search', {
+                attrs: dataIcon(licon.Search),
+                hook: bind('click', study.search.open.toggle),
+              }),
             ]),
           ],
       !ctrl.isEmbed && relay.showStreamerMenu() && renderStreamerMenu(relay),
@@ -127,8 +123,7 @@ const startCountdown = (relay: RelayCtrl) => {
   const round = relay.round,
     startsAt = defined(round.startsAt) && new Date(round.startsAt),
     date = startsAt && hl('time', commonDateFormat(startsAt));
-  return hl('div.relay-tour__side__empty', [
-    snabIcon('radioTower'),
+  return hl('div.relay-tour__side__empty', { attrs: dataIcon(licon.RadioTower) }, [
     hl('strong', round.name),
     startsAt
       ? startsAt.getTime() < Date.now() + 1000 * 10 * 60 // in the last 10 minutes, only say it's soon.
@@ -320,12 +315,15 @@ const tourSelect = (ctx: RelayViewContext, group: RelayGroup) => {
 
 const tourStateIcon = (tour: RelayTourPreview, titleAsText: boolean) =>
   tour.live
-    ? hl('span.tour-state.ongoing', { attrs: { title: i18n.broadcast.ongoing } }, [snabIcon('discBig')])
+    ? hl('span.tour-state.ongoing', {
+        attrs: { ...dataIcon(licon.DiscBig), title: i18n.broadcast.ongoing },
+      })
     : !tour.active
-      ? hl('span.tour-state.finished', { attrs: { title: !titleAsText && i18n.site.finished } }, [
-          snabIcon('checkmark'),
+      ? hl(
+          'span.tour-state.finished',
+          { attrs: { ...dataIcon(licon.Checkmark), title: !titleAsText && i18n.site.finished } },
           titleAsText && i18n.site.finished,
-        ])
+        )
       : undefined;
 
 const roundSelect = (relay: RelayCtrl, study: StudyCtrl) => {
@@ -543,24 +541,29 @@ const makeTabs = (ctrl: AnalyseCtrl) => {
     study.members.myMember() && !!relay.data.tour.tier
       ? makeTab('stats', i18n.site.stats)
       : ctrl.isEmbed &&
-        hl('a.relay-tour__tabs--open.text', { attrs: { href: relay.tourPath(), target: '_blank' } }, [
-          snabIcon('expand'),
+        hl(
+          'a.relay-tour__tabs--open.text',
+          {
+            attrs: { href: relay.tourPath(), target: '_blank', 'data-icon': licon.Expand },
+          },
           i18n.broadcast.openLichess,
-        ]),
+        ),
   ]);
 };
 
 const roundStateIcon = (round: RelayRound, titleAsText: boolean) =>
   round.ongoing
-    ? hl('span.round-state.ongoing', { attrs: { title: !titleAsText && i18n.broadcast.ongoing } }, [
-        snabIcon('discBig'),
+    ? hl(
+        'span.round-state.ongoing',
+        { attrs: { ...dataIcon(licon.DiscBig), title: !titleAsText && i18n.broadcast.ongoing } },
         titleAsText && i18n.broadcast.ongoing,
-      ])
+      )
     : round.finishedAt &&
-      hl('span.round-state.finished', { attrs: { title: !titleAsText && i18n.site.finished } }, [
-        snabIcon('checkmark'),
+      hl(
+        'span.round-state.finished',
+        { attrs: { ...dataIcon(licon.Checkmark), title: !titleAsText && i18n.site.finished } },
         titleAsText && i18n.site.finished,
-      ]);
+      );
 
 const broadcastImageOrStream = (ctx: RelayViewContext) => {
   const { relay, allowVideo } = ctx;
@@ -602,8 +605,7 @@ function renderStreamerMenu(relay: RelayCtrl): VNode {
         ),
       },
       relay.streams.map(([id, info]) =>
-        hl('a.streamer.text', { attrs: { href: makeUrl(id) } }, [
-          snabIcon('mic'),
+        hl('a.streamer.text', { attrs: { 'data-icon': licon.Mic, href: makeUrl(id) } }, [
           info.name,
           hl('icon', info.lang),
         ]),

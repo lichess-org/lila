@@ -27,8 +27,8 @@ object BSONHandlers:
         .getOrElse(Shape.Arrow(brush, r.get[Square]("o"), r.get[Square]("d")))
     def writes(w: Writer, t: Shape) =
       t match
-        case Shape.Circle(brush, pos) => $doc("b" -> brush, "p" -> pos.key)
-        case Shape.Arrow(brush, orig, dest) => $doc("b" -> brush, "o" -> orig.key, "d" -> dest.key)
+        case Shape.Circle(brush, pos) => bdoc("b" -> brush, "p" -> pos.key)
+        case Shape.Arrow(brush, orig, dest) => bdoc("b" -> brush, "o" -> orig.key, "d" -> dest.key)
 
   given chessRoleHandler: BSONHandler[PromotableRole] = tryHandler[PromotableRole](
     { case BSONString(v) =>
@@ -69,11 +69,11 @@ object BSONHandlers:
             id <- doc.getAsOpt[UserId]("id")
             name <- doc.getAsOpt[String]("name")
           yield Comment.Author.User(id, name)
-        }.err(s"Invalid comment author $doc")
+        }.err(s"Invalid comment author bdoc")
       case _ => Comment.Author.Unknown
     },
     {
-      case Comment.Author.User(id, name) => $doc("id" -> id, "name" -> name)
+      case Comment.Author.User(id, name) => bdoc("id" -> id, "name" -> name)
       case Comment.Author.External(name) => BSONString(s"${name.trim}")
       case Comment.Author.Lichess => BSONString("l")
       case Comment.Author.Unknown => BSONString("")
@@ -98,7 +98,7 @@ object BSONHandlers:
         )
       )
     def writes(w: Writer, s: Crazyhouse.Data) =
-      $doc(
+      bdoc(
         "o" -> w.listO(s.promoted.squares),
         "w" -> w.strO(writePocket(s.pockets.white)),
         "b" -> w.strO(writePocket(s.pockets.black))
@@ -160,7 +160,7 @@ object BSONHandlers:
   private[study] def writeBranch(n: Branch) =
     import Node.BsonFields as F
     val w = new Writer
-    $doc(
+    bdoc(
       F.ply -> n.ply,
       F.uci -> n.move.uci,
       F.san -> n.move.san,
@@ -192,9 +192,9 @@ object BSONHandlers:
         crazyData = r.getO[Crazyhouse.Data](F.crazy),
         children = StudyFlatTree.reader.rootChildren(fullReader.doc)
       )
-    def writes(w: Writer, r: Root) = $doc(
+    def writes(w: Writer, r: Root) = bdoc(
       StudyFlatTree.writer.rootChildren(r).appended {
-        UciPathDb.rootDbKey -> $doc(
+        UciPathDb.rootDbKey -> bdoc(
           F.ply -> r.ply,
           F.fen -> r.fen,
           F.shapes -> r.shapes.value.nonEmpty.option(r.shapes),
@@ -240,7 +240,7 @@ object BSONHandlers:
       check = r.getO[Chapter.Check]("check"),
       clocks = ~r.getO[Chapter.BothClocks]("clocks")
     )
-    def writes(w: Writer, l: Chapter.LastPosDenorm) = $doc(
+    def writes(w: Writer, l: Chapter.LastPosDenorm) = bdoc(
       "fen" -> l.fen.some.filterNot(Fen.Full.isInitial),
       "uci" -> l.uci,
       "check" -> l.check,
@@ -260,7 +260,7 @@ object BSONHandlers:
   private[study] case class DbMember(role: StudyMember.Role)
   private[study] given dbMemberHandler: BSONDocumentHandler[DbMember] = Macros.handler
   private[study] given BSONDocumentWriter[StudyMember] with
-    def writeTry(x: StudyMember) = Success($doc("role" -> x.role))
+    def writeTry(x: StudyMember) = Success(bdoc("role" -> x.role))
 
   private[study] given (using handler: BSONHandler[Map[String, DbMember]]): BSONHandler[StudyMembers] =
     handler.as[StudyMembers](

@@ -24,7 +24,7 @@ final private class MsgNotify(
       notifyApi
         .markRead(
           userId,
-          $doc(
+          bdoc(
             "content.type" -> "privateMessage",
             "content.user" -> contactId
           )
@@ -34,7 +34,7 @@ final private class MsgNotify(
   def deleteAllBy(threads: List[MsgThread], user: User): Funit =
     threads.sequentiallyVoid { thread =>
       cancel(thread.id)
-      notifyApi.remove(thread.other(user.id), $doc("content.user" -> user.id)).void
+      notifyApi.remove(thread.other(user.id), bdoc("content.user" -> user.id)).void
     }
 
   private def schedule(threadId: MsgThread.Id): Unit = delayed.compute(threadId): canc =>

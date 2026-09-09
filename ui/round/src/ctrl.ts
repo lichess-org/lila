@@ -18,6 +18,7 @@ import { game as gameRoute } from 'lib/game/router';
 import { readFen, almostSanOf, speakable } from 'lib/game/sanWriter';
 import { playing } from 'lib/game/status';
 import viewStatus from 'lib/game/view/status';
+import { licon } from 'lib/licon';
 import notify from 'lib/notification';
 import * as poolRangeStorage from 'lib/poolRangeStorage';
 import { Replay } from 'lib/prefs';
@@ -26,7 +27,6 @@ import { type SocketSendOpts } from 'lib/socket';
 import { storage, once, storedBooleanProp, type LichessBooleanStorage } from 'lib/storage';
 import type { NodeCrazy } from 'lib/tree/types';
 import type { QuestionOpts } from 'lib/types';
-import { domIcon } from 'lib/view';
 import { toggleZenMode } from 'lib/view/zen';
 import * as wakeLock from 'lib/wakeLock';
 
@@ -705,13 +705,13 @@ export default class RoundController implements MoveRootCtrl {
     else if (this.data.opponent.offeringDraw)
       return {
         prompt: i18n.site.yourOpponentOffersADraw,
-        yes: { action: () => this.socket.send('draw-yes'), icon: 'oneHalf' },
+        yes: { action: () => this.socket.send('draw-yes'), icon: licon.OneHalf },
         no: { action: () => this.socket.send('draw-no') },
       };
     else if (this.data.opponent.proposingTakeback)
       return {
         prompt: i18n.site.yourOpponentProposesATakeback,
-        yes: { action: this.takebackYes, icon: 'back' },
+        yes: { action: this.takebackYes, icon: licon.Back },
         no: { action: () => this.socket.send('takeback-no') },
       };
     else if (this.voiceMove) return this.voiceMove.question();
@@ -761,7 +761,7 @@ export default class RoundController implements MoveRootCtrl {
     this.goneBerserk[color] = true;
     if (color !== this.data.player.color) site.sound.play('berserk');
     this.redraw();
-    $(`.game__meta .player.${color} .user-link`).append(domIcon('berserk'));
+    $(`<icon data-icon="${licon.Berserk}">`).appendTo($(`.game__meta .player.${color} .user-link`));
   };
 
   setLoading = (v: boolean, duration = 1500): void => {

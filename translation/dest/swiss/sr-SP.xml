@@ -7,4 +7,23 @@
     <item quantity="few">Погледај све %s рунде</item>
     <item quantity="other">Погледај свих %s рунди</item>
   </plurals>
+  <plurals name="oneRoundEveryXDays">
+    <item quantity="one">Једна рунда по дану</item>
+    <item quantity="few">Једна рунда свака %s дана</item>
+    <item quantity="other">Једна рунда сваких %s дана</item>
+  </plurals>
+  <string name="roundsAreStartedManually">Рунде су ручно покренуте</string>
+  <plurals name="xSecondsBetweenRounds">
+    <item quantity="one">%s секунд између рунди</item>
+    <item quantity="few">%s секунде између рунди</item>
+    <item quantity="other">%s секунди између рунди</item>
+  </plurals>
+  <string name="tournStartDate">Датум почетка турнира</string>
+  <string name="roundInterval">Интервал између рунди</string>
+  <string name="forbiddenPairings">Забрањена упарења</string>
+  <string name="forbiddenPairingsHelp">Корисничка имена играча који не би требали бити упарени (браћа и сестре, на пример). Два корисничка имена по линији, одвојена размаком.</string>
+  <string name="newSwiss">Нови Швајцарски турнир</string>
+  <string name="lateJoinUntil">Да док више од половине рунди не почне</string>
+  <string name="streaksAndBerserk">Низови и Берсерк</string>
+  <string name="absences">Изостанци</string>
 </resources>

@@ -22,6 +22,7 @@
   <string name="teamRead">Чтение информации о закрытых клубах</string>
   <string name="teamWrite">Присоединение к клубам и покидание их</string>
   <string name="teamLead">Управление клубами, где вы лидер: отправка личных сообщений, исключение участников</string>
+  <string name="manageTeamsYouLead" comment="Replaces old string teamLead">Управление клубами, где вы лидер: отправка личных сообщений, исключение участников</string>
   <string name="followRead">Чтение списка подписчиков</string>
   <string name="followWrite">Подписка и отписка от других игроков</string>
   <string name="msgWrite">Отправка личных сообщений другим игрокам</string>

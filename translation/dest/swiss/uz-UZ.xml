@@ -65,6 +65,7 @@ Bunda oʻyinchi yutgan barcha raqiblarning toʻplagan ochkolari hamda durang oʻ
   <string name="moreRoundsThanPlayersQ">Agar turnirda turlar soni oʻyinchilar sonidan koʻp boʻlsa nima boʻladi?</string>
   <string name="moreRoundsThanPlayersA">Barcha mumkin boʻlgan juftliklar oʻynab boʻlingach, turnir yakunlanadi va gʻolib eʼlon qilinadi.</string>
   <string name="restrictedToTeamsQ">Nima uchun u jamoalar bilan cheklangan?</string>
+  <string name="whyAreSwissTournamentsRestrictedToTeams" comment="Replaces old string restrictedToTeamsQ">Nimaga shveysarcha turnirlar faqat jamoalar uchun?</string>
   <string name="restrictedToTeamsA">Shveysarcha turnirlar onlayn shaxmat uchun moʻljallanmagan. Oʻyinchilardan punktuallik, masʼuliyat va sabr‑toqatni talab qiladi.
 Bizningcha, bu shartlarga global turnirlarga qaraganda jamoa ichida amal qilinishi ehtimoli yuqoriroq.</string>
   <string name="numberOfByesQ">Oʻyinchi necha marta “bye” olishi mumkin?</string>
@@ -86,6 +87,7 @@ Kechikib qoʻshilganlarga, hatto bir nechta turni oʻtkazib yuborgan boʻlsalar 
   <string name="willSwissReplaceArenasQ">Arena turnirlari shveysarcha turnirlar bilan almashtiriladimi?</string>
   <string name="willSwissReplaceArenasA">Yoʻq. Ular bir‑birini toʻldiruvchi funksiyalardir.</string>
   <string name="roundRobinQ">Round-robin (aylanma) tizimi‑chi?</string>
+  <string name="canPlayRoundRobinTournaments" comment="roundRobinQ&#10;&#10;Round-robin is a simple tournament format with some similarities to Swiss. It is not supported by Lichess. Replaces old string roundRobinQ">Lichessʻda round-robin turidagi turnirlarda ishtirok etsam boʻladimi?</string>
   <string name="roundRobinA">Biz bu tizimni qoʻshishni istagan edik, biroq, afsuski, round‑robin tizimi onlayn formatda ishlamaydi.
 Buning sababi — turnirni barvaqt tark etadigan oʻyinchilar masalasini adolatli hal qilishning imkoni yoʻqligidadir. Onlayn musobaqalarda barcha oʻyinchilar oxirigacha oʻynashini kutib boʻlmaydi. Bu deyarli imkonsiz, natijada koʻpgina round‑robin turnirlari nuqsonli va adolatsiz boʻlib qoladi. Bu esa bunday turnirlarning oʻtkazilishidan koʻzlangan asosiy maqsadga ziddir.
 Onlayn formatda round‑robin tizimiga eng yaqin narsa — turlar soni juda koʻp boʻlgan shveysarcha turnir oʻtkazishdir. Bunda turnir yakunlangunga qadar barcha mumkin boʻlgan juftliklar oʻzaro oʻynab boʻlishadi.</string>

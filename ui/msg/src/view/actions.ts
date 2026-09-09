@@ -1,6 +1,7 @@
 import { h, type VNode } from 'snabbdom';
 
-import { bind, confirm, snabIcon } from 'lib/view';
+import { licon } from 'lib/licon';
+import { bind, confirm } from 'lib/view';
 
 import type MsgCtrl from '../ctrl';
 import type { Convo } from '../interfaces';
@@ -10,61 +11,55 @@ export default function renderActions(ctrl: MsgCtrl, convo: Convo): VNode[] {
   const nodes = [];
   const cls = 'msg-app__convo__action.button.button-empty';
   nodes.push(
-    h(
-      `a.${cls}.play`,
-      {
-        key: 'play',
-        attrs: { href: `/?user=${convo.user.name}#friend`, title: i18n.challenge.challengeToPlay },
+    h(`a.${cls}.play`, {
+      key: 'play',
+      attrs: {
+        'data-icon': licon.Swords,
+        href: `/?user=${convo.user.name}#friend`,
+        title: i18n.challenge.challengeToPlay,
       },
-      [snabIcon('swords')],
-    ),
+    }),
     h('div.msg-app__convo__action__sep', '|'),
   );
   if (convo.relations.out === false)
     nodes.push(
-      h(
-        `button.${cls}.text.hover-text`,
-        {
-          key: 'unblock',
-          attrs: { title: i18n.site.blocked, type: 'button', 'data-hover-text': i18n.site.unblock },
-          hook: bind('click', ctrl.unblock),
+      h(`button.${cls}.text.hover-text`, {
+        key: 'unblock',
+        attrs: {
+          'data-icon': licon.NotAllowed,
+          title: i18n.site.blocked,
+          type: 'button',
+          'data-hover-text': i18n.site.unblock,
         },
-        [snabIcon('notAllowed')],
-      ),
+        hook: bind('click', ctrl.unblock),
+      }),
     );
   else
     nodes.push(
-      h(
-        `button.${cls}.bad`,
-        {
-          key: 'block',
-          attrs: { type: 'button', title: i18n.site.block },
-          hook: bind('click', withConfirm(ctrl.block)),
+      h(`button.${cls}.bad`, {
+        key: 'block',
+        attrs: {
+          'data-icon': licon.NotAllowed,
+          type: 'button',
+          title: i18n.site.block,
         },
-        [snabIcon('notAllowed')],
-      ),
+        hook: bind('click', withConfirm(ctrl.block)),
+      }),
     );
   nodes.push(
-    h(
-      `button.${cls}.bad`,
-      {
-        key: 'delete',
-        attrs: { type: 'button', title: i18n.site.delete },
-        hook: bind('click', withConfirm(ctrl.delete)),
+    h(`button.${cls}.bad`, {
+      key: 'delete',
+      attrs: { 'data-icon': licon.Trash, type: 'button', title: i18n.site.delete },
+      hook: bind('click', withConfirm(ctrl.delete)),
+    }),
+    h(`a.${cls}.bad`, {
+      key: 'report',
+      attrs: {
+        href: '/report/inbox/' + convo.user.name,
+        'data-icon': licon.CautionTriangle,
+        title: i18n.site.reportXToModerators(convo.user.name),
       },
-      [snabIcon('trash')],
-    ),
-    h(
-      `a.${cls}.bad`,
-      {
-        key: 'report',
-        attrs: {
-          href: '/report/inbox/' + convo.user.name,
-          title: i18n.site.reportXToModerators(convo.user.name),
-        },
-      },
-      [snabIcon('cautionTriangle')],
-    ),
+    }),
   );
   return nodes;
 }

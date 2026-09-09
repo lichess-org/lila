@@ -30,16 +30,16 @@ final class PuzzleApi(
         Paginator(
           adapter = new Adapter[Puzzle](
             collection = coll,
-            selector = $doc("users" -> user.id),
+            selector = bdoc("users" -> user.id),
             projection = none,
-            sort = $sort.desc("glicko.r")
+            sort = sort.desc("glicko.r")
           ),
           page,
           MaxPerPage(30)
         )
 
     def setIssue(id: PuzzleId, issue: String): Fu[Boolean] =
-      colls.puzzle(_.updateField($id(id), Puzzle.BSONFields.issue, issue).map(_.n > 0))
+      colls.puzzle(_.updateField(bid(id), Puzzle.BSONFields.issue, issue).map(_.n > 0))
 
     val reportDedup = scalalib.cache.OnceEvery[PuzzleId](7.days)
 
@@ -49,19 +49,19 @@ final class PuzzleApi(
       colls.round(_.byId[PuzzleRound](PuzzleRound.Id(user.id, puzzleId).toString))
 
     private[PuzzleApi] def exists(user: User, puzzleId: PuzzleId): Fu[Boolean] =
-      colls.round(_.exists($id(PuzzleRound.Id(user.id, puzzleId).toString)))
+      colls.round(_.exists(bid(PuzzleRound.Id(user.id, puzzleId).toString)))
 
     def upsert(r: PuzzleRound, angle: PuzzleAngle): Funit =
       val roundDoc = roundHandler.write(r) ++
-        $doc(
+        bdoc(
           PuzzleRound.BSONFields.user -> r.id.userId,
           PuzzleRound.BSONFields.angle -> angle.some.filter(_ != PuzzleAngle.mix)
         )
-      colls.round(_.update.one($id(r.id), roundDoc, upsert = true)).void
+      colls.round(_.update.one(bid(r.id), roundDoc, upsert = true)).void
 
     def themes(id: PuzzleRound.Id): Fu[Option[List[PuzzleRound.Theme]]] =
       colls.round:
-        _.primitiveOne[List[PuzzleRound.Theme]]($id(id), PuzzleRound.BSONFields.themes)
+        _.primitiveOne[List[PuzzleRound.Theme]](bid(id), PuzzleRound.BSONFields.themes)
 
   object vote:
 
@@ -86,7 +86,7 @@ final class PuzzleApi(
                   lila.mon.puzzle.vote.count(vote, prevRound.win.yes).increment()
                   updatePuzzle(id, voteValue, prevRound.vote)
                     .zip(colls.round {
-                      _.updateField($id(prevRound.id), PuzzleRound.BSONFields.vote, voteValue)
+                      _.updateField(bid(prevRound.id), PuzzleRound.BSONFields.vote, voteValue)
                     })
                     .void
                 }
@@ -98,8 +98,8 @@ final class PuzzleApi(
         import Puzzle.BSONFields as F
         coll
           .one[Bdoc](
-            $id(puzzleId),
-            $doc(F.voteUp -> true, F.voteDown -> true, F.day -> true, F.id -> false)
+            bid(puzzleId),
+            bdoc(F.voteUp -> true, F.voteDown -> true, F.day -> true, F.id -> false)
           )
           .flatMapz: doc =>
             val prevUp = ~doc.int(F.voteUp)
@@ -108,15 +108,15 @@ final class PuzzleApi(
             val down = (prevDown - ~newVote.some.filter(0 >) + ~prevVote.filter(0 >)).atLeast(-newVote)
             coll.update
               .one(
-                $id(puzzleId),
-                $set(
+                bid(puzzleId),
+                set(
                   F.voteUp -> up.atLeast(0),
                   F.voteDown -> down.atLeast(0),
                   F.vote -> ((up - down).toFloat / (up + down)).atLeast(0).atMost(1)
                 ) ++ {
                   newVote <= -100 &&
                   doc.getAsOpt[Instant](F.day).exists(_.isAfter(nowInstant.minusDays(1)))
-                }.so($unset(F.day))
+                }.so(unset(F.day))
               )
               .void
 
@@ -135,7 +135,7 @@ final class PuzzleApi(
 
     private def updateRoundThemes(puzzle: PuzzleId, themes: List[PuzzleRound.Theme], weight: Option[Int]) =
       import PuzzleRound.BSONFields as F
-      $set(F.themes -> themes, F.puzzle -> puzzle, F.weight -> weight)
+      set(F.themes -> themes, F.puzzle -> puzzle, F.weight -> weight)
 
     def vote(id: PuzzleId, themeStr: String, vote: Option[Boolean])(using
         me: Me
@@ -156,12 +156,12 @@ final class PuzzleApi(
               newThemes <- PuzzleRound.themeVote(puzRound.themes)(theme.key, vote).raiseIfNone(Unchanged)
               update <-
                 if newThemes.isEmpty || !PuzzleRound.themesLookSane(newThemes)
-                then fuccess($unset(F.themes, F.puzzle).some)
+                then fuccess(unset(F.themes, F.puzzle).some)
                 if vote.isEmpty then fuccess(updateRoundThemes(id, newThemes, none).some)
                 else trustApi.theme(me).map2(t => updateRoundThemes(id, newThemes, t.some))
-              _ <- update.so(up => colls.round(_.update.one($id(puzRound.id), up)).void)
+              _ <- update.so(up => colls.round(_.update.one(bid(puzRound.id), up)).void)
               _ <- update.isDefined.so:
-                colls.puzzle(_.updateField($id(puzRound.id.puzzleId), Puzzle.BSONFields.dirty, true)).void
+                colls.puzzle(_.updateField(bid(puzRound.id.puzzleId), Puzzle.BSONFields.dirty, true)).void
             yield lila.mon.puzzle.vote.theme(theme.key.value, vote, puzRound.win.yes).increment()
 
     private def lichessVote(
@@ -174,8 +174,8 @@ final class PuzzleApi(
         prev <- round.themes(roundId)
         prev <- prev.raiseIfNone(PuzzleTheme.VoteError.Fail(s"Puzzle $puzzleId not yet tagged by lichess"))
         newThemes <- PuzzleRound.themeVote(prev)(theme, vote).raiseIfNone(PuzzleTheme.VoteError.Unchanged)
-        _ <- colls.round(_.update.one($id(roundId), updateRoundThemes(puzzleId, newThemes, none)))
-        _ <- colls.puzzle(_.updateField($id(puzzleId), Puzzle.BSONFields.dirty, true))
+        _ <- colls.round(_.update.one(bid(roundId), updateRoundThemes(puzzleId, newThemes, none)))
+        _ <- colls.puzzle(_.updateField(bid(puzzleId), Puzzle.BSONFields.dirty, true))
       yield ()
 
   object casual:

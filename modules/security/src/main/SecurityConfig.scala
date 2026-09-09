@@ -17,6 +17,7 @@ final private class SecurityConfig(
     @ConfigName("email_confirm") val emailConfirm: EmailConfirm,
     @ConfigName("email_change.secret") val emailChangeSecret: Secret,
     @ConfigName("login_token.secret") val loginTokenSecret: Secret,
+    @ConfigName("turnstile_cookie.secret") val turnstileCookieSecret: Secret,
     val tor: Tor,
     @ConfigName("disposable_email") val disposableEmail: DisposableEmail,
     @ConfigName("dns_api") val dnsApi: DnsApi,

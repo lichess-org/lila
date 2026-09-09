@@ -138,7 +138,7 @@ final class UblogFormUi(helpers: Helpers, ui: UblogUi)(
       p(trans.ublog.inappropriateContentAccountClosed()),
       p(
         a(
-          iconEl := Icon.infoCircle,
+          dataIcon := Icon.InfoCircle,
           href := routes.Cms.lonePage(CmsPageKey("blog-etiquette")),
           cls := "text",
           targetBlank
@@ -148,14 +148,14 @@ final class UblogFormUi(helpers: Helpers, ui: UblogUi)(
     )
 
   def tips(using Translate) = a(
-    iconEl := Icon.infoCircle,
+    dataIcon := Icon.InfoCircle,
     href := routes.Cms.lonePage(CmsPageKey("blog-tips")),
     cls := "text",
     targetBlank
   )(trans.ublog.blogTips())
 
   val ads = a(
-    iconEl := Icon.infoCircle,
+    dataIcon := Icon.InfoCircle,
     href := routes.Cms.lonePage(CmsPageKey("blog-etiquette")),
     cls := "text",
     targetBlank

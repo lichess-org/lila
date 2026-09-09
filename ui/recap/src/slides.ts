@@ -3,7 +3,29 @@ import { COLORS } from 'chessops';
 import { shuffle } from 'lib/algo';
 import perfIcons from 'lib/game/perfIcons';
 import { currencyFormat, numberFormat, percentFormat } from 'lib/i18n';
-import { onInsert, hl, type LooseVNodes, type VNode, spinnerVdom, icon } from 'lib/view';
+import { licon } from 'lib/licon';
+import {
+  onInsert,
+  hl,
+  type VNode,
+  spinnerVdom,
+  icon,
+  h2,
+  p,
+  img,
+  div,
+  a,
+  strong,
+  small,
+  table,
+  tbody,
+  tr,
+  td,
+  ul,
+  li,
+  canvas,
+  span,
+} from 'lib/view';
 import { fullName, profileUrl, userFlair, userTitle } from 'lib/view/userLink';
 
 import { pieceGrams, totalGames } from './constants';
@@ -12,7 +34,7 @@ import { loadOpeningLpv } from './ui';
 import { formatDuration, perfIsSpeed, perfLabel } from './util';
 
 const confettiCanvas = (): VNode =>
-  hl('canvas#confetti', {
+  canvas('#confetti', {
     hook: onInsert(() => {
       site.asset.loadEsm('bits.confetti', {
         init: {
@@ -23,82 +45,71 @@ const confettiCanvas = (): VNode =>
     }),
   });
 
-const hi = (user: LightUser): VNode => hl('h2', i18n.recap.hiUser.asArray(fullName(user)));
+const hi = (user: LightUser): VNode => h2(i18n.recap.hiUser.asArray(fullName(user)));
 
 export const loading = (user: LightUser): VNode =>
-  slideTag('await')([hi(user), hl('p', i18n.recap.awaitQuestion), spinnerVdom()]);
+  slideTag('await')([hi(user), p(i18n.recap.awaitQuestion), spinnerVdom()]);
 
 export const init = (user: LightUser): VNode =>
   slideTag('init')([
     confettiCanvas(),
     hi(user),
-    hl('img.recap__logo', { attrs: { src: site.asset.url('logo/lichess-white.svg') } }),
-    hl('h2', i18n.recap.initTitle),
+    img(site.asset.url('logo/lichess-white.svg'), 'Lichess logo')('.recap__logo'),
+    h2(i18n.recap.initTitle),
   ]);
 
 export const noGames = (): VNode =>
   slideTag('no-games')([
-    hl('div.recap--massive', i18n.recap.noGamesText),
-    hl('div', hl('p', hl('a', { attrs: { href: '/', target: '_blank' } }, i18n.recap.noGamesCta))),
+    div('.recap--massive', i18n.recap.noGamesText),
+    div(p(a('/')({ target: '_blank' }, i18n.recap.noGamesCta))),
   ]);
 
-export const nbGames = (r: Recap): VNode => {
+export const nbGames = ({ games }: Recap): VNode => {
   return slideTag('games')([
-    hl(
-      'div.recap--massive',
-      i18n.site.nbGames.asArray(r.games.nbs.total, hl('strong', animateNumber(r.games.nbs.total))),
+    div(
+      '.recap--massive',
+      i18n.site.nbGames.asArray(games.nbs.total, strong(animateNumber(games.nbs.total))),
     ),
-    hl('div', [
-      r.games.nbs.win &&
-        hl('p', i18n.recap.gamesYouWon.asArray(hl('strong', animateNumber(r.games.nbs.win)))),
-      hl('p', i18n.recap.gamesNextQuestion),
+    div([
+      games.nbs.win && p(i18n.recap.gamesYouWon.asArray(strong(animateNumber(games.nbs.win)))),
+      p(i18n.recap.gamesNextQuestion),
     ]),
   ]);
 };
 
-export const timeSpentPlaying = (r: Recap): VNode => {
-  const s = r.games.timePlaying;
+export const timeSpentPlaying = ({ games }: Recap): VNode => {
+  const s = games.timePlaying;
   const days = s / 60 / 60 / 24;
   return slideTag('time')([
-    hl('div.recap--massive', i18n.recap.timeSpentPlayingExclam.asArray(hl('strong', animateTime(s)))),
-    hl('div', [
-      hl(
-        'p',
-        days > 10 ? i18n.recap.timeTooMuch : days > 5 ? i18n.recap.timeALot : i18n.recap.timeReasonable,
-      ),
-      hl('p', i18n.recap.timeHowManyMoves),
+    div('.recap--massive', i18n.recap.timeSpentPlayingExclam.asArray(strong(animateTime(s)))),
+    div([
+      p(days > 10 ? i18n.recap.timeTooMuch : days > 5 ? i18n.recap.timeALot : i18n.recap.timeReasonable),
+      p(i18n.recap.timeHowManyMoves),
     ]),
   ]);
 };
 
-export const nbMoves = (r: Recap): VNode => {
+export const nbMoves = ({ games }: Recap): VNode => {
   return slideTag(
     'moves',
     6000,
   )([
-    hl(
-      'div.recap--massive',
-      i18n.recap.nbMoves.asArray(r.games.moves, hl('strong', animateNumber(r.games.moves))),
-    ),
-    hl('div', [
-      hl('p', i18n.recap.movesOfWoodPushed.asArray(showGrams(r.games.moves * pieceGrams))),
-      hl('p', [hl('small', i18n.recap.movesStandardPiecesWeight)]),
+    hl('div.recap--massive', i18n.recap.nbMoves.asArray(games.moves, strong(animateNumber(games.moves)))),
+    div([
+      p(i18n.recap.movesOfWoodPushed.asArray(showGrams(games.moves * pieceGrams))),
+      p(small(i18n.recap.movesStandardPiecesWeight)),
     ]),
   ]);
 };
 
-export const opponents = (r: Recap): VNode => {
+export const opponents = ({ games }: Recap): VNode => {
   return slideTag('opponents')([
-    hl('div.recap--massive', i18n.recap.chessFoes),
-    hl(
-      'table.recap__data',
-      hl(
-        'tbody',
-        r.games.opponents.map(o =>
-          hl('tr', [
-            hl('td', opponentLink(o.value)),
-            hl('td', i18n.site.nbGames.asArray(o.count, animateNumber(o.count))),
-          ]),
+    div('.recap--massive', i18n.recap.chessFoes),
+    table(
+      '.recap__data',
+      tbody(
+        games.opponents.map(o =>
+          tr([td(opponentLink(o.value)), td(i18n.site.nbGames.asArray(o.count, animateNumber(o.count)))]),
         ),
       ),
     ),
@@ -106,15 +117,15 @@ export const opponents = (r: Recap): VNode => {
 };
 
 const opponentLink = (o: LightUser): VNode =>
-  hl('a', { attrs: { href: profileUrl(o.name) } }, [userFlair(o) || noFlair(o), userTitle(o), o.name]);
+  a(profileUrl(o.name))([userFlair(o) ?? noFlair(o), userTitle(o), o.name]);
 
 const userFallbackFlair = new Map<string, string>();
-const noFlair = (o: LightUser): VNode => {
+const noFlair = ({ id }: LightUser): VNode => {
   const randomFlair =
-    userFallbackFlair.get(o.id) ||
+    userFallbackFlair.get(id) ||
     userFallbackFlair
       .set(
-        o.id,
+        id,
         (() =>
           shuffle([
             'activity.lichess-horsey',
@@ -122,22 +133,21 @@ const noFlair = (o: LightUser): VNode => {
             'activity.lichess-horsey-yin-yang',
           ])[0])(),
       )
-      .get(o.id)!;
-  return hl('img.uflair.noflair', { attrs: { src: site.asset.flairSrc(randomFlair) } });
+      .get(id)!;
+  return img(site.asset.flairSrc(randomFlair), 'Flair')('.uflair.noflair');
 };
 
-export const firstMoves = (r: Recap, firstMove: Counted<string>): VNode => {
-  const ofTotal = firstMove.count / r.games.nbWhite;
+export const firstMoves = ({ games }: Recap, firstMove: Counted<string>): VNode => {
+  const ofTotal = firstMove.count / games.nbWhite;
   return slideTag('first')([
-    hl('div.recap--massive', [hl('strong.animated-pulse', '1. ' + firstMove.value)]),
-    hl('div', [
-      hl(
-        'p',
+    div('.recap--massive', [strong('.animated-pulse', '1. ' + firstMove.value)]),
+    div(
+      p(
         i18n.recap.firstMoveStats.asArray(
-          hl('div', [hl('strong', animateNumber(firstMove.count)), ` (${percentFormat(ofTotal, 2)})`]),
+          div([strong(animateNumber(firstMove.count)), ` (${percentFormat(ofTotal, 2)})`]),
         ),
       ),
-    ]),
+    ),
   ]);
 };
 
@@ -145,74 +155,54 @@ export const openingColor = (os: ByColor<Counted<Opening>>, color: Color): VNode
   const o = os[color];
   if (!o.count) return undefined;
   return slideTag('openings')([
-    hl('div.lpv.lpv--todo.lpv--moves-bottom.is2d', {
+    div('.lpv.lpv--todo.lpv--moves-bottom.is2d', {
       hook: onInsert(el => loadOpeningLpv(el, color, o.value)),
     }),
-    hl(
-      'div',
-      hl(
-        'a',
-        {
-          attrs: { href: `/opening/${o.value.key}`, target: '_blank' },
-        },
-        o.value.name,
-      ),
-    ),
-    hl('div', [
-      hl(
-        'p',
+    div(a(`/opening/${o.value.key}`)({ target: '_blank' }, o.value.name)),
+    div(
+      p(
         i18n.recap[color === 'white' ? 'openingsMostPlayedAsWhite' : 'openingsMostPlayedAsBlack'].asArray(
           o.count,
-          hl('strong', animateNumber(o.count)),
+          strong(animateNumber(o.count)),
         ),
       ),
-    ]),
+    ),
   ]);
 };
 
-export const puzzles = (r: Recap): VNode => {
+export const puzzles = ({ puzzles }: Recap): VNode => {
   return slideTag('puzzles')(
-    r.puzzles.nbs.total
+    puzzles.nbs.total
       ? [
-          hl(
-            'div.recap--massive',
-            i18n.site.nbPuzzles.asArray(
-              r.puzzles.nbs.total,
-              hl('strong', animateNumber(r.puzzles.nbs.total)),
-            ),
+          div(
+            '.recap--massive',
+            i18n.site.nbPuzzles.asArray(puzzles.nbs.total, strong(animateNumber(puzzles.nbs.total))),
           ),
-          hl('div', [
-            !!r.puzzles.nbs.win &&
-              hl(
-                'p',
-                i18n.recap.puzzlesYouWonOnFirstTry.asArray(hl('strong', animateNumber(r.puzzles.nbs.win))),
-              ),
-            !!r.puzzles.votes.nb &&
-              hl(
-                'p',
-                i18n.recap.puzzlesThanksVoting.asArray(
-                  r.puzzles.votes.nb,
-                  hl('strong', animateNumber(r.puzzles.votes.nb)),
-                ),
-              ),
-            !!r.puzzles.votes.themes &&
-              hl(
-                'p',
-                i18n.recap.puzzlesHelpedTagging.asArray(hl('strong', animateNumber(r.puzzles.votes.themes))),
-              ),
+          div([
+            puzzles.nbs.win
+              ? p(i18n.recap.puzzlesYouWonOnFirstTry.asArray(strong(animateNumber(puzzles.nbs.win))))
+              : null,
+            puzzles.votes.nb
+              ? p(
+                  i18n.recap.puzzlesThanksVoting.asArray(
+                    puzzles.votes.nb,
+                    strong(animateNumber(puzzles.votes.nb)),
+                  ),
+                )
+              : null,
+            puzzles.votes.themes
+              ? p(i18n.recap.puzzlesHelpedTagging.asArray(strong(animateNumber(puzzles.votes.themes))))
+              : null,
           ]),
         ]
       : [
-          hl('div.recap--massive', i18n.recap.puzzlesNone),
-          hl(
-            'div',
-            hl('p', hl('a', { attrs: { href: '/training', target: '_blank' } }, i18n.recap.puzzlesTryNow)),
-          ),
+          div('.recap--massive', i18n.recap.puzzlesNone),
+          div(p(a('/training')({ target: '_blank' }, i18n.recap.puzzlesTryNow))),
         ],
   );
 };
 
-export const sources = (r: Recap): VNode => {
+export const sources = ({ games }: Recap): VNode => {
   const all: [keyof Sources, string][] = [
     ['friend', i18n.preferences.notifyChallenge],
     ['ai', i18n.site.computer],
@@ -222,20 +212,17 @@ export const sources = (r: Recap): VNode => {
     ['pool', i18n.site.quickPairing],
     ['lobby', i18n.site.lobby],
   ];
-  const best: [string, number][] = all.map(([k, n]) => [n, r.games.sources[k] || 0]);
+  const best: [string, number][] = all.map(([k, n]) => [n, games.sources[k] ?? 0]);
   best.sort((a, b) => b[1] - a[1]);
   return (
     best[0] &&
     slideTag('sources')([
-      hl('div.recap--massive', i18n.recap.sourcesTitle),
-      hl(
-        'table.recap__data',
-        hl(
-          'tbody',
-          best.map(
-            ([n, c]) =>
-              c > 0 &&
-              hl('tr', [hl('td', n), hl('td', i18n.site.nbGames.asArray(c, hl('strong', animateNumber(c))))]),
+      div('.recap--massive', i18n.recap.sourcesTitle),
+      table(
+        '.recap__data',
+        tbody(
+          best.map(([n, c]) =>
+            c > 0 ? tr([td(n), td(i18n.site.nbGames.asArray(c, strong(animateNumber(c))))]) : null,
           ),
         ),
       ),
@@ -243,18 +230,14 @@ export const sources = (r: Recap): VNode => {
   );
 };
 
-export const perfs = (r: Recap): VNode => {
+export const perfs = ({ games }: Recap): VNode => {
   return slideTag('perfs')([
-    hl('div.recap--massive', i18n.recap.perfsTitle),
-    hl(
-      'table.recap__data',
-      hl(
-        'tbody',
-        r.games.perfs.map(p =>
-          hl('tr', [
-            hl('td', renderPerf(p)),
-            hl('td', i18n.site.nbGames.asArray(p.games, hl('strong', animateNumber(p.games)))),
-          ]),
+    div('.recap--massive', i18n.recap.perfsTitle),
+    table(
+      '.recap__data',
+      tbody(
+        games.perfs.map(p =>
+          tr([td(renderPerf(p)), td(i18n.site.nbGames.asArray(p.games, strong(animateNumber(p.games))))]),
         ),
       ),
     ),
@@ -263,109 +246,97 @@ export const perfs = (r: Recap): VNode => {
 
 export const malware = (): VNode =>
   slideTag('malware')([
-    hl('div.recap--massive', i18n.recap.malwareNoneLoaded.asArray(hl('strong.animated-pulse', '0'))),
-    hl('ul', [hl('li', i18n.recap.malwareNoSell), hl('li', i18n.recap.malwareNoAbuse)]),
-    hl(
-      'p',
-      hl('small', [
+    div('.recap--massive', i18n.recap.malwareNoneLoaded.asArray(strong('0'))),
+    ul([li(i18n.recap.malwareNoSell), li(i18n.recap.malwareNoAbuse)]),
+    p(
+      small(
         i18n.recap.malwareWarningPrefix.asArray(
-          hl('a', { attrs: { href: '/ads', target: '_blank' } }, i18n.recap.malwareWarningCta),
+          a('/ads')({ target: '_blank' }, i18n.recap.malwareWarningCta),
         ),
-      ]),
-    ),
-  ]);
-
-export const lichessGames = (r: Recap): VNode => {
-  const gamesPercentOfTotal = r.games.nbs.total / totalGames;
-  return slideTag('lichess-games')([
-    hl(
-      'div.recap--massive',
-      i18n.recap.lichessGamesPlayedIn.asArray<LooseVNodes>(hl('strong', animateNumber(totalGames)), r.year),
-    ),
-    hl(
-      'div',
-      hl(
-        'p',
-        i18n.recap.lichessGamesOfThemYours.asArray(hl('strong', percentFormat(gamesPercentOfTotal, 6))),
       ),
     ),
   ]);
+
+export const lichessGames = ({ games, year }: Recap): VNode => {
+  const gamesPercentOfTotal = games.nbs.total / totalGames;
+  return slideTag('lichess-games')([
+    div(
+      '.recap--massive',
+      i18n.recap.lichessGamesPlayedIn.asArray<VNode | number>(strong(animateNumber(totalGames)), year),
+    ),
+    div(p(i18n.recap.lichessGamesOfThemYours.asArray(strong(percentFormat(gamesPercentOfTotal, 6))))),
+  ]);
 };
 
-export const thanks = (r: Recap): VNode =>
+export const thanks = ({ year }: Recap): VNode =>
   slideTag('thanks')([
-    hl('div.recap--massive', i18n.recap.thanksTitle),
-    hl('img.recap__logo', { attrs: { src: site.asset.url('logo/lichess-white.svg') } }),
-    hl('div', i18n.recap.thanksHaveAGreat.asArray(r.year + 1)),
+    div('.recap--massive', i18n.recap.thanksTitle),
+    img(site.asset.url('logo/lichess-white.svg'), 'Lichess logo')('.recap__logo'),
+    div(i18n.recap.thanksHaveAGreat.asArray(year + 1)),
   ]);
 
-export const patron = (opts: Opts): VNode =>
+export const patron = ({ costs, user }: Opts): VNode =>
   slideTag('patron')([
-    hl(
-      'div.recap--big',
+    div(
+      '.recap--big',
       i18n.recap.patronCostsThisYear.asArray(
-        hl('a', { attrs: { href: '/costs', target: '_blank' } }, i18n.recap.patronCosts),
-        opts.costs &&
-          hl(
-            'strong',
-            currencyFormat(opts.costs.amount, opts.costs.currency, {
+        a('/costs')({ target: '_blank' }, i18n.recap.patronCosts),
+        costs &&
+          strong(
+            currencyFormat(costs.amount, costs.currency, {
               maximumFractionDigits: 0,
             }),
           ),
       ),
     ),
-    hl('p', i18n.recap.patronCharity),
-    icon('wings')('.text'),
-
-    opts.user.patron
-      ? hl('p', i18n.patron.thankYou)
-      : hl(
-          'p.cta',
+    p(i18n.recap.patronCharity),
+    icon(licon.Wings)('.text'),
+    user.patron
+      ? p(i18n.patron.thankYou)
+      : p(
+          '.cta',
           i18n.recap.patronConsiderDonating.asArray(
-            hl('a', { attrs: { href: '/patron', target: '_blank' } }, i18n.recap.patronMakeDonation),
+            a('/patron')({ target: '_blank' }, i18n.recap.patronMakeDonation),
           ),
         ),
   ]);
 
-const renderPerf = (perf: RecapPerf): VNode => {
-  return hl('span', [
-    icon(perfIcons[perf.key])('.text'),
-    !perfIsSpeed(perf.key)
-      ? i18n.variant[perf.key]
-      : perf.key !== 'ultraBullet'
-        ? i18n.site[perf.key]
-        : perf.key,
+const renderPerf = ({ key }: RecapPerf): VNode => {
+  return span([
+    icon(perfIcons[key])('.text'),
+    !perfIsSpeed(key) ? i18n.variant[key] : key !== 'ultraBullet' ? i18n.site[key] : key,
   ]);
 };
 
 const stat = (value: string | VNode, label: string): VNode =>
-  hl('div.stat', [hl('div', hl('strong', value)), hl('div', hl('small', label))]);
+  div('.stat', [div(strong(value)), div(small(label))]);
 
 const stati18n = (value: number, plural: I18nPlural): VNode => {
-  const [_, num, label] = plural.asArray(value, hl('strong', numberFormat(value)));
-  return hl('div.stat', [hl('div', num), hl('div', hl('small', label))]);
+  const [, num, label] = plural.asArray(value, strong(numberFormat(value)));
+  return div('.stat', [div(num), div(small(label))]);
 };
 
-export const shareable = (r: Recap): VNode =>
+export const shareable = ({ games, year, puzzles }: Recap): VNode =>
   slideTag('shareable')([
-    hl('div.recap__shareable', [
-      hl('img.logo', { attrs: { src: site.asset.url('logo/logo-with-name-dark.png') } }),
-      hl('h2', i18n.recap.shareableTitle.asArray(r.year)),
-      hl('div.grid', [
-        stati18n(r.games.nbs.total, i18n.site.nbGames),
-        stati18n(r.games.moves, i18n.recap.nbMovesPlayed),
-        stat(formatDuration(r.games.timePlaying, ', '), i18n.recap.shareableSpentPlaying),
-        r.games.perfs[0]?.games && stat(renderPerf(r.games.perfs[0]), perfLabel(r.games.perfs[0])),
-        r.games.opponents.length &&
-          stat(opponentLink(r.games.opponents[0].value), i18n.recap.shareableMostPlayedOpponent),
-        stati18n(r.puzzles.nbs.total, i18n.recap.shareableNbPuzzlesSolved),
+    div('.recap__shareable', [
+      img(site.asset.url('logo/logo-with-name-dark.png'), 'Lichess logo')('.logo'),
+      h2(i18n.recap.shareableTitle.asArray(year)),
+      div('.grid', [
+        stati18n(games.nbs.total, i18n.site.nbGames),
+        stati18n(games.moves, i18n.recap.nbMovesPlayed),
+        stat(formatDuration(games.timePlaying, ', '), i18n.recap.shareableSpentPlaying),
+        games.perfs[0]?.games && stat(renderPerf(games.perfs[0]), perfLabel(games.perfs[0])),
+        games.opponents.length > 0
+          ? stat(opponentLink(games.opponents[0].value), i18n.recap.shareableMostPlayedOpponent)
+          : null,
+        stati18n(puzzles.nbs.total, i18n.recap.shareableNbPuzzlesSolved),
       ]),
-      hl(
-        'div.openings',
-        COLORS.map(
-          c =>
-            r.games.openings[c].count &&
-            stat(r.games.openings[c].value.name, i18n.site[c === 'white' ? 'asWhite' : 'asBlack']),
+      div(
+        '.openings',
+        COLORS.map(c =>
+          games.openings[c].count > 0
+            ? stat(games.openings[c].value.name, i18n.site[c === 'white' ? 'asWhite' : 'asBlack'])
+            : null,
         ),
       ),
     ]),
@@ -373,21 +344,19 @@ export const shareable = (r: Recap): VNode =>
 
 const slideTag =
   (key: string, millis = 5000) =>
-  (content: LooseVNodes) =>
-    hl(
-      `div.swiper-slide.recap__slide--${key}`,
+  (content: VNode[]) =>
+    div(
+      `.swiper-slide.recap__slide--${key}`,
       {
-        attrs: {
-          'data-swiper-autoplay': millis,
-        },
+        'data-swiper-autoplay': millis,
       },
       content,
     );
 
-const animateNumber = (n: number) => hl('span.animated-number', { attrs: { 'data-value': n } }, '0');
-const animateTime = (n: number) => hl('span.animated-time', { attrs: { 'data-value': n } }, '');
+const animateNumber = (n: number) => span('.animated-number', { attrs: { 'data-value': n } }, '0');
+const animateTime = (n: number) => span('.animated-time', { attrs: { 'data-value': n } }, '');
 
 const showGrams = (g: number) =>
   g > 20_000
-    ? hl('span', i18n.recap.nbKilograms.asArray(Math.round(g / 1000), animateNumber(g / 1000)))
-    : hl('span', i18n.recap.nbGrams.asArray(g, animateNumber(g)));
+    ? span(i18n.recap.nbKilograms.asArray(Math.round(g / 1000), animateNumber(g / 1000)))
+    : span(i18n.recap.nbGrams.asArray(g, animateNumber(g)));

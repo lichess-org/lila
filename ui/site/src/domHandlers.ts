@@ -1,6 +1,7 @@
 import { blurIfPrimaryClick } from 'lib';
+import { licon } from 'lib/licon';
 import menuKeyboardInteractions from 'lib/menuKeyboardInteractions';
-import { confirm, domIcon } from 'lib/view';
+import { confirm } from 'lib/view';
 import { userComplete } from 'lib/view/userComplete';
 import { writeTextClipboard, text as xhrText } from 'lib/xhr';
 
@@ -28,12 +29,8 @@ export function addDomHandlers() {
     .on('click', '.copy-me__button', function (this: HTMLElement, e: Event) {
       blurIfPrimaryClick(e);
       const showCheckmark = () => {
-        this.querySelector(':scope > .svg-icon')?.replaceWith(domIcon('checkmark'));
-        $(this).removeClass('button-metal');
-        setTimeout(() => {
-          this.querySelector(':scope > .svg-icon')?.replaceWith(domIcon('clipboard'));
-          $(this).addClass('button-metal');
-        }, 1000);
+        $(this).attr('data-icon', licon.Checkmark).removeClass('button-metal');
+        setTimeout(() => $(this).attr('data-icon', licon.Clipboard).addClass('button-metal'), 1000);
       };
       const fetchContent = $(this).parent().hasClass('fetch-content');
       $(this.parentElement!.firstElementChild).each(function (this: HTMLInputElement | HTMLAnchorElement) {

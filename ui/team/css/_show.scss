@@ -16,11 +16,6 @@ $section-margin-more: 4vh;
     }
   }
 
-  a.text {
-    display: flex;
-    align-items: center;
-  }
-
   .mchat {
     @extend %box-bordered;
 
@@ -86,7 +81,6 @@ $section-margin-more: 4vh;
     .button {
       display: flex;
       text-align: left;
-      justify-content: left;
       width: 100%;
 
       strong {

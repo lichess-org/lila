@@ -1,9 +1,9 @@
-import type { Icon } from '@/icons';
+import type { LiconValue } from '@/licon';
 
 export interface QuestionChoice {
   // file://./../../round/src/ctrl.ts
   action: () => void;
-  icon?: Icon;
+  icon?: LiconValue;
   text?: string;
 }
 

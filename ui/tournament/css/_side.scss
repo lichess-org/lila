@@ -9,7 +9,9 @@
     cursor: pointer;
 
     &::before {
-      @include icon-mask($icon-upTriangle);
+      content: $licon-UpTriangle;
+      font-family: lichess;
+      font-size: 1em;
     }
 
     &:hover {
@@ -19,7 +21,7 @@
 
   &.collapsed {
     .disclosure::before {
-      @include icon-mask($icon-downTriangle);
+      content: $licon-DownTriangle;
     }
 
     .tour__meta > * {
@@ -61,12 +63,12 @@
   section {
     padding: 0 $block-gap;
 
-    &:has(> .svg-icon) {
+    &[data-icon] {
       @extend %flex-center-nowrap;
     }
 
-    > .svg-icon:first-child {
-      width: 3rem;
+    &::before {
+      font-size: 3rem;
       margin-inline-end: 4%;
     }
 
@@ -82,14 +84,14 @@
       opacity: 1;
     }
 
-    .defender .svg-icon {
-      width: 1.6em;
+    .defender::before {
+      font-size: 1.6em;
       vertical-align: -0.26em;
       margin: 0 0.15em 0 -0.15em;
     }
 
     &.conditions {
-      > .svg-icon:first-child {
+      &::before {
         opacity: 0.7;
       }
 

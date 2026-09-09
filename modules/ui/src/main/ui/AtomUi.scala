@@ -37,7 +37,7 @@ final class AtomUi(routeUrl: RouteUrl):
     cls := "atom",
     st.title := "Atom RSS feed",
     href := url,
-    iconEl := Icon.rssFeed
+    dataIcon := Icon.RssFeed
   )
 
   private val termAttr = attr("term")

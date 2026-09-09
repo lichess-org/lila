@@ -514,7 +514,6 @@
   <string name="oneUrlPerLine">หนึ่ง URL ต่อบรรทัด</string>
   <string name="inlineNotation">สัญกรณ์ในบรรทัด</string>
   <string name="makeAStudy">เพื่อความปลอดภัยและการแบ่งปัน โปรดพิจารณาทำการศึกษา</string>
-  <string name="clearSavedMoves">ล้างตาเดิน</string>
   <string name="previouslyOnLichessTV">Lichess TV ก่อนหน้า</string>
   <string name="onlinePlayers">ผู้เล่นออนไลน์</string>
   <string name="activePlayers">ผู้เล่นที่ขยัน</string>

@@ -13,12 +13,12 @@ final private class JsBotRepo(bots: Coll, assets: Coll)(using Executor):
       JSON.jval(r.doc) - "_id" + ("key" -> JsString(r.str("uid").drop(1)))
     def writes(w: BSON.Writer, b: BotJson) = JSON.bdoc(b.value)
 
-  private def $uid(uid: BotUid) = $doc("uid" -> uid)
+  private def uid(id: BotUid) = bdoc("uid" -> id)
 
   def getVersions(botId: Option[BotUid] = none): Fu[List[BotJson]] =
     bots
-      .find(botId.so(v => $uid(v)))
-      .sort($doc("version" -> -1))
+      .find(botId.so(uid))
+      .sort(bdoc("version" -> -1))
       .cursor[BotJson]()
       .list(Int.MaxValue)
 
@@ -27,7 +27,7 @@ final private class JsBotRepo(bots: Coll, assets: Coll)(using Executor):
       .aggregateWith[BotJson](readPreference = ReadPref.sec): framework =>
         import framework.*
         List(
-          // Match($doc("uid" -> "#centipawn")),
+          // Match(bdoc("uid" -> "#centipawn")),
           Sort(Descending("version")),
           GroupField("uid")("doc" -> FirstField("$ROOT")),
           ReplaceRootField("doc")
@@ -35,7 +35,7 @@ final private class JsBotRepo(bots: Coll, assets: Coll)(using Executor):
       .list(Int.MaxValue)
 
   private[jsBot] def putBot(bot: BotJson, author: UserId): Fu[BotJson] = for
-    fullBot <- bots.find($uid(bot.uid)).sort($doc("version" -> -1)).one[Bdoc]
+    fullBot <- bots.find(uid(bot.uid)).sort(bdoc("version" -> -1)).one[Bdoc]
     nextVersion = fullBot.flatMap(_.int("version")).getOrElse(-1) + 1 // race condition
     newBot = bot.withMeta(BotMeta(bot.uid, author, nextVersion, nowInstant))
     _ <- bots.insert.one(newBot)
@@ -43,7 +43,7 @@ final private class JsBotRepo(bots: Coll, assets: Coll)(using Executor):
 
   def getAssets: Fu[Map[String, AssetName]] =
     assets
-      .find($doc())
+      .find(bdoc())
       .cursor[Bdoc]()
       .list(Int.MaxValue)
       .map: docs =>
@@ -58,8 +58,8 @@ final private class JsBotRepo(bots: Coll, assets: Coll)(using Executor):
     // filter out bookCovers as they share the same key as the book
     if !(tpe.has("book") && key.endsWith(".png")) then
       val id = if tpe.has("book") then key.dropRight(4) else key
-      val setDoc = $doc("name" -> name) ++ author.so(a => $doc("author" -> a))
-      assets.update.one($id(id), $doc("$set" -> setDoc), upsert = true).void
+      val setDoc = bdoc("name" -> name) ++ author.so(a => bdoc("author" -> a))
+      assets.update.one(bid(id), bdoc("$set" -> setDoc), upsert = true).void
     else funit
 
 end JsBotRepo

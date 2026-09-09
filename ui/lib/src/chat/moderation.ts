@@ -2,9 +2,10 @@ import { h, type VNode } from 'snabbdom';
 
 import { numberFormat } from '@/i18n';
 import { pubsub } from '@/pubsub';
-import { bind, confirm, onInsert, snabIcon } from '@/view';
-import { profileUrl, userLink } from '@/view/userLink';
+import { bind, confirm, dataIcon, onInsert } from '@/view';
+import { userLink, profileUrl } from '@/view/userLink';
 
+import { licon } from '../licon';
 import type {
   ModerationCtrl,
   ModerationOpts,
@@ -71,7 +72,7 @@ async function reportUserText(resourceId: string, username: string, text: string
   if (await confirm(`Report "${text}" to moderators?`)) flag(resourceId, username, text);
 }
 
-export const lineAction = (): VNode => h('action.mod', [snabIcon('agent')]);
+export const lineAction = (): VNode => h('action.mod', { attrs: dataIcon(licon.Agent) });
 
 export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
   if (!ctrl) return undefined;
@@ -119,27 +120,36 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
       ? h('div.timeout.block', [
           h('strong', 'Timeout 15 minutes for'),
           ...ctrl.opts.reasons.map(r =>
-            h('a.text', { hook: bind('click', () => ctrl.timeout(r, data.text)) }, [
-              snabIcon('clock'),
+            h(
+              'a.text',
+              {
+                attrs: dataIcon(licon.Clock),
+                hook: bind('click', () => ctrl.timeout(r, data.text)),
+              },
               r.name,
-            ]),
+            ),
           ),
         ])
       : h('div.timeout.block', [
           h('strong', 'Moderation'),
-          h('a.text', { hook: bind('click', () => ctrl.timeout(ctrl.opts.reasons[0], data.text)) }, [
-            snabIcon('clock'),
-            'Timeout 15 minutes',
-          ]),
           h(
             'a.text',
             {
+              attrs: dataIcon(licon.Clock),
+              hook: bind('click', () => ctrl.timeout(ctrl.opts.reasons[0], data.text)),
+            },
+            'Timeout 15 minutes',
+          ),
+          h(
+            'a.text',
+            {
+              attrs: dataIcon(licon.Clock),
               hook: bind('click', async () => {
                 await reportUserText(ctrl.opts.resourceId, data.name, data.text);
                 ctrl.timeout(ctrl.opts.reasons[0], data.text);
               }),
             },
-            [snabIcon('clock'), 'Timeout and report to Lichess'],
+            'Timeout and report to Lichess',
           ),
         ]);
 
@@ -167,8 +177,8 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
 
   return [
     h('div.top', { key: 'mod-' + data.id }, [
-      h('span.text', [snabIcon('agent'), userLink(data)]),
-      h('a', { hook: bind('click', ctrl.close) }, [snabIcon('x')]),
+      h('span.text', { attrs: dataIcon(licon.Agent) }, [userLink(data)]),
+      h('a', { attrs: dataIcon(licon.X), hook: bind('click', ctrl.close) }),
     ]),
     h('div.mchat__content.moderation', [
       h('i.line-text.block', ['"', data.text, '"']),

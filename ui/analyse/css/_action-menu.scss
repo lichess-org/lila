@@ -10,8 +10,8 @@
   .inner {
     display: flex;
     flex-direction: column;
-    padding: $analyse-block-gap;
-    gap: $analyse-block-gap;
+    padding: 0 1rem 1rem;
+    gap: 1rem;
   }
 
   h2 {
@@ -47,19 +47,23 @@
 
     button,
     > a {
-      gap: 8px;
       color: $c-font;
       display: flex;
       align-items: center;
       min-height: 4em;
 
-      .svg-icon {
-        width: 22px;
-        height: 22px;
+      &::before {
+        padding-inline-end: 8px;
+        font-size: 1.5em;
+        color: $c-font-dim;
       }
 
       &:hover {
         color: $c-primary;
+
+        &::before {
+          color: $c-primary-dim;
+        }
       }
     }
   }
@@ -76,6 +80,15 @@
       &-empty {
         color: $c-font-dim;
       }
+    }
+  }
+
+  form.delete {
+    text-align: right;
+    margin-top: 6px;
+
+    .button::before {
+      font-size: 1.2em;
     }
   }
 

@@ -24,7 +24,6 @@
   .setting {
     @extend %flex-center-nowrap;
 
-    gap: 1ch;
     white-space: nowrap;
 
     input[type='range'],
@@ -32,8 +31,9 @@
       cursor: pointer;
       flex: 1 4 auto;
       padding: 0;
-      height: 21px;
+      height: 21px; // important
       width: 100%;
+      margin: 0 1ch;
     }
 
     select {
@@ -41,6 +41,7 @@
 
       flex: 1 4 auto;
       min-width: 0;
+      margin-inline-start: 1ch;
       padding: 4px;
     }
 
@@ -54,17 +55,9 @@
       text-align: left;
     }
 
-    .svg-icon {
-      width: 15px;
-    }
-
-    button {
-      display: inline-flex;
-      align-items: center;
-    }
-
     button.button-red {
-      padding: 4px;
+      margin-left: 0.6em;
+      padding: 0.6em 0.75em;
     }
 
     span {
@@ -117,6 +110,7 @@
 
   .engine-info-button {
     color: $c-font-dim;
+    margin-inline-start: 1em;
 
     &:hover {
       color: $c-primary;

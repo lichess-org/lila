@@ -7,9 +7,7 @@ import {
   type VNodeData,
 } from 'snabbdom';
 
-import type { Icon } from '@/icons';
-
-import { snabIcon } from './makeIcon';
+import type { LiconValue } from '@/licon';
 
 type RemoveIndexSignature<T> = {
   [K in keyof T as string extends K ? never : number extends K ? never : symbol extends K ? never : K]: T[K];
@@ -150,12 +148,17 @@ export const p: TagFunction = makeTag('p');
 export const button: TagFunction = makeTag('button');
 export const span: TagFunction = makeTag('span');
 export const strong: TagFunction = makeTag('strong');
+export const small: TagFunction = makeTag('small');
 export const time: TagFunction = makeTag('time');
 export const label: TagFunction = makeTag('label');
 export const select: TagFunction = makeTag('select');
 export const option: TagFunction = makeTag('option');
 export const main: TagFunction = makeTag('main');
 export const form: TagFunction = makeTag('form');
+export const ul: TagFunction = makeTag('ul');
+export const li: TagFunction = makeTag('li');
+export const canvas: TagFunction = makeTag('canvas');
+
 export const h1: TagFunction = makeTag('h1');
 export const h2: TagFunction = makeTag('h2');
 
@@ -172,13 +175,4 @@ export const input: TagFactory<[type: HTMLInputElement['type']]> = (type = 'text
   makeTag('input', { type });
 export const optgroup: TagFactory<[label: string]> = label => makeTag('optgroup', { label });
 
-export const icon: TagFactory<[icon: Icon]> = icon => {
-  const iconTag = ((selectorOrData?: Selector | TagData, data?: TagData): VNode => {
-    const selector = isSelector(selectorOrData) ? selectorOrData : '';
-    const iconData = (isSelector(selectorOrData) ? data : selectorOrData) ?? {};
-    const vnode = snabIcon(icon, selector);
-    vnode.data = { ...vnode.data, ...iconData, attrs: { ...vnode.data?.attrs, ...iconData.attrs } };
-    return vnode;
-  }) as TagFunction;
-  return iconTag;
-};
+export const icon: TagFactory<[icon: LiconValue]> = icon => makeExoticTag('icon', { 'data-icon': icon });

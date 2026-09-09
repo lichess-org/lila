@@ -4,10 +4,13 @@
   .mini-game__player {
     @extend %flex-center-nowrap;
 
-    & .svg-icon.berserk {
+    & icon.berserk {
       flex: 0 0 auto;
-      color: $c-accent;
-      margin-inline-end: 5px;
+
+      &::before {
+        color: $c-accent;
+        margin-inline-end: 5px;
+      }
     }
   }
 

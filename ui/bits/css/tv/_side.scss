@@ -7,10 +7,10 @@
     width: 100%;
     justify-content: flex-end;
 
-    .svg-icon {
+    &::before {
       order: 2;
       color: color-mix(in oklab, $c-brag 60%, $c-bg-page);
-      width: 2.5em;
+      font-size: 2.5em;
       margin-inline-start: 0.8rem;
     }
 
@@ -30,7 +30,7 @@
     display: block;
   }
 
-  &.active .svg-icon {
+  &.active > span::before {
     color: $c-accent;
   }
 }

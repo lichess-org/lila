@@ -394,7 +394,7 @@ object security:
           "pwned" -> pwned,
           "result" -> result
         )
-    def proxy(tpe: String) = counter("security.login.proxy").withTag("proxy", tpe)
+    def must2fa(reason: String) = counter("security.login.must2fa").withTag("reason", reason.escape)
   def secretScanning(tokenType: String, source: String, hit: Boolean) =
     counter("security.githubSecretScanning.hit").withTags(
       tags("type" -> tokenType, "source" -> source.escape, "hit" -> hit)
@@ -773,7 +773,8 @@ object jvm:
     yield perState.withTags(tags("name" -> group.name, "state" -> state.toString)).update(count)
 
 object prometheus:
-  val lines = gauge("prometheus.lines").withoutTags()
+  def lines = gauge("prometheus.lines").withoutTags()
+  def linesPerMetric(metric: String) = gauge("prometheus.lines.metric").withTag("metric", metric)
 
 def chronoSync[A] = Chronometer.syncMon[A]
 

@@ -85,12 +85,6 @@
   }
 }
 
-.forum-post__actions {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
 .button.forum-post__button {
   @media (hover: hover) {
     visibility: hidden;

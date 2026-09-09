@@ -2,7 +2,8 @@ import { clamp } from '@/algo';
 import type { CevalHandler, EngineInfo } from '@/ceval';
 import { isChrome } from '@/device';
 import { onClickAway } from '@/index';
-import { type VNode, onInsert, bind, hl, rangeConfig, confirm, domDialog, snabIcon } from '@/view';
+import { licon } from '@/licon';
+import { type VNode, onInsert, bind, dataIcon, hl, rangeConfig, confirm, domDialog } from '@/view';
 
 import type { CevalCtrl } from '../ctrl';
 import { fewerCores } from '../util';
@@ -193,7 +194,10 @@ function setupTick(v: VNode, ceval: CevalCtrl) {
 
 function engineSelection({ ceval }: CevalHandler) {
   const active = ceval.engines.active();
-  const engines = ceval.engines.supporting(ceval.opts.variant.key);
+  const engines = ceval.engines.supporting({
+    rules: ceval.rules,
+    nonStandardMaterial: ceval.nonStandardMaterial,
+  });
   const external = ceval.engines.external;
 
   return hl('div.setting', [
@@ -211,28 +215,27 @@ function engineSelection({ ceval }: CevalHandler) {
       ),
     ),
     external &&
-      hl(
-        'button.button.button-red.button-empty',
-        {
-          attrs: { title: 'Delete external engine' },
-          hook: bind('click', async e => {
-            (e.target as HTMLElement).blur();
-            if (await confirm('Remove external engine?'))
-              ceval.engines.deleteExternal(external.id).then(ok => ok && ceval.opts.redraw());
-          }),
-        },
-        [snabIcon('trash')],
-      ),
-    hl(
-      'button.engine-info-button',
-      {
-        attrs: { title: 'Engine information' },
-        on: {
-          click: () => engineInfo(ceval.engines.supporting(ceval.opts.variant.key, undefined, 'browser')),
-        },
+      hl('button.button.button-red.button-empty', {
+        attrs: { ...dataIcon(licon.Trash), title: 'Delete external engine' },
+        hook: bind('click', async e => {
+          (e.currentTarget as HTMLElement).blur();
+          if (await confirm('Remove external engine?'))
+            ceval.engines.deleteExternal(external.id).then(ok => ok && ceval.opts.redraw());
+        }),
+      }),
+    hl('button.engine-info-button', {
+      attrs: { ...dataIcon(licon.InfoCircle), title: 'Engine information' },
+      on: {
+        click: () =>
+          engineInfo(
+            ceval.engines.supporting({
+              rules: ceval.rules,
+              nonStandardMaterial: ceval.nonStandardMaterial,
+              filter: 'browser',
+            }),
+          ),
       },
-      [snabIcon('infoCircle')],
-    ),
+    }),
   ]);
 }
 

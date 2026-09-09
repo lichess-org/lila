@@ -10,11 +10,10 @@
       opacity: 0.5;
     }
 
-    .svg-icon:first-child {
-      width: 2.6em;
-      height: 2.6em;
+    &::before {
+      font-size: 3em;
       opacity: 0.5;
-      margin-inline-end: 0.5em;
+      margin-inline-end: 0.2em;
 
       @include transition(opacity color);
     }
@@ -26,7 +25,7 @@
     &[href]:hover {
       background: color-mix(in oklab, $c-bg-page 50%, $c-bg);
 
-      .svg-icon {
+      &::before {
         color: $c-link;
         opacity: 0.7;
       }
@@ -37,13 +36,13 @@
 
       background: $c-bg-box;
 
-      .svg-icon {
+      &::before {
         color: $c-accent;
         opacity: 0.7;
       }
     }
 
-    > span:not(.svg-icon) {
+    > span {
       flex: 1 1 100%;
 
       @extend %flex-column;
@@ -56,21 +55,20 @@
       font-size: 0.9em;
     }
 
-    .icon-playTriangle {
-      width: 0.75em;
-      height: 0.75em;
+    icon {
+      font-size: 0.75em;
       opacity: 0.2;
       color: $c-font-dim;
 
       @include transition;
     }
 
-    &:hover .svg-icon {
+    &:hover icon {
       color: $c-link;
       opacity: 0.7;
     }
 
-    &.active .icon-playTriangle {
+    &.active icon {
       display: none;
     }
 
@@ -107,7 +105,7 @@
       padding: 0.3em;
     }
 
-    a > .svg-icon,
+    a > icon,
     h3,
     hr,
     rating .rp,
@@ -129,9 +127,9 @@
       display: flex;
       justify-content: center;
 
-      > .svg-icon {
+      &::before {
         opacity: 0.8;
-        width: 1.5em;
+        font-size: 1.5em;
       }
 
       > span {
