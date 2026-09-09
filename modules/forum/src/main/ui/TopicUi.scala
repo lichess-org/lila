@@ -88,35 +88,6 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
                     ),
                   form3.submit(trans.site.createTheTopic())
                 )
-              ),
-              postForm(cls := "form3", action := routes.ForumTopic.create(categ.id))(
-                form3.group(form("name"), trans.site.subject())(form3.input(_)(autofocus)),
-                form3.group(
-                  form("post")("text"),
-                  trans.site.message(),
-                  help = span(cls := "space-between")(
-                    span(markdownIsAvailable),
-                    a(
-                      dataIcon := Icon.InfoCircle,
-                      cls := "text",
-                      href := routes.Cms.lonePage(CmsPageKey("forum-etiquette"))
-                    )(trans.site.theForumEtiquette())
-                  ).some
-                )(bits.postTextarea(_)()),
-                renderCaptcha(form("post"), captcha),
-                form3.actions(
-                  a(href := routes.ForumCateg.show(categ.id))(trans.site.cancel()),
-                  Granter
-                    .opt(_.PublicMod)
-                    .option(
-                      form3.submit(
-                        frag("Create as a mod"),
-                        nameValue = (form("post")("modIcon").name, "true").some,
-                        icon = Icon.Agent.some
-                      )
-                    ),
-                  form3.submit(trans.site.createTheTopic())
-                )
               )
             )
           )(bits.usermodTimeout)
