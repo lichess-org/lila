@@ -26,7 +26,6 @@ import { ChatCtrl } from 'lib/chat/chatCtrl';
 import { displayColumns } from 'lib/device';
 import { playable, playedTurns, fenToEpd, validUci } from 'lib/game';
 import { plyColor } from 'lib/game/chess';
-import { endgameHighlights } from 'lib/game/endgame';
 import { PromotionCtrl } from 'lib/game/promotion';
 import { pubsub } from 'lib/pubsub';
 import { storedBooleanProp } from 'lib/storage';
@@ -378,16 +377,6 @@ export default class AnalyseCtrl implements CevalHandler {
         },
         check: node.check(),
         lastMove: uciToMove(node.uci),
-        highlight: {
-          custom:
-            node.check() || node.outcome() || this.data.game.status.id >= 30
-              ? endgameHighlights(
-                  node.fen,
-                  node.check() ? opposite(color) : node.outcome()?.winner || this.data.game.winner,
-                  node.check() ? 'mate' : node.outcome() ? 'stalemate' : this.data.game.status.name,
-                )
-              : new Map<Key, string>(),
-        },
       };
     config.premovable = {
       enabled: config.movable!.color && config.turnColor !== config.movable!.color,
@@ -1094,7 +1083,10 @@ export default class AnalyseCtrl implements CevalHandler {
       this.showBestMoveArrows() ||
       this.settings.showMoveAnnotationsOnBoard ||
       this.settings.showVariationArrows ||
-      (this.motifEnabled() && this.motif.any())
+      (this.motifEnabled() && this.motif.any()) ||
+      this.node.check() ||
+      this.node.outcome() ||
+      this.data.game.status.id >= 30
     )
       this.setAutoShapes();
     else this.chessground?.setAutoShapes([]);

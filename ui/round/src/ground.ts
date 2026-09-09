@@ -5,7 +5,7 @@ import { h, type VNode } from 'snabbdom';
 import resizeHandle from 'lib/chessgroundResize';
 import { isSafari } from 'lib/device';
 import { plyColor } from 'lib/game/chess';
-import { endgameHighlights } from 'lib/game/endgame';
+import { endgameShapes } from 'lib/game/endgame';
 import { finished } from 'lib/game/status';
 import { ShowResizeHandle, Coords, MoveEvent } from 'lib/prefs';
 import { storage } from 'lib/storage';
@@ -23,9 +23,7 @@ export function makeConfig(ctrl: RoundController): CgConfig {
     step = plyStep(data, ctrl.ply),
     playing = ctrl.isPlaying(),
     premove = new Premove(data.game.variant.key, !!data.pref.rookCastle),
-    customHighlights = finished(data)
-      ? endgameHighlights(step.fen, data.game.winner, data.game.status.name)
-      : new Map<Key, string>();
+    endgame = finished(data) ? endgameShapes(step.fen, data.game.winner, data.game.status.name) : [];
 
   return {
     fen: step.fen,
@@ -42,7 +40,9 @@ export function makeConfig(ctrl: RoundController): CgConfig {
     highlight: {
       lastMove: data.pref.highlight,
       check: data.pref.highlight,
-      custom: customHighlights,
+    },
+    drawable: {
+      autoShapes: endgame,
     },
     events: {
       move: hooks.onMove,
