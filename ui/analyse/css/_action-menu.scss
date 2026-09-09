@@ -10,8 +10,8 @@
   .inner {
     display: flex;
     flex-direction: column;
-    padding: $analyse-block-gap;
-    gap: $analyse-block-gap;
+    padding: 0 1rem 1rem;
+    gap: 1rem;
   }
 
   h2 {
@@ -54,11 +54,16 @@
 
       &::before {
         padding-inline-end: 8px;
-        font-size: 1.7em;
+        font-size: 1.5em;
+        color: $c-font-dim;
       }
 
       &:hover {
         color: $c-primary;
+
+        &::before {
+          color: $c-primary-dim;
+        }
       }
     }
   }

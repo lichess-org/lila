@@ -148,12 +148,17 @@ export const p: TagFunction = makeTag('p');
 export const button: TagFunction = makeTag('button');
 export const span: TagFunction = makeTag('span');
 export const strong: TagFunction = makeTag('strong');
+export const small: TagFunction = makeTag('small');
 export const time: TagFunction = makeTag('time');
 export const label: TagFunction = makeTag('label');
 export const select: TagFunction = makeTag('select');
 export const option: TagFunction = makeTag('option');
 export const main: TagFunction = makeTag('main');
 export const form: TagFunction = makeTag('form');
+export const ul: TagFunction = makeTag('ul');
+export const li: TagFunction = makeTag('li');
+export const canvas: TagFunction = makeTag('canvas');
+
 export const h1: TagFunction = makeTag('h1');
 export const h2: TagFunction = makeTag('h2');
 

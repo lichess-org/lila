@@ -1,17 +1,17 @@
 import { type VNode } from 'snabbdom';
 
-import { hl } from 'lib/view';
+import { div, hl, span } from 'lib/view';
 
 import type { Opts, Recap } from './interfaces';
 import * as slides from './slides';
 
 export function awaiter(user: LightUser): VNode {
-  return hl('div#recap-swiper.swiper.swiper-initialized', [hl('div.swiper-wrapper', [slides.loading(user)])]);
+  return div('#recap-swiper.swiper.swiper-initialized', [div('.swiper-wrapper', [slides.loading(user)])]);
 }
 
 export function view(r: Recap, opts: Opts): VNode {
-  return hl('div#recap-swiper.swiper', [
-    hl('div.swiper-wrapper', [
+  return div('#recap-swiper.swiper', [
+    div('.swiper-wrapper', [
       slides.init(opts.user),
       r.games.nbs.total
         ? [
@@ -25,7 +25,7 @@ export function view(r: Recap, opts: Opts): VNode {
             slides.openingColor(r.games.openings, 'white'),
             slides.openingColor(r.games.openings, 'black'),
           ]
-        : [slides.noGames()],
+        : slides.noGames(),
       slides.puzzles(r),
       slides.lichessGames(r),
       slides.malware(),
@@ -33,11 +33,11 @@ export function view(r: Recap, opts: Opts): VNode {
       slides.thanks(r),
       slides.shareable(r),
     ]),
-    opts.navigation && [hl('div.swiper-button-next'), hl('div.swiper-button-prev')],
-    hl('div.swiper-pagination'),
-    hl('div.autoplay-progress', [
-      hl('svg', { attrs: { viewBox: '0 0 48 48' } }, [hl('circle', { attrs: { cx: 24, cy: 24, r: 20 } })]),
-      hl('span'),
+    opts.navigation ? [div('.swiper-button-next'), div('.swiper-button-prev')] : null,
+    div('.swiper-pagination'),
+    div('.autoplay-progress', [
+      hl('svg', { attrs: { viewBox: '0 0 48 48' } }, hl('circle', { attrs: { cx: 24, cy: 24, r: 20 } })),
+      span(),
     ]),
   ]);
 }

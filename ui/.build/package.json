@@ -23,6 +23,7 @@
     "fast-xml-parser": "5.11.1",
     "json-stringify-pretty-compact": "4.0.0",
     "micromatch": "4.0.8",
+    "picocolors": "^1.1.1",
     "postcss": "^8.5.28",
     "typescript": "7.0.2"
   },

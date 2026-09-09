@@ -1,12 +1,12 @@
 import { transform } from 'esbuild';
 import fg from 'fast-glob';
 import { XMLParser } from 'fast-xml-parser';
-import crypto from 'node:crypto';
 import fs from 'node:fs';
 import { join, basename } from 'node:path';
 
 import { zip } from './algo.ts';
 import { env } from './env.ts';
+import { getHash } from './hash.ts';
 import { type Manifest, updateManifest } from './manifest.ts';
 import { readable, isClose } from './parse.ts';
 import { makeTask } from './task.ts';
@@ -188,7 +188,7 @@ export async function i18nManifest(): Promise<void> {
     (await fg.glob('*.js', { cwd: env.i18nJsDir, absolute: true })).map(async file => {
       const name = basename(file, '.js');
       const content = await fs.promises.readFile(file, 'utf-8');
-      const hash = crypto.createHash('md5').update(content).digest('hex').slice(0, 12);
+      const hash = getHash(content);
       const manifestPath = `i18n/${name}`;
       const destPath = join(env.jsOutDir, `${manifestPath}.${hash}.js`);
       i18n[manifestPath] = { hash };
@@ -209,7 +209,7 @@ export async function i18nManifest(): Promise<void> {
           })
           .join(',') +
         '}';
-      const hash = crypto.createHash('md5').update(content).digest('hex').slice(0, 12);
+      const hash = getHash(content);
       const manifestPath = `i18n/${locale}`;
       const destPath = join(env.jsOutDir, `${manifestPath}.${hash}.js`);
       i18n[manifestPath] = { hash };
