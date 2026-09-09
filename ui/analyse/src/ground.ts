@@ -1,9 +1,11 @@
 import { Chessground as makeChessground } from '@lichess-org/chessground';
+import { opposite } from '@lichess-org/chessground/util';
 import type { Elements } from '@lichess-org/chessground/types';
 import { h, type VNode } from 'snabbdom';
 
 import resizeHandle from 'lib/chessgroundResize';
 import { isSafari } from 'lib/device';
+import { endgameShapes } from 'lib/game/endgame';
 import * as Prefs from 'lib/prefs';
 import { storage } from 'lib/storage';
 import { onInsert } from 'lib/view';
@@ -24,7 +26,8 @@ export function promote(ground: CgApi, key: Key, role: Role) {
 export function makeConfig(ctrl: AnalyseCtrl): CgConfig {
   const d = ctrl.data,
     pref = d.pref,
-    opts = ctrl.makeCgOpts();
+    opts = ctrl.makeCgOpts(),
+    outcome = ctrl.node.outcome();
   const config: CgConfig = {
     turnColor: opts.turnColor,
     fen: opts.fen,
@@ -70,6 +73,11 @@ export function makeConfig(ctrl: AnalyseCtrl): CgConfig {
       enabled: true,
       eraseOnMovablePieceClick: !ctrl.opts.study || !!ctrl.opts.practice,
       defaultSnapToValidMove: storage.boolean('arrow.snap').getOrDefault(true),
+      autoShapes: endgameShapes(
+        ctrl.node.fen,
+        opts.check ? opposite(opts.turnColor) : outcome?.winner || d.game.winner,
+        opts.check ? 'mate' : outcome ? 'stalemate' : d.game.status.name,
+      ),
     },
     highlight: {
       lastMove: pref.highlight,
