@@ -123,7 +123,11 @@ body {
   .lpv {
     width: 45vh;
     max-width: 61vw;
-    max-height: 50vh;
+    max-height: 45vh;
+
+    @media (max-width: at-most($xx-small)) {
+      max-width: 80vw;
+    }
   }
 
   .lpv {
