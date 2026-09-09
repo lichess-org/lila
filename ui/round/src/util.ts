@@ -11,6 +11,22 @@ export function parsePossibleMoves(dests?: EncodedDests): Dests {
   return dec;
 }
 
+export function findKingSquare(fen: FEN, color: Color): Key | undefined {
+  const board = fen.split(' ')[0].split('/'),
+    king = color === 'white' ? 'K' : 'k';
+
+  for (let rank = 0; rank < board.length; rank++) {
+    let file = 0;
+    for (const char of board[rank]) {
+      if (/\d/.test(char)) file += Number(char);
+      else {
+        if (char === king) return `${String.fromCharCode(97 + file)}${8 - rank}` as Key;
+        file++;
+      }
+    }
+  }
+}
+
 export const firstPly = (d: RoundData): number => d.steps[0].ply;
 
 export const lastPly = (d: RoundData): number => lastStep(d).ply;

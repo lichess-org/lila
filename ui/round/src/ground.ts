@@ -5,6 +5,7 @@ import { h, type VNode } from 'snabbdom';
 import resizeHandle from 'lib/chessgroundResize';
 import { isSafari } from 'lib/device';
 import { plyColor } from 'lib/game/chess';
+import { finished } from 'lib/game/status';
 import { ShowResizeHandle, Coords, MoveEvent } from 'lib/prefs';
 import { storage } from 'lib/storage';
 import { onInsert } from 'lib/view';
@@ -20,7 +21,40 @@ export function makeConfig(ctrl: RoundController): CgConfig {
     hooks = ctrl.makeCgHooks(),
     step = plyStep(data, ctrl.ply),
     playing = ctrl.isPlaying(),
-    premove = new Premove(data.game.variant.key, !!data.pref.rookCastle);
+    premove = new Premove(data.game.variant.key, !!data.pref.rookCastle),
+    customHighlights = new Map<Key, string>();
+
+  if (finished(data)) {
+    const winner = data.game.winner;
+    if (winner) {
+      const winnerKing = util.findKingSquare(step.fen, winner);
+      if (winnerKing) customHighlights.set(winnerKing, 'king-win');
+
+      const loser = winner === 'white' ? 'black' : 'white',
+        loserKing = util.findKingSquare(step.fen, loser);
+      if (loserKing) {
+        const loserClass =
+          data.game.status.name === 'mate'
+            ? 'king-lose-mate'
+            : data.game.status.name === 'resign'
+              ? 'king-lose-resign'
+              : ['outoftime', 'timeout'].includes(data.game.status.name)
+                ? 'king-lose-timeout'
+                : 'king-lose';
+        customHighlights.set(loserKing, loserClass);
+      }
+    } else if (
+      ['draw', 'stalemate', 'insufficientMaterialClaim', 'outoftime', 'timeout'].includes(
+        data.game.status.name,
+      )
+    ) {
+      for (const color of ['white', 'black'] as const) {
+        const king = util.findKingSquare(step.fen, color);
+        if (king) customHighlights.set(king, 'king-draw');
+      }
+    }
+  }
+
   return {
     fen: step.fen,
     orientation: boardOrientation(data, ctrl.flip),
@@ -36,6 +70,7 @@ export function makeConfig(ctrl: RoundController): CgConfig {
     highlight: {
       lastMove: data.pref.highlight,
       check: data.pref.highlight,
+      custom: customHighlights,
     },
     events: {
       move: hooks.onMove,
