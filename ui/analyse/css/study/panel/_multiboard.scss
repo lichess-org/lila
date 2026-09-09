@@ -1,3 +1,9 @@
+@property --multiEvalPercent {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: 50%;
+}
+
 .study__multiboard {
   padding-bottom: 0.5em;
 
@@ -150,6 +156,7 @@
     opacity: 0.4;
     margin-left: 4px;
     background: linear-gradient(to top, var(--c-eval-mini-gauge-white), var(--c-eval-mini-gauge-black));
+    transition: --multiEvalPercent 1s ease;
 
     &::after {
       content: '';
@@ -159,28 +166,24 @@
       box-shadow: 0 0 3px rgb(0 0 0 / 0.5) inset;
     }
 
-    &__black {
-      display: none;
-      width: 100%;
-      height: 50%;
-      background: var(--c-eval-mini-gauge-black);
-    }
-
     &--flip {
       background: linear-gradient(to bottom, var(--c-eval-mini-gauge-white), var(--c-eval-mini-gauge-black));
-
-      .mini-game__gauge__black {
-        position: absolute;
-        bottom: 0;
-      }
     }
 
     &--set {
       opacity: 1;
-      background: var(--c-eval-mini-gauge-white);
+      background: linear-gradient(
+        to top,
+        var(--c-eval-mini-gauge-white) var(--multiEvalPercent),
+        var(--c-eval-mini-gauge-black) var(--multiEvalPercent)
+      );
 
-      .mini-game__gauge__black {
-        display: block;
+      &.mini-game__gauge--flip {
+        background: linear-gradient(
+          to bottom,
+          var(--c-eval-mini-gauge-white) var(--multiEvalPercent),
+          var(--c-eval-mini-gauge-black) var(--multiEvalPercent)
+        );
       }
 
       tick {
