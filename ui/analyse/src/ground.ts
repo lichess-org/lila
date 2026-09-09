@@ -75,7 +75,7 @@ export function makeConfig(ctrl: AnalyseCtrl): CgConfig {
       defaultSnapToValidMove: storage.boolean('arrow.snap').getOrDefault(true),
       autoShapes: endgameShapes(
         ctrl.node.fen,
-        opts.check ? opposite(opts.turnColor) : outcome?.winner || d.game.winner,
+        opts.check ? opposite(plyColor(ctrl.node.ply)) : outcome?.winner || d.game.winner,
         opts.check ? 'mate' : outcome ? 'stalemate' : d.game.status.name,
       ),
     },
