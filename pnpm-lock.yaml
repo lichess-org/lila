@@ -506,7 +506,7 @@ importers:
         specifier: workspace:*
         version: link:../lib
       swiper:
-        specifier: ^12.1.2
+        specifier: ^12.2.0
         version: 12.2.0
 
   ui/round:
