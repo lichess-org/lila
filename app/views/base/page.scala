@@ -52,7 +52,7 @@ object page:
     val pageFrag = frag(
       doctype,
       htmlTag(
-        (ctx.impersonatedBy.isEmpty && !ctx.blind).option(cls := ctx.pref.currentBg),
+        (ctx.impersonatedBy.isEmpty && !ctx.blind).option(cls := ctx.pref.currentThemeHtmlClass),
         style := htmlStyle,
         topComment,
         head(
@@ -96,15 +96,15 @@ object page:
           manifests,
           p.withHrefLangs.map(hrefLangs),
           sitePreload(p.i18nModules, ctx.data.inquiry.isDefined.option(Esm("mod.inquiry")) :: allModules),
+          lichessFontFaceCss,
           pieceSetImages.load(ctx.pref.currentPieceSet.name),
           (ctx.pref.bg === lila.pref.Pref.Bg.SYSTEM || ctx.pref.bg === lila.pref.Pref.Bg.SYSTEM_TRANSP || ctx.impersonatedBy.isDefined)
             .so(systemThemeScript(ctx.nonce, ctx.pref.isTransparentBg))
         ).pipe(p.transformHead),
         st.body(
           cls := {
-            val baseClass = s"coords-${pref.coordsClass}"
             List(
-              baseClass -> true,
+              s"coords-${pref.coordsClass}" -> true,
               "simple-board" -> pref.simpleBoard,
               "piece-letter" -> pref.pieceNotationIsLetter,
               "blind-mode" -> ctx.blind,
@@ -128,7 +128,7 @@ object page:
           dataAssetUrl,
           dataAssetVersion := assetVersion,
           dataNonce := ctx.nonce,
-          dataTheme := pref.currentBg,
+          dataTheme := pref.currentThemeData,
           dataBoard := pref.currentTheme.name,
           dataPieceSet := pref.currentPieceSet.name,
           dataBoard3d := pref.is3d.option(pref.currentTheme3d.name),

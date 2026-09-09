@@ -3,7 +3,7 @@ import type { VNode, Hooks } from 'snabbdom';
 import { finished, aborted, replayable, rematchable, moretimeable, type PlayerUser } from 'lib/game';
 import type { ClockData } from 'lib/game/clock/clockCtrl';
 import { game as gameRoute } from 'lib/game/router';
-import { type Icon } from 'lib/icons';
+import { licon, type LiconValue } from 'lib/licon';
 import { pubsub } from 'lib/pubsub';
 import {
   spinnerVdom as spinner,
@@ -12,7 +12,7 @@ import {
   hl,
   bind,
   onInsert,
-  snabIcon,
+  dataIcon,
 } from 'lib/view';
 
 import type RoundController from '../ctrl';
@@ -70,10 +70,10 @@ function rematchButtons(ctrl: RoundController): LooseVNodes {
       hl(
         'button.rematch-decline',
         {
-          attrs: { 'aria-label': i18n.site.decline, title: i18n.site.decline },
+          attrs: { 'data-icon': licon.X, title: i18n.site.decline },
           hook: bind('click', () => ctrl.socket.send('rematch-no')),
         },
-        ctrl.nvui ? i18n.site.decline : [snabIcon('x')],
+        ctrl.nvui ? i18n.site.decline : '',
       ),
     hl(
       'button.fbt.rematch.white',
@@ -112,7 +112,7 @@ function rematchButtons(ctrl: RoundController): LooseVNodes {
 export function standard(
   ctrl: RoundController,
   condition: ((d: RoundData) => ButtonState) | undefined,
-  icon: Icon,
+  icon: LiconValue,
   hint: string,
   socketMsg: EventsWithoutPayload,
   onclick?: () => void,
@@ -128,7 +128,7 @@ export function standard(
         if (enabled()) onclick ? onclick() : ctrl.socket.sendLoading(socketMsg);
       }),
     },
-    ctrl.nvui ? [hintFn()] : [snabIcon(icon)],
+    ctrl.nvui ? [hintFn()] : [hl('span', { attrs: dataIcon(icon) })],
   );
 }
 
@@ -157,38 +157,26 @@ export function opponentGone(ctrl: RoundController): LooseVNode {
 }
 
 const fbtCancel = (f: (v: boolean) => void) =>
-  hl(
-    'button.fbt.no',
-    {
-      attrs: { 'aria-label': i18n.site.cancel, title: i18n.site.cancel },
-      hook: bind('click', () => f(false)),
-    },
-    [snabIcon('x')],
-  );
+  hl('button.fbt.no', {
+    attrs: { title: i18n.site.cancel, 'data-icon': licon.X },
+    hook: bind('click', () => f(false)),
+  });
 
 export const resignConfirm = (ctrl: RoundController): VNode =>
   hl('div.act-confirm', [
-    hl(
-      'button.fbt.yes',
-      {
-        attrs: { 'aria-label': i18n.site.resign, title: i18n.site.resign },
-        hook: bind('click', () => ctrl.resign(true)),
-      },
-      [snabIcon('flagOutline')],
-    ),
+    hl('button.fbt.yes', {
+      attrs: { title: i18n.site.resign, 'data-icon': licon.FlagOutline },
+      hook: bind('click', () => ctrl.resign(true)),
+    }),
     fbtCancel(ctrl.resign),
   ]);
 
 export const drawConfirm = (ctrl: RoundController): VNode =>
   hl('div.act-confirm', [
-    hl(
-      'button.fbt.yes.draw-yes',
-      {
-        attrs: { 'aria-label': i18n.site.offerDraw, title: i18n.site.offerDraw },
-        hook: bind('click', () => ctrl.offerDraw(true)),
-      },
-      [snabIcon('oneHalf')],
-    ),
+    hl('button.fbt.yes.draw-yes', {
+      attrs: { title: i18n.site.offerDraw, 'data-icon': licon.OneHalf },
+      hook: bind('click', () => ctrl.offerDraw(true)),
+    }),
     fbtCancel(ctrl.offerDraw),
   ]);
 
@@ -223,13 +211,13 @@ export function backToTournament(ctrl: RoundController): LooseVNode {
       hl(
         'a.text.fbt.strong.glowing',
         {
-          attrs: { href: '/tournament/' + d.tournament.id },
+          attrs: { 'data-icon': licon.PlayTriangle, href: '/tournament/' + d.tournament.id },
           hook: bind('click', ctrl.setRedirecting),
         },
-        [snabIcon('playTriangle'), i18n.site.backToTournament],
+        i18n.site.backToTournament,
       ),
       hl('form', { attrs: { method: 'post', action: '/tournament/' + d.tournament.id + '/withdraw' } }, [
-        hl('button.text.fbt.weak', [snabIcon('pause'), i18n.site.pause]),
+        hl('button.text.fbt.weak', { attrs: dataIcon(licon.Pause) }, i18n.site.pause),
       ]),
       analysisButton(ctrl),
     ])
@@ -244,10 +232,10 @@ export function backToSwiss(ctrl: RoundController): LooseVNode {
       hl(
         'a.text.fbt.strong.glowing',
         {
-          attrs: { href: '/swiss/' + d.swiss.id },
+          attrs: { 'data-icon': licon.PlayTriangle, href: '/swiss/' + d.swiss.id },
           hook: bind('click', ctrl.setRedirecting),
         },
-        [snabIcon('playTriangle'), i18n.site.backToTournament],
+        i18n.site.backToTournament,
       ),
       analysisButton(ctrl),
     ])
@@ -257,21 +245,15 @@ export function backToSwiss(ctrl: RoundController): LooseVNode {
 export function moretime(ctrl: RoundController): LooseVNode {
   return (
     moretimeable(ctrl.data) &&
-    hl(
-      'a.moretime',
-      {
-        attrs: {
-          'aria-label': ctrl.data.clock
-            ? i18n.site.giveNbSeconds(ctrl.data.clock.moretime)
-            : i18n.preferences.giveMoreTime,
-          title: ctrl.data.clock
-            ? i18n.site.giveNbSeconds(ctrl.data.clock.moretime)
-            : i18n.preferences.giveMoreTime,
-        },
-        hook: bind('click', ctrl.socket.moreTime),
+    hl('a.moretime', {
+      attrs: {
+        title: ctrl.data.clock
+          ? i18n.site.giveNbSeconds(ctrl.data.clock.moretime)
+          : i18n.preferences.giveMoreTime,
+        'data-icon': licon.PlusButton,
       },
-      [snabIcon('plusButton')],
-    )
+      hook: bind('click', ctrl.socket.moreTime),
+    })
   );
 }
 

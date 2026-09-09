@@ -562,19 +562,17 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
             )
           ),
           div(cls := "appeal__rules")(
-            p(cls := "text warning-closure", iconEl := Icon.cautionTriangle)(
+            p(cls := "text warning-closure", dataIcon := Icon.CautionTriangle)(
               trans.site.closingAccountWithdrawAppeal()
             ),
-            p(cls := "text", iconEl := Icon.infoCircle)(trans.contact.doNotMessageModerators()),
+            p(cls := "text", dataIcon := Icon.InfoCircle)(trans.contact.doNotMessageModerators()),
             p(
-              a(cls := "text", iconEl := Icon.infoCircle, href := cmsPageUrl("appeal"))(
+              a(cls := "text", dataIcon := Icon.InfoCircle, href := cmsPageUrl("appeal"))(
                 "Read more about the appeal process"
               )
             ),
             p(
-              a(cls := "text", iconEl := Icon.download, href := routes.Account.data)(
-                "Export personal data"
-              )
+              a(cls := "text", dataIcon := Icon.Download, href := routes.Account.data)("Export personal data")
             )
           )
         ),

@@ -3,7 +3,7 @@
   @include prevent-select;
 
   display: inline-flex;
-  align-items: stretch;
+  align-items: center;
   border: $border;
   border-top: 0;
 
@@ -42,7 +42,7 @@
       @extend %box-radius;
     }
 
-    .svg-icon {
+    icon {
       @extend %roboto;
 
       letter-spacing: -1px;

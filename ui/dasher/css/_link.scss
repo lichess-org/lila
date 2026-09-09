@@ -15,36 +15,48 @@
   .subs .sub {
     @extend %nowrap-hidden;
 
-    display: flex;
-    align-items: center;
+    display: block;
     padding: 0.5rem 1rem;
     width: 100%;
     text-align: start;
-    gap: 0.5em;
+  }
+
+  .links a::before,
+  .links button::before {
+    position: relative;
+    bottom: 0.05em;
+  }
+
+  .links .line {
+    width: auto;
+
+    &::before {
+      display: inline-block;
+      margin-inline: 0 0.4em;
+
+      @include if-rtl {
+        transform: scaleX(-1);
+      }
+    }
   }
 
   .links a:hover,
+  .links a:hover::before,
+  .links a:hover .line::before,
   .links button:hover,
   .subs .sub:hover {
     background: $c-dasher;
-    color: $c-over;
+    color: $c-over !important;
     opacity: 1;
-
-    .line {
-      color: $c-over;
-    }
-  }
-
-  .links a .line {
-    width: 16px;
-
-    &::before {
-      width: 11px;
-    }
   }
 
   .logout button:hover {
     background: $c-error;
+  }
+
+  .links button {
+    width: 100%;
+    text-align: start;
   }
 
   .subs:not(:first-child) {
@@ -52,24 +64,44 @@
   }
 
   .sub {
-    justify-content: start;
-    gap: 0.5em;
-
-    > .svg-icon {
-      width: 1.2em;
-
-      &.icon-language {
-        color: $c-dasher;
-      }
-    }
-
-    > .icon-greaterThan {
-      width: 0.8em;
+    &::before {
+      float: inline-end;
+      font-size: 80%;
+      margin-top: 0.25rem;
       color: $c-dasher;
-      margin-left: auto;
     }
 
-    &:hover > .svg-icon {
+    &:hover::before {
+      color: $c-over;
+      opacity: 0.9;
+    }
+  }
+
+  .subs .sub {
+    display: flex;
+    align-items: center;
+    height: 34px;
+
+    &.language::before {
+      content: $licon-Language;
+    }
+
+    &::before {
+      font-family: lichess;
+      margin: 0;
+      margin-inline-end: 0.4em; // match .links line::before
+      font-size: 1.2em;
+    }
+
+    &::after {
+      font-family: lichess;
+      margin-inline-start: auto;
+      color: $c-dasher;
+      content: $licon-GreaterThan;
+    }
+
+    &:hover::after,
+    &:hover::before {
       color: $c-over;
       opacity: 0.9;
     }

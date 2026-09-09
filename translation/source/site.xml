@@ -254,6 +254,7 @@
   <string name="signupUsernameHint">Be sure to choose a username appropriate for all ages. You cannot change it later, and accounts with inappropriate usernames will be closed!</string>
   <string name="signupEmailPromise">We will only send you emails about your account and never share your email.</string>
   <string name="password">Password</string>
+  <string name="showPassword">Show password</string>
   <string name="changePassword">Change password</string>
   <string name="changeEmail">Change email</string>
   <string name="email">Email</string>
@@ -561,7 +562,7 @@ Playing rated games will increase stability.</string>
   <string name="oneUrlPerLine">One URL per line.</string>
   <string name="inlineNotation">Inline notation</string>
   <string name="makeAStudy">For safekeeping and sharing, consider making a study.</string>
-  <string name="clearSavedMoves">Clear moves</string>
+  <string name="clearLocalData">Clear local data</string>
   <string name="previouslyOnLichessTV">Previously on Lichess TV</string>
   <string name="onlinePlayers">Online players</string>
   <string name="activePlayers">Active players</string>

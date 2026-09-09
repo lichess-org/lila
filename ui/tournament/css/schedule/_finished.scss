@@ -15,9 +15,7 @@
     td {
       > span,
       > a > span {
-        display: flex;
-        align-items: center;
-        gap: 0.5em;
+        display: block;
         margin: 0.25em 0;
       }
 
@@ -25,7 +23,7 @@
         white-space: nowrap;
       }
 
-      .svg-icon {
+      icon {
         color: $c-brag;
       }
     }
@@ -65,8 +63,8 @@
   .icon {
     width: 0;
 
-    .svg-icon {
-      width: 3em;
+    icon {
+      font-size: 3em;
       color: $c-brag;
       opacity: 0.8;
     }

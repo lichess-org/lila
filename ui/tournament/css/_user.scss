@@ -42,12 +42,12 @@
     }
   }
 
-  .svg-icon {
-    width: 4em;
+  .icon span {
+    font-size: 4em;
     opacity: 0.7;
   }
 
-  .scheduled .svg-icon {
+  .scheduled .icon span {
     color: $c-brag;
     opacity: 0.8;
   }
@@ -62,8 +62,10 @@
       text-align: right;
     }
 
-    th span .svg-icon {
-      width: 2em;
+    th span {
+      &::before {
+        font-size: 2em;
+      }
     }
   }
 }

@@ -76,10 +76,10 @@
       &__top {
         @extend %flex-center-nowrap;
 
-        .svg-icon {
+        icon {
           @extend %page-text-shadow;
 
-          width: 4em;
+          font-size: 4em;
           margin: 0 1rem 0 1rem;
           opacity: 0.7;
         }
@@ -87,7 +87,7 @@
         &__title {
           @extend %flex-column;
 
-          .svg-icon + & {
+          icon + & {
             margin-top: 1em;
           }
 

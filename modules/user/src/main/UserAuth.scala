@@ -12,4 +12,4 @@ case class AuthData(
 )
 
 object AuthData:
-  val projection = $doc(F.bpass -> true, F.salt -> true, F.sha512 -> true)
+  val projection = bdoc(F.bpass -> true, F.salt -> true, F.sha512 -> true)

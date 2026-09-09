@@ -45,11 +45,11 @@ final class TitleUi(helpers: Helpers)(picfitUrl: lila.memo.PicfitUrl):
           then a(href := routes.TitleVerify.form)("Make a new title request")
           else if req.status.is(_.rejected)
           then emptyFrag
-          else showForms(req, form)
+          else showForms(req, form, inert = req.imported)
         )
 
-  private def showForms(req: TitleRequest, form: Form[TitleRequest.FormData])(using Context) =
-    frag(
+  private def showForms(req: TitleRequest, form: Form[TitleRequest.FormData], inert: Boolean)(using Context) =
+    div(
       div(cls := "title__images")(
         imageByTag(
           req,
@@ -74,16 +74,17 @@ Today's date is [current date]""")
       ),
       postForm(cls := "form3", action := routes.TitleVerify.update(req.id))(
         dataForm(form),
-        form3.action(form3.submit("Update and send for review"))
+        inert.not.option:
+          form3.action(form3.submit("Update and send for review"))
       ),
       postForm(cls := "form3", action := routes.TitleVerify.cancel(req.id))(
         form3.action(
-          form3.submit("Cancel request and delete form data", icon = Icon.trash.some)(
+          form3.submit("Cancel request and delete form data", icon = Icon.Trash.some)(
             cls := "button-red button-empty yes-no-confirm"
           )
         )(cls := "title__cancel")
       )
-    )
+    )(attr("inert") := inert)
 
   private def showStatus(req: TitleRequest) =
     import TitleRequest.Status
@@ -190,6 +191,6 @@ Today's date is [current date]""")
     def apply(image: Option[ImageId], height: Int): Tag =
       image.fold(fallback): id =>
         img(cls := "title-image", src := url(id, height))
-    def fallback = iconEl(Icon.uploadCloud)(cls := "title-image--fallback")
+    def fallback = iconTag(Icon.UploadCloud)(cls := "title-image--fallback")
     def url(id: ImageId, height: Int) = picfitUrl.resize(id, Right(height))
     def raw(id: ImageId) = picfitUrl.raw(id)

@@ -21,8 +21,6 @@ object TokenScopes extends TotalWrapper[TokenScopes, List[OAuthScope]]:
   extension (e: TokenScopes)
     def intersects(other: OAuthScopes): Boolean = e.exists(other.contains)
     def has(s: OAuthScope.Selector): Boolean = e.contains(s(OAuthScope))
-    def mobile: Boolean = has(_.Web.Mobile)
-    def takex3: Boolean = has(_.Web.Takex3)
 
 opaque type EndpointScopes = List[OAuthScope]
 object EndpointScopes extends TotalWrapper[EndpointScopes, List[OAuthScope]]:

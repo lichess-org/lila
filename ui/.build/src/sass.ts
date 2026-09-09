@@ -1,13 +1,13 @@
 import autoprefixer from 'autoprefixer';
 import cps from 'node:child_process';
-import crypto from 'node:crypto';
 import fs from 'node:fs';
 import { basename, dirname, join, relative, resolve } from 'node:path';
 import ps from 'node:process';
+import pc from 'picocolors';
 import postcss from 'postcss';
 
-import { c, env, errorMark, trimLines } from './env.ts';
-import { hashedBasename, symlinkTargetHashes } from './hash.ts';
+import { env, errorMark, trimLines } from './env.ts';
+import { getHash, hashedBasename, symlinkTargetHashes } from './hash.ts';
 import { updateManifest } from './manifest.ts';
 import { glob, readable } from './parse.ts';
 import { makeTask, runTask, addIncludes } from './task.ts';
@@ -74,7 +74,7 @@ export async function sass(): Promise<string | undefined> {
       const buildSources = [...remaining];
       remaining = new Set(await compile(buildSources, remaining.size < concreteAll.size));
 
-      if (remaining.size) throw `in ${[...remaining].map(s => `'${c.cyan(s)}'`).join(', ')}`;
+      if (remaining.size) throw `in ${[...remaining].map(s => `'${pc.cyan(s)}'`).join(', ')}`;
       const replacements = urlReplacements();
       updateManifest({
         css: Object.fromEntries(
@@ -92,11 +92,11 @@ async function compile(sources: string[], logAll = true): Promise<string[]> {
     (await fs.promises.realpath(
       join(env.buildDir, 'node_modules', `sass-embedded-${ps.platform}-${ps.arch}`, 'dart-sass', 'sass'),
     ));
-  if (!(await readable(sassBin))) env.exit(`Sass executable not found '${c.cyan(sassBin)}'`, 'sass');
+  if (!(await readable(sassBin))) env.exit(`Sass executable not found '${pc.cyan(sassBin)}'`, 'sass');
 
   return new Promise(resolveWithErrors => {
     if (!sources.length) return resolveWithErrors([]);
-    if (logAll) sources.forEach(src => env.log(`Building '${c.cyan(src)}'`, 'sass'));
+    if (logAll) sources.forEach(src => env.log(`Building '${pc.cyan(src)}'`, 'sass'));
     else env.log('Building', 'sass');
 
     const sassArgs = ['--no-error-css', '--stop-on-error', '--no-color', '--quiet', '--quiet-deps'];
@@ -151,7 +151,8 @@ async function parseScss(src: string, processed: Set<string>) {
   }
 
   for (const [, cssImport] of text.matchAll(/^@(?:import|use)\s+['"](.*)['"]/gm)) {
-    if (!cssImport || /^[a-zA-Z0-9_-]*:/.test(cssImport)) continue; // ignore @use scopes
+    if (!cssImport) continue;
+
     const absDep = (await readable(resolve(dirname(src), cssImport + '.scss')))
       ? resolve(dirname(src), cssImport + '.scss')
       : resolve(dirname(src), resolvePartial(cssImport));
@@ -162,11 +163,7 @@ async function parseScss(src: string, processed: Set<string>) {
     const dep = relative(env.rootDir, absDep);
     if (!importMap.get(dep)?.add(src)) importMap.set(dep, new Set<string>([src]));
     addIncludes([{ cwd: dirname(dep), path: '*.scss' }], 'sass'); // could be outside of ui/** glob
-    try {
-      await parseScss(dep, processed);
-    } catch (e) {
-      throw typeof e === 'string' ? e : `'${c.cyan(src)}' cannot read '${c.cyan(dep)}'`;
-    }
+    await parseScss(dep, processed);
   }
 }
 
@@ -205,7 +202,7 @@ async function hashCss(src: string, replacements: Record<string, string> | undef
     content = content.replaceAll(search, replace);
     modified = true;
   }
-  const hash = crypto.createHash('sha256').update(content).digest('hex').slice(0, 8);
+  const hash = getHash(content);
   const baseName = basename(src, '.css');
   const outName = join(env.cssOutDir, `${baseName}.${hash}.css`);
   await Promise.allSettled([
@@ -254,7 +251,7 @@ function dependsOn(srcFile: string, bset = new Set<string>()): Set<string> {
 function sassError(error: string) {
   for (const err of trimLines(error)) {
     if (err.startsWith('Error:')) {
-      env.log(c.grey('-'.repeat(75)), 'sass');
+      env.log(pc.gray('-'.repeat(75)), 'sass');
       env.log(`${errorMark} - ${err.slice(7)}`, 'sass');
     } else env.log(err, 'sass');
   }

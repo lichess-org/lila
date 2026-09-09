@@ -11,11 +11,6 @@
     visibility: visible;
   }
 
-  button {
-    display: flex;
-    align-items: center;
-  }
-
   .cmn-toggle {
     @extend %flex-center;
 
@@ -60,30 +55,24 @@
     }
 
     .info {
-      display: flex;
-      align-items: center;
+      display: block;
       white-space: nowrap;
     }
 
     .deeper {
-      display: inline-flex;
-      align-items: center;
       color: $c-primary;
       margin-inline-end: 4px;
 
-      .svg-icon {
-        width: 13px;
+      &::before {
+        vertical-align: top;
       }
     }
-  }
-
-  .svg-icon {
-    width: 18px;
   }
 
   .show-threat {
     flex: 0 0 18px;
     color: $c-font-dim;
+    font-size: 16px;
     margin-top: -3px; // bar
     overflow: hidden;
     visibility: hidden;
@@ -101,6 +90,7 @@
 
   .settings-gear {
     color: $c-font-dim;
+    font-size: 16px;
     padding: 0 6px;
     margin-inline-end: 6px;
     margin-top: -3px; // bar

@@ -8,7 +8,7 @@ final class UnsubApi(coll: Coll)(using Executor):
 
   private def makeId(channel: String, userId: UserId) = s"$userId@$channel"
 
-  private def select(channel: String, userId: UserId) = $id(makeId(channel, userId))
+  private def select(channel: String, userId: UserId) = bid(makeId(channel, userId))
 
   def set(channel: String, userId: UserId, v: Boolean): Funit = {
     if v then coll.insert.one(select(channel, userId)).void
@@ -27,7 +27,7 @@ final class UnsubApi(coll: Coll)(using Executor):
       .so:
         coll.distinctEasy[String, List](
           "_id",
-          $inIds(userIds.map(makeId(channel, _)))
+          inIds(userIds.map(makeId(channel, _)))
         )
       .dmap: unsubs =>
         userIds.diff(unsubs.map(id => UserId(id.takeWhile('@' !=))))

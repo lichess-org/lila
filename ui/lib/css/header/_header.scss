@@ -80,9 +80,12 @@ body.zen {
 #topnav .community-patron {
   @extend %flex-center;
 
-  .svg-icon {
+  &::after {
+    @extend %data-icon;
     @include margin-direction(0, 0, 0.08ch, 0.3ch);
 
+    content: $licon-Wings;
+    font-size: 1.3em;
     color: $c-brag;
     transform: scaleX(-1);
 
@@ -107,11 +110,14 @@ body.zen {
     padding: 0 1.1rem 0 1.3rem;
     margin: 6px 0 5px 0;
 
-    .svg-icon {
+    &::before {
+      @extend %data-icon;
       @include inline-end(5px);
 
       position: relative;
+      content: $licon-Wings;
       top: -1px;
+      font-size: 1.2em;
       color: $c-brag;
     }
 

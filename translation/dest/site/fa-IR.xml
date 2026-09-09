@@ -249,6 +249,7 @@
   <string name="signupUsernameHint">مطمئن شوید که یک نام کاربری مناسب انتخاب میکنید. بعداً نمی توانید آن را تغییر دهید و هر حسابی با نام کاربری نامناسب بسته می شود!</string>
   <string name="signupEmailPromise">ما فقط رایانامه‌هایی دربارهٔ حساب کاربری‌تان را برای‌تان خواهیم فرستاد و هرگز رایانامه‌تان را نمی‌همرسانیم.</string>
   <string name="password">گذرواژه</string>
+  <string name="showPassword">نمایشِ گذرواژه</string>
   <string name="changePassword">تغییر گذرواژه</string>
   <string name="changeEmail">تغییرِ رایانامه</string>
   <string name="email">رایانامه</string>
@@ -556,7 +557,7 @@
   <string name="oneUrlPerLine">یک وب‌نشانی در هر خط.</string>
   <string name="inlineNotation">نشانه‌گذاریِ درخط</string>
   <string name="makeAStudy">برای نگهداری مطمئن و همرسانی، ساخت یک مطالعه را در نظر بگیرید.</string>
-  <string name="clearSavedMoves">حرکت های واضح</string>
+  <string name="clearLocalData">پاکیدنِ دادهٔ محلی</string>
   <string name="previouslyOnLichessTV">بازی پیشین در Lichess</string>
   <string name="onlinePlayers">بازیکنان بَرخط</string>
   <string name="activePlayers">بازیکنان فعال</string>

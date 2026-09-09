@@ -31,12 +31,12 @@ final class UblogPaginator(
     Paginator(
       adapter = Adapter[PreviewPost](
         collection = colls.post,
-        selector = $doc("blog" -> blog, "live" -> live) ++
+        selector = bdoc("blog" -> blog, "live" -> live) ++
           live.not.so(
-            $nor($doc("title" -> "", "intro" -> "", "markdown" -> "", "image" -> $doc("$exists" -> false)))
+            nor(bdoc("title" -> "", "intro" -> "", "markdown" -> "", "image" -> bdoc("$exists" -> false)))
           ),
         projection = previewPostProjection.some,
-        sort = if live then userLiveSort else $doc("created.at" -> -1),
+        sort = if live then userLiveSort else bdoc("created.at" -> -1),
         _.sec
       ),
       currentPage = page,
@@ -51,8 +51,8 @@ final class UblogPaginator(
     Paginator(
       adapter = new AdapterLike[PreviewPost]:
         val select =
-          $doc("live" -> true, selectQuality(filter), "topics".$ne(UblogTopic.offTopic)) ++
-            language.so(l => $doc("language" -> l))
+          bdoc("live" -> true, selectQuality(filter), "topics".neq(UblogTopic.offTopic)) ++
+            language.so(l => bdoc("language" -> l))
         def nbResults: Fu[Int] = fuccess(50 * maxPerPage.value)
         def slice(offset: Int, length: Int) = aggregateVisiblePosts(select, offset, length)
       ,
@@ -64,9 +64,9 @@ final class UblogPaginator(
     Paginator(
       adapter = Adapter[PreviewPost](
         collection = colls.post,
-        selector = $doc("live" -> true, "likers" -> me.userId),
+        selector = bdoc("live" -> true, "likers" -> me.userId),
         projection = previewPostProjection.some,
-        sort = $sort.desc("lived.at"),
+        sort = sort.desc("lived.at"),
         _.sec
       ),
       currentPage = page,
@@ -84,7 +84,7 @@ final class UblogPaginator(
         def nbResults: Fu[Int] = fuccess(50 * maxPerPage.value)
         def slice(offset: Int, length: Int) =
           aggregateVisiblePosts(
-            $doc("topics" -> topic, selectQuality(filter, topic == UblogTopic.offTopic)),
+            bdoc("topics" -> topic, selectQuality(filter, topic == UblogTopic.offTopic)),
             offset,
             length,
             by
@@ -121,10 +121,10 @@ final class UblogPaginator(
 
   private def selectQuality(filter: QualityFilter, offTopic: Boolean = false): Bdoc =
     filter match
-      case QualityFilter.all => $doc("automod.quality".$gte(if offTopic then Quality.spam else Quality.weak))
-      case QualityFilter.best => $doc("automod.quality".$gte(if offTopic then Quality.weak else Quality.good))
-      case QualityFilter.weak => $doc("automod.quality".$eq(Quality.weak))
-      case QualityFilter.spam => $doc("automod.quality".$eq(Quality.spam))
+      case QualityFilter.all => bdoc("automod.quality".gte(if offTopic then Quality.spam else Quality.weak))
+      case QualityFilter.best => bdoc("automod.quality".gte(if offTopic then Quality.weak else Quality.good))
+      case QualityFilter.weak => bdoc("automod.quality" -> Quality.weak)
+      case QualityFilter.spam => bdoc("automod.quality" -> Quality.spam)
       case QualityFilter.pending => pendingReviewSelect
 
   object liveByFollowed:
@@ -144,31 +144,31 @@ final class UblogPaginator(
         relationApi.coll
           .aggregateList(length, _.sec) { framework =>
             import framework.*
-            Match($doc("u1" -> userId, "r" -> lila.core.relation.Relation.Follow)) -> List(
+            Match(bdoc("u1" -> userId, "r" -> lila.core.relation.Relation.Follow)) -> List(
               Group(BSONNull)("ids" -> PushField("u2")),
               PipelineOperator:
-                $lookup.pipelineFull(
+                lookup.pipelineFull(
                   from = colls.post.name,
                   as = "post",
-                  let = $doc("users" -> "$ids"),
+                  let = bdoc("users" -> "$ids"),
                   pipe = List(
-                    $doc(
-                      "$match" -> $expr(
-                        $and(
-                          $doc("$in" -> $arr(s"$$created.by", "$$users")),
-                          $doc("$eq" -> $arr("$live", true)),
-                          $doc("$gt" -> $arr("$lived.at", nowInstant.minusMonths(3)))
+                    bdoc(
+                      "$match" -> expr(
+                        and(
+                          bdoc("$in" -> barr(s"$$created.by", "$$users")),
+                          bdoc("$eq" -> barr("$live", true)),
+                          bdoc("$gt" -> barr("$lived.at", nowInstant.minusMonths(3)))
                         )
                       )
                     ),
-                    $doc("$project" -> previewPostProjection),
-                    $doc("$sort" -> $doc("lived.at" -> -1)),
-                    $doc("$skip" -> offset),
-                    $doc("$limit" -> length)
+                    bdoc("$project" -> previewPostProjection),
+                    bdoc("$sort" -> bdoc("lived.at" -> -1)),
+                    bdoc("$skip" -> offset),
+                    bdoc("$limit" -> length)
                   )
                 )
               ,
-              Project($doc("ids" -> false, "_id" -> false)),
+              Project(bdoc("ids" -> false, "_id" -> false)),
               UnwindField("post"),
               Limit(length),
               ReplaceRootField("post")

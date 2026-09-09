@@ -54,8 +54,8 @@
       display: none;
       flex-flow: column;
 
-      > .svg-icon {
-        width: 6em;
+      &::before {
+        font-size: 6em;
         color: $c-font-dimmer;
       }
 
@@ -80,17 +80,15 @@
       font-weight: bold;
 
       &::before {
-        @include icon-mask($icon-lessThan, 1.5em);
+        @extend %data-icon;
 
+        content: $licon-LessThan;
+        font-size: 1.5em;
         color: $c-font-dim;
-
-        @include if-rtl {
-          transform: scaleX(-1);
-        }
       }
 
       main.has-relay-tour &::before {
-        @include icon-mask($icon-radioTower);
+        content: $licon-RadioTower;
       }
     }
 
@@ -173,8 +171,8 @@
         color: $c-font-dimmer;
       }
 
-      > .svg-icon {
-        width: 1.3em;
+      &::before {
+        font-size: 1.3em;
       }
 
       &:hover {
@@ -322,18 +320,18 @@
     }
 
     .tour-state {
-      &.finished .svg-icon {
+      &.finished::before {
         color: $c-good;
-        width: 0.8em;
+        font-size: 0.8em;
       }
 
-      &.ongoing .svg-icon {
+      &.ongoing::before {
         color: $c-bad;
-        width: 0.7em;
+        font-size: 0.7em;
       }
     }
 
-    a:hover .tour-state .svg-icon {
+    a:hover .tour-state::before {
       color: $c-over;
     }
   }
@@ -359,11 +357,11 @@
       }
     }
 
-    .round-state.ongoing .svg-icon {
+    .ongoing::before {
       color: $c-bad;
     }
 
-    .round-state.finished .svg-icon {
+    .finished::before {
       color: $c-good;
     }
 
@@ -398,7 +396,7 @@
         background: $c-primary;
 
         *,
-        .round-state .svg-icon {
+        .round-state::before {
           color: $c-over;
         }
       }
@@ -436,11 +434,14 @@
     white-space: pre-line;
 
     &::before {
-      @include icon-mask($icon-infoCircle, 2.5em);
+      @extend %data-icon;
+
+      content: $licon-InfoCircle;
+      font-size: 2.5em;
     }
 
     &.pinned::before {
-      @include icon-mask($icon-radioTower);
+      content: $licon-RadioTower;
     }
 
     small {

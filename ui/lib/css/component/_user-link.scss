@@ -9,17 +9,14 @@
 .user-link {
   @extend %nowrap-hidden;
 
-  display: inline-flex;
-  align-items: center;
   color: $c-font;
-  gap: 0.25ch;
 
   &.online .line {
     opacity: 0.9;
     color: $c-good;
 
     &::before {
-      @include icon-mask($icon-disc, 12px);
+      content: $licon-Disc;
     }
 
     &.patron {
@@ -28,13 +25,14 @@
   }
 
   .line {
+    @extend %data-icon;
+
     color: $c-font;
     opacity: 0.5;
-    width: 16px;
-    margin-inline-end: 0.25rem;
-    justify-content: center;
-    display: inline-flex;
-    align-items: center;
+    display: inline-block;
+    width: 1.5em;
+    text-align: center;
+    vertical-align: text-top;
 
     &.patron {
       opacity: 0.7;
@@ -45,17 +43,15 @@
     }
 
     &::before {
-      @include icon-mask($icon-discOutline, 80%);
+      content: $licon-DiscOutline;
     }
 
     &.patron::before {
-      @include icon-mask($icon-wings, 100%);
-
-      height: 100%;
+      content: $licon-Wings !important;
     }
 
     &.moderator::before {
-      @include icon-mask($icon-agent, 100%);
+      content: $licon-Agent;
     }
   }
 
@@ -63,18 +59,6 @@
     body.no-rating & {
       display: none;
     }
-  }
-}
-
-h1.user-link,
-h1 .user-link {
-  .line {
-    width: 24px;
-    margin-inline-end: 0.5rem;
-  }
-
-  .line.patron {
-    width: 36px;
   }
 }
 
@@ -108,6 +92,7 @@ a.user-link {
   aspect-ratio: 1;
   vertical-align: middle;
   margin-left: 0.5ch;
+  transform: translateY(-0.1em);
 
   // keeps the username easily selectable
   body.no-flair & {

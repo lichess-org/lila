@@ -1,7 +1,8 @@
 import type { Tablesort } from 'tablesort';
 
 import { memoize, throttle } from 'lib';
-import { hl, onInsert, requiresI18n, spinnerVdom, snabIcon, type VNode } from 'lib/view';
+import { licon } from 'lib/licon';
+import { dataIcon, hl, onInsert, requiresI18n, spinnerVdom, type VNode } from 'lib/view';
 import { json as xhrJson } from 'lib/xhr';
 
 import { playerFedFlag } from '@/view/util';
@@ -73,7 +74,7 @@ export default class RelayTeamLeaderboard {
           [
             hl('thead', [
               hl('tr', [
-                hl('th.text', [snabIcon('group'), i18n.team.team]),
+                hl('th.text', { attrs: dataIcon(licon.Group) }, i18n.team.team),
                 hl('th', i18n.broadcast.matches),
                 hl('th', { attrs: { 'data-sort-default': 1 } }, i18n.broadcast.matchPoints),
                 hl('th', i18n.broadcast.gamePoints),
@@ -106,10 +107,11 @@ export default class RelayTeamLeaderboard {
     }
     return hl('div.relay-tour__team-summary', [
       hl('div.relay-tour__team-summary', [
-        hl('h2.relay-tour__team-summary__header.text', [
-          !this.looksLikeFederationTournament() && snabIcon('group'),
+        hl(
+          'h2.relay-tour__team-summary__header.text',
+          { attrs: !this.looksLikeFederationTournament() ? dataIcon(licon.Group) : {} },
           this.teamNameNode(foundTeam),
-        ]),
+        ),
         hl(
           'table.relay-tour__team-summary__header__stats',
           hl('tbody', [
@@ -144,10 +146,13 @@ export default class RelayTeamLeaderboard {
               return hl('tr', [
                 hl(
                   'td.game-link',
-                  hl('a.game-link text', { attrs: { href: `/broadcast/-/-/${match.roundId}#teams` } }, [
-                    snabIcon('studyBoard'),
+                  hl(
+                    'a.game-link text',
+                    {
+                      attrs: { ...dataIcon(licon.StudyBoard), href: `/broadcast/-/-/${match.roundId}#teams` },
+                    },
                     `${i + 1}`,
-                  ]),
+                  ),
                 ),
                 hl(
                   'td',

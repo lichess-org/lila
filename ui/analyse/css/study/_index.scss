@@ -23,11 +23,6 @@ $top-height: 3.2rem;
       margin: 0 0 1rem 0;
     }
 
-    .button {
-      display: flex;
-      align-items: center;
-    }
-
     .search {
       flex: 3 1 auto;
       display: flex;
@@ -76,8 +71,8 @@ $top-height: 3.2rem;
       height: $top-height;
       padding: 0 1em;
 
-      .svg-icon {
-        width: 1.6em;
+      &::before {
+        font-size: 2em;
       }
     }
   }
@@ -95,8 +90,9 @@ $top-height: 3.2rem;
       opacity: 0.6;
     }
 
-    .svg-icon {
-      width: 180px;
+    icon {
+      display: block;
+      font-size: 180px;
       opacity: 0.4;
     }
 

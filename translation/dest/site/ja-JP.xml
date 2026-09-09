@@ -521,7 +521,6 @@
   <string name="oneUrlPerLine">URL は 1 行に 1 個です。</string>
   <string name="inlineNotation">棋譜を行書き</string>
   <string name="makeAStudy">永久保存や共有には「研究」機能をお使いください。</string>
-  <string name="clearSavedMoves">手をクリアする</string>
   <string name="previouslyOnLichessTV">過去の Lichess TV 対局</string>
   <string name="onlinePlayers">接続中のプレイヤー</string>
   <string name="activePlayers">総対局数上位</string>

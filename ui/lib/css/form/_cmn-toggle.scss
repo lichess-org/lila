@@ -32,26 +32,27 @@
     position: absolute;
     content: '';
     width: 23px;
-    aspect-ratio: 1;
+    height: 23px;
     bottom: 0;
+
+    @include inline-start(0);
   }
 
   &::before {
-    @extend %box-radius;
-    @include icon-mask($icon-x);
-    @include transition(margin-inline-start color);
+    @extend %data-icon, %box-radius;
+    @include transition(margin color);
 
-    align-self: center;
-    inset: 6px;
+    font-size: 1em;
     z-index: 1;
-    width: 10px;
+    text-align: center;
+    line-height: 23px;
+    content: $licon-X;
     color: $c-font-dimmer;
   }
 
   &::after {
     @extend %metal;
-    @include transition(margin-inline-start box-shadow);
-    @include inline-start(0);
+    @include transition(margin box-shadow);
 
     border-radius: calc($box-radius-size - 1px);
 
@@ -98,8 +99,7 @@
   }
 
   &::before {
-    @include icon-mask($icon-checkmark);
-
+    content: $licon-Checkmark;
     color: $c-good;
   }
 }
@@ -108,6 +108,7 @@
   opacity: 0.6;
   cursor: not-allowed !important;
 
+  &::before,
   &::after {
     @extend %metal-bg;
 

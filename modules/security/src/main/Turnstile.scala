@@ -79,7 +79,8 @@ final class TurnstileCookie(lilaCookie: LilaCookie, secret: Secret)(using Execut
       ok.addEffect: ok =>
         if ok then Turnstile.monitor(Turnstile.Result.CookieSkip)
   private def serialize(login: LoginForm) =
-    Algo.hmac(secret.value).sha256(s"${login.username}${login.password.value}").hex.take(16)
+    val msg = s"turnstile|${login.username.value.length}|${login.username}|${login.password.value}"
+    Algo.hmac(secret.value).sha256(msg).hex.take(16)
   private def readFromReq(using req: RequestHeader): Option[Token] = req.cookies.get(name).map(_.value)
 
 final class TurnstileReal(

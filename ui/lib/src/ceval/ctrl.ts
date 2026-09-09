@@ -1,8 +1,9 @@
 // no side effects allowed due to re-export by index.ts
 
-import type { Rules } from 'chessops';
+import { isStandardMaterial } from 'chessops/chess';
 import { lichessRules } from 'chessops/compat';
 import { parseFen } from 'chessops/fen';
+import { type Rules } from 'chessops/types';
 import { setupPosition } from 'chessops/variant';
 
 import { clamp } from '@/algo';
@@ -45,6 +46,7 @@ interface Started {
 
 export class CevalCtrl {
   rules: Rules;
+  nonStandardMaterial: boolean;
   analysable: boolean;
   engines: Engines;
   storedEngine: Prop<string>;
@@ -57,18 +59,21 @@ export class CevalCtrl {
   curEval: LocalEval | null = null;
   lastStarted?: Started;
   showEnginePrefs: Toggle = toggle(false);
+  wasUnloadedByAnotherWindow = false;
 
   private worker?: CevalEngine;
 
   constructor(public opts: CevalOpts) {
     this.engines = new Engines(this);
-    this.storedEngine = storedStringProp(`ceval.engine.${opts.variant.key}`, this.engines.defaultId);
+    this.storedEngine = storedStringProp(`ceval.engine.${opts.variant.key}`, '');
     this.init();
 
     // another tab has started ceval, we should stop:
     storage.make('ceval.fen').listen(() => {
-      this.worker?.destroy();
+      if (!this.worker) return;
+      this.worker.destroy();
       this.worker = undefined; // release memory
+      this.wasUnloadedByAnotherWindow = true;
       this.opts.redraw();
     });
 
@@ -86,10 +91,19 @@ export class CevalCtrl {
   init(opts?: CevalOpts): void {
     if (opts) this.opts = opts;
     this.reset();
-    this.analysable = Boolean(this.engines.getEngine({ variant: this.opts.variant.key }));
     this.rules = lichessRules(this.opts.variant.key);
-    if (this.analysable && this.opts.initialFen)
-      this.analysable = parseFen(this.opts.initialFen).chain(x => setupPosition(this.rules, x)).isOk;
+    const pos = this.opts.initialFen
+      ? parseFen(this.opts.initialFen).chain(x => setupPosition(this.rules, x))
+      : undefined;
+    this.nonStandardMaterial =
+      this.rules === 'chess' &&
+      !!pos?.unwrap(
+        pos => !isStandardMaterial(pos),
+        _ => false,
+      );
+    this.analysable =
+      !pos?.isErr &&
+      !!this.engines.getEngine({ rules: this.rules, nonStandardMaterial: this.nonStandardMaterial });
     this.engines.setActive(this.opts.custom?.engine?.id ?? this.storedEngine());
     if (this.worker?.getInfo().id !== this.engines.active()?.id) this.unload();
   }
@@ -106,13 +120,14 @@ export class CevalCtrl {
 
   reset = (): void => {
     this.worker?.stop();
+    this.wasUnloadedByAnotherWindow = false;
     this.curEval = null;
     this.lastStarted = undefined;
     this.download = undefined;
   };
 
   start = (path: string, steps: Step[], gameId: string | undefined, threatMode = false): boolean => {
-    if (!this.available() || this.wasUnloaded) return false;
+    if (!this.available() || this.wasUnloadedByAnotherWindow) return false;
     this.isDeeper(false);
     this.doStart({ path, steps, gameId, threatMode });
     return true;
@@ -134,7 +149,14 @@ export class CevalCtrl {
         min: 16,
         max: active.maxHash,
       }),
-      engine: (custom?.engine && this.engines.getEngine({ id: custom.engine.id })) || active,
+      engine:
+        (custom?.engine &&
+          this.engines.getEngine({
+            id: custom.engine.id,
+            rules: this.rules,
+            nonStandardMaterial: this.nonStandardMaterial,
+          })) ||
+        active,
       search:
         typeof maybeSearch === 'object'
           ? maybeSearch
@@ -188,11 +210,7 @@ export class CevalCtrl {
   }
 
   get isCacheable(): boolean {
-    return Boolean(this.engines.active()?.capabilities?.includes('cloudEval'));
-  }
-
-  get wasUnloaded(): boolean {
-    return !this.worker && Boolean(this.lastStarted); // another tab started ceval
+    return Boolean(this.engines.active()?.supportsCloudEval);
   }
 
   get showingCloud(): boolean {
@@ -230,7 +248,7 @@ export class CevalCtrl {
       return;
     }
     const work: Work = {
-      variant: this.opts.variant.key,
+      variant: this.rules,
       threads,
       hashSize,
       gameId: s.gameId,
@@ -265,7 +283,11 @@ export class CevalCtrl {
     }
 
     if (this.worker?.getInfo().id !== engine.id) this.unload();
-    this.worker ??= this.engines.makeEngine({ id: engine.id, variant: this.opts.variant.key });
+    this.worker ??= this.engines.makeEngine({
+      id: engine.id,
+      rules: this.rules,
+      nonStandardMaterial: this.nonStandardMaterial,
+    });
     this.worker.start(work);
   };
 
@@ -286,13 +308,15 @@ export class CevalCtrl {
     };
     const emitter = throttleWithFlush(125, (ev: LocalEval, meta: EvalMeta) => {
       this.curEval = ev;
-
+      if (ev.bestmove && ev.bestmove !== '(none)' && working.movetime !== false) {
+        ev.millis = Math.max(ev.millis, working.movetime); // ensure bestmove eval matches movetime target
+      }
       if (!working.fen) {
-        working.fen = this.curEval.fen;
-        storage.fire('ceval.fen', this.curEval.fen); // will pause other tabs
+        working.fen = ev.fen;
+        storage.fire('ceval.fen', ev.fen); // will pause other tabs
       }
       const color = meta.ply % 2 === (meta.threatMode ? 1 : 0) ? 'white' : 'black';
-      this.curEval.pvs.sort((a, b) => povChances(color, b) - povChances(color, a));
+      ev.pvs.sort((a, b) => povChances(color, b) - povChances(color, a));
 
       if (this.lastStarted && !working.dontStop) {
         const evNode = working.started.steps[working.started.steps.length - 1];
@@ -303,7 +327,7 @@ export class CevalCtrl {
           if (likelyNodes < targetNodes) this.worker?.stop();
         }
       }
-      working.emit(this.curEval, meta);
+      working.emit(ev, meta);
     });
     return (ev: LocalEval | undefined, meta: EvalMeta) => {
       if (!ev) {

@@ -21,6 +21,6 @@ final class UblogViewCounter(colls: UblogColls)(using mode: play.api.Mode)(using
         else
           bloomFilter.add(key)
           lila.mon.ublog.view.increment()
-          colls.post.incFieldUnchecked($id(post.id), "views")
+          colls.post.incFieldUnchecked(bid(post.id), "views")
           post.views + 1)
     else post

@@ -279,6 +279,7 @@
   <string name="signupUsernameHint">Pamiętaj, aby wybrać nazwę użytkownika odpowiednią dla osób w każdym wieku. Nie będziesz mógł jej później zmienić, a nieodpowiednia nazwa użytkownika spowoduje zamknięcie konta!</string>
   <string name="signupEmailPromise">Twojego adresu e-mail użyjemy wyłącznie do kontaktu w sprawie konta, nigdy nikomu go nie udostępnimy.</string>
   <string name="password">Hasło</string>
+  <string name="showPassword">Pokaż hasło</string>
   <string name="changePassword">Zmień hasło</string>
   <string name="changeEmail">Zmień adres e-mail</string>
   <string name="email">E-mail</string>
@@ -626,7 +627,7 @@ Partie rankingowe zwiększą stabilność rankingu.</string>
   <string name="oneUrlPerLine">Jeden adres URL na linię.</string>
   <string name="inlineNotation">Notacja ciągła</string>
   <string name="makeAStudy">Aby bezpiecznie zapamiętać i udostępniać, rozważ stworzenie opracowania.</string>
-  <string name="clearSavedMoves">Usuń ruchy</string>
+  <string name="clearLocalData">Wyczyść dane lokalne</string>
   <string name="previouslyOnLichessTV">Poprzednio w Lichess TV</string>
   <string name="onlinePlayers">Gracze online</string>
   <string name="activePlayers">Aktywni gracze</string>

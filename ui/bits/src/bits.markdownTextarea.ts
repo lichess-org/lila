@@ -18,7 +18,7 @@ function wireMarkdownTextarea(markdown: HTMLElement) {
 
   const previewTab = markdown.querySelector<HTMLElement>('.preview-tab')!;
   const writeTab = markdown.querySelector<HTMLElement>('.write-tab')!;
-  const uploadBtn = markdown.querySelector<HTMLElement>('.upload-image');
+  const uploadBtn = markdown.querySelector<HTMLElement>('button:has(.upload-image)');
   const preview = markdown.querySelector<HTMLElement>('.preview')!;
 
   previewTab.addEventListener('click', async () => {
@@ -73,7 +73,7 @@ function wireMarkdownTextarea(markdown: HTMLElement) {
 
     if ([uploadBtn, previewTab].includes(nextTarget)) {
       nextTarget = previousFocusable(writeTab);
-    } else if (e.relatedTarget.closest('.markdown-textarea') !== markdown) {
+    } else if (e.relatedTarget.closest('.form-help')) {
       nextTarget = previewTab;
     }
     if (!nextTarget || nextTarget === e.relatedTarget) return;
