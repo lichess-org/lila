@@ -380,10 +380,10 @@ export default class AnalyseCtrl implements CevalHandler {
         lastMove: uciToMove(node.uci),
         highlight: {
           custom:
-            node.outcome() || this.data.game.status.id >= 30
+            node.check() || node.outcome() || this.data.game.status.id >= 30
               ? endgameHighlights(
                   node.fen,
-                  node.outcome()?.winner || this.data.game.winner,
+                  node.check() ? opposite(color) : node.outcome()?.winner || this.data.game.winner,
                   node.check() ? 'mate' : node.outcome() ? 'stalemate' : this.data.game.status.name,
                 )
               : new Map<Key, string>(),
