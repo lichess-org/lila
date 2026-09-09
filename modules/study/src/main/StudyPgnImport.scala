@@ -14,7 +14,15 @@ object StudyPgnImport:
     def resolve(author: CommentParser.Author): Comment.Author =
       author.accountId
         .flatMap(known.get)
+        .orElse(byProfileUrl(author.name))
         .getOrElse(Comment.Author.External(author.name))
+
+    // an [%anno] holding a profile URL is what a study export of a study export looks like,
+    // and the Annotator tag it came from used to resolve the same way
+    private def byProfileUrl(name: String): Option[Comment.Author] =
+      val lowered = name.toLowerCase
+      known.collectFirst:
+        case (id, author) if lowered.endsWith(s"/$id") => author
 
   object Annotators:
     def apply(default: Option[Comment.Author], contributors: List[LightUser]): Annotators =
@@ -118,12 +126,14 @@ object StudyPgnImport:
 
   def findAnnotator(pgn: ParsedPgn, contributors: List[LightUser]): Option[Comment.Author] =
     pgn.tags("annotator").map { a =>
-      val lowered = a.toLowerCase
       contributors
-        .find: c =>
-          c.id.value == lowered || c.titleName.toLowerCase == lowered || lowered.endsWith(s"/${c.id}")
+        .find(c => annotatorMatches(a, c.id, c.titleName))
         .fold(Comment.Author.External(a))(Comment.author)
     }
+
+  def annotatorMatches(annotator: String, id: UserId, name: String): Boolean =
+    val lowered = annotator.toLowerCase
+    id.value == lowered || name.toLowerCase == lowered || lowered.endsWith(s"/$id")
 
   def endComment(end: Ending): Comment =
     import end.*

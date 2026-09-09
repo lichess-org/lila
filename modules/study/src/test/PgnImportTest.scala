@@ -347,3 +347,32 @@ Rad1 {[%clk 1:24:50]} b6 {[%clk 1:09:49]} 18. g4 {[%clk 1:03:52]} *""",
       .assertRight: parsed =>
         val comments = parsed.root.mainlineNodeList(1).comments.value
         assertEquals(comments.map(_.by), List(NodeComment.Author.External("Bobby")))
+
+  test("21211: the exporting user keeps their comments free of [%anno]"):
+    val pgn: PgnStr = """[Annotator "https://lichess.org/@/bobby"]
+
+1. e4 { [%anno "Bobby", bobby] written by the owner } 1... e5 { [%anno "Mary", mary] written by the contributor }"""
+    StudyPgnImport
+      .result(pgn, List(bobby, mary))
+      .assertRight: parsed =>
+        assertEquals(
+          Helpers.rootToPgn(parsed.root, parsed.tags).value,
+          """[Annotator "https://lichess.org/@/bobby"]
+
+1. e4 { written by the owner } 1... e5 { [%anno "Mary", mary] written by the contributor }"""
+        )
+
+  test("21211: an external author survives a round trip"):
+    val pgn: PgnStr = """1. e4 { [%anno "Garry Kasparov"] from a foreign database }"""
+    StudyPgnImport
+      .result(pgn, List(bobby, mary))
+      .assertRight: parsed =>
+        assertEquals(Helpers.rootToPgn(parsed.root, parsed.tags).value, pgn.value)
+
+  test("21211: an [%anno] holding a profile URL resolves to that contributor"):
+    val pgn: PgnStr = """1. e4 { [%anno "https://lichess.org/@/mary"] exported from another study }"""
+    StudyPgnImport
+      .result(pgn, List(bobby, mary))
+      .assertRight: parsed =>
+        val comments = parsed.root.mainlineNodeList(1).comments.value
+        assertEquals(comments.map(_.by), List(NodeComment.Author.User(mary.id, mary.name.value)))

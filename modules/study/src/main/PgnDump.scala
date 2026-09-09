@@ -139,7 +139,18 @@ object PgnDump:
   val fullFlags = WithFlags(true, true, true, true)
   val withoutOrientation = fullFlags.copy(orientation = false)
 
+  // the Annotator tag already names the exporting user, so their own comments
+  // are left without an [%anno], which keeps it off the usual single author study
+  case class Exporter(annotator: Option[String]):
+    def owns(id: UserId, name: String): Boolean =
+      annotator.exists(StudyPgnImport.annotatorMatches(_, id, name))
+    def owns(name: String): Boolean =
+      annotator.exists(_.toLowerCase == name.toLowerCase)
+
+  private def exporterOf(tags: Tags) = Exporter(tags("annotator"))
+
   def rootToPgn(root: Root, tags: Tags, comments: InitialComments)(using WithFlags): Pgn =
+    given Exporter = exporterOf(tags)
     lila.mon.Chronometer.syncMon(lila.mon.study.pgn.time):
       Pgn(
         tags,
@@ -149,25 +160,29 @@ object PgnDump:
       )
 
   def rootToPgn(root: Root, tags: Tags)(using flags: WithFlags): Pgn =
+    given Exporter = exporterOf(tags)
     val comments =
       if flags.comments then InitialComments(commentsWithShapes(root))
       else InitialComments.empty
     rootToPgn(root, tags, comments)
 
-  private def branchToTree(branch: Branch, variations: List[Branch])(using flags: WithFlags): PgnTree =
+  private def branchToTree(branch: Branch, variations: List[Branch])(using
+      flags: WithFlags,
+      exporter: Exporter
+  ): PgnTree =
     chess.Node(
       value = branchToMove(branch),
       child = branch.children.first.map(branchToTree(_, branch.children.variationsOnly)),
       variations = flags.variations.so(variations.map(branchToVariation))
     )
 
-  private def branchToVariation(branch: Branch)(using flags: WithFlags) =
+  private def branchToVariation(branch: Branch)(using flags: WithFlags, exporter: Exporter) =
     chess.Variation(
       value = branchToMove(branch),
       child = branch.children.first.map(branchToTree(_, branch.children.variationsOnly))
     )
 
-  private def branchToMove(node: Branch)(using flags: WithFlags) =
+  private def branchToMove(node: Branch)(using flags: WithFlags, exporter: Exporter) =
     chessPgn.Move(
       san = node.move.san,
       glyphs = flags.comments.so(node.glyphs),
@@ -177,12 +192,19 @@ object PgnDump:
       timeLeft = flags.clocks.so(node.clock.map(_.centis.roundSeconds))
     )
 
-  private def commentsWithShapes(node: Node): List[Comment] =
+  private def commentsWithShapes(node: Node)(using Exporter): List[Comment] =
     node.comments.value.map(authoredComment) ::: shapeComment(node.shapes).toList
 
-  private def authoredComment(comment: Node.Comment): Comment = comment.by match
-    case Node.Comment.Author.User(id, name) => Comment(s"""[%anno "$name", $id] ${comment.text}""")
-    case _ => comment.text.into(Comment)
+  private def authoredComment(comment: Node.Comment)(using exporter: Exporter): Comment =
+    comment.by match
+      case Node.Comment.Author.User(id, name) if !exporter.owns(id, name) =>
+        Comment(s"""[%anno "${annoName(name)}", $id] ${comment.text}""")
+      case Node.Comment.Author.External(name) if !exporter.owns(name) =>
+        Comment(s"""[%anno "${annoName(name)}"] ${comment.text}""")
+      case _ => comment.text.into(Comment)
+
+  // the name sits between quotes inside a [%...] block, and neither can be escaped there
+  private def annoName(name: String) = name.filterNot(c => c == '"' || c == ']')
 
   // [%csl Gb4,Yd5,Rf6][%cal Ge2e4,Ye2d4,Re2g4]
   private def shapeComment(shapes: Shapes): Option[Comment] =
