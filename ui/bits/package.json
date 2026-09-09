@@ -3,6 +3,7 @@
   "private": true,
   "type": "module",
   "dependencies": {
+    "@dragdroptouch/drag-drop-touch": "^2.0.3",
     "@textcomplete/core": "^0.1.13",
     "@textcomplete/textarea": "^0.1.13",
     "@toast-ui/editor": "3.2.2",
@@ -37,7 +38,8 @@
       }
     ],
     "sync": {
-      "node_modules/cropperjs/dist/cropper.min.css": "/public/npm"
+      "node_modules/cropperjs/dist/cropper.min.css": "/public/npm",
+      "node_modules/@dragdroptouch/drag-drop-touch/dist/drag-drop-touch.esm.min.js": "/public/npm"
     }
   },
   "exports": {

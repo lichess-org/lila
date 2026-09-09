@@ -32,7 +32,8 @@ final class Env(
     cacheApi: lila.memo.CacheApi,
     markdown: lila.memo.MarkdownCache,
     picfitApi: lila.memo.PicfitApi,
-    ws: StandaloneWSClient
+    ws: StandaloneWSClient,
+    askApi: lila.core.ask.AskApi
 )(using Executor, Scheduler, org.apache.pekko.stream.Materializer):
 
   private val config = appConfig.get[ForumConfig]("forum")(using AutoConfig.loader)

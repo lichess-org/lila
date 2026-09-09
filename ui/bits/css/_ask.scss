@@ -1,0 +1,416 @@
+$gap: 6px;
+
+%lighten-hover {
+  @include hover {
+    box-shadow: inset 0 0 1px 100px hsl(0 0% 100% / var(---hover-opacity));
+  }
+}
+
+.ask-container {
+  --c-contrast-font: #ddd;
+  --c-neutral: #777;
+  --c-badge-background: #666;
+  --c-badge-border: #555;
+  --c-badge: #000;
+  --c-ibeam: var(--c-font);
+  ---hover-opacity: 0.1;
+  ---choice-background: linear-gradient(hsl(0 0% 27%), hsl(0 0% 19%));
+  ---selected-background: linear-gradient(hsl(209 79% 48%) 0%, hsl(209 79% 38%) 100%);
+
+  @include if-light {
+    --c-contrast-font: #444;
+    --c-neutral: #ccc;
+    --c-badge-background: #bbb;
+    --c-badge-border: #fffb;
+    --c-badge: #eee;
+    --c-ibeam: #bbb;
+    ---hover-opacity: 0.3;
+    ---choice-background: linear-gradient(hsl(0 0% 92%), hsl(0 0% 86%));
+    ---selected-background: linear-gradient(hsl(209 79% 58%) 0%, hsl(209 79% 52%) 100%);
+  }
+
+  @include if-transp {
+    ---choice-background: hsl(0 0% 50% / 0.3);
+  }
+
+  display: flex;
+  font-size: 1rem;
+
+  &.stretch {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  &.ask-preview {
+    pointer-events: none;
+  }
+}
+
+.comment-preview .ask-container {
+  * {
+    pointer-events: none !important;
+  }
+}
+
+fieldset.ask {
+  margin-bottom: 2 * $gap;
+  padding: 0 (3 * $gap) $gap (2 * $gap);
+  width: 100%;
+  line-height: normal;
+  border: solid 1px $c-border;
+  container-type: inline-size;
+
+  > label {
+    margin: $gap;
+    flex-basis: 100%;
+    font-weight: bold;
+  }
+
+  & > * {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+  }
+
+  &[value]:not(:has(.form-submit.dirty)) {
+    border: solid 1px hsl(from $c-border h s l / 0.5);
+  }
+}
+
+span.ask__header {
+  display: flex;
+  flex: 1 0 100%;
+  column-gap: $gap;
+  justify-content: space-between;
+
+  label {
+    flex: auto;
+    margin-inline-start: $gap;
+    padding-bottom: $gap;
+    font-size: 1.3em;
+  }
+
+  label span {
+    white-space: nowrap;
+    margin-inline-start: $gap;
+    font-size: 0.6em;
+
+    @container (max-width: #{$x-small}) {
+      display: none;
+    }
+  }
+
+  div {
+    display: flex;
+    align-content: center;
+    border: 1px solid $c-border;
+    border-radius: 4px;
+    align-self: center;
+  }
+
+  div button {
+    padding: 0 0.25em;
+    font-size: 1.2em;
+    font-family: lichess;
+  }
+
+  div.url-actions {
+    border-color: $c-border;
+    font-size: 1em;
+    padding: 0.3em;
+  }
+
+  div.url-actions button {
+    padding: 0 $gap / 4;
+    color: $c-link;
+    cursor: pointer;
+
+    @include hover {
+      color: $c-link-hover;
+    }
+
+    &.admin::before {
+      content: $licon-Gear;
+    }
+
+    &.view::before {
+      content: $licon-Pencil;
+    }
+
+    &.tally::before {
+      content: $licon-BarChart;
+    }
+
+    &.unset {
+      color: #c33;
+
+      &::before {
+        content: $licon-X;
+      }
+
+      @include hover {
+        color: #f66;
+      }
+    }
+  }
+
+  div.properties {
+    font-size: 0.8em;
+    padding: 0.2em;
+  }
+
+  div.properties button {
+    padding: 0 $gap / 2;
+    color: $c-font-dim;
+    cursor: default;
+
+    &.open::before {
+      content: $licon-Group;
+    }
+
+    &.anon::before {
+      content: $licon-Mask;
+    }
+
+    &.trace::before {
+      content: $licon-Search;
+    }
+  }
+}
+
+div.ask__footer {
+  margin: $gap 0;
+  display: grid;
+  grid-template-columns: auto min-content;
+
+  // form prompt
+  label {
+    margin: 0 0 $gap $gap;
+    grid-column: 1/3;
+  }
+
+  form {
+    flex: auto;
+  }
+
+  .form-text {
+    margin: 0 0 $gap $gap;
+    padding: 0.4em;
+    width: 100%;
+  }
+
+  .form-submit {
+    @extend %data-icon, %flex-around;
+
+    visibility: hidden;
+
+    input {
+      @extend %lighten-hover;
+
+      margin: 0 0 $gap (2 * $gap);
+      padding: $gap (2 * $gap);
+    }
+
+    &.success {
+      visibility: visible;
+      color: $c-secondary;
+
+      & > input {
+        visibility: hidden;
+      }
+
+      &::after {
+        position: absolute;
+        content: $licon-Checkmark;
+      }
+    }
+
+    &.dirty {
+      visibility: visible;
+    }
+  }
+
+  .form-results {
+    grid-column: 1/3;
+    display: grid;
+    grid-template-columns: max-content auto;
+    padding: 0 (2 * $gap) $gap $gap;
+
+    label {
+      grid-column: 1/3;
+      font-size: 1.3em;
+      margin: 0 0 $gap 0;
+    }
+
+    div {
+      margin: 0 $gap;
+    }
+  }
+}
+
+div.ask__choices {
+  margin: $gap 0 $gap 0;
+  display: flex;
+  flex-flow: row wrap;
+  align-items: flex-start;
+
+  .choice {
+    display: inline-block;
+    user-select: none;
+    flex: initial;
+    cursor: pointer;
+
+    &:focus-within {
+      outline: 1px solid $c-primary;
+    }
+  }
+
+  .choice.cbx {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    margin: 1.5 * $gap $gap 0;
+
+    &:first-child {
+      margin-top: 0;
+    }
+
+    > input {
+      color-scheme: light;
+      accent-color: $c-primary;
+      pointer-events: none;
+      width: 24px;
+      height: 24px;
+      margin-inline-end: $gap;
+    }
+  }
+
+  .choice.btn {
+    @extend %box-radius, %lighten-hover;
+
+    margin: 0 0 $gap $gap;
+    padding: $gap (2 * $gap);
+    text-align: center;
+    border: 1px;
+    border-color: var(--c-neutral);
+    background: var(---choice-background);
+    color: var(--c-contrast-font);
+
+    &.stretch {
+      flex: auto;
+    }
+
+    &.selected {
+      background: var(---selected-background);
+      color: white;
+    }
+  }
+
+  .choice.btn.rank {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: move;
+    touch-action: none;
+
+    ::after {
+      content: '';
+    }
+
+    > label {
+      cursor: move;
+    }
+
+    // rank badge
+    > div {
+      margin-inline: -$gap $gap;
+      width: 18px;
+      height: 18px;
+      color: $c-font-dimmer;
+      text-align: center;
+      font-family: lichess;
+      font-size: 1.1em;
+      font-weight: bold;
+    }
+
+    &.ranked > div {
+      color: white;
+      border-radius: 50%;
+      background: var(---selected-background);
+      border: 1px solid var(--c-badge-border);
+      font-family: monospace;
+      font-size: 0.8em;
+    }
+
+    &.dragging {
+      opacity: 0.3;
+    }
+  }
+
+  // vertical ask drag cursor
+  hr {
+    margin: 0 0 $gap ($gap / 2);
+    width: 100%;
+    height: 2px;
+    display: block;
+    border-top: 1px solid var(--c-neutral);
+    border-bottom: 1px solid $c-border;
+  }
+
+  // horizontal ask drag cursor (I-beam)
+  .cursor {
+    margin: 0 0 0 $gap;
+    padding: 0;
+    width: 2 * $gap;
+    text-align: center;
+
+    // I-beam icon
+    &::after {
+      @extend %data-icon;
+
+      margin-inline-start: -$gap;
+      font-size: 2.1em;
+      color: var(--c-ibeam);
+      text-align: center;
+      content: $licon-Ibeam;
+    }
+  }
+
+  &.vertical {
+    flex-flow: column;
+  }
+
+  &.center {
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+div.ask__graph,
+div.ask__rank-graph {
+  margin: 0 $gap (2 * $gap) $gap;
+  display: grid;
+  grid-template-columns: fit-content(40%) max-content auto;
+  grid-auto-rows: 1fr;
+  align-items: center;
+
+  div {
+    margin: $gap $gap 0 $gap;
+    user-select: none;
+  }
+
+  .votes-text {
+    margin-right: 0;
+    text-align: end;
+  }
+
+  .set-width {
+    height: 75%;
+    min-width: 0.2em;
+    background: $c-primary;
+  }
+}
+
+div.ask__rank-graph {
+  grid-template-columns: fit-content(40%) auto;
+}

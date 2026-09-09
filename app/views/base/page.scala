@@ -43,10 +43,12 @@ object page:
   def apply(p: Page)(using ctx: PageContext): RenderedPage =
     import ctx.pref
     val anonOnboarding = ctx.isAnon.so(lila.security.EmailConfirm.cookie.get(ctx.req))
+    val hasAsks = p.askFrags.nonEmpty
     val allModules = p.modules ++
       p.pageModule.so(module => esmPage(module.name)) ++
       ctx.needsFp.so(fingerprintTag) ++
-      anonOnboarding.isDefined.so(esmInitBit("emailErrorCheck"))
+      anonOnboarding.isDefined.so(esmInitBit("emailErrorCheck")) ++
+      hasAsks.so(esmInit("bits.ask"))
     val zenable = p.flags(PageFlags.zen)
     val playing = p.flags(PageFlags.playing)
     val pageFrag = frag(
@@ -72,6 +74,7 @@ object page:
           ctx.impersonatedBy.isDefined.option(cssTag("mod.impersonate")),
           ctx.blind.option(cssTag("bits.blind")),
           p.cssKeys.map(cssTag),
+          hasAsks.option(cssTag("bits.ask")),
           meta(
             content := p.openGraph.fold(trans.site.siteDescription.txt())(o => o.description),
             name := "description"
@@ -167,7 +170,11 @@ object page:
               "is2d" -> pref.is2d,
               "is3d" -> pref.is3d
             )
-          )(p.transform(p.body)),
+          )(
+            p.transform(p.body)
+              .pipe: body =>
+                if hasAsks then views.askUi.renderEncodedFrag(body, p.askFrags) else body
+          ),
           bottomHtml,
           ctx.nonce.map(inlineJs(_, allModules)),
           modulesInit(allModules, ctx.nonce),
