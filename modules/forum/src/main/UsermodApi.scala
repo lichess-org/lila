@@ -70,7 +70,7 @@ final class UsermodApi(
           .getOrElse(nowInstant)
           .plusMillis(duration.toMillis)
         coll.update
-          .one($id(user.id), $push("timeouts" -> until), upsert = true)
+          .one(bid(user.id), push("timeouts" -> until), upsert = true)
           .inject:
             lila.common.Bus.pub(
               lila.core.mod.ForumTimeout(me.userId, user.id, duration.toHours.toInt)
@@ -124,8 +124,8 @@ final class UsermodApi(
           .get() && promptSetting.get().value.nonEmpty).so:
           coll.update
             .one(
-              $id(usermod.id) ++ $doc("seq" -> usermod.seq, "requestSeq".$lt(usermod.seq)),
-              $set("requestSeq" -> usermod.seq)
+              bid(usermod.id) ++ bdoc("seq" -> usermod.seq, "requestSeq".lt(usermod.seq)),
+              set("requestSeq" -> usermod.seq)
             )
             .flatMap { result =>
               if result.n > 0 then discard(request(usermod, user))
@@ -180,18 +180,18 @@ final class UsermodApi(
     val rejectedRaw = verdicts(response, "reject", usermod, maskedToPostId, maskedToUserId)
     val confirmedRaw = verdicts(response, "confirm", usermod, maskedToPostId, maskedToUserId)
     val (rejected, confirmed) = withoutIntersection(rejectedRaw, confirmedRaw)
-    val unset = rejected.toList.flatMap: (postId, userIds) =>
+    val unsets = rejected.toList.flatMap: (postId, userIds) =>
       val post = usermod.negativeReports(postId)
       if userIds.size == post.complaints.size then List(s"negative.$postId")
       else userIds.map(userId => s"negative.$postId.complaints.$userId")
     val timeout = response.str("action").contains("timeout")
     val update =
-      timeout.so($push("timeouts" -> nowInstant.plusMillis(duration.toMillis))) ++
-        unset.nonEmpty.so($unset(unset)) ++
-        confirmed.nonEmpty.so($set("requestSeq" -> usermod.seq))
-    (timeout || unset.nonEmpty || confirmed.nonEmpty).so:
+      timeout.so(push("timeouts" -> nowInstant.plusMillis(duration.toMillis))) ++
+        unsets.nonEmpty.so(unset(unsets)) ++
+        confirmed.nonEmpty.so(set("requestSeq" -> usermod.seq))
+    (timeout || unsets.nonEmpty || confirmed.nonEmpty).so:
       coll.update
-        .one($id(usermod.id) ++ $doc("seq" -> usermod.seq), update)
+        .one(bid(usermod.id) ++ bdoc("seq" -> usermod.seq), update)
         .flatMap: result =>
           if result.n > 0 then
             appendVerdicts(rejected, "ownReportsRejected") >>
@@ -295,7 +295,7 @@ final class UsermodApi(
         case Some(current) =>
           val updated = f(current).copy(seq = current.seq + 1)
           coll.update
-            .one($id(userId) ++ $doc("seq" -> current.seq), updated)
+            .one(bid(userId) ++ bdoc("seq" -> current.seq), updated)
             .flatMap: result =>
               if result.n > 0 then assess(updated, user).inject(true)
               else if retries > 0 then updateDb(user, retries - 1)(f)
@@ -310,9 +310,9 @@ final class UsermodApi(
 
   private def appendDates(userId: UserId, field: String, dates: List[Instant], sunsetPeriod: FiniteDuration) =
     coll.update
-      .one($id(userId), $pull(field.$lt(nowInstant.minusMillis(sunsetPeriod.toMillis))))
+      .one(bid(userId), pull(field.lt(nowInstant.minusMillis(sunsetPeriod.toMillis))))
       .flatMap: _ =>
-        coll.update.one($id(userId), $pushEach(field, dates*), upsert = true).void
+        coll.update.one(bid(userId), pushEach(field, dates*), upsert = true).void
 
   private def aliases[A](values: Iterable[A], prefix: String)(sort: A => String) =
     values.toList.distinct
