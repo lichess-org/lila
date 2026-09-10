@@ -117,6 +117,7 @@ object OAuthScope:
     Follow.Read,
     Follow.Write,
     Msg.Write,
+    Note.Write,
     Board.Play,
     Bot.Play,
     Engine.Read,
