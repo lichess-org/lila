@@ -29,6 +29,13 @@ final class GameStreamByOauthOrigin(
     def incPopulation(): Unit =
       population = population + 1
       mon.users("newToken").update(population)
+    object streams:
+      private val count = scala.collection.mutable.Map[UserAgent, Int]()
+      private def inc(v: Int)(ua: UserAgent) =
+        val nb = count.updateWith(ua)(_.fold(v)(_ + v).atLeast(0).some) | 0
+        mon.streams(ua).update(nb)
+      def open = inc(1)
+      def close = inc(-1)
 
   private val allowedClients = List(
     Client(UserId.t3, Origin("https://auth.taketaketake.com"), 70_000, 365.days, true),
@@ -102,7 +109,7 @@ final class GameStreamByOauthOrigin(
     val startStream = Source
       .queue[Game](300, org.apache.pekko.stream.OverflowStrategy.dropHead)
       .mapMaterializedValue: queue =>
-        streams.open(client, ua)
+        client.streams.open(ua)
         lila.log.system.info(s"gameStream OPEN  $logMsg")
         client.mon.users("recentlySeen").update(recentlySeenUsers.size)
 
@@ -121,7 +128,7 @@ final class GameStreamByOauthOrigin(
           .addEffectAnyway:
             subStart.foreach(Bus.unsub)
             Bus.unsub(subFinish)
-            streams.close(client, ua)
+            client.streams.close(ua)
             val seconds = nowSeconds - startedAt.toSeconds
             lila.log.system.info(s"gameStream CLOSE $logMsg ($seconds seconds, $nbGames games)")
 
@@ -145,11 +152,3 @@ final class GameStreamByOauthOrigin(
 
   private def currentGamesSource(userIds: Iterable[UserId]): Source[Game, ?] =
     gameRepo.ongoingByOneOfUserIdsCursor(userIds).documentSource().throttle(100, 1.second)
-
-  private object streams:
-    private val count = scala.collection.mutable.Map[(Origin, UserAgent), Int]()
-    private def inc(v: Int)(client: Client, ua: UserAgent) =
-      val nb = count.updateWith(client.origin -> ua)(_.fold(v)(_ + v).atLeast(0).some) | 0
-      client.mon.streams(ua).update(nb)
-    def open = inc(1)
-    def close = inc(-1)
