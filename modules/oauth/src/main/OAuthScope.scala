@@ -107,6 +107,7 @@ object OAuthScope:
     Challenge.Bulk,
     Study.Read,
     Study.Write,
+    Tournament.Read,
     Tournament.Write,
     Racer.Write,
     Puzzle.Read,
