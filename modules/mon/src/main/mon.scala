@@ -10,6 +10,7 @@ import scalalib.net.UserAgent
 import lila.core.id.*
 import lila.core.userId.{ UserId, UserName }
 import lila.core.perf.PerfKey
+import lila.core.net.Origin
 
 // https://github.com/kamon-io/Kamon/issues/752
 extension (s: String)
@@ -597,10 +598,13 @@ object game:
     def decode(format: String) = timer("game.pgn.decode").withTag("format", format)
   val idCollision = counter("game.idCollision").withoutTags()
   def idGenerator(collisions: Int) = timer("game.idGenerator").withTags(tags("collisions" -> collisions))
-  object streamByOauthOrigin:
-    def event(tpe: String) = counter("game.streamByOauthOrigin.event").withTag("type", tpe)
-    def users(sel: String) = gauge("game.streamByOauthOrigin.users").withTag("selector", sel)
-    def streams(ua: UserAgent) = gauge("game.streamByOauthOrigin.streams").withTag("ua", ua.value)
+  final class StreamByOauthOrigin(origin: Origin):
+    def event(tpe: String) =
+      counter("game.streamByOauthOrigin.event").withTags(tags("type" -> tpe, "origin" -> origin))
+    def users(sel: String) =
+      gauge("game.streamByOauthOrigin.users").withTags(tags("selector" -> sel, "origin" -> origin))
+    def streams(ua: UserAgent) =
+      gauge("game.streamByOauthOrigin.streams").withTags(tags("ua" -> ua, "origin" -> origin))
 object chat:
   private val msgCounter = counter("chat.message")
   def message(parent: String, troll: Boolean) =

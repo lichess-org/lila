@@ -225,12 +225,12 @@ final class AccessTokenApi(
       .run()
       .void
 
-  def userIdsByClientOrigin(clientOrigin: Origin): Source[UserId, ?] =
+  def userIdsByClientOrigin(clientOrigin: Origin, seenSince: FiniteDuration): Source[UserId, ?] =
     coll
       .aggregateWith[Bdoc](readPreference = ReadPref.sec): framework =>
         import framework.*
         List(
-          Match(bdoc(F.clientOrigin -> clientOrigin)),
+          Match(bdoc(F.clientOrigin -> clientOrigin, F.usedAt.gt(nowInstant.minus(seenSince)))),
           Group(BSONNull)("u" -> AddFieldToSet("userId")),
           Project(bdoc("_id" -> 0)),
           Unwind("u")
