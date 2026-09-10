@@ -41,7 +41,7 @@ final class OpeningUi(helpers: Helpers, bits: OpeningBits, wiki: WikiUi):
         searchAndConfig(config, "", "tree"),
         resultsList(Nil),
         boxTop(
-          h1(trans.site.chessOpeningsNameTree()),
+          h1(trans.site.chessOpenings(), " • ", trans.site.nameTree()),
           div(cls := "box__top__actions")(
             a(href := routes.Opening.index())(trans.site.openingPages()),
             a(href := explorerUrl)(trans.site.openingExplorer())

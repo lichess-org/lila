@@ -3435,8 +3435,6 @@ interface I18n {
     chessBasics: string;
     /** Chess openings */
     chessOpenings: string;
-    /** Chess openings name tree */
-    chessOpeningsNameTree: string;
     /** Claim a draw */
     claimADraw: string;
     /** Classical */

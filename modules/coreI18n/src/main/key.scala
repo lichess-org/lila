@@ -2526,7 +2526,6 @@ object I18nKey:
     val `verifyingYourDevice`: I18nKey = "verifyingYourDevice"
     val `chessOpenings`: I18nKey = "chessOpenings"
     val `openingPages`: I18nKey = "openingPages"
-    val `chessOpeningsNameTree`: I18nKey = "chessOpeningsNameTree"
     val `nameTree`: I18nKey = "nameTree"
     val `searchForOpenings`: I18nKey = "searchForOpenings"
     val `opponentLeftCounter`: I18nKey = "opponentLeftCounter"
