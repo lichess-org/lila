@@ -1,6 +1,6 @@
 package lila.study
 
-import chess.format.pgn.{ Glyph, Tags, Comment as CommentStr }
+import chess.format.pgn.{ Glyph, Tag, Tags, Comment as CommentStr }
 import chess.variant.*
 import chess.{ Square, White }
 import play.api.libs.json.*
@@ -43,11 +43,18 @@ class StudyIntegrationTest extends munit.FunSuite:
   import Helpers.*
   import StudyAction.*
 
+  // a real export names the study owner in the Annotator tag, which keeps [%anno] off their comments
+  val annotatorTags = Tags(List(Tag(_.Annotator, s"https://lichess.org/@/$userId")))
+
+  extension (pgn: String)
+    def cleanTags: String =
+      pgn.linesIterator.filterNot(_.startsWith("[")).mkString("\n").trim
+
   test("all actions"):
     TestCase.all.foreach: testCase =>
       val chapter = defaultChapter(testCase.variant)
       val output = chapter.execute(testCase.actions).get
-      assertEquals(rootToPgn(output.root).value, testCase.expected)
+      assertEquals(rootToPgn(output.root, annotatorTags).value.cleanTags, testCase.expected)
 
 case class TestCase(variant: Variant, actions: List[StudyAction], expected: String)
 
