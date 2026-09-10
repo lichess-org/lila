@@ -43,7 +43,7 @@ final class OpeningUi(helpers: Helpers, bits: OpeningBits, wiki: WikiUi):
         boxTop(
           h1(trans.site.chessOpenings(), " • ", trans.site.nameTree()),
           div(cls := "box__top__actions")(
-            a(href := routes.Opening.index())(trans.site.openingPages()),
+            a(href := routes.Opening.index())(trans.site.boards()),
             a(href := explorerUrl)(trans.site.openingExplorer())
           )
         ),

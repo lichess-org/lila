@@ -3359,6 +3359,8 @@ interface I18n {
     boardEditor: string;
     /** Reset colours to default */
     boardReset: string;
+    /** Boards */
+    boards: string;
     /** Bookmark this game */
     bookmarkThisGame: string;
     /** Brightness */
@@ -4223,8 +4225,6 @@ interface I18n {
     openingExplorer: string;
     /** Opening explorer & tablebase */
     openingExplorerAndTablebase: string;
-    /** Opening pages */
-    openingPages: string;
     /** Openings */
     openings: string;
     /** Open tournaments */
