@@ -1,5 +1,8 @@
 import { Picker } from 'emoji-mart';
 
+import { currentTheme } from 'lib/device';
+import { pubsub } from 'lib/pubsub';
+
 type Config = {
   element: HTMLElement;
   close: (e: PointerEvent) => void;
@@ -8,12 +11,7 @@ type Config = {
 
 export async function initModule(cfg: Config): Promise<void> {
   if (cfg.element.classList.contains('emoji-done')) return;
-  const theme =
-    document.body.dataset.theme === 'system'
-      ? 'auto'
-      : document.body.dataset.theme === 'light'
-        ? 'light'
-        : 'dark';
+
   const opts = {
     ...cfg,
     onClickOutside: cfg.close,
@@ -23,7 +21,7 @@ export async function initModule(cfg: Config): Promise<void> {
     previewEmoji: 'people.backhand-index-pointing-up',
     noResultsEmoji: 'smileys.crying-face',
     skinTonePosition: 'none',
-    theme,
+    theme: currentTheme(),
     exceptEmojis: cfg.element.dataset.exceptEmojis?.split(' '),
   };
   const picker = new Picker(opts);
@@ -31,6 +29,7 @@ export async function initModule(cfg: Config): Promise<void> {
   cfg.element.prepend(picker as unknown as HTMLElement);
   cfg.element.classList.add('emoji-done');
   $(cfg.element).find('em-emoji-picker').attr('trap-bypass', '1'); // disable mousetrap within the shadow DOM
+  pubsub.on('theme', () => picker.update({ theme: currentTheme() }));
 }
 
 const makeEmojiData = async () => {
