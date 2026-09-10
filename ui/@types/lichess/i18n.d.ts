@@ -231,8 +231,6 @@ interface I18n {
     rankAvgHelp: string;
     /** Last played */
     recentlyPlayed: string;
-    /** See more tournaments on the calendar */
-    seeMoreTournaments: string;
     /** Share this URL to let people join: %s */
     shareUrl: I18nFormat;
     /** Some tournaments are rated and will affect your rating. */

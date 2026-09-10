@@ -74,9 +74,7 @@ final class TournamentList(helpers: Helpers, ui: TournamentUi)(
                       momentFromNow(tour.startsAt)
                     )
             ),
-            a(cls := "button button-empty", href := routes.Tournament.calendar)(
-              trans.arena.seeMoreTournaments()
-            )
+            a(cls := "button button-empty", href := routes.Tournament.calendar)(trans.site.more(), " »")
           ),
           st.section(cls := "tour-home__schedule box")(
             boxTop(
