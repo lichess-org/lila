@@ -148,10 +148,10 @@
   &__gauge {
     @extend %box-radius;
 
-    --eval-flip: to top;
+    --eval-flip: to bottom;
 
     &--flip {
-      --eval-flip: to bottom;
+      --eval-flip: to top;
     }
 
     order: 1;
@@ -163,8 +163,8 @@
     margin-left: 4px;
     background: linear-gradient(
       var(--eval-flip),
+      var(--c-eval-mini-gauge-black),
       var(--c-eval-mini-gauge-white),
-      var(--c-eval-mini-gauge-black)
     );
     transition: --multi-eval-percent 1s ease;
 
@@ -180,8 +180,8 @@
       opacity: 1;
       background: linear-gradient(
         var(--eval-flip),
-        var(--c-eval-mini-gauge-white) var(--multi-eval-percent),
-        var(--c-eval-mini-gauge-black) var(--multi-eval-percent)
+        var(--c-eval-mini-gauge-black) var(--multi-eval-percent),
+        var(--c-eval-mini-gauge-white) var(--multi-eval-percent)
       );
 
       tick {

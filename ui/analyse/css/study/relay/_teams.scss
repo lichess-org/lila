@@ -137,21 +137,21 @@
   height: 1em;
   transition: --team-eval-percent 1s ease;
 
-  --team-eval-direction: to left;
+  --team-eval-direction: to right;
 
   &.pov-white {
-    --team-eval-direction: to right;
+    --team-eval-direction: to left;
   }
 
   opacity: 0.7;
-  background: linear-gradient(var(--team-eval-direction), $white, $black);
+  background: linear-gradient(var(--team-eval-direction), $black, $white);
 
   &--set {
     opacity: 1;
     background: linear-gradient(
       var(--team-eval-direction),
-      $white var(--team-eval-percent),
-      $black var(--team-eval-percent)
+      $black var(--team-eval-percent),
+      $white var(--team-eval-percent)
     );
 
     tick {
