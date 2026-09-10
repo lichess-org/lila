@@ -4755,8 +4755,6 @@ interface I18n {
     tpTimeSpentOnTV: I18nFormat;
     /** Time spent playing: %s */
     tpTimeSpentPlaying: I18nFormat;
-    /** Transparent */
-    transparent: string;
     /** Troll */
     troll: string;
     /** Try another move for black */
