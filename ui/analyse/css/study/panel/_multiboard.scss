@@ -170,13 +170,12 @@
 
     &--flip {
       --eval-flip: to bottom;
+
       background: linear-gradient(to bottom, var(--c-eval-mini-gauge-white), var(--c-eval-mini-gauge-black));
     }
 
     &--set {
       opacity: 1;
-
-
       background: linear-gradient(
         var(--eval-flip),
         var(--c-eval-mini-gauge-white) var(--multi-eval-percent),
