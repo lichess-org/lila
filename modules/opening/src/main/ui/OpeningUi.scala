@@ -18,7 +18,7 @@ final class OpeningUi(helpers: Helpers, bits: OpeningBits, wiki: WikiUi):
           image = fenThumbnailUrl(page.query.fen).some,
           title = trans.site.chessOpenings.txt(),
           url = routeUrl(routes.Opening.index()),
-          description = trans.site.exploreChessOpenings.txt()
+          description = trans.site.searchForOpenings.txt()
         )
       ):
         main(cls := "page box box-pad opening opening--index")(

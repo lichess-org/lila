@@ -2529,7 +2529,6 @@ object I18nKey:
     val `chessOpeningsNameTree`: I18nKey = "chessOpeningsNameTree"
     val `nameTree`: I18nKey = "nameTree"
     val `searchForOpenings`: I18nKey = "searchForOpenings"
-    val `exploreChessOpenings`: I18nKey = "exploreChessOpenings"
     val `opponentLeftCounter`: I18nKey = "opponentLeftCounter"
     val `mateInXHalfMoves`: I18nKey = "mateInXHalfMoves"
     val `nbBlunders`: I18nKey = "nbBlunders"

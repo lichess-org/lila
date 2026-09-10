@@ -1076,5 +1076,4 @@ Leave empty to start games from the normal initial position.</string>
   <string name="chessOpeningsNameTree">Chess openings name tree</string>
   <string name="nameTree">Name tree</string>
   <string name="searchForOpenings">Search for openings</string>
-  <string name="exploreChessOpenings">Explore the chess openings</string>
 </resources>

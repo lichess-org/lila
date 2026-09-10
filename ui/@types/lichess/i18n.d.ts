@@ -3707,8 +3707,6 @@ interface I18n {
     everybodyGetsAllFeaturesForFree: string;
     /** Expand variations */
     expandVariations: string;
-    /** Explore the chess openings */
-    exploreChessOpenings: string;
     /** Export games */
     exportGames: string;
     /** Extra clock time for the host: */
