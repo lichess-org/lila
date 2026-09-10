@@ -197,6 +197,8 @@ interface I18n {
     isNotRated: string;
     /** This tournament is rated and will affect your rating. */
     isRated: string;
+    /** Leagues & Streamer Battles */
+    leaguesAndStreamerBattles: string;
     /** medians */
     medians: string;
     /** Minimum game length */
@@ -3357,6 +3359,8 @@ interface I18n {
     boardEditor: string;
     /** Reset colours to default */
     boardReset: string;
+    /** Boards */
+    boards: string;
     /** Bookmark this game */
     bookmarkThisGame: string;
     /** Brightness */
@@ -3433,6 +3437,8 @@ interface I18n {
     chess960StartPosition: I18nFormat;
     /** Chess basics */
     chessBasics: string;
+    /** Chess openings */
+    chessOpenings: string;
     /** Claim a draw */
     claimADraw: string;
     /** Classical */
@@ -3667,6 +3673,10 @@ interface I18n {
     endgamePositions: string;
     /** Error loading engine */
     engineFailed: string;
+    /** Engine settings */
+    engineSettings: string;
+    /** Engines from strongest to weakest */
+    enginesFromStrongestToWeakest: string;
     /** En passant rights */
     enPassant: string;
     /** This email address is invalid */
@@ -3811,6 +3821,8 @@ interface I18n {
     ifYouDoNotSeeTheEmailCheckOtherPlaces: string;
     /** If your reason is anything other than %s, this user's forum privileges may be affected. */
     ifYourReasonIsNotX: I18nFormat;
+    /** Illegal positions cannot be analyzed */
+    illegalPositions: string;
     /** Image opacity */
     imageOpacity: string;
     /** Important */
@@ -3883,6 +3895,8 @@ interface I18n {
     keyCycleSelectedVariation: string;
     /** enter/exit variation */
     keyEnterOrExitVariation: string;
+    /** go to previous/next line */
+    keyGoToPreviousOrNextLine: string;
     /** go to start/end */
     keyGoToStartOrEnd: string;
     /** move backward/forward */
@@ -3893,6 +3907,8 @@ interface I18n {
     keyPreviousBranch: string;
     /** show/hide comments */
     keyShowOrHideComments: string;
+    /** show/hide current variation */
+    keyShowOrHideCurrentVariation: string;
     /** Kid mode */
     kidMode: string;
     /** This is about safety. In kid mode, all site communications are disabled. Enable this for your children and school students, to protect them from other internet users. */
@@ -4491,8 +4507,6 @@ interface I18n {
     safeTournamentName: string;
     /** Save */
     save: string;
-    /** Screenshot current position */
-    screenshotCurrentPosition: string;
     /** Scroll over computer variations to preview them. */
     scrollOverComputerVariationsToPreviewThem: string;
     /** Search */
@@ -4701,6 +4715,8 @@ interface I18n {
     toggleGlyphAnnotations: string;
     /** Toggle local computer analysis */
     toggleLocalAnalysis: string;
+    /** Toggle local engine */
+    toggleLocalEngine: string;
     /** Toggle local evaluation */
     toggleLocalEvaluation: string;
     /** Toggle observation annotations */
@@ -4837,6 +4853,8 @@ interface I18n {
     variantWin: string;
     /** Variation arrows let you navigate without using the move list. */
     variationArrowsInfo: string;
+    /** Verifying your device... */
+    verifyingYourDevice: string;
     /** Verify that %s is your email address */
     verifyYourAddress: I18nFormat;
     /** Victory */

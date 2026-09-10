@@ -224,7 +224,7 @@ function engineSelection({ ceval }: CevalHandler) {
         }),
       }),
     hl('button.engine-info-button', {
-      attrs: { ...dataIcon(licon.InfoCircle), title: 'Engine information' },
+      attrs: { ...dataIcon(licon.InfoCircle), title: i18n.site.enginesFromStrongestToWeakest },
       on: {
         click: () =>
           engineInfo(
@@ -248,7 +248,7 @@ function engineInfo(engines: EngineInfo[]) {
     easyClose: 'clickOutside',
     htmlText: $html`
       <div>
-        <p>Engines from strongest to weakest</p>
+        <p>${i18n.site.enginesFromStrongestToWeakest}</p>
         <ol>${engines.map(engineHtml).join('')}</ol>
       </div>`,
     show: true,

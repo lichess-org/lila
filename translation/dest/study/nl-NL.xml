@@ -119,10 +119,10 @@
   <string name="contributors">Bijdragers</string>
   <string name="members">Deelnemers</string>
   <string name="everyone">Iedereen</string>
-  <string name="enableSync">Synchronisatie inschakelen</string>
+  <string name="enableSync">Synchronisatie</string>
   <string name="yesKeepEveryoneOnTheSamePosition">Ja: houd iedereen op dezelfde stelling</string>
   <string name="noLetPeopleBrowseFreely">Nee: laat mensen vrij bladeren</string>
-  <string name="pinnedStudyComment">Vastgezette studie reactie</string>
+  <string name="pinnedStudyComment">Vastgezet commentaar</string>
   <string name="start">Start</string>
   <string name="save">Opslaan</string>
   <string name="clearChat">Maak de chat leeg</string>

@@ -32,6 +32,9 @@ importers:
       micromatch:
         specifier: 4.0.8
         version: 4.0.8
+      picocolors:
+        specifier: ^1.1.1
+        version: 1.1.1
       postcss:
         specifier: ^8.5.28
         version: 8.5.28

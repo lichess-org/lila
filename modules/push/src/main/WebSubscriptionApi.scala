@@ -1,6 +1,8 @@
 package lila.push
 
+import org.apache.pekko.stream.scaladsl.Source
 import reactivemongo.api.bson.*
+import reactivemongo.pekkostream.cursorProducer
 
 import lila.core.id.SessionId
 import lila.core.misc.oauth.AccessTokenId
@@ -32,7 +34,7 @@ final class WebSubscriptionApi(coll: Coll)(using Executor):
     coll.delete.one(bdoc("userId" -> user.id)).void
 
   // userIds is necessary to match the mongodb index
-  def unsubscribeByEndpoints(endpoints: Iterable[String], userIds: Iterable[UserId]): Fu[Int] =
+  private[push] def unsubscribeByEndpoints(endpoints: Iterable[String], userIds: Iterable[UserId]): Fu[Int] =
     endpoints.nonEmpty.so:
       coll.delete.one(bdoc("userId".in(userIds), "endpoint".in(endpoints))).map(_.n)
 
@@ -46,20 +48,21 @@ final class WebSubscriptionApi(coll: Coll)(using Executor):
   private[push] def getSubscriptions(
       allUserIds: Iterable[UserId],
       maxPerUser: Int
-  ): Fu[List[WebSubscription]] =
-    allUserIds
-      .grouped(300)
-      .toList
-      .sequentially: userIds =>
+  ): Source[(List[WebSubscription], Iterable[UserId]), ?] =
+    val groupSize = 50
+    Source(allUserIds.grouped(groupSize).toList)
+      .throttle(10, 1.second)
+      .mapAsync(1): group =>
         coll
-          .aggregateList(100_000, _.sec): framework =>
+          .aggregateWith[WebSubscription](readPreference = ReadPref.sec): framework =>
             import framework.*
-            Match(bdoc("userId".in(userIds))) -> List(
+            List(
+              Match("userId".in(group)),
               Sort(Descending("seenAt")),
               GroupField("userId")("subs" -> Push(BSONString("$$ROOT"))),
               Project(bdoc("subs" -> Slice(BSONString("$subs"), BSONInteger(maxPerUser)), "_id" -> false)),
               Unwind("subs"),
               ReplaceRootField("subs")
             )
-          .map(_.flatMap(webSubscriptionReader.readOpt))
-      .map(_.flatten)
+          .collect[List](groupSize * maxPerUser)
+          .map(_ -> group)

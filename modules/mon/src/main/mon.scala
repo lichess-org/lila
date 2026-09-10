@@ -25,7 +25,10 @@ private def tags(elems: (String, Any)*): Map[String, Any] = Map.from(elems)
 object http:
   private val reqTime = timer("http.time")
   private val reqCount = counter("http.count")
-  private val mobCount = counter("http.mobile.count")
+  private val mobCountAction = counter("http.mobile.count.action")
+  private val mobCountVersion = counter("http.mobile.count.version")
+  private val mobCountAuth = counter("http.mobile.count.auth")
+  private val mobCountOs = counter("http.mobile.count.os")
   private val agentCount = counter("http.agent.count")
 
   def time(action: String) = reqTime.withTag("action", action)
@@ -38,14 +41,11 @@ object http:
     counter("http.error").withTags:
       tags("action" -> action, "client" -> client, "method" -> method, "code" -> code.toLong)
 
-  def mobileCount(action: String, version: String, auth: Boolean, os: String) =
-    mobCount.withTags:
-      tags(
-        "action" -> action,
-        "version" -> version,
-        "auth" -> (if auth then "auth" else "anon"),
-        "os" -> os
-      )
+  def mobileCount(action: String, m: lila.core.net.LichessMobileUa): Unit =
+    mobCountAction.withTag("action", action).increment()
+    mobCountVersion.withTag("version", m.version).increment()
+    mobCountAuth.withTag("auth", if m.userId.isDefined then "auth" else "anon").increment()
+    mobCountOs.withTag("os", m.osName).increment()
 
   def apiAgentCount(action: String, agent: String) =
     agentCount.withTags(tags("action" -> action, "agent" -> agent))

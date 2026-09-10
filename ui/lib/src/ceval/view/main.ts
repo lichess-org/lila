@@ -137,8 +137,11 @@ export function renderGauge(ctrl: CevalHandler): VNode | undefined {
   } else ev = gaugeLast;
   return hl(
     'div.eval-gauge',
-    { class: { empty: !defined(bestEv), reverse: ctrl.getOrientation() === 'black' } },
-    [hl('div.black', { attrs: { style: `height: ${100 - (ev + 1) * 50}%` } }), gaugeTicks],
+    {
+      class: { empty: !defined(bestEv), reverse: ctrl.getOrientation() === 'black' },
+      attrs: { style: `--eval-percent: ${100 - (ev + 1) * 50}%` },
+    },
+    [gaugeTicks],
   );
 }
 
@@ -225,12 +228,12 @@ export function renderCeval(ctrl: CevalHandler): VNode[] {
         hl('div.engine', [
           engineName(ceval),
           hl('br'),
-          ceval.analysable ? i18n.site.inLocalBrowser : 'Illegal positions cannot be analyzed',
+          ceval.analysable ? i18n.site.inLocalBrowser : i18n.site.illegalPositions,
         ]),
       ];
 
   const settingsGear = hl('button.settings-gear', {
-    attrs: { role: 'button', 'data-icon': licon.Gear, title: 'Engine settings' },
+    attrs: { role: 'button', 'data-icon': licon.Gear, title: i18n.site.engineSettings },
     class: { active: ceval.showEnginePrefs() },
     hook: bind(
       'click',
