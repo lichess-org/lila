@@ -28,7 +28,7 @@ final class OpeningUi(helpers: Helpers, bits: OpeningBits, wiki: WikiUi):
             h1(trans.site.chessOpenings()),
             div(cls := "box__top__actions")(
               a(href := routes.Opening.tree)(trans.site.nameTree()),
-              a(href := s"${routes.UserAnalysis.index}#explorer")(trans.site.openingExplorer())
+              a(href := explorerUrl)(trans.site.openingExplorer())
             )
           ),
           whatsNext(page),
@@ -44,7 +44,7 @@ final class OpeningUi(helpers: Helpers, bits: OpeningBits, wiki: WikiUi):
           h1(trans.site.chessOpeningsNameTree()),
           div(cls := "box__top__actions")(
             a(href := routes.Opening.index())(trans.site.openingPages()),
-            a(href := s"${routes.UserAnalysis.index}#explorer")(trans.site.openingExplorer())
+            a(href := explorerUrl)(trans.site.openingExplorer())
           )
         ),
         div(cls := "opening__tree")(
@@ -167,6 +167,8 @@ final class OpeningUi(helpers: Helpers, bits: OpeningBits, wiki: WikiUi):
         )
       }
     )
+
+  private val explorerUrl = s"${routes.UserAnalysis.index}#explorer"
 
   private def searchAndConfig(config: OpeningConfig, q: String, thenTo: String, searchFocus: Boolean = false)(
       using Context
