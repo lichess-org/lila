@@ -148,6 +148,12 @@
   &__gauge {
     @extend %box-radius;
 
+    --eval-flip: to bottom;
+
+    &--flip {
+      --eval-flip: to top;
+    }
+
     order: 1;
     position: relative;
     flex: 0 0 4%;
@@ -155,7 +161,11 @@
     overflow: hidden;
     opacity: 0.4;
     margin-left: 4px;
-    background: linear-gradient(to top, var(--c-eval-mini-gauge-white), var(--c-eval-mini-gauge-black));
+    background: linear-gradient(
+      var(--eval-flip),
+      var(--c-eval-mini-gauge-black),
+      var(--c-eval-mini-gauge-white)
+    );
     transition: --multi-eval-percent 1s ease;
 
     &::after {
@@ -166,25 +176,13 @@
       box-shadow: 0 0 3px rgb(0 0 0 / 0.5) inset;
     }
 
-    &--flip {
-      background: linear-gradient(to bottom, var(--c-eval-mini-gauge-white), var(--c-eval-mini-gauge-black));
-    }
-
     &--set {
       opacity: 1;
       background: linear-gradient(
-        to top,
-        var(--c-eval-mini-gauge-white) var(--multi-eval-percent),
-        var(--c-eval-mini-gauge-black) var(--multi-eval-percent)
+        var(--eval-flip),
+        var(--c-eval-mini-gauge-black) var(--multi-eval-percent),
+        var(--c-eval-mini-gauge-white) var(--multi-eval-percent)
       );
-
-      &.mini-game__gauge--flip {
-        background: linear-gradient(
-          to bottom,
-          var(--c-eval-mini-gauge-white) var(--multi-eval-percent),
-          var(--c-eval-mini-gauge-black) var(--multi-eval-percent)
-        );
-      }
 
       tick {
         position: absolute;
