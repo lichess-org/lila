@@ -3669,8 +3669,6 @@ interface I18n {
     endgamePositions: string;
     /** Error loading engine */
     engineFailed: string;
-    /** Engine information */
-    engineInformation: string;
     /** Engine settings */
     engineSettings: string;
     /** Engines from strongest to weakest */

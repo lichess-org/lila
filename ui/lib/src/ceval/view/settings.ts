@@ -224,7 +224,7 @@ function engineSelection({ ceval }: CevalHandler) {
         }),
       }),
     hl('button.engine-info-button', {
-      attrs: { ...dataIcon(licon.InfoCircle), title: i18n.site.engineInformation },
+      attrs: { ...dataIcon(licon.InfoCircle), title: i18n.site.enginesFromStrongestToWeakest },
       on: {
         click: () =>
           engineInfo(
