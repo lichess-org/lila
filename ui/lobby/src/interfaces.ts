@@ -8,12 +8,6 @@ export type Tab = 'pools' | 'real_time' | 'seeks' | 'now_playing';
 export type GameType = 'hook' | 'friend' | 'ai';
 export type GameMode = 'casual' | 'rated';
 
-export interface Variant {
-  id: number;
-  key: VariantKey;
-  description: string;
-}
-
 export interface Hook {
   id: string;
   sri: string;

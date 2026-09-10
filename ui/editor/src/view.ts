@@ -6,8 +6,8 @@ import { parseSquare, makeSquare } from 'chessops/util';
 
 import { view as cevalView } from 'lib/ceval';
 import { fenToEpd } from 'lib/game/chess';
-import { licon, type LiconValue } from 'lib/licon';
 import { variants } from 'lib/game/perf';
+import { licon, type LiconValue } from 'lib/licon';
 import {
   copyMeInput,
   dataIcon,

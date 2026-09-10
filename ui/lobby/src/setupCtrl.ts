@@ -15,7 +15,7 @@ import * as xhr from 'lib/xhr';
 
 import type LobbyController from './ctrl';
 import type { ForceSetupOptions, GameMode, GameType, PoolMember, SetupStore } from './interfaces';
-import { keyToId, variants } from './options';
+import { keyToId, variantIds } from './options';
 
 const getPerf = (variant: VariantKey, tc: TimeControl): Perf =>
   variant !== 'standard' && variant !== 'fromPosition' ? variant : tc.speed();
@@ -254,7 +254,7 @@ export default class SetupController {
 
   propsToFormData = (color: ColorChoice) =>
     xhr.form({
-      variant: keyToId(this.variant(), variants).toString(),
+      variant: variantIds[this.variant()].toString(),
       fen: this.variant() === 'fromPosition' ? this.fen() : undefined,
       timeMode: keyToId(this.timeControl.mode(), timeModes).toString(),
       time: this.timeControl.time().toString(),

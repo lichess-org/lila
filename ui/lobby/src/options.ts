@@ -1,60 +1,22 @@
-import type { GameMode, GameType, Variant } from './interfaces';
+import type { GameMode, GameType } from './interfaces';
 
-export const variants: Variant[] = [
-  {
-    id: 1,
-    key: 'standard',
-    description: i18n.variant.standardTitle,
-  },
-  {
-    id: 2,
-    key: 'chess960',
-    description: i18n.variant.chess960Title,
-  },
-  {
-    id: 4,
-    key: 'kingOfTheHill',
-    description: i18n.variant.kingOfTheHillTitle,
-  },
-  {
-    id: 5,
-    key: 'threeCheck',
-    description: i18n.variant.threeCheckTitle,
-  },
-  {
-    id: 10,
-    key: 'crazyhouse',
-    description: i18n.variant.crazyhouseTitle,
-  },
-  {
-    id: 6,
-    key: 'antichess',
-    description: i18n.variant.antichessTitle,
-  },
-  {
-    id: 7,
-    key: 'atomic',
-    description: i18n.variant.atomicTitle,
-  },
-  {
-    id: 8,
-    key: 'horde',
-    description: i18n.variant.hordeTitle,
-  },
-  {
-    id: 9,
-    key: 'racingKings',
-    description: i18n.variant.racingKingsTitle,
-  },
-  {
-    id: 3,
-    key: 'fromPosition',
-    description: i18n.variant.fromPositionTitle,
-  },
-];
+export const variantIds: Record<VariantKey, number> = {
+  standard: 1,
+  chess960: 2,
+  kingOfTheHill: 4,
+  threeCheck: 5,
+  crazyhouse: 10,
+  antichess: 6,
+  atomic: 7,
+  horde: 8,
+  racingKings: 9,
+  fromPosition: 3,
+};
 
-export const variantsForGameType = (baseVariants: Variant[], gameType: GameType): Variant[] =>
-  gameType === 'hook' ? baseVariants.filter(({ key }) => key !== 'fromPosition') : baseVariants;
+export const variantsForGameType = (gameType: GameType): VariantKey[] =>
+  gameType === 'hook'
+    ? Object.keys(variantIds).filter((key: VariantKey) => key !== 'fromPosition')
+    : (Object.keys(variantIds) as VariantKey[]);
 
 export const variantsWhereWhiteIsBetter: VariantKey[] = [
   'antichess',
@@ -62,15 +24,6 @@ export const variantsWhereWhiteIsBetter: VariantKey[] = [
   'horde',
   'racingKings',
   'threeCheck',
-];
-
-export const speeds: { key: Speed }[] = [
-  { key: 'ultraBullet' },
-  { key: 'bullet' },
-  { key: 'blitz' },
-  { key: 'rapid' },
-  { key: 'classical' },
-  { key: 'correspondence' },
 ];
 
 export const keyToId = (key: string, items: { id: number; key: string }[]): number =>

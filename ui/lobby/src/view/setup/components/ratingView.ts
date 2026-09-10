@@ -5,31 +5,28 @@ import perfIcons from 'lib/game/perfIcons';
 import { dataIcon, icon, type MaybeVNode } from 'lib/view';
 
 import type LobbyController from '@/ctrl';
-import { speeds, variants } from '@/options';
 
 export const ratingView = ({ opts, data, setupCtrl }: LobbyController): MaybeVNode => {
   if (site.blindMode || !data.ratingMap) return null;
 
   const selectedPerf = setupCtrl.selectedPerf();
-  const perfOrSpeed =
-    variants.find(({ key }) => key === selectedPerf) || speeds.find(({ key }) => key === selectedPerf);
+  const perf = (Object.keys(perfNames) as (VariantKey | Speed)[]).find(key => key === selectedPerf);
 
-  if (!perfOrSpeed) return undefined;
-  const perfKey = perfOrSpeed.key;
+  if (!perf) return undefined;
 
   return h(
     'div.ratings',
     !opts.showRatings
-      ? [icon(perfIcons[perfKey])(), perfNames[perfKey]]
+      ? [icon(perfIcons[perf])(), perfNames[perf]]
       : [
           ...i18n.site.yourRatingIsX.asArray(
             h(
               'strong',
-              { attrs: dataIcon(perfIcons[perfKey]) },
+              { attrs: dataIcon(perfIcons[perf]) },
               setupCtrl.myRating() + (setupCtrl.isProvisional() ? '?' : ''),
             ),
           ),
-          perfNames[perfKey],
+          perfNames[perf],
         ],
   );
 };
