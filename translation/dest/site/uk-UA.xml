@@ -279,6 +279,7 @@
   <string name="signupUsernameHint">Переконайтесь, що ви вибрали хороше ім\'я. Ви не можете змінити його потім, а профілі з непристойними іменами будуть заблоковані!</string>
   <string name="signupEmailPromise">Ми надсилатимемо вам листи лише щодо вашого облікового запису та ніколи не будемо ділитися вашою електронною поштою.</string>
   <string name="password">Пароль</string>
+  <string name="showPassword">Показати пароль</string>
   <string name="changePassword">Змінити пароль</string>
   <string name="changeEmail">Змінити адресу електронної пошти</string>
   <string name="email">Електронна пошта</string>
@@ -625,6 +626,7 @@
   <string name="oneUrlPerLine">Одне посилання на рядок.</string>
   <string name="inlineNotation">Вбудована нотація</string>
   <string name="makeAStudy">Щоб зберегти та поділитися, подумайте про проведення дослідження.</string>
+  <string name="clearLocalData">Очистити локальні дані</string>
   <string name="previouslyOnLichessTV">Раніше на Lichess TV</string>
   <string name="onlinePlayers">Гравці онлайн</string>
   <string name="activePlayers">Активні гравці</string>

@@ -7,6 +7,11 @@
     <item quantity="few">Погледај све %s рунде</item>
     <item quantity="other">Погледај свих %s рунди</item>
   </plurals>
+  <plurals name="nbRounds" comment="%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3">
+    <item quantity="one">%s рунда</item>
+    <item quantity="few">%s рунде</item>
+    <item quantity="other">%s рунди</item>
+  </plurals>
   <plurals name="oneRoundEveryXDays">
     <item quantity="one">Једна рунда по дану</item>
     <item quantity="few">Једна рунда свака %s дана</item>
@@ -18,7 +23,20 @@
     <item quantity="few">%s секунде између рунди</item>
     <item quantity="other">%s секунди између рунди</item>
   </plurals>
+  <plurals name="xMinutesBetweenRounds">
+    <item quantity="one">%s минут између рунди</item>
+    <item quantity="few">%s минута између рунди</item>
+    <item quantity="other">%s минута између рунди</item>
+  </plurals>
+  <string name="nextRound">Следећа рунда</string>
+  <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
+    <item quantity="one">Текућа партија</item>
+    <item quantity="few">Текуће партије</item>
+    <item quantity="other">Текућих партија</item>
+  </plurals>
   <string name="tournStartDate">Датум почетка турнира</string>
+  <string name="numberOfRounds">Број рунди</string>
+  <string name="numberOfRoundsHelp">Непаран број рунди омогућава оптималан баланс боја.</string>
   <string name="roundInterval">Интервал између рунди</string>
   <string name="forbiddenPairings">Забрањена упарења</string>
   <string name="forbiddenPairingsHelp">Корисничка имена играча који не би требали бити упарени (браћа и сестре, на пример). Два корисничка имена по линији, одвојена размаком.</string>

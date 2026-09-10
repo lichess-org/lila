@@ -249,6 +249,7 @@
   <string name="signupUsernameHint">Certifique-se que escolhe um nome de utilizador decoroso. Não poderá alterá-lo mais tarde e quaisquer contas com nomes de utilizador inapropriados serão fechadas!</string>
   <string name="signupEmailPromise">Nós só enviaremos emails sobre a tua conta, e nunca partilharemos o teu e-mail.</string>
   <string name="password">Palavra-passe</string>
+  <string name="showPassword">Mostrar palavra-passe</string>
   <string name="changePassword">Alterar a palavra-passe</string>
   <string name="changeEmail">Alterar email</string>
   <string name="email">E-mail</string>
@@ -557,6 +558,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="oneUrlPerLine">Um URL por linha.</string>
   <string name="inlineNotation">Anotações em linha</string>
   <string name="makeAStudy">Para guardar e partilhar, considere fazer um estudo.</string>
+  <string name="clearLocalData">Limpar dados locais</string>
   <string name="previouslyOnLichessTV">Anteriormente na TV Lichess</string>
   <string name="onlinePlayers">Jogadores online</string>
   <string name="activePlayers">Jogadores ativos</string>
