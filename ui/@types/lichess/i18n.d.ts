@@ -4503,10 +4503,6 @@ interface I18n {
     safeTournamentName: string;
     /** Save */
     save: string;
-    /** Screenshot */
-    screenshot: string;
-    /** Screenshot current position */
-    screenshotCurrentPosition: string;
     /** Scroll over computer variations to preview them. */
     scrollOverComputerVariationsToPreviewThem: string;
     /** Search */

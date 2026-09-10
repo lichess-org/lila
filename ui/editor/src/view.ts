@@ -398,7 +398,7 @@ function inputs(ctrl: EditorCtrl, fen: FEN): MaybeVNode {
       {
         download: true,
       },
-      i18n.site.screenshot.toUpperCase(),
+      i18n.site.positionAsImage,
     ),
   ]);
 }
