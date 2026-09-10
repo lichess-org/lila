@@ -1122,7 +1122,6 @@ object I18nKey:
     val `ifNotRenewedThenAccountWillRevert`: I18nKey = "patron:ifNotRenewedThenAccountWillRevert"
     val `weAreNonProfit`: I18nKey = "patron:weAreNonProfit"
     val `weRelyOnSupport`: I18nKey = "patron:weRelyOnSupport"
-    val `clickDonateToView`: I18nKey = "patron:clickDonateToView"
     val `lifetime`: I18nKey = "patron:lifetime"
     val `payLifetimeOnce`: I18nKey = "patron:payLifetimeOnce"
     val `lifetimePatron`: I18nKey = "patron:lifetimePatron"
