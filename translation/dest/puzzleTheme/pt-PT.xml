@@ -30,6 +30,7 @@
   <string name="collinearMoveDescription">Duas peças adversárias estão frente a frente, e uma delas desliza ao longo da linha de ataque sem capturar a peça inimiga.</string>
   <string name="cornerMate">Xeque-mate no canto</string>
   <string name="cornerMateDescription">Confinar o rei a um canto utilizando uma torre ou uma dama, enquanto um cavalo participa no xeque-mate.</string>
+  <string name="cornerMateKnightDeliversDescription" comment="Description for the &quot;Corner mate&quot; puzzle theme. Replaces old string cornerMateDescription">Confina o Rei ao canto usando uma Torre ou Dama, e usa um Cavalo para fazer xeque-mate.</string>
   <string name="crushing">Esmagar</string>
   <string name="crushingDescription">Descobre um erro grave do oponente e obtém uma vantagem esmagadora. (avaliação ≥ 600cp)</string>
   <string name="discoveredCheck">Xeque descoberto</string>
@@ -120,6 +121,7 @@
   <string name="pinDescription">Uma tática que envolve cravadas, onde uma peça é incapaz de se mover sem revelar um ataque a uma peça de valor superior.</string>
   <string name="promotion">Promoção</string>
   <string name="promotionDescription">Promova o teu peão a uma dama ou numa peça menor.</string>
+  <string name="promotePawnToQueenRookOrMinor" comment="Replaces old string promotionDescription">Promove um dos teus peões a uma Dama, Torre ou a uma peça menor.</string>
   <string name="queenEndgame">Final de dama</string>
   <string name="queenEndgameDescription">Um final com apenas damas e peões.</string>
   <string name="queenRookEndgame">Dama e torre</string>
