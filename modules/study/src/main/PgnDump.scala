@@ -167,22 +167,21 @@ object PgnDump:
     rootToPgn(root, tags, comments)
 
   private def branchToTree(branch: Branch, variations: List[Branch])(using
-      flags: WithFlags,
-      exporter: Exporter
-  ): PgnTree =
+      flags: WithFlags
+  )(using Exporter): PgnTree =
     chess.Node(
       value = branchToMove(branch),
       child = branch.children.first.map(branchToTree(_, branch.children.variationsOnly)),
       variations = flags.variations.so(variations.map(branchToVariation))
     )
 
-  private def branchToVariation(branch: Branch)(using flags: WithFlags, exporter: Exporter) =
+  private def branchToVariation(branch: Branch)(using WithFlags, Exporter) =
     chess.Variation(
       value = branchToMove(branch),
       child = branch.children.first.map(branchToTree(_, branch.children.variationsOnly))
     )
 
-  private def branchToMove(node: Branch)(using flags: WithFlags, exporter: Exporter) =
+  private def branchToMove(node: Branch)(using flags: WithFlags)(using Exporter) =
     chessPgn.Move(
       san = node.move.san,
       glyphs = flags.comments.so(node.glyphs),
