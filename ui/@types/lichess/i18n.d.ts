@@ -3715,8 +3715,6 @@ interface I18n {
     expandVariations: string;
     /** Explore the chess openings */
     exploreChessOpenings: string;
-    /** Explorer */
-    explorer: string;
     /** Export games */
     exportGames: string;
     /** Extra clock time for the host: */
