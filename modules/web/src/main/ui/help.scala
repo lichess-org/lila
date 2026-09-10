@@ -92,7 +92,7 @@ object help:
           row(frag(tap, kbd("shift"), alt, kbd("↑"), or, kbd("↓")), trans.site.keyCycleSelectedVariation()),
           row(
             frag(kbd("shift"), kbd("←"), or, kbd("k"), alt, kbd("shift"), kbd("→"), or, kbd("j")),
-            trans.site.keyGoToPreviousOrNextBranch()
+            frag(trans.site.keyPreviousBranch(), " / ", trans.site.keyNextBranch())
           ),
           row(
             frag(kbd("shift"), kbd("↑"), alt, kbd("shift"), kbd("↓")),

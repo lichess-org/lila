@@ -2230,7 +2230,6 @@ object I18nKey:
     val `keyboardShortcuts`: I18nKey = "keyboardShortcuts"
     val `keyMoveBackwardOrForward`: I18nKey = "keyMoveBackwardOrForward"
     val `keyGoToStartOrEnd`: I18nKey = "keyGoToStartOrEnd"
-    val `keyGoToPreviousOrNextBranch`: I18nKey = "keyGoToPreviousOrNextBranch"
     val `keyGoToPreviousOrNextLine`: I18nKey = "keyGoToPreviousOrNextLine"
     val `keyCycleSelectedVariation`: I18nKey = "keyCycleSelectedVariation"
     val `keyShowOrHideComments`: I18nKey = "keyShowOrHideComments"

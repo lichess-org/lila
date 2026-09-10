@@ -3889,8 +3889,6 @@ interface I18n {
     keyCycleSelectedVariation: string;
     /** enter/exit variation */
     keyEnterOrExitVariation: string;
-    /** go to previous/next branch */
-    keyGoToPreviousOrNextBranch: string;
     /** go to previous/next line */
     keyGoToPreviousOrNextLine: string;
     /** go to start/end */
