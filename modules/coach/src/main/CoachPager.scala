@@ -25,7 +25,7 @@ final class CoachPager(
   def apply(
       lang: Option[Lang],
       order: Order,
-      country: Option[Flag],
+      country: Option[Flag], // expensive
       page: Int
   ): Fu[Paginator[Coach.WithUser]] =
     def selector = listableSelector ++ lang.so { l => bdoc("languages" -> l.code) }
