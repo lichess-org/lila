@@ -150,6 +150,10 @@
 
     --eval-flip: to top;
 
+    &--flip {
+      --eval-flip: to bottom;
+    }
+
     order: 1;
     position: relative;
     flex: 0 0 4%;
@@ -157,7 +161,11 @@
     overflow: hidden;
     opacity: 0.4;
     margin-left: 4px;
-    background: linear-gradient(to top, var(--c-eval-mini-gauge-white), var(--c-eval-mini-gauge-black));
+    background: linear-gradient(
+      var(--eval-flip),
+      var(--c-eval-mini-gauge-white),
+      var(--c-eval-mini-gauge-black)
+    );
     transition: --multi-eval-percent 1s ease;
 
     &::after {
@@ -166,12 +174,6 @@
       position: absolute;
       inset: 0;
       box-shadow: 0 0 3px rgb(0 0 0 / 0.5) inset;
-    }
-
-    &--flip {
-      --eval-flip: to bottom;
-
-      background: linear-gradient(to bottom, var(--c-eval-mini-gauge-white), var(--c-eval-mini-gauge-black));
     }
 
     &--set {
