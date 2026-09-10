@@ -339,6 +339,12 @@ final class RelayApi(
   def reFetchAndUpdate(round: RelayRound)(f: Update[RelayRound]): Fu[RelayRound] =
     byId(round.id).orFail(s"Relay round ${round.id} not found").flatMap(update(_)(f))
 
+  def formUpdate(from: RelayRound, data: RelayRoundForm.Data, tour: RelayTour)(using Me): Fu[RelayRound] =
+    for
+      round <- update(from)(data.update(tour.official))
+      _ <- data.move.so(roundRepo.reorder(round, _))
+    yield round
+
   def update(from: RelayRound)(f: Update[RelayRound]): Fu[RelayRound] =
     val updated = f(from).pipe: r =>
       if r.sync.upstream != from.sync.upstream then r.withSync(_.clearLog) else r
