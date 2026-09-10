@@ -385,7 +385,7 @@ cancers? (for|to)
 gas+ the
 g?kys+
 gets? (bombed|shot)
-(k+ ?y+ ?s+ ?)+
+(k+ ?y+ ?s+)+
 (l|1|ı|\|)<ys
 n[i\|\\]g+e?r
 rap(ed?|e?ing)
