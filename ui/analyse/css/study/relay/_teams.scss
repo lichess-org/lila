@@ -109,6 +109,12 @@
   }
 }
 
+@property --team-eval-percent {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: 50%;
+}
+
 @container (width < 250px) {
   rating {
     display: none;
@@ -129,26 +135,24 @@
   display: block;
   position: relative;
   height: 1em;
+  transition: --team-eval-percent 1s ease;
 
-  &__black {
-    display: none;
-    position: absolute;
-    height: 100%;
-    width: 50%;
-    background: $black;
-    transition: height 1s;
+  --team-eval-direction: to left;
+
+  &.pov-white {
+    --team-eval-direction: to right;
   }
 
   opacity: 0.7;
-  background: linear-gradient(to left, $white, $black);
+  background: linear-gradient(var(--team-eval-direction), $white, $black);
 
   &--set {
     opacity: 1;
-    background: $white !important;
-
-    .eval-gauge-horiz__black {
-      display: block;
-    }
+    background: linear-gradient(
+      var(--team-eval-direction),
+      $white var(--team-eval-percent),
+      $black var(--team-eval-percent)
+    );
 
     tick {
       position: absolute;
@@ -157,14 +161,6 @@
       opacity: 1;
       border-right: 5px solid $c-accent-cloud;
       width: 50%;
-    }
-  }
-
-  &.pov-white {
-    background: linear-gradient(to right, $white, $black);
-
-    .eval-gauge-horiz__black {
-      right: 0;
     }
   }
 }
