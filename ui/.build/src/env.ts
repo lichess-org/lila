@@ -56,6 +56,7 @@ export const env = new (class {
   install = true;
   logTime = true;
   logCtx = true;
+  logSep = ` ${pc.dim('⏵')} `;
   remoteLog: string | boolean = false;
   startTime?: number;
 
@@ -105,9 +106,8 @@ export const env = new (class {
     const prefix = (
       (this.logTime ? `${pc.gray(prettyTime())} ` : '') + (ctx && this.logCtx ? colorForCtx(ctx)(ctx) : '')
     ).trim();
-    const sep = prefix ? ` ${pc.dim('⏵')} ` : '';
     for (const line of trimLines(text)) {
-      console.log(maybeStripEscapes(`${prefix}${sep}${line}`));
+      console.log(maybeStripEscapes(`${prefix}${prefix ? this.logSep : ''}${line}`));
     }
   }
 
@@ -131,7 +131,7 @@ export const env = new (class {
       const took =
         code === 0 && startedAt ? pc.gray(` (${((Date.now() - startedAt) / 1000).toFixed(3)}s)`) : '';
       this.log(
-        `${code === 0 ? `Done${took}` : pc.red('Failed')}${this.watch ? ` ${pc.green('• Watching…')}` : ''}`,
+        `${code === 0 ? `Done${took}` : pc.red('Failed')}${this.watch ? this.logSep + pc.gray('Watching…') : ''}`,
         ctx,
       );
       this.contextStartedAt.delete(ctx);
@@ -139,7 +139,7 @@ export const env = new (class {
     this.status[ctx] = code;
     if (this.buildOk()) {
       if (this.startTime) {
-        const doneMsg = `Done in ${pc.greenBright(String((Date.now() - this.startTime) / 1000) + 's')}`;
+        const doneMsg = `Done in ${pc.green(String((Date.now() - this.startTime) / 1000) + 's')}`;
         this.log(doneMsg + (this.stdin ? `. Press ${pc.gray('<space>')} to trigger clean rebuild` : ''));
       }
       this.onSuccess.forEach(yay => yay());
@@ -189,7 +189,7 @@ const contextColors: Record<string, (text: string) => string> = {
 };
 
 function colorForCtx(ctx: string): (text: string) => string {
-  return contextColors[ctx] ?? pc.whiteBright;
+  return contextColors[ctx] ?? (x => x);
 }
 
 export const errorMark: string = pc.red('✘ ') + pc.redBright('[ERROR]');
