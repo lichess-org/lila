@@ -24,7 +24,7 @@ object Dependencies:
   val scalatags = "com.lihaoyi" %% "scalatags" % "0.13.1"
   val lettuce = "io.lettuce" % "lettuce-core" % "7.7.0.RELEASE"
   val nettyTransport =
-    ("io.netty" % s"netty-transport-native-$notifier" % "4.2.17.Final").classifier(s"$os-$arch")
+    ("io.netty" % s"netty-transport-native-$notifier" % "4.2.18.Final").classifier(s"$os-$arch")
   val lilaSearch = ("com.github.lichess-org.lila-search" %% "client" % "3.6.0")
   val munit = "org.scalameta" %% "munit" % "1.3.6" % Test
   val uaparser = "org.uaparser" %% "uap-scala" % "0.21.0"
@@ -40,7 +40,7 @@ object Dependencies:
     val bundle = Seq(munit)
 
   object chess:
-    val version = "17.17.0"
+    val version = "17.17.1"
     val org = "com.github.lichess-org.scalachess"
     // val org = "org.lichess" // for publishLocal
     val core = org %% "scalachess" % version
@@ -51,7 +51,7 @@ object Dependencies:
     def bundle = Seq(core, testKit, playJson, rating, tiebreak)
 
   object scalalib:
-    val version = "11.11.0"
+    val version = "11.10.12"
     val org = "com.github.lichess-org.scalalib"
     // val org = "org.lichess" // for publishLocal
     val core = org %% "scalalib-core" % version
