@@ -103,11 +103,12 @@ export const env = new (class {
           : JSON.stringify(d);
 
     const prefix = (
-      (this.logTime ? `${pc.gray(prettyTime())} ` : '') +
-      (ctx && this.logCtx ? colorForCtx(ctx)(`${ctx} ${pc.dim('⏵')} `) : '')
+      (this.logTime ? `${pc.gray(prettyTime())} ` : '') + (ctx && this.logCtx ? colorForCtx(ctx)(ctx) : '')
     ).trim();
-
-    for (const line of trimLines(text)) console.log(`${prefix ? prefix : ' '}${line}`);
+    const sep = prefix ? ` ${pc.dim('⏵')} ` : '';
+    for (const line of trimLines(text)) {
+      console.log(maybeStripEscapes(`${prefix}${sep}${line}`));
+    }
   }
 
   exit(d?: any, ctx = 'build'): void {
@@ -180,11 +181,11 @@ const contextColors: Record<string, (text: string) => string> = {
   build: pc.green,
   sass: pc.magenta,
   tsc: pc.yellow,
-  esbuild: pc.magentaBright,
+  esbuild: x => pc.bold(pc.blue(x)),
   sync: pc.cyan,
   hash: pc.blue,
-  i18n: pc.blueBright,
-  web: pc.cyanBright,
+  i18n: x => pc.bold(pc.cyan(x)),
+  web: x => pc.bold(pc.magenta(x)),
 };
 
 function colorForCtx(ctx: string): (text: string) => string {
@@ -199,6 +200,10 @@ const timeFormatter = new Intl.DateTimeFormat('en-GB', {
   minute: '2-digit',
   second: '2-digit',
 });
+
+function maybeStripEscapes(text: string) {
+  return pc.isColorSupported ? text : text.replace(/\x1b\[[0-9;]*m/, '');
+}
 
 function prettyTime() {
   return timeFormatter.format(new Date());
