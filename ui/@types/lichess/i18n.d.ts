@@ -4055,8 +4055,6 @@ interface I18n {
     mustBeInTeam: I18nFormat;
     /** Name */
     name: string;
-    /** Name tree */
-    nameTree: string;
     /** Navigate the move tree */
     navigateMoveTree: string;
     /** Anonymous (%s) */
