@@ -151,7 +151,7 @@ final class Analyse(
       )
   yield Ok(page)
 
-  def externalEngineList = ScopedBody(_.Engine.Read) { _ ?=> me ?=>
+  def externalEngineList = ScopedBody(_.Engine.Read, _.Web.Mobile) { _ ?=> me ?=>
     env.analyse.externalEngine.list(me).map { list =>
       Ok(JsArray(list.map(lila.analyse.ExternalEngine.jsonWrites.writes)))
     }
