@@ -62,7 +62,7 @@ final class ReplayUi(helpers: Helpers)(analyseUi: AnalyseUi):
       a(cls := "text game-gif", dataIcon := Icon.Download)(trans.site.gameAsGIF()),
       copyMeLink(
         fenThumbnailUrl(Fen.write(pov.game.position).opening, pov.color.some, pov.game.variant),
-        trans.site.screenshotCurrentPosition()
+        trans.site.positionAsImage()
       )(cls := "position-gif")
     )
 

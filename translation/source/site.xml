@@ -175,6 +175,10 @@
   </plurals>
   <string name="moveTimes">Move times</string>
   <string name="flipBoard">Flip board</string>
+  <string name="toggleLocalEngine">Toggle local engine</string>
+  <string name="engineSettings">Engine settings</string>
+  <string name="enginesFromStrongestToWeakest">Engines from strongest to weakest</string>
+  <string name="illegalPositions">Illegal positions cannot be analyzed</string>
   <string name="threefoldRepetition">Threefold repetition</string>
   <string name="claimADraw">Claim a draw</string>
   <string name="drawClaimed">Draw claimed</string>
@@ -443,7 +447,6 @@ Playing rated games will increase stability.</string>
   <string name="apply">Submit</string>
   <string name="save">Save</string>
   <string name="leaderboard">Leaderboard</string>
-  <string name="screenshotCurrentPosition">Screenshot current position</string>
   <string name="positionAsImage" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position. Replaces old string screenshotCurrentPosition">Position as image</string>
   <string name="gameAsGIF">Game as GIF</string>
   <string name="playerNames">Player names</string>
@@ -744,8 +747,10 @@ Playing rated games will increase stability.</string>
   <string name="keyboardShortcuts">Keyboard shortcuts</string>
   <string name="keyMoveBackwardOrForward">move backward/forward</string>
   <string name="keyGoToStartOrEnd">go to start/end</string>
+  <string name="keyGoToPreviousOrNextLine">go to previous/next line</string>
   <string name="keyCycleSelectedVariation">Cycle selected variation</string>
   <string name="keyShowOrHideComments">show/hide comments</string>
+  <string name="keyShowOrHideCurrentVariation">show/hide current variation</string>
   <string name="keyEnterOrExitVariation">enter/exit variation</string>
   <string name="keyPreviousBranch">Previous branch</string>
   <string name="keyNextBranch">Next branch</string>
@@ -1065,4 +1070,7 @@ Leave empty to start games from the normal initial position.</string>
   <string name="tags">Tags</string>
   <string name="enPassant">En passant rights</string>
   <string name="settings">Settings</string>
+  <string name="verifyingYourDevice">Verifying your device...</string>
+  <string name="chessOpenings">Chess openings</string>
+  <string name="boards">Boards</string>
 </resources>

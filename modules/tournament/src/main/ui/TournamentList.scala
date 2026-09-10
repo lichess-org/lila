@@ -48,7 +48,7 @@ final class TournamentList(helpers: Helpers, ui: TournamentUi)(
               a(href := routes.Tournament.help)(trans.site.tournamentFAQ()),
               br,
               a(href := routes.Cms.lonePage(lila.core.id.CmsPageKey("leagues-and-battles")))(
-                "Leagues & Streamer Battles"
+                trans.arena.leaguesAndStreamerBattles()
               )
             ),
             h2(
@@ -74,7 +74,7 @@ final class TournamentList(helpers: Helpers, ui: TournamentUi)(
                       momentFromNow(tour.startsAt)
                     )
             ),
-            a(href := routes.Tournament.calendar)("See more tournaments on the calendar")
+            a(cls := "button button-empty", href := routes.Tournament.calendar)(trans.site.more(), " »")
           ),
           st.section(cls := "tour-home__schedule box")(
             boxTop(
