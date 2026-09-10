@@ -54,12 +54,12 @@ final class FidePlayerUi(helpers: Helpers, fideUi: FideUi, picfitUrl: lila.memo.
       )
     )
 
-  def searchForm(q: String)(using Context) =
+  def searchForm(q: String)(using Translate) =
     st.form(cls := "fide-players__search-form", action := routes.Fide.index(), method := "get")(
       input(
         cls := "fide-players__search-form__input",
         name := "q",
-        st.placeholder := trb.searchForPlayers.txt(),
+        st.placeholder := trs.search.txt(),
         st.value := q,
         autofocus := true,
         autocomplete := "off",

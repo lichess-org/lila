@@ -411,8 +411,6 @@ interface I18n {
     roundX: I18nFormat;
     /** Score */
     score: string;
-    /** Search for players */
-    searchForPlayers: string;
     /** Semifinals */
     semifinals: string;
     /** Show player scores based on game results */
