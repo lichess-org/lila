@@ -17,7 +17,13 @@ final class GameStreamByOauthOrigin(
     lightUserGet: lila.core.LightUser.GetterSync
 )(using org.apache.pekko.stream.Materializer, Executor):
 
-  private case class Client(user: UserId, origin: Origin, estimatedCount: Int, seenSince: FiniteDuration):
+  private case class Client(
+      user: UserId,
+      origin: Origin,
+      estimatedCount: Int,
+      seenSince: FiniteDuration,
+      startEvents: Boolean
+  ):
     val mon = lila.mon.game.StreamByOauthOrigin(origin)
     var population = 0
     def incPopulation(): Unit =
@@ -25,8 +31,8 @@ final class GameStreamByOauthOrigin(
       mon.users("newToken").update(population)
 
   private val allowedClients = List(
-    Client(UserId.t3, Origin("https://auth.taketaketake.com"), 70_000, 365.days),
-    Client(UserId("marcusbuffett"), Origin("https://chessbook.com"), 15_000, 90.days)
+    Client(UserId.t3, Origin("https://auth.taketaketake.com"), 70_000, 365.days, true),
+    Client(UserId("marcusbuffett"), Origin("https://chessbook.com"), 15_000, 90.days, false)
   )
   private val falsePositiveRate = 0.0005 // 0.05% false positives
 
@@ -103,8 +109,9 @@ final class GameStreamByOauthOrigin(
         def matches(game: Game) = game.nonAi &&
           game.players.exists(_.userId.exists(id => tokenUsers.mightContain(id.value)))
 
-        val subStart = Bus.sub[StartGame]: e =>
-          if matches(e.game) then queue.offer(e.game)
+        val subStart = client.startEvents.option:
+          Bus.sub[StartGame]: e =>
+            if matches(e.game) then queue.offer(e.game)
 
         val subFinish = Bus.sub[FinishGame]: e =>
           if matches(e.game) then queue.offer(e.game)
@@ -112,14 +119,14 @@ final class GameStreamByOauthOrigin(
         queue
           .watchCompletion()
           .addEffectAnyway:
-            Bus.unsub[StartGame](subStart)
-            Bus.unsub[FinishGame](subFinish)
+            subStart.foreach(Bus.unsub)
+            Bus.unsub(subFinish)
             streams.close(client, ua)
             val seconds = nowSeconds - startedAt.toSeconds
             lila.log.system.info(s"gameStream CLOSE $logMsg ($seconds seconds, $nbGames games)")
 
     pastGamesSource(recentlySeenUsers, since)
-      .concat(currentGamesSource(recentlySeenUsers))
+      .concat(if client.startEvents then currentGamesSource(recentlySeenUsers) else Source.empty)
       .concat(startStream)
       .mapAsync(1)(gameRepo.withInitialFen)
       .map: wif =>
@@ -128,10 +135,9 @@ final class GameStreamByOauthOrigin(
         toJson(wif)
 
   private def toJson(wif: WithInitialFen): JsObject =
-    lila.game.GameStream.toJson(lightUserGet.some)(wif) ++ {
+    lila.game.GameStream.toJson(lightUserGet.some)(wif) ++
       wif.game.finished.so:
         Json.obj("moves" -> wif.game.sans.mkString(" "))
-    }
 
   private def pastGamesSource(userIds: Iterable[UserId], since: Option[Instant]): Source[Game, ?] =
     since.fold(Source.empty): since =>
