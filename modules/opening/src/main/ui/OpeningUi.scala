@@ -18,7 +18,7 @@ final class OpeningUi(helpers: Helpers, bits: OpeningBits, wiki: WikiUi):
           image = fenThumbnailUrl(page.query.fen).some,
           title = trans.site.chessOpenings.txt(),
           url = routeUrl(routes.Opening.index()),
-          description = trans.site.searchForOpenings.txt()
+          description = trans.site.chessOpenings.txt()
         )
       ):
         main(cls := "page box box-pad opening opening--index")(
@@ -147,7 +147,7 @@ final class OpeningUi(helpers: Helpers, bits: OpeningBits, wiki: WikiUi):
       input(
         cls := "opening__search-form__input",
         name := "q",
-        st.placeholder := trans.site.searchForOpenings.txt(),
+        st.placeholder := trans.site.search.txt(),
         st.value := q,
         autofocus := focus.option("true"),
         autocomplete := "off",
