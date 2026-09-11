@@ -413,7 +413,6 @@ final class TourFields(tourForm: TournamentForm)(form: Form[?], tour: Option[Tou
       form.prefix("description"),
       trans.site.tournDescription(),
       help = trans.site.tournDescriptionHelp().some,
-      half = true
     )(form3.textarea(_)(rows := 4))
   def entryCode =
     form3.group(
