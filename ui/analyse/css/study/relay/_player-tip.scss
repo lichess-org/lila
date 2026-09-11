@@ -94,19 +94,21 @@
       border-top: $border;
     }
 
+    .game-link {
+      @extend %game-link-styles;
+    }
+
     tr:first-child td {
       border-top: none;
     }
 
     td:first-child {
-      padding-inline-start: 1.5rem;
-      text-align: end;
-      color: $c-font-dimmer;
-      font-weight: bold;
+      padding-inline-start: 1rem;
+      vertical-align: middle;
     }
 
     td:last-child {
-      padding-inline-end: 1.5rem;
+      padding-inline-end: 1rem;
     }
   }
 }
