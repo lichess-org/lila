@@ -8,8 +8,8 @@ import { parseUci, makeSquare } from 'chessops/util';
 import { winningChances } from 'lib/ceval';
 import { fenColor } from 'lib/game';
 import { isUci } from 'lib/game/chess';
-import { annotationShapes, analysisGlyphs } from 'lib/game/glyphs';
 import { endgameShapes } from 'lib/game/endgame';
+import { annotationShapes, analysisGlyphs } from 'lib/game/glyphs';
 import type { ServerEval, TreeNode } from 'lib/tree/types';
 
 import type AnalyseCtrl from './ctrl';

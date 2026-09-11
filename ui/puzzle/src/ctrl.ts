@@ -523,22 +523,20 @@ export default class PuzzleCtrl implements CevalHandler {
 
   setAutoShapes = (): void =>
     this.withGround(g =>
-      g.setAutoShapes(
-        [
-          ...computeAutoShapes({
-            ...this,
-            node: this.node,
-            hint: this.hintSquare(),
-          }),
-          ...(this.lastFeedback === 'win' && this.node.outcome()
-            ? endgameShapes(
-                this.node.fen,
-                this.node.outcome()?.winner,
-                this.node.outcome()?.winner ? 'mate' : 'stalemate',
-              )
-            : []),
-        ],
-      ),
+      g.setAutoShapes([
+        ...computeAutoShapes({
+          ...this,
+          node: this.node,
+          hint: this.hintSquare(),
+        }),
+        ...(this.lastFeedback === 'win' && this.node.outcome()
+          ? endgameShapes(
+              this.node.fen,
+              this.node.outcome()?.winner,
+              this.node.outcome()?.winner ? 'mate' : 'stalemate',
+            )
+          : []),
+      ]),
     );
 
   hintSquare = () => {
