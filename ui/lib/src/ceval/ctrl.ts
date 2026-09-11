@@ -83,10 +83,8 @@ export class CevalCtrl {
       if (this.curEval?.bestmove) return;
       if (!this.lastStarted) return;
       if (!this.analysable) return;
-      if (!isTouchDevice()) return;
-
-      if (document.hidden) this.worker?.stop();
-      else if (this.curEval) this.doStart(this.lastStarted);
+      if (document.hidden && isTouchDevice()) this.worker?.stop();
+      else if (!document.hidden && this.curEval) this.doStart(this.lastStarted);
     });
   }
 
