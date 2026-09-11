@@ -5,6 +5,7 @@ import { lichessRules } from 'chessops/compat';
 import { parseFen } from 'chessops/fen';
 import { parseSquare, makeSquare } from 'chessops/util';
 
+import { view as cevalView } from 'lib/ceval';
 import { fenToEpd } from 'lib/game/chess';
 import { licon, type LiconValue } from 'lib/licon';
 import {
@@ -170,6 +171,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
         ]);
 
   return div('.board-editor__tools', [
+    ...(ctrl.cfg.embed ? [] : [div('.ceval-wrap', [cevalView.renderCeval(ctrl), cevalView.renderPvs(ctrl)])]),
     div('.metadata', [
       div(
         '.color',

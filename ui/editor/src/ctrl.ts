@@ -9,7 +9,10 @@ import { type Setup, Material, RemainingChecks, defaultSetup } from 'chessops/se
 import type { Rules, Square } from 'chessops/types';
 import { Castles, defaultPosition, Position, setupPosition } from 'chessops/variant';
 
-import { defined, propWithEffect, type Prop } from 'lib';
+import { defined, prop, propWithEffect, type Prop } from 'lib';
+import { CevalCtrl, useFirstEval, type CevalHandler, type CevalOpts } from 'lib/ceval';
+import { completeNode } from 'lib/tree/node';
+import type { TreeNode } from 'lib/tree/types';
 import { prompt } from 'lib/view';
 
 import {
@@ -31,7 +34,7 @@ import {
   CASTLING_TOGGLES,
 } from './interfaces';
 
-export default class EditorCtrl {
+export default class EditorCtrl implements CevalHandler {
   options: Options;
   chessground?: CgApi;
   selected: Prop<Selected>;
@@ -47,6 +50,13 @@ export default class EditorCtrl {
   fullmoves: number;
   guessCastlingToggles: boolean;
   chess960PositionId?: number;
+  ceval: CevalCtrl;
+  cevalNode: TreeNode;
+  ongoing = false;
+  showEvalGauge: Prop<boolean> = prop(false);
+  threatMode: Prop<boolean> = prop(false);
+  private readonly cevalEnabledProp = prop(false);
+  private cevalPosition?: string;
 
   constructor(
     readonly cfg: Config,
@@ -80,7 +90,9 @@ export default class EditorCtrl {
           const state = this.getState();
           if (state.legalFen)
             window.location.assign(this.makeAnalysisUrl(state.legalFen, this.bottomColor()));
-        });
+        })
+        .bind('l', () => this.cevalEnabled(!this.cevalEnabled()))
+        .bind('x', () => this.toggleThreatMode());
 
     this.castlingToggles = { K: false, Q: false, k: false, q: false };
     const params = new URLSearchParams(location.search);
@@ -102,6 +114,11 @@ export default class EditorCtrl {
       this.initialFen = INITIAL_FEN;
       this.setSetup(defaultSetup());
     });
+
+    const cevalFen = this.getLegalFen() || this.getFen();
+    this.cevalNode = this.makeCevalNode(cevalFen);
+    this.ceval = new CevalCtrl(this.makeCevalOpts(cevalFen));
+    this.cevalPosition = `${this.variant}:${cevalFen}`;
 
     new MutationObserver(mutations => {
       for (const m of mutations) {
@@ -130,6 +147,112 @@ export default class EditorCtrl {
     return `${fen.substring(0, epIndex)}${enPassant}${fen.substring(epEndIndex)}`;
   }
 
+  private makeCevalNode(fen: FEN): TreeNode {
+    const ply = Math.max(0, (this.fullmoves - 1) * 2 + (this.turn === 'black' ? 1 : 0));
+    return completeNode(this.variant)({ ply, fen });
+  }
+
+  private makeCevalOpts(fen: FEN): CevalOpts {
+    return {
+      variant: {
+        key: this.variant,
+        name: this.variant,
+        short: this.variant,
+      },
+      initialFen: fen,
+      emit: (ev, meta) => {
+        if (!ev) {
+          this.cevalEnabled(false);
+          return;
+        }
+
+        const node = this.cevalNode;
+        if (meta.threatMode) {
+          if (!node.threat || useFirstEval(ev, node.threat, this.ceval.search.multiPv)) node.threat = ev;
+        } else if (
+          ev.fen === node.fen &&
+          (!node.ceval || useFirstEval(ev, node.ceval, this.ceval.search.multiPv))
+        ) {
+          node.ceval = ev;
+        }
+        this.redraw();
+      },
+      onUciHover: () => {},
+      redraw: this.redraw,
+      onSelectEngine: () => {
+        this.updateCeval(true);
+        this.redraw();
+      },
+    };
+  }
+
+  private updateCeval(force: boolean = false): void {
+    const legalFen = this.getLegalFen();
+    const fen = legalFen || this.getFen();
+    const position = `${this.variant}:${fen}`;
+    if (!force && this.cevalPosition === position) return;
+
+    this.cevalPosition = position;
+    this.cevalNode = this.makeCevalNode(fen);
+    const wasUnloaded = this.ceval.wasUnloadedByAnotherWindow;
+    this.ceval.init(this.makeCevalOpts(fen));
+    this.ceval.wasUnloadedByAnotherWindow = wasUnloaded;
+    if (legalFen && this.cevalEnabled()) this.startCeval();
+  }
+
+  cevalEnabled = (enable?: boolean): boolean => {
+    const enabled = this.cevalEnabledProp() && !this.ceval.wasUnloadedByAnotherWindow;
+    if (enable === undefined) return enabled;
+
+    this.cevalEnabledProp(enable);
+    if (enable && this.ceval.wasUnloadedByAnotherWindow) this.ceval.reset();
+    if (enable !== enabled) {
+      if (enable) this.startCeval();
+      else {
+        this.threatMode(false);
+        this.ceval.reset();
+      }
+      this.ceval.showEnginePrefs(false);
+      this.redraw();
+    }
+    return enable;
+  };
+
+  startCeval = (): void => {
+    if (!this.ceval.download) this.ceval.reset();
+    if (!this.cevalEnabled() || !this.ceval.analysable || this.cevalNode.outcome()) return;
+    this.ceval.start('', [this.cevalNode], undefined, this.threatMode());
+  };
+
+  clearCeval = (): void => {
+    this.cevalNode.ceval = undefined;
+    this.cevalNode.threat = undefined;
+    this.startCeval();
+  };
+
+  toggleThreatMode(v: boolean = !this.threatMode()): void {
+    if (v === this.threatMode() || this.cevalNode.check() || !this.cevalEnabled()) return;
+    this.threatMode(v);
+    this.startCeval();
+    this.redraw();
+  }
+
+  nextNodeBest(): string | undefined {
+    return undefined;
+  }
+
+  playUciList(_uciList: string[]): void {
+    // The board editor has no move tree to navigate.
+  }
+
+  getOrientation(): Color {
+    return this.bottomColor();
+  }
+
+  getNode(): TreeNode {
+    return this.cevalNode;
+  }
+
   onChange(): void {
     // We can use the first field of the fen now; it's the ep and castle fields that may be inaccurate at the moment.
     this.chess960PositionId = boardFenToChess960Id(this.getFen().split(' ')[0]) ?? this.chess960PositionId;
@@ -143,6 +266,7 @@ export default class EditorCtrl {
       window.history.replaceState(null, '', this.makeEditorUrl(fen, this.bottomColor()));
     }
     this.options.onChange?.(fen);
+    this.updateCeval();
     this.redraw();
   }
 
