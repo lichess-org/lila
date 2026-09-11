@@ -11,7 +11,7 @@ import lila.report.Mod
 
 import ScalatagsTemplate.{ *, given }
 
-final class ModUi(helpers: Helpers):
+final class ModUi(helpers: Helpers, automodStatus: () => lila.report.Automod.Status):
   import helpers.{ *, given }
 
   def impersonate(user: User)(using Translate) =
@@ -267,6 +267,15 @@ final class ModUi(helpers: Helpers):
         .option(a(cls := itemCls(active, "ip-tiers"), href := routes.Dev.ipTiers)("IP limit tiers")),
       Granter(_.Settings)
         .option(a(cls := itemCls(active, "setting"), href := routes.Dev.settings)("Settings")),
+      Granter(_.SeeReport).option:
+        val status = automodStatus()
+        a(cls := itemCls(active, "automod"), href := routes.Report.automodStatus)(
+          "Automod",
+          (status != lila.report.Automod.Status.green).option(
+            span(cls := s"automod-status-badge ${status.toString}")
+          )
+        )
+      ,
       Granter(_.Cli).option(a(cls := itemCls(active, "cli"), href := routes.Dev.cli)("CLI"))
     )
 

@@ -1,147 +1,109 @@
 package lila.report
 
-import play.api.{ ConfigLoader, Configuration }
-import play.api.libs.json.*
-import play.api.libs.ws.{ StandaloneWSClient, StandaloneWSResponse }
-import play.api.libs.ws.JsonBodyWritables.*
-import play.api.libs.ws.JsonBodyReadables.*
+import com.roundeights.hasher.Algo
+import play.api.ConfigLoader
+import reactivemongo.api.bson.Macros.Annotations.Key
 
 import lila.common.autoconfig.AutoConfig
 import lila.common.config.given
-import lila.common.Json.given
 import lila.core.config.Secret
 import lila.core.data.Text
-import lila.core.id.ImageId
-import lila.mon.extensions.*
-import lila.memo.{ ImageAutomod, ImageAutomodRequest, Dimensions }
-import lila.memo.SettingStore.Text.given
+object Automod:
+  enum JobType:
+    case blog, comms, image
 
-final class Automod(
-    ws: StandaloneWSClient,
-    appConfig: Configuration,
-    settingStore: lila.memo.SettingStore.Builder,
-    picfitApi: lila.memo.PicfitApi
-)(using Executor):
+  case class Source(id: Option[String] = none, name: Option[String] = none, url: Option[String] = none)
 
-  private val config = appConfig.get[Automod.Config]("automod")
-
-  val imagePromptSetting = settingStore[Text](
-    "imageAutomodPrompt",
-    text = "Image automod prompt".some,
-    default = Text("")
+  case class Job(
+      jobType: JobType,
+      source: Source,
+      config: String = "",
+      hash: Option[String] = none
   )
 
-  val imageModelSetting = settingStore[String](
-    "imageAutomodModel",
-    text = "Image automod model".some,
-    default = "Qwen/Qwen2.5-VL-72B-Instruct"
-  )
+  enum Input:
+    case Text(value: String)
+    case Image(url: String)
 
-  lila.common.Bus.sub[ImageAutomodRequest]: req =>
-    imageFlagReason(req.id, req.dim.some)
-      .map: flagged =>
-        picfitApi.setAutomod(req.id, ImageAutomod(flagged))
+    def hashInput: String = this match
+      case Text(value) => value
+      case Image(url) => url
 
-  def text(
-      userText: String,
-      systemPrompt: Text,
+  case class Request(
+      job: Job,
+      prompt: Text,
       model: String,
+      input: Input,
       temperature: Double = 0,
-      maxTokens: Int = 4096
-  ): Fu[JsObject] =
-    List(config.apiKey.value, systemPrompt.value, userText)
-      .forall(_.nonEmpty)
-      .so:
-        val body = Json
-          .obj(
-            "model" -> model,
-            "temperature" -> temperature,
-            "max_tokens" -> maxTokens,
-            "messages" -> Json.arr(
-              Json.obj("role" -> "system", "content" -> systemPrompt.value),
-              Json.obj("role" -> "user", "content" -> userText)
-            ),
-            "reasoning" -> Json.obj("enabled" -> false),
-            "response_format" -> Json.obj("type" -> "json_object")
-          )
-        ws.url(config.url)
-          .withHttpHeaders(
-            "Authorization" -> s"Bearer ${config.apiKey.value}",
-            "Content-Type" -> "application/json"
-          )
-          .post(body)
-          .map(extractJsonFromResponse)
-          .flatMap(_.toFuture)
+      reasoning: Boolean = false,
+      timeout: Option[scala.concurrent.duration.FiniteDuration] = none
+  ):
+    def hash: String = job.hash.getOrElse(defaultHash(job, input.hashInput))
 
-  def markdownImages(markdown: Markdown): Fu[Seq[lila.memo.PicfitImage]] =
-    val ids = picfitApi.imageIds(markdown)
-    picfitApi
-      .byIds(ids)
-      .flatMap:
-        _.map: pic =>
-          if pic.automod.isDefined then fuccess(pic)
-          else
-            for
-              flagged <- imageFlagReason(pic.id, pic.dimensions)
-              automod = ImageAutomod(flagged)
-              _ <- picfitApi.setAutomod(pic.id, automod)
-            yield pic.copy(automod = automod.some)
-        .toSeq.parallel
+  object Request:
+    def text(
+        job: Job,
+        userText: String,
+        prompt: Text,
+        model: String,
+        temperature: Double = 0,
+        reasoning: Boolean = false
+    ) = Request(job, prompt, model, Input.Text(userText), temperature, reasoning)
 
-  private def imageFlagReason(id: ImageId, dim: Option[Dimensions]): Fu[Option[String]] =
-    val (apiKey, model, prompt) =
-      (config.apiKey.value, imageModelSetting.get(), imagePromptSetting.get().value)
-    List(apiKey, model, prompt)
-      .forall(_.nonEmpty)
-      .so:
-        val imageUrl = picfitApi.url.automod(id, dim)
-        val body = Json
-          .obj(
-            "model" -> model,
-            "temperature" -> 0,
-            "messages" -> Json.arr(
-              Json.obj(
-                "role" -> "user",
-                "content" -> Json.arr(
-                  Json.obj("type" -> "text", "text" -> prompt),
-                  Json.obj("type" -> "image_url", "image_url" -> Json.obj("url" -> imageUrl))
-                )
-              )
-            ),
-            "reasoning" -> Json.obj("enabled" -> false),
-            "response_format" -> Json.obj("type" -> "json_object")
-          )
-        ws.url(config.url)
-          .withHttpHeaders(
-            "Authorization" -> s"Bearer $apiKey",
-            "Content-Type" -> "application/json"
-          )
-          .withRequestTimeout(10.minutes) // I saw it timeout with the default 5min
-          .post(body)
-          .map(extractJsonFromResponse)
-          .flatMap(_.toFuture)
-          .prefixFailure(s"Automod image $id request failed")
-          .map: res =>
-            val flagged = ~res.boolean("flag")
-            lila.mon.mod.report.automod.imageFlagged(flagged).increment()
-            flagged.option:
-              res.str("reason") | "No reason provided"
-          .monSuccess(lila.mon.mod.report.automod.imageRequest)
-          .recover:
-            case err =>
-              logger.error(err.getMessage, err)
-              none
+    def image(job: Job, imageUrl: String, prompt: Text, model: String) =
+      Request(job, prompt, model, Input.Image(imageUrl), timeout = 10.minutes.some)
 
-  private def extractJsonFromResponse(rsp: StandaloneWSResponse): Either[String, JsObject] =
-    for
-      _ <- Either.cond(rsp.status == 200, (), s"API error ${rsp.status}")
-      choices <- (rsp.body \ "choices").asOpt[List[JsObject]].toRight("No choices in response")
-      best <- choices.headOption.toRight("Empty choices in response")
-      msg <- (best \ "message" \ "content").validate[String].asEither.left.map(_.toString)
-      trimmed = msg.slice(msg.indexOf('{', msg.indexOf("</think>")), msg.lastIndexOf('}') + 1)
-      res <- Json.parse(trimmed).asOpt[JsObject].toRight("Invalid JSON in response")
-    yield res
+  extension (request: Request) def id: String = jobId(request.job, request.input.hashInput)
 
-private object Automod:
+  case class Usage(
+      inputTokens: Int,
+      outputTokens: Int
+  ):
+    def totalTokens: Int = inputTokens + outputTokens
+
+  case class Response(
+      date: Instant,
+      result: Response.Result,
+      output: Option[String] = none,
+      error: Option[String] = none,
+      usage: Option[Usage] = none
+  )
+
+  object Response:
+    enum Result:
+      case success, failed, cleared
+
+    def success(date: Instant, output: String, usage: Option[Usage]) =
+      Response(date, Result.success, output.some, usage = usage)
+    def failed(date: Instant, error: String) = Response(date, Result.failed, error = error.some)
+
+  case class Transaction(
+      @Key("_id") id: String,
+      jobType: JobType,
+      config: String,
+      source: Source,
+      model: String,
+      updated: Instant,
+      response: Option[Response] = none,
+      failures: Int = 0
+  )
+
+  def defaultHash(job: Job, input: String): String =
+    Algo.sha256(s"${job.jobType}:${job.config}:$input").hex.take(16)
+
+  def jobId(job: Job, input: String): String =
+    s"${job.jobType}:${job.hash.getOrElse(defaultHash(job, input))}"
+
+  enum Status:
+    case green, yellow, red
+
+  case class Health(recent: List[Boolean] = Nil):
+    def record(success: Boolean): Health = copy(recent = (success :: recent).take(10))
+
+    def status: Status =
+      if recent.size > 0 && recent.take(5).forall(!_) then Status.red
+      else if recent.contains(false) then Status.yellow
+      else Status.green
+
   case class Config(val url: String, val apiKey: Secret)
   given ConfigLoader[Config] = AutoConfig.loader[Config]

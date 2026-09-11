@@ -50,18 +50,18 @@ final class UblogTopicApi(colls: UblogColls, cacheApi: CacheApi)(using Executor,
           .map: topic =>
             for
               count <- colls.post.secondary.countSel:
-                bdoc("live" -> true, "topics" -> topic, "automod.quality" -> neq(0))
+                bdoc("live" -> true, "topics" -> topic, "quality" -> neq(Quality.spam))
               posts <- colls.post
                 .find(
                   bdoc(
                     "live" -> true,
                     "topics" -> topic,
-                    "automod.quality" -> gte(Quality.good.ordinal),
+                    "quality" -> gte(Quality.good.ordinal),
                     "likes" -> gt(50)
                   ),
                   previewPostProjection.some
                 )
-                .sort(bdoc("lived.at" -> -1))
+                .sort(bdoc("listedAt" -> -1))
                 .cursor[UblogPost.PreviewPost](ReadPref.sec)
                 .list(16)
             yield UblogTopic.WithPosts(topic, shuffle(posts).take(4), count)
