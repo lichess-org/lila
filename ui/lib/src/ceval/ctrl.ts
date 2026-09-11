@@ -8,6 +8,7 @@ import { setupPosition } from 'chessops/variant';
 
 import { clamp } from '@/algo';
 import { throttleWithFlush } from '@/async';
+import { isTouchDevice } from '@/device';
 import { pubsub } from '@/pubsub';
 import { storedIntProp, storedStringProp, storage } from '@/storage';
 import type { LocalEval, TreePath } from '@/tree/types';
@@ -82,6 +83,7 @@ export class CevalCtrl {
       if (this.curEval?.bestmove) return;
       if (!this.lastStarted) return;
       if (!this.analysable) return;
+      if (!isTouchDevice()) return;
 
       if (document.hidden) this.worker?.stop();
       else if (this.curEval) this.doStart(this.lastStarted);
