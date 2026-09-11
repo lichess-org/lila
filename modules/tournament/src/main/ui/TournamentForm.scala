@@ -419,7 +419,6 @@ final class TourFields(tourForm: TournamentForm)(form: Form[?], tour: Option[Tou
       form.prefix("password"),
       trans.site.tournamentEntryCode(),
       help = trans.site.makePrivateTournament().some,
-      half = true
     )(form3.input(_)(autocomplete := "off"))
   def startDate = tour
     .forall(_.isCreated)
