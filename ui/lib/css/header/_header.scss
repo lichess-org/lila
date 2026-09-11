@@ -24,16 +24,14 @@
     padding: 0 var(---site-header-sticky-padding);
     border-bottom: 1px solid transparent;
 
-    &.scrolled {
-      background-image: linear-gradient(
-        to bottom,
-        $c-body-gradient,
-        color-mix(in oklab, $c-body-gradient 50%, $c-bg-page) 60px
-      );
-      border-color: black;
-
-      @include if-light {
-        border-color: hsl(0 0% 70%);
+    @include if-not-transp {
+      &.scrolled {
+        background-image: linear-gradient(
+          to bottom,
+          $c-body-gradient,
+          color-mix(in oklab, $c-body-gradient 50%, $c-bg-page) 60px
+        );
+        border-color: $c-border;
       }
     }
 
