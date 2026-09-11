@@ -121,7 +121,7 @@ final class GameStreamByOauthOrigin(
             if matches(e.game) then queue.offer(e.game)
 
         val subFinish = Bus.sub[FinishGame]: e =>
-          if matches(e.game) then queue.offer(e.game)
+          if !e.game.aborted && matches(e.game) then queue.offer(e.game)
 
         queue
           .watchCompletion()
