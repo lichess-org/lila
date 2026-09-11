@@ -386,7 +386,6 @@
   <string name="apply">Isumite</string>
   <string name="save">I-save</string>
   <string name="leaderboard">Board ng Pinuno</string>
-  <string name="screenshotCurrentPosition">I-screenshot ang kasalukuyang posisyon</string>
   <string name="gameAsGIF">Laro bilang GIF</string>
   <string name="pasteTheFenStringHere">I-paste ang FEN na sulat dito</string>
   <string name="pasteThePgnStringHere">I-paste ang PGN na sulat dito</string>
@@ -740,7 +739,6 @@
   <string name="background">Likuran</string>
   <string name="light">Liwanag</string>
   <string name="dark">Madilim</string>
-  <string name="transparent">Transparent</string>
   <string name="deviceTheme">Tema ng Device</string>
   <string name="backgroundImageUrl">URL ng Likurang imahe:</string>
   <string name="board">Board</string>

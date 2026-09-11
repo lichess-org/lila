@@ -442,7 +442,6 @@
   <string name="apply">Ota käyttöön</string>
   <string name="save">Tallenna</string>
   <string name="leaderboard">Pistetaulukko</string>
-  <string name="screenshotCurrentPosition">Ota tämänhetkisestä asemasta kuvakaappaus</string>
   <string name="positionAsImage" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position. Replaces old string screenshotCurrentPosition">Asema kuvana</string>
   <string name="gameAsGIF">Tallenna peli GIF:nä</string>
   <string name="playerNames">Pelaajien nimet</string>
@@ -838,7 +837,6 @@
   <string name="theme">Teema</string>
   <string name="light">Vaalea</string>
   <string name="dark">Tumma</string>
-  <string name="transparent">Läpinäkyvä</string>
   <string name="picture">Kuva</string>
   <string name="deviceTheme">Laitteen teema</string>
   <string name="roundness">Pyöreys</string>

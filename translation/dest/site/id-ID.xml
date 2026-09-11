@@ -383,7 +383,6 @@
   <string name="apply">Terapkan</string>
   <string name="save">Simpan</string>
   <string name="leaderboard">Peringkat Terbaik</string>
-  <string name="screenshotCurrentPosition">Foto posisi saat ini</string>
   <string name="gameAsGIF">Simpan sebagai GIF</string>
   <string name="pasteTheFenStringHere">Paste string FEN di sini</string>
   <string name="pasteThePgnStringHere">Paste string PGN di sini</string>
@@ -742,7 +741,6 @@
   <string name="background">Latar</string>
   <string name="light">Terang</string>
   <string name="dark">Gelap</string>
-  <string name="transparent">Tembus pandang</string>
   <string name="deviceTheme">Tema perangkat</string>
   <string name="backgroundImageUrl">URL gambar latar belakang:</string>
   <string name="board">Papan</string>

@@ -175,6 +175,10 @@
   </plurals>
   <string name="moveTimes">Tidsbruk</string>
   <string name="flipBoard">Snu brettet</string>
+  <string name="toggleLocalEngine">Slå lokal sjakkmotor av/på</string>
+  <string name="engineSettings">Innstillinger for sjakkmotor</string>
+  <string name="enginesFromStrongestToWeakest">Sjakkmotorer fra sterkest til svakest</string>
+  <string name="illegalPositions">Ulovlige stillinger kan ikke analyseres</string>
   <string name="threefoldRepetition">Trekkgjentakelse</string>
   <string name="claimADraw">Krev remis</string>
   <string name="drawClaimed">Remiskrav</string>
@@ -443,7 +447,6 @@ Spill ratede partier for å øke stabiliteten.</string>
   <string name="apply">Bruk</string>
   <string name="save">Lagre</string>
   <string name="leaderboard">Ledertabell</string>
-  <string name="screenshotCurrentPosition">Skjermbilde av stillingen</string>
   <string name="positionAsImage" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position. Replaces old string screenshotCurrentPosition">Stilling som bilde</string>
   <string name="gameAsGIF">Parti som gif</string>
   <string name="playerNames">Spillernavn</string>
@@ -744,8 +747,10 @@ Spill ratede partier for å øke stabiliteten.</string>
   <string name="keyboardShortcuts">Tastatursnarveier</string>
   <string name="keyMoveBackwardOrForward">Gå bakover/fremover</string>
   <string name="keyGoToStartOrEnd">Gå til start/slutt</string>
+  <string name="keyGoToPreviousOrNextLine">gå til forrige/neste linje</string>
   <string name="keyCycleSelectedVariation">Endre valgt variant</string>
   <string name="keyShowOrHideComments">Vis/skjul kommentarer</string>
+  <string name="keyShowOrHideCurrentVariation">vis/skjul gjeldende variant</string>
   <string name="keyEnterOrExitVariation">Gå inn i/ut av variant</string>
   <string name="keyPreviousBranch">Forrige gren</string>
   <string name="keyNextBranch">Neste gren</string>
@@ -839,7 +844,6 @@ Spill ratede partier for å øke stabiliteten.</string>
   <string name="theme">Tema</string>
   <string name="light">Lys</string>
   <string name="dark">Mørk</string>
-  <string name="transparent">Gjennomsiktig</string>
   <string name="picture">Bilde</string>
   <string name="deviceTheme">Enhetstema</string>
   <string name="roundness">Avrunding</string>
@@ -1066,4 +1070,7 @@ Alle kostnader for drift, utvikling og innhold finansieres utelukkende av bruker
   <string name="tags">Merkelapper</string>
   <string name="enPassant">En passant</string>
   <string name="settings">Innstillinger</string>
+  <string name="verifyingYourDevice">Kontrollerer enheten din...</string>
+  <string name="chessOpenings">Sjakkåpninger</string>
+  <string name="boards">Brett</string>
 </resources>

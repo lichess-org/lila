@@ -167,6 +167,10 @@
   </plurals>
   <string name="moveTimes">走棋用时</string>
   <string name="flipBoard">翻转棋盘</string>
+  <string name="toggleLocalEngine">切换本地引擎</string>
+  <string name="engineSettings">引擎设置</string>
+  <string name="enginesFromStrongestToWeakest">引擎从强到弱</string>
+  <string name="illegalPositions">非法局面无法分析</string>
   <string name="threefoldRepetition">三次重复局面</string>
   <string name="claimADraw">宣布和棋</string>
   <string name="drawClaimed">平局声明</string>
@@ -412,7 +416,6 @@
   <string name="apply">应用</string>
   <string name="save">保存</string>
   <string name="leaderboard">排行榜</string>
-  <string name="screenshotCurrentPosition">保存当前局面为图片</string>
   <string name="positionAsImage" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position. Replaces old string screenshotCurrentPosition">将局面显示为图片</string>
   <string name="gameAsGIF">保存对局为 GIF</string>
   <string name="playerNames">棋手名称</string>
@@ -705,8 +708,10 @@
   <string name="keyboardShortcuts">键盘快捷键</string>
   <string name="keyMoveBackwardOrForward">后退/前进</string>
   <string name="keyGoToStartOrEnd">跳到开始/结尾</string>
+  <string name="keyGoToPreviousOrNextLine">转到上一行/下一行</string>
   <string name="keyCycleSelectedVariation">选择变着</string>
   <string name="keyShowOrHideComments">显示/隐藏评论</string>
+  <string name="keyShowOrHideCurrentVariation">显示/隐藏当前变着</string>
   <string name="keyEnterOrExitVariation">进入/退出变着</string>
   <string name="keyPreviousBranch">上一个分支</string>
   <string name="keyNextBranch">下一个分支</string>
@@ -797,7 +802,6 @@
   <string name="theme">主题</string>
   <string name="light">浅色</string>
   <string name="dark">深色</string>
-  <string name="transparent">透明</string>
   <string name="picture">图片</string>
   <string name="deviceTheme">跟随系统</string>
   <string name="roundness">圆度</string>
@@ -1020,4 +1024,7 @@
   <string name="tags">标签</string>
   <string name="enPassant">吃过路兵</string>
   <string name="settings">设置</string>
+  <string name="verifyingYourDevice">正在验证您的设备...</string>
+  <string name="chessOpenings">国际象棋开局</string>
+  <string name="boards">棋盘</string>
 </resources>

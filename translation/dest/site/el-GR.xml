@@ -441,7 +441,6 @@
   <string name="apply">Εφαρμογή</string>
   <string name="save">Αποθήκευση</string>
   <string name="leaderboard">Πίνακας βαθμολογίας</string>
-  <string name="screenshotCurrentPosition">Λήψη στιγμιότυπου τρέχουσας θέσης</string>
   <string name="positionAsImage" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position. Replaces old string screenshotCurrentPosition">Αποτύπωση θέσης ως εικόνα</string>
   <string name="gameAsGIF">Αποθήκευση ως GIF</string>
   <string name="playerNames">Ονόματα παικτών</string>
@@ -837,7 +836,6 @@
   <string name="theme">Εμφάνιση</string>
   <string name="light">Ανοιχτόχρωμο</string>
   <string name="dark">Σκουρόχρωμο</string>
-  <string name="transparent">Διάφανο</string>
   <string name="picture">Εικόνα</string>
   <string name="deviceTheme">Θέμα συσκευής</string>
   <string name="roundness">Καμπυλότητα</string>

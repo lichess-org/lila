@@ -501,7 +501,6 @@
   <string name="apply">Сохранить</string>
   <string name="save">Сохранить</string>
   <string name="leaderboard">Лучшие игроки</string>
-  <string name="screenshotCurrentPosition">Сделать снимок этой позиции</string>
   <string name="gameAsGIF">Партия в формате GIF</string>
   <string name="playerNames">Имена игроков</string>
   <string name="moveAnnotations">Аннотации ходов</string>
@@ -916,7 +915,6 @@
   <string name="theme">Тема</string>
   <string name="light">Светлая</string>
   <string name="dark">Тёмная</string>
-  <string name="transparent">Прозрачная</string>
   <string name="picture">Изображение</string>
   <string name="deviceTheme">Системная</string>
   <string name="roundness">Скругление</string>

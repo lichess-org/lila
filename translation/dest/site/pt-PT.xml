@@ -443,7 +443,6 @@ Jogar jogos a valer aumentará a estabilidade.</string>
   <string name="apply">Aplicar</string>
   <string name="save">Guardar</string>
   <string name="leaderboard">Tabela de liderança</string>
-  <string name="screenshotCurrentPosition">Posição atual da captura de ecrã</string>
   <string name="positionAsImage" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position. Replaces old string screenshotCurrentPosition">Posição como imagem</string>
   <string name="gameAsGIF">Jogo como GIF</string>
   <string name="playerNames">Nomes dos jogadores</string>
@@ -840,7 +839,6 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="theme">Tema</string>
   <string name="light">Claro</string>
   <string name="dark">Escuro</string>
-  <string name="transparent">Transparente</string>
   <string name="picture">Imagem</string>
   <string name="deviceTheme">Tema do dispositivo</string>
   <string name="roundness">Arredondamento</string>

@@ -435,7 +435,6 @@
   <string name="apply">Подаване</string>
   <string name="save">Запази</string>
   <string name="leaderboard">Табло с водачите</string>
-  <string name="screenshotCurrentPosition">Снимане на екрана на текущата позиция</string>
   <string name="gameAsGIF">Запазване на партията като гифче</string>
   <string name="playerNames">Имена на играчите</string>
   <string name="moveAnnotations">Преместване на анотациите</string>
@@ -816,7 +815,6 @@
   <string name="background">Фон</string>
   <string name="light">Светъл</string>
   <string name="dark">Тъмен</string>
-  <string name="transparent">Прозрачен</string>
   <string name="deviceTheme">Тема на устройството</string>
   <string name="backgroundImageUrl">URL адрес на фоновия образ:</string>
   <string name="board">Дъска</string>

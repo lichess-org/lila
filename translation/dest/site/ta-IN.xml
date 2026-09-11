@@ -401,7 +401,6 @@
   <string name="apply">சமர்ப்பி</string>
   <string name="save">சேமி</string>
   <string name="leaderboard">முன்னிலைக் காட்சி</string>
-  <string name="screenshotCurrentPosition">தற்போதைய நிலையைத் திரைப்புகைப்படமாக்கு</string>
   <string name="gameAsGIF">GIF ஆக விளையாட்டு</string>
   <string name="pasteTheFenStringHere">FEN தொடரை இங்கே ஒட்டு</string>
   <string name="pasteThePgnStringHere">PGN தொடரை இங்கே ஒட்டு</string>
@@ -773,7 +772,6 @@
   <string name="background">பின்னணி</string>
   <string name="light">வெளிர்</string>
   <string name="dark">அடர்</string>
-  <string name="transparent">ஒளி புகும்</string>
   <string name="deviceTheme">சாதன கரு</string>
   <string name="backgroundImageUrl">பின்னணி பட URL:</string>
   <string name="board">பலகை</string>
