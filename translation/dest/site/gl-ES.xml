@@ -175,6 +175,10 @@
   </plurals>
   <string name="moveTimes">Tempos por movemento</string>
   <string name="flipBoard">Xirar o taboleiro</string>
+  <string name="toggleLocalEngine">Activar/desactivar o motor de análise local</string>
+  <string name="engineSettings">Axustes do motor de análise</string>
+  <string name="enginesFromStrongestToWeakest">Motores de análise de máis forte a máis feble</string>
+  <string name="illegalPositions">As posicións ilegais non se poden analizar</string>
   <string name="threefoldRepetition">Repetición tripla de posición</string>
   <string name="claimADraw">Reclamar táboas</string>
   <string name="drawClaimed">Reclamáronse as táboas</string>
@@ -443,7 +447,6 @@ Para incrementar a súa estabilidade tes que xogar máis partidas puntuadas.</st
   <string name="apply">Aplicar</string>
   <string name="save">Gardar</string>
   <string name="leaderboard">Listaxe de líderes</string>
-  <string name="screenshotCurrentPosition">Fai unha captura de pantalla da posición actual</string>
   <string name="positionAsImage" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position. Replaces old string screenshotCurrentPosition">Imaxe a partir da posición actual</string>
   <string name="gameAsGIF">Gardar a partida en formato GIF</string>
   <string name="playerNames">Nomes dos xogadores</string>
@@ -744,8 +747,10 @@ Para incrementar a súa estabilidade tes que xogar máis partidas puntuadas.</st
   <string name="keyboardShortcuts">Atallos do teclado</string>
   <string name="keyMoveBackwardOrForward">mover atrás/adiante</string>
   <string name="keyGoToStartOrEnd">Ir ó comezo/remate</string>
+  <string name="keyGoToPreviousOrNextLine">ir á liña previa/seguinte</string>
   <string name="keyCycleSelectedVariation">Cambia a variante seleccionada</string>
   <string name="keyShowOrHideComments">mostrar/ocultar comentarios</string>
+  <string name="keyShowOrHideCurrentVariation">amosar/ocultar a variante actual</string>
   <string name="keyEnterOrExitVariation">Entrar/saír da variante</string>
   <string name="keyPreviousBranch">Rama anterior</string>
   <string name="keyNextBranch">Rama seguinte</string>
@@ -839,7 +844,6 @@ Para incrementar a súa estabilidade tes que xogar máis partidas puntuadas.</st
   <string name="theme">Tema</string>
   <string name="light">Claro</string>
   <string name="dark">Escuro</string>
-  <string name="transparent">Transparente</string>
   <string name="picture">Imaxe</string>
   <string name="deviceTheme">Tema do dispositivo</string>
   <string name="roundness">Cantos arredondados</string>
@@ -1064,4 +1068,7 @@ Deixa en branco para comezar as partidas dende a posición inicial normal.</stri
   <string name="tags">Etiquetas</string>
   <string name="enPassant">Captura ao paso</string>
   <string name="settings">Configuración</string>
+  <string name="verifyingYourDevice">Verificando o teu dispositivo...</string>
+  <string name="chessOpenings">Aperturas de xadrez</string>
+  <string name="boards">Taboleiros</string>
 </resources>

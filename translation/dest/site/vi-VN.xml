@@ -411,7 +411,6 @@ Chơi các trận đấu có xếp hạng sẽ giúp tăng tính ổn định c�
   <string name="apply">Áp dụng</string>
   <string name="save">Lưu</string>
   <string name="leaderboard">Bảng dẫn đầu</string>
-  <string name="screenshotCurrentPosition">Chụp màn hình thế cờ hiện tại</string>
   <string name="positionAsImage" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position. Replaces old string screenshotCurrentPosition">Ảnh chụp thế cờ hiện tại</string>
   <string name="gameAsGIF">Ván cờ dưới dạng ảnh GIF</string>
   <string name="playerNames">Tên người chơi</string>
@@ -796,7 +795,6 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="theme">Giao diện</string>
   <string name="light">Sáng</string>
   <string name="dark">Tối</string>
-  <string name="transparent">Trong suốt</string>
   <string name="picture">Hình ảnh</string>
   <string name="deviceTheme">Giao diện thiết bị</string>
   <string name="roundness">Bo tròn</string>

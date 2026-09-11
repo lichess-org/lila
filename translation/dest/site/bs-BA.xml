@@ -473,7 +473,6 @@ Igranje rejtingovanih partija će povećati stabilnost.</string>
   <string name="apply">Primijeni</string>
   <string name="save">Sačuvaj</string>
   <string name="leaderboard">Tabela rezultata</string>
-  <string name="screenshotCurrentPosition">Snimite ekran s trenutnom pozicijom</string>
   <string name="positionAsImage" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position. Replaces old string screenshotCurrentPosition">Pozicija kao slika</string>
   <string name="gameAsGIF">Sačuvati kao GIF</string>
   <string name="playerNames">Nazivi igrača</string>
@@ -880,7 +879,6 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="theme">Tema</string>
   <string name="light">Svijetla</string>
   <string name="dark">Tamna</string>
-  <string name="transparent">Prozirna</string>
   <string name="picture">Slika</string>
   <string name="deviceTheme">Tema uređaja</string>
   <string name="roundness">Zaobljenost</string>

@@ -167,6 +167,10 @@
   </plurals>
   <string name="moveTimes">消費時間</string>
   <string name="flipBoard">盤の上下反転</string>
+  <string name="toggleLocalEngine">ローカルエンジンのオン/オフ</string>
+  <string name="engineSettings">エンジンの設定</string>
+  <string name="enginesFromStrongestToWeakest">最強から最弱まで多彩なエンジン</string>
+  <string name="illegalPositions">ルールに反した局面は解析できません</string>
   <string name="threefoldRepetition">同形三復</string>
   <string name="claimADraw">引き分けを申し立てる</string>
   <string name="drawClaimed">ドロー申立て</string>
@@ -411,7 +415,6 @@
   <string name="apply">適用</string>
   <string name="save">保存</string>
   <string name="leaderboard">ランキング</string>
-  <string name="screenshotCurrentPosition">現局面のスクリーンショット</string>
   <string name="positionAsImage" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position. Replaces old string screenshotCurrentPosition">局面を画像として保存</string>
   <string name="gameAsGIF">GIF 形式の棋譜</string>
   <string name="playerNames">プレイヤー名</string>
@@ -705,8 +708,10 @@
   <string name="keyboardShortcuts">ショートカットキー</string>
   <string name="keyMoveBackwardOrForward">手を戻す/進める</string>
   <string name="keyGoToStartOrEnd">最初/最後に戻る</string>
+  <string name="keyGoToPreviousOrNextLine">前/次の手順へ移動</string>
   <string name="keyCycleSelectedVariation">選択した手順を切り替え</string>
   <string name="keyShowOrHideComments">コメントを表示する/隠す</string>
+  <string name="keyShowOrHideCurrentVariation">現在の変化手順を表示/非表示</string>
   <string name="keyEnterOrExitVariation">変化に入る/出る</string>
   <string name="keyPreviousBranch">前の変化手順</string>
   <string name="keyNextBranch">次の変化手順</string>
@@ -796,7 +801,6 @@
   <string name="background">背景</string>
   <string name="light">明るい</string>
   <string name="dark">暗い</string>
-  <string name="transparent">透明</string>
   <string name="deviceTheme">デバイスの設定に従う</string>
   <string name="backgroundImage">背景画像</string>
   <string name="backgroundImageUrl">背景画像URL:</string>
@@ -1018,4 +1022,7 @@
   <string name="tags">タグ</string>
   <string name="enPassant">アンパッサン</string>
   <string name="settings">設定</string>
+  <string name="verifyingYourDevice">デバイスを確認しています...</string>
+  <string name="chessOpenings">チェスのオープニング</string>
+  <string name="boards">ボード</string>
 </resources>

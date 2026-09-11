@@ -175,6 +175,10 @@
   </plurals>
   <string name="moveTimes">Tidsbruk per trekk</string>
   <string name="flipBoard">Snu brettet</string>
+  <string name="toggleLocalEngine">Aktiver/deaktiver lokal sjakkmotor</string>
+  <string name="engineSettings">Innstillingar for sjakkmotor</string>
+  <string name="enginesFromStrongestToWeakest">Sjakkmotorar frå sterkast til svakast</string>
+  <string name="illegalPositions">Det er ikkje mogleg å analysera ulovlege stillingar</string>
   <string name="threefoldRepetition">Tre gongar stillingsgjentaking</string>
   <string name="claimADraw">Krev remis</string>
   <string name="drawClaimed">Remis kravd</string>
@@ -442,7 +446,6 @@
   <string name="apply">Bruk</string>
   <string name="save">Lagre</string>
   <string name="leaderboard">Leiartabell</string>
-  <string name="screenshotCurrentPosition">Ta eit skjermbilete av gjeldande stilling</string>
   <string name="positionAsImage" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position. Replaces old string screenshotCurrentPosition">Stilling som bilde</string>
   <string name="gameAsGIF">Parti som GIF</string>
   <string name="playerNames">Namn på spelarane</string>
@@ -744,8 +747,10 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="keyboardShortcuts">Snarvegar på tastaturet</string>
   <string name="keyMoveBackwardOrForward">flytt att og fram</string>
   <string name="keyGoToStartOrEnd">gå til byrjinga/slutten</string>
+  <string name="keyGoToPreviousOrNextLine">gå til førre/neste linje</string>
   <string name="keyCycleSelectedVariation">Gå gjennom den valde varianten</string>
   <string name="keyShowOrHideComments">syn/gøym kommentarar</string>
+  <string name="keyShowOrHideCurrentVariation">vis/skjul gjeldande variant</string>
   <string name="keyEnterOrExitVariation">gå inn i/gå ut av varianten</string>
   <string name="keyPreviousBranch">Førre grein</string>
   <string name="keyNextBranch">Neste grein</string>
@@ -839,7 +844,6 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="theme">Tema</string>
   <string name="light">Lys</string>
   <string name="dark">Mørk</string>
-  <string name="transparent">Gjennomskinleg</string>
   <string name="picture">Bilete</string>
   <string name="deviceTheme">Einingstema</string>
   <string name="roundness">Avrunda hjørne</string>
@@ -1066,4 +1070,7 @@ Alle kostnader for drift, utvikling og innhald vert finansiert eine og åleine a
   <string name="tags">Etikettar</string>
   <string name="enPassant">En passant</string>
   <string name="settings">Innstillingar</string>
+  <string name="verifyingYourDevice">Verifiserer eininga di...</string>
+  <string name="chessOpenings">Sjakkopningar</string>
+  <string name="boards">Brett</string>
 </resources>

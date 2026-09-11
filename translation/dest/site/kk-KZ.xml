@@ -404,7 +404,6 @@
   <string name="apply">Сақтау</string>
   <string name="save">Сақтау</string>
   <string name="leaderboard">Мықтылар қатары</string>
-  <string name="screenshotCurrentPosition">Осы күйді суретке түсіру</string>
   <string name="gameAsGIF">GIF етіп сақтау</string>
   <string name="pasteTheFenStringHere">FEN мәтінін осы жерге қойыңыз</string>
   <string name="pasteThePgnStringHere">PGN мәтінін осы жерге қойыңыз</string>
@@ -778,7 +777,6 @@
   <string name="background">Артқы кескін</string>
   <string name="light">Жарық</string>
   <string name="dark">Қараңғы</string>
-  <string name="transparent">Мөлдір</string>
   <string name="deviceTheme">Құрылғы кейпі</string>
   <string name="backgroundImageUrl">Артқы сурет сілтемесі:</string>
   <string name="board">Тақта</string>

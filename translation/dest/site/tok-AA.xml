@@ -432,7 +432,6 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="apply">kama lon</string>
   <string name="save">awen</string>
   <string name="leaderboard">jan pi pona mute</string>
-  <string name="screenshotCurrentPosition">o sitelen e musi lon ni</string>
   <string name="gameAsGIF">musi kepeken lipu kama</string>
   <string name="playerNames">nimi pi jan pi ijo musi</string>
   <string name="pasteTheFenStringHere">o pana e nimi FEN lon ni</string>
@@ -810,7 +809,6 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="background">sitelen monsi</string>
   <string name="light">walo</string>
   <string name="dark">pimeja</string>
-  <string name="transparent">ko</string>
   <string name="deviceTheme">kule pi ilo sina</string>
   <string name="backgroundImageUrl">nimi nasin URL pi sitelen monsi:</string>
   <string name="board">supa</string>

@@ -443,7 +443,6 @@ Reytingli oʻyinlar o\'ynasangiz reyting barqarorligi oshadi.</string>
   <string name="apply">Saqlash</string>
   <string name="save">Saqlash</string>
   <string name="leaderboard">Peshqadamlar jadvali</string>
-  <string name="screenshotCurrentPosition">Joriy pozitsiyani skrinshot qilish</string>
   <string name="positionAsImage" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position. Replaces old string screenshotCurrentPosition">Pozitsiya rasm sifatida</string>
   <string name="gameAsGIF">Oʻyin GIF formatida</string>
   <string name="playerNames">Oʻyinchilar ismlari</string>
@@ -839,7 +838,6 @@ Reytingli oʻyinlar o\'ynasangiz reyting barqarorligi oshadi.</string>
   <string name="theme">Tema</string>
   <string name="light">Yorugʻ</string>
   <string name="dark">Qorongʻu</string>
-  <string name="transparent">Shaffof</string>
   <string name="picture">Rasm</string>
   <string name="deviceTheme">Qurilma temasi</string>
   <string name="roundness">Burchaklar yumaloqligi</string>

@@ -80,9 +80,9 @@
   <string name="deleteFromHere">Verwijder vanaf hier</string>
   <string name="collapseVariations">Varianten verbergen</string>
   <string name="expandVariations">Varianten weergeven</string>
-  <string name="forceVariation">Forceer variatie</string>
-  <string name="copyVariationPgn">Kopieer variatie PGN</string>
-  <string name="copyMainLinePgn">Kopieer hoofdlijn PGN</string>
+  <string name="forceVariation">Forceer variant</string>
+  <string name="copyVariationPgn">Kopieer variant PGN</string>
+  <string name="copyMainLinePgn">Kopieer hoofdvariant PGN</string>
   <string name="move">Zet</string>
   <string name="variantLoss">Variantverlies</string>
   <string name="variantWin">Variantoverwinning</string>
@@ -135,7 +135,7 @@
   <string name="pinnedPieces">Gepende stukken</string>
   <string name="checkableKing">Schaakbare koning</string>
   <string name="multipleLines">Meerdere varianten</string>
-  <string name="multipleLinesDescription">Stel het aantal evaluatievariaties en zetpijlen in op het bord</string>
+  <string name="multipleLinesDescription">Stel het aantal evaluatievarianten en zetpijlen op het bord in</string>
   <string name="searchTime">Zoektijd</string>
   <string name="searchTimeDescription">Stel tijd in om nieuwe stellingen te evalueren</string>
   <string name="threads">Threads</string>
@@ -175,6 +175,10 @@
   </plurals>
   <string name="moveTimes">Tijdsgebruik van zetten</string>
   <string name="flipBoard">Bord draaien</string>
+  <string name="toggleLocalEngine">Lokale computeranalyse</string>
+  <string name="engineSettings">Computerinstellingen</string>
+  <string name="enginesFromStrongestToWeakest">Computers van sterkst naar zwakst</string>
+  <string name="illegalPositions">Illegale stellingen kunnen niet geanalyseerd worden</string>
   <string name="threefoldRepetition">Driemaal dezelfde stelling</string>
   <string name="claimADraw">Remise opeisen</string>
   <string name="drawClaimed">Remise geclaimd</string>
@@ -443,7 +447,6 @@ Spelen met rating verhoogt de stabiliteit.</string>
   <string name="apply">Toepassen</string>
   <string name="save">Bewaar</string>
   <string name="leaderboard">Ranglijst</string>
-  <string name="screenshotCurrentPosition">Schermafbeelding huidige stelling</string>
   <string name="positionAsImage" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position. Replaces old string screenshotCurrentPosition">Stelling als afbeelding</string>
   <string name="gameAsGIF">Download partij als GIF</string>
   <string name="playerNames">Spelersnamen</string>
@@ -744,12 +747,14 @@ Spelen met rating verhoogt de stabiliteit.</string>
   <string name="keyboardShortcuts">Toetsenbordsnelkoppelingen</string>
   <string name="keyMoveBackwardOrForward">zet achteruit/vooruit</string>
   <string name="keyGoToStartOrEnd">ga naar het begin/eind</string>
+  <string name="keyGoToPreviousOrNextLine">ga naar vorige/volgende variant</string>
   <string name="keyCycleSelectedVariation">Bekijk geselecteerde variant</string>
   <string name="keyShowOrHideComments">toon/verberg opmerkingen</string>
+  <string name="keyShowOrHideCurrentVariation">toon/verberg huidige variant</string>
   <string name="keyEnterOrExitVariation">vermeld/stop variant</string>
   <string name="keyPreviousBranch">Vorige vertakking</string>
   <string name="keyNextBranch">Volgende vertakking</string>
-  <string name="toggleVariationArrows">Variatiepijlen in/uitschakelen</string>
+  <string name="toggleVariationArrows">Variantpijlen in/uitschakelen</string>
   <string name="cyclePreviousOrNextVariation">Bekijk vorige/volgende variant</string>
   <string name="toggleGlyphAnnotations">Zetannotaties in-/uitschakelen</string>
   <string name="togglePositionAnnotations">Stellingsannotaties in-/uitschakelen</string>
@@ -839,7 +844,6 @@ Spelen met rating verhoogt de stabiliteit.</string>
   <string name="theme">Thema</string>
   <string name="light">Licht</string>
   <string name="dark">Donker</string>
-  <string name="transparent">Transparant</string>
   <string name="picture">Afbeelding</string>
   <string name="deviceTheme">Apparaatthema</string>
   <string name="roundness">Ronde hoeken</string>
@@ -1066,4 +1070,7 @@ Alle exploitatiekosten, ontwikkeling en inhoud worden enkel gefinancierd door do
   <string name="tags">Labels</string>
   <string name="enPassant">En passant</string>
   <string name="settings">Instellingen</string>
+  <string name="verifyingYourDevice">Apparaat verifiëren...</string>
+  <string name="chessOpenings">Schaakopeningen</string>
+  <string name="boards">Borden</string>
 </resources>

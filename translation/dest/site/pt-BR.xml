@@ -175,6 +175,7 @@
   </plurals>
   <string name="moveTimes">Tempo por movimento</string>
   <string name="flipBoard">Girar o tabuleiro</string>
+  <string name="illegalPositions">Posições ilegais não podem ser analisadas</string>
   <string name="threefoldRepetition">Tripla repetição</string>
   <string name="claimADraw">Reivindicar empate</string>
   <string name="drawClaimed">Empate reivindicado</string>
@@ -442,7 +443,6 @@
   <string name="apply">Aplicar</string>
   <string name="save">Salvar</string>
   <string name="leaderboard">Classificação</string>
-  <string name="screenshotCurrentPosition">Captura de tela da posição atual</string>
   <string name="positionAsImage" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position. Replaces old string screenshotCurrentPosition">Imagem da posição</string>
   <string name="gameAsGIF">Salvar a partida como GIF</string>
   <string name="playerNames">Nomes dos jogadores</string>
@@ -743,8 +743,10 @@
   <string name="keyboardShortcuts">Atalhos de teclado</string>
   <string name="keyMoveBackwardOrForward">retroceder/avançar lance</string>
   <string name="keyGoToStartOrEnd">ir para início/fim</string>
+  <string name="keyGoToPreviousOrNextLine">ir para linha anterior/próxima</string>
   <string name="keyCycleSelectedVariation">Alternar entre as variantes</string>
   <string name="keyShowOrHideComments">mostrar/ocultar comentários</string>
+  <string name="keyShowOrHideCurrentVariation">mostrar/ocultar variação atual</string>
   <string name="keyEnterOrExitVariation">entrar/sair da variante</string>
   <string name="keyPreviousBranch">Branch anterior</string>
   <string name="keyNextBranch">Próximo branch</string>
@@ -838,7 +840,6 @@
   <string name="theme">Tema</string>
   <string name="light">Claro</string>
   <string name="dark">Escuro</string>
-  <string name="transparent">Transparente</string>
   <string name="picture">Imagem</string>
   <string name="deviceTheme">Tema do dispositivo</string>
   <string name="roundness">Arredondamento das bordas</string>
@@ -1064,4 +1065,7 @@ Deixe em branco para começar as partidas na posição inicial padrão.</string>
   <string name="tags">Etiquetas</string>
   <string name="enPassant">En passant</string>
   <string name="settings">Configurações</string>
+  <string name="verifyingYourDevice">Verificando seu dispositivo...</string>
+  <string name="chessOpenings">Aberturas de xadrez</string>
+  <string name="boards">Tabuleiros</string>
 </resources>

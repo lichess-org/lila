@@ -41,6 +41,10 @@
   <string name="forbiddenPairings">Забрањена упарења</string>
   <string name="forbiddenPairingsHelp">Корисничка имена играча који не би требали бити упарени (браћа и сестре, на пример). Два корисничка имена по линији, одвојена размаком.</string>
   <string name="newSwiss">Нови Швајцарски турнир</string>
+  <string name="pointsCalculationQ">Како се бодови рачунају?</string>
+  <string name="pointsCalculationA">Победа вреди један бод, реми је пола бода, а губитак је нула бодова.
+Када играч не може бити упарен током рунде, добија слободну рунду вредну један бод.</string>
+  <string name="tiebreaksCalculationQ">Како се тај-брејкови рачунају?</string>
   <string name="lateJoinUntil">Да док више од половине рунди не почне</string>
   <string name="streaksAndBerserk">Низови и Берсерк</string>
   <string name="absences">Изостанци</string>
