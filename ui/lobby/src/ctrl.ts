@@ -1,29 +1,18 @@
 import { numberFormat } from 'lib/i18n';
 import * as poolRangeStorage from 'lib/poolRangeStorage';
 import { pubsub } from 'lib/pubsub';
-import { colors, type ColorChoice } from 'lib/setup/color';
 import { wsPingInterval } from 'lib/socket';
 import { storage, type LichessStorage } from 'lib/storage';
 
 import Filter from './filter';
 import * as hookRepo from './hookRepo';
-import type {
-  LobbyOpts,
-  LobbyData,
-  Tab,
-  Mode,
-  Sort,
-  Hook,
-  Pool,
-  PoolMember,
-  GameType,
-  ForceSetupOptions,
-  LobbyMe,
-} from './interfaces';
+import type { LobbyOpts, LobbyData, Tab, Mode, Sort, Hook, PoolMember, LobbyMe } from './interfaces';
 import * as seekRepo from './seekRepo';
 import SetupController from './setupCtrl';
+import { ShortcutsCtrl, pools } from './shortcutsCtrl';
 import LobbySocket from './socket';
 import { make as makeStores, type Stores } from './store';
+import { parseUrlParams } from './urlParams';
 import variantConfirm from './variant';
 import * as xhr from './xhr';
 
@@ -40,9 +29,9 @@ export default class LobbyController {
   stepping = false;
   redirecting = false;
   poolMember?: PoolMember;
-  pools: Pool[];
   filter: Filter;
   setupCtrl: SetupController;
+  shortcutsCtrl: ShortcutsCtrl;
 
   private readonly poolInStorage: LichessStorage;
   private flushHooksTimeout?: number;
@@ -58,7 +47,7 @@ export default class LobbyController {
       seeks: [],
     };
     this.me = opts.data.me;
-    this.pools = opts.pools;
+    this.shortcutsCtrl = new ShortcutsCtrl(this);
     this.playban = opts.playban;
     this.filter = new Filter(storage.make('lobby.filter'), this);
     this.setupCtrl = new SetupController(this);
@@ -70,66 +59,23 @@ export default class LobbyController {
     if (this.me?.isBot) this.tab = 'now_playing';
     else {
       if (this.stores.tab.get() === 'now_playing' && this.data.nbNowPlaying === 0)
-        this.stores.tab.set('pools');
+        this.stores.tab.set('shortcuts');
       else if (this.hasOngoingRealTimeGame(false)) this.stores.tab.set('now_playing');
       this.tab = this.stores.tab.get();
     }
     this.mode = this.stores.mode.get();
     this.sort = this.me ? this.stores.sort.get() : 'time';
 
-    const locationHash = location.hash.replace('#', '');
-    if (['ai', 'friend', 'hook'].includes(locationHash)) {
-      const forceOptions: ForceSetupOptions = {};
-      const urlParams = new URLSearchParams(location.search);
-      const friendUser = urlParams.get('user') ?? undefined;
-      const variant = urlParams.get('variant');
-
-      if (variant) forceOptions.variant = variant as VariantKey;
-
-      if (locationHash !== 'hook' && urlParams.get('fen')) {
-        forceOptions.fen = urlParams.get('fen')!;
-        forceOptions.variant = 'fromPosition';
-      }
-
-      let timeMode = urlParams.get('time');
-      const days = urlParams.get('days');
-      const minutesPerSide = urlParams.get('minutesPerSide');
-      const increment = urlParams.get('increment');
-
-      if (!timeMode) {
-        if (days) timeMode = 'correspondence';
-        else if (minutesPerSide || increment) timeMode = 'realTime';
-      }
-
-      if (timeMode === 'correspondence') {
-        forceOptions.timeMode = 'correspondence';
-        if (days) forceOptions.days = parseInt(days);
-        if (locationHash === 'hook') this.tab = 'seeks';
-      } else if (timeMode === 'realTime') {
-        forceOptions.timeMode = 'realTime';
-        if (minutesPerSide) forceOptions.time = parseFloat(minutesPerSide);
-        if (increment) forceOptions.increment = parseInt(increment);
-        if (locationHash === 'hook') this.tab = 'real_time';
-      } else if (timeMode === 'unlimited') {
-        if (locationHash === 'hook') this.tab = 'seeks';
-        forceOptions.timeMode = 'unlimited';
-        forceOptions.mode = 'casual';
-      }
-
-      if (locationHash === 'hook' || locationHash === 'friend') {
-        const gameMode = urlParams.get('gameMode');
-        if (gameMode === 'casual' || gameMode === 'rated') {
-          forceOptions.mode = gameMode;
-        }
-      }
-
-      const color = urlParams.get('color');
-      if (color && colors.some(c => c.key === color)) {
-        forceOptions.color = color as ColorChoice;
+    const urlParams = parseUrlParams(location);
+    if (urlParams) {
+      const { gameType, forceOptions, friendUser } = urlParams;
+      if (gameType === 'hook') {
+        if (forceOptions.timeMode === 'realTime') this.tab = 'real_time';
+        else if (forceOptions.timeMode) this.tab = 'seeks';
       }
 
       pubsub.after('polyfill.dialog').then(() => {
-        this.setupCtrl.openModal(locationHash as Exclude<GameType, 'local'>, forceOptions, friendUser);
+        this.setupCtrl.openModal(gameType, forceOptions, friendUser);
         redraw();
       });
       history.replaceState(null, '', '/');
@@ -160,7 +106,7 @@ export default class LobbyController {
       if (this.tab === 'real_time') {
         this.data.hooks = [];
         this.socket.realTimeIn();
-      } else if (this.tab === 'pools' && this.poolMember) this.poolIn();
+      } else if (this.tab === 'shortcuts' && this.poolMember) this.poolIn();
       else if (this.tab === 'seeks') this.fetchSeeks();
     });
 
@@ -258,7 +204,7 @@ export default class LobbyController {
 
   clickPool = (id: string) => {
     if (!this.me) {
-      xhr.anonPoolSeek(this.pools.find(p => p.id === id)!);
+      xhr.anonPoolSeek(pools.find(p => p.id === id)!);
       this.setTab('real_time');
     } else if (this.poolMember?.id === id) this.leavePool();
     else this.enterPool({ id });
@@ -267,7 +213,7 @@ export default class LobbyController {
 
   enterPool = (member: PoolMember) => {
     poolRangeStorage.set(this.me?.username, member.id, member.range);
-    this.setTab('pools');
+    this.setTab('shortcuts');
     this.poolMember = member;
     this.poolIn();
     site.mousetrap.bind(
@@ -350,7 +296,7 @@ export default class LobbyController {
         range = poolRangeStorage.get(this.me?.username, member.id);
       if (range) member.range = range;
       if (match) {
-        this.setTab('pools');
+        this.setTab('shortcuts');
         if (this.me) this.enterPool(member);
         else setTimeout(() => this.clickPool(member.id), 1500);
         history.replaceState(null, '', '/');

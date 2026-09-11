@@ -19,7 +19,7 @@ interface Config<A> {
 }
 
 function isTab(value: string | null): value is Tab {
-  return value === 'pools' || value === 'real_time' || value === 'seeks' || value === 'now_playing';
+  return value === 'shortcuts' || value === 'real_time' || value === 'seeks' || value === 'now_playing';
 }
 
 function isMode(value: string | null): value is Mode {
@@ -34,7 +34,7 @@ const tab: Config<Tab> = {
   key: 'lobby.tab',
   fix(t: string | null): Tab {
     if (isTab(t)) return t;
-    return 'pools';
+    return 'shortcuts';
   },
 };
 const mode: Config<Mode> = {

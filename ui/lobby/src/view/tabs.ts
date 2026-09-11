@@ -10,7 +10,7 @@ function tab(ctrl: LobbyController, key: Tab, active: Tab, content: MaybeVNodes)
     'button',
     {
       attrs: { role: 'tab' },
-      class: { active: key === active, glowing: key !== active && key === 'pools' && !!ctrl.poolMember },
+      class: { active: key === active, glowing: key !== active && key === 'shortcuts' && !!ctrl.poolMember },
       hook: bind('click', _ => ctrl.setTab(key)),
     },
     content,
@@ -23,7 +23,7 @@ export default function (ctrl: LobbyController) {
     active = ctrl.tab,
     isBot = ctrl.me?.isBot;
   return [
-    isBot ? undefined : tab(ctrl, 'pools', active, [i18n.site.quickPairing]),
+    isBot ? undefined : tab(ctrl, 'shortcuts', active, ['Shortcuts']),
     isBot ? undefined : tab(ctrl, 'real_time', active, [i18n.site.lobby]),
     isBot ? undefined : tab(ctrl, 'seeks', active, [i18n.site.correspondence]),
     active === 'now_playing' || nbPlaying || isBot

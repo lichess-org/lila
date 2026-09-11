@@ -5,26 +5,42 @@ $vp-max-width: 1200px !default;
   @return $value / ($value * 0 + 1);
 }
 
-@mixin fluid-size($prop, $min-size, $max-size, $min-vw: $vp-min-width, $max-vw: $vp-max-width) {
-  $u1: unit($min-vw);
-  $u2: unit($max-vw);
+@mixin fluid-size(
+  $prop,
+  $min-size,
+  $max-size,
+  $min-cap: $vp-min-width,
+  $max-cap: $vp-max-width,
+  $context: 'min-width',
+  $by: '100vw'
+) {
+  $u1: unit($min-cap);
+  $u2: unit($max-cap);
   $u3: unit($min-size);
   $u4: unit($max-size);
 
   @if $u1 == $u2 and $u1 == $u3 and $u1 == $u4 {
     #{$prop}: $min-size;
 
-    @media (min-width: $min-vw) {
+    @media (#{$context}: $min-cap) {
       #{$prop}: calc(
         #{$min-size} + #{strip-unit($max-size - $min-size)} *
-          ((100vw - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)})
+          ((#{$by} - #{$min-cap}) / #{strip-unit($max-cap - $min-cap)})
       );
     }
 
-    @media (min-width: $max-vw) {
+    @media (#{$context}: $max-cap) {
       #{$prop}: $max-size;
     }
   } @else {
     @error 'fluid-size requires that all values have the same unit';
+  }
+}
+
+@mixin fluid-size-orientation($prop, $min, $max, $portrait: '100vw', $landscape: '80vh') {
+  @include fluid-size($prop, $min, $max, $vp-min-width, $vp-max-width, 'min-width', $portrait);
+
+  @media (orientation: landscape) and ((hover: none) or (pointer: coarse)) {
+    @include fluid-size($prop, $min, $max, $vp-min-width, $vp-max-width, 'min-height', $landscape);
   }
 }

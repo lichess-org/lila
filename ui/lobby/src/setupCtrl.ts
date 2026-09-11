@@ -1,6 +1,6 @@
 import { INITIAL_FEN } from 'chessops/fen';
 
-import { type Prop, propWithEffect, toggle } from 'lib';
+import { type Prop, propWithEffect, toggle, myUserId } from 'lib';
 import { debounce } from 'lib/async';
 import type { ColorChoice, ColorProp } from 'lib/setup/color';
 import {
@@ -16,6 +16,8 @@ import * as xhr from 'lib/xhr';
 import type LobbyController from './ctrl';
 import type { ForceSetupOptions, GameMode, GameType, PoolMember, SetupStore } from './interfaces';
 import { keyToId, variants } from './options';
+import { pools } from './shortcutsCtrl';
+import { makeUrl } from './urlParams';
 
 const getPerf = (variant: VariantKey, tc: TimeControl): Perf =>
   variant !== 'standard' && variant !== 'fromPosition' ? variant : tc.speed();
@@ -86,7 +88,7 @@ export default class SetupController {
       forceOptions?.increment ?? storeProps.increment,
       forceOptions?.days ?? storeProps.days,
       this.onPropChange,
-      this.root.pools,
+      pools,
     );
     this.gameMode = this.propWithApply(forceOptions?.mode ?? storeProps.gameMode);
     this.ratingMin = this.propWithApply(storeProps.ratingMin);
@@ -244,7 +246,7 @@ export default class SetupController {
       this.gameMode() === 'rated' &&
       this.timeControl.isRealTime();
     const id = this.timeControl.clockStr();
-    return valid && this.root.pools.some(p => p.id === id)
+    return valid && pools.some(p => p.id === id)
       ? {
           id,
           range: this.ratingRange(),
@@ -300,6 +302,54 @@ export default class SetupController {
   };
 
   minimumTimeIfReal = () => (this.gameType === 'ai' && this.variant() === 'fromPosition' ? 1 : 0);
+
+  canAddShortcut = () =>
+    myUserId() &&
+    !(
+      this.variant() === 'standard' &&
+      this.gameMode() === 'rated' &&
+      this.color() === 'random' &&
+      this.timeControl.isRealTime() &&
+      pools.some(p => p.id === this.timeControl.clockStr())
+    );
+
+  addToShortcuts = async () => {
+    const name = [
+      this.variant() === 'standard' ? undefined : i18n.variant[this.variant()],
+      this.timeControl.isRealTime()
+        ? this.timeControl.clockStr()
+        : this.timeControl.mode() === 'correspondence'
+          ? i18n.site.correspondence + ' ' + i18n.site.nbDays(this.timeControl.days())
+          : i18n.site.unlimited,
+      this.gameMode(),
+      this.color() === 'random' ? undefined : i18n.site[this.color() as Color],
+    ]
+      .filter(Boolean)
+      .join(' ');
+    const shortcut = {
+      name,
+      lim: this.timeControl.time(),
+      inc: this.timeControl.increment(),
+      iconKey: 'Swords',
+      url: makeUrl(
+        this.gameType!,
+        {
+          variant: this.variant(),
+          fen: this.variant() === 'fromPosition' ? this.fen() : undefined,
+          timeMode: this.timeControl.mode(),
+          time: this.timeControl.time(),
+          increment: this.timeControl.increment(),
+          days: this.timeControl.days(),
+          mode: this.gameMode(),
+          color: this.color(),
+        },
+        this.friendUser || undefined,
+      ),
+    };
+    await site.asset.loadEsm('lobby.shortcutsDialog', {
+      init: { ctrl: this.root.shortcutsCtrl, contextual: [shortcut] },
+    });
+  };
 
   submit = async () => {
     const color = this.color();

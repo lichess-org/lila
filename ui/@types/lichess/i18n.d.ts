@@ -4509,6 +4509,8 @@ interface I18n {
     sendEmailForAccountVerification: I18nFormat;
     /** We've sent you an email with a link. */
     sentEmailWithLink: string;
+    /** • */
+    sep: string;
     /** Sessions */
     sessions: string;
     /** Set your flair */
@@ -4831,8 +4833,6 @@ interface I18n {
     variantWin: string;
     /** Variation arrows let you navigate without using the move list. */
     variationArrowsInfo: string;
-    /** Verifying your device... */
-    verifyingYourDevice: string;
     /** Verify that %s is your email address */
     verifyYourAddress: I18nFormat;
     /** Victory */
