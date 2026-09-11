@@ -186,7 +186,7 @@ export default class EditorCtrl implements CevalHandler {
     };
   }
 
-  private updateCeval(force: boolean = false): void {
+  private updateCeval(force?: boolean): void {
     const legalFen = this.getLegalFen();
     const fen = legalFen || this.getFen();
     const position = `${this.variant}:${fen}`;
@@ -230,9 +230,10 @@ export default class EditorCtrl implements CevalHandler {
     this.startCeval();
   };
 
-  toggleThreatMode(v: boolean = !this.threatMode()): void {
-    if (v === this.threatMode() || this.cevalNode.check() || !this.cevalEnabled()) return;
-    this.threatMode(v);
+  toggleThreatMode(v?: boolean): void {
+    const enable = v ?? !this.threatMode();
+    if (enable === this.threatMode() || this.cevalNode.check() || !this.cevalEnabled()) return;
+    this.threatMode(enable);
     this.startCeval();
     this.redraw();
   }
