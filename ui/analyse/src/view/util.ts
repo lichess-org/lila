@@ -4,16 +4,17 @@ import {
   eventListenersModule,
   init,
   propsModule,
+  styleModule,
   type VNodeData,
 } from 'snabbdom';
 
 import { fixCrazySan, plyToTurn } from 'lib/game/chess';
 import type { TreeNode } from 'lib/tree/types';
-import { hl } from 'lib/view';
+import { img, option as opt } from 'lib/view';
 
 import type { Federation } from '@/study/interfaces';
 
-export const patch = init([classModule, attributesModule, propsModule, eventListenersModule]);
+export const patch = init([classModule, attributesModule, propsModule, eventListenersModule, styleModule]);
 
 export const emptyRedButton = 'button.button.button-red.button-empty';
 
@@ -32,13 +33,15 @@ export function titleNameToId(titleName: string): string {
 }
 
 export const option = (value: string, current: string | undefined, name: string, data?: VNodeData) =>
-  hl('option', { attrs: { value, selected: value === current }, ...data }, name);
+  opt({ attrs: { value, selected: value === current }, ...data }, name);
 
 export const playerFedFlag = (fed?: Federation) =>
   fed &&
-  hl('img.mini-game__flag', {
+  img(
+    '.mini-game__flag',
+    site.asset.fideFedSrc(fed.id),
+  )({
     attrs: {
-      src: site.asset.fideFedSrc(fed.id),
       title: `Federation: ${fed.i18nName}`,
     },
   });
