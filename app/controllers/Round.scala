@@ -118,15 +118,7 @@ final class Round(
         .pov(gameId, color)
         .flatMap:
           case Some(pov) =>
-            getUserStr("pov")
-              .map(_.id)
-              .fold(watch(pov)): requestedPov =>
-                (pov.player.userId, pov.opponent.userId) match
-                  case (Some(_), Some(opponent)) if opponent == requestedPov =>
-                    Redirect(routes.Round.watcher(gameId, !pov.color))
-                  case (Some(player), Some(_)) if player == requestedPov =>
-                    Redirect(routes.Round.watcher(gameId, pov.color))
-                  case _ => Redirect(routes.Round.watcher(gameId, Color.white))
+            watch(if getUserStr("pov").map(_.id).exists(pov.opponent.userId.has) then !pov else pov)
           case None =>
             userC
               .tryRedirect(gameId.into(UserStr))
