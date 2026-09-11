@@ -6,7 +6,7 @@ import type { ColorChoice, ColorProp } from 'lib/setup/color';
 import {
   allTimeModeKeys,
   timeControlFromStoredValues,
-  timeModes,
+  timeModeIds,
   type TimeControl,
 } from 'lib/setup/timeControl';
 import { storedJsonProp } from 'lib/storage';
@@ -15,7 +15,7 @@ import * as xhr from 'lib/xhr';
 
 import type LobbyController from './ctrl';
 import type { ForceSetupOptions, GameMode, GameType, PoolMember, SetupStore } from './interfaces';
-import { keyToId, variantIds } from './options';
+import { variantIds } from './options';
 
 const getPerf = (variant: VariantKey, tc: TimeControl): Perf =>
   variant !== 'standard' && variant !== 'fromPosition' ? variant : tc.speed();
@@ -256,7 +256,7 @@ export default class SetupController {
     xhr.form({
       variant: variantIds[this.variant()].toString(),
       fen: this.variant() === 'fromPosition' ? this.fen() : undefined,
-      timeMode: keyToId(this.timeControl.mode(), timeModes).toString(),
+      timeMode: timeModeIds[this.timeControl.mode()].toString(),
       time: this.timeControl.time().toString(),
       time_range: this.timeControl.timeV().toString(),
       increment: this.timeControl.increment().toString(),
