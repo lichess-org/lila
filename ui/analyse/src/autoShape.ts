@@ -113,6 +113,10 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
     return [];
   }
   const { eval: nEval = {} as Partial<ServerEval>, fen: nFen, ceval: nCeval, threat: nThreat } = ctrl.node;
+  const outcome = ctrl.node.outcome(),
+    isGameEnd = !!outcome || ctrl.node === ctrl.mainline[ctrl.mainline.length - 1],
+    gameWinner = isGameEnd ? ctrl.data.game.winner : undefined,
+    gameStatus = isGameEnd ? ctrl.data.game.status.name : undefined;
 
   let hovering = ctrl.explorer.hovering();
 
@@ -123,8 +127,8 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
 
   let shapes: DrawShape[] = endgameShapes(
     nFen,
-    ctrl.node.check() ? rcolor : ctrl.node.outcome()?.winner || ctrl.data.game.winner,
-    ctrl.node.check() ? 'mate' : ctrl.node.outcome() ? 'stalemate' : ctrl.data.game.status.name,
+    outcome?.winner || gameWinner,
+    outcome ? (outcome.winner ? 'mate' : 'stalemate') : gameStatus,
   );
   let badNode: TreeNode | undefined;
   if ((badNode = ctrl.retro?.showBadNode()) && badNode.uci) {

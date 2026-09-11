@@ -51,6 +51,24 @@ export function annotationShapes(node: TreeNode): DrawShape[] {
 const composeGlyph = (fill: string, path: string) => (stackedNumber: number) =>
   `<defs><filter id="a"><feDropShadow dx="4" dy="7" flood-opacity=".5" stdDeviation="5"/></filter></defs><g transform="matrix(.4 0 0 .4 ${glyphStacktoPx(stackedNumber).x} ${glyphStacktoPx(stackedNumber).y})"><circle cx="50" cy="50" r="50" fill="${fill}" filter="url(#a)"/>${path}</g>`;
 
+export const endgameGlyphs = {
+  win: composeGlyph(
+    '#22ac38',
+    '<path fill="#fff" d="M64 10h5v8h18v-8h5v12q0 8-12 10v5h7v5H69v-5h7v-5q-12-2-12-10zm5 23h18v4H69z"/>',
+  ),
+  mate: composeGlyph(
+    '#df5353',
+    '<path fill="#fff" d="m65 14 4-4 9 9 9-9 4 4-9 9 9 9-4 4-9-9-9 9-4-4 9-9z"/>',
+  ),
+  resign: composeGlyph('#df5353', '<path fill="#fff" d="M65 9h5v25h-5zM70 11h18l-7 7 7 7H70z"/>'),
+  timeout: composeGlyph(
+    '#df5353',
+    '<path fill="#fff" d="M68 10h8v4h-8zM78 16l4 4-10 10-4-4zM66 17a11 11 0 1 0 16 16l-4-4a5 5 0 1 1-8-8z"/>',
+  ),
+  unknown: composeGlyph('#df5353', '<path fill="#fff" d="M68 10h7v7h7v7h-7v7h-7v-7h-7v-7h7z"/>'),
+  draw: composeGlyph('#c8a829', '<path fill="#fff" d="M62 15h27v6H62zM62 27h27v6H62z"/>'),
+};
+
 // the glyphs are laid-down from right to left
 // with the first glyph being at the top right, then progressively to the left, until the top left
 const glyphStacktoPx = (stack: number) => {

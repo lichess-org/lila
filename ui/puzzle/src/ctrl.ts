@@ -530,8 +530,12 @@ export default class PuzzleCtrl implements CevalHandler {
             node: this.node,
             hint: this.hintSquare(),
           }),
-          ...(this.lastFeedback === 'win'
-            ? endgameShapes(this.node.fen, this.pov, this.node.check() ? 'mate' : 'unknownFinish')
+          ...(this.lastFeedback === 'win' && this.node.outcome()
+            ? endgameShapes(
+                this.node.fen,
+                this.node.outcome()?.winner,
+                this.node.outcome()?.winner ? 'mate' : 'stalemate',
+              )
             : []),
         ],
       ),
