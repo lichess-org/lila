@@ -32,6 +32,7 @@
           color-mix(in oklab, $c-body-gradient 50%, $c-bg-page) 60px
         );
         border-color: $c-border;
+        box-shadow: 0 1px 5px 0 rgb(0 0 0 / 0.07);
       }
     }
 
