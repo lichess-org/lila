@@ -153,7 +153,7 @@ export function renderGauge(ctrl: CevalHandler): VNode | undefined {
       class: { empty: !defined(bestEv), reverse: ctrl.getOrientation() === 'black' },
       attrs: { style: `--eval-percent: ${100 - (ev + 1) * 50}%` },
     },
-    [gaugeTicks],
+    gaugeTicks,
   );
 }
 
