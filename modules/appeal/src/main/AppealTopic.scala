@@ -32,6 +32,10 @@ object AppealTopicApi:
 
   def select(u: UserStatus, appeals: UserAppeals): Option[AppealTopic] =
     candidatesFor(u)
+      .pipe: topics =>
+        if u.user.enabled.no && appeals.get(AppealTopic.close).exists(_.isClosed)
+        then Nil
+        else topics
       .find: topic =>
         appeals.get(topic).forall(_.isOpen)
       .orElse:

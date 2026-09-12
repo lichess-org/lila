@@ -14,6 +14,8 @@
   &__side {
     @extend %flex-column;
 
+    overflow: hidden;
+
     &__preload {
       @extend %box-neat;
 
@@ -72,12 +74,11 @@
     }
 
     &__name {
-      @extend %nowrap-ellipsis;
-
       flex: 1;
       padding: 1em;
       gap: 0.7em;
       font-weight: bold;
+      line-height: 1.1em;
 
       &::before {
         @extend %data-icon;
