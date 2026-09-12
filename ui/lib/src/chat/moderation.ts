@@ -91,7 +91,7 @@ export const lineAction = (): VNode => snabH('action.mod', { attrs: dataIcon(lic
 
 export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
   if (!ctrl) return undefined;
-  if (ctrl.loading()) return [snabH('div.loading')];
+  if (ctrl.loading()) return [div('.loading')];
   const data = ctrl.data();
   if (!data) return undefined;
   const perms = ctrl.opts.permissions;
