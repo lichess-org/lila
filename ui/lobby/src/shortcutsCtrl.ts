@@ -70,7 +70,6 @@ export const siteShortcuts = deepFreeze([
     name: 'Analysis discussion',
     url: '/forum/game-analysis',
   },
-  { id: 'feedback', iconKey: 'Tools', name: 'Feedback & support', url: '/forum/lichess-feedback' },
 ] as const satisfies readonly LobbyShortcut[]);
 
 const slotCount = 3 * 4 - 1; // minus 1 for customize button
