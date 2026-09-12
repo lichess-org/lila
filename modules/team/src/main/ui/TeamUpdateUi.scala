@@ -88,7 +88,7 @@ final class TeamUpdateUi(helpers: Helpers, markdownCache: lila.memo.MarkdownCach
       maxPgns = Max(0)
     )
     def apply(up: TeamUpdate[?, ?]): Frag =
-      markdownCache.toHtmlSyncWithoutPgnEmbeds(s"team::update:${up.id}", up.text, options)
+      markdownCache.toHtmlSyncWithoutPgnEmbeds(s"team:update:${up.id}", up.text, options)
 
   private def msgList(msgs: TeamUpdate.Recent)(nextUrl: Int => Call)(using Context) =
     st.article(
