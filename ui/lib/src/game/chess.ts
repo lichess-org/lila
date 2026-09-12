@@ -23,6 +23,12 @@ export const plyOpponentColor = (ply: number): Color => opposite(plyColor(ply));
 
 export const pieceCount = (fen: FEN): number => fen.split(/\s/)[0].split(/[nbrqkp]/i).length - 1;
 
+// FIDE fifty-move rule: 100 halfmoves in the FEN clock.
+export function isFiftyMoves(fen: FEN): boolean {
+  const halfmoves = Number(fen.split(' ')[4]);
+  return Number.isFinite(halfmoves) && halfmoves >= 100;
+}
+
 export function fen960(): string {
   const [dark, light] = [2 * Math.floor(Math.random() * 4), 1 + 2 * Math.floor(Math.random() * 4)];
   const files = shuffle([0, 1, 2, 3, 4, 5, 6, 7].filter(f => f !== dark && f !== light));

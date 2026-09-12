@@ -1,3 +1,4 @@
+import { isFiftyMoves } from 'lib/game';
 import type { TreeNode } from 'lib/tree/types';
 
 import type AnalyseCtrl from '@/ctrl';
@@ -43,7 +44,7 @@ export default function (root: AnalyseCtrl, goal: Goal, nbMoves: number): boolea
   switch (goal.result) {
     case 'drawIn':
     case 'equalIn':
-      if (node.threefold) return true;
+      if (node.threefold || isFiftyMoves(node.fen)) return true;
       if (isDrawish(node) === false) return false;
       if (nbMoves > goal.moves!) return false;
       if (outcome && !outcome.winner) return true;
@@ -63,7 +64,7 @@ export default function (root: AnalyseCtrl, goal: Goal, nbMoves: number): boolea
       if (!node.uci[4]) return null;
       return isWinning(node, goal.cp!, root.bottomColor());
     case 'mate':
-      if (node.threefold) return false;
+      if (node.threefold || isFiftyMoves(node.fen)) return false;
       if (isDrawish(node)) return false;
       if (node.pos().unwrap().isStalemate()) return false;
   }

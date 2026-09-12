@@ -2,7 +2,7 @@ import type { Outcome } from 'chessops/types';
 
 import type { Prop } from 'lib';
 import { api } from 'lib/api';
-import { fixCrazySan } from 'lib/game/chess';
+import { fixCrazySan, isFiftyMoves } from 'lib/game/chess';
 import { hl, type VNode, bind, onInsert, type MaybeVNodes } from 'lib/view';
 
 import type AnalyseCtrl from '@/ctrl';
@@ -43,14 +43,14 @@ const renderOffTrack = (ctrl: PracticeCtrl): VNode =>
 
 function renderEnd(root: AnalyseCtrl, end: Outcome): VNode {
   const color = end.winner || root.turnColor();
-  const isFiftyMoves = root.practice?.currentNode().fen.split(' ')[4] === '100';
+  const fiftyMoves = root.practice && isFiftyMoves(root.practice.currentNode().fen);
   return hl('div.player', [
     color ? hl('div.no-square', hl('piece.king.' + color)) : hl('div.icon.off', '!'),
     hl('div.instruction', [
       hl('strong', end.winner ? i18n.site.checkmate : i18n.site.draw),
       end.winner
         ? hl('em', hl('color', i18n.site[end.winner === 'white' ? 'whiteWinsGame' : 'blackWinsGame']))
-        : isFiftyMoves
+        : fiftyMoves
           ? i18n.site.drawByFiftyMoves
           : hl('em', i18n.site.theGameIsADraw),
     ]),
@@ -107,9 +107,9 @@ export default function (root: AnalyseCtrl): VNode | undefined {
   const ctrl = root.practice;
   if (!ctrl) return undefined;
   const comment: Comment | null = ctrl.comment();
-  const isFiftyMoves = ctrl.currentNode().fen.split(' ')[4] === '100';
+  const fiftyMoves = isFiftyMoves(ctrl.currentNode().fen);
   const running: boolean = ctrl.running();
-  const end = ctrl.currentNode().threefold || isFiftyMoves ? { winner: undefined } : root.node.outcome();
+  const end = ctrl.currentNode().threefold || fiftyMoves ? { winner: undefined } : root.node.outcome();
   return hl('div.practice-box.training-box.sub-box.' + (comment ? comment.verdict : 'no-verdict'), [
     hl('div.title', i18n.site.practiceWithComputer),
     hl(

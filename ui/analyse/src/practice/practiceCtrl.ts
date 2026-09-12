@@ -4,6 +4,7 @@ import { parseUci } from 'chessops/util';
 import { defined, prop, type Prop, requestIdleCallbackSafe } from 'lib';
 import { api } from 'lib/api';
 import { winningChances, type CustomCeval } from 'lib/ceval';
+import { isFiftyMoves } from 'lib/game';
 import { storedBooleanPropWithEffect } from 'lib/storage';
 import { path as treePath } from 'lib/tree/tree';
 import type { TablebaseHit, TreeNode, TreePath } from 'lib/tree/types';
@@ -105,10 +106,9 @@ export function make(root: AnalyseCtrl): PracticeCtrl {
 
     if (outcome?.winner) verdict = 'goodMove';
     else {
-      const isFiftyMoves = node.fen.split(' ')[4] === '100';
       const nodeEval: EvalScore =
         tbhitToEval(node.tbhit) ||
-        (node.threefold || (outcome && !outcome.winner) || isFiftyMoves
+        (node.threefold || (outcome && !outcome.winner) || isFiftyMoves(node.fen)
           ? { cp: 0 }
           : (node.ceval as EvalScore));
       const prevEval: EvalScore = tbhitToEval(prev.tbhit) || prev.ceval!;

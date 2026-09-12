@@ -6,11 +6,12 @@ import { renderEval as normalizeEval } from 'lib/ceval';
 import { dispatchChessgroundResize } from 'lib/chessgroundResize';
 import { isMobile } from 'lib/device';
 import { playable } from 'lib/game';
-import { fixCrazySan, plyToTurn } from 'lib/game/chess';
+import { fixCrazySan, plyToTurn, isFiftyMoves } from 'lib/game/chess';
 import statusView from 'lib/game/view/status';
 import { licon } from 'lib/licon';
 import * as Prefs from 'lib/prefs';
 import { storage } from 'lib/storage';
+import { treeOps } from 'lib/tree';
 import { path as treePath } from 'lib/tree/tree';
 import type { ClientEval, Glyph, ServerEval, TreeNode, TreePath } from 'lib/tree/types';
 import {
@@ -263,6 +264,8 @@ export function renderResult(ctrl: AnalyseCtrl): VNode[] {
     if (result === '½-0') return render(result, i18n.study.blackDefeatWhiteCanNotWin);
     if (result === '0-½') return render(result, i18n.study.whiteDefeatBlackCanNotWin);
     return render('½-½', i18n.site.draw);
+  } else if (isFiftyMoves(treeOps.last(ctrl.mainline)?.fen ?? '')) {
+    return render('½-½', `${i18n.site.fiftyMovesWithoutProgress} • ${i18n.site.draw}`);
   }
   return [];
 }

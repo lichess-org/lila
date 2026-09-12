@@ -24,7 +24,7 @@ import {
 import { CevalCtrl, useFirstEval, sanIrreversible, type CevalHandler, type CevalOpts } from 'lib/ceval';
 import { ChatCtrl } from 'lib/chat/chatCtrl';
 import { displayColumns } from 'lib/device';
-import { playable, playedTurns, fenToEpd, validUci } from 'lib/game';
+import { playable, playedTurns, fenToEpd, validUci, isFiftyMoves } from 'lib/game';
 import { plyColor } from 'lib/game/chess';
 import { PromotionCtrl } from 'lib/game/promotion';
 import { pubsub } from 'lib/pubsub';
@@ -342,7 +342,7 @@ export default class AnalyseCtrl implements CevalHandler {
   }
 
   private showGround(): void {
-    if (this.node.pos().isErr || this.node.outcome()) this.ceval.reset();
+    if (this.node.pos().isErr || this.node.outcome() || isFiftyMoves(this.node.fen)) this.ceval.reset();
     this.withCg(cg => {
       cg.set(this.makeCgOpts());
       this.setAutoShapes();
@@ -808,7 +808,8 @@ export default class AnalyseCtrl implements CevalHandler {
   startCeval = () => {
     if (!this.asyncReady) return;
     if (!this.ceval.download) this.ceval.reset();
-    if (this.node.threefold || !this.cevalEnabled() || this.node.outcome()) return;
+    if (this.node.threefold || isFiftyMoves(this.node.fen) || !this.cevalEnabled() || this.node.outcome())
+      return;
     this.ceval.start(this.path, this.nodeList, undefined, this.threatMode());
     this.evalCache.fetch(this.path, this.ceval.search.multiPv);
   };
@@ -840,7 +841,8 @@ export default class AnalyseCtrl implements CevalHandler {
       this.showEvaluation() &&
       this.isCevalAllowed() &&
       (this.cevalEnabled() || !!this.node.eval || !!this.node.ceval) &&
-      !this.node.outcome()
+      !this.node.outcome() &&
+      !isFiftyMoves(this.node.fen)
     );
   }
 
