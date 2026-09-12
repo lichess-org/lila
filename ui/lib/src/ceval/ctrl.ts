@@ -83,8 +83,9 @@ export class CevalCtrl {
       if (this.curEval?.bestmove) return;
       if (!this.lastStarted) return;
       if (!this.analysable) return;
-      if (document.hidden && isTouchDevice()) this.worker?.stop();
-      else if (!document.hidden && this.curEval) this.doStart(this.lastStarted);
+      if (!isTouchDevice()) return;
+      if (document.hidden) this.worker?.stop();
+      else this.doStart(this.lastStarted);
     });
   }
 
@@ -244,7 +245,12 @@ export class CevalCtrl {
     const step = s.steps[s.steps.length - 1];
     const { search, threads, hashSize, engine } = this.info(this.opts.custom)!;
     const lastEvalMillis = (s.threatMode ? step.threat : step.ceval)?.millis ?? 0;
-    if (!this.isDeeper() && 'movetime' in search.by && lastEvalMillis >= search.by.movetime) {
+    if (
+      !this.isDeeper() &&
+      'movetime' in search.by &&
+      lastEvalMillis >= search.by.movetime &&
+      step.ceval?.pvs.length === search.multiPv
+    ) {
       return;
     }
     const work: Work = {
