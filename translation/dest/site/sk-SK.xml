@@ -499,7 +499,6 @@
   <string name="apply">Potvrdiť</string>
   <string name="save">Uložiť</string>
   <string name="leaderboard">Rebríček</string>
-  <string name="screenshotCurrentPosition">Odfotiť aktuálnu pozíciu</string>
   <string name="gameAsGIF">Uložiť ako GIF</string>
   <string name="playerNames">Mená hráčov</string>
   <string name="moveAnnotations">Poznámky k ťahom</string>
@@ -907,7 +906,6 @@
   <string name="background">Pozadie</string>
   <string name="light">Svetlé</string>
   <string name="dark">Tmavé</string>
-  <string name="transparent">Priehľadné</string>
   <string name="deviceTheme">Motív zariadenia</string>
   <string name="backgroundImageUrl">URL obrázka na pozadí:</string>
   <string name="board">Šachovnica</string>

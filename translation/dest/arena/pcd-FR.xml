@@ -89,4 +89,5 @@ Par exemple, un rang moyen de 3 % signifie que vous êtes habituellement parmi 
   <string name="onlyTitledHelp">Un titre officiel est requis pour participer au tournoi</string>
   <string name="tournamentPairingsAreNowClosed">Les appariements sont terminés.</string>
   <string name="berserkRate">Taux de berserk</string>
+  <string name="leaguesAndStreamerBattles">Ligues &amp; batailles de streamer</string>
 </resources>

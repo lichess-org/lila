@@ -175,6 +175,10 @@
   </plurals>
   <string name="moveTimes">Yurishlar vaqti</string>
   <string name="flipBoard">Taxtani aylantirish</string>
+  <string name="toggleLocalEngine">Lokal dvijok</string>
+  <string name="engineSettings">Dvijok sozlamalari</string>
+  <string name="enginesFromStrongestToWeakest">Dvijoklar kuchlidan kuchsizga qarab</string>
+  <string name="illegalPositions">Notoʻgʻri pozitsiyalarni tahlil qilib boʻlmaydi</string>
   <string name="threefoldRepetition">Uch marta takrorlanish</string>
   <string name="claimADraw">Durang talab qilish</string>
   <string name="drawClaimed">Durang</string>
@@ -443,7 +447,6 @@ Reytingli oʻyinlar o\'ynasangiz reyting barqarorligi oshadi.</string>
   <string name="apply">Saqlash</string>
   <string name="save">Saqlash</string>
   <string name="leaderboard">Peshqadamlar jadvali</string>
-  <string name="screenshotCurrentPosition">Joriy pozitsiyani skrinshot qilish</string>
   <string name="positionAsImage" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position. Replaces old string screenshotCurrentPosition">Pozitsiya rasm sifatida</string>
   <string name="gameAsGIF">Oʻyin GIF formatida</string>
   <string name="playerNames">Oʻyinchilar ismlari</string>
@@ -744,8 +747,10 @@ Reytingli oʻyinlar o\'ynasangiz reyting barqarorligi oshadi.</string>
   <string name="keyboardShortcuts">Klaviatura yorliqlari</string>
   <string name="keyMoveBackwardOrForward">ortga/oldinga yurish</string>
   <string name="keyGoToStartOrEnd">boshiga/oxiriga oʻtish</string>
+  <string name="keyGoToPreviousOrNextLine">oldingi/keyingi qatorga oʻtish</string>
   <string name="keyCycleSelectedVariation">Tanlangan variatsiyani aylantirish</string>
   <string name="keyShowOrHideComments">sharhlarni koʻrsatish/yashirish</string>
+  <string name="keyShowOrHideCurrentVariation">hozirgi variantni koʻrsatish/yashirish</string>
   <string name="keyEnterOrExitVariation">variatsiyaga kirish/chiqish</string>
   <string name="keyPreviousBranch">Oldingi tarmoq</string>
   <string name="keyNextBranch">Keyingi tarmoq</string>
@@ -839,7 +844,6 @@ Reytingli oʻyinlar o\'ynasangiz reyting barqarorligi oshadi.</string>
   <string name="theme">Tema</string>
   <string name="light">Yorugʻ</string>
   <string name="dark">Qorongʻu</string>
-  <string name="transparent">Shaffof</string>
   <string name="picture">Rasm</string>
   <string name="deviceTheme">Qurilma temasi</string>
   <string name="roundness">Burchaklar yumaloqligi</string>
@@ -1066,4 +1070,7 @@ Loyiha faoliyati, uni rivojlantirish va barcha xarajatlar faqat foydalanuvchilar
   <string name="tags">Teglar</string>
   <string name="enPassant">En passant</string>
   <string name="settings">Sozlamalar</string>
+  <string name="verifyingYourDevice">Qurilmangiz tasdiqlanmoqda...</string>
+  <string name="chessOpenings">Shaxmat debyutlari</string>
+  <string name="boards">Taxtalar</string>
 </resources>

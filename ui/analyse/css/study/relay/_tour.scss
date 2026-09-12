@@ -767,21 +767,6 @@
     }
   }
 
-  %game-link-styles {
-    @extend %flex-center-nowrap, %box-radius;
-
-    padding: 0.4em 0.5em;
-
-    @media (min-width: at-least($medium)) {
-      font-size: 1.6em;
-    }
-
-    &:hover {
-      background: color-mix(in oklab, $c-primary 20%, $c-bg);
-      color: $c-font-clearer;
-    }
-  }
-
   .fide-players-table {
     .game-link {
       @extend %game-link-styles;

@@ -91,4 +91,5 @@ Adibidez, %3ko batez besteko mailak esan nahi du normalean lehen %3an bukatzen d
   <string name="onlyTitledHelp">Eskatu titulu ofiziala izatea txapelketan sartzeko</string>
   <string name="tournamentPairingsAreNowClosed">Txapelketaren parekatzeak itxita daude jada.</string>
   <string name="berserkRate">Berserk ratioa</string>
+  <string name="leaguesAndStreamerBattles">Ligak &amp; Esatarien arteko txapelketak</string>
 </resources>

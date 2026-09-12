@@ -49,7 +49,7 @@ export function view(ctrl: ServerEval): VNode {
   if (!ctrl.root.settings.showStaticAnalysis) return disabled();
   if (!analysis) return ctrl.requested ? requested() : requestButton(ctrl);
   const mainline = ctrl.requested ? ctrl.root.data.treeParts : ctrl.analysedMainline();
-  const chart = h('canvas.study__server-eval.ready.' + analysis.id, {
+  const chart = h('canvas.study__server-eval-canvas.ready.' + analysis.id, {
     hook: onInsert(el => {
       requestIdleCallbackSafe(async () => {
         (await site.asset.loadEsm<ChartGame>('chart.game'))

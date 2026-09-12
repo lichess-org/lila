@@ -416,7 +416,6 @@
   <string name="apply">Unviar</string>
   <string name="save">Guardar</string>
   <string name="leaderboard">Clasificación</string>
-  <string name="screenshotCurrentPosition">Facer captura de pantalla de la posición actual</string>
   <string name="gameAsGIF">Guardar partida en formatu GIF</string>
   <string name="pasteTheFenStringHere">Pega\'l testu FEN equí</string>
   <string name="pasteThePgnStringHere">Pega\'l testu PGN equí</string>
@@ -790,7 +789,6 @@
   <string name="background">Fondu</string>
   <string name="light">Claro</string>
   <string name="dark">Escuru</string>
-  <string name="transparent">Transparente</string>
   <string name="deviceTheme">Tema del dispositivu</string>
   <string name="backgroundImageUrl">URL d\'imaxe de fondu:</string>
   <string name="board">Tableru</string>

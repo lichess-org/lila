@@ -474,7 +474,6 @@ Jucarea de jocuri oficiale va crește stabilitatea.</string>
   <string name="apply">Aplicați</string>
   <string name="save">Salvează</string>
   <string name="leaderboard">Clasament</string>
-  <string name="screenshotCurrentPosition">Captură de ecran cu poziția curentă</string>
   <string name="positionAsImage" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position. Replaces old string screenshotCurrentPosition">Poziția ca imagine</string>
   <string name="gameAsGIF">Salvați jocul ca fișier GIF</string>
   <string name="playerNames">Nume jucători</string>
@@ -881,7 +880,6 @@ Jucarea de jocuri oficiale va crește stabilitatea.</string>
   <string name="theme">Tema</string>
   <string name="light">Luminos</string>
   <string name="dark">Întunecat</string>
-  <string name="transparent">Transparent</string>
   <string name="picture">Imagine</string>
   <string name="deviceTheme">Tema dispozitivului</string>
   <string name="roundness">Rotunjire colțuri</string>
@@ -1111,4 +1109,6 @@ Toate costurile de operare și de dezvoltare sunt finanțate doar din donațiile
   <string name="tags">Etichete</string>
   <string name="enPassant">En passant legale</string>
   <string name="settings">Setări</string>
+  <string name="chessOpenings">Deschideri de șah</string>
+  <string name="boards">Table</string>
 </resources>

@@ -414,7 +414,6 @@
   <string name="apply">ಸಲ್ಲಿಸಿ</string>
   <string name="save">ಉಳಿಸಿ</string>
   <string name="leaderboard">ಮುಂದಾಳುಗಳ ಪಟ್ಟಿ</string>
-  <string name="screenshotCurrentPosition">ಆಟದ ಫೋಟೊ ಪಡೆಯಲು</string>
   <string name="gameAsGIF">GIF ಆಗಿ ಆಟ ಪಡೆಯಲು</string>
   <string name="pasteTheFenStringHere">FEN ಅಕ್ಷರಮಾಲೆಯನ್ನು ಇಲ್ಲಿ ಅಂಟಿಸಿ</string>
   <string name="pasteThePgnStringHere">PGN ಅಕ್ಷರಮಾಲೆಯನ್ನು ಇಲ್ಲಿ ಅಂಟಿಸಿ</string>
@@ -751,7 +750,6 @@
   <string name="background">ಹಿನ್ನೆಲೆ</string>
   <string name="light">ತಿಳಿಬಣ್ಣ</string>
   <string name="dark">ಗಾಢ ಬಣ್ಣ</string>
-  <string name="transparent">ಪಾರದರ್ಶಕ</string>
   <string name="deviceTheme">ಸಾಧನದ ಥೀಮ್</string>
   <string name="backgroundImageUrl">ಹಿನ್ನೆಲೆ ಚಿತ್ರಕ್ಕೆ URL:</string>
   <string name="pieceSet">ಚೆಸ್ ಕಾಯಿಗಳ ಕಂತೆ</string>

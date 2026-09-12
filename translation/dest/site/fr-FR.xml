@@ -175,6 +175,10 @@
   </plurals>
   <string name="moveTimes">Temps par coup</string>
   <string name="flipBoard">Tourner l\'échiquier</string>
+  <string name="toggleLocalEngine">Activer/désactiver le moteur d\'analyse local</string>
+  <string name="engineSettings">Paramètres du moteur d\'analyse</string>
+  <string name="enginesFromStrongestToWeakest">Moteurs d\'analyse, du plus fort au plus faible</string>
+  <string name="illegalPositions">Impossible d\'analyser une position illégale</string>
   <string name="threefoldRepetition">Triple répétition</string>
   <string name="claimADraw">Revendiquer la partie nulle</string>
   <string name="drawClaimed">Nulle revendiquée</string>
@@ -442,7 +446,6 @@
   <string name="apply">Appliquer</string>
   <string name="save">Enregistrer</string>
   <string name="leaderboard">Classements</string>
-  <string name="screenshotCurrentPosition">Capture d\'écran de la position actuelle</string>
   <string name="positionAsImage" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position. Replaces old string screenshotCurrentPosition">Image de la position</string>
   <string name="gameAsGIF">Enregistrer la partie en GIF</string>
   <string name="playerNames">Noms des joueurs</string>
@@ -743,8 +746,10 @@
   <string name="keyboardShortcuts">Raccourcis clavier</string>
   <string name="keyMoveBackwardOrForward">avancer/reculer</string>
   <string name="keyGoToStartOrEnd">aller au début/à la fin</string>
+  <string name="keyGoToPreviousOrNextLine">aller à la variante précédente/suivante</string>
   <string name="keyCycleSelectedVariation">Changer de variante</string>
   <string name="keyShowOrHideComments">montrer/cacher les annotations</string>
+  <string name="keyShowOrHideCurrentVariation">afficher/masquer la variante actuelle</string>
   <string name="keyEnterOrExitVariation">entrer dans/sortir d\'une variante</string>
   <string name="keyPreviousBranch">Branche précédente</string>
   <string name="keyNextBranch">Branche suivante</string>
@@ -838,7 +843,6 @@
   <string name="theme">Thème</string>
   <string name="light">Lumineux</string>
   <string name="dark">Sombre</string>
-  <string name="transparent">Transparent</string>
   <string name="picture">Photo</string>
   <string name="deviceTheme">Thème de l\'appareil</string>
   <string name="roundness">Coins arrondis</string>
@@ -1065,4 +1069,7 @@ Tous les coûts d\'exploitation, le développement et le contenu sont financés 
   <string name="tags">Étiquettes</string>
   <string name="enPassant">Prise en passant ?</string>
   <string name="settings">Paramètres</string>
+  <string name="verifyingYourDevice">Vérification de votre appareil...</string>
+  <string name="chessOpenings">Ouvertures</string>
+  <string name="boards">Échiquiers</string>
 </resources>

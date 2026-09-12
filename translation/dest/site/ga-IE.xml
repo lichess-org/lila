@@ -467,7 +467,6 @@
   <string name="apply">Deimhnigh</string>
   <string name="save">Sábháil</string>
   <string name="leaderboard">Clár ceann riain</string>
-  <string name="screenshotCurrentPosition">Seat an suíomh reatha</string>
   <string name="gameAsGIF">Cluiche mar GIF</string>
   <string name="pasteTheFenStringHere">Greamaigh an téacs FEN anseo</string>
   <string name="pasteThePgnStringHere">Greamaigh an téacs PGN anseo</string>
@@ -833,7 +832,6 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="background">Cúlra</string>
   <string name="light">Geal</string>
   <string name="dark">Dorcha</string>
-  <string name="transparent">Trédhearcach</string>
   <string name="deviceTheme">Téama gléas</string>
   <string name="backgroundImageUrl">URL íomhá chúlrá:</string>
   <string name="pieceSet">Foireann píosaí</string>

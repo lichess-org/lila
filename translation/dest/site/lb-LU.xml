@@ -429,7 +429,6 @@
   <string name="apply">Uwenden</string>
   <string name="save">Späicheren</string>
   <string name="leaderboard">Ranglëscht</string>
-  <string name="screenshotCurrentPosition">Aktuell Positioun screenshotten</string>
   <string name="gameAsGIF">Partie als GIF</string>
   <string name="playerNames">Spillernimm</string>
   <string name="moveAnnotations">Zuchannotatiounen</string>
@@ -803,7 +802,6 @@
   <string name="background">Hannergrond</string>
   <string name="light">Hell</string>
   <string name="dark">Däischter</string>
-  <string name="transparent">Transparent</string>
   <string name="picture">Bild</string>
   <string name="deviceTheme">Mam Gerät synchroniséieren</string>
   <string name="backgroundImageUrl">URL vum Hannergrondbild:</string>

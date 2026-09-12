@@ -385,7 +385,6 @@
   <string name="apply">ນຳໃຊ້</string>
   <string name="save">ບັນທຶກ</string>
   <string name="leaderboard">ຕາຕະລາງຄະແນນນຳ</string>
-  <string name="screenshotCurrentPosition">ຖ່າຍຮູບໜ້າຈໍຕຳແໜ່ງປະຈຸບັນ</string>
   <string name="gameAsGIF">ເກມໃນຮູບແບບ GIF</string>
   <string name="pasteTheFenStringHere">ວາງຂໍ້ຄວາມ FEN ທີ່ນີ້</string>
   <string name="pasteThePgnStringHere">ວາງຂໍ້ຄວາມ PGN ທີ່ນີ້</string>
@@ -749,7 +748,6 @@
   <string name="background">ພື້ນຫຼັງ</string>
   <string name="light">ແຈ້ງ</string>
   <string name="dark">ມືດ</string>
-  <string name="transparent">ໂປ່ງໃສ</string>
   <string name="deviceTheme">ທີມຕາມອຸປະກອນ</string>
   <string name="backgroundImageUrl">URL ຂອງຮູບພື້ນຫຼັງ:</string>
   <string name="board">ກະດານ</string>

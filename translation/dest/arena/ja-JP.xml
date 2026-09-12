@@ -83,4 +83,5 @@
   <string name="onlyTitledHelp">参加には公式タイトルの保持を必須とする</string>
   <string name="tournamentPairingsAreNowClosed">トーナメントの対局の組み合わせは終了しました。</string>
   <string name="berserkRate">バーサーク率</string>
+  <string name="leaguesAndStreamerBattles">リーグとストリーマーバトル</string>
 </resources>

@@ -437,7 +437,6 @@
   <string name="apply">Applica</string>
   <string name="save">Salva</string>
   <string name="leaderboard">Classifica</string>
-  <string name="screenshotCurrentPosition">Salva la schermata corrente</string>
   <string name="gameAsGIF">Salva la partita come GIF</string>
   <string name="playerNames">Nomi dei giocatori</string>
   <string name="moveAnnotations">Annotazioni delle mosse</string>
@@ -829,7 +828,6 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="theme">Tema</string>
   <string name="light">Chiaro</string>
   <string name="dark">Scuro</string>
-  <string name="transparent">Trasparente</string>
   <string name="picture">Immagine</string>
   <string name="deviceTheme">Tema del dispositivo</string>
   <string name="roundness">Sfericità</string>
