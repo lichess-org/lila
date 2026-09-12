@@ -52,24 +52,6 @@ export const siteShortcuts = deepFreeze([
     name: 'Puzzle racer',
     url: '/racer',
   },
-  {
-    id: 'offTopic',
-    iconKey: 'BubbleConvo',
-    name: 'Off-topic discussion',
-    url: '/forum/off-topic-discussion',
-  },
-  {
-    id: 'chessDiscussion',
-    iconKey: 'BubbleConvo',
-    name: 'Chess discussion',
-    url: '/forum/general-chess-discussion',
-  },
-  {
-    id: 'analysisDiscussion',
-    iconKey: 'BubbleConvo',
-    name: 'Analysis discussion',
-    url: '/forum/game-analysis',
-  },
 ] as const satisfies readonly LobbyShortcut[]);
 
 const slotCount = 3 * 4 - 1; // minus 1 for customize button
