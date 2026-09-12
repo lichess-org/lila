@@ -1,4 +1,3 @@
-import { dragNewPiece } from '@lichess-org/chessground/drag';
 import type { MouchEvent, NumberPair } from '@lichess-org/chessground/types';
 import { eventPosition, opposite } from '@lichess-org/chessground/util';
 import { lichessRules } from 'chessops/compat';
@@ -467,7 +466,7 @@ function onSelectSparePiece(ctrl: EditorCtrl, s: Selected, upEvent: string): (e:
     } else {
       ctrl.selected('pointer');
 
-      dragNewPiece(ctrl.chessground!.state, { color: s[0], role: s[1] }, e, true);
+      ctrl.chessground?.dragNewPiece({ color: s[0], role: s[1] }, e, true);
 
       document.addEventListener(
         upEvent,
