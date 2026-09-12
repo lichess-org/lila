@@ -16,6 +16,7 @@ import {
   tbody,
   td,
   tr,
+  i,
 } from '@/view';
 import { userLink, profileUrl } from '@/view/userLink';
 
@@ -170,7 +171,7 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
       button({ attrs: dataIcon(licon.X), hook: bind('click', ctrl.close) }),
     ]),
     div('.mchat__content.moderation', [
-      snabH('i.line-text.block', ['"', data.text, '"']),
+      i('.line-text.block', ['"', data.text, '"']),
       infos,
       timeout,
       history,

@@ -1,6 +1,6 @@
 import { debounce } from '@/async';
 import { blurOnEscape } from '@/common';
-import { type VNode, snabH, onInsert, div } from '@/view';
+import { type VNode, onInsert, div, textarea } from '@/view';
 
 import type { NoteCtrl, NoteOpts } from './interfaces';
 import * as xhr from './xhr';
@@ -29,7 +29,7 @@ export function noteCtrl(opts: NoteOpts): NoteCtrl {
 export function noteView(ctrl: NoteCtrl, autofocus: boolean): VNode {
   const text = ctrl.text();
   if (text === undefined) return div('.loading', { hook: { insert: ctrl.fetch } });
-  return snabH('textarea.mchat__note', {
+  return textarea()('.mchat__note', {
     attrs: { placeholder: i18n.site.typePrivateNotesHere, spellcheck: 'false' },
     hook: onInsert<HTMLTextAreaElement>(el => {
       el.value = text;
