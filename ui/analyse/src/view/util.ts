@@ -4,7 +4,6 @@ import {
   eventListenersModule,
   init,
   propsModule,
-  styleModule,
   type VNodeData,
 } from 'snabbdom';
 
@@ -14,7 +13,7 @@ import { img, option as opt } from 'lib/view';
 
 import type { Federation } from '@/study/interfaces';
 
-export const patch = init([classModule, attributesModule, propsModule, eventListenersModule, styleModule]);
+export const patch = init([classModule, attributesModule, propsModule, eventListenersModule]);
 
 export const emptyRedButton = 'button.button.button-red.button-empty';
 

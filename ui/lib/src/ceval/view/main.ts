@@ -139,7 +139,7 @@ let gaugeTicks: VNode[];
 export function renderGauge(ctrl: CevalHandler): VNode | undefined {
   if (ctrl.ongoing || !ctrl.showEvalGauge()) return undefined;
   gaugeTicks ??= Array.from({ length: 7 }, (_, i) =>
-    hl('tick', { class: { zero: i === 3 }, style: { height: `${(i + 1) * 12.5}%` } }),
+    hl('tick', { class: { zero: i === 3 }, attrs: { style: `height: ${(i + 1) * 12.5}%` } }),
   );
   const bestEv = getBestEval(ctrl);
   let ev;
@@ -151,7 +151,7 @@ export function renderGauge(ctrl: CevalHandler): VNode | undefined {
     '.eval-gauge',
     {
       class: { empty: !defined(bestEv), reverse: ctrl.getOrientation() === 'black' },
-      style: { '--eval-percent': `${100 - (ev + 1) * 50}%` },
+      attrs: { style: `--eval-percent: ${100 - (ev + 1) * 50}%` },
     },
     [gaugeTicks],
   );
@@ -202,7 +202,7 @@ export function renderCeval(ctrl: CevalHandler): VNode[] {
       '.bar',
       span({
         class: { threat: enabled && threatMode },
-        style: { width: `${percent}%` },
+        attrs: { style: `width: ${percent}%` },
         hook: {
           postpatch: (old, vnode) => {
             if (old.data!.percent > percent || !!old.data!.threatMode !== threatMode) {
