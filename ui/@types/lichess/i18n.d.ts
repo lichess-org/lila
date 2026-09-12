@@ -3807,8 +3807,8 @@ interface I18n {
     ifYouDoNotGetTheEmail: string;
     /** If you don't see the email, check other places it might be, like your junk, spam, social, or other folders. */
     ifYouDoNotSeeTheEmailCheckOtherPlaces: string;
-    /** Illegal positions cannot be analyzed */
-    illegalPositions: string;
+    /** Illegal position */
+    illegalPosition: string;
     /** Image opacity */
     imageOpacity: string;
     /** Important */
