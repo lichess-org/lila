@@ -75,15 +75,13 @@ export function renderCevalSettings(ctrl: CevalHandler): VNode | null {
       [
         engineSelection(ctrl),
         (id => {
-          return div('.setting', { attrs: { title: i18n.site.searchTimeDescription } }, [
-            label({ attrs: { for: id } }, i18n.site.searchTime),
+          return div('.setting', { title: i18n.site.searchTimeDescription }, [
+            label({ for: id }, i18n.site.searchTime),
             input('range')(`#${id}`, {
-              attrs: {
-                min: 0,
-                max: searchTicks.length - 1,
-                step: 1,
-                'aria-valuetext': i18n.site.nbSeconds(searchTicks[searchTick()]),
-              },
+              min: 0,
+              max: searchTicks.length - 1,
+              step: 1,
+              'aria-valuetext': i18n.site.nbSeconds(searchTicks[searchTick()]),
               hook: rangeConfig(searchTick, n => {
                 ceval.storedMovetime(searchTicks[n] * 1000);
                 ctrl.startCeval();
@@ -95,10 +93,12 @@ export function renderCevalSettings(ctrl: CevalHandler): VNode | null {
         })('engine-search-ms'),
         (id => {
           const max = 5;
-          return div('.setting', { attrs: { title: i18n.site.multipleLinesDescription } }, [
-            label({ attrs: { for: id } }, i18n.site.multipleLines),
+          return div('.setting', { title: i18n.site.multipleLinesDescription }, [
+            label({ for: id }, i18n.site.multipleLines),
             input('range')(`#${id}`, {
-              attrs: { min: 0, max, step: 1 },
+              min: 0,
+              max,
+              step: 1,
               hook: rangeConfig(
                 () => ceval.storedPv(),
                 (pvs: number) => {
@@ -116,22 +116,18 @@ export function renderCevalSettings(ctrl: CevalHandler): VNode | null {
             return div(
               '.setting',
               {
-                attrs: {
-                  title:
-                    fewerCores() && !ceval.engines.external
-                      ? i18n.site.threadsDescriptionMobile
-                      : i18n.site.threadsDescription,
-                },
+                title:
+                  fewerCores() && !ceval.engines.external
+                    ? i18n.site.threadsDescriptionMobile
+                    : i18n.site.threadsDescription,
               },
               [
-                label({ attrs: { for: id } }, i18n.site.threads),
+                label({ for: id }, i18n.site.threads),
                 span([
                   input('range')(`#${id}`, {
-                    attrs: {
-                      min: minThreads,
-                      max: maxThreads,
-                      step: 1,
-                    },
+                    min: minThreads,
+                    max: maxThreads,
+                    step: 1,
                     hook: rangeConfig(() => threads, clickThreads),
                   }),
                   hl(
@@ -159,15 +155,13 @@ export function renderCevalSettings(ctrl: CevalHandler): VNode | null {
             );
           })('analyse-threads'),
         (id =>
-          div('.setting', { attrs: { title: i18n.site.memoryDescription } }, [
-            label({ attrs: { for: id } }, i18n.site.memory),
+          div('.setting', { title: i18n.site.memoryDescription }, [
+            label({ for: id }, i18n.site.memory),
             input('range')(`#${id}`, {
-              attrs: {
-                min: 4,
-                max: Math.floor(Math.log2(ceval.engines.active()?.maxHash ?? 4)),
-                step: 1,
-                'aria-valuetext': formatHashSize(hashSize),
-              },
+              min: 4,
+              max: Math.floor(Math.log2(ceval.engines.active()?.maxHash ?? 4)),
+              step: 1,
+              'aria-valuetext': formatHashSize(hashSize),
               hook: rangeConfig(
                 () => Math.floor(Math.log2(hashSize)),
                 v => {
@@ -211,7 +205,7 @@ function engineSelection({ ceval }: CevalHandler) {
   const external = ceval.engines.external;
 
   return div('.setting', [
-    label({ attrs: { for: 'select-engine' } }, 'Engine:'),
+    label({ for: 'select-engine' }, 'Engine:'),
     select(
       '#select-engine',
       {
@@ -220,11 +214,12 @@ function engineSelection({ ceval }: CevalHandler) {
           ceval.opts.redraw();
         }),
       },
-      engines.map(({ id, name }) => option({ attrs: { value: id, selected: active?.id === id } }, name)),
+      engines.map(({ id, name }) => option({ value: id, selected: active?.id === id }, name)),
     ),
     external &&
       button('.button.button-red.button-empty', {
-        attrs: { ...dataIcon(licon.Trash), title: 'Delete external engine' },
+        ...dataIcon(licon.Trash),
+        title: 'Delete external engine',
         hook: bind('click', async e => {
           (e.currentTarget as HTMLElement).blur();
           if (await confirm('Remove external engine?'))
@@ -232,7 +227,8 @@ function engineSelection({ ceval }: CevalHandler) {
         }),
       }),
     button('.engine-info-button', {
-      attrs: { ...dataIcon(licon.InfoCircle), title: i18n.site.enginesFromStrongestToWeakest },
+      ...dataIcon(licon.InfoCircle),
+      title: i18n.site.enginesFromStrongestToWeakest,
       on: {
         click: () =>
           engineInfo(
