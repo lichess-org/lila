@@ -205,7 +205,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
         ]),
       ]),
       div('.enpassant', [
-        label({ for: 'enpassant-select' }, i18n.site.enPassant),
+        label({ for: 'enpassant-select' }, i18n.site.enPassantRights),
         select(
           '#enpassant-select',
           {
