@@ -110,7 +110,7 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
       ? div('.timeout.block', [
           strong('Timeout 15 minutes for'),
           ...ctrl.opts.reasons.map(r =>
-            a()(
+            button(
               '.text',
               {
                 attrs: dataIcon(licon.Clock),
@@ -122,7 +122,7 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
         ])
       : div('.timeout.block', [
           strong('Moderation'),
-          a()(
+          button(
             '.text',
             {
               attrs: dataIcon(licon.Clock),
@@ -130,7 +130,7 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
             },
             'Timeout 15 minutes',
           ),
-          a()(
+          button(
             '.text',
             {
               attrs: dataIcon(licon.Clock),
