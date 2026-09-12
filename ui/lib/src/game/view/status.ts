@@ -1,4 +1,5 @@
 import type { GameData, Source, StatusName } from '@/game';
+
 import { isFiftyMoves } from '../chess';
 
 export function bishopOnColor(expandedFen: string, offset: 0 | 1): boolean {
