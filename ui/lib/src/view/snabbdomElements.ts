@@ -34,7 +34,6 @@ const VNODE_DATA_KEYS = new Set<keyof StrictVNodeData>([
   'props',
   'attrs',
   'class',
-  'style',
   'dataset',
   'on',
   'attachData',
@@ -169,8 +168,9 @@ export const tr: TagFunction = makeTag('tr');
 export const th: TagFunction = makeTag('th');
 export const td: TagFunction = makeTag('td');
 
-export const a: TagFactory<[href?: string]> = href => makeTag('a', { href });
-export const img: TagFactory<[src: string, alt: string]> = (src, alt) => makeTag('img', { alt, src });
+export const a: TagFactory<[href: string]> = href => makeTag('a', { href });
+export const img: TagFactory<[src: string, alt?: string, title?: string]> = (src, alt, title) =>
+  makeTag('img', { alt, src, title });
 export const input: TagFactory<[type?: HTMLInputElement['type']]> = (type = 'text') =>
   makeTag('input', { type });
 export const optgroup: TagFactory<[label: string]> = label => makeTag('optgroup', { label });
