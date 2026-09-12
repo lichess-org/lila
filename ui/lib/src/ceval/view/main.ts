@@ -228,7 +228,7 @@ export function renderCeval(ctrl: CevalHandler): VNode[] {
         hl('div.engine', [
           engineName(ceval),
           hl('br'),
-          ceval.analysable ? i18n.site.inLocalBrowser : i18n.site.illegalPositions,
+          ceval.analysable ? i18n.site.inLocalBrowser : i18n.site.illegalPosition,
         ]),
       ];
 

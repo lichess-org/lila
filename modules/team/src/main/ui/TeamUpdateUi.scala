@@ -62,7 +62,7 @@ final class TeamUpdateUi(helpers: Helpers, markdownCache: lila.memo.MarkdownCach
 
   def teamLatest(team: Team, msg: TeamUpdate[?, UserId])(using Context) =
     st.section(cls := "team-show__update")(
-      h2(
+      h2(cls := "team-show__section-title")(
         a(dataIcon := Icon.InkQuill, cls := "text", href := routes.Team.updatesOf(team.id))(trt.teamUpdates())
       ),
       st.article(cls := "team-show__update__last")(

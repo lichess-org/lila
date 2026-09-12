@@ -416,7 +416,7 @@
   <string name="apply">应用</string>
   <string name="save">保存</string>
   <string name="leaderboard">排行榜</string>
-  <string name="positionAsImage" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position. Replaces old string screenshotCurrentPosition">将局面显示为图片</string>
+  <string name="positionAsImage" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position. Replaces old string screenshotCurrentPosition">将局面导出为图像</string>
   <string name="gameAsGIF">保存对局为 GIF</string>
   <string name="playerNames">棋手名称</string>
   <string name="moveAnnotations">着法评注</string>

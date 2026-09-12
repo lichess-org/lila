@@ -197,7 +197,7 @@
   <string name="fromPgnGameTitle">Van een PGN-bestand</string>
   <string name="fromPgnGameText">Plak een partij in PGN-formaat.&lt;br&gt;om zetten, reacties en varianten in het hoofdstuk te laden.</string>
   <string name="variantsAreSupportedTitle">Studies ondersteunen varianten</string>
-  <string name="variantsAreSupportedText">Ja, je kunt crazyhouse&lt;br&gt;en alle lichess-varianten bestuderen!</string>
+  <string name="variantsAreSupportedText">Ja, je kunt Gekkenhuis&lt;br&gt;en alle lichess-varianten bestuderen!</string>
   <string name="chapterConclusionText">Hoofdstukken worden voor altijd bewaard.&lt;br&gt;Veel plezier met het ordenen van uw schaakinhoud!</string>
   <string name="doubleDefeat">Dubbele nederlaag</string>
   <string name="blackDefeatWhiteCanNotWin">Zwarte nederlaag, maar Wit kan niet winnen</string>

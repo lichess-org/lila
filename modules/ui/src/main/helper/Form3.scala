@@ -47,7 +47,7 @@ final class Form3(formHelper: FormHelper & I18nHelper & AssetHelper, flairApi: F
       cls := List(
         "form-group" -> true,
         "is-invalid" -> field.hasErrors,
-        "form-half" -> half,
+        (if half then "form-half" else "form-full") -> true,
         klass -> klass.nonEmpty
       )
     )(

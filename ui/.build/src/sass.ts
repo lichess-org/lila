@@ -7,9 +7,9 @@ import pc from 'picocolors';
 import postcss from 'postcss';
 
 import { env, errorMark, trimLines } from './env.ts';
-import { getHash, hashedBasename, symlinkTargetHashes } from './hash.ts';
+import { hashedBasename, symlinkTargetHashes } from './hash.ts';
 import { updateManifest } from './manifest.ts';
-import { glob, readable } from './parse.ts';
+import { glob, readable, getHash } from './parse.ts';
 import { makeTask, runTask, addIncludes } from './task.ts';
 
 const importMap = new Map<string, Set<string>>();

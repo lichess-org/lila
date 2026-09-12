@@ -8,6 +8,7 @@ import { setupPosition } from 'chessops/variant';
 
 import { clamp } from '@/algo';
 import { throttleWithFlush } from '@/async';
+import { isTouchDevice } from '@/device';
 import { pubsub } from '@/pubsub';
 import { storedIntProp, storedStringProp, storage } from '@/storage';
 import type { LocalEval, TreePath } from '@/tree/types';
@@ -82,9 +83,9 @@ export class CevalCtrl {
       if (this.curEval?.bestmove) return;
       if (!this.lastStarted) return;
       if (!this.analysable) return;
-
+      if (!isTouchDevice()) return;
       if (document.hidden) this.worker?.stop();
-      else if (this.curEval) this.doStart(this.lastStarted);
+      else this.doStart(this.lastStarted);
     });
   }
 
@@ -244,7 +245,12 @@ export class CevalCtrl {
     const step = s.steps[s.steps.length - 1];
     const { search, threads, hashSize, engine } = this.info(this.opts.custom)!;
     const lastEvalMillis = (s.threatMode ? step.threat : step.ceval)?.millis ?? 0;
-    if (!this.isDeeper() && 'movetime' in search.by && lastEvalMillis >= search.by.movetime) {
+    if (
+      !this.isDeeper() &&
+      'movetime' in search.by &&
+      lastEvalMillis >= search.by.movetime &&
+      step.ceval?.pvs.length === search.multiPv
+    ) {
       return;
     }
     const work: Work = {

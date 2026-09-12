@@ -180,9 +180,17 @@ $section-margin-more: 4vh;
       color: $c-font-dim;
       font-size: 0.9em;
     }
+
+    .team-show__update__body {
+      @include rendered-markdown;
+
+      h1 {
+        @include fluid-size('font-size', 18px, 35px);
+      }
+    }
   }
 
-  h2 {
+  .team-show__section-title {
     margin-bottom: 1rem;
     font-size: 1.5em;
     font-weight: bold;

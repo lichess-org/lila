@@ -178,7 +178,7 @@
   <string name="toggleLocalEngine">Lokale computeranalyse</string>
   <string name="engineSettings">Computerinstellingen</string>
   <string name="enginesFromStrongestToWeakest">Computers van sterkst naar zwakst</string>
-  <string name="illegalPositions">Illegale stellingen kunnen niet geanalyseerd worden</string>
+  <string name="illegalPositions">Ongeldige stellingen kun je niet analyseren</string>
   <string name="threefoldRepetition">Driemaal dezelfde stelling</string>
   <string name="claimADraw">Remise opeisen</string>
   <string name="drawClaimed">Remise geclaimd</string>
