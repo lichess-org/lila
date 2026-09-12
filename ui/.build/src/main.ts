@@ -14,6 +14,7 @@ const args: Record<string, string> = {
   '--sass': '',
   '--esbuild': '',
   '--i18n': '',
+  '--no-color': '',
   '--no-time': '',
   '--no-context': '',
   '--help': 'h',
@@ -42,6 +43,7 @@ Options:
                       <url> or localhost:8666 (default). if used with --watch, the watch process
                       will listen for http on 8666 and display received messages in build logs
   --clean-exit        clean all build artifacts and exit
+  --no-color          don't color output
   --no-time           don't log the time
   --no-context        don't log the context
 

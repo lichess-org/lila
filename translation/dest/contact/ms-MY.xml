@@ -1,2 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="contact">Hubungi kami</string>
+  <string name="contactLichess">Hubungi Lichess</string>
+  <string name="whatCanWeHelpYouWith">Apa kami boleh bantu anda?</string>
+  <string name="visitThisPage">Layari laman ini untuk selesaikan isu tersebut</string>
+  <string name="iCantLogIn">Saya tidak boleh daftar masuk</string>
+  <string name="noConfirmationEmail">Saya tidak terima sebarang emel pengesahan</string>
+  <string name="forgotPassword">Lupa kata laluan</string>
+  <string name="forgotUsername">Lupa nama pengguna</string>
+  <string name="youCanLoginWithEmail">Anda boleh log masuk menggunakan emel pendaftaran anda</string>
+  <string name="lost2FA">Saya tiada akses kepada kod pengesahan dua faktor</string>
+  <string name="doPasswordReset">Lengkapkan semula ketetapan kata laluan untuk menyahaktifkan kod pengesahan dua faktor</string>
+  <string name="accountSupport">Saya perlukan sokongan mengenai akaun</string>
+  <string name="wantTitle">Saya mahu memaparkan gelaran saya di Lichess</string>
+  <string name="visitTitleConfirmation">Untuk memaparkan gelaran anda di profil Lichess, sertai \"Titled Arena\" dan layari ke laman pengesahan gelaran</string>
+  <string name="wantCloseAccount">Saya mahu tutup akaun</string>
+  <string name="closeYourAccount">Anda boleh tutup akaun anda melalui laman ini</string>
+  <string name="doNotAskByEmail">Kami tidak akan melayan sebarang permintaan untuk menutup akaun melalui emel.</string>
+  <string name="wantReopen">Saya mahu membuka semula akaun saya</string>
+  <string name="reopenOnThisPage">Anda boleh membuka semula akaun anda melalui laman ini.</string>
+  <string name="doNotAskByEmailToReopen">Kami tidak akan melayan sebarang permintaan untuk membuka semula akaun melalui emel.</string>
+  <string name="wantChangeUsername">Saya mahu menukar nama pengguna saya</string>
+  <string name="changeUsernameCase">Layari laman ini untuk menukar nama kes huruf pengguna anda</string>
+  <string name="cantChangeMore">Atas sebab teknikal, adalah mustahil untuk anda menukar nama pengguna anda kecuali menukar huruf besar dan huruf kecil.</string>
+  <string name="orCloseAccount">Walau bagaimanapun, anda boleh tutup akaun ini dan buka akaun baru.</string>
+  <string name="wantClearHistory">Saya mahu memadam sejarah atau rating saya</string>
+  <string name="toReportAPlayerUseForm">Untuk melaporkan salah laku pemain, guna borang laporan ini</string>
+  <string name="wantReportBug">Saya ingin melaporkan pepijat</string>
+  <string name="reportMobileIssue">Sebagai isu aplikasi mobil Lichess di Github</string>
+  <string name="reportBugInDiscord">Di dalam pelayan Discord Lichess</string>
+  <string name="calledEnPassant">Ianya dipanggil \"en passant\" dan ianya adalah salah satu gerakan rasmi menurut peraturan catur.</string>
+  <string name="insufficientMaterial">Buah tidak cukup untuk lakukan syahmat</string>
+  <string name="fideMate">Menurut peraturan catur FIDE 6.9, jika syahmat boleh terjadi dengan sebarang urutan gerakan yang sah, maka permainan tidak berakhir dengan seri</string>
+  <string name="ifYouWantToBroadcastClause2" comment="string1 is Lichess email, string2 is value of key ourDiscordServer">Sila hubungi unit Siaran kami di %1$s atau pada %2$s.</string>
+  <string name="ourDiscordServer">pelayan Discord kami</string>
+</resources>

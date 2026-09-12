@@ -20,6 +20,7 @@
   <string name="howIsTheWinnerDecided">Как определяется победитель?</string>
   <string name="howIsTheWinnerDecidedAnswer">Игрок с наибольшим количеством очков в момент окончания времени турнира будет объявлен победителем.</string>
   <string name="howDoesPairingWork">Как проходит жеребьёвка?</string>
+  <string name="howArePlayersPaired" comment="Replaces old string howDoesPairingWork">Как составляются пары?</string>
   <string name="howDoesPairingWorkAnswer">В начале турнира пары образуются согласно рейтингу. По окончании каждой партии игроки возвращаются на страницу турнира, и им предоставляется свободный соперник с близким количеством турнирных очков. Это обеспечивает маленькое время ожидания соперника, однако в результате вы можете встретиться с некоторыми участниками много раз или же не встретиться с кем-то ни разу.
 Играйте быстро и возвращайтесь на страницу турнира, чтобы сыграть больше игр и заработать больше очков.</string>
   <string name="howDoesItEnd">Как завершается турнир?</string>
@@ -86,4 +87,5 @@
   <string name="onlyTitledHelp">Требуется официальное звание для участия в турнире</string>
   <string name="tournamentPairingsAreNowClosed">Жеребьёвка турнира закончена</string>
   <string name="berserkRate">Берсерк</string>
+  <string name="leaguesAndStreamerBattles">Лиги &amp; Битвы стримеров</string>
 </resources>

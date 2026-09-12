@@ -1783,7 +1783,7 @@ object I18nKey:
     val `toggleLocalEngine`: I18nKey = "toggleLocalEngine"
     val `engineSettings`: I18nKey = "engineSettings"
     val `enginesFromStrongestToWeakest`: I18nKey = "enginesFromStrongestToWeakest"
-    val `illegalPositions`: I18nKey = "illegalPositions"
+    val `illegalPosition`: I18nKey = "illegalPosition"
     val `threefoldRepetition`: I18nKey = "threefoldRepetition"
     val `claimADraw`: I18nKey = "claimADraw"
     val `drawClaimed`: I18nKey = "drawClaimed"

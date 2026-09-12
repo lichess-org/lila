@@ -16,7 +16,7 @@ import lila.common.String.shorten
 case class TeamUpdate[T, U](
     @Key("_id") id: String,
     team: T,
-    text: String,
+    text: Markdown,
     sender: U,
     date: Instant
     // seenBy: List[UserId] // in DB only, for querying
@@ -49,7 +49,7 @@ final class TeamUpdateApi(
   export updateRepo.{ markSeen, teamLatest }
 
   private val maxPerPage = MaxPerPage(6)
-  private val dedup = scalalib.cache.OnceEvery.hashCode[(TeamId, String)](10.minutes)
+  private val dedup = scalalib.cache.OnceEvery.hashCode[(TeamId, Markdown)](10.minutes)
 
   def teamRecentAndMarkRead(team: Team, page: Int)(using me: Me): Fu[TeamUpdate.Recent] =
     for
@@ -88,25 +88,25 @@ final class TeamUpdateApi(
       team <- teams.get(msg.team)
     yield TeamUpdates(team, msg.unread, msg.last)
 
-  def send(team: Team, raw: String)(using me: Me): Either[String, Fu[LimitResult]] =
-    val text = raw.replaceAll("\r\n?", "\n")
+  def send(team: Team, raw: Markdown)(using me: Me): Either[String, Fu[LimitResult]] =
+    val text = raw.map(_.replaceAll("\r\n?", "\n"))
     if dedup(team.id, text) then
       Right:
         limiter.limit(team.id)(doSend(team, text).inject(LimitResult.Through))(LimitResult.Limited)
     else Left("You already sent this message recently")
 
-  private def doSend(team: Team, text: String)(using me: Me): Funit =
+  private def doSend(team: Team, text: Markdown)(using me: Me): Funit =
     val msg = TeamUpdate[TeamId, UserId](
       id = scalalib.ThreadLocalRandom.nextString(8),
       team = team.id,
-      text = spam.replace(text),
+      text = text.map(spam.replace),
       sender = me.userId,
       date = nowInstant
     )
     for
       unsubed <- memberRepo.listOfUnsubscribed(team.id)
       _ <- updateRepo.send(msg, unsubed)
-      notification: Notification = Notification(team.id, team.name, shorten(msg.text, 40))
+      notification: Notification = Notification(team.id, team.name, shorten(msg.text.value, 40))
       _ = notifySubscribers(team.id, notification) // don't await that!
     yield ()
 
