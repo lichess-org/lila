@@ -121,9 +121,7 @@ final class TeamAdminUi(helpers: Helpers, bits: TeamUi):
       links: List[(Tag, Instant, Call)],
       unsubs: Int,
       limiter: (Int, Instant)
-  )(using
-      ctx: Context
-  ) =
+  )(using Context) =
     TeamPage(s"${t.name} • ${trans.team.newTeamUpdate.txt()}")
       .js(esmInitBit("pmAll"))
       .markdownTextarea:
@@ -158,7 +156,7 @@ final class TeamAdminUi(helpers: Helpers, bits: TeamUi):
                 emptyFrag
               ): field =>
                 lila.ui.bits.markdownEditor(MarkdownRealm.teamUpdate):
-                  form3.textarea(field)(rows := 10)
+                  form3.textarea(field)(rows := 25)
               ,
               p(
                 pluralizeLocalize("member", unsubs),
