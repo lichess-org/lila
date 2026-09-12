@@ -117,7 +117,7 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
                 attrs: dataIcon(licon.Clock),
                 hook: bind('click', () => ctrl.timeout(r, data.text)),
               },
-              r.name,
+              r.name.split(';')[0],
             ),
           ),
         ])
