@@ -97,7 +97,7 @@ final private class TeamForm(teamRepo: TeamRepo, captcha: CaptchaApi, flairApi: 
   def createWithCaptcha(using Me) = create -> captcha.any
 
   val pmAll = Form:
-    single("message" -> cleanTextWithSymbols(minLength = 3, maxLength = 9_000))
+    single("message" -> cleanTextWithSymbols(minLength = 3, maxLength = 9_000)).into[Markdown]
 
   val explain = Form:
     single("explain" -> cleanText(minLength = 3, maxLength = 4_000))

@@ -124,37 +124,43 @@ final class TeamAdminUi(helpers: Helpers, bits: TeamUi):
   )(using
       ctx: Context
   ) =
-    TeamPage(s"${t.name} • ${trans.team.newTeamUpdate.txt()}").js(esmInitBit("pmAll")):
-      main(cls := "page-menu page-small")(
-        menu(none),
-        div(cls := "page-menu__content box box-pad")(
-          adminTop(t, trt.newTeamUpdate()),
-          links.nonEmpty.option:
-            div(cls := "tournaments")(
-              p(trans.team.youWayWantToLinkOneOfTheseTournaments()),
-              p:
-                ul:
-                  links.map: (link, startsAt, call) =>
-                    li(
-                      link,
-                      " ",
-                      momentFromNow(startsAt),
-                      " ",
-                      a(
-                        dataIcon := Icon.Forward,
-                        cls := "text copy-url-button",
-                        data.copyurl := routeUrl(call)
+    TeamPage(s"${t.name} • ${trans.team.newTeamUpdate.txt()}")
+      .js(esmInitBit("pmAll"))
+      .markdownTextarea:
+        main(cls := "page-menu page-small")(
+          menu(none),
+          div(cls := "page-menu__content box box-pad")(
+            adminTop(t, trt.newTeamUpdate()),
+            links.nonEmpty.option:
+              div(cls := "tournaments")(
+                p(trans.team.youWayWantToLinkOneOfTheseTournaments()),
+                p:
+                  ul:
+                    links.map: (link, startsAt, call) =>
+                      li(
+                        link,
+                        " ",
+                        momentFromNow(startsAt),
+                        " ",
+                        a(
+                          dataIcon := Icon.Forward,
+                          cls := "text copy-url-button",
+                          data.copyurl := routeUrl(call)
+                        )
                       )
-                    )
+                ,
+                br
+              )
+            ,
+            postForm(cls := "form3", action := routes.Team.updateSend(t.id))(
+              form3.group(
+                form("message"),
+                emptyFrag
+              ): field =>
+                lila.ui.bits.markdownEditor(MarkdownRealm.teamUpdate):
+                  form3.textarea(field)(rows := 10)
               ,
-              br
-            )
-          ,
-          postForm(cls := "form3", action := routes.Team.updateSend(t.id))(
-            form3.group(
-              form("message"),
-              trans.site.message(),
-              help = frag(
+              p(
                 pluralizeLocalize("member", unsubs),
                 " out of ",
                 t.nbMembers.localize,
@@ -162,28 +168,27 @@ final class TeamAdminUi(helpers: Helpers, bits: TeamUi):
                 f"${(unsubs * 100d) / t.nbMembers}%1.1f",
                 "%)",
                 " have unsubscribed from messages."
-              ).some
-            )(form3.textarea(_)(rows := 10)),
-            limiter match
-              case (remaining, until) =>
-                frag(
-                  p(cls := (remaining <= 0).option("error"))(
-                    "You can send up to ",
-                    TeamUpdateApi.credits,
-                    " team updates per week. ",
-                    strong(remaining),
-                    " updates remaining until ",
-                    momentFromNowOnce(until),
-                    "."
-                  ),
-                  form3.actions(
-                    a(href := routes.Team.show(t.slug))(trans.site.cancel()),
-                    (remaining > 0).option(form3.submit(trans.site.send()))
+              ),
+              limiter match
+                case (remaining, until) =>
+                  frag(
+                    p(cls := (remaining <= 0).option("error"))(
+                      "You can send up to ",
+                      TeamUpdateApi.credits,
+                      " team updates per week. ",
+                      strong(remaining),
+                      " updates remaining until ",
+                      momentFromNowOnce(until),
+                      "."
+                    ),
+                    form3.actions(
+                      a(href := routes.Team.show(t.slug))(trans.site.cancel()),
+                      (remaining > 0).option(form3.submit(trans.site.send()))
+                    )
                   )
-                )
+            )
           )
         )
-      )
 
   private def teamMembersAutoComplete(team: Team)(field: Field) =
     form3.textarea(field)(rows := 2, dataRel := team.id)

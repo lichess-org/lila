@@ -5,7 +5,7 @@ import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.core.config.NetDomain
 
-final class TeamUpdateUi(helpers: Helpers)(using NetDomain):
+final class TeamUpdateUi(helpers: Helpers, markdownCache: lila.memo.MarkdownCache)(using NetDomain):
 
   import helpers.{ *, given }
   import trans.team as trt
@@ -65,18 +65,36 @@ final class TeamUpdateUi(helpers: Helpers)(using NetDomain):
       h2(
         a(dataIcon := Icon.InkQuill, cls := "text", href := routes.Team.updatesOf(team.id))(trt.teamUpdates())
       ),
-      div(cls := "team-show__update__last")(
+      st.article(cls := "team-show__update__last")(
         div(cls := "team-show__update__meta")(
           momentFromNowOnce(msg.date),
           span(trans.site.by(userIdLink(msg.sender.some)))
         ),
-        div(cls := "team-show__update__body")(richText(msg.text, expandImg = false)),
-        a(cls := "team-show__update__more", href := routes.Team.updatesOf(team.id))(trans.site.more(), " »")
+        div(cls := "team-show__update__body")(markdown(msg)),
+        a(cls := "team-show__update__more", href := routes.Team.updatesOf(team.id))(
+          trans.site.more(),
+          " »"
+        )
       )
     )
 
+  private object markdown:
+    private val options = lila.memo.MarkdownOptions(
+      autoLink = true,
+      header = true,
+      list = true,
+      table = true,
+      blockQuote = false,
+      maxPgns = Max(0)
+    )
+    def apply(up: TeamUpdate[?, ?]): Frag =
+      markdownCache.toHtmlSyncWithoutPgnEmbeds(s"team::update:${up.id}", up.text, options)
+
   private def msgList(msgs: TeamUpdate.Recent)(nextUrl: Int => Call)(using Context) =
-    div(cls := "team-update__convo__updates infinite-scroll", data("scroll-selector") := ".infinite-scroll")(
+    st.article(
+      cls := "team-update__convo__updates infinite-scroll",
+      data("scroll-selector") := ".infinite-scroll"
+    )(
       msgs.currentPageResults.map: m =>
         import m.*
         div(
@@ -92,7 +110,7 @@ final class TeamUpdateUi(helpers: Helpers)(using NetDomain):
               span(trans.site.by(lightUserLink(msg.sender)))
             )
           ),
-          div(cls := "team-update__convo__update__body")(richText(msg.text))
+          div(cls := "team-update__convo__update__body")(markdown(msg))
         )
       ,
       pagerNext(msgs, np => nextUrl(np).url)
