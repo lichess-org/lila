@@ -53,7 +53,8 @@ function localEvalNodes(ctrl: CevalHandler, evs: NodeEvals): Array<VNode | strin
   if (!ceval.opts.custom && ceval.canGoDeeper)
     t.push(
       button('.deeper', {
-        attrs: { title: i18n.site.goDeeper, 'data-icon': licon.PlusButton },
+        title: i18n.site.goDeeper,
+        'data-icon': licon.PlusButton,
         hook: bind('click', ceval.goDeeper),
       }),
     );
@@ -61,8 +62,8 @@ function localEvalNodes(ctrl: CevalHandler, evs: NodeEvals): Array<VNode | strin
 
   t.push(depthText);
   if (evs.client.cloud && !ceval.isComputing)
-    t.push(span('.cloud', { attrs: { title: i18n.site.cloudAnalysis } }, 'Cloud'));
-  if (ceval.isInfinite) t.push(span('.infinite', { attrs: { title: i18n.site.infiniteAnalysis } }, '∞'));
+    t.push(span('.cloud', { title: i18n.site.cloudAnalysis }, 'Cloud'));
+  if (ceval.isInfinite) t.push(span('.infinite', { title: i18n.site.infiniteAnalysis }, '∞'));
   if (npsText) t.push(' · ' + npsText);
   return t;
 }
@@ -101,7 +102,8 @@ const threatButton = (ctrl: CevalHandler): VNode | null =>
     ? null
     : button('.show-threat', {
         class: { active: ctrl.threatMode(), hidden: ctrl.getNode().check() },
-        attrs: { 'data-icon': licon.Target, title: i18n.site.showThreat + ' (x)' },
+        title: i18n.site.showThreat + ' (x)',
+        'data-icon': licon.Target,
         hook: bind('click', e => {
           ctrl.toggleThreatMode();
           blurIfPrimaryClick(e);
@@ -124,8 +126,8 @@ function engineName(ctrl: CevalCtrl): VNode[] {
               ? [false, 'Single-threaded WebAssembly']
               : [false, 'Single-threaded JavaScript'];
   return [
-    span({ attrs: { title: engine.name } }, engine.short ?? engine.name),
-    span('.technology', { class: { good }, attrs: { title } }, engine.tech),
+    span({ title: engine.name }, engine.short ?? engine.name),
+    span('.technology', { class: { good }, title }, engine.tech),
   ];
 }
 
@@ -245,7 +247,9 @@ export function renderCeval(ctrl: CevalHandler): VNode[] {
       ];
 
   const settingsGear = button('.settings-gear', {
-    attrs: { role: 'button', 'data-icon': licon.Gear, title: i18n.site.engineSettings },
+    role: 'button',
+    'data-icon': licon.Gear,
+    title: i18n.site.engineSettings,
     class: { active: ceval.showEnginePrefs() },
     hook: bind(
       'click',
@@ -361,7 +365,7 @@ export function renderPvs(ctrl: CevalHandler): VNode | undefined {
   return div(
     '.pv_box',
     {
-      attrs: { 'data-fen': node.fen },
+      'data-fen': node.fen,
       hook: {
         ...onInsert(el => {
           el.addEventListener('pointerdown', (e: PointerEvent) => {
@@ -461,7 +465,7 @@ function renderPvMoves(pos: Position, pv: Uci[]): VNode[] {
     const fen = makeBoardFen(pos.board); // Chessground uses only board fen
     if (san === '--') break;
     key += '|' + uci;
-    vnodes.push(span({ key, attrs: { 'data-move-index': i, 'data-board': `${fen}|${uci}` } }, san));
+    vnodes.push(span({ key, 'data-move-index': i, 'data-board': `${fen}|${uci}` }, san));
   }
   return vnodes;
 }
