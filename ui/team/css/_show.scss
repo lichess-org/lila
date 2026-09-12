@@ -160,6 +160,11 @@ $section-margin-more: 4vh;
   &__update {
     &__last {
       @extend %flex-column, %box-bordered;
+      @include rendered-markdown;
+
+      h1 {
+        @include fluid-size('font-size', 18px, 35px);
+      }
 
       gap: 1em;
       background: $c-bg-zebra;
