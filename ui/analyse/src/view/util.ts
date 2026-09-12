@@ -35,12 +35,4 @@ export const option = (value: string, current: string | undefined, name: string,
   opt({ attrs: { value, selected: value === current }, ...data }, name);
 
 export const playerFedFlag = (fed?: Federation) =>
-  fed &&
-  img(
-    '.mini-game__flag',
-    site.asset.fideFedSrc(fed.id),
-  )({
-    attrs: {
-      title: `Federation: ${fed.i18nName}`,
-    },
-  });
+  fed && img(site.asset.fideFedSrc(fed.id), undefined, `Federation: ${fed.i18nName}`)('.mini-game__flag');
