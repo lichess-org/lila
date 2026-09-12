@@ -139,7 +139,7 @@ final class SwissFormUi(helpers: Helpers)(
       form3.group(
         form("description"),
         trans.site.tournDescription(),
-        help = trans.site.tournDescriptionHelp().some,
+        help = trans.site.tournDescriptionHelp().some
       )(form3.textarea(_)(rows := 4))
     def position =
       form3.group(
