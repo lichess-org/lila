@@ -1,6 +1,4 @@
-import { type Hooks } from 'snabbdom';
-
-import { type VNode, hl, bind } from '@/view';
+import { type VNode, type Hooks, hl, bind, div, span } from '@/view';
 import { cmnToggleProp } from '@/view/cmn-toggle';
 
 import type { ChatCtrl } from './chatCtrl';
@@ -20,11 +18,11 @@ export function renderChat(ctrl: ChatCtrl, hook: Hooks = {}): VNode {
 function normalView(ctrl: ChatCtrl) {
   const active = ctrl.getTab();
   return [
-    hl('div.mchat__tabs.nb_' + ctrl.visibleTabs.length, { attrs: { role: 'tablist' } }, [
+    div(`.mchat__tabs.nb_${ctrl.visibleTabs.length}`, { attrs: { role: 'tablist' } }, [
       ctrl.visibleTabs.map(t => renderTab(ctrl, t, active)),
     ]),
-    hl(
-      'div.mchat__content.' + active.key,
+    div(
+      `.mchat__content.${active.key}`,
       active.key === 'note' && ctrl.note
         ? [noteView(ctrl.note, ctrl.vm.autofocus)]
         : ctrl.plugin && active.key === ctrl.plugin.key
@@ -53,11 +51,11 @@ function tabName(ctrl: ChatCtrl, tab: Tab) {
   if (tab.key === 'discussion') {
     const id = `chat-toggle-${ctrl.data.id}`;
     return [
-      hl('span', ctrl.data.name),
+      span(ctrl.data.name),
       ctrl.isOptional && cmnToggleProp({ id, prop: ctrl.chatEnabled, redraw: ctrl.redraw }),
     ];
   }
-  if (tab.key === 'note') return [hl('span', i18n.site.notes)];
-  if (tab.key === ctrl.plugin?.key) return [hl('span', ctrl.plugin.name)];
+  if (tab.key === 'note') return [span(i18n.site.notes)];
+  if (tab.key === ctrl.plugin?.key) return [span(ctrl.plugin.name)];
   return [];
 }

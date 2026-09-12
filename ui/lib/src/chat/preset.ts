@@ -1,6 +1,4 @@
-import { h, type VNode } from 'snabbdom';
-
-import { bind } from '@/view';
+import { type VNode, bind, div, span } from '@/view';
 
 export interface PresetCtrl {
   group(): string | undefined;
@@ -64,13 +62,12 @@ export function presetView(ctrl: PresetCtrl): VNode | undefined {
   const sets = groups[group];
   const said = ctrl.said();
   return sets && said.length < 2
-    ? h(
-        'div.mchat__presets',
+    ? div(
+        '.mchat__presets',
         { key: group },
         sets.map((p: Preset) => {
           const disabled = said.includes(p.key);
-          return h(
-            'span',
+          return span(
             {
               class: { disabled },
               attrs: { title: p.text, disabled },
