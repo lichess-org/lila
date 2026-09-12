@@ -175,7 +175,6 @@ export const img: TagFactory<[src: string, alt?: string, title?: string]> = (src
 export const input: TagFactory<[type?: HTMLInputElement['type']]> = (type = 'text') =>
   makeTag('input', { type });
 export const optgroup: TagFactory<[label: string]> = label => makeTag('optgroup', { label });
-export const textarea: TagFactory<[rows?: number]> = (rows) =>
-  makeTag('textarea', { rows });
+export const textarea: TagFactory<[rows?: number]> = rows => makeTag('textarea', { rows });
 
 export const icon: TagFactory<[icon: LiconValue]> = icon => makeExoticTag('icon', { 'data-icon': icon });
