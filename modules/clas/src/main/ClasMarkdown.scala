@@ -8,6 +8,7 @@ final class ClasMarkdown(cache: lila.memo.MarkdownCache):
     list = true,
     table = true,
     header = true,
+    headerAnchorLink = true,
     strikeThrough = true,
     maxPgns = lila.memo.Max(50)
   )

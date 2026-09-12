@@ -72,6 +72,7 @@ final class OpeningWikiApi(coll: Coll, explorer: OpeningExplorer, cacheApi: Cach
       autoLink = false,
       list = true,
       header = true,
+      headerAnchorLink = true,
       table = false,
       strikeThrough = false
     )
