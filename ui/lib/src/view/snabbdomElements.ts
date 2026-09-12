@@ -34,7 +34,6 @@ const VNODE_DATA_KEYS = new Set<keyof StrictVNodeData>([
   'props',
   'attrs',
   'class',
-  'style',
   'dataset',
   'on',
   'attachData',
