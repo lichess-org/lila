@@ -175,6 +175,10 @@
   </plurals>
   <string name="moveTimes">Yurishlar vaqti</string>
   <string name="flipBoard">Taxtani aylantirish</string>
+  <string name="toggleLocalEngine">Lokal dvijok</string>
+  <string name="engineSettings">Dvijok sozlamalari</string>
+  <string name="enginesFromStrongestToWeakest">Dvijoklar kuchlidan kuchsizga qarab</string>
+  <string name="illegalPositions">Notoʻgʻri pozitsiyalarni tahlil qilib boʻlmaydi</string>
   <string name="threefoldRepetition">Uch marta takrorlanish</string>
   <string name="claimADraw">Durang talab qilish</string>
   <string name="drawClaimed">Durang</string>
@@ -743,8 +747,10 @@ Reytingli oʻyinlar o\'ynasangiz reyting barqarorligi oshadi.</string>
   <string name="keyboardShortcuts">Klaviatura yorliqlari</string>
   <string name="keyMoveBackwardOrForward">ortga/oldinga yurish</string>
   <string name="keyGoToStartOrEnd">boshiga/oxiriga oʻtish</string>
+  <string name="keyGoToPreviousOrNextLine">oldingi/keyingi qatorga oʻtish</string>
   <string name="keyCycleSelectedVariation">Tanlangan variatsiyani aylantirish</string>
   <string name="keyShowOrHideComments">sharhlarni koʻrsatish/yashirish</string>
+  <string name="keyShowOrHideCurrentVariation">hozirgi variantni koʻrsatish/yashirish</string>
   <string name="keyEnterOrExitVariation">variatsiyaga kirish/chiqish</string>
   <string name="keyPreviousBranch">Oldingi tarmoq</string>
   <string name="keyNextBranch">Keyingi tarmoq</string>
@@ -1064,4 +1070,7 @@ Loyiha faoliyati, uni rivojlantirish va barcha xarajatlar faqat foydalanuvchilar
   <string name="tags">Teglar</string>
   <string name="enPassant">En passant</string>
   <string name="settings">Sozlamalar</string>
+  <string name="verifyingYourDevice">Qurilmangiz tasdiqlanmoqda...</string>
+  <string name="chessOpenings">Shaxmat debyutlari</string>
+  <string name="boards">Taxtalar</string>
 </resources>

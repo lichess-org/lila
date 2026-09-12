@@ -10,7 +10,7 @@
   <string name="totalGames">Totaal aantal partijen</string>
   <string name="ratedGames">Partijen met rating</string>
   <string name="tournamentGames">Toernooipartijen</string>
-  <string name="berserkedGames">Doordraaipartijen</string>
+  <string name="berserkedGames">Berserkpartijen</string>
   <string name="timeSpentPlaying">Tijd schakend besteed</string>
   <string name="averageOpponent">Gemiddelde tegenstander</string>
   <string name="victories">Overwinningen</string>

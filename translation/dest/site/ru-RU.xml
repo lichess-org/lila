@@ -191,6 +191,9 @@
   </plurals>
   <string name="moveTimes">Время на ход</string>
   <string name="flipBoard">Перевернуть доску</string>
+  <string name="engineSettings">Настройки движка</string>
+  <string name="enginesFromStrongestToWeakest">Движки от сильнейших к слабейшим</string>
+  <string name="illegalPositions">Невозможные позиции не могут быть проанализированы</string>
   <string name="threefoldRepetition">Троекратное повторение позиции</string>
   <string name="claimADraw">Потребовать ничью</string>
   <string name="drawClaimed">Объявлена ничья</string>
@@ -279,6 +282,7 @@
   <string name="signupUsernameHint">Убедитесь, что вы выбрали благопристойное имя пользователя. Вы не сможете изменить его позже, при этом все учётные записи с неприличными именами будут закрыты!</string>
   <string name="signupEmailPromise">Мы будем только отправлять вам письма, касающиеся вашей учётной записи, и никогда не передадим ваш адрес кому-либо.</string>
   <string name="password">Пароль</string>
+  <string name="showPassword">Показать пароль</string>
   <string name="changePassword">Сменить пароль</string>
   <string name="changeEmail">Сменить адрес электронной почты</string>
   <string name="email">Электронная почта</string>
@@ -334,6 +338,7 @@
   <string name="whiteTimeOut">Белые просрочили время</string>
   <string name="whiteRanOutOfTime" comment="whiteTimeOut&#10;&#10;Shows when White's time has run out. Is followed by the end condition, for example&#10;'White ran out of time · Draw' Replaces old string whiteTimeOut">Белые просрочили время</string>
   <string name="blackTimeOut">Чёрные просрочили время</string>
+  <string name="blackRanOutOfTime" comment="blackTimeOut&#10;&#10;Shows when Black's time has run out. Is followed by the end condition, for example&#10;'Black ran out of time · Draw' Replaces old string blackTimeOut">У черных закончилось время</string>
   <string name="drawOfferSent">Предложение ничьей отправлено</string>
   <string name="drawOfferAccepted">Предложение ничьей принято</string>
   <string name="whiteOffersDraw">Белые предлагают ничью</string>
@@ -481,6 +486,8 @@
   </plurals>
   <string name="yourPerfRatingIsProvisional">Ваш рейтинг в %s ещё недостоверный</string>
   <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Рейтинговые фильтры заблокированы, поскольку ваш рейтинг нестабилен. Играя в рейтинговые игры, вы повысите стабильность вашего рейтинга.</string>
+  <string name="cannotFilterByUnstableRating" comment="Tooltip to explain why the control for filtering by rating is disabled Replaces old string ratingRangeIsDisabledBecauseYourRatingIsProvisional">Невозможно отфильтровать по рейтингу, потому что Ваш рейтинг нестабилен.
+Играйте рейтинговые партии, чтобы повысить стабильность.</string>
   <string name="yourPerfRatingIsTooHigh">Ваш рейтинг в %1$s (%2$s) слишком высок для участия</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Ваш еженедельный рейтинг в %1$s (%2$s) слишком высок</string>
   <string name="yourPerfRatingIsTooLow">Ваш рейтинг в %1$s (%2$s) недостаточен для участия</string>
@@ -501,6 +508,7 @@
   <string name="apply">Сохранить</string>
   <string name="save">Сохранить</string>
   <string name="leaderboard">Лучшие игроки</string>
+  <string name="positionAsImage" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position. Replaces old string screenshotCurrentPosition">Изображение позиции</string>
   <string name="gameAsGIF">Партия в формате GIF</string>
   <string name="playerNames">Имена игроков</string>
   <string name="moveAnnotations">Аннотации ходов</string>
@@ -621,6 +629,7 @@
   <string name="oneUrlPerLine">Один URL на строку.</string>
   <string name="inlineNotation">Строчная нотация</string>
   <string name="makeAStudy">Чтобы сохранить и поделиться, рассмотрите возможность создания студии.</string>
+  <string name="clearLocalData">Очистить локальные данные</string>
   <string name="previouslyOnLichessTV">Ранее на Lichess TV</string>
   <string name="onlinePlayers">Игроки в сети</string>
   <string name="activePlayers">Активные игроки</string>
@@ -804,6 +813,7 @@
   <string name="simulClockHint">Настройка часов Фишера. Чем больше игроков играет против вас, тем больше времени вам может понадобится.</string>
   <string name="simulAddExtraTime">Вы можете взять себе дополнительное время на обдумывание партий.</string>
   <string name="simulHostExtraTime">Дополнительное время сеансёра</string>
+  <string name="extraClockTimeForHost" comment="Appears on: https://lichess.org/simul/new&#10;&#10;Allows a simul host to select extra time for the simul.&#10;&#10;Please note this string used to state &quot;Host extra clock time&quot;, without the word &quot;initial&quot; Replaces old string simulHostExtraTime">Дополнительное время сеансёра:</string>
   <string name="simulAddExtraTimePerPlayer">Добавьте начальное время на ваших часах для каждого игрока, вошедшего в ваш сеанс одновременной игры.</string>
   <string name="simulHostExtraTimePerPlayer">Добавка времени сеансёра для каждого игрока</string>
   <string name="lichessTournaments">Турниры Lichess</string>
@@ -816,6 +826,7 @@
   <string name="keyGoToStartOrEnd">в начало/конец</string>
   <string name="keyCycleSelectedVariation">Прокручивать выбранный вариант</string>
   <string name="keyShowOrHideComments">показать/скрыть комментарии</string>
+  <string name="keyShowOrHideCurrentVariation">показать/скрыть текущий вариант</string>
   <string name="keyEnterOrExitVariation">ввести/закрыть вариант</string>
   <string name="keyPreviousBranch">Предыдущая ветка</string>
   <string name="keyNextBranch">Следующая ветка</string>
@@ -944,6 +955,7 @@
   <string name="notifications">Уведомления</string>
   <string name="notificationsX">Уведомлений: %1$s</string>
   <string name="perfRatingX">Рейтинг: %s</string>
+  <string name="perfRatingLabel" comment="Replaces old string perfRatingX">Рейтинг: %s.</string>
   <string name="yourRatingIsX">Ваш рейтинг %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s секунда на первый ход</item>
@@ -1009,6 +1021,7 @@
   </plurals>
   <string name="showUnreadLichessMessage">Вы получили личное сообщение от Lichess.</string>
   <string name="clickHereToReadIt">Нажмите здесь, чтобы прочитать его</string>
+  <string name="readTheMessage" comment="'It' refers to a private message. This text follows after a different string which advises players they have received a private message from Lichess. For users, this is appears as a regular private message from the Lichess account: https://lichess.org/@/Lichess Replaces old string clickHereToReadIt">Прочитать сообщение</string>
   <string name="sorry">Извините :(</string>
   <string name="weHadToTimeYouOutForAWhile">Мы вынуждены прервать вас на время.</string>
   <string name="why">Почему?</string>
@@ -1145,4 +1158,7 @@
   <string name="tags">Теги</string>
   <string name="enPassant">Взятие на проходе</string>
   <string name="settings">Настройки</string>
+  <string name="verifyingYourDevice">Проверка устройства...</string>
+  <string name="chessOpenings">Шахматные дебюты</string>
+  <string name="boards">Доски</string>
 </resources>

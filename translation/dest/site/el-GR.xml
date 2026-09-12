@@ -175,6 +175,8 @@
   </plurals>
   <string name="moveTimes">Χρόνοι κινήσεων</string>
   <string name="flipBoard">Περιστροφή σκακιέρας</string>
+  <string name="engineSettings">Ρυθμίσεις μηχανής</string>
+  <string name="enginesFromStrongestToWeakest">Μηχανές από την ισχυρότερη στην ασθενέστερη</string>
   <string name="threefoldRepetition">Τριπλή επανάληψη</string>
   <string name="claimADraw">Απαίτηση ισοπαλίας</string>
   <string name="drawClaimed">Απαιτήθηκε ισοπαλία</string>
@@ -743,6 +745,7 @@
   <string name="keyGoToStartOrEnd">πηγαίνετε στην έναρξη / λήξη</string>
   <string name="keyCycleSelectedVariation">Επιλογή επόμενης βαριάντας</string>
   <string name="keyShowOrHideComments">εμφάνιση / απόκρυψη σχολίων</string>
+  <string name="keyShowOrHideCurrentVariation">εμφάνιση/απόκρυψη βαριάντας</string>
   <string name="keyEnterOrExitVariation">είσοδος / έξοδος εκδοχής</string>
   <string name="keyPreviousBranch">Προηγούμενος κλάδος</string>
   <string name="keyNextBranch">Επόμενος κλάδος</string>
@@ -1061,4 +1064,7 @@
   <string name="tags">Ετικέτες</string>
   <string name="enPassant">En passant</string>
   <string name="settings">Ρυθμίσεις</string>
+  <string name="verifyingYourDevice">Επαλήθευση της συσκευής σας...</string>
+  <string name="chessOpenings">Ανοίγματα</string>
+  <string name="boards">Σκακιέρες</string>
 </resources>
