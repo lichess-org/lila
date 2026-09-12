@@ -43,3 +43,38 @@ final class ForumBits(helpers: Helpers):
         autocomplete := "off",
         placeholder := trans.site.pleaseBeNiceInTheForum.txt()
       )(modifiers)
+
+  def usermodTimeout(negative: Usermod.NegativeReports)(using Context) =
+    st.section(cls := "forum-usermod-timeout")(
+      h2(trans.site.forumUsageTemporarilyDisabled()),
+      p(trans.site.youMayPostAgainX(momentFromNow(negative.until))),
+      negative.posts.nonEmpty.option:
+        frag(
+          p(trans.site.complaintsThatCausedThis()),
+          ul:
+            negative.posts.toList
+              .sortBy(_._1.value)
+              .map: (postId, post) =>
+                li(
+                  a(href := routes.ForumPost.redirect(postId))(post.topic),
+                  " — ",
+                  Usermod.Reason.values.toList
+                    .filter: reason =>
+                      post.complaints.values.exists(_ == reason)
+                    .zipWithIndex
+                    .map: (reason, index) =>
+                      val count = post.complaints.values.count(_ == reason)
+                      span(
+                        if index > 0 then ", " else "",
+                        reason match
+                          case Usermod.Reason.Disagree => trans.site.disagree()
+                          case Usermod.Reason.Troll => trans.site.troll()
+                          case Usermod.Reason.OffTopic => trans.site.offTopic()
+                          case Usermod.Reason.Spam => trans.site.spam()
+                          case Usermod.Reason.Offensive => trans.site.offensive()
+                          case Usermod.Reason.Abusive => trans.site.abusive(),
+                        s" × $count"
+                      )
+                )
+        )
+    )

@@ -19,7 +19,8 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
       canReply: Boolean,
       canModCateg: Boolean,
       canReact: Boolean,
-      isTopicFirst: Boolean
+      isTopicFirst: Boolean,
+      noTimeouts: Boolean
   )(using ctx: Context) = postWithFrag match
     case ForumPost.WithFrag(post, body, hide) =>
       val postFrag = div(cls := "forum-post__message expand-text")(
@@ -51,7 +52,7 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
                   .getOrElse:
                     momentFromNow(post.createdAt)
               ),
-              (!post.erased && ctx.me.soUse(post.shouldShowEditForm)).option(
+              (noTimeouts && !post.erased && ctx.me.soUse(post.shouldShowEditForm)).option(
                 button(
                   cls := "forum-post__button edit button button-empty text",
                   tpe := "button",
@@ -60,14 +61,14 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
               ),
               ctx.me.flatMap: me =>
                 given Me = me
-                val quoteButton = (canReply && !post.erased).option(
+                val quoteButton = (noTimeouts && canReply && !post.erased).option(
                   button(
                     cls := "forum-post__button quote button button-empty text",
                     tpe := "button",
                     dataIcon := "❝"
                   )(trans.site.quote())
                 )
-                if !post.erased && post.canBeEditedByMe
+                if noTimeouts && !post.erased && post.canBeEditedByMe
                 then
                   frag(
                     postForm(action := routes.ForumPost.delete(post.id))(
@@ -89,7 +90,7 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
                         title := "Relocate"
                       )
                     ,
-                    if canModCateg || topic.isUblogAuthor(me) then
+                    if noTimeouts && (canModCateg || topic.isUblogAuthor(me)) then
                       frag(
                         a(
                           cls := "forum-post__button delete button button-empty",
@@ -127,9 +128,12 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
           )
         else postFrag,
         (!post.erased).option:
-          frag(div(cls := "forum-post__message-source")(post.text), reactions(post, canReact))
+          frag(
+            div(cls := "forum-post__message-source")(post.text),
+            noTimeouts.option(reactions(post, canReact))
+          )
         ,
-        ctx.me.soUse[Option[Tag]]:
+        noTimeouts.option(ctx.me.soUse[Option[Tag]]:
           post.shouldShowEditForm.option:
             postForm(cls := "edit-post-form none", action := routes.ForumPost.edit(post.id))(
               lila.ui.bits.markdownEditor(MarkdownRealm.forum):
@@ -151,7 +155,7 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
                 ,
                 submitButton(cls := "button")(trans.site.apply())
               )
-            )
+            ))
       )
 
   def reactions(post: ForumPost, canReact: Boolean)(using ctx: Context) =
@@ -173,6 +177,8 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
               .url
           ),
           cls := List("mine" -> mine(r), "yes" -> (size > 0), "no" -> (size < 1)),
+          data("reaction") := r.key,
+          data("value") := (!mine(r)).toString,
           title := {
             if size > 0 then
               val who =

@@ -205,6 +205,9 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
   def chatTimeout(user: UserId, reason: TimeoutReason, text: String)(using MyId) = add:
     Modlog(user.some, Modlog.chatTimeout, details = s"${reason.key}: $text".some)
 
+  def forumTimeout(user: UserId, hours: Int)(using MyId) = add:
+    Modlog(user.some, Modlog.forumTimeout, details = s"$hours hours".some)
+
   def setPermissions(user: LightUser, permissions: Map[Permission, Boolean])(using Me) =
     val details = permissions
       .map: (p, dir) =>

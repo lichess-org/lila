@@ -73,47 +73,58 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
 
   def edit(postId: ForumPostId) = AuthBody { ctx ?=> me ?=>
     Found(postApi.getPost(postId)): post =>
-      for
-        teamId <- env.forum.postApi.teamIdOfPost(post)
-        inOwnTeam <- teamId.so(env.team.api.isLeader)
-        res <- bindForm(forms.postEdit(inOwnTeam, post.text))(
-          _ => Redirect(routes.ForumPost.redirect(postId)).toFuccess,
-          data =>
-            limit.forumPost(ctx.ip, rateLimited):
-              for
-                post <- postApi.editPost(postId, data.changes)
-                url = routes.ForumPost.redirect(post.id).url
-                _ <- env.memo.picfitApi.addRef(Markdown(post.text), lila.forum.picRef(post.id), url.some)
-                _ = discard { maybeAutomod(post) }
-              yield Redirect(url)
-        )
-      yield res
+      access
+        .isGrantedWrite(post.categId)
+        .flatMap:
+          if _ then
+            for
+              teamId <- env.forum.postApi.teamIdOfPost(post)
+              inOwnTeam <- teamId.so(env.team.api.isLeader)
+              res <- bindForm(forms.postEdit(inOwnTeam, post.text))(
+                _ => Redirect(routes.ForumPost.redirect(postId)).toFuccess,
+                data =>
+                  limit.forumPost(ctx.ip, rateLimited):
+                    for
+                      post <- postApi.editPost(postId, data.changes)
+                      url = routes.ForumPost.redirect(post.id).url
+                      _ <- env.memo.picfitApi
+                        .addRef(Markdown(post.text), lila.forum.picRef(post.id), url.some)
+                      _ = discard { maybeAutomod(post) }
+                    yield Redirect(url)
+              )
+            yield res
+          else Forbidden("You cannot post to this category")
   }
 
   def delete(id: ForumPostId) = AuthBody { ctx ?=> me ?=>
     Found(postApi.getPost(id).flatMapz(postApi.viewOf)): view =>
       val post = view.post
-      if post.userId.exists(_.is(me)) && !post.erased then
-        if view.topic.nbPosts == 1 then
-          env.forum.delete.deleteTopic(view).inject(Redirect(routes.ForumCateg.show(view.categ.id)))
-        else postApi.erasePost(post).inject(Redirect(routes.ForumPost.redirect(id)))
-      else
-        TopicGrantModById(post.categId, post.topicId):
-          env.forum.delete
-            .deletePost(view)
-            .inject:
-              for
-                userId <- post.userId
-                reasonOpt <- forms.deleteWithReason.bindFromRequest().value
-                topic <- topicRepo.forUser(me.some).byId(post.topicId)
-                reason <- reasonOpt.filter(MsgPreset.forumDeletion.presets.contains)
-                preset =
-                  if isGranted(_.ModerateForum) then MsgPreset.forumDeletion.byModerator
-                  else if topic.exists(_.isUblogAuthor(me)) then
-                    MsgPreset.forumDeletion.byBlogAuthor(me.username)
-                  else MsgPreset.forumDeletion.byTeamLeader(post.categId)
-              do env.msg.api.systemPost(SystemMsg.standard(userId, preset(reason, view.logFormatted)))
-              NoContent
+      access
+        .isGrantedWrite(post.categId)
+        .flatMap:
+          if _ then
+            if post.userId.exists(_.is(me)) && !post.erased then
+              if view.topic.nbPosts == 1 then
+                env.forum.delete.deleteTopic(view).inject(Redirect(routes.ForumCateg.show(view.categ.id)))
+              else postApi.erasePost(post).inject(Redirect(routes.ForumPost.redirect(id)))
+            else
+              TopicGrantModById(post.categId, post.topicId):
+                env.forum.delete
+                  .deletePost(view)
+                  .inject:
+                    for
+                      userId <- post.userId
+                      reasonOpt <- forms.deleteWithReason.bindFromRequest().value
+                      topic <- topicRepo.forUser(me.some).byId(post.topicId)
+                      reason <- reasonOpt.filter(MsgPreset.forumDeletion.presets.contains)
+                      preset =
+                        if isGranted(_.ModerateForum) then MsgPreset.forumDeletion.byModerator
+                        else if topic.exists(_.isUblogAuthor(me)) then
+                          MsgPreset.forumDeletion.byBlogAuthor(me.username)
+                        else MsgPreset.forumDeletion.byTeamLeader(post.categId)
+                    do env.msg.api.systemPost(SystemMsg.standard(userId, preset(reason, view.logFormatted)))
+                    NoContent
+          else Forbidden("You cannot post to this category")
   }
 
   def relocate(id: ForumPostId) = SecureBody(_.ModerateForum) { ctx ?=> me ?=>
@@ -132,11 +143,18 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
               Redirect(routes.ForumCateg.show(to)).flashSuccess
   }
 
-  def react(categId: ForumCategId, id: ForumPostId, reaction: String, v: Boolean) = Auth { _ ?=> me ?=>
-    CategGrantWrite(categId):
-      FoundSnip(postApi.react(categId, id, reaction, v)): post =>
-        lila.ui.Snippet(views.forum.post.reactions(post, canReact = true))
-  }
+  def react(categId: ForumCategId, id: ForumPostId, reaction: String, v: Boolean, reason: Option[String]) =
+    Auth { _ ?=> me ?=>
+      CategGrantWrite(categId):
+        FoundSnip(postApi.react(categId, id, reaction, v)): post =>
+          val snippet = lila.ui.Snippet(views.forum.post.reactions(post, canReact = true))
+          lila.forum.ForumPost
+            .Reaction(reaction)
+            .fold(fuccess(snippet)): reaction =>
+              env.forum.usermod
+                .report(post, reaction, v, reason.flatMap(lila.forum.Usermod.Reason.apply))
+                .inject(snippet)
+    }
 
   def redirect(id: ForumPostId) = Open:
     Found(postApi.urlData(id, ctx.me)):

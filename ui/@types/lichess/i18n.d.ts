@@ -3199,6 +3199,8 @@ interface I18n {
     aboutSimulSettings: string;
     /** About %s */
     aboutX: I18nFormat;
+    /** Abusive */
+    abusive: string;
     /** Accept */
     accept: string;
     /** Accessibility */
@@ -3427,6 +3429,8 @@ interface I18n {
     checkSpamFolder: string;
     /** If you do not receive a confirmation email, check your Spam or Junk folder. Be sure to indicate messages from lichess.org as safe and "not spam", so you can stay informed of important communications. */
     checkSpamOrJunkFolder: string;
+    /** Check %s to opt out of community watch. You may rejoin later by right clicking or long pressing on a thumbs down reaction. */
+    checkXToOptOut: I18nFormat;
     /** Check your Email */
     checkYourEmail: string;
     /** Chess960 start position: %s */
@@ -3475,6 +3479,8 @@ interface I18n {
     collapseVariations: string;
     /** Community */
     community: string;
+    /** Complaints that caused this timeout: */
+    complaintsThatCausedThis: string;
     /** Message */
     composeMessage: string;
     /** Computer */
@@ -3583,6 +3589,8 @@ interface I18n {
     disableBlindMode: string;
     /** Disable Kid mode */
     disableKidMode: string;
+    /** Disagree */
+    disagree: string;
     /** Conversations */
     discussions: string;
     /** Do it again */
@@ -3591,6 +3599,8 @@ interface I18n {
     doneReviewingBlackMistakes: string;
     /** Done reviewing white's mistakes */
     doneReviewingWhiteMistakes: string;
+    /** Don't ask me again */
+    dontAskMeAgain: string;
     /** Download */
     download: string;
     /** Download all games */
@@ -3745,6 +3755,8 @@ interface I18n {
     forgotPassword: string;
     /** Forum */
     forum: string;
+    /** Forum usage temporarily disabled */
+    forumUsageTemporarilyDisabled: string;
     /** Free Online Chess */
     freeOnlineChess: string;
     /** Friends */
@@ -3807,6 +3819,8 @@ interface I18n {
     ifYouDoNotGetTheEmail: string;
     /** If you don't see the email, check other places it might be, like your junk, spam, social, or other folders. */
     ifYouDoNotSeeTheEmailCheckOtherPlaces: string;
+    /** If your reason is anything other than %s, this user's forum privileges may be affected. */
+    ifYourReasonIsNotX: I18nFormat;
     /** Illegal positions cannot be analyzed */
     illegalPositions: string;
     /** Image opacity */
@@ -4183,10 +4197,14 @@ interface I18n {
     numberInaccuracies: I18nPlural;
     /** %s Mistakes */
     numberMistakes: I18nPlural;
+    /** Offensive */
+    offensive: string;
     /** Offer draw */
     offerDraw: string;
     /** offline */
     offline: string;
+    /** Off-topic */
+    offTopic: string;
     /** OK */
     ok: string;
     /** One day */
@@ -4587,6 +4605,8 @@ interface I18n {
     sound: string;
     /** Source Code */
     sourceCode: string;
+    /** Spam */
+    spam: string;
     /** Spectator room */
     spectatorRoom: string;
     /** Stalemate */
@@ -4923,6 +4943,8 @@ interface I18n {
     whiteWinsGame: string;
     /** Why? */
     why: string;
+    /** Why thumbs down? */
+    whyThumbsDown: string;
     /** Winner */
     winner: string;
     /** Winning */
@@ -5011,6 +5033,8 @@ interface I18n {
     youHaveBeenTimedOut: string;
     /** You have joined "%1$s". */
     youHaveJoinedTeamX: I18nFormat;
+    /** You may post again %s. This penalty was community driven and cannot be appealed */
+    youMayPostAgainX: I18nFormat;
     /** You need an account to do that */
     youNeedAnAccountToDoThat: string;
     /** You play the black pieces */

@@ -32,6 +32,10 @@ final class Env(
     cacheApi: lila.memo.CacheApi,
     markdown: lila.memo.MarkdownCache,
     picfitApi: lila.memo.PicfitApi,
+    automod: lila.report.Automod,
+    ircApi: lila.core.irc.IrcApi,
+    msgApi: lila.core.msg.MsgApi,
+    settingStore: lila.memo.SettingStore.Builder,
     ws: StandaloneWSClient
 )(using Executor, Scheduler, org.apache.pekko.stream.Materializer):
 
@@ -53,6 +57,9 @@ final class Env(
   lazy val topicApi: ForumTopicApi = wire[ForumTopicApi]
 
   lazy val postApi: ForumPostApi = wire[ForumPostApi]
+
+  lazy val usermod: UsermodApi =
+    new UsermodApi(db(CollName("f_usermod")), topicRepo, userApi, automod, ircApi, msgApi, settingStore)
 
   lazy val delete: ForumDelete = wire[ForumDelete]
 
