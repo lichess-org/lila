@@ -746,6 +746,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="keyGoToStartOrEnd">ir para início/fim</string>
   <string name="keyCycleSelectedVariation">Ciclo da variante selecionada</string>
   <string name="keyShowOrHideComments">mostrar/ocultar os comentários</string>
+  <string name="keyShowOrHideCurrentVariation">mostrar/ocultar variante atual</string>
   <string name="keyEnterOrExitVariation">entrar/sair da variante</string>
   <string name="keyPreviousBranch">Ramo anterior</string>
   <string name="keyNextBranch">Próximo ramo</string>
@@ -1064,4 +1065,7 @@ Todos os custos operacionais, de desenvolvimento e conteúdo são financiados ex
   <string name="tags">Etiquetas</string>
   <string name="enPassant">En passant</string>
   <string name="settings">Definições</string>
+  <string name="verifyingYourDevice">A verificar o teu dispositivo...</string>
+  <string name="chessOpenings">Abertura de xadrez</string>
+  <string name="boards">Tabuleiros</string>
 </resources>

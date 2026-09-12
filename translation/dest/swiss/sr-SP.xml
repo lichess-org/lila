@@ -45,6 +45,13 @@
   <string name="pointsCalculationA">Победа вреди један бод, реми је пола бода, а губитак је нула бодова.
 Када играч не може бити упарен током рунде, добија слободну рунду вредну један бод.</string>
   <string name="tiebreaksCalculationQ">Како се тај-брејкови рачунају?</string>
+  <string name="tiebreaksCalculationA">Са %s.
+Сабери резултате сваког протвника којег играч победи и пола резултата сваког играча којег играч ремизира.</string>
+  <string name="pairingsQ">Како се упарења одлучују?</string>
+  <string name="dutchSystem">Холандски систем</string>
+  <string name="FIDEHandbook">ФИДЕ приручником</string>
+  <string name="pairingsA">Са %1$s, имплементираним од стране %2$s, у складу са %3$s.</string>
+  <string name="moreRoundsThanPlayersQ">Шта се деси ако турнир има више рунди него играча?</string>
   <string name="lateJoinUntil">Да док више од половине рунди не почне</string>
   <string name="streaksAndBerserk">Низови и Берсерк</string>
   <string name="absences">Изостанци</string>
