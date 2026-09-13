@@ -59,6 +59,7 @@
   <string name="imageAlt">Текстовий опис зображення</string>
   <string name="imageCredit">Права на зображення</string>
   <string name="deleteBlog">Остаточно видалити цей допис</string>
+  <string name="safeToUseImages">Безпечно користуватися зображеннями з цих сайтів: </string>
   <string name="selectPostTopics">Виберіть тему вашого допису</string>
   <string name="safeAndRespectfulContent">Будь ласка, публікуйте тільки безпечний і шанобливий контент. Не копіюйте чужий контент.</string>
   <string name="noCopyrightedImages">Використовуйте лише ті зображення, які не мають авторських прав.</string>

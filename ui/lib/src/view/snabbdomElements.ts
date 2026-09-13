@@ -144,6 +144,7 @@ export function makeExoticTag(tag: string, defaultData?: VNodeDataExtended): Tag
 
 export const div: TagFunction = makeTag('div');
 export const p: TagFunction = makeTag('p');
+export const i: TagFunction = makeTag('i');
 export const button: TagFunction = makeTag('button');
 export const span: TagFunction = makeTag('span');
 export const strong: TagFunction = makeTag('strong');
@@ -171,8 +172,9 @@ export const td: TagFunction = makeTag('td');
 export const a: TagFactory<[href: string]> = href => makeTag('a', { href });
 export const img: TagFactory<[src: string, alt?: string, title?: string]> = (src, alt, title) =>
   makeTag('img', { alt, src, title });
-export const input: TagFactory<[type: HTMLInputElement['type']]> = (type = 'text') =>
-  makeTag('input', { type });
+export const input: TagFactory<[type: HTMLInputElement['type']]> = type => makeTag('input', { type });
 export const optgroup: TagFactory<[label: string]> = label => makeTag('optgroup', { label });
+export const textarea: TagFactory<[rows?: number, cols?: number]> = (rows, cols) =>
+  makeTag('textarea', { rows, cols });
 
 export const icon: TagFactory<[icon: LiconValue]> = icon => makeExoticTag('icon', { 'data-icon': icon });

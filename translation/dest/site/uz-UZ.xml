@@ -178,7 +178,7 @@
   <string name="toggleLocalEngine">Lokal dvijok</string>
   <string name="engineSettings">Dvijok sozlamalari</string>
   <string name="enginesFromStrongestToWeakest">Dvijoklar kuchlidan kuchsizga qarab</string>
-  <string name="illegalPositions">Notoʻgʻri pozitsiyalarni tahlil qilib boʻlmaydi</string>
+  <string name="illegalPosition">Noto\'g\'ri pozitsiya</string>
   <string name="threefoldRepetition">Uch marta takrorlanish</string>
   <string name="claimADraw">Durang talab qilish</string>
   <string name="drawClaimed">Durang</string>

@@ -170,7 +170,7 @@
   <string name="toggleLocalEngine">切换本地引擎</string>
   <string name="engineSettings">引擎设置</string>
   <string name="enginesFromStrongestToWeakest">引擎从强到弱</string>
-  <string name="illegalPositions">非法局面无法分析</string>
+  <string name="illegalPosition">非法局面</string>
   <string name="threefoldRepetition">三次重复局面</string>
   <string name="claimADraw">宣布和棋</string>
   <string name="drawClaimed">平局声明</string>
