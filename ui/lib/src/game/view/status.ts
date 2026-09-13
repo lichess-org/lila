@@ -1,5 +1,7 @@
 import type { GameData, Source, StatusName } from '@/game';
 
+import { isFiftyMoves } from '../chess';
+
 export function bishopOnColor(expandedFen: string, offset: 0 | 1): boolean {
   if (expandedFen.length !== 64) throw new Error('Expanded FEN expected to be 64 characters');
 
@@ -98,7 +100,7 @@ export function statusOf(d: StatusData): string {
           return `${d.ply % 2 === 0 ? i18n.site.whiteLeftTheGame : i18n.site.blackLeftTheGame} • ${i18n.site.draw}`;
       }
     case 'draw': {
-      if (d.fiftyMoves || d.fen.split(' ')[4] === '100')
+      if (d.fiftyMoves || isFiftyMoves(d.fen))
         return `${i18n.site.fiftyMovesWithoutProgress} • ${i18n.site.draw}`;
       if (d.threefold) return `${i18n.site.threefoldRepetition} • ${i18n.site.draw}`;
       if (insufficientMaterial(d.variant, d.fen))

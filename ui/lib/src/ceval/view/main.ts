@@ -11,6 +11,7 @@ import { setupPosition } from 'chessops/variant';
 import { h } from 'snabbdom';
 
 import { isTouchDevice } from '@/device';
+import { isFiftyMoves } from '@/game/chess';
 import { blurIfPrimaryClick, defined, notNull, requestIdleCallbackSafe } from '@/index';
 import { licon } from '@/licon';
 import type { ClientEval, LocalEval, PvData } from '@/tree/types';
@@ -169,7 +170,8 @@ export function renderCeval(ctrl: CevalHandler): VNode[] {
     threat = threatMode ? node.threat : undefined,
     bestEv = threat || getBestEval(ctrl),
     search = ceval.search,
-    download = ceval.download;
+    download = ceval.download,
+    fiftyMoves = isFiftyMoves(node.fen);
   let pearl: LooseVNode,
     percent = 0;
 
@@ -190,10 +192,10 @@ export function renderCeval(ctrl: CevalHandler): VNode[] {
     percent = 100;
   } else {
     if (!enabled) pearl = h('pearl', h('icon'));
-    else if (node.outcome() || node.threefold) pearl = h('pearl', '-');
+    else if (node.outcome() || node.threefold || fiftyMoves) pearl = h('pearl', '-');
     else if (ceval.state === CevalState.Failed) pearl = h('pearl', icon(licon.CautionCircle)('.is-red'));
     else pearl = h('pearl', h('icon.ddloader'));
-    percent = node.outcome() ? 100 : 0;
+    percent = node.outcome() || fiftyMoves ? 100 : 0;
   }
   if (download) percent = Math.min(100, Math.round((100 * download.bytes) / download.total));
   else if (ceval.search.indeterminate || (percent > 0 && !ceval.isComputing)) percent = 100;
@@ -231,9 +233,11 @@ export function renderCeval(ctrl: CevalHandler): VNode[] {
               ? [i18n.site.gameOver]
               : node.threefold
                 ? [i18n.site.threefoldRepetition]
-                : threatMode
-                  ? [threatInfo(ctrl, threat)]
-                  : localEvalNodes(ctrl, { client, server }),
+                : fiftyMoves
+                  ? [i18n.site.fiftyMovesWithoutProgress]
+                  : threatMode
+                    ? [threatInfo(ctrl, threat)]
+                    : localEvalNodes(ctrl, { client, server }),
           ),
         ]),
       ]

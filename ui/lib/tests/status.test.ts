@@ -2,7 +2,25 @@ import assert from 'node:assert/strict';
 import { describe, test } from 'node:test';
 
 import { each } from '../../.test/helpers.mts';
+import { isFiftyMoves } from '../src/game/chess';
 import { bishopOnColor, expandFen, insufficientMaterial } from '../src/game/view/status';
+
+describe('fifty-move rule from FEN', () => {
+  test('starting position is not fifty-move', () =>
+    assert.strictEqual(isFiftyMoves('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1'), false));
+
+  test('99 halfmoves is not fifty-move', () =>
+    assert.strictEqual(isFiftyMoves('8/p4p2/1p2p1p1/r1k1P1Pp/P1P2P1P/R1K5/8/8 b - - 99 81'), false));
+
+  test('exactly 100 halfmoves is fifty-move', () =>
+    assert.strictEqual(isFiftyMoves('8/p4p2/1p2p1p1/r1k1P1Pp/P1P2P1P/R1K5/8/8 b - - 100 81'), true));
+
+  test('more than 100 halfmoves is still fifty-move', () =>
+    assert.strictEqual(isFiftyMoves('8/p4p2/1p2p1p1/r1k1P1Pp/P1P2P1P/R1K5/8/8 b - - 150 106'), true));
+
+  test('incomplete FEN without clocks is not fifty-move', () =>
+    assert.strictEqual(isFiftyMoves('8/8/8/8/8/8/8/8 w - -'), false));
+});
 
 describe('expand fen', () => {
   test('starting position', () =>
