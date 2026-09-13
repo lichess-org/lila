@@ -10,7 +10,7 @@ import type { Rules, Square } from 'chessops/types';
 import { Castles, defaultPosition, Position, setupPosition } from 'chessops/variant';
 
 import { defined, prop, propWithEffect, type Prop } from 'lib';
-import { CevalCtrl, useFirstEval, type CevalHandler, type CevalOpts } from 'lib/ceval';
+import { CevalCtrl, type CevalHandler, type CevalOpts } from 'lib/ceval';
 import { completeNode } from 'lib/tree/node';
 import type { TreeNode } from 'lib/tree/types';
 import { prompt } from 'lib/view';
@@ -168,11 +168,8 @@ export default class EditorCtrl implements CevalHandler {
 
         const node = this.cevalNode;
         if (meta.threatMode) {
-          if (!node.threat || useFirstEval(ev, node.threat, this.ceval.search.multiPv)) node.threat = ev;
-        } else if (
-          ev.fen === node.fen &&
-          (!node.ceval || useFirstEval(ev, node.ceval, this.ceval.search.multiPv))
-        ) {
+          node.threat = ev;
+        } else if (ev.fen === node.fen) {
           node.ceval = ev;
         }
         this.redraw();
