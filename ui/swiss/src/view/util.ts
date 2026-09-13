@@ -1,6 +1,6 @@
 import { h } from 'snabbdom';
 
-import { fullName, profileUrl, userLine, userRating } from 'lib/view/userLink';
+import { fullName, profileUrl, userPatron, userRating } from 'lib/view/userLink';
 
 import type { BasePlayer } from '../interfaces';
 
@@ -13,7 +13,7 @@ export function player(p: BasePlayer, asLink: boolean, withRating: boolean) {
       hook: { destroy: vnode => $.powerTip.destroy(vnode.elm) },
     },
     [
-      p.user.patronColor && userLine({ patronColor: p.user.patronColor }),
+      p.user.patronColor && userPatron({ patronColor: p.user.patronColor }),
       h('span.name', fullName(p.user)),
       withRating ? h('span.rating', userRating({ ...p, brackets: false })) : null,
     ],

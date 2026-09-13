@@ -214,7 +214,10 @@ export function view(ctrl: StudyCtrl): VNode {
         const config = members.config() === member.user.id;
         return [
           hl('div', { key: member.user.id, class: { editing: config } }, [
-            hl('div.left', [statusIcon(member), userLink({ ...member.user, line: false })]),
+            hl('div.left', [
+              statusIcon(member),
+              userLink({ ...member.user, patronColor: undefined, line: false }),
+            ]),
             configButton(ctrl, member),
           ]),
           config && memberConfig(member),

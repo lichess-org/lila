@@ -3,7 +3,7 @@ import { h, type VNode } from 'snabbdom';
 import { licon } from 'lib/licon';
 import { bind, dataIcon, icon, type MaybeVNodes } from 'lib/view';
 import { renderPager, searchButton, searchInput } from 'lib/view/pagination';
-import { userLine, userLinkData } from 'lib/view/userLink';
+import { userPatron, userLinkData } from 'lib/view/userLink';
 import { numberRow } from 'lib/view/util';
 
 import type TournamentController from '../ctrl';
@@ -87,7 +87,7 @@ export function podium(ctrl: TournamentController) {
     p
       ? h('div.' + pos, [
           h('div.trophy'),
-          h('a', userLinkData(p), [p.patronColor && userLine(p), ...fullName(p)]),
+          h('a', userLinkData(p), [p.patronColor && userPatron(p), ...fullName(p)]),
           podiumStats(p, ctrl.data.berserkable, ctrl),
         ])
       : undefined;

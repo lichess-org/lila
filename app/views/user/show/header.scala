@@ -34,12 +34,13 @@ object header:
       ctx.useMe(lila.mod.canImpersonate(u.id))
     )
 
-  private def userDom(u: User)(using ctx: Context) =
+  private def userDom(u: User, patron: Option[Frag] = none)(using ctx: Context) =
     span(
-      cls := userClass(u.id, none, withOnline = !u.isPatron, withPowerTip = false),
+      cls := userClass(u.id, none, withOnline = true, withPowerTip = false),
       dataHref := userUrl(u.username)
     )(
-      u.isPatron.not.so(lineIcon(u)),
+      lineIcon,
+      patron,
       titleTag(u.title),
       u.username,
       if ctx.blind
@@ -57,8 +58,7 @@ object header:
         u.patronAndColor.match
           case Some(p) =>
             h1(cls := s"user-link ${if isOnline.exec(u.id) then "online" else "offline"}")(
-              a(href := routes.Plan.index())(patronIcon(p)),
-              userDom(u)
+              userDom(u, Some(a(href := routes.Plan.index())(patronIcon(p))))
             )
           case None => h1(userDom(u)),
         div(cls := "trophies")(

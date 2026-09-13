@@ -36,9 +36,9 @@ site.load.then(() => {
               _ => searchCallback([]),
             );
         },
-        template: ({ online, name, patron, title }: LightUserOnline) =>
+        template: ({ online, name, patron, patronColor, title }: LightUserOnline) =>
           `<span class="ulpt user-link${online ? ' online' : ''}" data-href="${profileUrl(name)}">` +
-          `<icon class="line${patron ? ' patron' : ''}"></icon>` +
+          `<icon class="line"></icon>${patron ? `<icon class="patron${patronColor ? ` paco${patronColor}` : ''}"></icon>` : ''}` +
           `${title ? '<span class="utitle">' + title + '</span>&nbsp;' : ''}${name}</span>`,
         replace: ({ name }: LightUserOnline) => `$1${name}\n`,
       },

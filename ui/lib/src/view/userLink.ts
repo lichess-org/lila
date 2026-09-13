@@ -10,7 +10,7 @@ export type AnyUser = {
   flair?: Flair;
   ratingDiff?: number;
   line?: boolean; // display i.line, true by default
-  patronColor?: PatronColor; // turn i.line into a patron wing
+  patronColor?: PatronColor;
   moderator?: boolean; // turn i.line into a mod icon
   rating?: number;
   provisional?: boolean;
@@ -18,7 +18,7 @@ export type AnyUser = {
 };
 
 export const userLink = (u: AnyUser): VNode =>
-  h('a', userLinkData(u), [userLine(u), ...fullName(u), u.rating && ` ${userRating(u)} `]);
+  h('a', userLinkData(u), [userLine(u), userPatron(u), ...fullName(u), u.rating && ` ${userRating(u)} `]);
 
 export const profileUrl = (name: string): string => `/@/${name}`;
 
@@ -31,17 +31,25 @@ export const userLinkData = (u: AnyUser): VNodeData => ({
 export const userFlair = (u: Pick<AnyUser, 'flair'>): VNode | undefined =>
   u.flair ? h('img.uflair', { attrs: { src: site.asset.flairSrc(u.flair) } }) : undefined;
 
-export const userLine = (u: Pick<AnyUser, 'line' | 'patronColor' | 'moderator'>): VNode | undefined =>
-  u.line !== false
-    ? h('icon.line', {
-        class: {
-          patron: !!u.patronColor,
-          moderator: !!u.moderator,
-          ...(u.patronColor ? { [`paco${u.patronColor}`]: true } : {}),
-        },
-        attrs: u.patronColor ? { title: 'Lichess Patron' } : {},
+export const userPatron = (u: object): VNode | undefined => {
+  const options = u as { patronColor?: PatronColor; moderator?: boolean };
+  return options.patronColor && !options.moderator
+    ? h(`icon.patron.paco${options.patronColor}`, {
+        title: 'Lichess Patron',
       })
     : undefined;
+};
+
+export const userLine = (u: object): VNode | undefined => {
+  const options = u as { line?: boolean; moderator?: boolean };
+  return options.line !== false
+    ? h('icon.line', {
+        class: {
+          moderator: !!options.moderator,
+        },
+      })
+    : undefined;
+};
 
 export const userTitle = ({ title }: Pick<AnyUser, 'title'>): VNode | undefined =>
   title
