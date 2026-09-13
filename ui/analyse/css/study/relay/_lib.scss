@@ -1,0 +1,21 @@
+%game-link-styles {
+  @extend %box-radius;
+
+  padding: 0.4em 0.5em;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  gap: 0.2rem;
+  color: $c-font-dim;
+  font-weight: bold;
+  font-size: 1.1em;
+
+  &::before {
+    font-size: 1em;
+  }
+
+  &:hover {
+    background: color-mix(in oklab, $c-primary 20%, $c-bg);
+    color: $c-link;
+  }
+}

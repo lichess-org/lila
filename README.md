@@ -34,6 +34,7 @@ The web client is written in [TypeScript](https://www.typescriptlang.org/) and [
 All rated games are published in a [free PGN database](https://database.lichess.org).
 Browser testing done with [Browserstack](https://www.browserstack.com).
 Proxy detection done with [IP2Proxy database](https://www.ip2location.com/database/ip2proxy).
+Software builds and CI/CD done with [Depot](https://depot.dev/).
 Please help us [translate Lichess with Crowdin](https://crowdin.com/project/lichess).
 
 See [lichess.org/source](https://lichess.org/source) for a list of repositories.

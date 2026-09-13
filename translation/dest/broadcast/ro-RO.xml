@@ -37,6 +37,7 @@
   <string name="resetRound">Resetează această rundă</string>
   <string name="deleteRound">Șterge această rundă</string>
   <string name="definitivelyDeleteRound">Șterge definitiv runda și jocurile sale.</string>
+  <string name="permanentlyDeleteRound" comment="Refers to live tournaments being broadcast on Lichess (https://lichess.org/broadcast).&#10;&#10;Description (also translateable): Delete all games of this round. The source will need to be active in order to re-create them. This string has been amended since its initial publication; it didn't say &quot;all its games&quot; at the time.&#10;&#10;Replaces old string definitivelyDeleteRound.">Ștergeți definitiv această rundă și toate jocurile sale?</string>
   <string name="deleteAllGamesOfThisRound">Șterge toate jocurile din această rundă. Sursa va trebui să fie activă pentru a le recrea.</string>
   <string name="editRoundStudy">Editare rundă de studiu</string>
   <string name="deleteTournament">Șterge acest turneu</string>

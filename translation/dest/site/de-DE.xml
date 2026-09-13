@@ -175,6 +175,10 @@
   </plurals>
   <string name="moveTimes">Zugzeiten</string>
   <string name="flipBoard">Brett drehen</string>
+  <string name="toggleLocalEngine">Lokale Engine umschalten</string>
+  <string name="engineSettings">Engine-Einstellungen</string>
+  <string name="enginesFromStrongestToWeakest">Engines von stärkster bis schwächster</string>
+  <string name="illegalPosition">Ungültige Stellung</string>
   <string name="threefoldRepetition">Dreifache Stellungswiederholung</string>
   <string name="claimADraw">Remis beanspruchen</string>
   <string name="drawClaimed">Remis reklamiert</string>
@@ -249,6 +253,7 @@
   <string name="signupUsernameHint">Bitte wähle einen familienfreundlichen Benutzernamen. Du kannst ihn später nicht mehr ändern und Konten mit unpassenden Benutzernamen werden geschlossen!</string>
   <string name="signupEmailPromise">Wir werden dir nur E-Mails bezüglich deines Kontos senden und niemals deine E-Mail-Adresse weitergeben.</string>
   <string name="password">Passwort</string>
+  <string name="showPassword">Passwort anzeigen</string>
   <string name="changePassword">Passwort ändern</string>
   <string name="changeEmail">E-Mail-Adresse ändern</string>
   <string name="email">E-Mail</string>
@@ -442,7 +447,6 @@ Wenn du gewertete Partien spielst, wird die Stabilität erhöht.</string>
   <string name="apply">Anwenden</string>
   <string name="save">Speichern</string>
   <string name="leaderboard">Rangliste</string>
-  <string name="screenshotCurrentPosition">Eine Bildschirmaufnahme der aktuellen Stellung anfertigen</string>
   <string name="positionAsImage" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position. Replaces old string screenshotCurrentPosition">Stellung als Bild</string>
   <string name="gameAsGIF">Partie als GIF</string>
   <string name="playerNames">Spielernamen</string>
@@ -556,7 +560,7 @@ Wenn du gewertete Partien spielst, wird die Stabilität erhöht.</string>
   <string name="oneUrlPerLine">Eine URL pro Zeile.</string>
   <string name="inlineNotation">Inline-Notation</string>
   <string name="makeAStudy">Zur Sicherheit und zum Teilen, überlege, ob du eine Studie anlegen möchtest.</string>
-  <string name="clearSavedMoves">Züge löschen</string>
+  <string name="clearLocalData">Lokale Daten löschen</string>
   <string name="previouslyOnLichessTV">Zuletzt auf Lichess TV</string>
   <string name="onlinePlayers">Spieler online</string>
   <string name="activePlayers">Aktive Spieler</string>
@@ -743,8 +747,10 @@ Wenn du gewertete Partien spielst, wird die Stabilität erhöht.</string>
   <string name="keyboardShortcuts">Tastenkürzel</string>
   <string name="keyMoveBackwardOrForward">Zug zurück/vor</string>
   <string name="keyGoToStartOrEnd">zum Anfang/Ende</string>
+  <string name="keyGoToPreviousOrNextLine">Zur vorherigen/nächsten Variante springen</string>
   <string name="keyCycleSelectedVariation">Durch die ausgewählte Variante schalten</string>
   <string name="keyShowOrHideComments">zeige/verberge Kommentare</string>
+  <string name="keyShowOrHideCurrentVariation">Aktuelle Variante ein-/ausblenden</string>
   <string name="keyEnterOrExitVariation">Variante wählen/verlassen</string>
   <string name="keyPreviousBranch">Vorherige Verzweigung</string>
   <string name="keyNextBranch">Nächste Verzweigung</string>
@@ -838,7 +844,6 @@ Wenn du gewertete Partien spielst, wird die Stabilität erhöht.</string>
   <string name="theme">Thema</string>
   <string name="light">Hell</string>
   <string name="dark">Dunkel</string>
-  <string name="transparent">Transparent</string>
   <string name="picture">Bild</string>
   <string name="deviceTheme">Mit Gerät synchronisieren</string>
   <string name="roundness">Rundheit</string>
@@ -1065,4 +1070,7 @@ Alle Betriebskosten, Entwicklung und Inhalte werden ausschließlich durch Benutz
   <string name="tags">Schlagwörter</string>
   <string name="enPassant">En passant</string>
   <string name="settings">Einstellungen</string>
+  <string name="verifyingYourDevice">Dein Gerät wird überprüft...</string>
+  <string name="chessOpenings">Schacheröffnungen</string>
+  <string name="boards">Bretter</string>
 </resources>

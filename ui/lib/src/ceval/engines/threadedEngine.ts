@@ -1,3 +1,5 @@
+import type { Rules } from 'chessops';
+
 import { Cache } from '../cache';
 import { Protocol } from '../protocol';
 import {
@@ -39,7 +41,7 @@ export class ThreadedEngine implements CevalEngine {
   constructor(
     readonly info: BrowserEngineInfo,
     readonly status: EngineNotifier | undefined,
-    readonly variantMap?: (v: string) => string,
+    readonly variantMap?: (v: Rules) => string,
   ) {}
 
   onError = (err: Error): void => {

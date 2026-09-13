@@ -21,6 +21,7 @@
   <string name="asALastResort">Jako poslední možnost, nastavte šachovnici do stejné pozice jako na Lichess, pak %s</string>
   <string name="reloadThisPage">Obnovit tuto stránku</string>
   <string name="dgtConfigure">DGT - Konfigurace</string>
+  <string name="configureYourDgtBoard" comment="Replaces old string dgtConfigure">Konfigurovat vaši DGT šachovnici</string>
   <string name="lichessConnectivity">Připojení k Lichess</string>
   <string name="validDgtOauthToken">Máte vhodný OAuth token pro hraní na DGT šachovnici.</string>
   <string name="dgtPlayMenuEntryAdded">Položka %s byla přidána do tvého HREJ menu nahoře.</string>

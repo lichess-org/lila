@@ -416,7 +416,6 @@
   <string name="apply">Unviar</string>
   <string name="save">Guardar</string>
   <string name="leaderboard">Clasificación</string>
-  <string name="screenshotCurrentPosition">Facer captura de pantalla de la posición actual</string>
   <string name="gameAsGIF">Guardar partida en formatu GIF</string>
   <string name="pasteTheFenStringHere">Pega\'l testu FEN equí</string>
   <string name="pasteThePgnStringHere">Pega\'l testu PGN equí</string>
@@ -525,7 +524,6 @@
   <string name="oneUrlPerLine">Un enllaz URL per llínea.</string>
   <string name="inlineNotation">Notación compacta</string>
   <string name="makeAStudy">Para guardar y compartir, considera facer un estudiu.</string>
-  <string name="clearSavedMoves">Borrar movimientos</string>
   <string name="previouslyOnLichessTV">Enantes en Lichess TV</string>
   <string name="onlinePlayers">Xugadores conectaos</string>
   <string name="activePlayers">Xugadores activos</string>
@@ -791,7 +789,6 @@
   <string name="background">Fondu</string>
   <string name="light">Claro</string>
   <string name="dark">Escuru</string>
-  <string name="transparent">Transparente</string>
   <string name="deviceTheme">Tema del dispositivu</string>
   <string name="backgroundImageUrl">URL d\'imaxe de fondu:</string>
   <string name="board">Tableru</string>

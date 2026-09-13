@@ -39,10 +39,12 @@
   <string name="resetRound">Resetovat toto kolo</string>
   <string name="deleteRound">Smazat toto kolo</string>
   <string name="definitivelyDeleteRound">Definitivně smazat kolo a jeho hry.</string>
+  <string name="permanentlyDeleteRound" comment="Refers to live tournaments being broadcast on Lichess (https://lichess.org/broadcast).&#10;&#10;Description (also translateable): Delete all games of this round. The source will need to be active in order to re-create them. This string has been amended since its initial publication; it didn't say &quot;all its games&quot; at the time.&#10;&#10;Replaces old string definitivelyDeleteRound.">Trvale smazat toto kolo a všechny jeho hry?</string>
   <string name="deleteAllGamesOfThisRound">Smazat všechny hry v tomto kole. Zdroj musí být aktivní aby bylo možno je znovu vytvořit.</string>
   <string name="editRoundStudy">Upravit studie kola</string>
   <string name="deleteTournament">Smazat tento turnaj</string>
   <string name="definitivelyDeleteTournament">Opravdu smazat celý turnaj, všechna kola a hry.</string>
+  <string name="permanentlyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast Replaces old string definitivelyDeleteTournament">Trvale smazat tento turnaj včetně všech kol a her?</string>
   <string name="showScores">Zobraz skóre hráču dle herních výsledků</string>
   <string name="replacePlayerTags">Volitelné: nahraď jména hráčů, rating a tituly</string>
   <string name="fideFederations">FIDE federace</string>
@@ -61,6 +63,7 @@
   <string name="subscribeTitle">Přihlaste se k odběru, abyste byli informováni o začátku každého kola. V předvolbách účtu můžete přepnout mezi zvukovými nebo push oznámeními pro vysílání.</string>
   <string name="uploadImage">Nahrát obrázek turnaje</string>
   <string name="noBoardsYet">Zatím žádné šachovnice. Ty se zobrazí se po nahrání partií.</string>
+  <string name="noPlayersYet">Zatím žádní hráči. Po nahrání her se zobrazí.</string>
   <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Hry můžou být načteny pomocí zdroje či %s</string>
   <string name="startsAfter">Začíná po %s</string>
   <string name="startVerySoon">Vysílání začne velmi brzy.</string>

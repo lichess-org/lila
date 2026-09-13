@@ -7,7 +7,7 @@
   <string name="kingsideCastle">Korte rokade</string>
   <string name="queensideCastle">Lange rokade</string>
   <string name="promoteC8ToQueen">Promoveer c8 naar een dame</string>
-  <string name="dropARookAtB4">Plaats een toren in op b4 (enkel bij de Crazyhouse-variant)</string>
+  <string name="dropARookAtB4">Plaats een toren op b4 (enkel bij de Gekkenhuis-variant)</string>
   <string name="offerOrAcceptDraw">Remise aanbieden of accepteren</string>
   <string name="readOutClocks">Lees de klokken hardop voor</string>
   <string name="readOutOpponentName">Luister naar de naam van de tegenstander</string>

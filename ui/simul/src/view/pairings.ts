@@ -2,7 +2,7 @@ import { opposite } from '@lichess-org/chessground/util';
 import { h } from 'snabbdom';
 
 import { onInsert, renderClock } from 'lib/view';
-import { userFlair } from 'lib/view/userLink';
+import { profileUrl, userFlair } from 'lib/view/userLink';
 
 import type SimulCtrl from '@/ctrl';
 import type { Pairing } from '@/interfaces';
@@ -27,7 +27,7 @@ const miniPairing = (ctrl: SimulCtrl) => (pairing: Pairing) => {
     },
     [
       h('span.mini-game__player', [
-        h('a.mini-game__user.ulpt', { attrs: { href: `/@/${player.name}` } }, [
+        h('a.mini-game__user.ulpt', { attrs: { href: profileUrl(player.name) } }, [
           h(
             'span.name',
             player.title ? [h('span.utitle', player.title), ' ', player.name, flair] : [player.name, flair],

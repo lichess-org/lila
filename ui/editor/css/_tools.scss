@@ -1,132 +1,143 @@
-.board-editor {
-  &__tools {
-    @extend %flex-column;
+.board-editor__tools {
+  @extend %flex-column;
 
-    cursor: default;
-    grid-area: tools;
-    align-self: center;
+  cursor: default;
+  grid-area: tools;
+  align-self: center;
 
-    button,
-    .button,
-    select,
-    label,
-    input[type='checkbox'] {
-      cursor: pointer;
+  button,
+  .button,
+  select,
+  label,
+  input[type='checkbox'] {
+    cursor: pointer;
+  }
+
+  input[type='text'],
+  input[type='number'] {
+    cursor: text;
+  }
+
+  button:disabled,
+  select:disabled,
+  input:disabled {
+    cursor: not-allowed;
+  }
+
+  > * {
+    margin: 0.5rem 0;
+  }
+
+  select {
+    @extend %page-link !optional;
+    @include backdrop-blur-if-transparent;
+
+    width: 100%;
+
+    &.positions option:checked {
+      font-style: italic;
+    }
+  }
+
+  .metadata {
+    @extend %box-neat;
+
+    background: $c-bg-box;
+    padding: 1rem;
+    white-space: nowrap;
+
+    .color {
+      margin-bottom: 1em;
     }
 
-    input[type='text'],
-    input[type='number'] {
-      cursor: text;
-    }
-
-    button:disabled,
-    select:disabled,
-    input:disabled {
-      cursor: not-allowed;
-    }
-
-    > * {
-      margin: 0.5rem 0;
-    }
-
-    select {
-      @extend %page-link !optional;
-      @include backdrop-blur-if-transparent;
-
-      width: 100%;
-
-      &.positions option:checked {
-        font-style: italic;
-      }
-    }
-
-    .metadata {
-      @extend %box-neat;
-
-      background: $c-bg-box;
-      padding: 1rem;
-      white-space: nowrap;
-
-      .color {
-        margin-bottom: 1em;
-      }
-
-      .castling {
-        div {
-          @extend %flex-between;
-        }
-
-        label,
-        input {
-          display: inline-block;
-          margin: 3px;
-          vertical-align: middle;
-        }
-
-        input.not-allowed {
-          visibility: hidden;
-        }
-      }
-
-      .enpassant {
+    .castling {
+      div {
         @extend %flex-between;
-
-        margin-top: 1em;
-
-        label {
-          font-weight: bold;
-        }
-
-        select {
-          width: 9ch;
-        }
       }
 
-      .chess960-position-row {
-        @extend %flex-center;
-
-        gap: 0.5rem;
-
-        .form-label {
-          flex: 0 0 100%;
-          margin: 0;
-        }
-
-        .button {
-          width: auto;
-        }
+      label,
+      input {
+        display: inline-block;
+        margin: 3px;
+        vertical-align: middle;
       }
 
-      #chess960-position-id {
-        &:invalid {
-          border-color: $c-error;
-        }
+      input.not-allowed {
+        visibility: hidden;
       }
     }
 
-    .actions {
-      @extend %flex-column, %box-radius;
-      @include backdrop-blur-if-transparent;
+    .enpassant {
+      @extend %flex-between;
 
-      justify-content: stretch;
+      margin-top: 1em;
+
+      label {
+        font-weight: bold;
+      }
+
+      select {
+        width: 9ch;
+      }
+    }
+
+    .chess960-position-row {
+      @extend %flex-center;
+
+      gap: 0.5rem;
+
+      .form-label {
+        flex: 0 0 100%;
+        margin: 0;
+      }
 
       .button {
-        @extend %page-link !optional;
-
-        width: 100%;
-        text-align: start;
-        display: flex;
-        align-items: center;
-        text-transform: none;
-
-        &.disabled {
-          cursor: default;
-        }
-
-        &::before {
-          color: var(--c-font);
-        }
+        width: auto;
       }
+    }
+
+    #chess960-position-id {
+      &:invalid {
+        border-color: $c-error;
+      }
+    }
+  }
+
+  .actions {
+    @extend %flex-column, %box-radius;
+    @include backdrop-blur-if-transparent;
+
+    justify-content: stretch;
+
+    .button {
+      @extend %page-link !optional;
+
+      width: 100%;
+      text-align: start;
+      display: flex;
+      align-items: center;
+      text-transform: none;
+
+      &.disabled {
+        cursor: default;
+      }
+
+      &::before {
+        color: var(--c-font);
+      }
+    }
+  }
+
+  .ceval-wrap {
+    @extend %box-neat;
+
+    &,
+    .ceval {
+      @extend %box-radius;
+    }
+
+    .pv_box {
+      @extend %box-radius-bottom;
     }
   }
 }

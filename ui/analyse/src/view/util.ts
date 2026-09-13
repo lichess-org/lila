@@ -9,7 +9,7 @@ import {
 
 import { fixCrazySan, plyToTurn } from 'lib/game/chess';
 import type { TreeNode } from 'lib/tree/types';
-import { hl } from 'lib/view';
+import { img, option as opt } from 'lib/view';
 
 import type { Federation } from '@/study/interfaces';
 
@@ -32,13 +32,7 @@ export function titleNameToId(titleName: string): string {
 }
 
 export const option = (value: string, current: string | undefined, name: string, data?: VNodeData) =>
-  hl('option', { attrs: { value, selected: value === current }, ...data }, name);
+  opt({ attrs: { value, selected: value === current }, ...data }, name);
 
 export const playerFedFlag = (fed?: Federation) =>
-  fed &&
-  hl('img.mini-game__flag', {
-    attrs: {
-      src: site.asset.fideFedSrc(fed.id),
-      title: `Federation: ${fed.i18nName}`,
-    },
-  });
+  fed && img(site.asset.fideFedSrc(fed.id), undefined, `Federation: ${fed.i18nName}`)('.mini-game__flag');

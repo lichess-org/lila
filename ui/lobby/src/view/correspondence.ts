@@ -1,5 +1,6 @@
 import perfIcons from 'lib/game/perfIcons';
 import { bind, confirm, tr, td, span, div, button, table, thead, tbody, th, icon } from 'lib/view';
+import { profileUrl } from 'lib/view/userLink';
 
 import type LobbyController from '@/ctrl';
 import type { Seek } from '@/interfaces';
@@ -17,7 +18,9 @@ function renderSeek(ctrl: LobbyController, seek: Seek) {
       'data-id': seek.id,
     },
     [
-      td(seek.rating ? span('.ulpt', { 'data-href': '/@/' + seek.username }, seek.username) : 'Anonymous'),
+      td(
+        seek.rating ? span('.ulpt', { 'data-href': profileUrl(seek.username) }, seek.username) : 'Anonymous',
+      ),
       td(seek.rating && ctrl.opts.showRatings ? seek.rating + (seek.provisional ? '?' : '') : ''),
       td(seek.days ? i18n.site.nbDays(seek.days) : '∞'),
       td([icon(perfIcons[seek.perf.key])('.varicon'), seek.mode === 1 ? i18n.site.rated : i18n.site.casual]),

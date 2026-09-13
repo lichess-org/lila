@@ -1,3 +1,13 @@
+#main-wrap {
+  @media (min-width: at-least($x-large)) {
+    ---main-max-width: min(90vw, 100vw - 140px);
+  }
+}
+
+main.box {
+  overflow: visible;
+}
+
 #tournament-calendar {
   @include prevent-select;
 
@@ -146,8 +156,4 @@
       border: none;
     }
   }
-}
-
-#main-wrap {
-  ---main-max-width: min(90vw, 100vw - 140px);
 }

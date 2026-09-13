@@ -92,4 +92,5 @@ Zum Beispiel bedeutet ein Tabellenplatz-Durchschnitt von 3% typischerweise das E
   <string name="onlyTitledHelp">Für die Teilnahme am Turnier ist ein offizieller Titel erforderlich</string>
   <string name="tournamentPairingsAreNowClosed">Die Turnierpaarungen sind jetzt geschlossen.</string>
   <string name="berserkRate">Berserker-Rate</string>
+  <string name="leaguesAndStreamerBattles">Ligen &amp; Streamer-Kämpfe</string>
 </resources>

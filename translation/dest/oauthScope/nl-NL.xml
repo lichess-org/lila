@@ -22,6 +22,7 @@
   <string name="teamRead">Lees privé team-informatie</string>
   <string name="teamWrite">Word lid en verlaat teams</string>
   <string name="teamLead">Beheer teams die u leidt: verstuur PBen, leden schoppen</string>
+  <string name="manageTeamsYouLead" comment="Replaces old string teamLead">Beheer teams die je leidt: verstuur privéberichten, verwijder leden</string>
   <string name="followRead">Lees gevolgde spelers</string>
   <string name="followWrite">Andere spelers volgen en ontvolgen</string>
   <string name="msgWrite">Stuur privéberichten naar andere spelers</string>
@@ -37,7 +38,7 @@
   <string name="generatePersonalToken">genereer een persoonlijk toegangstoken</string>
   <string name="guardTokensCarefully">Bewaak deze tokens zorgvuldig! Deze zijn als wachtwoorden. Het voordeel van het gebruik van tokens (in plaats van het invoeren van je wachtwoord in een script) is dat tokens ingetrokken kunnen worden, en er veel van gegenereerd kunnen worden.</string>
   <string name="apiDocumentationLinks" comment="The first parameter links to a personal token app example. The second parameter links to the API documentation">Hier is een %1$s en de %2$s.</string>
-  <string name="personalTokenAppExample">voordeel van een persoonlijk token in een app</string>
+  <string name="personalTokenAppExample">voorbeeld van een persoonlijk token in een app</string>
   <string name="apiDocumentation">API-documentatie</string>
   <string name="newToken">Nieuw toegangstoken</string>
   <string name="apiAccessTokens">API-toegangstokens</string>

@@ -1,7 +1,7 @@
 import { licon, type LiconValue } from 'lib/licon';
 import { pubsub } from 'lib/pubsub';
 import { type Attrs, hl, type VNode, bind } from 'lib/view';
-import { userLine } from 'lib/view/userLink';
+import { userLine, profileUrl } from 'lib/view/userLink';
 
 import { type Mode, PaneCtrl } from './interfaces';
 
@@ -37,17 +37,15 @@ export class LinksCtrl extends PaneCtrl {
   }
 
   private userLinks(): VNode | null {
-    const d = this.data,
-      linkCfg = this.linkCfg;
+    const d = this.data;
+    const linkCfg = this.linkCfg;
     return d.user
       ? hl('div.links', [
-          hl('a.user-link.online', { attrs: { href: `/@/${d.user.name}` } }, [
+          hl('a.user-link.online', { attrs: { href: profileUrl(d.user.name) } }, [
             userLine(d.user),
             i18n.site.profile,
           ]),
-
           hl('a.text', linkCfg('/inbox', licon.Envelope), i18n.site.inbox),
-
           hl(
             'a.text',
             linkCfg(
@@ -57,11 +55,8 @@ export class LinksCtrl extends PaneCtrl {
             ),
             i18n.preferences.preferences,
           ),
-
           d.coach && hl('a.text', linkCfg('/coach/edit', licon.GraduateCap), i18n.site.coachManager),
-
           d.streamer && hl('a.text', linkCfg('/streamer/edit', licon.Mic), i18n.site.streamerManager),
-
           hl('form.logout', { attrs: { method: 'post', action: '/logout' } }, [
             hl('button.text', { attrs: { type: 'submit', 'data-icon': licon.Power } }, i18n.site.logOut),
           ]),

@@ -1,14 +1,21 @@
+@property --eval-percent {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: 50%;
+}
+
 .eval-gauge {
   @extend %box-radius;
 
   width: $block-gap;
   height: var(---cg-height, 100%);
   position: relative;
-  background: #c0c0c0;
+  background: linear-gradient(to bottom, #444 var(--eval-percent), #c0c0c0 var(--eval-percent));
+  transition: --eval-percent 1s ease;
   overflow: hidden;
 
   @include if-light {
-    background: #fff;
+    background: linear-gradient(to bottom, #606060 var(--eval-percent), #fff var(--eval-percent));
   }
 
   @include mq-is-col1 {
@@ -51,17 +58,6 @@
       opacity: 1;
       border-bottom: 7px solid $c-accent-cloud !important;
       margin-top: -3px;
-    }
-  }
-
-  .black {
-    width: 100%;
-    height: 50%;
-    transition: height 1s;
-    background: #444;
-
-    @include if-light {
-      background: #606060;
     }
   }
 }

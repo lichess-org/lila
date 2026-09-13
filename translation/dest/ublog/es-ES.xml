@@ -12,8 +12,8 @@
     <item quantity="one">%s entrada de blog</item>
     <item quantity="other">%s publicaciones en el blog</item>
   </plurals>
-  <string name="continueReadingPost">Continuar leyendo esta entrada</string>
-  <string name="lichessBlogPostsFromXYear">Entradas de blog de Lichess en %s</string>
+  <string name="continueReadingPost">Continuar leyendo el post</string>
+  <string name="lichessBlogPostsFromXYear">Publicaciones de blogs de Lichess en %s</string>
   <string name="previousBlogPosts">Entradas de blog anteriores</string>
   <string name="xBlog">Blog de %s</string>
   <string name="newPost">Nueva entrada</string>

@@ -34,7 +34,6 @@ const VNODE_DATA_KEYS = new Set<keyof StrictVNodeData>([
   'props',
   'attrs',
   'class',
-  'style',
   'dataset',
   'on',
   'attachData',
@@ -148,12 +147,17 @@ export const p: TagFunction = makeTag('p');
 export const button: TagFunction = makeTag('button');
 export const span: TagFunction = makeTag('span');
 export const strong: TagFunction = makeTag('strong');
+export const small: TagFunction = makeTag('small');
 export const time: TagFunction = makeTag('time');
 export const label: TagFunction = makeTag('label');
 export const select: TagFunction = makeTag('select');
 export const option: TagFunction = makeTag('option');
 export const main: TagFunction = makeTag('main');
 export const form: TagFunction = makeTag('form');
+export const ul: TagFunction = makeTag('ul');
+export const li: TagFunction = makeTag('li');
+export const canvas: TagFunction = makeTag('canvas');
+
 export const h1: TagFunction = makeTag('h1');
 export const h2: TagFunction = makeTag('h2');
 
@@ -165,7 +169,8 @@ export const th: TagFunction = makeTag('th');
 export const td: TagFunction = makeTag('td');
 
 export const a: TagFactory<[href: string]> = href => makeTag('a', { href });
-export const img: TagFactory<[src: string, alt: string]> = (src, alt) => makeTag('img', { alt, src });
+export const img: TagFactory<[src: string, alt?: string, title?: string]> = (src, alt, title) =>
+  makeTag('img', { alt, src, title });
 export const input: TagFactory<[type: HTMLInputElement['type']]> = (type = 'text') =>
   makeTag('input', { type });
 export const optgroup: TagFactory<[label: string]> = label => makeTag('optgroup', { label });

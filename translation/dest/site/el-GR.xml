@@ -175,6 +175,8 @@
   </plurals>
   <string name="moveTimes">Χρόνοι κινήσεων</string>
   <string name="flipBoard">Περιστροφή σκακιέρας</string>
+  <string name="engineSettings">Ρυθμίσεις μηχανής</string>
+  <string name="enginesFromStrongestToWeakest">Μηχανές από την ισχυρότερη στην ασθενέστερη</string>
   <string name="threefoldRepetition">Τριπλή επανάληψη</string>
   <string name="claimADraw">Απαίτηση ισοπαλίας</string>
   <string name="drawClaimed">Απαιτήθηκε ισοπαλία</string>
@@ -249,6 +251,7 @@
   <string name="signupUsernameHint">Eπιλέξτε ένα φιλικό προς την οικογένεια όνομα χρήστη, καθώς δε θα έχετε τη δυνατότητα να το αλλάξετε αργότερα. Τονίζουμε πως λογαριασμοί με ακατάλληλα ονόματα χρήστη θα απενεργοποιούνται!</string>
   <string name="signupEmailPromise">Το email σας θα χρησιμοποιηθεί αποκλειστικά για ενημερώσεις σχετικά με τον λογαριασμό σας και ποτέ δεν θα κοινοποιηθεί σε τρίτους.</string>
   <string name="password">Κωδικός</string>
+  <string name="showPassword">Εμφάνιση κωδικού πρόσβασης</string>
   <string name="changePassword">Αλλαγή κωδικού</string>
   <string name="changeEmail">Αλλαγή διεύθυνσης email</string>
   <string name="email">Ηλ. ταχυδρομείο</string>
@@ -296,7 +299,9 @@
   <string name="ok">ΟΚ</string>
   <string name="cancel">Ακύρωση</string>
   <string name="whiteTimeOut">Τέλος χρόνου για τα λευκά</string>
+  <string name="whiteRanOutOfTime" comment="whiteTimeOut&#10;&#10;Shows when White's time has run out. Is followed by the end condition, for example&#10;'White ran out of time · Draw' Replaces old string whiteTimeOut">Τελείωσε ο χρόνος των λευκών</string>
   <string name="blackTimeOut">Τέλος χρόνου για τα μαύρα</string>
+  <string name="blackRanOutOfTime" comment="blackTimeOut&#10;&#10;Shows when Black's time has run out. Is followed by the end condition, for example&#10;'Black ran out of time · Draw' Replaces old string blackTimeOut">Τελείωσε ο χρόνος των μαύρων</string>
   <string name="drawOfferSent">Πρόταση ισοπαλίας εστάλη</string>
   <string name="drawOfferAccepted">Πρόταση ισοπαλίας αποδεκτή</string>
   <string name="whiteOffersDraw">Τα λευκά προσφέρουν ισοπαλία</string>
@@ -438,7 +443,7 @@
   <string name="apply">Εφαρμογή</string>
   <string name="save">Αποθήκευση</string>
   <string name="leaderboard">Πίνακας βαθμολογίας</string>
-  <string name="screenshotCurrentPosition">Λήψη στιγμιότυπου τρέχουσας θέσης</string>
+  <string name="positionAsImage" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position. Replaces old string screenshotCurrentPosition">Αποτύπωση θέσης ως εικόνα</string>
   <string name="gameAsGIF">Αποθήκευση ως GIF</string>
   <string name="playerNames">Ονόματα παικτών</string>
   <string name="moveAnnotations">Σχολιασμός κινήσεων</string>
@@ -551,7 +556,7 @@
   <string name="oneUrlPerLine">Μία διεύθυνση URL ανά γραμμή.</string>
   <string name="inlineNotation">Ενσωματωμένη σημειογραφία</string>
   <string name="makeAStudy">Αν θέλετε να αποθηκεύσετε και να κοινοποιήσετε τυχόν αλλαγές, μπορείτε να δημιουργήσετε μία μελέτη.</string>
-  <string name="clearSavedMoves">Εκκαθάριση κινήσεων</string>
+  <string name="clearLocalData">Εκκαθάριση τοπικών δεδομένων</string>
   <string name="previouslyOnLichessTV">Νωρίτερα στη Tηλεόραση Lichess</string>
   <string name="onlinePlayers">Συνδεδεμένοι παίκτες</string>
   <string name="activePlayers">Ενεργοί παίκτες</string>
@@ -727,6 +732,7 @@
   <string name="simulClockHint">Ρολόι Φίσερ. Όσους περισσότερους παίκτες παίξετε, τόσο περισσότερο χρόνο ίσως χρειαστείτε.</string>
   <string name="simulAddExtraTime">Μπορείτε να προσθέσετε επιπλέον χρόνο στο ρολόι σας για να βοηθηθείτε.</string>
   <string name="simulHostExtraTime">Παροχή επιπλέον χρόνου στο ρολόι</string>
+  <string name="extraClockTimeForHost" comment="Appears on: https://lichess.org/simul/new&#10;&#10;Allows a simul host to select extra time for the simul.&#10;&#10;Please note this string used to state &quot;Host extra clock time&quot;, without the word &quot;initial&quot; Replaces old string simulHostExtraTime">Επιπλέον χρόνος για τον διοργανωτή:</string>
   <string name="simulAddExtraTimePerPlayer">Προσθήκη επιπλέον χρόνου στο ρολόι σας για κάθε παίκτη που συμμετέχει στο σιμουλτανέ.</string>
   <string name="simulHostExtraTimePerPlayer">Προσθήκη επιπλέον χρόνου ανά παίκτη</string>
   <string name="lichessTournaments">Τουρνουά στο Lichess</string>
@@ -739,6 +745,7 @@
   <string name="keyGoToStartOrEnd">πηγαίνετε στην έναρξη / λήξη</string>
   <string name="keyCycleSelectedVariation">Επιλογή επόμενης βαριάντας</string>
   <string name="keyShowOrHideComments">εμφάνιση / απόκρυψη σχολίων</string>
+  <string name="keyShowOrHideCurrentVariation">εμφάνιση/απόκρυψη βαριάντας</string>
   <string name="keyEnterOrExitVariation">είσοδος / έξοδος εκδοχής</string>
   <string name="keyPreviousBranch">Προηγούμενος κλάδος</string>
   <string name="keyNextBranch">Επόμενος κλάδος</string>
@@ -832,7 +839,6 @@
   <string name="theme">Εμφάνιση</string>
   <string name="light">Ανοιχτόχρωμο</string>
   <string name="dark">Σκουρόχρωμο</string>
-  <string name="transparent">Διάφανο</string>
   <string name="picture">Εικόνα</string>
   <string name="deviceTheme">Θέμα συσκευής</string>
   <string name="roundness">Καμπυλότητα</string>
@@ -862,6 +868,7 @@
   <string name="notifications">Ειδοποιήσεις</string>
   <string name="notificationsX">Ειδοποιήσεις: %1$s</string>
   <string name="perfRatingX">Βαθμολογία: %s</string>
+  <string name="perfRatingLabel" comment="Replaces old string perfRatingX">Βαθμολογία: %s.</string>
   <string name="yourRatingIsX">Η βαθμολογία σας είναι %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s δευτερόλεπτο για την πρώτη κίνηση</item>
@@ -921,6 +928,7 @@
   </plurals>
   <string name="showUnreadLichessMessage">Έχετε λάβει ένα προσωπικό μήνυμα από το Lichess.</string>
   <string name="clickHereToReadIt">Κάντε κλικ εδώ για να το δείτε</string>
+  <string name="readTheMessage" comment="'It' refers to a private message. This text follows after a different string which advises players they have received a private message from Lichess. For users, this is appears as a regular private message from the Lichess account: https://lichess.org/@/Lichess Replaces old string clickHereToReadIt">Διαβάστε το μήνυμα</string>
   <string name="sorry">Λυπούμαστε :(</string>
   <string name="weHadToTimeYouOutForAWhile">Ο λογαριασμός σας έχει αποκλειστεί προσωρινά.</string>
   <string name="why">Γιατί;</string>
@@ -1056,4 +1064,7 @@
   <string name="tags">Ετικέτες</string>
   <string name="enPassant">En passant</string>
   <string name="settings">Ρυθμίσεις</string>
+  <string name="verifyingYourDevice">Επαλήθευση της συσκευής σας...</string>
+  <string name="chessOpenings">Ανοίγματα</string>
+  <string name="boards">Σκακιέρες</string>
 </resources>

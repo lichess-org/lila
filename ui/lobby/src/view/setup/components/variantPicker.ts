@@ -52,7 +52,7 @@ export const variantPicker = (setupCtrl: SetupController) => {
 
   if (isOpen) {
     children.push(
-      hl('label.fullscreen-mask', { on: { click: updateCheckboxAndToggle } }),
+      hl('div.fullscreen-mask', { on: { click: updateCheckboxAndToggle } }),
       hl(
         'div.mselect__list',
         hl(

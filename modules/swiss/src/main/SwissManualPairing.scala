@@ -7,7 +7,7 @@ final private class SwissManualPairing(mongo: SwissMongo)(using Executor):
   def apply(swiss: Swiss): Option[Fu[List[SwissPairing.ByeOrPending]]] =
     swiss.settings.manualPairings.nonEmptyOption.map { str =>
       SwissPlayer.fields { p =>
-        mongo.player.distinctEasy[UserId, Set](p.userId, $doc(p.swissId -> swiss.id)).map { allUserIds =>
+        mongo.player.distinctEasy[UserId, Set](p.userId, bdoc(p.swissId -> swiss.id)).map { allUserIds =>
           val parsedLines = str.linesIterator.map {
             _.trim.toLowerCase.split(' ').map(_.trim)
           }.toList

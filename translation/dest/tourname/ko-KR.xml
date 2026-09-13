@@ -41,7 +41,7 @@
   <string name="xShieldArena">%s 방패 아레나</string>
   <string name="xShield">%s 방패</string>
   <string name="xTeamBattle">%s 팀 대국</string>
-  <string name="eliteXArena">엘리트 %s 경기장</string>
+  <string name="eliteXArena">엘리트 %s 아레나</string>
   <string name="eliteX">엘리트 %s</string>
-  <string name="xArena">%s 경기장</string>
+  <string name="xArena">%s 아레나</string>
 </resources>
