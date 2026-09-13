@@ -4,8 +4,9 @@ import chess.format.Uci
 import chess.Position
 import chess.eval.{ Eval as Ev, * }
 
-case class Eval(cp: Option[Ev.Cp], mate: Option[Ev.Mate], best: Option[Uci]):
-
+case class Eval(cp: Option[Ev.Cp], mate: Option[Ev.Mate], best: Option[Uci], static: Boolean = false):
+  // static is a bool for now indicating "this eval is from a full mainline analysis by lichess"
+  // it can of course grow into a richer enum with "static", "importedFromPgn", "localEngine", etc.
   def isEmpty = cp.isEmpty && mate.isEmpty
 
   def dropBest = copy(best = None)
@@ -28,7 +29,10 @@ object evals:
   import scalalib.json.Json.given
   import chess.json.Json.given
 
-  given jsonWrites: Writes[Eval] = Json.writes[Eval]
+  given jsonWrites: Writes[Eval] = Writes: eval =>
+    Json
+      .obj("cp" -> eval.cp, "mate" -> eval.mate, "best" -> eval.best)
+      .add("static", eval.static.option(eval.static))
 
 opaque type Moves = NonEmptyList[Uci]
 object Moves extends TotalWrapper[Moves, NonEmptyList[Uci]]

@@ -85,4 +85,4 @@ object AnnotatorTest:
       Instant.ofEpochMilli(1684055956),
       Work.Origin.manualRequest.some
     )
-    builder(Client.offline, analysis, xs).await(1.second, "parse analysis")
+    builder(Client.offline, analysis, none, xs).await(1.second, "parse analysis")

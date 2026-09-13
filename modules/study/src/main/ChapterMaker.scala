@@ -195,10 +195,20 @@ final private class ChapterMaker(
       .fold(gameRepo.initialFen(game)): fen =>
         fuccess(fen.some)
       .map: goodFen =>
-        val fromGame = GameToRoot(game, goodFen, withClocks = true)
+        def gameToRoot(withEndComment: Boolean) =
+          GameToRoot(game, goodFen, withClocks = true, withEndComment = withEndComment)
         pgnOpt.flatMap(StudyPgnImport.result(_, Nil).toOption.map(_.root)) match
-          case Some(r) => fromGame.merge(r)
-          case None => fromGame
+          case Some(r) => gameToRoot(!hasGameEndComment(game, r)).merge(r)
+          case None => gameToRoot(withEndComment = false)
+
+  private def hasGameEndComment(game: Game, root: Root): Boolean =
+    game.finished &&
+      root.mainline.lastOption.exists: last =>
+        val result = chess.Outcome.showResult(chess.Outcome(game.winnerColor).some)
+        val status = lila.tree.StatusText(game.status, game.winnerColor, game.variant)
+        val text = s"$result $status"
+        last.comments.value.exists: comment =>
+          comment.text.value == text && comment.by == lila.tree.Node.Comment.Author.Lichess
 
   private val UrlRegex = {
     val escapedDomain = net.domain.value.replace(".", "\\.")
