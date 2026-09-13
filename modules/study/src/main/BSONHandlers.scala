@@ -257,7 +257,7 @@ object BSONHandlers:
     { case BSONString(v) => StudyMember.Role.byId.get(v).toTry(s"Invalid role $v") },
     x => BSONString(x.id)
   )
-  private[study] case class DbMember(role: StudyMember.Role)
+  private[study] case class DbMember(role: StudyMember.Role, lastChapterId: Option[StudyChapterId] = None)
   private[study] given dbMemberHandler: BSONDocumentHandler[DbMember] = Macros.handler
   private[study] given BSONDocumentWriter[StudyMember] with
     def writeTry(x: StudyMember) = Success(bdoc("role" -> x.role))
@@ -266,9 +266,9 @@ object BSONHandlers:
     handler.as[StudyMembers](
       members =>
         StudyMembers(members.map { (id, dbMember) =>
-          UserId(id) -> StudyMember(UserId(id), dbMember.role)
+          UserId(id) -> StudyMember(UserId(id), dbMember.role, dbMember.lastChapterId)
         }),
-      _.members.view.map((id, m) => id.value -> DbMember(m.role)).toMap
+      _.members.view.map((id, m) => id.value -> DbMember(m.role, m.lastChapterId)).toMap
     )
 
   import lila.core.study.Visibility

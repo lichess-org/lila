@@ -60,6 +60,7 @@ final class Env(
   val chapterRepo = ChapterRepo(studyDb(CollName("study_chapter_flat")))
   private val topicRepo = StudyTopicRepo(studyDb(CollName("study_topic")))
   private val userTopicRepo = StudyUserTopicRepo(studyDb(CollName("study_user_topic")))
+  private val viewRepo = StudyViewRepo(studyDb(CollName("study_view")))
 
   lazy val jsonView = wire[JsonView]
 

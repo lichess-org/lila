@@ -1,6 +1,6 @@
 package lila.study
 
-case class StudyMember(id: UserId, role: StudyMember.Role):
+case class StudyMember(id: UserId, role: StudyMember.Role, lastChapterId: Option[StudyChapterId] = None):
 
   def canContribute = role.canWrite
 
