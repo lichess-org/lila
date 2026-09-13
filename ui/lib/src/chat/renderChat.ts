@@ -18,7 +18,7 @@ export function renderChat(ctrl: ChatCtrl, hook: Hooks = {}): VNode {
 function normalView(ctrl: ChatCtrl) {
   const active = ctrl.getTab();
   return [
-    div(`.mchat__tabs.nb_${ctrl.visibleTabs.length}`, { attrs: { role: 'tablist' } }, [
+    div(`.mchat__tabs.nb_${ctrl.visibleTabs.length}`, { role: 'tablist' }, [
       ctrl.visibleTabs.map(t => renderTab(ctrl, t, active)),
     ]),
     div(
