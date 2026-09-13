@@ -17,6 +17,8 @@ export type AnyUser = {
   brackets?: boolean; // display the rating in brackets/parentheses, true by default
 };
 
+type UserIconOwner = Pick<AnyUser, 'name' | 'line' | 'patronColor' | 'moderator'>;
+
 export const userLink = (u: AnyUser): VNode =>
   h('a', userLinkData(u), [userLine(u), userPatron(u), ...fullName(u), u.rating && ` ${userRating(u)} `]);
 
@@ -31,25 +33,21 @@ export const userLinkData = (u: AnyUser): VNodeData => ({
 export const userFlair = (u: Pick<AnyUser, 'flair'>): VNode | undefined =>
   u.flair ? h('img.uflair', { attrs: { src: site.asset.flairSrc(u.flair) } }) : undefined;
 
-export const userPatron = (u: object): VNode | undefined => {
-  const options = u as { patronColor?: PatronColor; moderator?: boolean };
-  return options.patronColor && !options.moderator
-    ? h(`icon.patron.paco${options.patronColor}`, {
+export const userPatron = (u: UserIconOwner): VNode | undefined =>
+  u.patronColor && !u.moderator
+    ? h(`icon.patron.paco${u.patronColor}`, {
         title: 'Lichess Patron',
       })
     : undefined;
-};
 
-export const userLine = (u: object): VNode | undefined => {
-  const options = u as { line?: boolean; moderator?: boolean };
-  return !!options.line
+export const userLine = (u: UserIconOwner): VNode | undefined =>
+  !u.line
     ? h('icon.line', {
         class: {
-          moderator: !!options.moderator,
+          moderator: !!u.moderator,
         },
       })
     : undefined;
-};
 
 export const userTitle = ({ title }: Pick<AnyUser, 'title'>): VNode | undefined =>
   title

@@ -35,11 +35,7 @@ export function userHtml(ctrl: RoundController, player: Player, position: TopOrB
       },
       [
         hl('icon.line', {
-          title: connecting
-            ? 'Connecting to the game'
-            : player.onGame
-              ? 'Joined the game'
-              : 'Left the game',
+          title: connecting ? 'Connecting to the game' : player.onGame ? 'Joined the game' : 'Left the game',
         }),
         userLink({
           name: user.username,
