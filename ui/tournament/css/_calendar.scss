@@ -1,3 +1,7 @@
+main.box {
+  overflow: visible;
+}
+
 #tournament-calendar {
   @include prevent-select;
 
