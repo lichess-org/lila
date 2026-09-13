@@ -15,6 +15,7 @@ export interface Data {
 
 export interface Ctrl {
   data: Data;
+  wide: boolean;
 }
 
 export function initModule(opts: { data: Data }) {
@@ -30,6 +31,7 @@ export function initModule(opts: { data: Data }) {
 
   const ctrl: Ctrl = {
     data: opts.data,
+    wide: window.matchMedia('(min-width: 800px)').matches,
   };
 
   let vnode: VNode;

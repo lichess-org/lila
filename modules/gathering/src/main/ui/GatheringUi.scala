@@ -131,6 +131,14 @@ final class GatheringFormUi(helpers: Helpers):
       disabled = disabledAfterStart
     )
 
+  def description(field: Field)(using Translate) =
+    form3.group(
+      field,
+      trans.site.tournDescription(),
+      help = trans.site.tournDescriptionHelp().some,
+      half = true
+    )(form3.textarea(_)(rows := 5))
+
   def payouts(field: Field)(using Option[Me], Translate) =
     Granter
       .opt(_.ManageTournament)

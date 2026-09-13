@@ -331,7 +331,7 @@ final class FaqUi(helpers: Helpers, sitePages: SitePages)(
             trf.howToHideRatingWhilePlaying.txt(),
             p(
               trf.enableZenMode(
-                a(href := routes.Pref.form("game-display"))(trf.displayPreferences()),
+                a(href := routes.Pref.form("display"))(trf.displayPreferences()),
                 em("z")
               )
             )

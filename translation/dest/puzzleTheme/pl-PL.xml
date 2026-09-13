@@ -27,6 +27,7 @@
   <string name="capturingDefender">Zbicie obrońcy</string>
   <string name="capturingDefenderDescription">Usunięcie obrońcy kluczowego dla ochrony innej bierki, umożliwiające zbicie niebronionej bierki w następnym ruchu.</string>
   <string name="collinearMove">Ruch współliniowy</string>
+  <string name="collinearMoveDescription">Dwie przeciwne figury zwrócone są w swoją stronę, jedna z nich przemieszcza się wzdłuż linii ataku bez zbijania figury przeciwnika.</string>
   <string name="cornerMate">Mat w narożniku szachownicy</string>
   <string name="cornerMateDescription">Zagoń króla przeciwnika do narożnika szachownicy przy pomocy wieży lub hetmana i zamatuj skoczkiem.</string>
   <string name="cornerMateKnightDeliversDescription" comment="Description for the &quot;Corner mate&quot; puzzle theme. Replaces old string cornerMateDescription">Zagoń króla do rogu szachownicy za pomocą wieży lub hetmana, użyj skoczka do zamatowania go.</string>

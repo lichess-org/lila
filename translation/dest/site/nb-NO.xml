@@ -178,7 +178,6 @@
   <string name="toggleLocalEngine">Slå lokal sjakkmotor av/på</string>
   <string name="engineSettings">Innstillinger for sjakkmotor</string>
   <string name="enginesFromStrongestToWeakest">Sjakkmotorer fra sterkest til svakest</string>
-  <string name="illegalPositions">Ulovlige stillinger kan ikke analyseres</string>
   <string name="threefoldRepetition">Trekkgjentakelse</string>
   <string name="claimADraw">Krev remis</string>
   <string name="drawClaimed">Remiskrav</string>
