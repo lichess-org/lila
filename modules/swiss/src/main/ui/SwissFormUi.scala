@@ -86,7 +86,10 @@ final class SwissFormUi(helpers: Helpers)(
       form3.fieldset("Tournament", toggle = true.some)(
         name,
         form3.split(nbRounds, startsAt),
-        form3.split(description, gatheringFormUi.payouts(form("payouts")))
+        form3.split(
+          gatheringFormUi.description(form("description")),
+          gatheringFormUi.payouts(form("payouts"))
+        )
       )
 
     def gameFields =
@@ -134,13 +137,6 @@ final class SwissFormUi(helpers: Helpers)(
           form3.select(_, GatheringClock.incrementChoices, disabled = disabledAfterStart)
         )
       )
-    def description =
-      form3.group(
-        form("description"),
-        trans.site.tournDescription(),
-        help = trans.site.tournDescriptionHelp().some,
-        half = true
-      )(form3.textarea(_)(rows := 5))
     def position =
       form3.group(
         form("position"),
