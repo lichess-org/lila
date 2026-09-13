@@ -142,7 +142,7 @@ final class UblogFormUi(helpers: Helpers, ui: UblogUi)(
           href := routes.Cms.lonePage(CmsPageKey("blog-etiquette")),
           cls := "text",
           targetBlank
-        )("Ranking your blog")
+        )(trans.appeal.blogEtiquette())
       ),
       p(tips)
     )
