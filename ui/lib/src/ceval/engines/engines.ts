@@ -225,12 +225,7 @@ export class Engines {
         .map(e => [e.info.id, { info: withDefaults(e.info), make: e.make }]),
     );
     this.externalEngines =
-      this.ctrl.opts.externalEngines?.map(e => ({
-        tech: 'EXTERNAL',
-        preferred: true,
-        maxMovetime: 30 * 1000, // broker timeouts prevent long search
-        ...e,
-      })) ?? [];
+      this.ctrl.opts.externalEngines?.map(e => ({ tech: 'EXTERNAL', preferred: true, ...e })) ?? [];
   }
 
   getEngine(selector?: { id?: string; rules: Rules; nonStandardMaterial: boolean }): EngineInfo | undefined {
