@@ -410,7 +410,6 @@
   <string name="apply">رازیبوون</string>
   <string name="save">هەڵگرتن</string>
   <string name="leaderboard">باشترین یاریزانەکان</string>
-  <string name="screenshotCurrentPosition">شوێنی ئێستای سکرینشۆت</string>
   <string name="gameAsGIF">یاری بە فۆرماتی GIF</string>
   <string name="pasteTheFenStringHere">لێرە FENـەکە پەیست بکە</string>
   <string name="pasteThePgnStringHere">لێرە PGNـەکە پەیست بکە</string>
@@ -519,7 +518,6 @@
   <string name="oneUrlPerLine">یەک URL بۆ هەر خانەیەک.</string>
   <string name="inlineNotation">نووسینی ناو هێڵ</string>
   <string name="makeAStudy">بۆ پاراستن و هاوبەشکردن، خوێندن لەبەرچاوبگرە.</string>
-  <string name="clearSavedMoves">سڕینەوەی جوڵەکان</string>
   <string name="previouslyOnLichessTV">پێشتر لە کەناڵی لیی چێس</string>
   <string name="onlinePlayers">یاریزانانی سەرهێڵ</string>
   <string name="activePlayers">یاریزانە چالاکەکان</string>
@@ -777,7 +775,6 @@
   <string name="background">پاشبنەما</string>
   <string name="light">روناکی</string>
   <string name="dark">تاریک</string>
-  <string name="transparent">رۆشن</string>
   <string name="deviceTheme">هەمان شێوازی ئامێرەکەت</string>
   <string name="backgroundImageUrl">URLـی وێنەی پاشبنەما:</string>
   <string name="board">تەختە</string>

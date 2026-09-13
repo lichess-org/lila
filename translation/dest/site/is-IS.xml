@@ -416,7 +416,6 @@
   <string name="apply">Virkja</string>
   <string name="save">Vista</string>
   <string name="leaderboard">Stigatafla</string>
-  <string name="screenshotCurrentPosition">Taka skjáskot af núverandi stöðu</string>
   <string name="gameAsGIF">Skák sem GIF-snið</string>
   <string name="pasteTheFenStringHere">Límdu FEN strenginn hér</string>
   <string name="pasteThePgnStringHere">Límdu inn PGN-strenginn hér</string>
@@ -525,7 +524,6 @@
   <string name="oneUrlPerLine">Eitt URL í hverri línu.</string>
   <string name="inlineNotation">Stöðubundið ritunarkerfi</string>
   <string name="makeAStudy">Til þess að tryggja varðveislu og miðlun skaltu íhuga að útbúa stúderingu.</string>
-  <string name="clearSavedMoves">Hreinsa út leiki</string>
   <string name="previouslyOnLichessTV">Áður í Lichess-varpinu</string>
   <string name="onlinePlayers">Álínis notendur</string>
   <string name="activePlayers">Virkir notendur</string>
@@ -791,7 +789,6 @@
   <string name="background">Bakgrunnur</string>
   <string name="light">Ljós</string>
   <string name="dark">Dökkur</string>
-  <string name="transparent">Gegnsær</string>
   <string name="deviceTheme">Þema tækis</string>
   <string name="backgroundImageUrl">URL á bakgrunnsmynd:</string>
   <string name="board">Borð</string>

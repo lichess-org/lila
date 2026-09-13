@@ -77,8 +77,12 @@ for x in xs:
     gameAccuracy(startColor, analysis.infos.map(_.eval.forceAsCp))
 
   // a mean of volatility-weighted mean and harmonic mean
-  def gameAccuracy(startColor: Color, cps: List[Option[Cp]]): Option[ByColor[AccuracyPercent]] =
-    val allWinPercents = (Some(Cp.initial) :: cps).map(_.map(WinPercent.fromCentiPawns))
+  def gameAccuracy(
+      startColor: Color,
+      cps: List[Option[Cp]],
+      initialCp: Option[Cp] = Some(Cp.initial)
+  ): Option[ByColor[AccuracyPercent]] =
+    val allWinPercents = (initialCp :: cps).map(_.map(WinPercent.fromCentiPawns))
     val windowSize = (cps.size / 10).squeeze(2, 8)
 
     val windows = List.fill(windowSize.atMost(allWinPercents.size) - 2)(allWinPercents.take(windowSize))
@@ -121,7 +125,11 @@ for x in xs:
       val byPhase: List[(GamePhase, ByColor[AccuracyPercent])] = for
         phase <- phaseNames
         slice = analysis.infos.filter(i => phaseOf(i.ply) == phase)
-        accuracy <- slice.headOption.so(first => gameAccuracy(first.color, slice.map(_.eval.forceAsCp)))
+        accuracy <- slice.headOption.so: first =>
+          val initialCp = analysis.infos
+            .find(_.ply == first.prevPly)
+            .fold(Cp.initial.some)(_.eval.forceAsCp)
+          gameAccuracy(first.color, slice.map(_.eval.forceAsCp), initialCp)
       yield phase -> accuracy
 
       ByColor[Map[GamePhase, AccuracyPercent]]: color =>

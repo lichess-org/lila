@@ -3,7 +3,7 @@ package lila.mod
 import lila.report.Suspect
 
 case class Modlog(
-    mod: ModId,
+    mod: ModId, // or user acting on their own account
     user: Option[UserId],
     action: String,
     details: Option[String] = None,
@@ -12,6 +12,7 @@ case class Modlog(
     context: Option[Modlog.Context] = None
 ):
   def isLichess = mod.is(UserId.lichess)
+  def onSelf = user.exists(_.is(mod))
 
   def notable = action != Modlog.terminateTournament
   def notableZulip = notable && !isLichess

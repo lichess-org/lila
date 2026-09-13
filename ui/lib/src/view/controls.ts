@@ -62,7 +62,7 @@ export const addPasswordVisibilityToggleListener = (): void => {
       const type = $input.attr('type') === 'password' ? 'text' : 'password';
       $input.attr('type', type);
       $button.toggleClass('revealed', type === 'text');
-      $input[0]?.focus();
+      $button.attr('aria-pressed', String(type === 'text'));
     });
   });
 };

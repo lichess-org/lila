@@ -87,7 +87,7 @@ object ParseImport:
       case Some("time forfeit") => Status.Outoftime
       case Some("rules infraction") => Status.Cheat
       case Some(txt) if txt.contains("won on time") => Status.Outoftime
-      case _ => Status.UnknownFinish
+      case _ => if tags.outcome.exists(_.winner.isEmpty) then Status.Draw else Status.UnknownFinish
 
     tags.points
       .map(points => TagResult(status, points))

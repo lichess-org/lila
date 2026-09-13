@@ -16,16 +16,18 @@ import Api.ApiResult
 
 final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
 
-  private def withPrompt(f: AuthorizationRequest.Prompt => Fu[Result])(using ctx: Context): Fu[Result] =
-    AuthorizationRequest.fromReq match
-      case Right(prompt) => f(prompt)
-      case Left(error) =>
-        BadRequest.page(views.site.message("Bad authorization request")(stringFrag(error.description)))
+  private def withPrompt(f: (AuthorizationRequest.Prompt, Option[OAuthSignedClient]) => Fu[Result])(using
+      ctx: Context
+  ): Fu[Result] =
+    env.oAuth.signedClients.forReq.fold(
+      err => BadRequest.page(views.site.message("Bad authorization request")(stringFrag(err))),
+      f.tupled
+    )
 
   def authorize = Open:
-    withPrompt: prompt =>
+    withPrompt: (prompt, signedClient) =>
       val action: OAuthSignedClient.Action = if getBool("signup") then "signup" else "login"
-      val signedClient = env.oAuth.signedClients.forPromptAndMonitor(prompt, action)
+      env.oAuth.signedClients.monitor(signedClient, prompt, action)
       ctx.me match
         case Some(me) =>
           given Me = me
@@ -40,7 +42,7 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
     MovedPermanently(s"${routes.OAuth.authorize}?${req.rawQueryString}")
 
   def authorizeApply = Auth { _ ?=> me ?=>
-    withPrompt: prompt =>
+    withPrompt: (prompt, _) =>
       allow:
         for
           authorized <- prompt.authorize(me, env.oAuth.legacyClientApi.apply)
@@ -91,9 +93,8 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
       BadRequest(err.toJson)
 
   def tokenRevoke = Scoped() { ctx ?=> _ ?=>
-    HTTPRequest.bearer(ctx.req).so { token =>
-      env.oAuth.tokenApi.revoke(token).inject(NoContent)
-    }
+    HTTPRequest.bearer.so: (bearer, _) =>
+      env.oAuth.tokenApi.revoke(bearer).inject(NoContent)
   }
 
   def revokeClient = AuthBody { ctx ?=> _ ?=>

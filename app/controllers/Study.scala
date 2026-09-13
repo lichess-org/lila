@@ -469,12 +469,11 @@ final class Study(
       .flatMap:
         _.fold(studyNotFound) { case sc @ WithChapter(study, chapter) =>
           CanView(study) {
-            def makeChapterPgn = pgnDump.ofChapter(study, pgnDump.requestPgnFlags())(chapter)
             for
-              pgn <-
-                if study.isRelay
-                then env.relay.pgnStream.ofChapter(sc).getOrElse(makeChapterPgn)
-                else makeChapterPgn
+              flags = pgnDump.requestPgnFlags()
+              pgn <- study.isRelay
+                .so(env.relay.pgnStream.ofChapter(sc, flags))
+                .getOrElse(pgnDump.ofChapter(study, flags)(chapter))
               analysisJson <- getBool("analysisHeader").so:
                 chapterAnalysis(sc).map2: analysis =>
                   val division = env.study.serverEvalMerger.divisionOf(chapter)
@@ -607,11 +606,12 @@ final class Study(
 
   def CanView(study: StudyModel, userSelection: Option[Settings.UserSelection] = none)(
       f: => Fu[Result]
-  )(unauthorized: => Fu[Result], forbidden: => Fu[Result])(using me: Option[Me]): Fu[Result] =
+  )(unauthorized: => Fu[Result], forbidden: => Fu[Result])(using ctx: Context): Fu[Result] =
+    val authorizedMe = ctx.fullAuthOrScope(_.Study.Read).so(ctx.me)
     def withUserSelection =
-      if userSelection.forall(Settings.UserSelection.allows(_, study, me.map(_.userId))) then f
+      if userSelection.forall(Settings.UserSelection.allows(_, study, authorizedMe)) then f
       else forbidden
-    me match
+    authorizedMe match
       case _ if !study.isPrivate => withUserSelection
       case None => unauthorized
       case Some(me) if study.members.contains(me.value) => withUserSelection

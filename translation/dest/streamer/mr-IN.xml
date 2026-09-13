@@ -29,6 +29,7 @@
   <string name="pendingReview">तुमच्या प्रसारणाचे नियंत्रकांकडून पुनरावलोकन केले जात आहे.</string>
   <string name="pleaseFillIn">कृपया तुमची प्रसारक माहिती भरा आणि एक छायाचित्र निर्यात करा.</string>
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">जेव्हा तुम्ही Lichess प्रसारक म्हणून सूचीबद्ध होण्यास तयार असाल, %s</string>
+  <string name="whenReadyToBeListedAsStreamer" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot; Replaces old string whenReady">जेव्हा तुम्ही Lichess प्रसारक म्हणून सूचीबद्ध होण्यास तयार असाल, तेव्हा %s.</string>
   <string name="submitForReview">पुनरावलोकनासाठी पाठवा</string>
   <string name="streamerLanguageSettings">Lichess प्रसारक पृष्ठ तुमच्या प्रसारण दूरचित्रवाणीने दिलेल्या भाषेनुसार तुमच्या प्रेक्षकांना आकर्षित करते. तुम्ही प्रसारणासाठी वापरत असलेल्या दूरचरित्रवाणीमध्ये किंवा सेवेमध्ये तुमच्या बुद्धिबळ प्रसारणासाठी योग्य भाषा निवडा.</string>
   <string name="pleaseAllow">तुमची प्रसारक पदवी आणि सूची मंजूर होण्यापूर्वी कृपया ७२ तासांपर्यंतचा वेळ द्या.</string>

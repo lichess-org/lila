@@ -35,7 +35,7 @@ final class MsgApi(
   def myThreads(using me: Me): Fu[List[MsgThread]] =
     colls.thread
       .find(selectMyThreads)
-      .sort($sort.desc("lastMsg.date"))
+      .sort(sort.desc("lastMsg.date"))
       .cursor[MsgThread]()
       .list(inboxSize)
       .flatMap(maybeSortAgain)
@@ -51,13 +51,13 @@ final class MsgApi(
       val receivedMultis = threads.filter(_.maskFor.exists(_.isnt(me)))
       colls.thread
         .find(selectMyThreads)
-        .sort($sort.desc("maskWith.date")) // sorting on maskWith.date now
+        .sort(sort.desc("maskWith.date")) // sorting on maskWith.date now
         .cursor[MsgThread]()
         .list(inboxSize)
         // last we filter receivedMultis and reinsert them according to their lastMsg.date
         .map(sorted => merge(sorted.filterNot(receivedMultis.contains), receivedMultis))
 
-  private def selectMyThreads(using me: Me) = $doc("users" -> me.userId) ++ selectNotDeleted
+  private def selectMyThreads(using me: Me) = bdoc("users" -> me.userId) ++ selectNotDeleted
 
   private def merge(sorteds: List[MsgThread], multis: List[MsgThread]): List[MsgThread] =
     (sorteds, multis) match
@@ -78,8 +78,8 @@ final class MsgApi(
 
   def moreContacts(before: Instant)(using me: Me): Fu[List[MsgThread]] =
     colls.thread
-      .find(selectMyThreads ++ $doc("lastMsg.date".$lt(before)))
-      .sort($sort.desc("lastMsg.date"))
+      .find(selectMyThreads ++ bdoc("lastMsg.date".lt(before)))
+      .sort(sort.desc("lastMsg.date"))
       .cursor[MsgThread](ReadPref.sec)
       .list(contactsPerPage)
 
@@ -108,8 +108,8 @@ final class MsgApi(
 
   def delete(username: UserStr)(using me: Me): Funit = for
     threadId = MsgThread.id(me, username.id)
-    _ <- colls.msg.update.one($doc("tid" -> threadId), $addToSet("del" -> me.userId), multi = true)
-    _ <- colls.thread.update.one($id(threadId), $addToSet("del" -> me.userId))
+    _ <- colls.msg.update.one(bdoc("tid" -> threadId), addToSet("del" -> me.userId), multi = true)
+    _ <- colls.thread.update.one(bid(threadId), addToSet("del" -> me.userId))
   yield ()
 
   def post(
@@ -125,7 +125,7 @@ final class MsgApi(
       val threadId = MsgThread.id(orig, dest)
       for
         contacts <- contactApi.contacts(orig, dest).orFail(s"Missing convo contact user $orig->$dest")
-        isNew <- colls.thread.exists($id(threadId)).not
+        isNew <- colls.thread.exists(bid(threadId)).not
         verdict <-
           if ignoreSecurity then fuccess(MsgSecurity.Ok)
           else security.can.post(contacts, msgPre.text, isNew, unlimited = multi)
@@ -153,18 +153,18 @@ final class MsgApi(
                     mustRead = mustRead
                   )
               else
-                val baseSet = $doc("lastMsg" -> msg.asLast) ++ mustRead.so($doc("mustRead" -> true))
+                val baseSet = bdoc("lastMsg" -> msg.asLast) ++ mustRead.so(bdoc("mustRead" -> true))
                 colls.thread.update
                   .one(
-                    $id(threadId),
+                    bid(threadId),
                     if multi
                     then
-                      $doc("$set" -> (baseSet ++ $doc("maskFor" -> maskFor, "maskWith" -> maskWith)))
-                        ++ $pull("del" -> List(orig))
+                      bdoc("$set" -> (baseSet ++ bdoc("maskFor" -> maskFor, "maskWith" -> maskWith)))
+                        ++ pull("del" -> List(orig))
                     else
-                      $doc("$set" -> (baseSet ++ $doc("maskWith.date" -> msg.date)))
-                        ++ $unset("maskFor", "maskWith.text", "maskWith.user", "maskWith.read")
-                        ++ $pull("del".$in(orig :: (!send.mute).option(dest).toList))
+                      bdoc("$set" -> (baseSet ++ bdoc("maskWith.date" -> msg.date)))
+                        ++ unset("maskFor", "maskWith.text", "maskWith.user", "maskWith.read")
+                        ++ pull("del".in(orig :: (!send.mute).option(dest).toList))
                     // keep maskWith.date always valid (though sometimes redundant)
                     // unset "deleted by receiver" unless the message is muted
                   )
@@ -189,7 +189,7 @@ final class MsgApi(
 
   private def lastDirectMsg(threadId: MsgThread.Id, maskFor: UserId): Fu[Option[Msg.Last]] =
     colls.thread
-      .one[MsgThread]($id(threadId))
+      .one[MsgThread](bid(threadId))
       .mapz: doc =>
         if doc.maskFor.contains(maskFor) then doc.maskWith
         else Some(doc.lastMsg)
@@ -198,11 +198,11 @@ final class MsgApi(
     val threadId = MsgThread.id(me.userId, contactId)
     colls.thread.update
       .one(
-        $id(threadId) ++ $doc(
+        bid(threadId) ++ bdoc(
           "lastMsg.user" -> contactId,
           "lastMsg.read" -> false
         ),
-        $set("lastMsg.read" -> true) ++ $unset("mustRead")
+        set("lastMsg.read" -> true) ++ unset("mustRead")
       )
       .flatMap: res =>
         (res.nModified > 0).so(notifier.onRead(threadId, me.userId, contactId))
@@ -234,26 +234,26 @@ final class MsgApi(
     colls.thread
       .aggregateList(nb): framework =>
         import framework.*
-        Match($doc("users" -> user.id)) -> List(
+        Match(bdoc("users" -> user.id)) -> List(
           Sort(Descending("lastMsg.date")),
           Limit(nb),
           UnwindField("users"),
-          Match($doc("users".$ne(user.id))),
+          Match(bdoc("users".neq(user.id))),
           PipelineOperator:
-            $lookup.simple(
+            lookup.simple(
               from = colls.msg,
               as = "msgs",
               local = "_id",
               foreign = "tid",
               pipe = List(
-                $doc("$sort" -> $sort.desc("date")),
-                $doc("$limit" -> 11),
-                $doc("$project" -> msgProjection)
+                bdoc("$sort" -> sort.desc("date")),
+                bdoc("$limit" -> 11),
+                bdoc("$project" -> msgProjection)
               )
             )
           ,
           PipelineOperator:
-            $lookup.simple(from = userRepo.coll, as = "contact", local = "users", foreign = "_id")
+            lookup.simple(from = userRepo.coll, as = "contact", local = "users", foreign = "_id")
           ,
           UnwindField("contact")
         )
@@ -270,22 +270,22 @@ final class MsgApi(
           }
 
   def deleteAllBy(user: User): Funit = for
-    threads <- colls.thread.list[MsgThread]($doc("users" -> user.id))
-    _ <- colls.thread.delete.one($doc("users" -> user.id))
-    _ <- colls.msg.delete.one($doc("tid".$in(threads.map(_.id))))
+    threads <- colls.thread.list[MsgThread](bdoc("users" -> user.id))
+    _ <- colls.thread.delete.one(bdoc("users" -> user.id))
+    _ <- colls.msg.delete.one(bdoc("tid".in(threads.map(_.id))))
     _ <- notifier.deleteAllBy(threads, user)
   yield ()
 
-  private val msgProjection = $doc("_id" -> false, "tid" -> false)
+  private val msgProjection = bdoc("_id" -> false, "tid" -> false)
 
   private def threadMsgsFor(threadId: MsgThread.Id, me: User, before: Option[Instant]): Fu[List[Msg]] =
     colls.msg
       .find(
-        $doc("tid" -> threadId) ++ before.so: b =>
-          $doc("date".$lt(b)),
+        bdoc("tid" -> threadId) ++ before.so: b =>
+          bdoc("date".lt(b)),
         msgProjection.some
       )
-      .sort($sort.desc("date"))
+      .sort(sort.desc("date"))
       .cursor[Bdoc]()
       .list(msgsPerPage.value)
       .map:
@@ -297,26 +297,26 @@ final class MsgApi(
       .aggregateWith[Bdoc](readPreference = ReadPref.sec): framework =>
         import framework.*
         List(
-          Match($doc("users" -> userId)),
-          Project($id(true)),
+          Match(bdoc("users" -> userId)),
+          Project(bid(true)),
           PipelineOperator:
-            $lookup.pipelineFull(
+            lookup.pipelineFull(
               from = colls.msg.name,
               as = "msg",
-              let = $doc("t" -> "$_id"),
+              let = bdoc("t" -> "$_id"),
               pipe = List:
-                $doc:
+                bdoc:
                   "$match" ->
-                    $expr:
-                      $and(
-                        $doc("$eq" -> $arr("$user", userId)),
-                        $doc("$eq" -> $arr("$tid", "$$t")),
+                    expr:
+                      and(
+                        bdoc("$eq" -> barr("$user", userId)),
+                        bdoc("$eq" -> barr("$tid", "$$t")),
                         excludeTeamMessages
                       )
             )
           ,
           Unwind("msg"),
-          Project($doc("_id" -> false, "msg.text" -> true, "msg.date" -> true))
+          Project(bdoc("_id" -> false, "msg.text" -> true, "msg.date" -> true))
         )
       .documentSource()
       .mapConcat: doc =>
@@ -331,10 +331,10 @@ final class MsgApi(
   ): Fu[List[IdText]] =
     colls.msg
       .find(
-        $doc("tid" -> MsgThread.id(from, me.userId), "user" -> from.id) ++ onlyIds.so($inIds),
-        $doc("text" -> true).some
+        bdoc("tid" -> MsgThread.id(from, me.userId), "user" -> from.id) ++ onlyIds.so(inIds),
+        bdoc("text" -> true).some
       )
-      .sort($sort.desc("date"))
+      .sort(sort.desc("date"))
       .cursor[Bdoc]()
       .list(200)
       .map: docs =>
@@ -344,9 +344,9 @@ final class MsgApi(
           id <- doc.getAsOpt[String]("_id")
         yield IdText(id, text)
 
-  private val excludeTeamMessages = $doc:
-    "$not" -> $doc:
-      "$regexMatch" -> $doc(
+  private val excludeTeamMessages = bdoc:
+    "$not" -> bdoc:
+      "$regexMatch" -> bdoc(
         "input" -> "$text",
         "regex" -> "You received this because you are (subscribed to messages|part) of the team"
       )
@@ -357,24 +357,24 @@ final class MsgApi(
       .aggregateWith[Bdoc](readPreference = ReadPref.sec): framework =>
         import framework.*
         List(
-          Match($doc("users" -> userId)),
+          Match(bdoc("users" -> userId)),
           Sort(Descending("lastMsg.date")),
-          Project($id(true)),
+          Project(bid(true)),
           PipelineOperator:
-            $lookup.pipelineFull(
+            lookup.pipelineFull(
               from = colls.msg.name,
               as = "msgs",
-              let = $doc("t" -> "$_id"),
+              let = bdoc("t" -> "$_id"),
               pipe = List(
-                $doc(
+                bdoc(
                   "$match" ->
-                    $expr:
-                      $and(
-                        $doc("$eq" -> $arr("$tid", "$$t")),
+                    expr:
+                      and(
+                        bdoc("$eq" -> barr("$tid", "$$t")),
                         excludeTeamMessages
                       )
                 ),
-                $doc("$sort" -> $sort.desc("date"))
+                bdoc("$sort" -> sort.desc("date"))
               )
             )
         )

@@ -1,3 +1,5 @@
+import { type Rules } from 'chessops/types';
+
 import type { LocalEval } from '@/tree/types';
 
 import { defined } from '../index';
@@ -14,7 +16,7 @@ export class Protocol {
   private send: ((cmd: string) => void) | undefined;
   private options: Map<string, string | number> = new Map<string, string>();
 
-  constructor(readonly variantMap?: (v: VariantKey) => string) {}
+  constructor(readonly variantMap?: (v: Rules) => string) {}
 
   connected(send: (cmd: string) => void): void {
     this.send = send;
@@ -157,8 +159,8 @@ export class Protocol {
       console.warn(`SF: ${command}`);
   }
 
-  uciVariant(key: VariantKey): string {
-    return this.variantMap?.(key) ?? (key === 'threeCheck' ? '3check' : key.toLowerCase());
+  uciVariant(key: Rules): string {
+    return this.variantMap?.(key) ?? key;
   }
 
   private emit(ev = this.currentEval, work = this.work) {
@@ -194,7 +196,8 @@ export class Protocol {
 
       this.send(['position fen', this.work.initialFen, 'moves', ...this.work.moves].join(' '));
       const [by, value] = Object.entries(this.work.search)[0];
-      this.send(`go ${by} ${value}`);
+      const cmd = Number.isFinite(value) ? `go ${by} ${value}` : 'go';
+      this.send(cmd);
     }
   }
 

@@ -401,7 +401,6 @@
   <string name="apply">പ്രയോഗിക്കുക</string>
   <string name="save">സേവ് ചെയ്യുക</string>
   <string name="leaderboard">മികച്ച കളിക്കാര്‍</string>
-  <string name="screenshotCurrentPosition">താൽകാലിക കരുനില പ്രതലവെട്ടുക</string>
   <string name="gameAsGIF">കളി GIF ആയി ഇറക്കവയ്ക്കുക</string>
   <string name="playerNames">കളിക്കാരുടെ പേരു്</string>
   <string name="pasteTheFenStringHere">FEN ടെക്സ്റ്റ്‌ ഇവിടെ കൊടുക്കുക</string>
@@ -510,7 +509,6 @@
   <string name="oneUrlPerLine">ഒരു വരിയിൽ ഒരു വിലാസം.</string>
   <string name="inlineNotation">ഇൻഫയൽ നോട്ടെഷൻ</string>
   <string name="makeAStudy">കരുതിവയ്ക്കാനും പങ്കിടാനും ഒരു പഠനം ഉണ്ടാക്കാൻ പരിഗണയിൽ എടുക്കുക.</string>
-  <string name="clearSavedMoves">നീക്കങ്ങൾ കളയുക</string>
   <string name="previouslyOnLichessTV">Lichess TV യിൽ നേരെത്തെയുള്ളത്</string>
   <string name="onlinePlayers">തൽസമയ കളിക്കാർ</string>
   <string name="activePlayers">സജീവ കളിക്കാർ</string>
@@ -772,7 +770,6 @@
   <string name="background">പശ്ചാത്തലം</string>
   <string name="light">വെളിച്ചപെട്ട</string>
   <string name="dark">ഇരുണ്ടത്</string>
-  <string name="transparent">സുതാര്യത</string>
   <string name="deviceTheme">ഉപകരണയലങ്കാരം</string>
   <string name="backgroundImageUrl">പശ്ചാത്തല ചിത്രത്തിന്റെ URL:</string>
   <string name="board">കളിക്കളം</string>

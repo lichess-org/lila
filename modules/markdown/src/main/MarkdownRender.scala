@@ -57,6 +57,7 @@ final class MarkdownRender(
     table: Boolean = false,
     strikeThrough: Boolean = false,
     header: Boolean = false,
+    headerAnchorLink: Boolean = false,
     blockQuote: Boolean = false,
     list: Boolean = false,
     code: Boolean = false,
@@ -69,7 +70,7 @@ final class MarkdownRender(
 ):
 
   private val extensions = java.util.ArrayList[Extension]()
-  if header then extensions.add(AnchorLinkExtension.create())
+  if header && headerAnchorLink then extensions.add(AnchorLinkExtension.create())
   if table then
     extensions.add(TablesExtension.create())
     extensions.add(MarkdownRender.tableWrapperExtension)
@@ -98,8 +99,8 @@ final class MarkdownRender(
 
     // configurable
     if table then o.set(TablesExtension.CLASS_NAME, "slist")
-    if header then o.set(AnchorLinkExtension.ANCHORLINKS_WRAP_TEXT, false)
-    else o.set(Parser.HEADING_PARSER, false)
+    if header && headerAnchorLink then o.set(AnchorLinkExtension.ANCHORLINKS_WRAP_TEXT, false)
+    if !header then o.set(Parser.HEADING_PARSER, false)
     if !blockQuote then o.set(Parser.BLOCK_QUOTE_PARSER, false)
     if !list then o.set(Parser.LIST_BLOCK_PARSER, false)
     o.toImmutable

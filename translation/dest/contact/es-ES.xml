@@ -26,7 +26,7 @@
   <string name="orCloseAccount">Sin embargo, puedes cerrar tu cuenta actual y crear una nueva.</string>
   <string name="wantClearHistory">Quiero borrar mi historial o puntuación</string>
   <string name="cantClearHistory">No puedes borrar tu historial de partidas, ejercicios o puntuaciones.</string>
-  <string name="cantClearHistoryOrResetRatings" comment="Replaces old string cantClearHistory">No es posible borrar tu historial de partidas, ejercicios o restablecer tus puntuaciones.</string>
+  <string name="cantClearHistoryOrResetRatings" comment="Replaces old string cantClearHistory">No es posible borrar tu historial de partidas y ejercicios, o restablecer tus valoraciones.</string>
   <string name="wantReport">Quiero denunciar a un jugador</string>
   <string name="toReportAPlayerUseForm">Para denunciar a un jugador utiliza el formulario de denuncia</string>
   <string name="youCanAlsoReachReportPage">También puedes acceder a esa página pulsando el botón de denuncia %s en un perfil.</string>

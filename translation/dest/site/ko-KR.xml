@@ -167,6 +167,10 @@
   </plurals>
   <string name="moveTimes">이동 시간</string>
   <string name="flipBoard">보드 돌리기</string>
+  <string name="toggleLocalEngine">로컬 엔진 켜기/끄기</string>
+  <string name="engineSettings">엔진 설정</string>
+  <string name="enginesFromStrongestToWeakest">엔진 (강한 순서대로)</string>
+  <string name="illegalPosition">합법적이지 않은 포지션</string>
   <string name="threefoldRepetition">3회 동형반복</string>
   <string name="claimADraw">무승부 처리</string>
   <string name="drawClaimed">무승부 처리됨</string>
@@ -234,6 +238,7 @@
   <string name="signupUsernameHint">사용자 이름이 어린이를 포함해 모두에게 적절한지 확인하세요. 나중에 변경할 수 없으며 부적절한 사용자 이름을 가진 계정은 폐쇄됩니다!</string>
   <string name="signupEmailPromise">저희는 귀하의 계정에 대한 이메일만을 전송할 것이며 귀하의 이메일을 공유하지 않을 것입니다.</string>
   <string name="password">비밀번호</string>
+  <string name="showPassword">비밀번호 표시</string>
   <string name="changePassword">비밀번호 변경</string>
   <string name="changeEmail">이메일 주소 변경</string>
   <string name="email">이메일</string>
@@ -411,7 +416,6 @@
   <string name="apply">저장</string>
   <string name="save">저장하기</string>
   <string name="leaderboard">리더보드</string>
-  <string name="screenshotCurrentPosition">스크린샷 찍기</string>
   <string name="positionAsImage" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position. Replaces old string screenshotCurrentPosition">포지션 이미지</string>
   <string name="gameAsGIF">GIF로 저장하기</string>
   <string name="playerNames">플레이어명</string>
@@ -521,7 +525,7 @@
   <string name="oneUrlPerLine">한 줄에 당 URL 1개</string>
   <string name="inlineNotation">기보법 가로쓰기</string>
   <string name="makeAStudy">안전하게 보관하고 공유하려면 연구를 만들어 보세요.</string>
-  <string name="clearSavedMoves">저장된 움직임 삭제</string>
+  <string name="clearLocalData">로컬 데이터 지우기</string>
   <string name="previouslyOnLichessTV">이전 방송</string>
   <string name="onlinePlayers">접속한 플레이어</string>
   <string name="activePlayers">활동적인 플레이어</string>
@@ -704,8 +708,10 @@
   <string name="keyboardShortcuts">키보드 단축키</string>
   <string name="keyMoveBackwardOrForward">뒤로/앞으로 가기</string>
   <string name="keyGoToStartOrEnd">처음/끝으로 가기</string>
+  <string name="keyGoToPreviousOrNextLine">이전/다음 라인으로 가기</string>
   <string name="keyCycleSelectedVariation">선택된 라인 순환하기</string>
-  <string name="keyShowOrHideComments">댓글 표시/숨기기</string>
+  <string name="keyShowOrHideComments">댓글 보이기/숨기기</string>
+  <string name="keyShowOrHideCurrentVariation">현재 라인 보이기/숨기기</string>
   <string name="keyEnterOrExitVariation">라인 들어가기/나오기</string>
   <string name="keyPreviousBranch">이전 부</string>
   <string name="keyNextBranch">다음 부</string>
@@ -796,7 +802,6 @@
   <string name="theme">테마</string>
   <string name="light">밝게</string>
   <string name="dark">어둡게</string>
-  <string name="transparent">투명하게</string>
   <string name="picture">사진</string>
   <string name="deviceTheme">기기 테마</string>
   <string name="roundness">둥글기</string>
@@ -1018,4 +1023,7 @@ FEN 포지션을 생성하기 위해 %s를 사용할 수 있습니다.
   <string name="tags">태그</string>
   <string name="enPassant">앙파상 권리</string>
   <string name="settings">설정</string>
+  <string name="verifyingYourDevice">디바이스 인증 중...</string>
+  <string name="chessOpenings">체스 오프닝</string>
+  <string name="boards">보드</string>
 </resources>

@@ -21,6 +21,7 @@
   <string name="asALastResort">最後の手段として、盤面を Lichess と同じように並べ、%s</string>
   <string name="reloadThisPage">このページを再読み込みしてください</string>
   <string name="dgtConfigure">DGT ボード：設定</string>
+  <string name="configureYourDgtBoard" comment="Replaces old string dgtConfigure">DGTボードを設定する</string>
   <string name="lichessConnectivity">Lichess との接続</string>
   <string name="validDgtOauthToken">DGT でのプレイに適合した OAuth トークンがあります。</string>
   <string name="dgtPlayMenuEntryAdded">上端の「対局」メニューに %s が追加されました。</string>

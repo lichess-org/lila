@@ -66,6 +66,7 @@
   <string name="notifyChallenge">Desafiaments</string>
   <string name="notifyTournamentSoon">Un torneig comença aviat</string>
   <string name="notifyTournamentStartReminders" comment="notifyTournamentSoon&#10;&#10;A notification setting - notifies players if a tournament is starting soon. Replaces old string notifyTournamentSoon">Recordatori inici tornejos</string>
+  <string name="notifyBroadcasts">Retransmissions</string>
   <string name="notifyTimeAlarm">S\'està esgotant el rellotge d\'una partida per correspondència</string>
   <string name="notifyBell">Notificació emergent a Lichess</string>
   <string name="notifyPush">Notifica un dispositiu quan no esteu a Lichess</string>

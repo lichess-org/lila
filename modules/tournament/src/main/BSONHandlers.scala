@@ -83,7 +83,7 @@ object BSONHandlers:
       if false && tour.realNames then tour.copy(conditions = conditions.withPublicTitle) else tour
 
     def writes(w: BSON.Writer, o: Tournament) =
-      $doc(
+      bdoc(
         "_id" -> o.id,
         "name" -> o.name,
         "status" -> o.status,
@@ -126,7 +126,7 @@ object BSONHandlers:
         bot = r.boolD("bot")
       )
     def writes(w: BSON.Writer, o: Player) =
-      $doc(
+      bdoc(
         "_id" -> o._id,
         "tid" -> o.tourId,
         "uid" -> o.userId,
@@ -161,7 +161,7 @@ object BSONHandlers:
         berserk2 = r.intO("b2").fold(r.boolD("b2"))(1 ==)
       )
     def writes(w: BSON.Writer, o: Pairing) =
-      $doc(
+      bdoc(
         "_id" -> o.id,
         "tid" -> o.tourId,
         "s" -> o.status.id,
@@ -188,7 +188,7 @@ object BSONHandlers:
       )
 
     def writes(w: BSON.Writer, o: LeaderboardApi.Entry) =
-      $doc(
+      bdoc(
         "_id" -> o.id,
         "u" -> o.userId,
         "t" -> o.tourId,

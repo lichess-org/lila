@@ -438,7 +438,6 @@
   <string name="apply">Rakenda</string>
   <string name="save">Salvesta</string>
   <string name="leaderboard">Edetabel</string>
-  <string name="screenshotCurrentPosition">Tee kuvatõmmis praegusest seisust</string>
   <string name="gameAsGIF">Salvesta mäng GIF-ina</string>
   <string name="playerNames">Mängijate nimed</string>
   <string name="moveAnnotations">Käikude märkused</string>
@@ -552,7 +551,6 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="oneUrlPerLine">Üks URL iga rea kohta.</string>
   <string name="inlineNotation">Tekstisisene notatsioon</string>
   <string name="makeAStudy">Hoiustamiseks ja jagamiseks kaalutle uuringu koostamist.</string>
-  <string name="clearSavedMoves">Tühista käigud</string>
   <string name="previouslyOnLichessTV">Eelnevalt Lichess TV-s</string>
   <string name="onlinePlayers">Mängijad kohal</string>
   <string name="activePlayers">Aktiivsed mängijad</string>
@@ -833,7 +831,6 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="theme">Teema</string>
   <string name="light">Hele</string>
   <string name="dark">Tume</string>
-  <string name="transparent">Läbipaistev</string>
   <string name="picture">Pilt</string>
   <string name="deviceTheme">Seadme teema</string>
   <string name="roundness">Ümarus</string>

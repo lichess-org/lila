@@ -460,7 +460,24 @@ Hanna Marie ; Kozul, Zdenko"""),
                   ).some,
                   half = true
                 )(form3.input(_, typ = "number"))
-              )
+              ),
+              nav.newRound.not.option:
+                form3.split(
+                  form3.group(
+                    form("move"),
+                    "Reorder the round in the tournament",
+                    half = true
+                  )(
+                    form3.select(
+                      _,
+                      List(
+                        "true" -> "Move up",
+                        "false" -> "Move down"
+                      ),
+                      default = "Don't move".some
+                    )
+                  )
+                )
             )
           ),
         form3.actions(

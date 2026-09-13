@@ -423,7 +423,6 @@
   <string name="apply">Apliki</string>
   <string name="save">Konservi</string>
   <string name="leaderboard">Sukcesotabulo</string>
-  <string name="screenshotCurrentPosition">Ekrankopii nunan pozicion</string>
   <string name="gameAsGIF">Ludo kiel GIF</string>
   <string name="playerNames">Nomoj de ludantoj</string>
   <string name="moveAnnotations">Notoj pri movoj</string>
@@ -534,7 +533,6 @@
   <string name="oneUrlPerLine">Po unu URL en linio.</string>
   <string name="inlineNotation">Enlineaj markoj</string>
   <string name="makeAStudy">Por konservado kaj kunhavigo, konsideru fari studon.</string>
-  <string name="clearSavedMoves">Forigi movojn</string>
   <string name="previouslyOnLichessTV">Antaŭe ĉe Lichess-TV</string>
   <string name="onlinePlayers">Konektitaj ludantoj</string>
   <string name="activePlayers">Aktivaj ludantoj</string>
@@ -803,7 +801,6 @@
   <string name="background">Fono</string>
   <string name="light">Hela</string>
   <string name="dark">Malhela</string>
-  <string name="transparent">Travidebla</string>
   <string name="deviceTheme">Ila etoso</string>
   <string name="backgroundImageUrl">Malantaŭografikaĵo URL:</string>
   <string name="board">Ŝaktabulo</string>

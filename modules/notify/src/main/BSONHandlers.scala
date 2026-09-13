@@ -41,14 +41,14 @@ private object BSONHandlers:
         case x: PlanStart => summon[BSONHandler[PlanStart]].writeTry(x).get
         case x: PlanExpire => summon[BSONHandler[PlanExpire]].writeTry(x).get
         case x: RatingRefund => summon[BSONHandler[RatingRefund]].writeTry(x).get
-        case ReportedBanned => $empty
+        case ReportedBanned => emptyBdoc
         case x: CorresAlarm => summon[BSONHandler[CorresAlarm]].writeTry(x).get
         case x: IrwinDone => summon[BSONHandler[IrwinDone]].writeTry(x).get
         case x: KaladinDone => summon[BSONHandler[KaladinDone]].writeTry(x).get
         case x: GenericLink => summon[BSONHandler[GenericLink]].writeTry(x).get
         case x: BroadcastRound => summon[BSONHandler[BroadcastRound]].writeTry(x).get
         case x: Recap => summon[BSONHandler[Recap]].writeTry(x).get
-    } ++ $doc("type" -> notificationContent.key)
+    } ++ bdoc("type" -> notificationContent.key)
 
     def reads(reader: Reader): NotificationContent =
       reader.str("type") match

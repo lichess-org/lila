@@ -3,8 +3,9 @@ import { spawn, type ChildProcess } from 'node:child_process';
 import fs from 'node:fs';
 import { join, relative, resolve } from 'node:path';
 import { createInterface } from 'node:readline';
+import pc from 'picocolors';
 
-import { env, c, errorMark, warnMark } from './env.ts';
+import { env, errorMark, warnMark } from './env.ts';
 
 let tscPs: ChildProcess | undefined;
 
@@ -32,7 +33,7 @@ export async function tsc(): Promise<void> {
     JSON.stringify({ files: [], references: buildPaths.map(path => ({ path })) }),
   );
   env.log(
-    `Typechecking ${c.grey('tsc --build')} '${c.cyan(configFile)}' ${c.grey(args.slice(7).join(' '))}`,
+    `Type checking ${pc.gray('tsc --build')} '${pc.cyan(configFile)}' ${pc.gray(args.slice(7).join(' '))}`,
     'tsc',
   );
 
@@ -109,8 +110,8 @@ function tscLog({ code, text, file, line, col, warning }: Diagnostic): void {
   const prelude = `${warning ? warnMark : errorMark} ts${code} `;
   let loc = '';
   if (file) {
-    loc = `${c.grey('in')} '${c.cyan(relative(env.uiDir, resolve(env.rootDir, file)))}`;
-    if (line !== undefined) loc += c.grey(`:${line}:${col}`);
+    loc = `${pc.gray('in')} '${pc.cyan(relative(env.uiDir, resolve(env.rootDir, file)))}`;
+    if (line !== undefined) loc += pc.gray(`:${line}:${col}`);
     loc += `' - `;
   }
   env.log(`${prelude}${loc}${text}`, 'tsc');

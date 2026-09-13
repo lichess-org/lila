@@ -58,8 +58,7 @@ final class HttpFilter(
     lila.mon.http.count(actionName, client.name, req.method, statusCode).increment()
     lila.mon.http.time(actionName).record(reqTime)
     if net.logRequests then logger.info(s"$statusCode $client $req $actionName ${reqTime}ms")
-    mobile.foreach: m =>
-      lila.mon.http.mobileCount(actionName, m.version, m.userId.isDefined, m.osName).increment()
+    mobile.foreach(lila.mon.http.mobileCount(actionName, _))
     HttpFilter
       .apiAgent(req, client)
       .foreach: agent =>

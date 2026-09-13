@@ -8,12 +8,12 @@ import lila.insight.{ InsightDimension, InsightMetric }
 
 final class Insight(env: Env) extends LilaController(env):
 
-  def refresh(username: UserStr) = OpenOrScoped(): ctx ?=>
+  def refresh(username: UserStr) = Open: ctx ?=>
     AccessibleApi(username): user =>
       val byMod = isGrantedOpt(_.MarkBooster) || isGrantedOpt(_.MarkEngine)
       env.insight.api.indexAll(user, force = byMod).inject(Ok)
 
-  def index(username: UserStr) = OpenOrScoped(): ctx ?=>
+  def index(username: UserStr) = Open: ctx ?=>
     Accessible(username): user =>
       val defaultMetric: InsightMetric =
         if isGrantedOpt(_.SeeInsight) then InsightMetric.MeanCpl else InsightMetric.MeanAccuracy

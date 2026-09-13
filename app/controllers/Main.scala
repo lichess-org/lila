@@ -92,7 +92,6 @@ final class Main(env: Env, assetsC: ExternalAssets) extends LilaController(env):
     Ok.page(views.site.page.survey)
 
   def temporarilyDisabled(@annotation.nowarn path: String) = Open:
-    pageHit
     NotImplemented.page(views.site.message.temporarilyDisabled)
 
   def helpPath(path: String) = Open:
@@ -115,12 +114,7 @@ final class Main(env: Env, assetsC: ExternalAssets) extends LilaController(env):
 
   def prometheusMetrics(key: String) = Anon:
     if key == env.web.config.prometheusKey
-    then
-      lila.web.PrometheusReporter
-        .latestScrapeData()
-        .fold(NotFound("No metrics found")): data =>
-          lila.mon.prometheus.lines.update(data.lines.count.toDouble)
-          Ok(data)
+    then Ok(lila.web.PrometheusReporter.latestScrapeData())
     else NotFound("Invalid prometheus key")
 
   def legacyQaQuestion(id: Int, @annotation.nowarn slug: String) = Anon:

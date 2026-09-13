@@ -1,8 +1,9 @@
 import fs from 'node:fs';
 import { join, dirname } from 'node:path';
+import pc from 'picocolors';
 
 import { isEquivalent } from './algo.ts';
-import { env, c } from './env.ts';
+import { env } from './env.ts';
 import { isGlob, isFolder, isClose } from './parse.ts';
 import { makeTask } from './task.ts';
 
@@ -17,15 +18,15 @@ export async function sync(): Promise<void[] | undefined> {
         always: true,
         debounce: 300,
         execute: async (files, fullList) => {
-          if (exact && files.length === 0) throw `Not found '${c.cyan(sync.src)}`;
+          if (exact && files.length === 0) throw `Not found '${pc.cyan(sync.src)}`;
           const logEvery = !isEquivalent(files, fullList);
           if (!logEvery)
-            env.log(`${c.grey(pkg.name)} '${c.cyan(sync.src)}' -> '${c.cyan(sync.dest)}'`, 'sync');
+            env.log(`${pc.gray(pkg.name)} '${pc.cyan(sync.src)}' -> '${pc.cyan(sync.dest)}'`, 'sync');
           await Promise.all(
             files.map(async f => {
               if ((await syncOne(f, join(env.rootDir, sync.dest, f.slice(root.length)))) && logEvery)
                 env.log(
-                  `${c.grey(pkg.name)} '${c.cyan(f.slice(root.length))}' -> '${c.cyan(sync.dest)}'`,
+                  `${pc.gray(pkg.name)} '${pc.cyan(f.slice(root.length))}' -> '${pc.cyan(sync.dest)}'`,
                   'sync',
                 );
             }),

@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import { join, resolve, dirname } from 'node:path';
 import ps from 'node:process';
+import pc from 'picocolors';
 
 import { definedUnique, isEquivalent } from './algo.ts';
 
@@ -42,7 +43,6 @@ export const env = new (class {
   readonly lockFile = join(this.buildDir, 'instance.lock');
   readonly buildTempDir = join(this.buildDir, 'build');
   readonly cssTempDir = join(this.buildTempDir, 'css');
-  readonly buildSrcDir = join(this.buildDir, 'src');
   readonly typesDir = join(this.uiDir, '@types');
   readonly i18nSrcDir = join(this.rootDir, 'translation', 'source');
   readonly i18nDestDir = join(this.rootDir, 'translation', 'dest');
@@ -56,7 +56,7 @@ export const env = new (class {
   install = true;
   logTime = true;
   logCtx = true;
-  logColor = true;
+  logSep = ` ${pc.dim('⏵')} `;
   remoteLog: string | boolean = false;
   startTime?: number;
 
@@ -65,6 +65,7 @@ export const env = new (class {
   building: Package[] = [];
   mustSucceed = new Set<() => boolean>();
   onSuccess = new Set<() => void>();
+  private readonly contextStartedAt = new Map<Context, number>();
 
   readonly status = {} as Record<Context, number | false | undefined>;
 
@@ -103,11 +104,11 @@ export const env = new (class {
           : JSON.stringify(d);
 
     const prefix = (
-      (this.logTime ? prettyTime() : '') + (ctx && this.logCtx ? `[${escape(ctx, colorForCtx(ctx))}]` : '')
+      (this.logTime ? `${pc.gray(prettyTime())} ` : '') + (ctx && this.logCtx ? colorForCtx(ctx)(ctx) : '')
     ).trim();
-
-    for (const line of trimLines(this.logColor ? text : stripColorEscapes(text)))
-      console.log(`${prefix ? prefix + ' - ' : ''}${line}`);
+    for (const line of trimLines(text)) {
+      console.log(maybeStripEscapes(`${prefix}${prefix ? this.logSep : ''}${line}`));
+    }
   }
 
   exit(d?: any, ctx = 'build'): void {
@@ -117,22 +118,29 @@ export const env = new (class {
 
   begin(ctx: Context, enable?: boolean): boolean {
     if (enable === false) this.status[ctx] = false;
-    else if (enable === true || this.status[ctx] !== false) this.status[ctx] = undefined;
+    else if (enable === true || this.status[ctx] !== false) {
+      if (!this.contextStartedAt.has(ctx)) this.contextStartedAt.set(ctx, Date.now());
+      this.status[ctx] = undefined;
+    }
     return this.status[ctx] !== false;
   }
 
   setStatus(ctx: Context, code: number | undefined): void {
-    if (code !== undefined && code !== this.status[ctx] && ['tsc', 'esbuild', 'sass', 'i18n'].includes(ctx)) {
+    if (code !== undefined && code !== this.status[ctx]) {
+      const startedAt = this.contextStartedAt.get(ctx);
+      const took =
+        code === 0 && startedAt ? pc.gray(` (${((Date.now() - startedAt) / 1000).toFixed(3)}s)`) : '';
       this.log(
-        `${code === 0 ? 'Done' : c.red('Failed')}${this.watch ? ` - ${c.grey('Watching')}...` : ''}`,
+        `${code === 0 ? `Done${took}` : pc.red('Failed')}${this.watch ? this.logSep + pc.gray('Watching…') : ''}`,
         ctx,
       );
+      this.contextStartedAt.delete(ctx);
     }
     this.status[ctx] = code;
     if (this.buildOk()) {
       if (this.startTime) {
-        const doneMsg = `Done in ${c.green(String((Date.now() - this.startTime) / 1000))}s`;
-        this.log(doneMsg + (this.stdin ? `. Press ${c.grey('<space>')} to trigger clean rebuild` : ''));
+        const doneMsg = `Done in ${pc.green(String((Date.now() - this.startTime) / 1000) + 's')}`;
+        this.log(doneMsg + (this.stdin ? `. Press ${pc.gray('<space>')} to trigger clean rebuild` : ''));
       }
       this.onSuccess.forEach(yay => yay());
       this.startTime = undefined;
@@ -169,72 +177,34 @@ export const trimLines = (s: string): string[] => s.split(/[\n\r\f]+/).filter(x 
 
 export type Context = 'sass' | 'tsc' | 'esbuild' | 'sync' | 'hash' | 'i18n' | 'web';
 
-const codes = {
-  black: '30',
-  red: '31',
-  green: '32',
-  yellow: '33',
-  blue: '34',
-  magenta: '35',
-  cyan: '36',
-  white: '37',
-  grey: '90',
-  error: '31',
-  warn: '33',
-  greenBold: '32;1',
-  yellowBold: '33;1',
-  blueBold: '34;1',
-  magentaBold: '35;1',
-  cyanBold: '36;1',
-  greyBold: '90;1',
+const contextColors: Record<string, (text: string) => string> = {
+  build: pc.green,
+  sass: pc.magenta,
+  tsc: pc.yellow,
+  esbuild: x => pc.bold(pc.blue(x)),
+  sync: pc.cyan,
+  hash: pc.blue,
+  i18n: x => pc.bold(pc.cyan(x)),
+  web: x => pc.bold(pc.magenta(x)),
 };
 
-function colorForCtx(ctx: string) {
-  return (
-    {
-      build: codes.green,
-      sass: codes.magenta,
-      tsc: codes.yellow,
-      esbuild: codes.blueBold,
-      sync: codes.cyan,
-      hash: codes.blue,
-      i18n: codes.cyanBold,
-      manifest: codes.white,
-      web: codes.magentaBold,
-    }[ctx] ?? codes.grey
-  );
+function colorForCtx(ctx: string): (text: string) => string {
+  return contextColors[ctx] ?? (x => x);
 }
 
-function escape(text: string, code?: string) {
-  return env.logColor && code ? `\x1b[${code}m${stripColorEscapes(text)}\x1b[0m` : text;
-}
+export const errorMark: string = pc.red('✘ ') + pc.redBright('[ERROR]');
+export const warnMark: string = pc.yellow('⚠ ') + pc.yellowBright('[WARNING]');
 
-function colorLines(text: string, code: string) {
-  return trimLines(text)
-    .map(t => escape(t, code))
-    .join('\n');
-}
+const timeFormatter = new Intl.DateTimeFormat('en-GB', {
+  hour: '2-digit',
+  minute: '2-digit',
+  second: '2-digit',
+});
 
-export const c: Record<keyof typeof codes, (text: string) => string> = Object.keys(codes).reduce(
-  (acc, key) => {
-    acc[key as keyof typeof codes] = (text: string) => colorLines(text, codes[key as keyof typeof codes]);
-    return acc;
-  },
-  {} as Record<keyof typeof codes, (text: string) => string>,
-);
-
-export const errorMark: string = c.red('✘ ') + c.error('[ERROR]');
-export const warnMark: string = c.yellow('⚠ ') + c.warn('[WARNING]');
-
-function pad2(n: number) {
-  return n < 10 ? `0${n}` : `${n}`;
-}
-
-function stripColorEscapes(text: string) {
-  return text.replace(/\x1b\[[0-9;]*m/, '');
+function maybeStripEscapes(text: string) {
+  return pc.isColorSupported ? text : text.replace(/\x1b\[[0-9;]*m/, '');
 }
 
 function prettyTime() {
-  const now = new Date();
-  return `${pad2(now.getHours())}:${pad2(now.getMinutes())}:${pad2(now.getSeconds())} `;
+  return timeFormatter.format(new Date());
 }

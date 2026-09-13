@@ -30,6 +30,7 @@
   <string name="collinearMoveDescription">To brikker truer hverandre, og én av dem flytter langs angrepslinjen uten å slå.</string>
   <string name="cornerMate">Hjørnematt</string>
   <string name="cornerMateDescription">Press kongen inn i hjørnet ved hjelp av tårn eller dronning, og la springer sette matt.</string>
+  <string name="cornerMateKnightDeliversDescription" comment="Description for the &quot;Corner mate&quot; puzzle theme. Replaces old string cornerMateDescription">Press kongen inn i hjørnet ved hjelp av tårn eller dronning, og la springer sette matt.</string>
   <string name="crushing">Knusende</string>
   <string name="crushingDescription">Oppdag motstanderens bukk og oppnå en knusende fordel. (eval ≥ 600cp)</string>
   <string name="discoveredCheck">Avdekkersjakk</string>
@@ -55,16 +56,19 @@
   <string name="endgame">Sluttspill</string>
   <string name="endgameDescription">En taktikk i den siste fasen av partiet.</string>
   <string name="enPassantDescription">En taktikk som utnytter en passant-regelen, der en bonde kan slå en motstanderbonde som har passert den ved å flytte to felt.</string>
+  <string name="enPassantAdjacentCaptureDescription" comment="Replaces old string enPassantDescription">En taktikk som bruker en passant-regelen, der en bonde kan slå en motstanderbonde som nettopp har flyttet to felt frem fra utgangsstillingen og havnet ved siden av den.</string>
   <string name="epauletteMate">Epålettmatt</string>
   <string name="epauletteMateDescription">Kongens to fluktfelter er opptatt av andre brikker.</string>
   <string name="exposedKing">Utsatt konge</string>
   <string name="exposedKingDescription">En taktikk som utnytter en konge med få forsvarsbrikker rundt seg, noe som ofte leder til sjakk matt.</string>
   <string name="fork">Gaffel</string>
   <string name="forkDescription">Et trekk der brikken som ble flyttet, angriper to av motstanderens brikker samtidig.</string>
+  <string name="forkOpposingPiecesDescription" comment="Replaces old string forkDescription">Et trekk der én brikke angriper to eller flere av motstanderens brikker samtidig.</string>
   <string name="hangingPiece">Hengende brikke</string>
   <string name="hangingPieceDescription">En taktikk som utnytter at en motstanderbrikke er udekket eller ikke tilstrekkelig dekket og kan slås.</string>
   <string name="hookMate">Krokmatt</string>
   <string name="hookMateDescription">Tårn, springer og bonde setter sjakk matt i en stilling der motstanderens bonde avskjærer kongens flukt.</string>
+  <string name="hookMateOpposingPawnDescription" comment="Replaces old string hookMateDescription">Sjakk matt med tårn, springer og bonde, der en av motstanderens bønder sperrer kongens fluktvei.</string>
   <string name="interference">Interferens</string>
   <string name="interferenceDescription">Å flytte en brikke mellom to motstanderbrikker slik at en av eller begge motstanderbrikkene er udekket, for eksempel en springer på et dekket felt mellom to tårn.</string>
   <string name="intermezzo">Mellomtrekk</string>
@@ -73,8 +77,10 @@
   <string name="killBoxMateDescription">Et tårn står ved siden av motstanderens konge og er støttet av en dronning som også blokkerer kongens fluktfelter. Tårnet og dronningen fanger motstanderens konge i en 3x3 «kasse».</string>
   <string name="pillsburysMate">Pillsburys matt</string>
   <string name="pillsburysMateDescription">Tårnet setter matt, mens løperen sperrer.</string>
+  <string name="pillsburyMateRookAndBishopDescription" comment="Replaces old string pillsburysMateDescription">Et tårn setter kongen sjakk matt, mens en løper bidrar til å stenge den inne.</string>
   <string name="morphysMate">Morphys matt</string>
   <string name="morphysMateDescription">Løperen setter matt, mens tårnet sperrer.</string>
+  <string name="morphyMateBishopAndRookDescription" comment="Replaces old string morphysMateDescription">En løper setter kongen sjakk matt, mens et tårn bidrar til å stenge den inne.</string>
   <string name="swallowstailMate">Svalehalematt</string>
   <string name="swallowstailMateDescription">Et mattmønster som visuelt ligner halen til en svale, med en form som minner om en V.</string>
   <string name="triangleMate">Trekantmatt</string>
@@ -115,6 +121,7 @@
   <string name="pinDescription">En taktikk som utnytter bindinger, der en brikke ikke kan flyttes uten at en brikke med høyere verdi trues.</string>
   <string name="promotion">Bondeforvandling</string>
   <string name="promotionDescription">Bytt ut bonde med dronning, tårn, løper eller springer.</string>
+  <string name="promotePawnToQueenRookOrMinor" comment="Replaces old string promotionDescription">Forvandle en av bøndene dine til en dronning, et tårn eller en lett offiser.</string>
   <string name="queenEndgame">Dronningsluttspill</string>
   <string name="queenEndgameDescription">Et sluttspill med kun dronninger og bønder.</string>
   <string name="queenRookEndgame">Dronning- og tårnsluttspill</string>

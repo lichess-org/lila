@@ -435,7 +435,6 @@
   <string name="apply">Parashtroje</string>
   <string name="save">Ruaje</string>
   <string name="leaderboard">Tabelë klasifikimi</string>
-  <string name="screenshotCurrentPosition">Bëj foto ekrani të pozicionit të tanishëm</string>
   <string name="gameAsGIF">GIF i lojës</string>
   <string name="playerNames">Emra lojtarësh</string>
   <string name="moveAnnotations">Shënime lëvizjesh</string>
@@ -550,7 +549,6 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="oneUrlPerLine">Një URL për rresht.</string>
   <string name="inlineNotation">Shënim brendazi</string>
   <string name="makeAStudy">Për ruajtje të sigurt dhe për ndarje me të tjerët, shihni mundësinë e krijimit të një studimi.</string>
-  <string name="clearSavedMoves">Spastroji lëvizjet</string>
   <string name="previouslyOnLichessTV">Herën e fundit në Lichess TV</string>
   <string name="onlinePlayers">Lojtarë në linjë</string>
   <string name="activePlayers">Lojëtarë aktivë</string>
@@ -822,7 +820,6 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="theme">Temë grafike</string>
   <string name="light">I çelët</string>
   <string name="dark">I errët</string>
-  <string name="transparent">I tejdukshëm</string>
   <string name="picture">Foto</string>
   <string name="deviceTheme">Temën e pajisjes</string>
   <string name="roundness">Rrumbullakësi</string>

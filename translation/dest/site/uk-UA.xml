@@ -191,6 +191,9 @@
   </plurals>
   <string name="moveTimes">Час на хід</string>
   <string name="flipBoard">Перевернути дошку</string>
+  <string name="toggleLocalEngine">Перемкнути локальний рушій</string>
+  <string name="engineSettings">Налаштування рушія</string>
+  <string name="enginesFromStrongestToWeakest">Рушії від найкращого до найгіршого</string>
   <string name="threefoldRepetition">Триразове повторення</string>
   <string name="claimADraw">Оголосити нічию</string>
   <string name="drawClaimed">Оголошена нічия</string>
@@ -279,6 +282,7 @@
   <string name="signupUsernameHint">Переконайтесь, що ви вибрали хороше ім\'я. Ви не можете змінити його потім, а профілі з непристойними іменами будуть заблоковані!</string>
   <string name="signupEmailPromise">Ми надсилатимемо вам листи лише щодо вашого облікового запису та ніколи не будемо ділитися вашою електронною поштою.</string>
   <string name="password">Пароль</string>
+  <string name="showPassword">Показати пароль</string>
   <string name="changePassword">Змінити пароль</string>
   <string name="changeEmail">Змінити адресу електронної пошти</string>
   <string name="email">Електронна пошта</string>
@@ -504,7 +508,6 @@
   <string name="apply">Застосувати</string>
   <string name="save">Зберегти</string>
   <string name="leaderboard">Дошка лідерів</string>
-  <string name="screenshotCurrentPosition">Скріншот поточної позиції</string>
   <string name="gameAsGIF">Зберегти як GIF</string>
   <string name="playerNames">Імена гравців</string>
   <string name="moveAnnotations">Анотації ходу</string>
@@ -625,7 +628,7 @@
   <string name="oneUrlPerLine">Одне посилання на рядок.</string>
   <string name="inlineNotation">Вбудована нотація</string>
   <string name="makeAStudy">Щоб зберегти та поділитися, подумайте про проведення дослідження.</string>
-  <string name="clearSavedMoves">Очистити ходи</string>
+  <string name="clearLocalData">Очистити локальні дані</string>
   <string name="previouslyOnLichessTV">Раніше на Lichess TV</string>
   <string name="onlinePlayers">Гравці онлайн</string>
   <string name="activePlayers">Активні гравці</string>
@@ -920,7 +923,6 @@
   <string name="theme">Тема</string>
   <string name="light">Світлий</string>
   <string name="dark">Темний</string>
-  <string name="transparent">Прозорий</string>
   <string name="picture">Зображення</string>
   <string name="deviceTheme">Тема пристрою</string>
   <string name="roundness">Округлість</string>
@@ -1150,4 +1152,6 @@
   <string name="tags">Теги</string>
   <string name="enPassant">Взяття на проході</string>
   <string name="settings">Налаштування</string>
+  <string name="chessOpenings">Шахові дебюти</string>
+  <string name="boards">Дошки</string>
 </resources>

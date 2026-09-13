@@ -292,7 +292,7 @@ const tourSelect = (ctx: RelayViewContext, group: RelayGroup) => {
         group.tours.find(t => t.id === relay.data.tour.id)?.name || relay.data.tour.name,
       ),
       relay.tourSelectShow() && [
-        hl('label.fullscreen-mask', { on: { click: updateCheckboxAndToggle } }),
+        hl('div.fullscreen-mask', { on: { click: updateCheckboxAndToggle } }),
         hl(
           'nav.mselect__list',
           group.tours.map(tour =>
@@ -368,7 +368,7 @@ const roundSelect = (relay: RelayCtrl, study: StudyCtrl) => {
         ],
       ),
       relay.roundSelectShow() && [
-        hl('label.fullscreen-mask', { on: { click: updateCheckboxAndToggle } }),
+        hl('div.fullscreen-mask', { on: { click: updateCheckboxAndToggle } }),
         hl(
           'div.relay-tour__round-select__list.mselect__list',
           {

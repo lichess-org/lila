@@ -355,7 +355,6 @@
   <string name="apply">Sottumette</string>
   <string name="save">Salvà</string>
   <string name="leaderboard">Scacchera di i ghjucadori i più forti</string>
-  <string name="screenshotCurrentPosition">Catturà u screnu di a pusizione attuale</string>
   <string name="gameAsGIF">Trasfurmà a partita in GIF</string>
   <string name="pasteTheFenStringHere">Incollà a u testu FEN qì</string>
   <string name="pasteThePgnStringHere">Incollà u testu PGN quì</string>
@@ -454,7 +453,6 @@
   <string name="oneUrlPerLine">Una URL per ogni linea.</string>
   <string name="inlineNotation">Nutazione in linea</string>
   <string name="makeAStudy">Pè guardà lu à longu andà è sparte lu, create piuttostu un studiu.</string>
-  <string name="clearSavedMoves">Sfassà i movi</string>
   <string name="previouslyOnLichessTV">Nanzu in Lichess TV</string>
   <string name="onlinePlayers">Ghjucadori nantu à u situ</string>
   <string name="activePlayers">Ghjucadori attivi</string>
@@ -686,7 +684,6 @@
   <string name="background">Fondu</string>
   <string name="light">Lume</string>
   <string name="dark">Bughju</string>
-  <string name="transparent">Diafanu</string>
   <string name="deviceTheme">Tema dispusitivu</string>
   <string name="backgroundImageUrl">URL di a fiura di u fondu:</string>
   <string name="pieceSet">Aspettu di e pezze</string>

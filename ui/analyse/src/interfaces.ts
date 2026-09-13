@@ -1,6 +1,6 @@
 import type { VNode } from 'snabbdom';
 
-import type { ExternalEngineInfo } from 'lib/ceval';
+import type { ExternalEngineInfoFromServer } from 'lib/ceval';
 import type { ChatCtrl, ChatPlugin, ChatOpts } from 'lib/chat/interfaces';
 import type { Player, Status, Source, Clock } from 'lib/game';
 import type { Coords, MoveEvent } from 'lib/prefs';
@@ -59,7 +59,7 @@ export interface AnalyseData {
     id: string;
   };
   puzzle?: OpeningPuzzle;
-  externalEngines?: ExternalEngineInfo[];
+  externalEngines?: ExternalEngineInfoFromServer[];
 }
 
 export interface AnalysePref {

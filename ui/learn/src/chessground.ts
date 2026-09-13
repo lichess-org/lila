@@ -10,7 +10,7 @@ import type { RunCtrl } from './run/runCtrl';
 export interface Shape {
   orig: Key;
   dest?: Key;
-  color?: string;
+  brush?: string;
 }
 
 export type CgMove = {

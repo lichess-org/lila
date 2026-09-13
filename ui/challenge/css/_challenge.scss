@@ -1,18 +1,16 @@
 #challenge-app {
   @extend %box-radius-left, %dropdown-shadow;
 
-  overflow: hidden scroll;
+  overflow: hidden auto;
   max-height: 90vh;
   width: 300px;
   text-align: center;
 
   .empty {
-    background: $c-bg-header-dropdown;
     padding: 2rem 0;
   }
 
   .challenge {
-    background: $c-bg-header-dropdown;
     border-bottom: $border;
     padding-bottom: 0.5em;
 

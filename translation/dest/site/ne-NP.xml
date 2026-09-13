@@ -370,7 +370,6 @@
   <string name="apply">पेश</string>
   <string name="save">सुरक्षित गर्नुहोस्</string>
   <string name="leaderboard">सर्वोत्कृष्ट खेलाडीहरु</string>
-  <string name="screenshotCurrentPosition">अहिलेको पोजिशनको स्क्रिनसट निकाल्नुहोस् ।</string>
   <string name="gameAsGIF">GIF को रूपमा सेभ गर्नुहोस्</string>
   <string name="pasteTheFenStringHere">FEN स्ट्रिङ्ग यहाँ पेष्ट गरौं</string>
   <string name="pasteThePgnStringHere">PGN स्ट्रिङ्ग यहाँ पेष्ट गरौं</string>
@@ -671,7 +670,6 @@
   <string name="background">पृष्ठभूमि</string>
   <string name="light">प्रकाश</string>
   <string name="dark">गाढा</string>
-  <string name="transparent">पारदर्शि</string>
   <string name="backgroundImageUrl">पृष्ठभूमि प्रतिमा URL:</string>
   <string name="pieceSet">चेस सेट</string>
   <string name="embedInYourWebsite">तपाइको वेबसाइटमा इम्बेड गर्नुहोस्</string>
