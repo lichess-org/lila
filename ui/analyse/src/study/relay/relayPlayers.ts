@@ -182,7 +182,7 @@ const playerView = (ctrl: RelayPlayers, show: PlayerToShow): VNode => {
               hl('div.fide-player__header__info', [
                 hl('a.fide-player__header__name', { attrs: fidePageAttrs }, [
                   hl('span', [userTitle(p), p.name]),
-                  p.user && userLink({ ...p.user, patronColor: undefined, title: undefined }),
+                  p.user && userLink({ ...p.user, title: undefined }),
                 ]),
                 p.fide &&
                   hl('label.fide-player__follow', [
