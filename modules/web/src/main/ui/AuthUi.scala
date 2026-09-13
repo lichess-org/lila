@@ -336,14 +336,14 @@ final class AuthUi(helpers: Helpers):
         )
 
   def magicLink(form: Form[?], fail: Boolean)(using Context, TurnstilePublicConfig, Option[ValidReferrer]) =
-    Page("Log in by email")
+    Page(trans.site.logInByEmail.txt())
       .css("bits.auth")
       .csp(_.withTurnstile):
         main(cls := "auth auth-signup box box-pad")(
           boxTop(
             h1(
               fail.option(iconTag(Icon.X)(cls := "is-red")),
-              "Log in by email"
+              trans.site.logInByEmail()
             )
           ),
           p("We will send you an email containing a link to log you in."),
