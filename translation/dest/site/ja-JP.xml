@@ -170,7 +170,7 @@
   <string name="toggleLocalEngine">ローカルエンジンのオン/オフ</string>
   <string name="engineSettings">エンジンの設定</string>
   <string name="enginesFromStrongestToWeakest">最強から最弱まで多彩なエンジン</string>
-  <string name="illegalPositions">ルールに反した局面は解析できません</string>
+  <string name="illegalPosition">ルール違反の局面</string>
   <string name="threefoldRepetition">同形三復</string>
   <string name="claimADraw">引き分けを申し立てる</string>
   <string name="drawClaimed">ドロー申立て</string>

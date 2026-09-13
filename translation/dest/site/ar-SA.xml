@@ -210,7 +210,7 @@
   <string name="toggleLocalEngine">تفعيل او إيقاف المحرك المحلي</string>
   <string name="engineSettings">إعدادات المحرك</string>
   <string name="enginesFromStrongestToWeakest">المحركات من الأقوى إلى ألأضعف</string>
-  <string name="illegalPositions">لا يمكن تحليل الوضعيات غير القانونية</string>
+  <string name="illegalPosition">وضعية غير قانونية</string>
   <string name="threefoldRepetition">تكرار ثلاثي</string>
   <string name="claimADraw">إعلان التعادل</string>
   <string name="drawClaimed">تم أخذ التعادل</string>

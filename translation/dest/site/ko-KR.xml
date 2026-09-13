@@ -170,7 +170,7 @@
   <string name="toggleLocalEngine">로컬 엔진 켜기/끄기</string>
   <string name="engineSettings">엔진 설정</string>
   <string name="enginesFromStrongestToWeakest">엔진 (강한 순서대로)</string>
-  <string name="illegalPositions">합법적이지 않은 포지션은 분석할 수 없습니다</string>
+  <string name="illegalPosition">합법적이지 않은 포지션</string>
   <string name="threefoldRepetition">3회 동형반복</string>
   <string name="claimADraw">무승부 처리</string>
   <string name="drawClaimed">무승부 처리됨</string>
