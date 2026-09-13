@@ -29,6 +29,9 @@ final class TournamentForm(val helpers: Helpers, showUi: TournamentShow)(
 ):
   import helpers.{ *, given }
 
+  private val gatheringFormUi = GatheringFormUi(helpers)
+  import gatheringFormUi.*
+
   def create(form: Form[?], leaderTeams: List[LightTeam])(using Context) =
     given prefix: FormPrefix = FormPrefix.empty
     val fields = tourFields(form, none)
@@ -93,8 +96,8 @@ final class TournamentForm(val helpers: Helpers, showUi: TournamentShow)(
       form3.fieldset("Tournament", toggle = true.some, disabled = fields.frozen)(
         form3.split(fields.name, fields.minutes),
         form3.split(
-          gatheringFormUi.description(form.prefix("description")),
-          gatheringFormUi.payouts(form.prefix("payouts"))
+          description(form.prefix("description")),
+          payouts(form.prefix("payouts"))
         )
       ),
       form3.fieldset("Games", toggle = true.some, disabled = fields.frozen)(
@@ -113,8 +116,8 @@ final class TournamentForm(val helpers: Helpers, showUi: TournamentShow)(
       form3.globalError(form),
       form3.fieldset("Tournament", toggle = true.some, disabled = fields.frozen)(
         form3.split(fields.name, fields.minutes),
-        form3.split(gatheringFormUi.description(form.prefix("description"))),
-        gatheringFormUi.payouts(form.prefix("payouts"))
+        form3.split(description(form.prefix("description"))),
+        payouts(form.prefix("payouts"))
       ),
       form3.fieldset("Games", toggle = false.some, disabled = fields.frozen)(
         fields.clock,
@@ -124,8 +127,6 @@ final class TournamentForm(val helpers: Helpers, showUi: TournamentShow)(
       conditionFields(form, fields, teams = myTeams, tour = tour.some),
       featuresFields(form, fields)
     )
-
-  private val gatheringFormUi = GatheringFormUi(helpers)
 
   def conditionFields(
       form: Form[?],
@@ -153,19 +154,19 @@ final class TournamentForm(val helpers: Helpers, showUi: TournamentShow)(
         }
       ),
       form3.split(
-        gatheringFormUi.nbRatedGame(form.prefix("conditions.nbRatedGame.nb")),
-        gatheringFormUi.accountAge(form.prefix("conditions.accountAge"))
+        nbRatedGame(form.prefix("conditions.nbRatedGame.nb")),
+        accountAge(form.prefix("conditions.accountAge"))
       ),
       form3.split(
-        gatheringFormUi.minRating(form.prefix("conditions.minRating.rating")),
-        gatheringFormUi.maxRating(form.prefix("conditions.maxRating.rating"))
+        minRating(form.prefix("conditions.minRating.rating")),
+        maxRating(form.prefix("conditions.maxRating.rating"))
       ),
       form3.split(
-        gatheringFormUi.allowList(form.prefix("conditions.allowList")),
+        allowList(form.prefix("conditions.allowList")),
         (ctx.me.exists(_.hasTitle) || Granter.opt(_.ManageTournament)).option:
-          gatheringFormUi.titled(form.prefix("conditions.titled"))
+          titled(form.prefix("conditions.titled"))
         ,
-        gatheringFormUi.bots(form.prefix("conditions.bots"), fields.disabledAfterStart)
+        bots(form.prefix("conditions.bots"), fields.disabledAfterStart)
       )
     )
 

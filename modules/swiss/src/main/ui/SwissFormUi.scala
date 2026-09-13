@@ -18,6 +18,9 @@ final class SwissFormUi(helpers: Helpers)(
 ):
   import helpers.{ *, given }
 
+  private val gatheringFormUi = GatheringFormUi(helpers)
+  import gatheringFormUi.*
+
   def create(form: Form[SwissForm.SwissData], teamId: TeamId)(using Context) =
     Page(trans.swiss.newSwiss.txt())
       .css("swiss.form")
@@ -47,8 +50,6 @@ final class SwissFormUi(helpers: Helpers)(
             )
           )
         )
-
-  private val gatheringFormUi = GatheringFormUi(helpers)
 
   def edit(swiss: Swiss, form: Form[SwissForm.SwissData])(using Context) =
     Page(swiss.name)
@@ -87,8 +88,8 @@ final class SwissFormUi(helpers: Helpers)(
         name,
         form3.split(nbRounds, startsAt),
         form3.split(
-          gatheringFormUi.description(form("description")),
-          gatheringFormUi.payouts(form("payouts"))
+          description(form("description")),
+          payouts(form("payouts"))
         )
       )
 
@@ -158,17 +159,17 @@ final class SwissFormUi(helpers: Helpers)(
     def conditionFields =
       form3.fieldset("Entry conditions", toggle = swiss.exists(!_.settings.conditions.isDefault).some)(
         form3.split(
-          gatheringFormUi.nbRatedGame(form("conditions.nbRatedGame.nb")),
-          gatheringFormUi.accountAge(form("conditions.accountAge"))
+          nbRatedGame(form("conditions.nbRatedGame.nb")),
+          accountAge(form("conditions.accountAge"))
         ),
         form3.split(
-          gatheringFormUi.minRating(form("conditions.minRating.rating")),
-          gatheringFormUi.maxRating(form("conditions.maxRating.rating"))
+          minRating(form("conditions.minRating.rating")),
+          maxRating(form("conditions.maxRating.rating"))
         ),
         form3.split(
           playYourGames,
           (summon[Context].me.exists(_.hasTitle) || Granter.opt(_.ManageTournament)).option:
-            gatheringFormUi.titled(form("conditions.titled"))
+            titled(form("conditions.titled"))
         ),
         form3.split(
           form3.group(
