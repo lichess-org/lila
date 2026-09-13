@@ -207,6 +207,10 @@
   </plurals>
   <string name="moveTimes">توقيت النقلات</string>
   <string name="flipBoard">تدوير الرقعة</string>
+  <string name="toggleLocalEngine">تفعيل او إيقاف المحرك المحلي</string>
+  <string name="engineSettings">إعدادات المحرك</string>
+  <string name="enginesFromStrongestToWeakest">المحركات من الأقوى إلى ألأضعف</string>
+  <string name="illegalPosition">وضعية غير قانونية</string>
   <string name="threefoldRepetition">تكرار ثلاثي</string>
   <string name="claimADraw">إعلان التعادل</string>
   <string name="drawClaimed">تم أخذ التعادل</string>
@@ -309,6 +313,7 @@
   <string name="signupUsernameHint">تأكد من اختيار اسم مستخدم مناسب لجميع الأعمار. لا يمكنك تغييره لاحقًا، والحسابات التي تحتوي على أسماء مستخدمين غير ملائمة سوف تُغلق!</string>
   <string name="signupEmailPromise">لن نرسل لك سوى رسائل البريد الإلكتروني حول حسابك ولن نشارك بريدك الإلكتروني أبدا.</string>
   <string name="password">كلمة السر</string>
+  <string name="showPassword">إظهار كلمة المرور</string>
   <string name="changePassword">تغيير كلمة السر</string>
   <string name="changeEmail">غير البريد الإلكتروني</string>
   <string name="email">البريد الإلكتروني</string>
@@ -370,7 +375,9 @@
   <string name="ok">حسناً</string>
   <string name="cancel">إلغاء</string>
   <string name="whiteTimeOut">انتهى وقت الأبيض</string>
+  <string name="whiteRanOutOfTime" comment="whiteTimeOut&#10;&#10;Shows when White's time has run out. Is followed by the end condition, for example&#10;'White ran out of time · Draw' Replaces old string whiteTimeOut">نفد وقت الأبيض</string>
   <string name="blackTimeOut">انتهى وقت الأسود</string>
+  <string name="blackRanOutOfTime" comment="blackTimeOut&#10;&#10;Shows when Black's time has run out. Is followed by the end condition, for example&#10;'Black ran out of time · Draw' Replaces old string blackTimeOut">نفد وقت الأسود</string>
   <string name="drawOfferSent">تم ارسال عرض التعادل</string>
   <string name="drawOfferAccepted">تم قبول عرض التعادل</string>
   <string name="whiteOffersDraw">الأبيض يعرض التعادل</string>
@@ -544,6 +551,8 @@
   </plurals>
   <string name="yourPerfRatingIsProvisional">تقييمك في %s مؤقت</string>
   <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">تصفية اللعب مغلق حاليا لأن تصنيفك غير مستقر، لعب مباريات مصنفة سوف يزيد من ثبات تصنيفك</string>
+  <string name="cannotFilterByUnstableRating" comment="Tooltip to explain why the control for filtering by rating is disabled Replaces old string ratingRangeIsDisabledBecauseYourRatingIsProvisional">لا يمكن استخدام التصفية حسب التصنيف لأن تصنيفك غير مستقر بعد.
+خض مباريات مصنّفة لزيادة استقرار تصنيفك.</string>
   <string name="yourPerfRatingIsTooHigh">تقييمك في %1$s وقدره %2$s عالي جدًا</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">تقييمك الأسبوعي في %1$s وقدره %2$s عالي جدًا</string>
   <string name="yourPerfRatingIsTooLow">تقييمك في %1$s وقدره %2$s منخفض جدًا</string>
@@ -564,7 +573,7 @@
   <string name="apply">قبول</string>
   <string name="save">حفظ</string>
   <string name="leaderboard">قائمة الصدارة</string>
-  <string name="screenshotCurrentPosition">لقطة شاشة</string>
+  <string name="positionAsImage" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position. Replaces old string screenshotCurrentPosition">حفظ الوضعية كصورة</string>
   <string name="gameAsGIF">حفظ بصيغة GIF</string>
   <string name="playerNames">أسماء اللاعبين</string>
   <string name="moveAnnotations">تدوين الحركة</string>
@@ -693,7 +702,7 @@
   <string name="oneUrlPerLine">رابط واحد لكل سطر</string>
   <string name="inlineNotation">تنسيق التدوين</string>
   <string name="makeAStudy">للحفظ الآمن و المشاركة، يمكنك إنشاء دراسة.</string>
-  <string name="clearSavedMoves">مسح النقلات</string>
+  <string name="clearLocalData">مسح البيانات المحلية</string>
   <string name="previouslyOnLichessTV">سابقاً على تلفاز ليتشيس</string>
   <string name="onlinePlayers">لاعبون متصلون</string>
   <string name="activePlayers">لاعبون نشطون</string>
@@ -888,6 +897,7 @@ https://lichess. org/report.</string>
   <string name="simulClockHint">ضبط توقيت بالزيادة . كلما زاد عدد اللاعبين كلما احتجت لوقت أطول.</string>
   <string name="simulAddExtraTime">يمكنك زيادة الوقت لساعتك للمساعدة في التزامنية.</string>
   <string name="simulHostExtraTime">التوقيت الإضافي لساعة المضيف</string>
+  <string name="extraClockTimeForHost" comment="Appears on: https://lichess.org/simul/new&#10;&#10;Allows a simul host to select extra time for the simul.&#10;&#10;Please note this string used to state &quot;Host extra clock time&quot;, without the word &quot;initial&quot; Replaces old string simulHostExtraTime">وقت إضافي للمضيف:</string>
   <string name="simulAddExtraTimePerPlayer">أضف وقتًا ابتدائيًا إلى ساعتك لكل لاعب ينضم إلى المحاكاة.</string>
   <string name="simulHostExtraTimePerPlayer">استضافة وقت إضافيًا لكل لاعب</string>
   <string name="lichessTournaments">مسابقات الموقع</string>
@@ -898,8 +908,10 @@ https://lichess. org/report.</string>
   <string name="keyboardShortcuts">اختصارات لوحة المفاتيح</string>
   <string name="keyMoveBackwardOrForward">تحرك للخلف/للأمام</string>
   <string name="keyGoToStartOrEnd">اذهب للبداية/للنهاية</string>
+  <string name="keyGoToPreviousOrNextLine">الانتقال إلى السطر السابق/السطر التالي</string>
   <string name="keyCycleSelectedVariation">التفريع المحدد</string>
   <string name="keyShowOrHideComments">أظهر/أخفِ التعليقات</string>
+  <string name="keyShowOrHideCurrentVariation">إظهار/إخفاء التفرع الحالي</string>
   <string name="keyEnterOrExitVariation">متغير دخول/خروج</string>
   <string name="keyPreviousBranch">التفريع السابق</string>
   <string name="keyNextBranch">التفريع القادم</string>
@@ -1005,7 +1017,6 @@ https://lichess. org/report.</string>
   <string name="theme">المظهر</string>
   <string name="light">فاتح</string>
   <string name="dark">داكن</string>
-  <string name="transparent">شفّاف</string>
   <string name="picture">صورة</string>
   <string name="deviceTheme">مظهر الجهاز</string>
   <string name="roundness">استدارة الزوايا</string>
@@ -1035,6 +1046,7 @@ https://lichess. org/report.</string>
   <string name="notifications">إشعارات</string>
   <string name="notificationsX">الإشعارات %1$s</string>
   <string name="perfRatingX">التقييم: %s</string>
+  <string name="perfRatingLabel" comment="Replaces old string perfRatingX">التقييم: %s.</string>
   <string name="yourRatingIsX">تصنيفك هو %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="zero">%s ثانية متبقية لاتمام النقلة الأولى</item>
@@ -1106,6 +1118,7 @@ https://lichess. org/report.</string>
   </plurals>
   <string name="showUnreadLichessMessage">تسلّمتَ رسالة خاصة من ليتشيس.</string>
   <string name="clickHereToReadIt">اضغط هنا بمتابعة القراءة</string>
+  <string name="readTheMessage" comment="'It' refers to a private message. This text follows after a different string which advises players they have received a private message from Lichess. For users, this is appears as a regular private message from the Lichess account: https://lichess.org/@/Lichess Replaces old string clickHereToReadIt">قراءة الرسالة</string>
   <string name="sorry">نأسف :(</string>
   <string name="weHadToTimeYouOutForAWhile">اضطررنا إلى حظرك لفترة قصيرة.</string>
   <string name="why">لماذا ؟</string>
@@ -1242,4 +1255,7 @@ https://lichess. org/report.</string>
   <string name="tags">تصنيفات</string>
   <string name="enPassant">حقوق  الأخذ بالتجاوز </string>
   <string name="settings">الإعدادات</string>
+  <string name="verifyingYourDevice">جارٍ التحقق من جهازك...</string>
+  <string name="chessOpenings">افتتاحيات الشطرنج</string>
+  <string name="boards">الألواح</string>
 </resources>

@@ -268,7 +268,7 @@ export function make(root: AnalyseCtrl): PracticeCtrl {
     customCeval: {
       search: () =>
         masteryMode() && !isMyTurn()
-          ? 60 * 1000
+          ? 300 * 1000
           : (api.overrides.practiceSearch?.() ?? { by: { nodes: 600_000 }, multiPv: 1, indeterminate: true }),
       pearlNode: () => renderCustomPearl(root, masteryMode()),
       statusNode: () => (root.ceval.isComputing ? undefined : renderCustomStatus(root, masteryMode)),

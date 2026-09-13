@@ -31,7 +31,7 @@ final class PlaybanApi(
   private given BSONDocumentHandler[UserRecord] = Macros.handler
 
   lila.common.Bus.sub[lila.core.user.UserDelete]: del =>
-    coll.delete.one($id(del.id)).void
+    coll.delete.one(bid(del.id)).void
 
   private def blameableSource(game: Game): Boolean = game.source.exists: s =>
     s == Source.Lobby || s == Source.Pool || s == Source.Arena
@@ -191,8 +191,8 @@ final class PlaybanApi(
     (!cleanUserIds.get(user.id)).so:
       coll
         .find(
-          $doc("_id" -> user.id, "b.0".$exists(true)),
-          $doc("_id" -> false, "b" -> $doc("$slice" -> -1)).some
+          bdoc("_id" -> user.id, "b.0".exists(true)),
+          bdoc("_id" -> false, "b" -> bdoc("$slice" -> -1)).some
         )
         .one[Bdoc]
         .dmap:
@@ -206,8 +206,8 @@ final class PlaybanApi(
     coll
       .aggregateList(Int.MaxValue, _.pri): framework =>
         import framework.*
-        Match($inIds(userIds) ++ $doc("b".$exists(true))) -> List(
-          Project($doc("bans" -> $doc("$size" -> "$b")))
+        Match(inIds(userIds) ++ bdoc("b".exists(true))) -> List(
+          Project(bdoc("bans" -> bdoc("$size" -> "$b")))
         )
       .map: res =>
         for
@@ -220,8 +220,8 @@ final class PlaybanApi(
   def bans(userId: UserId): Fu[Int] = coll
     .aggregateOne(_.sec): framework =>
       import framework.*
-      Match($id(userId) ++ $doc("b".$exists(true))) -> List(
-        Project($doc("bans" -> $doc("$size" -> "$b")))
+      Match(bid(userId) ++ bdoc("b".exists(true))) -> List(
+        Project(bdoc("bans" -> bdoc("$size" -> "$b")))
       )
     .map { ~_.flatMap { _.getAsOpt[Int]("bans") } }
 
@@ -231,7 +231,7 @@ final class PlaybanApi(
     _.expireAfterAccess(10.minutes)
       .buildAsyncFuture: userId =>
         coll
-          .primitiveOne[RageSitCounter]($doc("_id" -> userId, "c".$exists(true)), "c")
+          .primitiveOne[RageSitCounter](bdoc("_id" -> userId, "c".exists(true)), "c")
           .map(_ | RageSit.empty)
 
   private def save(
@@ -244,13 +244,13 @@ final class PlaybanApi(
     for
       withOutcome <- coll
         .findAndUpdateSimplified[UserRecord](
-          selector = $id(userId),
-          update = $doc(
-            $push("o" -> $doc("$each" -> List(outcome), "$slice" -> -30)) ++ {
+          selector = bid(userId),
+          update = bdoc(
+            push("o" -> bdoc("$each" -> List(outcome), "$slice" -> -30)) ++ {
               rsUpdate match
-                case RageSit.Update.Reset => $min("c" -> 0)
-                case RageSit.Update.Inc(v) if v != 0 => $inc("c" -> v)
-                case _ => $empty
+                case RageSit.Update.Reset => min("c" -> 0)
+                case RageSit.Update.Inc(v) if v != 0 => inc("c" -> v)
+                case _ => emptyBdoc
             }
           ),
           fetchNewObject = true,
@@ -279,9 +279,9 @@ final class PlaybanApi(
         Bus.pub(lila.core.playban.Playban(record.userId, ban.mins, inTournament = source.has(Source.Arena)))
         coll
           .findAndUpdateSimplified[UserRecord](
-            selector = $id(record.userId),
-            update = $unset("o") ++ $push(
-              "b" -> $doc(
+            selector = bid(record.userId),
+            update = unset("o") ++ push(
+              "b" -> bdoc(
                 "$each" -> List(ban),
                 "$slice" -> -30
               )

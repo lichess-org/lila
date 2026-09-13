@@ -2,9 +2,10 @@ import fg from 'fast-glob';
 import mm from 'micromatch';
 import fs from 'node:fs';
 import { join, relative, basename } from 'node:path';
+import pc from 'picocolors';
 
 import { randomToken, definedUnique } from './algo.ts';
-import { type Context, type Package, env, c, errorMark } from './env.ts';
+import { type Context, type Package, env, errorMark } from './env.ts';
 import { glob, isFolder, subfolders, isClose } from './parse.ts';
 
 const fsWatches = new Map<AbsPath, FSWatch>();
@@ -154,7 +155,7 @@ async function execute(t: Task, firstRun = false): Promise<void> {
     t.status = 'error';
     const message = e instanceof Error ? (e.stack ?? e.message) : String(e);
     if (!env.watch) env.exit(`${errorMark} ${message}`, t.ctx);
-    else if (e) env.log(`${errorMark} ${t.pkg?.name ? `[${c.grey(t.pkg.name)}] ` : ''}- ${message}`, t.ctx);
+    else if (e) env.log(`${errorMark} ${t.pkg?.name ? `[${pc.gray(t.pkg.name)}] ` : ''}- ${message}`, t.ctx);
     if (t.ctx && !t.noEnvStatus) env.setStatus(t.ctx, -1);
   } finally {
     activeTaskCount--;

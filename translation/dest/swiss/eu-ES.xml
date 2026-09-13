@@ -65,6 +65,7 @@ Batu jokalariak garaitu dituen jokalarien puntuak, eta berdindu duen jokalarien 
   <string name="moreRoundsThanPlayersQ">Zer gertatzen da txapelketak jokalari baino txanda gehiago baditu?</string>
   <string name="moreRoundsThanPlayersA">Partida posible guztiak jokatu direnean, txapelketa amaitu eta irabazlea zein den erabakiko da.</string>
   <string name="restrictedToTeamsQ">Zergatik dago taldeetara mugatuta?</string>
+  <string name="whyAreSwissTournamentsRestrictedToTeams" comment="Replaces old string restrictedToTeamsQ">Zergatik daude txapelketa suitzarrak taldeei murriztuta?</string>
   <string name="restrictedToTeamsA">Txapelketa suitzarrak ez ziren online xakerako asmatu. Puntualtasuna, dedikazioa eta pazientzia eskatzen dute. Gauza hauek talde baten barruan errazago bete daitezkeela uste dugu.</string>
   <string name="numberOfByesQ">Jokalari baten zenbat bye edo atseden izan ditzake?</string>
   <string name="numberOfByesA">Jokalari batek bye edo atseden bat parekatze sistemak aurkari bat aurkitzen ez dion bakoitzean izango du.
@@ -85,6 +86,7 @@ Berandu sartzen diren jokalariek, puntu erdiko bye edo atseden bakarra jasoko du
   <string name="willSwissReplaceArenasQ">Txapelketa suitzarren Arena txapelketak ordezkatuko dituzte?</string>
   <string name="willSwissReplaceArenasA">Ez. Aukera ezberdinak dira eta horrela jarraituko dute.</string>
   <string name="roundRobinQ">Eta zer diozue Round Robin edo guztiek-guztien aurkako txapelketez?</string>
+  <string name="canPlayRoundRobinTournaments" comment="roundRobinQ&#10;&#10;Round-robin is a simple tournament format with some similarities to Swiss. It is not supported by Lichess. Replaces old string roundRobinQ">Jokatu dezaket round-robin txapelketarik Lichessen?</string>
   <string name="roundRobinA">Gehitzea nahiko genuke baina Round Robin txapelketen ez dute online funtzionatzen.
 Arrazoi nagusia txapelketa amaitu aurretik uzten duten jokalariekin zer egin ganoraz erabakitzeko modurik ez dagoela da. Ezin dugu espero jokalari guztien online txapelketa bateko partida guztiak jokatzea. Ez da gertatuko eta beraz Round Robin txapelketaren emaitzak okerrak izango dira eta.
 Round Robin bat jokatzeko modurik hurbilena txanda asko dituen Txapelketa suitzar bat jokatzea da. Kasu honetan txapelketa bukatu aurretik partida guztiak jokatzeko aukera izango duzu.</string>

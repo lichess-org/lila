@@ -30,6 +30,7 @@
   <string name="collinearMoveDescription">Kaksi eriväristä nappulaa ovat hyökkäyssuunnissaan kohdakkain, ja toinen niistä siirtyy tätä hyökkäyssuuntaa pitkin lyömättä kuitenkaan vastustajan nappulaa.</string>
   <string name="cornerMate">Kulmamatti</string>
   <string name="cornerMateDescription">Kahlitse kuningas laudan nurkkaan tornilla tai daamilla ja tee sitten matti ratsulla.</string>
+  <string name="cornerMateKnightDeliversDescription" comment="Description for the &quot;Corner mate&quot; puzzle theme. Replaces old string cornerMateDescription">Kahlitse kuningas laudan nurkkaan tornilla tai daamilla ja tee sitten matti ratsulla.</string>
   <string name="crushing">Murskaava etu</string>
   <string name="crushingDescription">Löydä vastustajan vakava virhe ja hanki murskaava etu. (eval ≥ 600cp)</string>
   <string name="discoveredCheck">Paljastusshakki</string>
@@ -76,8 +77,10 @@
   <string name="killBoxMateDescription">Torni on vastustajan kuninkaan vieressä, ja sitä suojelee daami, joka myös vie kuninkaalta pakoruudut. Vastustajan kuningas jää kiinni tornin ja daamin muodostamaan 3x3-ruudun \"tapponeliöön\".</string>
   <string name="pillsburysMate">Pillsburyn matti</string>
   <string name="pillsburysMateDescription">Torni matittaa kuninkaan samalla kun lähetti vie kuninkaalta pakoruudut.</string>
+  <string name="pillsburyMateRookAndBishopDescription" comment="Replaces old string pillsburysMateDescription">Torni matittaa kuninkaan samalla kun lähetti vie kuninkaalta pakoruudut.</string>
   <string name="morphysMate">Morphyn matti</string>
   <string name="morphysMateDescription">Matita vastustajan kuningas lähetilläsi samalla kun torni vie kuninkaalta pakoruudut.</string>
+  <string name="morphyMateBishopAndRookDescription" comment="Replaces old string morphysMateDescription">Lähetti matittaa kuninkaan samalla kun torni vie kuninkaalta pakoruudut.</string>
   <string name="swallowstailMate">Pääskynpyrstömatti</string>
   <string name="swallowstailMateDescription">Mattikuvio, jonka V-muoto muistuttaa pääskyn pyrstön muotoa.</string>
   <string name="triangleMate">Kolmiomatti</string>
@@ -118,6 +121,7 @@
   <string name="pinDescription">Taktiikka, jossa kiinnitetty nappula ei pysty liikkumaan paljastamatta arvokkaampaan nappulaan kohdistuvaa hyökkäystä.</string>
   <string name="promotion">Korotus</string>
   <string name="promotionDescription">Taktiikassa keskeistä on sotilas, joka korottuu tai uhkaa korottua.</string>
+  <string name="promotePawnToQueenRookOrMinor" comment="Replaces old string promotionDescription">Taktiikassa keskeistä on sotilas, joka korottuu tai uhkaa korottua daamiksi, torniksi tai kevyeksi upseeriksi.</string>
   <string name="queenEndgame">Daamiloppupeli</string>
   <string name="queenEndgameDescription">Loppupeli, jossa on vain daamit ja sotilaita.</string>
   <string name="queenRookEndgame">Daami- ja torniloppupeli</string>

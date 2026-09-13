@@ -251,6 +251,9 @@ case class Game(
     case a :: Nil => Some((a + IntRating(1500)).map(_ / 2))
     case _ => None
 
+  def isStrongOrRecent = averageUsersRating.exists(_.value >= 2200) ||
+    createdAt.isAfter(nowInstant.minus(10.days))
+
   def isPgnImport = pgnImport.isDefined
 
   def hasFewerMovesThanExpected = playedPlies <= reasonableMinimumNumberOfMoves(variant)

@@ -63,6 +63,7 @@
   <string name="studyUrl">研习链接</string>
   <string name="currentChapterUrl">当前章节链接</string>
   <string name="youCanPasteThisInTheForumToEmbed">您可以将此链接粘贴到论坛或您的 Lichess 博客中以嵌入</string>
+  <string name="pasteToEmbedChapterInForumOrBlog" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.&#10;&#10;Please note this used to say &quot;in the forum to embed&quot;. It was then changed to include &quot;or a Lichess Blog&quot;. A further update was made to say &quot;or your Lichess blog&quot;, since you can only create blog posts as an individual.  Replaces old string youCanPasteThisInTheForumToEmbed">您可以将此链接粘贴到论坛或您的 Lichess 博客中以嵌入该章节。</string>
   <string name="startAtInitialPosition">从初始局面开始</string>
   <string name="startAtX">从 %s 开始</string>
   <string name="embedInYourWebsite">嵌入您的网站</string>
@@ -184,7 +185,9 @@
   <string name="customPositionTitle">自定义局面</string>
   <string name="customPositionText">按您的方式设置棋盘。&lt;br&gt;适合探索残局。</string>
   <string name="loadExistingLichessGameTitle">加载已有的 Lichess 对局</string>
+  <string name="loadGameFromTheWebTitle" comment="Replaces old string loadExistingLichessGameTitle">从网页加载对局</string>
   <string name="loadExistingLichessGameText">粘贴一个 Lichess 对局链接&lt;br&gt;（例如 lichess.org/7fHIU0XI）&lt;br&gt;以将对局着法加载到章节中。</string>
+  <string name="loadGameFromTheWebText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text. Replaces old string loadExistingLichessGameText">粘贴对局链接&lt;br&gt;（例如 lichess.org/7fHIU0XI）&lt;br&gt;以在章节中加载对局着法。</string>
   <string name="fromFenStringTitle">导入 FEN 代码</string>
   <string name="fromFenStringText">粘贴 FEN 格式的局面&lt;br&gt;&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;&lt;br&gt;以从某个局面开始章节。</string>
   <string name="fromPgnGameTitle">导入 PGN 代码</string>

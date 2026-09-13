@@ -51,6 +51,8 @@
   <string name="imageAlt">Description de l\'image</string>
   <string name="imageCredit">Source de l\'image</string>
   <string name="deleteBlog">Supprimer définitivement ce message</string>
+  <string name="safeToUseImages">Il est sécuritaire d\'utiliser des images des sites Web suivants : </string>
+  <string name="freeImagesComplyWithLicensing" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement. Replaces old string safeToUseImages">Les images des sites Web suivants sont gratuites. Assurez-vous de respecter les conditions de licence pour l\'image que vous utiliserez.</string>
   <string name="selectPostTopics">Choisir les sujets de votre message</string>
   <string name="safeAndRespectfulContent">Veuillez ne publier que du contenu sûr et respectueux. Ne copiez pas le contenu de quelqu\'un d\'autre.</string>
   <string name="noCopyrightedImages">N\'utilisez que des images sans droits d\'auteur.</string>

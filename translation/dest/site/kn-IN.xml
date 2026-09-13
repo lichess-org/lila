@@ -414,7 +414,6 @@
   <string name="apply">ಸಲ್ಲಿಸಿ</string>
   <string name="save">ಉಳಿಸಿ</string>
   <string name="leaderboard">ಮುಂದಾಳುಗಳ ಪಟ್ಟಿ</string>
-  <string name="screenshotCurrentPosition">ಆಟದ ಫೋಟೊ ಪಡೆಯಲು</string>
   <string name="gameAsGIF">GIF ಆಗಿ ಆಟ ಪಡೆಯಲು</string>
   <string name="pasteTheFenStringHere">FEN ಅಕ್ಷರಮಾಲೆಯನ್ನು ಇಲ್ಲಿ ಅಂಟಿಸಿ</string>
   <string name="pasteThePgnStringHere">PGN ಅಕ್ಷರಮಾಲೆಯನ್ನು ಇಲ್ಲಿ ಅಂಟಿಸಿ</string>
@@ -514,7 +513,6 @@
   <string name="oneUrlPerLine">ಪ್ರತಿ ಸಾಲಿಗೆ ಒಂದು URL.</string>
   <string name="inlineNotation">ನಡೆಯ ಮಧ್ಯದ ಟಿಪ್ಪಣಿಗಳು</string>
   <string name="makeAStudy">ಸುರಕ್ಷಿತವಾಗಿರಿಸಲು ಮತ್ತು ಹಂಚಿಕೊಳ್ಳಲು, ಅಧ್ಯಯನವನ್ನು ಮಾಡಲು ಪರಿಗಣಿಸಿ.</string>
-  <string name="clearSavedMoves">ಎಲ್ಲಾ ಚಲನೆಗಳನ್ನು ತೆರವುಗೊಳಿಸಿ</string>
   <string name="previouslyOnLichessTV">ಹಿಂದೊಮ್ಮೆ ಲೀಚೆಸ್ ಟಿವಿಯಲ್ಲಿ</string>
   <string name="onlinePlayers">ಆನ್ಲೈನ್ ಇರುವ ಆಟಗಾರರು</string>
   <string name="activePlayers">ಸಕ್ರಿಯವಾಗಿರುವ ಆಟಗಾರರು</string>
@@ -752,7 +750,6 @@
   <string name="background">ಹಿನ್ನೆಲೆ</string>
   <string name="light">ತಿಳಿಬಣ್ಣ</string>
   <string name="dark">ಗಾಢ ಬಣ್ಣ</string>
-  <string name="transparent">ಪಾರದರ್ಶಕ</string>
   <string name="deviceTheme">ಸಾಧನದ ಥೀಮ್</string>
   <string name="backgroundImageUrl">ಹಿನ್ನೆಲೆ ಚಿತ್ರಕ್ಕೆ URL:</string>
   <string name="pieceSet">ಚೆಸ್ ಕಾಯಿಗಳ ಕಂತೆ</string>

@@ -397,7 +397,6 @@
   <string name="apply">Կիրառել</string>
   <string name="save">Պահպանել</string>
   <string name="leaderboard">Առաջատարներ</string>
-  <string name="screenshotCurrentPosition">Ստանալ այս դիրքի սքրինշոթը</string>
   <string name="gameAsGIF">Պարտիան GIF ձևաչափով</string>
   <string name="pasteTheFenStringHere">տեղադրել FEN տեքստը այստեղ</string>
   <string name="pasteThePgnStringHere">տեղադրել PGN-տողը այստեղ</string>
@@ -504,7 +503,6 @@
   <string name="oneUrlPerLine">Տողում՝ մեկ URL։</string>
   <string name="inlineNotation">Տողային նոտագրություն</string>
   <string name="makeAStudy">Պահպանելու և կիսվելու համար դիտարկեք ստուդիա ստեղծելու հնարավորությունը։</string>
-  <string name="clearSavedMoves">Մաքրել քայլերը</string>
   <string name="previouslyOnLichessTV">Նախորդները Lichess TV-ով</string>
   <string name="onlinePlayers">Առցանց խաղացողներ</string>
   <string name="activePlayers">Ակտիվ խաղացողներ</string>
@@ -749,7 +747,6 @@
   <string name="background">Ֆոն</string>
   <string name="light">Բաց</string>
   <string name="dark">Մուգ</string>
-  <string name="transparent">Թափանցիկ</string>
   <string name="deviceTheme">Սարքի թեման</string>
   <string name="backgroundImageUrl">Հետնաշերտի պատկերի հղում`</string>
   <string name="pieceSet">Խաղաքարերի ձևավորումը</string>

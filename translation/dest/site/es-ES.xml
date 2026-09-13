@@ -175,6 +175,10 @@
   </plurals>
   <string name="moveTimes">Tiempo por movimiento</string>
   <string name="flipBoard">Girar el tablero</string>
+  <string name="toggleLocalEngine">Alternar motor local</string>
+  <string name="engineSettings">Ajustes del motor</string>
+  <string name="enginesFromStrongestToWeakest">Motores de los más fuertes a los más débiles</string>
+  <string name="illegalPosition">Posición ilegal</string>
   <string name="threefoldRepetition">Triple repetición</string>
   <string name="claimADraw">Reclamar tablas</string>
   <string name="drawClaimed">Tablas reclamadas</string>
@@ -249,6 +253,7 @@
   <string name="signupUsernameHint">Asegúrate de elegir un nombre de usuario apto para todos los públicos. ¡No podrás cambiarlo más tarde y se cerrará cualquier cuenta con un nombre de usuario inapropiado!</string>
   <string name="signupEmailPromise">Solo te enviaremos correos sobre tu cuenta y nunca compartiremos el tuyo.</string>
   <string name="password">Contraseña</string>
+  <string name="showPassword">Mostrar contraseña</string>
   <string name="changePassword">Cambiar contraseña</string>
   <string name="changeEmail">Cambiar correo</string>
   <string name="email">Correo</string>
@@ -296,7 +301,9 @@
   <string name="ok">Aceptar</string>
   <string name="cancel">Cancelar</string>
   <string name="whiteTimeOut">Las blancas agotaron su tiempo</string>
+  <string name="whiteRanOutOfTime" comment="whiteTimeOut&#10;&#10;Shows when White's time has run out. Is followed by the end condition, for example&#10;'White ran out of time · Draw' Replaces old string whiteTimeOut">Las blancas se quedaron sin tiempo</string>
   <string name="blackTimeOut">Las negras agotaron su tiempo</string>
+  <string name="blackRanOutOfTime" comment="blackTimeOut&#10;&#10;Shows when Black's time has run out. Is followed by the end condition, for example&#10;'Black ran out of time · Draw' Replaces old string blackTimeOut">Las negras se quedaron sin tiempo</string>
   <string name="drawOfferSent">Oferta de tablas enviada</string>
   <string name="drawOfferAccepted">Oferta de tablas aceptada</string>
   <string name="whiteOffersDraw">Las blancas ofrecen tablas</string>
@@ -418,6 +425,8 @@
   </plurals>
   <string name="yourPerfRatingIsProvisional">Tu puntuación de %s es provisional</string>
   <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Los filtros de valoración están bloqueados porque tu puntuación no es estable. Jugar partidas valoradas aumentará la estabilidad.</string>
+  <string name="cannotFilterByUnstableRating" comment="Tooltip to explain why the control for filtering by rating is disabled Replaces old string ratingRangeIsDisabledBecauseYourRatingIsProvisional">No es posible filtrar por puntuación porque tu calificación no es estable.
+Jugar por puntos aumentará la estabilidad.</string>
   <string name="yourPerfRatingIsTooHigh">Tu puntuación de %1$s (%2$s) es demasiado alta</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Tu máxima puntación semanal de %1$s (%2$s) es demasiado alta</string>
   <string name="yourPerfRatingIsTooLow">Tu puntuación de %1$s (%2$s) es demasiado baja</string>
@@ -438,7 +447,7 @@
   <string name="apply">Aplicar cambios</string>
   <string name="save">Guardar</string>
   <string name="leaderboard">Clasificación</string>
-  <string name="screenshotCurrentPosition">Hacer captura de pantalla de la posición actual</string>
+  <string name="positionAsImage" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position. Replaces old string screenshotCurrentPosition">Posición como imagen</string>
   <string name="gameAsGIF">Guardar partida en formato GIF</string>
   <string name="playerNames">Nombres de jugadores</string>
   <string name="moveAnnotations">Anotación de los movimientos</string>
@@ -551,7 +560,7 @@
   <string name="oneUrlPerLine">Un enlace por línea.</string>
   <string name="inlineNotation">Notación compacta</string>
   <string name="makeAStudy">Si quieres guardarlas y compartirlas, mejor haz un estudio.</string>
-  <string name="clearSavedMoves">Borrar movimientos</string>
+  <string name="clearLocalData">Borrar datos locales</string>
   <string name="previouslyOnLichessTV">Anteriormente en Lichess TV</string>
   <string name="onlinePlayers">Jugadores conectados</string>
   <string name="activePlayers">Jugadores activos</string>
@@ -727,6 +736,7 @@
   <string name="simulClockHint">Configuración de reloj Fischer. Cuantos más oponentes, más tiempo se necesita.</string>
   <string name="simulAddExtraTime">Puedes añadir tiempo adicional a tu reloj para ayudarte en la simultánea.</string>
   <string name="simulHostExtraTime">Tiempo extra del anfitrión</string>
+  <string name="extraClockTimeForHost" comment="Appears on: https://lichess.org/simul/new&#10;&#10;Allows a simul host to select extra time for the simul.&#10;&#10;Please note this string used to state &quot;Host extra clock time&quot;, without the word &quot;initial&quot; Replaces old string simulHostExtraTime">Tiempo extra del reloj para el anfitrión:</string>
   <string name="simulAddExtraTimePerPlayer">Tiempo inicial que se añade a tu reloj por cada oponente que se una a la simultánea.</string>
   <string name="simulHostExtraTimePerPlayer">Tiempo extra del anfitrión por cada oponente</string>
   <string name="lichessTournaments">Torneos de Lichess</string>
@@ -737,8 +747,10 @@
   <string name="keyboardShortcuts">Atajos del teclado</string>
   <string name="keyMoveBackwardOrForward">movimiento hacia atrás y hacia adelante</string>
   <string name="keyGoToStartOrEnd">ir al inicio/fin</string>
+  <string name="keyGoToPreviousOrNextLine">ir a la línea anterior/siguiente</string>
   <string name="keyCycleSelectedVariation">Alterna la variante seleccionada</string>
   <string name="keyShowOrHideComments">mostrar/ocultar comentarios</string>
+  <string name="keyShowOrHideCurrentVariation">mostrar/ocultar variación actual</string>
   <string name="keyEnterOrExitVariation">entrar/salir de la variante</string>
   <string name="keyPreviousBranch">Rama anterior</string>
   <string name="keyNextBranch">Rama siguiente</string>
@@ -832,7 +844,6 @@
   <string name="theme">Tema</string>
   <string name="light">Claro</string>
   <string name="dark">Oscuro</string>
-  <string name="transparent">Transparente</string>
   <string name="picture">Imagen</string>
   <string name="deviceTheme">Tema del dispositivo</string>
   <string name="roundness">Redondez</string>
@@ -862,6 +873,7 @@
   <string name="notifications">Notificaciones</string>
   <string name="notificationsX">Notificaciones: %1$s</string>
   <string name="perfRatingX">Puntuación: %s</string>
+  <string name="perfRatingLabel" comment="Replaces old string perfRatingX">Valoración: %s.</string>
   <string name="yourRatingIsX">Tu valoración es %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s segundo para hacer el primer movimiento</item>
@@ -921,6 +933,7 @@
   </plurals>
   <string name="showUnreadLichessMessage">Has recibido un mensaje privado de Lichess.</string>
   <string name="clickHereToReadIt">Haz clic aquí para leerlo</string>
+  <string name="readTheMessage" comment="'It' refers to a private message. This text follows after a different string which advises players they have received a private message from Lichess. For users, this is appears as a regular private message from the Lichess account: https://lichess.org/@/Lichess Replaces old string clickHereToReadIt">Leer el mensaje</string>
   <string name="sorry">Lo sentimos :(</string>
   <string name="weHadToTimeYouOutForAWhile">Hemos tenido que suspenderte temporalmente.</string>
   <string name="why">¿Por qué?</string>
@@ -1057,4 +1070,7 @@ Todos los gastos de funcionamiento, desarrollo y contenidos se financian exclusi
   <string name="tags">Etiquetas</string>
   <string name="enPassant">Al paso</string>
   <string name="settings">Preferencias</string>
+  <string name="verifyingYourDevice">Verificando tu dispositivo...</string>
+  <string name="chessOpenings">Aperturas de ajedrez</string>
+  <string name="boards">Tableros</string>
 </resources>

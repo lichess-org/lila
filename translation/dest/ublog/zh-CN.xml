@@ -47,6 +47,8 @@
   <string name="imageAlt">图像备选文本</string>
   <string name="imageCredit">图像来源</string>
   <string name="deleteBlog">永久删除此博客文章</string>
+  <string name="safeToUseImages">以下网站提供的图像可安全使用：</string>
+  <string name="freeImagesComplyWithLicensing" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement. Replaces old string safeToUseImages">以下网站免费提供图像，请确保您遵守所使用图像的许可条款。</string>
   <string name="selectPostTopics">请选择您文章涉及的主题</string>
   <string name="safeAndRespectfulContent">请仅发布安全且尊重他人的内容。请勿复制他人的内容。</string>
   <string name="noCopyrightedImages">请仅使用不涉及他人版权的图像。</string>

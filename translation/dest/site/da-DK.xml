@@ -175,6 +175,7 @@
   </plurals>
   <string name="moveTimes">Træktider</string>
   <string name="flipBoard">Vend bræt</string>
+  <string name="illegalPosition">Ulovlig position</string>
   <string name="threefoldRepetition">Trækgentagelse</string>
   <string name="claimADraw">Kræv remis</string>
   <string name="drawClaimed">Remis krævet</string>
@@ -249,6 +250,7 @@
   <string name="signupUsernameHint">Sørg for at vælge et familievenligt brugernavn. Du kan ikke ændre det senere, og alle konti med upassende brugernavne vil blive lukket!</string>
   <string name="signupEmailPromise">Vi vil kun sende dig e-mails angående din konto og vil aldrig dele din e-mail.</string>
   <string name="password">Adgangskode</string>
+  <string name="showPassword">Vis adgangskode</string>
   <string name="changePassword">Skift adgangskode</string>
   <string name="changeEmail">Skift e-mail</string>
   <string name="email">E-mail</string>
@@ -296,7 +298,9 @@
   <string name="ok">Ok</string>
   <string name="cancel">Annuller</string>
   <string name="whiteTimeOut">Tid udløbet for hvid</string>
+  <string name="whiteRanOutOfTime" comment="whiteTimeOut&#10;&#10;Shows when White's time has run out. Is followed by the end condition, for example&#10;'White ran out of time · Draw' Replaces old string whiteTimeOut">Hvid løb tør for tid</string>
   <string name="blackTimeOut">Tid udløbet for sort</string>
+  <string name="blackRanOutOfTime" comment="blackTimeOut&#10;&#10;Shows when Black's time has run out. Is followed by the end condition, for example&#10;'Black ran out of time · Draw' Replaces old string blackTimeOut">Sort løb tør for tid</string>
   <string name="drawOfferSent">Remistilbud afsendt</string>
   <string name="drawOfferAccepted">Remistilbud accepteret</string>
   <string name="whiteOffersDraw">Hvid tilbyder remis</string>
@@ -418,6 +422,8 @@
   </plurals>
   <string name="yourPerfRatingIsProvisional">Din %s rating er provisorisk</string>
   <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Rating-filtre er låst, fordi din rating ikke er stabil. Stabiliteten øges ved at spille ratede partier.</string>
+  <string name="cannotFilterByUnstableRating" comment="Tooltip to explain why the control for filtering by rating is disabled Replaces old string ratingRangeIsDisabledBecauseYourRatingIsProvisional">Det er ikke muligt at filtrere efter rating, da din rating ikke er stabil.
+At spille ratede partier vil øge stabiliteten.</string>
   <string name="yourPerfRatingIsTooHigh">Din %1$s rating (%2$s) er for høj</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Din ugentlige %1$s toprating (%2$s) er for høj</string>
   <string name="yourPerfRatingIsTooLow">Din %1$s rating (%2$s) er for lav</string>
@@ -438,7 +444,7 @@
   <string name="apply">Anvend</string>
   <string name="save">Gem</string>
   <string name="leaderboard">Rangliste</string>
-  <string name="screenshotCurrentPosition">Tag et skræmbillede af den aktuelle stilling</string>
+  <string name="positionAsImage" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position. Replaces old string screenshotCurrentPosition">Position som billede</string>
   <string name="gameAsGIF">Parti som GIF</string>
   <string name="playerNames">Spillernavne</string>
   <string name="moveAnnotations">Trækannotationer</string>
@@ -551,7 +557,7 @@
   <string name="oneUrlPerLine">En URL pr. linje.</string>
   <string name="inlineNotation">Notation uden linjeskift</string>
   <string name="makeAStudy">Overvej at lave et studie for sikker opbevaring og deling.</string>
-  <string name="clearSavedMoves">Ryd træk</string>
+  <string name="clearLocalData">Ryd lokale data</string>
   <string name="previouslyOnLichessTV">Tidligere på Lichess TV</string>
   <string name="onlinePlayers">Online spillere</string>
   <string name="activePlayers">Aktive spillere</string>
@@ -727,6 +733,7 @@
   <string name="simulClockHint">Fischer Clock opsætning. Jo flere spillere du udfordrer, jo mere tid kan være nødvendig.</string>
   <string name="simulAddExtraTime">Du kan tilføje ekstra tid til dit ur for at hjælpe med at klare simultanspillet.</string>
   <string name="simulHostExtraTime">Ekstra tid til værtsuret</string>
+  <string name="extraClockTimeForHost" comment="Appears on: https://lichess.org/simul/new&#10;&#10;Allows a simul host to select extra time for the simul.&#10;&#10;Please note this string used to state &quot;Host extra clock time&quot;, without the word &quot;initial&quot; Replaces old string simulHostExtraTime">Ekstra tid på uret for værten:</string>
   <string name="simulAddExtraTimePerPlayer">Læg den indledende tid til dit ur igen for hver spiller, der melder sig til simultanspillet.</string>
   <string name="simulHostExtraTimePerPlayer">Ekstra tid på arrangørens ur pr. spiller</string>
   <string name="lichessTournaments">Lichess-turneringer</string>
@@ -832,7 +839,6 @@
   <string name="theme">Tema</string>
   <string name="light">Lys</string>
   <string name="dark">Mørk</string>
-  <string name="transparent">Gennemsigtigt</string>
   <string name="picture">Billede</string>
   <string name="deviceTheme">Enhedstema</string>
   <string name="roundness">Afrunding</string>
@@ -862,6 +868,7 @@
   <string name="notifications">Notifikationer</string>
   <string name="notificationsX">Notifikationer: %1$s</string>
   <string name="perfRatingX">Rating: %s</string>
+  <string name="perfRatingLabel" comment="Replaces old string perfRatingX">Rating: %s.</string>
   <string name="yourRatingIsX">Din rating er %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekund til at lave det første træk</item>
@@ -921,6 +928,7 @@
   </plurals>
   <string name="showUnreadLichessMessage">Du har modtaget en privat besked fra Lichess.</string>
   <string name="clickHereToReadIt">Klik her for at læse den</string>
+  <string name="readTheMessage" comment="'It' refers to a private message. This text follows after a different string which advises players they have received a private message from Lichess. For users, this is appears as a regular private message from the Lichess account: https://lichess.org/@/Lichess Replaces old string clickHereToReadIt">Læs beskeden</string>
   <string name="sorry">Beklager :(</string>
   <string name="weHadToTimeYouOutForAWhile">Vi måtte give dig en timeout.</string>
   <string name="why">Hvorfor?</string>

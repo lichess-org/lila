@@ -65,7 +65,7 @@ Lichess 的电脑分析由 Stockfish 引擎驱动。</string>
 查看关于此着法的 %3$s以进行一些练习。</string>
   <string name="goodIntroduction">不错的介绍</string>
   <string name="lichessTraining">Lichess 训练</string>
-  <string name="watchIMRosenCheckmate">观看 IM Eric Rosen 将杀 %s。</string>
+  <string name="watchIMRosenCheckmate">观看 IM Eric Rosen 用 %s 将杀。</string>
   <string name="threefoldRepetition">三次重复局面</string>
   <string name="threefoldRepetitionExplanation">如果一个局面出现了三次，棋手可以根据%1$s提和。Lichess 执行 FIDE 官方规则，如%2$s第 9.2 条所述。</string>
   <string name="threefoldRepetitionLowerCase">三次重复局面</string>

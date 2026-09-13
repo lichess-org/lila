@@ -8,6 +8,7 @@
   <string name="advanced">musi pi sona mute</string>
   <string name="lengths">mute tawa</string>
   <string name="mates">o moli e lawa mije</string>
+  <string name="mateThemes">nasin pi moli pi lawa mije</string>
   <string name="goals">pini ante</string>
   <string name="origin">musi tan pi musi lili</string>
   <string name="specialMoves">tawa suli</string>
@@ -67,11 +68,20 @@
   <string name="solved">pini pona</string>
   <string name="failed">pini ike</string>
   <string name="streakDescription">sina pini pona e musi lili la, ilo Lichess li pana e wan tawa nanpa sina pi pini pona. sina pini ike e musi lili la, nanpa li kama ala. ilo tenpo li lon ala. sina ken kepeken tenpo ale pi wile sina. sina tawa ike la, musi li pini! taso, sina ken toki e ni tawa ilo Lichess lon tenpo wan pi tenpo musi: \"mi sona ala e tawa pona. o toki e ona tawa mi\".</string>
+  <string name="yourStreakX">mute pona sina: %s</string>
+  <string name="streakSkipExplanation">o pali ala e tawa ni la sina weka ala e mute pona sina! sina ken kepeken taso e ni lon pali wan.</string>
   <string name="continueTheStreak">o awen e nanpa</string>
   <string name="newStreak">nanpa sin</string>
   <string name="fromMyGames">tawa mi musi</string>
   <string name="lookupOfPlayer">alasa e musi lili pi musi jan</string>
   <string name="searchPuzzles">alasa e musi lili</string>
+  <string name="fromMyGamesNone">sina jo ala e musi lili lon ma ni. taso, lipu Lichess li olin sina a.
+
+o musi e musi pi nasin Rapid e musi pi nasin Classical la sina ken jo e musi lili tan musi sina!</string>
+  <plurals name="puzzlesFoundInUserGames">
+    <item quantity="one">mi lukin e musi lili 1 tan musi pi %2$s</item>
+    <item quantity="other">mi lukin e musi lili %1$s tan musi pi %2$s</item>
+  </plurals>
   <plurals name="nbPlayed">
     <item quantity="one">sina musi e musi lili %s</item>
     <item quantity="other">sina musi e musi lili %s</item>

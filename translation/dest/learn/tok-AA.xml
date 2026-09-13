@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="learnChess">o kama sona</string>
-  <string name="byPlaying">o musi!</string>
+  <string name="byPlaying">tan musi!</string>
   <string name="menu">lipu open</string>
   <string name="progressX">pali: %s</string>
   <string name="resetMyProgress">o ala e pali mi</string>

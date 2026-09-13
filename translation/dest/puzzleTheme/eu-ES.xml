@@ -30,6 +30,7 @@
   <string name="collinearMoveDescription">Elkarren aurrean bi pieza dadude, eta bata eraso lerroan zehar mugitzen da aurkariaren pieza harrapatu gabe.</string>
   <string name="cornerMate">Bazterreko matea</string>
   <string name="cornerMateDescription">Baztertu erregea gaztelua edo dama eta zaldia erabiliz matea emateako.</string>
+  <string name="cornerMateKnightDeliversDescription" comment="Description for the &quot;Corner mate&quot; puzzle theme. Replaces old string cornerMateDescription">Baztertu erregea gaztelua edo dama eta zaldia erabiliz matea emateko.</string>
   <string name="crushing">Zapalketa</string>
   <string name="crushingDescription">Akatsa aurkitu eta guztizko abantaila lortu. (ebaluazioa ≥ 600cp)</string>
   <string name="discoveredCheck">Ageriko xakea</string>
@@ -120,6 +121,7 @@
   <string name="pinDescription">Iltzaketak ardatz dituen taktika, pieza bat mugitu ezin denean gehiago balio duen pieza bat airean utziko duelako.</string>
   <string name="promotion">Sustapena</string>
   <string name="promotionDescription">Sustatuko den edo sustatze-bidean dagoen peoia da ariketa honen muina.</string>
+  <string name="promotePawnToQueenRookOrMinor" comment="Replaces old string promotionDescription">Sustatu zure peoietako bat dama, gaztelu edo pieza-txiki bihur dadin.</string>
   <string name="queenEndgame">Damen finala</string>
   <string name="queenEndgameDescription">Damak eta peoiak bakarrik dituen finala.</string>
   <string name="queenRookEndgame">Dama eta Gaztelua</string>

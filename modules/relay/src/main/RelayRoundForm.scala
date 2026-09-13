@@ -99,7 +99,8 @@ final class RelayRoundForm(using Mode):
       "rated" -> optional(boolean.into[Rated]),
       "customScoring" -> optional(byColor.mappingOf(customScoringMapping)),
       "teamCustomScoring" -> optional(customScoringMapping),
-      "fideTCOverride" -> optional(RelayTourForm.fideTCMapping)
+      "fideTCOverride" -> optional(RelayTourForm.fideTCMapping),
+      "move" -> optional(boolean)
     )(Data.apply)(unapply)
 
   def create(trs: RelayTour.WithRounds)(using Me) = Form(
@@ -127,6 +128,8 @@ object RelayRoundForm:
     "ids" -> "Lichess game IDs",
     "users" -> "Lichess usernames"
   )
+
+  type Move = Boolean // up: true, down: false
 
   private val roundNumberRegex = """(.*[^\d])(\d{1,2})([^\d]*)""".r
   private val roundNumberIn: String => Option[Int] =
@@ -250,7 +253,8 @@ object RelayRoundForm:
       rated: Option[Rated] = None,
       customScoring: Option[ByColor[RelayRound.CustomScoring]] = None,
       teamCustomScoring: Option[RelayRound.CustomScoring] = None,
-      fideTCOverride: Option[chess.FideTC] = None
+      fideTCOverride: Option[chess.FideTC] = None,
+      move: Option[Move] = None
   ):
     def upstream: Option[Upstream] = syncSource.match
       case None => syncUrl.orElse(syncUrls).orElse(syncIds).orElse(syncUsers)

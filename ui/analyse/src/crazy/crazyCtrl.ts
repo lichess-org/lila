@@ -1,4 +1,3 @@
-import { dragNewPiece } from '@lichess-org/chessground/drag';
 import type { MouchEvent } from '@lichess-org/chessground/types';
 
 import type AnalyseCtrl from '@/ctrl';
@@ -12,7 +11,7 @@ export function drag({ chessground }: AnalyseCtrl, color: Color, e: MouchEvent):
   if (!role || !color || number === '0') return;
   e.stopPropagation();
   e.preventDefault();
-  dragNewPiece(chessground.state, { color, role }, e);
+  chessground.dragNewPiece({ color, role }, e);
 }
 
 export function valid(chessground: CgApi, possibleDrops: Key[] | undefined, piece: Piece, pos: Key): boolean {

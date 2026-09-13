@@ -1,7 +1,7 @@
 package lila.memo
 
 import play.api.mvc.RequestHeader
-import se.thanh.pds.bloomfilter.BloomFilter
+import bloomfilter.mutable.BloomFilter
 import scalalib.net.UserAgent
 
 import lila.core.userId.UserId
@@ -28,13 +28,14 @@ private final class ViewerCount(initialCount: Int, maxCount: Int):
     if !alive then logger.warn("hit on dead viewer count")
     else
       val s = encode(a)
-      if !bloom.contains(s) then
+      if !bloom.mightContain(s) then
         bloom.add(s)
         count += 1
 
   def get: Int = count
 
   def kill(): Unit =
+    bloom.dispose()
     alive = false
 
 object ViewerCount:
@@ -64,7 +65,7 @@ final class ViewerCountApi(db: lila.db.Db, cacheApi: CacheApi)(using scheduler: 
       .buildAsync()
 
   private def fetch(key: CountKey): Fu[Int] =
-    coll.primitiveOne[Int]($id(key), "v").dmap(_.orZero)
+    coll.primitiveOne[Int](bid(key), "v").dmap(_.orZero)
 
   private def build(key: CountKey, maxCount: Int) =
     fetch(key).map(ViewerCount(_, maxCount))
@@ -82,4 +83,4 @@ final class ViewerCountApi(db: lila.db.Db, cacheApi: CacheApi)(using scheduler: 
     cache.underlying.synchronous
       .asMap()
       .forEach: (key, vc) =>
-        coll.update.one($id(key), $set("v" -> vc.get), upsert = true)
+        coll.update.one(bid(key), set("v" -> vc.get), upsert = true)

@@ -21,6 +21,7 @@
   <string name="asALastResort">마지막 수단으로 보드를 Liches와 동일하게 설정한 다음 %s</string>
   <string name="reloadThisPage">이 페이지를 다시 로드하세요</string>
   <string name="dgtConfigure">DGT - 설정</string>
+  <string name="configureYourDgtBoard" comment="Replaces old string dgtConfigure">DGT 보드 설정</string>
   <string name="lichessConnectivity">Lichess 연결</string>
   <string name="validDgtOauthToken">DGT 플레이에 적합한 OAuth 토큰이 있습니다.</string>
   <string name="dgtPlayMenuEntryAdded">%s 입장이 당신의 플레이 메뉴 상단에 추가되었습니다.</string>

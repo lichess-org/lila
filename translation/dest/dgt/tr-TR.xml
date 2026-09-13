@@ -21,6 +21,7 @@
   <string name="asALastResort">Son çare olarak, tahtayı Lichess ile aynı şekilde kurun, ardından %s</string>
   <string name="reloadThisPage">Sayfayı yeniden yükle</string>
   <string name="dgtConfigure">DGT - Yapılandır</string>
+  <string name="configureYourDgtBoard" comment="Replaces old string dgtConfigure">DGT tahtanızı yapılandırın</string>
   <string name="lichessConnectivity">Lichess bağlantısı</string>
   <string name="validDgtOauthToken">DGT oyunu için uygun bir OAuth belirteciniz var.</string>
   <string name="dgtPlayMenuEntryAdded">Üst menüde PLAY menünüze %s girişi eklendi.</string>

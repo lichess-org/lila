@@ -427,7 +427,6 @@
   <string name="socialMediaLinks">Dolenni cyfryngau cymdeithasol</string>
   <string name="oneUrlPerLine">Un URL y llinell.</string>
   <string name="inlineNotation">Nodiant mewnlin</string>
-  <string name="clearSavedMoves">Clirio symudiadau</string>
   <string name="previouslyOnLichessTV">Ar Lichess TV yn barod</string>
   <string name="onlinePlayers">Chwarewyr ar-lein</string>
   <string name="activePlayers">Chwaraewyr gweithredol</string>
@@ -652,7 +651,6 @@
   <string name="background">Cefndir</string>
   <string name="light">Golau</string>
   <string name="dark">Tywyll</string>
-  <string name="transparent">Tryloyw</string>
   <string name="deviceTheme">Thema y dyfais</string>
   <string name="backgroundImageUrl">URL y llun cefndir:</string>
   <string name="board">Bwrdd</string>

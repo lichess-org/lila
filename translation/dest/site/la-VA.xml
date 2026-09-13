@@ -361,7 +361,6 @@
   <string name="apply">Adhibere</string>
   <string name="save">Serva</string>
   <string name="leaderboard">Ordines</string>
-  <string name="screenshotCurrentPosition">Depingere currens situm</string>
   <string name="pasteTheFenStringHere">Huc FEN catenam addere</string>
   <string name="pasteThePgnStringHere">Huc PGN catenam addere</string>
   <string name="continueFromHere">Hinc persequi</string>
@@ -655,7 +654,6 @@
   <string name="background">Scaena</string>
   <string name="light">Albens</string>
   <string name="dark">Niger</string>
-  <string name="transparent">Perlucidus</string>
   <string name="board">Scaccarium</string>
   <string name="size">Magnitudo</string>
   <string name="hue">Color</string>

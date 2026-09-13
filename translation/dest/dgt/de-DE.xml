@@ -21,6 +21,7 @@
   <string name="asALastResort">Als letztes Hilfsmittel, stelle dein Brett identisch zu dem von Lichess auf, dann %s</string>
   <string name="reloadThisPage">Diese Seite neu laden</string>
   <string name="dgtConfigure">DGT - Konfigurieren</string>
+  <string name="configureYourDgtBoard" comment="Replaces old string dgtConfigure">DGT-Brett konfigurieren</string>
   <string name="lichessConnectivity">Lichess Konnektivität</string>
   <string name="validDgtOauthToken">Du hast einen OAuth Schlüssel, der für DGT-Partien geeignet ist.</string>
   <string name="dgtPlayMenuEntryAdded">Ein %s Eintrag wurde deinem \"Spielen\"-Menü oben hinzugefügt.</string>

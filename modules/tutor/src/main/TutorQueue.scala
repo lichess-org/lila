@@ -44,15 +44,15 @@ final private class TutorQueue(
     for
       _ <- colls.queue:
         _.insert
-          .one($doc(F.id -> config.user, F.config -> config, F.requestedAt -> nowInstant))
+          .one(bdoc(F.id -> config.user, F.config -> config, F.requestedAt -> nowInstant))
           .recover(lila.db.ignoreDuplicateKey)
       status <- fetchStatus(config.user)
     yield status
 
   def next: Fu[List[Item]] =
-    colls.queue(_.find($empty).sort($sort.asc(F.requestedAt)).cursor[Item]().list(parallelism.get()))
-  def start(userId: UserId): Funit = colls.queue(_.updateField($id(userId), F.startedAt, nowInstant).void)
-  def remove(userId: UserId): Funit = colls.queue(_.delete.one($id(userId)).void)
+    colls.queue(_.find(emptyBdoc).sort(sort.asc(F.requestedAt)).cursor[Item]().list(parallelism.get()))
+  def start(userId: UserId): Funit = colls.queue(_.updateField(bid(userId), F.startedAt, nowInstant).void)
+  def remove(userId: UserId): Funit = colls.queue(_.delete.one(bid(userId)).void)
 
   private def waitingGames(user: UserId): Fu[List[(Pov, PgnStr)]] = for
     all <- gameRepo.recentPovsByUserFromSecondary(
@@ -84,7 +84,7 @@ final private class TutorQueue(
       _.byId[Item](user).flatMap:
         _.fold(fuccess(NotInQueue)): item =>
           for
-            position <- colls.queue(_.countSel($doc(F.requestedAt.$lte(item.requestedAt))))
+            position <- colls.queue(_.countSel(bdoc(F.requestedAt.lte(item.requestedAt))))
             avgDuration <- durationCache.get({})
             eta = ((position * avgDuration) / parallelism.get())
           yield InQueue(item, position, eta)

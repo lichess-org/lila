@@ -32,9 +32,9 @@ private object BSONHandlers:
         .getOrElse(TimeControl.Unlimited)
     def writes(w: Writer, t: TimeControl) =
       t match
-        case TimeControl.Clock(chess.Clock.Config(l, i)) => $doc("l" -> l, "i" -> i)
-        case TimeControl.Correspondence(d) => $doc("d" -> d)
-        case TimeControl.Unlimited => $empty
+        case TimeControl.Clock(chess.Clock.Config(l, i)) => bdoc("l" -> l, "i" -> i)
+        case TimeControl.Correspondence(d) => bdoc("d" -> d)
+        case TimeControl.Unlimited => emptyBdoc
   given BSONHandler[Variant] = variantByIdHandler
   given BSONHandler[Status] = valueMapHandler(Status.byId)(_.id)
   given BSONHandler[DeclineReason] = valueMapHandler(DeclineReason.byKey)(_.key)
@@ -42,20 +42,20 @@ private object BSONHandlers:
   given BSON[Rating] with
     def reads(r: Reader) = Rating(r.get("i"), r.yesnoD("p"))
     def writes(w: Writer, r: Rating) =
-      $doc(
+      bdoc(
         "i" -> r.int,
         "p" -> w.boolO(r.provisional.yes)
       )
   given registeredHandler: BSON[Challenger.Registered] with
     def reads(r: Reader) = Challenger.Registered(r.get[UserId]("id"), r.get[Rating]("r"))
     def writes(w: Writer, r: Challenger.Registered) =
-      $doc(
+      bdoc(
         "id" -> r.id,
         "r" -> r.rating
       )
   given anonHandler: BSON[Challenger.Anonymous] with
     def reads(r: Reader) = Challenger.Anonymous(r.str("s"))
-    def writes(w: Writer, a: Challenger.Anonymous) = $doc("s" -> a.secret)
+    def writes(w: Writer, a: Challenger.Anonymous) = bdoc("s" -> a.secret)
 
   given BSON[Challenger] with
     def reads(r: Reader) =
@@ -66,7 +66,7 @@ private object BSONHandlers:
       c match
         case a: Challenger.Registered => registeredHandler.writes(w, a)
         case a: Challenger.Anonymous => anonHandler.writes(w, a)
-        case _ => $empty
+        case _ => emptyBdoc
 
   given BSONDocumentHandler[Challenge.Open] = Macros.handler
   given BSONDocumentHandler[Challenge] = Macros.handler

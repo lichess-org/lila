@@ -21,6 +21,7 @@
   <string name="asALastResort">V skrajnem primeru nastavite ploščo enako kot Lichess, nato %s</string>
   <string name="reloadThisPage">Ponovno naloži to stran</string>
   <string name="dgtConfigure">DGT - Konfiguriraj</string>
+  <string name="configureYourDgtBoard" comment="Replaces old string dgtConfigure">Konfigurirajte svojo tablo DGT</string>
   <string name="lichessConnectivity">Lichess povezljivost</string>
   <string name="validDgtOauthToken">Imate žeton OAuth, primeren za igranje DGT.</string>
   <string name="dgtPlayMenuEntryAdded">Vnos %s je bil dodan v vaš meni PREDVAJANJE na vrhu.</string>

@@ -27,7 +27,7 @@ final class AuthorizationApi(val coll: Coll)(using Executor):
 
   def consume(request: AccessTokenRequest.Prepared): FuRaise[Protocol.Error, AccessTokenRequest.Granted] =
     for
-      doc <- coll.findAndModify($doc(F.hashedCode -> request.code.hashed), coll.removeModifier)
+      doc <- coll.findAndModify(bdoc(F.hashedCode -> request.code.hashed), coll.removeModifier)
       pending <- doc
         .result[PendingAuthorization]
         .toRight(Protocol.Error.AuthorizationCodeInvalid)
@@ -90,7 +90,7 @@ private object AuthorizationApi:
       )
 
     def writes(w: BSON.Writer, o: PendingAuthorization) =
-      $doc(
+      bdoc(
         F.hashedCode -> o.hashedCode,
         F.clientId -> o.clientId.value,
         F.userId -> o.userId,

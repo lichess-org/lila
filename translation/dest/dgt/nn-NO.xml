@@ -21,6 +21,7 @@
   <string name="asALastResort">Som ein siste utveg kan du sette opp brettet slik det er sett opp på Lichess, deretter %s</string>
   <string name="reloadThisPage">Oppdater denne sida</string>
   <string name="dgtConfigure">DGT - konfigurer</string>
+  <string name="configureYourDgtBoard" comment="Replaces old string dgtConfigure">Konfigurer ditt DBT-brett</string>
   <string name="lichessConnectivity">Lichess-tilkopling</string>
   <string name="validDgtOauthToken">Du har ein OAuth-nøkkel som høver for DGT-parti.</string>
   <string name="dgtPlayMenuEntryAdded">Ei %s oppføring vart lagt til din SPEL meny øverst.</string>

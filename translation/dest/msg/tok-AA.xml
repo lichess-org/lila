@@ -2,4 +2,9 @@
 <resources>
   <string name="lichobileNewAppAvailable">ilo Lichess pi ilo toki lili li kama sin!</string>
   <string name="lichobileNewAppDownload" comment="The parameter links to https://lichess.org/app">o kama kepeken ilo sin lon %s.</string>
+  <string name="modActionFeedback">toki,
+
+mi lukin e toki sina li pali e ijo. taso, mi ken ala toki e ni. mi pali e seme. taso, mi wile pona tawa toki sina.
+
+pona tawa sina tan ni. sina pali lipu Lichess pona.</string>
 </resources>

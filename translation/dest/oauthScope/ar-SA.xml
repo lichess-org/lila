@@ -22,6 +22,7 @@
   <string name="teamRead">قراءة معلومات الفريق الخاص</string>
   <string name="teamWrite">الانضمام إلى الفرق ومغادرتها</string>
   <string name="teamLead">إدارة الفِرَق التي تقودها: إرسال الرسائل الشخصية، طرد الأعضاء</string>
+  <string name="manageTeamsYouLead" comment="Replaces old string teamLead">إدارة الفرق التي تقودها: إرسال رسائل مباشرة وإزالة الأعضاء</string>
   <string name="followRead">قراءة اللاعبين المتابعين</string>
   <string name="followWrite">متابعة/ إلغاء متابعة اللاعبين الآخرين</string>
   <string name="msgWrite">إرسال رسالة خاصة للاعبين الآخرين</string>

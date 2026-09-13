@@ -59,11 +59,6 @@ final class Cms(env: Env) extends LilaController(env):
   val help = menuPage(CmsPageKey("help"))
   val tos = menuPage(CmsPageKey("tos"))
 
-  def page(key: CmsPageKey, active: Option[String])(using Context) =
-    negotiateCms(key): page =>
-      active.fold(views.cms.lone(page)):
-        views.site.page.withMenu(_, page)
-
   def lonePage(key: CmsPageKey) = Open:
     orCreateOrNotFound(key): page =>
       page.canonicalPath.filter(_ != req.path && req.path == s"/page/$key") match

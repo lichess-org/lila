@@ -3,9 +3,11 @@ import { h, type VNode } from 'snabbdom';
 import { licon } from 'lib/licon';
 import { richHTML } from 'lib/richText';
 import { bind, confirm } from 'lib/view';
+import { profileUrl } from 'lib/view/userLink';
 
-import type AnalyseCtrl from '../ctrl';
-import { nodeFullName } from '../view/util';
+import type AnalyseCtrl from '@/ctrl';
+import { nodeFullName } from '@/view/util';
+
 import type StudyCtrl from './studyCtrl';
 
 export type AuthorObj = {
@@ -17,7 +19,7 @@ export type Author = AuthorObj | string;
 function authorDom(author: Author): string | VNode {
   if (!author) return 'Unknown';
   if (typeof author === 'string') return author;
-  return h('span.user-link.ulpt', { attrs: { 'data-href': '/@/' + author.id } }, author.name);
+  return h('span.user-link.ulpt', { attrs: { 'data-href': profileUrl(author.id) } }, author.name);
 }
 
 export const isAuthorObj = (author: Author): author is AuthorObj => typeof author === 'object';

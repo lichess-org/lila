@@ -13,24 +13,24 @@ import lila.tournament.BSONHandlers.given
 
 final class PlayerRepo(private[tournament] val coll: Coll)(using Executor):
 
-  def selectTour(tourId: TourId) = $doc("tid" -> tourId)
+  def selectTour(tourId: TourId) = bdoc("tid" -> tourId)
   private def selectTourUser(tourId: TourId, userId: UserId) =
-    $doc(
+    bdoc(
       "tid" -> tourId,
       "uid" -> userId
     )
-  private val selectActive = $doc("w".$ne(true))
-  private val selectBot = $doc("bot" -> true)
-  private val selectWithdraw = $doc("w" -> true)
-  private val bestSort = $doc("m" -> -1)
+  private val selectActive = bdoc("w".neq(true))
+  private val selectBot = bdoc("bot" -> true)
+  private val selectWithdraw = bdoc("w" -> true)
+  private val bestSort = bdoc("m" -> -1)
 
-  def byId(id: TourId): Fu[Option[Player]] = coll.one[Player]($id(id))
+  def byId(id: TourId): Fu[Option[Player]] = coll.one[Player](bid(id))
 
   private[tournament] def byPlayerIdsOnPage(
       playerIds: List[TourPlayerId],
       page: Int
   ): Fu[RankedPlayers] =
-    coll.find($inIds(playerIds)).cursor[Player]().listAll().map { players =>
+    coll.find(inIds(playerIds)).cursor[Player]().listAll().map { players =>
       playerIds
         .flatMap(id => players.find(_._id == id))
         .mapWithIndex: (player, index) =>
@@ -73,7 +73,7 @@ final class PlayerRepo(private[tournament] val coll: Coll)(using Executor):
           Sort(Descending("m")),
           GroupField("t")(
             "m" -> Push(
-              $doc(
+              bdoc(
                 "u" -> "$uid",
                 "m" -> "$m"
               )
@@ -81,9 +81,9 @@ final class PlayerRepo(private[tournament] val coll: Coll)(using Executor):
           ),
           Limit(TeamBattle.maxTeams),
           Project(
-            $doc(
-              "p" -> $doc(
-                "$slice" -> $arr("$m", battle.nbLeaders)
+            bdoc(
+              "p" -> bdoc(
+                "$slice" -> barr("$m", battle.nbLeaders)
               )
             )
           )
@@ -119,7 +119,7 @@ final class PlayerRepo(private[tournament] val coll: Coll)(using Executor):
     coll
       .aggregateOne(): framework =>
         import framework.*
-        Match(selectTour(tourId) ++ $doc("t" -> teamId)) -> List(
+        Match(selectTour(tourId) ++ bdoc("t" -> teamId)) -> List(
           Sort(Descending("m")),
           Facet(
             List(
@@ -127,7 +127,7 @@ final class PlayerRepo(private[tournament] val coll: Coll)(using Executor):
                 Group(BSONNull)(
                   "nb" -> SumAll,
                   "rating" -> AvgField("r"),
-                  "perf" -> Avg($doc("$cond" -> $arr("$e", "$e", "$r"))),
+                  "perf" -> Avg(bdoc("$cond" -> barr("$e", "$e", "$r"))),
                   "score" -> AvgField("s")
                 )
               ),
@@ -149,14 +149,14 @@ final class PlayerRepo(private[tournament] val coll: Coll)(using Executor):
       .dmap(_ | TeamBattle.TeamInfo(teamId, 0, 0, 0, 0, Nil))
 
   def bestTeamPlayers(tourId: TourId, teamId: TeamId, nb: Int): Fu[List[Player]] =
-    coll.find($doc("tid" -> tourId, "t" -> teamId)).sort($sort.desc("m")).cursor[Player]().list(nb)
+    coll.find(bdoc("tid" -> tourId, "t" -> teamId)).sort(sort.desc("m")).cursor[Player]().list(nb)
 
   def countTeamPlayers(tourId: TourId, teamId: TeamId): Fu[Int] =
-    coll.countSel($doc("tid" -> tourId, "t" -> teamId))
+    coll.countSel(bdoc("tid" -> tourId, "t" -> teamId))
 
   def teamsOfPlayers(tourId: TourId, userIds: Seq[UserId]): Fu[List[(UserId, TeamId)]] =
     coll
-      .find($doc("tid" -> tourId, "uid".$in(userIds)), $doc("_id" -> false, "uid" -> true, "t" -> true).some)
+      .find(bdoc("tid" -> tourId, "uid".in(userIds)), bdoc("_id" -> false, "uid" -> true, "t" -> true).some)
       .cursor[Bdoc]()
       .listAll()
       .map: doc =>
@@ -181,7 +181,7 @@ final class PlayerRepo(private[tournament] val coll: Coll)(using Executor):
     coll.delete.one(selectTourUser(tourId, userId)).void
 
   def removeNotInTeams(tourId: TourId, teamIds: Set[TeamId]) =
-    coll.delete.one(selectTour(tourId) ++ $doc("t".$nin(teamIds))).void
+    coll.delete.one(selectTour(tourId) ++ bdoc("t".nin(teamIds))).void
 
   def existsActive(tourId: TourId, userId: UserId) =
     coll.exists(selectTourUser(tourId, userId) ++ selectActive)
@@ -193,7 +193,7 @@ final class PlayerRepo(private[tournament] val coll: Coll)(using Executor):
     coll.update
       .one(
         selectTour(tourId) ++ selectWithdraw,
-        $doc("$unset" -> $doc("w" -> true)),
+        bdoc("$unset" -> bdoc("w" -> true)),
         multi = true
       )
       .void
@@ -204,7 +204,7 @@ final class PlayerRepo(private[tournament] val coll: Coll)(using Executor):
   def update(tourId: TourId, userId: UserId)(f: Player => Fu[Player]): Funit =
     find(tourId, userId).orFail(s"No such player: $tourId/$userId").flatMap(f).flatMap(update)
 
-  def update(player: Player): Funit = coll.update.one($id(player._id), player).void
+  def update(player: Player): Funit = coll.update.one(bid(player._id), player).void
 
   private[tournament] def join(
       tourId: TourId,
@@ -212,15 +212,15 @@ final class PlayerRepo(private[tournament] val coll: Coll)(using Executor):
       team: Option[TeamId],
       prev: Option[Player]
   ) = prev match
-    case Some(p) if p.withdraw => coll.update.one($id(p._id), $unset("w"))
+    case Some(p) if p.withdraw => coll.update.one(bid(p._id), unset("w"))
     case Some(_) => funit
     case None => coll.insert.one(Player.make(tourId, user, team, user.user.isBot))
 
   def withdraw(tourId: TourId, userId: UserId) =
-    coll.update.one(selectTourUser(tourId, userId), $set("w" -> true)).void
+    coll.update.one(selectTourUser(tourId, userId), set("w" -> true)).void
 
   private[tournament] def withPoints(tourId: TourId): Fu[List[Player]] =
-    coll.list[Player](selectTour(tourId) ++ $doc("m".$gt(0)))
+    coll.list[Player](selectTour(tourId) ++ bdoc("m".gt(0)))
 
   private[tournament] def nbActivePlayers(tourId: TourId): Fu[Int] =
     coll.countSel(selectTour(tourId) ++ selectActive)
@@ -234,7 +234,7 @@ final class PlayerRepo(private[tournament] val coll: Coll)(using Executor):
   // freaking expensive (marathons)
   // note: tournaments before ISODate("2015-06-15T03:34:01.134Z") (s0tKhoTU)
   // have player IDs with a length <= 8, breaking this optimization
-  // instead of fixing it with `$doc("$concat" -> $arr("$_id", ":", "$uid"))`
+  // instead of fixing it with `bdoc("$concat" -> barr("$_id", ":", "$uid"))`
   // we can just hide the damage in the UI
   // to save serverside perfs
   private[tournament] def computeRanking(tourId: TourId): Fu[FullRanking] =
@@ -244,7 +244,7 @@ final class PlayerRepo(private[tournament] val coll: Coll)(using Executor):
         List(
           Match(selectTour(tourId)),
           Sort(Descending("m")),
-          Group(BSONNull)("all" -> Push($doc("$concat" -> $arr("$_id", "$uid"))))
+          Group(BSONNull)("all" -> Push(bdoc("$concat" -> barr("$_id", "$uid"))))
         )
       .headOption
       .map:
@@ -263,7 +263,7 @@ final class PlayerRepo(private[tournament] val coll: Coll)(using Executor):
             FullRanking(ranking.result(), playerIndex)
 
   def computeRankOf(player: Player): Fu[Rank] =
-    Rank.from(coll.countSel(selectTour(player.tourId) ++ $doc("m".$gt(player.magicScore))))
+    Rank.from(coll.countSel(selectTour(player.tourId) ++ bdoc("m".gt(player.magicScore))))
 
   // expensive, cache it
   private[tournament] def averageRating(tourId: TourId): Fu[Int] =
@@ -277,7 +277,7 @@ final class PlayerRepo(private[tournament] val coll: Coll)(using Executor):
 
   def byTourAndUserIds(tourId: TourId, userIds: Iterable[UserId]): Fu[List[Player]] =
     coll
-      .list[Player](selectTour(tourId) ++ $doc("uid".$in(userIds)))
+      .list[Player](selectTour(tourId) ++ bdoc("uid".in(userIds)))
       .chronometer
       .logIfSlow(200, logger): players =>
         s"PlayerRepo.byTourAndUserIds $tourId ${userIds.size} user IDs, ${players.size} players"
@@ -309,11 +309,11 @@ final class PlayerRepo(private[tournament] val coll: Coll)(using Executor):
 
   def searchPlayers(tourId: TourId, term: UserSearch, nb: Int): Fu[List[UserId]] =
     coll.primitive[UserId](
-      selector = $doc(
+      selector = bdoc(
         "tid" -> tourId,
-        "uid".$startsWith(term.value)
+        "uid".regexStart(term.value)
       ),
-      sort = $sort.desc("m"),
+      sort = sort.desc("m"),
       nb = nb,
       field = "uid"
     )
@@ -328,9 +328,9 @@ final class PlayerRepo(private[tournament] val coll: Coll)(using Executor):
   ): PekkoStreamCursor[Player] =
     coll
       .find(selectTour(tournamentId))
-      .sort($sort.desc("m"))
+      .sort(sort.desc("m"))
       .batchSize(batchSize)
       .cursor[Player](readPref)
 
   private[tournament] def anonymize(tourId: TourId, userId: UserId)(ghostId: UserId) =
-    coll.update.one($doc("tid" -> tourId, "uid" -> userId), $set("uid" -> ghostId)).void
+    coll.update.one(bdoc("tid" -> tourId, "uid" -> userId), set("uid" -> ghostId)).void

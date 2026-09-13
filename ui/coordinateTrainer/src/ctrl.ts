@@ -367,7 +367,7 @@ export default class CoordinateTrainerCtrl {
     } else if (input.value.length === 2 && input.value === this.currentKey) {
       input.value = '';
       this.handleCorrect();
-    } else if (input.value.length === 2 && !input.value.match(/[a-h][1-8]/)) {
+    } else if (input.value.length === 2 && !/[a-h][1-8]/.test(input.value)) {
       // if they've entered e.g. "ab", change this to "b"
       input.value = input.value[1];
     } else if (input.value.length >= 2) {

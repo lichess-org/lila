@@ -59,6 +59,7 @@
   <string name="moreRoundsThanPlayersQ">如果锦标赛的轮次多于棋手数量会怎样？</string>
   <string name="moreRoundsThanPlayersA">当所有可能的配对都已完成时，锦标赛将结束并宣布获胜者。</string>
   <string name="restrictedToTeamsQ">为什么仅限于团队？</string>
+  <string name="whyAreSwissTournamentsRestrictedToTeams" comment="Replaces old string restrictedToTeamsQ">为什么瑞士制锦标赛仅限于团队参加？</string>
   <string name="restrictedToTeamsA">瑞士制锦标赛并非为在线对弈设计。它们要求棋手准时、投入和耐心。
 我们认为这些条件在团队内部比在全球性锦标赛中更容易满足。</string>
   <string name="numberOfByesQ">一名棋手最多可获得几次轮空？</string>
@@ -80,6 +81,7 @@
   <string name="willSwissReplaceArenasQ">瑞士制会取代竞技场锦标赛吗？</string>
   <string name="willSwissReplaceArenasA">不会。它们是互补的功能。</string>
   <string name="roundRobinQ">未来会引入循环赛嘛？</string>
+  <string name="canPlayRoundRobinTournaments" comment="roundRobinQ&#10;&#10;Round-robin is a simple tournament format with some similarities to Swiss. It is not supported by Lichess. Replaces old string roundRobinQ">我可以在 Lichess 上参加循环赛吗？</string>
   <string name="roundRobinA">我们希望能添加，但遗憾的是循环赛不适合线上环境。
 原因在于，它没有公平的方式处理棋手提前离开锦标赛的情况。我们不能指望所有棋手都在线上赛事中完成所有对局。这根本不会发生，结果导致大多数循环赛制锦标赛会出现缺陷和不公，这违背了其存在的初衷。
 您能在线上获得最接近循环赛体验的方法是举办一个轮次非常多的瑞士制锦标赛。这样，在锦标赛结束前，所有可能的配对都将完成。</string>

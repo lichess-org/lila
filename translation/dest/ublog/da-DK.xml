@@ -51,6 +51,8 @@
   <string name="imageAlt">Billede alternativ tekst</string>
   <string name="imageCredit">Billedkreditering</string>
   <string name="deleteBlog">Slet dette blogindlæg for altid</string>
+  <string name="safeToUseImages">Det er sikkert at bruge billeder fra følgende websteder: </string>
+  <string name="freeImagesComplyWithLicensing" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement. Replaces old string safeToUseImages">Følgende websteder tilbyder billeder gratis. Sørg for at overholde licensbetingelserne for det billede, du bruger.</string>
   <string name="selectPostTopics">Vælg de emner dit indlæg handler om</string>
   <string name="safeAndRespectfulContent">Skriv kun sikkert og respektfuldt indhold. Kopiér ikke andres indhold.</string>
   <string name="noCopyrightedImages">Brug kun billeder, der ikke er beskyttet af andres ophavsret.</string>

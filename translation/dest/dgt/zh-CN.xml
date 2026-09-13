@@ -21,6 +21,7 @@
   <string name="asALastResort">作为最后的手段，将棋盘设置得与 Lichess 界面完全一致，然后 %s。</string>
   <string name="reloadThisPage">重新加载此页面</string>
   <string name="dgtConfigure">DGT - 配置</string>
+  <string name="configureYourDgtBoard" comment="Replaces old string dgtConfigure">配置您的 DGT 棋盘</string>
   <string name="lichessConnectivity">Lichess 连接状态</string>
   <string name="validDgtOauthToken">您拥有一个适用于 DGT 对局的 OAuth 令牌。</string>
   <string name="dgtPlayMenuEntryAdded">一个 %s 条目已添加到您顶部的“对弈”菜单中。</string>

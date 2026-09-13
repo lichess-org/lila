@@ -29,6 +29,7 @@
   <string name="pendingReview">Vaš prenos so pregledali moderatorji.</string>
   <string name="pleaseFillIn">Prosim, izpolnite informacije o voditelju oddaj in naložite sliko.</string>
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Ko ste pripravljeni, da se uvrstite na seznam voditeljev prenosov, %s</string>
+  <string name="whenReadyToBeListedAsStreamer" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot; Replaces old string whenReady">Ko ste pripravljeni, da se uvrstite na seznam voditeljev prenosov, %s.</string>
   <string name="submitForReview">Oddaj v pregled</string>
   <string name="streamerLanguageSettings">Lichessova stran streamerja je namenjena vašemu občinstvu v jeziku, ki ga zagotavlja vaša platforma za pretakanje. V aplikaciji ali storitvi, ki jo uporabljate za oddajanje, nastavite pravilen privzeti jezik za svoje šahovske prenose.</string>
   <string name="pleaseAllow">Odobrena bo vaša značka in vpis v streamerja, kar lahko traja do 72 ur.</string>

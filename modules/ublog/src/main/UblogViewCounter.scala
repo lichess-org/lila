@@ -1,6 +1,6 @@
 package lila.ublog
 
-import se.thanh.pds.bloomfilter.BloomFilter
+import bloomfilter.mutable.BloomFilter
 
 import lila.db.dsl.{ *, given }
 import lila.memo.ViewerCount.*
@@ -17,10 +17,10 @@ final class UblogViewCounter(colls: UblogColls)(using mode: play.api.Mode)(using
     if post.live then
       post.copy(views =
         val key = s"${post.id}${encode(makeViewer(ctx.req, ctx.userId))}"
-        if bloomFilter.contains(key) then post.views
+        if bloomFilter.mightContain(key) then post.views
         else
           bloomFilter.add(key)
           lila.mon.ublog.view.increment()
-          colls.post.incFieldUnchecked($id(post.id), "views")
+          colls.post.incFieldUnchecked(bid(post.id), "views")
           post.views + 1)
     else post

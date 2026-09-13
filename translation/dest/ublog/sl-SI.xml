@@ -59,6 +59,8 @@
   <string name="imageAlt">Nadomestno besedilo slike</string>
   <string name="imageCredit">Kredit za sliko</string>
   <string name="deleteBlog">Izbriši ta blog post dokončno</string>
+  <string name="safeToUseImages">Varno je uporabljati slike z naslednjih spletnih mest </string>
+  <string name="freeImagesComplyWithLicensing" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement. Replaces old string safeToUseImages">Naslednja spletna mesta ponujajo slike brezplačno. Prosimo, poskrbite, da boste upoštevali licenčne pogoje za sliko, ki jo uporabljate.</string>
   <string name="selectPostTopics">Izberite teme, o katerih govori vaša objava</string>
   <string name="safeAndRespectfulContent">Prosimo, objavite samo varno in spoštljivo vsebino. Ne kopirajte vsebine nekoga drugega.</string>
   <string name="noCopyrightedImages">Uporabljajte samo slike, ki niso avtorsko zaščitene s strani nekoga drugega.</string>

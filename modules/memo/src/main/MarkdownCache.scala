@@ -13,6 +13,7 @@ case class MarkdownOptions(
     list: Boolean = false,
     table: Boolean = false,
     header: Boolean = false,
+    headerAnchorLink: Boolean = false,
     strikeThrough: Boolean = false,
     blockQuote: Boolean = false,
     code: Boolean = false,
@@ -49,8 +50,7 @@ final class MarkdownCache(
       .getIfPresent((key, markdown, opts))
       .flatMap(_.value.collect { case scala.util.Success(html) => html })
       .getOrElse:
-        val processor = bodyProcessor(key, opts)
-        val html = processor(markdown)
+        val html = bodyProcessor(key, opts)(markdown)
         cache.put((key, markdown, opts), fuccess(html))
         html
 
@@ -87,6 +87,7 @@ final class MarkdownCache(
         list = opts.list,
         strikeThrough = opts.strikeThrough,
         header = opts.header,
+        headerAnchorLink = opts.headerAnchorLink,
         blockQuote = opts.blockQuote,
         code = opts.code,
         timestamp = opts.timestamp,

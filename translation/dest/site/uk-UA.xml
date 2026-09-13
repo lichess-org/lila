@@ -191,6 +191,9 @@
   </plurals>
   <string name="moveTimes">Час на хід</string>
   <string name="flipBoard">Перевернути дошку</string>
+  <string name="toggleLocalEngine">Перемкнути локальний рушій</string>
+  <string name="engineSettings">Налаштування рушія</string>
+  <string name="enginesFromStrongestToWeakest">Рушії від найкращого до найгіршого</string>
   <string name="threefoldRepetition">Триразове повторення</string>
   <string name="claimADraw">Оголосити нічию</string>
   <string name="drawClaimed">Оголошена нічия</string>
@@ -279,6 +282,7 @@
   <string name="signupUsernameHint">Переконайтесь, що ви вибрали хороше ім\'я. Ви не можете змінити його потім, а профілі з непристойними іменами будуть заблоковані!</string>
   <string name="signupEmailPromise">Ми надсилатимемо вам листи лише щодо вашого облікового запису та ніколи не будемо ділитися вашою електронною поштою.</string>
   <string name="password">Пароль</string>
+  <string name="showPassword">Показати пароль</string>
   <string name="changePassword">Змінити пароль</string>
   <string name="changeEmail">Змінити адресу електронної пошти</string>
   <string name="email">Електронна пошта</string>
@@ -332,7 +336,9 @@
   <string name="ok">Гаразд</string>
   <string name="cancel">Скасувати</string>
   <string name="whiteTimeOut">Час білих вийшов</string>
+  <string name="whiteRanOutOfTime" comment="whiteTimeOut&#10;&#10;Shows when White's time has run out. Is followed by the end condition, for example&#10;'White ran out of time · Draw' Replaces old string whiteTimeOut">У білих вичерпався час</string>
   <string name="blackTimeOut">Час чорних вийшов</string>
+  <string name="blackRanOutOfTime" comment="blackTimeOut&#10;&#10;Shows when Black's time has run out. Is followed by the end condition, for example&#10;'Black ran out of time · Draw' Replaces old string blackTimeOut">У чорних вичерпався час</string>
   <string name="drawOfferSent">Пропозицію нічиєї надіслано</string>
   <string name="drawOfferAccepted">Пропозицію нічиєї прийнято</string>
   <string name="whiteOffersDraw">Білі пропонують нічию</string>
@@ -480,6 +486,8 @@
   </plurals>
   <string name="yourPerfRatingIsProvisional">Ваш рейтинг %s є умовним</string>
   <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Фільтри за рейтингом заблоковано, бо ваш рейтинг нестабільний. Стабільність підвищуватиметься, коли ви гратимете в рейтингові ігри.</string>
+  <string name="cannotFilterByUnstableRating" comment="Tooltip to explain why the control for filtering by rating is disabled Replaces old string ratingRangeIsDisabledBecauseYourRatingIsProvisional">Ми не можемо фільтрувати за рейтингом, тому що ваш рейтинг нестабільний.
+Грайте в рейтингові ігри, аби покращити його стабільність.</string>
   <string name="yourPerfRatingIsTooHigh">Ваш рейтинг у %1$s (%2$s) занадто високий</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Ваш щотижневий рейтинг %1$s (%2$s) занадто високий</string>
   <string name="yourPerfRatingIsTooLow">Ваш рейтинг у %1$s (%2$s) занадто низький</string>
@@ -500,7 +508,6 @@
   <string name="apply">Застосувати</string>
   <string name="save">Зберегти</string>
   <string name="leaderboard">Дошка лідерів</string>
-  <string name="screenshotCurrentPosition">Скріншот поточної позиції</string>
   <string name="gameAsGIF">Зберегти як GIF</string>
   <string name="playerNames">Імена гравців</string>
   <string name="moveAnnotations">Анотації ходу</string>
@@ -621,7 +628,7 @@
   <string name="oneUrlPerLine">Одне посилання на рядок.</string>
   <string name="inlineNotation">Вбудована нотація</string>
   <string name="makeAStudy">Щоб зберегти та поділитися, подумайте про проведення дослідження.</string>
-  <string name="clearSavedMoves">Очистити ходи</string>
+  <string name="clearLocalData">Очистити локальні дані</string>
   <string name="previouslyOnLichessTV">Раніше на Lichess TV</string>
   <string name="onlinePlayers">Гравці онлайн</string>
   <string name="activePlayers">Активні гравці</string>
@@ -916,7 +923,6 @@
   <string name="theme">Тема</string>
   <string name="light">Світлий</string>
   <string name="dark">Темний</string>
-  <string name="transparent">Прозорий</string>
   <string name="picture">Зображення</string>
   <string name="deviceTheme">Тема пристрою</string>
   <string name="roundness">Округлість</string>
@@ -945,6 +951,7 @@
   <string name="notifications">Сповіщення</string>
   <string name="notificationsX">Сповіщення: %1$s</string>
   <string name="perfRatingX">Рейтинг: %s</string>
+  <string name="perfRatingLabel" comment="Replaces old string perfRatingX">Рейтинг: %s.</string>
   <string name="yourRatingIsX">Ваш рейтинг — %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s секунда на перший хід</item>
@@ -1145,4 +1152,6 @@
   <string name="tags">Теги</string>
   <string name="enPassant">Взяття на проході</string>
   <string name="settings">Налаштування</string>
+  <string name="chessOpenings">Шахові дебюти</string>
+  <string name="boards">Дошки</string>
 </resources>
