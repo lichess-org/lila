@@ -3,6 +3,7 @@ import type { Outcome } from 'chessops/types';
 import type { Prop } from 'lib';
 import { api } from 'lib/api';
 import { fixCrazySan } from 'lib/game/chess';
+import { aiLevels } from 'lib/setup/option';
 import { hl, type VNode, bind, onInsert, type MaybeVNodes } from 'lib/view';
 
 import type AnalyseCtrl from '@/ctrl';
@@ -110,8 +111,29 @@ export default function (root: AnalyseCtrl): VNode | undefined {
   const isFiftyMoves = ctrl.currentNode().fen.split(' ')[4] === '100';
   const running: boolean = ctrl.running();
   const end = ctrl.currentNode().threefold || isFiftyMoves ? { winner: undefined } : root.node.outcome();
+  const lv = ctrl.level();
   return hl('div.practice-box.training-box.sub-box.' + (comment ? comment.verdict : 'no-verdict'), [
     hl('div.title', i18n.site.practiceWithComputer),
+    hl('div.setting', [
+      hl('label', { attrs: { for: 'practice-level' } }, i18n.site.opponentStrength),
+      hl(
+        'select#practice-level',
+        {
+          hook: bind(
+            'change',
+            (e: Event) => ctrl.level(Number((e.target as HTMLSelectElement).value)),
+            ctrl.redraw,
+          ),
+        },
+        aiLevels.map(n =>
+          hl(
+            'option',
+            { attrs: { value: n, selected: n === lv } },
+            n === 8 ? i18n.site.fullStrength : String(n),
+          ),
+        ),
+      ),
+    ]),
     hl(
       'div.feedback',
       end ? renderEnd(root, end) : running ? renderRunning(root, ctrl) : renderOffTrack(ctrl),
