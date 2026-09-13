@@ -20,6 +20,7 @@ case class Chapter(
     ownerId: UserId,
     conceal: Option[Ply] = None,
     practice: Option[Boolean] = None,
+    recall: Option[Boolean] = None,
     gamebook: Option[Boolean] = None,
     description: Option[String] = None,
     relay: Option[Chapter.Relay] = None,
@@ -99,6 +100,7 @@ case class Chapter(
     )
 
   def isPractice = ~practice
+  def isRecall = ~recall
   def isGamebook = ~gamebook
   def isConceal = conceal.isDefined
 
@@ -179,6 +181,7 @@ object Chapter:
       order: Int,
       ownerId: UserId,
       practice: Boolean,
+      recall: Boolean,
       gamebook: Boolean,
       conceal: Option[Ply],
       relay: Option[Relay] = None
@@ -193,6 +196,7 @@ object Chapter:
       order = order,
       ownerId = ownerId,
       practice = practice.option(true),
+      recall = recall.option(true),
       gamebook = gamebook.option(true),
       conceal = conceal,
       relay = relay,
