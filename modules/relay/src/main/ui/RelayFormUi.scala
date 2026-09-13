@@ -390,7 +390,7 @@ Hanna Marie ; Kozul, Zdenko"""),
           )(
             nav.tour.showRatingDiffs.option(
               form3.split(
-                form3.group(form("rated"), raw("")): field =>
+                form3.group(form("rated"), raw(""), half = true): field =>
                   val withDefault =
                     if nav.newRound && field.value.isEmpty then field.copy(value = "true".some) else field
                   form3.checkboxGroup(
@@ -419,7 +419,8 @@ Hanna Marie ; Kozul, Zdenko"""),
                 List("win", "draw").map: result =>
                   form3.group(
                     form("customScoring")(color.name)(result),
-                    raw(s"Points for a $result as ${color.name}")
+                    raw(s"Points for a $result as ${color.name}"),
+                    half = true
                   )(
                     form3.input(_)(tpe := "number", step := 0.01f, min := 0.0f, max := 10.0f)
                   )
@@ -433,7 +434,8 @@ Hanna Marie ; Kozul, Zdenko"""),
                 List("win", "draw").map: result =>
                   form3.group(
                     form("teamCustomScoring")(result),
-                    raw(s"Team points for a match $result")
+                    raw(s"Team points for a match $result"),
+                    half = true
                   )(
                     form3.input(_)(tpe := "number", step := 0.01f, min := 0.0f, max := 10.0f)
                   )
