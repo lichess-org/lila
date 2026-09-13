@@ -167,14 +167,9 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
 
   return [
     div('.top', { key: 'mod-' + data.id }, [
-      span('.text', { ...dataIcon(licon.Agent) }, userLink(data)),
+      span('.text', dataIcon(licon.Agent), userLink(data)),
       button({ ...dataIcon(licon.X), hook: bind('click', ctrl.close) }),
     ]),
-    div('.mchat__content.moderation', [
-      i('.line-text.block', ['"', data.text, '"']),
-      infos,
-      timeout,
-      history,
-    ]),
+    div('.mchat__content.moderation', [i('.line-text.block', `"${data.text}"`), infos, timeout, history]),
   ];
 }
