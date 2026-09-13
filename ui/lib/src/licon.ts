@@ -134,6 +134,8 @@ export const licon = {
   AccountCircle: '' as const, // e079
   Logo: '' as const, // e07a
   Switch: '' as const, // e07b
+  Wifi: '' as const, // e07c
+  WifiOff: '' as const, // e07d
   Cpu: '' as const, // e07e
   Prune: '' as const, // e07f
 };
