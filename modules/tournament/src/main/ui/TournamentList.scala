@@ -271,10 +271,10 @@ final class TournamentList(helpers: Helpers, ui: TournamentUi)(
               div(cls := "tournament-leaderboards")(
                 eliteWinners,
                 freqWinners(winners.hyperbullet, PerfType.Bullet, "HyperBullet"),
-                freqWinners(winners.bullet, PerfType.Bullet, trans.site.bullet()),
+                freqWinners(winners.bullet, PerfType.Bullet, trans.site.bullet.txt()),
                 freqWinners(winners.superblitz, PerfType.Blitz, "SuperBlitz"),
-                freqWinners(winners.blitz, PerfType.Blitz, trans.site.blitz()),
-                freqWinners(winners.rapid, PerfType.Rapid, trans.site.rapid()),
+                freqWinners(winners.blitz, PerfType.Blitz, trans.site.blitz.txt()),
+                freqWinners(winners.rapid, PerfType.Rapid, trans.site.rapid.txt()),
                 marathonWinners,
                 lila.tournament.WinnersApi.variants.map: v =>
                   PerfKey.byVariant(v).map { pk =>
