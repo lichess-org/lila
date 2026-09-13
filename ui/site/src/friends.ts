@@ -58,8 +58,8 @@ export default class OnlineFriends {
       });
   };
   renderFriend = (friend: Friend) => {
-    const patronCls = friend.patronColor ? ` patron paco${friend.patronColor}` : '';
-    const icon = `<icon class="line${patronCls}"></icon>`;
+    const patron = friend.patronColor ? `<icon class="patron paco${friend.patronColor}"></icon>` : '';
+    const icon = `<icon class="line"></icon>${patron}`;
     const titleTag = friend.title
       ? `<span class="utitle"${friend.title === 'BOT' ? ' data-bot' : ''}>${friend.title}</span>&nbsp;`
       : '';

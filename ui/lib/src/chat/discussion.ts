@@ -246,7 +246,7 @@ function renderText(t: string, opts?: enhance.EnhanceOpts) {
 }
 
 const userThunk = (name: string, title?: string, patronColor?: PatronColor, flair?: Flair) =>
-  userLink({ name, title, patronColor, line: !!patronColor, flair, online: !!patronColor });
+  userLink({ name, title, patronColor, line: false, flair });
 
 const actionIcons = (ctrl: ChatCtrl, line: Line): Array<VNode | null> => {
   if (!ctrl.data.userId || !line.u || ctrl.data.userId === line.u) return [];

@@ -148,7 +148,7 @@ trait UserHelper:
       name: Option[Frag] = None,
       withFlair: Boolean = true
   )(using Translate) = frag(
-    withOnline.so(lineIcon(user)),
+    if withOnline then lineIcon(user) else user.patronAndColor.map(patronIcon),
     withTitle.option(titleTag(user.title)),
     name | user.username,
     withFlair.so(userFlair(user)),
@@ -259,14 +259,14 @@ trait UserHelper:
 
   def patronIcon(p: PatronTier.AndColor)(using Translate): Frag =
     iconTag(
-      cls := s"line patron ${p.color.value.cssClass}",
+      cls := s"patron ${p.color.value.cssClass}",
       title := s"${trans.patron.lichessPatron.txt()} (${p.tier.name})"
     )
 
   val moderatorIcon: Frag = iconTag(cls := "line moderator", title := "Lichess Mod")
   @targetName("lineIconPatron")
   private def lineIcon(p: Option[PatronTier.AndColor])(using Translate): Frag =
-    p.fold(lineIcon)(patronIcon)
+    p.fold(lineIcon)(p => frag(lineIcon, patronIcon(p)))
   @targetName("lineIconUser")
   private def lineIcon(user: Option[LightUser])(using Translate): Frag =
     lineIcon(user.flatMap(_.patronAndColor))

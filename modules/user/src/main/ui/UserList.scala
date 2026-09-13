@@ -167,7 +167,7 @@ final class UserList(helpers: Helpers, bits: UserBits):
     users.map: u =>
       div(cls := "bots__list__entry")(
         div(cls := "bots__list__entry__head")(
-          userLink(u, withTitle = false, withOnline = u.isPatron),
+          userLink(u, withTitle = false, withOnline = false),
           ctx.pref.showRatings.option:
             div(cls := "bots__list__entry__rating"):
               bestPerfs(u.perfs).map(u.perfs.keyed).filter(_._2.provisional.no).map(showPerfRating)
