@@ -40,10 +40,10 @@
   <string name="reportMobileIssue">GitHub erabiliz telefonoko aplikazioaren ticket bezala</string>
   <string name="reportBugInDiscord">Lichessen discord zerbitzarian</string>
   <string name="howToReportBug">Azaldu zein den arazoa, zer gertatzea espero zenuen eta zer gertatu den, eta ez ahaztu zure pausoak zein izan diren azaltzea, errorea geuk ere ikusi dezagun.</string>
-  <string name="illegalPawnCapture">Peoiarekin legez-kanpoko harrapaketa</string>
+  <string name="illegalPawnCapture">Peoiarekin legez kanpoko harrapaketa</string>
   <string name="calledEnPassant">\"Pausuan\" edo \"Igarotzean\" harrapatzea deitzen zaio eta xakearen arauetako bat da.</string>
   <string name="tryEnPassant">Ikusi joko hau \"igarotzean\" egiten den harrapaketa honi buruz.</string>
-  <string name="illegalCastling">Legez-kanpoko edo ezinezko endrokea</string>
+  <string name="illegalCastling">Legez kanpoko edo ezinezko endrokea</string>
   <string name="castlingPrevented">Endrokea ezin da egin erregea aurkariak mehatxatutako lauki batetik pasatu behar bada.</string>
   <string name="castlingRules">Ziurtatu endrokearen arauak ezagutzen dituzuna</string>
   <string name="tryCastling">Probatu partida hau xakeko endrokea praktikatzeko</string>

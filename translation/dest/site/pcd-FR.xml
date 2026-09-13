@@ -178,7 +178,7 @@
   <string name="toggleLocalEngine">Activer/désactiver le moteur d\'analyse local</string>
   <string name="engineSettings">Paramètres du moteur d\'analyse</string>
   <string name="enginesFromStrongestToWeakest">Moteurs d\'analyse, du plus fort au plus faible</string>
-  <string name="illegalPositions">Impossible d\'analyser une position illégale</string>
+  <string name="illegalPosition">Position illégale</string>
   <string name="threefoldRepetition">Triple répétition</string>
   <string name="claimADraw">Revendiquer la partie nulle</string>
   <string name="drawClaimed">Offre de nulle</string>

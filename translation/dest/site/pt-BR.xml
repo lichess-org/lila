@@ -175,7 +175,6 @@
   </plurals>
   <string name="moveTimes">Tempo por movimento</string>
   <string name="flipBoard">Girar o tabuleiro</string>
-  <string name="illegalPositions">Posições ilegais não podem ser analisadas</string>
   <string name="threefoldRepetition">Tripla repetição</string>
   <string name="claimADraw">Reivindicar empate</string>
   <string name="drawClaimed">Empate reivindicado</string>

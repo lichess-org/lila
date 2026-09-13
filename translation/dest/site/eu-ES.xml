@@ -178,7 +178,7 @@
   <string name="toggleLocalEngine">Aldatu motore lokala</string>
   <string name="engineSettings">Motorearen ezarpenak</string>
   <string name="enginesFromStrongestToWeakest">Motoreak indartsuenetik ahulenera</string>
-  <string name="illegalPositions">Legez-kanpoko posizioak ezin dira aztertu</string>
+  <string name="illegalPosition">Legez kanpoko posizioa</string>
   <string name="threefoldRepetition">Hiru mugimenduen errepikapena</string>
   <string name="claimADraw">Berdinketa eskatu</string>
   <string name="drawClaimed">Berdinketa eskatuta</string>

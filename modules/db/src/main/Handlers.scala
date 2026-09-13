@@ -61,15 +61,8 @@ trait Handlers:
   def stringAnyValHandler[A](to: A => String, from: String => A): BSONHandler[A] =
     BSONStringHandler.as[A](from, to)
 
-  def intIsoHandler[A](using iso: IntIso[A]): BSONHandler[A] =
-    BSONIntegerHandler.as[A](iso.from, iso.to)
   def intAnyValHandler[A](to: A => Int, from: Int => A): BSONHandler[A] =
     BSONIntegerHandler.as[A](from, to)
-
-  def booleanIsoHandler[A](using iso: BooleanIso[A]): BSONHandler[A] =
-    BSONBooleanHandler.as[A](iso.from, iso.to)
-  def booleanAnyValHandler[A](to: A => Boolean, from: Boolean => A): BSONHandler[A] =
-    BSONBooleanHandler.as[A](from, to)
 
   private def doubleAsIntHandler[A](to: A => Double, from: Double => A, multiplier: Int): BSONHandler[A] =
     intAnyValHandler[A](x => Math.round(to(x) * multiplier).toInt, x => from(x.toDouble / multiplier))
@@ -79,9 +72,6 @@ trait Handlers:
 
   def percentAsIntHandler[A](using p: Percent[A]): BSONHandler[A] =
     doubleAsIntHandler(p.value, p.apply, percentBsonMultiplier)
-
-  def instantIsoHandler[A](using iso: Iso[Instant, A]): BSONHandler[A] =
-    instantHandler.as[A](iso.from, iso.to)
 
   def quickHandler[T](read: PartialFunction[BSONValue, T], write: T => BSONValue): BSONHandler[T] = new:
     def readTry(bson: BSONValue) =
@@ -97,9 +87,6 @@ trait Handlers:
         (b: BSONValue) => handlerBadType(b)
       )
     def writeTry(t: T) = Success(write(t))
-
-  def tryReader[T](read: PartialFunction[BSONValue, Try[T]]): BSONReader[T] = new:
-    def readTry(bson: BSONValue) = read.applyOrElse(bson, (b: BSONValue) => handlerBadType(b))
 
   def handlerBadType[T](b: BSONValue): Try[T] =
     Failure(TypeDoesNotMatchException("BSONValue", b.getClass.getSimpleName))

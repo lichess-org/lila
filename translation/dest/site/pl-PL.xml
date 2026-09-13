@@ -194,7 +194,7 @@
   <string name="toggleLocalEngine">Przełącz silnik lokalny</string>
   <string name="engineSettings">Ustawienia silnika</string>
   <string name="enginesFromStrongestToWeakest">Silniki szachowe od najmocniejszego do najsłabszego</string>
-  <string name="illegalPositions">Nielegalne pozycje nie mogą być analizowane</string>
+  <string name="illegalPosition">Niepoprawna pozycja</string>
   <string name="threefoldRepetition">Trzykrotne powtórzenie pozycji</string>
   <string name="claimADraw">Ogłoś remis</string>
   <string name="drawClaimed">Stwierdzono remis</string>
