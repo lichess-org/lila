@@ -42,7 +42,7 @@ export const userPatron = (u: object): VNode | undefined => {
 
 export const userLine = (u: object): VNode | undefined => {
   const options = u as { line?: boolean; moderator?: boolean };
-  return options.line !== false
+  return !!options.line
     ? h('icon.line', {
         class: {
           moderator: !!options.moderator,
