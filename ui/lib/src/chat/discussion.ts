@@ -87,14 +87,14 @@ export default function (ctrl: ChatCtrl): Array<VNode | undefined> {
 function renderInput(ctrl: ChatCtrl): VNode | undefined {
   if (!ctrl.vm.writeable) return undefined;
   if ((ctrl.data.loginRequired && !ctrl.data.userId) || ctrl.data.restricted)
-    return input()('.mchat__say', {
+    return input('text')('.mchat__say', {
       attrs: { placeholder: i18n.site.loginToChat, disabled: true },
     });
   let placeholder: string;
   if (ctrl.vm.timeout) placeholder = i18n.site.youHaveBeenTimedOut;
   else if (ctrl.opts.blind) placeholder = 'Chat';
   else placeholder = i18n.site.talkInChat;
-  return input()('.mchat__say', {
+  return input('text')('.mchat__say', {
     attrs: {
       placeholder,
       autocomplete: 'off',
