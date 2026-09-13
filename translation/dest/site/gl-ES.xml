@@ -178,7 +178,7 @@
   <string name="toggleLocalEngine">Activar/desactivar o motor de análise local</string>
   <string name="engineSettings">Axustes do motor de análise</string>
   <string name="enginesFromStrongestToWeakest">Motores de análise de máis forte a máis feble</string>
-  <string name="illegalPositions">As posicións ilegais non se poden analizar</string>
+  <string name="illegalPosition">Posición ilegal</string>
   <string name="threefoldRepetition">Repetición tripla de posición</string>
   <string name="claimADraw">Reclamar táboas</string>
   <string name="drawClaimed">Reclamáronse as táboas</string>

@@ -178,7 +178,7 @@
   <string name="toggleLocalEngine">Lokale Engine umschalten</string>
   <string name="engineSettings">Engine-Einstellungen</string>
   <string name="enginesFromStrongestToWeakest">Engines von stärkster bis schwächster</string>
-  <string name="illegalPositions">Ungültige Stellungen können nicht analysiert werden</string>
+  <string name="illegalPosition">Ungültige Stellung</string>
   <string name="threefoldRepetition">Dreifache Stellungswiederholung</string>
   <string name="claimADraw">Remis beanspruchen</string>
   <string name="drawClaimed">Remis reklamiert</string>
