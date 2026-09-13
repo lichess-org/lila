@@ -17,7 +17,11 @@ export type AnyUser = {
   brackets?: boolean; // display the rating in brackets/parentheses, true by default
 };
 
-type UserIconOwner = Pick<AnyUser, 'name' | 'line' | 'patronColor' | 'moderator'>;
+type UserIconOwner = {
+  line?: boolean;
+  patronColor?: PatronColor;
+  moderator?: boolean;
+};
 
 export const userLink = (u: AnyUser): VNode =>
   h('a', userLinkData(u), [userLine(u), userPatron(u), ...fullName(u), u.rating && ` ${userRating(u)} `]);
