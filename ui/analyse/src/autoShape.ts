@@ -143,8 +143,8 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
           if (pv.moves[0] === nextBest) return;
           const shift = winningChances.povDiff(color, nCeval.pvs[0], pv);
           if (shift >= 0 && shift < 0.2) {
-            shapes = shapes.concat(
-              makeShapesFromUci(color, pv.moves[0], 'paleGrey', {
+            shapes.push(
+              ...makeShapesFromUci(color, pv.moves[0], 'paleGrey', {
                 lineWidth: Math.round(12 - shift * 50), // 12 to 2
               }),
             );
@@ -220,13 +220,14 @@ function hiliteVariations(ctrl: AnalyseCtrl, autoShapes: DrawShape[]) {
   for (const [i, node] of visible.entries()) {
     const existing = autoShapes.find(s => s.orig + s.dest === node.uci);
     if (existing) existing.modifiers = { hilite: i === ctrl.fork.selectedIndex ? 'white' : undefined };
-    else
-      autoShapes.push({
-        orig: node.uci!.slice(0, 2) as Key,
-        dest: node.uci?.slice(2, 4) as Key,
-        brush: !isGamebookEditor ? 'variation' : i === 0 ? 'paleGreen' : 'paleRed',
-        modifiers: { hilite: i === ctrl.fork.selectedIndex ? '#3291ff' : '#aaa' },
-        below: true,
-      });
+    else {
+      const shapes = makeShapesFromUci(
+        ctrl.turnColor(),
+        node.uci,
+        !isGamebookEditor ? 'variation' : i === 0 ? 'paleGreen' : 'paleRed',
+        { hilite: i === ctrl.fork.selectedIndex ? '#3291ff' : '#aaa' },
+      );
+      autoShapes.push(...shapes);
+    }
   }
 }
