@@ -5,9 +5,9 @@ import { describe, test } from 'node:test';
 
 import { PromotionCtrl } from '../src/game/promotion';
 
-function makeGround() {
+function makeGround(pieces: Array<[cg.Key, cg.Piece]> = [['e7', { color: 'white', role: 'pawn' }]]) {
   const state = {
-    pieces: new Map<cg.Key, cg.Piece>([['e7', { color: 'white', role: 'pawn' }]]),
+    pieces: new Map<cg.Key, cg.Piece>(pieces),
     turnColor: 'black' as cg.Color,
     orientation: 'white' as cg.Color,
   };
@@ -128,5 +128,109 @@ describe('promotion control', () => {
     assert.equal(ctrl.dismiss(), false);
     assert.equal(cancels, 0);
     assert.equal(autoShapes().length, 0);
+  });
+
+  test('atomic: a pawn capturing on the last rank promotes to queen without asking', () => {
+    const { ground } = makeGround([['e8', { color: 'white', role: 'pawn' }]]);
+    const submitted: Role[] = [];
+    const ctrl = new PromotionCtrl(
+      f => f(ground),
+      () => {},
+      () => {},
+      () => 'atomic',
+    );
+
+    assert.equal(
+      ctrl.start(
+        'e7',
+        'e8',
+        { submit: (_orig, _dest, role) => submitted.push(role) },
+        { premove: false, captured: { color: 'black', role: 'rook' } },
+      ),
+      true,
+    );
+    assert.deepEqual(submitted, ['queen']);
+    assert.equal(ctrl.view(), undefined);
+  });
+
+  test('atomic: a pawn push to the last rank still promotes', () => {
+    const { ground } = makeGround([['e8', { color: 'white', role: 'pawn' }]]);
+    const ctrl = new PromotionCtrl(
+      f => f(ground),
+      () => {},
+      () => {},
+      () => 'atomic',
+    );
+
+    assert.equal(ctrl.start('e7', 'e8', { submit: () => {} }, { premove: false }), true);
+    assert.ok(ctrl.view());
+  });
+
+  test('atomic: a premoved capture on the last rank pre-promotes to queen', () => {
+    const { ground, autoShapes } = makeGround([
+      ['e7', { color: 'white', role: 'pawn' }],
+      ['d8', { color: 'black', role: 'rook' }],
+    ]);
+    const ctrl = new PromotionCtrl(
+      f => f(ground),
+      () => {},
+      () => {},
+      () => 'atomic',
+    );
+
+    assert.equal(
+      ctrl.start('e7', 'd8', { submit: () => assert.fail('a premove should not submit yet') }),
+      true,
+    );
+    assert.equal(ctrl.view(), undefined);
+    assert.deepEqual(
+      autoShapes().map(s => s.piece?.role),
+      ['queen'],
+    );
+  });
+
+  test('the variant is read when the move is played, not when the control is built', () => {
+    const { ground } = makeGround([['e8', { color: 'white', role: 'pawn' }]]);
+    let variant: VariantKey = 'standard';
+    const submitted: Role[] = [];
+    const ctrl = new PromotionCtrl(
+      f => f(ground),
+      () => {},
+      () => {},
+      () => variant,
+    );
+    const capture = { premove: false, captured: { color: 'black', role: 'rook' } } as const;
+
+    assert.equal(ctrl.start('e7', 'e8', { submit: () => {} }, capture), true);
+    assert.ok(ctrl.view(), 'standard offers a choice');
+    ctrl.dismiss();
+
+    variant = 'atomic';
+    assert.equal(
+      ctrl.start('e7', 'e8', { submit: (_orig, _dest, role) => submitted.push(role) }, capture),
+      true,
+    );
+    assert.deepEqual(submitted, ['queen']);
+    assert.equal(ctrl.view(), undefined, 'atomic does not');
+  });
+
+  test('a capture on the last rank still promotes outside atomic', () => {
+    const { ground } = makeGround([['e8', { color: 'white', role: 'pawn' }]]);
+    const ctrl = new PromotionCtrl(
+      f => f(ground),
+      () => {},
+      () => {},
+    );
+
+    assert.equal(
+      ctrl.start(
+        'e7',
+        'e8',
+        { submit: () => {} },
+        { premove: false, captured: { color: 'black', role: 'rook' } },
+      ),
+      true,
+    );
+    assert.ok(ctrl.view());
   });
 });
