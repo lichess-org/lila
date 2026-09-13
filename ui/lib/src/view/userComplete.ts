@@ -68,5 +68,10 @@ export const renderUserEntry = (o: LightUserOnline, tag = 'a'): string => {
     : '';
   const flair = o.flair ? `<img class="uflair" src="${site.asset.flairSrc(o.flair)}" alt="" />` : '';
   const patron = o.patron ? `<icon class="patron${patronClass}"></icon>` : '';
-  return `<${tag} class="complete-result ulpt user-link${o.online ? ' online' : ''}" ${hrefAttr}="${profileUrl(o.name)}"><icon class="line"></icon>${patron}${title}${o.name}${flair}</${tag}>`;
+  const online = o.online ? ' online' : '';
+  return $html`
+    <${tag} class="complete-result ulpt user-link${online}" ${hrefAttr}="${profileUrl(o.name)}">
+      <icon class="line"></icon>${patron}${title}${o.name}${flair}
+    </${tag}>
+  `;
 };
