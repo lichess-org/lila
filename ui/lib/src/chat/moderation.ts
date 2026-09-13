@@ -114,7 +114,7 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
             button(
               '.text',
               {
-                attrs: dataIcon(licon.Clock),
+                ...dataIcon(licon.Clock),
                 hook: bind('click', () => ctrl.timeout(r, data.text)),
               },
               r.name.split(';')[0],
@@ -126,7 +126,7 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
           button(
             '.text',
             {
-              attrs: dataIcon(licon.Clock),
+              ...dataIcon(licon.Clock),
               hook: bind('click', () => ctrl.timeout(ctrl.opts.reasons[0], data.text)),
             },
             'Timeout 15 minutes',
@@ -134,7 +134,7 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
           button(
             '.text',
             {
-              attrs: dataIcon(licon.Clock),
+              ...dataIcon(licon.Clock),
               hook: bind('click', async () => {
                 await reportUserText(ctrl.opts.resourceId, data.name, data.text);
                 ctrl.timeout(ctrl.opts.reasons[0], data.text);
@@ -167,8 +167,8 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
 
   return [
     div('.top', { key: 'mod-' + data.id }, [
-      span('.text', { attrs: dataIcon(licon.Agent) }, [userLink(data)]),
-      button({ attrs: dataIcon(licon.X), hook: bind('click', ctrl.close) }),
+      span('.text', { ...dataIcon(licon.Agent) }, userLink(data)),
+      button({ ...dataIcon(licon.X), hook: bind('click', ctrl.close) }),
     ]),
     div('.mchat__content.moderation', [
       i('.line-text.block', ['"', data.text, '"']),
