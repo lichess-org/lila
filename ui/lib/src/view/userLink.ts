@@ -45,7 +45,7 @@ export const userPatron = (u: UserIconOwner): VNode | undefined =>
     : undefined;
 
 export const userLine = (u: UserIconOwner): VNode | undefined =>
-  !u.line
+  u.line !== false
     ? h('icon.line', {
         class: {
           moderator: !!u.moderator,
