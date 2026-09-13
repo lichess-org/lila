@@ -155,7 +155,7 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
             },
             data.history.map(function (e) {
               return tr([
-                snabH('td.reason', e.reason),
+                td('.reason', e.reason.name),
                 td('.mod', e.mod),
                 td(snabH('time.timeago', { attrs: { datetime: e.date } })),
               ]);
