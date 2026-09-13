@@ -1,10 +1,10 @@
 {
   "name": "build",
   "type": "module",
-  "packageManager": "pnpm@11.22.0",
+  "packageManager": "pnpm@12.3.4",
   "engines": {
     "node": ">=24",
-    "pnpm": "11"
+    "pnpm": ">=12"
   },
   "optionalDependencies": {
     "sass-embedded-darwin-arm64": "1.100.0",
