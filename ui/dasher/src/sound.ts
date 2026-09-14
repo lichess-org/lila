@@ -107,7 +107,7 @@ export class SoundCtrl extends PaneCtrl {
       ? false
       : [
           h('div.rate', [
-            'Rate',
+            'Speech rate',
             h('input.rate', {
               attrs: { ...site.sound.voiceRateRange, step: 0.05, type: 'range', value: rate },
               hook: onInsert<HTMLInputElement>(el => {
