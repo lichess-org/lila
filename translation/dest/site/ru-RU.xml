@@ -193,7 +193,6 @@
   <string name="flipBoard">Перевернуть доску</string>
   <string name="engineSettings">Настройки движка</string>
   <string name="enginesFromStrongestToWeakest">Движки от сильнейших к слабейшим</string>
-  <string name="illegalPositions">Невозможные позиции не могут быть проанализированы</string>
   <string name="threefoldRepetition">Троекратное повторение позиции</string>
   <string name="claimADraw">Потребовать ничью</string>
   <string name="drawClaimed">Объявлена ничья</string>

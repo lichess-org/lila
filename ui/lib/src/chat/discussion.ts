@@ -1,9 +1,7 @@
-import { h, thunk, type VNode, type VNodeData } from 'snabbdom';
-
 import { blurIfEscape } from '@/common';
 import { pubsub } from '@/pubsub';
 import { tempStorage } from '@/storage';
-import { enter, alert, onInsert } from '@/view';
+import { type VNode, type VNodeData, snabH, thunk, enter, alert, onInsert, input, li, span } from '@/view';
 import { userLink } from '@/view/userLink';
 
 import { licon } from '../licon';
@@ -29,9 +27,10 @@ export default function (ctrl: ChatCtrl): Array<VNode | undefined> {
   if (!ctrl.chatEnabled()) return [];
   const hasMod = !!ctrl.moderation;
   const vnodes = [
-    h(
-      `ol.mchat__messages.chat-v-${ctrl.vm.domVersion}${hasMod ? '.as-mod' : ''}`,
+    snabH(
+      `ol.mchat__messages.chat-v-${ctrl.vm.domVersion}`,
       {
+        class: { 'as-mod': hasMod },
         attrs: { role: 'log', 'aria-live': 'polite', 'aria-atomic': 'false' },
         hook: {
           ...onInsert(el => {
@@ -88,22 +87,21 @@ export default function (ctrl: ChatCtrl): Array<VNode | undefined> {
 function renderInput(ctrl: ChatCtrl): VNode | undefined {
   if (!ctrl.vm.writeable) return undefined;
   if ((ctrl.data.loginRequired && !ctrl.data.userId) || ctrl.data.restricted)
-    return h('input.mchat__say', {
-      attrs: { placeholder: i18n.site.loginToChat, disabled: true },
+    return input('text')('.mchat__say', {
+      placeholder: i18n.site.loginToChat,
+      disabled: true,
     });
   let placeholder: string;
   if (ctrl.vm.timeout) placeholder = i18n.site.youHaveBeenTimedOut;
   else if (ctrl.opts.blind) placeholder = 'Chat';
   else placeholder = i18n.site.talkInChat;
-  return h('input.mchat__say', {
-    attrs: {
-      placeholder,
-      autocomplete: 'off',
-      enterkeyhint: 'send',
-      maxlength: 140,
-      disabled: ctrl.vm.timeout || !ctrl.vm.writeable,
-      'aria-label': 'Chat input',
-    },
+  return input('text')('.mchat__say', {
+    placeholder,
+    autocomplete: 'off',
+    enterkeyhint: 'send',
+    maxlength: 140,
+    disabled: ctrl.vm.timeout || !ctrl.vm.writeable,
+    'aria-label': 'Chat input',
     hook: onInsert<HTMLInputElement>(el => setupHooks(ctrl, el)),
   });
 }
@@ -242,9 +240,9 @@ function renderText(t: string, opts?: enhance.EnhanceOpts) {
   const processedText = processProfileLink(t);
   if (enhance.isMoreThanText(processedText)) {
     const hook = updateText(opts);
-    return h('t', { lichessChat: processedText, hook: { create: hook, update: hook } });
+    return snabH('t', { lichessChat: processedText, hook: { create: hook, update: hook } });
   }
-  return h('t', processedText);
+  return snabH('t', processedText);
 }
 
 const userThunk = (name: string, title?: string, patronColor?: PatronColor, flair?: Flair) =>
@@ -255,14 +253,14 @@ const actionIcons = (ctrl: ChatCtrl, line: Line): Array<VNode | null> => {
   const icons = [];
   if (ctrl.canPostArbitraryText() && !ctrl.data.resourceId.startsWith('game'))
     icons.push(
-      h('action.reply', {
+      snabH('action.reply', {
         attrs: { 'data-icon': licon.Back, title: 'Reply' },
       }),
     );
   icons.push(
     ctrl.moderation
       ? modLineAction()
-      : h('action.flag', {
+      : snabH('action.flag', {
           attrs: { 'data-icon': licon.CautionTriangle, title: 'Report', 'data-text': line.t },
         }),
   );
@@ -272,9 +270,9 @@ const actionIcons = (ctrl: ChatCtrl, line: Line): Array<VNode | null> => {
 function renderLine(ctrl: ChatCtrl, line: Line): VNode {
   const textNode = renderText(line.t, ctrl.opts.enhance);
 
-  if (line.u === 'lichess') return h('li.system', textNode);
+  if (line.u === 'lichess') return li('.system', textNode);
 
-  if (line.c) return h('li', [h('span.color', '[' + line.c + ']'), textNode]);
+  if (line.c) return li([span('.color', '[' + line.c + ']'), textNode]);
 
   const userNode = thunk('a', line.u, userThunk, [line.u, line.title, line.pc, line.f]);
   const userId = line.u?.toLowerCase();
@@ -286,8 +284,7 @@ function renderLine(ctrl: ChatCtrl, line: Line): VNode {
       .match(enhance.userPattern)
       ?.find(mention => mention.trim().toLowerCase() === `@${ctrl.data.userId}`);
 
-  return h(
-    'li',
+  return li(
     {
       class: {
         me: userId === myUserId,

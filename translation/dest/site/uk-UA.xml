@@ -194,7 +194,6 @@
   <string name="toggleLocalEngine">Перемкнути локальний рушій</string>
   <string name="engineSettings">Налаштування рушія</string>
   <string name="enginesFromStrongestToWeakest">Рушії від найкращого до найгіршого</string>
-  <string name="illegalPositions">Недійсні позиції не можна аналізувати</string>
   <string name="threefoldRepetition">Триразове повторення</string>
   <string name="claimADraw">Оголосити нічию</string>
   <string name="drawClaimed">Оголошена нічия</string>

@@ -178,7 +178,7 @@
   <string name="toggleLocalEngine">Alternar motor local</string>
   <string name="engineSettings">Ajustes del motor</string>
   <string name="enginesFromStrongestToWeakest">Motores de los más fuertes a los más débiles</string>
-  <string name="illegalPositions">Las posiciones ilegales no pueden ser analizadas</string>
+  <string name="illegalPosition">Posición ilegal</string>
   <string name="threefoldRepetition">Triple repetición</string>
   <string name="claimADraw">Reclamar tablas</string>
   <string name="drawClaimed">Tablas reclamadas</string>
