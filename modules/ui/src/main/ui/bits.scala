@@ -115,7 +115,7 @@ object bits:
 
   def markdownEditor(realm: MarkdownRealm)(textareaTag: Tag)(using
       imageGetOrigin: ImageGetOrigin
-  )(using ctx: Context) =
+  )(using ctx: Context)(using Translate) =
     val editorClass = if realm.toastUi then "markdown-toastui" else "markdown-textarea"
     val canUploadImages = ctx.me.soUse(lila.core.security.canUploadImages(realm.key))
     val uploadUrl = canUploadImages.option(routes.Main.uploadImage(realm))
