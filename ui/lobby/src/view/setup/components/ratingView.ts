@@ -9,8 +9,7 @@ import type LobbyController from '@/ctrl';
 export const ratingView = ({ opts, data, setupCtrl }: LobbyController): MaybeVNode => {
   if (site.blindMode || !data.ratingMap) return null;
 
-  const selectedPerf = setupCtrl.selectedPerf();
-  const perf = (Object.keys(perfNames) as (VariantKey | Speed)[]).find(key => key === selectedPerf);
+  const perf = setupCtrl.selectedPerf();
 
   if (!perf) return undefined;
 
