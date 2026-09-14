@@ -1,8 +1,8 @@
+import type { Api as CgApi } from '@lichess-org/chessground/api';
 import { opposite, parseSquare } from 'chessops';
 import { normalizeMove } from 'chessops/chess';
 
 import { prop, toggle, type Prop, type Toggle } from 'lib';
-import type { Api as CgApi } from '@lichess-org/chessground/api';
 import type { TopOrBottom } from 'lib/game';
 import { ClockCtrl, type ClockOpts } from 'lib/game/clock/clockCtrl';
 import type { WithGround } from 'lib/game/ground';
