@@ -89,7 +89,7 @@ export class SoundCtrl extends PaneCtrl {
       },
       modal: true,
       easyClose: 'clickOutside',
-      vnodes: [content],
+      vnodes: content,
       onInsert: dlg => {
         dlg.show();
         dlg.view.querySelector('.active')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -99,35 +99,58 @@ export class SoundCtrl extends PaneCtrl {
 
   private readonly getCurrent = (): Key => (site.sound.speech() ? 'speech' : site.sound.theme);
 
-  private renderVoiceSelection(): VNode | false {
+  private renderVoiceSelection(): VNode[] | false {
     const selectedVoice = site.sound.getVoice();
     const voiceMap = site.sound.getVoiceMap();
-    return voiceMap.size < 2
+    const rate = Number(localStorage.getItem('speech.rate')) || 1;
+    return voiceMap.size === 0
       ? false
-      : h(
-          'div.selector',
-          [...voiceMap.keys()]
-            .sort((a, b) => a.localeCompare(b))
-            .map(name =>
-              h(
-                'button.text',
-                {
-                  hook: bind('click', event => {
-                    const target = event.target as HTMLElement;
-                    site.sound.setVoice(voiceMap.get(target.textContent)!);
-                    site.sound.say('Speech synthesis ready');
-                    this.redraw();
-                  }),
-                  class: { active: name === selectedVoice?.name },
-                  attrs: {
-                    ...(name === selectedVoice?.name ? dataIcon(licon.Checkmark) : {}),
-                    type: 'button',
+      : [
+          h('div.rate', [
+            'Rate',
+            h('input.rate', {
+              attrs: { ...site.sound.voiceRateRange, step: 0.05, type: 'range', value: rate },
+              hook: onInsert<HTMLInputElement>(el => {
+                el.onchange = () => {
+                  localStorage.setItem('speech.rate', el.value);
+                  site.sound.say('Speech synthesis ready');
+                };
+              }),
+            }),
+            h('button', {
+              attrs: { type: 'button', ...dataIcon(licon.Back) },
+              hook: bind('click', () => {
+                const input = document.querySelector<HTMLInputElement>('input.rate')!;
+                input.value = '1';
+                input.onchange?.(new Event('change'));
+              }),
+            }),
+          ]),
+          h(
+            'div.selector',
+            [...voiceMap.keys()]
+              .sort((a, b) => a.localeCompare(b))
+              .map(name =>
+                h(
+                  'button.text',
+                  {
+                    hook: bind('click', event => {
+                      const target = event.target as HTMLElement;
+                      site.sound.setVoice(voiceMap.get(target.textContent)!);
+                      site.sound.say('Speech synthesis ready');
+                      this.redraw();
+                    }),
+                    class: { active: name === selectedVoice?.name },
+                    attrs: {
+                      ...(name === selectedVoice?.name ? dataIcon(licon.Checkmark) : {}),
+                      type: 'button',
+                    },
                   },
-                },
-                name,
+                  name,
+                ),
               ),
-            ),
-        );
+          ),
+        ];
   }
 
   private readonly postSet = throttlePromiseDelay(
