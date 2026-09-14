@@ -126,7 +126,6 @@
     @extend %flex-column;
 
     align-items: center;
-    justify-content: space-around;
     gap: 1em;
   }
 
@@ -152,7 +151,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-areas: 'buttons buttons' 'voice voice' 'keyboard keyboard';
-    row-gap: 1vh;
+    gap: 1vh 8px;
 
     @media (min-width: at-least($x-small)) {
       grid-template-areas: 'keyboard voice' 'buttons buttons';
@@ -170,6 +169,8 @@
     }
 
     input.keyboard {
+      @include backdrop-blur-if-transparent;
+
       width: 4em;
       margin-inline-end: 1em;
     }
@@ -191,8 +192,6 @@
 
     button.file-rank {
       height: 3em;
-      border-width: 3px;
-      font-weight: bold;
     }
   }
 
@@ -203,8 +202,10 @@
   }
 
   .settings {
+    @include backdrop-blur-if-transparent;
     @extend %flex-column;
 
     gap: $block-gap;
+    padding-inline: 8px;
   }
 }
