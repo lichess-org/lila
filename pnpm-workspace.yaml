@@ -20,6 +20,7 @@ ignoredOptionalDependencies:
   - '@ox*/*-netbsd-*'
   - '@ox*/*-sunos-*'
 allowBuilds:
+  chessground3D: true
   esbuild: true
 overrides:
   fast-uri: ^3.1.7
