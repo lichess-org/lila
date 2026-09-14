@@ -1,11 +1,10 @@
-import { variants as variantNames } from 'lib/game/perf';
 import { storage } from 'lib/storage';
 import { confirm } from 'lib/view';
 
 type ActualVariant = Exclude<VariantKey, 'standard' | 'fromPosition'>;
 
 const variantConfirm = (variant: ActualVariant): string =>
-  `${variantNames[variant]}\n\n${i18n.variant[`${variant}Title`]}`;
+  `${i18n.variant[variant]}\n\n${i18n.variant[`${variant}Title`]}`;
 
 const storageKey = (key: ActualVariant) => `lobby.variant.${key}`;
 

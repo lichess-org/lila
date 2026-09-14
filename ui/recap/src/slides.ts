@@ -1,6 +1,7 @@
 import { COLORS } from 'chessops';
 
 import { shuffle } from 'lib/algo';
+import { perfName } from 'lib/game/perf';
 import perfIcons from 'lib/game/perfIcons';
 import { currencyFormat, numberFormat, percentFormat } from 'lib/i18n';
 import { licon } from 'lib/licon';
@@ -31,7 +32,7 @@ import { fullName, profileUrl, userFlair, userTitle } from 'lib/view/userLink';
 import { pieceGrams, totalGames } from './constants';
 import type { Counted, Opening, Recap, Sources, RecapPerf, Opts } from './interfaces';
 import { loadOpeningLpv } from './ui';
-import { formatDuration, perfIsSpeed, perfLabel } from './util';
+import { formatDuration, perfLabel } from './util';
 
 const confettiCanvas = (): VNode =>
   canvas('#confetti', {
@@ -302,10 +303,7 @@ export const patron = ({ costs, user }: Opts): VNode =>
   ]);
 
 const renderPerf = ({ key }: RecapPerf): VNode => {
-  return span([
-    icon(perfIcons[key])('.text'),
-    !perfIsSpeed(key) ? i18n.variant[key] : key !== 'ultraBullet' ? i18n.site[key] : key,
-  ]);
+  return span([icon(perfIcons[key])('.text'), perfName(key)]);
 };
 
 const stat = (value: string | VNode, label: string): VNode =>

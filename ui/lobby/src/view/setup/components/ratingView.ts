@@ -1,6 +1,6 @@
 import { h } from 'snabbdom';
 
-import { perfNames } from 'lib/game/perf';
+import { perfName } from 'lib/game/perf';
 import perfIcons from 'lib/game/perfIcons';
 import { dataIcon, icon, type MaybeVNode } from 'lib/view';
 
@@ -16,7 +16,7 @@ export const ratingView = ({ opts, data, setupCtrl }: LobbyController): MaybeVNo
   return h(
     'div.ratings',
     !opts.showRatings
-      ? [icon(perfIcons[perf])(), perfNames[perf]]
+      ? [icon(perfIcons[perf])(), perfName(perf)]
       : [
           ...i18n.site.yourRatingIsX.asArray(
             h(
@@ -25,7 +25,7 @@ export const ratingView = ({ opts, data, setupCtrl }: LobbyController): MaybeVNo
               setupCtrl.myRating() + (setupCtrl.isProvisional() ? '?' : ''),
             ),
           ),
-          perfNames[perf],
+          perfName(perf),
         ],
   );
 };

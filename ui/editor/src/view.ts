@@ -69,8 +69,8 @@ function studyButton(ctrl: EditorCtrl, state: EditorState): VNode {
   ]);
 }
 
-function variantOption(key: VariantKey, name: string, ctrl: EditorCtrl): VNode {
-  return option({ value: key, selected: key === ctrl.variant }, `${i18n.site.variant} | ${name}`);
+function variantOption(key: VariantKey, current: VariantKey): VNode {
+  return option({ value: key, selected: key === current }, `${i18n.site.variant} | ${i18n.variant[key]}`);
 }
 
 function endgamePositionOption(pos: EndgamePosition): VNode {
@@ -269,9 +269,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
                   },
                 },
               },
-              Object.entries(variants).map(([variant, name]: [VariantKey, string]) =>
-                variantOption(variant, name, ctrl),
-              ),
+              variants.map(variant => variantOption(variant, ctrl.variant)),
             ),
           ]),
           chess960PositionIdSelector,

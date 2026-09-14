@@ -1,26 +1,18 @@
-export const speeds: Record<Speed, string> = {
-  ultraBullet: i18n.site.ultraBullet,
-  bullet: i18n.site.bullet,
-  blitz: i18n.site.blitz,
-  rapid: i18n.site.rapid,
-  classical: i18n.site.classical,
-  correspondence: i18n.site.correspondence,
-};
+export const variants: VariantKey[] = [
+  'standard',
+  'chess960',
+  'kingOfTheHill',
+  'threeCheck',
+  'antichess',
+  'atomic',
+  'horde',
+  'racingKings',
+  'crazyhouse',
+  'fromPosition',
+];
 
-export const variants: Record<VariantKey, string> = {
-  standard: i18n.variant.standard,
-  chess960: i18n.variant.chess960,
-  kingOfTheHill: i18n.variant.kingOfTheHill,
-  threeCheck: i18n.variant.threeCheck,
-  antichess: i18n.variant.antichess,
-  atomic: i18n.variant.atomic,
-  horde: i18n.variant.horde,
-  racingKings: i18n.variant.racingKings,
-  crazyhouse: i18n.variant.crazyhouse,
-  fromPosition: i18n.variant.fromPosition,
-};
+export const perfIsVariant = (perf: Speed | VariantKey): perf is VariantKey =>
+  variants.includes(perf as VariantKey);
 
-export const perfNames: Record<Speed | VariantKey, string> = {
-  ...speeds,
-  ...variants,
-};
+export const perfName = (perf: Speed | VariantKey): string =>
+  perfIsVariant(perf) ? i18n.variant[perf] : i18n.site[perf];
