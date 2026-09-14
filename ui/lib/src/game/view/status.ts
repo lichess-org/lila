@@ -100,7 +100,7 @@ export function statusOf(d: StatusData): string {
           return `${d.ply % 2 === 0 ? i18n.site.whiteLeftTheGame : i18n.site.blackLeftTheGame} • ${i18n.site.draw}`;
       }
     case 'draw': {
-      if (d.fiftyMoves || isFiftyMoves(d.fen))
+      if (d.fiftyMoves || isFiftyMoves(d.variant, d.fen))
         return `${i18n.site.fiftyMovesWithoutProgress} • ${i18n.site.draw}`;
       if (d.threefold) return `${i18n.site.threefoldRepetition} • ${i18n.site.draw}`;
       if (insufficientMaterial(d.variant, d.fen))

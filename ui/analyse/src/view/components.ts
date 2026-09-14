@@ -264,7 +264,7 @@ export function renderResult(ctrl: AnalyseCtrl): VNode[] {
     if (result === '½-0') return render(result, i18n.study.blackDefeatWhiteCanNotWin);
     if (result === '0-½') return render(result, i18n.study.whiteDefeatBlackCanNotWin);
     return render('½-½', i18n.site.draw);
-  } else if (isFiftyMoves(treeOps.last(ctrl.mainline)?.fen ?? '')) {
+  } else if (!ctrl.study && isFiftyMoves(ctrl.variantKey, treeOps.last(ctrl.mainline)?.fen ?? '')) {
     return render('½-½', `${i18n.site.fiftyMovesWithoutProgress} • ${i18n.site.draw}`);
   }
   return [];

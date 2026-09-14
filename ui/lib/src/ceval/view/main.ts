@@ -157,7 +157,7 @@ export function renderCeval(ctrl: CevalHandler): VNode[] {
     bestEv = threat || getBestEval(ctrl),
     search = ceval.search,
     download = ceval.download,
-    fiftyMoves = isFiftyMoves(node.fen);
+    fiftyMoves = isFiftyMoves(ceval.opts.variant.key, node.fen);
   let pearl: LooseVNode,
     percent = 0;
 

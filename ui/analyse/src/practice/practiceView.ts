@@ -43,7 +43,7 @@ const renderOffTrack = (ctrl: PracticeCtrl): VNode =>
 
 function renderEnd(root: AnalyseCtrl, end: Outcome): VNode {
   const color = end.winner || root.turnColor();
-  const fiftyMoves = root.practice && isFiftyMoves(root.practice.currentNode().fen);
+  const fiftyMoves = root.practice && isFiftyMoves(root.variantKey, root.practice.currentNode().fen);
   return hl('div.player', [
     color ? hl('div.no-square', hl('piece.king.' + color)) : hl('div.icon.off', '!'),
     hl('div.instruction', [
@@ -107,7 +107,7 @@ export default function (root: AnalyseCtrl): VNode | undefined {
   const ctrl = root.practice;
   if (!ctrl) return undefined;
   const comment: Comment | null = ctrl.comment();
-  const fiftyMoves = isFiftyMoves(ctrl.currentNode().fen);
+  const fiftyMoves = isFiftyMoves(root.variantKey, ctrl.currentNode().fen);
   const running: boolean = ctrl.running();
   const end = ctrl.currentNode().threefold || fiftyMoves ? { winner: undefined } : root.node.outcome();
   return hl('div.practice-box.training-box.sub-box.' + (comment ? comment.verdict : 'no-verdict'), [
