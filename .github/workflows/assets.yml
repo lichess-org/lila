@@ -38,6 +38,11 @@ jobs:
         with:
           node-version-file: .node-version
           cache: 'pnpm'
+      - name: Upgrade corepack and activate pnpm
+        run: |
+          npm install --global corepack@latest
+          corepack enable
+          corepack prepare pnpm@11.22.0 --activate
       - name: Install pnpm dependencies
         run: pnpm install
       - name: Checkout ab (optional)
