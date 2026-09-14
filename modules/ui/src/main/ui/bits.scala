@@ -134,8 +134,8 @@ object bits:
       uploadUrl.map(url => attr("data-image-upload-url") := url)
     )(
       div(cls := "header")(
-        button(cls := "header-tab write-tab active", tpe := "button")("Write"),
-        button(cls := "header-tab preview-tab", tpe := "button")("Preview"),
+        button(cls := "header-tab write-tab active", tpe := "button")(trans.ublog.write()),
+        button(cls := "header-tab preview-tab", tpe := "button")(trans.ublog.preview()),
         imageUploadButton
       ),
       div(cls := "content")(
