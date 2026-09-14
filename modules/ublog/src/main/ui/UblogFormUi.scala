@@ -154,7 +154,7 @@ final class UblogFormUi(helpers: Helpers, ui: UblogUi)(
     targetBlank
   )(trans.ublog.blogTips())
 
-  val ads = a(
+  val ads(using Translate) = a(
     dataIcon := Icon.InfoCircle,
     href := routes.Cms.lonePage(CmsPageKey("blog-etiquette")),
     cls := "text",
