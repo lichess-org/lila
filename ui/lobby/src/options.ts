@@ -26,7 +26,4 @@ export const variantsWhereWhiteIsBetter: VariantKey[] = [
   'threeCheck',
 ];
 
-export const gameModes: { key: GameMode; name: string }[] = [
-  { key: 'casual', name: i18n.site.casual },
-  { key: 'rated', name: i18n.site.rated },
-];
+export const gameModes: GameMode[] = ['casual', 'rated'];
