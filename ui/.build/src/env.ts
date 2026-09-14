@@ -56,6 +56,7 @@ export const env = new (class {
   install = true;
   logTime = true;
   logCtx = true;
+  noColor = false;
   logSep = ` ${pc.dim('⏵')} `;
   remoteLog: string | boolean = false;
   startTime?: number;
