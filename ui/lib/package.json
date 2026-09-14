@@ -20,7 +20,7 @@
       "node_modules/stockfish*/*.{js,wasm}": "/public/npm",
       "node_modules/@lichess-org/stockfish-web/*.{js,wasm}": "/public/npm/stockfish-web",
       "node_modules/@lichess-org/zerofish/dist/zerofishEngine*.{js,wasm}": "/public/npm",
-      "/node_modules/chessground3D/public/scene.glb": "/public",
+      "/node_modules/chessground3D/assets/scene.glb": "/public",
       "/node_modules/@lichess-org/chessground/dist/chessground.min.js": "/public/npm"
     },
     "hash": [
