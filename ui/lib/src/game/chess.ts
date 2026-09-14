@@ -27,6 +27,13 @@ export const pieceCount = (fen: FEN): number => fen.split(/\s/)[0].split(/[nbrqk
 export const isFiftyMoves = (variant: VariantKey, fen: FEN): boolean =>
   variant !== 'crazyhouse' && Number(fen.split(/\s/)[4]) >= 100;
 
+// Clock may be ≥ 100 while checkmate/stalemate still takes priority.
+export const isFiftyMoveDraw = (
+  variant: VariantKey,
+  fen: FEN,
+  outcome: { winner?: Color } | undefined | null,
+): boolean => !outcome && isFiftyMoves(variant, fen);
+
 export function fen960(): string {
   const [dark, light] = [2 * Math.floor(Math.random() * 4), 1 + 2 * Math.floor(Math.random() * 4)];
   const files = shuffle([0, 1, 2, 3, 4, 5, 6, 7].filter(f => f !== dark && f !== light));

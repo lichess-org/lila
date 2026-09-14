@@ -6,7 +6,7 @@ import { renderEval as normalizeEval } from 'lib/ceval';
 import { dispatchChessgroundResize } from 'lib/chessgroundResize';
 import { isMobile } from 'lib/device';
 import { playable } from 'lib/game';
-import { fixCrazySan, plyToTurn, isFiftyMoves } from 'lib/game/chess';
+import { fixCrazySan, plyToTurn, isFiftyMoveDraw } from 'lib/game/chess';
 import statusView from 'lib/game/view/status';
 import { licon } from 'lib/licon';
 import * as Prefs from 'lib/prefs';
@@ -264,7 +264,9 @@ export function renderResult(ctrl: AnalyseCtrl): VNode[] {
     if (result === '½-0') return render(result, i18n.study.blackDefeatWhiteCanNotWin);
     if (result === '0-½') return render(result, i18n.study.whiteDefeatBlackCanNotWin);
     return render('½-½', i18n.site.draw);
-  } else if (!ctrl.study && isFiftyMoves(ctrl.variantKey, treeOps.last(ctrl.mainline)?.fen ?? '')) {
+  }
+  const last = treeOps.last(ctrl.mainline);
+  if (!ctrl.study && last && isFiftyMoveDraw(ctrl.variantKey, last.fen, last.outcome())) {
     return render('½-½', `${i18n.site.fiftyMovesWithoutProgress} • ${i18n.site.draw}`);
   }
   return [];
