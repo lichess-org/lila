@@ -1,7 +1,8 @@
 import { opposite, parseSquare } from 'chessops';
 import { normalizeMove } from 'chessops/chess';
 
-import { prop, toggle, type Toggle } from 'lib';
+import { prop, toggle, type Prop, type Toggle } from 'lib';
+import type { Api as CgApi } from '@lichess-org/chessground/api';
 import type { TopOrBottom } from 'lib/game';
 import { ClockCtrl, type ClockOpts } from 'lib/game/clock/clockCtrl';
 import type { WithGround } from 'lib/game/ground';
@@ -35,7 +36,7 @@ export default class PlayCtrl {
   flipped: Toggle = toggle(false);
   blindfold: Toggle;
   // will be replaced by view layer
-  ground = prop<CgApi | false>(false);
+  ground: Prop<CgApi | false> = prop<CgApi | false>(false);
   autoScroll: () => void = () => {};
   constructor(readonly opts: PlayOpts) {
     this.game = opts.game;
