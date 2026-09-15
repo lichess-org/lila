@@ -148,17 +148,16 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, pageMenu: RelayMenuUi):
           div(cls := "relay-form__actions")(
             postForm(action := routes.RelayRound.reset(r.id))(
               submitButton(
-                cls := "button button-red button-empty yes-no-confirm"
-              )(
-                strong(trb.resetRound()),
-                em(trb.deleteAllGamesOfThisRound())
-              )
+                cls := "button button-red button-empty yes-no-confirm",
+                title := trb.deleteAllGamesOfThisRound.txt()
+              )(strong(trb.resetRound()))
             ),
             (Granter.opt(_.StudyAdmin) || ctx.me.exists(nav.tour.isOwnedBy)).option:
               postForm(action := routes.Study.delete(r.studyId))(
                 submitButton(
-                  cls := "button button-red button-empty yes-no-confirm"
-                )(strong(trb.deleteRound()), em(trb.permanentlyDeleteRound()))
+                  cls := "button button-red button-empty yes-no-confirm",
+                  title := trb.permanentlyDeleteRound.txt()
+                )(strong(trb.deleteRound()))
               )
           )
         )
