@@ -477,7 +477,7 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
   private def playbanMenu(using Context): Branch =
     Branch(
       "root",
-      tap.playTimeout(),
+      tap.temporarilyRestrictedFromPlaying(),
       List(
         Leaf(
           "playban-abort",

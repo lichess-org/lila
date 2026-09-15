@@ -129,8 +129,8 @@ export function initModule(): StudyTour {
         when: onTab('edit'),
       },
       {
-        title: i18n.study.loadExistingLichessGameTitle,
-        text: i18n.study.loadExistingLichessGameText,
+        title: i18n.study.loadGameFromTheWebTitle,
+        text: i18n.study.loadGameFromTheWebText,
         attachTo: { element: `${viewSel} .tabs-horiz .game`, on: 'top' },
         when: onTab('game'),
       },

@@ -94,7 +94,7 @@ final class PerfStatUi(helpers: Helpers)(communityMenu: Context ?=> Frag):
   private def glicko(u: User, pt: PerfType, perf: Perf, percentile: Option[Double])(using Context): Frag =
     st.section(cls := "glicko")(
       h2(
-        trans.site.perfRatingX(
+        trans.site.perfRatingLabel(
           strong(
             if perf.glicko.clueless then "?"
             else decimal(perf.glicko.rating).toString
@@ -109,10 +109,12 @@ final class PerfStatUi(helpers: Helpers)(communityMenu: Context ?=> Frag):
             )("(", tps.provisional(), ")")
           )
         ),
-        ". ",
         percentile.filter(_ != 0.0 && perf.glicko.provisional.no).map { percentile =>
-          span(cls := "details")(
-            percentileText(u, pt, percentile)
+          frag(
+            " ",
+            span(cls := "details")(
+              percentileText(u, pt, percentile)
+            )
           )
         }
       ),

@@ -34,7 +34,7 @@ ${trans.emailChange_click.txt()}
 
 $url
 
-${trans.common_orPaste.txt()}
+${trans.common_linkNotWorking.txt()}
 """),
             htmlBody = emailMessage(
               pDesc(trans.emailChange_intro()),

@@ -148,17 +148,16 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, pageMenu: RelayMenuUi):
           div(cls := "relay-form__actions")(
             postForm(action := routes.RelayRound.reset(r.id))(
               submitButton(
-                cls := "button button-red button-empty yes-no-confirm"
-              )(
-                strong(trb.resetRound()),
-                em(trb.deleteAllGamesOfThisRound())
-              )
+                cls := "button button-red button-empty yes-no-confirm",
+                title := trb.deleteAllGamesOfThisRound.txt()
+              )(strong(trb.resetRound()))
             ),
             (Granter.opt(_.StudyAdmin) || ctx.me.exists(nav.tour.isOwnedBy)).option:
               postForm(action := routes.Study.delete(r.studyId))(
                 submitButton(
-                  cls := "button button-red button-empty yes-no-confirm"
-                )(strong(trb.deleteRound()), em(trb.definitivelyDeleteRound()))
+                  cls := "button button-red button-empty yes-no-confirm",
+                  title := trb.permanentlyDeleteRound.txt()
+                )(strong(trb.deleteRound()))
               )
           )
         )
@@ -541,8 +540,9 @@ Hanna Marie ; Kozul, Zdenko"""),
             (!nav.tour.official && (Granter.opt(_.StudyAdmin) || nav.tour.isOwnedBy(me))).option:
               postForm(action := routes.RelayTour.delete(nav.tour.id))(
                 submitButton(
-                  cls := "button button-red button-empty yes-no-confirm"
-                )(strong(trb.deleteTournament()), em(trb.definitivelyDeleteTournament()))
+                  cls := "button button-red button-empty yes-no-confirm",
+                  title := trb.permanentlyDeleteTournament.txt()
+                )(strong(trb.deleteTournament()))
               )
             ,
             Granter
@@ -550,11 +550,9 @@ Hanna Marie ; Kozul, Zdenko"""),
               .option(
                 postForm(action := routes.RelayTour.cloneTour(nav.tour.id))(
                   submitButton(
-                    cls := "button button-green button-empty yes-no-confirm"
-                  )(
-                    strong("Clone as broadcast admin"),
-                    em("Clone this broadcast, its rounds, and their studies")
-                  )
+                    cls := "button button-green button-empty yes-no-confirm",
+                    title := "Clone this broadcast, its rounds, and their studies?"
+                  )(strong("Clone as broadcast admin"))
                 )
               )
           )

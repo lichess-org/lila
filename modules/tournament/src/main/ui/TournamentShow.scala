@@ -150,7 +150,8 @@ final class TournamentShow(helpers: Helpers, gathering: GatheringUi)(
             shieldOwner.map: owner =>
               st.section(cls := "description")(
                 p(cls := "defender", dataIcon := Icon.Shield)(
-                  trans.arena.defender(),
+                  trans.arena.defenderLabel(),
+                  " ",
                   userIdLink(owner.some)
                 )
               ),
@@ -262,7 +263,7 @@ final class TournamentShow(helpers: Helpers, gathering: GatheringUi)(
         p(tra.berserkAnswer()),
         h2(tra.howIsTheWinnerDecided()),
         p(tra.howIsTheWinnerDecidedAnswer()),
-        h2(tra.howDoesPairingWork()),
+        h2(tra.howArePlayersPaired()),
         p(tra.howDoesPairingWorkAnswer()),
         h2(tra.howDoesItEnd()),
         p(tra.howDoesItEndAnswer()),
