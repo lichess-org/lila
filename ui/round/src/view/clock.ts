@@ -41,7 +41,7 @@ function whosTurn(ctrl: RoundController, color: Color, position: TopOrBottom) {
       hl(
         'div.rclock-turn__text',
         d.player.spectator
-          ? i18n.site[d.game.player === 'white' ? 'whitePlays' : 'blackPlays']
+          ? i18n.site[`${d.game.player}Plays`]
           : i18n.site[d.game.player === d.player.color ? 'yourTurn' : 'waitingForOpponent'],
       ),
   );
