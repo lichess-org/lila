@@ -52,6 +52,12 @@
   <string name="FIDEHandbook">ФИДЕ приручником</string>
   <string name="pairingsA">Са %1$s, имплементираним од стране %2$s, у складу са %3$s.</string>
   <string name="moreRoundsThanPlayersQ">Шта се деси ако турнир има више рунди него играча?</string>
+  <string name="moreRoundsThanPlayersA">Када су сви могући парови одиграни, турнир ће бити завршен и победник проглашен.</string>
+  <string name="restrictedToTeamsQ">Зашто је ограничено на тимове?</string>
+  <string name="numberOfByesQ">Колико слободних рунди играч може добити?</string>
+  <string name="numberOfByesA">Играч добија слободну рунду од једног бода сваки пут када систем за упаривање не може наћи пар за њега.
+Додатно, једна слободна рунда од пола бода је дата када се играч касно придружи у турнир.</string>
+  <string name="whatIfOneDoesntPlayQ">Шта се деси ако играч не одигра партију?</string>
   <string name="lateJoinUntil">Да док више од половине рунди не почне</string>
   <string name="streaksAndBerserk">Низови и Берсерк</string>
   <string name="absences">Изостанци</string>

@@ -187,6 +187,7 @@
   </plurals>
   <string name="moveTimes">Časi za poteze</string>
   <string name="flipBoard">Obrni igralno desko</string>
+  <string name="illegalPosition">Nedovoljen položaj</string>
   <string name="threefoldRepetition">Trikratna ponovitev</string>
   <string name="claimADraw">Zahtevaj remi</string>
   <string name="drawClaimed">Zahtevan remi</string>
