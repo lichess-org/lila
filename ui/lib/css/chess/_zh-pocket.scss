@@ -55,6 +55,10 @@
     &.premove {
       background-color: #555;
     }
+
+    &.selected {
+      background-color: rgb(20 85 30 / 0.5);
+    }
   }
 
   &.usable {
