@@ -6,6 +6,7 @@ import * as treeOps from 'lib/tree/ops';
 import type { LocalEval, TreeNodeLite, TreePath } from 'lib/tree/types';
 
 import type AnalyseCtrl from './ctrl';
+import { pruneStaticAnalysis } from './util';
 
 export type DiscloseState = undefined | 'expanded' | 'collapsed';
 export class IdbTree {
@@ -104,6 +105,7 @@ export class IdbTree {
       delete node.ceval;
       delete node.threat;
     });
+    pruneStaticAnalysis(root);
     return this.moveDb().then(db => db.put(this.id, { root }));
   }
 
@@ -190,7 +192,7 @@ export class IdbTree {
       (second && treeOps.hasBranching(second, 6)) ||
       (isMainline &&
         this.ctrl.treeView.mode === 'column' &&
-        (second || first?.comments?.filter(Boolean).length)),
+        (second || first?.comments?.filter(Boolean).filter(comment => !comment.comp).length)),
     );
   }
 
