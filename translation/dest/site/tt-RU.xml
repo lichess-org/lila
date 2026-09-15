@@ -661,7 +661,6 @@
   <string name="background">Җирлек</string>
   <string name="light">Ачык</string>
   <string name="dark">Караңгы</string>
-  <string name="transparent">Үтә күренмәле</string>
   <string name="deviceTheme">Җиһаз темасы</string>
   <string name="backgroundImageUrl">Арткы караныш рәсеме URL:</string>
   <string name="board">Такта</string>

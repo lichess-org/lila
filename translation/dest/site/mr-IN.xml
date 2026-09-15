@@ -438,7 +438,6 @@
   <string name="apply">लागू करा</string>
   <string name="save">जतन करा</string>
   <string name="leaderboard">आघाडीचे खेळाडू</string>
-  <string name="screenshotCurrentPosition">आत्ताच्या स्थितीचा स्क्रीनशॉट</string>
   <string name="gameAsGIF">GIF म्हणून खेळ</string>
   <string name="playerNames">खेळाडूंची नावे</string>
   <string name="moveAnnotations">डावांचे भाष्ये</string>
@@ -551,7 +550,6 @@
   <string name="oneUrlPerLine">एक ओळीत एक URL.</string>
   <string name="inlineNotation">ओळीत स्वरलिपी</string>
   <string name="makeAStudy">सुरक्षित ठेवण्यासाठी आणि लोकांना पाठवण्यासाठी एक  अभ्यासिका बनवा.</string>
-  <string name="clearSavedMoves">चाली पुसा</string>
   <string name="previouslyOnLichessTV">यापूर्वी Lichess दूरदर्शनवर</string>
   <string name="onlinePlayers">उपलब्ध खेळाडू</string>
   <string name="activePlayers">सक्रिय बुद्धिबळपटू</string>
@@ -830,7 +828,6 @@
   <string name="theme">विषय</string>
   <string name="light">सौम्य</string>
   <string name="dark">गडद</string>
-  <string name="transparent">पारदर्शक</string>
   <string name="picture">चित्र</string>
   <string name="deviceTheme">उपकरणानुसार</string>
   <string name="roundness">वर्तुळाकारता</string>

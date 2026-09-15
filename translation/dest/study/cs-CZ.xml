@@ -196,6 +196,7 @@
   <string name="customPositionTitle">Vlastní pozice</string>
   <string name="customPositionText">Nastavte si desku jak chcete.&lt;br&gt;Vhodná ke studiu koncovek.</string>
   <string name="loadExistingLichessGameTitle">Načíst existující lichess hru</string>
+  <string name="loadGameFromTheWebTitle" comment="Replaces old string loadExistingLichessGameTitle">Načíst hru z webu</string>
   <string name="loadExistingLichessGameText">Vložte lichess game URL&lt;br&gt;(jako lichess.org/7fHIU0XI)&lt;br&gt;pro načtení hry pohyby v kapitole.</string>
   <string name="fromFenStringTitle">Z FEN</string>
   <string name="fromFenStringText">Vložte pozici do FEN formátu&lt;br&gt;&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;&lt;br&gt;a začněte kapitolu z pozice.</string>

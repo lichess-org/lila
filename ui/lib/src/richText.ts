@@ -4,6 +4,8 @@
 // Refactored for https://github.com/lichess-org/lila/issues/7342 request
 import type { Hooks, VNode } from 'snabbdom';
 
+import { profileUrl } from '@/view/userLink';
+
 import { escapeHtml } from './common';
 
 // from https://github.com/bryanwoods/autolink-js/blob/master/autolink.js
@@ -25,7 +27,7 @@ const linkHtml = (href: string, content: string, expandable = true): string =>
   `<a${expandable ? '' : ' class="text"'} target="_blank" rel="nofollow noreferrer" href="${href}">${content}</a>`;
 
 export function toLink(url: string): string {
-  if (!url.match(/^[A-Za-z]+:\/\//)) url = 'https://' + url;
+  if (!/^[A-Za-z]+:\/\//.test(url)) url = 'https://' + url;
   return linkHtml(url, url.replace(/https?:\/\//, ''));
 }
 
@@ -53,7 +55,7 @@ export function linkReplace(href: string, body?: string, expandable = true): str
 }
 
 export const userLinkReplace = (_: string, prefix: string, user: string): string =>
-  prefix + linkReplace('/@/' + user, '@' + user);
+  prefix + linkReplace(profileUrl(user), '@' + user);
 
 export const expandMentions = (html: string): string => html.replace(userPattern, userLinkReplace);
 
@@ -85,7 +87,7 @@ const addPlies = (html: string) => html.replace(movePattern, moveReplacer);
 const addBoards = (html: string) => html.replace(boardPattern, boardReplacer);
 
 const userLinkReplacePawn = (orig: string, prefix: string, user: string) =>
-  user.match(pawnDropPattern) ? orig : userLinkReplace(orig, prefix, user);
+  pawnDropPattern.test(user) ? orig : userLinkReplace(orig, prefix, user);
 
 export interface EnhanceOpts {
   plies?: boolean;

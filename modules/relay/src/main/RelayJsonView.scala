@@ -132,7 +132,7 @@ final class RelayJsonView(
   def myRound(r: RelayRound.WithTourAndStudy)(using me: Option[Me])(using Translate) =
 
     def allowed(selection: Settings => Settings.UserSelection): Boolean =
-      Settings.UserSelection.allows(selection(r.study.settings), r.study, me.map(_.userId))
+      Settings.UserSelection.allows(selection(r.study.settings), r.study, me)
 
     val cheatable = r.relay.sync.isInternalWithoutDelay && !r.relay.isFinished
 

@@ -88,7 +88,7 @@ final class TeamShowUi(helpers: Helpers, teamUi: TeamUi, requestUi: TeamRequestU
               ),
               modLog.nonEmpty.option:
                 div(cls := "team-show__log")(
-                  h2("Mod log"),
+                  h2(cls := "team-show__section-title")("Mod log"),
                   ul(modLog)
                 )
               ,
@@ -99,7 +99,7 @@ final class TeamShowUi(helpers: Helpers, teamUi: TeamUi, requestUi: TeamRequestU
               ),
               (team.enabled && requests.nonEmpty).option(
                 div(cls := "team-show__requests")(
-                  h2(trt.xJoinRequests.pluralSame(requests.size)),
+                  h2(cls := "team-show__section-title")(trt.xJoinRequests.pluralSame(requests.size)),
                   requestUi.list(requests, team.some)
                 )
               ),
@@ -107,7 +107,7 @@ final class TeamShowUi(helpers: Helpers, teamUi: TeamUi, requestUi: TeamRequestU
                 team.enabled.so(update).map(updateUi.teamLatest(team, _)),
                 (canSeeMembers && toursFrag.nonEmpty).option(
                   st.section(cls := "team-show__tour team-events team-tournaments")(
-                    h2(
+                    h2(cls := "team-show__section-title")(
                       a(dataIcon := Icon.Trophy, cls := "text", href := routes.Team.tournaments(team.id))(
                         trans.site.tournaments()
                       )
@@ -117,7 +117,7 @@ final class TeamShowUi(helpers: Helpers, teamUi: TeamUi, requestUi: TeamRequestU
                   )
                 ),
                 st.section(cls := "team-show__forum")(
-                  h2(
+                  h2(cls := "team-show__section-title")(
                     a(dataIcon := Icon.BubbleConvo, cls := "text", href := teamForumUrl(team.id))(
                       trans.site.forum()
                     )

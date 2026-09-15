@@ -124,13 +124,21 @@ case class Pref(
   def currentPieceSet = PieceSet.get(pieceSet)
   def currentPieceSet3d = PieceSet3d.get(pieceSet3d)
   def currentSoundSet = SoundSet(soundSet)
-  def currentBg: String =
+  def currentThemeData: String =
     if bg == Bg.DARK_TRANSP then "transp dark"
     else if bg == Bg.LIGHT_TRANSP then "transp light"
     else if bg == Bg.LIGHT then "light"
+    else if bg == Bg.DARK then "dark"
     else if bg == Bg.SYSTEM then "system"
     else if bg == Bg.SYSTEM_TRANSP then "transp system"
-    else "dark"
+    else ""
+  def currentThemeHtmlClass: String =
+    if bg == Bg.DARK_TRANSP then "transp dark"
+    else if bg == Bg.LIGHT_TRANSP then "transp light"
+    else if bg == Bg.LIGHT then "light"
+    else if bg == Bg.DARK then "dark"
+    else if bg == Bg.SYSTEM_TRANSP then "transp"
+    else ""
 
   def forceDarkBg = copy(bg = Bg.DARK)
 

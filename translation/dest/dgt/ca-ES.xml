@@ -21,6 +21,7 @@
   <string name="asALastResort">Com a últim recurs, distribueix el tauler de manera idèntica al de Lichess, després %s</string>
   <string name="reloadThisPage">Recarrega aquesta pàgina</string>
   <string name="dgtConfigure">Configuració DGT</string>
+  <string name="configureYourDgtBoard" comment="Replaces old string dgtConfigure">Configura el teu tauler DGT</string>
   <string name="lichessConnectivity">Connectivitat amb Lichess</string>
   <string name="validDgtOauthToken">Teniu un token OAuth adequat per jugar amb DGT.</string>
   <string name="dgtPlayMenuEntryAdded">L\'entrada %s s\'ha afegit al menú JUGAR a la part superior.</string>

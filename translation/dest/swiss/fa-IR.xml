@@ -66,6 +66,7 @@
   <string name="moreRoundsThanPlayersQ">اگر در تورنمت راند ها بیشتر از بازیکنان شود چه اتفاقی میافتد؟</string>
   <string name="moreRoundsThanPlayersA">هنگامی که تمام جفت های ممکن بازی شد، مسابقات به پایان می رسد و یک برنده اعلام می شود.</string>
   <string name="restrictedToTeamsQ">چرا محدود به تیم هاست؟</string>
+  <string name="whyAreSwissTournamentsRestrictedToTeams" comment="Replaces old string restrictedToTeamsQ">چرا مسابقاتِ سوئیسی محدود به تیم‌ها است؟</string>
   <string name="restrictedToTeamsA">مسابقات سوئیسی برای شطرنج برخط طراحی نشده‌اند. آنها به وقت‌شناسی، فداکاری و صبر بازیکنان نیاز دارند.
 ما فکر می کنیم که این شرایط در تیم بیشتر از مسابقات جهانی بر آورده می شود.
 ما فکر می‌کنیم این شرایط بیشتر در یک تیم برآورده می‌شود تا در مسابقات جهانی.</string>
@@ -86,6 +87,7 @@
   <string name="willSwissReplaceArenasQ">آیا مسابقات سوئیسی می توانند جایگزین آرنا شوند?</string>
   <string name="willSwissReplaceArenasA">خیر. آنها ویژگی های مکمل هستند.</string>
   <string name="roundRobinQ">دوره‌ای چطور؟</string>
+  <string name="canPlayRoundRobinTournaments" comment="roundRobinQ&#10;&#10;Round-robin is a simple tournament format with some similarities to Swiss. It is not supported by Lichess. Replaces old string roundRobinQ">آیا در Lichess می‌توانم در مسابقاتِ دوره‌ای شرکت کنم؟</string>
   <string name="roundRobinA">ما می‌خواهیم آن را بیفزاییم، اما متأسفانه دوره‌ایِ برخط مقدور نیست.
 دلیلش این است که هیچ راهِ عادلانه برای برخورد با افرادی که مسابقات را زودتر می‌ترکند، نیست. ما نمی‌توانیم انتظار داشته باشیم که همه بازیکنان تمام بازی‌های خود را در یک رویداد برخط انجامند. این اتفاق نخواهد افتاد و در نتیجه، اکثر مسابقات دوره‌ای ناقص و ناعادلانه خواهند بود، که دلیلِ وجودی آنها را از بین می‌برد.
 نزدیک‌ترین راه برای رسیدن به دوره‌ای برخط، شرکت در مسابقات سوئیسی با تعداد دورهای بسیار بالا است. در این صورت، تمام جُفت‌های ممکن قبل از پایانِ مسابقات بازی خواهد شد.</string>

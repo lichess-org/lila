@@ -16,7 +16,7 @@ final private class LeaderboardIndexer(
   import BSONHandlers.given
 
   // def generateAll: Funit =
-  //   leaderboardRepo.coll.delete.one($empty) >>
+  //   leaderboardRepo.coll.delete.one(emptyBdoc) >>
   //     tournamentRepo.coll
   //       .find(tournamentRepo.finishedSelect)
   //       .sort($sort desc "startsAt")
@@ -32,7 +32,7 @@ final private class LeaderboardIndexer(
   //       .void
 
   def indexOne(tour: Tournament): Funit =
-    (leaderboardRepo.coll.delete.one($doc("t" -> tour.id)) >>
+    (leaderboardRepo.coll.delete.one(bdoc("t" -> tour.id)) >>
       generateTourEntries(tour)).flatMap(saveEntries)
 
   private def saveEntries(entries: Seq[Entry]): Funit =

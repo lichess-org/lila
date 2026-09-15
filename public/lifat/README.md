@@ -8,14 +8,14 @@ NNUE models used by Website and mobile app.
 
 file | stockfish-web | mobile
 --- | --- | ---
-nn-4ca89e4b3abf.nnue | sf_18_smallnet
-nn-71d6d32cb962.nnue | sf_dev (dev-20260609-415ff793)
+nn-61e7af4bb97d.nnue | sf_19_smallnet
+nn-1a298aa575a0.nnue | sf_19
+nn-4ca89e4b3abf.nnue | sf_18_smallnet (retire soon)
+nn-71d6d32cb962.nnue | sf_dev (dev-20260609-415ff793, retire soon)
 nn-c288c895ea92.nnue | sf_18 | >=0.21.2
 nn-1c0000000000.nnue | sf_17.1 | >=0.15.10, <0.21.2
 nn-1111cefa1111.nnue | sf_17 | >=0.15.8, <0.15.10
-nn-9067e33176e8.nnue | sf_17_smallnet
 nn-37f18f62d772.nnue (small) | sf_17, sf_17.1, sf_18 | >=0.15.8
-nn-ecb35f70ff2a.nnue | sf_16_smallnet
 3check-cb5f517c228b.nnue | fsf_14
 antichess-dd3cbe53cd4e.nnue | fsf_14
 atomic-2cf13ff256cc.nnue | fsf_14
@@ -23,6 +23,10 @@ crazyhouse-8ebf84784ad2.nnue | fsf_14
 horde-28173ddccabe.nnue | fsf_14
 kingofthehill-978b86d0e6a4.nnue | fsf_14
 racingkings-636b95f085e3.nnue | fsf_14
+
+## maia
+
+Human sparring networks from https://lczero.org/play/networks/sparring-nets/, used by the mobile app.
 
 ## Licensing
 

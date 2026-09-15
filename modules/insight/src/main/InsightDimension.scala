@@ -368,54 +368,54 @@ object InsightDimension:
   def filtersOf[X](d: InsightDimension[X], selected: List[X]): Bdoc =
 
     def percentRange[V: BSONWriter](toRange: X => (V, V), fromPercent: Int => V) = selected match
-      case Nil => $empty
+      case Nil => emptyBdoc
       case many =>
-        $doc(
+        bdoc(
           "$or" -> many.map(toRange).map {
-            case (min, max) if min == fromPercent(0) => $doc(d.dbKey.$lt(max))
-            case (min, max) if max == fromPercent(100) => $doc(d.dbKey.$gte(min)) // hole at 90%? #TODO
-            case (min, max) => $doc(d.dbKey.$gte(min).$lt(max))
+            case (min, max) if min == fromPercent(0) => bdoc(d.dbKey.lt(max))
+            case (min, max) if max == fromPercent(100) => bdoc(d.dbKey.gte(min)) // hole at 90%? #TODO
+            case (min, max) => bdoc(d.dbKey.gte(min).lt(max))
           }
         )
     d match
       case InsightDimension.MovetimeRange =>
         selected match
-          case Nil => $empty
+          case Nil => emptyBdoc
           case many =>
-            $doc(
+            bdoc(
               "$or" -> many.map(lila.insight.MovetimeRange.toRange).map { range =>
-                $doc(d.dbKey.$gte(range._1).$lt(range._2))
+                bdoc(d.dbKey.gte(range._1).lt(range._2))
               }
             )
       case InsightDimension.Period =>
-        selected.maximumByOption(_.days).fold($empty) { period =>
-          $doc(d.dbKey.$gt(period.min))
+        selected.maximumByOption(_.days).fold(emptyBdoc) { period =>
+          bdoc(d.dbKey.gt(period.min))
         }
       case InsightDimension.Date => // for tutor config date range filtering
         selected match
-          case List(range) => $doc(d.dbKey.$gt(range.min).$lte(range.max))
-          case _ => $empty
+          case List(range) => bdoc(d.dbKey.gt(range.min).lte(range.max))
+          case _ => emptyBdoc
       case InsightDimension.MaterialRange =>
         selected match
-          case Nil => $empty
+          case Nil => emptyBdoc
           case many =>
-            $doc(
+            bdoc(
               "$or" -> many.map { range =>
                 val intRange = lila.insight.MaterialRange.toRange(range)
-                if intRange._1 == intRange._2 then $doc(d.dbKey -> intRange._1)
-                else if range.negative then $doc(d.dbKey.$gte(intRange._1).$lt(intRange._2))
-                else $doc(d.dbKey.$gt(intRange._1).$lte(intRange._2))
+                if intRange._1 == intRange._2 then bdoc(d.dbKey -> intRange._1)
+                else if range.negative then bdoc(d.dbKey.gte(intRange._1).lt(intRange._2))
+                else bdoc(d.dbKey.gt(intRange._1).lte(intRange._2))
               }
             )
       case InsightDimension.EvalRange =>
         selected match
-          case Nil => $empty
+          case Nil => emptyBdoc
           case many =>
-            $doc(
+            bdoc(
               "$or" -> many.map { range =>
                 val intRange = lila.insight.EvalRange.toRange(range)
-                if range.eval < 0 then $doc(d.dbKey.$gte(intRange._1).$lt(intRange._2))
-                else $doc(d.dbKey.$gt(intRange._1).$lte(intRange._2))
+                if range.eval < 0 then bdoc(d.dbKey.gte(intRange._1).lt(intRange._2))
+                else bdoc(d.dbKey.gt(intRange._1).lte(intRange._2))
               }
             )
       case InsightDimension.WinPercentRange =>
@@ -426,18 +426,18 @@ object InsightDimension:
         percentRange(lila.insight.ClockPercentRange.toRange, ClockPercent.fromPercent(_))
       case InsightDimension.TimeVariance =>
         selected match
-          case Nil => $empty
+          case Nil => emptyBdoc
           case many =>
-            $doc(
+            bdoc(
               "$or" -> many.map(lila.insight.TimeVariance.toRange).map { range =>
-                $doc(d.dbKey.$gt(range._1).$lte(range._2))
+                bdoc(d.dbKey.gt(range._1).lte(range._2))
               }
             )
       case _ =>
         selected.flatMap(d.bson.writeOpt) match
-          case Nil => $empty
-          case List(x) => $doc(d.dbKey -> x)
-          case xs => d.dbKey.$in(xs)
+          case Nil => emptyBdoc
+          case List(x) => bdoc(d.dbKey -> x)
+          case xs => d.dbKey.in(xs)
 
   def requiresAnalysis(d: InsightDimension[?]) =
     d match

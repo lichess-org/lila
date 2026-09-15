@@ -34,7 +34,7 @@ final class ActivityReadApi(
     activities <-
       coll(
         _.find(regexId(u.id))
-          .sort($sort.desc("_id"))
+          .sort(sort.desc("_id"))
           .cursor[Activity]()
           .list(Activity.recentNb)
       ).dmap(_.filterNot(_.isEmpty))
@@ -146,8 +146,8 @@ final class ActivityReadApi(
 
   def recentSwissRanks(userId: UserId): Fu[List[(SwissIdName, Rank)]] =
     coll(
-      _.find(regexId(userId) ++ $doc(BSONHandlers.ActivityFields.swisses.$exists(true)))
-        .sort($sort.desc("_id"))
+      _.find(regexId(userId) ++ bdoc(BSONHandlers.ActivityFields.swisses.exists(true)))
+        .sort(sort.desc("_id"))
         .cursor[Activity]()
         .list(10)
     ).flatMap { activities =>

@@ -1,9 +1,24 @@
-import { h, type VNode } from 'snabbdom';
-
 import { numberFormat } from '@/i18n';
 import { pubsub } from '@/pubsub';
-import { bind, confirm, dataIcon, onInsert } from '@/view';
-import { userLink } from '@/view/userLink';
+import {
+  type VNode,
+  a,
+  bind,
+  button,
+  snabH,
+  confirm,
+  dataIcon,
+  div,
+  onInsert,
+  span,
+  strong,
+  table,
+  tbody,
+  td,
+  tr,
+  i,
+} from '@/view';
+import { userLink, profileUrl } from '@/view/userLink';
 
 import { licon } from '../licon';
 import type {
@@ -72,78 +87,54 @@ async function reportUserText(resourceId: string, username: string, text: string
   if (await confirm(`Report "${text}" to moderators?`)) flag(resourceId, username, text);
 }
 
-export const lineAction = (): VNode => h('action.mod', { attrs: dataIcon(licon.Agent) });
+export const lineAction = (): VNode => snabH('action.mod', { attrs: dataIcon(licon.Agent) });
 
 export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
   if (!ctrl) return undefined;
-  if (ctrl.loading()) return [h('div.loading')];
+  if (ctrl.loading()) return [div('.loading')];
   const data = ctrl.data();
   if (!data) return undefined;
   const perms = ctrl.opts.permissions;
 
   const infos = data.history
-    ? h(
-        'div.infos.block',
+    ? div(
+        '.infos.block',
         [numberFormat(data.games || 0) + ' games', data.tos ? 'TOS' : undefined]
-          .map(t => t && h('span', t))
-          .concat([
-            h(
-              'a',
-              {
-                attrs: {
-                  href: '/@/' + data.name + '?mod',
-                },
-              },
-              'profile',
-            ),
-          ])
-          .concat(
-            perms.shadowban
-              ? [
-                  h(
-                    'a',
-                    {
-                      attrs: {
-                        href: '/mod/' + data.name + '/communication',
-                      },
-                    },
-                    'coms',
-                  ),
-                ]
-              : [],
-          ),
+          .map(t => t && span(t))
+          .concat([a(profileUrl(data.name) + '?mod')('profile')])
+          .concat(perms.shadowban ? [a('/mod/' + data.name + '/communication')('coms')] : []),
       )
     : undefined;
 
   const timeout =
     perms.timeout || perms.broadcast
-      ? h('div.timeout.block', [
-          h('strong', 'Timeout 15 minutes for'),
+      ? div('.timeout.block', [
+          strong('Timeout 15 minutes for'),
           ...ctrl.opts.reasons.map(r =>
-            h(
-              'a.text',
+            button(
+              '.text',
               {
-                attrs: dataIcon(licon.Clock),
+                ...dataIcon(licon.Clock),
                 hook: bind('click', () => ctrl.timeout(r, data.text)),
               },
-              r.name,
+              r.name.split(';')[0],
             ),
           ),
         ])
-      : h('div.timeout.block', [
-          h('strong', 'Moderation'),
-          h(
-            'a.text',
+      : div('.timeout.block', [
+          strong('Moderation'),
+          button(
+            '.text',
             {
-              attrs: dataIcon(licon.Clock),
+              ...dataIcon(licon.Clock),
               hook: bind('click', () => ctrl.timeout(ctrl.opts.reasons[0], data.text)),
             },
             'Timeout 15 minutes',
           ),
-          h(
-            'a.text',
+          button(
+            '.text',
             {
-              attrs: dataIcon(licon.Clock),
+              ...dataIcon(licon.Clock),
               hook: bind('click', async () => {
                 await reportUserText(ctrl.opts.resourceId, data.name, data.text);
                 ctrl.timeout(ctrl.opts.reasons[0], data.text);
@@ -154,20 +145,19 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
         ]);
 
   const history = data.history
-    ? h('div.history.block', [
-        h('strong', 'Timeout history'),
-        h(
-          'table',
-          h(
-            'tbody.slist',
+    ? div('.history.block', [
+        strong('Timeout history'),
+        table(
+          tbody(
+            '.slist',
             {
               hook: onInsert(() => pubsub.emit('content-loaded')),
             },
             data.history.map(function (e) {
-              return h('tr', [
-                h('td.reason', e.reason),
-                h('td.mod', e.mod),
-                h('td', h('time.timeago', { attrs: { datetime: e.date } })),
+              return tr([
+                td('.reason', e.reason.name),
+                td('.mod', e.mod),
+                td(snabH('time.timeago', { attrs: { datetime: e.date } })),
               ]);
             }),
           ),
@@ -176,15 +166,10 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
     : undefined;
 
   return [
-    h('div.top', { key: 'mod-' + data.id }, [
-      h('span.text', { attrs: dataIcon(licon.Agent) }, [userLink(data)]),
-      h('a', { attrs: dataIcon(licon.X), hook: bind('click', ctrl.close) }),
+    div('.top', { key: 'mod-' + data.id }, [
+      span('.text', dataIcon(licon.Agent), userLink(data)),
+      button({ ...dataIcon(licon.X), hook: bind('click', ctrl.close) }),
     ]),
-    h('div.mchat__content.moderation', [
-      h('i.line-text.block', ['"', data.text, '"']),
-      infos,
-      timeout,
-      history,
-    ]),
+    div('.mchat__content.moderation', [i('.line-text.block', `"${data.text}"`), infos, timeout, history]),
   ];
 }

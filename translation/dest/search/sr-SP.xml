@@ -26,4 +26,9 @@
   <string name="sortBy">Сортирај по</string>
   <string name="analysis">Анализа</string>
   <string name="onlyAnalysed">Само партије где је анализа рачунара доступна</string>
+  <string name="color">Боја</string>
+  <string name="evaluation">Процена</string>
+  <string name="maxNumber">Максимални број</string>
+  <string name="maxNumberExplanation">Максимални број партија за вратити</string>
+  <string name="include">Укључи</string>
 </resources>

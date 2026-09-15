@@ -1,5 +1,8 @@
 package lila.shutup
 
+import java.util.regex.Pattern
+import scalatags.Text.all.*
+
 import lila.common.constants.bannedYoutubeIds
 
 object Analyser extends lila.core.shutup.TextAnalyser:
@@ -21,15 +24,18 @@ object Analyser extends lila.core.shutup.TextAnalyser:
   def containsLink(raw: String) = raw.contains("http://") || raw.contains("https://")
 
   // incompatible with richText
-  def highlightBad(text: String): scalatags.Text.Frag =
-    import scalatags.Text.all.*
+  def highlightBad(text: String): Frag = try
     import scalalib.StringUtils.escapeHtmlRaw
     val words = apply(text).badWords
     if words.isEmpty then frag(text)
     else
-      val regex = { """(?iu)""" + bounds.wrap(words.mkString("(", "|", ")")) }.r
+      val regex = { """(?iu)""" + bounds.wrap(words.map(Pattern.quote).mkString("(", "|", ")")) }.r
       def tag(word: String) = s"<bad>$word</bad>"
       raw(regex.replaceAllIn(escapeHtmlRaw(text), m => tag(m.toString)))
+  catch
+    case e: Exception =>
+      lila.log.system.warn(s"Analyser.highlightBad: $text", e)
+      scalatags.Text.all.raw(text)
 
   private def latinify(text: String): String =
     text.map:

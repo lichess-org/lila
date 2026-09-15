@@ -441,7 +441,6 @@
   <string name="apply">సమర్పించండి</string>
   <string name="save">సేవ్</string>
   <string name="leaderboard">లీడర్‌బోర్డు</string>
-  <string name="screenshotCurrentPosition">ప్రస్తుత పొజిషన్ నీ స్క్రీన్షాట్ చేయ్ </string>
   <string name="gameAsGIF">గేమ్ జీ.ఐ.యఫ్ గా </string>
   <string name="playerNames">ఆటగాళ్ల పేర్లు</string>
   <string name="moveAnnotations">ఎత్తుల వ్యాఖ్యానాలు</string>
@@ -554,7 +553,6 @@
   <string name="oneUrlPerLine">పంక్తికి ఒక URL.</string>
   <string name="inlineNotation">Inline notation</string>
   <string name="makeAStudy">భద్రపరచడం మరియు పంచుకోవడం కోసం, ఒక అధ్యయనం చేయడాన్ని పరిగణించండి.</string>
-  <string name="clearSavedMoves">మూవ్స్ తొలగించు</string>
   <string name="previouslyOnLichessTV">గతంలో Lichess TVలో</string>
   <string name="onlinePlayers">ఆన్‌లైన్ ప్లేయర్‌లు</string>
   <string name="activePlayers">Active ఆటగాళ్ళు</string>

@@ -421,7 +421,6 @@
   <string name="apply">Använd</string>
   <string name="save">Spara</string>
   <string name="leaderboard">Topplista</string>
-  <string name="screenshotCurrentPosition">Ta en skärmdump på den aktuella positionen</string>
   <string name="gameAsGIF">Spara som GIF</string>
   <string name="playerNames">Spelarnamn</string>
   <string name="pasteTheFenStringHere">Klistra in FEN-koden här</string>
@@ -532,7 +531,6 @@
   <string name="oneUrlPerLine">En URL per rad.</string>
   <string name="inlineNotation">Visa notation</string>
   <string name="makeAStudy">För förvaring och delning, överväg att göra en studie.</string>
-  <string name="clearSavedMoves">Rensa schack drag</string>
   <string name="previouslyOnLichessTV">Föregående Lichess-TV</string>
   <string name="onlinePlayers">Inloggade spelare</string>
   <string name="activePlayers">Mest aktiva spelare</string>
@@ -810,7 +808,6 @@
   <string name="theme">Tema</string>
   <string name="light">Ljus</string>
   <string name="dark">Mörk</string>
-  <string name="transparent">Genomskinlig</string>
   <string name="picture">Bild</string>
   <string name="deviceTheme">Enhetstema</string>
   <string name="roundness">Rundhet</string>

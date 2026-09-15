@@ -26,6 +26,7 @@
   <string name="orCloseAccount">但是，您可以关闭当前账户，然后创建一个新的。</string>
   <string name="wantClearHistory">我想要清除我的历史记录或等级分</string>
   <string name="cantClearHistory">无法清除您的对局历史、谜题历史或等级分。</string>
+  <string name="cantClearHistoryOrResetRatings" comment="Replaces old string cantClearHistory">无法清除您的对局历史、谜题历史或重置您的等级分。</string>
   <string name="wantReport">我想要举报一名棋手</string>
   <string name="toReportAPlayerUseForm">若要举报棋手，请使用举报表单</string>
   <string name="youCanAlsoReachReportPage">您也可以在个人资料页面点击 %s 举报按钮来访问该页面。</string>

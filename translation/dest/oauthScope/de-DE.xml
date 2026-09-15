@@ -22,6 +22,7 @@
   <string name="teamRead">Private Team-Informationen lesen</string>
   <string name="teamWrite">Teams beitreten und verlassen</string>
   <string name="teamLead">Verwalte von dir geleitete Teams: Sende PMs, entferne Mitglieder</string>
+  <string name="manageTeamsYouLead" comment="Replaces old string teamLead">Verwalte von dir geleitete Teams: Sende Direktnachrichten, entferne Mitglieder</string>
   <string name="followRead">Gefolge Spieler lesen</string>
   <string name="followWrite">Anderen Spielern folgen und entfolgen</string>
   <string name="msgWrite">Anderen Spielern private Nachrichten senden</string>

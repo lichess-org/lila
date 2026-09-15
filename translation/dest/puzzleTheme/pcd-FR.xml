@@ -30,6 +30,7 @@
   <string name="collinearMoveDescription">Deux pièces opposées se font face et l\'une des deux se déplace sur la même ligne sans capturer l\'autre pièce.</string>
   <string name="cornerMate">Mat en coin</string>
   <string name="cornerMateDescription">Le roi adverse est confiné dans un coin de l\'échiquier par une tour ou la dame, puis un cavalier le met mat.</string>
+  <string name="cornerMateKnightDeliversDescription" comment="Description for the &quot;Corner mate&quot; puzzle theme. Replaces old string cornerMateDescription">Utilisez la tour et la dame pour confiner le roi dans le coin de l\'échiquier, puis faites mat avec le cavalier.</string>
   <string name="crushing">Écrasant</string>
   <string name="crushingDescription">Repérez la gaffe de l\'adversaire pour obtenir un avantage écrasant. (évaluation &gt; 600cp)</string>
   <string name="discoveredCheck">Échec à la découverte</string>
@@ -120,6 +121,7 @@
   <string name="pinDescription">Une tactique impliquant des clouages, où une pièce est incapable de se déplacer sans qu\'une pièce de valeur supérieure soit attaquée.</string>
   <string name="promotion">Promotion</string>
   <string name="promotionDescription">Un pion promouvant ou menaçant d\'être promu est essentiel à la tactique.</string>
+  <string name="promotePawnToQueenRookOrMinor" comment="Replaces old string promotionDescription">Promouvez l\'un de vos pions en une dame, une tour ou une pièce mineure.</string>
   <string name="queenEndgame">Finale de Dames</string>
   <string name="queenEndgameDescription">Une finale avec seulement des Dames et des pions.</string>
   <string name="queenRookEndgame">Dames et Tours</string>

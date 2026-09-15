@@ -92,13 +92,13 @@ object help:
           row(frag(tap, kbd("shift"), alt, kbd("↑"), or, kbd("↓")), trans.site.keyCycleSelectedVariation()),
           row(
             frag(kbd("shift"), kbd("←"), or, kbd("k"), alt, kbd("shift"), kbd("→"), or, kbd("j")),
-            "Go to previous/next branch"
+            frag(trans.site.keyPreviousBranch(), " / ", trans.site.keyNextBranch())
           ),
           row(
             frag(kbd("shift"), kbd("↑"), alt, kbd("shift"), kbd("↓")),
-            "Step to previous/next line"
+            trans.site.keyGoToPreviousOrNextLine()
           ),
-          row(frag(tap, kbd("ctrl")), "Show/hide current variation"),
+          row(frag(tap, kbd("ctrl")), trans.site.keyShowOrHideCurrentVariation()),
           header(trans.site.analysisOptions()),
           flip,
           localAnalysis,
@@ -108,6 +108,7 @@ object help:
           row(kbd("c"), trans.site.focusChat()),
           helpDialog,
           row(kbd("e"), trans.site.openingEndgameExplorer()),
+          row(kbd("b"), trans.site.boardEditor()),
           menu,
           row(
             frag(kbd("shift"), kbd("space")),

@@ -3,6 +3,7 @@
 
   grid-area: main;
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   grid-template-areas: 'app' 'table' 'side' 'blog' 'support' 'feed' 'tv' 'puzzle' 'tours' 'timeline' 'about';
   gap: $block-gap;
 

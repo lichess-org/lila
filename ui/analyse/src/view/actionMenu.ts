@@ -105,15 +105,9 @@ export function view(ctrl: AnalyseCtrl): VNode {
           'a',
           {
             attrs: {
-              href: d.userAnalysis
-                ? '/editor?' +
-                  new URLSearchParams({
-                    fen: ctrl.node.fen,
-                    variant: d.game.variant.key,
-                    color: ctrl.chessground.state.orientation,
-                  })
-                : `/${d.game.id}/edit?fen=${ctrl.node.fen}`,
               'data-icon': licon.Pencil,
+              href: ctrl.boardEditorUrl(),
+              title: 'Hotkey: b',
               ...linkAttrs,
             },
           },
@@ -149,17 +143,17 @@ export function view(ctrl: AnalyseCtrl): VNode {
           i18n.site.continueFromHere,
         ),
       studyButton(ctrl),
-      ctrl.idbTree.movesDirty &&
+      (ctrl.idbTree.movesDirty || ctrl.idbTree.hasLocalCeval) &&
         hl(
           'a',
           {
             attrs: {
-              title: i18n.site.clearSavedMoves,
               'data-icon': licon.Trash,
+              title: i18n.site.clearLocalData,
             },
-            hook: bind('click', () => ctrl.idbTree.clear('moves')),
+            hook: bind('click', () => ctrl.idbTree.clear()),
           },
-          i18n.site.clearSavedMoves,
+          i18n.site.clearLocalData,
         ),
       hl(
         'button',

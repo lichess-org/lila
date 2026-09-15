@@ -1,10 +1,12 @@
 package lila.oauth
 
+import play.api.mvc.RequestHeader
 import play.api.{ Mode, Configuration }
 import com.roundeights.hasher.Algo
 import scalalib.net.Bearer
 
 import lila.oauth.Protocol.{ ClientId, RedirectUri }
+import lila.oauth.AuthorizationRequest.Prompt
 import lila.common.config.given
 import lila.core.config.BaseUrl
 import lila.core.net.{ Origin, ValidReferrer }
@@ -58,14 +60,21 @@ final class OAuthSignedClients(appConfig: Configuration, baseUrl: BaseUrl)(using
       )
   )
 
-  def forPromptAndMonitor(prompt: AuthorizationRequest.Prompt, action: Action)(using
-      ctx: Context
-  ): Option[OAuthSignedClient] =
-    forPrompt(prompt.clientId, prompt.redirectUri, prompt.scopes).tap:
-      _.foreach: c =>
-        monitoring.oauthAttempt(c.clientId, prompt, action, loggedIn = ctx.isAuth)
+  def monitor(client: Option[OAuthSignedClient], prompt: Prompt, action: Action)(using ctx: Context) =
+    client.foreach: c =>
+      monitoring.oauthAttempt(c.clientId, prompt, action, loggedIn = ctx.isAuth)
 
-  def forPrompt(
+  def forReq(using RequestHeader): Either[String, (Prompt, Option[OAuthSignedClient])] =
+    for
+      prompt <- AuthorizationRequest.fromReq.left.map(_.description)
+      withClient <-
+        val signedClient = forPrompt(prompt.clientId, prompt.redirectUri, prompt.scopes)
+        if areScopesAllowedFor(signedClient, prompt.scopes)
+        then Right(prompt -> signedClient)
+        else Left("Invalid scopes")
+    yield withClient
+
+  private def forPrompt(
       clientId: ClientId,
       redirectUri: RedirectUri,
       scopes: OAuthScopes
@@ -74,6 +83,10 @@ final class OAuthSignedClients(appConfig: Configuration, baseUrl: BaseUrl)(using
       clientId == c.clientId &&
         c.origins.has(redirectUri.origin) &&
         scopes.has(c.scope)
+
+  private def areScopesAllowedFor(client: Option[OAuthSignedClient], scopes: OAuthScopes): Boolean =
+    scopes.value.forall: scope =>
+      client.exists(_.scope == scope) || !clients.exists(_.scope == scope)
 
   def simpleSignupFrom(referrer: ValidReferrer): Option[OAuthSignedClient.SimpleSignup] =
     import lila.common.url.{ parse, queryParam }
@@ -121,10 +134,10 @@ final class OAuthSignedClients(appConfig: Configuration, baseUrl: BaseUrl)(using
       }
 
   private object monitoring:
-    private val newOauthAttempts = scalalib.cache.OnceEvery[(AuthorizationRequest.Prompt, Action)](10.minutes)
+    private val newOauthAttempts = scalalib.cache.OnceEvery[(Prompt, Action)](10.minutes)
     def oauthAttempt(
         clientId: ClientId,
-        prompt: AuthorizationRequest.Prompt,
+        prompt: Prompt,
         action: Action,
         loggedIn: Boolean
     ): Unit =

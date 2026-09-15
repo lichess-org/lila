@@ -26,6 +26,7 @@
   <string name="orCloseAccount">Můžete však uzavřít svůj aktuální účet a vytvořit nový.</string>
   <string name="wantClearHistory">Chci vymazat svou historii nebo rating</string>
   <string name="cantClearHistory">Není možné vymazat Vaši historii her, historii taktických úloh nebo ratingy.</string>
+  <string name="cantClearHistoryOrResetRatings" comment="Replaces old string cantClearHistory">Není možné vymazat vaši historii her a úloh nebo obnovit rating.</string>
   <string name="wantReport">Chci nahlásit hráče</string>
   <string name="toReportAPlayerUseForm">Pro nahlášení hráče využijte daný formulář</string>
   <string name="youCanAlsoReachReportPage">Na tuto stránku se můžete také dostat kliknutím na nahlašovací tlačítko %s na profilové stránce.</string>

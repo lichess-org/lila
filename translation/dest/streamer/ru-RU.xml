@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessStreamers">Стримеры Lichess</string>
+  <string name="lichessStreamers">Lichess cтримеры</string>
   <string name="lichessStreamer">Стример Lichess</string>
   <string name="live">В ЭФИРЕ!</string>
   <string name="offline">ОФЛАЙН</string>
@@ -29,6 +29,7 @@
   <string name="pendingReview">Ваш стрим на проверке у модераторов.</string>
   <string name="pleaseFillIn">Пожалуйста, заполните информацию о стриме и загрузите изображение.</string>
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Когда вы будете готовы оказаться в списке стримеров Lichess, %s</string>
+  <string name="whenReadyToBeListedAsStreamer" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot; Replaces old string whenReady">Когда вы будете готовы попасть в список стримеров Lichess, %s.</string>
   <string name="submitForReview">Отправить на проверку</string>
   <string name="streamerLanguageSettings">Страница стримера Lichess ориентирована на ту аудиторию, язык которой предоставлен вашей платформой. Установите для ваших шахматных стримов правильный язык по умолчанию в приложении или сервисе, который вы используете для трансляции.</string>
   <string name="pleaseAllow">Пожалуйста, подождите до 72 часов, пока ваш значок стримера и информация о нём не будет одобрена.</string>

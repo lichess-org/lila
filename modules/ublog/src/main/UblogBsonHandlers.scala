@@ -31,10 +31,10 @@ private object UblogBsonHandlers:
   )
   given BSONDocumentHandler[UblogAutomod.Assessment] = Macros.handler
 
-  val postProjection = $doc("likers" -> false)
-  val lightPostProjection = $doc("title" -> true)
+  val postProjection = bdoc("likers" -> false)
+  val lightPostProjection = bdoc("title" -> true)
   val previewPostProjection =
-    $doc(
+    bdoc(
       "blog" -> true,
       "title" -> true,
       "intro" -> true,
@@ -46,12 +46,12 @@ private object UblogBsonHandlers:
       "sticky" -> true
     )
 
-  val userLiveSort = $doc("sticky" -> -1, "lived.at" -> -1)
+  val userLiveSort = bdoc("sticky" -> -1, "lived.at" -> -1)
 
-  def pendingReviewSelect = $doc(
+  def pendingReviewSelect = bdoc(
     "automod.quality" -> Quality.good,
     "quality" -> Quality.weak,
-    "modQuality".$exists(false),
+    "modQuality".exists(false),
     "live" -> true,
-    "lived.at".$gt(nowInstant.minusMonths(1))
+    "lived.at".gt(nowInstant.minusMonths(1))
   )

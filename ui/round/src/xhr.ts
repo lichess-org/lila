@@ -11,7 +11,7 @@ export const reload = (d: RoundData): Promise<RoundData> => {
 export const whatsNext = (ctrl: RoundController): Promise<{ next?: string }> =>
   json(`/whats-next/${ctrl.data.game.id}${ctrl.data.player.id}`);
 
-export const challengeRematch = (gameId: string): Promise<unknown> =>
+export const challengeRematch = (gameId: string): Promise<void> =>
   json('/challenge/rematch-of/' + gameId, {
     method: 'post',
   });

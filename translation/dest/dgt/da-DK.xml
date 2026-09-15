@@ -21,6 +21,7 @@
   <string name="asALastResort">Som en sidste udvej, sæt brættet op identisk med Lichess, derefter %s</string>
   <string name="reloadThisPage">Genindlæs denne side</string>
   <string name="dgtConfigure">DGT - Indstil</string>
+  <string name="configureYourDgtBoard" comment="Replaces old string dgtConfigure">Konfigurer din DGT-tavle</string>
   <string name="lichessConnectivity">Lichess-forbindelse</string>
   <string name="validDgtOauthToken">Du har en OAuth-token, der er egnet til DGT-spil.</string>
   <string name="dgtPlayMenuEntryAdded">En %s-post blev tilføjet til din SPIL-menu i toppen.</string>

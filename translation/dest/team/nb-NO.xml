@@ -35,6 +35,9 @@
   <string name="teamTournament">Lagturnering</string>
   <string name="teamTournamentOverview">En arenaturnering der bare medlemmer av laget ditt kan delta</string>
   <string name="swissTournamentOverview">En sveitserturnering der bare medlemmer av laget ditt kan delta</string>
+  <string name="teamUpdates">Lagoppdateringer</string>
+  <string name="subToTeamUpdates">Abonner på lagoppdateringer</string>
+  <string name="newTeamUpdate">Ny lagoppdatering</string>
   <string name="teamsIlead">Lag jeg leder</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Du vil kanskje lage en lenke til en av disse kommende turneringene?</string>
   <string name="leadersChat">Ledersamtale</string>

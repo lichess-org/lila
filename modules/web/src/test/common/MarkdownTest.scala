@@ -9,7 +9,12 @@ import lila.core.misc.lpv.LpvEmbed
 class MarkdownTest extends munit.FunSuite:
 
   val render: Markdown => Html =
-    new MarkdownRender(assetDomain = AssetDomain("lichess1.org").some, header = true, list = true)("test")
+    new MarkdownRender(
+      assetDomain = AssetDomain("lichess1.org").some,
+      header = true,
+      headerAnchorLink = true,
+      list = true
+    )("test")
 
   test("autolinks add rel"):
     val md = Markdown("https://example.com")

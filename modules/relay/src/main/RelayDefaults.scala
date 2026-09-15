@@ -24,7 +24,7 @@ final class RelayDefaults(
     tourRepo.coll
       .aggregateOne(): framework =>
         import framework.*
-        Match($id(id)) -> List(
+        Match(bid(id)) -> List(
           Project(RelayTourRepo.unsetHeavyOptionalFields),
           PipelineOperator(roundRepo.tourRoundPipeline)
         )

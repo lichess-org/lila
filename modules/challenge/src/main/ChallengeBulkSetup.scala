@@ -102,7 +102,7 @@ final class ChallengeBulkSetupApi(
       .mapAsync(8): token =>
         allow:
           oauthServer
-            .auth(token, OAuthScope.select(_.Challenge.Write).into(EndpointScopes), none)
+            .auth(token -> none, OAuthScope.select(_.Challenge.Write).into(EndpointScopes), none)
             .map(Right(_))
         .rescue: err =>
           fuccess(Left(BadToken(token, err)))

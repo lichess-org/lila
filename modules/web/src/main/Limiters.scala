@@ -115,9 +115,9 @@ final class Limiters(using Executor, lila.core.config.RateLimit):
 
   val follow = RateLimit[UserId](credits = 150, duration = 72.hour, key = "follow.user")
 
-  val search = RateLimit[IpAddress](credits = 50, duration = 5.minutes, key = "search.games.ip")
-  val searchConcurrency = lila.web.FutureConcurrencyLimit[IpAddress](
-    key = "search.games.concurrency.ip",
+  val search = RateLimit[UserId](credits = 20, duration = 5.minutes, key = "search.games.user")
+  val searchConcurrency = lila.web.FutureConcurrencyLimit[UserId](
+    key = "search.games.concurrency.user",
     ttl = 10.minutes,
     maxConcurrency = 1
   )
@@ -161,8 +161,6 @@ final class Limiters(using Executor, lila.core.config.RateLimit):
 
   val teamKick =
     RateLimit.composite[IpAddress](key = "team.kick.api.ip")(("fast", 10, 2.minutes), ("slow", 50, 1.day))
-
-  val coachSearch = RateLimit[UserId](credits = 15 * 3, duration = 10.minutes, key = "coach.search.user")
 
   object relay:
 

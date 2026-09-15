@@ -63,6 +63,7 @@ Assim que terminar a sua partida, você voltará a aguardar o emparceiramento co
   <string name="editTournament">Editar torneio</string>
   <string name="editTeamBattle">Editar batalha de equipes</string>
   <string name="defender">Defensor</string>
+  <string name="defenderLabel" comment="In this context, this is the current holder of a shield trophy, who is defending their trophy in the next shield tournament of that variant. https://lichess.org/tournament/shields Replaces old string defender">Defensor:</string>
   <string name="pickYourTeam">Escolha a sua equipe</string>
   <string name="whichTeamWillYouRepresentInThisBattle">Qual equipe você representará nesta batalha?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">Você deve se juntar a uma destas equipes para participar!</string>
@@ -72,6 +73,9 @@ Assim que terminar a sua partida, você voltará a aguardar o emparceiramento co
   <string name="tournamentStats">Estatísticas de torneio</string>
   <string name="rankAvgHelp">A sua classificação média é uma porcentagem comparada à sua classificação geral. Quanto menor, melhor.
 Por exemplo, estar classificado como 3° de um torneio de 100 jogadores = 3%. Estando classificado como o 10° de um torneio de 1000 jogadores = 1%.</string>
+  <string name="rankAverageHelp" comment="Replaces old string rankAvgHelp">Sua média de classificação representa a posição em que você costuma terminar, em relação ao total de jogadores por torneio. Essa é uma métrica de colocação nos torneios, não seu rating geral.
+
+Por exemplo, uma média de classificação de 3% significa que você normalmente termina entre os 3% melhores (como a 30ª posição em um torneio com 1.000 jogadores).</string>
   <string name="medians">medianas</string>
   <string name="allAveragesAreX">Todas as médias desta página são %s.</string>
   <string name="total">Total</string>

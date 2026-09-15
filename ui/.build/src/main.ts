@@ -43,7 +43,7 @@ Options:
                       <url> or localhost:8666 (default). if used with --watch, the watch process
                       will listen for http on 8666 and display received messages in build logs
   --clean-exit        clean all build artifacts and exit
-  --no-color          don't use color in logs
+  --no-color          don't color output
   --no-time           don't log the time
   --no-context        don't log the context
 
@@ -89,7 +89,6 @@ if (['--tsc', '--sass', '--esbuild', '--i18n'].filter(x => argv.includes(x)).len
 
 env.logTime = !boolArg('--no-time');
 env.logCtx = !boolArg('--no-context');
-env.logColor = !boolArg('--no-color');
 env.watch = boolArg('--watch');
 env.prod = boolArg('--prod');
 env.debug = boolArg('--debug');

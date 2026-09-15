@@ -26,6 +26,7 @@
   <string name="orCloseAccount">Vendar lahko zaprete svoj trenutni račun in ustvarite novega.</string>
   <string name="wantClearHistory">Hočem počistiti svojo zgodovino ali rating</string>
   <string name="cantClearHistory">Ni možno pobrisati vaše zgodovine igranih iger, zgodovine ugank ali ratinga.</string>
+  <string name="cantClearHistoryOrResetRatings" comment="Replaces old string cantClearHistory">Ni možno pobrisati vaše zgodovine igranih iger, zgodovine ugank ali ratinga.</string>
   <string name="wantReport">Hočem prijaviti igralca</string>
   <string name="toReportAPlayerUseForm">Za prijavo igralca uporabite obrazec za prijavo</string>
   <string name="youCanAlsoReachReportPage">Do te strani lahko pride tudi s klikom na gumb %s na strani profila uporabnika.</string>

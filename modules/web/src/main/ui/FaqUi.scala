@@ -131,7 +131,7 @@ final class FaqUi(helpers: Helpers, sitePages: SitePages)(
               trf.basedOnGameDuration(strong(trf.durationFormula()))
             ),
             ul(
-              li(trf.inferiorThanXsEqualYtimeControl(29, "UltraBullet")),
+              li(trf.inferiorThanXsEqualYtimeControl(29, trans.site.ultraBullet())),
               li(trf.inferiorThanXsEqualYtimeControl(179, trans.site.bullet())),
               li(trf.inferiorThanXsEqualYtimeControl(479, trans.site.blitz())),
               li(trf.inferiorThanXsEqualYtimeControl(1499, trans.site.rapid())),
@@ -331,7 +331,7 @@ final class FaqUi(helpers: Helpers, sitePages: SitePages)(
             trf.howToHideRatingWhilePlaying.txt(),
             p(
               trf.enableZenMode(
-                a(href := routes.Pref.form("game-display"))(trf.displayPreferences()),
+                a(href := routes.Pref.form("display"))(trf.displayPreferences()),
                 em("z")
               )
             )

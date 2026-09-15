@@ -98,6 +98,7 @@ export default class RoundController implements MoveRootCtrl {
   server: Server;
   nvui?: NvuiPlugin;
   vibration: Prop<boolean> = storedBooleanProp('vibration', false);
+  streamer: Prop<boolean> = storedBooleanProp('streamermode', false);
 
   constructor(
     readonly opts: RoundOpts,
@@ -142,6 +143,8 @@ export default class RoundController implements MoveRootCtrl {
     }, 200);
 
     setTimeout(this.showExpiration, 350);
+
+    if (this.streamer()) this.streamerMode(true);
 
     if (!document.referrer?.includes('/serviceWorker.')) setTimeout(this.showYourMoveNotification, 500);
 
@@ -216,6 +219,10 @@ export default class RoundController implements MoveRootCtrl {
     const pos = (dest[0] + orig[1]) as Key;
     this.chessground.setPieces(new Map([[pos, undefined]]));
     return true;
+  };
+
+  streamerMode = (v: boolean): void => {
+    $('main.round').toggleClass('round--streamer', this.streamer(v));
   };
 
   lastPly = (): number => util.lastPly(this.data);

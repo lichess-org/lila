@@ -146,13 +146,13 @@ final private class RelayGroupRepo(coll: Coll)(using Executor):
     coll.byId[RelayGroup](id).recoverDefault
 
   def byTour(tourId: RelayTourId): Fu[Option[RelayGroup]] =
-    coll.find($doc("tours" -> tourId)).one[RelayGroup]
+    coll.find(bdoc("tours" -> tourId)).one[RelayGroup]
 
   def idByTour(tourId: RelayTourId): Fu[Option[RelayGroupId]] =
-    coll.primitiveOne[RelayGroupId]($doc("tours" -> tourId), "_id")
+    coll.primitiveOne[RelayGroupId](bdoc("tours" -> tourId), "_id")
 
   def byTours(tourIds: Seq[RelayTourId]): Fu[List[RelayGroup]] =
-    coll.find($doc("tours".$in(tourIds))).cursor[RelayGroup](ReadPref.sec).listAll()
+    coll.find(bdoc("tours".in(tourIds))).cursor[RelayGroup](ReadPref.sec).listAll()
 
   def allTourIdsOfGroup(tourId: RelayTourId): Fu[NonEmptyList[RelayTourId]] =
     byTour(tourId).map(_.fold(NonEmptyList.one(tourId))(_.tours))
@@ -163,8 +163,8 @@ final private class RelayGroupRepo(coll: Coll)(using Executor):
       current <- prev match
         case Some(prev) =>
           data.update(prev) match
-            case None => coll.delete.one($id(prev.id)).inject(none)
-            case Some(next) => coll.update.one($id(prev.id), next).inject(prev.some)
+            case None => coll.delete.one(bid(prev.id)).inject(none)
+            case Some(next) => coll.update.one(bid(prev.id), next).inject(prev.some)
         case None =>
           data.make.so: group =>
             coll.insert.one(group).inject(group.some)
@@ -172,11 +172,11 @@ final private class RelayGroupRepo(coll: Coll)(using Executor):
       _ <- current.so: cur =>
         for
           tourIdSet = current.so(_.tours.toList.toSet)
-          otherGroups <- coll.list[RelayGroup]("tours".$in(tourIdSet) ++ "_id".$ne(cur.id))
+          otherGroups <- coll.list[RelayGroup]("tours".in(tourIdSet) ++ "_id".neq(cur.id))
           _ <- otherGroups.traverseVoid: otherGroup =>
             otherGroup.remove(tourIdSet) match
-              case None => coll.delete.one($id(otherGroup.id))
-              case Some(next) => coll.update.one($id(otherGroup.id), next)
+              case None => coll.delete.one(bid(otherGroup.id))
+              case Some(next) => coll.update.one(bid(otherGroup.id), next)
         yield ()
     yield ()
 
@@ -196,7 +196,7 @@ final class RelayGroupCrowdSumCache(
       tourIds <- groupRepo.allTourIdsOfGroup(tourId)
       res <- colls.round.aggregateOne(_.sec): framework =>
         import framework.*
-        Match($doc("tourId".$in(tourIds.toList), "crowdAt".$gt(nowInstant.minus(1.hours)))) ->
+        Match(bdoc("tourId".in(tourIds.toList), "crowdAt".gt(nowInstant.minus(1.hours)))) ->
           List(Group(BSONNull)("sum" -> SumField("crowd")))
     yield res.headOption.flatMap(_.int("sum")).orZero
 

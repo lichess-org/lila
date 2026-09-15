@@ -11,7 +11,7 @@ private final class ClasColls(db: lila.db.Db):
   val login = db(CollName("clas_login"))
 
   // works for clas & student
-  def selectArchived(v: Boolean) = $doc("archived".$exists(v))
+  def selectArchived(v: Boolean) = bdoc("archived".exists(v))
 
   def clasIdsOfStudent(userId: UserId)(using Executor): Fu[List[ClasId]] =
-    student.distinctEasy[ClasId, List]("clasId", $doc("userId" -> userId) ++ selectArchived(false), _.sec)
+    student.distinctEasy[ClasId, List]("clasId", bdoc("userId" -> userId) ++ selectArchived(false), _.sec)

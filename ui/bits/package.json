@@ -3,6 +3,7 @@
   "private": true,
   "type": "module",
   "dependencies": {
+    "@emoji-mart/data": "^1.2.1",
     "@textcomplete/core": "^0.1.13",
     "@textcomplete/textarea": "^0.1.13",
     "@toast-ui/editor": "3.2.2",
@@ -26,7 +27,7 @@
     "prosemirror-view": "1.41.3",
     "qrcode": "^1.5.4",
     "shepherd.js": "11.2.0",
-    "sortablejs": "^1.15.6",
+    "sortablejs": "^1.15.7",
     "zxcvbn": "^4.4.2"
   },
   "build": {

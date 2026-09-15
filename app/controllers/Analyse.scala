@@ -163,7 +163,7 @@ final class Analyse(
   }
 
   def externalEngineCreate = ScopedBody(_.Engine.Write) { ctx ?=> me ?=>
-    HTTPRequest.bearer(ctx.req).so { bearer =>
+    HTTPRequest.bearer.so: (bearer, _) =>
       val tokenId = AccessToken.idFrom(bearer)
       bindForm(lila.analyse.ExternalEngine.form)(
         jsonFormError,
@@ -172,7 +172,6 @@ final class Analyse(
             Created(lila.analyse.ExternalEngine.jsonWrites.writes(engine))
           }
       )
-    }
   }
 
   def externalEngineUpdate(id: String) = ScopedBody(_.Engine.Write) { ctx ?=> me ?=>

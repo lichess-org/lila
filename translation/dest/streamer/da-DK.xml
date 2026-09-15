@@ -29,6 +29,7 @@
   <string name="pendingReview">Din stream bliver gennemgået af moderatorer.</string>
   <string name="pleaseFillIn">Udfyld venligst din streamer-information og upload et billede.</string>
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Når du er klar til at blive opført som en lichess-streamer, %s</string>
+  <string name="whenReadyToBeListedAsStreamer" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot; Replaces old string whenReady">Når du er klar til at blive opført som Lichess-streamer, %s.</string>
   <string name="submitForReview">Indsend til gennemgang</string>
   <string name="streamerLanguageSettings">Lichess-streamersiden er målrettet dit publikum med det sprog, som din streamingplatform leverer. Indstil det korrekte standardsprog for dine skakstreams i den app eller tjeneste, du bruger til at sende.</string>
   <string name="pleaseAllow">Det kan tage op til 72 timer, før dit streamer-badge og din profil bliver godkendt.</string>

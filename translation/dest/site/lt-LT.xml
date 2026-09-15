@@ -486,7 +486,6 @@
   <string name="apply">Pritaikyti</string>
   <string name="save">Įrašyti</string>
   <string name="leaderboard">Lyderiai</string>
-  <string name="screenshotCurrentPosition">Nufotografuoti esamą poziciją</string>
   <string name="gameAsGIF">Žaidimas kaip GIF animacija</string>
   <string name="playerNames">Žaidėjų vardai</string>
   <string name="moveAnnotations">Ėjimų žymėjimas</string>
@@ -606,7 +605,6 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="oneUrlPerLine">Vienas adresas per eilutę.</string>
   <string name="inlineNotation">Įterptas žymėjimas</string>
   <string name="makeAStudy">Norėdami pasiekti vėliau ar pasidalinti sukurkite studiją.</string>
-  <string name="clearSavedMoves">Išvalyti ėjimus</string>
   <string name="previouslyOnLichessTV">Anksčiau per „lichess TV“</string>
   <string name="onlinePlayers">Prisijungę žaidėjai</string>
   <string name="activePlayers">Aktyvumas</string>
@@ -884,7 +882,6 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="background">Fonas</string>
   <string name="light">Šviesus</string>
   <string name="dark">Tamsus</string>
-  <string name="transparent">Permatomas</string>
   <string name="deviceTheme">Įrenginio tema</string>
   <string name="backgroundImageUrl">Fono paveikslo URL:</string>
   <string name="board">Lenta</string>

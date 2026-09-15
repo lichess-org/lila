@@ -30,6 +30,7 @@
   <string name="collinearMoveDescription">마주 보는 두 기물이 있을 때, 한 말이 공격선을 따라 이동하되 상대 말을 잡지 않는 수입니다.</string>
   <string name="cornerMate">코너 메이트</string>
   <string name="cornerMateDescription">킹을 룩이나 퀸으로 구석에 가두고, 나이트로 체크메이트를 가합니다.</string>
+  <string name="cornerMateKnightDeliversDescription" comment="Description for the &quot;Corner mate&quot; puzzle theme. Replaces old string cornerMateDescription">킹을 룩이나 퀸으로 구석에 가두고, 나이트로 체크메이트를 가합니다.</string>
   <string name="crushing">박살내기</string>
   <string name="crushingDescription">상대의 블런더를 포착하고 박살내어 이득을 얻으세요. (eval ≥ 600cp)</string>
   <string name="discoveredCheck">디스커버드 체크</string>
@@ -120,6 +121,7 @@
   <string name="pinDescription">더 높은 가치의 기물이 공격받게 되기 때문에 기물을 움직이지 못하게 하는 전술입니다.</string>
   <string name="promotion">프로모션</string>
   <string name="promotionDescription">폰을 퀸이나 다른 기물로 승진</string>
+  <string name="promotePawnToQueenRookOrMinor" comment="Replaces old string promotionDescription">폰을 퀸, 룩 혹은 마이너 피스로 프로모션합니다.</string>
   <string name="queenEndgame">퀸 엔딩</string>
   <string name="queenEndgameDescription">퀸과 폰만 있는 엔드게임</string>
   <string name="queenRookEndgame">퀸과 룩</string>

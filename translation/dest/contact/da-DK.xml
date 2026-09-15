@@ -26,6 +26,7 @@
   <string name="orCloseAccount">Du kan dog lukke din konto og oprette en ny.</string>
   <string name="wantClearHistory">Jeg vil slette min historik eller rating</string>
   <string name="cantClearHistory">Det er ikke muligt at slette din historik for partier, taktikopgaver eller ratinger.</string>
+  <string name="cantClearHistoryOrResetRatings" comment="Replaces old string cantClearHistory">Det er ikke muligt at rydde din historik for partier, taktikopgaver eller nulstille dine ratings.</string>
   <string name="wantReport">Jeg vil anmelde en spiller</string>
   <string name="toReportAPlayerUseForm">Brug anmeldelsesformularen for at anmelde en spiller</string>
   <string name="youCanAlsoReachReportPage">Du kan også komme frem til den side ved at klikke på %s anmeldelsesknappen på en profilside.</string>

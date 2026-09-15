@@ -26,6 +26,7 @@
   <string name="orCloseAccount">اگرچه، شما می‌توانید حساب کاربری فعلی خود را بسته، و یک حساب کاربری جدید ایجاد کنید.</string>
   <string name="wantClearHistory">می‌خواهم پیشینه یا درجه‌بندی‌ام را پاک کنم</string>
   <string name="cantClearHistory">امکان پاک کردن پیشینه بازی‌ها، پیشینه معماها یا درجه‌بندی وجود ندارد.</string>
+  <string name="cantClearHistoryOrResetRatings" comment="Replaces old string cantClearHistory">پاکیدنِ پیشینهٔ بازی، پیشینهٔ معماها یا ازنو کردنِ درجه‌بندی‌های‌تان ممکن نیست.</string>
   <string name="wantReport">می‌خواهم یک کاربر را گزارش کنم</string>
   <string name="toReportAPlayerUseForm">برای گزارش کردنِ یک کاربر، از فرم گزارش استفاده کنید</string>
   <string name="youCanAlsoReachReportPage">همچنین می‌توانید با زدن روی دکمهٔ گزارش %s در یک صفحهٔ رُخ‌نما، به آن صفحه برسید.</string>

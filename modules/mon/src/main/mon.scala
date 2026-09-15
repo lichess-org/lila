@@ -10,6 +10,7 @@ import scalalib.net.UserAgent
 import lila.core.id.*
 import lila.core.userId.{ UserId, UserName }
 import lila.core.perf.PerfKey
+import lila.core.net.Origin
 
 // https://github.com/kamon-io/Kamon/issues/752
 extension (s: String)
@@ -25,7 +26,10 @@ private def tags(elems: (String, Any)*): Map[String, Any] = Map.from(elems)
 object http:
   private val reqTime = timer("http.time")
   private val reqCount = counter("http.count")
-  private val mobCount = counter("http.mobile.count")
+  private val mobCountAction = counter("http.mobile.count.action")
+  private val mobCountVersion = counter("http.mobile.count.version")
+  private val mobCountAuth = counter("http.mobile.count.auth")
+  private val mobCountOs = counter("http.mobile.count.os")
   private val agentCount = counter("http.agent.count")
 
   def time(action: String) = reqTime.withTag("action", action)
@@ -38,14 +42,11 @@ object http:
     counter("http.error").withTags:
       tags("action" -> action, "client" -> client, "method" -> method, "code" -> code.toLong)
 
-  def mobileCount(action: String, version: String, auth: Boolean, os: String) =
-    mobCount.withTags:
-      tags(
-        "action" -> action,
-        "version" -> version,
-        "auth" -> (if auth then "auth" else "anon"),
-        "os" -> os
-      )
+  def mobileCount(action: String, m: lila.core.net.LichessMobileUa): Unit =
+    mobCountAction.withTag("action", action).increment()
+    mobCountVersion.withTag("version", m.version).increment()
+    mobCountAuth.withTag("auth", if m.userId.isDefined then "auth" else "anon").increment()
+    mobCountOs.withTag("os", m.osName).increment()
 
   def apiAgentCount(action: String, agent: String) =
     agentCount.withTags(tags("action" -> action, "agent" -> agent))
@@ -394,7 +395,7 @@ object security:
           "pwned" -> pwned,
           "result" -> result
         )
-    def proxy(tpe: String) = counter("security.login.proxy").withTag("proxy", tpe)
+    def must2fa(reason: String) = counter("security.login.must2fa").withTag("reason", reason.escape)
   def secretScanning(tokenType: String, source: String, hit: Boolean) =
     counter("security.githubSecretScanning.hit").withTags(
       tags("type" -> tokenType, "source" -> source.escape, "hit" -> hit)
@@ -597,10 +598,13 @@ object game:
     def decode(format: String) = timer("game.pgn.decode").withTag("format", format)
   val idCollision = counter("game.idCollision").withoutTags()
   def idGenerator(collisions: Int) = timer("game.idGenerator").withTags(tags("collisions" -> collisions))
-  object streamByOauthOrigin:
-    def event(tpe: String) = counter("game.streamByOauthOrigin.event").withTag("type", tpe)
-    def users(sel: String) = gauge("game.streamByOauthOrigin.users").withTag("selector", sel)
-    def streams(ua: UserAgent) = gauge("game.streamByOauthOrigin.streams").withTag("ua", ua.value)
+  final class StreamByOauthOrigin(origin: Origin):
+    def event(tpe: String) =
+      counter("game.streamByOauthOrigin.event").withTags(tags("type" -> tpe, "origin" -> origin))
+    def users(sel: String) =
+      gauge("game.streamByOauthOrigin.users").withTags(tags("selector" -> sel, "origin" -> origin))
+    def streams(ua: UserAgent) =
+      gauge("game.streamByOauthOrigin.streams").withTags(tags("ua" -> ua, "origin" -> origin))
 object chat:
   private val msgCounter = counter("chat.message")
   def message(parent: String, troll: Boolean) =
@@ -773,7 +777,8 @@ object jvm:
     yield perState.withTags(tags("name" -> group.name, "state" -> state.toString)).update(count)
 
 object prometheus:
-  val lines = gauge("prometheus.lines").withoutTags()
+  def lines = gauge("prometheus.lines").withoutTags()
+  def linesPerMetric(metric: String) = gauge("prometheus.lines.metric").withTag("metric", metric)
 
 def chronoSync[A] = Chronometer.syncMon[A]
 

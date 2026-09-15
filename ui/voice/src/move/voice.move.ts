@@ -432,7 +432,7 @@ export function initModule({
         addToks(udest, uci); // includes en passant
         if (uci.startsWith(uci[2])) {
           addToks(`P${udest}`);
-        } else if (dp) {
+        } else {
           addToks(`${usrc}x${udest}`);
           addToks(`Px${udest}`);
           addToks(`${uci[0]}x${udest}`, uci);

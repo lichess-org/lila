@@ -89,13 +89,6 @@ final class Simul(env: Env) extends LilaController(env):
     AsHost(simulId): simul =>
       env.simul.api.accept(simul.id, userId.id, v = false).inject(jsonOkResult)
 
-  def setText(simulId: SimulId) = OpenBody:
-    AsHost(simulId): simul =>
-      bindForm(forms.setText)(
-        _ => BadRequest,
-        text => env.simul.api.setText(simul.id, text).inject(jsonOkResult)
-      )
-
   def form = Auth { ctx ?=> me ?=>
     NoLameOrBot:
       Ok.async:

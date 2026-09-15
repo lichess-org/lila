@@ -1,11 +1,11 @@
-import crypto from 'node:crypto';
 import fs from 'node:fs';
 import { relative, join, resolve } from 'node:path';
+import pc from 'picocolors';
 
 import { isEquivalent } from './algo.ts';
-import { env, c, type Package } from './env.ts';
+import { env, type Package } from './env.ts';
 import { type Manifest, updateManifest } from './manifest.ts';
-import { isClose } from './parse.ts';
+import { isClose, getHash } from './parse.ts';
 import { makeTask } from './task.ts';
 
 export async function hash(): Promise<void> {
@@ -104,29 +104,23 @@ async function replaceAllWithHashUrls(name: string, files: Record<string, string
     (data, [from, to]) => data.replaceAll(from, to),
     await fs.promises.readFile(name, 'utf8'),
   );
-  const hash = crypto.createHash('sha256').update(result).digest('hex').slice(0, 8);
+  const hash = getHash(result);
   await fs.promises.writeFile(join(env.hashOutDir, hashedBasename(name, hash)), result);
   return { name: relative(env.outDir, name), hash };
 }
 
 async function hashAndLink(name: string) {
   const src = join(env.outDir, name);
-  const hash = crypto
-    .createHash('sha256')
-    .update(await fs.promises.readFile(src))
-    .digest('hex')
-    .slice(0, 8);
+  const [content, { mtime }] = await Promise.all([fs.promises.readFile(src), fs.promises.stat(src)]);
+  const hash = getHash(content);
   const link = join(env.hashOutDir, hashedBasename(name, hash));
-  const [{ mtime }] = await Promise.all([
-    fs.promises.stat(join(env.outDir, name)),
-    fs.promises.symlink(relative(env.outDir, name), link).catch(() => {}),
-  ]);
+  await fs.promises.symlink(relative(env.outDir, name), link).catch(() => {});
   await fs.promises.lutimes(link, mtime, mtime);
   return hash;
 }
 
 const hashLog = (src: string, hashName: string, pkgName?: string): void =>
   env.log(
-    `${pkgName ? c.grey(pkgName) + ' ' : ''}'${c.cyan(src)}' -> '${c.cyan(join('public', 'hashed', hashName))}'`,
+    `${pkgName ? pc.gray(pkgName) + ' ' : ''}'${pc.cyan(src)}' -> '${pc.cyan(join('public', 'hashed', hashName))}'`,
     'hash',
   );

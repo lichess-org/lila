@@ -290,7 +290,7 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
         case None => Ok.async(accountC.renderCheckYourEmail)
         case Some(userEmail) =>
           env.user.repo
-            .exists(userEmail.username)
+            .existsPri(userEmail.username)
             .flatMap:
               if _ then Ok.async(accountC.renderCheckYourEmail)
               else Redirect(routes.Auth.signup).withCookies(env.security.lilaCookie.newSession)
@@ -498,17 +498,6 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
 
   def magicLinkSent = Open:
     Ok.page(views.auth.magicLinkSent)
-
-  def makeLoginTokenLichobile = Auth { ctx ?=> me ?=>
-    JsonOk:
-      env.security.loginToken.magicLink
-        .generate(me)
-        .map: token =>
-          Json.obj(
-            "userId" -> me.userId,
-            "url" -> routeUrl(routes.Auth.loginWithToken(token))
-          )
-  }
 
   def loginWithToken(token: String) = Open:
     if ctx.isAuth then Redirect(referrerOr(routes.Lobby.home))

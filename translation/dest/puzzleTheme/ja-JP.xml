@@ -30,6 +30,7 @@
   <string name="collinearMoveDescription">同種の駒が向き合っている時に、一方が両者を結ぶ線上を動く手。</string>
   <string name="cornerMate">コーナー・メイト</string>
   <string name="cornerMateDescription">ルークかクイーンでキングを隅に追い詰め、ナイトでメイトする形。</string>
+  <string name="cornerMateKnightDeliversDescription" comment="Description for the &quot;Corner mate&quot; puzzle theme. Replaces old string cornerMateDescription">ルークかクイーンでキングを隅に追い詰め、ナイトでメイトする形。</string>
   <string name="crushing">圧倒</string>
   <string name="crushingDescription">相手の悪手をとがめて圧倒的な優位を築きます。（評価値は 600cp 以上）</string>
   <string name="discoveredCheck">ディスカバード・チェック</string>
@@ -120,6 +121,7 @@
   <string name="pinDescription">ピンを含む問題。ラインピースに狙われた駒が動くと、より価値の高い駒が取られてしまう状況。</string>
   <string name="promotion">プロモーション</string>
   <string name="promotionDescription">ポーンの昇格かその狙いがテーマの問題。</string>
+  <string name="promotePawnToQueenRookOrMinor" comment="Replaces old string promotionDescription">ポーンをクイーンかルーク、マイナーピースに昇格させます。</string>
   <string name="queenEndgame">クイーン・エンドゲーム</string>
   <string name="queenEndgameDescription">クイーンとポーンだけの終盤。</string>
   <string name="queenRookEndgame">クイーンとルーク</string>

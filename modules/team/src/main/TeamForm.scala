@@ -96,8 +96,8 @@ final private class TeamForm(teamRepo: TeamRepo, captcha: CaptchaApi, flairApi: 
 
   def createWithCaptcha(using Me) = create -> captcha.any
 
-  val pmAll = Form:
-    single("message" -> cleanTextWithSymbols(minLength = 3, maxLength = 9_000))
+  val update = Form:
+    single("message" -> cleanTextWithSymbols(minLength = 3, maxLength = 9_000)).into[Markdown]
 
   val explain = Form:
     single("explain" -> cleanText(minLength = 3, maxLength = 4_000))
@@ -119,7 +119,7 @@ final private class TeamForm(teamRepo: TeamRepo, captcha: CaptchaApi, flairApi: 
   val subscribe = Form(single("subscribe" -> optional(boolean)))
 
   private def teamExists(setup: TeamSetup) =
-    teamRepo.coll.exists($id(Team.nameToId(setup.name)))
+    teamRepo.coll.exists(bid(Team.nameToId(setup.name)))
 
 private case class TeamSetup(
     name: String,

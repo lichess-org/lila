@@ -427,7 +427,6 @@
   <string name="apply">Apstiprināt</string>
   <string name="save">Saglabāt</string>
   <string name="leaderboard">Labāko spēlētāju saraksts</string>
-  <string name="screenshotCurrentPosition">Uzņemt pašreizējās pozīcijas attēlu</string>
   <string name="gameAsGIF">Spēle GIF formātā</string>
   <string name="pasteTheFenStringHere">Ielīmējiet FEN tekstu šeit</string>
   <string name="pasteThePgnStringHere">Ielīmējiet PGN tekstu šeit</string>
@@ -538,7 +537,6 @@
   <string name="oneUrlPerLine">Katrā rindā vienu URL.</string>
   <string name="inlineNotation">Iekļautā notācija</string>
   <string name="makeAStudy">Lai saglabātu un dalītos, varat izveidot izpēti.</string>
-  <string name="clearSavedMoves">Dzēst gājienus</string>
   <string name="previouslyOnLichessTV">Iepriekš pārraidīts Lichess TV</string>
   <string name="onlinePlayers">Spēlētāji tiešsaistē</string>
   <string name="activePlayers">Aktīvākie spēlētāji</string>
@@ -797,7 +795,6 @@
   <string name="background">Fons</string>
   <string name="light">Gaišs</string>
   <string name="dark">Tumšs</string>
-  <string name="transparent">Caurspīdīgs</string>
   <string name="deviceTheme">Saskaņot ar sistēmu</string>
   <string name="backgroundImageUrl">Fona attēla URL:</string>
   <string name="board">Galdiņš</string>

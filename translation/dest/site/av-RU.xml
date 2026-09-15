@@ -405,7 +405,6 @@
   <string name="apply">ЦӀунизе</string>
   <string name="save">ЦӀунизе</string>
   <string name="leaderboard">Бищун лъикӀал хӀалел</string>
-  <string name="screenshotCurrentPosition">Гьанжесеб позициялъул сурат бахъизе</string>
   <string name="gameAsGIF">GIF-лъун цӀунизе</string>
   <string name="pasteTheFenStringHere">FEN текст гьаниб лъе</string>
   <string name="pasteThePgnStringHere">PGN текст гьаниб лъе</string>
@@ -508,7 +507,6 @@
   <string name="oneUrlPerLine">Мухъда цо бухьен.</string>
   <string name="inlineNotation">Мухъилаб нотация</string>
   <string name="makeAStudy">ЦӀунизеги гӀахьал гьабизеги, цӀех-рех гьабизе бегьула.</string>
-  <string name="clearSavedMoves">Хъурщиял нахъе росизе</string>
   <string name="previouslyOnLichessTV">Lichess TV-ялда цебе букӀараб</string>
   <string name="onlinePlayers">Онлайн ругел хӀалел чагӀи</string>
   <string name="activePlayers">ХӀаракатал хӀалел чагӀи</string>
@@ -744,7 +742,6 @@
   <string name="background">НахъабакӀ</string>
   <string name="light">КанчӀаб</string>
   <string name="dark">БецӀаб</string>
-  <string name="transparent">Гъорлъан канлъи бихьулеб</string>
   <string name="deviceTheme">Девайсалъул куц</string>
   <string name="backgroundImageUrl">НахъабакӀалъул сураталъул URL:</string>
   <string name="board">Хъарщи</string>

@@ -64,6 +64,7 @@ Jokatu azkar, itzuli egongelara partida gehiago jokatu eta puntu gehiago irabazt
   <string name="editTournament">Editatu txapelketa</string>
   <string name="editTeamBattle">Editatu taldekako txapelketa</string>
   <string name="defender">Aurreko txapelduna</string>
+  <string name="defenderLabel" comment="In this context, this is the current holder of a shield trophy, who is defending their trophy in the next shield tournament of that variant. https://lichess.org/tournament/shields Replaces old string defender">Aurreko irabazlea:</string>
   <string name="pickYourTeam">Aukeratu zure taldea</string>
   <string name="whichTeamWillYouRepresentInThisBattle">Zein talderen izenean jokatuko duzu?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">Parte hartzeko talde hauetako baten kide izan behar zara!</string>
@@ -90,4 +91,5 @@ Adibidez, %3ko batez besteko mailak esan nahi du normalean lehen %3an bukatzen d
   <string name="onlyTitledHelp">Eskatu titulu ofiziala izatea txapelketan sartzeko</string>
   <string name="tournamentPairingsAreNowClosed">Txapelketaren parekatzeak itxita daude jada.</string>
   <string name="berserkRate">Berserk ratioa</string>
+  <string name="leaguesAndStreamerBattles">Ligak &amp; Esatarien arteko txapelketak</string>
 </resources>

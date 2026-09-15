@@ -7,7 +7,6 @@
   <plurals name="blogPosts">
     <item quantity="one">פוסט %s בבלוג</item>
     <item quantity="two">%s פוסטים בבלוג</item>
-    <item quantity="many">%s פוסטים בבלוג</item>
     <item quantity="other">%s פוסטים בבלוג</item>
   </plurals>
   <string name="continueReadingPost">המשך קריאה של הבלוג</string>
@@ -31,13 +30,11 @@
   <plurals name="publishedNbBlogPosts">
     <item quantity="one">פרסם/ה פוסט</item>
     <item quantity="two">פרסם/ה %s פוסטים</item>
-    <item quantity="many">פרסם/ה %s פוסטים</item>
     <item quantity="other">פרסם/ה %s פוסטים</item>
   </plurals>
   <plurals name="nbViews">
     <item quantity="one">צפייה אחת</item>
     <item quantity="two">%s צפיות</item>
-    <item quantity="many">%s צפיות</item>
     <item quantity="other">%s צפיות</item>
   </plurals>
   <string name="xPublishedY">%1$s פרסם/ה את הפוסט: \"%2$s\"</string>
@@ -49,7 +46,6 @@
   <plurals name="viewAllNbPosts">
     <item quantity="one">צפו בפוסט אחד</item>
     <item quantity="two">צפו בכל הפוסטים על %s</item>
-    <item quantity="many">צפו בכל הפוסטים על %s</item>
     <item quantity="other">צפו בכל הפוסטים על %s</item>
   </plurals>
   <string name="imageAlt">תיאור התמונה</string>

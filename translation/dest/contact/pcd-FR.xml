@@ -26,6 +26,7 @@
   <string name="orCloseAccount">Cependant, vous pouvez fermer votre compte actuel et en créer un nouveau.</string>
   <string name="wantClearHistory">Je veux effacer mon historique ou mon classement</string>
   <string name="cantClearHistory">Il n\'est pas possible d\'effacer votre historique de jeu, votre historique de problèmes ou vos classements.</string>
+  <string name="cantClearHistoryOrResetRatings" comment="Replaces old string cantClearHistory">Il est impossible d\'effacer votre historique de parties ou de problèmes ou de réinitialiser vos classements (cotes).</string>
   <string name="wantReport">Je veux signaler un joueur</string>
   <string name="toReportAPlayerUseForm">Pour signaler un joueur, utilisez le formulaire de signalement.</string>
   <string name="youCanAlsoReachReportPage">Vous pouvez également atteindre cette page en cliquant sur le bouton de signalement %s sur une page de profil.</string>

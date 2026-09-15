@@ -14,7 +14,7 @@ final class CrosstableApi(
 
   lila.common.Bus.sub[lila.core.user.UserDelete]: del =>
     matchupColl:
-      _.delete.one($doc("_id".$startsWith(s"${del.id}/"))).void
+      _.delete.one(bdoc("_id".regexStart(s"${del.id}/"))).void
 
   def apply(game: Game): Fu[Option[Crosstable]] =
     game.twoUserIds.traverse(apply.tupled)
@@ -37,7 +37,7 @@ final class CrosstableApi(
     coll
       .find(
         select(u1, u2),
-        $doc("s1" -> true, "s2" -> true).some
+        bdoc("s1" -> true, "s2" -> true).some
       )
       .one[Bdoc]
       .dmap: res =>
@@ -61,11 +61,11 @@ final class CrosstableApi(
         val inc2 = incScore(u2)
         val updateCrosstable = coll.update.one(
           select(u1, u2),
-          $inc(
+          inc(
             F.score1 -> inc1,
             F.score2 -> inc2
-          ) ++ $push(
-            Crosstable.BSONFields.results -> $doc(
+          ) ++ push(
+            Crosstable.BSONFields.results -> bdoc(
               "$each" -> List(bsonResult),
               "$slice" -> -Crosstable.maxGames
             )
@@ -76,10 +76,10 @@ final class CrosstableApi(
           _.update
             .one(
               select(u1, u2),
-              $inc(
+              inc(
                 F.score1 -> inc1,
                 F.score2 -> inc2
-              ) ++ $set(
+              ) ++ set(
                 F.lastPlayed -> nowInstant
               ),
               upsert = true
@@ -88,10 +88,10 @@ final class CrosstableApi(
         updateCrosstable.zip(updateMatchup).void
       case _ => funit
 
-  private val matchupProjection = $doc(F.lastPlayed -> false)
+  private val matchupProjection = bdoc(F.lastPlayed -> false)
 
   def getMatchup(u1: UserId, u2: UserId): Fu[Option[Matchup]] =
     matchupColl(_.find(select(u1, u2), matchupProjection.some).one[Matchup])
 
   private def select(u1: UserId, u2: UserId) =
-    $id(Crosstable.makeKey(u1, u2))
+    bid(Crosstable.makeKey(u1, u2))

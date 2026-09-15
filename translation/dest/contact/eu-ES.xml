@@ -26,6 +26,7 @@
   <string name="orCloseAccount">Baina zure kontua itxi egin dezakezu eta berri bat sortu.</string>
   <string name="wantClearHistory">Nire historikoa edo puntuazioa berrezarri nahi ditut</string>
   <string name="cantClearHistory">Ezin da zure partiden historikoa, ariketena edo puntuazioa berrezarri.</string>
+  <string name="cantClearHistoryOrResetRatings" comment="Replaces old string cantClearHistory">Ez da posible zure partiden eta ariketen historia edo zure puntuazioa berrezartzea.</string>
   <string name="wantReport">Erabiltzaile baten inguruko kexa jarri nahi dut</string>
   <string name="toReportAPlayerUseForm">Jokalari bati buruzko kexa egiteko, erabili kexa formularioa</string>
   <string name="youCanAlsoReachReportPage">Orrialde horretara jokalariaren profilaren orrialdeko %s berri emateko botoian sakatuta hel zaitezke.</string>
@@ -39,10 +40,10 @@
   <string name="reportMobileIssue">GitHub erabiliz telefonoko aplikazioaren ticket bezala</string>
   <string name="reportBugInDiscord">Lichessen discord zerbitzarian</string>
   <string name="howToReportBug">Azaldu zein den arazoa, zer gertatzea espero zenuen eta zer gertatu den, eta ez ahaztu zure pausoak zein izan diren azaltzea, errorea geuk ere ikusi dezagun.</string>
-  <string name="illegalPawnCapture">Peoiarekin legez-kanpoko harrapaketa</string>
+  <string name="illegalPawnCapture">Peoiarekin legez kanpoko harrapaketa</string>
   <string name="calledEnPassant">\"Pausuan\" edo \"Igarotzean\" harrapatzea deitzen zaio eta xakearen arauetako bat da.</string>
   <string name="tryEnPassant">Ikusi joko hau \"igarotzean\" egiten den harrapaketa honi buruz.</string>
-  <string name="illegalCastling">Legez-kanpoko edo ezinezko endrokea</string>
+  <string name="illegalCastling">Legez kanpoko edo ezinezko endrokea</string>
   <string name="castlingPrevented">Endrokea ezin da egin erregea aurkariak mehatxatutako lauki batetik pasatu behar bada.</string>
   <string name="castlingRules">Ziurtatu endrokearen arauak ezagutzen dituzuna</string>
   <string name="tryCastling">Probatu partida hau xakeko endrokea praktikatzeko</string>

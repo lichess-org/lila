@@ -51,6 +51,8 @@
   <string name="imageAlt">Rasm uchun muqobil matn</string>
   <string name="imageCredit">Rasm manbasi</string>
   <string name="deleteBlog">Ushbu blog postini butunlay oʻchirib tashlash</string>
+  <string name="safeToUseImages">Quyidagi veb‑saytlardagi rasmlardan foydalanish xavfsiz: </string>
+  <string name="freeImagesComplyWithLicensing" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement. Replaces old string safeToUseImages">Quyidagi veb‑saytlar bepul tasvirlarni taqdim etadi. Iltimos, siz foydalanadigan tasvirning litsenziyalash shartlariga rioya qilishingizni soʻraymiz.</string>
   <string name="selectPostTopics">Postingiz qaysi mavzular haqida ekanligini tanlang</string>
   <string name="safeAndRespectfulContent">Iltimos, faqat xavfsiz va odob doirasidagi kontentlarni joylang. Birovning ishini koʻchirib olmang.</string>
   <string name="noCopyrightedImages">Faqat mualliflik huquqi bilan himoyalanmagan rasmlardan foydalaning.</string>

@@ -48,21 +48,21 @@ final private[api] class GameApi(
         selector = {
           if ~playing then lila.game.Query.nowPlayingVs(users._1.id, users._2.id)
           else
-            lila.game.Query.opponents(users._1, users._2) ++ $doc(
-              G.status.$gte(chess.Status.Mate.id),
+            lila.game.Query.opponents(users._1, users._2) ++ bdoc(
+              G.status.gte(chess.Status.Mate.id),
               G.analysed -> analysed.map[BSONValue] {
                 if _ then BSONBoolean(true)
-                else $doc("$exists" -> false)
+                else bdoc("$exists" -> false)
               }
             )
-        } ++ $doc(
+        } ++ bdoc(
           G.rated -> rated.map[BSONValue] {
             if _ then BSONBoolean(true)
-            else $doc("$exists" -> false)
+            else bdoc("$exists" -> false)
           }
         ),
         projection = none,
-        sort = $doc(G.createdAt -> -1),
+        sort = bdoc(G.createdAt -> -1),
         _.sec
       ).withNbResults(
         if ~playing then gameCache.nbPlaying(users._1.id)
@@ -92,22 +92,22 @@ final private[api] class GameApi(
         selector = {
           if ~playing then lila.game.Query.nowPlayingVs(userIds)
           else
-            lila.game.Query.opponents(userIds) ++ $doc(
-              G.status.$gte(chess.Status.Mate.id),
+            lila.game.Query.opponents(userIds) ++ bdoc(
+              G.status.gte(chess.Status.Mate.id),
               G.analysed -> analysed.map[BSONValue] {
                 if _ then BSONBoolean(true)
-                else $doc("$exists" -> false)
+                else bdoc("$exists" -> false)
               }
             )
-        } ++ $doc(
+        } ++ bdoc(
           G.rated -> rated.map[BSONValue] {
             if _ then BSONBoolean(true)
-            else $doc("$exists" -> false)
+            else bdoc("$exists" -> false)
           },
-          G.createdAt.$gte(since)
+          G.createdAt.gte(since)
         ),
         projection = none,
-        sort = $doc(G.createdAt -> -1),
+        sort = bdoc(G.createdAt -> -1),
         _.sec
       ),
       currentPage = page,

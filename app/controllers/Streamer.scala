@@ -28,13 +28,14 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
   def show(username: UserStr, redirect: Boolean) = Open:
     Found(api.forSubscriber(username)): s =>
       WithVisibleStreamer(s):
+        val liveStreamer = env.streamer.liveApi.of(s)
         redirect
-          .so(env.streamer.liveApi.of(s).map(_.stream.flatMap(_.redirectToLiveUrl)))
+          .so(liveStreamer.map(_.stream.flatMap(_.redirectToLiveUrl)))
           .flatMap:
             case Some(url) => Redirect(url.value)
             case None =>
               for
-                sws <- env.streamer.liveApi.of(s)
+                sws <- liveStreamer
                 activity <- env.activity.read.recentAndPreload(sws.user)
                 perfs <- env.user.perfsRepo.perfsOf(sws.user)
                 page <- renderPage(views.streamer.show(sws, perfs, activity))

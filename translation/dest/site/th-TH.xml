@@ -406,7 +406,6 @@
   <string name="apply">ใช้งาน</string>
   <string name="save">Save</string>
   <string name="leaderboard">กระดานผู้นำ</string>
-  <string name="screenshotCurrentPosition">จับภาพหน้าจอตำแหน่งปัจจุบัน</string>
   <string name="gameAsGIF">เกมเป็น GIF</string>
   <string name="playerNames">ชื่อผู้เล่น</string>
   <string name="moveAnnotations">สัญกรณ์การเดิน</string>
@@ -514,7 +513,6 @@
   <string name="oneUrlPerLine">หนึ่ง URL ต่อบรรทัด</string>
   <string name="inlineNotation">สัญกรณ์ในบรรทัด</string>
   <string name="makeAStudy">เพื่อความปลอดภัยและการแบ่งปัน โปรดพิจารณาทำการศึกษา</string>
-  <string name="clearSavedMoves">ล้างตาเดิน</string>
   <string name="previouslyOnLichessTV">Lichess TV ก่อนหน้า</string>
   <string name="onlinePlayers">ผู้เล่นออนไลน์</string>
   <string name="activePlayers">ผู้เล่นที่ขยัน</string>
@@ -782,7 +780,6 @@
   <string name="background">พื้นหลัง</string>
   <string name="light">สว่าง</string>
   <string name="dark">มืด</string>
-  <string name="transparent">โปร่งใส</string>
   <string name="deviceTheme">ธีมของเครื่อง</string>
   <string name="backgroundImageUrl">URL รูปภาพพื้นหลัง:</string>
   <string name="board">สีกระดาน</string>

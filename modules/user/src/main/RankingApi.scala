@@ -33,8 +33,8 @@ final class RankingApi(
       coll:
         _.update
           .one(
-            $id(makeId(user.id, perfType)),
-            $doc(
+            bid(makeId(user.id, perfType)),
+            bdoc(
               "perf" -> perfType.id,
               "rating" -> perf.intRating,
               "prog" -> perf.progress,
@@ -47,7 +47,7 @@ final class RankingApi(
 
   def remove(userId: UserId): Funit =
     coll:
-      _.delete.one($doc("_id".$startsWith(s"$userId:"))).void
+      _.delete.one(bdoc("_id".regexStart(s"$userId:"))).void
 
   private def makeId(userId: UserId, perfType: PerfType) = s"$userId:${perfType.id}"
 
@@ -69,8 +69,8 @@ final class RankingApi(
         .isLeaderboardable(perf)
         .so:
           coll:
-            _.find($doc("perf" -> perf.id, "stable" -> true))
-              .sort($doc("rating" -> -1, "expiresAt" -> -1))
+            _.find(bdoc("perf" -> perf.id, "stable" -> true))
+              .sort(bdoc("rating" -> -1, "expiresAt" -> -1))
               .skip(skip)
               .cursor[Ranking](ReadPref.sec)
               .list(nb)
@@ -141,9 +141,9 @@ final class RankingApi(
     private def computeAggregate(pt: PerfType): Fu[Map[UserId, Rank]] = coll:
       _.aggregateOne(_.sec): framework =>
         import framework.*
-        Match($doc("perf" -> pt.id, "stable" -> true)) -> List(
+        Match(bdoc("perf" -> pt.id, "stable" -> true)) -> List(
           Sort(Descending("rating"), Descending("expiresAt")),
-          Group(BSONNull)("all" -> Push($doc("$first" -> $doc("$split" -> $arr("$_id", ":")))))
+          Group(BSONNull)("all" -> Push(bdoc("$first" -> bdoc("$split" -> barr("$_id", ":")))))
         )
       .map:
         _.flatMap(_.getAsOpt[BSONArray]("all")).so:

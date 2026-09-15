@@ -14,44 +14,25 @@ final class UblogForm(captcha: CaptchaApi, langList: LangList):
 
   import UblogForm.UblogPostData
 
-  private val base =
-    mapping(
-      "title" -> cleanNonEmptyText(minLength = 3, maxLength = 80),
-      "intro" -> cleanNonEmptyText(minLength = 0, maxLength = 1_000),
-      "markdown" -> cleanTextWithSymbols(minLength = 0, maxLength = 100_000).into[Markdown],
-      "imageAlt" -> optional(cleanNonEmptyText(minLength = 3, maxLength = 200)),
-      "imageCredit" -> optional(cleanNonEmptyText(minLength = 3, maxLength = 200)),
-      "language" -> optional(langList.popularLanguagesForm.mapping),
-      "topics" -> optional(text),
-      "live" -> boolean,
-      "discuss" -> boolean,
-      "sticky" -> boolean,
-      "ads" -> boolean,
-      "gameId" -> of[GameId],
-      "move" -> text
-    )(UblogPostData.apply)(unapply)
+  private val base = mapping(
+    "title" -> cleanNonEmptyText(minLength = 3, maxLength = 80),
+    "intro" -> cleanNonEmptyText(minLength = 0, maxLength = 1_000),
+    "markdown" -> cleanTextWithSymbols(minLength = 0, maxLength = 100_000).into[Markdown],
+    "imageAlt" -> optional(cleanNonEmptyText(minLength = 3, maxLength = 200)),
+    "imageCredit" -> optional(cleanNonEmptyText(minLength = 3, maxLength = 200)),
+    "language" -> optional(langList.popularLanguagesForm.mapping),
+    "topics" -> optional(text),
+    "live" -> boolean,
+    "discuss" -> boolean,
+    "sticky" -> boolean,
+    "ads" -> boolean,
+    "gameId" -> of[GameId],
+    "move" -> text
+  )(UblogPostData.apply)(unapply)
 
-  def apply(post: UblogPost) = if post.isEmpty then create else edit(post)
-
-  private def create = Form:
-    base.verifying(lila.core.captcha.failMessage, captcha.validateSync)
-
-  private def edit(post: UblogPost) = Form(base).fill:
-    UblogPostData(
-      title = post.title,
-      intro = post.intro,
-      markdown = lila.markdown.MarkdownToastUi.latex.removeFrom(post.markdown),
-      imageAlt = post.image.flatMap(_.alt),
-      imageCredit = post.image.flatMap(_.credit),
-      language = post.language.some,
-      topics = post.topics.mkString(", ").some,
-      live = post.live,
-      discuss = ~post.discuss,
-      sticky = ~post.sticky,
-      ads = ~post.ads,
-      gameId = GameId(""),
-      move = ""
-    )
+  def apply(post: UblogPost) =
+    val m = if post.isEmpty then base.verifying(lila.core.captcha.failMessage, captcha.validateSync) else base
+    Form(m).fill(UblogForm.toData(post))
 
 object UblogForm:
 
@@ -87,6 +68,22 @@ object UblogForm:
         updated = UblogPost.Recorded(user.id, nowInstant).some,
         lived = prev.lived.orElse(live.option(UblogPost.Recorded(user.id, nowInstant)))
       )
+
+  def toData(post: UblogPost) = UblogPostData(
+    title = post.title,
+    intro = post.intro,
+    markdown = lila.markdown.MarkdownToastUi.latex.removeFrom(post.markdown),
+    imageAlt = post.image.flatMap(_.alt),
+    imageCredit = post.image.flatMap(_.credit),
+    language = post.language.some,
+    topics = post.topics.mkString(", ").some,
+    live = post.live,
+    discuss = ~post.discuss,
+    sticky = ~post.sticky,
+    ads = ~post.ads,
+    gameId = GameId(""),
+    move = ""
+  )
 
   lazy val carouselSize =
     Form(single("size" -> number(min = 0, max = 30)))

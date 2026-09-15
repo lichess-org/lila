@@ -1,10 +1,11 @@
 import { execSync } from 'node:child_process';
 import fs from 'node:fs';
 import { chdir } from 'node:process';
+import pc from 'picocolors';
 
 import { definedUnique } from './algo.ts';
 import { clean } from './clean.ts';
-import { env, errorMark, c } from './env.ts';
+import { env, errorMark } from './env.ts';
 import { esbuild, stopEsbuild } from './esbuild.ts';
 import { hash } from './hash.ts';
 import { i18n } from './i18n.ts';
@@ -23,25 +24,25 @@ export async function build(pkgs: string[]): Promise<void> {
     try {
       chdir(env.rootDir);
       if (env.install) execSync('pnpm install', { stdio: 'inherit' });
-      if (!pkgs.length) env.log(`Parsing packages in '${c.cyan(env.uiDir)}'`);
+      if (!pkgs.length) env.log(`Parsing packages in '${pc.cyan(env.uiDir)}'`);
 
       await Promise.allSettled([parsePackages(), fs.promises.mkdir(env.buildTempDir)]);
 
       pkgs
         .filter(x => !env.packages.has(x))
-        .forEach(x => env.exit(`${errorMark} - unknown package '${c.magenta(x)}'`));
+        .forEach(x => env.exit(`${errorMark} - unknown package '${pc.magenta(x)}'`));
 
       env.building =
         pkgs.length === 0 ? [...env.packages.values()] : definedUnique(pkgs.flatMap(p => env.deps(p)));
 
-      if (pkgs.length) env.log(`Building ${c.grey(env.building.map(x => x.name).join(', '))}`);
+      if (pkgs.length) env.log(`Building ${pc.gray(env.building.map(x => x.name).join(', '))}`);
     } finally {
       monitor(pkgs);
     }
     await Promise.all([i18n(), sync().then(hash).then(sass), tsc(), esbuild()]);
   } catch (e) {
     env.log(`${errorMark} ${e instanceof Error ? (e.stack ?? e.message) : String(e)}`);
-    if (env.watch) env.log(c.grey('Watching...'));
+    if (env.watch) env.log(pc.gray('Watching...'));
     else env.exit();
   }
 }

@@ -16,7 +16,7 @@ final class ForecastApi(coll: Coll, roundApi: lila.core.round.RoundApi)(using Ex
     lila.mon.round.forecast.create.increment()
     coll.update
       .one(
-        $id(pov.fullId),
+        bid(pov.fullId),
         Forecast(
           _id = pov.fullId,
           steps = steps.filter(_.nonEmpty),
@@ -28,7 +28,7 @@ final class ForecastApi(coll: Coll, roundApi: lila.core.round.RoundApi)(using Ex
 
   def save(pov: Pov, steps: Forecast.Steps): Funit =
     firstStep(steps) match
-      case None => coll.delete.one($id(pov.fullId)).void
+      case None => coll.delete.one(bid(pov.fullId)).void
       case Some(step) if pov.game.ply == step.ply - 1 => saveSteps(pov, steps)
       case _ => fufail(Forecast.OutOfSync)
 
@@ -76,12 +76,12 @@ final class ForecastApi(coll: Coll, roundApi: lila.core.round.RoundApi)(using Ex
       loadForPlay(pov).flatMapz: fc =>
         fc(g, last) match
           case Some(newFc, uciMove) if newFc.steps.nonEmpty =>
-            coll.update.one($id(fc._id), newFc).inject(uciMove.some)
+            coll.update.one(bid(fc._id), newFc).inject(uciMove.some)
           case Some(_, uciMove) => clearPov(pov).inject(uciMove.some)
           case _ => clearPov(pov).inject(none)
 
   private def firstStep(steps: Forecast.Steps) = steps.headOption.flatMap(_.headOption)
 
-  def clearGame(g: Game) = coll.delete.one($inIds(Color.all.map(g.fullIdOf))).void
+  def clearGame(g: Game) = coll.delete.one(inIds(Color.all.map(g.fullIdOf))).void
 
-  def clearPov(pov: Pov) = coll.delete.one($id(pov.fullId)).void
+  def clearPov(pov: Pov) = coll.delete.one(bid(pov.fullId)).void

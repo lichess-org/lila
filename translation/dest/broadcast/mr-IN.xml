@@ -35,6 +35,7 @@
   <string name="resetRound">ही फेरी परत चालू करा</string>
   <string name="deleteRound">फेरी रद्द करा</string>
   <string name="definitivelyDeleteRound">फेरी आणि त्याचे सर्व गेम निश्चितपणे हटवा.</string>
+  <string name="permanentlyDeleteRound" comment="Refers to live tournaments being broadcast on Lichess (https://lichess.org/broadcast).&#10;&#10;Description (also translateable): Delete all games of this round. The source will need to be active in order to re-create them. This string has been amended since its initial publication; it didn't say &quot;all its games&quot; at the time.&#10;&#10;Replaces old string definitivelyDeleteRound.">फेरी आणि त्याचे सर्व खेळ निश्चितपणे हटवा.</string>
   <string name="deleteAllGamesOfThisRound">या फेरीतील सर्व खेळ हटवा. ते पुन्हा तयार करण्यासाठी स्त्रोत सक्रिय असणे आवश्यक आहे.</string>
   <string name="editRoundStudy">फेरीचा अभ्यास संपादित करा</string>
   <string name="deleteTournament">ही स्पर्धा हटवा</string>
@@ -42,7 +43,7 @@
   <string name="permanentlyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast Replaces old string definitivelyDeleteTournament">सर्व फेऱ्या आणि सामन्यांसह ही स्पर्धा कायमची काढून टाकायची का?</string>
   <string name="showScores">खेळाच्या निकालांवर आधारित खेळाडूंचे अंक दाखवा</string>
   <string name="replacePlayerTags">पर्यायी: खेळाडूंची नावे, रेटिंग्ज आणि शीर्षके बदला</string>
-  <string name="fideFederations">FIDE संघराज्ये </string>
+  <string name="fideFederations">FIDE संघराज्ये</string>
   <string name="top10Rating">सर्वोच्च १० मानांकनांची सरासरी</string>
   <string name="fidePlayers">FIDE खेळाडू</string>
   <string name="fidePlayerNotFound">FIDE खेळाडू सापडले नाही</string>

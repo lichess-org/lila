@@ -18,4 +18,6 @@
   <string name="racingKingsTitle">Dovedite svog kralja na drugu stranu ploče da biste pobijedili.</string>
   <string name="crazyhouse">Luda kuća</string>
   <string name="crazyhouseTitle">Osvojene figure mogu se vratiti na tablu umjesto pomjeranja figure.</string>
+  <string name="fromPosition">Iz Pozicije</string>
+  <string name="fromPositionTitle">Standardni šah iz prilagođene pozicije</string>
 </resources>

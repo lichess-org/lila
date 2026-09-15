@@ -148,6 +148,12 @@ Em seguida, selecione se deve permitir ou bloquear notificações de Lichhess.</
 O ícone vermelho de silêncio indica que seu navegador está bloqueando o som do lichess.org. Ao clicar em alguma coisa, geralmente isso se resolve. No mobile, arrastar uma peça às vezes não conta como um clique. Nesse caso, você precisa mover com um clique para ativar o som a cada partida nova.
 
 O ícone serve para você saber quando isso acontece. Você também pode alterar as permissões do lichess.org. Aqui estão as instruções para as versões atuais de alguns navegadores populares.</string>
+  <string name="mostBrowsersPreventSoundAutoplay" comment="Replaces old string enableAutoplayForSoundsA">A maioria dos navegadores impede que sons sejam reproduzidos em páginas recém-visitadas para proteger os usuários.
+
+O ícone de mudo aparece quando seu navegador impede o lichess.org de tocar um som. Essa restrição geralmente é removida assim que você clica em algo.
+Em alguns navegadores de celular, arrastar uma peça com o dedo não conta como clique. Nesse caso, você precisa tocar no tabuleiro para permitir o som no início de cada partida.
+
+Mostramos o ícone vermelho de mudo para avisar quando isso acontece. Você pode autorizar explicitamente o lichess.org a tocar sons na maioria dos navegadores. Veja as instruções para permitir que o site reproduza áudio em versões recentes de alguns navegadores populares:</string>
   <string name="desktop">desktop</string>
   <string name="enableAutoplayForSoundsFirefox">1. Acesse o lichess.org
 2. Pressione Ctrl-i em Linux/Windows ou cmd-i em MacOS
@@ -157,6 +163,10 @@ O ícone serve para você saber quando isso acontece. Você também pode alterar
 2. Clique no ícone de cadeado na barra de Url
 3. Clique em Configurações do site
 4. Ative Som</string>
+  <string name="enableAutoplayForSoundsChromeSiteInformation" comment="Guidance for Google Chrome users on how to enable audio auto-play if they have sound issues. Replaces old string enableAutoplayForSoundsChrome">1. Acesse lichess.org
+2. Clique no ícone de informações do site na barra de endereço
+3. Clique em Configurações do site
+4. Permita o Som</string>
   <string name="enableAutoplayForSoundsSafari">1. Acesse o lichess.org
 2. Clique em Safari no menu
 3. Clique em Configurações de lichess.org ...

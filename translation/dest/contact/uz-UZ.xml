@@ -26,6 +26,7 @@
   <string name="orCloseAccount">Lekin siz hozirgi akkauntingizni yopib, yangisini ochishingiz mumkin.</string>
   <string name="wantClearHistory">Tariximni yoki reytingimni oʻchirmoqchiman</string>
   <string name="cantClearHistory">Oʻyinlar tarixi, masalalar tarixi yoki reytinglarni tozalashning imkoni yoʻq.</string>
+  <string name="cantClearHistoryOrResetRatings" comment="Replaces old string cantClearHistory">Oʻyinlar tarixi, masalalar tarixi yoki reytinglarni oʻchirib boʻlmaydi.</string>
   <string name="wantReport">Oʻyinchi ustidan shikoyat qilmoqchiman</string>
   <string name="toReportAPlayerUseForm">Oʻyinchi ustidan shikoyat qilish uchun maxsus formani toʻldiring</string>
   <string name="youCanAlsoReachReportPage">Shuningdek, ushbu sahifaga foydalanuvchi profilidagi %s tugmasini bosish orqali ham oʻtishingiz mumkin.</string>

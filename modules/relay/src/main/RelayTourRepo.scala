@@ -15,7 +15,7 @@ final private class RelayTourRepo(val coll: Coll)(using Executor):
   def byId(tourId: RelayTourId): Fu[Option[RelayTour]] = coll.byIdProj[RelayTour](tourId, modelProjection)
 
   def setSyncedNow(tour: RelayTour): Funit =
-    coll.updateField($id(tour.id), "syncedAt", nowInstant).void
+    coll.updateField(bid(tour.id), "syncedAt", nowInstant).void
 
   def denormalize(
       tourId: RelayTourId,
@@ -23,70 +23,69 @@ final private class RelayTourRepo(val coll: Coll)(using Executor):
       live: Boolean,
       dates: Option[RelayTour.Dates]
   ): Funit =
-    coll.update.one($id(tourId), $set("active" -> active, "live" -> live, "dates" -> dates)).void
+    coll.update.one(bid(tourId), set("active" -> active, "live" -> live, "dates" -> dates)).void
 
   def oldActiveCursor =
     coll
-      .find($doc("active" -> true, "dates.end".$lt(nowInstant.minusDays(1))))
+      .find(bdoc("active" -> true, "dates.end".lt(nowInstant.minusDays(1))))
       .cursor[RelayTour]()
 
-  def lookup(local: String) =
-    $lookup.simple(
-      coll,
-      "tour",
-      local,
-      "_id",
-      pipe = List($doc("$project" -> modelProjection))
-    )
+  def lookupByTourId = lookup.simple(
+    coll,
+    "tour",
+    "tourId",
+    "_id",
+    pipe = List(bdoc("$project" -> modelProjection))
+  )
 
   def countByOwner(owner: UserId, publicOnly: Boolean): Fu[Int] =
     coll.secondary.countSel(selectors.ownerId(owner) ++ publicOnly.so(selectors.vis.public))
 
   def subscribers(tid: RelayTourId): Fu[Set[UserId]] =
-    coll.distinctEasy[UserId, Set]("subscribers", $id(tid))
+    coll.distinctEasy[UserId, Set]("subscribers", bid(tid))
 
   def setSubscribed(tid: RelayTourId, uid: UserId, isSubscribed: Boolean): Funit =
     coll.update
-      .one($id(tid), if isSubscribed then $addToSet("subscribers" -> uid) else $pull("subscribers" -> uid))
+      .one(bid(tid), if isSubscribed then addToSet("subscribers" -> uid) else pull("subscribers" -> uid))
       .void
 
   def isSubscribed(tid: RelayTourId, uid: UserId): Fu[Boolean] =
-    coll.secondary.exists($doc($id(tid), "subscribers" -> uid))
+    coll.secondary.exists(bdoc(bid(tid), "subscribers" -> uid))
 
   def countBySubscriberId(uid: UserId): Fu[Int] =
     coll.countSel(selectors.subscriberId(uid))
 
   private[relay] def hasNotified(rt: RelayRound.WithTour): Fu[Boolean] =
-    coll.exists($doc($id(rt.tour.id), "notified" -> rt.round.id))
+    coll.exists(bdoc(bid(rt.tour.id), "notified" -> rt.round.id))
 
   def setNotified(rt: RelayRound.WithTour): Funit =
-    coll.update.one($id(rt.tour.id), $addToSet("notified" -> rt.round.id)).void
+    coll.update.one(bid(rt.tour.id), addToSet("notified" -> rt.round.id)).void
 
   def delete(tour: RelayTour): Funit =
-    coll.delete.one($id(tour.id)).void
+    coll.delete.one(bid(tour.id)).void
 
   def previews(ids: List[RelayTourId]): Fu[List[TourPreview]] =
     coll.byOrderedIds[TourPreview, RelayTourId](
       ids,
-      $doc("name" -> true, "live" -> true, "active" -> true).some
+      bdoc("name" -> true, "live" -> true, "active" -> true).some
     )(_.id)
 
   def byIds(ids: List[RelayTourId]): Fu[List[RelayTour]] =
     coll.byOrderedIds[RelayTour, RelayTourId](ids, unsetHeavyOptionalFields.some)(_.id)
 
   def hasOfficial(ids: List[RelayTourId]): Fu[Boolean] =
-    coll.exists($inIds(ids) ++ selectors.official)
+    coll.exists(inIds(ids) ++ selectors.official)
 
   def isOwnerOfAll(u: UserId, ids: List[RelayTourId]): Fu[Boolean] =
-    coll.exists($doc($inIds(ids), "ownerIds".$ne(u))).not
+    coll.exists(bdoc(inIds(ids), "ownerIds".neq(u))).not
 
   def addOwnerToTours(tourIds: List[RelayTourId], userId: UserId): Funit =
     coll.update
-      .one($inIds(tourIds), $addToSet("ownerIds" -> userId), multi = true)
+      .one(inIds(tourIds), addToSet("ownerIds" -> userId), multi = true)
       .void
 
   def showTeamScores(id: RelayTourId): Fu[Boolean] =
-    coll.primitiveOne[Boolean]($id(id), "showTeamScores").map(~_)
+    coll.primitiveOne[Boolean](bid(id), "showTeamScores").map(~_)
 
   def aggregateRoundAndUnwind(
       otherColls: RelayColls,
@@ -110,15 +109,15 @@ final private class RelayTourRepo(val coll: Coll)(using Executor):
       )
     ) ::: List(
       framework.PipelineOperator:
-        $lookup.simple(
+        lookup.simple(
           from = otherColls.round,
           as = "round",
           local = "_id",
           foreign = "tourId",
           pipe = roundPipeline | List(
-            $doc("$sort" -> RelayRoundRepo.sort.desc),
-            $doc("$limit" -> 1),
-            $doc("$addFields" -> $doc("sync.log" -> $arr()))
+            bdoc("$sort" -> RelayRoundRepo.sort.desc),
+            bdoc("$limit" -> 1),
+            bdoc("$addFields" -> bdoc("sync.log" -> barr()))
           )
         )
     )
@@ -130,21 +129,21 @@ private object RelayTourRepo:
     // look at the groups where the tour appears.
     // only keep the tour if there is no group,
     // or if the tour is the first in the group.
-    def firstLookup(groupColl: Coll) = $lookup.pipelineFull(
+    def firstLookup(groupColl: Coll) = lookup.pipelineFull(
       from = groupColl.name,
       as = "group",
-      let = $doc("tourId" -> "$_id"),
+      let = bdoc("tourId" -> "$_id"),
       pipe = List(
-        $doc("$match" -> $doc("$expr" -> $doc("$in" -> $arr("$$tourId", "$tours")))),
-        $doc:
-          "$project" -> $doc(
+        bdoc("$match" -> bdoc("$expr" -> bdoc("$in" -> barr("$$tourId", "$tours")))),
+        bdoc:
+          "$project" -> bdoc(
             "_id" -> false,
             "name" -> true,
-            "isFirst" -> $doc("$eq" -> $arr("$$tourId", $doc("$first" -> "$tours")))
+            "isFirst" -> bdoc("$eq" -> barr("$$tourId", bdoc("$first" -> "$tours")))
           )
       )
     )
-    val firstFilter = $doc("group.0.isFirst".$ne(false))
+    val firstFilter = bdoc("group.0.isFirst".neq(false))
 
     def readFrom(doc: Bdoc): Option[RelayGroup.Name] = for
       garr <- doc.getAsOpt[Barr]("group")
@@ -158,37 +157,37 @@ private object RelayTourRepo:
     yield name
 
   object selectors:
-    val official = $doc("tier".$exists(true))
-    val nonOfficial = $doc("tier".$exists(false))
+    val official = bdoc("tier".exists(true))
+    val nonOfficial = bdoc("tier".exists(false))
     object vis:
-      val public = $doc("visibility" -> Visibility.public)
-      val notPublic = $doc("visibility".$ne(Visibility.public))
-      val `private` = $doc("visibility" -> Visibility.`private`)
+      val public = bdoc("visibility" -> Visibility.public)
+      val notPublic = bdoc("visibility".neq(Visibility.public))
+      val `private` = bdoc("visibility" -> Visibility.`private`)
     val officialPublic = official ++ vis.public
     val officialNotPublic = official ++ vis.notPublic
-    val active = $doc("active" -> true)
-    val inactive = $doc("active" -> false)
-    def ownerId(u: UserId) = $doc("ownerIds" -> u)
-    def subscriberId(u: UserId) = $doc("subscribers" -> u)
+    val active = bdoc("active" -> true)
+    val inactive = bdoc("active" -> false)
+    def ownerId(u: UserId) = bdoc("ownerIds" -> u)
+    def subscriberId(u: UserId) = bdoc("subscribers" -> u)
     val officialActive = officialPublic ++ active
     val officialInactive = officialPublic ++ inactive
-    val live = $doc("live" -> true)
+    val live = bdoc("live" -> true)
     def inMonth(at: YearMonth) =
       val date = java.time.LocalDate.of(at.getYear, at.getMonth, 1)
-      $doc(
-        "dates.start" -> $doc("$lte" -> date.plusMonths(1)),
-        $or( // uses 2 index scans then OR on mongodb 7, or one index scan on mongodb 8. Both are ok with current volume
-          "dates.end".$gte(date),
-          "dates.end".$exists(false)
+      bdoc(
+        "dates.start" -> bdoc("$lte" -> date.plusMonths(1)),
+        or( // uses 2 index scans then OR on mongodb 7, or one index scan on mongodb 8. Both are ok with current volume
+          "dates.end".gte(date),
+          "dates.end".exists(false)
         )
       )
 
-  private[relay] val modelProjection = $doc(
+  private[relay] val modelProjection = bdoc(
     "subscribers" -> false,
     "notified" -> false
   )
 
-  private[relay] val unsetHeavyOptionalFields = modelProjection ++ $doc(
+  private[relay] val unsetHeavyOptionalFields = modelProjection ++ bdoc(
     "markup" -> false,
     "players" -> false,
     "teams" -> false

@@ -80,12 +80,10 @@ final class Fishnet(env: Env) extends LilaController(env):
                 .rescue(identity)
             )
       Client.Version.readFromUA.so: version =>
-        if env.mode.notProd && HTTPRequest.bearer(req).isEmpty then handle(Client.offline)
+        if env.mode.notProd && !hasOAuthBearer then handle(Client.offline)
         else
-          HTTPRequest
-            .bearer(req)
-            .so: bearer =>
-              api.authenticateClient(bearer.into(Client.Key), version, req.ipAddress).flatMap {
-                case Failure(msg) => Unauthorized(jsonError(msg.getMessage))
-                case Success(client) => handle(client)
-              }
+          HTTPRequest.bearer.so: (bearer, _) =>
+            api.authenticateClient(bearer.into(Client.Key), version, req.ipAddress).flatMap {
+              case Failure(msg) => Unauthorized(jsonError(msg.getMessage))
+              case Success(client) => handle(client)
+            }

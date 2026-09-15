@@ -94,6 +94,7 @@
   <string name="moreRoundsThanPlayersQ">ماذا يحدث إذا كانت البطولة تحتوي على جولات أكثر من اللاعبين؟</string>
   <string name="moreRoundsThanPlayersA">عندما ينتهي كل المتنافسين من اللعب ستنتهي البطولة و يتم إعلان الفائز.</string>
   <string name="restrictedToTeamsQ">لماذا هو حصري للفرق فقط؟</string>
+  <string name="whyAreSwissTournamentsRestrictedToTeams" comment="Replaces old string restrictedToTeamsQ">لماذا تقتصر بطولات النظام السويسري على الفرق؟</string>
   <string name="restrictedToTeamsA">لم تكن البطولات السويسرية مصممة للشطرنج على ألإنترنت، بل تتطلب دِقَّة المواعيد والتفاني والصبر من اللاعبين.
 نعتقد أنه من المرجح أن يتم الوفاء بهذه الشروط في إطار فريق أكثر منها في البطولات العالمية.</string>
   <string name="numberOfByesQ">كم عدد مرات الراحة التي يمكن أن يحصل عليها اللاعب؟</string>
@@ -114,6 +115,7 @@
   <string name="willSwissReplaceArenasQ">هل ستحل البطولات السويسرية محل البطولات العادية؟</string>
   <string name="willSwissReplaceArenasA">لا، هذه ميزات تكميلية.</string>
   <string name="roundRobinQ">ماذا عن النظام الدوري؟</string>
+  <string name="canPlayRoundRobinTournaments" comment="roundRobinQ&#10;&#10;Round-robin is a simple tournament format with some similarities to Swiss. It is not supported by Lichess. Replaces old string roundRobinQ">هل يمكنني المشاركة في بطولات بنظام الدوري على Lichess؟</string>
   <string name="roundRobinA">نود أن نضيفها، لكن لسوء الحظ أن لا يمكن لعب جولة روبين على الإنترنت.
 وذلك لعدم توفر طريقة عادلة للتعامل مع الأشخاص الذين يغادرون المسابقة مبكرا. فلا يمكننا أن نضمن أن يلعب جميع اللاعبين كل مبارياتهم في بطولة على الانترنت، ونتيجة لذلك فإن معظم بطولات روبين ستكون معيبة وغير عادلة.
 إذا أردت لعب جولة روبن على الإنترنت فيمكنك لعب بطولة سويسرية بعدد كبير جدا من الجولات، بحيث تلعب مع كل المشاركين في البطولة.</string>

@@ -1,7 +1,16 @@
 #insight .filters {
+  @include backdrop-blur-if-transparent;
+
+  position: relative;
+  z-index: $z-mz-menu-4;
+
   .box {
-    border-bottom-width: 0;
+    border-radius: 0;
     overflow: visible;
+
+    @include if-transp {
+      backdrop-filter: none;
+    }
   }
 
   .box:last-child {
@@ -26,6 +35,10 @@
 
   .ms-choice {
     @include transition;
+
+    @include if-transp {
+      background: none;
+    }
 
     padding: 15px 10px;
     border-width: 0 0 1px 0;

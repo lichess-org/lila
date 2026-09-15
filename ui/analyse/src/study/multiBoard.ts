@@ -9,7 +9,7 @@ import { fenColor } from 'lib/game/chess';
 import { otbClockIsRunning, formatMs } from 'lib/game/clock/clockWidget';
 import { licon } from 'lib/licon';
 import { storage, storedBooleanProp } from 'lib/storage';
-import { type MaybeVNode, type VNode, bind, dataIcon, onInsert, hl, requiresI18n } from 'lib/view';
+import { type MaybeVNode, type VNode, bind, onInsert, hl, requiresI18n, img, dataIcon } from 'lib/view';
 import { cmnToggleWrapProp } from 'lib/view/cmn-toggle';
 import { userTitle } from 'lib/view/userLink';
 
@@ -326,12 +326,17 @@ export const verticalEvalGauge = (
 ): MaybeVNode => {
   const baseTag = `span.mini-game__gauge${orientation === 'black' ? ' mini-game__gauge--flip' : ''}`;
   return chap.check === '#'
-    ? h(baseTag + ` mini-game__gauge--set`, { attrs: { 'data-id': chap.id, title: 'Checkmate' } }, [
-        h('span.mini-game__gauge__black', {
-          attrs: { style: `height: ${fenColor(chap.fen) === 'white' ? 100 : 0}%` },
-        }),
-        h('tick'),
-      ])
+    ? h(
+        baseTag + ` mini-game__gauge--set`,
+        {
+          attrs: {
+            'data-id': chap.id,
+            title: 'Checkmate',
+            style: `--multi-eval-percent: ${fenColor(chap.fen) === 'white' ? 100 : 0}%`,
+          },
+        },
+        [h('tick')],
+      )
     : h(
         baseTag,
         {
@@ -343,9 +348,10 @@ export const verticalEvalGauge = (
               const prevNodeCloud: CloudEval | undefined = old.data?.cloud;
               const cev = cloudEval.getCloudEval(chap.fen) || prevNodeCloud;
               if (cev?.chances !== prevNodeCloud?.chances) {
-                (elm.firstChild as HTMLElement).style.height = `${Math.round(
-                  ((1 - (cev?.chances || 0)) / 2) * 100,
-                )}%`;
+                elm.style.setProperty(
+                  '--multi-eval-percent',
+                  `${Math.round(((1 - (cev?.chances || 0)) / 2) * 100)}%`,
+                );
                 if (cev) {
                   elm.title = renderScore(cev);
                   elm.classList.add('mini-game__gauge--set');
@@ -355,19 +361,18 @@ export const verticalEvalGauge = (
             },
           },
         },
-        [h('span.mini-game__gauge__black'), h('tick')],
+        [h('tick')],
       );
 };
 
-export const pinIcon = () =>
-  hl('img.pinned-icon', { attrs: { alt: '', src: site.asset.flairSrc('objects.pushpin') } });
+export const pinIcon = img(site.asset.flairSrc('objects.pushpin'), 'Pin player');
 
 const renderUser = (player: StudyPlayer, pinned?: boolean): VNode =>
   h('span.mini-game__user', [
     playerFedFlag(player.fed),
     h('span.name', [userTitle(player), player.name || '?']),
     player.rating ? h('span.rating', player.rating.toString()) : undefined,
-    pinned ? pinIcon() : undefined,
+    pinned ? pinIcon('.pinned-icon') : undefined,
   ]);
 
 export const renderClock = (chapter: ChapterPreview, color: Color) => {

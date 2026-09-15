@@ -46,7 +46,7 @@ final class ForumCategApi(
     categRepo.coll.insert.one(categ).void >>
       postRepo.coll.insert.one(post).void >>
       topicRepo.coll.insert.one(topic.withPost(post)).void >>
-      categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post)).void
+      categRepo.coll.update.one(bid(categ.id), categ.withPost(topic, post)).void
 
   def show(
       id: ForumCategId,
@@ -67,7 +67,7 @@ final class ForumCategApi(
       _ <-
         categRepo.coll.update
           .one(
-            $id(categ.id),
+            bid(categ.id),
             categ.copy(
               nbTopics = nbTopics,
               nbPosts = nbPosts,

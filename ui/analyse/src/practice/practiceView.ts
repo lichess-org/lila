@@ -84,7 +84,7 @@ function renderRunning(root: AnalyseCtrl, ctrl: PracticeCtrl): VNode {
 export function renderCustomPearl({ ceval }: AnalyseCtrl, hardMode: boolean): VNode {
   if (hardMode) {
     const time = i18n.site.nbSeconds(
-      !isFinite(ceval.storedMovetime()) ? 60 : Math.round(ceval.storedMovetime() / 1000),
+      !isFinite(ceval.storedMovetime()) ? 300 : Math.round(ceval.storedMovetime() / 1000),
     );
     return hl('div.practice-mode', [hl('p', 'Mastery'), hl('p.secondary', time)]);
   }

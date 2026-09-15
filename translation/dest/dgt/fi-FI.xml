@@ -21,6 +21,7 @@
   <string name="asALastResort">Viimeisenä keinona aseta nappulat laudalle juuri niin kuin Lichessissä ja sitten %s</string>
   <string name="reloadThisPage">Lataa tämä sivu uudelleen</string>
   <string name="dgtConfigure">DGT - Asetukset</string>
+  <string name="configureYourDgtBoard" comment="Replaces old string dgtConfigure">Konfiguroi DGT-lautasi</string>
   <string name="lichessConnectivity">Yhteys Lichessiin</string>
   <string name="validDgtOauthToken">Sinulla on DGT:llä pelaamiseen soveltuva OAuth-tunnus.</string>
   <string name="dgtPlayMenuEntryAdded">%s merkintä lisättiin yläreunan Pelaa-valikkoon.</string>

@@ -35,6 +35,7 @@
   <string name="resetRound">Deze ronde opnieuw instellen</string>
   <string name="deleteRound">Deze ronde verwijderen</string>
   <string name="definitivelyDeleteRound">Deze ronde en bijbehorende partijen definitief verwijderen.</string>
+  <string name="permanentlyDeleteRound" comment="Refers to live tournaments being broadcast on Lichess (https://lichess.org/broadcast).&#10;&#10;Description (also translateable): Delete all games of this round. The source will need to be active in order to re-create them. This string has been amended since its initial publication; it didn't say &quot;all its games&quot; at the time.&#10;&#10;Replaces old string definitivelyDeleteRound.">Deze ronde en al zijn partijen permanent verwijderen?</string>
   <string name="deleteAllGamesOfThisRound">Alle partijen van deze ronde verwijderen. De bron zal actief moeten zijn om ze opnieuw te maken.</string>
   <string name="editRoundStudy">Studieronde bewerken</string>
   <string name="deleteTournament">Verwijder dit toernooi</string>

@@ -51,6 +51,8 @@
   <string name="imageAlt">Irudiaren ordezko testua</string>
   <string name="imageCredit">Irudiaren oina</string>
   <string name="deleteBlog">Sarrera hau betiko ezabatu</string>
+  <string name="safeToUseImages">Segurua da webgune hauetako bateko irudiak erabiltzea: </string>
+  <string name="freeImagesComplyWithLicensing" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement. Replaces old string safeToUseImages">Webgune hauek doako irudiak eskaintzen dituzte. Ziurtatu darabilzun irudiaren lizentzia-baldintzak betetzen dituzula.</string>
   <string name="selectPostTopics">Aukeratu zure sarreraren gaiak</string>
   <string name="safeAndRespectfulContent">Eduki seguru eta errespetuzkoa bakarrik argitaratu. Ez kopiatu beste norbaiten edukirik.</string>
   <string name="noCopyrightedImages">Beste norbaiteen copyrighta ez duten irudiak erabili bakarrik.</string>

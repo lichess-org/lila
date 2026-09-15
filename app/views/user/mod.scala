@@ -261,7 +261,7 @@ object mod:
               logins.uas
                 .sortBy(-_.seconds)
                 .map { case Dated(ua, date) =>
-                  val parsed = UserAgentParser.parse(ua)
+                  val parsed = UserAgentParser.parseSlowly(ua)
                   tr(
                     td(title := ua.value)(
                       if parsed.device.family == "Other" then "Computer" else parsed.device.family

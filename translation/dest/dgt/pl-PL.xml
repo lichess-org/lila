@@ -21,6 +21,7 @@
   <string name="asALastResort">W ostateczności, ustaw pozycję na szachownicy identycznie jak Lichess, a następnie %s</string>
   <string name="reloadThisPage">Odśwież stronę</string>
   <string name="dgtConfigure">DGT - Konfiguracja</string>
+  <string name="configureYourDgtBoard" comment="Replaces old string dgtConfigure">Skonfiguruj swoją szachownicę DGT</string>
   <string name="lichessConnectivity">Łączność z Lichess</string>
   <string name="validDgtOauthToken">Masz token OAuth odpowiedni do gry na szachownicy DGT.</string>
   <string name="dgtPlayMenuEntryAdded">Do menu ZAGRAJ została dodana nowa pozycja %s.</string>

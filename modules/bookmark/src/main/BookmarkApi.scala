@@ -21,13 +21,13 @@ final class BookmarkApi(val coll: Coll, gameApi: GameApi, paginator: PaginatorBu
       val candidateIds = games.collect { case g if g.bookmarks > 0 => g.id }
       candidateIds.nonEmpty.so:
         coll.secondary
-          .distinctEasy[GameId, Set]("g", userIdQuery(u.id) ++ $doc("g".$in(candidateIds)))
+          .distinctEasy[GameId, Set]("g", userIdQuery(u.id) ++ bdoc("g".in(candidateIds)))
 
   def removeByGameId(gameId: GameId): Funit =
-    coll.delete.one($doc("g" -> gameId)).void
+    coll.delete.one(bdoc("g" -> gameId)).void
 
   def removeByGameIds(gameIds: List[GameId]): Funit =
-    coll.delete.one($doc("g".$in(gameIds))).void
+    coll.delete.one(bdoc("g".in(gameIds))).void
 
   def remove(gameId: GameId, userId: UserId): Funit = coll.delete.one(selectId(gameId, userId)).void
 
@@ -55,7 +55,7 @@ final class BookmarkApi(val coll: Coll, gameApi: GameApi, paginator: PaginatorBu
   private def add(gameId: GameId, userId: UserId, date: Instant): Funit =
     coll.insert
       .one:
-        $doc(
+        bdoc(
           "_id" -> makeId(gameId, userId),
           "g" -> gameId,
           "u" -> userId,
@@ -63,9 +63,9 @@ final class BookmarkApi(val coll: Coll, gameApi: GameApi, paginator: PaginatorBu
         )
       .void
 
-  def userIdQuery(userId: UserId) = $doc("u" -> userId)
+  def userIdQuery(userId: UserId) = bdoc("u" -> userId)
   private def makeId(gameId: GameId, userId: UserId) = s"$gameId$userId"
-  private def selectId(gameId: GameId, userId: UserId) = $id(makeId(gameId, userId))
+  private def selectId(gameId: GameId, userId: UserId) = bid(makeId(gameId, userId))
 
   lila.common.Bus.sub[lila.core.user.UserDelete]: del =>
     coll.delete.one(userIdQuery(del.id)).void

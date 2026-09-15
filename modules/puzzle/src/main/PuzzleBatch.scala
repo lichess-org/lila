@@ -38,12 +38,12 @@ final class PuzzleBatch(
               .path:
                 _.aggregateList(nb): framework =>
                   import framework.*
-                  Match($id(pathId)) -> List(
-                    Project($doc("puzzleId" -> "$ids", "_id" -> false)),
+                  Match(bid(pathId)) -> List(
+                    Project(bdoc("puzzleId" -> "$ids", "_id" -> false)),
                     Unwind("puzzleId"),
                     Sample(nb),
                     PipelineOperator:
-                      $lookup.simple(
+                      lookup.simple(
                         from = colls.puzzle.name,
                         local = "puzzleId",
                         foreign = "_id",
@@ -52,7 +52,7 @@ final class PuzzleBatch(
                       )
                     ,
                     PipelineOperator:
-                      $doc("$replaceWith" -> $doc("$arrayElemAt" -> $arr("$puzzle", 0)))
+                      bdoc("$replaceWith" -> bdoc("$arrayElemAt" -> barr("$puzzle", 0)))
                   )
                 .map:
                   _.view.flatMap(puzzleReader.readOpt).toVector

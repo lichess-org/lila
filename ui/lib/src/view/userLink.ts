@@ -20,10 +20,12 @@ export type AnyUser = {
 export const userLink = (u: AnyUser): VNode =>
   h('a', userLinkData(u), [userLine(u), ...fullName(u), u.rating && ` ${userRating(u)} `]);
 
+export const profileUrl = (name: string): string => `/@/${name}`;
+
 export const userLinkData = (u: AnyUser): VNodeData => ({
   // can't be inlined because of thunks
   class: { 'user-link': true, ulpt: u.name !== 'ghost', online: !!u.online },
-  attrs: { href: `/@/${u.name}`, ...u.attrs },
+  attrs: { href: profileUrl(u.name), ...u.attrs },
 });
 
 export const userFlair = (u: Pick<AnyUser, 'flair'>): VNode | undefined =>

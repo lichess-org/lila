@@ -1,4 +1,5 @@
 import fg from 'fast-glob';
+import crypto from 'node:crypto';
 import fs from 'node:fs';
 import { dirname, join, basename } from 'node:path';
 
@@ -78,6 +79,10 @@ export function isGlob(path: string): boolean {
 
 export function isClose(a: number | undefined, b: number | undefined, epsilon = 2) {
   return a === b || Math.abs((a ?? NaN) - (b ?? NaN)) < epsilon; // for mtimeMs jitter
+}
+
+export function getHash(content: string | Buffer) {
+  return crypto.createHash('sha256').update(content).digest('hex').slice(0, 8);
 }
 
 async function parsePackage(root: string): Promise<Package> {

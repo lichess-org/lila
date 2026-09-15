@@ -87,13 +87,14 @@ function renderDay(ctrl: Ctrl) {
 
 function renderGroup(ctrl: Ctrl) {
   return function (group: Date[]): VNode {
-    return h('group', [renderTimeline(), h('days', group.map(renderDay(ctrl)))]);
+    return h('group', [renderTimeline(ctrl), h('days', group.map(renderDay(ctrl)))]);
   };
 }
 
-function renderTimeline() {
+function renderTimeline(ctrl: Ctrl) {
   const hours: number[] = [];
-  for (let i = 0; i < 24; i++) hours.push(i);
+  const step = ctrl.wide ? 1 : 2;
+  for (let i = 0; i < 24; i += step) hours.push(i);
   return h(
     'div.timeline',
     hours.map(hour =>

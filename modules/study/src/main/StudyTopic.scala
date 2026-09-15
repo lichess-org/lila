@@ -52,8 +52,8 @@ final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTop
       favsFu.flatMap: favs =>
         topicRepo
           .coll:
-            _.find($doc("_id".$startsWith(java.util.regex.Pattern.quote(str), "i")))
-              .sort($sort.naturalAsc)
+            _.find(bdoc("_id".regexStart(java.util.regex.Pattern.quote(str), "i")))
+              .sort(sort.naturalAsc)
               .cursor[Bdoc]()
               .list(nb - favs.size)
           .dmap { _.flatMap(docTopic) }
@@ -61,15 +61,15 @@ final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTop
 
   def userTopics(userId: UserId): Fu[StudyTopics] =
     userTopicRepo.coll:
-      _.primitiveOne[List[StudyTopic]]($id(userId), "topics")
+      _.primitiveOne[List[StudyTopic]](bid(userId), "topics")
         .dmap(_.fold(StudyTopics.empty)(StudyTopics(_)))
 
   def userTopics(user: User, topics: StudyTopics): Funit =
     userTopicRepo
       .coll:
         _.update.one(
-          $id(user.id),
-          $set("topics" -> topics),
+          bid(user.id),
+          set("topics" -> topics),
           upsert = true
         )
       .void
@@ -80,20 +80,20 @@ final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTop
       (newTopics != prev).so(
         userTopicRepo
           .coll:
-            _.update.one($id(userId), $set("topics" -> newTopics), upsert = true)
+            _.update.one(bid(userId), set("topics" -> newTopics), upsert = true)
           .void
       )
     })
 
   def userTopicsDelete(userId: UserId) =
-    userTopicRepo.coll(_.delete.one($id(userId)))
+    userTopicRepo.coll(_.delete.one(bid(userId)))
 
   def popular(nb: Int): Fu[StudyTopics] =
     StudyTopics.from(
       topicRepo
         .coll:
-          _.find($empty)
-            .sort($sort.naturalAsc)
+          _.find(emptyBdoc)
+            .sort(sort.naturalAsc)
             .cursor[Bdoc]()
             .list(nb)
         .dmap:
@@ -122,15 +122,15 @@ final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTop
           import framework.*
           List(
             Match(
-              $doc(
-                "topics" -> $doc("$exists" -> true, "$ne" -> StudyTopic.broadcast),
+              bdoc(
+                "topics" -> bdoc("$exists" -> true, "$ne" -> StudyTopic.broadcast),
                 "visibility" -> "public"
               )
             ),
-            Project($doc("topics" -> true, "_id" -> false)),
+            Project(bdoc("topics" -> true, "_id" -> false)),
             UnwindField("topics"),
             SortByFieldCount("topics"),
-            Project($doc("_id" -> true)),
+            Project(bdoc("_id" -> true)),
             Out(topicRepo.coll.name.value)
           )
         .headOption

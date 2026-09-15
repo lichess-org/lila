@@ -31,7 +31,6 @@ trait Pref:
   def animationMillis: Int
   def animationMillisForSpeedPuzzles: Int
   def pieceNotationIsLetter: Boolean
-  def currentBg: String
   def bgOpacity: Int
 
 trait PrefApi:

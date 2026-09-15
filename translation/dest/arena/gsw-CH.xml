@@ -65,6 +65,7 @@ Wänn me sofort z\'rugg id Übersicht gaht, chann me meh schpille und so meh Pü
   <string name="editTournament">Turnier bearbeite</string>
   <string name="editTeamBattle">Team - Schlacht bearbeite</string>
   <string name="defender">Verteidiger</string>
+  <string name="defenderLabel" comment="In this context, this is the current holder of a shield trophy, who is defending their trophy in the next shield tournament of that variant. https://lichess.org/tournament/shields Replaces old string defender">Verteidigär:</string>
   <string name="pickYourTeam">Wähl dis Team</string>
   <string name="whichTeamWillYouRepresentInThisBattle">Welles Team vertrittsch du, i dere Schlacht?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">Zum Mitschpille, muesch du dich eim vu dene Teams aschlüsse!</string>

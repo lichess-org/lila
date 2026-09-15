@@ -68,9 +68,9 @@ final class StormDayApi(coll: Coll, highApi: StormHighApi, userApi: lila.core.us
         for
           prevHigh <- highApi.get(u.id)
           todayId = Id.today(u.id)
-          dayOpt <- coll.one[StormDay]($id(todayId))
+          dayOpt <- coll.one[StormDay](bid(todayId))
           day = dayOpt.getOrElse(StormDay.empty(todayId)).add(data)
-          _ <- coll.update.one($id(day._id), day, upsert = true)
+          _ <- coll.update.one(bid(day._id), day, upsert = true)
           high = highApi.update(u.id, prevHigh, data.score)
           _ <- userApi.addPuzRun("storm", u.id, data.score)
         yield high
@@ -91,7 +91,7 @@ final class StormDayApi(coll: Coll, highApi: StormHighApi, userApi: lila.core.us
         collection = coll,
         selector = idRegexFor(userId),
         projection = none,
-        sort = $sort.desc("_id")
+        sort = sort.desc("_id")
       ),
       page,
       MaxPerPage(30)
@@ -100,8 +100,8 @@ final class StormDayApi(coll: Coll, highApi: StormHighApi, userApi: lila.core.us
   def apiHistory(userId: UserId, days: Int): Fu[List[StormDay]] =
     coll
       .find(idRegexFor(userId))
-      .sort($sort.desc("_id"))
+      .sort(sort.desc("_id"))
       .cursor[StormDay](ReadPref.sec)
       .list(days)
 
-  private def idRegexFor(userId: UserId) = $doc("_id".$startsWith(s"${userId}:"))
+  private def idRegexFor(userId: UserId) = bdoc("_id".regexStart(s"${userId}:"))

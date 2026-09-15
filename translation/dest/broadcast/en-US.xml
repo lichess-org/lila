@@ -35,6 +35,7 @@
   <string name="resetRound">Reset this round</string>
   <string name="deleteRound">Delete this round</string>
   <string name="definitivelyDeleteRound">Definitively delete the round and all its games.</string>
+  <string name="permanentlyDeleteRound" comment="Refers to live tournaments being broadcast on Lichess (https://lichess.org/broadcast).&#10;&#10;Description (also translateable): Delete all games of this round. The source will need to be active in order to re-create them. This string has been amended since its initial publication; it didn't say &quot;all its games&quot; at the time.&#10;&#10;Replaces old string definitivelyDeleteRound.">Permanently delete this round and all its games?</string>
   <string name="deleteAllGamesOfThisRound">Delete all games of this round. The source will need to be active in order to re-create them.</string>
   <string name="editRoundStudy">Edit round study</string>
   <string name="deleteTournament">Delete this tournament</string>
@@ -58,6 +59,7 @@
   <string name="subscribeTitle">Subscribe to be notified when each round starts. You can toggle bell or push notifications for broadcasts in your account preferences.</string>
   <string name="uploadImage">Upload tournament image</string>
   <string name="noBoardsYet">No boards yet. These will appear once games are uploaded.</string>
+  <string name="noPlayersYet">No players yet. They will appear once games are uploaded.</string>
   <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Boards can be loaded with a source or via the %s</string>
   <string name="startsAfter">Starts after %s</string>
   <string name="startVerySoon">The broadcast will start very soon.</string>

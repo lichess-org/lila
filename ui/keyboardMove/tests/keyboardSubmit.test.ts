@@ -17,7 +17,7 @@ function spy() {
 }
 
 const startingFen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
-const toDestsMap = (obj: object) => new Map(Object.entries(obj)) as Dests;
+const toDestsMap = (obj: Record<string, string[]>) => new Map(Object.entries(obj)) as Dests;
 const fenDestsToSans = (fen: string, dests: Record<string, string[]>) =>
   sanWriter(fen, destsToUcis(toDestsMap(dests)));
 

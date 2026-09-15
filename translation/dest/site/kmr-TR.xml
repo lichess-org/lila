@@ -435,7 +435,6 @@
   <string name="apply">Bisepîne</string>
   <string name="save">Tomar bik</string>
   <string name="leaderboard">Texteya skoran</string>
-  <string name="screenshotCurrentPosition">Wêneyê ekranê bigire ji bo pozîsyona mewcûd</string>
   <string name="gameAsGIF">Lîstik wek GIF</string>
   <string name="playerNames">Navên lîstikvanan</string>
   <string name="moveAnnotations">Şîroveyên gavan</string>
@@ -547,7 +546,6 @@
   <string name="oneUrlPerLine">Serê rêzikê yek URL.</string>
   <string name="inlineNotation">Notasyona navrêzî</string>
   <string name="makeAStudy">Ji bo parastin û parvekirinê, çêkirina xebatekê li be çav bigire.</string>
-  <string name="clearSavedMoves">Hemleyan jê bibe</string>
   <string name="previouslyOnLichessTV">Berê ser Lichess TVyê</string>
   <string name="onlinePlayers">Lîzerên serhêl</string>
   <string name="activePlayers">Lîzerên aktîv</string>
@@ -818,7 +816,6 @@
   <string name="background">Piştzemîn</string>
   <string name="light">Ronak</string>
   <string name="dark">Tarî</string>
-  <string name="transparent">Şefaf</string>
   <string name="deviceTheme">Dîmena amûrê</string>
   <string name="backgroundImageUrl">URLya wêneya piştzemînê:</string>
   <string name="board">Text</string>

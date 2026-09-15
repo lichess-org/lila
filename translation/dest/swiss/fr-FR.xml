@@ -66,6 +66,7 @@ Ajoute le résultat de chaque adversaire battu par le joueur et la moitié du r�
   <string name="moreRoundsThanPlayersQ">Qu\'arrive-t-il si le tournoi compte plus de rondes que de joueurs ?</string>
   <string name="moreRoundsThanPlayersA">Une fois tous les appariements possibles faits et toutes les parties jouées, le tournoi se termine et un gagnant est choisi.</string>
   <string name="restrictedToTeamsQ">Pourquoi peut-on participer uniquement en équipe ?</string>
+  <string name="whyAreSwissTournamentsRestrictedToTeams" comment="Replaces old string restrictedToTeamsQ">Pourquoi les tournois suisses sont-ils réservés aux équipes?</string>
   <string name="restrictedToTeamsA">Les tournois de type suisse n\'ont pas été conçus pour les parties d\'échecs en ligne. Ils exigent ponctualité, engagement et patience de la part des joueurs. Nous pensons que ces conditions sont probablement mieux satisfaites dans des tournois par équipes que dans des tournois individuels.</string>
   <string name="numberOfByesQ">Combien de bye un joueur peut-il obtenir ?</string>
   <string name="numberOfByesA">Un joueur reçoit un bye de un point chaque fois qu\'il est impossible de l\'apparier à un autre joueur.
@@ -86,6 +87,7 @@ Les joueurs inscrits tardivement reçoivent un bye de un point, même s\'ils ont
   <string name="willSwissReplaceArenasQ">Les tournois de type suisse remplaceront-ils les tournois de type arène ?</string>
   <string name="willSwissReplaceArenasA">Non. Ce sont des tournois de type complémentaire.</string>
   <string name="roundRobinQ">Et les tournois en rondes complètes (round-robin) ?</string>
+  <string name="canPlayRoundRobinTournaments" comment="roundRobinQ&#10;&#10;Round-robin is a simple tournament format with some similarities to Swiss. It is not supported by Lichess. Replaces old string roundRobinQ">Puis-je participer à des tournois à la ronde sur Lichess?</string>
   <string name="roundRobinA">Nous aimerions ajouter des tournois en rondes complètes, mais ce type de tournoi ne fonctionne malheureusement pas en ligne.
 Pourquoi ? Parce qu\'il n\'existe pas de façon équitable de résoudre le problème des joueurs qui abandonnent prématurément un tournoi. Nous ne pouvons pas nous attendre à ce que tous les joueurs jouent la totalité de leurs parties durant un tournoi en ligne. C\'est simplement impossible. Pour cette raison, nous préférons ne pas offrir de tournois en rondes complètes.
 Ce qui se rapproche le plus d\'un tournoi en rondes complètes, c\'est un tournoi suisse comportant un grand nombre de rondes. Dans un tel tournoi, tous les appariements possibles seront faits et toutes les parties seront jouées avant la fin du tournoi.</string>

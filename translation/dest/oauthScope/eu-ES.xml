@@ -22,6 +22,7 @@
   <string name="teamRead">Talde pribatuen informazioa irakurri</string>
   <string name="teamWrite">Taldeetan sartu eta berauetatik irten</string>
   <string name="teamLead">Zure taldeak kudeatu: mezu pribatuak bidali, kideak kanporatu</string>
+  <string name="manageTeamsYouLead" comment="Replaces old string teamLead">Kudeatu zuzentzen dituzun taldeak: zuzeneko mezuak bidali, kideak kanporatu</string>
   <string name="followRead">Jarraitutako jokalariak irakurri</string>
   <string name="followWrite">Beste jokalariak jarraitu edo jarraitzeari utzi</string>
   <string name="msgWrite">Beste kideei mezu pribatuak bidali</string>

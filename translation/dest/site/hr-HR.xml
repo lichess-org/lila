@@ -440,7 +440,6 @@
   <string name="apply">Primijeni</string>
   <string name="save">Spremi</string>
   <string name="leaderboard">Ljestvica</string>
-  <string name="screenshotCurrentPosition">Uslikaj trenutnu poziciju</string>
   <string name="gameAsGIF">Igra u obliku GIF-a</string>
   <string name="pasteTheFenStringHere">Zalijepi FEN niz ovdje</string>
   <string name="pasteThePgnStringHere">Zalijepi PGN tekst ovdje</string>
@@ -553,7 +552,6 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="oneUrlPerLine">Jedan URL po liniji.</string>
   <string name="inlineNotation">Kompaktnija notacija</string>
   <string name="makeAStudy">Za čuvanje i dijeljenje razmislite o izradi studije.</string>
-  <string name="clearSavedMoves">Očisti poteze</string>
   <string name="previouslyOnLichessTV">Prethodno na Lichess TV-u</string>
   <string name="onlinePlayers">Online igrači</string>
   <string name="activePlayers">Aktivni igrači</string>
@@ -815,7 +813,6 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="background">Pozadina</string>
   <string name="light">Svijetla</string>
   <string name="dark">Tamna</string>
-  <string name="transparent">Prozirna</string>
   <string name="deviceTheme">Tema uređaja</string>
   <string name="backgroundImageUrl">URL pozadinske slike:</string>
   <string name="board">Ploča</string>

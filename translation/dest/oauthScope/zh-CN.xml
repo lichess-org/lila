@@ -22,6 +22,7 @@
   <string name="teamRead">读取私人团队信息</string>
   <string name="teamWrite">加入和离开团队</string>
   <string name="teamLead">管理您领导的团队：发送私信，踢出成员</string>
+  <string name="manageTeamsYouLead" comment="Replaces old string teamLead">管理您所带领的团队：发送私信、移除成员</string>
   <string name="followRead">读取已关注的棋手</string>
   <string name="followWrite">关注和取消关注其他棋手</string>
   <string name="msgWrite">向其他棋手发送私信</string>

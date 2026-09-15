@@ -20,20 +20,17 @@
   <plurals name="nbChapters">
     <item quantity="one">פרק %s</item>
     <item quantity="two">%s פרקים</item>
-    <item quantity="many">%s פרקים</item>
     <item quantity="other">%s פרקים</item>
   </plurals>
   <plurals name="nbGames">
     <item quantity="one">%s משחק</item>
     <item quantity="two">%s משחקים</item>
-    <item quantity="many">%s משחקים</item>
     <item quantity="other">%s משחקים</item>
   </plurals>
   <string name="addMembers">הוספת משתמשים</string>
   <plurals name="nbMembers">
     <item quantity="one">משתמש אחד</item>
     <item quantity="two">%s משתמשים</item>
-    <item quantity="many">%s משתמשים</item>
     <item quantity="other">%s משתמשים</item>
   </plurals>
   <string name="inviteToTheStudy">הזמינו ללוח הלמידה</string>
@@ -107,7 +104,6 @@
   <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
     <item quantity="one">הדבק את טקסט הPGN שלך כאן, עד למשחק %s</item>
     <item quantity="two">הדבק את טקסט הPGN שלך כאן, עד ל%s משחקים</item>
-    <item quantity="many">הדבק את טקסט הPGN שלך כאן, עד ל%s משחקים</item>
     <item quantity="other">הדבק את טקסט הPGN שלך כאן, עד ל%s משחקים</item>
   </plurals>
   <string name="urlOfTheGame">כתובת אינטרנטית של משחק</string>

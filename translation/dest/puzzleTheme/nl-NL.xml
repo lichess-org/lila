@@ -30,6 +30,7 @@
   <string name="collinearMoveDescription">Twee vijandige stukken staan tegenover elkaar, en één glipt langs de lijn van aanval zonder het stuk van de vijand te slaan.</string>
   <string name="cornerMate">Mat in een hoek</string>
   <string name="cornerMateDescription">Dring de koning met behulp van een toren of dame en een paard een hoek in om hem schaakmat te zetten.</string>
+  <string name="cornerMateKnightDeliversDescription" comment="Description for the &quot;Corner mate&quot; puzzle theme. Replaces old string cornerMateDescription">Dring de koning in een hoek met behulp van een toren of dame en gebruik een paard om mat te geven.</string>
   <string name="crushing">Verpletteren</string>
   <string name="crushingDescription">Zie de blunder van de tegenstander om een verpletterend voordeel te verkrijgen. (eval ≥ 600cp)</string>
   <string name="discoveredCheck">Aftrekschaak</string>
@@ -120,6 +121,7 @@
   <string name="pinDescription">Tactiek waarbij een stuk niet verplaatst kan worden op straffe van een aanval op een stuk van hogere waarde.</string>
   <string name="promotion">Promotie</string>
   <string name="promotionDescription">Een pion die promoveert of dreigt te promoveren is hier cruciaal.</string>
+  <string name="promotePawnToQueenRookOrMinor" comment="Replaces old string promotionDescription">Promoveer één van je pionnen tot een koningin, toren, loper of paard.</string>
   <string name="queenEndgame">Dame-eindspel</string>
   <string name="queenEndgameDescription">Een eindspel met alleen dame en pionnen.</string>
   <string name="queenRookEndgame">Dame-toreneindspel</string>

@@ -21,6 +21,7 @@ import { teamLinkData } from './deepLink';
 import type {
   FideTC,
   Photo,
+  RelayGroup,
   RelayRound,
   RelayTeamName,
   RelayTour,
@@ -92,8 +93,9 @@ export default class RelayPlayers {
     readonly hideResultsSinceRoundId: () => RoundId | undefined,
     readonly fidePhoto: (id: FideId) => Photo | undefined,
     private readonly redraw: Redraw,
+    group?: RelayGroup,
   ) {
-    this.pins = new RelayPlayerPin(tour.id, redraw);
+    this.pins = new RelayPlayerPin(group?.id ?? tour.id, redraw);
     const locationPlayer = location.hash.startsWith('#players/') && location.hash.slice(9);
     if (locationPlayer) this.showPlayer(locationPlayer);
   }
@@ -345,7 +347,7 @@ export const renderPlayers = (
                             },
                           },
                         },
-                        pinIcon(),
+                        pinIcon('.pinned-icon'),
                       ),
                   ),
                   withRank &&
@@ -483,7 +485,7 @@ const renderPlayerGames = (ctrl: RelayPlayers, p: RelayPlayerWithGames, withTips
         hl(
           'td',
           hl(
-            'a.game-link.is.color-icon.text.' + game.color,
+            'a.game-link.is.color-icon.' + game.color,
             { attrs: { href: `/broadcast/-/-/${game.round}/${game.id}` } },
             `${i + 1}`,
           ),

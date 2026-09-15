@@ -42,6 +42,7 @@ final class Env(
   val lichobileAnnounceApi = wire[LichobileAnnounceApi]
 
   AnnounceApi.setupPeriodicUpdate()
+  PrometheusReporter.setupPeriodicMonitor()
 
   object settings:
     import lila.core.data.{ Strings, UserIds }

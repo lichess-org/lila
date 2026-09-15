@@ -66,6 +66,7 @@
   <string name="studyUrl">Saboq havolasi</string>
   <string name="currentChapterUrl">Joriy bob havolasi</string>
   <string name="youCanPasteThisInTheForumToEmbed">Saboqni joylashtirish uchun ushbu havoladan forumda yoki Lichess blogingizda foydalanishingiz mumkin</string>
+  <string name="pasteToEmbedChapterInForumOrBlog" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.&#10;&#10;Please note this used to say &quot;in the forum to embed&quot;. It was then changed to include &quot;or a Lichess Blog&quot;. A further update was made to say &quot;or your Lichess blog&quot;, since you can only create blog posts as an individual.  Replaces old string youCanPasteThisInTheForumToEmbed">Saboqni joylashtirish uchun ushbu havoladan forumda yoki Lichess blogingizda foydalanishingiz mumkin.</string>
   <string name="startAtInitialPosition">Boshlangʻich pozitsiyadan boshlash</string>
   <string name="startAtX">%s pozitsiyasidan boshlash</string>
   <string name="embedInYourWebsite">Veb‑saytingizda joylashtirish uchun havola</string>
@@ -188,7 +189,9 @@
   <string name="customPositionTitle">Maxsus pozitsiya</string>
   <string name="customPositionText">Pozitsiyani oʻzingiz xohlagancha tering.&lt;br&gt;Endshpillarni oʻrganish uchun qulay.</string>
   <string name="loadExistingLichessGameTitle">Mavjud Lichess oʻyinini yuklash</string>
+  <string name="loadGameFromTheWebTitle" comment="Replaces old string loadExistingLichessGameTitle">Vebdan oʻyinni yuklash</string>
   <string name="loadExistingLichessGameText">Bobga oʻyinni yuklash uchun&lt;br&gt;Lichess oʻyini havolasini (URL) kiriting&lt;br&gt;(masalan: lichess.org/7fHIU0XI).</string>
+  <string name="loadGameFromTheWebText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text. Replaces old string loadExistingLichessGameText">Bobga oʻyinni yuklash uchun&lt;br&gt;Lichess oʻyini havolasini (URL) kiriting&lt;br&gt;(masalan: lichess.org/7fHIU0XI).</string>
   <string name="fromFenStringTitle">FEN satridan</string>
   <string name="fromFenStringText">Bobni maʼlum bir pozitsiyadan boshlash uchun&lt;br&gt;FEN formatidagi pozitsiyani kiriting:&lt;br&gt;&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;</string>
   <string name="fromPgnGameTitle">PGN oʻyinidan</string>

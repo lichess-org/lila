@@ -22,6 +22,7 @@
   <string name="teamRead">Odczyt prywatnych informacji o klubie</string>
   <string name="teamWrite">Dołączanie, opuszczanie i zarządzanie klubem</string>
   <string name="teamLead">Zarządzaj klubami, którymi dowodzisz: wysyłaj wiadomości prywatne, wyrzucaj graczy</string>
+  <string name="manageTeamsYouLead" comment="Replaces old string teamLead">Zarządzaj klubami, które prowadzisz: wysyłaj bezpośrednie wiadomości, wyrzucaj członków</string>
   <string name="followRead">Odczyt listy obserwowanych graczy</string>
   <string name="followWrite">Rozpoczęcie i zakończenie obserwowania innych graczy</string>
   <string name="msgWrite">Wysyłanie prywatnych wiadomości do innych graczy</string>

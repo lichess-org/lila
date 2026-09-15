@@ -22,6 +22,7 @@
   <string name="teamRead">Llegir informació privada de l\'equip</string>
   <string name="teamWrite">Uneix-te i surt d\'equips</string>
   <string name="teamLead">Administra els equips que dirigeixes: envia missatges privats, expulsa membres</string>
+  <string name="manageTeamsYouLead" comment="Replaces old string teamLead">Administra els equips que dirigeixes: envia missatges privats, expulsa membres</string>
   <string name="followRead">Llegir els jugadors seguits</string>
   <string name="followWrite">Segueix i deixa de seguir altres jugadors</string>
   <string name="msgWrite">Envia missatges privats a altres usuaris</string>

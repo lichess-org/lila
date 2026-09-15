@@ -9,7 +9,7 @@ import lila.core.i18n.Translate
 import lila.core.net.IpAddress
 import lila.core.notify.UnreadCount
 import lila.core.user.KidMode
-import lila.oauth.TokenScopes
+import lila.oauth.{ OAuthScope, TokenScopes }
 import lila.pref.Pref
 import lila.ui.Nonce
 
@@ -28,8 +28,9 @@ final class LoginContext(
   def isAppealUser = me.exists(_.enabled.no)
   def isWebAuth = isAuth && oauth.isEmpty
   def isOAuth = isAuth && oauth.isDefined
-  def isMobileOauth = oauth.exists(_.has(_.Web.Mobile))
-  def isTakex3 = oauth.exists(_.has(_.Web.Takex3))
+  def isMobileOauth = isAuth && oauth.exists(_.has(_.Web.Mobile))
+  def isFullAuth = isWebAuth || isMobileOauth
+  def isTakex3 = isAuth && oauth.exists(_.has(_.Web.Takex3))
   def scopes = oauth | TokenScopes(Nil)
   def useMe[A: Zero](f: Me ?=> A): A = me.soUse(f)
 
@@ -51,6 +52,7 @@ class Context(
   def kid = KidMode(HTTPRequest.isKid(req) || loginContext.user.exists(_.kid.yes))
   def withLang(l: Lang) = new Context(req, l, loginContext, pref)
   def updatePref(f: Update[Pref]) = new Context(req, lang, loginContext, f(pref))
+  def fullAuthOrScope(s: OAuthScope.Selector) = isFullAuth || scopes.has(s)
   lazy val translate = Translate(lila.i18n.Translator, lang)
 
 object Context:

@@ -26,6 +26,7 @@
   <string name="orCloseAccount">However, you can close your current account, and create a new one.</string>
   <string name="wantClearHistory">I want to clear my history or rating</string>
   <string name="cantClearHistory">It\'s not possible to clear your game history, puzzle history, or ratings.</string>
+  <string name="cantClearHistoryOrResetRatings" comment="Replaces old string cantClearHistory">It\'s not possible to clear your game history, puzzle history, or reset your ratings.</string>
   <string name="wantReport">I want to report a player</string>
   <string name="toReportAPlayerUseForm">To report a player, use the report form</string>
   <string name="youCanAlsoReachReportPage">You can also reach that page by clicking the %s report button on a profile page.</string>
@@ -75,4 +76,12 @@
   <string name="sendEmailAt">Send us an email at %s.</string>
   <string name="explainYourRequest">Please explain your request clearly and thoroughly. State your Lichess username, and any information that could help us help you.</string>
   <string name="monetiseNotInterested">We are not interested in any way of monetizing Lichess.</string>
+  <string name="monetiseNoAdsTrackingOrTraffic">We will never display any kind of ads, we won\'t track our players, and we won\'t sell or buy traffic or users.</string>
+  <string name="monetiseNoMarketingEmail">Please do not email us about marketing, tracking, or advertising.</string>
+  <string name="monetiseEncourageEveryoneTo" comment="string is value of key monetiseBlockAllAdsAndTrackers">We encourage everyone to %s.</string>
+  <string name="monetiseBlockAllAdsAndTrackers">block all ads and trackers</string>
+  <string name="broadcastTournamentOnLichess">Broadcast a tournament on Lichess</string>
+  <string name="ifYouWantToBroadcastClause1">If you want to officially broadcast a tournament on Lichess, or have any questions about our broadcasts:</string>
+  <string name="ifYouWantToBroadcastClause2" comment="string1 is Lichess email, string2 is value of key ourDiscordServer">Please contact our Broadcast Team at %1$s or on %2$s.</string>
+  <string name="ourDiscordServer">our Discord server</string>
 </resources>

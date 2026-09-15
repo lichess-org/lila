@@ -62,12 +62,12 @@ final class PuzzleAnon(
               import framework.*
               Match(pathApi.select(angle, tier, ratingRange)) -> List(
                 Sample(pathSampleSize),
-                Project($doc("puzzleId" -> "$ids", "_id" -> false)),
+                Project(bdoc("puzzleId" -> "$ids", "_id" -> false)),
                 Unwind("puzzleId"),
                 Sample(poolSize),
                 PipelineOperator:
-                  $doc(
-                    "$lookup" -> $doc(
+                  bdoc(
+                    "$lookup" -> bdoc(
                       "from" -> colls.puzzle.name.value,
                       "localField" -> "puzzleId",
                       "foreignField" -> "_id",
@@ -76,7 +76,7 @@ final class PuzzleAnon(
                   )
                 ,
                 PipelineOperator:
-                  $doc("$replaceWith" -> $doc("$arrayElemAt" -> $arr("$puzzle", 0)))
+                  bdoc("$replaceWith" -> bdoc("$arrayElemAt" -> barr("$puzzle", 0)))
               )
             .map:
               _.view.flatMap(puzzleReader.readOpt).toVector

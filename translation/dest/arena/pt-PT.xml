@@ -65,6 +65,7 @@ Joga rápido e volta ao vestíbulo para jogares mais jogos e ganhares mais ponto
   <string name="editTournament">Editar torneio</string>
   <string name="editTeamBattle">Editar batalha de equipa</string>
   <string name="defender">Defensor</string>
+  <string name="defenderLabel" comment="In this context, this is the current holder of a shield trophy, who is defending their trophy in the next shield tournament of that variant. https://lichess.org/tournament/shields Replaces old string defender">Defensor:</string>
   <string name="pickYourTeam">Escolhe a tua equipa</string>
   <string name="whichTeamWillYouRepresentInThisBattle">Qual equipa vais representar nesta batalha?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">Tens de te juntar a uma destas equipas para participar!</string>

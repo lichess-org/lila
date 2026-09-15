@@ -66,6 +66,7 @@ Niissä on laskettu yhteen pelaajan voittamien vastustajien kaikki pisteet sekä
   <string name="moreRoundsThanPlayersQ">Mitä tapahtuu, jos turnauksessa on enemmän kierroksia kuin pelaajia?</string>
   <string name="moreRoundsThanPlayersA">Kun kaikki mahdolliset parit ovat pelanneet keskinäisen pelin, turnaus päättyy ja voittaja julistetaan.</string>
   <string name="restrictedToTeamsQ">Miksi se on rajattu joukkueen sisäiseksi?</string>
+  <string name="whyAreSwissTournamentsRestrictedToTeams" comment="Replaces old string restrictedToTeamsQ">Miksi sveitsiläiset turnaukset on rajattu vain joukkueille?</string>
   <string name="restrictedToTeamsA">Sveitsiläisiä turnauksia ei ole luotu nettishakkia varten. Ne vaativat pelaajilta täsmällisyyttä, omistautumista ja kärsivällisyyttä. Nämä ehdot täyttyvät mielestämme todennäköisemmin joukkueen sisäisissä kuin avoimissa turnauksissa.</string>
   <string name="numberOfByesQ">Kuinka monta kierrosta pelaaja voi huilata?</string>
   <string name="numberOfByesA">Pelaaja saa yhden pisteen arvoisen huilauksen aina kun parinluontijärjestelmä ei löydä tälle paria.
@@ -86,6 +87,7 @@ Myöhään liittyville merkitään yksi huilaus, vaikka heiltä olisi jäänyt v
   <string name="willSwissReplaceArenasQ">Korvaako sveitsiläinen turnaus areenaturnaukset?</string>
   <string name="willSwissReplaceArenasA">Ei. Ne täydentävät toisiaan.</string>
   <string name="roundRobinQ">Entä täyskierrosturnaus?</string>
+  <string name="canPlayRoundRobinTournaments" comment="roundRobinQ&#10;&#10;Round-robin is a simple tournament format with some similarities to Swiss. It is not supported by Lichess. Replaces old string roundRobinQ">Voinko pelata Lichessissä täyskierrosturnauksia?</string>
   <string name="roundRobinA">Haluaisimme lisätä sen, mutta täyskierrosturnaus ei toimi verkossa.
 Siinä ei nimittäin voisi ratkaista reilulla tavalla turnauksen etuajassa jättävistä pelaajista syntyvää ongelmaa. Verkkotapahtumassa ei voi odottaa kaikkien pelaajien pelaavan kaikkia pelejään – niin ei vain tapahdu. Tämän seurauksena useimmat täyskierrosturnaukset olisivat puuttellisia ja epäreiluja, eikä niiden järjestämiselle siten ole perusteita.
 Lähimmäksi täyskierrosturnausta pääsee pelaamalla sveitsiläisessä turnauksessa, jossa on hyvin monta kierrosta. Tällöin kaikki mahdolliset parit pääsevät pelaamaan keskenään ennen kuin turnaus loppuu.</string>

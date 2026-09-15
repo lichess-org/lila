@@ -249,6 +249,7 @@
   <string name="signupUsernameHint">Certifique-se que escolhe um nome de utilizador decoroso. Não poderá alterá-lo mais tarde e quaisquer contas com nomes de utilizador inapropriados serão fechadas!</string>
   <string name="signupEmailPromise">Nós só enviaremos emails sobre a tua conta, e nunca partilharemos o teu e-mail.</string>
   <string name="password">Palavra-passe</string>
+  <string name="showPassword">Mostrar palavra-passe</string>
   <string name="changePassword">Alterar a palavra-passe</string>
   <string name="changeEmail">Alterar email</string>
   <string name="email">E-mail</string>
@@ -296,7 +297,9 @@
   <string name="ok">OK</string>
   <string name="cancel">Cancelar</string>
   <string name="whiteTimeOut">Acabou o tempo das brancas</string>
+  <string name="whiteRanOutOfTime" comment="whiteTimeOut&#10;&#10;Shows when White's time has run out. Is followed by the end condition, for example&#10;'White ran out of time · Draw' Replaces old string whiteTimeOut">As Brancas perderam por tempo</string>
   <string name="blackTimeOut">Acabou o tempo das pretas</string>
+  <string name="blackRanOutOfTime" comment="blackTimeOut&#10;&#10;Shows when Black's time has run out. Is followed by the end condition, for example&#10;'Black ran out of time · Draw' Replaces old string blackTimeOut">As Pretas perderam por tempo</string>
   <string name="drawOfferSent">Proposta de empate enviada</string>
   <string name="drawOfferAccepted">Proposta de empate aceite</string>
   <string name="whiteOffersDraw">As brancas propõem empate</string>
@@ -418,6 +421,8 @@
   </plurals>
   <string name="yourPerfRatingIsProvisional">A tua pontuação em %s é provisória</string>
   <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Os filtros de pontuação estão bloqueados porque a tua pontuação não está estável. Jogar partidas a valer pontos vai aumentar a estabilidade.</string>
+  <string name="cannotFilterByUnstableRating" comment="Tooltip to explain why the control for filtering by rating is disabled Replaces old string ratingRangeIsDisabledBecauseYourRatingIsProvisional">Não é possível filtrar por pontuação, porque a tua pontuação não é estável.
+Jogar jogos a valer aumentará a estabilidade.</string>
   <string name="yourPerfRatingIsTooHigh">A tua pontuação em %1$s (%2$s) é demasiado alta</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">A tua pontuação máxima nesta semana em %1$s (%2$s) é demasiado alta</string>
   <string name="yourPerfRatingIsTooLow">A tua pontuação em %1$s (%2$s) é demasiado baixa</string>
@@ -438,7 +443,7 @@
   <string name="apply">Aplicar</string>
   <string name="save">Guardar</string>
   <string name="leaderboard">Tabela de liderança</string>
-  <string name="screenshotCurrentPosition">Posição atual da captura de ecrã</string>
+  <string name="positionAsImage" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position. Replaces old string screenshotCurrentPosition">Posição como imagem</string>
   <string name="gameAsGIF">Jogo como GIF</string>
   <string name="playerNames">Nomes dos jogadores</string>
   <string name="moveAnnotations">Anotação de movimentos</string>
@@ -552,7 +557,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="oneUrlPerLine">Um URL por linha.</string>
   <string name="inlineNotation">Anotações em linha</string>
   <string name="makeAStudy">Para guardar e partilhar, considere fazer um estudo.</string>
-  <string name="clearSavedMoves">Limpar jogadas</string>
+  <string name="clearLocalData">Limpar dados locais</string>
   <string name="previouslyOnLichessTV">Anteriormente na TV Lichess</string>
   <string name="onlinePlayers">Jogadores online</string>
   <string name="activePlayers">Jogadores ativos</string>
@@ -728,6 +733,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="simulClockHint">Configuração de incrementos no relógio. Quanto mais jogadores admitires, mais tempo poderás necessitar.</string>
   <string name="simulAddExtraTime">Podes acrescentar tempo adicional ao teu relógio, para te ajudar a lidar com a simultânea.</string>
   <string name="simulHostExtraTime">Tempo adicional do anfitrião</string>
+  <string name="extraClockTimeForHost" comment="Appears on: https://lichess.org/simul/new&#10;&#10;Allows a simul host to select extra time for the simul.&#10;&#10;Please note this string used to state &quot;Host extra clock time&quot;, without the word &quot;initial&quot; Replaces old string simulHostExtraTime">Tempo extra para o anfitrião:</string>
   <string name="simulAddExtraTimePerPlayer">Adicione tempo inicial ao seu relógio para cada jogador que entra na simulação.</string>
   <string name="simulHostExtraTimePerPlayer">Tempo extra de relógio por jogador</string>
   <string name="lichessTournaments">Torneios do Lichess</string>
@@ -740,6 +746,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="keyGoToStartOrEnd">ir para início/fim</string>
   <string name="keyCycleSelectedVariation">Ciclo da variante selecionada</string>
   <string name="keyShowOrHideComments">mostrar/ocultar os comentários</string>
+  <string name="keyShowOrHideCurrentVariation">mostrar/ocultar variante atual</string>
   <string name="keyEnterOrExitVariation">entrar/sair da variante</string>
   <string name="keyPreviousBranch">Ramo anterior</string>
   <string name="keyNextBranch">Próximo ramo</string>
@@ -833,10 +840,10 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="theme">Tema</string>
   <string name="light">Claro</string>
   <string name="dark">Escuro</string>
-  <string name="transparent">Transparente</string>
   <string name="picture">Imagem</string>
   <string name="deviceTheme">Tema do dispositivo</string>
   <string name="roundness">Arredondamento</string>
+  <string name="backgroundImage">Imagem de Fundo</string>
   <string name="backgroundImageUrl">URL da imagem de fundo:</string>
   <string name="imageOpacity">Opacidade da imagem</string>
   <string name="board">Tabuleiro</string>
@@ -862,6 +869,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="notifications">Notificações</string>
   <string name="notificationsX">Notificações: %1$s</string>
   <string name="perfRatingX">Pontuação: %s</string>
+  <string name="perfRatingLabel" comment="Replaces old string perfRatingX">Pontuação: %s.</string>
   <string name="yourRatingIsX">O teu rating é %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s segundo para jogar o primeiro movimento</item>
@@ -921,6 +929,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   </plurals>
   <string name="showUnreadLichessMessage">Recebestes uma mensagem privada do Lichess.</string>
   <string name="clickHereToReadIt">Clica aqui para ler</string>
+  <string name="readTheMessage" comment="'It' refers to a private message. This text follows after a different string which advises players they have received a private message from Lichess. For users, this is appears as a regular private message from the Lichess account: https://lichess.org/@/Lichess Replaces old string clickHereToReadIt">Ler a mensagem</string>
   <string name="sorry">Desculpa :(</string>
   <string name="weHadToTimeYouOutForAWhile">Tivemos de te banir por algum tempo.</string>
   <string name="why">Porquê?</string>
@@ -1056,4 +1065,7 @@ Todos os custos operacionais, de desenvolvimento e conteúdo são financiados ex
   <string name="tags">Etiquetas</string>
   <string name="enPassant">En passant</string>
   <string name="settings">Definições</string>
+  <string name="verifyingYourDevice">A verificar o teu dispositivo...</string>
+  <string name="chessOpenings">Abertura de xadrez</string>
+  <string name="boards">Tabuleiros</string>
 </resources>

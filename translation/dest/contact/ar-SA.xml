@@ -26,6 +26,7 @@
   <string name="orCloseAccount">على الرغم من ذلك، يمكنك إغلاق حسابك الحالي، وإنشاء حساب جديد.</string>
   <string name="wantClearHistory">أريد مسح تاريخي أو تقييمي</string>
   <string name="cantClearHistory">لا يمكن مسح تاريخ المباريات أو تاريخ الألغاز أو التقييم.</string>
+  <string name="cantClearHistoryOrResetRatings" comment="Replaces old string cantClearHistory">لا يمكنك مسح سجل مبارياتك أو سجل ألغازك أو إعادة ضبط تصنيفاتك.</string>
   <string name="wantReport">أريد أن أبلغ عن لاعب</string>
   <string name="toReportAPlayerUseForm">للإبلاغ عن لاعب، استعمل(ي) استمارة التبليغ</string>
   <string name="youCanAlsoReachReportPage">يمكنك أيضا الوصول إلى هذه الصفحة بالنقر على زر التبليغ %s في صفحة الملف الشخصي.</string>

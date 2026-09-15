@@ -25,8 +25,8 @@ final class StreamerPager(
   )
 
   def nextRequestId: Fu[Option[Streamer.Id]] = coll.primitiveOne[Streamer.Id](
-    $doc("approval.requested" -> true, "approval.ignored" -> false),
-    $sort.asc("updatedAt"),
+    bdoc("approval.requested" -> true, "approval.ignored" -> false),
+    sort.asc("updatedAt"),
     "_id"
   )
 
@@ -39,10 +39,10 @@ final class StreamerPager(
         .aggregateList(length, _.sec): framework =>
           import framework.*
           Match(
-            $doc(
+            bdoc(
               "approval.granted" -> true,
               "listed" -> Streamer.Listed(true),
-              "_id".$nin(live.streams.map(_.streamer.id))
+              "_id".nin(live.streams.map(_.streamer.id))
             )
           ) -> List(
             Sort(Descending("liveAt")),
@@ -66,7 +66,7 @@ final class StreamerPager(
 
   private def approval: AdapterLike[Streamer.WithContext] = new:
 
-    private def selector = $doc("approval.requested" -> true, "approval.ignored" -> false)
+    private def selector = bdoc("approval.requested" -> true, "approval.ignored" -> false)
 
     def nbResults: Fu[Int] = coll.countSel(selector)
 
@@ -89,7 +89,7 @@ final class StreamerPager(
             user <- doc.getAsOpt[User]("user")
           yield Streamer.WithUser(streamer, user)
 
-  private val userLookup = $lookup.simple(
+  private val userLookup = lookup.simple(
     from = userRepo.coll,
     as = "user",
     local = "_id",

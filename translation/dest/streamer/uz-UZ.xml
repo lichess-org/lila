@@ -29,6 +29,7 @@
   <string name="pendingReview">Strimingiz moderatorlar tomonidan koʻrib chiqilmoqda.</string>
   <string name="pleaseFillIn">Iltimos, strimer haqidagi maʼlumotlaringizni toʻldiring va rasm yuklang.</string>
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Lichess strimerlari roʻyxatiga kirishga tayyor boʻlsangiz, %s</string>
+  <string name="whenReadyToBeListedAsStreamer" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot; Replaces old string whenReady">Lichess strimerlari roʻyxatiga kirishga tayyor boʻlsangiz, %s.</string>
   <string name="submitForReview">Koʻrib chiqish uchun yuborish</string>
   <string name="streamerLanguageSettings">Lichess strimerlar sahifasi auditoriyangizni efir platformangizda koʻrsatilgan tilga qarab aniqlaydi. Shaxmat efirlaringiz uchun foydalanayotgan ilova yoki efir xizmatingiz sozlamalarida asosiy tilni toʻgʻri belgilang.</string>
   <string name="pleaseAllow">Strimer belgisi va roʻyxatga olinishingiz tasdiqlanishi uchun 72 soatgacha vaqt ketishi mumkin.</string>

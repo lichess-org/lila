@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="gameSetup">Oyun quruluşu</string>
+  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Dostuna meydan oxu</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Kimisə oyuna dəvət etmək üçün, bu URL-i göndərin</string>
   <string name="gameOver">Oyun Bitdi</string>
   <string name="waitingForOpponent">Rəqib gözlənilir</string>
@@ -50,6 +52,7 @@
   <string name="blackLeftTheGame">Qaralar oyunu tərk etdi</string>
   <string name="whiteDidntMove">Ağlar gediş oynamadı</string>
   <string name="blackDidntMove">Qaralar gediş oynamadı</string>
+  <string name="whiteAborted">Ağlar oyunu dayandırdı</string>
   <string name="requestAComputerAnalysis">Kompüter təhlilini tələb et</string>
   <string name="computerAnalysis">Kompüter təhlili</string>
   <string name="computerAnalysisAvailable">Kompüter təhlili mövcuddur</string>
@@ -219,6 +222,7 @@
   <string name="changeUsernameDescription">İstifadəçi adını dəyişdir. Bu prosesi sadəcə bir dəfə edə bilərsən və sadəcə mövcud istifadəçi adındakı hərfləri böyük və ya kiçik edə bilərsən.</string>
   <string name="signupUsernameHint">Ailə dostu bir istifadəçi adı seçdiyinizdən əmin olun. Siz onu daha sonra dəyişə bilməzsiniz və uyğun olmayan istifadəçi adları olan hesablar bağlanacaq!</string>
   <string name="password">Şifrə</string>
+  <string name="showPassword">Şifri göstər</string>
   <string name="changePassword">Şifrəni dəyiş</string>
   <string name="changeEmail">E-poçtu dəyiş</string>
   <string name="email">E-poçt</string>
@@ -336,6 +340,9 @@
   <string name="takeback">Dala qaytarma</string>
   <string name="proposeATakeback">Dala qaytarma təklif et</string>
   <string name="takebackPropositionSent">Dala qaytarma təklifi göndərildi</string>
+  <string name="whiteAcceptsTakeback">Ağlar geri qaytarmanı qəbul etdi</string>
+  <string name="blackAcceptsTakeback">Qaralar geri qaytarmanı qəbul etdi</string>
+  <string name="blackCancelsTakeback">Qaralar geri qaytarmanı ləğv etdi</string>
   <string name="yourOpponentProposesATakeback">Rəqibiniz dala qaytarma təklifi edir</string>
   <string name="bookmarkThisGame">Bu oyunu yadda saxla</string>
   <string name="tournament">Turnir</string>
@@ -374,6 +381,8 @@
     <item quantity="other">%s dənə daha reytinqli  oynamanız gərəklidir</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">%s reytinqiniz müvəqqətidir</string>
+  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Reytinq filtrləri kilidlənib, çünki reytinqiniz sabit deyil. Reytinqli oyunlar oynamaq sabitliyi artıracaq.</string>
+  <string name="cannotFilterByUnstableRating" comment="Tooltip to explain why the control for filtering by rating is disabled Replaces old string ratingRangeIsDisabledBecauseYourRatingIsProvisional">Reytinqiniz sabit olmadığı üçün reytinqə görə filtrləmək mümkün deyil. Reytinqli oyunlar oynamaq sabitliyi artıracaq.</string>
   <string name="yourPerfRatingIsTooHigh">Sizin %1$s reytinqiniz (%2$s) çox yüksəkdir</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Həftəlik %1$s reytinqiniz (%2$s) çox yüksəkdir</string>
   <string name="yourPerfRatingIsTooLow">Sizin %1$s reytinqiniz (%2$s) çox aşağıdır</string>
@@ -394,7 +403,6 @@
   <string name="apply">Tətbiq et</string>
   <string name="save">Saxla</string>
   <string name="leaderboard">Liderlik cədvəli</string>
-  <string name="screenshotCurrentPosition">Cari mövqe Ekran görüntüsü</string>
   <string name="gameAsGIF">GIF kimi oyun</string>
   <string name="pasteTheFenStringHere">FEN mətnini bura yapışdırın</string>
   <string name="pasteThePgnStringHere">PGN mətnini bura yapışdırın</string>
@@ -415,6 +423,7 @@
   <string name="blackCheckmatesInOneMove">Qaralar bir gedişə mat edir</string>
   <string name="retry">Yenidən sına</string>
   <string name="reconnecting">Yenidən qoşulur</string>
+  <string name="noNetwork">Oflayn</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s onlayn dost</item>
     <item quantity="other">%s dost onlayn</item>
@@ -520,6 +529,8 @@
   <string name="replies">Rəylər</string>
   <string name="replyToThisTopic">Mövzuya rəy yaz</string>
   <string name="reply">Rəy</string>
+  <string name="quote">Sitat</string>
+  <string name="postEdited">düzəliş edilib</string>
   <string name="message">Mesaj</string>
   <string name="createTheTopic">Mövzu yarat</string>
   <string name="reportAUser">Istifadəçi şikayət et</string>
@@ -535,6 +546,7 @@
   <string name="blog">Blog</string>
   <string name="notes">Qeydlər</string>
   <string name="typePrivateNotesHere">Burada xüsusi qeydlər yazın</string>
+  <string name="noNoteYet">Hələ ki, not yoxdur</string>
   <string name="invalidUsernameOrPassword">Yanlış istifadəçi adı və ya şifrə</string>
   <string name="incorrectPassword">Yanlış şifrə</string>
   <string name="invalidAuthenticationCode">Etibarsız kimlik təsdiqləmə kodu</string>
@@ -710,7 +722,6 @@
   <string name="background">Arxa fon</string>
   <string name="light">Yüngül</string>
   <string name="dark">Qaranlıq</string>
-  <string name="transparent">Şəffaf</string>
   <string name="backgroundImageUrl">Arxa fon rəsm URL-i:</string>
   <string name="pieceSet">Fiqur seti</string>
   <string name="embedInYourWebsite">Saytınıza yerləşdirin</string>

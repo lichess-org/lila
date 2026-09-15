@@ -57,7 +57,7 @@ final class FidePlayerApi(repo: FideRepo, cacheApi: CacheApi, picfitApi: PicfitA
       .map(_.toMap)
 
   private[fide] def delete(id: FideId): Funit =
-    repo.playerColl.delete.one($id(id)).void
+    repo.playerColl.delete.one(bid(id)).void
 
   object guessPlayer:
 
@@ -77,7 +77,7 @@ final class FidePlayerApi(repo: FideRepo, cacheApi: CacheApi, picfitApi: PicfitA
           val token = FidePlayer.tokenize.exec(p.name.value)
           (token.sizeIs > 2).so:
             repo.playerColl
-              .find($doc("token" -> token, "title" -> p.title))
+              .find(bdoc("token" -> token, "title" -> p.title))
               .cursor[FidePlayer]()
               .list(2)
               .map:

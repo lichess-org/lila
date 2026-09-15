@@ -44,7 +44,7 @@ export const commands: () => Commands = memoize(() => ({
 }));
 
 function tryC<A>(c: string, regex: RegExp, f: (arg: string) => A | undefined): A | undefined {
-  return c.match(regex) ? f(c.replace(regex, '$1')) : undefined;
+  return regex.test(c) ? f(c.replace(regex, '$1')) : undefined;
 }
 
 export const boardCommands = (): VNode[] => [

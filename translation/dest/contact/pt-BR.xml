@@ -26,6 +26,7 @@
   <string name="orCloseAccount">Contudo, você pode encerrar sua conta atual e criar uma nova.</string>
   <string name="wantClearHistory">Quero limpar meu histórico ou rating</string>
   <string name="cantClearHistory">Não é possível limpar seu histórico de jogos, histórico de problemas ou pontuações.</string>
+  <string name="cantClearHistoryOrResetRatings" comment="Replaces old string cantClearHistory">Não é possível apagar seu histórico de partidas ou de puzzles, nem redefinir seus ratings.</string>
   <string name="wantReport">Quero denunciar um jogador</string>
   <string name="toReportAPlayerUseForm">Para denunciar um jogador, use o formulário de denúncia</string>
   <string name="youCanAlsoReachReportPage">Você também pode chegar a essa página clicando no botão de denúncia %s em uma página de perfil.</string>
@@ -80,5 +81,7 @@
   <string name="monetiseEncourageEveryoneTo" comment="string is value of key monetiseBlockAllAdsAndTrackers">Nós encorajamos todos a %s.</string>
   <string name="monetiseBlockAllAdsAndTrackers">bloquear todos os anúncios e rastreadores</string>
   <string name="broadcastTournamentOnLichess">Transmita um torneio em Lichess</string>
+  <string name="ifYouWantToBroadcastClause1">Caso deseje transmitir oficialmente um torneio no Lichess, ou tenha alguma dúvida sobre nossas transmissões:</string>
+  <string name="ifYouWantToBroadcastClause2" comment="string1 is Lichess email, string2 is value of key ourDiscordServer">Entre em contato com a nossa Equipe de Transmissões pelo %1$s ou pelo %2$s.</string>
   <string name="ourDiscordServer">nosso servidor no Discord</string>
 </resources>

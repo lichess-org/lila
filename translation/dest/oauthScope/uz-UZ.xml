@@ -22,6 +22,7 @@
   <string name="teamRead">Jamoalarning yopiq maʼlumotlarini koʻrish</string>
   <string name="teamWrite">Jamoalarga qoʻshilish va ulardan chiqish</string>
   <string name="teamLead">Oʻzingiz sardor boʻlgan jamoalarni boshqarish: xabarlar yuborish, aʼzolarni chetlatish</string>
+  <string name="manageTeamsYouLead" comment="Replaces old string teamLead">Oʻzingiz sardor boʻlgan jamoalarni boshqarish: xabarlar yuborish, aʼzolarni chetlatish</string>
   <string name="followRead">Obuna boʻlingan oʻyinchilarni koʻrish</string>
   <string name="followWrite">Boshqa oʻyinchilarga obuna boʻlish yoki obunani bekor qilish</string>
   <string name="msgWrite">Boshqa oʻyinchilarga shaxsiy xabarlar yuborish</string>

@@ -26,6 +26,7 @@
   <string name="orCloseAccount">Je kunt wel je huidige account sluiten en een nieuw account aanmaken.</string>
   <string name="wantClearHistory">Ik wil mijn geschiedenis of rating wissen</string>
   <string name="cantClearHistory">Het is niet mogelijk uw partijgeschiedenis, puzzelgeschiedenis of rating te wissen.</string>
+  <string name="cantClearHistoryOrResetRatings" comment="Replaces old string cantClearHistory">Het is niet mogelijk partij-/puzzelgeschiedenis te wissen of rating terug te zetten.</string>
   <string name="wantReport">Ik wil een speler rapporteren</string>
   <string name="toReportAPlayerUseForm">Gebruik het rapportformulier als u een speler wilt rapporteren</string>
   <string name="youCanAlsoReachReportPage">U kunt deze pagina ook bereiken door op de %s rapporteerknop op een profielpagina te klikken.</string>

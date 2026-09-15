@@ -18,7 +18,7 @@ final class Importer(gameRepo: lila.core.game.GameRepo)(using Executor):
     import lila.core.game.BSONFields as F
     import gameRepo.gameHandler
     gameRepo.coll
-      .one[Game]($doc(s"${F.pgnImport}.h" -> lila.game.PgnImport.hash(pgn)))
+      .one[Game](bdoc(s"${F.pgnImport}.h" -> lila.game.PgnImport.hash(pgn)))
       .flatMap:
         case Some(game) => fuccess(game)
         case None =>
@@ -31,7 +31,7 @@ final class Importer(gameRepo: lila.core.game.GameRepo)(using Executor):
               .isDefined
               .so:
                 // import date, used to make a compound sparse index with the user
-                gameRepo.coll.updateField($id(game.id), s"${F.pgnImport}.ca", game.createdAt).void
+                gameRepo.coll.updateField(bid(game.id), s"${F.pgnImport}.ca", game.createdAt).void
             _ <- gameRepo.finish(game.id, game.winnerColor, None, game.status)
           yield game
 

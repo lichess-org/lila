@@ -31,13 +31,13 @@ private final class RecapBuilder(
     puzzleColls.round:
       _.aggregateOne() { framework =>
         import framework.*
-        Match($doc("u" -> userId, "d" -> $doc("$gt" -> dateStart, "$lt" -> dateEnd))) -> List(
+        Match(bdoc("u" -> userId, "d" -> bdoc("$gt" -> dateStart, "$lt" -> dateEnd))) -> List(
           Group(BSONNull)(
             "nb" -> SumAll,
-            "wins" -> Sum($doc("$cond" -> $arr("$w", 1, 0))),
-            "fixes" -> Sum($doc("$cond" -> $arr($doc("$and" -> $arr("$w", "$f")), 1, 0))),
-            "votes" -> Sum($doc("$cond" -> $arr("$v", 1, 0))),
-            "themes" -> Sum($doc("$cond" -> $arr("$t", 1, 0)))
+            "wins" -> Sum(bdoc("$cond" -> barr("$w", 1, 0))),
+            "fixes" -> Sum(bdoc("$cond" -> barr(bdoc("$and" -> barr("$w", "$f")), 1, 0))),
+            "votes" -> Sum(bdoc("$cond" -> barr("$v", 1, 0))),
+            "themes" -> Sum(bdoc("$cond" -> barr("$t", 1, 0)))
           )
         )
       }.map: r =>

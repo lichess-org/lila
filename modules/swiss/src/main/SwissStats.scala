@@ -38,7 +38,7 @@ final class SwissStatsApi(
       .flatMap:
         _.filter(_.nbPlayers > 0).fold(fuccess(SwissStats())) { swiss =>
           sheetApi
-            .source(swiss, sort = $empty)
+            .source(swiss, sort = emptyBdoc)
             .runWith(Sink.fold(SwissStats()) { case (stats, (player, pairings, sheet)) =>
               val (games, whiteWins, blackWins, draws) =
                 pairings.values.foldLeft((0, 0, 0, 0)):

@@ -30,6 +30,7 @@
   <string name="collinearMoveDescription">Две противоположные фигуры видят друг друга, и одна передвигается по линии боя, не снимая фигуру противника.</string>
   <string name="cornerMate">Угловой мат</string>
   <string name="cornerMateDescription">Загоните короля в угол ладьёй или ферзём, и поставьте там мат конём.</string>
+  <string name="cornerMateKnightDeliversDescription" comment="Description for the &quot;Corner mate&quot; puzzle theme. Replaces old string cornerMateDescription">Зажмите короля в углу, используя ладью или ферзя, а затем поставьте мат конем.</string>
   <string name="crushing">Разгром</string>
   <string name="crushingDescription">Используйте зевок противника для получения сокрушительного преимущества. (600 и более сантипешек)</string>
   <string name="discoveredCheck">Вскрытый шах</string>
@@ -76,8 +77,10 @@
   <string name="killBoxMateDescription">Ладья ставится рядом с королём противника под защитой ферзя, который одновременно препятствует побегу короля. Ладья и ферзь ловят вражеского короля в «смертельную коробку» 3×3.</string>
   <string name="pillsburysMate">Мат Пиллсбери</string>
   <string name="pillsburysMateDescription">Ладья ставит мат, в то время как слон контролирует угловое поле.</string>
+  <string name="pillsburyMateRookAndBishopDescription" comment="Replaces old string pillsburysMateDescription">Ладья ставит мат королю, пока слон ограничивает его передвижение.</string>
   <string name="morphysMate">Мат Морфи</string>
   <string name="morphysMateDescription">Слон ставит мат, в то время как ладья контролирует соседнюю вертикаль.</string>
+  <string name="morphyMateBishopAndRookDescription" comment="Replaces old string morphysMateDescription">Слон ставит мат королю, пока ладья ограничивает его передвижение.</string>
   <string name="swallowstailMate">Мат \"Ласточкин хвост\"</string>
   <string name="swallowstailMateDescription">Матовая конструкция, напоминающая собой хвост ласточки; также напоминает букву \"V\".</string>
   <string name="triangleMate">Треугольный мат</string>
@@ -118,6 +121,7 @@
   <string name="pinDescription">Тактика, использующая связку, когда фигура не может сделать ход, иначе под атаку попадёт стоящая за ней более ценная фигура.</string>
   <string name="promotion">Превращение</string>
   <string name="promotionDescription">Ход при котором пешка ходит на последнюю горизонталь и заменяется по выбору игрока на любую другую фигуру того же цвета, кроме короля.</string>
+  <string name="promotePawnToQueenRookOrMinor" comment="Replaces old string promotionDescription">Превращение пешки в ферзя, ладью или легкую фигуру.</string>
   <string name="queenEndgame">Ферзевый эндшпиль</string>
   <string name="queenEndgameDescription">Эндшпиль с ферзями и пешками.</string>
   <string name="queenRookEndgame">Ферзево-ладейный эндшпиль</string>

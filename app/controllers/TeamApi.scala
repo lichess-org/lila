@@ -22,7 +22,7 @@ final class TeamApi(env: Env, apiC: => Api) extends LilaController(env):
           _ <- env.user.lightUserApi.preloadMany(pager.currentPageResults.flatMap(_.publicLeaders))
         yield pager
 
-  def show(id: TeamId) = OpenOrScoped(): ctx ?=>
+  def show(id: TeamId) = OpenOrScoped(_.Team.Read): ctx ?=>
     JsonOptionOk:
       api
         .teamEnabled(id)
@@ -71,7 +71,7 @@ final class TeamApi(env: Env, apiC: => Api) extends LilaController(env):
             leads <- teams.mapFutureList(env.team.memberRepo.addPublicLeaderIds)
           yield leads
 
-  def teamsOf(username: UserStr) = Scoped(): ctx ?=>
+  def teamsOf(username: UserStr) = Scoped(_.Team.Read): ctx ?=>
     Found(meOrFetch(username)): user =>
       import env.team.jsonView.given
       JsonOk:

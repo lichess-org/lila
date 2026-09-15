@@ -66,6 +66,7 @@
   <string name="studyUrl">URL do estudo</string>
   <string name="currentChapterUrl">Ligazón do capítulo actual</string>
   <string name="youCanPasteThisInTheForumToEmbed">Podes pegalo no foro ou no teu blog de Lichess para incrustalo</string>
+  <string name="pasteToEmbedChapterInForumOrBlog" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.&#10;&#10;Please note this used to say &quot;in the forum to embed&quot;. It was then changed to include &quot;or a Lichess Blog&quot;. A further update was made to say &quot;or your Lichess blog&quot;, since you can only create blog posts as an individual.  Replaces old string youCanPasteThisInTheForumToEmbed">Podes pegalo no foro ou no teu blog de Lichess para incrustar o capítulo.</string>
   <string name="startAtInitialPosition">Comezar desde a posición inicial</string>
   <string name="startAtX">Comezar en %s</string>
   <string name="embedInYourWebsite">Incrustar na túa páxina web ou blog</string>
@@ -188,7 +189,9 @@
   <string name="customPositionTitle">Posición á medida</string>
   <string name="customPositionText">Dispón o taboleiro ó teu xeito.&lt;br&gt;Adecuada pra explorar os finais.</string>
   <string name="loadExistingLichessGameTitle">Cargar unha partida existente do Lichess</string>
+  <string name="loadGameFromTheWebTitle" comment="Replaces old string loadExistingLichessGameTitle">Cargar unha partida dende a web</string>
   <string name="loadExistingLichessGameText">Pega o URL dunha partida&lt;br&gt;(coma lichess.org/7fHIU0XI)&lt;br&gt;para cargar a lista de xogadas no capítulo.</string>
+  <string name="loadGameFromTheWebText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text. Replaces old string loadExistingLichessGameText">Pega o URL dunha partida&lt;br&gt;(coma lichess.org/7fHIU0XI)&lt;br&gt;para cargar a lista de xogadas no capítulo.</string>
   <string name="fromFenStringTitle">A partires dunha cadea FEN</string>
   <string name="fromFenStringText">Pega a posición no formato FEN&lt;br&gt;&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;&lt;br&gt;para comezar o capítulo dende unha posición determinada.</string>
   <string name="fromPgnGameTitle">Dende o PGN dunha partida</string>

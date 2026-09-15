@@ -66,7 +66,7 @@ private object BsonHandlers:
       themes = r.getsD[PuzzleRound.Theme](themes)
     )
     def writes(w: BSON.Writer, r: PuzzleRound) =
-      $doc(
+      bdoc(
         id -> r.id,
         win -> r.win,
         fixedAt -> r.fixedAt,

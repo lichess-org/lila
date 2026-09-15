@@ -39,6 +39,7 @@
   <string name="resetRound">Zresetuj tę rundę</string>
   <string name="deleteRound">Usuń tę rundę</string>
   <string name="definitivelyDeleteRound">Ostatecznie usuń rundę i jej wszystkie partie.</string>
+  <string name="permanentlyDeleteRound" comment="Refers to live tournaments being broadcast on Lichess (https://lichess.org/broadcast).&#10;&#10;Description (also translateable): Delete all games of this round. The source will need to be active in order to re-create them. This string has been amended since its initial publication; it didn't say &quot;all its games&quot; at the time.&#10;&#10;Replaces old string definitivelyDeleteRound.">Usunąć trwale tę rundę i wszystkie jej partie?</string>
   <string name="deleteAllGamesOfThisRound">Usuń wszystkie partie w tej rundzie. Źródło będzie musiało być aktywne, aby je odtworzyć.</string>
   <string name="editRoundStudy">Edytuj opracowanie rundy</string>
   <string name="deleteTournament">Usuń ten turniej</string>

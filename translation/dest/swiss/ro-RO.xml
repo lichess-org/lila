@@ -73,6 +73,7 @@ Adaugă scorurile fiecărui adversar pe care jucătorul îl învinge și jumăta
   <string name="moreRoundsThanPlayersQ">Ce se întâmplă dacă turneul are mai multe runde decât numărul jucătorilor?</string>
   <string name="moreRoundsThanPlayersA">După ce vor fi jucate toate perechile posibile, turneul va fi încheiat şi va fi declarat un câştigător.</string>
   <string name="restrictedToTeamsQ">De ce este limitat la echipe?</string>
+  <string name="whyAreSwissTournamentsRestrictedToTeams" comment="Replaces old string restrictedToTeamsQ">De ce se limitează turneele elvețiene la echipe?</string>
   <string name="restrictedToTeamsA">Turneurile elvețiene nu au fost proiectate pentru șah online. Ele necesită punctualitate, dedicare și răbdare din partea jucătorilor.
 Considerăm că este mai probabil ca aceste condiții să fie îndeplinite în cadrul unei echipe decât în turneele globale.</string>
   <string name="numberOfByesQ">Câte \"bye\" poate primi un jucător?</string>
@@ -94,6 +95,7 @@ Cei care s-au alăturat cu întârziere primesc o singură pauză, chiar dacă a
   <string name="willSwissReplaceArenasQ">Turneele elvețiene vor inlocui turneele de tip arenă?</string>
   <string name="willSwissReplaceArenasA">Nu. Sunt turnee cu caracteristici complementare.</string>
   <string name="roundRobinQ">Ce se întâmplă cu Round Robin?</string>
+  <string name="canPlayRoundRobinTournaments" comment="roundRobinQ&#10;&#10;Round-robin is a simple tournament format with some similarities to Swiss. It is not supported by Lichess. Replaces old string roundRobinQ">Pot să joc turnee round-robin pe Lichess?</string>
   <string name="roundRobinA">Am dori să o adăugăm, dar din păcate Round Robin nu funcționează bine online.
 Motivul este că nu are un mod corect de a trata persoanele care părăsesc turneul mai devreme. Nu ne putem aștepta ca toți jucătorii să își joace toate jocurile într-un eveniment online. Pur și simplu, acest lucru nu se va întâmpla şi, ca urmare, majoritatea turneelor de tip Round Robin ar fi nedrepte, ceea ce ar fi contrar scopului pentru care a fost creat turneul.
 Cel mai apropiat mod de a ajunge la Round Robin online este să joci un turneu elvețian cu un număr foarte mare de runde. Astfel vor fi jucate toate perechile posibile înainte de terminarea turneului.</string>

@@ -46,17 +46,17 @@ final class TeamCached(
       memberRepo.coll
         .aggregateOne(_.sec): framework =>
           import framework.*
-          Match($doc("_id".$startsWith(s"$u@"))) -> List(
-            Project($doc("_id" -> $doc("$substr" -> $arr("$_id", u.value.size + 1, -1)))),
+          Match(bdoc("_id".regexStart(s"$u@"))) -> List(
+            Project(bdoc("_id" -> bdoc("$substr" -> barr("$_id", u.value.size + 1, -1)))),
             PipelineOperator(
-              $lookup.simple(
+              lookup.simple(
                 from = teamRepo.coll,
                 as = "team",
                 local = "_id",
                 foreign = "_id",
                 pipe = List(
-                  $doc("$match" -> $doc("enabled" -> true)),
-                  $doc("$project" -> $id(true))
+                  bdoc("$match" -> bdoc("enabled" -> true)),
+                  bdoc("$project" -> bid(true))
                 )
               )
             ),

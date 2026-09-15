@@ -111,7 +111,7 @@ final class UserShow(helpers: Helpers, bits: UserBits):
             a(href := routes.Video.index)(trans.learn.videos())
           )
         ),
-        li(a(href := routes.Pref.form("game-display"))(tro.configureLichess())),
+        li(a(href := routes.Pref.form("display"))(tro.configureLichess())),
         li(tro.exploreTheSiteAndHaveFun())
       )
     )

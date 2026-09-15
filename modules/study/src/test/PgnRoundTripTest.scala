@@ -1,5 +1,5 @@
 package lila.study
-import chess.format.pgn.PgnStr
+import chess.format.pgn.{ PgnStr, Tag, Tags }
 
 import scala.language.implicitConversions
 
@@ -19,11 +19,14 @@ class PgnRoundTripTest extends munit.FunSuite:
 
   val user = LightUser.fallback(UserName("Annotator"))
 
+  // the dump only reads the Annotator tag, and the rest would render a result terminator
+  def annotatorOf(tags: Tags) = Tags(tags.value.filter(_.name == Tag.Annotator))
+
   test("roundtrip"):
     PgnFixtures.roundTrip
       .foreach: pgn =>
         val imported = StudyPgnImport.result(pgn, List(user)).toOption.get
-        val dumped = rootToPgn(imported.root)
+        val dumped = rootToPgn(imported.root, annotatorOf(imported.tags))
         assertEquals(dumped.value.cleanTags, pgn.cleanTags)
 
   given Conversion[Bdoc, Reader] = Reader(_)
@@ -35,7 +38,7 @@ class PgnRoundTripTest extends munit.FunSuite:
       .foreach: pgn =>
         val imported = StudyPgnImport.result(pgn, List(user)).toOption.get
         val afterBson = treeBson.reads(treeBson.writes(w, imported.root))
-        val dumped = rootToPgn(afterBson)
+        val dumped = rootToPgn(afterBson, annotatorOf(imported.tags))
         assertEquals(dumped.value.cleanTags, pgn.cleanTags)
 
   extension (pgn: String)

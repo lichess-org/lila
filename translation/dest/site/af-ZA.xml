@@ -398,7 +398,6 @@
   <string name="apply">Pas toe</string>
   <string name="save">Stoor</string>
   <string name="leaderboard">Leierbord</string>
-  <string name="screenshotCurrentPosition">Neem \'n skermfoto van die huidige posisie</string>
   <string name="gameAsGIF">Spel as \'n GIF</string>
   <string name="pasteTheFenStringHere">Plak die FEN string hier</string>
   <string name="pasteThePgnStringHere">Plak die PGN string hier</string>
@@ -506,7 +505,6 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="oneUrlPerLine">Een skakel per lyn.</string>
   <string name="inlineNotation">Binnelyn notasie</string>
   <string name="makeAStudy">Oorweeg dit om \'n studie te skep om te bewaar en met ander te deel.</string>
-  <string name="clearSavedMoves">Verwyder skuiwe</string>
   <string name="previouslyOnLichessTV">Voorigekeer op Lichess TV</string>
   <string name="onlinePlayers">Aanlyn spelers</string>
   <string name="activePlayers">Aktiewe spelers</string>
@@ -764,7 +762,6 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="background">Agtergrond</string>
   <string name="light">Lig</string>
   <string name="dark">Donker</string>
-  <string name="transparent">Deurdigtig</string>
   <string name="deviceTheme">Toestel se tema</string>
   <string name="backgroundImageUrl">Agtergrond prent URL:</string>
   <string name="board">Bord</string>

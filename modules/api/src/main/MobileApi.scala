@@ -40,7 +40,7 @@ final class MobileApi(
       me: Option[Me]
   )(using RequestHeader, Translate, KidMode): Fu[JsObject] =
     val myUser = me.map(_.value)
-    val takex3 = oauth.exists(_.takex3)
+    val takex3 = oauth.exists(_.has(_.Web.Takex3))
     for
       withPerfs <- myUser.traverse(userApi.withPerfs)
       urgentGames <- myUser.traverse(gameProxy.urgentGames)

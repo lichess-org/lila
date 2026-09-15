@@ -94,14 +94,14 @@ final private class SwissSheetApi(mongo: SwissMongo)(using
       if swiss.finishedAt.exists(_.isBefore(nowInstant.minusSeconds(10))) then _.sec else _.pri
     SwissPlayer
       .fields: f =>
-        mongo.player.find($doc(f.swissId -> swiss.id)).sort(sort)
+        mongo.player.find(bdoc(f.swissId -> swiss.id)).sort(sort)
       .cursor[SwissPlayer](readPref)
       .documentSource()
       .mapAsync(4): player =>
         SwissPairing.fields: f =>
           mongo.pairing
             .list[SwissPairing](
-              $doc(f.swissId -> swiss.id, f.players -> player.userId),
+              bdoc(f.swissId -> swiss.id, f.players -> player.userId),
               readPref
             )
             .dmap(player -> _)

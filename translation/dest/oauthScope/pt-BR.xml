@@ -22,6 +22,7 @@
   <string name="teamRead">Acesso a informações privadas da equipe</string>
   <string name="teamWrite">Permitir entrar e sair de equipes</string>
   <string name="teamLead">Administre suas equipes: envie mensagens privadas, expulse membros</string>
+  <string name="manageTeamsYouLead" comment="Replaces old string teamLead">Gerenciar as equipes que você lidera: enviar mensagens diretas, expulsar membros</string>
   <string name="followRead">Acesso à lista de usuários seguidos</string>
   <string name="followWrite">Permitir (parar de) seguir outros usuários</string>
   <string name="msgWrite">Permitir enviar mensagens privadas a outros usuários</string>

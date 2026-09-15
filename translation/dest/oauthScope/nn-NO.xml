@@ -22,6 +22,7 @@
   <string name="teamRead">Les privat laginformasjon</string>
   <string name="teamWrite">Delta i, forlat og administrer lag</string>
   <string name="teamLead">Administrer lag du leier: send personlege meldingar, fjern medlemar frå laget</string>
+  <string name="manageTeamsYouLead" comment="Replaces old string teamLead">Administrer lag du er leiar for: send personlege meldingar, fjern medlemar frå laget</string>
   <string name="followRead">Les følgde spelarar</string>
   <string name="followWrite">Følg/ikkje følg andre spelarar</string>
   <string name="msgWrite">Send privat melding til andre spelarar</string>

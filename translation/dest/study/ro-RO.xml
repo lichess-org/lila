@@ -69,6 +69,7 @@
   <string name="studyUrl">URL-ul studiului</string>
   <string name="currentChapterUrl">URL-ul capitolului curent</string>
   <string name="youCanPasteThisInTheForumToEmbed">Poți lipi acest cod în forum pentru a îngloba</string>
+  <string name="pasteToEmbedChapterInForumOrBlog" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.&#10;&#10;Please note this used to say &quot;in the forum to embed&quot;. It was then changed to include &quot;or a Lichess Blog&quot;. A further update was made to say &quot;or your Lichess blog&quot;, since you can only create blog posts as an individual.  Replaces old string youCanPasteThisInTheForumToEmbed">Puteți insera asta în forum sau în blogul dvs de pe Lichess pentru a încorpora capitolul.</string>
   <string name="startAtInitialPosition">Începeți de la poziția inițială</string>
   <string name="startAtX">Începeți la %s</string>
   <string name="embedInYourWebsite">Înglobează pe site-ul sau blog-ul tău</string>
@@ -192,7 +193,9 @@
   <string name="customPositionTitle">Poziție personalizată</string>
   <string name="customPositionText">Aranjați tabla cum vreți.&lt;br&gt;Potrivită pentru explorarea finalurilor de joc.</string>
   <string name="loadExistingLichessGameTitle">Încarcă un joc existent din Lichess</string>
+  <string name="loadGameFromTheWebTitle" comment="Replaces old string loadExistingLichessGameTitle">Încarcă un joc de pe web</string>
   <string name="loadExistingLichessGameText">Lipește un URL pentru joc din Lichess&lt;br&gt;(de exemplu lichess.org/7fHIU0XI)&lt;br&gt;pentru a încărca mutările jocului în capitol.</string>
+  <string name="loadGameFromTheWebText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text. Replaces old string loadExistingLichessGameText">Lipește o adresă URL a jocului&lt;br&gt;(ex: lichess.org/7fHIU0XI)&lt;br&gt;pentru a încărca mișcările din joc în capitol.</string>
   <string name="fromFenStringTitle">Dintr-un text FEN</string>
   <string name="fromFenStringText">Lipiți o poziție în formatul FEN&lt;br&gt;&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;&lt;br&gt;pentru a începe capitolul dintr-o poziție anume.</string>
   <string name="fromPgnGameTitle">Dintr-un PGN de joc(uri)</string>

@@ -1,9 +1,10 @@
 import es from 'esbuild';
 import fs from 'node:fs';
 import { join, basename } from 'node:path';
+import pc from 'picocolors';
 
 import { definedMap } from './algo.ts';
-import { env, errorMark, warnMark, c } from './env.ts';
+import { env, errorMark, warnMark } from './env.ts';
 import { type Manifest, updateManifest } from './manifest.ts';
 import { makeTask, stopTask } from './task.ts';
 
@@ -135,8 +136,8 @@ function esbuildLog(msgs: es.Message[], error = false): void {
         ? `:${msg.location.column}`
         : '';
     const srcText = msg.location?.lineText;
-    env.log(`${error ? errorMark : warnMark} - '${c.cyan(file + line)}' - ${msg.text}`, 'esbuild');
-    if (srcText) env.log('  ' + c.magenta(srcText), 'esbuild');
+    env.log(`${error ? errorMark : warnMark} - '${pc.cyan(file + line)}' - ${msg.text}`, 'esbuild');
+    if (srcText) env.log('  ' + pc.magenta(srcText), 'esbuild');
   }
 }
 

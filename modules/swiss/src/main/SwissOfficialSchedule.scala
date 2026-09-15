@@ -50,7 +50,7 @@ final private class SwissOfficialSchedule(mongo: SwissMongo, cache: SwissCache)(
         val minute = (position % 2) * 30
         val startAt = dayStart.plusHours(hour).plusMinutes(minute)
         mongo.swiss
-          .exists($doc("teamId" -> lichessTeamId, "startsAt" -> startAt))
+          .exists(bdoc("teamId" -> lichessTeamId, "startsAt" -> startAt))
           .flatMap:
             if _ then fuFalse
             else mongo.swiss.insert.one(BsonHandlers.addFeaturable(makeSwiss(config, startAt))).inject(true)
