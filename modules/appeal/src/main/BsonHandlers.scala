@@ -33,7 +33,7 @@ private object BsonHandlers:
         case m: MessageEvent => messageHandler.writeTry(m).get
         case m: ChoiceEvent => choiceHandler.writeTry(m).get
         case m: ActionEvent => actionHandler.writeTry(m).get
-      msg.kind.fold(doc)(k => doc ++ $doc("kind" -> k.key))
+      msg.kind.fold(doc)(k => doc ++ bdoc("kind" -> k.key))
 
   given BSONDocumentHandler[AccountsDisclosure] = Macros.handler
   given BSONDocumentHandler[Appeal] = Macros.handler
