@@ -1,4 +1,3 @@
-import { type VNode } from 'snabbdom';
 import { renderVoiceBar } from 'voice';
 
 import { jsx, onInsert } from 'lib/view';
@@ -7,7 +6,7 @@ import chessground from './chessground';
 import CoordinateTrainerCtrl, { DURATION } from './ctrl';
 import side from './side';
 
-const textOverlay = (ctrl: CoordinateTrainerCtrl): VNode | null => {
+const textOverlay = (ctrl: CoordinateTrainerCtrl) => {
   if (!ctrl.playing || ctrl.mode() !== 'findSquare') return null;
 
   return (
@@ -31,7 +30,7 @@ const textOverlay = (ctrl: CoordinateTrainerCtrl): VNode | null => {
   );
 };
 
-const explanation = (ctrl: CoordinateTrainerCtrl): VNode => {
+const explanation = (ctrl: CoordinateTrainerCtrl) => {
   const i18nModeKey = ctrl.mode() === 'findSquare' ? 'aCoordinateAppears' : 'aSquareIsHighlightedExplanation';
   const i18nTimeControlKey =
     ctrl.timeControl() === 'thirtySeconds' ? 'youHaveThirtySeconds' : 'goAsLongAsYouWant';
@@ -51,20 +50,18 @@ const explanation = (ctrl: CoordinateTrainerCtrl): VNode => {
   );
 };
 
-const table = (ctrl: CoordinateTrainerCtrl): VNode => {
-  return (
-    <div class="table">
-      {!ctrl.hasPlayed && explanation(ctrl)}
-      {!ctrl.playing && (
-        <button class="start button button-fat" on={{ click: ctrl.start }}>
-          {i18n.coordinates.startTraining}
-        </button>
-      )}
-    </div>
-  );
-};
+const table = (ctrl: CoordinateTrainerCtrl) => (
+  <div class="table">
+    {!ctrl.hasPlayed && explanation(ctrl)}
+    {!ctrl.playing && (
+      <button class="button button-fat start" on={{ click: ctrl.start }}>
+        {i18n.coordinates.startTraining}
+      </button>
+    )}
+  </div>
+);
 
-const progress = (ctrl: CoordinateTrainerCtrl): VNode | null => {
+const progress = (ctrl: CoordinateTrainerCtrl) => {
   if (!ctrl.hasPlayed) return null;
   return (
     <div class="progress">
@@ -73,14 +70,14 @@ const progress = (ctrl: CoordinateTrainerCtrl): VNode | null => {
   );
 };
 
-const coordinateInput = (ctrl: CoordinateTrainerCtrl): VNode | null => {
+const coordinateInput = (ctrl: CoordinateTrainerCtrl) => {
   if (ctrl.mode() !== 'nameSquare') return null;
 
   return (
     <div class="coordinate-input">
       {ctrl.coordinateInputMethod() === 'buttons' ? (
         <div class="files-ranks">
-          {'abcdefgh12345678'.split('').map((fileOrRank: string) => (
+          {'abcdefgh12345678'.split('').map(fileOrRank => (
             <button
               class="button button-empty file-rank"
               on={{
@@ -122,7 +119,7 @@ const coordinateInput = (ctrl: CoordinateTrainerCtrl): VNode | null => {
   );
 };
 
-const view = (ctrl: CoordinateTrainerCtrl): VNode => (
+const view = (ctrl: CoordinateTrainerCtrl) => (
   <div class={ctrl.wrong ? 'trainer wrong' : 'trainer'}>
     {side(ctrl)}
     <div class="main-board">{chessground(ctrl)}</div>

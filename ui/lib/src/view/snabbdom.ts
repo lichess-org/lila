@@ -8,10 +8,10 @@ import {
   type Hooks,
   type Attrs,
   type Classes,
+  type JsxVNodeChildren,
   h as snabH,
   jsx as snabbdomJsx,
   thunk,
-  type JsxVNodeChildren,
 } from 'snabbdom';
 
 import type { LiconValue } from '@/licon';
