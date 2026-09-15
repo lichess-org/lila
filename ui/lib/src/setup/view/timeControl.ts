@@ -11,7 +11,7 @@ import {
   daysVToDays,
   type TimeControl,
   type TimeMode,
-  allTimeModeKeys,
+  timeModes,
 } from '../timeControl';
 
 const showTime = (v: number) => {
@@ -90,7 +90,7 @@ const renderTimeModePicker = (tc: TimeControl) =>
           },
         },
       },
-      allTimeModeKeys
+      timeModes
         .filter(m => tc.modes.includes(m))
         .map(timeMode => option({ key: timeMode, name: i18n.site[timeMode] }, tc.mode())),
     ),

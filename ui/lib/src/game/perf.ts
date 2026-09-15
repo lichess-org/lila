@@ -1,6 +1,8 @@
+// Ordered by scalachess variant ids
 export const variants: VariantKey[] = [
   'standard',
   'chess960',
+  'fromPosition',
   'kingOfTheHill',
   'threeCheck',
   'antichess',
@@ -8,7 +10,6 @@ export const variants: VariantKey[] = [
   'horde',
   'racingKings',
   'crazyhouse',
-  'fromPosition',
 ];
 
 export const perfIsVariant = (perf: Speed | VariantKey): perf is VariantKey =>

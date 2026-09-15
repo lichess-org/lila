@@ -62,13 +62,7 @@ export const timeControlFromStoredValues = (
     presets,
   );
 
-export const timeModeIds: Record<TimeMode, number> = {
-  realTime: 1,
-  correspondence: 2,
-  unlimited: 0,
-};
-
-export const allTimeModeKeys: TimeMode[] = Object.keys(timeModeIds) as TimeMode[];
+export const timeModes: TimeMode[] = ['unlimited', 'realTime', 'correspondence'];
 
 // When we store timeV, incrementV, and daysV in local storage, we save the actual time, increment,
 // and days, and not the value of the input element. We use this function to recompute the value of the

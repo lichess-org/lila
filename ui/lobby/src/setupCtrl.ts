@@ -2,20 +2,15 @@ import { INITIAL_FEN } from 'chessops/fen';
 
 import { type Prop, propWithEffect, toggle } from 'lib';
 import { debounce } from 'lib/async';
+import { variants } from 'lib/game/perf';
 import type { ColorChoice, ColorProp } from 'lib/setup/color';
-import {
-  allTimeModeKeys,
-  timeControlFromStoredValues,
-  timeModeIds,
-  type TimeControl,
-} from 'lib/setup/timeControl';
+import { timeModes, timeControlFromStoredValues, type TimeControl } from 'lib/setup/timeControl';
 import { storedJsonProp } from 'lib/storage';
 import { alert } from 'lib/view';
 import * as xhr from 'lib/xhr';
 
 import type LobbyController from './ctrl';
 import type { ForceSetupOptions, GameMode, GameType, PoolMember, SetupStore } from './interfaces';
-import { variantIds } from './options';
 
 const getPerf = (variant: VariantKey, tc: TimeControl): Perf =>
   variant !== 'standard' && variant !== 'fromPosition' ? variant : tc.speed();
@@ -81,7 +76,7 @@ export default class SetupController {
     const canChangeTimeMode = !!this.root.me || this.gameType !== 'hook';
     this.timeControl = timeControlFromStoredValues(
       propWithEffect(forceOptions?.timeMode || storeProps.timeMode, this.onDropdownChange),
-      canChangeTimeMode ? allTimeModeKeys : ['realTime'],
+      canChangeTimeMode ? timeModes : ['realTime'],
       forceOptions?.time ?? storeProps.time,
       forceOptions?.increment ?? storeProps.increment,
       forceOptions?.days ?? storeProps.days,
@@ -254,9 +249,9 @@ export default class SetupController {
 
   propsToFormData = (color: ColorChoice) =>
     xhr.form({
-      variant: variantIds[this.variant()].toString(),
+      variant: variants.findIndex(v => v === this.variant()) + 1,
       fen: this.variant() === 'fromPosition' ? this.fen() : undefined,
-      timeMode: timeModeIds[this.timeControl.mode()].toString(),
+      timeMode: timeModes.findIndex(tm => tm === this.timeControl.mode()),
       time: this.timeControl.time().toString(),
       increment: this.timeControl.increment().toString(),
       days: this.timeControl.days().toString(),
