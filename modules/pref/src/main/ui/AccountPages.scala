@@ -43,11 +43,9 @@ final class AccountPages(helpers: Helpers, ui: AccountUi, flagApi: lila.core.use
               else form3.hidden(form("token")),
               form3.checkboxGroup(
                 form("forever"),
-                raw(trs.closeAccountForeverLabel()),
+                trs.closeAccountForeverLabel(),
                 half = me.totpSecret.isDefined,
-                help = raw(
-                  trs.closeAccountForeverWarning()
-                ).some
+                help = trs.closeAccountForeverWarning().some
               )
             ),
             form3.actions(
