@@ -1,5 +1,4 @@
 import { memoize } from 'lib';
-import { useFirstEval } from 'lib/ceval';
 import { objectStorage } from 'lib/objectStorage';
 import { completeNode } from 'lib/tree/node';
 import * as treeOps from 'lib/tree/ops';
@@ -130,10 +129,10 @@ export class IdbTree {
         this.ctrl.tree.merge(completeNode(this.ctrl.variantKey)(moves.root));
         state.movesDirty = true;
       }
-      const multiPv = this.ctrl.ceval.search.multiPv;
       for (const { path, ceval } of cevals) {
         this.ctrl.tree.updateAt(path, node => {
-          if (node.fen === ceval.fen && (!node.ceval || useFirstEval(ceval, node.ceval, multiPv))) {
+          if (node.fen === ceval.fen && this.ctrl.ceval.preferLatestEval(ceval, node.ceval)) {
+            ceval.engineId ??= 'legacy'; // for now this is preferable to a messy idb version upgrade
             node.ceval = ceval;
           }
         });
