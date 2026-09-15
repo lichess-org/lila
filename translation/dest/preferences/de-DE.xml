@@ -33,7 +33,7 @@
   <string name="dragPiece">Die Figur ziehen</string>
   <string name="bothClicksAndDrag">Klicken oder ziehen</string>
   <string name="premovesPlayingDuringOpponentTurn">Vorauszüge (Premoves), während der Gegner am Zug ist</string>
-  <string name="takebacksWithOpponentApproval">Zugrücknahme (mit Erlaubnis des Gegners)</string>
+  <string name="takebacksWithOpponentApproval">Zurücknahme (mit Erlaubnis des Gegners)</string>
   <string name="inCasualGamesOnly">Nur in ungewerteten Partien</string>
   <string name="promoteToQueenAutomatically">Automatische Umwandlung zur Dame</string>
   <string name="explainPromoteToQueenAutomatically">Halte die &lt;ctrl&gt; Taste während der Umwandlung um vorübergehend die automatische Umwandlung zu deaktivieren</string>

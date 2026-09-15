@@ -375,17 +375,17 @@
   </plurals>
   <string name="thisAccountViolatedTos">Dieses Konto hat gegen die Lichess-Nutzungsbedingungen verstoßen</string>
   <string name="openingExplorerAndTablebase">Eröffnungsbuch &amp; Tablebase</string>
-  <string name="takeback">Zugrücknahme</string>
-  <string name="proposeATakeback">Zugrücknahme vorschlagen</string>
-  <string name="whiteProposesTakeback">Weiß schlägt eine Zugrücknahme vor</string>
-  <string name="blackProposesTakeback">Schwarz schlägt eine Zugrücknahme vor</string>
-  <string name="takebackPropositionSent">Zugrücknahme vorgeschlagen</string>
-  <string name="whiteDeclinesTakeback">Weiß lehnt eine Zugrücknahme ab</string>
-  <string name="blackDeclinesTakeback">Schwarz lehnt eine Zugrücknahme ab</string>
-  <string name="whiteAcceptsTakeback">Weiß akzeptiert die Zugrücknahme</string>
-  <string name="blackAcceptsTakeback">Schwarz akzeptiert die Zugrücknahme</string>
-  <string name="whiteCancelsTakeback">Weiß nimmt die Zugrücknahme-Anfrage zurück</string>
-  <string name="blackCancelsTakeback">Schwarz nimmt die Zugrücknahme-Anfrage zurück</string>
+  <string name="takeback">Zurücknahme</string>
+  <string name="proposeATakeback">Zurücknahme vorschlagen</string>
+  <string name="whiteProposesTakeback">Weiß schlägt eine Zurücknahme vor</string>
+  <string name="blackProposesTakeback">Schwarz schlägt eine Zurücknahme vor</string>
+  <string name="takebackPropositionSent">Zurücknahme vorgeschlagen</string>
+  <string name="whiteDeclinesTakeback">Weiß lehnt eine Zurücknahme ab</string>
+  <string name="blackDeclinesTakeback">Schwarz lehnt eine Zurücknahme ab</string>
+  <string name="whiteAcceptsTakeback">Weiß akzeptiert die Zurücknahme</string>
+  <string name="blackAcceptsTakeback">Schwarz akzeptiert die Zurücknahme</string>
+  <string name="whiteCancelsTakeback">Weiß nimmt die Zurücknahme-Anfrage zurück</string>
+  <string name="blackCancelsTakeback">Schwarz nimmt die Zurücknahme-Anfrage zurück</string>
   <string name="yourOpponentProposesATakeback">Dein Gegner möchte den letzten Zug zurücknehmen</string>
   <string name="bookmarkThisGame">Als Lesezeichen speichern</string>
   <string name="tournament">Turnier</string>
@@ -728,7 +728,7 @@ Wenn du gewertete Partien spielst, wird die Stabilität erhöht.</string>
   <string name="aboutSimulImage">Gegen 50 Gegner gewann Fischer 47 Partien, remisierte zwei und verlor eine.</string>
   <string name="aboutSimulRealLife">Das Konzept ähnelt dem bei echten Simultanveranstaltungen, wo sich der Alleinspieler von Brett zu Brett bewegt.</string>
   <string name="aboutSimulRules">Beim Start des Simultan beginnt der Alleinspieler mit Weiß und spielt so lange mit wechselnden Gegnern, bis alle Partien beendet sind.</string>
-  <string name="aboutSimulSettings">Simultane sind immer ungewertet. Revanchen, Zugrücknahme und zusätzliche Zeit sind deaktiviert.</string>
+  <string name="aboutSimulSettings">Simultane sind immer ungewertet. Revanchen, Zurücknahme und zusätzliche Zeit sind deaktiviert.</string>
   <string name="create">Erstellen</string>
   <string name="whenCreateSimul">Wenn du ein Simultan erstellst, spielst du mit mehreren Gegnern gleichzeitig.</string>
   <string name="creatingASimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new Replaces old string whenCreateSimul">Durch das Erstellen eines Simultans kannst du gleichzeitig gegen mehrere Gegner spielen.</string>
