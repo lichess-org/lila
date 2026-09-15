@@ -99,6 +99,13 @@ export class SoundCtrl extends PaneCtrl {
 
   private readonly getCurrent = (): Key => (site.sound.speech() ? 'speech' : site.sound.theme);
 
+  private readonly setVoiceRate = (v: string) => {
+    localStorage.setItem('speech.rate', v);
+    if (this.rateInput) this.rateInput.value = v;
+    site.sound.say('Speech synthesis ready');
+  };
+  private rateInput?: HTMLInputElement;
+
   private renderVoiceSelection(): VNode[] | false {
     const selectedVoice = site.sound.getVoice();
     const voiceMap = site.sound.getVoiceMap();
@@ -111,19 +118,13 @@ export class SoundCtrl extends PaneCtrl {
             h('input.rate', {
               attrs: { ...site.sound.voiceRateRange, step: 0.05, type: 'range', value: rate },
               hook: onInsert<HTMLInputElement>(el => {
-                el.onchange = () => {
-                  localStorage.setItem('speech.rate', el.value);
-                  site.sound.say('Speech synthesis ready');
-                };
+                this.rateInput = el;
+                el.onchange = () => this.setVoiceRate(el.value);
               }),
             }),
             h('button', {
               attrs: { type: 'button', ...dataIcon(licon.Back) },
-              hook: bind('click', () => {
-                const input = document.querySelector<HTMLInputElement>('input.rate')!;
-                input.value = '1';
-                input.onchange?.(new Event('change'));
-              }),
+              hook: bind('click', () => this.setVoiceRate('1')),
             }),
           ]),
           h(
