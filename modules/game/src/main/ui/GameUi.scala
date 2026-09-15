@@ -280,7 +280,10 @@ final class GameUi(helpers: Helpers):
             div(cls := "metadata text", dataIcon := Icon.BarChart)(trans.site.computerAnalysisAvailable())
           ),
           g.pgnImport.flatMap(_.user).map { user =>
-            div(cls := "metadata")("PGN import by ", userIdLink(user.some, withOnline = false, withPatron = false))
+            div(cls := "metadata")(
+              "PGN import by ",
+              userIdLink(user.some, withOnline = false, withPatron = false)
+            )
           }
         )
       )
