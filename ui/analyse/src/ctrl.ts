@@ -25,7 +25,7 @@ import { CevalCtrl, useFirstEval, sanIrreversible, type CevalHandler, type Ceval
 import { ChatCtrl } from 'lib/chat/chatCtrl';
 import { displayColumns } from 'lib/device';
 import { playable, playedTurns, fenToEpd, validUci } from 'lib/game';
-import { plyColor } from 'lib/game/chess';
+import { isFiftyMoves, plyColor } from 'lib/game/chess';
 import { PromotionCtrl } from 'lib/game/promotion';
 import { pubsub } from 'lib/pubsub';
 import { storedBooleanProp } from 'lib/storage';
@@ -265,6 +265,10 @@ export default class AnalyseCtrl implements CevalHandler {
     return this.data.game.variant.key;
   }
 
+  private get fiftyMoves(): boolean {
+    return isFiftyMoves(this.variantKey, this.node.fen);
+  }
+
   private readonly makeInitialPath = (): TreePath => {
     // if correspondence, always use latest actual move to set 'current' style
     if (this.ongoing) return treePath.fromNodeList(treeOps.mainlineNodeList(this.tree.root));
@@ -342,7 +346,7 @@ export default class AnalyseCtrl implements CevalHandler {
   }
 
   private showGround(): void {
-    if (this.node.pos().isErr || this.node.outcome()) this.ceval.reset();
+    if (this.node.pos().isErr || this.node.outcome() || this.fiftyMoves) this.ceval.reset();
     this.withCg(cg => {
       cg.set(this.makeCgOpts());
       this.setAutoShapes();
@@ -808,7 +812,7 @@ export default class AnalyseCtrl implements CevalHandler {
   startCeval = () => {
     if (!this.asyncReady) return;
     if (!this.ceval.download) this.ceval.reset();
-    if (this.node.threefold || !this.cevalEnabled() || this.node.outcome()) return;
+    if (this.node.threefold || this.fiftyMoves || !this.cevalEnabled() || this.node.outcome()) return;
     this.ceval.start(this.path, this.nodeList, undefined, this.threatMode());
     this.evalCache.fetch(this.path, this.ceval.search.multiPv);
   };
@@ -840,7 +844,8 @@ export default class AnalyseCtrl implements CevalHandler {
       this.showEvaluation() &&
       this.isCevalAllowed() &&
       (this.cevalEnabled() || !!this.node.eval || !!this.node.ceval) &&
-      !this.node.outcome()
+      !this.node.outcome() &&
+      !this.fiftyMoves
     );
   }
 

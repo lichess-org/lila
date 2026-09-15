@@ -1,6 +1,6 @@
 // no side effects allowed due to re-export by index.ts
 
-import { type Chess, type NormalMove, parseUci, makeUci, opposite } from 'chessops';
+import { type Chess, type NormalMove, type Outcome, parseUci, makeUci, opposite } from 'chessops';
 import { normalizeMove } from 'chessops/chess';
 
 import { shuffle } from '@/algo';
@@ -22,6 +22,14 @@ export const plyColor = (ply: number): Color => (ply % 2 === 0 ? 'white' : 'blac
 export const plyOpponentColor = (ply: number): Color => opposite(plyColor(ply));
 
 export const pieceCount = (fen: FEN): number => fen.split(/\s/)[0].split(/[nbrqkp]/i).length - 1;
+
+// crazyhouse has no fifty-move rule, as in scalachess
+export const isFiftyMoves = (variant: VariantKey, fen: FEN): boolean =>
+  variant !== 'crazyhouse' && Number(fen.split(/\s/)[4]) >= 100;
+
+// Clock may be ≥ 100 while checkmate/stalemate still takes priority.
+export const isFiftyMoveDraw = (variant: VariantKey, fen: FEN, outcome: Outcome | undefined): boolean =>
+  !outcome && isFiftyMoves(variant, fen);
 
 export function fen960(): string {
   const [dark, light] = [2 * Math.floor(Math.random() * 4), 1 + 2 * Math.floor(Math.random() * 4)];
