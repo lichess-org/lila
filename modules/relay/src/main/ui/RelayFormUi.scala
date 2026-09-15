@@ -550,11 +550,9 @@ Hanna Marie ; Kozul, Zdenko"""),
               .option(
                 postForm(action := routes.RelayTour.cloneTour(nav.tour.id))(
                   submitButton(
-                    cls := "button button-green button-empty yes-no-confirm"
-                  )(
-                    strong("Clone as broadcast admin"),
-                    em("Clone this broadcast, its rounds, and their studies")
-                  )
+                    cls := "button button-green button-empty yes-no-confirm",
+                    title := "Clone this broadcast, its rounds, and their studies?"
+                  )(strong("Clone as broadcast admin"))
                 )
               )
           )
