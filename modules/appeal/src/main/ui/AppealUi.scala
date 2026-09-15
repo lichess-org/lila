@@ -105,20 +105,6 @@ final class AppealUi(helpers: Helpers)(using NetDomain):
         )
       )
 
-  // TODO: revisit to see which of these need to stay here
-  def modAppealMessages(appeal: Appeal)(using Context) =
-    appeal.msgs.map: msg =>
-      div(
-        cls := s"appeal__msg appeal__msg--${if appeal.isByMod(msg) then "mod" else "suspect"}",
-        id := appeal.isLast(msg).option("appeal-last-msg")
-      )(
-        div(cls := "appeal__msg__header")(
-          renderUser(appeal, msg.by, asMod = true),
-          pastMomentServer(msg.at)
-        ),
-        div(cls := "appeal__msg__text")(richText(msg.text, expandImg = false))
-      )
-
   def userInactiveAppeals(appeals: List[Appeal])(using Context, Me) =
     appeals
       .sortBy(_.updatedAt)

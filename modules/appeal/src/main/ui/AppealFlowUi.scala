@@ -39,7 +39,7 @@ final class AppealFlowUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
           appeal.accounts.map(ui.renderAccountsDisclosure),
           otherUsers(cls := "mod-zone communication__logins"),
           div(cls := "body")(
-            appeal.msgs.map(ui.renderMsg(appeal)),
+            modAppealMessages(appeal),
             renderNextNode(appeal, modData.some),
             standardFlash.orElse(markedByMe.option(ui.markedByMeWarning)),
             if appeal.isClosed then ui.appealIsClosed(appeal)
@@ -50,6 +50,12 @@ final class AppealFlowUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
         ),
         ui.userInactiveAppeals(userAppeals.filter(_ != appeal))
       )
+
+  private def modAppealMessages(appeal: Appeal)(using Context, Me) =
+    appeal.msgs.map: msg =>
+      div(
+        id := appeal.isLast(msg).option("appeal-last-msg")
+      )(ui.renderMsg(appeal)(msg))
 
   private def renderNextNode(appeal: Appeal, modData: Option[ModData] = None)(using ctx: Context, me: Me) =
     val isMod = me.isnt(appeal.user)

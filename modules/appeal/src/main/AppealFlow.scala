@@ -71,8 +71,16 @@ object AppealFlow:
           Answerer.User,
           "Do you accept this cheat mark?",
           NonEmptyList.of(
-            AnswerBranch(AnswerId("yes"), "Yes", NodeId("many-infractions")),
-            AnswerBranch(AnswerId("no"), "No", NodeId("is-mark-valid"))
+            AnswerBranch(
+              AnswerId("yes"),
+              "I accept that I used external assistance in my games.",
+              NodeId("many-infractions")
+            ),
+            AnswerBranch(
+              AnswerId("no"),
+              "I deny having used external assistance in my games.",
+              NodeId("is-mark-valid")
+            )
           )
         ),
         ChoiceNode(
@@ -106,7 +114,11 @@ object AppealFlow:
             )
           )
         ),
-        ActionNode(NodeId("wait-6-months"), "You must wait 6 months.", List(AppealEffect.Sleep(6))),
+        ActionNode(
+          NodeId("wait-6-months"),
+          "At least two accounts controlled by you or related to this account have broken the Lichess Terms of Service (https://lichess.org/terms-of-service).\n\nPlease appeal again in 6 months, as we will not give another chance before then. Do not create any new accounts until you appeal again.",
+          List(AppealEffect.Sleep(6))
+        ),
         ActionNode(NodeId("second-chance"), "You get a second chance. Please share your new username."),
         ActionNode(
           NodeId("decision-final"),

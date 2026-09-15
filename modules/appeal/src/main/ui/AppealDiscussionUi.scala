@@ -73,7 +73,7 @@ final class AppealDiscussionUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
           appeal.accounts.map(ui.renderAccountsDisclosure),
           otherUsers(cls := "mod-zone communication__logins"),
           div(cls := "body")(
-            ui.modAppealMessages(appeal),
+            modAppealMessages(appeal),
             standardFlash.orElse(markedByMe.option(ui.markedByMeWarning)),
             if appeal.isClosed then ui.appealIsClosed(appeal)
             else if me.is(inquiryBy) then modReplyForm(appeal, form, presets)
@@ -82,6 +82,19 @@ final class AppealDiscussionUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
           ui.modActions(appeal, modData)
         ),
         ui.userInactiveAppeals(userAppeals.filter(_ != appeal))
+      )
+
+  private def modAppealMessages(appeal: Appeal)(using Context) =
+    appeal.msgs.map: msg =>
+      div(
+        cls := s"appeal__msg appeal__msg--${if appeal.isByMod(msg) then "mod" else "suspect"}",
+        id := appeal.isLast(msg).option("appeal-last-msg")
+      )(
+        div(cls := "appeal__msg__header")(
+          ui.renderUser(appeal, msg.by, asMod = true),
+          pastMomentServer(msg.at)
+        ),
+        div(cls := "appeal__msg__text")(richText(msg.text, expandImg = false))
       )
 
   private def modReplyForm(appeal: Appeal, form: Form[?], presets: List[PairOf[String]])(using Context) =
