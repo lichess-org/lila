@@ -1,0 +1,40 @@
+.recall {
+  @extend %flex-column;
+
+  gap: 0.7em;
+  padding: 1em;
+  border-bottom: $border;
+
+  &__status {
+    font-size: 1.1em;
+    font-weight: bold;
+
+    &.right,
+    &.end {
+      color: $c-good;
+    }
+
+    &.wrong {
+      color: $c-bad;
+    }
+  }
+
+  &__help {
+    opacity: 0.8;
+
+    p + p {
+      margin-top: 0.5em;
+    }
+  }
+
+  &__actions {
+    @extend %flex-center;
+
+    flex-wrap: wrap;
+    gap: 0.5em;
+  }
+}
+
+.recall ~ .analyse__moves:empty {
+  display: none;
+}
