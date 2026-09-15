@@ -131,6 +131,8 @@
   .ceval-wrap {
     @extend %box-neat;
 
+    z-index: $z-mz-menu-4;
+
     &,
     .ceval {
       @extend %box-radius;
