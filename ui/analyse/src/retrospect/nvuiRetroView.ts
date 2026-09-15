@@ -1,5 +1,6 @@
 import { type VNodeData } from 'snabbdom';
 
+import { capitalize } from 'lib/game';
 import { renderSan } from 'lib/nvui/chess';
 import { liveText } from 'lib/nvui/notify';
 import { type LooseVNodes, hl } from 'lib/view';
@@ -51,7 +52,7 @@ function doneWithMistakes({ spoken, ctrl, focusFriendlyHook }: RetroContext, pre
     hl(
       'button.retro-flip',
       focusFriendlyHook(ctrl.retro.flip),
-      i18n.site[ctrl.retro.color === 'white' ? 'reviewBlackMistakes' : 'reviewWhiteMistakes'],
+      i18n.site[`review${capitalize(ctrl.retro.color)}Mistakes`],
     ),
   ];
 }

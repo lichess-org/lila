@@ -6,6 +6,7 @@ import { cmnToggleWrapProp } from 'lib/view/cmn-toggle';
 
 import type CoordinateTrainerCtrl from './ctrl';
 import type { TimeControl, Mode } from './interfaces';
+import { capitalize } from 'lib/game';
 
 const timeControls: [TimeControl, string][] = [
   ['untimed', '∞'],
@@ -257,7 +258,7 @@ const settings = (ctrl: CoordinateTrainerCtrl): VNode => {
 const playingAs = (ctrl: CoordinateTrainerCtrl): VNode => {
   return h('div.box.current-status.current-status--color', [
     h(`label.color_${ctrl.orientation}`, h('icon')),
-    h('em', i18n.site[ctrl.orientation === 'white' ? 'youPlayTheWhitePieces' : 'youPlayTheBlackPieces']),
+    h('em', i18n.site[`youPlayThe${capitalize(ctrl.orientation)}Pieces`]),
   ]);
 };
 

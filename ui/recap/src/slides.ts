@@ -1,6 +1,7 @@
 import { COLORS } from 'chessops';
 
 import { shuffle } from 'lib/algo';
+import { capitalize } from 'lib/game';
 import { perfName } from 'lib/game/perf';
 import perfIcons from 'lib/game/perfIcons';
 import { currencyFormat, numberFormat, percentFormat } from 'lib/i18n';
@@ -333,7 +334,7 @@ export const shareable = ({ games, year, puzzles }: Recap): VNode =>
         '.openings',
         COLORS.map(c =>
           games.openings[c].count > 0
-            ? stat(games.openings[c].value.name, i18n.site[c === 'white' ? 'asWhite' : 'asBlack'])
+            ? stat(games.openings[c].value.name, i18n.site[`as${capitalize(c)}`])
             : null,
         ),
       ),

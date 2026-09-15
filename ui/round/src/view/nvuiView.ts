@@ -3,7 +3,7 @@ import { COLORS, opposite } from 'chessops';
 
 import { isTouchDevice } from 'lib/device';
 import { type Player, type TopOrBottom, playable } from 'lib/game';
-import { plyToTurn } from 'lib/game/chess';
+import { capitalize, plyToTurn } from 'lib/game/chess';
 import { renderClock } from 'lib/game/clock/clockView';
 import * as nv from 'lib/nvui/chess';
 import { commands, boardCommands } from 'lib/nvui/command';
@@ -545,7 +545,7 @@ function gameText(ctrl: RoundController) {
   return [
     d.game.status.name === 'started'
       ? ctrl.isPlaying()
-        ? i18n.site[ctrl.data.player.color === 'white' ? 'youPlayTheWhitePieces' : 'youPlayTheBlackPieces']
+        ? i18n.site[`youPlayThe${capitalize(ctrl.data.player.color)}Pieces`]
         : 'Spectating.'
       : i18n.site.gameOver,
     i18n.site[ctrl.data.game.rated ? 'rated' : 'casual'],
