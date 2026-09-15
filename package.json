@@ -1,10 +1,10 @@
 {
   "name": "lila",
   "private": true,
-  "packageManager": "pnpm@11.22.0",
+  "packageManager": "pnpm@12.3.4",
   "engines": {
     "node": ">=24",
-    "pnpm": "11"
+    "pnpm": ">=12"
   },
   "devDependencies": {
     "@lichess-org/chessground": "^10.1.1",

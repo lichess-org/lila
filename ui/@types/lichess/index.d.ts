@@ -100,6 +100,7 @@ interface SoundI {
   // file://./../../site/src/sound.ts
   listeners: Set<SoundListener>;
   theme: string;
+  voiceRateRange: { min: number; max: number };
   move: SoundMove;
   load(name: string, path?: string): Promise<any>;
   play(name: string, volume?: number): Promise<void>;
