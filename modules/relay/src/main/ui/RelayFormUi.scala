@@ -540,8 +540,9 @@ Hanna Marie ; Kozul, Zdenko"""),
             (!nav.tour.official && (Granter.opt(_.StudyAdmin) || nav.tour.isOwnedBy(me))).option:
               postForm(action := routes.RelayTour.delete(nav.tour.id))(
                 submitButton(
-                  cls := "button button-red button-empty yes-no-confirm"
-                )(strong(trb.deleteTournament()), em(trb.permanentlyDeleteTournament()))
+                  cls := "button button-red button-empty yes-no-confirm",
+                  title := trb.permanentlyDeleteTournament.txt()
+                )(strong(trb.deleteTournament()))
               )
             ,
             Granter
