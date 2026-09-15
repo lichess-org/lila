@@ -1,7 +1,7 @@
-import { jsx, type VNode, type VNodeStyle } from 'snabbdom';
+import { type VNode } from 'snabbdom';
 import { renderVoiceBar } from 'voice';
 
-import { onInsert } from 'lib/view';
+import { jsx, onInsert } from 'lib/view';
 
 import chessground from './chessground';
 import CoordinateTrainerCtrl, { DURATION } from './ctrl';
@@ -11,16 +11,16 @@ const textOverlay = (ctrl: CoordinateTrainerCtrl): VNode | null => {
   if (!ctrl.playing || ctrl.mode() !== 'findSquare') return null;
 
   return (
-    <svg attrs={{ viewBox: '0 0 100 100', class: 'coords-svg' }}>
+    <svg viewBox="0 0 100 100" class="coords-svg">
       {['current', 'next'].map(modifier => (
         <g
-          attrs={{ class: modifier }}
+          class={modifier}
           key={`${ctrl.score}-${modifier}`}
           style={
             modifier === 'current'
-              ? ({
+              ? {
                   remove: { opacity: '0', transform: 'translate(-8px, 60px)' },
-                } as unknown as VNodeStyle)
+                }
               : undefined
           }
         >
@@ -36,7 +36,7 @@ const explanation = (ctrl: CoordinateTrainerCtrl): VNode => {
   const i18nTimeControlKey =
     ctrl.timeControl() === 'thirtySeconds' ? 'youHaveThirtySeconds' : 'goAsLongAsYouWant';
   return (
-    <div attrs={{ class: 'explanation box' }}>
+    <div class="explanation box">
       <h1>{i18n.coordinates.coordinates}</h1>
       <p>{i18n.coordinates.knowingTheChessBoard}</p>
       <ul>
@@ -53,10 +53,10 @@ const explanation = (ctrl: CoordinateTrainerCtrl): VNode => {
 
 const table = (ctrl: CoordinateTrainerCtrl): VNode => {
   return (
-    <div attrs={{ class: 'table' }}>
+    <div class="table">
       {!ctrl.hasPlayed && explanation(ctrl)}
       {!ctrl.playing && (
-        <button attrs={{ class: 'start button button-fat' }} on={{ click: ctrl.start }}>
+        <button class="start button button-fat" on={{ click: ctrl.start }}>
           {i18n.coordinates.startTraining}
         </button>
       )}
@@ -67,8 +67,8 @@ const table = (ctrl: CoordinateTrainerCtrl): VNode => {
 const progress = (ctrl: CoordinateTrainerCtrl): VNode | null => {
   if (!ctrl.hasPlayed) return null;
   return (
-    <div attrs={{ class: 'progress' }}>
-      <div attrs={{ class: 'progress__bar' }} style={{ width: `${100 * (1 - ctrl.timeLeft / DURATION)}%` }} />
+    <div class="progress">
+      <div class="progress__bar" style={{ width: `${100 * (1 - ctrl.timeLeft / DURATION)}%` }} />
     </div>
   );
 };
@@ -77,12 +77,12 @@ const coordinateInput = (ctrl: CoordinateTrainerCtrl): VNode | null => {
   if (ctrl.mode() !== 'nameSquare') return null;
 
   return (
-    <div attrs={{ class: 'coordinate-input' }}>
+    <div class="coordinate-input">
       {ctrl.coordinateInputMethod() === 'buttons' ? (
-        <div attrs={{ class: 'files-ranks' }}>
+        <div class="files-ranks">
           {'abcdefgh12345678'.split('').map((fileOrRank: string) => (
             <button
-              attrs={{ class: 'button button-empty file-rank' }}
+              class="button button-empty file-rank"
               on={{
                 click: () => {
                   if (ctrl.playing) {
@@ -97,11 +97,12 @@ const coordinateInput = (ctrl: CoordinateTrainerCtrl): VNode | null => {
           ))}
         </div>
       ) : null}
-      <div attrs={{ class: 'voice-container' }}>{renderVoiceBar(ctrl.voice, ctrl.redraw, 'coords')}</div>
-      <div attrs={{ class: 'keyboard-container' }}>
+      <div class="voice-container">{renderVoiceBar(ctrl.voice, ctrl.redraw, 'coords')}</div>
+      <div class="keyboard-container">
         <span>
           <input
-            attrs={{ type: 'text', class: 'keyboard' }}
+            type="text"
+            class="keyboard"
             hook={onInsert<HTMLInputElement>(el => (ctrl.keyboardInput = el))}
             on={{ keyup: ctrl.onKeyboardInputKeyUp }}
           />
@@ -113,7 +114,7 @@ const coordinateInput = (ctrl: CoordinateTrainerCtrl): VNode | null => {
             </strong>
           )}
         </span>
-        <button attrs={{ class: 'button button-empty' }} on={{ click: () => ctrl.toggleInputMethod() }}>
+        <button class="button button-empty" on={{ click: () => ctrl.toggleInputMethod() }}>
           {ctrl.coordinateInputMethod() === 'text' ? 'Show buttons' : 'Hide buttons'}
         </button>
       </div>
@@ -122,9 +123,9 @@ const coordinateInput = (ctrl: CoordinateTrainerCtrl): VNode | null => {
 };
 
 const view = (ctrl: CoordinateTrainerCtrl): VNode => (
-  <div attrs={{ class: ctrl.wrong ? 'trainer wrong' : 'trainer' }}>
+  <div class={ctrl.wrong ? 'trainer wrong' : 'trainer'}>
     {side(ctrl)}
-    <div attrs={{ class: 'main-board' }}>{chessground(ctrl)}</div>
+    <div class="main-board">{chessground(ctrl)}</div>
     {textOverlay(ctrl)}
     {table(ctrl)}
     {progress(ctrl)}
