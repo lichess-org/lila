@@ -78,9 +78,7 @@ export function statusOf(d: StatusData): string {
     case 'aborted':
       const abortReasonText = d.abortedBy
         ? i18n.site[`${d.abortedBy}Aborted`]
-        : d.ply === 0
-          ? i18n.site.whiteDidntMove
-          : i18n.site.blackDidntMove;
+        : i18n.site[`${plyColor(d.ply)}DidntMove`];
       return `${abortReasonText}${winnerSuffix}`;
     case 'mate':
       return i18n.site.checkmate + winnerSuffix;

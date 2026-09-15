@@ -87,14 +87,7 @@ const retroStateView = {
     const node = ctrl.retro.current()?.fault.node;
     if (!node) return doneWithMistakes(ctx, prelude);
     const c = ctrl.retro.color;
-    const trailer =
-      c === 'white'
-        ? tryAgain
-          ? i18n.site.tryAnotherMoveForWhite
-          : i18n.site.findBetterMoveForWhite
-        : tryAgain
-          ? i18n.site.tryAnotherMoveForBlack
-          : i18n.site.findBetterMoveForBlack;
+    const trailer = i18n.site[`${tryAgain ? 'tryAnother' : 'findBetter'}MoveFor${capitalize(c)}`];
     return [
       spoken(
         prelude +
