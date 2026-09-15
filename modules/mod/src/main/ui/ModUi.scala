@@ -16,7 +16,11 @@ final class ModUi(helpers: Helpers):
 
   def impersonate(user: User)(using Translate) =
     div(id := "impersonate")(
-      div(cls := "meat")("You are impersonating ", userLink(user, withOnline = false, withPatron = false), "."),
+      div(cls := "meat")(
+        "You are impersonating ",
+        userLink(user, withOnline = false, withPatron = false),
+        "."
+      ),
       div(cls := "actions"):
         postForm(action := routes.Mod.impersonate("-")):
           submitButton(cls := "button button-empty")("Quit")
