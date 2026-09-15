@@ -124,7 +124,10 @@ export function jsx(tag: string, data: VNodeData | null, ...children: JsxVNodeCh
         } else if (['hook', 'key', 'on', 'props', 'style'].includes(name)) {
           normalized[name] = value;
         } else if (name === 'class') {
-          normalized.attrs = { ...normalized.attrs, class: value };
+          normalized.attrs = {
+            ...normalized.attrs,
+            class: Array.isArray(value) ? value.filter(Boolean).join(' ') : value,
+          };
         } else {
           normalized.attrs = { ...normalized.attrs, [name]: value };
         }
@@ -140,7 +143,7 @@ export namespace jsx {
     export type IntrinsicElements = Record<
       string,
       Omit<VNodeData, 'class'> & {
-        class?: Classes | string;
+        class?: Classes | string | (string | false | null | undefined)[];
         [name: string]: any;
       }
     >;
