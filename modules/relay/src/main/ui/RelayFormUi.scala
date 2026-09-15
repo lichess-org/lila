@@ -158,7 +158,7 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, pageMenu: RelayMenuUi):
               postForm(action := routes.Study.delete(r.studyId))(
                 submitButton(
                   cls := "button button-red button-empty yes-no-confirm"
-                )(strong(trb.deleteRound()), em(trb.definitivelyDeleteRound()))
+                )(strong(trb.deleteRound()), em(trb.permanentlyDeleteRound()))
               )
           )
         )
@@ -542,7 +542,7 @@ Hanna Marie ; Kozul, Zdenko"""),
               postForm(action := routes.RelayTour.delete(nav.tour.id))(
                 submitButton(
                   cls := "button button-red button-empty yes-no-confirm"
-                )(strong(trb.deleteTournament()), em(trb.definitivelyDeleteTournament()))
+                )(strong(trb.deleteTournament()), em(trb.permanentlyDeleteTournament()))
               )
             ,
             Granter

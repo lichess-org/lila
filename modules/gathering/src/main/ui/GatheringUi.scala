@@ -107,7 +107,7 @@ final class GatheringFormUi(helpers: Helpers):
     form3.group(
       field,
       trans.swiss.predefinedUsers(),
-      help = trans.swiss.forbiddedUsers().some,
+      help = trans.swiss.predefinedUsersHelp().some,
       half = true
     )(form3.textarea(_)(rows := 4))
 

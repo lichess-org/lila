@@ -235,7 +235,7 @@ final class SwissFormUi(helpers: Helpers)(
     def allowList = form3.group(
       form("conditions.allowList"),
       trans.swiss.predefinedUsers(),
-      help = trans.swiss.forbiddedUsers().some,
+      help = trans.swiss.predefinedUsersHelp().some,
       half = true
     )(form3.textarea(_)(rows := 4))
 
