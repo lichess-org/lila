@@ -138,7 +138,7 @@ final class SimulHome(helpers: Helpers, ui: SimulUi):
 
   private def simHost(sim: Simul)(using ctx: Context) =
     td(cls := "host")(
-      userIdLink(sim.hostId.some, withOnline = false),
+      userIdLink(sim.hostId.some, withOnline = false, withPatron = false),
       ctx.pref.showRatings.option(
         frag(
           br,

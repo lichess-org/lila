@@ -2,7 +2,7 @@ import { h } from 'snabbdom';
 
 import { licon } from 'lib/licon';
 import { dataIcon, type MaybeVNodes } from 'lib/view';
-import { userFlair, userLine, userRating, userTitle, profileUrl } from 'lib/view/userLink';
+import { userFlair, userPatron, userRating, userTitle, profileUrl } from 'lib/view/userLink';
 
 import type { SimplePlayer } from '../interfaces';
 
@@ -24,7 +24,7 @@ export const player = (
       h(
         'span.name' + (defender ? '.defender' : leader ? '.leader' : ''),
         defender ? { attrs: dataIcon(licon.Shield) } : leader ? { attrs: dataIcon(licon.Crown) } : {},
-        [p.patronColor && userLine({ patronColor: p.patronColor }), ...fullName(p)],
+        [p.patronColor && userPatron({ patronColor: p.patronColor }), ...fullName(p)],
       ),
       withRating ? h('span.rating', userRating({ ...p, brackets: false })) : null,
     ],

@@ -1,7 +1,7 @@
 @import '../../../lib/css/abstract/patron-colors';
 
 @for $id from 1 through $patron-levels {
-  .user-link.online .paco#{$id} {
+  .user-link .paco#{$id} {
     color: var(--c-patron-#{$id}) !important;
   }
 }
@@ -16,7 +16,7 @@
     color: $c-good;
 
     &::before {
-      content: $licon-Disc;
+      content: $licon-Wifi;
     }
 
     &.patron {
@@ -34,24 +34,31 @@
     text-align: center;
     vertical-align: text-top;
 
-    &.patron {
-      opacity: 0.7;
-
-      @include if-rtl {
-        transform: scaleX(-1);
-      }
-    }
-
     &::before {
-      content: $licon-DiscOutline;
-    }
-
-    &.patron::before {
-      content: $licon-Wings !important;
+      content: $licon-WifiOff;
     }
 
     &.moderator::before {
       content: $licon-Agent;
+    }
+  }
+
+  .patron {
+    @extend %data-icon;
+
+    color: $c-font;
+    display: inline-block;
+    opacity: 1;
+    width: 1.5em;
+    text-align: center;
+    vertical-align: text-top;
+
+    &::before {
+      content: $licon-Wings;
+    }
+
+    @include if-rtl {
+      transform: scaleX(-1);
     }
   }
 

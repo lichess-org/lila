@@ -142,5 +142,7 @@ object Icon:
   val AccountCircle: Icon = "" // e079
   val Logo: Icon = "" // e07a
   val Switch: Icon = "" // e07b
+  val Wifi: Icon = "" // e07c
+  val WifiOff: Icon = "" // e07d
   val Cpu: Icon = "" // e07e
   val Prune: Icon = "" // e07f

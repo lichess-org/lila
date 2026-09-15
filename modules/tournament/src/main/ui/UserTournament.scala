@@ -42,7 +42,8 @@ final class UserTournament(helpers: Helpers, ui: TournamentUi):
                     ui.finishedList.header(t),
                     td(momentFromNow(t.startsAt)),
                     td(cls := "winner")(
-                      t.winnerId.isDefined.option(userIdLink(t.winnerId, withOnline = false))
+                      t.winnerId.isDefined
+                        .option(userIdLink(t.winnerId, withOnline = false, withPatron = false))
                     ),
                     td(cls := "text", dataIcon := Icon.User)(t.nbPlayers.localize)
                   )

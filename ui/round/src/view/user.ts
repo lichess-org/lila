@@ -35,19 +35,7 @@ export function userHtml(ctrl: RoundController, player: Player, position: TopOrB
       },
       [
         hl('icon.line', {
-          class: user.patron
-            ? {
-                patron: true,
-                ...(user.patronColor ? { [`paco${user.patronColor}`]: true } : {}),
-              }
-            : {},
-          attrs: {
-            title: connecting
-              ? 'Connecting to the game'
-              : player.onGame
-                ? 'Joined the game'
-                : 'Left the game',
-          },
+          title: connecting ? 'Connecting to the game' : player.onGame ? 'Joined the game' : 'Left the game',
         }),
         userLink({
           name: user.username,

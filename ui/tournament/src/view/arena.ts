@@ -1,9 +1,7 @@
-import { h, type VNode } from 'snabbdom';
-
 import { licon } from 'lib/licon';
-import { bind, dataIcon, icon, type MaybeVNodes } from 'lib/view';
+import { bind, dataIcon, div, icon, type MaybeVNodes, type VNode, snabH as h } from 'lib/view';
 import { renderPager, searchButton, searchInput } from 'lib/view/pagination';
-import { userLine, userLinkData } from 'lib/view/userLink';
+import { userPatron, userLinkData } from 'lib/view/userLink';
 import { numberRow } from 'lib/view/util';
 
 import type TournamentController from '../ctrl';
@@ -85,13 +83,13 @@ export function podium(ctrl: TournamentController) {
   const p = ctrl.data.podium || [];
   const podiumPosition = (p: PodiumPlayer, pos: string): VNode | undefined =>
     p
-      ? h('div.' + pos, [
-          h('div.trophy'),
-          h('a', userLinkData(p), [p.patronColor && userLine(p), ...fullName(p)]),
+      ? div(`.${pos}`, [
+          div('.trophy'),
+          h('a', userLinkData(p), [p.patronColor && userPatron(p), ...fullName(p)]),
           podiumStats(p, ctrl.data.berserkable, ctrl),
         ])
       : undefined;
-  return h('div.podium', [
+  return div('.podium', [
     podiumPosition(p[1], 'second'),
     podiumPosition(p[0], 'first'),
     podiumPosition(p[2], 'third'),

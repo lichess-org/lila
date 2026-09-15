@@ -473,6 +473,7 @@ const header = (ctx: RelayViewContext) => {
             userLink({
               ...d.tour.communityOwner,
               flair: undefined,
+              line: false,
             }),
           ),
         ),

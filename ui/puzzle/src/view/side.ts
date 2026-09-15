@@ -74,7 +74,12 @@ function gameInfos(ctrl: PuzzleCtrl): VNode {
           const user =
             p.name === 'ghost'
               ? p.rating?.toString() || ''
-              : userLink({ ...p, rating: ctrl.opts.showRatings ? p.rating : undefined, line: false });
+              : userLink({
+                  ...p,
+                  patronColor: undefined,
+                  rating: ctrl.opts.showRatings ? p.rating : undefined,
+                  line: false,
+                });
           return hl('div.player.color-icon.is.text.' + p.color, user);
         }),
       ),

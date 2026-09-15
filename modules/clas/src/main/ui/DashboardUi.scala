@@ -282,7 +282,7 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
             c = login.codes.find(_.user == student.userId)
           yield div(cls := "clas-login__card")(
             h3(student.realName),
-            userIdLink(student.userId.some, withOnline = false),
+            userIdLink(student.userId.some, withOnline = false, withPatron = false),
             c.map(_.code).fold(iconTag(Icon.X, "not managed"))(code(_))
           )
       )

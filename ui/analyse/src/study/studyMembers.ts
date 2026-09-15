@@ -2,7 +2,7 @@ import { prop, type Prop, scrollTo } from 'lib';
 import { licon } from 'lib/licon';
 import { pubsub } from 'lib/pubsub';
 import { once } from 'lib/storage';
-import { type VNode, bind, onInsert, dataIcon, bindNonPassive, hl, icon, button } from 'lib/view';
+import { type VNode, bind, onInsert, dataIcon, bindNonPassive, hl, icon, button, div } from 'lib/view';
 import { cmnToggleWrap } from 'lib/view/cmn-toggle';
 import { userLink } from 'lib/view/userLink';
 import { textRaw as xhrTextRaw } from 'lib/xhr';
@@ -213,8 +213,11 @@ export function view(ctrl: StudyCtrl): VNode {
       ordered.flatMap(member => {
         const config = members.config() === member.user.id;
         return [
-          hl('div', { key: member.user.id, class: { editing: config } }, [
-            hl('div.left', [statusIcon(member), userLink({ ...member.user, line: false })]),
+          div({ key: member.user.id, class: { editing: config } }, [
+            div('.left', [
+              statusIcon(member),
+              userLink({ ...member.user, patronColor: undefined, line: false }),
+            ]),
             configButton(ctrl, member),
           ]),
           config && memberConfig(member),

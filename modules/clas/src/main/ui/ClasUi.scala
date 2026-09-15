@@ -161,7 +161,7 @@ final class ClasUi(helpers: lila.ui.Helpers)(searchMenu: Context ?=> Frag):
           cls := userClass(user.id, none, withOnline = true),
           dataHref := routes.User.show(user.name)
         )(
-          lineIcon(user),
+          frag(lineIcon, user.patronAndColor.map(patronIcon)),
           titleTag(user),
           user.name
         )

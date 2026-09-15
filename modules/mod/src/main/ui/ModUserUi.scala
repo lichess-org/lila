@@ -360,7 +360,7 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi, mailerEventsUrl: Url):
               postForm(action := routes.Report.inquiry(r.id.value))(
                 reportSubmitButton(r),
                 " ",
-                userIdLink(r.user.some, withOnline = false),
+                userIdLink(r.user.some, withOnline = false, withPatron = false),
                 " ",
                 pastMomentServer(atom.at),
                 ": ",

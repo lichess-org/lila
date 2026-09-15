@@ -197,7 +197,7 @@ final class GameUi(helpers: Helpers):
         ,
         div(cls := "crosstable__users"):
           ct.users.toList.map: u =>
-            userIdLink(u.id.some, withOnline = false)
+            userIdLink(u.id.some, withOnline = false, withPatron = false)
         ,
         div(cls := "crosstable__score force-ltr", title := trans.site.lifetimeScore.txt()):
           ct.users.toList.map: u =>
@@ -280,7 +280,10 @@ final class GameUi(helpers: Helpers):
             div(cls := "metadata text", dataIcon := Icon.BarChart)(trans.site.computerAnalysisAvailable())
           ),
           g.pgnImport.flatMap(_.user).map { user =>
-            div(cls := "metadata")("PGN import by ", userIdLink(user.some))
+            div(cls := "metadata")(
+              "PGN import by ",
+              userIdLink(user.some, withOnline = false, withPatron = false)
+            )
           }
         )
       )
@@ -300,7 +303,7 @@ final class GameUi(helpers: Helpers):
           frag(
             span("IMPORT"),
             g.pgnImport.flatMap(_.user).map { user =>
-              frag(" ", trans.site.by(userIdLink(user.some, None, withOnline = false)))
+              frag(" ", trans.site.by(userIdLink(user.some, None, withOnline = false, withPatron = false)))
             },
             separator,
             variantLink(g.variant, g.perfType)
@@ -322,7 +325,7 @@ final class GameUi(helpers: Helpers):
             player.rating.map { (uid, _) }
           .map: (userId, rating) =>
             frag(
-              userIdLink(userId.some, withOnline = false),
+              userIdLink(userId.some, withOnline = false, withPatron = false),
               br,
               player.berserk.option(berserkIconSpan),
               ctx.pref.showRatings.option(

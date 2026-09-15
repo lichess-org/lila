@@ -69,7 +69,12 @@ final class PublicChatUi(helpers: Helpers)(modMenu: Context ?=> Frag, highlightB
                 "lichess" -> line.isLichess
               )
             )(
-              userIdLink(UserStr(line.author).id.some, withOnline = false, withTitle = false),
+              userIdLink(
+                UserStr(line.author).id.some,
+                withOnline = false,
+                withTitle = false,
+                withPatron = false
+              ),
               " ",
               highlightBad(line.text)
             )

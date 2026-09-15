@@ -47,7 +47,7 @@ final class StudentFormUi(helpers: Helpers, clasUi: ClasUi, studentUi: StudentUi
           flashMessageWith(cls := "flash flash-quiet student-add__created")(
             strong(
               trans.clas.lichessProfileXCreatedForY(
-                userIdLink(student.userId.some, withOnline = false),
+                userIdLink(student.userId.some, withOnline = false, withPatron = false),
                 student.realName
               ),
               p(trans.clas.makeSureToCopy()),

@@ -60,7 +60,7 @@ final class TutorBits(helpers: Helpers)(
   def beta = strong(cls := "tutor__beta")("BETA")
 
   def otherUser(user: UserId)(using ctx: Context) =
-    ctx.isnt(user).option(userIdSpanMini(user, withOnline = false))
+    ctx.isnt(user).option(userIdSpanMini(user))
 
   def menuBase(report: Option[TutorPerfReport])(using
       config: TutorConfig
