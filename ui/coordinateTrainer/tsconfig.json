@@ -1,5 +1,11 @@
 {
   "extends": "../tsconfig.base.json",
-  "compilerOptions": { "noEmit": true, "isolatedDeclarations": false },
+  "compilerOptions": {
+    "noEmit": true,
+    "isolatedDeclarations": false,
+    "jsx": "react",
+    "jsxFactory": "jsx",
+    "jsxFragmentFactory": "Fragment"
+  },
   "references": [{ "path": "../lib/tsconfig.json" }, { "path": "../voice/tsconfig.json" }]
 }
