@@ -53,10 +53,14 @@ export class ExplorerConfigCtrl {
     previous?: ExplorerConfigCtrl,
   ) {
     this.myName = myUsername();
-    this.participants = [root.data.player.user?.username, root.data.opponent.user?.username].filter(
-      name => name && name !== this.myName,
-    );
+    const players = [root.data.player, root.data.opponent];
+    const viewerPlayer = players.find(player => player.user?.username === this.myName);
+    this.participants = players
+      .map(player => player.user?.username)
+      .filter(name => name && name !== this.myName);
+
     if (variant === 'standard') this.allDbs.unshift('masters');
+
     const byDbData = {} as ByDbSettings;
     for (const db of this.allDbs) {
       byDbData[db] = {
@@ -64,6 +68,7 @@ export class ExplorerConfigCtrl {
         until: storedStringProp('analyse.explorer.until-2.' + db, ''),
       };
     }
+
     const prevData = previous?.data;
     this.data = {
       open: prevData?.open || prop(false),
@@ -82,6 +87,7 @@ export class ExplorerConfigCtrl {
         return this.byDbData[this.db()] || this.byDbData.lichess;
       },
     };
+    if (viewerPlayer) this.data.color(viewerPlayer.color);
   }
 
   selectPlayer = (name?: string) => {
