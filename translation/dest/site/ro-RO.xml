@@ -183,6 +183,10 @@
   </plurals>
   <string name="moveTimes">Timpii de mutare</string>
   <string name="flipBoard">Rotiţi tabla</string>
+  <string name="toggleLocalEngine">Comută motorul local</string>
+  <string name="engineSettings">Setări motor</string>
+  <string name="enginesFromStrongestToWeakest">Motoare de la cele mai puternice la cele mai slabe</string>
+  <string name="illegalPosition">Poziţie ilegală</string>
   <string name="threefoldRepetition">Repetare de trei ori</string>
   <string name="claimADraw">Cere remiză</string>
   <string name="drawClaimed">Remiză revendicată</string>
@@ -782,8 +786,10 @@ Jucarea de jocuri oficiale va crește stabilitatea.</string>
   <string name="keyboardShortcuts">Scurtături taste</string>
   <string name="keyMoveBackwardOrForward">mută înapoi/înainte</string>
   <string name="keyGoToStartOrEnd">început/sfârșit</string>
+  <string name="keyGoToPreviousOrNextLine">mergi la linia anterioară/următoare</string>
   <string name="keyCycleSelectedVariation">Următoarea variație</string>
   <string name="keyShowOrHideComments">arată/ascunde comentarii</string>
+  <string name="keyShowOrHideCurrentVariation">arată/ascunde variația curentă</string>
   <string name="keyEnterOrExitVariation">acceptă/respinge variație</string>
   <string name="keyPreviousBranch">Ramura precedentă</string>
   <string name="keyNextBranch">Ramura următoare</string>
@@ -1109,6 +1115,7 @@ Toate costurile de operare și de dezvoltare sunt finanțate doar din donațiile
   <string name="tags">Etichete</string>
   <string name="enPassant">En passant legale</string>
   <string name="settings">Setări</string>
+  <string name="verifyingYourDevice">Verificarea dispozitivului...</string>
   <string name="chessOpenings">Deschideri de șah</string>
   <string name="boards">Table</string>
 </resources>

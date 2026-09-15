@@ -175,6 +175,10 @@
   </plurals>
   <string name="moveTimes">Siirtoihin käytetty aika</string>
   <string name="flipBoard">Käännä lauta</string>
+  <string name="toggleLocalEngine">Paikallinen tietokone päälle/pois</string>
+  <string name="engineSettings">Tietokoneasetukset</string>
+  <string name="enginesFromStrongestToWeakest">Tietokoneet vahvimmasta heikoimpaan</string>
+  <string name="illegalPosition">Laiton asema</string>
   <string name="threefoldRepetition">Aseman toisto kolmesti</string>
   <string name="claimADraw">Vaadi tasapeli</string>
   <string name="drawClaimed">Tasapeli vaadittu</string>
@@ -742,8 +746,10 @@
   <string name="keyboardShortcuts">Pikanäppäimet</string>
   <string name="keyMoveBackwardOrForward">siirry eteenpäin/taaksepäin</string>
   <string name="keyGoToStartOrEnd">siirry alkuun/loppuun</string>
+  <string name="keyGoToPreviousOrNextLine">siirry edelliseen/seuraavaan linjaan</string>
   <string name="keyCycleSelectedVariation">Vaihda valittu muunnelma</string>
   <string name="keyShowOrHideComments">näytä/piilota kommentit</string>
+  <string name="keyShowOrHideCurrentVariation">näytä/piilota nykyinen muunnelma</string>
   <string name="keyEnterOrExitVariation">lisää/poista muunnelma</string>
   <string name="keyPreviousBranch">Edellinen haara</string>
   <string name="keyNextBranch">Seuraava haara</string>
@@ -1063,4 +1069,7 @@ Kaikki toimintakustannukset, kehitystyö ja sisältö rahoitetaan yksinomaan kä
   <string name="tags">Tunnisteet</string>
   <string name="enPassant">Ohestalyönti</string>
   <string name="settings">Asetukset</string>
+  <string name="verifyingYourDevice">Vahvistetaan laitettasi...</string>
+  <string name="chessOpenings">Shakkiavaukset</string>
+  <string name="boards">Laudat</string>
 </resources>

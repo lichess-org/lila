@@ -175,6 +175,10 @@
   </plurals>
   <string name="moveTimes">مدت حركت‌ها</string>
   <string name="flipBoard">چرخاندن میز</string>
+  <string name="toggleLocalEngine">کلیدِ موتور محلی</string>
+  <string name="engineSettings">تنظیماتِ موتور</string>
+  <string name="enginesFromStrongestToWeakest">موتورها از قوی‌ترین تا ضعیف‌ترین</string>
+  <string name="illegalPosition">وضعیتِ ناقانونی</string>
   <string name="threefoldRepetition">تکرار سه‌گانه</string>
   <string name="claimADraw">ادعای تساوی</string>
   <string name="drawClaimed">بازی در تساوی پایان یافت</string>
@@ -434,8 +438,8 @@
   <string name="siteDescription">کارساز برخط و رایگان شطرنج. با میانایی روان، شطرنج بازی کنید. بدون نام‌نویسی، بدون تبلیغ، بدون نیاز به افزونه. با رایانه، دوستان یا حریفان تصادفی شطرنج بازی کنید.</string>
   <string name="xJoinedTeamY">%1$s به تیم %2$s پیوست</string>
   <string name="xCreatedTeamY">%1$s تیم %2$s را ایجاد کرد</string>
-  <string name="startedStreaming">شروع به استریم کرده است</string>
-  <string name="xStartedStreaming">%s جریان‌سازی را آغازید</string>
+  <string name="startedStreaming">جَریانیدن را آغازید</string>
+  <string name="xStartedStreaming">%s جَریانیدن را آغازید</string>
   <string name="averageElo">میانگین درجه‌بندی</string>
   <string name="location">محل</string>
   <string name="filterGames">پالاگرِ بازی‌ها</string>
@@ -467,7 +471,7 @@
   <string name="blackCheckmatesInOneMove">سیاه در یک حرکت مات می‌کند</string>
   <string name="retry">تلاش دوباره</string>
   <string name="reconnecting">بازاتصال...</string>
-  <string name="noNetwork">آفلاین</string>
+  <string name="noNetwork">بُرون‌خط</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s دوست بَرخط</item>
     <item quantity="other">%s دوست بَرخط</item>
@@ -699,7 +703,7 @@
   <string name="tpTimeSpentOnTV">مدت آرنگیده در تلویزیون: %s</string>
   <string name="watch">تماشا</string>
   <string name="videoLibrary">فیلم‌ها</string>
-  <string name="streamersMenu">بَرخَط-محتواسازان</string>
+  <string name="streamersMenu">جَریانگران</string>
   <string name="mobileApp">بَرکِ گوشی</string>
   <string name="webmasters">وبداران</string>
   <string name="about">درباره ما</string>
@@ -743,8 +747,10 @@
   <string name="keyboardShortcuts">میانبرهای صفحه‌کلید</string>
   <string name="keyMoveBackwardOrForward">حرکت به عقب/جلو</string>
   <string name="keyGoToStartOrEnd">رفتن به آغاز/پایان</string>
+  <string name="keyGoToPreviousOrNextLine">برو به شاخهٔ پیشین/پسین</string>
   <string name="keyCycleSelectedVariation">چرخاندن وَرتِش گزیده</string>
   <string name="keyShowOrHideComments">نمایش/پنهان کردن نظرها</string>
+  <string name="keyShowOrHideCurrentVariation">نمایش/پنهانِشِ وَرتِشِ جاری</string>
   <string name="keyEnterOrExitVariation">ورود/خروج به وَرتِش</string>
   <string name="keyPreviousBranch">شاخه پیشین</string>
   <string name="keyNextBranch">شاخه بعدی</string>
@@ -992,7 +998,7 @@
   <string name="clickToRevealEmailAddress">[برای آشکارسازی نشانیِ رایانامه بتِلیکید]</string>
   <string name="download">بارگیری</string>
   <string name="coachManager">تنظیمات مربی</string>
-  <string name="streamerManager">مدیریت جریان‌سازی</string>
+  <string name="streamerManager">مدیریت جَریانیدن</string>
   <string name="cancelTournament">لغو مسابقه</string>
   <string name="tournDescription">توضیحات مسابقه</string>
   <string name="tournDescriptionHelp">نکته خاصی را می‌خواهید به شرکت‌گران گویید؟ بکوشید کوتاه باشد. پیوندهای فرونشان موجودند:
@@ -1065,4 +1071,7 @@
   <string name="tags">برچسب‌ها</string>
   <string name="enPassant">اجازهٔ آن‌پاسان</string>
   <string name="settings">تنظیمات</string>
+  <string name="verifyingYourDevice">تأییدِ اَفزاره‌تان...</string>
+  <string name="chessOpenings">گشایش‌های شطرنج</string>
+  <string name="boards">میز‌ها</string>
 </resources>

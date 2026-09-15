@@ -90,4 +90,5 @@ Per exemple, una mitjana de rang del 3% significa que normalment finalitzes al t
   <string name="onlyTitledHelp">Demana un títol oficial per entrar al torneig</string>
   <string name="tournamentPairingsAreNowClosed">Els emparellaments del torneig ja estan tancats.</string>
   <string name="berserkRate">Taxa de Berserk</string>
+  <string name="leaguesAndStreamerBattles">Lligues &amp; batalles de streamers</string>
 </resources>
