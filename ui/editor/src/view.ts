@@ -186,14 +186,17 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
       ),
       div('.castling', [
         strong(i18n.site.castling),
-        div([
-          castleCheckBox(ctrl, 'K', i18n.site.whiteCastlingKingside, !!ctrl.options.inlineCastling),
-          castleCheckBox(ctrl, 'Q', 'O-O-O', true),
-        ]),
-        div([
-          castleCheckBox(ctrl, 'k', i18n.site.blackCastlingKingside, !!ctrl.options.inlineCastling),
-          castleCheckBox(ctrl, 'q', 'O-O-O', true),
-        ]),
+        ...COLORS.map(c =>
+          div([
+            castleCheckBox(
+              ctrl,
+              c === 'white' ? 'K' : 'k',
+              i18n.site[`${c}CastlingKingside`],
+              !!ctrl.options.inlineCastling,
+            ),
+            castleCheckBox(ctrl, c === 'white' ? 'Q' : 'q', 'O-O-O', true),
+          ]),
+        ),
       ]),
       div('.enpassant', [
         label({ for: 'enpassant-select' }, i18n.site.enPassant),

@@ -1,3 +1,5 @@
+import { COLORS } from 'chessops';
+
 import { ShowClockTenths } from '@/prefs';
 
 import { updateElements, formatClockTimeVerbal } from './clockView';
@@ -193,14 +195,7 @@ export class ClockCtrl {
   isRunning = (): boolean => this.times.activeColor !== undefined;
 
   speak = (): void => {
-    const msgs = [
-      { key: 'white', i18nName: i18n.site.white },
-      { key: 'black', i18nName: i18n.site.black },
-    ].map(color => {
-      const time = this.millisOf(color.key as Color);
-      const msg = formatClockTimeVerbal(time);
-      return `${color.i18nName} - ${msg}`;
-    });
+    const msgs = COLORS.map(color => `${i18n.site[color]} - ${formatClockTimeVerbal(this.millisOf(color))}`);
     site.sound.say(msgs.join('. '), false, true, true);
   };
 }

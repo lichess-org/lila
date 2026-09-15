@@ -1,3 +1,4 @@
+import { COLORS } from 'chessops';
 import flatpickr from 'flatpickr';
 
 import standaloneChat from 'lib/chat/standalone';
@@ -207,8 +208,7 @@ function stats(ctrl: SwissCtrl) {
     hl('table', [
       ctrl.opts.showRatings ? numberRow(i18n.site.averageElo, s.averageRating, 'raw') : null,
       numberRow(i18n.site.gamesPlayed, s.games),
-      numberRow(i18n.site.whiteWins, [s.whiteWins, slots], 'percent'),
-      numberRow(i18n.site.blackWins, [s.blackWins, slots], 'percent'),
+      ...COLORS.map(c => numberRow(i18n.site[`${c}Wins`], [s[`${c}Wins`], slots], 'percent')),
       numberRow(i18n.site.drawRate, [s.draws, slots], 'percent'),
       numberRow(i18n.swiss.byes, [s.byes, slots], 'percent'),
       numberRow(i18n.swiss.absences, [s.absences, slots], 'percent'),
