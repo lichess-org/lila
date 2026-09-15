@@ -100,7 +100,7 @@ trait GameHelper:
             (if link then href
              else dataHref) := s"${routes.User.show(user.name)}${if mod then "?mod" else ""}"
           )(
-            withOnline.option(frag(lineIcon(user), " ")),
+            withOnline.option(frag(lineIcon, user.patronAndColor.map(patronIcon), " ")),
             playerUsername(
               player.light,
               user.some,

@@ -72,7 +72,7 @@ final class ModInquiryUi(helpers: Helpers)(
           div(cls := "doc note")(
             h3(
               "by ",
-              userIdLink(note.from.some, withOnline = false),
+              userIdLink(note.from.some, withOnline = false, withPatron = false),
               ", ",
               momentFromNow(note.date)
             ),
@@ -89,7 +89,7 @@ final class ModInquiryUi(helpers: Helpers)(
           div(cls := "atom")(
             h3(
               lila.report.ui.ReportUi.reportScore(atom.score),
-              userIdLink(atom.by.userId.some, withOnline = false, params = "?mod"),
+              userIdLink(atom.by.userId.some, withOnline = false, withPatron = false, params = "?mod"),
               " for ",
               if r.is(_.Comm)
               then a(href := routes.Mod.communicationPublic(r.user))(strong(atom.reason.name))
@@ -118,7 +118,7 @@ final class ModInquiryUi(helpers: Helpers)(
             ul(
               history.map: e =>
                 li(
-                  userIdLink(e.mod.userId.some, withOnline = false),
+                  userIdLink(e.mod.userId.some, withOnline = false, withPatron = false),
                   " ",
                   b(e.showAction),
                   " ",

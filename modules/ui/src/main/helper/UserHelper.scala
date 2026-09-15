@@ -1,6 +1,5 @@
 package lila.ui
 
-import scala.annotation.targetName
 import chess.{ PlayerTitle, IntRating }
 import chess.rating.{ IntRatingDiff, RatingProvisional }
 
@@ -55,7 +54,8 @@ trait UserHelper:
       params: String = "",
       modIcon: Boolean = false,
       withFlair: Boolean = true,
-      withPowerTip: Boolean = true
+      withPowerTip: Boolean = true,
+      withPatron: Boolean = true
   )(using Translate): Tag =
     userIdOption
       .flatMap(u => lightUserSync(u.id))
@@ -71,7 +71,8 @@ trait UserHelper:
           truncate = truncate,
           params = params,
           modIcon = modIcon,
-          withPowerTip = withPowerTip
+          withPowerTip = withPowerTip,
+          withPatron = withPatron
         )
 
   def lightUserLink(
@@ -80,7 +81,8 @@ trait UserHelper:
       withOnline: Boolean = true,
       withTitle: Boolean = true,
       truncate: Option[Int] = None,
-      params: String = ""
+      params: String = "",
+      withPatron: Boolean = true
   )(using Translate): Tag =
     userIdNameLink(
       userId = user.id,
@@ -92,19 +94,22 @@ trait UserHelper:
       withOnline = withOnline,
       truncate = truncate,
       params = params,
-      modIcon = false
+      modIcon = false,
+      withPatron = withPatron
     )
 
   def lightUserSpan(
       user: LightUser,
       cssClass: Option[String] = None,
-      withOnline: Boolean = true
+      withOnline: Boolean = true,
+      withPatron: Boolean = true
   )(using Translate): Tag =
     span(
       cls := userClass(user.id, cssClass, withOnline),
       dataHref := userUrl(user.name)
     )(
-      withOnline.so(lineIcon(user.patronAndColor)),
+      withOnline.so(lineIcon),
+      withPatron.option(user.patronAndColor.map(patronIcon)),
       titleTag(user.title),
       user.name,
       user.flair.map(userFlair)
@@ -118,12 +123,13 @@ trait UserHelper:
       withPerfRating: Option[Perf | UserPerfs] = None,
       name: Option[Frag] = None,
       params: String = "",
-      withFlair: Boolean = true
+      withFlair: Boolean = true,
+      withPatron: Boolean = true
   )(using Translate): Tag =
     a(
       cls := userClass(user.id, none, withOnline, withPowerTip),
       href := userUrl(user.username, params)
-    )(userLinkContent(user, withOnline, withTitle, withPerfRating, name, withFlair))
+    )(userLinkContent(user, withOnline, withTitle, withPerfRating, name, withFlair, withPatron))
 
   def userSpan(
       user: User,
@@ -133,12 +139,13 @@ trait UserHelper:
       withTitle: Boolean = true,
       withPerfRating: Option[Perf | UserPerfs] = None,
       name: Option[Frag] = None,
-      withFlair: Boolean = true
+      withFlair: Boolean = true,
+      withPatron: Boolean = true
   )(using Translate): Tag =
     span(
       cls := userClass(user.id, cssClass, withOnline, withPowerTip),
       dataHref := userUrl(user.username)
-    )(userLinkContent(user, withOnline, withTitle, withPerfRating, name, withFlair))
+    )(userLinkContent(user, withOnline, withTitle, withPerfRating, name, withFlair, withPatron))
 
   def userLinkContent(
       user: User,
@@ -146,9 +153,11 @@ trait UserHelper:
       withTitle: Boolean = true,
       withPerfRating: Option[Perf | UserPerfs] = None,
       name: Option[Frag] = None,
-      withFlair: Boolean = true
+      withFlair: Boolean = true,
+      withPatron: Boolean = true
   )(using Translate) = frag(
-    if withOnline then lineIcon(user) else user.patronAndColor.map(patronIcon),
+    withOnline.so(lineIcon),
+    withPatron.option(user.patronAndColor.map(patronIcon)),
     withTitle.option(titleTag(user.title)),
     name | user.username,
     withFlair.so(userFlair(user)),
@@ -166,26 +175,33 @@ trait UserHelper:
       flair: Option[Flair],
       params: String,
       modIcon: Boolean,
-      withPowerTip: Boolean = true
+      withPowerTip: Boolean = true,
+      withPatron: Boolean = true
   )(using Translate): Tag =
     a(
       cls := userClass(userId, cssClass, withOnline, withPowerTip),
       href := userUrl(username, params = params)
     )(
-      withOnline.so(if modIcon then moderatorIcon else lineIcon(patron)),
+      withOnline.so(if modIcon then moderatorIcon else lineIcon),
+      (withPatron && !modIcon).option(patron.map(patronIcon)),
       titleTag(title),
       truncate.fold(username.value)(username.value.take),
       flair.map(userFlair)
     )
 
-  def userIdSpanMini(userId: UserId, withOnline: Boolean = false)(using Translate): Tag =
+  def userIdSpanMini(
+      userId: UserId,
+      withOnline: Boolean = false,
+      withPatron: Boolean = false
+  )(using Translate): Tag =
     val user = lightUserSync(userId)
     val name = user.fold(userId.into(UserName))(_.name)
     span(
       cls := userClass(userId, none, withOnline),
       dataHref := userUrl(name)
     )(
-      withOnline.so(lineIcon(user)),
+      withOnline.so(lineIcon),
+      withPatron.option(user.flatMap(_.patronAndColor).map(patronIcon)),
       user.map(titleTag),
       name
     )
@@ -253,7 +269,6 @@ trait UserHelper:
     case d => badTag(s"−${-d}")
 
   val patronIconChar = Icon.Wings
-  val lineIconChar = Icon.Disc
 
   val lineIcon: Frag = iconTag(cls := "line")
 
@@ -264,12 +279,3 @@ trait UserHelper:
     )
 
   val moderatorIcon: Frag = iconTag(cls := "line moderator", title := "Lichess Mod")
-  @targetName("lineIconPatron")
-  private def lineIcon(p: Option[PatronTier.AndColor])(using Translate): Frag =
-    p.fold(lineIcon)(p => frag(lineIcon, patronIcon(p)))
-  @targetName("lineIconUser")
-  private def lineIcon(user: Option[LightUser])(using Translate): Frag =
-    lineIcon(user.flatMap(_.patronAndColor))
-  def lineIcon(user: LightUser)(using Translate): Frag = lineIcon(user.patronAndColor)
-  def lineIcon(user: User)(using Translate): Frag = lineIcon(user.patronAndColor)
-  def lineIconChar(user: User): Icon = if user.isPatron then patronIconChar else lineIconChar

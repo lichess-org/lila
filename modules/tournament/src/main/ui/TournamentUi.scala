@@ -25,7 +25,7 @@ final class TournamentUi(helpers: Helpers)(getTourName: GetTourName):
         td(cls := "players")(
           span(
             iconTag(Icon.Trophy)(cls := "text"),
-            userIdLink(t.winnerId, withOnline = false)
+            userIdLink(t.winnerId, withOnline = false, withPatron = false)
           ),
           span(trans.site.nbPlayers.plural(t.nbPlayers, t.nbPlayers.localize))
         )

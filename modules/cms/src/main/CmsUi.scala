@@ -121,7 +121,7 @@ final class CmsUi(helpers: Helpers)(menu: Context ?=> Frag):
                 else badTag(iconTag(Icon.X))
               ),
               td(dataSort := page.at.toMillis)(
-                userIdLink(page.by.some, withOnline = false, withTitle = false),
+                userIdLink(page.by.some, withOnline = false, withTitle = false, withPatron = false),
                 br,
                 momentFromNow(page.at)
               )

@@ -40,7 +40,7 @@ final class SimulUi(helpers: Helpers):
           withName.option(td(cls := "name")(a(href := url)(simul.fullName))),
           td:
             if withName then userIdLink(simul.hostId.some)
-            else a(href := url)(userIdSpanMini(simul.hostId, true))
+            else a(href := url)(userIdSpanMini(simul.hostId, true, true))
           ,
           td(cls := "text", dataIcon := Icon.Clock)(simul.clock.config.show),
           td(cls := "text", dataIcon := Icon.User)(simul.applicants.size)

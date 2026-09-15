@@ -40,7 +40,7 @@ final class GamifyUi(helpers: Helpers)(modMenu: Context ?=> Frag):
                   (h.date.getMonthValue == 12).option(yearHeader(h.date.getYear)),
                   tr(
                     th(h.date.getMonth.getDisplayName(java.time.format.TextStyle.FULL, ctx.lang.locale)),
-                    th(userIdLink(h.champion.modId.some, withOnline = false)),
+                    th(userIdLink(h.champion.modId.some, withOnline = false, withPatron = false)),
                     td(cls := "score")(h.champion.score.localize),
                     td(h.champion.action.localize),
                     td(h.champion.report.localize)
@@ -78,7 +78,7 @@ final class GamifyUi(helpers: Helpers)(modMenu: Context ?=> Frag):
                 leaderboards(period).mapWithIndex: (m, i) =>
                   tr(
                     th(i + 1),
-                    th(userIdLink(m.modId.some, withOnline = false)),
+                    th(userIdLink(m.modId.some, withOnline = false, withPatron = false)),
                     td(m.action.localize),
                     td(m.report.localize),
                     td(cls := "score")(m.score.localize)
@@ -96,7 +96,7 @@ final class GamifyUi(helpers: Helpers)(modMenu: Context ?=> Frag):
       champ
         .map { m =>
           frag(
-            userIdLink(m.modId.some, withOnline = false),
+            userIdLink(m.modId.some, withOnline = false, withPatron = false),
             table(
               tbody(
                 tr(

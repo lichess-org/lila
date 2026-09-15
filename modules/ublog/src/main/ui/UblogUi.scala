@@ -330,7 +330,8 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)
                   p.featured.map(_.by),
                   withFlair = false,
                   withOnline = false,
-                  withPowerTip = false
+                  withPowerTip = false,
+                  withPatron = false
                 )
                 div(
                   span(
