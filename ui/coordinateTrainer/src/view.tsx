@@ -120,7 +120,7 @@ const coordinateInput = (ctrl: CoordinateTrainerCtrl) => {
 };
 
 const view = (ctrl: CoordinateTrainerCtrl) => (
-  <div class={ctrl.wrong ? 'trainer wrong' : 'trainer'}>
+  <div class={['trainer', ctrl.wrong && 'wrong']}>
     {side(ctrl)}
     <div class="main-board">{chessground(ctrl)}</div>
     {textOverlay(ctrl)}
