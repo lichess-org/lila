@@ -271,10 +271,10 @@ final class TournamentList(helpers: Helpers, ui: TournamentUi)(
               div(cls := "tournament-leaderboards")(
                 eliteWinners,
                 freqWinners(winners.hyperbullet, PerfType.Bullet, "HyperBullet"),
-                freqWinners(winners.bullet, PerfType.Bullet, "Bullet"),
+                freqWinners(winners.bullet, PerfType.Bullet, trans.site.bullet.txt()),
                 freqWinners(winners.superblitz, PerfType.Blitz, "SuperBlitz"),
-                freqWinners(winners.blitz, PerfType.Blitz, "Blitz"),
-                freqWinners(winners.rapid, PerfType.Rapid, "Rapid"),
+                freqWinners(winners.blitz, PerfType.Blitz, trans.site.blitz.txt()),
+                freqWinners(winners.rapid, PerfType.Rapid, trans.site.rapid.txt()),
                 marathonWinners,
                 lila.tournament.WinnersApi.variants.map: v =>
                   PerfKey.byVariant(v).map { pk =>
@@ -291,7 +291,7 @@ final class TournamentList(helpers: Helpers, ui: TournamentUi)(
     private val section = st.section(cls := "tournament-shields__item")
 
     def apply(history: TournamentShield.History)(using Context) =
-      Page("Tournament shields")
+      Page(trans.arena.tournamentShields.txt())
         .css("tournament.leaderboard")
         .flag(_.fullScreen):
           main(cls := "page-menu")(
@@ -320,7 +320,7 @@ final class TournamentList(helpers: Helpers, ui: TournamentUi)(
           )
 
     def byCateg(categ: TournamentShield.Category, awards: List[TournamentShield.Award])(using Context) =
-      Page("Tournament shields")
+      Page(trans.arena.tournamentShields.txt())
         .css("tournament.leaderboard"):
           main(cls := "page-menu page-small tournament-categ-shields")(
             shieldMenu,

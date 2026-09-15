@@ -2371,6 +2371,8 @@ interface I18n {
     castleByMovingTheKingTwoSquaresOrOntoTheRook: string;
     /** Move king two squares */
     castleByMovingTwoSquares: string;
+    /** Content Delivery Network (CDN) routing. */
+    cdnRouting: string;
     /** Chess clock */
     chessClock: string;
     /** Chess piece symbol */
@@ -2385,6 +2387,8 @@ interface I18n {
     correspondenceAndUnlimited: string;
     /** Daily email listing your correspondence games */
     correspondenceEmailNotification: string;
+    /** direct routing. */
+    directRouting: string;
     /** Enable variation hiding */
     disclosureMode: string;
     /** Display */
@@ -2413,6 +2417,8 @@ interface I18n {
     hoverOverSettingLabelsForHelp: string;
     /** How do you move pieces? */
     howDoYouMovePieces: string;
+    /** If you have frequent disconnects, Content Delivery Network (CDN) routing may improve things. */
+    ifYouHaveFrequentDisconnectsCdnRoutingMayImproveThings: string;
     /** In casual games only */
     inCasualGamesOnly: string;
     /** Correspondence games */
@@ -2435,6 +2441,10 @@ interface I18n {
     moveListSettings: string;
     /** Move list while playing */
     moveListWhilePlaying: string;
+    /** Multiple choices. */
+    multipleChoices: string;
+    /** Network */
+    network: string;
     /** Notifications */
     notifications: string;
     /** Notification within Lichess */
@@ -2527,12 +2537,20 @@ interface I18n {
     takebacksWithOpponentApproval: string;
     /** Tenths of seconds */
     tenthsOfSeconds: string;
+    /** This feature is experimental but may improve reliability in some regions. */
+    thisFeatureIsExperimentalButMayImproveReliabilityInSomeRegions: string;
+    /** Use CDN routing */
+    useCdnRouting: string;
+    /** Use direct routing */
+    useDirectRouting: string;
     /** When premoving */
     whenPremoving: string;
     /** When time remaining < 10 seconds */
     whenTimeRemainingLessThanTenSeconds: string;
     /** When time remaining < 30 seconds */
     whenTimeRemainingLessThanThirtySeconds: string;
+    /** You are currently using */
+    youAreCurrentlyUsing: string;
     /** Your preferences have been saved. */
     yourPreferencesHaveBeenSaved: string;
     /** Zen mode */
@@ -3173,12 +3191,24 @@ interface I18n {
     closeAccount: string;
     /** Are you sure you want to close your account? */
     closeAccountAreYouSure: string;
+    /** Forever close: make it impossible to reopen */
+    closeAccountForeverLabel: string;
+    /** Prevent reopening the account later. If you check this box, even administrators will be unable to reopen your account at your request. */
+    closeAccountForeverWarning: string;
+    /** I understand that deleted accounts aren't recoverable */
+    deleteAccountConfirmText: string;
+    /** Once you delete your account, it’s removed from Lichess and our administrators won’t be able to bring it back for you. */
+    deleteAccountWarning: string;
+    /** Delete your account */
+    deleteYourAccount: string;
     /** Your account is managed, and cannot be closed. */
     managedAccountCannotBeClosed: string;
     /** Settings */
     settings: string;
     /** This account is closed. */
     thisAccountIsClosed: string;
+    /** We're sorry to see you go. */
+    wereSorryToSeeYouGo: string;
   };
   site: {
     /** Abort game */
@@ -3187,6 +3217,8 @@ interface I18n {
     abortTheGame: string;
     /** About */
     about: string;
+    /** About Lichess Bots */
+    aboutLichessBots: string;
     /** Simuls involve a single player facing several players at once. */
     aboutSimul: string;
     /** Out of 50 opponents, Fischer won 47 games, drew 2 and lost 1. */
@@ -3475,6 +3507,8 @@ interface I18n {
     collapseVariations: string;
     /** Community */
     community: string;
+    /** Community bots */
+    communityBots: string;
     /** Message */
     composeMessage: string;
     /** Computer */
@@ -3561,6 +3595,8 @@ interface I18n {
     decline: string;
     /** Defeat */
     defeat: string;
+    /** Defeat only */
+    defeatOnly: string;
     /** %1$s vs %2$s in %3$s */
     defeatVsYInZ: I18nFormat;
     /** Delete */
@@ -3603,6 +3639,8 @@ interface I18n {
     downloadRaw: string;
     /** Draw */
     draw: string;
+    /** Draw and defeat */
+    drawAndDefeat: string;
     /** The game has been drawn by the fifty-move rule. */
     drawByFiftyMoves: string;
     /** Draw by agreement */
@@ -3667,8 +3705,10 @@ interface I18n {
     engineSettings: string;
     /** Engines from strongest to weakest */
     enginesFromStrongestToWeakest: string;
-    /** En passant rights */
+    /** En passant */
     enPassant: string;
+    /** En passant rights */
+    enPassantRights: string;
     /** This email address is invalid */
     'error.email': string;
     /** This email address is not acceptable. Please double-check it, and try again. */
@@ -3713,6 +3753,8 @@ interface I18n {
     fast: string;
     /** Favourite opponents */
     favoriteOpponents: string;
+    /** Featured bots */
+    featuredBots: string;
     /** Fifty moves without progress */
     fiftyMovesWithoutProgress: string;
     /** Filter games */
@@ -4029,6 +4071,8 @@ interface I18n {
     mode: string;
     /** More */
     more: string;
+    /** More chess engines created by the Lichess community. They are hosted by their creators, and as such might not always be online. */
+    moreChessEnginesCreatedByTheLichessCommunity: string;
     /** ≥ %1$s rated %2$s games */
     moreThanNbPerfRatedGames: I18nPlural;
     /** ≥ %s rated games */
@@ -4761,6 +4805,8 @@ interface I18n {
     tryAnotherMoveForBlack: string;
     /** Try another move for white */
     tryAnotherMoveForWhite: string;
+    /** Try playing these innovative chess engines! These are our favourites. */
+    tryPlayingTheseInnovativeChessEngines: string;
     /** try the contact page */
     tryTheContactPage: string;
     /** Try to win (or at least draw) every game you play. */
@@ -6085,6 +6131,8 @@ interface I18n {
   ublog: {
     /** %s blog posts */
     blogPosts: I18nPlural;
+    /** Blog posts by friends */
+    blogPostsByFriends: string;
     /** Our simple tips to write great blog posts */
     blogTips: string;
     /** By Lichess */
@@ -6095,8 +6143,12 @@ interface I18n {
     byTopic: string;
     /** Community */
     community: string;
+    /** Community blogs */
+    communityBlogs: string;
     /** Continue reading this post */
     continueReadingPost: string;
+    /** Cover image */
+    coverImage: string;
     /** Enable comments */
     createBlogDiscussion: string;
     /** A forum topic will be created for people to comment on your post */
@@ -6109,6 +6161,8 @@ interface I18n {
     drafts: string;
     /** Edit your blog post */
     editYourBlogPost: string;
+    /** Etiquette */
+    etiquette: string;
     /** The following websites provide images for free. Please ensure you comply with licensing conditions for the image you use. */
     freeImagesComplyWithLicensing: string;
     /** Image alternative text */
@@ -6117,12 +6171,16 @@ interface I18n {
     imageCredit: string;
     /** Anything inappropriate could get your account closed. */
     inappropriateContentAccountClosed: string;
+    /** Includes promoted/sponsored content or referral links */
+    includesPromotedContent: string;
     /** Latest blog posts */
     latestBlogPosts: string;
     /** Lichess blog posts in %s */
     lichessBlogPostsFromXYear: I18nFormat;
     /** Liked blog posts */
     likedBlogs: string;
+    /** Mandatory for sponsored content, affiliate links or commercial advertisement */
+    mandatoryForSponsoredContent: string;
     /** My blog */
     myBlog: string;
     /** My friends */
@@ -6139,12 +6197,20 @@ interface I18n {
     noDrafts: string;
     /** No posts in this blog, yet. */
     noPostsInThisBlogYet: string;
+    /** Nothing to show. */
+    nothingToShow: string;
+    /** Nothing to show. Follow some authors! */
+    nothingToShowFollowAuthors: string;
+    /** Nothing to show. Like some posts! */
+    nothingToShowLikePosts: string;
     /** Post body */
     postBody: string;
     /** Post intro */
     postIntro: string;
     /** Post title */
     postTitle: string;
+    /** Preview */
+    preview: string;
     /** Previous blog posts */
     previousBlogPosts: string;
     /** Published */
@@ -6155,6 +6221,8 @@ interface I18n {
     publishHelp: string;
     /** Publish on your blog */
     publishOnYourBlog: string;
+    /** Recent posts */
+    recentPosts: string;
     /** Please only post safe and respectful content. Do not copy someone else's content. */
     safeAndRespectfulContent: string;
     /** It is safe to use images from the following websites: */
@@ -6173,6 +6241,8 @@ interface I18n {
     thisPostIsPublished: string;
     /** View all %s posts */
     viewAllNbPosts: I18nPlural;
+    /** Write */
+    write: string;
     /** %s's Blog */
     xBlog: I18nFormat;
     /** %1$s published %2$s */
