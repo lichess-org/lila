@@ -315,7 +315,7 @@ final class AuthUi(helpers: Helpers):
               case Some(false) => h1(cls := "is-red text", dataIcon := Icon.X)
               case _ => h1
             )(
-              userLink(me, withOnline = false),
+              userLink(me, withOnline = false, withPatron = false),
               " - ",
               trans.site.changePassword()
             )

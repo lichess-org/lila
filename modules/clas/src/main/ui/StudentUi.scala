@@ -95,7 +95,7 @@ final class StudentUi(helpers: Helpers, clasUi: ClasUi)(using NetDomain):
         p(
           trans.clas.invitedToXByY(
             a(href := routes.Clas.show(clas.id))(clas.name),
-            userIdLink(s.student.created.by.some, withOnline = false)
+            userIdLink(s.student.created.by.some, withOnline = false, withPatron = false)
           ),
           " ",
           momentFromNowOnce(s.student.created.at)

@@ -33,7 +33,7 @@ final class PlanStyle(helpers: Helpers):
     div(cls := "patron-style-selector__info")(
       p(
         "Thank you ",
-        userLink(me),
+        userLink(me, withOnline = false),
         " for supporting Lichess ",
         if plan.lifetime then "as a Lifetime Patron"
         else frag("for ", strong(pluralize("month", plan.months))),

@@ -138,7 +138,7 @@ final class RelationUi(helpers: Helpers):
     page(s"${u.username} • ${trans.site.blocks.pluralSameTxt(pag.nbResults)}"):
       frag(
         boxTop(
-          h1(userLink(u, withOnline = false)),
+          h1(userLink(u, withOnline = false, withPatron = false)),
           div(cls := "actions")(trans.site.blocks.pluralSame(pag.nbResults))
         ),
         pagTable(pag, routes.Relation.blocks())
@@ -186,7 +186,7 @@ final class RelationUi(helpers: Helpers):
         tbody(cls := "infinite-scroll")(
           pager.currentPageResults.map: r =>
             tr(cls := "paginated")(
-              td(userLink(r.user)),
+              td(userLink(r.user, withOnline = false)),
               ctx.pref.showRatings.option(td(showBestPerf(r.user.perfs))),
               td(trans.site.nbGames.plural(r.user.count.game, r.user.count.game.localize)),
               td(r.user.seenAt.map: seen =>

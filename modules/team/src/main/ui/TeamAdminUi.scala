@@ -45,7 +45,7 @@ final class TeamAdminUi(helpers: Helpers, bits: TeamUi):
                       th,
                       t.leaders.mapWithIndex: (l, i) =>
                         th(
-                          userIdLink(l.user.some, withOnline = false),
+                          userIdLink(l.user.some, withOnline = false, withPatron = false),
                           form3.hidden(s"leaders[$i].name", l.user)
                         )
                     )

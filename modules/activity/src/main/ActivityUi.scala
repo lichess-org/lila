@@ -233,7 +233,7 @@ final class ActivityUi(helpers: Helpers)(
             if in then trans.activity.gainedNbFollowers.pluralSame(f.actualNb)
             else trans.activity.followedNbPlayers.pluralSame(f.actualNb),
             subTag(
-              fragList(f.ids.map(id => userIdLink(id.some))),
+              fragList(f.ids.map(id => userIdLink(id.some, withOnline = false))),
               f.nb.map { nb =>
                 frag(" and ", nb - maxSubEntries, " more")
               }
@@ -393,7 +393,7 @@ final class ActivityUi(helpers: Helpers)(
           cls := userClass(user.id, none, true),
           href := routes.User.show(user.name)
         )(
-          lineIcon(user),
+          li(user.patronAndColor.map(patronIcon)),
           " ",
           playerUsername(
             player,

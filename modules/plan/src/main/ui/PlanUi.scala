@@ -274,7 +274,7 @@ final class PlanUi(helpers: Helpers)(style: PlanStyle, contactEmail: EmailAddres
   def topPatrons(users: Paginator[LightUser])(using Context) =
     div(cls := "list infinite-scroll")(
       users.currentPageResults.map: u =>
-        div(cls := "paginated")(lightUserLink(u)),
+        div(cls := "paginated")(lightUserLink(u, withOnline = false)),
       pagerNext(users, np => s"${routes.Plan.index(np).url}")
     )
 

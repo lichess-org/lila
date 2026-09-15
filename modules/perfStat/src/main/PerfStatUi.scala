@@ -297,7 +297,7 @@ final class PerfStatUi(helpers: Helpers)(communityMenu: Context ?=> Frag):
         tbody:
           results.results.map: r =>
             tr(
-              td(userIdLink(r.opId.some, withOnline = false), " (", r.opRating, ")"),
+              td(userIdLink(r.opId.some, withOnline = false, withPatron = false), " (", r.opRating, ")"),
               td:
                 a(
                   cls := "glpt",

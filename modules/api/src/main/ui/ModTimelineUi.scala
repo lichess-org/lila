@@ -121,7 +121,7 @@ final class ModTimelineUi(helpers: Helpers)(
           else
             fragList:
               r.atoms.toList.map: atom =>
-                userIdLink(atom.by.some, withOnline = false)
+                userIdLink(atom.by.some, withOnline = false, withPatron = false)
         )
       ,
       div(cls := "mod-timeline__event__action")(

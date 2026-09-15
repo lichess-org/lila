@@ -67,7 +67,7 @@ final class ModCommUi(helpers: Helpers)(highlightBad: String => Frag):
                 div(cls := "chat"):
                   lines.toList.map: line =>
                     div(cls := "line author")(
-                      userIdLink(u.some, withOnline = false, withTitle = false),
+                      userIdLink(u.some, withOnline = false, withTitle = false, withPatron = false),
                       nbsp,
                       span(cls := "message")(highlightBad(line.text))
                     )
@@ -100,7 +100,7 @@ final class ModCommUi(helpers: Helpers)(highlightBad: String => Frag):
                     "author" -> UserStr(line.author).is(u)
                   )
                 )(
-                  userIdLink(line.userIdMaybe, withOnline = false, withTitle = false),
+                  userIdLink(line.userIdMaybe, withOnline = false, withTitle = false, withPatron = false),
                   nbsp,
                   span(cls := "message")(highlightBad(line.text))
                 )
