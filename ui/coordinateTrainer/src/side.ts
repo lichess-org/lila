@@ -1,12 +1,12 @@
 import { h, type VNode, type VNodes } from 'snabbdom';
 
-import { colors, type ColorChoice } from 'lib/setup/color';
+import { capitalize } from 'lib/game';
+import { colorChoiceName, colors, type ColorChoice } from 'lib/setup/color';
 import { bind } from 'lib/view';
 import { cmnToggleWrapProp } from 'lib/view/cmn-toggle';
 
 import type CoordinateTrainerCtrl from './ctrl';
 import type { TimeControl, Mode } from './interfaces';
-import { capitalize } from 'lib/game';
 
 const timeControls: [TimeControl, string][] = [
   ['untimed', '∞'],
@@ -158,15 +158,15 @@ const configurationButtons = (ctrl: CoordinateTrainerCtrl): VNodes => [
   h('form.color.buttons', [
     h(
       'group.radio',
-      colors.map(({ key, name }) =>
+      colors.map(c =>
         h('div', [
           h('input', {
             attrs: {
               type: 'radio',
-              id: `coord_color_${key}`,
+              id: `coord_color_${c}`,
               name: 'color',
-              value: key,
-              checked: key === ctrl.colorChoice(),
+              value: c,
+              checked: c === ctrl.colorChoice(),
             },
             on: {
               change: e => {
@@ -176,7 +176,7 @@ const configurationButtons = (ctrl: CoordinateTrainerCtrl): VNodes => [
               keyup: ctrl.onRadioInputKeyUp,
             },
           }),
-          h(`label.color_${key}`, { attrs: { for: `coord_color_${key}`, title: name } }, h('icon')),
+          h(`label.color_${c}`, { attrs: { for: `coord_color_${c}`, title: colorChoiceName(c) } }, h('icon')),
         ]),
       ),
     ),

@@ -2,6 +2,7 @@ import { capitalize } from 'lib/game';
 import perfIcons from 'lib/game/perfIcons';
 import { numberFormat } from 'lib/i18n';
 import { licon } from 'lib/licon';
+import { colors } from 'lib/setup/color';
 import { type VNode, dataIcon, onInsert, type MaybeVNode, hl } from 'lib/view';
 import { cmnToggleWrap } from 'lib/view/cmn-toggle';
 import { userLink } from 'lib/view/userLink';
@@ -215,7 +216,7 @@ export const renderColorForm = (ctrl: PuzzleCtrl): VNode =>
     'div.puzzle__side__config__color',
     hl(
       'group.radio',
-      (['black', 'random', 'white'] as const).map(key =>
+      colors.map(key =>
         hl('div', [
           hl(
             `a.label.color-${key}${key === (ctrl.opts.settings.color || 'random') ? '.active' : ''}`,
