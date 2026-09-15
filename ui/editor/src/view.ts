@@ -1,5 +1,6 @@
 import type { MouchEvent, NumberPair } from '@lichess-org/chessground/types';
 import { eventPosition, opposite } from '@lichess-org/chessground/util';
+import { COLORS } from 'chessops';
 import { lichessRules } from 'chessops/compat';
 import { parseFen } from 'chessops/fen';
 import { parseSquare, makeSquare } from 'chessops/util';
@@ -172,13 +173,13 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
             },
             props: { value: ctrl.turn },
           },
-          (['whitePlays', 'blackPlays'] as const).map(key =>
+          COLORS.map(c =>
             option(
               {
-                value: key.startsWith('w') ? 'white' : 'black',
-                selected: key.startsWith(ctrl.turn[0]),
+                value: c,
+                selected: c === ctrl.turn,
               },
-              i18n.site[key],
+              i18n.site[`${c}Plays`],
             ),
           ),
         ),
