@@ -58,10 +58,14 @@ case class Appeal(
   def postEvent(event: AppealMsg) =
     copy(
       msgs = msgs :+ event,
-      updatedAt = nowInstant
-      // TODO:
-      // status
-      // firstUnrepliedAt =
+      updatedAt = nowInstant,
+      status =
+        if isByMod(event) && isUnread then Appeal.Status.read
+        else if !isByMod(event) && isRead && !muted then Appeal.Status.unread
+        else status,
+      firstUnrepliedAt =
+        if isByMod(event) || msgs.lastOption.exists(isByMod) || isRead then nowInstant
+        else firstUnrepliedAt
     )
 
   def canAddMsg: Boolean =
