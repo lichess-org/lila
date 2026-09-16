@@ -7,7 +7,7 @@
     "pnpm": ">=12"
   },
   "devDependencies": {
-    "@lichess-org/chessground": "^10.1.1",
+    "@lichess-org/chessground": "^10.2.0",
     "@lichess-org/pgn-viewer": "^2.6.4",
     "@playwright/test": "^1.63.0",
     "@types/lichess": "workspace:*",

@@ -117,8 +117,8 @@ importers:
   .:
     devDependencies:
       '@lichess-org/chessground':
-        specifier: ^10.1.1
-        version: 10.1.1
+        specifier: ^10.2.0
+        version: 10.2.0
       '@lichess-org/pgn-viewer':
         specifier: ^2.6.4
         version: 2.6.4
@@ -1023,8 +1023,9 @@ packages:
   '@kurkle/color@0.3.4':
     resolution: {integrity: sha512-M5UknZPHRu3DEDWoipU6sE8PdkZ6Z/S+v4dD+Ke8IaNlpdSQah50lz1KtcFBa2vsdOnwbbnxJwVM4wty6udA5w==}
 
-  '@lichess-org/chessground@10.1.1':
-    resolution: {integrity: sha512-IBEs8+J64/zE8QB4NXxsvpjm/tHRjfQAdWwUh4xzqqN+RValgthWHemLnxsmtHFwuxvO4lHd+crp1ecgZxKVoQ==}
+  '@lichess-org/chessground@10.2.0':
+    resolution: {integrity: sha512-XScWn76u2A+5uNHUfyf9P1DAImGcVs0WjjkGz3tJPXnzsoNVriRXuxm6hpN02DY5LNk/jkCXKeW0raEOXGxPig==}
+    engines: {node: '>=24', pnpm: '>=12'}
 
   '@lichess-org/pgn-viewer@2.6.4':
     resolution: {integrity: sha512-fP/Kppo8tshABNI4WH1YnNQQsWZb7Lm5Qug8/Mpg1qCQIHeXM8AluctrTpjZHPg7sIFIc6J6pf+aAkYunUWrJQ==}
@@ -2489,19 +2490,19 @@ packages:
     resolution: {integrity: sha512-Bq0B+ixT/DMyG8kgX2xWcI5jUvCwqrMxSFam7m0lAf78nf04hv6lNCsyLYdyYTrCVMqNDY/206K7eExYCeSyUQ==}
 
 ignoredOptionalDependencies:
-  - '@ox*/*-aix-*'
-  - '@ox*/*-android-*'
   - '@ox*/*-arm-*'
-  - '@ox*/*-freebsd-*'
   - '@ox*/*-ia32-*'
   - '@ox*/*-loong64-*'
   - '@ox*/*-mips64el-*'
-  - '@ox*/*-netbsd-*'
-  - '@ox*/*-openbsd-*'
-  - '@ox*/*-openharmony-*'
   - '@ox*/*-ppc64-*'
   - '@ox*/*-riscv64-*'
   - '@ox*/*-s390x-*'
+  - '@ox*/*-aix-*'
+  - '@ox*/*-android-*'
+  - '@ox*/*-freebsd-*'
+  - '@ox*/*-openbsd-*'
+  - '@ox*/*-openharmony-*'
+  - '@ox*/*-netbsd-*'
   - '@ox*/*-sunos-*'
 
 snapshots:
@@ -2706,11 +2707,11 @@ snapshots:
 
   '@kurkle/color@0.3.4': {}
 
-  '@lichess-org/chessground@10.1.1': {}
+  '@lichess-org/chessground@10.2.0': {}
 
   '@lichess-org/pgn-viewer@2.6.4':
     dependencies:
-      '@lichess-org/chessground': 10.1.1
+      '@lichess-org/chessground': 10.2.0
       chessops: 0.15.1
       snabbdom: 3.5.1
 
