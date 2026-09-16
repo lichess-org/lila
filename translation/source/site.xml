@@ -627,6 +627,7 @@ Playing rated games will increase stability.</string>
   <string name="clearField">Clear field</string>
   <string name="orSeparator">Or</string>
   <string name="logInByEmail">Log in by email</string>
+  <string name="emailLoginInstructions">We will send you an email containing a link to log you in.</string>
   <string name="emailMeALink">Email me a link</string>
   <string name="currentPassword">Current password</string>
   <string name="newPassword">New password</string>
@@ -717,10 +718,13 @@ Playing rated games will increase stability.</string>
   <string name="aboutX">About %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s is a free (%2$s), libre, no-ads, open source chess server.</string>
   <string name="really">really</string>
+  <string name="lichessUpdates">Lichess updates</string>
   <string name="contribute">Contribute</string>
+  <string name="changelog">Changelog</string>
   <string name="termsOfService">Terms of Service</string>
   <string name="titleVerification">Title verification</string>
   <string name="sourceCode">Source Code</string>
+  <string name="blockAds">Block ads</string>
   <string name="simultaneousExhibitions">Simultaneous exhibitions</string>
   <string name="host">Host</string>
   <string name="hostColorX">Host colour: %s</string>
