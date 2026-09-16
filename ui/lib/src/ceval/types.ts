@@ -122,6 +122,7 @@ export interface CevalOpts {
   onUciHover: (hovering: Hovering | null) => void;
   redraw: Redraw;
   onSelectEngine?: () => void;
+  localEval?: () => LocalEval | null; // so canGoDeeper is correct when ceval.curEval has no value yet
   externalEngines?: ExternalEngineInfoFromServer[];
   custom?: CustomCeval; // hides switch, threat, and go deeper buttons
   hideErrors?: boolean;
@@ -147,6 +148,7 @@ export interface CevalHandler {
   getOrientation(): Color;
   threatMode(): boolean;
   getNode(): TreeNode;
+  getNodeKey?: () => string;
   clearCeval: () => void;
   startCeval: () => void;
   cevalEnabled: (enable?: boolean) => boolean | 'force';

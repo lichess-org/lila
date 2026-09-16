@@ -197,7 +197,8 @@ function setupTick(v: VNode, ceval: CevalCtrl) {
   $(tick).toggleClass('recommended', ceval.info()?.threads === ceval.recommendedThreads);
 }
 
-function engineSelection({ ceval }: CevalHandler) {
+function engineSelection(ctrl: CevalHandler) {
+  const ceval = ctrl.ceval;
   const active = ceval.engines.active();
   const engines = ceval.engines.supporting({
     rules: ceval.rules,
@@ -212,7 +213,7 @@ function engineSelection({ ceval }: CevalHandler) {
       {
         hook: bind('change', e => {
           ceval.selectEngine((e.target as HTMLSelectElement).value);
-          ceval.opts.redraw();
+          ctrl.startCeval();
         }),
       },
       engines.map(({ id, name }) => option({ value: id, selected: active?.id === id }, name)),
