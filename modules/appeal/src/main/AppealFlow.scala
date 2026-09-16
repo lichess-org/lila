@@ -37,6 +37,9 @@ case class AppealFlow(rootId: NodeId, nodes: Map[NodeId, AppealNode]):
 
 object AppealFlow:
 
+  def rootNodeAnswerer(topic: AppealTopic) =
+    appealFlows.get(topic).map(_.root).collect { case cn: ChoiceNode => cn.answerer }
+
   def findNodeById(topic: AppealTopic, id: NodeId): Option[AppealNode] = appealFlows
     .get(topic)
     .flatMap(_.nodes.get(id))
