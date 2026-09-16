@@ -95,6 +95,7 @@ env.debug = boolArg('--debug');
 env.remoteLog = stringArg('--log');
 env.clean = boolArg('--clean');
 env.install = !boolArg('--no-install');
+env.noColor = boolArg('--no-color');
 
 if (boolArg('--help')) {
   console.log(usage);
