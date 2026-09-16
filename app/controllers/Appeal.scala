@@ -94,6 +94,7 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
               for _ <- env.appeal.api.postMessageEvent(appeal, _)
               yield redirect
             )
+          case _ => BadRequest
         }
       )
 

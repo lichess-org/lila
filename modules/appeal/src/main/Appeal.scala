@@ -117,7 +117,7 @@ object Appeal:
       user = me.userId,
       topic = topic,
       msgs = if text.isEmpty then Vector.empty else Vector(AppealMsg(me, text, now)),
-      status = Status.unread,
+      status = if text.isEmpty then Status.read else Status.unread,
       createdAt = now,
       updatedAt = now,
       firstUnrepliedAt = now,
