@@ -1,5 +1,5 @@
 import { colors, type ColorChoice } from 'lib/setup/color';
-import { jsx, onInsert, bind } from 'lib/view';
+import { jsx, onInsert, bind, getEventTarget, getEventTargetInputValue } from 'lib/view';
 import { cmnToggleWrapProp } from 'lib/view/cmn-toggle';
 
 import { FILES, RANKS, TIME_CONTROLS } from './constants';
@@ -21,7 +21,7 @@ const filesAndRanksSelection = (ctrl: CoordinateTrainerCtrl) => {
               checked={ctrl.selectedFiles.has(letter)}
               on={{
                 change: (e: Event) => {
-                  const target = e.target as HTMLInputElement;
+                  const target = getEventTarget<HTMLInputElement>(e);
                   ctrl.onFilesChange(target.value as Files, target.checked);
                 },
                 keyup: ctrl.onRadioInputKeyUp,
@@ -46,7 +46,7 @@ const filesAndRanksSelection = (ctrl: CoordinateTrainerCtrl) => {
               checked={ctrl.selectedRanks.has(rank)}
               on={{
                 change: (e: Event) => {
-                  const target = e.target as HTMLInputElement;
+                  const target = getEventTarget<HTMLInputElement>(e);
                   ctrl.onRanksChange(target.value as Ranks, target.checked);
                 },
                 keyup: ctrl.onRadioInputKeyUp,
@@ -87,16 +87,17 @@ const radio = (
 );
 
 const configurationButtons = (ctrl: CoordinateTrainerCtrl) => {
+  const modes: Mode[] = ['findSquare', 'nameSquare'];
   return [
     <form class="mode buttons">
       <group class="radio">
-        {(['findSquare', 'nameSquare'] as Mode[]).map(mode =>
+        {modes.map(mode =>
           radio(
             'mode',
             mode,
             mode === ctrl.mode(),
             e => {
-              const value = (e.target as HTMLInputElement).value as Mode;
+              const value = getEventTargetInputValue<Mode>(e);
               ctrl.mode(value);
               if (value === 'nameSquare') {
                 if (ctrl.voice.enabled()) ctrl.voice.mic.start();
@@ -118,7 +119,7 @@ const configurationButtons = (ctrl: CoordinateTrainerCtrl) => {
             'timeControl',
             value,
             value === ctrl.timeControl(),
-            e => ctrl.timeControl((e.target as HTMLInputElement).value as TimeControl),
+            e => ctrl.timeControl(getEventTargetInputValue<TimeControl>(e)),
             ctrl.onRadioInputKeyUp,
             label,
             i18n.coordinates[value === 'thirtySeconds' ? 'youHaveThirtySeconds' : 'goAsLongAsYouWant'],
@@ -137,7 +138,7 @@ const configurationButtons = (ctrl: CoordinateTrainerCtrl) => {
               value={key}
               checked={key === ctrl.colorChoice()}
               on={{
-                change: (e: Event) => ctrl.colorChoice((e.target as HTMLInputElement).value as ColorChoice),
+                change: (e: Event) => ctrl.colorChoice(getEventTargetInputValue<ColorChoice>(e)),
                 keyup: ctrl.onRadioInputKeyUp,
               }}
             />
@@ -164,16 +165,20 @@ const scoreCharts = (ctrl: CoordinateTrainerCtrl) => {
           scoreList.length > 0 && (
             <div class="color-chart">
               <p>{fmt.asArray(<strong>{average(scoreList).toFixed(2)}</strong>)}</p>
-              <div class="sparkline-box">
-                <svg
-                  class="sparkline"
-                  height="80px"
-                  stroke-width="3"
-                  id={`${color}-sparkline`}
-                  hook={onInsert<HTMLElement>(el => ctrl.updateChart(el as unknown as SVGSVGElement, color))}
-                />
-                <span class="sparkline-tooltip" hidden="true" />
-              </div>
+              {scoreList.length > 1 && (
+                <div class="sparkline-box">
+                  <svg
+                    class="sparkline"
+                    height="80px"
+                    stroke-width="3"
+                    id={`${color}-sparkline`}
+                    hook={onInsert<HTMLElement>(el =>
+                      ctrl.updateChart(el as unknown as SVGSVGElement, color),
+                    )}
+                  />
+                  <span class="sparkline-tooltip" hidden="true" />
+                </div>
+              )}
             </div>
           ),
       )}

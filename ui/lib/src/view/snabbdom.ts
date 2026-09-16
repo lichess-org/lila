@@ -114,6 +114,14 @@ export const requiresI18n = <Cat extends keyof I18n>(
   return render(window.i18n[catalog]);
 };
 
+export function getEventTarget<T extends HTMLElement>(event: Event): T {
+  return event.target as T;
+}
+
+export function getEventTargetInputValue<T extends string>(event: Event): T {
+  return (event.target as HTMLInputElement).value as T;
+}
+
 export function jsx(tag: string, data: VNodeData | null, ...children: JsxVNodeChildren[]): VNode {
   return snabbdomJsx(
     tag,
