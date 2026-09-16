@@ -3170,7 +3170,7 @@ interface I18n {
     /** About */
     about: string;
     /** About bots on Lichess */
-    aboutLichessBots: string;
+    aboutBotsOnLichess: string;
     /** Simuls involve a single player facing several players at once. */
     aboutSimul: string;
     /** Out of 50 opponents, Fischer won 47 games, drew 2 and lost 1. */

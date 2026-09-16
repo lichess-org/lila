@@ -2053,7 +2053,7 @@ object I18nKey:
     val `autoSwitch`: I18nKey = "autoSwitch"
     val `puzzles`: I18nKey = "puzzles"
     val `onlineBots`: I18nKey = "onlineBots"
-    val `aboutLichessBots`: I18nKey = "aboutLichessBots"
+    val `aboutBotsOnLichess`: I18nKey = "aboutBotsOnLichess"
     val `featuredBots`: I18nKey = "featuredBots"
     val `tryPlayingTheseInnovativeChessEngines`: I18nKey = "tryPlayingTheseInnovativeChessEngines"
     val `communityBots`: I18nKey = "communityBots"
