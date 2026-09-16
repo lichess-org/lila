@@ -185,7 +185,7 @@ $serviceNote"""
       frag(
         meta(itemprop := "url", content := u.value),
         p(a(itemprop := "target", href := u.value)(u.value)),
-        clickOrPaste.option(p(trans.common_orPaste()))
+        clickOrPaste.option(p(trans.common_linkNotWorking()))
       )
 
     private[Mailer] def wrap(subject: String, htmlBody: Frag): Frag =

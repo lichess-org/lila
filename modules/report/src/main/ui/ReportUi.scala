@@ -137,7 +137,7 @@ final class ReportUi(helpers: Helpers)(menu: Context ?=> Frag):
             "Please provide as much information as possible, including relevant game links, posts, and messages."
           ,
           " ",
-          trans.site.reportProcessedFasterInEnglish(),
+          trans.site.processReportFasterInEnglish(),
           " ",
           maxLength
         )

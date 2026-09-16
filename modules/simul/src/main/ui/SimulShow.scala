@@ -57,8 +57,8 @@ final class SimulShow(helpers: Helpers, gathering: GatheringUi):
                     )
                   )
                 ),
-                trans.site.simulHostExtraTime(),
-                ": ",
+                trans.site.extraClockTimeForHost(),
+                " ",
                 pluralize("minute", sim.clock.hostExtraMinutes.value),
                 br,
                 sim.clock.hostExtraTimePerPlayerForDisplay.map: time =>

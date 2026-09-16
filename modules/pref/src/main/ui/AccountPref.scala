@@ -246,11 +246,11 @@ final class AccountPref(helpers: Helpers, helper: PrefHelper, bits: AccountUi):
                 tbody(
                   List(
                     a(href := routes.Streamer.index())(trp.notifyStreamStart()) -> "streamStart",
-                    trp.notifyForumMention() -> "mention",
-                    trp.notifyInvitedStudy() -> "invitedStudy",
-                    trp.notifyInboxMsg() -> "privateMessage",
+                    trp.notifyForumMentions() -> "mention",
+                    trp.notifyStudyInvites() -> "invitedStudy",
+                    trp.notifyDirectMessage() -> "privateMessage",
                     trp.notifyChallenge() -> "challenge",
-                    trp.notifyTournamentSoon() -> "tournamentSoon",
+                    trp.notifyTournamentStartReminders() -> "tournamentSoon",
                     trp.notifyBroadcasts() -> "broadcastRound",
                     trp.notifyGameEvent() -> "gameEvent",
                     trans.team.teamUpdates() -> "teamUpdate"

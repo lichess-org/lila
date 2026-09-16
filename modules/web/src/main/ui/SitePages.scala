@@ -280,7 +280,7 @@ final class SitePages(helpers: Helpers):
               h2(trl.lichessServerLatency()),
               div(cls := "meter")(canvas(cls := "server-chart")),
               p(
-                trl.lichessServerLatencyExplanation()
+                trl.serverLatencyAndLoadExplanation()
               )
             ),
             st.section(cls := "network")(

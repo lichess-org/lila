@@ -51,7 +51,7 @@ function youCanPasteThis() {
   return hl(
     'p.form-help.text',
     { attrs: dataIcon(licon.InfoCircle) },
-    i18n.study.youCanPasteThisInTheForumToEmbed,
+    i18n.study.pasteToEmbedChapterInForumOrBlog,
   );
 }
 
