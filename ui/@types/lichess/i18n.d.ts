@@ -2373,6 +2373,8 @@ interface I18n {
     castleByMovingTwoSquares: string;
     /** Content Delivery Network (CDN) routing. */
     cdnRouting: string;
+    /** This feature is experimental but may improve reliability in some regions. */
+    cdnRoutingExperimental: string;
     /** Chess clock */
     chessClock: string;
     /** Chess piece symbol */
@@ -2405,6 +2407,8 @@ interface I18n {
     explainPromoteToQueenAutomatically: string;
     /** Hides all ratings from Lichess, to help you focus on the game. */
     explainShowPlayerRatings: string;
+    /** If you have frequent disconnects, Content Delivery Network (CDN) routing may improve things. */
+    frequentDisconnectsAdvice: string;
     /** Game behaviour */
     gameBehavior: string;
     /** General */
@@ -2417,8 +2421,6 @@ interface I18n {
     hoverOverSettingLabelsForHelp: string;
     /** How do you move pieces? */
     howDoYouMovePieces: string;
-    /** If you have frequent disconnects, Content Delivery Network (CDN) routing may improve things. */
-    ifYouHaveFrequentDisconnectsCdnRoutingMayImproveThings: string;
     /** In casual games only */
     inCasualGamesOnly: string;
     /** Correspondence games */
@@ -2537,8 +2539,6 @@ interface I18n {
     takebacksWithOpponentApproval: string;
     /** Tenths of seconds */
     tenthsOfSeconds: string;
-    /** This feature is experimental but may improve reliability in some regions. */
-    thisFeatureIsExperimentalButMayImproveReliabilityInSomeRegions: string;
     /** Use CDN routing */
     useCdnRouting: string;
     /** Use direct routing */
@@ -2549,8 +2549,8 @@ interface I18n {
     whenTimeRemainingLessThanTenSeconds: string;
     /** When time remaining < 30 seconds */
     whenTimeRemainingLessThanThirtySeconds: string;
-    /** You are currently using */
-    youAreCurrentlyUsing: string;
+    /** You are currently using %s */
+    youAreCurrentlyUsing: I18nFormat;
     /** Your preferences have been saved. */
     yourPreferencesHaveBeenSaved: string;
     /** Zen mode */
@@ -3191,13 +3191,13 @@ interface I18n {
     closeAccount: string;
     /** Are you sure you want to close your account? */
     closeAccountAreYouSure: string;
-    /** Forever close: make it impossible to reopen */
+    /** Close forever: make it impossible to reopen */
     closeAccountForeverLabel: string;
-    /** Prevent reopening the account later. If you check this box, even administrators will be unable to reopen your account at your request. */
+    /** Prevent reopening the account later. If you tick this box, even administrators will be unable to reopen your account at your request. */
     closeAccountForeverWarning: string;
     /** I understand that deleted accounts aren't recoverable */
     deleteAccountConfirmText: string;
-    /** Once you delete your account, it’s removed from Lichess and our administrators won’t be able to bring it back for you. */
+    /** Once you delete your account, it's removed from Lichess and our administrators won't be able to bring it back for you. */
     deleteAccountWarning: string;
     /** Delete your account */
     deleteYourAccount: string;
@@ -3217,7 +3217,7 @@ interface I18n {
     abortTheGame: string;
     /** About */
     about: string;
-    /** About Lichess Bots */
+    /** About bots on Lichess */
     aboutLichessBots: string;
     /** Simuls involve a single player facing several players at once. */
     aboutSimul: string;
@@ -3375,6 +3375,8 @@ interface I18n {
     blitzDesc: string;
     /** Block */
     block: string;
+    /** Block ads */
+    blockAds: string;
     /** Blocked */
     blocked: string;
     /** %s blocks */
@@ -3433,6 +3435,8 @@ interface I18n {
     challengeX: I18nFormat;
     /** Change email */
     changeEmail: string;
+    /** Changelog */
+    changelog: string;
     /** Change password */
     changePassword: string;
     /** Change username */
@@ -3677,6 +3681,8 @@ interface I18n {
     emailConfirmHelp: string;
     /** Didn't receive your confirmation email after signing up? */
     emailConfirmNotReceived: string;
+    /** We will send you an email containing a link to log you in. */
+    emailLoginInstructions: string;
     /** Email me a link */
     emailMeALink: string;
     /** We have sent an email to %s. */
@@ -3979,6 +3985,8 @@ interface I18n {
     lichessPatronInfo: string;
     /** Lichess tournaments */
     lichessTournaments: string;
+    /** Lichess updates */
+    lichessUpdates: string;
     /** Lifetime score */
     lifetimeScore: string;
     /** Light */
@@ -4071,7 +4079,7 @@ interface I18n {
     mode: string;
     /** More */
     more: string;
-    /** More chess engines created by the Lichess community. They are hosted by their creators, and as such might not always be online. */
+    /** More chess engines created by the Lichess community. They are hosted by their creators, and might not always be online. */
     moreChessEnginesCreatedByTheLichessCommunity: string;
     /** ≥ %1$s rated %2$s games */
     moreThanNbPerfRatedGames: I18nPlural;
@@ -4805,7 +4813,7 @@ interface I18n {
     tryAnotherMoveForBlack: string;
     /** Try another move for white */
     tryAnotherMoveForWhite: string;
-    /** Try playing these innovative chess engines! These are our favourites. */
+    /** Try playing these innovative chess engines! They are our favourites. */
     tryPlayingTheseInnovativeChessEngines: string;
     /** try the contact page */
     tryTheContactPage: string;
