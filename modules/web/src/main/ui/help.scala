@@ -18,7 +18,7 @@ object help:
   private def phonetic(text: String) = strong(cls := "val-to-word phonetic", text)
 
   private def navigateMoves(using Translate) = frag(
-    header(trans.site.navigateMoveTree()),
+    header(trans.site.moveListNavigation()),
     row(
       frag(kbd("←"), or, kbd("→"), alt, kbd("k"), or, kbd("j")),
       trans.site.keyMoveBackwardOrForward()

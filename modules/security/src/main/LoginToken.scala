@@ -101,7 +101,13 @@ final class LoginToken(
           import scalatags.Text.all.*
           import Mailer.html.*
           sendEmail(user, email)(
-            List(trans.passwordReset_clickOrIgnore.txt(), "", url.value, "", trans.common_orPaste.txt()),
+            List(
+              trans.passwordReset_clickOrIgnore.txt(),
+              "",
+              url.value,
+              "",
+              trans.common_linkNotWorking.txt()
+            ),
             emailMessage(
               p(trans.passwordReset_clickOrIgnore()),
               potentialAction(metaName("Log in"), Mailer.html.url(url)),

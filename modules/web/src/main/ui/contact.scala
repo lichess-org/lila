@@ -126,7 +126,7 @@ object contact:
               "clear-history",
               wantClearHistory(),
               frag(
-                p(cantClearHistory()),
+                p(cantClearHistoryOrResetRatings()),
                 p(orCloseAccount())
               )
             )
