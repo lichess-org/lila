@@ -181,7 +181,7 @@ final class AccountSecurity(helpers: Helpers)(
                       strong(trans.site.refreshInboxAfterFiveMinutes())
                     )
                   ),
-                  li(trans.site.checkSpamFolder()),
+                  li(trans.site.checkSpamOrJunkFolder()),
                   li(
                     p(trans.site.sendEmailForAccountVerification(strong(a(href := mailto)(sendTo)))),
                     a(cls := "button", href := mailto):

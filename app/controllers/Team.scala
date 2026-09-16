@@ -318,7 +318,7 @@ final class Team(env: Env) extends LilaController(env):
   }
 
   def subscribe(teamId: TeamId) =
-    AuthOrScopedBody(_.Team.Write) { _ ?=> me ?=>
+    AuthOrScopedBody(_.Team.Write, _.Web.Mobile) { _ ?=> me ?=>
       bindForm(env.team.forms.subscribe)(_ => funit, v => api.subscribe(teamId, me, ~v))
         .inject(jsonOkResult)
     }

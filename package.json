@@ -7,7 +7,7 @@
     "pnpm": ">=12"
   },
   "devDependencies": {
-    "@lichess-org/chessground": "^10.1.1",
+    "@lichess-org/chessground": "^10.2.0",
     "@lichess-org/pgn-viewer": "^2.6.4",
     "@playwright/test": "^1.63.0",
     "@types/lichess": "workspace:*",
@@ -45,7 +45,7 @@
     "journal": "journalctl --user -fu lila -o cat",
     "metals": "tail -F .metals/metals.log",
     "serverlog": "journalctl --user -fu lila -o cat & tail -F .metals/metals.log",
-    "i18n-file-gen": "pnpx tsx bin/i18n-file-gen.ts",
+    "i18n-file-gen": "tsx bin/i18n-file-gen.ts",
     "icon-files-gen": "python3 bin/gen/licon.py",
     "multilog": "pnpm serverlog & ui/build -w",
     "workspace-check": "pnpx @manypkg/cli check",

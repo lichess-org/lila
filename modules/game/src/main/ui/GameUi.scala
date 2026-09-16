@@ -138,10 +138,10 @@ final class GameUi(helpers: Helpers):
         trans.site.drawClaimed.txt() + " • " + trans.site.insufficientMaterial.txt()
       case S.Outoftime =>
         (game.turnColor, game.loser) match
-          case (White, Some(_)) => trans.site.whiteTimeOut.txt()
-          case (White, None) => trans.site.whiteTimeOut.txt() + " • " + trans.site.draw.txt()
-          case (Black, Some(_)) => trans.site.blackTimeOut.txt()
-          case (Black, None) => trans.site.blackTimeOut.txt() + " • " + trans.site.draw.txt()
+          case (White, Some(_)) => trans.site.whiteRanOutOfTime.txt()
+          case (White, None) => trans.site.whiteRanOutOfTime.txt() + " • " + trans.site.draw.txt()
+          case (Black, Some(_)) => trans.site.blackRanOutOfTime.txt()
+          case (Black, None) => trans.site.blackRanOutOfTime.txt() + " • " + trans.site.draw.txt()
       case S.NoStart =>
         if game.loser.exists(_.color.white) then trans.site.whiteDidntMove.txt()
         else trans.site.blackDidntMove.txt()
