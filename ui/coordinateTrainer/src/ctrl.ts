@@ -7,16 +7,18 @@ import { type Prop, myUserId, withEffect } from 'lib';
 import { pubsub } from 'lib/pubsub';
 import type { ColorChoice } from 'lib/setup/color';
 import { storedBooleanProp, storedProp } from 'lib/storage';
+import { getEventTarget } from 'lib/view';
 import { toggleZenMode } from 'lib/view/zen';
 import { text as xhrText, form as xhrForm } from 'lib/xhr';
 
+import { FILES, RANKS } from './constants';
 import type {
   TimeControl,
   CoordinateTrainerConfig,
   InputMethod,
   Mode,
   ModeScores,
-  Redraw,
+  CoordModifier,
 } from './interfaces';
 
 const orientationFromColorChoice = (colorChoice: ColorChoice): Color =>
@@ -26,11 +28,8 @@ const randomChoice = (max: number) => Math.floor(Math.random() * max);
 
 const newKey = (oldKey: Key | '', selectedFiles?: Set<Files>, selectedRanks?: Set<Ranks>): Key => {
   const rand = randomChoice(2);
-  let files = 'abcdefgh'.split('') as Files[];
-  let rows = '12345678'.split('') as Ranks[];
-
-  if (selectedFiles?.size) files = files.filter((f: Files) => selectedFiles.has(f));
-  if (selectedRanks?.size) rows = rows.filter((r: Ranks) => selectedRanks.has(r));
+  let files = selectedFiles?.size ? FILES.filter(f => selectedFiles.has(f)) : FILES;
+  let rows = selectedRanks?.size ? RANKS.filter(r => selectedRanks.has(r)) : RANKS;
 
   // disallow the previous coordinate's row or file from being selected
   // rand so we only change one of them
@@ -40,7 +39,7 @@ const newKey = (oldKey: Key | '', selectedFiles?: Set<Files>, selectedRanks?: Se
   return (files[randomChoice(files.length)] + rows[randomChoice(rows.length)]) as Key;
 };
 
-const targetSvg = (target: 'current' | 'next'): string => $html`
+const targetSvg = (target: CoordModifier): string => $html`
   <g transform="translate(50, 50)">
     <rect class="${target}-target" fill="none" stroke-width="10" x="-50" y="-50" width="100" height="100" rx="5" />
   </g>`;
@@ -78,7 +77,7 @@ export default class CoordinateTrainerCtrl {
 
   constructor(
     readonly config: CoordinateTrainerConfig,
-    readonly redraw: Redraw,
+    readonly redraw: () => void,
   ) {
     pubsub.on('zen', () => toggleZenMode({ unconditional: true }));
 
@@ -350,7 +349,7 @@ export default class CoordinateTrainerCtrl {
 
   onKeyboardInputKeyUp = (e: KeyboardEvent) => {
     // normalize input value
-    const input = e.target as HTMLInputElement;
+    const input = getEventTarget<HTMLInputElement>(e);
     input.value = input.value.toLowerCase().replace(/[^a-h1-8]/, '');
 
     if (!e.isTrusted || !this.playing) {
