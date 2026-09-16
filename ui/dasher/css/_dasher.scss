@@ -176,7 +176,7 @@
       @extend %box-radius-left;
     }
 
-    input[type='range'] {
+    input[type='range']:not(.rate) {
       flex: 0 0 1em;
       width: 1em;
       margin: 1rem;
@@ -192,6 +192,18 @@
 
     .dialog-content {
       min-width: 240px;
+    }
+
+    div.rate {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      color: $c-font-dim;
+
+      input {
+        cursor: pointer;
+      }
     }
   }
 

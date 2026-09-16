@@ -281,8 +281,7 @@ moduler[ao]
 payas[ao]
 pendejo
 po(l+|y)a
-put[ao]
-putica
+put(ic|it|)[ao]
 trampa
 trampos[ao]
 tu eres put\w*

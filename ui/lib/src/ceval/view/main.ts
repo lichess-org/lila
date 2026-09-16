@@ -25,7 +25,6 @@ import {
   div,
   span,
   button,
-  strong,
 } from '@/view';
 import { cmnToggle } from '@/view/cmn-toggle';
 import stepwiseScroll from '@/view/stepwiseScroll';
@@ -418,7 +417,7 @@ function renderPv(threat: boolean, multiPv: number, pv?: PvData, pos?: Position)
   const children: VNode[] = [renderPvWrapToggle()];
   if (pv) {
     if (!threat) data.attrs = { 'data-uci': pv.moves[0] };
-    if (multiPv > 1) children.push(strong(defined(pv.mate) ? '#' + pv.mate : renderEval(pv.cp!)));
+    if (multiPv > 1) children.push(hl('strong', defined(pv.mate) ? '#' + pv.mate : renderEval(pv.cp!)));
     if (pos) children.push(...renderPvMoves(pos.clone(), pv.moves.slice(0, MAX_NUM_MOVES)));
   }
   return div('.pv.pv--nowrap', data, children);
