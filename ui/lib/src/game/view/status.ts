@@ -102,9 +102,7 @@ export function statusOf(d: StatusData): string {
     case 'insufficientMaterialClaim':
       return `${i18n.site.drawClaimed} • ${i18n.site.insufficientMaterial}`;
     case 'outoftime':
-      return `${d.ply % 2 === 0 ? i18n.site.whiteRanOutOfTime : i18n.site.blackRanOutOfTime}${
-        winnerSuffix || ` • ${i18n.site.draw}`
-      }`;
+      return `${i18n.site[`${plyColor(d.ply)}RanOutOfTime`]}${winnerSuffix || ` • ${i18n.site.draw}`}`;
     case 'noStart':
       return i18n.site[`${opposite(d.winner ?? 'black')}DidntMove`] + winnerSuffix;
     case 'cheat':
