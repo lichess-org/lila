@@ -172,9 +172,7 @@ const scoreCharts = (ctrl: CoordinateTrainerCtrl) => {
                     height="80px"
                     stroke-width="3"
                     id={`${color}-sparkline`}
-                    hook={onInsert<HTMLElement>(el =>
-                      ctrl.updateChart(el as unknown as SVGSVGElement, color),
-                    )}
+                    hook={onInsert(el => ctrl.updateChart(el as unknown as SVGSVGElement, color))}
                   />
                   <span class="sparkline-tooltip" hidden="true" />
                 </div>
@@ -201,11 +199,9 @@ const timeBox = (ctrl: CoordinateTrainerCtrl) => (
 );
 
 const backButton = (ctrl: CoordinateTrainerCtrl) => (
-  <div class="back">
-    <a class="back-button" hook={bind('click', ctrl.stop)}>
-      « {i18n.study.back}
-    </a>
-  </div>
+  <button class="button button-empty back" hook={bind('click', ctrl.stop)}>
+    « {i18n.study.back}
+  </button>
 );
 
 const settings = (ctrl: CoordinateTrainerCtrl) => (

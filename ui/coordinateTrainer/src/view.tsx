@@ -63,7 +63,7 @@ const table = (ctrl: CoordinateTrainerCtrl) => (
 );
 
 const progress = (ctrl: CoordinateTrainerCtrl) => {
-  if (!ctrl.hasPlayed) return null;
+  if (!ctrl.hasPlayed || ctrl.timeControl() === 'untimed') return null;
   return (
     <div class="progress">
       <div class="progress__bar" style={{ width: `${100 * (1 - ctrl.timeLeft / DURATION)}%` }} />
