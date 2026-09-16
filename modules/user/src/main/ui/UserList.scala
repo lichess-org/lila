@@ -135,7 +135,7 @@ final class UserList(helpers: Helpers, bits: UserBits):
 
   def bots(users: List[UserWithPerfs], bestPerfs: UserPerfs => List[PerfKey])(using Context) =
     val title = s"${users.size} Online bots"
-    val aboutLink = a(href := "/blog/WvDNticAAMu_mHKP/welcome-lichess-bots")(trans.site.aboutLichessBots())
+    val aboutLink = a(href := "/blog/WvDNticAAMu_mHKP/welcome-lichess-bots")(trans.site.aboutBotsOnLichess())
     val (featured, community) = users.partition(_.isVerified)
     Page(title)
       .css("bits.slist")

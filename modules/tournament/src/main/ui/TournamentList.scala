@@ -279,7 +279,7 @@ final class TournamentList(helpers: Helpers, ui: TournamentUi)(
                 lila.tournament.WinnersApi.variants.map: v =>
                   PerfKey.byVariant(v).map { pk =>
                     winners.variants.get(chess.variant.Variant.LilaKey(pk.value)).map {
-                      freqWinners(_, pk, v.name)
+                      freqWinners(_, pk, v.variantTrans.txt())
                     }
                   }
               )
