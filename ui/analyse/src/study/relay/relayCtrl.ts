@@ -80,6 +80,7 @@ export default class RelayCtrl {
       () => (study.multiBoard.showResults() ? undefined : this.round.id),
       fideId => data.photos[fideId],
       this.redraw,
+      data.group
     );
     this.teamLeaderboard = new RelayTeamLeaderboard(
       this.data.tour.id,
