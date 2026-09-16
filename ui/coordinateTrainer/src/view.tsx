@@ -3,6 +3,7 @@ import { renderVoiceBar } from 'voice';
 import { jsx, onInsert } from 'lib/view';
 
 import chessground from './chessground';
+import { FILES, RANKS } from './constants';
 import CoordinateTrainerCtrl, { DURATION } from './ctrl';
 import side from './side';
 
@@ -77,7 +78,7 @@ const coordinateInput = (ctrl: CoordinateTrainerCtrl) => {
     <div class="coordinate-input">
       {ctrl.coordinateInputMethod() === 'buttons' ? (
         <div class="files-ranks">
-          {'abcdefgh12345678'.split('').map(fileOrRank => (
+          {[...FILES, ...RANKS].map(fileOrRank => (
             <button
               class="button button-empty file-rank"
               on={{
