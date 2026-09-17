@@ -25,7 +25,6 @@
     "stylelint-config-standard-scss": "^17.0.0",
     "stylelint-scss": "^7.2.0",
     "svgo": "^4.1.0",
-    "tsx": "^4.23.13",
     "typescript": "^7.0.2"
   },
   "//": [

@@ -59,7 +59,7 @@ and wait for someone else to compile it before it comes online.
 Run the generation script:
 
 ```shell
-pnpx tsx bin/flair/generate.ts
+pnpm node bin/flair/generate.ts
 ```
 
 It will update the `public/flair/list.txt` file which you must commit along with the updated flair images.
