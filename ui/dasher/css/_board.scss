@@ -84,7 +84,11 @@
       .#{$name} {
         $file-ext: map-get($theme, file-ext);
         $name-override: map-get($theme, name-override);
-        $file-name: if($name-override, $name-override, $name);
+        $file-name: $name;
+
+        @if $name-override {
+          $file-name: $name-override;
+        }
 
         // svg boards live in a subdirectory and ship no thumbnail, so they scale the
         // board itself. Keyed on the extension, as in _board-2d.scss.

@@ -1,5 +1,7 @@
+@use 'sass:color';
+
 $c-clas-light: hsl(274 48% 60%);
-$c-clas-lighter: mix($c-clas-light, #fff, 86%);
+$c-clas-lighter: color.mix($c-clas-light, #fff, 86%);
 $c-bg-clas-over: white;
 $c-bg-clas-over-dim: color-mix(in oklab, $c-clas 20%, white);
 

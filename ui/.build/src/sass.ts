@@ -134,6 +134,7 @@ async function addVendorPrefixes(src: string): Promise<void> {
 
 // recursively parse scss file and its imports to build dependency maps
 async function parseScss(src: string, processed: Set<string>) {
+  if (src.includes('sass:')) return;
   if (dirname(src).endsWith('/gen')) return;
   if (processed.has(src)) return;
   processed.add(src);
