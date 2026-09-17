@@ -1,3 +1,4 @@
+@use 'sass:map';
 @use 'sass:math';
 @use 'sass:string';
 @import 'boards';
@@ -42,8 +43,8 @@ cg-board::before {
       background-image: url(../images/staunton/board/#{$name}.webp);
     }
 
-    $coord-color-white: map-get($board-theme, coord-color-white);
-    $coord-color-black: map-get($board-theme, coord-color-black);
+    $coord-color-white: map.get($board-theme, coord-color-white);
+    $coord-color-black: map.get($board-theme, coord-color-black);
 
     @if $coord-color-white and $coord-color-black {
       coords {

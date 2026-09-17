@@ -1,3 +1,4 @@
+@use 'sass:map';
 @import '../../lib/css/theme/board/boards';
 
 #dasher_app .board {
@@ -82,8 +83,8 @@
   &.d2 {
     @each $name, $theme in $board-themes-2d {
       .#{$name} {
-        $file-ext: map-get($theme, file-ext);
-        $name-override: map-get($theme, name-override);
+        $file-ext: map.get($theme, file-ext);
+        $name-override: map.get($theme, name-override);
         $file-name: $name;
 
         @if $name-override {
@@ -103,7 +104,7 @@
   }
 
   &.d3 {
-    @each $name in map-keys($board-themes-3d) {
+    @each $name in map.keys($board-themes-3d) {
       .#{$name} {
         background-image: url(../images/staunton/board/#{$name}.thumbnail.webp);
       }
