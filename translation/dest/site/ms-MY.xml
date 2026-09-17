@@ -386,7 +386,6 @@
   <string name="apply">Hantar</string>
   <string name="save">Simpan</string>
   <string name="leaderboard">Papan pendahulu</string>
-  <string name="screenshotCurrentPosition">Tangkapan skrin (Screenshot) kedudukan semasa</string>
   <string name="gameAsGIF">Permainan sebagai GIF</string>
   <string name="playerNames">Nama pemain</string>
   <string name="pasteTheFenStringHere">Paste teks FEN di sini</string>
@@ -657,7 +656,6 @@ analisis komputer, perbualan dalam permainan dan URL kongsi bersama.</string>
   <string name="background">Latar belakang</string>
   <string name="light">Terang</string>
   <string name="dark">Gelap</string>
-  <string name="transparent">Lutsinar</string>
   <string name="backgroundImageUrl">URL Imej latar belakang:</string>
   <string name="pieceSet">Set bidak</string>
   <string name="embedInYourWebsite">Papar dalam laman web anda</string>

@@ -1,10 +1,10 @@
-import { dragNewPiece } from '@lichess-org/chessground/drag';
 import type { MouchEvent, NumberPair } from '@lichess-org/chessground/types';
 import { eventPosition, opposite } from '@lichess-org/chessground/util';
 import { lichessRules } from 'chessops/compat';
 import { parseFen } from 'chessops/fen';
 import { parseSquare, makeSquare } from 'chessops/util';
 
+import { view as cevalView } from 'lib/ceval';
 import { fenToEpd } from 'lib/game/chess';
 import { licon, type LiconValue } from 'lib/licon';
 import {
@@ -170,6 +170,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
         ]);
 
   return div('.board-editor__tools', [
+    ...(ctrl.cfg.embed ? [] : [div('.ceval-wrap', [cevalView.renderCeval(ctrl), cevalView.renderPvs(ctrl)])]),
     div('.metadata', [
       div(
         '.color',
@@ -467,7 +468,7 @@ function onSelectSparePiece(ctrl: EditorCtrl, s: Selected, upEvent: string): (e:
     } else {
       ctrl.selected('pointer');
 
-      dragNewPiece(ctrl.chessground!.state, { color: s[0], role: s[1] }, e, true);
+      ctrl.chessground?.dragNewPiece({ color: s[0], role: s[1] }, e, true);
 
       document.addEventListener(
         upEvent,

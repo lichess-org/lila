@@ -26,7 +26,8 @@ export const infoKeys: InfoKey[] = [
   'toggle',
 ]; // InfoKey in file://./devTypes.ts
 
-// oxlint-disable-next-line no-inferrable-types This collides with out TS config.
+// This collides with our TS config.
+// oxlint-disable-next-line no-inferrable-types
 export const requiresOpRe: RegExp = /==|>=|>|<<=|<=|<|!=/; // <<= means startsWith
 
 const base: Schema = {

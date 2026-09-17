@@ -180,7 +180,7 @@ final private class AggregationPipeline(store: InsightStorage)(using Executor):
                     )
                   ).some,
                   UnwindField("doc").some,
-                  groupOptions(bdoc("dimension" -> "$_id", "metric" -> "bdoc.metric"))(
+                  groupOptions(bdoc("dimension" -> "$_id", "metric" -> "$doc.metric"))(
                     "v" -> SumAll.some,
                     "ids" -> addGameId
                   ).some,

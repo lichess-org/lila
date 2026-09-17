@@ -437,7 +437,6 @@
   <string name="apply">Aplicar cambios</string>
   <string name="save">Alzar</string>
   <string name="leaderboard">Clasificación</string>
-  <string name="screenshotCurrentPosition">Fe una captura de pantalla d\'a posición actual</string>
   <string name="gameAsGIF">Partida como GIF</string>
   <string name="playerNames">Nombres d\'os chugadors</string>
   <string name="moveAnnotations">Anotación d\'as chugadas</string>
@@ -823,7 +822,6 @@
   <string name="background">Fondo</string>
   <string name="light">Claro</string>
   <string name="dark">Fosco</string>
-  <string name="transparent">Transparent</string>
   <string name="deviceTheme">Tema d\'o dispositivo</string>
   <string name="backgroundImageUrl">URL d\'imachen de fondo:</string>
   <string name="board">Taulero</string>

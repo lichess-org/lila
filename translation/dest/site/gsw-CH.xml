@@ -439,7 +439,6 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="apply">Awände</string>
   <string name="save">Schpeichere</string>
   <string name="leaderboard">Ranglischte</string>
-  <string name="screenshotCurrentPosition">En Screenshot vu de aktuelle Schtellig mache</string>
   <string name="gameAsGIF">Schpiel als GIF</string>
   <string name="playerNames">Schpiller Näme</string>
   <string name="moveAnnotations">Zugs-Notatione</string>
@@ -841,7 +840,6 @@ gits nöd und es isch nie g\'wertet.</string>
   <string name="theme">Farbschema</string>
   <string name="light">Hell</string>
   <string name="dark">Dunkel</string>
-  <string name="transparent">Durchsichtig</string>
   <string name="picture">Hintergrundbild</string>
   <string name="deviceTheme">Mit em Grät synchronisiere</string>
   <string name="roundness">Eckeabrundig</string>

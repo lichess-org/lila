@@ -390,7 +390,6 @@
   <string name="apply">დათანხმება</string>
   <string name="save">შენახვა</string>
   <string name="leaderboard">ლიდერბორდი</string>
-  <string name="screenshotCurrentPosition">სქრინშოთის თავდაპირველი პოზიცია</string>
   <string name="gameAsGIF">თამაშის GIF-ად შენახვა</string>
   <string name="pasteTheFenStringHere">ჩასვით FEN ტექსტი</string>
   <string name="pasteThePgnStringHere">ჩასვით PGN ტექსტი</string>
@@ -727,7 +726,6 @@
   <string name="background">ფონი</string>
   <string name="light">ღია</string>
   <string name="dark">მუქი</string>
-  <string name="transparent">გამჭვირვალე</string>
   <string name="deviceTheme">მოწყობილობის თემა</string>
   <string name="backgroundImageUrl">ფონის სურათის მისამართი:</string>
   <string name="board">დაფა</string>

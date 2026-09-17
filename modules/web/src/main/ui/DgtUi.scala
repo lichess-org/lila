@@ -74,7 +74,7 @@ final class DgtUi(helpers: Helpers):
   def config(token: Option[String])(using Context) =
     layout("config"):
       frag(
-        h1(cls := "box__top")(trd.dgtConfigure()),
+        h1(cls := "box__top")(trd.configureYourDgtBoard()),
         form(action := routes.DgtCtrl.generateToken, method := "post")(
           st.section(
             h2(trd.lichessConnectivity()),

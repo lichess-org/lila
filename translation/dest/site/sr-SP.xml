@@ -453,7 +453,6 @@
   <string name="apply">Примени</string>
   <string name="save">Сачувај</string>
   <string name="leaderboard">Најбољи играчи</string>
-  <string name="screenshotCurrentPosition">Сними тренутну позицију</string>
   <string name="gameAsGIF">Партију као ГИФ</string>
   <string name="playerNames">Имена играча</string>
   <string name="moveAnnotations">Анотације потеза</string>
@@ -852,7 +851,6 @@
   <string name="theme">Тема</string>
   <string name="light">Светла</string>
   <string name="dark">Тамна</string>
-  <string name="transparent">Провидна</string>
   <string name="picture">Слика</string>
   <string name="deviceTheme">Тема уређаја</string>
   <string name="backgroundImageUrl">Линк позадинске слике:</string>
@@ -1038,7 +1036,7 @@
   <string name="playComputerMove">Одиграј најбољи рачунарски потез</string>
   <string name="analysisOptions">Опције анализе</string>
   <string name="focusChat">Фокусирај ћаскање</string>
-  <string name="showHelpDialog">Прикажи овај прозор за помоћ</string>
+  <string name="showHelpDialog">Прикажи овај слој за помоћ</string>
   <string name="reopenYourAccount">Поново отвори свој налог</string>
   <string name="reopenYourAccountDescription">Ако си затворио/ла свој налог, али си се у међувремену предомислио/ла, добијаш шансу да повратиш свој налог.</string>
   <string name="emailAssociatedToaccount">Мејл адреса повезана са налогом</string>

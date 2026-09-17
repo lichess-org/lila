@@ -190,15 +190,16 @@ final class Tournament(env: Env, apiC: => Api)(using org.apache.pekko.stream.Mat
               BadRequest(Json.obj("joined" -> false, "error" -> error))
   }
 
-  def apiJoin(id: TourId) = ScopedBody(_.Tournament.Write, _.Bot.Play, _.Web.Mobile) { ctx ?=> me ?=>
-    NoLame:
-      NoPlayban:
-        limit.tourJoinOrResume(me, rateLimited):
-          val data =
-            bindForm(TournamentForm.joinForm)(_ => TournamentForm.TournamentJoin(none, none), identity)
-          doJoin(id, data).map:
-            _.error.fold(jsonOkResult): error =>
-              BadRequest(Json.obj("error" -> error))
+  def apiJoin(id: TourId) = ScopedBody(_.Tournament.Write, _.Bot.Play, _.Web.Mobile, _.Web.Takex3) {
+    ctx ?=> me ?=>
+      NoLame:
+        NoPlayban:
+          limit.tourJoinOrResume(me, rateLimited):
+            val data =
+              bindForm(TournamentForm.joinForm)(_ => TournamentForm.TournamentJoin(none, none), identity)
+            doJoin(id, data).map:
+              _.error.fold(jsonOkResult): error =>
+                BadRequest(Json.obj("error" -> error))
   }
 
   private def doJoin(tourId: TourId, data: TournamentForm.TournamentJoin)(using Me) =
@@ -214,9 +215,10 @@ final class Tournament(env: Env, apiC: => Api)(using org.apache.pekko.stream.Mat
       else Redirect(routes.Tournament.show(tour.id))
   }
 
-  def apiWithdraw(id: TourId) = ScopedBody(_.Tournament.Write, _.Bot.Play, _.Web.Mobile) { _ ?=> me ?=>
-    WithVisibleTournament(id): tour =>
-      api.selfPause(tour.id, me).inject(jsonOkResult)
+  def apiWithdraw(id: TourId) = ScopedBody(_.Tournament.Write, _.Bot.Play, _.Web.Mobile, _.Web.Takex3) {
+    _ ?=> me ?=>
+      WithVisibleTournament(id): tour =>
+        api.selfPause(tour.id, me).inject(jsonOkResult)
   }
 
   def form = Auth { ctx ?=> me ?=>

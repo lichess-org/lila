@@ -585,7 +585,7 @@ final class RelayApi(
               requestPlay(relay.id, v = true, "autoStart")
 
   private[relay] def autoFinishNotSyncing(onlyIds: Option[List[RelayTourId]] = None): Funit =
-    roundRepo.coll
+    roundRepo.coll.secondary
       .list[RelayRound]:
         RelayRoundRepo.selectors.finished(false) ++
           bdoc(

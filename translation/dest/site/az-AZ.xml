@@ -403,7 +403,6 @@
   <string name="apply">Tətbiq et</string>
   <string name="save">Saxla</string>
   <string name="leaderboard">Liderlik cədvəli</string>
-  <string name="screenshotCurrentPosition">Cari mövqe Ekran görüntüsü</string>
   <string name="gameAsGIF">GIF kimi oyun</string>
   <string name="pasteTheFenStringHere">FEN mətnini bura yapışdırın</string>
   <string name="pasteThePgnStringHere">PGN mətnini bura yapışdırın</string>
@@ -723,7 +722,6 @@
   <string name="background">Arxa fon</string>
   <string name="light">Yüngül</string>
   <string name="dark">Qaranlıq</string>
-  <string name="transparent">Şəffaf</string>
   <string name="backgroundImageUrl">Arxa fon rəsm URL-i:</string>
   <string name="pieceSet">Fiqur seti</string>
   <string name="embedInYourWebsite">Saytınıza yerləşdirin</string>

@@ -175,6 +175,8 @@
   </plurals>
   <string name="moveTimes">Χρόνοι κινήσεων</string>
   <string name="flipBoard">Περιστροφή σκακιέρας</string>
+  <string name="engineSettings">Ρυθμίσεις μηχανής</string>
+  <string name="enginesFromStrongestToWeakest">Μηχανές από την ισχυρότερη στην ασθενέστερη</string>
   <string name="threefoldRepetition">Τριπλή επανάληψη</string>
   <string name="claimADraw">Απαίτηση ισοπαλίας</string>
   <string name="drawClaimed">Απαιτήθηκε ισοπαλία</string>
@@ -441,7 +443,6 @@
   <string name="apply">Εφαρμογή</string>
   <string name="save">Αποθήκευση</string>
   <string name="leaderboard">Πίνακας βαθμολογίας</string>
-  <string name="screenshotCurrentPosition">Λήψη στιγμιότυπου τρέχουσας θέσης</string>
   <string name="positionAsImage" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position. Replaces old string screenshotCurrentPosition">Αποτύπωση θέσης ως εικόνα</string>
   <string name="gameAsGIF">Αποθήκευση ως GIF</string>
   <string name="playerNames">Ονόματα παικτών</string>
@@ -744,6 +745,7 @@
   <string name="keyGoToStartOrEnd">πηγαίνετε στην έναρξη / λήξη</string>
   <string name="keyCycleSelectedVariation">Επιλογή επόμενης βαριάντας</string>
   <string name="keyShowOrHideComments">εμφάνιση / απόκρυψη σχολίων</string>
+  <string name="keyShowOrHideCurrentVariation">εμφάνιση/απόκρυψη βαριάντας</string>
   <string name="keyEnterOrExitVariation">είσοδος / έξοδος εκδοχής</string>
   <string name="keyPreviousBranch">Προηγούμενος κλάδος</string>
   <string name="keyNextBranch">Επόμενος κλάδος</string>
@@ -837,7 +839,6 @@
   <string name="theme">Εμφάνιση</string>
   <string name="light">Ανοιχτόχρωμο</string>
   <string name="dark">Σκουρόχρωμο</string>
-  <string name="transparent">Διάφανο</string>
   <string name="picture">Εικόνα</string>
   <string name="deviceTheme">Θέμα συσκευής</string>
   <string name="roundness">Καμπυλότητα</string>
@@ -1063,4 +1064,7 @@
   <string name="tags">Ετικέτες</string>
   <string name="enPassant">En passant</string>
   <string name="settings">Ρυθμίσεις</string>
+  <string name="verifyingYourDevice">Επαλήθευση της συσκευής σας...</string>
+  <string name="chessOpenings">Ανοίγματα</string>
+  <string name="boards">Σκακιέρες</string>
 </resources>

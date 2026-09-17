@@ -6,9 +6,8 @@ import { join, basename } from 'node:path';
 
 import { zip } from './algo.ts';
 import { env } from './env.ts';
-import { getHash } from './hash.ts';
 import { type Manifest, updateManifest } from './manifest.ts';
-import { readable, isClose } from './parse.ts';
+import { readable, isClose, getHash } from './parse.ts';
 import { makeTask } from './task.ts';
 
 type PluralMode = 'zero' | 'one' | 'two' | 'few' | 'many' | 'other';

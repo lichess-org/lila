@@ -445,7 +445,6 @@
   <string name="apply">שמירה</string>
   <string name="save">שמירה</string>
   <string name="leaderboard">טבלת השחקנים המובילים</string>
-  <string name="screenshotCurrentPosition">צילום העמדה הנוכחית</string>
   <string name="gameAsGIF">המשחק בתור GIF</string>
   <string name="pasteTheFenStringHere">הדביקו מחרוזת FEN כאן</string>
   <string name="pasteThePgnStringHere">הדביקו מחרוזת PGN כאן</string>
@@ -827,7 +826,6 @@
   <string name="background">רקע</string>
   <string name="light">בהיר</string>
   <string name="dark">כהה</string>
-  <string name="transparent">שקוף</string>
   <string name="deviceTheme">לפי הגדרות המכשיר</string>
   <string name="backgroundImageUrl">כתובת תמונת רקע (URL):</string>
   <string name="board">לוח</string>

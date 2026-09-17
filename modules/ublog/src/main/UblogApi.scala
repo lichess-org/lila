@@ -211,7 +211,7 @@ final class UblogApi(
           val result = post.automod.foldLeft(llm): (llm, prev) =>
             prev.updateByLLM(llm)
           for
-            trustedAuthor <- isAuthorTrusted(post.created.by)
+            trustedAuthor <- isAuthorTrusted(post)
             newPost = post.copy(automod = result.some).computeEffectiveQuality(trustedAuthor)
             _ <- updateQualityFields(newPost)
           yield newPost.some
@@ -316,10 +316,10 @@ final class UblogApi(
       post.modQuality.so(mq => bdoc("modQuality" -> mq))
     colls.post.update.one(bid(post.id), set(sets)).void
 
-  private def isAuthorTrusted(userId: UserId): Fu[Boolean] =
+  private def isAuthorTrusted(post: UblogPost): Fu[Boolean] =
     val nbPosts = 4
     colls.post
-      .find(bdoc("live" -> true, "blog" -> UblogBlog.Id.User(userId)), bdoc("quality" -> true).some)
+      .find(bdoc("live" -> true, "blog" -> post.blog, "_id".neq(post.id)), bdoc("quality" -> true).some)
       .sort(sort.desc("lived.at"))
       .cursor[Bdoc](ReadPref.sec)
       .list(nbPosts)

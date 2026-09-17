@@ -6,7 +6,7 @@ import pc from 'picocolors';
 import { shallowSort, isContained } from './algo.ts';
 import { jsLogger } from './console.ts';
 import { env } from './env.ts';
-import { getHash } from './hash.ts';
+import { getHash } from './parse.ts';
 
 const manifest = {
   i18n: {} as Manifest,

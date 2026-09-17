@@ -17,6 +17,7 @@ final class TeamUi(helpers: Helpers, markdownCache: lila.memo.MarkdownCache):
     private val options = lila.memo.MarkdownOptions(
       autoLink = true,
       header = true,
+      headerAnchorLink = true,
       list = true,
       table = true,
       blockQuote = false,

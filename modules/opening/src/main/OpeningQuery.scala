@@ -18,12 +18,11 @@ case class OpeningQuery(replay: Replay, config: OpeningConfig):
   def initial = sans.isEmpty
   def query = openingAndExtraMoves match
     case (op, _) => OpeningQuery.Query(op.fold("-")(_.key.value), pgnString.some)
-  def prev = (sans.sizeIs > 1).so(
+  def prev = (sans.sizeIs > 1).so:
     OpeningQuery(
       OpeningQuery.Query("", PgnMovesStr(sans.init.mkString(" ")).some),
       config
     )
-  )
 
   val openingAndExtraMoves: (Option[Opening], List[SanStr]) =
     exactOpening
@@ -59,13 +58,14 @@ object OpeningQuery:
   private lazy val openingsByLowerCaseKey: Map[OpeningKey, Opening] =
     OpeningDb.shortestLines.mapKeys(_.map(_.toLowerCase))
 
-  private def byOpening(str: String, config: OpeningConfig) = {
+  private def byOpening(str: String, config: OpeningConfig) =
     OpeningDb.shortestLines
       .get(OpeningKey(str))
       .orElse:
         val lowercase = (lila.common.String.decodeUriPath(str) | str).toLowerCase
         openingsByLowerCaseKey.get(OpeningKey.fromName(OpeningName(lowercase)))
-  }.map(_.pgn).flatMap { fromPgn(_, config) }
+      .map(_.pgn)
+      .flatMap { fromPgn(_, config) }
 
   private def fromPgn(pgn: PgnMovesStr, config: OpeningConfig): Option[OpeningQuery] =
     for

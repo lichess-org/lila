@@ -407,7 +407,6 @@
   <string name="apply">套用</string>
   <string name="save">儲存</string>
   <string name="leaderboard">排行榜</string>
-  <string name="screenshotCurrentPosition">截圖當前頁面</string>
   <string name="gameAsGIF">保存棋局為 GIF</string>
   <string name="playerNames">對手名字</string>
   <string name="moveAnnotations">着法評註</string>
@@ -789,7 +788,6 @@
   <string name="theme">主題背景</string>
   <string name="light">亮</string>
   <string name="dark">暗</string>
-  <string name="transparent">透明度</string>
   <string name="picture">圖片</string>
   <string name="deviceTheme">設備主題</string>
   <string name="roundness">弧度</string>

@@ -228,6 +228,11 @@ body {
 
     &__body {
       @extend %box-radius-bottom, %zalgoverflow;
+      @include rendered-markdown;
+
+      h1 {
+        @include fluid-size('font-size', 18px, 35px);
+      }
 
       overflow-wrap: anywhere;
       white-space-collapse: preserve;
@@ -236,10 +241,6 @@ body {
 
       img {
         @extend %box-neat;
-
-        display: block;
-        max-width: 100%;
-        max-height: 40vh;
       }
     }
 

@@ -613,7 +613,6 @@
   <string name="background">Fundo</string>
   <string name="light">Clar</string>
   <string name="dark">Obscur</string>
-  <string name="transparent">Transparente</string>
   <string name="backgroundImageUrl">Ligamine URL del imagine de fundo:</string>
   <string name="pieceSet">Stilo del pecias</string>
   <string name="embedInYourWebsite">Incorpora in tu sito web</string>

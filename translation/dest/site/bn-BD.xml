@@ -407,7 +407,6 @@
   <string name="apply">প্রয়োগ</string>
   <string name="save">সংরক্ষন করুন</string>
   <string name="leaderboard">লিডারবোর্ড</string>
-  <string name="screenshotCurrentPosition">বর্তমান অবস্থানে স্ক্রিনশট নিন</string>
   <string name="gameAsGIF">GIF হিসেবে</string>
   <string name="pasteTheFenStringHere">এখানে FEN স্ট্রিংটি জোড়া লাগান</string>
   <string name="pasteThePgnStringHere">এখানে PGN স্ট্রিংটি জোড়া লাগান</string>
@@ -768,7 +767,6 @@
   <string name="background">পটভূমি</string>
   <string name="light">আলো</string>
   <string name="dark">অন্ধকার</string>
-  <string name="transparent">স্বচ্ছ</string>
   <string name="deviceTheme">ডিভাইস থিম</string>
   <string name="backgroundImageUrl">পটভূমি ছবির URL:</string>
   <string name="board">বোর্ড</string>

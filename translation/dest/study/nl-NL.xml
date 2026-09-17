@@ -48,7 +48,7 @@
   <string name="annotateWithGlyphs">Maak annotaties met symbolen</string>
   <string name="theChapterIsTooShortToBeAnalysed">Dit hoofdstuk is te kort om geanalyseerd te worden.</string>
   <string name="onlyContributorsCanRequestAnalysis">Alleen de bijdragers kunnen een computer analyse aanvragen.</string>
-  <string name="getAFullComputerAnalysis">Krijg een volledige computer analyse van de hoofdlijn.</string>
+  <string name="getAFullComputerAnalysis">Krijg een volledige computeranalyse van de hoofdvariant.</string>
   <string name="makeSureTheChapterIsComplete">Zorg ervoor dat het hoofdstuk voltooid is. Je kunt slechts één keer een analyse aanvragen.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Alle SYNC leden blijven op dezelfde positie</string>
   <string name="shareChanges">Deel veranderingen met toeschouwers en sla deze op op de server</string>
@@ -83,7 +83,7 @@
   <string name="pinnedChapterComment">Vastgezet commentaar van het hoofdstuk</string>
   <string name="saveChapter">Hoofdstuk opslaan</string>
   <string name="clearAnnotations">Wis annotaties</string>
-  <string name="clearVariations">Verwijder variaties</string>
+  <string name="clearVariations">Verwijder varianten</string>
   <string name="deleteChapter">Verwijder hoofdstuk</string>
   <string name="deleteThisChapter">Wil je dit hoofdstuk verwijderen? Je kan dit niet ongedaan maken!</string>
   <string name="clearAllCommentsInThisChapter">Wis alle opmerkingen, glyphs en getekende vormen in dit hoofdstuk</string>
@@ -195,9 +195,9 @@
   <string name="fromFenStringTitle">Van een FEN-tekenreeks</string>
   <string name="fromFenStringText">Plak een stelling in FEN-formaat&lt;br&gt;&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;&lt;br&gt;om het hoofdstuk te beginnen vanaf een bepaalde stelling.</string>
   <string name="fromPgnGameTitle">Van een PGN-bestand</string>
-  <string name="fromPgnGameText">Plak een partij in PGN-formaat.&lt;br&gt;om zetten, reacties en variaties in het hoofdstuk te laden.</string>
+  <string name="fromPgnGameText">Plak een partij in PGN-formaat.&lt;br&gt;om zetten, reacties en varianten in het hoofdstuk te laden.</string>
   <string name="variantsAreSupportedTitle">Studies ondersteunen varianten</string>
-  <string name="variantsAreSupportedText">Ja, je kunt crazyhouse&lt;br&gt;en alle lichess-varianten bestuderen!</string>
+  <string name="variantsAreSupportedText">Ja, je kunt Gekkenhuis&lt;br&gt;en alle lichess-varianten bestuderen!</string>
   <string name="chapterConclusionText">Hoofdstukken worden voor altijd bewaard.&lt;br&gt;Veel plezier met het ordenen van uw schaakinhoud!</string>
   <string name="doubleDefeat">Dubbele nederlaag</string>
   <string name="blackDefeatWhiteCanNotWin">Zwarte nederlaag, maar Wit kan niet winnen</string>
