@@ -1,11 +1,10 @@
+import { perfName } from 'lib/game/perf';
 import perfIcons from 'lib/game/perfIcons';
 import { bind, confirm, tr, td, span, div, button, table, thead, tbody, th, icon } from 'lib/view';
 import { profileUrl } from 'lib/view/userLink';
 
 import type LobbyController from '@/ctrl';
 import type { Seek } from '@/interfaces';
-
-import { perfNames } from './util';
 
 function renderSeek(ctrl: LobbyController, seek: Seek) {
   const isJoinAction = seek.action === 'joinSeek';
@@ -14,7 +13,7 @@ function renderSeek(ctrl: LobbyController, seek: Seek) {
     {
       key: seek.id,
       role: 'button',
-      title: isJoinAction ? i18n.site.joinTheGame + ' - ' + perfNames[seek.perf.key] : i18n.site.cancel,
+      title: isJoinAction ? `${i18n.site.joinTheGame} - ${perfName(seek.perf.key)}` : i18n.site.cancel,
       'data-id': seek.id,
     },
     [

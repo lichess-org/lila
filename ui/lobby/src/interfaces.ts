@@ -1,4 +1,3 @@
-import type { LiconValue } from 'lib/licon';
 import type { ColorChoice } from 'lib/setup/color';
 import type { ClockConfig } from 'lib/setup/interfaces';
 import type { TimeMode } from 'lib/setup/timeControl';
@@ -8,14 +7,6 @@ export type Mode = 'list' | 'chart';
 export type Tab = 'pools' | 'real_time' | 'seeks' | 'now_playing';
 export type GameType = 'hook' | 'friend' | 'ai';
 export type GameMode = 'casual' | 'rated';
-
-export interface Variant {
-  id: number;
-  key: VariantKey;
-  name: string;
-  icon: LiconValue;
-  description: string;
-}
 
 export interface Hook {
   id: string;
@@ -50,7 +41,6 @@ export interface Seek {
 
 export interface Pool extends ClockConfig {
   id: PoolId;
-  perf: string;
 }
 
 export interface LobbyOpts {

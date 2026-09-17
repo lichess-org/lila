@@ -2,6 +2,7 @@ import { opposite } from '@lichess-org/chessground/util';
 import { h, type VNode } from 'snabbdom';
 
 import { myUsername, type Prop, prop } from 'lib';
+import { capitalize } from 'lib/game';
 import perfIcons from 'lib/game/perfIcons';
 import { licon } from 'lib/licon';
 import { storedProp, storedJsonProp, type StoredProp, storedStringProp } from 'lib/storage';
@@ -183,7 +184,7 @@ const playerDb = (ctrl: ExplorerConfigCtrl) => {
             attrs: dataIcon(licon.ChasingArrows),
             hook: bind('click', ctrl.toggleColor, ctrl.root.redraw),
           },
-          ` ${i18n.site[ctrl.data.color() === 'white' ? 'asWhite' : 'asBlack']}`,
+          ` ${i18n.site[`as${capitalize(ctrl.data.color())}`]}`,
         ),
       ]),
     ]),

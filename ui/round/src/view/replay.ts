@@ -1,7 +1,7 @@
 import { blurIfPrimaryClick, repeater } from 'lib';
 import { throttle } from 'lib/async';
 import { displayColumns } from 'lib/device';
-import { finished, aborted, userAnalysable, playable } from 'lib/game';
+import { finished, aborted, userAnalysable, playable, capitalize } from 'lib/game';
 import { game as gameRoute } from 'lib/game/router';
 import viewStatus from 'lib/game/view/status';
 import { licon, type LiconKey } from 'lib/licon';
@@ -195,7 +195,7 @@ function initMessage(ctrl: RoundController) {
     !d.player.spectator &&
     hl('div.message', { attrs: dataIcon(licon.InfoCircle) }, [
       hl('div', [
-        i18n.site[d.player.color === 'white' ? 'youPlayTheWhitePieces' : 'youPlayTheBlackPieces'],
+        i18n.site[`youPlayThe${capitalize(ctrl.data.player.color)}Pieces`],
         d.player.color === 'white' && [hl('br'), hl('strong', i18n.site.itsYourTurn)],
       ]),
     ])

@@ -41,12 +41,6 @@ const advices: Advice[] = [
   { kind: 'blunder', i18n: i18n.site.numberBlunders, symbol: '??' },
 ];
 
-const phaseLabels: Record<GamePhase, string> = {
-  opening: i18n.site.opening,
-  middlegame: i18n.site.middlegame,
-  endgame: i18n.site.endgame,
-};
-
 const phaseOrder: GamePhase[] = ['opening', 'middlegame', 'endgame'];
 
 function playerTable(ctrl: AnalyseCtrl, color: Color): VNode {
@@ -75,7 +69,7 @@ const renderPhases = (side: AnalysisSide): VNode[] => {
       .map(phase =>
         h(`div.advice-summary__phase.${accuracyClass(side.phases![phase]!)}`, [
           h('strong', `${side.phases![phase]}%`),
-          h('span', phaseLabels[phase]),
+          h('span', i18n.site[phase]),
         ]),
       ),
   ];

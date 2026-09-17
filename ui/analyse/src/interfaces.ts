@@ -115,7 +115,7 @@ export interface Game {
   importedBy?: string;
   division?: Division;
   opening?: Opening;
-  perf: string;
+  perf: Perf;
   rated?: boolean;
   threefold?: boolean;
 }
