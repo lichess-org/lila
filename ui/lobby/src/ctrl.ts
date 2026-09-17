@@ -1,7 +1,7 @@
 import { numberFormat } from 'lib/i18n';
 import * as poolRangeStorage from 'lib/poolRangeStorage';
 import { pubsub } from 'lib/pubsub';
-import { colors, type ColorChoice } from 'lib/setup/color';
+import { colors } from 'lib/setup/color';
 import { wsPingInterval } from 'lib/socket';
 import { storage, type LichessStorage } from 'lib/storage';
 
@@ -124,8 +124,9 @@ export default class LobbyController {
       }
 
       const color = urlParams.get('color');
-      if (color && colors.some(c => c.key === color)) {
-        forceOptions.color = color as ColorChoice;
+      const foundColor = color && colors.find(c => c === color);
+      if (foundColor) {
+        forceOptions.color = foundColor;
       }
 
       pubsub.after('polyfill.dialog').then(() => {

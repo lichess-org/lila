@@ -56,6 +56,10 @@ and wait for someone else to compile it before it comes online.
 
 [Save](https://github.com/lichess-org/lila/pull/18368#issuecomment-3385711626) https://emojipedia.org/google into bin/flair/emojipedia.html.
 
+```sh
+curl --location https://github.com/user-attachments/files/22797197/emojipedia.html > bin/flair/emojipedia.html 
+```
+
 Run the generation script:
 
 ```shell

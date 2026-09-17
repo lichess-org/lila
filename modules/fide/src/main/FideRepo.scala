@@ -35,7 +35,7 @@ final private class FideRepo(
       case FidePlayerOrder.blitz => sort.desc("blitz")
       case FidePlayerOrder.year => sort.desc("year")
       case FidePlayerOrder.follow => emptyBdoc // TODO
-    def fetch(id: FideId): Fu[Option[FidePlayer]] = playerColl.byId[FidePlayer](id)
+    private[fide] def fetch(id: FideId): Fu[Option[FidePlayer]] = playerColl.byId[FidePlayer](id)
     def fetch(ids: Seq[FideId]): Fu[List[FidePlayer]] =
       playerColl.find(inIds(ids)).cursor[FidePlayer](ReadPref.sec).listAll()
     def countAll = playerColl.count()

@@ -36,7 +36,7 @@ export interface Game {
   boosted?: boolean;
   rematch?: string;
   rated?: boolean;
-  perf: string;
+  perf: VariantKey | Speed;
   rules?: GameRule[];
 }
 
@@ -129,7 +129,7 @@ export interface PlayerUser {
   patronColor?: PatronColor;
   title?: string;
   flair?: Flair;
-  perfs: Record<string, Perf>;
+  perfs: Partial<Record<VariantKey | Speed, Perf>>;
 }
 
 export interface Perf {
