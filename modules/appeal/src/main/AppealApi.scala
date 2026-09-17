@@ -5,6 +5,7 @@ import lila.common.Bus
 import lila.core.userId.ModId
 import lila.db.dsl.{ *, given }
 import lila.appeal.AppealEventForm.{ ChoiceData, MessageData }
+import lila.core.misc.appeal.AppealReply
 
 final class AppealApi(
     coll: Coll,
@@ -53,11 +54,15 @@ final class AppealApi(
               ChoiceEvent(me, cn.id, cn.question, data.answerId, b.answer, nowInstant)
         case _ => none
 
+  def postMessageEvent(appeal: Appeal, data: MessageData)(using me: MyId): Fu[Appeal] =
+    postEvent(appeal, MessageEvent(me, data, nowInstant))
+
   private def postEvent(appeal: Appeal, event: AppealMsg): Fu[Appeal] =
     val (advancedAppeal, effects) = autoAdvance(appeal.postEvent(event))
     for savedAppeal <- update(advancedAppeal)
     yield
       effects.foreach(publishEffect(savedAppeal, _))
+      if savedAppeal.msgs.lastOption.exists(_.by != appeal.user) then Bus.pub(AppealReply(appeal.user))
       savedAppeal
 
   private def autoAdvance(appeal: Appeal): (Appeal, List[AppealEffect]) =
@@ -78,9 +83,6 @@ final class AppealApi(
     effect match
       case AppealEffect.Unmark => Bus.pub(lila.core.mod.UndoMark(appeal.user, appeal.topic))
       case _ => ()
-
-  def postMessageEvent(appeal: Appeal, data: MessageData)(using me: MyId): Fu[Appeal] =
-    update(appeal.postEvent(MessageEvent(me, data, nowInstant)))
 
   def withdraw(appeal: Appeal): Funit = update(appeal.withdraw).void
 

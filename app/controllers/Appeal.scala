@@ -168,6 +168,7 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
         (text, close, dismiss) =>
           for
             replied <- env.appeal.api.modReply(text, appeal)
+            // TODO: implement close and dismiss in new flow
             _ <- close.orZero.so(env.appeal.api.toggleClosed(replied, true, sleepMonths = 0))
             _ <- dismiss.orZero.so(env.report.api.inquiries.toggle(Right(appeal.user)).void)
             _ <- env.mailer.automaticEmail.onAppealReply(suspect.user)
