@@ -99,7 +99,6 @@ final class UserShow(helpers: Helpers, bits: UserBits):
       ),
       p(tro.whatNowSuggestions()),
       ul(
-        li(a(href := routes.Learn.index)(tro.learnChessRules())),
         li(a(href := routes.Puzzle.home)(tro.improveWithChessTacticsPuzzles())),
         li(a(href := s"${routes.Lobby.home}#ai")(tro.playTheArtificialIntelligence())),
         li(a(href := s"${routes.Lobby.home}#hook")(tro.playOpponentsFromAroundTheWorld())),
@@ -108,7 +107,6 @@ final class UserShow(helpers: Helpers, bits: UserBits):
         li(
           tro.learnFromXAndY(
             a(href := routes.Study.allDefault())(trans.site.toStudy()),
-            a(href := routes.Video.index)(trans.learn.videos())
           )
         ),
         li(a(href := routes.Pref.form("display"))(tro.configureLichess())),

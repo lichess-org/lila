@@ -263,13 +263,9 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
         Reasonable(clas, students, "progress"):
           val studentIds = students.map(_.user.id)
           Ok.async:
-            env.learn.api
-              .completionPercent(studentIds)
-              .zip(env.practice.api.progress.completionPercent(studentIds))
-              .zip(env.coordinate.api.bestScores(studentIds))
-              .map { case ((basic, practice), coords) =>
-                views.clas.teacherDashboard.learn(clas, students, basic, practice, coords)
-              }
+            env.practice.api.progress.completionPercent(studentIds).map { practice =>
+              views.clas.teacherDashboard.learn(clas, students, practice)
+            }
       }
   }
 

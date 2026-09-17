@@ -81,18 +81,18 @@ lazy val modules = Seq(
   game, gathering, study, user, puzzle, analyse,
   report, pref, chat, playban, lobby, mailer, oauth, search,
   // level 6
-  insight, evaluation, storm,
+  insight, evaluation,
   // level 7
   // everything else is free from deps; do the big ones first
   relay, tutor, security, tournament, plan, round,
   swiss, insight, fishnet, mod, challenge, web,
   team, forum, streamer, simul, activity, msg, ublog,
   notifyModule, clas, perfStat, opening, timeline,
-  setup, video, fide, title, push,
+    setup, fide, title, push,
   // and then the smaller ones
-  pool, lobby, relation, tv, coordinate, feed, history, recap,
-  shutup, appeal, irc, explorer, learn, event, coach,
-  practice, evalCache, irwin, bot, racer, cms, i18n, jsBot,
+  pool, lobby, relation, tv, feed, history,
+  shutup, appeal, irc, explorer, event, coach,
+  practice, evalCache, irwin, bot, cms, i18n, jsBot,
   socket, bookmark, studySearch, gameSearch, forumSearch, teamSearch, irc
 )
 
@@ -142,7 +142,7 @@ lazy val i18n = module("i18n",
     I18n.serialize(
       sourceDir = new File("translation/source"),
       destDir = new File("translation/dest"),
-      dbs = "activity app appeal arena broadcast challenge class coach contact coordinates dgt emails faq features insight keyboardMove lag learn nvui oauthScope onboarding patron perfStat preferences puzzle puzzleTheme recap search settings site streamer storm study swiss team timeago tfa tourname ublog variant video voiceCommands msg".split(' ').toList,
+      dbs = "activity app appeal broadcast challenge class coach contact dgt emails faq features insight keyboardMove nvui oauthScope onboarding patron perfStat preferences puzzle puzzleTheme search settings site streamer study swiss team timeago tfa tourname ublog variant voiceCommands msg".split(' ').toList,
       outputDir = (Compile / resourceManaged).value
     )
   }.taskValue
@@ -163,25 +163,12 @@ lazy val puzzle = module("puzzle",
   tests.bundle
 )
 
-lazy val storm = module("storm",
-  Seq(puzzle),
-  Seq()
-)
-
-lazy val racer = module("racer",
-  Seq(storm, room),
-  Seq()
-)
-
 lazy val jsBot = module("jsBot",
   Seq(memo, ui),
   Seq()
 )
 
-lazy val video = module("video",
-  Seq(memo, ui),
-  macwire.bundle
-)
+
 
 lazy val coach = module("coach",
   Seq(memo, rating),
@@ -191,11 +178,6 @@ lazy val coach = module("coach",
 lazy val streamer = module("streamer",
   Seq(ui, memo),
   Seq()
-)
-
-lazy val coordinate = module("coordinate",
-  Seq(db, ui),
-  macwire.bundle
 )
 
 lazy val feed = module("feed",
@@ -399,11 +381,6 @@ lazy val studySearch = module("studySearch",
   Seq()
 )
 
-lazy val learn = module("learn",
-  Seq(db),
-  Seq()
-)
-
 lazy val evalCache = module("evalCache",
   Seq(tree, memo),
   Seq()
@@ -496,11 +473,6 @@ lazy val explorer = module("explorer",
 
 lazy val notifyModule = module("notify",
   Seq(memo, ui),
-  Seq()
-)
-
-lazy val recap = module("recap",
-  Seq(user, game, puzzle),
   Seq()
 )
 

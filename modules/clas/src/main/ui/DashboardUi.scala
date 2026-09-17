@@ -339,9 +339,7 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
     def learn(
         c: Clas,
         students: List[Student.WithUser],
-        basicCompletion: Map[UserId, Int],
-        practiceCompletion: Map[UserId, Int],
-        coordScores: Map[UserId, chess.ByColor[Int]]
+      practiceCompletion: Map[UserId, Int]
     )(using Context) =
       TeacherPage(c, students, "progress")():
         frag(
@@ -352,27 +350,16 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
                 tr(
                   th(dataSortDefault)(dataSortAsc)(
                     trans.clas.nbStudents.pluralSame(students.size),
-                    thSortNumber(trans.site.chessBasics()),
-                    thSortNumber(trans.site.practice()),
-                    thSortNumber(trans.coordinates.coordinates())
+                    thSortNumber(trans.site.practice())
                   )
                 ),
                 tbody(
                   students.sortBy(_.user.username.value).map { case s @ Student.WithUser(_, user) =>
-                    val coord = coordScores.getOrElse(user.id, chess.ByColor(0, 0))
                     tr(
                       studentTd(c, s),
-                      td(dataSort := basicCompletion.getOrElse(user.id, 0))(
-                        basicCompletion.getOrElse(user.id, 0).toString,
-                        "%"
-                      ),
                       td(dataSort := practiceCompletion.getOrElse(user.id, 0))(
                         practiceCompletion.getOrElse(user.id, 0).toString,
                         "%"
-                      ),
-                      td(dataSort := coord.white, cls := "coords")(
-                        iconTag(cls := "color-icon is white")(coord.white),
-                        iconTag(cls := "color-icon is black")(coord.black)
                       )
                     )
                   }

@@ -75,19 +75,10 @@ final class PlanPages(helpers: Helpers)(fishnetPerDay: Int):
                   trans.features.chessInsights()
                 )
               ),
-              tr(check)(
-                a(href := routes.Learn.index)(trans.features.allChessBasicsLessons())
-              ),
               tr(unlimited)(
                 a(href := routes.Puzzle.home)(trans.features.tacticalPuzzlesFromUserGames())
               ),
-              tr(unlimited)(
-                a(href := routes.Puzzle.streak)("Puzzle Streak"),
-                ", ",
-                a(href := routes.Storm.home)("Puzzle Storm"),
-                ", ",
-                a(href := routes.Racer.home)("Puzzle Racer")
-              ),
+              tr(unlimited)(a(href := routes.Puzzle.streak)("Puzzle Streak")),
               tr(check)(
                 a(href := s"${routes.UserAnalysis.index}#explorer")(
                   trans.features.globalOpeningExplorerInNbGames(6_000_000_000L.localize)

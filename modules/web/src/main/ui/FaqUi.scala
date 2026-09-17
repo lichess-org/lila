@@ -168,7 +168,6 @@ final class FaqUi(helpers: Helpers, sitePages: SitePages)(
               trf.explainingEnPassant(
                 a(href := "https://en.wikipedia.org/wiki/En_passant")(trf.goodIntroduction()),
                 a(href := fideHandbookUrl)(trf.fideHandbook()),
-                a(href := s"${routes.Learn.index}#/15")(trf.lichessTraining())
               )
             ),
             p(

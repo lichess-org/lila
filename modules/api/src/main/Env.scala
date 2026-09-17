@@ -57,8 +57,7 @@ final class Env(
     tv: lila.tv.Tv,
     activityRead: lila.activity.ActivityReadApi,
     activityJson: lila.activity.JsonView,
-    clasApi: lila.clas.ClasApi,
-    recapEnv: lila.recap.Env
+    clasApi: lila.clas.ClasApi
 )(using scheduler: Scheduler)(using
     Mode,
     Executor,
@@ -118,13 +117,6 @@ final class Env(
     accountTermination.garbageCollect(gc.userId)
   Bus.sub[lila.core.playban.RageSitClose]: close =>
     accountTermination.lichessDisable(close.userId)
-
-  lila.common.Cli.handle():
-    case "push" :: "recap" :: user :: year :: Nil =>
-      for
-        (title, body) <- recapEnv.translateNotif(UserId(user), year)
-        _ <- pushEnv.pushApi.recap(UserId(user), year.toInt, title, body)
-      yield s"""Sent "$title""""
 
   lila.i18n.Registry.asyncLoadLanguages()
 

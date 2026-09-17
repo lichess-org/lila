@@ -43,20 +43,16 @@ final class TopNav(helpers: Helpers):
             a(href := puzzleUrl)(trans.site.puzzles()),
             a(href := langHref(routes.Puzzle.themes))(trans.puzzle.puzzleThemes()),
             a(href := routes.Puzzle.dashboard(Days(30), "home", none))(trans.puzzle.puzzleDashboard()),
-            a(href := langHref(routes.Puzzle.streak))("Puzzle Streak"),
-            a(href := langHref(routes.Storm.home))("Puzzle Storm"),
-            a(href := langHref(routes.Racer.home))("Puzzle Racer")
+            a(href := langHref(routes.Puzzle.streak))("Puzzle Streak")
           )
         )
       ,
       st.section(
-        linkTitle(routes.Learn.index.url, trans.site.learnMenu()),
+        linkTitle(routes.Study.allDefault().url, trans.site.learnMenu()),
         div(role := "group")(
           Option.when(ctx.noBot):
             frag(
-              a(href := langHref(routes.Learn.index))(trans.site.chessBasics()),
               a(href := routes.Practice.index)(trans.site.practice()),
-              a(href := langHref(routes.Coordinate.home))(trans.coordinates.coordinates())
             )
           ,
           a(href := langHref(routes.Study.allDefault()))(trans.site.studyMenu()),
@@ -73,7 +69,6 @@ final class TopNav(helpers: Helpers):
             a(href := langHref(routes.Tv.index))("Lichess TV"),
             a(href := routes.Tv.games)(trans.site.currentGames()),
             (ctx.kid.no && ctx.noBot).option(a(href := routes.Streamer.index())(trans.site.streamersMenu())),
-            ctx.noBot.option(a(href := langHref(routes.Video.index))(trans.site.videoLibrary()))
           )
         )
       ,

@@ -171,11 +171,6 @@ final class TutorPerfUi(helpers: Helpers, bits: TutorBits):
                     dataIcon := Icon.ArcheryTarget,
                     href := routes.Puzzle.show(phase.phase.name)
                   )("Train with ", phase.phase.name, " puzzles"),
-                  a(
-                    cls := "button button-no-upper text",
-                    dataIcon := Icon.AnalogTv,
-                    href := s"${routes.Video.index}?tags=${phase.phase.name}"
-                  )("Watch ", phase.phase.name, " videos")
                 ),
                 (phase.phase == Phase.Opening).option(
                   a(

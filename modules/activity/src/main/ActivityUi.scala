@@ -96,26 +96,6 @@ final class ActivityUi(helpers: Helpers)(
       scoreFrag(p.value)
     )
 
-  private def renderStorm(s: Storm)(using Context) =
-    entryTag(
-      iconTag(Icon.Storm),
-      div(
-        trans.storm.playedNbRunsOfPuzzleStorm
-          .plural(s.runs, s.runs.localize, a(href := routes.Storm.home)("Puzzle Storm"))
-      ),
-      scoreTag(winTag(trans.storm.highscoreX(strong(s.score))))
-    )
-
-  private def renderRacer(s: Racer)(using Context) =
-    entryTag(
-      iconTag(Icon.FlagChessboard),
-      div(
-        trans.storm.playedNbRunsOfPuzzleStorm
-          .plural(s.runs, s.runs.localize, a(href := routes.Racer.home)("Puzzle Racer"))
-      ),
-      scoreTag(winTag(trans.storm.highscoreX(strong(s.score))))
-    )
-
   private def renderStreak(s: Streak)(using Context) =
     entryTag(
       iconTag(Icon.ArrowThruApple),

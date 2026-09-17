@@ -13,10 +13,6 @@ val setup = lila.setup.ui.SetupUi(helpers)
 
 val gathering = lila.gathering.ui.GatheringUi(helpers)(env.web.settings.prizeTournamentMakers.get)
 
-val learn = lila.web.ui.LearnUi(helpers)
-
-val coordinate = lila.coordinate.ui.CoordinateUi(helpers)
-
 val atomUi = lila.ui.AtomUi(helpers.routeUrl)
 
 val irwin = lila.irwin.IrwinUi(helpers)(menu = views.mod.ui.menu)
@@ -75,13 +71,7 @@ object opening:
   val wiki = lila.opening.ui.WikiUi(helpers, bits)
   val ui = lila.opening.ui.OpeningUi(helpers, bits, wiki)
 
-val video = lila.video.ui.VideoUi(helpers)
-
 val gameSearch = lila.gameSearch.ui.GameSearchUi(helpers)(views.game.widgets(_))
-
-val storm = lila.storm.ui.StormUi(helpers)
-
-val racer = lila.racer.ui.RacerUi(helpers)
 
 val challenge = lila.challenge.ui.ChallengeUi(helpers)
 
@@ -92,4 +82,3 @@ val jsBot = lila.jsBot.ui.JsBotUi(helpers)
 def mobile(p: lila.cms.CmsPage.Render)(using Context) =
   lila.web.ui.mobile(helpers)(cms.render(p))
 
-val recap = lila.recap.ui.RecapUi(helpers)

@@ -107,7 +107,6 @@ final class Dev(env: Env) extends LilaController(env):
     "Limits" -> List(
       env.web.settings.apiTimeline,
       env.web.settings.apiExplorerGamesPerSecond,
-      env.recap.parallelismSetting,
       env.fishnet.openingBookDepth
     ),
     "Broadcast" -> List(
