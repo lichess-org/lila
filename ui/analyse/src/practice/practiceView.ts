@@ -2,7 +2,7 @@ import type { Outcome } from 'chessops/types';
 
 import type { Prop } from 'lib';
 import { api } from 'lib/api';
-import { fixCrazySan } from 'lib/game/chess';
+import { fixCrazySan, isFiftyMoveDraw } from 'lib/game/chess';
 import { hl, type VNode, bind, onInsert, type MaybeVNodes } from 'lib/view';
 
 import type AnalyseCtrl from '@/ctrl';
@@ -41,16 +41,15 @@ const renderOffTrack = (ctrl: PracticeCtrl): VNode =>
     ]),
   ]);
 
-function renderEnd(root: AnalyseCtrl, end: Outcome): VNode {
+function renderEnd(root: AnalyseCtrl, end: Outcome, fiftyMoves: boolean): VNode {
   const color = end.winner || root.turnColor();
-  const isFiftyMoves = root.practice?.currentNode().fen.split(' ')[4] === '100';
   return hl('div.player', [
     color ? hl('div.no-square', hl('piece.king.' + color)) : hl('div.icon.off', '!'),
     hl('div.instruction', [
       hl('strong', end.winner ? i18n.site.checkmate : i18n.site.draw),
       end.winner
         ? hl('em', hl('color', i18n.site[end.winner === 'white' ? 'whiteWinsGame' : 'blackWinsGame']))
-        : isFiftyMoves
+        : fiftyMoves
           ? i18n.site.drawByFiftyMoves
           : hl('em', i18n.site.theGameIsADraw),
     ]),
@@ -107,14 +106,15 @@ export default function (root: AnalyseCtrl): VNode | undefined {
   const ctrl = root.practice;
   if (!ctrl) return undefined;
   const comment: Comment | null = ctrl.comment();
-  const isFiftyMoves = ctrl.currentNode().fen.split(' ')[4] === '100';
+  const outcome = root.node.outcome();
+  const fiftyMoves = isFiftyMoveDraw(root.variantKey, ctrl.currentNode().fen, outcome);
   const running: boolean = ctrl.running();
-  const end = ctrl.currentNode().threefold || isFiftyMoves ? { winner: undefined } : root.node.outcome();
+  const end = outcome ?? (ctrl.currentNode().threefold || fiftyMoves ? { winner: undefined } : undefined);
   return hl('div.practice-box.training-box.sub-box.' + (comment ? comment.verdict : 'no-verdict'), [
     hl('div.title', i18n.site.practiceWithComputer),
     hl(
       'div.feedback',
-      end ? renderEnd(root, end) : running ? renderRunning(root, ctrl) : renderOffTrack(ctrl),
+      end ? renderEnd(root, end, fiftyMoves) : running ? renderRunning(root, ctrl) : renderOffTrack(ctrl),
     ),
     running
       ? hl(
