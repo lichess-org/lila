@@ -114,9 +114,10 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
   }
   const { eval: nEval = {} as Partial<ServerEval>, fen: nFen, ceval: nCeval, threat: nThreat } = ctrl.node;
   const outcome = ctrl.node.outcome(),
+    isMate = ctrl.node.check() && ctrl.node.dests().size === 0,
     isGameEnd = !!outcome || ctrl.node === ctrl.mainline[ctrl.mainline.length - 1],
-    gameWinner = isGameEnd ? ctrl.data.game.winner : undefined,
-    gameStatus = isGameEnd ? ctrl.data.game.status.name : undefined;
+    gameWinner = isMate ? rcolor : isGameEnd ? ctrl.data.game.winner : undefined,
+    gameStatus = isMate ? 'mate' : isGameEnd ? ctrl.data.game.status.name : undefined;
 
   let hovering = ctrl.explorer.hovering();
 

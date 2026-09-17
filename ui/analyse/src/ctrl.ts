@@ -380,16 +380,21 @@ export default class AnalyseCtrl implements CevalHandler {
         lastMove: uciToMove(node.uci),
         drawable: {
           autoShapes: (() => {
-            const outcome = node.outcome(),
+            const mate = node.check() && node.dests().size === 0,
+              outcome = node.outcome(),
               isGameEnd = !!outcome || node === treeOps.last(this.mainline),
-              winner = outcome?.winner || (isGameEnd ? this.data.game.winner : undefined),
+              winner = mate
+                ? opposite(color)
+                : outcome?.winner || (isGameEnd ? this.data.game.winner : undefined),
               status = outcome
                 ? outcome.winner
                   ? 'mate'
                   : 'stalemate'
-                : isGameEnd
-                  ? this.data.game.status.name
-                  : undefined;
+                : mate
+                  ? 'mate'
+                  : isGameEnd
+                    ? this.data.game.status.name
+                    : undefined;
             return endgameShapes(node.fen, winner, status);
           })(),
         },
