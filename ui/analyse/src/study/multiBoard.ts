@@ -245,6 +245,7 @@ const previewToCgConfig = (cp: ChapterPreview): CgConfig => ({
   lastMove: uciToMove(cp.lastMove),
   turnColor: fenColor(cp.fen),
   check: !!cp.check,
+  orientation: cp.orientation,
 });
 
 const makePreviews = (
@@ -307,9 +308,12 @@ export const previewContent = (
             },
             postpatch(old, vnode) {
               if (!showResults) return;
-              if (old.data!.fen !== preview.fen) old.data!.cg?.set(makeCgConfig());
+              const oldCg: CgApi = old.data!.cg;
+              // `cg.getFen()` is boardFen not fullFen
+              if (old.data!.fen !== preview.fen || oldCg.state.orientation !== preview.orientation)
+                oldCg.set(makeCgConfig());
               vnode.data!.fen = preview.fen;
-              vnode.data!.cg = old.data!.cg;
+              vnode.data!.cg = oldCg;
             },
           },
         }),
