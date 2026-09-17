@@ -46,7 +46,12 @@ export function endgameShapes(
   const shapes: DrawShape[] = [];
   const add = (color: Color, glyph: EndgameGlyph) => {
     const king = findKingSquare(fen, color);
-    if (king) shapes.push({ orig: king, customSvg: { html: endgameGlyphs[glyph](0) } });
+    if (king)
+      shapes.push({
+        orig: king,
+        brush: '',
+        customSvg: { html: endgameGlyphs[glyph](0), center: 'orig' },
+      });
   };
 
   if (winner) {
