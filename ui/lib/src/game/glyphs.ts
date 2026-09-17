@@ -66,19 +66,22 @@ export const endgameGlyphs: Record<
 > = {
   win: composeGlyph(
     '#22ac38',
-    '<path fill="#fff" d="M64 10h5v8h18v-8h5v12q0 8-12 10v5h7v5H69v-5h7v-5q-12-2-12-10zm5 23h18v4H69z"/>',
+    '<path fill="#fff" d="M22 18h56v16c0 15-9 27-22 31v8h17v9H27v-9h17v-8C31 61 22 49 22 34zm9 9v7c0 10 6 17 19 21 13-4 19-11 19-21v-7z"/>',
   ),
   mate: composeGlyph(
     '#df5353',
-    '<path fill="#fff" d="m65 14 4-4 9 9 9-9 4 4-9 9 9 9-4 4-9-9-9 9-4-4 9-9z"/>',
+    '<path fill="#fff" d="m25 20 10-10 15 15 15-15 10 10-15 15 15 15-10 10-15-15-15 15-10-10 15-15z"/>',
   ),
-  resign: composeGlyph('#df5353', '<path fill="#fff" d="M65 9h5v25h-5zM70 11h18l-7 7 7 7H70z"/>'),
+  resign: composeGlyph('#df5353', '<path fill="#fff" d="M24 12h9v76h-9zm9 4h45l-17 17 17 17H33z"/>'),
   timeout: composeGlyph(
     '#df5353',
-    '<path fill="#fff" d="M68 10h8v4h-8zM78 16l4 4-10 10-4-4zM66 17a11 11 0 1 0 16 16l-4-4a5 5 0 1 1-8-8z"/>',
+    '<path fill="#fff" d="M42 10h16v7H42zm-7 13 7-7 6 6-7 7zM50 27a23 23 0 1 0 16 7l-7 7a13 13 0 1 1-8-4zm5 5h8v18l-13 9-5-7 10-7z"/>',
   ),
-  unknown: composeGlyph('#df5353', '<path fill="#fff" d="M68 10h7v7h7v7h-7v7h-7v-7h-7v-7h7z"/>'),
-  draw: composeGlyph('#c8a829', '<path fill="#fff" d="M62 15h27v6H62zM62 27h27v6H62z"/>'),
+  unknown: composeGlyph(
+    '#df5353',
+    '<path fill="#fff" d="M50 10 88 82H12zm0 20-21 42h42zM44 43h12v20H44zm0 26h12v12H44z"/>',
+  ),
+  draw: composeGlyph('#c8a829', '<path fill="#fff" d="M18 27h64v12H18zm0 34h64v12H18z"/>'),
 };
 
 const whiteIsWinning = composeGlyph(
