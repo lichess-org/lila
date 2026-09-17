@@ -651,7 +651,6 @@
   <string name="background">Cefndir</string>
   <string name="light">Golau</string>
   <string name="dark">Tywyll</string>
-  <string name="transparent">Tryloyw</string>
   <string name="deviceTheme">Thema y dyfais</string>
   <string name="backgroundImageUrl">URL y llun cefndir:</string>
   <string name="board">Bwrdd</string>

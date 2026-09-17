@@ -318,7 +318,7 @@ final class Team(env: Env) extends LilaController(env):
   }
 
   def subscribe(teamId: TeamId) =
-    AuthOrScopedBody(_.Team.Write) { _ ?=> me ?=>
+    AuthOrScopedBody(_.Team.Write, _.Web.Mobile) { _ ?=> me ?=>
       bindForm(env.team.forms.subscribe)(_ => funit, v => api.subscribe(teamId, me, ~v))
         .inject(jsonOkResult)
     }
@@ -458,7 +458,7 @@ final class Team(env: Env) extends LilaController(env):
 
   def updateNew(id: TeamId) = Auth { ctx ?=> _ ?=>
     WithOwnedTeamEnabled(id, _.PmAll): team =>
-      renderUpdateForm(team, forms.pmAll)
+      renderUpdateForm(team, forms.update)
   }
 
   private def renderUpdateForm(team: TeamModel, form: Form[?])(using Context) = for
@@ -473,9 +473,9 @@ final class Team(env: Env) extends LilaController(env):
   def updateSend(id: TeamId) = AuthOrScopedBody(_.Team.Lead) { ctx ?=> me ?=>
     WithOwnedTeamEnabled(id, _.PmAll): team =>
       import lila.memo.RateLimit.LimitResult
-      bindForm(forms.pmAll)(
+      bindForm(forms.update)(
         Left(_),
-        text => env.team.update.send(team, text).left.map(forms.pmAll.withError("duplicate", _))
+        text => env.team.update.send(team, text).left.map(forms.update.withError("duplicate", _))
       )
         .fold(
           err => negotiate(renderUpdateForm(team, err), BadRequest(errorsAsJson(err))),

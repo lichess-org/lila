@@ -469,12 +469,11 @@ final class Study(
       .flatMap:
         _.fold(studyNotFound) { case sc @ WithChapter(study, chapter) =>
           CanView(study) {
-            def makeChapterPgn = pgnDump.ofChapter(study, pgnDump.requestPgnFlags())(chapter)
             for
-              pgn <-
-                if study.isRelay
-                then env.relay.pgnStream.ofChapter(sc).getOrElse(makeChapterPgn)
-                else makeChapterPgn
+              flags = pgnDump.requestPgnFlags()
+              pgn <- study.isRelay
+                .so(env.relay.pgnStream.ofChapter(sc, flags))
+                .getOrElse(pgnDump.ofChapter(study, flags)(chapter))
               analysisJson <- getBool("analysisHeader").so:
                 chapterAnalysis(sc).map2: analysis =>
                   val division = env.study.serverEvalMerger.divisionOf(chapter)

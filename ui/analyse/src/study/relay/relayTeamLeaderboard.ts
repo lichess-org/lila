@@ -147,7 +147,7 @@ export default class RelayTeamLeaderboard {
                 hl(
                   'td.game-link',
                   hl(
-                    'a.game-link text',
+                    'a.game-link',
                     {
                       attrs: { ...dataIcon(licon.StudyBoard), href: `/broadcast/-/-/${match.roundId}#teams` },
                     },

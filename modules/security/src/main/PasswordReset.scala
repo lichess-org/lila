@@ -35,7 +35,7 @@ ${trans.passwordReset_clickOrIgnore.txt()}
 
 $url
 
-${trans.common_orPaste.txt()}"""),
+${trans.common_linkNotWorking.txt()}"""),
           htmlBody = emailMessage(
             pDesc(trans.passwordReset_intro()),
             p(trans.passwordReset_clickOrIgnore()),

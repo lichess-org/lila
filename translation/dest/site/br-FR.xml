@@ -465,7 +465,6 @@
   <string name="apply">Enrollañ</string>
   <string name="save">Saveteiñ</string>
   <string name="leaderboard">Taolenn ar re varrekañ</string>
-  <string name="screenshotCurrentPosition">Kaout al lec\'hiadur a vremañ</string>
   <string name="gameAsGIF">Krogad e stumm GIF</string>
   <string name="pasteTheFenStringHere">Pegañ an destenn FEN amañ</string>
   <string name="pasteThePgnStringHere">Pegañ an destenn PGN amañ</string>
@@ -823,7 +822,6 @@
   <string name="background">Drekleur</string>
   <string name="light">Sklaer</string>
   <string name="dark">Teñval</string>
-  <string name="transparent">Treuzwelus</string>
   <string name="backgroundImageUrl">URL skeudenn an drekleur :</string>
   <string name="pieceSet">Ar pezhioù</string>
   <string name="embedInYourWebsite">Enframmañ en ho lec\'hienn</string>

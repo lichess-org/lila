@@ -354,7 +354,6 @@
   <string name="apply">Тоглолтыг шүү</string>
   <string name="save">Хадгалах</string>
   <string name="leaderboard">Тэргүүлэгчид</string>
-  <string name="screenshotCurrentPosition">Одоогийн байрлалын зургийг дарах</string>
   <string name="gameAsGIF">Тоглолтыг GIF-ээр татаж авах</string>
   <string name="pasteTheFenStringHere">Өргийн байрлалын тэмдэглэлээ (FEN) энд хуулж оруулна уу</string>
   <string name="pasteThePgnStringHere">Өргийн тоглолтын тэмдэглэлээ (PGN) энд хуулж оруулна уу</string>
@@ -674,7 +673,6 @@
   <string name="background">Дэвсгэр</string>
   <string name="light">Гэгээтэй</string>
   <string name="dark">Хар</string>
-  <string name="transparent">Уусмал</string>
   <string name="backgroundImageUrl">Ар фонын зурагны холбоос:</string>
   <string name="pieceSet">Дүрсний загвар</string>
   <string name="embedInYourWebsite">Вэб сайтадаа оруулах</string>

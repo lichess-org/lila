@@ -135,7 +135,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
     coll
       .find(forTeamSelect(teamId) ++ statusSel ++ creatorSel ++ nameSel)
       .sort(sort.desc("startsAt"))
-      .cursor[Tournament]()
+      .cursor[Tournament](ReadPref.sec)
 
   private[tournament] def upcomingByTeam(teamId: TeamId, nb: Int) =
     (nb > 0).so:
@@ -146,7 +146,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
           )
         )
         .sort(sort.asc("startsAt"))
-        .cursor[Tournament]()
+        .cursor[Tournament](ReadPref.sec)
         .list(nb)
 
   private[tournament] def finishedByTeam(teamId: TeamId, nb: Int) =
@@ -154,7 +154,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
       coll
         .find(forTeamSelect(teamId) ++ finishedSelect)
         .sort(sort.desc("startsAt"))
-        .cursor[Tournament]()
+        .cursor[Tournament](ReadPref.sec)
         .list(nb)
 
   private[tournament] def setForTeam(tourId: TourId, teamId: TeamId) =

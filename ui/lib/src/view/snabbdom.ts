@@ -16,7 +16,7 @@ import type { LiconValue } from '@/licon';
 export type { Attrs, Hooks, Classes, VNode, VNodeData, VNodeChildElement, VNodeChildren };
 export type MaybeVNode = VNode | string | null | undefined;
 export type MaybeVNodes = MaybeVNode[];
-export { thunk };
+export { thunk, snabH };
 
 export function onInsert<A extends HTMLElement>(f: (element: A) => void): Hooks {
   return {

@@ -503,7 +503,6 @@
   <string name="apply">Použít</string>
   <string name="save">Uložit</string>
   <string name="leaderboard">Žebříček</string>
-  <string name="screenshotCurrentPosition">Screenshot pozice</string>
   <string name="gameAsGIF">Uložit jako GIF</string>
   <string name="playerNames">Jména hráčů</string>
   <string name="moveAnnotations">Anotace tahů</string>
@@ -918,7 +917,6 @@
   <string name="theme">Motiv</string>
   <string name="light">Světlé</string>
   <string name="dark">Tmavé</string>
-  <string name="transparent">Průhledné</string>
   <string name="picture">Obrázek</string>
   <string name="deviceTheme">Motiv podle zařízení</string>
   <string name="roundness">Míra zaoblení</string>

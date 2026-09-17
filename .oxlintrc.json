@@ -6,6 +6,9 @@
     "builtin": true
   },
   "ignorePatterns": ["**/dist/", "**/public"],
+  "options": {
+    "reportUnusedDisableDirectives": "error"
+  },
   "rules": {
     "consistent-return": "error",
     "default-param-last": "error",
@@ -77,7 +80,6 @@
     "typescript/no-unnecessary-type-constraint": "error",
     "typescript/prefer-find": "error",
     "typescript/prefer-includes": "error",
-    "typescript/prefer-optional-chain": "error",
     "typescript/prefer-readonly": "error",
     "typescript/prefer-reduce-type-parameter": "error",
     "typescript/prefer-string-starts-ends-with": "error",

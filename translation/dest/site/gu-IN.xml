@@ -422,7 +422,6 @@
   <string name="apply">સબમિટ કરો</string>
   <string name="save">સાચવો</string>
   <string name="leaderboard">લીડરબોર્ડ</string>
-  <string name="screenshotCurrentPosition">સ્ક્રીનશોટ વર્તમાન સ્થિતિ</string>
   <string name="gameAsGIF">GIF તરીકે રમત</string>
   <string name="pasteTheFenStringHere">અહીંયા FEN લખાણ Paste કરો</string>
   <string name="pasteThePgnStringHere">અહીંયા PGN લખાણ Paste કરો</string>
@@ -799,7 +798,6 @@
   <string name="background">પૃષ્ઠભૂમિ</string>
   <string name="light">સફેદ</string>
   <string name="dark">ઘેરું</string>
-  <string name="transparent">પારદર્શક</string>
   <string name="deviceTheme">ઉપકરણ થીમ</string>
   <string name="backgroundImageUrl">પૃષ્ઠભૂમિ છબી URL:</string>
   <string name="board">બોર્ડ</string>

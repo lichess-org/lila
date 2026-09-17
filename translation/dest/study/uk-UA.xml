@@ -196,6 +196,7 @@
   <string name="customPositionTitle">Довільна позиція</string>
   <string name="customPositionText">Розставте фігури на дошці, як бажаєте.&lt;br&gt;Підходить для дослідження ендшпілів.</string>
   <string name="loadExistingLichessGameTitle">Завантажити партію з бази Lichess</string>
+  <string name="loadGameFromTheWebTitle" comment="Replaces old string loadExistingLichessGameTitle">Завантажити гру з інтернету</string>
   <string name="loadExistingLichessGameText">Вставте URL партії Lichess&lt;br&gt;(наприклад, lichess.org/7fHIU0XI)&lt;br&gt;для завантаження гри в розділ.</string>
   <string name="fromFenStringTitle">З рядка FEN</string>
   <string name="fromFenStringText">Вставте позицію у форматі FEN&lt;br&gt;&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;&lt;br&gt;для початку розділу з цієї позиції.</string>

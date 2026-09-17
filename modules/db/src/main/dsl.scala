@@ -191,8 +191,6 @@ trait dsl:
     def desc(field: String) = bdoc(field -> -1)
 
     val naturalAsc = asc("$natural")
-    val naturalDesc = desc("$natural")
-    val naturalOrder = naturalDesc
 
     val createdAsc = asc("createdAt")
     val createdDesc = desc("createdAt")

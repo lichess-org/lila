@@ -85,7 +85,7 @@ export function makeShapesFromUci(
   if (!uci || uci === 'Current Position') return [];
   const move = parseUci(uci)!;
   const to = makeSquare(move.to);
-  if (isDrop(move)) return [{ orig: to, brush }, pieceDrop(to, move.role, color)];
+  if (isDrop(move)) return [{ orig: to, brush, modifiers }, pieceDrop(to, move.role, color)];
 
   const shapes: DrawShape[] = [{ orig: makeSquare(move.from), dest: to, brush, modifiers }];
   if (move.promotion) shapes.push(pieceDrop(to, move.promotion, color));
@@ -143,8 +143,8 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
           if (pv.moves[0] === nextBest) return;
           const shift = winningChances.povDiff(color, nCeval.pvs[0], pv);
           if (shift >= 0 && shift < 0.2) {
-            shapes = shapes.concat(
-              makeShapesFromUci(color, pv.moves[0], 'paleGrey', {
+            shapes.push(
+              ...makeShapesFromUci(color, pv.moves[0], 'paleGrey', {
                 lineWidth: Math.round(12 - shift * 50), // 12 to 2
               }),
             );
@@ -209,24 +209,22 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
 function hiliteVariations(ctrl: AnalyseCtrl, autoShapes: DrawShape[]) {
   const visible = ctrl.visibleChildren();
   if (visible.length < 2) return;
-  ctrl.chessground.state.drawable.brushes['variation'] = {
-    key: 'variation',
-    color: 'white',
-    opacity: 0.5,
-    lineWidth: 12,
-  };
+
   const chap = ctrl.study?.data.chapter;
   const isGamebookEditor = chap?.gamebook && !ctrl.study?.gamebookPlay;
   for (const [i, node] of visible.entries()) {
     const existing = autoShapes.find(s => s.orig + s.dest === node.uci);
     if (existing) existing.modifiers = { hilite: i === ctrl.fork.selectedIndex ? 'white' : undefined };
-    else
-      autoShapes.push({
-        orig: node.uci!.slice(0, 2) as Key,
-        dest: node.uci?.slice(2, 4) as Key,
-        brush: !isGamebookEditor ? 'variation' : i === 0 ? 'paleGreen' : 'paleRed',
-        modifiers: { hilite: i === ctrl.fork.selectedIndex ? '#3291ff' : '#aaa' },
-        below: true,
-      });
+    else {
+      const move = parseUci(node.uci ?? '');
+      const hilite = i === ctrl.fork.selectedIndex ? '#3291ff' : move && isDrop(move) ? undefined : '#aaa';
+      const shapes = makeShapesFromUci(
+        ctrl.turnColor(),
+        node.uci,
+        !isGamebookEditor ? 'variation' : i === 0 ? 'paleGreen' : 'paleRed',
+        { hilite },
+      ).map(s => ({ ...s, below: true }));
+      autoShapes.push(...shapes);
+    }
   }
 }

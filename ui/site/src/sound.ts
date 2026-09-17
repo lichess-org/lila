@@ -19,6 +19,7 @@ export default new (class implements SoundI {
   volumeStorage = storage.make('sound-volume');
   music?: SoundMove;
   primerEvents = ['touchend', 'pointerup', 'pointerdown', 'mousedown', 'keydown'];
+  voiceRateRange = { min: 0.3, max: 1.7 };
 
   constructor() {
     this.primerEvents.forEach(e => window.addEventListener(e, this.primer, { capture: true }));
@@ -192,6 +193,8 @@ export default new (class implements SoundI {
         msg.lang = translated ? document.documentElement.lang : 'en-GB';
       }
       msg.volume = this.getVolume();
+      const rate = Number(localStorage.getItem('speech.rate'));
+      if (rate >= this.voiceRateRange.min && rate <= this.voiceRateRange.max) msg.rate = rate;
       if (!isIos()) {
         // speech events are unreliable on iOS, but iphones do their own cancellation
         msg.onstart = () => this.listeners.forEach(l => l('start', text()));

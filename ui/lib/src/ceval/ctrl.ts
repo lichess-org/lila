@@ -8,9 +8,10 @@ import { setupPosition } from 'chessops/variant';
 
 import { clamp } from '@/algo';
 import { throttleWithFlush } from '@/async';
+import { isTouchDevice } from '@/device';
 import { pubsub } from '@/pubsub';
 import { storedIntProp, storedStringProp, storage } from '@/storage';
-import type { LocalEval, TreePath } from '@/tree/types';
+import type { ClientEval, LocalEval, TreePath } from '@/tree/types';
 
 import { prop, type Prop, type Toggle, toggle } from '../index';
 import { Engines } from './engines/engines';
@@ -82,9 +83,9 @@ export class CevalCtrl {
       if (this.curEval?.bestmove) return;
       if (!this.lastStarted) return;
       if (!this.analysable) return;
-
+      if (!isTouchDevice()) return;
       if (document.hidden) this.worker?.stop();
-      else if (this.curEval) this.doStart(this.lastStarted);
+      else this.doStart(this.lastStarted);
     });
   }
 
@@ -202,7 +203,9 @@ export class CevalCtrl {
   }
 
   get canGoDeeper(): boolean {
-    return this.state !== CevalState.Computing && (this.curEval?.depth ?? 0) < 99;
+    // recently raised from 99. keep an eye out for screenshots of wasm exceptions in github issues and
+    // feedback forum.
+    return this.state !== CevalState.Computing && (this.opts.localEval?.()?.depth ?? 0) < 245;
   }
 
   get isComputing(): boolean {
@@ -239,14 +242,38 @@ export class CevalCtrl {
     this.unload();
   }
 
+  isFinished(search: Search, step: Step): boolean {
+    return (
+      !this.isDeeper() &&
+      'movetime' in search.by &&
+      !step.ceval?.cloud &&
+      (step.threat?.millis ?? step.ceval?.millis ?? 0) >= search.by.movetime &&
+      step.ceval?.pvs.length === search.multiPv &&
+      step.ceval?.engineId === this.engines.active()?.id
+    );
+  }
+
+  // Node counts, like depth, dont compare well across engines, but cloud evals have no engineId field.
+  // So cross-engine comparisons are only allowed for cloud evals (a tradeoff that defers to their utility).
+  // This function always prefers the latest unless:
+  // - latest has the wrong multipv and stored eval has the right one
+  // - stored eval has higher node count AND either stored and latest lack engineId or their engineIds match
+
+  preferLatestEval(latest: ClientEval, stored: ClientEval | null | undefined): boolean {
+    if (!stored) return true;
+    const multipv = this.search.multiPv;
+    if (stored.pvs.length === multipv && latest.pvs.length !== multipv) return false;
+    if (latest.pvs.length === multipv && stored.pvs.length !== multipv) return true;
+    if ('engineId' in stored && 'engineId' in latest && stored.engineId !== latest.engineId) return true;
+    return latest.nodes >= stored.nodes;
+  }
+
   private readonly doStart = (s: Started) => {
     this.lastStarted = s;
     const step = s.steps[s.steps.length - 1];
     const { search, threads, hashSize, engine } = this.info(this.opts.custom)!;
-    const lastEvalMillis = (s.threatMode ? step.threat : step.ceval)?.millis ?? 0;
-    if (!this.isDeeper() && 'movetime' in search.by && lastEvalMillis >= search.by.movetime) {
-      return;
-    }
+    if (this.isFinished(search, step)) return;
+
     const work: Work = {
       variant: this.rules,
       threads,
@@ -308,6 +335,7 @@ export class CevalCtrl {
     };
     const emitter = throttleWithFlush(125, (ev: LocalEval, meta: EvalMeta) => {
       this.curEval = ev;
+      ev.engineId = this.engines.active()?.id;
       if (ev.bestmove && ev.bestmove !== '(none)' && working.movetime !== false) {
         ev.millis = Math.max(ev.millis, working.movetime); // ensure bestmove eval matches movetime target
       }

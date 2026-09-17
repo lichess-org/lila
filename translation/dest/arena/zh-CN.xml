@@ -91,4 +91,5 @@
   <string name="onlyTitledHelp">需要官方头衔才能加入锦标赛</string>
   <string name="tournamentPairingsAreNowClosed">锦标赛配对现已关闭。</string>
   <string name="berserkRate">狂暴率</string>
+  <string name="leaguesAndStreamerBattles">联赛和主播对战</string>
 </resources>

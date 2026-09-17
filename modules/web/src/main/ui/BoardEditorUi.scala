@@ -26,6 +26,7 @@ final class BoardEditorUi(helpers: Helpers):
       )
       .i18n(_.variant)
       .css("editor")
+      .csp(_.withWebAssembly)
       .flag(_.zoom)
       .graph(
         title = "Chess board editor",

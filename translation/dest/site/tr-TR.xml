@@ -442,7 +442,6 @@ Puanlı oyunlar oynamak istikrarınızı artıracaktır.</string>
   <string name="apply">Uygula</string>
   <string name="save">Kaydet</string>
   <string name="leaderboard">Lider Tablosu</string>
-  <string name="screenshotCurrentPosition">Geçerli pozisyonun ekran görüntüsünü al</string>
   <string name="positionAsImage" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position. Replaces old string screenshotCurrentPosition">Görsel olarak pozisyon</string>
   <string name="gameAsGIF">Oyunun GIF hali</string>
   <string name="playerNames">Oyuncu isimleri</string>
@@ -837,7 +836,6 @@ Puanlı oyunlar oynamak istikrarınızı artıracaktır.</string>
   <string name="theme">Tema</string>
   <string name="light">Açık</string>
   <string name="dark">Koyu</string>
-  <string name="transparent">Şeffaf</string>
   <string name="picture">Resim</string>
   <string name="deviceTheme">Cihaz teması</string>
   <string name="roundness">Yuvarlaklık</string>

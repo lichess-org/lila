@@ -331,7 +331,7 @@ final class FaqUi(helpers: Helpers, sitePages: SitePages)(
             trf.howToHideRatingWhilePlaying.txt(),
             p(
               trf.enableZenMode(
-                a(href := routes.Pref.form("game-display"))(trf.displayPreferences()),
+                a(href := routes.Pref.form("display"))(trf.displayPreferences()),
                 em("z")
               )
             )
@@ -360,11 +360,11 @@ final class FaqUi(helpers: Helpers, sitePages: SitePages)(
           question(
             "autoplay",
             trf.enableAutoplayForSoundsQ.txt(),
-            p(trf.enableAutoplayForSoundsA()),
+            p(trf.mostBrowsersPreventSoundAutoplay()),
             h3("Mozilla Firefox (", trf.desktop(), ")"),
             p(trf.enableAutoplayForSoundsFirefox()),
             h3("Google Chrome (", trf.desktop(), ")"),
-            p(trf.enableAutoplayForSoundsChrome()),
+            p(trf.enableAutoplayForSoundsChromeSiteInformation()),
             h3("Safari (", trf.desktop(), ")"),
             p(trf.enableAutoplayForSoundsSafari()),
             h3("Microsoft Edge (", trf.desktop(), ")"),

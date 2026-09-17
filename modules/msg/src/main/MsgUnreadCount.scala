@@ -26,14 +26,14 @@ final class MsgUnreadCount(colls: MsgColls, cacheApi: lila.memo.CacheApi)(using 
     colls.thread.secondary.exists:
       bid(MsgThread.id(userId, UserId.lichess)) ++ bdoc("lastMsg.read" -> false, "mustRead" -> true)
 
-  private val cache = cacheApi[UserId, Int](256, "message.unreadCount"):
-    _.expireAfterWrite(10.seconds).buildAsyncFuture[UserId, Int]: userId =>
+  private val cache = cacheApi[UserId, Int](512, "message.unreadCount"):
+    _.expireAfterWrite(15.seconds).buildAsyncFuture[UserId, Int]: userId =>
       colls.thread
         .aggregateOne(_.sec): framework =>
           import framework.*
           Match(bdoc("users" -> userId, "del".neq(userId))) -> List(
             Sort(Descending("lastMsg.date")),
-            Limit(20),
+            Limit(9),
             Match(bdoc("lastMsg.read" -> false, "lastMsg.user".neq(userId))),
             Count("nb")
           )

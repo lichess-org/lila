@@ -77,17 +77,18 @@ final private[api] class RoundApi(
       users: GameUsers,
       tour: Option[TourView],
       tv: Option[lila.round.OnTv],
+      details: Boolean,
       initialFenO: Option[Option[Fen.Full]] = None // Preload[Option[Fen.Full]]?
   )(using ctx: Context): Fu[JsObject] = {
     for
       initialFen <- initialFenO.fold(gameRepo.initialFen(pov.game))(fuccess)
       given Translate = ctx.translate
-      opening = gameOpening.of(pov.game, full = ctx.isAuth)
+      opening = details.so(gameOpening.of(pov.game, full = ctx.isAuth))
       (json, simul, swiss, note, bookmarked) <-
         (
           jsonView.watcherJson(pov, users, opening, ctx.pref.some, ctx.me, tv, initialFen, ctxFlags),
           pov.game.simulId.so(simulApi.find),
-          swissApi.gameView(pov),
+          details.so(swissApi.gameView(pov)),
           ctx.me.ifTrue(ctx.isMobileApi).so(noteApi.get(pov.gameId, _)),
           bookmarkApi.exists(pov.game, ctx.me)
         ).tupled

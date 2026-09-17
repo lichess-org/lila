@@ -203,6 +203,7 @@ enum Permission(val key: String, val alsoGrants: List[Permission], val name: Str
           CloseAccount,
           GdprErase,
           SetEmail,
+          FreePatron,
           DisableTwoFactor
         ),
         "Email answerer"

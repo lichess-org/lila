@@ -85,4 +85,5 @@ En prosentrangering på 3 % betyr for eksempel at du vanligvis ender blant de be
   <string name="onlyTitledHelp">Krev en offisiell sjakktittel for å kunne bli med i turneringen</string>
   <string name="tournamentPairingsAreNowClosed">Turneringsparingene er nå lukket.</string>
   <string name="berserkRate">Berserkrate</string>
+  <string name="leaguesAndStreamerBattles">Ligaer og strømmerkamper</string>
 </resources>

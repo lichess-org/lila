@@ -398,7 +398,6 @@
   <string name="apply">लागू करें</string>
   <string name="save">सहेजें</string>
   <string name="leaderboard">उच्च खिलाडी, अंक तालिका (लीडरबोर्ड)</string>
-  <string name="screenshotCurrentPosition">वर्तमान स्थिति का स्क्रीनशॉट</string>
   <string name="gameAsGIF">GIF के रूप में सेव करें</string>
   <string name="pasteTheFenStringHere">FEN को यहा रखें (paste)</string>
   <string name="pasteThePgnStringHere">PGN को यहा रखें (paste)</string>
@@ -736,7 +735,6 @@
   <string name="background">पृष्ठभूमि</string>
   <string name="light">हल्का</string>
   <string name="dark">काला</string>
-  <string name="transparent">पारदर्शी</string>
   <string name="backgroundImageUrl">पृष्ठभूमि छवि URL:</string>
   <string name="pieceSet">मोहरे</string>
   <string name="embedInYourWebsite">अपनी वेबसाइट में एम्बेड करें</string>

@@ -12,6 +12,20 @@ final private class Cli(
     gc: GarbageCollector
 )(using Executor):
 
+  lila.common.Cli.handle(_.SetEmail):
+    case "disposable" :: "reload" :: emailOrDomain :: Nil =>
+      WithDomain(emailOrDomain): dom =>
+        for
+          _ <- verifyMail.invalidate(dom)
+          r <- emailValidator.validateDomain(dom)
+        yield s"reloaded: $r ${r.error | ""}"
+    case "disposable" :: "test" :: emailOrDomain :: Nil =>
+      WithDomain(emailOrDomain): dom =>
+        emailValidator
+          .validateDomain(dom)
+          .map: r =>
+            s"$r ${r.error | ""}"
+
   lila.common.Cli.handle():
     case "security" :: "roles" :: uid :: Nil =>
       userRepo
@@ -21,20 +35,6 @@ final private class Cli(
 
     case "security" :: "grant" :: uid :: roles =>
       perform(UserStr(uid), user => userRepo.setRoles(user.id, RoleDbKey.from(roles.map(_.toUpperCase))).void)
-
-    case "disposable" :: "reload" :: emailOrDomain :: Nil =>
-      WithDomain(emailOrDomain): dom =>
-        for
-          _ <- verifyMail.invalidate(dom)
-          r <- emailValidator.validateDomain(dom)
-        yield s"reloaded: $r ${r.error | ""}"
-
-    case "disposable" :: "test" :: emailOrDomain :: Nil =>
-      WithDomain(emailOrDomain): dom =>
-        emailValidator
-          .validateDomain(dom)
-          .map: r =>
-            s"$r ${r.error | ""}"
 
     case "garbage" :: "collect" :: uid :: Nil =>
       UserStr

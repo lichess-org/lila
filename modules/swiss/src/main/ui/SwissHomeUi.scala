@@ -172,7 +172,7 @@ final class SwissHomeUi(helpers: Helpers):
       trans.swiss.moreRoundsThanPlayersA()
     ),
     faqEntry(
-      trans.swiss.restrictedToTeamsQ(),
+      trans.swiss.whyAreSwissTournamentsRestrictedToTeams(),
       trans.swiss.restrictedToTeamsA()
     ),
     faqEntry(
@@ -200,7 +200,7 @@ final class SwissHomeUi(helpers: Helpers):
       trans.swiss.willSwissReplaceArenasA()
     ),
     faqEntry(
-      trans.swiss.roundRobinQ(),
+      trans.swiss.canPlayRoundRobinTournaments(),
       trans.swiss.roundRobinA()
     ),
     faqEntry(

@@ -435,7 +435,6 @@
   <string name="apply">Parashtroje</string>
   <string name="save">Ruaje</string>
   <string name="leaderboard">Tabelë klasifikimi</string>
-  <string name="screenshotCurrentPosition">Bëj foto ekrani të pozicionit të tanishëm</string>
   <string name="gameAsGIF">GIF i lojës</string>
   <string name="playerNames">Emra lojtarësh</string>
   <string name="moveAnnotations">Shënime lëvizjesh</string>
@@ -821,7 +820,6 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="theme">Temë grafike</string>
   <string name="light">I çelët</string>
   <string name="dark">I errët</string>
-  <string name="transparent">I tejdukshëm</string>
   <string name="picture">Foto</string>
   <string name="deviceTheme">Temën e pajisjes</string>
   <string name="roundness">Rrumbullakësi</string>

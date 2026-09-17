@@ -3,6 +3,7 @@
   "private": true,
   "type": "module",
   "dependencies": {
+    "@emoji-mart/data": "^1.2.1",
     "@textcomplete/core": "^0.1.13",
     "@textcomplete/textarea": "^0.1.13",
     "@toast-ui/editor": "3.2.2",

@@ -92,4 +92,5 @@ Por ejemplo, una valoración media del 3% significa que has finalizado en el 3% 
   <string name="onlyTitledHelp">Exigir un título oficial para participar en el torneo</string>
   <string name="tournamentPairingsAreNowClosed">Los emparejamientos del torneo están cerrados.</string>
   <string name="berserkRate">Tasa de berserk</string>
+  <string name="leaguesAndStreamerBattles">Ligas y Batallas retransmitidas</string>
 </resources>

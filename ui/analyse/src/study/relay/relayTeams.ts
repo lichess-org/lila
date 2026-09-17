@@ -198,28 +198,23 @@ const evalGauge = (
     `span.eval-gauge-horiz.pov-${pov}`,
     {
       attrs: { 'data-id': game.id },
-      hook: onInsert(cloudEval.observe),
-    },
-    [
-      hl(`span.eval-gauge-horiz__black`, {
-        hook: {
-          postpatch(old, vnode) {
-            const prevNodeCloud = old.data?.cloud;
-            const fen = chapters.get(game.id)?.fen;
-            const cev = (fen && cloudEval.getCloudEval(fen)) || prevNodeCloud;
-            if (cev?.chances !== prevNodeCloud?.chances) {
-              const elm = vnode.elm as HTMLElement;
-              const gauge = elm.parentNode as HTMLElement;
-              elm.style.width = `${((1 - (cev?.chances || 0)) / 2) * 100}%`;
-              if (cev) {
-                gauge.title = renderScore(cev);
-                gauge.classList.add('eval-gauge-horiz--set');
-              }
+      hook: {
+        ...onInsert(cloudEval.observe),
+        postpatch(old, vnode) {
+          const prevNodeCloud = old.data?.cloud;
+          const fen = chapters.get(game.id)?.fen;
+          const cev = (fen && cloudEval.getCloudEval(fen)) || prevNodeCloud;
+          if (cev?.chances !== prevNodeCloud?.chances) {
+            const gauge = vnode.elm as HTMLElement;
+            gauge.style.setProperty('--team-eval-percent', `${((1 - (cev?.chances || 0)) / 2) * 100}%`);
+            if (cev) {
+              gauge.title = renderScore(cev);
+              gauge.classList.add('eval-gauge-horiz--set');
             }
-            vnode.data!.cloud = cev;
-          },
+          }
+          vnode.data!.cloud = cev;
         },
-      }),
-      hl('tick.zero'),
-    ],
+      },
+    },
+    [hl('tick.zero')],
   );

@@ -148,17 +148,16 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, pageMenu: RelayMenuUi):
           div(cls := "relay-form__actions")(
             postForm(action := routes.RelayRound.reset(r.id))(
               submitButton(
-                cls := "button button-red button-empty yes-no-confirm"
-              )(
-                strong(trb.resetRound()),
-                em(trb.deleteAllGamesOfThisRound())
-              )
+                cls := "button button-red button-empty yes-no-confirm",
+                title := trb.deleteAllGamesOfThisRound.txt()
+              )(strong(trb.resetRound()))
             ),
             (Granter.opt(_.StudyAdmin) || ctx.me.exists(nav.tour.isOwnedBy)).option:
               postForm(action := routes.Study.delete(r.studyId))(
                 submitButton(
-                  cls := "button button-red button-empty yes-no-confirm"
-                )(strong(trb.deleteRound()), em(trb.definitivelyDeleteRound()))
+                  cls := "button button-red button-empty yes-no-confirm",
+                  title := trb.permanentlyDeleteRound.txt()
+                )(strong(trb.deleteRound()))
               )
           )
         )
@@ -390,7 +389,7 @@ Hanna Marie ; Kozul, Zdenko"""),
           )(
             nav.tour.showRatingDiffs.option(
               form3.split(
-                form3.group(form("rated"), raw("")): field =>
+                form3.group(form("rated"), raw(""), half = true): field =>
                   val withDefault =
                     if nav.newRound && field.value.isEmpty then field.copy(value = "true".some) else field
                   form3.checkboxGroup(
@@ -419,7 +418,8 @@ Hanna Marie ; Kozul, Zdenko"""),
                 List("win", "draw").map: result =>
                   form3.group(
                     form("customScoring")(color.name)(result),
-                    raw(s"Points for a $result as ${color.name}")
+                    raw(s"Points for a $result as ${color.name}"),
+                    half = true
                   )(
                     form3.input(_)(tpe := "number", step := 0.01f, min := 0.0f, max := 10.0f)
                   )
@@ -433,7 +433,8 @@ Hanna Marie ; Kozul, Zdenko"""),
                 List("win", "draw").map: result =>
                   form3.group(
                     form("teamCustomScoring")(result),
-                    raw(s"Team points for a match $result")
+                    raw(s"Team points for a match $result"),
+                    half = true
                   )(
                     form3.input(_)(tpe := "number", step := 0.01f, min := 0.0f, max := 10.0f)
                   )
@@ -539,8 +540,9 @@ Hanna Marie ; Kozul, Zdenko"""),
             (!nav.tour.official && (Granter.opt(_.StudyAdmin) || nav.tour.isOwnedBy(me))).option:
               postForm(action := routes.RelayTour.delete(nav.tour.id))(
                 submitButton(
-                  cls := "button button-red button-empty yes-no-confirm"
-                )(strong(trb.deleteTournament()), em(trb.definitivelyDeleteTournament()))
+                  cls := "button button-red button-empty yes-no-confirm",
+                  title := trb.permanentlyDeleteTournament.txt()
+                )(strong(trb.deleteTournament()))
               )
             ,
             Granter
@@ -548,11 +550,9 @@ Hanna Marie ; Kozul, Zdenko"""),
               .option(
                 postForm(action := routes.RelayTour.cloneTour(nav.tour.id))(
                   submitButton(
-                    cls := "button button-green button-empty yes-no-confirm"
-                  )(
-                    strong("Clone as broadcast admin"),
-                    em("Clone this broadcast, its rounds, and their studies")
-                  )
+                    cls := "button button-green button-empty yes-no-confirm",
+                    title := "Clone this broadcast, its rounds, and their studies?"
+                  )(strong("Clone as broadcast admin"))
                 )
               )
           )

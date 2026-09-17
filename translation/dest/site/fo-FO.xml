@@ -664,7 +664,6 @@
   <string name="background">Bakgrund</string>
   <string name="light">Ljóst</string>
   <string name="dark">Myrkt</string>
-  <string name="transparent">Gjøgnumskygt</string>
   <string name="backgroundImageUrl">Bakgrundsmynd URL:</string>
   <string name="pieceSet">Snið á talvfólki</string>
   <string name="embedInYourWebsite">Fell inn í heimasíðu tína</string>
