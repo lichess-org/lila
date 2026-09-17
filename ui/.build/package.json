@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@types/micromatch": "4.0.10",
-    "@types/node": "24.13.3",
+    "@types/node": "24.13.5",
     "autoprefixer": "^10.5.5",
     "esbuild": "0.28.2",
     "fast-glob": "3.3.3",
