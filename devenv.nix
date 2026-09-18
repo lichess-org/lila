@@ -40,7 +40,7 @@ in
     pkgs-master.tsgolint
     pkgs.lint-staged
     pkgs-unstable.stylelint
-    pkgs.dart-sass
+    pkgs.sasso
   ];
 
   tasks = {
