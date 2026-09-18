@@ -49,11 +49,9 @@ const loserGlyph = (status: StatusName | undefined): EndgameGlyph =>
       ? 'resign'
       : status === 'aborted'
         ? 'abandoned'
-        : status === 'timeout'
-          ? 'abandoned'
-          : status === 'outoftime' || status === 'noStart'
-            ? 'timeout'
-            : 'unknown';
+        : status === 'timeout' || status === 'outoftime' || status === 'noStart'
+          ? 'timeout'
+          : 'unknown';
 
 const drawGlyph = (status: StatusName | undefined): EndgameGlyph | undefined =>
   status === 'stalemate'
