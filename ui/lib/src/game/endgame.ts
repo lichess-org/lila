@@ -24,14 +24,15 @@ const endgameResult = (
   gameStatus: StatusName,
 ): EndgameResult => {
   const outcome = node.outcome(),
-    isMate = node.check() && node.dests().size === 0,
     isTerminal = node.dests().size === 0,
+    isMate = node.check() && isTerminal,
     isGameEnd = isLast || (isTerminal && !!outcome);
 
   if (!isGameEnd) return {};
-  if (outcome && isTerminal) return { winner: outcome.winner, status: isMate ? 'mate' : gameStatus };
-  if (isMate) return { winner: mateWinner, status: 'mate' };
-  return { winner: gameWinner, status: gameStatus };
+  return {
+    winner: outcome?.winner ?? (isMate ? mateWinner : gameWinner),
+    status: isMate ? 'mate' : gameStatus,
+  };
 };
 
 export function endgameShapesForNode(
