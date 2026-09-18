@@ -46,16 +46,23 @@ const loserGlyph = (status: StatusName | undefined): EndgameGlyph =>
     ? 'mate'
     : status === 'resign'
       ? 'resign'
-      : status === 'timeout' || status === 'outoftime' || status === 'noStart'
-        ? 'timeout'
-        : 'unknown';
+      : status === 'aborted'
+        ? 'abandoned'
+        : status === 'timeout'
+          ? 'abandoned'
+          : status === 'outoftime' || status === 'noStart'
+            ? 'timeout'
+            : 'unknown';
 
-const isDraw = (status: StatusName | undefined): boolean =>
-  status === 'draw' ||
-  status === 'stalemate' ||
-  status === 'insufficientMaterialClaim' ||
-  status === 'unknownFinish' ||
-  status === 'variantEnd';
+const drawGlyph = (status: StatusName | undefined): EndgameGlyph | undefined =>
+  status === 'stalemate'
+    ? 'stalemate'
+    : status === 'draw' ||
+        status === 'insufficientMaterialClaim' ||
+        status === 'unknownFinish' ||
+        status === 'variantEnd'
+      ? 'draw'
+      : undefined;
 
 export function endgameShapes(
   fen: FEN,
@@ -76,9 +83,12 @@ export function endgameShapes(
   if (winner) {
     add(winner, 'win');
     add(winner === 'white' ? 'black' : 'white', loserGlyph(status));
-  } else if (isDraw(status)) {
-    add('white', 'draw');
-    add('black', 'draw');
+  } else {
+    const glyph = drawGlyph(status);
+    if (glyph) {
+      add('white', glyph);
+      add('black', glyph);
+    }
   }
   return shapes;
 }
