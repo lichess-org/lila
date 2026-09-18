@@ -9,18 +9,40 @@ export interface EndgameResult {
   status?: StatusName;
 }
 
-export function endgameResult(
-  outcome: Outcome | undefined,
-  isMate: boolean,
+type EndgameNode = {
+  fen: FEN;
+  outcome: () => Outcome | undefined;
+  check: () => boolean;
+  dests: () => Dests;
+};
+
+const endgameResult = (
+  node: EndgameNode,
+  isLast: boolean,
   mateWinner: Color,
-  isGameEnd: boolean,
   gameWinner: Color | undefined,
   gameStatus: StatusName,
-): EndgameResult {
+): EndgameResult => {
+  const outcome = node.outcome(),
+    isMate = node.check() && node.dests().size === 0,
+    isTerminal = node.dests().size === 0,
+    isGameEnd = isLast || (isTerminal && !!outcome);
+
   if (!isGameEnd) return {};
-  if (outcome) return { winner: outcome.winner, status: isMate ? 'mate' : gameStatus };
+  if (outcome && isTerminal) return { winner: outcome.winner, status: isMate ? 'mate' : gameStatus };
   if (isMate) return { winner: mateWinner, status: 'mate' };
   return { winner: gameWinner, status: gameStatus };
+};
+
+export function endgameShapesForNode(
+  node: EndgameNode,
+  isLast: boolean,
+  mateWinner: Color,
+  gameWinner: Color | undefined,
+  gameStatus: StatusName,
+): DrawShape[] {
+  const result = endgameResult(node, isLast, mateWinner, gameWinner, gameStatus);
+  return endgameShapes(node.fen, result.winner, result.status);
 }
 
 export function findKingSquare(fen: FEN, color: Color): Key | undefined {
