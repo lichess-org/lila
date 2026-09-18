@@ -70,7 +70,7 @@ final class AppealDiscussionUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
         div(cls := "box box-pad")(
           ui.modHeader(appeal, modData),
           div(cls := "mod-zone mod-zone-full none"),
-          appeal.accounts.map(ui.renderAccountsDisclosure),
+          appeal.accounts.map(ui.accountsDisclosure),
           otherUsers(cls := "mod-zone communication__logins"),
           div(cls := "body")(
             modAppealMessages(appeal),
@@ -91,7 +91,7 @@ final class AppealDiscussionUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
         id := appeal.isLast(msg).option("appeal-last-msg")
       )(
         div(cls := "appeal__msg__header")(
-          ui.renderUser(appeal, msg.by, asMod = true),
+          ui.userLink(appeal, msg.by, asMod = true),
           pastMomentServer(msg.at)
         ),
         div(cls := "appeal__msg__text")(richText(msg.text, expandImg = false))

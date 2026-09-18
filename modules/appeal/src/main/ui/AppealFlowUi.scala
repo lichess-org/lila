@@ -19,7 +19,7 @@ final class AppealFlowUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
             )
           ),
           div(cls := "body")(
-            appeal.msgs.map(ui.renderMsg(appeal)),
+            appeal.msgs.map(ui.message(appeal)),
             userNextNode(appeal)
           )
         ),
@@ -33,7 +33,7 @@ final class AppealFlowUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
         div(cls := "box box-pad")(
           ui.modHeader(appeal, modData),
           div(cls := "mod-zone mod-zone-full none"),
-          appeal.accounts.map(ui.renderAccountsDisclosure),
+          appeal.accounts.map(ui.accountsDisclosure),
           otherUsers(cls := "mod-zone communication__logins"),
           div(cls := "body")(
             modAppealMessages(appeal),
@@ -52,7 +52,7 @@ final class AppealFlowUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
     appeal.msgs.map: msg =>
       div(
         id := appeal.isLast(msg).option("appeal-last-msg")
-      )(ui.renderMsg(appeal)(msg))
+      )(ui.message(appeal)(msg))
 
   private def userNextNode(appeal: Appeal)(using Context, Me) =
     AppealFlow.nextNode(appeal) match

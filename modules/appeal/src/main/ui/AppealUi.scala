@@ -29,7 +29,7 @@ final class AppealUi(helpers: Helpers)(using NetDomain):
       .css(Granter.opt(_.Appeals).option("mod.user"))
       .js(esmInit("bits.appeal") ++ Granter.opt(_.Appeals).so(Esm("mod.user")))
 
-  def renderUser(appeal: Appeal, userId: UserId, asMod: Boolean)(using Context) =
+  def userLink(appeal: Appeal, userId: UserId, asMod: Boolean)(using Context) =
     if appeal.user.is(userId) then userIdLink(userId.some, params = asMod.so("?mod"))
     else if userId.is(UserId.lichess) then userIdLink(UserId.lichess.some)
     else
@@ -73,23 +73,23 @@ final class AppealUi(helpers: Helpers)(using NetDomain):
       )
 
   def userAppealMessages(appeal: Appeal)(using Context, Me) =
-    appeal.msgs.map(renderMsg(appeal))
+    appeal.msgs.map(message(appeal))
 
-  def renderMsg(appeal: Appeal)(msg: AppealMsg)(using Context, Me) =
+  def message(appeal: Appeal)(msg: AppealMsg)(using Context, Me) =
     msg match
-      case event: ChoiceEvent => renderChoiceEvent(appeal, event)
-      case _ => renderLegacyMsg(appeal)(msg)
+      case event: ChoiceEvent => choiceEvent(appeal, event)
+      case _ => legacyMessage(appeal)(msg)
 
-  private def renderLegacyMsg(appeal: Appeal)(msg: AppealMsg)(using Context) =
+  private def legacyMessage(appeal: Appeal)(msg: AppealMsg)(using Context) =
     div(cls := s"appeal__msg appeal__msg--${if appeal.isByMod(msg) then "mod" else "suspect"}")(
       div(cls := "appeal__msg__header")(
-        renderUser(appeal, msg.by, asMod = false),
+        userLink(appeal, msg.by, asMod = false),
         momentFromNowOnce(msg.at)
       ),
       div(cls := "appeal__msg__text")(richText(msg.text, expandImg = false))
     )
 
-  private def renderChoiceEvent(appeal: Appeal, event: ChoiceEvent)(using ctx: Context, me: Me) =
+  private def choiceEvent(appeal: Appeal, event: ChoiceEvent)(using ctx: Context, me: Me) =
     val isMod = appeal.user.isnt(me)
     if !isMod && event.by.isnt(me) then emptyFrag
     else
@@ -98,7 +98,7 @@ final class AppealUi(helpers: Helpers)(using NetDomain):
         div(cls := "appeal__choice-event__selection")(
           span(cls := "appeal__choice-event__answer text")(event.answer),
           span(cls := "appeal__choice-event__meta")(
-            renderUser(appeal, event.by, asMod = isMod),
+            userLink(appeal, event.by, asMod = isMod),
             span(" · "),
             momentFromNowOnce(event.at)
           )
@@ -131,7 +131,7 @@ final class AppealUi(helpers: Helpers)(using NetDomain):
       frag("Appeal paused until ", showDate(until))
   )
 
-  def renderAccountsDisclosure(accounts: AccountsDisclosure) =
+  def accountsDisclosure(accounts: AccountsDisclosure) =
     def row(label: String, value: Frag) =
       div(cls := "appeal__accounts__row")(
         span(cls := "appeal__accounts__label")(label),
