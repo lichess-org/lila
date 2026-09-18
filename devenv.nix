@@ -40,7 +40,7 @@ in
     pkgs-master.tsgolint
     pkgs.lint-staged
     pkgs-unstable.stylelint
-    pkgs.sasso
+    inputs.sasso.packages.${pkgs.stdenv.system}.default
   ];
 
   tasks = {
