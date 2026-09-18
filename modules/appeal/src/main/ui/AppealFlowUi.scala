@@ -1,8 +1,6 @@
 package lila.appeal
 package ui
 
-import play.api.data.Form
-
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.core.config.NetDomain
@@ -70,34 +68,40 @@ final class AppealFlowUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
           p(cls := "line-center-text"):
             "Your appeal is under review. You will receive a message when there is an update."
       case _ =>
-        if (isMod && isHandledByMe && appeal.isOpen) || (!isMod && appeal.canAddMsg) then
-          renderMessageForm(appeal, modData)
+        if isMod && isHandledByMe && appeal.isOpen then modData.fold(emptyFrag)(modMessageForm(appeal, _))
+        else if !isMod && appeal.canAddMsg then userMessageForm(appeal)
         else emptyFrag
 
-  private def renderMessageForm(appeal: Appeal, modData: Option[ModData] = None)(using ctx: Context, me: Me) =
-    val isMod = me.isnt(appeal.user)
-    postForm(
-      cls := "",
-      action := (if isMod then routes.Appeal.modEvent(appeal.user, appeal.topic)
-                 else routes.Appeal.userEvent(appeal.topic))
-    )(
+  private def userMessageForm(appeal: Appeal)(using Context) =
+    postForm(action := routes.Appeal.userEvent(appeal.topic))(
+      form3.hidden("kind", AppealMsg.Kind.message.toString),
+      form3.group(
+        AppealEventForm.messageForm("text"),
+        "Add something to the appeal",
+        help = frag("Please be concise. Maximum 1000 chars.").some
+      )(form3.textarea(_)(rows := 6, maxlength := Appeal.maxLength * 1.1))(
+        cls := "appeal-textarea"
+      ),
+      form3.action(form3.submit("Send"))
+    )
+
+  private def modMessageForm(appeal: Appeal, modData: ModData)(using Context) =
+    postForm(action := routes.Appeal.modEvent(appeal.user, appeal.topic))(
       form3.hidden("kind", AppealMsg.Kind.message.toString),
       form3.split(
         div(cls := "appeal-presets form-group form-half")(
-          modData.map:
-            _.presets.map: (name, text) =>
-              button(
-                tpe := "button",
-                st.value := text,
-                st.title := text
-              )(name)
+          modData.presets.map: (name, text) =>
+            button(
+              tpe := "button",
+              st.value := text,
+              st.title := text
+            )(name)
         ),
         form3.group(
           AppealEventForm.messageForm("text"),
           "Add something to the appeal",
-          half = true,
-          help = (!isMod).so(frag("Please be concise. Maximum 1000 chars.").some)
-        )(form3.textarea(_)(rows := 15, maxlength := Appeal.maxLength * 1.1))(cls := "appeal-textarea")
+          half = true
+        )(form3.textarea(_)(rows := 15))(cls := "appeal-textarea")
       ),
       form3.action(form3.submit("Send"))
     )
