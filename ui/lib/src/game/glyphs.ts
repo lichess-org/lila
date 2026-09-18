@@ -61,7 +61,7 @@ const glyphStacktoPx = (stack: number) => {
 };
 
 export const endgameGlyphs: Record<
-  'win' | 'mate' | 'resign' | 'abandoned' | 'timeout' | 'unknown' | 'draw' | 'stalemate',
+  'win' | 'mate' | 'resign' | 'abandoned' | 'outoftime' | 'unknown' | 'draw' | 'stalemate',
   (stackedNumber: number) => string
 > = {
   win: composeGlyph(
@@ -77,7 +77,7 @@ export const endgameGlyphs: Record<
     '#df5353',
     '<path fill="#fff" d="M64 12a10 10 0 1 1 0 20 10 10 0 0 1 0-20M56 37h12l5 18 12 10-6 8-15-11-5-12-5 13-11 15-9-6 10-16 5-19zm-13 5-11 4-10-8-6 7 14 13 12-4zm16 25 9 7-11 14-9-5z"/>',
   ),
-  timeout: composeGlyph(
+  outoftime: composeGlyph(
     '#df5353',
     '<path fill="#fff" d="M42 10h16v7H42zm-7 13 7-7 6 6-7 7zM50 27a23 23 0 1 0 16 7l-7 7a13 13 0 1 1-8-4zm5 5h8v18l-13 9-5-7 10-7z"/>',
   ),

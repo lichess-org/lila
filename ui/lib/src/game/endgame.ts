@@ -50,7 +50,7 @@ const loserGlyph = (status: StatusName | undefined): EndgameGlyph =>
       : status === 'timeout'
         ? 'abandoned'
         : status === 'outoftime'
-          ? 'timeout'
+          ? 'outoftime'
           : 'unknown';
 
 const drawGlyph = (status: StatusName | undefined): EndgameGlyph | undefined =>
