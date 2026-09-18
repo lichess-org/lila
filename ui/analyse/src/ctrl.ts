@@ -382,9 +382,10 @@ export default class AnalyseCtrl implements CevalHandler {
           autoShapes: (() => {
             const mate = node.check() && node.dests().size === 0,
               outcome = node.outcome(),
-              isGameEnd = !!outcome || node === treeOps.last(this.mainline),
+              isTerminal = node.dests().size === 0,
+              isGameEnd = node === treeOps.last(this.mainline) || (isTerminal && !!outcome),
               result = endgameResult(
-                outcome,
+                isTerminal ? outcome : undefined,
                 mate,
                 opposite(color),
                 isGameEnd,

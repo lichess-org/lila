@@ -17,10 +17,10 @@ export function endgameResult(
   gameWinner: Color | undefined,
   gameStatus: StatusName,
 ): EndgameResult {
+  if (!isGameEnd) return {};
   if (outcome) return { winner: outcome.winner, status: outcome.winner ? 'mate' : 'stalemate' };
   if (isMate) return { winner: mateWinner, status: 'mate' };
-  if (isGameEnd) return { winner: gameWinner, status: gameStatus };
-  return {};
+  return { winner: gameWinner, status: gameStatus };
 }
 
 export function findKingSquare(fen: FEN, color: Color): Key | undefined {

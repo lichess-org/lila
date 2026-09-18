@@ -115,9 +115,10 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
   const { eval: nEval = {} as Partial<ServerEval>, fen: nFen, ceval: nCeval, threat: nThreat } = ctrl.node;
   const outcome = ctrl.node.outcome(),
     isMate = ctrl.node.check() && ctrl.node.dests().size === 0,
-    isGameEnd = !!outcome || ctrl.node === ctrl.mainline[ctrl.mainline.length - 1],
+    isTerminal = ctrl.node.dests().size === 0,
+    isGameEnd = ctrl.node === ctrl.mainline[ctrl.mainline.length - 1] || (isTerminal && !!outcome),
     result = endgameResult(
-      outcome,
+      isTerminal ? outcome : undefined,
       isMate,
       rcolor,
       isGameEnd,
