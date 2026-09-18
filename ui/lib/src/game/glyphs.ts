@@ -66,11 +66,11 @@ export const endgameGlyphs: Record<
 > = {
   win: composeGlyph(
     '#22ac38',
-    '<path fill="#fff" d="M29 12h42v10h9v11c0 14-8 26-21 31v8h13v9H28v-9h13v-8c-13-5-21-17-21-31V22h9zm-1 20c0 8 4 15 13 19V22H28zm44 0v19c9-4 13-11 13-19V22H72z"/>',
+    '<path fill="none" stroke="#fff" stroke-width="8" d="M28 25H18v8c0 14 8 24 22 27M72 25h10v8c0 14-8 24-22 27"/><path fill="#fff" d="M28 14h44v20c0 14-8 25-22 30-14-5-22-16-22-30zM46 61h8v16h-8zM29 77h42v10H29z"/>',
   ),
   mate: composeGlyph(
     '#df5353',
-    '<path fill="none" stroke="#fff" stroke-width="10" d="M35 10 28 90M65 10l-7 80M14 38h72M10 68h72"/>',
+    '<path fill="none" stroke="#fff" stroke-width="8" d="M38 18 33 82M62 18l-5 64M20 40h60M18 62h60"/>',
   ),
   resign: composeGlyph('#df5353', '<path fill="#fff" d="M24 12h9v76h-9zm9 4h45l-17 17 17 17H33z"/>'),
   abandoned: composeGlyph(
