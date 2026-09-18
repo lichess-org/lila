@@ -18,7 +18,7 @@ export function endgameResult(
   gameStatus: StatusName,
 ): EndgameResult {
   if (!isGameEnd) return {};
-  if (outcome) return { winner: outcome.winner, status: outcome.winner ? 'mate' : 'stalemate' };
+  if (outcome) return { winner: outcome.winner, status: isMate ? 'mate' : gameStatus };
   if (isMate) return { winner: mateWinner, status: 'mate' };
   return { winner: gameWinner, status: gameStatus };
 }
