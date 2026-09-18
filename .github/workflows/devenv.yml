@@ -2,21 +2,17 @@ name: Validate devenv
 
 on:
   push:
-    paths:
-      - '.github/workflows/devenv.yml'
-      - '.node_version'
-      - 'devenv.*'
-      - '**/package.json'
-      - '**/pnpm-lock.yaml'
-      - '**/pnpm-workspace.yaml'
+    paths: &devenv_paths
+      - ".github/workflows/devenv.yml"
+      - ".node_version"
+      - "devenv.*"
+      - "flake.*"
+      - "**/package.json"
+      - "**/pnpm-lock.yaml"
+      - "**/pnpm-workspace.yaml"
+
   pull_request:
-    paths:
-      - '.github/workflows/devenv.yml'
-      - '.node_version'
-      - 'devenv.*'
-      - '**/package.json'
-      - '**/pnpm-lock.yaml'
-      - '**/pnpm-workspace.yaml'
+    paths: *devenv_paths
 
 jobs:
   validate-devenv:
