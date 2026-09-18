@@ -99,7 +99,14 @@ async function compile(sources: string[], logAll = true): Promise<string[]> {
     if (logAll) sources.forEach(src => env.log(`Building '${pc.cyan(src)}'`, 'sass'));
     else env.log('Building', 'sass');
 
-    const sassArgs = ['--no-error-css', '--stop-on-error', '--no-color', '--quiet', '--quiet-deps'];
+    const sassArgs = [
+      '--no-error-css',
+      '--stop-on-error',
+      '--no-color',
+      '--quiet-deps',
+      // TODO: remove 'global-builtin' silence when png-viewer code is updated
+      '--silence-deprecation=import,global-builtin',
+    ];
     sassPs?.removeAllListeners();
     sassPs = cps.spawn(
       sassBin,
@@ -134,6 +141,7 @@ async function addVendorPrefixes(src: string): Promise<void> {
 
 // recursively parse scss file and its imports to build dependency maps
 async function parseScss(src: string, processed: Set<string>) {
+  if (src.includes('sass:')) return;
   if (dirname(src).endsWith('/gen')) return;
   if (processed.has(src)) return;
   processed.add(src);

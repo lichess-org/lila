@@ -25,7 +25,6 @@
   <string name="cantChangeMore">Не можемо променити више од врсте слова. Због техничких разлога, просто је немогуће.</string>
   <string name="orCloseAccount">Међутим, можеш затворити свој тренутни налог и направити нови.</string>
   <string name="wantClearHistory">Желим да обришем своју историју или рејтинг</string>
-  <string name="cantClearHistory">Није могуће обрисати твоју историју партија, историју проблема или рејтинге.</string>
   <string name="wantReport">Желим да пријавим играча</string>
   <string name="toReportAPlayerUseForm">Да пријваиш играча, користи образац за пријаву</string>
   <string name="youCanAlsoReachReportPage">Можеш доћи до те странице и кликом на %s дугме за пријаву на профилној страници.</string>

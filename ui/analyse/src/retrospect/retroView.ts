@@ -1,3 +1,4 @@
+import { capitalize } from 'lib/game';
 import { licon } from 'lib/licon';
 import type { TreeNode } from 'lib/tree/types';
 import { bind, hl, type VNode, spinnerVdom as spinner, icon } from 'lib/view';
@@ -45,7 +46,7 @@ const feedback = {
               hl('move', renderIndexAndMove(ctrl.current()!.fault.node, false, true)),
             ),
           ),
-          hl('em', i18n.site[ctrl.color === 'white' ? 'findBetterMoveForWhite' : 'findBetterMoveForBlack']),
+          hl('em', i18n.site[`findBetterMoveFor${capitalize(ctrl.color)}`]),
           skipOrViewSolution(ctrl),
         ]),
       ]),
@@ -71,7 +72,7 @@ const feedback = {
         hl('div.icon', '✗'),
         hl('div.instruction', [
           hl('strong', i18n.site.youCanDoBetter),
-          hl('em', i18n.site[ctrl.color === 'white' ? 'tryAnotherMoveForWhite' : 'tryAnotherMoveForBlack']),
+          hl('em', i18n.site[`tryAnotherMoveFor${capitalize(ctrl.color)}`]),
           skipOrViewSolution(ctrl),
         ]),
       ]),
@@ -161,7 +162,7 @@ const feedback = {
                 key: 'flip',
                 hook: bind('click', ctrl.flip),
               },
-              i18n.site[ctrl.color === 'white' ? 'reviewBlackMistakes' : 'reviewWhiteMistakes'],
+              i18n.site[`review${capitalize(ctrl.color)}Mistakes`],
             ),
           ]),
         ]),

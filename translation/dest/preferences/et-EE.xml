@@ -51,12 +51,8 @@
   <string name="scrollOnTheBoardToReplayMoves">Käikude kordamiseks keri laual</string>
   <string name="correspondenceEmailNotification">Igapäevane e-kiri, mis sisaldab pooleliolevaid kirjavahetusmänge</string>
   <string name="notifyStreamStart">Striimija alustab otseülekannet</string>
-  <string name="notifyInboxMsg">Postkastis on uus sõnum</string>
-  <string name="notifyForumMention">Mainimised foorumis</string>
-  <string name="notifyInvitedStudy">Kutse uuringule</string>
   <string name="notifyGameEvent">Kirimale mängu uuendused</string>
   <string name="notifyChallenge">Väljakutsed</string>
-  <string name="notifyTournamentSoon">Turniir algab peatselt</string>
   <string name="notifyTimeAlarm">Kirimale aeg hakkab lõppema</string>
   <string name="notifyBell">Lichessi teavitus kellukesega</string>
   <string name="notifyPush">Mobiiliteavitus, kui oled Lichessist eemal</string>

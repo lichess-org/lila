@@ -25,8 +25,7 @@
   <string name="cantChangeMore">Nu putem schimba mai mult decât litere mari sau mici. Din motive tehnice, este de-a dreptul imposibil.</string>
   <string name="orCloseAccount">Cu toate acestea, îți poți închide contul tău curent și crea unul nou.</string>
   <string name="wantClearHistory">Vreau să îmi sterg istoricul sau scorul</string>
-  <string name="cantClearHistory">Nu se poate curăța istoricul jocurilor, istoricul puzzle-urilor sau scorurile.</string>
-  <string name="cantClearHistoryOrResetRatings" comment="Replaces old string cantClearHistory">Nu este posibil să ștergi istoricul jocurilor, istoricul puzzle-urilor sau să-ți resetezi ratingurile.</string>
+  <string name="cantClearHistoryOrResetRatings">Nu este posibil să ștergi istoricul jocurilor, istoricul puzzle-urilor sau să-ți resetezi ratingurile.</string>
   <string name="wantReport">Vreau să raportez un jucător</string>
   <string name="toReportAPlayerUseForm">Pentru a raporta un jucător, folosește formularul de raportare</string>
   <string name="youCanAlsoReachReportPage">De asemenea, poți ajunge la acea pagină dând click pe butonul %s pentru raport pe o pagină a profilului.</string>

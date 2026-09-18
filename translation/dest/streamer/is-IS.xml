@@ -28,7 +28,6 @@
   <string name="approved">Streymið þitt er samþykkt.</string>
   <string name="pendingReview">Ritstjórar eru að skoða streymið þitt.</string>
   <string name="pleaseFillIn">Vinsamlegast fylltu út streymaraupplýsingar um þig, og sendu inn mynd.</string>
-  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Þegar þér þykir kominn tími á að láta skrá þig á lista streymara á Lichess, %s</string>
   <string name="submitForReview">Setja í ritskoðun</string>
   <string name="streamerLanguageSettings">Streymarasíða Lichess höfðar til áhorfenda þinna á því tungumáli sem streymisveitan þín býður upp á. Stilltu rétt sjálfgefið tungumál fyrir skákstreymi þín í forritinu eða þjónustunni sem þú notar til útsendingar.</string>
   <string name="pleaseAllow">Vinsamlegast sýndu biðlund í allt að 72 klukkustundir þar til staðfesting á streymismerki þínu og skráningu liggur fyrir.</string>

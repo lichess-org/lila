@@ -24,7 +24,6 @@ Norenje ni na voljo pri partijah z začetnim časom 0 (0+1,0+2.)
 Norenje podeli dodatno točko kadar igralec odigra vsaj 7 potez.</string>
   <string name="howIsTheWinnerDecided">Kako se določi zmagovalca?</string>
   <string name="howIsTheWinnerDecidedAnswer">Igralec(i) z največjim številom točk bodo ob poteku časa za zaključek turnirja oznanjeni kot zmagovalci.</string>
-  <string name="howDoesPairingWork">Kako deluje izbira parov?</string>
   <string name="howDoesPairingWorkAnswer">Ob začetku turnirja se pari določijo glede na njihov rating.
 Ob koncu partije se sestavi pare iz prostih igralcev. Prosti igralci dobijo tistega prostega nasprotnika, ki ima rating blizu. To zagotovi kratek čas čakanja, vendar se lahko zgodi, da vsak ne igra z vsakim igralcem.
 Igrajte hitro in se vrnite v čakalno vrsto v igralni dvorani, ter si tako zagotovite več iger in več točk.</string>
@@ -66,8 +65,7 @@ Igrajte hitro in se vrnite v čakalno vrsto v igralni dvorani, ter si tako zagot
   <string name="myTournaments">Moji turnirji</string>
   <string name="editTournament">Uredi turnir</string>
   <string name="editTeamBattle">Uredi ekipno bitko</string>
-  <string name="defender">Branilec</string>
-  <string name="defenderLabel" comment="In this context, this is the current holder of a shield trophy, who is defending their trophy in the next shield tournament of that variant. https://lichess.org/tournament/shields Replaces old string defender">Branilec:</string>
+  <string name="defenderLabel" comment="In this context, this is the current holder of a shield trophy, who is defending their trophy in the next shield tournament of that variant. https://lichess.org/tournament/shields">Branilec:</string>
   <string name="pickYourTeam">Izberite svojo ekipo</string>
   <string name="whichTeamWillYouRepresentInThisBattle">Katero ekipo boste zastopali v tej bitki?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">Za sodelovanje se morate pridružiti eni od teh ekip!</string>
@@ -75,9 +73,6 @@ Igrajte hitro in se vrnite v čakalno vrsto v igralni dvorani, ter si tako zagot
   <string name="recentlyPlayed">Nedavno predvajano</string>
   <string name="bestResults">Najboljši rezultati</string>
   <string name="tournamentStats">Statistika turnirja</string>
-  <string name="rankAvgHelp">Povprečje uvrstitve je odstotek vaše uvrstitve. Nižje je bolje.
-
-Na primer, 3. mesto na turnirju s 100 igralci = 3%. 10. mesto na turnirju s 1000 igralci = 1%.</string>
   <string name="medians">mediane</string>
   <string name="allAveragesAreX">Vsa povprečja na tej strani so %s.</string>
   <string name="total">Skupaj</string>

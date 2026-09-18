@@ -127,25 +127,13 @@
   <string name="blunder">Blunner</string>
   <string name="mistake">Mistak</string>
   <string name="inaccuracy">Wee mistak</string>
-  <plurals name="nbBlunders">
-    <item quantity="one">%s blunner</item>
-    <item quantity="other">%s blunners</item>
-  </plurals>
   <plurals name="numberBlunders">
     <item quantity="one">%s Blunner</item>
     <item quantity="other">%s Blunners</item>
   </plurals>
-  <plurals name="nbMistakes">
-    <item quantity="one">%s mistak</item>
-    <item quantity="other">%s mistaks</item>
-  </plurals>
   <plurals name="numberMistakes">
     <item quantity="one">%s Mistak</item>
     <item quantity="other">%s Mistaks</item>
-  </plurals>
-  <plurals name="nbInaccuracies">
-    <item quantity="one">%s wee mistak</item>
-    <item quantity="other">%s wee mistaks</item>
   </plurals>
   <plurals name="numberInaccuracies">
     <item quantity="one">%s Wee mistak</item>
@@ -245,7 +233,6 @@
   <string name="emailSent">We hiv sent an email tae %s.</string>
   <string name="emailCanTakeSomeTime">It can tak pickle time tae arrive.</string>
   <string name="refreshInboxAfterFiveMinutes">Bide 5 meenits and refresh yer email inbox.</string>
-  <string name="checkSpamFolder">Check yer spam folder, it micht airt for thare. Gif sae, kenmerk it sae no spam.</string>
   <string name="accountConfirmed">The uiser %s is makkit weel confirmt.</string>
   <string name="accountCanLogin">Ye can ingang richt noo as %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Ye dinnae maun hae a confirmation email.</string>
@@ -268,8 +255,6 @@
   </plurals>
   <string name="ok">Aye</string>
   <string name="cancel">Devaul</string>
-  <string name="whiteTimeOut">White time oot</string>
-  <string name="blackTimeOut">Black time oot</string>
   <string name="drawOfferSent">Draw bid sent</string>
   <string name="drawOfferAccepted">Draw bid acceptit</string>
   <string name="whiteOffersDraw">White bids a draw</string>

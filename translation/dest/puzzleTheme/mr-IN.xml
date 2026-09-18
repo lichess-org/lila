@@ -29,7 +29,6 @@
   <string name="collinearMove">समरेख डाव</string>
   <string name="collinearMoveDescription">दोन विरुद्ध सोंगट्या एकमेकांसमोर येतात आणि एक शत्रूच्या सोंगट्याला न पकडता आक्रमण रेषेवर सरकतो.</string>
   <string name="cornerMate">कोपऱ्यातले मात.</string>
-  <string name="cornerMateDescription">मातला गुंतवून ठेवण्यासाठी राजाला कोपऱ्यात हत्ती किंवा राणीने बंदिस्त करा.</string>
   <string name="crushing">निर्णायक</string>
   <string name="crushingDescription">विरोधकाची घोडचूक ओळखून निर्णायक स्थिती प्राप्त करा. (मूल्यांकन ≥ 600cp)</string>
   <string name="discoveredCheck">उलगडलेला शह</string>
@@ -54,17 +53,14 @@
   <string name="doubleCheckDescription">एकाच वेळी दोन सोंगट्यांनी शह देणे, त्यामुळे शोधला गेलेला हल्ला जो एखादी सोंगटी हलवून लांबच्या पल्ल्याच्या सोंगटीकडून समोरच्या राजावर हल्ला केला जाईल.</string>
   <string name="endgame">अंत्यखेळ</string>
   <string name="endgameDescription">खेळाच्या शेवटच्या भागातील डावपेच.</string>
-  <string name="enPassantDescription">एन पसांट नियमाचा समावेश असलेला एक डावपेच, जेथे प्रतिस्पर्ध्याच्या ज्या प्याद्याने सुरुवातीच्या दोन-घर चालीचा वापर केला आहे, त्याला तुमचे प्यादे पकडू शकते.</string>
   <string name="epauletteMate">स्कन्दपट्ट मात</string>
   <string name="epauletteMateDescription">चेक केलेल्या राजाचे दोनी शेजारील पळण्याचे चौरस इतर सोंगट्यांने व्यापलेले आहेत.</string>
   <string name="exposedKing">उघड राजा</string>
   <string name="exposedKingDescription">एक डावपेच ज्यामध्ये राजासह त्याच्या भोवती मोजके रक्षक मोहरे असतात, ज्यामुळे अनेकदा शहमात होते.</string>
   <string name="fork">फोर्क</string>
-  <string name="forkDescription">अशी चाल जिथे हलवलेला मोहरा एकाच वेळी दोन प्रतिस्पर्ध्याच्या मोहऱ्यांवर हल्ला करतो.</string>
   <string name="hangingPiece">आधार नसलेली सोंगटी</string>
   <string name="hangingPieceDescription">विरोधकाच्या सोंगटीचा बचाव नसेल किंवा अपुरा असेल आणि ती मोफत मारता येईल असा डावपेच.</string>
   <string name="hookMate">हुक मात</string>
-  <string name="hookMateDescription">हत्ती, घोडा आणि प्यादे यांबरोबर विरोधकाचेच एक प्यादे यांनी विरोधकाच्या राजाला अडकवून ठेवून केलेली शहमात.</string>
   <string name="interference">हस्तक्षेप</string>
   <string name="interferenceDescription">एखादी सोंगटी समोरच्याच्या दोन सोंगट्याच्या मधून हलवणे जेणेकरून विरोधकाच्या एक किंवा दोन सोंगट्याचा बचाव जाईल, उदाहरणार्थ एक घोडा जो सुरक्षित घरात आहे आणि जो दोन हत्तीच्या मध्ये असेल.</string>
   <string name="intermezzo">अनपेक्षित चाल</string>
@@ -72,9 +68,7 @@
   <string name="killBoxMate">अहिल्यानगरची शहमात</string>
   <string name="killBoxMateDescription">शत्रू राजाच्या शेजारी एक हत्ती असतो आणि त्याला वझीराचा आधार असतो, हा वझीर राजाच्या सुटकेच्या चौकांनाही अडवतो. हत्ती आणि राणी शत्रू राजाला ३x३ च्या \"घातक चौकोनात\" पकडतात.</string>
   <string name="pillsburysMate">पिल्सबरीची मात</string>
-  <string name="pillsburysMateDescription">हत्ती मात देतो व उंट बंदिस्त करण्यात मदत करतो.</string>
   <string name="morphysMate">मॉर्फीची मात</string>
-  <string name="morphysMateDescription">उंट मात देतो व हत्ती बंदिस्त करण्यात मदत करतो.</string>
   <string name="swallowstailMate">गिळण्याच्या शेपटीच्या मात</string>
   <string name="swallowstailMateDescription">एक शहमत आकृतीबंध जी दृश्यमानपणे गिळण्याच्या शेपटीच्या आकारासारखा दिसतो, जो V आकारासारखा असतो.</string>
   <string name="triangleMate">त्रिकोणी मात</string>
@@ -114,7 +108,6 @@
   <string name="pin">पीन</string>
   <string name="pinDescription">टाचण किंवा सोंगटी हलल्यास तिच्या मागील जास्त मुल्याच्या सोंगटीवर हल्ला होईल असे डावपेच.</string>
   <string name="promotion">पदोन्नती</string>
-  <string name="promotionDescription">तुमच्या प्याद्याला बढती देऊन वझीर अथवा इतर सोंगटी बनवा.</string>
   <string name="queenEndgame">वझीराचा अंत्यखेळ</string>
   <string name="queenEndgameDescription">फक्त वझीर आणि प्याद्यांचा अंत्यखेळ.</string>
   <string name="queenRookEndgame">वझीर आणि हत्ती</string>

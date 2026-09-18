@@ -25,7 +25,6 @@ La manera berserk namá apurre un puntu adicional per cada victoria si xuegues s
   <string name="howIsTheWinnerDecidedAnswer">El xugador o xugador(es) con más puntos tres la llende de tiempu establecíu nel tornéu van ser anunciaos como ganador(es).
 
 Cuando dos o más xugadores tengan el mesmu númberu de puntos, el rendimientu del tornéu va ser el criteriu de desempate.</string>
-  <string name="howDoesPairingWork">¿Cómo se realicen los empareyamientos?</string>
   <string name="howDoesPairingWorkAnswer">De primeres del tornéu, los xugadores se empareyar en función de la so clasificación.
 En cuanto termine una partida, vuelva al antepar del tornéu: entós va empareyáse-y con un xugador cercanu a la so clasificación. Esto garantiza un tiempu d\'espera mínimu; sicasí, ye posible que nun s\'enfrente a tolos demás xugadores del tornéu.
 Xuega rápidu y vuelve al antepar para xugar más partíes y ganar más puntos.</string>
@@ -63,7 +62,6 @@ Xuega rápidu y vuelve al antepar para xugar más partíes y ganar más puntos.<
   <string name="myTournaments">Los mios torneos</string>
   <string name="editTournament">Editar tornéu</string>
   <string name="editTeamBattle">Editar batalla d\'equipu</string>
-  <string name="defender">Defensor</string>
   <string name="pickYourTeam">Escueye\'l to equipu</string>
   <string name="whichTeamWillYouRepresentInThisBattle">¿A qué equipu vas representar nesta batalla?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">¡Tienes que xunite a unu d\'estos equipos para participar!</string>
@@ -71,9 +69,6 @@ Xuega rápidu y vuelve al antepar para xugar más partíes y ganar más puntos.<
   <string name="recentlyPlayed">Xugáu apocayá</string>
   <string name="bestResults">Meyores resultaos</string>
   <string name="tournamentStats">Estadístiques del tornéu</string>
-  <string name="rankAvgHelp">El promediu de clasificación ye un porcentaxe de la to clasificación. Más baxu ye meyor.
-
-Por casu, ocupar el puestu 3 nun tornéu de 100 xugadores = 3%. Tar nel puestu 10 nun tornéu de 1000 xugadores = 1%.</string>
   <string name="medians">medianes</string>
   <string name="allAveragesAreX">Tolos promedios nesta páxina son %s.</string>
   <string name="total">Total</string>

@@ -151,25 +151,13 @@
   <string name="blunder">మహా తప్పు</string>
   <string name="mistake">తప్పు</string>
   <string name="inaccuracy">సరికాదు</string>
-  <plurals name="nbBlunders">
-    <item quantity="one">%s పెద్ద తప్పు</item>
-    <item quantity="other">%s పెద్ద తప్పులు</item>
-  </plurals>
   <plurals name="numberBlunders">
     <item quantity="one">%s పెద్ద తప్పు</item>
     <item quantity="other">%s పెద్ద తప్పులు</item>
   </plurals>
-  <plurals name="nbMistakes">
-    <item quantity="one">%s తప్పు</item>
-    <item quantity="other">%s తప్పులు</item>
-  </plurals>
   <plurals name="numberMistakes">
     <item quantity="one">%s తప్పు</item>
     <item quantity="other">%s తప్పులు</item>
-  </plurals>
-  <plurals name="nbInaccuracies">
-    <item quantity="one">%s సరికాదు</item>
-    <item quantity="other">%s సరికావు</item>
   </plurals>
   <plurals name="numberInaccuracies">
     <item quantity="one">%s సరికాదు</item>
@@ -274,7 +262,6 @@
   <string name="emailSent">మేము %sకి ఒక ఈమెయిల్ పంపించాము.</string>
   <string name="emailCanTakeSomeTime">రావడానికి కొంచం సమయం పడుతుంది.</string>
   <string name="refreshInboxAfterFiveMinutes">ఐదు నిమిషాలు ఆగి మీ ఈమెయిల్ ఇంబాక్స్ని రిఫ్రెష్ చేయ్.</string>
-  <string name="checkSpamFolder">మరియు, మీ స్పామ్ ఫోల్డర్ చూసుకోవండి, అక్కడికి కూడా వెళ్ళచ్చు. అలాగ జరిగితే, అది \"నాట్ స్పామ్\" గా మార్క్ చెయ్యండి.</string>
   <string name="sendEmailForAccountVerification">మీరు మీ నిర్ధారణ ఇమెయిల్‌ను కనుగొనలేకపోతే, %s కు ఇమెయిల్ పంపండి మరియు మేము మీ ఖాతాను మీ కోసం నిర్ధారిస్తాము.</string>
   <string name="accountConfirmed">యూసర్ %s కన్ఫర్మ్ అయిపోయారు.</string>
   <string name="accountCanLogin">మీరు ఇప్పుడు %s గా లాగిన్ చేయచ్చు.</string>
@@ -298,8 +285,6 @@
   </plurals>
   <string name="ok">సరే </string>
   <string name="cancel">రద్దు చేయండి</string>
-  <string name="whiteTimeOut">తెల్ల రంగు ఆడుతున్నవాడికి టైం లేదు.</string>
-  <string name="blackTimeOut">నలుపు సమయం సమాప్తి</string>
   <string name="drawOfferSent">సంధి ప్రతిపాదన పంపబడింది</string>
   <string name="drawOfferAccepted">సంధి ప్రతిపాదన ఆమోదించబడింది</string>
   <string name="whiteOffersDraw">తెల్ల పావులు సంధి కోరుకుంటున్నాయి</string>
@@ -420,7 +405,6 @@
     <item quantity="other">మీరు%s ఎక్కువ రేటెడ్ ఆటలను ఆడాలి</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">మీ%s రేటింగ్ తాత్కాలికం</string>
-  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">మీ రేటింగ్ స్థిరంగా లేనందున రేటింగ్ ఫిల్టర్‌లు లాక్ చేయబడ్డాయి. రేటింగ్ ఉన్న గేమ్‌లు ఆడటం వల్ల స్థిరత్వం పెరుగుతుంది.</string>
   <string name="yourPerfRatingIsTooHigh">మీ%1$s రేటింగ్ (%2$s) చాలా ఎక్కువ</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">మీ అగ్ర వారపు %1$s రేటింగ్ (%2$s) చాలా ఎక్కువ</string>
   <string name="yourPerfRatingIsTooLow">మీ %1$s రేటింగ్ (%2$s) చాలా తక్కువ</string>
@@ -594,7 +578,6 @@
   <string name="other">ఇతర</string>
   <string name="reportCheatBoostHelp">గేమ్(ల) లింక్‌ను అతికించి, ఈ యూజర్ ప్రవర్తనలో తప్పు ఏమిటో వివరించండి. కేవలం \"వారు మోసం చేస్తారు\" అని చెప్పకుండా, మీరు ఈ నిర్ధారణకు ఎలా వచ్చారో మాకు తెలియజేయండి.</string>
   <string name="reportUsernameHelp">ఈ యూజర్‌నేమ్ ఎందుకు అభ్యంతరకరమైనదో వివరించండి. కేవలం \"ఇది అభ్యంతరకరమైనది/అనుచితమైనది\" అని చెప్పకుండా, మీరు ఈ నిర్ధారణకు ఎలా వచ్చారో మాకు తెలియజేయండి. ముఖ్యంగా, ఆ అభ్యంతరం అస్పష్టంగా ఉన్నా, ఆంగ్లంలో లేకపోయినా, యాసలో ఉన్నా, లేదా చారిత్రక/సాంస్కృతిక ప్రస్తావనకు సంబంధించినది అయినా సరే.</string>
-  <string name="reportProcessedFasterInEnglish">మీ నివేదికను ఆంగ్లంలో వ్రాస్తే, అది వేగంగా ప్రాసెస్ చేయబడుతుంది.</string>
   <string name="error.provideOneCheatedGameLink">దయచేసి కనీసం మోసం చేసిన ఆట ఒక లింక్‌నైనౌ అందించండి.</string>
   <string name="by">%s చే</string>
   <string name="importedByX">%s ద్వారా దిగుమతి చేయబడింది</string>
@@ -718,11 +701,9 @@
   <string name="aboutSimulRules">సిమల్ ప్రారంభమైన వెంటనే, ప్రతి ఆటగాడు హోస్ట్‌తో ఒక ఆట ఆడడం ప్రారంభిస్తాడు. అన్ని ఆటలు పూర్తయ్యాక సిమల్ ముగుస్తుంది.</string>
   <string name="aboutSimulSettings">సిమల్‌లు ఎల్లప్పుడూ క్యాజువల్‌గా ఉంటాయి. రీమ్యాచ్‌లు, టేక్‌బ్యాక్‌లు మరియు అదనపు సమయం ఇవ్వడం అందుబాటులో ఉండదు.</string>
   <string name="create">సృష్టించండి</string>
-  <string name="whenCreateSimul">మీరు సిమల్ సృష్టించినప్పుడు, మీరు ఒకేసారి పలువురు ఆటగాళ్లతో ఆడవచ్చు.</string>
   <string name="simulVariantsHint">మీరు అనేక రకాలను ఎంచుకుంటే, ప్రతి ఆటగాడు ఏది ఆడాలో ఎంచుకోవచ్చు.</string>
   <string name="simulClockHint">మీరు ఎంత ఎక్కువ మంది ఆటగాళ్లను తీసుకుంటే, మీకు అంత ఎక్కువ సమయం అవసరం కావచ్చు.</string>
   <string name="simulAddExtraTime">సైమల్‌ను తట్టుకోవడంలో మీకు సహాయపడటానికి, మీరు మీ క్లాక్‌కు అదనపు ప్రారంభ సమయాన్ని జోడించవచ్చు.</string>
-  <string name="simulHostExtraTime">హోస్ట్‌కు అదనపు ప్రారంభ సమయం</string>
   <string name="simulAddExtraTimePerPlayer">సిమల్‌లో చేరే ప్రతి ఆటగాడికి మీ క్లాక్‌లో అదనపు ప్రారంభ సమయం జోడించబడుతుంది.</string>
   <string name="simulHostExtraTimePerPlayer">ప్రతి ఆటగాడికి హోస్ట్ అదనపు క్లాక్ సమయాన్ని అందిస్తుంది</string>
   <string name="lichessTournaments">లీచెస్స్ టోర్నమెంట్లు</string>

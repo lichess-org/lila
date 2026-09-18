@@ -28,7 +28,6 @@
   <string name="approved">Η μετάδοσή σας εγκρίθηκε.</string>
   <string name="pendingReview">Η μετάδοσή σας αξιολογείται από τους διαχειριστές.</string>
   <string name="pleaseFillIn">Παρακαλώ συμπληρώστε τις πληροφορίες σας και μεταφορτώστε μια εικόνα.</string>
-  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Όταν είσαστε έτοιμος να εμφανιστείτε ως Lichess streamer, %s</string>
   <string name="submitForReview">Υποβολή για εξέταση</string>
   <string name="streamerLanguageSettings">Η σελίδα Lichess streamer στοχεύει το κοινό σας με τη γλώσσα που παρέχεται από την πλατφόρμα ροής σας. Ορίστε τη σωστή προεπιλεγμένη γλώσσα για τις ροές σκακιού στην εφαρμογή ή την υπηρεσία που χρησιμοποιείτε για να μεταδώσετε.</string>
   <string name="pleaseAllow">Παρακαλούμε περιμένετε έως 72 ώρες για να εγκριθεί το σήμα streamer και η καταχώρησή σας.</string>

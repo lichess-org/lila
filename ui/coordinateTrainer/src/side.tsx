@@ -1,4 +1,5 @@
-import { colors, type ColorChoice } from 'lib/setup/color';
+import { capitalize } from 'lib/game';
+import { colorChoiceName, colors, type ColorChoice } from 'lib/setup/color';
 import { jsx, onInsert, bind, getEventTarget, getEventTargetInputValue } from 'lib/view';
 import { cmnToggleWrapProp } from 'lib/view/cmn-toggle';
 
@@ -129,20 +130,20 @@ const configurationButtons = (ctrl: CoordinateTrainerCtrl) => {
     </form>,
     <form class="color buttons">
       <group class="radio">
-        {colors.map(({ key, name }) => (
+        {colors.map(c => (
           <div>
             <input
               type="radio"
-              id={`coord_color_${key}`}
+              id={`coord_color_${c}`}
               name="color"
-              value={key}
-              checked={key === ctrl.colorChoice()}
+              value={c}
+              checked={c === ctrl.colorChoice()}
               on={{
                 change: (e: Event) => ctrl.colorChoice(getEventTargetInputValue<ColorChoice>(e)),
                 keyup: ctrl.onRadioInputKeyUp,
               }}
             />
-            <label class={`color_${key}`} for={`coord_color_${key}`} title={name}>
+            <label class={`color_${c}`} for={`coord_color_${c}`} title={colorChoiceName(c)}>
               <icon />
             </label>
           </div>
@@ -241,7 +242,7 @@ const playingAs = (ctrl: CoordinateTrainerCtrl) => (
     <label class={`color_${ctrl.orientation}`}>
       <icon />
     </label>
-    <em>{i18n.site[ctrl.orientation === 'white' ? 'youPlayTheWhitePieces' : 'youPlayTheBlackPieces']}</em>
+    <em>{i18n.site[`youPlayThe${capitalize(ctrl.orientation)}Pieces`]}</em>
   </div>
 );
 

@@ -55,12 +55,8 @@
   <string name="scrollOnTheBoardToReplayMoves">Scroll iwwer d\'Briet fir Zich nozespillen</string>
   <string name="correspondenceEmailNotification">Deeglech E-Mail mat denge Fernschachpartien</string>
   <string name="notifyStreamStart">Streamer geet live</string>
-  <string name="notifyInboxMsg">Nei Privatnoriicht</string>
-  <string name="notifyForumMention">Forenkommentar ernimmt dech</string>
-  <string name="notifyInvitedStudy">Etüdeninvitatioun</string>
   <string name="notifyGameEvent">Neies a Fernschachpartien</string>
   <string name="notifyChallenge">Erausfuerderungen</string>
-  <string name="notifyTournamentSoon">Turnéier fänkt gleich un</string>
   <string name="notifyTimeAlarm">Zäit a Fernschachpartië leeft of</string>
   <string name="notifyBell">Benoriichtegung ob Lichess</string>
   <string name="notifyPush">Gerät Benoriichtegung wanns du net ob Lichess bass</string>

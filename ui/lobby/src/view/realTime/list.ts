@@ -1,3 +1,4 @@
+import { perfName } from 'lib/game/perf';
 import perfIcons from 'lib/game/perfIcons';
 import { licon } from 'lib/licon';
 import { bind, dataIcon, tr, span, td, button, th, thead, tbody, icon, table } from 'lib/view';
@@ -6,8 +7,6 @@ import { profileUrl } from 'lib/view/userLink';
 import type LobbyController from '@/ctrl';
 import * as hookRepo from '@/hookRepo';
 import type { Hook } from '@/interfaces';
-
-import { perfNames } from '../util';
 
 function renderHook(ctrl: LobbyController, hook: Hook) {
   return tr(
@@ -19,7 +18,7 @@ function renderHook(ctrl: LobbyController, hook: Hook) {
       title: hook.disabled
         ? ''
         : hook.action === 'join'
-          ? i18n.site.joinTheGame + ' | ' + perfNames[hook.perf]
+          ? i18n.site.joinTheGame + ' | ' + perfName(hook.perf)
           : i18n.site.cancel,
       'data-id': hook.id,
     },

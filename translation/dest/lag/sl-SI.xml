@@ -7,7 +7,6 @@
   <string name="yesItWillBeFixedSoon">Da. Kmalu bo rešeno!</string>
   <string name="andNowTheLongAnswerLagComposedOfTwoValues">Pa še daljše pojasnilo. Zakasnitev igre je sestavljena iz dveh nepovezanih vrednosti (nižje je boljše):</string>
   <string name="lichessServerLatency">Zakasnitev strežnika Lichess</string>
-  <string name="lichessServerLatencyExplanation">Čas, potreben za obdelavo poteze na strežniku. Enak je za vse in je odvisen samo od obremenitve strežnika. Večje število igralcev ga podaljšuje, a Lichessovi razvijalci se trudijo, da je kratek. Redko presega 10 ms.</string>
   <string name="networkBetweenLichessAndYou">Omrežje med Lichessom in vami</string>
   <string name="networkBetweenLichessAndYouExplanation">Čas, ki je potreben, da vaša poteza prispe iz vašega računalnika na Lichessov strežnik in da prejmete njegov odgovor. Odvisen je od vaše oddaljenosti do Lichesovega strežnika (v Franciji) in hitrosti vaše internetne povezave. Lichessovi razvijalci ne morejo popraviti vašega wifija ali pospešiti vaše internetne povezave.</string>
   <string name="youCanFindTheseValuesAtAnyTimeByClickingOnYourUsername">Obe vrednosti lahko kadar koli najdete s klikom na uporabniško ime v zgornji vrstici.</string>

@@ -28,7 +28,6 @@
   <string name="approved">Striimisi hyväksyttiin.</string>
   <string name="pendingReview">Striimisi on moderaattorien arvioitavana.</string>
   <string name="pleaseFillIn">Syötä striimaajatiedot ja lataa kuva.</string>
-  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Kun haluat Lichess-striimaajien listalle, %s</string>
   <string name="submitForReview">Lähetä tarkistettavaksi</string>
   <string name="streamerLanguageSettings">Lichessin striimaajasivu on suunnattu yleisölle striimialustasi kielellä. Aseta shakkistriimeillesi sopiva kieli niiden lähetykseen käyttämässäsi sovelluksessa tai palvelussa.</string>
   <string name="pleaseAllow">Striimaajatunnuksesi ja listautumisesi hyväksynnässä voi kestää 72 tuntia.</string>

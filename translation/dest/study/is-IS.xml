@@ -65,7 +65,6 @@
   <string name="downloadGame">Hlaða niður skák</string>
   <string name="studyUrl">Stúdera slóð</string>
   <string name="currentChapterUrl">Núverandi slóð kafla</string>
-  <string name="youCanPasteThisInTheForumToEmbed">Þú getur límt þetta inn á umræðukorkinn eða Lichess-bloggið þitt til þess að ívefja það</string>
   <string name="startAtInitialPosition">Byrja í upphafsstöðu</string>
   <string name="startAtX">Byrja á %s</string>
   <string name="embedInYourWebsite">Ívefja inn í vefsíðuna þína</string>
@@ -187,8 +186,6 @@
   <string name="fromInitialPositionText">Bara byrjunarstaða á taflborði fyrir nýja skák.&lt;br&gt;Vel til þess fallið að kanna byrjanir.</string>
   <string name="customPositionTitle">Sérsniðin staða</string>
   <string name="customPositionText">Settu upp borðið á þinn hátt.&lt;br&gt;Vel til þess fallið að kanna endatöfl.</string>
-  <string name="loadExistingLichessGameTitle">Hlaða inn tiltækri Lichess-skák</string>
-  <string name="loadExistingLichessGameText">Límdu inn slóð Lichess-skákar&lt;br&gt;(eins og lichess.org/7fHIU0XI)&lt;br&gt;til að hlaða inn leikjum skákar í kaflanum.</string>
   <string name="fromFenStringTitle">Útfrá Fen-streng</string>
   <string name="fromFenStringText">Límdu inn stöðu í formi FEN&lt;br&gt;&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;&lt;br&gt;til að hefja kaflann útfrá ákveðinni stöðu.</string>
   <string name="fromPgnGameTitle">Úr skák í formi PGN</string>

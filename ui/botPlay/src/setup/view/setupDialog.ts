@@ -1,6 +1,6 @@
 import { botAssetUrl } from 'lib/bot/botLoader';
 import { pubsub } from 'lib/pubsub';
-import { colors } from 'lib/setup/color';
+import { colorChoiceName, colors } from 'lib/setup/color';
 import { colorButtons } from 'lib/setup/view/color';
 import { timePickerAndSliders } from 'lib/setup/view/timeControl';
 import { snabDialog, bind, hl } from 'lib/view';
@@ -49,6 +49,7 @@ export const setupDialog = (ctrl: SetupCtrl) => {
 };
 
 const settingsPreview = (ctrl: SetupCtrl) => {
-  const color = colors.find(c => c.key === ctrl.color())?.name ?? 'random';
-  return [color, ctrl.timeControl.isRealTime() ? ctrl.timeControl.clockStr() : 'No clock'].join(' | ');
+  const color = colors.find(c => c === ctrl.color()) ?? 'random';
+  const colorName = colorChoiceName(color);
+  return [colorName, ctrl.timeControl.isRealTime() ? ctrl.timeControl.clockStr() : 'No clock'].join(' | ');
 };

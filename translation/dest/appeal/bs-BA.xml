@@ -8,7 +8,6 @@
   <string name="accountMutedInfo">Pročitajte naš %s. Nepoštivanje naših komunikacijskih smjernica može rezultirati utišavanjem Vašeg korisničkog računa.</string>
   <string name="excludedFromLeaderboards">Vaš račun je isključen iz rang lista.</string>
   <string name="closedByModerators">Vaš račun je zatvoren od strane moderatora.</string>
-  <string name="playTimeout">Imate timeout za igranje.</string>
   <string name="communicationGuidelines">komunikacijska upustva</string>
   <string name="fairPlay">Fer-plej</string>
 </resources>

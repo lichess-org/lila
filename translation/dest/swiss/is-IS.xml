@@ -65,7 +65,6 @@ Leggur saman stig hvers andstæðings sem skákmaður sigrar og helming af stigi
   <string name="pairingsA">Notast er við %1$s, sem %2$s innleiddi, í samræmi við %3$s.</string>
   <string name="moreRoundsThanPlayersQ">Hvað gerist ef mótið hefur fleiri umferðir en skákmenn?</string>
   <string name="moreRoundsThanPlayersA">Þegar allar mögulegar viðureignir hafa verið tefldar er mótinu lokið og sigurvegari útnefndur.</string>
-  <string name="restrictedToTeamsQ">Hvers vegna er þetta bara fyrir lið?</string>
   <string name="restrictedToTeamsA">Swiss-mót voru ekki hönnuð fyrir netskák. Þau krefjast stundvísi, hollustu og þolinmæði frá skákmönnum.
 Við teljum að þessi skilyrði séu líklegri til að vera uppfyllt innan liðs en á alþjóðlegum mótum.</string>
   <string name="numberOfByesQ">Hversu oft getur skákmaður verið stakur?</string>
@@ -86,7 +85,6 @@ Skipuleggjandi Swiss-viðburðar getur ákveðið að leyfa þeim að taka þát
 Þeir skákmenn sem mæta seint fá eitt frí, jafnvel þótt þeir hafi misst af þónokkrum umferðum.</string>
   <string name="willSwissReplaceArenasQ">Munu Swiss-mót koma í staðinn fyrir Arena-mót?</string>
   <string name="willSwissReplaceArenasA">Nei. Þeir sérleikar eru til uppbótar.</string>
-  <string name="roundRobinQ">Hvað með hringhana (e. Round Robin)?</string>
   <string name="roundRobinA">Við viljum gjarnan bæta slíku við, en því miður virkar hringhani ekki á netinu. Ástæðan er sú að það er engin sanngjörn leið til þess að takast á við þegar fólk hættir í mótinu snemma. Við getum ekki vænst þess að allir notendur leiki allar sínar skákir í netviðburði. Það mun einfaldlega ekki gerast, og þar af leiðandi myndu flest hringekjumót vera ófullkomin og ósanngjörn, sem eyðileggur tilgang þeirra. 
 Það sem líkist hringhana á netinu best er að tefla Swiss-mót með mjög háum fjölda umferða. Þá verða allar mögulegar viðureignir tefldar áður en mótinu lýkur.</string>
   <string name="otherSystemsQ">Hvað með önnur mótkerfi?</string>
@@ -121,7 +119,6 @@ Skipuleggjandi Swiss-viðburðar getur ákveðið að leyfa þeim að taka þát
   <string name="similarToOTB">Svipað og á raunverulegum skákmótum (OTB-mótum)</string>
   <string name="unlimitedAndFree">Ótakmarkandi og ókeypis</string>
   <string name="predefinedUsers">Leyfa aðeins fyrirframskilgreindum notendum að taka þátt</string>
-  <string name="forbiddedUsers">Ef þessi listi er ekki tómur, þá verður notendum sem eru fjarverandi á þessum lista bannað að vera með. Eitt notandanafn á línu.</string>
   <string name="playYourGames">Tefldu skákir þínar</string>
   <string name="byes">Stökur</string>
   <string name="absences">Fjarvistir</string>

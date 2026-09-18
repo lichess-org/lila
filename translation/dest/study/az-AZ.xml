@@ -60,7 +60,6 @@
   <string name="downloadGame">Oyunu endir</string>
   <string name="studyUrl">Çalışma URL-i</string>
   <string name="currentChapterUrl">Cari fəsil URL-ii</string>
-  <string name="youCanPasteThisInTheForumToEmbed">Pərçimləmək üçün bunu forumda paylaşa bilərsiniz</string>
   <string name="startAtInitialPosition">Başlanğıc pozisiyada başlasın</string>
   <string name="startAtX">buradan başla: %s</string>
   <string name="embedInYourWebsite">Veb sayt və ya bloqunuzda pərçimləyin</string>

@@ -17,7 +17,7 @@ final class RoundUi(helpers: Helpers, gameUi: lila.game.ui.GameUi):
       .css(ctx.pref.hasVoice.option("voice"))
       .css(ctx.blind.option("round.nvui"))
       .i18nOpt(ctx.speechSynthesis, _.nvui)
-      .i18nOpt(ctx.blind, _.keyboardMove)
+      .i18nOpt(ctx.blind, _.keyboardMove, _.variant)
       .flag(_.zoom)
       .csp(_.withWebAssembly)
 

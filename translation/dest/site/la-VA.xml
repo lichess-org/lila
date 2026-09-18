@@ -114,25 +114,13 @@
   <string name="blunder">Mendum</string>
   <string name="mistake">Erratum</string>
   <string name="inaccuracy">Indiligentia</string>
-  <plurals name="nbBlunders">
-    <item quantity="one">%s mendum</item>
-    <item quantity="other">%s menda</item>
-  </plurals>
   <plurals name="numberBlunders">
     <item quantity="one">%s Mendum</item>
     <item quantity="other">%s Menda</item>
   </plurals>
-  <plurals name="nbMistakes">
-    <item quantity="one">%s erratum</item>
-    <item quantity="other">%s errata</item>
-  </plurals>
   <plurals name="numberMistakes">
     <item quantity="one">%s Erratum</item>
     <item quantity="other">%s Errata</item>
-  </plurals>
-  <plurals name="nbInaccuracies">
-    <item quantity="one">%s indiligentia</item>
-    <item quantity="other">%s indiligentiae</item>
   </plurals>
   <plurals name="numberInaccuracies">
     <item quantity="one">%s Menda</item>
@@ -229,8 +217,6 @@
   </plurals>
   <string name="ok">Accipe</string>
   <string name="cancel">Anullare</string>
-  <string name="whiteTimeOut">Tempus nullum est</string>
-  <string name="blackTimeOut">Tempus nullum est</string>
   <string name="drawOfferSent">Missa est pacis conditio</string>
   <string name="drawOfferAccepted">Accepta est pacis conditio</string>
   <string name="whiteOffersDraw">Albus terminum proponit.</string>
@@ -580,11 +566,9 @@
   <string name="aboutSimulRules">Cum simultanea incepit, omnes lusores ludum cum hospite incipiunt, qui cum calculis albis ludit. Cum omnes ludi finiti sunt, sumultanea completa erit.</string>
   <string name="aboutSimulSettings">Simultaneae semper leviores sunt. Vindictas, receptus, atque \"plus temporis\" tibi non licet.</string>
   <string name="create">Crea</string>
-  <string name="whenCreateSimul">Cum simultaneam exhibitionem creas, plures lusores una ludis.</string>
   <string name="simulVariantsHint">Si variationes plures legis quas ludere quisque lusor eligere potest.</string>
   <string name="simulClockHint">Fischer Horologica fabrica. Tot lusores ludeabis ut plurem tempus requireas.</string>
   <string name="simulAddExtraTime">Plurem tempus in tuo horologio addeas ut exhibitio simultanea molliatur.</string>
-  <string name="simulHostExtraTime">Praebe magis temporis</string>
   <string name="lichessTournaments">Lichess certamina</string>
   <string name="tournamentFAQ">Certaminis FAQ</string>
   <string name="timeBeforeTournamentStarts">Tempus ante principio certaminis</string>
@@ -669,7 +653,6 @@
   <string name="invalidFen">Invalida positio notatio</string>
   <string name="custom">Varia</string>
   <string name="notifications">Nuntii</string>
-  <string name="perfRatingX">Ordo: %s</string>
   <string name="seeBestMove">Maxime motum videre</string>
   <string name="hideBestMove">Maxime motum celare</string>
   <string name="getAHint">Significatio</string>

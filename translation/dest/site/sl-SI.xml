@@ -149,35 +149,17 @@
   <string name="blunder">Spodrsljaj</string>
   <string name="mistake">Napaka</string>
   <string name="inaccuracy">Nenatančnost</string>
-  <plurals name="nbBlunders">
-    <item quantity="one">%s napaka</item>
-    <item quantity="two">%s napaki</item>
-    <item quantity="few">%s napake</item>
-    <item quantity="other">%s napak</item>
-  </plurals>
   <plurals name="numberBlunders">
     <item quantity="one">%s Napaka</item>
     <item quantity="two">%s Napaki</item>
     <item quantity="few">%s Napake</item>
     <item quantity="other">%s Napak</item>
   </plurals>
-  <plurals name="nbMistakes">
-    <item quantity="one">%s napakica</item>
-    <item quantity="two">%s napakici</item>
-    <item quantity="few">%s napakice</item>
-    <item quantity="other">%s napakic</item>
-  </plurals>
   <plurals name="numberMistakes">
     <item quantity="one">%s Napakica</item>
     <item quantity="two">%s Napakici</item>
     <item quantity="few">%s Napakice</item>
     <item quantity="other">%s Napakic</item>
-  </plurals>
-  <plurals name="nbInaccuracies">
-    <item quantity="one">%s nenatančnost</item>
-    <item quantity="two">%s nenatančnosti</item>
-    <item quantity="few">%s nenatančnosti</item>
-    <item quantity="other">%s nenatančnosti</item>
   </plurals>
   <plurals name="numberInaccuracies">
     <item quantity="one">%s Nenatančnost</item>
@@ -187,6 +169,7 @@
   </plurals>
   <string name="moveTimes">Časi za poteze</string>
   <string name="flipBoard">Obrni igralno desko</string>
+  <string name="illegalPosition">Nedovoljen položaj</string>
   <string name="threefoldRepetition">Trikratna ponovitev</string>
   <string name="claimADraw">Zahtevaj remi</string>
   <string name="drawClaimed">Zahtevan remi</string>
@@ -297,7 +280,6 @@
   <string name="emailSent">Na naslov %s smo poslali e-poštno sporočilo.</string>
   <string name="emailCanTakeSomeTime">Do prihoda lahko preteče nekaj časa.</string>
   <string name="refreshInboxAfterFiveMinutes">Počakajte 5 minut in osvežite e-poštni predal.</string>
-  <string name="checkSpamFolder">Preverite tudi mapo za neželeno pošto, morda se znajde tam. Če je tako, jo označite kot zaželeno.</string>
   <string name="sendEmailForAccountVerification">Če ne najdete potrditvenega e-poštnega sporočila, pošljite e-pošto na %s in potrdili bomo vaš račun.</string>
   <string name="accountConfirmed">Uporabnik %s je uspešno potrjen.</string>
   <string name="accountCanLogin">Zdaj se lahko prijavite kot %s.</string>
@@ -327,10 +309,8 @@
   </plurals>
   <string name="ok">V redu</string>
   <string name="cancel">Prekliči</string>
-  <string name="whiteTimeOut">Belemu se je čas iztekel</string>
-  <string name="whiteRanOutOfTime" comment="whiteTimeOut&#10;&#10;Shows when White's time has run out. Is followed by the end condition, for example&#10;'White ran out of time · Draw' Replaces old string whiteTimeOut">Belemu je zmanjkalo časa</string>
-  <string name="blackTimeOut">Črnemu se je čas iztekel</string>
-  <string name="blackRanOutOfTime" comment="blackTimeOut&#10;&#10;Shows when Black's time has run out. Is followed by the end condition, for example&#10;'Black ran out of time · Draw' Replaces old string blackTimeOut">Črnemu je zmanjkalo časa</string>
+  <string name="whiteRanOutOfTime" comment="whiteTimeOut&#10;&#10;Shows when White's time has run out. Is followed by the end condition, for example&#10;'White ran out of time · Draw'">Belemu je zmanjkalo časa</string>
+  <string name="blackRanOutOfTime" comment="blackTimeOut&#10;&#10;Shows when Black's time has run out. Is followed by the end condition, for example&#10;'Black ran out of time · Draw'">Črnemu je zmanjkalo časa</string>
   <string name="drawOfferSent">Predlog za remi poslan</string>
   <string name="drawOfferAccepted">Predlog za remi sprejet</string>
   <string name="whiteOffersDraw">Beli predlaga remi</string>
@@ -477,8 +457,7 @@
     <item quantity="other">Morate odigrati še %s rangiranih partij</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Vaš %s rating je začasen</string>
-  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Filtri rangiranja so zaklenjeni, ker vaša ocena ni stabilna. Igranje rangiranih iger bo povečalo stabilnost.</string>
-  <string name="cannotFilterByUnstableRating" comment="Tooltip to explain why the control for filtering by rating is disabled Replaces old string ratingRangeIsDisabledBecauseYourRatingIsProvisional">Filtriranje po rangih ni mogoče, ker vaš rang ni stabilna.
+  <string name="cannotFilterByUnstableRating" comment="Tooltip to explain why the control for filtering by rating is disabled">Filtriranje po rangih ni mogoče, ker vaš rang ni stabilna.
 Igranje rangiranih iger bo povečalo stabilnost.</string>
   <string name="yourPerfRatingIsTooHigh">Vaš %1$s rating (%2$s) je previsok</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Vaš najvišji %1$s rating (%2$s) v tem tednu, je previsok</string>
@@ -500,7 +479,7 @@ Igranje rangiranih iger bo povečalo stabilnost.</string>
   <string name="apply">Uporabi</string>
   <string name="save">Shrani</string>
   <string name="leaderboard">Lestvica</string>
-  <string name="positionAsImage" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position. Replaces old string screenshotCurrentPosition">Pozicija kot slika</string>
+  <string name="positionAsImage" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position.">Pozicija kot slika</string>
   <string name="gameAsGIF">Partija kot GIF</string>
   <string name="playerNames">Imena igralcev</string>
   <string name="moveAnnotations">Zapis potez</string>
@@ -668,7 +647,6 @@ Igranje rangiranih iger bo povečalo stabilnost.</string>
   <string name="other">Drugo</string>
   <string name="reportCheatBoostHelp">Prilepite povezavo do igre (ali iger) in pojasnite, kaj je narobe z nasprotnikovim načinom igranja. Ne napišite le, da \"nasprotnik goljufa\", ampak pojasnite, kako ste prišli do te ugotovitve.</string>
   <string name="reportUsernameHelp">Razložite, zakaj je to uporabniško ime žaljivo. Ne recite zgolj \"je žaljivo/neprimerno\", povejte nam, kako ste prišli do tega zaključka. Še posebej, le je žalitev prikrita, ni v angleščini, je v slengu ali ima zgodovinsko/kulturno referenco. </string>
-  <string name="reportProcessedFasterInEnglish">Vaša prijava bo obravnavana hitreje, če jo napišete v angleščini.</string>
   <string name="error.provideOneCheatedGameLink">Navedite vsaj eno povezavo do igre s primerom goljufanja.</string>
   <string name="by">od %s</string>
   <string name="importedByX">Uvozil je %s</string>
@@ -798,12 +776,10 @@ Igranje rangiranih iger bo povečalo stabilnost.</string>
   <string name="aboutSimulRules">V simultanki ima igralec-gostitelj zmeraj bele figure. Simultanka se zaključi, ko so vse partije končane.</string>
   <string name="aboutSimulSettings">Simultanke so zmeraj nerangirane. Revanše, popravki potez in dodajanje časa niso možni.</string>
   <string name="create">Ustvari</string>
-  <string name="whenCreateSimul">Ko ustvariš simultanko, boš igral z več nasprotniki hkrati.</string>
   <string name="simulVariantsHint">Če si izbral več variant, vsak igralec izbere katero varianto bo igral.</string>
   <string name="simulClockHint">Fischerjeva nastavitev ure. Več igralcev kot sprejmeš, več časa boš morda potreboval.</string>
   <string name="simulAddExtraTime">Uri lahko dodaš več časa v pomoč pri igranju simultanke.</string>
-  <string name="simulHostExtraTime">Dodaten čas za gostitelja</string>
-  <string name="extraClockTimeForHost" comment="Appears on: https://lichess.org/simul/new&#10;&#10;Allows a simul host to select extra time for the simul.&#10;&#10;Please note this string used to state &quot;Host extra clock time&quot;, without the word &quot;initial&quot; Replaces old string simulHostExtraTime">Dodaten čas za gostitelja:</string>
+  <string name="extraClockTimeForHost" comment="Appears on: https://lichess.org/simul/new&#10;&#10;Allows a simul host to select extra time for the simul.&#10;&#10;Please note this string used to state &quot;Host extra clock time&quot;, without the word &quot;initial&quot;">Dodaten čas za gostitelja:</string>
   <string name="simulAddExtraTimePerPlayer">Dodajte začetni čas svoji uri za vsakega igralca, ki se pridruži simultanki.</string>
   <string name="simulHostExtraTimePerPlayer">Gostite dodatni čas na igralca</string>
   <string name="lichessTournaments">Lichess turnirji</string>
@@ -934,8 +910,7 @@ Igranje rangiranih iger bo povečalo stabilnost.</string>
   <string name="custom">Po meri</string>
   <string name="notifications">Obvestila</string>
   <string name="notificationsX">Obvestila: %1$s</string>
-  <string name="perfRatingX">Rating: %s</string>
-  <string name="perfRatingLabel" comment="Replaces old string perfRatingX">Rating: %s.</string>
+  <string name="perfRatingLabel">Rating: %s.</string>
   <string name="yourRatingIsX">Vaš rejting je %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekund za prvo potezo</item>
@@ -1000,8 +975,7 @@ Igranje rangiranih iger bo povečalo stabilnost.</string>
     <item quantity="other">in shranite %s predpoteznih variant</item>
   </plurals>
   <string name="showUnreadLichessMessage">Prejeli ste zasebno sporočilo od Lichess.</string>
-  <string name="clickHereToReadIt">Kliknite tukaj, če ga želite prebrati</string>
-  <string name="readTheMessage" comment="'It' refers to a private message. This text follows after a different string which advises players they have received a private message from Lichess. For users, this is appears as a regular private message from the Lichess account: https://lichess.org/@/Lichess Replaces old string clickHereToReadIt">Preberite sporočilo</string>
+  <string name="readTheMessage" comment="'It' refers to a private message. This text follows after a different string which advises players they have received a private message from Lichess. For users, this is appears as a regular private message from the Lichess account: https://lichess.org/@/Lichess">Preberite sporočilo</string>
   <string name="sorry">Oprostite :(</string>
   <string name="weHadToTimeYouOutForAWhile">Morali smo vas za nekaj časa onemogočiti.</string>
   <string name="why">Zakaj?</string>
@@ -1086,14 +1060,12 @@ Pustite prazno, da začnete igre iz običajnega začetnega položaja.</string>
   <string name="simulFeaturedHelp">Pokažite svojo simultanko vsem na %s. Onemogoči za zasebne simulacije.</string>
   <string name="simulDescription">Opis simultanke</string>
   <string name="simulDescriptionHelp">Kaj želite povedati udeležencem?</string>
-  <string name="markdownIsAvailable">%s je na voljo za oblikovanje.</string>
   <string name="embedsAvailable">Prilepite URL igre ali URL poglavja študije, da ga vdelate.</string>
   <string name="inYourLocalTimezone">V svojem lokalnem časovnem pasu</string>
   <string name="tournChat">Turnirski klepet</string>
   <string name="noChat">Brez klepeta</string>
   <string name="onlyTeamLeaders">Dovoljeno samo voditeljem ekip</string>
   <string name="onlyTeamMembers">Dovoljeno samo članom ekip</string>
-  <string name="navigateMoveTree">Krmarite po drevesu potez</string>
   <string name="mouseTricks">Možnosti miške</string>
   <string name="toggleLocalAnalysis">Preklopi lokalno računalniško analizo</string>
   <string name="toggleAllAnalysis">Preklopi vso računalniško analizo</string>

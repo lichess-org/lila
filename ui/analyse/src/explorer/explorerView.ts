@@ -1,3 +1,4 @@
+import { capitalize } from 'lib/game';
 import perfIcons from 'lib/game/perfIcons';
 import { displayLocale, numberFormat } from 'lib/i18n';
 import { licon, type LiconValue } from 'lib/licon';
@@ -336,7 +337,7 @@ const explorerTitle = (ctrl: AnalyseCtrl) => {
         ? active(
             [
               hl(`strong${playerName.length > 14 ? '.long' : ''}`, playerName),
-              ` ${i18n.site[config.data.color() === 'white' ? 'asWhite' : 'asBlack']}`,
+              ` ${i18n.site[`as${capitalize(config.data.color())}`]}`,
               explorer.isIndexing() &&
                 !configOpened &&
                 hl('icon.ddloader', {

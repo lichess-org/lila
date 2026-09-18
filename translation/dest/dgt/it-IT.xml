@@ -20,7 +20,6 @@
   <string name="checkYouHaveMadeOpponentsMove">Per prima cosa controlla di aver fatto la mossa del tuo avversario sulla scacchiera DGT. Ripristina la tua mossa. Gioca di nuovo.</string>
   <string name="asALastResort">Come ultima risorsa, disponi la scacchiera in modo identico a quella di Lichess, poi %s</string>
   <string name="reloadThisPage">Ricarica questa pagina</string>
-  <string name="dgtConfigure">DGT - Configura</string>
   <string name="lichessConnectivity">Connessione a Lichess</string>
   <string name="validDgtOauthToken">Disponi di una chiave OAuth adatta per giocare con la DGT.</string>
   <string name="dgtPlayMenuEntryAdded">Una voce %s è stata aggiunta al tuo menu PLAY in alto.</string>

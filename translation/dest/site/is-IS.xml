@@ -132,25 +132,13 @@
   <string name="blunder">Afleikur</string>
   <string name="mistake">Mistök</string>
   <string name="inaccuracy">Ónákvæmni</string>
-  <plurals name="nbBlunders">
-    <item quantity="one">%s afleikur</item>
-    <item quantity="other">%s afleikir</item>
-  </plurals>
   <plurals name="numberBlunders">
     <item quantity="one">%s Afleikur</item>
     <item quantity="other">%s Afleikir</item>
   </plurals>
-  <plurals name="nbMistakes">
-    <item quantity="one">%s mistök</item>
-    <item quantity="other">%s mistök</item>
-  </plurals>
   <plurals name="numberMistakes">
     <item quantity="one">%s Mistök</item>
     <item quantity="other">%s Mistök</item>
-  </plurals>
-  <plurals name="nbInaccuracies">
-    <item quantity="one">%s ónákvæmni</item>
-    <item quantity="other">%s ónákvæmni</item>
   </plurals>
   <plurals name="numberInaccuracies">
     <item quantity="one">%s Ónákvæmni</item>
@@ -251,7 +239,6 @@
   <string name="emailSent">Við höfum sent tölvupóst á %s.</string>
   <string name="emailCanTakeSomeTime">Það gæti tekið smá tíma að skila sér.</string>
   <string name="refreshInboxAfterFiveMinutes">Hinkraðu í 5 mínútur og athuga svo innhólfið þitt.</string>
-  <string name="checkSpamFolder">Athugaðu einnig ruslmöppuna þína, pósturinn gæti hafa ratað þangað. Ef svo er, merktu hann öruggan.</string>
   <string name="accountConfirmed">Notandinn %s hefur verið staðfestur.</string>
   <string name="accountCanLogin">Þú getur skráð þig inn núna sem %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Þú þarft ekki staðfestingar póst.</string>
@@ -274,8 +261,6 @@
   </plurals>
   <string name="ok">Í LAGI</string>
   <string name="cancel">Hætta við</string>
-  <string name="whiteTimeOut">Hvítur féll á tíma</string>
-  <string name="blackTimeOut">Svartur féll á tíma</string>
   <string name="drawOfferSent">Boð um jafntefli sent</string>
   <string name="drawOfferAccepted">Boði um jafntefli samþykkt</string>
   <string name="whiteOffersDraw">Hvítur býður jafntefli</string>
@@ -395,7 +380,6 @@
     <item quantity="other">Þú verður að tefla %s skákir með stigagjöf í viðbót</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Stig þín í %s eru tímabundin</string>
-  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Skákstyrkjasían er ekki þér aðgengileg vegna þess að skákstigatala þín er ekki stöðug. Að tefla stigaskákir mun auka stöðugleika.</string>
   <string name="yourPerfRatingIsTooHigh">Stig þín í %1$s (%2$s) eru of há</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Hæstu vikulegu stig þín í %1$s (%2$s) eru of há</string>
   <string name="yourPerfRatingIsTooLow">Stig þín í %1$s (%2$s) eru of lág</string>
@@ -565,7 +549,6 @@
   <string name="other">Annað</string>
   <string name="reportCheatBoostHelp">Vinsamlegast límdu inn slóðina að skák(unum) og útskýrðu í hverju misferli notandans er fólgið. Forðastu að segja einungis „hann svindlar,“ heldur greindu frá því hvernig þú komst að þeirri niðurstöðu.</string>
   <string name="reportUsernameHelp">Við óskum eftir skýringu á því sem er móðgandi við þetta notandanafn. Ekki nægir að segja „það er óviðeigandi“, heldur upplýstu okkur um hvernig þú komst að þinni niðurstöðu, einkum ef móðgunin er dulbúin, ekki á ensku, í slangri eða vísar til sögulegra/menningarlegra atburða.</string>
-  <string name="reportProcessedFasterInEnglish">Tilkynning þín mun hljóta skjótari afgreiðslu sé hún færð á ensku.</string>
   <string name="error.provideOneCheatedGameLink">Vinsamlegast gefðu upp tengil á allavega eina skák þar sem svindlað var.</string>
   <string name="by">eftir %s</string>
   <string name="importedByX">Hlaðið inn af %s</string>
@@ -686,11 +669,9 @@
   <string name="aboutSimulRules">Þegar fjölteflið hefst, hefur hver skákmaður leik við gestgjafann. Fjölteflinu lýkur þegar allar skákir eru búnar.</string>
   <string name="aboutSimulSettings">Fjöltefli eru alltaf stigalaus. Aukaskákir, afturkallanir og viðbótartími eru ekki í boði.</string>
   <string name="create">Búa til</string>
-  <string name="whenCreateSimul">Þegar þú heldur fjöltefli geturðu teflt við marga skákmenn í einu.</string>
   <string name="simulVariantsHint">Ef þú velur nokkur afbrigði fær hver andstæðingur að ákveða hvert þeirra hann vill leika.</string>
   <string name="simulClockHint">Uppsetning á Fischer-klukku. Því fleiri andstæðinga sem þú teflir við, því meiri tíma gætirðu þurft.</string>
   <string name="simulAddExtraTime">Þú getur bætt við tíma til að hjálpa þér að ráða við hópskákina.</string>
-  <string name="simulHostExtraTime">Aukatími á klukku þess sem hýsir.</string>
   <string name="simulAddExtraTimePerPlayer">Bæta viðbótartíma við klukkuna þína fyrir hvern skákmann sem tekur þátt í fjöltefli.</string>
   <string name="simulHostExtraTimePerPlayer">Viðbótartími á klukku gestgjafa á skákmann</string>
   <string name="lichessTournaments">Lichess mót</string>
@@ -812,7 +793,6 @@
   <string name="custom">Sérsniðin</string>
   <string name="notifications">Tilkynningar</string>
   <string name="notificationsX">Tilkynningar: %1$s</string>
-  <string name="perfRatingX">Skákstig: %s</string>
   <string name="yourRatingIsX">Skákstigin þín eru %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekúnda til að gera fyrsta leik</item>
@@ -871,7 +851,6 @@
     <item quantity="other">og vista %s forleikfléttur</item>
   </plurals>
   <string name="showUnreadLichessMessage">Þú hefur fengið einkaskilaboð frá Lichess.</string>
-  <string name="clickHereToReadIt">Ýttu hér til að lesa það</string>
   <string name="sorry">Afsakaðu :(</string>
   <string name="weHadToTimeYouOutForAWhile">Við þurftum að setja þig í stutt leikbann.</string>
   <string name="why">Afhverju?</string>
@@ -955,14 +934,12 @@ Skildu eftir autt til að tefla útfrá hefðbundinni upphafsstöðu.</string>
   <string name="simulFeaturedHelp">Sýna öllum á %s fjöltefli þitt. Afvirktu ef um persónuleg fjöltefli er um að ræða.</string>
   <string name="simulDescription">Lýsing fjölteflis</string>
   <string name="simulDescriptionHelp">Er nokkuð eitthvað sem óskað er eftir að upplýsa þátttakendur um?</string>
-  <string name="markdownIsAvailable">%s er tiltækt til sniðmótunar.</string>
   <string name="embedsAvailable">Límdu vefslóð skákar eða vefslóð stúderingarkafla til þess að ívefja það.</string>
   <string name="inYourLocalTimezone">Samkvæmt þínum staðbundna tíma</string>
   <string name="tournChat">Spjall móts</string>
   <string name="noChat">Ekkert spjall</string>
   <string name="onlyTeamLeaders">Eingöngu liðsstjórar</string>
   <string name="onlyTeamMembers">Eingöngu liðsfélagar</string>
-  <string name="navigateMoveTree">Fletta í gegnum leikjalistann</string>
   <string name="mouseTricks">Músarklækir</string>
   <string name="toggleLocalAnalysis">Virkja tölvugreiningu á staðvél</string>
   <string name="toggleAllAnalysis">Virkja tölvugreiningu á öllum vélum</string>

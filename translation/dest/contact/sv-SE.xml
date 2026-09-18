@@ -25,7 +25,6 @@
   <string name="cantChangeMore">Vi kan inte ändra mer än shiftläget. Av tekniska skäl är det rent ut sagt omöjligt.</string>
   <string name="orCloseAccount">Du kan dock stänga ditt nuvarande konto och skapa ett nytt.</string>
   <string name="wantClearHistory">Jag vill rensa min historik eller rating</string>
-  <string name="cantClearHistory">Det är inte möjligt att rensa din partihistorik, historik för schackproblem eller rating.</string>
   <string name="wantReport">Jag vill rapportera en spelare</string>
   <string name="toReportAPlayerUseForm">Använd rapportformuläret för att rapportera en spelare</string>
   <string name="youCanAlsoReachReportPage">Du kan också nå den sidan genom att klicka på knappen %s rapportera på en profilsida.</string>

@@ -62,7 +62,6 @@
   <string name="downloadGame">ดาวน์โหลดเกม</string>
   <string name="studyUrl">URL กรณีศึกษา</string>
   <string name="currentChapterUrl">URL บทปัจจุบัน</string>
-  <string name="youCanPasteThisInTheForumToEmbed">คุณสามารถวางลิงค์นี้ในฟอรั่ม Lichess หรือบล็อก Lichess ของคุณเพื่อฝังโค้ด</string>
   <string name="startAtInitialPosition">เริ่มที่ตำแหน่งตั้งต้น</string>
   <string name="startAtX">เริ่มที่ %s</string>
   <string name="embedInYourWebsite">ฝังในเว็บไซต์ของคุณ</string>
@@ -184,8 +183,6 @@
   <string name="fromInitialPositionText">แค่จัดวางกระดานเพื่อเตรียมเล่นเกมใหม่&lt;br&gt;ให้เหมาะสำหรับการสำรวจช่วงท้ายเกม</string>
   <string name="customPositionTitle">ตำแหน่งที่กำหนดเอง</string>
   <string name="customPositionText">ตั้งค่ากระดานตามที่คุณต้องการ&lt;br&gt;ให้เหมาะสำหรับการสำรวจช่วงท้ายเกม</string>
-  <string name="loadExistingLichessGameTitle">โหลดเกมบน Lichess ที่มีอยู่แล้ว</string>
-  <string name="loadExistingLichessGameText">วาง URL ของเกมบน Lichess&lt;br&gt;(เช่น lichess.org/7fHIU0XI)&lt;br&gt;เพื่อโหลดตาเดินของเกมในบทนั้น</string>
   <string name="fromFenStringTitle">จากสตริง FEN</string>
   <string name="fromFenStringText">วางตำแหน่งในรูปแบบของ FEN &lt;br&gt;&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;&lt;br&gt;เพื่อเริ่มบทจากตำแหน่งนั้นๆ</string>
   <string name="fromPgnGameTitle">จากเกม PGN</string>

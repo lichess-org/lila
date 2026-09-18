@@ -1,3 +1,4 @@
+@use 'sass:list';
 @import '../../../lib/css/component/material';
 
 $player-height: 1.6rem;
@@ -9,7 +10,7 @@ $player-height: 1.6rem;
 
   @include mq-at-least-col2 {
     .analyse__underboard {
-      margin-top: calc(#{$player-height / 2} + #{$analyse-block-gap} / 2);
+      margin-top: calc(#{list.slash($player-height, 2)} + #{list.slash($analyse-block-gap, 2)});
     }
   }
 

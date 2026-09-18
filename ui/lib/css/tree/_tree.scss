@@ -7,7 +7,7 @@ $disclosure-btn-size: calc(15px + var(---button-size-pointer-adjust, 0px));
   }
 
   .#{$name},
-  .#{$name} >  + lines,
+  .#{$name} + lines:not(lines lines) > branch,
   &-inline .#{$name} + interrupt:not(:has(interrupt)) {
     --c-annotation-border: rgb(from var(--c-#{$name}) r g b / calc(alpha * 0.6));
 

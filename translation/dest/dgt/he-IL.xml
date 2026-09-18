@@ -20,7 +20,6 @@
   <string name="checkYouHaveMadeOpponentsMove">תחילה, בדקו שעשיתם את המהלך של היריב שלכם גם על הלוח שלהם. לאחר מכן, החזירו את המהלך שלכם ושחקו אותו שוב.</string>
   <string name="asALastResort">כמוצא אחרון, ערכו את הלוח בדיוק כפי שהוא מוצג ב־Lichess, ואז %s</string>
   <string name="reloadThisPage">טענו את העמוד מחדש</string>
-  <string name="dgtConfigure">DGT - תצורה</string>
   <string name="lichessConnectivity">החיבור ל־Lichess</string>
   <string name="validDgtOauthToken">יש לך תו OAuth שמתאים למשחק באמצעות לוח DGT.</string>
   <string name="dgtPlayMenuEntryAdded">הערך ׳%s׳ התווסף לתפריט שלמעלה, תחת הקטגוריה ׳שחקו׳.</string>

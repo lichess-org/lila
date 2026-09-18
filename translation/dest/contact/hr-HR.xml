@@ -25,7 +25,6 @@
   <string name="cantChangeMore">Ne možemo promijeniti ništa više osim velikih i malih slova. Zbog tehničkih razloga to je nemoguće.</string>
   <string name="orCloseAccount">Ali možete zatvoriti ovaj račun i napraviti novi.</string>
   <string name="wantClearHistory">Želim izbrisati svoju povijest ili ocjenu</string>
-  <string name="cantClearHistory">Nije moguće izbrisati svoju povijest igara, povijest zagonetka ili ocjenu.</string>
   <string name="wantReport">Želim prijaviti igrača</string>
   <string name="toReportAPlayerUseForm">Kako biste prijavili igrača, koristite obrazac za prijavu</string>
   <string name="youCanAlsoReachReportPage">Do te stranice možete doći i klikom na %s gumb za izvještaj na stranici profila.</string>

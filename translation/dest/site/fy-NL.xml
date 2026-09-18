@@ -119,25 +119,13 @@
   <string name="blunder">Flater</string>
   <string name="mistake">Flater</string>
   <string name="inaccuracy">Ûnkrektens</string>
-  <plurals name="nbBlunders">
-    <item quantity="one">%s flater</item>
-    <item quantity="other">%s flaters</item>
-  </plurals>
   <plurals name="numberBlunders">
     <item quantity="one">%s Flater</item>
     <item quantity="other">%s Flaters</item>
   </plurals>
-  <plurals name="nbMistakes">
-    <item quantity="one">%s fout</item>
-    <item quantity="other">%s fouten</item>
-  </plurals>
   <plurals name="numberMistakes">
     <item quantity="one">%s Fout</item>
     <item quantity="other">%s Fouten</item>
-  </plurals>
-  <plurals name="nbInaccuracies">
-    <item quantity="one">%s ûnkrektens</item>
-    <item quantity="other">%s ûnkrektens</item>
   </plurals>
   <plurals name="numberInaccuracies">
     <item quantity="one">%s Ûnkrektens</item>
@@ -225,8 +213,6 @@
     <item quantity="other">%s spullen mei jo</item>
   </plurals>
   <string name="cancel">Annulearje</string>
-  <string name="whiteTimeOut">Tiid fan wyt ôfrûn</string>
-  <string name="blackTimeOut">Tiid fan swart ôfrûn</string>
   <string name="drawOfferSent">Remise oanbod stjoerd</string>
   <string name="drawOfferAccepted">Remise oanbod akseptearre</string>
   <string name="whiteOffersDraw">Wyt biedt remise oan</string>

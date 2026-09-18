@@ -138,30 +138,15 @@
   <string name="blunder">Gruba greška</string>
   <string name="mistake">Greška</string>
   <string name="inaccuracy">Nepreciznost</string>
-  <plurals name="nbBlunders">
-    <item quantity="one">%s gruba greška</item>
-    <item quantity="few">%s grube greške</item>
-    <item quantity="other">%s grubih grešaka</item>
-  </plurals>
   <plurals name="numberBlunders">
     <item quantity="one">%s Gruba greška</item>
     <item quantity="few">%s Grube greške</item>
     <item quantity="other">%s Grubih grešaka</item>
   </plurals>
-  <plurals name="nbMistakes">
-    <item quantity="one">%s greška</item>
-    <item quantity="few">%s greške</item>
-    <item quantity="other">%s grešaka</item>
-  </plurals>
   <plurals name="numberMistakes">
     <item quantity="one">%s Greška</item>
     <item quantity="few">%s Greške</item>
     <item quantity="other">%s Grešaka</item>
-  </plurals>
-  <plurals name="nbInaccuracies">
-    <item quantity="one">%s nepreciznost</item>
-    <item quantity="few">%s nepreciznosti</item>
-    <item quantity="other">%s nepreciznosti</item>
   </plurals>
   <plurals name="numberInaccuracies">
     <item quantity="one">%s Nepreciznost</item>
@@ -269,7 +254,6 @@
   <string name="emailSent">Poslali smo email na %s.</string>
   <string name="emailCanTakeSomeTime">Može potrajati neko vrijeme dok ne stigne.</string>
   <string name="refreshInboxAfterFiveMinutes">Pričekajte 5 minuta i osvježite stranicu pristigle pošte.</string>
-  <string name="checkSpamFolder">Također provjerite svoju mapu neželjene pošte jer bi mogla i tamo završiti. Ako je tako, označite ju da nije neželjena.</string>
   <string name="accountConfirmed">Korisnik %s je uspješno potvrđen.</string>
   <string name="accountCanLogin">Možete se odmah prijaviti kao %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Nije Vam potrebna potvrdna e-pošta.</string>
@@ -295,8 +279,6 @@
   </plurals>
   <string name="ok">U redu</string>
   <string name="cancel">Odustani</string>
-  <string name="whiteTimeOut">Bijelom je isteklo vrijeme</string>
-  <string name="blackTimeOut">Crnom je isteklo vrijeme</string>
   <string name="drawOfferSent">Ponuda remija poslana</string>
   <string name="drawOfferAccepted">Ponuda remija prihvaćena</string>
   <string name="whiteOffersDraw">Bijeli nudi remi</string>
@@ -594,7 +576,6 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="other">Ostalo</string>
   <string name="reportCheatBoostHelp">Kopirajte link na partiju/e u pitanju i objasnite što nije u redu s ponašanjem korisnika kojeg prijavljujete. Nemojte samo reći \"varao je\", nego nam recite kako ste došli do tog zaključka. </string>
   <string name="reportUsernameHelp">Objasnite što je uvredljivo u ovom nadimku. Nemojte napisati samo \"uvredljivo je/neprimjereno je\",  već nam recite kako ste došli do tog zaključka, pogotovo ako uvreda je prikrivena, nije na engleskom, napisana u nestandardnom jeziku ili se odnosi na povijesne ili kulturološke kontekste. </string>
-  <string name="reportProcessedFasterInEnglish">Vaš podneseni izvještaj će se procesuirati brže ako je napisan na engleskom jeziku.</string>
   <string name="error.provideOneCheatedGameLink">Molimo navedite barem jedan link igre u kojoj je igrač varao.</string>
   <string name="by">od %s</string>
   <string name="importedByX">Uvezao %s</string>
@@ -717,11 +698,9 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="aboutSimulRules">Kada simultanka započne, svaki igrač započinje partiju protiv domaćina, koji dobiva bijele figure. Simultanka završava kada završe sve partije.</string>
   <string name="aboutSimulSettings">Simultanke su uvijek prijateljske. Revanši, vraćanje poteza te dodavanje vremena su isključeni.</string>
   <string name="create">Kreiraj</string>
-  <string name="whenCreateSimul">Kada kreiraš simultanku, igraš protiv više igrača istovremeno.</string>
   <string name="simulVariantsHint">Ako izabereš nekoliko varijanti, svaki igrač je u mogućnosti da izabere koju će igrati.</string>
   <string name="simulClockHint">Fischer podešavanje sata. Što više igrača primiš, više vremena bit će ti potrebno.</string>
   <string name="simulAddExtraTime">Možeš dodati dodatno vrijeme na svoj sat da ti pomogne savladati simultanku.</string>
-  <string name="simulHostExtraTime">Dodatno vrijeme domaćina</string>
   <string name="simulAddExtraTimePerPlayer">Dodaj početno vrijeme svom satu za svakog igrača koji se pridruži simultanki.</string>
   <string name="simulHostExtraTimePerPlayer">Održi dodatno vrijeme po igraču</string>
   <string name="lichessTournaments">Lichess turniri</string>
@@ -836,7 +815,6 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="custom">Prilagođeno</string>
   <string name="notifications">Obavijesti</string>
   <string name="notificationsX">Obavijesti: %1$s</string>
-  <string name="perfRatingX">Rejting: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekunda da odigrate prvi potez</item>
     <item quantity="few">%s sekundi da odigrate prvi potez</item>
@@ -896,7 +874,6 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
     <item quantity="other">i uštedi %s predpoteza</item>
   </plurals>
   <string name="showUnreadLichessMessage">Primili ste privatnu poruku od Lichess-a</string>
-  <string name="clickHereToReadIt">Klikni ovdje da pročitaš</string>
   <string name="sorry">Oprosti :(</string>
   <string name="weHadToTimeYouOutForAWhile">Trebali smo te na neko vrijeme izbaciti.</string>
   <string name="why">Zašto?</string>
@@ -986,7 +963,6 @@ Ostavite prazno za početak igre s normalne početne pozicije.</string>
   <string name="noChat">Nema razgovora</string>
   <string name="onlyTeamLeaders">Samo vođe timova</string>
   <string name="onlyTeamMembers">Samo članovi timova</string>
-  <string name="navigateMoveTree">Kreći se po stablu premještanja</string>
   <string name="mouseTricks">Trikovi s mišem</string>
   <string name="toggleLocalAnalysis">Uključi analizu lokalnog računala</string>
   <string name="toggleAllAnalysis">Uključi sve računalne analize</string>

@@ -25,7 +25,6 @@
   <string name="cantChangeMore">Не можеме да смениме ништо повеќе од големината на знаците. Од технички причини, тоа е невозможно.</string>
   <string name="orCloseAccount">Меѓутоа, можете да ја затворите постоечката сметка и да создадете нова.</string>
   <string name="wantClearHistory">Сакам да ја избришам мојата историја или мојот рејтинг</string>
-  <string name="cantClearHistory">Не е возможно да ја избришете вашата историја на партии, загатки, или рејтинг.</string>
   <string name="wantReport">Сакам да пријавам играч</string>
   <string name="toReportAPlayerUseForm">За да пријавите играч, користете го формуларот за пријава</string>
   <string name="youCanAlsoReachReportPage">На страната можете да стигнете и преку кликање на %s копчето на нивниот профил.</string>

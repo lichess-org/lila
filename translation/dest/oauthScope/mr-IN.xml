@@ -21,7 +21,6 @@
   <string name="puzzleRead">कोड्यांची वर्दळ वाचा</string>
   <string name="teamRead">संघाची खाजगी माहिती वाचा</string>
   <string name="teamWrite">संघात सामील व्हा व सोडा</string>
-  <string name="teamLead">तुमच्या द्वारे नेतृत्व केलेल्या संघांचे व्यवस्थापन करा: PM पाठवा, सदस्यांना हटवा</string>
   <string name="followRead">अनुसरण केलेले खेळाडू वाचा</string>
   <string name="followWrite">बाकी खेळाडूंचे अनुसरण करा व अनुसरण रद्द करा</string>
   <string name="msgWrite">बाकी खेळाडूंना गुप्त संदेश पाठवा</string>

@@ -1,5 +1,6 @@
 import { type VNodeData } from 'snabbdom';
 
+import { capitalize } from 'lib/game';
 import { renderSan } from 'lib/nvui/chess';
 import { liveText } from 'lib/nvui/notify';
 import { type LooseVNodes, hl } from 'lib/view';
@@ -51,7 +52,7 @@ function doneWithMistakes({ spoken, ctrl, focusFriendlyHook }: RetroContext, pre
     hl(
       'button.retro-flip',
       focusFriendlyHook(ctrl.retro.flip),
-      i18n.site[ctrl.retro.color === 'white' ? 'reviewBlackMistakes' : 'reviewWhiteMistakes'],
+      i18n.site[`review${capitalize(ctrl.retro.color)}Mistakes`],
     ),
   ];
 }
@@ -86,14 +87,7 @@ const retroStateView = {
     const node = ctrl.retro.current()?.fault.node;
     if (!node) return doneWithMistakes(ctx, prelude);
     const c = ctrl.retro.color;
-    const trailer =
-      c === 'white'
-        ? tryAgain
-          ? i18n.site.tryAnotherMoveForWhite
-          : i18n.site.findBetterMoveForWhite
-        : tryAgain
-          ? i18n.site.tryAnotherMoveForBlack
-          : i18n.site.findBetterMoveForBlack;
+    const trailer = i18n.site[`${tryAgain ? 'tryAnother' : 'findBetter'}MoveFor${capitalize(c)}`];
     return [
       spoken(
         prelude +

@@ -1,4 +1,6 @@
-import type { GameData, Source, StatusName } from '@/game';
+import { opposite } from '@lichess-org/chessground/util';
+
+import { plyColor, type GameData, type Source, type StatusName } from '@/game';
 
 export function bishopOnColor(expandedFen: string, offset: 0 | 1): boolean {
   if (expandedFen.length !== 64) throw new Error('Expanded FEN expected to be 64 characters');
@@ -69,34 +71,25 @@ export default function status(d: GameData): string {
   });
 }
 export function statusOf(d: StatusData): string {
-  const winnerSuffix = d.winner
-    ? ' • ' + i18n.site[d.winner === 'white' ? 'whiteIsVictorious' : 'blackIsVictorious']
-    : '';
+  const winnerSuffix = d.winner ? ` • ${i18n.site[`${d.winner}IsVictorious`]}` : '';
   switch (d.status) {
     case 'started':
       return i18n.site.playingRightNow;
     case 'aborted':
       const abortReasonText = d.abortedBy
-        ? i18n.site[d.abortedBy === 'white' ? 'whiteAborted' : 'blackAborted']
-        : d.ply === 0
-          ? i18n.site.whiteDidntMove
-          : i18n.site.blackDidntMove;
+        ? i18n.site[`${d.abortedBy}Aborted`]
+        : i18n.site[`${plyColor(d.ply)}DidntMove`];
       return `${abortReasonText}${winnerSuffix}`;
     case 'mate':
       return i18n.site.checkmate + winnerSuffix;
     case 'resign':
-      return i18n.site[d.winner === 'white' ? 'blackResigned' : 'whiteResigned'] + winnerSuffix;
+      return i18n.site[`${opposite(d.winner ?? 'black')}Resigned`] + winnerSuffix;
     case 'stalemate':
       return i18n.site.stalemate + winnerSuffix;
     case 'timeout':
-      switch (d.winner) {
-        case 'white':
-          return i18n.site.blackLeftTheGame + winnerSuffix;
-        case 'black':
-          return i18n.site.whiteLeftTheGame + winnerSuffix;
-        default:
-          return `${d.ply % 2 === 0 ? i18n.site.whiteLeftTheGame : i18n.site.blackLeftTheGame} • ${i18n.site.draw}`;
-      }
+      return d.winner
+        ? i18n.site[`${opposite(d.winner)}LeftTheGame`] + winnerSuffix
+        : `${i18n.site[`${plyColor(d.ply)}LeftTheGame`]} • ${i18n.site.draw}`;
     case 'draw': {
       if (d.fiftyMoves || d.fen.split(' ')[4] === '100')
         return `${i18n.site.fiftyMovesWithoutProgress} • ${i18n.site.draw}`;
@@ -109,11 +102,9 @@ export function statusOf(d: StatusData): string {
     case 'insufficientMaterialClaim':
       return `${i18n.site.drawClaimed} • ${i18n.site.insufficientMaterial}`;
     case 'outoftime':
-      return `${d.ply % 2 === 0 ? i18n.site.whiteRanOutOfTime : i18n.site.blackRanOutOfTime}${
-        winnerSuffix || ` • ${i18n.site.draw}`
-      }`;
+      return `${i18n.site[`${plyColor(d.ply)}RanOutOfTime`]}${winnerSuffix || ` • ${i18n.site.draw}`}`;
     case 'noStart':
-      return (d.winner === 'white' ? i18n.site.blackDidntMove : i18n.site.whiteDidntMove) + winnerSuffix;
+      return i18n.site[`${opposite(d.winner ?? 'black')}DidntMove`] + winnerSuffix;
     case 'cheat':
       return i18n.site.cheatDetected + winnerSuffix;
     case 'variantEnd':
@@ -125,9 +116,7 @@ export function statusOf(d: StatusData): string {
       }
       return i18n.site.variantEnding + winnerSuffix;
     case 'unknownFinish':
-      return d.winner
-        ? i18n.site[d.winner === 'white' ? 'whiteIsVictorious' : 'blackIsVictorious']
-        : i18n.site.finished;
+      return d.winner ? i18n.site[`${d.winner}IsVictorious`] : i18n.site.finished;
     default:
       return d.status + winnerSuffix;
   }

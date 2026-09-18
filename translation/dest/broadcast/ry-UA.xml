@@ -17,6 +17,5 @@
   <string name="downloadAllRounds">Стерьхати вшыткі рунды</string>
   <string name="resetRound">Перепустити сисю рунду</string>
   <string name="deleteRound">Стерти сю рунду</string>
-  <string name="definitivelyDeleteRound">Стерти вшытку рунду ай бавкы їв.</string>
   <string name="deleteAllGamesOfThisRound">Стерти вшыткі бавкы сьої рунды. Жерело має быти актівным, обы учинити їх щи раз.</string>
 </resources>

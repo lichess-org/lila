@@ -110,14 +110,6 @@
   <string name="blunder">Camgymeriad difrifol</string>
   <string name="mistake">Camgymeriad</string>
   <string name="inaccuracy">Wallusrwydd</string>
-  <plurals name="nbBlunders">
-    <item quantity="zero">%s camgymeriad difrifol</item>
-    <item quantity="one">%s camgymeriad difrifol</item>
-    <item quantity="two">%s gamgymeriad difrifol</item>
-    <item quantity="few">%s camgymeriad difrifol</item>
-    <item quantity="many">%s camgymeriad difrifol</item>
-    <item quantity="other">%s camgymeriad difrifol</item>
-  </plurals>
   <plurals name="numberBlunders">
     <item quantity="zero">%s Gamgymeriad difrifol</item>
     <item quantity="one">%s Camgymeriad difrifol</item>
@@ -126,14 +118,6 @@
     <item quantity="many">%s Gamgymeriad difrifol</item>
     <item quantity="other">%s Camgymeriad difrifol</item>
   </plurals>
-  <plurals name="nbMistakes">
-    <item quantity="zero">%s camgymeriad</item>
-    <item quantity="one">%s camgymeriad</item>
-    <item quantity="two">%s gamgymeriad</item>
-    <item quantity="few">%s camgymeriad</item>
-    <item quantity="many">%s camgymeriad</item>
-    <item quantity="other">%s camgymeriad</item>
-  </plurals>
   <plurals name="numberMistakes">
     <item quantity="zero">%s Gamgymeriad</item>
     <item quantity="one">%s Camgymeriad</item>
@@ -141,14 +125,6 @@
     <item quantity="few">%s Gamgymeriad</item>
     <item quantity="many">%s Gamgymeriad</item>
     <item quantity="other">%s Gamgymeriad</item>
-  </plurals>
-  <plurals name="nbInaccuracies">
-    <item quantity="zero">%s anghywirdeb</item>
-    <item quantity="one">%s anghywirdeb</item>
-    <item quantity="two">%s anghywirdeb</item>
-    <item quantity="few">%s anghywirdeb</item>
-    <item quantity="many">%s anghywirdeb</item>
-    <item quantity="other">%s anghywirdeb</item>
   </plurals>
   <plurals name="numberInaccuracies">
     <item quantity="zero">%s Anghywirdeb</item>
@@ -240,7 +216,6 @@
   <string name="emailSent">Rydym ni wedi anfon e-bost i %s.</string>
   <string name="emailCanTakeSomeTime">Gall cymryd dipyn o amser i cyrraedd.</string>
   <string name="refreshInboxAfterFiveMinutes">Arhoswch 5 munud ac yna adnewyddwch mewnflwch eich e-bost.</string>
-  <string name="checkSpamFolder">Yn ychwanegol gwirio eich ffolder sbam, mae hi\'n bosib iddo cyrraedd yna. Os felly, nodwch o fel ddim yn sbam.</string>
   <string name="accountConfirmed">Mae y defnyddiwr %s wedi ei cadarnhau yn llwyddiannus.</string>
   <string name="accountCanLogin">Gallech chi mewngofnodi rwan fel %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Nid oes angen e-bost cadarnhad.</string>
@@ -250,8 +225,6 @@
   <string name="rankX">Safle: %s</string>
   <string name="gamesPlayed">Gêmau wedi\'u chwarae</string>
   <string name="cancel">Canslo</string>
-  <string name="whiteTimeOut">Amser gwyn ar ben</string>
-  <string name="blackTimeOut">Amser du ar ben</string>
   <string name="drawOfferSent">Anfonwyd cynnig cyfartal</string>
   <string name="drawOfferAccepted">Cynnig cyfartal wedi\'i dderbyn</string>
   <string name="whiteOffersDraw">Cynigia\'r Gwyn gêm gyfartal.</string>
@@ -463,7 +436,6 @@
   <string name="other">Arall</string>
   <string name="reportCheatBoostHelp">Gludwch y dolen i\'r gêm(au) ac esboniwch beth sydd yn anghywir am ymddygiad y defnyddiwr yma. Peidiwch mond a ddweud \"mae nhw\'n twyllo\", dywedwch sut daethoch i\'r canlyniad yma.</string>
   <string name="reportUsernameHelp">Esboniwch pam mae\'r enw defnyddiwr yma yn sarhaus. Peidiwch mond a ddweud \"mae\'n sarhaus/anaddas\", dywedwch sut daethoch i\'r canlyniad yma, yn enwedig os mae\'r sarhad yn aneglur, ddim yn saesneg, yn bratiaith neu yn cyfeirio at rhywbeth hanesyddol/diwylliannol.</string>
-  <string name="reportProcessedFasterInEnglish">Bydd eich adroddiad yn cael ei prosesu yn gyflymach os ydi hi wedi ei ysgrifennu yn Saesneg.</string>
   <string name="error.provideOneCheatedGameLink">Rhowch o leiaf un dolen at gem lle bu twyllo.</string>
   <string name="by">gan %s</string>
   <string name="importedByX">Wedi ei mewnforio gan %s</string>
@@ -567,11 +539,9 @@
   <string name="aboutSimulRules">Wrth gychwyn, mae pawb chwaraewr yn dechrau chwarae yn erbyn y gweinydd sy\'n chwarae efo\'r darnau gwynion. Mae\'r cystadleuaeth yn dod i\'w ben pan fydd pob gêm wedi\'i chwblhau..</string>
   <string name="aboutSimulSettings">Mae gêmau simul wastad yn gêmau heb raddio. Does dim ail gêm, cymryd yn ôl neu amser ychwanegol.</string>
   <string name="create">Creu</string>
-  <string name="whenCreateSimul">Wrth greu cystadleuaeth cyfochrog, chwaraei yn erbyn rhai chwaraewyr ar y pryd.</string>
   <string name="simulVariantsHint">Os dach chi\'n dewis rhai amrywiadau, ceith pawb chwaraewr ddewis pa un i chwarae.</string>
   <string name="simulClockHint">Cloc Fischer. Os dach chi\'n chwarae yn fwy o chwaraewyr, bydd angen mwy o amser gennoch.</string>
   <string name="simulAddExtraTime">Gellwch ychwanegu amser at dy gloc i\'ch helpu ymdopi â\'r cystadleuaeth simul.</string>
-  <string name="simulHostExtraTime">Amser ychwanegol i gloc y gweinydd</string>
   <string name="lichessTournaments">Cystadleuaethau lichess</string>
   <string name="tournamentFAQ">C&amp;A am gystadleuaethau</string>
   <string name="timeBeforeTournamentStarts">Amser cyn i\'r cystadleuaeth gychwyn</string>
@@ -669,7 +639,6 @@
   <string name="invalidFen">FEN anilys</string>
   <string name="custom">Dewis amgenach</string>
   <string name="notifications">Hysbysiadau</string>
-  <string name="perfRatingX">Graddfa %s</string>
   <string name="practiceWithComputer">Ymarfer gyda cyfrifiadur</string>
   <string name="anotherWasX">Dewis da arall oedd %s</string>
   <string name="bestWasX">%s oedd orau</string>

@@ -125,25 +125,13 @@
   <string name="blunder">Flater</string>
   <string name="mistake">Fout</string>
   <string name="inaccuracy">Onakkuraatheid</string>
-  <plurals name="nbBlunders">
-    <item quantity="one">%s flater</item>
-    <item quantity="other">%s flaters</item>
-  </plurals>
   <plurals name="numberBlunders">
     <item quantity="one">%s Flaters</item>
     <item quantity="other">%s Flaters</item>
   </plurals>
-  <plurals name="nbMistakes">
-    <item quantity="one">%s fout</item>
-    <item quantity="other">%s foute</item>
-  </plurals>
   <plurals name="numberMistakes">
     <item quantity="one">%s Fout</item>
     <item quantity="other">%s Foute</item>
-  </plurals>
-  <plurals name="nbInaccuracies">
-    <item quantity="one">%s onakuraatheid</item>
-    <item quantity="other">%s onakuraathede</item>
   </plurals>
   <plurals name="numberInaccuracies">
     <item quantity="one">%s Onakkuraatheid</item>
@@ -243,7 +231,6 @@
   <string name="emailSent">Ons het \'n e-pos gestuur na %s.</string>
   <string name="emailCanTakeSomeTime">Dit mag \'n rukkie neem om te ontvang.</string>
   <string name="refreshInboxAfterFiveMinutes">Wag 5 minute en verfris jou e-pos.</string>
-  <string name="checkSpamFolder">Kyk ook in jou strooipos lêer, dit mag dalk daarin opeinding. In dien dit die geval is, merk dit as nie strooipos nie.</string>
   <string name="accountConfirmed">Die gebruiker %s is bevestig.</string>
   <string name="accountCanLogin">Jy kan nou inteken as %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Jy benodig nie \'n bevestigingsboodskap nie.</string>
@@ -266,8 +253,6 @@
   </plurals>
   <string name="ok">Regso</string>
   <string name="cancel">Kanseleer</string>
-  <string name="whiteTimeOut">Wit tyd verstreke</string>
-  <string name="blackTimeOut">Swart time-out</string>
   <string name="drawOfferSent">Gelykop aanbod gestuur</string>
   <string name="drawOfferAccepted">Gelykop aanbod aanvaar</string>
   <string name="whiteOffersDraw">Wit maak gelykspel aanbod</string>
@@ -662,11 +647,9 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="aboutSimulRules">Wanneer die simul begin, begin elke speler \'n spel met die gasheer, die gasheer kry altyd die wit stukke. Die simul eindig wanneer al die spelle is voltooi.</string>
   <string name="aboutSimulSettings">Simuls is altyd vriendskaplik. Heruitdagings, terug-vat en ekstra tyd is afgeskakel.</string>
   <string name="create">Skep</string>
-  <string name="whenCreateSimul">As jy \'n Simul skep, kan jy teen \'n paar spelers gelyktydig speel.</string>
   <string name="simulVariantsHint">As jy \'n paar variasies kies, kan elke speler kies watter een om te speel.</string>
   <string name="simulClockHint">Fischer Klok stelling. Hoe meer spelers wat jy aanvat, hoe meer tyd kan jy benodig.</string>
   <string name="simulAddExtraTime">Jy kan ekstra tyd by jou klok sit om jou te help om die simul te hanteer.</string>
-  <string name="simulHostExtraTime">Gasheer ekstra kloktyd</string>
   <string name="simulAddExtraTimePerPlayer">Voeg begintyd by jou klok vir elke speler wat die simul aansluit.</string>
   <string name="simulHostExtraTimePerPlayer">Gasheer ekstra tyd per speller</string>
   <string name="lichessTournaments">Lichess toernooie</string>
@@ -781,7 +764,6 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="custom">Pasmaak</string>
   <string name="notifications">Kennisgewings</string>
   <string name="notificationsX">Kennisgewings: %1$s</string>
-  <string name="perfRatingX">Gradering: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekonde om die eerste skuif te speel</item>
     <item quantity="other">%s sekondes om die eerste skuif te speel</item>
@@ -838,7 +820,6 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
     <item quantity="other">en stoor %s voorafskuif variasies</item>
   </plurals>
   <string name="showUnreadLichessMessage">Jy het \'n privaatboodskap van Lichess ontvang.</string>
-  <string name="clickHereToReadIt">Klik hier om dit te lees</string>
   <string name="sorry">Skies :(</string>
   <string name="weHadToTimeYouOutForAWhile">Jy moet vir \'n rukkie in die hoek sit.</string>
   <string name="why">Hoekom?</string>
@@ -928,7 +909,6 @@ Laat dit leeg om elke spel vanaf die normale posisie te begin.</string>
   <string name="noChat">Geen klets</string>
   <string name="onlyTeamLeaders">Slegs spanleiers</string>
   <string name="onlyTeamMembers">Slegs spanlede</string>
-  <string name="navigateMoveTree">Skuif boom navigasie</string>
   <string name="mouseTricks">Muis toertjies</string>
   <string name="toggleLocalAnalysis">Wissel plaaslike rekenaar analise</string>
   <string name="toggleAllAnalysis">Wissel alle rekenaar analise</string>

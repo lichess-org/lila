@@ -126,25 +126,13 @@
   <string name="blunder">Глупа грешка</string>
   <string name="mistake">Грешка</string>
   <string name="inaccuracy">Непрецизност</string>
-  <plurals name="nbBlunders">
-    <item quantity="one">%s голема грешка</item>
-    <item quantity="other">%s големи грешки</item>
-  </plurals>
   <plurals name="numberBlunders">
     <item quantity="one">%s Голема грешка</item>
     <item quantity="other">%s Големи грешки</item>
   </plurals>
-  <plurals name="nbMistakes">
-    <item quantity="one">%s грешка</item>
-    <item quantity="other">%s грешки</item>
-  </plurals>
   <plurals name="numberMistakes">
     <item quantity="one">%s Грешка</item>
     <item quantity="other">%s Грешки</item>
-  </plurals>
-  <plurals name="nbInaccuracies">
-    <item quantity="one">%s непрецизност</item>
-    <item quantity="other">%s непрецизности</item>
   </plurals>
   <plurals name="numberInaccuracies">
     <item quantity="one">%s Непрецизност</item>
@@ -238,7 +226,6 @@
   <string name="emailSent">Испративме email на %s.</string>
   <string name="emailCanTakeSomeTime">Испраќањето може да потрае.</string>
   <string name="refreshInboxAfterFiveMinutes">Почекајте 5 минути па превчитајте го email приемното сандаче.</string>
-  <string name="checkSpamFolder">Исто, проверете да не залутал во spam фолдерот. Во таков случај преместете го од таму.</string>
   <string name="accountConfirmed">Корсникот %s е успешно потврден.</string>
   <string name="accountCanLogin">Сега можете да се најавите како %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Не Ви е потребен email за потврда.</string>
@@ -260,8 +247,6 @@
     <item quantity="other">%s игри со тебе</item>
   </plurals>
   <string name="cancel">Откажи</string>
-  <string name="whiteTimeOut">Времето на белиот истече</string>
-  <string name="blackTimeOut">Времето на црниот истече</string>
   <string name="drawOfferSent">Понуда за реми е испратена</string>
   <string name="drawOfferAccepted">Понудата за реми е прифатена</string>
   <string name="whiteOffersDraw">Белиот нуди реми</string>
@@ -642,11 +627,9 @@
   <string name="aboutSimulRules">Кога симултаната партија почнува, секој играч почнува игра со домаќинот, кој игра со белите. Симултаната партија завршува кога сите партии се готови.</string>
   <string name="aboutSimulSettings">Симултаните партии се секогаш пријателски. Нема реванши, враќање потези и додавање време.</string>
   <string name="create">Создади</string>
-  <string name="whenCreateSimul">Кога создаваш симултана партија, играш со повеќе противници наеднаш.</string>
   <string name="simulVariantsHint">Ако одбереш повеќе видови, секој играч може да одбере како ќе игра.</string>
   <string name="simulClockHint">Поставување на Фишерскиот часовник. Што повеќе противници, толку повеќе време ти треба.</string>
   <string name="simulAddExtraTime">Можеш да додадеш додатно време на часовникот, за да ти помогне со симултаната партија.</string>
-  <string name="simulHostExtraTime">Додатно време за домаќинот</string>
   <string name="simulAddExtraTimePerPlayer">Додајте почетно време на Вашиот часовник со приклучувањето на секој нов играч во симултанката.</string>
   <string name="simulHostExtraTimePerPlayer">Додатно време по играч за домаќинот на симултанката</string>
   <string name="lichessTournaments">Lichess турнири</string>
@@ -743,7 +726,6 @@
   <string name="custom">Персонализирано</string>
   <string name="notifications">Известувања</string>
   <string name="notificationsX">Известувања: %1$s</string>
-  <string name="perfRatingX">Рејтинг: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s секунда за првиот потег</item>
     <item quantity="other">%s секунди за првиот потег</item>
@@ -886,7 +868,6 @@
   <string name="noChat">Исклучи разговор</string>
   <string name="onlyTeamLeaders">Само тим лидери</string>
   <string name="onlyTeamMembers">Само членови на тим</string>
-  <string name="navigateMoveTree">Навигирајте ја листата на движење</string>
   <string name="mouseTricks">Трикови со маусот</string>
   <string name="toggleLocalAnalysis">Вклучи/исклучи локална компјутерска анализа</string>
   <string name="toggleAllAnalysis">Вклучи/исклучи ги сите компјутерски анализи</string>

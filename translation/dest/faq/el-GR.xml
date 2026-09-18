@@ -141,21 +141,12 @@
 
 Στη συνέχεια, επιλέξτε αν θέλετε να επιτρέπονται ή όχι η αποστολή ειδοποιήσεων από το Lichess.</string>
   <string name="enableAutoplayForSoundsQ">Ενεργοποίηση αυτόματης αναπαραγωγής για ήχους;</string>
-  <string name="enableAutoplayForSoundsA">Τα περισσότερα προγράμματα περιήγησης εμποδίζουν την αναπαραγωγή ήχου σε πρόσφατα φορτωμένες ιστοσελίδες για την προστασία των χρηστών. Φανταστείτε πώς θα ήταν η πλοήγηση στο διαδίκτυο εάν κάθε ιστότοπος μπορούσε να σας βομβαρδίσει ξαφνικά με ηχητικές διαφημίσεις!
-
-Το κόκκινο εικονίδιο σίγασης εμφανίζεται όταν το πρόγραμμα περιήγησής σας εμποδίζει το lichess.org από την αναπαραγωγή ενός ήχου. Συνήθως αυτός ο περιορισμός απενεργοποιείται μόλις κάνετε κλικ σε κάτι. Σε ορισμένα προγράμματα περιήγησης για κινητά, η μεταφορά ενός πιονιού με άγγιγμα δε θεωρείται κλικ. Σε αυτήν την περίπτωση, πρέπει να κάνετε κλικ στη σκακιέρα ώστε να επιτρέπεται η αναπαραγωγή ήχου από την αρχή της παρτίδας.
-
-Δείχνουμε το κόκκινο εικονίδιο για να σας ειδοποιούμε όταν συμβαίνει αυτό. Συχνά, μπορείτε να επιτρέψετε στο lichess.org να αναπαράγει ήχους. Παρακάτω, θα βρείτε οδηγίες για να το κάνετε σε πρόσφατες εκδόσεις ορισμένων δημοφιλών προγραμμάτων περιήγησης.</string>
   <string name="desktop">υπολογιστής</string>
   <string name="enableAutoplayForSoundsFirefox">1. Μεταβείτε στο lichess.org
 2. Πατήστε Ctrl-i στο Linux/Windows ή cmd-i στο MacOS
 3. Κάντε κλικ στην καρτέλα Δικαιώματα ή Άδειες
 4. Επιτρέψτε τον Ήχο και το Βίντεο στο lichess.org</string>
-  <string name="enableAutoplayForSoundsChrome">1. Μεταβείτε στο lichess.org
-2. Κάντε κλικ στο εικονίδιο κλειδώματος στη γραμμή διεύθυνσης ιστοσελίδας
-3. Κάντε κλικ στο στοιχείο Ρυθμίσεις ιστοσελίδας
-4. Να επιτρέπεται ο ήχος</string>
-  <string name="enableAutoplayForSoundsChromeSiteInformation" comment="Guidance for Google Chrome users on how to enable audio auto-play if they have sound issues. Replaces old string enableAutoplayForSoundsChrome">1. Μεταβείτε στο lichess.org.
+  <string name="enableAutoplayForSoundsChromeSiteInformation" comment="Guidance for Google Chrome users on how to enable audio auto-play if they have sound issues.">1. Μεταβείτε στο lichess.org.
 2. Κάντε κλικ στο εικονίδιο στα αριστερά της γραμμής διεύθυνσης.
 3. Επιλέξτε Ρυθμίσεις ιστοτόπου.
 4. Στην επιλογή Ήχος, επιλέξτε Να επιτρέπεται</string>

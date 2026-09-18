@@ -129,10 +129,6 @@
   <string name="blunder">ठुलो भुल</string>
   <string name="mistake">सानो भुल</string>
   <string name="inaccuracy">धेरै सानो भुल</string>
-  <plurals name="nbBlunders">
-    <item quantity="one">%s  ब्लण्डर</item>
-    <item quantity="other">%s  ब्लण्डरहरू</item>
-  </plurals>
   <plurals name="numberBlunders">
     <item quantity="one">%s  ब्लण्डर</item>
     <item quantity="other">%s  ब्लण्डरहरू</item>
@@ -225,7 +221,6 @@
   <string name="emailSent">हामिले %sमा एउटा इमेल पठाएका छौँ ।</string>
   <string name="emailCanTakeSomeTime">इमेल आउन केहि समय लाग्न सक्छ।</string>
   <string name="refreshInboxAfterFiveMinutes">५ मिनेट कुर्नुहोस् र इमेल इनबक्स रिफ्रेस गर्नुहोस्</string>
-  <string name="checkSpamFolder">स्पाम (spam) फोल्डर पनि हेर्नुहोस्, त्यता परेको हुन सक्छ । त्यस्तो छ भने स्पाम हैन भनेर मार्क गर्नुहोस् ।</string>
   <string name="accountCanLogin">अब तपाई %s भएर लगइन गर्न सक्नुहुनेछ ।</string>
   <string name="rank">स्थान</string>
   <string name="rankX">स्थान: %s</string>
@@ -243,8 +238,6 @@
     <item quantity="other">तपाइसँग खेलिएका %s खेलहरु</item>
   </plurals>
   <string name="cancel">रद्द गर्नुहोस्</string>
-  <string name="whiteTimeOut">सेतोको समय सक्कियो ।</string>
-  <string name="blackTimeOut">कालोको समय सक्कियो ।</string>
   <string name="drawOfferSent">बराबरीको प्रस्ताव पठाइयो</string>
   <string name="drawOfferAccepted">बराबरीको प्रस्ताव स्वीकृत भयो</string>
   <string name="whiteOffersDraw">सेतो ले बराबरीको प्रस्ताव गरेको छ</string>
@@ -594,11 +587,9 @@
   <string name="aboutSimulRules">जब समकालिक प्रदर्शन शुरु हुन्छ, सबै खेलाडीले आयोजक सँग खेल शुरु गर्छ, र आयोजक ले सेतो लिएर खेल्छ। जब सबै खेल खत्तम हुन्छन्, तब प्रदर्शन पनि समाप्त हुन्छ।</string>
   <string name="aboutSimulSettings">समकालिक प्रदर्शन सधै अनौपचारिक हुन्छ, फेरी खेल्न, चाल फिर्ता गर्न, र थप समय दिन निषेध गरिएको छ।</string>
   <string name="create">रचना गरौ</string>
-  <string name="whenCreateSimul">समाकालिक प्रदर्शन शुरु गर्दा तपाइले धेरै खेलाडीसंग एकैपटक खेल्न पाउनु हुन्छ।</string>
   <string name="simulVariantsHint">यदि परिमार्जन हरु छानेको खण्डमा, सबै खेलाडीले आफ्नो इच्छाको परिमार्जन छान्न पाउछन्।</string>
   <string name="simulClockHint">फिशर घडीको सेट अप। जति धेरै खेलाडी हुन्छन्, त्यति नै धेरै समय आवश्यक पर्न सक्दछ।</string>
   <string name="simulAddExtraTime">आयोजकको आफ्नो घडीमा थप समय राख्न सकिन्छ</string>
-  <string name="simulHostExtraTime">आयोजकको थप समय</string>
   <string name="lichessTournaments">लीचेस प्रतियोगिताहरु</string>
   <string name="tournamentFAQ">एरेना प्रतियोगिता को बारे बारम्बार सोधिने प्रश्नहरु</string>
   <string name="timeBeforeTournamentStarts">प्रतियोगिता शुरु हुन बाँकि समय</string>
@@ -685,7 +676,6 @@
   <string name="invalidFen">अमान्य FEN</string>
   <string name="custom">कष्टम</string>
   <string name="notifications">सुचनाहरु</string>
-  <string name="perfRatingX">रेटिङ: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">पहिलो चाल चाल्न %s सेकेण्ड</item>
     <item quantity="other">पहिलो चाल चाल्न %s सेकेण्ड</item>

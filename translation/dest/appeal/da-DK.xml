@@ -13,10 +13,9 @@
   <string name="closedByModerators">Din konto blev lukket af moderatorer.</string>
   <string name="blogRestriction">Du har en blogbegrænsning.</string>
   <string name="blogRestrictionInfo">Læs vores %s. Overtrædelse af disse regler kan føre til forskellige sanktioner.</string>
-  <string name="playTimeout">Du har en spille-timeout.</string>
   <string name="reportBanned">Du kan ikke sende anmeldelser til moderatorer</string>
   <string name="reportBannedInfo">Vi har bemærket et mønster af misbrug af vores anmeldelsessystem. Dette kan skyldes forskellige årsager, såsom vedvarende valg af forkerte kategorier, brug af groft, upassende eller stødende sprog, anmeldelse af et uforholdsmæssigt stort antal partier eller manglende begrundelse for, hvorfor du mener, at modstanderen har overtrådt reglerne.</string>
-  <string name="temporarilyRestrictedFromPlaying" comment="play timeout = Lichess prevents you temporarily from playing any games Replaces old string playTimeout">Din konto er midlertidigt spærret for spil.</string>
+  <string name="temporarilyRestrictedFromPlaying" comment="play timeout = Lichess prevents you temporarily from playing any games">Din konto er midlertidigt spærret for spil.</string>
   <string name="communicationGuidelines">retningslinjer for kommunikation</string>
   <string name="blogEtiquette">blog-etikette</string>
   <string name="fairPlay">Fairplay</string>

@@ -20,7 +20,6 @@
   <string name="checkYouHaveMadeOpponentsMove">ກວດເບິ່ງວ່າທ່ານໄດ້ເດີນໝາກຂອງຄູ່ຕໍ່ສູ້ໃນກະດານ DGT ແລ້ວຫຼືຍັງ. ຍົກເລີກການເດີນຂອງທ່ານ. ແລ້ວຫຼິ້ນໃໝ່.</string>
   <string name="asALastResort">ຫາກເຮັດທຸກວິທີແລ້ວບໍ່ໄດ້ຜົນ, ໃຫ້ຈັດວາງໝາກຢູ່ເທິງກະດານໃຫ້ຄືກັນກັບໃນ Lichess, ຈາກນັ້ນ %s</string>
   <string name="reloadThisPage">ໂຫຼດໜ້ານີ້ໃໝ່</string>
-  <string name="dgtConfigure">DGT - ຕັ້ງຄ່າ</string>
   <string name="lichessConnectivity">ການເຊື່ອມຕໍ່ Lichess</string>
   <string name="validDgtOauthToken">ທ່ານມີ OAuth token ທີ່ເໝາະສົມສຳລັບການຫຼິ້ນ DGT ແລ້ວ.</string>
   <string name="dgtPlayMenuEntryAdded">ລາຍການ %s ໄດ້ຖືກເພີ່ມເຂົ້າໃນເມນູ ຫຼິ້ນ (PLAY) ຂອງທ່ານຢູ່ທາງເທິງແລ້ວ.</string>
