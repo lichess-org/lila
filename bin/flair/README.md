@@ -63,7 +63,7 @@ curl --location https://github.com/user-attachments/files/22797197/emojipedia.ht
 Run the generation script:
 
 ```shell
-pnpx tsx bin/flair/generate.ts
+pnpm node bin/flair/generate.ts
 ```
 
 It will update the `public/flair/list.txt` file which you must commit along with the updated flair images.
