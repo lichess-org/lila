@@ -8,6 +8,7 @@
 let
   pkgs-master = import inputs.nixpkgs-master { system = pkgs.stdenv.system; };
   pkgs-unstable = import inputs.nixpkgs-unstable { system = pkgs.stdenv.system; };
+  sasso = inputs.sasso.packages.${pkgs.stdenv.system}.default;
 in
 {
   # https://devenv.sh/languages/
@@ -40,7 +41,7 @@ in
     pkgs-master.tsgolint
     pkgs.lint-staged
     pkgs-unstable.stylelint
-    inputs.sasso.packages.${pkgs.stdenv.system}.default
+    sasso
   ];
 
   tasks = {
@@ -60,4 +61,8 @@ in
       before = [ "devenv:enterShell" ];
     };
   };
+
+  enterShell = ''
+    export SASS_PATH=${sasso}/bin/sasso
+  '';
 }
