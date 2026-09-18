@@ -56,7 +56,10 @@ const loserGlyph = (status: StatusName | undefined): EndgameGlyph =>
 const drawGlyph = (status: StatusName | undefined): EndgameGlyph | undefined =>
   status === 'stalemate'
     ? 'stalemate'
-    : status === 'draw' || status === 'insufficientMaterialClaim' || status === 'outoftime'
+    : status === 'draw' ||
+        status === 'insufficientMaterialClaim' ||
+        status === 'outoftime' ||
+        status === 'timeout'
       ? 'draw'
       : undefined;
 
