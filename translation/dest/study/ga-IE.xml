@@ -70,7 +70,6 @@
   <string name="downloadGame">Íoslódáil cluiche</string>
   <string name="studyUrl">URL an staidéir</string>
   <string name="currentChapterUrl">URL caibidil reatha</string>
-  <string name="youCanPasteThisInTheForumToEmbed">Is féidir é seo a ghreamú san fhóram chun leabú</string>
   <string name="startAtInitialPosition">Tosaigh ag an suíomh tosaigh</string>
   <string name="startAtX">Tosú ag %s</string>
   <string name="embedInYourWebsite">Leabaithe i do shuíomh Gréasáin nó i do bhlag</string>

@@ -13,10 +13,9 @@
   <string name="closedByModerators">Dis Konto isch vu de Moderatore g\'schlosse worde.</string>
   <string name="blogRestriction">Du hesch a blog-ischränkig.</string>
   <string name="blogRestrictionInfo">Lis bitte üsi %s, en Verstoss gäge disi Regle cha zue Verschidnigi Sanktione führe.</string>
-  <string name="playTimeout">Du häsch es Schpil - Timeout.</string>
   <string name="reportBanned">Du chasch chei meldige a d\'Moderatore sende</string>
   <string name="reportBannedInfo">Mir hend festg\'stellt, dass du s\'reportsystem missbruchsch. Da cha verschidniges heisse, zum Biispil widerholt d\'falsche Chategorie us\'zwäle, offensivi Sprach z\'verwende, e z\'grossi Azahl vo gmeldete Partie, odr chei Demonstration dervo, wogege d\'Gegner verschtosse hend.</string>
-  <string name="temporarilyRestrictedFromPlaying" comment="play timeout = Lichess prevents you temporarily from playing any games Replaces old string playTimeout">Diin Account isch duurhaft vom Schpille usgschlosse worde.</string>
+  <string name="temporarilyRestrictedFromPlaying" comment="play timeout = Lichess prevents you temporarily from playing any games">Diin Account isch duurhaft vom Schpille usgschlosse worde.</string>
   <string name="communicationGuidelines">Kommunikations - Richtlinie</string>
   <string name="blogEtiquette">blog etiquette</string>
   <string name="fairPlay">Fair Play</string>

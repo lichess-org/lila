@@ -25,7 +25,6 @@
   <string name="cantChangeMore">ພວກເຮົາບໍ່ສາມາດປ່ຽນຫຍັງໄດ້ນອກຈາກຕົວອັກສອນໃຫຍ່-ນ້ອຍ. ດ້ວຍເຫດຜົນທາງເຕັກນິກ, ມັນເປັນໄປບໍ່ໄດ້ເລີຍ.</string>
   <string name="orCloseAccount">ເຖິງຢ່າງໃດກໍຕາມ, ທ່ານສາມາດປິດບັນຊີປັດຈຸບັນ ແລະ ສ້າງບັນຊີໃໝ່ໄດ້.</string>
   <string name="wantClearHistory">ຂ້ອຍຕ້ອງການລຶບປະຫວັດ ຫຼື ຄະແນນ (Rating)</string>
-  <string name="cantClearHistory">ບໍ່ສາມາດລຶບປະຫວັດການຫຼິ້ນ, ປະຫວັດການແກ້ປິດສະໜາ ຫຼື ຄະແນນໄດ້.</string>
   <string name="wantReport">ຂ້ອຍຕ້ອງການລາຍງານຜູ້ຫຼິ້ນ</string>
   <string name="toReportAPlayerUseForm">ເພື່ອລາຍງານຜູ້ຫຼິ້ນ, ໃຫ້ໃຊ້ແບບຟອມລາຍງານ</string>
   <string name="youCanAlsoReachReportPage">ທ່ານຍັງສາມາດເຂົ້າເຖິງໜ້ານັ້ນໄດ້ໂດຍການຄລິກປຸ່ມລາຍງານ %s ໃນໜ້າໂປຣໄຟລ໌.</string>

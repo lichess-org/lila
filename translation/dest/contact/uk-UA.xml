@@ -25,7 +25,6 @@
   <string name="cantChangeMore">Ми не можемо змінити нічого окрім регістра літер. З технічних причин це неможливо.</string>
   <string name="orCloseAccount">Однак ви можете закрити поточний обліковий запис і створити новий.</string>
   <string name="wantClearHistory">Я хочу очистити свою історію або рейтинг</string>
-  <string name="cantClearHistory">Неможливо очистити історію ігор, шахових задач або рейтинг.</string>
   <string name="wantReport">Я хочу поскаржитись на гравця</string>
   <string name="toReportAPlayerUseForm">Щоб поскаржитись на гравця, використовуйте форму звіту</string>
   <string name="youCanAlsoReachReportPage">Ви також можете перейти на цю сторінку, натиснувши кнопку звіту %s на сторінці профілю.</string>

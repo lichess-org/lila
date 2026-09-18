@@ -121,25 +121,13 @@
   <string name="blunder">უხეში შეცდომა</string>
   <string name="mistake">შეცდომა</string>
   <string name="inaccuracy">უზუსტობა</string>
-  <plurals name="nbBlunders">
-    <item quantity="one">%s უხეში შეცდომა</item>
-    <item quantity="other">%s უხეში შეცდომები</item>
-  </plurals>
   <plurals name="numberBlunders">
     <item quantity="one">%s Უხეში შეცდომა</item>
     <item quantity="other">%s Უხეში შეცდომები</item>
   </plurals>
-  <plurals name="nbMistakes">
-    <item quantity="one">%s შეცდომა</item>
-    <item quantity="other">%s შეცდომები</item>
-  </plurals>
   <plurals name="numberMistakes">
     <item quantity="one">%s Შეცდომა</item>
     <item quantity="other">%s Შეცდომები</item>
-  </plurals>
-  <plurals name="nbInaccuracies">
-    <item quantity="one">%s უზუსტობა</item>
-    <item quantity="other">%s უზუსტობები</item>
   </plurals>
   <plurals name="numberInaccuracies">
     <item quantity="one">%s Უზუსტობა</item>
@@ -237,7 +225,6 @@
   <string name="emailSent">ჩვენ გამოგიგზავნეთ ელფოსტა ამ მისამართზე %s.</string>
   <string name="emailCanTakeSomeTime">დაჭირდება გარკვეული დრო მოსასვლელად.</string>
   <string name="refreshInboxAfterFiveMinutes">დაელოდეთ 5 წუთი და განაახლეთ თქვენი ელფოსტის ინბოქსი.</string>
-  <string name="checkSpamFolder">ასევე შეამოწმეთ სპამის ფოლდერი, შეიძლება იქ იყოს, თუ ასეა, მონიშნეთ როგორც, არა სპამი.</string>
   <string name="accountConfirmed">ეს მომხმარებელი %s წარმატებულად დადასტურდა.</string>
   <string name="accountCanLogin">შეგიძლიათ ახლავე შეხვიდეთ, როგორც %s.</string>
   <string name="accountConfirmationEmailNotNeeded">თქვენ არ გჭირდებათ დამადასტურებელი ელფოსტა.</string>
@@ -259,8 +246,6 @@
     <item quantity="other">%s თამაშები თქვენ წინააღმდეგ</item>
   </plurals>
   <string name="cancel">გაუქმება</string>
-  <string name="whiteTimeOut">თეთრს დრო ამოეწურა</string>
-  <string name="blackTimeOut">შავს დრო ამოეწურა</string>
   <string name="drawOfferSent">ყაიმის შეთავაზება გაგზავნილია</string>
   <string name="drawOfferAccepted">ყაიმის შეთავაზება მიღებულია</string>
   <string name="whiteOffersDraw">მოწინააღმდეგე გთავაზობთ ყაიმს</string>
@@ -641,11 +626,9 @@
   <string name="aboutSimulRules">\"Simul\" _ის დროს ყველა მოთამაშე თამაშობს \"Simul\" _ის შემქნელთან შავი ფერით. ის მთავრდება მაშინ როცა ყველა თამაში დასულდება</string>
   <string name="aboutSimulSettings">ერთდროული თამაშები არასარეიტინგოა. საპასუხო გამოწვევები, სვლის დაბრუნება და დროის დამატება შესაძლებელი არ არის.</string>
   <string name="create">შექმნა</string>
-  <string name="whenCreateSimul">როდესაც ქმნით ერთდროულ თამაშს, პარალელურ რეჟიმში გიწევთ რამდენიმე მოთამაშესთან დაპირისპირება.</string>
   <string name="simulVariantsHint">თუ აირჩევთ რამდენიმე ვარიანტს, თითოეული მოთამაშეს ეძლევა საშუალება აირჩიოს მათგან ერთ-ერთი.</string>
   <string name="simulClockHint">ფიშერის საათის გამართვა. რაც მეტ მოთამაშეს დაუპირისპირდებით, შესაძლოა მით მეტი დრო დაგჭირდეთ.</string>
   <string name="simulAddExtraTime">თქვენ შეგიძლიათ დროის დამატება ერთდროული თამაშისას.</string>
-  <string name="simulHostExtraTime">თამაშის შემქნელის დამატები დრო</string>
   <string name="simulAddExtraTimePerPlayer">დაამატეთ საწყისი დრო თქვენს საათს თითოეული მოთამაშისთვის, რომელიც უერთდება სიმულს.</string>
   <string name="simulHostExtraTimePerPlayer">დაამატე დრო სიმულის შემქმნელის საათზე, ყოველ შემოსულ მოთამაშეზე</string>
   <string name="lichessTournaments">Lichess ტურნირები</string>
@@ -746,7 +729,6 @@
   <string name="custom">შექმენი შენი</string>
   <string name="notifications">შეტყობინებები</string>
   <string name="notificationsX">შეტყობინებები: %1$s</string>
-  <string name="perfRatingX">რეიტინგი: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s წამი პირველი სვლის სათამაშოდ</item>
     <item quantity="other">%s წამი პირველი სვლის სათამაშოდ</item>
@@ -890,7 +872,6 @@
   <string name="noChat">ჩატის გარეშე</string>
   <string name="onlyTeamLeaders">მხოლოდ გუნდის ლიდერებითვის</string>
   <string name="onlyTeamMembers">მხოლოდ გუნდის წევრებისთვის</string>
-  <string name="navigateMoveTree">სვლების ნავიგაცია</string>
   <string name="mouseTricks">მაუსის ხრიკები</string>
   <string name="toggleLocalAnalysis">კომპიუტერული ანალიზის ჩართვა</string>
   <string name="toggleAllAnalysis">Მთლიანი კომპიუტერული ანალიზის ჩართვა (ლიჩესის და თქვენი კომპიუტერის)</string>

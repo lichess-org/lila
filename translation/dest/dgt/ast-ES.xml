@@ -20,7 +20,6 @@
   <string name="checkYouHaveMadeOpponentsMove">Comprueba que fixisti primero la xugada del to oponente nel tableru DGT. Revierte la to xugada. Xuega de nuevu.</string>
   <string name="asALastResort">Como últimu recursu, configura el tableru idénticu a cómo ta en Lichess, depués %s</string>
   <string name="reloadThisPage">Recargar esta páxina</string>
-  <string name="dgtConfigure">DGT - Configurar</string>
   <string name="lichessConnectivity">Conectividad de Lichess</string>
   <string name="validDgtOauthToken">Tienes un token de OAuth fayadizu pa xugar con DGT.</string>
   <string name="dgtPlayMenuEntryAdded">La entrada %s foi añedida al menú XUGAR na parte superior.</string>

@@ -125,13 +125,6 @@
   <string name="blunder">Meancóg</string>
   <string name="mistake">Botún</string>
   <string name="inaccuracy">Míchruinneas</string>
-  <plurals name="nbBlunders">
-    <item quantity="one">%s botún</item>
-    <item quantity="two">%s bhotún</item>
-    <item quantity="few">%s mbotún</item>
-    <item quantity="many">%s botún</item>
-    <item quantity="other">%s botún</item>
-  </plurals>
   <plurals name="numberBlunders">
     <item quantity="one">%s Botún</item>
     <item quantity="two">%s Bhotún</item>
@@ -139,26 +132,12 @@
     <item quantity="many">%s Botún</item>
     <item quantity="other">%s Botún</item>
   </plurals>
-  <plurals name="nbMistakes">
-    <item quantity="one">%s botún</item>
-    <item quantity="two">%s bhotún</item>
-    <item quantity="few">%s mbotún</item>
-    <item quantity="many">%s botún</item>
-    <item quantity="other">%s botún</item>
-  </plurals>
   <plurals name="numberMistakes">
     <item quantity="one">%s Botún</item>
     <item quantity="two">%s Bhotún</item>
     <item quantity="few">%s Mbotún</item>
     <item quantity="many">%s Botún</item>
     <item quantity="other">%s Botún</item>
-  </plurals>
-  <plurals name="nbInaccuracies">
-    <item quantity="one">%s míchruinneas</item>
-    <item quantity="two">%s mhíchruinneas</item>
-    <item quantity="few">%s míchruinneas</item>
-    <item quantity="many">%s míchruinneas</item>
-    <item quantity="other">%s míchruinneas</item>
   </plurals>
   <plurals name="numberInaccuracies">
     <item quantity="one">%s Míchruinneas</item>
@@ -273,7 +252,6 @@
   <string name="emailSent">Tá ríomhphost seolta againn chuig %s.</string>
   <string name="emailCanTakeSomeTime">Féadfaidh sé roinnt ama le teacht.</string>
   <string name="refreshInboxAfterFiveMinutes">Fan 5 nóiméad agus athnuachan ríomhphoist.</string>
-  <string name="checkSpamFolder">Seiceáil freisin d\'fhillteán turscair. Más ansin é marcáil nach turscar é.</string>
   <string name="accountConfirmed">D\'éirigh leis an úsáideoir %s a dhearbhú.</string>
   <string name="accountCanLogin">Is féidir leat logáil isteach anois mar %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Ní gá duit ríomhphost deimhnithe.</string>
@@ -304,8 +282,6 @@
     <item quantity="other">%s cluiche leat</item>
   </plurals>
   <string name="cancel">Cealaigh</string>
-  <string name="whiteTimeOut">Am Bán istigh</string>
-  <string name="blackTimeOut">Am Dubh istigh</string>
   <string name="drawOfferSent">Tairiscint comhscór seolta</string>
   <string name="drawOfferAccepted">Glacadh leis an tairiscint comhscór</string>
   <string name="whiteOffersDraw">Tairgeann Bán comhscór</string>
@@ -742,11 +718,9 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="aboutSimulRules">Nuair a thosaíonn an cluiche comhuaineach, tosaíonn gach imreoir cluiche leis an óstach, a imríonn leis na píosaí bána. Críochnaíonn an cluiche comhuaineach nuair a chríochnaíonn gach cluiche.</string>
   <string name="aboutSimulSettings">Bíonn cluichí comhuaineacha neamhfhoirmiúil i gconaí. Tá athimirt, aistarraing agus am breise díchumasaithe.</string>
   <string name="create">Cruthaigh</string>
-  <string name="whenCreateSimul">Nuair a chruthaíonn tú cluiche comhuaineach, imríonn tú roinnt imreoirí ag an am céanna.</string>
   <string name="simulVariantsHint">Má roghnaíonn tú roinnt leaganacha, faigheann gach imreoir deis cluiche a roghnú.</string>
   <string name="simulClockHint">Suiteáil Clog Fischer. Braitheann an méid ama a theastaíonn uait ar an méid céile comhraic atá agat.</string>
   <string name="simulAddExtraTime">Féadfaidh tú am breise a chur le do chlog chun cabhrú leat déileáil leis an gcluiche comhuaineach.</string>
-  <string name="simulHostExtraTime">Am breise an óstaigh</string>
   <string name="simulAddExtraTimePerPlayer">Cuir am tosaigh le do chlog do gach imreoir a ghlacann páirt sa chluiche comhuaineach.</string>
   <string name="simulHostExtraTimePerPlayer">Óstáil am breise clog do gach imreora</string>
   <string name="lichessTournaments">Comórtais Lichess</string>
@@ -848,7 +822,6 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="invalidFen">FEN neamhbhailí</string>
   <string name="custom">Saincheaptha</string>
   <string name="notifications">Fógraí</string>
-  <string name="perfRatingX">Rátáil: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s soicind chun an chéad bheart a imirt</item>
     <item quantity="two">%s soicind chun an chéad bheart a imirt</item>
@@ -1000,7 +973,6 @@ Fág folamh chun cluichí a thosú ón ngnáthshuíomh tosaigh.</string>
   <string name="noChat">Cosc ar comhrá</string>
   <string name="onlyTeamLeaders">Ceannairí foirne amháin</string>
   <string name="onlyTeamMembers">Baill foirne amháin</string>
-  <string name="navigateMoveTree">Déan nascleanúint ar an gcrann birt</string>
   <string name="mouseTricks">Cleasanna luiche</string>
   <string name="toggleLocalAnalysis">Scoránú anailís áitiúil ar ríomhaire</string>
   <string name="toggleAllAnalysis">Scoránú gach anailís ríomhaire</string>

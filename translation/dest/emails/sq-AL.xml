@@ -17,7 +17,6 @@ Këtu është faqja e profilit tuaj: %1$s. Mund ta personalizosh në %2$s.
 
 Kënaquni dhe lërini që pjesët tuaja të gjejnë gjithmonë rrugën e tyre te mbreti i kundërshtarit tuaj!</string>
   <string name="logInToLichess">Identifikohu në lichess.org, %s</string>
-  <string name="common_orPaste">(Klikimi nuk funksionon? Provoni ta ngjitni në shfletuesin tuaj!)</string>
   <string name="common_note">Ky është një e-mail shërbimi që lidhet me përdorimin tuaj të %s.</string>
   <string name="common_contact">Për të na kontaktuar, ju lutemi përdorni %s.</string>
 </resources>

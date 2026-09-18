@@ -26,7 +26,6 @@ Lo modo berserk no ye disponible en controls de tiempo con tiempo inicial zero c
 Lo modo berserk nomás proporciona un punto adicional per cada victoria si chugas a lo menos 7 movimientos en a partida.</string>
   <string name="howIsTheWinnerDecided">Cómo se decide lo ganador?</string>
   <string name="howIsTheWinnerDecidedAnswer">Ganará lo chugador (u chugadors) que tienga mas puntos a la fin d\'o torneyo.</string>
-  <string name="howDoesPairingWork">Cómo se fan los emparellamientos?</string>
   <string name="howDoesPairingWorkAnswer">A l\'inicio d\'o torneyo, los chugadors s\'emparellan seguntes la suya puntuación. Malas que rematas una partida, tornas a la sala d\'espera d\'o torneyo, y se t\'emparellará con un chugador con una posición pareixida a la tuya. Esto minimiza lo tiempo d\'espera, si bien ye posible que no chugues contra toz os de demás chugadors d\'o torneyo.
 Chuga rapido y torna a lo recibidor pa chugar mas partidas y ganar mas puntos.</string>
   <string name="howDoesItEnd">Quán remata?</string>
@@ -63,7 +62,6 @@ Chuga rapido y torna a lo recibidor pa chugar mas partidas y ganar mas puntos.</
   <string name="myTournaments">Los míos torneyos</string>
   <string name="editTournament">Editar torneyo</string>
   <string name="editTeamBattle">Editar batalla d\'equipos</string>
-  <string name="defender">Defensor</string>
   <string name="pickYourTeam">Tría lo tuyo equipo</string>
   <string name="whichTeamWillYouRepresentInThisBattle">Qué equipo representas en esta batalla?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">Ha d\'unir-te a uno d\'estes equipos pa participar!</string>
@@ -71,7 +69,6 @@ Chuga rapido y torna a lo recibidor pa chugar mas partidas y ganar mas puntos.</
   <string name="recentlyPlayed">Chugau fa poco</string>
   <string name="bestResults">Millors resultaus</string>
   <string name="tournamentStats">Estatiticas d\'o torneyo</string>
-  <string name="rankAvgHelp">Lo ranking medio ye un percentache d\'o tuyo ranking. Menor ye millor. Per eixemplo, estar en el tercer puesto en un torneyo de 100 chugadors = 3%. Clasificar-se deceno/a en un torneyo de 1000 chugadors = 1%.</string>
   <string name="medians">medianas</string>
   <string name="allAveragesAreX">Toz los promedio d\'esta pachina son %s.</string>
   <string name="total">Total</string>

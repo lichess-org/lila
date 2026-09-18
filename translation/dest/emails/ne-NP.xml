@@ -15,7 +15,6 @@
 
 रमाइलो गर्नुहोस्, र तपाईँका गोटीहरू विपक्षी राजासम्म पुगुन्।</string>
   <string name="logInToLichess">lichess.org मा log in गर्नुहोस्, %s</string>
-  <string name="common_orPaste">(क्लिक भएन? ब्राउजरमा पेष्ट गरेर हेर्नुहोस्!)</string>
   <string name="common_note">यो तपाईंको %s को प्रयोगसँग सम्बन्धित service email हो।</string>
   <string name="common_contact">हामीलाई सम्पर्क गर्नको लागि कृपया %s को प्रयोग गर्नुहोस्।</string>
 </resources>

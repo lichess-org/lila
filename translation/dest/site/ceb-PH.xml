@@ -115,17 +115,9 @@
   <string name="blunder">Kasaypanan</string>
   <string name="mistake">Sayup</string>
   <string name="inaccuracy">Dli sakto</string>
-  <plurals name="nbMistakes">
-    <item quantity="one">%s Sayop</item>
-    <item quantity="other">%s Mga sayop</item>
-  </plurals>
   <plurals name="numberMistakes">
     <item quantity="one">%s Sayop</item>
     <item quantity="other">%s Mga sayop</item>
-  </plurals>
-  <plurals name="nbInaccuracies">
-    <item quantity="one">%s dili sakto</item>
-    <item quantity="other">%s mga dili sakto</item>
   </plurals>
   <plurals name="numberInaccuracies">
     <item quantity="one">%s Dili sakto</item>

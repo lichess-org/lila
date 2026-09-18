@@ -72,7 +72,6 @@ Dodajte rezultate svakog protivnika kojeg igrač pobijedi i polovinu rezultata s
   <string name="pairingsA">Sa %1$s, implementiran od strane %2$s, u skladu sa %3$s.</string>
   <string name="moreRoundsThanPlayersQ">Šta se dešava ako turnir ima više kola nego igrača?</string>
   <string name="moreRoundsThanPlayersA">Kada se odigraju svi mogući parovi, turnir će biti završen I pobjednik proglašen.</string>
-  <string name="restrictedToTeamsQ">Zašto je ograničeno na timove?</string>
   <string name="restrictedToTeamsA">Švicarski turniri nisu dizajnirani za online šah. Od igrača zahtijevaju tačnost, posvećenost i strpljenje.
 Mislimo da je veća vjerovatnoća da će ovi uslovi biti ispunjeni unutar tima nego na globalnim turnirima.</string>
   <string name="numberOfByesQ">Koliko bodova igrač može dobiti?</string>
@@ -93,7 +92,6 @@ No, kreator turnira može im svejedno dozvoliti učešće.</string>
 Zakašnjeli pridruženi dobijaju jedno doviđenje, čak i ako su propustili nekoliko rundi.</string>
   <string name="willSwissReplaceArenasQ">Hoćeje li švicarcki zamijeniti turnire u areni?</string>
   <string name="willSwissReplaceArenasA">Ne. To su komplementarne karakteristike.</string>
-  <string name="roundRobinQ">Šta je sa Bergerovim sistemom?</string>
   <string name="roundRobinA">Željeli bismo to dodati, ali nažalost Bergerov sistem ne radi na mreži.
 Razlog je to što nema fer način da se nosi sa ljudima koji rano napuštaju turnir. Ne možemo očekivati da će svi igrači odigrati sve svoje utakmice u online događaju. To se jednostavno neće dogoditi, i kao rezultat toga većina turnira Bergerovog sistema bi bila manjkava i nepravedna, što poništava sam njihov razlog postojanja.
 Najbliže što možete doći do Bergerovog sistema preko mreže je da igrate švicarski turnir sa veoma velikim brojem rundi. Tada će se odigrati svi mogući parovi prije završetka turnira.</string>
@@ -129,7 +127,6 @@ Najbliže što možete doći do Bergerovog sistema preko mreže je da igrate šv
   <string name="similarToOTB">Slično OTB turnirima</string>
   <string name="unlimitedAndFree">Neograničeno i besplatno</string>
   <string name="predefinedUsers">Dozvolite pridruživanje samo unaprijed određenim korisnicima</string>
-  <string name="forbiddedUsers">Ako ovaj spisak nije prazan, onda će korisnicima kojih nema na njemu biti zabranjeno da se pridruže. Jedno korisničko ime po retku.</string>
   <string name="playYourGames">Igrajte Vaše partije (do kraja)</string>
   <string name="byes">Slobodni termini</string>
   <string name="absences">Izostanci</string>

@@ -118,20 +118,11 @@
   <string name="blunder">Зур хата</string>
   <string name="mistake">Хата</string>
   <string name="inaccuracy">Җиңел хата</string>
-  <plurals name="nbBlunders">
-    <item quantity="other">%s хаталар</item>
-  </plurals>
   <plurals name="numberBlunders">
     <item quantity="other">%s Хаталар</item>
   </plurals>
-  <plurals name="nbMistakes">
-    <item quantity="other">%s хата</item>
-  </plurals>
   <plurals name="numberMistakes">
     <item quantity="other">%s Хата</item>
-  </plurals>
-  <plurals name="nbInaccuracies">
-    <item quantity="other">%s төгәлсезлек</item>
   </plurals>
   <plurals name="numberInaccuracies">
     <item quantity="other">%s Төгәлсезлек</item>
@@ -229,8 +220,6 @@
   </plurals>
   <string name="ok">Ярар</string>
   <string name="cancel">Булдыртмау</string>
-  <string name="whiteTimeOut">Акларның вакыты чыкты</string>
-  <string name="blackTimeOut">Караларның вакыты чыкты</string>
   <string name="drawOfferSent">Тиңлек тәкъдиме җибәрелде</string>
   <string name="drawOfferAccepted">Тиңлек тәкъдиме кабул ителде</string>
   <string name="whiteOffersDraw">Аклар тиңлек тәкъдим итә</string>
@@ -582,11 +571,9 @@
   <string name="aboutSimulRules">Берүк башлаганда һәр бер уенчы алып баручы белән уенны уенны башлады. Берүк барча уеннар тутаганнан соң туктый.</string>
   <string name="aboutSimulSettings">Берүк һаманда рәсми түгел. Кайтаргыч уеннар, кайтарып алулар һәм вакыт өстәү мәгакъ.</string>
   <string name="create">Ячарга</string>
-  <string name="whenCreateSimul">Качанда сез Берүк ачканда, сезгә уйнау өчен берничә уенчы тугры киләдер.</string>
   <string name="simulVariantsHint">Әгәр сез берничә вариантны сайласагыз, һәр уйнаучы сайлый ала берне уйнау өчен.</string>
   <string name="simulClockHint">Фишер Сәгатен үзләштерү. Күбрәк уенчыларны кабул кылсагыз, сезгә кубрәк вакыт кирәк буласы мөмкин.</string>
   <string name="simulAddExtraTime">Берүктә җиңәр өчен сезгә сәгатькә кушымча вакыт кушышсагыз мөмкин.</string>
-  <string name="simulHostExtraTime">Алып барырга өстәмә сәгать вакытын</string>
   <string name="lichessTournaments">Личесс бәйгеләре</string>
   <string name="tournamentFAQ">Бәйге мәйданы ЕБС</string>
   <string name="timeBeforeTournamentStarts">Бәйге башланыр алдындагы вакыт</string>
@@ -683,7 +670,6 @@
   <string name="custom">Куелган</string>
   <string name="notifications">Хәбәр итүләр</string>
   <string name="notificationsX">Хәбәрләр: %1$s</string>
-  <string name="perfRatingX">Рейтинг: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="other">%s секунд уйнар өчен беренче хәрәкәтне</item>
   </plurals>
@@ -736,7 +722,6 @@
     <item quantity="other">һәм %s йөрмәгән линияне</item>
   </plurals>
   <string name="showUnreadLichessMessage">Сезгә Lichess-тан шәхси хат килде.</string>
-  <string name="clickHereToReadIt">Уку өчен монда басыгыз</string>
   <string name="sorry">Юаныч :(</string>
   <string name="weHadToTimeYouOutForAWhile">Без сезне бераз вакытка чыгарырга тиеш идек.</string>
   <string name="why">Нигә?</string>

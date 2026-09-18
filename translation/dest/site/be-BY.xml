@@ -139,35 +139,17 @@
   <string name="blunder">Грубая памылка</string>
   <string name="mistake">Памылка</string>
   <string name="inaccuracy">Недакладнасць</string>
-  <plurals name="nbBlunders">
-    <item quantity="one">%s позех</item>
-    <item quantity="few">%s зяўкоў</item>
-    <item quantity="many">%s позехаў</item>
-    <item quantity="other">%s позехаў</item>
-  </plurals>
   <plurals name="numberBlunders">
     <item quantity="one">%s Зявок</item>
     <item quantity="few">%s Зяўкоў</item>
     <item quantity="many">%s Зяўкоў</item>
     <item quantity="other">%s Зяўкоў</item>
   </plurals>
-  <plurals name="nbMistakes">
-    <item quantity="one">%s памылка</item>
-    <item quantity="few">%s памылкі</item>
-    <item quantity="many">%s памылак</item>
-    <item quantity="other">%s памылак</item>
-  </plurals>
   <plurals name="numberMistakes">
     <item quantity="one">%s Памылка</item>
     <item quantity="few">%s Памылкі</item>
     <item quantity="many">%s Памылак</item>
     <item quantity="other">%s Памылак</item>
-  </plurals>
-  <plurals name="nbInaccuracies">
-    <item quantity="one">%s недакладнасць</item>
-    <item quantity="few">%s недакладнасці</item>
-    <item quantity="many">%s недакладнасцяў</item>
-    <item quantity="other">%s недакладнасцяў</item>
   </plurals>
   <plurals name="numberInaccuracies">
     <item quantity="one">%s Недакладнасць</item>
@@ -278,7 +260,6 @@
   <string name="emailSent">Мы адправілі электронны ліст на %s.</string>
   <string name="emailCanTakeSomeTime">Ён можа прыйсці праз некаторы час.</string>
   <string name="refreshInboxAfterFiveMinutes">Пачакайце 5 хвілін і абнавіце паштовую скрыню.</string>
-  <string name="checkSpamFolder">Таксама праверце папку са спамам, ён можа апынуцца там. Калі так, адзначце гэта як не спам.</string>
   <string name="accountConfirmed">Карыстальнік %s паспяхова пацверджаны.</string>
   <string name="accountCanLogin">Вы можаце ўвайсці зараз як %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Вам не патрэбна пацвярджэнне па электроннай пошце.</string>
@@ -307,8 +288,6 @@
   </plurals>
   <string name="ok">ОК</string>
   <string name="cancel">Скасаваць</string>
-  <string name="whiteTimeOut">Час белых скончыўся</string>
-  <string name="blackTimeOut">Час чорных скончыўся</string>
   <string name="drawOfferSent">Прапанова нічыі даслана</string>
   <string name="drawOfferAccepted">Прапанова нічыі прынята</string>
   <string name="whiteOffersDraw">Белыя прапануюць нічыю</string>
@@ -612,7 +591,6 @@
   <string name="cheat">Несумленная гульня</string>
   <string name="troll">Троль</string>
   <string name="other">Іншае</string>
-  <string name="reportProcessedFasterInEnglish">Ваша справаздача будзе апрацавана хутчэй, калі яна будзе напісана на англійскай мове.</string>
   <string name="error.provideOneCheatedGameLink">Калі ласка, дадайце спасылку хаця б на адну гульню, дзе былі парушаны правілы.</string>
   <string name="by">аўтар: %s</string>
   <string name="importedByX">Імпартваў/-ла %s</string>
@@ -736,11 +714,9 @@
   <string name="aboutSimulRules">Калі пачынаецца сеанс адначасовай гульні, кожны ўдзельнік гуляе асобную партыю з сеансёрам. Сеанс лічыцца скончаным, калі ўсе гульні завершаны.</string>
   <string name="aboutSimulSettings">Сеансы адначасовай гульні заўсёды таварыскія. Нельга перахадзіць ці дадаваць час.</string>
   <string name="create">Стварыць</string>
-  <string name="whenCreateSimul">Калі вы створыце сеанс адначасовай гульні, вам прыйдзецца гуляць супраць некалькіх супернікаў у адначассе.</string>
   <string name="simulVariantsHint">Вы таксама можаце абраць некалькі варыянтаў для гульні: тады кожны гулец абярэ той з іх, у якім ён хоча гуляць з вамі.</string>
   <string name="simulClockHint">Налады гадзінніку Фішэра. Чым больш у вас супернікаў, тым больш часу вам можа спатрэбіцца.</string>
   <string name="simulAddExtraTime">Вы можаце ўзяць сабе дадатковы час на роздумы.</string>
-  <string name="simulHostExtraTime">Дадатковы час для арганізатара</string>
   <string name="lichessTournaments">Турніры Lichess</string>
   <string name="tournamentFAQ">Частыя пытанні пра турніры арэны</string>
   <string name="timeBeforeTournamentStarts">Турнір пачнецца праз</string>
@@ -855,7 +831,6 @@
   <string name="custom">Свая гульня</string>
   <string name="notifications">Апавяшчэнні</string>
   <string name="notificationsX">Апавяшчэнні: %1$s</string>
-  <string name="perfRatingX">Рэйтынг: %s</string>
   <string name="yourRatingIsX">Ваш рэйтынг %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s секунда на першы ход</item>
@@ -919,7 +894,6 @@
     <item quantity="many">і захаваць %s паслядоўнасцяў</item>
     <item quantity="other">і захаваць %s паслядоўнасцяў</item>
   </plurals>
-  <string name="clickHereToReadIt">Націсніце тут, каб прачытаць</string>
   <string name="sorry">Прабачце :(</string>
   <string name="weHadToTimeYouOutForAWhile">Нам прыйшлося на нейкі час выдаць вам тайм-аўт.</string>
   <string name="why">Чаму?</string>
@@ -1011,7 +985,6 @@
   <string name="noChat">Без чату</string>
   <string name="onlyTeamLeaders">Толькі лідары каманды</string>
   <string name="onlyTeamMembers">Толькі чальцы каманды</string>
-  <string name="navigateMoveTree">Рухацца па дрэву ходаў</string>
   <string name="mouseTricks">Трукі мышшу</string>
   <string name="toggleLocalAnalysis">Укл./адкл. лакальны камп\'ютарны аналіз</string>
   <string name="toggleAllAnalysis">Укл./адкл. усе камп\'ютарныя аналізы</string>

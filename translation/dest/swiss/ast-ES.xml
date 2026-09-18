@@ -65,7 +65,6 @@ Sumense les puntuaciones de tolos oponentes a los que venciera el xugador, y la 
   <string name="pairingsA">Col %1$s, implementáu usando %2$s, d\'acuerdu con el %3$s.</string>
   <string name="moreRoundsThanPlayersQ">¿Qué pasa si el tornéu tien más rondes que xugadores?</string>
   <string name="moreRoundsThanPlayersA">Cuando se xugaren tolos empareyamientos posibles, el tornéu acábase y se proclama el ganador.</string>
-  <string name="restrictedToTeamsQ">¿Por qué ta limitao a los equipos?</string>
   <string name="restrictedToTeamsA">Los torneos suizos nun se diseñaron pal axedrez en llínea. Esixen puntualidá, dedicación y paciencia per parte de los xugadores.
 Creemos que ye más probable qu\'estes condiciones cumplir nun equipu qu\'en torneos abiertos.</string>
   <string name="numberOfByesQ">¿Cuántos byes puede recibir un xugador?</string>
@@ -86,7 +85,6 @@ El ceador d\'un eventu suizu puede decidir dexar que se xunan al eventu igualmen
 Los xugadores que xunanse a un tornéu empezáu van recibir un únicu bye, inclusive si nun se presenten a delles rondes.</string>
   <string name="willSwissReplaceArenasQ">¿Van reemplazar los torneos suizos a los torneos estándar?</string>
   <string name="willSwissReplaceArenasA">Non, son característiques complementaries.</string>
-  <string name="roundRobinQ">¿Qué asocede colos empareyamientos de toos contra toos?</string>
   <string name="roundRobinA">Gustaríanos agregarlos, pero esti tipu d\'empareyamientos nun suelen funcionar en llínea.
 El motivu ye que nun esiste xuna forma xusta de penalizar a los xugadores qu\'abandonen el tornéu de forma temprana. Nun podemos esperar que tolos participantes xueguen toles sos partíes nun eventu en llínea. Ye daqué qu\'a tan solo nun va asoceder y, como resultancia, la mayoría de los torneos de toos contra toos van ser imperfectos inxustos, lo que fai que la so principal finalidá sía inválida.
 El formatu más próximu a un tornéu en llínea de toos contra toos ye un tornéu suizu con un númberu de rondes bien eleváu. D\'esta forma, van xugase tolos posibles empareyamientos primero que remate el tornéu.</string>
@@ -122,7 +120,6 @@ El formatu más próximu a un tornéu en llínea de toos contra toos ye un torn�
   <string name="similarToOTB">Similar a torneos presenciales</string>
   <string name="unlimitedAndFree">Ilimitáu y gratuitu</string>
   <string name="predefinedUsers">Dexar xunise namá a usuarios predefinidos</string>
-  <string name="forbiddedUsers">Si esta llista nun ta vacida, a los usuarios ausentes d\'esta llista va a tar prohibíu xunise. Un nome d\'usuariu per llínea.</string>
   <string name="playYourGames">Xuega les tos partíes</string>
   <string name="byes">Byes</string>
   <string name="absences">Ausencies</string>

@@ -65,7 +65,6 @@
   <string name="downloadGame">Transferir partida</string>
   <string name="studyUrl">URL do estudo</string>
   <string name="currentChapterUrl">URL do capítulo atual</string>
-  <string name="youCanPasteThisInTheForumToEmbed">Podes colocar isto no fórum para o incorporares</string>
   <string name="startAtInitialPosition">Começar na posição inicial</string>
   <string name="startAtX">Começar em %s</string>
   <string name="embedInYourWebsite">Incorporar no teu site ou blog</string>
@@ -187,8 +186,6 @@
   <string name="fromInitialPositionText">Apenas uma configuração de tabuleiro para um novo jogo.&lt;br&gt; Adequado para explorar aberturas.</string>
   <string name="customPositionTitle">Posição personalizada</string>
   <string name="customPositionText">Configura o tabuleiro à tua maneira.&lt;br&gt; Adequado para explorar finais de jogos.</string>
-  <string name="loadExistingLichessGameTitle">Carregar um jogo lichess existente</string>
-  <string name="loadExistingLichessGameText">Copia um URL de um jogo de lichess&lt;br&gt;(como lichess.org/7fHIU0XI)&lt;br&gt;para carregar os movimentos do jogo no capítulo.</string>
   <string name="fromFenStringTitle">A partir de uma string FEN</string>
   <string name="fromFenStringText">Cola uma posição em formato FEN&lt;br&gt;&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;&lt;br&gt;para começar o capítulo a partir de uma posição.</string>
   <string name="fromPgnGameTitle">De um jogo em PGN</string>

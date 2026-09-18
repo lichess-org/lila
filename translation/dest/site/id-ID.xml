@@ -128,20 +128,11 @@
   <string name="blunder">Blunder</string>
   <string name="mistake">Kesalahan</string>
   <string name="inaccuracy">Ketidaktelitian</string>
-  <plurals name="nbBlunders">
-    <item quantity="other">%s blunder</item>
-  </plurals>
   <plurals name="numberBlunders">
     <item quantity="other">%s Blunder</item>
   </plurals>
-  <plurals name="nbMistakes">
-    <item quantity="other">%s kesalahan</item>
-  </plurals>
   <plurals name="numberMistakes">
     <item quantity="other">%s Kesalahan</item>
-  </plurals>
-  <plurals name="nbInaccuracies">
-    <item quantity="other">%s ketidaktepatan</item>
   </plurals>
   <plurals name="numberInaccuracies">
     <item quantity="other">%s Ketidaktepatan</item>
@@ -235,7 +226,6 @@
   <string name="emailSent">Kami telah mengirim email ke %s.</string>
   <string name="emailCanTakeSomeTime">Dapat membutuhkan beberapa waktu hingga sampai.</string>
   <string name="refreshInboxAfterFiveMinutes">Tunggu 5 menit dan refresh kotak masuk Anda.</string>
-  <string name="checkSpamFolder">Cek juga folder spam Anda, mungkin ada disana. Jika ada, tandai sebagai bukan spam.</string>
   <string name="accountConfirmed">User %s berhasil dikonfirmasi.</string>
   <string name="accountCanLogin">Anda sekarang dapat masuk sebagai %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Anda tidak butuh email konfirmasi.</string>
@@ -255,8 +245,6 @@
   </plurals>
   <string name="ok">Oke</string>
   <string name="cancel">Batal</string>
-  <string name="whiteTimeOut">Putih kehabisan waktu</string>
-  <string name="blackTimeOut">Hitam kehabisan waktu</string>
   <string name="drawOfferSent">Tawaran remis terkirim</string>
   <string name="drawOfferAccepted">Tawaran remis diterima</string>
   <string name="whiteOffersDraw">Putih menawarkan remis</string>
@@ -362,7 +350,6 @@
     <item quantity="other">Kamu perlu bermain %s lebih banyak permainan yang di-rating</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Rating Anda (%s) bersifat sementara</string>
-  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Filter rating terkunci karena rating Anda tidak stabil. Memainkan game berperingkat akan meningkatkan stabilitas.</string>
   <string name="yourPerfRatingIsTooHigh">Rating %1$s kamu (%2$s) terlalu besar</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Rating permainan %1$s mingguan teratas Anda (%2$s) terlalu besar</string>
   <string name="yourPerfRatingIsTooLow">Rating %1$s kamu (%2$s) terlalu rendah</string>
@@ -527,7 +514,6 @@
   <string name="other">Lainnya</string>
   <string name="reportCheatBoostHelp">Tempel link permainan yang bersangkutan dan jelaskan hal tidak benar yang dilakukan pengguna ini. Jangan hanya menulis \"ia curang\", tetapi beri tahu kami mengapa Anda bisa merasa demikian.</string>
   <string name="reportUsernameHelp">Jelaskan kenapa nama pengguna ini menyinggung. Jangan hanya mengatakan \"menyinggung/tidak pantas\", tapi katakan mengapa berkesimpulan seperti itu, khususnya apabila umpatan tersebut terselubung, bukan dalam bahasa inggris, slang, ataupun referensi sejarah/budaya.</string>
-  <string name="reportProcessedFasterInEnglish">Laporan Anda akan diproses lebih cepat jika ditulis dalam bahasa Inggris.</string>
   <string name="error.provideOneCheatedGameLink">Harap berikan setidaknya satu tautan ke permainan yang curang.</string>
   <string name="by">oleh %s</string>
   <string name="importedByX">Diimpor oleh %s</string>
@@ -644,11 +630,9 @@
   <string name="aboutSimulRules">Saat Simultan dimulai, setiap pemain melawan penyedia, yang bermain sebagai buah putih. Simultan berakhir jika seluruh partai telah selesai dimainkan.</string>
   <string name="aboutSimulSettings">Simultan selalu sederhana, tanding ulang, langkah balik dan tambahan waktu tidak diijinkan.</string>
   <string name="create">Buat baru</string>
-  <string name="whenCreateSimul">Ketika anda membuat Simultan, anda akan bertemu banyak lawan dalam satu saat.</string>
   <string name="simulVariantsHint">Jika anda memilih banyak varian, setiap pemain bisa memilih yang dimainkan.</string>
   <string name="simulClockHint">Aturan Jam Fischer: Semakin banyak peserta yang ikut, semakin banyak waktu diperlukan.</string>
   <string name="simulAddExtraTime">Anda bisa menambah waktu pada jam anda untuk membantu simultan anda</string>
-  <string name="simulHostExtraTime">Penyedia waktu tambahan</string>
   <string name="simulAddExtraTimePerPlayer">Tambahkan waktu awal kepada jam anda untuk setiap pemain yang bergabung ke simul.</string>
   <string name="simulHostExtraTimePerPlayer">Waktu tambahan tuan rumah setiap pemain baru simul</string>
   <string name="lichessTournaments">Turnamen Lichess</string>
@@ -764,7 +748,6 @@
   <string name="custom">Atur</string>
   <string name="notifications">Notifikasi</string>
   <string name="notificationsX">Pemberitahuan: %1$s</string>
-  <string name="perfRatingX">Rating: %s</string>
   <string name="yourRatingIsX">Rating anda adalah %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="other">%s detik untuk memainkan langkah pertama</item>
@@ -819,7 +802,6 @@
     <item quantity="other">dan simpan %s baris pra-langkah</item>
   </plurals>
   <string name="showUnreadLichessMessage">Anda telah menerima pesan pribadi dari Lichess.</string>
-  <string name="clickHereToReadIt">Klik di sini untuk membaca</string>
   <string name="sorry">Maaf :(</string>
   <string name="weHadToTimeYouOutForAWhile">Kami harus mengatur waktu Anda untuk sementara waktu.</string>
   <string name="why">Mengapa?</string>
@@ -908,7 +890,6 @@ Kosongkan untuk memulai permainan dari posisi awal yang normal.</string>
   <string name="noChat">Tanpa obrolan</string>
   <string name="onlyTeamLeaders">Hanya pemimpin tim</string>
   <string name="onlyTeamMembers">Hanya anggota tim</string>
-  <string name="navigateMoveTree">Navigasi gerakan partai</string>
   <string name="mouseTricks">Trik pada tetikus/mouse</string>
   <string name="toggleLocalAnalysis">Nyala / mati analisa komputer lokal</string>
   <string name="toggleAllAnalysis">Nyala / mati semua analisa komputer</string>

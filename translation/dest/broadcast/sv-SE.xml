@@ -34,11 +34,9 @@
   <string name="downloadAllRounds">Ladda ner alla omgångar</string>
   <string name="resetRound">Återställ den här omgången</string>
   <string name="deleteRound">Ta bort den här omgången</string>
-  <string name="definitivelyDeleteRound">Radera den här rundan och alla dess partier.</string>
   <string name="deleteAllGamesOfThisRound">Radera alla partier i denna runda. Källan kommer behöva vara aktiv för att återskapa dem.</string>
   <string name="editRoundStudy">Redigera studie för ronden</string>
   <string name="deleteTournament">Radera den här turneringen</string>
-  <string name="definitivelyDeleteTournament">Radera hela turneringen, alla dess rundor och alla dess partier.</string>
   <string name="showScores">Visa spelarpoäng efter partiresultat</string>
   <string name="replacePlayerTags">Valfritt: byt ut spelarnamn, ranking och titlar</string>
   <string name="fideFederations">FIDE-förbund</string>

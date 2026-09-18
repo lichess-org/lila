@@ -12,7 +12,6 @@
   <string name="configurationSection">मांडणी विभाग</string>
   <string name="ifMoveNotDetected">जर एक डाव ओळखला गेला नाही</string>
   <string name="reloadThisPage">ह्या पृष्ठाला पुनः आयात करा</string>
-  <string name="dgtConfigure">DGT - मांडणी</string>
   <string name="lichessConnectivity">Lichess विद्युतसंबंधता</string>
   <string name="validDgtOauthToken">DGT खेळासाठी योग्य तुमच्याकडे एक OAuth प्रवेशचिन्ह आहे.</string>
   <string name="webSocketUrl">%s वेबगुरू URL</string>

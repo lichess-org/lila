@@ -13,10 +13,9 @@
   <string name="closedByModerators">Tu cuenta fue cerrada por moderadores.</string>
   <string name="blogRestriction">Tienes una restricción de blog.</string>
   <string name="blogRestrictionInfo">Lee nuestro %s, violar estas reglas puede resultar en varias acciones.</string>
-  <string name="playTimeout">Tienes un tiempo de espera agotado.</string>
   <string name="reportBanned">No puedes enviar informes a los moderadores</string>
   <string name="reportBannedInfo">Hemos observado un patrón de abuso en nuestro sistema de informes. Esto puede deberse a varias razones, tales como seleccionar continuamente las categorías equivocadas, usar lenguaje ofensivo o inapropiado, reportar un número excesivo de partidas, o no demostrar por qué crees que el oponente violó las reglas.</string>
-  <string name="temporarilyRestrictedFromPlaying" comment="play timeout = Lichess prevents you temporarily from playing any games Replaces old string playTimeout">Tu cuenta está temporalmente restringida para jugar.</string>
+  <string name="temporarilyRestrictedFromPlaying" comment="play timeout = Lichess prevents you temporarily from playing any games">Tu cuenta está temporalmente restringida para jugar.</string>
   <string name="communicationGuidelines">directrices de comunicación</string>
   <string name="blogEtiquette">reglamento del blog</string>
   <string name="fairPlay">Juego limpio</string>

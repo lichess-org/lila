@@ -25,7 +25,6 @@
   <string name="cantChangeMore">איננו יכולים לשנות יותר מאותיות קטנות או גדולות. מסיבות טכניות זה ממש בלתי אפשרי.</string>
   <string name="orCloseAccount">עם זאת, אפשר לסגור את חשבונך הנוכחי וליצור חשבון חדש.</string>
   <string name="wantClearHistory">אני רוצה למחוק את ההיסטוריה או הדירוג שלי</string>
-  <string name="cantClearHistory">לא ניתן למחוק את היסטוריית המשחק, היסטוריית הפאזלים, או הדירוגים שלך.</string>
   <string name="wantReport">אני רוצה לדווח על שחקן</string>
   <string name="toReportAPlayerUseForm">כדי לדווח על שחקן, השתמשו בטופס הדיווח</string>
   <string name="youCanAlsoReachReportPage">אפשר גם להגיע לעמוד הדיווח על ידי לחיצה על הכפתור %s בעמוד הפרופיל.</string>

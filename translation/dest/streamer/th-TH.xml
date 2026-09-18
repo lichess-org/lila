@@ -28,7 +28,6 @@
   <string name="approved">การสตรีมของคุณได้รับการอนุมัติแล้ว</string>
   <string name="pendingReview">สตรีมของคุณกำลังอยู่ระหว่างการตรวจสอบโดยผู้ดูแลระบบ</string>
   <string name="pleaseFillIn">กรุณากรอกข้อมูลผู้สตรีมและอัปโหลดรูปภาพของคุณ</string>
-  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">เมื่อคุณพร้อมที่จะลงทะเบียนเป็นสตรีมเมอร์ของ Lichess แล้ว %s</string>
   <string name="submitForReview">ส่งเพื่อตรวจสอบ</string>
   <string name="streamerLanguageSettings">หน้าผู้ถ่ายทอดสดของ Lichess จะกำหนดเป้าหมายผู้ชมของคุณด้วยภาษาที่แพลตฟอร์มการถ่ายทอดสดของคุณรองรับ ตั้งค่าภาษาเริ่มต้นที่ถูกต้องสำหรับการถ่ายทอดสดหมากรุกของคุณในแอปหรือบริการที่คุณใช้ในการออกอากาศ</string>
   <string name="pleaseAllow">โปรดรอประมาณ 72 ชั่วโมงก่อนที่ตราสัญลักษณ์และรายชื่อสตรีมเมอร์ของคุณจะได้รับการอนุมัติ</string>

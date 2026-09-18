@@ -26,8 +26,7 @@
   <string name="howIsTheWinnerDecidedAnswer">وقتی مهلت مسابقات تمام شود، بازیکنی که بیشترین امتیاز را کسبیده باشد، برنده اعلام می‌شود.
 
 اگر دو یا چند بازیکن از نظر امتیاز مساوی باشند، عملکردِ مسابقاتی، معیارِ یِرشکن است.</string>
-  <string name="howDoesPairingWork">رویارویی بازیکنان با یکدیگر چگونه انجام میشود؟</string>
-  <string name="howArePlayersPaired" comment="Replaces old string howDoesPairingWork">بازیکنان چگونه جُفت می‌شوند؟</string>
+  <string name="howArePlayersPaired">بازیکنان چگونه جُفت می‌شوند؟</string>
   <string name="howDoesPairingWorkAnswer">در آغاز مسابقات، بازیکنان بر پایه درجه‌بندی‌شان برابر هم قرار می‌گیرند.
 به محض پایان یک بازی، به سَرسَرا بازگردید: سپس برابر بازیکنی نزدیک به رتبه‌تان قرار می‌گیرید. این شیوه، دست‌کم زمان انتظار را تضمین می‌کند، با این حال، ممکن است با همه بازیکنان این مسابقات روبرو نشوید.
 به سرعت بازی کنید و به سَرسَرا بازگردید تا بازی‌های بیشتری کنید و امتیاز بیشتری کسب کنید.</string>
@@ -65,8 +64,7 @@
   <string name="myTournaments">مسابقات من</string>
   <string name="editTournament">ویرایش مسابقه</string>
   <string name="editTeamBattle">ویرایش نبرد تیمی</string>
-  <string name="defender">دفاع‌گر</string>
-  <string name="defenderLabel" comment="In this context, this is the current holder of a shield trophy, who is defending their trophy in the next shield tournament of that variant. https://lichess.org/tournament/shields Replaces old string defender">مدافع:</string>
+  <string name="defenderLabel" comment="In this context, this is the current holder of a shield trophy, who is defending their trophy in the next shield tournament of that variant. https://lichess.org/tournament/shields">مدافع:</string>
   <string name="pickYourTeam">تیم خود را انتخاب کنید</string>
   <string name="whichTeamWillYouRepresentInThisBattle">نماینده کدام تیم در این نبرد خواهید بود؟</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">برای شرکت کردن، شما باید عضو یکی از این تیم ها شوید!</string>
@@ -74,10 +72,7 @@
   <string name="recentlyPlayed">به تازگی بازی شد</string>
   <string name="bestResults">بهترین نتایج</string>
   <string name="tournamentStats">آمار مسابقه</string>
-  <string name="rankAvgHelp">میانگین رتبه دهی، درصدبندی از جایگاه شما است. پایین‌تر بهتر است.
-
-به عنوان مثال، رتبه 3 در مسابقاتی با 100 بازیکن = 3٪. رتبه 10 در مسابقاتی با 1000 بازیکن = 1٪.</string>
-  <string name="rankAverageHelp" comment="Replaces old string rankAvgHelp">میانگینِ رتبه‌تان نشان‌دهندهٔ وضعیتِ معمولِ پایانی‌تان، نسبت به تعدادِ کلِ بازیکنان در هر مسابقه است.
+  <string name="rankAverageHelp">میانگینِ رتبه‌تان نشان‌دهندهٔ وضعیتِ معمولِ پایانی‌تان، نسبت به تعدادِ کلِ بازیکنان در هر مسابقه است.
 این معیاری برای جایگاه‌تان در مسابقات است، نه درجه‌بندیِ عمومی‌تان.
 
 برای مثال، میانگین‌رتبهٔ ۳٪ به این معنا است که شما معمولاً جزء ۳٪ برترید (مانند رتبه ۳۰-ام میانِ ۱٬۰۰۰ بازیکن).</string>
@@ -93,4 +88,5 @@
   <string name="onlyTitledHelp">نیاز به یک عنوان رسمی برای پیوستن به مسابقه است</string>
   <string name="tournamentPairingsAreNowClosed">تعیین حریف به اتمام رسیده است.</string>
   <string name="berserkRate">امتیاز برسرک</string>
+  <string name="leaguesAndStreamerBattles">جُرگ‌ها و نبردهای جَریانگران</string>
 </resources>

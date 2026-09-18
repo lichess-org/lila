@@ -25,7 +25,6 @@
   <string name="cantChangeMore">Ennél nagyobb változtatást nem lehet kérni. Technikai okok miatt ez úgyis lehetetlen.</string>
   <string name="orCloseAccount">Azonban lezárhatod a mostani fiókod, és nyithatsz egy újat.</string>
   <string name="wantClearHistory">Szeretném törölni az előzményeket vagy az értékszámom</string>
-  <string name="cantClearHistory">Nincs lehetőség a játékelőzményed, feladványelőzményeid és értékszámod törlésére.</string>
   <string name="wantReport">Jelenteni akarok egy játékost</string>
   <string name="toReportAPlayerUseForm">Játékos jelentéséhez használd az űrlapot</string>
   <string name="youCanAlsoReachReportPage">Ezt az oldalt úgy is elérheted, ha a %s jelentése gombra kattintasz a profil oldalon.</string>

@@ -112,25 +112,13 @@
   <string name="blunder">Bukkur</string>
   <string name="mistake">Mistak</string>
   <string name="inaccuracy">Óneyvleiki</string>
-  <plurals name="nbBlunders">
-    <item quantity="one">%s bukkur</item>
-    <item quantity="other">%s bukkar</item>
-  </plurals>
   <plurals name="numberBlunders">
     <item quantity="one">%s Bukkur</item>
     <item quantity="other">%s Bukkar</item>
   </plurals>
-  <plurals name="nbMistakes">
-    <item quantity="one">%s mistak</item>
-    <item quantity="other">%s mistøk</item>
-  </plurals>
   <plurals name="numberMistakes">
     <item quantity="one">%s Mistak</item>
     <item quantity="other">%s Mistøk</item>
-  </plurals>
-  <plurals name="nbInaccuracies">
-    <item quantity="one">%s óneyvleiki</item>
-    <item quantity="other">%s óneyvleikar</item>
   </plurals>
   <plurals name="numberInaccuracies">
     <item quantity="one">%s Óneyvleiki</item>
@@ -224,8 +212,6 @@
     <item quantity="other">%s talv móti tær</item>
   </plurals>
   <string name="cancel">Ógilda</string>
-  <string name="whiteTimeOut">Tíð uppi hjá hvítum</string>
-  <string name="blackTimeOut">Tíð uppi hjá svørtum</string>
   <string name="drawOfferSent">Tilboð um javnleik sent</string>
   <string name="drawOfferAccepted">Tilboð um javnleik góðtikið</string>
   <string name="whiteOffersDraw">Hvítur bjóðar javnt</string>
@@ -587,11 +573,9 @@
   <string name="aboutSimulRules">Tá ið fjøltalvið byrjar, fer hvør leikari undir eitt talv móti vertinum, ið sleppur at telva við hvíta fólkinum. Fjøltalvið endar, tá ið øll talv eru liðug.</string>
   <string name="aboutSimulSettings">Fjøltalv eru altíð uttan styrkismetingar. Til ber ikki at leggja tíð aftrat, telva nýggj talv ella telva við afturtøkum.</string>
   <string name="create">Stovna</string>
-  <string name="whenCreateSimul">Tá ið tú stovnar eitt fjøltalv, sleppur tú at telva móti fleiri telvarum í senn.</string>
   <string name="simulVariantsHint">Velur tú fleiri avbrigdi, sleppur hvør telvari at gera av, hvat avbrigdi telvað verður.</string>
   <string name="simulClockHint">Fischerklokku-uppseting. Fleiri telvarum, tú telvar móti, meiri tíð tørvar tær.</string>
   <string name="simulAddExtraTime">Tú hevur loyvi at leggja tíð aftrat tínari klokku til tess at hjálpa tær at megna at telva fjøltalvið.</string>
-  <string name="simulHostExtraTime">Vertur fær eyka klokkutíð</string>
   <string name="lichessTournaments">Lichess kappingar</string>
   <string name="tournamentFAQ">Arena-kapping FAQ</string>
   <string name="timeBeforeTournamentStarts">Tíð áðrenn kapping byrjar</string>
@@ -679,7 +663,6 @@
   <string name="invalidFen">Ógildugt FEN</string>
   <string name="custom">Tillagað</string>
   <string name="notifications">Fráboðanir</string>
-  <string name="perfRatingX">Styrkital: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekund at flyta fyrsta leik</item>
     <item quantity="other">%s sekundir at flyta fyrsta leik</item>
@@ -787,7 +770,6 @@
   <string name="noChat">Einki kjatt</string>
   <string name="onlyTeamLeaders">Bert liðleiðarar</string>
   <string name="onlyTeamMembers">Bert limir av liðnum</string>
-  <string name="navigateMoveTree">Far runt í leiktrænum</string>
   <string name="mouseTricks">Músasnildir</string>
   <string name="playComputerMove">Telv besta telduleikin</string>
   <string name="hangOn">Bíða líka!</string>

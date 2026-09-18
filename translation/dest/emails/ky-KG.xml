@@ -17,8 +17,7 @@
 
 Сизге ийгилик! Фигураларыңыз атаандашыңыздын королуна ар дайым жол таба алсын!</string>
   <string name="logInToLichess">%s, lichess.org\'го кириңиз</string>
-  <string name="common_orPaste">(Башсаныз иштебей жатыр бы? Анда башка браузер мен кириниз)</string>
-  <string name="common_linkNotWorking" comment="common_orPaste&#10;&#10;Part of the e-mail received from lichess when changing your e-mail address. Replaces old string common_orPaste">(Шилтеме иштебей жатса, муну браузерден ачыңыз)</string>
+  <string name="common_linkNotWorking" comment="common_orPaste&#10;&#10;Part of the e-mail received from lichess when changing your e-mail address.">(Шилтеме иштебей жатса, муну браузерден ачыңыз)</string>
   <string name="common_note">Бул кызматтык кат сиз %s аккаунтун пайдаланышыңызга байланыштуу.</string>
   <string name="common_contact">Биз менен байланышуу үчүн %s баракчасына өтүңүз.</string>
 </resources>

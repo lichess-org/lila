@@ -44,15 +44,12 @@
   <string name="doubleCheckDescription">Ашылған шабуыл кезінде бірден екі тастың (яғни, шабулды ашқан тас пен шабуылдап жатқан тас) қарсылас патшасына қойған шахтары.</string>
   <string name="endgame">Ойынсоңы</string>
   <string name="endgameDescription">Ойынның соңғы кезеңіндегі тактика.</string>
-  <string name="enPassantDescription">Бір сазбаз, қасынан қарсыластың сарбазы өткенде, оны басып алатын жағдайды, яғни жолай басып алуды қамтитын тактика.</string>
   <string name="exposedKing">Жалаңаш патша</string>
   <string name="exposedKingDescription">Қорғанысы нашар патша әдетте маттың иісін сезіп тұрады.</string>
   <string name="fork">Шанышқы</string>
-  <string name="forkDescription">Қарсыластың бірден екі тасын ұратын тас жүрісі.</string>
   <string name="hangingPiece">Олжа тас</string>
   <string name="hangingPieceDescription">Қорғанысы нашар не қорғаусыз тұрған қарсылас тасын басып алуды меңзейтін тактика.</string>
   <string name="hookMate">Қармақ мат</string>
-  <string name="hookMateDescription">Қарсылас патшасына өз сарбазы бөгет бола тұра, ат, тура мен сарбаз арқылы қойылған мат.</string>
   <string name="interference">Бөгет</string>
   <string name="interferenceDescription">Қарсыластың екі байланысқан тастарының арасына бөгет қойып, олардың біреуін не екеуін қорғаусыз ету. Мысалы, екі өзара қорғап тұрған туралардың арасына тұра қалған ат.</string>
   <string name="intermezzo">Аралық жүріс</string>
@@ -88,7 +85,6 @@
   <string name="pin">Байлау</string>
   <string name="pinDescription">Артта тұрған құнды тасты жоғалту қаупі болғандықтан, алдыңғы тас орнынан кете алмайтындай жағдай.</string>
   <string name="promotion">Айналу</string>
-  <string name="promotionDescription">Айналуға ұмтылған не айналу қаупін төндіретін сарбаз – тактиканың өзегі.</string>
   <string name="queenEndgame">Уәзір ойынсоңы</string>
   <string name="queenEndgameDescription">Уәзірлер мен сарбаздары ғана бар ойынсоңы.</string>
   <string name="queenRookEndgame">Уәзір мен Тура</string>

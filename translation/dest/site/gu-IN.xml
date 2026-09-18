@@ -132,25 +132,13 @@
   <string name="blunder">મોટી ભૂલ</string>
   <string name="mistake">ભૂલ</string>
   <string name="inaccuracy">ચૂક</string>
-  <plurals name="nbBlunders">
-    <item quantity="one">%s મોટી ભૂલ</item>
-    <item quantity="other">%s મોટી  ભૂલો</item>
-  </plurals>
   <plurals name="numberBlunders">
     <item quantity="one">%s મોટી ભૂલ</item>
     <item quantity="other">%s મોટી  ભૂલો</item>
   </plurals>
-  <plurals name="nbMistakes">
-    <item quantity="one">%s ભૂલ</item>
-    <item quantity="other">%s ભૂલો</item>
-  </plurals>
   <plurals name="numberMistakes">
     <item quantity="one">%s ભૂલ</item>
     <item quantity="other">%s ભૂલો</item>
-  </plurals>
-  <plurals name="nbInaccuracies">
-    <item quantity="one">%s અચોક્સાઈ</item>
-    <item quantity="other">%s અચોક્સાઈઓ</item>
   </plurals>
   <plurals name="numberInaccuracies">
     <item quantity="one">%s અચોક્સાઈ</item>
@@ -254,7 +242,6 @@
   <string name="emailSent">અમે %s ને એક ઈમેલ મોકલ્યો છે.</string>
   <string name="emailCanTakeSomeTime">તેને પહોંચવામાં થોડો સમય લાગી શકે છે.</string>
   <string name="refreshInboxAfterFiveMinutes">5 મિનિટ રાહ જુઓ અને તમારા ઇમેઇલ ઇનબોક્સને તાજું કરો.</string>
-  <string name="checkSpamFolder">તમારું સ્પામ ફોલ્ડર પણ તપાસો, તે ત્યાં જ સમાપ્ત થઈ શકે છે. જો એમ હોય, તો તેને સ્પામ નથી તરીકે ચિહ્નિત કરો.</string>
   <string name="accountConfirmed">વપરાશકર્તા %s સફળતાપૂર્વક પુષ્ટિ થયેલ છે.</string>
   <string name="accountCanLogin">તમે હમણાં %s તરીકે લૉગિન કરી શકો છો.</string>
   <string name="accountConfirmationEmailNotNeeded">તમારે પુષ્ટિકરણ ઇમેઇલની જરૂર નથી.</string>
@@ -277,8 +264,6 @@
   </plurals>
   <string name="ok">OK</string>
   <string name="cancel">રદ કરો</string>
-  <string name="whiteTimeOut">સફેદની સમય મર્યાદા પૂરી</string>
-  <string name="blackTimeOut">કાળાની સમય મર્યાદા પૂરી</string>
   <string name="drawOfferSent">ડ્રો ઓફર મોકલી</string>
   <string name="drawOfferAccepted">ડ્રો ઓફર સ્વીકારી</string>
   <string name="whiteOffersDraw">સફેદ ઓફર ડ્રો</string>
@@ -401,7 +386,6 @@
     <item quantity="other">તમારે હજી %s ક્રમિત રમત રમવી પડશે</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">તમારી રેટિંગ %s કામચલાઉ છે</string>
-  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">રેટિંગ ફિલ્ટર્સ લૉક કરેલા છે કારણ કે તમારું રેટિંગ સ્થિર નથી. રેટેડ રમતો રમવાથી સ્થિરતા વધશે.</string>
   <string name="yourPerfRatingIsTooHigh">તમારું %1$s રેટિંગ (%2$s) ખૂબ ઊંચું છે</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">તમારું ટોચનું સાપ્તાહિક %1$s રેટિંગ (%2$s) ખૂબ ઊંચું છે</string>
   <string name="yourPerfRatingIsTooLow">તમારું %1$s રેટિંગ (%2$s) ખૂબ ઓછું છે</string>
@@ -573,7 +557,6 @@
   <string name="other">અન્ય</string>
   <string name="reportCheatBoostHelp">રમત(ઓ) ની લિંક પેસ્ટ કરો અને આ વપરાશકર્તાના વર્તનમાં શું ખોટું છે તે સમજાવો. ફક્ત \"તેઓ છેતરપિંડી કરે છે\" એમ ન કહો, પરંતુ તમે આ નિષ્કર્ષ પર કેવી રીતે આવ્યા તે અમને જણાવો.</string>
   <string name="reportUsernameHelp">આ વપરાશકર્તાનામ વિશે શું વાંધાજનક છે તે સમજાવો. ફક્ત \"તે વાંધાજનક/અયોગ્ય છે\" એમ ન કહો, પરંતુ અમને જણાવો કે તમે આ નિષ્કર્ષ પર કેવી રીતે આવ્યા, ખાસ કરીને જો અપમાન અસ્પષ્ટ હોય, અંગ્રેજીમાં ન હોય, અપશબ્દોમાં હોય, અથવા ઐતિહાસિક/સાંસ્કૃતિક સંદર્ભ હોય.</string>
-  <string name="reportProcessedFasterInEnglish">જો તમારો રિપોર્ટ અંગ્રેજીમાં લખાયેલો હશે તો તે ઝડપથી પ્રક્રિયા કરવામાં આવશે.</string>
   <string name="error.provideOneCheatedGameLink">કૃપા કરીને છેતરાયેલી રમતની ઓછામાં ઓછી એક લિંક પ્રદાન કરો.</string>
   <string name="by">%s દ્વારા</string>
   <string name="importedByX">%s દ્વારા આયાત કરેલ</string>
@@ -695,11 +678,9 @@
   <string name="aboutSimulRules">જ્યારે સિમુલ શરૂ થાય છે, ત્યારે દરેક ખેલાડી યજમાન સાથે રમત શરૂ કરે છે. જ્યારે બધી રમતો પૂર્ણ થાય ત્યારે સિમુલ સમાપ્ત થાય છે.</string>
   <string name="aboutSimulSettings">સિમલ્સ હંમેશા કેઝ્યુઅલ હોય છે. રિમેચ, ટેકબેક્સ અને સમય ઉમેરવાની સુવિધા અક્ષમ છે.</string>
   <string name="create">બનાવો</string>
-  <string name="whenCreateSimul">When you create a Simul, you get to play several players at once.</string>
   <string name="simulVariantsHint">જો તમે ઘણા પ્રકારો પસંદ કરો છો, તો દરેક ખેલાડીને કયું રમવું તે પસંદ કરવાનું રહેશે.</string>
   <string name="simulClockHint">ફિશર ઘડિયાળ સેટઅપ. તમે જેટલા વધુ ખેલાડીઓ લો છો, તેટલો વધુ સમય તમને જરૂર પડી શકે છે.</string>
   <string name="simulAddExtraTime">સિમ્યુલનો સામનો કરવામાં મદદ કરવા માટે તમે તમારી ઘડિયાળમાં વધારાનો પ્રારંભિક સમય ઉમેરી શકો છો.</string>
-  <string name="simulHostExtraTime">વધારાનો પ્રારંભિક ઘડિયાળ સમય હોસ્ટ કરો</string>
   <string name="simulAddExtraTimePerPlayer">સિમુલમાં જોડાનાર દરેક ખેલાડી માટે તમારી ઘડિયાળમાં પ્રારંભિક સમય ઉમેરો.</string>
   <string name="simulHostExtraTimePerPlayer">ખેલાડી દીઠ વધારાનો ઘડિયાળ સમય હોસ્ટ કરો</string>
   <string name="lichessTournaments">Lichess પ્રતિયોગિતાઓ</string>
@@ -821,7 +802,6 @@
   <string name="custom">કસ્ટમ</string>
   <string name="notifications">સૂચનાઓ</string>
   <string name="notificationsX">સૂચનાઓ: %1$s</string>
-  <string name="perfRatingX">રેટિંગ: %s</string>
   <string name="yourRatingIsX">તમારું રેટિંગ %s છે</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">પહેલી ચાલ રમવા માટે %s સેકન્ડ</item>
@@ -880,7 +860,6 @@
     <item quantity="other">અને %s પ્રીમોવ લાઇનઓ સાચવો</item>
   </plurals>
   <string name="showUnreadLichessMessage">તમને લાઇચેસ તરફથી એક ખાનગી સંદેશ મળ્યો છે.</string>
-  <string name="clickHereToReadIt">તે વાંચવા માટે અહીં ક્લિક કરો.</string>
   <string name="sorry">માફ કરશો :(</string>
   <string name="weHadToTimeYouOutForAWhile">અમારે તમને થોડા સમય માટે બહાર કાઢવો પડ્યો.</string>
   <string name="why">શા માટે?</string>
@@ -968,14 +947,12 @@
   <string name="simulFeaturedHelp">%s પર દરેકને તમારું સિમ્યુલ બતાવો. ખાનગી સિમ્યુલ માટે અક્ષમ કરો.</string>
   <string name="simulDescription">સિમુલ વર્ણન</string>
   <string name="simulDescriptionHelp">સહભાગીઓને તમે કંઈ કહેવા માંગો છો?</string>
-  <string name="markdownIsAvailable">%s ફોર્મેટિંગ માટે ઉપલબ્ધ છે.</string>
   <string name="embedsAvailable">રમતનું URL અથવા અભ્યાસ પ્રકરણનું URL એમ્બેડ કરવા માટે તેને પેસ્ટ કરો.</string>
   <string name="inYourLocalTimezone">તમારા પોતાના સ્થાનિક સમય ઝોનમાં</string>
   <string name="tournChat">ટુર્નામેન્ટ ચેટ</string>
   <string name="noChat">કોઈ ચેટ નથી</string>
   <string name="onlyTeamLeaders">ફક્ત ટીમ લીડર્સ</string>
   <string name="onlyTeamMembers">ફક્ત ટીમના સભ્યો</string>
-  <string name="navigateMoveTree">મૂવ ટ્રી નેવિગેટ કરો</string>
   <string name="mouseTricks">માઉસ યુક્તિઓ</string>
   <string name="toggleLocalAnalysis">સ્થાનિક કમ્પ્યુટર વિશ્લેષણ ટૉગલ કરો</string>
   <string name="toggleAllAnalysis">બધા કમ્પ્યુટર વિશ્લેષણને ટૉગલ કરો</string>

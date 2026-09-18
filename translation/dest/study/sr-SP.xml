@@ -63,7 +63,6 @@
   <string name="downloadGame">Преузми партију</string>
   <string name="studyUrl">Линк студије</string>
   <string name="currentChapterUrl">Линк тренутног поглавља</string>
-  <string name="youCanPasteThisInTheForumToEmbed">Ово можеш налепити на форуму или твом Lichess блогу да уградиш</string>
   <string name="startAtInitialPosition">Започни на почетној позицији</string>
   <string name="startAtX">Започни на %s</string>
   <string name="embedInYourWebsite">Угради у свој вебсајт</string>

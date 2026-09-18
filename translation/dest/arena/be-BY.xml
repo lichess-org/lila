@@ -21,7 +21,6 @@
 Шалёнасць прыносіць дадатковы бал, калі ў гульні, было зраблена хоця б 7 хадоў.</string>
   <string name="howIsTheWinnerDecided">Як абіраецца пераможац?</string>
   <string name="howIsTheWinnerDecidedAnswer">Гулец(ы) з большасцю балаў па сканчэнні турнірнага часу будзе(-уць) аб\'яўлены пераможцам(і).</string>
-  <string name="howDoesPairingWork">Як працуе лёсаванне?</string>
   <string name="howDoesPairingWorkAnswer">У пачатку турніру гульцы размяркоўваюцца паводле іх рэйтынгу.
 Як толькі гульня скончылася, вярніцеся ў лобі турніру: наступная гульня будзе праведзеная з гульцом, найбліжэйшым да вас па рэйтынгу. Гэты механізм гарантуе, што вам не давядзецца доўга чакаць наступнага суперніка, аднак ёсць магчымасць, што вы не згуляеце з кожным удзельнікам турніру.
 Гуляйце хутка, вяртайцеся ў лобі і гуляйце яшчэ, каб выйграць як мага болей балаў.</string>
@@ -60,7 +59,6 @@
   <string name="noArenaStreaks">Няма серый на Арэне</string>
   <string name="averageScore">Сярэдні рэзультат</string>
   <string name="myTournaments">Мае турніры</string>
-  <string name="defender">Абаронца</string>
   <string name="created">Створана</string>
   <string name="bestResults">Найлепшыя рэзультаты</string>
   <string name="total">Агулам</string>

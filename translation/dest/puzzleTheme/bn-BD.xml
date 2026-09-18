@@ -44,15 +44,12 @@
   <string name="doubleCheckDescription">দুটি গুটি দিয়ে একসাথে চেক করা, আবিষ্কৃত আক্রমণের ফলস্বরূপ যেখানে যে গুটি সরে এবং যে গুটির রাস্তা পরিষ্কার হয় উভয়ই প্রতিপক্ষের রাজাকে আক্রমণ করে।</string>
   <string name="endgame">সমাপনী খেলা</string>
   <string name="endgameDescription">গেমের শেষ পর্যায়ের একটি ট্যাকটিক।</string>
-  <string name="enPassantDescription">এন প্যাসান্ট রুলকে কেন্দ্র করে একটি ট্যাকটিক, যেখানে একটা সৈন্য একটা প্রতিপক্ষের সৈন্যকে খেতে পারে যা তাকে পাশ কাটিয়েছে নিজের দুই ঘর অতিক্রমের ক্ষমতা ব্যবহার করে।</string>
   <string name="exposedKing">বহি:প্রকাশিত রাজা</string>
   <string name="exposedKingDescription">রাজার আশেপাশে অল্পসংখ্যক রক্ষককে কেন্দ্র করে একটি কৌশল, যা প্রায়ই কিস্তিমাতে পরিণত হয়।</string>
   <string name="fork">কাঁটাচামচ</string>
-  <string name="forkDescription">একটা চাল যেখানে একটা গুটি প্রতিপক্ষের দুটি গুটিকে আক্রমণ করে একইসাথে (যেভাবে একজন দুইহাতে দুটো কাঁটাচামচ দিয়ে দুটো জিনিসে আক্রমণ করে).</string>
   <string name="hangingPiece">ঝুলন্ত গুটি</string>
   <string name="hangingPieceDescription">প্রতিপক্ষের গুটি অরক্ষিত বা অপর্যাপ্তভাবে রক্ষিত এবং ক্যাপচার/খাওয়ার জন্য উন্মুক্ত।</string>
   <string name="hookMate">হুক মেট</string>
-  <string name="hookMateDescription">একটি নৌকা, ঘোড়া এবং সৈন্য দ্বারা প্রতিপক্ষের রাজাকে কিস্তিমাত করা যা নিজের সৈন্য দ্বারা আটকা পরেছে।</string>
   <string name="interference">প্রতিবন্ধকতা তৈরি</string>
   <string name="interferenceDescription">একটি গুটিকে প্রতিপক্ষের দুটি গুটির মধ্যবর্তী ঘরে চাল দেয়া, যাতে একটি বা উভয় গুটি অরক্ষিত হয়ে পড়ে। যেমনঃ দুটি নৌকার মধ্যে প্রতিপক্ষের একটি রক্ষিত ঘরে প্রতিপক্ষের ঘোড়ার চাল দেয়া।</string>
   <string name="intermezzo">Intermezzo/মধ্যবর্তী চাল</string>
@@ -88,7 +85,6 @@
   <string name="pin">Pin/আটকে ফেলা</string>
   <string name="pinDescription">এক ধরণের কৌশল যেখানে একটি গুটির চাল দিলে নিজের বড় গুটির উপর আক্রমন হবে।</string>
   <string name="promotion">Promotion/পদোন্নতি</string>
-  <string name="promotionDescription">আপনার সৈন্যকে মন্ত্রী বা অন্য লঘু গুটিতে উন্নীত করুন।</string>
   <string name="queenEndgame">মন্ত্রীর সমাপনী খেলা</string>
   <string name="queenEndgameDescription">শুধু মন্ত্রী এবং সৈন্যদের নিয়ে একটা সমাপনী খেলা।</string>
   <string name="queenRookEndgame">মন্ত্রী এবং নৌকা</string>

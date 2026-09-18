@@ -13,10 +13,9 @@
   <string name="closedByModerators">당신의 계정은 운영진에 의해 폐쇄되었습니다.</string>
   <string name="blogRestriction">블로그 제한이 적용 중입니다.</string>
   <string name="blogRestrictionInfo">%s을 읽어 주십시오. 이 규칙을 어기면 다른 조치가 취해질 것입니다.</string>
-  <string name="playTimeout">당신은 게임 타임아웃 상태입니다.</string>
   <string name="reportBanned">관리자에게 신고를 보낼 수 없습니다</string>
   <string name="reportBannedInfo">저희의 신고 시스템을 반복적으로 악용하는 것이 감지되었습니다. 이는 지속적인 잘못된 카테고리 선택, 욕설 및 부적절하거나 불쾌감을 주는 언어 사용, 과도한 수의 게임 신고, 상대가 왜 규칙을 어겼다고 생각하는지에 대해 설명하지 않는 것 등 다양한 원인이 있을 수 있습니다.</string>
-  <string name="temporarilyRestrictedFromPlaying" comment="play timeout = Lichess prevents you temporarily from playing any games Replaces old string playTimeout">당신의 계정은 일시적으로 대국이 제한되었습니다.</string>
+  <string name="temporarilyRestrictedFromPlaying" comment="play timeout = Lichess prevents you temporarily from playing any games">당신의 계정은 일시적으로 대국이 제한되었습니다.</string>
   <string name="communicationGuidelines">의사소통 가이드라인</string>
   <string name="blogEtiquette">블로그 에티켓</string>
   <string name="fairPlay">페어플레이</string>

@@ -4,7 +4,6 @@
   <string name="lichessAndDgt">Lichess &amp; DGT</string>
   <string name="downloadHere">Може да изтеглите софтуера тук: %s.</string>
   <string name="reloadThisPage">Презареждане на страницата</string>
-  <string name="dgtConfigure">DGT - настройване</string>
   <string name="textToSpeech">Текст в говор</string>
   <string name="enableSpeechSynthesis">Включване на синтезатор на говор</string>
   <string name="speechSynthesisVoice">Гласов синтезатор на говор</string>

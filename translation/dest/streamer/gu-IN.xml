@@ -28,7 +28,6 @@
   <string name="approved">તમારું સ્ટ્રીમ મંજૂર થયેલું છે</string>
   <string name="pendingReview">તમારા સ્ટ્રીમની મોડરેટર્સ દ્વારા સમીક્ષા કરવામાં આવી રહી છે.</string>
   <string name="pleaseFillIn">કૃપા કરીને તમારી સ્ટ્રીમર માહિતી ભરો અને એક ચિત્ર અપલોડ કરો.</string>
-  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">જ્યારે તમે Lichess સ્ટ્રીમર તરીકે સૂચિબદ્ધ થવા માટે તૈયાર હોવ, %s</string>
   <string name="submitForReview">સમીક્ષા માટે સબમિટ કરો</string>
   <string name="streamerLanguageSettings">Lichess સ્ટ્રીમર પેજ તમારા સ્ટ્રીમિંગ પ્લેટફોર્મ દ્વારા પ્રદાન કરવામાં આવેલી ભાષા સાથે તમારા પ્રેક્ષકોને લક્ષ્ય બનાવે છે. તમે પ્રસારણ કરવા માટે ઉપયોગ કરો છો તે એપ્લિકેશન અથવા સેવામાં તમારા ચેસ સ્ટ્રીમ્સ માટે યોગ્ય ડિફોલ્ટ ભાષા સેટ કરો.</string>
   <string name="pleaseAllow">તમારા સ્ટ્રીમર બેજ અને સૂચિને મંજૂર કરવામાં આવે તે પહેલાં કૃપા કરીને 72 કલાક સુધીનો સમય આપો.</string>

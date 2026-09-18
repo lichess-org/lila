@@ -34,11 +34,9 @@
   <string name="downloadAllRounds">Изтегляне на всички кръгове</string>
   <string name="resetRound">Нулиране на този кръг</string>
   <string name="deleteRound">Изтриване на този кръг</string>
-  <string name="definitivelyDeleteRound">Окончателно изтриване на този кръг и всички партии в него.</string>
   <string name="deleteAllGamesOfThisRound">Изтриване на този кръг и всички партии в него. Източникът трябва да е активен, за да можете да ги възстановите.</string>
   <string name="editRoundStudy">Редактиране на студията за кръга</string>
   <string name="deleteTournament">Изтриване на този турнир</string>
-  <string name="definitivelyDeleteTournament">Окончателно изтриване на целия турнир, всички негови кръгове и партии.</string>
   <string name="showScores">Резултати на играчите от изиграните партии</string>
   <string name="replacePlayerTags">По избор: промяна на имената на играчите, рейтингите и титлите</string>
   <string name="fideFederations">ФИДЕ федерации</string>

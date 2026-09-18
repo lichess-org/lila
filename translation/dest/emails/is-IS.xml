@@ -16,7 +16,6 @@ Hér er slóðin á prófílinn þinn: %1$s. Þú getur gert hann persónulegan 
 
 Góða skemmtun og megi taflmenn þínir ávallt finna leiðina að kóngi andstæðingsins!</string>
   <string name="logInToLichess">Innskráðu þig á lichess.org, %s</string>
-  <string name="common_orPaste">(Virkar ekki að ýta á slóðina? Prófaðu að afrita slóðina og líma hana í vafrann þinn!)</string>
   <string name="common_note">Þetta er upplýsingapóstur um notkun þína á %s.</string>
   <string name="common_contact">Vinsamlega notaðu %s til að hafa samband við okkur.</string>
 </resources>

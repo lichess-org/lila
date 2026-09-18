@@ -58,7 +58,6 @@
   <string name="downloadGame">Lae alla mäng</string>
   <string name="studyUrl">Uuringu URL</string>
   <string name="currentChapterUrl">Praeguse peatüki URL</string>
-  <string name="youCanPasteThisInTheForumToEmbed">Te saate selle asetada foorumisse või oma Lichessi blogisse sängitamiseks</string>
   <string name="startAtInitialPosition">Alusta algseisus</string>
   <string name="startAtX">Alusta %s</string>
   <string name="embedInYourWebsite">Sängita oma veebilehele</string>

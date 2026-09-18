@@ -8,7 +8,6 @@
   <string name="accountMutedInfo">Pročitajte naš %s. Kršeći komunikacijske smjernice može rezultirati ušutkavanjem Vašeg korisničkog računa.</string>
   <string name="excludedFromLeaderboards">Vaš korisnički račun je izuzet s ljestvice.</string>
   <string name="closedByModerators">Vaš korisnički račun je zatvoren od strane moderatora.</string>
-  <string name="playTimeout">Imate vremensko ograničenje igranja.</string>
   <string name="communicationGuidelines">komunikacijske smjernice</string>
   <string name="fairPlay">Fair Play</string>
 </resources>

@@ -29,7 +29,6 @@
   <string name="collinearMove">Mossa collineare</string>
   <string name="collinearMoveDescription">Due pezzi avversari si trovano uno di fronte all\'altro</string>
   <string name="cornerMate">Matto nell\'angolo</string>
-  <string name="cornerMateDescription">Restringi il re nell\'angolo usando una torre o una regina, e usa un cavallo per dare scacco matto.</string>
   <string name="crushing">Posizione schiacciante</string>
   <string name="crushingDescription">Trova l\'errore grave del tuo avversario per ottenere un vantaggio schiacciante. (valutazione ≥ 600cp)</string>
   <string name="discoveredCheck">Scacco di scoperta</string>
@@ -54,17 +53,14 @@
   <string name="doubleCheckDescription">Scacco con due pezzi contemporaneamente, conseguente a un attacco di scoperta in cui sia il pezzo appena mosso che il pezzo scoperto attaccano il re avversario.</string>
   <string name="endgame">Finale</string>
   <string name="endgameDescription">Una tattica durante l\'ultima fase della partita.</string>
-  <string name="enPassantDescription">Una tattica che coinvolge la regola dell\'en passant, in cui un pedone può catturare un pedone avversario che l\'ha superato usando la propria mossa iniziale di due caselle.</string>
   <string name="epauletteMate">Matto di controspallina</string>
   <string name="epauletteMateDescription">Due case di fuga utilizzabili dal re sotto scacco adiacenti sono occupate da altri pezzi </string>
   <string name="exposedKing">Re esposto</string>
   <string name="exposedKingDescription">Una tattica che coinvolge un re con pochi difensori vicini, il che spesso porta al matto.</string>
   <string name="fork">Attacco doppio</string>
-  <string name="forkDescription">Una mossa in cui un pezzo attacca due pezzi avversari contemporaneamente.</string>
   <string name="hangingPiece">Pezzo in presa</string>
   <string name="hangingPieceDescription">Una tattica che coinvolge un pezzo indifeso o insufficientemente difeso, e che dunque può essere catturato.</string>
   <string name="hookMate">Matto dell\'uncino</string>
-  <string name="hookMateDescription">Matto con torre, cavallo e pedone, con un pedone avversario che ostruisce il suo re.</string>
   <string name="interference">Interposizione</string>
   <string name="interferenceDescription">Spostamento di un pezzo tra due pezzi avversari per lasciare uno o entrambi i pezzi nemici senza difesa, come ad esempio un cavallo difeso tra due torri.</string>
   <string name="intermezzo">Intermezzo</string>
@@ -72,9 +68,7 @@
   <string name="killBoxMate">Matto della scatola assassina</string>
   <string name="killBoxMateDescription">Una Torre è vicina al Re nemico e supportata da una Regina che blocca i quadrati di fuga del Re. La Torre e la Regina catturano il Re nemico in una \"scatola assassina\" 3 x 3.</string>
   <string name="pillsburysMate">Matto di Pillsbury</string>
-  <string name="pillsburysMateDescription">La torre dà lo scacco matto, mentre l\'alfiere aiuta a rinchiuderlo.</string>
   <string name="morphysMate">Matto di Morphy</string>
-  <string name="morphysMateDescription">Usa l\'alfiere per dare scacco al re, mentre la torre aiuta a rinchiuderlo.</string>
   <string name="swallowstailMate">Matto della coda di rondine</string>
   <string name="swallowstailMateDescription">Uno scacco matto che assomiglia alla forma a V della coda di una rondine.</string>
   <string name="triangleMate">Matto triangolare</string>
@@ -114,7 +108,6 @@
   <string name="pin">Inchiodatura</string>
   <string name="pinDescription">Una tattica in cui un pezzo non può muoversi senza scoprire un attacco ad un pezzo di maggior valore.</string>
   <string name="promotion">Promozione</string>
-  <string name="promotionDescription">Un pedone che promuove o che minaccia di promuovere è la chiave della tattica.</string>
   <string name="queenEndgame">Finale di donna</string>
   <string name="queenEndgameDescription">Un finale con sole donne e pedoni.</string>
   <string name="queenRookEndgame">Finale di donna e torre</string>

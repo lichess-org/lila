@@ -119,13 +119,6 @@
   <string name="blunder">Bourd</string>
   <string name="mistake">Fazi</string>
   <string name="inaccuracy">Diresisted</string>
-  <plurals name="nbBlunders">
-    <item quantity="one">%s bourd</item>
-    <item quantity="two">%s vourd</item>
-    <item quantity="few">%s bourd</item>
-    <item quantity="many">%s bourd</item>
-    <item quantity="other">%s bourd</item>
-  </plurals>
   <plurals name="numberBlunders">
     <item quantity="one">%s Bourd</item>
     <item quantity="two">%s Vourd</item>
@@ -133,26 +126,12 @@
     <item quantity="many">%s Bourd</item>
     <item quantity="other">%s A vourdoù</item>
   </plurals>
-  <plurals name="nbMistakes">
-    <item quantity="one">%s fazi</item>
-    <item quantity="two">%s fazi</item>
-    <item quantity="few">%s fazi</item>
-    <item quantity="many">%s fazi</item>
-    <item quantity="other">%s fazi</item>
-  </plurals>
   <plurals name="numberMistakes">
     <item quantity="one">%s Fazi</item>
     <item quantity="two">%s Fazi</item>
     <item quantity="few">%s Fazi</item>
     <item quantity="many">%s Fazi</item>
     <item quantity="other">%s A fAzioù</item>
-  </plurals>
-  <plurals name="nbInaccuracies">
-    <item quantity="one">%s diresisted</item>
-    <item quantity="two">%s ziresisted</item>
-    <item quantity="few">%s diresisted</item>
-    <item quantity="many">%s diresisted</item>
-    <item quantity="other">%s diresisted</item>
   </plurals>
   <plurals name="numberInaccuracies">
     <item quantity="one">%s Diresisted</item>
@@ -272,7 +251,6 @@
   <string name="emailSent">Kaset hon eus ur postel da %s.</string>
   <string name="emailCanTakeSomeTime">Marteze ne vo ket resevet diouzhtu-dak.</string>
   <string name="refreshInboxAfterFiveMinutes">Gortozit pemp munutenn ha freskait ho pajenn goude-se.</string>
-  <string name="checkSpamFolder">Taolit ur sell en ho strobelloù e ken kas. Ma c\'hoarvez seul taol ganeoc\'h e vo dav resisaat n\'eo ket ur strobell.</string>
   <string name="accountConfirmed">Kadarnaet eo bet krouidigezh ar c\'hoarier %s.</string>
   <string name="accountCanLogin">Gallout a rit kevreañ dindan an anv %s.</string>
   <string name="accountConfirmationEmailNotNeeded">N\'ho peus ket ezhomm deus ur postel-kadarnaat.</string>
@@ -303,8 +281,6 @@
     <item quantity="other">%s krogad a-enep deoc\'h</item>
   </plurals>
   <string name="cancel">Nullañ</string>
-  <string name="whiteTimeOut">Amzer ebet ken evit ar re wenn</string>
-  <string name="blackTimeOut">Amzer ebet ken evit ar re zu</string>
   <string name="drawOfferSent">Kinnig rampo kaset</string>
   <string name="drawOfferAccepted">Kinnig rampo asantet</string>
   <string name="whiteOffersDraw">Ar re wenn a ginnig bezañ rampo</string>
@@ -737,11 +713,9 @@
   <string name="aboutSimulRules">Pa grog an abadenn gempred e krog pep krogad gant an ostiz ivez. Gantañ e vez c\'hoariet ar re wenn. Ur wech echu an holl grogadoù e vo fin an abadenn gempred.</string>
   <string name="aboutSimulSettings">Krogadoù a vignoniezh eo an abadennoù kempred bepred. Kinnigoù c\'hoari en-dro, nullañ ar fiñvadenn ziwezhañ pe ouzhpennañ amzer zo diweredekaet.</string>
   <string name="create">Krouiñ</string>
-  <string name="whenCreateSimul">Pa grouit un abadenn gempred ho pez meur a c\'hoarier da enebiñ oute.</string>
   <string name="simulVariantsHint">Ma choazit meur a eilstumm en do pep c\'hoarier da zibab pehini c\'hoari.</string>
   <string name="simulClockHint">Aozet an horolaj e mod Fischer. Seul vuioc\'h a c\'hoarierien seul vuioc\'h a amzer ho po ezhomm da gaout.</string>
   <string name="simulAddExtraTime">Gallout a rit lakaat amzer ouzhpenn d\'ho horolaj, evit ho sikour d\'ober war-dro ar bartienn gempred.</string>
-  <string name="simulHostExtraTime">Lakaat amzer ouzhpenn d\'ho horolaj</string>
   <string name="lichessTournaments">Tournamantoù Lichess</string>
   <string name="tournamentFAQ">FAG aren an tournamant</string>
   <string name="timeBeforeTournamentStarts">Ar pezh a chom a-raok ma krogfe an tournamant</string>
@@ -838,7 +812,6 @@
   <string name="custom">Personelaet</string>
   <string name="notifications">Kemennoù</string>
   <string name="notificationsX">Rebuzadurioù: %1$s</string>
-  <string name="perfRatingX">Renk: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s eilenn evit fiñval ho pezh kentañ c\'hoazh</item>
     <item quantity="two">%s eilenn evit fiñval ho pezh kentañ c\'hoazh</item>
@@ -904,7 +877,6 @@
     <item quantity="other">hag enrollit %s linennoù raktaolioù</item>
   </plurals>
   <string name="showUnreadLichessMessage">Resevet ho peus ur gemennadenn brevez eus perzh Lichess.</string>
-  <string name="clickHereToReadIt">Klikit amañ evit lenn anezhi</string>
   <string name="sorry">Hon digarezit :(</string>
   <string name="weHadToTimeYouOutForAWhile">Ret e oa deomp ho skarzhañ e-pad ur prantad.</string>
   <string name="why">Perak?</string>

@@ -103,20 +103,11 @@
   <string name="blunder">lo nu srera sai</string>
   <string name="mistake">lo nu srera na\'oi</string>
   <string name="inaccuracy">lo nu srera ru\'e</string>
-  <plurals name="nbBlunders">
-    <item quantity="other">%s roi srera sai</item>
-  </plurals>
   <plurals name="numberBlunders">
     <item quantity="other">%s Roi srera sai</item>
   </plurals>
-  <plurals name="nbMistakes">
-    <item quantity="other">%s roi srera na\'oi</item>
-  </plurals>
   <plurals name="numberMistakes">
     <item quantity="other">%s Roi srera na\'oi</item>
-  </plurals>
-  <plurals name="nbInaccuracies">
-    <item quantity="other">%s roi srera ru\'e</item>
   </plurals>
   <plurals name="numberInaccuracies">
     <item quantity="other">%s Roi srera ru\'e</item>
@@ -194,8 +185,6 @@
     <item quantity="other">%s roi jvikei do</item>
   </plurals>
   <string name="cancel">dicra</string>
-  <string name="whiteTimeOut">lo se caxmati cu xaksu lo temci</string>
-  <string name="blackTimeOut">lo te caxmati cu xaksu lo temci</string>
   <string name="drawOfferSent">lo se friti cu se benji</string>
   <string name="drawOfferAccepted">lo se friti cu se fitytu\'i</string>
   <string name="whiteOffersDraw">lo se caxmati cu friti lo nu no da cu jinga</string>
@@ -499,7 +488,6 @@
   <string name="aboutSimulRules">ca lonu lo cabna cmicfu nunjvi ku cfari keiku co\'a caxmati lo finti loi ci\'erkei .i ca lonu ro loi nunjvi ku mulno keiku lo cabna cmicfu nunjvi cu mulno .i</string>
   <string name="aboutSimulSettings">ro lo cabna cmicfu nunjvi cu na nilcre cnegau .i lonu krefu jvikei .e lonu kelka\'u xruti .e lonu tcegau lo temci cu se tolcru .i</string>
   <string name="create">finti</string>
-  <string name="whenCreateSimul">lonu do finti lo cabna cmicfu nunjvi cu se jalge lonu jivna piso\'o loi ci\'erkei .i</string>
   <string name="lichessTournaments">lo grinunjvi be bu\'u la .litces.</string>
   <string name="tournamentFAQ">lo cafne se reisku preti be lo kelcrxarena zei grinunjvi</string>
   <string name="timeBeforeTournamentStarts">temci lo cabna lonu lo grinunjvi ku cfari</string>
@@ -566,7 +554,6 @@
   <string name="invalidFen">lo me la FEN. cu toldra</string>
   <string name="custom">cuxna</string>
   <string name="notifications">lo notci</string>
-  <string name="perfRatingX">nilcre fa li %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="other">zukte .ei lo pa moi kelka\'u ba nu\'i la\'u lo snidu be li su\'e %s</item>
   </plurals>
