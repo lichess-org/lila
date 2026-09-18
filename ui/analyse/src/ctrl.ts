@@ -26,7 +26,6 @@ import { ChatCtrl } from 'lib/chat/chatCtrl';
 import { displayColumns } from 'lib/device';
 import { playable, playedTurns, fenToEpd, validUci } from 'lib/game';
 import { plyColor } from 'lib/game/chess';
-import { endgameShapesForNode } from 'lib/game/endgame';
 import { PromotionCtrl } from 'lib/game/promotion';
 import { pubsub } from 'lib/pubsub';
 import { storedBooleanProp } from 'lib/storage';
@@ -378,15 +377,6 @@ export default class AnalyseCtrl implements CevalHandler {
         },
         check: node.check(),
         lastMove: uciToMove(node.uci),
-        drawable: {
-          autoShapes: endgameShapesForNode(
-            node,
-            node === treeOps.last(this.mainline),
-            opposite(color),
-            this.data.game.winner,
-            this.data.game.status.name,
-          ),
-        },
       };
     config.premovable = {
       enabled: config.movable!.color && config.turnColor !== config.movable!.color,
