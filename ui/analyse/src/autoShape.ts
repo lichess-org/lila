@@ -8,7 +8,7 @@ import { parseUci, makeSquare } from 'chessops/util';
 import { winningChances } from 'lib/ceval';
 import { fenColor } from 'lib/game';
 import { isUci } from 'lib/game/chess';
-import { endgameShapes } from 'lib/game/endgame';
+import { endgameResult, endgameShapes } from 'lib/game/endgame';
 import { annotationShapes, analysisGlyphs } from 'lib/game/glyphs';
 import type { ServerEval, TreeNode } from 'lib/tree/types';
 
@@ -116,8 +116,14 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
   const outcome = ctrl.node.outcome(),
     isMate = ctrl.node.check() && ctrl.node.dests().size === 0,
     isGameEnd = !!outcome || ctrl.node === ctrl.mainline[ctrl.mainline.length - 1],
-    gameWinner = isMate ? rcolor : isGameEnd ? ctrl.data.game.winner : undefined,
-    gameStatus = isMate ? 'mate' : isGameEnd ? ctrl.data.game.status.name : undefined;
+    result = endgameResult(
+      outcome,
+      isMate,
+      rcolor,
+      isGameEnd,
+      ctrl.data.game.winner,
+      ctrl.data.game.status.name,
+    );
 
   let hovering = ctrl.explorer.hovering();
 
@@ -126,11 +132,7 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
     hovering = ctrl.ceval.hovering();
   }
 
-  let shapes: DrawShape[] = endgameShapes(
-    nFen,
-    outcome?.winner || gameWinner,
-    outcome ? (outcome.winner ? 'mate' : 'stalemate') : gameStatus,
-  );
+  let shapes: DrawShape[] = endgameShapes(nFen, result.winner, result.status);
   let badNode: TreeNode | undefined;
   if ((badNode = ctrl.retro?.showBadNode()) && badNode.uci) {
     return makeShapesFromUci(color, badNode.uci, 'paleRed', { lineWidth: 8 });

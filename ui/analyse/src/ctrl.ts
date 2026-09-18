@@ -26,7 +26,7 @@ import { ChatCtrl } from 'lib/chat/chatCtrl';
 import { displayColumns } from 'lib/device';
 import { playable, playedTurns, fenToEpd, validUci } from 'lib/game';
 import { plyColor } from 'lib/game/chess';
-import { endgameShapes } from 'lib/game/endgame';
+import { endgameResult, endgameShapes } from 'lib/game/endgame';
 import { PromotionCtrl } from 'lib/game/promotion';
 import { pubsub } from 'lib/pubsub';
 import { storedBooleanProp } from 'lib/storage';
@@ -383,19 +383,15 @@ export default class AnalyseCtrl implements CevalHandler {
             const mate = node.check() && node.dests().size === 0,
               outcome = node.outcome(),
               isGameEnd = !!outcome || node === treeOps.last(this.mainline),
-              winner = mate
-                ? opposite(color)
-                : outcome?.winner || (isGameEnd ? this.data.game.winner : undefined),
-              status = outcome
-                ? outcome.winner
-                  ? 'mate'
-                  : 'stalemate'
-                : mate
-                  ? 'mate'
-                  : isGameEnd
-                    ? this.data.game.status.name
-                    : undefined;
-            return endgameShapes(node.fen, winner, status);
+              result = endgameResult(
+                outcome,
+                mate,
+                opposite(color),
+                isGameEnd,
+                this.data.game.winner,
+                this.data.game.status.name,
+              );
+            return endgameShapes(node.fen, result.winner, result.status);
           })(),
         },
       };

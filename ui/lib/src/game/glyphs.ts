@@ -70,7 +70,7 @@ export const endgameGlyphs: Record<
   ),
   mate: composeGlyph(
     '#df5353',
-    '<path fill="#fff" d="m25 20 10-10 15 15 15-15 10 10-15 15 15 15-10 10-15-15-15 15-10-10 15-15z"/>',
+    '<path fill="#fff" transform="translate(0 8)" d="m25 20 10-10 15 15 15-15 10 10-15 15 15 15-10 10-15-15-15 15-10-10 15-15z"/>',
   ),
   resign: composeGlyph('#df5353', '<path fill="#fff" d="M24 12h9v76h-9zm9 4h45l-17 17 17 17H33z"/>'),
   timeout: composeGlyph(
