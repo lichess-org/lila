@@ -1,7 +1,6 @@
 import { h, type VNode } from 'snabbdom';
 
 import { licon } from 'lib/licon';
-import { onInsert } from 'lib/view';
 
 import { PaneCtrl } from './interfaces';
 import { header } from './util';
@@ -31,7 +30,6 @@ export class LangsCtrl extends PaneCtrl {
               (this.data.accepted.includes(code) ? '.accepted' : ''),
             {
               attrs: { type: 'submit', name: 'lang', value: code, title: code },
-              hook: this.data.current === code ? onInsert(el => el.scrollIntoView({ block: 'center' })) : {},
             },
             name,
           ),
