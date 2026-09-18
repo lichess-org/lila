@@ -85,7 +85,11 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
             bindForm(choiceForm)(
               _ => BadRequest,
               choiceData =>
-                for r <- env.appeal.api.postChoiceEvent(appeal, choiceData)
+                for
+                  r <- env.appeal.api.postChoiceEvent(appeal, choiceData)
+                  _ <- r
+                    .exists(a => a.isClosed && a.user.isnt(me))
+                    .so(env.report.api.inquiries.toggle(Right(appeal.user)).void)
                 yield r.fold(BadRequest)(_ => redirect)
             )
           case Kind.message =>
