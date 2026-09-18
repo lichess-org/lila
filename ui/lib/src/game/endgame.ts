@@ -3,6 +3,25 @@ import type { DrawShape } from '@lichess-org/chessground/draw';
 import { endgameGlyphs } from './glyphs';
 import type { StatusName } from './status';
 
+export interface EndgameResult {
+  winner?: Color;
+  status?: StatusName;
+}
+
+export function endgameResult(
+  outcome: Outcome | undefined,
+  isMate: boolean,
+  mateWinner: Color,
+  isGameEnd: boolean,
+  gameWinner: Color | undefined,
+  gameStatus: StatusName,
+): EndgameResult {
+  if (outcome) return { winner: outcome.winner, status: outcome.winner ? 'mate' : 'stalemate' };
+  if (isMate) return { winner: mateWinner, status: 'mate' };
+  if (isGameEnd) return { winner: gameWinner, status: gameStatus };
+  return {};
+}
+
 export function findKingSquare(fen: FEN, color: Color): Key | undefined {
   const board = fen.split(' ')[0].split('/'),
     king = color === 'white' ? 'K' : 'k';
