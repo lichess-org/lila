@@ -3,13 +3,13 @@ name: Validate devenv
 on:
   push:
     paths: &devenv_paths
-      - ".github/workflows/devenv.yml"
-      - ".node_version"
-      - "devenv.*"
-      - "flake.*"
-      - "**/package.json"
-      - "**/pnpm-lock.yaml"
-      - "**/pnpm-workspace.yaml"
+      - '.github/workflows/devenv.yml'
+      - '.node_version'
+      - 'devenv.*'
+      - 'flake.*'
+      - '**/package.json'
+      - '**/pnpm-lock.yaml'
+      - '**/pnpm-workspace.yaml'
 
   pull_request:
     paths: *devenv_paths
