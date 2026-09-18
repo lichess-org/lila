@@ -47,9 +47,9 @@ const loserGlyph = (status: StatusName | undefined): EndgameGlyph =>
     ? 'mate'
     : status === 'resign'
       ? 'resign'
-      : status === 'aborted'
+      : status === 'timeout'
         ? 'abandoned'
-        : status === 'timeout' || status === 'outoftime' || status === 'noStart'
+        : status === 'outoftime'
           ? 'timeout'
           : 'unknown';
 
@@ -65,6 +65,8 @@ export function endgameShapes(
   winner: Color | undefined,
   status: StatusName | undefined,
 ): DrawShape[] {
+  if (status === 'aborted' || status === 'noStart') return [];
+
   const shapes: DrawShape[] = [];
   const add = (color: Color, glyph: EndgameGlyph) => {
     const king = findKingSquare(fen, color);
