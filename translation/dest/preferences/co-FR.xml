@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="preferences">Preferenze</string>
-  <string name="display">Mostra</string>
-  <string name="privacy">Privacy</string>
-  <string name="notifications">Notificazioni</string>
-  <string name="pieceAnimation">Animazione di e pezze</string>
-</resources>

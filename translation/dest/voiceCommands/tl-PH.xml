@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="voiceCommands">Mag-utos gamit ang boses</string>
-  <string name="watchTheVideoTutorial">Panoorin ang video tutorial</string>
-  <string name="instructions1">Gamitin ang %1$s para gamitin ang voice recognition, ang %2$s naman para mabuksan itong dialog ng tulong, at ang menu ng %3$s para baguhin ang speech settings.</string>
-</resources>

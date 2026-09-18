@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="swissTournaments">Швейцарь өргийн тэмцээн</string>
-  <string name="newSwiss">Швейцарь өргийн тэмцээн шинээр үүсгэх</string>
-  <string name="FIDEHandbook">ФИДЕ-ийн гарын авлага</string>
-  <string name="nowPlaying">Одоо тоглогдож буй өргүүд</string>
-  <string name="startingSoon">Удахгүй эхлэх өргүүд</string>
-  <string name="comparison">Харьцуулалт</string>
-</resources>

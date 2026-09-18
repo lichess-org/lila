@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="passwordReset_intro">We received a requeest tae reset the passwird fur yer accoont.</string>
-  <string name="passwordReset_clickOrIgnore">Gin ye makkit this requeest, click the link belaw. Gin no, ye can ignore this email.</string>
-</resources>

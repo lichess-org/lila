@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-	<string name="malwareWarningPrefix" comment="%s is 'be careful'">אבל אתרים אחרים כן, אז בבקשה %s.</string>
-	<string name="malwareWarningCta" comment="It is a link to https://lichess.org/ads">תיזהרו</string>
-	<string name="lichessGamesOfThemYours" comment="%s is the percentage of games that are yours">%s מהם היו שלך.</string>
-	<string name="thanksTitle">תודה רבה ששיחקתם ב-Lichess!</string>
-	<string name="patronCosts" comment="It is a link to lichess.org/costs">עלויות</string>
-</resources>

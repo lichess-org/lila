@@ -1,3 +1,0 @@
-{
-  "extends": "../../.test/tsconfig.test.json"
-}

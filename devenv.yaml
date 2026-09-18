@@ -1,8 +1,0 @@
-inputs:
-  nixpkgs:
-    url: github:cachix/devenv-nixpkgs/rolling
-  nixpkgs-unstable:
-    url: github:NixOS/nixpkgs/nixpkgs-unstable
-  nixpkgs-master:
-    url: github:NixOS/nixpkgs/master
-allowUnfree: true

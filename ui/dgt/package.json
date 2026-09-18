@@ -1,8 +1,0 @@
-{
-  "name": "dgt",
-  "private": true,
-  "type": "module",
-  "build": {
-    "bundle": "src/dgt.ts"
-  }
-}

@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="settings">Mga setting</string>
-  <string name="closeAccount">Isara ang akawnt</string>
-  <string name="managedAccountCannotBeClosed">Ang iyong akawnt ay pinamamahalaan, at hindi maaaring masarado.</string>
-  <string name="cantOpenSimilarAccount">Hindi ka maaaring gumawa ng bagong akawnt gamit ang parehong pangalan, kahit na iba ang kaso.</string>
-  <string name="thisAccountIsClosed">Ang akawnt na ito ay sarado.</string>
-</resources>

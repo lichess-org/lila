@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="settings">اختیارات</string>
-  <string name="closeAccount">اکاؤنٹ بند کریں</string>
-  <string name="cantOpenSimilarAccount">آپ کو نیا اکاونٹ اسی نام کے ساتھ بنانے کی اجازت نہیں ہے، بےشک معاملہ مختلف ہو.</string>
-  <string name="thisAccountIsClosed">اکاؤنٹ بند کردیا گیا ہے</string>
-</resources>

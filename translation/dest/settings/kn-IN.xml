@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="settings">ಸಂಯೋಜನೆಗಳು</string>
-  <string name="closeAccount">ಖಾತೆ ಮುಚ್ಚಿ</string>
-  <string name="managedAccountCannotBeClosed">ನಿಮ್ಮ ಖಾತೆಯನ್ನು ನಿರ್ವಹಿಸಲಾಗಿದೆ ಮತ್ತು ಮುಚ್ಚಲಾಗುವುದಿಲ್ಲ.</string>
-  <string name="cantOpenSimilarAccount">ನೀವು ಆ ಖಾತೆ ಹೆಸರಿನಲ್ಲಿ ಮುಂದೆ ಮತ್ತೊಂದು ಖಾತೆ ತೆರೆಯಲಾಗುವುದಿಲ್ಲ, case(a/A) ಬೇರೆಯಿದ್ದರೂ.</string>
-  <string name="thisAccountIsClosed">ಈ ಖಾತೆಯನ್ನು ಮುಚ್ಚಲಾಗಿದೆ.</string>
-</resources>

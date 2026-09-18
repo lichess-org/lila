@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="settings">Izilungiselelo</string>
-  <string name="closeAccount">Vala i-akhawunti</string>
-  <string name="cantOpenSimilarAccount">Ngeke uvunyelwe ukuvula i-akhawunti entsha enegama elifanayo, noma ngabe icala lihlukile.</string>
-  <string name="thisAccountIsClosed">Le akhawunti ivaliwe.</string>
-</resources>

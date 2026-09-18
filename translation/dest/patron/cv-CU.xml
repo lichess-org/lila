@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="becomePatron">Lichess патронӗ пул</string>
-  <string name="newPatrons">Ҫӗнӗ патрон</string>
-  <string name="otherAmount">Ытти</string>
-  <string name="withCreditCard">Банк картти</string>
-  <string name="update">Ҫӗнет</string>
-  <string name="xOrY">%1$s йе %2$s</string>
-</resources>

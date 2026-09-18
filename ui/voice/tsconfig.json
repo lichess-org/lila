@@ -1,5 +1,0 @@
-{
-  "extends": "../tsconfig.base.json",
-  "exclude": ["makeGrammar.mts", "dist"],
-  "references": [{ "path": "../lib/tsconfig.json" }]
-}

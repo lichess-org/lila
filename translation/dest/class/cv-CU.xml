@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="realName">Чӑн йат</string>
-  <string name="news">Хыпар</string>
-  <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">йе</string>
-</resources>

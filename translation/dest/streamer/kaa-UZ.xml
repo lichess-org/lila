@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="live">TIKKELEY EFIR!</string>
-  <string name="offline">OFLAYN</string>
-  <string name="longDescription">Tolıq táriyp</string>
-  <string name="changePicture">Súwretińizdi ózgertiw/óshiriw</string>
-  <string name="uploadPicture">Súwret júklew</string>
-  <string name="maxSize">Eń úlken ólshem: %s</string>
-</resources>

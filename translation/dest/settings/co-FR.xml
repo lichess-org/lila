@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="settings">Preferenze</string>
-  <string name="closeAccount">Chjude u so contu</string>
-  <string name="cantOpenSimilarAccount">Ùn avete micca u drittu d\' apre un altru contu cù u stessu nomu, pocu impreme u pretestu.</string>
-  <string name="thisAccountIsClosed">Issu contu hè chjosu.</string>
-</resources>

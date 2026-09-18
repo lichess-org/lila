@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="settings">პარამეტრები</string>
-  <string name="closeAccount">ანგარიშის დახურვა</string>
-  <string name="cantOpenSimilarAccount">დაუშვებელია ახალი ანგარიშის გახსნა იმავე სახელწოდებით, თუნდაც საქმე სხვაგვარად იყოს.</string>
-  <string name="thisAccountIsClosed">აღნიშნული ანგარიში დახურულია.</string>
-</resources>

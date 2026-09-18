@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="emailConfirm_subject">doi la\'o cmene. %s .cmene ko tolna\'e tu\'a lo jaspu be do</string>
-  <string name="passwordReset_subject">doi la\'o ky. %s .ky ninga\'igau lo japyvla be do bei la litces.</string>
-  <string name="emailChange_subject">doi la\'o cmene. %s .cmene ko tolna\'e tu\'a lo cnino ke samymri judri</string>
-  <string name="welcome_subject">fi\'i la\'o ky. %s .ky do zanvi\'e zo\'i la litces.</string>
-  <string name="logInToLichess">doi la\'o ky. %s .ky gasnu loza\'i cmisau la litces.</string>
-</resources>

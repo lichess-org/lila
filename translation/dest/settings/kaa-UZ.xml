@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="settings">Sazlawlar</string>
-  <string name="closeAccount">Akkaunttı jabıw</string>
-  <string name="managedAccountCannotBeClosed">Akkauntıńız basqa adam tárepinen basqarılmaqta, jabıw múmkinshiligi joq.</string>
-  <string name="thisAccountIsClosed">Akkaunt jabılǵan.</string>
-</resources>

@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="dgtBoard">DGT ploča</string>
-  <string name="lichessAndDgt">Lichess i DGT</string>
-  <string name="dgtBoardRequirements">Zahtjevi za DGT ploču</string>
-  <string name="dgtBoardLimitations">Ograničenja DGT ploče</string>
-  <string name="thisPageAllowsConnectingDgtBoard">Ova stranica Vam omogućuje povezivanje Vaše DGT ploče s Lichessom i korištenje za igranje partija.</string>
-</resources>

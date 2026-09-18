@@ -1,0 +1,29 @@
+{
+    "name": "coolchess-school-portal",
+    "private": true,
+    "version": "0.1.0",
+    "type": "module",
+    "engines": {
+        "node": ">=24",
+        "pnpm": ">=12"
+    },
+    "scripts": {
+        "dev": "vite",
+        "build": "tsc -p tsconfig.app.json && vite build",
+        "preview": "vite preview"
+    },
+    "dependencies": {
+        "@lichess-org/chessground": "^10.2.0",
+        "chess.js": "^1.4.0",
+        "react": "^19.3.0",
+        "react-dom": "^19.3.0"
+    },
+    "devDependencies": {
+        "@types/react": "^19.3.0",
+        "@types/react-dom": "^19.3.0",
+        "@vitejs/plugin-react": "^6.1.1",
+        "@types/node": "^24.13.3",
+        "typescript": "^7.0.2",
+        "vite": "^8.3.0"
+    }
+}

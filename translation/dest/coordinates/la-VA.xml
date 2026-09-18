@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="coordinates">Quadratis</string>
-  <string name="coordinateTraining">Exercitium quadratis</string>
-  <string name="averageScoreAsWhiteX">Cum mediocris commodum alba: %s</string>
-  <string name="averageScoreAsBlackX">Cum mediocris commodum nigra: %s</string>
-  <string name="startTraining">Incipere exercitium</string>
-</resources>

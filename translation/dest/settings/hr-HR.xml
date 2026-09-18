@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="settings">Postavke</string>
-  <string name="closeAccount">Zatvori račun</string>
-  <string name="managedAccountCannotBeClosed">Vašim računom se upravlja i ne može se zatvoriti.</string>
-  <string name="cantOpenSimilarAccount">Neće ti biti dopušteno otvaranje novog računa s istim imenom, čak i ako kapitalizacija slova bude drugačija.</string>
-  <string name="closeAccountAreYouSure">Jeste li sigurni da želite zatvoriti svoj račun?</string>
-  <string name="thisAccountIsClosed">Račun je zatvoren.</string>
-</resources>

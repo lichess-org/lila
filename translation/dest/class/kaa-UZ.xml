@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="useThisForm" comment="Link text in multipleAccsFromDescription">usı formadan paydalanıń</string>
-  <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">Esletpe! Bul toparda oqıwshılar sanı %1$sǵa shekem bolıwı múmkin. Kóbirek oqıwshılardı basqarıw ushın, %2$s.</string>
-  <string name="createMoreClasses" comment="Link text in maxStudentsNote">kóbirek toparlar jaratıw</string>
-</resources>

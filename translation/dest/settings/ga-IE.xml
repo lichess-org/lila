@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="settings">Socruithe</string>
-  <string name="closeAccount">Dún cuntas</string>
-  <string name="managedAccountCannotBeClosed">Tá do chuntas á bhainistiú, agus ní féidir é a dhúnadh.</string>
-  <string name="cantOpenSimilarAccount">Ní cheadófar duit cuntas nua a oscailt leis an ainm céanna, fiú má tá an cás difriúil.</string>
-  <string name="thisAccountIsClosed">Tá an cuntas seo dúnta.</string>
-</resources>

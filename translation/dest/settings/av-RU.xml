@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="settings">Рекъезариял</string>
-  <string name="closeAccount">Аккаунт къазе</string>
-  <string name="managedAccountCannotBeClosed">Дур аккаунталъе нухмалъи гьабула, къазе кӀоларо.</string>
-  <string name="thisAccountIsClosed">Гьеб аккаунт къан буго.</string>
-</resources>

@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="long">ଲମ୍ବା ପ୍ରହେଳିକା</string>
-  <string name="longDescription">ଜିତିବା ପାଇଁ ତିନି ପାଦ।</string>
-  <string name="mate">ଚେକମେଟ୍</string>
-  <string name="mateIn1Description">ଗୋଟେ ପାଦରେ ଚେକମେଟ୍ ଦେବା।</string>
-  <string name="queenRookEndgame">ରାଣୀ ଓ ଡଙ୍ଗା</string>
-  <string name="shortDescription">ଜିତିବା ପାଇଁ ଦୁଇ ପାଦ।</string>
-</resources>

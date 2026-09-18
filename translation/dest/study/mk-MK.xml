@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="next">Следно</string>
-  <string name="embedInYourWebsite">Вгради во твојот сајт</string>
-  <string name="save">Зачувај</string>
-  <string name="goodMove">Добар потег</string>
-  <string name="mistake">Грешка</string>
-  <string name="blunder">Глупа грешка</string>
-</resources>

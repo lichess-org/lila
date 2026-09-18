@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="menu">Меню</string>
-  <string name="play">бавити!</string>
-  <string name="pawnsMoveOneSquareOnly">Пішакы ходят лем на єдну клітку уперед. 
-Айбо лем они здобывавут другу частина дощкы, ставут майважнов фіґуров!</string>
-  <string name="next">Дале</string>
-</resources>

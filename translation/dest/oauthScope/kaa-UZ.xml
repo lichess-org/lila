@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="emailRead">Elektron pochta mánzilin oqıw</string>
-  <string name="challengeRead">Kelgen shaqırıqlardı oqıw</string>
-  <string name="challengeWrite">Shaqırıqlardı jiberiw, qabıllaw hám biykarlaw</string>
-  <string name="challengeBulk">Basqa oyınshılar ushın bir waqıtta kóp oyın jaratıw</string>
-  <string name="tournamentWrite">Jarıslardı shólkemlestiriw, jańalaw hám olarǵa qosılıw</string>
-</resources>

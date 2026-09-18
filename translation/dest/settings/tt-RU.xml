@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="settings">Көйләүләр</string>
-  <string name="closeAccount">Һисапны ябыш</string>
-  <string name="cantOpenSimilarAccount">Һәттә очрак башкача булса һәм сезгә бер хил исемдәге яңа һисап ачырга рөхсәт бирелмиде.</string>
-  <string name="thisAccountIsClosed">Ошбу һисап ябылган.</string>
-</resources>

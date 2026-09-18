@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="emailConfirm_subject">Amarino ny kaonty lichess.org-nao, %s</string>
-  <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">Tsindrio ity rohy ity hanamarihana ny kaonty Lichess-nao:</string>
-  <string name="emailChange_subject">Amarino ny adiresy mailaka-nao vaovao, %s</string>
-  <string name="emailChange_intro">Nangataka fanovana adiresy mailaka ianao.</string>
-</resources>

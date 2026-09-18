@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="standardChessAndX" comment="%s is 8 variants">Normala ŝako kaj %s</string>
-  <string name="ultraBulletBulletBlitzRapidClassicalAndCorrespondenceChess">Superkugla, kugla, fulma, rapida, klasika kaj koresponda ŝako</string>
-  <string name="ifYouLoveLichess">Se vi amas Lichess,</string>
-  <string name="supportUsWithAPatronAccount">subtenu nin per konto Patron!</string>
-</resources>

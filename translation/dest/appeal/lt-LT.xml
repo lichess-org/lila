@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="cleanAllGood">Jūsų paskyra nėra pažymėta ar apribota. Su ja viskas gerai!</string>
-  <string name="engineMarkedInfo">Mes tai apibrėžiame kaip bet kokios išorinės pagalbos naudojimą savo žinioms ir/ar skaičiavimo įgūdžiams sustiprinti, siekiant įgyti nesąžiningą pranašumą prieš savo varžovą. Daugiau informacijos rasite %s puslapyje.</string>
-  <string name="arenaBanned">Jūsų paskyrai uždrausta prisijungti prie arenų.</string>
-  <string name="prizeBanned">Jūsų paskyrai uždrausta dalyvauti turnyruose su realiais prizais.</string>
-  <string name="accountMuted">Jūsų paskyra nutildyta.</string>
-</resources>

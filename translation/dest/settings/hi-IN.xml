@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="settings">व्यवस्था (सेटिंग्स)</string>
-  <string name="closeAccount">खातें को बंद करें</string>
-  <string name="managedAccountCannotBeClosed">आपका खाता प्रबंधित है, और बंद नहीं किया जा सकता|</string>
-  <string name="cantOpenSimilarAccount">आपको इस नाम से कोई नया खाता खोलने की अनुमति नहीं दी जाएगी।</string>
-  <string name="thisAccountIsClosed">यह ख़ाता बंद है|</string>
-</resources>

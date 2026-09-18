@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="swissTournaments">İsveçrə Sistemli Turnirlər</string>
-  <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
-    <item quantity="one">Tura bax</item>
-    <item quantity="other">Hər %s tura bax</item>
-  </plurals>
-</resources>

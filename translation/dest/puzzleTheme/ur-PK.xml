@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="advancedPawn">اعلی درجے کا پیادہ</string>
-  <string name="advancedPawnDescription">آپ کا ایک پیادہ مخالف پوزیشن میں گہرا ہے، ہو سکتا ہے کہ اسے فروغ دینے کی دھمکی دے رہا ہو۔.</string>
-  <string name="advantage">فائدہ</string>
-  <string name="advantageDescription">فیصلہ کن فائدہ حاصل کرنے کے اپنے موقع سے فائدہ اٹھائیں۔ (200cp ≤ eval ≤ 600cp)</string>
-  <string name="anastasiaMate">اناستاسیا کی مار</string>
-</resources>

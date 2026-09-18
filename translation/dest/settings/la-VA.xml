@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="settings">Optiones</string>
-  <string name="closeAccount">Claude rationem</string>
-  <string name="managedAccountCannotBeClosed">Tuus ratio moderatur, et claudere non potest.</string>
-  <string name="cantOpenSimilarAccount">Non licebit tibi rationem novam nominis eiusdem creare, etiam si casum alium uteris.</string>
-  <string name="thisAccountIsClosed">Haec ratio clausa est.</string>
-</resources>

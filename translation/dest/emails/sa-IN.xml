@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="emailConfirm_subject">क्रीडकस्य नामः %s</string>
-  <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">लिङ्कं क्लिक् कुरु भवतः लिचेशं समयं सशक्तं कुरुत्:</string>
-</resources>

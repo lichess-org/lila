@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="dgtBoard">DGT տախտակ</string>
-  <string name="lichessAndDgt">Lichess &amp; DGT</string>
-  <string name="openingThisLink">հղման բացում</string>
-  <string name="keywords">Հիմնաբառեր</string>
-  <string name="debug">Կարգաբերում</string>
-  <string name="configure">Կարգավորել</string>
-</resources>

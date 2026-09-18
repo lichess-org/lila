@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="hourlyRapidArena">Sataranji ya kila saa { 10+0}</string>
-  <string name="hourlyX">Kwa saa %s</string>
-  <string name="dailyRapid">Kasi ya Kila Siku</string>
-  <string name="weeklyX">Kila wiki %s</string>
-</resources>

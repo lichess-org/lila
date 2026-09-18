@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="settings">সেটিংস</string>
-  <string name="closeAccount">একাউন্ট বন্ধ করুন</string>
-  <string name="managedAccountCannotBeClosed">আপনার অ্যাকাউন্ট পরিচালিত এবং বন্ধ করা যাবে না.</string>
-  <string name="cantOpenSimilarAccount">আপনি একই নামে আর নতুন একাউন্ট খুলতে পারবেন না, যদিও নামের বর্ণগুলো ছোট/বড় হাতের হয়।</string>
-  <string name="thisAccountIsClosed">এই একাউন্টটি বন্ধ করা হয়েছে</string>
-</resources>

@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="voiceCommands">Perintah suara</string>
-  <string name="watchTheVideoTutorial">Tonton tutorial video</string>
-  <string name="instructions1">Gunakan Tombol %1$s untuk menyalakan pengenalan suara, Tombol %2$s untuk membuka dialog bantuan, dan %3$s untuk menu setting suara.</string>
-</resources>

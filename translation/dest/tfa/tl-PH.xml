@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="scanTheCode">I-scan ang QR code gamit ang app.</string>
-  <string name="enterPassword">Ilagay ang iyong password at ang authentication code na ginawa ng app para makumpleto ang setup. Kakailanganin mo ng authentication code sa bawat oras na papasok ka.</string>
-  <string name="ifYouCannotScanEnterX">Kapag hindi mo ma-scan ang code. Ilagay ang secret key %s sa iyong app.</string>
-</resources>

@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="playAgain">Нахих</string>
-  <string name="score">Оноо</string>
-  <string name="moves">Нүүдэл</string>
-  <string name="combo">Угсраа</string>
-  <string name="time">Хугацаа</string>
-  <string name="skip">алгасах</string>
-</resources>
