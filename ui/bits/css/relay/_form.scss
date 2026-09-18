@@ -47,11 +47,16 @@
 
 .relay-form__contact-us.flash-box {
   border: 5px solid color-mix(in oklab, $c-secondary 70%, $c-bg);
+  gap: 1em;
 
   &::before {
     color: $c-secondary;
     content: $licon-UploadCloud;
     font-size: 4em;
+  }
+
+  p:last-child {
+    margin-block-end: 0;
   }
 }
 
