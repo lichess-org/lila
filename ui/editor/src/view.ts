@@ -30,6 +30,7 @@ import {
   type VNode,
   type MaybeVNode,
 } from 'lib/view';
+import { alert } from 'lib/view/dialogs';
 import { url as xhrUrl } from 'lib/xhr';
 
 import { fenToChess960Id, isValidPositionId } from './chess960';
@@ -117,6 +118,41 @@ function controlsButtonClear(ctrl: EditorCtrl, icon?: LiconValue) {
     },
     i18n.site.clearBoard,
   );
+}
+
+function cameraButton(ctrl: EditorCtrl): VNode {
+  return button(
+    '.button.button-empty.text',
+    {
+      type: 'button',
+      ...dataIcon(licon.Eye),
+      on: {
+        async click(e) {
+          e.preventDefault();
+          const file = await selectImage();
+          if (!file) return;
+
+          try {
+            const placement = await site.asset.loadEsm<FEN>('editor.vision', { init: { file } });
+            if (!ctrl.setFen(`${placement} w - - 0 1`)) throw new Error("Oops! Couldn't do it");
+          } catch (error) {
+            alert(String(error));
+          }
+        },
+      },
+    },
+    'Camera',
+  );
+}
+
+function selectImage(): Promise<File | undefined> {
+  return new Promise(resolve => {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/*';
+    input.addEventListener('change', () => resolve(input.files?.[0]), { once: true });
+    input.click();
+  });
 }
 
 function controls(ctrl: EditorCtrl, state: EditorState): VNode {
@@ -278,6 +314,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
           ]),
           chess960PositionIdSelector,
           div('.actions', [
+            cameraButton(ctrl),
             controlsButtonStart(ctrl, licon.Reload),
             controlsButtonClear(ctrl, licon.Trash),
             button(
