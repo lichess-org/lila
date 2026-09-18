@@ -1,4 +1,5 @@
 import type { DrawShape } from '@lichess-org/chessground/draw';
+import type { Outcome } from 'chessops';
 
 import { endgameGlyphs } from './glyphs';
 import type { StatusName } from './status';
