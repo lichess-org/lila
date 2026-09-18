@@ -1,13 +1,7 @@
 {
   description = "lila development environment for Nix & flakes";
 
-  inputs = {
-    nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1";
-    sasso = {
-      url = "github:momiji-rs/sasso/v0.16.0";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-  };
+  inputs.nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1"; # unstable Nixpkgs
 
   outputs =
     { self, ... }@inputs:
@@ -41,8 +35,7 @@
         let
           jdk = prev."jdk${toString javaVersion}";
         in
-        (inputs.sasso.overlays.default final prev)
-        // rec {
+        rec {
           java = jdk;
           sbt = prev.sbt.override { jre = jdk; };
           scala = prev.scala_3.override { jre = jdk; };
@@ -59,17 +52,7 @@
               hash = "sha256-GLvIAVfd7xyCFrYhQWs2TK63voz7gFm3yUXXFq6VZ74=";
             };
           });
-
         };
-
-      packages = forEachSupportedSystem (
-        { pkgs }:
-        {
-          sasso = inputs.sasso.packages.${pkgs.stdenv.system}.sasso;
-          sasso-ffi = inputs.sasso.packages.${pkgs.stdenv.system}.sasso-ffi;
-          default = inputs.sasso.packages.${pkgs.stdenv.system}.default;
-        }
-      );
 
       devShells = forEachSupportedSystem (
         { pkgs }:
