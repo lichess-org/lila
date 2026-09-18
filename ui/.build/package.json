@@ -7,10 +7,10 @@
     "pnpm": ">=12"
   },
   "optionalDependencies": {
-    "sasso-native-darwin-arm64": "0.16.0",
-    "sasso-native-darwin-x64": "0.16.0",
-    "sasso-native-linux-arm64-gnu": "0.16.0",
-    "sasso-native-linux-x64-gnu": "0.16.0"
+    "sasso-native-darwin-arm64": "0.17.0",
+    "sasso-native-darwin-x64": "0.17.0",
+    "sasso-native-linux-arm64-gnu": "0.17.0",
+    "sasso-native-linux-x64-gnu": "0.17.0"
   },
   "dependencies": {
     "@types/micromatch": "4.0.10",
@@ -23,16 +23,13 @@
     "micromatch": "4.0.8",
     "picocolors": "^1.1.1",
     "postcss": "^8.5.28",
-    "sasso": "^0.16.0",
+    "sasso": "^0.17.0",
     "typescript": "7.0.2"
   },
   "scripts": {
     "dev": "node --no-warnings src/main.ts $@"
   },
   "browserslist": [
-    "defaults",
-    "not op_mini all",
-    "not kaios <= 4",
     "firefox >= 115",
     "chrome >= 112",
     "edge >= 111",
