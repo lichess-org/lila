@@ -52,6 +52,6 @@
     "remove-hooks": "git config unset --value=bin/git-hooks core.hooksPath || true"
   },
   "volta": {
-    "node": "24.21.0"
+    "node": "24.20.0"
   }
 }
