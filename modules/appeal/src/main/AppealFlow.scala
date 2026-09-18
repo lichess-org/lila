@@ -119,13 +119,33 @@ object AppealFlow:
         ),
         ActionNode(
           NodeId("wait-6-months"),
-          "At least two accounts controlled by you or related to this account have broken the Lichess Terms of Service (https://lichess.org/terms-of-service).\n\nPlease appeal again in 6 months, as we will not give another chance before then. Do not create any new accounts until you appeal again.",
+          """At least two accounts controlled by you or related to this account have broken the Lichess Terms of Service (https://lichess.org/terms-of-service).
+
+Please appeal again in 6 months, as we will not give another chance before then. Do not create any new accounts until you appeal again.
+""",
           List(AppealEffect.Sleep(6))
         ),
-        ActionNode(NodeId("second-chance"), "You get a second chance. Please share your new username."),
+        ActionNode(
+          NodeId("second-chance"),
+          """As per our policy, we cannot remove the ban from this account, but we will let you make another (final) account where you can play rated games. You will need to register the new account with a different email address.
+
+We trust that you understand why this account was banned, and that in the future you will comply with our fair play rules (lichess.org/terms-of-service).
+
+Please tell us the name of your new account after you have created it by replying to this message. Otherwise, your new account is likely to be closed by the moderation team.
+
+Example: "My new account is @YOUR_ACCOUNT_NAME"
+"""
+        ),
         ActionNode(
           NodeId("decision-final"),
-          "We regret to inform you that the decision is final and will not be changed.",
+          """Your appeal has been denied, and the mark on the account will remain.
+
+After carefully reviewing your case, we regret to inform you that the moderation team will not change the decision and will keep the original engine/external assistance flag on your account.
+
+Our fair play policy is supported by robust detection methods and data. All appeals are handled by a team of experienced moderators who take the time to identify, consider, and discuss all relevant evidence before reaching a decision. Each appeal is decided on its own merits and no decision is made lightly.
+
+To protect our methods and processes, we cannot engage in any further discussion about the decision, which is final. Our rights regarding moderation decisions are set out in our Terms of Service: lichess.org/terms-of-service.
+""",
           List(AppealEffect.Close)
         ),
         ActionNode(
