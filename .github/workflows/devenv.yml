@@ -1,0 +1,35 @@
+name: Validate devenv
+
+on:
+  push:
+    paths:
+      - '.github/workflows/devenv.yml'
+      - '.node_version'
+      - 'devenv.*'
+      - '**/package.json'
+      - '**/pnpm-lock.yaml'
+      - '**/pnpm-workspace.yaml'
+  pull_request:
+    paths:
+      - '.github/workflows/devenv.yml'
+      - '.node_version'
+      - 'devenv.*'
+      - '**/package.json'
+      - '**/pnpm-lock.yaml'
+      - '**/pnpm-workspace.yaml'
+
+jobs:
+  validate-devenv:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v5
+    - uses: cachix/install-nix-action@v31
+    - uses: cachix/cachix-action@v16
+      with:
+        name: devenv
+
+    - name: Install devenv.sh
+      run: nix profile add nixpkgs#devenv
+
+    - name: Build the devenv shell and run any pre-commit hooks
+      run: devenv test
