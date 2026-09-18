@@ -20,13 +20,12 @@ final class AppealFlowUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
           ),
           div(cls := "body")(
             appeal.msgs.map(ui.renderMsg(appeal)),
-            renderNextNode(appeal)
+            userNextNode(appeal)
           )
         ),
         ui.userInactiveAppeals(appeals.filter(_ != appeal))
       )
 
-  // TODO:
   def modFlow(appeal: Appeal, modData: ModData)(using ctx: Context, me: Me) =
     import modData.*
     ui.page(s"Appeal by ${user.username}"):
@@ -39,9 +38,9 @@ final class AppealFlowUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
           div(cls := "body")(
             modAppealMessages(appeal),
             standardFlash.orElse(markedByMe.option(ui.markedByMeWarning)),
-            renderNextNode(appeal, modData.some),
+            modNextNode(appeal, modData),
             if appeal.isClosed then ui.appealIsClosed(appeal)
-            // else if me.is(inquiryBy) then modReplyForm(appeal, form, presets)
+            else if me.is(inquiryBy) then modMessageForm(appeal, modData)
             else emptyFrag
           ),
           ui.modActions(appeal, modData)
@@ -55,24 +54,24 @@ final class AppealFlowUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
         id := appeal.isLast(msg).option("appeal-last-msg")
       )(ui.renderMsg(appeal)(msg))
 
-  private def renderNextNode(appeal: Appeal, modData: Option[ModData] = None)(using ctx: Context, me: Me) =
-    val isMod = me.isnt(appeal.user)
-    val isHandledByMe = me.is(modData.flatMap(_.inquiryBy))
+  private def userNextNode(appeal: Appeal)(using Context, Me) =
     AppealFlow.nextNode(appeal) match
       case Some(cn: ChoiceNode) if cn.answerer == Answerer.User =>
-        if isMod then renderPendingUserChoice(cn)
-        else renderChoiceForm(appeal, cn)
+        choiceForm(appeal, cn)
       case Some(cn: ChoiceNode) if cn.answerer == Answerer.Mod =>
-        if isMod then renderChoiceForm(appeal, cn, isHandledByMe)
-        else
-          p(cls := "line-center-text"):
-            "Your appeal is under review. You will receive a message when there is an update."
-      case _ =>
-        if isMod && isHandledByMe && appeal.isOpen then modData.fold(emptyFrag)(modMessageForm(appeal, _))
-        else if !isMod && appeal.canAddMsg then userMessageForm(appeal)
-        else emptyFrag
+        p(cls := "line-center-text"):
+          "Your appeal is under review. You will receive a message when there is an update."
+      case _ => appeal.canAddMsg.so(userMessageForm(appeal))
 
-  private def userMessageForm(appeal: Appeal)(using Context) =
+  private def modNextNode(appeal: Appeal, modData: ModData)(using me: Me) =
+    AppealFlow.nextNode(appeal) match
+      case Some(cn: ChoiceNode) if cn.answerer == Answerer.User =>
+        pendingUserChoice(cn)
+      case Some(cn: ChoiceNode) if cn.answerer == Answerer.Mod =>
+        choiceForm(appeal, cn, enabled = me.is(modData.inquiryBy))
+      case _ => emptyFrag
+
+  private def userMessageForm(appeal: Appeal)(using Context): Frag =
     postForm(action := routes.Appeal.userEvent(appeal.topic))(
       form3.hidden("kind", AppealMsg.Kind.message.toString),
       form3.group(
@@ -85,7 +84,7 @@ final class AppealFlowUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
       form3.action(form3.submit("Send"))
     )
 
-  private def modMessageForm(appeal: Appeal, modData: ModData)(using Context) =
+  private def modMessageForm(appeal: Appeal, modData: ModData)(using Context): Frag =
     postForm(action := routes.Appeal.modEvent(appeal.user, appeal.topic))(
       form3.hidden("kind", AppealMsg.Kind.message.toString),
       form3.split(
@@ -100,13 +99,17 @@ final class AppealFlowUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
         form3.group(
           AppealEventForm.messageForm("text"),
           "Add something to the appeal",
-          half = true
+          half = true,
+          help = AppealFlow
+            .nextNode(appeal)
+            .isDefined
+            .option(frag("Note: by adding a reply, you will exit the automated flow"))
         )(form3.textarea(_)(rows := 15))(cls := "appeal-textarea")
       ),
       form3.action(form3.submit("Send"))
     )
 
-  private def renderChoiceForm(appeal: Appeal, cn: ChoiceNode, enabled: Boolean = true)(using me: Me) =
+  private def choiceForm(appeal: Appeal, cn: ChoiceNode, enabled: Boolean = true)(using me: Me) =
     val isMod = me.isnt(appeal.user)
     postForm(
       cls := "appeal__choice",
@@ -127,7 +130,7 @@ final class AppealFlowUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
       )
     )
 
-  private def renderPendingUserChoice(cn: ChoiceNode) =
+  private def pendingUserChoice(cn: ChoiceNode) =
     div(cls := "appeal__choice appeal__choice--pending")(
       p(cls := "appeal__choice__waiting")("Awaiting the user's answer"),
       p(cls := "appeal__choice__question")(cn.question),
