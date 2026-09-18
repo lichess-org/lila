@@ -3,7 +3,6 @@ import { browserslistToTargets, transform } from 'lightningcss';
 import cps from 'node:child_process';
 import fs from 'node:fs';
 import { basename, dirname, join, relative, resolve } from 'node:path';
-import ps from 'node:process';
 import pc from 'picocolors';
 
 import { env, errorMark, trimLines } from './env.ts';
@@ -89,9 +88,7 @@ export async function sass(): Promise<string | undefined> {
 async function compile(sources: string[], logAll = true): Promise<string[]> {
   const sassBin =
     process.env.SASS_PATH ??
-    (await fs.promises.realpath(
-      join(env.buildDir, 'node_modules', `sass-embedded-${ps.platform}-${ps.arch}`, 'dart-sass', 'sass'),
-    ));
+    (await fs.promises.realpath(join(env.buildDir, 'node_modules', `.bin`, 'sasso')));
   if (!(await readable(sassBin))) env.exit(`Sass executable not found '${pc.cyan(sassBin)}'`, 'sass');
 
   return new Promise(resolveWithErrors => {
@@ -104,8 +101,10 @@ async function compile(sources: string[], logAll = true): Promise<string[]> {
       '--stop-on-error',
       '--no-color',
       '--quiet-deps',
+      // TODO: --silence-deprecation not supported by sasso yet, remove --quiet when it is
+      '--quiet',
       // TODO: remove 'global-builtin' silence when png-viewer code is updated
-      '--silence-deprecation=import,global-builtin',
+      // '--silence-deprecation=import,global-builtin',
     ];
     sassPs?.removeAllListeners();
 

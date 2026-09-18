@@ -49,7 +49,7 @@ Options:
 
 Exclusive Options:    (any of these will disable other functions)
   --tsc               run tsc on {package}/tsconfig.json and dependencies
-  --sass              run sass on {package}/css/build/*.scss and dependencies
+  --sass              run sasso on {package}/css/build/*.scss and dependencies
   --esbuild           run esbuild (given in {package}/package.json/lichess/bundles array)
   --i18n              build @types/lichess/i18n.d.ts and translation/js files
 

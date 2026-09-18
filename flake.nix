@@ -52,6 +52,41 @@
               hash = "sha256-GLvIAVfd7xyCFrYhQWs2TK63voz7gFm3yUXXFq6VZ74=";
             };
           });
+
+          sasso =
+            let
+              release = {
+                "aarch64-darwin" = {
+                  asset = "sasso-aarch64-apple-darwin.tar.xz";
+                  hash = "sha256-YCxkctYazgQt4+OHmMXvtyqu4eB27gmWsQrJzP/T9qw=";
+                };
+                "x86_64-darwin" = {
+                  asset = "sasso-x86_64-apple-darwin.tar.xz";
+                  hash = "sha256-23GCIPynJ0hqMI96g33Bg+vcKl/HFDkGYlRifKUSzng=";
+                };
+                "aarch64-linux" = {
+                  asset = "sasso-aarch64-unknown-linux-gnu.tar.xz";
+                  hash = "sha256-6FSQ2V/ODozpuTdvovh+4f/vbAooDysVTnuToqmuWhM=";
+                };
+                "x86_64-linux" = {
+                  asset = "sasso-x86_64-unknown-linux-gnu.tar.xz";
+                  hash = "sha256-nbPdqUzjAA9t3wuHs5+tcKvQEaEaKzpNK/9r1ytsK70=";
+                };
+              }."${final.stdenv.hostPlatform.system}";
+            in
+            final.stdenv.mkDerivation {
+              pname = "sasso";
+              version = "0.16.0";
+              src = final.fetchurl {
+                url = "https://github.com/momiji-rs/sasso/releases/download/v0.16.0/${release.asset}";
+                inherit (release) hash;
+              };
+              sourceRoot = ".";
+              installPhase = ''
+                mkdir -p $out/bin
+                tar -xJf $src --strip-components=1 -C $out/bin
+              '';
+            };
         };
 
       devShells = forEachSupportedSystem (
@@ -62,7 +97,6 @@
               nodejs
               pnpm
               esbuild
-              dart-sass
               oxlint
               oxfmt
               stylelint
@@ -78,8 +112,6 @@
             # Required for NixOS to run prebuilt binaries from npm packages
             shellHook = ''
               export LD_LIBRARY_PATH=${pkgs.lib.makeLibraryPath [ pkgs.stdenv.cc.cc ]}:$LD_LIBRARY_PATH
-              # Use dart-sass instead of npm's sass-embedded
-              export SASS_PATH=${pkgs.dart-sass}/bin/sass
             '';
           };
         }
