@@ -88,7 +88,7 @@ export const endgameGlyphs: Record<
   draw: composeGlyph('#c8a829', '<path fill="#fff" d="M18 27h64v12H18zm0 34h64v12H18z"/>'),
   stalemate: composeGlyph(
     '#c8a829',
-    '<path fill="#fff" d="M26 14h48v10H26zm7 10h34v39H33zM19 73h62v13H19z"/>',
+    '<path fill="none" stroke="#fff" stroke-width="9" d="M31 14h38M50 14v11M38 25h24l7 16v17H31V41zM25 82h50"/><path fill="none" stroke="#fff" stroke-width="9" d="m22 22 56 56"/>',
   ),
 };
 
