@@ -61,18 +61,22 @@ const glyphStacktoPx = (stack: number) => {
 };
 
 export const endgameGlyphs: Record<
-  'win' | 'mate' | 'resign' | 'timeout' | 'unknown' | 'draw',
+  'win' | 'mate' | 'resign' | 'abandoned' | 'timeout' | 'unknown' | 'draw' | 'stalemate',
   (stackedNumber: number) => string
 > = {
   win: composeGlyph(
     '#22ac38',
-    '<path fill="#fff" d="M22 18h56v16c0 15-9 27-22 31v8h17v9H27v-9h17v-8C31 61 22 49 22 34zm9 9v7c0 10 6 17 19 21 13-4 19-11 19-21v-7z"/>',
+    '<path fill="#fff" d="M29 12h42v10h9v11c0 14-8 26-21 31v8h13v9H28v-9h13v-8c-13-5-21-17-21-31V22h9zm-1 20c0 8 4 15 13 19V22H28zm44 0v19c9-4 13-11 13-19V22H72z"/>',
   ),
   mate: composeGlyph(
     '#df5353',
-    '<path fill="#fff" transform="translate(0 8)" d="m25 20 10-10 15 15 15-15 10 10-15 15 15 15-10 10-15-15-15 15-10-10 15-15z"/>',
+    '<path fill="none" stroke="#fff" stroke-width="10" d="M35 10 28 90M65 10l-7 80M14 38h72M10 68h72"/>',
   ),
   resign: composeGlyph('#df5353', '<path fill="#fff" d="M24 12h9v76h-9zm9 4h45l-17 17 17 17H33z"/>'),
+  abandoned: composeGlyph(
+    '#df5353',
+    '<path fill="#fff" d="M64 12a10 10 0 1 1 0 20 10 10 0 0 1 0-20M56 37h12l5 18 12 10-6 8-15-11-5-12-5 13-11 15-9-6 10-16 5-19zm-13 5-11 4-10-8-6 7 14 13 12-4zm16 25 9 7-11 14-9-5z"/>',
+  ),
   timeout: composeGlyph(
     '#df5353',
     '<path fill="#fff" d="M42 10h16v7H42zm-7 13 7-7 6 6-7 7zM50 27a23 23 0 1 0 16 7l-7 7a13 13 0 1 1-8-4zm5 5h8v18l-13 9-5-7 10-7z"/>',
@@ -82,6 +86,10 @@ export const endgameGlyphs: Record<
     '<path fill="#fff" d="M50 10 88 82H12zm0 20-21 42h42zM44 43h12v20H44zm0 26h12v12H44z"/>',
   ),
   draw: composeGlyph('#c8a829', '<path fill="#fff" d="M18 27h64v12H18zm0 34h64v12H18z"/>'),
+  stalemate: composeGlyph(
+    '#c8a829',
+    '<path fill="#fff" d="M26 14h48v10H26zm7 10h34v39H33zM19 73h62v13H19z"/>',
+  ),
 };
 
 const whiteIsWinning = composeGlyph(
