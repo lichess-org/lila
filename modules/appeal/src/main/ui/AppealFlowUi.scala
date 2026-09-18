@@ -29,7 +29,7 @@ final class AppealFlowUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
       )
 
   // TODO:
-  def modFlow(appeal: Appeal, form: Form[?], modData: ModData)(using ctx: Context, me: Me) =
+  def modFlow(appeal: Appeal, modData: ModData)(using ctx: Context, me: Me) =
     import modData.*
     ui.page(s"Appeal by ${user.username}"):
       main(cls := "appeal")(
@@ -40,8 +40,8 @@ final class AppealFlowUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
           otherUsers(cls := "mod-zone communication__logins"),
           div(cls := "body")(
             modAppealMessages(appeal),
-            renderNextNode(appeal, modData.some),
             standardFlash.orElse(markedByMe.option(ui.markedByMeWarning)),
+            renderNextNode(appeal, modData.some),
             if appeal.isClosed then ui.appealIsClosed(appeal)
             // else if me.is(inquiryBy) then modReplyForm(appeal, form, presets)
             else emptyFrag
@@ -71,10 +71,10 @@ final class AppealFlowUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
             "Your appeal is under review. You will receive a message when there is an update."
       case _ =>
         if (isMod && isHandledByMe && appeal.isOpen) || (!isMod && appeal.canAddMsg) then
-          renderMessageForm(appeal)
+          renderMessageForm(appeal, modData)
         else emptyFrag
 
-  private def renderMessageForm(appeal: Appeal)(using ctx: Context, me: Me) =
+  private def renderMessageForm(appeal: Appeal, modData: Option[ModData] = None)(using ctx: Context, me: Me) =
     val isMod = me.isnt(appeal.user)
     postForm(
       cls := "",
@@ -82,16 +82,24 @@ final class AppealFlowUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
                  else routes.Appeal.userEvent(appeal.topic))
     )(
       form3.hidden("kind", AppealMsg.Kind.message.toString),
-      form3.group(
-        AppealEventForm.messageForm("text"),
-        "",
-        help = frag("Please be concise. Maximum 1000 chars.").some
-      )(f =>
-        form3.textarea(f)(
-          rows := 6,
-          maxlength := Appeal.maxLength * 1.1
-        )
-      )(cls := "appeal-textarea"),
+      form3.split(
+        div(cls := "appeal-presets form-group form-half")(
+          // TODO: code golf
+          modData.map:
+            _.presets.map: (name, text) =>
+              button(
+                tpe := "button",
+                st.value := text,
+                st.title := text
+              )(name)
+        ),
+        form3.group(
+          AppealEventForm.messageForm("text"),
+          (!isMod).so("Add something to the appeal"),
+          half = true,
+          help = (!isMod).so(frag("Please be concise. Maximum 1000 chars.").some)
+        )(form3.textarea(_)(rows := 15, maxlength := Appeal.maxLength * 1.1))(cls := "appeal-textarea")
+      ),
       form3.action(form3.submit("Send"))
     )
 
