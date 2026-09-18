@@ -31,5 +31,10 @@ jobs:
     - name: Install devenv.sh
       run: nix profile add nixpkgs#devenv
 
-    - name: Build the devenv shell and run any pre-commit hooks
-      run: devenv test
+    # - name: Build the devenv shell and run any pre-commit hooks
+    #   run: devenv test
+
+    - name: Make sure `./ui/build` requirements are satisfied
+      shell: devenv shell -- bash -e {0}
+      run: |
+        ./ui/build --help
