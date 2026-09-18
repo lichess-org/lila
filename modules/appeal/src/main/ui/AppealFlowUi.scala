@@ -84,7 +84,6 @@ final class AppealFlowUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
       form3.hidden("kind", AppealMsg.Kind.message.toString),
       form3.split(
         div(cls := "appeal-presets form-group form-half")(
-          // TODO: code golf
           modData.map:
             _.presets.map: (name, text) =>
               button(
@@ -95,7 +94,7 @@ final class AppealFlowUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
         ),
         form3.group(
           AppealEventForm.messageForm("text"),
-          (!isMod).so("Add something to the appeal"),
+          "Add something to the appeal",
           half = true,
           help = (!isMod).so(frag("Please be concise. Maximum 1000 chars.").some)
         )(form3.textarea(_)(rows := 15, maxlength := Appeal.maxLength * 1.1))(cls := "appeal-textarea")

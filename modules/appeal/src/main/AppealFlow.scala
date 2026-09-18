@@ -72,16 +72,18 @@ object AppealFlow:
         ChoiceNode(
           NodeId("accept-cheat-mark"),
           Answerer.User,
-          "Do you accept this cheat mark?",
+          """Your account is banned for engine/computer assistance.
+
+Did you ever get help from a chess engine during a game — yes or no?""",
           NonEmptyList.of(
             AnswerBranch(
               AnswerId("yes"),
-              "I accept that I used external assistance in my games.",
+              "Yes, I used external assistance in my games.",
               NodeId("many-infractions")
             ),
             AnswerBranch(
               AnswerId("no"),
-              "I deny having used external assistance in my games.",
+              "No, I deny having used external assistance in my games.",
               NodeId("is-mark-valid")
             )
           )
@@ -119,10 +121,11 @@ object AppealFlow:
         ),
         ActionNode(
           NodeId("wait-6-months"),
-          """At least two accounts controlled by you or related to this account have broken the Lichess Terms of Service (https://lichess.org/terms-of-service).
+          """At least two accounts controlled by you or related to this account have broken our fair play rules (https://lichess.org/terms-of-service).
 
 Please appeal again in 6 months, as we will not give another chance before then. Do not create any new accounts until you appeal again.
-""",
+
+We do not remove restrictions from accounts marked correctly for external assistance. Hence, following a review after the waiting period, we may allow you a separate account to resume playing without restrictions.""",
           List(AppealEffect.Sleep(6))
         ),
         ActionNode(
@@ -144,13 +147,14 @@ After carefully reviewing your case, we regret to inform you that the moderation
 
 Our fair play policy is supported by robust detection methods and data. All appeals are handled by a team of experienced moderators who take the time to identify, consider, and discuss all relevant evidence before reaching a decision. Each appeal is decided on its own merits and no decision is made lightly.
 
-To protect our methods and processes, we cannot engage in any further discussion about the decision, which is final. Our rights regarding moderation decisions are set out in our Terms of Service: lichess.org/terms-of-service.
-""",
+To protect our methods and processes, we cannot engage in any further discussion about the decision, which is final. Our rights regarding moderation decisions are set out in our Terms of Service: lichess.org/terms-of-service.""",
           List(AppealEffect.Close)
         ),
         ActionNode(
           NodeId("false-positive"),
-          "This was a false positive. Your account has been unmarked.",
+          """After investigating your case, we have determined that our cheat detection algorithms flagged your account mistakenly.
+
+We are continuously improving our cheat detection so that we can efficiently prevent cheating while minimizing false positives. We apologize for the inconvenience, and have now removed the mark on your account.""",
           List(AppealEffect.Unmark, AppealEffect.Close)
         )
       )
