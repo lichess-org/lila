@@ -222,7 +222,7 @@
       > img {
         width: 100%;
 
-        @include broken-img(2 / 1);
+        @include broken-img(calc(2 / 1));
       }
 
       .video-player-close {

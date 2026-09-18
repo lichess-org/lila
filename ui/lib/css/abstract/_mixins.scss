@@ -1,3 +1,6 @@
+@use 'sass:list';
+@use 'sass:meta';
+
 @mixin box-radius {
   border-radius: $box-radius-size;
 }
@@ -14,11 +17,11 @@
 }
 
 @mixin transition($prop: all, $dur: $transition-duration, $timing: ease) {
-  @if type-of($prop) == 'list' and length($prop) > 1 {
+  @if meta.type-of($prop) == 'list' and list.length($prop) > 1 {
     $out: ();
 
-    @for $i from 1 through length($prop) {
-      $out: append($out, nth($prop, $i) $dur $timing, comma);
+    @for $i from 1 through list.length($prop) {
+      $out: list.append($out, list.nth($prop, $i) $dur $timing, comma);
     }
 
     transition: $out;
@@ -148,27 +151,53 @@
 }
 
 @mixin with-metal-shadow($defaultShadow: (), $lightShadow: (), $soft: false) {
+  $shadow: null;
   $bottom-blur: 6px;
+  $inset-shadow-opacity: 45%;
+  $inset-shadow-spread: 3px;
+
+  @if $defaultShadow != () {
+    $shadow: 0 1px 3px 0 $defaultShadow;
+  }
+
+  @if $soft {
+    $base-shadow-opacity: 30%;
+    $inset-shadow-spread: 2px;
+  }
 
   @include if-transp {
     $bottom-blur: 8px;
   }
 
   box-shadow:
-    inset 0 1px 3px -2px hsl(0, 0%, if($soft == true, 30%, 45%)),
+    inset 0 1px 3px -2px hsl(0, 0%, $inset-shadow-opacity),
     inset 0 -4px $bottom-blur -3px hsl(from $c-body-gradient h s calc(l + 3) / 0.8),
-    if($defaultShadow != (), 0 1px 3px 0 $defaultShadow, ());
+    $shadow;
 
   @include if-light {
+    @if $lightShadow != () {
+      $shadow: 0 1px 3px 0 $lightShadow;
+    }
+
     box-shadow:
-      inset 0 if($soft == true, 2px, 3px) 3px -2px #fff6,
+      inset 0 $inset-shadow-spread 3px -2px #fff6,
       inset 0 -4px $bottom-blur -3px hsl(from $c-body-gradient h s calc(l + 5) / 0.8),
-      if($defaultShadow != (), 0 1px 3px 0 if($lightShadow != (), $lightShadow, $defaultShadow), ());
+      $shadow;
   }
 }
 
 @mixin with-metal-hover-shadow($defaultShadow: (), $lightShadow: (), $soft: false) {
+  $shadow: null;
   $bottom-blur: 8px;
+  $inset-shadow-spread: 4px;
+
+  @if $defaultShadow != () {
+    $shadow: 0 2px 4px 0 $defaultShadow;
+  }
+
+  @if $soft {
+    $base-light-shadow-spread: 3px;
+  }
 
   @include if-transp {
     $bottom-blur: 16px;
@@ -177,13 +206,17 @@
   box-shadow:
     inset 0 1px 3px -2px $c-border-light,
     inset 0 -5px $bottom-blur -3px hsl(from $c-body-gradient h s calc(l + 5) / 0.8),
-    if($defaultShadow != (), 0 2px 4px 0 $defaultShadow, ());
+    $shadow;
 
   @include if-light {
+    @if $lightShadow != () {
+      $shadow: 0 2px 4px 0 $lightShadow;
+    }
+
     box-shadow:
-      inset 0 if($soft == true, 3px, 4px) 3px -2px #fff6,
+      inset 0 $inset-shadow-spread 3px -2px #fff6,
       inset 0 -5px 8 $bottom-blur -3px hsl(from $c-body-gradient h s calc(l + 7) / 0.8),
-      if($defaultShadow != (), 0 2px 4px 0 if($lightShadow != (), $lightShadow, $defaultShadow), ());
+      $shadow;
   }
 }
 
@@ -194,9 +227,17 @@
     0 1px 3px 0 hsl(0 0% 0% / 0.2);
 
   @include if-light {
+    @if $lighTopShadow != () {
+      $topShadow: $lighTopShadow;
+    }
+
+    @if $lightBottomShadow != () {
+      $bottomShadow: $lightBottomShadow;
+    }
+
     box-shadow:
-      inset 0 2px 3px -2px if($lighTopShadow != (), $lighTopShadow, $topShadow),
-      inset 0 -4px 6pt -3pt if($lightBottomShadow != (), $lightBottomShadow, $bottomShadow),
+      inset 0 2px 3px -2px $topShadow,
+      inset 0 -4px 6pt -3pt $bottomShadow,
       0 1px 3px 0 hsl(0 0% 0% / 0.18);
   }
 
@@ -208,8 +249,8 @@
 
     @include if-light {
       box-shadow:
-        inset 0 2px 3px -2px if($lighTopShadow != (), $lighTopShadow, $topShadow),
-        inset 0 -5px 6pt -3pt if($lightBottomShadow != (), $lightBottomShadow, $bottomShadow),
+        inset 0 2px 3px -2px $topShadow,
+        inset 0 -5px 6pt -3pt $bottomShadow,
         0 2px 4px 0 hsl(0 0% 0% / 0.21);
     }
   }
