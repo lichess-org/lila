@@ -145,25 +145,13 @@
   <string name="blunder">Baklövés</string>
   <string name="mistake">Hiba</string>
   <string name="inaccuracy">Pontatlanság</string>
-  <plurals name="nbBlunders">
-    <item quantity="one">%s súlyos hiba</item>
-    <item quantity="other">%s súlyos hiba</item>
-  </plurals>
   <plurals name="numberBlunders">
     <item quantity="one">%s Súlyos hiba</item>
     <item quantity="other">%s Súlyos hiba</item>
   </plurals>
-  <plurals name="nbMistakes">
-    <item quantity="one">%s hiba</item>
-    <item quantity="other">%s hiba</item>
-  </plurals>
   <plurals name="numberMistakes">
     <item quantity="one">%s Hiba</item>
     <item quantity="other">%s Hiba</item>
-  </plurals>
-  <plurals name="nbInaccuracies">
-    <item quantity="one">%s pontatlanság</item>
-    <item quantity="other">%s pontatlanság</item>
   </plurals>
   <plurals name="numberInaccuracies">
     <item quantity="one">%s Pontatlanság</item>
@@ -266,7 +254,6 @@
   <string name="emailSent">Üzenetet küldtünk a %s címre.</string>
   <string name="emailCanTakeSomeTime">Eltarthat egy ideig, amíg megérkezik.</string>
   <string name="refreshInboxAfterFiveMinutes">Várj 5 percet, és frissítsd az emailjeidet.</string>
-  <string name="checkSpamFolder">Ellenőrizd a spam mappát is, talán oda kerül, ez esetben jelöld, hogy nem spam.</string>
   <string name="accountConfirmed">%s felhasználó sikeresen megerősítve.</string>
   <string name="accountCanLogin">A %s felhasználói fiókkal most már bejelentkezhetsz.</string>
   <string name="accountConfirmationEmailNotNeeded">Nincs szükség megerősítő emailre.</string>
@@ -289,8 +276,6 @@
   </plurals>
   <string name="ok">OK</string>
   <string name="cancel">Mégse</string>
-  <string name="whiteTimeOut">Világos ideje lejárt</string>
-  <string name="blackTimeOut">Sötét ideje lejárt</string>
   <string name="drawOfferSent">Döntetlen felajánlva</string>
   <string name="drawOfferAccepted">Döntetlen elfogadva</string>
   <string name="whiteOffersDraw">Világos döntetlent ajánl</string>
@@ -411,7 +396,6 @@
     <item quantity="other">Még %s további rangsorolt játszma szükséges</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">A %s pontszámod ideiglenes</string>
-  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Az értékszámszűrők zárolva vannak, mert az értékszámod még nem stabil. Értékszámszerző játszmák játszása növeli a stabilitást.</string>
   <string name="yourPerfRatingIsTooHigh">A %1$s pontszámod (%2$s) túl magas</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">A %1$s heti csúcs pontszámod (%2$s) túl magas</string>
   <string name="yourPerfRatingIsTooLow">A %1$s pontszámod (%2$s) túl alacsony</string>
@@ -583,7 +567,6 @@
   <string name="other">Egyéb</string>
   <string name="reportCheatBoostHelp">Illeszd be a játszma vagy játszmák linkjét, és magyarázd el, mi a probléma a felhasználó viselkedésével! Ne csak annyit írj, hogy \"csal”, hanem fejtsd ki, hogyan jutottál erre a következtetésre.</string>
   <string name="reportUsernameHelp">Magyarázd el, miért sértő ez a felhasználónév! Ne csak annyit írj, hogy \"sértő/nem megfelelő\", hanem fejtsd ki, hogyan jutottál erre a következtetésre, különösen akkor, ha a sértés burkolt, nem angol nyelvű, szleng, vagy történelmi/kulturális hátterű.</string>
-  <string name="reportProcessedFasterInEnglish">A jelentésedet hamarabb feldolgozzák, ha angolul írod.</string>
   <string name="error.provideOneCheatedGameLink">Kérünk, legalább adj meg linket legalább egy csalt játszmához.</string>
   <string name="by">Létrehozta: %s</string>
   <string name="importedByX">Importálva %s által</string>
@@ -707,11 +690,9 @@
   <string name="aboutSimulRules">Minden játékos a szimultánt adó játékos ellen játszik, aki a világos bábukat vezeti. A szimultán akkor ér véget, amikor az összes játszma befejeződik.</string>
   <string name="aboutSimulSettings">A szimultán játékok mindig fixáltak. Visszavágó, visszalépés és több idő adás funkciók nem elérhetőek.</string>
   <string name="create">Létrehozás</string>
-  <string name="whenCreateSimul">Ha egy szimultánt hozol létre, több játékos ellen fogsz játszani.</string>
   <string name="simulVariantsHint">Ha több variánst hozol létre, minden játékos eldöntheti mihez csatlakozik.</string>
   <string name="simulClockHint">Fisher óra beállítás. Minél több játékossal játszol, annál több időre lesz szükség</string>
   <string name="simulAddExtraTime">Plusz időt adhatsz az órához, hogy a szimultán könnyebb legyen.</string>
-  <string name="simulHostExtraTime">Időbónusz</string>
   <string name="simulAddExtraTimePerPlayer">A beállított idő hozzáadása az órádhoz minden szimultánhoz csatlakozó játékos után.</string>
   <string name="simulHostExtraTimePerPlayer">Játékosonként extra idő az órához</string>
   <string name="lichessTournaments">Lichess versenyek</string>
@@ -835,7 +816,6 @@ Jelszavad megváltoztatásához kattints az üzenetben lévő linkre.</string>
   <string name="custom">Egyéni</string>
   <string name="notifications">Értesítések</string>
   <string name="notificationsX">Értesítések: %1$s</string>
-  <string name="perfRatingX">Pontszám: %s</string>
   <string name="yourRatingIsX">Értékszámod %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s másodperc a kezdőlépés megtételére</item>
@@ -894,7 +874,6 @@ Jelszavad megváltoztatásához kattints az üzenetben lévő linkre.</string>
     <item quantity="other">és %s változat mentése</item>
   </plurals>
   <string name="showUnreadLichessMessage">Üzeneted jött Lichesstől!</string>
-  <string name="clickHereToReadIt">Kattints ide az olvasáshoz</string>
   <string name="sorry">Sajnáljuk</string>
   <string name="weHadToTimeYouOutForAWhile">Kénytelenek vagyunk egy kis időre kizárni.</string>
   <string name="why">Miért?</string>
@@ -979,14 +958,12 @@ Hagyd üresen és a játszmák a kezdőállásból indulnak.</string>
   <string name="simulFeaturedHelp">Szimultán közzététele %s oldalon. Kapcsold ki privát szimultánhoz.</string>
   <string name="simulDescription">Szimultán leírása</string>
   <string name="simulDescriptionHelp">Van bármi amit elmondanál a résztvevőknek?</string>
-  <string name="markdownIsAvailable">%s elérhető a formázáshoz.</string>
   <string name="embedsAvailable">Illeszd be a játék vagy a tanulmány URL-jét a beágyazáshoz.</string>
   <string name="inYourLocalTimezone">Saját időzónád szerint</string>
   <string name="tournChat">Verseny csevegő</string>
   <string name="noChat">Nincs csevegő</string>
   <string name="onlyTeamLeaders">Csak csapatvezetőknek</string>
   <string name="onlyTeamMembers">Csak csapattagoknak</string>
-  <string name="navigateMoveTree">Navigálj a lépések közt</string>
   <string name="mouseTricks">Trükkök az egérrel</string>
   <string name="toggleLocalAnalysis">Helyi számítógépes elemzés engedélyezése</string>
   <string name="toggleAllAnalysis">Összes számítógépes elemzés engedélyezése</string>

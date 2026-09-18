@@ -8,7 +8,6 @@
   <string name="accountMutedInfo">อ่าน %s ของเรา การไม่ปฏิบัติตามหลักเกณฑ์การสื่อสารและแสดงตวามคิดเห็นอาจส่งผลให้บัญชีถูกปิดเสียง</string>
   <string name="excludedFromLeaderboards">บัญชีของคุณถูกนำออกหรือยกเว้นจากกระดานจัดลำดับ</string>
   <string name="closedByModerators">บัญชีของคุณถูกปิดโดยผู้ดูแลระบบ</string>
-  <string name="playTimeout">การเล่นของคุณหมดเวลา</string>
   <string name="communicationGuidelines">ข้อแนะนำในการสื่อสาร</string>
   <string name="fairPlay">การเล่นที่ยุติธรรม</string>
 </resources>

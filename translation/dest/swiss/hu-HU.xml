@@ -66,7 +66,6 @@ Ha egy játékost nem lehet párosítani, erőnyerő lesz, ami egy pontot ér.</
   <string name="pairingsA">%1$s közreműködésével, %2$s által megvalósítva, %3$s szerint.</string>
   <string name="moreRoundsThanPlayersQ">Mi történik, ha több forduló van előírva, mint amennyi résztvevő van?</string>
   <string name="moreRoundsThanPlayersA">Ha minden lehetséges párosítást lejátszottak, a versenynek vége és a győztest kihirdetjük.</string>
-  <string name="restrictedToTeamsQ">Miért van csapatokra korlátozva?</string>
   <string name="restrictedToTeamsA">A svájci rendszerű versenyek nem online sakkra lettek kitalálva. Pontosságot, elköteleződést és türelmet vár el a résztvevőktől. Úgy gondoljuk, hogy ezek a feltételek jobban adottak egy csapaton belül a nyílt versenyekkel szemben.</string>
   <string name="numberOfByesQ">Hányszor kaphat egy játékos bye-t?</string>
   <string name="numberOfByesA">A játékos kap egy bye pontot minden alkalommal, amikor a párosító program nem tudja párosítani senkivel. Továbbá fél pontot kap, ha késve csatlakozik a versenyhez.</string>
@@ -83,7 +82,6 @@ A rendszer visszalépteti ezeket a játékosokat a versenytől, hogy ne veszíts
 A későn csatlakozók egy fél pontot érő bye-t kapnak akkor is, ha több fordulóból maradtak ki.</string>
   <string name="willSwissReplaceArenasQ">A svájci rendszerű versenyek lecserélik majd az arénákat?</string>
   <string name="willSwissReplaceArenasA">Nem. Ezek eltérő típusú versenyek.</string>
-  <string name="roundRobinQ">Mi a helyzet a körmérkőzéssel?</string>
   <string name="roundRobinA">Szeretnénk hozzáadni, de sajnos a körmérkőzés nem működik online.
 Ennek az az oka, hogy nem tudjuk tisztességesen kezelni a versenyből idő előtt távozókat. Nem várhatjuk el, hogy egy online versenyen minden játékos lejátssza az összes meccsét. Ez egyszerűen nem fog menni és ennek eredményeképpen a legtöbb körmérkőzés verseny hibás és igazságtalan lenne, ami meghiúsítja az értelmüket.
 Az online körmérkőzéshez legközelebb egy svájci verseny áll, ahol nagyon sok forduló van. Ilyenkor az összes lehetséges párosítást lejátsszák, mielőtt a verseny véget ér.</string>
@@ -119,7 +117,6 @@ Az online körmérkőzéshez legközelebb egy svájci verseny áll, ahol nagyon 
   <string name="similarToOTB">Hasonló a valódi sakkversenyekhez</string>
   <string name="unlimitedAndFree">Korlátlan és ingyenes</string>
   <string name="predefinedUsers">Csak engedélyezett játékosok csatlakozhatnak</string>
-  <string name="forbiddedUsers">Amennyiben a lista nem üres, úgy a listán nem szereplő játékosok nem csatlakozhatnak. Soronként egy felhasználónév.</string>
   <string name="playYourGames">Játszd le a játszmáidat</string>
   <string name="byes">Erőnyerők</string>
   <string name="absences">Távollevők</string>

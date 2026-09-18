@@ -13,7 +13,6 @@
   <string name="closedByModerators">Vaš račun so zaprli moderatorji.</string>
   <string name="blogRestriction">Imate omejitev za blog.</string>
   <string name="blogRestrictionInfo">Preberite naša %s, kršitev teh pravil lahko povzroči različne ukrepe.</string>
-  <string name="playTimeout">Imate časovno omejitev za igranje.</string>
   <string name="reportBanned">Moderatorjem ne morete pošiljati poročil</string>
   <string name="reportBannedInfo">Opazili smo vzorec zlorabe našega sistema za prijavo. To je lahko posledica različnih razlogov, kot so nenehno izbiranje napačnih kategorij, uporaba prostaškega, neprimernega ali žaljivega jezika, prijava prevelikega števila iger ali neupoštevanje razlogov, zakaj menite, da je nasprotnik kršil pravila.</string>
   <string name="communicationGuidelines">komunikacijske smernice</string>

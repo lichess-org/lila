@@ -129,25 +129,13 @@
   <string name="blunder">भयंकर गलती</string>
   <string name="mistake">ग़लती</string>
   <string name="inaccuracy">गलती</string>
-  <plurals name="nbBlunders">
-    <item quantity="one">%s गंभीर गलती</item>
-    <item quantity="other">%s गंभीर गल्तियां</item>
-  </plurals>
   <plurals name="numberBlunders">
     <item quantity="one">%s गंभीर गलती</item>
     <item quantity="other">%s गंभीर गल्तियां</item>
   </plurals>
-  <plurals name="nbMistakes">
-    <item quantity="one">%s ग़लती</item>
-    <item quantity="other">%s गलतियाँ</item>
-  </plurals>
   <plurals name="numberMistakes">
     <item quantity="one">%s ग़लती</item>
     <item quantity="other">%s गलतियाँ</item>
-  </plurals>
-  <plurals name="nbInaccuracies">
-    <item quantity="one">%s अशुद्धि</item>
-    <item quantity="other">%s अशुद्धियाँ</item>
   </plurals>
   <plurals name="numberInaccuracies">
     <item quantity="one">%s अशुद्धि</item>
@@ -245,7 +233,6 @@
   <string name="emailSent">हम ने %s को ईमेल भेजा है|</string>
   <string name="emailCanTakeSomeTime">इसे आने में कुछ समय लग सकता है।</string>
   <string name="refreshInboxAfterFiveMinutes">5 मिनट प्रतीक्षा करें और अपना ईमेल इनबॉक्स रिफ्रेश करें।</string>
-  <string name="checkSpamFolder">अपना स्पैम फ़ोल्डर भी जांचें, हो सकता है कि वह वहां हो। यदि हां, तो इसे स्पैम नहीं के रूप में चिह्नित करें।</string>
   <string name="accountCanLogin">आप अब %s से लॉग इन कर सकते हैं|</string>
   <string name="accountConfirmationEmailNotNeeded">आप को कन्फ़र्मेशन ईमेल की ज़रुरत नहीं है|</string>
   <string name="accountClosed">%s खाता बंद है.</string>
@@ -266,8 +253,6 @@
     <item quantity="other">आपके साथ %s खेल</item>
   </plurals>
   <string name="cancel">रद्द करें</string>
-  <string name="whiteTimeOut">सफेद का समय समाप्त</string>
-  <string name="blackTimeOut">काला का समय समाप्त</string>
   <string name="drawOfferSent">बराबरी पे खेल समाप्त करने का प्रस्ताव भेजा गया</string>
   <string name="drawOfferAccepted">बराबरी पे खेल समाप्त करने का प्रस्ताव स्वीकारित किया गया</string>
   <string name="whiteOffersDraw">सफ़ेद खिलाड़ी का बराबरी पे खेल समाप्त करने का प्रस्ताव</string>
@@ -653,11 +638,9 @@
   <string name="aboutSimulRules">जब सिमुल आरम्भ होता है तब हर खिलाडी एक खेल आरम्भ करता है  जिसे सफ़ेद खेलने को दिया जाता है। सिमुल तब समाप्त हो जाता है जब सारे खेलों का अंत हो जाता है।</string>
   <string name="aboutSimulSettings">सिमुल हमेशा आकाशमिक होते हैं। फिर से खेलना, चाल वापस लेना और अधिक समय प्रदान करने के विकलब बंद होते हैं।</string>
   <string name="create">बनाएं</string>
-  <string name="whenCreateSimul">जब आप सिमुल बनाते हैं तो आपको कई खिलाडियों के साथ एक साथ खेलने का मौका मिलता है</string>
   <string name="simulVariantsHint">अगर आप कई सारे रूपांतर लेते हैं तो हर खिलाडी को यह चुनने का हक़ होती है की वो क्या खेले</string>
   <string name="simulClockHint">फिशर क्लॉक सेटअप। आप जितने ज्यादा खिलाडी लेंगे, उतना आपको अधिक समय की आव्यशकता होगी।</string>
   <string name="simulAddExtraTime">सिमुल का सामना करने के लिए आप अपनी घडी में अतिरिक्त समय जोड़ सकते हैं</string>
-  <string name="simulHostExtraTime">अतिरिक्त समय की मेजबानी करें</string>
   <string name="lichessTournaments">lichess की प्रतियोगिताएं</string>
   <string name="tournamentFAQ">अखाडा प्रतियोगिता के बारे में कई बार पूछे गए  सवाल</string>
   <string name="timeBeforeTournamentStarts">प्रतियोगिता के आरंभ होने में समय</string>
@@ -750,7 +733,6 @@
   <string name="invalidFen">अमान्य FEN</string>
   <string name="custom">कस्टम</string>
   <string name="notifications">सूचनाएँ</string>
-  <string name="perfRatingX">रेटिंग: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s सेकंड का समय पहला चाल के लिए</item>
     <item quantity="other">%s सेकंड का समय पहला चाल के लिए</item>
@@ -891,7 +873,6 @@
   <string name="noChat">वार्ता निषेध</string>
   <string name="onlyTeamLeaders">केवल टीम नेता</string>
   <string name="onlyTeamMembers">केवल टीम सदस्य</string>
-  <string name="navigateMoveTree">चालों की सूची पर जाएं</string>
   <string name="mouseTricks">माउस की तरकीबें</string>
   <string name="toggleLocalAnalysis">स्थानीय कंप्युटर विश्लेषण</string>
   <string name="toggleAllAnalysis">सभी कंप्यूटर विश्लेषण टॉगल करें</string>

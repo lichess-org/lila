@@ -8,7 +8,6 @@
   <string name="accountMutedInfo">અમારી %s વાંચો. સંદેશાવ્યવહાર માર્ગદર્શિકાનું પાલન કરવામાં નિષ્ફળતાના પરિણામે એકાઉન્ટ્સ મ્યૂટ થઈ શકે છે.</string>
   <string name="excludedFromLeaderboards">તમારા એકાઉન્ટને લીડરબોર્ડમાંથી બાકાત રાખવામાં આવ્યું છે.</string>
   <string name="closedByModerators">તમારું એકાઉન્ટ મધ્યસ્થીઓ દ્વારા બંધ કરવામાં આવ્યું હતું.</string>
-  <string name="playTimeout">તમારી પાસે પ્લે ટાઇમઆઉટ છે.</string>
   <string name="communicationGuidelines">સંદેશાવ્યવહાર માર્ગદર્શિકા</string>
   <string name="fairPlay">ફેર પ્લે</string>
 </resources>

@@ -22,7 +22,6 @@ Besnenie nie je umožnené pri hrách s nulovým počiatočným časom (0+1, 0+2
 Besnenie Vám zabezpečí 1 bod naviac iba v prípade odohrania aspoň 7 ťahov v partii.</string>
   <string name="howIsTheWinnerDecided">Ako sa rozhodne o víťazovi?</string>
   <string name="howIsTheWinnerDecidedAnswer">Hráč, ktorý má po uplynutí časového limitu turnaja najvyšší počet bodov sa stane víťazom.</string>
-  <string name="howDoesPairingWork">Ako funguje párovanie hráčov?</string>
   <string name="howDoesPairingWorkAnswer">Na začiatku turnaja sa hráči spárujú na základe ich ratingu.
 Akonáhle ukončíte partiu, vráťte sa do turnajovej miestnosti: budete spárovaný so súperom, ktorý má podobný rating ako Vy. Takýto postup Vám zabezpečí minimum čakacieho času, avšak môže sa stať, že nebudete hrať so všetkými hráčmi v turnaji.
 Hrajte rýchlo a vráťte sa vždy čo najrýchlejšie do turnajovej miestnosti aby ste stihli odohrať viac partií a získať tak viac bodov.</string>
@@ -64,7 +63,6 @@ Hrajte rýchlo a vráťte sa vždy čo najrýchlejšie do turnajovej miestnosti 
   <string name="myTournaments">Moje turnaje</string>
   <string name="editTournament">Editovať turnaj</string>
   <string name="editTeamBattle">Editovať turnaj tímov</string>
-  <string name="defender">Obhajca</string>
   <string name="pickYourTeam">Zvoľte si tím</string>
   <string name="whichTeamWillYouRepresentInThisBattle">Ktorý tím budete v tomto turnaji reprezentovať?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">Ak sa chcete zúčastniť, musíte sa pridať k jednému z týchto tímov!</string>
@@ -72,9 +70,6 @@ Hrajte rýchlo a vráťte sa vždy čo najrýchlejšie do turnajovej miestnosti 
   <string name="recentlyPlayed">Naposledy odohrané</string>
   <string name="bestResults">Najlepšie výsledky</string>
   <string name="tournamentStats">Turnajové štatistiky</string>
-  <string name="rankAvgHelp">Priemerná pozícia je percentuálny podiel vášho hodnotenia. Nižšia hodnota je lepšia.
-
-Napríklad 3. miesto v turnaji so 100 hráčmi = 3 %. Byť na 10. mieste v turnaji s 1000 hráčmi = 1 %.</string>
   <string name="medians">mediány</string>
   <string name="allAveragesAreX">Všetky priemery na tejto stránke sú %s.</string>
   <string name="total">Spolu</string>

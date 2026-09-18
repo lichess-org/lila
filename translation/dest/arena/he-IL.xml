@@ -19,7 +19,6 @@
   <string name="howIsTheWinnerDecidedAnswer">השחקן/ית עם מספר הנקודות המרבי בסיום הזמן החוקי של התחרות יוכרזו כמנצחים.
 
 אם יש כמה שחקנים עם מספר זה, הם ידורגו לפי דירוג הביצוע שלהם בתחרות.</string>
-  <string name="howDoesPairingWork">איך מתבצע השיבוץ?</string>
   <string name="howDoesPairingWorkAnswer">השיבוץ בתחילת הטורניר נעשה לפי דירוג השחקן. 
 
 בסיום כל משחק, על השחקן לשוב למסך הטורניר ואז ישובץ עם שחקן בעל מיקום דומה. הדבר נעשה כדי למזער את זמן ההמתנה, אך לא מובטח לשחקן שיתמודד עם כל יריביו.
@@ -61,7 +60,6 @@
   <string name="myTournaments">הטורנירים שלי</string>
   <string name="editTournament">עריכת הטורניר</string>
   <string name="editTeamBattle">עריכת קרב הקבוצות</string>
-  <string name="defender">האלוף היוצא</string>
   <string name="pickYourTeam">בחר/י את הקבוצה שלך</string>
   <string name="whichTeamWillYouRepresentInThisBattle">איזו קבוצה תרצו לייצג בקרב?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">עליכם להצטרף לאחת מהקבוצות האלה כדי לשחק!</string>
@@ -69,11 +67,6 @@
   <string name="recentlyPlayed">שוחק לאחרונה</string>
   <string name="bestResults">התוצאות הטובות ביותר</string>
   <string name="tournamentStats">נתוני הטורנירים</string>
-  <string name="rankAvgHelp">ממוצע הדירוג הוא האחוזון של הדירוגים שלך. ככל שהוא נמוך יותר, כך הוא טוב יותר!
-
-לדוגמה, מי שזוכה מקום שלישי בטורניר עם 100 משתתפים הוא באחוזון השלישי (3%).
-
-מי שזוכה במקום העשירי מתוך אלף משתתפים הוא באחוזון העליון (1%).</string>
   <string name="medians">חציונים</string>
   <string name="allAveragesAreX">כל הממוצעים בעמוד זה הם למעשה %s.</string>
   <string name="total">סך הכל</string>

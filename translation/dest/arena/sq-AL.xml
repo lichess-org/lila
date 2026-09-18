@@ -26,7 +26,6 @@ Berserk jep vetëm një pikë shtesë nëse luani të paktën 7 lëvizje në loj
   <string name="howIsTheWinnerDecidedAnswer">Lojtari(ët) me më shumë pikë në përfundim të afatit të caktuar të turneut do të shpallet fitues.
 
 Kur dy lojtarë kanë të njëjtin numër pikësh, performanca e turneut është thyerja e barazimit.</string>
-  <string name="howDoesPairingWork">Si funksionin çiftimi?</string>
   <string name="howDoesPairingWorkAnswer">Në fillim të turneut, lojtarët çiftohen bazuar në klasifikimin e tyre.
 Sapo të përfundoni një lojë, kthehuni te holli i turneut: do të çiftoheni atëherë me një lojtar me renditje të afërt me tuajën. Kjo siguron kohë minimale pritjeje, por mund të mos përballeni me krejt lojtarët e tjerë në turne.
 Luani shpejt dhe kthehuni në holl, që të luani më shumë lojëra dhe të fitoni më shumë pikë.</string>
@@ -60,7 +59,6 @@ Luani shpejt dhe kthehuni në holl, që të luani më shumë lojëra dhe të fit
   <string name="myTournaments">Turnetë e mia</string>
   <string name="editTournament">Përpunoni turne</string>
   <string name="editTeamBattle">Përpunoni ndeshje ekipesh</string>
-  <string name="defender">Mbrojtës</string>
   <string name="pickYourTeam">Zgjidhni ekipin tuaj</string>
   <string name="whichTeamWillYouRepresentInThisBattle">Cilin ekip do të përfaqësoni në këtë ndeshje?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">Që të merrni pjesë, duhet të bëheni pjesë e njërit prej këtyre ekipeve!</string>
@@ -68,9 +66,6 @@ Luani shpejt dhe kthehuni në holl, që të luani më shumë lojëra dhe të fit
   <string name="recentlyPlayed">Luajtur së fundi</string>
   <string name="bestResults">Përfundimet më të mira</string>
   <string name="tournamentStats">Statistika turneu</string>
-  <string name="rankAvgHelp">Renditja mesatare është një përqindje e renditjes tuaj. Sa më e ulët, aq më mirë.
-
-Për shembull, të qenët i renditur i 3-i në një turne me 100 lojtarë = 3%. Renditja si i 10-it në një turne me 1000 lojtarë = 1%.</string>
   <string name="medians">mesatare</string>
   <string name="allAveragesAreX">Krejt mesataret në këtë faqe janë %s.</string>
   <string name="total">Gjithsej</string>

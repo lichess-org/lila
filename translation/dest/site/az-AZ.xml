@@ -2,6 +2,7 @@
 <resources>
   <string name="gameSetup">Oyun quruluşu</string>
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Dostuna meydan oxu</string>
+  <string name="gameMode">Oyun modu</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Kimisə oyuna dəvət etmək üçün, bu URL-i göndərin</string>
   <string name="gameOver">Oyun Bitdi</string>
   <string name="waitingForOpponent">Rəqib gözlənilir</string>
@@ -119,6 +120,7 @@
   <string name="enable">Aktiv et</string>
   <string name="bestMoveArrow">Ən yaxşı gedişi göstər</string>
   <string name="showVariationArrows">Variasiya oxlarını göstərin</string>
+  <string name="checkableKing">Mümkün şah vermə</string>
   <string name="multipleLines">Oxların sayı</string>
   <string name="cpus">CPU sayı</string>
   <string name="memory">RAM</string>
@@ -127,25 +129,13 @@
   <string name="blunder">Kobud Səhv</string>
   <string name="mistake">Səhv</string>
   <string name="inaccuracy">Qeyri-dəqiqlik</string>
-  <plurals name="nbBlunders">
-    <item quantity="one">%s kobud səhv</item>
-    <item quantity="other">%s kobud səhv</item>
-  </plurals>
   <plurals name="numberBlunders">
     <item quantity="one">%s Kobud səhv</item>
     <item quantity="other">%s Kobud səhv</item>
   </plurals>
-  <plurals name="nbMistakes">
-    <item quantity="one">%s səhv</item>
-    <item quantity="other">%s səhv</item>
-  </plurals>
   <plurals name="numberMistakes">
     <item quantity="one">%s Səhv</item>
     <item quantity="other">%s Səhv</item>
-  </plurals>
-  <plurals name="nbInaccuracies">
-    <item quantity="one">%s qeyri-dəqiqlik</item>
-    <item quantity="other">%s qeyri-dəqiqlik</item>
   </plurals>
   <plurals name="numberInaccuracies">
     <item quantity="one">%s Qeyri-dəqiqlik</item>
@@ -195,6 +185,7 @@
   <string name="minutesPerSide">Oyunçu başına dəqiqə</string>
   <string name="variant">Variant</string>
   <string name="variants">Variantlar</string>
+  <string name="variantsDescription">Oynamağın daha çox yolu</string>
   <string name="timeControl">Vaxta nəzarət</string>
   <string name="realTime">Real vaxt</string>
   <string name="correspondence">Yazışmalı</string>
@@ -221,6 +212,7 @@
   <string name="changeUsernameNotSame">Sadəcə istifadəçi adınızdakı böyük/kiçik hərfləri dəyişdirə bilərsiniz. Məsələn \"johndoe\" ilə \"JohnDoe\" kimi.</string>
   <string name="changeUsernameDescription">İstifadəçi adını dəyişdir. Bu prosesi sadəcə bir dəfə edə bilərsən və sadəcə mövcud istifadəçi adındakı hərfləri böyük və ya kiçik edə bilərsən.</string>
   <string name="signupUsernameHint">Ailə dostu bir istifadəçi adı seçdiyinizdən əmin olun. Siz onu daha sonra dəyişə bilməzsiniz və uyğun olmayan istifadəçi adları olan hesablar bağlanacaq!</string>
+  <string name="signupEmailPromise">Sizə sadəcə hesabınızla bağlı e-poçtlar göndərəcəyik və e-poçt ünvanınızı heç vaxt paylaşmayacağıq.</string>
   <string name="password">Şifrə</string>
   <string name="showPassword">Şifri göstər</string>
   <string name="changePassword">Şifrəni dəyiş</string>
@@ -244,7 +236,6 @@
   <string name="emailSent">Biz %s adlı ünvana email yollamışıq.</string>
   <string name="emailCanTakeSomeTime">Bu biraz vaxt ala bilər.</string>
   <string name="refreshInboxAfterFiveMinutes">5 dəqiqə gözləyin və email qutunuzu yenidən yoxlayın.</string>
-  <string name="checkSpamFolder">Spam qutusunu da yoxlayın, məktub oradada ola bilər. Elədirsə, zəhmət olmasa qeyri-spam kimi qeyd edin.</string>
   <string name="accountConfirmed">%s istifadəçisi uğurla təsdiqləndi.</string>
   <string name="accountCanLogin">Siz indi %s kimi daxil ola bilərsiniz.</string>
   <string name="accountConfirmationEmailNotNeeded">Təsdiq e-poçtuna ehtiyacınız yoxdur.</string>
@@ -267,8 +258,6 @@
   </plurals>
   <string name="ok">Oldu</string>
   <string name="cancel">Ləğv et</string>
-  <string name="whiteTimeOut">Ağların vaxtı bitdi</string>
-  <string name="blackTimeOut">Qaraların vaxtı bitdi</string>
   <string name="drawOfferSent">Heç-heçə təklifi göndərildi</string>
   <string name="drawOfferAccepted">Heç-heçə təklifi qəbul edildi</string>
   <string name="whiteOffersDraw">Ağlar heç-heçə təklif edir</string>
@@ -284,6 +273,7 @@
   <string name="abortGame">Oyunu ləğv et</string>
   <string name="gameAborted">Oyun ləğv olundu</string>
   <string name="standard">Standart</string>
+  <string name="customPosition">Xüsusi mövqe</string>
   <string name="unlimited">Limitsiz</string>
   <string name="mode">Növ</string>
   <string name="casual">Reytinqsiz</string>
@@ -342,7 +332,7 @@
   <string name="takebackPropositionSent">Dala qaytarma təklifi göndərildi</string>
   <string name="whiteAcceptsTakeback">Ağlar geri qaytarmanı qəbul etdi</string>
   <string name="blackAcceptsTakeback">Qaralar geri qaytarmanı qəbul etdi</string>
-  <string name="blackCancelsTakeback">Qaralar geri qaytarmanı ləğv etdi</string>
+  <string name="blackCancelsTakeback">Qaralar geri qaytarmağı ləğv etdi</string>
   <string name="yourOpponentProposesATakeback">Rəqibiniz dala qaytarma təklifi edir</string>
   <string name="bookmarkThisGame">Bu oyunu yadda saxla</string>
   <string name="tournament">Turnir</string>
@@ -381,8 +371,7 @@
     <item quantity="other">%s dənə daha reytinqli  oynamanız gərəklidir</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">%s reytinqiniz müvəqqətidir</string>
-  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Reytinq filtrləri kilidlənib, çünki reytinqiniz sabit deyil. Reytinqli oyunlar oynamaq sabitliyi artıracaq.</string>
-  <string name="cannotFilterByUnstableRating" comment="Tooltip to explain why the control for filtering by rating is disabled Replaces old string ratingRangeIsDisabledBecauseYourRatingIsProvisional">Reytinqiniz sabit olmadığı üçün reytinqə görə filtrləmək mümkün deyil. Reytinqli oyunlar oynamaq sabitliyi artıracaq.</string>
+  <string name="cannotFilterByUnstableRating" comment="Tooltip to explain why the control for filtering by rating is disabled">Reytinqiniz sabit olmadığı üçün reytinqə görə filtrləmək mümkün deyil. Reytinqli oyunlar oynamaq sabitliyi artıracaq.</string>
   <string name="yourPerfRatingIsTooHigh">Sizin %1$s reytinqiniz (%2$s) çox yüksəkdir</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Həftəlik %1$s reytinqiniz (%2$s) çox yüksəkdir</string>
   <string name="yourPerfRatingIsTooLow">Sizin %1$s reytinqiniz (%2$s) çox aşağıdır</string>
@@ -446,6 +435,7 @@
     <item quantity="one">%s izləyici</item>
     <item quantity="other">%s izlənilən</item>
   </plurals>
+  <string name="less">Daha az</string>
   <string name="more">Daha çox</string>
   <string name="memberSince">Üzvlük tarixi</string>
   <string name="lastSeenActive">Aktiv %s</string>
@@ -479,6 +469,7 @@
   <string name="movesPlayed">Oynanılan gediş</string>
   <string name="whiteWins">Ağların qələbəsi</string>
   <string name="blackWins">Qaraların qələbəsi</string>
+  <string name="drawRate">Bərabərlik göstəricisi</string>
   <string name="draws">Heç-heçələr</string>
   <string name="averageOpponent">Ortalama rəqib</string>
   <string name="boardEditor">Lövhə redaktoru</string>
@@ -540,6 +531,7 @@
   <string name="cheat">Hiylə</string>
   <string name="troll">Trol</string>
   <string name="other">Digər</string>
+  <string name="reportCheatBoostHelp">Oyunun (oyunların) linkini yapışdırın və istifadəçinin yanlış davranışını açıqlayın. Sadəcə \"bu hiylədir\" deməyin, bu qənaətə necə gəldiyinizi bizə deyin.</string>
   <string name="error.provideOneCheatedGameLink">Lütfən ən azı bir hiyləli oyun linki daxil edin.</string>
   <string name="by">%s tərəfindən</string>
   <string name="thisTopicIsNowClosed">Mövzu bağlandı.</string>
@@ -644,11 +636,9 @@
   <string name="aboutSimulRules">Sinxron seansda iştirak edən hər bir oyunçu, ağlarla oynayan ev sahibi ilk gedişi etdikdən sonra oyuna başlayır. Seans bütün oyunlar başa çatdıqda bitir.</string>
   <string name="aboutSimulSettings">Sinxron seanslar adətən reytinqsizdir. Revanşlar, dala qaytarmalar və əlavə vaxt qadağan edilmişdir.</string>
   <string name="create">Yarat</string>
-  <string name="whenCreateSimul">Bir Seans yaratdığınızda eyni anda bir neçə oyunçu ilə oynamağa başlayırsınız.</string>
   <string name="simulVariantsHint">Əgər bir neçə oyun variantı seçsəniz, hər bir oyunçu oynamaq istədiyi variantı seçə biləcək.</string>
   <string name="simulClockHint">Fişer Saatını quraşdırma. Daha çox oyunçu götürsəniz, daha çox vaxta ehtiyacınız ola bilər.</string>
   <string name="simulAddExtraTime">Sinxron seansla başa çıxmaq üçün öz saatınıza əlavə vaxtlar artıra bilərsiniz.</string>
-  <string name="simulHostExtraTime">Ev sahibinin əlavə vaxtı</string>
   <string name="lichessTournaments">Lichess turnirləri</string>
   <string name="tournamentFAQ">Arena turnirinin TSS-i</string>
   <string name="timeBeforeTournamentStarts">Turnir başlamasına qalan vaxt</string>
@@ -737,7 +727,6 @@
   <string name="invalidFen">Yanlış FEN</string>
   <string name="custom">Özəl</string>
   <string name="notifications">Bildirişlər</string>
-  <string name="perfRatingX">Reytinq: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">ilk gedişi etmək üçün son %s saniyə</item>
     <item quantity="other">ilk gedişi etmək üçün son %s saniyə</item>

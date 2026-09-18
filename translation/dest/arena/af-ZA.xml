@@ -25,7 +25,6 @@ Berserk laat net die ekstra punt toe indien meer as sewe skuiwe tydens die spel 
   <string name="howIsTheWinnerDecidedAnswer">Die speler(s) met die meeste punte aan die einde van die toernooi se tydslimiet sal as die wenner(s) aangewys word.
 
 As twee of meer spelers die selfde aantal punte het, sal die prestasie plasing van die toernooi die wenner bepaal.</string>
-  <string name="howDoesPairingWork">Hoe werk die plasing?</string>
   <string name="howDoesPairingWorkAnswer">Aan die begin van die toernooi word spelers volgens hulle gradering geplaas.
 Sodra jy \'n wedstryd voltooi het, keer jy terug na die toernooi ontvangs: Jy sal dan teen ander spelers geplaas word wat naby aan jou gradering is. Dit verseker \'n minimum wagtydperk, alhoewel jy dalk nie teen almal in die toernooi sal speel nie. 
 Speel vinnig en keer terug na die ontvangs om meer te speel en meer punte te kry.</string>

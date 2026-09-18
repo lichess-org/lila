@@ -13,7 +13,6 @@
   <string name="berserkAnswer">Ketika seorang pemain mengklik tombol Berserk pada awal permainan, mereka kehilangan setengah dari mereka jam waktu, tapi menang bernilai satu nilai turnamen tambahan. Berserk dengan waktu kontrol berjenjang juga membatalkan kenaikan berjenjang tersebut. (1 + 2 pengecualian, itu memberikan 1 + 0) Berserk ini tidak tersedia untuk game dengan waktu nol awal (0 + 1, 0 + 2). Berserk hanya ada nilai tambahan jika Anda bermain minimal 7 langkah dalam permainan.</string>
   <string name="howIsTheWinnerDecided">Bagaimana pemenang ditentukan?</string>
   <string name="howIsTheWinnerDecidedAnswer">Para pemain dengan poin terbanyak di akhir turnamen pada saat selesai sesuai batas waktu yang turnamen yang akan diumumkan sebagai para pemenang.</string>
-  <string name="howDoesPairingWork">Bagaimana cara pairing para pemain?</string>
   <string name="howDoesPairingWorkAnswer">Pada awal turnamen, pemain yang dipasangkan berdasarkan rating mereka. Segera setelah Anda menyelesaikan permainan, kembali ke lobi turnamen: Anda akan kemudian dipasangkan dengan pemain yang dekat dengan peringkat Anda. Hal ini memastikan waktu tunggu minimal, namun Anda tidak mungkin menghadapi semua pemain di turnamen. Bermain cepat dan kembali ke lobi untuk bermain lebih banyak permainan dan menang lebih banyak poin.</string>
   <string name="howDoesItEnd">Bagaimana cara berakhirnya?</string>
   <string name="howDoesItEndAnswer">Turnamen memiliki jam hitung mundur. Ketika mencapai nol, peringkat turnamen dibekukan dan pemenang diumumkan. Permainan berlangsung harus selesai, namun mereka tidak masuk hitungan untuk turnamen.</string>
@@ -43,7 +42,6 @@
   <string name="myTournaments">Turnamen saya</string>
   <string name="editTournament">Sunting turnamen</string>
   <string name="editTeamBattle">Sunting pertandingan tim</string>
-  <string name="defender">Defender</string>
   <string name="pickYourTeam">Pilih tim Anda</string>
   <string name="whichTeamWillYouRepresentInThisBattle">Tim mana yang akan Anda wakili dalam pertarungan ini?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">Anda harus bergabung dengan salah satu tim berikut untuk berpartisipasi!</string>
@@ -51,9 +49,6 @@
   <string name="recentlyPlayed">Baru saja dimainkan</string>
   <string name="bestResults">Hasil terbaik</string>
   <string name="tournamentStats">Statistik turnamen</string>
-  <string name="rankAvgHelp">Rata-rata peringkat adalah persentase peringkat Anda. Lebih rendah lebih baik.
-
-Misalnya, menjadi peringkat 3 dalam turnamen yang terdiri dari 100 pemain = 3%. Menjadi peringkat 10 dalam turnamen 1000 pemain = 1%.</string>
   <string name="medians">median</string>
   <string name="total">Total</string>
   <string name="pointsAvg">Poin rata-rata</string>

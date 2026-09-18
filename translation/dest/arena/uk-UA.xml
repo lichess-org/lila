@@ -24,7 +24,6 @@
   <string name="howIsTheWinnerDecided">Як визначається переможець?</string>
   <string name="howIsTheWinnerDecidedAnswer">Гравець(ці) з найбільшою кількістю очків по закінченню часу турніру буде обраний як переможець(ці).
 Якщо двоє або більше гравців набрали однакову кількість очок, переможець буде визначений за допомогою турнірного перфомансу.</string>
-  <string name="howDoesPairingWork">Як працює підбір?</string>
   <string name="howDoesPairingWorkAnswer">На початку турніру пари гравців обираються за їх рейтингом. По завершенню гри ви повертаєтесь на сторінку турніру, тоді для вас буде обрано гравця, найближчого до вас за очками. Це гарантує мінімальний час очікування, однак ви можете не зустрітися з усіма гравцями в турнірі.
 Грайте швидко і повертайтесь на сторінку турніру, щоб грати більше ігор і вигравати більше очок.</string>
   <string name="howDoesItEnd">Як завершується турнір?</string>
@@ -65,8 +64,7 @@
   <string name="myTournaments">Мої турніри</string>
   <string name="editTournament">Редагувати турнір</string>
   <string name="editTeamBattle">Редагувати командну битву</string>
-  <string name="defender">Захисник</string>
-  <string name="defenderLabel" comment="In this context, this is the current holder of a shield trophy, who is defending their trophy in the next shield tournament of that variant. https://lichess.org/tournament/shields Replaces old string defender">Захисник:</string>
+  <string name="defenderLabel" comment="In this context, this is the current holder of a shield trophy, who is defending their trophy in the next shield tournament of that variant. https://lichess.org/tournament/shields">Захисник:</string>
   <string name="pickYourTeam">Оберіть команду</string>
   <string name="whichTeamWillYouRepresentInThisBattle">Яку команду ви представлятимете в цій битві?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">Ви повинні приєднатися до однієї з цих команд, щоб взяти участь!</string>
@@ -74,10 +72,7 @@
   <string name="recentlyPlayed">Нещодавно зіграні</string>
   <string name="bestResults">Найкращі результати</string>
   <string name="tournamentStats">Показники турніру</string>
-  <string name="rankAvgHelp">Середній ранг - відсоток від вашого рейтингу. Нижчий - краще.
-
-Наприклад, посідаючи 3 місце на турнірі з 100 гравців = 3%. Маючи 10 місце в турнірі 1000 гравців = 1%.</string>
-  <string name="rankAverageHelp" comment="Replaces old string rankAvgHelp">Ваш середній рейтинг позначає вашу типову позицію відносно загальної кількості гравців у кожному турнірі.
+  <string name="rankAverageHelp">Ваш середній рейтинг позначає вашу типову позицію відносно загальної кількості гравців у кожному турнірі.
 Він вимірює місце в турнірі, не загальний рейтинг.
 
 Наприклад, середній рейтинг 3% означає, що ви зазвичай завершуєте в топ 3% (наприклад, 30-е місце з 1 000 гравців).</string>

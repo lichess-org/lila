@@ -8,7 +8,6 @@
   <string name="accountMutedInfo">קראו את %s שלנו. חובה לעמוד בכללי השיח שלנו כדי להימנע מהשתקה של החשבון.</string>
   <string name="excludedFromLeaderboards">חשבונך לא יכול להופיע בטבלאות האלופים.</string>
   <string name="closedByModerators">חשבונך נסגר על ידי המנהלים.</string>
-  <string name="playTimeout">חשבונך מושעה ממשחקים.</string>
   <string name="communicationGuidelines">כללי השיח</string>
   <string name="fairPlay">משחק ההוגן</string>
 </resources>

@@ -132,25 +132,13 @@
   <string name="blunder">ලොකු වරද</string>
   <string name="mistake">සුළු වරද</string>
   <string name="inaccuracy">නිවැරදිම නෑ</string>
-  <plurals name="nbBlunders">
-    <item quantity="one">%sලොකු වරද</item>
-    <item quantity="other">%sලොකු වරදවල්</item>
-  </plurals>
   <plurals name="numberBlunders">
     <item quantity="one">%sලොකු වරද</item>
     <item quantity="other">%sලොකු වරදවල්</item>
   </plurals>
-  <plurals name="nbMistakes">
-    <item quantity="one">%s දෝෂය ඇත</item>
-    <item quantity="other">%sදෝෂ ඇත</item>
-  </plurals>
   <plurals name="numberMistakes">
     <item quantity="one">%s දෝෂය ඇත</item>
     <item quantity="other">%sදෝෂ ඇත</item>
-  </plurals>
-  <plurals name="nbInaccuracies">
-    <item quantity="one">%sනිවැරදිම නෑ</item>
-    <item quantity="other">%sනිවැරදිම නෑ</item>
   </plurals>
   <plurals name="numberInaccuracies">
     <item quantity="one">%sනිවැරදිම නෑ</item>
@@ -251,7 +239,6 @@
   <string name="emailSent">අපි %s වෙත විද්‍යුත් තැපෑලක් යවා ඇත.</string>
   <string name="emailCanTakeSomeTime">පැමිණීමට යම් කාලයක් ගත විය හැකිය.</string>
   <string name="refreshInboxAfterFiveMinutes">මිනිත්තු 5ක් රැඳී සිට ඔබගේ විද්‍යුත් තැපැල් පෙට්ටිය නැවුම් කරන්න.</string>
-  <string name="checkSpamFolder">එසේම, ඔබේ අයාචිත තැපැල් ෆෝල්ඩරය පරීක්ෂා කරන්න, එය එහි අවසන් විය හැක. එසේ නම්, එය ස්පෑම් නොවන ලෙස සලකුණු කරන්න.</string>
   <string name="accountConfirmed">පරිශීලක %s සාර්ථකව තහවුරු කර ඇත.</string>
   <string name="accountCanLogin">ඔබට දැන් %s ලෙස පුරනය විය නොහැක.</string>
   <string name="accountConfirmationEmailNotNeeded">ඔබට තහවුරු කිරීමේ විද්‍යුත් තැපෑලක් අවශ්‍ය නොවේ.</string>
@@ -274,8 +261,6 @@
   </plurals>
   <string name="ok">හරි</string>
   <string name="cancel">අවලංගු කරන්න</string>
-  <string name="whiteTimeOut">සුදුගේ වේලාව ඉවතට</string>
-  <string name="blackTimeOut">කලුගේ වේලාව ඉවතට</string>
   <string name="drawOfferSent">සමාන කිරීමේ අවස්තාව යවා ඇත</string>
   <string name="drawOfferAccepted">සමාන කිරීමේ අවස්තාව පිලිගනී</string>
   <string name="whiteOffersDraw">සුදු සමාන කිරීමේ අවස්තාවක් එවා ඇත</string>
@@ -395,7 +380,6 @@
     <item quantity="other">ඔබ ඇගයූ ක්‍රීඩා %sක් තව ක්‍රීඩා කලයුතුය</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">ඔබගේ %s ශ්‍රේණිගත කිරීම තාවකාලිකයි</string>
-  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">ඔබේ ඇගයුම් අස්ථාවර බැවින් ඇගයිම් පෙරනය අගුළු වැටී ඇත. ඇගයූ ක්‍රීඩා ක්‍රීඩාකිරීම ස්ථාවර බක ඇති කරයි.</string>
   <string name="yourPerfRatingIsTooHigh">ඔබේ %1$s ඇගයීම (%2$s) ඉතා ඉහළයි</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">ඔබේ ඉහළම සතිපතා %1$s ඇගයීම (%2$s) ඉතා ඉහළය</string>
   <string name="yourPerfRatingIsTooLow">ඔබගේ %1$s ඇගයීම (%2$s) ඉතා අඩුය</string>
@@ -562,7 +546,6 @@
   <string name="other">වෙනත්</string>
   <string name="reportCheatBoostHelp">ලින්ක් එක සමග තරඟය (තරඟ) පිළිබඳ විස්තරය එවන්න. මෙම කෙනා ගැන කුමක් හොරාකමක් යැයි නම් කළ හැකිදැයි පැහැදිලි කරන්න. \'ඔවුන් හොරාකම් කරති\' යන්න පමණක් නොකියමින්, එය කොහෙද සහ ඔබ එයට කෙසේ සාක්ෂාත් කරන්න.</string>
   <string name="reportUsernameHelp">මෙම පරිශීලක නාමය අවමානාත්මක යැයි සනාථ කළේ කෙසේද යන්න විස්තර කරන්න. \'මේක අවමානාත්මකයි/නරකයි\' යන්න පමණක් නොකිය, නමුත් එය කුමක් නිසාදැයි පැහැදිලි කරන්න. විශේෂයෙන්ම එය සෘජුවෙන් නොපෙනෙන එකක් නම්, අභ්‍යන්තර අර්ථය නොපෙනෙන ඉංග්‍රීසියෙන් නොවූ, එකකින් හෝ ඉතිහාසය/සංස්කෘතික නියෝගයක් මත පදනම් වූ එකක් නම් එය සනාථ කරන්න.\".</string>
-  <string name="reportProcessedFasterInEnglish">ඉංග්‍රීසියන් ලීයූ දෑ ඉක්මනට සෝදිසි කරයි.</string>
   <string name="error.provideOneCheatedGameLink">වංචා කළ ක්‍රීඩාව සඳහා එක් සබැඳියක්වත් දීමට කාරුණික වන්න​.</string>
   <string name="by">%s වෙතින්</string>
   <string name="blog">බ්ලොග්</string>
@@ -633,11 +616,9 @@
   <string name="aboutSimulRules">සිමියුලය ආරම්භ වන විට, සෑම ක්‍රීඩකයෙක්ම සත්කාරකයා සමඟ ක්‍රීඩාවක් ආරම්භ කරයි. සියලුම ක්‍රීඩා සම්පූර්ණ වූ විට සිමියුලය අවසන් වේ.</string>
   <string name="aboutSimulSettings">සිමියුල්ස් සෑම විටම අනියම් වේ. නැවත ගැලපීම්, ආපසු ගැනීම් සහ කාලය එකතු කිරීම අබල කර ඇත.</string>
   <string name="create">සාදන්න</string>
-  <string name="whenCreateSimul">ඔබ සිමියුලයක් නිර්මාණය කරන විට, ඔබට එකවර ක්‍රීඩකයන් කිහිප දෙනෙකු ක්‍රීඩා කිරීමට අවස්ථාව ලැබේ.</string>
   <string name="simulVariantsHint">ඔබ ප්‍රභේද කිහිපයක් තෝරා ගන්නේ නම්, එක් එක් ක්‍රීඩකයාට ක්‍රීඩා කළ යුත්තේ කුමන එකක්ද යන්න තෝරා ගත හැකිය.</string>
   <string name="simulClockHint">ෆිෂර් ඔරලෝසු සැකසුම. ඔබ වැඩිපුර ක්‍රීඩකයින් භාර ගන්නා තරමට, ඔබට වැඩි කාලයක් අවශ්‍ය විය හැකිය.</string>
   <string name="simulAddExtraTime">ඔබට සිමියුලය සමඟ සාර්ථකව කටයුතු කිරීමට උපකාර කිරීම සඳහා ඔබේ ඔරලෝසුවට අමතර ආරම්භක වේලාවක් එක් කළ හැක.</string>
-  <string name="simulHostExtraTime">අතිරේක ආරම්භක ඔරලෝසු කාලය සත්කාරකත්වය</string>
   <string name="simulAddExtraTimePerPlayer">සිමියුලයට සම්බන්ධ වන එක් එක් ක්‍රීඩකයා සඳහා ඔබේ ඔරලෝසුවට ආරම්භක වේලාව එක් කරන්න.</string>
   <string name="lichessTournaments">Lichess තරඟාවලි</string>
   <string name="tournamentFAQ">තරඟාවලිය FAQ</string>

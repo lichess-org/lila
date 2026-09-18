@@ -26,11 +26,9 @@
   <string name="downloadAllRounds">Спампаваць усе туры</string>
   <string name="resetRound">Скасаваць гэты тур</string>
   <string name="deleteRound">Выдаліць гэты тур</string>
-  <string name="definitivelyDeleteRound">Канчаткова выдаліць ​​тур і ўсе яго гульні.</string>
   <string name="deleteAllGamesOfThisRound">Выдаліць усе гульні гэтага тура. Для іх паўторнага стварэння крыніца павінна быць актыўнай.</string>
   <string name="editRoundStudy">Рэдагаваць навучанне туру</string>
   <string name="deleteTournament">Выдаліць гэты турнір</string>
-  <string name="definitivelyDeleteTournament">Канчаткова выдаліць увесь турнір, усе яго туры і ўсе гульні.</string>
   <string name="showScores">Паказваць ачкі гульцоў па рэзультатах гульняў</string>
   <string name="replacePlayerTags">Па жаданні: змяніць імёны, рэйтынгі і званні гульцоў</string>
   <string name="fideFederations">Федэрацыі FIDE</string>

@@ -25,7 +25,6 @@
   <string name="cantChangeMore">Мы не можам змяніць нічога акрамя за рэгістра. Па тэнічных прычынах гэта проста немагчыма.</string>
   <string name="orCloseAccount">Аднак, вы можаце зачыніць ваш бягучы ўліковы запіс і потым стварыць новы.</string>
   <string name="wantClearHistory">Я хачу ачысціць сваю гісторыю альбо рэйтынг</string>
-  <string name="cantClearHistory">Немагчыма ачысціць гісторыю гульняў, гісторыю задач ці рэйтынг.</string>
   <string name="wantReport">Хачу паскардзіцца на гульца</string>
   <string name="toReportAPlayerUseForm">Каб паскардзіцца на гульца, выкарыстайце форму скаргі</string>
   <string name="youCanAlsoReachReportPage">Вы таксама можаце трапіць на гэту старонку націснуўшы %s кнопгу скаргі на старонцы профілю.</string>

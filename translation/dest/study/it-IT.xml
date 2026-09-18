@@ -65,7 +65,6 @@
   <string name="downloadGame">Scarica partita</string>
   <string name="studyUrl">URL dello studio</string>
   <string name="currentChapterUrl">URL del capitolo corrente</string>
-  <string name="youCanPasteThisInTheForumToEmbed">Puoi incollare questo URL nel forum per creare un rimando</string>
   <string name="startAtInitialPosition">Inizia dalla prima mossa</string>
   <string name="startAtX">Inizia a: %s</string>
   <string name="embedInYourWebsite">Incorpora nel tuo sito Web o Blog</string>
@@ -187,8 +186,6 @@
   <string name="fromInitialPositionText">Uno schema per una nuova partita.&lt;br&gt;Adatto per esplorare le aperture.</string>
   <string name="customPositionTitle">Posizione personalizzata</string>
   <string name="customPositionText">Personalizza la scacchiera come preferisci.&lt;br&gt;Ideale per esplorare i finali.</string>
-  <string name="loadExistingLichessGameTitle">Carica una partita lichess esistente</string>
-  <string name="loadExistingLichessGameText">Incolla un\'URL di una partita lichess &lt;br&gt; (come lichess.org/7fHIU0XI)&lt;br&gt;per caricare le mosse nel capitolo.</string>
   <string name="fromFenStringTitle">Da una stringa FEN</string>
   <string name="fromFenStringText">Incolla una posizione in formato FEN&lt;br&gt;&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;br&gt;&lt;br&gt;per iniziare il capitolo da una posizione.</string>
   <string name="fromPgnGameTitle">Preso da una partita PGN</string>

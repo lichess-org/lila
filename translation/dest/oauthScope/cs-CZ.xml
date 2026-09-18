@@ -21,7 +21,6 @@
   <string name="puzzleRead">Číst puzzle aktivity</string>
   <string name="teamRead">Číst soukromé informace o týmu</string>
   <string name="teamWrite">Připojit se a opustit týmy</string>
-  <string name="teamLead">Spravovat týmy, které vedete: posílat soukromé zprávy, vykopávat členy</string>
   <string name="followRead">Číst sledované hráče</string>
   <string name="followWrite">Sledovat a přestat sledovat jiné hráče</string>
   <string name="msgWrite">Poslat soukromé zprávy jiným hráčům</string>

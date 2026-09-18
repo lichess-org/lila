@@ -38,12 +38,10 @@
   <string name="downloadAllRounds">Завантажити всі тури</string>
   <string name="resetRound">Скинути цей раунд</string>
   <string name="deleteRound">Видалити цей раунд</string>
-  <string name="definitivelyDeleteRound">Видалити всі ігри цього раунду.</string>
   <string name="deleteAllGamesOfThisRound">Видалити всі ігри цього раунду. Джерело має бути активним для того, щоб повторно відтворити його.</string>
   <string name="editRoundStudy">Редагувати дослідження раунду</string>
   <string name="deleteTournament">Видалити турнір</string>
-  <string name="definitivelyDeleteTournament">Остаточно видалити весь турнір, всі його раунди та всі його ігри.</string>
-  <string name="permanentlyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast Replaces old string definitivelyDeleteTournament">Назавжди видалити цей турнір разом з усіма іграми?</string>
+  <string name="permanentlyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast">Назавжди видалити цей турнір разом з усіма іграми?</string>
   <string name="showScores">Показувати результати гравців за результатами гри</string>
   <string name="replacePlayerTags">За бажанням: замінити імена, рейтинги та титули гравців</string>
   <string name="fideFederations">Федерації FIDE</string>

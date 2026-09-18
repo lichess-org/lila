@@ -21,7 +21,6 @@
   <string name="puzzleRead">Ανάγνωση ιστορικού τακτικών</string>
   <string name="teamRead">Ανάγνωση ιδιωτικών πληροφοριών ομάδας</string>
   <string name="teamWrite">Συμμετοχή και αποχώρηση από ομάδες</string>
-  <string name="teamLead">Διαχείριση ομάδων που ελέγχετε: αποστολή προσωπικών μηνυμάτων, αποβολή μελών</string>
   <string name="followRead">Ανάγνωση των χρηστών που ακολουθείτε</string>
   <string name="followWrite">Ακολούθηση και κατάργηση ακολούθησης άλλων χρηστών</string>
   <string name="msgWrite">Αποστολή προσωπικών μηνυμάτων σε άλλους χρήστες</string>

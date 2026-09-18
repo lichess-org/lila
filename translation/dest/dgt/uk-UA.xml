@@ -20,7 +20,6 @@
   <string name="checkYouHaveMadeOpponentsMove">Спершу перевірте, чи ви виконали хід суперника на DGT-дошці. Скасуйте свій хід. Зіграйте знову.</string>
   <string name="asALastResort">У крайньому разі розставте фігури на дошці, як у Lichess, потім %s</string>
   <string name="reloadThisPage">Оновити цю сторінку</string>
-  <string name="dgtConfigure">DGT — Налаштування</string>
   <string name="lichessConnectivity">З\'єднання з Lichess</string>
   <string name="validDgtOauthToken">У вас є підхожий токен OAuth для гри за DGT-дошкою.</string>
   <string name="dgtPlayMenuEntryAdded">Елемент %s було додано до меню ГРАТИ вгорі.</string>

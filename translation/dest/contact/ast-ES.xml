@@ -25,7 +25,6 @@
   <string name="cantChangeMore">Nun podemos camudar más que les mayúscules/minúscules. Por razones técniques, ye totalmente imposible.</string>
   <string name="orCloseAccount">Sin embargo, puedes zarrar la to cuenta actual y crear una nueva.</string>
   <string name="wantClearHistory">Quiero borrar el mio historial o puntuación</string>
-  <string name="cantClearHistory">Nun puedes borrar el to historial de partíes, exercicios o puntuaciones.</string>
   <string name="wantReport">Quiero denunciar a un xugador</string>
   <string name="toReportAPlayerUseForm">Pa denunciar a un xugador utiliza el formulariu de denuncia</string>
   <string name="youCanAlsoReachReportPage">Tamién puedes aportar a esa páxina pulsiando el botón de denuncia %s nun perfil.</string>

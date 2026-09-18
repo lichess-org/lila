@@ -56,12 +56,8 @@
   <string name="scrollOnTheBoardToReplayMoves">நகர்வுகளை மீண்டும் இயக்க, பலகையில் உருட்டவும்</string>
   <string name="correspondenceEmailNotification">உங்கள் இசைவு விளையாட்டுகளைப் பட்டியலிடும் தினசரி மின்னஞ்சல்</string>
   <string name="notifyStreamStart">தொடரோடி நேரலைக்கு செல்கிறார்</string>
-  <string name="notifyInboxMsg">புதிய மடல் தூது</string>
-  <string name="notifyForumMention">மன்றக் கருத்து உங்களைக் குறிப்பிடுகிறது</string>
-  <string name="notifyInvitedStudy">கற்கைக்கான அழைப்பு</string>
   <string name="notifyGameEvent">இசைவு விளையாட்டு புதுப்பிப்புகள்</string>
   <string name="notifyChallenge">சவால்கள்</string>
-  <string name="notifyTournamentSoon">பந்தயம் விரைவில் துவங்குகிறது</string>
   <string name="notifyTimeAlarm">இசைவு விளையாட்டு கடிகாரம் முடிகிறது</string>
   <string name="notifyBell">Lichess இல் மணி அறிவிப்பு</string>
   <string name="notifyPush">நீங்கள் Lichess இல் இல்லாதபோது சாதன அறிவிப்பு</string>

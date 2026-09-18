@@ -10,9 +10,8 @@
   <string name="excludedFromLeaderboards">Ο λογαριασμός σας έχει αποκλειστεί από τους πίνακες κατάταξης.</string>
   <string name="closedByModerators">Ο λογαριασμός σας έκλεισε από τους διαχειριστές.</string>
   <string name="blogRestrictionInfo">Διαβάστε τους %s, καθώς η παραβίασή τους μπορεί να επιφέρει διάφορες συνέπειες.</string>
-  <string name="playTimeout">Δεν μπορείτε να παίξετε αυτή τη στιγμή λόγω timeout.</string>
   <string name="reportBanned">Δεν μπορείτε να στείλετε αναφορές στους συντονιστές</string>
-  <string name="temporarilyRestrictedFromPlaying" comment="play timeout = Lichess prevents you temporarily from playing any games Replaces old string playTimeout">Η δυνατότητά σας να συμμετέχετε σε παρτίδες έχει προσωρινά ανασταλεί.</string>
+  <string name="temporarilyRestrictedFromPlaying" comment="play timeout = Lichess prevents you temporarily from playing any games">Η δυνατότητά σας να συμμετέχετε σε παρτίδες έχει προσωρινά ανασταλεί.</string>
   <string name="communicationGuidelines">οδηγίες επικοινωνίας με άλλους χρήστες</string>
   <string name="blogEtiquette">κανόνες ιστολογίων</string>
   <string name="fairPlay">ευγενής άμιλλα</string>

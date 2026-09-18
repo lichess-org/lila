@@ -130,20 +130,11 @@
   <string name="blunder">ຜິດພາດຮ້າຍແຮງ</string>
   <string name="mistake">ຜິດພາດ</string>
   <string name="inaccuracy">ບໍ່ແມ່ນທ່າທີ່ດີທີ່ສຸດ</string>
-  <plurals name="nbBlunders">
-    <item quantity="other">%s ຜິດພາດຮ້າຍແຮງ</item>
-  </plurals>
   <plurals name="numberBlunders">
     <item quantity="other">%s ຜິດພາດຮ້າຍແຮງ</item>
   </plurals>
-  <plurals name="nbMistakes">
-    <item quantity="other">%s ຜິດພາດ</item>
-  </plurals>
   <plurals name="numberMistakes">
     <item quantity="other">%s ຜິດພາດ</item>
-  </plurals>
-  <plurals name="nbInaccuracies">
-    <item quantity="other">%s ຈຸດທີ່ບໍ່ແມ່ນຍຳ</item>
   </plurals>
   <plurals name="numberInaccuracies">
     <item quantity="other">%s ຈຸດທີ່ບໍ່ແມ່ນຍຳ</item>
@@ -236,7 +227,6 @@
   <string name="emailSent">ພວກເຮົາໄດ້ສົ່ງອີເມວໄປທີ່ %s ແລ້ວ.</string>
   <string name="emailCanTakeSomeTime">ມັນອາດຈະໃຊ້ເວລາຄາວໜຶ່ງເພື່ອສົ່ງໄປເຖິງ.</string>
   <string name="refreshInboxAfterFiveMinutes">ກະລຸນາລໍຖ້າ 5 ນາທີ ແລ້ວຣີເຟຣຊ (Refresh) ກ່ອງຂໍ້ຄວາມອີເມວຂອງທ່ານ.</string>
-  <string name="checkSpamFolder">ກະລຸນາກວດເບິ່ງໃນກ່ອງຈົດໝາຍຂີ້ເຫຍື້ອ (Spam) ນຳ, ມັນອາດຈະໄປຢູ່ຫັ້ນ. ຖ້າມີ, ໃຫ້ໝາຍວ່າມັນບໍ່ແມ່ນຈົດໝາຍຂີ້ເຫຍື້ອ.</string>
   <string name="accountConfirmed">ຜູ້ໃຊ້ %s ໄດ້ຖືກຢືນຢັນສຳເລັດແລ້ວ.</string>
   <string name="accountCanLogin">ທ່ານສາມາດເຂົ້າສູ່ລະບົບໄດ້ຕອນນີ້ໃນຊື່ %s.</string>
   <string name="accountConfirmationEmailNotNeeded">ທ່ານບໍ່ຈຳເປັນຕ້ອງໃຊ້ອີເມວຢືນຢັນ.</string>
@@ -256,8 +246,6 @@
   </plurals>
   <string name="ok">ຕົກລົງ</string>
   <string name="cancel">ຍົກເລີກ</string>
-  <string name="whiteTimeOut">ຝ່າຍຂາວໝົດເວລາ</string>
-  <string name="blackTimeOut">ຝ່າຍດຳໝົດເວລາ</string>
   <string name="drawOfferSent">ສົ່ງຄຳສະເໜີສະເໝີແລ້ວ</string>
   <string name="drawOfferAccepted">ຍອມຮັບຄຳສະເໜີສະເໝີແລ້ວ</string>
   <string name="whiteOffersDraw">ຝ່າຍຂາວສະເໜີສະເໝີ</string>
@@ -364,7 +352,6 @@
     <item quantity="other">ທ່ານຕ້ອງຫຼິ້ນເກມທີ່ມີການຈັດອັນດັບຕື່ມອີກ %s ເກມ</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">ຄະແນນ %s ຂອງທ່ານຍັງບໍ່ຄົງທີ່</string>
-  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">ຕົວກອງຄະແນນຖືກລັອກເນື່ອງຈາກຄະແນນຂອງທ່ານຍັງບໍ່ຄົງທີ່. ການຫຼິ້ນເກມທີ່ມີການຈັດອັນດັບຈະຊ່ວຍເພີ່ມຄວາມຄົງທີ່ຂອງຄະແນນ.</string>
   <string name="yourPerfRatingIsTooHigh">ຄະແນນ %1$s ຂອງທ່ານ (%2$s) ສູງເກີນໄປ</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">ຄະແນນ %1$s ສູງສຸດປະຈຳອາທິດຂອງທ່ານ (%2$s) ສູງເກີນໄປ</string>
   <string name="yourPerfRatingIsTooLow">ຄະແນນ %1$s ຂອງທ່ານ (%2$s) ຕ່ຳເກີນໄປ</string>
@@ -529,7 +516,6 @@
   <string name="other">ອື່ນໆ</string>
   <string name="reportCheatBoostHelp">ວາງລິ້ງຂອງເກມ ແລະ ອະທິບາຍສິ່ງທີ່ຜິດປົກກະຕິກ່ຽວກັບພຶດຕິກຳຂອງຜູ້ໃຊ້ນີ້. ຢ່າພຽງແຕ່ບອກວ່າ \"ພວກເຂົາໂກງ\", ແຕ່ໃຫ້ບອກພວກເຮົາວ່າເປັນຫຍັງທ່ານຈຶ່ງສະຫຼຸບແບບນັ້ນ.</string>
   <string name="reportUsernameHelp">ອະທິບາຍວ່າເປັນຫຍັງຊື່ຜູ້ໃຊ້ນີ້ຈຶ່ງບໍ່ເໝາະສົມ. ຢ່າພຽງແຕ່ບອກວ່າ \"ມັນບໍ່ເໝາະສົມ\", ແຕ່ໃຫ້ບອກເຫດຜົນໃຫ້ພວກເຮົາຊາບ, ໂດຍສະເພາະຫາກເປັນຄຳດ່າທີ່ປິດບັງໄວ້, ບໍ່ແມ່ນພາສາອັງກິດ, ເປັນຄຳສະແລງ ຫຼື ກ່ຽວຂ້ອງກັບປະຫວັດສາດ/ວັດທະນະທຳ.</string>
-  <string name="reportProcessedFasterInEnglish">ລາຍງານຂອງທ່ານຈະຖືກກວດສອບໄວຂຶ້ນຫາກຂຽນເປັນພາສາອັງກິດ.</string>
   <string name="error.provideOneCheatedGameLink">ກະລຸນາລະບຸຢ່າງໜ້ອຍໜຶ່ງລິ້ງຂອງເກມທີ່ສົງໄສວ່າຜິດກົດ.</string>
   <string name="by">ໂດຍ %s</string>
   <string name="importedByX">ນຳເຂົ້າໂດຍ %s</string>
@@ -647,11 +633,9 @@
   <string name="aboutSimulRules">ເມື່ອການຫຼິ້ນ Simul ເລີ່ມຕົ້ນ, ຜູ້ຫຼິ້ນທຸກຄົນຈະເລີ່ມເກມກັບຜູ້ຈັດ. ການຫຼິ້ນ Simul ຈະສິ້ນສຸດລົງເມື່ອທຸກເກມຫຼິ້ນສຳເລັດແລ້ວ.</string>
   <string name="aboutSimulSettings">ການຫຼິ້ນ Simul ແມ່ນເປັນແບບຫຼິ້ນທົ່ວໄປ (Casual) ສະເໝີ. ການຂໍແກ້ມື, ການຂໍເດີນໝາກຄືນ ແລະ ການເພີ່ມເວລາແມ່ນຖືກປິດໃຊ້ງານ.</string>
   <string name="create">ສ້າງ</string>
-  <string name="whenCreateSimul">ເມື່ອທ່ານສ້າງ Simul, ທ່ານຈະໄດ້ຫຼິ້ນກັບຜູ້ຫຼິ້ນຫຼາຍຄົນພ້ອມກັນ.</string>
   <string name="simulVariantsHint">ຫາກທ່ານເລືອກຫຼາຍຮູບແບບ, ຜູ້ຫຼິ້ນແຕ່ລະຄົນຈະສາມາດເລືອກໄດ້ວ່າຕ້ອງການຫຼິ້ນຮູບແບບໃດ.</string>
   <string name="simulClockHint">ການຕັ້ງຄ່າໂມງ Fischer. ຍິ່ງທ່ານຫຼິ້ນກັບຜູ້ຫຼິ້ນຫຼາຍຄົນ, ທ່ານອາດຈະຕ້ອງການເວລາຫຼາຍຂຶ້ນ.</string>
   <string name="simulAddExtraTime">ທ່ານສາມາດເພີ່ມເວລາເລີ່ມຕົ້ນໃຫ້ກັບໂມງຂອງທ່ານເພື່ອຊ່ວຍໃນການຫຼິ້ນ Simul.</string>
-  <string name="simulHostExtraTime">ເວລາເລີ່ມຕົ້ນເພີ່ມເຕີມສຳລັບຜູ້ຈັດ</string>
   <string name="simulAddExtraTimePerPlayer">ເພີ່ມເວລາເລີ່ມຕົ້ນໃຫ້ກັບໂມງຂອງທ່ານສຳລັບຜູ້ຫຼິ້ນແຕ່ລະຄົນທີ່ເຂົ້າຮ່ວມ Simul.</string>
   <string name="simulHostExtraTimePerPlayer">ເວລາເພີ່ມເຕີມຂອງຜູ້ຈັດຕໍ່ຜູ້ຫຼິ້ນໜຶ່ງຄົນ</string>
   <string name="lichessTournaments">ການແຂ່ງຂັນ Lichess</string>
@@ -771,7 +755,6 @@
   <string name="custom">ກຳນົດເອງ</string>
   <string name="notifications">ການແຈ້ງເຕືອນ</string>
   <string name="notificationsX">ການແຈ້ງເຕືອນ: %1$s</string>
-  <string name="perfRatingX">ຄະແນນ (Rating): %s</string>
   <string name="yourRatingIsX">ຄະແນນຂອງທ່ານແມ່ນ %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="other">ມີເວລາ %s ວິນາທີ ໃນການເດີນຕາທຳອິດ</item>
@@ -827,7 +810,6 @@
     <item quantity="other">ແລະ ບັນທຶກ %s ແຖວການເດີນໝາກລ່ວງໜ້າ</item>
   </plurals>
   <string name="showUnreadLichessMessage">ທ່ານໄດ້ຮັບຂໍ້ຄວາມສ່ວນຕົວຈາກ Lichess.</string>
-  <string name="clickHereToReadIt">ຄລິກຢູ່ນີ້ເພື່ອອ່ານ</string>
   <string name="sorry">ຂໍໂທດເດີ :(</string>
   <string name="weHadToTimeYouOutForAWhile">ພວກເຮົາຈຳເປັນຕ້ອງລະງັບການຫຼິ້ນຂອງທ່ານຊົ່ວຄາວ.</string>
   <string name="why">ຍ້ອນຫຍັງ?</string>
@@ -908,14 +890,12 @@
   <string name="simulFeaturedHelp">ສະແດງການຫຼິ້ນ Simul ຂອງທ່ານໃຫ້ທຸກຄົນເຫັນໃນ %s. ປິດໃຊ້ງານສຳລັບການຫຼິ້ນ Simul ສ່ວນຕົວ.</string>
   <string name="simulDescription">ຄຳອະທິບາຍ Simul</string>
   <string name="simulDescriptionHelp">ມີຫຍັງທີ່ທ່ານຢາກບອກຜູ້ເຂົ້າຮ່ວມບໍ?</string>
-  <string name="markdownIsAvailable">%s ສາມາດໃຊ້ໃນການຈັດຮູບແບບໄດ້.</string>
   <string name="embedsAvailable">ວາງ URL ຂອງເກມ ຫຼື URL ຂອງບົດສຶກສາເພື່ອຝັງມັນ.</string>
   <string name="inYourLocalTimezone">ຕາມເຂດເວລາທ້ອງຖິ່ນຂອງທ່ານ</string>
   <string name="tournChat">ຫ້ອງສົນທະນາການແຂ່ງຂັນ</string>
   <string name="noChat">ບໍ່ມີການສົນທະນາ</string>
   <string name="onlyTeamLeaders">ສະເພາະຫົວໜ້າທີມ</string>
   <string name="onlyTeamMembers">ສະເພາະສະມາຊິກໃນທີມ</string>
-  <string name="navigateMoveTree">ເລື່ອນເບິ່ງລາຍການການເດີນໝາກ</string>
   <string name="mouseTricks">ເຕັກນິກການໃຊ້ເມົາສ໌</string>
   <string name="toggleLocalAnalysis">ເປີດ/ປິດ ການວິເຄາະດ້ວຍຄອມພິວເຕີທ້ອງຖິ່ນ</string>
   <string name="toggleAllAnalysis">ເປີດ/ປິດ ການວິເຄາະດ້ວຍຄອມພິວເຕີທັງໝົດ</string>

@@ -44,15 +44,12 @@
   <string name="doubleCheckDescription">雙重將軍，讓我方能攻擊敵人的他子。</string>
   <string name="endgame">殘局</string>
   <string name="endgameDescription">棋局中最後階段的戰術</string>
-  <string name="enPassantDescription">一種食敵方過路兵的戰略。</string>
   <string name="exposedKing">未被保護的國王</string>
   <string name="exposedKingDescription">攻擊未被保護的國王之戰術，常常導致將死。</string>
   <string name="fork">捉雙</string>
-  <string name="forkDescription">一種同時攻擊敵方多個子，使敵方只能犧牲一子的戰術。</string>
   <string name="hangingPiece">懸子</string>
   <string name="hangingPieceDescription">「免費」取得他子的戰術</string>
   <string name="hookMate">鉤將死</string>
-  <string name="hookMateDescription">利用車馬兵與一敵方兵以限制敵方國王的逃生路線。</string>
   <string name="interference">干擾</string>
   <string name="interferenceDescription">將一子擋在兩個敵方子之間以切斷防護，例如以騎士在兩車之間阻擋。</string>
   <string name="intermezzo">Intermezzo</string>
@@ -92,7 +89,6 @@
   <string name="pin">牽制</string>
   <string name="pinDescription">一種涉及「牽制」，讓一敵方子無法在讓其他更高價值的子不被受到攻擊下移動的戰術。</string>
   <string name="promotion">升變</string>
-  <string name="promotionDescription">讓兵走到後排升變為皇后或其他高價值的子。</string>
   <string name="queenEndgame">后殘局</string>
   <string name="queenEndgameDescription">只剩后和兵的殘局</string>
   <string name="queenRookEndgame">后與車</string>

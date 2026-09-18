@@ -8,7 +8,6 @@
   <string name="accountMutedInfo">%s ی ئێمە بخوێنەرەوە. جێبەجێنەکردنی ڕێنماییەکانی پەیوەندیکردن دەتوانێت ببێتە هۆی ڕاگرتنی ئەکاونتەکان.</string>
   <string name="excludedFromLeaderboards">ئەکاونتەکەت لە بوون بە بەرێوەبەری بۆردەکان دوور خراوەتەوە.</string>
   <string name="closedByModerators">هەژمارەکەت لەلایەن بەڕێوەبەرانەوە داخراوە.</string>
-  <string name="playTimeout">بۆ ماوەیەکی کاتی ناتوانیت یاری بکەیت.</string>
   <string name="communicationGuidelines">ڕێنماییەکانی پەیوەندیکردن</string>
   <string name="fairPlay">یاریyەکی دادپەروەرانە</string>
 </resources>

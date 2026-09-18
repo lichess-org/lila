@@ -28,7 +28,6 @@
   <string name="approved">ການສຕຣີມຂອງທ່ານໄດ້ຮັບການອະນຸມັດແລ້ວ.</string>
   <string name="pendingReview">ການສຕຣີມຂອງທ່ານກຳລັງຖືກກວດສອບໂດຍຜູ້ດູແລລະບົບ.</string>
   <string name="pleaseFillIn">ກະລຸນາຕື່ມຂໍ້ມູນຜູ້ສຕຣີມເມີຂອງທ່ານ ແລະ ອັບໂຫຼດຮູບພາບ.</string>
-  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">ເມື່ອເຈົ້າພ້ອມທີ່ຈະໃຫ້ລາຍຊື່ຂອງເຈົ້າປະກົດເປັນຜູ້ສຕຣີມເມີ Lichess, %s</string>
   <string name="submitForReview">ສົ່ງເພື່ອໃຫ້ກວດສອບ</string>
   <string name="streamerLanguageSettings">ໜ້າຜູ້ສຕຣີມເມີ Lichess ຈະກຳນົດກຸ່ມເປົ້າໝາຍຜູ້ຊົມຕາມພາສາທີ່ລະບຸໄວ້ໃນແພລດຟອມສຕຣີມມິງຂອງທ່ານ. ກະລຸນາຕັ້ງຄ່າພາສາເລີ່ມຕົ້ນໃຫ້ຖືກຕ້ອງສຳລັບການສຕຣີມໝາກຮຸກຂອງທ່ານໃນແອັບ ຫຼື ບໍລິການທີ່ທ່ານໃຊ້ໃນການຖ່າຍທອດສົດ.</string>
   <string name="pleaseAllow">ກະລຸນາລໍຖ້າການອະນຸມັດປ້າຍສັນຍາລັກ ແລະ ການສະແດງລາຍຊື່ຜູ້ສຕຣີມເມີ ພາຍໃນ 72 ຊົ່ວໂມງ.</string>

@@ -28,7 +28,6 @@
   <string name="approved">Din Stream isch gnehmigt wordä.</string>
   <string name="pendingReview">Din Stream wird vo Moderatorä überprüäft.</string>
   <string name="pleaseFillIn">Bitte füll dini Streamer-Informatione us und lad es Bild ufe.</string>
-  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Wänn du parat bisch, als Streamer azeigt z\'werde, %s</string>
   <string name="submitForReview">Zur Prüefig schicke</string>
   <string name="streamerLanguageSettings">D\'Lichess-Streamer-Site richtet sich a ihres Publikum mit dere Schprach, wo vu dinere Streaming-Platform bereit gschtellt wird. Wähl die richtig Schtandard-Schprach, für dini Schach-Streams, i de App oder i dem Dienscht, wo du für d\'Überträgig verwändsch.</string>
   <string name="pleaseAllow">Du muesch mit bis zu 72 Schtund Bearbeitigszit rächne, bis din Streamer-Badge und din Itrag genehmigt werded.</string>

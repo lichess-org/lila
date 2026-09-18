@@ -13,10 +13,9 @@
   <string name="closedByModerators">ناظران حساب‌تان را بسته‌اند.</string>
   <string name="blogRestriction">شما محدودیتِ وبنوشت دارید.</string>
   <string name="blogRestrictionInfo">%s ما را بخوانید، نقضِ این قاعده‌ها ممکن است منجر به اقدام‌های مختلفی شود.</string>
-  <string name="playTimeout">یک وقت فنی دارید.</string>
   <string name="reportBanned">شما نمی‌توانید به ناظران گزارش بفرستید</string>
   <string name="reportBannedInfo">ما متوجه الگویی از سوءاستفاده از سامانهٔ گزارش‌مان شده‌ایم. این می‌تواند به دلیل‌های مختلفی باشد، مانندِ انتخابِ مداومِ دسته‌های اشتباه، استفاده از زبانِ زَنَنده، توهین‌آمیز یا رکیک، گزارشِ تعدادِ گزافِ بازی‌ها، یا عدمِ ارائهٔ چراییِ ادعای نقضِ قاعده‌ها توسط حریف.</string>
-  <string name="temporarilyRestrictedFromPlaying" comment="play timeout = Lichess prevents you temporarily from playing any games Replaces old string playTimeout">حساب‌تان موقتا از بازی کردن محروم شده است.</string>
+  <string name="temporarilyRestrictedFromPlaying" comment="play timeout = Lichess prevents you temporarily from playing any games">حساب‌تان موقتا از بازی کردن محروم شده است.</string>
   <string name="communicationGuidelines">راهنمای ارتباطات</string>
   <string name="blogEtiquette">آدابِ وبنوشت</string>
   <string name="fairPlay">پاکبازی</string>

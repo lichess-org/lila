@@ -25,7 +25,6 @@
   <string name="cantChangeMore">Við getum ekki breytt meiru en stafsetunum. Af tæknilegum ástæðum er það hreinlega ómögulegt.</string>
   <string name="orCloseAccount">Hins vegar er hægt að loka núverandi aðgangi og stofna nýjan.</string>
   <string name="wantClearHistory">Mig langar að hreinsa feril minn eða skákstig</string>
-  <string name="cantClearHistory">Ekki er unnt að hreinsa skákarferil þinn, þrautaferil eða skákstig.</string>
   <string name="wantReport">Ég vil tilkynna notanda</string>
   <string name="toReportAPlayerUseForm">Til þess að tilkynna notanda skal nota tilkynningareyðublaðið</string>
   <string name="youCanAlsoReachReportPage">Þú getur líka komist á þá síðu með því að smella á tilkynnahnappinn (%s) á prófílsíðu.</string>

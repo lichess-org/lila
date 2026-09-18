@@ -125,25 +125,13 @@
   <string name="blunder">Վրիպում</string>
   <string name="mistake">Սխալ</string>
   <string name="inaccuracy">Անճշտություն</string>
-  <plurals name="nbBlunders">
-    <item quantity="one">%s վրիպում</item>
-    <item quantity="other">%s վրիպում</item>
-  </plurals>
   <plurals name="numberBlunders">
     <item quantity="one">%s Վրիպում</item>
     <item quantity="other">%s Վրիպում</item>
   </plurals>
-  <plurals name="nbMistakes">
-    <item quantity="one">%s սխալ</item>
-    <item quantity="other">%s սխալ</item>
-  </plurals>
   <plurals name="numberMistakes">
     <item quantity="one">%s Սխալ</item>
     <item quantity="other">%s Սխալ</item>
-  </plurals>
-  <plurals name="nbInaccuracies">
-    <item quantity="one">%s անճշտություն</item>
-    <item quantity="other">%s անճշտություն</item>
   </plurals>
   <plurals name="numberInaccuracies">
     <item quantity="one">%s Անճշտություն</item>
@@ -242,7 +230,6 @@
   <string name="emailSent">Մենք նամակ ենք ուղարկել %s հասցեին:</string>
   <string name="emailCanTakeSomeTime">Հասնելու համար կարող է որոշ ժամանակ պահանջվել։</string>
   <string name="refreshInboxAfterFiveMinutes">Սպասեք 5 րոպե և թարմացրեք Ձեր էլփոստի մուտքային արկղը։</string>
-  <string name="checkSpamFolder">Ստուգեք նաև սպամի պանակը, նամակը կարող է հայտնվել այնտեղ: Եթե ​​այդպես է, այն նշեք որպես ոչ սպամ:</string>
   <string name="accountConfirmed">%s օգտատերը հաջողությամբ հաստատվել է:</string>
   <string name="accountCanLogin">Դուք կարող եք մուտք գործել հենց հիմա որպես %s:</string>
   <string name="accountConfirmationEmailNotNeeded">Ձեզ անհրաժեշտ չէ հաստատման նամակ։</string>
@@ -265,8 +252,6 @@
   </plurals>
   <string name="ok">Լավ</string>
   <string name="cancel">Հերքել</string>
-  <string name="whiteTimeOut">Սպիտակների ժամանակը սպառվեց</string>
-  <string name="blackTimeOut">Սևերի ժամանակը սպառվեց</string>
   <string name="drawOfferSent">Ոչ-ոքի առաջարկը ուղարկված է</string>
   <string name="drawOfferAccepted">Ոչ-ոքի առաջարկը ընդունվել է</string>
   <string name="whiteOffersDraw">Սպիտակներն առաջարկում են ոչ-ոքի</string>
@@ -661,11 +646,9 @@
   <string name="aboutSimulRules">Երբ սկսվում է միաժամանակյա խաղաշարը, յուրաքանչյուր խաղացող սկսում է պարտիան խաղաշարն անցկացնողի հետ, որը խաղում է սպիտակներով։ Խաղաշարն ավարտվում է, երբ խաղացվում են բոլոր պարտիաները։</string>
   <string name="aboutSimulSettings">Միաժամանակյա խաղաշարերը չեն ենթադրում վարկանիշային պարտիաներ։ Վերախաղարկումները, քայլերի չեղարկումները և ժամանակի հավելումները արգելված են։</string>
   <string name="create">Ստեղծել</string>
-  <string name="whenCreateSimul">Եթե ստեղծեք միաժամանակյա խաղաշար, ստիպված կլինեք խաղալու միաժամանակ մի քանի խաղացողի դեմ։</string>
   <string name="simulVariantsHint">Եթե ընտրեք խաղի մի քանի տարբերակ, յուրաքանչյուր խաղացող կընտրի դրանցից այն մեկը, որը կցանկանա խաղալ ձեզ հետ։</string>
   <string name="simulClockHint">Ֆիշերի ժամացույցի կարգավորումներ։ Որքան շատ մրցակից ունենաք, այնքան շատ ժամանակ ձեզ պետք կգա։</string>
   <string name="simulAddExtraTime">Պարտիաներում մտորելու համար դուք կարող եք ստանալ լրացուցիչ ժամանակ։</string>
-  <string name="simulHostExtraTime">Խաղաշար անցկացնողի լրացուցիչ ժամանակը</string>
   <string name="simulAddExtraTimePerPlayer">Ձեր ժամացույցի վրա ավելացրեք մեկնարկային ժամանակը յուրաքանչյուր խաղացողի համար, ով մուտք է գործել Ձեր միաժամանակյա խաղի նստաշրջան:</string>
   <string name="simulHostExtraTimePerPlayer">Յուրաքանչյուր խաղացողի համար նստաշրջանի ժամանակի լրացում</string>
   <string name="lichessTournaments">Lichess մրցաշարեր</string>
@@ -764,7 +747,6 @@
   <string name="custom">Սեփական խաղ</string>
   <string name="notifications">Ծանուցումներ</string>
   <string name="notificationsX">Ծանուցումներ: %1$s</string>
-  <string name="perfRatingX">Վարկանիշ՝ %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s վայրկյան առաջին քայլի համար</item>
     <item quantity="other">%s վայրկյան առաջին քայլի համար</item>
@@ -907,7 +889,6 @@
   <string name="noChat">Առանց զրուցարանի</string>
   <string name="onlyTeamLeaders">Միայն թիմի կազմակերպիչները</string>
   <string name="onlyTeamMembers">Միայն թիմի անդամները</string>
-  <string name="navigateMoveTree">Անցում ըստ քայլերի</string>
   <string name="mouseTricks">Շարժումներ մկնիկով</string>
   <string name="toggleLocalAnalysis">Միացնել համակարգչային վերլուծությունը</string>
   <string name="toggleAllAnalysis">Փոխել համակարգչային վերլուծության բոլոր եղանակները</string>

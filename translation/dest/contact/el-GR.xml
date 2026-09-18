@@ -25,7 +25,6 @@
   <string name="cantChangeMore">Δυστυχώς, για τεχνικούς λόγους, δεν μπορείτε να κάνετε τίποτα περισσότερο από αυτό.</string>
   <string name="orCloseAccount">Ωστόσο, μπορείτε να απενεργοποιήσετε τον λογαριασμό σας και να δημιουργήσετε έναν καινούριο.</string>
   <string name="wantClearHistory">Θέλω να διαγράψω το ιστορικό μου ή τη βαθμολογία μου</string>
-  <string name="cantClearHistory">Δεν είναι δυνατόν να διαγράψετε το ιστορικό παιχνιδιών ή των γρίφων σας, ή τη βαθμολογία σας.</string>
   <string name="wantReport">Θέλω να αναφέρω έναν χρήστη</string>
   <string name="toReportAPlayerUseForm">Για να αναφέρετε έναν χρήστη, χρησιμοποιήστε τη φόρμα αναφοράς</string>
   <string name="youCanAlsoReachReportPage">Μπορείτε επίσης να κάνετε κλικ στο κουμπί %s στη σελίδα προφίλ του χρήστη.</string>
