@@ -63,6 +63,9 @@ package oauth:
 package analysis:
   final class MyEnginesAsJson(val get: Option[Me] => Fu[play.api.libs.json.JsObject])
 
+package appeal:
+  case class AppealReply(userId: UserId)
+
 type BookmarkExists = (game.Game, Option[userId.UserId]) => Fu[Boolean]
 
 case class AuthCustomUi(name: String, imagePath: String, cssClass: String, lang: Lang)

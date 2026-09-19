@@ -23,9 +23,15 @@ object AppealForm:
       "household" -> optional(cleanText(maxLength = 500))
     )(AccountsDisclosure.apply)(unapply)
 
-  val form = Form:
+  // TODO: revisit
+  val form = makeForm(textRequired = true)
+  def form(textRequired: Boolean) = makeForm(textRequired)
+  private def makeForm(textRequired: Boolean) = Form:
     mapping(
-      "text" -> cleanNonEmptyText(minLength = 2, maxLength = Appeal.maxLength),
+      "text" -> (
+        if textRequired then cleanNonEmptyText(minLength = 2, maxLength = Appeal.maxLength)
+        else default(cleanText(maxLength = Appeal.maxLength), "")
+      ),
       "accounts" -> optional(accountsMapping)
     )(Data.apply)(unapply)
 
