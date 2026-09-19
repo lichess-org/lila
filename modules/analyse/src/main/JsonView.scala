@@ -6,6 +6,7 @@ import play.api.libs.json.*
 import lila.common.Json.given
 import lila.core.game.SideAndStart
 import lila.tree.Analysis
+import lila.tree.Analysis.given
 
 object JsonView extends lila.tree.AnalysisJson:
 
@@ -67,7 +68,8 @@ object JsonView extends lila.tree.AnalysisJson:
     val phases = AccuracyPercent.phaseAccuracies(division, analysis)
     val both = ByColor[Option[JsObject]]: color =>
       player(SideAndStart(color, startedAtPly))(analysis, accuracy, phases)
-    Json.obj("id" -> analysis.id.value, "nodesPerMove" -> analysis.nodesPerMove) ++ Json.toJsObject(both)
+    Json.obj("id" -> analysis.id.value, "nodesPerMove" -> analysis.nodesPerMove, "engine" -> analysis.engine)
+      ++ Json.toJsObject(both)
 
   def mobile(game: Game, analysis: Analysis) =
     Json.obj(
