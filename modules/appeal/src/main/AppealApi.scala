@@ -55,7 +55,7 @@ final class AppealApi(
         case _ => none
 
   def postMessageEvent(appeal: Appeal, data: MessageData)(using me: MyId): Fu[Appeal] =
-    postEvent(appeal, MessageEvent(me, data, nowInstant))
+    postEvent(appeal, MessageEvent(me, data.text, nowInstant))
 
   private def postEvent(appeal: Appeal, event: AppealMsg): Fu[Appeal] =
     val (advancedAppeal, effects) = autoAdvance(appeal.postEvent(event))

@@ -12,7 +12,7 @@ import lila.core.misc.AppealTopic
 final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends LilaController(env):
 
   import lila.appeal.AppealForm.{ modForm, form as userForm, sleep as sleepForm }
-  import lila.appeal.AppealEventForm.{ kindForm, choiceForm, messageForm }
+  import lila.appeal.AppealEventForm.{ kindForm, choiceForm, userMessageForm, modMessageForm }
   import lila.appeal.AppealMsg.Kind
 
   def home = Auth { _ ?=> me ?=>
@@ -93,10 +93,16 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
                 yield r.fold(BadRequest)(_ => redirect)
             )
           case Kind.message =>
-            bindForm(messageForm)(
+            bindForm(if appeal.user.isnt(me) then modMessageForm else userMessageForm)(
               _ => BadRequest,
-              for _ <- env.appeal.api.postMessageEvent(appeal, _)
-              yield redirect
+              messageData =>
+                for
+                  replied <- env.appeal.api.postMessageEvent(appeal, messageData)
+                  res <-
+                    if appeal.user.isnt(me)
+                    then afterModMessage(replied, messageData.close.orZero, messageData.dismiss.orZero)
+                    else fuccess(redirect)
+                yield res
             )
           case _ => BadRequest
         }
@@ -171,15 +177,19 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
         (text, close, dismiss) =>
           for
             replied <- env.appeal.api.modReply(text, appeal)
-            // TODO: implement close and dismiss in new flow
-            _ <- close.orZero.so(env.appeal.api.toggleClosed(replied, true, sleepMonths = 0))
-            _ <- dismiss.orZero.so(env.report.api.inquiries.toggle(Right(appeal.user)).void)
             _ <- env.mailer.automaticEmail.onAppealReply(suspect.user)
-          yield
-            if dismiss.orZero then Redirect(routes.Appeal.modQueue)
-            else Redirect(appeal.modShowUrl).flashSuccess("Reply sent")
+            res <- afterModMessage(replied, close.orZero, dismiss.orZero)
+          yield res
       )
   }
+
+  private def afterModMessage(appeal: AppealModel, close: Boolean, dismiss: Boolean)(using Me): Fu[Result] =
+    for
+      _ <- close.so(env.appeal.api.toggleClosed(appeal, true, sleepMonths = 0))
+      _ <- dismiss.so(env.report.api.inquiries.toggle(Right(appeal.user)).void)
+    yield
+      if dismiss then Redirect(routes.Appeal.modQueue)
+      else Redirect(appeal.modShowUrl).flashSuccess("Reply sent")
 
   private def getModData(appeal: AppealModel, suspect: Suspect)(using Context)(using me: Me) =
     for

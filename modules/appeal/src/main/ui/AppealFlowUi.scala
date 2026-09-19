@@ -75,7 +75,7 @@ final class AppealFlowUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
     postForm(action := routes.Appeal.userEvent(appeal.topic))(
       form3.hidden("kind", AppealMsg.Kind.message.toString),
       form3.group(
-        AppealEventForm.messageForm("text"),
+        AppealEventForm.userMessageForm("text"),
         "Add something to the appeal",
         help = frag("Please be concise. Maximum 1000 chars.").some
       )(form3.textarea(_)(rows := 6, maxlength := Appeal.maxLength * 1.1))(
@@ -97,7 +97,7 @@ final class AppealFlowUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
             )(name)
         ),
         form3.group(
-          AppealEventForm.messageForm("text"),
+          AppealEventForm.modMessageForm("text"),
           "Add something to the appeal",
           half = true,
           help = AppealFlow
@@ -106,7 +106,16 @@ final class AppealFlowUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
             .option(frag("Note: by adding a reply, you will exit the automated flow"))
         )(form3.textarea(_)(rows := 15))(cls := "appeal-textarea")
       ),
-      form3.action(form3.submit("Send"))
+      form3.action(
+        form3.submit("Send & close", nameValue = ("close", "true").some, icon = none)(
+          cls := "button-red button-empty"
+        ),
+        form3.submit("Send")(cls := "button-empty"),
+        form3.submit("Send & dismiss", nameValue = ("dismiss", "true").some)(
+          cls := "button-green",
+          title := "Dismiss the appeal as processed"
+        )
+      )
     )
 
   private def choiceForm(appeal: Appeal, cn: ChoiceNode, enabled: Boolean = true)(using me: Me) =
