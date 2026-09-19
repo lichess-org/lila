@@ -40,6 +40,7 @@ in
     pkgs-master.tsgolint
     pkgs.lint-staged
     pkgs-unstable.stylelint
+    inputs.sasso.packages.x86_64-linux.sasso
   ];
 
   tasks = {
