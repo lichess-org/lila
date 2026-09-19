@@ -8,6 +8,7 @@
 let
   pkgs-master = import inputs.nixpkgs-master { system = pkgs.stdenv.system; };
   pkgs-unstable = import inputs.nixpkgs-unstable { system = pkgs.stdenv.system; };
+  pkgs-elasticsearch = import inputs.nixpkgs-elasticsearch { system = pkgs.stdenv.system; };
 in
 {
   # https://devenv.sh/languages/
@@ -30,6 +31,7 @@ in
     mongodb.enable = true;
     redis.enable = true;
     elasticsearch.enable = true;
+    elasticsearch.package = pkgs-elasticsearch.elasticsearch8;
   };
 
   packages = [
