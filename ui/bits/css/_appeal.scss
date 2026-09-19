@@ -122,6 +122,13 @@
       font-size: 1.4em;
     }
 
+    &__moderator {
+      margin-inline-start: 0.45em;
+      font-size: 0.75em;
+      color: $c-primary;
+      cursor: help;
+    }
+
     &__selection {
       @extend %flex-center;
 

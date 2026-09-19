@@ -94,9 +94,18 @@ final class AppealUi(helpers: Helpers)(using NetDomain):
     val isMod = appeal.user.isnt(me)
     if !isMod && event.by.isnt(me) then emptyFrag
     else
-      val side = if appeal.isByMod(event) then "mod" else "suspect"
+      val byMod = appeal.isByMod(event)
+      val side = if byMod then "mod" else "suspect"
       div(cls := s"appeal__choice-event appeal__choice-event--$side")(
-        p(cls := "appeal__choice-event__question")(event.question),
+        p(cls := "appeal__choice-event__question")(
+          event.question,
+          byMod.option:
+            i(
+              cls := "appeal__choice-event__moderator",
+              dataIcon := Icon.Agent,
+              titleOrText("This is not visible to the user")
+            )
+        ),
         div(cls := "appeal__choice-event__selection")(
           span(cls := "appeal__choice-event__answer text")(event.answer),
           span(cls := "appeal__choice-event__meta")(
