@@ -44,6 +44,7 @@ import { MultiCloudEval } from './multiCloudEval';
 import { NotifCtrl } from './notif';
 import type { StudyPracticeData } from './practice/interfaces';
 import StudyPracticeCtrl from './practice/studyPracticeCtrl';
+import RecallCtrl from './recall/recallCtrl';
 import type { RelayData } from './relay/interfaces';
 import RelayCtrl from './relay/relayCtrl';
 import ServerEval from './serverEval';
@@ -112,6 +113,7 @@ export default class StudyCtrl {
   chapterDesc: DescriptionCtrl;
   search: SearchCtrl;
   practice?: StudyPracticeCtrl;
+  recall?: RecallCtrl;
   gamebookPlay?: GamebookPlayCtrl;
 
   constructor(
@@ -251,6 +253,7 @@ export default class StudyCtrl {
     if (this.members.canContribute()) this.form.openIfNew();
 
     this.instantiateGamebookPlay();
+    this.configureRecall();
 
     studyKeyboard(this);
 
@@ -343,6 +346,16 @@ export default class StudyCtrl {
     this.practice?.onLoad();
   };
 
+  configureRecall = () => {
+    if (this.data.chapter.recall) {
+      this.recall ??= new RecallCtrl(this.ctrl, this.redraw);
+      this.recall.onLoad();
+    } else {
+      this.recall?.destroy();
+      this.recall = undefined;
+    }
+  };
+
   onReload = (d: ReloadData) => {
     const s = d.study;
     const prevPath = this.ctrl.path;
@@ -400,6 +413,7 @@ export default class StudyCtrl {
     this.vm.justSetChapterId = undefined;
 
     this.configurePractice();
+    this.configureRecall();
     this.serverEval.reset();
     this.commentForm.onSetPath(this.data.chapter.id, this.ctrl.path, this.ctrl.node);
     this.redraw();
@@ -555,6 +569,7 @@ export default class StudyCtrl {
     if (this.gamebookPlay) this.gamebookPlay.onJump();
     else this.chapters.localPaths[this.vm.chapterId] = this.ctrl.path; // don't remember position on gamebook
     this.practice?.onJump();
+    this.recall?.onJump();
   };
   onFlip = (flipped: boolean) => {
     if (this.chapters.newForm.isOpen()) return false;
@@ -651,7 +666,7 @@ export default class StudyCtrl {
     else if (chapterUrl !== location.href) history.replaceState({}, '', chapterUrl);
   };
   socketSendNodeData = () => {
-    if (!this.isWriting()) return false;
+    if (this.data.chapter.recall || !this.isWriting()) return false;
     const data: { ch: string; sticky?: false } = { ch: this.vm.chapterId };
     if (!this.vm.mode.sticky) data.sticky = false;
     return data;
@@ -671,7 +686,8 @@ export default class StudyCtrl {
     const s = p.split('#');
     return `${s[0]}${location.search}${s[1] ? `#${s[1]}` : ''}`;
   };
-  hideMoves = () => this.ctrl.actionMenu() && !this.relay;
+  menuCoversTools = () => this.ctrl.actionMenu() && !this.relay;
+  hideMoves = () => this.recall?.hideMoves() || this.menuCoversTools();
 
   socketHandlers: Handlers = {
     path: d => {
