@@ -146,6 +146,22 @@
       color: $c-font-dim;
       font-size: 0.9em;
     }
+
+    &--mod {
+      text-align: end;
+      padding-inline-start: 0;
+      padding-inline-end: 1em;
+      border-inline-start: none;
+      border-inline-end: 5px solid $c-primary;
+
+      .appeal__choice-event__selection {
+        justify-content: flex-end;
+      }
+
+      .appeal__choice-event__answer {
+        background: $c-primary;
+      }
+    }
   }
 
   &__actions {

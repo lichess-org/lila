@@ -93,7 +93,8 @@ final class AppealUi(helpers: Helpers)(using NetDomain):
     val isMod = appeal.user.isnt(me)
     if !isMod && event.by.isnt(me) then emptyFrag
     else
-      div(cls := "appeal__choice-event")(
+      val side = if appeal.isByMod(event) then "mod" else "suspect"
+      div(cls := s"appeal__choice-event appeal__choice-event--$side")(
         p(cls := "appeal__choice-event__question")(event.question),
         div(cls := "appeal__choice-event__selection")(
           span(cls := "appeal__choice-event__answer text")(event.answer),
