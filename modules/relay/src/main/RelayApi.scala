@@ -535,7 +535,7 @@ final class RelayApi(
         if _ then study.configureForOngoingRelay else study
 
   object tourExists:
-    private val cache = cacheApi[RelayTourId, Boolean](256, "relay.tourExists"):
+    private val cache = cacheApi[RelayTourId, Boolean](64, "relay.tourExists"):
       _.expireAfterWrite(1.minute).buildAsyncFuture(tourRepo.exists)
     export cache.get as apply
 
