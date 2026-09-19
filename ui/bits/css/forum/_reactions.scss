@@ -10,11 +10,13 @@
   button {
     @extend %flex-center, %box-radius;
     @include transition;
+    @include prevent-select;
 
     padding: 0.3em 0.6em;
     order: 1;
     color: $c-link;
     height: 2.5em;
+    -webkit-touch-callout: none;
 
     &.mine {
       background: color-mix(in oklab, $c-primary 10%, $c-bg);
@@ -84,5 +86,59 @@
     @media (hover: hover) {
       display: none !important;
     }
+  }
+}
+
+dialog div.downvote-reason {
+  min-width: min(96vw, 540px);
+  background: $c-bg-page;
+
+  span > div.info,
+  span > div.dont-ask-me-again {
+    @include fluid-size('font-size', 13px, 16px);
+  }
+
+  p {
+    font-size: 0.9em;
+    text-align: start;
+  }
+
+  span {
+    align-items: center;
+  }
+
+  span.footer {
+    gap: min(2em, 2vw);
+  }
+
+  label {
+    white-space: nowrap;
+  }
+
+  i {
+    font-family: lichess;
+    font-size: 1.4em;
+    font-style: normal;
+    margin-inline: -8px 8px;
+    color: $c-primary;
+  }
+
+  .info {
+    padding: 1em 1em 0.5em 1.5em;
+    background: color-mix(in oklab, $c-bad 10%, $c-bg-page);
+    border: 1px solid color-mix(in oklab, $c-bad 60%, $c-bg-page);
+  }
+
+  .radio-checkboxes,
+  .dont-ask-me-again {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75em;
+    align-items: start;
+  }
+
+  .dont-ask-me-again {
+    font-size: 0.9em;
+    margin-inline-end: auto;
   }
 }

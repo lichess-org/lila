@@ -450,7 +450,7 @@ lazy val msg = module("msg",
 )
 
 lazy val forum = module("forum",
-  Seq(memo, ui),
+  Seq(memo, report, ui),
   Seq()
 )
 

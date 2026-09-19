@@ -72,6 +72,13 @@ final class Mod(
     )
   }
 
+  def forumTimeout(username: UserStr) = OAuthModBody(_.ModerateForum) { me ?=>
+    env.user.repo
+      .byId(username)
+      .flatMapz: user =>
+        env.forum.usermod.manualTimeout(user).inject(user.some)
+  }(actionResult(username))
+
   def booster(username: UserStr, v: Boolean) = OAuthModBody(_.MarkBooster) { me ?=>
     withSuspect(username): prev =>
       api.setBoost(prev, v).dmap(some)

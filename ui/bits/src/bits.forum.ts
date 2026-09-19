@@ -1,7 +1,9 @@
 import { Textcomplete } from '@textcomplete/core';
 import { TextareaEditor } from '@textcomplete/textarea';
 
+import { frag, myUserId } from 'lib';
 import { debounce } from 'lib/async';
+import { addPointerListeners } from 'lib/pointer';
 import { tempStorage } from 'lib/storage';
 import { domDialog } from 'lib/view';
 import * as xhr from 'lib/xhr';
@@ -50,23 +52,6 @@ site.load.then(() => {
       const form = $(this).parent().toggleClass('on off')[0] as HTMLFormElement;
       void xhr.text(`${form.action}?unsub=${this.dataset.unsub}`, { method: 'post' });
       return false;
-    })
-    .on('click', '.reactions-auth button', e => {
-      const href = e.target.getAttribute('data-href');
-      if (href) {
-        const $rels = $(e.target).parent();
-        if ($rels.hasClass('loading')) return;
-        $rels.addClass('loading');
-        void xhr.text(href, { method: 'post' }).then(
-          html => {
-            $rels.replaceWith(html);
-            $rels.removeClass('loading');
-          },
-          _ => {
-            site.announce({ msg: 'Failed to send forum post reaction' });
-          },
-        );
-      }
     });
   $('.forum-post__blocked button').on('click', e => {
     const el = (e.target as HTMLElement).parentElement!;
@@ -210,6 +195,8 @@ site.load.then(() => {
     replyStorage.remove();
     submittingReply = true;
   });
+  addReactionListeners();
+
   if (replyEl?.value) replyEl.scrollIntoView(); // scrollto if pre-populated
 });
 
@@ -250,4 +237,110 @@ function prefixQuote(text: string, offset: number) {
     else if (char.trim().length) return '';
   }
   return prefix;
+}
+
+function addReactionListeners() {
+  const validDownvoteReasons =
+    document.querySelector<HTMLElement>('.forum')?.dataset.validDownvoteReasons?.split(',') ?? [];
+
+  const click = async ({ target }: Event) => {
+    if (!(target instanceof HTMLElement)) return;
+    let href = target.dataset.href;
+    if (!href) return;
+    if (target.dataset.reaction === '-1' && target.dataset.value === 'true') {
+      const reason = await showUsermodDialog(validDownvoteReasons);
+      if (!reason) return;
+
+      const url = new URL(href, location.origin);
+      url.searchParams.set('reason', reason);
+      href = url.pathname + url.search;
+    }
+    const parent = target.parentElement!;
+    if (parent.classList.contains('loading')) return;
+
+    parent.classList.add('loading');
+    try {
+      const newFrag = frag<HTMLElement>(await xhr.text(href, { method: 'post' }));
+      for (const el of newFrag.querySelectorAll<HTMLButtonElement>('button[data-href]')) {
+        el.addEventListener('click', click);
+        if (el.dataset.reaction === '-1') {
+          el.addEventListener('contextmenu', rightClick);
+          addPointerListeners(el, { hold: rightClick });
+        }
+      }
+      parent.replaceWith(newFrag);
+    } catch {
+      parent.classList.remove('loading');
+      site.announce({ msg: 'Failed to send forum post reaction' });
+    }
+  };
+
+  const rightClick = (e: Event) => {
+    if (!(e.target instanceof HTMLElement) || e.target.dataset.reaction !== '-1') return;
+    localStorage.removeItem(`forum.no-mod.${myUserId()}`);
+    e.target.dataset.value = 'true';
+    e.target.dataset.href = e.target.dataset.href?.replace(/\/false$/, '/true');
+    e.target.click();
+    e.preventDefault();
+  };
+
+  for (const el of document.querySelectorAll<HTMLButtonElement>('.reactions-auth button')) {
+    el.addEventListener('click', click);
+    if (el.dataset.reaction === '-1') {
+      el.addEventListener('contextmenu', rightClick);
+      addPointerListeners(el, { hold: rightClick });
+    }
+  }
+}
+
+async function showUsermodDialog(reasonKeys: string[]): Promise<string | undefined> {
+  if (localStorage.getItem(`forum.no-mod.${myUserId()}`)) return reasonKeys[0];
+  const options = reasonKeys.map(r => ({ key: r, val: (i18n.site as any)[r] }));
+  const checkboxHtml = ({ key, val }: { key: string; val: string }, index?: number) => $html`
+    <div class="form-check__container">
+      <span class="form-check__input">
+        <input id="choice-${key}" type="${index === undefined ? 'checkbox' : 'radio'}" name="choice"
+               value="${key}" ${index === 0 ? 'checked' : ''}>
+        <label class="form-check__label" for="choice-${key}"></label>
+      </span>
+      <label class="form-label" for="choice-${key}">${val}</label>
+    </div>`;
+  const res = await domDialog({
+    htmlText: $html`
+      <h2>${i18n.site.whyThumbsDown}</h2>
+      <span>
+        <div class="radio-checkboxes">${options.map(checkboxHtml).join('')}</div>
+        <div class="info">
+          <p>
+            <span class="svg-icon icon-Agent"></span>
+            ${i18n.site.ifYourReasonIsNotX('<strong>' + i18n.site.disagree + '</strong>')}
+          </p>
+          <p>${i18n.site.checkXToOptOut('<strong>' + i18n.site.dontAskMeAgain + '</strong>')}</p>
+        </div>
+      </span>
+      <span class="footer">
+        <div class="dont-ask-me-again">
+          ${checkboxHtml({ key: 'opt-out', val: i18n.site.dontAskMeAgain })}
+        </div>
+        <button class="button button-empty button-red cancel">${i18n.site.cancel}</button>
+        <button class="button ok">${i18n.site.ok}</button>
+      </span>`,
+    class: 'alert downvote-reason',
+    noCloseButton: true,
+    modal: true,
+    show: true,
+    actions: [
+      {
+        selector: '.ok',
+        listener: (_, dlg) => {
+          if (dlg.view.querySelector<HTMLInputElement>('#choice-opt-out')?.checked) {
+            localStorage.setItem(`forum.no-mod.${myUserId()}`, 'true');
+          }
+          dlg.close(dlg.view.querySelector<HTMLInputElement>('input[name="choice"]:checked')?.value);
+        },
+      },
+      { selector: '.cancel', result: 'cancel' },
+    ],
+  });
+  return res.returnValue === 'cancel' ? undefined : res.returnValue;
 }
