@@ -1,0 +1,14 @@
+// styles preloaded by app/views/base/page.scala for any mod with SeeReport, for menu or tab badges
+
+.automod-status-badge {
+  display: inline-block;
+  width: 0.55em;
+  height: 0.55em;
+  margin-inline-start: 0.45em;
+  border-radius: 50%;
+  background: $c-warn;
+
+  &.red {
+    background: $c-bad;
+  }
+}

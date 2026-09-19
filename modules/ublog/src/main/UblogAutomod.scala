@@ -1,7 +1,6 @@
 package lila.ublog
 
 import play.api.libs.json.*
-import com.roundeights.hasher.Algo
 
 import lila.core.data.Text
 import lila.core.ublog.Quality
@@ -16,7 +15,14 @@ import lila.mon.extensions.*
 
 object UblogAutomod:
 
-  private val schemaVersion = 1
+  case class Failed(post: UblogPost, transaction: Option[Automod.Transaction] = none):
+    def at: Instant =
+      transaction
+        .flatMap(_.response.map(_.date))
+        .orElse(post.updated.orElse(post.lived).map(_.at))
+        .getOrElse(post.created.at)
+
+  private val schemaVersion = 2
 
   // not actually an automod assessment, as mods can edit it :-/
   // except for the quality which now lives in UblogPost
@@ -25,7 +31,6 @@ object UblogAutomod:
       flagged: Option[String] = none,
       commercial: Option[String] = none,
       evergreen: Option[Boolean] = none,
-      hash: Option[String] = none,
       version: Int = schemaVersion
   ):
     def updateByLLM(llm: Assessment): Assessment =
@@ -43,7 +48,7 @@ object UblogAutomod:
   private given Reads[FuzzyResult] = Json.reads[FuzzyResult]
 
 private final class UblogAutomod(
-    automod: lila.report.Automod,
+    automod: lila.report.AutomodApi,
     settingStore: lila.memo.SettingStore.Builder,
     picfitApi: lila.memo.PicfitApi
 )(using Executor):
@@ -60,7 +65,7 @@ private final class UblogAutomod(
   val modelSetting = settingStore[String](
     "ublogAutomodModel",
     text = "Ublog automod model".some,
-    default = "Qwen/Qwen3-235B-A22B-Thinking-2507",
+    default = "Qwen/Qwen3.7-Max",
     _.ModerateBlog
   )
 
@@ -70,19 +75,29 @@ private final class UblogAutomod(
         val mainImageAsMarkdown = post.image.so(i => s"![](${picfitApi.url.automod(i.id, none)})\n")
         mainImageAsMarkdown + markdown
     val assessText =
-      val userText = post.allText.take(40_000) // match bin/ublog-automod.mjs hash
+      val userText = post.allText.take(40_000)
       automod
-        .text(
-          userText = userText,
-          systemPrompt = promptSetting.get(),
-          model = modelSetting.get(),
-          temperature = temperature
+        .apply(
+          Automod.Request.text(
+            job = Automod.Job(
+              jobType = Automod.JobType.blog,
+              source = Automod.Source(
+                id = post.id.value.some,
+                name = post.title.some,
+                url = routes.Ublog.redirect(post.id).url.some
+              )
+            ),
+            userText = userText,
+            prompt = promptSetting.get(),
+            model = modelSetting.get(),
+            temperature = temperature
+          )
         )
         .map: res =>
           normalize(res).so: res =>
             lila.mon.ublog.automod.quality(res.quality.toString).increment()
             lila.mon.ublog.automod.flagged(res.flagged.isDefined).increment()
-            res.copy(hash = Algo.sha256(userText).hex.take(12).some).some // match bin/ublog-automod.mjs hash
+            res.some
         .monSuccess(lila.mon.ublog.automod.request)
     assessImages
       .zip(assessText)
