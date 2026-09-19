@@ -814,10 +814,6 @@ Jokatu puntuaziorako balio duten partidak egonkortasuna handitzeko.</string>
   <string name="quickPairing">Parekatze azkarra</string>
   <string name="lobby">Egongela</string>
   <string name="anonymous">Anonimoa</string>
-  <plurals name="nbAnonymous">
-    <item quantity="one">Anonimoa</item>
-    <item quantity="other">Anonimoak (%s)</item>
-  </plurals>
   <string name="yourScore">Zure puntuaketa: %s</string>
   <string name="language">Hizkuntza</string>
   <string name="allLanguages">Hizkuntza guztiak</string>

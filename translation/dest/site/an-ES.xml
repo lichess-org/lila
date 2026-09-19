@@ -793,10 +793,6 @@
   <string name="quickPairing">Emparellamiento rapido</string>
   <string name="lobby">Sala d\'espera</string>
   <string name="anonymous">Anonimo</string>
-  <plurals name="nbAnonymous">
-    <item quantity="one">Anonimo</item>
-    <item quantity="other">Anonimos/as (%s)</item>
-  </plurals>
   <string name="yourScore">La tuya puntuación: %s</string>
   <string name="language">Idioma</string>
   <string name="allLanguages">Totas las luengas</string>

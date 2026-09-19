@@ -801,10 +801,6 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="quickPairing">Kiirelt mängu</string>
   <string name="lobby">Ooteruum</string>
   <string name="anonymous">Anonüümne</string>
-  <plurals name="nbAnonymous">
-    <item quantity="one">Anonüümne</item>
-    <item quantity="other">Anonüümsed (%s)</item>
-  </plurals>
   <string name="yourScore">Sinu skoor: %s</string>
   <string name="language">Keel</string>
   <string name="allLanguages">Kõik keeled</string>

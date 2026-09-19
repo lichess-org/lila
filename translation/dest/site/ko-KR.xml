@@ -776,9 +776,6 @@
   <string name="quickPairing">빠른 상대 찾기</string>
   <string name="lobby">로비</string>
   <string name="anonymous">익명 플레이어</string>
-  <plurals name="nbAnonymous">
-    <item quantity="other">익명 (%s)</item>
-  </plurals>
   <string name="yourScore">당신의 점수는 %s입니다.</string>
   <string name="language">언어</string>
   <string name="allLanguages">모든 언어</string>

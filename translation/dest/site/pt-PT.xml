@@ -163,6 +163,7 @@
   </plurals>
   <string name="moveTimes">Tempo das jogadas</string>
   <string name="flipBoard">Inverter o tabuleiro</string>
+  <string name="illegalPosition">Posição ilegal</string>
   <string name="threefoldRepetition">Repetição tripla</string>
   <string name="claimADraw">Declarar empate</string>
   <string name="drawClaimed">Empate reivindicado</string>
@@ -725,6 +726,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="keyboardShortcuts">Atalhos do teclado</string>
   <string name="keyMoveBackwardOrForward">retroceder/avançar jogada</string>
   <string name="keyGoToStartOrEnd">ir para início/fim</string>
+  <string name="keyGoToPreviousOrNextLine">ir para a linha anterior/seguinte</string>
   <string name="keyCycleSelectedVariation">Ciclo da variante selecionada</string>
   <string name="keyShowOrHideComments">mostrar/ocultar os comentários</string>
   <string name="keyShowOrHideCurrentVariation">mostrar/ocultar variante atual</string>
@@ -810,10 +812,6 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="quickPairing">Emparelhamento rápido</string>
   <string name="lobby">Sala de espera</string>
   <string name="anonymous">Anônimo</string>
-  <plurals name="nbAnonymous">
-    <item quantity="one">Anónimo</item>
-    <item quantity="other">Anónimos (%s)</item>
-  </plurals>
   <string name="yourScore">O teu resultado: %s</string>
   <string name="language">Lingua</string>
   <string name="allLanguages">Todos os idiomas</string>

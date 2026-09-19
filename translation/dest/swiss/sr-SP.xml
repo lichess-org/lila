@@ -71,6 +71,11 @@
   <string name="numberOfGames">Број партија</string>
   <string name="numberOfGamesAsManyAsPossible">Онолико колико може бити одиграно у предвиђеном времену</string>
   <string name="numberOfGamesPreDefined">Одлучен унапред, исти за све играче</string>
+  <string name="pairingSystemArena">Сваки доступни противник са сличним рангом</string>
+  <string name="pairingSystemSwiss">Најбоље упаривање на основу бодова и тај-брејкова</string>
+  <string name="pairingWaitTime">Време чекања упаривања</string>
+  <string name="identicalPairing">Идентично упаривање</string>
+  <string name="possibleButNotConsecutive">Могуће, али не узастопно</string>
   <string name="lateJoinUntil">Да док више од половине рунди не почне</string>
   <string name="streaksAndBerserk">Низови и Берсерк</string>
   <string name="absences">Изостанци</string>
