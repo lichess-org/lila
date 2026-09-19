@@ -28,7 +28,6 @@
   <string name="approved">Вашият стрийм е одобрен.</string>
   <string name="pendingReview">Вашият стрийм се преглежда от модератори.</string>
   <string name="pleaseFillIn">Моля, попълнете информацията за своя стрийм и качете снимка.</string>
-  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Когато сте готови да бъдете включени като стриймър в Lichess, %s</string>
   <string name="submitForReview">Изпратете за преглед</string>
   <string name="streamerLanguageSettings">Страницата за стрийминг на Lichess е насочена към вашата аудитория с езика, предоставен от вашата платформа за стрийминг. Задайте правилния език по подразбиране за вашите шахматни стриймове в приложението или услугата, която използвате за излъчване.</string>
   <string name="pleaseAllow">Моля, предвидете до 72 часа за одобряване на вашата значка на стриймър и включване в списъка.</string>

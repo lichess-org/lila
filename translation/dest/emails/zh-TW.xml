@@ -17,8 +17,7 @@
 
 祝您玩得開心，願您的棋子總能找到正確的道路！</string>
   <string name="logInToLichess">登入 lichess.org， %s</string>
-  <string name="common_orPaste">(無法點擊連結？嘗試將連結貼上到您的瀏覽器！)</string>
-  <string name="common_linkNotWorking" comment="common_orPaste&#10;&#10;Part of the e-mail received from lichess when changing your e-mail address. Replaces old string common_orPaste">(連結無法使用？嘗試將鏈接貼上到您的瀏覽器！)</string>
+  <string name="common_linkNotWorking" comment="common_orPaste&#10;&#10;Part of the e-mail received from lichess when changing your e-mail address.">(連結無法使用？嘗試將鏈接貼上到您的瀏覽器！)</string>
   <string name="common_note">這是一封與您使用 %s 相關的服務電子郵件。</string>
   <string name="common_contact">如需聯繫我們，請使用 %s。</string>
 </resources>

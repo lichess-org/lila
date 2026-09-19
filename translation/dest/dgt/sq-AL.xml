@@ -19,7 +19,6 @@
   <string name="ifMoveNotDetected">Nëse s’pikaset ndonjë lëvizje</string>
   <string name="asALastResort">Si zgjidhje të fundit, ujdiseni fushën njësoj si në Lichess, mandej %s</string>
   <string name="reloadThisPage">Ringarko këtë faqe</string>
-  <string name="dgtConfigure">DGT - Formësojeni</string>
   <string name="validDgtOauthToken">Keni një token OAuth të përshtatshëm për lojë DGT.</string>
   <string name="dgtPlayMenuEntryAdded">Te menuja juaj LUANI, në krye, u shtua një zë %s.</string>
   <string name="noSuitableOauthToken">S’është krijuar ndonjë token OAuth i përshtatshëm.</string>

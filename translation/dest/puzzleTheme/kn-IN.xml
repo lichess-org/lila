@@ -44,15 +44,12 @@
   <string name="doubleCheckDescription">ಚಲಿಸುವ ತುಂಡು ಮತ್ತು ಅನಾವರಣಗೊಂಡ ತುಂಡು ಎರಡೂ ಎದುರಾಳಿಯ ರಾಜನ ಮೇಲೆ ದಾಳಿ ಮಾಡುವ ಪತ್ತೆಯಾದ ದಾಳಿಯ ಪರಿಣಾಮವಾಗಿ ಎರಡು ತುಣುಕುಗಳೊಂದಿಗೆ ಏಕಕಾಲದಲ್ಲಿ ಪರಿಶೀಲಿಸಲಾಗುತ್ತಿದೆ.</string>
   <string name="endgame">ಎಂಡ್‌ಗೇಮ್</string>
   <string name="endgameDescription">ಆಟದ ಕೊನೆಯ ಹಂತದಲ್ಲಿ ಒಂದು ತಂತ್ರ.</string>
-  <string name="enPassantDescription">ಎನ್ ಪ್ಯಾಸೆಂಟ್ ನಿಯಮವನ್ನು ಒಳಗೊಂಡಿರುವ ಒಂದು ತಂತ್ರ, ಅಲ್ಲಿ ಒಂದು ಪ್ಯಾದೆಯು ತನ್ನ ಆರಂಭಿಕ ಎರಡು-ಚದರ ಚಲನೆಯನ್ನು ಬಳಸಿಕೊಂಡು ಅದನ್ನು ಬೈಪಾಸ್ ಮಾಡಿದ ಎದುರಾಳಿ ಪ್ಯಾದೆಯನ್ನು ಸೆರೆಹಿಡಿಯಬಹುದು.</string>
   <string name="exposedKing">ಬಹಿರಂಗ ರಾಜ</string>
   <string name="exposedKingDescription">ಅದರ ಸುತ್ತಲೂ ಕೆಲವು ರಕ್ಷಕರನ್ನು ಹೊಂದಿರುವ ರಾಜನನ್ನು ಒಳಗೊಂಡ ತಂತ್ರವು ಆಗಾಗ್ಗೆ ಚೆಕ್‌ಮೇಟ್‌ಗೆ ಕಾರಣವಾಗುತ್ತದೆ.</string>
   <string name="fork">ಫೋರ್ಕ್</string>
-  <string name="forkDescription">ಚಲಿಸಿದ ತುಂಡು ಎರಡು ಎದುರಾಳಿಗಳ ತುಂಡುಗಳನ್ನು ಏಕಕಾಲದಲ್ಲಿ ಆಕ್ರಮಿಸುತ್ತದೆ.</string>
   <string name="hangingPiece">ನೇತಾಡುವ ತುಂಡು</string>
   <string name="hangingPieceDescription">ಎದುರಾಳಿಯ ತುಣುಕನ್ನು ರಕ್ಷಿಸದ ಅಥವಾ ಸಾಕಷ್ಟು ಸಮರ್ಥಿಸದ ಮತ್ತು ಸೆರೆಹಿಡಿಯಲು ಮುಕ್ತವಾಗಿರುವ ತಂತ್ರ.</string>
   <string name="hookMate">ಹುಕ್ ಸಂಗಾತಿ</string>
-  <string name="hookMateDescription">ಶತ್ರು ರಾಜನ ತಪ್ಪಿಸಿಕೊಳ್ಳುವಿಕೆಯನ್ನು ಮಿತಿಗೊಳಿಸಲು ಒಂದು ಶತ್ರು ಪ್ಯಾದೆಯೊಂದಿಗೆ ರೂಕ್, ನೈಟ್ ಮತ್ತು ಪ್ಯಾದೆಯೊಂದಿಗೆ ಚೆಕ್‌ಮೇಟ್ ಮಾಡಿ.</string>
   <string name="interference">ಹಸ್ತಕ್ಷೇಪ</string>
   <string name="interferenceDescription">ಎರಡು ಎದುರಾಳಿ ಕಾಯಿಗಳ ನಡುವೆ ಒಂದು ತುಂಡನ್ನು ಸರಿಸುವುದರಿಂದ ಒಂದು ಅಥವಾ ಎರಡೂ ಎದುರಾಳಿ ಕಾಯಿಗಳನ್ನು ರಕ್ಷಿಸದೆ ಬಿಡುವುದು, ಉದಾಹರಣೆಗೆ ಎರಡು ರೂಕ್‌ಗಳ ನಡುವೆ ರಕ್ಷಿಸಲ್ಪಟ್ಟ ಚೌಕದಲ್ಲಿ ನೈಟ್.</string>
   <string name="intermezzo">ಇಂಟರ್ಮೆಝೋ</string>
@@ -88,7 +85,6 @@
   <string name="pin">ಪಿನ್</string>
   <string name="pinDescription">ಪಿನ್‌ಗಳನ್ನು ಒಳಗೊಂಡಿರುವ ಒಂದು ತಂತ್ರ, ಅಲ್ಲಿ ಹೆಚ್ಚಿನ ಮೌಲ್ಯದ ತುಣುಕಿನ ಮೇಲೆ ದಾಳಿಯನ್ನು ಬಹಿರಂಗಪಡಿಸದೆ ತುಂಡು ಚಲಿಸಲು ಸಾಧ್ಯವಾಗುವುದಿಲ್ಲ.</string>
   <string name="promotion">ಪ್ರಚಾರ</string>
-  <string name="promotionDescription">ನಿಮ್ಮ ಪ್ಯಾದೆಗಳಲ್ಲಿ ಒಂದನ್ನು ರಾಣಿ ಅಥವಾ ಇತರೆ ಚಿಕ್ಕ ತುಂಡುಗೆ ಬಡ್ತಿ ನೀಡಿ.</string>
   <string name="queenEndgame">ಕ್ವೀನ್ ಎಂಡ್ ಗೇಮ್</string>
   <string name="queenEndgameDescription">ಕೇವಲ ರಾಣಿಯರು ಮತ್ತು ಪ್ಯಾದೆಗಳೊಂದಿಗೆ ಅಂತಿಮ ಆಟ.</string>
   <string name="queenRookEndgame">ರಾಣಿ ಮತ್ತು ರೂಕ್</string>

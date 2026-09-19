@@ -26,7 +26,6 @@
   <string name="approved">Твој стрим је одобрен.</string>
   <string name="pendingReview">Твој стрим проверавају модератори.</string>
   <string name="pleaseFillIn">Молимо да попуниш твоје стримерске информације и поставиш слику.</string>
-  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Када будеш спреман/на да постанеш Lichess стример, %s</string>
   <string name="streamerName">Твоје стримерско име на Lichess-у</string>
   <plurals name="keepItShort">
     <item quantity="one">Нека буде кратко: %s карактер највише</item>

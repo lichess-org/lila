@@ -38,11 +38,9 @@
   <string name="downloadAllRounds">Atsisiųsti visus raundus</string>
   <string name="resetRound">Atstatyti raundą</string>
   <string name="deleteRound">Ištrinti raundą</string>
-  <string name="definitivelyDeleteRound">Užtikrintai ištrinti raundą ir jo partijas.</string>
   <string name="deleteAllGamesOfThisRound">Ištrinti visas partijas šiame raunde. Norint jas perkurti reikės aktyvaus šaltinio.</string>
   <string name="editRoundStudy">Keisti raundo studiją</string>
   <string name="deleteTournament">Ištrinti šį turnyrą</string>
-  <string name="definitivelyDeleteTournament">Užtikrintai ištrinti visą turnyrą, visus raundus ir visas jų partijas.</string>
   <string name="showScores">Rodyti žaidėjų balus pagal partijų rezultatus</string>
   <string name="replacePlayerTags">Pasirenkama: pakeiskite žaidėjų vardus, reitingus ir titulus</string>
   <string name="fideFederations">FIDE federacijos</string>

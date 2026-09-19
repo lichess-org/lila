@@ -28,7 +28,6 @@
   <string name="approved">Din videokanal har godkänts.</string>
   <string name="pendingReview">Din videokanal granskas av moderatorer.</string>
   <string name="pleaseFillIn">Vänligen fyll i din kanalinformation och ladda upp en bild.</string>
-  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">När du är redo att lista din Lichess-kanal, %s</string>
   <string name="submitForReview">Skicka in för granskning</string>
   <string name="streamerLanguageSettings">Lichess-streamersidan är inriktad mot målgruppen med det språket som din streaming-plattform visar. Välj korrekt standardspråk för dina schackstreams i den appen eller tjänsten du använder för dina sändningar.</string>
   <string name="connect">Koppla</string>

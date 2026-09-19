@@ -7,7 +7,6 @@
   <string name="yesItWillBeFixedSoon">Sì. Sarà risolto presto!</string>
   <string name="andNowTheLongAnswerLagComposedOfTwoValues">E ora la risposta lunga! Il lag (ritardo di rete) è formato da due valori tra loro non correlati (valore basso = migliore):</string>
   <string name="lichessServerLatency">Latenza del server Lichess</string>
-  <string name="lichessServerLatencyExplanation">Il tempo necessario per elaborare una mossa sul server. È lo stesso per tutti e dipende solo dal carico del server. Più giocatori ci sono e più aumenta, ma gli sviluppatori di Lichess fanno del loro meglio per mantenerlo basso. Raramente supera i 10 ms.</string>
   <string name="networkBetweenLichessAndYou">Rete tra te e Lichess</string>
   <string name="networkBetweenLichessAndYouExplanation">Il tempo necessario per inviare una mossa dal tuo computer al server Lichess, e ricevere la risposta. È specifico per la tua distanza da Lichess (Francia) e per la qualità della tua connessione Internet. Gli sviluppatori di Lichess non sono in grado di sistemare il tuo wifi o di aumentare la velocità della luce.</string>
   <string name="youCanFindTheseValuesAtAnyTimeByClickingOnYourUsername">Puoi trovare entrambi questi valori in qualsiasi momento, cliccando sul tuo nome utente nella barra in alto.</string>

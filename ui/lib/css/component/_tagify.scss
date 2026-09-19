@@ -1,3 +1,5 @@
+@use 'sass:math';
+
 :root {
   // should be same as "$tags-focus-border-color"
   --tagify-dd-color-primary: #{$c-primary};
@@ -277,7 +279,7 @@
     &:hover:not([readonly]) {
       div {
         &::before {
-          $size: -$tagMargin / 2;
+          $size: math.div(-$tagMargin, 2);
           $size: -2px;
 
           inset: $size;
@@ -409,7 +411,7 @@
       color: var(--tag-remove-btn-color, $tag-remove-btn-color);
       width: $size;
       height: $size;
-      margin-inline: auto $size / 3;
+      margin-inline: auto math.div($size, 3);
       overflow: hidden;
       transition: 0.2s ease-out;
 
@@ -625,17 +627,16 @@
     &::after {
       $size: 16px;
 
+      @include inline-end(0);
+
       content: '>';
       opacity: 0.5;
       position: absolute;
       top: 50%;
-
-      @include inline-end(0);
-
       bottom: 0;
       font: $size monospace;
-      line-height: $size / 2;
-      height: $size / 2;
+      line-height: math.div($size, 2);
+      height: math.div($size, 2);
       pointer-events: none;
       transform: translate(-150%, -50%) scaleX(1.2) rotate(90deg);
       transition: 0.2s ease-in-out;

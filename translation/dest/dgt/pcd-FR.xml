@@ -20,8 +20,7 @@
   <string name="checkYouHaveMadeOpponentsMove">Vérifiez d\'abord que vous avez joué le coup de votre adversaire sur l\'échiquier DGT. Reprenez votre coup. Jouez-le de nouveau.</string>
   <string name="asALastResort">En dernier recours, placez les pièces sur l\'échiquier de la même façon que sur l\'échiquier de Lichess, puis %s</string>
   <string name="reloadThisPage">rechargez cette page</string>
-  <string name="dgtConfigure">DGT - Configurer</string>
-  <string name="configureYourDgtBoard" comment="Replaces old string dgtConfigure">Configurer votre échiquier DGT</string>
+  <string name="configureYourDgtBoard">Configurer votre échiquier DGT</string>
   <string name="lichessConnectivity">Connectivité de Lichess</string>
   <string name="validDgtOauthToken">Vous avez un jeton OAuth adapté à l\'échiquier DGT.</string>
   <string name="dgtPlayMenuEntryAdded">Une entrée %s a été ajoutée en haut de votre menu JOUER.</string>

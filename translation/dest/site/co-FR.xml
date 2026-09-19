@@ -118,25 +118,13 @@
   <string name="blunder">Sbaglione</string>
   <string name="mistake">Sbagliu</string>
   <string name="inaccuracy">Imprecisione</string>
-  <plurals name="nbBlunders">
-    <item quantity="one">%s sbaglione</item>
-    <item quantity="other">%s sbaglioni</item>
-  </plurals>
   <plurals name="numberBlunders">
     <item quantity="one">%s Sbaglione</item>
     <item quantity="other">%s Sbaglioni</item>
   </plurals>
-  <plurals name="nbMistakes">
-    <item quantity="one">%s sbagliu</item>
-    <item quantity="other">%s sbagli</item>
-  </plurals>
   <plurals name="numberMistakes">
     <item quantity="one">%s Sbagliu</item>
     <item quantity="other">%s Sbagli</item>
-  </plurals>
-  <plurals name="nbInaccuracies">
-    <item quantity="one">%s imprecisione</item>
-    <item quantity="other">%s imprecisioni</item>
   </plurals>
   <plurals name="numberInaccuracies">
     <item quantity="one">%s Imprecisione</item>
@@ -230,8 +218,6 @@
     <item quantity="other">%s partite cù voi</item>
   </plurals>
   <string name="cancel">Annullà</string>
-  <string name="whiteTimeOut">I bianchi ùn anu più tempu</string>
-  <string name="blackTimeOut">I neri ùn anu più tempu</string>
   <string name="drawOfferSent">Offerta di partita patta mandata</string>
   <string name="drawOfferAccepted">Offerta di patta accettata</string>
   <string name="whiteOffersDraw">I bianchi pruponenu a partita patta</string>
@@ -603,11 +589,9 @@
   <string name="aboutSimulRules">Quandu a simultanea principia, ogni ghjucadore principia a partita cù l\' ostu. A simultanea finisce quandu tutte e partite sò finite.</string>
   <string name="aboutSimulSettings">E simultanee ùn sò mai classificate. Ripiglià un colpu, ricumincià a partita o raghjunghje u tempu ùn sò micca pussibule.</string>
   <string name="create">Creà</string>
-  <string name="whenCreateSimul">Quandu voi create una simultanea, avete da  parechji avversarii à tempu.</string>
   <string name="simulVariantsHint">Sèè vo sceglite parechji modi di ghjocu, ogni ghjucadore hà da sceglia a soia pè a partita.</string>
   <string name="simulClockHint">Sistemu di riloghju Fischer. Più ci seranu ghjucadore, più averete bisognu di tempu.</string>
   <string name="simulAddExtraTime">Pudete aghjnghje stratempu in più pè aiutà vi à finì a partita simultanea.</string>
-  <string name="simulHostExtraTime">Riloghju di u stratempu di l\' ostu</string>
   <string name="lichessTournaments">Ghjustre Lichess</string>
   <string name="tournamentFAQ">FAD di e ghjustre Arena</string>
   <string name="timeBeforeTournamentStarts">Tempu sin\' à u principiu di u turneu</string>
@@ -700,7 +684,6 @@
   <string name="invalidFen">FEN invalidu</string>
   <string name="custom">Abitudine</string>
   <string name="notifications">Nutificazioni</string>
-  <string name="perfRatingX">Classifica:%s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s secunda pè ghjucà u primu colpu</item>
     <item quantity="other">%s secondi pè ghjucà u primu colpu</item>
@@ -839,7 +822,6 @@ Lasciate viotu pè principià a partita cù una pusizione nurmale.</string>
   <string name="noChat">Senza chjachjera</string>
   <string name="onlyTeamLeaders">Soltantu i capitani di e squadre</string>
   <string name="onlyTeamMembers">Soltantu i membri di a squadra</string>
-  <string name="navigateMoveTree">Navigate in l\' arburu di colpi</string>
   <string name="mouseTricks">Cuntrolli cù u topulinu</string>
   <string name="toggleLocalAnalysis">Aduprà soltantu l\' analisi di l\' urdinatore lucale</string>
   <string name="toggleAllAnalysis">Aduprà l\' analisi di tutti l\' urdinatori</string>

@@ -20,7 +20,6 @@
   <string name="checkYouHaveMadeOpponentsMove">ตรวจสอบให้แน่ใจว่าคุณได้เดินหมากตามคู่ต่อสู้บนกระดาน DGT หรือยัง จากนั้นให้ย้อนกลับการเดินหมากของคุณ แล้วเดินใหม่อีกครั้ง</string>
   <string name="asALastResort">หากเป็นทางเลือกสุดท้าย ให้จัดกระดานให้เหมือนกับ Lichess ทุกประการ จากนั้น %s</string>
   <string name="reloadThisPage">โหลดหน้านี้ใหม่</string>
-  <string name="dgtConfigure">DGT - กำหนดค่า</string>
   <string name="lichessConnectivity">การเชื่อมต่อ Lichess</string>
   <string name="validDgtOauthToken">คุณมีโทเค็นกุญแจดิจิทัลที่เหมาะสมสำหรับการใช้งาน DGT แล้ว</string>
   <string name="dgtPlayMenuEntryAdded">มีการเพิ่มรายการ %s ลงในเมนู PLAY ของคุณที่ด้านบนแล้ว</string>

@@ -20,7 +20,6 @@
   <string name="checkYouHaveMadeOpponentsMove">Provjerite prvo da li ste odigrali protivnikov potez na vašoj DGT ploči. Povucite vaš potez. Igrajte opet.</string>
   <string name="asALastResort">Kao posljedni pokušaj, postavite ploču kao na Lichess-u, onda %s</string>
   <string name="reloadThisPage">Osvježite ovu stranicu</string>
-  <string name="dgtConfigure">DGT - Postavite</string>
   <string name="lichessConnectivity">Lichess povezivost</string>
   <string name="validDgtOauthToken">Imate odgovarajuć OAuth token za DGT igranje.</string>
   <string name="dgtPlayMenuEntryAdded">%s unos je dodan pri vrhu vašeg izbornika za igranje.</string>

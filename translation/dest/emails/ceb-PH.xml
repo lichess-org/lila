@@ -12,7 +12,6 @@
   <string name="welcome_text">Malampuson nimo nga gibuhat ang imong account sa https://lichess.org.
 
 Ania ang imong panid sa profile: %1$s. Mahimo nimo kini ma-personalize sa %2$s.</string>
-  <string name="common_orPaste">(Pag-klik sa dili molihok? Sulayi ang pag-paste sa imong browser!)</string>
   <string name="common_note">Kini usa ka email nga serbisyo nga may kalabutan sa imong paggamit sa %s.</string>
   <string name="common_contact">Aron makontak kami, palihug gamita ang %s.</string>
 </resources>

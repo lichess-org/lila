@@ -125,25 +125,13 @@
   <string name="blunder">Qalad</string>
   <string name="mistake">Qalad</string>
   <string name="inaccuracy">Khalad</string>
-  <plurals name="nbBlunders">
-    <item quantity="one">%s qalad</item>
-    <item quantity="other">%s qaladaad</item>
-  </plurals>
   <plurals name="numberBlunders">
     <item quantity="one">%s Qalad</item>
     <item quantity="other">%s Qaladaad</item>
   </plurals>
-  <plurals name="nbMistakes">
-    <item quantity="one">%s halmaam</item>
-    <item quantity="other">%s halmaamyo</item>
-  </plurals>
   <plurals name="numberMistakes">
     <item quantity="one">%s Halmaam</item>
     <item quantity="other">%s Halmaamyo</item>
-  </plurals>
-  <plurals name="nbInaccuracies">
-    <item quantity="one">%s aan fiicnayn</item>
-    <item quantity="other">%s aan fiicnayn</item>
   </plurals>
   <plurals name="numberInaccuracies">
     <item quantity="one">%s Aan fiicnayn</item>
@@ -242,7 +230,6 @@
   <string name="emailSent">Iimayl baan u dirnay %s.</string>
   <string name="emailCanTakeSomeTime">Wakhti yar sii si ay kuu soo gaadho.</string>
   <string name="refreshInboxAfterFiveMinutes">Sug 5 mirir oo ka dib baadh iimaylkaaga.</string>
-  <string name="checkSpamFolder">Sidoo kale eeg spam folderkaaga, halkaasaad ka heli kartaa. Haddii ay sidaa tahay, u beddel \"not spam\".</string>
   <string name="accountConfirmed">Akoonka %s waa la hubiyay si guul leh.</string>
   <string name="accountCanLogin">Hadda waxad ku geli kartaa %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Uma baahnid iimayl hubsasho ah.</string>
@@ -265,8 +252,6 @@
   </plurals>
   <string name="ok">Waayahay</string>
   <string name="cancel">Ka noqo</string>
-  <string name="whiteTimeOut">Wakhtigii ba ka dhamaaday cadaanka</string>
-  <string name="blackTimeOut">Wakhtigaa ka dhacay madowga</string>
   <string name="drawOfferSent">La dir dalbasho baraaje</string>
   <string name="drawOfferAccepted">Waa la aqbalay baraaje</string>
   <string name="whiteOffersDraw">Cadaankaa dalbaday baraaje</string>

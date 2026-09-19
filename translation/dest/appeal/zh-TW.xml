@@ -8,7 +8,6 @@
   <string name="accountMutedInfo">請閱讀我們的%s。無法遵守溝通指南的帳號可能會導致帳號被封禁。</string>
   <string name="excludedFromLeaderboards">您的帳號已被排除在排行榜外。</string>
   <string name="closedByModerators">您的帳號已被管理者關閉。</string>
-  <string name="playTimeout">您目前暫時無法參加對局。</string>
   <string name="communicationGuidelines">溝通指南</string>
   <string name="fairPlay">公平競爭</string>
 </resources>

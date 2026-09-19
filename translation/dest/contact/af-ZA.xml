@@ -25,7 +25,6 @@
   <string name="cantChangeMore">Ons kan nie meer as die letters na groot of klein verander nie. Vir tegniese redes is dit onmoontlik.</string>
   <string name="orCloseAccount">Jy kan wel jou huidige rekening sluit en \'n nuwe rekening skep.</string>
   <string name="wantClearHistory">Ek wil my geskiedenis of my gradeering uitvee</string>
-  <string name="cantClearHistory">Dit is nie moontlik om jou spel geskiedenis, kopkrapper geskiedenis of gradeerings uit te vee nie.</string>
   <string name="wantReport">Ek wil \'n speler aankla</string>
   <string name="toReportAPlayerUseForm">Om \'n speler aan te meld, gebruik die aanmeldingsvorm</string>
   <string name="youCanAlsoReachReportPage">Jy kan ook daardie blad bereik deur die %s aanmeldingsblokkie op die profielblad te klik.</string>

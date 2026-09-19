@@ -21,7 +21,6 @@
   <string name="puzzleRead">Перегляд активності в задачах</string>
   <string name="teamRead">Переглядати інформацію приватних команд</string>
   <string name="teamWrite">Приєднуватися та покидати команди</string>
-  <string name="teamLead">Контролювати команди, які ви адмініструєте: відправляти приватні повідомлення, виганяти учасників</string>
   <string name="followRead">Переглядати підписки</string>
   <string name="followWrite">Підписуватися і відписуватися від інших гравців</string>
   <string name="msgWrite">Надсилати приватні повідомлення іншим гравцям</string>

@@ -24,8 +24,7 @@ Berserk nie jest dostępny w partiach bez czasu początkowego (0 + 1, 0 + 2).
 Berserk daje dodatkowy punkt wyłącznie wtedy, gdy wykonasz co najmniej 7 posunięć w partii.</string>
   <string name="howIsTheWinnerDecided">Jak wyłaniany jest zwycięzca?</string>
   <string name="howIsTheWinnerDecidedAnswer">Zwycięzcą turnieju zostaje gracz (lub gracze) który w momencie upłynięcia czasu przeznaczonego na turniej posiada największą liczbę punktów turniejowych.</string>
-  <string name="howDoesPairingWork">W jaki sposób dobierani są przeciwnicy?</string>
-  <string name="howArePlayersPaired" comment="Replaces old string howDoesPairingWork">Jak są parowani gracze?</string>
+  <string name="howArePlayersPaired">Jak są parowani gracze?</string>
   <string name="howDoesPairingWorkAnswer">Do pierwszej partii gracze dobierani są na podstawie swoich rankingów. 
 Po zakończeniu każdej partii i powrocie do poczekalni dobierany jest gracz o zbliżonym rankingu. Choć dzięki temu czas oczekiwania jest minimalny, to możesz nie mieć jednak okazji rozegrać partii ze wszystkimi uczestnikami turnieju.
 Graj szybko i wracaj do poczekalni, by rozegrać więcej partii i zdobyć więcej punktów.</string>
@@ -67,8 +66,7 @@ Graj szybko i wracaj do poczekalni, by rozegrać więcej partii i zdobyć więce
   <string name="myTournaments">Moje turnieje</string>
   <string name="editTournament">Edytuj turniej</string>
   <string name="editTeamBattle">Edytuj bitwę drużyn</string>
-  <string name="defender">Obrońca</string>
-  <string name="defenderLabel" comment="In this context, this is the current holder of a shield trophy, who is defending their trophy in the next shield tournament of that variant. https://lichess.org/tournament/shields Replaces old string defender">Obrońca:</string>
+  <string name="defenderLabel" comment="In this context, this is the current holder of a shield trophy, who is defending their trophy in the next shield tournament of that variant. https://lichess.org/tournament/shields">Obrońca:</string>
   <string name="pickYourTeam">Wybierz swoją drużynę</string>
   <string name="whichTeamWillYouRepresentInThisBattle">Którą drużynę będziesz reprezentował w tej bitwie?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">Musisz dołączyć do jednej z tych drużyn aby wziąć udział!</string>
@@ -76,10 +74,7 @@ Graj szybko i wracaj do poczekalni, by rozegrać więcej partii i zdobyć więce
   <string name="recentlyPlayed">Ostatnio rozegrane</string>
   <string name="bestResults">Najlepsze wyniki</string>
   <string name="tournamentStats">Statystyki turniejowe</string>
-  <string name="rankAvgHelp">Średnia ranga to procent twojego rankingu. Niższa jest lepsza.
-
-Na przykład, będąc 3 w rankingu turnieju liczącym 100 graczy = 3%. Będąc 10 w rankingu turnieju liczącym 1000 graczy = 1%.</string>
-  <string name="rankAverageHelp" comment="Replaces old string rankAvgHelp">Twój średni ranking reprezentuje Twoją typową końcową pozycję w stosunku do całkowitej liczby graczy w każdym turnieju.
+  <string name="rankAverageHelp">Twój średni ranking reprezentuje Twoją typową końcową pozycję w stosunku do całkowitej liczby graczy w każdym turnieju.
 Jest to miara miejsca w turnieju, a nie ocena ogólna.
 
 Na przykład średni ranking na poziomie 3% oznacza, że zazwyczaj kończysz w górnych 3% (przykładowo 30 z 1000 graczy).</string>

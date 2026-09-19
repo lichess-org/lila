@@ -31,8 +31,7 @@ Una partita Berserk vinta varrà un punto in più solo se giocherai almeno 7 mos
   <string name="howIsTheWinnerDecidedAnswer">Saranno proclamati vincitori i tre giocatori che abbiano il maggior numero di punti allo scadere del tempo previsto per il torneo.
 
 Se due o più giocatori hanno lo stesso numero di punti, lo spareggio avverrà in base alla performance del torneo, valutata dal Tournament Performance Rating, calcolato come [Somma dei punteggi degli avversari + 400×(Vittorie - Sconfitte)] / Partite giocate.</string>
-  <string name="howDoesPairingWork">Come funziona l\'accoppiamento?</string>
-  <string name="howArePlayersPaired" comment="Replaces old string howDoesPairingWork">Come si accoppiano i giocatori?</string>
+  <string name="howArePlayersPaired">Come si accoppiano i giocatori?</string>
   <string name="howDoesPairingWorkAnswer">All\'inizio del torneo i giocatori sono accoppiati sulla base del loro punteggio individuale.
 Non appena finisci una partita, ritorna nella lobby del torneo e attendi: verrai nuovamente accoppiato con un altro giocatore con un punteggio simile al tuo. Il tempo di attesa è minimo; tuttavia, potresti non affrontare tutti i giocatori partecipanti al torneo.
 Gioca in fretta e ritorna nella lobby per avere la possibilità di giocare più partite e ottenere più punti.</string>
@@ -70,7 +69,6 @@ Gioca in fretta e ritorna nella lobby per avere la possibilità di giocare più 
   <string name="myTournaments">I miei tornei</string>
   <string name="editTournament">Modifica il torneo</string>
   <string name="editTeamBattle">Modifica battaglia a squadre</string>
-  <string name="defender">Difensore</string>
   <string name="pickYourTeam">Scegli la tua squadra</string>
   <string name="whichTeamWillYouRepresentInThisBattle">Quale squadra rappresenterai in questa battaglia?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">Devi unirti a una di queste squadre per partecipare!</string>
@@ -78,9 +76,6 @@ Gioca in fretta e ritorna nella lobby per avere la possibilità di giocare più 
   <string name="recentlyPlayed">Giocato recentemente</string>
   <string name="bestResults">Risultati migliori</string>
   <string name="tournamentStats">Statistiche torneo</string>
-  <string name="rankAvgHelp">La media del piazzamento è la percentuale del tuo piazzamento. Più è basso, più è meglio.
-
-Per esempio, essere classificato in 3ª posizione in un torneo di 100 giocatori = 3%. Essere classificato in 10ª posizione in un torneo di 1000 = 1%.</string>
   <string name="medians">mediane</string>
   <string name="allAveragesAreX">Tutte le medie in questa pagina sono %s.</string>
   <string name="total">Totale</string>

@@ -32,13 +32,11 @@
   <string name="downloadAllRounds">下载所有轮次</string>
   <string name="resetRound">重置此轮次</string>
   <string name="deleteRound">删除此轮次</string>
-  <string name="definitivelyDeleteRound">永久删除此轮次及其所有对局。</string>
-  <string name="permanentlyDeleteRound" comment="Refers to live tournaments being broadcast on Lichess (https://lichess.org/broadcast).&#10;&#10;Description (also translateable): Delete all games of this round. The source will need to be active in order to re-create them. This string has been amended since its initial publication; it didn't say &quot;all its games&quot; at the time.&#10;&#10;Replaces old string definitivelyDeleteRound.">永久删除此轮次及其所有对局？</string>
+  <string name="permanentlyDeleteRound" comment="Refers to live tournaments being broadcast on Lichess (https://lichess.org/broadcast).&#10;&#10;Description (also translateable): Delete all games of this round. The source will need to be active in order to re-create them. This string has been amended since its initial publication; it didn't say &quot;all its games&quot; at the time.">永久删除此轮次及其所有对局？</string>
   <string name="deleteAllGamesOfThisRound">删除此轮次的所有对局。需要源文件处于活动状态才能重新创建它们。</string>
   <string name="editRoundStudy">编辑轮次研习</string>
   <string name="deleteTournament">删除此锦标赛</string>
-  <string name="definitivelyDeleteTournament">永久删除整个锦标赛、其所有轮次及所有对局。</string>
-  <string name="permanentlyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast Replaces old string definitivelyDeleteTournament">永久删除该锦标赛，包括所有轮次和对局？</string>
+  <string name="permanentlyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast">永久删除该锦标赛，包括所有轮次和对局？</string>
   <string name="showScores">根据对局结果显示棋手得分</string>
   <string name="replacePlayerTags">可选：替换棋手姓名、等级分和头衔</string>
   <string name="fideFederations">FIDE 成员国/地区</string>

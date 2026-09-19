@@ -49,7 +49,7 @@ function renderEnd(root: AnalyseCtrl, end: Outcome): VNode {
     hl('div.instruction', [
       hl('strong', end.winner ? i18n.site.checkmate : i18n.site.draw),
       end.winner
-        ? hl('em', hl('color', i18n.site[end.winner === 'white' ? 'whiteWinsGame' : 'blackWinsGame']))
+        ? hl('em', hl('color', i18n.site[`${end.winner}WinsGame`]))
         : isFiftyMoves
           ? i18n.site.drawByFiftyMoves
           : hl('em', i18n.site.theGameIsADraw),

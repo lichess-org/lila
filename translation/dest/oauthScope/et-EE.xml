@@ -21,7 +21,6 @@
   <string name="puzzleRead">Puslede aktiivsuse lugemine</string>
   <string name="teamRead">Meeskonna privaatse informatsiooni lugemine</string>
   <string name="teamWrite">Meeskondadest liitumine ja lahkumine</string>
-  <string name="teamLead">Meeskonna haldamine juhina: privaatsõnumite saatmine, liikmete välja viskamine</string>
   <string name="followRead">Jälgitud mängijate lugemine</string>
   <string name="followWrite">Teiste mängijate jälgimine ja jälgimise lõpetamine</string>
   <string name="msgWrite">Privaatsõnumite saatmine teistele mängijatele</string>

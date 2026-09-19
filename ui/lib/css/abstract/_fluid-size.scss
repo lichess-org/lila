@@ -1,8 +1,15 @@
+@use 'sass:math';
+@use 'sass:meta';
+
 $vp-min-width: 300px !default;
 $vp-max-width: 1200px !default;
 
-@function strip-unit($value) {
-  @return $value / ($value * 0 + 1);
+@function strip-unit($number) {
+  @if meta.type-of($number) == 'number' and not math.is-unitless($number) {
+    @return math.div($number, $number * 0 + 1);
+  }
+
+  @return $number;
 }
 
 @mixin fluid-size(
@@ -14,10 +21,10 @@ $vp-max-width: 1200px !default;
   $context: 'min-width',
   $by: '100vw'
 ) {
-  $u1: unit($min-cap);
-  $u2: unit($max-cap);
-  $u3: unit($min-size);
-  $u4: unit($max-size);
+  $u1: math.unit($min-cap);
+  $u2: math.unit($max-cap);
+  $u3: math.unit($min-size);
+  $u4: math.unit($max-size);
 
   @if $u1 == $u2 and $u1 == $u3 and $u1 == $u4 {
     #{$prop}: $min-size;

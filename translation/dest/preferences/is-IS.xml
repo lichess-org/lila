@@ -56,12 +56,8 @@
   <string name="scrollOnTheBoardToReplayMoves">Skruna á borðinu til að endursýna leiki</string>
   <string name="correspondenceEmailNotification">Daglegur tölvupóstur með lista yfir bréfskákirnar þínar</string>
   <string name="notifyStreamStart">Streymari hefur útsendingu í beinni</string>
-  <string name="notifyInboxMsg">Ný innhólfsskilaboð</string>
-  <string name="notifyForumMention">Athugasemd á umræðukorkinum nefnir þig</string>
-  <string name="notifyInvitedStudy">Boð í stúderingu</string>
   <string name="notifyGameEvent">Bréfskákatíðindi</string>
   <string name="notifyChallenge">Áskoranir</string>
-  <string name="notifyTournamentSoon">Mót hefst senn</string>
   <string name="notifyTimeAlarm">Bréfskákarklukkan rennur út</string>
   <string name="notifyBell">Innhólfstilkynningar innan Lichess</string>
   <string name="notifyPush">Tilkynning í tæki þegar þú ert ekki á Lichess</string>

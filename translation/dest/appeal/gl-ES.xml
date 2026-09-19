@@ -13,10 +13,9 @@
   <string name="closedByModerators">A túa conta foi pechada polos moderadores.</string>
   <string name="blogRestriction">Tes unha restrición no blog.</string>
   <string name="blogRestrictionInfo">Le a nosa %s: violar estas regras pode derivar en repercusións variadas.</string>
-  <string name="playTimeout">Non podes xogar debido a unha suspensión temporal.</string>
   <string name="reportBanned">Non podes enviar denuncias ós moderadores</string>
   <string name="reportBannedInfo">Detectamos un patrón de abuso do noso sistema de denuncias. Isto pode deberse a varias razóns: selección continua de categorías erróneas, uso de linguaxe obscena, desapropiada ou ofensiva; denuncia dun número excesivo de partidas ou ausencia de demostración de por que o rival incumpriu as regras.</string>
-  <string name="temporarilyRestrictedFromPlaying" comment="play timeout = Lichess prevents you temporarily from playing any games Replaces old string playTimeout">Non podes xogar debido a unha suspensión temporal da túa conta.</string>
+  <string name="temporarilyRestrictedFromPlaying" comment="play timeout = Lichess prevents you temporarily from playing any games">Non podes xogar debido a unha suspensión temporal da túa conta.</string>
   <string name="communicationGuidelines">directrices de comunicación</string>
   <string name="blogEtiquette">Etiqueta do blog</string>
   <string name="fairPlay">Xogo limpo</string>

@@ -27,7 +27,6 @@
   <string name="capturingDefender">Uzmite figuru koja brani drugu</string>
   <string name="capturingDefenderDescription">Uklanjanje figure koja je ključna za odbranu druge figure, što omogućuje da sada nebranjena figura bude uzeta u sljedećem potezu.</string>
   <string name="cornerMate">Suigrač iz ugla</string>
-  <string name="cornerMateDescription">Ograničite kralja u ugao koristeći top ili damu i skakača kako biste se suočili sa šah-matom.</string>
   <string name="crushing">Uništavanje</string>
   <string name="crushingDescription">Uočite protivnikov grubi previd kako biste stekli razornu prednost (≥ 600 cp)</string>
   <string name="discoveredCheck">Otkriveni ček</string>
@@ -52,15 +51,12 @@
   <string name="doubleCheckDescription">Šahiranje dvjema figurama istovremeno, kao rezultat otkrivenog napada, kad i otkrivena figura i ona koja ju je zaklanjala napadaju protivničkog kralja.</string>
   <string name="endgame">Završnica</string>
   <string name="endgameDescription">Taktika tokom posljednje faze partije.</string>
-  <string name="enPassantDescription">Taktika koja uključuje pravilo \"en passant\", gdje pješak može uhvatiti protivničkog pješaka koji ga je zaobišao koristeći svoj početni potez u dva kvadrata.</string>
   <string name="exposedKing">Izloženi kralj</string>
   <string name="exposedKingDescription">Taktika koja uključuje mali broj figura koje brane kralja, što često dovodi do mata.</string>
   <string name="fork">Viljuška</string>
-  <string name="forkDescription">Potez kojim pomjerena figura istovremeno napada dvije protivničke.</string>
   <string name="hangingPiece">Viseća figura</string>
   <string name="hangingPieceDescription">Taktika koja uključuje da je protivnička figura nebranjena ili nedovoljno branjena i slobodna za hvatanje.</string>
   <string name="hookMate">Zakačni mat</string>
-  <string name="hookMateDescription">Šah-mat s topom, vitezom i pješakom zajedno s jednim neprijateljskim pješakom da ograničite bijeg neprijateljskog kralja.</string>
   <string name="interference">Smjetnja</string>
   <string name="interferenceDescription">Premještanje figura između dvije protivničke figure da jedna ili obje protivničke figure ostanu nebranjene, kao što je vitez na branjenom polju između dva topa.</string>
   <string name="intermezzo">Intermezzo</string>
@@ -102,7 +98,6 @@
   <string name="pin">Značka</string>
   <string name="pinDescription">Taktika koja uključuje značke, gdje se figura ne može pomaknuti a da ne otkrije napad na figuru veće vrijednosti.</string>
   <string name="promotion">Promaknuče</string>
-  <string name="promotionDescription">Promaknite jednog svog pijuna u kraljicu ili sporednu figuru.</string>
   <string name="queenEndgame">Kraljičina krajnica</string>
   <string name="queenEndgameDescription">Završno kolo sa samo kraljicama I pijunima.</string>
   <string name="queenRookEndgame">Završnica s damom i topom</string>

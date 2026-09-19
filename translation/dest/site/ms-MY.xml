@@ -135,20 +135,11 @@
   <string name="blunder">Kesilapan</string>
   <string name="mistake">Kesilapan</string>
   <string name="inaccuracy">Inaccuracy</string>
-  <plurals name="nbBlunders">
-    <item quantity="other">%s kesilapan</item>
-  </plurals>
   <plurals name="numberBlunders">
     <item quantity="other">%s Kesilapan</item>
   </plurals>
-  <plurals name="nbMistakes">
-    <item quantity="other">%s kesilapan</item>
-  </plurals>
   <plurals name="numberMistakes">
     <item quantity="other">%s Kesilapan</item>
-  </plurals>
-  <plurals name="nbInaccuracies">
-    <item quantity="other">%s ketidaktepatan</item>
   </plurals>
   <plurals name="numberInaccuracies">
     <item quantity="other">%s Ketidaktepatan</item>
@@ -241,7 +232,6 @@
   <string name="emailSent">Kami telah menghantar e-mel ke %s.</string>
   <string name="emailCanTakeSomeTime">Ia boleh mengambil masa untuk sampai.</string>
   <string name="refreshInboxAfterFiveMinutes">Tunggu 5 minit dan muat ulang semula di peti masuk e-mel anda.</string>
-  <string name="checkSpamFolder">Semak juga folder spam anda, ia mungkin telah dihantar di sana. Jika ya, tandakannya sebagai bukan spam.</string>
   <string name="accountConfirmed">Pengguna %s berjaya disahkan sepenuhnya.</string>
   <string name="accountCanLogin">Anda boleh log masuk sekarang sebagai %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Anda tidak memerlukan e-mel pengesahan.</string>
@@ -261,8 +251,6 @@
   </plurals>
   <string name="ok">OK</string>
   <string name="cancel">Batal</string>
-  <string name="whiteTimeOut">Putih habis masa</string>
-  <string name="blackTimeOut">Hitam habis masa</string>
   <string name="drawOfferSent">Tawaran seri dihantar</string>
   <string name="drawOfferAccepted">Tawaran seri diterima</string>
   <string name="whiteOffersDraw">Pemain putih tawar seri</string>
@@ -670,7 +658,6 @@ analisis komputer, perbualan dalam permainan dan URL kongsi bersama.</string>
   <string name="invalidFen">FEN tidak sah</string>
   <string name="custom">Tersuai</string>
   <string name="notifications">Pemberitahuan</string>
-  <string name="perfRatingX">Rating: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="other">%s saat untuk memulakan langkah pertama</item>
   </plurals>

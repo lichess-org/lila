@@ -1,9 +1,12 @@
+@use 'sass:map';
+@use 'sass:math';
+@use 'sass:string';
 @import 'boards';
 
-$td-outer-height-ratio: 476 / 512;
+$td-outer-height-ratio: math.div(476, 512);
 $td-outer-height-percent: $td-outer-height-ratio * 100%;
-$td-inner-height-ratio: 464.5 / 512;
-$td-inner-relative-percent: $td-inner-height-ratio / $td-outer-height-ratio * 100%;
+$td-inner-height-ratio: math.div(464.5, 512);
+$td-inner-relative-percent: math.div($td-inner-height-ratio, $td-outer-height-ratio) * 100%;
 
 @include mq-is-col1 {
   .is3d {
@@ -40,8 +43,8 @@ cg-board::before {
       background-image: url(../images/staunton/board/#{$name}.webp);
     }
 
-    $coord-color-white: map-get($board-theme, coord-color-white);
-    $coord-color-black: map-get($board-theme, coord-color-black);
+    $coord-color-white: map.get($board-theme, coord-color-white);
+    $coord-color-black: map.get($board-theme, coord-color-black);
 
     @if $coord-color-white and $coord-color-black {
       coords {
@@ -70,8 +73,12 @@ $piece-files: (
 @each $name, $flips in $piece-files {
   @each $color in 'White', 'Black' {
     @each $type in 'Pawn', 'Bishop', 'Knight', 'Rook', 'Queen', 'King' {
-      body[data-piece-set3d='#{$name}'] .main-board .#{to-lower-case($type)}.#{to-lower-case($color)},
-      body[data-piece-set3d='#{$name}'] .no-square .#{to-lower-case($type)}.#{to-lower-case($color)} {
+      body[data-piece-set3d='#{$name}']
+        .main-board
+        .#{string.to-lower-case($type)}.#{string.to-lower-case($color)},
+      body[data-piece-set3d='#{$name}']
+        .no-square
+        .#{string.to-lower-case($type)}.#{string.to-lower-case($color)} {
         background-image: url('../images/staunton/piece/#{$name}/#{$color}-#{$type}.webp');
       }
     }
@@ -83,7 +90,7 @@ $piece-files: (
         body[data-piece-set3d='#{$name}']
           .main-board
           .orientation-#{$orientation}
-          .#{to-lower-case($type)}.#{to-lower-case($color)} {
+          .#{string.to-lower-case($type)}.#{string.to-lower-case($color)} {
           background-image: url('../images/staunton/piece/#{$name}/#{$color}-#{$type}-Flipped.webp');
         }
       }

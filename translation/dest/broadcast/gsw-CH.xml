@@ -34,12 +34,10 @@
   <string name="downloadAllRounds">Alli Runde abelade</string>
   <string name="resetRound">Die Rundi zruggsetze</string>
   <string name="deleteRound">Die Rundi lösche</string>
-  <string name="definitivelyDeleteRound">Die Rundi, mit allne Schpiel, definitiv lösche.</string>
   <string name="deleteAllGamesOfThisRound">Lösch alli Schpiel vu dere Rundi. D\'Quälle muess aktiv si, dass sie neu erschtellt werde chönd.</string>
   <string name="editRoundStudy">Runde-Schtudie bearbeite</string>
   <string name="deleteTournament">Lösch das Turnier</string>
-  <string name="definitivelyDeleteTournament">Das ganze Turnier, alli Runde und alli Schpiel definitiv lösche.</string>
-  <string name="permanentlyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast Replaces old string definitivelyDeleteTournament">S\'Turnier permanent lösche, inklusivi allne Runde und Partie?</string>
+  <string name="permanentlyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast">S\'Turnier permanent lösche, inklusivi allne Runde und Partie?</string>
   <string name="showScores">Zeigt d\'Erfolg vu de Schpiller, anhand vu Schpiel-Ergäbnis</string>
   <string name="replacePlayerTags">Optional: Schpillernäme, Wertige und Titel weg lah</string>
   <string name="fideFederations">FIDE Wältschachverband</string>

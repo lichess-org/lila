@@ -26,7 +26,6 @@ Berserk ຈະໃຫ້ຄະແນນເພີ່ມກໍຕໍ່ເມື່
   <string name="howIsTheWinnerDecidedAnswer">ຜູ້ຫຼິ້ນທີ່ມີຄະແນນຫຼາຍທີ່ສຸດຫຼັງຈາກສິ້ນສຸດເວລາການແຂ່ງຂັນຈະຖືກປະກາດເປັນຜູ້ຊະນະ.
 
 ເມື່ອມີຜູ້ຫຼິ້ນສອງຄົນຂຶ້ນໄປທີ່ມີຄະແນນເທົ່າກັນ, ຈະໃຊ້ປະສິດທິພາບການຫຼິ້ນ (Performance) ໃນການຕັດສິນ (Tie break).</string>
-  <string name="howDoesPairingWork">ການຈັບຄູ່ເຮັດແນວໃດ?</string>
   <string name="howDoesPairingWorkAnswer">ໃນຕອນເລີ່ມຕົ້ນການແຂ່ງຂັນ, ຜູ້ຫຼິ້ນຈະຖືກຈັບຄູ່ຕາມຄະແນນສະສົມ (Rating).
 ທັນທີທີ່ທ່ານຫຼິ້ນເກມສຳເລັດ, ໃຫ້ກັບໄປທີ່ໜ້າຫຼັກຂອງການແຂ່ງຂັນ: ທ່ານຈະຖືກຈັບຄູ່ກັບຜູ້ຫຼິ້ນທີ່ມີອັນດັບໃກ້ຄຽງກັບທ່ານ. ນີ້ຊ່ວຍຫຼຸດເວລາລໍຖ້າໃຫ້ໜ້ອຍທີ່ສຸດ, ແນວໃດກໍຕາມ, ທ່ານອາດຈະບໍ່ໄດ້ພົບກັບຜູ້ຫຼິ້ນທຸກຄົນໃນການແຂ່ງຂັນ.
 ຫຼິ້ນໃຫ້ໄວ ແລະ ກັບໄປທີ່ໜ້າຫຼັກເພື່ອຫຼິ້ນເກມເພີ່ມ ແລະ ເກັບຄະແນນໃຫ້ຫຼາຍຂຶ້ນ.</string>
@@ -62,7 +61,6 @@ Berserk ຈະໃຫ້ຄະແນນເພີ່ມກໍຕໍ່ເມື່
   <string name="myTournaments">ການແຂ່ງຂັນຂອງຂ້ອຍ</string>
   <string name="editTournament">ແກ້ໄຂການແຂ່ງຂັນ</string>
   <string name="editTeamBattle">ແກ້ໄຂການແຂ່ງຂັນລະຫວ່າງທີມ</string>
-  <string name="defender">ຜູ້ປ້ອງກັນແຊ້ມ</string>
   <string name="pickYourTeam">ເລືອກທີມຂອງທ່ານ</string>
   <string name="whichTeamWillYouRepresentInThisBattle">ທ່ານຈະຕາງໜ້າໃຫ້ທີມໃດໃນການແຂ່ງຂັນນີ້?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">ທ່ານຕ້ອງເຂົ້າຮ່ວມທີມໃດທີມໜຶ່ງເພື່ອເຂົ້າຮ່ວມການແຂ່ງຂັນ!</string>
@@ -70,9 +68,6 @@ Berserk ຈະໃຫ້ຄະແນນເພີ່ມກໍຕໍ່ເມື່
   <string name="recentlyPlayed">ຫຼິ້ນເມື່ອບໍ່ດົນມານີ້</string>
   <string name="bestResults">ຜົນງານທີ່ດີທີ່ສຸດ</string>
   <string name="tournamentStats">ສະຖິຕິການແຂ່ງຂັນ</string>
-  <string name="rankAvgHelp">ອັນດັບສະເລ່ຍແມ່ນສ່ວນຮ້ອຍຂອງອັນດັບຂອງທ່ານ. ຕົວເລກຍິ່ງໜ້ອຍຍິ່ງດີ.
-
-ຕົວຢ່າງ: ການໄດ້ອັນດັບ 3 ໃນການແຂ່ງຂັນທີ່ມີຜູ້ຫຼິ້ນ 100 ຄົນ = 3%. ການໄດ້ອັນດັບ 10 ໃນການແຂ່ງຂັນທີ່ມີຜູ້ຫຼິ້ນ 1000 ຄົນ = 1%.</string>
   <string name="medians">ຄ່າກາງ (Medians)</string>
   <string name="allAveragesAreX">ຄ່າສະເລ່ຍທັງໝົດໃນໜ້ານີ້ແມ່ນ %s.</string>
   <string name="total">ທັງໝົດ</string>

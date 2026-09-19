@@ -100,7 +100,7 @@
   <string name="uniqueTrophies">غنائم منحصر به فرد</string>
   <string name="ownerUniqueTrophies">آن جایزه در تاریخ لیچس خاص هست و هیچکس به غیر از %1$s نمی‌توانند داشته باشند.</string>
   <string name="aHourlyBulletTournament">مسابقه گلوله یک‌ساعته</string>
-  <string name="goldenZeeExplanation">کاربر ZugAddict جریان‌سازی می‌کرد و در ۲ ساعت آخر کوشید هوش مصنوعی را شکست دهد. سطح ۸ در زمان ۱+۰، کامیاب نشد. بُناگرِ Lichess به او گفت که اگر هنگام پخش، در این کار کامیاب شود، یک جامینهٔ یکتا خواهد گرفت. یک ساعت بعد، او Stockfish را شکست داد و آن قول عملی شد.</string>
+  <string name="goldenZeeExplanation">کاربر ZugAddict می‌رابید و در ۲ ساعتِ آخر کوشید هومَص را شکست دهد. سطح ۸ در بازیِ ۱+۰، موفق نشد. بُناگرِ Lichess به او گفت که اگر هنگام جریانیدن، در این کار موفق شود، یک جامینهٔ یکتا خواهد گرفت. یک ساعت بعد، او Stockfish را شکست داد و آن قول عملی شد.</string>
   <string name="lichessRatings">درجه‌بندی در Lichess</string>
   <string name="whichRatingSystemUsedByLichess">Lichess از چه شیوه درجه‌بندی‌ای استفاده می‌کند؟</string>
   <string name="ratingSystemUsedByLichess">درجه‌بندی‌ها با استفاده از شیوه درجه‌بندی Glicko-2 که به‌دست مارک گلیکمن ایجاد شده است، محاسبه می‌شوند. این شیوه درجه‌بندی بسیار محبوب است و تعداد قابل توجهی از نهادهای شطرنج از آن استفاده می‌کنند (FIDE یک مثال نقض قابل‌توجه است، زیرا آنها هنوز از شیوه درجه‌بندی ازمُدافتاده Elo استفاده می‌کنند).
@@ -140,13 +140,7 @@
 برای نماد قفل در کنار ادرس lichess.org در نوار URL مرورگر کلیک کنید. 
 سپس انتخاب کنید که آیا می‌خواهید اعلان های لیچس مجاز باشند و یا مسدود شوند.</string>
   <string name="enableAutoplayForSoundsQ">پخش خودکار صدا را فعال می‌کنید؟</string>
-  <string name="enableAutoplayForSoundsA">اکثر مرورگرها برای محافظت از کاربران، جلوی پخش صدا در صفحه‌ای که به‌تازگی باز شده را می‌گیرند. تصور کنید اگر هر وب‌سایتی می‌توانست فوراً شما را با تبلیغات صوتی بمباران کند.
-
-آیکون قرمز قطع صدا زمانی ظاهر می‌شود که مرورگر شما جلوی پخش صدا از lichess.org را بگیرد. معمولاً این محدودیت با اولین کلیک شما برداشته می‌شود. در برخی مرورگرهای موبایل، کشیدن مهره با لمس، به عنوان کلیک محسوب نمی‌شود. در این حالت باید در ابتدای هر بازی یک‌بار روی صفحه ضربه بزنید تا صدا فعال شود.
-
-ما آیکون قرمز را برای هشدار دادن به شما در این مورد نمایش می‌دهیم. اغلب می‌توانید به‌صراحت به lichess.org اجازهٔ پخش صدا را بدهید. در اینجا دستورالعمل انجام این کار در نسخه‌های اخیر برخی از مرورگرهای محبوب آورده شده است.
-</string>
-  <string name="mostBrowsersPreventSoundAutoplay" comment="Replaces old string enableAutoplayForSoundsA">اکثر مرورگرها برای محافظت از کاربران، جلوی پخش صدا در صفحات تازه-بازدید را می‌گیرند.
+  <string name="mostBrowsersPreventSoundAutoplay">اکثر مرورگرها برای محافظت از کاربران، جلوی پخش صدا در صفحات تازه-بازدید را می‌گیرند.
 
 نقشکِ بی‌صدا زمانی ظاهر می‌شود که مرورگرتان مانع از پخش صدا در lichess.org شود. این محدودیت معمولاً پس از تِلیک روی چیزی برداشته می‌شود.
 در برخی از مرورگرهای گوشی، لمسیدن-کشیدن یک مهره تِلیک حساب نمی‌شود. در این صورت، برای پخش صدا در شروع هر بازی، باید روی صفحه ضربه زنید.
@@ -157,11 +151,7 @@
 2.بر روی ویندوز و یا لینوکس خود دکمه Ctrl-i بزنید و یا بر روی مک دکمه cmd-i را بزنید
 3.بر روی تب مجوز ها بزنید
 4.صدا و ویدیو رو بر روی lichess.org مجاز کنید</string>
-  <string name="enableAutoplayForSoundsChrome">1.به lichess.org بروید
-2.بر روی آیکون قفل در تب سرچ بزنید
-3.بر روی تنظیمات سایت بزنید
-4.صدا را مجاز کنید</string>
-  <string name="enableAutoplayForSoundsChromeSiteInformation" comment="Guidance for Google Chrome users on how to enable audio auto-play if they have sound issues. Replaces old string enableAutoplayForSoundsChrome">۱. رفتن به lichess.org
+  <string name="enableAutoplayForSoundsChromeSiteInformation" comment="Guidance for Google Chrome users on how to enable audio auto-play if they have sound issues.">۱. رفتن به lichess.org
 ۲. تِلیک روی نقشکِ اطلاعاتِ وبگاه در نوارِ نشانی
 ۳. تِلیک روی تنظیماتِ وبگاه
 ۴. اجازهٔ صدا</string>

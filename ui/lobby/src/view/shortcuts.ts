@@ -1,6 +1,7 @@
 import { type Hooks } from 'snabbdom';
 
 import { myUserId } from 'lib';
+import { clockToSpeed } from 'lib/game';
 import { licon } from 'lib/licon';
 import type { LobbyShortcut } from 'lib/types';
 import { div, onInsert, spinnerVdom, hl } from 'lib/view';
@@ -53,7 +54,7 @@ export function render(ctrl: LobbyController) {
             ? poolMember.range && opts.showRatings
               ? div('.range', poolMember.range.replace('-', '–'))
               : spinnerVdom()
-            : div('.perf', pool.perf),
+            : div('.perf', i18n.site[clockToSpeed(pool.lim * 60, pool.inc)]),
         ],
       );
     }),

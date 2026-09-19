@@ -8,7 +8,6 @@
   <string name="accountMutedInfo">ອ່ານ %s ຂອງພວກເຮົາ. ການບໍ່ປະຕິບັດຕາມຂໍ້ກຳນົດໃນການສື່ສານອາດສົ່ງຜົນໃຫ້ບັນຊີຖືກປິດສຽງ.</string>
   <string name="excludedFromLeaderboards">ບັນຊີຂອງທ່ານຖືກຄັດອອກຈາກຕາຕະລາງຜູ້ນຳ.</string>
   <string name="closedByModerators">ບັນຊີຂອງທ່ານຖືກປິດໂດຍຜູ້ດູແລລະບົບ.</string>
-  <string name="playTimeout">ທ່ານຖືກພັກການຫຼິ້ນຊົ່ວຄາວ.</string>
   <string name="communicationGuidelines">ຂໍ້ກຳນົດໃນການສື່ສານ</string>
   <string name="fairPlay">ການຫຼິ້ນທີ່ຍຸດຕິທຳ</string>
 </resources>

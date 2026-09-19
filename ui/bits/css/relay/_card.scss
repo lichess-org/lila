@@ -59,7 +59,7 @@
     }
 
     &:not(.relay-image--fallback) {
-      @include broken-img(2 / 1);
+      @include broken-img(2);
     }
   }
 

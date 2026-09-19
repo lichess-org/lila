@@ -56,16 +56,12 @@
   <string name="scrollOnTheBoardToReplayMoves">Hamleleri tekrar görmek için fare tekerleğini tahta üzerinde kaydırın</string>
   <string name="correspondenceEmailNotification">Günlük yazışmalı oyunlarınızı listeleyen posta bildirimi alın</string>
   <string name="notifyStreamStart">Canlı yayın başladığında</string>
-  <string name="notifyInboxMsg">Gelen kutusunda yeni bir mesaj</string>
-  <string name="notifyDirectMessage" comment="notifyInboxMsg&#10;&#10;A notification setting - notifies players when they receive a new message in their Lichess inbox Replaces old string notifyInboxMsg">Yeni özel mesaj</string>
-  <string name="notifyForumMention">Sizden bahseden bir forum mesajı</string>
-  <string name="notifyForumMentions" comment="notifyForumMention&#10;&#10; A notification setting - notifies players when someone has @mentioned their name in the Lichess Forum (https://lichess.org/forum) Replaces old string notifyForumMention">Forum bahsetmeleri</string>
-  <string name="notifyInvitedStudy">Çalışma daveti</string>
-  <string name="notifyStudyInvites" comment="notifyInvitedStudy&#10;&#10; A notification setting - notifies players about invites to studies (https://lichess.org/study/) Replaces old string notifyInvitedStudy">Çalışma davetleri</string>
+  <string name="notifyDirectMessage" comment="notifyInboxMsg&#10;&#10;A notification setting - notifies players when they receive a new message in their Lichess inbox">Yeni özel mesaj</string>
+  <string name="notifyForumMentions" comment="notifyForumMention&#10;&#10; A notification setting - notifies players when someone has @mentioned their name in the Lichess Forum (https://lichess.org/forum)">Forum bahsetmeleri</string>
+  <string name="notifyStudyInvites" comment="notifyInvitedStudy&#10;&#10; A notification setting - notifies players about invites to studies (https://lichess.org/study/)">Çalışma davetleri</string>
   <string name="notifyGameEvent">Yazışmalı oyun güncellemeleri</string>
   <string name="notifyChallenge">Meydan okumalar</string>
-  <string name="notifyTournamentSoon">Yakında başlayan turnuva</string>
-  <string name="notifyTournamentStartReminders" comment="notifyTournamentSoon&#10;&#10;A notification setting - notifies players if a tournament is starting soon. Replaces old string notifyTournamentSoon">Turnuva başlangıç hatırlatıcıları</string>
+  <string name="notifyTournamentStartReminders" comment="notifyTournamentSoon&#10;&#10;A notification setting - notifies players if a tournament is starting soon.">Turnuva başlangıç hatırlatıcıları</string>
   <string name="notifyBroadcasts">Canlı Turnuvalar</string>
   <string name="notifyTimeAlarm">Yazışmalı oyununuzda süreniz azalıyor</string>
   <string name="notifyBell">Lichess içinde çan bildirimi</string>

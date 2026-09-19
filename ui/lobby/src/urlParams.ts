@@ -1,4 +1,4 @@
-import { colors, type ColorChoice } from 'lib/setup/color';
+import { colors } from 'lib/setup/color';
 
 import type { ForceSetupOptions, GameType } from './interfaces';
 
@@ -11,9 +11,9 @@ export interface ParsedUrlParams {
 const gameTypes = ['ai', 'friend', 'hook'] as GameType[];
 
 export function parseUrlParams(url: URL | Location): ParsedUrlParams | undefined {
-  if (!gameTypes.includes(url.hash.slice(1) as GameType)) return undefined;
+  const gameType = url.hash.replace('#', '') as GameType;
+  if (!gameTypes.includes(gameType)) return undefined;
 
-  const gameType = url.hash.slice(1) as GameType;
   const urlParams = new URLSearchParams(url.search);
   const forceOptions: ForceSetupOptions = {};
   const friendUser = urlParams.get('user') ?? undefined;
@@ -52,10 +52,11 @@ export function parseUrlParams(url: URL | Location): ParsedUrlParams | undefined
     const mode = urlParams.get('gameMode');
     if (mode === 'casual' || mode === 'rated') forceOptions.mode = mode;
   }
-
   const color = urlParams.get('color');
-  if (color && colors.some(c => c.key === color)) forceOptions.color = color as ColorChoice;
-
+  const foundColor = color && colors.find(c => c === color);
+  if (foundColor) {
+    forceOptions.color = foundColor;
+  }
   return { gameType, forceOptions, friendUser };
 }
 

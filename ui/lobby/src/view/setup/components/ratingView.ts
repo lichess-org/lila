@@ -1,32 +1,31 @@
 import { h } from 'snabbdom';
 
+import { perfName } from 'lib/game/perf';
+import perfIcons from 'lib/game/perfIcons';
 import { dataIcon, icon, type MaybeVNode } from 'lib/view';
 
 import type LobbyController from '@/ctrl';
-import { speeds, variants } from '@/options';
 
 export const ratingView = ({ opts, data, setupCtrl }: LobbyController): MaybeVNode => {
   if (site.blindMode || !data.ratingMap) return null;
 
-  const selectedPerf = setupCtrl.selectedPerf();
-  const perfOrSpeed =
-    variants.find(({ key }) => key === selectedPerf) || speeds.find(({ key }) => key === selectedPerf);
+  const perf = setupCtrl.selectedPerf();
 
-  if (!perfOrSpeed) return undefined;
+  if (!perf) return undefined;
 
   return h(
     'div.ratings',
     !opts.showRatings
-      ? [icon(perfOrSpeed.icon)(), perfOrSpeed.name]
+      ? [icon(perfIcons[perf])(), perfName(perf)]
       : [
           ...i18n.site.yourRatingIsX.asArray(
             h(
               'strong',
-              { attrs: dataIcon(perfOrSpeed.icon) },
+              { attrs: dataIcon(perfIcons[perf]) },
               setupCtrl.myRating() + (setupCtrl.isProvisional() ? '?' : ''),
             ),
           ),
-          perfOrSpeed.name,
+          perfName(perf),
         ],
   );
 };

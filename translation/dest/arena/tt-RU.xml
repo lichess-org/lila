@@ -23,7 +23,6 @@
 
 Яман уенда ким дигәндә 7 хәрәкәт уйнасагыз, өстәмә накат бирә.</string>
   <string name="howIsTheWinnerDecided">Галиб ничек аныкланды?</string>
-  <string name="howDoesPairingWork">Җүфтлык ничек эшләнде?</string>
   <string name="howDoesPairingWorkAnswer">Бәйге барышында уенчылар рейтингына карап җүфтлек хасил булды.
 Уенны тәмамлангандан соң, бәйге кабулхәнәсенә кайтылачак: каян сезнең ранкыгызга якын уенчы белән җүфтлек хасил булыр. Бу көтешнең минималь вакыты тәэминләнде, әмма сез бәйгедәге барча башка уйнаучылар белән очрашуыгыз мөмкин ителмәс.
 Тизрәк уйнаган вә кабулхәнәдә кайтып уен уйнау вә күбрәк очкотупланыр.</string>
@@ -38,6 +37,5 @@
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
     <item quantity="other">Карарга барлык %s төркемләрне</item>
   </plurals>
-  <string name="defender">Сакчы</string>
   <string name="total">Барлыгы</string>
 </resources>

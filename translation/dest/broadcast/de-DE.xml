@@ -34,13 +34,11 @@
   <string name="downloadAllRounds">Alle Runden herunterladen</string>
   <string name="resetRound">Diese Runde zurücksetzen</string>
   <string name="deleteRound">Diese Runde löschen</string>
-  <string name="definitivelyDeleteRound">Lösche die Runde und ihre Partien endgültig.</string>
-  <string name="permanentlyDeleteRound" comment="Refers to live tournaments being broadcast on Lichess (https://lichess.org/broadcast).&#10;&#10;Description (also translateable): Delete all games of this round. The source will need to be active in order to re-create them. This string has been amended since its initial publication; it didn't say &quot;all its games&quot; at the time.&#10;&#10;Replaces old string definitivelyDeleteRound.">Diese Runde und alle ihre Partien daraus dauerhaft löschen?</string>
+  <string name="permanentlyDeleteRound" comment="Refers to live tournaments being broadcast on Lichess (https://lichess.org/broadcast).&#10;&#10;Description (also translateable): Delete all games of this round. The source will need to be active in order to re-create them. This string has been amended since its initial publication; it didn't say &quot;all its games&quot; at the time.">Diese Runde und alle ihre Partien daraus dauerhaft löschen?</string>
   <string name="deleteAllGamesOfThisRound">Lösche alle Partien dieser Runde. Die Quelle muss aktiv sein, um sie neu zu erstellen.</string>
   <string name="editRoundStudy">Rundenstudie bearbeiten</string>
   <string name="deleteTournament">Dieses Turnier löschen</string>
-  <string name="definitivelyDeleteTournament">Lösche definitiv das gesamte Turnier, alle seine Runden und Partien.</string>
-  <string name="permanentlyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast Replaces old string definitivelyDeleteTournament">Dieses Turnier dauerhaft löschen, einschließlich aller Runden und Partien?</string>
+  <string name="permanentlyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast">Dieses Turnier dauerhaft löschen, einschließlich aller Runden und Partien?</string>
   <string name="showScores">Punktestand der Spieler basierend auf Spielergebnissen anzeigen</string>
   <string name="replacePlayerTags">Optional: Spielernamen, Wertungen und Titel ersetzen</string>
   <string name="fideFederations">FIDE-Verbände</string>

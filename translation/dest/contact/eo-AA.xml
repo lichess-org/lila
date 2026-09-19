@@ -25,7 +25,6 @@
   <string name="cantChangeMore">Ni ne povas ŝanĝi pli ol la kazon. Pro teknikaj kialoj, ĝi estas tute neebla.</string>
   <string name="orCloseAccount">Tamen vi povas fermi vian nunan konton kaj krei novan.</string>
   <string name="wantClearHistory">Mi volas forigi mian historion aŭ poentaron</string>
-  <string name="cantClearHistory">Ne eblas malplenigi vian ludan historion, puzlan historion aŭ poentaron.</string>
   <string name="wantReport">Mi volas raporti ludanton</string>
   <string name="toReportAPlayerUseForm">Por raporti ludanton, uzu la formularon por raportoj</string>
   <string name="youCanAlsoReachReportPage">Vi ankaŭ povas atingi tiun paĝon alklakante la raportan butonon %s en profilpaĝo.</string>

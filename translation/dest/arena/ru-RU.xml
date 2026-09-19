@@ -19,8 +19,7 @@
 Дополнительное очко добавляется, только если оба игрока сделали хотя бы 7 ходов.</string>
   <string name="howIsTheWinnerDecided">Как определяется победитель?</string>
   <string name="howIsTheWinnerDecidedAnswer">Игрок с наибольшим количеством очков в момент окончания времени турнира будет объявлен победителем.</string>
-  <string name="howDoesPairingWork">Как проходит жеребьёвка?</string>
-  <string name="howArePlayersPaired" comment="Replaces old string howDoesPairingWork">Как составляются пары?</string>
+  <string name="howArePlayersPaired">Как составляются пары?</string>
   <string name="howDoesPairingWorkAnswer">В начале турнира пары образуются согласно рейтингу. По окончании каждой партии игроки возвращаются на страницу турнира, и им предоставляется свободный соперник с близким количеством турнирных очков. Это обеспечивает маленькое время ожидания соперника, однако в результате вы можете встретиться с некоторыми участниками много раз или же не встретиться с кем-то ни разу.
 Играйте быстро и возвращайтесь на страницу турнира, чтобы сыграть больше игр и заработать больше очков.</string>
   <string name="howDoesItEnd">Как завершается турнир?</string>
@@ -61,7 +60,6 @@
   <string name="myTournaments">Мои турниры</string>
   <string name="editTournament">Изменить турнир</string>
   <string name="editTeamBattle">Изменить межклубный турнир</string>
-  <string name="defender">Защищающийся</string>
   <string name="pickYourTeam">Выберите свой клуб</string>
   <string name="whichTeamWillYouRepresentInThisBattle">Какой клуб вы представляете в этом турнире?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">Вы должны стать членом одного из этих клубов, чтобы участвовать!</string>
@@ -69,10 +67,7 @@
   <string name="recentlyPlayed">Недавно сыгранные</string>
   <string name="bestResults">Лучшие результаты</string>
   <string name="tournamentStats">Турнирная статистика</string>
-  <string name="rankAvgHelp">Среднее занятое место (вхождение в процент лучших игроков). Чем ниже значение, тем лучше.
-
-Например, занятие 3 места в турнире из 100 игроков даёт 3%. Занятие 10 места в турнире из 1000 игроков даёт 1%.</string>
-  <string name="rankAverageHelp" comment="Replaces old string rankAvgHelp">Ваш усреднённый ранг — это ваша средняя финишная позиция в турнирах по отношению к общему количеству игроков в этих турнирах. То есть это мера размещения в турнирах, а не ваш общий рейтинг.
+  <string name="rankAverageHelp">Ваш усреднённый ранг — это ваша средняя финишная позиция в турнирах по отношению к общему количеству игроков в этих турнирах. То есть это мера размещения в турнирах, а не ваш общий рейтинг.
 
 Например, усреднённый ранг 3% означает, что вы обычно финишируете в числе 3% лучших игроков турнира (например 30-е место из 1000 игроков).</string>
   <string name="medians">медианы</string>

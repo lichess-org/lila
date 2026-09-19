@@ -100,10 +100,6 @@
   <string name="blunder">Qagh</string>
   <string name="mistake">Qagh</string>
   <string name="inaccuracy">QaghHom</string>
-  <plurals name="nbBlunders">
-    <item quantity="one">%s Qagh</item>
-    <item quantity="other">%s Qaghmey</item>
-  </plurals>
   <plurals name="numberBlunders">
     <item quantity="one">%s Qagh</item>
     <item quantity="other">%s Qaghmey</item>

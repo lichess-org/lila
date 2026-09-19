@@ -1,3 +1,4 @@
+import { COLORS } from 'chessops';
 import { parseFen } from 'chessops/fen';
 import type { LichessEditor } from 'editor';
 import { chess960IdToFEN, randomPositionId } from 'editor/chess960';
@@ -372,11 +373,16 @@ export function view(ctrl: StudyChapterNewForm): VNode {
                     ctrl.editor?.setOrientation(ctrl.orientation);
                   }),
                 },
-                [
-                  ...(activeTab === 'pgn' ? [['automatic', i18n.study.automatic]] : []),
-                  ['white', i18n.site.white],
-                  ['black', i18n.site.black],
-                ].map(([value, name]) => value && option(value, ctrl.orientation, name, { key: value })),
+                [...(activeTab === 'pgn' ? ['automatic' as const] : []), ...COLORS].map(orientation =>
+                  option(
+                    orientation,
+                    ctrl.orientation,
+                    orientation === 'automatic' ? i18n.study[orientation] : i18n.site[orientation],
+                    {
+                      key: orientation,
+                    },
+                  ),
+                ),
               ),
             ]),
           ]),

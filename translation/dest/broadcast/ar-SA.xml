@@ -42,13 +42,11 @@
   <string name="downloadAllRounds">تحميل جميع المباريات</string>
   <string name="resetRound">إعادة ضبط الجولة</string>
   <string name="deleteRound">حذف الجولة</string>
-  <string name="definitivelyDeleteRound">قم بحذف الجولة وجميع ألعابها نهائيا.</string>
-  <string name="permanentlyDeleteRound" comment="Refers to live tournaments being broadcast on Lichess (https://lichess.org/broadcast).&#10;&#10;Description (also translateable): Delete all games of this round. The source will need to be active in order to re-create them. This string has been amended since its initial publication; it didn't say &quot;all its games&quot; at the time.&#10;&#10;Replaces old string definitivelyDeleteRound.">هل تريد حذف هذه الجولة وجميع مبارياتها بشكل نهائي؟</string>
+  <string name="permanentlyDeleteRound" comment="Refers to live tournaments being broadcast on Lichess (https://lichess.org/broadcast).&#10;&#10;Description (also translateable): Delete all games of this round. The source will need to be active in order to re-create them. This string has been amended since its initial publication; it didn't say &quot;all its games&quot; at the time.">هل تريد حذف هذه الجولة وجميع مبارياتها بشكل نهائي؟</string>
   <string name="deleteAllGamesOfThisRound">احذف كل ألعاب هذه الجولة. سيحتاج المصدر إلى أن يكون فعالاً من أجل إعادة إنشائها.</string>
   <string name="editRoundStudy">تعديل دراسة الجولة</string>
   <string name="deleteTournament">حذف هذه البطولة</string>
-  <string name="definitivelyDeleteTournament">قم بحذف البطولة كلها, وكل جولاتها, وكل ألعابها.</string>
-  <string name="permanentlyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast Replaces old string definitivelyDeleteTournament">حذف هذه البطولة بشكل دائم، بما في ذلك جميع الجولات والألعاب؟</string>
+  <string name="permanentlyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast">حذف هذه البطولة بشكل دائم، بما في ذلك جميع الجولات والألعاب؟</string>
   <string name="showScores">إظهار نتيجة اللاعبين بناءً على نتائج اللعبة</string>
   <string name="replacePlayerTags">اختياري: استبدل أسماء اللاعبين وتقييماتهم وألقابهم</string>
   <string name="fideFederations">الاتحاد الدولي للشطرنج</string>

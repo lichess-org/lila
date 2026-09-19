@@ -184,8 +184,6 @@
     <item quantity="other">%s partitas con te</item>
   </plurals>
   <string name="cancel">Cancellar</string>
-  <string name="whiteTimeOut">Le tempore del blanco ha finite</string>
-  <string name="blackTimeOut">Le tempore del nigro ha finite</string>
   <string name="drawOfferSent">Proposition de partita nulle inviate</string>
   <string name="drawOfferAccepted">Proposition de partita nulle acceptate</string>
   <string name="whiteOffersDraw">Le blanco propone le partita nulle</string>
@@ -536,11 +534,9 @@
   <string name="aboutSimulRules">Quando le exhibition simultanee initia, cata jocator initia un partita con le hospite, qui joca per le pecias blanc. Le exhibition simultanee fini quando tote le partitas es concludite.</string>
   <string name="aboutSimulSettings">Exhibitiones simultanee es sempre amical. Vindicantias, retornos del ultime movimento e \"plus tempore\" es disactivate.</string>
   <string name="create">Crear</string>
-  <string name="whenCreateSimul">Quando tu crea un exhibition simultanee, tu joca con diverse jocatores simul.</string>
   <string name="simulVariantsHint">Si tu selige plure variantes, cata jocator pote eliger qual jocar.</string>
   <string name="simulClockHint">Configuration de Horologio Fischer. Quanto plus jocatores tu accepta, tanto plus tempore tu pote requirer.</string>
   <string name="simulAddExtraTime">Tu pote adder tempore additional a tu horologio pro adjutar a arrangiar te con le exhibition simultanee.</string>
-  <string name="simulHostExtraTime">Tempore additional al hospite</string>
   <string name="lichessTournaments">Torneos official de Lichess</string>
   <string name="tournamentFAQ">Questiones frequente sur le torneos Arena</string>
   <string name="timeBeforeTournamentStarts">Tempore ante le initio del torneo</string>
@@ -628,7 +624,6 @@
   <string name="invalidFen">FEN invalide</string>
   <string name="custom">Personalisate</string>
   <string name="notifications">Notificationes</string>
-  <string name="perfRatingX">Classification: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s secunda pro jocar le prime movimento</item>
     <item quantity="other">%s secundas pro jocar le prime movimento</item>

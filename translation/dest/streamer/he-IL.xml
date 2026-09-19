@@ -28,7 +28,6 @@
   <string name="approved">המשדר שלכם אושר.</string>
   <string name="pendingReview">המשדר שלכם עובר בדיקת מנהלים.</string>
   <string name="pleaseFillIn">אנא מלאו את פרטי המשדר שלכם והעלו תמונה.</string>
-  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">כאשר אתם מוכנים להיכנס לרשימת שדרני Lichess, %s</string>
   <string name="submitForReview">שלח לבדיקה</string>
   <string name="streamerLanguageSettings">עמוד השדרנים של Lichess מכוון את הקהל שלך לפי השפה שבימת השידור שלך סיפקה לנו. הגדירו את השפה הנכונה באפליקציה או בשירות המשמשים אתכם לשידור.</string>
   <string name="connect">חיבור</string>

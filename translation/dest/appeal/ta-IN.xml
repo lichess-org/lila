@@ -8,7 +8,6 @@
   <string name="accountMutedInfo">எங்கள் %s ஐப் படிக்கவும். தகவல்தொடர்பு வழிகாட்டுதல்களைப் பின்பற்றத் தவறினால் கணக்குகள் முடக்கப்படும்.</string>
   <string name="excludedFromLeaderboards">உங்கள் கணக்கு லீடர்போர்டுகளில் இருந்து விலக்கப்பட்டுள்ளது.</string>
   <string name="closedByModerators">உங்கள் கணக்கு மதிப்பீட்டாளர்களால் மூடப்பட்டது.</string>
-  <string name="playTimeout">உங்களுக்கு விளையாட்டு நேரம் முடிந்தது.</string>
   <string name="communicationGuidelines">தொடர்பு விதிகள்</string>
   <string name="fairPlay">நியாயமான விளையாட்டு</string>
 </resources>

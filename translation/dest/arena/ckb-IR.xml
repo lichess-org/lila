@@ -20,7 +20,6 @@
 برزێرک گەرەنتی خاڵە زیادەکە دەکات ئەگەر لانیکەم ٧ جوڵە یاری بکەیت.</string>
   <string name="howIsTheWinnerDecided">چۆن براوە دیاری دەکرێت?</string>
   <string name="howIsTheWinnerDecidedAnswer">ئەو یاریزانە (یاریزانانەی) کە زۆرترین خاڵیان لە کۆتایی سنووری کاتی پاڵەوانێتییەکەدا بەدەستهێناوە، بە براوە ڕادەگەیەنرێت.</string>
-  <string name="howDoesPairingWork">چۆن یاریزانی بەرامبەر هەڵدەبژێردرێت?</string>
   <string name="howDoesPairingWorkAnswer">لە سەرەتای پاڵەوانێتییەکەدا یاریزانەکان بە پێی ڕیزبەندی یاریزانەکان دەکەونە ڤەرامبەر یەک. کاتێک یارییەکەت تەواو کرد، بگەڕێوە بۆ بەشی پاڵەوانێتییەکە: لەگەڵ یاریزانێکی نزیک لە ڕیزبەندییەکەت یاریەکیترت بۆ رێکدەخرێت . ئەمەش کاتێکی کەمتر دەخایەنێت، لەگەڵ ئەوەشدا لەوانەیە لەم پاڵەوانێتییەدا ڕووبەڕووی یاریزانانی تر نەبیتەوە. خێرا یاری بکە و بگەڕێوە پاڵەوانێتیەکە بۆ ئەوەی یاری زیاتر ئەنجام بدەیت و خاڵی زیاتر بەدەست بهێنیت.</string>
   <string name="howDoesItEnd">چۆن کۆتایی پێ دێت?</string>
   <string name="howDoesItEndAnswer">پاڵەوانێتییەکە کاتژمێری تایبەتی هەیە کە بەرەو تەواوبوون دەڕوات، کاتێک دەگاتە سفر ڕیزبەندی پاڵەوانێتییەکە سڕ دەکرێت، و براوەی یارییەکە ڕادەگەیەنرێت. ئەوانەی لە یاریدان دەبێت تەواو بکرێن، لەگەڵ ئەوەی بۆ پاڵەوانێتییەکە هەژمار ناکرێت.</string>
@@ -56,7 +55,6 @@
   <string name="myTournaments">پاڵەوانێتیەکانم</string>
   <string name="editTournament">دەستکاریکردنی پاڵەوانێتی</string>
   <string name="editTeamBattle">دەستکاریکردنی شەڕی تیم</string>
-  <string name="defender">بەرگریکار</string>
   <string name="pickYourTeam">تیمەکەت هەڵبژێرە</string>
   <string name="whichTeamWillYouRepresentInThisBattle">لەم شەڕەدا نوێنەرایەتی کامە تیم دەکەیت?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">پێویستە لە یەکێک لەم تیمانەدا بیت بۆ بەشداریکردن!</string>
@@ -64,7 +62,6 @@
   <string name="recentlyPlayed">بەم دواییە یاری کردووە</string>
   <string name="bestResults">باشترین ئەنجام</string>
   <string name="tournamentStats">ئاماری پاڵەوانیەتیەکە</string>
-  <string name="rankAvgHelp">تێکڕای پلە یەک لەسەدی ڕیزبەندییەکەتە. نزمتر باشترە.</string>
   <string name="medians">مامناوەندەکان</string>
   <string name="allAveragesAreX">ھەموو تێکڕاکانی ئەم پەڕەیە %sن.</string>
   <string name="total">سەرجەم</string>

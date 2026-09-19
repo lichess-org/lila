@@ -25,8 +25,7 @@
   <string name="cantChangeMore">Chúng tôi không thể đổi nhiều chữ cái hơn. Vì lý do kỹ thuật, điều đó dứt khoát không thể.</string>
   <string name="orCloseAccount">Tuy nhiên, bạn có thể đóng tài khoản hiện tại của mình và tạo một tài khoản mới.</string>
   <string name="wantClearHistory">Tôi muốn xóa lịch sử hoặc hệ số</string>
-  <string name="cantClearHistory">Bạn không thể xóa lịch sử các ván đấu, câu đố hay hệ số.</string>
-  <string name="cantClearHistoryOrResetRatings" comment="Replaces old string cantClearHistory">Bạn không thể xóa lịch sử đấu, lịch sử giải đố hoặc đặt lại hệ số của mình.</string>
+  <string name="cantClearHistoryOrResetRatings">Bạn không thể xóa lịch sử đấu, lịch sử giải đố hoặc đặt lại hệ số của mình.</string>
   <string name="wantReport">Tôi muốn báo cáo một người chơi</string>
   <string name="toReportAPlayerUseForm">Để báo cáo một người chơi, dùng mẫu báo cáo</string>
   <string name="youCanAlsoReachReportPage">Bạn cũng có thể truy cập trang đó bằng cách nhấn vào nút báo báo %s trên một trang hồ sơ.</string>
@@ -58,7 +57,7 @@
   <string name="reportErrorPage">Nếu bạn gặp một trang lỗi, bạn có thể báo cáo nó:</string>
   <string name="learnHowToMakeBroadcasts">Tìm hiểu cách thức phát sóng trên Lichess</string>
   <string name="banAppeal">Khiếu nại lệnh cấm, hạn chế hoặc chặn IP</string>
-  <string name="engineAppeal">Đánh dấu gian lận hoặc dùng động cơ máy tính</string>
+  <string name="engineAppeal">Dấu hiệu gian lận hoặc sử dụng công cụ hỗ trợ</string>
   <string name="sendAppealTo">Bạn có thể gửi khiếu nại đến %s.</string>
   <string name="falsePositives">Những giá trị dương do đánh giá sai đôi khi vẫn xẩy ra và chúng tôi xin thứ lỗi vì điều đó.</string>
   <string name="ifLegit">Nếu khiếu nại của bạn hợp lệ, chúng tôi sẽ dỡ bỏ lệnh cấm sớm nhất có thể.</string>

@@ -1,6 +1,7 @@
 import { myUsername } from 'lib';
 import { deepFreeze, randomToken, clamp } from 'lib/algo';
 import { displayColumns } from 'lib/device';
+import { clockToSpeed } from 'lib/game';
 import { log } from 'lib/permalog';
 import type { ClockConfig } from 'lib/setup/interfaces';
 import type { LobbyShortcut } from 'lib/types';
@@ -12,17 +13,17 @@ import type { Pool } from './interfaces';
 
 export const pools = deepFreeze([
   // mirrors modules/pool/src/main/PoolList.scala
-  { id: '1+0', lim: 1, inc: 0, perf: i18n.site.bullet },
-  { id: '2+1', lim: 2, inc: 1, perf: i18n.site.bullet },
-  { id: '3+0', lim: 3, inc: 0, perf: i18n.site.blitz },
-  { id: '3+2', lim: 3, inc: 2, perf: i18n.site.blitz },
-  { id: '5+0', lim: 5, inc: 0, perf: i18n.site.blitz },
-  { id: '5+3', lim: 5, inc: 3, perf: i18n.site.blitz },
-  { id: '10+0', lim: 10, inc: 0, perf: i18n.site.rapid },
-  { id: '10+5', lim: 10, inc: 5, perf: i18n.site.rapid },
-  { id: '15+10', lim: 15, inc: 10, perf: i18n.site.rapid },
-  { id: '30+0', lim: 30, inc: 0, perf: i18n.site.classical },
-  { id: '30+20', lim: 30, inc: 20, perf: i18n.site.classical },
+  { id: '1+0', lim: 1, inc: 0 },
+  { id: '2+1', lim: 2, inc: 1 },
+  { id: '3+0', lim: 3, inc: 0 },
+  { id: '3+2', lim: 3, inc: 2 },
+  { id: '5+0', lim: 5, inc: 0 },
+  { id: '5+3', lim: 5, inc: 3 },
+  { id: '10+0', lim: 10, inc: 0 },
+  { id: '10+5', lim: 10, inc: 5 },
+  { id: '15+10', lim: 15, inc: 10 },
+  { id: '30+0', lim: 30, inc: 0 },
+  { id: '30+20', lim: 30, inc: 20 },
 ] as const satisfies readonly Pool[]);
 
 export const siteShortcuts = deepFreeze([
@@ -174,7 +175,14 @@ export class ShortcutsCtrl {
   private init(userSlots?: ConfiguredShortcuts) {
     const isHidden = (id: string) => Boolean(this.contextual) && !userSlots?.some(s => s?.id === id);
     siteShortcuts.forEach(s => this.all.set(s.id, { ...s, static: true, hidden: isHidden(s.id) }));
-    pools.forEach(p => this.all.set(p.id, { ...p, name: p.perf, static: true, hidden: isHidden(p.id) }));
+    pools.forEach(p =>
+      this.all.set(p.id, {
+        ...p,
+        name: i18n.site[clockToSpeed(p.lim * 60, p.inc)],
+        static: true,
+        hidden: isHidden(p.id),
+      }),
+    );
 
     userSlots?.forEach(this.add);
     this.setConfigured(userSlots);
@@ -215,9 +223,8 @@ export function fitShortcut(
   effectiveLengthTarget = 32,
   truncateAt = 80,
 ): { scale: number; text: string } {
-  if ('perf' in s) return { scale: 1, text: s.id };
+  if ('lim' in s) return { scale: 1, text: s.id };
 
-  //
   const scaleBy = 0.9;
   const minEm = 0.65;
 

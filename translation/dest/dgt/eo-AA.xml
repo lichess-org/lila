@@ -20,7 +20,6 @@
   <string name="checkYouHaveMadeOpponentsMove">Kontroli, ke vi ludis la movon de via kontraŭulo unue. Malfaru vian movon. Reludu.</string>
   <string name="asALastResort">Kiel fina rimedo, agordi la tabulo kiel Lichess, tiam %s</string>
   <string name="reloadThisPage">Reŝargi ĉi tiun paĝon</string>
-  <string name="dgtConfigure">DGT - Agordo</string>
   <string name="lichessConnectivity">Lichess konekteco</string>
   <string name="validDgtOauthToken">Vi havas OAuth ĵetonon taŭga por DGT ludo.</string>
   <string name="dgtPlayMenuEntryAdded">%s enigo estis aldonita al vian LUDI menuo ĉe la supro.</string>
