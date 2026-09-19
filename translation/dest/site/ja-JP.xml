@@ -776,9 +776,6 @@
   <string name="quickPairing">自動ペアリング</string>
   <string name="lobby">ロビー</string>
   <string name="anonymous">匿名</string>
-  <plurals name="nbAnonymous">
-    <item quantity="other">匿名（%s）</item>
-  </plurals>
   <string name="yourScore">通算成績：%s</string>
   <string name="language">言語</string>
   <string name="allLanguages">すべての言語</string>

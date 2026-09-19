@@ -814,10 +814,6 @@ Spelen met rating verhoogt de stabiliteit.</string>
   <string name="quickPairing">Snel koppelen</string>
   <string name="lobby">Lobby</string>
   <string name="anonymous">Anoniem</string>
-  <plurals name="nbAnonymous">
-    <item quantity="one">Anoniem</item>
-    <item quantity="other">Anoniem (%s)</item>
-  </plurals>
   <string name="yourScore">Uw score: %s</string>
   <string name="language">Taal</string>
   <string name="allLanguages">Alle talen</string>

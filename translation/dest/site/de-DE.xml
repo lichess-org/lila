@@ -814,10 +814,6 @@ Wenn du gewertete Partien spielst, wird die Stabilität erhöht.</string>
   <string name="quickPairing">Schnelles Spiel</string>
   <string name="lobby">Lobby</string>
   <string name="anonymous">Anonym</string>
-  <plurals name="nbAnonymous">
-    <item quantity="one">Anonym</item>
-    <item quantity="other">Anonym (%s)</item>
-  </plurals>
   <string name="yourScore">Punktestand: %s</string>
   <string name="language">Sprache</string>
   <string name="allLanguages">Alle Sprachen</string>

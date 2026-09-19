@@ -815,10 +815,6 @@
   <string name="quickPairing">رویارویی سریع</string>
   <string name="lobby">سَرسَرا</string>
   <string name="anonymous">ناشناس</string>
-  <plurals name="nbAnonymous">
-    <item quantity="one">بی‌نام</item>
-    <item quantity="other">بی‌نام (%s)</item>
-  </plurals>
   <string name="yourScore">امتیازتان: %s</string>
   <string name="language">زبان</string>
   <string name="allLanguages">تمام زبان ها</string>

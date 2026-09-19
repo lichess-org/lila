@@ -814,10 +814,6 @@ Jugar por puntos aumentará la estabilidad.</string>
   <string name="quickPairing">Emparejamiento rápido</string>
   <string name="lobby">Sala de espera</string>
   <string name="anonymous">Anónimo</string>
-  <plurals name="nbAnonymous">
-    <item quantity="one">Anónimo</item>
-    <item quantity="other">Anónimos (%s)</item>
-  </plurals>
   <string name="yourScore">Tu puntuación: %s</string>
   <string name="language">Idioma</string>
   <string name="allLanguages">Cualquier idioma</string>

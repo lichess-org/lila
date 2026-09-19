@@ -971,14 +971,6 @@ https://lichess. org/report.</string>
   <string name="quickPairing">مزاوجة سريعة</string>
   <string name="lobby">الصالة</string>
   <string name="anonymous">مجهول</string>
-  <plurals name="nbAnonymous">
-    <item quantity="zero">مجهول (%s)</item>
-    <item quantity="one">مجهول</item>
-    <item quantity="two">مجهولين (%s)</item>
-    <item quantity="few">مجهولين (%s)</item>
-    <item quantity="many">مجهولين (%s)</item>
-    <item quantity="other">مجهولين (%s)</item>
-  </plurals>
   <string name="yourScore">نقاطك: %s</string>
   <string name="language">اللغة</string>
   <string name="allLanguages">كل اللغات</string>

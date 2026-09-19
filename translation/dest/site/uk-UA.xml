@@ -176,6 +176,7 @@
   <string name="toggleLocalEngine">Перемкнути локальний рушій</string>
   <string name="engineSettings">Налаштування рушія</string>
   <string name="enginesFromStrongestToWeakest">Рушії від найкращого до найгіршого</string>
+  <string name="illegalPosition">Недійсна позиція</string>
   <string name="threefoldRepetition">Триразове повторення</string>
   <string name="claimADraw">Оголосити нічию</string>
   <string name="drawClaimed">Оголошена нічия</string>
@@ -885,12 +886,6 @@
   <string name="quickPairing">Швидкий старт</string>
   <string name="lobby">Лобі</string>
   <string name="anonymous">Анонім</string>
-  <plurals name="nbAnonymous">
-    <item quantity="one">Анонім</item>
-    <item quantity="few">%s аноніми</item>
-    <item quantity="many">%s анонімів</item>
-    <item quantity="other">%s аноніма</item>
-  </plurals>
   <string name="yourScore">Ваш рахунок: %s</string>
   <string name="language">Мова</string>
   <string name="allLanguages">Усі мови</string>

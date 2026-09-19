@@ -775,10 +775,6 @@
   <string name="quickPairing">Schnellpaarung</string>
   <string name="lobby">Lobby</string>
   <string name="anonymous">Anonym</string>
-  <plurals name="nbAnonymous">
-    <item quantity="one">Anonym</item>
-    <item quantity="other">Anonym (%s)</item>
-  </plurals>
   <string name="yourScore">Däi Score: %s</string>
   <string name="language">Sprooch</string>
   <string name="allLanguages">All Sproochen</string>

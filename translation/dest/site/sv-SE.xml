@@ -779,10 +779,6 @@
   <string name="quickPairing">Snabbparning</string>
   <string name="lobby">Lobby</string>
   <string name="anonymous">Anonym</string>
-  <plurals name="nbAnonymous">
-    <item quantity="one">Anonym</item>
-    <item quantity="other">Anonym (%s)</item>
-  </plurals>
   <string name="yourScore">Dina poäng: %s</string>
   <string name="language">Språk</string>
   <string name="allLanguages">Alla språk</string>
