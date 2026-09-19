@@ -91,6 +91,10 @@ case class Appeal(
 
   def nextNode: Option[AppealNode] = AppealFlow.nextNode(this)
 
+  def awaitingUserChoice = nextNode match
+    case Some(cn: ChoiceNode) if cn.answerer == Answerer.User => true
+    case _ => false
+
   def modShowUrl = s"${routes.Appeal.modShow(user, topic)}#appeal-last-msg"
 
 opaque type UserAppeals = Map[AppealTopic, Appeal]

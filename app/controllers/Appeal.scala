@@ -88,7 +88,7 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
                 for
                   r <- env.appeal.api.postChoiceEvent(appeal, choiceData)
                   _ <- r
-                    .exists(a => a.isClosed && a.user.isnt(me))
+                    .exists(a => a.user.isnt(me) && (a.isClosed || a.awaitingUserChoice))
                     .so(env.report.api.inquiries.toggle(Right(appeal.user)).void)
                 yield r.fold(BadRequest)(_ => redirect)
             )
