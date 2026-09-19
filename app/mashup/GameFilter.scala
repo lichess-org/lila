@@ -91,7 +91,7 @@ object GameFilterMenu:
               _.mapFutureResults(gameProxyRepo.upgradeIfPresent)
             .addEffect: p =>
               p.currentPageResults.filter(_.finishedOrAborted).foreach(gameRepo.unsetPlayingUids)
-        case GameFilter.search => userGameSearch(user, page)
+        case GameFilter.search => userGameSearch(user, page).dmap(_.toPaginator)
 
   def searchForm(
       userGameSearch: lila.gameSearch.UserGameSearch,
