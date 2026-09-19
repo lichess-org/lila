@@ -1,3 +1,4 @@
+import { opposite } from 'chessops';
 import { type VNodeData } from 'snabbdom';
 
 import { capitalize } from 'lib/game';
@@ -52,7 +53,7 @@ function doneWithMistakes({ spoken, ctrl, focusFriendlyHook }: RetroContext, pre
     hl(
       'button.retro-flip',
       focusFriendlyHook(ctrl.retro.flip),
-      i18n.site[`review${capitalize(ctrl.retro.color)}Mistakes`],
+      i18n.site[`review${capitalize(opposite(ctrl.retro.color))}Mistakes`],
     ),
   ];
 }
