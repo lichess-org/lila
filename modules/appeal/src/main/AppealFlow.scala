@@ -74,7 +74,7 @@ object AppealFlow:
           Answerer.User,
           """Your account is banned for engine/computer assistance.
 
-Did you ever get help from a chess engine during a game — yes or no?""",
+Did you ever get help from a chess engine during a game?""",
           NonEmptyList.of(
             AnswerBranch(
               AnswerId("yes"),

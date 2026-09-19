@@ -37,8 +37,8 @@ final class AppealFlowUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
           otherUsers(cls := "mod-zone communication__logins"),
           div(cls := "body")(
             modAppealEvents(appeal),
-            standardFlash.orElse(markedByMe.option(ui.markedByMeWarning)),
             modNextNode(appeal, modData),
+            standardFlash.orElse(markedByMe.option(ui.markedByMeWarning)),
             if appeal.isClosed then ui.appealIsClosed(appeal)
             else if me.is(inquiryBy) then modMessageForm(appeal, modData)
             else emptyFrag

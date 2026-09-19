@@ -29,14 +29,15 @@ final class AppealUi(helpers: Helpers)(using NetDomain):
       .css(Granter.opt(_.Appeals).option("mod.user"))
       .js(esmInit("bits.appeal") ++ Granter.opt(_.Appeals).so(Esm("mod.user")))
 
-  def userLink(appeal: Appeal, userId: UserId, asMod: Boolean)(using Context) =
+  def userLink(appeal: Appeal, userId: UserId, asMod: Boolean, wrapLichess: Boolean = true)(using Context) =
     if appeal.user.is(userId) then userIdLink(userId.some, params = asMod.so("?mod"))
     else if userId.is(UserId.lichess) then userIdLink(UserId.lichess.some)
-    else
+    else if wrapLichess then
       span(
         userIdLink(UserId.lichess.some),
         Granter.opt(_.Appeals).option(frag(" (", userIdLink(userId.some), ")"))
       )
+    else userIdLink(userId.some)
 
   def modSection(section: Tag)(ap: Appeal): Frag =
     section(
@@ -99,7 +100,7 @@ final class AppealUi(helpers: Helpers)(using NetDomain):
         div(cls := "appeal__choice-event__selection")(
           span(cls := "appeal__choice-event__answer text")(event.answer),
           span(cls := "appeal__choice-event__meta")(
-            userLink(appeal, event.by, asMod = isMod),
+            userLink(appeal, event.by, asMod = isMod, wrapLichess = false),
             span(" · "),
             momentFromNowOnce(event.at)
           )

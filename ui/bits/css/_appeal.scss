@@ -134,8 +134,9 @@
       display: inline-block;
       max-width: 100%;
       padding: 0.5em 1em;
-      background: $c-accent;
-      color: $c-over;
+      background: color-mix(in oklab, $c-accent 18%, $c-bg);
+      color: $c-accent;
+      border: 1px solid $c-accent;
       font-weight: 500;
     }
 
@@ -159,7 +160,9 @@
       }
 
       .appeal__choice-event__answer {
-        background: $c-primary;
+        background: color-mix(in oklab, $c-primary 18%, $c-bg);
+        color: $c-primary;
+        border: 1px solid $c-primary;
       }
     }
   }
