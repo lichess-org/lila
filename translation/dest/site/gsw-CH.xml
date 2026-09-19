@@ -810,10 +810,6 @@ gits nöd und es isch nie g\'wertet.</string>
   <string name="quickPairing">Schnälli Paarig</string>
   <string name="lobby">Lobby</string>
   <string name="anonymous">Anonym</string>
-  <plurals name="nbAnonymous">
-    <item quantity="one">Anonymer Zuschauer</item>
-    <item quantity="other">Anonymi Zuschauer (%s)</item>
-  </plurals>
   <string name="yourScore">Din Punkteschtand: %s</string>
   <string name="language">Schprach</string>
   <string name="allLanguages">Alli Schprache</string>

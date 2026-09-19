@@ -813,10 +813,6 @@
   <string name="quickPairing">Pareamento rápido</string>
   <string name="lobby">Sala de espera</string>
   <string name="anonymous">Anônimo</string>
-  <plurals name="nbAnonymous">
-    <item quantity="one">Anônimo</item>
-    <item quantity="other">Anônimo (%s)</item>
-  </plurals>
   <string name="yourScore">Sua pontuação:%s</string>
   <string name="language">Idioma</string>
   <string name="allLanguages">Todos os idiomas</string>

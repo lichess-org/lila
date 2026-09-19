@@ -810,10 +810,6 @@
   <string name="quickPairing">Γρήγορη αντιστοίχιση</string>
   <string name="lobby">Χώρος αναμονής</string>
   <string name="anonymous">Ανώνυμος</string>
-  <plurals name="nbAnonymous">
-    <item quantity="one">Ανώνυμος/η</item>
-    <item quantity="other">Ανώνυμοι (%s)</item>
-  </plurals>
   <string name="yourScore">Η βαθμολογία σας: %s</string>
   <string name="language">Γλώσσα</string>
   <string name="allLanguages">Οποιαδήποτε γλώσσα</string>

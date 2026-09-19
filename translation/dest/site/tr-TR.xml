@@ -165,6 +165,8 @@
   <string name="flipBoard">Tahtayı döndür</string>
   <string name="toggleLocalEngine">Yerel motoru aç/kapat</string>
   <string name="engineSettings">Motor ayarları</string>
+  <string name="enginesFromStrongestToWeakest">En güçlüden en zayıfa motorlar</string>
+  <string name="illegalPosition">Kural dışı pozisyon</string>
   <string name="threefoldRepetition">Üç kez hamle tekrarı</string>
   <string name="claimADraw">Beraberlik talep et</string>
   <string name="drawClaimed">Beraberlik iddia edildi</string>
@@ -542,6 +544,7 @@ Puanlı oyunlar oynamak istikrarınızı artıracaktır.</string>
   <string name="oneUrlPerLine">Her satıra bir bağlantı yazın.</string>
   <string name="inlineNotation">Notasyonu aynı satırda göster</string>
   <string name="makeAStudy">Bunları kaydetmek ve paylaşmak için çalışma oluşturabilirsiniz.</string>
+  <string name="clearLocalData">Yerel verileri temizle</string>
   <string name="previouslyOnLichessTV">Lichess TV\'de bunlar da vardı;</string>
   <string name="onlinePlayers">Çevrimiçi oyuncular</string>
   <string name="activePlayers">Aktif oyuncular</string>
@@ -725,8 +728,10 @@ Puanlı oyunlar oynamak istikrarınızı artıracaktır.</string>
   <string name="keyboardShortcuts">Klavye kısayolları</string>
   <string name="keyMoveBackwardOrForward">önceki/sonraki hamle</string>
   <string name="keyGoToStartOrEnd">başa/sona git</string>
+  <string name="keyGoToPreviousOrNextLine">önceki/sonraki satıra git</string>
   <string name="keyCycleSelectedVariation">Seçilen varyasyonu değiştir</string>
   <string name="keyShowOrHideComments">yorumları gizle/göster</string>
+  <string name="keyShowOrHideCurrentVariation">mevcut varyasyonu göster/gizle</string>
   <string name="keyEnterOrExitVariation">varyasyona gir/çık</string>
   <string name="keyPreviousBranch">Önceki dal</string>
   <string name="keyNextBranch">Sıradaki dal</string>
@@ -809,10 +814,6 @@ Puanlı oyunlar oynamak istikrarınızı artıracaktır.</string>
   <string name="quickPairing">Hızlı eşleşme</string>
   <string name="lobby">Lobi</string>
   <string name="anonymous">Anonim</string>
-  <plurals name="nbAnonymous">
-    <item quantity="one">Anonim</item>
-    <item quantity="other">Anonim (%s)</item>
-  </plurals>
   <string name="yourScore">Puan durumu: %s</string>
   <string name="language">Dil</string>
   <string name="allLanguages">Tüm diller</string>
@@ -1040,6 +1041,7 @@ Başlangıç pozisyonundan oynamak için boş bırakınız.</string>
   <string name="tags">Etiketler</string>
   <string name="enPassant">Geçerken alma</string>
   <string name="settings">Ayarlar</string>
+  <string name="verifyingYourDevice">Cihazınız doğrulanıyor...</string>
   <string name="chessOpenings">Satranç açılışları</string>
   <string name="boards">Tahtalar</string>
 </resources>

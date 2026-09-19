@@ -887,12 +887,6 @@
   <string name="quickPairing">Быстрый старт</string>
   <string name="lobby">Зал ожидания</string>
   <string name="anonymous">Аноним</string>
-  <plurals name="nbAnonymous">
-    <item quantity="one">Анонимы (%s)</item>
-    <item quantity="few">Анонимы (%s)</item>
-    <item quantity="many">Анонимы (%s)</item>
-    <item quantity="other">Анонимы (%s)</item>
-  </plurals>
   <string name="yourScore">Ваш счёт: %s</string>
   <string name="language">Язык (Language)</string>
   <string name="allLanguages">Все языки</string>

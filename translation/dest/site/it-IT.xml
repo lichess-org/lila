@@ -798,10 +798,6 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="quickPairing">Accoppiamento rapido</string>
   <string name="lobby">Lobby</string>
   <string name="anonymous">Anonimo</string>
-  <plurals name="nbAnonymous">
-    <item quantity="one">Anonimo</item>
-    <item quantity="other">Anonimi (%s)</item>
-  </plurals>
   <string name="yourScore">Il tuo punteggio: %s</string>
   <string name="language">Lingua</string>
   <string name="allLanguages">Tutte le lingue</string>
