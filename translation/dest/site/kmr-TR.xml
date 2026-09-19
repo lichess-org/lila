@@ -147,25 +147,13 @@
   <string name="blunder">Şelipan</string>
   <string name="mistake">Çewtî</string>
   <string name="inaccuracy">Hemleya nerast</string>
-  <plurals name="nbBlunders">
-    <item quantity="one">%s şelipan</item>
-    <item quantity="other">%s şelipan</item>
-  </plurals>
   <plurals name="numberBlunders">
     <item quantity="one">%s Şelipan</item>
     <item quantity="other">%s Şelipan</item>
   </plurals>
-  <plurals name="nbMistakes">
-    <item quantity="one">%s çewtî</item>
-    <item quantity="other">%s çewtî</item>
-  </plurals>
   <plurals name="numberMistakes">
     <item quantity="one">%s Çewtî</item>
     <item quantity="other">%s Çewtî</item>
-  </plurals>
-  <plurals name="nbInaccuracies">
-    <item quantity="one">%s nerastî</item>
-    <item quantity="other">%s nerastî</item>
   </plurals>
   <plurals name="numberInaccuracies">
     <item quantity="one">%s Nerastî</item>
@@ -268,7 +256,6 @@
   <string name="emailSent">Me ji %s re email şand.</string>
   <string name="emailCanTakeSomeTime">Gihîna wê kare hinek wext bigire.</string>
   <string name="refreshInboxAfterFiveMinutes">5 deqe bisekine û înboksa emaîla xwe nû bike.</string>
-  <string name="checkSpamFolder">Herwiha qismê spamê kontrol bike, dibe ku çûbe wê derê. Eger li wir be, wek \"spam nîne\" îşaret bike.</string>
   <string name="sendEmailForAccountVerification">Heke tu e-peyama pejirandinê nabînî, e-peyamgirekê ji %s re bişîne û em ê hesaba te ji bo te bipejirînin.</string>
   <string name="accountConfirmed">Bikarhêner %s bi serkeftinî hate tesdîqkirin.</string>
   <string name="accountCanLogin">Tu niha dikarî wek %s têkevî.</string>
@@ -292,8 +279,6 @@
   </plurals>
   <string name="ok">OK</string>
   <string name="cancel">Betal bike</string>
-  <string name="whiteTimeOut">Dema Spî qedîya</string>
-  <string name="blackTimeOut">Dema Reş qedîya</string>
   <string name="drawOfferSent">Pêşniyara wekheviyê hate şandin</string>
   <string name="drawOfferAccepted">Teklîfa wekheviyê hate qebûlkirin</string>
   <string name="whiteOffersDraw">Ya spî wekheviyê teklîf dike</string>
@@ -414,7 +399,6 @@
     <item quantity="other">Divê tu %s lîstikên din ên bipuan bilîzî</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Pûana te ya %s demkî ye</string>
-  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Fîlterên puanê girtî ne ji ber ku puana te ne cîgir e. Ji bo zêdekirina cîgiriyê lîstikên bipuan bilîze.</string>
   <string name="yourPerfRatingIsTooHigh">Puana te ya %1$s (%2$s) zêde bilind e</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Pûana te ya heftane a %1$s (%2$s) pir bilind e</string>
   <string name="yourPerfRatingIsTooLow">Reyting te ya %2$s pir kêm e ji bo %1$s</string>
@@ -587,7 +571,6 @@
   <string name="other">Yên din</string>
   <string name="reportCheatBoostHelp">Lînka li lîstikê(an) bi vir de deyne û îzah bike ka çi xeletî heye di halûhereketên vê bikarhênerê de. Tenê bêjî \"ew hîle dike\" nabe, ji me re îzah bike ku te çawa gihîştîye vê qenaetê.</string>
   <string name="reportUsernameHelp">Rûn bike ka çima ev navê bikarhênerî bi bêrêzî dibînî. Tenê nebêje \"ew bêrêzî ye/ne guncayî ye\", lê ji me re bibêje ka tu çawa gihîştî vê encamê, bi taybetî heke ev bêrêzî ne diyar be, ne bi Îngilîzî be, bi zargotinê be, an jî amajeyeke dîrokî/çandî be.</string>
-  <string name="reportProcessedFasterInEnglish">Heke raporta te bi Îngilîzî were amadekirin, wê pêvajoya raportê zûtir bi rê ve biçe.</string>
   <string name="error.provideOneCheatedGameLink">Ji kerema xwe bi kêmanî lînkek pêşkêş bike ji bo lîstika hîlekirî.</string>
   <string name="by">ji alî %s ve</string>
   <string name="importedByX">Ji hêla %s ve hat barkirin</string>
@@ -711,11 +694,9 @@
   <string name="aboutSimulRules">Gava pêşangeha hevdemî dest pê kir, her lîzer dest bi lîstikekê dike tevî hewangerê. Hewanger bi kabikên spî ye û ew dest pê dike. Wextê ku hemû lîstik temam bûn, pêşangeha hevdemî jî xelas dibe.</string>
   <string name="aboutSimulSettings">Pêşangehên hevdemî hertim bêpoînt in. Cardinlîstin, hemlevegerandin û demên ekstra neçalak e.</string>
   <string name="create">Çêke</string>
-  <string name="whenCreateSimul">Gava pêşangeheke hevdemî ava bikî, tu yê bi çendîn lîzeran re bilîzî, bi carekê.</string>
   <string name="simulVariantsHint">Ger tu çendîn varyantan bibijêrî, wê her lîzerek bibijêre ku kîjanî bilîze.</string>
   <string name="simulClockHint">Formata Saeta Fischer. Çiqas lîzeran bigirî wê ew qasî wext lazim be bo te.</string>
   <string name="simulAddExtraTime">Belkî bixwazî zêdetir wext tevlî demjimêra xwe bikî, qene ku karibî pêşangeha hevdemî temam bikî.</string>
-  <string name="simulHostExtraTime">Wextê ekstra yê ji bo mêvandarê</string>
   <string name="simulAddExtraTimePerPlayer">Ji bo her lîstikvanekê ku tevlî sîmûleyê dibe, dema destpêkê bixe ser demjimêra xwe.</string>
   <string name="simulHostExtraTimePerPlayer">Ji bo her lîstikvanê demê zêde bike</string>
   <string name="lichessTournaments">Pêşbirkên lichess-ê</string>
@@ -840,7 +821,6 @@
   <string name="custom">Xisûsî</string>
   <string name="notifications">Danezan</string>
   <string name="notificationsX">Agahdarî: %1$s</string>
-  <string name="perfRatingX">Reytîng: %s</string>
   <string name="yourRatingIsX">Puana te %s ye</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s çirke ji bo lîstina hemleya pêşîn</item>
@@ -899,7 +879,6 @@
     <item quantity="other">û %s rêzên pêşhemleyê muhafeze bike</item>
   </plurals>
   <string name="showUnreadLichessMessage">Peyameke taybet ji Lichess ê ji te re hat.</string>
-  <string name="clickHereToReadIt">Ji bo xwendinê li vir bitikîne</string>
   <string name="sorry">Bibore :(</string>
   <string name="weHadToTimeYouOutForAWhile">Em ji bo demekê te bi dûr xistin.</string>
   <string name="why">Çima?</string>
@@ -984,14 +963,12 @@ Ji bo destpêkirina lîstikan ji pozîsyona normal ya destpêkê, vala bihêle.<
   <string name="simulFeaturedHelp">Lîstika xwe ya bi kom nîşanî her kesî bide li ser %s. Ji bo lîstikên bi kom yên taybet, neçalak bike.</string>
   <string name="simulDescription">Wesfa lîstika bi kom</string>
   <string name="simulDescriptionHelp">Tu dixwazî tiştekî ji beşdaran re bibêjî?</string>
-  <string name="markdownIsAvailable">%s ji bo formatkirinê amade ye.</string>
   <string name="embedsAvailable">Girêdanka lîstikê an jî URL a beşa fêrbûnê pêve bike ji bo barkirinê.</string>
   <string name="inYourLocalTimezone">Li gorî dema te ya herêmî</string>
   <string name="tournChat">Axaftina pêşbirkê</string>
   <string name="noChat">Axaftin tu ne</string>
   <string name="onlyTeamLeaders">Tenê serkêşên komê</string>
   <string name="onlyTeamMembers">Tenê endamên komê</string>
-  <string name="navigateMoveTree">Di nava dara gavan de bigere</string>
   <string name="mouseTricks">Lêbên mişkî</string>
   <string name="toggleLocalAnalysis">Analîza kompûterê ya herêmî veke/bigre</string>
   <string name="toggleAllAnalysis">Hemû analîzên kompûterê veke/bigire</string>

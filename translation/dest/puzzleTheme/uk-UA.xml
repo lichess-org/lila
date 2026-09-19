@@ -29,7 +29,6 @@
   <string name="collinearMove">Паралельний хід</string>
   <string name="collinearMoveDescription">Дві протилежні фігури знаходяться на одній лінії та одна з них пересувається по лінії без взяття фігури.</string>
   <string name="cornerMate">Кутовий мат</string>
-  <string name="cornerMateDescription">Тура й ферзь заганяють короля в кут, а кінь ставить мат.</string>
   <string name="crushing">Руйнування</string>
   <string name="crushingDescription">Знайдіть грубу помилку суперника, щоб отримати нищівну перевагу. (eval ≥ 600 cp)</string>
   <string name="discoveredCheck">Відкритий шах</string>
@@ -54,20 +53,17 @@
   <string name="doubleCheckDescription">Шах двома фігурами одночасно, як наслідок відкриття атаки на короля, коли обидві фігури неможливо захопити.</string>
   <string name="endgame">Ендшпіль</string>
   <string name="endgameDescription">Тактика на останній фазі гри.</string>
-  <string name="enPassantDescription">Тактика із застосуванням правила \"взяття на проході\", коли пішак може взяти пішака суперника, що зробив початковий хід на два поля, внаслідок якого перетинаюче поле під боєм пішака.</string>
-  <string name="enPassantAdjacentCaptureDescription" comment="Replaces old string enPassantDescription">Тактика із застосуванням правила «взяття на проході», коли пішак може взяти пішака суперника збоку, якщо він щойно зробив хід на два квадрати.</string>
+  <string name="enPassantAdjacentCaptureDescription">Тактика із застосуванням правила «взяття на проході», коли пішак може взяти пішака суперника збоку, якщо він щойно зробив хід на два квадрати.</string>
   <string name="epauletteMate">Еполетний мат</string>
   <string name="epauletteMateDescription">Два суміжні поля для короля якому дали шах займають інші фігури.</string>
   <string name="exposedKing">Незахищений король</string>
   <string name="exposedKingDescription">Король з малою кількістю захисників, що часто призводить до мату.</string>
   <string name="fork">Вилка</string>
-  <string name="forkDescription">Хід, коли фігура атакує дві фігури одночасно.</string>
-  <string name="forkOpposingPiecesDescription" comment="Replaces old string forkDescription">Хід, у якому фігура атакує дві чи більше ворожих фігур одночасно.</string>
+  <string name="forkOpposingPiecesDescription">Хід, у якому фігура атакує дві чи більше ворожих фігур одночасно.</string>
   <string name="hangingPiece">Незахищена фігура</string>
   <string name="hangingPieceDescription">Незахищена або недостатньо захищена фігура, що може бути атакована.</string>
   <string name="hookMate">Хук-мат</string>
-  <string name="hookMateDescription">Мат турою, конем і пішаком разом з одним ворожим пішаком, щоб обмежити втечу ворожого короля.</string>
-  <string name="hookMateOpposingPawnDescription" comment="Replaces old string hookMateDescription">Мат за допомогою тури, коня та пішака, і пішак блокує квадрат королю.</string>
+  <string name="hookMateOpposingPawnDescription">Мат за допомогою тури, коня та пішака, і пішак блокує квадрат королю.</string>
   <string name="interference">Перешкода</string>
   <string name="interferenceDescription">Хід фігурою між двома фігурами суперника, що перешкоджає одній або двом фігурам суперника і робить їх незахищеними, наприклад, кінь на захищеному полі між двома турами.</string>
   <string name="intermezzo">Проміжний хід</string>
@@ -75,9 +71,7 @@
   <string name="killBoxMate">Мат \"Смертельна коробка\"</string>
   <string name="killBoxMateDescription">Тура стає біля ворожого короля під захистом ферзя. Ферзь у той самий час блокує всі поля, через які король може втекти. Тура й ферзь ловлять ворожого короля у «смертельну коробку» розміру 3 на 3.</string>
   <string name="pillsburysMate">Мат Пілсбері</string>
-  <string name="pillsburysMateDescription">Тура ставить мат королю, поки слон закриває поля для втечі.</string>
   <string name="morphysMate">Мат Морфі</string>
-  <string name="morphysMateDescription">Слон ставить шах королю, а тура закриває поля для втечі.</string>
   <string name="swallowstailMate">Мат \"ластівчин хвіст\"</string>
   <string name="swallowstailMateDescription">Матовий патерн, який візуально нагадує ластівчин хвіст, подібно до літери \"У\".</string>
   <string name="triangleMate">Трикутний мат</string>
@@ -117,7 +111,6 @@
   <string name="pin">Зв\'язування</string>
   <string name="pinDescription">Тактика, коли фігура не може зробити хід, тому що буде втрачена цінніша фігура.</string>
   <string name="promotion">Перетворення</string>
-  <string name="promotionDescription">Перетворення пішака або загроза перетворення є ключовою тактикою.</string>
   <string name="queenEndgame">Ферзевий ендшпіль</string>
   <string name="queenEndgameDescription">Ендшпіль лише з ферзем та пішаками.</string>
   <string name="queenRookEndgame">Ферзевий та туровий ендшпіль</string>

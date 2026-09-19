@@ -118,9 +118,9 @@ async function writeJavascript(cat: string, locale?: string, xstat: fs.Stats | f
   const jsInit =
     cat !== 'site'
       ? ''
-      : 'window.i18n.quantity=' +
+      : 'window.i18n={quantity:' +
         (jsQuantity.find(({ l }) => l.includes(lang ?? ''))?.q ?? `o=>o==1?'one':'other'`) +
-        ';';
+        '};';
   if (!jsInit && locale && !localeSpecific.size) return;
   const code =
     jsPrelude +

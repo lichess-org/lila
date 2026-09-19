@@ -148,30 +148,15 @@
   <string name="blunder">Превид</string>
   <string name="mistake">Грешка</string>
   <string name="inaccuracy">Непрецизност</string>
-  <plurals name="nbBlunders">
-    <item quantity="one">%s превид</item>
-    <item quantity="few">%s превида</item>
-    <item quantity="other">%s превида</item>
-  </plurals>
   <plurals name="numberBlunders">
     <item quantity="one">%s Превид</item>
     <item quantity="few">%s Грубе грешке</item>
     <item quantity="other">%s Грубе грешке</item>
   </plurals>
-  <plurals name="nbMistakes">
-    <item quantity="one">%s грешка</item>
-    <item quantity="few">%s грешке</item>
-    <item quantity="other">%s грешака</item>
-  </plurals>
   <plurals name="numberMistakes">
     <item quantity="one">%s Грешка</item>
     <item quantity="few">%s Грешке</item>
     <item quantity="other">%s Грешака</item>
-  </plurals>
-  <plurals name="nbInaccuracies">
-    <item quantity="one">%s непрецизност</item>
-    <item quantity="few">%s непрецизности</item>
-    <item quantity="other">%s непрецизности</item>
   </plurals>
   <plurals name="numberInaccuracies">
     <item quantity="one">%s Непрецизност</item>
@@ -276,7 +261,6 @@
   <string name="emailSent">Послали смо мејл на %s.</string>
   <string name="emailCanTakeSomeTime">Треба мало времена док не стигне.</string>
   <string name="refreshInboxAfterFiveMinutes">Сачекај 5 минута и освежи своје поштанско сандуче.</string>
-  <string name="checkSpamFolder">Такође провери фасциклу са спам порукама, можда је тамо. Ако је ту, обележи поруку тако да није спам.</string>
   <string name="sendEmailForAccountVerification">Ако не можеш пронаћи твој имејл за потврду, пошали имејл на %s и ми ћемо потврдити твој налог за тебе.</string>
   <string name="accountConfirmed">Корисник %s је потврђен.</string>
   <string name="accountCanLogin">Можеш се сада пријавити као %s.</string>
@@ -303,8 +287,6 @@
   </plurals>
   <string name="ok">У реду</string>
   <string name="cancel">Откажи</string>
-  <string name="whiteTimeOut">Белом истекло време</string>
-  <string name="blackTimeOut">Црном истекло време</string>
   <string name="drawOfferSent">Понуда за реми послата</string>
   <string name="drawOfferAccepted">Понуда за реми прихваћена</string>
   <string name="whiteOffersDraw">Бели нуди реми</string>
@@ -614,7 +596,6 @@
   <string name="other">Друго</string>
   <string name="reportCheatBoostHelp">Залијепите везу до игре и објасните шта није у реду са понашањем корисника. Немојте само рећи \"варао\", али реците како сте дошли до тог закључка. Ваша пријава ће бити обрађена брже ако је напишете на енглеском језику.</string>
   <string name="reportUsernameHelp">Објасните шта је неприкладно у имену корисника. Немојте само да кажете да је неприкладно, реците нам како сте то закључили, поготово ако је увреда збуњујућа, није у енглеском, у сленгу, или де односи на културу/историју.</string>
-  <string name="reportProcessedFasterInEnglish">Ваша пријава ће бити обрађена брже ако је написана на енглеском језику.</string>
   <string name="error.provideOneCheatedGameLink">Молимо Вас да наведете бар један линк до партије са сумњом варања.</string>
   <string name="by">од %s</string>
   <string name="importedByX">Увезао %s</string>
@@ -741,11 +722,9 @@
   <string name="aboutSimulRules">Када симултанка започне, сваки играч почиње партију са домаћином. Симултанка се завршава када су све партије завршене.</string>
   <string name="aboutSimulSettings">Симултанке су увек нерангиране. Реванши, враћања потеза и додавања времена су искључени.</string>
   <string name="create">Направи</string>
-  <string name="whenCreateSimul">Када направиш симултанку, можеш играти против неколико играча одједном.</string>
   <string name="simulVariantsHint">Ако одабереш неколико варијанти, сваки играч има могућност да бира коју да игра.</string>
   <string name="simulClockHint">Што више играча играш, више времена ти може бити потребно.</string>
   <string name="simulAddExtraTime">Можеш ставити додатно почетно време на свој сат како би ти помогло да се снађеш у симултанци.</string>
-  <string name="simulHostExtraTime">Додатно почетно време сата домаћина</string>
   <string name="simulAddExtraTimePerPlayer">Додај почетно време на свом сату за сваког играча који учествује у симултанци.</string>
   <string name="simulHostExtraTimePerPlayer">Додатно време домаћину за сваког играча против којег игра</string>
   <string name="lichessTournaments">Lichess турнири</string>
@@ -839,11 +818,6 @@
   <string name="quickPairing">Брзо упаривање</string>
   <string name="lobby">Лоби</string>
   <string name="anonymous">Анониман</string>
-  <plurals name="nbAnonymous">
-    <item quantity="one">Анониман</item>
-    <item quantity="few">Анонимна (%s)</item>
-    <item quantity="other">Анонимних (%s)</item>
-  </plurals>
   <string name="yourScore">Твој скор: %s</string>
   <string name="language">Језик</string>
   <string name="allLanguages">Сви језици</string>
@@ -876,7 +850,6 @@
   <string name="custom">Прилагођено</string>
   <string name="notifications">Обавештења</string>
   <string name="notificationsX">Нотификација: %1$s</string>
-  <string name="perfRatingX">Рејтинг: %s</string>
   <string name="yourRatingIsX">Твој рејтинг је %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s секунд да се одигра први потез</item>
@@ -938,7 +911,6 @@
     <item quantity="other">и сачувај %s предпотезних линија</item>
   </plurals>
   <string name="showUnreadLichessMessage">Примио/ла си приватну поруку од Lichess-а.</string>
-  <string name="clickHereToReadIt">Кликни овде да је прочиташ</string>
   <string name="sorry">Извини :(</string>
   <string name="weHadToTimeYouOutForAWhile">Морали смо ти дати тајм-аут на неко време.</string>
   <string name="why">Зашто?</string>
@@ -1021,15 +993,13 @@
   <string name="simulFeaturedHelp">Прикажи своју симултанку свима на %s. Онемогући за приватне симултанке.</string>
   <string name="simulDescription">Опис симултанке</string>
   <string name="simulDescriptionHelp">Желиш ли нешто да кажеш учесницима?</string>
-  <string name="markdownIsAvailable">%s је доступан за форматирање.</string>
-  <string name="youCanFormatTextUsing" comment="%s is &quot;Markdown&quot;, a proper noun. As such, the word is intentionally kept as a variable.&#10;&#10;Markdown is a markup language - a type of code that lets you format text (e.g. to create bold text).&#10;&#10;The text links to a reference guide for using Markdown to format text. Replaces old string markdownIsAvailable">Можеш форматирати текст користећи %s.</string>
+  <string name="youCanFormatTextUsing" comment="%s is &quot;Markdown&quot;, a proper noun. As such, the word is intentionally kept as a variable.&#10;&#10;Markdown is a markup language - a type of code that lets you format text (e.g. to create bold text).&#10;&#10;The text links to a reference guide for using Markdown to format text.">Можеш форматирати текст користећи %s.</string>
   <string name="embedsAvailable">Убаци URL партије или поглавља студије.</string>
   <string name="inYourLocalTimezone">У твојој локалној временској зони</string>
   <string name="tournChat">Ћаскање турнира</string>
   <string name="noChat">Без ћаскања</string>
   <string name="onlyTeamLeaders">Само вође тима</string>
   <string name="onlyTeamMembers">Само чланови тима</string>
-  <string name="navigateMoveTree">Навигирај кроз стабло потеза</string>
   <string name="mouseTricks">Трикови мишем</string>
   <string name="toggleLocalAnalysis">Укључи/искључи локалну рачунарску анализу</string>
   <string name="toggleAllAnalysis">Укључи/искључи све рачунарске анализе</string>

@@ -131,8 +131,6 @@
     <item quantity="other">Санпа %s вӑйӑ выљанӑ</item>
   </plurals>
   <string name="cancel">Пӑрахӑҫла</string>
-  <string name="whiteTimeOut">Шуррисен вӑхӑчӗ тухнӑ</string>
-  <string name="blackTimeOut">Хурисен вӑхӑчӗ тухнӑ</string>
   <string name="drawOfferSent">Парма-пар сӗннине йанӑ</string>
   <string name="drawOfferAccepted">Парма-пар сӗннине йышӑннӑ</string>
   <string name="whiteOffersDraw">Шуррисем парма-паршӑн</string>
@@ -381,7 +379,6 @@
   <string name="aboutSimulImage">50 ӑмӑртуҫран, Фишӗр 47 ҫӗнтернӗ, 2 парма-пар выльанӑ, 1 выльаса йанӑ.</string>
   <string name="aboutSimulSettings">Пӗр вӑхӑтри вӑйӑ йаланах ахаль вӑйӑ. Рематч выльама, тавӑрма тата \"ытлаши вӑхӑт\" илме ҫук.</string>
   <string name="create">Йӗркелес</string>
-  <string name="whenCreateSimul">Пӗр вӑхӑтри вӑйӑ йӗрекелесен, санӑн темиҫе ӑмӑртуҫпа пӗр вӑхӑтра выльамалла.</string>
   <string name="lichessTournaments">Lichess турнирӗсем</string>
   <string name="tournamentFAQ">Аренӑ турнирӗн ТЛЫӗ</string>
   <string name="timeBeforeTournamentStarts">Турнир пуҫланиччен хушши</string>
@@ -440,7 +437,6 @@
   <string name="chessBasics">Шахмат никӗсӗсем</string>
   <string name="coaches">Хӑнӑхтаруҫӑ</string>
   <string name="custom">Уйрӑм</string>
-  <string name="perfRatingX">Рейтинг: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="other">1-ш хускану тумашкӑн  %s ҫ йулчӗ</item>
   </plurals>

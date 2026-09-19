@@ -4049,8 +4049,6 @@ interface I18n {
     mustBeInTeam: I18nFormat;
     /** Name */
     name: string;
-    /** Anonymous (%s) */
-    nbAnonymous: I18nPlural;
     /** %s bookmarks */
     nbBookmarks: I18nPlural;
     /** %s days */

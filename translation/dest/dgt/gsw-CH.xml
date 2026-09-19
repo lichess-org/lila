@@ -22,7 +22,6 @@ Es Uszwähle, welem Schpiel me biträtte will, chunnt bald...</string>
   <string name="checkYouHaveMadeOpponentsMove">Überprüef zerscht, ob du de Zug vum Gägner uf em DGT - Schachbrätt scho usgfüehrt häsch. Nimm din Zug zrugg. Zieh nomal.</string>
   <string name="asALastResort">Als letschti Möglichkeit: Schtell dis Brätt genau so uf wie das vu Lichess und dänn %s</string>
   <string name="reloadThisPage">ladsch die Site neu</string>
-  <string name="dgtConfigure">DGT - Schachbrätt - Konfiguration</string>
   <string name="lichessConnectivity">Lichess Verbindig</string>
   <string name="validDgtOauthToken">Du häsch en OAuth Schlüssel, wo für DGT-Schpiel funktioniert.</string>
   <string name="dgtPlayMenuEntryAdded">En %s Itrag isch dim SPIEL Menu, ganz obe, bigfüegt worde.</string>

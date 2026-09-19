@@ -25,7 +25,6 @@
   <string name="cantChangeMore">只能更改大小寫。除此之外的變更，因技術限制是不可能的。</string>
   <string name="orCloseAccount">然而，您可以刪除您最近的帳戶並且創建一個新的</string>
   <string name="wantClearHistory">我想要把我的評分紀錄刪除</string>
-  <string name="cantClearHistory">我們無法將您的下棋歷史、解題歷史和評分消除</string>
   <string name="wantReport">我想要舉報一位玩家</string>
   <string name="toReportAPlayerUseForm">若要檢舉玩家行為，請填寫檢舉表單</string>
   <string name="youCanAlsoReachReportPage">您也可以點擊個人資料頁面的 %s 檢舉按鈕來填寫表單。</string>

@@ -133,30 +133,15 @@
   <string name="blunder">טעות גסה</string>
   <string name="mistake">שגיאה</string>
   <string name="inaccuracy">אי־דיוק</string>
-  <plurals name="nbBlunders">
-    <item quantity="one">%s טעות גסה</item>
-    <item quantity="two">%s טעויות גסות</item>
-    <item quantity="other">%s טעויות גסות</item>
-  </plurals>
   <plurals name="numberBlunders">
     <item quantity="one">%s טעות גסה</item>
     <item quantity="two">%s טעויות גסות</item>
     <item quantity="other">%s טעויות גסות</item>
   </plurals>
-  <plurals name="nbMistakes">
-    <item quantity="one">%s שגיאה</item>
-    <item quantity="two">%s שגיאות</item>
-    <item quantity="other">%s שגיאות</item>
-  </plurals>
   <plurals name="numberMistakes">
     <item quantity="one">%s שגיאה</item>
     <item quantity="two">%s שגיאות</item>
     <item quantity="other">%s שגיאות</item>
-  </plurals>
-  <plurals name="nbInaccuracies">
-    <item quantity="one">%s אי־דיוק</item>
-    <item quantity="two">%s אי־דיוקים</item>
-    <item quantity="other">%s אי־דיוקים</item>
   </plurals>
   <plurals name="numberInaccuracies">
     <item quantity="one">%s אי־דיוק</item>
@@ -265,7 +250,6 @@
   <string name="emailSent">שלחנו מייל ל־%s.</string>
   <string name="emailCanTakeSomeTime">יתכן שלהודעה יקח זמן־מה להגיע.</string>
   <string name="refreshInboxAfterFiveMinutes">חכו 5 דקות ולאחר מכן בצעו ריענון לתיבת המייל.</string>
-  <string name="checkSpamFolder">בדקו גם את תיבת דואר הזבל (״ספאם״). יתכן שההודעה הגיעה לשם בטעות. אם זה מה שקרה, סמנו אותה כלא־ספאם.</string>
   <string name="accountConfirmed">המשתמש %s אושר בהצלחה.</string>
   <string name="accountCanLogin">כעת תוכל/י להתחבר כ־%s.</string>
   <string name="accountConfirmationEmailNotNeeded">אין צורך במייל אישור.</string>
@@ -291,8 +275,6 @@
   </plurals>
   <string name="ok">אוקיי</string>
   <string name="cancel">ביטול</string>
-  <string name="whiteTimeOut">נגמר הזמן ללבן</string>
-  <string name="blackTimeOut">נגמר הזמן לשחור</string>
   <string name="drawOfferSent">הצעת תיקו נשלחה</string>
   <string name="drawOfferAccepted">הצעת התיקו התקבלה</string>
   <string name="whiteOffersDraw">לבן מציע תיקו</string>
@@ -599,7 +581,6 @@
   <string name="other">אחר</string>
   <string name="reportCheatBoostHelp">הדביקו את הקישור למשחקים שעליהם תרצו לדווח והסבירו מה הבעיה בהתנהגות המשתמש כפי שהיא משתקפת בהם. אל תכתבו סתם ״השחקן מרמה״. הסבירו לנו כיצד הגעתם למסקנה הזו.</string>
   <string name="reportUsernameHelp">הסבירו מה פוגעני בשם המשתמש הזה. אל תכתבו סתם ״שם המשתמש פוגעני״. הסבירו לנו כיצד הגעתם למסקנה הזו, במיוחד אם ההעלבה מוסווית, בשפה זרה (שאינה אנגלית), בלשון סלנג או תלויית תרבות והיסטוריה.</string>
-  <string name="reportProcessedFasterInEnglish">הדיווח שלך יטופל מהר יותר אם ייכתב באנגלית.</string>
   <string name="error.provideOneCheatedGameLink">בבקשה לספק לפחות קישור אחד למשחק עם רמאות.</string>
   <string name="by">על־ידי %s</string>
   <string name="importedByX">יובא ע\"י %s</string>
@@ -723,11 +704,9 @@
   <string name="aboutSimulRules">כאשר המשחק הסימולטני מתחיל, כל שחקן מתחיל את המשחק עם המארח, אשר משחק בתור הלבן. המשחק הסימולטני מסתיים כאשר כל המשחקים מסתיימים.</string>
   <string name="aboutSimulSettings">המשחקים הסימולטניים הם תמיד לא מדורגים. האפשרויות של: \"נסה שוב\", ״החזר מהלך״ ו\"הוסף זמן\" מבוטלות.</string>
   <string name="create">צור</string>
-  <string name="whenCreateSimul">כאשר יוצרים משחק סימולטני, זוכים לשחק עם שחקנים רבים בו זמנית.</string>
   <string name="simulVariantsHint">אם ייבחרו מספר נגזרות שחמט, כל שחקן יריב יזכה לבחור באיזו לשחק.</string>
   <string name="simulClockHint">התקנת שעון של פישר. ככל שתשחק/י נגד יותר שחקנים, כך תזדקק/י ליותר זמן.</string>
   <string name="simulAddExtraTime">באפשרותך להוסיף זמן לשעון שלך כדי לעזור לך להתמודד עם המשחק הסימולטני.</string>
-  <string name="simulHostExtraTime">זמן נוסף למארח/ת</string>
   <string name="simulAddExtraTimePerPlayer">הוספת זמן לשעון שלך בכל פעם שמצטרף שחקן למשחק הסימולטני.</string>
   <string name="simulHostExtraTimePerPlayer">זמן נוסף למארח/ת עבור כל שחקן שמצטרף</string>
   <string name="lichessTournaments">טורנירים של Lichess</string>
@@ -849,7 +828,6 @@
   <string name="custom">התאמה אישית</string>
   <string name="notifications">התראות</string>
   <string name="notificationsX">התראות: %1$s</string>
-  <string name="perfRatingX">דירוג: %s</string>
   <string name="yourRatingIsX">הדירוג שלך הוא %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">שנייה %s לשחק את המסע הראשון</item>
@@ -911,7 +889,6 @@
     <item quantity="other">ושמרו %s המשכים מוגדרים מראש</item>
   </plurals>
   <string name="showUnreadLichessMessage">קיבלתם הודעה פרטית מ־Lichess.</string>
-  <string name="clickHereToReadIt">לחצו כאן כדי לקרוא אותה</string>
   <string name="sorry">מצטערים :(</string>
   <string name="weHadToTimeYouOutForAWhile">נאלצנו להשעות אותך לזמן מה.</string>
   <string name="why">למה?</string>
@@ -1002,7 +979,6 @@
   <string name="noChat">ביטול אפשרות הצ\'אט</string>
   <string name="onlyTeamLeaders">רק ראשי קבוצות</string>
   <string name="onlyTeamMembers">רק חברי קבוצות</string>
-  <string name="navigateMoveTree">נווט ברשימת המהלכים</string>
   <string name="mouseTricks">קיצורי עכבר</string>
   <string name="toggleLocalAnalysis">הפעילו/כבו ניתוח מחשב מקומי</string>
   <string name="toggleAllAnalysis">הפעילו/כבו כל ניתוח מחשב</string>

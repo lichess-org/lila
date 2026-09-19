@@ -20,7 +20,6 @@
   <string name="checkYouHaveMadeOpponentsMove">Először ellenőrizd, hogy megtetted-e a DGT táblán az ellenfeled lépését! Vond vissza a saját lépésedet, majd játszd újra.</string>
   <string name="asALastResort">Végső megoldásként állítsd be a táblát pontosan úgy, mint a Lichessen, majd %s</string>
   <string name="reloadThisPage">Oldal frissítése</string>
-  <string name="dgtConfigure">DGT - Beállítások</string>
   <string name="lichessConnectivity">Lichess csatlakoztatás</string>
   <string name="validDgtOauthToken">DGT játékhoz megfelelő OAuth token rendelkezésre áll.</string>
   <string name="dgtPlayMenuEntryAdded">A %s bejegyzést a PLAY menüdhöz adtuk fent.</string>

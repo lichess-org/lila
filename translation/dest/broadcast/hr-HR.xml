@@ -31,11 +31,9 @@
   <string name="downloadAllRounds">Preuzmite sve igre</string>
   <string name="resetRound">Resetiraj ovu rundu</string>
   <string name="deleteRound">Izbriši ovu rundu</string>
-  <string name="definitivelyDeleteRound">Definitivno izbrišite rundu i njezine igre.</string>
   <string name="deleteAllGamesOfThisRound">Izbriši sve igre ovog kola. Izvor mora biti aktivan kako bi ih se ponovno stvorilo.</string>
   <string name="editRoundStudy">Prilagodi rundu studije</string>
   <string name="deleteTournament">Izbriši ovaj turnir</string>
-  <string name="definitivelyDeleteTournament">Definitvno izbirši cijeli turnir, sve runde i sve partije unutar turnira.</string>
   <string name="showScores">Prikaži igračeve bodove na temelju odigranih partija</string>
   <string name="replacePlayerTags">Neobavezno: zamijeni ime, rejting i titulu igrača</string>
   <string name="fideFederations">FIDE federacije</string>

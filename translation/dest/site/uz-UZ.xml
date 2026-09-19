@@ -149,25 +149,13 @@
   <string name="blunder">Qoʻpol xato</string>
   <string name="mistake">Xato</string>
   <string name="inaccuracy">Noaniqlik</string>
-  <plurals name="nbBlunders">
-    <item quantity="one">%s qoʻpol xato</item>
-    <item quantity="other">%s qoʻpol xato</item>
-  </plurals>
   <plurals name="numberBlunders">
     <item quantity="one">%s Qoʻpol xato</item>
     <item quantity="other">%s Qoʻpol xato</item>
   </plurals>
-  <plurals name="nbMistakes">
-    <item quantity="one">%s xato</item>
-    <item quantity="other">%s xato</item>
-  </plurals>
   <plurals name="numberMistakes">
     <item quantity="one">%s Xato</item>
     <item quantity="other">%s Xato</item>
-  </plurals>
-  <plurals name="nbInaccuracies">
-    <item quantity="one">%s noaniqlik</item>
-    <item quantity="other">%s noaniqlik</item>
   </plurals>
   <plurals name="numberInaccuracies">
     <item quantity="one">%s Noaniqlik</item>
@@ -275,8 +263,7 @@
   <string name="emailSent">%s manziliga e‑pochta yubordik.</string>
   <string name="emailCanTakeSomeTime">Xat yetib kelishi uchun biroz vaqt ketishi mumkin.</string>
   <string name="refreshInboxAfterFiveMinutes">5 minut kutib e‑pochta qutingizni yangilang.</string>
-  <string name="checkSpamFolder">Shuningdek, spam jildini ham tekshiring, xat u yerga tushib qolgan boʻlishi mumkin. Agar shunday boʻlsa, uni “Spam emas” deb belgilang.</string>
-  <string name="checkSpamOrJunkFolder" comment="checkSpamFolder&#10;It = The confirmation email Replaces old string checkSpamFolder">Agar tasdiqlash xatini olmagan boʻlsangiz, spam yoki keraksiz xatlar jildini tekshiring. Muhim xabarlardan xabardor boʻlib turish uchun lichess.org saytidan keladigan xatlarni xavfsiz va \"spam emas\" deb belgilang.</string>
+  <string name="checkSpamOrJunkFolder" comment="checkSpamFolder&#10;It = The confirmation email">Agar tasdiqlash xatini olmagan boʻlsangiz, spam yoki keraksiz xatlar jildini tekshiring. Muhim xabarlardan xabardor boʻlib turish uchun lichess.org saytidan keladigan xatlarni xavfsiz va \"spam emas\" deb belgilang.</string>
   <string name="sendEmailForAccountVerification">Agar tasdiqlash xatini topa olmasangiz, %s manziliga xat yuboring va biz hisobingizni tasdiqlab beramiz.</string>
   <string name="accountConfirmed">Foydalanuvchi %s muvaffaqiyatli tasdiqlandi.</string>
   <string name="accountCanLogin">Hozirning oʻzidayoq %s sifatida tizimga kirishingiz mumkin.</string>
@@ -300,10 +287,8 @@
   </plurals>
   <string name="ok">OK</string>
   <string name="cancel">Bekor qilish</string>
-  <string name="whiteTimeOut">Oqlar vaqti tugadi</string>
-  <string name="whiteRanOutOfTime" comment="whiteTimeOut&#10;&#10;Shows when White's time has run out. Is followed by the end condition, for example&#10;'White ran out of time · Draw' Replaces old string whiteTimeOut">Oqlarning vaqti tugadi</string>
-  <string name="blackTimeOut">Qoralar vaqti tugadi</string>
-  <string name="blackRanOutOfTime" comment="blackTimeOut&#10;&#10;Shows when Black's time has run out. Is followed by the end condition, for example&#10;'Black ran out of time · Draw' Replaces old string blackTimeOut">Qoralarning vaqti tugadi</string>
+  <string name="whiteRanOutOfTime" comment="whiteTimeOut&#10;&#10;Shows when White's time has run out. Is followed by the end condition, for example&#10;'White ran out of time · Draw'">Oqlarning vaqti tugadi</string>
+  <string name="blackRanOutOfTime" comment="blackTimeOut&#10;&#10;Shows when Black's time has run out. Is followed by the end condition, for example&#10;'Black ran out of time · Draw'">Qoralarning vaqti tugadi</string>
   <string name="drawOfferSent">Durang taklifi yuborildi</string>
   <string name="drawOfferAccepted">Durang taklifi qabul qilindi</string>
   <string name="whiteOffersDraw">Oqlar durang taklif qilishdi</string>
@@ -424,8 +409,7 @@
     <item quantity="other">Yana %s ta reytingli oʻyin oʻynashingiz kerak</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Sizning %s reytingingiz hali aniqlanmagan</string>
-  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Reytingingiz barqaror boʻlmagani sababli, reyting filtrlari bloklangan. Reytingli oʻyinlarni o\'ynash reyting barqarorligini oshiradi.</string>
-  <string name="cannotFilterByUnstableRating" comment="Tooltip to explain why the control for filtering by rating is disabled Replaces old string ratingRangeIsDisabledBecauseYourRatingIsProvisional">Reytingingiz barqaror boʻlmagani sababli, reyting bilan filtrlab boʻlmaydi.
+  <string name="cannotFilterByUnstableRating" comment="Tooltip to explain why the control for filtering by rating is disabled">Reytingingiz barqaror boʻlmagani sababli, reyting bilan filtrlab boʻlmaydi.
 Reytingli oʻyinlar o\'ynasangiz reyting barqarorligi oshadi.</string>
   <string name="yourPerfRatingIsTooHigh">Sizning %1$s reytingingiz (%2$s) juda yuqori</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Sizning hafatlik %1$s reytingingiz (%2$s) juda yuqori</string>
@@ -447,7 +431,7 @@ Reytingli oʻyinlar o\'ynasangiz reyting barqarorligi oshadi.</string>
   <string name="apply">Saqlash</string>
   <string name="save">Saqlash</string>
   <string name="leaderboard">Peshqadamlar jadvali</string>
-  <string name="positionAsImage" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position. Replaces old string screenshotCurrentPosition">Pozitsiya rasm sifatida</string>
+  <string name="positionAsImage" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position.">Pozitsiya rasm sifatida</string>
   <string name="gameAsGIF">Oʻyin GIF formatida</string>
   <string name="playerNames">Oʻyinchilar ismlari</string>
   <string name="moveAnnotations">Yurish annotatsiyalari</string>
@@ -605,8 +589,7 @@ Reytingli oʻyinlar o\'ynasangiz reyting barqarorligi oshadi.</string>
   <string name="other">Boshqa</string>
   <string name="reportCheatBoostHelp">Oʻyin(lar) havolasini joylashtiring va bu foydalanuvchining xatti‑harakatlarida nima notoʻgʻri ekanligini tushuntiring. Shunchaki “gʻirromlik qilyapti” deb cheklanib qolmay, qanday qilib bu xulosaga kelganingizni ayting.</string>
   <string name="reportUsernameHelp">Ushbu foydalanuvchi nomi nima uchun haqoratli ekanligini tushuntiring. Shunchaki “bu haqoratomuz/nooʻrin” deb qoʻya qolmasdan, nima sababdan bunday deb oʻylashingizni asoslab bering. Ayniqsa, haqorat yashirin boʻlsa, ingliz tilida boʻlmasa, jargon (sleng) boʻlsa yoki tarixiy/madaniy mazmunga ega boʻlsa.</string>
-  <string name="reportProcessedFasterInEnglish">Ingliz tilida shikoyat joʻnatsangiz, tezroq koʻrib chiqiladi.</string>
-  <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it. Replaces old string reportProcessedFasterInEnglish">Agar shikoyatingizni ingliz tilida yozsangiz, uni tezroq koʻrib chiqa olamiz.</string>
+  <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">Agar shikoyatingizni ingliz tilida yozsangiz, uni tezroq koʻrib chiqa olamiz.</string>
   <string name="error.provideOneCheatedGameLink">Iltimos kamida bitta o\'yinga havolani keltiring.</string>
   <string name="by">%s tomonidan yaratildi</string>
   <string name="importedByX">%s tomonidan import qilindi</string>
@@ -730,13 +713,11 @@ Reytingli oʻyinlar o\'ynasangiz reyting barqarorligi oshadi.</string>
   <string name="aboutSimulRules">Seans boshlanganda, har bir ishtirokchi seans oʻtkazuvchi bilan oʻyinni boshlaydi. Seans hamma oʻyinlar tugaganda yakunlanadi.</string>
   <string name="aboutSimulSettings">Seanslar reytingsiz oʻynaladi. Revanshlar, yurishni ortga qaytarish va vaqt qoʻshib berish imkoniyatlari oʻchirilgan.</string>
   <string name="create">Yaratish</string>
-  <string name="whenCreateSimul">Sinxron seans yaratganingizda bir vaqtni oʻzida bir nechta oʻyinchilar bilan oʻynaysiz.</string>
-  <string name="creatingASimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new Replaces old string whenCreateSimul">Sinxron oʻyin yaratish bir vaqtning oʻzida bir nechta raqiblarga qarshi oʻynash imkonini beradi.</string>
+  <string name="creatingASimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Sinxron oʻyin yaratish bir vaqtning oʻzida bir nechta raqiblarga qarshi oʻynash imkonini beradi.</string>
   <string name="simulVariantsHint">Bir nechta variant tanlasangiz, har bir oʻyinchi qaysi variantda oʻynashni oʻzi tanlaydi.</string>
   <string name="simulClockHint">Fisher soati sozlamalari. Raqiblaringiz qancha koʻp boʻlsa, sizga shuncha koʻp vaqt kerak boʻlishi mumkin.</string>
   <string name="simulAddExtraTime">Seans davomida ulgurishingiz uchun oʻz soatingizga qoʻshimcha boshlangʻich vaqt qoʻshishingiz mumkin.</string>
-  <string name="simulHostExtraTime">Seans oʻtkazuvchi uchun qoʻshimcha boshlangʻich vaqt</string>
-  <string name="extraClockTimeForHost" comment="Appears on: https://lichess.org/simul/new&#10;&#10;Allows a simul host to select extra time for the simul.&#10;&#10;Please note this string used to state &quot;Host extra clock time&quot;, without the word &quot;initial&quot; Replaces old string simulHostExtraTime">Mezbon uchun qoʻshimcha vaqt:</string>
+  <string name="extraClockTimeForHost" comment="Appears on: https://lichess.org/simul/new&#10;&#10;Allows a simul host to select extra time for the simul.&#10;&#10;Please note this string used to state &quot;Host extra clock time&quot;, without the word &quot;initial&quot;">Mezbon uchun qoʻshimcha vaqt:</string>
   <string name="simulAddExtraTimePerPlayer">Seansga qoʻshilgan har bir oʻyinchi uchun soatingizga boshlangʻich vaqt qoʻshing.</string>
   <string name="simulHostExtraTimePerPlayer">Har bir oʻyinchi uchun qoʻshimcha vaqt (seans oʻtkazuvchi uchun)</string>
   <string name="lichessTournaments">Lichess turnirlar</string>
@@ -833,10 +814,6 @@ Reytingli oʻyinlar o\'ynasangiz reyting barqarorligi oshadi.</string>
   <string name="quickPairing">Raqibni tez topish</string>
   <string name="lobby">Kutish zali</string>
   <string name="anonymous">Anonim</string>
-  <plurals name="nbAnonymous">
-    <item quantity="one">Anonim</item>
-    <item quantity="other">Anonim (%s)</item>
-  </plurals>
   <string name="yourScore">Hisob: %s</string>
   <string name="language">Til</string>
   <string name="allLanguages">Barcha tillar</string>
@@ -872,8 +849,7 @@ Reytingli oʻyinlar o\'ynasangiz reyting barqarorligi oshadi.</string>
   <string name="custom">Boshqa</string>
   <string name="notifications">Bildirishnomalar</string>
   <string name="notificationsX">%1$s ta bildirishnoma</string>
-  <string name="perfRatingX">Reyting: %s</string>
-  <string name="perfRatingLabel" comment="Replaces old string perfRatingX">Reyting: %s.</string>
+  <string name="perfRatingLabel">Reyting: %s.</string>
   <string name="yourRatingIsX">Sizning reytingingiz %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">Birinchi yurish qilish uchun %s sekund qoldi</item>
@@ -932,8 +908,7 @@ Reytingli oʻyinlar o\'ynasangiz reyting barqarorligi oshadi.</string>
     <item quantity="other">va %s ta oldindan yurish variantini saqlash</item>
   </plurals>
   <string name="showUnreadLichessMessage">Sizga Lichessdan shaxsiy xabar keldi.</string>
-  <string name="clickHereToReadIt">Uni oʻqish uchun shu yerga bosing</string>
-  <string name="readTheMessage" comment="'It' refers to a private message. This text follows after a different string which advises players they have received a private message from Lichess. For users, this is appears as a regular private message from the Lichess account: https://lichess.org/@/Lichess Replaces old string clickHereToReadIt">Xabarni oʻqish</string>
+  <string name="readTheMessage" comment="'It' refers to a private message. This text follows after a different string which advises players they have received a private message from Lichess. For users, this is appears as a regular private message from the Lichess account: https://lichess.org/@/Lichess">Xabarni oʻqish</string>
   <string name="sorry">Kechirasiz :(</string>
   <string name="weHadToTimeYouOutForAWhile">Biz sizni oʻyinlardan vaqtinchalik chetlashtirishga majbur boʻldik.</string>
   <string name="why">Nima uchun?</string>
@@ -1018,16 +993,14 @@ Oʻyinlarni boshlangʻich pozitsiyadan boshlash uchun boʻsh qoldiring.</string>
   <string name="simulFeaturedHelp">Sinxron seansingizni %sʼdagi barchaga koʻrsatish. Shaxsiy sinxron seanslar uchun buni oʻchirib qoʻying.</string>
   <string name="simulDescription">Seans haqida</string>
   <string name="simulDescriptionHelp">Ishtirokchilarga aytadigan gapingiz bormi?</string>
-  <string name="markdownIsAvailable">Matnni formatlash uchun %sʼdan foydalanishingiz mumkin.</string>
-  <string name="youCanFormatTextUsing" comment="%s is &quot;Markdown&quot;, a proper noun. As such, the word is intentionally kept as a variable.&#10;&#10;Markdown is a markup language - a type of code that lets you format text (e.g. to create bold text).&#10;&#10;The text links to a reference guide for using Markdown to format text. Replaces old string markdownIsAvailable">Matnni %s yordamida formatlashingiz mumkin.</string>
+  <string name="youCanFormatTextUsing" comment="%s is &quot;Markdown&quot;, a proper noun. As such, the word is intentionally kept as a variable.&#10;&#10;Markdown is a markup language - a type of code that lets you format text (e.g. to create bold text).&#10;&#10;The text links to a reference guide for using Markdown to format text.">Matnni %s yordamida formatlashingiz mumkin.</string>
   <string name="embedsAvailable">Biriktirish uchun oʻyin yoki dars bobi havolasini qoʻying.</string>
   <string name="inYourLocalTimezone">Mahalliy vaqtingiz boʻyicha</string>
   <string name="tournChat">Turnir chati</string>
   <string name="noChat">Chat yoʻq</string>
   <string name="onlyTeamLeaders">Faqat jamoa sardorlari</string>
   <string name="onlyTeamMembers">Faqat jamoa a‘zlolari</string>
-  <string name="navigateMoveTree">Yurishlar daraxti bo‘ylab harakatlaning</string>
-  <string name="moveListNavigation" comment="navigateMoveTree&#10;&#10;Appears in the keyboard shortcuts/help screen. The 'move tree' is simply the list of moves. Replaces old string navigateMoveTree">Yurishlar roʻyxatida harakatlanish</string>
+  <string name="moveListNavigation" comment="navigateMoveTree&#10;&#10;Appears in the keyboard shortcuts/help screen. The 'move tree' is simply the list of moves.">Yurishlar roʻyxatida harakatlanish</string>
   <string name="mouseTricks">Sichqoncha imkoniyatlari</string>
   <string name="toggleLocalAnalysis">Oʻz kompyuteringiz tahlilini yoqing</string>
   <string name="toggleAllAnalysis">Kompyuter barcha tahlillarini ulang</string>

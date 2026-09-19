@@ -7,7 +7,6 @@ import { profileUrl } from './userLink';
 export interface Data {
   nb: number;
   users?: string[];
-  anons?: number;
   watchers?: Data;
 }
 
@@ -30,7 +29,9 @@ export function watchers(element: HTMLElement, withUserList = true): void {
   const setWatchers = (data: Data): void => {
     watchersData = data;
 
-    if (!data?.nb) {
+    if (!data.nb && data.users) data.nb = data.users.length;
+
+    if (!data.nb) {
       element.classList.add('none');
       return;
     }
@@ -39,14 +40,11 @@ export function watchers(element: HTMLElement, withUserList = true): void {
 
     if (data.users && withUserList) {
       const currUsers = data.users.map(u => u || '').join(';');
-      const currAnons = data.anons ?? 0;
-      if (get(listEl, 'prevUsers') !== currUsers || (get(listEl, 'prevAnons') ?? 0) !== currAnons) {
+      if (get(listEl, 'prevUsers') !== currUsers) {
         set(listEl, 'prevUsers', currUsers);
-        set(listEl, 'prevAnons', currAnons);
         const tags = data.users.map(u =>
           u ? `<a class="user-link ulpt" href="${profileUrl(name(u))}">${u}</a>` : i18n.site.anonymous,
         );
-        if (currAnons) tags.push(i18n.site.nbAnonymous(currAnons));
         $listEl.html(tags.join(', '));
       }
     } else $listEl.html('');

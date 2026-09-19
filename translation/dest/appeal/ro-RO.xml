@@ -13,10 +13,9 @@
   <string name="closedByModerators">Contul tău a fost închis de moderatori.</string>
   <string name="blogRestriction">Ai o restricție la blog.</string>
   <string name="blogRestrictionInfo">Citiți %s, încălcarea acestor reguli poate duce la diferite acțiuni.</string>
-  <string name="playTimeout">Ai o pauză de joc.</string>
   <string name="reportBanned">Nu poți trimite rapoarte către moderatori</string>
   <string name="reportBannedInfo">Am observat un model de abuz al sistemului nostru de raportare. Acest lucru se poate datora mai multor motive, cum ar fi selectarea continuă a unor categorii greşite, folosind un limbaj urât, nepotrivit sau jignitor, raportarea un număr excesiv de jocuri, sau nedemonstrînd de ce considerați că oponentul a încălcat regulile.</string>
-  <string name="temporarilyRestrictedFromPlaying" comment="play timeout = Lichess prevents you temporarily from playing any games Replaces old string playTimeout">Contul tău este restricționat temporar de la joc.</string>
+  <string name="temporarilyRestrictedFromPlaying" comment="play timeout = Lichess prevents you temporarily from playing any games">Contul tău este restricționat temporar de la joc.</string>
   <string name="communicationGuidelines">ghid de comunicare</string>
   <string name="blogEtiquette">etichetă blog</string>
   <string name="fairPlay">Fair Play</string>

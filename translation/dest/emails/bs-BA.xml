@@ -17,8 +17,7 @@ Ovo je Vaš profil: %1$s. Možete ga mijenjati na %2$s.
 
 Uživajte, i neka Vaše figure uvijek pronađu put do protivničkog kralja!</string>
   <string name="logInToLichess">Prijavite se na lichess.org, %s</string>
-  <string name="common_orPaste">(Klikanje na link ne radi? Probajte zalijepiti link u Vaš pretraživač!)</string>
-  <string name="common_linkNotWorking" comment="common_orPaste&#10;&#10;Part of the e-mail received from lichess when changing your e-mail address. Replaces old string common_orPaste">(Link ne radi? Pokušajte ga zalijepiti u svoj pretraživač!)</string>
+  <string name="common_linkNotWorking" comment="common_orPaste&#10;&#10;Part of the e-mail received from lichess when changing your e-mail address.">(Link ne radi? Pokušajte ga zalijepiti u svoj pretraživač!)</string>
   <string name="common_note">Ovo je servisna poruka povezana sa Vašim korištenjem stranice %s.</string>
   <string name="common_contact">Da bi ste nas kontaktirali, molimo Vas da koristite %s.</string>
 </resources>

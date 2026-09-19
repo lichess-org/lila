@@ -149,25 +149,13 @@
   <string name="blunder">اشتباه فاحش</string>
   <string name="mistake">اشتباه</string>
   <string name="inaccuracy">بی‌دقتی</string>
-  <plurals name="nbBlunders">
-    <item quantity="one">%s اشتباه بزرگ</item>
-    <item quantity="other">%s اشتباه بزرگ</item>
-  </plurals>
   <plurals name="numberBlunders">
     <item quantity="one">%s اشتباه بزرگ</item>
     <item quantity="other">%s اشتباه بزرگ</item>
   </plurals>
-  <plurals name="nbMistakes">
-    <item quantity="one">%s اشتباه</item>
-    <item quantity="other">%s اشتباه</item>
-  </plurals>
   <plurals name="numberMistakes">
     <item quantity="one">%s اشتباه</item>
     <item quantity="other">%s اشتباه</item>
-  </plurals>
-  <plurals name="nbInaccuracies">
-    <item quantity="one">%s نادقیق</item>
-    <item quantity="other">%s نادقیق</item>
   </plurals>
   <plurals name="numberInaccuracies">
     <item quantity="one">%s نادقیق</item>
@@ -175,6 +163,10 @@
   </plurals>
   <string name="moveTimes">مدت حركت‌ها</string>
   <string name="flipBoard">چرخاندن میز</string>
+  <string name="toggleLocalEngine">کلیدِ موتور محلی</string>
+  <string name="engineSettings">تنظیماتِ موتور</string>
+  <string name="enginesFromStrongestToWeakest">موتورها از قوی‌ترین تا ضعیف‌ترین</string>
+  <string name="illegalPosition">وضعیتِ ناقانونی</string>
   <string name="threefoldRepetition">تکرار سه‌گانه</string>
   <string name="claimADraw">ادعای تساوی</string>
   <string name="drawClaimed">بازی در تساوی پایان یافت</string>
@@ -271,8 +263,7 @@
   <string name="emailSent">ما رایانامه‌ای به %s فرستاده‌ایم.</string>
   <string name="emailCanTakeSomeTime">ممکن است کمی طول بکشد تا برسد.</string>
   <string name="refreshInboxAfterFiveMinutes">۵ دقیقه بصبرید و صندوق رایانامه‌تان را تازه کنید.</string>
-  <string name="checkSpamFolder">پوشه هرزنامه خود را نیز بررسی کنید، ممکن است در آنجا باشد. اگر چنین است، آن را به عنوان غیر هرزنامه علامت‌گذاری کنید.</string>
-  <string name="checkSpamOrJunkFolder" comment="checkSpamFolder&#10;It = The confirmation email Replaces old string checkSpamFolder">اگر رایانامهٔ تایید دریافت نکردید، پوشه هرزنامه یا بُنجُل خود را بررسید. حتماً پیام‌های lichess.org را ایمن و \"نا-هرزنامه\" مشخص کنید تا بتوانید از ارتباطاتِ مهم آگاه شوید.</string>
+  <string name="checkSpamOrJunkFolder" comment="checkSpamFolder&#10;It = The confirmation email">اگر رایانامهٔ تایید دریافت نکردید، پوشه هرزنامه یا بُنجُل خود را بررسید. حتماً پیام‌های lichess.org را ایمن و \"نا-هرزنامه\" مشخص کنید تا بتوانید از ارتباطاتِ مهم آگاه شوید.</string>
   <string name="sendEmailForAccountVerification">اگر نمی‌توانید رایانامهٔ تاییدتان را بیابید، رایانامه‌ای به %s ارسال کنید تا حساب‌تان را تایید کنیم.</string>
   <string name="accountConfirmed">کاربر با نام %s با موفقیت تایید شده است.</string>
   <string name="accountCanLogin">شما می توانید همین الان با نام %s وارد شوید.</string>
@@ -296,10 +287,8 @@
   </plurals>
   <string name="ok">بسیار خب</string>
   <string name="cancel">لغو</string>
-  <string name="whiteTimeOut">وقتِ سفید تمام شد</string>
-  <string name="whiteRanOutOfTime" comment="whiteTimeOut&#10;&#10;Shows when White's time has run out. Is followed by the end condition, for example&#10;'White ran out of time · Draw' Replaces old string whiteTimeOut">وقتِ سفید تمام شد</string>
-  <string name="blackTimeOut">وقتِ سیاه تمام شد</string>
-  <string name="blackRanOutOfTime" comment="blackTimeOut&#10;&#10;Shows when Black's time has run out. Is followed by the end condition, for example&#10;'Black ran out of time · Draw' Replaces old string blackTimeOut">وقتِ سیاه تمام شد</string>
+  <string name="whiteRanOutOfTime" comment="whiteTimeOut&#10;&#10;Shows when White's time has run out. Is followed by the end condition, for example&#10;'White ran out of time · Draw'">وقتِ سفید تمام شد</string>
+  <string name="blackRanOutOfTime" comment="blackTimeOut&#10;&#10;Shows when Black's time has run out. Is followed by the end condition, for example&#10;'Black ran out of time · Draw'">وقتِ سیاه تمام شد</string>
   <string name="drawOfferSent">پیشنهاد تساوی ارسال شد</string>
   <string name="drawOfferAccepted">پیشنهاد تساوی پذیرفته شد</string>
   <string name="whiteOffersDraw">سفید پیشنهاد تساوی می دهد</string>
@@ -420,8 +409,7 @@
     <item quantity="other">شما باید%s بازی رسمی دیگر انجام دهید.</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">درجه‌بندی %s شما موقتی است</string>
-  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">پالاگرهای درجه‌بندی قفل شده‌اند زیرا درجه‌بندی‌تان پایدار نیست. انجامِ بازی‌های رسمی، پایداری را می‌اَفزایند.</string>
-  <string name="cannotFilterByUnstableRating" comment="Tooltip to explain why the control for filtering by rating is disabled Replaces old string ratingRangeIsDisabledBecauseYourRatingIsProvisional">پالایش بر اساس درجه‌بندی ممکن نیست زیرا درجه‌بندی‌تان پایدار نیست.
+  <string name="cannotFilterByUnstableRating" comment="Tooltip to explain why the control for filtering by rating is disabled">پالایش بر اساس درجه‌بندی ممکن نیست زیرا درجه‌بندی‌تان پایدار نیست.
 انجام بازی‌های رسمی، پایداری را می‌افزاید.</string>
   <string name="yourPerfRatingIsTooHigh">درجه‌بندی %1$s شما (%2$s) بیش از حد بالاست</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">درجه‌بندی %1$s هفتگی‌تان (%2$s) بیش از حد بالاست</string>
@@ -434,8 +422,8 @@
   <string name="siteDescription">کارساز برخط و رایگان شطرنج. با میانایی روان، شطرنج بازی کنید. بدون نام‌نویسی، بدون تبلیغ، بدون نیاز به افزونه. با رایانه، دوستان یا حریفان تصادفی شطرنج بازی کنید.</string>
   <string name="xJoinedTeamY">%1$s به تیم %2$s پیوست</string>
   <string name="xCreatedTeamY">%1$s تیم %2$s را ایجاد کرد</string>
-  <string name="startedStreaming">شروع به استریم کرده است</string>
-  <string name="xStartedStreaming">%s جریان‌سازی را آغازید</string>
+  <string name="startedStreaming">جَریانیدن را آغازید</string>
+  <string name="xStartedStreaming">%s جَریانیدن را آغازید</string>
   <string name="averageElo">میانگین درجه‌بندی</string>
   <string name="location">محل</string>
   <string name="filterGames">پالاگرِ بازی‌ها</string>
@@ -443,7 +431,7 @@
   <string name="apply">تایید</string>
   <string name="save">ذخیره</string>
   <string name="leaderboard">جدول رده‌بندی</string>
-  <string name="positionAsImage" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position. Replaces old string screenshotCurrentPosition">وضعیت به شکلِ تصویر</string>
+  <string name="positionAsImage" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position.">وضعیت به شکلِ تصویر</string>
   <string name="gameAsGIF">بارگیری GIF بازی</string>
   <string name="playerNames">نام‌های بازیکن</string>
   <string name="moveAnnotations">حرکت‌نویسی</string>
@@ -467,7 +455,7 @@
   <string name="blackCheckmatesInOneMove">سیاه در یک حرکت مات می‌کند</string>
   <string name="retry">تلاش دوباره</string>
   <string name="reconnecting">بازاتصال...</string>
-  <string name="noNetwork">آفلاین</string>
+  <string name="noNetwork">بُرون‌خط</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s دوست بَرخط</item>
     <item quantity="other">%s دوست بَرخط</item>
@@ -601,8 +589,7 @@
   <string name="other">دیگر</string>
   <string name="reportCheatBoostHelp">پیوند بازی(ها) را جای‌گذارید و بشرحید که چه رفتاری از این کاربر مشکل دارد. فقط نگویید «آنها تقلب‌کارند»، بلکه به ما بگویید چطور به این نتیجه رسیده‌اید.</string>
   <string name="reportUsernameHelp">بشرحید چه چیز این نام‌کاربری آزارنده است. فقط نگویید «آزارنده/نامناسب است»، بلکه به ما بگویید چطور به این نتیجه رسیده‌اید، به‌ویژه اگر توهین: گنگ است، انگلیسی نیست، کوچه‌بازاری است، یا یک ارجاع تاریخی/فرهنگی است.</string>
-  <string name="reportProcessedFasterInEnglish">اگر انگلیسی بنویسید، زودتر به گزارش‌تان رسیدگی خواهد شد.</string>
-  <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it. Replaces old string reportProcessedFasterInEnglish">اگر به انگلیسی بنویسید، می‌توانیم سریع‌تر به گزارش‌تان رسیدگی کنیم.</string>
+  <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">اگر به انگلیسی بنویسید، می‌توانیم سریع‌تر به گزارش‌تان رسیدگی کنیم.</string>
   <string name="error.provideOneCheatedGameLink">لطفآ حداقل یک نمونه تقلب در بازی را مطرح کنید.</string>
   <string name="by">به‌دستِ %s</string>
   <string name="importedByX">%s آن را وارد کرده</string>
@@ -699,7 +686,7 @@
   <string name="tpTimeSpentOnTV">مدت آرنگیده در تلویزیون: %s</string>
   <string name="watch">تماشا</string>
   <string name="videoLibrary">فیلم‌ها</string>
-  <string name="streamersMenu">بَرخَط-محتواسازان</string>
+  <string name="streamersMenu">جَریانگران</string>
   <string name="mobileApp">بَرکِ گوشی</string>
   <string name="webmasters">وبداران</string>
   <string name="about">درباره ما</string>
@@ -726,13 +713,11 @@
   <string name="aboutSimulRules">وقتی هَمگاه می‌آغازد، هر بازیکن بازی‌ای را با میزبان شروع می‌کند. هَمگاه وقتی پایان می‌یابد که همهٔ بازی‌ها تمام شوند.</string>
   <string name="aboutSimulSettings">هَمگاه همیشه نارَسمی است. بازرویارویی، برگرداندن و زمانِ افزاینده نافعال شده‌اند.</string>
   <string name="create">ساختن</string>
-  <string name="whenCreateSimul">وقتی هَمگاه-ی را ایجاد می‌کنید، می‌توانید توأم با چندین بازیکن بازی کنید.</string>
-  <string name="creatingASimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new Replaces old string whenCreateSimul">ایجادِ هَمگاه به شما امکان می‌دهد همزمان مقابلِ چندین حریف بازی کنید.</string>
+  <string name="creatingASimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">ایجادِ هَمگاه به شما امکان می‌دهد همزمان مقابلِ چندین حریف بازی کنید.</string>
   <string name="simulVariantsHint">اگر چندین وَرتا را برگزینید، هر بازیکن می‌تواند انتخاب کند که کدام‌یک را بازی کند.</string>
   <string name="simulClockHint">تنظیم ساعت فیشر. هرچه از بازیکنان بیشتری برنده شوید، زمان بیشتری نیاز دارید</string>
   <string name="simulAddExtraTime">برای کمک در چالشِ هَمگاه، می‌توانید زمانِ اولیهٔ اضافه به خودتان بیفزایید.</string>
-  <string name="simulHostExtraTime">زمانِ اولیهٔ اضافهٔ میزبان</string>
-  <string name="extraClockTimeForHost" comment="Appears on: https://lichess.org/simul/new&#10;&#10;Allows a simul host to select extra time for the simul.&#10;&#10;Please note this string used to state &quot;Host extra clock time&quot;, without the word &quot;initial&quot; Replaces old string simulHostExtraTime">زمانِ اضافه برای میزبان:</string>
+  <string name="extraClockTimeForHost" comment="Appears on: https://lichess.org/simul/new&#10;&#10;Allows a simul host to select extra time for the simul.&#10;&#10;Please note this string used to state &quot;Host extra clock time&quot;, without the word &quot;initial&quot;">زمانِ اضافه برای میزبان:</string>
   <string name="simulAddExtraTimePerPlayer">به ازای پیوستنِ هر بازیکن به هَمگاه، به زمان اولیه‌تان بیفزایید.</string>
   <string name="simulHostExtraTimePerPlayer">زمان اضافه میزبان به ازای بازیکن</string>
   <string name="lichessTournaments">مسابقات Lichess</string>
@@ -743,8 +728,10 @@
   <string name="keyboardShortcuts">میانبرهای صفحه‌کلید</string>
   <string name="keyMoveBackwardOrForward">حرکت به عقب/جلو</string>
   <string name="keyGoToStartOrEnd">رفتن به آغاز/پایان</string>
+  <string name="keyGoToPreviousOrNextLine">برو به شاخهٔ پیشین/پسین</string>
   <string name="keyCycleSelectedVariation">چرخاندن وَرتِش گزیده</string>
   <string name="keyShowOrHideComments">نمایش/پنهان کردن نظرها</string>
+  <string name="keyShowOrHideCurrentVariation">نمایش/پنهانِشِ وَرتِشِ جاری</string>
   <string name="keyEnterOrExitVariation">ورود/خروج به وَرتِش</string>
   <string name="keyPreviousBranch">شاخه پیشین</string>
   <string name="keyNextBranch">شاخه بعدی</string>
@@ -828,10 +815,6 @@
   <string name="quickPairing">رویارویی سریع</string>
   <string name="lobby">سَرسَرا</string>
   <string name="anonymous">ناشناس</string>
-  <plurals name="nbAnonymous">
-    <item quantity="one">بی‌نام</item>
-    <item quantity="other">بی‌نام (%s)</item>
-  </plurals>
   <string name="yourScore">امتیازتان: %s</string>
   <string name="language">زبان</string>
   <string name="allLanguages">تمام زبان ها</string>
@@ -867,8 +850,7 @@
   <string name="custom">دلخواه</string>
   <string name="notifications">اعلان</string>
   <string name="notificationsX">اعلان: %1$s</string>
-  <string name="perfRatingX">درجه‌بندی: %s</string>
-  <string name="perfRatingLabel" comment="Replaces old string perfRatingX">درجه‌بندی: %s.</string>
+  <string name="perfRatingLabel">درجه‌بندی: %s.</string>
   <string name="yourRatingIsX">درجه‌بندی‌تان %s است |  </string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s ثانیه برای شروع اولین حرکت</item>
@@ -927,8 +909,7 @@
     <item quantity="other">و پیش حرکت های %s را حفظ کنید</item>
   </plurals>
   <string name="showUnreadLichessMessage">شما یک پیام خصوصی از Lichess دریافت کرده‌اید.</string>
-  <string name="clickHereToReadIt">برای خواندن، این را بزنید</string>
-  <string name="readTheMessage" comment="'It' refers to a private message. This text follows after a different string which advises players they have received a private message from Lichess. For users, this is appears as a regular private message from the Lichess account: https://lichess.org/@/Lichess Replaces old string clickHereToReadIt">خواندنِ پیام</string>
+  <string name="readTheMessage" comment="'It' refers to a private message. This text follows after a different string which advises players they have received a private message from Lichess. For users, this is appears as a regular private message from the Lichess account: https://lichess.org/@/Lichess">خواندنِ پیام</string>
   <string name="sorry">متاسفم :(</string>
   <string name="weHadToTimeYouOutForAWhile">شما برای مدتی مسدود شدید.</string>
   <string name="why">چرا؟</string>
@@ -992,7 +973,7 @@
   <string name="clickToRevealEmailAddress">[برای آشکارسازی نشانیِ رایانامه بتِلیکید]</string>
   <string name="download">بارگیری</string>
   <string name="coachManager">تنظیمات مربی</string>
-  <string name="streamerManager">مدیریت جریان‌سازی</string>
+  <string name="streamerManager">مدیریت جَریانیدن</string>
   <string name="cancelTournament">لغو مسابقه</string>
   <string name="tournDescription">توضیحات مسابقه</string>
   <string name="tournDescriptionHelp">نکته خاصی را می‌خواهید به شرکت‌گران گویید؟ بکوشید کوتاه باشد. پیوندهای فرونشان موجودند:
@@ -1015,16 +996,14 @@
   <string name="simulFeaturedHelp">نمایشِ هَمگاه‌تان در %s به همه. نافعال برای هَمگاه‌های خصوصی.</string>
   <string name="simulDescription">وصفِ هَمگاه</string>
   <string name="simulDescriptionHelp">آیا می‌خواهید مطلبی را به شرکت‌کنندگان بگویید؟</string>
-  <string name="markdownIsAvailable">امکان %s برای قالب‌دِهی وجود دارد.</string>
-  <string name="youCanFormatTextUsing" comment="%s is &quot;Markdown&quot;, a proper noun. As such, the word is intentionally kept as a variable.&#10;&#10;Markdown is a markup language - a type of code that lets you format text (e.g. to create bold text).&#10;&#10;The text links to a reference guide for using Markdown to format text. Replaces old string markdownIsAvailable">می‌توانید متن را با استفاده از %s قالب‌بندی کنید.</string>
+  <string name="youCanFormatTextUsing" comment="%s is &quot;Markdown&quot;, a proper noun. As such, the word is intentionally kept as a variable.&#10;&#10;Markdown is a markup language - a type of code that lets you format text (e.g. to create bold text).&#10;&#10;The text links to a reference guide for using Markdown to format text.">می‌توانید متن را با استفاده از %s قالب‌بندی کنید.</string>
   <string name="embedsAvailable">وب‌نشانی بازی یا وب‌نشانی بخشی از مطالعه را، برای جاسازی آن، جایگذاری کنید.</string>
   <string name="inYourLocalTimezone">ذر منطقه زمانی شما</string>
   <string name="tournChat">گپِ مسابقات</string>
   <string name="noChat">بدون گپ</string>
   <string name="onlyTeamLeaders">تنها مسئولان تیم</string>
   <string name="onlyTeamMembers">تنها اعضای تیم</string>
-  <string name="navigateMoveTree">ناویدن فهرست حرکت‌ها</string>
-  <string name="moveListNavigation" comment="navigateMoveTree&#10;&#10;Appears in the keyboard shortcuts/help screen. The 'move tree' is simply the list of moves. Replaces old string navigateMoveTree">ناوِشِ فهرستِ حرکت</string>
+  <string name="moveListNavigation" comment="navigateMoveTree&#10;&#10;Appears in the keyboard shortcuts/help screen. The 'move tree' is simply the list of moves.">ناوِشِ فهرستِ حرکت</string>
   <string name="mouseTricks">ترفندهای موشواره</string>
   <string name="toggleLocalAnalysis">کلیدِ تحلیلِ رایانه‌ای محلی</string>
   <string name="toggleAllAnalysis">کلیدِ هرگونه تحلیل رایانه‌ای</string>
@@ -1065,4 +1044,7 @@
   <string name="tags">برچسب‌ها</string>
   <string name="enPassant">اجازهٔ آن‌پاسان</string>
   <string name="settings">تنظیمات</string>
+  <string name="verifyingYourDevice">تأییدِ اَفزاره‌تان...</string>
+  <string name="chessOpenings">گشایش‌های شطرنج</string>
+  <string name="boards">میز‌ها</string>
 </resources>

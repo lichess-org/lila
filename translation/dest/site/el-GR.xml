@@ -149,25 +149,13 @@
   <string name="blunder">Σοβαρό σφάλμα</string>
   <string name="mistake">Λάθος</string>
   <string name="inaccuracy">Ανακρίβεια</string>
-  <plurals name="nbBlunders">
-    <item quantity="one">%s σοβαρό σφάλμα</item>
-    <item quantity="other">%s σοβαρά σφάλματα</item>
-  </plurals>
   <plurals name="numberBlunders">
     <item quantity="one">%s Σοβαρό σφάλμα</item>
     <item quantity="other">%s Σοβαρά σφάλματα</item>
   </plurals>
-  <plurals name="nbMistakes">
-    <item quantity="one">%s λάθος</item>
-    <item quantity="other">%s Λάθη</item>
-  </plurals>
   <plurals name="numberMistakes">
     <item quantity="one">%s Λάθος</item>
     <item quantity="other">%s Λάθη</item>
-  </plurals>
-  <plurals name="nbInaccuracies">
-    <item quantity="one">%s ανακρίβεια</item>
-    <item quantity="other">%s ανακρίβειες</item>
   </plurals>
   <plurals name="numberInaccuracies">
     <item quantity="one">%s Ανακρίβεια</item>
@@ -177,6 +165,7 @@
   <string name="flipBoard">Περιστροφή σκακιέρας</string>
   <string name="engineSettings">Ρυθμίσεις μηχανής</string>
   <string name="enginesFromStrongestToWeakest">Μηχανές από την ισχυρότερη στην ασθενέστερη</string>
+  <string name="illegalPosition">Μη έγκυρη θέση</string>
   <string name="threefoldRepetition">Τριπλή επανάληψη</string>
   <string name="claimADraw">Απαίτηση ισοπαλίας</string>
   <string name="drawClaimed">Απαιτήθηκε ισοπαλία</string>
@@ -273,8 +262,7 @@
   <string name="emailSent">Στείλαμε ένα email στη διεύθυνση %s.</string>
   <string name="emailCanTakeSomeTime">Η αποστολή ενδέχεται να διαρκέσει λίγη ώρα.</string>
   <string name="refreshInboxAfterFiveMinutes">Περιμένετε 5 λεπτά και ανανεώστε τα εισερχόμενα email σας.</string>
-  <string name="checkSpamFolder">Επίσης, ελέγξτε τον φάκελο με τα ανεπιθύμητα email. Αν το email που στείλαμε βρίσκεται εκεί, αναφέρετέ το ως μη ανεπιθύμητο.</string>
-  <string name="checkSpamOrJunkFolder" comment="checkSpamFolder&#10;It = The confirmation email Replaces old string checkSpamFolder">Αν δεν λάβετε email επιβεβαίωσης, ελέγξτε τον φάκελο ανεπιθύμητης αλληλογραφίας. Προσθέστε τα μηνύματα από το lichess.org στους ασφαλείς αποστολείς και σημειώστε τα ως «όχι ανεπιθύμητα», ώστε να λαμβάνετε σημαντικές ενημερώσεις.</string>
+  <string name="checkSpamOrJunkFolder" comment="checkSpamFolder&#10;It = The confirmation email">Αν δεν λάβετε email επιβεβαίωσης, ελέγξτε τον φάκελο ανεπιθύμητης αλληλογραφίας. Προσθέστε τα μηνύματα από το lichess.org στους ασφαλείς αποστολείς και σημειώστε τα ως «όχι ανεπιθύμητα», ώστε να λαμβάνετε σημαντικές ενημερώσεις.</string>
   <string name="sendEmailForAccountVerification">Αν δεν μπορείτε να βρείτε το email επιβεβαίωσης, στείλτε ένα email στο %s και θα επιβεβαιώσουμε τον λογαριασμό σας για εσάς.</string>
   <string name="accountConfirmed">Ο λογαριασμός του χρήστη %s επαληθεύτηκε με επιτυχία.</string>
   <string name="accountCanLogin">Μπορείτε τώρα να συνδεθείτε ως %s.</string>
@@ -298,10 +286,8 @@
   </plurals>
   <string name="ok">ΟΚ</string>
   <string name="cancel">Ακύρωση</string>
-  <string name="whiteTimeOut">Τέλος χρόνου για τα λευκά</string>
-  <string name="whiteRanOutOfTime" comment="whiteTimeOut&#10;&#10;Shows when White's time has run out. Is followed by the end condition, for example&#10;'White ran out of time · Draw' Replaces old string whiteTimeOut">Τελείωσε ο χρόνος των λευκών</string>
-  <string name="blackTimeOut">Τέλος χρόνου για τα μαύρα</string>
-  <string name="blackRanOutOfTime" comment="blackTimeOut&#10;&#10;Shows when Black's time has run out. Is followed by the end condition, for example&#10;'Black ran out of time · Draw' Replaces old string blackTimeOut">Τελείωσε ο χρόνος των μαύρων</string>
+  <string name="whiteRanOutOfTime" comment="whiteTimeOut&#10;&#10;Shows when White's time has run out. Is followed by the end condition, for example&#10;'White ran out of time · Draw'">Τελείωσε ο χρόνος των λευκών</string>
+  <string name="blackRanOutOfTime" comment="blackTimeOut&#10;&#10;Shows when Black's time has run out. Is followed by the end condition, for example&#10;'Black ran out of time · Draw'">Τελείωσε ο χρόνος των μαύρων</string>
   <string name="drawOfferSent">Πρόταση ισοπαλίας εστάλη</string>
   <string name="drawOfferAccepted">Πρόταση ισοπαλίας αποδεκτή</string>
   <string name="whiteOffersDraw">Τα λευκά προσφέρουν ισοπαλία</string>
@@ -422,7 +408,6 @@
     <item quantity="other">Πρέπει να παίξετε %s βαθμολογημένα παιχνίδια</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Η %s βαθμολογία σας είναι προσωρινή</string>
-  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Τα φίλτρα βαθμολογιών είναι κλειδωμένα επειδή η βαθμολογία σας δεν είναι σταθερή ακόμα. Δοκιμάστε να παίξετε μερικές βαθμολογημένες παρτίδες για να τη σταθεροποιήσετε.</string>
   <string name="yourPerfRatingIsTooHigh">Η %1$s βαθμολογία σας (%2$s) είναι πολύ υψηλή</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Η κορυφαία εβδομαδιαία %1$s βαθμολογία σας (%2$s) είναι πολύ υψηλή</string>
   <string name="yourPerfRatingIsTooLow">Η %1$s βαθμολογία σας (%2$s) είναι πολύ χαμηλή</string>
@@ -443,7 +428,7 @@
   <string name="apply">Εφαρμογή</string>
   <string name="save">Αποθήκευση</string>
   <string name="leaderboard">Πίνακας βαθμολογίας</string>
-  <string name="positionAsImage" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position. Replaces old string screenshotCurrentPosition">Αποτύπωση θέσης ως εικόνα</string>
+  <string name="positionAsImage" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position.">Αποτύπωση θέσης ως εικόνα</string>
   <string name="gameAsGIF">Αποθήκευση ως GIF</string>
   <string name="playerNames">Ονόματα παικτών</string>
   <string name="moveAnnotations">Σχολιασμός κινήσεων</string>
@@ -601,8 +586,7 @@
   <string name="other">Άλλη</string>
   <string name="reportCheatBoostHelp">Επικολλήστε τους συνδέσμους με τις παρτίδες και εξηγήστε μας γιατί θεωρείτε ότι η συμπεριφορά του χρήστη είναι παράξενη σε αυτά. Μη λέτε απλώς ότι «κλέβει» (\"Αυτοί έκλεβαν\"), αλλά πείτε μας πώς καταλήξατε σε αυτό το συμπέρασμα.</string>
   <string name="reportUsernameHelp">Εξηγήστε μας γιατί είναι προσβλητικό το όνομα αυτού του χρήστη. Μη λέτε απλώς ότι \"είναι προσβλητικό/ακατάλληλο\" (\"it\'s offensive/inappropriate\"), αλλά πείτε μας πώς καταλήξατε σε αυτό το συμπέρασμα, ειδικά αν πρόκειται για προσβολή η οποία δεν είναι ιδιαίτερα εμφανής: για παράδειγμα αν δεν είναι στα αγγλικά, είναι σε κάποια αργκό ή κάνει κάποια προσβλητική ιστορική/πολιτιστική αναφορά.</string>
-  <string name="reportProcessedFasterInEnglish">Η αναφορά σας θα εξεταστεί γρηγορότερα αν είναι γραμμένη στα αγγλικά.</string>
-  <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it. Replaces old string reportProcessedFasterInEnglish">Θα μπορέσουμε να εξετάσουμε την αναφορά σας πιο γρήγορα αν τη γράψετε στα αγγλικά.</string>
+  <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">Θα μπορέσουμε να εξετάσουμε την αναφορά σας πιο γρήγορα αν τη γράψετε στα αγγλικά.</string>
   <string name="error.provideOneCheatedGameLink">Παρακαλούμε συμπεριλάβετε τουλάχιστον έναν σύνδεσμο παρτίδας στην οποία υποψιάζεστε πως υπήρξε χρήση εξωτερικής βοήθειας.</string>
   <string name="by">από τον %s</string>
   <string name="importedByX">Εισήχθη από τον χρήστη %s</string>
@@ -726,13 +710,11 @@
   <string name="aboutSimulRules">Όταν ξεκινήσει το σιμουλτανέ, κάθε παίκτης ξεκινά το παιχνίδι με τον διοργανωτή, ο οποίος έχει τα λευκά κομμάτια. Η διοργάνωση τελειώνει όταν όλα τα παιχνίδια ολοκληρωθούν.</string>
   <string name="aboutSimulSettings">Τα σιμουλτανέ είναι πάντα φιλικά. Οι επαναλήψεις, ανακλήσεις κινήσεων και προσθήκες επιπλέον χρόνου έχουν απενεργοποιηθεί.</string>
   <string name="create">Δημιουργήστε</string>
-  <string name="whenCreateSimul">Όταν δημιουργείτε ένα σιμουλτανέ, πρέπει να παίξετε με αρκετούς παίκτες ταυτόχρονα.</string>
-  <string name="creatingASimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new Replaces old string whenCreateSimul">Δημιουργώντας ένα σιμουλτανέ μπορείτε να παίξετε ταυτόχρονα εναντίον πολλών αντιπάλων.</string>
+  <string name="creatingASimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Δημιουργώντας ένα σιμουλτανέ μπορείτε να παίξετε ταυτόχρονα εναντίον πολλών αντιπάλων.</string>
   <string name="simulVariantsHint">Εάν επιλέξετε διάφορες εκδοχές, κάθε παίκτης μπορεί να επιλέξει ποια θα παίξει.</string>
   <string name="simulClockHint">Ρολόι Φίσερ. Όσους περισσότερους παίκτες παίξετε, τόσο περισσότερο χρόνο ίσως χρειαστείτε.</string>
   <string name="simulAddExtraTime">Μπορείτε να προσθέσετε επιπλέον χρόνο στο ρολόι σας για να βοηθηθείτε.</string>
-  <string name="simulHostExtraTime">Παροχή επιπλέον χρόνου στο ρολόι</string>
-  <string name="extraClockTimeForHost" comment="Appears on: https://lichess.org/simul/new&#10;&#10;Allows a simul host to select extra time for the simul.&#10;&#10;Please note this string used to state &quot;Host extra clock time&quot;, without the word &quot;initial&quot; Replaces old string simulHostExtraTime">Επιπλέον χρόνος για τον διοργανωτή:</string>
+  <string name="extraClockTimeForHost" comment="Appears on: https://lichess.org/simul/new&#10;&#10;Allows a simul host to select extra time for the simul.&#10;&#10;Please note this string used to state &quot;Host extra clock time&quot;, without the word &quot;initial&quot;">Επιπλέον χρόνος για τον διοργανωτή:</string>
   <string name="simulAddExtraTimePerPlayer">Προσθήκη επιπλέον χρόνου στο ρολόι σας για κάθε παίκτη που συμμετέχει στο σιμουλτανέ.</string>
   <string name="simulHostExtraTimePerPlayer">Προσθήκη επιπλέον χρόνου ανά παίκτη</string>
   <string name="lichessTournaments">Τουρνουά στο Lichess</string>
@@ -828,10 +810,6 @@
   <string name="quickPairing">Γρήγορη αντιστοίχιση</string>
   <string name="lobby">Χώρος αναμονής</string>
   <string name="anonymous">Ανώνυμος</string>
-  <plurals name="nbAnonymous">
-    <item quantity="one">Ανώνυμος/η</item>
-    <item quantity="other">Ανώνυμοι (%s)</item>
-  </plurals>
   <string name="yourScore">Η βαθμολογία σας: %s</string>
   <string name="language">Γλώσσα</string>
   <string name="allLanguages">Οποιαδήποτε γλώσσα</string>
@@ -867,8 +845,7 @@
   <string name="custom">Προσαρμογή</string>
   <string name="notifications">Ειδοποιήσεις</string>
   <string name="notificationsX">Ειδοποιήσεις: %1$s</string>
-  <string name="perfRatingX">Βαθμολογία: %s</string>
-  <string name="perfRatingLabel" comment="Replaces old string perfRatingX">Βαθμολογία: %s.</string>
+  <string name="perfRatingLabel">Βαθμολογία: %s.</string>
   <string name="yourRatingIsX">Η βαθμολογία σας είναι %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s δευτερόλεπτο για την πρώτη κίνηση</item>
@@ -927,8 +904,7 @@
     <item quantity="other">και αποθηκεύστε %s γραμμές προκίνησης</item>
   </plurals>
   <string name="showUnreadLichessMessage">Έχετε λάβει ένα προσωπικό μήνυμα από το Lichess.</string>
-  <string name="clickHereToReadIt">Κάντε κλικ εδώ για να το δείτε</string>
-  <string name="readTheMessage" comment="'It' refers to a private message. This text follows after a different string which advises players they have received a private message from Lichess. For users, this is appears as a regular private message from the Lichess account: https://lichess.org/@/Lichess Replaces old string clickHereToReadIt">Διαβάστε το μήνυμα</string>
+  <string name="readTheMessage" comment="'It' refers to a private message. This text follows after a different string which advises players they have received a private message from Lichess. For users, this is appears as a regular private message from the Lichess account: https://lichess.org/@/Lichess">Διαβάστε το μήνυμα</string>
   <string name="sorry">Λυπούμαστε :(</string>
   <string name="weHadToTimeYouOutForAWhile">Ο λογαριασμός σας έχει αποκλειστεί προσωρινά.</string>
   <string name="why">Γιατί;</string>
@@ -1013,16 +989,14 @@
   <string name="simulFeaturedHelp">Να εμφανίζεται το σιμουλτανέ σε όλους στο %s. Απενεργοποιήστε αυτήν την επιλογή για ιδιωτικά σιμουλτανέ.</string>
   <string name="simulDescription">Περιγραφή σιμουλτανέ</string>
   <string name="simulDescriptionHelp">Θέλετε να πείτε κάτι στους συμμετέχοντες;</string>
-  <string name="markdownIsAvailable">Μπορείτε να χρησιμοποιήσετε %s για μορφοποίηση.</string>
-  <string name="youCanFormatTextUsing" comment="%s is &quot;Markdown&quot;, a proper noun. As such, the word is intentionally kept as a variable.&#10;&#10;Markdown is a markup language - a type of code that lets you format text (e.g. to create bold text).&#10;&#10;The text links to a reference guide for using Markdown to format text. Replaces old string markdownIsAvailable">Μπορείτε να διαμορφώσετε το κείμενο χρησιμοποιώντας %s.</string>
+  <string name="youCanFormatTextUsing" comment="%s is &quot;Markdown&quot;, a proper noun. As such, the word is intentionally kept as a variable.&#10;&#10;Markdown is a markup language - a type of code that lets you format text (e.g. to create bold text).&#10;&#10;The text links to a reference guide for using Markdown to format text.">Μπορείτε να διαμορφώσετε το κείμενο χρησιμοποιώντας %s.</string>
   <string name="embedsAvailable">Επικολλήστε μια διεύθυνση URL παρτίδας ή ένα κεφάλαιο μελέτης για να το ενσωματώσετε.</string>
   <string name="inYourLocalTimezone">Στη δική σας ζώνη ώρας</string>
   <string name="tournChat">Δωμάτιο συνομιλίας τουρνουά</string>
   <string name="noChat">Να μην επιτρέπεται η συνομιλία</string>
   <string name="onlyTeamLeaders">Μόνο οι αρχηγοί ομάδων</string>
   <string name="onlyTeamMembers">Μόνο τα μέλη της ομάδας</string>
-  <string name="navigateMoveTree">Πλοηγηθείτε στο δέντρο κινήσεων</string>
-  <string name="moveListNavigation" comment="navigateMoveTree&#10;&#10;Appears in the keyboard shortcuts/help screen. The 'move tree' is simply the list of moves. Replaces old string navigateMoveTree">Πλοήγηση στη λίστα κινήσεων</string>
+  <string name="moveListNavigation" comment="navigateMoveTree&#10;&#10;Appears in the keyboard shortcuts/help screen. The 'move tree' is simply the list of moves.">Πλοήγηση στη λίστα κινήσεων</string>
   <string name="mouseTricks">«Κόλπα» με το ποντίκι</string>
   <string name="toggleLocalAnalysis">Εναλλαγή ανάλυσης τοπικού υπολογιστή</string>
   <string name="toggleAllAnalysis">Εναλλαγή όλων των αναλύσεων υπολογιστή</string>

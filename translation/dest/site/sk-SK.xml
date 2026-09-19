@@ -153,35 +153,17 @@
   <string name="blunder">Hrubá chyba</string>
   <string name="mistake">Chyba</string>
   <string name="inaccuracy">Nepresnosť</string>
-  <plurals name="nbBlunders">
-    <item quantity="one">%s hrubá chyba</item>
-    <item quantity="few">%s hrubé chyby</item>
-    <item quantity="many">%s hrubých chýb</item>
-    <item quantity="other">%s hrubých chýb</item>
-  </plurals>
   <plurals name="numberBlunders">
     <item quantity="one">%s Hrubá chyba</item>
     <item quantity="few">%s Hrubé chyby</item>
     <item quantity="many">%s Hrubých chýb</item>
     <item quantity="other">%s Hrubých chýb</item>
   </plurals>
-  <plurals name="nbMistakes">
-    <item quantity="one">%s chyba</item>
-    <item quantity="few">%s chyby</item>
-    <item quantity="many">%s chýb</item>
-    <item quantity="other">%s chýb</item>
-  </plurals>
   <plurals name="numberMistakes">
     <item quantity="one">%s Chyba</item>
     <item quantity="few">%s Chyby</item>
     <item quantity="many">%s Chýb</item>
     <item quantity="other">%s Chýb</item>
-  </plurals>
-  <plurals name="nbInaccuracies">
-    <item quantity="one">%s nepresnosť</item>
-    <item quantity="few">%s nepresnosti</item>
-    <item quantity="many">%s nepresností</item>
-    <item quantity="other">%s nepresností</item>
   </plurals>
   <plurals name="numberInaccuracies">
     <item quantity="one">%s Nepresnosť</item>
@@ -300,7 +282,6 @@
   <string name="emailSent">Na adresu %s sme poslali email.</string>
   <string name="emailCanTakeSomeTime">Môže chvíľu trvať kým príde.</string>
   <string name="refreshInboxAfterFiveMinutes">Počkajte 5 minút a obnovte si emailovú schránku!</string>
-  <string name="checkSpamFolder">Skontrolujte si aj priečinok s nevyžiadanou poštou, je možné, že sa dostal tam. Ak sa tak stalo, zrušte označenie emailu ako nevyžiadanej pošty.</string>
   <string name="sendEmailForAccountVerification">Ak nemôžete nájsť potvrdzovací e-mail, pošlite e-mail na adresu %s a my vám účet potvrdíme.</string>
   <string name="accountConfirmed">Používateľ %s je úspešne potvrdený.</string>
   <string name="accountCanLogin">Teraz sa môžete prihlásiť ako %s.</string>
@@ -330,8 +311,6 @@
   </plurals>
   <string name="ok">OK</string>
   <string name="cancel">Zrušiť</string>
-  <string name="whiteTimeOut">Bielemu došiel čas</string>
-  <string name="blackTimeOut">Čiernemu došiel čas</string>
   <string name="drawOfferSent">Ponuka remízy odoslaná</string>
   <string name="drawOfferAccepted">Ponuka remízy prijatá</string>
   <string name="whiteOffersDraw">Biely ponúka remízu</string>
@@ -478,7 +457,6 @@
     <item quantity="other">Potrebujete odohrať ešte %s hodnotených partií</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Váš %s rating je provizórny</string>
-  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Filtre hodnotenia sú uzamknuté, pretože Vaše hodnotenie nie je stabilné. Hranie hodnotených partií zvýši jeho stabilitu.</string>
   <string name="yourPerfRatingIsTooHigh">Váš %1$s rating (%2$s) je príliš vysoký</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Váš najvyšší týždenný %1$s rating (%2$s) je príliš vysoký</string>
   <string name="yourPerfRatingIsTooLow">Váš %1$s rating (%2$s) je príliš nízky</string>
@@ -661,7 +639,6 @@
   <string name="other">Iné</string>
   <string name="reportCheatBoostHelp">Vložte odkaz na partiu(/e) a vysvetlite, čo je na správaní tohto používateľa zlé. Nehovorte len „podvádza“, ale povedzte, ako ste k tomuto záveru dospeli.</string>
   <string name="reportUsernameHelp">Vysvetlite, čo je na tomto používateľskom mene urážlivé. Nehovorte len „je to urážlivé/nevhodné“, ale povedzte nám, ako ste k tomuto záveru dospeli, najmä ak je urážka významovo zahmlená, nie je v angličtine, je v slangu alebo odkazuje na niečo z historie/kultúry.</string>
-  <string name="reportProcessedFasterInEnglish">Vaša správa bude spracovaná rýchlejšie, ak bude napísaná v angličtine.</string>
   <string name="error.provideOneCheatedGameLink">Prosím, uveďte aspoň jeden odkaz na partiu, v ktorej sa podvádzalo.</string>
   <string name="by">od %s</string>
   <string name="importedByX">Importoval %s</string>
@@ -791,11 +768,9 @@
   <string name="aboutSimulRules">Keď simultánka začne, každý hráč hrá s hostiteľom, ktorý má biele figúrky. Simultánka končí, keď sa dohrajú všetky partie.</string>
   <string name="aboutSimulSettings">Simultánky sú vždy nebodované. Odvety, vrátenie ťahu a \"pridávania času\" sú zakázané.</string>
   <string name="create">Vytvoriť</string>
-  <string name="whenCreateSimul">Po vytvorení simultánky, môžete hrať s niekoľkými hráčmi naraz.</string>
   <string name="simulVariantsHint">Ak vyberiete viacero variantov, každý hráč si môže vybrať, ktorý bude hrať.</string>
   <string name="simulClockHint">Nastavenie (Fisherových) hodín. Čím viac súperov, tým viac času budete potrebovat.</string>
   <string name="simulAddExtraTime">Môžete si pridať dodatočný čas k vašim hodinám pre zlepšenie behu simultánky.</string>
-  <string name="simulHostExtraTime">Dotatočný čas pre hostiteľa.</string>
   <string name="simulAddExtraTimePerPlayer">Za každého hráča, ktorý sa pripojí k simultánke, navýšiť čas na Vašich hodinách o počiatočný čas partie.</string>
   <string name="simulHostExtraTimePerPlayer">Navýšiť čas na hodinách za každého hráča</string>
   <string name="lichessTournaments">Lichess turnaje</string>
@@ -894,12 +869,6 @@
   <string name="quickPairing">Rýchle nájdenie súpera</string>
   <string name="lobby">Výzvy hráčov</string>
   <string name="anonymous">Anonym</string>
-  <plurals name="nbAnonymous">
-    <item quantity="one">Anonym</item>
-    <item quantity="few">Anonymní (%s)</item>
-    <item quantity="many">Anonymní (%s)</item>
-    <item quantity="other">Anonymní (%s)</item>
-  </plurals>
   <string name="yourScore">Vaše skóre: %s</string>
   <string name="language">Jazyk</string>
   <string name="allLanguages">Všetky jazyky</string>
@@ -930,7 +899,6 @@
   <string name="custom">Vlastná</string>
   <string name="notifications">Upozornenia</string>
   <string name="notificationsX">Upozornenia: %1$s</string>
-  <string name="perfRatingX">Rating: %s</string>
   <string name="yourRatingIsX">Váš rating je %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekunda na vykonanie prvého ťahu</item>
@@ -995,7 +963,6 @@
     <item quantity="other">a uložiť %s variantov predťahu</item>
   </plurals>
   <string name="showUnreadLichessMessage">Obdržali ste súkromnú správu od Lichess.</string>
-  <string name="clickHereToReadIt">Kliknutím sem si ju môžete prečítať</string>
   <string name="sorry">Prepáčte :(</string>
   <string name="weHadToTimeYouOutForAWhile">Na chvíľu sme Vás museli odstaviť.</string>
   <string name="why">Prečo?</string>
@@ -1081,14 +1048,12 @@ Nechajte prázdne pre začatie partií zo základnej pozície!</string>
   <string name="simulFeaturedHelp">Ukázať vašu simultánnu hru všetkým na %s. Zakázať pre súkromné simultánne hry.</string>
   <string name="simulDescription">Popis simultánky</string>
   <string name="simulDescriptionHelp">Chcete účastníkom niečo povedať?</string>
-  <string name="markdownIsAvailable">%s je k dispozícii na formátovanie.</string>
   <string name="embedsAvailable">Prilepiť URL hry alebo kapitoly štúdia sem.</string>
   <string name="inYourLocalTimezone">Vo vašom miestnom časovom pásme</string>
   <string name="tournChat">Turnajová diskusia</string>
   <string name="noChat">Vypnutý chat</string>
   <string name="onlyTeamLeaders">Iba vedúci družstiev</string>
   <string name="onlyTeamMembers">Iba členovia tímu</string>
-  <string name="navigateMoveTree">Navigovať na všetky ťahy vo forme stromu</string>
   <string name="mouseTricks">Finty s myšou</string>
   <string name="toggleLocalAnalysis">Prepnúť počítačové analýzy lokálneho počítača</string>
   <string name="toggleAllAnalysis">Prepnúť všetky počítačové analýzy</string>

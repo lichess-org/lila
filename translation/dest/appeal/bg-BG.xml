@@ -8,7 +8,6 @@
   <string name="accountMutedInfo">Прочетете нашите %s. Неспазването на правилата за комуникация може да доведе до заглушаване на акаунта.</string>
   <string name="excludedFromLeaderboards">Акаунтът ви е изключен от класациите.</string>
   <string name="closedByModerators">Акаунтът ви беше закрит от модераторите.</string>
-  <string name="playTimeout">Имате временно ограничение за игра.</string>
   <string name="communicationGuidelines">правила за комуникация</string>
   <string name="fairPlay">Честна игра</string>
 </resources>

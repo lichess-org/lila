@@ -25,7 +25,6 @@
   <string name="cantChangeMore">เราไม่สามารถเปลี่ยนได้มากกว่าตัวอักษรพิมพ์ใหญ่พิมพ์เล็ก ด้วยเหตุผลทางเทคนิคจึงเป็นไปไม่ได้โดยสิ้นเชิง</string>
   <string name="orCloseAccount">อย่างไรก็ตาม คุณสามารถปิดบัญชีปัจจุบันของคุณได้ แล้วก็สร้างบัญชีใหม่</string>
   <string name="wantClearHistory">ฉันต้องการล้างประวัติหรือระดับคะแนนของฉัน</string>
-  <string name="cantClearHistory">เป็นไปไม่ได้ที่จะล้างประวัติเกม, ประวัติปริศนา หรือระดับคะแนนของคุณ</string>
   <string name="wantReport">ฉันต้องการร้องเรียนผู้เล่น</string>
   <string name="toReportAPlayerUseForm">ในการรายงานผู้เล่น, ให้ใช้แบบรายงาน</string>
   <string name="youCanAlsoReachReportPage">คุณสามารถไปที่หน้านั้นได้โดยการคลิกปุ่มรายงาน %s บนหน้าโปรไฟล์</string>

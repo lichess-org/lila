@@ -1,3 +1,4 @@
+import { capitalize } from 'lib/game';
 import { licon } from 'lib/licon';
 import { richHTML } from 'lib/richText';
 import { type VNode, bind, dataIcon, hl, requiresI18n, onInsert, icon } from 'lib/view';
@@ -61,7 +62,7 @@ function renderFeedback(ctrl: GamebookPlayCtrl, state: State) {
             hl('div.instruction', [
               hl('strong', i18n.site.yourTurn),
               requiresI18n('puzzle', ctrl.redraw, cat =>
-                hl('em', cat[color === 'white' ? 'findTheBestMoveForWhite' : 'findTheBestMoveForBlack']),
+                hl('em', cat[`findTheBestMoveFor${capitalize(color)}`]),
               ),
             ]),
           ]

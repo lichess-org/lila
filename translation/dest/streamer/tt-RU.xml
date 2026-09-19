@@ -26,7 +26,6 @@
   <string name="approved">Сезнең агым расланган.</string>
   <string name="pendingReview">Сезнең агым модераторлар тарафыннан карала.</string>
   <string name="pleaseFillIn">Зинһар, агымдагы мәгълүматны тутырыгыз һәм рәсем йөкләгез.</string>
-  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Сез Lichess агымы исемлегенә керергә әзер булгач, %s</string>
   <string name="streamerName">Личесста сезнең агым исеме</string>
   <plurals name="keepItShort">
     <item quantity="other">Кыскартып саклагыз: азагында %s билге</item>

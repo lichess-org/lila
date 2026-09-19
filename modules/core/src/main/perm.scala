@@ -95,9 +95,9 @@ enum Permission(val key: String, val alsoGrants: List[Permission], val name: Str
   case Relay extends Permission("RELAY", "Broadcast official")
   case RelayStream extends Permission("RELAY_STREAM", "Broadcast Live stream")
   case FidePlayer extends Permission("FIDE_PLAYER", "Edit FIDE players")
-  case Cli extends Permission("CLI", "Command line") // tho most commands require SUPER_ADMIN
+  case Cli extends Permission("CLI", "Command line base permission") // tho most commands require SUPER_ADMIN
   case Settings
-      extends Permission("SETTINGS", "Lila settings base permission") // tho most settings require SUPER_ADMIN
+      extends Permission("SETTINGS", "Settings base permission") // tho most settings require SUPER_ADMIN
   case Streamers extends Permission("STREAMERS", "Manage streamers")
   case Verified extends Permission("VERIFIED", "Verified badge")
   case Pages extends Permission("PAGES", "Lichess pages")
@@ -111,6 +111,7 @@ enum Permission(val key: String, val alsoGrants: List[Permission], val name: Str
   case LichessTeam extends Permission("LICHESS_TEAM", List(Beta), "Lichess team")
   case BotEditor extends Permission("BOT_EDITOR", "Bot editor")
   case Diagnostics extends Permission("DIAGNOSTICS", "Diagnostics")
+  case NotifyMany extends Permission("NOTIFY_MANY", "Notify many users with CLI")
   case DeveloperTeam
       extends Permission(
         "DEVELOPER_TEAM",

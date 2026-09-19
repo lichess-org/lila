@@ -139,12 +139,7 @@
 اضغط على زر القفل بجانب رابط lichess.org في متصفحك.
 ثم اختر إما تفعيل أو تعطيل الإشعارات من موقعنا.</string>
   <string name="enableAutoplayForSoundsQ">تمكين التشغيل التلقائي للأصوات؟</string>
-  <string name="enableAutoplayForSoundsA">يمكن لمعظم المتصفحات منع تشغيل الصوت على الصفحات المحملة حديثًا وذل لحماية المستخدمين. تخيل لو كان بإمكان كل موقع ويب أن يفاجئك بإعلان صوتي فور دخولك.
-
-تظهر أيقونة كتم الصوت الحمراء عندما يمنع متصفحك موقعنا من تشغيل الصوت، يزال هذا القيد عادة بمجرد النقر في أي مكان، لكن في بعض متصفحات الأجهزة المحمولة، لا يعد سحب القطعة بمثابة نقرة، لذا يجب عليك النقر على الرقعة لتشغيل الصوت في بداية كل مباراة تلعبها.
-
-نعرض الرمز الأحمر لتنبيهك عند حدوث ذلك، في كثير من الأحيان يمكنك السماح لنا بتشغيل الأصوات عن طريق متصفحك، وفيما يلي تعليمات للقيام بذلك على الإصدارات الحديثة من بعض المتصفحات الشائعة.</string>
-  <string name="mostBrowsersPreventSoundAutoplay" comment="Replaces old string enableAutoplayForSoundsA">تمنع معظم المتصفحات تشغيل الصوت في الصفحات التي تتم زيارتها حديثًا، وذلك لحماية المستخدمين.
+  <string name="mostBrowsersPreventSoundAutoplay">تمنع معظم المتصفحات تشغيل الصوت في الصفحات التي تتم زيارتها حديثًا، وذلك لحماية المستخدمين.
 
 تظهر أيقونة كتم الصوت عندما يمنع متصفحك موقع lichess.org من تشغيل الأصوات. عادةً ما يتم رفع هذا القيد بمجرد أن تضغط على أي شيء في الصفحة.
 
@@ -158,11 +153,7 @@
 2. اضغط Ctrl-i في نظامي Linux/Windows أو cmd-i على MacOS
 3. انقر فوق علامة تبويب الأذونات
 4. اختر السماح للصوت والفيديو على lichess.org</string>
-  <string name="enableAutoplayForSoundsChrome">1. انتقل إلى lichess.org
-2. انقر على أيقونة القُفْل في شريط العنوان
-3. انقر فوق إعدادات الموقع
-4.اختر السماح بالصوت</string>
-  <string name="enableAutoplayForSoundsChromeSiteInformation" comment="Guidance for Google Chrome users on how to enable audio auto-play if they have sound issues. Replaces old string enableAutoplayForSoundsChrome">1.انتقل إلى موقع lichess.org
+  <string name="enableAutoplayForSoundsChromeSiteInformation" comment="Guidance for Google Chrome users on how to enable audio auto-play if they have sound issues.">1.انتقل إلى موقع lichess.org
 2.اضغط على أيقونة معلومات الموقع الموجودة في شريط العنوان
 3.اضغط على إعدادات الموقع
 4.اسمح بتشغيل الصوت</string>

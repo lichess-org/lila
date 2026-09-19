@@ -44,15 +44,12 @@
   <string name="doubleCheckDescription">کشکردن بە دوو داش لە یەک کاتدا، ئەنجامی هێرشێکە کە بە دوو داش دەکرێت لە کاتی جوڵانی داشێک کە کشی پێدەکەیت و داشێک کە نەتجوڵاندووە و ئۆتۆماتیکی دەکەوێتە بەرانبەر پاشای رکابەرەکەت و کش دەکات.</string>
   <string name="endgame">قۆناغی کۆتایی یاری</string>
   <string name="endgameDescription">تاکتیکی ماوەی قۆناغی کۆتایی یاری.</string>
-  <string name="enPassantDescription">تاکتیکێک کە یاسای ئانپاسان دەگرێتەوە، لە شوێنێک سەربازی رکابەرەکەت دوو خانە جوڵە دەکات تۆ دەتوانی بیگریت \"بیخۆیت\" کاتێک جوڵەکە لە بەرانبەر سەربازی تۆ دەکرێت.</string>
   <string name="exposedKing">پاشای ئاشکرا</string>
   <string name="exposedKingDescription">زۆرجار تاکتیکێک کە پاشا تێیدا بەشدارە لە کاتێکدا بە چەند بەرگریکارێکی کەم دەورەدراوە دەبێتە هۆی کشومات.</string>
   <string name="fork">چەتاڵ</string>
-  <string name="forkDescription">جوڵیەکە کە داشی جوڵاو لە یەککاتدا هێرش دەکاتە سەر دوو داشی ڕکابەرەکەت.</string>
   <string name="hangingPiece">داشی بێ بەرگری</string>
   <string name="hangingPieceDescription">تاکتیکێکە داشێکی بەرانبەرەکەتی تێدا بەشدارە کە هیچ بەرگریەکی نییە، یان بەرگری پێویستی نییە و ئاسان دەتوانی بەدەستی بێنی.</string>
   <string name="hookMate">کشومات بە قەڵغان</string>
-  <string name="hookMateDescription">کشومات بە قەڵا و ئەسپ و سەرباز، لەگەڵ سەربازێکی دوژمن بۆ کەمکردنەوەی سنوری هەڵاتنی پاشا.</string>
   <string name="interference">تێکەڵبوون</string>
   <string name="interferenceDescription">جوڵاندنی داشێکە بۆ نێوان دوو داشی بەرگری لێ نەکراوی بەرانبەر، وەک جوڵاندنی فیل بۆ خانەیەک بتوانێ هێرش بکاتە سەر دوو قەڵا.</string>
   <string name="intermezzo">جوڵەی نێوان</string>
@@ -90,7 +87,6 @@
   <string name="pin">جێگیرکردن</string>
   <string name="pinDescription">تاکتیکی جێگیرکردن، ئەوەیە کە بتوانی بەرانبەرەکەت بوەستێنی لە جوڵاندنی داشێک لەبەر بوونی داشێکی بەهێزتر لە دوای ئەمەوە.</string>
   <string name="promotion">پلە بەرزکردنەوە</string>
-  <string name="promotionDescription">پلەی یەکێک لە سەربازەکانت بۆ ئاستی شاژن یان داشێکی لەم بەها کەمتر بەرزبکەوە.</string>
   <string name="queenEndgame">کۆتیی یاری بە شاژن</string>
   <string name="queenEndgameDescription">قۆناغی کۆتایی یاری بە بوونی سەربازەکان و شاژن.</string>
   <string name="queenRookEndgame">شاژن و قەڵا</string>

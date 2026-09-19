@@ -66,9 +66,9 @@
   <string name="analysis">Bàn cờ phân tích</string>
   <string name="depthX">Độ sâu %s</string>
   <string name="usingServerAnalysis">Sử dụng phân tích nhờ máy chủ</string>
-  <string name="loadingEngine">Đang tải động cơ máy tính...</string>
+  <string name="loadingEngine">Đang tải công cụ phân tích...</string>
   <string name="calculatingMoves">Đang tính nước đi...</string>
-  <string name="engineFailed">Lỗi khi đang tải máy cờ vua</string>
+  <string name="engineFailed">Lỗi khi đang tải công cụ phân tích</string>
   <string name="cloudAnalysis">Phân tích đám mây</string>
   <string name="goDeeper">Phân tích sâu hơn</string>
   <string name="showThreat">Hiện các mối đe dọa</string>
@@ -147,26 +147,21 @@
   <string name="blunder">Sai lầm nghiêm trọng</string>
   <string name="mistake">Sai lầm</string>
   <string name="inaccuracy">Không chính xác</string>
-  <plurals name="nbBlunders">
-    <item quantity="other">%s sai lầm nghiêm trọng</item>
-  </plurals>
   <plurals name="numberBlunders">
     <item quantity="other">%s Sai lầm nghiêm trọng</item>
   </plurals>
-  <plurals name="nbMistakes">
-    <item quantity="other">%s sai lầm</item>
-  </plurals>
   <plurals name="numberMistakes">
     <item quantity="other">%s Sai lầm</item>
-  </plurals>
-  <plurals name="nbInaccuracies">
-    <item quantity="other">%s không chính xác</item>
   </plurals>
   <plurals name="numberInaccuracies">
     <item quantity="other">%s Không chính xác</item>
   </plurals>
   <string name="moveTimes">Thời gian nghĩ nước đi</string>
   <string name="flipBoard">Quay bàn cờ</string>
+  <string name="toggleLocalEngine">Bật/tắt công cụ cục bộ</string>
+  <string name="engineSettings">Thiết đặt công cụ</string>
+  <string name="enginesFromStrongestToWeakest">Các công cụ từ mạnh nhất đến yếu nhất</string>
+  <string name="illegalPosition">Thế cờ không hợp lệ</string>
   <string name="threefoldRepetition">Lặp cờ 3 lần</string>
   <string name="claimADraw">Nhận hòa</string>
   <string name="drawClaimed">Hòa cờ</string>
@@ -234,6 +229,7 @@
   <string name="signupUsernameHint">Hãy đảm bảo chọn tên người dùng thân thiện với mọi người. Bạn sẽ không thể thay đổi nó và bất kỳ tài khoản nào có tên người dùng không phù hợp sẽ bị đóng!</string>
   <string name="signupEmailPromise">Chúng tôi chỉ gửi tin nhắn qua email về tài khoản của bạn và sẽ không bao giờ chia sẻ địa chỉ email của bạn với người khác.</string>
   <string name="password">Mật khẩu</string>
+  <string name="showPassword">Hiện mật khẩu</string>
   <string name="changePassword">Thay đổi mật khẩu</string>
   <string name="changeEmail">Thay đổi thư điện tử</string>
   <string name="email">Thư điện tử</string>
@@ -255,8 +251,7 @@
   <string name="emailSent">Chúng tôi đã gửi cho %s một email.</string>
   <string name="emailCanTakeSomeTime">Có thể sẽ mất một lúc để nhận được.</string>
   <string name="refreshInboxAfterFiveMinutes">Đợi 5 phút sau đó làm mới hộp thư đến trong email.</string>
-  <string name="checkSpamFolder">Ngoài ra hãy kiểm tra hộp thư rác, nó có thể ở trong đó. Nếu có, hãy đánh dấu nó không phải là rác.</string>
-  <string name="checkSpamOrJunkFolder" comment="checkSpamFolder&#10;It = The confirmation email Replaces old string checkSpamFolder">Nếu bạn không nhận được email xác nhận, hãy kiểm tra thư mục Spam hoặc Thư rác. Hãy nhớ đánh dấu các tin nhắn từ lichess.org là an toàn và \"không phải thư rác\" để bạn có thể nhận được thông báo quan trọng.</string>
+  <string name="checkSpamOrJunkFolder" comment="checkSpamFolder&#10;It = The confirmation email">Nếu bạn không nhận được email xác nhận, hãy kiểm tra thư mục Spam hoặc Thư rác. Hãy nhớ đánh dấu các tin nhắn từ lichess.org là an toàn và \"không phải thư rác\" để bạn có thể nhận được thông báo quan trọng.</string>
   <string name="sendEmailForAccountVerification">Nếu bạn không tìm thấy email xác minh, hãy gửi email đến %s và chúng tôi sẽ xác minh tài khoản cho bạn.</string>
   <string name="accountConfirmed">Đã xác nhận người dùng %s thành công.</string>
   <string name="accountCanLogin">Bạn đã có thể đăng nhập ngay bây giờ tại %s.</string>
@@ -277,10 +272,8 @@
   </plurals>
   <string name="ok">OK</string>
   <string name="cancel">Hủy</string>
-  <string name="whiteTimeOut">Bên trắng hết giờ</string>
-  <string name="whiteRanOutOfTime" comment="whiteTimeOut&#10;&#10;Shows when White's time has run out. Is followed by the end condition, for example&#10;'White ran out of time · Draw' Replaces old string whiteTimeOut">Bên trắng hết giờ</string>
-  <string name="blackTimeOut">Bên đen hết giờ</string>
-  <string name="blackRanOutOfTime" comment="blackTimeOut&#10;&#10;Shows when Black's time has run out. Is followed by the end condition, for example&#10;'Black ran out of time · Draw' Replaces old string blackTimeOut">Bên đen hết giờ</string>
+  <string name="whiteRanOutOfTime" comment="whiteTimeOut&#10;&#10;Shows when White's time has run out. Is followed by the end condition, for example&#10;'White ran out of time · Draw'">Bên trắng hết giờ</string>
+  <string name="blackRanOutOfTime" comment="blackTimeOut&#10;&#10;Shows when Black's time has run out. Is followed by the end condition, for example&#10;'Black ran out of time · Draw'">Bên đen hết giờ</string>
   <string name="drawOfferSent">Đã gửi đề nghị hòa</string>
   <string name="drawOfferAccepted">Đề nghị hoà được chấp nhận</string>
   <string name="whiteOffersDraw">Bên trắng đề nghị hòa</string>
@@ -388,8 +381,7 @@
     <item quantity="other">Bạn cần chơi thêm %s ván xếp hạng</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Hệ số %s của bạn là tạm thời</string>
-  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Bộ lọc xếp hạng bị khóa vì xếp hạng của bạn không ổn định. Chơi các ván cờ có xếp hạng sẽ tăng tính ổn định.</string>
-  <string name="cannotFilterByUnstableRating" comment="Tooltip to explain why the control for filtering by rating is disabled Replaces old string ratingRangeIsDisabledBecauseYourRatingIsProvisional">Không thể lọc theo hệ số vì hệ số của bạn không ổn định.
+  <string name="cannotFilterByUnstableRating" comment="Tooltip to explain why the control for filtering by rating is disabled">Không thể lọc theo hệ số vì hệ số của bạn không ổn định.
 Chơi các trận đấu có xếp hạng sẽ giúp tăng tính ổn định của hệ số.</string>
   <string name="yourPerfRatingIsTooHigh">Hệ số %1$s của bạn (%2$s) quá cao</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Hệ số %1$s hàng tuần của bạn (%2$s) quá cao</string>
@@ -411,7 +403,7 @@ Chơi các trận đấu có xếp hạng sẽ giúp tăng tính ổn định c�
   <string name="apply">Áp dụng</string>
   <string name="save">Lưu</string>
   <string name="leaderboard">Bảng dẫn đầu</string>
-  <string name="positionAsImage" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position. Replaces old string screenshotCurrentPosition">Ảnh chụp thế cờ hiện tại</string>
+  <string name="positionAsImage" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position.">Ảnh chụp thế cờ hiện tại</string>
   <string name="gameAsGIF">Ván cờ dưới dạng ảnh GIF</string>
   <string name="playerNames">Tên người chơi</string>
   <string name="moveAnnotations">Chú thích nước đi</string>
@@ -521,6 +513,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="oneUrlPerLine">Một URL/Link mỗi dòng.</string>
   <string name="inlineNotation">Ký hiệu bên trong bàn cờ</string>
   <string name="makeAStudy">Để bảo vệ và chia sẻ an toàn, hãy xem xét thực hiện một nghiên cứu.</string>
+  <string name="clearLocalData">Xóa dữ liệu cục bộ</string>
   <string name="previouslyOnLichessTV">Ván trước được lên Lichess TV</string>
   <string name="onlinePlayers">Các kỳ thủ trực tuyến</string>
   <string name="activePlayers">Các kỳ thủ tích cực</string>
@@ -564,8 +557,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="other">Khác</string>
   <string name="reportCheatBoostHelp">Dán đường dẫn đến (các) ván cờ và giải thích hành vi sai của kỳ thủ này. Đừng chỉ nói \"họ gian lận\", nhưng hãy cho chúng tôi biết bạn đã đi đến kết luận này như thế nào.</string>
   <string name="reportUsernameHelp">Giải thích những gì về tên người dùng này là xúc phạm. Đừng chỉ nói \"nó gây khó chịu/không phù hợp\", nhưng hãy cho chúng tôi biết bạn đã đi đến kết luận này như thế nào, đặc biệt nếu sự xúc phạm bị che giấu, không phải bằng tiếng Anh, là tiếng lóng, hoặc là một tài liệu tham khảo lịch sử/văn hóa.</string>
-  <string name="reportProcessedFasterInEnglish">Báo cáo của bạn sẽ được xử lý nhanh hơn nếu được viết bằng tiếng Anh.</string>
-  <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it. Replaces old string reportProcessedFasterInEnglish">Chúng tôi có thể xử lý báo cáo của bạn nhanh hơn nếu bạn viết bằng tiếng Anh.</string>
+  <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">Chúng tôi có thể xử lý báo cáo của bạn nhanh hơn nếu bạn viết bằng tiếng Anh.</string>
   <string name="error.provideOneCheatedGameLink">Hãy cung cấp ít nhất một đường dẫn đến ván cờ bị gian lận.</string>
   <string name="by">bởi %s</string>
   <string name="importedByX">Được nhập bởi %s</string>
@@ -686,13 +678,11 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="aboutSimulRules">Khi sự kiện đồng loạt bắt đầu, mỗi người chơi sẽ bắt đầu ván cờ với người chủ trì. Sự kiện đồng loạt kết thúc khi tất cả các ván cờ hoàn tất.</string>
   <string name="aboutSimulSettings">Cờ đồng loạt luôn không xếp hạng. Việc tái đấu, đi lại hay cho thêm thời gian đều bị vô hiệu.</string>
   <string name="create">Tạo</string>
-  <string name="whenCreateSimul">Khi bạn tạo một sự kiện cờ đồng loạt, bạn sẽ chơi với nhiều người cùng một lúc.</string>
-  <string name="creatingASimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new Replaces old string whenCreateSimul">Việc tạo sự kiện cờ đồng loạt cho phép bạn chơi với nhiều đối thủ cùng một lúc.</string>
+  <string name="creatingASimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Việc tạo sự kiện cờ đồng loạt cho phép bạn chơi với nhiều đối thủ cùng một lúc.</string>
   <string name="simulVariantsHint">Nếu bạn chọn nhiều biến thể, mỗi người chơi sẽ được tự chọn biến thể mà họ muốn chơi.</string>
   <string name="simulClockHint">Thiết lập Đồng hồ Fischer. Bạn càng chơi với nhiều người thì càng có thể cần nhiều thời gian.</string>
   <string name="simulAddExtraTime">Bạn có thể cộng thêm thời gian ban đầu của mình để đấu cờ đồng loạt dễ hơn.</string>
-  <string name="simulHostExtraTime">Thời gian cộng thêm ban đầu cho người chủ trì</string>
-  <string name="extraClockTimeForHost" comment="Appears on: https://lichess.org/simul/new&#10;&#10;Allows a simul host to select extra time for the simul.&#10;&#10;Please note this string used to state &quot;Host extra clock time&quot;, without the word &quot;initial&quot; Replaces old string simulHostExtraTime">Thời gian cộng thêm cho người chủ trì:</string>
+  <string name="extraClockTimeForHost" comment="Appears on: https://lichess.org/simul/new&#10;&#10;Allows a simul host to select extra time for the simul.&#10;&#10;Please note this string used to state &quot;Host extra clock time&quot;, without the word &quot;initial&quot;">Thời gian cộng thêm cho người chủ trì:</string>
   <string name="simulAddExtraTimePerPlayer">Thêm thời gian ban đầu của bạn khi đấu với mỗi người chơi tham gia sự kiện đồng loạt.</string>
   <string name="simulHostExtraTimePerPlayer">Thời gian cộng thêm cho người chủ trì theo số người tham gia</string>
   <string name="lichessTournaments">Các giải đấu của Lichess</string>
@@ -785,9 +775,6 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="quickPairing">Xếp cặp nhanh</string>
   <string name="lobby">Phòng chờ</string>
   <string name="anonymous">Ẩn danh</string>
-  <plurals name="nbAnonymous">
-    <item quantity="other">Ẩn danh (%s)</item>
-  </plurals>
   <string name="yourScore">Điểm của bạn: %s</string>
   <string name="language">Ngôn ngữ</string>
   <string name="allLanguages">Tất cả ngôn ngữ</string>
@@ -823,8 +810,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="custom">Tuỳ chỉnh</string>
   <string name="notifications">Thông báo</string>
   <string name="notificationsX">Số thông báo: %1$s</string>
-  <string name="perfRatingX">Hệ số: %s</string>
-  <string name="perfRatingLabel" comment="Replaces old string perfRatingX">Hệ số: %s.</string>
+  <string name="perfRatingLabel">Hệ số: %s.</string>
   <string name="yourRatingIsX">Hệ số của bạn là %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="other">%s giây còn lại để đi nước đầu tiên</item>
@@ -880,8 +866,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
     <item quantity="other">và lưu %s nước đi trước</item>
   </plurals>
   <string name="showUnreadLichessMessage">Bạn đã nhận được một tin nhắn riêng từ Lichess.</string>
-  <string name="clickHereToReadIt">Nhấn vào đây để đọc nó</string>
-  <string name="readTheMessage" comment="'It' refers to a private message. This text follows after a different string which advises players they have received a private message from Lichess. For users, this is appears as a regular private message from the Lichess account: https://lichess.org/@/Lichess Replaces old string clickHereToReadIt">Đọc tin nhắn</string>
+  <string name="readTheMessage" comment="'It' refers to a private message. This text follows after a different string which advises players they have received a private message from Lichess. For users, this is appears as a regular private message from the Lichess account: https://lichess.org/@/Lichess">Đọc tin nhắn</string>
   <string name="sorry">Rất tiếc :(</string>
   <string name="weHadToTimeYouOutForAWhile">Chúng tôi phải ngừng bạn lại một thời gian.</string>
   <string name="why">Tại sao?</string>
@@ -966,16 +951,14 @@ Bỏ trống để bắt đầu tất cả ván đấu bằng thế trận ban �
   <string name="simulFeaturedHelp">Hiển thị sự kiện cờ đồng loạt của bạn trên %s. Không áp dụng cho các sự kiện riêng tư.</string>
   <string name="simulDescription">Mô tả sự kiện cờ đồng loạt</string>
   <string name="simulDescriptionHelp">Bạn có điều gì muốn nói với những người tham gia không?</string>
-  <string name="markdownIsAvailable">%s có thể dùng để định dạng.</string>
-  <string name="youCanFormatTextUsing" comment="%s is &quot;Markdown&quot;, a proper noun. As such, the word is intentionally kept as a variable.&#10;&#10;Markdown is a markup language - a type of code that lets you format text (e.g. to create bold text).&#10;&#10;The text links to a reference guide for using Markdown to format text. Replaces old string markdownIsAvailable">Bạn cớ thể định dạng văn bản bằng %s.</string>
+  <string name="youCanFormatTextUsing" comment="%s is &quot;Markdown&quot;, a proper noun. As such, the word is intentionally kept as a variable.&#10;&#10;Markdown is a markup language - a type of code that lets you format text (e.g. to create bold text).&#10;&#10;The text links to a reference guide for using Markdown to format text.">Bạn cớ thể định dạng văn bản bằng %s.</string>
   <string name="embedsAvailable">Dán URL ván đấu hoặc URL chương nghiên cứu để nhúng.</string>
   <string name="inYourLocalTimezone">Tại múi giờ địa phương của bạn</string>
   <string name="tournChat">Trò chuyện trong giải đấu</string>
   <string name="noChat">Không trò chuyện</string>
   <string name="onlyTeamLeaders">Chỉ các chỉ huy</string>
   <string name="onlyTeamMembers">Chỉ thành viên đội</string>
-  <string name="navigateMoveTree">Điều hướng tìm nước đi</string>
-  <string name="moveListNavigation" comment="navigateMoveTree&#10;&#10;Appears in the keyboard shortcuts/help screen. The 'move tree' is simply the list of moves. Replaces old string navigateMoveTree">Di chuyển danh sách điều hướng nước cờ</string>
+  <string name="moveListNavigation" comment="navigateMoveTree&#10;&#10;Appears in the keyboard shortcuts/help screen. The 'move tree' is simply the list of moves.">Di chuyển danh sách điều hướng nước cờ</string>
   <string name="mouseTricks">Mẹo sử dụng chuột</string>
   <string name="toggleLocalAnalysis">Bật/Tắt máy tính phân tích</string>
   <string name="toggleAllAnalysis">Bật/Tắt toàn bộ máy tính phân tích</string>
@@ -1017,4 +1000,5 @@ Mọi chi phí vận hành, phát triển, và nội dung được tài trợ b�
   <string name="tags">Thẻ</string>
   <string name="enPassant">Bắt tốt qua đường</string>
   <string name="settings">Cài đặt</string>
+  <string name="verifyingYourDevice">Đang xác minh thiết bị của bạn...</string>
 </resources>

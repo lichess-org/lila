@@ -56,12 +56,8 @@
   <string name="scrollOnTheBoardToReplayMoves">เลื่อนกระดานลงเพื่อดูตาเดินที่ผ่านมา</string>
   <string name="correspondenceEmailNotification">อีเมลรายวันแสดงรายการเกมยาวนานของคุณ</string>
   <string name="notifyStreamStart">สตรีมเมอร์ไลฟ์สด</string>
-  <string name="notifyInboxMsg">ข้อความใหม่ใน inbox</string>
-  <string name="notifyForumMention">โพสต์อภิปรายกล่าวถึงคุณ</string>
-  <string name="notifyInvitedStudy">เชิญเข้าการศึกษา</string>
   <string name="notifyGameEvent">อัพเดตใหม่ๆของเกมยาวนาน</string>
   <string name="notifyChallenge">การประลอง</string>
-  <string name="notifyTournamentSoon">ทัวร์นาเมนต์จะเริ่มเร็วๆนี้</string>
   <string name="notifyTimeAlarm">นาฬิกาเกมยาวนานหมดเวลา</string>
   <string name="notifyBell">กระดิ่งแจ้งเตือนภายใน Lichess</string>
   <string name="notifyPush">การแจ้งเตือนบนอุปกรณ์เมื่อคุณไม่อยู่ใน Lichess</string>

@@ -28,7 +28,6 @@
   <string name="approved">Jūsų transliacija patvirtinta.</string>
   <string name="pendingReview">Jūsų transliacija peržiūrima moderatorių.</string>
   <string name="pleaseFillIn">Užpildykite savo transliuotojo informaciją ir įkelkite nuotrauką.</string>
-  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Kai būsite pasiruošę būti pažymėti kaip Lichess transliuotojas, %s</string>
   <string name="submitForReview">Pateikti peržiūrai</string>
   <string name="streamerLanguageSettings">Lichess transliuotojo puslapius nukreipia jūsų auditoriją su kalba nurodyta jūsų transliacijos platformoje. Nustatykite tinkamą numatytąją kalbą savo šachmatų transliacijoms programėlėje ar platformoje iš kurios transliuojate.</string>
   <string name="streamerName">Jūsų transliuotojo vardas Lichess</string>

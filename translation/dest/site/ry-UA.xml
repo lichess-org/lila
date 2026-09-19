@@ -120,30 +120,15 @@
   <string name="blunder">Хыба</string>
   <string name="mistake">Захыб</string>
   <string name="inaccuracy">Неточность</string>
-  <plurals name="nbBlunders">
-    <item quantity="one">%s хыба</item>
-    <item quantity="few">%s хыбы</item>
-    <item quantity="other">%s хыб</item>
-  </plurals>
   <plurals name="numberBlunders">
     <item quantity="one">%s Хыба</item>
     <item quantity="few">%s Хыбы</item>
     <item quantity="other">%s Хыб</item>
   </plurals>
-  <plurals name="nbMistakes">
-    <item quantity="one">%s захыб</item>
-    <item quantity="few">%s захыба</item>
-    <item quantity="other">%s захыбув</item>
-  </plurals>
   <plurals name="numberMistakes">
     <item quantity="one">%s Захыб</item>
     <item quantity="few">%s Захыба</item>
     <item quantity="other">%s Захыбув</item>
-  </plurals>
-  <plurals name="nbInaccuracies">
-    <item quantity="one">%s неточность</item>
-    <item quantity="few">%s неточности</item>
-    <item quantity="other">%s неточностюв</item>
   </plurals>
   <plurals name="numberInaccuracies">
     <item quantity="one">%s Неточность</item>
@@ -244,7 +229,6 @@
   <string name="emailSent">Мы загнали уповістку на %s.</string>
   <string name="emailCanTakeSomeTime">Письмо прийде через даякый час.</string>
   <string name="refreshInboxAfterFiveMinutes">Почекайте 5 минут тай обновіт свою почту.</string>
-  <string name="checkSpamFolder">Такой перевірте фасціклу из спамом, письмо може быти там. Кідь там, укажіт го ги не спам.</string>
   <string name="accountConfirmed">Хосновач %s успішно потвердженый.</string>
   <string name="accountCanLogin">Можете зайти такой тепирь, ги %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Вам не треба потверчженя по почті.</string>
@@ -269,8 +253,6 @@
     <item quantity="other">%s бавок из вами</item>
   </plurals>
   <string name="cancel">Одмінити</string>
-  <string name="whiteTimeOut">У білых уйшов час</string>
-  <string name="blackTimeOut">У чорных уйшов час</string>
   <string name="drawOfferSent">Понука ремізы загната</string>
   <string name="drawOfferAccepted">Понука ремізы прията</string>
   <string name="whiteOffersDraw">Білі понукувут ремізу</string>
@@ -559,7 +541,6 @@
   <string name="invalidPgn">Недобрый PGN</string>
   <string name="invalidFen">Недобрый FEN</string>
   <string name="custom">Своя бавка</string>
-  <string name="perfRatingX">Рейтiнґ: %s</string>
   <string name="bestWasX">Лїпшым быв %s</string>
   <string name="next">Дале</string>
   <string name="solution">Одвіт</string>
@@ -606,7 +587,6 @@
   <string name="noChat">Без чета</string>
   <string name="onlyTeamLeaders">Лем лідеры дружины</string>
   <string name="onlyTeamMembers">Лем участникы дружины</string>
-  <string name="navigateMoveTree">Переход по ходам</string>
   <string name="mouseTricks">Кываня мыши</string>
   <string name="toggleLocalAnalysis">Уключити компюторный аналіз</string>
   <string name="toggleAllAnalysis">Уключити компюторный аналіз (и серверный)</string>

@@ -201,7 +201,7 @@ final class RelayGroupCrowdSumCache(
     yield res.headOption.flatMap(_.int("sum")).orZero
 
 final class RelayGroupApi(groupRepo: RelayGroupRepo, cacheApi: lila.memo.CacheApi)(using Executor):
-  private val scoreGroupCache = cacheApi[RelayTourId, ScoreGroup](128, "relay.players.scoreGroup"):
+  private val scoreGroupCache = cacheApi[RelayTourId, ScoreGroup](256, "relay.players.scoreGroup"):
     _.expireAfterWrite(1.minute).buildAsyncFuture: tourId =>
       for group <- groupRepo.byTour(tourId)
       yield group.flatMap(_.scoreGroupOf(tourId)) | NonEmptyList.of(tourId)

@@ -13,10 +13,9 @@
   <string name="closedByModerators">Akkauntingiz moderatorlar tomonidan yopildi.</string>
   <string name="blogRestriction">Sizda blog cheklovi bor.</string>
   <string name="blogRestrictionInfo">%s bilan tanishib chiqing, ushbu qoidalarni buzish turli choralar koʻrilishiga olib kelishi mumkin.</string>
-  <string name="playTimeout">Oʻyinlardan vaqtinchalik chetlatildingiz.</string>
   <string name="reportBanned">Moderatorlarga shikoyat yubora olmaysiz</string>
   <string name="reportBannedInfo">Biz shikoyat tizimimizdan suiisteʼmol qilish holatlarini payqadik. Bu har xil sabablarga koʻra boʻlishi mumkin, masalan, notoʻgʻri kategoriyalarni qayta va qayta tanlash, behayo, nomunosib yoki haqoratli tildan foydalanish, haddan tashqari o\'yinlarni shikoyat qilish yoki nima uchun raqib qoidalarni buzdi deb oʻylashingizni koʻrsatmaslik.</string>
-  <string name="temporarilyRestrictedFromPlaying" comment="play timeout = Lichess prevents you temporarily from playing any games Replaces old string playTimeout">Akkauntingiz oʻynashdan vaqtinchalik cheklangan.</string>
+  <string name="temporarilyRestrictedFromPlaying" comment="play timeout = Lichess prevents you temporarily from playing any games">Akkauntingiz oʻynashdan vaqtinchalik cheklangan.</string>
   <string name="communicationGuidelines">Muloqot qoidalari</string>
   <string name="blogEtiquette">Blog odobi</string>
   <string name="fairPlay">Halol oʻyin</string>

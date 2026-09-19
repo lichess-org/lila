@@ -25,8 +25,7 @@
   <string name="cantChangeMore">We kunnen niet meer veranderen dan hoofdletters naar kleine letters en andersom. Dit is om technische redenen simpelweg onmogelijk.</string>
   <string name="orCloseAccount">Je kunt wel je huidige account sluiten en een nieuw account aanmaken.</string>
   <string name="wantClearHistory">Ik wil mijn geschiedenis of rating wissen</string>
-  <string name="cantClearHistory">Het is niet mogelijk uw partijgeschiedenis, puzzelgeschiedenis of rating te wissen.</string>
-  <string name="cantClearHistoryOrResetRatings" comment="Replaces old string cantClearHistory">Het is niet mogelijk partij-/puzzelgeschiedenis te wissen of rating terug te zetten.</string>
+  <string name="cantClearHistoryOrResetRatings">Het is niet mogelijk partij-/puzzelgeschiedenis te wissen of rating terug te zetten.</string>
   <string name="wantReport">Ik wil een speler rapporteren</string>
   <string name="toReportAPlayerUseForm">Gebruik het rapportformulier als u een speler wilt rapporteren</string>
   <string name="youCanAlsoReachReportPage">U kunt deze pagina ook bereiken door op de %s rapporteerknop op een profielpagina te klikken.</string>
@@ -58,7 +57,7 @@
   <string name="reportErrorPage">Als u te maken kreeg met een foutpagina, kunt u dat melden:</string>
   <string name="learnHowToMakeBroadcasts">Lees hoe je je eigen uitzendingen op Lichess maakt</string>
   <string name="banAppeal">Vragen om een ban of IP beperking</string>
-  <string name="engineAppeal">Schaakcomputer of valsspel markering</string>
+  <string name="engineAppeal">Schaakcomputer of valsspelmarkering</string>
   <string name="sendAppealTo">U kunt een verzoek sturen naar %s.</string>
   <string name="falsePositives">Onterechte markeringen komen een enkele keer voor, en dat spijt ons.</string>
   <string name="ifLegit">Als uw verzoek gegrond is, zullen we het toegangsverbod zo snel mogelijk opheffen.</string>

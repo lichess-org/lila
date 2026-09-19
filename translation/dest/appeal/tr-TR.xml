@@ -13,10 +13,9 @@
   <string name="closedByModerators">Hesabınız moderatörler tarafından kapatılmıştır.</string>
   <string name="blogRestriction">Blog kısıtlamanız bulunmaktadır.</string>
   <string name="blogRestrictionInfo">%s\'nı okuyun; bu kuralların ihlal edilmesi farklı yaptırımlarla sonuçlanabilir.</string>
-  <string name="playTimeout">Uzaklaştırma cezanız var.</string>
   <string name="reportBanned">Moderatörlere bildirim gönderemezsiniz</string>
   <string name="reportBannedInfo">Bildirim sistemimizi kötüye kullandığınıza dair bir durum fark ettik. Bunun nedeni; sürekli olarak yanlış kategorileri seçmek, küfürlü/uygunsuz veya saldırgan bir dil kullanmak, aşırı sayıda oyun bildirmek ya da rakibinizin kuralları neden ihlal ettiğini düşündüğünüzü açıklamamak gibi çeşitli sebepler olabilir.</string>
-  <string name="temporarilyRestrictedFromPlaying" comment="play timeout = Lichess prevents you temporarily from playing any games Replaces old string playTimeout">Hesabınız oyun oynamaktan geçici olarak kısıtlandı.</string>
+  <string name="temporarilyRestrictedFromPlaying" comment="play timeout = Lichess prevents you temporarily from playing any games">Hesabınız oyun oynamaktan geçici olarak kısıtlandı.</string>
   <string name="communicationGuidelines">iletişim kuralları</string>
   <string name="blogEtiquette">blog görgü kuralları</string>
   <string name="fairPlay">Adil Oyun</string>

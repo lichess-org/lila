@@ -25,7 +25,6 @@
   <string name="cantChangeMore">Me ei saa vahetada peale suurte ja väikeste tähtede midagi muud. Tehnilistel põhjustel see on otseselt võimatu.</string>
   <string name="orCloseAccount">Sul on ikkagi võimalus sulgeda praegune konto ja luua uus kasutaja.</string>
   <string name="wantClearHistory">Ma tahan puhastada oma ajaloo või reitingu</string>
-  <string name="cantClearHistory">Mängu ajalugu, ülesannete ajalugu ja reitingut ei ole võimalik tühjendada.</string>
   <string name="wantReport">Tahan teatada mängijast</string>
   <string name="toReportAPlayerUseForm">Mängijast teatamiseks, kasuta seda vormi</string>
   <string name="youCanAlsoReachReportPage">Saad samale leheküljele ka siis kui klikid %s teata nuppu mängija profiililehel.</string>

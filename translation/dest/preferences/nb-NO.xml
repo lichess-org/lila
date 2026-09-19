@@ -56,16 +56,12 @@
   <string name="scrollOnTheBoardToReplayMoves">Bruk musehjulet for å spille av trekk</string>
   <string name="correspondenceEmailNotification">Daglig oversikt over fjernsjakkpartiene dine tilsendt på e-post</string>
   <string name="notifyStreamStart">Strømmer begynner å strømme</string>
-  <string name="notifyInboxMsg">Ny melding i innboksen</string>
-  <string name="notifyDirectMessage" comment="notifyInboxMsg&#10;&#10;A notification setting - notifies players when they receive a new message in their Lichess inbox Replaces old string notifyInboxMsg">Ny direktemelding</string>
-  <string name="notifyForumMention">Forumkommentar nevner deg</string>
-  <string name="notifyForumMentions" comment="notifyForumMention&#10;&#10; A notification setting - notifies players when someone has @mentioned their name in the Lichess Forum (https://lichess.org/forum) Replaces old string notifyForumMention">Omtaler i forumet</string>
-  <string name="notifyInvitedStudy">Invitasjon til studie</string>
-  <string name="notifyStudyInvites" comment="notifyInvitedStudy&#10;&#10; A notification setting - notifies players about invites to studies (https://lichess.org/study/) Replaces old string notifyInvitedStudy">Invitasjoner til studier</string>
+  <string name="notifyDirectMessage" comment="notifyInboxMsg&#10;&#10;A notification setting - notifies players when they receive a new message in their Lichess inbox">Ny direktemelding</string>
+  <string name="notifyForumMentions" comment="notifyForumMention&#10;&#10; A notification setting - notifies players when someone has @mentioned their name in the Lichess Forum (https://lichess.org/forum)">Omtaler i forumet</string>
+  <string name="notifyStudyInvites" comment="notifyInvitedStudy&#10;&#10; A notification setting - notifies players about invites to studies (https://lichess.org/study/)">Invitasjoner til studier</string>
   <string name="notifyGameEvent">Oppdateringer for fjernsjakkpartier</string>
   <string name="notifyChallenge">Utfordringer</string>
-  <string name="notifyTournamentSoon">Turnering starter snart</string>
-  <string name="notifyTournamentStartReminders" comment="notifyTournamentSoon&#10;&#10;A notification setting - notifies players if a tournament is starting soon. Replaces old string notifyTournamentSoon">Påminnelser om turneringsstart</string>
+  <string name="notifyTournamentStartReminders" comment="notifyTournamentSoon&#10;&#10;A notification setting - notifies players if a tournament is starting soon.">Påminnelser om turneringsstart</string>
   <string name="notifyBroadcasts">Direkteoverføringer</string>
   <string name="notifyTimeAlarm">Fjernsjakkur i ferd med å løpe ut</string>
   <string name="notifyBell">Bjellevarsel innenfor Lichess</string>

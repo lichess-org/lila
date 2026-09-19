@@ -28,7 +28,6 @@
   <string name="approved">A közvetítés jóváhagyva.</string>
   <string name="pendingReview">A közvetítésed épp moderátoraink vizsgálják.</string>
   <string name="pleaseFillIn">Kérjük, add meg a közvetítői adataidat, és tölts fel egy képet.</string>
-  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Amikor készen állsz, hogy megjelenj a Lichess közvetítői között, %s</string>
   <string name="submitForReview">Ellenőrzésre beküldés</string>
   <string name="streamerLanguageSettings">A Lichess streamer oldala a streamer platformod nyelvi beállításait használja, ezért a közvetítésed alapértelmezett nyelvét ott tudod beállítani.</string>
   <string name="pleaseAllow">Kérlek vedd figyelembe hogy akár 72 órát is igénybe vehet a közvetítői jelvényed és adatlapod jóváhagyása.</string>

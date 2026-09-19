@@ -13,10 +13,9 @@
   <string name="closedByModerators">El vostre compte ha estat tancat pels moderadors.</string>
   <string name="blogRestriction">Teniu una restricció a la vostra bitàcola.</string>
   <string name="blogRestrictionInfo">Llegeix els nostres %s, violar les regles pot resultar en diferents accions.</string>
-  <string name="playTimeout">Teniu un temps d\'espera per jugar.</string>
   <string name="reportBanned">No podeu enviar informes als moderadors</string>
   <string name="reportBannedInfo">Hem detectat un abús del nostre sistema d\'informes. Això pot ser per varies raons com per exemple: utilitzar categories incorrectes de forma repetitiva, utilitzant llenguatge inapropiat o ofensiu, reportar un nombre excessiu de partes o no demostrar perquè penses que el teu oponent ha violat les normes.</string>
-  <string name="temporarilyRestrictedFromPlaying" comment="play timeout = Lichess prevents you temporarily from playing any games Replaces old string playTimeout">El teu compte ha estat restringit per a jugar partides de forma temporal.</string>
+  <string name="temporarilyRestrictedFromPlaying" comment="play timeout = Lichess prevents you temporarily from playing any games">El teu compte ha estat restringit per a jugar partides de forma temporal.</string>
   <string name="communicationGuidelines">guia de comunicació</string>
   <string name="blogEtiquette">normativa de les bitàcoles</string>
   <string name="fairPlay">Joc net</string>

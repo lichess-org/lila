@@ -77,8 +77,7 @@ Přidá body od každého hráče, kterého porazí a půlku bodů hráče, se k
   <string name="pairingsA">Využívá se %1$s, realizován pomocí %2$s, v souladu s dokumentem %3$s.</string>
   <string name="moreRoundsThanPlayersQ">Co se stane, pokud má turnaj více kol, než účastníků?</string>
   <string name="moreRoundsThanPlayersA">Když se všechny možné kombinace odehrají, turnaj bude ukončen a bude určen vítěz.</string>
-  <string name="restrictedToTeamsQ">Proč je omezený jen pro týmy?</string>
-  <string name="whyAreSwissTournamentsRestrictedToTeams" comment="Replaces old string restrictedToTeamsQ">Proč jsou švýcarské turnaje omezeny na týmy?</string>
+  <string name="whyAreSwissTournamentsRestrictedToTeams">Proč jsou švýcarské turnaje omezeny na týmy?</string>
   <string name="restrictedToTeamsA">Švýcarské turnaje nebyly koncipovány pro online šachy. Požadují od hráčů dochvilnost, obětavost a trpělivost.
 Myslíme si, že je pravděpodobnější, že tyto podmínky budou splněny v rámci týmu než v globálních turnajích.</string>
   <string name="numberOfByesQ">Kolik bodů zdarma může hráč dostat?</string>
@@ -98,7 +97,6 @@ Správce švýcarského turnaje může rozhodnout, zda hráče nechá znovu při
 Hráči, kteří se připojí pozdě, dostanou jeden bod zdarma i když se nezúčastní více kol.</string>
   <string name="willSwissReplaceArenasQ">Nahradí švýcarské turnaje arény?</string>
   <string name="willSwissReplaceArenasA">Ne, obojí má svůj účel.</string>
-  <string name="roundRobinQ">Co systém každý s každým?</string>
   <string name="roundRobinA">Rádi bychom ho přidali, ale bohužel dobře nefunguje online.
 Důvodem je, že nelze spravedlivě naložit s hráči, kteří opustí turnaj předčasně. Nelze očekávat, že všichni hráči budou hrát všechny své hry na online události. To se prostě nestane a v důsledku toho by byly turnaje hrané každý s každým nespravedlivé, což popírá důvod jejich existence.
 Nejvíce se tomu blíží Švýcarský systém s velkým počtem kol, kdy je možné spárovat všechny hráče během doby turnaje.</string>
@@ -134,8 +132,7 @@ Nejvíce se tomu blíží Švýcarský systém s velkým počtem kol, kdy je mo�
   <string name="similarToOTB">Podobné OTB turnajům</string>
   <string name="unlimitedAndFree">Neomezené a zdarma</string>
   <string name="predefinedUsers">Povolit připojení pouze předem definovaným uživatelům</string>
-  <string name="forbiddedUsers">Pokud nebude tento seznam prázdný. Uživatelé uvedení v tomto seznamu se nebudou moct připojit. Pište jedno uživatelské jméno na řádek.</string>
-  <string name="predefinedUsersHelp" comment="Replaces old string forbiddedUsers">Zadejte jedno uživatelské jméno na řádek. Pouze tito hráči se budou moci připojit.
+  <string name="predefinedUsersHelp">Zadejte jedno uživatelské jméno na řádek. Pouze tito hráči se budou moci připojit.
 Nechte prázdné pro povolení všech způsobilých hráčů.</string>
   <string name="playYourGames">Hrajte své hry</string>
   <string name="byes">Propustky</string>

@@ -18,7 +18,6 @@
   <string name="whenReadySetupBoard">Калі ўсе будзе гатова, наладзьце вашу дошку і націсніце %s.</string>
   <string name="ifMoveNotDetected">Калі ход не быў распазнаны</string>
   <string name="reloadThisPage">Абнавіць гэту старонку</string>
-  <string name="dgtConfigure">DGT - Канфігурацыя</string>
   <string name="lichessConnectivity">Злучэнне з Lichess</string>
   <string name="dgtBoardConnectivity">Злучэнне з DGT дошкай</string>
   <string name="webSocketUrl">Адрас WebSocket для %s</string>

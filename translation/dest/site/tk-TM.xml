@@ -179,8 +179,6 @@
     <item quantity="other">Size garşy %s oýun</item>
   </plurals>
   <string name="cancel">Goýbolsun et</string>
-  <string name="whiteTimeOut">Ak wagty gutardy</string>
-  <string name="blackTimeOut">Gara wagty gutardy</string>
   <string name="drawOfferSent">Deňlik teklibi iberildi</string>
   <string name="drawOfferAccepted">Deňlik teklibi kabul edildi</string>
   <string name="whiteOffersDraw">Aklar deňlik teklip edýär</string>
@@ -503,11 +501,9 @@ kompýuter derňewi, oýun çäti we paýlaşmaga URL alýaňyz.</string>
   <string name="aboutSimulRules">Birwagtly sergi başlanda her oýunçy aklarda oýnaýan gurnaýja garşy oýna başlaýar. Ähli oýunlar tamamlananda birwagtly sergi tamamlanýar.</string>
   <string name="aboutSimulSettings">Birwagtly küşt hemişe reýtingsizdir. Ýene oýnama, yza-alym we \"goşmaça wagt\" ýaly funksiýalar beklidir.</string>
   <string name="create">Döret</string>
-  <string name="whenCreateSimul">Birwagtly sergi döredeniňizde şol bir wagtyň özünde birnäçe oýunça garşy oýnarsyňyz.</string>
   <string name="simulVariantsHint">Birnäçe wariant saýlasaňyz her oýunçy öz isleýän wariantyny saýlar.</string>
   <string name="simulClockHint">Fischer sagady düzümi. Näçe köp oýunçy kabul etseňiz şonça köp wagt zerur bolup biler.</string>
   <string name="simulAddExtraTime">Birwagtla uýmak üçin sagadyňyza goşmaça wagt goşup bilersiňiz.</string>
-  <string name="simulHostExtraTime">Gurnaýjynyň sagadynyň goşmaça wagty</string>
   <string name="lichessTournaments">Lichess bäsleşikleri</string>
   <string name="tournamentFAQ">Arena bäsleşikleri hakda ÝÝSS</string>
   <string name="timeBeforeTournamentStarts">Bäsleşik başlamazyndan ozalky wagt</string>
@@ -591,7 +587,6 @@ kompýuter derňewi, oýun çäti we paýlaşmaga URL alýaňyz.</string>
   <string name="invalidFen">Ýörgünsiz FEN</string>
   <string name="custom">Şahsy</string>
   <string name="notifications">Duýduryşlar</string>
-  <string name="perfRatingX">Reýting: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">Ilkinji göçüm üçin %s sekunt</item>
     <item quantity="other">Ilkinji göçüm üçin %s sekunt</item>

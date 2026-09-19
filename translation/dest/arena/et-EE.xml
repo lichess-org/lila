@@ -23,7 +23,6 @@ Berserk ei ole saadaval ajakontrollides, kus algusaeg on 0 (0+1, 0+2).
 Berserk annab lisapunkti ainult siis, kui teete mängus vähemalt 7 käiku.</string>
   <string name="howIsTheWinnerDecided">Kuidas otsustatakse võitja?</string>
   <string name="howIsTheWinnerDecidedAnswer">Mängija(-d), kellel on määratud turniiriaja lõppedes kogunenud kõige enam punkte, kuulutatakse võitja(-te)ks.</string>
-  <string name="howDoesPairingWork">Kuidas toimub paarimine?</string>
   <string name="howDoesPairingWorkAnswer">Turniiri alguses paaritakse mängijad nende reitingu alusel.
 Kui mängu lõpetate, minge tagasi turniiri ooteruumi: seejärel paaritakse Teid sarnase reitinguga mängijaga. See tagab võimalikult lühikese ooteaja, kuid Te ei pruugi saada mängida kõigi turniiril osalevate mängijatega.
 Mängige kiiresti ning naaske ooteruumi, et mängida rohkem mänge ja võita rohkem punkte.</string>

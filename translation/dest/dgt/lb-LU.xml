@@ -20,7 +20,6 @@
   <string name="checkYouHaveMadeOpponentsMove">Kuck fir d\'éischt, ob s du dengem Géigner säin Zuch um DGT-Briet gemaach hues. Huel däin Zuch zeréck a maach en nach eng Kéier.</string>
   <string name="asALastResort">Wa soss näischt méi geet, stell d\'Briet genau sou op wéi Lichess, duerno %s</string>
   <string name="reloadThisPage">Lued dës Säit nei</string>
-  <string name="dgtConfigure">DGT - Konfiguréieren</string>
   <string name="lichessConnectivity">Lichess-Konnektivitéit</string>
   <string name="validDgtOauthToken">Du hues een OAuth-Schlëssel, dee fir DGT-Partië gëeegent ass.</string>
   <string name="dgtPlayMenuEntryAdded">E(n) %s Antrag gouf bei däi SPILL-Menü uewen derbäigesat.</string>
