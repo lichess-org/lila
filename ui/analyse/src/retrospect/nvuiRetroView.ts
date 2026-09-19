@@ -37,16 +37,11 @@ function doneWithMistakes({ spoken, ctrl, focusFriendlyHook }: RetroContext, pre
   const noMistakes = !ctrl.retro.completion()[1];
   return [
     spoken(
-      (prelude ? prelude + '. ' : '') +
-        i18n.site[
-          noMistakes
-            ? ctrl.retro.color === 'white'
-              ? 'noMistakesFoundForWhite'
-              : 'noMistakesFoundForBlack'
-            : ctrl.retro.color === 'white'
-              ? 'doneReviewingWhiteMistakes'
-              : 'doneReviewingBlackMistakes'
-        ],
+      `${prelude ? `${prelude}. ` : ''}${
+        noMistakes
+          ? i18n.site[`noMistakesFoundFor${capitalize(ctrl.retro.color)}`]
+          : i18n.site[`doneReviewing${capitalize(ctrl.retro.color)}Mistakes`]
+      }`,
     ),
     !noMistakes && hl('button.retro-again', focusFriendlyHook(ctrl.retro.reset), i18n.site.doItAgain),
     hl(
