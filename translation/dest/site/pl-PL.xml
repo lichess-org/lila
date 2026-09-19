@@ -890,12 +890,6 @@ Partie rankingowe zwiększą stabilność rankingu.</string>
   <string name="quickPairing">Szybkie parowanie</string>
   <string name="lobby">Poczekalnia</string>
   <string name="anonymous">Anonimowy</string>
-  <plurals name="nbAnonymous">
-    <item quantity="one">Anonimowy</item>
-    <item quantity="few">Anonimowy (%s)</item>
-    <item quantity="many">Anonimowy (%s)</item>
-    <item quantity="other">Anonimowy (%s)</item>
-  </plurals>
   <string name="yourScore">Twój wynik: %s</string>
   <string name="language">Język</string>
   <string name="allLanguages">Wszystkie języki</string>

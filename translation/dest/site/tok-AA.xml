@@ -781,10 +781,6 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="quickPairing">o open musi kepeken tenpo lili</string>
   <string name="lobby">o kama tawa musi open</string>
   <string name="anonymous">jan pi nimi ala</string>
-  <plurals name="nbAnonymous">
-    <item quantity="one">jan pi sona ala</item>
-    <item quantity="other">jan pi sona ala (%s)</item>
-  </plurals>
   <string name="yourScore">nanpa sina: %s</string>
   <string name="language">toki</string>
   <string name="allLanguages">toki ale</string>
