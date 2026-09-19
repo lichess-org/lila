@@ -106,9 +106,12 @@ final class TeamUpdateApi(
     for
       unsubed <- memberRepo.listOfUnsubscribed(team.id)
       _ <- updateRepo.send(msg, unsubed)
-      notification: Notification = Notification(team.id, team.name, shorten(msg.text.value, 40))
+      notification: Notification = Notification(team.id, team.name, markdownToHeadline(msg.text))
       _ = notifySubscribers(team.id, notification) // don't await that!
     yield ()
+
+  private def markdownToHeadline(md: Markdown): String =
+    shorten(md.value.dropWhile(_ == '#'), 40).filterNot(Set('#', '*', '-'))
 
   private def notifySubscribers(teamId: TeamId, notification: Notification): Funit =
     memberRepo.coll
