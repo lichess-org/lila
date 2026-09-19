@@ -1,19 +1,18 @@
 import type { ChartGame, AcplChart } from 'chart';
-import { h, type VNode } from 'snabbdom';
 
 import { requestIdleCallbackSafe } from 'lib';
 import { licon } from 'lib/licon';
 import { pubsub } from 'lib/pubsub';
-import type { TreeNode } from 'lib/tree/types';
-import { bind, onInsert, spinnerVdom } from 'lib/view';
+import { alert, bind, confirm, onInsert, spinnerVdom, dataIcon, hl, type VNode } from 'lib/view';
+import { text } from 'lib/xhr';
 
 import type AnalyseCtrl from '../ctrl';
 import type { AnalyseData } from '../interfaces';
 import { stockfishName } from '../serverSideUnderboard';
 
 export const chartSpinner = (): VNode =>
-  h('div#acpl-chart-container-loader', [
-    h('span', [stockfishName, h('br'), 'Server analysis']),
+  hl('div#acpl-chart-container-loader', [
+    hl('span', [stockfishName, hl('br'), 'Server analysis']),
     spinnerVdom(),
   ]);
 
@@ -37,19 +36,15 @@ export default class ServerEval {
     this.requested = true;
   };
 
-  updateChart = (d: AnalyseData) => this.chart?.updateData(d, this.analysedMainline());
-
-  analysedMainline = (): TreeNode[] =>
-    this.root.mainline.slice(0, (this.root.study?.data.chapter?.serverEval?.path?.length || 999) / 2 + 1);
+  updateChart = (d: AnalyseData) => this.chart?.updateData(d, this.root.mainline);
 }
 
 export function view(ctrl: ServerEval): VNode {
-  const analysis = ctrl.root.data.analysis;
+  const analysis = ctrl.root.staticAnalysis;
 
-  if (!ctrl.root.settings.showStaticAnalysis) return disabled();
-  if (!analysis) return ctrl.requested ? requested() : requestButton(ctrl);
-  const mainline = ctrl.requested ? ctrl.root.data.treeParts : ctrl.analysedMainline();
-  const chart = h('canvas.study__server-eval-canvas.ready.' + analysis.id, {
+  if (!analysis) return ctrl.requested ? requested() : requestButtons(ctrl);
+  const mainline = ctrl.root.mainline;
+  const chart = hl('canvas.study__server-eval-canvas.ready.' + analysis.id, {
     hook: onInsert(el => {
       requestIdleCallbackSafe(async () => {
         (await site.asset.loadEsm<ChartGame>('chart.game'))
@@ -61,31 +56,67 @@ export function view(ctrl: ServerEval): VNode {
 
   const loading =
     !ctrl.root.study?.data.chapter?.serverEval?.done && mainline.find(ctrl.root.partialAnalysisCallback);
-  return h('div.study__server-eval.ready.', loading ? [chart, chartSpinner()] : chart);
+
+  const chartAction = (icon: 'Cogs' | 'X', title: string, action: () => void, cls = '') =>
+    hl(`button.${cls}`, {
+      attrs: { type: 'button', title, 'aria-label': title, ...dataIcon(licon[icon]) },
+      on: { click: e => (e.stopPropagation(), action()) },
+    });
+
+  return hl('div.study__server-eval.analysis-chart.ready', [
+    chart,
+    loading ? chartSpinner() : undefined,
+    hl('div.analysis-chart-actions', [
+      chartAction('Cogs', i18n.study.analysisEditor, () =>
+        site.asset.loadEsm('analyse.local', { init: ctrl.root }),
+      ),
+      (ctrl.root.study!.members.canContribute() || ctrl.root.idbTree.hasLocalAnalysis) &&
+        chartAction(
+          'X',
+          ctrl.root.idbTree.hasLocalAnalysis ? i18n.study.clearLocal : i18n.study.clearPublished,
+          async () => {
+            if (ctrl.root.idbTree.hasLocalAnalysis) {
+              await ctrl.root.idbTree.clear('analysis');
+              site.reload();
+            }
+            if (!(await confirm(`${i18n.study.clearPublished}?`, i18n.site.delete))) return;
+            try {
+              await text(`/analysis/${ctrl.root.opts.study!.id}/${ctrl.chapterId()}`, { method: 'DELETE' });
+              site.reload();
+            } catch (e) {
+              alert(String(e));
+            }
+          },
+          'delete',
+        ),
+    ]),
+  ]);
 }
 
-const disabled = () => h('div.study__server-eval.disabled.padded', 'You disabled computer analysis.');
+const requested = () => hl('div.study__server-eval.requested.padded', spinnerVdom());
 
-const requested = () => h('div.study__server-eval.requested.padded', spinnerVdom());
-
-function requestButton(ctrl: ServerEval) {
+function requestButtons(ctrl: ServerEval) {
   const root = ctrl.root;
-  return h(
-    'div.study__message',
+  return hl(
+    'div.study__analysis',
     root.mainline.length < 5
-      ? h('p', i18n.study.theChapterIsTooShortToBeAnalysed)
-      : !root.study!.members.canContribute()
-        ? [i18n.study.onlyContributorsCanRequestAnalysis]
-        : [
-            h('p', [i18n.study.getAFullComputerAnalysis, h('br'), i18n.study.makeSureTheChapterIsComplete]),
-            h(
-              'a.button.text',
-              {
-                attrs: { 'data-icon': licon.BarChart, disabled: root.mainline.length < 5 },
-                hook: bind('click', ctrl.request, root.redraw),
-              },
-              i18n.site.requestAComputerAnalysis,
-            ),
-          ],
+      ? hl('p', i18n.study.theChapterIsTooShortToBeAnalysed)
+      : [
+          !root.study!.members.canContribute()
+            ? i18n.study.onlyContributorsCanRequestAnalysis
+            : hl(
+                'button.button.text',
+                { hook: bind('click', ctrl.request, root.redraw), attrs: dataIcon(licon.BarChart) },
+                i18n.study.requestAServerAnalysis,
+              ),
+          hl(
+            'button.button.text',
+            {
+              on: { click: () => site.asset.loadEsm('analyse.local', { init: root }) },
+              attrs: dataIcon(licon.Cogs),
+            },
+            i18n.study.deviceLocalAnalysis,
+          ),
+        ],
   );
 }

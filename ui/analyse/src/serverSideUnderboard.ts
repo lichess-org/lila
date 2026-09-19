@@ -53,7 +53,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     pubsub.on('analysis.comp.toggle', (v: boolean) => {
       if (v) {
         setTimeout(() => $menu.find('.computer-analysis').first().trigger('click'), 50);
-      } else {
+      } else if ($menu.find('.computer-analysis.active').length) {
         $menu.find('button:not(.computer-analysis)').first().trigger('click');
       }
     });
@@ -71,14 +71,23 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     if (advChart || site.blindMode) return;
     const loading = !ctrl.tree.root.eval || !Object.keys(ctrl.tree.root.eval).length;
     const $panel = $panels.filter('.computer-analysis');
-    if (!$('#acpl-chart-container').length)
+    if (!$('#acpl-chart-container').length) {
       $panel.html(
-        '<div id="acpl-chart-container"><canvas id="acpl-chart"></canvas></div>' +
-          (loading ? chartLoader() : ''),
+        $html`
+        <div id="acpl-chart-container" class="analysis-chart">
+          <div class="analysis-chart-actions">
+            <i class="analysis-editor" role="button" 
+                 title="${escapeHtml(i18n.study.analysisEditor)}"
+                 data-icon="${licon.Cogs}"></i>
+          </div>
+          <canvas id="acpl-chart"></canvas>
+        </div>
+        ${loading ? chartLoader() : ''}`,
       );
-    else if (loading && !$('#acpl-chart-container-loader').length) $panel.append(chartLoader());
+      $panel.find('.analysis-editor').on('click', () => site.asset.loadEsm('analyse.local', { init: ctrl }));
+    } else if (loading && !$('#acpl-chart-container-loader').length) $panel.append(chartLoader());
     site.asset.loadEsm<ChartGame>('chart.game').then(m => {
-      m.acpl($('#acpl-chart')[0] as HTMLCanvasElement, data, ctrl.serverMainline()).then(chart => {
+      m.acpl($('#acpl-chart')[0] as HTMLCanvasElement, data, ctrl.mainline).then(chart => {
         advChart = chart;
       });
     });
@@ -104,6 +113,8 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
   };
   $menu.on('click', 'button', function (this: HTMLElement) {
     const panel = this.dataset.panel!;
+    if (panel === 'computer-analysis' && !ctrl.settings.showStaticAnalysis)
+      ctrl.settings.set('showStaticAnalysis', true);
     store.set(panel);
     setPanel(panel);
   });
@@ -114,11 +125,17 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
       const display = window.getComputedStyle(this).display;
       return !!display && display !== 'none';
     }).length;
-  if (foundStored) setPanel(stored);
+  if (foundStored && stored === 'computer-analysis' && !ctrl.settings.showStaticAnalysis)
+    $menu.find('button:not(.computer-analysis)').first().trigger('click');
+  else if (foundStored) setPanel(stored);
   else {
     const $menuCt = $menu.children('[data-panel="ctable"]');
     ($menuCt.length ? $menuCt : $menu.children(':first-child')).trigger('click');
   }
+  if (ctrl.idbTree.hasLocalAnalysis) {
+    startAdvantageChart();
+  }
+  $panels.on('click', '.analysis-editor', () => site.asset.loadEsm('analyse.local', { init: ctrl }));
   if (!data.analysis) {
     $panels.find('form.future-game-analysis').on('submit', function (this: HTMLFormElement) {
       if ($(this).hasClass('must-login')) {

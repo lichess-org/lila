@@ -1,5 +1,6 @@
 import { myUserId } from 'lib';
 import { throttle } from 'lib/async';
+import { pubsub } from 'lib/pubsub';
 
 export class Settings {
   constructor(
@@ -44,6 +45,7 @@ export class SettingsCtrl extends Settings {
     const oldValue = this[key];
     if (oldValue === value) return;
     this[key] = value;
+    if (key === 'showStaticAnalysis') pubsub.emit('analysis.comp.toggle', value);
     this.redraw?.();
     this.throttledSave();
   }
