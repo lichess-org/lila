@@ -25,7 +25,6 @@
   <string name="cantChangeMore">No podemos cambiar soque las mayusclas/minusclas. Per razons tecnicas, ye imposible de tot.</string>
   <string name="orCloseAccount">Manimenos, puez zarrar la tuya cuenta actual y crear-ne una nueva.</string>
   <string name="wantClearHistory">Quiero borrar lo mío historial u puntuación</string>
-  <string name="cantClearHistory">No ye posible borrar lo tuyo historial de chuegos, historial de rompecabezas u cualificacions.</string>
   <string name="wantReport">Quiero reportar un chugador</string>
   <string name="toReportAPlayerUseForm">Pa reportar a un chugador, fe servir lo formulario de reporte</string>
   <string name="youCanAlsoReachReportPage">Tamién puez acceder a ixa pachina pretando lo botón %s en un perfil.</string>

@@ -1,6 +1,6 @@
 import { hl, type VNode } from '@/view';
 
-import { colors, type ColorChoice, type ColorProp } from '../color';
+import { colorChoiceName, colors, type ColorChoice, type ColorProp } from '../color';
 import { option } from '../option';
 
 export const blindModeColorPicker = (colorProp: ColorProp): VNode[] => [
@@ -12,7 +12,7 @@ export const blindModeColorPicker = (colorProp: ColorProp): VNode[] => [
         change: (e: Event) => colorProp((e.target as HTMLSelectElement).value as ColorChoice),
       },
     },
-    colors.map(color => option(color, colorProp())),
+    colors.map(color => option({ key: color, name: colorChoiceName(color) }, colorProp())),
   ),
 ];
 
@@ -21,15 +21,15 @@ export const colorButtons = (colorProp: ColorProp): VNode =>
     hl('div.label', i18n.site.side),
     hl(
       'group.radio.color-picker.color-cards',
-      colors.map(({ key, name }) =>
+      colors.map(c =>
         hl('div', [
-          hl(`input#color-picker-${key}`, {
-            attrs: { name: 'color', type: 'radio', value: key, checked: colorProp() === key },
-            on: { change: () => colorProp(key) },
+          hl(`input#color-picker-${c}`, {
+            attrs: { name: 'color', type: 'radio', value: c, checked: colorProp() === c },
+            on: { change: () => colorProp(c) },
           }),
-          hl(`label.card-radio`, { attrs: { for: `color-picker-${key}` } }, [
-            hl('div.color-picker__button', { class: { [key]: true } }, hl('icon')),
-            hl('span.text', name),
+          hl(`label.card-radio`, { attrs: { for: `color-picker-${c}` } }, [
+            hl('div.color-picker__button', { class: { [c]: true } }, hl('icon')),
+            hl('span.text', colorChoiceName(c)),
           ]),
         ]),
       ),

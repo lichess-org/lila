@@ -44,15 +44,12 @@
   <string name="doubleCheckDescription">Kontroleer met twee stukke gelyktydig, as gevolg van \'n ontdekte aanval waar beide die bewegende stuk en die onthulde stuk die teenstander se koning aanval.</string>
   <string name="endgame">Eindspel</string>
   <string name="endgameDescription">\'N Taktiek tydens die laaste fase van die wedstryd.</string>
-  <string name="enPassantDescription">\'N Taktiek waarby die en passant-reël betrokke is, waar \'n pion \'n teenstanderspion kan vang wat dit omseil het met die aanvanklike beweging van twee vierkante.</string>
   <string name="exposedKing">Blootgestelde koning</string>
   <string name="exposedKingDescription">\'N Taktiek waarby \'n koning betrokke was, met min verdedigers rondom, wat dikwels gelei het tot skaakmat.</string>
   <string name="fork">Vurk</string>
-  <string name="forkDescription">\'N Beweging waar die bewegende stuk twee teenstanderstukke gelyktydig aanval.</string>
   <string name="hangingPiece">Hangstuk</string>
   <string name="hangingPieceDescription">\'N Taktiek waarby \'n teenstander onverdedig of onvoldoende verdedig word en vry is om vas te lê.</string>
   <string name="hookMate">Haak mat</string>
-  <string name="hookMateDescription">Skaakmat deur \'n toring, ruiter en pion saam met een van die opponent se pione wat die ontsnapping keer.</string>
   <string name="interference">Inmenging</string>
   <string name="interferenceDescription">Om \'n stuk tussen twee teenstanderstukke te skuif om een ​​of albei teenstanderstukke onverdedig te laat, soos \'n ridder op \'n verdedigde vierkant tussen twee toring.</string>
   <string name="intermezzo">Intermezzo</string>
@@ -90,7 +87,6 @@
   <string name="pin">Speld</string>
   <string name="pinDescription">\'N Taktiek wat spelde insluit, waar \'n stuk nie kan beweeg sonder om \'n aanval op \'n stuk met \'n hoër waarde te openbaar nie.</string>
   <string name="promotion">Promosie</string>
-  <string name="promotionDescription">\'N Pion wat bevorder of dreig om te bevorder, is die sleutel tot die taktiek.</string>
   <string name="queenEndgame">Koningin eindspel</string>
   <string name="queenEndgameDescription">\'N Eindspel met slegs koninginne en pionne.</string>
   <string name="queenRookEndgame">Queen and Rook endgame</string>

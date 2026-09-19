@@ -1,11 +1,13 @@
 import type { MouchEvent, NumberPair } from '@lichess-org/chessground/types';
 import { eventPosition, opposite } from '@lichess-org/chessground/util';
+import { COLORS } from 'chessops';
 import { lichessRules } from 'chessops/compat';
 import { parseFen } from 'chessops/fen';
 import { parseSquare, makeSquare } from 'chessops/util';
 
 import { view as cevalView } from 'lib/ceval';
 import { fenToEpd } from 'lib/game/chess';
+import { variants } from 'lib/game/perf';
 import { licon, type LiconValue } from 'lib/licon';
 import {
   copyMeInput,
@@ -68,8 +70,8 @@ function studyButton(ctrl: EditorCtrl, state: EditorState): VNode {
   ]);
 }
 
-function variantOption(key: VariantKey, name: string, ctrl: EditorCtrl): VNode {
-  return option({ value: key, selected: key === ctrl.variant }, `${i18n.site.variant} | ${name}`);
+function variantOption(key: VariantKey, current: VariantKey): VNode {
+  return option({ value: key, selected: key === current }, `${i18n.site.variant} | ${i18n.variant[key]}`);
 }
 
 function endgamePositionOption(pos: EndgamePosition): VNode {
@@ -82,18 +84,6 @@ function positionOption(pos: OpeningPosition): VNode {
     pos.eco ? `${pos.eco} ${pos.name}` : pos.name,
   );
 }
-
-const ALL_VARIANTS: Array<[VariantKey, string]> = [
-  ['standard', i18n.variant.standard],
-  ['chess960', i18n.variant.chess960],
-  ['kingOfTheHill', i18n.variant.kingOfTheHill],
-  ['threeCheck', i18n.variant.threeCheck],
-  ['crazyhouse', i18n.variant.crazyhouse],
-  ['antichess', i18n.variant.antichess],
-  ['atomic', i18n.variant.atomic],
-  ['horde', i18n.variant.horde],
-  ['racingKings', i18n.variant.racingKings],
-];
 
 function controlsButtonStart(ctrl: EditorCtrl, icon?: LiconValue) {
   return button(
@@ -183,27 +173,30 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
             },
             props: { value: ctrl.turn },
           },
-          (['whitePlays', 'blackPlays'] as const).map(key =>
+          COLORS.map(c =>
             option(
               {
-                value: key.startsWith('w') ? 'white' : 'black',
-                selected: key.startsWith(ctrl.turn[0]),
+                value: c,
+                selected: c === ctrl.turn,
               },
-              i18n.site[key],
+              i18n.site[`${c}Plays`],
             ),
           ),
         ),
       ),
       div('.castling', [
         strong(i18n.site.castling),
-        div([
-          castleCheckBox(ctrl, 'K', i18n.site.whiteCastlingKingside, !!ctrl.options.inlineCastling),
-          castleCheckBox(ctrl, 'Q', 'O-O-O', true),
-        ]),
-        div([
-          castleCheckBox(ctrl, 'k', i18n.site.blackCastlingKingside, !!ctrl.options.inlineCastling),
-          castleCheckBox(ctrl, 'q', 'O-O-O', true),
-        ]),
+        ...COLORS.map(c =>
+          div([
+            castleCheckBox(
+              ctrl,
+              c === 'white' ? 'K' : 'k',
+              i18n.site[`${c}CastlingKingside`],
+              !!ctrl.options.inlineCastling,
+            ),
+            castleCheckBox(ctrl, c === 'white' ? 'Q' : 'q', 'O-O-O', true),
+          ]),
+        ),
       ]),
       div('.enpassant', [
         label({ for: 'enpassant-select' }, i18n.site.enPassant),
@@ -280,7 +273,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
                   },
                 },
               },
-              ALL_VARIANTS.map(x => variantOption(x[0], x[1], ctrl)),
+              variants.map(variant => variantOption(variant, ctrl.variant)),
             ),
           ]),
           chess960PositionIdSelector,

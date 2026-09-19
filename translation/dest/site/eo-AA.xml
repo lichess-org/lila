@@ -137,25 +137,13 @@
   <string name="blunder">Erarego</string>
   <string name="mistake">Eraro</string>
   <string name="inaccuracy">Erareto</string>
-  <plurals name="nbBlunders">
-    <item quantity="one">%s erarego</item>
-    <item quantity="other">%s eraregoj</item>
-  </plurals>
   <plurals name="numberBlunders">
     <item quantity="one">%s Erarego</item>
     <item quantity="other">%s Eraregoj</item>
   </plurals>
-  <plurals name="nbMistakes">
-    <item quantity="one">%s eraro</item>
-    <item quantity="other">%s eraroj</item>
-  </plurals>
   <plurals name="numberMistakes">
     <item quantity="one">%s Eraro</item>
     <item quantity="other">%s Eraroj</item>
-  </plurals>
-  <plurals name="nbInaccuracies">
-    <item quantity="one">%s erareto</item>
-    <item quantity="other">%s eraretoj</item>
   </plurals>
   <plurals name="numberInaccuracies">
     <item quantity="one">%s Erareto</item>
@@ -257,7 +245,6 @@
   <string name="emailSent">Ni sendis retleteron al %s.</string>
   <string name="emailCanTakeSomeTime">Ĝi povas preni iom da tempo por alveni.</string>
   <string name="refreshInboxAfterFiveMinutes">Atendu 5 minutojn kaj reŝargu vian retpoŝtan enirkeston.</string>
-  <string name="checkSpamFolder">Ankaŭ kontrolu vian trudmesaĝujon, ĝi povus alveni tie. Se estas tiel, marku ĝin kiel ne truda.</string>
   <string name="accountConfirmed">La uzanto %s estis konfirmita sukcese.</string>
   <string name="accountCanLogin">Vi povas ensaluti tuje kiel %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Vi ne devas konfirmo-retpoŝtaĵon.</string>
@@ -280,8 +267,6 @@
   </plurals>
   <string name="ok">Bone</string>
   <string name="cancel">Nuligi</string>
-  <string name="whiteTimeOut">La tempo de blanko finiĝis</string>
-  <string name="blackTimeOut">La tempo de nigro finiĝis</string>
   <string name="drawOfferSent">Egalvenka propono estis sendita</string>
   <string name="drawOfferAccepted">Egalvenka propono estis akceptita</string>
   <string name="whiteOffersDraw">Blanko proponas egalvenkon</string>
@@ -402,7 +387,6 @@
     <item quantity="other">Vi devas ludi %s pli de taksaj ludoj</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Via rango de %s estas provizora</string>
-  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">La rangaj filtriloj estas blokitaj ĉar via rango ne estas stabila. Ju pli da rangaj ludoj vi ludas des pli stabila estos via rango.</string>
   <string name="yourPerfRatingIsTooHigh">Via rango %1$s (%2$s) estas tro alta</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Via plej alta semajna rango en %1$s (%2$s) estas tro alta</string>
   <string name="yourPerfRatingIsTooLow">Via rango %1$s (%2$s) estas tro malalta</string>
@@ -574,7 +558,6 @@
   <string name="other">Io alia</string>
   <string name="reportCheatBoostHelp">Algluu ligilon al la ludo(j) kaj klarigu, kio malĝustas pri la konduto de tiu ĉi uzanto. Ne simple diru \"ili filudis\", sed klarigu kiel vi atingis tiun konkludon.</string>
   <string name="reportUsernameHelp">Klarigu kio estas ofenda en la nomo de tiu ĉi uzanto. Ne simple diru \"ĝi estas ofenda/maldeca\" sed rakontu al ni kiel vi atingis tiun konkludon, ĉefe se temas kaŝita ofendo, se ĝi ne estas en la angla, se ĝi apartenas al nenorma lingvaĵo aŭ se ĝi referas ion kulturan aŭ historian.</string>
-  <string name="reportProcessedFasterInEnglish">Via raporto estos pritraktita pli rapide se vi ĝin skribas en la angla.</string>
   <string name="error.provideOneCheatedGameLink">Bonvolu doni almenaŭ unu ligilon al ludo por kontrolo.</string>
   <string name="by">de %s</string>
   <string name="importedByX">Importita de %s</string>
@@ -698,11 +681,9 @@
   <string name="aboutSimulRules">Kiam la samtempludo komenciĝas, ĉiu ludanto komencas ludon kontraŭ la gastiganto, kiu ludu per la blankaj ŝakpecoj. La samtempludo finiĝas kiam ĉiuj ludoj estas finitaj.</string>
   <string name="aboutSimulSettings">Samtempludoj ĉiam estas amikaj. Redefioj, reprenoj kaj plia tempo ne eblas.</string>
   <string name="create">Krei</string>
-  <string name="whenCreateSimul">Kiam vi kreas samtempludon, vi povas ludi kontraŭ multaj ludantoj samtempe.</string>
   <string name="simulVariantsHint">Se vi elektas multajn variaĵojn, ĉiu ludanto povas laŭvole elekti unu el la variaĵoj.</string>
   <string name="simulClockHint">Ŝakhorloĝo. Ju pli da ludantoj kiujn vi defios, des pli da tempo kiun vi eble bezonos.</string>
   <string name="simulAddExtraTime">Vi povas aldoni plian tempon al via ŝakhorloĝo por helpi vian ludadon.</string>
-  <string name="simulHostExtraTime">Plia tempo por la gastiganto</string>
   <string name="simulAddExtraTimePerPlayer">Aldoni komencan tempon al via horloĝo por ĉiu ludanto, kiu aliĝis al la samtempludo.</string>
   <string name="simulHostExtraTimePerPlayer">Plia tempo por la gastiganto po ludanto</string>
   <string name="lichessTournaments">Turniroj de Lichess</string>
@@ -825,7 +806,6 @@
   <string name="custom">Propra</string>
   <string name="notifications">Sciigoj</string>
   <string name="notificationsX">Sciigoj: %1$s</string>
-  <string name="perfRatingX">Rango: %s</string>
   <string name="yourRatingIsX">Via rango estas %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekundo por ludi la unuan movon</item>
@@ -884,7 +864,6 @@
     <item quantity="other">kaj savi %s antaŭmovajn vicojn</item>
   </plurals>
   <string name="showUnreadLichessMessage">Vi ricevis privatan mesaĝon de Lichess.</string>
-  <string name="clickHereToReadIt">Alklaku ĉi tie por legi ĝin</string>
   <string name="sorry">Bedaŭrinde :(</string>
   <string name="weHadToTimeYouOutForAWhile">Ni devis provizore suspendi vin.</string>
   <string name="why">Kial?</string>
@@ -974,7 +953,6 @@ Lasi ĝin malplena por komenci ludojn de la norma komenca pozicio.</string>
   <string name="noChat">Malaktivigi babilejon</string>
   <string name="onlyTeamLeaders">Nuraj teamaj gvidantoj</string>
   <string name="onlyTeamMembers">Nuraj teamaj membroj</string>
-  <string name="navigateMoveTree">Navigi la movarbon</string>
   <string name="mouseTricks">Musaj lertaĵoj</string>
   <string name="toggleLocalAnalysis">Baskuligu lokan komputilan analizon</string>
   <string name="toggleAllAnalysis">Baskuligu ĉiujn komputilan analizon</string>

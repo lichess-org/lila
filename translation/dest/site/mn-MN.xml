@@ -117,10 +117,6 @@
   <string name="blunder">Ноцтой алдаа</string>
   <string name="mistake">Алдаа</string>
   <string name="inaccuracy">Оновчгүй нүүдэл</string>
-  <plurals name="nbInaccuracies">
-    <item quantity="one">%s-ийн оновчгүй нүүдэл</item>
-    <item quantity="other">%s-ийн оновчгүй нүүдэл</item>
-  </plurals>
   <plurals name="numberInaccuracies">
     <item quantity="one">%s-Ийн оновчгүй нүүдэл</item>
     <item quantity="other">%s-Ийн оновчгүй нүүдэл</item>
@@ -213,7 +209,6 @@
   <string name="emailSent">Бид %s-луу email явууллаа.</string>
   <string name="emailCanTakeSomeTime">Очиход удаж магадгүй.</string>
   <string name="refreshInboxAfterFiveMinutes">5 минут хүлээгээд email-ийнхээ хуудсыг дахин ачааллуулж үзнэ үү.</string>
-  <string name="checkSpamFolder">Баталгаажуулах email тань мөн spam хэсэг дээр байж магадгүй тул бас шалгаад үзээрэй.</string>
   <string name="accountConfirmed">Ашиглагч %s бүртгэлийг амжилттай баталгаажууллаа.</string>
   <string name="accountCanLogin">Та одооноос %s нэрээр нэвтрэх боломжтой боллоо.</string>
   <string name="accountConfirmationEmailNotNeeded">Танд баталгаажуулах email хэрэггүй.</string>
@@ -231,8 +226,6 @@
     <item quantity="other">%s өрөг таньтай тоглосон байна</item>
   </plurals>
   <string name="cancel">Цуцлах</string>
-  <string name="whiteTimeOut">Цагааны цаг дуусчихлаа тийм ээ</string>
-  <string name="blackTimeOut">Харын цаг дуусчихлаа тийм ээ</string>
   <string name="drawOfferSent">Тэнцэх санал илгээлээ</string>
   <string name="drawOfferAccepted">Тэнцэх саналыг зөвшөөрлөө</string>
   <string name="whiteOffersDraw">Цагаан тэнцэхийг санал болгож байна</string>
@@ -598,11 +591,9 @@
   <string name="aboutSimulRules">Үндсэн тоглогч цагаан талаар нүүнэ. Зэрэгцээ  өрөг бүх тоглолтууд дууссанаар өндөрлөнө.</string>
   <string name="aboutSimulSettings">Зэрэгцээ өрөг нь чансаа өөрчлөгддөггүй өрөг бөгөөд дахин тоглох, нүүдэл буцаах, цаг нэмж өгөх боломжгүй онцлогтой.</string>
   <string name="create">Шинэ өрөг үүсгэх</string>
-  <string name="whenCreateSimul">Тэ зэрэгцээ өрөг үүсгэвэл нэг зэрэг олон тоглогчидтой тоглох болно.</string>
   <string name="simulVariantsHint">Хэрэв та шатрын хэд хэдэн төрлийг сонговол эсрэг тоглогч аль төрлөөр тоглохыг сонгоно</string>
   <string name="simulClockHint">Фишерийн цагын тохиргоо. Олон тоглогчидтой тоглох тусам таньд илүү их цаг хэрэгтэй болно.</string>
   <string name="simulAddExtraTime">Зэрэгцээ  өрөг тоглож буй үед та өөртөө нэмэлт хугацаа өгч болно.</string>
-  <string name="simulHostExtraTime">Зэрэгцээ өрөг үүсгэгчийн нэмэлт цаг</string>
   <string name="lichessTournaments">Личессийн тэмцээнүүд</string>
   <string name="tournamentFAQ">Тэмцээний талаарх түгээмэл асуулт хариултууд</string>
   <string name="timeBeforeTournamentStarts">Тэмцээн эхлэх хүртэлх хугацаа</string>
@@ -688,7 +679,6 @@
   <string name="invalidFen">Буруу FEN</string>
   <string name="custom">Өөрийнхөөр</string>
   <string name="notifications">Мэдэгдэлүүд</string>
-  <string name="perfRatingX">Чансаа:%s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">Эхний нүүдэл хийхэд %s секунд байна</item>
     <item quantity="other">Эхний нүүдэл хийхэд %s секунд байна</item>
@@ -737,7 +727,6 @@
   <string name="endgame">Төгсгөл үе</string>
   <string name="conditionalPremoves">Нөхцөлт түрүүлж нүүлтүүд</string>
   <string name="playX">%s-г тоглох</string>
-  <string name="clickHereToReadIt">Уншихын тулд энэн дээр дарна уу</string>
   <string name="sorry">Уучлаарай</string>
   <string name="weHadToTimeYouOutForAWhile">Таныг тоглох эрхийг түр хязгаарлах хэрэг гарлаа.</string>
   <string name="why">Яагаад</string>

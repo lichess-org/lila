@@ -27,7 +27,6 @@
   <string name="capturingDefender">Dreptu varnarmanninn</string>
   <string name="capturingDefenderDescription">Að fjarlægja taflmann sem er mikilvægur fyrir völd annars taflmanns, svo að hinn óvaldaði taflmaður geti verið drepinn í næsta leik.</string>
   <string name="cornerMate">Hornsmát</string>
-  <string name="cornerMateDescription">Króaðu kónginn af í horninu með hrók eða drottningu og notaðu svo riddara til að ljúka við mátunina.</string>
   <string name="crushing">Algerir yfirburðir</string>
   <string name="crushingDescription">Komdu auga á afleik andstæðingsins til að ná algerum yfirburðum. (mat ≥ 600sp)</string>
   <string name="discoveredCheck">Skák með fráleik</string>
@@ -52,15 +51,12 @@
   <string name="doubleCheckDescription">Þegar tveir taflmenn skáka samtímis, sem er afleiðing af fráleik þar sem bæði sá taflmaður sem er færður og sá sem er afhjúpaður hóta kóngi andstæðingsins.</string>
   <string name="endgame">Endatafl</string>
   <string name="endgameDescription">Bragðvísi sem kemur upp á endastigi skákarinnar.</string>
-  <string name="enPassantDescription">Bragðvísi sem felur í sér regluna um framhjáhlaup, þar sem peð getur drepið peð andstæðings sem hefur farið framhjá því með því að leika um tvo reiti fram af upphaflegum reit sínum.</string>
   <string name="exposedKing">Óvaldaður kóngur</string>
   <string name="exposedKingDescription">Bragðvísi sem felur í sér kóng með fáa taflmenn sem valda hann, sem oft leiðir til máts.</string>
   <string name="fork">Gaffall</string>
-  <string name="forkDescription">Leikur sem felur í sér að manni sem er leikið hóti tveimur mönnum andstæðingsins samtímis.</string>
   <string name="hangingPiece">Hangandi peð</string>
   <string name="hangingPieceDescription">Bragðvísi sem felur í sér að maður andstæðingsins sé óvaldaður eða illa valdaður og er í boði að drepa hann.</string>
   <string name="hookMate">Krókamát</string>
-  <string name="hookMateDescription">Mát með hrók, riddara og peði, auk eins peðs andstæðingsins sem takmarkar flóttamöguleika kóngsins.</string>
   <string name="interference">Truflun</string>
   <string name="interferenceDescription">Þegar taflmaður er færður á milli tveggja taflmanna andstæðingsins til að gera annan eða báða óvaldaða, eins og riddari á völduðum reit á milli tveggja hróka.</string>
   <string name="intermezzo">Millileikur</string>
@@ -68,9 +64,7 @@
   <string name="killBoxMate">Frúarmát með hrók og biskup</string>
   <string name="killBoxMateDescription">Hrókur er við hlið fjandkóngsins og studdur af drottningu sem einnig lokar fyrir flóttareiti kóngsins. Hrókurinn og drottningin fanga fjandkónginn í 3x3 reita kassa.</string>
   <string name="pillsburysMate">Pillsbury-mát</string>
-  <string name="pillsburysMateDescription">Hrókurinn mátar á meðan biskupinn hjálpar til við að króa kónginn af.</string>
   <string name="morphysMate">Morphy-mát</string>
-  <string name="morphysMateDescription">Notaðu biskupinn til að skáka kóngnum á meðan hrókurinn hjálpar til við að króa hann af.</string>
   <string name="triangleMate">Þríhyrningsmát</string>
   <string name="triangleMateDescription">Drottningin og hrókurinn eru í eins reits fjarlægð frá kóngi andstæðingsins. Þeir eru á sömu línu eða röð, með einn auðan reit á milli sín, þannig að þeir mynda þríhyrning.</string>
   <string name="vukovicMate">Vukovic-mát</string>
@@ -108,7 +102,6 @@
   <string name="pin">Leppun</string>
   <string name="pinDescription">Bragðvísi sem felur í sér leppanir, þar sem taflmaður getur ekki hreyft sig án þess að dýrmætur maður falli fyrir verðminni manni.</string>
   <string name="promotion">Að vekja upp hættulegri taflmann</string>
-  <string name="promotionDescription">Vaktu upp drottningu eða minni háttar taflmann með einu peði þínu.</string>
   <string name="queenEndgame">Endatafl með drottningum</string>
   <string name="queenEndgameDescription">Endatafl með einungis drottningum og peðum.</string>
   <string name="queenRookEndgame">Drottning og hrók</string>

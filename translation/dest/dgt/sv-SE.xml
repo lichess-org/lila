@@ -20,7 +20,6 @@
   <string name="checkYouHaveMadeOpponentsMove">Kontrollera att du har gjort din motståndares drag på DGT-brädet först. Återställ ditt drag. Spela igen.</string>
   <string name="asALastResort">Som en sista utväg, ställ upp brädet identiskt med Lichess, och %s</string>
   <string name="reloadThisPage">Ladda om denna sida</string>
-  <string name="dgtConfigure">DGT - Inställningar</string>
   <string name="lichessConnectivity">Lichess-anslutning</string>
   <string name="validDgtOauthToken">Du har en OAuth-token som är lämplig för DGT-partier.</string>
   <string name="dgtPlayMenuEntryAdded">En %s -post lades till i din SPELA-meny högst upp.</string>

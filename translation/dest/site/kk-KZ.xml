@@ -130,25 +130,13 @@
   <string name="blunder">Өрескел қателік</string>
   <string name="mistake">Қателік</string>
   <string name="inaccuracy">Жеңіл қате</string>
-  <plurals name="nbBlunders">
-    <item quantity="one">%s өрескел қателік</item>
-    <item quantity="other">%s өрескел қателік</item>
-  </plurals>
   <plurals name="numberBlunders">
     <item quantity="one">%s Өрескел қателік</item>
     <item quantity="other">%s Өрескел қателік</item>
   </plurals>
-  <plurals name="nbMistakes">
-    <item quantity="one">%s қателік</item>
-    <item quantity="other">%s қателік</item>
-  </plurals>
   <plurals name="numberMistakes">
     <item quantity="one">%s Қателік</item>
     <item quantity="other">%s Қателік</item>
-  </plurals>
-  <plurals name="nbInaccuracies">
-    <item quantity="one">%s ағаттық</item>
-    <item quantity="other">%s ағаттық</item>
   </plurals>
   <plurals name="numberInaccuracies">
     <item quantity="one">%s Ағаттық</item>
@@ -248,7 +236,6 @@
   <string name="emailSent">%s поштасына хат жібердік.</string>
   <string name="emailCanTakeSomeTime">Жетуіне біршама уақыт керек.</string>
   <string name="refreshInboxAfterFiveMinutes">5 минут күтіп, поштаңыздың бетін жаңартып көріңіз.</string>
-  <string name="checkSpamFolder">Сонымен қатар, Спам қалтасында қарап көріңіз. Хат сонда болса, \"Спам емес\" деп белгілеу жөн болар.</string>
   <string name="accountConfirmed">%s тіркелгісі расталды.</string>
   <string name="accountCanLogin">%s атымен дәл қазір тіркелкіге кіре аласыз.</string>
   <string name="accountConfirmationEmailNotNeeded">Сізге растау хаты керек емес.</string>
@@ -271,8 +258,6 @@
   </plurals>
   <string name="ok">Иә</string>
   <string name="cancel">Болдыртпау</string>
-  <string name="whiteTimeOut">Ақтың уақыты бітті</string>
-  <string name="blackTimeOut">Қараның уақыты бітті</string>
   <string name="drawOfferSent">Тепе-теңдік сұрауда</string>
   <string name="drawOfferAccepted">Тепе-теңдікке келісті</string>
   <string name="whiteOffersDraw">Ақ тепе-теңдік сұрауда</string>
@@ -553,7 +538,6 @@
   <string name="other">Басқа</string>
   <string name="reportCheatBoostHelp">Ойын сілтемесін қойып, осы ойыншының қай әрекеті орынсыз болғанын түсіндіріп беріңіз. Жай ғана \"ол алдап ойнады\" демей, осы ойға қалай келгеніңізді айтып беріңіз.</string>
   <string name="reportUsernameHelp">Осы ойыншы аты неге қорлау болып көрінетінін айтып беріңіз. Жай ғана \"Бұл қорлау/орынсыз\" демей, осы ойға қалай келгеніңізді жайып берсеңіз жөн. Әсіресе, қорлау жасырын түрде не ағылшын тілде емес не сленг не тарихи, мәдени бір сілтеме түрінде болса, түсіндірмеңіз қажет.</string>
-  <string name="reportProcessedFasterInEnglish">Шағымды ағылшынша жазсаңыз, шешім тезірек шығатын болады.</string>
   <string name="error.provideOneCheatedGameLink">Кемі бір ойынның сілтемесін беруіңізді сұраймыз.</string>
   <string name="by">жасаған – %s</string>
   <string name="importedByX">Жүктеп салған – %s</string>
@@ -676,11 +660,9 @@
   <string name="aboutSimulRules">Қалың ойын басталысымен әр ойыншы бас ойыншымен бел ұстасады. Барлық ішкі ойындар аяқталғанда, жалпы ойын да аяқталады.</string>
   <string name="aboutSimulSettings">Қалың ойын – әрқашанда жай ойын. Қайта ойнау, жүрісті қайтару, уақыт қосу дегендер болмайды.</string>
   <string name="create">Құру</string>
-  <string name="whenCreateSimul">Сіз қалың ойын құрғанда, бір мезгілде бірнеше қарсыласпен ойнайсыз.</string>
   <string name="simulVariantsHint">Егер сіз бірнеше шахмат түрін таңдасаңыз, әр ойыншы соның арасынан біреуін таңдайды.</string>
   <string name="simulClockHint">Фишер Сағатын баптау. Қарсыластарыңыз көп болса, уақыт та көп қажет.</string>
   <string name="simulAddExtraTime">Қалың ойынды жеңілдету үшін өзіңізге қосымша уақыт қоса аласыз.</string>
-  <string name="simulHostExtraTime">Бас ойыншының қосымша уақыты</string>
   <string name="simulAddExtraTimePerPlayer">Жаңа кірген әр ойыншы үшін өзіңіздің бастапқы уақытыңызды көбейту.</string>
   <string name="simulHostExtraTimePerPlayer">Әр ойыншы үшін бас ойыншыға берілетін қосымша уақыт</string>
   <string name="lichessTournaments">Личес жарыстары</string>
@@ -800,7 +782,6 @@
   <string name="custom">Басқа</string>
   <string name="notifications">Хабарлама</string>
   <string name="notificationsX">Хабарламалар: %1$s</string>
-  <string name="perfRatingX">Рейтинг: %s</string>
   <string name="yourRatingIsX">Сіздің рейтингіңіз %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">Бірінші жүріске %s секунд бар</item>
@@ -858,7 +839,6 @@
     <item quantity="other">әрі ертелі жүрістердің %s жолын сақтау</item>
   </plurals>
   <string name="showUnreadLichessMessage">Сізге Личестен жеке хат келді.</string>
-  <string name="clickHereToReadIt">Осында басып оқыңыз</string>
   <string name="sorry">Өкінішті-ақ :(</string>
   <string name="weHadToTimeYouOutForAWhile">Сізді уақытша шектеуге мәжбүрміз.</string>
   <string name="why">Себебі қандай?</string>
@@ -948,7 +928,6 @@
   <string name="noChat">Сұхбатты өшіру</string>
   <string name="onlyTeamLeaders">Тек топ жетекшілері</string>
   <string name="onlyTeamMembers">Тек топ мүшелері</string>
-  <string name="navigateMoveTree">Жүрістер тізімін шолу</string>
   <string name="mouseTricks">Тіңтуір әдістері</string>
   <string name="toggleLocalAnalysis">Өз компьютеріңізде талдауды қосу</string>
   <string name="toggleAllAnalysis">Барлық компьютер талдауларын қосу</string>

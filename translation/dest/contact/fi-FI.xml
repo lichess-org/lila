@@ -25,7 +25,7 @@
   <string name="cantChangeMore">Pienien ja isojen kirjainten vaihtamista lukuun ottamatta mitään ei voi muuttaa. Teknisistä syistä se on suorastaan mahdotonta.</string>
   <string name="orCloseAccount">Voit kuitenkin sen sijaan sulkea nykyisen tunnuksesi ja avata uuden.</string>
   <string name="wantClearHistory">Haluan tyhjentää historiani tai vahvuuslukuni</string>
-  <string name="cantClearHistory">Pelihistoriaasi, tehtävähistoriaasi tai vahvuuslukuja ei voi tyhjentää.</string>
+  <string name="cantClearHistoryOrResetRatings">Pelihistoriasi, tehtävähistoriasi tai vahvuuslukujesi nollaaminen ei ole mahdollista.</string>
   <string name="wantReport">Haluan ilmoittaa pelaajan</string>
   <string name="toReportAPlayerUseForm">Ilmoittaaksesi pelaajasta, käytä raporttilomaketta</string>
   <string name="youCanAlsoReachReportPage">Pääset samalle sivulle myös klikkaamalla %s ilmoitusnappia pelaajan profiilisivulla.</string>

@@ -21,15 +21,14 @@
   <string name="puzzleRead">Acesso à atividade de problemas</string>
   <string name="teamRead">Acesso a informações privadas da equipe</string>
   <string name="teamWrite">Permitir entrar e sair de equipes</string>
-  <string name="teamLead">Administre suas equipes: envie mensagens privadas, expulse membros</string>
-  <string name="manageTeamsYouLead" comment="Replaces old string teamLead">Gerenciar as equipes que você lidera: enviar mensagens diretas, expulsar membros</string>
+  <string name="manageTeamsYouLead">Gerenciar as equipes que você lidera: enviar mensagens diretas, expulsar membros</string>
   <string name="followRead">Acesso à lista de usuários seguidos</string>
   <string name="followWrite">Permitir (parar de) seguir outros usuários</string>
   <string name="msgWrite">Permitir enviar mensagens privadas a outros usuários</string>
   <string name="boardPlay">Jogar com a API de tabuleiro</string>
   <string name="botPlay">Jogar partidas com a API de bots</string>
   <string name="engineRead">Permitir ver e usar seus softwares de assistência externos</string>
-  <string name="engineWrite">Permitir criar e atualizar softwares de assistência externos</string>
+  <string name="engineWrite">Permitir criar e atualizar motores externos</string>
   <string name="webMod">Permitir usar ferramentas de moderador (com restrições)</string>
   <string name="personalAccessTokens">Chaves de acesso pessoal à API</string>
   <string name="canMakeOauthRequests">Você pode fazer solicitações OAuth sem passar pelo %s.</string>

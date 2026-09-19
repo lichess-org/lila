@@ -3,8 +3,9 @@ import { COLORS, opposite } from 'chessops';
 
 import { isTouchDevice } from 'lib/device';
 import { type Player, type TopOrBottom, playable } from 'lib/game';
-import { plyToTurn } from 'lib/game/chess';
+import { capitalize, plyToTurn } from 'lib/game/chess';
 import { renderClock } from 'lib/game/clock/clockView';
+import { perfName } from 'lib/game/perf';
 import * as nv from 'lib/nvui/chess';
 import { commands, boardCommands } from 'lib/nvui/command';
 import { scanDirectionsHandler } from 'lib/nvui/directionScan';
@@ -146,7 +147,7 @@ function gameInfo(ctx: RoundNvuiContext): LooseVNodes {
     hl('h1', gameText(ctrl)),
     hl('h2', i18n.nvui.gameInfo),
     COLORS.map(color => hl('p', [i18n.site[color], ':', playerHtml(ctrl, ctrl.playerByColor(color))])),
-    hl('p', [i18n.site[d.game.rated ? 'rated' : 'casual'] + ' ' + transGamePerf(d.game.perf)]),
+    hl('p', [i18n.site[d.game.rated ? 'rated' : 'casual'] + ' ' + perfName(d.game.perf)]),
     d.clock ? hl('p', [i18n.site.clock, `${d.clock.initial / 60} + ${d.clock.increment}`]) : null,
     hl('h2', i18n.nvui.moveList),
     hl('p.moves', { attrs: { role: 'log', 'aria-live': 'off' } }, renderMoves(d.steps.slice(1), style)),
@@ -545,12 +546,12 @@ function gameText(ctrl: RoundController) {
   return [
     d.game.status.name === 'started'
       ? ctrl.isPlaying()
-        ? i18n.site[ctrl.data.player.color === 'white' ? 'youPlayTheWhitePieces' : 'youPlayTheBlackPieces']
+        ? i18n.site[`youPlayThe${capitalize(ctrl.data.player.color)}Pieces`]
         : 'Spectating.'
       : i18n.site.gameOver,
     i18n.site[ctrl.data.game.rated ? 'rated' : 'casual'],
     d.clock ? `${d.clock.initial / 60} + ${d.clock.increment}` : '',
-    transGamePerf(d.game.perf),
+    perfName(d.game.perf),
     i18n.site.gameVsX(playerText(ctrl)),
   ].join(' ');
 }
@@ -566,5 +567,3 @@ function nextOrPrev(ctrl: RoundController) {
     else if (e.key === 'D') doAndRedraw(ctrl, next);
   };
 }
-
-const transGamePerf = (perf: string): string => (i18n.site[perf as keyof typeof i18n.site] as string) || perf;

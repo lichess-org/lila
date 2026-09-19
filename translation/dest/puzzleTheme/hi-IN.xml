@@ -44,15 +44,12 @@
   <string name="doubleCheckDescription">एक बार में दो टुकड़ों के साथ जाँच, एक खोज हमले के परिणामस्वरूप जहां चलती टुकड़ा और अनावरण टुकड़ा दोनों प्रतिद्वंद्वी के राजा पर हमला करते हैं।</string>
   <string name="endgame">एंडगेम</string>
   <string name="endgameDescription">खेल के अंतिम चरण के दौरान एक रणनीति।</string>
-  <string name="enPassantDescription">एन पास के नियम को शामिल करने वाली एक रणनीति, जहां एक मोहरा एक प्रतिद्वंद्वी मोहरे को पकड़ सकता है जिसने अपने शुरुआती दो-वर्ग चाल का उपयोग करके इसे बाईपास किया है।</string>
   <string name="exposedKing">उजागर राजा</string>
   <string name="exposedKingDescription">एक रणनीति जिसमें इसके चारों ओर कुछ रक्षकों के साथ एक राजा होता है, अक्सर चेकमेट के लिए अग्रणी होता है।</string>
   <string name="fork">कांटा</string>
-  <string name="forkDescription">एक चाल जहां स्थानांतरित टुकड़ा एक बार में दो प्रतिद्वंद्वी टुकड़ों पर हमला करता है।</string>
   <string name="hangingPiece">लटकता हुआ टुकड़ा</string>
   <string name="hangingPieceDescription">किसी विरोधी टुकड़े को अपरिभाषित या अपर्याप्त रूप से संरक्षित करने और कब्जा करने के लिए स्वतंत्र होने वाली रणनीति।</string>
   <string name="hookMate">हुक मात</string>
-  <string name="hookMateDescription">शत्रु राजा के भागने को सीमित करने के लिए एक शत्रु प्यादा के साथ एक हाथी, घोड़ा और प्यादा के साथ चेकमेट।</string>
   <string name="interference">दखल अंदाजी</string>
   <string name="interferenceDescription">दो प्रतिद्वंद्वी टुकड़ों के बीच एक टुकड़े को स्थानांतरित करना एक या दोनों प्रतिद्वंद्वी टुकड़ों को अपरिभाषित करना, जैसे कि दो बदमाशों के बीच बचाव चौक पर एक नाइट।</string>
   <string name="intermezzo">इंटेरमेस्सो</string>
@@ -88,7 +85,6 @@
   <string name="pin">पिन</string>
   <string name="pinDescription">एक टैक्टिक जिसमें पिन शामिल होता है, जहां एक टुकड़ा उच्च मूल्य के टुकड़े पर हमले का खुलासा किए बिना स्थानांतरित करने में असमर्थ होता है।</string>
   <string name="promotion">पदोन्नति</string>
-  <string name="promotionDescription">प्रचार करने या धमकी देने वाला मोहरा रणनीति की कुंजी है।</string>
   <string name="queenEndgame">वज़ीर एंडगेम</string>
   <string name="queenEndgameDescription">केवल वज़ीरों और प्यादों के साथ एक एंडगेम।</string>
   <string name="queenRookEndgame">वज़ीर और हाथी</string>

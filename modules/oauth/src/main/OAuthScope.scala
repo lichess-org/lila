@@ -63,7 +63,7 @@ object OAuthScope:
   object Team:
     case object Read extends OAuthScope("team:read", trans.teamRead)
     case object Write extends OAuthScope("team:write", trans.teamWrite)
-    case object Lead extends OAuthScope("team:lead", trans.teamLead)
+    case object Lead extends OAuthScope("team:lead", trans.manageTeamsYouLead)
 
   object Follow:
     case object Read extends OAuthScope("follow:read", trans.followRead)

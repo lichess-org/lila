@@ -25,8 +25,7 @@ Berserk osigurava dodatni bod samo ako je odigrano barem 7 poteza u partiji.</st
   <string name="howIsTheWinnerDecidedAnswer">Igrač(i) s najviše bodova nakon isteka zadanog turnirskog vremenskog ograničenja će biti proglašen(i) pobjednikom/pobjednicima.
 
 Ako dva igrača imaju isti broj bodova, performans na turniru je odlučujući faktor.</string>
-  <string name="howDoesPairingWork">Kako funkcionira uparivanje?</string>
-  <string name="howArePlayersPaired" comment="Replaces old string howDoesPairingWork">Kako se igrači uparuju?</string>
+  <string name="howArePlayersPaired">Kako se igrači uparuju?</string>
   <string name="howDoesPairingWorkAnswer">Na početku turnira, igrači su upareni na osnovu njihovog rejtinga.
 Čim završite partiju, vratite se u turnirski lobi: tada će te biti upareni sa igračem koji ima približan turnirski rezultat kao i Vi. Na ovaj način se osigurava minimalno čekanje, međutim moguće je da nećete igrati sa svim igračima u turniru.
 Igrajte brzo i vratite se u lobi da igrate više partija i da osvojite što više bodova.</string>
@@ -66,8 +65,7 @@ Igrajte brzo i vratite se u lobi da igrate više partija i da osvojite što viš
   <string name="myTournaments">Moji turniri</string>
   <string name="editTournament">Uredi turnir</string>
   <string name="editTeamBattle">Uredi timsku bitku</string>
-  <string name="defender">Odbrambeni igrač</string>
-  <string name="defenderLabel" comment="In this context, this is the current holder of a shield trophy, who is defending their trophy in the next shield tournament of that variant. https://lichess.org/tournament/shields Replaces old string defender">Branilac:</string>
+  <string name="defenderLabel" comment="In this context, this is the current holder of a shield trophy, who is defending their trophy in the next shield tournament of that variant. https://lichess.org/tournament/shields">Branilac:</string>
   <string name="pickYourTeam">Izaberite svoj tim</string>
   <string name="whichTeamWillYouRepresentInThisBattle">Koji tim ćeš predstavljati u ovoj bici?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">Morate se pridružiti jednom od ovih timova da biste učestvovali!</string>
@@ -75,10 +73,7 @@ Igrajte brzo i vratite se u lobi da igrate više partija i da osvojite što viš
   <string name="recentlyPlayed">Nedavno igrano</string>
   <string name="bestResults">Najbolji rezultati</string>
   <string name="tournamentStats">Statistike turnira</string>
-  <string name="rankAvgHelp">Prosječni rang je postotak vašeg ranga. Niži rang je bolji.
-
-Na primjer, biti rangiran na 3. mjestu na turniru sa 100 igrača = 3%. Biti rangiran na 10. mjestu na turniru sa 1000 igrača = 1%.</string>
-  <string name="rankAverageHelp" comment="Replaces old string rankAvgHelp">Vaš prosjek rejtinga predstavlja vašu uobičajenu poziciju u odnosu na ukupan broj igrača u svakom turniru. To je mjera vašeg plasmana na tuniru, a ne vašeg općeg rejtinga.
+  <string name="rankAverageHelp">Vaš prosjek rejtinga predstavlja vašu uobičajenu poziciju u odnosu na ukupan broj igrača u svakom turniru. To je mjera vašeg plasmana na tuniru, a ne vašeg općeg rejtinga.
 
 Na primjer, prosjek ranga od 3% znači da obično završavate među najboljih 3% (kao što je 30. mjesto od 1.000 igrača).</string>
   <string name="medians">medijane</string>

@@ -20,22 +20,22 @@ export const gameModeButtons = ({ setupCtrl, me }: LobbyController): MaybeVNode 
               change: (e: Event) => setupCtrl.gameMode((e.target as HTMLSelectElement).value as GameMode),
             },
           },
-          gameModes.map(({ key, name }) => option({ key, name }, setupCtrl.gameMode())),
+          gameModes.map(gm => option({ key: gm, name: i18n.site[gm] }, setupCtrl.gameMode())),
         ),
       ])
     : h('div.config-group', [
         h('div.label', i18n.site.gameMode),
         h(
           'group.radio',
-          gameModes.map(({ key, name }) => {
-            const disabled = key === 'rated' && setupCtrl.ratedModeDisabled();
+          gameModes.map(gm => {
+            const disabled = gm === 'rated' && setupCtrl.ratedModeDisabled();
             return h('div', [
-              h(`input#sf_mode_${key}.checked_${key === setupCtrl.gameMode()}`, {
+              h(`input#sf_mode_${gm}.checked_${gm === setupCtrl.gameMode()}`, {
                 attrs: {
-                  name,
+                  name: i18n.site[gm],
                   type: 'radio',
-                  value: key,
-                  checked: key === setupCtrl.gameMode(),
+                  value: gm,
+                  checked: gm === setupCtrl.gameMode(),
                   disabled,
                   tabindex: disabled ? -1 : 0,
                 },
@@ -43,7 +43,7 @@ export const gameModeButtons = ({ setupCtrl, me }: LobbyController): MaybeVNode 
                   change: (e: Event) => setupCtrl.gameMode((e.target as HTMLInputElement).value as GameMode),
                 },
               }),
-              h('label', { class: { disabled }, attrs: { for: `sf_mode_${key}` } }, name),
+              h('label', { class: { disabled }, attrs: { for: `sf_mode_${gm}` } }, i18n.site[gm]),
             ]);
           }),
         ),

@@ -34,13 +34,11 @@
   <string name="downloadAllRounds">Barcha turlarni yuklab oling</string>
   <string name="resetRound">Ushbu turni qayta sozlash</string>
   <string name="deleteRound">Ushbu turni oʻchirish</string>
-  <string name="definitivelyDeleteRound">Ushbu tur va unga tegishli barcha oʻyinlarni butunlay oʻchirish.</string>
-  <string name="permanentlyDeleteRound" comment="Refers to live tournaments being broadcast on Lichess (https://lichess.org/broadcast).&#10;&#10;Description (also translateable): Delete all games of this round. The source will need to be active in order to re-create them. This string has been amended since its initial publication; it didn't say &quot;all its games&quot; at the time.&#10;&#10;Replaces old string definitivelyDeleteRound.">Ushbu tur va uning barcha oʻyinlarini butunlay oʻchirib tashlamoqchimisiz?</string>
+  <string name="permanentlyDeleteRound" comment="Refers to live tournaments being broadcast on Lichess (https://lichess.org/broadcast).&#10;&#10;Description (also translateable): Delete all games of this round. The source will need to be active in order to re-create them. This string has been amended since its initial publication; it didn't say &quot;all its games&quot; at the time.">Ushbu tur va uning barcha oʻyinlarini butunlay oʻchirib tashlamoqchimisiz?</string>
   <string name="deleteAllGamesOfThisRound">Ushbu turning barcha oʻyinlarini oʻchirib tashlash. Ularni qayta tiklash uchun manba faol holatda boʻlishi lozim.</string>
   <string name="editRoundStudy">Tur sabogʻini tahrirlash</string>
   <string name="deleteTournament">Ushbu turnirni oʻchirish</string>
-  <string name="definitivelyDeleteTournament">Butun turnirni, uning barcha turlari va barcha oʻyinlarini butunlay oʻchirib tashlash.</string>
-  <string name="permanentlyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast Replaces old string definitivelyDeleteTournament">Ushbu turnir va undagi barcha turlar va oʻyinlar butunlay oʻchirib tashlansinmi?</string>
+  <string name="permanentlyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast">Ushbu turnir va undagi barcha turlar va oʻyinlar butunlay oʻchirib tashlansinmi?</string>
   <string name="showScores">Oʻyin natijalari asosida oʻyinchilarning ochkolarini koʻrsatish</string>
   <string name="replacePlayerTags">Ixtiyoriy: oʻyinchilar ismlari, reytinglari va unvonlarini oʻzgartirish</string>
   <string name="fideFederations">FIDE federatsiyalari</string>

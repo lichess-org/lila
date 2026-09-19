@@ -56,7 +56,6 @@
   <string name="pairingsA">根據 %3$s 在%1$s的 %2$s 技術下。</string>
   <string name="moreRoundsThanPlayersQ">如果錦標賽人數少於局數該怎麼處理？</string>
   <string name="moreRoundsThanPlayersA">當所有排列組合的可能以輪完一輪，錦標賽將結束並且決定最終的獲勝者</string>
-  <string name="restrictedToTeamsQ">為什麼只限制於團隊？</string>
   <string name="restrictedToTeamsA">積分循環制錦標賽不是為線上西洋棋而設計。他們講求玩家的準時、奉獻、與耐性。我們認為這些條件更容易在一個團隊中達成。</string>
   <string name="numberOfByesQ">一個玩家最多能得到幾次輪空？</string>
   <string name="numberOfByesA">若玩家無法被配對會自動被分配一次輪空，在不用對奕下得一分。如果玩家遲到將會被分配到 0.5 分</string>
@@ -75,7 +74,6 @@
 遲加入的玩家將獲得一次輪空，即使他們已經錯過了幾輪。</string>
   <string name="willSwissReplaceArenasQ">積分循環制會取代競技場錦標賽嗎？</string>
   <string name="willSwissReplaceArenasA">不會。他們是額外的功能。</string>
-  <string name="roundRobinQ">那循環賽（Round Robin）呢？</string>
   <string name="roundRobinA">我們希望能加入此功能，但很遺憾，循環賽制無法在線上實現。
 原因在於，無法公平地處理中途退出比賽的玩家。我們無法期待所有玩家在線上比賽中完成所有對局。這是不可能的，因此大多數循環賽制將會變得不公平且有缺陷，失去了其存在的意義。在線上最接近循環賽制的方式是進行多輪次的瑞士制比賽，這樣可以在比賽結束前完成所有可能的配對。</string>
   <string name="otherSystemsQ">那其他比賽系統呢？</string>
@@ -110,7 +108,6 @@
   <string name="similarToOTB">類似於線下比賽</string>
   <string name="unlimitedAndFree">無限制且免費</string>
   <string name="predefinedUsers">僅限白名單內的玩家加入</string>
-  <string name="forbiddedUsers">如果此列表不為空，則未在此列表中的用戶將被禁止加入。每行填寫一個用戶名稱。</string>
   <string name="playYourGames">完成棋局</string>
   <string name="byes">輪空</string>
   <string name="absences">缺席</string>

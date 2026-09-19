@@ -14,7 +14,6 @@
   <string name="ifMoveNotDetected">ئەگەر جوڵەکە دیارینەکرا</string>
   <string name="checkYouHaveMadeOpponentsMove">بزانە بەرامبەرەکەت چ جوڵەیەک دەکات و ئەو جوڵەیە لەسەر بۆڕدی DGT ی بکە سەرەتا، بەرپەرچی بدەوە.  یاریەکە دەستپێبکەوە.</string>
   <string name="reloadThisPage">نوێکردنەوەی ئەم پەڕەیە</string>
-  <string name="dgtConfigure">ڕێکخستنی - DGT</string>
   <string name="lichessConnectivity">پەیوەستبون بە لیچێس</string>
   <string name="dgtPlayMenuEntryAdded">%s هاتە ژوورەوە و زیادکرا بۆ ڕێکخستنی یاری لە بەشی سەرەوە.</string>
   <string name="dgtBoardConnectivity">بۆڕدی DGT پەیوەستبوو</string>

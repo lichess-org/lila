@@ -25,7 +25,6 @@ import {
   div,
   span,
   button,
-  strong,
 } from '@/view';
 import { cmnToggle } from '@/view/cmn-toggle';
 import stepwiseScroll from '@/view/stepwiseScroll';
@@ -83,7 +82,7 @@ function localInfo(ctrl: CevalHandler, ev?: ClientEval | false): EvalInfo {
   if (!ev) return info;
 
   const ceval = ctrl.ceval;
-  info.depthText = i18n.site.depthX(ev.depth || 0) + (ceval.isDeeper() || ceval.isInfinite ? '/99' : '');
+  info.depthText = ev.depth > 0 ? i18n.site.depthX(ev.depth || 0) : '';
 
   if (!ceval.isComputing) return info;
 
@@ -172,10 +171,8 @@ export function renderCeval(ctrl: CevalHandler): VNode[] {
     download = ceval.download;
   let pearl: LooseVNode,
     percent = 0;
-
   if (client) {
-    if (client.cloud && !threatMode) percent = 100;
-    else if (ceval.isDeeper() || ceval.isInfinite) percent = Math.min(100, (100 * client.depth) / 99);
+    if ((client.cloud && !threatMode) || ceval.isDeeper() || ceval.isInfinite) percent = 100;
     else if ('movetime' in search.by)
       percent = Math.min(100, (100 * ((threat ?? client)?.millis ?? 0)) / search.by.movetime);
     else if ('depth' in search.by) percent = Math.min(100, (100 * client.depth) / search.by.depth);
@@ -187,7 +184,6 @@ export function renderCeval(ctrl: CevalHandler): VNode[] {
     pearl = h('pearl', renderEval(bestEv.cp));
   } else if (bestEv && defined(bestEv.mate)) {
     pearl = h('pearl', '#' + bestEv.mate);
-    percent = 100;
   } else {
     if (!enabled) pearl = h('pearl', h('icon'));
     else if (node.outcome() || node.threefold) pearl = h('pearl', '-');
@@ -205,18 +201,7 @@ export function renderCeval(ctrl: CevalHandler): VNode[] {
       span({
         class: { threat: enabled && threatMode },
         attrs: { style: `width: ${percent}%` },
-        hook: {
-          postpatch: (old, vnode) => {
-            if (old.data!.percent > percent || !!old.data!.threatMode !== threatMode) {
-              const el = vnode.elm as HTMLElement;
-              const p = el.parentNode as HTMLElement;
-              p.removeChild(el);
-              p.appendChild(el);
-            }
-            vnode.data!.percent = percent;
-            vnode.data!.threatMode = threatMode;
-          },
-        },
+        key: ctrl.getNodeKey?.() ?? `${node.ply}_${node.id}_${threatMode}`,
       }),
     );
 
@@ -432,7 +417,7 @@ function renderPv(threat: boolean, multiPv: number, pv?: PvData, pos?: Position)
   const children: VNode[] = [renderPvWrapToggle()];
   if (pv) {
     if (!threat) data.attrs = { 'data-uci': pv.moves[0] };
-    if (multiPv > 1) children.push(strong(defined(pv.mate) ? '#' + pv.mate : renderEval(pv.cp!)));
+    if (multiPv > 1) children.push(hl('strong', defined(pv.mate) ? '#' + pv.mate : renderEval(pv.cp!)));
     if (pos) children.push(...renderPvMoves(pos.clone(), pv.moves.slice(0, MAX_NUM_MOVES)));
   }
   return div('.pv.pv--nowrap', data, children);
@@ -465,7 +450,7 @@ function renderPvMoves(pos: Position, pv: Uci[]): VNode[] {
     const fen = makeBoardFen(pos.board); // Chessground uses only board fen
     if (san === '--') break;
     key += '|' + uci;
-    vnodes.push(span({ key, 'data-move-index': i, 'data-board': `${fen}|${uci}` }, san));
+    vnodes.push(span('.pv-san', { key, 'data-move-index': i, 'data-board': `${fen}|${uci}` }, san));
   }
   return vnodes;
 }

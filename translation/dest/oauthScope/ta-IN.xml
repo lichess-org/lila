@@ -21,7 +21,6 @@
   <string name="puzzleRead">புதிர் செயல்பாட்டைப் படிக்கவும்</string>
   <string name="teamRead">தனிப்பட்ட குழு தகவலைப் படிக்கவும்</string>
   <string name="teamWrite">அணிகளில் சேர்ந்து வெளியேறவும்</string>
-  <string name="teamLead">நீங்கள் வழிநடத்தும் அணிகளை நிர்வகிக்கவும்: PMகளை அனுப்பவும், உறுப்பினர்களை உதைக்கவும்</string>
   <string name="followRead">பின்தொடர்ந்த வீரர்களைப் படிக்கவும்</string>
   <string name="followWrite">மற்ற வீரர்களைப் பின்தொடரவும், பின்தொடரவும்</string>
   <string name="msgWrite">பிற வீரர்களுக்கு தனிப்பட்ட செய்திகளை அனுப்பவும்</string>

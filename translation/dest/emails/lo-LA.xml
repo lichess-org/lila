@@ -16,7 +16,6 @@
 
 ຂໍໃຫ້ມີຄວາມສຸກກັບການຫຼິ້ນ, ແລະ ຂໍໃຫ້ຕົວໝາກຂອງທ່ານຫາທາງໄປຫາຂຸນຂອງຄູ່ຕໍ່ສູ້ໄດ້ສະເໝີ!</string>
   <string name="logInToLichess">ເຂົ້າສູ່ລະບົບ lichess.org, %s</string>
-  <string name="common_orPaste">(ຫາກຄລິກບໍ່ໄດ້? ໃຫ້ລອງວາງລິ້ງໃສ່ໃນບຣາວເຊີຂອງທ່ານ!)</string>
   <string name="common_note">ນີ້ແມ່ນອີເມວການບໍລິການທີ່ກ່ຽວຂ້ອງກັບການໃຊ້ງານ %s ຂອງທ່ານ.</string>
   <string name="common_contact">ເພື່ອຕິດຕໍ່ພວກເຮົາ, ກະລຸນາໃຊ້ %s.</string>
 </resources>

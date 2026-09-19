@@ -25,7 +25,6 @@
   <string name="cantChangeMore">आम्ही अक्षरांच्या प्रकारापेक्षा जास्त बदलू शकत नाही. तांत्रिक कारणांसाठी हे सरळ अशक्य आहे.</string>
   <string name="orCloseAccount">तथापि, तुम्ही तुमच्या वर्तमान खात्याला बंद करू शकता, आणि नवीन बनवू शकता.</string>
   <string name="wantClearHistory">मला माझे इतिहास किंवा रेटिंग मिटवायचे आहे</string>
-  <string name="cantClearHistory">तुमचा डावांचा, कोड्यांचा अथवा मानांकनाचा इतिहास पुसणे शक्य नाही.</string>
   <string name="wantReport">मला एक खेळाडूचा अहवाल करायचा आहे</string>
   <string name="toReportAPlayerUseForm">एका खेळाडूचे अहवाल करण्यासाठी, अहवाल विवरणपत्र वापरा</string>
   <string name="youCanAlsoReachReportPage">तुम्ही त्या पृष्ठावर चरित्र पृष्ठावरचे %s अहवाल बटण दाबून पण पोहोचू शकता.</string>

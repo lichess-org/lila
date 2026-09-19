@@ -127,25 +127,13 @@
   <string name="blunder">பெருந்தவறு</string>
   <string name="mistake">தவறு</string>
   <string name="inaccuracy">செவ்வைப்பிழை</string>
-  <plurals name="nbBlunders">
-    <item quantity="one">%s பெருந்தவறு</item>
-    <item quantity="other">%s பெருந்தவறுகள்</item>
-  </plurals>
   <plurals name="numberBlunders">
     <item quantity="one">%s பெருந்தவறு</item>
     <item quantity="other">%s பெருந்தவறுகள்</item>
   </plurals>
-  <plurals name="nbMistakes">
-    <item quantity="one">%s தவறு</item>
-    <item quantity="other">%s தவறுகள்</item>
-  </plurals>
   <plurals name="numberMistakes">
     <item quantity="one">%s தவறு</item>
     <item quantity="other">%s தவறுகள்</item>
-  </plurals>
-  <plurals name="nbInaccuracies">
-    <item quantity="one">%s செவ்வைப்பிழை</item>
-    <item quantity="other">%s செவ்வைப்பிழைகள்</item>
   </plurals>
   <plurals name="numberInaccuracies">
     <item quantity="one">%s செவ்வைப்பிழை</item>
@@ -246,7 +234,6 @@
   <string name="emailSent">நாங்கள் %s என்ற முகவரிக்கு மின்னஞ்சலை அனுப்பியுள்ளோம்.</string>
   <string name="emailCanTakeSomeTime">அது வந்து சேர்வதற்குச் சிறிது நேரம் எடுக்கலாம்.</string>
   <string name="refreshInboxAfterFiveMinutes">5 மணித்துளிகள் காத்திருந்து மடல் மின்னஞ்சலைப் புதுப்பிக்கவும்.</string>
-  <string name="checkSpamFolder">உங்களின் எரிதக் கோப்புறையைப் பார்க்கவும், உங்களின் மின்னஞ்சல் அங்கிருந்தால் அதை எரிதம் இல்லை என்று அடையாளப்படுத்தவும்.</string>
   <string name="accountConfirmed">பயனீட்டாளர்%s வெற்றிகரமாக உறுதிப்படுத்தப்பட்டுள்ளது.</string>
   <string name="accountCanLogin">நீங்கள் இப்போது %s ஆக உள்நுழையலாம்.</string>
   <string name="accountConfirmationEmailNotNeeded">உங்களுக்கு உறுதிப்படுத்தல் மின்னஞ்சல் தேவையில்லை.</string>
@@ -269,8 +256,6 @@
   </plurals>
   <string name="ok">சரி</string>
   <string name="cancel">இரத்து செய்</string>
-  <string name="whiteTimeOut">வெள்ளையின் காலம் கடந்தது</string>
-  <string name="blackTimeOut">கருப்பின் காலம் கடந்தது</string>
   <string name="drawOfferSent">இழுபறி முன்வரவு தெரிவிப்பு</string>
   <string name="drawOfferAccepted">இழுபறி முன்வரவு ஏற்கப்பட்டது</string>
   <string name="whiteOffersDraw">வெள்ளை இழுபறி வாய்ப்பளிக்கிறது</string>
@@ -550,7 +535,6 @@
   <string name="other">வேறு</string>
   <string name="reportCheatBoostHelp">விளையாட்டு (கள்) இணைப்பை ஒட்டவும் மேலும் இந்தப் பயனர் நடத்தைபற்றித் தவறு என்ன என்பதை விளக்க. வெறும் \"அவர்கள் ஏமாற்றுகின்றனர்\" சொல்ல வேண்டாம், ஆனால் நீங்கள் இந்த முடிவுக்கு வந்தது எப்படி என்பதை எங்களுக்குச் சொல்ல.</string>
   <string name="reportUsernameHelp">இந்த பயனர் பெயர் புண்படுத்தக்கூடியது என்ன என்பதை விளக்குங்கள். \"இது புண்படுத்தும்/பொருத்தமற்றது\" என்று மட்டும் சொல்லாதீர்கள், ஆனால் நீங்கள் எப்படி இந்த முடிவுக்கு வந்தீர்கள் என்று எங்களிடம் கூறுங்கள், குறிப்பாக ஆங்கிலத்தில் அல்ல, ஸ்லாங்கில் அல்லது ஒரு வரலாற்று/கலாச்சாரக் குறிப்பால் அவமதிப்பு தெளிவற்றதாக இருந்தால்.</string>
-  <string name="reportProcessedFasterInEnglish">உங்கள் அறிக்கை ஆங்கிலத்தில் எழுதப்பட்டால் வேகமாக செயலாக்கப்படும்.</string>
   <string name="error.provideOneCheatedGameLink">ஏமாற்றப்பட்ட விளையாட்டிற்கு குறைந்தபட்சம் ஒரு இணைப்பை வழங்கவும்.</string>
   <string name="by">மூலம் %s</string>
   <string name="importedByX">%s ஆல் இறக்குமதி செய்யப்பட்டது</string>
@@ -671,11 +655,9 @@
   <string name="aboutSimulRules">ஒருங்கமை துவங்கும்போது, ​​​​ஒவ்வொரு வீரரும் ஹோஸ்டுடன் ஒரு விளையாட்டைத் தொடங்குகிறார்கள். அனைத்து விளையாட்டுகளும் முடிந்ததும் ஒருங்கமை முடிவடைகிறது.</string>
   <string name="aboutSimulSettings">ஒருங்கமை எப்போதும் சாதாரணமானவை. மறு பொருத்தங்கள், திரும்பப் பெறுதல் மற்றும் நேரத்தைச் சேர்ப்பது ஆகியவை முடக்கப்பட்டுள்ளன.</string>
   <string name="create">உருவாக்கு</string>
-  <string name="whenCreateSimul">நீங்கள் ஒரு ஒருங்கமை உருவாக்கும்போது, ​​ஒரே நேரத்தில் பல வீரர்களை விளையாடலாம்.</string>
   <string name="simulVariantsHint">நீங்கள் பல வகைகளைத் தேர்ந்தெடுத்தால், ஒவ்வொரு வீரரும் எதை விளையாட வேண்டும் என்பதைத் தேர்ந்தெடுக்க வேண்டும்.</string>
   <string name="simulClockHint">பிஷ்ஷர் கடிகார அமைப்பு. நீங்கள் அதிக வீரர்களை எடுத்துக்கொள்கிறீர்கள், உங்களுக்கு அதிக நேரம் தேவைப்படலாம்.</string>
   <string name="simulAddExtraTime">சிமுலைச் சமாளிக்க உங்களுக்கு உதவ, உங்கள் கடிகாரத்தில் கூடுதல் ஆரம்ப நேரத்தைச் சேர்க்கலாம்.</string>
-  <string name="simulHostExtraTime">கூடுதல் ஆரம்ப கடிகார நேரத்தை ஹோஸ்ட் செய்யவும்</string>
   <string name="simulAddExtraTimePerPlayer">சிமுலில் சேரும் ஒவ்வொரு வீரருக்கும் உங்கள் கடிகாரத்தில் ஆரம்ப நேரத்தைச் சேர்க்கவும்.</string>
   <string name="simulHostExtraTimePerPlayer">ஒரு வீரருக்கு கூடுதல் கடிகார நேரத்தை ஹோஸ்ட் செய்யவும்</string>
   <string name="lichessTournaments">லிசெஸ் பந்தயங்கள்</string>
@@ -795,7 +777,6 @@
   <string name="custom">தனிப்பயன்</string>
   <string name="notifications">அறிவிப்புகள்</string>
   <string name="notificationsX">அறிவிப்புகள்: %1$s</string>
-  <string name="perfRatingX">மதிப்பீடு: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">முதல் நகர்வை இயக்க %s வினாடி</item>
     <item quantity="other">முதல் நகர்வை இயக்க %s வினாடிகள்</item>
@@ -852,7 +833,6 @@
     <item quantity="other">மற்றும் %s முன்னோட்ட வரிகளை சேமிக்கவும்</item>
   </plurals>
   <string name="showUnreadLichessMessage">Lichess இடமிருந்து நீங்கள் ஒரு தனிப்பட்ட செய்தியைப் பெற்றுள்ளீர்கள்.</string>
-  <string name="clickHereToReadIt">அதைப் படிக்க இங்கே கிளிக் செய்யவும்</string>
   <string name="sorry">மன்னிக்கவும் :(</string>
   <string name="weHadToTimeYouOutForAWhile">நாங்கள் உங்களை சிறிது நேரம் வெளியேற்ற வேண்டியிருந்தது.</string>
   <string name="why">ஏன்?</string>
@@ -941,7 +921,6 @@ FEN நிலையை உருவாக்க %s ஐப் பயன்பட�
   <string name="noChat">அரட்டை இல்லை</string>
   <string name="onlyTeamLeaders">அணித் தலைவர்கள் மட்டுமே</string>
   <string name="onlyTeamMembers">குழு உறுப்பினர்கள் மட்டுமே</string>
-  <string name="navigateMoveTree">நகரும் மரத்தில் செல்லவும்</string>
   <string name="mouseTricks">சுட்டி தந்திரங்கள்</string>
   <string name="toggleLocalAnalysis">உள்ளூர் கணினி பகுப்பாய்வை மாற்றவும்</string>
   <string name="toggleAllAnalysis">அனைத்து கணினி பகுப்பாய்வுகளையும் மாற்றவும்</string>

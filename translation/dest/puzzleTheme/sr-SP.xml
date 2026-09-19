@@ -44,15 +44,12 @@
   <string name="doubleCheckDescription">Шахирање са две фигуре од једном, као резултат откривеног напада где и фигура која се помера и откривена фигура нападју противничког краља.</string>
   <string name="endgame">Завршница</string>
   <string name="endgameDescription">Тактика током последње фазе партије.</string>
-  <string name="enPassantDescription">Тактика која укључује ан пасан правило, где пешак може узети противничког пешака који га је заобишао користећи његов почетни потез од два поља.</string>
   <string name="exposedKing">Изложен краљ</string>
   <string name="exposedKingDescription">Тактика која укључује краља са малим бројем бранилаца око њега, често доводи до шах-мата.</string>
   <string name="fork">Виљушка</string>
-  <string name="forkDescription">Потез где померена фигура напада две противничке фигуре одједном.</string>
   <string name="hangingPiece">Небрањена фигура</string>
   <string name="hangingPieceDescription">Тактика у којој је противничка фигура небрањена или недовољно брањена и слободна за узимање.</string>
   <string name="hookMate">Кукасти мат</string>
-  <string name="hookMateDescription">Шах-мат топом, скакачем и пешаком заједно са једним противничким пешаком да ограничи бег противничком краљу.</string>
   <string name="interference">Пресецање</string>
   <string name="interferenceDescription">Померање своје између две противничке фигуре да оставиш једну или обе противничке фигуре небрањене, као скакач на одбрањеном пољу између два топа.</string>
   <string name="intermezzo">Међупотез</string>
@@ -88,7 +85,6 @@
   <string name="pin">Везивање</string>
   <string name="pinDescription">Тактика која укључује везивања, где фигура не може да се помери без откривања напада на вреднију фигуру.</string>
   <string name="promotion">Промоција</string>
-  <string name="promotionDescription">Промовиши једног свог пешака у даму или лаку фигуру.</string>
   <string name="queenEndgame">Дамска завршница</string>
   <string name="queenEndgameDescription">Завршница са само дамама и пешацима.</string>
   <string name="queenRookEndgame">Дама и Топ</string>

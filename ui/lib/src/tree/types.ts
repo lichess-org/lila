@@ -19,6 +19,7 @@ export interface CloudEval extends ClientEvalBase {
 export interface LocalEval extends ClientEvalBase {
   cloud?: false;
   millis: number;
+  engineId?: string;
 }
 export type ClientEval = CloudEval | LocalEval;
 

@@ -23,7 +23,13 @@ export async function build(pkgs: string[]): Promise<void> {
   try {
     try {
       chdir(env.rootDir);
-      if (env.install) execSync('pnpm install', { stdio: 'inherit' });
+      if (env.install) {
+        env.log(
+          execSync(`pnpm install --color=${env.noColor ? 'never' : 'always'}`, {
+            encoding: 'utf8',
+          }),
+        );
+      }
       if (!pkgs.length) env.log(`Parsing packages in '${pc.cyan(env.uiDir)}'`);
 
       await Promise.allSettled([parsePackages(), fs.promises.mkdir(env.buildTempDir)]);

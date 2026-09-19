@@ -64,7 +64,6 @@ Idagdag ang mga iskor ng bawat kalaban na matalo ang manlalaro at kalahating pun
   <string name="pairingsA">Gamit ang %1$s, ipinatupad ng %2$s, alinsunod sa %3$s.</string>
   <string name="moreRoundsThanPlayersQ">Anong mangyayari kung ang paligsahan ay may mas maraming round kaysa sa mga manlalaro?</string>
   <string name="moreRoundsThanPlayersA">Kapag ang lahat ng posibleng pagpares ay nalaro, ang paligsahan ay matatapos at magdedeklara ng panalo.</string>
-  <string name="restrictedToTeamsQ">Bakit ito limitado sa mga koponan?</string>
   <string name="numberOfByesQ">Ilang mga bye ang makakuha ng isang manlalaro?</string>
   <string name="numberOfByesA">Ang manlalaro ay makakuha ng bye ng isang puntos sa tuwing ang sistema ng pagpares ay hindi makahanap ng pagpares para sa kanila.
 Bukod pa rito, ang isang bye ng kalahating puntos ay iniuugnay kapag ang manlalaro ay malate sumali sa paligsahan.</string>
@@ -73,7 +72,6 @@ Bukod pa rito, ang isang bye ng kalahating puntos ay iniuugnay kapag ang manlala
   <string name="protectionAgainstNoShowQ">Ano ang ginagawa patungkol sa mga no-show?</string>
   <string name="lateJoinQ">Maaari bang malate sumali ang mga manlalaro?</string>
   <string name="willSwissReplaceArenasA">Hindi. Sila ay mga komplementaryong tampok.</string>
-  <string name="roundRobinQ">Paano naman ang Round Robin?</string>
   <string name="otherSystemsQ">Paano ang iba pang sistema ng paligsahan?</string>
   <string name="otherSystemsA">Wala kaming planong idagdag ng higit pang mga sistema ng tournament sa Lichess ngayon.</string>
   <string name="teamOnly">Ang mga paligsahan sa Swiss ay maaari lamang gumawa ng mga pinuno ng koponan, at maaari lamang maglaro ng mga pinuno ng koponan.

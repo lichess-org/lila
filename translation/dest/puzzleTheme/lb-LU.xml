@@ -44,15 +44,12 @@
   <string name="doubleCheckDescription">Schach mat zwou Figuren gläichzäiteg ginn als Resultat vun engem Ofzuchsugrëff, wou souwuel déi gespillte Figur ewéi och déi opgedeckte Figur de géigneresche Kinnek ugräifen.</string>
   <string name="endgame">Endspill</string>
   <string name="endgameDescription">Eng Taktik an der leschter Phase vun der Partie.</string>
-  <string name="enPassantDescription">Eng Taktik bezüglech der \"en passant\" Reegel, bei där e Bauer e géigneresche Bauer schloen kann, deen un em mat engem Dubbelschrëtt aus der Ausgangspositioun laanscht gaangen ass.</string>
   <string name="exposedKing">Exponéiert Kinnek</string>
   <string name="exposedKingDescription">Eng Taktik bezüglech engem Kinnek, dee vun wéinege Figuren verdeedegt gëtt, wat oft zu Schachmatt féiert.</string>
   <string name="fork">Forschett</string>
-  <string name="forkDescription">En Zuch, bei deem déi gespillte Figur zwou géigneresch Figuren gläichzäiteg ugräift.</string>
   <string name="hangingPiece">Hänkend Figur</string>
   <string name="hangingPieceDescription">Eng Taktik, bei där eng géignerescher Figur net oder ongenügend gedeckt ass an fräi ze schloen ass.</string>
   <string name="hookMate">Hokenmatt</string>
-  <string name="hookMateDescription">Schachmatt mat engem Tuerm, Sprénger a Bauer zesummen mat engem géigneresche Bauer deen dem géigneresche Kinnek e Fluchtfeld hëlt.</string>
   <string name="interference">Ënnerbriechung</string>
   <string name="interferenceDescription">Eng Figur tëschent zwou géigneresch Figuren beweegen, fir eng oder béid géigneresch Figuren onverdeedegt ze loossen, wéi zum Beispill e Sprénger op engem verdeedegte Feld tëschent zwee Tierm.</string>
   <string name="intermezzo">Zwëschenzuch</string>
@@ -89,7 +86,6 @@
   <string name="pin">Fesselung</string>
   <string name="pinDescription">Eng Taktik bezüglech Fesselungen, wou eng Figur sech net beweegen kann, ouni en Ugrëff op eng aner méi héichwäerteg Figur ze erlaben.</string>
   <string name="promotion">Ëmwandlung</string>
-  <string name="promotionDescription">Wandel e Bauer zu enger Dame oder Liichtfigur ëm.</string>
   <string name="queenEndgame">Dammen Endspill</string>
   <string name="queenEndgameDescription">En Endspill mat just Dammen a Baueren.</string>
   <string name="queenRookEndgame">Damm an Tuerm</string>

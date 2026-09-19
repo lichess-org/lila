@@ -20,8 +20,7 @@
   <string name="checkYouHaveMadeOpponentsMove">Verifique que você fez a jogada do seu oponente no DGT primeiro. Volte sua jogada. Jogue novamente.</string>
   <string name="asALastResort">Em último caso, deixe o tabuleiro exatamente como está no Lichess, e depois %s</string>
   <string name="reloadThisPage">recarregue a página</string>
-  <string name="dgtConfigure">Configurar o DGT</string>
-  <string name="configureYourDgtBoard" comment="Replaces old string dgtConfigure">Configure seu tabuleiro DGT</string>
+  <string name="configureYourDgtBoard">Configure seu tabuleiro DGT</string>
   <string name="lichessConnectivity">Conexão com o Lichess</string>
   <string name="validDgtOauthToken">Você tem uma chave OAuth adequada para usar o DGT.</string>
   <string name="dgtPlayMenuEntryAdded">\"%s\" foi adicionado no topo do menu JOGAR.</string>
@@ -37,7 +36,7 @@
   <string name="announceAllMoves">Narrar todos os lances</string>
   <string name="selectAnnouncePreference">Selecione SIM para narrar os seus lances e os do oponente. Selecione NÃO para narrar somente os lances do oponente.</string>
   <string name="announceMoveFormat">Formato dos lances</string>
-  <string name="moveFormatDescription">SAN é o padrão no Lichess, como \"Nf6\". O UCI é comum em softwares, como \"g8f6\".</string>
+  <string name="moveFormatDescription">SAN é o padrão no Lichess, como \"Nf6\". O UCI é comum em motores de xadrez, como \"g8f6\".</string>
   <string name="keywords">Palavras-chave</string>
   <string name="keywordFormatDescription">Palavras-chave vêm em formato JSON. São usadas para traduzir lances e resultados em sua língua. O inglês é a língua padrão, mas você pode escolher outra.</string>
   <string name="debug">Depuração</string>

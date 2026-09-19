@@ -1,6 +1,8 @@
+import { capitalize } from 'lib/game';
 import perfIcons from 'lib/game/perfIcons';
 import { numberFormat } from 'lib/i18n';
 import { licon } from 'lib/licon';
+import { colors } from 'lib/setup/color';
 import { type VNode, dataIcon, onInsert, type MaybeVNode, hl } from 'lib/view';
 import { cmnToggleWrap } from 'lib/view/cmn-toggle';
 import { userLink } from 'lib/view/userLink';
@@ -141,11 +143,6 @@ const difficulties: [PuzzleDifficulty, number][] = [
   ['harder', 300],
   ['hardest', 600],
 ];
-const colors = [
-  ['black', 'asBlack'],
-  ['random', 'randomColor'],
-  ['white', 'asWhite'],
-] as const;
 
 export function replay(ctrl: PuzzleCtrl): MaybeVNode {
   const { replay, angle } = ctrl.data;
@@ -219,12 +216,15 @@ export const renderColorForm = (ctrl: PuzzleCtrl): VNode =>
     'div.puzzle__side__config__color',
     hl(
       'group.radio',
-      colors.map(([key, i18nKey]) =>
+      colors.map(key =>
         hl('div', [
           hl(
             `a.label.color-${key}${key === (ctrl.opts.settings.color || 'random') ? '.active' : ''}`,
             {
-              attrs: { href: `/training/${ctrl.data.angle.key}/${key}`, title: i18n.site[i18nKey] },
+              attrs: {
+                href: `/training/${ctrl.data.angle.key}/${key}`,
+                title: key === 'random' ? i18n.site.randomColor : i18n.site[`as${capitalize(key)}`],
+              },
             },
             hl('icon'),
           ),

@@ -1,6 +1,7 @@
 import { h, type VNode, type VNodes } from 'snabbdom';
 
-import { colors, type ColorChoice } from 'lib/setup/color';
+import { capitalize } from 'lib/game';
+import { colorChoiceName, colors, type ColorChoice } from 'lib/setup/color';
 import { bind } from 'lib/view';
 import { cmnToggleWrapProp } from 'lib/view/cmn-toggle';
 
@@ -157,15 +158,15 @@ const configurationButtons = (ctrl: CoordinateTrainerCtrl): VNodes => [
   h('form.color.buttons', [
     h(
       'group.radio',
-      colors.map(({ key, name }) =>
+      colors.map(c =>
         h('div', [
           h('input', {
             attrs: {
               type: 'radio',
-              id: `coord_color_${key}`,
+              id: `coord_color_${c}`,
               name: 'color',
-              value: key,
-              checked: key === ctrl.colorChoice(),
+              value: c,
+              checked: c === ctrl.colorChoice(),
             },
             on: {
               change: e => {
@@ -175,7 +176,7 @@ const configurationButtons = (ctrl: CoordinateTrainerCtrl): VNodes => [
               keyup: ctrl.onRadioInputKeyUp,
             },
           }),
-          h(`label.color_${key}`, { attrs: { for: `coord_color_${key}`, title: name } }, h('icon')),
+          h(`label.color_${c}`, { attrs: { for: `coord_color_${c}`, title: colorChoiceName(c) } }, h('icon')),
         ]),
       ),
     ),
@@ -257,7 +258,7 @@ const settings = (ctrl: CoordinateTrainerCtrl): VNode => {
 const playingAs = (ctrl: CoordinateTrainerCtrl): VNode => {
   return h('div.box.current-status.current-status--color', [
     h(`label.color_${ctrl.orientation}`, h('icon')),
-    h('em', i18n.site[ctrl.orientation === 'white' ? 'youPlayTheWhitePieces' : 'youPlayTheBlackPieces']),
+    h('em', i18n.site[`youPlayThe${capitalize(ctrl.orientation)}Pieces`]),
   ]);
 };
 

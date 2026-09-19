@@ -28,7 +28,6 @@
   <string name="approved">Transmetimi juaj u miratua.</string>
   <string name="pendingReview">Transmetimi juaj po shqyrtohet nga moderatorët.</string>
   <string name="pleaseFillIn">Ju lutemi, plotësoni hollësitë tuaja si transmetuesit dhe ngarkoni një fotografi.</string>
-  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Kur të jeni gati të renditeni si një transmetues Lichess, %s</string>
   <string name="submitForReview">Parashtrojeni për shqyrtim</string>
   <string name="streamerLanguageSettings">Faqja e transmetuesit Lichess aplikon për publikun tuaj gjuhën e dhënë nga platforma juaj e transmetimit. Caktoni gjuhën e saktë parazgjedhje për transmetime shahu nga ju, te aplikacioni apo shërbimi që përdorni për të transmetuar.</string>
   <string name="pleaseAllow">Ju lutemi, lejoni deri në 72 orë, para se të miratohen stema juaj si transmetues dhe transmetimi juaj.</string>

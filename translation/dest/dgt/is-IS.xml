@@ -20,7 +20,6 @@
   <string name="checkYouHaveMadeOpponentsMove">Gakktu úr skugga um að þú hafir fyrst gert leik andstæðingsins á DGT-taflborðinu. Taktu leik þinn til baka. Tefldu upp á nýtt.</string>
   <string name="asALastResort">Sem síðasta úrræði skaltu setja upp taflborðið alveg eins og Lichess, síðan %s</string>
   <string name="reloadThisPage">Endurhlaða þessa síðu</string>
-  <string name="dgtConfigure">DGT - Stillingar</string>
   <string name="lichessConnectivity">Lichess-tengjanleiki</string>
   <string name="validDgtOauthToken">Þú ert með OAuth-tóka sem hæfir DGT-tafli.</string>
   <string name="dgtPlayMenuEntryAdded">Skráningunni %s var bætt við TEFLA-valmyndina þína efst uppi.</string>

@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Bulmacalar</string>
-  <string name="puzzleThemes">Bulmaca temaları
-</string>
+  <string name="puzzleThemes">Bulmaca Temaları</string>
   <string name="recommended">Önerilen</string>
   <string name="phases">Oyun aşamaları</string>
   <string name="motifs">Motifler</string>

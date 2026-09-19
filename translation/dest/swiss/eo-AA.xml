@@ -56,7 +56,6 @@ Adiciu la poentarojn de ĉiu kontraŭlo, kiujn la ludanto venkas, kaj duonu la p
   <string name="pairingsA">Kun la %1$s, efektivigita per %2$s, konforme al la %3$s.</string>
   <string name="moreRoundsThanPlayersQ">Kio okazas se la turniro havas pli da raŭndoj ol ludantoj?</string>
   <string name="moreRoundsThanPlayersA">Kiam ĉiuj eblaj paroj estas luditaj, la turniro estos finata kaj venkanto deklarita.</string>
-  <string name="restrictedToTeamsQ">Kial ĝi limigita al teamoj?</string>
   <string name="restrictedToTeamsA">Svisaj turniroj ne projektis por retŝako. Tiuj postulas akuratecon, klopodeco, kaj pacienceco el la ludantoj.
 Ni pensas, ke tiuj kondiĉoj estas pli ŝance estos renkontiĝi en teamo ol en mondaj turniroj.</string>
   <string name="numberOfByesQ">Kiom da malplenaj raŭndoj ludanto povas havi?</string>
@@ -77,7 +76,6 @@ Tamen, la kreanto de svisa evento povas decidi lasi tiuj ludantoj aliĝi al la e
 Malfruaj aliĝantoj ricevas unu malplenan roŭndon, eĉ se ili partoprenas en kelkaj roŭndoj.</string>
   <string name="willSwissReplaceArenasQ">Ĉu svisoj anstataŭi arenajn turnirojn?</string>
   <string name="willSwissReplaceArenasA">Ne. Tiuj estas komplementaj funkcioj.</string>
-  <string name="roundRobinQ">Kio pri Ronda Rubando?</string>
   <string name="roundRobinA">Ni volas aldoni ĝin, sed bedaŭrinde Ronda Rubando malfunkcias rete.
 La kialo estas, ke ne estas rimedo por traktas homojn, kiu frue eliras el la turniro. Ni ne povas atendi, ke ĉiuj ludantoj ludos ĉiun ties ludojn ĉe retevento. Tio simple ne okazos, tial plej multaj Rondrubandaj turniroj estus difekta kaj malhonesta, kio malvenkas ties ekzakta kialo por ekzisti.
 La plej proksime vi povas atingi kiel Ronda Rubando rete estas ludi Svisa turniro kun tre alta nombro da roŭndoj. Tiam ĉiuj eblaj parigoj estos ludita antaŭ la findo de la turniro.</string>
@@ -113,6 +111,5 @@ La plej proksime vi povas atingi kiel Ronda Rubando rete estas ludi Svisa turnir
   <string name="similarToOTB">Simile al ĉestaj turniroj</string>
   <string name="unlimitedAndFree">Senlima kaj libera</string>
   <string name="predefinedUsers">Permesi nur prefinitajn uzantojn aliĝi</string>
-  <string name="forbiddedUsers">Se ĉi tiu listo ne estas malplena, tiam uzantoj forestante el ĉi tiu listo ne eblas aliĝi. Unu uzantnomo po lino.</string>
   <string name="playYourGames">Ludu viajn ludojn</string>
 </resources>

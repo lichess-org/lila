@@ -21,7 +21,6 @@
   <string name="puzzleRead">Skaityti užduočių veiklą</string>
   <string name="teamRead">Skaityti privačia komandos informaciją</string>
   <string name="teamWrite">Prisijungti ir palikti komandas</string>
-  <string name="teamLead">Valdyti komandas, kurioms vadovaujate: siųsti žinutes, išmesti narius</string>
   <string name="followRead">Skaityti sekamus žaidėjus</string>
   <string name="followWrite">Sekti ir nebesekti kitų žaidėjų</string>
   <string name="msgWrite">Siųsti privačias žinutes kitiems žaidėjams</string>

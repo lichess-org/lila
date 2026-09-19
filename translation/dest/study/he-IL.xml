@@ -66,7 +66,6 @@
   <string name="downloadGame">הורדת המשחק</string>
   <string name="studyUrl">כתובת לוח הלמידה</string>
   <string name="currentChapterUrl">כתובת האינטרנט של הפרק הנוכחי</string>
-  <string name="youCanPasteThisInTheForumToEmbed">את/ה יכול/ה לפרסם את זה בפורום כדי להטמיע</string>
   <string name="startAtInitialPosition">התחילו בעמדת הפתיחה</string>
   <string name="startAtX">התחילו ב%s</string>
   <string name="embedInYourWebsite">הטמעה באתר שלך</string>

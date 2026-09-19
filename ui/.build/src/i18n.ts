@@ -118,10 +118,9 @@ async function writeJavascript(cat: string, locale?: string, xstat: fs.Stats | f
   const jsInit =
     cat !== 'site'
       ? ''
-      : siteInit +
-        'window.i18n.quantity=' +
+      : 'window.i18n={quantity:' +
         (jsQuantity.find(({ l }) => l.includes(lang ?? ''))?.q ?? `o=>o==1?'one':'other'`) +
-        ';';
+        '};';
   if (!jsInit && locale && !localeSpecific.size) return;
   const code =
     jsPrelude +
@@ -263,14 +262,6 @@ const jsPrelude =
       return n;
     }`,
   ));
-
-const siteInit = await minify(`
-  window.i18n = function(k) {
-    for (let v of Object.values(window.i18n)) {
-      if (v[k]) return v[k];
-      return k;
-    }
-  };`);
 
 const jsQuantity = [
   {

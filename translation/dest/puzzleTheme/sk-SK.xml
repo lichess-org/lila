@@ -29,7 +29,6 @@
   <string name="collinearMove">Kolineárny ťah</string>
   <string name="collinearMoveDescription">Vaša a súperova figúrka stoja proti sebe a jedna z nich sa posúva po línii útoku bez toho, aby zobrala tú druhú.</string>
   <string name="cornerMate">Rohový mat</string>
-  <string name="cornerMateDescription">Zatlačte kráľa do rohu pomocou veže a jazdca alebo dámy a jazdca, aby ste dosiahli mat.</string>
   <string name="crushing">Rozdrvenie</string>
   <string name="crushingDescription">Odhaľte súperovu hrubú chybu a získajte drvivú výhodu. (eval ≥ 600cp)</string>
   <string name="discoveredCheck">Odkrytý šach</string>
@@ -54,17 +53,14 @@
   <string name="doubleCheckDescription">Šachovanie dvoma figúrami naraz, ako výsledok odkryvného šachu, kedy aj figúra ktorou sa potiahlo aj odkrytá figúra napádajú súperovho kráľa.</string>
   <string name="endgame">Koncovka</string>
   <string name="endgameDescription">Taktika počas posledného úseku hry.</string>
-  <string name="enPassantDescription">Taktika spojená s pravidlom brania mimochodom, kedy pešiak môže vziať súperovho pešiaka, ktorý sa pohol zo základného postavenia o dve polia a tým sa dostal na jeho úroveň.</string>
   <string name="epauletteMate">Epoletný mat</string>
   <string name="epauletteMateDescription">Dve susedné políčka, kam by mohol šachovaný kráľ ustúpiť, sú obsadené inými figúrkami.</string>
   <string name="exposedKing">Oslabený kráľ</string>
   <string name="exposedKingDescription">Taktika spojená s kráľom, ktorý má okolo seba málo brániacich figúr, často vedúca k matu.</string>
   <string name="fork">Vidlička</string>
-  <string name="forkDescription">Ťah, pri ktorom figúra útočí na dve nepriateľské figúry naraz.</string>
   <string name="hangingPiece">Visiaca figúra</string>
   <string name="hangingPieceDescription">Taktika spojená so súperovou figúrou, ktorá je nekrytá alebo nedostatočne krytá a je možné ju vziať zadarmo.</string>
   <string name="hookMate">Hákový mat</string>
-  <string name="hookMateDescription">Mat vežou, jazdcom alebo pešiakom spolu s jedným súperovým pešiakom, ktorý obmedzuje pohyb kráľa.</string>
   <string name="interference">Prekrytie</string>
   <string name="interferenceDescription">Umiestnenie figúry medzi dve súperove figúry čím sa tieto dve stávajú nekrytými, napr. umiestnenie jazdca na kryté pole medzi dve veže.</string>
   <string name="intermezzo">Medziťah</string>
@@ -72,9 +68,7 @@
   <string name="killBoxMate">Mat na poli smrti</string>
   <string name="killBoxMateDescription">Veža je vedľa súperovho kráľa a podporuje ju dáma, ktorá zároveň blokuje kráľove únikové polia. Veža a dáma chytia súperovho kráľa do pasce na 3 x 3 „poli smrti“.</string>
   <string name="pillsburysMate">Pillsburyho mat</string>
-  <string name="pillsburysMateDescription">Veža dáva kráľovi mat, zatiaľ čo strelec obmedzuje jeho pohyb.</string>
   <string name="morphysMate">Morphyho mat</string>
-  <string name="morphysMateDescription">Strelec dáva kráľovi mat, zatiaľ čo veža obmedzuje jeho pohyb.</string>
   <string name="swallowstailMate">Mat lastovičí chvost</string>
   <string name="swallowstailMateDescription">Šachmatový vzor, ktorý vizuálne pripomína tvar lastovičieho chvosta, podobný písmenu V.</string>
   <string name="triangleMate">Trojuholníkový mat</string>
@@ -114,7 +108,6 @@
   <string name="pin">Väzba</string>
   <string name="pinDescription">Taktika spojená s väzbou, kedy sa figúrka nemôže pohnúť bez toho aby neodkryla napadnutie figúry vyššej hodnoty.</string>
   <string name="promotion">Premena</string>
-  <string name="promotionDescription">Premena pešiaka alebo hrozba premeny pešiaka je kľúčom k tejto taktike.</string>
   <string name="queenEndgame">Dámska koncovka</string>
   <string name="queenEndgameDescription">Koncovka iba s kráľovnami a pešiakmi.</string>
   <string name="queenRookEndgame">Dáma a Veža</string>

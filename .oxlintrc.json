@@ -6,6 +6,9 @@
     "builtin": true
   },
   "ignorePatterns": ["**/dist/", "**/public"],
+  "options": {
+    "reportUnusedDisableDirectives": "error"
+  },
   "rules": {
     "consistent-return": "error",
     "default-param-last": "error",

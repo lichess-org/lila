@@ -68,7 +68,6 @@
   <string name="downloadGame">Preuzmi igru</string>
   <string name="studyUrl">Studiraj URL</string>
   <string name="currentChapterUrl">URL trenutnog poglavlja</string>
-  <string name="youCanPasteThisInTheForumToEmbed">Možete zaljepiti ovo u forum da ugradite poglavlje</string>
   <string name="startAtInitialPosition">Kreni s početne pozicije</string>
   <string name="startAtX">Započni na %s</string>
   <string name="embedInYourWebsite">Ugradi u svoju stranicu ili blog</string>
@@ -191,8 +190,6 @@
   <string name="fromInitialPositionText">Ploča spremna za novu partiju.&lt;br&gt; Korisno za istraživanje otvaranja.</string>
   <string name="customPositionTitle">Od pozicije</string>
   <string name="customPositionText">Postavi ploču na svoj način.&lt;br&gt;Korisno za istraživanje završnica.</string>
-  <string name="loadExistingLichessGameTitle">Učitaj postojeću lichess igru</string>
-  <string name="loadExistingLichessGameText">Unesi URL lichess partije&lt;br&gt;(na primjer lichess.org/7fHIU0XI)&lt;br&gt; da bi učitao poteze u poglavlju.</string>
   <string name="fromFenStringTitle">Iz FEN notacije</string>
   <string name="fromFenStringText">Unesi poziciju iz FEN formata&lt;br&gt;&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;&lt;i&gt;da bi počeo poglavlje od pozicije.</string>
   <string name="fromPgnGameTitle">Iz PGN partije</string>
