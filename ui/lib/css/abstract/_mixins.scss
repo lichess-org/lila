@@ -41,6 +41,14 @@
   }
 }
 
+@mixin hover {
+  @media (hover: hover) {
+    &:hover {
+      @content;
+    }
+  }
+}
+
 @mixin ellipsis {
   overflow: hidden;
   text-overflow: ellipsis;
