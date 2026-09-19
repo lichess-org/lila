@@ -66,16 +66,19 @@ export const endgameGlyphs: Record<
 > = {
   win: composeGlyph(
     '#22ac38',
-    '<path fill="none" stroke="#fff" stroke-width="8" d="M28 25H18v8c0 14 8 24 22 27M72 25h10v8c0 14-8 24-22 27"/><path fill="#fff" d="M28 14h44v20c0 14-8 25-22 30-14-5-22-16-22-30zM46 61h8v16h-8zM29 77h42v10H29z"/>',
+    '<g transform="translate(6 6) scale(.88)"><path fill="none" stroke="#fff" stroke-width="8" d="M28 25H18v8c0 14 8 24 22 27M72 25h10v8c0 14-8 24-22 27"/><path fill="#fff" d="M28 14h44v20c0 14-8 25-22 30-14-5-22-16-22-30zM46 61h8v16h-8zM29 77h42v10H29z"/></g>',
   ),
   mate: composeGlyph(
     '#df5353',
     '<path fill="none" stroke="#fff" stroke-width="8" d="M38 18 33 82M62 18l-5 64M20 40h60M18 62h60"/>',
   ),
-  resign: composeGlyph('#df5353', '<path fill="#fff" d="M24 12h9v76h-9zm9 4h45l-17 17 17 17H33z"/>'),
+  resign: composeGlyph(
+    '#df5353',
+    '<path fill="#fff" transform="translate(8 8) scale(.84)" d="M24 12h9v76h-9zm9 4h45l-17 17 17 17H33z"/>',
+  ),
   abandoned: composeGlyph(
     '#df5353',
-    '<path fill="#fff" d="M64 12a10 10 0 1 1 0 20 10 10 0 0 1 0-20M56 37h12l5 18 12 10-6 8-15-11-5-12-5 13-11 15-9-6 10-16 5-19zm-13 5-11 4-10-8-6 7 14 13 12-4zm16 25 9 7-11 14-9-5z"/>',
+    '<path fill="#fff" d="M18 12h10v76H18zm10 0h28v10H28zm0 66h28v10H28zM47 42h25L62 32l7-7 23 24-23 24-7-7 10-10H47z"/>',
   ),
   outoftime: composeGlyph(
     '#df5353',
@@ -85,7 +88,10 @@ export const endgameGlyphs: Record<
     '#df5353',
     '<path fill="#fff" d="M50 10 88 82H12zm0 20-21 42h42zM44 43h12v20H44zm0 26h12v12H44z"/>',
   ),
-  draw: composeGlyph('#c8a829', '<path fill="#fff" d="M18 27h64v12H18zm0 34h64v12H18z"/>'),
+  draw: composeGlyph(
+    '#c8a829',
+    '<path fill="#fff" transform="translate(10 10) scale(.8)" d="M18 27h64v12H18zm0 34h64v12H18z"/>',
+  ),
   stalemate: composeGlyph(
     '#c8a829',
     '<path fill="none" stroke="#fff" stroke-width="9" d="M31 14h38M50 14v11M38 25h24l7 16v17H31V41zM25 82h50"/><path fill="none" stroke="#fff" stroke-width="9" d="m22 22 56 56"/>',

@@ -123,7 +123,6 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
   let shapes: DrawShape[] = endgameShapesForNode(
     ctrl.node,
     ctrl.node === ctrl.mainline[ctrl.mainline.length - 1],
-    rcolor,
     ctrl.data.game.winner,
     ctrl.data.game.status.name,
   );

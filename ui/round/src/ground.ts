@@ -1,4 +1,5 @@
 import { Chessground as makeChessground } from '@lichess-org/chessground';
+import type { DrawShape } from '@lichess-org/chessground/draw';
 import { uciToMove } from '@lichess-org/chessground/util';
 import { h, type VNode } from 'snabbdom';
 
@@ -22,8 +23,7 @@ export function makeConfig(ctrl: RoundController): CgConfig {
     hooks = ctrl.makeCgHooks(),
     step = plyStep(data, ctrl.ply),
     playing = ctrl.isPlaying(),
-    premove = new Premove(data.game.variant.key, !!data.pref.rookCastle),
-    endgame = finished(data) ? endgameShapes(step.fen, data.game.winner, data.game.status.name) : [];
+    premove = new Premove(data.game.variant.key, !!data.pref.rookCastle);
 
   return {
     fen: step.fen,
@@ -98,7 +98,7 @@ export function makeConfig(ctrl: RoundController): CgConfig {
     drawable: {
       enabled: true,
       defaultSnapToValidMove: storage.boolean('arrow.snap').getOrDefault(true),
-      autoShapes: endgame,
+      autoShapes: endgameShapesForStep(ctrl, step),
     },
     disableContextMenu: true,
   };
@@ -118,7 +118,13 @@ export const sync = (ctrl: RoundController, step: Step, playing: boolean): void 
     check: !!step.check,
     turnColor: plyColor(step.ply),
     movable: movableState(ctrl.data, playing),
+    drawable: { autoShapes: endgameShapesForStep(ctrl, step) },
   });
+
+export const endgameShapesForStep = (ctrl: RoundController, step: Step): DrawShape[] =>
+  finished(ctrl.data) && ctrl.ply === ctrl.lastPly()
+    ? endgameShapes(step.fen, ctrl.data.game.winner, ctrl.data.game.status.name)
+    : [];
 
 export const boardOrientation = (data: RoundData, flip: boolean): Color =>
   data.game.variant.key === 'racingKings'

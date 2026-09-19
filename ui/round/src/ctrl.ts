@@ -263,6 +263,7 @@ export default class RoundController implements MoveRootCtrl {
         lastMove: uciToMove(s.uci),
         check: !!s.check,
         turnColor: plyColor(this.ply),
+        drawable: { autoShapes: ground.endgameShapesForStep(this, s) },
       };
     this.promotion.dismiss();
     if (this.replaying()) this.chessground.stop();

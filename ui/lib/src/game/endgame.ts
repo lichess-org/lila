@@ -1,5 +1,7 @@
 import type { DrawShape } from '@lichess-org/chessground/draw';
 import type { Outcome } from 'chessops';
+import { parseFen } from 'chessops/fen';
+import { makeSquare, opposite } from 'chessops/util';
 
 import { endgameGlyphs } from './glyphs';
 import type { StatusName } from './status';
@@ -19,7 +21,6 @@ type EndgameNode = {
 const endgameResult = (
   node: EndgameNode,
   isLast: boolean,
-  mateWinner: Color,
   gameWinner: Color | undefined,
   gameStatus: StatusName,
 ): EndgameResult => {
@@ -30,7 +31,7 @@ const endgameResult = (
 
   if (!isGameEnd) return {};
   return {
-    winner: outcome?.winner ?? (isMate ? mateWinner : gameWinner),
+    winner: outcome?.winner ?? (isMate ? opposite(parseFen(node.fen).unwrap().turn) : gameWinner),
     status: isMate ? 'mate' : gameStatus,
   };
 };
@@ -38,29 +39,16 @@ const endgameResult = (
 export function endgameShapesForNode(
   node: EndgameNode,
   isLast: boolean,
-  mateWinner: Color,
   gameWinner: Color | undefined,
   gameStatus: StatusName,
 ): DrawShape[] {
-  const result = endgameResult(node, isLast, mateWinner, gameWinner, gameStatus);
+  const result = endgameResult(node, isLast, gameWinner, gameStatus);
   return endgameShapes(node.fen, result.winner, result.status);
 }
 
 export function findKingSquare(fen: FEN, color: Color): Key | undefined {
-  const board = fen.split(' ')[0].split('/'),
-    king = color === 'white' ? 'K' : 'k';
-
-  for (let rank = 0; rank < board.length; rank++) {
-    let file = 0;
-    for (const char of board[rank]) {
-      if (/\d/.test(char)) file += Number(char);
-      else {
-        if (char === king) return `${String.fromCharCode(97 + file)}${8 - rank}` as Key;
-        file++;
-      }
-    }
-  }
-  return undefined;
+  const king = parseFen(fen).unwrap().board.kingOf(color);
+  return king === undefined ? undefined : makeSquare(king);
 }
 
 type EndgameGlyph = keyof typeof endgameGlyphs;
