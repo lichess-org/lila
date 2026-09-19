@@ -43,7 +43,7 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
     allAppeals = appeals.value.values.toList
   yield topic.flatMap(appeals.get) match
     case Some(a) =>
-      if AppealTopicApi.usesNewAppealFlow(a.topic) then views.appeal.flow.userFlow(a, allAppeals)
+      if AppealTopicApi.usesNewAppealFlow(a.topic) then views.appeal.flow.userShow(a, allAppeals)
       else views.appeal.discussion.userShow(status, a, err | userForm, allAppeals)
     case None => views.appeal.tree.page(topic, status, appeals)
 
@@ -150,7 +150,7 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
   def modShow(username: UserStr, topic: AppealTopic) = Secure(_.Appeals) { ctx ?=> me ?=>
     asMod(username, topic): (appeal, suspect) =>
       getModData(appeal, suspect).flatMap: modData =>
-        Ok.page(if AppealTopicApi.usesNewAppealFlow(topic) then views.appeal.flow.modFlow(appeal, modData)
+        Ok.page(if AppealTopicApi.usesNewAppealFlow(topic) then views.appeal.flow.modShow(appeal, modData)
         else views.appeal.discussion.modShow(appeal, modForm, modData))
   }
 

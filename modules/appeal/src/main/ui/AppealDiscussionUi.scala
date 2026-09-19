@@ -41,7 +41,7 @@ final class AppealDiscussionUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
               h2(cls := "appeal__mark")(msg()),
           standardFlash,
           div(cls := "body")(
-            ui.userAppealMessages(appeal),
+            ui.userAppealEvents(appeal),
             if appeal.isClosed then ui.appealIsClosed(appeal)
             else if !appeal.canAddMsg then
               p(cls := "line-center-text")("You can't add messages to this appeal at the moment.")

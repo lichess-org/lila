@@ -72,15 +72,15 @@ final class AppealUi(helpers: Helpers)(using NetDomain):
         )
       )
 
-  def userAppealMessages(appeal: Appeal)(using Context, Me) =
-    appeal.msgs.map(message(appeal))
+  def userAppealEvents(appeal: Appeal)(using Context, Me) =
+    appeal.msgs.map(event(appeal))
 
-  def message(appeal: Appeal)(msg: AppealMsg)(using Context, Me) =
-    msg match
-      case event: ChoiceEvent => choiceEvent(appeal, event)
-      case _ => legacyMessage(appeal)(msg)
+  def event(appeal: Appeal)(event: AppealMsg)(using Context, Me) =
+    event match
+      case e: ChoiceEvent => choiceEvent(appeal, e)
+      case _ => messageEvent(appeal)(event)
 
-  private def legacyMessage(appeal: Appeal)(msg: AppealMsg)(using Context) =
+  private def messageEvent(appeal: Appeal)(msg: AppealMsg)(using Context) =
     div(cls := s"appeal__msg appeal__msg--${if appeal.isByMod(msg) then "mod" else "suspect"}")(
       div(cls := "appeal__msg__header")(
         userLink(appeal, msg.by, asMod = false),
@@ -123,7 +123,7 @@ final class AppealUi(helpers: Helpers)(using NetDomain):
                 else "Appeal on hold"
             )
           ),
-          userAppealMessages(appeal)
+          userAppealEvents(appeal)
         )
 
   def appealIsClosed(appeal: Appeal)(using Translate) = p(cls := "line-center-text")(

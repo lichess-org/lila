@@ -8,7 +8,7 @@ import lila.core.config.NetDomain
 final class AppealFlowUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
   import helpers.{ *, given }
 
-  def userFlow(appeal: Appeal, appeals: List[Appeal])(using Context, Me) =
+  def userShow(appeal: Appeal, appeals: List[Appeal])(using Context, Me) =
     ui.page("Appeal"):
       main(cls := "page-small appeal")(
         div(cls := "box box-pad")(
@@ -19,14 +19,14 @@ final class AppealFlowUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
             )
           ),
           div(cls := "body")(
-            appeal.msgs.map(ui.message(appeal)),
+            appeal.msgs.map(ui.event(appeal)),
             userNextNode(appeal)
           )
         ),
         ui.userInactiveAppeals(appeals.filter(_ != appeal))
       )
 
-  def modFlow(appeal: Appeal, modData: ModData)(using ctx: Context, me: Me) =
+  def modShow(appeal: Appeal, modData: ModData)(using ctx: Context, me: Me) =
     import modData.*
     ui.page(s"Appeal by ${user.username}"):
       main(cls := "appeal")(
@@ -36,7 +36,7 @@ final class AppealFlowUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
           appeal.accounts.map(ui.accountsDisclosure),
           otherUsers(cls := "mod-zone communication__logins"),
           div(cls := "body")(
-            modAppealMessages(appeal),
+            modAppealEvents(appeal),
             standardFlash.orElse(markedByMe.option(ui.markedByMeWarning)),
             modNextNode(appeal, modData),
             if appeal.isClosed then ui.appealIsClosed(appeal)
@@ -48,11 +48,11 @@ final class AppealFlowUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
         ui.userInactiveAppeals(userAppeals.filter(_ != appeal))
       )
 
-  private def modAppealMessages(appeal: Appeal)(using Context, Me) =
+  private def modAppealEvents(appeal: Appeal)(using Context, Me) =
     appeal.msgs.map: msg =>
       div(
         id := appeal.isLast(msg).option("appeal-last-msg")
-      )(ui.message(appeal)(msg))
+      )(ui.event(appeal)(msg))
 
   private def userNextNode(appeal: Appeal)(using Context, Me) =
     AppealFlow.nextNode(appeal) match
