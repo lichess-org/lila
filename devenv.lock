@@ -3,11 +3,11 @@
     "devenv": {
       "locked": {
         "dir": "src/modules",
-        "lastModified": 1789691577,
-        "narHash": "sha256-mS9lQo1gpKzwWMYgzdxc4yv4sIdwqI0GfFMCbV4LZtA=",
+        "lastModified": 1789773873,
+        "narHash": "sha256-lFR8A3JzpXn4Az9quklprOje/+Njyh9+bP+CE1TCIxI=",
         "owner": "cachix",
         "repo": "devenv",
-        "rev": "ccb4a99d35474afd07634ee194174ae40f7d98af",
+        "rev": "2ba2f9ed32596289874c58981a4d3e56cadd639d",
         "type": "github"
       },
       "original": {
@@ -38,11 +38,11 @@
     },
     "nixpkgs-master": {
       "locked": {
-        "lastModified": 1789768104,
-        "narHash": "sha256-9Cp1EAIUd5WIkKpAgaS4LoP02z3TK7C/pm1YAt4eWTE=",
+        "lastModified": 1789804398,
+        "narHash": "sha256-0gUX2u5tQMPyu+MPh5cDLIO6sbrtB94EoVPljKjiLvI=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "af6b29351baf835fa63907feb1885aa5c0546c29",
+        "rev": "5a43e367a47932f1c9cbc301b873b532a1bede5f",
         "type": "github"
       },
       "original": {
@@ -85,12 +85,48 @@
         "type": "github"
       }
     },
+    "nixpkgs_2": {
+      "locked": {
+        "lastModified": 1789546076,
+        "narHash": "sha256-zVxLZiSnmaaPLwnhj7pwmqe3axBg/C6nG5JZsJMh2g4=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "b1b875982b17dabde9b4a37f3e229e74913e6db3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "devenv": "devenv",
         "nixpkgs": "nixpkgs",
         "nixpkgs-master": "nixpkgs-master",
-        "nixpkgs-unstable": "nixpkgs-unstable"
+        "nixpkgs-unstable": "nixpkgs-unstable",
+        "sasso": "sasso"
+      }
+    },
+    "sasso": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_2"
+      },
+      "locked": {
+        "lastModified": 1789782414,
+        "narHash": "sha256-z5DMu+5PCEPS2Re16g/k7KbjvIxFsSTQKagEmF7HWxM=",
+        "owner": "momiji-rs",
+        "repo": "sasso",
+        "rev": "4712d83bdb46b27a8c7f542d4bb0f9d4bed8eef3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "momiji-rs",
+        "ref": "v0.18.0",
+        "repo": "sasso",
+        "type": "github"
       }
     }
   },
