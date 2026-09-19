@@ -72,52 +72,63 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
     yield res
   }
 
-  private def event(appeal: AppealModel)(using BodyContext[?])(using me: Me): Fu[Result] =
-    if !appeal.isOpen then Redirect(routes.Appeal.home)
-    else
-      val redirect =
-        if appeal.user.isnt(me) then Redirect(appeal.modShowUrl)
-        else Redirect(s"${routes.Appeal.home}#appeal-last-msg")
-      bindForm(kindForm)(
-        _ => BadRequest,
-        {
-          case Kind.choice =>
-            bindForm(choiceForm)(
-              _ => BadRequest,
-              choiceData =>
-                for
-                  r <- env.appeal.api.postChoiceEvent(appeal, choiceData)
-                  _ <- r
-                    .exists(a => a.user.isnt(me) && (a.isClosed || a.awaitingUserChoice))
-                    .so(env.report.api.inquiries.toggle(Right(appeal.user)).void)
-                yield r.fold(BadRequest)(_ => redirect)
-            )
-          case Kind.message =>
-            bindForm(if appeal.user.isnt(me) then modMessageForm else userMessageForm)(
-              _ => BadRequest,
-              messageData =>
-                for
-                  replied <- env.appeal.api.postMessageEvent(appeal, messageData)
-                  res <-
-                    if appeal.user.isnt(me)
-                    then afterModMessage(replied, messageData.close.orZero, messageData.dismiss.orZero)
-                    else fuccess(redirect)
-                yield res
-            )
-          case _ => BadRequest
-        }
-      )
-
   def userEvent(topic: AppealTopic) = AuthBody { _ ?=> me ?=>
     Found(env.appeal.api.find(me, topic)): appeal =>
-      event(appeal)
+      event(appeal, asMod = false)
   }
 
   def modEvent(username: UserStr, topic: AppealTopic) = SecureBody(_.Appeals) { ctx ?=> me ?=>
     Found(env.user.repo.byId(username)): user =>
       Found(env.appeal.api.find(user, topic)): appeal =>
-        event(appeal)
+        event(appeal, asMod = true)
   }
+
+  private def event(appeal: AppealModel, asMod: Boolean)(using BodyContext[?], Me): Fu[Result] =
+    if !appeal.isOpen then Redirect(routes.Appeal.home)
+    else
+      bindForm(kindForm)(
+        _ => BadRequest,
+        {
+          case Kind.choice => handleChoice(appeal, asMod)
+          case Kind.message => handleMessage(appeal, asMod)
+          case _ => BadRequest
+        }
+      )
+
+  private def handleChoice(appeal: AppealModel, asMod: Boolean)(using BodyContext[?], Me): Fu[Result] =
+    bindForm(choiceForm)(
+      _ => BadRequest,
+      data =>
+        for
+          r <- env.appeal.api.postChoiceEvent(appeal, data)
+          _ <- (asMod && r.exists(a => a.isClosed || a.awaitingUserChoice))
+            .so(env.report.api.inquiries.toggle(Right(appeal.user)).void)
+        yield r.fold(BadRequest)(_ => eventRedirect(appeal, asMod))
+    )
+
+  private def handleMessage(appeal: AppealModel, asMod: Boolean)(using BodyContext[?], Me): Fu[Result] =
+    bindForm(if asMod then modMessageForm else userMessageForm)(
+      _ => BadRequest,
+      data =>
+        for
+          replied <- env.appeal.api.postMessageEvent(appeal, data)
+          res <-
+            if asMod then afterModMessage(replied, data.close.orZero, data.dismiss.orZero)
+            else fuccess(eventRedirect(appeal, asMod))
+        yield res
+    )
+
+  private def afterModMessage(appeal: AppealModel, close: Boolean, dismiss: Boolean)(using Me): Fu[Result] =
+    for
+      _ <- close.so(env.appeal.api.toggleClosed(appeal, true, sleepMonths = 0))
+      _ <- dismiss.so(env.report.api.inquiries.toggle(Right(appeal.user)).void)
+    yield
+      if dismiss then Redirect(routes.Appeal.modQueue)
+      else Redirect(appeal.modShowUrl).flashSuccess("Reply sent")
+
+  private def eventRedirect(appeal: AppealModel, asMod: Boolean) =
+    if asMod then Redirect(appeal.modShowUrl)
+    else Redirect(s"${routes.Appeal.home}#appeal-last-msg")
 
   def withdraw(topic: AppealTopic) = Auth { _ ?=> me ?=>
     Found(env.appeal.api.find(me, topic)): appeal =>
@@ -182,14 +193,6 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
           yield res
       )
   }
-
-  private def afterModMessage(appeal: AppealModel, close: Boolean, dismiss: Boolean)(using Me): Fu[Result] =
-    for
-      _ <- close.so(env.appeal.api.toggleClosed(appeal, true, sleepMonths = 0))
-      _ <- dismiss.so(env.report.api.inquiries.toggle(Right(appeal.user)).void)
-    yield
-      if dismiss then Redirect(routes.Appeal.modQueue)
-      else Redirect(appeal.modShowUrl).flashSuccess("Reply sent")
 
   private def getModData(appeal: AppealModel, suspect: Suspect)(using Context)(using me: Me) =
     for
