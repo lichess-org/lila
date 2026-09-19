@@ -1083,7 +1083,10 @@ export default class AnalyseCtrl implements CevalHandler {
       this.showBestMoveArrows() ||
       this.settings.showMoveAnnotationsOnBoard ||
       this.settings.showVariationArrows ||
-      (this.motifEnabled() && this.motif.any())
+      (this.motifEnabled() && this.motif.any()) ||
+      this.node.check() ||
+      this.node.outcome() ||
+      this.data.game.status.id >= 30
     )
       this.setAutoShapes();
     else this.chessground?.setAutoShapes([]);

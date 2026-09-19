@@ -5,6 +5,8 @@ import { h, type VNode } from 'snabbdom';
 import resizeHandle from 'lib/chessgroundResize';
 import { isSafari } from 'lib/device';
 import { plyColor } from 'lib/game/chess';
+import { endgameShapes } from 'lib/game/endgame';
+import { finished } from 'lib/game/status';
 import { ShowResizeHandle, Coords, MoveEvent } from 'lib/prefs';
 import { storage } from 'lib/storage';
 import { onInsert } from 'lib/view';
@@ -20,7 +22,9 @@ export function makeConfig(ctrl: RoundController): CgConfig {
     hooks = ctrl.makeCgHooks(),
     step = plyStep(data, ctrl.ply),
     playing = ctrl.isPlaying(),
-    premove = new Premove(data.game.variant.key, !!data.pref.rookCastle);
+    premove = new Premove(data.game.variant.key, !!data.pref.rookCastle),
+    endgame = finished(data) ? endgameShapes(step.fen, data.game.winner, data.game.status.name) : [];
+
   return {
     fen: step.fen,
     orientation: boardOrientation(data, ctrl.flip),
@@ -94,6 +98,7 @@ export function makeConfig(ctrl: RoundController): CgConfig {
     drawable: {
       enabled: true,
       defaultSnapToValidMove: storage.boolean('arrow.snap').getOrDefault(true),
+      autoShapes: endgame,
     },
     disableContextMenu: true,
   };
