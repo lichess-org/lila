@@ -1,4 +1,4 @@
-.lpools {
+.shortcuts {
   @extend %roboto;
 
   display: grid;
@@ -6,7 +6,7 @@
   grid-template-rows: repeat(4, 1fr);
   gap: 9px;
   padding-top: 9px;
-  background-color: transparent !important;
+  background-color: transparent;
   box-shadow: none;
   overflow: visible !important; // for button shadows
 
@@ -27,7 +27,6 @@
   .clock {
     display: block;
     font-size: 1.5em;
-    line-height: 1.6em;
     letter-spacing: 0.1em;
   }
 
@@ -52,7 +51,7 @@
   }
 }
 
-.lpool {
+.shortcut {
   @extend %flex-column, %box-radius, %break-word;
   @include transition;
   @include backdrop-blur-if-transparent;
@@ -62,26 +61,68 @@
   cursor: pointer;
   color: $c-font-dim;
   background: $c-pool-button;
+  padding: 6px;
+  gap: 4px;
 
-  @include if-light {
-    background: rgb(from $c-bg r g b / calc(alpha * 0.5));
+  &:has(.icon) {
+    gap: 6px;
   }
 
-  &:hover {
-    color: $c-font;
-    background: $c-accent-glass !important;
-    opacity: 1;
+  ---scale: 1; /* calculated from name length */
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      color: $c-font;
+      background-color: $c-accent-glass;
+      opacity: 1;
+    }
   }
 
   &.active {
     @extend %popup-shadow;
 
-    .perf {
+    color: $c-font;
+    background-color: $c-accent-glass;
+    opacity: 1;
+
+    .name {
       display: none;
     }
   }
 
   &.transp {
     opacity: 0.35;
+  }
+
+  .icon {
+    pointer-events: none;
+    position: relative;
+    isolation: isolate;
+
+    i::before {
+      @include fluid-size-orientation('font-size', 25px, 37px);
+    }
+
+    img,
+    .mask {
+      @include fluid-size-orientation('width', 25px, 37px);
+      @include fluid-size-orientation('height', 25px, 37px);
+    }
+
+    .mask::before {
+      content: '';
+      z-index: -1;
+      position: absolute;
+      inset: 0;
+      background-color: $c-font-dim;
+      -webkit-mask: var(---icon-mask) 0 0 / 100% 100% no-repeat; /* stylelint-disable-line property-no-vendor-prefix */
+      mask: var(---icon-mask) 0 0 / 100% 100% no-repeat;
+    }
+  }
+
+  .name {
+    font-size: calc(1em * var(---scale));
+    text-align: center;
+    overflow-wrap: anywhere;
   }
 }

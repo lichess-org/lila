@@ -6,7 +6,6 @@ html.light {
   --c-bg-zebra: hsl(var(---site-hue) 12% 96.5%);
   --c-bg-zebra2: hsl(var(---site-hue) 12% 92%);
   --c-bg-popup: hsl(0 0% 100%);
-  --c-bg-opaque: hsl(0 0% 100%);
   --c-body-gradient: hsl(var(---site-hue) 12% 84%);
   --c-font: hsl(0 0% 30%);
   --c-font-dim: hsl(0 0% 47%);
@@ -45,6 +44,8 @@ html.light {
   --c-fancy: hsl(294 61% 62%);
   --c-border-page: hsl(0 0% 80%);
   --c-border-light: hsl(0 0% 80%);
+  --c-pool-button: hsl(from var(--c-bg) h s l / calc(alpha * 0.5));
+  --c-logo: #dadada;
   --c-patron-1: hsl(90 60% 43%);
   --c-patron-2: hsl(120 52% 52%);
   --c-patron-3: hsl(162.9 65% 44%);

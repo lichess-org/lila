@@ -3,6 +3,7 @@ html.transp {
   --c-bg: hsl(0 0% 0% / 0.6);
   --c-bg-opaque: hsl(0 0% 0% / 0.9);
   --c-bg-low: hsl(0 0% 0% / 0.5);
+  --c-bg-fade: hsl(from var(--c-bg) h s l / 0.4);
   --c-bg-mid: hsl(0 0% 15% / 0.4);
   --c-bg-zebra: hsl(0 0% 100% / 0.05);
   --c-bg-zebra2: hsl(0 0% 100% / 0.1);
@@ -11,6 +12,7 @@ html.transp {
   --c-bg-variation: hsl(0 0% 0% / 0.25);
   --c-bg-header-dropdown: hsl(0 0% 0% / 0.75);
   --c-body-gradient: hsl(var(---site-hue) 8% 16% / 0.8);
+  --c-logo: transparent;
   --c-font-dim: hsl(from var(--c-font) h s 69%);
   --c-font-dimmer: hsl(from var(--c-font) h s 48%);
   --c-font-clear: hsl(from var(--c-font) h s 89%);
@@ -20,4 +22,5 @@ html.transp {
   --c-metal-bottom: hsl(37 7% 19% / 0.66);
   --c-metal-top-hover: hsl(0 0% 42% / 0.4);
   --c-metal-bottom-hover: hsl(0 0% 42% / 0.45);
+  --c-page-mask: hsl(0 0% 0% / 0.3);
 }

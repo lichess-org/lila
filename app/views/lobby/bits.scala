@@ -6,7 +6,7 @@ object bits:
 
   val lobbyApp = div(cls := "lobby__app")(
     div(cls := "tabs-horiz")(span(nbsp)),
-    div(cls := "lobby__app__content lpools")
+    div(cls := "lobby__app__content shortcuts")
   )
 
   def underboards(
