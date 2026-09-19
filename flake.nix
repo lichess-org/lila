@@ -1,7 +1,10 @@
 {
   description = "lila development environment for Nix & flakes";
 
-  inputs.nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1"; # unstable Nixpkgs
+  inputs = {
+    nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1"; # unstable Nixpkgs
+    sasso.url = "github:momiji-rs/sasso/v0.18.0";
+  };
 
   outputs =
     { self, ... }@inputs:
@@ -62,7 +65,6 @@
               nodejs
               pnpm
               esbuild
-              dart-sass
               oxlint
               oxfmt
               stylelint
@@ -78,8 +80,6 @@
             # Required for NixOS to run prebuilt binaries from npm packages
             shellHook = ''
               export LD_LIBRARY_PATH=${pkgs.lib.makeLibraryPath [ pkgs.stdenv.cc.cc ]}:$LD_LIBRARY_PATH
-              # Use dart-sass instead of npm's sass-embedded
-              export SASS_PATH=${pkgs.dart-sass}/bin/sass
             '';
           };
         }

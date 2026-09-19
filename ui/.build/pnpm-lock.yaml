@@ -139,28 +139,12 @@ importers:
       picocolors:
         specifier: ^1.1.1
         version: 1.1.1
+      sasso:
+        specifier: ^0.18.0
+        version: 0.18.0
       typescript:
         specifier: 7.0.2
         version: 7.0.2
-    optionalDependencies:
-      sass-embedded-darwin-arm64:
-        specifier: 1.104.1
-        version: 1.104.1
-      sass-embedded-darwin-x64:
-        specifier: 1.104.1
-        version: 1.104.1
-      sass-embedded-linux-arm64:
-        specifier: 1.104.1
-        version: 1.104.1
-      sass-embedded-linux-x64:
-        specifier: 1.104.1
-        version: 1.104.1
-      sass-embedded-win32-arm64:
-        specifier: 1.104.1
-        version: 1.104.1
-      sass-embedded-win32-x64:
-        specifier: 1.104.1
-        version: 1.104.1
 
 packages:
 
@@ -527,43 +511,36 @@ packages:
   run-parallel@1.2.0:
     resolution: {integrity: sha512-5l4VyZR86LZ/lDxZTR6jqL8AFE2S0IFLMP26AbjsLVADxHdhB/c0GUsH+y39UfCi3dzz8OlQuPmnaJOMoDHQBA==}
 
-  sass-embedded-darwin-arm64@1.104.1:
-    resolution: {integrity: sha512-oatuHzn0NsEg0d9Dcze6CuWUPvuETtMxRK4cv0eRAg7p6R0vHnv5GZRyWG6gEy3nc/ha/L+GtTasWVU82f4jrQ==}
-    engines: {node: '>=14.0.0'}
+  sasso-native-darwin-arm64@0.18.0:
+    resolution: {integrity: sha512-UygtZeYx3myY2VpYGBEFCCrwq5YlhJmVBsCrnLt4sZDM06n1hCIuFJsOFd2b6vHX6UppGjy2Wtq1Fq+0Eg6IyA==}
+    engines: {node: '>=18'}
     cpu: [arm64]
     os: [darwin]
 
-  sass-embedded-darwin-x64@1.104.1:
-    resolution: {integrity: sha512-gql/5sHGzUTVwuHfM3QLCDeb6NYwen+LLj22gz81C2NKHF/4nUtDyh4N+fURWdT7J0/EhtMOd0+FLML3sGNP7g==}
-    engines: {node: '>=14.0.0'}
+  sasso-native-darwin-x64@0.18.0:
+    resolution: {integrity: sha512-TfWViggDzJhO2embsz6UzvbU+etIdz9dRkCa5PV/s4ILKLRfEZ11q02csv8mCZ+Kqp+g7sE+MC775mZT1n1AFg==}
+    engines: {node: '>=18'}
     cpu: [x64]
     os: [darwin]
 
-  sass-embedded-linux-arm64@1.104.1:
-    resolution: {integrity: sha512-sVWUKXNTu8sP3X95Df0xo/t49Ce5IseTIMqXHxhFBKVmx7gf7kBWNLK0wH5ym+4khc+B5nNJPgq4IxpelG8tMQ==}
-    engines: {node: '>=14.0.0'}
+  sasso-native-linux-arm64-gnu@0.18.0:
+    resolution: {integrity: sha512-H+LdAlW6WcrQPgEsstQwJg7CYQOxDeCKmsimIMTfQslAC8MSguIaBDJl97ESvIqRtiErypHVF4wFZvBvb4htZA==}
+    engines: {node: '>=18'}
     cpu: [arm64]
     os: [linux]
-    libc: glibc
+    libc: [glibc]
 
-  sass-embedded-linux-x64@1.104.1:
-    resolution: {integrity: sha512-j/sX/yKTx/wJKepC5/ISlR6kPeSuHKThf76D2za5i2VnbHg0MN19jQq3WMorowR3kRghqt6azs3awogG+e7IRA==}
-    engines: {node: '>=14.0.0'}
+  sasso-native-linux-x64-gnu@0.18.0:
+    resolution: {integrity: sha512-GsahOJcocQftBW25oTK1NUEWMnHzSM48xupkI2JGzPIr8JHE4O/fG5WM4C/PPkWi4Q5SXJ1TpQkyxn8pMUpmUQ==}
+    engines: {node: '>=18'}
     cpu: [x64]
     os: [linux]
-    libc: glibc
+    libc: [glibc]
 
-  sass-embedded-win32-arm64@1.104.1:
-    resolution: {integrity: sha512-fS6DL7lcnTPclqGLF4xRt8egZlFY9cU23d57ufbWqaUbCFu9JTu0+8qB4jMxfx1la6byi3GoSTfbnNOLfWv8sw==}
-    engines: {node: '>=14.0.0'}
-    cpu: [arm64]
-    os: [win32]
-
-  sass-embedded-win32-x64@1.104.1:
-    resolution: {integrity: sha512-/c4N2A93Ckms6DuRFVftKYISuI1tyC8gmlVJ8WaWFzgCBN/Swq2rARJIBUNeuxlmxjmYXfd3+2f/u887K63wbA==}
-    engines: {node: '>=14.0.0'}
-    cpu: [x64]
-    os: [win32]
+  sasso@0.18.0:
+    resolution: {integrity: sha512-skuztOv8dZCxpqCqR7GlCV6P3bMg6gSfpLcYPkZz5+A2QIqqdFvD6vVyZ8+GXbHUu553j8mWWdAy5FnfT2R1Mg==}
+    engines: {node: '>=16'}
+    hasBin: true
 
   strnum@2.4.2:
     resolution: {integrity: sha512-rDG3Ah4TV0k1hWvLSzkZtMmLN9+eS+h3knq4MP6A42Y3Yh5qGNnOUs1jJkoSr8FG5dsL28c7KgkIBzSEykqtuw==}
@@ -861,23 +838,24 @@ snapshots:
     dependencies:
       queue-microtask: 1.2.3
 
-  sass-embedded-darwin-arm64@1.104.1:
+  sasso-native-darwin-arm64@0.18.0:
     optional: true
 
-  sass-embedded-darwin-x64@1.104.1:
+  sasso-native-darwin-x64@0.18.0:
     optional: true
 
-  sass-embedded-linux-arm64@1.104.1:
+  sasso-native-linux-arm64-gnu@0.18.0:
     optional: true
 
-  sass-embedded-linux-x64@1.104.1:
+  sasso-native-linux-x64-gnu@0.18.0:
     optional: true
 
-  sass-embedded-win32-arm64@1.104.1:
-    optional: true
-
-  sass-embedded-win32-x64@1.104.1:
-    optional: true
+  sasso@0.18.0:
+    optionalDependencies:
+      sasso-native-darwin-arm64: 0.18.0
+      sasso-native-darwin-x64: 0.18.0
+      sasso-native-linux-arm64-gnu: 0.18.0
+      sasso-native-linux-x64-gnu: 0.18.0
 
   strnum@2.4.2:
     dependencies:
