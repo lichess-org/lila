@@ -5993,6 +5993,8 @@ interface I18n {
   ublog: {
     /** %s blog posts */
     blogPosts: I18nPlural;
+    /** Blog posts by friends */
+    blogPostsByFriends: string;
     /** Our simple tips to write great blog posts */
     blogTips: string;
     /** By Lichess */
@@ -6003,8 +6005,12 @@ interface I18n {
     byTopic: string;
     /** Community */
     community: string;
+    /** Community blogs */
+    communityBlogs: string;
     /** Continue reading this post */
     continueReadingPost: string;
+    /** Cover image */
+    coverImage: string;
     /** Enable comments */
     createBlogDiscussion: string;
     /** A forum topic will be created for people to comment on your post */
@@ -6017,6 +6023,8 @@ interface I18n {
     drafts: string;
     /** Edit your blog post */
     editYourBlogPost: string;
+    /** Etiquette */
+    etiquette: string;
     /** The following websites provide images for free. Please ensure you comply with licensing conditions for the image you use. */
     freeImagesComplyWithLicensing: string;
     /** Image alternative text */
@@ -6025,12 +6033,16 @@ interface I18n {
     imageCredit: string;
     /** Anything inappropriate could get your account closed. */
     inappropriateContentAccountClosed: string;
+    /** Includes promoted/sponsored content or referral links */
+    includesPromotedContent: string;
     /** Latest blog posts */
     latestBlogPosts: string;
     /** Lichess blog posts in %s */
     lichessBlogPostsFromXYear: I18nFormat;
     /** Liked blog posts */
     likedBlogs: string;
+    /** Mandatory for sponsored content, affiliate links or commercial advertisement */
+    mandatoryForSponsoredContent: string;
     /** My blog */
     myBlog: string;
     /** My friends */
@@ -6047,12 +6059,20 @@ interface I18n {
     noDrafts: string;
     /** No posts in this blog, yet. */
     noPostsInThisBlogYet: string;
+    /** Nothing to show. */
+    nothingToShow: string;
+    /** Nothing to show. Follow some authors! */
+    nothingToShowFollowAuthors: string;
+    /** Nothing to show. Like some posts! */
+    nothingToShowLikePosts: string;
     /** Post body */
     postBody: string;
     /** Post intro */
     postIntro: string;
     /** Post title */
     postTitle: string;
+    /** Preview */
+    preview: string;
     /** Previous blog posts */
     previousBlogPosts: string;
     /** Published */
@@ -6063,6 +6083,8 @@ interface I18n {
     publishHelp: string;
     /** Publish on your blog */
     publishOnYourBlog: string;
+    /** Recent posts */
+    recentPosts: string;
     /** Please only post safe and respectful content. Do not copy someone else's content. */
     safeAndRespectfulContent: string;
     /** Save draft */
@@ -6079,6 +6101,8 @@ interface I18n {
     thisPostIsPublished: string;
     /** View all %s posts */
     viewAllNbPosts: I18nPlural;
+    /** Write */
+    write: string;
     /** %s's Blog */
     xBlog: I18nFormat;
     /** %1$s published %2$s */
