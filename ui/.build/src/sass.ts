@@ -108,10 +108,7 @@ async function compile(sassBin: string, sources: string[], logAll = true): Promi
     sassPs?.removeAllListeners();
 
     const compileStarted = Date.now();
-    sassPs = cps.spawn(
-      sassBin,
-      SASS_ARGS.concat(sources.map((src: string) => `${src}:${absTempCss(src)}`),),
-    );
+    sassPs = cps.spawn(sassBin, SASS_ARGS.concat(sources.map((src: string) => `${src}:${absTempCss(src)}`)));
 
     sassPs.stderr?.on('data', (buf: Buffer) => sassError(buf.toString('utf8')));
     sassPs.stdout?.on('data', (buf: Buffer) => sassError(buf.toString('utf8')));
