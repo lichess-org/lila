@@ -77,7 +77,7 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
     else
       val redirect =
         if appeal.user.isnt(me) then Redirect(appeal.modShowUrl)
-        else Redirect(routes.Appeal.home)
+        else Redirect(s"${routes.Appeal.home}#appeal-last-msg")
       bindForm(kindForm)(
         _ => BadRequest,
         {

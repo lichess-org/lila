@@ -19,7 +19,7 @@ final class AppealFlowUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
             )
           ),
           div(cls := "body")(
-            appeal.msgs.map(ui.event(appeal)),
+            appealEvents(appeal),
             userNextNode(appeal)
           )
         ),
@@ -36,7 +36,7 @@ final class AppealFlowUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
           appeal.accounts.map(ui.accountsDisclosure),
           otherUsers(cls := "mod-zone communication__logins"),
           div(cls := "body")(
-            modAppealEvents(appeal),
+            appealEvents(appeal),
             modNextNode(appeal, modData),
             standardFlash.orElse(markedByMe.option(ui.markedByMeWarning)),
             if appeal.isClosed then ui.appealIsClosed(appeal)
@@ -48,7 +48,7 @@ final class AppealFlowUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
         ui.userInactiveAppeals(userAppeals.filter(_ != appeal))
       )
 
-  private def modAppealEvents(appeal: Appeal)(using Context, Me) =
+  private def appealEvents(appeal: Appeal)(using Context, Me) =
     appeal.msgs.map: msg =>
       div(
         id := appeal.isLast(msg).option("appeal-last-msg")
