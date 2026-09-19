@@ -3125,12 +3125,24 @@ interface I18n {
     closeAccount: string;
     /** Are you sure you want to close your account? */
     closeAccountAreYouSure: string;
+    /** Close forever: make it impossible to reopen */
+    closeAccountForeverLabel: string;
+    /** Prevent reopening the account later. If you tick this box, even administrators will be unable to reopen your account at your request. */
+    closeAccountForeverWarning: string;
+    /** I understand that deleted accounts aren't recoverable */
+    deleteAccountConfirmText: string;
+    /** Once you delete your account, it's removed from Lichess and our administrators won't be able to bring it back for you. */
+    deleteAccountWarning: string;
+    /** Delete your account */
+    deleteYourAccount: string;
     /** Your account is managed, and cannot be closed. */
     managedAccountCannotBeClosed: string;
     /** Settings */
     settings: string;
     /** This account is closed. */
     thisAccountIsClosed: string;
+    /** We're sorry to see you go. */
+    wereSorryToSeeYouGo: string;
   };
   site: {
     /** Abort game */

@@ -1611,6 +1611,12 @@ object I18nKey:
     val `cancelKeepAccount`: I18nKey = "settings:cancelKeepAccount"
     val `closeAccountAreYouSure`: I18nKey = "settings:closeAccountAreYouSure"
     val `thisAccountIsClosed`: I18nKey = "settings:thisAccountIsClosed"
+    val `wereSorryToSeeYouGo`: I18nKey = "settings:wereSorryToSeeYouGo"
+    val `closeAccountForeverLabel`: I18nKey = "settings:closeAccountForeverLabel"
+    val `closeAccountForeverWarning`: I18nKey = "settings:closeAccountForeverWarning"
+    val `deleteYourAccount`: I18nKey = "settings:deleteYourAccount"
+    val `deleteAccountWarning`: I18nKey = "settings:deleteAccountWarning"
+    val `deleteAccountConfirmText`: I18nKey = "settings:deleteAccountConfirmText"
 
   object site:
     val `gameSetup`: I18nKey = "gameSetup"
