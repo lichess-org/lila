@@ -1,7 +1,10 @@
 {
   description = "lila development environment for Nix & flakes";
 
-  inputs.nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1"; # unstable Nixpkgs
+  inputs = {
+    nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1"; # unstable Nixpkgs
+    sasso.url = "github:momiji-rs/sasso/v0.18.0";
+  };
 
   outputs =
     { self, ... }@inputs:
