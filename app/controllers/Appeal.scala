@@ -76,7 +76,7 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
     if !appeal.isOpen then Redirect(routes.Appeal.home)
     else
       val redirect =
-        if appeal.user.isnt(me) then Redirect(routes.Appeal.modShow(appeal.user, appeal.topic))
+        if appeal.user.isnt(me) then Redirect(appeal.modShowUrl)
         else Redirect(routes.Appeal.home)
       bindForm(kindForm)(
         _ => BadRequest,
