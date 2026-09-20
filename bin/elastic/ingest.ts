@@ -5,7 +5,7 @@ import { MongoClient, type MongoClientOptions } from 'mongodb';
 import { createServer, type Server } from 'node:http';
 import process from 'node:process';
 
-import type { Args, JsonDoc, MongoDoc, Operations, IndexSchema, IndexName, Context } from './types.ts';
+import type { Args, MongoDoc, Operations, IndexSchema, IndexName, Context } from './types.ts';
 
 const usage = `usage:
   ./bin/elastic/ingest.ts [forum|ublog|team|study|game]* [options]
@@ -180,16 +180,16 @@ async function backfill(index: IndexName, context: Context) {
 async function writeToIndex(index: IndexName, { toUpsert, toDelete }: Operations) {
   if (toUpsert.length + toDelete.length === 0) return;
   const esIndex = indexing[index].esPath;
-  const operations: estypes.BulkRequest<JsonDoc>['operations'] = [];
+  const body: estypes.BulkOperationContainer[] = [];
   for (const upsertMe of toUpsert) {
-    operations.push({ index: { _index: esIndex, _id: upsertMe.id } }, upsertMe.doc);
+    body.push({ index: { _index: esIndex, _id: upsertMe.id } }, upsertMe.doc);
   }
   for (const deleteMe of toDelete) {
-    operations.push({ delete: { _index: esIndex, _id: deleteMe } });
+    body.push({ delete: { _index: esIndex, _id: deleteMe } });
   }
-  const result = await esClient.bulk({ operations });
-  if (result.errors)
-    throw new Error(`bulk '${index}' update failed: ${JSON.stringify(result).slice(0, 2000)}...`);
+  const result = await esClient.bulk({ body });
+  if (result.body.errors)
+    throw new Error(`bulk '${index}' update failed: ${JSON.stringify(result.body).slice(0, 2000)}...`);
   metrics.indexing[index].upserted += toUpsert.length;
   metrics.indexing[index].deleted += toDelete.length;
 }
@@ -197,11 +197,13 @@ async function writeToIndex(index: IndexName, { toUpsert, toDelete }: Operations
 // ===========================================================================================================
 
 async function ensureIndex(config: IndexSchema) {
-  if (await esClient.indices.exists({ index: config.esPath })) return;
+  if ((await esClient.indices.exists({ index: config.esPath })).body) return;
   await esClient.indices.create({
     index: config.esPath,
-    settings: config.settings,
-    mappings: { _source: { enabled: config.source }, properties: config.properties },
+    body: {
+      settings: config.settings,
+      mappings: { _source: { enabled: config.source }, properties: config.properties },
+    },
   });
   console.log(`created /${config.esPath}`);
 }

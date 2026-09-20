@@ -1,8 +1,10 @@
 package lila.team
 
+import play.api.libs.json.*
+
 import lila.search.{ SearchClient, SearchApi, PaginatorBuilder }
 
-final class TeamSearchApi(client: SearchClient)(using Executor)
+final class TeamSearchApi(elastic: SearchClient)(using Executor)
     extends SearchApi[TeamId, TeamSearchApi.Query]:
 
   import TeamSearchApi.*
@@ -14,16 +16,17 @@ final class TeamSearchApi(client: SearchClient)(using Executor)
     paginatorBuilder(Query(text), page)
 
   def search(query: Query, offset: Long, length: Long) =
-    client
+    elastic
       .searchIds(Index.Team, makeQuery(query), makeSort, offset, length, query)
       .map(_.map(TeamId.apply))
 
-  def count(query: Query) = client.count(Index.Team, makeQuery(query), query)
+  def count(query: Query) = elastic.count(Index.Team, makeQuery(query), query)
 
-  private def makeQuery(query: Query): SearchQuery =
+  private def makeQuery(query: Query): JsObject =
     compileFilter(parse(query.text, Nil).terms.map(multiMatch(_, searchableFields)))
 
-  private def makeSort: List[SearchSort] = List(fieldSort(Fields.nbMembers, "desc"))
+  private def makeSort: JsArray =
+    Json.arr(fieldSort(Fields.nbMembers, "desc"))
 
 object TeamSearchApi:
   // see file://./../../../../bin/elastic/team.ts

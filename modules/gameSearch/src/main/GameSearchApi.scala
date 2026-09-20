@@ -1,21 +1,23 @@
 package lila.gameSearch
 
 import org.apache.pekko.stream.scaladsl.*
+import play.api.libs.json.*
 
 import lila.search.{ SearchClient, SearchApi }
 
 // see file://./../../../../bin/elastic/game.ts
 
 final class GameSearchApi(
-    client: SearchClient,
+    elastic: SearchClient,
     gameRepo: lila.core.game.GameRepo,
     userApi: lila.core.user.UserApi
 )(using Executor)
     extends SearchApi[Game, Query]:
+
   import SearchClient.*
 
   def search(query: Query, offset: Long, length: Long): Fu[List[Game]] =
-    client
+    elastic
       .searchIds(
         Index.Game,
         makeQuery(query),
@@ -29,7 +31,7 @@ final class GameSearchApi(
         gameRepo.gamesFromSecondary(ids.map(GameId.apply))
 
   def count(query: Query): Fu[Long] =
-    client.count(Index.Game, makeQuery(query), query)
+    elastic.count(Index.Game, makeQuery(query), query)
 
   def validateAccounts(query: Query, forMod: Boolean): Fu[Boolean] =
     fuccess(forMod) >>| userApi.containsDisabled(query.userIds).not
@@ -39,7 +41,7 @@ final class GameSearchApi(
       if offset >= total then fuccess(none)
       else
         val length = math.min(batchSize.value.toLong, total - offset)
-        client
+        elastic
           .searchIds(
             Index.Game,
             makeQuery(query),
@@ -53,22 +55,22 @@ final class GameSearchApi(
             Option.when(ids.nonEmpty):
               (offset + length) -> ids.map(GameId.apply)
 
-  private def makeQuery(query: Query): SearchQuery =
+  private def makeQuery(query: Query): JsObject =
     compileFilter(
       userQueries(query) ++
         winnerQueries(query) ++
         loserQueries(query) ++
-        query.winnerColor.map(term(Fields.winnerColor, _)).toList ++
+        query.winnerColor.map(termInt(Fields.winnerColor, _)).toList ++
         intRange(Fields.turns, query.turns) ++
         averageRatingQueries(query) ++
         intRange(Fields.duration, query.duration) ++
-        query.clockInit.map(term(Fields.clockInit, _)).toList ++
-        query.clockInc.map(term(Fields.clockInc, _)).toList ++
+        query.clockInit.map(termInt(Fields.clockInit, _)).toList ++
+        query.clockInc.map(termInt(Fields.clockInc, _)).toList ++
         dateRange(Fields.date, query.date) ++
         hasAiQueries(query) ++
         aiLevelQueries(query) ++
-        query.perf.nonEmpty.option(terms(Fields.perf, query.perf)).toList ++
-        query.source.map(term(Fields.source, _)).toList ++
+        query.perf.nonEmpty.option(termsInt(Fields.perf, query.perf)).toList ++
+        query.source.map(termInt(Fields.source, _)).toList ++
         query.rated.map(term(Fields.rated, _)).toList ++
         query.status.map(statusQuery).toList ++
         query.analysed.map(term(Fields.analysed, _)).toList ++
@@ -76,15 +78,15 @@ final class GameSearchApi(
         query.blackUser.map(termLower(Fields.blackUser, _)).toList
     )
 
-  private def makeSort(query: Query): List[SearchSort] =
-    List(
+  private def makeSort(query: Query): JsArray =
+    Json.arr(
       fieldSort(
         Sorting.fieldOrDefault(query.sorting.field),
         Sorting.orderOrDefault(query.sorting.order)
       )
     )
 
-  private def userQueries(query: Query): List[SearchQuery] =
+  private def userQueries(query: Query): List[JsObject] =
     (query.user1, query.user2) match
       case (Some(user1), Some(user2)) =>
         List(
@@ -103,42 +105,42 @@ final class GameSearchApi(
             minimumShouldMatch = 1.some
           )
 
-  private def winnerQueries(query: Query): List[SearchQuery] =
+  private def winnerQueries(query: Query): List[JsObject] =
     query.winner.toList.map: winner =>
       boolQuery(
         should = List(
-          boolQuery(must = List(termLower(Fields.whiteUser, winner), term(Fields.winnerColor, 1))),
-          boolQuery(must = List(termLower(Fields.blackUser, winner), term(Fields.winnerColor, 2)))
+          boolQuery(must = List(termLower(Fields.whiteUser, winner), termInt(Fields.winnerColor, 1))),
+          boolQuery(must = List(termLower(Fields.blackUser, winner), termInt(Fields.winnerColor, 2)))
         ),
         minimumShouldMatch = 1.some
       )
 
-  private def loserQueries(query: Query): List[SearchQuery] =
+  private def loserQueries(query: Query): List[JsObject] =
     query.loser.toList.map: loser =>
       boolQuery(
         should = List(
-          boolQuery(must = List(termLower(Fields.whiteUser, loser), term(Fields.winnerColor, 2))),
-          boolQuery(must = List(termLower(Fields.blackUser, loser), term(Fields.winnerColor, 1)))
+          boolQuery(must = List(termLower(Fields.whiteUser, loser), termInt(Fields.winnerColor, 2))),
+          boolQuery(must = List(termLower(Fields.blackUser, loser), termInt(Fields.winnerColor, 1)))
         ),
         minimumShouldMatch = 1.some
       )
 
-  private def averageRatingQueries(query: Query): List[SearchQuery] =
+  private def averageRatingQueries(query: Query): List[JsObject] =
     if query.averageRating.nonEmpty then
-      numberRange(Fields.averageRating, gt = 0d.some) :: intRange(Fields.averageRating, query.averageRating)
+      rangeGt(Fields.averageRating, 0) :: intRange(Fields.averageRating, query.averageRating)
     else Nil
 
-  private def hasAiQueries(query: Query): List[SearchQuery] =
+  private def hasAiQueries(query: Query): List[JsObject] =
     query.hasAi.toList.map:
-      case true => numberRange(Fields.ai, gt = 0d.some)
-      case false => term(Fields.ai, 0)
+      case true => rangeGt(Fields.ai, 0)
+      case false => termInt(Fields.ai, 0)
 
-  private def aiLevelQueries(query: Query): List[SearchQuery] =
+  private def aiLevelQueries(query: Query): List[JsObject] =
     if query.hasAi.contains(false) then Nil else intRange(Fields.ai, query.aiLevel)
 
-  private def statusQuery(status: Int): SearchQuery =
+  private def statusQuery(status: Int): JsObject =
     if status == chess.Status.Draw.id then
-      terms(
+      termsInt(
         Fields.status,
         List(
           chess.Status.Stalemate.id,
@@ -146,25 +148,30 @@ final class GameSearchApi(
           chess.Status.InsufficientMaterialClaim.id
         )
       )
-    else term(Fields.status, status)
+    else termInt(Fields.status, status)
 
-  private def termLower(field: String, value: String): SearchQuery =
+  private def termLower(field: String, value: String): JsObject =
     term(field, value.toLowerCase)
 
-  private def intRange(field: String, range: IntRange): List[SearchQuery] =
-    val sorted = range.sorted
-    Option
-      .when(sorted.a.nonEmpty || sorted.b.nonEmpty):
-        numberRange(field, gte = sorted.a.map(_.toDouble), lte = sorted.b.map(_.toDouble))
-      .toList
+  private def termInt(field: String, value: Int): JsObject =
+    Json.obj("term" -> Json.obj(field -> value))
 
-  private def dateRange(field: String, range: DateRange): List[SearchQuery] =
+  private def termsInt(field: String, values: List[Int]): JsObject =
+    Json.obj("terms" -> Json.obj(field -> values))
+
+  private def intRange(field: String, range: IntRange): List[JsObject] =
     val sorted = range.sorted
-    Option
-      .when(sorted.a.nonEmpty || sorted.b.nonEmpty):
-        numberRange(
-          field,
-          gte = sorted.a.map(_.getEpochSecond.toDouble),
-          lte = sorted.b.map(_.getEpochSecond.toDouble)
-        )
-      .toList
+    val bounds = Json.obj() ++
+      sorted.a.map(value => Json.obj("gte" -> value)).getOrElse(Json.obj()) ++
+      sorted.b.map(value => Json.obj("lte" -> value)).getOrElse(Json.obj())
+    if bounds.keys.isEmpty then Nil else List(Json.obj("range" -> Json.obj(field -> bounds)))
+
+  private def dateRange(field: String, range: DateRange): List[JsObject] =
+    val sorted = range.sorted
+    val bounds = Json.obj() ++
+      sorted.a.map(value => Json.obj("gte" -> value.getEpochSecond)).getOrElse(Json.obj()) ++
+      sorted.b.map(value => Json.obj("lte" -> value.getEpochSecond)).getOrElse(Json.obj())
+    if bounds.keys.isEmpty then Nil else List(Json.obj("range" -> Json.obj(field -> bounds)))
+
+  private def rangeGt(field: String, value: Int): JsObject =
+    Json.obj("range" -> Json.obj(field -> Json.obj("gt" -> value)))

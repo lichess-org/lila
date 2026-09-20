@@ -1,32 +1,31 @@
 package lila.studySearch
 
+import play.api.libs.json.*
+
 import lila.search.{ SearchClient, SearchApi }
+import lila.search.SearchClient.*
 import lila.study.{ Study, StudyRepo }
 import lila.studySearch.StudySearchApi.*
 
-final class StudySearchApi(client: SearchClient, studyRepo: StudyRepo)(using Executor)
+final class StudySearchApi(elastic: SearchClient, studyRepo: StudyRepo)(using Executor)
     extends SearchApi[Study, Query]:
-  import SearchClient.*
 
   def search(query: Query, offset: Long, length: Long) =
-    client
+    elastic
       .searchIds(Index.Study, makeQuery(query), makeSort(query), offset, length, query)
       .flatMap: ids =>
         studyRepo.byOrderedIds(ids.map(StudyId.apply))
 
-  def count(query: Query) = client.count(Index.Study, makeQuery(query), query)
+  def count(query: Query) = elastic.count(Index.Study, makeQuery(query), query)
 
-  private def makeQuery(query: Query): SearchQuery =
+  private def makeQuery(query: Query): JsObject =
     val parsed = parse(query.text, List("owner", "member"))
     parsed("owner").fold(makePublicQuery(query, parsed))(makeOwnerQuery(query, parsed))
 
-  private def makeSort(query: Query): List[SearchSort] =
-    query.sorting.map(_.toElastic).toList :+ fieldSort("_score", "desc")
+  private def makeSort(query: Query): JsArray =
+    JsArray(query.sorting.map(_.toElastic).toList :+ fieldSort("_score", "desc"))
 
-  private case class ChapterClauses(
-      textShould: List[SearchQuery],
-      structuredMust: List[SearchQuery]
-  )
+  private case class ChapterClauses(textShould: List[JsObject], structuredMust: List[JsObject])
 
   private def chapterClauses(query: Query, termText: String, isOwnerQuery: Boolean): ChapterClauses =
     val nameDesc = if termText.isEmpty then Nil else List(chapterNameDescQuery(termText))
@@ -37,11 +36,11 @@ final class StudySearchApi(client: SearchClient, studyRepo: StudyRepo)(using Exe
       case Some(ChapterMode.SearchText) => ChapterClauses(nameDesc, Nil)
       case Some(ChapterMode.Filters(tagFilter)) => ChapterClauses(nameDesc, tagFilters(tagFilter))
 
-  private def studyMatcher(parsed: ParsedQuery, textShould: List[SearchQuery]): SearchQuery =
-    if parsed.terms.isEmpty then compileFilter(Nil)
+  private def studyMatcher(parsed: ParsedQuery, textShould: List[JsObject]): JsObject =
+    if parsed.terms.isEmpty then Json.obj("match_all" -> Json.obj())
     else boolQuery(should = textShould ++ matchStudyQueries(parsed.terms.mkString(" ")))
 
-  private def chapterNameDescQuery(text: String): SearchQuery =
+  private def chapterNameDescQuery(text: String): JsObject =
     nested(
       "chapters",
       multiMatch(
@@ -51,15 +50,15 @@ final class StudySearchApi(client: SearchClient, studyRepo: StudyRepo)(using Exe
       )
     )
 
-  private def memberClause(parsed: ParsedQuery): List[SearchQuery] =
+  private def memberClause(parsed: ParsedQuery): List[JsObject] =
     parsed("member")
       .map(member => boolQuery(must = List(term(Fields.members, member))))
       .toList
 
-  private def shouldClause(query: Query): List[SearchQuery] =
+  private def shouldClause(query: Query): List[JsObject] =
     List(selectPublic.some, query.userId.map(selectUserId)).flatten
 
-  private def makePublicQuery(query: Query, parsed: ParsedQuery): SearchQuery =
+  private def makePublicQuery(query: Query, parsed: ParsedQuery): JsObject =
     val clauses = chapterClauses(query, parsed.terms.mkString(" "), isOwnerQuery = false)
     boolQuery(
       must = studyMatcher(parsed, clauses.textShould) :: memberClause(parsed) ++ clauses.structuredMust,
@@ -67,7 +66,7 @@ final class StudySearchApi(client: SearchClient, studyRepo: StudyRepo)(using Exe
       minimumShouldMatch = 1.some
     )
 
-  private def makeOwnerQuery(query: Query, parsed: ParsedQuery)(owner: String): SearchQuery =
+  private def makeOwnerQuery(query: Query, parsed: ParsedQuery)(owner: String): JsObject =
     val clauses = chapterClauses(query, parsed.terms.mkString(" "), isOwnerQuery = true)
     boolQuery(
       must = term(Fields.owner, owner) ::
@@ -77,7 +76,7 @@ final class StudySearchApi(client: SearchClient, studyRepo: StudyRepo)(using Exe
       minimumShouldMatch = 1.some
     )
 
-  private def matchStudyQueries(text: String): List[SearchQuery] =
+  private def matchStudyQueries(text: String): List[JsObject] =
     List(
       multiMatch(
         text,
@@ -88,7 +87,7 @@ final class StudySearchApi(client: SearchClient, studyRepo: StudyRepo)(using Exe
       multiMatch(text, List(Fields.owner, Fields.members))
     )
 
-  private def matchChapterQuery(text: String): SearchQuery =
+  private def matchChapterQuery(text: String): JsObject =
     nested(
       "chapters",
       boolQuery(
@@ -118,7 +117,7 @@ final class StudySearchApi(client: SearchClient, studyRepo: StudyRepo)(using Exe
       )
     )
 
-  private def tagFilters(tagFilter: TagFilter): List[SearchQuery] =
+  private def tagFilters(tagFilter: TagFilter): List[JsObject] =
     val tagQueries = List(
       tagFilter.variant.map(term("chapters.tags.variant", _)),
       tagFilter.eco.map(term("chapters.tags.eco", _)),
@@ -154,8 +153,8 @@ final class StudySearchApi(client: SearchClient, studyRepo: StudyRepo)(using Exe
       second: Option[String],
       whiteField: String,
       blackField: String,
-      makeQuery: (String, String) => SearchQuery
-  ): List[SearchQuery] =
+      makeQuery: (String, String) => JsObject
+  ): List[JsObject] =
     (first, second) match
       case (Some(firstValue), Some(secondValue)) =>
         List(
@@ -188,7 +187,7 @@ object StudySearchApi:
   )
 
   case class Sorting(field: Field, order: Order):
-    def toElastic: SearchClient.SearchSort = SearchClient.fieldSort(field.elastic, order.elastic)
+    def toElastic: JsObject = fieldSort(field.elastic, order.elastic)
 
   enum Field(val elastic: String):
     case Name extends Field(s"${Fields.name}.${Fields.nameRaw}")

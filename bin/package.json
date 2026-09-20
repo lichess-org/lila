@@ -2,7 +2,7 @@
   "name": "bin",
   "type": "module",
   "dependencies": {
-    "@elastic/elasticsearch": "8.19.1",
+    "@elastic/elasticsearch": "7.17.14",
     "@types/node": "^24.13.5",
     "cheerio": "^1.2.0",
     "fast-xml-parser": "^5.11.1",
