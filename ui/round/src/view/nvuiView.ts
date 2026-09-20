@@ -2,6 +2,7 @@ import { Chessground as makeChessground } from '@lichess-org/chessground';
 import { COLORS, opposite } from 'chessops';
 
 import { isTouchDevice } from 'lib/device';
+import { renderAdvancedSettings } from 'lib/dist/nvui/renderAdvancedSettings';
 import { type Player, type TopOrBottom, playable } from 'lib/game';
 import { capitalize, plyToTurn } from 'lib/game/chess';
 import { renderClock } from 'lib/game/clock/clockView';
@@ -9,8 +10,7 @@ import { perfName } from 'lib/game/perf';
 import * as nv from 'lib/nvui/chess';
 import { commands, boardCommands } from 'lib/nvui/command';
 import { scanDirectionsHandler } from 'lib/nvui/directionScan';
-import { renderSetting } from 'lib/nvui/setting';
-import { type LooseVNodes, type VNode, bind, hl, noTrans, onInsert } from 'lib/view';
+import { type LooseVNodes, type VNode, bind, hl, onInsert } from 'lib/view';
 import { profileUrl } from 'lib/view/userLink';
 
 import renderCorresClock from '../corresClock/corresClockView';
@@ -44,11 +44,6 @@ export function renderNvui(ctx: RoundNvuiContext): VNode {
   const nvuiHook = {
     hook: onInsert(_ => setTimeout(() => notify.set(gameText(ctrl)), 2000)),
   };
-  const sharedSettings = [
-    hl('h2', i18n.site.advancedSettings),
-    hl('label', [noTrans('Move notation'), renderSetting(moveStyle, ctrl.redraw)]),
-    hl('label', [noTrans('Page layout'), renderSetting(pageStyle, ctrl.redraw)]),
-  ];
   const keyboardInput = [
     hl('h2', i18n.keyboardMove.keyboardInputCommands),
     hl('p', [
@@ -77,8 +72,9 @@ export function renderNvui(ctx: RoundNvuiContext): VNode {
             ctrl.isPlaying() && inputForm(ctx),
           ],
       gameInfo(ctx),
-      ...sharedSettings,
-      hl('label', [noTrans('Show position'), renderSetting(positionStyle, ctrl.redraw)]),
+      ...renderAdvancedSettings(moveStyle, pageStyle, pieceStyle, prefixStyle, positionStyle, boardStyle, {
+        redraw: ctrl.redraw,
+      }),
       ...keyboardInput,
     ]);
   } else
@@ -88,12 +84,9 @@ export function renderNvui(ctx: RoundNvuiContext): VNode {
       pageStyle.get() === 'actions-board'
         ? [renderActions(ctx), renderBoard(ctx)]
         : [renderBoard(ctx), renderActions(ctx)],
-      ...sharedSettings,
-      hl('h3', noTrans('Board settings')),
-      hl('label', [noTrans('Piece style'), renderSetting(pieceStyle, ctrl.redraw)]),
-      hl('label', [noTrans('Piece prefix style'), renderSetting(prefixStyle, ctrl.redraw)]),
-      hl('label', [noTrans('Show position'), renderSetting(positionStyle, ctrl.redraw)]),
-      hl('label', [noTrans('Board layout'), renderSetting(boardStyle, ctrl.redraw)]),
+      ...renderAdvancedSettings(moveStyle, pageStyle, pieceStyle, prefixStyle, positionStyle, boardStyle, {
+        redraw: ctrl.redraw,
+      }),
       ...keyboardInput,
       boardCommands(),
     ]);
