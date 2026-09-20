@@ -13,6 +13,7 @@ export type NvuiContext = Readonly<{
   positionStyle: s.Setting<s.PositionStyle>;
   boardStyle: s.Setting<s.BoardStyle>;
   pageStyle: s.Setting<s.PageStyle>;
+  disconnectNotifications: s.Setting<s.DisconnectNotifications>;
 }>;
 
 export function makeContext<T extends NvuiContext>(
@@ -27,6 +28,7 @@ export function makeContext<T extends NvuiContext>(
     positionStyle: s.positionSetting(),
     boardStyle: s.boardSetting(),
     pageStyle: s.pageSetting(),
+    disconnectNotifications: s.disconnectNotificationsSetting(),
     ...ctx,
   } as T;
 }

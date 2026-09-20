@@ -26,7 +26,17 @@ const borderSound = throttled('outOfBound');
 const errorSound = throttled('error');
 
 export function renderNvui(ctx: PuzzleNvuiContext): VNode {
-  const { ctrl, notify, moveStyle, pieceStyle, prefixStyle, positionStyle, boardStyle, pageStyle } = ctx;
+  const {
+    ctrl,
+    notify,
+    moveStyle,
+    pieceStyle,
+    prefixStyle,
+    positionStyle,
+    boardStyle,
+    pageStyle,
+    disconnectNotifications,
+  } = ctx;
   notify.redraw = ctrl.redraw;
   const ground =
     ctrl.ground() ||
@@ -127,9 +137,18 @@ export function renderNvui(ctx: PuzzleNvuiContext): VNode {
       ...(!boardFirst ? boardView : []),
       hl('div.boardstatus', { attrs: { 'aria-live': 'polite', 'aria-atomic': 'true' } }, ''),
       ...(!ctrl.data.replay && !ctrl.streak ? [hl('h3', 'Puzzle Settings'), renderDifficultyForm(ctrl)] : []),
-      ...renderAdvancedSettings(moveStyle, pageStyle, pieceStyle, prefixStyle, positionStyle, boardStyle, {
-        redraw: ctrl.redraw,
-      }),
+      ...renderAdvancedSettings(
+        moveStyle,
+        pageStyle,
+        disconnectNotifications,
+        pieceStyle,
+        prefixStyle,
+        positionStyle,
+        boardStyle,
+        {
+          redraw: ctrl.redraw,
+        },
+      ),
       hl('h2', i18n.site.keyboardShortcuts),
       hl('p', [
         `Left and right arrow keys: ${i18n.site.keyMoveBackwardOrForward}`,

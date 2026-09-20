@@ -59,6 +59,7 @@ export type PrefixStyle = (typeof prefixStyles)[number];
 export type PositionStyle = 'before' | 'after' | 'none';
 export type BoardStyle = 'plain' | 'table';
 export type PageStyle = 'board-actions' | 'actions-board';
+export type DisconnectNotifications = 'none' | '10s';
 
 export function boardSetting(): Setting<BoardStyle> {
   return makeSetting<BoardStyle>({
@@ -79,6 +80,17 @@ export function pageSetting(): Setting<PageStyle> {
     ],
     default: 'actions-board',
     storage: storage.make('nvui.pageLayout'),
+  });
+}
+
+export function disconnectNotificationsSetting(): Setting<DisconnectNotifications> {
+  return makeSetting<DisconnectNotifications>({
+    choices: [
+      ['none', 'None'],
+      ['10s', 'Every 10 seconds'],
+    ],
+    default: '10s',
+    storage: storage.make('nvui.disconnectNotifications'),
   });
 }
 

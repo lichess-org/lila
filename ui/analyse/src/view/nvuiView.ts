@@ -73,8 +73,18 @@ export function initNvui(ctx: AnalyseNvuiContext): void {
 }
 
 export function renderNvui(ctx: AnalyseNvuiContext): VNode {
-  const { ctrl, deps, notify, moveStyle, pieceStyle, prefixStyle, positionStyle, boardStyle, pageStyle } =
-    ctx;
+  const {
+    ctrl,
+    deps,
+    notify,
+    moveStyle,
+    pieceStyle,
+    prefixStyle,
+    positionStyle,
+    boardStyle,
+    pageStyle,
+    disconnectNotifications,
+  } = ctx;
   const d = ctrl.data,
     style = moveStyle.get(),
     clocks = renderClocks(ctrl, ctrl.path),
@@ -191,9 +201,18 @@ export function renderNvui(ctx: AnalyseNvuiContext): VNode {
           });
         }),
       }),
-      ...renderAdvancedSettings(moveStyle, pageStyle, pieceStyle, prefixStyle, positionStyle, boardStyle, {
-        redraw: ctrl.redraw,
-      }),
+      ...renderAdvancedSettings(
+        moveStyle,
+        pageStyle,
+        disconnectNotifications,
+        pieceStyle,
+        prefixStyle,
+        positionStyle,
+        boardStyle,
+        {
+          redraw: ctrl.redraw,
+        },
+      ),
       hl('h2', i18n.site.keyboardShortcuts),
       hl(
         'p',
