@@ -38,6 +38,7 @@
     "chrome >= 112",
     "edge >= 111",
     "opera >= 97",
-    "safari >= 16.2"
+    "safari >= 16.2",
+    "iOS >= 16.2"
   ]
 }

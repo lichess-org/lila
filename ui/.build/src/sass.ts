@@ -152,7 +152,7 @@ async function addVendorPrefixes(src: string): Promise<{ size: number }> {
     filename: cssPath,
     code: Buffer.from(css),
     minify: env.prod,
-    targets: browserslistToTargets(browserslist(null, { path: env.rootDir })),
+    targets: browserslistToTargets(browserslist(null, { path: env.buildDir })),
   });
   await fs.promises.writeFile(cssPath, result.code);
   return { size: result.code.byteLength };
