@@ -24,7 +24,11 @@
     }
 
     &:not(.shortcuts) {
-      background-color: $c-bg-fade;
+      background-color: $c-bg-box;
+
+      @include if-transp {
+        background-color: rgb(from $c-bg r g b / calc(alpha * 0.8));
+      }
     }
   }
 

@@ -13,7 +13,7 @@
   @include fluid-size('font-size', 14px, 25px);
 
   @include if-transp {
-    backdrop-filter: none;
+    backdrop-filter: none !important;
   }
 
   .spinner {

@@ -1,9 +1,11 @@
 import { frag } from 'lib';
 import { isTouchDevice, displayColumns } from 'lib/device';
+import { clockToSpeed } from 'lib/game';
 import { licon } from 'lib/licon';
 import type { LobbyShortcut } from 'lib/types';
 import { domDialog, type Dialog, confirm } from 'lib/view';
 
+import type { Pool } from './interfaces';
 import { ShortcutsCtrl, fitShortcut } from './shortcutsCtrl';
 
 const shortcutIdMimeType = 'application/x-lichess-shortcut-id';
@@ -106,13 +108,14 @@ function renderShortcut(s: LobbyShortcut, scratch = false): Element {
     <div class="shortcut" tabindex="0" role="button" draggable="true" data-id="${s.id}"
          style="---scale: ${scale}; view-transition-name: shortcut-${CSS.escape(s.id)}"></div>`);
   if (s.iconUrl) el.append(frag(`<div class="icon"><img src="${s.iconUrl}" alt=""></div>`));
+  const pool = 'lim' in s && 'inc' in s && (s as Pool);
   el.append(
     ...([
       s.iconKey && frag(`<div class="icon"><i data-icon="${licon[s.iconKey]}"></i></div>`),
       s.iconMaskUrl &&
         frag(`<div class="icon"><div class="mask" style="---icon-mask:url(${s.iconMaskUrl})"></div></div>`),
-      'perf' in s && frag(`<div class="clock">${s.id}</div>`),
-      frag(`<div class="name">${'perf' in s ? s.perf : text}</div>`),
+      pool && frag(`<div class="clock">${s.id}</div>`),
+      frag(`<div class="name">${pool ? i18n.site[clockToSpeed(pool.lim * 60, pool.inc)] : text}</div>`),
     ].filter(Boolean) as Node[]),
   );
   return el;
