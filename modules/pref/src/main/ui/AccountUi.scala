@@ -119,7 +119,7 @@ final class AccountUi(helpers: Helpers):
           ),
           div(cls := "sep"),
           a(activeCls("network"), href := routes.Pref.network)(
-            "Network"
+            trans.preferences.network()
           ),
           ctx.noBot.option(
             a(href := routes.DgtCtrl.index)(
