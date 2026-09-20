@@ -31,6 +31,9 @@
     "dev": "node --no-warnings src/main.ts $@"
   },
   "browserslist": [
+    "defaults",
+    "not op_mini all",
+    "not kaios <= 4",
     "firefox >= 115",
     "chrome >= 112",
     "edge >= 111",
