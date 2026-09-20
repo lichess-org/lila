@@ -2,7 +2,7 @@ import { Chessground as makeChessground } from '@lichess-org/chessground';
 import { COLORS, opposite } from 'chessops';
 
 import { isTouchDevice } from 'lib/device';
-import { renderAdvancedSettings } from 'lib/dist/nvui/renderAdvancedSettings';
+import { renderAdvancedSettings } from 'lib/nvui/renderAdvancedSettings';
 import { type Player, type TopOrBottom, playable } from 'lib/game';
 import { capitalize, plyToTurn } from 'lib/game/chess';
 import { renderClock } from 'lib/game/clock/clockView';
