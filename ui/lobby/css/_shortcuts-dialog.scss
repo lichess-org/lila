@@ -12,6 +12,10 @@ dialog .close-button-anchor .close-button {
   top: 12px;
 }
 
+dialog:has(.shortcuts-dialog) {
+  backdrop-filter: none;
+}
+
 .shortcuts-dialog {
   @include prevent-select;
 
@@ -137,6 +141,7 @@ dialog .close-button-anchor .close-button {
     padding: calc(var(---scale, 1) * 4px);
     overflow: hidden;
     min-width: 64px;
+    backdrop-filter: none;
     cursor: grab;
 
     * {
