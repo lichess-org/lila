@@ -11,7 +11,6 @@ export class Notify {
   date?: Date;
 
   constructor(public redraw: Redraw | undefined) {
-    console.log('Notify instance created with disconnectNotifications setting: ', disconnectNotifications.get());
     if (disconnectNotifications.get() !== 'none') startOfflineObserver(this, 10); // 10 seconds is the only alternative for now
   }
 
