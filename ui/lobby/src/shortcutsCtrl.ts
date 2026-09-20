@@ -29,8 +29,11 @@ export const pools = deepFreeze([
 export const siteShortcuts = deepFreeze([
   { id: 'myGames', iconKey: 'Multiboard', name: 'My games', url: `/@/${myUsername()}/all#angles` },
   { id: 'analysisBoard', iconKey: 'Microscope', name: 'Analysis board', url: '/analysis' },
+  { id: 'boardEditor', iconKey: 'StudyBoard', name: 'Board editor', url: '/editor' },
   { id: 'gameSearch', iconKey: 'Search', name: 'Game search', url: '/games/search' },
   { id: 'openings', iconKey: 'Book', name: 'Openings', url: '/opening' },
+  { id: 'myBlogs', iconKey: 'InkQuill', name: 'My blogs', url: `/@/${myUsername()}/blog` },
+  { id: 'myStudies', iconKey: 'StudyBoard', name: 'My studies', url: `/study/mine/updated` },
   { id: 'communityBlogs', iconKey: 'InkQuill', name: 'Community blogs', url: '/blog/community' },
   { id: 'learnBasics', iconKey: 'GraduateCap', name: 'Learn the basics', url: '/learn' },
   { id: 'practice', iconKey: 'GraduateCap', name: 'Practice', url: '/practice' },
