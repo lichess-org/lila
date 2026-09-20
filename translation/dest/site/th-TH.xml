@@ -755,9 +755,6 @@
   <string name="quickPairing">จับคู่ด่วน</string>
   <string name="lobby">ล็อบบี้</string>
   <string name="anonymous">นิรนาม</string>
-  <plurals name="nbAnonymous">
-    <item quantity="other">นิรนาม(%s)</item>
-  </plurals>
   <string name="yourScore">สกอร์ของคุณ: %s</string>
   <string name="language">ภาษา</string>
   <string name="allLanguages">ภาษาทั้งหมด</string>

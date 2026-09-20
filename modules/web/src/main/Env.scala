@@ -63,7 +63,8 @@ final class Env(
       "prizeTournamentMakers",
       default = UserIds(Nil),
       text =
-        "User IDs who can make prize tournaments (arena & swiss) without a warning. Separated by commas.".some
+        "User IDs who can make prize tournaments (arena & swiss) without a warning. Separated by commas.".some,
+      perm = _.ManageTournament
     )
     val apiExplorerGamesPerSecond = settingStore[Int](
       "apiExplorerGamesPerSecond",

@@ -4,6 +4,7 @@ import { makeSquare, opposite } from 'chessops';
 
 import { throttle } from 'lib/async';
 import { isTouchDevice } from 'lib/device';
+import { capitalize } from 'lib/game';
 import * as nv from 'lib/nvui/chess';
 import { commands, boardCommands, addBreaks } from 'lib/nvui/command';
 import { scanDirectionsHandler } from 'lib/nvui/directionScan';
@@ -113,9 +114,7 @@ export function renderNvui(ctx: PuzzleNvuiContext): VNode {
         },
         [
           hl('label', [
-            ctrl.mode === 'view'
-              ? 'Command input'
-              : i18n.puzzle[ctrl.pov === 'white' ? 'findTheBestMoveForWhite' : 'findTheBestMoveForBlack'],
+            ctrl.mode === 'view' ? 'Command input' : i18n.puzzle[`findTheBestMoveFor${capitalize(ctrl.pov)}`],
             hl('input.move.mousetrap', {
               attrs: { name: 'move', type: 'text', autocomplete: 'off', autofocus: true },
             }),
