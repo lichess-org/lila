@@ -28,6 +28,7 @@ export const pools = deepFreeze([
 
 export const siteShortcuts = deepFreeze([
   { id: 'myGames', iconKey: 'Multiboard', name: 'My games', url: `/@/${myUsername()}/all#angles` },
+  { id: 'analysisBoard', iconKey: 'Microscope', name: 'Analysis board', url: '/analysis' },
   { id: 'gameSearch', iconKey: 'Search', name: 'Game search', url: '/games/search' },
   { id: 'openings', iconKey: 'Book', name: 'Openings', url: '/opening' },
   { id: 'communityBlogs', iconKey: 'InkQuill', name: 'Community blogs', url: '/blog/community' },
@@ -49,7 +50,7 @@ export const siteShortcuts = deepFreeze([
   },
   {
     id: 'puzzleRacer',
-    iconUrl: site.asset.url('images/racer/checkered-flag.svg'),
+    iconMaskUrl: site.asset.url('images/racer/checkered-flag.svg'),
     name: 'Puzzle racer',
     url: '/racer',
   },

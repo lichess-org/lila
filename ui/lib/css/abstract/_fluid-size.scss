@@ -3,6 +3,8 @@
 
 $vp-min-width: 300px !default;
 $vp-max-width: 1200px !default;
+$vp-min-height: 300px;
+$vp-max-height: 720px;
 
 @function strip-unit($number) {
   @if meta.type-of($number) == 'number' and not math.is-unitless($number) {
@@ -47,7 +49,7 @@ $vp-max-width: 1200px !default;
 @mixin fluid-size-orientation($prop, $min, $max, $portrait: '100vw', $landscape: '80vh') {
   @include fluid-size($prop, $min, $max, $vp-min-width, $vp-max-width, 'min-width', $portrait);
 
-  @media (orientation: landscape) and ((hover: none) or (pointer: coarse)) {
-    @include fluid-size($prop, $min, $max, $vp-min-width, $vp-max-width, 'min-height', $landscape);
+  @media (orientation: landscape) {
+    @include fluid-size($prop, $min, $max, $vp-min-height, $vp-max-height, 'min-height', $landscape);
   }
 }
