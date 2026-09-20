@@ -225,7 +225,7 @@ lazy val history = module("history",
 
 lazy val search = module("search",
   Seq(db, mon, memo),
-  playWs.bundle
+  Seq(elasticsearch.client)
 )
 
 lazy val chat = module("chat",

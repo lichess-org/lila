@@ -1,57 +1,62 @@
 package lila.search
 
-import play.api.libs.json.*
-import play.api.libs.ws.JsonBodyReadables.*
-import play.api.libs.ws.JsonBodyWritables.*
-import play.api.libs.ws.{ StandaloneWSClient, StandaloneWSResponse }
-import scalalib.newtypes.SameRuntime
-
 import scala.concurrent.duration.FiniteDuration
+import scala.jdk.CollectionConverters.*
+import scala.jdk.FutureConverters.*
+import java.util.function.Function
+
+import co.elastic.clients.elasticsearch.ElasticsearchAsyncClient
+import co.elastic.clients.elasticsearch._types.{ FieldValue, SortOptions, SortOrder, query_dsl }
+import co.elastic.clients.elasticsearch._types.query_dsl.{ MatchAllQuery, Operator }
+import co.elastic.clients.elasticsearch.core.{ CountRequest, SearchRequest }
+import co.elastic.clients.util.ObjectBuilder
+import scalalib.newtypes.SameRuntime
 
 import lila.db.dsl.{ bdoc, Coll }
 import lila.mon.extensions.*
 
 final class SearchClient(
-    ws: StandaloneWSClient,
-    endpoint: Url,
+    client: ElasticsearchAsyncClient,
     eventColl: Coll,
     cacheApi: lila.memo.CacheApi
 )(using Executor):
-  import SearchClient.{ CountKey, Index }
+  import SearchClient.*
 
   private val countCache = cacheApi[CountKey, Long](1024, "search.count"):
     _.expireAfterWrite(2.minutes).buildAsyncFuture(fetchCount)
 
   def searchIds(
       index: Index,
-      query: JsObject,
-      sort: JsArray,
+      query: SearchQuery,
+      sort: List[SearchSort],
       offset: Long,
       length: Long,
       context: => Any,
       timeout: Option[FiniteDuration] = None
   ): Fu[List[String]] =
-    elastic("search", index, context, Nil)(
-      ws.url(s"$endpoint/${index.esPath}/_search")
-        .post(
-          Json.obj(
-            "query" -> query,
-            "_source" -> false,
-            "sort" -> sort,
-            "from" -> offset,
-            "size" -> length
-          ) ++ timeout.fold(Json.obj())(duration => Json.obj("timeout" -> s"${duration.toMillis}ms"))
-        )
-    )(js => (js \ "hits" \ "hits").as[List[JsObject]].map(hit => (hit \ "_id").as[String]))
+    val request =
+      SearchRequest
+        .Builder()
+        .index(index.esPath)
+        .query(query)
+        .source(_.fetch(false))
+        .sort(sort.asJava)
+        .from(offset.toInt)
+        .size(length.toInt)
+    timeout.foreach(duration => request.timeout(s"${duration.toMillis}ms"))
+    elastic("search", index, context, Nil):
+      client
+        .search(request.build(), classOf[Void])
+        .asScala
+        .map(_.hits().hits().asScala.toList.map(_.id()))
 
-  def count(index: Index, query: JsObject, context: => Any): Fu[Long] =
+  def count(index: Index, query: SearchQuery, context: => Any): Fu[Long] =
     countCache.get(CountKey(index, query, context.toString))
 
   private def fetchCount(key: CountKey): Fu[Long] =
-    elastic("count", key.index, key.context, 0L)(
-      ws.url(s"$endpoint/${key.index.esPath}/_count")
-        .post(Json.obj("query" -> key.query))
-    )(js => (js \ "count").as[Long])
+    val request = CountRequest.of(_.index(key.index.esPath).query(key.query))
+    elastic("count", key.index, key.context, 0L):
+      client.count(request).asScala.map(_.count())
 
   def upsert[Id](index: Index, docId: Id)(using idAsString: SameRuntime[Id, String]): Funit =
     recordEvent(index, "upsert", idAsString(docId))
@@ -60,19 +65,12 @@ final class SearchClient(
     recordEvent(index, "delete", idAsString(docId))
 
   private def elastic[A](op: "search" | "count", index: Index, context: => Any, fallback: A)(
-      request: => Fu[StandaloneWSResponse]
-  )(read: JsValue => A): Fu[A] =
+      request: => Fu[A]
+  ): Fu[A] =
     request
-      .map:
-        case res if res.status / 100 == 2 => read(res.body[JsValue])
-        case res =>
-          logger.info(
-            s"Elasticsearch $op error: index={${index.esPath}}, query={$context}, ${res.status} ${res.body}"
-          )
-          fallback
       .recover:
         case e =>
-          logger.info(s"Elasticsearch $op error: index={${index.esPath}}, query={$context}", e)
+          logger.info(s"es $op error: index={${index.esPath}}, query={$context}", e)
           fallback
       .monTry(res => lila.mon.search.time(op, index.name, res.isSuccess))
 
@@ -90,7 +88,17 @@ final class SearchClient(
 
 object SearchClient:
 
-  private case class CountKey(index: Index, query: JsObject, context: String)
+  type SearchQuery = query_dsl.Query
+  type SearchSort = SortOptions
+
+  private def esQuery(build: Function[query_dsl.Query.Builder, ObjectBuilder[query_dsl.Query]]): SearchQuery =
+    query_dsl.Query.of(build)
+
+  private case class CountKey(index: Index, query: SearchQuery, context: String):
+    override def equals(other: Any): Boolean = other match
+      case that: CountKey => index == that.index && context == that.context
+      case _ => false
+    override def hashCode = 31 * index.hashCode + context.hashCode
 
   enum Index:
     case Forum, Team, Ublog, Game, Study
@@ -98,73 +106,86 @@ object SearchClient:
     def name = toString.toLowerCase
     def esPath = if this == Study then "study_with_chapters" else name
 
-  def bool(must: List[JsObject] = Nil, filter: List[JsObject] = Nil): JsObject =
-    Json.obj(
-      "bool" -> Json.obj(
-        "must" -> JsArray(must),
-        "filter" -> JsArray(filter)
-      )
-    )
+  def bool(must: List[SearchQuery] = Nil, filter: List[SearchQuery] = Nil): SearchQuery =
+    boolQuery(must = must, filter = filter)
 
   def boolQuery(
-      must: List[JsObject] = Nil,
-      should: List[JsObject] = Nil,
-      filter: List[JsObject] = Nil,
+      must: List[SearchQuery] = Nil,
+      should: List[SearchQuery] = Nil,
+      filter: List[SearchQuery] = Nil,
       minimumShouldMatch: Option[Int] = None
-  ): JsObject =
-    val fields = Json.obj() ++
-      (if must.nonEmpty then Json.obj("must" -> JsArray(must)) else Json.obj()) ++
-      (if should.nonEmpty then Json.obj("should" -> JsArray(should)) else Json.obj()) ++
-      (if filter.nonEmpty then Json.obj("filter" -> JsArray(filter)) else Json.obj()) ++
-      minimumShouldMatch.map(value => Json.obj("minimum_should_match" -> value)).getOrElse(Json.obj())
-    Json.obj("bool" -> fields)
+  ): SearchQuery =
+    esQuery: query =>
+      query.bool: bool =>
+        if must.nonEmpty then bool.must(must.asJava)
+        if should.nonEmpty then bool.should(should.asJava)
+        if filter.nonEmpty then bool.filter(filter.asJava)
+        minimumShouldMatch.foreach(value => bool.minimumShouldMatch(value.toString))
+        bool
 
-  def compileFilter(queries: List[JsObject]): JsObject = queries match
-    case Nil => Json.obj("match_all" -> Json.obj())
+  def compileFilter(queries: List[SearchQuery]): SearchQuery = queries match
+    case Nil => esQuery(_.matchAll((builder: MatchAllQuery.Builder) => builder))
     case query :: Nil => query
-    case _ => Json.obj("bool" -> Json.obj("filter" -> JsArray(queries)))
+    case _ => boolQuery(filter = queries)
 
-  def queryString(query: String, defaultField: String): JsObject =
-    Json.obj(
-      "query_string" -> Json.obj(
-        "query" -> query,
-        "default_field" -> defaultField
-      )
-    )
+  def queryString(query: String, defaultField: String): SearchQuery =
+    esQuery(_.queryString(_.query(query).defaultField(defaultField)))
 
   def multiMatch(
       query: String,
       fields: List[String],
       analyzer: Option[String] = None,
       operator: Option[String] = None
-  ): JsObject =
-    Json.obj(
-      "multi_match" -> (Json.obj(
-        "query" -> query,
-        "fields" -> fields
-      ) ++ analyzer.map(value => Json.obj("analyzer" -> value)).getOrElse(Json.obj()) ++
-        operator.map(value => Json.obj("operator" -> value)).getOrElse(Json.obj()))
-    )
+  ): SearchQuery =
+    esQuery: root =>
+      root.multiMatch: multiMatch =>
+        multiMatch.query(query).fields(fields.asJava)
+        analyzer.foreach(multiMatch.analyzer)
+        operator.foreach(value => multiMatch.operator(Operator.valueOf(value.capitalize)))
+        multiMatch
 
-  def nested(path: String, query: JsObject): JsObject =
-    Json.obj("nested" -> Json.obj("path" -> path, "query" -> query))
+  def nested(path: String, query: SearchQuery): SearchQuery =
+    esQuery(_.nested(_.path(path).query(query)))
 
-  def matchQuery(field: String, value: String): JsObject =
-    Json.obj("match" -> Json.obj(field -> value))
+  def matchQuery(field: String, value: String): SearchQuery =
+    esQuery(_.`match`(_.field(field).query(value)))
 
-  def term(field: String, value: String): JsObject =
-    Json.obj("term" -> Json.obj(field -> value))
+  def term(field: String, value: String): SearchQuery =
+    esQuery(_.term(_.field(field).value(value)))
 
-  def term(field: String, value: Boolean): JsObject =
-    Json.obj("term" -> Json.obj(field -> value))
+  def term(field: String, value: Boolean): SearchQuery =
+    esQuery(_.term(_.field(field).value(value)))
 
-  def rangeGte(field: String, value: Int): JsObject =
-    Json.obj("range" -> Json.obj(field -> Json.obj("gte" -> value)))
+  def term(field: String, value: Int): SearchQuery =
+    esQuery(_.term(_.field(field).value(value.toLong)))
 
-  def fieldSort(field: String, order: String, missing: Option[String] = None): JsObject =
-    Json.obj(
-      field -> (Json.obj("order" -> order) ++ missing.fold(Json.obj())(m => Json.obj("missing" -> m)))
-    )
+  def terms(field: String, values: List[Int]): SearchQuery =
+    esQuery(_.terms(_.field(field).terms(_.value(values.map(value => FieldValue.of(value.toLong)).asJava))))
+
+  def numberRange(
+      field: String,
+      gt: Option[Double] = None,
+      gte: Option[Double] = None,
+      lte: Option[Double] = None
+  ): SearchQuery =
+    esQuery: query =>
+      query.range: range =>
+        range.number: bounds =>
+          bounds.field(field)
+          gt.foreach(value => bounds.gt(value))
+          gte.foreach(value => bounds.gte(value))
+          lte.foreach(value => bounds.lte(value))
+          bounds
+
+  def rangeGte(field: String, value: Int): SearchQuery =
+    numberRange(field, gte = value.toDouble.some)
+
+  def fieldSort(field: String, order: String, missing: Option[String] = None): SearchSort =
+    SortOptions.of: sort =>
+      sort.field: fieldSort =>
+        fieldSort.field(field).order(SortOrder.valueOf(order.capitalize))
+        missing.foreach(fieldSort.missing)
+        fieldSort
 
   def sanitizeQueryString(text: String, allowedFilters: Set[String] = Set.empty): String =
     text

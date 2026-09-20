@@ -99,6 +99,9 @@ object Dependencies:
     val json = "org.playframework" %% "play-ws-standalone-json" % version
     val bundle = Seq(ahc, json)
 
+  object elasticsearch:
+    val client = "co.elastic.clients" % "elasticsearch-java" % "8.19.1"
+
   object kamon:
     val version = "2.8.1"
     val core = "io.kamon" %% "kamon-core" % version
