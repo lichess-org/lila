@@ -2,13 +2,17 @@ import { h, type VNode, type VNodeData } from 'snabbdom';
 
 import { isMac } from '../device';
 import { requestIdleCallbackSafe } from '../index';
+import { storage } from '../storage';
+
+const disconnectNotifications = storage.make('nvui.disconnectNotifications');
 
 export class Notify {
   text = '';
   date?: Date;
 
   constructor(public redraw: Redraw | undefined) {
-    startOfflineObserver(this);
+    console.log('Notify instance created with disconnectNotifications setting: ', disconnectNotifications.get());
+    if (disconnectNotifications.get() !== 'none') startOfflineObserver(this, 10); // 10 seconds is the only alternative for now
   }
 
   set = (msg: string): void => {
@@ -33,7 +37,7 @@ export function liveText(
   return h(sel, data, text);
 }
 
-function startOfflineObserver(notify: Notify) {
+function startOfflineObserver(notify: Notify, offlineIntervalSeconds: number) {
   let isConnected = document.body.classList.contains('online');
   let offlineInterval: ReturnType<typeof setInterval> | null = null;
   let reconnectAttempt = 0;
@@ -51,7 +55,7 @@ function startOfflineObserver(notify: Notify) {
       } else {
         stopOfflineNotifications();
       }
-    }, 10000);
+    }, offlineIntervalSeconds * 1000);
   }
 
   function stopOfflineNotifications() {
