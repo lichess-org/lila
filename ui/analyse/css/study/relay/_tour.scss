@@ -149,7 +149,7 @@
     }
 
     .streamer-menu {
-      @extend %flex-column, %dropdown-shadow, %box-radius-bottom;
+      @extend %flex-column, %popup-shadow, %box-radius-bottom;
 
       position: absolute;
       max-height: 12em;
