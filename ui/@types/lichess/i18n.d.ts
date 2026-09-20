@@ -3129,6 +3129,8 @@ interface I18n {
     closeAccountForeverLabel: string;
     /** Prevent reopening the account later. If you tick this box, even administrators will be unable to reopen your account at your request. */
     closeAccountForeverWarning: string;
+    /** close your account */
+    closeYourAccount: string;
     /** I understand that deleted accounts aren't recoverable */
     deleteAccountConfirmText: string;
     /** Once you delete your account, it's removed from Lichess and our administrators won't be able to bring it back for you. */
@@ -3143,6 +3145,8 @@ interface I18n {
     thisAccountIsClosed: string;
     /** We're sorry to see you go. */
     wereSorryToSeeYouGo: string;
+    /** Would you like to %s instead? */
+    wouldYouLikeToXInstead: I18nFormat;
   };
   site: {
     /** Abort game */

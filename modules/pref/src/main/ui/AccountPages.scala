@@ -72,9 +72,9 @@ final class AccountPages(helpers: Helpers, ui: AccountUi, flagApi: lila.core.use
             div(cls := "form-group")(trs.deleteAccountWarning()),
             div(cls := "form-group")(trs.cantOpenSimilarAccount()),
             div(cls := "form-group")(
-              "Would you like to ",
-              a(href := routes.Account.close)("close your account"),
-              " instead?"
+              trs.wouldYouLikeToXInstead(
+                a(href := routes.Account.close)(trs.closeYourAccount())
+              )
             ),
             myUsernamePasswordFields(form),
             form3.checkboxGroup(form("understand"), trs.deleteAccountConfirmText()),

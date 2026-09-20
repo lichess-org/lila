@@ -1616,6 +1616,8 @@ object I18nKey:
     val `closeAccountForeverWarning`: I18nKey = "settings:closeAccountForeverWarning"
     val `deleteYourAccount`: I18nKey = "settings:deleteYourAccount"
     val `deleteAccountWarning`: I18nKey = "settings:deleteAccountWarning"
+    val `wouldYouLikeToXInstead`: I18nKey = "settings:wouldYouLikeToXInstead"
+    val `closeYourAccount`: I18nKey = "settings:closeYourAccount"
     val `deleteAccountConfirmText`: I18nKey = "settings:deleteAccountConfirmText"
 
   object site:
