@@ -6,6 +6,7 @@ import * as s from './setting';
 export function renderAdvancedSettings(
   moveStyle: s.Setting<s.MoveStyle>,
   pageStyle: s.Setting<s.PageStyle>,
+  disconnectNotifications: s.Setting<s.DisconnectNotifications>,
   pieceStyle: s.Setting<s.PieceStyle>,
   prefixStyle: s.Setting<s.PrefixStyle>,
   positionStyle: s.Setting<s.PositionStyle>,
@@ -16,6 +17,7 @@ export function renderAdvancedSettings(
     hl('h2', i18n.site.advancedSettings),
     hl('label', [noTrans('Move notation'), renderSetting(moveStyle, ctrl.redraw)]),
     hl('label', [noTrans('Page layout'), renderSetting(pageStyle, ctrl.redraw)]),
+    hl('label', [noTrans('Disconnect notifications'), renderSetting(disconnectNotifications, ctrl.redraw)]),
     hl('h3', noTrans('Board settings')),
     hl('label', [noTrans('Piece style'), renderSetting(pieceStyle, ctrl.redraw)]),
     hl('label', [noTrans('Piece prefix style'), renderSetting(prefixStyle, ctrl.redraw)]),

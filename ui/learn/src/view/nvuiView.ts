@@ -56,7 +56,17 @@ function renderMap(ctrl: LearnCtrl): VNode[] {
 }
 
 function renderStage(ctx: LearnNvuiContext): VNode[] {
-  const { ctrl, notify, moveStyle, pieceStyle, prefixStyle, positionStyle, boardStyle, pageStyle } = ctx;
+  const {
+    ctrl,
+    notify,
+    moveStyle,
+    pieceStyle,
+    prefixStyle,
+    positionStyle,
+    boardStyle,
+    pageStyle,
+    disconnectNotifications,
+  } = ctx;
   const runCtrl = ctrl.runCtrl;
   const stage = runCtrl.stage;
   const levelCtrl = runCtrl.levelCtrl;
@@ -147,9 +157,18 @@ function renderStage(ctx: LearnNvuiContext): VNode[] {
       ),
     ),
     hl('div.boardstatus', { attrs: { 'aria-live': 'polite', 'aria-atomic': 'true' } }, ''),
-    ...renderAdvancedSettings(moveStyle, pageStyle, pieceStyle, prefixStyle, positionStyle, boardStyle, {
-      redraw: runCtrl.redraw,
-    }),
+    ...renderAdvancedSettings(
+      moveStyle,
+      pageStyle,
+      disconnectNotifications,
+      pieceStyle,
+      prefixStyle,
+      positionStyle,
+      boardStyle,
+      {
+        redraw: runCtrl.redraw,
+      },
+    ),
     hl('h2', 'Commands'),
     hl(
       'p',
