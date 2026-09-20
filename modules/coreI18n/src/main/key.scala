@@ -1244,6 +1244,7 @@ object I18nKey:
     val `claimDrawOnThreefoldRepetitionAutomatically`: I18nKey = "preferences:claimDrawOnThreefoldRepetitionAutomatically"
     val `whenTimeRemainingLessThanThirtySeconds`: I18nKey = "preferences:whenTimeRemainingLessThanThirtySeconds"
     val `moveConfirmation`: I18nKey = "preferences:moveConfirmation"
+    val `multipleChoices`: I18nKey = "preferences:multipleChoices"
     val `explainCanThenBeTemporarilyDisabled`: I18nKey = "preferences:explainCanThenBeTemporarilyDisabled"
     val `inCorrespondenceGames`: I18nKey = "preferences:inCorrespondenceGames"
     val `correspondenceAndUnlimited`: I18nKey = "preferences:correspondenceAndUnlimited"
@@ -1292,6 +1293,14 @@ object I18nKey:
     val `analysisSettings`: I18nKey = "preferences:analysisSettings"
     val `maneuverArrowsHelp`: I18nKey = "preferences:maneuverArrowsHelp"
     val `hoverOverSettingLabelsForHelp`: I18nKey = "preferences:hoverOverSettingLabelsForHelp"
+    val `network`: I18nKey = "preferences:network"
+    val `youAreCurrentlyUsing`: I18nKey = "preferences:youAreCurrentlyUsing"
+    val `cdnRouting`: I18nKey = "preferences:cdnRouting"
+    val `directRouting`: I18nKey = "preferences:directRouting"
+    val `cdnRoutingExperimental`: I18nKey = "preferences:cdnRoutingExperimental"
+    val `frequentDisconnectsAdvice`: I18nKey = "preferences:frequentDisconnectsAdvice"
+    val `useDirectRouting`: I18nKey = "preferences:useDirectRouting"
+    val `useCdnRouting`: I18nKey = "preferences:useCdnRouting"
 
   object puzzle:
     val `puzzles`: I18nKey = "puzzle:puzzles"
