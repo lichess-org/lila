@@ -24,7 +24,7 @@ import {
 import { CevalCtrl, sanIrreversible, type CevalHandler, type CevalOpts } from 'lib/ceval';
 import { ChatCtrl } from 'lib/chat/chatCtrl';
 import { displayColumns } from 'lib/device';
-import { playable, playedTurns, fenToEpd, validUci } from 'lib/game';
+import { playable, playedTurns, fenToEpd, validUci, finished } from 'lib/game';
 import { plyColor } from 'lib/game/chess';
 import { PromotionCtrl } from 'lib/game/promotion';
 import { pubsub } from 'lib/pubsub';
@@ -1086,7 +1086,7 @@ export default class AnalyseCtrl implements CevalHandler {
       (this.motifEnabled() && this.motif.any()) ||
       this.node.check() ||
       this.node.outcome() ||
-      this.data.game.status.id >= 30
+      finished(this.data)
     )
       this.setAutoShapes();
     else this.chessground?.setAutoShapes([]);
