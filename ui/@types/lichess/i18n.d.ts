@@ -4307,6 +4307,8 @@ interface I18n {
     practice: string;
     /** Practice with computer */
     practiceWithComputer: string;
+    /** Preview */
+    preview: string;
     /** Previously on Lichess TV */
     previouslyOnLichessTV: string;
     /** Ctrl or shift = red; command, alt, or meta = blue; a key from each = yellow. */
@@ -4921,6 +4923,8 @@ interface I18n {
     withFriends: string;
     /** With nobody */
     withNobody: string;
+    /** Write */
+    write: string;
     /** Write a private note about this user */
     writeAPrivateNoteAboutThisUser: string;
     /** %1$s competes in %2$s */
@@ -6119,8 +6123,6 @@ interface I18n {
     postIntro: string;
     /** Post title */
     postTitle: string;
-    /** Preview */
-    preview: string;
     /** Previous blog posts */
     previousBlogPosts: string;
     /** Published */
@@ -6149,8 +6151,6 @@ interface I18n {
     thisPostIsPublished: string;
     /** View all %s posts */
     viewAllNbPosts: I18nPlural;
-    /** Write */
-    write: string;
     /** %s's Blog */
     xBlog: I18nFormat;
     /** %1$s published %2$s */
