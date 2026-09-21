@@ -52,7 +52,10 @@ export function endgameShapesForNode(
 }
 
 export function findKingSquare(fen: FEN, color: Color): Key | undefined {
-  const king = parseFen(fen).unwrap().board.kingOf(color);
+  const king = parseFen(fen).unwrap(
+    setup => setup.board.kingOf(color),
+    _ => undefined,
+  );
   return king === undefined ? undefined : makeSquare(king);
 }
 
