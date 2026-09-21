@@ -68,6 +68,7 @@ export interface PubsubEvents {
   'socket.lag': (lag: number) => void;
   'socket.open': () => void;
   'socket.send': (event: string, d?: any, o?: any) => void;
+  'socket.online': (online: boolean) => void;
   theme: (theme: string) => void;
   zen: () => void;
 }
