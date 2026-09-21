@@ -290,24 +290,6 @@ final class TournamentList(helpers: Helpers, ui: TournamentUi)(
 
     private val section = st.section(cls := "tournament-shields__item")
 
-    private def categName(categ: TournamentShield.Category)(using Translate): String =
-      categ match
-        case TournamentShield.Category.Bullet => trans.site.bullet.txt()
-        case TournamentShield.Category.SuperBlitz => "SuperBlitz"
-        case TournamentShield.Category.Blitz => trans.site.blitz.txt()
-        case TournamentShield.Category.Rapid => trans.site.rapid.txt()
-        case TournamentShield.Category.Classical => trans.site.classical.txt()
-        case TournamentShield.Category.HyperBullet => "HyperBullet"
-        case TournamentShield.Category.UltraBullet => trans.site.ultraBullet.txt()
-        case TournamentShield.Category.Chess960 => trans.variant.chess960.txt()
-        case TournamentShield.Category.Crazyhouse => trans.variant.crazyhouse.txt()
-        case TournamentShield.Category.KingOfTheHill => trans.variant.kingOfTheHill.txt()
-        case TournamentShield.Category.ThreeCheck => trans.variant.threeCheck.txt()
-        case TournamentShield.Category.Antichess => trans.variant.antichess.txt()
-        case TournamentShield.Category.Atomic => trans.variant.atomic.txt()
-        case TournamentShield.Category.Horde => trans.variant.horde.txt()
-        case TournamentShield.Category.RacingKings => trans.variant.racingKings.txt()
-
     def apply(history: TournamentShield.History)(using Context) =
       Page(trans.arena.tournamentShields.txt())
         .css("tournament.leaderboard")
@@ -322,7 +304,7 @@ final class TournamentList(helpers: Helpers, ui: TournamentUi)(
                     h2(
                       a(href := routes.Tournament.categShields(categ.key))(
                         span(cls := "shield-trophy")(categ.icon),
-                        categName(categ)
+                        categ.i18n()
                       )
                     ),
                     ol(awards.map { aw =>
@@ -346,7 +328,7 @@ final class TournamentList(helpers: Helpers, ui: TournamentUi)(
               boxTop(
                 h1(
                   a(href := routes.Tournament.shields, dataIcon := Icon.LessThan, cls := "text"),
-                  frag(categName(categ), " • ", trans.arena.tournamentShields())
+                  frag(categ.i18n.txt(), " • ", trans.arena.tournamentShields())
                 )
               ),
               ol(awards.map { aw =>
