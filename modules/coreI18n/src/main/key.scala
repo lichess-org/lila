@@ -247,6 +247,7 @@ object I18nKey:
     val `tiebreaks`: I18nKey = "broadcast:tiebreaks"
     val `gameX`: I18nKey = "broadcast:gameX"
     val `knockouts`: I18nKey = "broadcast:knockouts"
+    val `pinPlayer`: I18nKey = "broadcast:pinPlayer"
     val `underXAgeTournament`: I18nKey = "broadcast:underXAgeTournament"
     val `underXEloTournament`: I18nKey = "broadcast:underXEloTournament"
     val `nbBroadcasts`: I18nKey = "broadcast:nbBroadcasts"

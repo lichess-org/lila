@@ -379,6 +379,8 @@ interface I18n {
     permanentlyDeleteRound: string;
     /** Permanently delete this tournament, including all rounds and games? */
     permanentlyDeleteTournament: string;
+    /** Pin player */
+    pinPlayer: string;
     /** Quarterfinals */
     quarterfinals: string;
     /** Rating diff */
