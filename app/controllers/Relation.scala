@@ -26,7 +26,7 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
           Ok.snip:
             views.relation.mini(user.id, blocked = blocked, followable = followable, relation)
       else
-        for messageable <- ctx.me.soUse(mashup.UserInfo.messageable(user.id, env.pref.api, api))
+        for messageable <- ctx.me.soUse(env.socialInfo.messageable(user.id))
         yield JsonOk:
           views.relation.actions(
             user,
