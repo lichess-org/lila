@@ -24,7 +24,7 @@ import {
 import { CevalCtrl, sanIrreversible, type CevalHandler, type CevalOpts } from 'lib/ceval';
 import { ChatCtrl } from 'lib/chat/chatCtrl';
 import { displayColumns } from 'lib/device';
-import { playable, playedTurns, fenToEpd, validUci } from 'lib/game';
+import { playable, playedTurns, fenToEpd, validUci, finished } from 'lib/game';
 import { plyColor } from 'lib/game/chess';
 import { PromotionCtrl } from 'lib/game/promotion';
 import { pubsub } from 'lib/pubsub';
@@ -1083,7 +1083,8 @@ export default class AnalyseCtrl implements CevalHandler {
       this.showBestMoveArrows() ||
       this.settings.showMoveAnnotationsOnBoard ||
       this.settings.showVariationArrows ||
-      (this.motifEnabled() && this.motif.any())
+      (this.motifEnabled() && this.motif.any()) ||
+      (finished(this.data) && this.node.outcome())
     )
       this.setAutoShapes();
     else this.chessground?.setAutoShapes([]);
