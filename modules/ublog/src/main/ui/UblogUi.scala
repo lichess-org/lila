@@ -174,7 +174,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)
                       .url
                 )
               )
-            else div(cls := "ublog-index__posts--empty")(trans.ublog.nothingToShow())
+            else div(cls := "ublog-index__posts--empty")(trans.site.nothingToSeeHere())
           )
         )
 
@@ -210,7 +210,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)
     posts = posts,
     menuItem = "friends",
     route = (p, _, _) => routes.Ublog.friends(p),
-    onEmpty = trans.ublog.nothingToShowFollowAuthors.txt()
+    onEmpty = trans.site.nothingToSeeHere()
   )
 
   def liked(posts: Paginator[UblogPost.PreviewPost])(using Context) = list(
@@ -218,7 +218,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)
     posts = posts,
     menuItem = "liked",
     route = (p, _, _) => routes.Ublog.liked(p),
-    onEmpty = trans.ublog.nothingToShowLikePosts.txt()
+    onEmpty = trans.site.nothingToSeeHere()
   )
 
   def topic(top: UblogTopic, filter: QualityFilter, by: BlogsBy, posts: Paginator[UblogPost.PreviewPost])(
@@ -229,7 +229,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)
       posts = posts,
       menuItem = "topics",
       route = (p, f, b) => routes.Ublog.topic(top.value, f.some, b, p),
-      onEmpty = trans.ublog.nothingToShow.txt(),
+      onEmpty = trans.site.nothingToSeeHere(),
       filterOpt = filter.some,
       byOpt = by.some
     )
@@ -247,7 +247,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)
       posts = posts,
       menuItem = "by-month",
       route = (p, f, b) => routes.Ublog.byMonth(yearMonth.getYear, yearMonth.getMonthValue, f.some, b, p),
-      onEmpty = trans.ublog.nothingToShow.txt(),
+      onEmpty = trans.site.nothingToSeeHere(),
       filterOpt = filter.some,
       byOpt = by.some,
       header = boxTop(cls := "ublog-index__calendar")(

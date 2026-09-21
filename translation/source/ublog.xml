@@ -49,9 +49,6 @@
   <string name="thisIsADraft">This is a draft</string>
   <string name="noPostsInThisBlogYet">No posts in this blog, yet.</string>
   <string name="noDrafts">No drafts to show.</string>
-  <string name="nothingToShow">Nothing to show.</string>
-  <string name="nothingToShowFollowAuthors">Nothing to show. Follow some authors!</string>
-  <string name="nothingToShowLikePosts">Nothing to show. Like some posts!</string>
   <string name="latestBlogPosts">Latest blog posts</string>
   <string name="recentPosts">Recent posts</string>
   <plurals name="viewAllNbPosts">

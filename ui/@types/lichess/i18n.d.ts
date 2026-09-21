@@ -6113,12 +6113,6 @@ interface I18n {
     noDrafts: string;
     /** No posts in this blog, yet. */
     noPostsInThisBlogYet: string;
-    /** Nothing to show. */
-    nothingToShow: string;
-    /** Nothing to show. Follow some authors! */
-    nothingToShowFollowAuthors: string;
-    /** Nothing to show. Like some posts! */
-    nothingToShowLikePosts: string;
     /** Post body */
     postBody: string;
     /** Post intro */
