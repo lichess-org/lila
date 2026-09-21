@@ -2345,6 +2345,10 @@ interface I18n {
     castleByMovingTheKingTwoSquaresOrOntoTheRook: string;
     /** Move king two squares */
     castleByMovingTwoSquares: string;
+    /** Content Delivery Network (CDN) routing. */
+    cdnRouting: string;
+    /** This feature is experimental but may improve reliability in some regions. */
+    cdnRoutingExperimental: string;
     /** Chess clock */
     chessClock: string;
     /** Chess piece symbol */
@@ -2359,6 +2363,8 @@ interface I18n {
     correspondenceAndUnlimited: string;
     /** Daily email listing your correspondence games */
     correspondenceEmailNotification: string;
+    /** direct routing. */
+    directRouting: string;
     /** Enable variation hiding */
     disclosureMode: string;
     /** Display */
@@ -2375,6 +2381,8 @@ interface I18n {
     explainPromoteToQueenAutomatically: string;
     /** Hides all ratings from Lichess, to help you focus on the game. */
     explainShowPlayerRatings: string;
+    /** If you have frequent disconnects, Content Delivery Network (CDN) routing may improve things. */
+    frequentDisconnectsAdvice: string;
     /** Game behaviour */
     gameBehavior: string;
     /** General */
@@ -2409,6 +2417,10 @@ interface I18n {
     moveListSettings: string;
     /** Move list while playing */
     moveListWhilePlaying: string;
+    /** Multiple choices. */
+    multipleChoices: string;
+    /** Network */
+    network: string;
     /** Notifications */
     notifications: string;
     /** Notification within Lichess */
@@ -2493,12 +2505,18 @@ interface I18n {
     takebacksWithOpponentApproval: string;
     /** Tenths of seconds */
     tenthsOfSeconds: string;
+    /** Use CDN routing */
+    useCdnRouting: string;
+    /** Use direct routing */
+    useDirectRouting: string;
     /** When premoving */
     whenPremoving: string;
     /** When time remaining < 10 seconds */
     whenTimeRemainingLessThanTenSeconds: string;
     /** When time remaining < 30 seconds */
     whenTimeRemainingLessThanThirtySeconds: string;
+    /** You are currently using %s */
+    youAreCurrentlyUsing: I18nFormat;
     /** Your preferences have been saved. */
     yourPreferencesHaveBeenSaved: string;
     /** Zen mode */
