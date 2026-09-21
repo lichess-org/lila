@@ -36,7 +36,7 @@ import {
 import { commands, boardCommands, addBreaks } from 'lib/nvui/command';
 import { scanDirectionsHandler } from 'lib/nvui/directionScan';
 import { liveText } from 'lib/nvui/notify';
-import { renderSetting } from 'lib/nvui/setting';
+import { renderAdvancedSettings } from 'lib/nvui/renderAdvancedSettings';
 import { pubsub } from 'lib/pubsub';
 import { ops, path as treePath } from 'lib/tree/tree';
 import type { ClientEval, PvData } from 'lib/tree/types';
@@ -191,13 +191,9 @@ export function renderNvui(ctx: AnalyseNvuiContext): VNode {
           });
         }),
       }),
-      hl('h2', i18n.site.advancedSettings),
-      hl('label', ['Move notation', renderSetting(moveStyle, ctrl.redraw)]),
-      hl('h3', 'Board settings'),
-      hl('label', ['Piece style', renderSetting(pieceStyle, ctrl.redraw)]),
-      hl('label', ['Piece prefix style', renderSetting(prefixStyle, ctrl.redraw)]),
-      hl('label', ['Show position', renderSetting(positionStyle, ctrl.redraw)]),
-      hl('label', ['Board layout', renderSetting(boardStyle, ctrl.redraw)]),
+      ...renderAdvancedSettings(moveStyle, pageStyle, pieceStyle, prefixStyle, positionStyle, boardStyle, {
+        redraw: ctrl.redraw,
+      }),
       hl('h2', i18n.site.keyboardShortcuts),
       hl(
         'p',
