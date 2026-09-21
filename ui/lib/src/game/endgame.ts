@@ -3,6 +3,7 @@ import type { Outcome } from 'chessops';
 import { parseFen } from 'chessops/fen';
 import { makeSquare, opposite } from 'chessops/util';
 
+import { fenColor } from './chess';
 import { endgameGlyphs } from './glyphs';
 import type { StatusName } from './status';
 
@@ -32,11 +33,7 @@ const endgameResult = (
 
   if (!isGameEnd) return {};
   return {
-    winner: isMate
-      ? opposite(parseFen(node.fen).unwrap().turn)
-      : isStalemate
-        ? undefined
-        : (outcome?.winner ?? gameWinner),
+    winner: isMate ? opposite(fenColor(node.fen)) : isStalemate ? undefined : (outcome?.winner ?? gameWinner),
     status: isMate ? 'mate' : isStalemate ? 'stalemate' : gameStatus,
   };
 };
