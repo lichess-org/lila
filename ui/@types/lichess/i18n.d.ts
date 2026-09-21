@@ -4307,6 +4307,8 @@ interface I18n {
     practice: string;
     /** Practice with computer */
     practiceWithComputer: string;
+    /** Preview */
+    preview: string;
     /** Previously on Lichess TV */
     previouslyOnLichessTV: string;
     /** Ctrl or shift = red; command, alt, or meta = blue; a key from each = yellow. */
@@ -4921,6 +4923,8 @@ interface I18n {
     withFriends: string;
     /** With nobody */
     withNobody: string;
+    /** Write */
+    write: string;
     /** Write a private note about this user */
     writeAPrivateNoteAboutThisUser: string;
     /** %1$s competes in %2$s */
@@ -6047,6 +6051,8 @@ interface I18n {
   ublog: {
     /** %s blog posts */
     blogPosts: I18nPlural;
+    /** Blog posts by friends */
+    blogPostsByFriends: string;
     /** Our simple tips to write great blog posts */
     blogTips: string;
     /** By Lichess */
@@ -6057,8 +6063,12 @@ interface I18n {
     byTopic: string;
     /** Community */
     community: string;
+    /** Community blogs */
+    communityBlogs: string;
     /** Continue reading this post */
     continueReadingPost: string;
+    /** Cover image */
+    coverImage: string;
     /** Enable comments */
     createBlogDiscussion: string;
     /** A forum topic will be created for people to comment on your post */
@@ -6071,6 +6081,8 @@ interface I18n {
     drafts: string;
     /** Edit your blog post */
     editYourBlogPost: string;
+    /** Etiquette */
+    etiquette: string;
     /** The following websites provide images for free. Please ensure you comply with licensing conditions for the image you use. */
     freeImagesComplyWithLicensing: string;
     /** Image alternative text */
@@ -6079,12 +6091,16 @@ interface I18n {
     imageCredit: string;
     /** Anything inappropriate could get your account closed. */
     inappropriateContentAccountClosed: string;
+    /** Includes promoted/sponsored content or referral links */
+    includesPromotedContent: string;
     /** Latest blog posts */
     latestBlogPosts: string;
     /** Lichess blog posts in %s */
     lichessBlogPostsFromXYear: I18nFormat;
     /** Liked blog posts */
     likedBlogs: string;
+    /** Mandatory for sponsored content, affiliate links or commercial advertisement */
+    mandatoryForSponsoredContent: string;
     /** My blog */
     myBlog: string;
     /** My friends */
@@ -6117,6 +6133,8 @@ interface I18n {
     publishHelp: string;
     /** Publish on your blog */
     publishOnYourBlog: string;
+    /** Recent posts */
+    recentPosts: string;
     /** Please only post safe and respectful content. Do not copy someone else's content. */
     safeAndRespectfulContent: string;
     /** Save draft */
