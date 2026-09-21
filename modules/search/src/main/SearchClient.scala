@@ -93,7 +93,7 @@ object SearchClient:
   private case class CountKey(index: Index, query: JsObject, context: String)
 
   enum Index:
-    case Forum, Team, Ublog, Game, Study
+    case Forum, Team, Ublog, Game, Study, Feed
 
     def name = toString.toLowerCase
     def esPath = if this == Study then "study_with_chapters" else name

@@ -140,7 +140,7 @@ GET   /ublog/carousel                  controllers.Ublog.modShowCarousel
 POST  /upload/image/ublog/$id<\w{8}>   controllers.Ublog.image(id: UblogPostId)
 
 # Feed
-GET   /feed                            controllers.Feed.index(page: Int ?= 1)
+GET   /feed                            controllers.Feed.index(page: Int ?= 1, text ?= "")
 GET   /feed/new                        controllers.Feed.createForm
 POST  /feed/new                        controllers.Feed.create
 GET   /feed/:id/edit                   controllers.Feed.edit(id)

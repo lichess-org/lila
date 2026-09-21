@@ -8,11 +8,14 @@ final class Feed(env: Env) extends LilaController(env):
 
   def api = env.feed.api
 
-  def index(page: Int) = Open: ctx ?=>
+  def index(page: Int, text: String) = Open: ctx ?=>
     Reasonable(page):
+      val query = text.take(100).trim
       for
-        updates <- env.feed.paginator.recent(isGrantedOpt(_.Feed), page)
-        renderedPage <- renderPage(views.feed.index(updates))
+        updates <-
+          if query.isEmpty then env.feed.paginator.recent(isGrantedOpt(_.Feed), page)
+          else api.search(query, page)
+        renderedPage <- renderPage(views.feed.index(updates, query))
       yield Ok(renderedPage)
 
   def createForm = Secure(_.Feed) { _ ?=> _ ?=>

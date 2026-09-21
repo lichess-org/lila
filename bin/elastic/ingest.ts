@@ -8,7 +8,7 @@ import process from 'node:process';
 import type { Args, MongoDoc, Operations, IndexSchema, IndexName, Context } from './types.ts';
 
 const usage = `usage:
-  ./bin/elastic/ingest.ts [forum|ublog|team|study|game]* [options]
+  ./bin/elastic/ingest.ts [forum|ublog|team|study|game|feed]* [options]
 
 overview:
   if --from or --to is given:
@@ -18,7 +18,7 @@ overview:
     track health metrics and expose for prometheus scraping on --metrics-port
 
 arguments:
-  forum ublog team study game  # the index names to operate on; default all
+  forum ublog team study game feed  # the index names to operate on; default all
 
 options:
   --help                     # show this help message and exit
@@ -43,7 +43,7 @@ examples:
   ./bin/elastic/ingest.ts forum team --from=2025 --to=2025-7-25
 
   # watch mode with all defaults given explicitly
-  ./bin/elastic/ingest.ts forum ublog team study game \\
+  ./bin/elastic/ingest.ts forum ublog team study game feed \\
                           --es-uri=http://127.0.0.1:9200 \\
                           --mongo-uri=mongodb://127.0.0.1:27017/lichess \\
                           --metrics-port=9464 \\
@@ -52,7 +52,7 @@ examples:
 let mongoClient: MongoClient;
 let metricsServer: Server | undefined;
 
-const indexNames: IndexName[] = ['forum', 'ublog', 'team', 'study', 'game']; // each with .ts file
+const indexNames: IndexName[] = ['forum', 'ublog', 'team', 'study', 'game', 'feed']; // each with .ts file
 const args = parseArgs();
 const esClient = new Client({ node: args.esUri });
 const indexing = Object.fromEntries(

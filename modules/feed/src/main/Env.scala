@@ -6,7 +6,12 @@ import lila.core.config.CollName
 import lila.core.lilaism.Lilaism.*
 
 @Module
-final class Env(cacheApi: lila.memo.CacheApi, db: lila.db.Db, flairApi: lila.core.user.FlairApi)(using
+final class Env(
+    cacheApi: lila.memo.CacheApi,
+    db: lila.db.Db,
+    flairApi: lila.core.user.FlairApi,
+    elastic: lila.search.SearchClient
+)(using
     Executor,
     Scheduler
 ):
