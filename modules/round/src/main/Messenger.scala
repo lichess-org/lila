@@ -8,7 +8,7 @@ final class Messenger(api: ChatApi):
   def system(game: Game, message: String): Unit =
     system(persistent = true)(game, message)
 
-  def volatile(game: Game, message: String, reboot: Boolean): Unit =
+  def volatile(game: Game, message: String, reboot: Boolean = false): Unit =
     system(persistent = false)(game, message, watcherChat = !reboot)
 
   def apply(game: Game, message: Messenger.SystemMessage): Unit = message match

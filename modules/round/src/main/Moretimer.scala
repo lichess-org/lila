@@ -36,7 +36,7 @@ final class Moretimer(messenger: Messenger, prefApi: PrefApi):
       game: Game,
       colors: List[Color],
       unchecked: FiniteDuration,
-      reboot: Boolean
+      reboot: Boolean = false
   ): Progress =
     game.clock.fold(Progress(game)): clock =>
       val duration =
