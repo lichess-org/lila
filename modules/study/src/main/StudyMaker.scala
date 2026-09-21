@@ -37,7 +37,8 @@ final private class StudyMaker(
       Study.From.Scratch,
       id = none,
       name = data.studyName,
-      settings = data.settings.some
+      settings = data.settings.some,
+      visibility = data.visibility
     )
     val chapterData = ChapterMaker.Data(StudyChapterName("Chapter 1"))
     val chapter = chapterMaker.fromFenOrBlank(study, chapterData, order = 1, me.userId)
@@ -75,7 +76,7 @@ final private class StudyMaker(
       root <- chapterMaker.makeRoot(pov.game, data.form.pgnStr, initialFen)
       tags <- pgnDump.tags(pov.game, initialFen, none, gameOpening(pov.game, true), withRatings)
       name <- StudyChapterName.from(namer.gameVsText(pov.game, withRatings)(using lightUserApi.async))
-      study = Study.make(user, Study.From.Game(pov.gameId), data.id, StudyName("Game study").some)
+      study = Study.make(user, Study.From.Game(pov.gameId), data.id, StudyName("Game study").some, none)
       chapter = Chapter.make(
         studyId = study.id,
         name = name,
