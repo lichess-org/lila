@@ -153,7 +153,7 @@ class WsSocket {
     cl.toggle('online', online);
     if (pubsub.past('socket.hasConnected')) {
       if (online) document.body.classList.add('reconnected');
-      pubsub.emit('socket.online', true);
+      pubsub.emit('socket.online', online);
     }
   };
 
