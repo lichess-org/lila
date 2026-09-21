@@ -379,6 +379,8 @@ interface I18n {
     permanentlyDeleteRound: string;
     /** Permanently delete this tournament, including all rounds and games? */
     permanentlyDeleteTournament: string;
+    /** Pin player */
+    pinPlayer: string;
     /** Quarterfinals */
     quarterfinals: string;
     /** Rating diff */
@@ -451,6 +453,8 @@ interface I18n {
     underXAgeTournament: I18nFormat;
     /** U%s */
     underXEloTournament: I18nFormat;
+    /** Unpin player */
+    unpinPlayer: string;
     /** Unrated */
     unrated: string;
     /** Upcoming */
