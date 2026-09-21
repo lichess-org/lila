@@ -82,7 +82,7 @@ export const endgameGlyphs: Record<
   ),
   outoftime: composeGlyph(
     '#df5353',
-    '<circle cx="50" cy="55" r="30" fill="none" stroke="#fff" stroke-width="8"/><path fill="none" stroke="#fff" stroke-width="8" stroke-linecap="round" d="M30 33l-7-7M70 33l7-7"/><path fill="#fff" d="M46 34h8v22h-8zm0 18h21v8H46z"/>',
+    '<circle cx="50" cy="50" r="32" fill="none" stroke="#fff" stroke-width="8"/><path fill="#fff" d="M46 30h8v22h-8zm0 18h20v8H46z"/>',
   ),
   unknown: composeGlyph(
     '#df5353',
