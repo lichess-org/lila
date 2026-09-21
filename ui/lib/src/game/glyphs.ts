@@ -74,7 +74,7 @@ export const endgameGlyphs: Record<
   ),
   resign: composeGlyph(
     '#df5353',
-    '<path fill="#fff" transform="translate(8 8) scale(.84)" d="M24 12h9v76h-9zm9 4h45l-17 17 17 17H33z"/>',
+    '<path fill="#fff" transform="translate(10 10) scale(.8)" d="M20 14h8v72h-8zm8 4h45c4 0 6 3 3 6l-9 19 9 19c3 3 1 6-3 6H28z"/>',
   ),
   abandoned: composeGlyph(
     '#df5353',
@@ -82,11 +82,11 @@ export const endgameGlyphs: Record<
   ),
   outoftime: composeGlyph(
     '#df5353',
-    '<circle cx="50" cy="55" r="30" fill="none" stroke="#fff" stroke-width="8"/><path fill="#fff" d="M42 13h16v8H42zm-9 9 6-6 7 7-6 6zm28 1 7-7 6 6-7 7zM46 34h8v22h-8zm0 18h21v8H46z"/>',
+    '<circle cx="50" cy="55" r="30" fill="none" stroke="#fff" stroke-width="8"/><path fill="none" stroke="#fff" stroke-width="8" stroke-linecap="round" d="M30 33l-7-7M70 33l7-7"/><path fill="#fff" d="M46 34h8v22h-8zm0 18h21v8H46z"/>',
   ),
   unknown: composeGlyph(
     '#df5353',
-    '<path fill="#fff" d="M50 10 88 82H12zm0 20-21 42h42zM44 43h12v20H44zm0 26h12v12H44z"/>',
+    '<path fill="#fff" transform="translate(10 10) scale(.8)" d="M18 18h12l20 20 20-20h12v12L62 50l20 20v12H70L50 62 30 82H18V70l20-20L18 30z"/>',
   ),
   draw: composeGlyph(
     '#c8a829',
@@ -94,7 +94,7 @@ export const endgameGlyphs: Record<
   ),
   stalemate: composeGlyph(
     '#c8a829',
-    '<path fill="none" stroke="#fff" stroke-width="9" d="M31 48v-9c0-11 8-19 19-19s19 8 19 19v9"/><path fill="#fff" d="M24 43h52v38H24z"/><path fill="#c8a829" d="m42 56 3-7 5 5 5-5 3 7v5H42zM45 61h10v7c0 3-2 5-5 5s-5-2-5-5z"/>',
+    '<path fill="none" stroke="#fff" stroke-width="9" d="M31 48v-9c0-11 8-19 19-19s19 8 19 19v9"/><path fill="#fff" d="M24 43h52v38H24z"/><circle cx="50" cy="59" r="4" fill="#c8a829"/><path fill="#c8a829" d="M47 60h6v12h-6z"/>',
   ),
 };
 
