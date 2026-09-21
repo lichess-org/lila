@@ -109,7 +109,6 @@
   <string name="gameX">Game %s</string>
   <string name="knockouts">Knockouts</string>
   <string name="pinPlayer">Pin player</string>
-  <string name="unpinPlayer">Unpin player</string>
   <string name="underXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament. e.g.
 
 'U18' will mean it is an tournament for under-18 years.

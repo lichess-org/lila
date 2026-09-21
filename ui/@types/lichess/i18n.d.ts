@@ -453,8 +453,6 @@ interface I18n {
     underXAgeTournament: I18nFormat;
     /** U%s */
     underXEloTournament: I18nFormat;
-    /** Unpin player */
-    unpinPlayer: string;
     /** Unrated */
     unrated: string;
     /** Upcoming */
