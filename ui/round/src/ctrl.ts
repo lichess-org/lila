@@ -572,12 +572,14 @@ export default class RoundController implements MoveRootCtrl {
 
   endWithData = (o: ApiEnd): void => {
     const d = this.data;
+    const ply = this.lastPly();
+    const step = this.stepAt(ply);
     d.game.winner = o.winner;
     d.game.status = o.status;
     d.game.abortedBy = o.abortedBy;
     d.game.boosted = o.boosted;
     d.player.blindfold = false;
-    this.userJump(this.lastPly());
+    this.userJump(ply);
     d.game.fen = util.lastStep(this.data).fen;
     // If losing/drawing on time but locally it is the opponent's turn, move did not reach server before the end
     if (
@@ -619,7 +621,7 @@ export default class RoundController implements MoveRootCtrl {
     this.onChange();
     if (d.tv) setTimeout(site.reload, 10000);
     wakeLock.release();
-    if (this.data.game.status.name === 'started') site.sound.saySan(this.stepAt(this.ply).san, false);
+    if (this.data.game.status.name === 'started') site.sound.saySan(step.san, false);
     else site.sound.say(viewStatus(this.data), false, false, true);
     this.server.alive();
     if (
@@ -629,7 +631,7 @@ export default class RoundController implements MoveRootCtrl {
     ) {
       notify(viewStatus(this.data));
     }
-    ground.reload(this);
+    ground.sync(this, step, false);
   };
 
   challengeRematch = async (): Promise<void> => {
