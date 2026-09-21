@@ -2345,10 +2345,6 @@ interface I18n {
     castleByMovingTheKingTwoSquaresOrOntoTheRook: string;
     /** Move king two squares */
     castleByMovingTwoSquares: string;
-    /** Content Delivery Network (CDN) routing. */
-    cdnRouting: string;
-    /** This feature is experimental but may improve reliability in some regions. */
-    cdnRoutingExperimental: string;
     /** Chess clock */
     chessClock: string;
     /** Chess piece symbol */
@@ -2363,8 +2359,6 @@ interface I18n {
     correspondenceAndUnlimited: string;
     /** Daily email listing your correspondence games */
     correspondenceEmailNotification: string;
-    /** direct routing. */
-    directRouting: string;
     /** Enable variation hiding */
     disclosureMode: string;
     /** Display */
@@ -2381,7 +2375,7 @@ interface I18n {
     explainPromoteToQueenAutomatically: string;
     /** Hides all ratings from Lichess, to help you focus on the game. */
     explainShowPlayerRatings: string;
-    /** If you have frequent disconnects, Content Delivery Network (CDN) routing may improve things. */
+    /** If you have frequent disconnects, try changing the routing. */
     frequentDisconnectsAdvice: string;
     /** Game behaviour */
     gameBehavior: string;
@@ -2515,8 +2509,10 @@ interface I18n {
     whenTimeRemainingLessThanTenSeconds: string;
     /** When time remaining < 30 seconds */
     whenTimeRemainingLessThanThirtySeconds: string;
-    /** You are currently using %s */
-    youAreCurrentlyUsing: I18nFormat;
+    /** You are currently using Content Delivery Network (CDN) routing. */
+    youAreCurrentlyUsingCdnRouting: string;
+    /** You are currently using direct routing. */
+    youAreCurrentlyUsingDirectRouting: string;
     /** Your preferences have been saved. */
     yourPreferencesHaveBeenSaved: string;
     /** Zen mode */

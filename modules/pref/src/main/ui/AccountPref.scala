@@ -309,11 +309,10 @@ final class AccountPref(helpers: Helpers, helper: PrefHelper, bits: AccountUi):
         standardFlash,
         h1(cls := "box__top")(trp.network()),
         flashMessage("quiet")(
-          trp.youAreCurrentlyUsing(if cfRouting then trp.cdnRouting() else trp.directRouting()),
+          if cfRouting then trp.youAreCurrentlyUsingCdnRouting()
+          else trp.youAreCurrentlyUsingDirectRouting(),
           br,
-          if cfRouting
-          then trp.cdnRoutingExperimental()
-          else trp.frequentDisconnectsAdvice()
+          trp.frequentDisconnectsAdvice()
         ),
         br,
         postForm(action := routes.Pref.networkPost):
