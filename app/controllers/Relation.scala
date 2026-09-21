@@ -20,13 +20,22 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
     relation <- ctx.userId.so(api.fetchRelation(_, user.id))
     followable <- ctx.isAuth.so(env.pref.api.followable(user.id))
     blocked <- ctx.userId.so(api.fetchBlocks(user.id, _))
+    messageable <- ctx.userId.so(
+      mashup.UserInfo.messageable(user.id, _, env.pref.api, api)
+    )
     res <-
       if mini then
         Ok.snip:
           views.relation.mini(user.id, blocked = blocked, followable = followable, relation)
       else
         JsonOk:
-          views.relation.actions(user, relation, blocked = blocked, followable = followable)
+          views.relation.actions(
+            user,
+            relation,
+            blocked = blocked,
+            followable = followable,
+            messageable = messageable
+          )
   yield res
 
   private def RatelimitWith(
