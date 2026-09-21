@@ -2,16 +2,13 @@ import { h, type VNode, type VNodeData } from 'snabbdom';
 
 import { isMac } from '../device';
 import { requestIdleCallbackSafe } from '../index';
-import { storage } from '../storage';
-
-const disconnectNotifications = storage.make('nvui.disconnectNotifications');
 
 export class Notify {
   text = '';
   date?: Date;
 
   constructor(public redraw: Redraw | undefined) {
-    if (disconnectNotifications.get() !== 'none') startOfflineObserver(this, 10); // 10 seconds is the only alternative for now
+    startOfflineObserver(this, 10);
   }
 
   set = (msg: string): void => {

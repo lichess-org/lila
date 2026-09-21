@@ -28,17 +28,7 @@ const borderSound = () => site.sound.play('outOfBound');
 const errorSound = () => site.sound.play('error');
 
 export function renderNvui(ctx: RoundNvuiContext): VNode {
-  const {
-    ctrl,
-    notify,
-    moveStyle,
-    pieceStyle,
-    prefixStyle,
-    positionStyle,
-    boardStyle,
-    pageStyle,
-    disconnectNotifications,
-  } = ctx;
+  const { ctrl, notify, moveStyle, pieceStyle, prefixStyle, positionStyle, boardStyle, pageStyle } = ctx;
 
   notify.redraw = ctrl.redraw;
   if (!ctrl.chessground) {
@@ -82,18 +72,9 @@ export function renderNvui(ctx: RoundNvuiContext): VNode {
             ctrl.isPlaying() && inputForm(ctx),
           ],
       gameInfo(ctx),
-      ...renderAdvancedSettings(
-        moveStyle,
-        pageStyle,
-        disconnectNotifications,
-        pieceStyle,
-        prefixStyle,
-        positionStyle,
-        boardStyle,
-        {
-          redraw: ctrl.redraw,
-        },
-      ),
+      ...renderAdvancedSettings(moveStyle, pageStyle, pieceStyle, prefixStyle, positionStyle, boardStyle, {
+        redraw: ctrl.redraw,
+      }),
       ...keyboardInput,
     ]);
   } else
@@ -103,18 +84,9 @@ export function renderNvui(ctx: RoundNvuiContext): VNode {
       pageStyle.get() === 'actions-board'
         ? [renderActions(ctx), renderBoard(ctx)]
         : [renderBoard(ctx), renderActions(ctx)],
-      ...renderAdvancedSettings(
-        moveStyle,
-        pageStyle,
-        disconnectNotifications,
-        pieceStyle,
-        prefixStyle,
-        positionStyle,
-        boardStyle,
-        {
-          redraw: ctrl.redraw,
-        },
-      ),
+      ...renderAdvancedSettings(moveStyle, pageStyle, pieceStyle, prefixStyle, positionStyle, boardStyle, {
+        redraw: ctrl.redraw,
+      }),
       ...keyboardInput,
       boardCommands(),
     ]);
