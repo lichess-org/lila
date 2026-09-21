@@ -46,7 +46,8 @@ object UserInfo:
       relation: Option[lila.relation.Relation],
       notes: List[lila.user.Note],
       followable: Boolean,
-      blocked: Boolean
+      blocked: Boolean,
+      messageable: Boolean
   )
 
   final class SocialApi(
@@ -59,8 +60,17 @@ object UserInfo:
         ctx.userId.so(relationApi.fetchRelation(_, u.id).mon(lila.mon.user.segment("relation"))),
         ctx.useMe(noteApi.getForMyPermissions(u).mon(lila.mon.user.segment("notes"))),
         ctx.isAuth.so(prefApi.followable(u.id).mon(lila.mon.user.segment("followable"))),
-        ctx.userId.so(myId => relationApi.fetchBlocks(u.id, myId).mon(lila.mon.user.segment("blocks")))
+        ctx.userId.so(relationApi.fetchBlocks(u.id, _).mon(lila.mon.user.segment("blocks"))),
+        ctx.me.soUse(messageable(u.id))
       ).mapN(Social.apply)
+
+    def messageable(userId: UserId)(using me: Me): Fu[Boolean] =
+      prefApi
+        .getMessage(userId)
+        .flatMap:
+          case lila.core.pref.Message.NEVER => fuccess(false)
+          case lila.core.pref.Message.FRIEND => relationApi.fetchFollows(userId, me.userId)
+          case lila.core.pref.Message.ALWAYS => fuccess(true)
 
   case class NbGames(
       crosstable: Option[Crosstable.WithMatchup],
