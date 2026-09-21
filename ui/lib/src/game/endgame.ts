@@ -99,7 +99,7 @@ export function endgameShapes(
 
   if (winner) {
     add(winner, 'win');
-    add(winner === 'white' ? 'black' : 'white', loserGlyph(status));
+    add(opposite(winner), loserGlyph(status));
   } else {
     const glyph = drawGlyph(status);
     if (glyph) {
