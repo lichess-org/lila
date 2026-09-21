@@ -89,12 +89,12 @@ export const endgameGlyphs: Record<
     '<path fill="#fff" transform="translate(10 10) scale(.8)" d="M18 18h12l20 20 20-20h12v12L62 50l20 20v12H70L50 62 30 82H18V70l20-20L18 30z"/>',
   ),
   draw: composeGlyph(
-    '#c8a829',
+    '#82c2ef',
     '<path fill="#fff" transform="translate(10 10) scale(.8)" d="M18 27h64v12H18zm0 34h64v12H18z"/>',
   ),
   stalemate: composeGlyph(
-    '#c8a829',
-    '<path fill="none" stroke="#fff" stroke-width="9" d="M31 48v-9c0-11 8-19 19-19s19 8 19 19v9"/><path fill="#fff" d="M24 43h52v38H24z"/><circle cx="50" cy="59" r="4" fill="#c8a829"/><path fill="#c8a829" d="M47 60h6v12h-6z"/>',
+    '#82c2ef',
+    '<path fill="none" stroke="#fff" stroke-width="9" d="M31 48v-9c0-11 8-19 19-19s19 8 19 19v9"/><path fill="#fff" d="M24 43h52v38H24z"/><circle cx="50" cy="59" r="4" fill="#82c2ef"/><path fill="#82c2ef" d="M47 60h6v12h-6z"/>',
   ),
 };
 

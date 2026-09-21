@@ -27,12 +27,17 @@ const endgameResult = (
   const outcome = node.outcome(),
     isTerminal = node.dests().size === 0,
     isMate = node.check() && isTerminal,
-    isGameEnd = isLast || (isTerminal && !!outcome);
+    isStalemate = !node.check() && isTerminal,
+    isGameEnd = isLast || isTerminal;
 
   if (!isGameEnd) return {};
   return {
-    winner: outcome?.winner ?? (isMate ? opposite(parseFen(node.fen).unwrap().turn) : gameWinner),
-    status: isMate ? 'mate' : gameStatus,
+    winner: isMate
+      ? opposite(parseFen(node.fen).unwrap().turn)
+      : isStalemate
+        ? undefined
+        : (outcome?.winner ?? gameWinner),
+    status: isMate ? 'mate' : isStalemate ? 'stalemate' : gameStatus,
   };
 };
 
