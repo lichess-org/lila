@@ -3139,6 +3139,8 @@ interface I18n {
     abortTheGame: string;
     /** About */
     about: string;
+    /** About bots on Lichess */
+    aboutBotsOnLichess: string;
     /** Simuls involve a single player facing several players at once. */
     aboutSimul: string;
     /** Out of 50 opponents, Fischer won 47 games, drew 2 and lost 1. */
@@ -3293,6 +3295,8 @@ interface I18n {
     blitzDesc: string;
     /** Block */
     block: string;
+    /** Block ads */
+    blockAds: string;
     /** Blocked */
     blocked: string;
     /** %s blocks */
@@ -3351,6 +3355,8 @@ interface I18n {
     challengeX: I18nFormat;
     /** Change email */
     changeEmail: string;
+    /** Changelog */
+    changelog: string;
     /** Change password */
     changePassword: string;
     /** Change username */
@@ -3421,6 +3427,8 @@ interface I18n {
     collapseVariations: string;
     /** Community */
     community: string;
+    /** Community bots */
+    communityBots: string;
     /** Message */
     composeMessage: string;
     /** Computer */
@@ -3507,6 +3515,8 @@ interface I18n {
     decline: string;
     /** Defeat */
     defeat: string;
+    /** Defeat only */
+    defeatOnly: string;
     /** %1$s vs %2$s in %3$s */
     defeatVsYInZ: I18nFormat;
     /** Delete */
@@ -3549,6 +3559,8 @@ interface I18n {
     downloadRaw: string;
     /** Draw */
     draw: string;
+    /** Draw and defeat */
+    drawAndDefeat: string;
     /** The game has been drawn by the fifty-move rule. */
     drawByFiftyMoves: string;
     /** Draw by agreement */
@@ -3585,6 +3597,8 @@ interface I18n {
     emailConfirmHelp: string;
     /** Didn't receive your confirmation email after signing up? */
     emailConfirmNotReceived: string;
+    /** We will send you an email containing a link to log you in. */
+    emailLoginInstructions: string;
     /** Email me a link */
     emailMeALink: string;
     /** We have sent an email to %s. */
@@ -3659,6 +3673,8 @@ interface I18n {
     fast: string;
     /** Favourite opponents */
     favoriteOpponents: string;
+    /** Featured bots */
+    featuredBots: string;
     /** Fifty moves without progress */
     fiftyMovesWithoutProgress: string;
     /** Filter games */
@@ -3883,6 +3899,8 @@ interface I18n {
     lichessPatronInfo: string;
     /** Lichess tournaments */
     lichessTournaments: string;
+    /** Lichess updates */
+    lichessUpdates: string;
     /** Lifetime score */
     lifetimeScore: string;
     /** Light */
@@ -3973,6 +3991,8 @@ interface I18n {
     mode: string;
     /** More */
     more: string;
+    /** More chess engines created by the Lichess community. They are hosted by their creators, and might not always be online. */
+    moreChessEnginesCreatedByTheLichessCommunity: string;
     /** ≥ %1$s rated %2$s games */
     moreThanNbPerfRatedGames: I18nPlural;
     /** ≥ %s rated games */
@@ -4687,6 +4707,8 @@ interface I18n {
     tryAnotherMoveForBlack: string;
     /** Try another move for white */
     tryAnotherMoveForWhite: string;
+    /** Try playing these innovative chess engines! They are our favourites. */
+    tryPlayingTheseInnovativeChessEngines: string;
     /** try the contact page */
     tryTheContactPage: string;
     /** Try to win (or at least draw) every game you play. */
