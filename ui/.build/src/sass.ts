@@ -125,11 +125,18 @@ async function compile(sources: string[], logAll = true): Promise<string[]> {
       if (code === 0) {
         const postProcessorStarted = Date.now();
         Promise.all(sources.map(addVendorPrefixes))
-          .then(() => {
+          .then(generated => {
             env.log(
               `Lightning CSS ${pc.gray(`(${((Date.now() - postProcessorStarted) / 1000).toFixed(3)}s)`)}`,
               'sass',
             );
+            if (!logAll) {
+              const total = generated.reduce((sum, { size }) => sum + size, 0);
+              env.log(
+                `Generated ${generated.length} CSS files ${pc.gray(`(${(total / 1024).toFixed(1)} KB)`)}`,
+                'sass',
+              );
+            }
             return resolveWithErrors([]);
           })
           .catch(() => resolveWithErrors(sources));
@@ -138,16 +145,17 @@ async function compile(sources: string[], logAll = true): Promise<string[]> {
   });
 }
 
-async function addVendorPrefixes(src: string): Promise<void> {
+async function addVendorPrefixes(src: string): Promise<{ size: number }> {
   const cssPath = absTempCss(src);
   const css = await fs.promises.readFile(cssPath, 'utf8');
   const result = transform({
     filename: cssPath,
     code: Buffer.from(css),
-    minify: false,
-    targets: browserslistToTargets(browserslist(null, { path: env.rootDir })),
+    minify: env.prod,
+    targets: browserslistToTargets(browserslist(null, { path: env.buildDir })),
   });
   await fs.promises.writeFile(cssPath, result.code);
+  return { size: result.code.byteLength };
 }
 
 // recursively parse scss file and its imports to build dependency maps
