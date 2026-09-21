@@ -61,20 +61,19 @@ object UserInfo:
         ctx.useMe(noteApi.getForMyPermissions(u).mon(lila.mon.user.segment("notes"))),
         ctx.isAuth.so(prefApi.followable(u.id).mon(lila.mon.user.segment("followable"))),
         ctx.userId.so(relationApi.fetchBlocks(u.id, _).mon(lila.mon.user.segment("blocks"))),
-        ctx.userId.so(UserInfo.messageable(u.id, _, prefApi, relationApi))
+        ctx.me.soUse(UserInfo.messageable(u.id, prefApi, relationApi))
       ).mapN(Social.apply)
 
   def messageable(
       userId: UserId,
-      myId: UserId,
       prefApi: lila.pref.PrefApi,
       relationApi: RelationApi
-  )(using Executor): Fu[Boolean] =
+  )(using me: Me)(using Executor): Fu[Boolean] =
     prefApi
       .getMessage(userId)
       .flatMap:
         case lila.core.pref.Message.NEVER => fuccess(false)
-        case lila.core.pref.Message.FRIEND => relationApi.fetchFollows(userId, myId)
+        case lila.core.pref.Message.FRIEND => relationApi.fetchFollows(userId, me.userId)
         case lila.core.pref.Message.ALWAYS => fuccess(true)
 
   case class NbGames(
