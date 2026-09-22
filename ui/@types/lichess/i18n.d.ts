@@ -1581,6 +1581,8 @@ interface I18n {
     defendYourKing: string;
     /** Don't let them take */
     dontLetThemTakeAnyUndefendedPiece: string;
+    /** En passant */
+    enPassant: string;
     /** Congratulations! You can now take en passant. */
     enPassantComplete: string;
     /** When the opponent's pawn moves two squares, you can still take it as if it had only moved one square. */
@@ -2773,6 +2775,8 @@ interface I18n {
     endgame: string;
     /** A tactic during the last phase of the game. */
     endgameDescription: string;
+    /** En passant */
+    enPassant: string;
     /** A tactic involving the en passant rule, where a pawn can capture an opposing pawn that has just moved next to it with its initial two-square move. */
     enPassantAdjacentCaptureDescription: string;
     /** Epaulette mate */
