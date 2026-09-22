@@ -199,7 +199,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
         ),
       ]),
       div('.enpassant', [
-        label({ for: 'enpassant-select' }, i18n.site.enPassantRights),
+        label({ for: 'enpassant-select' }, i18n.site.enPassant),
         select(
           '#enpassant-select',
           {

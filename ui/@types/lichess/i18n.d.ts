@@ -3663,10 +3663,8 @@ interface I18n {
     engineSettings: string;
     /** Engines from strongest to weakest */
     enginesFromStrongestToWeakest: string;
-    /** En passant */
-    enPassant: string;
     /** En passant rights */
-    enPassantRights: string;
+    enPassant: string;
     /** This email address is invalid */
     'error.email': string;
     /** This email address is not acceptable. Please double-check it, and try again. */

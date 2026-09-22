@@ -2514,7 +2514,6 @@ object I18nKey:
     val `thereAreNoResultsForX`: I18nKey = "thereAreNoResultsForX"
     val `tags`: I18nKey = "tags"
     val `enPassant`: I18nKey = "enPassant"
-    val `enPassantRights`: I18nKey = "enPassantRights"
     val `settings`: I18nKey = "settings"
     val `verifyingYourDevice`: I18nKey = "verifyingYourDevice"
     val `chessOpenings`: I18nKey = "chessOpenings"
