@@ -140,7 +140,6 @@ const easyCloseHandler = new (class {
   private stack: DialogWrapper[] = [];
 
   push(dlg: DialogWrapper<any>) {
-    if (!dlg.o.easyClose) return;
     if (this.stack.length === 0)
       document.addEventListener('pointerdown', this.pointerdown, { capture: true });
     this.stack.push(dlg);

@@ -301,9 +301,10 @@ export default class SetupController {
       this.color() === 'random' &&
       this.timeControl.isRealTime() &&
       pools.some(p => p.id === this.timeControl.clockStr())
-    );
+    ) &&
+    !this.root.shortcutsCtrl.configured.map(s => s?.url).includes(this.url);
 
-  addToShortcuts = async () => {
+  addToShortcuts = async (e: Event) => {
     const name = [
       this.variant() === 'standard' ? undefined : i18n.variant[this.variant()],
       this.timeControl.isRealTime()
@@ -321,25 +322,30 @@ export default class SetupController {
       lim: this.timeControl.time(),
       inc: this.timeControl.increment(),
       iconKey: 'Swords',
-      url: makeUrl(
-        this.gameType!,
-        {
-          variant: this.variant(),
-          fen: this.variant() === 'fromPosition' ? this.fen() : undefined,
-          timeMode: this.timeControl.mode(),
-          time: this.timeControl.time(),
-          increment: this.timeControl.increment(),
-          days: this.timeControl.days(),
-          mode: this.gameMode(),
-          color: this.color(),
-        },
-        this.friendUser || undefined,
-      ),
+      url: this.url,
     };
+    e.preventDefault();
     await site.asset.loadEsm('lobby.shortcutsDialog', {
       init: { ctrl: this.root.shortcutsCtrl, contextual: [shortcut] },
     });
   };
+
+  get url() {
+    return makeUrl(
+      this.gameType!,
+      {
+        variant: this.variant(),
+        fen: this.variant() === 'fromPosition' ? this.fen() : undefined,
+        timeMode: this.timeControl.mode(),
+        time: this.timeControl.time(),
+        increment: this.timeControl.increment(),
+        days: this.timeControl.days(),
+        mode: this.gameMode(),
+        color: this.color(),
+      },
+      this.friendUser || undefined,
+    );
+  }
 
   submit = async () => {
     const color = this.color();

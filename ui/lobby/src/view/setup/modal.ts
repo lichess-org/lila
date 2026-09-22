@@ -36,11 +36,6 @@ export default function setupModal(ctrl: LobbyController): VNode[] | null {
       focus: '.lobby__start__button',
       vnodes: [
         hl('h2#lobby-setup-modal-title', i18n.site.gameSetup),
-        setupCtrl.canAddShortcut() &&
-          hl('button.button.button-empty.game-shortcut', {
-            on: { click: setupCtrl.addToShortcuts },
-            attrs: { 'data-icon': licon.StarOutline },
-          }),
         hl('div.setup-content', views[setupCtrl.gameType](ctrl)),
         hl('div.footer', [
           hl(
@@ -53,6 +48,11 @@ export default function setupModal(ctrl: LobbyController): VNode[] | null {
             buttonText,
           ),
           setupCtrl.loading && spinnerVdom(),
+          setupCtrl.canAddShortcut() &&
+            hl('button.button.button-metal.game-shortcut', {
+              on: { click: setupCtrl.addToShortcuts },
+              attrs: { 'data-icon': licon.StarOutline, title: 'Add to shortcuts' },
+            }),
         ]),
       ],
       onInsert: dlg => {
