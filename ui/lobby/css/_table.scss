@@ -4,6 +4,24 @@
     @include prevent-select;
 
     position: relative;
+
+    > button.lobby__start__button--shortcuts {
+      place-self: start end;
+      box-shadow: unset !important;
+      background: $c-bg-box;
+      height: 3em;
+      font-size: 1em;
+      color: $c-font-dim;
+      column-gap: 0.5em;
+
+      &::before {
+        font-size: 26px;
+      }
+
+      &:hover {
+        background: $c-accent-glass !important;
+      }
+    }
   }
 
   &__start {
