@@ -558,6 +558,11 @@ Playing rated games will increase stability.</string>
   <string name="autoSwitch">Auto switch</string>
   <string name="puzzles">Puzzles</string>
   <string name="onlineBots">Online bots</string>
+  <string name="aboutBotsOnLichess">About bots on Lichess</string>
+  <string name="featuredBots">Featured bots</string>
+  <string name="tryPlayingTheseInnovativeChessEngines">Try playing these innovative chess engines! They are our favourites.</string>
+  <string name="communityBots">Community bots</string>
+  <string name="moreChessEnginesCreatedByTheLichessCommunity">More chess engines created by the Lichess community. They are hosted by their creators, and might not always be online.</string>
   <string name="name">Name</string>
   <string name="description">Description</string>
   <string name="descPrivate">Private description</string>
@@ -605,6 +610,7 @@ Playing rated games will increase stability.</string>
   <string name="clearField">Clear field</string>
   <string name="orSeparator">Or</string>
   <string name="logInByEmail">Log in by email</string>
+  <string name="emailLoginInstructions">We will send you an email containing a link to log you in.</string>
   <string name="emailMeALink">Email me a link</string>
   <string name="currentPassword">Current password</string>
   <string name="newPassword">New password</string>
@@ -629,6 +635,8 @@ Playing rated games will increase stability.</string>
   <string name="onSlowGames">On slow games</string>
   <string name="always">Always</string>
   <string name="never">Never</string>
+  <string name="defeatOnly">Defeat only</string>
+  <string name="drawAndDefeat">Draw and defeat</string>
   <string name="xCompetesInY">%1$s competes in %2$s</string>
   <string name="victory">Victory</string>
   <string name="defeat">Defeat</string>
@@ -693,10 +701,13 @@ Playing rated games will increase stability.</string>
   <string name="aboutX">About %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s is a free (%2$s), libre, no-ads, open source chess server.</string>
   <string name="really">really</string>
+   <string name="lichessUpdates">Lichess updates</string>
   <string name="contribute">Contribute</string>
+  <string name="changelog">Changelog</string>
   <string name="termsOfService">Terms of Service</string>
   <string name="titleVerification">Title verification</string>
   <string name="sourceCode">Source Code</string>
+  <string name="blockAds">Block ads</string>
   <string name="simultaneousExhibitions">Simultaneous exhibitions</string>
   <string name="host">Host</string>
   <string name="hostColorX">Host colour: %s</string>
@@ -1046,4 +1057,6 @@ Leave empty to start games from the normal initial position.</string>
   <string name="verifyingYourDevice">Verifying your device...</string>
   <string name="chessOpenings">Chess openings</string>
   <string name="boards">Boards</string>
+  <string name="write">Write</string>
+  <string name="preview">Preview</string>
 </resources>

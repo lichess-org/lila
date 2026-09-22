@@ -138,9 +138,10 @@ object Study:
   def make(
       user: User,
       from: From,
-      id: Option[StudyId] = None,
-      name: Option[StudyName] = None,
-      settings: Option[Settings] = None
+      id: Option[StudyId],
+      name: Option[StudyName],
+      settings: Option[Settings],
+      visibility: Visibility = Visibility.unlisted
   ) =
     val owner = StudyMember(id = user.id, role = StudyMember.Role.Write)
     Study(
@@ -149,7 +150,7 @@ object Study:
       members = StudyMembers(Map(user.id -> owner)),
       position = Position.Ref(StudyChapterId(""), UciPath.root),
       ownerId = user.id,
-      visibility = Visibility.unlisted,
+      visibility = visibility,
       settings = settings | Settings.init,
       from = from,
       likes = Likes(1),

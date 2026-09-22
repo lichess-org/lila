@@ -336,8 +336,8 @@ final private class RoundAsyncActor(
     case WsBoot =>
       handle: game =>
         game.playable.so:
-          messenger.volatile(game, "Lichess has been updated! Sorry for the inconvenience.")
-          val progress = moretimer.give(game, Color.all, 20.seconds)
+          messenger.volatile(game, "Lichess has been updated! Sorry for the inconvenience.", reboot = true)
+          val progress = moretimer.give(game, Color.all, 20.seconds, reboot = true)
           proxy.save(progress).inject(progress.events)
 
     case RoundBus.BotConnected(color, v) =>
