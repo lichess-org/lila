@@ -15,6 +15,7 @@ import { type Deferred, defer, throttle } from 'lib/async';
 import { CevalCtrl } from 'lib/ceval';
 import type { CevalHandler } from 'lib/ceval/types';
 import { plyColor } from 'lib/game/chess';
+import { endgameShapes } from 'lib/game/endgame';
 import { type WithGround } from 'lib/game/ground';
 import { PromotionCtrl } from 'lib/game/promotion';
 import { pubsub } from 'lib/pubsub';
@@ -522,13 +523,20 @@ export default class PuzzleCtrl implements CevalHandler {
 
   setAutoShapes = (): void =>
     this.withGround(g =>
-      g.setAutoShapes(
-        computeAutoShapes({
+      g.setAutoShapes([
+        ...computeAutoShapes({
           ...this,
           node: this.node,
           hint: this.hintSquare(),
         }),
-      ),
+        ...(this.lastFeedback === 'win' && this.node.outcome()
+          ? endgameShapes(
+              this.node.fen,
+              this.node.outcome()?.winner,
+              this.node.outcome()?.winner ? 'mate' : 'stalemate',
+            )
+          : []),
+      ]),
     );
 
   hintSquare = () => {
