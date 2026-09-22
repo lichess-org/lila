@@ -107,6 +107,16 @@
       justify-content: center;
     }
 
+    &__start__button--shortcuts {
+      place-self: end end;
+      height: 3em;
+      font-size: 1em;
+    }
+
+    &__start__button--shortcuts::before {
+      font-size: 26px;
+    }
+
     &__side {
       margin-top: 2em;
     }
