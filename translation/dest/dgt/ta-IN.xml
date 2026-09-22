@@ -20,7 +20,6 @@
   <string name="checkYouHaveMadeOpponentsMove">முதலில் DGT போர்டில் உங்கள் எதிரியின் நகர்வைச் செய்துள்ளீர்களா என்பதைச் சரிபார்க்கவும். உங்கள் நகர்வை மாற்றவும். மீண்டும் விளையாடு.</string>
   <string name="asALastResort">கடைசி முயற்சியாக, பலகையை Lichess ஐப் போலவே அமைக்கவும், பிறகு %s</string>
   <string name="reloadThisPage">இந்தப் பக்கத்தை மீண்டும் ஏற்றவும்</string>
-  <string name="dgtConfigure">DGT - கட்டமைக்கவும்</string>
   <string name="lichessConnectivity">லிச்சஸ் இணைப்பு</string>
   <string name="validDgtOauthToken">DGT விளையாடுவதற்கு ஏற்ற OAuth டோக்கன் உங்களிடம் உள்ளது.</string>
   <string name="dgtPlayMenuEntryAdded">மேலே உள்ள உங்கள் PLAY மெனுவில் %s உள்ளீடு சேர்க்கப்பட்டது.</string>

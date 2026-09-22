@@ -153,35 +153,17 @@
   <string name="blunder">Зевок</string>
   <string name="mistake">Ошибка</string>
   <string name="inaccuracy">Неточность</string>
-  <plurals name="nbBlunders">
-    <item quantity="one">%s зевок</item>
-    <item quantity="few">%s зевка</item>
-    <item quantity="many">%s зевков</item>
-    <item quantity="other">%s зевков</item>
-  </plurals>
   <plurals name="numberBlunders">
     <item quantity="one">%s Зевок</item>
     <item quantity="few">%s Зевка</item>
     <item quantity="many">%s Зевков</item>
     <item quantity="other">%s Зевков</item>
   </plurals>
-  <plurals name="nbMistakes">
-    <item quantity="one">%s ошибка</item>
-    <item quantity="few">%s ошибки</item>
-    <item quantity="many">%s ошибок</item>
-    <item quantity="other">%s ошибок</item>
-  </plurals>
   <plurals name="numberMistakes">
     <item quantity="one">%s Ошибка</item>
     <item quantity="few">%s Ошибки</item>
     <item quantity="many">%s Ошибок</item>
     <item quantity="other">%s Ошибок</item>
-  </plurals>
-  <plurals name="nbInaccuracies">
-    <item quantity="one">%s неточность</item>
-    <item quantity="few">%s неточности</item>
-    <item quantity="many">%s неточностей</item>
-    <item quantity="other">%s неточностей</item>
   </plurals>
   <plurals name="numberInaccuracies">
     <item quantity="one">%s Неточность</item>
@@ -303,8 +285,7 @@
   <string name="emailSent">Мы отправили письмо на адрес %s.</string>
   <string name="emailCanTakeSomeTime">Получение письма может занять некоторое время.</string>
   <string name="refreshInboxAfterFiveMinutes">Подождите 5 минут и обновите ваш почтовый ящик.</string>
-  <string name="checkSpamFolder">Также проверьте папку со спамом, письмо может оказаться там. Если это так, пометьте его как не спам.</string>
-  <string name="checkSpamOrJunkFolder" comment="checkSpamFolder&#10;It = The confirmation email Replaces old string checkSpamFolder">Если вы не получили подтверждение по электронной почте, проверьте папку «Спам» или «Нежелательная почта». Настройте почту так, чтобы сообщения от lichess.org отмечались как безопасные и «не спам», так вы сможете всегда быть на связи.</string>
+  <string name="checkSpamOrJunkFolder" comment="checkSpamFolder&#10;It = The confirmation email">Если вы не получили подтверждение по электронной почте, проверьте папку «Спам» или «Нежелательная почта». Настройте почту так, чтобы сообщения от lichess.org отмечались как безопасные и «не спам», так вы сможете всегда быть на связи.</string>
   <string name="sendEmailForAccountVerification">Если вы не можете найти подтверждение в электронной почте, отправьте письмо на адрес %s и мы подтвердим вашу учётную запись для вас.</string>
   <string name="accountConfirmed">Пользователь %s успешно подтверждён.</string>
   <string name="accountCanLogin">Вы можете войти прямо сейчас как %s.</string>
@@ -334,10 +315,8 @@
   </plurals>
   <string name="ok">ОК</string>
   <string name="cancel">Отменить</string>
-  <string name="whiteTimeOut">Белые просрочили время</string>
-  <string name="whiteRanOutOfTime" comment="whiteTimeOut&#10;&#10;Shows when White's time has run out. Is followed by the end condition, for example&#10;'White ran out of time · Draw' Replaces old string whiteTimeOut">Белые просрочили время</string>
-  <string name="blackTimeOut">Чёрные просрочили время</string>
-  <string name="blackRanOutOfTime" comment="blackTimeOut&#10;&#10;Shows when Black's time has run out. Is followed by the end condition, for example&#10;'Black ran out of time · Draw' Replaces old string blackTimeOut">У черных закончилось время</string>
+  <string name="whiteRanOutOfTime" comment="whiteTimeOut&#10;&#10;Shows when White's time has run out. Is followed by the end condition, for example&#10;'White ran out of time · Draw'">Белые просрочили время</string>
+  <string name="blackRanOutOfTime" comment="blackTimeOut&#10;&#10;Shows when Black's time has run out. Is followed by the end condition, for example&#10;'Black ran out of time · Draw'">У черных закончилось время</string>
   <string name="drawOfferSent">Предложение ничьей отправлено</string>
   <string name="drawOfferAccepted">Предложение ничьей принято</string>
   <string name="whiteOffersDraw">Белые предлагают ничью</string>
@@ -484,8 +463,7 @@
     <item quantity="other">Вы должны сыграть ещё %s рейтинговых игр</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Ваш рейтинг в %s ещё недостоверный</string>
-  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Рейтинговые фильтры заблокированы, поскольку ваш рейтинг нестабилен. Играя в рейтинговые игры, вы повысите стабильность вашего рейтинга.</string>
-  <string name="cannotFilterByUnstableRating" comment="Tooltip to explain why the control for filtering by rating is disabled Replaces old string ratingRangeIsDisabledBecauseYourRatingIsProvisional">Невозможно отфильтровать по рейтингу, потому что Ваш рейтинг нестабилен.
+  <string name="cannotFilterByUnstableRating" comment="Tooltip to explain why the control for filtering by rating is disabled">Невозможно отфильтровать по рейтингу, потому что Ваш рейтинг нестабилен.
 Играйте рейтинговые партии, чтобы повысить стабильность.</string>
   <string name="yourPerfRatingIsTooHigh">Ваш рейтинг в %1$s (%2$s) слишком высок для участия</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Ваш еженедельный рейтинг в %1$s (%2$s) слишком высок</string>
@@ -507,7 +485,7 @@
   <string name="apply">Сохранить</string>
   <string name="save">Сохранить</string>
   <string name="leaderboard">Лучшие игроки</string>
-  <string name="positionAsImage" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position. Replaces old string screenshotCurrentPosition">Изображение позиции</string>
+  <string name="positionAsImage" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position.">Изображение позиции</string>
   <string name="gameAsGIF">Партия в формате GIF</string>
   <string name="playerNames">Имена игроков</string>
   <string name="moveAnnotations">Аннотации ходов</string>
@@ -675,8 +653,7 @@
   <string name="other">Другое</string>
   <string name="reportCheatBoostHelp">Вставьте ссылку на игру (или несколько игр) и объясните, что не так в поведении этого пользователя. Не надо просто писать «он жульничал», лучше распишите, как вы пришли к такому выводу.</string>
   <string name="reportUsernameHelp">Объясните, что в этом имени пользователя является оскорбительным. Не надо просто писать «оно оскорбительно или неподобающе», лучше расскажите, как вы пришли к такому выводу, особенно если оскорбление завуалировано, не на английском языке, является сленгом, или же является исторической или культурной отсылкой.</string>
-  <string name="reportProcessedFasterInEnglish">Ваше обращение будет рассмотрено быстрее, если оно будет написано на английском языке.</string>
-  <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it. Replaces old string reportProcessedFasterInEnglish">Мы сможем обрабатывать ваши обращения быстрее, если вы напишете их на английском языке.</string>
+  <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">Мы сможем обрабатывать ваши обращения быстрее, если вы напишете их на английском языке.</string>
   <string name="error.provideOneCheatedGameLink">Пожалуйста, добавьте ссылку хотя бы на одну игру, где по вашему мнению были нарушены правила.</string>
   <string name="by">%s</string>
   <string name="importedByX">Импортировано %s</string>
@@ -806,13 +783,11 @@
   <string name="aboutSimulRules">Когда начинается сеанс одновременной игры, каждый игрок начинает игру с сеансёром, который играет белыми. Сеанс закончится, когда все партии будут сыграны.</string>
   <string name="aboutSimulSettings">Сеансы одновременной игры не предполагают партий на рейтинг. Переигровки, отмены ходов и «добавки времени» запрещены.</string>
   <string name="create">Создать</string>
-  <string name="whenCreateSimul">Если вы создадите сеанс одновременной игры, вам придётся сыграть против нескольких игроков одновременно.</string>
-  <string name="creatingASimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new Replaces old string whenCreateSimul">Создание одновременной игры даст возможность играть против нескольких противников одновременно.</string>
+  <string name="creatingASimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Создание одновременной игры даст возможность играть против нескольких противников одновременно.</string>
   <string name="simulVariantsHint">Если вы выберете несколько вариантов игры, тогда каждый игрок выберет тот из них, в который он хочет сыграть с вами.</string>
   <string name="simulClockHint">Настройка часов Фишера. Чем больше игроков играет против вас, тем больше времени вам может понадобится.</string>
   <string name="simulAddExtraTime">Вы можете взять себе дополнительное время на обдумывание партий.</string>
-  <string name="simulHostExtraTime">Дополнительное время сеансёра</string>
-  <string name="extraClockTimeForHost" comment="Appears on: https://lichess.org/simul/new&#10;&#10;Allows a simul host to select extra time for the simul.&#10;&#10;Please note this string used to state &quot;Host extra clock time&quot;, without the word &quot;initial&quot; Replaces old string simulHostExtraTime">Дополнительное время сеансёра:</string>
+  <string name="extraClockTimeForHost" comment="Appears on: https://lichess.org/simul/new&#10;&#10;Allows a simul host to select extra time for the simul.&#10;&#10;Please note this string used to state &quot;Host extra clock time&quot;, without the word &quot;initial&quot;">Дополнительное время сеансёра:</string>
   <string name="simulAddExtraTimePerPlayer">Добавьте начальное время на ваших часах для каждого игрока, вошедшего в ваш сеанс одновременной игры.</string>
   <string name="simulHostExtraTimePerPlayer">Добавка времени сеансёра для каждого игрока</string>
   <string name="lichessTournaments">Турниры Lichess</string>
@@ -912,12 +887,6 @@
   <string name="quickPairing">Быстрый старт</string>
   <string name="lobby">Зал ожидания</string>
   <string name="anonymous">Аноним</string>
-  <plurals name="nbAnonymous">
-    <item quantity="one">Анонимы (%s)</item>
-    <item quantity="few">Анонимы (%s)</item>
-    <item quantity="many">Анонимы (%s)</item>
-    <item quantity="other">Анонимы (%s)</item>
-  </plurals>
   <string name="yourScore">Ваш счёт: %s</string>
   <string name="language">Язык (Language)</string>
   <string name="allLanguages">Все языки</string>
@@ -953,8 +922,7 @@
   <string name="custom">Своя игра</string>
   <string name="notifications">Уведомления</string>
   <string name="notificationsX">Уведомлений: %1$s</string>
-  <string name="perfRatingX">Рейтинг: %s</string>
-  <string name="perfRatingLabel" comment="Replaces old string perfRatingX">Рейтинг: %s.</string>
+  <string name="perfRatingLabel">Рейтинг: %s.</string>
   <string name="yourRatingIsX">Ваш рейтинг %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s секунда на первый ход</item>
@@ -1019,8 +987,7 @@
     <item quantity="other">и сохранить %s последовательностей</item>
   </plurals>
   <string name="showUnreadLichessMessage">Вы получили личное сообщение от Lichess.</string>
-  <string name="clickHereToReadIt">Нажмите здесь, чтобы прочитать его</string>
-  <string name="readTheMessage" comment="'It' refers to a private message. This text follows after a different string which advises players they have received a private message from Lichess. For users, this is appears as a regular private message from the Lichess account: https://lichess.org/@/Lichess Replaces old string clickHereToReadIt">Прочитать сообщение</string>
+  <string name="readTheMessage" comment="'It' refers to a private message. This text follows after a different string which advises players they have received a private message from Lichess. For users, this is appears as a regular private message from the Lichess account: https://lichess.org/@/Lichess">Прочитать сообщение</string>
   <string name="sorry">Извините :(</string>
   <string name="weHadToTimeYouOutForAWhile">Мы вынуждены прервать вас на время.</string>
   <string name="why">Почему?</string>
@@ -1106,16 +1073,14 @@
   <string name="simulFeaturedHelp">Показывать сеанс на %s. Отключите для частных сеансов.</string>
   <string name="simulDescription">Описание сеанса</string>
   <string name="simulDescriptionHelp">Хотите что-нибудь сказать участникам?</string>
-  <string name="markdownIsAvailable">%s доступен для форматирования.</string>
-  <string name="youCanFormatTextUsing" comment="%s is &quot;Markdown&quot;, a proper noun. As such, the word is intentionally kept as a variable.&#10;&#10;Markdown is a markup language - a type of code that lets you format text (e.g. to create bold text).&#10;&#10;The text links to a reference guide for using Markdown to format text. Replaces old string markdownIsAvailable">Вы можете форматировать текст используя %s.</string>
+  <string name="youCanFormatTextUsing" comment="%s is &quot;Markdown&quot;, a proper noun. As such, the word is intentionally kept as a variable.&#10;&#10;Markdown is a markup language - a type of code that lets you format text (e.g. to create bold text).&#10;&#10;The text links to a reference guide for using Markdown to format text.">Вы можете форматировать текст используя %s.</string>
   <string name="embedsAvailable">Вставьте URL игры или ссылку на студию, чтобы встроить её.</string>
   <string name="inYourLocalTimezone">В вашем часовом поясе</string>
   <string name="tournChat">Чат турнира</string>
   <string name="noChat">Без чата</string>
   <string name="onlyTeamLeaders">Только организаторы клуба</string>
   <string name="onlyTeamMembers">Только члены клуба</string>
-  <string name="navigateMoveTree">Переход по ходам</string>
-  <string name="moveListNavigation" comment="navigateMoveTree&#10;&#10;Appears in the keyboard shortcuts/help screen. The 'move tree' is simply the list of moves. Replaces old string navigateMoveTree">Навигация по списку ходов</string>
+  <string name="moveListNavigation" comment="navigateMoveTree&#10;&#10;Appears in the keyboard shortcuts/help screen. The 'move tree' is simply the list of moves.">Навигация по списку ходов</string>
   <string name="mouseTricks">Движения мышкой</string>
   <string name="toggleLocalAnalysis">Включить компьютерный анализ</string>
   <string name="toggleAllAnalysis">Переключить все способы компьютерного анализа</string>

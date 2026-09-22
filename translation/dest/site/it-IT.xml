@@ -149,25 +149,13 @@
   <string name="blunder">Errore grave</string>
   <string name="mistake">Errore</string>
   <string name="inaccuracy">Imprecisione</string>
-  <plurals name="nbBlunders">
-    <item quantity="one">%s errore grave</item>
-    <item quantity="other">%s errori gravi</item>
-  </plurals>
   <plurals name="numberBlunders">
     <item quantity="one">%s Errore grave</item>
     <item quantity="other">%s Errori gravi</item>
   </plurals>
-  <plurals name="nbMistakes">
-    <item quantity="one">%s errore</item>
-    <item quantity="other">%s errori</item>
-  </plurals>
   <plurals name="numberMistakes">
     <item quantity="one">%s Errore</item>
     <item quantity="other">%s Errori</item>
-  </plurals>
-  <plurals name="nbInaccuracies">
-    <item quantity="one">%s imprecisione</item>
-    <item quantity="other">%s imprecisioni</item>
   </plurals>
   <plurals name="numberInaccuracies">
     <item quantity="one">%s Imprecisione</item>
@@ -270,7 +258,6 @@
   <string name="emailSent">Abbiamo inviato un\'email a %s.</string>
   <string name="emailCanTakeSomeTime">Può metterci un po\' di tempo per arrivare.</string>
   <string name="refreshInboxAfterFiveMinutes">Attendi 5 minuti e aggiorna la posta in arrivo.</string>
-  <string name="checkSpamFolder">Controlla anche la tua cartella di spam, potrebbe essere finita lì. Se sì, contrassegnala come non spam.</string>
   <string name="sendEmailForAccountVerification">Se non trovi la tua email di conferma, invia un\'email a %s e confermeremo il tuo account per te.</string>
   <string name="accountConfirmed">L\'utente %s è stato confermato con successo.</string>
   <string name="accountCanLogin">Adesso puoi effettuare il login come %s.</string>
@@ -294,8 +281,6 @@
   </plurals>
   <string name="ok">OK</string>
   <string name="cancel">Annulla</string>
-  <string name="whiteTimeOut">Il bianco ha esaurito il tempo</string>
-  <string name="blackTimeOut">Il nero ha esaurito il tempo</string>
   <string name="drawOfferSent">Offerta di patta inviata</string>
   <string name="drawOfferAccepted">Offerta di patta accettata</string>
   <string name="whiteOffersDraw">Il Bianco offre patta</string>
@@ -416,7 +401,6 @@
     <item quantity="other">Ti mancano ancora %s partite classificate</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Il tuo punteggio %s è provvisorio</string>
-  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">I filtri dei punteggi sono bloccati perché la tua valutazione non è stabile. Giocare partite classificate aumenterà la stabilità.</string>
   <string name="yourPerfRatingIsTooHigh">Il tuo punteggio %1$s (%2$s) è troppo alto</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Il tuo miglior punteggio settimanale %1$s (%2$s) è troppo alto</string>
   <string name="yourPerfRatingIsTooLow">Il tuo punteggio %1$s (%2$s) è troppo basso</string>
@@ -594,7 +578,6 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="other">Altro</string>
   <string name="reportCheatBoostHelp">Incolla il link della partita(o partite) e spiega cosa non va sul comportamento di questo utente. Non dire solamente \"ha barato\", ma invece dici come sei arrivato a questa conclusione.</string>
   <string name="reportUsernameHelp">Spiegaci cosa vi è di offensivo in questo nome utente. Non dire solamente \"è offensivo/inappopriato\", ma invece dici come sei arrivato a questa conclusione, soprattutto se l\'insulto è offuscato, non in inglese, in linguaggio giovanile, oppure se è un riferimento storico/culturale.</string>
-  <string name="reportProcessedFasterInEnglish">La tua segnalazione sarà processata più velocemente se scritta in Inglese.</string>
   <string name="error.provideOneCheatedGameLink">Si prega di fornire almeno un collegamento link di una partita in cui il giocatore ha imbrogliato.</string>
   <string name="by">di %s</string>
   <string name="importedByX">Importato da %s</string>
@@ -718,11 +701,9 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="aboutSimulRules">Quando la simultanea comincia, ogni giocatore comincia una partita con il simultaneista, il quale gioca con i pezzi bianchi. La simultanea finisce quando sono finite tutte le partite.</string>
   <string name="aboutSimulSettings">Le simultanee sono sempre amichevoli. Rivincite, ritiri di mossa e aggiunte di tempo sono disabilitate.</string>
   <string name="create">Crea</string>
-  <string name="whenCreateSimul">Quando crei una simultanea, giochi contro diversi avversari contemporaneamente.</string>
   <string name="simulVariantsHint">Se selezioni più varianti, ogni giocatore può scegliere quale giocare.</string>
   <string name="simulClockHint">Modello Fischer Clock. Più giocatori sfidi, più tempo ti potrebbe servire.</string>
   <string name="simulAddExtraTime">Puoi aggiungere più tempo al tuo orologio per far fronte alla simultanea.</string>
-  <string name="simulHostExtraTime">Tempo aggiuntivo del simultaneista</string>
   <string name="simulAddExtraTimePerPlayer">Aggiungi del tempo al tuo orologio per ogni giocatore che si unisce alla simultanea.</string>
   <string name="simulHostExtraTimePerPlayer">Tempo extra per il simultaneista per ciascun giocatore</string>
   <string name="lichessTournaments">Tornei Lichess</string>
@@ -817,10 +798,6 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="quickPairing">Accoppiamento rapido</string>
   <string name="lobby">Lobby</string>
   <string name="anonymous">Anonimo</string>
-  <plurals name="nbAnonymous">
-    <item quantity="one">Anonimo</item>
-    <item quantity="other">Anonimi (%s)</item>
-  </plurals>
   <string name="yourScore">Il tuo punteggio: %s</string>
   <string name="language">Lingua</string>
   <string name="allLanguages">Tutte le lingue</string>
@@ -855,7 +832,6 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="custom">Personalizza</string>
   <string name="notifications">Notifiche</string>
   <string name="notificationsX">Notifiche: %1$s</string>
-  <string name="perfRatingX">Punteggio: %s</string>
   <string name="yourRatingIsX">Il tuo punteggio è %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s secondi per giocare la prima mossa</item>
@@ -914,7 +890,6 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
     <item quantity="other">e salva %s linee pre-mossa</item>
   </plurals>
   <string name="showUnreadLichessMessage">Hai ricevuto un messaggio privato da Lichess.</string>
-  <string name="clickHereToReadIt">Clicca qui per leggerlo</string>
   <string name="sorry">Ci dispiace :(</string>
   <string name="weHadToTimeYouOutForAWhile">Abbiamo dovuto bloccarti per un po\' di tempo.</string>
   <string name="why">Perché?</string>
@@ -1000,15 +975,13 @@ Lascia vuoto per avviare le partite dalla posizione iniziale normale.</string>
   <string name="simulFeaturedHelp">Mostra la tua simulazione a tutti su %s. Disabilita per le simulazioni private.</string>
   <string name="simulDescription">Descrizione della simulazione</string>
   <string name="simulDescriptionHelp">Vuoi dire qualcosa ai partecipanti?</string>
-  <string name="markdownIsAvailable">%s è disponibile per la formattazione.</string>
-  <string name="youCanFormatTextUsing" comment="%s is &quot;Markdown&quot;, a proper noun. As such, the word is intentionally kept as a variable.&#10;&#10;Markdown is a markup language - a type of code that lets you format text (e.g. to create bold text).&#10;&#10;The text links to a reference guide for using Markdown to format text. Replaces old string markdownIsAvailable">È possibile formattare il testo utilizzando %s.</string>
+  <string name="youCanFormatTextUsing" comment="%s is &quot;Markdown&quot;, a proper noun. As such, the word is intentionally kept as a variable.&#10;&#10;Markdown is a markup language - a type of code that lets you format text (e.g. to create bold text).&#10;&#10;The text links to a reference guide for using Markdown to format text.">È possibile formattare il testo utilizzando %s.</string>
   <string name="embedsAvailable">Incolla l\'URL di un gioco o l\'URL di un capitolo di studio per incorporarlo.</string>
   <string name="inYourLocalTimezone">Nel tuo fuso orario locale</string>
   <string name="tournChat">Chat del torneo</string>
   <string name="noChat">Nessuna chat</string>
   <string name="onlyTeamLeaders">Solo leader della squadra</string>
   <string name="onlyTeamMembers">Solo membri della squadra</string>
-  <string name="navigateMoveTree">Sfoglia l\'albero delle mosse</string>
   <string name="mouseTricks">Trucchi del mouse</string>
   <string name="toggleLocalAnalysis">Abilita/Disabilita le analisi del computer locali</string>
   <string name="toggleAllAnalysis">Abilita/Disabilita tutte le analisi del computer</string>

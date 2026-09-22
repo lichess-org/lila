@@ -68,25 +68,13 @@
   <string name="blunder">Fahadisoana goavana</string>
   <string name="mistake">Fahadisoana</string>
   <string name="inaccuracy">Tsy fahatomombanana</string>
-  <plurals name="nbBlunders">
-    <item quantity="one">%s fahadisoana goavana</item>
-    <item quantity="other">%s fahadisoana goavana</item>
-  </plurals>
   <plurals name="numberBlunders">
     <item quantity="one">%s Fahadisoana goavana</item>
     <item quantity="other">%s Fahadisoana goavana</item>
   </plurals>
-  <plurals name="nbMistakes">
-    <item quantity="one">%s fahadisoana</item>
-    <item quantity="other">%s fahadisoana</item>
-  </plurals>
   <plurals name="numberMistakes">
     <item quantity="one">%s Fahadisoana</item>
     <item quantity="other">%s Fahadisoana</item>
-  </plurals>
-  <plurals name="nbInaccuracies">
-    <item quantity="one">%s tsy fahatomombanana</item>
-    <item quantity="other">%s tsy fahatomombanana</item>
   </plurals>
   <plurals name="numberInaccuracies">
     <item quantity="one">%s Tsy fahatomombanana</item>
@@ -161,8 +149,6 @@
     <item quantity="other">%s lalao niaraka taminao</item>
   </plurals>
   <string name="cancel">Cancel</string>
-  <string name="whiteTimeOut">Lany fotoana ny fotsy</string>
-  <string name="blackTimeOut">Lany fotoana ny mainty</string>
   <string name="drawOfferSent">Lasa ny fangatahana lalao sahala</string>
   <string name="drawOfferAccepted">Nekena ny fangatahana ny hahasahala ny lalao</string>
   <string name="whiteOffersDraw">Mangataka ny fahasahalan\'ny lalao ny fotsy</string>

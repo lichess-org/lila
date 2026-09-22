@@ -65,7 +65,6 @@
   <string name="downloadGame">Lataa peli</string>
   <string name="studyUrl">Tutkielman URL</string>
   <string name="currentChapterUrl">Tämän luvun URL</string>
-  <string name="youCanPasteThisInTheForumToEmbed">Voit upottaa tämän foorumiin liittämällä</string>
   <string name="startAtInitialPosition">Aloita alkuperäisestä asemasta</string>
   <string name="startAtX">Aloita siirrosta %s</string>
   <string name="embedInYourWebsite">Upota sivustoosi tai blogiisi</string>
@@ -187,8 +186,6 @@
   <string name="fromInitialPositionText">Lauta on alkuasemassa valmiina uuteen peliin.&lt;br&gt;Tämä sopii avausten tutkimiseen.</string>
   <string name="customPositionTitle">Itse määritetty asema</string>
   <string name="customPositionText">Aseta nappulat laudalle haluamallasi tavalla.&lt;br&gt;Tämä sopii loppupelien tutkimiseen.</string>
-  <string name="loadExistingLichessGameTitle">Lataa Lichessissä pelattu peli</string>
-  <string name="loadExistingLichessGameText">Kun liität Lichessissä pelatun pelin URL:n&lt;br&gt;(esim. lichess.org/7fHIU0XI)&lt;br&gt;pelin siirrot latautuvat tutkielman lukuun.</string>
   <string name="fromFenStringTitle">Tuo FEN-asema</string>
   <string name="fromFenStringText">Kun liität aseman FEN-muodossa,&lt;br&gt;&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;&lt;br&gt;tutkielman luku alkaa kyseisestä asemasta.</string>
   <string name="fromPgnGameTitle">Tuo PGN-peli</string>

@@ -142,25 +142,13 @@
   <string name="blunder">Gaffe</string>
   <string name="mistake">Feeler</string>
   <string name="inaccuracy">Ongenauegkeet</string>
-  <plurals name="nbBlunders">
-    <item quantity="one">%s Gaffe</item>
-    <item quantity="other">%s Gaffen</item>
-  </plurals>
   <plurals name="numberBlunders">
     <item quantity="one">%s Gaffe</item>
     <item quantity="other">%s Gaffen</item>
   </plurals>
-  <plurals name="nbMistakes">
-    <item quantity="one">%s Feeler</item>
-    <item quantity="other">%s Feeler</item>
-  </plurals>
   <plurals name="numberMistakes">
     <item quantity="one">%s Feeler</item>
     <item quantity="other">%s Feeler</item>
-  </plurals>
-  <plurals name="nbInaccuracies">
-    <item quantity="one">%s Ongenauegkeet</item>
-    <item quantity="other">%s Ongenauegkeeten</item>
   </plurals>
   <plurals name="numberInaccuracies">
     <item quantity="one">%s Ongenauegkeet</item>
@@ -168,6 +156,7 @@
   </plurals>
   <string name="moveTimes">Zuchzäiten</string>
   <string name="flipBoard">Briet dréinen</string>
+  <string name="illegalPosition">Ongülteg Stellung</string>
   <string name="threefoldRepetition">Dräifach Widderhuelung</string>
   <string name="claimADraw">Remis reklaméieren</string>
   <string name="drawClaimed">Remis reklaméiert</string>
@@ -242,6 +231,7 @@
   <string name="signupUsernameHint">Wiel wgl. e familljefrëndleche Benotzernumm. Den Numm kann duerno net méi geännert ginn a Konte mat onubruechte Benotzernimm ginn zougemaach!</string>
   <string name="signupEmailPromise">Mir wäerten dir nëmmen E-Mailen iwwer däi Kont schécken an nimools deng E-Email-Adress weiderginn.</string>
   <string name="password">Passwuert</string>
+  <string name="showPassword">Passwuert weisen</string>
   <string name="changePassword">Passwuert änneren</string>
   <string name="changeEmail">Email änneren</string>
   <string name="email">E-Mail</string>
@@ -263,7 +253,6 @@
   <string name="emailSent">Mir hunn eng E-Mail un %s geschéckt.</string>
   <string name="emailCanTakeSomeTime">Et kann e bëssen daueren, bis se ukënnt.</string>
   <string name="refreshInboxAfterFiveMinutes">Waart 5 Minutten an aktualiséier däin E-Mail-Postfach.</string>
-  <string name="checkSpamFolder">Iwwerpréif och däi Spam-Ordner, falls se do ukënnt. Markéier se an deem Fall als Net-Spam.</string>
   <string name="sendEmailForAccountVerification">Wann s du deng Bestätegungs-Mail net fanne kanns, schéck eng E-Mail un %s a mir bestätegen däi Kont.</string>
   <string name="accountConfirmed">The Benotzer %s gouf mat Succès confirméiert.</string>
   <string name="accountCanLogin">Dir kënnt iech elo aloggen als %s.</string>
@@ -287,8 +276,6 @@
   </plurals>
   <string name="ok">OK</string>
   <string name="cancel">Annuléieren</string>
-  <string name="whiteTimeOut">Zäitiwwerschreidung vu Wäiss</string>
-  <string name="blackTimeOut">Zäitiwwerschreidung vu Schwaarz</string>
   <string name="drawOfferSent">Remis-Offer geschéckt</string>
   <string name="drawOfferAccepted">Remis-Offer ugeholl</string>
   <string name="whiteOffersDraw">Wäiss bitt Remis</string>
@@ -408,7 +395,6 @@
     <item quantity="other">Du muss nach %s gewäert Partien spillen</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Deng %s Wäertung ass provisoresch</string>
-  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Ratingfiltere si gespaart, well däi Rating net stabill ass. Duerch d\'Spille vu gewäerte Partië geet d\'Stabilitéit an d\'Luucht.</string>
   <string name="yourPerfRatingIsTooHigh">Deng %1$s Wäertung (%2$s) ass ze héich</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Deng bescht wéchentlech %1$s-Wäertung (%2$s) ass ze héich</string>
   <string name="yourPerfRatingIsTooLow">Deng %1$s Wäertung (%2$s) ass ze niddreg</string>
@@ -583,7 +569,6 @@
   <string name="cheat">Fuddelen</string>
   <string name="troll">Troll</string>
   <string name="other">Aner</string>
-  <string name="reportProcessedFasterInEnglish">Deng Meldung gëtt méi séier verschafft, wa se op Englesch ass.</string>
   <string name="error.provideOneCheatedGameLink">Gëff wgl. op d\'mannst ee Link op eng Partie un, an där gefuddelt gouf.</string>
   <string name="by">vum %s</string>
   <string name="importedByX">Importéiert vun %s</string>
@@ -705,11 +690,9 @@
   <string name="aboutSimulRules">Wann d\'Simul ufänkt, start all Spiller eng Partie mam Host. D\'Simul ass fäerdeg wann all Partien fäerdeg sinn.</string>
   <string name="aboutSimulSettings">Simultanpartië sinn ëmmer ongewäert. Revanchen, Zich zeréckhuelen an Zäit bäigi sinn net méiglech.</string>
   <string name="create">Kreéieren</string>
-  <string name="whenCreateSimul">Wanns du eng Simul kreéiers. kanns du géint puer Spiller gläichzäiteg spillen.</string>
   <string name="simulVariantsHint">Wann s du e puer Schachvarianten uwiels, ka jiddwer Spiller sech eng eraussichen.</string>
   <string name="simulClockHint">Fischer Bedenkzäit. Je méi Géigner du hues, desto méi Zäit wäers du brauchen.</string>
   <string name="simulAddExtraTime">Du kanns dir extra Zäit ginn fir besser mat der Simul zurechtzekommen.</string>
-  <string name="simulHostExtraTime">Host extra Zäit</string>
   <string name="simulAddExtraTimePerPlayer">Gëff denger Auer zousätzlech Zäit fir all Spiller deen der Simultan bäitrëtt.</string>
   <string name="simulHostExtraTimePerPlayer">Gëff all Spiller zousätzlech Bedenkzäit</string>
   <string name="lichessTournaments">Lichess-Turnéieren</string>
@@ -792,10 +775,6 @@
   <string name="quickPairing">Schnellpaarung</string>
   <string name="lobby">Lobby</string>
   <string name="anonymous">Anonym</string>
-  <plurals name="nbAnonymous">
-    <item quantity="one">Anonym</item>
-    <item quantity="other">Anonym (%s)</item>
-  </plurals>
   <string name="yourScore">Däi Score: %s</string>
   <string name="language">Sprooch</string>
   <string name="allLanguages">All Sproochen</string>
@@ -804,6 +783,7 @@
   <string name="dark">Däischter</string>
   <string name="picture">Bild</string>
   <string name="deviceTheme">Mam Gerät synchroniséieren</string>
+  <string name="backgroundImage">Hannergrondbild</string>
   <string name="backgroundImageUrl">URL vum Hannergrondbild:</string>
   <string name="board">Briet</string>
   <string name="size">Gréisst</string>
@@ -827,7 +807,6 @@
   <string name="custom">Personaliséiert</string>
   <string name="notifications">Notifikatiounen</string>
   <string name="notificationsX">Notifikatiounen: %1$s</string>
-  <string name="perfRatingX">Wäertung: %s</string>
   <string name="yourRatingIsX">Deng Wäertung ass %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s Sekonn fir den éischten Zuch ze maachen</item>
@@ -886,7 +865,6 @@
     <item quantity="other">an späicher %s bedingt Virauszich</item>
   </plurals>
   <string name="showUnreadLichessMessage">Du krus eng privat Noriicht vu Lichess.</string>
-  <string name="clickHereToReadIt">Klick hei fir se ze liesen</string>
   <string name="sorry">Sorry :(</string>
   <string name="weHadToTimeYouOutForAWhile">Mir missten dir eng Auszeit ginn.</string>
   <string name="why">Firwat?</string>
@@ -978,7 +956,6 @@ Looss et eidel, fir Partie aus der normaler Ausgangspositioun ze starten.</strin
   <string name="noChat">Keen Chat</string>
   <string name="onlyTeamLeaders">Just Ekippenleader</string>
   <string name="onlyTeamMembers">Just Ekippenmemberen</string>
-  <string name="navigateMoveTree">Duerch den Zuchbam navigéieren</string>
   <string name="mouseTricks">Maus Tricks</string>
   <string name="toggleLocalAnalysis">Lokal Computeranalys aktivéieren/desaktivéieren</string>
   <string name="toggleAllAnalysis">All Computeranalysen aktivéieren/desaktivéieren</string>
@@ -1018,4 +995,5 @@ All Betriebskäschten, Entwécklung an Inhalter ginn ausschließlech vun Benotze
   <string name="thereAreNoResultsForX">Kee Resultat fir „%s“</string>
   <string name="tags">Etiketten</string>
   <string name="settings">Astellungen</string>
+  <string name="boards">Brieder</string>
 </resources>

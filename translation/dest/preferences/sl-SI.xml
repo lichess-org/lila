@@ -56,12 +56,8 @@
   <string name="scrollOnTheBoardToReplayMoves">Pomaknite se po plošči za predvajanje potez</string>
   <string name="correspondenceEmailNotification">Dnevno obvestilo po pošti z naštevanjem vaših korespondenčnih iger</string>
   <string name="notifyStreamStart">Streamer je začel oddajati v živo</string>
-  <string name="notifyInboxMsg">Novo prispelo sporočilo</string>
-  <string name="notifyForumMention">Omenili so vas v komentarju na forumu</string>
-  <string name="notifyInvitedStudy">Povabilo k študiji</string>
   <string name="notifyGameEvent">Novo v korespondenčnih partijah</string>
   <string name="notifyChallenge">Izzivi</string>
-  <string name="notifyTournamentSoon">Turnir se bo kmalu začel</string>
   <string name="notifyTimeAlarm">Potekel vam bo čas</string>
   <string name="notifyBell">Zvočno obvestilo znotraj Lichess</string>
   <string name="notifyPush">Obvestilo naprave, ko niste na Lichessu</string>

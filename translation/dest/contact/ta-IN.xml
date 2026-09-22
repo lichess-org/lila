@@ -25,7 +25,6 @@
   <string name="cantChangeMore">வழக்கை விட எங்களால் மாற்ற முடியாது. தொழில்நுட்ப காரணங்களுக்காக, இது முற்றிலும் சாத்தியமற்றது.</string>
   <string name="orCloseAccount">இருப்பினும், உங்கள் நடப்புக் கணக்கை மூடிவிட்டு புதிய கணக்கை உருவாக்கலாம்.</string>
   <string name="wantClearHistory">எனது வரலாறு அல்லது மதிப்பீட்டை அழிக்க விரும்புகிறேன்</string>
-  <string name="cantClearHistory">உங்கள் கேம் வரலாறு, புதிர் வரலாறு அல்லது மதிப்பீடுகளை அழிக்க முடியாது.</string>
   <string name="wantReport">நான் ஒரு வீரரைப் புகாரளிக்க விரும்புகிறேன்</string>
   <string name="toReportAPlayerUseForm">ஒரு வீரரைப் புகாரளிக்க, அறிக்கை படிவத்தைப் பயன்படுத்தவும்</string>
   <string name="youCanAlsoReachReportPage">சுயவிவரப் பக்கத்தில் உள்ள %s அறிக்கை பொத்தானைக் கிளிக் செய்வதன் மூலமும் அந்தப் பக்கத்தை அடையலாம்.</string>

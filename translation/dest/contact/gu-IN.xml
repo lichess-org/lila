@@ -25,7 +25,6 @@
   <string name="cantChangeMore">આપણે કેસ કરતાં વધુ બદલી શકતા નથી. ટેકનિકલ કારણોસર, તે સંપૂર્ણપણે અશક્ય છે.</string>
   <string name="orCloseAccount">જોકે, તમે તમારું ચાલુ ખાતું બંધ કરી શકો છો અને નવું બનાવી શકો છો.</string>
   <string name="wantClearHistory">હું મારો ઇતિહાસ અથવા રેટિંગ સાફ કરવા માંગુ છું</string>
-  <string name="cantClearHistory">તમારો રમત ઇતિહાસ, પઝલ ઇતિહાસ અથવા રેટિંગ સાફ કરવું શક્ય નથી.</string>
   <string name="wantReport">હું એક ખેલાડીની જાણ કરવા માંગુ છું.</string>
   <string name="toReportAPlayerUseForm">ખેલાડીની જાણ કરવા માટે, રિપોર્ટ ફોર્મનો ઉપયોગ કરો</string>
   <string name="youCanAlsoReachReportPage">તમે પ્રોફાઇલ પેજ પર %s રિપોર્ટ બટન પર ક્લિક કરીને પણ તે પેજ પર પહોંચી શકો છો.</string>

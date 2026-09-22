@@ -128,25 +128,13 @@
   <string name="blunder">മണ്ടത്തരം</string>
   <string name="mistake">തെറ്റുകൾ</string>
   <string name="inaccuracy">പിഴവ്</string>
-  <plurals name="nbBlunders">
-    <item quantity="one">%s തെറ്റ്</item>
-    <item quantity="other">%s തെറ്റുകള്‍</item>
-  </plurals>
   <plurals name="numberBlunders">
     <item quantity="one">%s തെറ്റ്</item>
     <item quantity="other">%s തെറ്റുകള്‍</item>
   </plurals>
-  <plurals name="nbMistakes">
-    <item quantity="one">%s ചെറിയ തെറ്റുകള്‍</item>
-    <item quantity="other">%s ചെറിയ തെറ്റുകള്‍</item>
-  </plurals>
   <plurals name="numberMistakes">
     <item quantity="one">%s ചെറിയ തെറ്റുകള്‍</item>
     <item quantity="other">%s ചെറിയ തെറ്റുകള്‍</item>
-  </plurals>
-  <plurals name="nbInaccuracies">
-    <item quantity="one">%s കൃത്യത കുറവ്</item>
-    <item quantity="other">%s കൃത്യത കുറവുകള്‍</item>
   </plurals>
   <plurals name="numberInaccuracies">
     <item quantity="one">%s കൃത്യത കുറവ്</item>
@@ -247,7 +235,6 @@
   <string name="emailSent">ഞങ്ങൾ %s -ക്ക് ഒരു മെയിൽ അയച്ചിട്ടുണ്ടു്.</string>
   <string name="emailCanTakeSomeTime">അത് എത്താൻ കുറച്ചു നേരം എടുക്കാം.</string>
   <string name="refreshInboxAfterFiveMinutes">൫ മിനിറ്റ് കാത്തിരുന്ന ശേഷം വീണ്ടും ഇ-തപാൽപെട്ടി ലോഡ് ചെയുക.</string>
-  <string name="checkSpamFolder">താങ്ങളുടെ പാഴ്മെയിൽ അറ (spam folder) കൂടി നോക്കുക, ചില്ലപ്പം ഇമെയിൽ അവിടേവരേ എത്താം.</string>
   <string name="accountConfirmed">%s എന്ന ഉപയോക്താവ് സ്ഥിരീകരിക്കപെട്ടിരിക്കുന്നു.</string>
   <string name="accountCanLogin">താങ്ങൾക്ക് %s-ആയി പ്രവേശിക്കാം.</string>
   <string name="accountConfirmationEmailNotNeeded">താങ്ങൾക്ക് ഉറപ്പിക്കല്മെയിൽ ആവശ്യമില്ല.</string>
@@ -270,8 +257,6 @@
   </plurals>
   <string name="ok">ശരി</string>
   <string name="cancel">ഒഴിവാക്കുക</string>
-  <string name="whiteTimeOut">വെള്ള സമയം കഴിഞു</string>
-  <string name="blackTimeOut">കറുപ്പ് സമയം കഴിഞ്ഞു</string>
   <string name="drawOfferSent">സമനിലാ വാഗ്ദാനം അയച്ചു</string>
   <string name="drawOfferAccepted">സമനിലാ വാഗ്ദാനം സ്വീകരിക്കപ്പെട്ടു</string>
   <string name="whiteOffersDraw">വെള്ള സമനില വാഗ്ദാനം ചെയ്യുന്നു</string>
@@ -548,7 +533,6 @@
   <string name="cheat">ചതി</string>
   <string name="troll">ചൂണ്ട</string>
   <string name="other">മറ്റുള്ളവ</string>
-  <string name="reportProcessedFasterInEnglish">താങ്ങളുടെ കുറ്റപെടുത്തൽരേഖ ഇംഗ്ലീഷിൽ എഴുതിയാൽ താങ്ങൾക്കു് ഉടനെ മറുപടി കിട്ടും.</string>
   <string name="error.provideOneCheatedGameLink">കുറഞ്ഞത് ഒരു കളിയുടെയെങ്കിലും ലിങ്ക് നല്‍കേണ്ടതാണ്.</string>
   <string name="by">%sന്റേത്</string>
   <string name="importedByX">%s ഇറക്കുമതി ചെയ്തത്</string>
@@ -671,11 +655,9 @@
   <string name="aboutSimulRules">Simul തുടങ്ങുമ്പോൾ, എല്ലാ വെള്ള കരുക്കളുമായി കളിക്കുന്ന കളിക്കാരും ഹോസ്റ്റുമായി ഗെയിം തുടങ്ങും. Simul അവസാനിക്കുന്നത് എല്ലാ ഗെയിമും പൂർത്തിയാവുമ്പോഴാണ്.</string>
   <string name="aboutSimulSettings">Simuls എപ്പോഴും സാധാരണ ഗെയിമുകളാണ്. പുനർകളികളും, \"കൂടുതൽ സമയവും\", തിരിച്ചെടുക്കലും ഒഴിവാക്കിയെന്ന വ്യത്യാസം മാത്രമേയുള്ളൂ.</string>
   <string name="create">തുടങ്ങുക</string>
-  <string name="whenCreateSimul">ഒരു simul ഉണ്ടാക്കുമ്പോൾ, നിങ്ങൾ ഒരുപാടു പേരെ ഒരുമിച്ചു കളിക്കുന്നു.</string>
   <string name="simulVariantsHint">കുറെ വേരിയന്റുകൾ നിങ്ങൾ തിരഞ്ഞെടുത്താൽ ഓരോ കളിക്കാർക്കും അവരുടെ വേരിയന്റ് തീരുമാനിക്കും.</string>
   <string name="simulClockHint">ഫിഷെറിന്റെ ക്ലോക്ക് ക്രമീകരണം. കൂടുതൽ കളിക്കാരെ നേരിടുമ്പോൾ കൂടുതൽ സമയം ആവശ്യമായി വരും.</string>
   <string name="simulAddExtraTime">Simul-മായി പൊരുത്തപ്പെടാൻ കുറച്ച് അധികം സമയം നിങ്ങൾക്ക് ചേർക്കാം.</string>
-  <string name="simulHostExtraTime">ഹോസ്റ്റിന്റെ കൂടുതൽ ക്ലോക്ക് സമയം</string>
   <string name="simulAddExtraTimePerPlayer">ഓരോ കളിക്കാരൻ ഒരേവേളകളിയിൽ കൂട്ടച്ചേരുമ്പോൾ താങ്ങളുടെ തുടക്കത്തിലുള്ള കളിസമയം കൂട്ടിക്കുക.</string>
   <string name="simulHostExtraTimePerPlayer">അതിഥേയനിനു് ഓരോ കളിക്കാരനുമധിക നാഴികമണിയിൽ സമയം</string>
   <string name="lichessTournaments">Lichess പരമ്പരകൾ</string>
@@ -760,10 +742,6 @@
   <string name="quickPairing">പെട്ടെന്ന് ഇണചേൎക്കൽ നടത്തുക</string>
   <string name="lobby">ഇടനാഴി</string>
   <string name="anonymous">അജ്ഞാത</string>
-  <plurals name="nbAnonymous">
-    <item quantity="one">പേരില്ലാത്തവൻ</item>
-    <item quantity="other">പേരില്ലാത്തവർ (%s)</item>
-  </plurals>
   <string name="yourScore">നിങ്ങളുടെ സ്കോർ %s</string>
   <string name="language">ഭാഷ</string>
   <string name="allLanguages">എല്ലാ മൊഴികളും</string>
@@ -794,7 +772,6 @@
   <string name="custom">ഇഷ്ടമ്പോലെ</string>
   <string name="notifications">അറിയിപ്പുകൾ</string>
   <string name="notificationsX">അറിയിക്കൽ: %1$s</string>
-  <string name="perfRatingX">നിലവാരം: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">ആദ്യ നീക്കം കളിയ്ക്കാൻ %s സെക്കന്റ് ബാക്കി നിൽക്കുന്നു</item>
     <item quantity="other">ആദ്യ നീക്കം കളിയ്ക്കാൻ %s സെക്കൻഡ്‌സ് ബാക്കി നിൽക്കുന്നു</item>
@@ -851,7 +828,6 @@
     <item quantity="other">എന്നിട്ട് %s premove ലൈനുകൾ സേവ് ചെയ്യൂ</item>
   </plurals>
   <string name="showUnreadLichessMessage">താങ്ങൾക്കു് Lichess നിന്നു് ഒരു സ്വകാര്യ അറിയിപ്പു് കിട്ടിയിരിക്കുന്നു.</string>
-  <string name="clickHereToReadIt">വായ്ക്കാൻ ഇവിടെ അമർത്തിക്കുക</string>
   <string name="sorry">പൊറുക്കണം :(</string>
   <string name="weHadToTimeYouOutForAWhile">ഞങ്ങൾക്ക് നിങ്ങളെ കുറച്ചു സമയം പുറത്തു നിർത്തേണ്ടി വന്നു.</string>
   <string name="why">എന്തുകൊണ്ട്?</string>
@@ -934,7 +910,6 @@
   <string name="noChat">സല്ലാപമുറി ഇല്ല</string>
   <string name="onlyTeamLeaders">കളികൂട്ടനേതാവ് മാത്രം</string>
   <string name="onlyTeamMembers">കളികൂട്ടം അംഗംക്കാർ മാത്രം</string>
-  <string name="navigateMoveTree">നീക്കചിത്രം കപ്പലോടുക</string>
   <string name="mouseTricks">മൌസു് സൂത്രങ്ങൾ</string>
   <string name="toggleLocalAnalysis">ഗണനികവിശകലനം ടോഗിൾ ചെയ്യുക</string>
   <string name="toggleAllAnalysis">എല്ലാ ഗണനികവിശകലനം ടോഗിൾ ചെയ്യുക</string>

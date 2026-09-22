@@ -147,20 +147,11 @@
   <string name="blunder">พลาดมหันต์</string>
   <string name="mistake">พลาด</string>
   <string name="inaccuracy">ไม่แม่นยำ</string>
-  <plurals name="nbBlunders">
-    <item quantity="other">%s พลาดมหันต์</item>
-  </plurals>
   <plurals name="numberBlunders">
     <item quantity="other">%s พลาดมหันต์</item>
   </plurals>
-  <plurals name="nbMistakes">
-    <item quantity="other">%s พลาด</item>
-  </plurals>
   <plurals name="numberMistakes">
     <item quantity="other">%s พลาด</item>
-  </plurals>
-  <plurals name="nbInaccuracies">
-    <item quantity="other">%s ไม่แม่นยำ</item>
   </plurals>
   <plurals name="numberInaccuracies">
     <item quantity="other">%s ไม่แม่นยำ</item>
@@ -255,7 +246,6 @@
   <string name="emailSent">เราได้ส่งอีเมลไปที่ %s</string>
   <string name="emailCanTakeSomeTime">อาจจะเป็นเวลาสักพักก่อนที่จะได้รับ</string>
   <string name="refreshInboxAfterFiveMinutes">รอ 5 นาทีและรีเฟรชกล่องจดหมายของคุณ</string>
-  <string name="checkSpamFolder">ตรวจสอบโฟลเดอร์สแปมของคุณด้วย มันอาจจะไปอยู่ที่นั่น หากเป็นเช่นนั้น ให้ทำเครื่องหมายว่าไม่ใช่สแปม</string>
   <string name="sendEmailForAccountVerification">ถ้าคุณหาการยืนยันอีเมลของคุณไม่เจอ ให้ส่งอีเมลไปหา %s และพวกเราจะยืนยันบัญชีของคุณให้</string>
   <string name="accountConfirmed">ผู้ใช้ %s ถูกยืนยันโดยสมบูรณ์</string>
   <string name="accountCanLogin">คุณสามารถเข้าใช้งานได้แล้ว ด้วยชื่อ %s</string>
@@ -276,8 +266,6 @@
   </plurals>
   <string name="ok">ตกลง</string>
   <string name="cancel">ยกเลิก</string>
-  <string name="whiteTimeOut">ขาวหมดเวลา</string>
-  <string name="blackTimeOut">ดำหมดเวลา</string>
   <string name="drawOfferSent">ส่งการขอเสมอแล้ว</string>
   <string name="drawOfferAccepted">ยอมรับการขอเสมอแล้ว</string>
   <string name="whiteOffersDraw">ขาวขอเสมอ</string>
@@ -385,7 +373,6 @@
     <item quantity="other">คุณจำเป็นต้องเล่นเกม %s ที่คิดคะแนนเพิ่มเติม</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">ระดับคะแนน %s ของคุณเป็นแบบชั่วคราว</string>
-  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">ตัวกำหนดช่วงเรดติ้งถูกล็อก เพราะเรดติ้งคุณยังไม่คงที่ เล่นเกมคิดคะแนนอีกเพื่อให้เรดติ้งมั่นคงขึ้น</string>
   <string name="yourPerfRatingIsTooHigh">ระดับคะแนน %1$s ของคุณ (%2$s) สูงเกินไป</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">ระดับคะแนน %1$s รายสัปดาห์ของคุณ (%2$s) สูงเกินไป</string>
   <string name="yourPerfRatingIsTooLow">ระดับคะแนน %1$s ของคุณ (%2$s) ต่ำเกินไป</string>
@@ -553,7 +540,6 @@
   <string name="other">อื่นๆ</string>
   <string name="reportCheatBoostHelp">วางลิงก์ไปยังเกม และอธิบายสิ่งผิดปกติเกี่ยวกับพฤติกรรมของผู้ใช้นี้ อย่าแค่พูดว่า \"พวกเขาโกง\" แต่บอกเราว่าคุณมาถึงข้อสรุปนี้ได้อย่างไร</string>
   <string name="reportUsernameHelp">อธิบายว่าชื่อผู้ใช้นี้ไม่เหมาะสมอย่างไร อย่าเพียงแค่พูดว่า \"มันน่ารังเกียจ/ไม่เหมาะสม\" แต่บอกเราว่าคุณมาถึงข้อสรุปนี้ได้อย่างไร โดยเฉพาะหากชื่อนั้นคลุมเครือ ไม่ใช่ภาษาอังกฤษ เป็นคำสแลง หรือเป็นการอ้างอิงทางประวัติศาสตร์/วัฒนธรรม</string>
-  <string name="reportProcessedFasterInEnglish">รายงานของคุณจะได้รับการดำเนินการเร็วขึ้นหากเขียนเป็นภาษาอังกฤษ</string>
   <string name="error.provideOneCheatedGameLink">โปรดระบุอย่างน้อยหนึ่งลิงก์ เพื่อเชื่อมโยงไปยังเกมที่มีการโกง</string>
   <string name="by">โดย %s</string>
   <string name="importedByX">ถูกนำเข้าโดย %s</string>
@@ -674,11 +660,9 @@
   <string name="aboutSimulRules">เมื่อไซมัลเริ่มต้น ผู้เล่นทุกคนจะเล่นเกมกับโฮสต์ผู้ซึ่งจะเล่นเป็นฝ่ายสีขาว ไซมัลจะจบเมื่อทุกเกมจบอย่างสมบูรณ์</string>
   <string name="aboutSimulSettings">ไซมัลจะใช้การเล่นแบบธรรมดา  การขอเล่นอีกครั้ง, การเดินใหม่, หรือ \"เพิ่มเวลา\" จะไม่อนุญาตให้ใช้</string>
   <string name="create">สร้าง</string>
-  <string name="whenCreateSimul">เมื่อคุณสร้างไซมัล คุณจะได้เล่นกับหลายผู้เล่นในครั้งเดียว</string>
   <string name="simulVariantsHint">ถ้าคุณเลือกหลายตัวแปรกติกา ผู้เล่นแต่ละคนจะเลือกได้ว่าจะเล่นอันไหน</string>
   <string name="simulClockHint">การตั้งนาฬิกาฟิสเชอร์ ยิ่งคุณเล่นกับผู้เล่นหลายคน คุณยิ่งต้องการเวลามากขึ้น</string>
   <string name="simulAddExtraTime">คุณอาจบวกเวลาพิเศษให้นาฬิกาของคุณ เพื่อช่วยคุณรับมือกับไซมัล</string>
-  <string name="simulHostExtraTime">เวลานาฬิกาพิเศษโฮสต์</string>
   <string name="simulAddExtraTimePerPlayer">เพิ่มเวลาเริ่มต้นลงในนาฬิกาของคุณสำหรับผู้เล่นแต่ละคนที่เข้าร่วมไซมัล</string>
   <string name="simulHostExtraTimePerPlayer">โฮสต์เวลานาฬิกาเพิ่มเติมต่อผู้เล่น</string>
   <string name="lichessTournaments">ทัวร์นาเมนต์ Lichess</string>
@@ -771,9 +755,6 @@
   <string name="quickPairing">จับคู่ด่วน</string>
   <string name="lobby">ล็อบบี้</string>
   <string name="anonymous">นิรนาม</string>
-  <plurals name="nbAnonymous">
-    <item quantity="other">นิรนาม(%s)</item>
-  </plurals>
   <string name="yourScore">สกอร์ของคุณ: %s</string>
   <string name="language">ภาษา</string>
   <string name="allLanguages">ภาษาทั้งหมด</string>
@@ -804,7 +785,6 @@
   <string name="custom">กำหนด​เอง</string>
   <string name="notifications">การแจ้งเตือน</string>
   <string name="notificationsX">การแจ้งเตือน: %1$s</string>
-  <string name="perfRatingX">ระดับคะแนน: %s</string>
   <string name="yourRatingIsX">เรดติ้งคุณคือ %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="other">%s วินาทีต้องเริ่มเดินตาแรก</item>
@@ -860,7 +840,6 @@
     <item quantity="other">และบันทึก %s เส้นทางเดินล่วงหน้า</item>
   </plurals>
   <string name="showUnreadLichessMessage">คุณได้รับข้อความส่วนตัวจาก Lichess</string>
-  <string name="clickHereToReadIt">คลิกที่นี้เพื่ออ่าน</string>
   <string name="sorry">ขออภัย :(</string>
   <string name="weHadToTimeYouOutForAWhile">เราจำเป็นต้องให้คุณรอคอยสักช่วงหนึ่ง</string>
   <string name="why">ทำไม?</string>
@@ -945,14 +924,12 @@
   <string name="simulFeaturedHelp">แสคงไซมัลให้ทุกคนบน %s ถูกปิดการใช้งานสำหรับไซมัลส่วนตัว</string>
   <string name="simulDescription">คำบรรยายไซมัล</string>
   <string name="simulDescriptionHelp">คุณต้องการบอกอะไรผู้เข้าร่วมไหม?</string>
-  <string name="markdownIsAvailable">สามารถใช้ %s ในการจัดรูปแบบได้</string>
   <string name="embedsAvailable">วาง URLของเกม หรือ ศึกษา URL ของบทที่จะตรึงไว้</string>
   <string name="inYourLocalTimezone">ในเขตเวลาท้องถิ่นของคุณ</string>
   <string name="tournChat">แชททัวร์นาเมนต์</string>
   <string name="noChat">ไม่มีแชท</string>
   <string name="onlyTeamLeaders">หัวหน้าทีมเท่านั้น</string>
   <string name="onlyTeamMembers">สมาชิกทีมเท่านั้น</string>
-  <string name="navigateMoveTree">นำทางรายการการเดิน</string>
   <string name="mouseTricks">หน้าที่เมาส์</string>
   <string name="toggleLocalAnalysis">ควบคุมการวิเคราะห์ค้วยคอมพิวเตอร์ในท้องถิ่น</string>
   <string name="toggleAllAnalysis">ควบคุมการวิเคราะห์ด้วยคอมพิวเตอร์</string>

@@ -56,16 +56,12 @@
   <string name="scrollOnTheBoardToReplayMoves">Mit em Muszeiger uf em Brätt, chasch mit em Musrad all Züg vor- und zrugg scrolle</string>
   <string name="correspondenceEmailNotification">Täglichi E-Mail-Benachrichtigung, wo dini Korrespondänz-Schpiel uflischtet</string>
   <string name="notifyStreamStart">De Streamer gaht live</string>
-  <string name="notifyInboxMsg">Neui Nachricht im Poschtigang</string>
-  <string name="notifyDirectMessage" comment="notifyInboxMsg&#10;&#10;A notification setting - notifies players when they receive a new message in their Lichess inbox Replaces old string notifyInboxMsg">Neui Direkt-Nachricht</string>
-  <string name="notifyForumMention">En Forumkommentar erwähnt dich</string>
-  <string name="notifyForumMentions" comment="notifyForumMention&#10;&#10; A notification setting - notifies players when someone has @mentioned their name in the Lichess Forum (https://lichess.org/forum) Replaces old string notifyForumMention">Forum Erwähnig</string>
-  <string name="notifyInvitedStudy">Zur Schtudie ilade</string>
-  <string name="notifyStudyInvites" comment="notifyInvitedStudy&#10;&#10; A notification setting - notifies players about invites to studies (https://lichess.org/study/) Replaces old string notifyInvitedStudy">Studie Iladige</string>
+  <string name="notifyDirectMessage" comment="notifyInboxMsg&#10;&#10;A notification setting - notifies players when they receive a new message in their Lichess inbox">Neui Direkt-Nachricht</string>
+  <string name="notifyForumMentions" comment="notifyForumMention&#10;&#10; A notification setting - notifies players when someone has @mentioned their name in the Lichess Forum (https://lichess.org/forum)">Forum Erwähnig</string>
+  <string name="notifyStudyInvites" comment="notifyInvitedStudy&#10;&#10; A notification setting - notifies players about invites to studies (https://lichess.org/study/)">Studie Iladige</string>
   <string name="notifyGameEvent">Aktualisierig vum Korreschpondänzschpiel</string>
   <string name="notifyChallenge">Useforderige</string>
-  <string name="notifyTournamentSoon">Turnier schtarted bald</string>
-  <string name="notifyTournamentStartReminders" comment="notifyTournamentSoon&#10;&#10;A notification setting - notifies players if a tournament is starting soon. Replaces old string notifyTournamentSoon">Turnierafangs-Erinnerig</string>
+  <string name="notifyTournamentStartReminders" comment="notifyTournamentSoon&#10;&#10;A notification setting - notifies players if a tournament is starting soon.">Turnierafangs-Erinnerig</string>
   <string name="notifyBroadcasts">Überträgig</string>
   <string name="notifyTimeAlarm">Korreschpondänzzit lauft ab</string>
   <string name="notifyBell">Akustischi Mäldig, innerhalb Lichess</string>

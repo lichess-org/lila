@@ -65,7 +65,6 @@
   <string name="downloadGame">Das Schpiel abelade</string>
   <string name="studyUrl">Schtudie URL</string>
   <string name="currentChapterUrl">URL aktuells Kapitel</string>
-  <string name="youCanPasteThisInTheForumToEmbed">Du chasch das, zum ibinde, im Forum oder i dim Lichess Blog ifüege</string>
   <string name="startAtInitialPosition">Fang ab de Grundschtellig a</string>
   <string name="startAtX">Fang mit %s a</string>
   <string name="embedInYourWebsite">I dini Website ibinde</string>
@@ -187,8 +186,6 @@
   <string name="fromInitialPositionText">Nur es Brätt in Afangsschtellig.&lt;br&gt;G\'eignet zum Eröffnige erkunde.</string>
   <string name="customPositionTitle">Benutzerdefinierti Schtellig</string>
   <string name="customPositionText">Mach dir sälber e Schtellig.&lt;br&gt;G\'eignet zum Ändschpiel erkunde.</string>
-  <string name="loadExistingLichessGameTitle">Lad e exischtierendi Lichess-Partie</string>
-  <string name="loadExistingLichessGameText">Füeg e Lichess-Partie-URL i&lt;br&gt;(wie z.B. lichess.org/7fHIU0XI)&lt;br&gt;zum d\'Züg is Kapitel lade.</string>
   <string name="fromFenStringTitle">Vunere FEN-Partie</string>
   <string name="fromFenStringText">Füeg e Schtellig im FEN-Format i&lt;br&gt;&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;&lt;br&gt;um s\'Kapitel ab ere Schtellig z\'schtarte.</string>
   <string name="fromPgnGameTitle">Vunere PGN-Partie</string>

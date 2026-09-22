@@ -95,7 +95,7 @@ object Dependencies:
     val mailer = "org.playframework" %% "play-mailer" % "10.1.0"
 
   object playWs:
-    val version = "3.0.13"
+    val version = "3.0.14"
     val ahc = "org.playframework" %% "play-ahc-ws-standalone" % version
     val json = "org.playframework" %% "play-ws-standalone-json" % version
     val bundle = Seq(ahc, json)

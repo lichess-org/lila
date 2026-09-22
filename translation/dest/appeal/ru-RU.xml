@@ -13,10 +13,9 @@
   <string name="closedByModerators">Ваша учётная запись была закрыта модераторами.</string>
   <string name="blogRestriction">Для вас установлено ограничение на блог.</string>
   <string name="blogRestrictionInfo">Прочитайте наш %s, его нарушения могут привести к определённым воздействиям.</string>
-  <string name="playTimeout">У вас есть таймаут.</string>
   <string name="reportBanned">Вы не можете жаловаться на модераторов</string>
   <string name="reportBannedInfo">Мы заметили некоторое злоупотребление нашей системой обращений. Это могло случиться по разным причинам, например, выбором неправильных категорий нарушений, использованием неуместных или оскорбительных высказываний, обращениями для чрезмерного количества игр, или, наоборот, отсутствием информации о том, что именно нарушил ваш соперник.</string>
-  <string name="temporarilyRestrictedFromPlaying" comment="play timeout = Lichess prevents you temporarily from playing any games Replaces old string playTimeout">Ваша учётная запись временно ограничена для участия в играх.</string>
+  <string name="temporarilyRestrictedFromPlaying" comment="play timeout = Lichess prevents you temporarily from playing any games">Ваша учётная запись временно ограничена для участия в играх.</string>
   <string name="communicationGuidelines">правила общения</string>
   <string name="blogEtiquette">этикет блога</string>
   <string name="fairPlay">Честная игра</string>

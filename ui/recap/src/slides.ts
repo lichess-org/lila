@@ -1,6 +1,8 @@
 import { COLORS } from 'chessops';
 
 import { shuffle } from 'lib/algo';
+import { capitalize } from 'lib/game';
+import { perfName } from 'lib/game/perf';
 import perfIcons from 'lib/game/perfIcons';
 import { currencyFormat, numberFormat, percentFormat } from 'lib/i18n';
 import { licon } from 'lib/licon';
@@ -31,7 +33,7 @@ import { fullName, profileUrl, userFlair, userTitle } from 'lib/view/userLink';
 import { pieceGrams, totalGames } from './constants';
 import type { Counted, Opening, Recap, Sources, RecapPerf, Opts } from './interfaces';
 import { loadOpeningLpv } from './ui';
-import { formatDuration, perfIsSpeed, perfLabel } from './util';
+import { formatDuration, perfLabel } from './util';
 
 const confettiCanvas = (): VNode =>
   canvas('#confetti', {
@@ -161,7 +163,7 @@ export const openingColor = (os: ByColor<Counted<Opening>>, color: Color): VNode
     div(a(`/opening/${o.value.key}`)({ target: '_blank' }, o.value.name)),
     div(
       p(
-        i18n.recap[color === 'white' ? 'openingsMostPlayedAsWhite' : 'openingsMostPlayedAsBlack'].asArray(
+        i18n.recap[`openingsMostPlayedAs${capitalize(color)}`].asArray(
           o.count,
           strong(animateNumber(o.count)),
         ),
@@ -302,10 +304,7 @@ export const patron = ({ costs, user }: Opts): VNode =>
   ]);
 
 const renderPerf = ({ key }: RecapPerf): VNode => {
-  return span([
-    icon(perfIcons[key])('.text'),
-    !perfIsSpeed(key) ? i18n.variant[key] : key !== 'ultraBullet' ? i18n.site[key] : key,
-  ]);
+  return span([icon(perfIcons[key])('.text'), perfName(key)]);
 };
 
 const stat = (value: string | VNode, label: string): VNode =>
@@ -335,7 +334,7 @@ export const shareable = ({ games, year, puzzles }: Recap): VNode =>
         '.openings',
         COLORS.map(c =>
           games.openings[c].count > 0
-            ? stat(games.openings[c].value.name, i18n.site[c === 'white' ? 'asWhite' : 'asBlack'])
+            ? stat(games.openings[c].value.name, i18n.site[`as${capitalize(c)}`])
             : null,
         ),
       ),

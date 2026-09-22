@@ -34,11 +34,9 @@
   <string name="downloadAllRounds">Hlaða niður öllum umferðum</string>
   <string name="resetRound">Endurvekja þessa umferð</string>
   <string name="deleteRound">Eyða þessari umferð</string>
-  <string name="definitivelyDeleteRound">Eyða umferðinni og öllum skákum hennar fortakslaust.</string>
   <string name="deleteAllGamesOfThisRound">Eyða öllum skákum þessarar umferðar. Skeytagjafinn þarf að vera virkur til þess að geta endurskapað þær.</string>
   <string name="editRoundStudy">Breyta umferðarstúderingu</string>
   <string name="deleteTournament">Eyða þessu móti</string>
-  <string name="definitivelyDeleteTournament">Eyða fortakslaust öllu mótinu, öllum umferðum þess og öllum skákum þess.</string>
   <string name="showScores">Sýna stig skákmanna útfrá úrslitum</string>
   <string name="replacePlayerTags">Valfrjálst: skipta út nöfnum skákmanna, skákstigum og titlum</string>
   <string name="fideFederations">Aðildarfélög Alþjóðaskáksambandsins</string>

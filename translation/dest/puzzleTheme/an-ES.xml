@@ -44,15 +44,12 @@
   <string name="doubleCheckDescription">Meter en escaque con dos piezas de vez, como resultau d\'un ataque a la descubierta an que tanto la pieza que s\'ha moviu como la pieza descubierta ataquen a lo rei de l\'oponent.</string>
   <string name="endgame">Final</string>
   <string name="endgameDescription">Una tactica en a zaguera fase d\'o chuego.</string>
-  <string name="enPassantDescription">Una tactic aque involucra la captura a lo paso, an que un peón puede capturar un peón oponent que l\'ha pasau emplegando lo suyo movimiento inicial de dos cuadrez.</string>
   <string name="exposedKing">Rei exposau</string>
   <string name="exposedKingDescription">Una tactica que involucra un rei con bels defensor alredor d\'él, que a ormino remata en escaque y mate.</string>
   <string name="fork">Doble</string>
-  <string name="forkDescription">Una chugada an que la pieza movida ataca de vez dos piezas de l\'oponent.</string>
   <string name="hangingPiece">Pieza penchada</string>
   <string name="hangingPieceDescription">Una tactica que involucra una pieza de l\'oponent que no ye suficientment defendida y que se puede capturar.</string>
   <string name="hookMate">Mate d\'o gancho</string>
-  <string name="hookMateDescription">Escaque y mate con una torre, un caballo y un peón chunto con un peón enemigo que limita lo escape d\'o rei adversario.</string>
   <string name="interference">Interferencia</string>
   <string name="interferenceDescription">Mover una pieza entre dos piezas de l\'oponent que deixa una u dos piezas indefensas de l\'oponent, como un caballo en un cuadret defendiu entre dos torres.</string>
   <string name="intermezzo">Chugada intermedia</string>
@@ -92,7 +89,6 @@
   <string name="pin">Clavada</string>
   <string name="pinDescription">Una tactica que incluye clavadas, an que una pieza no se puede mover sin descubrir un ataque a una pieza de mayor valura.</string>
   <string name="promotion">Promoción</string>
-  <string name="promotionDescription">Promocionar un peón a una dama u pieza menor.</string>
   <string name="queenEndgame">Final de damas</string>
   <string name="queenEndgameDescription">Un final con damas y peons nomás.</string>
   <string name="queenRookEndgame">Dama y Torre</string>

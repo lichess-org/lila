@@ -147,25 +147,13 @@
   <string name="blunder">Gafë</string>
   <string name="mistake">Gabim</string>
   <string name="inaccuracy">Pasaktësi</string>
-  <plurals name="nbBlunders">
-    <item quantity="one">%s gafë</item>
-    <item quantity="other">%s gafa</item>
-  </plurals>
   <plurals name="numberBlunders">
     <item quantity="one">%s Gafë</item>
     <item quantity="other">%s Gafa</item>
   </plurals>
-  <plurals name="nbMistakes">
-    <item quantity="one">%s gabim</item>
-    <item quantity="other">%s gabime</item>
-  </plurals>
   <plurals name="numberMistakes">
     <item quantity="one">%s Gabim</item>
     <item quantity="other">%s Gabime</item>
-  </plurals>
-  <plurals name="nbInaccuracies">
-    <item quantity="one">%s pasaktësi</item>
-    <item quantity="other">%s pasaktësi</item>
   </plurals>
   <plurals name="numberInaccuracies">
     <item quantity="one">%s Pasaktësi</item>
@@ -268,7 +256,6 @@
   <string name="emailSent">Kemi dërguar një email te %s.</string>
   <string name="emailCanTakeSomeTime">Mund të duhet pak kohë që të mbërrijë.</string>
   <string name="refreshInboxAfterFiveMinutes">Pritni 5 minuta dhe rifreksoni “Të marrët” tuaj</string>
-  <string name="checkSpamFolder">Shihni gjithashtu edhe te dosja juaj e të padëshiruarve, mund të përfundojë atje. Në ndodhtë kështu, i hiqni shenjën si i padëshiruar.</string>
   <string name="sendEmailForAccountVerification">Nëse s’gjeni dot email-in e ripohimit, dërgoni një email te %s dhe do të miratojmë llogarinë tuaj për ju.</string>
   <string name="accountConfirmed">Përdoruesi %s u ripohua me sukses.</string>
   <string name="accountCanLogin">Mund të bëni hyrjen mu tani si %s.</string>
@@ -292,8 +279,6 @@
   </plurals>
   <string name="ok">OK</string>
   <string name="cancel">Anuloje</string>
-  <string name="whiteTimeOut">Të bardhit i mbaroi koha</string>
-  <string name="blackTimeOut">Të ziut i mbaroi koha</string>
   <string name="drawOfferSent">U dërgua ofertë për barazim</string>
   <string name="drawOfferAccepted">Oferta për barazim u pranua</string>
   <string name="whiteOffersDraw">I bardhi ofron barazim</string>
@@ -414,7 +399,6 @@
     <item quantity="other">Lypset të luani edhe %s lojëra të vlerësuara</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Vlerësimi juaj %s është i përkohshëm</string>
-  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Filtrat e vlerësimit janë kyçur, ngaqë vlerësimi juaj s’është i qëndrueshëm. Luajtja e lojërave të vlerësuara do të rritë qëndrueshmërinë.</string>
   <string name="yourPerfRatingIsTooHigh">Vlerësimi juaj (%2$s) në %1$s është më i lartë seç duhet</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Vlerësimi juaj javor më i madh (%2$s) në %1$s është më i lartë seç duhet</string>
   <string name="yourPerfRatingIsTooLow">Vlerësimi juaj (%2$s) në %1$s është më i ulët seç duhet</string>
@@ -593,7 +577,6 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="other">Tjetër</string>
   <string name="reportCheatBoostHelp">Ngjitni lidhjen për te loja(rat) dhe shpjegoni se ç’nuk shkon me sjelljen e këtij përdoruesi. Mos thoni thjesht “bën me hile”, por na tregoni se si arritët në këtë konkluzion.</string>
   <string name="reportUsernameHelp">Shpjegoni pse ky emër përdoruesi është fyes. Mos thoni thjesht “është fyes/i papërshtatshëm”, por na tregoni se si arritët në këtë konkluzion, veçanërisht nëse fyerja është e hollë, jo në anglisht, është në një slang, ose është një referencë historike/kulturore.</string>
-  <string name="reportProcessedFasterInEnglish">Raportimi juaj do të shqyrtohet më shpejt, nëse është shkruar në anglisht.</string>
   <string name="error.provideOneCheatedGameLink">Ju lutemi, jepni të paktën një lidhje te një lojë me hile.</string>
   <string name="by">nga %s</string>
   <string name="importedByX">Importuar nga %s</string>
@@ -717,11 +700,9 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="aboutSimulRules">Kur fillon simultaneja, çdo lojtar fillon lojën me pritësin, i cili luan me gurët e bardhë. Simultaneja mbaron kur mbarojnë të gjitha lojërat.</string>
   <string name="aboutSimulSettings">Simultanet janë gjithmonë të pavlerësuara. Revansh, marrje mbrapsht dhe \"më shumë kohë\" janë të çaktivizuara.</string>
   <string name="create">Krijoje</string>
-  <string name="whenCreateSimul">Kur krijon një simultane, luan kundër disa lojtarëve njëkohësisht.</string>
   <string name="simulVariantsHint">Nëse përzgjidhni disa variante, çdo lojtar zgjedh vetë cilin variant të luajë.</string>
   <string name="simulClockHint">Ujdisje Fisher për sahatin. Sa më shumë lojtarë pranoni, aq më shumë kohë mund t’ju nevojitet.</string>
   <string name="simulAddExtraTime">Ju mund të shtoni kohë shtesë për t\'i bërë ballë simultanes.</string>
-  <string name="simulHostExtraTime">Kohë shtesë për organizatorin</string>
   <string name="simulAddExtraTimePerPlayer">Shtoni kohë fillestare te sahati juaj për çdo lojtar që hyn në simultane.</string>
   <string name="simulHostExtraTimePerPlayer">Kohë ekstra sahati organizatori për lojtar</string>
   <string name="lichessTournaments">Turne Lichess</string>
@@ -809,10 +790,6 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="quickPairing">Çiftim i shpejtë</string>
   <string name="lobby">Holli</string>
   <string name="anonymous">Anonim</string>
-  <plurals name="nbAnonymous">
-    <item quantity="one">Anonim</item>
-    <item quantity="other">Anonimë (%s)</item>
-  </plurals>
   <string name="yourScore">Rezultati juaj: %s</string>
   <string name="language">Gjuha</string>
   <string name="allLanguages">Krejt gjuhët</string>
@@ -846,7 +823,6 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="custom">Vetjake</string>
   <string name="notifications">Njoftime</string>
   <string name="notificationsX">Njoftime: %1$s</string>
-  <string name="perfRatingX">Vlerësimi: %s</string>
   <string name="yourRatingIsX">Vlerësimi juaj është %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekondë për kryerjen e lëvizjes së parë</item>
@@ -905,7 +881,6 @@ loje dhe URL për ta ndarë me të tjerë.</string>
     <item quantity="other">edhe ruaj %s linja premove</item>
   </plurals>
   <string name="showUnreadLichessMessage">Morët një mesazh privat nga Lichess.</string>
-  <string name="clickHereToReadIt">Klikoni këtu që ta lexoni</string>
   <string name="sorry">Na ndjeni :(</string>
   <string name="weHadToTimeYouOutForAWhile">Na u desh t’ju ndalnim për ca kohë.</string>
   <string name="why">Pse?</string>
@@ -988,14 +963,12 @@ Që lojërat të fillojnë nga pozicioni fillestar normal, lëreni të zbrazët.
   <string name="simulFeaturedHelp">Shfaqeni simultanen tuaj për këdo, në %s. Për simultane private, çaktivizojeni.</string>
   <string name="simulDescription">Përshkrim simultaneje</string>
   <string name="simulDescriptionHelp">Ndonjë gjë që doni t’u thoni pjesëmarrësve?</string>
-  <string name="markdownIsAvailable">Për formatim mund të përdorni %s.</string>
   <string name="embedsAvailable">Ngjitni një URL loje ose URL kapitulli mësimi, për ta trupëzuar.</string>
   <string name="inYourLocalTimezone">Në zonën tuaj kohore vendore</string>
   <string name="tournChat">Fjalosje turneu</string>
   <string name="noChat">Pa fjalosje</string>
   <string name="onlyTeamLeaders">Vetëm kapitenët e ekipeve</string>
   <string name="onlyTeamMembers">Vetëm anëtarët e ekipeve</string>
-  <string name="navigateMoveTree">Lëvizni nëpër pemën e lëvizjeve</string>
   <string name="mouseTricks">Gjeste miu</string>
   <string name="toggleLocalAnalysis">Aktivizo/Çaktivizo analizë kompjuterike</string>
   <string name="toggleAllAnalysis">Aktivizo/Çaktivizo krejt analizat kompjuterike</string>

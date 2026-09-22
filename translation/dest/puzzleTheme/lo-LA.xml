@@ -27,7 +27,6 @@
   <string name="capturingDefender">ກິນຕົວປ້ອງກັນ</string>
   <string name="capturingDefenderDescription">ການກຳຈັດຕົວໝາກທີ່ສຳຄັນໃນການປ້ອງກັນຕົວອື່ນ, ເພື່ອໃຫ້ສາມາດກິນຕົວໝາກທີ່ບໍ່ມີຕົວປ້ອງກັນນັ້ນໄດ້ໃນຕາຕໍ່ໄປ.</string>
   <string name="cornerMate">ການຈົນທີ່ມຸມກະດານ</string>
-  <string name="cornerMateDescription">ກັກຄິງໄວ້ທີ່ມຸມກະດານໂດຍໃຊ້ເຮືອ ຫຼື ຄອງ (Queen) ແລະ ໃຊ້ມ້າເພື່ອທຳການຈົນ.</string>
   <string name="crushing">ການບຸກທະລາຍ (Crushing)</string>
   <string name="crushingDescription">ສັງເກດເຫັນຄວາມຜິດພາດຂອງຄູ່ຕໍ່ສູ້ເພື່ອສ້າງຄວາມໄດ້ປຽບຢ່າງມະຫາສານ. (eval ≥ 600cp)</string>
   <string name="discoveredCheck">ການເປີດຣຸກ (Discovered check)</string>
@@ -52,15 +51,12 @@
   <string name="doubleCheckDescription">ການຣຸກດ້ວຍຕົວໝາກສອງຕົວພ້ອມກັນ ເຊິ່ງເປັນຜົນມາຈາກການເປີດຣຸກ ໂດຍທີ່ທັງຕົວທີ່ເດີນ ແລະ ຕົວທີ່ຖືກເປີດທາງນັ້ນຕ່າງກໍ່ບຸກຄິງຂອງຄູ່ຕໍ່ສູ້.</string>
   <string name="endgame">ເກມປາຍກະດານ (Endgame)</string>
   <string name="endgameDescription">ແຜນການໃນຊ່ວງສຸດທ້າຍຂອງເກມ.</string>
-  <string name="enPassantDescription">ແຜນການທີ່ກ່ຽວຂ້ອງກັບກົດການກິນຜ່ານ (En passant), ໂດຍທີ່ເບ້ສາມາດກິນເບ້ຂອງຄູ່ຕໍ່ສູ້ທີ່ເດີນຂ້າມໄປສອງຫ້ອງໃນຕາທຳອິດ.</string>
   <string name="exposedKing">ຄິງທີ່ບໍ່ມີຕົວປ້ອງກັນ</string>
   <string name="exposedKingDescription">ແຜນການທີ່ເນັ້ນໃສ່ຄິງທີ່ມີຕົວປ້ອງກັນໜ້ອຍ, ເຊິ່ງມັກຈະນຳໄປສູ່ການຈົນ.</string>
   <string name="fork">ການແທງສອງທາງ (Fork)</string>
-  <string name="forkDescription">ການເດີນຕົວໝາກຕົວດຽວເພື່ອບຸກໂຈມຕີຕົວໝາກຂອງຄູ່ຕໍ່ສູ້ສອງຕົວພ້ອມກັນ.</string>
   <string name="hangingPiece">ຕົວໝາກທີ່ຫຼຸດ (Hanging piece)</string>
   <string name="hangingPieceDescription">ແຜນການທີ່ກ່ຽວຂ້ອງກັບຕົວໝາກຂອງຄູ່ຕໍ່ສູ້ທີ່ບໍ່ມີຕົວປ້ອງກັນ ຫຼື ມີຕົວປ້ອງກັນບໍ່ພຽງພໍ ຈົນສາມາດກິນໄດ້ຟຣີ.</string>
   <string name="hookMate">ການຈົນແບບ Hook</string>
-  <string name="hookMateDescription">ການຈົນດ້ວຍເຮືອ, ມ້າ ແລະ ເບ້ ໂດຍອາໄສເບ້ຂອງຄູ່ຕໍ່ສູ້ເພື່ອຈຳກັດທາງໜີຂອງຄິງ.</string>
   <string name="interference">ການຂັດຂວາງ (Interference)</string>
   <string name="interferenceDescription">ການເດີນຕົວໝາກເຂົ້າແຊກກາງລະຫວ່າງຕົວໝາກສອງຕົວຂອງຄູ່ຕໍ່ສູ້ ເພື່ອເຮັດໃຫ້ຕົວໝາກເຫຼົ່ານັ້ນຂາດຕົວປ້ອງກັນ.</string>
   <string name="intermezzo">ການເດີນແຊກ (Intermezzo)</string>
@@ -68,9 +64,7 @@
   <string name="killBoxMate">ການຈົນແບບ Kill box</string>
   <string name="killBoxMateDescription">ເຮືອຢູ່ຕິດກັບຄິງຂອງຄູ່ຕໍ່ສູ້ໂດຍມີຄອງ (Queen) ຄອຍສະໜັບສະໜູນ ແລະ ປິດທາງໜີ. ເຮືອ ແລະ ຄອງຈະກັກຄິງໄວ້ໃນພື້ນທີ່ 3x3 ທີ່ເອີ້ນວ່າ \"kill box\".</string>
   <string name="pillsburysMate">ການຈົນແບບ Pillsbury</string>
-  <string name="pillsburysMateDescription">ເຮືອເປັນຕົວທຳການຈົນ, ໃນຂະນະທີ່ບິຊອບ (Bishop) ຊ່ວຍກັກຄິງໄວ້.</string>
   <string name="morphysMate">ການຈົນແບບ Morphy</string>
-  <string name="morphysMateDescription">ໃຊ້ບິຊອບ (Bishop) ເພື່ອຣຸກຄິງ, ໃນຂະນະທີ່ເຮືອຊ່ວຍກັກທາງໜີໄວ້.</string>
   <string name="triangleMate">ການຈົນຮູບສາມຫຼ່ຽມ</string>
   <string name="triangleMateDescription">ຄອງ (Queen) ແລະ ເຮືອ ຢູ່ຫ່າງຈາກຄິງຂອງຄູ່ຕໍ່ສູ້ໜຶ່ງຫ້ອງ ໂດຍຈັດວາງໃນຮູບແບບທີ່ສ້າງເປັນຮູບສາມຫຼ່ຽມ.</string>
   <string name="vukovicMate">ການຈົນແບບ Vukovic</string>
@@ -108,7 +102,6 @@
   <string name="pin">ການປັກໝຸດ (Pin)</string>
   <string name="pinDescription">ແຜນການປັກໝຸດ, ໂດຍທີ່ຕົວໝາກບໍ່ສາມາດເດີນໄດ້ ເພາະຈະເຮັດໃຫ້ຕົວໝາກທີ່ມີຄ່າສູງກວ່າທາງຫຼັງຖືກບຸກໂຈມຕີ.</string>
   <string name="promotion">ການເລື່ອນຂັ້ນ (Promotion)</string>
-  <string name="promotionDescription">ເລື່ອນຂັ້ນເບ້ຂອງທ່ານໃຫ້ເປັນຄອງ (Queen) ຫຼື ຕົວໝາກຮອງ (Minor piece).</string>
   <string name="queenEndgame">ເກມປາຍກະດານຄອງ</string>
   <string name="queenEndgameDescription">ການຫຼິ້ນປາຍກະດານທີ່ມີພຽງຄອງ (Queen) ແລະ ເບ້.</string>
   <string name="queenRookEndgame">ຄອງ ແລະ ເຮືອ</string>

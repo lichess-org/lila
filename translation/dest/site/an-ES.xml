@@ -149,25 +149,13 @@
   <string name="blunder">Error grieu</string>
   <string name="mistake">Error</string>
   <string name="inaccuracy">Imprecisión</string>
-  <plurals name="nbBlunders">
-    <item quantity="one">%s error grieu</item>
-    <item quantity="other">%s errors grieus</item>
-  </plurals>
   <plurals name="numberBlunders">
     <item quantity="one">%s Error grieu</item>
     <item quantity="other">%s Errors grieus</item>
   </plurals>
-  <plurals name="nbMistakes">
-    <item quantity="one">%s error</item>
-    <item quantity="other">%s errors</item>
-  </plurals>
   <plurals name="numberMistakes">
     <item quantity="one">%s Error</item>
     <item quantity="other">%s Errors</item>
-  </plurals>
-  <plurals name="nbInaccuracies">
-    <item quantity="one">%s imprecisión</item>
-    <item quantity="other">%s imprecisions</item>
   </plurals>
   <plurals name="numberInaccuracies">
     <item quantity="one">%s Imprecisión</item>
@@ -270,7 +258,6 @@
   <string name="emailSent">Hemos ninviau un correu a %s.</string>
   <string name="emailCanTakeSomeTime">Pueda tardar un ratet a arribar.</string>
   <string name="refreshInboxAfterFiveMinutes">Aguarda 5 minutos y refresca lo tuyo buzón de dentrada.</string>
-  <string name="checkSpamFolder">Compreba tamién la carpeta de correu vasuera, puede estar astí. Si ye astí, maca-lo como \"no vasuera\".</string>
   <string name="sendEmailForAccountVerification">Si no puez trobar lo correu de confirmación, ninvia un correu a %s y confirmaremos la cuenta per tu.</string>
   <string name="accountConfirmed">L\'usuario %s ha estau confirmau correctament.</string>
   <string name="accountCanLogin">Puez identificar-te agora como %s.</string>
@@ -294,8 +281,6 @@
   </plurals>
   <string name="ok">OK</string>
   <string name="cancel">Cancelar</string>
-  <string name="whiteTimeOut">Cayida de bandera d\'as blancas</string>
-  <string name="blackTimeOut">Cayida de bandera d\'as negras</string>
   <string name="drawOfferSent">Ofierta de taulas ninviada</string>
   <string name="drawOfferAccepted">Ofierta de taulas acceptada</string>
   <string name="whiteOffersDraw">Las blancas ofreixen taulas</string>
@@ -416,7 +401,6 @@
     <item quantity="other">Te cal chugar %s partidas per puntos mas</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">La tuya puntuación de %s ye provisional</string>
-  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Los filtros de puntuación son blocaus perque la tuya puntuación encara no ye estable. Chugar partidas puntuables n\'aumentará la estabilidat.</string>
   <string name="yourPerfRatingIsTooHigh">La tuya puntuación de %1$s (%2$s) ye masiau alta</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">La tuya maxima puntación semanal de %1$s (%2$s) ye masiau alta</string>
   <string name="yourPerfRatingIsTooLow">La tuya puntuación de %1$s (%2$s) ye masiau baixa</string>
@@ -589,7 +573,6 @@
   <string name="other">Atro</string>
   <string name="reportCheatBoostHelp">Apega lo vinclo a la(s) partida(s) y explica-nos qué i hai de malo en o comportamiento d\'este usuario. No digas simplament \"fa trapazas\"; explica-nos cómo has arribau a esta conclusión.</string>
   <string name="reportUsernameHelp">Explica qué ye lo que te resulta ofensivo d\'este usuarios. No digas nomás \"ye ofensivo/inapropiau\", explica-nos cómo has arribau a esta conclusión, especialment si l\'insulto no ye obvio, no ye en anglés, ye en argot u ye una referencia historica u cultural.</string>
-  <string name="reportProcessedFasterInEnglish">La tuya queixa será procesau mas rapidament si ye escrito en anglés.</string>
   <string name="error.provideOneCheatedGameLink">Per favor, da-nos a lo menos un vinclo a una partida en que s\'han feito trapazas.</string>
   <string name="by">per %s</string>
   <string name="importedByX">Importau per %s</string>
@@ -713,11 +696,9 @@
   <string name="aboutSimulRules">Cuan la simultania encomienza, cada chugador prencipia una partida con l\'anfitrión, que chuga con blancas. La simultania remata cuan s\'acaban totas las partidas.</string>
   <string name="aboutSimulSettings">Las simultanias son siempre partidas amistosas. Las opcions de petición de reminche, desfer chugada y anyadir tiempo son desactivadas.</string>
   <string name="create">Crear</string>
-  <string name="whenCreateSimul">Cuan creigas una simultania, chugas contra cuantos chugadors de vez.</string>
   <string name="simulVariantsHint">Si trías diferents variants, cada chugador tría quál chugar.</string>
   <string name="simulClockHint">Configuración de reloch Fischer. Contra mas oponents, mas tiempo se precisa.</string>
   <string name="simulAddExtraTime">Puez anyadir tiempo adicional a lo tuyo reloch pa aduyar-te en a simultania.</string>
-  <string name="simulHostExtraTime">Tiempo extra de l\'anfitrión</string>
   <string name="simulAddExtraTimePerPlayer">Anyadir tiempo inicial a lo tuyo reloch per cada chugador que dentre a la simultania.</string>
   <string name="simulHostExtraTimePerPlayer">Tiempo extra de l\'anfitrión per chugador</string>
   <string name="lichessTournaments">Torneyos de Lichess</string>
@@ -812,10 +793,6 @@
   <string name="quickPairing">Emparellamiento rapido</string>
   <string name="lobby">Sala d\'espera</string>
   <string name="anonymous">Anonimo</string>
-  <plurals name="nbAnonymous">
-    <item quantity="one">Anonimo</item>
-    <item quantity="other">Anonimos/as (%s)</item>
-  </plurals>
   <string name="yourScore">La tuya puntuación: %s</string>
   <string name="language">Idioma</string>
   <string name="allLanguages">Totas las luengas</string>
@@ -846,7 +823,6 @@
   <string name="custom">Personalizada</string>
   <string name="notifications">Notificacions</string>
   <string name="notificationsX">Notificacions: %1$s</string>
-  <string name="perfRatingX">Puntuación: %s</string>
   <string name="yourRatingIsX">La tuya puntuación ye %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s segundo pa fer lo primer movimiento</item>
@@ -905,7 +881,6 @@
     <item quantity="other">y cabida %s linias de premovimiento</item>
   </plurals>
   <string name="showUnreadLichessMessage">Has recibiu un mensache privau de Lichess.</string>
-  <string name="clickHereToReadIt">Fe clic aquí pa leyer-lo</string>
   <string name="sorry">Lo sentimos :(</string>
   <string name="weHadToTimeYouOutForAWhile">Hemos habiu de que suspender-te temporalment.</string>
   <string name="why">Per qué?</string>
@@ -987,14 +962,12 @@
   <string name="simulFeaturedHelp">Amuestra las tuyas simultanias a toz en %s. Desactiva-lo si quiers simultanias privadas.</string>
   <string name="simulDescription">Descripción d\'as simultanias</string>
   <string name="simulDescriptionHelp">Tiens bella cosa a decir a los participants?</string>
-  <string name="markdownIsAvailable">Se puede fer servir %s pa describir lo formato.</string>
   <string name="embedsAvailable">Apega la URL d\'una partida u d\'un capitol d\'estudio pa incrustar-lo.</string>
   <string name="inYourLocalTimezone">En a tuya zona horaria local</string>
   <string name="tournChat">Conversa d\'o torneyo</string>
   <string name="noChat">Sin conversa</string>
   <string name="onlyTeamLeaders">Nomás pa liders d\'os equipos</string>
   <string name="onlyTeamMembers">Nomás pa miembros d\'os equipos</string>
-  <string name="navigateMoveTree">Navegar per l\'arbol de movimientos</string>
   <string name="mouseTricks">Trucos d\'o ratet</string>
   <string name="toggleLocalAnalysis">Cambiar a analisi local de l\'ordinador</string>
   <string name="toggleAllAnalysis">Cambiar a totas las analisis</string>

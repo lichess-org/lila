@@ -149,25 +149,13 @@
   <string name="blunder">Bukk</string>
   <string name="mistake">Feil</string>
   <string name="inaccuracy">Unøyaktighet</string>
-  <plurals name="nbBlunders">
-    <item quantity="one">%s bukk</item>
-    <item quantity="other">%s bukker</item>
-  </plurals>
   <plurals name="numberBlunders">
     <item quantity="one">%s Bukk</item>
     <item quantity="other">%s Bukker</item>
   </plurals>
-  <plurals name="nbMistakes">
-    <item quantity="one">%s feil</item>
-    <item quantity="other">%s feil</item>
-  </plurals>
   <plurals name="numberMistakes">
     <item quantity="one">%s Feil</item>
     <item quantity="other">%s Feil</item>
-  </plurals>
-  <plurals name="nbInaccuracies">
-    <item quantity="one">%s unøyaktighet</item>
-    <item quantity="other">%s unøyaktigheter</item>
   </plurals>
   <plurals name="numberInaccuracies">
     <item quantity="one">%s Unøyaktighet</item>
@@ -274,8 +262,7 @@
   <string name="emailSent">Vi har sendt en melding til %s.</string>
   <string name="emailCanTakeSomeTime">Det kan ta litt tid.</string>
   <string name="refreshInboxAfterFiveMinutes">Vent fem minutter før du oppdaterer innboksen.</string>
-  <string name="checkSpamFolder">Sjekk om meldingen havnet i søppelpostmappen. Merk i tilfelle meldingen som ikke søppelpost.</string>
-  <string name="checkSpamOrJunkFolder" comment="checkSpamFolder&#10;It = The confirmation email Replaces old string checkSpamFolder">Hvis du ikke mottar en bekreftelses-e-post, bør du sjekke søppelpostmappen. Merk meldinger fra lichess.org som trygge og «ikke søppelpost», slik at du får med deg viktig informasjon.</string>
+  <string name="checkSpamOrJunkFolder" comment="checkSpamFolder&#10;It = The confirmation email">Hvis du ikke mottar en bekreftelses-e-post, bør du sjekke søppelpostmappen. Merk meldinger fra lichess.org som trygge og «ikke søppelpost», slik at du får med deg viktig informasjon.</string>
   <string name="sendEmailForAccountVerification">Finner du ikke bekreftelsen som ble sendt som e-post? Send e-post til %s, så bekrefter vi kontoen din.</string>
   <string name="accountConfirmed">Brukeren %s er bekreftet.</string>
   <string name="accountCanLogin">Du kan nå logge inn som %s.</string>
@@ -299,10 +286,8 @@
   </plurals>
   <string name="ok">OK</string>
   <string name="cancel">Avbryt</string>
-  <string name="whiteTimeOut">Tiden er ute for hvit</string>
-  <string name="whiteRanOutOfTime" comment="whiteTimeOut&#10;&#10;Shows when White's time has run out. Is followed by the end condition, for example&#10;'White ran out of time · Draw' Replaces old string whiteTimeOut">Hvit gikk tom for tid</string>
-  <string name="blackTimeOut">Tiden er ute for svart</string>
-  <string name="blackRanOutOfTime" comment="blackTimeOut&#10;&#10;Shows when Black's time has run out. Is followed by the end condition, for example&#10;'Black ran out of time · Draw' Replaces old string blackTimeOut">Svart gikk tom for tid</string>
+  <string name="whiteRanOutOfTime" comment="whiteTimeOut&#10;&#10;Shows when White's time has run out. Is followed by the end condition, for example&#10;'White ran out of time · Draw'">Hvit gikk tom for tid</string>
+  <string name="blackRanOutOfTime" comment="blackTimeOut&#10;&#10;Shows when Black's time has run out. Is followed by the end condition, for example&#10;'Black ran out of time · Draw'">Svart gikk tom for tid</string>
   <string name="drawOfferSent">Remistilbud sendt</string>
   <string name="drawOfferAccepted">Remistilbud godtatt</string>
   <string name="whiteOffersDraw">Hvit tilbyr remis</string>
@@ -423,8 +408,7 @@
     <item quantity="other">Du må spille enda %s ratede partier</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">%s-ratingen din er provisorisk</string>
-  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Ratingfiltrene er låst fordi ratingen din er ustabil. Stabiliteten øker når du spiller ratede partier.</string>
-  <string name="cannotFilterByUnstableRating" comment="Tooltip to explain why the control for filtering by rating is disabled Replaces old string ratingRangeIsDisabledBecauseYourRatingIsProvisional">Det er ikke mulig å filtrere etter rating fordi ratingen din ikke er stabil.
+  <string name="cannotFilterByUnstableRating" comment="Tooltip to explain why the control for filtering by rating is disabled">Det er ikke mulig å filtrere etter rating fordi ratingen din ikke er stabil.
 Spill ratede partier for å øke stabiliteten.</string>
   <string name="yourPerfRatingIsTooHigh">Ratingen din i %1$s (%2$s) er for høy</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Den beste ukeratingen din i %1$s (%2$s) er for høy</string>
@@ -446,7 +430,7 @@ Spill ratede partier for å øke stabiliteten.</string>
   <string name="apply">Bruk</string>
   <string name="save">Lagre</string>
   <string name="leaderboard">Ledertabell</string>
-  <string name="positionAsImage" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position. Replaces old string screenshotCurrentPosition">Stilling som bilde</string>
+  <string name="positionAsImage" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position.">Stilling som bilde</string>
   <string name="gameAsGIF">Parti som gif</string>
   <string name="playerNames">Spillernavn</string>
   <string name="moveAnnotations">Trekk-kommentarer</string>
@@ -604,8 +588,7 @@ Spill ratede partier for å øke stabiliteten.</string>
   <string name="other">Annet</string>
   <string name="reportCheatBoostHelp">Kopier lenken til partiet/partiene og forklar hva som er galt med denne brukerens oppførsel. Skriv en utdypende begrunnelse, ikke bare «vedkommende jukser».</string>
   <string name="reportUsernameHelp">Forklar hvorfor brukernavnet er støtende. Skriv en utdypende begrunnelse, ikke bare «det er støtende/upassende». Dette gjelder særlig hvis fornærmelsen er tilslørt, ikke er på engelsk, er et slanguttrykk eller er en historisk/kulturell referanse.</string>
-  <string name="reportProcessedFasterInEnglish">Rapporten din blir behandlet raskere hvis den er skrevet på engelsk.</string>
-  <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it. Replaces old string reportProcessedFasterInEnglish">Vi kan behandle rapporten din raskere hvis du skriver på engelsk.</string>
+  <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">Vi kan behandle rapporten din raskere hvis du skriver på engelsk.</string>
   <string name="error.provideOneCheatedGameLink">Oppgi minst én lenke til et jukseparti.</string>
   <string name="by">av %s</string>
   <string name="importedByX">Importert av %s</string>
@@ -729,13 +712,11 @@ Spill ratede partier for å øke stabiliteten.</string>
   <string name="aboutSimulRules">Når simultanen begynner, starter hver spiller et parti med verten. Simultanen avsluttes når alle partiene er ferdige.</string>
   <string name="aboutSimulSettings">Simultaner er alltid uformelle. Omkamper, angring og ekstra tid er ikke lov.</string>
   <string name="create">Opprett</string>
-  <string name="whenCreateSimul">Når du oppretter en simultan, får du spille mot flere spillere samtidig.</string>
-  <string name="creatingASimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new Replaces old string whenCreateSimul">Når du oppretter en simultan, kan du spille mot flere motstandere samtidig.</string>
+  <string name="creatingASimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Når du oppretter en simultan, kan du spille mot flere motstandere samtidig.</string>
   <string name="simulVariantsHint">Hvis du velger flere varianter får hver spiller anledning til å velge hvilken de vil spille.</string>
   <string name="simulClockHint">Fischeroppsett. Desto flere spillere som spiller mot deg, jo mer tid vil du antageligvis trenge.</string>
   <string name="simulAddExtraTime">Du kan legge til ekstra tid på klokken din for å makte simultanen.</string>
-  <string name="simulHostExtraTime">Ekstra tid for verten</string>
-  <string name="extraClockTimeForHost" comment="Appears on: https://lichess.org/simul/new&#10;&#10;Allows a simul host to select extra time for the simul.&#10;&#10;Please note this string used to state &quot;Host extra clock time&quot;, without the word &quot;initial&quot; Replaces old string simulHostExtraTime">Ekstra tid på vertens klokke:</string>
+  <string name="extraClockTimeForHost" comment="Appears on: https://lichess.org/simul/new&#10;&#10;Allows a simul host to select extra time for the simul.&#10;&#10;Please note this string used to state &quot;Host extra clock time&quot;, without the word &quot;initial&quot;">Ekstra tid på vertens klokke:</string>
   <string name="simulAddExtraTimePerPlayer">Legg til ekstra tid på klokken din for hver deltaker.</string>
   <string name="simulHostExtraTimePerPlayer">Ekstra tenketid som simultanverten får for hver spiller</string>
   <string name="lichessTournaments">Lichessturneringer</string>
@@ -832,10 +813,6 @@ Spill ratede partier for å øke stabiliteten.</string>
   <string name="quickPairing">Raskt parti</string>
   <string name="lobby">Lobby</string>
   <string name="anonymous">Anonym</string>
-  <plurals name="nbAnonymous">
-    <item quantity="one">Anonym</item>
-    <item quantity="other">Anonyme (%s)</item>
-  </plurals>
   <string name="yourScore">Din poengsum: %s</string>
   <string name="language">Språk</string>
   <string name="allLanguages">Alle språk</string>
@@ -871,8 +848,7 @@ Spill ratede partier for å øke stabiliteten.</string>
   <string name="custom">Tilpasset</string>
   <string name="notifications">Varsler</string>
   <string name="notificationsX">Varsler: %1$s</string>
-  <string name="perfRatingX">Rating: %s</string>
-  <string name="perfRatingLabel" comment="Replaces old string perfRatingX">Rating: %s.</string>
+  <string name="perfRatingLabel">Rating: %s.</string>
   <string name="yourRatingIsX">Ratingen din er %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekund til å ta det første trekket</item>
@@ -931,8 +907,7 @@ Spill ratede partier for å øke stabiliteten.</string>
     <item quantity="other">og lagre %s forhåndstrekkvarianter</item>
   </plurals>
   <string name="showUnreadLichessMessage">Du har mottatt en privat melding fra Lichess.</string>
-  <string name="clickHereToReadIt">Klikk her for å lese den</string>
-  <string name="readTheMessage" comment="'It' refers to a private message. This text follows after a different string which advises players they have received a private message from Lichess. For users, this is appears as a regular private message from the Lichess account: https://lichess.org/@/Lichess Replaces old string clickHereToReadIt">Les meldingen</string>
+  <string name="readTheMessage" comment="'It' refers to a private message. This text follows after a different string which advises players they have received a private message from Lichess. For users, this is appears as a regular private message from the Lichess account: https://lichess.org/@/Lichess">Les meldingen</string>
   <string name="sorry">Beklager :(</string>
   <string name="weHadToTimeYouOutForAWhile">Vi måtte gi deg en timeout.</string>
   <string name="why">Hvorfor?</string>
@@ -1018,16 +993,14 @@ La feltet stå tomt for å begynne partiene fra den normale utgangsstillingen.</
   <string name="simulFeaturedHelp">Vis simultanen din til alle på %s. Skru av for private simultaner.</string>
   <string name="simulDescription">Beskrivelse av simultanen</string>
   <string name="simulDescriptionHelp">Er det noe du vil si til deltakerne?</string>
-  <string name="markdownIsAvailable">%s er tilgjengelig for formatering.</string>
-  <string name="youCanFormatTextUsing" comment="%s is &quot;Markdown&quot;, a proper noun. As such, the word is intentionally kept as a variable.&#10;&#10;Markdown is a markup language - a type of code that lets you format text (e.g. to create bold text).&#10;&#10;The text links to a reference guide for using Markdown to format text. Replaces old string markdownIsAvailable">Du kan formatere tekst med %s.</string>
+  <string name="youCanFormatTextUsing" comment="%s is &quot;Markdown&quot;, a proper noun. As such, the word is intentionally kept as a variable.&#10;&#10;Markdown is a markup language - a type of code that lets you format text (e.g. to create bold text).&#10;&#10;The text links to a reference guide for using Markdown to format text.">Du kan formatere tekst med %s.</string>
   <string name="embedsAvailable">Lim inn en URL til et parti eller et kapittel i en studie for å bygge det inn.</string>
   <string name="inYourLocalTimezone">I tidssonen din</string>
   <string name="tournChat">Turneringssamtale</string>
   <string name="noChat">Ingen samtale</string>
   <string name="onlyTeamLeaders">Bare lagledere</string>
   <string name="onlyTeamMembers">Bare lagmedlemmer</string>
-  <string name="navigateMoveTree">Naviger i trekktreet</string>
-  <string name="moveListNavigation" comment="navigateMoveTree&#10;&#10;Appears in the keyboard shortcuts/help screen. The 'move tree' is simply the list of moves. Replaces old string navigateMoveTree">Navigasjon i trekklisten</string>
+  <string name="moveListNavigation" comment="navigateMoveTree&#10;&#10;Appears in the keyboard shortcuts/help screen. The 'move tree' is simply the list of moves.">Navigasjon i trekklisten</string>
   <string name="mouseTricks">Musetriks</string>
   <string name="toggleLocalAnalysis">Skru av eller på lokal maskinanalyse</string>
   <string name="toggleAllAnalysis">Skru av eller på all maskinanalyse</string>

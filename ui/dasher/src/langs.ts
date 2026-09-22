@@ -1,7 +1,6 @@
 import { h, type VNode } from 'snabbdom';
 
 import { licon } from 'lib/licon';
-import { onInsert } from 'lib/view';
 
 import { PaneCtrl } from './interfaces';
 import { header } from './util';
@@ -26,12 +25,13 @@ export class LangsCtrl extends PaneCtrl {
         { attrs: { method: 'post', action: '/translation/select' } },
         this.list().map(([code, name]: Lang) =>
           h(
-            'button' +
-              (this.data.current === code ? '.current' : '') +
-              (this.data.accepted.includes(code) ? '.accepted' : ''),
+            'button',
             {
+              class: {
+                current: this.isCurrent(code),
+                accepted: this.isAccepted(code),
+              },
               attrs: { type: 'submit', name: 'lang', value: code, title: code },
-              hook: this.data.current === code ? onInsert(el => el.scrollIntoView({ block: 'center' })) : {},
             },
             name,
           ),
@@ -48,8 +48,11 @@ export class LangsCtrl extends PaneCtrl {
     return this.root.data.lang;
   }
 
+  private readonly isCurrent = (code: Code) => this.data.current === code;
+  private readonly isAccepted = (code: Code) => this.data.accepted.includes(code);
+
   private readonly list = () => [
-    ...this.data.list.filter(lang => this.data.accepted.includes(lang[0])),
+    ...this.data.list.filter(([code, _]) => this.isCurrent(code) || this.isAccepted(code)),
     ...this.data.list,
   ];
 }

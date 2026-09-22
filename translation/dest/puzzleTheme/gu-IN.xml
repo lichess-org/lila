@@ -27,7 +27,6 @@
   <string name="capturingDefender">ડિફેન્ડરને પકડો</string>
   <string name="capturingDefenderDescription">એક ટુકડાને દૂર કરવો જે અન્ય ટુકડાના સંરક્ષણ માટે નિર્ણાયક હોય, હવે અસુરક્ષિત ટુકડાને ફોલો-અપ મૂવ પર કબજે કરવાની મંજૂરી આપે છે.</string>
   <string name="cornerMate">કોર્નર મેટ</string>
-  <string name="cornerMateDescription">ચેકમેટ જોડવા માટે રૂક અથવા રાણી અને ઘોડા નો ઉપયોગ કરીને રાજા ને ખૂણા સુધી સીમિત કરો.</string>
   <string name="crushing">કચડી નાખવું</string>
   <string name="crushingDescription">નિર્ણાયક ફાયદો મેળવવા માટે પ્રતિસ્પર્ધીની ભૂલ શોધો. (eval ≥ 600cp)</string>
   <string name="discoveredCheck">શોધાયેલ ચેક</string>
@@ -52,15 +51,12 @@
   <string name="doubleCheckDescription">એકસાથે બે ટુકડાઓ સાથે ચેક આપવો, જે શોધાયેલા હુમલાના પરિણામે થાય છે જ્યાં ખસેડતો ટુકડો અને અનાવૃત ટુકડો બંને પ્રતિસ્પર્ધીના રાજા પર હુમલો કરે છે.</string>
   <string name="endgame">એન્ડગેમ</string>
   <string name="endgameDescription">રમતની છેલ્લી અવસ્થા દરમિયાનની યુક્તિ.</string>
-  <string name="enPassantDescription">\'en passant\' નિયમનો સમાવેશ કરતી યુક્તિ, જ્યાં પ્યાદુ પ્રતિસ્પર્ધીના પ્યાદાને પકડી શકે છે જે તેની પ્રારંભિક બે-ચોરસ ચાલનો ઉપયોગ કરીને તેને બાયપાસ કરી ગયું હોય.</string>
   <string name="exposedKing">ખુલ્લો રાજા</string>
   <string name="exposedKingDescription">તેની આસપાસ ઓછા ડિફેન્ડર્સ ધરાવતા રાજા નો સમાવેશ કરતી યુક્તિ, જે ઘણીવાર ચેકમેટ તરફ દોરી જાય છે.</string>
   <string name="fork">ફોર્ક</string>
-  <string name="forkDescription">એક ચાલ જ્યાં ખસેડાયેલો ટુકડો એકસાથે બે પ્રતિસ્પર્ધી ટુકડાઓ પર હુમલો કરે છે.</string>
   <string name="hangingPiece">લટકતો ટુકડો</string>
   <string name="hangingPieceDescription">પ્રતિસ્પર્ધીનો ટુકડો અસુરક્ષિત અથવા અપૂરતો સુરક્ષિત હોય અને પકડવા માટે મુક્ત હોય તેવી યુક્તિ.</string>
   <string name="hookMate">હૂક મેટ</string>
-  <string name="hookMateDescription">રાજા ની છટકી જવાની મર્યાદા નક્કી કરવા માટે એક હાથી, ઘોડો અને પ્યાદાની સાથે એક દુશ્મન પ્યાદાનો ઉપયોગ કરીને ચેકમેટ.</string>
   <string name="interference">ઇન્ટરફિયરન્સ</string>
   <string name="interferenceDescription">બે પ્રતિસ્પર્ધી ટુકડાઓ વચ્ચે એક ટુકડો ખસેડવો જેથી એક અથવા બંને પ્રતિસ્પર્ધી ટુકડાઓ અસુરક્ષિત થઈ જાય, જેમ કે બે રૂક વચ્ચે સુરક્ષિત ચોરસ પરનો ઘોડો.</string>
   <string name="intermezzo">ઇન્ટરમેઝો</string>
@@ -102,7 +98,6 @@
   <string name="pin">પિન</string>
   <string name="pinDescription">પિનનો સમાવેશ કરતી યુક્તિ, જ્યાં ટુકડો વધુ મૂલ્યના ટુકડા પર હુમલો જાહેર કર્યા વિના ખસી શકતો નથી.</string>
   <string name="promotion">પ્રોમોશન</string>
-  <string name="promotionDescription">તમારા એક પ્યાદાને રાણી અથવા માઇનોર પીસમાં પ્રમોટ કરો.</string>
   <string name="queenEndgame">રાણી એન્ડગેમ</string>
   <string name="queenEndgameDescription">ફક્ત રાણી અને પ્યાદાઓ સાથેનો અંત.</string>
   <string name="queenRookEndgame">રાણી અને હાથી</string>

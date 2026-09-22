@@ -68,7 +68,6 @@
   <string name="downloadGame">Atsisiųsti žaidimą</string>
   <string name="studyUrl">Studijos URL</string>
   <string name="currentChapterUrl">Dabartinio skyriaus URL</string>
-  <string name="youCanPasteThisInTheForumToEmbed">Galite įklijuoti šį forume norėdami įterpti</string>
   <string name="startAtInitialPosition">Pradėti pradinėje pozicijoje</string>
   <string name="startAtX">Pradėti nuo %s</string>
   <string name="embedInYourWebsite">Įterpti savo svetainėje ar tinklaraštyje</string>

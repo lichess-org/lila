@@ -64,7 +64,6 @@
   <string name="downloadGame">Shkarko lojën</string>
   <string name="studyUrl">URL Mësimi</string>
   <string name="currentChapterUrl">URL e Kapitullit Aktual</string>
-  <string name="youCanPasteThisInTheForumToEmbed">Këtë mund ta ngjitni te forumi ose blogu juaj Lichess, për ta trupëzuar</string>
   <string name="startAtInitialPosition">Fillo në pozicionin fillestar</string>
   <string name="startAtX">Fillo tek %s</string>
   <string name="embedInYourWebsite">Trupëzojeni te sajti juaj</string>
@@ -186,8 +185,6 @@
   <string name="fromInitialPositionText">Thjesht një udjisje fushe për një lojë të re.&lt;br&gt;E përshtatshme për të eksloruar hapjet.</string>
   <string name="customPositionTitle">Custom position</string>
   <string name="customPositionText">Ujdiseni fushën si doni.&lt;br&gt;E përshtatshme të eksploruar funde lojërash.</string>
-  <string name="loadExistingLichessGameTitle">Ngarko një lojë shahu ekzistuese</string>
-  <string name="loadExistingLichessGameText">Hidhni URL-në e një loje shahu&lt;br&gt;(fjala vjen, lichess.org/7fHIU0XI)&lt;br&gt;që të ngarkohen te kapitulli lëvizjet e lojës.</string>
   <string name="fromFenStringTitle">Nga një varg FEN</string>
   <string name="fromFenStringText">Ngjitni një pozicion në format FEN&lt;br&gt;&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;&lt;br&gt;që kapitulli të niset prej një pozicioni.</string>
   <string name="fromPgnGameTitle">Nga një lojë PGN</string>

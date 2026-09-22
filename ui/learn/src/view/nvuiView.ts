@@ -5,7 +5,7 @@ import { opposite, type SquareName } from 'chessops';
 import { throttle } from 'lib/async';
 import * as nv from 'lib/nvui/chess';
 import { commands, addBreaks } from 'lib/nvui/command';
-import { renderSetting } from 'lib/nvui/setting';
+import { renderAdvancedSettings } from 'lib/nvui/renderAdvancedSettings';
 import { type VNode, bind, onInsert, hl } from 'lib/view';
 
 import type { LearnCtrl } from '../ctrl';
@@ -15,7 +15,6 @@ import type { LevelCtrl } from '../levelCtrl';
 import type { RunCtrl } from '../run/runCtrl';
 import { categs } from '../stage/list';
 import type { PromotionRole } from '../util';
-
 const promotionByChar: Record<string, PromotionRole> = {
   q: 'queen',
   r: 'rook',
@@ -57,7 +56,7 @@ function renderMap(ctrl: LearnCtrl): VNode[] {
 }
 
 function renderStage(ctx: LearnNvuiContext): VNode[] {
-  const { ctrl, notify, moveStyle, pieceStyle, prefixStyle, positionStyle, boardStyle } = ctx;
+  const { ctrl, notify, moveStyle, pieceStyle, prefixStyle, positionStyle, boardStyle, pageStyle } = ctx;
   const runCtrl = ctrl.runCtrl;
   const stage = runCtrl.stage;
   const levelCtrl = runCtrl.levelCtrl;
@@ -148,13 +147,9 @@ function renderStage(ctx: LearnNvuiContext): VNode[] {
       ),
     ),
     hl('div.boardstatus', { attrs: { 'aria-live': 'polite', 'aria-atomic': 'true' } }, ''),
-    hl('h2', i18n.site.advancedSettings),
-    hl('label', ['Move notation', renderSetting(moveStyle, ctrl.redraw)]),
-    hl('h3', 'Board settings'),
-    hl('label', ['Piece style', renderSetting(pieceStyle, ctrl.redraw)]),
-    hl('label', ['Piece prefix style', renderSetting(prefixStyle, ctrl.redraw)]),
-    hl('label', ['Show position', renderSetting(positionStyle, ctrl.redraw)]),
-    hl('label', ['Board layout', renderSetting(boardStyle, ctrl.redraw)]),
+    ...renderAdvancedSettings(moveStyle, pageStyle, pieceStyle, prefixStyle, positionStyle, boardStyle, {
+      redraw: runCtrl.redraw,
+    }),
     hl('h2', 'Commands'),
     hl(
       'p',

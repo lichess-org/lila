@@ -136,25 +136,13 @@
   <string name="blunder">Blunder</string>
   <string name="mistake">Misstag</string>
   <string name="inaccuracy">Småfel</string>
-  <plurals name="nbBlunders">
-    <item quantity="one">%s blunder</item>
-    <item quantity="other">%s blunders</item>
-  </plurals>
   <plurals name="numberBlunders">
     <item quantity="one">%s Blunder</item>
     <item quantity="other">%s Blunders</item>
   </plurals>
-  <plurals name="nbMistakes">
-    <item quantity="one">%s misstag</item>
-    <item quantity="other">%s misstag</item>
-  </plurals>
   <plurals name="numberMistakes">
     <item quantity="one">%s Misstag</item>
     <item quantity="other">%s Misstag</item>
-  </plurals>
-  <plurals name="nbInaccuracies">
-    <item quantity="one">%s småfel</item>
-    <item quantity="other">%s småfel</item>
   </plurals>
   <plurals name="numberInaccuracies">
     <item quantity="one">%s Småfel</item>
@@ -257,7 +245,6 @@
   <string name="emailSent">Vi har skickat ett mejl till %s.</string>
   <string name="emailCanTakeSomeTime">Det kan ta en stund för det att komma fram.</string>
   <string name="refreshInboxAfterFiveMinutes">Vänta 5 minuter och uppdatera din inkorg.</string>
-  <string name="checkSpamFolder">Kontrollera även din skräppost, det kan hamna där. I så fall, markera det som ej skräppost.</string>
   <string name="accountConfirmed">Användaren %s är bekräftad.</string>
   <string name="accountCanLogin">Du kan nu logga in som %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Du behöver inte en e-postbekräftelse.</string>
@@ -280,8 +267,6 @@
   </plurals>
   <string name="ok">Ok</string>
   <string name="cancel">Avbryt</string>
-  <string name="whiteTimeOut">Vits tid är slut</string>
-  <string name="blackTimeOut">Svarts tid är slut</string>
   <string name="drawOfferSent">Remierbjudande skickat</string>
   <string name="drawOfferAccepted">Remierbjudande accepterat</string>
   <string name="whiteOffersDraw">Vit erbjuder remi</string>
@@ -574,8 +559,7 @@
   <string name="other">Annat</string>
   <string name="reportCheatBoostHelp">Klistra in länken till partiet/partierna och förklara vad som är fel med den här användarens beteende. Skriv inte bara \"de fuskar\", utan förklara hur du dragit denna slutsats. Din rapport kan komma att behandlas fortare om den är skriven på engelska.</string>
   <string name="reportUsernameHelp">Förklara hur det här användarnamnet är kränkande. Skriv inte bara \"det är stötande/olämpligt\", utan förklara hur du kom fram till denna slutsats. Detta är extra viktigt om förolämpningen är fördunklad, inte på engelska, är i slang, eller är en historisk/kulturell referens.</string>
-  <string name="reportProcessedFasterInEnglish">Din rapport kommer att behandlas snabbare om den skrivs på engelska.</string>
-  <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it. Replaces old string reportProcessedFasterInEnglish">Vi kan behandla din anmälan snabbare om du skriver på engelska.</string>
+  <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">Vi kan behandla din anmälan snabbare om du skriver på engelska.</string>
   <string name="error.provideOneCheatedGameLink">Ange minst en länk till ett spel där användaren fuskade.</string>
   <string name="by">av %s</string>
   <string name="importedByX">Importerad av %s</string>
@@ -699,11 +683,9 @@
   <string name="aboutSimulRules">När simultanmatchen börjar startar varje spelare ett parti med värden som spelar vit i alla partier.  Simultanmatchen slutar när alla partier är avklarade.</string>
   <string name="aboutSimulSettings">Simultanpartier är alltid orankade. Returmatch, ångerdrag och \"extratid\" är inaktiverat.</string>
   <string name="create">Skapa</string>
-  <string name="whenCreateSimul">När du skapar en simultan får du spela mot flera spelare samtidigt.</string>
   <string name="simulVariantsHint">Om du väljer flera varianter får varje spelare välja vilken de vill spela.</string>
   <string name="simulClockHint">Inställningar för fischerklocka. Ju fler spelare du tar dig an, desto mer tid kan du behöva.</string>
   <string name="simulAddExtraTime">Du kan lägga till extra tid till dig för att klara av simultanspelet.</string>
-  <string name="simulHostExtraTime">Värdens extratid</string>
   <string name="simulAddExtraTimePerPlayer">Lägg till en starttid på klockan för varje spelare som går med i simultanmatchen.</string>
   <string name="simulHostExtraTimePerPlayer">Extratid för värden för varje spelare som deltar</string>
   <string name="lichessTournaments">Lichess-turneringar</string>
@@ -797,10 +779,6 @@
   <string name="quickPairing">Snabbparning</string>
   <string name="lobby">Lobby</string>
   <string name="anonymous">Anonym</string>
-  <plurals name="nbAnonymous">
-    <item quantity="one">Anonym</item>
-    <item quantity="other">Anonym (%s)</item>
-  </plurals>
   <string name="yourScore">Dina poäng: %s</string>
   <string name="language">Språk</string>
   <string name="allLanguages">Alla språk</string>
@@ -834,7 +812,6 @@
   <string name="custom">Anpassad</string>
   <string name="notifications">Aviseringar</string>
   <string name="notificationsX">Notiser: %1$s</string>
-  <string name="perfRatingX">Rating: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekund kvar för att spela första draget</item>
     <item quantity="other">%s sekunder kvar för att spela första draget</item>
@@ -892,7 +869,6 @@
     <item quantity="other">och spara %s linje av förhandsdrag</item>
   </plurals>
   <string name="showUnreadLichessMessage">Du har fått ett privat meddelande från Lichess.</string>
-  <string name="clickHereToReadIt">Klicka här för att läsa den</string>
   <string name="sorry">Beklagar :(</string>
   <string name="weHadToTimeYouOutForAWhile">Vi är tvugna att stänga av dig en stund.</string>
   <string name="why">Varför?</string>
@@ -977,14 +953,13 @@ Lämna tomt för att starta spel från den normala startpositionen.</string>
   <string name="simulFeaturedHelp">Visa din simultan för alla på %s. Inaktivera för privata simultaner.</string>
   <string name="simulDescription">Simultan-beskrivning</string>
   <string name="simulDescriptionHelp">Något du vill berätta för deltagarna?</string>
-  <string name="youCanFormatTextUsing" comment="%s is &quot;Markdown&quot;, a proper noun. As such, the word is intentionally kept as a variable.&#10;&#10;Markdown is a markup language - a type of code that lets you format text (e.g. to create bold text).&#10;&#10;The text links to a reference guide for using Markdown to format text. Replaces old string markdownIsAvailable">Du kan formatera text med %s.</string>
+  <string name="youCanFormatTextUsing" comment="%s is &quot;Markdown&quot;, a proper noun. As such, the word is intentionally kept as a variable.&#10;&#10;Markdown is a markup language - a type of code that lets you format text (e.g. to create bold text).&#10;&#10;The text links to a reference guide for using Markdown to format text.">Du kan formatera text med %s.</string>
   <string name="embedsAvailable">Klistra in en spel-länk eller en studiekapitel-länk för att infoga den.</string>
   <string name="inYourLocalTimezone">I din egen lokala tidszon</string>
   <string name="tournChat">Turneringschatt</string>
   <string name="noChat">Ingen chatt</string>
   <string name="onlyTeamLeaders">Endast lagledare</string>
   <string name="onlyTeamMembers">Endast lagmedlemmar</string>
-  <string name="navigateMoveTree">Navigera i dragträdet</string>
   <string name="mouseTricks">Mus-trick</string>
   <string name="toggleLocalAnalysis">Växla lokal datoranalys</string>
   <string name="toggleAllAnalysis">Växla all datoranalys</string>

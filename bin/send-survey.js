@@ -20,9 +20,11 @@ The input CSV must have a header row. Required columns:
   attribute_1               Lichess username
   token                     Access code (generated if missing)
 
-Optional columns:
-  attribute_45              Lichess language/locale (omitted from survey URL if empty)
+Optional columns (first non-empty is used):
+  language                  LimeSurvey language
+  attribute_3               Lichess language (LimeSurvey export)
   invitation_message        Which message to send: 0, 1, 2 or 3 (defaults to 0)
+  attribute_4               Invitation message (LimeSurvey export)
 
 Header labels may include a parenthetical description, e.g. "attribute_1 (username)";
 only the attribute_N / token name is used.
@@ -310,7 +312,7 @@ for (const row of rows) {
   const username = row.attribute_1?.trim();
   if (!username) continue;
 
-  const lang = normalizeLang(row.attribute_45 ?? row.attribute_4);
+  const lang = normalizeLang(row.language || row.attribute_3);
   let token = row.token?.trim();
   if (!token) token = generateToken(usedTokens);
   else validateToken(token);
@@ -321,7 +323,7 @@ for (const row of rows) {
   }
   usedTokens.add(token);
 
-  const messageId = normalizeMessageId(row.invitation_message);
+  const messageId = normalizeMessageId(row.invitation_message || row.attribute_4);
 
   participants.push({ username, lang, token, messageId, url: surveyLink(surveyId, token, lang) });
 }
@@ -339,7 +341,7 @@ if (writeParticipants) {
 console.log(`Sending surveys to ${participants.length} users...`);
 
 for (const { username, lang, messageId, url } of participants) {
-  console.log(`${lang ?? 'null'} ${username} -> ${url}`);
+  console.log(`${lang ?? 'null'}/${messageId} ${username} -> ${url}`);
 
   const text = makeMessage(lang, messageId, url);
 
@@ -485,7 +487,7 @@ function surveyLink(id, token, lang) {
 }
 
 function formatParticipantsCsv(participants) {
-  const header = 'token,attribute_1,attribute_45';
+  const header = 'token,attribute_1,attribute_3';
   const lines = participants.map(({ token, username, lang }) =>
     [csvCell(token), csvCell(username), csvCell(lang ?? '')].join(','),
   );

@@ -144,12 +144,7 @@ någon annan eller innehålla reklam. Du kan läsa mer i %1$s.</string>
 
   Välj sedan om du vill tillåta eller blockera aviseringar från Lichess.</string>
   <string name="enableAutoplayForSoundsQ">Aktivera autouppspelning av ljud?</string>
-  <string name="enableAutoplayForSoundsA">De flesta webbläsare kan förhindra ljud från att spela på en nyladdad sida för att skydda användare. Tänk om varje webbplats omedelbart kunde bombardera dig med ljudannonser.
-
-Den röda tystningsikonen visas när din webbläsare hindrar lichess.org från att spela ett ljud. Vanligtvis lyfts denna begränsning när du klickar på något. På vissa mobila webbläsare, att trycka-och-dra en bit räknas inte som ett klick. I så fall måste du trycka på tavlan för att tillåta ljud i början av varje spel.
-
-Vi visar den röda ikonen för att varna dig när detta händer. Ofta kan du uttryckligen tillåta lichess.org att spela ljud. Här är instruktioner för att göra det på senaste versioner av några populära webbläsare.</string>
-  <string name="mostBrowsersPreventSoundAutoplay" comment="Replaces old string enableAutoplayForSoundsA">De flesta webbläsare förhindrar nybesökta sidor från att spela ljud för att skydda användare.
+  <string name="mostBrowsersPreventSoundAutoplay">De flesta webbläsare förhindrar nybesökta sidor från att spela ljud för att skydda användare.
 
 Mute-ikonen visas när din webbläsare förhindrar lichess.org från att spela ljud. Den här restriktionen är hävs vanligen om du klickar på något.
 På vissa mobilwebbläsare räknas inte dra och släppa pjäser som att klicka. I sådana fall måste du trycka på brädet för att tillåta ljud i början av varje spel.
@@ -160,11 +155,7 @@ Vi visar en röd mute-ikon för att uppmärksama dig när det här händer. Du k
 2. Tryck Ctrl-i på Linux/Windows eller cmd-i på MacOS
 3. Klicka på fliken Behörigheter
 4. Tillåt Ljud och video på lichess.org</string>
-  <string name="enableAutoplayForSoundsChrome">1. Gå till lichess.org
-2. Klicka på låsikonen i adressfältet
-3. Klicka på Webbplatsinställningar
-4. Tillåt ljud</string>
-  <string name="enableAutoplayForSoundsChromeSiteInformation" comment="Guidance for Google Chrome users on how to enable audio auto-play if they have sound issues. Replaces old string enableAutoplayForSoundsChrome">1. Gå till lichess.org
+  <string name="enableAutoplayForSoundsChromeSiteInformation" comment="Guidance for Google Chrome users on how to enable audio auto-play if they have sound issues.">1. Gå till lichess.org
 2. Klicka på sidinformationsikonen i sökfältet
 3. Klicka på sidinställningar
 4. Tillåt ljud</string>

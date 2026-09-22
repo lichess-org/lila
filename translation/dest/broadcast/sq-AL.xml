@@ -33,11 +33,9 @@
   <string name="currentGameUrl">URL e lojës së tanishme</string>
   <string name="downloadAllRounds">Shkarko krejt raundet</string>
   <string name="deleteRound">Fshije këtë raund</string>
-  <string name="definitivelyDeleteRound">Fshije përfundimisht raundin dhe lojërat e tij.</string>
   <string name="deleteAllGamesOfThisRound">Fshi krejt lojërat e këtij raundi. Burimi do të duhet të jetë aktiv, që të mund të rikrijohen ato.</string>
   <string name="editRoundStudy">Përpunoni analizë raundi</string>
   <string name="deleteTournament">Fshije këtë turne</string>
-  <string name="definitivelyDeleteTournament">Fshihe përfundimisht krejt turneun, krejt raundet e tij dhe krejt lojërat në të.</string>
   <string name="showScores">Shfaq pikë lojtatësh bazuar në përfundime lojërash</string>
   <string name="replacePlayerTags">Opsionale: zëvendësoni emra lojëtarësh, vlerësime dhe tituj</string>
   <string name="fideFederations">Federata FIDE</string>

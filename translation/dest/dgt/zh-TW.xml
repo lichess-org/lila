@@ -20,7 +20,6 @@
   <string name="checkYouHaveMadeOpponentsMove">確認您早已在您的棋盤上移動對手的移動並且再試一次您的移動。</string>
   <string name="asALastResort">作為最後手段，請分開設定 Lichess 與 DGT 棋盤，然後%s</string>
   <string name="reloadThisPage">重新載入此頁面</string>
-  <string name="dgtConfigure">DGT 棋盤 ---------- 設定</string>
   <string name="lichessConnectivity">Lichess 整合</string>
   <string name="validDgtOauthToken">您有妥當的 OAuth 權杖以使用 DGT 棋盤下棋。</string>
   <string name="dgtPlayMenuEntryAdded">已在下棋選單中加入%s選項。</string>

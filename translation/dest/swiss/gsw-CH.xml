@@ -66,7 +66,6 @@ die sogenannti \"SB-Zahl\" (Sonneborn Zahl). Bi Punktglichheit entscheidet die h
   <string name="pairingsA">Mit em %1$s, umgsetzt mit %2$s, in Übereinschtimmig mit em %3$s.</string>
   <string name="moreRoundsThanPlayersQ">Was passiert, wänn es Turnier meh Runde hät, als Schpiller?</string>
   <string name="moreRoundsThanPlayersA">Wänn alli mögliche Paarige gschpillt sind, ischs Turnier fertig und de Sieger wird ermittlet.</string>
-  <string name="restrictedToTeamsQ">Wieso isch es (bi Lichess) nur uf Teams beschränkt?</string>
   <string name="restrictedToTeamsA">Turnier nach \"Schweizer System\" sind nöd fürs Online-Schach konzipiert. 
 Vu de Schpiller wird Pünktlichkeit, Durchhaltevermöge und Geduld verlangt. 
 Mir glaubed, dass so Bedingige vu Teammitglieder/Teams eher erfüllt werded, 
@@ -91,7 +90,6 @@ mit 11 Runde no ischtige vor Rundi 6 afangt oder bi 12 Runde, bevor Rundi 7 scht
 Jedem \"Schpatischtiger\" wird en halbe Punkt gschänkt, obwohl er mehreri Runde verpasst hät.</string>
   <string name="willSwissReplaceArenasQ">Werded Turnier nach \"Schweizer System\" die aktuelle Arena Turnier ersetze?</string>
   <string name="willSwissReplaceArenasA">Nei - es isch nur e zuesätzlichi Schpillmöglichkeit</string>
-  <string name="roundRobinQ">Was isch mit \"Round Robin\" Turnier?</string>
   <string name="roundRobinA">Mir würded das gern au integriere, aber leider funktioniert \"Round Robin\" online nöd.
 De Grund isch, dass es kei gerächti Möglichkeit git, mit Lüt umzgah, wo so es Turnier vorzitig verlöhnd. 
 Mir chönd nöd erwarte, dass jede Schpiller so en Online-Event bis zumSchluss schpillt. 
@@ -134,8 +132,7 @@ mit ähnlichem Rang</string>
   <string name="similarToOTB">Ähnlich wie OTB Turnier</string>
   <string name="unlimitedAndFree">Unbeschränkt und gratis</string>
   <string name="predefinedUsers">Nur vordefinierte Benutzer s\'Mitmache erlaube</string>
-  <string name="forbiddedUsers">Wänn die Lischte nöd leer isch, dörfed Benutzer, wo nöd uf dere Lischte stöhnd, nöd Teilneh. Nur ein Nutzername pro Zile.</string>
-  <string name="predefinedUsersHelp" comment="Replaces old string forbiddedUsers">Gib ei Schpillername pro Ziili ei. Nume dene Schpiller wirds erlaubt si, teilznäh. Frei lah, wenn alli brechtite Schpiller erlaubt si.</string>
+  <string name="predefinedUsersHelp">Gib ei Schpillername pro Ziili ei. Nume dene Schpiller wirds erlaubt si, teilznäh. Frei lah, wenn alli brechtite Schpiller erlaubt si.</string>
   <string name="playYourGames">Absolvier dini Schpiel</string>
   <string name="byes">Freilos</string>
   <string name="absences">Absänze</string>

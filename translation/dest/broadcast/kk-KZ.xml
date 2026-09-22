@@ -32,11 +32,9 @@
   <string name="downloadAllRounds">Барлық айналымдарды жүктеп алу</string>
   <string name="resetRound">Бұл айналымды жаңарту</string>
   <string name="deleteRound">Бұл айналымды жою</string>
-  <string name="definitivelyDeleteRound">Айналым мен оның ойындарын толығымен жою.</string>
   <string name="deleteAllGamesOfThisRound">Айналымның бүкіл ойындарын жою. Оларды қайта құру үшін қайнар көзі белсенді болуы керек.</string>
   <string name="editRoundStudy">Айналымның зертханасын өзгерту</string>
   <string name="deleteTournament">Бұл жарысты жою</string>
-  <string name="definitivelyDeleteTournament">Жарысты айналым мен ойындарымен бірге толығымен жою.</string>
   <string name="fideProfile">FIDE төлқұжаты</string>
   <string name="topPlayers">Мықтылар</string>
   <string name="underXEloTournament" comment="%s is the maximum Elo rating set by the organiser for a tournament.  e.g. 'U2000' will mean it is an tournament for players with Elo under 2000.  Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">%sдейін</string>

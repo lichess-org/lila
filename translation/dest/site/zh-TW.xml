@@ -147,20 +147,11 @@
   <string name="blunder">漏著</string>
   <string name="mistake">錯誤</string>
   <string name="inaccuracy">輕微失誤</string>
-  <plurals name="nbBlunders">
-    <item quantity="other">%s 次漏著</item>
-  </plurals>
   <plurals name="numberBlunders">
     <item quantity="other">%s 次漏著</item>
   </plurals>
-  <plurals name="nbMistakes">
-    <item quantity="other">%s 次失誤</item>
-  </plurals>
   <plurals name="numberMistakes">
     <item quantity="other">%s 次失誤</item>
-  </plurals>
-  <plurals name="nbInaccuracies">
-    <item quantity="other">%s 次輕微失誤</item>
   </plurals>
   <plurals name="numberInaccuracies">
     <item quantity="other">%s 次輕微失誤</item>
@@ -255,8 +246,7 @@
   <string name="emailSent">我們向 %s 發送了電子郵件。</string>
   <string name="emailCanTakeSomeTime">可能需要一些時間才能收到。</string>
   <string name="refreshInboxAfterFiveMinutes">等待5分鐘並刷新你的收件箱。</string>
-  <string name="checkSpamFolder">嘗試檢查你的垃圾郵件收件匣，它可能在那裡。 如果在，請將其標記為非垃圾郵件。</string>
-  <string name="checkSpamOrJunkFolder" comment="checkSpamFolder&#10;It = The confirmation email Replaces old string checkSpamFolder">如果您沒有收到確認電子郵件，請檢查您的垃圾文件夾。務必</string>
+  <string name="checkSpamOrJunkFolder" comment="checkSpamFolder&#10;It = The confirmation email">如果您沒有收到確認電子郵件，請檢查您的垃圾文件夾。務必</string>
   <string name="sendEmailForAccountVerification">如果您無法找到確認郵件，請給 %s 發送郵件，我們會協助您確認賬戶。</string>
   <string name="accountConfirmed">使用者 %s 認證成功</string>
   <string name="accountCanLogin">你可以做為 %s 登入了。</string>
@@ -277,8 +267,6 @@
   </plurals>
   <string name="ok">確認</string>
   <string name="cancel">取消</string>
-  <string name="whiteTimeOut">白方時間到</string>
-  <string name="blackTimeOut">黑方時間到</string>
   <string name="drawOfferSent">和棋請求已發送</string>
   <string name="drawOfferAccepted">同意和棋</string>
   <string name="whiteOffersDraw">白方提出和棋</string>
@@ -386,7 +374,6 @@
     <item quantity="other">您需要再完成 %s 場排位賽</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">您目前的評分%s為臨時評分</string>
-  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">由于您的分數尚不稳定，分數篩選暫時被锁定。進行排位對局将提高稳定性。</string>
   <string name="yourPerfRatingIsTooHigh">您的 %1$s 積分 (%2$s) 過高</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">您本週最高 %1$s 積分 (%2$s) 過高</string>
   <string name="yourPerfRatingIsTooLow">您的 %1$s 積分 (%2$s) 過低</string>
@@ -558,8 +545,7 @@
   <string name="other">其他</string>
   <string name="reportCheatBoostHelp">請詳細說明你舉報此使用者的具體原因並貼上遊戲連結。「他作弊」等簡短說明是不被接受的。</string>
   <string name="reportUsernameHelp">請詳細說明你舉報此使用者的具體原因。若必要請解釋其名詞的歷史意義、網路用語、或是此使用者名稱如何指桑罵槐。「他的使用者名稱不妥」等簡短說明是不被接受的。</string>
-  <string name="reportProcessedFasterInEnglish">若舉報內容為英文將會更快的被處理。</string>
-  <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it. Replaces old string reportProcessedFasterInEnglish">使用英文撰寫報告可以加快我們處理時長。</string>
+  <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">使用英文撰寫報告可以加快我們處理時長。</string>
   <string name="error.provideOneCheatedGameLink">請提供至少一局作弊棋局的連結。</string>
   <string name="by">作者：%s</string>
   <string name="importedByX">由%s導入</string>
@@ -680,12 +666,10 @@
   <string name="aboutSimulRules">當車輪賽開始時，每個玩家都會與主持人對奕，主持人持白。當所有對局結束表示車輪賽也一併結束。</string>
   <string name="aboutSimulSettings">車輪賽事較為非正式的賽制。重賽、悔棋、以及加時功能皆會被禁用。</string>
   <string name="create">建立</string>
-  <string name="whenCreateSimul">當您創建車輪戰時，您要同時跟幾個棋手一起下棋。</string>
-  <string name="creatingASimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new Replaces old string whenCreateSimul">發起車輪戰，讓您同時與多名棋手對弈。</string>
+  <string name="creatingASimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">發起車輪戰，讓您同時與多名棋手對弈。</string>
   <string name="simulVariantsHint">如果您選擇多個變體，每個玩家可以選擇自己所好的變體。</string>
   <string name="simulClockHint">費雪棋鐘設定。棋手越多，您所需的時間可能就越多。</string>
   <string name="simulAddExtraTime">您可以給您的時鍾多加點時間以幫助您應對車輪戰。</string>
-  <string name="simulHostExtraTime">主持人的額外時間</string>
   <string name="simulAddExtraTimePerPlayer">每有一個玩家加入車輪戰，您棋鐘的初始時間都將增加。</string>
   <string name="simulHostExtraTimePerPlayer">於每位玩家加入後棋鐘增加的額外時間</string>
   <string name="lichessTournaments">Lichess 錦標賽</string>
@@ -778,9 +762,6 @@
   <string name="quickPairing">快速配對</string>
   <string name="lobby">大廳</string>
   <string name="anonymous">匿名用户</string>
-  <plurals name="nbAnonymous">
-    <item quantity="other">匿名用戶（%s）</item>
-  </plurals>
   <string name="yourScore">您的分數:%s</string>
   <string name="language">語言</string>
   <string name="allLanguages">所有語言</string>
@@ -814,7 +795,6 @@
   <string name="custom">自訂設定</string>
   <string name="notifications">通知</string>
   <string name="notificationsX">通知：%1$s</string>
-  <string name="perfRatingX">評分：%s</string>
   <string name="yourRatingIsX">你的分數是%s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="other">在%s秒前須下出第一步</item>
@@ -870,7 +850,6 @@
     <item quantity="other">以省略%s個預走的棋步</item>
   </plurals>
   <string name="showUnreadLichessMessage">你收到一個來自 Lichess 的私訊。</string>
-  <string name="clickHereToReadIt">點擊以閱讀</string>
   <string name="sorry">抱歉：（</string>
   <string name="weHadToTimeYouOutForAWhile">我們必須將您暫時封鎖</string>
   <string name="why">為什麼？</string>
@@ -956,15 +935,13 @@
   <string name="simulFeaturedHelp">在 %s 上向所有人展示您主持的車輪戰，對私人車輪戰無效。</string>
   <string name="simulDescription">車輪戰描述</string>
   <string name="simulDescriptionHelp">有甚麼要告訴參賽者的嗎？</string>
-  <string name="markdownIsAvailable">可以使用 %s 格式進行撰寫。</string>
   <string name="embedsAvailable">貼上對局或學習章節網址來嵌入。</string>
   <string name="inYourLocalTimezone">在您的時區內</string>
   <string name="tournChat">錦標賽聊天室</string>
   <string name="noChat">無聊天室</string>
   <string name="onlyTeamLeaders">僅限各隊隊長</string>
   <string name="onlyTeamMembers">僅限各隊伍</string>
-  <string name="navigateMoveTree">定位</string>
-  <string name="moveListNavigation" comment="navigateMoveTree&#10;&#10;Appears in the keyboard shortcuts/help screen. The 'move tree' is simply the list of moves. Replaces old string navigateMoveTree">着法列表導航</string>
+  <string name="moveListNavigation" comment="navigateMoveTree&#10;&#10;Appears in the keyboard shortcuts/help screen. The 'move tree' is simply the list of moves.">着法列表導航</string>
   <string name="mouseTricks">滑鼠功能</string>
   <string name="toggleLocalAnalysis">切換本地計算機分析</string>
   <string name="toggleAllAnalysis">切換所有(本地+服務器) 的電腦分析</string>

@@ -149,25 +149,13 @@
   <string name="blunder">घोडचूक</string>
   <string name="mistake">चुक</string>
   <string name="inaccuracy">अयोग्य चाल</string>
-  <plurals name="nbBlunders">
-    <item quantity="one">%s घोडचूक</item>
-    <item quantity="other">%s घोडचूका</item>
-  </plurals>
   <plurals name="numberBlunders">
     <item quantity="one">%s घोडचूक</item>
     <item quantity="other">%s घोडचूका</item>
   </plurals>
-  <plurals name="nbMistakes">
-    <item quantity="one">%s चुक</item>
-    <item quantity="other">%s चुका</item>
-  </plurals>
   <plurals name="numberMistakes">
     <item quantity="one">%s चुक</item>
     <item quantity="other">%s चुका</item>
-  </plurals>
-  <plurals name="nbInaccuracies">
-    <item quantity="one">%s अयोग्य चाल</item>
-    <item quantity="other">%s अयोग्य चाली</item>
   </plurals>
   <plurals name="numberInaccuracies">
     <item quantity="one">%s अयोग्य चाल</item>
@@ -270,8 +258,7 @@
   <string name="emailSent">आम्ही %s ला ई-मेल पाठवला आहे.</string>
   <string name="emailCanTakeSomeTime">ई-मेल यायला वेळ लागू शकतो.</string>
   <string name="refreshInboxAfterFiveMinutes">५ मिनिट थांबा आणि ई-मेल इनबॉक्स रीफ्रेश करा.</string>
-  <string name="checkSpamFolder">ई-मेल तुमच्या स्पॅम फोल्डर मध्ये जाऊ शकतो. जर असं झालं, तर ते \'नॉट स्पॅम\' मार्क करा.</string>
-  <string name="checkSpamOrJunkFolder" comment="checkSpamFolder&#10;It = The confirmation email Replaces old string checkSpamFolder">जर तुम्हाला पुष्टीकरण ई-मेल मिळाला नसेल, तर तुम्ही \'स्पॅम\' किंवा \'जंक\' फोल्डर तपासून बघा. माहितीपूर्ण राहण्यासाठी, lichess.org कडून येणारे संदेश सुरक्षित आणि \'स्पॅम नसलेले\' म्हणून चिन्हांकित करा. </string>
+  <string name="checkSpamOrJunkFolder" comment="checkSpamFolder&#10;It = The confirmation email">जर तुम्हाला पुष्टीकरण ई-मेल मिळाला नसेल, तर तुम्ही \'स्पॅम\' किंवा \'जंक\' फोल्डर तपासून बघा. माहितीपूर्ण राहण्यासाठी, lichess.org कडून येणारे संदेश सुरक्षित आणि \'स्पॅम नसलेले\' म्हणून चिन्हांकित करा. </string>
   <string name="sendEmailForAccountVerification">जर तुम्हाला पुष्टीकरण ई-मेल सापडत नसेल तर, %s वर ई-मेल पाठवा आणि आम्ही तुमच्या खात्याचे पुष्टीकरण करू</string>
   <string name="accountConfirmed">%s ह्या वापरकर्तानावचं यशस्वीरीत्या पुष्टीकरण झालं.</string>
   <string name="accountCanLogin">तुम्ही आता %s ह्या नावानी प्रवेश करू शकता.</string>
@@ -295,8 +282,6 @@
   </plurals>
   <string name="ok">ठिक आहे</string>
   <string name="cancel">रद्द करा</string>
-  <string name="whiteTimeOut">पांढऱ्याचा वेळ संपला</string>
-  <string name="blackTimeOut">काळ्याचा वेळ संपला</string>
   <string name="drawOfferSent">बरोबरीत सोडवण्याचा प्रस्ताव पाठवला</string>
   <string name="drawOfferAccepted">बरोबरीत सोडवण्याचा प्रस्ताव स्वीकारला</string>
   <string name="whiteOffersDraw">पांढऱ्याने सामना बरोबरीत सोडवण्याचा प्रस्ताव केला आहे</string>
@@ -417,7 +402,6 @@
     <item quantity="other">आपल्याला आणखी %s मानांकित खेळ खेळण्याची आवश्यकता आहे</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">आपले %s मानांकन तात्पुरते आहे</string>
-  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">तुमचे रेटिंग स्थिर नसल्याने रेटिंग गाळी बंद केले गेले आहे. रेटेड खेळ खेळल्याने स्थिरता वाढेल.</string>
   <string name="yourPerfRatingIsTooHigh">आपले %1$s मानांकन (%2$s) खूप जास्त आहे</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">आपले साप्ताहिक %1$s मानांकन (%2$s) खूप जास्त आहे</string>
   <string name="yourPerfRatingIsTooLow">आपले %1$s मानांकन (%2$s) खूप कमी आहे</string>
@@ -594,7 +578,6 @@
   <string name="other">इतर</string>
   <string name="reportCheatBoostHelp">खेळाची दुवा इकडे पेस्ट करा आणि सांगा कि ह्या वापरकर्त्याने काय चुकीचे केले आहे. फक्त फसवणूक केली आहे इतपच नाही, पण तुम्हाला हे का वाटते आहे ते सांगा.</string>
   <string name="reportUsernameHelp">ह्या वापरकर्तानावात काय चुकीचे आहे ते सांगा. फक्त अयोग्य आहे इतकच नाही, पण तुम्हाला हे का वाटते आहे ते सांगा. हे पण सांगा जर हे नाव इंग्रजीत नाही, पण दुसऱ्या भाषेत आयोग्य का आहे आणि जर कुठला तरी इतिहासिक संदर्भ आहे.</string>
-  <string name="reportProcessedFasterInEnglish">तुमच्या आवाहलाची लवकर प्रक्रिया केली जाईल जर ते इंग्रजीत ल्हिले असेल.</string>
   <string name="error.provideOneCheatedGameLink">कृपया फसवणूक झालेल्या खेळासाठी किमान एक दुवा प्रदान करा.</string>
   <string name="by">%s ने</string>
   <string name="importedByX">%s ने आयात केलेले</string>
@@ -718,11 +701,9 @@
   <string name="aboutSimulRules">जेव्हा अनेकांविरुद्ध प्रदर्शन सुरू होते, तेव्हा प्रत्येक खेळाडू यजमानासह खेळ सुरू करतो. जेव्हा सर्व खेळ पूर्ण होतात तेव्हा प्रदर्शन संपते.</string>
   <string name="aboutSimulSettings">अनेकांविरूद्धची प्रदर्शने नेहमीच अनौपचारिक असतात. पुनर्खेळ, चाल परत घेणे आणि वेळ वाढवणे या गोष्टींची परवानगी नसते.</string>
   <string name="create">तयार करा</string>
-  <string name="whenCreateSimul">जेव्हा आपण एखादे अनेकांविरुद्ध प्रदर्शन तयार करता तेव्हा आपल्याला एकाच वेळी अनेक खेळाडू खेळायला मिळतात.</string>
   <string name="simulVariantsHint">आपण कित्येक प्रकार निवडल्यास प्रत्येक खेळाडू कोणता प्रकार खेळायचा ते ठरवू शकेल.</string>
   <string name="simulClockHint">फिशर घड्याळ मांडणी. आपण जितके अधिक खेळाडू घेता, तितके आपल्याला अधिक वेळ लागेल.</string>
   <string name="simulAddExtraTime">एकाच वेळी अनेकांचा सामना करण्यास सोपे व्हावे म्हणून आपण आपल्या घड्याळात अतिरिक्त वेळ घालवू शकता.</string>
-  <string name="simulHostExtraTime">यजमानाचा जास्त वेळ</string>
   <string name="simulAddExtraTimePerPlayer">तुमच्या घड्याळात प्रत्येक नवीन खेळाडूसाठी प्रारंभिक वेळ जोडा.</string>
   <string name="simulHostExtraTimePerPlayer">प्रती खेळाडूनुसार यजमानासाठी जादा वेळ</string>
   <string name="lichessTournaments">Lichess क्रीडासत्र</string>
@@ -817,10 +798,6 @@
   <string name="quickPairing">जलद जोड्या</string>
   <string name="lobby">प्रेक्षागृह</string>
   <string name="anonymous">अनामिक</string>
-  <plurals name="nbAnonymous">
-    <item quantity="one">निनावी</item>
-    <item quantity="other">निनावी (%s)</item>
-  </plurals>
   <string name="yourScore">तुमचे गुण: %s</string>
   <string name="language">भाषा</string>
   <string name="allLanguages">सर्व भाषा</string>
@@ -854,7 +831,6 @@
   <string name="custom">इतर</string>
   <string name="notifications">सूचना</string>
   <string name="notificationsX">%1$s सूचना</string>
-  <string name="perfRatingX">मानांकन: %s</string>
   <string name="yourRatingIsX">तुमचे मानांकन आहे %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">पहिली चाल खेळण्यासाठी %s सेकंद आहेत</item>
@@ -913,7 +889,6 @@
     <item quantity="other">आणि %s पूर्वचाली संपादित करा</item>
   </plurals>
   <string name="showUnreadLichessMessage">तुम्हाला Lichess कडून एक गुप्त संदेश आला आहे.</string>
-  <string name="clickHereToReadIt">वाचण्यासाठी इथे दाबा</string>
   <string name="sorry">माफ करा :(</string>
   <string name="weHadToTimeYouOutForAWhile">आम्हाला आपल्याला काही वेळ खेळू देता येणार नाही.</string>
   <string name="why">का?</string>
@@ -999,14 +974,12 @@
 खाजगी प्रदर्शनासाठी बंद करा.</string>
   <string name="simulDescription">सिम्यूळचे वर्णन</string>
   <string name="simulDescriptionHelp">सदस्यांना काही सांगावेसे वाटते काय?</string>
-  <string name="markdownIsAvailable">%s स्वरूपनासाठी उपलब्ध आहे.</string>
   <string name="embedsAvailable">एम्बेड करण्यासाठी खेळाचा URL पेस्ट करावा किंवा अभ्यासातील अध्यायाचा URL पेस्ट करावा.</string>
   <string name="inYourLocalTimezone">आपल्या स्थानिक वेळेप्रमाणे</string>
   <string name="tournChat">स्पर्धेतील गप्पा</string>
   <string name="noChat">गप्पा बंद</string>
   <string name="onlyTeamLeaders">फक्त संघ प्रमुख</string>
   <string name="onlyTeamMembers">फक्त संघातील सदस्य</string>
-  <string name="navigateMoveTree">पुढच्या चाली बघा</string>
   <string name="mouseTricks">माउस ची युक्ती</string>
   <string name="toggleLocalAnalysis">स्थानिक संगणकाचे विश्लेषण बदला</string>
   <string name="toggleAllAnalysis">संगणकाचे सर्व विश्लेषण बदला</string>

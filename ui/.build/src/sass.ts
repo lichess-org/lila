@@ -1,10 +1,10 @@
-import autoprefixer from 'autoprefixer';
+import browserslist from 'browserslist';
+import { browserslistToTargets, transform } from 'lightningcss';
 import cps from 'node:child_process';
 import fs from 'node:fs';
 import { basename, dirname, join, relative, resolve } from 'node:path';
 import ps from 'node:process';
 import pc from 'picocolors';
-import postcss from 'postcss';
 
 import { env, errorMark, trimLines } from './env.ts';
 import { hashedBasename, symlinkTargetHashes } from './hash.ts';
@@ -99,8 +99,17 @@ async function compile(sources: string[], logAll = true): Promise<string[]> {
     if (logAll) sources.forEach(src => env.log(`Building '${pc.cyan(src)}'`, 'sass'));
     else env.log('Building', 'sass');
 
-    const sassArgs = ['--no-error-css', '--stop-on-error', '--no-color', '--quiet', '--quiet-deps'];
+    const sassArgs = [
+      '--no-error-css',
+      '--stop-on-error',
+      '--no-color',
+      '--quiet-deps',
+      // TODO: remove 'global-builtin' silence when png-viewer code is updated
+      '--silence-deprecation=import,global-builtin',
+    ];
     sassPs?.removeAllListeners();
+
+    const compileStarted = Date.now();
     sassPs = cps.spawn(
       sassBin,
       sassArgs.concat(
@@ -112,28 +121,46 @@ async function compile(sources: string[], logAll = true): Promise<string[]> {
     sassPs.stderr?.on('data', (buf: Buffer) => sassError(buf.toString('utf8')));
     sassPs.stdout?.on('data', (buf: Buffer) => sassError(buf.toString('utf8')));
     sassPs.on('close', async (code: number) => {
-      sassPs = undefined;
-      if (code === 0)
+      env.log(`Compile ${pc.gray(`(${((Date.now() - compileStarted) / 1000).toFixed(3)}s)`)}`, 'sass');
+      if (code === 0) {
+        const postProcessorStarted = Date.now();
         Promise.all(sources.map(addVendorPrefixes))
-          .then(() => resolveWithErrors([]))
+          .then(generated => {
+            env.log(
+              `Lightning CSS ${pc.gray(`(${((Date.now() - postProcessorStarted) / 1000).toFixed(3)}s)`)}`,
+              'sass',
+            );
+            if (!logAll) {
+              const total = generated.reduce((sum, { size }) => sum + size, 0);
+              env.log(
+                `Generated ${generated.length} CSS files ${pc.gray(`(${(total / 1024).toFixed(1)} KB)`)}`,
+                'sass',
+              );
+            }
+            return resolveWithErrors([]);
+          })
           .catch(() => resolveWithErrors(sources));
-      else
-        Promise.all(sources.map(async s => ({ s, exists: await readable(absTempCss(s)) })))
-          .then(srcExists => resolveWithErrors(srcExists.filter(({ exists }) => !exists).map(({ s }) => s)))
-          .catch(() => resolveWithErrors(sources));
+      }
     });
   });
 }
 
-async function addVendorPrefixes(src: string): Promise<void> {
+async function addVendorPrefixes(src: string): Promise<{ size: number }> {
   const cssPath = absTempCss(src);
   const css = await fs.promises.readFile(cssPath, 'utf8');
-  const result = await postcss([autoprefixer]).process(css, { from: cssPath });
-  await fs.promises.writeFile(cssPath, result.css);
+  const result = transform({
+    filename: cssPath,
+    code: Buffer.from(css),
+    minify: env.prod,
+    targets: browserslistToTargets(browserslist(null, { path: env.buildDir })),
+  });
+  await fs.promises.writeFile(cssPath, result.code);
+  return { size: result.code.byteLength };
 }
 
 // recursively parse scss file and its imports to build dependency maps
 async function parseScss(src: string, processed: Set<string>) {
+  if (src.includes('sass:')) return;
   if (dirname(src).endsWith('/gen')) return;
   if (processed.has(src)) return;
   processed.add(src);

@@ -4,10 +4,11 @@ import { makeSquare, opposite } from 'chessops';
 
 import { throttle } from 'lib/async';
 import { isTouchDevice } from 'lib/device';
+import { capitalize } from 'lib/game';
 import * as nv from 'lib/nvui/chess';
 import { commands, boardCommands, addBreaks } from 'lib/nvui/command';
 import { scanDirectionsHandler } from 'lib/nvui/directionScan';
-import { renderSetting } from 'lib/nvui/setting';
+import { renderAdvancedSettings } from 'lib/nvui/renderAdvancedSettings';
 import type { TreeNode } from 'lib/tree/types';
 import { type VNode, bind, onInsert, requiresI18n, hl, type LooseVNodes, type LooseVNode } from 'lib/view';
 
@@ -113,9 +114,7 @@ export function renderNvui(ctx: PuzzleNvuiContext): VNode {
         },
         [
           hl('label', [
-            ctrl.mode === 'view'
-              ? 'Command input'
-              : i18n.puzzle[ctrl.pov === 'white' ? 'findTheBestMoveForWhite' : 'findTheBestMoveForBlack'],
+            ctrl.mode === 'view' ? 'Command input' : i18n.puzzle[`findTheBestMoveFor${capitalize(ctrl.pov)}`],
             hl('input.move.mousetrap', {
               attrs: { name: 'move', type: 'text', autocomplete: 'off', autofocus: true },
             }),
@@ -127,14 +126,10 @@ export function renderNvui(ctx: PuzzleNvuiContext): VNode {
       ctrl.mode === 'view' ? afterActions(ctrl) : playActions({ ctrl, notify } as PuzzleNvuiContext),
       ...(!boardFirst ? boardView : []),
       hl('div.boardstatus', { attrs: { 'aria-live': 'polite', 'aria-atomic': 'true' } }, ''),
-      hl('h2', i18n.site.advancedSettings),
-      hl('label', ['Move notation', renderSetting(moveStyle, ctrl.redraw)]),
-      hl('h3', 'Board settings'),
-      hl('label', ['Piece style', renderSetting(pieceStyle, ctrl.redraw)]),
-      hl('label', ['Piece prefix style', renderSetting(prefixStyle, ctrl.redraw)]),
-      hl('label', ['Show position', renderSetting(positionStyle, ctrl.redraw)]),
-      hl('label', ['Board layout', renderSetting(boardStyle, ctrl.redraw)]),
       ...(!ctrl.data.replay && !ctrl.streak ? [hl('h3', 'Puzzle Settings'), renderDifficultyForm(ctrl)] : []),
+      ...renderAdvancedSettings(moveStyle, pageStyle, pieceStyle, prefixStyle, positionStyle, boardStyle, {
+        redraw: ctrl.redraw,
+      }),
       hl('h2', i18n.site.keyboardShortcuts),
       hl('p', [
         `Left and right arrow keys: ${i18n.site.keyMoveBackwardOrForward}`,

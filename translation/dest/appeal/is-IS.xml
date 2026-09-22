@@ -8,7 +8,6 @@
   <string name="accountMutedInfo">Lestu %s okkar. Ef samskiptareglum er ekki fylgt getur það leitt til þess að aðgangur verði þaggaður.</string>
   <string name="excludedFromLeaderboards">Aðgangurinn þinn er ekki lengur meðtalinn á stigatöflum.</string>
   <string name="closedByModerators">Aðganginum þínum var lokað af stjórnendum.</string>
-  <string name="playTimeout">Þú ert í leikhlé.</string>
   <string name="communicationGuidelines">samskiptareglur</string>
   <string name="fairPlay">Göfuglyndi</string>
 </resources>

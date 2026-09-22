@@ -4,8 +4,7 @@ export type ColorChoice = Color | 'random';
 
 export type ColorProp = Prop<ColorChoice>;
 
-export const colors: { key: ColorChoice; name: string }[] = [
-  { key: 'black', name: i18n.site.black },
-  { key: 'random', name: i18n.site.randomColor },
-  { key: 'white', name: i18n.site.white },
-];
+export const colors: ColorChoice[] = ['white', 'random', 'black'];
+
+export const colorChoiceName = (color: ColorChoice): string =>
+  color === 'random' ? i18n.site.randomColor : i18n.site[color];

@@ -149,25 +149,13 @@
   <string name="blunder">Vakava virhe</string>
   <string name="mistake">Virhe</string>
   <string name="inaccuracy">Epätarkkuus</string>
-  <plurals name="nbBlunders">
-    <item quantity="one">%s vakava virhe</item>
-    <item quantity="other">%s vakavaa virhettä</item>
-  </plurals>
   <plurals name="numberBlunders">
     <item quantity="one">%s Vakava virhe</item>
     <item quantity="other">%s Vakavaa virhettä</item>
   </plurals>
-  <plurals name="nbMistakes">
-    <item quantity="one">%s virhe</item>
-    <item quantity="other">%s virhettä</item>
-  </plurals>
   <plurals name="numberMistakes">
     <item quantity="one">%s Virhe</item>
     <item quantity="other">%s Virhettä</item>
-  </plurals>
-  <plurals name="nbInaccuracies">
-    <item quantity="one">%s epätarkkuus</item>
-    <item quantity="other">%s epätarkkuutta</item>
   </plurals>
   <plurals name="numberInaccuracies">
     <item quantity="one">%s Epätarkkuus</item>
@@ -175,6 +163,10 @@
   </plurals>
   <string name="moveTimes">Siirtoihin käytetty aika</string>
   <string name="flipBoard">Käännä lauta</string>
+  <string name="toggleLocalEngine">Paikallinen tietokone päälle/pois</string>
+  <string name="engineSettings">Tietokoneasetukset</string>
+  <string name="enginesFromStrongestToWeakest">Tietokoneet vahvimmasta heikoimpaan</string>
+  <string name="illegalPosition">Laiton asema</string>
   <string name="threefoldRepetition">Aseman toisto kolmesti</string>
   <string name="claimADraw">Vaadi tasapeli</string>
   <string name="drawClaimed">Tasapeli vaadittu</string>
@@ -271,8 +263,7 @@
   <string name="emailSent">Olemme lähettäneet sähköpostin osoitteeseen %s.</string>
   <string name="emailCanTakeSomeTime">Sähköpostin saapuminen voi kestää jonkin aikaa.</string>
   <string name="refreshInboxAfterFiveMinutes">Odota 5 minuuttia ja päivitä sähköpostin saapuneet-kansio.</string>
-  <string name="checkSpamFolder">Tarkistathan myös roskapostikansiosi, koska se saattaa joutua sinne. Jos niin käy, merkitse, että viesti ei ole roskaposti.</string>
-  <string name="checkSpamOrJunkFolder" comment="checkSpamFolder&#10;It = The confirmation email Replaces old string checkSpamFolder">Jos et saa vahvistussähköpostia, tarkista roskapostikansiosi. Muista luokitella lichess.org-osoitteesta tulevat viestit turvallisiksi ja \"ei roskapostiksi\", jotta voit pysyä ajan tasalla tärkeistä viesteistä.</string>
+  <string name="checkSpamOrJunkFolder" comment="checkSpamFolder&#10;It = The confirmation email">Jos et saa vahvistussähköpostia, tarkista roskapostikansiosi. Muista luokitella lichess.org-osoitteesta tulevat viestit turvallisiksi ja \"ei roskapostiksi\", jotta voit pysyä ajan tasalla tärkeistä viesteistä.</string>
   <string name="sendEmailForAccountVerification">Jos et löydä vahvistussähköpostia, lähetä meille sähköposti osoitteeseen %s, niin me vahvistamme käyttäjätunnuksesi.</string>
   <string name="accountConfirmed">Käyttäjän %s vahvistaminen onnistui.</string>
   <string name="accountCanLogin">Voit nyt kirjautua sisään tunnuksella %s.</string>
@@ -296,10 +287,8 @@
   </plurals>
   <string name="ok">OK</string>
   <string name="cancel">Peruuta</string>
-  <string name="whiteTimeOut">Valkealta loppui aika</string>
-  <string name="whiteRanOutOfTime" comment="whiteTimeOut&#10;&#10;Shows when White's time has run out. Is followed by the end condition, for example&#10;'White ran out of time · Draw' Replaces old string whiteTimeOut">Valkealta loppui aika</string>
-  <string name="blackTimeOut">Mustalta loppui aika</string>
-  <string name="blackRanOutOfTime" comment="blackTimeOut&#10;&#10;Shows when Black's time has run out. Is followed by the end condition, for example&#10;'Black ran out of time · Draw' Replaces old string blackTimeOut">Mustalta loppui aika</string>
+  <string name="whiteRanOutOfTime" comment="whiteTimeOut&#10;&#10;Shows when White's time has run out. Is followed by the end condition, for example&#10;'White ran out of time · Draw'">Valkealta loppui aika</string>
+  <string name="blackRanOutOfTime" comment="blackTimeOut&#10;&#10;Shows when Black's time has run out. Is followed by the end condition, for example&#10;'Black ran out of time · Draw'">Mustalta loppui aika</string>
   <string name="drawOfferSent">Tasapeliehdotus lähetetty</string>
   <string name="drawOfferAccepted">Tasapeliehdotus hyväksytty</string>
   <string name="whiteOffersDraw">Valkea ehdottaa tasapeliä</string>
@@ -420,8 +409,7 @@
     <item quantity="other">Sinun täytyy pelata vielä %s pisteytettyä peliä</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Vahvuuslukusi %s on tilapäinen</string>
-  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Vahvuuslukusuodatin ei ole käytettävissäsi, koska vahvuuslukusi ei ole vakaa. Voit vakauttaa sitä pelaamalla pisteytettyjä pelejä.</string>
-  <string name="cannotFilterByUnstableRating" comment="Tooltip to explain why the control for filtering by rating is disabled Replaces old string ratingRangeIsDisabledBecauseYourRatingIsProvisional">Et voi tällä hetkellä suodattaa vahvuusluvun perusteella, sillä oma vahvuuslukusi ei ole vakaa. Voit vakauttaa sitä pelaamalla pisteytettyjä pelejä.</string>
+  <string name="cannotFilterByUnstableRating" comment="Tooltip to explain why the control for filtering by rating is disabled">Et voi tällä hetkellä suodattaa vahvuusluvun perusteella, sillä oma vahvuuslukusi ei ole vakaa. Voit vakauttaa sitä pelaamalla pisteytettyjä pelejä.</string>
   <string name="yourPerfRatingIsTooHigh">%1$s-vahvuuslukusi (%2$s) on liian suuri</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Viikon korkein %1$s-vahvuuslukusi (%2$s) on liian suuri</string>
   <string name="yourPerfRatingIsTooLow">%1$s-vahvuuslukusi (%2$s) ei riitä</string>
@@ -442,7 +430,7 @@
   <string name="apply">Ota käyttöön</string>
   <string name="save">Tallenna</string>
   <string name="leaderboard">Pistetaulukko</string>
-  <string name="positionAsImage" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position. Replaces old string screenshotCurrentPosition">Asema kuvana</string>
+  <string name="positionAsImage" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position.">Asema kuvana</string>
   <string name="gameAsGIF">Tallenna peli GIF:nä</string>
   <string name="playerNames">Pelaajien nimet</string>
   <string name="moveAnnotations">Siirtokommentit</string>
@@ -600,8 +588,7 @@
   <string name="other">Muu</string>
   <string name="reportCheatBoostHelp">Liitä linkki peliin/peleihin ja kerro, mikä tämän käyttäjän toiminnassa on pielessä. Älä vain sano hänen huijaavan, vaan kerro meille, miksi olet päätellyt niin.</string>
   <string name="reportUsernameHelp">Selitä, mikä tässä käyttäjätunnuksessa on loukkaavaa. Älä vain sano sen olevan loukkaava tai sopimaton, vaan kerro meille, mihin näkemyksesi perustuu, varsinkin jos loukkaus on epäsuora, muun kuin englanninkielinen, slangia, tai jos siinä viitataan kulttuuriin tai historiaan.</string>
-  <string name="reportProcessedFasterInEnglish">Ilmoituksesi käsitellään nopeammin, jos se on kirjoitettu englanniksi.</string>
-  <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it. Replaces old string reportProcessedFasterInEnglish">Voimme käsitellä ilmoituksesi nopeammin, jos kirjoitat meille englanniksi.</string>
+  <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">Voimme käsitellä ilmoituksesi nopeammin, jos kirjoitat meille englanniksi.</string>
   <string name="error.provideOneCheatedGameLink">Anna ainakin yksi linkki peliin, jossa epäilet huijaamista.</string>
   <string name="by">%s</string>
   <string name="importedByX">Käyttäjän %s tuoma</string>
@@ -725,13 +712,11 @@
   <string name="aboutSimulRules">Kun simultaani alkaa, jokainen pelaaja aloittaa pelin simultaanin pitäjää vastaan. Simultaanin pitäjä pelaa valkeilla nappuloilla. Simultaani loppuu, kun kaikki pelit ovat loppuneet.</string>
   <string name="aboutSimulSettings">Simultaanit ovat aina rentoja. Revanssit, siirtojen perumiset ja ajan lisääminen ovat poissa käytöstä.</string>
   <string name="create">Luo</string>
-  <string name="whenCreateSimul">Jos luot simultaanin, sinun täytyy pelata useita pelaajia vastaan kerralla.</string>
-  <string name="creatingASimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new Replaces old string whenCreateSimul">Kun luot simultaanin, voit pelata samanaikaisesti useaa vastustajaa vastaan.</string>
+  <string name="creatingASimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Kun luot simultaanin, voit pelata samanaikaisesti useaa vastustajaa vastaan.</string>
   <string name="simulVariantsHint">Jos valitset useita variantteja, jokainen pelaaja valitsee mihin osallistuu.</string>
   <string name="simulClockHint">Fischer-kellon asetukset. Mitä enemmän pelaajia on, sitä enemmän aikaa saatat tarvita.</string>
   <string name="simulAddExtraTime">Voit lisätä aikaa kelloosi selviytyäksesi simultaanista.</string>
-  <string name="simulHostExtraTime">Isännän ylimääräinen aika</string>
-  <string name="extraClockTimeForHost" comment="Appears on: https://lichess.org/simul/new&#10;&#10;Allows a simul host to select extra time for the simul.&#10;&#10;Please note this string used to state &quot;Host extra clock time&quot;, without the word &quot;initial&quot; Replaces old string simulHostExtraTime">Lisäaika isännän kellossa:</string>
+  <string name="extraClockTimeForHost" comment="Appears on: https://lichess.org/simul/new&#10;&#10;Allows a simul host to select extra time for the simul.&#10;&#10;Please note this string used to state &quot;Host extra clock time&quot;, without the word &quot;initial&quot;">Lisäaika isännän kellossa:</string>
   <string name="simulAddExtraTimePerPlayer">Lisää alussa kelloosi aikaa jokaista simultaaniin liittyvää pelaajaa kohden.</string>
   <string name="simulHostExtraTimePerPlayer">Lisää jokaista pelaajaa kohden isännän kelloon lisää aikaa</string>
   <string name="lichessTournaments">Lichessin turnaukset</string>
@@ -742,8 +727,10 @@
   <string name="keyboardShortcuts">Pikanäppäimet</string>
   <string name="keyMoveBackwardOrForward">siirry eteenpäin/taaksepäin</string>
   <string name="keyGoToStartOrEnd">siirry alkuun/loppuun</string>
+  <string name="keyGoToPreviousOrNextLine">siirry edelliseen/seuraavaan linjaan</string>
   <string name="keyCycleSelectedVariation">Vaihda valittu muunnelma</string>
   <string name="keyShowOrHideComments">näytä/piilota kommentit</string>
+  <string name="keyShowOrHideCurrentVariation">näytä/piilota nykyinen muunnelma</string>
   <string name="keyEnterOrExitVariation">lisää/poista muunnelma</string>
   <string name="keyPreviousBranch">Edellinen haara</string>
   <string name="keyNextBranch">Seuraava haara</string>
@@ -826,10 +813,6 @@
   <string name="quickPairing">Nopeasti peliin</string>
   <string name="lobby">Aula</string>
   <string name="anonymous">Nimetön</string>
-  <plurals name="nbAnonymous">
-    <item quantity="one">Anonyymi</item>
-    <item quantity="other">Anonyymejä (%s)</item>
-  </plurals>
   <string name="yourScore">Pisteesi: %s</string>
   <string name="language">Kieli</string>
   <string name="allLanguages">Kaikki kielet</string>
@@ -865,8 +848,7 @@
   <string name="custom">Mukautettu</string>
   <string name="notifications">Ilmoitukset</string>
   <string name="notificationsX">Ilmoitukset: %1$s</string>
-  <string name="perfRatingX">Vahvuusluku: %s</string>
-  <string name="perfRatingLabel" comment="Replaces old string perfRatingX">Vahvuusluku: %s.</string>
+  <string name="perfRatingLabel">Vahvuusluku: %s.</string>
   <string name="yourRatingIsX">Vahvuuslukusi on %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekuntia aikaa pelata ensimmäinen siirto</item>
@@ -925,8 +907,7 @@
     <item quantity="other">ja tallenna %s esisiirtolinjaa</item>
   </plurals>
   <string name="showUnreadLichessMessage">Olet saanut henkilökohtaisen viestin Lichessiltä.</string>
-  <string name="clickHereToReadIt">Lue se napsauttamalla tästä</string>
-  <string name="readTheMessage" comment="'It' refers to a private message. This text follows after a different string which advises players they have received a private message from Lichess. For users, this is appears as a regular private message from the Lichess account: https://lichess.org/@/Lichess Replaces old string clickHereToReadIt">Lue viesti</string>
+  <string name="readTheMessage" comment="'It' refers to a private message. This text follows after a different string which advises players they have received a private message from Lichess. For users, this is appears as a regular private message from the Lichess account: https://lichess.org/@/Lichess">Lue viesti</string>
   <string name="sorry">Pahoittelumme :(</string>
   <string name="weHadToTimeYouOutForAWhile">Meidän täytyi komentaa sinut jäähylle hetkeksi.</string>
   <string name="why">Miksi?</string>
@@ -1012,16 +993,14 @@ Jätä kenttä tyhjäksi, jos haluat pelien alkavan normaalista alkuasemasta.</s
   <string name="simulFeaturedHelp">Näytä simultaanisi kaikille %slla. Poista valinta pitääksesi simultaanin yksityisenä.</string>
   <string name="simulDescription">Simultaanin kuvaus</string>
   <string name="simulDescriptionHelp">Haluatko kertoa osallistujille jotain?</string>
-  <string name="markdownIsAvailable">Muotoiluun voi käyttää %s-kieltä.</string>
-  <string name="youCanFormatTextUsing" comment="%s is &quot;Markdown&quot;, a proper noun. As such, the word is intentionally kept as a variable.&#10;&#10;Markdown is a markup language - a type of code that lets you format text (e.g. to create bold text).&#10;&#10;The text links to a reference guide for using Markdown to format text. Replaces old string markdownIsAvailable">Voit muotoilla tekstiä käyttämällä %s-merkintäkieltä.</string>
+  <string name="youCanFormatTextUsing" comment="%s is &quot;Markdown&quot;, a proper noun. As such, the word is intentionally kept as a variable.&#10;&#10;Markdown is a markup language - a type of code that lets you format text (e.g. to create bold text).&#10;&#10;The text links to a reference guide for using Markdown to format text.">Voit muotoilla tekstiä käyttämällä %s-merkintäkieltä.</string>
   <string name="embedsAvailable">Voit upottaa pelin tai tutkielman kappaleen liittämällä sen URL-osoitteen.</string>
   <string name="inYourLocalTimezone">Omalla aikavyöhykkeelläsi</string>
   <string name="tournChat">Turnauksen keskusteluhuone</string>
   <string name="noChat">Ei keskustelua</string>
   <string name="onlyTeamLeaders">Vain joukkueenjohtajille</string>
   <string name="onlyTeamMembers">Vain joukkueen jäsenille</string>
-  <string name="navigateMoveTree">Siirtolistalla liikkuminen</string>
-  <string name="moveListNavigation" comment="navigateMoveTree&#10;&#10;Appears in the keyboard shortcuts/help screen. The 'move tree' is simply the list of moves. Replaces old string navigateMoveTree">Siirtolistalla liikkuminen</string>
+  <string name="moveListNavigation" comment="navigateMoveTree&#10;&#10;Appears in the keyboard shortcuts/help screen. The 'move tree' is simply the list of moves.">Siirtolistalla liikkuminen</string>
   <string name="mouseTricks">Hiiritoiminnot</string>
   <string name="toggleLocalAnalysis">Paikallinen tietokoneanalyysi päälle/pois</string>
   <string name="toggleAllAnalysis">Kaikki tietokoneanalyysi päälle/pois</string>
@@ -1063,4 +1042,7 @@ Kaikki toimintakustannukset, kehitystyö ja sisältö rahoitetaan yksinomaan kä
   <string name="tags">Tunnisteet</string>
   <string name="enPassant">Ohestalyönti</string>
   <string name="settings">Asetukset</string>
+  <string name="verifyingYourDevice">Vahvistetaan laitettasi...</string>
+  <string name="chessOpenings">Shakkiavaukset</string>
+  <string name="boards">Laudat</string>
 </resources>

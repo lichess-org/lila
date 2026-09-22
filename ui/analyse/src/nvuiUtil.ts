@@ -1,4 +1,4 @@
-import { plyToTurn } from 'lib/game/chess';
+import { plyOpponentColor, plyToTurn } from 'lib/game/chess';
 import { renderComments, renderSan } from 'lib/nvui/render';
 import { path as treePath } from 'lib/tree/tree';
 import { enter, onInsert } from 'lib/view';
@@ -48,7 +48,7 @@ export function renderCurrentNode({
   if (!node.san || !node.uci) return i18n.nvui.gameStart;
   return [
     plyToTurn(node.ply),
-    node.ply % 2 === 1 ? i18n.site.white : i18n.site.black,
+    i18n.site[plyOpponentColor(node.ply)],
     renderSan(node.san, node.uci, moveStyle.get()),
     renderLineIndex(ctrl),
     !ctrl.retro && renderComments(node, moveStyle.get()),

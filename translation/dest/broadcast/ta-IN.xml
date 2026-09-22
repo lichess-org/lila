@@ -34,11 +34,9 @@
   <string name="downloadAllRounds">அனைத்து சுற்றுகளையும் பதிவிறக்கவும்</string>
   <string name="resetRound">இச்சுற்றை மீட்டமைக்கவும்</string>
   <string name="deleteRound">இச்சுற்றை நீக்கு</string>
-  <string name="definitivelyDeleteRound">சுற்று மற்றும் அதன் அனைத்து ஆட்டங்களையும் கண்டிப்பாக நீக்கவும்.</string>
   <string name="deleteAllGamesOfThisRound">இச்ச்சுற்றின் அனைத்து ஆட்டங்களையும் நீக்கு. அவற்றை மீண்டும் உருவாக்க, ஆதாரமானது செயற்பாட்டில் இருக்க வேண்டும்.</string>
   <string name="editRoundStudy">சுற்று கற்கையைத் திருத்து</string>
   <string name="deleteTournament">இப்பந்தயத்தை நீக்கு</string>
-  <string name="definitivelyDeleteTournament">முழு பந்தயத்தையும், அதன் அனைத்து சுற்றுகளையும் அதன் அனைத்து ஆட்டங்களையும் கண்டிப்பாக நீக்கவும்.</string>
   <string name="showScores">விளையாட்டு முடிவுகளின் அடிப்படையில் வீரர்களின் மதிப்பெண்களைக் காட்டு</string>
   <string name="replacePlayerTags">கட்டாயமற்றது: வீரர்களின் பெயர்கள், மதிப்பீடுகள் மற்றும் தலைப்புகளை மாற்றவும்</string>
   <string name="fideFederations">FIDE பேரவை</string>

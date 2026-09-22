@@ -44,15 +44,12 @@
   <string name="doubleCheckDescription">ஒரே காலத்தில் இரு துண்டுகளைக் கொண்டு அடக்குதல், ஒரு வெளிபடுத்திய தாக்குதலின் விளைவாக நகரும் துண்டு மற்றும் திரை மறை நின்ற துண்டு இரண்டும் எதிராளியின் அரசரைத் தாக்கும்.</string>
   <string name="endgame">கடையாட்டம்</string>
   <string name="endgameDescription">ஆட்டத்தின் இறுதிக் கட்டத்திலான சூழ்ச்சி.</string>
-  <string name="enPassantDescription">தனது துவக்க இரண்டு சதுக்க நகர்வைப் பயன்படுத்தி, தன்னைத் தவிர்த்துச் சென்ற எதிராளி பணயத்தைப் பிடிக்கக்கூடிய வழி மடக்கு விதியை உள்ளடக்கிய ஒரு சூழ்ச்சி.</string>
   <string name="exposedKing">அம்பலமான அரசர்</string>
   <string name="exposedKingDescription">ஒரு அரசரைச் சுற்றி சில பாதுகாவலர்கள் இருப்பது போன்ற ஒரு சூழ்ச்சி, இது பெரும்பாலும் முற்றுகைக்கு வழிவகுக்கிறது.</string>
   <string name="fork">கவர்</string>
-  <string name="forkDescription">நகர்த்தப்பட்ட காய் ஒரே நேரத்தில் இரண்டு எதிராளி காய்களைத் தாக்கும் ஒரு நகர்வு.</string>
   <string name="hangingPiece">வாட்டமான துண்டு</string>
   <string name="hangingPieceDescription">எதிராளியின் துண்டைப் பாதுகாக்காமல் அல்லது போதுமான அளவு பாதுகாக்காமல், கைப்பற்ற சுதந்திரமாக இருப்பதை உள்ளடக்கிய ஒரு சூழ்ச்சி.</string>
   <string name="hookMate">தூண்டில் முற்றுகை</string>
-  <string name="hookMateDescription">எதிரி அரசரின் தப்பிப்பைக் கட்டுப்படுத்த ஒரு யானை, குதிரை, மற்றும் ஒரு எதிரி பணயத்துடன் பணயம் ஆகியவற்றைக் கொண்டு முற்றுகையிடுங்கள்.</string>
   <string name="interference">குறுக்கீடு</string>
   <string name="interferenceDescription">எதிராளியின் இரண்டு துண்டுகளுக்கு இடையில் ஒரு துண்டை நகர்த்தி, ஒன்று அல்லது இரண்டு துண்டுகளையும் பாதுகாக்காமல் விட்டுவிடுதல், உதாரணமாக, இரண்டு யானைகளுக்கு இடையில் பாதுகாக்கப்பட்ட சதுக்கத்தில் ஒரு குதிரையைப் போல.</string>
   <string name="intermezzo">இடையிசை</string>
@@ -92,7 +89,6 @@
   <string name="pin">குண்டூசி</string>
   <string name="pinDescription">அதிக மதிப்புள்ள துண்டின் மீதான தாக்குதலை வெளிப்படுத்தாமல் ஒரு துண்டு நகர முடியாத நிலையில், குண்டூசிகளை உள்ளடக்கிய ஒரு சூழ்ச்சி.</string>
   <string name="promotion">உயர்வு</string>
-  <string name="promotionDescription">உங்கள் பணயம் ஒன்றை அரசி அல்லது சிறிய துண்டாக உயர்த்தவும்.</string>
   <string name="queenEndgame">அரசி கடையாட்டம்</string>
   <string name="queenEndgameDescription">அரசிகளும் பணயங்களும் மட்டுமே கொண்ட ஒரு கடையாட்டம்.</string>
   <string name="queenRookEndgame">அரசி மற்றும் யானை</string>

@@ -148,11 +148,7 @@ export default class RelayPlayers {
 export const playersView = (ctrl: RelayPlayers): VNode =>
   ctrl.show ? playerView(ctrl, ctrl.show) : playersList(ctrl);
 
-const ratingCategs: Record<FideTC, string> = {
-  standard: i18n.site.classical,
-  rapid: i18n.site.rapid,
-  blitz: i18n.site.blitz,
-};
+const ratingCategs: FideTC[] = ['standard', 'rapid', 'blitz'];
 const playerView = (ctrl: RelayPlayers, show: PlayerToShow): VNode => {
   const tour = ctrl.tour;
   const p = show.player;
@@ -229,9 +225,9 @@ const playerView = (ctrl: RelayPlayers, show: PlayerToShow): VNode => {
           ),
           hl('div.fide-player__cards', [
             p.fide?.ratings &&
-              Object.entries(ratingCategs).map(([key, name]: [FideTC, string]) =>
+              ratingCategs.map(key =>
                 hl(`div.fide-player__card${key === tc ? '.active' : ''}`, [
-                  hl('em', fideTCAttrs(key), name),
+                  hl('em', fideTCAttrs(key), i18n.site[key]),
                   hl('span', [p.fide?.ratings[key] || '-']),
                 ]),
               ),
@@ -339,7 +335,7 @@ export const renderPlayers = (
                         {
                           class: { pinned },
                           attrs: {
-                            title: 'Pin player',
+                            title: i18n.broadcast.pinPlayer,
                           },
                           on: {
                             click() {
@@ -577,7 +573,7 @@ const isRelayPlayerGame = (p: RelayPlayer | RelayPlayerGame): p is RelayPlayerGa
 const fideTCAttrs = (tc: FideTC): VNodeData => ({
   attrs: {
     'data-icon': perfIcons[tc === 'standard' ? 'classical' : tc],
-    title: ratingCategs[tc],
+    title: i18n.site[tc],
   },
 });
 

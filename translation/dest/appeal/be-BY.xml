@@ -8,7 +8,6 @@
   <string name="accountMutedInfo">Азнаёмцеся з нашымі %s. Невыкананне правілаў абмену паведамленнямі можа прывесці да адключэння доступу да акантаў.</string>
   <string name="excludedFromLeaderboards">Ваш уліковы запіс быў выключаны са спісу лідараў.</string>
   <string name="closedByModerators">Ваш уліковы запіс быў зачынены мадэратарамі.</string>
-  <string name="playTimeout">Вас часова адхілілі ад гульні.</string>
   <string name="communicationGuidelines">кіраўніцтва па камунікацыі</string>
   <string name="fairPlay">Сумленная гульня</string>
 </resources>

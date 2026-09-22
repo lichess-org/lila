@@ -15,7 +15,6 @@
 
 გაერთეთ, დაე თქვენმა ფიგურებმა ყოველთვის იპოვონ გზა მოწინააღმდეგის მეფისკენ!</string>
   <string name="logInToLichess">გაიარეთ ავტორიზაცია lichess.org-ზე, %s</string>
-  <string name="common_orPaste">(დაკლიკება არ მუშაობს? სცადეთ ბმულის ბრაუზერში ჩასმა!)</string>
   <string name="common_note">ეს არის სერვის-წერილი დაკავშირებული თქვენს მიერ %s-ის გამოყენებასთან.</string>
   <string name="common_contact">ჩვენთან დაკავშირებისთვის გამოიყენეთ %s.</string>
 </resources>

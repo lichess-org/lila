@@ -20,7 +20,6 @@
   <string name="checkYouHaveMadeOpponentsMove">Najprv skontrolujte, či ste na DGT šachovnici vykonali ťah súpera. Vráťte svoj ťah. Potiahnite znova.</string>
   <string name="asALastResort">Ako poslednú možnosť nastavte šachovnicu rovnako ako Lichess, a potom %s</string>
   <string name="reloadThisPage">Načítajte stránku znova</string>
-  <string name="dgtConfigure">DGT - Konfigurácia</string>
   <string name="lichessConnectivity">Lichess konektivita</string>
   <string name="validDgtOauthToken">Máte token OAuth vhodný pre hranie na DGT šachovnici.</string>
   <string name="dgtPlayMenuEntryAdded">Do ponuky PLAY v hlavnom menu bola pridaná položka %s.</string>

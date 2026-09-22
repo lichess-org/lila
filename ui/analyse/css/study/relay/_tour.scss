@@ -149,7 +149,7 @@
     }
 
     .streamer-menu {
-      @extend %flex-column, %dropdown-shadow, %box-radius-bottom;
+      @extend %flex-column, %popup-shadow, %box-radius-bottom;
 
       position: absolute;
       max-height: 12em;
@@ -222,7 +222,7 @@
       > img {
         width: 100%;
 
-        @include broken-img(2 / 1);
+        @include broken-img(2);
       }
 
       .video-player-close {
@@ -609,6 +609,10 @@
           &.pinned {
             filter: none;
             transform: rotate(-45deg) translate(-2px, 2px);
+
+            &:hover {
+              transform: rotate(-25deg);
+            }
           }
         }
       }
