@@ -6,12 +6,6 @@
   clip-path: var(---transition-clip); // ---transition-clip is set to .shortcuts-view bounding box
 }
 
-dialog .close-button-anchor .close-button {
-  @include inline-end(12px, true);
-
-  top: 12px;
-}
-
 dialog:has(.shortcuts-dialog) {
   backdrop-filter: none;
 }
@@ -20,6 +14,7 @@ dialog:has(.shortcuts-dialog) {
   @include prevent-select;
 
   -webkit-touch-callout: none;
+  padding-block: 1.5em;
   border-radius: 8px;
   border: $border;
   display: flex;
@@ -28,35 +23,14 @@ dialog:has(.shortcuts-dialog) {
   width: min(800px, 96vw);
   background: $c-bg-fade;
 
-  .mobile-only {
-    display: none;
-    outline: none;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .mobile-only.reset {
-    @include inline-start(12px);
-
-    top: 12px;
-    position: absolute;
-    width: 40px;
-    height: 40px;
-    border-radius: 6px;
-    border: $border;
-    font-size: 20px;
-    color: $c-font;
-    background: $c-bg-fade;
-  }
-
-  .desktop-only {
-    display: flex;
-    justify-content: end;
-    gap: 2em;
-  }
-
-  .desktop-only .reset {
+  .reset {
     margin-inline-end: auto;
+  }
+
+  .footer {
+    display: flex;
+    gap: 1em;
+    justify-content: end;
   }
 }
 
@@ -67,7 +41,7 @@ dialog:has(.shortcuts-dialog) {
   gap: 1em;
   touch-action: pan;
   grid-template: 'scratch shortcuts' minmax(0, 1fr) / minmax(72px, 0.25fr) minmax(0, 1fr);
-  height: min(64vh, 624px);
+  height: min(60vh, 624px);
 
   @include mq-is-col1 {
     grid-template: 'scratch' auto 'shortcuts' minmax(0, 1fr) / minmax(0, 1fr);
@@ -136,8 +110,9 @@ dialog:has(.shortcuts-dialog) {
   }
 
   .shortcut {
+    @include fluid-size-orientation('gap', 0, 6px);
+
     view-transition-class: shortcut;
-    gap: calc(var(---scale, 1) * 6px);
     padding: calc(var(---scale, 1) * 4px);
     overflow: hidden;
     min-width: 64px;
@@ -159,31 +134,13 @@ dialog:has(.shortcuts-dialog) {
     max-height: 56px;
     flex: 1 0 auto;
   }
-
-  .unavailable-slot {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    order: 1;
-
-    &::before {
-      font-size: 2em;
-      color: $c-border;
-    }
-  }
 }
 
 @media ((hover: none) or (pointer: coarse)) {
   .shortcuts-dialog {
-    .mobile-only {
-      display: flex;
-    }
+    padding: 1em;
 
-    .desktop-only {
-      display: none;
-    }
-
-    .shortcuts .unavailable-slot::before {
+    h2 {
       display: none;
     }
 
@@ -198,11 +155,15 @@ dialog:has(.shortcuts-dialog) {
       }
     }
 
-    @include mq-at-least-col2 {
-      padding: 4px 64px;
+    @media (orientation: landscape) {
+      max-width: 80vw;
 
-      h2 {
+      .header {
         display: none;
+      }
+
+      .scratch .shortcut {
+        min-height: unset;
       }
     }
   }

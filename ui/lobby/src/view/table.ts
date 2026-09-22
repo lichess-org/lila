@@ -1,3 +1,5 @@
+import { myUserId } from 'lib';
+import { displayColumns } from 'lib/device';
 import { numberFormat } from 'lib/i18n';
 import { bind, onInsert, hl, thunk } from 'lib/view';
 
@@ -43,8 +45,21 @@ export default function table(ctrl: LobbyController) {
       label: 'play bot',
     });
 
+  const editShortcutsButton =
+    myUserId() &&
+    hl(
+      'button.button.button-metal.lobby__start__button.lobby__start__button--shortcuts',
+      { on: { click: () => ctrl.shortcutsCtrl.onclick('editShortcuts') } },
+      'Edit shortcuts',
+    );
+  const gameButtons = lobbyButtons.map(makeLobbyButton);
   return hl('div.lobby__table', [
-    hl('div.lobby__start', [site.blindMode && hl('h2', i18n.site.play), lobbyButtons.map(makeLobbyButton)]),
+    hl('div.lobby__start', [
+      site.blindMode && hl('h2', i18n.site.play),
+      gameButtons,
+      displayColumns() < 3 && editShortcutsButton,
+    ]),
+    displayColumns() === 3 && editShortcutsButton,
     renderSetupModal(ctrl),
     site.blindMode
       ? undefined

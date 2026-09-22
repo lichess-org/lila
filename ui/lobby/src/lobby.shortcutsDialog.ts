@@ -1,11 +1,9 @@
 import { frag } from 'lib';
 import { isTouchDevice, displayColumns } from 'lib/device';
-import { clockToSpeed } from 'lib/game';
 import { licon } from 'lib/licon';
 import type { LobbyShortcut } from 'lib/types';
 import { domDialog, type Dialog, confirm } from 'lib/view';
 
-import type { Pool } from './interfaces';
 import { ShortcutsCtrl, fitShortcut } from './shortcutsCtrl';
 
 const shortcutIdMimeType = 'application/x-lichess-shortcut-id';
@@ -32,28 +30,25 @@ export async function initModule({
       : undefined,
     ctrl.loaded,
   ]);
+  const helpText = isTouchDevice() ? 'Tap to add and remove' : 'Drag or click to add and remove';
   const dlg = await domDialog({
     ctx: { ctrl },
     class: 'shortcuts-dialog',
     css: [{ hashed: 'lobby.shortcuts-dialog' }],
     show: true,
-    noCloseButton: !isTouchDevice(),
+    noCloseButton: true,
     modal: !isTouchDevice(),
-    focus: !isTouchDevice() ? '.desktop-only .save' : undefined,
+    focus: !isTouchDevice() ? '.save' : undefined,
     htmlText: $html`
-      <button class="mobile-only button-empty reset" data-icon="${licon.ChasingArrows}"
-              aria-label="Reset shortcuts">
-      </button>
-      <h2>Add to shortcuts</h2>
+      <div class="header">
+        <h2>Edit shortcuts</h2>
+        <span>${helpText}</span>
+      </div>
       <div class="shortcuts-view">
         <div class="scratch" aria-label="Available shortcuts"></div>
-        <div class="shortcuts" aria-label="Chosen shortcuts">
-          <div class="unavailable-slot" data-icon="${licon.NotAllowed}">
-            <button class="mobile-only button button-text save">${i18n.site.save}</button>
-          </div>
-        </div>
+        <div class="shortcuts" aria-label="Chosen shortcuts"></div>
       </div>
-      <div class="desktop-only">
+      <div class="footer">
         <button class="button button-metal reset">${i18n.site.reset}</button>
         <button class="button button-empty button-red cancel">${i18n.site.cancel}</button>
         <button class="button save">${i18n.site.save}</button>
@@ -108,14 +103,13 @@ function renderShortcut(s: LobbyShortcut, scratch = false): Element {
     <div class="shortcut" tabindex="0" role="button" draggable="true" data-id="${s.id}"
          style="---scale: ${scale}; view-transition-name: shortcut-${CSS.escape(s.id)}"></div>`);
   if (s.iconUrl) el.append(frag(`<div class="icon"><img src="${s.iconUrl}" alt=""></div>`));
-  const pool = 'lim' in s && 'inc' in s && (s as Pool);
   el.append(
     ...([
       s.iconKey && frag(`<div class="icon"><i data-icon="${licon[s.iconKey]}"></i></div>`),
       s.iconMaskUrl &&
         frag(`<div class="icon"><div class="mask" style="---icon-mask:url(${s.iconMaskUrl})"></div></div>`),
-      pool && frag(`<div class="clock">${s.id}</div>`),
-      frag(`<div class="name">${pool ? i18n.site[clockToSpeed(pool.lim * 60, pool.inc)] : text}</div>`),
+      s.pool && frag(`<div class="clock">${s.pool}</div>`),
+      frag(`<div class="name">${text}</div>`),
     ].filter(Boolean) as Node[]),
   );
   return el;

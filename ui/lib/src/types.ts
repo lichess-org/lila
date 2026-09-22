@@ -16,8 +16,9 @@ export interface QuestionOpts {
 export interface LobbyShortcut {
   id: string;
   name?: string;
+  url?: string;
+  pool?: string; // shown in the icon spot. same as id for now
   iconKey?: LiconKey;
   iconUrl?: string;
   iconMaskUrl?: string;
-  url?: string;
 }

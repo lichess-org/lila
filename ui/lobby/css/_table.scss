@@ -50,6 +50,10 @@
         content: $licon-Swords;
       }
 
+      &--shortcuts.button::before {
+        content: $licon-StarOutline;
+      }
+
       @media (hover: hover) {
         &:hover.disabled {
           cursor: default;

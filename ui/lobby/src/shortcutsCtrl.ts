@@ -11,22 +11,28 @@ import { jsonSimple } from 'lib/xhr';
 import type LobbyController from './ctrl';
 import type { Pool } from './interfaces';
 
-export const pools = deepFreeze([
-  // mirrors modules/pool/src/main/PoolList.scala
-  { id: '1+0', lim: 1, inc: 0 },
-  { id: '2+1', lim: 2, inc: 1 },
-  { id: '3+0', lim: 3, inc: 0 },
-  { id: '3+2', lim: 3, inc: 2 },
-  { id: '5+0', lim: 5, inc: 0 },
-  { id: '5+3', lim: 5, inc: 3 },
-  { id: '10+0', lim: 10, inc: 0 },
-  { id: '10+5', lim: 10, inc: 5 },
-  { id: '15+10', lim: 15, inc: 10 },
-  { id: '30+0', lim: 30, inc: 0 },
-  { id: '30+20', lim: 30, inc: 20 },
-] as const satisfies readonly Pool[]);
+// mirrors modules/pool/src/main/PoolList.scala
+export const pools = deepFreeze(
+  [
+    { lim: 1, inc: 0 },
+    { lim: 2, inc: 1 },
+    { lim: 3, inc: 0 },
+    { lim: 3, inc: 2 },
+    { lim: 5, inc: 0 },
+    { lim: 5, inc: 3 },
+    { lim: 10, inc: 0 },
+    { lim: 10, inc: 5 },
+    { lim: 15, inc: 10 },
+    { lim: 30, inc: 0 },
+    { lim: 30, inc: 20 },
+  ].map(p => {
+    const id = `${p.lim}+${p.inc}`; // if {lim}+{inc} is ever internationalized, do that in pool field
+    return { id, ...p, pool: id, name: i18n.site[clockToSpeed(p.lim * 60, p.inc)] };
+  }),
+) satisfies readonly Pool[];
 
 export const siteShortcuts = deepFreeze([
+  { id: 'customGame', name: 'Custom' },
   { id: 'myGames', iconKey: 'Multiboard', name: 'My games', url: `/@/${myUsername()}/all#angles` },
   { id: 'analysisBoard', iconKey: 'Microscope', name: 'Analysis board', url: '/analysis' },
   { id: 'boardEditor', iconKey: 'StudyBoard', name: 'Board editor', url: '/editor' },
@@ -46,9 +52,9 @@ export const siteShortcuts = deepFreeze([
   { id: 'puzzleStorm', iconKey: 'Storm', name: 'Puzzle storm', url: '/storm' },
   { id: 'puzzleStreak', iconKey: 'ArrowThruApple', name: 'Puzzle streak', url: '/streak' },
   {
-    id: 'bots',
+    id: 'onlineBots',
     iconMaskUrl: site.asset.url('images/icons/robot.svg'),
-    name: 'Bots',
+    name: 'Online bots',
     url: '/player/bots',
   },
   {
@@ -57,9 +63,10 @@ export const siteShortcuts = deepFreeze([
     name: 'Puzzle racer',
     url: '/racer',
   },
+  { id: 'editShortcuts', iconKey: 'StarOutline', name: 'Edit shortcuts' },
 ] as const satisfies readonly LobbyShortcut[]);
 
-const slotCount = 3 * 4 - 1; // minus 1 for customize button
+const slotCount = 3 * 4;
 
 type ConfiguredShortcuts = (Shortcut | null)[];
 type Shortcut = LobbyShortcut & Partial<Pool> & { hidden?: boolean; static?: boolean };
@@ -67,9 +74,7 @@ type Shortcut = LobbyShortcut & Partial<Pool> & { hidden?: boolean; static?: boo
 export class ShortcutsCtrl {
   loaded: Promise<void>;
   private slots = Array<string | null>(slotCount).fill(null);
-  private readonly all = new Map<string, Shortcut>([
-    ['customize', { id: 'customize', name: 'Customize', iconKey: 'StarOutline', hidden: true }],
-  ]);
+  private readonly all = new Map<string, Shortcut>();
 
   constructor(
     private readonly ctrl?: LobbyController,
@@ -151,11 +156,17 @@ export class ShortcutsCtrl {
   onclick(id: string): void {
     const shortcut = this.all.get(id);
     if (!shortcut) return;
-    if (pools.some(p => p.id === shortcut.id)) this.ctrl?.clickPool(shortcut.id);
-    else if (shortcut.id === 'customize')
-      site.asset.loadEsm('lobby.shortcutsDialog', { init: { ctrl: this } });
-    else if (shortcut.url) site.redirect(shortcut.url);
-    else alert('What do? ' + JSON.stringify(shortcut));
+    if (pools.some(p => p.id === shortcut.id)) {
+      this.ctrl?.clickPool(shortcut.id);
+    } else if (shortcut.id === 'customGame') {
+      this.ctrl?.setupCtrl.openModal('hook');
+    } else if (shortcut.id === 'editShortcuts') {
+      site.asset.loadEsm('lobby.shortcutsDialog', { init: { ctrl: this } }).then(() => this.ctrl?.redraw());
+    } else if (shortcut.url) {
+      site.redirect(shortcut.url);
+    } else {
+      alert('What do? ' + JSON.stringify(shortcut));
+    }
   }
 
   scratchIndexOf(id: string): number {
@@ -204,7 +215,7 @@ export class ShortcutsCtrl {
   };
 
   private setConfigured<T extends { id: string }>(slots: readonly (string | T | null)[] | undefined) {
-    const ids = (slots ?? pools).map(s => (typeof s === 'string' ? s : (s?.id ?? null)));
+    const ids = (slots ?? [...pools, 'customGame']).map(s => (typeof s === 'string' ? s : (s?.id ?? null)));
     for (const s of ids.filter(Boolean).map(id => this.all.get(id!))) {
       if (s) s.hidden = false;
     }
@@ -227,7 +238,7 @@ export function fitShortcut(
   effectiveLengthTarget = 32,
   truncateAt = 80,
 ): { scale: number; text: string } {
-  if ('lim' in s) return { scale: 1, text: s.id };
+  if ('pool' in s) return { scale: 1, text: s.name ?? '' };
 
   const scaleBy = 0.9;
   const minEm = 0.65;
