@@ -169,6 +169,11 @@ final class User(
             .flatMap:
               case Some(url) => Redirect(url).toFuccess
               case None if isGrantedOpt(_.AccountInfo) => ctx.useMe(modC.searchTerm(username.value))
+              case None if username.id.is(UserId("me")) =>
+                negotiate(
+                  Redirect(routes.Auth.login.url, Map("referrer" -> List(ctx.req.uri))).toFuccess,
+                  authenticationFailed
+                )
               case None => notFound(true)
         case Some(u) if u.enabled.yes || isGrantedOpt(_.AccountInfo) => f(u)
         case u => notFound(u.isEmpty)
