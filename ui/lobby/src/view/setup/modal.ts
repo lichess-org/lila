@@ -33,11 +33,6 @@ export default function setupModal(ctrl: LobbyController) {
       const disabled = !setupCtrl.valid() || setupCtrl.loading;
       return [
         hl('h2#lobby-setup-modal-title', actionText),
-        setupCtrl.canAddShortcut() &&
-          hl('button.button.button-empty.game-shortcut', {
-            on: { click: setupCtrl.addToShortcuts },
-            attrs: { 'data-icon': licon.StarOutline },
-          }),
         hl('div.setup-content', views[setupCtrl.gameType!](ctrl)),
         hl('div.footer', [
           hl(
@@ -50,6 +45,11 @@ export default function setupModal(ctrl: LobbyController) {
             actionText,
           ),
           setupCtrl.loading && spinnerVdom(),
+          setupCtrl.canAddShortcut() &&
+            hl('button.button.button-metal.game-shortcut', {
+              on: { click: setupCtrl.addToShortcuts },
+              attrs: { 'data-icon': licon.StarOutline, title: 'Add to shortcuts' },
+            }),
         ]),
       ];
     },

@@ -83,17 +83,6 @@ $c-slider: $c-setup;
     margin: 1.5rem 0;
   }
 
-  .game-shortcut {
-    position: absolute;
-
-    @include inline-end(4rem);
-
-    color: $c-font-dim;
-    top: 1rem;
-    font-size: 24px;
-    padding: 4px;
-  }
-
   .setup-content {
     @extend %flex-column;
 
@@ -162,17 +151,30 @@ $c-slider: $c-setup;
     padding: 1.5rem;
   }
 
-  .lobby__start__button {
+  .lobby__start__button,
+  .game-shortcut {
     @extend %metal-with-border;
 
     height: 3rem;
     padding-inline: 1rem 1.2rem;
     gap: 0.8rem;
     color: $c-font;
+  }
 
-    &::before {
-      color: $c-setup !important;
-    }
+  .lobby__start__button::before {
+    color: $c-setup !important;
+  }
+
+  .game-shortcut {
+    @include inline-end(1rem);
+
+    position: absolute;
+    padding: 4px 8px;
+  }
+
+  .game-shortcut::before {
+    color: $c-font-dim;
+    font-size: 24px;
   }
 
   .footer .spinner {
