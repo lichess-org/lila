@@ -41,7 +41,8 @@ export class ChatCtrl {
   ) {
     this.data = opts.data;
     this.chatEnabled = this.data // tmp BC, remove check
-      ? storedBooleanProp(`chat.${this.data.resourceType}.enabled`, true)
+      ? (this.data.resourceType == 'player' && this.data.userId ? prop(true) : undefined) ||
+        storedBooleanProp(`chat.${this.data.resourceType}.enabled`, true)
       : prop(false);
     this.storedTabKey = storedStringProp(`chat.${opts.plugin ? opts.plugin.key + '.' : ''}tab`, 'discussion');
     if (!opts.kidMode) this.allTabs.push({ key: 'discussion' });
