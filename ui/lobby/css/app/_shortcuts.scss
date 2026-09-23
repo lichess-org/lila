@@ -135,16 +135,19 @@
   outline: none;
   font-size: 16px;
   border-radius: $box-radius-size;
-  color: $c-border;
+  color: $c-font-dim;
   vertical-align: top;
   cursor: pointer;
 
-  &:hover {
+  &:hover::before {
     color: $c-accent;
+    content: $licon-Star;
   }
 
-  @include if-light {
-    color: $c-font-dimmer;
+  @include mq-is-col1 {
+    @include inline-end(4px);
+
+    top: -2px;
   }
 
   @include mq-has-hover {
@@ -154,9 +157,6 @@
   }
 
   @include mq-no-hover {
-    @include inline-end(4px);
-
-    top: -2px;
     font-size: 18px;
   }
 }

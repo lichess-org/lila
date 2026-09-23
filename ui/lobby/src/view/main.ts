@@ -1,6 +1,6 @@
 import { type VNodeData } from 'snabbdom';
 
-import { div, spinnerVdom as spinner } from 'lib/view';
+import { spinnerVdom as spinner, hl } from 'lib/view';
 
 import type LobbyController from '../ctrl';
 import renderSeeks from './correspondence';
@@ -31,8 +31,8 @@ export default function (ctrl: LobbyController) {
         break;
     }
   const contentKey = ctrl.tab === 'real_time' ? `${ctrl.tab}-${ctrl.mode}` : ctrl.tab;
-  return div(`.lobby__app.lobby__app-${ctrl.tab}.lck-${contentKey}`, [
-    div('.tabs-horiz', { role: 'tablist' }, renderTabs(ctrl)),
-    div(`.lobby__app__content.${redirBlock ? 'redir' : ctrl.tab}`, data, body),
+  return hl(`div.lobby__app.lobby__app-${ctrl.tab}.lck-${contentKey}`, [
+    hl('div.tabs-horiz', { attrs: { role: 'tablist' } }, renderTabs(ctrl)),
+    hl(`div.lobby__app__content.${redirBlock ? 'redir' : ctrl.tab}`, data, body),
   ]);
 }
