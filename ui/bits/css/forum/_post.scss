@@ -8,20 +8,20 @@
       @extend %flex-center;
 
       flex: 1;
+      gap: 0.5em;
     }
 
     .author {
       color: $c-font-dim;
       font-weight: bold;
       font-size: 1.1em;
-      margin-inline-end: 1rem;
+      margin-inline-end: 0.5rem;
     }
 
     a.author--op {
       @extend %box-radius;
 
       padding: 0.2em;
-      padding-inline-end: 0.8em;
       background: color-mix(in oklab, $c-primary 12%, $c-bg);
     }
 
@@ -30,7 +30,7 @@
     }
 
     time {
-      margin-inline-end: 1em;
+      margin-inline-end: 0.25em;
     }
   }
 
@@ -116,8 +116,8 @@
 .forum-post__message {
   @extend %break-word, %zalgoverflow;
 
-  margin-top: 1em;
-  margin-bottom: 1em;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
   text-align: start;
 
   a {
