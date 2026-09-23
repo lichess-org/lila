@@ -48,38 +48,6 @@
     animation: range-sweep 3s cubic-bezier(0.2, 0.6, 0.95, 0.7) infinite;
     margin: 0.2em 0 1.3em 0;
   }
-
-  .edit-shortcuts {
-    @include inline-end(0);
-
-    position: absolute;
-    background: none;
-    outline: none;
-    font-size: 18px;
-    padding: 4px;
-    top: 8px;
-    border-radius: $box-radius-size;
-    color: $c-font-dim;
-    cursor: pointer;
-
-    @include if-light {
-      color: $c-font-dimmer;
-    }
-
-    @include mq-has-hover {
-      &:hover {
-        color: $c-primary;
-      }
-
-      &:focus-visible {
-        outline: 2px solid $c-primary;
-      }
-    }
-
-    @media (hover: none), (pointer: coarse) {
-      @include inline-end(calc(33.3% - 36px)); // Dont position small buttons near the display edge on touch devices
-    }
-  }
 }
 
 .shortcut {
@@ -156,4 +124,43 @@
     text-align: center;
     overflow-wrap: anywhere;
   }
+}
+
+.edit-shortcuts {
+  @include inline-end(8px);
+
+  top: 3px;
+  position: absolute;
+  background: none;
+  outline: none;
+  font-size: 16px;
+  border-radius: $box-radius-size;
+  color: $c-border;
+  vertical-align: top;
+  cursor: pointer;
+
+  &:hover {
+    color: $c-accent;
+  }
+
+  @include if-light {
+    color: $c-font-dimmer;
+  }
+
+  @include mq-has-hover {
+    &:focus-visible {
+      outline: 2px solid $c-primary;
+    }
+  }
+
+  @include mq-no-hover {
+    @include inline-end(4px);
+
+    top: -2px;
+    font-size: 18px;
+  }
+}
+
+.active > :where(.edit-shortcuts) {
+  color: color-mix(in oklab, $c-accent 70%, $c-border);
 }
