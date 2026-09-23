@@ -29,7 +29,7 @@ final class AccountSecurity(helpers: Helpers)(
             p(
               trans.site.activeSessionsDescription(
                 a(href := routes.Account.email)(trans.site.checkRecoveryEmail()),
-                a(href := routes.Account.passwd)(trans.site.changePassword())
+                a(href := routes.Account.passwd)(trans.site.changeYourPassword())
               )
             ),
             (sessions.sizeIs > 1).option(
