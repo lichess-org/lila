@@ -77,7 +77,7 @@
     }
 
     @media (hover: none), (pointer: coarse) {
-      @include inline-end(24%); // Dont position small buttons near the display edge on touch devices
+      @include inline-end(calc(33.3% - 36px)); // Dont position small buttons near the display edge on touch devices
     }
   }
 }
