@@ -1,6 +1,7 @@
 .shortcuts {
   @extend %roboto;
 
+  position: relative;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(4, 1fr);
@@ -9,6 +10,8 @@
   background-color: transparent;
   box-shadow: none;
   overflow: visible !important; // for button shadows
+
+  ---edit-shortcuts-size: 44px;
 
   @include fluid-size('font-size', 14px, 25px);
 
@@ -44,6 +47,34 @@
     background-image: linear-gradient(90deg, transparent, $c-brag, transparent);
     animation: range-sweep 3s cubic-bezier(0.2, 0.6, 0.95, 0.7) infinite;
     margin: 0.2em 0 1.3em 0;
+  }
+
+  .edit-shortcuts {
+    @include inline-end(0);
+
+    position: absolute;
+    background: none;
+    outline: none;
+    font-size: 18px;
+    padding: 4px;
+    top: 8px;
+    border-radius: $box-radius-size;
+    color: $c-font-dim;
+    cursor: pointer;
+
+    @include mq-has-hover {
+      &:hover {
+        color: $c-primary;
+      }
+
+      &:focus-visible {
+        outline: 2px solid $c-primary;
+      }
+    }
+
+    @media (hover: none), (pointer: coarse) {
+      @include inline-end(24%); // Dont position small buttons near the display edge on touch devices
+    }
   }
 }
 

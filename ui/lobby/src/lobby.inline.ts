@@ -17,14 +17,6 @@ function layout() {
   const timeline = lobby.querySelector('.lobby__timeline');
   const newParent = cols > 2 ? lobby.querySelector<HTMLElement>('.lobby__side') : lobby;
   if (timeline && newParent) newParent.append(timeline);
-
-  const editShortcuts = lobby.querySelector('.lobby__start__button--shortcuts');
-  if (!editShortcuts) return;
-
-  const editShortcutsHome = lobby.querySelector(cols === 4 ? '.lobby__table' : '.lobby__start');
-  if (!editShortcutsHome) return;
-
-  editShortcutsHome.append(editShortcuts);
 }
 
 layout();

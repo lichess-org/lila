@@ -63,7 +63,6 @@ export const siteShortcuts = deepFreeze([
     name: 'Puzzle racer',
     url: '/racer',
   },
-  { id: 'editShortcuts', iconKey: 'StarOutline', name: 'Edit shortcuts' },
 ] as const satisfies readonly LobbyShortcut[]);
 
 const slotCount = 3 * 4;
@@ -160,8 +159,6 @@ export class ShortcutsCtrl {
       this.ctrl?.clickPool(shortcut.id);
     } else if (shortcut.id === 'customGame') {
       this.ctrl?.setupCtrl.openModal('hook');
-    } else if (shortcut.id === 'editShortcuts') {
-      site.asset.loadEsm('lobby.shortcutsDialog', { init: { ctrl: this } }).then(() => this.ctrl?.redraw());
     } else if (shortcut.url) {
       site.redirect(shortcut.url);
     } else {
