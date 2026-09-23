@@ -62,6 +62,10 @@
     color: $c-font-dim;
     cursor: pointer;
 
+    @include if-light {
+      color: $c-font-dimmer;
+    }
+
     @include mq-has-hover {
       &:hover {
         color: $c-primary;
