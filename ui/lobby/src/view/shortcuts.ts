@@ -1,8 +1,9 @@
 import { type Hooks } from 'snabbdom';
 
+import { myUserId } from 'lib';
 import { licon } from 'lib/licon';
 import type { LobbyShortcut } from 'lib/types';
-import { div, onInsert, spinnerVdom, hl } from 'lib/view';
+import { div, onInsert, spinnerVdom, hl, button } from 'lib/view';
 
 import type LobbyController from '../ctrl';
 import { fitShortcut } from '../shortcutsCtrl';
@@ -32,7 +33,16 @@ export const hooks = (ctrl: LobbyController): Hooks =>
 
 export function render(ctrl: LobbyController) {
   const { shortcutsCtrl, poolMember, opts } = ctrl;
-  return shortcutsCtrl.configured.map((shortcut: LobbyShortcut | null) => {
+  const editShortcuts = button('.edit-shortcuts', {
+    attrs: { 'data-icon': licon.Star },
+    on: {
+      click: () =>
+        site.asset
+          .loadEsm('lobby.shortcutsDialog', { init: { ctrl: ctrl.shortcutsCtrl } })
+          .then(() => ctrl.redraw()),
+    },
+  });
+  const shortcuts = shortcutsCtrl.configured.map((shortcut: LobbyShortcut | null) => {
     if (!shortcut) return div({ 'aria-hidden': true });
     const active = poolMember?.id === shortcut.id;
     return !shortcut.pool
@@ -54,6 +64,8 @@ export function render(ctrl: LobbyController) {
           ],
         );
   });
+  if (myUserId()) shortcuts.splice(3, 0, editShortcuts); // it's absolute positioned, this is for tab order
+  return shortcuts;
 }
 
 function renderShortcut(s: LobbyShortcut, dimmed: boolean) {

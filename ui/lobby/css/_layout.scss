@@ -112,10 +112,8 @@
     }
 
     &__counters {
-      align-self: end;
       flex-flow: column;
-      align-items: start;
-      margin-inline-end: 1ch;
+      align-items: flex-start;
       position: absolute;
       bottom: 0;
     }
