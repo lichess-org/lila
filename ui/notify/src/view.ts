@@ -54,7 +54,7 @@ function notificationDenied(): VNode {
   return hl(
     'a.browser-notification.denied',
     { attrs: { href: '/faq#browser-notifications', target: '_blank' } },
-    'Notification popups disabled by browser setting',
+    i18n.site.browserNotificationsDenied,
   );
 }
 
@@ -82,5 +82,5 @@ function recentNotifications(d: NotifyData, scrolling: boolean): VNode {
 }
 
 function empty() {
-  return hl('div.empty.text', { attrs: dataIcon(licon.InfoCircle) }, 'No notifications.');
+  return hl('div.empty.text', { attrs: dataIcon(licon.InfoCircle) }, i18n.site.noNotifications);
 }
