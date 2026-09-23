@@ -227,10 +227,14 @@ final class StudyListUi(helpers: Helpers, bits: StudyBits):
     )
 
   private def formatToggle(using format: StudyFormat) =
-    postForm(action := addQueryParam(routes.Study.listFormat.url, "format", format.toggle.key)):
+    postForm(
+      cls := "list-format",
+      action := addQueryParam(routes.Study.listFormat.url, "format", format.toggle.key)
+    ):
       button(
-        cls := List("button button-empty" -> true, "active" -> format.compact),
+        cls := List("button" -> true, "active" -> format.compact, "button-empty" -> !format.compact),
         title := (if format.compact then "Switch to card view" else "Switch to list view"),
+        tpe := "submit",
         dataIcon := Icon.List
       )
 
