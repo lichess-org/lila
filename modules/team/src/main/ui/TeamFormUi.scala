@@ -140,7 +140,7 @@ final class TeamFormUi(helpers: Helpers, bits: TeamUi)(
           form3.select(
             f,
             Seq(
-              Access.None.id    -> trans.team.chatAccessNone,
+              Access.None.id -> trans.team.chatAccessNone,
               Access.Leaders.id -> trans.team.chatAccessLeaders,
               Access.Members.id -> trans.team.chatAccessMembers
             )
@@ -155,9 +155,9 @@ final class TeamFormUi(helpers: Helpers, bits: TeamUi)(
             f,
             Seq(
               Access.Everyone.id -> trans.team.forumVisibilityEveryone,
-              Access.Members.id  -> trans.team.forumVisibilityMembers,
-              Access.Leaders.id  -> trans.team.forumVisibilityLeaders,
-              Access.None.id     -> trans.team.forumVisibilityNone
+              Access.Members.id -> trans.team.forumVisibilityMembers,
+              Access.Leaders.id -> trans.team.forumVisibilityLeaders,
+              Access.None.id -> trans.team.forumVisibilityNone
             )
           )
         }
