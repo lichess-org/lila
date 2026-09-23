@@ -105,7 +105,7 @@ function commandHelp(aliases: string, args: string, desc: string) {
 
 function help() {
   domDialog({
-    css: [{ hashed: 'cli.help' }],
+    css: [{ hashed: 'bits.clinput.help' }],
     class: 'clinput-help',
     modal: true,
     easyClose: 'clickOutside',

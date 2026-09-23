@@ -165,32 +165,37 @@ async function parseScss(src: string, processed: Set<string>) {
   if (processed.has(src)) return;
   processed.add(src);
 
-  const text = await fs.promises.readFile(src, 'utf8');
+  try {
+    const text = await fs.promises.readFile(src, 'utf8');
 
-  for (const [, urlProp] of text.matchAll(/[^a-zA-Z0-9\-_]url\((?:['"])?(\.\.\/[^'")]+)/g)) {
-    const url = urlProp.replaceAll(/#\{[^}]+\}/g, '*'); // scss interpolation -> glob
+    for (const [, urlProp] of text.matchAll(/[^a-zA-Z0-9\-_]url\((?:['"])?(\.\.\/[^'")]+)/g)) {
+      const url = urlProp.replaceAll(/#\{[^}]+\}/g, '*'); // scss interpolation -> glob
 
-    if (url.includes('*')) {
-      for (const file of await glob(url, { cwd: env.cssOutDir, absolute: false })) {
-        if (!importMap.get(file)?.add(src)) importMap.set(file, new Set([src]));
-      }
-    } else if (!importMap.get(url)?.add(src)) importMap.set(url, new Set([src]));
-  }
+      if (url.includes('*')) {
+        for (const file of await glob(url, { cwd: env.cssOutDir, absolute: false })) {
+          if (!importMap.get(file)?.add(src)) importMap.set(file, new Set([src]));
+        }
+      } else if (!importMap.get(url)?.add(src)) importMap.set(url, new Set([src]));
+    }
 
-  for (const [, cssImport] of text.matchAll(/^@(?:import|use)\s+['"](.*)['"]/gm)) {
-    if (!cssImport) continue;
+    for (const [, cssImport] of text.matchAll(/^@(?:import|use)\s+['"](.*)['"]/gm)) {
+      if (!cssImport) continue;
 
-    const absDep = (await readable(resolve(dirname(src), cssImport + '.scss')))
-      ? resolve(dirname(src), cssImport + '.scss')
-      : resolve(dirname(src), resolvePartial(cssImport));
+      const absDep = (await readable(resolve(dirname(src), cssImport + '.scss')))
+        ? resolve(dirname(src), cssImport + '.scss')
+        : resolve(dirname(src), resolvePartial(cssImport));
 
-    if (/node_modules.*\.css/.test(absDep)) continue;
-    else if (!absDep.startsWith(env.rootDir)) throw `Bad import '${cssImport}`;
+      if (/node_modules.*\.css/.test(absDep)) continue;
+      else if (!absDep.startsWith(env.rootDir)) throw `Bad import '${cssImport}`;
 
-    const dep = relative(env.rootDir, absDep);
-    if (!importMap.get(dep)?.add(src)) importMap.set(dep, new Set<string>([src]));
-    addIncludes([{ cwd: dirname(dep), path: '*.scss' }], 'sass'); // could be outside of ui/** glob
-    await parseScss(dep, processed);
+      const dep = relative(env.rootDir, absDep);
+      if (!importMap.get(dep)?.add(src)) importMap.set(dep, new Set<string>([src]));
+      addIncludes([{ cwd: dirname(dep), path: '*.scss' }], 'sass'); // could be outside of ui/** glob
+      await parseScss(dep, processed);
+    }
+  } catch (e) {
+    if (typeof e !== 'string') throw String(e);
+    throw `'${pc.cyan(src)}' -> ` + e;
   }
 }
 
