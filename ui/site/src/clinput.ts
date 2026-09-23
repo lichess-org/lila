@@ -9,7 +9,7 @@ import { profileUrl } from 'lib/view/userLink';
 
 type Entry = LightUserOnline | HTMLAnchorElement;
 
-export function initModule({ input }: { input: HTMLInputElement }) {
+export function addClinputKeyHandler({ input }: { input: HTMLInputElement }) {
   const menuLinks = Array.from(document.querySelectorAll<HTMLAnchorElement>('#topnav a')).filter(
     a => a.href !== '/',
   );
@@ -47,7 +47,6 @@ export function initModule({ input }: { input: HTMLInputElement }) {
   };
 
   complete<Entry>(completeOpts);
-  setTimeout(() => input.focus());
 
   $(input).on(
     'keydown',

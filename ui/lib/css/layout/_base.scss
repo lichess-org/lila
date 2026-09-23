@@ -49,12 +49,6 @@ body {
   &.full-screen-force {
     ---main-max-width: 100%;
   }
-
-  @media (hover: none) and (max-width: at-most($xx-small)) {
-    body.clinput & {
-      display: none;
-    }
-  }
 }
 
 main {

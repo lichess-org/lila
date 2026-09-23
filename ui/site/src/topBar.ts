@@ -6,6 +6,7 @@ import { wsSend } from 'lib/socket';
 import { spinnerHtml } from 'lib/view';
 
 import { loadCssPath, loadEsm } from './asset';
+import { addClinputKeyHandler } from './clinput';
 
 export default function () {
   const top = document.getElementById('top')!;
@@ -161,13 +162,8 @@ export default function () {
     const $wrap = $('#clinput');
     if (!$wrap.length) return;
     const $input = $wrap.find('input');
-    let booted = false,
-      clicked = false;
-    const boot = () => {
-      if (booted) return;
-      booted = true;
-      loadEsm('cli', { init: { input: $input[0] } }).catch(() => (booted = false));
-    };
+    let clicked = false;
+    addClinputKeyHandler({ input: $input[0] as HTMLInputElement });
     $input.on({
       keydown: blurIfEscape,
       click: () => {
@@ -179,19 +175,18 @@ export default function () {
         $('body').removeClass('clinput');
       },
       focus() {
-        boot();
         $('body').addClass('clinput');
       },
     });
     $wrap.find('a').on({
-      mouseover: boot,
       click() {
         $('body').hasClass('clinput') ? $input[0]!.blur() : $input[0]!.focus();
       },
     });
-    $wrap.on('mouseenter', () => {
-      if ($input[0] !== document.activeElement) $input[0]!.focus();
-    });
+    if (!isTouchDevice())
+      $wrap.on('mouseenter', () => {
+        if ($input[0] !== document.activeElement) $input[0]!.focus();
+      });
     $wrap.on('mouseleave', () => {
       if (!clicked && !$input.val()) $input[0]!.blur();
     });

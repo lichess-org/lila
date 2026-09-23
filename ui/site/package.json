@@ -4,7 +4,10 @@
   "type": "module",
   "dependencies": {
     "@juggle/resize-observer": "^3.4.0",
+    "@types/debounce-promise": "^3.1.9",
     "bits": "workspace:*",
+    "dasher": "workspace:*",
+    "debounce-promise": "^3.1.2",
     "dialog-polyfill": "0.5.6",
     "lib": "workspace:*"
   },
