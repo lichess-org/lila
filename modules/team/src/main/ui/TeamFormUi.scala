@@ -131,37 +131,33 @@ final class TeamFormUi(helpers: Helpers, bits: TeamUi)(
     frag(
       form3.checkboxGroup(
         form("hideMembers"),
-        "Hide team member list from non-members.",
+        trans.team.hideMembersDesc(),
         half = true,
         disabled = team.exists(_.isClas)
       ),
       form3.split(
-        form3.group(form("chat"), frag("Team chat"), help = frag("Who can use the team chat?").some) { f =>
+        form3.group(form("chat"), trans.team.chatLabel(), help = trans.team.chatAccessHelp().some) { f =>
           form3.select(
             f,
             Seq(
-              Access.None.id -> "No chat",
-              Access.Leaders.id -> "Team leaders",
-              Access.Members.id -> "Team members"
+              Access.None.id    -> trans.team.chatAccessNone,
+              Access.Leaders.id -> trans.team.chatAccessLeaders,
+              Access.Members.id -> trans.team.chatAccessMembers
             )
           )
         },
         form3.group(
           form("forum"),
-          frag("Team forum"),
-          help = frag(
-            "Who can see the team forum on the team page?",
-            br,
-            "Only team members can post in the team forum."
-          ).some
+          trans.team.forumLabel(),
+          help = trans.team.forumVisibilityHelp().some
         ) { f =>
           form3.select(
             f,
             Seq(
-              Access.Everyone.id -> "Show to everyone",
-              Access.Members.id -> "Show to members",
-              Access.Leaders.id -> "Show to team leaders",
-              Access.None.id -> "Hide the forum"
+              Access.Everyone.id -> trans.team.forumVisibilityEveryone,
+              Access.Members.id  -> trans.team.forumVisibilityMembers,
+              Access.Leaders.id  -> trans.team.forumVisibilityLeaders,
+              Access.None.id     -> trans.team.forumVisibilityNone
             )
           )
         }

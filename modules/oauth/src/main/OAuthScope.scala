@@ -50,7 +50,7 @@ object OAuthScope:
     case object Write extends OAuthScope("study:write", trans.studyWrite)
 
   object Tournament:
-    case object Read extends OAuthScope("tournament:read", I18nKey("Read private tournaments"))
+    case object Read extends OAuthScope("tournament:read", trans.readPrivateTournaments)
     case object Write extends OAuthScope("tournament:write", trans.tournamentWrite)
 
   object Racer:
@@ -58,7 +58,7 @@ object OAuthScope:
 
   object Puzzle:
     case object Read extends OAuthScope("puzzle:read", trans.puzzleRead)
-    case object Write extends OAuthScope("puzzle:write", I18nKey("Solve puzzles"))
+    case object Write extends OAuthScope("puzzle:write", trans.solvePuzzles)
 
   object Team:
     case object Read extends OAuthScope("team:read", trans.teamRead)
@@ -73,7 +73,7 @@ object OAuthScope:
     case object Write extends OAuthScope("msg:write", trans.msgWrite)
 
   object Note:
-    case object Write extends OAuthScope("note:write", I18nKey("Read and write notes on other players"))
+    case object Write extends OAuthScope("note:write", trans.readWriteNotesOnPlayers)
 
   object Board:
     case object Play extends OAuthScope("board:play", trans.boardPlay)
@@ -129,15 +129,15 @@ object OAuthScope:
   )
 
   val classified: List[(I18nKey, List[OAuthScope])] = List(
-    I18nKey("User account") -> List(Email.Read, Preference.Read, Preference.Write, Web.Mod),
-    I18nKey("Interactions") -> List(Follow.Read, Follow.Write, Msg.Write, Note.Write),
-    I18nKey("Play games") -> List(Challenge.Read, Challenge.Write, Challenge.Bulk),
-    I18nKey("Teams") -> List(Team.Read, Team.Write, Team.Lead),
-    I18nKey("Puzzles") -> List(Puzzle.Read, Puzzle.Write, Racer.Write),
-    I18nKey("Tournaments") -> List(Tournament.Read, Tournament.Write),
-    I18nKey("Studies & Broadcasts") -> List(Study.Read, Study.Write),
-    I18nKey("External play") -> List(Board.Play, Bot.Play),
-    I18nKey("External engine") -> List(Engine.Read, Engine.Write)
+    trans.oauthCatUserAccount -> List(Email.Read, Preference.Read, Preference.Write, Web.Mod),
+    trans.oauthCatInteractions -> List(Follow.Read, Follow.Write, Msg.Write, Note.Write),
+    trans.oauthCatPlayGames -> List(Challenge.Read, Challenge.Write, Challenge.Bulk),
+    lila.core.i18n.I18nKey.team.teams -> List(Team.Read, Team.Write, Team.Lead),
+    lila.core.i18n.I18nKey.puzzle.puzzles -> List(Puzzle.Read, Puzzle.Write, Racer.Write),
+    lila.core.i18n.I18nKey.site.tournaments -> List(Tournament.Read, Tournament.Write),
+    trans.oauthCatStudiesBroadcasts -> List(Study.Read, Study.Write),
+    trans.oauthCatExternalPlay -> List(Board.Play, Bot.Play),
+    trans.oauthCatExternalEngine -> List(Engine.Read, Engine.Write)
   )
 
   val dangerList: OAuthScopes = OAuthScope.select(

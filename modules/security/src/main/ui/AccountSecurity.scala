@@ -27,21 +27,20 @@ final class AccountSecurity(helpers: Helpers)(
           standardFlash.map(div(cls := "box__pad")(_)),
           div(cls := "box__pad")(
             p(
-              "This is a list of devices and applications that are logged into your account. If you notice any suspicious activity, make sure to ",
-              a(href := routes.Account.email)("check your recovery email address"),
-              " and ",
-              a(href := routes.Account.passwd)("change your password"),
-              "."
+              trans.site.activeSessionsDescription(
+                a(href := routes.Account.email)(trans.site.checkRecoveryEmail()),
+                a(href := routes.Account.passwd)(trans.site.changePassword())
+              )
             ),
             (sessions.sizeIs > 1).option(
               div(
-                "You can also ",
-                postForm(cls := "revoke-all", action := routes.Account.signout("all"))(
-                  submitButton(cls := "button button-empty button-red yes-no-confirm")(
-                    trans.site.revokeAllSessions()
+                trans.site.revokeAllSessionsHint(
+                  postForm(cls := "revoke-all", action := routes.Account.signout("all"))(
+                    submitButton(cls := "button button-empty button-red yes-no-confirm")(
+                      trans.site.revokeAllSessions()
+                    )
                   )
-                ),
-                "."
+                )
               )
             )
           ),

@@ -1145,6 +1145,8 @@ interface I18n {
     beingAPatron: string;
     /** be in the top 10 in this rating. */
     beInTopTen: string;
+    /** this blog post about creating bots */
+    botCreationBlogPost: string;
     /** breakdown of our costs */
     breakdownOfOurCosts: string;
     /** Can I get the Lichess Master (LM) title? */
@@ -1155,6 +1157,8 @@ interface I18n {
     configure: string;
     /** I lost a game due to lag/disconnection. Can I get my rating points back? */
     connexionLostCanIGetMyRatingBack: string;
+    /** custom chess bot */
+    customChessBot: string;
     /** desktop */
     desktop: string;
     /** Why can a pawn capture another pawn when it is already passed? (en passant) */
@@ -1259,6 +1263,10 @@ interface I18n {
     lichessUserstyles: string;
     /** This honorific title is unofficial and only exists on Lichess. */
     lMtitleComesToYouDoNotRequestIt: string;
+    /** To learn how to build a %1$s to play on Lichess, please read %2$s. */
+    makeBotDescription: I18nFormat;
+    /** Make a bot on Lichess? */
+    makeBotTitle: string;
     /** stand-alone mental health condition */
     mentalHealthCondition: string;
     /** Most browsers prevent sound from playing on newly-visited pages to protect users. */
@@ -2043,6 +2051,18 @@ interface I18n {
     newAccessToken: string;
     /** New access token */
     newToken: string;
+    /** External engine */
+    oauthCatExternalEngine: string;
+    /** External play */
+    oauthCatExternalPlay: string;
+    /** Interactions */
+    oauthCatInteractions: string;
+    /** Play games */
+    oauthCatPlayGames: string;
+    /** Studies & Broadcasts */
+    oauthCatStudiesBroadcasts: string;
+    /** User account */
+    oauthCatUserAccount: string;
     /** Personal API access tokens */
     personalAccessTokens: string;
     /** personal token app example */
@@ -2057,8 +2077,14 @@ interface I18n {
     puzzleRead: string;
     /** Create and join puzzle races */
     racerWrite: string;
+    /** Read private tournaments */
+    readPrivateTournaments: string;
+    /** Read and write notes on other players */
+    readWriteNotesOnPlayers: string;
     /** So you remember what this token is for */
     rememberTokenUse: string;
+    /** Solve puzzles */
+    solvePuzzles: string;
     /** Read private studies and broadcasts */
     studyRead: string;
     /** Create, update, delete studies and broadcasts */
@@ -3343,6 +3369,8 @@ interface I18n {
     accuracy: string;
     /** Active players */
     activePlayers: string;
+    /** This is a list of devices and applications that are logged into your account. If you notice any suspicious activity, make sure to %1$s and %2$s. */
+    activeSessionsDescription: I18nFormat;
     /** Add current variation */
     addCurrentVariation: string;
     /** Advanced settings */
@@ -3489,6 +3517,8 @@ interface I18n {
     bookmarkThisGame: string;
     /** Brightness */
     brightness: string;
+    /** Notification popups disabled by browser setting */
+    browserNotificationsDenied: string;
     /** Bullet */
     bullet: string;
     /** Very fast games: less than 3 minutes */
@@ -3537,6 +3567,8 @@ interface I18n {
     changeUsernameDescription: string;
     /** Only the case of the letters can change. For example "johndoe" to "JohnDoe". */
     changeUsernameNotSame: string;
+    /** change your password */
+    changeYourPassword: string;
     /** Chat */
     chat: string;
     /** Chat room */
@@ -3551,6 +3583,8 @@ interface I18n {
     checkAllEmailFolders: string;
     /** Checkmate */
     checkmate: string;
+    /** check your recovery email address */
+    checkRecoveryEmail: string;
     /** If you do not receive a confirmation email, check your Spam or Junk folder. Be sure to indicate messages from lichess.org as safe and "not spam", so you can stay informed of important communications. */
     checkSpamOrJunkFolder: string;
     /** Check your Email */
@@ -4285,6 +4319,8 @@ interface I18n {
     noNetwork: string;
     /** No note yet */
     noNoteYet: string;
+    /** No notifications. */
+    noNotifications: string;
     /** No restriction */
     noRestriction: string;
     /** Normal */
@@ -4605,6 +4641,8 @@ interface I18n {
     reviewWhiteMistakes: string;
     /** revoke all sessions */
     revokeAllSessions: string;
+    /** You can also %s. */
+    revokeAllSessionsHint: I18nFormat;
     /** Roundness */
     roundness: string;
     /** Pick a very safe name for the tournament. */
@@ -5927,6 +5965,16 @@ interface I18n {
     battleOfNbTeams: I18nPlural;
     /** Your join request is being reviewed by a team leader. */
     beingReviewed: string;
+    /** Who can use the team chat? */
+    chatAccessHelp: string;
+    /** Team leaders */
+    chatAccessLeaders: string;
+    /** Team members */
+    chatAccessMembers: string;
+    /** No chat */
+    chatAccessNone: string;
+    /** Team chat */
+    chatLabel: string;
     /** Close team */
     closeTeam: string;
     /** Closes the team forever. */
@@ -5939,6 +5987,20 @@ interface I18n {
     entryCode: string;
     /** (Optional) An entry code that new members must know to join this team. */
     entryCodeDescriptionForLeader: string;
+    /** Team forum */
+    forumLabel: string;
+    /** Show to everyone */
+    forumVisibilityEveryone: string;
+    /** Who can see the team forum on the team page?<br>Only team members can post in the team forum. */
+    forumVisibilityHelp: string;
+    /** Show to team leaders */
+    forumVisibilityLeaders: string;
+    /** Show to members */
+    forumVisibilityMembers: string;
+    /** Hide the forum */
+    forumVisibilityNone: string;
+    /** Hide team member list from non-members. */
+    hideMembersDesc: string;
     /** Incorrect entry code. */
     incorrectEntryCode: string;
     /** Inner team */
