@@ -18,7 +18,7 @@
     @include transition(transform border-color, $transition-duration, ease-in-out);
 
     max-width: unset;
-    position: fixed;
+    position: sticky;
     top: 0;
     width: 100%;
     padding: 0 var(---site-header-sticky-padding);
