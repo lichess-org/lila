@@ -40,6 +40,7 @@ object home:
             .add("hasUnreadLichessMessage", hasUnreadLichessMessage)
             .add("bots", Granter.opt(_.Beta))
             .add("playban", playban.map(lila.playban.TempBan.lobbyJson))
+            .add("lobbyShortcuts", ctx.pref.lobbyShortcuts)
         )
       )
       .css("lobby")

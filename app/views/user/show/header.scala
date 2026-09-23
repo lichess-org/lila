@@ -240,7 +240,7 @@ object header:
         )
       ),
       (!UserId.isOfficial(u.id)).option:
-        div(cls := "angles number-menu number-menu--tabs menu-box-pop")(
+        div(id := "angles", cls := "angles number-menu number-menu--tabs menu-box-pop")(
           a(
             dataTab := "activity",
             cls := List(
