@@ -19,6 +19,27 @@ $marker-margin-top: -14px;
     }
   }
 
+  .search-input {
+    display: flex;
+    align-items: stretch;
+    min-width: 0;
+    flex: 1 1 0;
+
+    input {
+      @extend %box-radius-inline-start;
+
+      min-width: 0;
+      font-size: 1.2em;
+    }
+
+    .button {
+      @extend %box-radius-inline-end;
+
+      padding: 0 1rem;
+      border-inline-start: 0;
+    }
+  }
+
   &__update {
     padding-inline-start: 45px;
     margin-bottom: 4em;

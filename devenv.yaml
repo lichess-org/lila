@@ -5,4 +5,6 @@ inputs:
     url: github:NixOS/nixpkgs/nixpkgs-unstable
   nixpkgs-master:
     url: github:NixOS/nixpkgs/master
+  nixpkgs-elasticsearch:
+    url: github:KiaraGrouwstra/nixpkgs/elasticsearch-8
 allowUnfree: true
