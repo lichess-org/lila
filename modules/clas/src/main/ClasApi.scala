@@ -1,17 +1,13 @@
 package lila.clas
 
-import play.api.i18n.Lang
 import reactivemongo.api.*
-import scalalib.ThreadLocalRandom
 import scalalib.data.LazyFu
 
 import lila.common.Markdown
-import lila.core.config.RouteUrl
 import lila.core.id.{ ClasId, ClasInviteId, StudentId }
-import lila.core.msg.{ MsgApi, SystemMsg }
 import lila.db.dsl.{ *, given }
 import lila.rating.{ Perf, PerfType, UserPerfs }
-import lila.core.user.{ KidMode, RealName }
+import lila.core.user.RealName
 import lila.common.Bus
 import lila.core.perm.Granter
 
@@ -19,13 +15,11 @@ final class ClasApi(
     colls: ClasColls,
     filters: ClasUserFilters,
     matesCache: ClasMates,
-    nameGenerator: NameGenerator,
     userRepo: lila.user.UserRepo,
     perfsRepo: lila.user.UserPerfsRepo,
-    msgApi: MsgApi,
-    authenticator: lila.core.security.Authenticator,
-    routeUrl: RouteUrl
-)(using Executor, lila.core.i18n.Translator):
+    clasMsg: ClasMsg,
+    authenticator: lila.core.security.Authenticator
+)(using Executor):
 
   import BsonHandlers.given
   import colls.selectArchived
@@ -210,19 +204,15 @@ final class ClasApi(
         _ <- inactiveClasses.sequentiallyVoid: from =>
           for
             clas <- doArchiveOnly(from, true)(using UserId.lichessAsMe)
-            _ <- clas.teachers.toList.sequentiallyVoid: userId =>
-              msgApi.systemPost(SystemMsg.standard(userId, autoArchiveMsg(clas)))
+            _ <- clasMsg.onArchive(clas)
           yield teamSync(clas)(using None)
       yield ()
-
-  private def autoArchiveMsg(clas: Clas) =
-    s"""The class "${clas.name}" has been automatically archived due to inactivity.
-
-You can re-open it at ${routeUrl(routes.Clas.show(clas.id))}"""
 
   object student:
 
     import lila.core.security.ClearPassword
+
+    export colls.countStudents as count
 
     private def coll = colls.student
 
@@ -279,8 +269,6 @@ You can re-open it at ${routeUrl(routes.Clas.show(clas.id))}"""
         .cursor[Student]()
         .list(500)
 
-    def count(clasId: ClasId): Fu[Int] = coll.countSel(bdoc("clasId" -> clasId))
-
     def isManaged(user: User): Fu[Boolean] =
       coll.exists(bdoc("userId" -> user.id, "managed" -> true))
 
@@ -326,33 +314,6 @@ You can re-open it at ${routeUrl(routes.Clas.show(clas.id))}"""
       val student = data.update(from)
       coll.update.one(bid(student.id), student).inject(student)
 
-    def create(
-        clas: Clas,
-        data: ClasForm.CreateStudent
-    )(using teacher: Me): Fu[Student.WithPassword] =
-      val email = EmailAddress(s"noreply.class.${clas.id}.${data.username}@lichess.org")
-      val password = Student.password.generate()
-      lila.mon.clas.student.create(teacher.userId).increment()
-      for
-        user <- userRepo
-          .create(
-            name = data.username,
-            passwordHash = authenticator.passEnc(password),
-            email = email,
-            blind = false,
-            mustConfirmEmail = false,
-            lang = teacher.lang,
-            kid = KidMode.Yes
-          )
-          .orFail(s"No user could be created for ${data.username}")
-        _ = filters.student.add(user.id)
-        student = Student.make(user, clas, teacher.userId, data.realName, managed = true)
-        _ <- perfsRepo.setManagedUserInitialPerfs(user.id)
-        _ <- coll.insert.one(student)
-        _ <- sendWelcomeMessage(teacher.userId, user, clas)
-        _ = teamSync(clas)
-      yield Student.WithPassword(student, password)
-
     def move(fromClas: Clas, s: Student.WithUser, toClas: Clas)(using teacher: Me): Fu[Option[Student]] = for
       _ <- deleteStudent(fromClas, s)
       stu = s.student.copy(
@@ -368,24 +329,6 @@ You can re-open it at ${routeUrl(routes.Clas.show(clas.id))}"""
         })
       _ = teamSync(toClas)
     yield moved
-
-    def manyCreate(
-        clas: Clas,
-        data: ClasForm.ManyNewStudent
-    )(using teacher: Me)(using Lang): Fu[List[Student.WithPassword]] =
-      for
-        nbCurrentStudents <- count(clas.id)
-        newStudents <- data.realNames
-          .take(Clas.maxStudents - nbCurrentStudents)
-          .sequentially: realName =>
-            nameGenerator().flatMap: username =>
-              val data = ClasForm.CreateStudent(
-                username = username | UserName(ThreadLocalRandom.nextString(10)),
-                realName = realName
-              )
-              create(clas, data)
-        _ = teamSync(clas)
-      yield newStudents
 
     def resetPassword(s: Student)(using me: Me): Fu[ClearPassword] =
       lila.log.system.info:
@@ -415,21 +358,6 @@ You can re-open it at ${routeUrl(routes.Clas.show(clas.id))}"""
       for _ <- coll.delete.one(bid(s.student.id))
       yield teamSync(clas)
 
-    private[ClasApi] def sendWelcomeMessage(teacherId: UserId, student: User, clas: Clas): Funit =
-      given Lang = student.realLang | lila.core.i18n.defaultLang
-      msgApi
-        .post(
-          orig = teacherId,
-          dest = student.id,
-          text = s"""${lila.core.i18n.I18nKey.clas.welcomeToClass.txt(clas.name)}
-
-${routeUrl(routes.Clas.show(clas.id))}
-
-${clas.desc}""",
-          multi = true
-        )
-        .void
-
   end student
 
   object invite:
@@ -449,7 +377,7 @@ ${clas.desc}""",
             .one(invite)
             .void
             .flatMap: _ =>
-              sendInviteMessage(teacher, user, clas, invite)
+              clasMsg.invitation(teacher, user, clas, invite)
             .recover:
               lila.db.recoverDuplicateKey(_ => Found)
 
@@ -467,7 +395,7 @@ ${clas.desc}""",
           val done = for
             _ <- colls.student.insert.one(stu)
             _ <- colls.invite.updateField(bid(id), "accepted", true)
-            _ <- student.sendWelcomeMessage(invite.created.by, user, clas)
+            _ <- clasMsg.welcomeMessage(invite.created.by, user, clas)
             _ = filters.student.add(user.id)
             _ = teamSync(clas)(using none)
           yield stu.some
@@ -505,32 +433,9 @@ ${clas.desc}""",
           )
           .void
 
-    private def sendInviteMessage(
-        teacher: Me,
-        student: User,
-        clas: Clas,
-        invite: ClasInvite
-    ): Fu[ClasInvite.Feedback] =
-      val url = routeUrl(routes.Clas.invitation(invite.id))
-      if student.kid.yes then fuccess(ClasInvite.Feedback.CantMsgKid(url))
-      else
-        import lila.core.i18n.I18nKey.clas.*
-        given play.api.i18n.Lang = student.realLang | lila.core.i18n.defaultLang
-        msgApi
-          .post(
-            orig = teacher.userId,
-            dest = student.id,
-            text = s"""${invitationToClass.txt(clas.name)}
-
-${clickToViewInvitation.txt()}
-
-$url""",
-            multi = true
-          )
-          .inject(ClasInvite.Feedback.Invited)
   end invite
 
-  private def teamSync(clas: Clas)(using Option[Me]): Unit =
+  private[clas] def teamSync(clas: Clas)(using Option[Me]): Unit =
     import lila.core.misc.clas.*
     val config = (~clas.hasTeam && clas.isActive).option:
       val students = LazyFu(() => student.activeUserIdsOf(clas.id))
