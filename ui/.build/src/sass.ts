@@ -165,12 +165,12 @@ async function parseScss(src: string, processed: Set<string>) {
     for (const [, urlProp] of text.matchAll(URL_PROP_REGEX)) {
       const url = urlProp.replaceAll(SCSS_INTERPOLATION_REGEX, '*'); // scss interpolation -> glob
 
-        if (url.includes('*')) {
-          for (const file of await glob(url, { cwd: env.cssOutDir, absolute: false })) {
-            if (!importMap.get(file)?.add(src)) importMap.set(file, new Set([src]));
-          }
-        } else if (!importMap.get(url)?.add(src)) importMap.set(url, new Set([src]));
-      }
+      if (url.includes('*')) {
+        for (const file of await glob(url, { cwd: env.cssOutDir, absolute: false })) {
+          if (!importMap.get(file)?.add(src)) importMap.set(file, new Set([src]));
+        }
+      } else if (!importMap.get(url)?.add(src)) importMap.set(url, new Set([src]));
+    }
 
     for (const [, cssImport] of text.matchAll(CSS_IMPORT_REGEX)) {
       if (!cssImport) continue;
@@ -179,8 +179,8 @@ async function parseScss(src: string, processed: Set<string>) {
       const importPath = resolve(dir, `${cssImport}.scss`);
       const absDep = (await readable(importPath)) ? importPath : resolve(dir, resolvePartial(cssImport));
 
-        if (/node_modules.*\.css/.test(absDep)) continue;
-        else if (!absDep.startsWith(env.rootDir)) throw `Bad import '${cssImport}`;
+      if (/node_modules.*\.css/.test(absDep)) continue;
+      else if (!absDep.startsWith(env.rootDir)) throw `Bad import '${cssImport}`;
 
       const dep = relative(env.rootDir, absDep);
       if (!importMap.get(dep)?.add(src)) importMap.set(dep, new Set([src]));
