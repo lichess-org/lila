@@ -2473,6 +2473,8 @@ interface I18n {
     showCheckableKing: string;
     /** Show on the left on mobile devices */
     showClockOnTheLeft: string;
+    /** Show cloud evaluation */
+    showCloudEval: string;
     /** Show player flairs */
     showFlairs: string;
     /** Show evaluation gauge */
