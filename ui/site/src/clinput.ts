@@ -10,12 +10,8 @@ import { profileUrl } from 'lib/view/userLink';
 type Entry = LightUserOnline | HTMLAnchorElement;
 
 export function addClinputKeyHandler({ input }: { input: HTMLInputElement }) {
-  const menuLinks = Array.from(document.querySelectorAll<HTMLAnchorElement>('#topnav a')).filter(
-    a => a.href !== '/',
-  );
-
   const fetchLinks = (term: string): HTMLAnchorElement[] => {
-    const all = menuLinks
+    const all = menuLinks()
       .filter(a => a.textContent?.toLowerCase().includes(term.toLowerCase()))
       .map(a => a.cloneNode(true) as HTMLAnchorElement)
       .map(a => {
@@ -55,6 +51,10 @@ export function addClinputKeyHandler({ input }: { input: HTMLInputElement }) {
       input.blur();
     }),
   );
+}
+
+function menuLinks() {
+  return Array.from(document.querySelectorAll<HTMLAnchorElement>('#topnav a')).filter(a => a.href !== '/');
 }
 
 function execute(e: string | Entry) {
