@@ -4,7 +4,7 @@ import scalalib.ThreadLocalRandom
 import play.api.data.*
 import play.api.data.Forms.*
 
-import lila.common.Form.cleanNonEmptyText
+import lila.common.Form.formatter
 import lila.clas.Student.RealName
 import play.api.i18n.Lang
 import lila.core.user.KidMode
@@ -54,36 +54,76 @@ final class ClasSignup(
 
   object multi:
 
-    def form(max: Int): Form[ManyNewStudent] = Form:
-      mapping(
-        "realNames" -> cleanNonEmptyText
-      )(ManyNewStudent.apply)(_.realNamesText.some).verifying(
+    def form(max: Int): Form[StudentLines] = Form:
+      single(
+        "realNames" -> of(using formatter.stringTryFormatter[StudentLines](parseLines, _.text))
+      ).verifying(
         s"There can't be more than ${lila.clas.Clas.maxStudents} per class. Split the students into more classes.",
-        _.realNames.lengthIs <= max
+        _.lines.lengthIs <= max
       )
+
+    case class StudentLines(lines: List[StudentLine]):
+      def text =
+        lines
+          .map:
+            case (Some(username), realName) => s"@$username $realName"
+            case (None, realName) => realName.value
+          .mkString("\n")
+
+    private def parseLines(text: String): Either[String, StudentLines] =
+      text.linesIterator.toList
+        .foldLeft(Either.right[String, List[StudentLine]](Nil)):
+          case (Left(err), _) => Left(err)
+          case (Right(lines), line) =>
+            for
+              (usr, name) <-
+                if line.startsWith("@") then
+                  line.drop(1).split(" ", 2) match
+                    case Array(username, realName) =>
+                      UserStr.read(username).map(_.some -> realName).toRight(s"Invalid username: $username")
+                    case _ => Left(s"Invalid line: $line")
+                else Right(none -> line)
+              name <-
+                if name.trim.nonEmpty
+                then Right(name.trim.take(realNameMaxSize))
+                else Left(s"Empty name in line: $line")
+              _ <- usr
+                .filter(u => lines.exists(_._1.contains(u)))
+                .fold(Right(()))(u => Left(s"Duplicate username: $u"))
+            yield (usr, RealName(name)) :: lines
+        .flatMap:
+          case Nil => Left("Empty list")
+          case lines => Right(StudentLines(lines.reverse))
 
     def create(
         clas: Clas,
-        data: ManyNewStudent
+        data: StudentLines
     )(using teacher: Me)(using Lang): Fu[List[Student.WithPassword]] =
       for
         nbCurrentStudents <- colls.countStudents(clas.id)
-        newStudents <- data.realNames
+        newStudents <- data.lines
           .take(Clas.maxStudents - nbCurrentStudents)
-          .sequentially: realName =>
-            nameGenerator().flatMap: username =>
-              val data = ClasForm.CreateStudent(
-                username = username | UserName(ThreadLocalRandom.nextString(10)),
-                realName = realName
-              )
-              one.create(clas, data)
+          .sequentially: (usr, realName) =>
+            usr
+              .fold(generateName())(u => fuccess(u.into(UserName)))
+              .flatMap: username =>
+                userRepo
+                  .existsSec(username)
+                  .flatMap:
+                    case true => fuccess(none)
+                    case false =>
+                      val data = ClasForm.CreateStudent(username, realName)
+                      one.create(clas, data).dmap(some)
         _ = clasApi.teamSync(clas)
-      yield newStudents
+      yield newStudents.flatten
+
+  private def generateName()(using Lang) =
+    nameGenerator().map(_ | UserName(ThreadLocalRandom.nextString(10)))
 
 object ClasSignup:
 
   private val realNameMaxSize = 100
 
-  case class ManyNewStudent(realNamesText: String):
-    def realNames = RealName.from:
-      realNamesText.linesIterator.map(_.trim.take(realNameMaxSize)).filter(_.nonEmpty).distinct.toList
+  private type StudentLine = (Option[UserStr], RealName)
+
+  case class StudentLines(lines: List[StudentLine])
