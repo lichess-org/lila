@@ -87,7 +87,7 @@ const settings: Record<SettingKey, Setting> = {
     helpHtml: videoHtml('info-checkable-king'),
   },
   showCloudEval: {
-    label: (i18n.preferences as any).showCloudEval || 'Show cloud evaluation',
+    label: i18n.preferences.showCloudEval,
     group: i18n.preferences.generalSettings,
   },
 };
