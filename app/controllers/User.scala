@@ -107,11 +107,12 @@ final class User(
             snip = lila.ui.Snippet(views.activity(withPerfs, as))
           yield status(snip)
 
-  def download(username: UserStr) = OpenBody:
+  def download(username: UserStr) = AuthBody { _ ?=> _ ?=>
     val user =
-      meOrFetch(username).dmap(_.filter(u => u.enabled.yes || ctx.is(u) || isGrantedOpt(_.GamesModView)))
+      meOrFetch(username).map(_.filter(u => u.enabled.yes || ctx.is(u) || isGrantedOpt(_.GamesModView)))
     FoundPage(user):
       views.user.download(_)
+  }
 
   def gamesAll(username: UserStr, page: Int) = games(username, GameFilter.all.name, page)
 
