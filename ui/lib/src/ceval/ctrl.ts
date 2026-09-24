@@ -331,7 +331,7 @@ export class CevalCtrl {
       fen: undefined as string | undefined,
       emit: this.opts.emit,
       movetime: 'movetime' in this.search.by && this.search.by.movetime,
-      dontStop: Boolean(this.engines.external || this.opts.custom || this.isDeeper() || this.isInfinite),
+      dontStop: Boolean(this.opts.custom || this.isDeeper() || this.isInfinite),
     };
     const emitter = throttleWithFlush(125, (ev: LocalEval, meta: EvalMeta) => {
       this.curEval = ev;
