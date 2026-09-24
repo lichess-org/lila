@@ -14,6 +14,17 @@ import lila.oauth.{ AccessTokenApi, AccessToken, OAuthScope, TokenScopes }
 import lila.common.HTTPRequest
 import lila.memo.RateLimit.LimitResult
 
+private[security] def storedCodeParam(
+    name: String,
+    form: Map[String, Seq[String]],
+    query: Map[String, Seq[String]]
+): Option[String] =
+  form
+    .get(name)
+    .flatMap(_.headOption)
+    .filter(_.nonEmpty)
+    .orElse(query.get(name).flatMap(_.headOption).filter(_.nonEmpty))
+
 final class LoginToken(
     mailer: Mailer,
     userRepo: UserRepo,
@@ -36,13 +47,22 @@ final class LoginToken(
     private val nbChars = chars.length
     private def secureChar = chars(scalalib.SecureRandom.nextInt(nbChars))
 
-    private def reqEmailAndUser(using RequestHeader): Option[Creds] = for
-      email <- HTTPRequest.queryStringGet("email").flatMap(EmailAddress.from)
-      user <- HTTPRequest.queryStringGet("username").flatMap(UserStr.read)
+    private def param(name: String, form: Map[String, Seq[String]])(using
+        req: RequestHeader
+    ): Option[String] =
+      storedCodeParam(name, form, req.queryString)
+
+    private def reqEmailAndUser(form: Map[String, Seq[String]])(using
+        RequestHeader
+    ): Option[Creds] = for
+      email <- param("email", form).flatMap(EmailAddress.from)
+      user <- param("username", form).flatMap(UserStr.read)
     yield (email.normalize, user.id)
 
-    def consume()(using RequestHeader, UserAgent): Fu[LimitResult | AccessToken] =
-      (reqEmailAndUser, HTTPRequest.queryStringGet("code")).tupled.fold(notRateLimited): pair =>
+    def consume(
+        form: Map[String, Seq[String]]
+    )(using RequestHeader, UserAgent): Fu[LimitResult | AccessToken] =
+      (reqEmailAndUser(form), param("code", form)).tupled.fold(notRateLimited): pair =>
         limitAndFindCreds(pair._1, cost = 1): (user, _) =>
           if store.getIfPresent(pair).exists(_.is(user))
           then
@@ -51,8 +71,8 @@ final class LoginToken(
             accessTokenApi.create(user.id, scopes, Origin("org.lichess.mobile://"))
           else notRateLimited
 
-    def createAndSend()(using RequestHeader): Fu[LimitResult] =
-      reqEmailAndUser.fold(notRateLimited): creds =>
+    def createAndSend(form: Map[String, Seq[String]])(using RequestHeader): Fu[LimitResult] =
+      reqEmailAndUser(form).fold(notRateLimited): creds =>
         limitAndFindCreds(creds, cost = 1): (user, email) =>
           val code = String(Array.fill(6)(secureChar))
           store.put(creds -> code, user.id)
