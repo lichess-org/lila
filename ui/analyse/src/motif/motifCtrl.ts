@@ -6,7 +6,10 @@ import { boardAnalysisVariants, detectCheckable, detectPins, detectUndefended } 
 import type { Checkable, Pin, Undefended } from './interfaces';
 
 export default class MotifCtrl {
-  constructor(private readonly settings: Settings) {}
+  constructor(
+    private readonly settings: Settings,
+    private readonly variant: VariantKey,
+  ) {}
 
   supports = (variant: VariantKey): boolean => boardAnalysisVariants.includes(variant);
 
@@ -17,5 +20,7 @@ export default class MotifCtrl {
   detectUndefended = (board: Board, epSquare: Square | undefined): Undefended[] =>
     this.settings.showUndefendedPieces ? detectUndefended(board, epSquare) : [];
   detectCheckable = (board: Board, epSquare: Square | undefined, castlingRights: SquareSet): Checkable[] =>
-    this.settings.showCheckableKing ? detectCheckable(board, epSquare, castlingRights) : [];
+    this.settings.showCheckableKing && this.variant !== 'racingKings'
+      ? detectCheckable(board, epSquare, castlingRights)
+      : [];
 }

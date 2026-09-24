@@ -160,7 +160,7 @@ export default class AnalyseCtrl implements CevalHandler {
       () => this.withCg(g => g.set(this.cgConfig)),
       this.redraw,
     );
-    this.motif = new MotifCtrl(this.settings);
+    this.motif = new MotifCtrl(this.settings, this.variantKey);
 
     if (this.data.forecast) this.forecast = new ForecastCtrl(this.data.forecast, this.data, redraw);
     if (this.opts.wiki) this.wiki = wikiTheory();
