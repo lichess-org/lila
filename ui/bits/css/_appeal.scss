@@ -157,8 +157,7 @@
 
     &--mod {
       text-align: end;
-      padding-inline-start: 0;
-      padding-inline-end: 1em;
+      padding-inline: 0 1em;
       border-inline-start: none;
       border-inline-end: 5px solid $c-primary;
 
@@ -230,6 +229,11 @@
       border-top: none;
       padding-top: 1em;
       justify-content: flex-end;
+    }
+
+    .appeal-create {
+      flex: 0 0 auto;
+      margin: 0;
     }
   }
 
