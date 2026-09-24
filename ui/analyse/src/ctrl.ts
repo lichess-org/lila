@@ -154,7 +154,12 @@ export default class AnalyseCtrl implements CevalHandler {
         this.node.ceval = undefined;
         this.evalCache?.clear();
         this.startCeval();
-      } else if (this.settings.showCloudEval && this.isCevalAllowed() && this.cevalEnabled() && !this.node.ceval?.cloud) {
+      } else if (
+        this.settings.showCloudEval &&
+        this.isCevalAllowed() &&
+        this.cevalEnabled() &&
+        !this.node.ceval?.cloud
+      ) {
         this.evalCache?.fetch(this.path, this.ceval.search.multiPv);
       }
       this.setAutoShapes();
