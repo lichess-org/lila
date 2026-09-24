@@ -9,13 +9,9 @@ import { profileUrl } from 'lib/view/userLink';
 
 type Entry = LightUserOnline | HTMLAnchorElement;
 
-export function initModule({ input }: { input: HTMLInputElement }) {
-  const menuLinks = Array.from(document.querySelectorAll<HTMLAnchorElement>('#topnav a')).filter(
-    a => a.href !== '/',
-  );
-
+export function addClinputKeyHandler({ input }: { input: HTMLInputElement }) {
   const fetchLinks = (term: string): HTMLAnchorElement[] => {
-    const all = menuLinks
+    const all = menuLinks()
       .filter(a => a.textContent?.toLowerCase().includes(term.toLowerCase()))
       .map(a => a.cloneNode(true) as HTMLAnchorElement)
       .map(a => {
@@ -47,7 +43,6 @@ export function initModule({ input }: { input: HTMLInputElement }) {
   };
 
   complete<Entry>(completeOpts);
-  setTimeout(() => input.focus());
 
   $(input).on(
     'keydown',
@@ -56,6 +51,10 @@ export function initModule({ input }: { input: HTMLInputElement }) {
       input.blur();
     }),
   );
+}
+
+function menuLinks() {
+  return Array.from(document.querySelectorAll<HTMLAnchorElement>('#topnav a')).filter(a => a.href !== '/');
 }
 
 function execute(e: string | Entry) {
@@ -106,7 +105,7 @@ function commandHelp(aliases: string, args: string, desc: string) {
 
 function help() {
   domDialog({
-    css: [{ hashed: 'cli.help' }],
+    css: [{ hashed: 'bits.clinput.help' }],
     class: 'clinput-help',
     modal: true,
     easyClose: 'clickOutside',
