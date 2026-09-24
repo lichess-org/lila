@@ -1,3 +1,9 @@
+@mixin appeal-answer($color) {
+  border: 1px solid $color;
+  background: color-mix(in oklab, $color 18%, $c-bg);
+  color: $color;
+}
+
 .appeal {
   h1 {
     @extend %flex-between;
@@ -61,7 +67,6 @@
     }
   }
 
-  // TODO: revisit styling
   &__choice {
     @extend %box-neat;
 
@@ -70,20 +75,20 @@
     background: $c-bg-zebra;
 
     &--pending {
-      background: $c-bg-box;
       border: $border;
+      background: $c-bg-box;
     }
 
     &__waiting {
-      margin: 0 0 0.8em;
+      margin-bottom: 0.8em;
       color: $c-font-dim;
       font-style: italic;
     }
 
     &__question {
+      margin-bottom: 1.2em;
       font-size: 1.4em;
       font-weight: bold;
-      margin: 0 0 1.2em;
     }
 
     &__answers {
@@ -102,28 +107,28 @@
       @extend %box-radius;
 
       padding: 0.6em 1em;
-      text-align: center;
       border: $border;
-      color: $c-font-dim;
       background: $c-bg-zebra;
+      color: $c-font-dim;
+      text-align: center;
     }
   }
 
   &__choice-event {
-    margin-bottom: 2em;
-    padding: 0 0 1.5em;
+    padding-bottom: 1.5em;
     padding-inline-start: 1em;
+    margin-bottom: 2em;
     border-bottom: $border;
     border-inline-start: 5px solid $c-border;
 
     &__question {
-      color: $c-font-dim;
-      margin: 0 0 0.8em;
+      margin-bottom: 0.8em;
       font-size: 1.4em;
+      color: $c-font-dim;
     }
 
     &__moderator {
-      margin-inline-start: 0.45em;
+      margin-inline-start: 0.4em;
       font-size: 0.75em;
       color: $c-primary;
       cursor: help;
@@ -136,14 +141,11 @@
     }
 
     &__answer {
-      @extend %box-radius;
+      @extend %box-radius, %break-word;
+      @include appeal-answer($c-accent);
 
-      display: inline-block;
-      max-width: 100%;
+      min-width: 0;
       padding: 0.5em 1em;
-      background: color-mix(in oklab, $c-accent 18%, $c-bg);
-      color: $c-accent;
-      border: 1px solid $c-accent;
       font-weight: 500;
     }
 
@@ -156,19 +158,17 @@
     }
 
     &--mod {
-      text-align: end;
       padding-inline: 0 1em;
       border-inline-start: none;
       border-inline-end: 5px solid $c-primary;
+      text-align: end;
 
       .appeal__choice-event__selection {
-        justify-content: flex-end;
+        justify-content: end;
       }
 
       .appeal__choice-event__answer {
-        background: color-mix(in oklab, $c-primary 18%, $c-bg);
-        color: $c-primary;
-        border: 1px solid $c-primary;
+        @include appeal-answer($c-primary);
       }
     }
   }
