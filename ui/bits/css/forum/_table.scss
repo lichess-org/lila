@@ -44,8 +44,8 @@
     }
 
     td {
-      padding-top: 1.5rem;
-      padding-bottom: 1.5rem;
+      padding-top: 1rem;
+      padding-bottom: 1rem;
     }
 
     &.topics {
@@ -71,6 +71,7 @@
 
     &.categs .subject p {
       margin-top: 0.3em;
+      margin-bottom: 0.3em;
     }
   }
 }

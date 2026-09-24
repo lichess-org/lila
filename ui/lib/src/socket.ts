@@ -147,6 +147,16 @@ class WsSocket {
     this.ackable.sign(s);
   };
 
+  private readonly onOnline = (online: boolean): void => {
+    const cl = document.body.classList;
+    cl.toggle('offline', !online);
+    cl.toggle('online', online);
+    if (pubsub.past('socket.hasConnected')) {
+      if (online) document.body.classList.add('reconnected');
+      pubsub.emit('socket.online', online);
+    }
+  };
+
   private readonly connect = (): void => {
     this.destroy();
     this.lastUrl = xhr.url(this.options.protocol + '//' + this.nextBaseUrl() + this.url, {
@@ -161,10 +171,7 @@ class WsSocket {
       ws.onopen = () => {
         this.lastUrl = ws.url;
         this.debug('connected to ' + this.lastUrl);
-        const cl = document.body.classList;
-        if (pubsub.past('socket.hasConnected')) cl.add('reconnected');
-        cl.remove('offline');
-        cl.add('online');
+        this.onOnline(true);
         this.onSuccess();
         this.pingNow();
         this.resendWhenOpen.forEach(([t, d, o]) => this.send(t, d, o));
@@ -224,8 +231,7 @@ class WsSocket {
     clearTimeout(this.pingSchedule);
     clearTimeout(this.connectSchedule);
     this.connectSchedule = setTimeout(() => {
-      document.body.classList.add('offline');
-      document.body.classList.remove('online');
+      this.onOnline(false);
       if (isOnline()) $('#network-status').text(i18n?.site?.reconnecting ?? 'Reconnecting');
       else $('#network-status').text(i18n?.site?.noNetwork ?? 'Offline');
       this.tryOtherUrl = true;

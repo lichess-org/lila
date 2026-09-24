@@ -55,6 +55,8 @@
 
   @extend %box-neat-force;
 
+  border-radius: $box-radius-size;
+
   &__player__title {
     color: $c-brag;
   }

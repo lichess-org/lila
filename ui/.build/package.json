@@ -17,14 +17,14 @@
   "dependencies": {
     "@types/micromatch": "4.0.10",
     "@types/node": "24.13.5",
-    "autoprefixer": "^10.6.1",
+    "browserslist": "^4.28.9",
     "esbuild": "0.28.2",
     "fast-glob": "3.3.3",
     "fast-xml-parser": "5.11.1",
     "json-stringify-pretty-compact": "4.0.0",
+    "lightningcss": "^1.33.0",
     "micromatch": "4.0.8",
     "picocolors": "^1.1.1",
-    "postcss": "^8.5.28",
     "typescript": "7.0.2"
   },
   "scripts": {
@@ -38,6 +38,7 @@
     "chrome >= 112",
     "edge >= 111",
     "opera >= 97",
-    "safari >= 16.2"
+    "safari >= 16.2",
+    "iOS >= 16.2"
   ]
 }

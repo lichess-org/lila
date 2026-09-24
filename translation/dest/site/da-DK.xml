@@ -814,10 +814,6 @@ At spille ratede partier vil øge stabiliteten.</string>
   <string name="quickPairing">Hurtig parring</string>
   <string name="lobby">Lobbyen</string>
   <string name="anonymous">Anonym</string>
-  <plurals name="nbAnonymous">
-    <item quantity="one">Anonym</item>
-    <item quantity="other">Anonyme (%s)</item>
-  </plurals>
   <string name="yourScore">Din score: %s</string>
   <string name="language">Sprog</string>
   <string name="allLanguages">Alle sprog</string>

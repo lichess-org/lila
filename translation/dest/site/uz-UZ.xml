@@ -814,10 +814,6 @@ Reytingli oʻyinlar o\'ynasangiz reyting barqarorligi oshadi.</string>
   <string name="quickPairing">Raqibni tez topish</string>
   <string name="lobby">Kutish zali</string>
   <string name="anonymous">Anonim</string>
-  <plurals name="nbAnonymous">
-    <item quantity="one">Anonim</item>
-    <item quantity="other">Anonim (%s)</item>
-  </plurals>
   <string name="yourScore">Hisob: %s</string>
   <string name="language">Til</string>
   <string name="allLanguages">Barcha tillar</string>

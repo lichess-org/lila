@@ -115,7 +115,7 @@ object bits:
 
   def markdownEditor(realm: MarkdownRealm)(textareaTag: Tag)(using
       imageGetOrigin: ImageGetOrigin
-  )(using ctx: Context) =
+  )(using ctx: Context)(using Translate) =
     val editorClass = if realm.toastUi then "markdown-toastui" else "markdown-textarea"
     val canUploadImages = ctx.me.soUse(lila.core.security.canUploadImages(realm.key))
     val uploadUrl = canUploadImages.option(routes.Main.uploadImage(realm))
@@ -134,8 +134,8 @@ object bits:
       uploadUrl.map(url => attr("data-image-upload-url") := url)
     )(
       div(cls := "header")(
-        button(cls := "header-tab write-tab active", tpe := "button")("Write"),
-        button(cls := "header-tab preview-tab", tpe := "button")("Preview"),
+        button(cls := "header-tab write-tab active", tpe := "button")(lila.core.i18n.I18nKey.site.write()),
+        button(cls := "header-tab preview-tab", tpe := "button")(lila.core.i18n.I18nKey.site.preview()),
         imageUploadButton
       ),
       div(cls := "content")(

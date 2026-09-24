@@ -798,10 +798,6 @@
   <string name="quickPairing">जलद जोड्या</string>
   <string name="lobby">प्रेक्षागृह</string>
   <string name="anonymous">अनामिक</string>
-  <plurals name="nbAnonymous">
-    <item quantity="one">निनावी</item>
-    <item quantity="other">निनावी (%s)</item>
-  </plurals>
   <string name="yourScore">तुमचे गुण: %s</string>
   <string name="language">भाषा</string>
   <string name="allLanguages">सर्व भाषा</string>
