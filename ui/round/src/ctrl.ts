@@ -115,7 +115,7 @@ export default class RoundController implements MoveRootCtrl {
       this.firstSeconds = false;
       this.redraw();
     }, 3000);
-    this.socket = d.local ?? makeSocket(opts.socketSend!, this);
+    this.socket = (d.local as unknown as RoundSocket) ?? makeSocket(opts.socketSend!, this);
     this.blindfoldStorage = storage.boolean(`blindfold.${this.data.player.user?.id ?? 'anon'}`);
 
     this.updateClockCtrl();
