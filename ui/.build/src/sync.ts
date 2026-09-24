@@ -38,7 +38,6 @@ export async function sync(): Promise<void[] | undefined> {
 }
 
 async function syncOne(absSrc: string, absDest: string): Promise<boolean> {
-  // TODO are these stats unnecessary now?
   const [src, dest] = (
     await Promise.allSettled([
       fs.promises.stat(absSrc),
@@ -46,7 +45,7 @@ async function syncOne(absSrc: string, absDest: string): Promise<boolean> {
       fs.promises.mkdir(dirname(absDest), { recursive: true }),
     ])
   ).map(x => (x.status === 'fulfilled' ? (x.value as fs.Stats) : undefined));
-  if (src && !(dest && isClose(src.mtimeMs, dest.mtimeMs))) {
+  if (src && !(dest && isClose(src.mtimeMs, dest.mtimeMs) && src.size === dest.size)) {
     await fs.promises.copyFile(absSrc, absDest);
     await fs.promises.utimes(absDest, src.atime, src.mtime);
     return true;
