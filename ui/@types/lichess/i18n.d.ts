@@ -2071,16 +2071,14 @@ interface I18n {
     preferenceWrite: string;
     /** Read puzzle activity */
     puzzleRead: string;
+    /** Solve puzzles */
+    puzzleWrite: string;
     /** Create and join puzzle races */
     racerWrite: string;
-    /** Read private tournaments */
-    readPrivateTournaments: string;
     /** Read and write notes on other players */
     readWriteNotesOnPlayers: string;
     /** So you remember what this token is for */
     rememberTokenUse: string;
-    /** Solve puzzles */
-    solvePuzzles: string;
     /** Read private studies and broadcasts */
     studyRead: string;
     /** Create, update, delete studies and broadcasts */
@@ -2095,6 +2093,8 @@ interface I18n {
     tokenDescription: string;
     /** A token grants other people permission to use your account. */
     tokenGrantsPermission: string;
+    /** Read private tournaments */
+    tournamentRead: string;
     /** Create, update, and join tournaments */
     tournamentWrite: string;
     /** Use moderator tools (within bounds of your permission) */

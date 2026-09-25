@@ -50,7 +50,7 @@ object OAuthScope:
     case object Write extends OAuthScope("study:write", trans.studyWrite)
 
   object Tournament:
-    case object Read extends OAuthScope("tournament:read", trans.readPrivateTournaments)
+    case object Read extends OAuthScope("tournament:read", trans.tournamentRead)
     case object Write extends OAuthScope("tournament:write", trans.tournamentWrite)
 
   object Racer:
@@ -58,7 +58,7 @@ object OAuthScope:
 
   object Puzzle:
     case object Read extends OAuthScope("puzzle:read", trans.puzzleRead)
-    case object Write extends OAuthScope("puzzle:write", trans.solvePuzzles)
+    case object Write extends OAuthScope("puzzle:write", trans.puzzleWrite)
 
   object Team:
     case object Read extends OAuthScope("team:read", trans.teamRead)

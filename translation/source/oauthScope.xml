@@ -22,11 +22,11 @@
   <string name="challengeBulk">Create many games at once for other players</string>
   <string name="studyRead">Read private studies and broadcasts</string>
   <string name="studyWrite">Create, update, delete studies and broadcasts</string>
-  <string name="readPrivateTournaments">Read private tournaments</string>
+  <string name="tournamentRead">Read private tournaments</string>
   <string name="tournamentWrite">Create, update, and join tournaments</string>
   <string name="racerWrite">Create and join puzzle races</string>
   <string name="puzzleRead">Read puzzle activity</string>
-  <string name="solvePuzzles">Solve puzzles</string>
+  <string name="puzzleWrite">Solve puzzles</string>
   <string name="teamRead">Read private team information</string>
   <string name="teamWrite">Join and leave teams</string>
   <string name="manageTeamsYouLead">Manage teams you lead: send direct messages, kick members</string>
