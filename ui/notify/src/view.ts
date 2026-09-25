@@ -82,5 +82,5 @@ function recentNotifications(d: NotifyData, scrolling: boolean): VNode {
 }
 
 function empty() {
-  return hl('div.empty.text', { attrs: dataIcon(licon.InfoCircle) }, i18n.site.noNotifications);
+  return hl('div.empty.text', { attrs: dataIcon(licon.InfoCircle) }, i18n.site.nothingToSeeHere);
 }

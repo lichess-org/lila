@@ -3369,7 +3369,7 @@ interface I18n {
     accuracy: string;
     /** Active players */
     activePlayers: string;
-    /** This is a list of devices and applications that are logged into your account. If you notice any suspicious activity, make sure to %1$s and %2$s. */
+    /** This is a list of devices and applications that are logged into your account. If you notice any suspicious activity, make sure to <a href='%1$s'>check your recovery email address</a> and <a href='%2$s'>change your password</a>. */
     activeSessionsDescription: I18nFormat;
     /** Add current variation */
     addCurrentVariation: string;
@@ -3567,8 +3567,6 @@ interface I18n {
     changeUsernameDescription: string;
     /** Only the case of the letters can change. For example "johndoe" to "JohnDoe". */
     changeUsernameNotSame: string;
-    /** change your password */
-    changeYourPassword: string;
     /** Chat */
     chat: string;
     /** Chat room */
@@ -3583,8 +3581,6 @@ interface I18n {
     checkAllEmailFolders: string;
     /** Checkmate */
     checkmate: string;
-    /** check your recovery email address */
-    checkRecoveryEmail: string;
     /** If you do not receive a confirmation email, check your Spam or Junk folder. Be sure to indicate messages from lichess.org as safe and "not spam", so you can stay informed of important communications. */
     checkSpamOrJunkFolder: string;
     /** Check your Email */
@@ -4319,8 +4315,6 @@ interface I18n {
     noNetwork: string;
     /** No note yet */
     noNoteYet: string;
-    /** No notifications. */
-    noNotifications: string;
     /** No restriction */
     noRestriction: string;
     /** Normal */
@@ -4641,8 +4635,6 @@ interface I18n {
     reviewWhiteMistakes: string;
     /** revoke all sessions */
     revokeAllSessions: string;
-    /** You can also %s. */
-    revokeAllSessionsHint: I18nFormat;
     /** Roundness */
     roundness: string;
     /** Pick a very safe name for the tournament. */
@@ -5965,16 +5957,6 @@ interface I18n {
     battleOfNbTeams: I18nPlural;
     /** Your join request is being reviewed by a team leader. */
     beingReviewed: string;
-    /** Who can use the team chat? */
-    chatAccessHelp: string;
-    /** Team leaders */
-    chatAccessLeaders: string;
-    /** Team members */
-    chatAccessMembers: string;
-    /** No chat */
-    chatAccessNone: string;
-    /** Team chat */
-    chatLabel: string;
     /** Close team */
     closeTeam: string;
     /** Closes the team forever. */
