@@ -136,28 +136,28 @@ final class TeamFormUi(helpers: Helpers, bits: TeamUi)(
         disabled = team.exists(_.isClas)
       ),
       form3.split(
-        form3.group(form("chat"), trans.team.chatLabel(), help = trans.team.chatAccessHelp().some) { f =>
+        form3.group(form("chat"), trans.site.chatRoom()) { f =>
           form3.select(
             f,
             Seq(
-              Access.None.id -> trans.team.chatAccessNone,
-              Access.Leaders.id -> trans.team.chatAccessLeaders,
-              Access.Members.id -> trans.team.chatAccessMembers
+              Access.None.id -> trans.site.noChat.txt(),
+              Access.Leaders.id -> trans.site.onlyTeamLeaders.txt(),
+              Access.Members.id -> trans.site.onlyTeamMembers.txt()
             )
           )
         },
         form3.group(
           form("forum"),
           trans.team.forumLabel(),
-          help = trans.team.forumVisibilityHelp().some
+          help = trans.team.forumVisibilityHelp.rawHtml().some
         ) { f =>
           form3.select(
             f,
             Seq(
-              Access.Everyone.id -> trans.team.forumVisibilityEveryone,
-              Access.Members.id -> trans.team.forumVisibilityMembers,
-              Access.Leaders.id -> trans.team.forumVisibilityLeaders,
-              Access.None.id -> trans.team.forumVisibilityNone
+              Access.Everyone.id -> trans.team.forumVisibilityEveryone.txt(),
+              Access.Members.id -> trans.team.forumVisibilityMembers.txt(),
+              Access.Leaders.id -> trans.team.forumVisibilityLeaders.txt(),
+              Access.None.id -> trans.team.forumVisibilityNone.txt()
             )
           )
         }

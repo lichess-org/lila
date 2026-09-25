@@ -27,18 +27,16 @@ final class AccountSecurity(helpers: Helpers)(
           standardFlash.map(div(cls := "box__pad")(_)),
           div(cls := "box__pad")(
             p(
-              trans.site.activeSessionsDescription(
-                a(href := routes.Account.email)(trans.site.checkRecoveryEmail()),
-                a(href := routes.Account.passwd)(trans.site.changeYourPassword())
+              trans.site.activeSessionsDescription.rawHtml(
+                (routes.Account.email),
+                (routes.Account.passwd)
               )
             ),
             (sessions.sizeIs > 1).option(
-              div(
-                trans.site.revokeAllSessionsHint(
-                  postForm(cls := "revoke-all", action := routes.Account.signout("all"))(
-                    submitButton(cls := "button button-empty button-red yes-no-confirm")(
-                      trans.site.revokeAllSessions()
-                    )
+              div(style := "float: right")(
+                postForm(cls := "revoke-all", action := routes.Account.signout("all"))(
+                  submitButton(cls := "button button-empty button-red yes-no-confirm")(
+                    trans.site.revokeAllSessions()
                   )
                 )
               )

@@ -50,11 +50,6 @@
   <string name="entryCode">Team entry code</string>
   <string name="entryCodeDescriptionForLeader">(Optional) An entry code that new members must know to join this team.</string>
   <string name="incorrectEntryCode">Incorrect entry code.</string>
-  <string name="chatLabel">Team chat</string>
-  <string name="chatAccessHelp">Who can use the team chat?</string>
-  <string name="chatAccessNone">No chat</string>
-  <string name="chatAccessLeaders">Team leaders</string>
-  <string name="chatAccessMembers">Team members</string>
   <string name="forumLabel">Team forum</string>
   <string name="forumVisibilityHelp">Who can see the team forum on the team page?&lt;br&gt;Only team members can post in the team forum.</string>
   <string name="forumVisibilityEveryone">Show to everyone</string>
