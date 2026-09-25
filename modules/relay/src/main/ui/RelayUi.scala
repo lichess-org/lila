@@ -31,6 +31,7 @@ final class RelayUi(helpers: Helpers)(
       .css("analyse.relay")
       .css(ctx.blind.option("round.nvui"))
       .i18n(_.study, _.broadcast)
+      .i18nOpt(ctx.speechSynthesis, _.nvui)
       .i18nOpt(ctx.blind, _.keyboardMove)
       .js(analyseNvuiTag)
       .js(pageModule(rt, data, chatOption, socketVersion))
