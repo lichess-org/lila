@@ -28,8 +28,8 @@ final class AccountSecurity(helpers: Helpers)(
           div(cls := "box__pad")(
             p(
               trans.site.activeSessionsDescription.rawHtml(
-                (routes.Account.email),
-                (routes.Account.passwd)
+                routes.Account.email,
+                routes.Account.passwd
               )
             ),
             (sessions.sizeIs > 1).option(
