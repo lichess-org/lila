@@ -119,7 +119,7 @@ final class GameApiV2(
           .fold(Query.nowPlaying(config.user.id)):
             Query.nowPlayingVs(config.user.id, _)
     val requiresElasticSearch =
-      config.perfKey.nonEmpty || config.analysed.nonEmpty || config.color.nonEmpty || config.rated.nonEmpty
+      config.perfKey.nonEmpty || config.analysed.nonEmpty || config.color.nonEmpty || config.rated.nonEmpty || config.wonBy.nonEmpty
     val gameSource: Source[Game, ?] =
       if requiresElasticSearch then
         import lila.search.Size
@@ -404,6 +404,7 @@ object GameApiV2:
   case class ByUserConfig(
       user: User,
       vs: Option[User],
+      wonBy: Option[User],
       format: Format,
       since: Option[Instant] = None,
       until: Option[Instant] = None,
@@ -434,6 +435,7 @@ object GameApiV2:
         players = SearchPlayer(
           a = user.id.into(UserStr).some,
           b = vs.map(_.id.into(UserStr)),
+          winner = wonBy.map(_.id.into(UserStr)),
           white = color.exists(_.white).option(user.id.into(UserStr)),
           black = color.exists(_.black).option(user.id.into(UserStr))
         ),
