@@ -190,8 +190,8 @@ pnpm lint:fix
 - **pnpm-workspace.yaml**: Defines workspace packages
 - **ui/.build/**: Custom frontend build system
 - **.scalafmt.conf**: Scala formatting rules
-- **ui/.oxlint.json**: TypeScript formatting rules (Oxlint)
-- **ui/.oxfmt.json**: TypeScript/CSS/JSON/MD formatting rules (Oxfmt)
+- **.oxlintrc.jsonc**: TypeScript formatting rules (Oxlint)
+- **.oxfmtrc.json**: TypeScript/CSS/JSON/MD formatting rules (Oxfmt)
 - **conf/routes**: HTTP route definitions
 - **conf/application.conf.default**: Main application configuration template
 

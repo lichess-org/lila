@@ -82,26 +82,24 @@ export class Engines {
         },
         make: (e: BrowserEngineInfo) => new StockfishWebEngine(e, this.statusCallback),
       }),
-      ...variants.map(
-        ({ key, nnue }: Variant): WithMake => ({
-          info: {
-            id: `__fsfnnue-${key}`,
-            name: 'Fairy Stockfish 14+ NNUE',
-            short: 'FSF 14+',
-            url: 'https://github.com/lichess-org/stockfish-web#fsf_14-fairy-stockfish-14',
-            tech: 'NNUE',
-            requires: ['sharedMem', 'simd', 'dynamicImportFromWorker'],
-            variants: [key],
-            supportsCloudEval: true,
-            assets: {
-              root: 'npm/stockfish-web',
-              nnue: [`${nnue}.nnue`],
-              js: 'fsf_14.js',
-            },
+      ...variants.map(({ key, nnue }: Variant): WithMake => ({
+        info: {
+          id: `__fsfnnue-${key}`,
+          name: 'Fairy Stockfish 14+ NNUE',
+          short: 'FSF 14+',
+          url: 'https://github.com/lichess-org/stockfish-web#fsf_14-fairy-stockfish-14',
+          tech: 'NNUE',
+          requires: ['sharedMem', 'simd', 'dynamicImportFromWorker'],
+          variants: [key],
+          supportsCloudEval: true,
+          assets: {
+            root: 'npm/stockfish-web',
+            nnue: [`${nnue}.nnue`],
+            js: 'fsf_14.js',
           },
-          make: (e: BrowserEngineInfo) => new StockfishWebEngine(e, this.statusCallback),
-        }),
-      ),
+        },
+        make: (e: BrowserEngineInfo) => new StockfishWebEngine(e, this.statusCallback),
+      })),
       {
         info: {
           id: '__sf14nnue',
@@ -307,10 +305,8 @@ export class Engines {
 }
 
 function maxHashMB() {
-  if (isAndroid())
-    return 64; // budget androids are easy to crash @ 128
-  else if (isIPad())
-    return 64; // iPadOS safari pretends to be desktop but acts more like iphone
+  if (isAndroid()) return 64; // budget androids are easy to crash @ 128
+  else if (isIPad()) return 64; // iPadOS safari pretends to be desktop but acts more like iphone
   else if (isIos()) return 32;
   return 512; // allocating 1024 often fails and offers little benefit over 512, or 16 for that matter
 }
