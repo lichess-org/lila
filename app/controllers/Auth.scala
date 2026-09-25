@@ -518,22 +518,20 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
             if user.enabled.yes then authenticateUser(user, remember = true, pwned = IsPwned.No)
             else authenticateAppealUser(user, Redirect(_))
 
-  def mobileCodeEmail = Anon:
+  def mobileCodeEmail = AnonBodyOf(parse.tolerantFormUrlEncoded): _ =>
     Firewall:
       NoTor:
         for
-          limit <- env.security.loginToken.storedCode.createAndSend()
+          limit <- env.security.loginToken.storedCode.createAndSend
           res <- if limit.ok then NoContent.toFuccess else rateLimited
         yield res
 
-  def mobileCodeBearer = Anon:
+  def mobileCodeBearer = AnonBodyOf(parse.tolerantFormUrlEncoded): _ =>
     Firewall:
       NoTor:
-        env.security.loginToken.storedCode
-          .consume()
-          .flatMap:
-            case limit: RateLimit.LimitResult => if limit.ok then notFound else rateLimited
-            case token: lila.oauth.AccessToken => Ok(token.plain).toFuccess
+        env.security.loginToken.storedCode.consume.flatMap:
+          case limit: RateLimit.LimitResult => if limit.ok then notFound else rateLimited
+          case token: lila.oauth.AccessToken => Ok(token.plain).toFuccess
 
   def check = OpenOrScoped() { ctx ?=>
     ctx.me match

@@ -10,6 +10,7 @@ import scalalib.net.{ UserAgent, Bearer }
 
 import lila.common.Form.trueish
 import lila.core.net.*
+import lila.core.data.UntypedFormRequest
 
 object HTTPRequest:
 
@@ -145,6 +146,9 @@ object HTTPRequest:
 
   def queryStringGetAs[A](name: String)(using req: RequestHeader, sr: SameRuntime[String, A]): Option[A] =
     queryStringGet(name).map(sr.apply)
+
+  def fromFormOrQuery(name: String)(using req: UntypedFormRequest): Option[String] =
+    req.body.get(name).flatMap(_.headOption).filter(_.nonEmpty).orElse(queryStringGet(name))
 
   def looksLikeLichessBot(req: RequestHeader) =
     val ua = userAgent(req).value
