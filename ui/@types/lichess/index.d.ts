@@ -114,8 +114,7 @@ interface SoundI {
   setVoice(v: { name: string; lang: string }): void;
   speech(v?: boolean): boolean;
   changeSet(s: string): void;
-  sayLazy(text: () => string, cut?: boolean, force?: boolean, translated?: boolean): boolean;
-  say(text: string, cut?: boolean, force?: boolean, translated?: boolean): boolean;
+  say(text: string, cut?: boolean, force?: boolean, translated?: boolean): void;
   saySan(san?: San, cut?: boolean, force?: boolean): void;
   sayOrPlay(name: string, text: string, cut?: boolean): void;
   preloadBoardSounds(): void;
