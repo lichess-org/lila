@@ -374,13 +374,9 @@ final class FaqUi(helpers: Helpers, sitePages: SitePages)(
             "make-a-bot",
             trf.makeBotTitle.txt(),
             p(
-              trf.makeBotDescription(
-                a(href := "https://lichess.org/blog/WvDNticAAMu_mHKP/welcome-lichess-bots")(
-                  trf.customChessBot()
-                ),
-                a(href := "https://lichess.org/@/thibault/blog/how-to-create-a-lichess-bot/FuKyvDuB")(
-                  trf.botCreationBlogPost()
-                )
+              trf.makeBotDescription.rawHtml(
+                ("https://lichess.org/blog/WvDNticAAMu_mHKP/welcome-lichess-bots"),
+                ("https://lichess.org/@/thibault/blog/how-to-create-a-lichess-bot/FuKyvDuB")
               )
             )
           ),
