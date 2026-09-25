@@ -1058,4 +1058,5 @@ Leave empty to start games from the normal initial position.</string>
   <string name="boards">Boards</string>
   <string name="write">Write</string>
   <string name="preview">Preview</string>
+  <string name="askConcluded">%1$s concluded survey question: %2$s</string>
 </resources>

@@ -28,6 +28,7 @@ object home:
       )
     Page("")
       .copy(fullTitle = s"$siteName • ${trans.site.freeOnlineChess.txt()}".some)
+      .copy(askFrags = lastUpdateAsks.map(views.askUi.render))
       .i18n(_.variant)
       .js(
         PageModule(

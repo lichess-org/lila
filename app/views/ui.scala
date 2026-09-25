@@ -35,6 +35,9 @@ val style = lila.plan.ui.PlanStyle(helpers)
 val plan = lila.plan.ui.PlanUi(helpers)(style, netConfig.email)
 val planPages = lila.plan.ui.PlanPages(helpers)(lila.fishnet.FishnetLimiter.maxPerDay)
 
+val askUi = lila.ask.ui.AskUi()
+val askAdminUi = lila.ask.ui.AskAdminUi(helpers)(askUi.renderGraph)
+
 val feed =
   lila.feed.ui.FeedUi(helpers, atomUi)(title => _ ?=> site.ui.SitePage(title, "news", ""))(using
     env.executor

@@ -92,7 +92,7 @@ lazy val modules = Seq(
   // and then the smaller ones
   pool, lobby, relation, tv, coordinate, feed, history, recap,
   shutup, appeal, irc, explorer, learn, event, coach,
-  practice, evalCache, irwin, bot, racer, cms, i18n, jsBot,
+  practice, evalCache, irwin, bot, racer, cms, i18n, jsBot, ask,
   socket, bookmark, studySearch, gameSearch, forumSearch, teamSearch, irc
 )
 
@@ -447,6 +447,11 @@ lazy val pref = module("pref",
 lazy val msg = module("msg",
   Seq(coreI18n, memo),
   Seq()
+)
+
+lazy val ask = module("ask",
+  Seq(memo, ui, security),
+  reactivemongo.bundle
 )
 
 lazy val forum = module("forum",
