@@ -31,7 +31,7 @@
   <string name="startDateTimeZone">Turnuva yerel saati ile başlama zamanı: %s</string>
   <string name="startDateHelp">İsteğe bağlı, etkinliğin ne zaman başladığını biliyorsanız ekleyebilirsiniz.</string>
   <string name="currentGameUrl">Şu anki oyunun linki</string>
-  <string name="downloadAllRounds">Bütün maçları indir</string>
+  <string name="downloadAllRounds">Bütün turları indir</string>
   <string name="resetRound">Bu turu sıfırla</string>
   <string name="deleteRound">Bu turu sil</string>
   <string name="permanentlyDeleteRound" comment="Refers to live tournaments being broadcast on Lichess (https://lichess.org/broadcast).&#10;&#10;Description (also translateable): Delete all games of this round. The source will need to be active in order to re-create them. This string has been amended since its initial publication; it didn't say &quot;all its games&quot; at the time.">Bu turu ve tüm oyunlarını kalıcı olarak silmek istiyor musunuz?</string>

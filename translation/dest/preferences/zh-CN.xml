@@ -41,6 +41,7 @@
   <string name="claimDrawOnThreefoldRepetitionAutomatically">在三次重复局面时自动提和</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">当剩余时间小于 30 秒时</string>
   <string name="moveConfirmation">着法确认</string>
+  <string name="multipleChoices">多项选择。</string>
   <string name="explainCanThenBeTemporarilyDisabled">可在对局中通过棋盘菜单禁用</string>
   <string name="inCorrespondenceGames">通讯棋</string>
   <string name="correspondenceAndUnlimited">通讯棋和无时限对局</string>
@@ -89,4 +90,10 @@
   <string name="analysisSettings">分析设置</string>
   <string name="maneuverArrowsHelp">单个棋子的引擎着法序列</string>
   <string name="hoverOverSettingLabelsForHelp">悬停至设置标签以获取帮助</string>
+  <string name="network">网络</string>
+  <string name="youAreCurrentlyUsingDirectRouting">您当前正在使用直接路由。</string>
+  <string name="youAreCurrentlyUsingCdnRouting">您当前正在使用内容分发网络 (CDN) 路由。</string>
+  <string name="frequentDisconnectsAdvice">如果您频繁断开连接，请尝试更改路由。</string>
+  <string name="useDirectRouting">使用直接路由</string>
+  <string name="useCdnRouting">使用 CDN 路由</string>
 </resources>

@@ -7,4 +7,10 @@
   <string name="cancelKeepAccount">Annuller og behold min konto</string>
   <string name="closeAccountAreYouSure">Er du sikker på, at du vil lukke din konto?</string>
   <string name="thisAccountIsClosed">Denne konto er lukket.</string>
+  <string name="wereSorryToSeeYouGo">Vi er kede af, at du forlader os.</string>
+  <string name="closeAccountForeverLabel">Luk for evigt: Gør det umuligt at genåbne</string>
+  <string name="closeAccountForeverWarning">Forhindr genåbning af kontoen senere. Hvis du afkrydser dette felt, vil selv administratorer ikke være i stand til at genåbne din konto på din anmodning.</string>
+  <string name="deleteYourAccount">Slet din konto</string>
+  <string name="closeYourAccount">luk din konto</string>
+  <string name="deleteAccountConfirmText">Jeg forstår, at slettede konti ikke kan gendannes</string>
 </resources>

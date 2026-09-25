@@ -525,6 +525,11 @@
   <string name="autoSwitch">自动切换</string>
   <string name="puzzles">谜题</string>
   <string name="onlineBots">在线机器人</string>
+  <string name="aboutBotsOnLichess">关于 Lichess 上的机器人</string>
+  <string name="featuredBots">精选机器人</string>
+  <string name="tryPlayingTheseInnovativeChessEngines">试试与这些有创意性的国际象棋引擎对弈吧！它们是我们的最爱。</string>
+  <string name="communityBots">社区机器人</string>
+  <string name="moreChessEnginesCreatedByTheLichessCommunity">更多由 Lichess 社区创建的国际象棋引擎。它们由其创建者托管，可能不会始终在线。</string>
   <string name="name">名称</string>
   <string name="description">描述</string>
   <string name="descPrivate">私密描述</string>
@@ -572,6 +577,7 @@
   <string name="clearField">清除字段</string>
   <string name="orSeparator">或</string>
   <string name="logInByEmail">通过邮件登录</string>
+  <string name="emailLoginInstructions">我们将向您发送一封包含登录链接的邮件。</string>
   <string name="emailMeALink">将链接发送到我的邮箱</string>
   <string name="currentPassword">当前密码</string>
   <string name="newPassword">新密码</string>
@@ -596,6 +602,8 @@
   <string name="onSlowGames">慢棋对局中</string>
   <string name="always">总是</string>
   <string name="never">从不</string>
+  <string name="defeatOnly">仅输棋</string>
+  <string name="drawAndDefeat">和棋与输棋</string>
   <string name="xCompetesInY">%1$s 参加了 %2$s</string>
   <string name="victory">胜局</string>
   <string name="defeat">负局</string>
@@ -657,10 +665,13 @@
   <string name="aboutX">关于 %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s 是一个%2$s免费、开源共享、绝无广告的国际象棋平台。</string>
   <string name="really">完全</string>
+  <string name="lichessUpdates">Lichess 动态</string>
   <string name="contribute">协助我们</string>
+  <string name="changelog">更新日志</string>
   <string name="termsOfService">服务条款</string>
   <string name="titleVerification">头衔认证</string>
   <string name="sourceCode">源代码</string>
+  <string name="blockAds">屏蔽广告</string>
   <string name="simultaneousExhibitions">车轮战</string>
   <string name="host">主持人</string>
   <string name="hostColorX">主持人执棋方：%s</string>
@@ -1004,4 +1015,6 @@
   <string name="verifyingYourDevice">正在验证您的设备...</string>
   <string name="chessOpenings">国际象棋开局</string>
   <string name="boards">棋盘</string>
+  <string name="write">撰写</string>
+  <string name="preview">预览</string>
 </resources>

@@ -558,6 +558,11 @@ Spelen met rating verhoogt de stabiliteit.</string>
   <string name="autoSwitch">Automatische wissel</string>
   <string name="puzzles">Puzzels</string>
   <string name="onlineBots">Online bots</string>
+  <string name="aboutBotsOnLichess">Over bots op Lichess</string>
+  <string name="featuredBots">Uitgelichte bots</string>
+  <string name="tryPlayingTheseInnovativeChessEngines">Probeer tegen deze innovatieve schaakcomputers te spelen! Dit zijn onze favorieten.</string>
+  <string name="communityBots">Bots van de gemeenschap</string>
+  <string name="moreChessEnginesCreatedByTheLichessCommunity">Meer schaakcomputers gemaakt door de Lichess-gemeenschap. Ze worden gehost door hun makers en zijn mogelijk niet altijd online.</string>
   <string name="name">Naam</string>
   <string name="description">Beschrijving</string>
   <string name="descPrivate">Interne beschrijving</string>
@@ -605,6 +610,7 @@ Spelen met rating verhoogt de stabiliteit.</string>
   <string name="clearField">Veld leegmaken</string>
   <string name="orSeparator">of</string>
   <string name="logInByEmail">Log in via e-mail</string>
+  <string name="emailLoginInstructions">We sturen je een e-mail met een link om in te loggen.</string>
   <string name="emailMeALink">Email me een link</string>
   <string name="currentPassword">Huidig wachtwoord</string>
   <string name="newPassword">Nieuw wachtwoord</string>
@@ -629,6 +635,8 @@ Spelen met rating verhoogt de stabiliteit.</string>
   <string name="onSlowGames">Alleen bij langzame partijen</string>
   <string name="always">Altijd</string>
   <string name="never">Nooit</string>
+  <string name="defeatOnly">Alleen verlies</string>
+  <string name="drawAndDefeat">Verlies en remise</string>
   <string name="xCompetesInY">%1$s neemt deel aan %2$s</string>
   <string name="victory">Overwinning</string>
   <string name="defeat">Nederlaag</string>
@@ -693,10 +701,13 @@ Spelen met rating verhoogt de stabiliteit.</string>
   <string name="aboutX">Over %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s is een gratis (%2$s), vrije, advertentie-loze open source schaakserver.</string>
   <string name="really">echt waar</string>
+  <string name="lichessUpdates">Lichess nieuws</string>
   <string name="contribute">Draag bij</string>
+  <string name="changelog">Wijzigingen</string>
   <string name="termsOfService">Algemene voorwaarden</string>
   <string name="titleVerification">Titel verifiëren</string>
   <string name="sourceCode">Broncode</string>
+  <string name="blockAds">Blokkeer advertenties</string>
   <string name="simultaneousExhibitions">Simultaans</string>
   <string name="host">Simultaangever</string>
   <string name="hostColorX">Kleur simultaangever: %s</string>
@@ -1046,4 +1057,6 @@ Alle exploitatiekosten, ontwikkeling en inhoud worden enkel gefinancierd door do
   <string name="verifyingYourDevice">Apparaat verifiëren...</string>
   <string name="chessOpenings">Schaakopeningen</string>
   <string name="boards">Borden</string>
+  <string name="write">Schrijven</string>
+  <string name="preview">Voorvertoning</string>
 </resources>

@@ -1045,4 +1045,6 @@ Les despeses de funcionament, desenvolupament i continguts es financen exclusiva
   <string name="verifyingYourDevice">Verificant el teu dispositiu...</string>
   <string name="chessOpenings">Obertures d\'escacs</string>
   <string name="boards">Taulers</string>
+  <string name="write">Escriure</string>
+  <string name="preview">Previsualització</string>
 </resources>

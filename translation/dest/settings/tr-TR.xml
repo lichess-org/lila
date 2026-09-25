@@ -7,4 +7,5 @@
   <string name="cancelKeepAccount">Vazgeç ve hesabımı koru</string>
   <string name="closeAccountAreYouSure">Hesabınızı kapatmak istediğinize emin misiniz?</string>
   <string name="thisAccountIsClosed">Hesap kapatılmıştır.</string>
+  <string name="deleteYourAccount">Hesabınızı silin</string>
 </resources>

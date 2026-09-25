@@ -163,6 +163,10 @@
   </plurals>
   <string name="moveTimes">Zugzite</string>
   <string name="flipBoard">Brätt umcheere</string>
+  <string name="toggleLocalEngine">Lokali Engine umschalte</string>
+  <string name="engineSettings">Engine Ischtellige</string>
+  <string name="enginesFromStrongestToWeakest">Engines vo stärkste bis schwächste</string>
+  <string name="illegalPosition">Illegali Schtellig</string>
   <string name="threefoldRepetition">Drüüfachi Stelligswiederholig</string>
   <string name="claimADraw">Es Remis beaschpruche</string>
   <string name="drawClaimed">Remis g\'forderet</string>
@@ -238,6 +242,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="signupUsernameHint">Wähl bitte en aschtändige Benutzername. Du chasch en nachträglich nöd ändere und jedes Konto mit untolerierbarem Name wird gschlosse!</string>
   <string name="signupEmailPromise">Mir schicked dir nur E-Mail, wo dis Konto beträffed und gänd dini E-Mail-Adrässe niemals und niemerem witer.</string>
   <string name="password">Passwort</string>
+  <string name="showPassword">Passwort azeige</string>
   <string name="changePassword">Passwort ändere</string>
   <string name="changeEmail">E-Mail-Adrässe ändere</string>
   <string name="email">E-Mail</string>
@@ -283,6 +288,8 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   </plurals>
   <string name="ok">OK</string>
   <string name="cancel">Abbräche</string>
+  <string name="whiteRanOutOfTime" comment="whiteTimeOut&#10;&#10;Shows when White's time has run out. Is followed by the end condition, for example&#10;'White ran out of time · Draw'">Ziitüberschritig vo Wiss</string>
+  <string name="blackRanOutOfTime" comment="blackTimeOut&#10;&#10;Shows when Black's time has run out. Is followed by the end condition, for example&#10;'Black ran out of time · Draw'">Ziitüberschritig vo Schwarz</string>
   <string name="drawOfferSent">Remis-Agebot gsändet</string>
   <string name="drawOfferAccepted">Remis-Agebot akzeptiert</string>
   <string name="whiteOffersDraw">Wiss offeriert Remis</string>
@@ -423,6 +430,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="apply">Awände</string>
   <string name="save">Schpeichere</string>
   <string name="leaderboard">Ranglischte</string>
+  <string name="positionAsImage" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position.">Schtellig als Foti</string>
   <string name="gameAsGIF">Schpiel als GIF</string>
   <string name="playerNames">Schpiller Näme</string>
   <string name="moveAnnotations">Zugs-Notatione</string>
@@ -536,6 +544,7 @@ zum bewise dass du en Mänsch bisch.</string>
   <string name="oneUrlPerLine">Nur 1 Web Adrässe (URL) pro Zile.</string>
   <string name="inlineNotation">Inline-Notation</string>
   <string name="makeAStudy">Zum Variante sicher ufzbewahre und zum Witergeh, söttsch e Schtudie erschtelle.</string>
+  <string name="clearLocalData">Lokali Date lösche</string>
   <string name="previouslyOnLichessTV">Zletscht uf Lichess TV</string>
   <string name="onlinePlayers">Online Schpiller</string>
   <string name="activePlayers">Aktivi Schpiller</string>
@@ -728,6 +737,7 @@ gits nöd und es isch nie g\'wertet.</string>
   <string name="keyGoToStartOrEnd">gang zum Afang/Änd</string>
   <string name="keyCycleSelectedVariation">Usgwählti Zyklusvariante</string>
   <string name="keyShowOrHideComments">zeig/verschteck d\'Kommentär</string>
+  <string name="keyShowOrHideCurrentVariation">aktuelli Variante i/usblende</string>
   <string name="keyEnterOrExitVariation">Variante ischtige/verlah</string>
   <string name="keyPreviousBranch">Vorherige Variante</string>
   <string name="keyNextBranch">Nächschti Variante</string>
@@ -820,6 +830,7 @@ gits nöd und es isch nie g\'wertet.</string>
   <string name="picture">Hintergrundbild</string>
   <string name="deviceTheme">Mit em Grät synchronisiere</string>
   <string name="roundness">Eckeabrundig</string>
+  <string name="backgroundImage">Hintergrundbild</string>
   <string name="backgroundImageUrl">Hindergrund-Bild-URL:</string>
   <string name="imageOpacity">Bildtransparenz</string>
   <string name="board">Brätt</string>
@@ -844,6 +855,7 @@ gits nöd und es isch nie g\'wertet.</string>
   <string name="custom">Eigeni Bedänkzit</string>
   <string name="notifications">Benachrichtigunge</string>
   <string name="notificationsX">Benachrichtigunge: %1$s</string>
+  <string name="perfRatingLabel">Wertig: %s.</string>
   <string name="yourRatingIsX">Dini Wertig: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s Sekunde für de 1. Zug</item>
@@ -902,6 +914,7 @@ gits nöd und es isch nie g\'wertet.</string>
     <item quantity="other">und speicher %s Voruszug Zile</item>
   </plurals>
   <string name="showUnreadLichessMessage">Lichess hät dir e privati Nachricht g\'schickt.</string>
+  <string name="readTheMessage" comment="'It' refers to a private message. This text follows after a different string which advises players they have received a private message from Lichess. For users, this is appears as a regular private message from the Lichess account: https://lichess.org/@/Lichess">Nachricht lese</string>
   <string name="sorry">Äxgüsi :(</string>
   <string name="weHadToTimeYouOutForAWhile">Mir händ dich für es Zitli müesse schperre.</string>
   <string name="why">Wieso?</string>
@@ -1037,4 +1050,7 @@ Alli Betriebs-Choschte, d\'Entwicklig und d\'Inhält werded usschliesslich dur B
   <string name="tags">Tags</string>
   <string name="enPassant">En passant</string>
   <string name="settings">Ischtellige</string>
+  <string name="verifyingYourDevice">Dis Grät wird überprüft...</string>
+  <string name="chessOpenings">Schacheröffnige</string>
+  <string name="boards">Brätter</string>
 </resources>

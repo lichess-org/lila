@@ -7,4 +7,12 @@
   <string name="cancelKeepAccount">取消并保留我的账户</string>
   <string name="closeAccountAreYouSure">您确定要关闭此账户吗？</string>
   <string name="thisAccountIsClosed">此账户已被关闭。</string>
+  <string name="wereSorryToSeeYouGo">我们很遗憾看到您的离开。</string>
+  <string name="closeAccountForeverLabel">永久关闭：使其无法重新打开</string>
+  <string name="closeAccountForeverWarning">防止以后重新打开账户。如果勾选此框，即使是管理员也无法应您的要求重新打开您的账户！</string>
+  <string name="deleteYourAccount">删除您的账户</string>
+  <string name="deleteAccountWarning">一旦您删除账户，它将从 Lichess 中移除，且我们的管理员将无法为您恢复。</string>
+  <string name="wouldYouLikeToXInstead" comment="%s is close your account">您是否想改为%s？</string>
+  <string name="closeYourAccount">关闭您的账户</string>
+  <string name="deleteAccountConfirmText">我了解已删除的账户无法恢复</string>
 </resources>

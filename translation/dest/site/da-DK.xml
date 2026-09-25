@@ -501,7 +501,7 @@ At spille ratede partier vil øge stabiliteten.</string>
   <string name="join">Deltag</string>
   <string name="withdraw">Frameld</string>
   <string name="points">Points</string>
-  <string name="wins">Gevinster</string>
+  <string name="wins">Sejre</string>
   <string name="losses">Tabte</string>
   <string name="startingIn" comment="Displayed above a timer">Starter om</string>
   <string name="standByX">Et øjeblik %s, parrer spillere – gør dig klar!</string>
@@ -558,6 +558,8 @@ At spille ratede partier vil øge stabiliteten.</string>
   <string name="autoSwitch">Autoskift</string>
   <string name="puzzles">Taktikopgaver</string>
   <string name="onlineBots">Online bots</string>
+  <string name="aboutBotsOnLichess">Om bots på Lichess</string>
+  <string name="featuredBots">Fremhævede bots</string>
   <string name="name">Navn</string>
   <string name="description">Beskrivelse</string>
   <string name="descPrivate">Privat beskrivelse</string>

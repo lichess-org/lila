@@ -525,6 +525,11 @@
   <string name="autoSwitch">自動切り替え</string>
   <string name="puzzles">タクティクス問題</string>
   <string name="onlineBots">オンラインのボット</string>
+  <string name="aboutBotsOnLichess">Lichess のボットについて</string>
+  <string name="featuredBots">注目のボット</string>
+  <string name="tryPlayingTheseInnovativeChessEngines">革新的なチェスエンジンと対戦してみよう！　私たちのお気に入りです。</string>
+  <string name="communityBots">コミュニティボット</string>
+  <string name="moreChessEnginesCreatedByTheLichessCommunity">Lichess のコミュニティが作成したチェスエンジンです。作成者がホストしているもので、常に接続中とは限りません。</string>
   <string name="name">名称</string>
   <string name="description">説明</string>
   <string name="descPrivate">非公開説明文</string>
@@ -572,6 +577,7 @@
   <string name="clearField">項目をクリア</string>
   <string name="orSeparator">または</string>
   <string name="logInByEmail">メールアドレスでログイン</string>
+  <string name="emailLoginInstructions">ログインリンクが記載されたメールをお送りします。</string>
   <string name="emailMeALink">リンクをメールで送る</string>
   <string name="currentPassword">現在のパスワード</string>
   <string name="newPassword">新しいパスワード</string>
@@ -596,6 +602,8 @@
   <string name="onSlowGames">長時間の対局のみ</string>
   <string name="always">常に有効</string>
   <string name="never">無効</string>
+  <string name="defeatOnly">負けた時だけ</string>
+  <string name="drawAndDefeat">ドローか負けの時に</string>
   <string name="xCompetesInY">%1$s が %2$s で対局しました。</string>
   <string name="victory">勝ち</string>
   <string name="defeat">負け</string>
@@ -657,10 +665,13 @@
   <string name="aboutX">%s について</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s は無料 (%2$s)・自由・広告なし・オープンソースのチェス サーバです。</string>
   <string name="really">本当に</string>
+  <string name="lichessUpdates">Lichess 更新情報</string>
   <string name="contribute">力を貸す</string>
+  <string name="changelog">変更ログ</string>
   <string name="termsOfService">利用規約（英文）</string>
   <string name="titleVerification">実戦タイトルの検証</string>
   <string name="sourceCode">ソースコード</string>
+  <string name="blockAds">広告をブロック</string>
   <string name="simultaneousExhibitions">同時対局</string>
   <string name="host">ホスト</string>
   <string name="hostColorX">ホストの色: %s</string>
@@ -1002,4 +1013,6 @@
   <string name="verifyingYourDevice">デバイスを確認しています...</string>
   <string name="chessOpenings">チェスのオープニング</string>
   <string name="boards">ボード</string>
+  <string name="write">書く</string>
+  <string name="preview">プレビュー</string>
 </resources>

@@ -173,8 +173,10 @@
   </plurals>
   <string name="moveTimes">Время на ход</string>
   <string name="flipBoard">Перевернуть доску</string>
+  <string name="toggleLocalEngine">Переключать локальный движок</string>
   <string name="engineSettings">Настройки движка</string>
   <string name="enginesFromStrongestToWeakest">Движки от сильнейших к слабейшим</string>
+  <string name="illegalPosition">Нелегальная позиция</string>
   <string name="threefoldRepetition">Троекратное повторение позиции</string>
   <string name="claimADraw">Потребовать ничью</string>
   <string name="drawClaimed">Объявлена ничья</string>
@@ -260,8 +262,8 @@
   <string name="changeUsername">Изменить имя пользователя</string>
   <string name="changeUsernameNotSame">Можно изменить только регистр символов. Например, поменять «Johndoe» на «JohnDoe».</string>
   <string name="changeUsernameDescription">Изменить имя пользователя. Это можно сделать только один раз, при этом можно изменить только регистр символов.</string>
-  <string name="signupUsernameHint">Убедитесь, что вы выбрали благопристойное имя пользователя. Вы не сможете изменить его позже, при этом все учётные записи с неприличными именами будут закрыты!</string>
-  <string name="signupEmailPromise">Мы будем только отправлять вам письма, касающиеся вашей учётной записи, и никогда не передадим ваш адрес кому-либо.</string>
+  <string name="signupUsernameHint">Убедитесь, что вы выбрали благопристойное имя пользователя. Вы не сможете изменить его позже, при этом все аккаунты с неприличными именами будут закрыты!</string>
+  <string name="signupEmailPromise">Мы будем только отправлять вам письма, касающиеся вашего аккаунта, и никогда не передадим ваш адрес кому-либо.</string>
   <string name="password">Пароль</string>
   <string name="showPassword">Показать пароль</string>
   <string name="changePassword">Сменить пароль</string>
@@ -271,12 +273,12 @@
   <string name="forgotPassword">Забыли пароль?</string>
   <string name="error.weakPassword">Этот пароль очень распространён, и его слишком легко угадать.</string>
   <string name="error.namePassword">Пожалуйста, не используйте свой логин в качестве пароля.</string>
-  <string name="blankedPassword">Вы использовали такой же пароль на другом сайте, а тот сайт был скомпрометирован. Теперь для безопасности вашей учётной записи на Lichess необходимо установить новый пароль. Спасибо за ваше понимание.</string>
+  <string name="blankedPassword">Вы использовали такой же пароль на другом сайте, а тот сайт был скомпрометирован. Теперь для безопасности вашего аккаунта на Lichess необходимо установить новый пароль. Спасибо за ваше понимание.</string>
   <string name="youAreLeavingLichess">Вы покидаете Lichess</string>
   <string name="neverTypeYourPassword">Никогда не вводите свой пароль Lichess на другом сайте!</string>
   <string name="proceedToX">Перейти на %s</string>
-  <string name="passwordSuggestion">Не устанавливайте пароль, предложенный другими людьми. Они с его помощью украдут вашу учётную запись.</string>
-  <string name="emailSuggestion">Не устанавливайте адрес электронной почты, предложенный другими людьми. Они с его помощью украдут вашу учётную запись.</string>
+  <string name="passwordSuggestion">Не устанавливайте пароль, предложенный другими людьми. Они с его помощью украдут ваш аккаунт.</string>
+  <string name="emailSuggestion">Не устанавливайте адрес электронной почты, предложенный другими людьми. Они с его помощью украдут ваш аккаунт.</string>
   <string name="emailConfirmHelp">Помощь с подтверждением электронной почты</string>
   <string name="emailConfirmNotReceived">Не получили подтверждение по электронной почте после регистрации?</string>
   <string name="whatSignupUsername">Какое имя пользователя вы использовали для регистрации?</string>
@@ -286,12 +288,12 @@
   <string name="emailCanTakeSomeTime">Получение письма может занять некоторое время.</string>
   <string name="refreshInboxAfterFiveMinutes">Подождите 5 минут и обновите ваш почтовый ящик.</string>
   <string name="checkSpamOrJunkFolder" comment="checkSpamFolder&#10;It = The confirmation email">Если вы не получили подтверждение по электронной почте, проверьте папку «Спам» или «Нежелательная почта». Настройте почту так, чтобы сообщения от lichess.org отмечались как безопасные и «не спам», так вы сможете всегда быть на связи.</string>
-  <string name="sendEmailForAccountVerification">Если вы не можете найти подтверждение в электронной почте, отправьте письмо на адрес %s и мы подтвердим вашу учётную запись для вас.</string>
+  <string name="sendEmailForAccountVerification">Если вы не можете найти подтверждение в электронной почте, отправьте письмо на адрес %s и мы подтвердим ваш аккаунт для вас.</string>
   <string name="accountConfirmed">Пользователь %s успешно подтверждён.</string>
   <string name="accountCanLogin">Вы можете войти прямо сейчас как %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Вам не требуется подтверждение по электронной почте.</string>
-  <string name="accountClosed">Аккаунт %s закрыт.</string>
-  <string name="accountRegisteredWithoutEmail">Учётная запись %s зарегистрирована без электронной почты.</string>
+  <string name="accountClosed">Аккаунт «%s» закрыт.</string>
+  <string name="accountRegisteredWithoutEmail">Аккаунт «%s» зарегистрирован без электронной почты.</string>
   <string name="rank">Ранг</string>
   <string name="rankX">Место: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -798,6 +800,7 @@
   <string name="keyboardShortcuts">Горячие клавиши</string>
   <string name="keyMoveBackwardOrForward">ход назад/вперёд</string>
   <string name="keyGoToStartOrEnd">в начало/конец</string>
+  <string name="keyGoToPreviousOrNextLine">Перейдите к предыдущей/следуйщей линии</string>
   <string name="keyCycleSelectedVariation">Прокручивать выбранный вариант</string>
   <string name="keyShowOrHideComments">показать/скрыть комментарии</string>
   <string name="keyShowOrHideCurrentVariation">показать/скрыть текущий вариант</string>
@@ -1005,7 +1008,7 @@
   <string name="currentMatchScore">Счёт в текущем матче</string>
   <string name="agreementAssistance">Подтверждаю, что я никогда не воспользуюсь посторонней помощью в своих играх (из шахматных программ, книг, баз данных и от других игроков).</string>
   <string name="agreementNice">Подтверждаю, что я буду с уважением относиться к другим игрокам.</string>
-  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Я согласен с тем, что не должен создавать множество учётных записей (за исключением причин, указанных в %s).</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Я соглашаюсь с тем, что не буду создавать множество аккаунтов (за исключением причин, указанных в %s).</string>
   <string name="searchOrStartNewDiscussion">Найти обсуждение или начать новое</string>
   <string name="edit">Изменить</string>
   <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">Ультра-пуля</string>
@@ -1089,7 +1092,7 @@
   <string name="focusChat">Переключиться в окно чата</string>
   <string name="showHelpDialog">Показать справку</string>
   <string name="reopenYourAccount">Переоткройте свой аккаунт</string>
-  <string name="reopenYourAccountDescription">Если вы закрыли свою учётную запись, но потом передумали, у вас есть шанс отменить своё решение.</string>
+  <string name="reopenYourAccountDescription">Если вы закрыли свой аккаунт, но потом передумали, у вас есть шанс отменить своё решение.</string>
   <string name="emailAssociatedToaccount">Адрес электронной почты, привязанный в этому аккаунту</string>
   <string name="sentEmailWithLink">Мы отправили вам письмо со ссылкой.</string>
   <string name="tournamentEntryCode">Код для участия в турнире</string>
@@ -1102,7 +1105,7 @@
   <string name="until">До</string>
   <string name="lichessDbExplanation">Рейтинговые игры по всем игрокам Lichess</string>
   <string name="switchSides">Сменить сторону</string>
-  <string name="closingAccountWithdrawAppeal">Закрытие вашей учётной записи отменит ваше обращение</string>
+  <string name="closingAccountWithdrawAppeal">Закрытие вашего аккаунта отменит ваше обращение</string>
   <string name="ourEventTips">Наши советы по организации мероприятий</string>
   <string name="instructions">Руководство</string>
   <string name="showMeEverything">Показать всё</string>

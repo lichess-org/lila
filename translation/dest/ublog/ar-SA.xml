@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="community">المجتمع</string>
+  <string name="communityBlogs">مدونات المجتمع</string>
   <string name="byMonth">حسب الشهر</string>
   <string name="byTopic">حسب الموضوع</string>
   <string name="byLichess">بواسطة ليشيس</string>
@@ -8,6 +9,7 @@
   <string name="myLikes">ما أعجبني</string>
   <string name="myBlog">مدونتي</string>
   <string name="likedBlogs">المنشورات التي أحببتها</string>
+  <string name="blogPostsByFriends">منشورات المدونة بواسطة الأصدقاء</string>
   <plurals name="blogPosts">
     <item quantity="zero">%s منشور في المدونة</item>
     <item quantity="one">%s منشور في المدونة</item>
@@ -32,6 +34,8 @@
   <string name="createBlogDiscussionHelp">سيوضع منتدى للأشخاص الذين يريدون التعليق على مشاركتك</string>
   <string name="publishOnYourBlog">المنشور على مدونتك</string>
   <string name="publishHelp">إذا تم التحديد، فسيُدرج المنشور في مدونتك. وإذا لم يتم، فسيكون خاصًا ضمن مسوداتك</string>
+  <string name="includesPromotedContent">يشمل المحتوى الترويجي/الممول أو روابط الإحالة</string>
+  <string name="mandatoryForSponsoredContent">إلزامية للمحتوى المشمول برعاية أو الروابط المنتسبة أو الإعلان التجاري</string>
   <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">منشور مثبت</string>
   <string name="stickyPostHelp">إذا تم الاختيار، سيتم إدراج هذا المنشور أولاً في منشورات ملفك الشخصية الحديثة وعلى مدونتك.</string>
   <plurals name="publishedNbBlogPosts">
@@ -56,6 +60,7 @@
   <string name="noPostsInThisBlogYet">لا يوجد مقالات في هذه المدونة حالياً.</string>
   <string name="noDrafts">لا يوجد مسودات لعرضها.</string>
   <string name="latestBlogPosts">أخر منشورات المدونة</string>
+  <string name="recentPosts">المنشورات الأخيرة</string>
   <plurals name="viewAllNbPosts">
     <item quantity="zero">عرض كل %s المنشورات</item>
     <item quantity="one">عرض مقالة</item>
@@ -66,9 +71,11 @@
   </plurals>
   <string name="imageAlt">نص بديل الصورة</string>
   <string name="imageCredit">حقوق الصورة</string>
+  <string name="coverImage">صورة الغلاف</string>
   <string name="deleteBlog">حذف مشاركة المدونة هذه بشكل قاطع</string>
   <string name="freeImagesComplyWithLicensing" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">توفر المواقع الإلكترونية التالية صورًا مجانية. يُرجى التأكد من الالتزام بشروط ترخيص الصورة التي تستخدمها.</string>
   <string name="selectPostTopics">حدد الموضوع الذي تدور مقالتك حوله</string>
+  <string name="etiquette">آداب السلوك</string>
   <string name="safeAndRespectfulContent">يرجى نشر المحتوى الحصري و المفيد فقط. لا تنسخ محتوى احد أخر.</string>
   <string name="noCopyrightedImages">استخدم فقط الصور التي لا تنتهك حقوق الطبع والنشر للآخرين.</string>
   <string name="inappropriateContentAccountClosed">أي شيء غير لائق من الممكن أن يتسبب بإغلاق حسابك.</string>

@@ -41,6 +41,7 @@
   <string name="claimDrawOnThreefoldRepetitionAutomatically">مطالبة بالتعادل لتكرار نفس النقلات ثلاث مرات بشكل تلقائي</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">عندما يقل الوقت عن 30 ثانية</string>
   <string name="moveConfirmation">تأكيد النقلة</string>
+  <string name="multipleChoices">خيارات متعددة. </string>
   <string name="explainCanThenBeTemporarilyDisabled">يمكن تعطيله أثناء اللعبة من قائمة اللوحة</string>
   <string name="inCorrespondenceGames">فى العاب المراسلة</string>
   <string name="correspondenceAndUnlimited">مراسلة وبدون توقيت</string>
@@ -89,4 +90,10 @@
   <string name="analysisSettings">إعدادات التحليل</string>
   <string name="maneuverArrowsHelp">إظهار سلسلة النقلات التي يقترحها المحرك لقطعة واحدة</string>
   <string name="hoverOverSettingLabelsForHelp">مرّر المؤشر فوق تسميات الإعدادات لعرض تلميحات المساعدة</string>
+  <string name="network">الشبكة</string>
+  <string name="youAreCurrentlyUsingDirectRouting">أنت تستخدم حاليًا التوجيه المباشر.</string>
+  <string name="youAreCurrentlyUsingCdnRouting">أنت تستخدم حاليًا التوجيه عبر شبكة توصيل المحتوى (CDN).</string>
+  <string name="frequentDisconnectsAdvice">إذا كنت تواجه انقطاعات متكررة في الاتصال، فجرّب تغيير مسار الاتصال.</string>
+  <string name="useDirectRouting">استخدم الاتصال المباشر</string>
+  <string name="useCdnRouting">استخدم الاتصال عبر شبكة توصيل المحتوى CDN</string>
 </resources>

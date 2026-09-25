@@ -78,6 +78,7 @@
   <string name="pairingsA">Використовується %1$s, реалізована за допомогою %2$s, відповідно до %3$s.</string>
   <string name="moreRoundsThanPlayersQ">Що станеться, якщо в турнірі більше раундів, ніж гравців?</string>
   <string name="moreRoundsThanPlayersA">Коли всі можливі пари зіграють, турнір буде закінчено і оголосять переможця.</string>
+  <string name="whyAreSwissTournamentsRestrictedToTeams">Чому турніри за швейцарською системою відбуваються лише командно?</string>
   <string name="restrictedToTeamsA">Швейцарські турніри не були розроблені для онлайн шахів. Вони вимагають від гравців пунктуальності, відданості та терпіння.
 Ми вважаємо, що ці умови більш ймовірні в команді, ніж в глобальних турнірах.</string>
   <string name="numberOfByesQ">Скільки bye може отримати гравець?</string>
