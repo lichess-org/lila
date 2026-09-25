@@ -18,6 +18,7 @@ Disallow: /opening/config/
 Disallow: /study/search
 Disallow: /study/embed/
 Disallow: /embed/
+Disallow: /video?*
 Allow: /game/export/gif/thumbnail/
 """
 
