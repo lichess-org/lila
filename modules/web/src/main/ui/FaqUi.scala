@@ -375,8 +375,8 @@ final class FaqUi(helpers: Helpers, sitePages: SitePages)(
             trf.makeBotTitle.txt(),
             p(
               trf.makeBotDescription.rawHtml(
-                ("https://lichess.org/blog/WvDNticAAMu_mHKP/welcome-lichess-bots"),
-                ("https://lichess.org/@/thibault/blog/how-to-create-a-lichess-bot/FuKyvDuB")
+                "https://lichess.org/blog/WvDNticAAMu_mHKP/welcome-lichess-bots",
+                "https://lichess.org/@/thibault/blog/how-to-create-a-lichess-bot/FuKyvDuB"
               )
             )
           ),
