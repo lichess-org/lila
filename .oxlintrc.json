@@ -37,7 +37,7 @@
     "no-unused-vars": [
       "error",
       {
-        "varsIgnorePattern": "^_",
+        "varsIgnorePattern": "^(_|jsx$)",
         "argsIgnorePattern": "^_",
         "caughtErrorsIgnorePattern": "^_"
       }

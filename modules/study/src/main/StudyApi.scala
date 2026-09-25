@@ -28,6 +28,7 @@ final class StudyApi(
     lightUserApi: lila.core.user.LightUserApi,
     chatApi: lila.core.chat.ChatApi,
     serverEvalRequester: ServerEval.Requester,
+    analyser: lila.tree.Analyser,
     preview: ChapterPreviewApi,
     flairApi: lila.core.user.FlairApi,
     userApi: lila.core.user.UserApi
@@ -157,10 +158,24 @@ final class StudyApi(
       transform: Study => Study = identity
   ): Fu[Option[Study.WithChapter]] = for
     pre <- studyMaker(data, user, withRatings)
-    sc = pre.copy(study = transform(pre.study))
+    chapter <- linkGameAnalysis(pre.chapter)
+    sc = pre.copy(study = transform(pre.study), chapter = chapter)
     _ <- chapterRepo.insert(sc.chapter)
     _ <- studyRepo.insert(sc.study)
   yield sc.some
+
+  private def linkGameAnalysis(chapter: Chapter): Fu[Chapter] =
+    chapter.setup.gameId.fold(fuccess(chapter)): gameId =>
+      analyser
+        .byId(lila.tree.Analysis.Id(gameId))
+        .map:
+          _.fold(chapter): analysis =>
+            ServerEval
+              .replace(chapter, analysis.some)
+              .copy(
+                serverEval = Chapter.ServerEval(path = chapter.root.mainlinePath, done = true).some,
+                analysisGameId = gameId.some
+              )
 
   def create(data: StudyForm.FormData)(using Me): Fu[Study.WithChapter] =
     for
@@ -248,11 +263,7 @@ final class StudyApi(
           doAddNode(args, study, Position(chapter, positionRef.path))
     .flatMapz { _() }
 
-  private def doAddNode(
-      args: AddNode,
-      study: Study,
-      position: Position
-  ): Fu[Option[() => Funit]] =
+  private def doAddNode(args: AddNode, study: Study, position: Position): Fu[Option[() => Funit]] =
     import args.{ *, given }
     position.chapter.root
       .nodeAt(position.path)
@@ -304,9 +315,7 @@ final class StudyApi(
     sequenceStudyWithChapter(studyId, position.chapterId):
       case Study.WithChapter(study, chapter) =>
         Contribute(who.u, study):
-          chapter.updateRoot { root =>
-            root.withChildren(_.deleteNodeAt(position.path))
-          } match
+          chapter.updateRoot(_.withChildren(_.deleteNodeAtAndPruneComp(position.path))) match
             case Some(newChapter) =>
               for _ <- chapterRepo.update(newChapter)
               yield
@@ -627,8 +636,9 @@ final class StudyApi(
             case StudyValidationException(error) =>
               sendTo(study.id)(_.validationError(error, who.sri))
               ErrorMsg(error).raise
-        _ <- doAddChapter(study, chapter, sticky, who)
-      yield chapter.some
+        maybeWithAnalysis <- linkGameAnalysis(chapter)
+        _ <- doAddChapter(study, maybeWithAnalysis, sticky, who)
+      yield maybeWithAnalysis.some
 
   def rename(studyId: StudyId, name: StudyName): Funit =
     sequenceStudy(studyId): old =>

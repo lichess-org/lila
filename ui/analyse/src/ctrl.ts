@@ -24,14 +24,14 @@ import {
 import { CevalCtrl, sanIrreversible, type CevalHandler, type CevalOpts } from 'lib/ceval';
 import { ChatCtrl } from 'lib/chat/chatCtrl';
 import { displayColumns } from 'lib/device';
-import { playable, playedTurns, fenToEpd, validUci, finished } from 'lib/game';
+import { playable, fenToEpd, validUci, finished } from 'lib/game';
 import { plyColor } from 'lib/game/chess';
 import { PromotionCtrl } from 'lib/game/promotion';
 import { pubsub } from 'lib/pubsub';
 import { storedBooleanProp } from 'lib/storage';
 import { makeTree, treePath, treeOps, type TreeWrapper } from 'lib/tree';
 import { completeNode } from 'lib/tree/node';
-import type { ClientEval, LocalEval, ServerEval, TreeNode, TreePath } from 'lib/tree/types';
+import type { ClientEval, Glyph, LocalEval, ServerEval, TreeNode, TreePath } from 'lib/tree/types';
 import { confirm } from 'lib/view';
 
 import { Autoplay, type AutoplayDelay } from './autoplay';
@@ -42,7 +42,14 @@ import ExplorerCtrl from './explorer/explorerCtrl';
 import ForecastCtrl from './forecast/forecastCtrl';
 import { ForkCtrl } from './fork';
 import { IdbTree } from './idbTree';
-import type { AnalyseOpts, AnalyseData, ServerEvalData, JustCaptured, NvuiPlugin } from './interfaces';
+import type {
+  AnalyseOpts,
+  AnalyseData,
+  AnalysisUpdate,
+  JustCaptured,
+  NvuiPlugin,
+  AnalysisEngineInfo,
+} from './interfaces';
 import * as keyboard from './keyboard';
 import LiveAnnotate from './liveAnnotate';
 import MotifCtrl from './motif/motifCtrl';
@@ -57,7 +64,7 @@ import type GamebookPlayCtrl from './study/gamebook/gamebookPlayCtrl';
 import type { AnaMove } from './study/interfaces';
 import type StudyCtrl from './study/studyCtrl';
 import { TreeView } from './treeView/treeView';
-import { treeReconstruct, addCrazyData } from './util';
+import { treeReconstruct, addCrazyData, hasUserContent, replaceStaticEval } from './util';
 import { plural } from './view/util';
 import wikiTheory, { wikiClear, type WikiTheory } from './wiki';
 
@@ -140,6 +147,7 @@ export default class AnalyseCtrl implements CevalHandler {
   nvui?: NvuiPlugin;
   pvUciQueue: Uci[] = [];
   keyboardMove?: KeyboardMove;
+  publishedEvalEngine?: AnalysisEngineInfo;
 
   constructor(
     readonly opts: AnalyseOpts,
@@ -239,6 +247,7 @@ export default class AnalyseCtrl implements CevalHandler {
 
   initialize(data: AnalyseData, merge: boolean): void {
     this.data = data;
+    this.publishedEvalEngine = data.analysis?.engine;
     this.synthetic = data.game.id === 'synthetic';
     this.ongoing = !this.synthetic && playable(data);
     const prevTree = merge && this.tree.root;
@@ -263,6 +272,10 @@ export default class AnalyseCtrl implements CevalHandler {
 
   get variantKey(): VariantKey {
     return this.data.game.variant.key;
+  }
+
+  get staticAnalysis() {
+    return this.idbTree.localAnalysis ?? this.data.analysis;
   }
 
   private readonly makeInitialPath = (): TreePath => {
@@ -352,8 +365,6 @@ export default class AnalyseCtrl implements CevalHandler {
     this.pluginUpdate(this.node.fen);
     this.onChange();
   }
-
-  serverMainline = () => this.mainline.slice(0, playedTurns(this.data) + 1);
 
   makeCgOpts(): ChessgroundConfig {
     const node = this.node,
@@ -658,7 +669,10 @@ export default class AnalyseCtrl implements CevalHandler {
   }
 
   allowedEval(node: TreeNode = this.node): ClientEval | ServerEval | false | undefined {
-    return (this.cevalEnabled() && node.ceval) || (this.settings.showStaticAnalysis && node.eval);
+    return (
+      (this.cevalEnabled() && node.ceval) ||
+      ((!node.eval?.static || this.settings.showStaticAnalysis) && node.eval)
+    );
   }
 
   motifAllowed = (): boolean => this.study?.isCevalAllowed() !== false && !this.retro?.isSolving();
@@ -691,8 +705,13 @@ export default class AnalyseCtrl implements CevalHandler {
       kid =>
         !kid.comp ||
         (this.settings.showStaticAnalysis && !this.retro?.hideComputerLine(kid)) ||
-        (treeOps.contains(kid, this.node) && !this.retro?.forceCeval()),
+        (treeOps.contains(kid, this.node) && !this.retro?.forceCeval()) ||
+        hasUserContent(kid),
     );
+  }
+
+  visibleGlyphs(node: TreeNode = this.node): Glyph[] {
+    return (node.glyphs ?? []).filter(glyph => !glyph.comp || this.settings.showStaticAnalysis);
   }
 
   reset(): void {
@@ -946,16 +965,34 @@ export default class AnalyseCtrl implements CevalHandler {
     return Object.keys(this.mainline[0].eval || {}).length > 0;
   };
 
-  mergeAnalysisData(data: ServerEvalData) {
+  mergeServerAnalysisData(data: AnalysisUpdate) {
     if (this.study && this.study.data.chapter.id !== data.ch) return;
-    const tree = completeNode(this.variantKey)(data.tree);
-    this.tree.merge(tree);
+    const dataTree = completeNode(this.variantKey)(data.tree);
+    if (data.analysis)
+      data.analysis.partial = !!treeOps.findInMainline(dataTree, this.partialAnalysisCallback);
+    if (!data.analysis?.partial) this.publishedEvalEngine = data.analysis?.engine;
+    if (this.idbTree.hasLocalAnalysis) return;
+
+    this.data.analysis = data.analysis;
+    this.tree.merge(dataTree);
     this.data.treeParts = treeOps.mainlineNodeList(this.tree.root);
     this.data.treeParts.forEach(this.ensureServerEvalNodes);
-    this.data.analysis = data.analysis;
-    if (data.analysis) data.analysis.partial = !!treeOps.findInMainline(tree, this.partialAnalysisCallback);
     if (data.division) this.data.game.division = data.division;
     if (this.retro) this.retro.onMergeAnalysisData();
+
+    pubsub.emit('analysis.server.progress', this.data);
+    this.redraw();
+  }
+
+  mergeLocalAnalysisData(data: AnalysisUpdate) {
+    if (this.study && this.study.data.chapter.id !== data.ch) return;
+
+    this.data.analysis = data.meta;
+    replaceStaticEval(this.tree.root, completeNode(this.variantKey)(data.tree));
+    this.data.treeParts = treeOps.mainlineNodeList(this.tree.root);
+    if (data.division) this.data.game.division = data.division;
+    if (this.retro) this.retro.onMergeAnalysisData();
+
     pubsub.emit('analysis.server.progress', this.data);
     this.redraw();
   }
@@ -1073,6 +1110,10 @@ export default class AnalyseCtrl implements CevalHandler {
         })
       : `/${this.data.game.id}/edit?fen=${this.node.fen}`;
 
+  canAnalyse(): boolean {
+    return !this.ongoing && this.mainline.length > 5 && (!this.study || this.study.isCevalAllowed());
+  }
+
   getNodeKey(): string {
     const engineId = (this.node.ceval && 'engineId' in this.node.ceval && this.node.ceval.engineId) || '';
     return `${this.path}_${this.threatMode}_${engineId}`;
@@ -1091,8 +1132,8 @@ export default class AnalyseCtrl implements CevalHandler {
   };
 
   private readonly ensureServerEvalNodes = (node: TreeNode) => {
-    if (node.eval && !node.eval.knodes && this.data.analysis?.nodesPerMove)
-      node.eval.knodes = this.data.analysis.nodesPerMove / 1000;
+    if (node.eval && !node.eval.knodes && this.data.analysis?.engine?.nodesPerMove)
+      node.eval.knodes = this.data.analysis.engine.nodesPerMove / 1000;
   };
 
   private async asyncLoadThenShow() {

@@ -294,13 +294,16 @@ function buttons(root: AnalyseCtrl): VNode {
           count: (root.node.glyphs || []).length,
           shouldBlurIfPrimaryClick: true,
         }),
-      (canContribute || root.data.analysis) &&
+      (canContribute || root.staticAnalysis) &&
         toolButton({
           ctrl,
           tab: 'serverEval',
           hint: i18n.site.computerAnalysis,
           icon: icon(licon.BarChart)(),
-          count: root.data.analysis && '✓',
+          onClick() {
+            if (!root.settings.showStaticAnalysis) root.settings.set('showStaticAnalysis', true);
+          },
+          count: root.staticAnalysis && '✓',
           shouldBlurIfPrimaryClick: true,
         }),
       toolButton({

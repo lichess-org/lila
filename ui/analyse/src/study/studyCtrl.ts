@@ -146,6 +146,10 @@ export default class StudyCtrl {
       updatedAt: Date.now() - data.secondsSinceUpdate * 1000,
       gamebookOverride: undefined,
     };
+    pubsub.on('analysis.comp.toggle', enabled => {
+      if (enabled) this.vm.toolTab('serverEval');
+      else if (this.vm.toolTab() === 'serverEval') this.vm.toolTab('tags');
+    });
 
     this.members = new StudyMemberCtrl({
       initDict: data.members,
@@ -337,6 +341,10 @@ export default class StudyCtrl {
     !this.isGamebookPlay() &&
     (this.data.chapter.features.computer || this.data.chapter.practice);
 
+  canMergeAnalysisCleanly() {
+    return !this.data.chapter.serverEval || Number(this.data.chapter.serverEval?.version) > 0;
+  }
+
   configurePractice = () => {
     if (!this.data.chapter.practice && this.ctrl.practice) this.ctrl.togglePractice();
     if (this.data.chapter.practice) this.ctrl.togglePractice(true);
@@ -424,8 +432,8 @@ export default class StudyCtrl {
     },
   );
 
-  onSetPath = throttle(300, (path: TreePath) => {
-    if (this.vm.mode.sticky && path !== this.data.position.path)
+  onSetPath = throttle(300, (path: TreePath, node: TreeNode) => {
+    if (this.vm.mode.sticky && !node.comp && path !== this.data.position.path)
       this.makeChange('setPath', this.addChapterId({ path }));
   });
 
@@ -576,7 +584,7 @@ export default class StudyCtrl {
 
   setPath = (path: TreePath, node: TreeNode) => {
     this.arrowHistory = [];
-    this.onSetPath(path);
+    this.onSetPath(path, node);
     this.commentForm.onSetPath(this.vm.chapterId, path, node);
   };
   deleteNode = (path: TreePath) =>
