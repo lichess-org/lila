@@ -187,6 +187,7 @@ const contextColors: Record<string, (text: string) => string> = {
   hash: pc.blue,
   i18n: x => pc.bold(pc.cyan(x)),
   web: x => pc.bold(pc.magenta(x)),
+  pnpm: x => pc.bold(pc.gray(x)),
 };
 
 function colorForCtx(ctx: string): (text: string) => string {
