@@ -167,7 +167,10 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
           // the search index only supports winner constrained to one of the players,
           // so wonBy must be the exported user or the vs opponent
           if winner.is(user) || vs.exists(winner.is(_)) then f(winner.some)
-          else notFoundJson(s"wonBy must be ${user.username} or ${vs.map(_.username).getOrElse("an opponent")}")
+          else
+            notFoundJson(
+              s"wonBy must be ${user.username} or ${vs.map(_.username).getOrElse("an opponent")}"
+            )
 
   private[controllers] def requestPgnFlags(extended: Boolean)(using RequestHeader, Option[Me]) =
     lila.game.PgnDump.WithFlags(
