@@ -8,20 +8,12 @@ import lila.core.config.*
 import lila.core.i18n.I18nKey.emails as trans
 import lila.core.net.{ Origin, ValidReferrer }
 import lila.core.email.NormalizedEmailAddress
+import lila.core.data.UntypedFormRequest
 import lila.mailer.Mailer
 import lila.user.{ User, UserRepo }
 import lila.oauth.{ AccessTokenApi, AccessToken, OAuthScope, TokenScopes }
 import lila.common.HTTPRequest
 import lila.memo.RateLimit.LimitResult
-
-private[security] def fromFormOrQuery(name: String, form: Map[String, Seq[String]])(using
-    req: RequestHeader
-): Option[String] =
-  form
-    .get(name)
-    .flatMap(_.headOption)
-    .filter(_.nonEmpty)
-    .orElse(HTTPRequest.queryStringGet(name))
 
 final class LoginToken(
     mailer: Mailer,
@@ -45,17 +37,13 @@ final class LoginToken(
     private val nbChars = chars.length
     private def secureChar = chars(scalalib.SecureRandom.nextInt(nbChars))
 
-    private def reqEmailAndUser(form: Map[String, Seq[String]])(using
-        RequestHeader
-    ): Option[Creds] = for
-      email <- fromFormOrQuery("email", form).flatMap(EmailAddress.from)
-      user <- fromFormOrQuery("username", form).flatMap(UserStr.read)
+    private def reqEmailAndUser(using UntypedFormRequest): Option[Creds] = for
+      email <- HTTPRequest.fromFormOrQuery("email").flatMap(EmailAddress.from)
+      user <- HTTPRequest.fromFormOrQuery("username").flatMap(UserStr.read)
     yield (email.normalize, user.id)
 
-    def consume(
-        form: Map[String, Seq[String]]
-    )(using RequestHeader, UserAgent): Fu[LimitResult | AccessToken] =
-      (reqEmailAndUser(form), fromFormOrQuery("code", form)).tupled.fold(notRateLimited): pair =>
+    def consume(using UntypedFormRequest, UserAgent): Fu[LimitResult | AccessToken] =
+      (reqEmailAndUser, HTTPRequest.fromFormOrQuery("code")).tupled.fold(notRateLimited): pair =>
         limitAndFindCreds(pair._1, cost = 1): (user, _) =>
           if store.getIfPresent(pair).exists(_.is(user))
           then
@@ -64,8 +52,8 @@ final class LoginToken(
             accessTokenApi.create(user.id, scopes, Origin("org.lichess.mobile://"))
           else notRateLimited
 
-    def createAndSend(form: Map[String, Seq[String]])(using RequestHeader): Fu[LimitResult] =
-      reqEmailAndUser(form).fold(notRateLimited): creds =>
+    def createAndSend(using UntypedFormRequest): Fu[LimitResult] =
+      reqEmailAndUser.fold(notRateLimited): creds =>
         limitAndFindCreds(creds, cost = 1): (user, email) =>
           val code = String(Array.fill(6)(secureChar))
           store.put(creds -> code, user.id)
