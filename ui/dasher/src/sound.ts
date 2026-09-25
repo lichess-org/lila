@@ -83,7 +83,6 @@ export class SoundCtrl extends PaneCtrl {
     if (!content) return undefined;
     return snabDialog({
       onClose: () => {
-        if (!i18n.nvui) return site.reload();
         this.showVoiceSelection = false;
         this.redraw();
       },
