@@ -12,6 +12,8 @@ import lila.core.misc.AppealTopic
 final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends LilaController(env):
 
   import lila.appeal.AppealForm.{ modForm, form as userForm, sleep as sleepForm }
+  import lila.appeal.AppealEventForm.{ kindForm, choiceForm, userMessageForm, modMessageForm }
+  import lila.appeal.AppealMsg.Kind
 
   def home = Auth { _ ?=> me ?=>
     Ok.async(renderAppealOrTree()).map(_.hasPersonalData)
@@ -40,7 +42,9 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
     topic = AppealTopicApi.select(status, appeals)
     allAppeals = appeals.value.values.toList
   yield topic.flatMap(appeals.get) match
-    case Some(a) => views.appeal.discussion.userShow(status, a, err | userForm, allAppeals)
+    case Some(a) =>
+      if AppealTopicApi.usesNewAppealFlow(a.topic) then views.appeal.flow.userShow(a, allAppeals)
+      else views.appeal.discussion.userShow(status, a, err | userForm, allAppeals)
     case None => views.appeal.tree.page(topic, status, appeals)
 
   private def makeStatus(user: lila.core.user.User) = for
@@ -55,7 +59,7 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
       status <- makeStatus(me)
       res <-
         if AppealTopicApi.select(status, appeals).exists(_ == topic) then
-          bindForm(userForm)(
+          bindForm(userForm(textRequired = !AppealTopicApi.usesNewAppealFlow(topic)))(
             err => BadRequest.async(renderAppealOrTree(err.some)),
             data =>
               for _ <- env.appeal.api.post(topic, data, appeals)
@@ -64,6 +68,64 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
         else fuccess(Redirect(routes.Appeal.home).flashFailure("You cannot post an appeal for this topic"))
     yield res
   }
+
+  def userEvent(topic: AppealTopic) = AuthBody { _ ?=> me ?=>
+    Found(env.appeal.api.find(me, topic)): appeal =>
+      event(appeal, asMod = false)
+  }
+
+  def modEvent(username: UserStr, topic: AppealTopic) = SecureBody(_.Appeals) { ctx ?=> me ?=>
+    Found(env.user.repo.byId(username)): user =>
+      Found(env.appeal.api.find(user, topic)): appeal =>
+        event(appeal, asMod = true)
+  }
+
+  private def event(appeal: AppealModel, asMod: Boolean)(using BodyContext[?], Me): Fu[Result] =
+    if !appeal.isOpen then Redirect(routes.Appeal.home)
+    else
+      bindForm(kindForm)(
+        _ => BadRequest,
+        {
+          case Kind.choice => handleChoice(appeal, asMod)
+          case Kind.message => handleMessage(appeal, asMod)
+          case _ => BadRequest
+        }
+      )
+
+  private def handleChoice(appeal: AppealModel, asMod: Boolean)(using BodyContext[?], Me): Fu[Result] =
+    bindForm(choiceForm)(
+      _ => BadRequest,
+      data =>
+        for
+          r <- env.appeal.api.postChoiceEvent(appeal, data)
+          _ <- (asMod && r.exists(a => a.isClosed || a.awaitingUserChoice))
+            .so(env.report.api.inquiries.toggle(Right(appeal.user)).void)
+        yield r.fold(BadRequest)(_ => eventRedirect(appeal, asMod))
+    )
+
+  private def handleMessage(appeal: AppealModel, asMod: Boolean)(using BodyContext[?], Me): Fu[Result] =
+    bindForm(if asMod then modMessageForm else userMessageForm)(
+      _ => BadRequest,
+      data =>
+        for
+          replied <- env.appeal.api.postMessageEvent(appeal, data)
+          res <-
+            if asMod then afterModMessage(replied, data.close.orZero, data.dismiss.orZero)
+            else fuccess(eventRedirect(appeal, asMod))
+        yield res
+    )
+
+  private def afterModMessage(appeal: AppealModel, close: Boolean, dismiss: Boolean)(using Me): Fu[Result] =
+    for
+      _ <- close.so(env.appeal.api.toggleClosed(appeal, true, sleepMonths = 0))
+      _ <- dismiss.so(env.report.api.inquiries.toggle(Right(appeal.user)).void)
+    yield
+      if dismiss then Redirect(routes.Appeal.modQueue)
+      else Redirect(appeal.modShowUrl).flashSuccess("Reply sent")
+
+  private def eventRedirect(appeal: AppealModel, asMod: Boolean) =
+    if asMod then Redirect(appeal.modShowUrl)
+    else Redirect(s"${routes.Appeal.home}#appeal-last-msg")
 
   def withdraw(topic: AppealTopic) = Auth { _ ?=> me ?=>
     Found(env.appeal.api.find(me, topic)): appeal =>
@@ -102,7 +164,8 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
   def modShow(username: UserStr, topic: AppealTopic) = Secure(_.Appeals) { ctx ?=> me ?=>
     asMod(username, topic): (appeal, suspect) =>
       getModData(appeal, suspect).flatMap: modData =>
-        Ok.page(views.appeal.discussion.modShow(appeal, modForm, modData))
+        Ok.page(if AppealTopicApi.usesNewAppealFlow(topic) then views.appeal.flow.modShow(appeal, modData)
+        else views.appeal.discussion.modShow(appeal, modForm, modData))
   }
 
   def modShowAll(username: UserStr) = Secure(_.Appeals) { ctx ?=> me ?=>
@@ -122,12 +185,9 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
         (text, close, dismiss) =>
           for
             replied <- env.appeal.api.modReply(text, appeal)
-            _ <- close.orZero.so(env.appeal.api.toggleClosed(replied, true, sleepMonths = 0))
-            _ <- dismiss.orZero.so(env.report.api.inquiries.toggle(Right(appeal.user)).void)
             _ <- env.mailer.automaticEmail.onAppealReply(suspect.user)
-          yield
-            if dismiss.orZero then Redirect(routes.Appeal.modQueue)
-            else Redirect(appeal.modShowUrl).flashSuccess("Reply sent")
+            res <- afterModMessage(replied, close.orZero, dismiss.orZero)
+          yield res
       )
   }
 

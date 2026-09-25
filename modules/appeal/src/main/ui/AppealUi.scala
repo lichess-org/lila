@@ -3,8 +3,23 @@ package ui
 
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
+import lila.core.config.NetDomain
+import lila.core.userId.ModId
 
-final class AppealUi(helpers: Helpers):
+case class ModData(
+    mod: Me,
+    status: UserStatus,
+    presets: List[PairOf[String]],
+    relatedAppeals: List[Appeal],
+    inquiryBy: Option[ModId],
+    markedByMe: Boolean,
+    otherUsers: Tag
+):
+  export status.user
+  def userAppeals = relatedAppeals.filter(_.user.is(user))
+  def muted = userAppeals.exists(_.muted)
+
+final class AppealUi(helpers: Helpers)(using NetDomain):
   import helpers.{ *, given }
 
   def page(title: String)(using Context) =
@@ -14,14 +29,15 @@ final class AppealUi(helpers: Helpers):
       .css(Granter.opt(_.Appeals).option("mod.user"))
       .js(esmInit("bits.appeal") ++ Granter.opt(_.Appeals).so(Esm("mod.user")))
 
-  def renderUser(appeal: Appeal, userId: UserId, asMod: Boolean)(using Context) =
+  def userLink(appeal: Appeal, userId: UserId, asMod: Boolean, wrapLichess: Boolean = true)(using Context) =
     if appeal.user.is(userId) then userIdLink(userId.some, params = asMod.so("?mod"))
     else if userId.is(UserId.lichess) then userIdLink(UserId.lichess.some)
-    else
+    else if wrapLichess then
       span(
         userIdLink(UserId.lichess.some),
         Granter.opt(_.Appeals).option(frag(" (", userIdLink(userId.some), ")"))
       )
+    else userIdLink(userId.some)
 
   def modSection(section: Tag)(ap: Appeal): Frag =
     section(
@@ -56,3 +72,185 @@ final class AppealUi(helpers: Helpers):
               )
         )
       )
+
+  def userAppealEvents(appeal: Appeal)(using Context, Me) =
+    appeal.msgs.map(event(appeal))
+
+  def event(appeal: Appeal)(event: AppealMsg)(using Context, Me) =
+    event match
+      case e: ChoiceEvent => choiceEvent(appeal, e)
+      case _ => messageEvent(appeal)(event)
+
+  private def messageEvent(appeal: Appeal)(msg: AppealMsg)(using Context) =
+    div(cls := s"appeal__msg appeal__msg--${if appeal.isByMod(msg) then "mod" else "suspect"}")(
+      div(cls := "appeal__msg__header")(
+        userLink(appeal, msg.by, asMod = false),
+        momentFromNowOnce(msg.at)
+      ),
+      div(cls := "appeal__msg__text")(richText(msg.text, expandImg = false))
+    )
+
+  private def choiceEvent(appeal: Appeal, event: ChoiceEvent)(using ctx: Context, me: Me) =
+    val isMod = appeal.user.isnt(me)
+    if !isMod && event.by.isnt(me) then emptyFrag
+    else
+      val byMod = appeal.isByMod(event)
+      val side = if byMod then "mod" else "suspect"
+      div(cls := s"appeal__choice-event appeal__choice-event--$side")(
+        p(cls := "appeal__choice-event__question")(
+          event.question,
+          byMod.option:
+            i(
+              cls := "appeal__choice-event__moderator",
+              dataIcon := Icon.Agent,
+              titleOrText("This is not visible to the user")
+            )
+        ),
+        div(cls := "appeal__choice-event__selection")(
+          span(cls := "appeal__choice-event__answer text")(event.answer),
+          span(cls := "appeal__choice-event__meta")(
+            userLink(appeal, event.by, asMod = isMod, wrapLichess = false),
+            span(" · "),
+            momentFromNowOnce(event.at)
+          )
+        )
+      )
+
+  def userInactiveAppeals(appeals: List[Appeal])(using Context, Me) =
+    appeals
+      .sortBy(_.updatedAt)
+      .reverse
+      .map: appeal =>
+        val titleTag = if Granter(_.Appeals) then a(href := appeal.modShowUrl) else span
+        div(cls := "box box-pad appeal-closed")(
+          div(cls := "box__top")(
+            h1(
+              span(cls := "appeal-topic")(appeal.topic.key),
+              nbsp,
+              titleTag:
+                if appeal.isClosed then
+                  appeal.closedUntil.fold[Frag]("Appeal closed"): until =>
+                    frag("Appeal paused until ", showDate(until))
+                else "Appeal on hold"
+            )
+          ),
+          userAppealEvents(appeal)
+        )
+
+  def appealIsClosed(appeal: Appeal)(using Translate) = p(cls := "line-center-text")(
+    appeal.closedUntil.fold(frag("This appeal is now closed")): until =>
+      frag("Appeal paused until ", showDate(until))
+  )
+
+  def accountsDisclosure(accounts: AccountsDisclosure) =
+    def row(label: String, value: Frag) =
+      div(cls := "appeal__accounts__row")(
+        span(cls := "appeal__accounts__label")(label),
+        div(cls := "appeal__accounts__value")(value)
+      )
+    div(cls := "appeal__accounts")(
+      h3("Declared accounts"),
+      row(
+        "Additional accounts",
+        if accounts.onlyThisAccount then "None (only this account)"
+        else
+          accounts.otherUsernames.fold(em("None listed")):
+            pre(cls := "appeal__accounts__text")(_)
+      ),
+      accounts.moreForgotten.option:
+        row("", "Has additional accounts but has forgotten their usernames")
+      ,
+      accounts.household.map: household =>
+        row("Household accounts", pre(cls := "appeal__accounts__text")(household))
+    )
+
+  def markedByMeWarning =
+    div(dataIcon := Icon.CautionTriangle, cls := "marked-by-me text"):
+      "You have marked this user. Appeal should be handled by another moderator"
+
+  def modHeader(appeal: Appeal, modData: ModData)(using Context) =
+    import modData.*
+    h1(cls := "box__top")(
+      div(cls := "title")(
+        backLink,
+        span(cls := "appeal-topic")(appeal.topic.key),
+        " appeal by ",
+        userIdLink(user.some),
+        (userAppeals.sizeIs > 1).option:
+          a(href := routes.Appeal.modShowAll(user.username), cls := "appeal__all")(
+            small(s" (${userAppeals.size} appeals)")
+          )
+      ),
+      div(cls := "actions")(
+        a(
+          cls := "button button-empty mod-zone-toggle",
+          href := routes.User.mod(user.username),
+          titleOrText("Mod zone (Hotkey: m)"),
+          dataIcon := Icon.Agent
+        )
+      )
+    )
+
+  def modActions(appeal: Appeal, modData: ModData)(using ctx: Context) =
+    import modData.*
+    div(cls := "appeal__actions")(
+      inquiryBy match
+        case None =>
+          postForm(action := routes.Appeal.modHandle(appeal.user, appeal.topic))(
+            submitButton(cls := "button")("Handle this appeal")
+          )
+        case Some(mod) if ctx.is(mod) =>
+          frag(
+            postForm(action := routes.Appeal.toggleClosed(appeal.user, appeal.topic, appeal.isOpen))(
+              if appeal.isClosed then
+                submitButton("Re-open")(
+                  cls := "button button-green button-empty"
+                )
+              else
+                submitButton("Close")(
+                  title := "Close this appeal",
+                  cls := "button button-red button-empty"
+                )
+            ),
+            postForm(action := routes.Appeal.toggleClosed(appeal.user, appeal.topic, true))(
+              form3.selectLowLevel("months", AppealForm.untilMonths, default = "Pause".some)
+            ),
+            postForm(action := routes.Appeal.toggleMute(appeal.user, appeal.topic, !muted))(
+              if muted then
+                submitButton("Un-mute")(
+                  cls := "button button-green button-empty"
+                )
+              else
+                submitButton("Mute")(
+                  title := "Mute all appeals of this user",
+                  cls := "button button-red button-empty"
+                )
+            ),
+            if appeal.topic == AppealTopic.blog
+            then a(href := routes.Ublog.index(user.username), cls := "button button-empty")("View blog")
+            else
+              AppealTopicApi.unmark(status, appeal.topic) match
+                case None =>
+                  button(cls := "button button-green button-empty", disabled)("Nothing to un-mark")
+                case Some((text, call)) =>
+                  val actionUrl = addQueryParam(call.url, "referrer", appeal.modShowUrl)
+                  postForm(action := actionUrl):
+                    submitButton(cls := "button button-green button-empty yes-no-confirm")(text)
+                ,
+            appeal.isOpen.option:
+              postForm(action := routes.Appeal.toggleRead(appeal.user, appeal.topic, appeal.isUnread))(
+                submitButton(cls := "button button-dim button-empty"):
+                  if appeal.isUnread then "Set read" else "Set Unread"
+              )
+          )
+        case Some(mod) =>
+          button(userIdLink(mod.some), nbsp, "is handling this.")(
+            disabled,
+            cls := "button button-empty disabled"
+          )
+      ,
+      postForm(
+        action := routes.Appeal.sendToZulip(appeal.user, appeal.topic),
+        cls := "appeal__actions__zulip"
+      )(submitButton(cls := "button button-empty")("Send to Zulip"))
+    )

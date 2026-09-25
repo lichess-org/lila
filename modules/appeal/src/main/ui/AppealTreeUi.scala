@@ -6,8 +6,7 @@ import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
-    newAppeal: AppealTopic => String => Context ?=> Frag,
-    inactiveAppeals: List[Appeal] => (Context, Me) ?=> Frag
+    newAppeal: AppealTopic => String => Context ?=> Frag
 ):
   import helpers.{ *, given }
 
@@ -17,30 +16,60 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
 
   private def cmsPageUrl(key: String) = routes.Cms.lonePage(CmsPageKey(key))
 
-  private def screeningStepsThenLeaf(id: String, topic: AppealTopic, name: Frag, content: Frag): Branch =
+  private def screeningStepsThenLeaf(id: String, topic: AppealTopic, name: Frag, content: Frag)(using
+      Context
+  ): Branch =
+    screeningSteps(id, topic, name, content.some)
+
+  private def screeningSteps(id: String, topic: AppealTopic, name: Frag, leafContent: Option[Frag] = None)(
+      using Context
+  ): Branch =
+    def stepButton(continueCls: String): Frag =
+      leafContent match
+        case Some(_) =>
+          a(href := s"#help-$id", cls := s"button $continueCls disabled")("Continue")
+        case None => appealForm(topic, continueCls)
+
     val withAccounts = AppealTopicApi.requiresAccounts(topic)
-    val leaf = Leaf(id, name, content, showBack = false)
-    val afterInfoTree: Node =
+    val afterInfo: List[Node] =
       if withAccounts then
-        Branch(
-          s"accounts-$id",
-          "Declare accounts",
-          List(leaf),
-          content = accountsForm(id).some,
-          showLinks = false,
-          showBack = false
+        List(
+          Branch(
+            s"accounts-$id",
+            "Declare accounts",
+            leafContent.map(Leaf(id, name, _, showBack = false)).toList,
+            content = accountsForm(id, stepButton("appeal-accounts__continue")).some,
+            showLinks = false,
+            showBack = false
+          )
         )
-      else leaf
+      else leafContent.map(Leaf(id, name, _, showBack = false)).toList
     Branch(
       s"important-info-$id",
       name,
-      List(afterInfoTree),
-      content = importantInfo(id, nextId = if withAccounts then s"accounts-$id" else id).some,
+      afterInfo,
+      content = importantInfo(
+        id,
+        continueButton =
+          if withAccounts || leafContent.isDefined then
+            a(
+              href := s"#help-${if withAccounts then s"accounts-$id" else id}",
+              cls := "button appeal-info__continue disabled"
+            )("Continue")
+          else stepButton("appeal-info__continue")
+      ).some,
       showLinks = false,
       showBack = false
     )
 
-  private def importantInfo(id: String, nextId: String) =
+  private def appealForm(topic: AppealTopic, continueCls: String)(using Context): Frag =
+    val form = AppealForm.form(textRequired = false).fill(AppealForm.Data(""))
+    postForm(cls := "appeal-create", st.action := routes.Appeal.post(topic))(
+      form3.globalError(form),
+      form3.submit("Start appeal")(cls := s"$continueCls disabled", disabled)
+    )
+
+  private def importantInfo(id: String, continueButton: Frag) =
     div(cls := "appeal-info")(
       div(cls := "appeal-info__terms")(
         p(
@@ -69,12 +98,10 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
           "I have read and agree to the terms stated above"
         )
       ),
-      div(cls := "form-actions")(
-        a(href := s"#help-$nextId", cls := "button appeal-info__continue disabled")("Continue")
-      )
+      div(cls := "form-actions")(continueButton)
     )
 
-  private def accountsForm(id: String) =
+  private def accountsForm(id: String, continueButton: Frag) =
     div(cls := "appeal-accounts", attr("data-leaf") := id)(
       div(
         "Please share with us the usernames of your other accounts. It does not matter if they are closed now."
@@ -123,9 +150,7 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
         rows := 3,
         placeholder := "Household accounts (optional)"
       ),
-      div(cls := "form-actions")(
-        a(href := s"#help-$id", cls := "button appeal-accounts__continue disabled")("Continue")
-      )
+      div(cls := "form-actions")(continueButton)
     )
 
   private def noTopicMenu(status: UserStatus, appeals: UserAppeals)(using Context): Branch =
@@ -191,49 +216,11 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
       ).flatten
     )
 
-  private val engineDenyContent = frag(
-    p("You may send us an appeal, and a moderator will review it as soon as possible."),
-    p(strong("What should I write in my appeal?")),
-    p("Be honest and tell us the truth."),
-    p(
-      "Include everything that you think matters for your case. Only send your appeal once, and don't send any additional messages if they don't add anything important to your appeal. Sending additional messages will not get your appeal dealt with any sooner."
-    ),
-    p(
-      "It is important to be honest from the start. If at first you deny doing anything wrong, we'll treat your appeal accordingly, and we will simply disregard any changes in your position. In other words, don't try to deny things at first only to confess to something later on."
-    ),
-    p(
-      "Note that if your appeal is denied, you are not permitted to open additional accounts on Lichess."
-    )
-  )
-
   private def engineMenu(using Context): Branch =
-    val accept =
-      "I accept that I used external assistance in my games."
-    val deny =
-      "I deny having used external assistance in my games."
     Branch(
       "root",
       tap.engineMarked(),
-      List(
-        screeningStepsThenLeaf(
-          "engine-accept",
-          AppealTopic.cheat,
-          accept,
-          frag(
-            sendUsAnAppeal,
-            newAppeal(AppealTopic.cheat)(accept)
-          )
-        ),
-        screeningStepsThenLeaf(
-          "engine-deny",
-          AppealTopic.cheat,
-          deny,
-          frag(
-            engineDenyContent,
-            newAppeal(AppealTopic.cheat)(deny)
-          )
-        )
-      ),
+      List(screeningSteps("engine-appeal", AppealTopic.cheat, "Appeal engine restriction.")),
       content = tap.engineMarkedInfo(a(href := cmsPageUrl("fair-play"))(tap.fairPlay())).some
     )
 
@@ -576,7 +563,7 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
             )
           )
         ),
-        inactiveAppeals(appeals.value.values.toList)
+        ui.userInactiveAppeals(appeals.value.values.toList)
       )
 
   private val topicMenu: Map[AppealTopic, Context ?=> Branch] = Map(
