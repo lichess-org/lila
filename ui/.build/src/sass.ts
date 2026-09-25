@@ -1,5 +1,5 @@
 import browserslist from 'browserslist';
-import { browserslistToTargets, transform } from 'lightningcss';
+import { browserslistToTargets, Features, transform } from 'lightningcss';
 import cps from 'node:child_process';
 import fs from 'node:fs';
 import { basename, dirname, join, relative, resolve } from 'node:path';
@@ -116,7 +116,7 @@ async function compile(sassBin: string, sources: string[], logAll = true): Promi
       env.log(`Compile ${pc.gray(`(${((Date.now() - compileStarted) / 1000).toFixed(3)}s)`)}`, 'sass');
       if (code === 0) {
         const postProcessorStarted = Date.now();
-        Promise.all(sources.map(addVendorPrefixes))
+        Promise.all(sources.map(postProcessCSS))
           .then(generated => {
             env.log(
               `Lightning CSS ${pc.gray(`(${((Date.now() - postProcessorStarted) / 1000).toFixed(3)}s)`)}`,
@@ -137,7 +137,7 @@ async function compile(sassBin: string, sources: string[], logAll = true): Promi
   });
 }
 
-async function addVendorPrefixes(src: string): Promise<{ size: number }> {
+async function postProcessCSS(src: string): Promise<{ size: number }> {
   const cssPath = absTempCss(src);
   const css = await fs.promises.readFile(cssPath, 'utf8');
   const result = transform({
@@ -145,6 +145,7 @@ async function addVendorPrefixes(src: string): Promise<{ size: number }> {
     code: Buffer.from(css),
     minify: env.prod,
     targets: browserslistToTargets(browserslist(null, { path: env.buildDir })),
+    include: Features.MediaQueries,
   });
   await fs.promises.writeFile(cssPath, result.code);
   return { size: result.code.byteLength };
