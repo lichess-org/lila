@@ -705,8 +705,6 @@ object I18nKey:
     val `enableAutoplayForSoundsMicrosoftEdge`: I18nKey = "faq:enableAutoplayForSoundsMicrosoftEdge"
     val `makeBotTitle`: I18nKey = "faq:makeBotTitle"
     val `makeBotDescription`: I18nKey = "faq:makeBotDescription"
-    val `customChessBot`: I18nKey = "faq:customChessBot"
-    val `botCreationBlogPost`: I18nKey = "faq:botCreationBlogPost"
     val `stopMyselfFromPlaying`: I18nKey = "faq:stopMyselfFromPlaying"
     val `mentalHealthCondition`: I18nKey = "faq:mentalHealthCondition"
     val `lichessUserstyles`: I18nKey = "faq:lichessUserstyles"

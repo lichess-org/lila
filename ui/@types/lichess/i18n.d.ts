@@ -1145,8 +1145,6 @@ interface I18n {
     beingAPatron: string;
     /** be in the top 10 in this rating. */
     beInTopTen: string;
-    /** this blog post about creating bots */
-    botCreationBlogPost: string;
     /** breakdown of our costs */
     breakdownOfOurCosts: string;
     /** Can I get the Lichess Master (LM) title? */
@@ -1157,8 +1155,6 @@ interface I18n {
     configure: string;
     /** I lost a game due to lag/disconnection. Can I get my rating points back? */
     connexionLostCanIGetMyRatingBack: string;
-    /** custom chess bot */
-    customChessBot: string;
     /** desktop */
     desktop: string;
     /** Why can a pawn capture another pawn when it is already passed? (en passant) */
@@ -1263,7 +1259,7 @@ interface I18n {
     lichessUserstyles: string;
     /** This honorific title is unofficial and only exists on Lichess. */
     lMtitleComesToYouDoNotRequestIt: string;
-    /** To learn how to build a %1$s to play on Lichess, please read %2$s. */
+    /** To learn how to build a <a href='%1$s'>custom chess bot</a> to play on Lichess, please read <a href='%2$s'>this blog post about creating bots</a>. */
     makeBotDescription: I18nFormat;
     /** Make a bot on Lichess? */
     makeBotTitle: string;
