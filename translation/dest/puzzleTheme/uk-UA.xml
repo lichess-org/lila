@@ -29,6 +29,7 @@
   <string name="collinearMove">Паралельний хід</string>
   <string name="collinearMoveDescription">Дві протилежні фігури знаходяться на одній лінії та одна з них пересувається по лінії без взяття фігури.</string>
   <string name="cornerMate">Кутовий мат</string>
+  <string name="cornerMateKnightDeliversDescription" comment="Description for the &quot;Corner mate&quot; puzzle theme.">Заженіть короля до кута турою чи ферзем, а потім поставте мат конем.</string>
   <string name="crushing">Руйнування</string>
   <string name="crushingDescription">Знайдіть грубу помилку суперника, щоб отримати нищівну перевагу. (eval ≥ 600 cp)</string>
   <string name="discoveredCheck">Відкритий шах</string>
@@ -71,7 +72,9 @@
   <string name="killBoxMate">Мат \"Смертельна коробка\"</string>
   <string name="killBoxMateDescription">Тура стає біля ворожого короля під захистом ферзя. Ферзь у той самий час блокує всі поля, через які король може втекти. Тура й ферзь ловлять ворожого короля у «смертельну коробку» розміру 3 на 3.</string>
   <string name="pillsburysMate">Мат Пілсбері</string>
+  <string name="pillsburyMateRookAndBishopDescription">Тура ставить мат королю, а слон не дає йому втекти.</string>
   <string name="morphysMate">Мат Морфі</string>
+  <string name="morphyMateBishopAndRookDescription">Слон ставить мат королю, а тура не дає йому втекти.</string>
   <string name="swallowstailMate">Мат \"ластівчин хвіст\"</string>
   <string name="swallowstailMateDescription">Матовий патерн, який візуально нагадує ластівчин хвіст, подібно до літери \"У\".</string>
   <string name="triangleMate">Трикутний мат</string>
@@ -111,6 +114,7 @@
   <string name="pin">Зв\'язування</string>
   <string name="pinDescription">Тактика, коли фігура не може зробити хід, тому що буде втрачена цінніша фігура.</string>
   <string name="promotion">Перетворення</string>
+  <string name="promotePawnToQueenRookOrMinor">Перетворення пішака на ферзя, туру, коня чи слона.</string>
   <string name="queenEndgame">Ферзевий ендшпіль</string>
   <string name="queenEndgameDescription">Ендшпіль лише з ферзем та пішаками.</string>
   <string name="queenRookEndgame">Ферзевий та туровий ендшпіль</string>

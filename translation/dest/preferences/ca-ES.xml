@@ -41,6 +41,7 @@
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Reclamar taules per repetició automàticament</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Quan restin &lt; 30 segons</string>
   <string name="moveConfirmation">Confirmació del moviment</string>
+  <string name="multipleChoices">Múltiples opcions. </string>
   <string name="explainCanThenBeTemporarilyDisabled">Es pot desactivar durant la partida al menú del taulell</string>
   <string name="inCorrespondenceGames">Partides per correspondència</string>
   <string name="correspondenceAndUnlimited">Correspondència i sense límit de temps</string>
@@ -89,4 +90,10 @@
   <string name="analysisSettings">Configuració de les anàlisis</string>
   <string name="maneuverArrowsHelp">Seqüència de moviments del motor per peça</string>
   <string name="hoverOverSettingLabelsForHelp">Posa el cursor per sobre de les etiquetes de configuració per veure l\'ajuda</string>
+  <string name="network">Xarxa</string>
+  <string name="youAreCurrentlyUsingDirectRouting">Actualment estiu utilitzat encaminament directe.</string>
+  <string name="youAreCurrentlyUsingCdnRouting">Actualment estiu utilitzat encaminament mitjançant d\'una Xarxa d\'entrega de Contingut (CDN).</string>
+  <string name="frequentDisconnectsAdvice">Si teniu problemes de connexió, proveu de canviar l\'encaminament.</string>
+  <string name="useDirectRouting">Utilitza encaminament directe</string>
+  <string name="useCdnRouting">Utilitza encaminament mitjançant CDN</string>
 </resources>

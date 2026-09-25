@@ -89,4 +89,7 @@
   <string name="analysisSettings">Configurações de análise</string>
   <string name="maneuverArrowsHelp">Sequência de lances de computador para uma peça</string>
   <string name="hoverOverSettingLabelsForHelp">Passe o mouse sobre as etiquetas de configuração para obter ajuda</string>
+  <string name="network">Rede</string>
+  <string name="useDirectRouting">Usar roteamento direto</string>
+  <string name="useCdnRouting">Usar roteamento CDN</string>
 </resources>

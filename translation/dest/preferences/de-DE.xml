@@ -41,6 +41,7 @@
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Reklamiere automatisch Remis bei dreifacher Stellungswiederholung</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Wenn Restzeit &lt; 30 Sekunden</string>
   <string name="moveConfirmation">Zugbestätigung</string>
+  <string name="multipleChoices">Mehrere Auswahlmöglichkeiten. </string>
   <string name="explainCanThenBeTemporarilyDisabled">Kann während einer Partie mittels Brettmenü deaktiviert werden</string>
   <string name="inCorrespondenceGames">Im Fernschach</string>
   <string name="correspondenceAndUnlimited">Fernschach und unbegrenzt</string>
@@ -89,4 +90,10 @@
   <string name="analysisSettings">Analyse-Einstellungen</string>
   <string name="maneuverArrowsHelp">Reihenfolge der Computerzüge für eine Figur</string>
   <string name="hoverOverSettingLabelsForHelp">Fahre mit deinem Mauszeiger über die Einstellungs-Label, um Hilfe zu erhalten</string>
+  <string name="network">Netzwerk</string>
+  <string name="youAreCurrentlyUsingDirectRouting">Du verwendest zurzeit direktes Routing.</string>
+  <string name="youAreCurrentlyUsingCdnRouting">Du verwendest zurzeit Routing durch das Content Delivery Network (CDN).</string>
+  <string name="frequentDisconnectsAdvice">Falls du häufig Verbindungsabbrüche hast, versuche das Routing zu ändern.</string>
+  <string name="useDirectRouting">Direktes Routing verwenden</string>
+  <string name="useCdnRouting">CDN-Routing verwenden</string>
 </resources>

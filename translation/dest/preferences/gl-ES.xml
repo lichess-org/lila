@@ -41,6 +41,7 @@
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Automaticamente reclamar táboas por tripla repetición</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Cando o tempo restante &lt;30 segundos</string>
   <string name="moveConfirmation">Confirmación do movemento</string>
+  <string name="multipleChoices">Pódense escoller varias opcións. </string>
   <string name="explainCanThenBeTemporarilyDisabled">Pode ser desactivado durante a partida dende o menú do taboleiro</string>
   <string name="inCorrespondenceGames">Partidas por correspondencia</string>
   <string name="correspondenceAndUnlimited">Correspondencia e ilimitado</string>
@@ -89,4 +90,10 @@
   <string name="analysisSettings">Axustes da análise</string>
   <string name="maneuverArrowsHelp">Secuencia de xogadas de computador para unha peza</string>
   <string name="hoverOverSettingLabelsForHelp">Pasa o rato sobre as opcións da configuración para obter axuda</string>
+  <string name="network">Rede</string>
+  <string name="youAreCurrentlyUsingDirectRouting">Nestes intres estás a usar o encamiñamento directo.</string>
+  <string name="youAreCurrentlyUsingCdnRouting">Nestes intres estás a usar o encamiñamento mediante Content Delivery Network (CDN).</string>
+  <string name="frequentDisconnectsAdvice">Se estás a experimentar desconexións frecuentes, proba a cambiar o encamiñamento.</string>
+  <string name="useDirectRouting">Usar o encamiñamento directo</string>
+  <string name="useCdnRouting">Usar o encamiñamento CDN</string>
 </resources>

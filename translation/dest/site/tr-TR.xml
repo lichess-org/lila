@@ -558,6 +558,9 @@ Puanlı oyunlar oynamak istikrarınızı artıracaktır.</string>
   <string name="autoSwitch">Otomatik Seç</string>
   <string name="puzzles">Bulmacalar</string>
   <string name="onlineBots">Çevrimiçi botlar</string>
+  <string name="aboutBotsOnLichess">Lichess\'teki botlar hakkında</string>
+  <string name="featuredBots">Öne çıkan botlar</string>
+  <string name="communityBots">Topluluk botları</string>
   <string name="name">İsim</string>
   <string name="description">Açıklama</string>
   <string name="descPrivate">Üyelere özel açıklama</string>
@@ -605,6 +608,7 @@ Puanlı oyunlar oynamak istikrarınızı artıracaktır.</string>
   <string name="clearField">Alanı temizle</string>
   <string name="orSeparator">Veya</string>
   <string name="logInByEmail">E-posta ile giriş yap</string>
+  <string name="emailLoginInstructions">Size giriş yapmanızı sağlayacak bağlantıyı içeren bir e-posta göndereceğiz.</string>
   <string name="emailMeALink">E-Posta ile giriş linki yolla</string>
   <string name="currentPassword">Mevcut şifre</string>
   <string name="newPassword">Yeni şifre</string>
@@ -629,6 +633,8 @@ Puanlı oyunlar oynamak istikrarınızı artıracaktır.</string>
   <string name="onSlowGames">Yavaş oyunlarda</string>
   <string name="always">Her zaman</string>
   <string name="never">Asla</string>
+  <string name="defeatOnly">Sadece yenilgi</string>
+  <string name="drawAndDefeat">Berabere ve yenilgi</string>
   <string name="xCompetesInY">%1$s, %2$s\'ya katıldı</string>
   <string name="victory">Zafer</string>
   <string name="defeat">Yenilgi</string>
@@ -693,10 +699,13 @@ Puanlı oyunlar oynamak istikrarınızı artıracaktır.</string>
   <string name="aboutX">%s hakkında</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s; tamamen ücretsiz (%2$s), özgür, reklamsız, açık kaynak kodlu bir satranç sitesidir.</string>
   <string name="really">ciddiyiz</string>
+  <string name="lichessUpdates">Lichess güncellemeleri</string>
   <string name="contribute">Katkıda bulun</string>
+  <string name="changelog">Değişiklik Notları</string>
   <string name="termsOfService">Hizmet koşulları</string>
   <string name="titleVerification">Ünvan doğrulaması</string>
   <string name="sourceCode">Kaynak Kodu</string>
+  <string name="blockAds">Reklamları engelle</string>
   <string name="simultaneousExhibitions">Eş zamanlı gösteriler</string>
   <string name="host">Ev Sahibi</string>
   <string name="hostColorX">Ev sahibi rengi: %s</string>
@@ -1044,4 +1053,6 @@ Başlangıç pozisyonundan oynamak için boş bırakınız.</string>
   <string name="verifyingYourDevice">Cihazınız doğrulanıyor...</string>
   <string name="chessOpenings">Satranç açılışları</string>
   <string name="boards">Tahtalar</string>
+  <string name="write">Yaz</string>
+  <string name="preview">Önizleme</string>
 </resources>

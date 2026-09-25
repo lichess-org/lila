@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="community">커뮤니티</string>
+  <string name="communityBlogs">커뮤니티 블로그</string>
   <string name="byMonth">월별</string>
   <string name="byTopic">주제별</string>
   <string name="byLichess">Lichess 소식</string>
@@ -8,6 +9,7 @@
   <string name="myLikes">좋아요한 블로그</string>
   <string name="myBlog">내 블로그</string>
   <string name="likedBlogs">좋아요 표시한 블로그 글</string>
+  <string name="blogPostsByFriends">친구가 작성한 블로그 글</string>
   <plurals name="blogPosts">
     <item quantity="other">블로그 %s개</item>
   </plurals>
@@ -27,6 +29,8 @@
   <string name="createBlogDiscussionHelp">다른 사람들이 댓글을 남길 수 있는 게시물이 생성됩니다.</string>
   <string name="publishOnYourBlog">블로그에 게시하기</string>
   <string name="publishHelp">선택 시 게시물이 블로그에 게시됩니다. 미선택 시 비공개로 초안에 보관됩니다.</string>
+  <string name="includesPromotedContent">홍보/스폰서된 내용 혹은 레퍼럴 링크 포함</string>
+  <string name="mandatoryForSponsoredContent">스폰서된 내용, 제휴 링크 혹은 상업적 광고를 포함한다면 반드시 체크하십시오.</string>
   <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">고정 게시물</string>
   <string name="stickyPostHelp">선택 시 이 게시물이 프로필의 최근 게시물 목록과 블로그에서 가장 먼저 표시됩니다.</string>
   <plurals name="publishedNbBlogPosts">
@@ -41,14 +45,17 @@
   <string name="noPostsInThisBlogYet">이 블로그에는 아직 글이 없습니다.</string>
   <string name="noDrafts">임시저장된 글이 없습니다.</string>
   <string name="latestBlogPosts">최근 블로그 글</string>
+  <string name="recentPosts">최근 글</string>
   <plurals name="viewAllNbPosts">
     <item quantity="other">총 %s개 글 보기</item>
   </plurals>
   <string name="imageAlt">이미지 대체 텍스트</string>
   <string name="imageCredit">이미지 저작권</string>
+  <string name="coverImage">대표 이미지</string>
   <string name="deleteBlog">이 블로그 게시물 완전히 삭제하기</string>
   <string name="freeImagesComplyWithLicensing" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">다음 웹사이트들은 이미지를 무료로 제공합니다. 반드시 사용하시는 이미지의 라이선스 조건을 따르고 있는지 확인해 주세요.</string>
   <string name="selectPostTopics">게시물의 주제를 선택하세요</string>
+  <string name="etiquette">에티켓</string>
   <string name="safeAndRespectfulContent">안전하고 서로를 존중하는 콘텐츠만 게시하세요. 다른 사람의 콘텐츠를 복사하지 마세요.</string>
   <string name="noCopyrightedImages">다른 사람이 저작권을 소유하지 않은 이미지만 사용해 주세요.</string>
   <string name="inappropriateContentAccountClosed">부적절한 행위로 인해 계정이 폐쇄될 수 있습니다.</string>

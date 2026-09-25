@@ -41,6 +41,7 @@
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Automatyczny remis po trzykrotnym powtórzeniu pozycji</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Kiedy pozostało mniej niż 30 sekund</string>
   <string name="moveConfirmation">Potwierdzenie ruchu</string>
+  <string name="multipleChoices">Możesz wybrać kilka. </string>
   <string name="explainCanThenBeTemporarilyDisabled">Może być wyłączony podczas partii z menu</string>
   <string name="inCorrespondenceGames">W grze korespondencyjnej</string>
   <string name="correspondenceAndUnlimited">Korespondencyjne i bez limitu czasu</string>
@@ -89,4 +90,10 @@
   <string name="analysisSettings">Ustawienia analizy</string>
   <string name="maneuverArrowsHelp">Sekwencja ruchów silnika jednej bierki</string>
   <string name="hoverOverSettingLabelsForHelp">Dymki pomocy nad ustawieniami</string>
+  <string name="network">Sieć</string>
+  <string name="youAreCurrentlyUsingDirectRouting">Obecnie używasz bezpośredniego routingu.</string>
+  <string name="youAreCurrentlyUsingCdnRouting">Aktualnie używasz routingu sieci dostarczania treści (CDN).</string>
+  <string name="frequentDisconnectsAdvice">Jeśli często tracisz połączenie, spróbuj zmienić routing.</string>
+  <string name="useDirectRouting">Użyj bezpośredniego routingu</string>
+  <string name="useCdnRouting">Użyj routingu CDN</string>
 </resources>

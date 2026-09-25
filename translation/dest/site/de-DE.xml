@@ -558,6 +558,11 @@ Wenn du gewertete Partien spielst, wird die Stabilität erhöht.</string>
   <string name="autoSwitch">Automatischer Wechsel</string>
   <string name="puzzles">Aufgaben</string>
   <string name="onlineBots">Online-Bots</string>
+  <string name="aboutBotsOnLichess">Über Bots auf Lichess</string>
+  <string name="featuredBots">Vorgestellte Bots</string>
+  <string name="tryPlayingTheseInnovativeChessEngines">Versuche gegen diese innovativen Schach-Engines zu spielen! Sie sind unsere Favoriten.</string>
+  <string name="communityBots">Gemeinschafts-Bots</string>
+  <string name="moreChessEnginesCreatedByTheLichessCommunity">Mehr Schach-Engines, die von der Lichess-Community erstellt wurden. Sie werden von ihren Programmierern gehostet und sind möglicherweise nicht immer online.</string>
   <string name="name">Name</string>
   <string name="description">Beschreibung</string>
   <string name="descPrivate">Interne Beschreibung</string>
@@ -605,6 +610,7 @@ Wenn du gewertete Partien spielst, wird die Stabilität erhöht.</string>
   <string name="clearField">Feld leeren</string>
   <string name="orSeparator">Oder</string>
   <string name="logInByEmail">Per E-Mail anmelden</string>
+  <string name="emailLoginInstructions">Wir senden dir eine E-Mail mit einem Link zum Einloggen zu.</string>
   <string name="emailMeALink">Schicke mir einen Link per E-Mail</string>
   <string name="currentPassword">Derzeitiges Passwort</string>
   <string name="newPassword">Neues Passwort</string>
@@ -629,6 +635,8 @@ Wenn du gewertete Partien spielst, wird die Stabilität erhöht.</string>
   <string name="onSlowGames">Bei langsamen Spielen</string>
   <string name="always">Immer</string>
   <string name="never">Nie</string>
+  <string name="defeatOnly">Nur bei Niederlage</string>
+  <string name="drawAndDefeat">Bei Remis und Niederlage</string>
   <string name="xCompetesInY">%1$s nimmt teil bei %2$s</string>
   <string name="victory">Sieg</string>
   <string name="defeat">Niederlage</string>
@@ -693,10 +701,13 @@ Wenn du gewertete Partien spielst, wird die Stabilität erhöht.</string>
   <string name="aboutX">Über %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s ist ein freier, quelloffener Schachserver. Kostenlos (%2$s) und ohne Werbung.</string>
   <string name="really">wirklich</string>
+  <string name="lichessUpdates">Lichess-Updates</string>
   <string name="contribute">Mitmachen</string>
+  <string name="changelog">Änderungsverlauf</string>
   <string name="termsOfService">AGB</string>
   <string name="titleVerification">Titel-Verifizierung</string>
   <string name="sourceCode">Quellcode</string>
+  <string name="blockAds">Werbung blockieren</string>
   <string name="simultaneousExhibitions">Simultanschach</string>
   <string name="host">Veranstalter</string>
   <string name="hostColorX">Farbe des Ausrichters: %s</string>
@@ -1046,4 +1057,6 @@ Alle Betriebskosten, Entwicklung und Inhalte werden ausschließlich durch Benutz
   <string name="verifyingYourDevice">Dein Gerät wird überprüft...</string>
   <string name="chessOpenings">Schacheröffnungen</string>
   <string name="boards">Bretter</string>
+  <string name="write">Schreiben</string>
+  <string name="preview">Vorschau</string>
 </resources>

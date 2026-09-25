@@ -7,4 +7,12 @@
   <string name="cancelKeepAccount">キャンセルしてアカウントを保持する</string>
   <string name="closeAccountAreYouSure">ほんとうにアカウントを閉鎖しますか？</string>
   <string name="thisAccountIsClosed">このアカウントは停止されました</string>
+  <string name="wereSorryToSeeYouGo">とても残念です。</string>
+  <string name="closeAccountForeverLabel">永久に閉鎖、つまり再開できなくする</string>
+  <string name="closeAccountForeverWarning">後でアカウントを再開できないようにします。このボックスにチェックを入れると、要請を受けた管理者でもアカウントを再開できません。</string>
+  <string name="deleteYourAccount">アカウントを削除</string>
+  <string name="deleteAccountWarning">「アカウントを削除」すると Lichess からアカウントが消え、管理者もアカウントを回復できなくなります。</string>
+  <string name="wouldYouLikeToXInstead" comment="%s is close your account">代わりに %s しますか？</string>
+  <string name="closeYourAccount">アカウントを閉鎖</string>
+  <string name="deleteAccountConfirmText">私は削除されたアカウントが回復できないことを理解しています</string>
 </resources>

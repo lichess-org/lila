@@ -557,6 +557,9 @@
   <string name="autoSwitch">Alternar automaticamente</string>
   <string name="puzzles">Problemas</string>
   <string name="onlineBots">Bots online</string>
+  <string name="aboutBotsOnLichess">Sobre bots em Lichess</string>
+  <string name="featuredBots">Bots em destaque</string>
+  <string name="communityBots">Bots de comunidade</string>
   <string name="name">Nome</string>
   <string name="description">Descrição</string>
   <string name="descPrivate">Descrição privada</string>
@@ -628,6 +631,8 @@
   <string name="onSlowGames">Em partidas lentas</string>
   <string name="always">Sempre</string>
   <string name="never">Nunca</string>
+  <string name="defeatOnly">Apenas derrota</string>
+  <string name="drawAndDefeat">Empate e derrota</string>
   <string name="xCompetesInY">%1$s compete em %2$s</string>
   <string name="victory">Vitória</string>
   <string name="defeat">Derrota</string>
@@ -692,10 +697,13 @@
   <string name="aboutX">Sobre o %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s é um servidor de xadrez gratuito (%2$s), livre, sem anúncios e código aberto.</string>
   <string name="really">realmente</string>
+  <string name="lichessUpdates">Atualizações do Lichess</string>
   <string name="contribute">Contribuir</string>
+  <string name="changelog">Registro de alterações</string>
   <string name="termsOfService">Termos de serviço</string>
   <string name="titleVerification">Verificação de título</string>
   <string name="sourceCode">Código-fonte</string>
+  <string name="blockAds">Bloquear anúncios</string>
   <string name="simultaneousExhibitions">Exibição simultânea</string>
   <string name="host">Simultanista</string>
   <string name="hostColorX">Cor do simultanista: %s</string>
@@ -1044,4 +1052,6 @@ Deixe em branco para começar as partidas na posição inicial padrão.</string>
   <string name="verifyingYourDevice">Verificando seu dispositivo...</string>
   <string name="chessOpenings">Aberturas de xadrez</string>
   <string name="boards">Tabuleiros</string>
+  <string name="write">Escrever</string>
+  <string name="preview">Pré-visualizar</string>
 </resources>

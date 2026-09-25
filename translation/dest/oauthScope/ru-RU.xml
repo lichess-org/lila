@@ -6,7 +6,7 @@
   <string name="tokenDescription">Описание токена</string>
   <string name="rememberTokenUse">Так, чтобы вы помнили, для чего этот токен</string>
   <string name="whatTheTokenCanDo">Действия, которые можно совершать с помощью токена от вашего имени:</string>
-  <string name="doNotShareIt">Токен предоставит доступ к вашей учётной записи. НЕ передавайте его никому!</string>
+  <string name="doNotShareIt">Токен даст доступ к вашему аккаунту. НЕ передавайте его никому!</string>
   <string name="copyTokenNow">Убедитесь, что вы скопировали ваш новый токен персонального доступа. Вы не сможете увидеть его снова!</string>
   <string name="preferenceRead">Чтение настроек</string>
   <string name="preferenceWrite">Изменение настроек</string>

@@ -41,6 +41,7 @@
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Déclarer la nulle par répétition automatiquement</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Quand il reste moins de 30 secondes</string>
   <string name="moveConfirmation">Confirmation de coup</string>
+  <string name="multipleChoices">Choix multiples. </string>
   <string name="explainCanThenBeTemporarilyDisabled">Peut être désactivé pendant une partie grâce au menu de l\'échiquer</string>
   <string name="inCorrespondenceGames">Dans les parties par correspondance</string>
   <string name="correspondenceAndUnlimited">Correspondance et illimité</string>
@@ -89,4 +90,10 @@
   <string name="analysisSettings">Paramètres d\'analyse</string>
   <string name="maneuverArrowsHelp">Séquence de coups du moteur pour une pièce</string>
   <string name="hoverOverSettingLabelsForHelp">Placer la souris sur les étiquettes pour de l\'aide</string>
+  <string name="network">Réseau</string>
+  <string name="youAreCurrentlyUsingDirectRouting">Vous utilisez le routage direct.</string>
+  <string name="youAreCurrentlyUsingCdnRouting">Vous utilisez le routage du réseau de diffusion de contenu (CDN).</string>
+  <string name="frequentDisconnectsAdvice">Si vous avez des déconnexions fréquentes, essayez de changer de routage.</string>
+  <string name="useDirectRouting">Utiliser le routage direct</string>
+  <string name="useCdnRouting">Utiliser le routage CDN</string>
 </resources>

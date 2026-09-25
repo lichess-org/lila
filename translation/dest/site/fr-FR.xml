@@ -557,6 +557,11 @@
   <string name="autoSwitch">Changement automatique</string>
   <string name="puzzles">Problèmes</string>
   <string name="onlineBots">Bots en ligne</string>
+  <string name="aboutBotsOnLichess">À propos des bots sur Lichess</string>
+  <string name="featuredBots">Bots en vedette</string>
+  <string name="tryPlayingTheseInnovativeChessEngines">Jouez contre ces moteurs d\'échecs novateurs! Ils sont nos favoris.</string>
+  <string name="communityBots">Bots de la communauté</string>
+  <string name="moreChessEnginesCreatedByTheLichessCommunity">Autres moteurs d\'échecs créés par la communauté Lichess. Ils sont hébergés par leurs créateurs et ne sont peut-être pas toujours en ligne.</string>
   <string name="name">Nom</string>
   <string name="description">Description</string>
   <string name="descPrivate">Description privée</string>
@@ -604,6 +609,7 @@
   <string name="clearField">Vider le champ</string>
   <string name="orSeparator">OU</string>
   <string name="logInByEmail">Se connecter par courriel</string>
+  <string name="emailLoginInstructions">Nous vous enverrons un courriel contenant un lien pour vous connecter.</string>
   <string name="emailMeALink">Envoyez-moi un lien</string>
   <string name="currentPassword">Mot de passe actuel</string>
   <string name="newPassword">Nouveau mot de passe</string>
@@ -628,6 +634,8 @@
   <string name="onSlowGames">Durant les parties lentes</string>
   <string name="always">Toujours</string>
   <string name="never">Jamais</string>
+  <string name="defeatOnly">Défaite seulement</string>
+  <string name="drawAndDefeat">Nulle et défaite</string>
   <string name="xCompetesInY">%1$s participe à %2$s</string>
   <string name="victory">Victoire</string>
   <string name="defeat">Défaite</string>
@@ -692,10 +700,13 @@
   <string name="aboutX">À propos de %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s est un serveur d\'échecs gratuit (%2$s), libre, sans pubs et open source.</string>
   <string name="really">pour de vrai</string>
+  <string name="lichessUpdates">Mises à jour de Lichess</string>
   <string name="contribute">Contribuer</string>
+  <string name="changelog">Changements</string>
   <string name="termsOfService">Conditions d\'utilisation</string>
   <string name="titleVerification">Vérification du titre</string>
   <string name="sourceCode">Code source</string>
+  <string name="blockAds">Bloquer les publicités</string>
   <string name="simultaneousExhibitions">Parties simultanées</string>
   <string name="host">Hôte</string>
   <string name="hostColorX">Couleur de l’hôte : %s</string>
@@ -1045,4 +1056,6 @@ Tous les coûts d\'exploitation, le développement et le contenu sont financés 
   <string name="verifyingYourDevice">Vérification de votre appareil...</string>
   <string name="chessOpenings">Ouvertures</string>
   <string name="boards">Échiquiers</string>
+  <string name="write">Écrire</string>
+  <string name="preview">Aperçu</string>
 </resources>
