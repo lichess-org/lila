@@ -2,6 +2,7 @@ package controllers
 package report
 
 import play.api.data.*
+import play.api.libs.json.Json
 import play.api.mvc.{ AnyContentAsFormUrlEncoded, RequestHeader, Result }
 
 import lila.app.{ *, given }
@@ -150,21 +151,42 @@ final class Report(env: Env, userC: => User, modC: => Mod) extends LilaControlle
   private val reportRateLimit =
     env.security.ipTrust.rateLimit(30, 3.hours, "report.create", _.proxyMultiplier(3))
 
-  def create = AuthBody { _ ?=> me ?=>
+  private def reportLimited(client: String)(using Context) =
+    lila.mon.mod.report.createLimited(client).increment()
+    rateLimited
+
+  def create = AuthOrScopedBody(_.Web.Mobile) { ctx ?=> me ?=>
+    val client = if ctx.isOAuth then "mobile" else "web"
+    lila.mon.mod.report.createAttempt(client).increment()
     bindForm(env.report.forms.create)(
       err =>
-        for
-          user <- getUserStr("username").so(env.user.repo.byId)
-          page <- renderPage(views.report.ui.form(err, user, none))
-        yield BadRequest(page),
-      data =>
-        if me.is(data.user.id) then BadRequest("You cannot report yourself")
-        else
-          reportRateLimit(rateLimited):
+        negotiate(
+          html =
             for
-              _ <- api.create(data, Reporter(me), Nil)
-              _ <- api.isAutoBlock(data).so(env.relation.api.block(me, data.user.id))
-            yield Redirect(routes.Report.thanks).flashing("reported" -> data.user.name.value)
+              user <- getUserStr("username").so(env.user.repo.byId)
+              page <- renderPage(views.report.ui.form(err, user, none))
+            yield BadRequest(page),
+          json = jsonFormError(err)
+        ),
+      data =>
+        if me.is(data.user.id) then
+          negotiate(
+            html = BadRequest("You cannot report yourself"),
+            json = BadRequest(jsonError("You cannot report yourself"))
+          )
+        else
+          val blocked = api.isAutoBlock(data)
+          reportRateLimit(reportLimited(client)):
+            val reportCreated =
+              for
+                _ <- api.create(data, Reporter(me), Nil)
+                _ <- blocked.so(env.relation.api.block(me, data.user.id))
+              yield ()
+            reportCreated.flatMap: _ =>
+              negotiate(
+                html = Redirect(routes.Report.thanks).flashing("reported" -> data.user.name.value),
+                json = JsonOk(Json.obj("ok" -> true, "autoBlocked" -> blocked))
+              )
     )
   }
 
