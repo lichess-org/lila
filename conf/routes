@@ -985,6 +985,7 @@ GET   /assets/*file                    controllers.ExternalAssets.at(path="publi
 
 GET   /manifest.json                   controllers.Main.manifest
 GET   /robots.txt                      controllers.Main.robots
+GET   /sitemap.xml                     controllers.Main.sitemap
 
 GET   /mobile                          controllers.Main.mobile
 GET   /$lang<\w\w\w?>/mobile           controllers.Main.mobileLang(lang: Language)
