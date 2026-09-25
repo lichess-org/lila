@@ -14,7 +14,7 @@ import lila.oauth.{ AccessTokenApi, AccessToken, OAuthScope, TokenScopes }
 import lila.common.HTTPRequest
 import lila.memo.RateLimit.LimitResult
 
-private[security] def storedCodeParam(
+private[security] def fromFormOrQuery(
     name: String,
     form: Map[String, Seq[String]],
     query: Map[String, Seq[String]]
@@ -50,7 +50,7 @@ final class LoginToken(
     private def param(name: String, form: Map[String, Seq[String]])(using
         req: RequestHeader
     ): Option[String] =
-      storedCodeParam(name, form, req.queryString)
+      fromFormOrQuery(name, form, req.queryString)
 
     private def reqEmailAndUser(form: Map[String, Seq[String]])(using
         RequestHeader
