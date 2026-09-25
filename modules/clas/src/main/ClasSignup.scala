@@ -78,7 +78,7 @@ final class ClasSignup(
             for
               (usr, name) <-
                 if line.startsWith("@") then
-                  line.drop(1).split(" ", 2) match
+                  line.drop(1).trim.split(" ", 2) match
                     case Array(username, realName) =>
                       UserStr.read(username).map(_.some -> realName).toRight(s"Invalid username: $username")
                     case _ => Left(s"Invalid line: $line")
