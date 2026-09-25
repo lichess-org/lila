@@ -8,7 +8,9 @@ import {
   type Hooks,
   type Attrs,
   type Classes,
+  type JsxVNodeChildren,
   h as snabH,
+  jsx as snabbdomJsx,
   thunk,
 } from 'snabbdom';
 
@@ -111,3 +113,47 @@ export const requiresI18n = <Cat extends keyof I18n>(
   }
   return render(window.i18n[catalog]);
 };
+
+export function getEventTarget<T extends HTMLElement>(event: Event): T {
+  return event.target as T;
+}
+
+export function getEventTargetInputValue<T extends string>(event: Event): T {
+  return (event.target as HTMLInputElement).value as T;
+}
+
+export function jsx(tag: string, data: VNodeData | null, ...children: JsxVNodeChildren[]): VNode {
+  return snabbdomJsx(
+    tag,
+    data &&
+      Object.entries(data).reduce<VNodeData>((normalized, [name, value]) => {
+        if (name === 'attrs') {
+          normalized.attrs = { ...normalized.attrs, ...value };
+        } else if (['hook', 'key', 'on', 'props', 'style'].includes(name)) {
+          normalized[name] = value;
+        } else if (name === 'class') {
+          normalized.attrs = {
+            ...normalized.attrs,
+            class: Array.isArray(value) ? value.filter(Boolean).join(' ') : value,
+          };
+        } else {
+          normalized.attrs = { ...normalized.attrs, [name]: value };
+        }
+        return normalized;
+      }, {}),
+    ...children,
+  );
+}
+
+export namespace jsx {
+  export namespace JSX {
+    export type Element = VNode;
+    export type IntrinsicElements = Record<
+      string,
+      Omit<VNodeData, 'class'> & {
+        class?: Classes | string | (string | false | null | undefined)[];
+        [name: string]: any;
+      }
+    >;
+  }
+}
