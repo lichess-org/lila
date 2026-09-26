@@ -13,7 +13,7 @@ import lila.core.round.CorresMoveEvent
 @Module
 final class Env(
     db: lila.db.AsyncDb @@ lila.db.YoloDb,
-    practiceStudies: lila.core.practice.GetStudies,
+    practiceStudies: lila.ui.practice.GetStudies,
     gameRepo: lila.core.game.GameRepo,
     forumPostApi: lila.core.forum.ForumPostApi,
     ublogApi: lila.core.ublog.UblogApi,
@@ -53,7 +53,7 @@ final class Env(
 
   Bus.sub[lila.core.ublog.UblogPost.Create]: create =>
     write.ublogPost(create.post)
-  Bus.sub[lila.core.practice.OnComplete](write.practice(_))
+  Bus.sub[lila.core.misc.practice.OnComplete](write.practice(_))
   Bus.sub[lila.core.simul.OnStart]: start =>
     write.simul(start.simul)
   Bus.sub[CorresMoveEvent]:
