@@ -1288,6 +1288,7 @@ object I18nKey:
     val `showUndefendedPieces`: I18nKey = "preferences:showUndefendedPieces"
     val `showPinnedPieces`: I18nKey = "preferences:showPinnedPieces"
     val `showCheckableKing`: I18nKey = "preferences:showCheckableKing"
+    val `showCloudEval`: I18nKey = "preferences:showCloudEval"
     val `disclosureMode`: I18nKey = "preferences:disclosureMode"
     val `generalSettings`: I18nKey = "preferences:generalSettings"
     val `moveListSettings`: I18nKey = "preferences:moveListSettings"

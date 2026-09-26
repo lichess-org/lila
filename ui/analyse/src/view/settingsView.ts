@@ -86,6 +86,10 @@ const settings: Record<SettingKey, Setting> = {
     group: i18n.preferences.boardSettings,
     helpHtml: videoHtml('info-checkable-king'),
   },
+  showCloudEval: {
+    label: i18n.preferences.showCloudEval,
+    group: i18n.preferences.generalSettings,
+  },
 };
 
 export async function showSettingsDialog(ctrl: AnalyseCtrl): Promise<Dialog> {

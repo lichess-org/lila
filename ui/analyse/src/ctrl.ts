@@ -150,6 +150,18 @@ export default class AnalyseCtrl implements CevalHandler {
     this.element = opts.element;
     this.isEmbed = !!opts.embed;
     this.settings = new SettingsCtrl(() => {
+      if (!this.settings.showCloudEval && this.node.ceval?.cloud) {
+        this.node.ceval = undefined;
+        this.evalCache?.clear();
+        this.startCeval();
+      } else if (
+        this.settings.showCloudEval &&
+        this.isCevalAllowed() &&
+        this.cevalEnabled() &&
+        !this.node.ceval?.cloud
+      ) {
+        this.evalCache?.fetch(this.path, this.ceval.search.multiPv);
+      }
       this.setAutoShapes();
       this.redraw();
     });
@@ -965,6 +977,7 @@ export default class AnalyseCtrl implements CevalHandler {
   }
 
   private readonly canEvalGet = (): boolean => {
+    if (!this.settings.showCloudEval) return false;
     if (this.node.ply >= 15 && !this.opts.study) return false;
 
     // cloud eval does not support threefold repetition
