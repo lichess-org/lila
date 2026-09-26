@@ -24,3 +24,9 @@ class HighlightTest extends munit.FunSuite:
 
   test("with punctuation"):
     assertEquals(hi("nigger?"), "<bad>nigger</bad>?")
+
+  test("regex support"):
+    assertEquals(hi("bolllllloc"), "<bad>bolllllloc</bad>")
+
+  test("prod escaping exception"):
+    assertEquals(hi("hi n\\gger"), "hi <bad>ngger</bad>")

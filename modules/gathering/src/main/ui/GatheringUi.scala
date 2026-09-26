@@ -32,8 +32,7 @@ final class GatheringUi(helpers: Helpers)(prizeTournamentMakers: () => UserIds):
       .nonEmptyOption
       .map: list =>
         st.section(
-          iconEl := relevant.option(if ctx.isAuth && vs.accepted then Icon.checkmark
-          else Icon.padlock),
+          dataIcon := relevant.option(if ctx.isAuth && vs.accepted then Icon.Checkmark else Icon.Padlock),
           cls := List(
             "conditions" -> true,
             "accepted" -> (relevant && ctx.isAuth && vs.accepted),
@@ -108,7 +107,7 @@ final class GatheringFormUi(helpers: Helpers):
     form3.group(
       field,
       trans.swiss.predefinedUsers(),
-      help = trans.swiss.forbiddedUsers().some,
+      help = trans.swiss.predefinedUsersHelp().some,
       half = true
     )(form3.textarea(_)(rows := 4))
 
@@ -131,6 +130,14 @@ final class GatheringFormUi(helpers: Helpers):
       ).some,
       disabled = disabledAfterStart
     )
+
+  def description(field: Field)(using Translate) =
+    form3.group(
+      field,
+      trans.site.tournDescription(),
+      help = trans.site.tournDescriptionHelp().some,
+      half = true
+    )(form3.textarea(_)(rows := 5))
 
   def payouts(field: Field)(using Option[Me], Translate) =
     Granter

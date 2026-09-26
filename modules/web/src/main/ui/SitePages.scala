@@ -18,11 +18,11 @@ final class SitePages(helpers: Helpers):
 
   def menu(active: String)(using Translate) =
     val sep = div(cls := "sep")
-    val external = frag(" ", iconEl(Icon.externalArrow))
+    val external = frag(" ", iconTag(Icon.ExternalArrow))
     def activeCls(c: String) = cls := active.activeO(c)
     lila.ui.bits.pageMenuSubnav(
       a(activeCls("about"), href := "/about")(trans.site.aboutX("lichess.org")),
-      a(activeCls("news"), href := routes.Feed.index(1))("Lichess updates"),
+      a(activeCls("news"), href := routes.Feed.index(1))(trans.site.lichessUpdates()),
       a(activeCls("faq"), href := routes.Main.faq)(trans.faq.faqAbbreviation()),
       a(activeCls("contact"), href := routes.Main.contact)(trans.contact.contact()),
       a(activeCls("tos"), href := routes.Cms.tos)(trans.site.termsOfService()),
@@ -31,7 +31,7 @@ final class SitePages(helpers: Helpers):
       sep,
       a(activeCls("source"), href := routes.Cms.source)(trans.site.sourceCode()),
       a(activeCls("help"), href := routes.Cms.help)(trans.site.contribute()),
-      a(activeCls("changelog"), href := routes.Cms.menuPage(CmsPageKey("changelog")))("Changelog"),
+      a(activeCls("changelog"), href := routes.Cms.menuPage(CmsPageKey("changelog")))(trans.site.changelog()),
       a(activeCls("thanks"), href := "/thanks")(trans.site.thankYou()),
       sep,
       a(activeCls("webmasters"), href := routes.Main.webmasters)(trans.site.webmasters()),
@@ -39,7 +39,7 @@ final class SitePages(helpers: Helpers):
       a(activeCls("api"), href := "/api")("API", external),
       sep,
       a(activeCls("lag"), href := routes.Main.lag)(trans.lag.isLichessLagging()),
-      a(activeCls("ads"), href := "/ads")("Block ads")
+      a(activeCls("ads"), href := "/ads")(trans.site.blockAds())
     )
 
   def webmasters(pieceNames: List[String])(using Context) =
@@ -280,7 +280,7 @@ final class SitePages(helpers: Helpers):
               h2(trl.lichessServerLatency()),
               div(cls := "meter")(canvas(cls := "server-chart")),
               p(
-                trl.lichessServerLatencyExplanation()
+                trl.serverLatencyAndLoadExplanation()
               )
             ),
             st.section(cls := "network")(

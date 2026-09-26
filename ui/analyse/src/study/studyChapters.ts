@@ -4,7 +4,8 @@ import type Sortable from 'sortablejs';
 
 import { blurIfPrimaryClick, defined, prop, type Prop, scrollToInnerSelector } from 'lib';
 import { fenColor } from 'lib/game/chess';
-import { type VNode, bind, hl, alert, snabIcon, button } from 'lib/view';
+import { licon } from 'lib/licon';
+import { type VNode, bind, hl, alert, icon, button } from 'lib/view';
 
 import type AnalyseCtrl from '../ctrl';
 import type { StudySocketSend } from '../socket';
@@ -227,7 +228,7 @@ export function view(ctrl: StudyCtrl): VNode {
                     },
                   },
                 },
-                snabIcon('gear'),
+                icon(licon.Gear)({ title: i18n.study.editChapter }),
               ),
           ],
         );
@@ -246,7 +247,7 @@ export function view(ctrl: StudyCtrl): VNode {
             ctrl.redraw,
           ),
         },
-        [snabIcon('plusButton'), hl('h3', i18n.study.addNewChapter)],
+        [icon(licon.PlusButton)(), hl('h3', i18n.study.addNewChapter)],
       ),
   ]);
 }

@@ -7,4 +7,12 @@
   <string name="cancelKeepAccount">Abbrechen und meinen Account behalten</string>
   <string name="closeAccountAreYouSure">Bist du sicher, dass du deinen Account schließen möchtest?</string>
   <string name="thisAccountIsClosed">Dieses Benutzerkonto ist geschlossen.</string>
+  <string name="wereSorryToSeeYouGo">Schade, dass du uns verlässt.</string>
+  <string name="closeAccountForeverLabel">Für immer schließen: Wiederöffnen unmöglich machen</string>
+  <string name="closeAccountForeverWarning">Die spätere Wiedereröffnung des Kontos verhindern. Wenn du dieses Häkchen anklickst, werden selbst Administratoren nicht in der Lage sein, dein Konto auf Anfrage wiederzueröffnen.</string>
+  <string name="deleteYourAccount">Dein Benutzerkonto löschen</string>
+  <string name="deleteAccountWarning">Sobald du dein Konto gelöscht hast, wird es von Lichess entfernt und unsere Administratoren werden nicht in der Lage sein, es für dich wiederherzustellen.</string>
+  <string name="wouldYouLikeToXInstead" comment="%s is close your account">Möchtest du stattdessen %s?</string>
+  <string name="closeYourAccount">dein Benutzerkonto schließen</string>
+  <string name="deleteAccountConfirmText">Ich verstehe, dass gelöschte Benutzerkonten nicht wiederhergestellt werden können</string>
 </resources>

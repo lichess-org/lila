@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="newAccessToken">نمودافزارِ دسترسیِ شخصیِ جدید به API</string>
+  <string name="newAccessToken">نمودافزارِ دسترسیِ شخصیِ جدید به میم.ب.کاف</string>
   <string name="tokenGrantsPermission">یک نمودافزار به دیگران اجازه استفاده از حساب‌تان را می‌دهد.</string>
   <string name="carefullySelect">در انتخاب دسترسی های داده شده دقت کنید.</string>
   <string name="tokenDescription">توضیحات توکن</string>
@@ -21,27 +21,26 @@
   <string name="puzzleRead">خواندن داده‌های معماها</string>
   <string name="teamRead">خواندن اطلاعات خصوصی یَران</string>
   <string name="teamWrite">پیوستن و ترک کردن تیم ها</string>
-  <string name="teamLead">مدیریت تیم های تحت رهبری شما: ارسال پیام ها، حذف اعضاء</string>
-  <string name="manageTeamsYouLead" comment="Replaces old string teamLead">مدیریت تیم‌هایی که رهبری می‌کنید: ارسال پیام‌های مستقیم، اخراجِ عضوها</string>
+  <string name="manageTeamsYouLead">مدیریت تیم‌هایی که رهبری می‌کنید: ارسال پیام‌های مستقیم، اخراجِ عضوها</string>
   <string name="followRead">خواندن بازیکنان دنبالیده</string>
   <string name="followWrite">دنبالیدن و وادنبالیدن دیگر بازیکنان</string>
   <string name="msgWrite">برای سایر بازیکنان پیام خصوصی بفرستید</string>
-  <string name="boardPlay">بازی با رابط کاربری</string>
-  <string name="botPlay">با api ربات بازی کنید</string>
+  <string name="boardPlay">بازی کردن با استفاده از میم.ب.کافِ میز</string>
+  <string name="botPlay">بازی کردن با استفاده از میم.ب.کافِ رَت</string>
   <string name="engineRead">دیدن و استفاده از موتورهای بیرونی‌تان</string>
   <string name="engineWrite">ساخت و به‌روزرسانی موتورهای بیرونی</string>
   <string name="webMod">از ابزارهای مدیریت (در محدوده اجازه شما) استفاده کنید</string>
-  <string name="personalAccessTokens">نمودافزارهای دسترسی شخصی به API</string>
+  <string name="personalAccessTokens">نمودافزارهای دسترسی شخصی به میم.ب.کاف</string>
   <string name="canMakeOauthRequests">شما میتوانید درخواست های OAuth را بدون استفاده از %s ارسال نمایید.</string>
   <string name="authorizationCodeFlow">روند کد هویت سنجی</string>
-  <string name="insteadGenerateToken" comment="The parameter is a link to generate a token a personal access token">به جایش، %s که می توانید مستقیم در درخواست های api استفاده کنید.</string>
+  <string name="insteadGenerateToken" comment="The parameter is a link to generate a token a personal access token">در عوض، %s که می‌توانید مستقیم در درخواست‌های میم.ب.کاف استفاده کنید.</string>
   <string name="generatePersonalToken">ساخت یک نمودافزار دسترسی خصوصی</string>
   <string name="guardTokensCarefully">از این نمودافزارها محافظت کنید! آن‌ها مانند رمز عبورها هستند. فایده استفاده از این نمودافزارها جای نوشتن رمز عبور خود درون یک اسکریپت این که نمودافزارها می‌توانند لغو شوند و شما میتوانید تعداد زیادی از آن ها را ایجاد نمایید.</string>
   <string name="apiDocumentationLinks" comment="The first parameter links to a personal token app example. The second parameter links to the API documentation">اینجا یک %1$s و %2$s.</string>
   <string name="personalTokenAppExample">نمونه بَرکِ نمودافزار شخصی</string>
-  <string name="apiDocumentation">مستندات API</string>
+  <string name="apiDocumentation">مستندات میم.ب.کاف</string>
   <string name="newToken">نمودافزار دسترسی تازه</string>
-  <string name="apiAccessTokens">API دسترسی نمودافزارها</string>
+  <string name="apiAccessTokens">نمودافزارهای دسترسی میم.ب.کاف</string>
   <string name="created">%s ایجاد شده</string>
   <string name="lastUsed">آخرین استفاده %s</string>
   <string name="alreadyHavePlayedGames">شما قبلا بازی کرده اید!</string>

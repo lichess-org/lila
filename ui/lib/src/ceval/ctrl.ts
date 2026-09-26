@@ -1,15 +1,17 @@
 // no side effects allowed due to re-export by index.ts
 
-import type { Rules } from 'chessops';
+import { isStandardMaterial } from 'chessops/chess';
 import { lichessRules } from 'chessops/compat';
 import { parseFen } from 'chessops/fen';
+import { type Rules } from 'chessops/types';
 import { setupPosition } from 'chessops/variant';
 
 import { clamp } from '@/algo';
 import { throttleWithFlush } from '@/async';
+import { isTouchDevice } from '@/device';
 import { pubsub } from '@/pubsub';
 import { storedIntProp, storedStringProp, storage } from '@/storage';
-import type { LocalEval, TreePath } from '@/tree/types';
+import type { ClientEval, LocalEval, TreePath } from '@/tree/types';
 
 import { prop, type Prop, type Toggle, toggle } from '../index';
 import { Engines } from './engines/engines';
@@ -45,6 +47,7 @@ interface Started {
 
 export class CevalCtrl {
   rules: Rules;
+  nonStandardMaterial: boolean;
   analysable: boolean;
   engines: Engines;
   storedEngine: Prop<string>;
@@ -80,19 +83,28 @@ export class CevalCtrl {
       if (this.curEval?.bestmove) return;
       if (!this.lastStarted) return;
       if (!this.analysable) return;
-
+      if (!isTouchDevice()) return;
       if (document.hidden) this.worker?.stop();
-      else if (this.curEval) this.doStart(this.lastStarted);
+      else this.doStart(this.lastStarted);
     });
   }
 
   init(opts?: CevalOpts): void {
     if (opts) this.opts = opts;
     this.reset();
-    this.analysable = Boolean(this.engines.getEngine({ variant: this.opts.variant.key }));
     this.rules = lichessRules(this.opts.variant.key);
-    if (this.analysable && this.opts.initialFen)
-      this.analysable = parseFen(this.opts.initialFen).chain(x => setupPosition(this.rules, x)).isOk;
+    const pos = this.opts.initialFen
+      ? parseFen(this.opts.initialFen).chain(x => setupPosition(this.rules, x))
+      : undefined;
+    this.nonStandardMaterial =
+      this.rules === 'chess' &&
+      !!pos?.unwrap(
+        pos => !isStandardMaterial(pos),
+        _ => false,
+      );
+    this.analysable =
+      !pos?.isErr &&
+      !!this.engines.getEngine({ rules: this.rules, nonStandardMaterial: this.nonStandardMaterial });
     this.engines.setActive(this.opts.custom?.engine?.id ?? this.storedEngine());
     if (this.worker?.getInfo().id !== this.engines.active()?.id) this.unload();
   }
@@ -138,7 +150,14 @@ export class CevalCtrl {
         min: 16,
         max: active.maxHash,
       }),
-      engine: (custom?.engine && this.engines.getEngine({ id: custom.engine.id })) || active,
+      engine:
+        (custom?.engine &&
+          this.engines.getEngine({
+            id: custom.engine.id,
+            rules: this.rules,
+            nonStandardMaterial: this.nonStandardMaterial,
+          })) ||
+        active,
       search:
         typeof maybeSearch === 'object'
           ? maybeSearch
@@ -184,7 +203,9 @@ export class CevalCtrl {
   }
 
   get canGoDeeper(): boolean {
-    return this.state !== CevalState.Computing && (this.curEval?.depth ?? 0) < 99;
+    // recently raised from 99. keep an eye out for screenshots of wasm exceptions in github issues and
+    // feedback forum.
+    return this.state !== CevalState.Computing && (this.opts.localEval?.()?.depth ?? 0) < 245;
   }
 
   get isComputing(): boolean {
@@ -192,7 +213,7 @@ export class CevalCtrl {
   }
 
   get isCacheable(): boolean {
-    return Boolean(this.engines.active()?.capabilities?.includes('cloudEval'));
+    return Boolean(this.engines.active()?.supportsCloudEval);
   }
 
   get showingCloud(): boolean {
@@ -221,16 +242,40 @@ export class CevalCtrl {
     this.unload();
   }
 
+  isFinished(search: Search, step: Step): boolean {
+    return (
+      !this.isDeeper() &&
+      'movetime' in search.by &&
+      !step.ceval?.cloud &&
+      (step.threat?.millis ?? step.ceval?.millis ?? 0) >= search.by.movetime &&
+      step.ceval?.pvs.length === search.multiPv &&
+      step.ceval?.engineId === this.engines.active()?.id
+    );
+  }
+
+  // Node counts, like depth, dont compare well across engines, but cloud evals have no engineId field.
+  // So cross-engine comparisons are only allowed for cloud evals (a tradeoff that defers to their utility).
+  // This function always prefers the latest unless:
+  // - latest has the wrong multipv and stored eval has the right one
+  // - stored eval has higher node count AND either stored and latest lack engineId or their engineIds match
+
+  preferLatestEval(latest: ClientEval, stored: ClientEval | null | undefined): boolean {
+    if (!stored) return true;
+    const multipv = this.search.multiPv;
+    if (stored.pvs.length === multipv && latest.pvs.length !== multipv) return false;
+    if (latest.pvs.length === multipv && stored.pvs.length !== multipv) return true;
+    if ('engineId' in stored && 'engineId' in latest && stored.engineId !== latest.engineId) return true;
+    return latest.nodes >= stored.nodes;
+  }
+
   private readonly doStart = (s: Started) => {
     this.lastStarted = s;
     const step = s.steps[s.steps.length - 1];
     const { search, threads, hashSize, engine } = this.info(this.opts.custom)!;
-    const lastEvalMillis = (s.threatMode ? step.threat : step.ceval)?.millis ?? 0;
-    if (!this.isDeeper() && 'movetime' in search.by && lastEvalMillis >= search.by.movetime) {
-      return;
-    }
+    if (this.isFinished(search, step)) return;
+
     const work: Work = {
-      variant: this.opts.variant.key,
+      variant: this.rules,
       threads,
       hashSize,
       gameId: s.gameId,
@@ -265,7 +310,11 @@ export class CevalCtrl {
     }
 
     if (this.worker?.getInfo().id !== engine.id) this.unload();
-    this.worker ??= this.engines.makeEngine({ id: engine.id, variant: this.opts.variant.key });
+    this.worker ??= this.engines.makeEngine({
+      id: engine.id,
+      rules: this.rules,
+      nonStandardMaterial: this.nonStandardMaterial,
+    });
     this.worker.start(work);
   };
 
@@ -286,6 +335,7 @@ export class CevalCtrl {
     };
     const emitter = throttleWithFlush(125, (ev: LocalEval, meta: EvalMeta) => {
       this.curEval = ev;
+      ev.engineId = this.engines.active()?.id;
       if (ev.bestmove && ev.bestmove !== '(none)' && working.movetime !== false) {
         ev.millis = Math.max(ev.millis, working.movetime); // ensure bestmove eval matches movetime target
       }

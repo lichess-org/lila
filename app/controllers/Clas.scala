@@ -339,7 +339,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
                   }
               ,
               data =>
-                env.clas.api.student.create(clas, data).map { s =>
+                env.clas.signup.one.create(clas, data).map { s =>
                   Redirect(routes.Clas.studentForm(clas.id))
                     .flashing("created" -> s"${s.student.userId} ${s.password.value}")
                 }
@@ -363,34 +363,32 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
                   .map2(lila.clas.Student.WithPassword(_, ClearPassword(p)))
               .map(_.flatten)
         nbStudents <- env.clas.api.student.count(clas.id)
-        form = env.clas.forms.student.manyCreate(lila.clas.Clas.maxStudents - nbStudents)
+        form = env.clas.signup.multi.form(lila.clas.Clas.maxStudents - nbStudents)
         page <- renderPage(views.clas.student.manyForm(clas, students, form, nbStudents, created))
       yield Ok(page)
   }
 
   def studentManyCreate(id: ClasId) = SecureBody(_.Teacher) { ctx ?=> me ?=>
-    NoTor:
-      Firewall:
-        SafeTeacher:
-          WithClassAndStudents(id): (clas, students) =>
-            env.clas.api.student.count(clas.id).flatMap { nbStudents =>
-              bindForm(env.clas.forms.student.manyCreate(lila.clas.Clas.maxStudents - nbStudents))(
-                err => BadRequest.page(views.clas.student.manyForm(clas, students, err, nbStudents, Nil)),
-                data =>
-                  env.clas.api.student.manyCreate(clas, data).flatMap { many =>
-                    env.user.lightUserApi
-                      .preloadMany(many.map(_.student.userId))
-                      .inject(
-                        Redirect(routes.Clas.studentManyForm(clas.id))
-                          .flashing:
-                            "created" -> many
-                              .map: s =>
-                                s"${s.student.userId} ${s.password.value}"
-                              .mkString("/")
-                      )
-                  }
-              )
-            }
+    SafeTeacher:
+      WithClassAndStudents(id): (clas, students) =>
+        env.clas.api.student.count(clas.id).flatMap { nbStudents =>
+          bindForm(env.clas.signup.multi.form(lila.clas.Clas.maxStudents - nbStudents))(
+            err => BadRequest.page(views.clas.student.manyForm(clas, students, err, nbStudents, Nil)),
+            data =>
+              env.clas.signup.multi.create(clas, data).flatMap { many =>
+                env.user.lightUserApi
+                  .preloadMany(many.map(_.student.userId))
+                  .inject(
+                    Redirect(routes.Clas.studentManyForm(clas.id))
+                      .flashing:
+                        "created" -> many
+                          .map: s =>
+                            s"${s.student.userId} ${s.password.value}"
+                          .mkString("/")
+                  )
+              }
+          )
+        }
   }
 
   def studentInvite(id: ClasId) = SecureBody(_.Teacher) { ctx ?=> me ?=>

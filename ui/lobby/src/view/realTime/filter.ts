@@ -1,6 +1,7 @@
 import { h } from 'snabbdom';
 
-import { bind, onInsert, snabIcon } from 'lib/view';
+import { licon } from 'lib/licon';
+import { bind, onInsert } from 'lib/view';
 import * as xhr from 'lib/xhr';
 
 import type LobbyController from '@/ctrl';
@@ -67,16 +68,14 @@ function initialize(ctrl: LobbyController, el: FilterNode) {
 }
 
 export function toggle({ filter, redraw }: LobbyController, nbFiltered: number) {
-  const label = filter.open ? i18n.site.close : i18n.site.filterGames;
-  return h(
-    'button.toggle.toggle-filter',
-    {
-      class: { gamesFiltered: nbFiltered > 0, active: filter.open },
-      hook: bind('click', filter.toggle, redraw),
-      attrs: { title: label, 'aria-label': label },
+  return h('button.toggle.toggle-filter', {
+    class: { gamesFiltered: nbFiltered > 0, active: filter.open },
+    hook: bind('click', filter.toggle, redraw),
+    attrs: {
+      'data-icon': filter.open ? licon.X : licon.Gear,
+      title: filter.open ? i18n.site.close : i18n.site.filterGames,
     },
-    [snabIcon(filter.open ? 'x' : 'gear')],
-  );
+  });
 }
 
 export interface FilterNode extends HTMLElement {

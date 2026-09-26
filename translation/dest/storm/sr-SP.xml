@@ -40,6 +40,7 @@
   <string name="raceComplete">Трка завршена!</string>
   <string name="spectating">Посматраш</string>
   <string name="joinTheRace">Придружи се трци!</string>
+  <string name="startTheRace">Започни трку</string>
   <string name="yourRankX">Твој ранг: %s</string>
   <string name="waitForRematch">Сачекај реванш</string>
   <string name="nextRace">Следећа трка</string>

@@ -1,6 +1,7 @@
 import { h } from 'snabbdom';
 
-import { bind, snabIcon } from 'lib/view';
+import { licon } from 'lib/licon';
+import { bind, dataIcon } from 'lib/view';
 
 import type Ctrl from './ctrl';
 import type { Preset } from './interfaces';
@@ -13,9 +14,10 @@ export default function (ctrl: Ctrl) {
         'a.preset.text',
         {
           class: { active: ctrl.makeUrl(p.dimension, p.metric, p.filters) === ctrl.makeCurrentUrl() },
+          attrs: dataIcon(licon.Target),
           hook: bind('click', () => ctrl.setQuestion(p)),
         },
-        [snabIcon('target'), p.name],
+        p.name,
       ),
     ),
   );

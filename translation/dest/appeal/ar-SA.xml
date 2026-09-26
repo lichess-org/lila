@@ -13,10 +13,9 @@
   <string name="closedByModerators">تم إغلاق حسابك من قبل المشرفين.</string>
   <string name="blogRestriction">تم تقييد إمكانية استخدامك للمدونة.</string>
   <string name="blogRestrictionInfo">اطّلع على %s، إذ قد يؤدي انتهاك هذه القواعد إلى اتخاذ إجراءات مختلفة.</string>
-  <string name="playTimeout">تم إيقافك عن اللعب.</string>
   <string name="reportBanned">لا يُسمح لك بإرسال بلاغات إلى المشرفين</string>
   <string name="reportBannedInfo">لقد لاحظنا وجود نمط من إساءة استخدام نظام الإبلاغ لدينا. وقد يرجع ذلك إلى عدة أسباب، مثل اختيار فئات غير صحيحة بشكل متكرر، أو استخدام لغة بذيئة أو غير لائقة أو مسيئة، أو الإبلاغ عن عدد مفرط من المباريات، أو عدم توضيح سبب اعتقادك أن الخصم قد خالف القواعد.</string>
-  <string name="temporarilyRestrictedFromPlaying" comment="play timeout = Lichess prevents you temporarily from playing any games Replaces old string playTimeout">تم تقييد حسابك مؤقتًا من اللعب.</string>
+  <string name="temporarilyRestrictedFromPlaying" comment="play timeout = Lichess prevents you temporarily from playing any games">تم تقييد حسابك مؤقتًا من اللعب.</string>
   <string name="communicationGuidelines">قواعد التواصل</string>
   <string name="blogEtiquette">آداب استخدام المدونة</string>
   <string name="fairPlay">اللعب العادل</string>

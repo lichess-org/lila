@@ -64,24 +64,22 @@
   margin-bottom: 6px;
 
   a {
-    padding: 0.5em 0;
-
+    @include padding-direction(0.5em, 0, 0.5em, 2.7em);
     @include transition;
 
     color: $c-font;
-    display: flex;
-    align-items: center;
-    gap: 0.5em;
+    display: block;
+    position: relative;
     line-height: 1.2;
     min-height: 48px;
 
     &:hover {
       @extend %box-radius;
 
-      padding-inline-start: 0.5rem;
+      padding-inline-start: 3.2rem;
       background: color-mix(in oklab, $c-brag 20%, $c-bg-page);
 
-      .svg-icon {
+      &::before {
         @include inline-start(0.5rem);
 
         opacity: 1;
@@ -94,11 +92,13 @@
     display: block;
   }
 
-  a .svg-icon {
+  a::before {
     @include transition;
     @include inline-start(0);
 
-    width: 2.2em;
+    position: absolute;
+    top: 0.3rem;
+    font-size: 2.2em;
     opacity: 0.6;
     color: $c-brag;
   }

@@ -7,9 +7,9 @@ import { h } from 'snabbdom';
 import { type Prop, type Toggle, defined, notNull, prop, toggle } from 'lib';
 import { fenColor } from 'lib/game/chess';
 import { otbClockIsRunning, formatMs } from 'lib/game/clock/clockWidget';
-import { type Icon } from 'lib/icons';
+import { licon } from 'lib/licon';
 import { storage, storedBooleanProp } from 'lib/storage';
-import { type MaybeVNode, type VNode, bind, onInsert, hl, requiresI18n, snabIcon, img } from 'lib/view';
+import { type MaybeVNode, type VNode, bind, onInsert, hl, requiresI18n, img, dataIcon } from 'lib/view';
 import { cmnToggleWrapProp } from 'lib/view/cmn-toggle';
 import { userTitle } from 'lib/view/userLink';
 
@@ -154,7 +154,11 @@ export function view(ctrl: MultiBoardCtrl, study: StudyCtrl): MaybeVNode {
       ]),
     ]),
     !ctrl.showResults()
-      ? h('div.empty-boards-note.text', [snabIcon('infoCircle'), i18n.broadcast.sinceHideResults])
+      ? h(
+          'div.empty-boards-note.text',
+          { attrs: dataIcon(licon.InfoCircle) },
+          i18n.broadcast.sinceHideResults,
+        )
       : undefined,
     h(
       'div.now-playing',
@@ -194,11 +198,11 @@ function renderPagerNav(pager: Paginator<ChapterPreview>, ctrl: MultiBoardCtrl):
     to = Math.min(pager.nbResults, page * pager.maxPerPage),
     max = ctrl.maxPerPage();
   return h('div.study__multiboard__pager', [
-    pagerButton('jumpFirst', () => ctrl.setPage(1), page > 1, ctrl),
-    pagerButton('jumpPrev', ctrl.prevPage, page > 1, ctrl),
+    pagerButton(licon.JumpFirst, () => ctrl.setPage(1), page > 1, ctrl),
+    pagerButton(licon.JumpPrev, ctrl.prevPage, page > 1, ctrl),
     h('span.page', `${from}-${to} / ${pager.nbResults}`),
-    pagerButton('jumpNext', ctrl.nextPage, page < pager.nbPages, ctrl),
-    pagerButton('jumpLast', ctrl.lastPage, page < pager.nbPages, ctrl),
+    pagerButton(licon.JumpNext, ctrl.nextPage, page < pager.nbPages, ctrl),
+    pagerButton(licon.JumpLast, ctrl.lastPage, page < pager.nbPages, ctrl),
     teamSelector(ctrl),
     h(
       'select.study__multiboard__pager__max-per-page',
@@ -229,10 +233,11 @@ const teamSelector = (ctrl: MultiBoardCtrl) => {
     : undefined;
 };
 
-function pagerButton(icon: Icon, click: () => void, enable: boolean, ctrl: MultiBoardCtrl): VNode {
-  return h('button.fbt', { attrs: { disabled: !enable }, hook: bind('mousedown', click, ctrl.redraw) }, [
-    snabIcon(icon),
-  ]);
+function pagerButton(icon: string, click: () => void, enable: boolean, ctrl: MultiBoardCtrl): VNode {
+  return h('button.fbt', {
+    attrs: { 'data-icon': icon, disabled: !enable },
+    hook: bind('mousedown', click, ctrl.redraw),
+  });
 }
 
 const previewToCgConfig = (cp: ChapterPreview): CgConfig => ({
@@ -240,6 +245,7 @@ const previewToCgConfig = (cp: ChapterPreview): CgConfig => ({
   lastMove: uciToMove(cp.lastMove),
   turnColor: fenColor(cp.fen),
   check: !!cp.check,
+  orientation: cp.orientation,
 });
 
 const makePreviews = (
@@ -279,6 +285,9 @@ export const previewContent = (
 ) => {
   const makeCgConfig = () => ({
     ...(showResults ? previewToCgConfig(preview) : { fen: EMPTY_BOARD_FEN }),
+    // previewToCgConfig sets the chapter orientation; the caller may want another one,
+    // like the liveboard following the main board flip.
+    orientation,
     ...(extraCgConfig ? extraCgConfig() : {}),
   });
   return [
@@ -294,7 +303,6 @@ export const previewContent = (
               vnode.data!.cg = makeChessground(el, {
                 coordinates: false,
                 viewOnly: true,
-                orientation,
                 drawable: { enabled: false, visible: false },
                 ...makeCgConfig(),
               });
@@ -302,9 +310,12 @@ export const previewContent = (
             },
             postpatch(old, vnode) {
               if (!showResults) return;
-              if (old.data!.fen !== preview.fen) old.data!.cg?.set(makeCgConfig());
+              const oldCg: CgApi = old.data!.cg;
+              // `cg.getFen()` is boardFen not fullFen
+              if (old.data!.fen !== preview.fen || oldCg.state.orientation !== orientation)
+                oldCg.set(makeCgConfig());
               vnode.data!.fen = preview.fen;
-              vnode.data!.cg = old.data!.cg;
+              vnode.data!.cg = oldCg;
             },
           },
         }),
@@ -321,12 +332,17 @@ export const verticalEvalGauge = (
 ): MaybeVNode => {
   const baseTag = `span.mini-game__gauge${orientation === 'black' ? ' mini-game__gauge--flip' : ''}`;
   return chap.check === '#'
-    ? h(baseTag + ` mini-game__gauge--set`, { attrs: { 'data-id': chap.id, title: 'Checkmate' } }, [
-        h('span.mini-game__gauge__black', {
-          attrs: { style: `height: ${fenColor(chap.fen) === 'white' ? 100 : 0}%` },
-        }),
-        h('tick'),
-      ])
+    ? h(
+        baseTag + ` mini-game__gauge--set`,
+        {
+          attrs: {
+            'data-id': chap.id,
+            title: 'Checkmate',
+            style: `--multi-eval-percent: ${fenColor(chap.fen) === 'white' ? 100 : 0}%`,
+          },
+        },
+        [h('tick')],
+      )
     : h(
         baseTag,
         {
@@ -338,9 +354,10 @@ export const verticalEvalGauge = (
               const prevNodeCloud: CloudEval | undefined = old.data?.cloud;
               const cev = cloudEval.getCloudEval(chap.fen) || prevNodeCloud;
               if (cev?.chances !== prevNodeCloud?.chances) {
-                (elm.firstChild as HTMLElement).style.height = `${Math.round(
-                  ((1 - (cev?.chances || 0)) / 2) * 100,
-                )}%`;
+                elm.style.setProperty(
+                  '--multi-eval-percent',
+                  `${Math.round(((1 - (cev?.chances || 0)) / 2) * 100)}%`,
+                );
                 if (cev) {
                   elm.title = renderScore(cev);
                   elm.classList.add('mini-game__gauge--set');
@@ -350,7 +367,7 @@ export const verticalEvalGauge = (
             },
           },
         },
-        [h('span.mini-game__gauge__black'), h('tick')],
+        [h('tick')],
       );
 };
 

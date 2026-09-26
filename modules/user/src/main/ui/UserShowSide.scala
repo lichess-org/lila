@@ -23,7 +23,7 @@ final class UserShowSide(helpers: Helpers):
     def showPerf(perf: Perf, pk: PerfKey) =
       val isPuzzle = pk == PerfKey.puzzle
       a(
-        iconEl := pk.perfIcon,
+        dataIcon := pk.perfIcon,
         title := pk.perfDesc.txt(),
         cls := List(
           "empty" -> perf.isEmpty,
@@ -68,7 +68,7 @@ final class UserShowSide(helpers: Helpers):
             )
           }
         ),
-        ctx.pref.showRatings.option(iconEl(Icon.playTriangle))
+        ctx.pref.showRatings.option(iconTag(Icon.PlayTriangle))
       )
 
     div(cls := "side sub-ratings")(
@@ -104,7 +104,7 @@ final class UserShowSide(helpers: Helpers):
 
   private def showStorm(storm: PuzPerf, user: User)(using Translate) =
     a(
-      iconEl := Icon.storm,
+      dataIcon := Icon.Storm,
       cls := List(
         "empty" -> !storm.nonEmpty
       ),
@@ -121,12 +121,12 @@ final class UserShowSide(helpers: Helpers):
           )
         )
       ),
-      iconEl(Icon.playTriangle)
+      iconTag(Icon.PlayTriangle)
     )
 
   private def showRacer(racer: PuzPerf)(using Translate) =
     a(
-      iconEl := Icon.flagChessboard,
+      dataIcon := Icon.FlagChessboard,
       cls := List(
         "empty" -> !racer.nonEmpty
       ),
@@ -143,12 +143,12 @@ final class UserShowSide(helpers: Helpers):
           )
         )
       ),
-      iconEl(Icon.playTriangle)
+      iconTag(Icon.PlayTriangle)
     )
 
   private def showStreak(streak: PuzPerf)(using Translate) =
     a(
-      iconEl := Icon.arrowThruApple,
+      dataIcon := Icon.ArrowThruApple,
       cls := List(
         "empty" -> !streak.nonEmpty
       ),
@@ -165,5 +165,5 @@ final class UserShowSide(helpers: Helpers):
           )
         )
       ),
-      iconEl(Icon.playTriangle)
+      iconTag(Icon.PlayTriangle)
     )

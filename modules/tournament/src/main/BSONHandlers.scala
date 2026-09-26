@@ -13,7 +13,6 @@ import lila.db.BSON
 import lila.db.dsl.{ *, given }
 import lila.gathering.Thematic
 import lila.rating.PerfType
-import lila.ui.Icon
 
 object BSONHandlers:
 
@@ -28,8 +27,7 @@ object BSONHandlers:
 
   private given BSONHandler[chess.Clock.Config] = clockConfigHandler
 
-  private given BSONHandler[Icon] = BSONStringHandler.as(Icon.byName.getOrElse(_, Icon.trophy), _.name)
-
+  given BSONHandler[lila.ui.Icon] = isoHandler[lila.ui.Icon, String]
   private given BSONDocumentHandler[Spotlight] = Macros.handler
 
   given BSONDocumentHandler[TeamBattle] = Macros.handler

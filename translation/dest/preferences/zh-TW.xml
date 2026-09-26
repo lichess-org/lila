@@ -56,12 +56,8 @@
   <string name="scrollOnTheBoardToReplayMoves">在騎盤上使用滑鼠滾輪以重新顯示過去棋步</string>
   <string name="correspondenceEmailNotification">每日以電郵列出您當前的長期對局</string>
   <string name="notifyStreamStart">追蹤的直播主開始直播</string>
-  <string name="notifyInboxMsg">收件夾有新訊息</string>
-  <string name="notifyForumMention">論壇評論中提到您</string>
-  <string name="notifyInvitedStudy">研究邀請</string>
   <string name="notifyGameEvent">長期對局更新訊息</string>
   <string name="notifyChallenge">挑戰</string>
-  <string name="notifyTournamentSoon">比賽即將開始</string>
   <string name="notifyTimeAlarm">長期對局的時間即將耗盡</string>
   <string name="notifyBell">Lichess 內的鈴聲通知</string>
   <string name="notifyPush">Lichess 外的設備通知</string>

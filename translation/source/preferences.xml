@@ -42,6 +42,7 @@ This setting only affects what you see. Rated games will still impact your ratin
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Claim draw on threefold repetition automatically</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">When time remaining &lt; 30 seconds</string>
   <string name="moveConfirmation">Move confirmation</string>
+  <string name="multipleChoices">Multiple choices. </string>
   <string name="explainCanThenBeTemporarilyDisabled">Can be disabled during a game with the board menu</string>
   <string name="inCorrespondenceGames">Correspondence games</string>
   <string name="correspondenceAndUnlimited">Correspondence and unlimited</string>
@@ -57,16 +58,12 @@ This setting only affects what you see. Rated games will still impact your ratin
   <string name="scrollOnTheBoardToReplayMoves">Scroll on the board to replay moves</string>
   <string name="correspondenceEmailNotification">Daily email listing your correspondence games</string>
   <string name="notifyStreamStart">Streamer goes live</string>
-  <string name="notifyInboxMsg">New inbox message</string>
-  <string name="notifyDirectMessage" comment="notifyInboxMsg&#10;&#10;A notification setting - notifies players when they receive a new message in their Lichess inbox Replaces old string notifyInboxMsg">New direct message</string>
-  <string name="notifyForumMention">Forum comment mentions you</string>
-  <string name="notifyForumMentions" comment="notifyForumMention&#10;&#10; A notification setting - notifies players when someone has @mentioned their name in the Lichess Forum (https://lichess.org/forum) Replaces old string notifyForumMention">Forum mentions</string>
-  <string name="notifyInvitedStudy">Study invite</string>
-  <string name="notifyStudyInvites" comment="notifyInvitedStudy&#10;&#10; A notification setting - notifies players about invites to studies (https://lichess.org/study/) Replaces old string notifyInvitedStudy">Study invites</string>
+  <string name="notifyDirectMessage" comment="notifyInboxMsg&#10;&#10;A notification setting - notifies players when they receive a new message in their Lichess inbox">New direct message</string>
+  <string name="notifyForumMentions" comment="notifyForumMention&#10;&#10; A notification setting - notifies players when someone has @mentioned their name in the Lichess Forum (https://lichess.org/forum)">Forum mentions</string>
+  <string name="notifyStudyInvites" comment="notifyInvitedStudy&#10;&#10; A notification setting - notifies players about invites to studies (https://lichess.org/study/)">Study invites</string>
   <string name="notifyGameEvent">Correspondence game updates</string>
   <string name="notifyChallenge">Challenges</string>
-  <string name="notifyTournamentSoon">Tournament starting soon</string>
-  <string name="notifyTournamentStartReminders" comment="notifyTournamentSoon&#10;&#10;A notification setting - notifies players if a tournament is starting soon. Replaces old string notifyTournamentSoon">Tournaments start reminders</string>
+  <string name="notifyTournamentStartReminders" comment="notifyTournamentSoon&#10;&#10;A notification setting - notifies players if a tournament is starting soon.">Tournaments start reminders</string>
   <string name="notifyBroadcasts">Broadcasts</string>
   <string name="notifyTimeAlarm">Correspondence time running out</string>
   <string name="notifyBell">Notification within Lichess</string>
@@ -94,4 +91,10 @@ This setting only affects what you see. Rated games will still impact your ratin
   <string name="analysisSettings">Analysis settings</string>
   <string name="maneuverArrowsHelp">Sequence of engine moves for one piece</string>
   <string name="hoverOverSettingLabelsForHelp">Hover over setting labels for help</string>
+  <string name="network">Network</string>
+  <string name="youAreCurrentlyUsingDirectRouting">You are currently using direct routing.</string>
+  <string name="youAreCurrentlyUsingCdnRouting">You are currently using Content Delivery Network (CDN) routing.</string>
+  <string name="frequentDisconnectsAdvice">If you have frequent disconnects, try changing the routing.</string>
+  <string name="useDirectRouting">Use direct routing</string>
+  <string name="useCdnRouting">Use CDN routing</string>
 </resources>

@@ -1,14 +1,17 @@
-import { dragNewPiece } from '@lichess-org/chessground/drag';
 import type { MouchEvent, NumberPair } from '@lichess-org/chessground/types';
 import { eventPosition, opposite } from '@lichess-org/chessground/util';
+import { COLORS } from 'chessops';
 import { lichessRules } from 'chessops/compat';
 import { parseFen } from 'chessops/fen';
 import { parseSquare, makeSquare } from 'chessops/util';
 
+import { view as cevalView } from 'lib/ceval';
 import { fenToEpd } from 'lib/game/chess';
-import { type Icon } from 'lib/icons';
+import { variants } from 'lib/game/perf';
+import { licon, type LiconValue } from 'lib/licon';
 import {
   copyMeInput,
+  dataIcon,
   domDialog,
   enter,
   input,
@@ -26,7 +29,6 @@ import {
   makeExoticTag,
   type VNode,
   type MaybeVNode,
-  snabIcon,
 } from 'lib/view';
 import { url as xhrUrl } from 'lib/xhr';
 
@@ -59,16 +61,17 @@ function studyButton(ctrl: EditorCtrl, state: EditorState): VNode {
     button(
       {
         type: 'submit',
+        ...dataIcon(licon.StudyBoard),
         disabled: !state.legalFen,
         class: { button: true, 'button-empty': true, text: true, disabled: !state.legalFen },
       },
-      [snabIcon('studyBoard'), i18n.site.toStudy],
+      i18n.site.toStudy,
     ),
   ]);
 }
 
-function variantOption(key: VariantKey, name: string, ctrl: EditorCtrl): VNode {
-  return option({ value: key, selected: key === ctrl.variant }, `${i18n.site.variant} | ${name}`);
+function variantOption(key: VariantKey, current: VariantKey): VNode {
+  return option({ value: key, selected: key === current }, `${i18n.site.variant} | ${i18n.variant[key]}`);
 }
 
 function endgamePositionOption(pos: EndgamePosition): VNode {
@@ -82,19 +85,7 @@ function positionOption(pos: OpeningPosition): VNode {
   );
 }
 
-const ALL_VARIANTS: Array<[VariantKey, string]> = [
-  ['standard', i18n.variant.standard],
-  ['chess960', i18n.variant.chess960],
-  ['kingOfTheHill', i18n.variant.kingOfTheHill],
-  ['threeCheck', i18n.variant.threeCheck],
-  ['crazyhouse', i18n.variant.crazyhouse],
-  ['antichess', i18n.variant.antichess],
-  ['atomic', i18n.variant.atomic],
-  ['horde', i18n.variant.horde],
-  ['racingKings', i18n.variant.racingKings],
-];
-
-function controlsButtonStart(ctrl: EditorCtrl, icon?: Icon) {
+function controlsButtonStart(ctrl: EditorCtrl, icon?: LiconValue) {
   return button(
     `.button.button-empty${icon ? '.text' : ''}`,
     {
@@ -105,12 +96,13 @@ function controlsButtonStart(ctrl: EditorCtrl, icon?: Icon) {
         },
       },
       type: 'button',
+      ...(icon ? dataIcon(icon) : {}),
     },
-    [icon && snabIcon(icon), i18n.site.startPosition],
+    i18n.site.startPosition,
   );
 }
 
-function controlsButtonClear(ctrl: EditorCtrl, icon?: Icon) {
+function controlsButtonClear(ctrl: EditorCtrl, icon?: LiconValue) {
   return button(
     `.button.button-empty${icon ? '.text' : ''}`,
     {
@@ -121,8 +113,9 @@ function controlsButtonClear(ctrl: EditorCtrl, icon?: Icon) {
         },
       },
       type: 'button',
+      ...(icon ? dataIcon(icon) : {}),
     },
-    [icon && snabIcon(icon), i18n.site.clearBoard],
+    i18n.site.clearBoard,
   );
 }
 
@@ -152,25 +145,22 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
                 keydown: enter(target => target.blur()),
               },
             }),
-            button(
-              '.button.button-empty',
-              {
-                type: 'button',
-                'aria-label': i18n.site.randomChess960Position,
-                title: i18n.site.randomChess960Position,
-                on: {
-                  click(e) {
-                    e.preventDefault();
-                    ctrl.setRandom960Position();
-                  },
+            button('.button.button-empty', {
+              type: 'button',
+              title: i18n.site.randomChess960Position,
+              ...dataIcon(licon.DieSix),
+              on: {
+                click(e) {
+                  e.preventDefault();
+                  ctrl.setRandom960Position();
                 },
               },
-              [snabIcon('dieSix')],
-            ),
+            }),
           ]),
         ]);
 
   return div('.board-editor__tools', [
+    ...(ctrl.cfg.embed ? [] : [div('.ceval-wrap', [cevalView.renderCeval(ctrl), cevalView.renderPvs(ctrl)])]),
     div('.metadata', [
       div(
         '.color',
@@ -183,27 +173,30 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
             },
             props: { value: ctrl.turn },
           },
-          (['whitePlays', 'blackPlays'] as const).map(key =>
+          COLORS.map(c =>
             option(
               {
-                value: key.startsWith('w') ? 'white' : 'black',
-                selected: key.startsWith(ctrl.turn[0]),
+                value: c,
+                selected: c === ctrl.turn,
               },
-              i18n.site[key],
+              i18n.site[`${c}Plays`],
             ),
           ),
         ),
       ),
       div('.castling', [
         strong(i18n.site.castling),
-        div([
-          castleCheckBox(ctrl, 'K', i18n.site.whiteCastlingKingside, !!ctrl.options.inlineCastling),
-          castleCheckBox(ctrl, 'Q', 'O-O-O', true),
-        ]),
-        div([
-          castleCheckBox(ctrl, 'k', i18n.site.blackCastlingKingside, !!ctrl.options.inlineCastling),
-          castleCheckBox(ctrl, 'q', 'O-O-O', true),
-        ]),
+        ...COLORS.map(c =>
+          div([
+            castleCheckBox(
+              ctrl,
+              c === 'white' ? 'K' : 'k',
+              i18n.site[`${c}CastlingKingside`],
+              !!ctrl.options.inlineCastling,
+            ),
+            castleCheckBox(ctrl, c === 'white' ? 'Q' : 'q', 'O-O-O', true),
+          ]),
+        ),
       ]),
       div('.enpassant', [
         label({ for: 'enpassant-select' }, i18n.site.enPassant),
@@ -280,17 +273,17 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
                   },
                 },
               },
-              ALL_VARIANTS.map(x => variantOption(x[0], x[1], ctrl)),
+              variants.map(variant => variantOption(variant, ctrl.variant)),
             ),
           ]),
           chess960PositionIdSelector,
           div('.actions', [
-            controlsButtonStart(ctrl, 'reload'),
-            controlsButtonClear(ctrl, 'trash'),
+            controlsButtonStart(ctrl, licon.Reload),
+            controlsButtonClear(ctrl, licon.Trash),
             button(
               '.button.button-empty.text',
               {
-                title: 'Hotkey: f',
+                ...dataIcon(licon.ChasingArrows),
                 on: {
                   click() {
                     ctrl.chessground!.toggleOrientation();
@@ -298,10 +291,11 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
                   },
                 },
               },
-              [snabIcon('chasingArrows'), i18n.site.flipBoard],
+              i18n.site.flipBoard,
             ),
             a(state.legalFen ? ctrl.makeAnalysisUrl(state.legalFen, ctrl.bottomColor()) : '')(
               {
+                ...dataIcon(licon.Microscope),
                 rel: 'nofollow',
                 title: 'Hotkey: a',
                 class: {
@@ -311,7 +305,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
                   disabled: !state.legalFen,
                 },
               },
-              [snabIcon('microscope'), i18n.site.analysis],
+              i18n.site.analysis,
             ),
             button(
               {
@@ -329,7 +323,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
                   },
                 },
               },
-              [span('.text', [snabIcon('swords'), i18n.site.continueFromHere])],
+              [span('.text', dataIcon(licon.Swords), i18n.site.continueFromHere)],
             ),
             studyButton(ctrl, state),
           ]),
@@ -398,7 +392,7 @@ function inputs(ctrl: EditorCtrl, fen: FEN): MaybeVNode {
       {
         download: true,
       },
-      'SCREENSHOT',
+      i18n.site.positionAsImage,
     ),
   ]);
 }
@@ -467,7 +461,7 @@ function onSelectSparePiece(ctrl: EditorCtrl, s: Selected, upEvent: string): (e:
     } else {
       ctrl.selected('pointer');
 
-      dragNewPiece(ctrl.chessground!.state, { color: s[0], role: s[1] }, e, true);
+      ctrl.chessground?.dragNewPiece({ color: s[0], role: s[1] }, e, true);
 
       document.addEventListener(
         upEvent,

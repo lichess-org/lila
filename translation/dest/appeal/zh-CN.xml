@@ -13,10 +13,9 @@
   <string name="closedByModerators">您的账户已被管理员关闭。</string>
   <string name="blogRestriction">您的博客受到限制！</string>
   <string name="blogRestrictionInfo">请阅读我们的%s，违反这些规则可能会导致不同的处理措施。</string>
-  <string name="playTimeout">您处于禁赛期。</string>
   <string name="reportBanned">您无法向版主发送举报</string>
   <string name="reportBannedInfo">我们注意到您的举报系统使用存在滥用行为。这可能是由多种原因导致，例如持续选择错误的举报类别、使用粗俗、不当或冒犯性语言、举报对局数量过多，或未能说明您认为对手违规的理由。</string>
-  <string name="temporarilyRestrictedFromPlaying" comment="play timeout = Lichess prevents you temporarily from playing any games Replaces old string playTimeout">您的账户暂时被限制对弈！</string>
+  <string name="temporarilyRestrictedFromPlaying" comment="play timeout = Lichess prevents you temporarily from playing any games">您的账户暂时被限制对弈！</string>
   <string name="communicationGuidelines">沟通准则</string>
   <string name="blogEtiquette">博客礼仪</string>
   <string name="fairPlay">公平竞赛</string>

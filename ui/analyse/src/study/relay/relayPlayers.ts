@@ -4,9 +4,10 @@ import type { Tablesort } from 'tablesort';
 import { defined } from 'lib';
 import { isTouchDevice } from 'lib/device';
 import perfIcons from 'lib/game/perfIcons';
+import { licon } from 'lib/licon';
 import { pubsub } from 'lib/pubsub';
 import { sortTable, extendTablesortNumber } from 'lib/tablesort';
-import { type VNode, hl, onInsert, spinnerVdom as spinner, snabIcon, type LooseVNodes } from 'lib/view';
+import { type VNode, dataIcon, hl, onInsert, spinnerVdom as spinner, type LooseVNodes } from 'lib/view';
 import { userLink, userTitle } from 'lib/view/userLink';
 import { json as xhrJson } from 'lib/xhr';
 
@@ -147,11 +148,7 @@ export default class RelayPlayers {
 export const playersView = (ctrl: RelayPlayers): VNode =>
   ctrl.show ? playerView(ctrl, ctrl.show) : playersList(ctrl);
 
-const ratingCategs: Record<FideTC, string> = {
-  standard: i18n.site.classical,
-  rapid: i18n.site.rapid,
-  blitz: i18n.site.blitz,
-};
+const ratingCategs: FideTC[] = ['standard', 'rapid', 'blitz'];
 const playerView = (ctrl: RelayPlayers, show: PlayerToShow): VNode => {
   const tour = ctrl.tour;
   const p = show.player;
@@ -214,10 +211,11 @@ const playerView = (ctrl: RelayPlayers, show: PlayerToShow): VNode => {
                     p.team &&
                       hl('tr', [
                         hl('th', 'Team'),
-                        hl('td.text', [
-                          snabIcon('group'),
+                        hl(
+                          'td.text',
+                          { attrs: dataIcon(licon.Group) },
                           hl('a', matchOrResultsTeamLink(ctrl, p.team), p.team),
-                        ]),
+                        ),
                       ]),
                     age && hl('tr', [hl('th', i18n.broadcast.age), hl('td', age.toString())]),
                   ]),
@@ -227,9 +225,9 @@ const playerView = (ctrl: RelayPlayers, show: PlayerToShow): VNode => {
           ),
           hl('div.fide-player__cards', [
             p.fide?.ratings &&
-              Object.entries(ratingCategs).map(([key, name]: [FideTC, string]) =>
+              ratingCategs.map(key =>
                 hl(`div.fide-player__card${key === tc ? '.active' : ''}`, [
-                  hl('em', { attrs: { title: ratingCategs[key] } }, [fideTCIcon(key), name]),
+                  hl('em', fideTCAttrs(key), i18n.site[key]),
                   hl('span', [p.fide?.ratings[key] || '-']),
                 ]),
               ),
@@ -244,10 +242,11 @@ const playerView = (ctrl: RelayPlayers, show: PlayerToShow): VNode => {
                 Object.entries(p.performances)
                   .sort(statByFideTCSort)
                   .map(([tc, value]: [FideTC, number]) =>
-                    hl('div.performance', { attrs: { title: ratingCategs[tc] } }, [
-                      fideTCIcon(tc),
+                    hl(
+                      'div.performance',
+                      fideTCAttrs(tc),
                       `${value}${p.games.filter(g => g.fideTC === tc).length < 4 ? '?' : ''}`,
-                    ]),
+                    ),
                   ),
               ]),
             p.ratingDiffs &&
@@ -289,10 +288,11 @@ export const renderPlayers = (
   const hasPlayers = players.length > 0;
   return [
     withRank &&
-      hl('p.relay-tour__standings--disclaimer.text', [
-        snabIcon('infoCircle'),
+      hl(
+        'p.relay-tour__standings--disclaimer.text',
+        { attrs: dataIcon(licon.InfoCircle) },
         i18n.broadcast.standingsDisclaimer,
-      ]),
+      ),
     hasPlayers
       ? hl(
           'table.relay-tour__players__table.fide-players-table.slist.slist-invert.slist-pad',
@@ -304,7 +304,7 @@ export const renderPlayers = (
               'thead',
               hl('tr', [
                 hl('th.pin', defaultSort),
-                withRank && hl('th.rank', defaultSort, [snabIcon('trophy')]),
+                withRank && hl('th.rank', { attrs: { ...defaultSort['attrs'], ...dataIcon(licon.Trophy) } }),
                 hl('th.player-name', { attrs: { 'data-sort-reverse': true } }, i18n.site.player),
                 withRating && hl('th', ((!withScores && !withRank) || forceEloSort) && defaultSort, 'Elo'),
                 withScores && hl('th.score', !withRank && !forceEloSort && defaultSort, i18n.broadcast.score),
@@ -335,7 +335,7 @@ export const renderPlayers = (
                         {
                           class: { pinned },
                           attrs: {
-                            title: 'Pin player',
+                            title: i18n.broadcast.pinPlayer,
                           },
                           on: {
                             click() {
@@ -481,7 +481,7 @@ const renderPlayerGames = (ctrl: RelayPlayers, p: RelayPlayerWithGames, withTips
         hl(
           'td',
           hl(
-            'a.game-link.is.color-icon.text.' + game.color,
+            'a.game-link.is.color-icon.' + game.color,
             { attrs: { href: `/broadcast/-/-/${game.round}/${game.id}` } },
             `${i + 1}`,
           ),
@@ -547,17 +547,13 @@ const statByFideTCSort = (a: [FideTC, number], b: [FideTC, number]) =>
   fideTCOrder.indexOf(a[0]) - fideTCOrder.indexOf(b[0]);
 
 const ratingDiff = (p: RelayPlayer | RelayPlayerGame, showIcons = false) => {
-  if (isRelayPlayerGame(p))
-    return hl('div.diff', { attrs: { title: showIcons ? ratingCategs[p.fideTC] : '' } }, [
-      showIcons && fideTCIcon(p.fideTC),
-      diffNode(p.ratingDiff),
-    ]);
+  if (isRelayPlayerGame(p)) return hl('div.diff', showIcons && fideTCAttrs(p.fideTC), diffNode(p.ratingDiff));
   if (!p.ratingDiffs) return p.rating;
   const rds = Object.entries(p.ratingDiffs).sort(statByFideTCSort);
   const isMultiTc = rds.length > 1;
   const diffNodes = rds.map(([tc, diff]: [FideTC, number]) => {
     const node = [p.ratingsMap?.[tc], diffNode(diff)];
-    return isMultiTc ? hl('div.diff', { attrs: { title: ratingCategs[tc] } }, [fideTCIcon(tc), node]) : node;
+    return isMultiTc ? hl('div.diff', fideTCAttrs(tc), node) : node;
   });
   return isMultiTc ? hl('div.diffs', diffNodes) : hl('div.diff', diffNodes[0]);
 };
@@ -574,7 +570,12 @@ const diffNode = (rd?: number) =>
 const isRelayPlayerGame = (p: RelayPlayer | RelayPlayerGame): p is RelayPlayerGame =>
   'round' in p && 'opponent' in p;
 
-const fideTCIcon = (tc: FideTC): VNode => snabIcon(perfIcons[tc === 'standard' ? 'classical' : tc]);
+const fideTCAttrs = (tc: FideTC): VNodeData => ({
+  attrs: {
+    'data-icon': perfIcons[tc === 'standard' ? 'classical' : tc],
+    title: i18n.site[tc],
+  },
+});
 
 export const tableAugment = (el: HTMLTableElement): Tablesort => {
   extendTablesortNumber();

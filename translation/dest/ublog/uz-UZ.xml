@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="community">Hamjamiyat</string>
+  <string name="communityBlogs">Hamjamiyat bloglari</string>
   <string name="byMonth">Oyma‑oy</string>
   <string name="byTopic">Mavzu boʻyicha</string>
   <string name="byLichess">Lichess tomonidan</string>
@@ -8,6 +9,7 @@
   <string name="myLikes">Menga yoqqanlar</string>
   <string name="myBlog">Mening blogim</string>
   <string name="likedBlogs">Menga yoqqan blog postlar</string>
+  <string name="blogPostsByFriends">Doʻstlaringiz bloglari</string>
   <plurals name="blogPosts">
     <item quantity="one">%s blog post</item>
     <item quantity="other">%s blog post</item>
@@ -28,6 +30,8 @@
   <string name="createBlogDiscussionHelp">Postingizni muhokama qilish uchun forumda yangi mavzu yaratiladi</string>
   <string name="publishOnYourBlog">Blogda chop etish</string>
   <string name="publishHelp">Agar belgilansa, post blogingizda eʼlon qilinadi. Aks holda, u maxfiy qoladi va qoralamalaringiz orasida saqlanadi</string>
+  <string name="includesPromotedContent">Homiylik, reklama yoki tavsiya (referral) havolalarni oʻz ichiga oladi</string>
+  <string name="mandatoryForSponsoredContent">Homiylangan kontent, hamkorlik (affiliate) havolalari yoki tijoriy reklamalar uchun majburiy</string>
   <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">Postni qadab qoʻyish</string>
   <string name="stickyPostHelp">Agar belgilansa, ushbu post profilingizdagi soʻnggi xabarlar roʻyxatida va blogingizda birinchi boʻlib koʻrsatiladi.</string>
   <plurals name="publishedNbBlogPosts">
@@ -44,16 +48,18 @@
   <string name="noPostsInThisBlogYet">Ushbu blogda hozircha postlar yoʻq.</string>
   <string name="noDrafts">Qoralamalar yoʻq.</string>
   <string name="latestBlogPosts">Soʻnggi blog postlar</string>
+  <string name="recentPosts">Soʻnggi postlar</string>
   <plurals name="viewAllNbPosts">
     <item quantity="one">Bitta postni koʻrish</item>
     <item quantity="other">Barcha %s ta postni koʻrish</item>
   </plurals>
   <string name="imageAlt">Rasm uchun muqobil matn</string>
   <string name="imageCredit">Rasm manbasi</string>
+  <string name="coverImage">Muqova rasmi</string>
   <string name="deleteBlog">Ushbu blog postini butunlay oʻchirib tashlash</string>
-  <string name="safeToUseImages">Quyidagi veb‑saytlardagi rasmlardan foydalanish xavfsiz: </string>
-  <string name="freeImagesComplyWithLicensing" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement. Replaces old string safeToUseImages">Quyidagi veb‑saytlar bepul tasvirlarni taqdim etadi. Iltimos, siz foydalanadigan tasvirning litsenziyalash shartlariga rioya qilishingizni soʻraymiz.</string>
+  <string name="freeImagesComplyWithLicensing" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Quyidagi veb‑saytlar bepul tasvirlarni taqdim etadi. Iltimos, siz foydalanadigan tasvirning litsenziyalash shartlariga rioya qilishingizni soʻraymiz.</string>
   <string name="selectPostTopics">Postingiz qaysi mavzular haqida ekanligini tanlang</string>
+  <string name="etiquette">Etiket</string>
   <string name="safeAndRespectfulContent">Iltimos, faqat xavfsiz va odob doirasidagi kontentlarni joylang. Birovning ishini koʻchirib olmang.</string>
   <string name="noCopyrightedImages">Faqat mualliflik huquqi bilan himoyalanmagan rasmlardan foydalaning.</string>
   <string name="inappropriateContentAccountClosed">Har qanday nomunosib kontent profilingiz yopilishiga sabab boʻlishi mumkin.</string>

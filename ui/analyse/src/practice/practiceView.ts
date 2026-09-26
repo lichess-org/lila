@@ -49,7 +49,7 @@ function renderEnd(root: AnalyseCtrl, end: Outcome): VNode {
     hl('div.instruction', [
       hl('strong', end.winner ? i18n.site.checkmate : i18n.site.draw),
       end.winner
-        ? hl('em', hl('color', i18n.site[end.winner === 'white' ? 'whiteWinsGame' : 'blackWinsGame']))
+        ? hl('em', hl('color', i18n.site[`${end.winner}WinsGame`]))
         : isFiftyMoves
           ? i18n.site.drawByFiftyMoves
           : hl('em', i18n.site.theGameIsADraw),
@@ -84,7 +84,7 @@ function renderRunning(root: AnalyseCtrl, ctrl: PracticeCtrl): VNode {
 export function renderCustomPearl({ ceval }: AnalyseCtrl, hardMode: boolean): VNode {
   if (hardMode) {
     const time = i18n.site.nbSeconds(
-      !isFinite(ceval.storedMovetime()) ? 60 : Math.round(ceval.storedMovetime() / 1000),
+      !isFinite(ceval.storedMovetime()) ? 300 : Math.round(ceval.storedMovetime() / 1000),
     );
     return hl('div.practice-mode', [hl('p', 'Mastery'), hl('p.secondary', time)]);
   }

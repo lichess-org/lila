@@ -155,6 +155,6 @@ trait PrefHelper:
   def translatedSayGGChoices(using Translate) =
     List(
       (Pref.SayGG.NO, trans.site.never.txt()),
-      (Pref.SayGG.DEFEAT, "Defeat only"),
-      (Pref.SayGG.DRAW, "Draw and defeat")
+      (Pref.SayGG.DEFEAT, trans.site.defeatOnly.txt()),
+      (Pref.SayGG.DRAW, trans.site.drawAndDefeat.txt())
     )

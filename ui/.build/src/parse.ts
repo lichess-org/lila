@@ -1,47 +1,32 @@
 import fg from 'fast-glob';
+import crypto from 'node:crypto';
 import fs from 'node:fs';
 import { dirname, join, basename } from 'node:path';
 
 import { env, type Package, type Hash } from './env.ts';
 
 export async function parsePackages(): Promise<void> {
-  for (const dir of (await glob('ui/[^@.]*/package.json')).map(pkg => dirname(pkg))) {
-    const pkgInfo = await parsePackage(dir);
+  const packageJsonPaths = await glob('ui/[^@.]*/package.json');
+  const packages = await Promise.all(
+    packageJsonPaths.map(packageJsonPath => parsePackage(dirname(packageJsonPath))),
+  );
+
+  for (const pkgInfo of packages) {
     env.packages.set(pkgInfo.name, pkgInfo);
   }
 
   for (const pkgInfo of env.packages.values()) {
-    const deplist: string[] = [];
-    for (const dep in pkgInfo.pkg.dependencies) {
-      if (env.packages.has(dep)) deplist.push(dep);
-    }
-    env.workspaceDeps.set(pkgInfo.name, deplist);
+    const workspaceDeps = Object.keys(pkgInfo.pkg.dependencies ?? {}).filter(dep => env.packages.has(dep));
+    env.workspaceDeps.set(pkgInfo.name, workspaceDeps);
   }
 }
 
-export async function glob(glob: string[] | string | undefined, opts: fg.Options = {}): Promise<string[]> {
+export async function glob(glob?: string[] | string, opts: fg.Options = {}): Promise<string[]> {
   if (!glob) return [];
   const results = await Promise.all(
     [glob].flatMap(async g => fg.glob(g, { cwd: env.rootDir, absolute: true, ...opts })),
   );
   return [...new Set(results.flat())];
-}
-
-export async function folderSize(folder: string): Promise<number> {
-  async function getSize(dir: string): Promise<number> {
-    const entries = await fs.promises.readdir(dir, { withFileTypes: true });
-
-    const sizes = await Promise.all(
-      entries.map(async entry => {
-        const fullPath = join(dir, entry.name);
-        if (entry.isDirectory()) return getSize(fullPath);
-        if (entry.isFile()) return (await fs.promises.stat(fullPath)).size;
-        return 0;
-      }),
-    );
-    return sizes.reduce((acc: number, size: number) => acc + size, 0);
-  }
-  return getSize(folder);
 }
 
 export async function readable(file: string): Promise<boolean> {
@@ -55,9 +40,7 @@ export async function subfolders(folder: string, depth = 1): Promise<string[]> {
   if (depth <= 0) return [];
   return (
     await Promise.all(
-      (
-        await fs.promises.readdir(folder).catch(() => [])
-      ).map(async f => {
+      (await fs.promises.readdir(folder).catch(() => [])).map(async f => {
         const fullpath = join(folder, f);
         return (await isFolder(fullpath)) ? [fullpath, ...(await subfolders(fullpath, depth - 1))] : [];
       }),
@@ -78,6 +61,10 @@ export function isGlob(path: string): boolean {
 
 export function isClose(a: number | undefined, b: number | undefined, epsilon = 2) {
   return a === b || Math.abs((a ?? NaN) - (b ?? NaN)) < epsilon; // for mtimeMs jitter
+}
+
+export function getHash(content: string | Buffer) {
+  return crypto.createHash('sha256').update(content).digest('hex').slice(0, 8);
 }
 
 async function parsePackage(root: string): Promise<Package> {

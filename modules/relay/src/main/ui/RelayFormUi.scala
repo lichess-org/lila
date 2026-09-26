@@ -33,7 +33,7 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, pageMenu: RelayMenuUi):
     def tourAndRounds(shortName: Option[RelayTour.Name]) = frag(
       a(
         href := routes.RelayTour.edit(nav.tour.id),
-        iconEl := Icon.radioTower,
+        dataIcon := Icon.RadioTower,
         cls := List(
           "text" -> true,
           "relay-form__subnav__tour-parent" -> shortName.isDefined,
@@ -47,10 +47,10 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, pageMenu: RelayMenuUi):
           a(
             href := routes.RelayRound.edit(r.id),
             cls := List("subnav__subitem text" -> true, "active" -> nav.roundId.has(r.id)),
-            iconEl := (
-              if r.isFinished then Icon.checkmark
-              else if r.hasStarted then Icon.discBig
-              else Icon.discOutline
+            dataIcon := (
+              if r.isFinished then Icon.Checkmark
+              else if r.hasStarted then Icon.DiscBig
+              else Icon.DiscOutline
             )
           )(r.name.translate),
         (Granter.opt(_.StudyAdmin) || ctx.me.exists(nav.tour.isOwnedBy)).option(
@@ -61,7 +61,7 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, pageMenu: RelayMenuUi):
               "active" -> nav.newRound,
               "button" -> (nav.rounds.isEmpty && !nav.newRound)
             ),
-            iconEl := Icon.plusButton
+            dataIcon := Icon.PlusButton
           )(trb.addRound())
         )
       )
@@ -141,24 +141,23 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, pageMenu: RelayMenuUi):
             flashMessage("success")(
               "Your tournament round is officially broadcasted by Lichess!",
               br,
-              strong(a(href := tr.path, cls := "text", iconEl := Icon.radioTower)(tr.fullName)),
+              strong(a(href := tr.path, cls := "text", dataIcon := Icon.RadioTower)(tr.fullName)),
               "."
             ),
           inner(form, routes.RelayRound.update(r.id), nav),
           div(cls := "relay-form__actions")(
             postForm(action := routes.RelayRound.reset(r.id))(
               submitButton(
-                cls := "button button-red button-empty yes-no-confirm"
-              )(
-                strong(trb.resetRound()),
-                em(trb.deleteAllGamesOfThisRound())
-              )
+                cls := "button button-red button-empty yes-no-confirm",
+                title := trb.deleteAllGamesOfThisRound.txt()
+              )(strong(trb.resetRound()))
             ),
             (Granter.opt(_.StudyAdmin) || ctx.me.exists(nav.tour.isOwnedBy)).option:
               postForm(action := routes.Study.delete(r.studyId))(
                 submitButton(
-                  cls := "button button-red button-empty yes-no-confirm"
-                )(strong(trb.deleteRound()), em(trb.definitivelyDeleteRound()))
+                  cls := "button button-red button-empty yes-no-confirm",
+                  title := trb.permanentlyDeleteRound.txt()
+                )(strong(trb.deleteRound()))
               )
           )
         )
@@ -210,7 +209,7 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, pageMenu: RelayMenuUi):
           div(cls := "form-group")(
             div(cls := "form-group")(ui.howToUse),
             (nav.round.isEmpty && nav.tour.createdAt.isBefore(nowInstant.minusMinutes(1))).option:
-              p(iconEl := Icon.infoCircle, cls := "text"):
+              p(dataIcon := Icon.InfoCircle, cls := "text"):
                 trb.theNewRoundHelp()
           )
         ,
@@ -390,7 +389,7 @@ Hanna Marie ; Kozul, Zdenko"""),
           )(
             nav.tour.showRatingDiffs.option(
               form3.split(
-                form3.group(form("rated"), raw("")): field =>
+                form3.group(form("rated"), raw(""), half = true): field =>
                   val withDefault =
                     if nav.newRound && field.value.isEmpty then field.copy(value = "true".some) else field
                   form3.checkboxGroup(
@@ -419,7 +418,8 @@ Hanna Marie ; Kozul, Zdenko"""),
                 List("win", "draw").map: result =>
                   form3.group(
                     form("customScoring")(color.name)(result),
-                    raw(s"Points for a $result as ${color.name}")
+                    raw(s"Points for a $result as ${color.name}"),
+                    half = true
                   )(
                     form3.input(_)(tpe := "number", step := 0.01f, min := 0.0f, max := 10.0f)
                   )
@@ -433,7 +433,8 @@ Hanna Marie ; Kozul, Zdenko"""),
                 List("win", "draw").map: result =>
                   form3.group(
                     form("teamCustomScoring")(result),
-                    raw(s"Team points for a match $result")
+                    raw(s"Team points for a match $result"),
+                    half = true
                   )(
                     form3.input(_)(tpe := "number", step := 0.01f, min := 0.0f, max := 10.0f)
                   )
@@ -460,7 +461,24 @@ Hanna Marie ; Kozul, Zdenko"""),
                   ).some,
                   half = true
                 )(form3.input(_, typ = "number"))
-              )
+              ),
+              nav.newRound.not.option:
+                form3.split(
+                  form3.group(
+                    form("move"),
+                    "Reorder the round in the tournament",
+                    half = true
+                  )(
+                    form3.select(
+                      _,
+                      List(
+                        "true" -> "Move up",
+                        "false" -> "Move down"
+                      ),
+                      default = "Don't move".some
+                    )
+                  )
+                )
             )
           ),
         form3.actions(
@@ -495,7 +513,7 @@ Hanna Marie ; Kozul, Zdenko"""),
     def create(form: Form[lila.relay.RelayTourForm.Data])(using Context, Me) =
       page(trb.newBroadcast.txt(), menu = Left("new")).markdownTextarea:
         frag(
-          boxTop(h1(iconEl := Icon.radioTower, cls := "text")(trb.newBroadcast())),
+          boxTop(h1(dataIcon := Icon.RadioTower, cls := "text")(trb.newBroadcast())),
           postForm(cls := "form3", action := routes.RelayTour.create)(
             inner(form, none),
             form3.actions(
@@ -522,8 +540,9 @@ Hanna Marie ; Kozul, Zdenko"""),
             (!nav.tour.official && (Granter.opt(_.StudyAdmin) || nav.tour.isOwnedBy(me))).option:
               postForm(action := routes.RelayTour.delete(nav.tour.id))(
                 submitButton(
-                  cls := "button button-red button-empty yes-no-confirm"
-                )(strong(trb.deleteTournament()), em(trb.definitivelyDeleteTournament()))
+                  cls := "button button-red button-empty yes-no-confirm",
+                  title := trb.permanentlyDeleteTournament.txt()
+                )(strong(trb.deleteTournament()))
               )
             ,
             Granter
@@ -531,11 +550,9 @@ Hanna Marie ; Kozul, Zdenko"""),
               .option(
                 postForm(action := routes.RelayTour.cloneTour(nav.tour.id))(
                   submitButton(
-                    cls := "button button-green button-empty yes-no-confirm"
-                  )(
-                    strong("Clone as broadcast admin"),
-                    em("Clone this broadcast, its rounds, and their studies")
-                  )
+                    cls := "button button-green button-empty yes-no-confirm",
+                    title := "Clone this broadcast, its rounds, and their studies?"
+                  )(strong("Clone as broadcast admin"))
                 )
               )
           )
@@ -745,7 +762,7 @@ Team Dogs ; Scooby Doo"""),
                   default = "Optional. Select a tiebreak".some
                 )
             ,
-            p(iconEl := Icon.infoCircle, cls := "text")(
+            p(dataIcon := Icon.InfoCircle, cls := "text")(
               "Tiebreaks are best suited for round-robin tournaments where all games are broadcasted and played. ",
               "Tiebreaks will differ from official results if the tiebreak method utilises byes and forfeits."
             )
@@ -857,7 +874,7 @@ Team Dogs ; Scooby Doo"""),
         )
       )
 
-  private def nameHelp = small(cls := "form-help relay-name-help text none", iconEl := Icon.language)
+  private def nameHelp = small(cls := "form-help relay-name-help text none", dataIcon := Icon.Language)
 
   private def image(t: RelayTour)(using ctx: Context) =
     form3.fieldset("Image", toggle = true.some):
@@ -891,7 +908,7 @@ Team Dogs ; Scooby Doo"""),
     div(cls := "relay-form__grouping")(
       isDisabled.option:
         div(cls := "form-group"):
-          span(iconEl := Icon.cautionTriangle, cls := "text"):
+          span(dataIcon := Icon.CautionTriangle, cls := "text"):
             "This broadcast is now official. Please contact the Lichess broadcast team to request changes."
       ,
       form3.group(

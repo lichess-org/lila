@@ -56,12 +56,8 @@
   <string name="scrollOnTheBoardToReplayMoves">За да прегледате ходовете, превъртете колелцето на мишката над дъската</string>
   <string name="correspondenceEmailNotification">Ежедневен имейл със списък на Вашите кореспондентски игри</string>
   <string name="notifyStreamStart">Стриймър започва да излъчва</string>
-  <string name="notifyInboxMsg">Ново входящо съобщение</string>
-  <string name="notifyForumMention">Споменати сте във форум</string>
-  <string name="notifyInvitedStudy">Покана към казус</string>
   <string name="notifyGameEvent">Известия от кореспондентски игри</string>
   <string name="notifyChallenge">Предизвикателства</string>
-  <string name="notifyTournamentSoon">Турнирът започва скоро</string>
   <string name="notifyTimeAlarm">Времето в кореспондентска игра изтича</string>
   <string name="notifyBell">Звукови известия в Lichess</string>
   <string name="notifyPush">Получаване на известия на устойството Ви когато не сте в Lichess</string>

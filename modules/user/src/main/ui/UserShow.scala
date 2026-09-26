@@ -51,7 +51,7 @@ final class UserShow(helpers: Helpers, bits: UserBits):
           (myId.isnt(u.id) && u.enabled.yes).option(
             div(cls := "upt__actions btn-rack")(
               a(
-                iconEl := Icon.analogTv,
+                dataIcon := Icon.AnalogTv,
                 cls := "btn-rack__btn",
                 title := trans.site.watchGames.txt(),
                 href := routes.User.tv(u.username)
@@ -59,13 +59,13 @@ final class UserShow(helpers: Helpers, bits: UserBits):
               (!blocked).option(
                 frag(
                   a(
-                    iconEl := Icon.bubbleSpeech,
+                    dataIcon := Icon.BubbleSpeech,
                     cls := "btn-rack__btn",
                     title := trans.site.chat.txt(),
                     href := routes.Msg.convo(u.username)
                   ),
                   a(
-                    iconEl := Icon.swords,
+                    dataIcon := Icon.Swords,
                     cls := "btn-rack__btn",
                     title := trans.challenge.challengeToPlay.txt(),
                     href := s"${routes.Lobby.home}?user=${u.username}#friend"
@@ -111,7 +111,7 @@ final class UserShow(helpers: Helpers, bits: UserBits):
             a(href := routes.Video.index)(trans.learn.videos())
           )
         ),
-        li(a(href := routes.Pref.form("game-display"))(tro.configureLichess())),
+        li(a(href := routes.Pref.form("display"))(tro.configureLichess())),
         li(tro.exploreTheSiteAndHaveFun())
       )
     )

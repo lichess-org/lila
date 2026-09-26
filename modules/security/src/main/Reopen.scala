@@ -55,7 +55,7 @@ ${trans.passwordReset_clickOrIgnore.txt()}
 
 $url
 
-${trans.common_orPaste.txt()}"""),
+${trans.common_linkNotWorking.txt()}"""),
           htmlBody = emailMessage(
             p(trans.passwordReset_clickOrIgnore()),
             potentialAction(metaName("Log in"), Mailer.html.url(url)),

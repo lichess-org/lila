@@ -9,7 +9,7 @@ import lila.ui.Icon
 case class Spotlight(
     headline: String,
     homepageHours: Option[Int] = None, // feature on homepage hours before start (max 24)
-    icon: Option[Icon] = None,
+    iconFont: Option[Icon] = None,
     iconImg: Option[String] = None
 )
 

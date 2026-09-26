@@ -1,7 +1,9 @@
+import { COLORS } from 'chessops';
 import { h, type VNode } from 'snabbdom';
 
+import { licon } from 'lib/licon';
 import { once } from 'lib/storage';
-import { type MaybeVNodes, snabIcon } from 'lib/view';
+import { type MaybeVNodes } from 'lib/view';
 import { numberRow } from 'lib/view/util';
 
 import type TournamentController from '../ctrl';
@@ -22,18 +24,18 @@ function confetti(data: TournamentData): VNode | undefined {
 
 function stats(ctrl: TournamentController): VNode | undefined {
   const data = ctrl.data;
-  if (!data.stats) return undefined;
+  const stats = data.stats;
+  if (!stats) return undefined;
   const tableData = [
-    ctrl.opts.showRatings ? numberRow(i18n.site.averageElo, data.stats.averageRating, 'raw') : null,
-    numberRow(i18n.site.gamesPlayed, data.stats.games),
-    numberRow(i18n.site.movesPlayed, data.stats.moves),
-    numberRow(i18n.site.whiteWins, [data.stats.whiteWins, data.stats.games], 'percent'),
-    numberRow(i18n.site.blackWins, [data.stats.blackWins, data.stats.games], 'percent'),
-    numberRow(i18n.site.drawRate, [data.stats.draws, data.stats.games], 'percent'),
+    ctrl.opts.showRatings ? numberRow(i18n.site.averageElo, stats.averageRating, 'raw') : null,
+    numberRow(i18n.site.gamesPlayed, stats.games),
+    numberRow(i18n.site.movesPlayed, stats.moves),
+    ...COLORS.map(c => numberRow(i18n.site[`${c}Wins`], [stats[`${c}Wins`], stats.games], 'percent')),
+    numberRow(i18n.site.drawRate, [stats.draws, stats.games], 'percent'),
   ];
 
   if (data.berserkable) {
-    tableData.push(numberRow(i18n.arena.berserkRate, [data.stats.berserks / 2, data.stats.games], 'percent'));
+    tableData.push(numberRow(i18n.arena.berserkRate, [stats.berserks / 2, stats.games], 'percent'));
   }
 
   return h('div.tour__stats', [
@@ -50,32 +52,47 @@ function stats(ctrl: TournamentController): VNode | undefined {
             h('br'),
           ]
         : []),
-      h('a.text', { attrs: { href: `/api/tournament/${data.id}/games`, download: true } }, [
-        snabIcon('download'),
+      h(
+        'a.text',
+        { attrs: { 'data-icon': licon.Download, href: `/api/tournament/${data.id}/games`, download: true } },
         i18n.site.downloadAllGames,
-      ]),
+      ),
       data.me &&
         h(
           'a.text',
-          { attrs: { href: `/api/tournament/${data.id}/games?player=${ctrl.opts.userId}`, download: true } },
-          [snabIcon('download'), 'Download my games'],
+          {
+            attrs: {
+              'data-icon': licon.Download,
+              href: `/api/tournament/${data.id}/games?player=${ctrl.opts.userId}`,
+              download: true,
+            },
+          },
+          'Download my games',
         ),
-      h('a.text', { attrs: { href: `/api/tournament/${data.id}/results`, download: true } }, [
-        snabIcon('download'),
-        'Download results as NDJSON',
-      ]),
       h(
         'a.text',
         {
-          attrs: { href: `/api/tournament/${data.id}/results?as=csv`, download: true },
+          attrs: { 'data-icon': licon.Download, href: `/api/tournament/${data.id}/results`, download: true },
         },
-        [snabIcon('download'), 'Download results as CSV'],
+        'Download results as NDJSON',
+      ),
+      h(
+        'a.text',
+        {
+          attrs: {
+            'data-icon': licon.Download,
+            href: `/api/tournament/${data.id}/results?as=csv`,
+            download: true,
+          },
+        },
+        'Download results as CSV',
       ),
       h('br'),
-      h('a.text', { attrs: { href: '/api#tag/arena-tournaments' } }, [
-        snabIcon('infoCircle'),
+      h(
+        'a.text',
+        { attrs: { 'data-icon': licon.InfoCircle, href: '/api#tag/arena-tournaments' } },
         'Arena API documentation',
-      ]),
+      ),
     ]),
   ]);
 }

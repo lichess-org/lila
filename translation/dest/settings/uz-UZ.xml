@@ -7,4 +7,12 @@
   <string name="cancelKeepAccount">Bekor qilish va akkauntni saqlab qolish</string>
   <string name="closeAccountAreYouSure">Haqiqatan ham akkauntingizni yopmoqchimisiz?</string>
   <string name="thisAccountIsClosed">Bu akkaunt yopilgan.</string>
+  <string name="wereSorryToSeeYouGo">Ketayotganingizdan afsusdamiz.</string>
+  <string name="closeAccountForeverLabel">Butunlay yopish: qayta ochish imkonini yoʻqotasiz</string>
+  <string name="closeAccountForeverWarning">Akkauntni keyinchalik qayta ochishni taqiqlash. Agar ushbu katakchani belgilasangiz, hatto administratorlar ham soʻrovingizga binoan akkauntingizni qayta tiklay olmaydi.</string>
+  <string name="deleteYourAccount">Akkauntingizni oʻchirib tashlash</string>
+  <string name="deleteAccountWarning">Akkauntingizni oʻchirib tashlaganingizdan soʻng, u Lichessʼdan butunlay oʻchiriladi va administratorlarimiz uni qayta tiklay olmaydi.</string>
+  <string name="wouldYouLikeToXInstead" comment="%s is close your account">Buning oʻrniga %sni xohlaysizmi?</string>
+  <string name="closeYourAccount">akkauntingizni yopish</string>
+  <string name="deleteAccountConfirmText">Oʻchirilgan akkauntlarni qayta tiklab boʻlmasligini tushunaman</string>
 </resources>

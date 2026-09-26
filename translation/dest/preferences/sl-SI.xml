@@ -41,6 +41,7 @@
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Avtomatično zahtevaj remi on ponovitvi treh istih pozicij</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Če je preostanek časa manj kot 30 sekund</string>
   <string name="moveConfirmation">Potrditev poteze</string>
+  <string name="multipleChoices">Več možnih odgovorov. </string>
   <string name="explainCanThenBeTemporarilyDisabled">Lahko ga onemogočite med igro z menijem plošče</string>
   <string name="inCorrespondenceGames">V korespondenčnih partijah</string>
   <string name="correspondenceAndUnlimited">Dopisno in neomejeno</string>
@@ -56,12 +57,8 @@
   <string name="scrollOnTheBoardToReplayMoves">Pomaknite se po plošči za predvajanje potez</string>
   <string name="correspondenceEmailNotification">Dnevno obvestilo po pošti z naštevanjem vaših korespondenčnih iger</string>
   <string name="notifyStreamStart">Streamer je začel oddajati v živo</string>
-  <string name="notifyInboxMsg">Novo prispelo sporočilo</string>
-  <string name="notifyForumMention">Omenili so vas v komentarju na forumu</string>
-  <string name="notifyInvitedStudy">Povabilo k študiji</string>
   <string name="notifyGameEvent">Novo v korespondenčnih partijah</string>
   <string name="notifyChallenge">Izzivi</string>
-  <string name="notifyTournamentSoon">Turnir se bo kmalu začel</string>
   <string name="notifyTimeAlarm">Potekel vam bo čas</string>
   <string name="notifyBell">Zvočno obvestilo znotraj Lichess</string>
   <string name="notifyPush">Obvestilo naprave, ko niste na Lichessu</string>
@@ -70,4 +67,10 @@
   <string name="bellNotificationSound">Zvok obvestila zvonca</string>
   <string name="blindfold" comment="As in Blindfold chess">Šah z zavezanimi očmi</string>
   <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">Prikaži na levi strani na mobilnih napravah</string>
+  <string name="network">Omrežje</string>
+  <string name="youAreCurrentlyUsingDirectRouting">Trenutno uporabljate neposredno usmerjanje.</string>
+  <string name="youAreCurrentlyUsingCdnRouting">Trenutno uporabljate usmerjanje prek omrežja za dostavo vsebine (CDN).</string>
+  <string name="frequentDisconnectsAdvice">Če prihaja do pogostih prekinitev povezave, poskusite spremeniti usmerjanje.</string>
+  <string name="useDirectRouting">Uporabite neposredno usmerjanje</string>
+  <string name="useCdnRouting">Uporabi usmerjanje prek CDN-ja</string>
 </resources>

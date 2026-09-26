@@ -43,7 +43,7 @@ final class FidePlayerApi(repo: FideRepo, cacheApi: CacheApi, picfitApi: PicfitA
       _ <- repo.player.setPhoto(p.id, FidePlayer.PlayerPhoto(pic.id, none))
     yield pic
 
-  private val idToPlayerCache = cacheApi[FideId, Option[FidePlayer]](8_192, "player.fidePlayer.byId"):
+  private val idToPlayerCache = cacheApi[FideId, Option[FidePlayer]](16_384, "player.fidePlayer.byId"):
     _.expireAfterWrite(3.minutes).buildAsyncFuture(repo.player.fetch)
 
   export idToPlayerCache.get

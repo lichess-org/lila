@@ -43,13 +43,13 @@ Options:
                       <url> or localhost:8666 (default). if used with --watch, the watch process
                       will listen for http on 8666 and display received messages in build logs
   --clean-exit        clean all build artifacts and exit
-  --no-color          don't use color in logs
+  --no-color          don't color output
   --no-time           don't log the time
   --no-context        don't log the context
 
 Exclusive Options:    (any of these will disable other functions)
   --tsc               run tsc on {package}/tsconfig.json and dependencies
-  --sass              run sass on {package}/css/build/*.scss and dependencies
+  --sass              run sasso on {package}/css/build/*.scss and dependencies
   --esbuild           run esbuild (given in {package}/package.json/lichess/bundles array)
   --i18n              build @types/lichess/i18n.d.ts and translation/js files
 
@@ -89,13 +89,13 @@ if (['--tsc', '--sass', '--esbuild', '--i18n'].filter(x => argv.includes(x)).len
 
 env.logTime = !boolArg('--no-time');
 env.logCtx = !boolArg('--no-context');
-env.logColor = !boolArg('--no-color');
 env.watch = boolArg('--watch');
 env.prod = boolArg('--prod');
 env.debug = boolArg('--debug');
 env.remoteLog = stringArg('--log');
 env.clean = boolArg('--clean');
 env.install = !boolArg('--no-install');
+env.noColor = boolArg('--no-color');
 
 if (boolArg('--help')) {
   console.log(usage);

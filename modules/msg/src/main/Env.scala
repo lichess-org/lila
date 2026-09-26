@@ -56,7 +56,7 @@ final class Env(
 
   val systemMsg = wire[MsgByLichess]
 
-  lila.common.Cli.handle():
+  lila.common.Cli.handle(_.NotifyMany):
     case "msg" :: "multi" :: orig :: dests :: words =>
       api.cliMultiPost(
         UserStr(orig),

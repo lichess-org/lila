@@ -23,8 +23,8 @@ final class Fide(env: Env) extends LilaController(env):
   def show(id: chess.FideId, slug: String, page: Int) = Open:
     WithProxy:
       limit.enumeration.fidePlayer(rateLimited):
-        env.fide.repo.player
-          .fetch(id)
+        env.fide.playerApi
+          .get(id)
           .flatMap:
             case None => NotFound.page(views.fide.player.notFound(id))
             case Some(player) =>
@@ -80,7 +80,7 @@ final class Fide(env: Env) extends LilaController(env):
 
   def playerPhoto(id: chess.FideId) = SecureBody(lila.web.HashedMultiPart(parse))(_.FidePlayer) {
     ctx ?=> _ ?=>
-      Found(env.fide.repo.player.fetch(id)): p =>
+      Found(env.fide.playerApi.get(id)): p =>
         ctx.body.body.file("photo") match
           case Some(photo) =>
             for
@@ -92,7 +92,7 @@ final class Fide(env: Env) extends LilaController(env):
   }
 
   def playerUpdate(id: chess.FideId) = SecureBody(_.FidePlayer) { ctx ?=> _ ?=>
-    Found(env.fide.repo.player.fetch(id)): p =>
+    Found(env.fide.playerApi.get(id)): p =>
       bindForm(FidePlayer.form.credit(p))(
         _ => funit,
         credit =>

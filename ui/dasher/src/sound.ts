@@ -2,7 +2,8 @@ import { h, type VNode } from 'snabbdom';
 
 import { throttle, throttlePromiseDelay } from 'lib/async';
 import { isSafari } from 'lib/device';
-import { bind, onInsert, snabDialog, snabIcon } from 'lib/view';
+import { licon } from 'lib/licon';
+import { bind, dataIcon, onInsert, snabDialog } from 'lib/view';
 import { text as xhrText, form as xhrForm } from 'lib/xhr';
 
 import type { DasherCtrl } from '@/ctrl';
@@ -64,9 +65,9 @@ export class SoundCtrl extends PaneCtrl {
                 {
                   hook: bind('click', () => this.set(s[0])),
                   class: { active: this.getCurrent() === s[0] },
-                  attrs: { type: 'button' },
+                  attrs: { ...dataIcon(licon.Checkmark), type: 'button' },
                 },
-                [snabIcon('checkmark'), s[1], s[0] === 'speech' ? '...' : ''],
+                [s[1], s[0] === 'speech' ? '...' : ''],
               ),
             ),
           ),
@@ -82,13 +83,12 @@ export class SoundCtrl extends PaneCtrl {
     if (!content) return undefined;
     return snabDialog({
       onClose: () => {
-        if (!i18n.nvui) return site.reload();
         this.showVoiceSelection = false;
         this.redraw();
       },
       modal: true,
       easyClose: 'clickOutside',
-      vnodes: [content],
+      vnodes: content,
       onInsert: dlg => {
         dlg.show();
         dlg.view.querySelector('.active')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -98,32 +98,59 @@ export class SoundCtrl extends PaneCtrl {
 
   private readonly getCurrent = (): Key => (site.sound.speech() ? 'speech' : site.sound.theme);
 
-  private renderVoiceSelection(): VNode | false {
+  private readonly setVoiceRate = (v: string) => {
+    localStorage.setItem('speech.rate', v);
+    if (this.rateInput) this.rateInput.value = v;
+    site.sound.say('Speech synthesis ready');
+  };
+  private rateInput?: HTMLInputElement;
+
+  private renderVoiceSelection(): VNode[] | false {
     const selectedVoice = site.sound.getVoice();
     const voiceMap = site.sound.getVoiceMap();
-    return voiceMap.size < 2
+    const rate = Number(localStorage.getItem('speech.rate')) || 1;
+    return voiceMap.size === 0
       ? false
-      : h(
-          'div.selector',
-          [...voiceMap.keys()]
-            .sort((a, b) => a.localeCompare(b))
-            .map(name =>
-              h(
-                'button.text',
-                {
-                  hook: bind('click', event => {
-                    const target = event.target as HTMLElement;
-                    site.sound.setVoice(voiceMap.get(target.textContent)!);
-                    site.sound.say('Speech synthesis ready');
-                    this.redraw();
-                  }),
-                  class: { active: name === selectedVoice?.name },
-                  attrs: { type: 'button' },
-                },
-                name === selectedVoice?.name ? [snabIcon('checkmark'), name] : [name],
+      : [
+          h('div.rate', [
+            'Speech rate',
+            h('input.rate', {
+              attrs: { ...site.sound.voiceRateRange, step: 0.05, type: 'range', value: rate },
+              hook: onInsert<HTMLInputElement>(el => {
+                this.rateInput = el;
+                el.onchange = () => this.setVoiceRate(el.value);
+              }),
+            }),
+            h('button', {
+              attrs: { type: 'button', ...dataIcon(licon.Back) },
+              hook: bind('click', () => this.setVoiceRate('1')),
+            }),
+          ]),
+          h(
+            'div.selector',
+            [...voiceMap.keys()]
+              .sort((a, b) => a.localeCompare(b))
+              .map(name =>
+                h(
+                  'button.text',
+                  {
+                    hook: bind('click', event => {
+                      const target = event.target as HTMLElement;
+                      site.sound.setVoice(voiceMap.get(target.textContent)!);
+                      site.sound.say('Speech synthesis ready');
+                      this.redraw();
+                    }),
+                    class: { active: name === selectedVoice?.name },
+                    attrs: {
+                      ...(name === selectedVoice?.name ? dataIcon(licon.Checkmark) : {}),
+                      type: 'button',
+                    },
+                  },
+                  name,
+                ),
               ),
-            ),
-        );
+          ),
+        ];
   }
 
   private readonly postSet = throttlePromiseDelay(

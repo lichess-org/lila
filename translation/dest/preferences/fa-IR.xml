@@ -41,6 +41,7 @@
   <string name="claimDrawOnThreefoldRepetitionAutomatically">ادعای خودکار تساوی، در تکرار سه‌گانه</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">وقتی زمان باقی مانده کمتر از سی ثانیه است</string>
   <string name="moveConfirmation">تایید حرکت</string>
+  <string name="multipleChoices">انتخاب‌های چندگانه. </string>
   <string name="explainCanThenBeTemporarilyDisabled">می‌تواند هنگام بازی با «گزینگانِ تخته» خاموش شود</string>
   <string name="inCorrespondenceGames">در حال بازی مکاتبه ای</string>
   <string name="correspondenceAndUnlimited">مکاتبه ای و نامحدود</string>
@@ -55,17 +56,13 @@
   <string name="yourPreferencesHaveBeenSaved">تغییرات شما ذخیره شده است</string>
   <string name="scrollOnTheBoardToReplayMoves">برای بازپخش حرکت‌ها، روی تخته بِنَوَردید</string>
   <string name="correspondenceEmailNotification">فهرست رایانامهٔ روزانه از بازی‌های مکاتبه‌ای‌تان</string>
-  <string name="notifyStreamStart">بَرخَط-محتواساز روی پخش است</string>
-  <string name="notifyInboxMsg">پیام جدید</string>
-  <string name="notifyDirectMessage" comment="notifyInboxMsg&#10;&#10;A notification setting - notifies players when they receive a new message in their Lichess inbox Replaces old string notifyInboxMsg">پیامِ مستقیمِ جدید</string>
-  <string name="notifyForumMention">در انجمن از شما نام‌بُرده‌اند</string>
-  <string name="notifyForumMentions" comment="notifyForumMention&#10;&#10; A notification setting - notifies players when someone has @mentioned their name in the Lichess Forum (https://lichess.org/forum) Replaces old string notifyForumMention">نام‌بریِ انجمن</string>
-  <string name="notifyInvitedStudy">دعوت به مطالعه</string>
-  <string name="notifyStudyInvites" comment="notifyInvitedStudy&#10;&#10; A notification setting - notifies players about invites to studies (https://lichess.org/study/) Replaces old string notifyInvitedStudy">دعوت به مطالعه</string>
+  <string name="notifyStreamStart">جَریانگر روی پخش است</string>
+  <string name="notifyDirectMessage" comment="notifyInboxMsg&#10;&#10;A notification setting - notifies players when they receive a new message in their Lichess inbox">پیامِ مستقیمِ جدید</string>
+  <string name="notifyForumMentions" comment="notifyForumMention&#10;&#10; A notification setting - notifies players when someone has @mentioned their name in the Lichess Forum (https://lichess.org/forum)">نام‌بریِ انجمن</string>
+  <string name="notifyStudyInvites" comment="notifyInvitedStudy&#10;&#10; A notification setting - notifies players about invites to studies (https://lichess.org/study/)">دعوت به مطالعه</string>
   <string name="notifyGameEvent">به‌روزرسانی‌های بازی مکاتبه‌ای</string>
   <string name="notifyChallenge">پیشنهاد بازی</string>
-  <string name="notifyTournamentSoon">مسابقات به‌زودی می‌آغازد</string>
-  <string name="notifyTournamentStartReminders" comment="notifyTournamentSoon&#10;&#10;A notification setting - notifies players if a tournament is starting soon. Replaces old string notifyTournamentSoon">یادآورِ آغازِ مسابقات</string>
+  <string name="notifyTournamentStartReminders" comment="notifyTournamentSoon&#10;&#10;A notification setting - notifies players if a tournament is starting soon.">یادآورِ آغازِ مسابقات</string>
   <string name="notifyBroadcasts">پخش همگانی</string>
   <string name="notifyTimeAlarm">هشدار تنگی زمان</string>
   <string name="notifyBell">اعلان زنگی در Lichess</string>
@@ -93,4 +90,10 @@
   <string name="analysisSettings">تنظیماتِ تحلیل</string>
   <string name="maneuverArrowsHelp">دنبالهٔ حرکت‌های موتور برای یک مُهره</string>
   <string name="hoverOverSettingLabelsForHelp">برای راهنمایی، روی برچسب‌های تنظیمات پَرجایید</string>
+  <string name="network">شبکه</string>
+  <string name="youAreCurrentlyUsingDirectRouting">شما اکنون از مسیرِشِ مستقیم می‌بهرید.</string>
+  <string name="youAreCurrentlyUsingCdnRouting">شما اکنون از مسیرِشِ شبکهٔ تحویلِ محتوا (شین.تَح.مُح) می‌بهرید.</string>
+  <string name="frequentDisconnectsAdvice">اگر مرتبا قطع می‌شوید، تغییرِ مسیرِش را امتحان کنید.</string>
+  <string name="useDirectRouting">استفاده از مسیرِشِ مستقیم</string>
+  <string name="useCdnRouting">استفاده از مسیرِشِ شین.تَح.مُح</string>
 </resources>

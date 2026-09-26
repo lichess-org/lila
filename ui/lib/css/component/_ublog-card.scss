@@ -95,7 +95,7 @@
       background-position: center;
     }
 
-    @include broken-img(16 / 10);
+    @include broken-img(calc(16 / 10));
   }
 
   &__content {

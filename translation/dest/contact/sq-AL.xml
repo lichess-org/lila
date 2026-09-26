@@ -25,7 +25,6 @@
   <string name="cantChangeMore">S’mund të ndryshojmë më shumë se shkronjë të vogël a të madhe. Për arsye teknike, është thjesht e pamundur.</string>
   <string name="orCloseAccount">Megjithatë, mund të mbyllni llogarinë tuaj të tanishme dhe të krijoni një të re.</string>
   <string name="wantClearHistory">Dua të spastroj historikun ose klasifikimin tim</string>
-  <string name="cantClearHistory">S’është e mundur të fshini historikun e lojërave tuaja, historikun e ushtrimeve, ose klasifikimet.</string>
   <string name="wantReport">Dua të raportoj një lojtar</string>
   <string name="toReportAPlayerUseForm">Që të raportoni një lojtar, përdorni formularin e raportimeve</string>
   <string name="youCanAlsoReachReportPage">Mundeni edhe të kaloni në atë faqe duke klikuar butonin e raportimeve %s në një faqe profili.</string>

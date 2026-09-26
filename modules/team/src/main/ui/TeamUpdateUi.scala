@@ -5,7 +5,7 @@ import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.core.config.NetDomain
 
-final class TeamUpdateUi(helpers: Helpers)(using NetDomain):
+final class TeamUpdateUi(helpers: Helpers, markdownCache: lila.memo.MarkdownCache)(using NetDomain):
 
   import helpers.{ *, given }
   import trans.team as trt
@@ -24,7 +24,7 @@ final class TeamUpdateUi(helpers: Helpers)(using NetDomain):
               div(cls := "team-update__convo__head__title")(
                 a(href := routes.Team.updates())(
                   cls := "team-update__convo__head__back",
-                  iconEl := Icon.lessThan
+                  dataIcon := Icon.LessThan
                 ),
                 teamLink(team.light, withIcon = false)(cls := "team-link")
               ),
@@ -54,7 +54,7 @@ final class TeamUpdateUi(helpers: Helpers)(using NetDomain):
           side(byTeam, selected = none),
           div(cls := "team-update__convo")(
             div(cls := "team-update__convo__head")(
-              h1(iconEl := Icon.inkQuill, cls := "text", trt.teamUpdates())
+              h1(dataIcon := Icon.InkQuill, cls := "text", trt.teamUpdates())
             ),
             msgList(msgs)(routes.Team.updates(_))
           )
@@ -62,23 +62,39 @@ final class TeamUpdateUi(helpers: Helpers)(using NetDomain):
 
   def teamLatest(team: Team, msg: TeamUpdate[?, UserId])(using Context) =
     st.section(cls := "team-show__update")(
-      h2(
-        a(iconEl := Icon.inkQuill, cls := "text", href := routes.Team.updatesOf(team.id))(
-          trt.teamUpdates()
-        )
+      h2(cls := "team-show__section-title")(
+        a(dataIcon := Icon.InkQuill, cls := "text", href := routes.Team.updatesOf(team.id))(trt.teamUpdates())
       ),
-      div(cls := "team-show__update__last")(
+      st.article(cls := "team-show__update__last")(
         div(cls := "team-show__update__meta")(
           momentFromNowOnce(msg.date),
           span(trans.site.by(userIdLink(msg.sender.some)))
         ),
-        div(cls := "team-show__update__body")(richText(msg.text, expandImg = false)),
-        a(cls := "team-show__update__more", href := routes.Team.updatesOf(team.id))(trans.site.more(), " »")
+        div(cls := "team-show__update__body")(markdown(msg)),
+        a(cls := "team-show__update__more", href := routes.Team.updatesOf(team.id))(
+          trans.site.more(),
+          " »"
+        )
       )
     )
 
+  private object markdown:
+    private val options = lila.memo.MarkdownOptions(
+      autoLink = true,
+      header = true,
+      list = true,
+      table = true,
+      blockQuote = false,
+      maxPgns = Max(0)
+    )
+    def apply(up: TeamUpdate[?, ?]): Frag =
+      markdownCache.toHtmlSyncWithoutPgnEmbeds(s"team:update:${up.id}", up.text, options)
+
   private def msgList(msgs: TeamUpdate.Recent)(nextUrl: Int => Call)(using Context) =
-    div(cls := "team-update__convo__updates infinite-scroll", data("scroll-selector") := ".infinite-scroll")(
+    st.article(
+      cls := "team-update__convo__updates infinite-scroll",
+      data("scroll-selector") := ".infinite-scroll"
+    )(
       msgs.currentPageResults.map: m =>
         import m.*
         div(
@@ -94,7 +110,7 @@ final class TeamUpdateUi(helpers: Helpers)(using NetDomain):
               span(trans.site.by(lightUserLink(msg.sender)))
             )
           ),
-          div(cls := "team-update__convo__update__body")(richText(msg.text))
+          div(cls := "team-update__convo__update__body")(markdown(msg))
         )
       ,
       pagerNext(msgs, np => nextUrl(np).url)
@@ -103,7 +119,7 @@ final class TeamUpdateUi(helpers: Helpers)(using NetDomain):
   private def side(byTeam: TeamUpdate.ByTeams, selected: Option[TeamId])(using Context) =
     div(cls := "team-update__side")(
       div(cls := "team-update__side__top")(
-        a(href := routes.Team.mine, iconEl := Icon.lessThan, cls := "team-update__side__back text")(
+        a(href := routes.Team.mine, dataIcon := Icon.LessThan, cls := "team-update__side__back text")(
           trt.myTeams()
         )
       ),
@@ -120,7 +136,7 @@ final class TeamUpdateUi(helpers: Helpers)(using NetDomain):
             )
           )(
             span(cls := "team-update__side__team__icon")(
-              teamFlair(team) | iconEl(lila.ui.Icon.group)
+              teamFlair(team) | iconTag(lila.ui.Icon.Group)
             ),
             span(cls := "team-update__side__team__content")(
               span(cls := "team-update__side__team__name")(team.name),

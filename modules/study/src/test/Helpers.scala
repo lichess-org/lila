@@ -27,8 +27,8 @@ trait EitherAssertions extends munit.Assertions:
 
 object Helpers:
 
-  def rootToPgn(root: Root): PgnStr = PgnDump
-    .rootToPgn(root, Tags.empty)(using PgnDump.withoutOrientation)
+  def rootToPgn(root: Root, tags: Tags = Tags.empty): PgnStr = PgnDump
+    .rootToPgn(root, tags)(using PgnDump.withoutOrientation)
     .render
 
   extension (root: Root)
@@ -39,4 +39,4 @@ object Helpers:
         .focus(_.children)
         .modify(_.updateAllWith(_.focus(_.clock.some.trust).replace(none)))
 
-    def debug = root.ppAs(rootToPgn)
+    def debug = root.ppAs(rootToPgn(_))

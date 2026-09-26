@@ -32,7 +32,7 @@ $recon-height: 2.5rem;
   transform: translateY($recon-height);
 
   &::before {
-    @include icon-mask($icon-chasingArrows, 1.3em);
+    font-size: 1.3em;
   }
 
   .offline & {
@@ -46,6 +46,6 @@ $recon-height: 2.5rem;
   }
 
   .online &::before {
-    @include icon-mask($icon-discBig);
+    content: $licon-DiscBig;
   }
 }

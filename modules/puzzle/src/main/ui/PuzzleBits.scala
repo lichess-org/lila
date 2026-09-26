@@ -144,6 +144,6 @@ final class PuzzleBits(helpers: Helpers):
               trans.puzzle.nbToReplay.plural(results.unfixed, strong(results.unfixed))
             )
           ),
-          iconEl(if results.canReplay then Icon.playTriangle else Icon.checkmark)
+          iconTag(if results.canReplay then Icon.PlayTriangle else Icon.Checkmark)
         )
       )

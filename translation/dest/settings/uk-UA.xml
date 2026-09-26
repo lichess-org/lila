@@ -7,4 +7,12 @@
   <string name="cancelKeepAccount">Скасувати та зберегти мій обліковий запис</string>
   <string name="closeAccountAreYouSure">Ви впевнені, що хочете видалити свій обліковий запис?</string>
   <string name="thisAccountIsClosed">Цей обліковий запис видалено.</string>
+  <string name="wereSorryToSeeYouGo">Нам шкода, що ви йдете.</string>
+  <string name="closeAccountForeverLabel">Закрити назавжди: його неможливо буде відкрити</string>
+  <string name="closeAccountForeverWarning">Не дозволяти відкриття облікового запису. Якщо ви оберете цю опцію, навіть адміністратори не зможуть відкрити ваш обліковий запис за вашим запитом.</string>
+  <string name="deleteYourAccount">Видалити обліковий запис</string>
+  <string name="deleteAccountWarning">Коли ви видалите обліковий запис, він видалиться з Lichess, і навіть адміністратори не зможуть його відновити.</string>
+  <string name="wouldYouLikeToXInstead" comment="%s is close your account">Бажаєте натомість %s?</string>
+  <string name="closeYourAccount">закрити обліковий запис</string>
+  <string name="deleteAccountConfirmText">Я розумію, що видалені облікові записи неможливо відновити</string>
 </resources>

@@ -5,7 +5,6 @@ import scalalib.ThreadLocalRandom
 
 import lila.db.dsl.{ *, given }
 import lila.memo.*
-import lila.ui.Icon
 import lila.core.perm.Granter
 
 final class TrophyApi(
@@ -14,8 +13,6 @@ final class TrophyApi(
     cacheApi: CacheApi
 )(using Executor)
     extends lila.core.user.TrophyApi:
-
-  private given BSONHandler[Icon] = BSONStringHandler.as(Icon.byName.getOrElse(_, Icon.cautionCircle), _.name)
 
   val kindCache = cacheApi.sync[String, TrophyKind](
     name = "trophy.kind",

@@ -43,7 +43,7 @@ final class PerfStatUi(helpers: Helpers)(communityMenu: Context ?=> Frag):
               div(cls := "box__top__actions")(
                 a(
                   cls := "button button-empty text",
-                  iconEl := perfType.icon,
+                  dataIcon := perfType.icon,
                   href := s"${routes.User.games(user.username, "search")}?perf=${perfType.id}"
                 )(tps.viewTheGames())
               )
@@ -94,7 +94,7 @@ final class PerfStatUi(helpers: Helpers)(communityMenu: Context ?=> Frag):
   private def glicko(u: User, pt: PerfType, perf: Perf, percentile: Option[Double])(using Context): Frag =
     st.section(cls := "glicko")(
       h2(
-        trans.site.perfRatingX(
+        trans.site.perfRatingLabel(
           strong(
             if perf.glicko.clueless then "?"
             else decimal(perf.glicko.rating).toString
@@ -109,10 +109,12 @@ final class PerfStatUi(helpers: Helpers)(communityMenu: Context ?=> Frag):
             )("(", tps.provisional(), ")")
           )
         ),
-        ". ",
         percentile.filter(_ != 0.0 && perf.glicko.provisional.no).map { percentile =>
-          span(cls := "details")(
-            percentileText(u, pt, percentile)
+          frag(
+            " ",
+            span(cls := "details")(
+              percentileText(u, pt, percentile)
+            )
           )
         }
       ),
@@ -120,8 +122,8 @@ final class PerfStatUi(helpers: Helpers)(communityMenu: Context ?=> Frag):
         tps.progressOverLastXGames(12),
         " ",
         span(cls := "progress")(
-          if perf.progress.positive then tag("green")(iconEl := Icon.arrowUpRight)(perf.progress)
-          else if perf.progress.negative then tag("red")(iconEl := Icon.arrowDownRight)(-perf.progress)
+          if perf.progress.positive then tag("green")(dataIcon := Icon.ArrowUpRight)(perf.progress)
+          else if perf.progress.negative then tag("red")(dataIcon := Icon.ArrowDownRight)(-perf.progress)
           else "-"
         ),
         ". ",
@@ -398,7 +400,7 @@ final class PerfStatUi(helpers: Helpers)(communityMenu: Context ?=> Frag):
                       .map(PerfType(_))
                       .map: pt =>
                         a(
-                          iconEl := pt.icon,
+                          dataIcon := pt.icon,
                           cls := (perfType == pt).option("current"),
                           href := routes.User.ratingDistribution(pt.key, otherUser.map(_.username))
                         )(pt.trans)
@@ -406,7 +408,7 @@ final class PerfStatUi(helpers: Helpers)(communityMenu: Context ?=> Frag):
                 )
               )
             ),
-            div(cls := "desc", iconEl := perfType.icon)(
+            div(cls := "desc", dataIcon := perfType.icon)(
               myVisiblePerfs
                 .flatMap(_(perfType).glicko.establishedIntRating)
                 .map: rating =>

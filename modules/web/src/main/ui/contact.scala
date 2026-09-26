@@ -126,7 +126,7 @@ object contact:
               "clear-history",
               wantClearHistory(),
               frag(
-                p(cantClearHistory()),
+                p(cantClearHistoryOrResetRatings()),
                 p(orCloseAccount())
               )
             )
@@ -142,7 +142,7 @@ object contact:
             ),
             p(
               youCanAlsoReachReportPage(
-                button(cls := "thin button button-empty", iconEl := Icon.cautionTriangle)
+                button(cls := "thin button button-empty", dataIcon := Icon.CautionTriangle)
               )
             ),
             p(

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="community">Gemeinschaft</string>
+  <string name="communityBlogs">Gemeinschafts-Blogs</string>
   <string name="byMonth">Nach Monat</string>
   <string name="byTopic">Nach Thema</string>
   <string name="byLichess">Von Lichess</string>
@@ -8,6 +9,7 @@
   <string name="myLikes">Meine Likes</string>
   <string name="myBlog">Mein Blog</string>
   <string name="likedBlogs">Gelikte Blogbeiträge</string>
+  <string name="blogPostsByFriends">Blog-Beiträge von Freunden</string>
   <plurals name="blogPosts">
     <item quantity="one">%s Blog-Beitrag</item>
     <item quantity="other">%s Blog-Beiträge</item>
@@ -28,6 +30,8 @@
   <string name="createBlogDiscussionHelp">Ein Forenthema wird für Leute erstellt, die deinen Beitrag kommentieren möchten</string>
   <string name="publishOnYourBlog">Veröffentliche in deinem Blog</string>
   <string name="publishHelp">Wenn aktiviert, wird der Beitrag in deinem Blog aufgelistet. Wenn nicht, wird er privat sein, in deinen Entwürfen</string>
+  <string name="includesPromotedContent">Enthält vorgestellte/gesponserte Inhalte oder Empfehlungslinks</string>
+  <string name="mandatoryForSponsoredContent">Pflicht für gesponserte Inhalte, Affiliate-Links oder kommerzielle Werbung</string>
   <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">Beitrag anheften</string>
   <string name="stickyPostHelp">Falls ausgewählt, wird dieser Beitrag ganz oben auf deinem Profil bei den kürzlichen Veröffentlichungen und auf deinem Blog angezeigt.</string>
   <plurals name="publishedNbBlogPosts">
@@ -44,16 +48,18 @@
   <string name="noPostsInThisBlogYet">Noch keine Beiträge in diesem Blog.</string>
   <string name="noDrafts">Keine Entwürfe anzuzeigen.</string>
   <string name="latestBlogPosts">Neueste Blog-Beiträge</string>
+  <string name="recentPosts">Neue Beiträge</string>
   <plurals name="viewAllNbPosts">
     <item quantity="one">Einen Beitrag anzeigen</item>
     <item quantity="other">Alle %s Beiträge anzeigen</item>
   </plurals>
   <string name="imageAlt">Alternativer Bildtext</string>
   <string name="imageCredit">Bildherkunft</string>
+  <string name="coverImage">Titelbild</string>
   <string name="deleteBlog">Lösche diesen Blog-Beitrag unwiderruflich</string>
-  <string name="safeToUseImages">Bilder von den folgenden Websites können bedenkenlos verwendet werden: </string>
-  <string name="freeImagesComplyWithLicensing" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement. Replaces old string safeToUseImages">Die folgenden Websites stellen Bilder kostenlos zur Verfügung. Bitte stelle sicher, dass du die Lizenzbedingungen für das verwendete Bild einhältst.</string>
+  <string name="freeImagesComplyWithLicensing" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Die folgenden Websites stellen Bilder kostenlos zur Verfügung. Bitte stelle sicher, dass du die Lizenzbedingungen für das verwendete Bild einhältst.</string>
   <string name="selectPostTopics">Wähle die Themen deines Beitrags aus</string>
+  <string name="etiquette">Netiquette</string>
   <string name="safeAndRespectfulContent">Bitte poste nur sichere und respektvolle Inhalte. Kopiere nicht den Inhalt anderer Personen.</string>
   <string name="noCopyrightedImages">Verwende nur Bilder, die nicht von jemand anderem urheberrechtlich geschützt sind.</string>
   <string name="inappropriateContentAccountClosed">Jegliche unangemessenen Inhalte können zur Schließung deines Benutzerkontos führen.</string>

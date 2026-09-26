@@ -28,7 +28,6 @@
   <string name="approved">Сіздің стриміңіз расталды.</string>
   <string name="pendingReview">Сіздің стриміңіз модераторлардың тексеруінде.</string>
   <string name="pleaseFillIn">Стример мәліметтерін толтырып, суретіңізді жүктеп салыңыз.</string>
-  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Личес стримерлер қатарына қосылу үшін %s</string>
   <string name="streamerLanguageSettings">Личес стример парақшаңыз белгілі бір тілді көрерменге арналған. Бұл тіл стрим жасайтын платформаның тіліне негізделген. Шахмат стримді бастар бұрын лайықты тілді көрсетілім жасайтын қызметте я қолданбада орнатып алыңыз.</string>
   <string name="streamerName">Личестегі стример атыңыз</string>
   <plurals name="keepItShort">

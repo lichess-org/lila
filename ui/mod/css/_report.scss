@@ -130,13 +130,11 @@ $c-report-high-over: white;
     }
 
     .head {
-      display: flex;
-      gap: 1ch;
+      display: block;
     }
 
     .score {
       font-size: 0.9em;
-      margin: 0;
       padding: 0.1em 0.4em;
     }
   }
@@ -145,19 +143,16 @@ $c-report-high-over: white;
     border-inline-start: 4px solid $c-report-high;
   }
 
-  .user_marks .svg-icon {
+  .user_marks icon {
     @include user-marks;
   }
 
   .marked-by-me,
   .participated {
     @include user-marks;
+    @extend %data-icon-top;
 
     white-space: nowrap;
-
-    &::before {
-      vertical-align: text-top;
-    }
   }
 
   .marked-by-me {

@@ -41,6 +41,7 @@
   <string name="claimDrawOnThreefoldRepetitionAutomatically">同形三復を自動的にドローにする</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">持時間が残り30秒以下の場合</string>
   <string name="moveConfirmation">着手をそのつど確認する</string>
+  <string name="multipleChoices">複数選択可。 </string>
   <string name="explainCanThenBeTemporarilyDisabled">ボードのメニューからゲーム中に無効にできます</string>
   <string name="inCorrespondenceGames">通信チェスのみ</string>
   <string name="correspondenceAndUnlimited">通信戦と持時間無制限</string>
@@ -56,16 +57,12 @@
   <string name="scrollOnTheBoardToReplayMoves">ボード上スクロールで手を再現</string>
   <string name="correspondenceEmailNotification">通信戦の対局をリストにした毎日のメール通知</string>
   <string name="notifyStreamStart">配信を始めた時</string>
-  <string name="notifyInboxMsg">新しい着信メッセージ</string>
-  <string name="notifyDirectMessage" comment="notifyInboxMsg&#10;&#10;A notification setting - notifies players when they receive a new message in their Lichess inbox Replaces old string notifyInboxMsg">新しいダイレクト メッセージ</string>
-  <string name="notifyForumMention">フォーラムであなたの名前が出た時</string>
-  <string name="notifyForumMentions" comment="notifyForumMention&#10;&#10; A notification setting - notifies players when someone has @mentioned their name in the Lichess Forum (https://lichess.org/forum) Replaces old string notifyForumMention">フォーラムでのメンション</string>
-  <string name="notifyInvitedStudy">研究への招待</string>
-  <string name="notifyStudyInvites" comment="notifyInvitedStudy&#10;&#10; A notification setting - notifies players about invites to studies (https://lichess.org/study/) Replaces old string notifyInvitedStudy">研究への招待</string>
+  <string name="notifyDirectMessage" comment="notifyInboxMsg&#10;&#10;A notification setting - notifies players when they receive a new message in their Lichess inbox">新しいダイレクト メッセージ</string>
+  <string name="notifyForumMentions" comment="notifyForumMention&#10;&#10; A notification setting - notifies players when someone has @mentioned their name in the Lichess Forum (https://lichess.org/forum)">フォーラムでのメンション</string>
+  <string name="notifyStudyInvites" comment="notifyInvitedStudy&#10;&#10; A notification setting - notifies players about invites to studies (https://lichess.org/study/)">研究への招待</string>
   <string name="notifyGameEvent">通信戦の進行状況</string>
   <string name="notifyChallenge">挑戦が来た時</string>
-  <string name="notifyTournamentSoon">トーナメントが間もなく開始</string>
-  <string name="notifyTournamentStartReminders" comment="notifyTournamentSoon&#10;&#10;A notification setting - notifies players if a tournament is starting soon. Replaces old string notifyTournamentSoon">トーナメント開始の通知</string>
+  <string name="notifyTournamentStartReminders" comment="notifyTournamentSoon&#10;&#10;A notification setting - notifies players if a tournament is starting soon.">トーナメント開始の通知</string>
   <string name="notifyBroadcasts">イベント中継</string>
   <string name="notifyTimeAlarm">通信戦の時間切迫</string>
   <string name="notifyBell">Lichess にいる時にベル音</string>
@@ -92,4 +89,10 @@
   <string name="boardSettings">ボード</string>
   <string name="analysisSettings">解析に関する設定</string>
   <string name="hoverOverSettingLabelsForHelp">設定メニューにカーソルを合わせるとヘルプを表示</string>
+  <string name="network">ネットワーク</string>
+  <string name="youAreCurrentlyUsingDirectRouting">現在ダイレクトルーティングを使用中です。</string>
+  <string name="youAreCurrentlyUsingCdnRouting">現在、コンテンツ配信ネットワーク (CDN) ルーティングを使用中。</string>
+  <string name="frequentDisconnectsAdvice">接続切れが多い場合はルーティングを変更してみてください。</string>
+  <string name="useDirectRouting">ダイレクトルーティングを使用</string>
+  <string name="useCdnRouting">CDN ルーティングを使用</string>
 </resources>

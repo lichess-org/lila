@@ -1,14 +1,16 @@
 .flash {
-  @extend %flex-center-nowrap, %box-radius;
+  @extend %flex-center-nowrap, %box-radius, %box-shadow;
 
   margin: 1em 0 2em 0;
   padding: 1em 2em;
   background: $c-good;
 
   &::before {
-    @include icon-mask($icon-checkmark, 1.5em);
+    @extend %data-icon;
 
-    margin-inline: 0 2rem;
+    content: $licon-Checkmark;
+    margin-inline: 0 0.5rem;
+    font-size: 1.5em;
   }
 
   &__content {
@@ -27,7 +29,7 @@
     color: $c-over;
 
     &::before {
-      @include icon-mask($icon-infoCircle);
+      content: $licon-InfoCircle;
     }
   }
 
@@ -36,7 +38,7 @@
     color: $c-over;
 
     &::before {
-      @include icon-mask($icon-cautionCircle);
+      content: $licon-CautionCircle;
     }
   }
 

@@ -26,32 +26,28 @@ final class Opening(env: Env) extends LilaController(env):
     env.security.ipTrust.rateLimit(60, 10.minutes, "opening.byKeyAndMoves")
 
   def byKeyAndMoves(key: String, moves: String) = Open:
-    Firewall:
-      WithProxy: proxy ?=>
-        if moves.sizeIs > 10 && req.client.isCrawler then Forbidden
-        else if moves.sizeIs > 6 && proxy.couldBeEnum && ctx.isAnon then Forbidden
-        else
-          limit.enumeration.opening(rateLimited):
-            val suspUA = UserAgentParser.trust.isSuspicious(HTTPRequest.userAgent(req))
-            val cost = if ctx.isAuth then 1 else if suspUA then 5 else 2
-            ipRateLimit(rateLimited, cost = cost):
-              env.opening.api
-                .lookup(queryFromUrl(key, moves.some), proxy)
-                .flatMap:
-                  case None => Redirect(routes.Opening.index(key.some))
-                  case Some(page) =>
-                    val query = page.query.query
-                    if query.key.isEmpty then Redirect(routes.Opening.index(key.some))
-                    else if query.key != key then Redirect(routes.Opening.byKeyAndMoves(query.key, moves))
-                    else if moves.nonEmpty && page.query.pgnUnderscored != moves && !getBool("r") then
-                      Redirect:
-                        s"${routes.Opening.byKeyAndMoves(query.key, page.query.pgnUnderscored)}?r=1"
-                    else
-                      Ok.async:
-                        page.query.exactOpening.so(env.puzzle.opening.getClosestTo(_)).map { puzzle =>
-                          val puzzleKey = puzzle.map(_.fold(_.family.key.value, _.opening.key.value))
-                          views.opening.ui.show(page, puzzleKey)
-                        }
+    WithProxy: proxy ?=>
+      RequireAuthIf((moves.sizeIs > 10 && req.client.isCrawler) || (moves.sizeIs > 6 && proxy.couldBeEnum)):
+        limit.enumeration.opening(rateLimited):
+          val cost = if ctx.isAuth then 1 else if UserAgentParser.trust.isSuspicious then 5 else 2
+          ipRateLimit(rateLimited, cost = cost):
+            env.opening.api
+              .lookup(queryFromUrl(key, moves.some), proxy)
+              .flatMap:
+                case None => Redirect(routes.Opening.index(key.some))
+                case Some(page) =>
+                  val query = page.query.query
+                  if query.key.isEmpty then Redirect(routes.Opening.index(key.some))
+                  else if query.key != key then Redirect(routes.Opening.byKeyAndMoves(query.key, moves))
+                  else if moves.nonEmpty && page.query.pgnUnderscored != moves && !getBool("r") then
+                    Redirect:
+                      s"${routes.Opening.byKeyAndMoves(query.key, page.query.pgnUnderscored)}?r=1"
+                  else
+                    Ok.async:
+                      page.query.exactOpening.so(env.puzzle.opening.getClosestTo(_)).map { puzzle =>
+                        val puzzleKey = puzzle.map(_.fold(_.family.key.value, _.opening.key.value))
+                        views.opening.ui.show(page, puzzleKey)
+                      }
 
   def config(thenTo: String) = OpenBody:
     NoCrawlersRes:

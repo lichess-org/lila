@@ -41,6 +41,7 @@
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Automatyczny remis po trzykrotnym powtórzeniu pozycji</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Kiedy pozostało mniej niż 30 sekund</string>
   <string name="moveConfirmation">Potwierdzenie ruchu</string>
+  <string name="multipleChoices">Możesz wybrać kilka. </string>
   <string name="explainCanThenBeTemporarilyDisabled">Może być wyłączony podczas partii z menu</string>
   <string name="inCorrespondenceGames">W grze korespondencyjnej</string>
   <string name="correspondenceAndUnlimited">Korespondencyjne i bez limitu czasu</string>
@@ -56,16 +57,12 @@
   <string name="scrollOnTheBoardToReplayMoves">Przewiń myszką, aby powtórzyć ruchy</string>
   <string name="correspondenceEmailNotification">Codzienne powiadomienia mailowe z listą Twoich partii korespondencyjnych</string>
   <string name="notifyStreamStart">Streamer jest na żywo</string>
-  <string name="notifyInboxMsg">Nowa wiadomość</string>
-  <string name="notifyDirectMessage" comment="notifyInboxMsg&#10;&#10;A notification setting - notifies players when they receive a new message in their Lichess inbox Replaces old string notifyInboxMsg">Nowa wiadomość</string>
-  <string name="notifyForumMention">Wspomniano o Tobie w komentarzu na forum</string>
-  <string name="notifyForumMentions" comment="notifyForumMention&#10;&#10; A notification setting - notifies players when someone has @mentioned their name in the Lichess Forum (https://lichess.org/forum) Replaces old string notifyForumMention">Wzmianki o Tobie na forum</string>
-  <string name="notifyInvitedStudy">Zaproszenie do wspólnego opracowania</string>
-  <string name="notifyStudyInvites" comment="notifyInvitedStudy&#10;&#10; A notification setting - notifies players about invites to studies (https://lichess.org/study/) Replaces old string notifyInvitedStudy">Zaproszenia do opracowania</string>
+  <string name="notifyDirectMessage" comment="notifyInboxMsg&#10;&#10;A notification setting - notifies players when they receive a new message in their Lichess inbox">Nowa wiadomość</string>
+  <string name="notifyForumMentions" comment="notifyForumMention&#10;&#10; A notification setting - notifies players when someone has @mentioned their name in the Lichess Forum (https://lichess.org/forum)">Wzmianki o Tobie na forum</string>
+  <string name="notifyStudyInvites" comment="notifyInvitedStudy&#10;&#10; A notification setting - notifies players about invites to studies (https://lichess.org/study/)">Zaproszenia do opracowania</string>
   <string name="notifyGameEvent">Zdarzenie w partii korespondencyjnej</string>
   <string name="notifyChallenge">Wyzwania</string>
-  <string name="notifyTournamentSoon">Turniej rozpocznie się wkrótce</string>
-  <string name="notifyTournamentStartReminders" comment="notifyTournamentSoon&#10;&#10;A notification setting - notifies players if a tournament is starting soon. Replaces old string notifyTournamentSoon">Powiadomienia o rozpoczęciu turnieju</string>
+  <string name="notifyTournamentStartReminders" comment="notifyTournamentSoon&#10;&#10;A notification setting - notifies players if a tournament is starting soon.">Powiadomienia o rozpoczęciu turnieju</string>
   <string name="notifyBroadcasts">Transmisje</string>
   <string name="notifyTimeAlarm">Czas w partii korespondencyjnej dobiega końca</string>
   <string name="notifyBell">Powiadomienie dźwiękowe gdy jesteś na Lichess</string>
@@ -93,4 +90,10 @@
   <string name="analysisSettings">Ustawienia analizy</string>
   <string name="maneuverArrowsHelp">Sekwencja ruchów silnika jednej bierki</string>
   <string name="hoverOverSettingLabelsForHelp">Dymki pomocy nad ustawieniami</string>
+  <string name="network">Sieć</string>
+  <string name="youAreCurrentlyUsingDirectRouting">Obecnie używasz bezpośredniego routingu.</string>
+  <string name="youAreCurrentlyUsingCdnRouting">Aktualnie używasz routingu sieci dostarczania treści (CDN).</string>
+  <string name="frequentDisconnectsAdvice">Jeśli często tracisz połączenie, spróbuj zmienić routing.</string>
+  <string name="useDirectRouting">Użyj bezpośredniego routingu</string>
+  <string name="useCdnRouting">Użyj routingu CDN</string>
 </resources>

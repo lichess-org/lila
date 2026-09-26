@@ -1,7 +1,8 @@
 import { opposite } from '@lichess-org/chessground/util';
 import { h, type VNode } from 'snabbdom';
 
-import { spinnerVdom, initMiniBoard, onInsert, icon, snabIcon } from 'lib/view';
+import { licon } from 'lib/licon';
+import { spinnerVdom, initMiniBoard, dataIcon, onInsert, icon } from 'lib/view';
 import { userLink } from 'lib/view/userLink';
 
 import type ChallengeCtrl from './ctrl';
@@ -74,32 +75,27 @@ function inButtons(ctrl: ChallengeCtrl, c: Challenge): VNode[] {
   const viewInsteadOfAccept = (c.rules?.length ?? 0) > 0;
   const acceptElement = () =>
     h('form', { attrs: { method: 'post', action: `/challenge/${c.id}/accept` } }, [
-      h(
-        'button.button.accept',
-        {
-          attrs: {
-            type: 'submit',
-            'aria-describedby': `challenge-text-${c.id}`,
-            title: i18n.site.accept,
-          },
-          hook: onClick(ctrl.onRedirect),
+      h('button.button.accept', {
+        attrs: {
+          type: 'submit',
+          'aria-describedby': `challenge-text-${c.id}`,
+          'data-icon': licon.Checkmark,
+          title: i18n.site.accept,
         },
-        [snabIcon('checkmark')],
-      ),
+        hook: onClick(ctrl.onRedirect),
+      }),
     ]);
   const viewElement = () =>
-    h('a.view', { attrs: { href: '/' + c.id, title: i18n.site.viewInFullSize } }, [snabIcon('eye')]);
+    h('a.view', {
+      attrs: { 'data-icon': licon.Eye, href: '/' + c.id, title: i18n.site.viewInFullSize },
+    });
 
   return [
     viewInsteadOfAccept ? viewElement() : acceptElement(),
-    h(
-      'button.button.decline',
-      {
-        attrs: { type: 'submit', title: i18n.site.decline },
-        hook: onClick(() => ctrl.decline(c.id, 'generic')),
-      },
-      [snabIcon('x')],
-    ),
+    h('button.button.decline', {
+      attrs: { type: 'submit', 'data-icon': licon.X, title: i18n.site.decline },
+      hook: onClick(() => ctrl.decline(c.id, 'generic')),
+    }),
     h(
       'select.decline-reason',
       {
@@ -117,11 +113,14 @@ function inButtons(ctrl: ChallengeCtrl, c: Challenge): VNode[] {
 const outButtons = (ctrl: ChallengeCtrl, c: Challenge) => [
   h('div.owner', [
     h('span.waiting', i18n.site.waiting),
-    h('a.view', { attrs: { href: '/' + c.id, title: i18n.site.viewInFullSize } }, [snabIcon('eye')]),
+    h('a.view', {
+      attrs: { 'data-icon': licon.Eye, href: '/' + c.id, title: i18n.site.viewInFullSize },
+    }),
   ]),
-  h('button.button.decline', { attrs: { title: i18n.site.cancel }, hook: onClick(() => ctrl.cancel(c.id)) }, [
-    snabIcon('x'),
-  ]),
+  h('button.button.decline', {
+    attrs: { 'data-icon': licon.X, title: i18n.site.cancel },
+    hook: onClick(() => ctrl.cancel(c.id)),
+  }),
 ];
 
 function timeControl(c: TimeControl): string {
@@ -146,7 +145,7 @@ const renderLag = (u?: ChallengeUser) =>
   u &&
   h('signal', u.lag === undefined ? [] : [1, 2, 3, 4].map(i => h('icon', { class: { off: u.lag! < i } })));
 
-const empty = (): VNode => h('div.empty.text', [snabIcon('infoCircle'), i18n.site.noChallenges]);
+const empty = (): VNode => h('div.empty.text', { attrs: dataIcon(licon.InfoCircle) }, i18n.site.noChallenges);
 
 const onClick = (f: (e: Event) => void) =>
   onInsert<HTMLElement>(elem => {

@@ -21,10 +21,10 @@ import {
   type Prop,
   type Toggle,
 } from 'lib';
-import { CevalCtrl, useFirstEval, sanIrreversible, type CevalHandler, type CevalOpts } from 'lib/ceval';
+import { CevalCtrl, sanIrreversible, type CevalHandler, type CevalOpts } from 'lib/ceval';
 import { ChatCtrl } from 'lib/chat/chatCtrl';
 import { displayColumns } from 'lib/device';
-import { playable, playedTurns, fenToEpd, validUci } from 'lib/game';
+import { playable, playedTurns, fenToEpd, validUci, finished } from 'lib/game';
 import { plyColor } from 'lib/game/chess';
 import { PromotionCtrl } from 'lib/game/promotion';
 import { pubsub } from 'lib/pubsub';
@@ -718,19 +718,11 @@ export default class AnalyseCtrl implements CevalHandler {
 
       if (isThreat) {
         const threat = ev as LocalEval;
-        if (!node.threat || useFirstEval(threat, node.threat, this.ceval.search.multiPv))
-          node.threat = threat;
-      } else if (
-        (!node.ceval || useFirstEval(ev, node.ceval, this.ceval.search.multiPv)) &&
-        !(ev.cloud && this.ceval.engines.external)
-      ) {
+        if (this.ceval.preferLatestEval(threat, node.threat)) node.threat = threat;
+      } else if (this.ceval.preferLatestEval(ev, node.ceval) || this.ceval.isDeeper()) {
+        // deeper button clears stored evals
         node.ceval = ev;
         if (!ev.cloud) this.idbTree.saveCeval(path, ev);
-      } else if (!ev.cloud) {
-        if (node.ceval?.cloud && this.ceval.isDeeper()) {
-          node.ceval = ev;
-          this.idbTree.saveCeval(path, ev);
-        }
       }
 
       if (!isThreat) this.liveAnnotate?.onNewCeval(path, node, this.tree);
@@ -769,6 +761,7 @@ export default class AnalyseCtrl implements CevalHandler {
         this.redraw();
       },
       hideErrors: this.isEmbed,
+      localEval: () => (this.node.ceval && !this.node.ceval.cloud ? this.node.ceval : null),
       ...mergeOpts,
     };
     if (this.ceval) this.ceval.init(opts);
@@ -1080,12 +1073,18 @@ export default class AnalyseCtrl implements CevalHandler {
         })
       : `/${this.data.game.id}/edit?fen=${this.node.fen}`;
 
+  getNodeKey(): string {
+    const engineId = (this.node.ceval && 'engineId' in this.node.ceval && this.node.ceval.engineId) || '';
+    return `${this.path}_${this.threatMode}_${engineId}`;
+  }
+
   private readonly resetAutoShapes = () => {
     if (
       this.showBestMoveArrows() ||
       this.settings.showMoveAnnotationsOnBoard ||
       this.settings.showVariationArrows ||
-      (this.motifEnabled() && this.motif.any())
+      (this.motifEnabled() && this.motif.any()) ||
+      (finished(this.data) && this.node.outcome())
     )
       this.setAutoShapes();
     else this.chessground?.setAutoShapes([]);

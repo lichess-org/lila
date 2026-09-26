@@ -13,10 +13,9 @@
   <string name="closedByModerators">Moderatzaileek zure kontua itxi egin dute.</string>
   <string name="blogRestriction">Blogeko murriztapena duzu.</string>
   <string name="blogRestrictionInfo">Irakurri gure %s, arau horiek hausteak ondorioak izan ditzake.</string>
-  <string name="playTimeout">Denbora-tarte batez ezin duzu jokatu.</string>
   <string name="reportBanned">Ezin diezu moderatzaileen txostenik bidali</string>
   <string name="reportBannedInfo">Kexak bidaltzeko gure sisteman abusuzko eskaeren patroi bat nabaritu dugu. Hau hainbat arrazoirengatik izan da, adibidez behin eta berriz kategoria okerrak aukeratzeagatik, hizkuntza desegokia erabiltzeagatik, partida gehiegiren salaketa bidaltzeagatik, edo zure ustez gertatzen dena ezin frogatzeagatik.</string>
-  <string name="temporarilyRestrictedFromPlaying" comment="play timeout = Lichess prevents you temporarily from playing any games Replaces old string playTimeout">Zure kontuak ezin du aldi batez partidarik jokatu.</string>
+  <string name="temporarilyRestrictedFromPlaying" comment="play timeout = Lichess prevents you temporarily from playing any games">Zure kontuak ezin du aldi batez partidarik jokatu.</string>
   <string name="communicationGuidelines">komunikazio-gidalerroak</string>
   <string name="blogEtiquette">blogeko etiketa</string>
   <string name="fairPlay">Joko garbia</string>

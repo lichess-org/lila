@@ -1,3 +1,4 @@
+import { licon } from 'lib/licon';
 import { type VNode, type MaybeVNode, bind, hl, type VNodeData, icon } from 'lib/view';
 
 import type PuzzleCtrl from '@/ctrl';
@@ -91,7 +92,7 @@ const editor = (ctrl: PuzzleCtrl): VNode[] => {
             hl(
               'div.puzzle__themes__votes',
               allThemes.static.has(key)
-                ? [hl('div.puzzle__themes__lock', icon('padlock')())]
+                ? [hl('div.puzzle__themes__lock', icon(licon.Padlock)())]
                 : [
                     hl('button.puzzle__themes__vote.vote-up', {
                       class: { active: !!votedThemes[key] },
@@ -132,10 +133,11 @@ const editor = (ctrl: PuzzleCtrl): VNode[] => {
               ),
             ],
           ),
-          hl('a.puzzle__themes__study.text', { attrs: { href: STUDY_URL, target: '_blank' } }, [
-            icon('infoCircle')(),
+          hl(
+            'a.puzzle__themes__study.text',
+            { attrs: { 'data-icon': licon.InfoCircle, href: STUDY_URL, target: '_blank' } },
             'About puzzle themes',
-          ]),
+          ),
         ]
       : []),
   ];

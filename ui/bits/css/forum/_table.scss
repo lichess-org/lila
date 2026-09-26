@@ -44,18 +44,8 @@
     }
 
     td {
-      padding-top: 1.5rem;
-      padding-bottom: 1.5rem;
-
-      span {
-        display: flex;
-        align-items: center;
-        gap: 0.5ch;
-      }
-
-      .user-link {
-        gap: 0;
-      }
+      padding-top: 1.2rem;
+      padding-bottom: 1.2rem;
     }
 
     &.topics {
@@ -81,6 +71,7 @@
 
     &.categs .subject p {
       margin-top: 0.3em;
+      margin-bottom: 0.3em;
     }
   }
 }

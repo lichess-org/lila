@@ -20,7 +20,6 @@
   <string name="checkYouHaveMadeOpponentsMove">પહેલા તમે DGT બોર્ડ પર તમારા પ્રતિસ્પર્ધીની ચાલ કરી છે કે નહીં તે ચકાસો. તમારી ચાલ પાછી ખેંચો. ફરીથી રમો.</string>
   <string name="asALastResort">છેલ્લા ઉપાય તરીકે, Lichess ની જેમ જ બોર્ડ સેટ કરો, પછી %s</string>
   <string name="reloadThisPage">આ પૃષ્ઠ રીલોડ કરો</string>
-  <string name="dgtConfigure">ડીજીટી - રૂપરેખાંકિત</string>
   <string name="lichessConnectivity">Lichess કનેક્ટિવિટી</string>
   <string name="validDgtOauthToken">તમારી પાસે DGT પ્લે માટે યોગ્ય OAuth ટોકન છે.</string>
   <string name="dgtPlayMenuEntryAdded">ઉપરના તમારા PLAY મેનૂમાં %s એન્ટ્રી ઉમેરવામાં આવી હતી.</string>

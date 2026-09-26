@@ -1,5 +1,7 @@
+@use 'sass:color';
+
 $c-clas-light: hsl(274 48% 60%);
-$c-clas-lighter: mix($c-clas-light, #fff, 86%);
+$c-clas-lighter: color.mix($c-clas-light, #fff, 86%);
 $c-bg-clas-over: white;
 $c-bg-clas-over-dim: color-mix(in oklab, $c-clas 20%, white);
 
@@ -98,8 +100,8 @@ h1 {
       background: $c-clas-lighter !important;
     }
 
-    > .svg-icon {
-      width: 3em;
+    &::before {
+      font-size: 3em;
     }
   }
 
@@ -116,11 +118,11 @@ h1 {
       padding: 2em $box-padding;
       position: relative;
 
-      > .svg-icon {
+      &::before {
         @include transition;
 
         color: $c-clas-lighter;
-        width: 5em;
+        font-size: 5em;
         margin-inline-end: 0.4em;
 
         @media (max-width: at-most($xx-small)) {
@@ -131,7 +133,7 @@ h1 {
       &:hover {
         background: color-mix(in oklab, $c-clas 10%, $c-bg);
 
-        > .svg-icon {
+        &::before {
           color: $c-clas-light;
         }
       }
@@ -526,8 +528,8 @@ h1 {
 
       margin-bottom: 0.6em;
 
-      > .svg-icon {
-        width: 2.5em;
+      &::before {
+        font-size: 2.5em;
         margin-inline-end: 0.4em;
       }
 
@@ -575,7 +577,10 @@ h1 {
       margin: 0;
 
       &::before {
-        @include icon-mask($icon-shield, 3em);
+        @extend %data-icon;
+
+        content: $licon-Shield;
+        font-size: 3em;
       }
     }
 
@@ -603,7 +608,7 @@ h1 {
       padding: 2em;
 
       &::before {
-        width: 3em;
+        font-size: 3em;
       }
     }
 
@@ -776,8 +781,8 @@ h1 {
       color: $c-font-dim;
     }
 
-    .svg-icon {
-      width: 0.8em;
+    icon {
+      font-size: 0.8em;
       color: $c-bad;
       text-align: center;
       margin-top: 1rem;

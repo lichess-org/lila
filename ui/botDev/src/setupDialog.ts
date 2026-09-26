@@ -5,8 +5,9 @@ import { definedMap, clamp } from 'lib/algo';
 import type { LocalSetup } from 'lib/bot/types';
 import { Janitor } from 'lib/event';
 import { fen960 } from 'lib/game/chess';
+import { licon } from 'lib/licon';
 import { pubsub } from 'lib/pubsub';
-import { domDialog, type Dialog, htmlIcon } from 'lib/view';
+import { domDialog, type Dialog } from 'lib/view';
 import { json } from 'lib/xhr';
 
 import { domIdToUid, uidToDomId } from './devBotCtrl';
@@ -43,11 +44,11 @@ class SetupDialog {
           <div class="with-cards snap-pane">
             <div class="vs">
               <div class="player" data-color="black">
-                <button type="button" class="z-remove" title="Remove player" aria-label="Remove player">${htmlIcon('x')}</button>
+                <icon class="z-remove" data-icon="${licon.X}"></icon>
                 <div class="placard none" data-color="black">Human Player</div>
               </div>
             </div>
-            <button class="button button-empty go-to-board" title="Board setup" aria-label="Board setup">${htmlIcon('greaterThan')}</button>
+            <button class="button button-empty go-to-board" data-icon="${licon.GreaterThan}"></button>
           </div>
           <div class="from-position is2d snap-pane">
             <div class="editor"></div>
@@ -55,7 +56,7 @@ class SetupDialog {
               <button class="button button-metal standard">Standard</button>
               <button class="button button-metal chess960">Chess960</button>
             </div>
-            <button class="button button-empty go-to-opponent" title="Opponent setup" aria-label="Opponent setup">${htmlIcon('lessThan')}</button>
+            <button class="button button-empty go-to-opponent" data-icon="${licon.LessThan}"></button>
           </div>
         </div>
         <div class="chin">
@@ -89,7 +90,7 @@ class SetupDialog {
         { selector: '.black', listener: () => this.fight('black') },
         { selector: '.random', listener: () => this.fight() },
         { selector: '[data-type]', event: 'input', listener: this.updateClock },
-        { selector: '.z-remove', listener: () => this.select() },
+        { selector: 'icon.z-remove', listener: () => this.select() },
       ],
       onClose: () => {
         localStorage.setItem('botdev.setup', JSON.stringify(this.setup));
@@ -167,7 +168,7 @@ class SetupDialog {
     const placard = this.view.querySelector('.placard') as HTMLElement;
     placard.textContent = bot?.description ?? '';
     placard.classList.toggle('none', !bot?.description);
-    this.dialog.view.querySelector(`.z-remove`)?.classList.toggle('show', !!bot);
+    this.dialog.view.querySelector(`icon.z-remove`)?.classList.toggle('show', !!bot);
     this.setup[this.botColor] = this.uid = bot?.uid;
     if (!bot) this.hand.redraw();
   }

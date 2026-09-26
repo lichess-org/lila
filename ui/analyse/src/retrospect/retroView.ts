@@ -1,5 +1,9 @@
+import { opposite } from 'chessops';
+
+import { capitalize } from 'lib/game';
+import { licon } from 'lib/licon';
 import type { TreeNode } from 'lib/tree/types';
-import { bind, hl, snabIcon, type VNode, spinnerVdom as spinner } from 'lib/view';
+import { bind, hl, type VNode, spinnerVdom as spinner, icon } from 'lib/view';
 
 import type AnalyseCtrl from '../ctrl';
 import { renderIndexAndMove } from '../view/components';
@@ -12,7 +16,10 @@ const skipOrViewSolution = (ctrl: RetroCtrl): VNode =>
   ]);
 
 const jumpToNext = (ctrl: RetroCtrl): VNode =>
-  hl('a.half.continue', { hook: bind('click', ctrl.jumpToNext) }, [snabIcon('playTriangle'), i18n.site.next]);
+  hl('a.half.continue', { hook: bind('click', ctrl.jumpToNext) }, [
+    icon(licon.PlayTriangle)(),
+    i18n.site.next,
+  ]);
 
 const minDepth = 8;
 const maxDepth = 18;
@@ -41,7 +48,7 @@ const feedback = {
               hl('move', renderIndexAndMove(ctrl.current()!.fault.node, false, true)),
             ),
           ),
-          hl('em', i18n.site[ctrl.color === 'white' ? 'findBetterMoveForWhite' : 'findBetterMoveForBlack']),
+          hl('em', i18n.site[`findBetterMoveFor${capitalize(ctrl.color)}`]),
           skipOrViewSolution(ctrl),
         ]),
       ]),
@@ -67,7 +74,7 @@ const feedback = {
         hl('div.icon', '✗'),
         hl('div.instruction', [
           hl('strong', i18n.site.youCanDoBetter),
-          hl('em', i18n.site[ctrl.color === 'white' ? 'tryAnotherMoveForWhite' : 'tryAnotherMoveForBlack']),
+          hl('em', i18n.site[`tryAnotherMoveFor${capitalize(ctrl.color)}`]),
           skipOrViewSolution(ctrl),
         ]),
       ]),
@@ -131,15 +138,9 @@ const feedback = {
         hl('div.instruction', [
           hl(
             'em',
-            i18n.site[
-              nothing
-                ? ctrl.color === 'white'
-                  ? 'noMistakesFoundForWhite'
-                  : 'noMistakesFoundForBlack'
-                : ctrl.color === 'white'
-                  ? 'doneReviewingWhiteMistakes'
-                  : 'doneReviewingBlackMistakes'
-            ],
+            nothing
+              ? i18n.site[`noMistakesFoundFor${capitalize(ctrl.color)}`]
+              : i18n.site[`doneReviewing${capitalize(ctrl.color)}Mistakes`],
           ),
           hl('div.choices.end', [
             !nothing &&
@@ -157,7 +158,7 @@ const feedback = {
                 key: 'flip',
                 hook: bind('click', ctrl.flip),
               },
-              i18n.site[ctrl.color === 'white' ? 'reviewBlackMistakes' : 'reviewWhiteMistakes'],
+              i18n.site[`review${capitalize(opposite(ctrl.color))}Mistakes`],
             ),
           ]),
         ]),
@@ -183,14 +184,10 @@ export default function (root: AnalyseCtrl): VNode | undefined {
     hl('div.title', [
       hl('span', i18n.site.learnFromYourMistakes),
       hl('span', `${Math.min(completion[0] + 1, completion[1])} / ${completion[1]}`),
-      hl(
-        'button.fbt',
-        {
-          hook: bind('click', root.toggleRetro, root.redraw),
-          attrs: { 'aria-label': 'Close learn window' },
-        },
-        [snabIcon('x')],
-      ),
+      hl('button.fbt', {
+        hook: bind('click', root.toggleRetro, root.redraw),
+        attrs: { 'data-icon': licon.X, 'aria-label': 'Close learn window' },
+      }),
     ]),
     hl('div.feedback.' + fb, renderFeedback(root, fb)),
   ]);

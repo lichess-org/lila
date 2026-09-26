@@ -61,7 +61,6 @@
   <string name="downloadGame">下載棋局</string>
   <string name="studyUrl">研究連結</string>
   <string name="currentChapterUrl">目前章節連結</string>
-  <string name="youCanPasteThisInTheForumToEmbed">您可以將此複製到論壇以嵌入</string>
   <string name="startAtInitialPosition">從起始局面開始</string>
   <string name="startAtX">從%s開始</string>
   <string name="embedInYourWebsite">嵌入到您的網站或部落格</string>

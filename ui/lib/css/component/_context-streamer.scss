@@ -19,8 +19,8 @@
     padding-inline-end: 0.7ch;
   }
 
-  > .svg-icon {
-    width: 1.3em;
+  &::before {
+    font-size: 1.3em;
     color: $c-brag;
   }
 

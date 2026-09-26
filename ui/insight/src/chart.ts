@@ -15,7 +15,8 @@ import ChartDataLabels from 'chartjs-plugin-datalabels';
 import { h, type VNode } from 'snabbdom';
 
 import { currentTheme } from 'lib/device';
-import { spinnerHtml, snabIcon } from 'lib/view';
+import { licon } from 'lib/licon';
+import { icon, spinnerHtml } from 'lib/view';
 
 import type Ctrl from './ctrl';
 import type { InsightChart, InsightData } from './interfaces';
@@ -62,6 +63,9 @@ function insightChart(el: HTMLCanvasElement, data: InsightData) {
           backgroundColor: tooltipBgColor,
           borderColor: gridColor,
           borderWidth: 1,
+          position: 'average',
+          xAlign: 'center',
+          yAlign: 'bottom',
           titleFont: fontFamily(14, 'bold'),
           titleColor: tooltipFontColor,
           bodyFont: fontFamily(13),
@@ -108,7 +112,8 @@ function barBuilder(
     borderWidth: 1.5,
     yAxisID: id,
     backgroundColor: color,
-    borderColor: '#4a4a4a',
+    borderColor: light ? '#9a9a9a' : '#4a4a4a',
+    borderRadius: 4,
     stack: opts?.stack,
     minBarLength: !percent ? 5 : undefined,
     datalabels:
@@ -177,7 +182,7 @@ function scaleBuilder(d: InsightData): ChartOptions<'bar'>['scales'] {
   };
 }
 function empty(txt: string) {
-  return h('div.chart.empty', [snabIcon('target'), txt]);
+  return h('div.chart.empty', [icon(licon.Target)(), txt]);
 }
 
 let chart: InsightChart;

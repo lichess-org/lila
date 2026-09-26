@@ -2,8 +2,9 @@ import { h, type VNode } from 'snabbdom';
 
 import { debounce, throttlePromiseDelay } from 'lib/async';
 import { prefersLightThemeQuery } from 'lib/device';
+import { licon } from 'lib/licon';
 import { pubsub } from 'lib/pubsub';
-import { bind, button, label, div, onInsert, span, snabIcon } from 'lib/view';
+import { bind, button, dataIcon, label, div, onInsert, span } from 'lib/view';
 import { cmnToggleWrap } from 'lib/view/cmn-toggle';
 import { text as xhrText, form as xhrForm, textRaw as xhrTextRaw } from 'lib/xhr';
 
@@ -56,6 +57,7 @@ export class ThemeCtrl extends PaneCtrl {
             '.text',
             {
               class: { active: theme.includes(bg.key) },
+              ...dataIcon(licon.Checkmark),
               title: bg.title || '',
               type: 'button',
               hook: bind('click', () => {
@@ -63,7 +65,7 @@ export class ThemeCtrl extends PaneCtrl {
                 current.includes('transp') ? this.set(`transp ${bg.key}`) : this.set(bg.key);
               }),
             },
-            [snabIcon('checkmark'), bg.name],
+            bg.name,
           );
         }),
         this.propSlider('ui-roundness', i18n.site.roundness, { min: 0, max: 15, step: 1 }),

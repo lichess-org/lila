@@ -7,14 +7,14 @@ import { type TopOrBottom } from 'lib/game';
 import { renderClock } from 'lib/game/clock/clockView';
 import { renderMaterialDiffs } from 'lib/game/view/material';
 import { type StatusData, statusOf as viewStatus } from 'lib/game/view/status';
-import type { Icon } from 'lib/icons';
+import { licon, type LiconKey } from 'lib/licon';
 import { addPointerListeners } from 'lib/pointer';
 import {
   bind,
   hl,
   onInsert,
   type LooseVNodes,
-  snabIcon,
+  dataIcon,
   type VNode,
   toggleButton as boardMenuToggleButton,
 } from 'lib/view';
@@ -61,14 +61,16 @@ const viewClock = (ctrl: PlayCtrl, position: TopOrBottom) =>
 const viewActions = (ctrl: PlayCtrl) =>
   hl('div.bot-game__actions', [
     ctrl.game.end && hl('button.bot-game__rematch', { hook: bind('click', ctrl.opts.rematch) }, 'Rematch'),
-    hl('button.bot-game__close.text', { hook: bind('click', ctrl.opts.close) }, [
-      snabIcon('back'),
+    hl(
+      'button.bot-game__close.text',
+      { attrs: dataIcon(licon.Back), hook: bind('click', ctrl.opts.close) },
       'More opponents',
-    ]),
-    hl('button.bot-game__restart.text', { hook: bind('click', ctrl.opts.rematch) }, [
-      snabIcon('reload'),
+    ),
+    hl(
+      'button.bot-game__restart.text',
+      { attrs: dataIcon(licon.Reload), hook: bind('click', ctrl.opts.rematch) },
       'New game',
-    ]),
+    ),
   ]);
 
 const viewResult = (ctrl: PlayCtrl) => {
@@ -146,31 +148,24 @@ const viewNavigation = (ctrl: PlayCtrl) => {
     boardMenu(ctrl),
     hl('div.noop'),
     [
-      ['jumpFirst', 0],
-      ['jumpPrev', ctrl.board.onPly - 1],
-      ['jumpNext', ctrl.board.onPly + 1],
-      ['jumpLast', ctrl.game.ply()],
-    ].map((b: [Icon, number], i) => {
+      ['JumpFirst', 0],
+      ['JumpPrev', ctrl.board.onPly - 1],
+      ['JumpNext', ctrl.board.onPly + 1],
+      ['JumpLast', ctrl.game.ply()],
+    ].map((b: [LiconKey, number], i) => {
       const enabled = ctrl.board.onPly !== b[1] && b[1] >= 0 && b[1] <= ctrl.game.ply();
-      return hl(
-        'button.fbt.repeatable',
-        {
-          class: { glowing: i === 3 && !ctrl.isOnLastPly() },
-          attrs: { disabled: !enabled, 'data-ply': enabled ? b[1] : '-' },
-          hook: onInsert(el =>
-            addPointerListeners(el, { click: e => goThroughMoves(ctrl, e), hold: 'click' }),
-          ),
-        },
-        [snabIcon(b[0])],
-      );
+      return hl('button.fbt.repeatable', {
+        class: { glowing: i === 3 && !ctrl.isOnLastPly() },
+        attrs: { disabled: !enabled, 'data-icon': licon[b[0]], 'data-ply': enabled ? b[1] : '-' },
+        hook: onInsert(el => addPointerListeners(el, { click: e => goThroughMoves(ctrl, e), hold: 'click' })),
+      });
     }),
     boardMenuToggleButton(ctrl.menu, i18n.site.menu),
   ]);
 };
 
 const goThroughMoves = (ctrl: PlayCtrl, e: Event) => {
-  const targetPly = () =>
-    parseInt((e.target as HTMLElement).closest<HTMLElement>('[data-ply]')?.dataset.ply || '');
+  const targetPly = () => parseInt((e.target as HTMLElement).getAttribute('data-ply') || '');
   repeater(
     () => {
       const ply = targetPly();

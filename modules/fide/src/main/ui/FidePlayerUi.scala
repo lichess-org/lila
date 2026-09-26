@@ -54,18 +54,18 @@ final class FidePlayerUi(helpers: Helpers, fideUi: FideUi, picfitUrl: lila.memo.
       )
     )
 
-  def searchForm(q: String) =
+  def searchForm(q: String)(using Translate) =
     st.form(cls := "fide-players__search-form", action := routes.Fide.index(), method := "get")(
       input(
         cls := "fide-players__search-form__input",
         name := "q",
-        st.placeholder := "Search for players",
+        st.placeholder := trs.search.txt(),
         st.value := q,
         autofocus := true,
         autocomplete := "off",
         spellcheck := "false"
       ),
-      submitButton(cls := "button", iconEl := Icon.search)
+      submitButton(cls := "button", dataIcon := Icon.Search)
     )
 
   def playerList(
@@ -209,7 +209,7 @@ final class FidePlayerUi(helpers: Helpers, fideUi: FideUi, picfitUrl: lila.memo.
         fideUi.tcTrans.map: (tc, name, icon) =>
           div(cls := "fide-player__rating")(
             div(cls := "fide-player__rating__text")(
-              em(iconEl := icon, cls := "text")(name()),
+              em(dataIcon := icon, cls := "text")(name()),
               strong(player.ratingOf(tc).fold(trb.unrated())(_.toString))
             ),
             canvas(cls := s"fide-player__rating__history fide-player__rating__history--$tc")

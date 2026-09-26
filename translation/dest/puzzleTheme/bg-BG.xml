@@ -29,7 +29,6 @@
   <string name="collinearMove">Колинеарен ход</string>
   <string name="collinearMoveDescription">Две противникови фигури са разположени една срещу друга и едната се плъзга по линията на атаката, без да взема вражеската фигура.</string>
   <string name="cornerMate">Мат в ъгъла</string>
-  <string name="cornerMateDescription">Притиснете царя в ъгъла с помощта на топ или дама и използвайте кон, за да нанесете мата.</string>
   <string name="crushing">Погром</string>
   <string name="crushingDescription">Използвайте грешката на противника за да получите смазващо преимущество. (≥ 600сп)</string>
   <string name="discoveredCheck">Открит шах</string>
@@ -54,17 +53,14 @@
   <string name="doubleCheckDescription">Шах с две фигури едновременно. Получава се, когато преместената фигура дава шах заедно с далекобойна, която досега е била блокирана.</string>
   <string name="endgame">Ендшпил</string>
   <string name="endgameDescription">Тактика в последната фаза на играта.</string>
-  <string name="enPassantDescription">Тактика включваща вземане \"ан пасан\", където пешка може да вземе противникова пешка, която я е подминала правейки двоен ход.</string>
   <string name="epauletteMate">Еполетен мат</string>
   <string name="epauletteMateDescription">Две съседни полета за отстъпление на царя под шах са заети от негови собствени фигури.</string>
   <string name="exposedKing">Незащитен цар</string>
   <string name="exposedKingDescription">Противниковият цар е не добре защитен, което често води до шах и мат.</string>
   <string name="fork">Вилица</string>
-  <string name="forkDescription">Ход, в който фигура атакува едновременно поне две противникови фигури.</string>
   <string name="hangingPiece">Висяща фигура</string>
   <string name="hangingPieceDescription">Тактика, при която фигура на противника не е защитена или е недостатъчно защитена и може да бъде взета.</string>
   <string name="hookMate">Мат-кука</string>
-  <string name="hookMateDescription">Шах и мат с топ, кон и пешка заедно с противникова пешка ограничаваща движението на противниковия цар.</string>
   <string name="interference">Вмешателство</string>
   <string name="interferenceDescription">Преместване на фигура между две противникови, така че едната или и двете да останат незащитени. Например кон на защитено поле между два топа.</string>
   <string name="intermezzo">Междинен ход</string>
@@ -72,9 +68,7 @@
   <string name="killBoxMate">Смъртоносна зона</string>
   <string name="killBoxMateDescription">Топът се намира непосредствено до вражеския цар и е подкрепен от дама, която блокира полетата му за отстъпление. Двете фигури затварят вражеския цар в „смъртоносна зона“ от 3 на 3 полета.</string>
   <string name="pillsburysMate">Мат на Пилсбъри</string>
-  <string name="pillsburysMateDescription">Офицерът отрязва пътя на царя, а топът дава мат.</string>
   <string name="morphysMate">Мат на Морфи</string>
-  <string name="morphysMateDescription">Oфицерът нанася мат, докато топът блокира царя по вертикала.</string>
   <string name="swallowstailMate">Мат „Лястовича опашка“</string>
   <string name="swallowstailMateDescription">Матова картина, която визуално наподобява опашка на лястовица, подобно на V-образна форма.</string>
   <string name="triangleMate">Мат „Триъгълник“</string>
@@ -114,7 +108,6 @@
   <string name="pin">Свръзка</string>
   <string name="pinDescription">Тактика, използваща свръзка, където една фигура не може да бъде преместена без да оголи за атака стоящата зад нея по-ценна фигура.</string>
   <string name="promotion">Произвеждане</string>
-  <string name="promotionDescription">Произвеждането на пешка, или заплахата за произвеждане, е ключова стратегия.</string>
   <string name="queenEndgame">Дамски ендшпили</string>
   <string name="queenEndgameDescription">Ендшпил само с дами и пешки.</string>
   <string name="queenRookEndgame">Дама и топ</string>

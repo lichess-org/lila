@@ -40,7 +40,7 @@ final class MobileApi(
       me: Option[Me]
   )(using RequestHeader, Translate, KidMode): Fu[JsObject] =
     val myUser = me.map(_.value)
-    val takex3 = oauth.exists(_.takex3)
+    val takex3 = oauth.exists(_.has(_.Web.Takex3))
     for
       withPerfs <- myUser.traverse(userApi.withPerfs)
       urgentGames <- myUser.traverse(gameProxy.urgentGames)
@@ -101,7 +101,7 @@ final class MobileApi(
       Json.toJsObject(user) ++
         lila.streamer.Stream.toLichessJson(picfitUrl, stream)
 
-  def profile(user: User)(using me: Option[Me])(using Lang): Fu[JsObject] =
+  def profile(user: User)(using me: Option[Me])(using Translate): Fu[JsObject] =
     for
       withPerfs <- userApi.withPerfs(user)
       prof <- userApi.mobile(withPerfs, Preload.none)

@@ -1,18 +1,20 @@
+import { COLORS } from 'chessops';
 import flatpickr from 'flatpickr';
 
 import standaloneChat from 'lib/chat/standalone';
 import { use24h } from 'lib/i18n';
+import { licon } from 'lib/licon';
 import { once } from 'lib/storage';
 import {
   spinnerVdom,
   initMiniGames,
   prompt,
   type VNode,
+  dataIcon,
   bind,
   onInsert,
   type LooseVNodes,
   hl,
-  snabIcon,
 } from 'lib/view';
 import { renderPager, searchButton, searchInput } from 'lib/view/pagination';
 import { numberRow } from 'lib/view/util';
@@ -127,16 +129,18 @@ function nextRound(ctrl: SwissCtrl): VNode | undefined {
 function joinButton(ctrl: SwissCtrl): VNode | undefined {
   const d = ctrl.data;
   if (!ctrl.opts.userId)
-    return hl('a.fbt.text.highlight', { attrs: { href: '/login?referrer=' + window.location.pathname } }, [
-      snabIcon('playTriangle'),
+    return hl(
+      'a.fbt.text.highlight',
+      { attrs: { href: '/login?referrer=' + window.location.pathname, 'data-icon': licon.PlayTriangle } },
       i18n.site.signIn,
-    ]);
+    );
 
   if (d.joinTeam)
-    return hl('a.fbt.text.highlight', { attrs: { href: `/team/${d.joinTeam}` } }, [
-      snabIcon('group'),
+    return hl(
+      'a.fbt.text.highlight',
+      { attrs: { href: `/team/${d.joinTeam}`, 'data-icon': licon.Group } },
       i18n.team.joinTeam,
-    ]);
+    );
 
   if (!d.canJoin && (d.me?.absent || !d.me)) return undefined;
 
@@ -151,21 +155,24 @@ function joinButton(ctrl: SwissCtrl): VNode | undefined {
 
   if (d.me && d.status !== 'finished')
     return d.me.absent
-      ? hl('button.fbt.text.highlight', { hook: bind('click', promptEntryCodeOrJoin, ctrl.redraw) }, [
-          snabIcon('playTriangle'),
+      ? hl(
+          'button.fbt.text.highlight',
+          { attrs: dataIcon(licon.PlayTriangle), hook: bind('click', promptEntryCodeOrJoin, ctrl.redraw) },
           i18n.site.join,
-        ])
-      : hl('button.fbt.text', { hook: bind('click', ctrl.withdraw, ctrl.redraw) }, [
-          snabIcon('flagOutline'),
+        )
+      : hl(
+          'button.fbt.text',
+          { attrs: dataIcon(licon.FlagOutline), hook: bind('click', ctrl.withdraw, ctrl.redraw) },
           i18n.site.withdraw,
-        ]);
+        );
 
   return hl(
     'button.fbt.text.highlight',
     {
+      attrs: dataIcon(licon.PlayTriangle),
       hook: bind('click', promptEntryCodeOrJoin, ctrl.redraw),
     },
-    [snabIcon('playTriangle'), i18n.site.join],
+    i18n.site.join,
   );
 }
 
@@ -201,8 +208,7 @@ function stats(ctrl: SwissCtrl) {
     hl('table', [
       ctrl.opts.showRatings ? numberRow(i18n.site.averageElo, s.averageRating, 'raw') : null,
       numberRow(i18n.site.gamesPlayed, s.games),
-      numberRow(i18n.site.whiteWins, [s.whiteWins, slots], 'percent'),
-      numberRow(i18n.site.blackWins, [s.blackWins, slots], 'percent'),
+      ...COLORS.map(c => numberRow(i18n.site[`${c}Wins`], [s[`${c}Wins`], slots], 'percent')),
       numberRow(i18n.site.drawRate, [s.draws, slots], 'percent'),
       numberRow(i18n.swiss.byes, [s.byes, slots], 'percent'),
       numberRow(i18n.swiss.absences, [s.absences, slots], 'percent'),
@@ -214,38 +220,41 @@ function stats(ctrl: SwissCtrl) {
         i18n.swiss.viewAllXRounds(ctrl.data.round),
       ),
       hl('br'),
-      hl('a.text', { attrs: { href: `/swiss/${ctrl.data.id}.trf`, download: true } }, [
-        snabIcon('download'),
+      hl(
+        'a.text',
+        { attrs: { 'data-icon': licon.Download, href: `/swiss/${ctrl.data.id}.trf`, download: true } },
         'Download TRF file',
-      ]),
-      hl('a.text', { attrs: { href: `/api/swiss/${ctrl.data.id}/games`, download: true } }, [
-        snabIcon('download'),
+      ),
+      hl(
+        'a.text',
+        { attrs: { 'data-icon': licon.Download, href: `/api/swiss/${ctrl.data.id}/games`, download: true } },
         i18n.site.downloadAllGames,
-      ]),
+      ),
       hl(
         'a.text',
         {
-          attrs: { href: `/api/swiss/${ctrl.data.id}/results`, download: true },
+          attrs: { 'data-icon': licon.Download, href: `/api/swiss/${ctrl.data.id}/results`, download: true },
         },
-        [snabIcon('download'), 'Download results as NDJSON'],
+        'Download results as NDJSON',
       ),
       hl(
         'a.text',
         {
           attrs: {
+            'data-icon': licon.Download,
             href: `/api/swiss/${ctrl.data.id}/results?as=csv`,
             download: true,
           },
         },
-        [snabIcon('download'), 'Download results as CSV'],
+        'Download results as CSV',
       ),
       hl('br'),
       hl(
         'a.text',
         {
-          attrs: { href: '/api#tag/swiss-tournaments' },
+          attrs: { 'data-icon': licon.InfoCircle, href: '/api#tag/swiss-tournaments' },
         },
-        [snabIcon('infoCircle'), 'Swiss API documentation'],
+        'Swiss API documentation',
       ),
     ]),
   ]);

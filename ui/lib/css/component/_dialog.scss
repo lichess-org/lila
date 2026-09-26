@@ -42,11 +42,9 @@ dialog {
   }
 
   button.close-button {
-    @extend %flex-around;
+    @extend %flex-around, %box-radius;
     @include inline-end(4px);
 
-    display: flex;
-    align-items: center;
     position: absolute;
     top: 4px;
     width: 40px; // bigger for phones
@@ -54,13 +52,10 @@ dialog {
     z-index: $z-modal-111 + 1;
     background: $c-bg-high;
     color: $c-font;
-    border-radius: 6px;
     border: $border;
+    font-size: 20px;
+    text-align: center;
     cursor: pointer;
-
-    .svg-icon {
-      width: 18px;
-    }
 
     &:not(:focus) {
       outline: none;
@@ -72,19 +67,17 @@ dialog {
     overflow: visible;
 
     button.close-button {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      border: none;
       transform: translate(18px, -18px);
 
       @include if-rtl {
         transform: translate(-18px, -18px);
       }
 
-      .svg-icon {
-        width: 14px;
-      }
+      width: 32px;
+      height: 32px;
+      font-size: 16px;
+      border-radius: 50%;
+      border: none;
 
       &:hover {
         @include box-shadow;
@@ -102,6 +95,8 @@ dialog {
 }
 
 .dialog-content {
+  @extend %box-radius;
+
   text-align: center;
   padding: 2em;
   color: $c-font;
@@ -113,7 +108,6 @@ dialog {
     gap: 2em;
     width: unset;
     height: unset;
-    border-radius: 6px;
     border: 3px solid $c-primary;
   }
 

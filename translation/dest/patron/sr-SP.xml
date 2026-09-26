@@ -73,4 +73,5 @@
   <string name="nowLifetime">Сада си доживотни Lichess Покровитељ!</string>
   <string name="nowOneMonth">Сада си Lichess Покровитељ на један месец!</string>
   <string name="downgradeNextMonth">За месец дана, НЕЋЕШ бити поново наплаћен/а и твој Lichess налог ће се вратити на обичан налог.</string>
+  <string name="changeCurrency">Промени валуту</string>
 </resources>

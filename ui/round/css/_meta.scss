@@ -17,8 +17,8 @@
     position: relative;
 
     /* for bookmark */
-    > .svg-icon:first-child {
-      width: 3rem;
+    &::before {
+      font-size: 3rem;
       margin-inline-end: 4%;
     }
 

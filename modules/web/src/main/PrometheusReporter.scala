@@ -43,7 +43,7 @@ class PrometheusReporter(configPath: String = DefaultConfigPath, initialConfig: 
     val scrapeDataBuilder =
       new ScrapeDataBuilder(_reporterSettings.generic, environmentTags(_reporterSettings.generic))
 
-    scrapeDataBuilder.appendCounters(currentData.counters)
+    scrapeDataBuilder.appendCounters(removeZeros(currentData.counters))
     scrapeDataBuilder.appendGauges(currentData.gauges)
     scrapeDataBuilder.appendDistributionMetricsAsGauges(
       snapshot.rangeSamplers ++ snapshot.histograms ++ snapshot.timers
@@ -55,6 +55,9 @@ class PrometheusReporter(configPath: String = DefaultConfigPath, initialConfig: 
 
   def scrapeData(): String =
     _preparedScrapeData
+
+  private val removeZeros: Update[Seq[MetricSnapshot.Values[Long]]] =
+    _.filter(_.instruments.exists(_.value != 0L))
 
 object PrometheusReporter:
 
@@ -70,8 +73,24 @@ object PrometheusReporter:
     * to keep references to those instances programmatically and calling `.scrapeData()` directly on them
     * instead of using this function.
     */
-  def latestScrapeData(): Option[String] =
-    _lastCreatedInstance.map(_.scrapeData())
+  def latestScrapeData(): String =
+    _lastCreatedInstance.map(_.scrapeData()).orZero
+
+  def linesPerMetric(): Map[String, Int] =
+    latestScrapeData().linesIterator
+      .filter(_.nonEmpty)
+      .filterNot(_.startsWith("#"))
+      .foldLeft(Map.empty[String, Int]): (acc, line) =>
+        val metricName = line.takeWhile(c => c != ' ' && c != '{')
+        acc.updated(metricName, acc.getOrElse(metricName, 0) + 1)
+
+  private[web] def setupPeriodicMonitor()(using scheduler: Scheduler)(using Executor): Unit =
+    import scala.concurrent.duration.*
+    scheduler.scheduleAtFixedRate(1.minute, 1.minute): () =>
+      val perMetric = linesPerMetric()
+      perMetric.foreach: (name, lines) =>
+        lila.mon.prometheus.linesPerMetric(name).update(lines)
+      lila.mon.prometheus.lines.update(perMetric.values.sum)
 
   class Factory extends ModuleFactory:
     override def create(settings: ModuleFactory.Settings): Module =

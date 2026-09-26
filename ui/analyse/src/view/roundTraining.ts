@@ -1,7 +1,8 @@
 import { h, thunk, type VNode } from 'snabbdom';
 
 import { getPlayer } from 'lib/game';
-import { bind, onInsert, snabIcon } from 'lib/view';
+import { licon } from 'lib/licon';
+import { bind, dataIcon, onInsert } from 'lib/view';
 import { ratingDiff, profileUrl } from 'lib/view/userLink';
 
 import type AnalyseCtrl from '@/ctrl';
@@ -40,12 +41,6 @@ const advices: Advice[] = [
   { kind: 'blunder', i18n: i18n.site.numberBlunders, symbol: '??' },
 ];
 
-const phaseLabels: Record<GamePhase, string> = {
-  opening: i18n.site.opening,
-  middlegame: i18n.site.middlegame,
-  endgame: i18n.site.endgame,
-};
-
 const phaseOrder: GamePhase[] = ['opening', 'middlegame', 'endgame'];
 
 function playerTable(ctrl: AnalyseCtrl, color: Color): VNode {
@@ -74,7 +69,7 @@ const renderPhases = (side: AnalysisSide): VNode[] => {
       .map(phase =>
         h(`div.advice-summary__phase.${accuracyClass(side.phases![phase]!)}`, [
           h('strong', `${side.phases![phase]}%`),
-          h('span', phaseLabels[phase]),
+          h('span', i18n.site[phase]),
         ]),
       ),
   ];
@@ -105,9 +100,10 @@ const doRender = (ctrl: AnalyseCtrl): VNode => {
             'a.button.text',
             {
               class: { active: !!ctrl.retro },
+              attrs: dataIcon(licon.PlayTriangle),
               hook: bind('click', ctrl.toggleRetro, ctrl.redraw),
             },
-            [snabIcon('playTriangle'), i18n.site.learnFromYourMistakes],
+            i18n.site.learnFromYourMistakes,
           ),
       playerTable(ctrl, 'black'),
     ],
@@ -123,10 +119,11 @@ export function puzzleLink(ctrl: AnalyseCtrl): VNode | undefined {
       'a.button-link.text',
       {
         attrs: {
+          ...dataIcon(licon.ArcheryTarget),
           href: `/training/${puzzle.key}/${ctrl.bottomColor()}`,
         },
       },
-      [snabIcon('archeryTarget'), 'Recommended puzzle training', h('br'), puzzle.name],
+      ['Recommended puzzle training', h('br'), puzzle.name],
     ),
   );
 }

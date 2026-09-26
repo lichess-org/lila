@@ -79,7 +79,7 @@ object CrudForm:
         spotlight = Spotlight(
           headline = headline,
           homepageHours = homepageHours.some.filterNot(0 ==),
-          icon = none,
+          iconFont = none,
           iconImg = image.nonEmptyOption
         ).some,
         teamBattle = teamBattle.option(tour.teamBattle | TeamBattle(Set.empty, 10))

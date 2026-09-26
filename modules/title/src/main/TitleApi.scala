@@ -43,7 +43,10 @@ final class TitleApi(
   private val updatedAtField = "history.0.at"
 
   def getCurrent(using me: Me): Fu[Option[TitleRequest]] =
-    coll.find(bdoc("userId" -> me.userId)).sort(sort.desc(updatedAtField)).one[TitleRequest]
+    coll
+      .find(bdoc("userId" -> me.userId, "imported".neq(true)))
+      .sort(sort.desc(updatedAtField))
+      .one[TitleRequest]
 
   def getForMe(id: TitleRequestId)(using me: Me): Fu[Option[TitleRequest]] =
     coll
@@ -136,7 +139,7 @@ final class TitleApi(
 
     def fideId(user: LightUser): Fu[Option[FideId]] = get(user).dmap(_.flatMap(_._2))
 
-    def realName(user: LightUser): Fu[Option[RealName]] = get(user).dmap(_.map(_._1))
+    def realName(user: LightUser): Fu[Option[RealName]] = get(user).dmap(_._1F)
 
   private def sendFeedback(to: UserId, feedback: String): Unit =
     val pm = s"""

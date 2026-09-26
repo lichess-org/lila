@@ -3,12 +3,12 @@
   <string name="standard">Шахматы</string>
   <string name="standardTitle">Стандартные правила шахмат (FIDE)</string>
   <string name="chess960">Шахматы Фишера</string>
-  <string name="chess960Title">Стартовая позиция фигур определяется случайно.</string>
+  <string name="chess960Title">Стартовая позиция фигур на последней линии определяется случайно.</string>
   <string name="kingOfTheHill">Царь горы</string>
   <string name="kingOfTheHillTitle">Проведите короля в центр доски, чтобы выиграть партию.</string>
   <string name="threeCheck">Три шаха</string>
   <string name="threeCheckTitle">Объявите 3 шаха, чтобы победить.</string>
-  <string name="antichess">Поддавки</string>
+  <string name="antichess">Анти-Шахматы</string>
   <string name="antichessTitle">Проиграйте все ваши фигуры (или получите пат), чтобы выиграть игру.</string>
   <string name="atomic">Атомные шахматы</string>
   <string name="atomicTitle">Взорвите короля противника, чтобы победить.</string>

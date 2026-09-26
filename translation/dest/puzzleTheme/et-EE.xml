@@ -29,11 +29,9 @@
   <string name="doubleCheck">Topelt tuli</string>
   <string name="endgame">Lõppmäng</string>
   <string name="endgameDescription">Taktika mängu viimases faasis.</string>
-  <string name="enPassantDescription">Taktika, kus rakendatakse en passant reeglit, kus ettur saab lüüa mööda läinud vastase etturit kasutades algset kahe ruutu käiku.</string>
   <string name="exposedKing">Paljas kuningas</string>
   <string name="exposedKingDescription">Taktika seoses kuningaga kellel on vähe kaitsjaid enda ümber, lõpeb tihti mattiga.</string>
   <string name="fork">Kahvel</string>
-  <string name="forkDescription">Käik, millega mängija ründab oma malendiga korraga mitut vastase malendit.</string>
   <string name="hangingPiece">Kaitseta malend</string>
   <string name="hangingPieceDescription">Taktika, kus vastase malend on kaitsetu või halvasti kaitstud ja tasuta löödav.</string>
   <string name="knightEndgame">Ratsulõppmäng</string>
@@ -67,7 +65,6 @@
   <string name="pin">Sidumine</string>
   <string name="pinDescription">Taktika, kus malendi tulejoonel oleva vastaspoole malend ei saa liikuda, sest ära liikumise korral satub tulejoone alla väärtuslikum malend.</string>
   <string name="promotion">Muundamine</string>
-  <string name="promotionDescription">Muunda oma ettur lipuks või teiseks viguriks.</string>
   <string name="queenEndgame">Lipulõppmäng</string>
   <string name="queenEndgameDescription">Lõppmäng ainult lippude ja etturitega.</string>
   <string name="queenRookEndgame">Lipp ja vanker</string>

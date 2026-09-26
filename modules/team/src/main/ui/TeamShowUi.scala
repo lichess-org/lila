@@ -47,7 +47,7 @@ final class TeamShowUi(helpers: Helpers, teamUi: TeamUi, requestUi: TeamRequestU
         val canSeeMembers = canManage || (team.enabled && (team.publicMembers || mine))
         main(cls := "team-show box")(
           boxTop(
-            h1(cls := "text", iconEl := Icon.group)(team.name, teamFlair(team.light)),
+            h1(cls := "text", dataIcon := Icon.Group)(team.name, teamFlair(team.light)),
             div:
               if team.disabled then span(cls := "staff")("CLOSED")
               else
@@ -67,7 +67,7 @@ final class TeamShowUi(helpers: Helpers, teamUi: TeamUi, requestUi: TeamRequestU
                   ),
                   ledByMe.option(
                     a(
-                      iconEl := Icon.infoCircle,
+                      dataIcon := Icon.InfoCircle,
                       href := routes.Cms.lonePage(lila.core.id.CmsPageKey("team-etiquette")),
                       cls := "text"
                     )("Team Etiquette")
@@ -88,7 +88,7 @@ final class TeamShowUi(helpers: Helpers, teamUi: TeamUi, requestUi: TeamRequestU
               ),
               modLog.nonEmpty.option:
                 div(cls := "team-show__log")(
-                  h2("Mod log"),
+                  h2(cls := "team-show__section-title")("Mod log"),
                   ul(modLog)
                 )
               ,
@@ -99,7 +99,7 @@ final class TeamShowUi(helpers: Helpers, teamUi: TeamUi, requestUi: TeamRequestU
               ),
               (team.enabled && requests.nonEmpty).option(
                 div(cls := "team-show__requests")(
-                  h2(trt.xJoinRequests.pluralSame(requests.size)),
+                  h2(cls := "team-show__section-title")(trt.xJoinRequests.pluralSame(requests.size)),
                   requestUi.list(requests, team.some)
                 )
               ),
@@ -107,12 +107,8 @@ final class TeamShowUi(helpers: Helpers, teamUi: TeamUi, requestUi: TeamRequestU
                 team.enabled.so(update).map(updateUi.teamLatest(team, _)),
                 (canSeeMembers && toursFrag.nonEmpty).option(
                   st.section(cls := "team-show__tour team-events team-tournaments")(
-                    h2(
-                      a(
-                        iconEl := Icon.trophy,
-                        cls := "text",
-                        href := routes.Team.tournaments(team.id)
-                      )(
+                    h2(cls := "team-show__section-title")(
+                      a(dataIcon := Icon.Trophy, cls := "text", href := routes.Team.tournaments(team.id))(
                         trans.site.tournaments()
                       )
                     ),
@@ -121,8 +117,8 @@ final class TeamShowUi(helpers: Helpers, teamUi: TeamUi, requestUi: TeamRequestU
                   )
                 ),
                 st.section(cls := "team-show__forum")(
-                  h2(
-                    a(iconEl := Icon.bubbleConvo, cls := "text", href := teamForumUrl(team.id))(
+                  h2(cls := "team-show__section-title")(
+                    a(dataIcon := Icon.BubbleConvo, cls := "text", href := teamForumUrl(team.id))(
                       trans.site.forum()
                     )
                   ),

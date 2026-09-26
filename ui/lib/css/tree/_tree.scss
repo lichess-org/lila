@@ -7,8 +7,8 @@ $disclosure-btn-size: calc(15px + var(---button-size-pointer-adjust, 0px));
   }
 
   .#{$name},
-  .#{$name} + lines,
-  &-inline .#{$name} + interrupt {
+  .#{$name} + lines:not(lines lines) > branch,
+  &-inline .#{$name} + interrupt:not(:has(interrupt)) {
     --c-annotation-border: rgb(from var(--c-#{$name}) r g b / calc(alpha * 0.6));
 
     & interrupt {
@@ -132,7 +132,11 @@ $disclosure-btn-size: calc(15px + var(---button-size-pointer-adjust, 0px));
   color: $c-good;
 
   &::before {
-    @include icon-mask($icon-discBigOutline, 12px);
+    @extend %data-icon;
+
+    vertical-align: baseline;
+    font-size: 13px;
+    content: $licon-DiscBigOutline;
   }
 }
 

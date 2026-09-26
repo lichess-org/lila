@@ -18,7 +18,7 @@ import lila.game.GameFilter
 import lila.mod.UserWithModlog
 import lila.rating.PerfType
 import lila.rating.UserPerfsExt.best8Perfs
-import lila.security.UserLogins
+import lila.security.{ UserAgentParser, UserLogins }
 import lila.user.WithPerfsAndEmails
 import lila.mon.extensions.*
 
@@ -107,53 +107,49 @@ final class User(
             snip = lila.ui.Snippet(views.activity(withPerfs, as))
           yield status(snip)
 
-  def download(username: UserStr) = OpenBody:
+  def download(username: UserStr) = AuthBody { _ ?=> _ ?=>
     val user =
-      meOrFetch(username).dmap(_.filter(u => u.enabled.yes || ctx.is(u) || isGrantedOpt(_.GamesModView)))
+      meOrFetch(username).map(_.filter(u => u.enabled.yes || ctx.is(u) || isGrantedOpt(_.GamesModView)))
     FoundPage(user):
       views.user.download(_)
+  }
 
   def gamesAll(username: UserStr, page: Int) = games(username, GameFilter.all.name, page)
 
   def games(username: UserStr, filter: String, page: Int) = OpenBody:
     Reasonable(page):
-      WithProxy: proxy ?=>
-        limit.enumeration.userProfile(rateLimited):
-          EnabledUser(username): u =>
-            val isSearch = filter == GameFilter.search.name
-            if isSearch && ctx.isAnon
-            then
-              negotiate(
-                Unauthorized.page(views.gameSearch.login(u.count.game)),
-                Unauthorized(jsonError("Login required"))
-              )
-            else
-              negotiate(
-                html = for
-                  nbs <- env.userNbGames(u, withCrosstable = true)
-                  filters = lila.app.mashup.GameFilterMenu(u, nbs, filter, ctx.isAuth)
-                  pag <- env.gamePaginator(user = u, nbs = nbs.some, filter = filters.current, page = page)
-                  _ <- lightUserApi.preloadMany(pag.currentPageResults.flatMap(_.userIds))
-                  _ <- env.tournament.cached.nameCache.preloadMany:
-                    pag.currentPageResults.flatMap(_.tournamentId).map(tid => tid -> ctx.lang)
-                  _ <- env.swiss.cache.name.preloadMany:
-                    pag.currentPageResults.flatMap(_.swissId)
-                  res <-
-                    if HTTPRequest.isSynchronousHttp(ctx.req) then
-                      for
-                        info <- env.userInfo.fetch(u, nbs, restricted = isRestricted, withBlog = !isSearch)
-                        _ <- env.team.cached.lightCache.preloadMany(info.teamIds)
-                        social <- env.socialInfo(u)
-                        searchForm = (filters.current == GameFilter.search).option(
-                          lila.app.mashup.GameFilterMenu.searchForm(userGameSearch, filters.current)
-                        )
-                        res <- Ok.page:
-                          views.user.show.page.games(info, pag, filters, searchForm, social)
-                      yield res
-                    else Ok.snip(views.user.show.gamesContent(u, nbs, pag, filters, filter)).toFuccess
-                yield res.withCanonical(routes.User.games(u.username, filters.current.name)),
-                json = gamesForLichobile(u, filter, page)
-              )
+      RequireAuthIf(UserAgentParser.trust.isSuspicious || page > 1):
+        WithProxy: proxy ?=>
+          limit.enumeration.userProfile(rateLimited):
+            EnabledUser(username): u =>
+              val isSearch = filter == GameFilter.search.name
+              RequireAuthIf(isSearch):
+                negotiate(
+                  html = for
+                    nbs <- env.userNbGames(u, withCrosstable = true)
+                    filters = lila.app.mashup.GameFilterMenu(u, nbs, filter, ctx.isAuth)
+                    pag <- env.gamePaginator(user = u, nbs = nbs.some, filter = filters.current, page = page)
+                    _ <- lightUserApi.preloadMany(pag.currentPageResults.flatMap(_.userIds))
+                    _ <- env.tournament.cached.nameCache.preloadMany:
+                      pag.currentPageResults.flatMap(_.tournamentId).map(tid => tid -> ctx.lang)
+                    _ <- env.swiss.cache.name.preloadMany:
+                      pag.currentPageResults.flatMap(_.swissId)
+                    res <-
+                      if HTTPRequest.isSynchronousHttp(ctx.req) then
+                        for
+                          info <- env.userInfo.fetch(u, nbs, restricted = isRestricted, withBlog = !isSearch)
+                          _ <- env.team.cached.lightCache.preloadMany(info.teamIds)
+                          social <- env.socialInfo(u)
+                          searchForm = (filters.current == GameFilter.search).option(
+                            lila.app.mashup.GameFilterMenu.searchForm(userGameSearch, filters.current)
+                          )
+                          res <- Ok.page:
+                            views.user.show.page.games(info, pag, filters, searchForm, social)
+                        yield res
+                      else Ok.snip(views.user.show.gamesContent(u, nbs, pag, filters, filter)).toFuccess
+                  yield res.withCanonical(routes.User.games(u.username, filters.current.name)),
+                  json = gamesForLichobile(u, filter, page)
+                )
 
   private def EnabledUser(username: UserStr)(f: UserModel => Fu[Result])(using ctx: Context): Fu[Result] =
     if username.id.isGhost
@@ -174,6 +170,11 @@ final class User(
             .flatMap:
               case Some(url) => Redirect(url).toFuccess
               case None if isGrantedOpt(_.AccountInfo) => ctx.useMe(modC.searchTerm(username.value))
+              case None if username.id.is(UserId("me")) =>
+                negotiate(
+                  Redirect(routes.Auth.login.url, Map("referrer" -> List(ctx.req.uri))).toFuccess,
+                  authenticationFailed
+                )
               case None => notFound(true)
         case Some(u) if u.enabled.yes || isGrantedOpt(_.AccountInfo) => f(u)
         case u => notFound(u.isEmpty)

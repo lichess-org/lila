@@ -1,5 +1,6 @@
 import { status } from 'lib/game';
-import { spinnerVdom as spinner, type VNode, bind, hl, snabIcon } from 'lib/view';
+import { licon } from 'lib/licon';
+import { spinnerVdom as spinner, type VNode, bind, dataIcon, hl } from 'lib/view';
 import { numberRow } from 'lib/view/util';
 
 import type TournamentController from '../ctrl';
@@ -33,9 +34,10 @@ export default function (ctrl: TournamentController): VNode {
       ? Math.round(data.pairings.reduce((a, b) => a + b.op.rating, 0) / pairingsLen)
       : undefined;
   return hl(tag, { hook: { insert: setup, postpatch: (_, vnode) => setup(vnode) } }, [
-    hl('button.close', { hook: bind('click', () => ctrl.showPlayerInfo(data.player), ctrl.redraw) }, [
-      snabIcon('x'),
-    ]),
+    hl('button.close', {
+      attrs: dataIcon(licon.X),
+      hook: bind('click', () => ctrl.showPlayerInfo(data.player), ctrl.redraw),
+    }),
     hl('div.stats', [
       playerTitle(data.player, ctrl.data.id),
       data.player.team &&
@@ -91,4 +93,4 @@ export default function (ctrl: TournamentController): VNode {
 }
 
 const berserkTd = (b: boolean) =>
-  b ? hl('td.berserk', { attrs: { title: 'berserk' } }, [snabIcon('berserk')]) : hl('td.berserk');
+  b ? hl('td.berserk', { attrs: { ...dataIcon(licon.Berserk), title: 'Berserk' } }) : hl('td.berserk');

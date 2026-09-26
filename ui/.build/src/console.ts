@@ -1,8 +1,9 @@
 import { transform } from 'esbuild';
 import stringify from 'json-stringify-pretty-compact';
 import { createServer, IncomingMessage, ServerResponse } from 'node:http';
+import pc from 'picocolors';
 
-import { env, errorMark, warnMark, c } from './env.ts';
+import { env, errorMark, warnMark } from './env.ts';
 
 export async function startConsole() {
   if (!env.remoteLog || !env.watch) return;
@@ -34,7 +35,7 @@ export async function startConsole() {
 
         if (typeof val !== 'string') val = stringify(val, { indent: 2, maxLength: 80 });
 
-        env.log(`${mark}${c.grey(val)}`, ip);
+        env.log(`${mark}${pc.gray(val)}`, ip);
         return res
           .writeHead(200, { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'POST' })
           .end();

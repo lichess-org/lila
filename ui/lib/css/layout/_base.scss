@@ -39,7 +39,7 @@ body {
   margin-top: $site-header-margin;
 
   @include mq-sticky-header {
-    margin-top: $site-header-outer-height;
+    margin-top: var(---sticky-gap);
   }
 
   &.full-screen {
@@ -48,12 +48,6 @@ body {
 
   &.full-screen-force {
     ---main-max-width: 100%;
-  }
-
-  @media (hover: none) {
-    body.clinput & {
-      display: none;
-    }
   }
 }
 

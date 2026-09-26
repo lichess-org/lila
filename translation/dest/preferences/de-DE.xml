@@ -41,6 +41,7 @@
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Reklamiere automatisch Remis bei dreifacher Stellungswiederholung</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Wenn Restzeit &lt; 30 Sekunden</string>
   <string name="moveConfirmation">Zugbestätigung</string>
+  <string name="multipleChoices">Mehrere Auswahlmöglichkeiten. </string>
   <string name="explainCanThenBeTemporarilyDisabled">Kann während einer Partie mittels Brettmenü deaktiviert werden</string>
   <string name="inCorrespondenceGames">Im Fernschach</string>
   <string name="correspondenceAndUnlimited">Fernschach und unbegrenzt</string>
@@ -56,16 +57,12 @@
   <string name="scrollOnTheBoardToReplayMoves">Auf dem Brett scrollen, um Züge durchzugehen</string>
   <string name="correspondenceEmailNotification">Tägliche E-Mail-Benachrichtigung, die deine Fernschachpartien auflistet</string>
   <string name="notifyStreamStart">Streamer ist live</string>
-  <string name="notifyInboxMsg">Neue Nachricht im Posteingang</string>
-  <string name="notifyDirectMessage" comment="notifyInboxMsg&#10;&#10;A notification setting - notifies players when they receive a new message in their Lichess inbox Replaces old string notifyInboxMsg">Neue Direktnachricht</string>
-  <string name="notifyForumMention">Forenkommentar erwähnt dich</string>
-  <string name="notifyForumMentions" comment="notifyForumMention&#10;&#10; A notification setting - notifies players when someone has @mentioned their name in the Lichess Forum (https://lichess.org/forum) Replaces old string notifyForumMention">Forumserwähnungen</string>
-  <string name="notifyInvitedStudy">Einladung zu Studie</string>
-  <string name="notifyStudyInvites" comment="notifyInvitedStudy&#10;&#10; A notification setting - notifies players about invites to studies (https://lichess.org/study/) Replaces old string notifyInvitedStudy">Einladungen zu Studien</string>
+  <string name="notifyDirectMessage" comment="notifyInboxMsg&#10;&#10;A notification setting - notifies players when they receive a new message in their Lichess inbox">Neue Direktnachricht</string>
+  <string name="notifyForumMentions" comment="notifyForumMention&#10;&#10; A notification setting - notifies players when someone has @mentioned their name in the Lichess Forum (https://lichess.org/forum)">Forumserwähnungen</string>
+  <string name="notifyStudyInvites" comment="notifyInvitedStudy&#10;&#10; A notification setting - notifies players about invites to studies (https://lichess.org/study/)">Einladungen zu Studien</string>
   <string name="notifyGameEvent">Neuigkeiten in Fernschachpartie</string>
   <string name="notifyChallenge">Herausforderungen</string>
-  <string name="notifyTournamentSoon">Turnier beginnt bald</string>
-  <string name="notifyTournamentStartReminders" comment="notifyTournamentSoon&#10;&#10;A notification setting - notifies players if a tournament is starting soon. Replaces old string notifyTournamentSoon">Turnierstart-Erinnerungen</string>
+  <string name="notifyTournamentStartReminders" comment="notifyTournamentSoon&#10;&#10;A notification setting - notifies players if a tournament is starting soon.">Turnierstart-Erinnerungen</string>
   <string name="notifyBroadcasts">Übertragungen</string>
   <string name="notifyTimeAlarm">Zeit in Fernschachpartie neigt sich dem Ende zu</string>
   <string name="notifyBell">Benachrichtigungs-Glocke auf Lichess</string>
@@ -93,4 +90,10 @@
   <string name="analysisSettings">Analyse-Einstellungen</string>
   <string name="maneuverArrowsHelp">Reihenfolge der Computerzüge für eine Figur</string>
   <string name="hoverOverSettingLabelsForHelp">Fahre mit deinem Mauszeiger über die Einstellungs-Label, um Hilfe zu erhalten</string>
+  <string name="network">Netzwerk</string>
+  <string name="youAreCurrentlyUsingDirectRouting">Du verwendest zurzeit direktes Routing.</string>
+  <string name="youAreCurrentlyUsingCdnRouting">Du verwendest zurzeit Routing durch das Content Delivery Network (CDN).</string>
+  <string name="frequentDisconnectsAdvice">Falls du häufig Verbindungsabbrüche hast, versuche das Routing zu ändern.</string>
+  <string name="useDirectRouting">Direktes Routing verwenden</string>
+  <string name="useCdnRouting">CDN-Routing verwenden</string>
 </resources>

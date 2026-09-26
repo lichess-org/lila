@@ -16,19 +16,19 @@ final class OpeningUi(helpers: Helpers, bits: OpeningBits, wiki: WikiUi):
         OpenGraph(
           `type` = "article",
           image = fenThumbnailUrl(page.query.fen).some,
-          title = "Chess openings",
+          title = trans.site.chessOpenings.txt(),
           url = routeUrl(routes.Opening.index()),
-          description = "Explore the chess openings"
+          description = trans.site.chessOpenings.txt()
         )
       ):
         main(cls := "page box box-pad opening opening--index")(
           searchAndConfig(page.query.config, "", ""),
           resultsList(Nil),
           boxTop(
-            h1("Chess openings"),
+            h1(trans.site.chessOpenings()),
             div(cls := "box__top__actions")(
-              a(href := routes.Opening.tree)("Name tree"),
-              a(href := s"${routes.UserAnalysis.index}#explorer")("Explorer")
+              a(href := routes.Opening.tree)(trans.site.list()),
+              a(href := explorerUrl)(trans.site.openingExplorer())
             )
           ),
           whatsNext(page),
@@ -41,10 +41,10 @@ final class OpeningUi(helpers: Helpers, bits: OpeningBits, wiki: WikiUi):
         searchAndConfig(config, "", "tree"),
         resultsList(Nil),
         boxTop(
-          h1("Chess openings name tree"),
+          h1(trans.site.chessOpenings(), " • ", trans.site.list()),
           div(cls := "box__top__actions")(
-            a(href := routes.Opening.index())("Opening pages"),
-            a(href := s"${routes.UserAnalysis.index}#explorer")("Explorer")
+            a(href := routes.Opening.index())(trans.site.boards()),
+            a(href := explorerUrl)(trans.site.openingExplorer())
           )
         ),
         div(cls := "opening__tree")(
@@ -69,8 +69,8 @@ final class OpeningUi(helpers: Helpers, bits: OpeningBits, wiki: WikiUi):
           resultsList(Nil),
           h1(cls := "opening__title")(
             page.query.prev match
-              case Some(prev) => a(href := queryUrl(prev), title := prev.name, iconEl := Icon.lessThan)
-              case None => a(href := routes.Opening.index(), iconEl := Icon.lessThan)
+              case Some(prev) => a(href := queryUrl(prev), title := prev.name, dataIcon := Icon.LessThan)
+              case None => a(href := routes.Opening.index(), dataIcon := Icon.LessThan)
             ,
             span(cls := "opening__name")(
               page.nameParts.mapWithIndex: (part, i) =>
@@ -106,17 +106,13 @@ final class OpeningUi(helpers: Helpers, bits: OpeningBits, wiki: WikiUi):
                   cls := "opening__actions"
                 )(
                   puzzleKey.map { key =>
-                    a(
-                      cls := "button text",
-                      iconEl := Icon.archeryTarget,
-                      href := routes.Puzzle.show(key)
-                    )(
+                    a(cls := "button text", dataIcon := Icon.ArcheryTarget, href := routes.Puzzle.show(key))(
                       "Train with puzzles"
                     )
                   },
                   a(
                     cls := "button text",
-                    iconEl := Icon.book,
+                    dataIcon := Icon.Book,
                     href := s"${routes.UserAnalysis.pgn(page.query.sans.mkString("_"))}#explorer"
                   )(trans.site.openingExplorer())
                 ),
@@ -142,22 +138,22 @@ final class OpeningUi(helpers: Helpers, bits: OpeningBits, wiki: WikiUi):
     openingPage(s"${trans.site.opening.txt()} • $q", none):
       main(cls := "page box box-pad opening opening--search")(
         searchAndConfig(config, q, s"q:$q", searchFocus = true),
-        h1(cls := "box__top")("Chess openings"),
+        h1(cls := "box__top")(trans.site.chessOpenings()),
         resultsList(results)
       )
 
-  private def searchForm(q: String, focus: Boolean) =
+  private def searchForm(q: String, focus: Boolean)(using Context) =
     st.form(cls := "opening__search-form", action := routes.Opening.index(), method := "get")(
       input(
         cls := "opening__search-form__input",
         name := "q",
-        st.placeholder := "Search for openings",
+        st.placeholder := trans.site.search.txt(),
         st.value := q,
         autofocus := focus.option("true"),
         autocomplete := "off",
         spellcheck := "false"
       ),
-      submitButton(cls := "button", iconEl := Icon.search)
+      submitButton(cls := "button", dataIcon := Icon.Search)
     )
 
   def resultsList(results: List[OpeningSearchResult]) =
@@ -171,6 +167,8 @@ final class OpeningUi(helpers: Helpers, bits: OpeningBits, wiki: WikiUi):
         )
       }
     )
+
+  private val explorerUrl = s"${routes.UserAnalysis.index}#explorer"
 
   private def searchAndConfig(config: OpeningConfig, q: String, thenTo: String, searchFocus: Boolean = false)(
       using Context

@@ -44,15 +44,12 @@
   <string name="doubleCheckDescription">Atklāta uzbrukuma rezultātā pieteikts šahs ar abām figūrām vienlaikus: gan ar atklāto figūru, gan ar izkustināto figūru.</string>
   <string name="endgame">Beigu spēle</string>
   <string name="endgameDescription">Sēles noslēdzošā posma taktika.</string>
-  <string name="enPassantDescription">Stratēģija, kas iesaista garāmejošā sitiena noteikumu, kurš nosaka, ka bandinieks var nosist pretinieka bandinieku, ja tas tikko nostājies blakus ar sākotnējo divu lauciņu gājienu.</string>
   <string name="exposedKing">Atklāts karalis</string>
   <string name="exposedKingDescription">Uzbrukums karalim, kam ir maz aizsargājošu figūru; šis bieži noved pie mata.</string>
   <string name="fork">Dakša</string>
-  <string name="forkDescription">Gājiens, pēc kura kustinātā figūra uzbrūk diviem pretiniekiem reizē.</string>
   <string name="hangingPiece">Neapsargāta figūra</string>
   <string name="hangingPieceDescription">Taktika, ar kuru var par brīvu nosist pretinieka figūru, kas ir neapsargāta vai nepietiekami apsargāta.</string>
   <string name="hookMate">Āķa mats</string>
-  <string name="hookMateDescription">Mats ar torni, zirdziņu un bandinieku, kurā iesaistīts viens pretinieka bandinieks, kas ierobežo karaļa izbēgšanu.</string>
   <string name="interference">Iejaukšanās</string>
   <string name="interferenceDescription">Figūras novietošana starp divām pretinieka figūrām tā, lai vismaz viena no tām būtu neapsargāta — piemēram zirdziņa novietošana uz apsargāta lauciņa starp torņiem.</string>
   <string name="intermezzo">Intermezzo</string>
@@ -88,7 +85,6 @@
   <string name="pin">Piespraušana</string>
   <string name="pinDescription">Taktika, kas iesaista piespraušanu – pozīciju, kurā figūra nevar izkustēties bez uzbrukuma atklāšanas augstākas vērtības figūrai.</string>
   <string name="promotion">Paaugstināšana</string>
-  <string name="promotionDescription">Paaugstiniet bandinieku par dāmu vai citu figūru.</string>
   <string name="queenEndgame">Dāmu beigu spēle</string>
   <string name="queenEndgameDescription">Beigu spēle, kurā iesaistīti tikai bandinieki un dāmas.</string>
   <string name="queenRookEndgame">Dāmu un torņu beigu spēle</string>

@@ -149,25 +149,13 @@
   <string name="blunder">En Patzer</string>
   <string name="mistake">Fähler</string>
   <string name="inaccuracy">Ungnauigkeit</string>
-  <plurals name="nbBlunders">
-    <item quantity="one">%s Patzer</item>
-    <item quantity="other">%s Patzer</item>
-  </plurals>
   <plurals name="numberBlunders">
     <item quantity="one">%s Patzer</item>
     <item quantity="other">%s Patzer</item>
   </plurals>
-  <plurals name="nbMistakes">
-    <item quantity="one">%s Fähler</item>
-    <item quantity="other">%s Fähler</item>
-  </plurals>
   <plurals name="numberMistakes">
     <item quantity="one">%s Fähler</item>
     <item quantity="other">%s Fähler</item>
-  </plurals>
-  <plurals name="nbInaccuracies">
-    <item quantity="one">%s Ungnauigkeit</item>
-    <item quantity="other">%s Ungnauigkeite</item>
   </plurals>
   <plurals name="numberInaccuracies">
     <item quantity="one">%s Ungnauigkeit</item>
@@ -175,6 +163,10 @@
   </plurals>
   <string name="moveTimes">Zugzite</string>
   <string name="flipBoard">Brätt umcheere</string>
+  <string name="toggleLocalEngine">Lokali Engine umschalte</string>
+  <string name="engineSettings">Engine Ischtellige</string>
+  <string name="enginesFromStrongestToWeakest">Engines vo stärkste bis schwächste</string>
+  <string name="illegalPosition">Illegali Schtellig</string>
   <string name="threefoldRepetition">Drüüfachi Stelligswiederholig</string>
   <string name="claimADraw">Es Remis beaschpruche</string>
   <string name="drawClaimed">Remis g\'forderet</string>
@@ -250,6 +242,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="signupUsernameHint">Wähl bitte en aschtändige Benutzername. Du chasch en nachträglich nöd ändere und jedes Konto mit untolerierbarem Name wird gschlosse!</string>
   <string name="signupEmailPromise">Mir schicked dir nur E-Mail, wo dis Konto beträffed und gänd dini E-Mail-Adrässe niemals und niemerem witer.</string>
   <string name="password">Passwort</string>
+  <string name="showPassword">Passwort azeige</string>
   <string name="changePassword">Passwort ändere</string>
   <string name="changeEmail">E-Mail-Adrässe ändere</string>
   <string name="email">E-Mail</string>
@@ -271,8 +264,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="emailSent">Mir händ es E-Mail a %s gschickt.</string>
   <string name="emailCanTakeSomeTime">Es brucht ochli Zit, bis es achunnt.</string>
   <string name="refreshInboxAfterFiveMinutes">Wart 5 Minute und check dini E-Mail-Inbox.</string>
-  <string name="checkSpamFolder">Lueg au im Spam-Ordner, es chönnt det glandet si. Wänn ja, lösch d\'Spam-Markierig.</string>
-  <string name="checkSpamOrJunkFolder" comment="checkSpamFolder&#10;It = The confirmation email Replaces old string checkSpamFolder">Wenn Du chai Mail zr Bschtätigung hesch übercho, lueg nomal im Spam- odr Junkordner. Bitte tuen denn au d\'Nachricht als sicher und \"chei Spam\" deklariere, demit du chasch informiert blibe und wichtigi Nachritä chasch empfangä.</string>
+  <string name="checkSpamOrJunkFolder" comment="checkSpamFolder&#10;It = The confirmation email">Wenn Du chai Mail zr Bschtätigung hesch übercho, lueg nomal im Spam- odr Junkordner. Bitte tuen denn au d\'Nachricht als sicher und \"chei Spam\" deklariere, demit du chasch informiert blibe und wichtigi Nachritä chasch empfangä.</string>
   <string name="sendEmailForAccountVerification">Wenn du d\'Konfirmationsmail nid chasch finde, schick äs Mail a %s und mir werdet s\'Konto für di bschtätige.</string>
   <string name="accountConfirmed">De Benutzer %s isch erfolgrich beschtätigt.</string>
   <string name="accountCanLogin">Du chasch jetzt als %s ilogge.</string>
@@ -296,8 +288,8 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   </plurals>
   <string name="ok">OK</string>
   <string name="cancel">Abbräche</string>
-  <string name="whiteTimeOut">Wiss hät d\'Zit überschritte</string>
-  <string name="blackTimeOut">Schwarz hät d\'Zit überschritte</string>
+  <string name="whiteRanOutOfTime" comment="whiteTimeOut&#10;&#10;Shows when White's time has run out. Is followed by the end condition, for example&#10;'White ran out of time · Draw'">Ziitüberschritig vo Wiss</string>
+  <string name="blackRanOutOfTime" comment="blackTimeOut&#10;&#10;Shows when Black's time has run out. Is followed by the end condition, for example&#10;'Black ran out of time · Draw'">Ziitüberschritig vo Schwarz</string>
   <string name="drawOfferSent">Remis-Agebot gsändet</string>
   <string name="drawOfferAccepted">Remis-Agebot akzeptiert</string>
   <string name="whiteOffersDraw">Wiss offeriert Remis</string>
@@ -418,7 +410,6 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
     <item quantity="other">Du bruchsch no %s g\'werteti Schpiel meh</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Dini %s Wertig isch provisorisch</string>
-  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">D\'Bewertigsfilter sind geschperrt, will dini Wertig nöd schtabil isch. Durs Schpiele vu bewertete Schpiel wird die Schtabilität erhöht.</string>
   <string name="yourPerfRatingIsTooHigh">Dini %1$s Wertig (%2$s) isch z\'höch</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Dini höchschti %1$s Wertig (%2$s) isch z\'höch</string>
   <string name="yourPerfRatingIsTooLow">Dini %1$s Wertig (%2$s) isch z\'tüf</string>
@@ -439,7 +430,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="apply">Awände</string>
   <string name="save">Schpeichere</string>
   <string name="leaderboard">Ranglischte</string>
-  <string name="screenshotCurrentPosition">En Screenshot vu de aktuelle Schtellig mache</string>
+  <string name="positionAsImage" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position.">Schtellig als Foti</string>
   <string name="gameAsGIF">Schpiel als GIF</string>
   <string name="playerNames">Schpiller Näme</string>
   <string name="moveAnnotations">Zugs-Notatione</string>
@@ -553,7 +544,7 @@ zum bewise dass du en Mänsch bisch.</string>
   <string name="oneUrlPerLine">Nur 1 Web Adrässe (URL) pro Zile.</string>
   <string name="inlineNotation">Inline-Notation</string>
   <string name="makeAStudy">Zum Variante sicher ufzbewahre und zum Witergeh, söttsch e Schtudie erschtelle.</string>
-  <string name="clearSavedMoves">Gschpeichereti Züg lösche</string>
+  <string name="clearLocalData">Lokali Date lösche</string>
   <string name="previouslyOnLichessTV">Zletscht uf Lichess TV</string>
   <string name="onlinePlayers">Online Schpiller</string>
   <string name="activePlayers">Aktivi Schpiller</string>
@@ -599,8 +590,7 @@ zum bewise dass du en Mänsch bisch.</string>
   <string name="other">Suschtigs</string>
   <string name="reportCheatBoostHelp">Füeg de Link dem/dene Schpiel bi und erchlär, wie sich de Benutzer falsch benah hät. Säg nöd nur \"de bschisst\", schrib eus wie du da druf chunnsch. (änglisch gschribeni Mäldige, werded schnäller behandlet).</string>
   <string name="reportUsernameHelp">Erchlär, was am Benutzername nöd in Ornig isch: Säg nöd eifach \"er isch beleidigend/unagmässe\", sondern schrib eus, wie du zu dere Folgerig cho bisch. B\'sunders wänn die Beleidigung verschleieret-, nöd uf Änglisch- oder in Dialäkt isch oder wänn sie en historische oder kulturelle Bezug hät.</string>
-  <string name="reportProcessedFasterInEnglish">Änglisch g\'schribeni Mäldige werded schnäller behandlet.</string>
-  <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it. Replaces old string reportProcessedFasterInEnglish">Mir chönd dini Meldig schneller uf Änglisch bearbeite.</string>
+  <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">Mir chönd dini Meldig schneller uf Änglisch bearbeite.</string>
   <string name="error.provideOneCheatedGameLink">Bitte gib mindeschtens 1 Link zume Schpiel a, wo bschisse worde isch.</string>
   <string name="by">vu %s</string>
   <string name="importedByX">Importiert vu %s</string>
@@ -731,12 +721,10 @@ Nächschte und macht bi jedem Brätt 1 Zug.</string>
   <string name="aboutSimulSettings">Zugsrücknahme, zuesätzlichi Zit oder Revanche 
 gits nöd und es isch nie g\'wertet.</string>
   <string name="create">Erschtelle</string>
-  <string name="whenCreateSimul">Wänn du dir es Simultanschach machsch, chasch du glichzitig gäge mehreri Gägner schpille.</string>
-  <string name="creatingASimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new Replaces old string whenCreateSimul">Es Simultan z\'veranstalte erlaubt dir, gäge mehreri Spiler ufs mal z\'spiele.</string>
+  <string name="creatingASimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Es Simultan z\'veranstalte erlaubt dir, gäge mehreri Spiler ufs mal z\'spiele.</string>
   <string name="simulVariantsHint">Wänn du mehreri Variante wählsch, chann jede Simultangägner ussueche, was er schpille will.</string>
   <string name="simulClockHint">Fischer Uhr: Je meh Gägner, umso meh Zit bruchsch wahrschinlich.</string>
   <string name="simulAddExtraTime">Du chasch dir Extrazit geh, dass du z\'rächt chunsch.</string>
-  <string name="simulHostExtraTime">Extrazit Simultanschpiller</string>
   <string name="simulAddExtraTimePerPlayer">Gib für jede Schpiller, wo am Simultan teilnimmt, bi dinere Uhr Zit dezue</string>
   <string name="simulHostExtraTimePerPlayer">Für jede Schpiller zuesätzlichi Zit addiere</string>
   <string name="lichessTournaments">Lichess Turnier</string>
@@ -749,6 +737,7 @@ gits nöd und es isch nie g\'wertet.</string>
   <string name="keyGoToStartOrEnd">gang zum Afang/Änd</string>
   <string name="keyCycleSelectedVariation">Usgwählti Zyklusvariante</string>
   <string name="keyShowOrHideComments">zeig/verschteck d\'Kommentär</string>
+  <string name="keyShowOrHideCurrentVariation">aktuelli Variante i/usblende</string>
   <string name="keyEnterOrExitVariation">Variante ischtige/verlah</string>
   <string name="keyPreviousBranch">Vorherige Variante</string>
   <string name="keyNextBranch">Nächschti Variante</string>
@@ -831,10 +820,6 @@ gits nöd und es isch nie g\'wertet.</string>
   <string name="quickPairing">Schnälli Paarig</string>
   <string name="lobby">Lobby</string>
   <string name="anonymous">Anonym</string>
-  <plurals name="nbAnonymous">
-    <item quantity="one">Anonymer Zuschauer</item>
-    <item quantity="other">Anonymi Zuschauer (%s)</item>
-  </plurals>
   <string name="yourScore">Din Punkteschtand: %s</string>
   <string name="language">Schprach</string>
   <string name="allLanguages">Alli Schprache</string>
@@ -842,10 +827,10 @@ gits nöd und es isch nie g\'wertet.</string>
   <string name="theme">Farbschema</string>
   <string name="light">Hell</string>
   <string name="dark">Dunkel</string>
-  <string name="transparent">Durchsichtig</string>
   <string name="picture">Hintergrundbild</string>
   <string name="deviceTheme">Mit em Grät synchronisiere</string>
   <string name="roundness">Eckeabrundig</string>
+  <string name="backgroundImage">Hintergrundbild</string>
   <string name="backgroundImageUrl">Hindergrund-Bild-URL:</string>
   <string name="imageOpacity">Bildtransparenz</string>
   <string name="board">Brätt</string>
@@ -870,7 +855,7 @@ gits nöd und es isch nie g\'wertet.</string>
   <string name="custom">Eigeni Bedänkzit</string>
   <string name="notifications">Benachrichtigunge</string>
   <string name="notificationsX">Benachrichtigunge: %1$s</string>
-  <string name="perfRatingX">Wertig: %s</string>
+  <string name="perfRatingLabel">Wertig: %s.</string>
   <string name="yourRatingIsX">Dini Wertig: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s Sekunde für de 1. Zug</item>
@@ -929,7 +914,7 @@ gits nöd und es isch nie g\'wertet.</string>
     <item quantity="other">und speicher %s Voruszug Zile</item>
   </plurals>
   <string name="showUnreadLichessMessage">Lichess hät dir e privati Nachricht g\'schickt.</string>
-  <string name="clickHereToReadIt">Klick da zum läse</string>
+  <string name="readTheMessage" comment="'It' refers to a private message. This text follows after a different string which advises players they have received a private message from Lichess. For users, this is appears as a regular private message from the Lichess account: https://lichess.org/@/Lichess">Nachricht lese</string>
   <string name="sorry">Äxgüsi :(</string>
   <string name="weHadToTimeYouOutForAWhile">Mir händ dich für es Zitli müesse schperre.</string>
   <string name="why">Wieso?</string>
@@ -1016,16 +1001,14 @@ Fäld leer lah und all Schpiel normal schtarte.</string>
   <string name="simulFeaturedHelp">Zeig allne uf %s dis Simultanschach. Privats Simultanschach deaktiviert.</string>
   <string name="simulDescription">Simultanschach Beschribig</string>
   <string name="simulDescriptionHelp">Wottsch de Teilnehmer öppis mitteile?</string>
-  <string name="markdownIsAvailable">%s isch zur Formatierig verfüegbar.</string>
-  <string name="youCanFormatTextUsing" comment="%s is &quot;Markdown&quot;, a proper noun. As such, the word is intentionally kept as a variable.&#10;&#10;Markdown is a markup language - a type of code that lets you format text (e.g. to create bold text).&#10;&#10;The text links to a reference guide for using Markdown to format text. Replaces old string markdownIsAvailable">Du chasch Text mit %s formatiere.</string>
+  <string name="youCanFormatTextUsing" comment="%s is &quot;Markdown&quot;, a proper noun. As such, the word is intentionally kept as a variable.&#10;&#10;Markdown is a markup language - a type of code that lets you format text (e.g. to create bold text).&#10;&#10;The text links to a reference guide for using Markdown to format text.">Du chasch Text mit %s formatiere.</string>
   <string name="embedsAvailable">Füeg zum Ibette e Schpil-URL oder e Schtudiekapitel-URL i.</string>
   <string name="inYourLocalTimezone">I dinere lokale Zitzone</string>
   <string name="tournChat">Turnier Chat</string>
   <string name="noChat">Kein Chat</string>
   <string name="onlyTeamLeaders">Nur Teamleiter</string>
   <string name="onlyTeamMembers">Nur Team-Mitglider</string>
-  <string name="navigateMoveTree">Dur de Zugbaum navigiere</string>
-  <string name="moveListNavigation" comment="navigateMoveTree&#10;&#10;Appears in the keyboard shortcuts/help screen. The 'move tree' is simply the list of moves. Replaces old string navigateMoveTree">Zuglischte-Navigation</string>
+  <string name="moveListNavigation" comment="navigateMoveTree&#10;&#10;Appears in the keyboard shortcuts/help screen. The 'move tree' is simply the list of moves.">Zuglischte-Navigation</string>
   <string name="mouseTricks">Tricks mit de Muus</string>
   <string name="toggleLocalAnalysis">Lokali Computer-Analyse a-/abschalte</string>
   <string name="toggleAllAnalysis">Alli Computer-Analyse a-/abschalte</string>
@@ -1067,4 +1050,7 @@ Alli Betriebs-Choschte, d\'Entwicklig und d\'Inhält werded usschliesslich dur B
   <string name="tags">Tags</string>
   <string name="enPassant">En passant</string>
   <string name="settings">Ischtellige</string>
+  <string name="verifyingYourDevice">Dis Grät wird überprüft...</string>
+  <string name="chessOpenings">Schacheröffnige</string>
+  <string name="boards">Brätter</string>
 </resources>

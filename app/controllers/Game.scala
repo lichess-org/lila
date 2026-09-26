@@ -32,6 +32,7 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
     exportGame(id.gameId)
 
   private[controllers] def exportGame(gameId: GameId)(using ctx: Context): Fu[Result] =
+    given Option[Me] = ctx.isFullAuth.so(ctx.me)
     Found(env.round.proxyRepo.gameIfPresentOrFetch(gameId)): game =>
       val config = GameApiV2.OneConfig(
         format = GameApiV2.Format.byRequest,
@@ -46,7 +47,7 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
         .withHeaders(headersForApiOrApp*)
         .as(gameContentType(config))
 
-  def exportByUser(username: UserStr) = OpenOrScoped()(handleExport(username))
+  def exportByUser(username: UserStr) = AuthOrScoped()(handleExport(username))
   def apiExportByUser(username: UserStr) = OpenOrScoped()(handleExport(username))
 
   private def handleExport(username: UserStr)(using ctx: Context) =

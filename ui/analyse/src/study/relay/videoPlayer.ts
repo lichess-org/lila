@@ -1,4 +1,5 @@
-import { domIcon, hl, type VNode, onInsert, snabIcon } from 'lib/view';
+import { licon } from 'lib/licon';
+import { hl, type VNode, onInsert } from 'lib/view';
 
 export class VideoPlayer {
   private readonly iframe: HTMLIFrameElement;
@@ -18,7 +19,9 @@ export class VideoPlayer {
     this.iframe.src = o.embed;
     this.iframe.allow = 'autoplay';
 
-    this.close = domIcon('x', 'video-player-close');
+    this.close = document.createElement('icon');
+    this.close.dataset.icon = licon.X;
+    this.close.className = 'video-player-close';
     this.close.addEventListener('click', () => this.onEmbed('no'), true);
 
     this.addWindowResizer();
@@ -81,14 +84,10 @@ export class VideoPlayer {
               el.addEventListener('contextmenu', () => window.open(this.o.redirect, '_blank'));
             }),
           }),
-          hl(
-            'button.video-player-close',
-            {
-              attrs: { 'aria-label': i18n.site.close, type: 'button' },
-              hook: onInsert(el => el.addEventListener('click', () => this.onEmbed('no'))),
-            },
-            [snabIcon('x')],
-          ),
+          hl('icon.video-player-close', {
+            attrs: { 'data-icon': licon.X },
+            hook: onInsert(el => el.addEventListener('click', () => this.onEmbed('no'))),
+          }),
           this.o.text && hl('div.text-box', hl('div', this.o.text)),
           hl(
             'svg.play-button',

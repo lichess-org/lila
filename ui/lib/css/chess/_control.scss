@@ -10,13 +10,8 @@
     @extend %box-radius-bottom;
     @include prevent-select;
 
-    line-height: unset;
     -webkit-touch-callout: none;
     text-align: center;
-
-    .svg-icon {
-      margin-top: 5px;
-    }
   }
 
   [data-act='opening-explorer'],
@@ -47,19 +42,13 @@
         font-size: 0.75em;
       }
 
-      &[data-act='line'],
-      &[data-act='prev'],
-      &[data-act='next'] {
+      &[data-act='line'] {
         font-size: 0.9em;
       }
     }
   }
 
   @include mq-is-col1 {
-    .fbt .svg-icon {
-      margin-top: unset;
-    }
-
     .jumps .fbt[data-act='prev'],
     .jumps .fbt[data-act='next'] {
       padding-inline: 6px;

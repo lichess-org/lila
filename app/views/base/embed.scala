@@ -17,7 +17,8 @@ object embed:
         head(
           page.ui.charset,
           page.ui.viewport,
-          page.ui.metaCsp(embedCsp.withNonce(ctx.nonce)),
+          page.ui.metaCsp(embedCsp.withNonce(ctx.nonce).withInlineIconFont),
+          page.ui.noRobots,
           st.headTitle(title),
           (ctx.bg == "system").option(page.ui.systemThemeScript(ctx.nonce.some)),
           page.pieceSetImages.load(ctx.pieceSet.name),
@@ -63,13 +64,15 @@ object embed:
         head(
           page.ui.charset,
           page.ui.viewport,
-          page.ui.metaCsp(csp(basicCsp.withNonce(ctx.nonce))),
+          page.ui.noRobots,
+          page.ui.metaCsp(csp(basicCsp.withNonce(ctx.nonce).withInlineIconFont)),
           st.headTitle(title),
           (ctx.bg == "system").option(page.ui.systemThemeScript(ctx.nonce.some)),
           page.pieceSetImages.load(ctx.pieceSet.name),
           cssTag("lib.theme.embed"),
           cssKeys.map(cssTag),
-          page.ui.sitePreload(List[I18nModule.Selector](_.site, _.timeago) ++ i18nModules, allModules)
+          page.ui.sitePreload(List[I18nModule.Selector](_.site, _.timeago) ++ i18nModules, allModules),
+          page.ui.lichessFontFaceCss
         ),
         st.body(bodyModifiers)(
           body,

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="community">コミュニティ</string>
+  <string name="communityBlogs">コミュニティブログ</string>
   <string name="byMonth">月別</string>
   <string name="byTopic">トピック別</string>
   <string name="byLichess">Lichess 公式</string>
@@ -8,6 +9,7 @@
   <string name="myLikes">お気に入り</string>
   <string name="myBlog">自分のブログ</string>
   <string name="likedBlogs">いいねを押したブログ投稿</string>
+  <string name="blogPostsByFriends">友達によるブログ投稿</string>
   <plurals name="blogPosts">
     <item quantity="other">%s ブログ投稿</item>
   </plurals>
@@ -27,6 +29,8 @@
   <string name="createBlogDiscussionHelp">フォーラムにトピックを作るといろんな人からコメントが来ます</string>
   <string name="publishOnYourBlog">ブログ上で公開</string>
   <string name="publishHelp">チェックすると投稿がブログに表示されます。しないと下書きで非公開となります。</string>
+  <string name="includesPromotedContent">プロモート/スポンサー付きコンテンツかアフィリエイトリンクを含む</string>
+  <string name="mandatoryForSponsoredContent">スポンサー付きコンテンツ、アフィリエイトリンク、商業広告には必須です</string>
   <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">優先表示</string>
   <string name="stickyPostHelp">チェックするとこの投稿がプロフィールの「最近の投稿」の最初に表示されます。</string>
   <plurals name="publishedNbBlogPosts">
@@ -41,15 +45,17 @@
   <string name="noPostsInThisBlogYet">このブログにはまだ投稿なし。</string>
   <string name="noDrafts">下書きがありません。</string>
   <string name="latestBlogPosts">最新のブログ投稿</string>
+  <string name="recentPosts">最近の投稿</string>
   <plurals name="viewAllNbPosts">
     <item quantity="other">%s 件の投稿を表示</item>
   </plurals>
   <string name="imageAlt">画像代替テキスト</string>
   <string name="imageCredit">画像クレジット</string>
+  <string name="coverImage">トップ画像</string>
   <string name="deleteBlog">このブログ投稿を永久に削除する</string>
-  <string name="safeToUseImages">以下のウェブサイトの画像を使うのが安全です: </string>
-  <string name="freeImagesComplyWithLicensing" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement. Replaces old string safeToUseImages">以下のウェブサイトは画像を無料で提供しています。使用する画像のライセンス条件に従ってください。</string>
+  <string name="freeImagesComplyWithLicensing" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">以下のウェブサイトは画像を無料で提供しています。使用する画像のライセンス条件に従ってください。</string>
   <string name="selectPostTopics">ブログ投稿に合ったトピックを選ぶ</string>
+  <string name="etiquette">エチケット</string>
   <string name="safeAndRespectfulContent">投稿できるのは安全で他者の権利を尊重したコンテンツだけです。他の人のコンテンツをコピーしてはいけません。</string>
   <string name="noCopyrightedImages">使えるのは他の人が著作権を持っていない画像だけです。</string>
   <string name="inappropriateContentAccountClosed">不適切な内容の場合、あなたのアカウントを停止することがあります。</string>

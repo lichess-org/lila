@@ -28,7 +28,6 @@
   <string name="approved">ನಿಮ್ಮ ಸ್ಟ್ರೀಮ್ ಅನ್ನು ಅನುಮೋದಿಸಲಾಗಿದೆ.</string>
   <string name="pendingReview">ನಿಮ್ಮ ಸ್ಟ್ರೀಮ್ ಅನ್ನು ಮಾಡರೇಟರ್‌ಗಳು ಪರಿಶೀಲಿಸುತ್ತಿದ್ದಾರೆ.</string>
   <string name="pleaseFillIn">ದಯವಿಟ್ಟು ನಿಮ್ಮ ಸ್ಟ್ರೀಮರ್ ಮಾಹಿತಿಯನ್ನು ಭರ್ತಿ ಮಾಡಿ ಮತ್ತು ಚಿತ್ರವನ್ನು ಅಪ್‌ಲೋಡ್ ಮಾಡಿ.</string>
-  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">ನೀವು Lichess ಸ್ಟ್ರೀಮರ್‌ನಂತೆ ಪಟ್ಟಿಮಾಡಲು ಸಿದ್ಧರಾಗಿರುವಾಗ, %s</string>
   <string name="submitForReview">ಪರಿಶೀಲನೆಗಾಗಿ ಸಲ್ಲಿಸಿ</string>
   <string name="streamerLanguageSettings">Lichess ಸ್ಟ್ರೀಮರ್ ಪುಟವು ನಿಮ್ಮ ಸ್ಟ್ರೀಮಿಂಗ್ ಪ್ಲಾಟ್‌ಫಾರ್ಮ್ ಒದಗಿಸಿದ ಭಾಷೆಯೊಂದಿಗೆ ನಿಮ್ಮ ಪ್ರೇಕ್ಷಕರನ್ನು ಗುರಿಯಾಗಿಸುತ್ತದೆ. ನೀವು ಪ್ರಸಾರ ಮಾಡಲು ಬಳಸುವ ಅಪ್ಲಿಕೇಶನ್ ಅಥವಾ ಸೇವೆಯಲ್ಲಿ ನಿಮ್ಮ ಚೆಸ್ ಸ್ಟ್ರೀಮ್‌ಗಳಿಗೆ ಸರಿಯಾದ ಡೀಫಾಲ್ಟ್ ಭಾಷೆಯನ್ನು ಹೊಂದಿಸಿ.</string>
   <string name="streamerName">Lichess ನಲ್ಲಿ ನಿಮ್ಮ ಸ್ಟ್ರೀಮರ್ ಹೆಸರು</string>

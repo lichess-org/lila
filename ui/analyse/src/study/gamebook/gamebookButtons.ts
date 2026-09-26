@@ -1,4 +1,5 @@
-import { bind, snabIcon, type VNode, hl } from 'lib/view';
+import { licon } from 'lib/licon';
+import { bind, dataIcon, type VNode, hl } from 'lib/view';
 
 import type AnalyseCtrl from '@/ctrl';
 
@@ -16,19 +17,19 @@ export function playButtons(root: AnalyseCtrl): VNode | undefined {
       hl(
         'button.fbt.text.back',
         {
-          attrs: { type: 'button' },
+          attrs: { 'data-icon': licon.LessThan, type: 'button' },
           hook: bind('click', () => root.userJump(''), ctrl.redraw),
         },
-        [snabIcon('lessThan'), i18n.study.back],
+        i18n.study.back,
       ),
     myTurn &&
       hl(
         'button.fbt.text.solution',
         {
-          attrs: { type: 'button' },
+          attrs: { 'data-icon': licon.PlayTriangle, type: 'button' },
           hook: bind('click', ctrl.solution, ctrl.redraw),
         },
-        [snabIcon('playTriangle'), i18n.site.viewTheSolution],
+        i18n.site.viewTheSolution,
       ),
     overrideButton(study),
   ]);
@@ -42,14 +43,14 @@ export function overrideButton(study: StudyCtrl): VNode | undefined {
         'button.fbt.text.preview',
         {
           class: { active: o === 'play' },
-          attrs: { type: 'button' },
+          attrs: { 'data-icon': licon.Eye, type: 'button' },
           hook: bind(
             'click',
             () => study.setGamebookOverride(o === 'play' ? undefined : 'play'),
             study.redraw,
           ),
         },
-        [snabIcon('eye'), 'Preview'],
+        'Preview',
       );
     else {
       const isAnalyse = o === 'analyse',
@@ -59,13 +60,14 @@ export function overrideButton(study: StudyCtrl): VNode | undefined {
           'a.fbt.text.preview',
           {
             class: { active: isAnalyse },
+            attrs: dataIcon(licon.Microscope),
             hook: bind(
               'click',
               () => study.setGamebookOverride(isAnalyse ? undefined : 'analyse'),
               study.redraw,
             ),
           },
-          [snabIcon('microscope'), i18n.site.analysis],
+          i18n.site.analysis,
         );
     }
   }

@@ -21,8 +21,6 @@ object TokenScopes extends TotalWrapper[TokenScopes, List[OAuthScope]]:
   extension (e: TokenScopes)
     def intersects(other: OAuthScopes): Boolean = e.exists(other.contains)
     def has(s: OAuthScope.Selector): Boolean = e.contains(s(OAuthScope))
-    def mobile: Boolean = has(_.Web.Mobile)
-    def takex3: Boolean = has(_.Web.Takex3)
 
 opaque type EndpointScopes = List[OAuthScope]
 object EndpointScopes extends TotalWrapper[EndpointScopes, List[OAuthScope]]:
@@ -65,7 +63,7 @@ object OAuthScope:
   object Team:
     case object Read extends OAuthScope("team:read", trans.teamRead)
     case object Write extends OAuthScope("team:write", trans.teamWrite)
-    case object Lead extends OAuthScope("team:lead", trans.teamLead)
+    case object Lead extends OAuthScope("team:lead", trans.manageTeamsYouLead)
 
   object Follow:
     case object Read extends OAuthScope("follow:read", trans.followRead)
@@ -109,6 +107,7 @@ object OAuthScope:
     Challenge.Bulk,
     Study.Read,
     Study.Write,
+    Tournament.Read,
     Tournament.Write,
     Racer.Write,
     Puzzle.Read,
@@ -119,6 +118,7 @@ object OAuthScope:
     Follow.Read,
     Follow.Write,
     Msg.Write,
+    Note.Write,
     Board.Play,
     Bot.Play,
     Engine.Read,

@@ -1,3 +1,5 @@
+import { perfIsVariant } from 'lib/game/perf';
+
 import type { RecapPerf } from './interfaces';
 
 export function formatDuration(seconds: number, glue = '<br>'): string {
@@ -14,8 +16,5 @@ export function formatDuration(seconds: number, glue = '<br>'): string {
   return result.slice(0, 2).join(glue);
 }
 
-export const perfIsSpeed = (p: Perf): p is Speed =>
-  (['ultraBullet', 'bullet', 'blitz', 'rapid', 'classical', 'correspondence'] as const).includes(p as Speed);
-
 export const perfLabel = (p: RecapPerf): string =>
-  perfIsSpeed(p.key) ? i18n.recap.shareableFavouriteTimeControl : i18n.recap.shareableFavouriteVariant;
+  perfIsVariant(p.key) ? i18n.recap.shareableFavouriteVariant : i18n.recap.shareableFavouriteTimeControl;

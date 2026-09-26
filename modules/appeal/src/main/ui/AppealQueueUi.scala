@@ -31,13 +31,13 @@ final class AppealQueueUi(helpers: Helpers):
               br,
               span(cls := "appeal-topic")(appeal.topic.key),
               mine.option(
-                span(iconEl := Icon.bubbleSpeech, cls := "participated text")("Participated")
+                span(dataIcon := Icon.BubbleSpeech, cls := "participated text")("Participated")
               ),
               markedByMe
                 .contains(appeal.user)
                 .option(
                   span(
-                    iconEl := Icon.cautionTriangle,
+                    dataIcon := Icon.CautionTriangle,
                     cls := "marked-by-me text"
                   )("My mark")
                 )

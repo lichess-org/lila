@@ -106,6 +106,24 @@ final private class RelayRoundRepo(val coll: Coll, tourRepo: RelayTourRepo)(usin
       if no == co.map(_ + 1)
     yield n
 
+  private[relay] def reorder(round: RelayRound, moveUp: RelayRoundForm.Move): Funit = {
+    for
+      roundIds <- idsByTourOrdered(round.tourId)
+      newOrder =
+        val i = roundIds.indexOf(round.id) - (if moveUp then 1 else 0)
+        val arr = roundIds.toArray
+        val tmp = arr(i)
+        arr(i) = arr(i + 1)
+        arr(i + 1) = tmp
+        arr.toList
+      bulk = coll.update(ordered = false)
+      updates <- newOrder.zipWithIndex.parallel: (roundId, i) =>
+        bulk.element(q = bid(roundId), u = set("order" -> (i + 1)))
+      _ <- bulk.many(updates)
+    yield ()
+  }.recover:
+    case _: ArrayIndexOutOfBoundsException =>
+
   private[relay] val tourRoundPipeline: Bdoc =
     lookup.simple(
       from = coll,

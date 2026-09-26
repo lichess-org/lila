@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="community">Cộng đồng</string>
+  <string name="communityBlogs">Các Blog cộng đồng</string>
   <string name="byMonth">Theo tháng</string>
   <string name="byTopic">Theo chủ đề</string>
   <string name="byLichess">Bởi Lichess</string>
@@ -8,6 +9,7 @@
   <string name="myLikes">Đã thích</string>
   <string name="myBlog">Blog của tôi</string>
   <string name="likedBlogs">Các bài Blog đã thích</string>
+  <string name="blogPostsByFriends">Các blog của bạn bè</string>
   <plurals name="blogPosts">
     <item quantity="other">%s bài đăng blog</item>
   </plurals>
@@ -27,6 +29,8 @@
   <string name="createBlogDiscussionHelp">Một chủ đề diễn đàn sẽ được tạo để mọi người bình luận vào bài đăng của bạn</string>
   <string name="publishOnYourBlog">Công bố trên blog của bạn</string>
   <string name="publishHelp">Nếu chọn, bài đăng sẽ được đưa vào blog của bạn. Nếu không, nó sẽ ở chế độ riêng tư trong các bài đăng nháp của bạn</string>
+  <string name="includesPromotedContent">Bao gồm nội dung được quảng cáo/tài trợ hoặc liên kết giới thiệu</string>
+  <string name="mandatoryForSponsoredContent">Bắt buộc đối với nội dung được tài trợ, liên kết tiếp thị hoặc quảng cáo thương mại</string>
   <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">Cố định bài đăng</string>
   <string name="stickyPostHelp">Nếu được chọn, bài đăng này sẽ được liệt kê đầu tiên trong các bài đăng gần đây trên hồ sơ của bạn.</string>
   <plurals name="publishedNbBlogPosts">
@@ -41,15 +45,17 @@
   <string name="noPostsInThisBlogYet">Chưa có bài viết nào trong blog này.</string>
   <string name="noDrafts">Không có bài nháp nào để hiển thị.</string>
   <string name="latestBlogPosts">Các bài blog mới nhất</string>
+  <string name="recentPosts">Bài viết gần đây</string>
   <plurals name="viewAllNbPosts">
     <item quantity="other">Xem tất cả %s bài đăng</item>
   </plurals>
   <string name="imageAlt">Văn bản thay thế cho hình ảnh</string>
   <string name="imageCredit">Nguồn ảnh</string>
+  <string name="coverImage">Ảnh bìa</string>
   <string name="deleteBlog">Xóa dứt khoát bài blog này</string>
-  <string name="safeToUseImages">Bạn có thể sử dụng hình ảnh từ các trang web sau một cách an toàn: </string>
-  <string name="freeImagesComplyWithLicensing" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement. Replaces old string safeToUseImages">Các trang web sau đây cung cấp hình ảnh miễn phí. Vui lòng đảm bảo bạn tuân thủ các điều kiện cấp phép đối với hình ảnh bạn sử dụng.</string>
+  <string name="freeImagesComplyWithLicensing" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Các trang web sau đây cung cấp hình ảnh miễn phí. Vui lòng đảm bảo bạn tuân thủ các điều kiện cấp phép đối với hình ảnh bạn sử dụng.</string>
   <string name="selectPostTopics">Chọn các chủ đề mà bài đăng của bạn liên quan</string>
+  <string name="etiquette">Quy tắc</string>
   <string name="safeAndRespectfulContent">Vui lòng chỉ đăng những nội dung an toàn và có tính tôn trọng. Không được phép sao chép nội dung của bất kì ai.</string>
   <string name="noCopyrightedImages">Chỉ sử dụng những hình ảnh không thuộc bản quyền của người khác.</string>
   <string name="inappropriateContentAccountClosed">Chỉ một hành động không phù hợp, tài khoản của bạn có thể bị đóng.</string>

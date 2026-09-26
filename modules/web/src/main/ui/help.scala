@@ -18,7 +18,7 @@ object help:
   private def phonetic(text: String) = strong(cls := "val-to-word phonetic", text)
 
   private def navigateMoves(using Translate) = frag(
-    header(trans.site.navigateMoveTree()),
+    header(trans.site.moveListNavigation()),
     row(
       frag(kbd("←"), or, kbd("→"), alt, kbd("k"), or, kbd("j")),
       trans.site.keyMoveBackwardOrForward()
@@ -92,13 +92,13 @@ object help:
           row(frag(tap, kbd("shift"), alt, kbd("↑"), or, kbd("↓")), trans.site.keyCycleSelectedVariation()),
           row(
             frag(kbd("shift"), kbd("←"), or, kbd("k"), alt, kbd("shift"), kbd("→"), or, kbd("j")),
-            "Go to previous/next branch"
+            frag(trans.site.keyPreviousBranch(), " / ", trans.site.keyNextBranch())
           ),
           row(
             frag(kbd("shift"), kbd("↑"), alt, kbd("shift"), kbd("↓")),
-            "Step to previous/next line"
+            trans.site.keyGoToPreviousOrNextLine()
           ),
-          row(frag(tap, kbd("ctrl")), "Show/hide current variation"),
+          row(frag(tap, kbd("ctrl")), trans.site.keyShowOrHideCurrentVariation()),
           header(trans.site.analysisOptions()),
           flip,
           localAnalysis,
@@ -217,9 +217,9 @@ object help:
               ul(
                 li(
                   instructions1(
-                    iconEl(Icon.voice),
-                    iconEl(Icon.infoCircle),
-                    iconEl(Icon.gear)
+                    iconTag(Icon.Voice),
+                    iconTag(Icon.InfoCircle),
+                    iconTag(Icon.Gear)
                   )
                 ),
                 li(instructions2()),

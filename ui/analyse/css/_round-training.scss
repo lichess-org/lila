@@ -7,8 +7,8 @@
     text-transform: inherit;
     text-align: start;
 
-    > .svg-icon {
-      width: 2.8em;
+    &::before {
+      font-size: 2.8em;
     }
   }
 }
@@ -20,15 +20,9 @@
   font-size: 0.9em;
 
   &__player {
-    @extend %flex-center-center;
-
+    text-align: center;
     font-weight: bold;
     margin-bottom: 0.5em;
-  }
-
-  .user-link,
-  &__player {
-    gap: 1ch;
   }
 
   &__sections {
@@ -40,7 +34,7 @@
       flex: 1 0 auto;
     }
 
-    .svg-icon,
+    icon,
     strong {
       flex: 0 1 5ch;
       text-align: center;

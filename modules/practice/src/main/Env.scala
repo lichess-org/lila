@@ -15,4 +15,4 @@ final class Env(
 
   lazy val api: PracticeApi = wire[PracticeApi]
 
-  def getStudies: lila.core.practice.GetStudies = api.structure.getStudies
+  export api.structure.getStudies

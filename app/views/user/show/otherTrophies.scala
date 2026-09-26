@@ -8,27 +8,24 @@ object otherTrophies:
 
   import bits.awards.*
 
-  private def trophyLinkIfIcon(trophy: Trophy) =
-    trophy.kind.icon.map: icon =>
-      maybeLink(trophy.anyUrl)(awardCls(trophy), ariaTitle(trophy.kind.name)):
-        iconEl(icon)
-
   def apply(info: lila.app.mashup.UserInfo)(using ctx: Context) =
     frag(
       info.trophies.trophies
         .filter(_.kind.klass.has("fire-trophy"))
         .nonEmptyOption
         .map: trophies =>
-          div(cls := "stacked"):
-            trophies.sorted.flatMap(trophyLinkIfIcon)
-      ,
-
+          div(cls := "stacked")(
+            trophies.sorted.map: trophy =>
+              trophy.kind.icon.map: iconChar =>
+                maybeLink(trophy.anyUrl)(awardCls(trophy), ariaTitle(s"${trophy.kind.name}")):
+                  raw(iconChar)
+          ),
       info.trophies.shields.map { shield =>
         a(
           cls := "shield-trophy combo-trophy",
           ariaTitle(s"${shield.categ.name} Shield"),
           href := routes.Tournament.shields
-        )(iconEl(shield.categ.icon))
+        )(shield.categ.icon)
       },
       info.trophies.revolutions.map { revol =>
         a(
@@ -46,13 +43,17 @@ object otherTrophies:
         ):
           img(src := assetUrl(s"images/trophy/${t.kind._id}.png"), cssWidth := 65, cssHeight := 80)
       },
-      info.trophies.trophies.filter(_.kind.klass.has("icon3d")).sorted.flatMap(trophyLinkIfIcon),
+      info.trophies.trophies.filter(_.kind.klass.has("icon3d")).sorted.map { trophy =>
+        trophy.kind.icon.map: iconChar =>
+          maybeLink(trophy.anyUrl)(awardCls(trophy), ariaTitle(trophy.kind.name)):
+            raw(iconChar)
+      },
       info.isCoach.option(
         a(
           href := routes.Coach.show(info.user.username),
           cls := "trophy award icon3d coach",
           ariaTitle(trans.coach.lichessCoach.txt())
-        )(iconEl(Icon.graduateCap))
+        )(Icon.GraduateCap)
       ),
       (info.isStreamer && ctx.kid.no).option:
         val streaming = isStreaming(info.user.id)
@@ -62,5 +63,5 @@ object otherTrophies:
             "streaming" -> streaming
           ),
           ariaTitle(if streaming then "Live now!" else "Lichess Streamer")
-        )(iconEl(Icon.mic))
+        )(Icon.Mic)
     )

@@ -18,6 +18,9 @@ final class SwissFormUi(helpers: Helpers)(
 ):
   import helpers.{ *, given }
 
+  private val gatheringFormUi = GatheringFormUi(helpers)
+  import gatheringFormUi.*
+
   def create(form: Form[SwissForm.SwissData], teamId: TeamId)(using Context) =
     Page(trans.swiss.newSwiss.txt())
       .css("swiss.form")
@@ -29,7 +32,7 @@ final class SwissFormUi(helpers: Helpers)(
             postForm(cls := "form3", action := routes.Swiss.create(teamId))(
               div(cls := "form-group")(
                 a(
-                  iconEl := Icon.infoCircle,
+                  dataIcon := Icon.InfoCircle,
                   cls := "text",
                   href := routes.Cms.lonePage(lila.core.id.CmsPageKey("event-tips"))
                 )(trans.site.ourEventTips())
@@ -42,13 +45,11 @@ final class SwissFormUi(helpers: Helpers)(
               form3.globalError(form),
               form3.actions(
                 a(href := routes.Team.show(teamId))(trans.site.cancel()),
-                form3.submit(trans.site.createANewTournament(), icon = Icon.trophy.some)
+                form3.submit(trans.site.createANewTournament(), icon = Icon.Trophy.some)
               )
             )
           )
         )
-
-  private val gatheringFormUi = GatheringFormUi(helpers)
 
   def edit(swiss: Swiss, form: Form[SwissForm.SwissData])(using Context) =
     Page(swiss.name)
@@ -67,14 +68,11 @@ final class SwissFormUi(helpers: Helpers)(
               form3.globalError(form),
               form3.actions(
                 a(href := routes.Swiss.show(swiss.id))(trans.site.cancel()),
-                form3.submit(trans.site.save(), icon = Icon.trophy.some)
+                form3.submit(trans.site.save(), icon = Icon.Trophy.some)
               )
             ),
             postForm(cls := "terminate", action := routes.Swiss.terminate(swiss.id))(
-              submitButton(
-                iconEl := Icon.cautionCircle,
-                cls := "text button button-red yes-no-confirm"
-              )(
+              submitButton(dataIcon := Icon.CautionCircle, cls := "text button button-red yes-no-confirm")(
                 trans.site.cancelTournament()
               )
             )
@@ -87,9 +85,12 @@ final class SwissFormUi(helpers: Helpers)(
 
     def tournamentFields =
       form3.fieldset("Tournament", toggle = true.some)(
-        form3.split(name, nbRounds),
-        form3.split(startsAt, description),
-        gatheringFormUi.payouts(form("payouts"))
+        name,
+        form3.split(nbRounds, startsAt),
+        form3.split(
+          description(form("description")),
+          payouts(form("payouts"))
+        )
       )
 
     def gameFields =
@@ -137,13 +138,6 @@ final class SwissFormUi(helpers: Helpers)(
           form3.select(_, GatheringClock.incrementChoices, disabled = disabledAfterStart)
         )
       )
-    def description =
-      form3.group(
-        form("description"),
-        trans.site.tournDescription(),
-        help = trans.site.tournDescriptionHelp().some,
-        half = true
-      )(form3.textarea(_)(rows := 4))
     def position =
       form3.group(
         form("position"),
@@ -165,17 +159,17 @@ final class SwissFormUi(helpers: Helpers)(
     def conditionFields =
       form3.fieldset("Entry conditions", toggle = swiss.exists(!_.settings.conditions.isDefault).some)(
         form3.split(
-          gatheringFormUi.nbRatedGame(form("conditions.nbRatedGame.nb")),
-          gatheringFormUi.accountAge(form("conditions.accountAge"))
+          nbRatedGame(form("conditions.nbRatedGame.nb")),
+          accountAge(form("conditions.accountAge"))
         ),
         form3.split(
-          gatheringFormUi.minRating(form("conditions.minRating.rating")),
-          gatheringFormUi.maxRating(form("conditions.maxRating.rating"))
+          minRating(form("conditions.minRating.rating")),
+          maxRating(form("conditions.maxRating.rating"))
         ),
         form3.split(
           playYourGames,
           (summon[Context].me.exists(_.hasTitle) || Granter.opt(_.ManageTournament)).option:
-            gatheringFormUi.titled(form("conditions.titled"))
+            titled(form("conditions.titled"))
         ),
         form3.split(
           form3.group(
@@ -241,7 +235,7 @@ final class SwissFormUi(helpers: Helpers)(
     def allowList = form3.group(
       form("conditions.allowList"),
       trans.swiss.predefinedUsers(),
-      help = trans.swiss.forbiddedUsers().some,
+      help = trans.swiss.predefinedUsersHelp().some,
       half = true
     )(form3.textarea(_)(rows := 4))
 

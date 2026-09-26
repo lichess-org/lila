@@ -26,7 +26,7 @@ def create(using Context) =
   views.site
     .message(
       title = trans.streamer.becomeStreamer.txt(),
-      icon = Some(Icon.mic)
+      icon = Some(Icon.Mic)
     )
     .css("bits.streamer.form")(bits.create)
 
@@ -64,7 +64,7 @@ object edit:
     ui(s, form, modZone)
 
   private def modLog(log: List[lila.mod.Modlog])(using Context) = frag(
-    strong(cls := "text", iconEl := Icon.cautionTriangle)(
+    strong(cls := "text", dataIcon := Icon.CautionTriangle)(
       "Moderation history",
       log.isEmpty.option(": nothing to show.")
     ),
@@ -84,7 +84,7 @@ object edit:
   )
 
   private def modNotes(notes: List[lila.user.Note])(using Context) = frag(
-    strong(cls := "text", iconEl := Icon.cautionTriangle)(
+    strong(cls := "text", dataIcon := Icon.CautionTriangle)(
       "Moderator notes",
       notes.isEmpty.option(": nothing to show.")
     ),

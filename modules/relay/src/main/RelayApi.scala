@@ -339,6 +339,12 @@ final class RelayApi(
   def reFetchAndUpdate(round: RelayRound)(f: Update[RelayRound]): Fu[RelayRound] =
     byId(round.id).orFail(s"Relay round ${round.id} not found").flatMap(update(_)(f))
 
+  def formUpdate(from: RelayRound, data: RelayRoundForm.Data, tour: RelayTour)(using Me): Fu[RelayRound] =
+    for
+      round <- update(from)(data.update(tour.official))
+      _ <- data.move.so(roundRepo.reorder(round, _))
+    yield round
+
   def update(from: RelayRound)(f: Update[RelayRound]): Fu[RelayRound] =
     val updated = f(from).pipe: r =>
       if r.sync.upstream != from.sync.upstream then r.withSync(_.clearLog) else r
@@ -528,6 +534,11 @@ final class RelayApi(
       .map:
         if _ then study.configureForOngoingRelay else study
 
+  object tourExists:
+    private val cache = cacheApi[RelayTourId, Boolean](64, "relay.tourExists"):
+      _.expireAfterWrite(1.minute).buildAsyncFuture(tourRepo.exists)
+    export cache.get as apply
+
   export tourRepo.{ isSubscribed, setSubscribed as subscribe, byId as tourById }
   export roundRepo.nextRoundThatStartsAfterThisOneCompletes
 
@@ -579,7 +590,7 @@ final class RelayApi(
               requestPlay(relay.id, v = true, "autoStart")
 
   private[relay] def autoFinishNotSyncing(onlyIds: Option[List[RelayTourId]] = None): Funit =
-    roundRepo.coll
+    roundRepo.coll.secondary
       .list[RelayRound]:
         RelayRoundRepo.selectors.finished(false) ++
           bdoc(

@@ -78,7 +78,7 @@ final class AccountPref(helpers: Helpers, helper: PrefHelper, bits: AccountUi):
               trp.showPlayerRatings(),
               frag(
                 radios(form("ratings"), translatedRatingsChoices),
-                div(cls := "help text shy", iconEl := Icon.infoCircle)(trp.explainShowPlayerRatings())
+                div(cls := "help text shy", dataIcon := Icon.InfoCircle)(trp.explainShowPlayerRatings())
               ),
               "showRatings"
             ),
@@ -135,7 +135,7 @@ final class AccountPref(helpers: Helpers, helper: PrefHelper, bits: AccountUi):
               trp.promoteToQueenAutomatically(),
               frag(
                 radios(form("behavior.autoQueen"), translatedAutoQueenChoices),
-                div(cls := "help text shy", iconEl := Icon.infoCircle)(
+                div(cls := "help text shy", dataIcon := Icon.InfoCircle)(
                   trp.explainPromoteToQueenAutomatically()
                 )
               ),
@@ -150,8 +150,8 @@ final class AccountPref(helpers: Helpers, helper: PrefHelper, bits: AccountUi):
               trp.moveConfirmation(),
               frag(
                 bitCheckboxes(form("behavior.submitMove"), submitMoveChoices),
-                div(cls := "help text shy", iconEl := Icon.infoCircle)(
-                  "Multiple choices. ",
+                div(cls := "help text shy", dataIcon := Icon.InfoCircle)(
+                  trp.multipleChoices(),
                   trp.explainCanThenBeTemporarilyDisabled()
                 )
               ),
@@ -220,7 +220,7 @@ final class AccountPref(helpers: Helpers, helper: PrefHelper, bits: AccountUi):
               "shareYourInsightsData"
             )
           ),
-          p(cls := "saved text none", iconEl := Icon.checkmark)(trp.yourPreferencesHaveBeenSaved())
+          p(cls := "saved text none", dataIcon := Icon.Checkmark)(trp.yourPreferencesHaveBeenSaved())
         )
       )
 
@@ -239,18 +239,18 @@ final class AccountPref(helpers: Helpers, helper: PrefHelper, bits: AccountUi):
                 thead(
                   tr(
                     th,
-                    th(trp.notifyBell(), iconEl(Icon.bellOutline)),
-                    th(trp.notifyPush(), iconEl(Icon.phoneMobile))
+                    th(trp.notifyBell(), iconTag(Icon.BellOutline)),
+                    th(trp.notifyPush(), iconTag(Icon.PhoneMobile))
                   )
                 ),
                 tbody(
                   List(
                     a(href := routes.Streamer.index())(trp.notifyStreamStart()) -> "streamStart",
-                    trp.notifyForumMention() -> "mention",
-                    trp.notifyInvitedStudy() -> "invitedStudy",
-                    trp.notifyInboxMsg() -> "privateMessage",
+                    trp.notifyForumMentions() -> "mention",
+                    trp.notifyStudyInvites() -> "invitedStudy",
+                    trp.notifyDirectMessage() -> "privateMessage",
                     trp.notifyChallenge() -> "challenge",
-                    trp.notifyTournamentSoon() -> "tournamentSoon",
+                    trp.notifyTournamentStartReminders() -> "tournamentSoon",
                     trp.notifyBroadcasts() -> "broadcastRound",
                     trp.notifyGameEvent() -> "gameEvent",
                     trans.team.teamUpdates() -> "teamUpdate"
@@ -270,7 +270,7 @@ final class AccountPref(helpers: Helpers, helper: PrefHelper, bits: AccountUi):
                 radios(form("notification.playBellSound"), translatedBooleanIntChoices)
               )
             ),
-            p(cls := "saved text none", iconEl := Icon.checkmark)(trp.yourPreferencesHaveBeenSaved())
+            p(cls := "saved text none", dataIcon := Icon.Checkmark)(trp.yourPreferencesHaveBeenSaved())
           )
         )
 
@@ -283,14 +283,14 @@ final class AccountPref(helpers: Helpers, helper: PrefHelper, bits: AccountUi):
           td(
             if !hiddenFields(s"$filterName.$allow") then
               div(cls := "toggle", form3.nativeCheckbox(name, name, checked))
-            else if !checked then div(iconEl(Icon.x))
+            else if !checked then div(iconTag(Icon.X))
             else
               div(
                 cls := "always-on",
                 form3.hidden(name, "true"),
                 filterName match
-                  case "challenge" => iconEl(Icon.swords)
-                  case "privateMessage" => iconEl(Icon.bellOutline)
+                  case "challenge" => iconTag(Icon.Swords)
+                  case "privateMessage" => iconTag(Icon.BellOutline)
                   case _ => emptyFrag
               )
           )
@@ -304,18 +304,15 @@ final class AccountPref(helpers: Helpers, helper: PrefHelper, bits: AccountUi):
     )
 
   def network(cfRouting: Boolean)(using ctx: Context) =
-    AccountPage("Network", "network"):
+    AccountPage(trp.network.txt(), "network"):
       div(cls := "box box-pad")(
         standardFlash,
-        h1(cls := "box__top")("Network"),
+        h1(cls := "box__top")(trp.network()),
         flashMessage("quiet")(
-          "You are currently using ",
-          if cfRouting then "Content Delivery Network (CDN) routing."
-          else "direct routing.",
+          if cfRouting then trp.youAreCurrentlyUsingCdnRouting()
+          else trp.youAreCurrentlyUsingDirectRouting(),
           br,
-          if cfRouting
-          then "This feature is experimental but may improve reliability in some regions."
-          else "If you have frequent disconnects, Content Delivery Network (CDN) routing may improve things."
+          trp.frequentDisconnectsAdvice()
         ),
         br,
         postForm(action := routes.Pref.networkPost):
@@ -323,5 +320,5 @@ final class AccountPref(helpers: Helpers, helper: PrefHelper, bits: AccountUi):
             name := "cfRouting",
             value := !cfRouting,
             cls := "button"
-          )(if cfRouting then "Use direct routing" else "Use CDN routing")
+          )(if cfRouting then trp.useDirectRouting() else trp.useCdnRouting())
       )

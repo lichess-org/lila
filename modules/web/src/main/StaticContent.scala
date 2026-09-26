@@ -16,6 +16,10 @@ Disallow: /games/export/
 Disallow: /api/
 Disallow: /opening/config/
 Disallow: /study/search
+Disallow: /study/embed/
+Disallow: /embed/
+Disallow: /video?*
+Disallow: /training/of-player
 Allow: /game/export/gif/thumbnail/
 """
 

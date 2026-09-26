@@ -2,6 +2,7 @@
 @import 'topnav-visible';
 @import 'title';
 @import 'buttons';
+@import 'clinput';
 
 #top {
   @include prevent-select;
@@ -18,22 +19,21 @@
     @include transition(transform border-color, $transition-duration, ease-in-out);
 
     max-width: unset;
-    position: fixed;
+    position: sticky;
     top: 0;
     width: 100%;
     padding: 0 var(---site-header-sticky-padding);
     border-bottom: 1px solid transparent;
 
-    &.scrolled {
-      background-image: linear-gradient(
-        to bottom,
-        $c-body-gradient,
-        color-mix(in oklab, $c-body-gradient 50%, $c-bg-page) 60px
-      );
-      border-color: black;
-
-      @include if-light {
-        border-color: hsl(0 0% 70%);
+    @include if-not-transp {
+      &.scrolled {
+        background-image: linear-gradient(
+          to bottom,
+          $c-body-gradient,
+          color-mix(in oklab, $c-body-gradient 50%, $c-bg-page) 60px
+        );
+        border-color: $c-border;
+        box-shadow: 0 1px 5px 0 rgb(0 0 0 / 0.07);
       }
     }
 
@@ -80,9 +80,12 @@ body.zen {
 #topnav .community-patron {
   @extend %flex-center;
 
-  .svg-icon {
+  &::after {
+    @extend %data-icon;
     @include margin-direction(0, 0, 0.08ch, 0.3ch);
 
+    content: $licon-Wings;
+    font-size: 1.3em;
     color: $c-brag;
     transform: scaleX(-1);
 
@@ -107,11 +110,14 @@ body.zen {
     padding: 0 1.1rem 0 1.3rem;
     margin: 6px 0 5px 0;
 
-    .svg-icon {
+    &::before {
+      @extend %data-icon;
       @include inline-end(5px);
 
       position: relative;
+      content: $licon-Wings;
       top: -1px;
+      font-size: 1.2em;
       color: $c-brag;
     }
 

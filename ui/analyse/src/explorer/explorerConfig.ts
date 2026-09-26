@@ -2,9 +2,11 @@ import { opposite } from '@lichess-org/chessground/util';
 import { h, type VNode } from 'snabbdom';
 
 import { myUsername, type Prop, prop } from 'lib';
+import { capitalize } from 'lib/game';
 import perfIcons from 'lib/game/perfIcons';
+import { licon } from 'lib/licon';
 import { storedProp, storedJsonProp, type StoredProp, storedStringProp } from 'lib/storage';
-import { type Dialog, snabDialog, bind, snabIcon, onInsert } from 'lib/view';
+import { type Dialog, snabDialog, bind, dataIcon, icon, onInsert } from 'lib/view';
 import { userComplete } from 'lib/view/userComplete';
 
 import type AnalyseCtrl from '../ctrl';
@@ -148,10 +150,11 @@ export const view = (ctrl: ExplorerConfigCtrl): VNode[] => [
       : playerDb(ctrl),
   h(
     'section.save',
-    h('button.button.button-green.text', { hook: bind('click', ctrl.toggleOpen) }, [
-      snabIcon('checkmark'),
+    h(
+      'button.button.button-green.text',
+      { attrs: dataIcon(licon.Checkmark), hook: bind('click', ctrl.toggleOpen) },
       i18n.site.allSet,
-    ]),
+    ),
   ),
 ];
 
@@ -178,9 +181,10 @@ const playerDb = (ctrl: ExplorerConfigCtrl) => {
         h(
           'button.button-link.text.color',
           {
+            attrs: dataIcon(licon.ChasingArrows),
             hook: bind('click', ctrl.toggleColor, ctrl.root.redraw),
           },
-          [snabIcon('chasingArrows'), i18n.site[ctrl.data.color() === 'white' ? 'asWhite' : 'asBlack']],
+          ` ${i18n.site[`as${capitalize(ctrl.data.color())}`]}`,
         ),
       ]),
     ]),
@@ -202,15 +206,15 @@ const masterDb = (ctrl: ExplorerConfigCtrl) =>
   ]);
 
 const radioButton =
-  <T>(ctrl: ExplorerConfigCtrl, storage: Prop<T[]>, render?: (t: T) => VNode) =>
+  <T>(ctrl: ExplorerConfigCtrl, storage: Prop<T[]>, render: (t: T) => VNode | string) =>
   (v: T) =>
     h(
       'button',
       {
-        attrs: { 'aria-pressed': `${storage().includes(v)}`, title: render ? ucfirst(String(v)) : '' },
+        attrs: { 'aria-pressed': `${storage().includes(v)}`, title: ucfirst(String(v)) },
         hook: bind('click', _ => ctrl.toggleMany(storage)(v), ctrl.root.redraw),
       },
-      render ? render(v) : i18n(v as string),
+      render(v),
     );
 
 const lichessDb = (ctrl: ExplorerConfigCtrl) =>
@@ -218,7 +222,7 @@ const lichessDb = (ctrl: ExplorerConfigCtrl) =>
     speedSection(ctrl),
     h('section.rating', [
       h('label', i18n.site.averageElo),
-      h('div.choices', allRatings.map(radioButton(ctrl, ctrl.data.rating))),
+      h('div.choices', allRatings.map(radioButton(ctrl, ctrl.data.rating, r => r.toString()))),
     ]),
     monthSection(ctrl),
   ]);
@@ -226,13 +230,13 @@ const lichessDb = (ctrl: ExplorerConfigCtrl) =>
 const speedSection = (ctrl: ExplorerConfigCtrl) =>
   h('section.speed', [
     h('label', i18n.site.timeControl),
-    h('div.choices', allSpeeds.map(radioButton(ctrl, ctrl.data.speed, s => snabIcon(perfIcons[s])))),
+    h('div.choices', allSpeeds.map(radioButton(ctrl, ctrl.data.speed, s => icon(perfIcons[s])()))),
   ]);
 
 const modeSection = (ctrl: ExplorerConfigCtrl) =>
   h('section.mode', [
     h('label', i18n.site.mode),
-    h('div.choices', allModes.map(radioButton(ctrl, ctrl.data.mode))),
+    h('div.choices', allModes.map(radioButton(ctrl, ctrl.data.mode, m => i18n.site[m]))),
   ]);
 
 const monthInput = (prop: StoredProp<Month>, after: () => Month, redraw: Redraw) => {
@@ -358,14 +362,10 @@ const playerModal = (ctrl: ExplorerConfigCtrl) => {
               name,
             ),
             name && ctrl.data.playerName.previous().includes(name)
-              ? h(
-                  'button.remove',
-                  {
-                    attrs: { 'aria-label': i18n.site.delete },
-                    hook: bind('click', () => ctrl.removePlayer(name), ctrl.root.redraw),
-                  },
-                  [snabIcon('x')],
-                )
+              ? h('button.remove', {
+                  attrs: dataIcon(licon.X),
+                  hook: bind('click', () => ctrl.removePlayer(name), ctrl.root.redraw),
+                })
               : null,
           ]),
         ),

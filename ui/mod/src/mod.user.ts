@@ -1,8 +1,9 @@
 import { debounce } from 'lib/async';
 import { commonDateFormat, toDate } from 'lib/i18n';
+import { licon } from 'lib/licon';
 import { pubsub } from 'lib/pubsub';
 import { extendTablesortNumber, sortTable } from 'lib/tablesort';
-import { confirm, domIcon, spinnerHtml } from 'lib/view';
+import { confirm, spinnerHtml } from 'lib/view';
 import { formToXhr, text as xhrText } from 'lib/xhr';
 
 import { expandCheckboxZone, selector, shiftClickCheckboxRange } from './checkBoxes';
@@ -153,7 +154,7 @@ site.load.then(() => {
             .find('td.ips-prints')
             .addClass('add-to-note text')
             .attr('title', 'Add to note')
-            .each((_, el) => el.prepend(domIcon('clipboard')));
+            .attr('data-icon', licon.Clipboard);
         }
       }
     });

@@ -48,7 +48,7 @@ final class TournamentList(helpers: Helpers, ui: TournamentUi)(
               a(href := routes.Tournament.help)(trans.site.tournamentFAQ()),
               br,
               a(href := routes.Cms.lonePage(lila.core.id.CmsPageKey("leagues-and-battles")))(
-                "Leagues & Streamer Battles"
+                trans.arena.leaguesAndStreamerBattles()
               )
             ),
             h2(
@@ -69,11 +69,12 @@ final class TournamentList(helpers: Helpers, ui: TournamentUi)(
                 tour.schedule
                   .exists(_.freq != Freq.Hourly)
                   .option:
-                    a(href := routes.Tournament.show(tour.id), iconEl := ui.tournamentIcon(tour))(
-                      div(strong(tour.name(full = false)), momentFromNow(tour.startsAt))
+                    a(href := routes.Tournament.show(tour.id), dataIcon := ui.tournamentIcon(tour))(
+                      strong(tour.name(full = false)),
+                      momentFromNow(tour.startsAt)
                     )
             ),
-            a(href := routes.Tournament.calendar)("See more tournaments on the calendar")
+            a(cls := "button button-empty", href := routes.Tournament.calendar)(trans.site.more(), " »")
           ),
           st.section(cls := "tour-home__schedule box")(
             boxTop(
@@ -83,7 +84,7 @@ final class TournamentList(helpers: Helpers, ui: TournamentUi)(
                   a(
                     href := routes.Tournament.form,
                     cls := "button button-green text",
-                    iconEl := Icon.plusButton
+                    dataIcon := Icon.PlusButton
                   )(trans.site.createANewTournament())
                 )
               )
@@ -152,9 +153,9 @@ final class TournamentList(helpers: Helpers, ui: TournamentUi)(
                 img(cls := "img", src := assetUrl(s"images/$i"))
               }
               .getOrElse {
-                spot.icon.fold[Frag](iconEl(Icon.trophy)(cls := "img")) {
-                  case Icon.globe => img(cls := "img icon", src := assetUrl(s"images/globe.svg"))
-                  case i => iconEl(i)(cls := "img")
+                spot.iconFont.fold[Frag](iconTag(Icon.Trophy)(cls := "img")) {
+                  case Icon.Globe => img(cls := "img icon", src := assetUrl(s"images/globe.svg"))
+                  case i => iconTag(i)(cls := "img")
                 }
               },
             span(cls := "content")(
@@ -176,12 +177,12 @@ final class TournamentList(helpers: Helpers, ui: TournamentUi)(
       }
       .getOrElse(
         a(href := routes.Tournament.show(tour.id), cls := s"little $tourClass")(
-          iconEl(tour.perfType.icon)(cls := "img"),
+          iconTag(tour.perfType.icon)(cls := "img"),
           span(cls := "content")(
             span(cls := "name")(
               tour.name(),
               tour.isTeamRelated.option(
-                iconEl(Icon.group)(
+                iconTag(Icon.Group)(
                   cls := "tour-team-icon",
                   title := tour.conditions.teamMember.fold(trans.team.teamBattle.txt())(_.teamName)
                 )
@@ -223,7 +224,7 @@ final class TournamentList(helpers: Helpers, ui: TournamentUi)(
 
     private def freqWinners(fws: FreqWinners, perfType: PerfType, name: String)(using Translate) =
       section(
-        h2(cls := "text", iconEl := perfType.icon)(name),
+        h2(cls := "text", dataIcon := perfType.icon)(name),
         ul(
           fws.yearly.map: w =>
             freqWinner(w, "Yearly"),
@@ -238,7 +239,7 @@ final class TournamentList(helpers: Helpers, ui: TournamentUi)(
 
     def apply(winners: AllWinners)(using Context) =
       def eliteWinners = section(
-        h2(cls := "text", iconEl := Icon.crownElite)("Elite Arena"),
+        h2(cls := "text", dataIcon := Icon.CrownElite)("Elite Arena"),
         ul(
           winners.elite.map: w =>
             li(
@@ -248,7 +249,7 @@ final class TournamentList(helpers: Helpers, ui: TournamentUi)(
         )
       )
       def marathonWinners = section(
-        h2(cls := "text", iconEl := Icon.globe)("Marathon"),
+        h2(cls := "text", dataIcon := Icon.Globe)("Marathon"),
         ul(
           winners.marathon.map { w =>
             li(
@@ -270,15 +271,15 @@ final class TournamentList(helpers: Helpers, ui: TournamentUi)(
               div(cls := "tournament-leaderboards")(
                 eliteWinners,
                 freqWinners(winners.hyperbullet, PerfType.Bullet, "HyperBullet"),
-                freqWinners(winners.bullet, PerfType.Bullet, "Bullet"),
+                freqWinners(winners.bullet, PerfType.Bullet, trans.site.bullet.txt()),
                 freqWinners(winners.superblitz, PerfType.Blitz, "SuperBlitz"),
-                freqWinners(winners.blitz, PerfType.Blitz, "Blitz"),
-                freqWinners(winners.rapid, PerfType.Rapid, "Rapid"),
+                freqWinners(winners.blitz, PerfType.Blitz, trans.site.blitz.txt()),
+                freqWinners(winners.rapid, PerfType.Rapid, trans.site.rapid.txt()),
                 marathonWinners,
                 lila.tournament.WinnersApi.variants.map: v =>
                   PerfKey.byVariant(v).map { pk =>
                     winners.variants.get(chess.variant.Variant.LilaKey(pk.value)).map {
-                      freqWinners(_, pk, v.name)
+                      freqWinners(_, pk, v.variantTrans.txt())
                     }
                   }
               )
@@ -290,7 +291,7 @@ final class TournamentList(helpers: Helpers, ui: TournamentUi)(
     private val section = st.section(cls := "tournament-shields__item")
 
     def apply(history: TournamentShield.History)(using Context) =
-      Page("Tournament shields")
+      Page(trans.arena.tournamentShields.txt())
         .css("tournament.leaderboard")
         .flag(_.fullScreen):
           main(cls := "page-menu")(
@@ -302,8 +303,8 @@ final class TournamentList(helpers: Helpers, ui: TournamentUi)(
                   section(
                     h2(
                       a(href := routes.Tournament.categShields(categ.key))(
-                        span(cls := "shield-trophy")(iconEl(categ.icon)),
-                        categ.name
+                        span(cls := "shield-trophy")(categ.icon),
+                        categ.i18n()
                       )
                     ),
                     ol(awards.map { aw =>
@@ -319,20 +320,20 @@ final class TournamentList(helpers: Helpers, ui: TournamentUi)(
           )
 
     def byCateg(categ: TournamentShield.Category, awards: List[TournamentShield.Award])(using Context) =
-      Page("Tournament shields")
+      Page(trans.arena.tournamentShields.txt())
         .css("tournament.leaderboard"):
           main(cls := "page-menu page-small tournament-categ-shields")(
             shieldMenu,
             div(cls := "page-menu__content box")(
               boxTop(
                 h1(
-                  a(href := routes.Tournament.shields, iconEl := Icon.lessThan, cls := "text"),
-                  frag(categ.name, " • ", trans.arena.tournamentShields())
+                  a(href := routes.Tournament.shields, dataIcon := Icon.LessThan, cls := "text"),
+                  frag(categ.i18n.txt(), " • ", trans.arena.tournamentShields())
                 )
               ),
               ol(awards.map { aw =>
                 li(
-                  span(cls := "shield-trophy")(iconEl(categ.icon)),
+                  span(cls := "shield-trophy")(categ.icon),
                   userIdLink(aw.owner.some),
                   a(href := routes.Tournament.show(aw.tourId))(showDate(aw.date))
                 )

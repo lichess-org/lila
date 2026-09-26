@@ -12,8 +12,20 @@ import { h } from 'snabbdom';
 
 import { isTouchDevice } from '@/device';
 import { blurIfPrimaryClick, defined, notNull, requestIdleCallbackSafe } from '@/index';
+import { licon } from '@/licon';
 import type { ClientEval, LocalEval, PvData } from '@/tree/types';
-import { type VNode, type LooseVNode, type LooseVNodes, bind, hl, onInsert, icon, snabIcon } from '@/view';
+import {
+  type VNode,
+  type LooseVNode,
+  type LooseVNodes,
+  bind,
+  hl,
+  onInsert,
+  icon,
+  div,
+  span,
+  button,
+} from '@/view';
 import { cmnToggle } from '@/view/cmn-toggle';
 import stepwiseScroll from '@/view/stepwiseScroll';
 
@@ -39,16 +51,18 @@ function localEvalNodes(ctrl: CevalHandler, evs: NodeEvals): Array<VNode | strin
   const t: Array<VNode | string> = [];
   if (!ceval.opts.custom && ceval.canGoDeeper)
     t.push(
-      hl('a.deeper', { attrs: { title: i18n.site.goDeeper }, hook: bind('click', ceval.goDeeper) }, [
-        snabIcon('plusButton'),
-      ]),
+      button('.deeper', {
+        title: i18n.site.goDeeper,
+        'data-icon': licon.PlusButton,
+        hook: bind('click', ceval.goDeeper),
+      }),
     );
   const { depthText, npsText } = localInfo(ctrl, evs.client);
 
   t.push(depthText);
   if (evs.client.cloud && !ceval.isComputing)
-    t.push(hl('span.cloud', { attrs: { title: i18n.site.cloudAnalysis } }, 'Cloud'));
-  if (ceval.isInfinite) t.push(hl('span.infinite', { attrs: { title: i18n.site.infiniteAnalysis } }, '∞'));
+    t.push(span('.cloud', { title: i18n.site.cloudAnalysis }, 'Cloud'));
+  if (ceval.isInfinite) t.push(span('.infinite', { title: i18n.site.infiniteAnalysis }, '∞'));
   if (npsText) t.push(' · ' + npsText);
   return t;
 }
@@ -68,7 +82,7 @@ function localInfo(ctrl: CevalHandler, ev?: ClientEval | false): EvalInfo {
   if (!ev) return info;
 
   const ceval = ctrl.ceval;
-  info.depthText = i18n.site.depthX(ev.depth || 0) + (ceval.isDeeper() || ceval.isInfinite ? '/99' : '');
+  info.depthText = ev.depth > 0 ? i18n.site.depthX(ev.depth || 0) : '';
 
   if (!ceval.isComputing) return info;
 
@@ -85,18 +99,15 @@ function localInfo(ctrl: CevalHandler, ev?: ClientEval | false): EvalInfo {
 const threatButton = (ctrl: CevalHandler): VNode | null =>
   ctrl.ceval.download
     ? null
-    : hl(
-        'button.show-threat',
-        {
-          class: { active: ctrl.threatMode(), hidden: ctrl.getNode().check() },
-          attrs: { title: i18n.site.showThreat + ' (x)' },
-          hook: bind('click', e => {
-            ctrl.toggleThreatMode();
-            blurIfPrimaryClick(e);
-          }),
-        },
-        [snabIcon('target')],
-      );
+    : button('.show-threat', {
+        class: { active: ctrl.threatMode(), hidden: ctrl.getNode().check() },
+        title: i18n.site.showThreat + ' (x)',
+        'data-icon': licon.Target,
+        hook: bind('click', e => {
+          ctrl.toggleThreatMode();
+          blurIfPrimaryClick(e);
+        }),
+      });
 
 function engineName(ctrl: CevalCtrl): VNode[] {
   const engine = ctrl.engines.active();
@@ -114,8 +125,8 @@ function engineName(ctrl: CevalCtrl): VNode[] {
               ? [false, 'Single-threaded WebAssembly']
               : [false, 'Single-threaded JavaScript'];
   return [
-    hl('span', { attrs: { title: engine.name } }, engine.short ?? engine.name),
-    hl(`span.technology${good ? '.good' : ''}`, { attrs: { title } }, engine.tech),
+    span({ title: engine.name }, engine.short ?? engine.name),
+    span('.technology', { class: { good }, title }, engine.tech),
   ];
 }
 
@@ -128,8 +139,8 @@ let gaugeTicks: VNode[];
 
 export function renderGauge(ctrl: CevalHandler): VNode | undefined {
   if (ctrl.ongoing || !ctrl.showEvalGauge()) return undefined;
-  gaugeTicks ??= [...Array(7).keys()].map(i =>
-    hl(i === 3 ? 'tick.zero' : 'tick', { attrs: { style: `height: ${(i + 1) * 12.5}%` } }),
+  gaugeTicks ??= Array.from({ length: 7 }, (_, i) =>
+    hl('tick', { class: { zero: i === 3 }, attrs: { style: `height: ${(i + 1) * 12.5}%` } }),
   );
   const bestEv = getBestEval(ctrl);
   let ev;
@@ -137,10 +148,13 @@ export function renderGauge(ctrl: CevalHandler): VNode | undefined {
     ev = povChances('white', bestEv);
     gaugeLast = ev;
   } else ev = gaugeLast;
-  return hl(
-    'div.eval-gauge',
-    { class: { empty: !defined(bestEv), reverse: ctrl.getOrientation() === 'black' } },
-    [hl('div.black', { attrs: { style: `height: ${100 - (ev + 1) * 50}%` } }), gaugeTicks],
+  return div(
+    '.eval-gauge',
+    {
+      class: { empty: !defined(bestEv), reverse: ctrl.getOrientation() === 'black' },
+      attrs: { style: `--eval-percent: ${100 - (ev + 1) * 50}%` },
+    },
+    gaugeTicks,
   );
 }
 
@@ -157,10 +171,8 @@ export function renderCeval(ctrl: CevalHandler): VNode[] {
     download = ceval.download;
   let pearl: LooseVNode,
     percent = 0;
-
   if (client) {
-    if (client.cloud && !threatMode) percent = 100;
-    else if (ceval.isDeeper() || ceval.isInfinite) percent = Math.min(100, (100 * client.depth) / 99);
+    if ((client.cloud && !threatMode) || ceval.isDeeper() || ceval.isInfinite) percent = 100;
     else if ('movetime' in search.by)
       percent = Math.min(100, (100 * ((threat ?? client)?.millis ?? 0)) / search.by.movetime);
     else if ('depth' in search.by) percent = Math.min(100, (100 * client.depth) / search.by.depth);
@@ -172,11 +184,10 @@ export function renderCeval(ctrl: CevalHandler): VNode[] {
     pearl = h('pearl', renderEval(bestEv.cp));
   } else if (bestEv && defined(bestEv.mate)) {
     pearl = h('pearl', '#' + bestEv.mate);
-    percent = 100;
   } else {
     if (!enabled) pearl = h('pearl', h('icon'));
     else if (node.outcome() || node.threefold) pearl = h('pearl', '-');
-    else if (ceval.state === CevalState.Failed) pearl = h('pearl', icon('cautionCircle')('.is-red'));
+    else if (ceval.state === CevalState.Failed) pearl = h('pearl', icon(licon.CautionCircle)('.is-red'));
     else pearl = h('pearl', h('icon.ddloader'));
     percent = node.outcome() ? 100 : 0;
   }
@@ -185,33 +196,22 @@ export function renderCeval(ctrl: CevalHandler): VNode[] {
 
   const progressBar: VNode | undefined =
     (enabled || download) &&
-    h(
-      'div.bar',
-      h('span', {
+    div(
+      '.bar',
+      span({
         class: { threat: enabled && threatMode },
         attrs: { style: `width: ${percent}%` },
-        hook: {
-          postpatch: (old, vnode) => {
-            if (old.data!.percent > percent || !!old.data!.threatMode !== threatMode) {
-              const el = vnode.elm as HTMLElement;
-              const p = el.parentNode as HTMLElement;
-              p.removeChild(el);
-              p.appendChild(el);
-            }
-            vnode.data!.percent = percent;
-            vnode.data!.threatMode = threatMode;
-          },
-        },
+        key: ctrl.getNodeKey?.() ?? `${node.ply}_${node.id}_${threatMode}`,
       }),
     );
 
   const body: LooseVNodes = enabled
     ? [
         pearl,
-        hl('div.engine', [
+        div('.engine', [
           threatMode ? [i18n.site.showThreat] : engineName(ceval),
-          hl(
-            'span.info',
+          span(
+            '.info',
             node.outcome()
               ? [i18n.site.gameOver]
               : node.threefold
@@ -224,35 +224,33 @@ export function renderCeval(ctrl: CevalHandler): VNode[] {
       ]
     : [
         pearl,
-        hl('div.engine', [
+        div('.engine', [
           engineName(ceval),
           hl('br'),
-          ceval.analysable ? i18n.site.inLocalBrowser : 'Illegal positions cannot be analyzed',
+          ceval.analysable ? i18n.site.inLocalBrowser : i18n.site.illegalPosition,
         ]),
       ];
 
-  const settingsGear = hl(
-    'button.settings-gear',
-    {
-      attrs: { role: 'button', title: 'Engine settings' },
-      class: { active: ceval.showEnginePrefs() },
-      hook: bind(
-        'click',
-        e => {
-          e.stopPropagation();
-          ceval.showEnginePrefs.toggle();
-          if (ceval.showEnginePrefs())
-            setTimeout(() => document.querySelector<HTMLElement>('#select-engine')?.focus()); // nvui
-          else blurIfPrimaryClick(e);
-        },
-        () => ceval.opts.redraw(),
-        false,
-      ),
-    },
-    [snabIcon('gear')],
-  );
+  const settingsGear = button('.settings-gear', {
+    role: 'button',
+    'data-icon': licon.Gear,
+    title: i18n.site.engineSettings,
+    class: { active: ceval.showEnginePrefs() },
+    hook: bind(
+      'click',
+      e => {
+        e.stopPropagation();
+        ceval.showEnginePrefs.toggle();
+        if (ceval.showEnginePrefs())
+          setTimeout(() => document.querySelector<HTMLElement>('#select-engine')?.focus()); // nvui
+        else blurIfPrimaryClick(e);
+      },
+      () => ceval.opts.redraw(),
+      false,
+    ),
+  });
   return [
-    hl('div.ceval' + (enabled ? '.enabled' : ''), { class: { computing: ceval.isComputing } }, [
+    hl('div.ceval', { class: { enabled: !!enabled, computing: ceval.isComputing } }, [
       renderCevalSwitch(ctrl),
       body,
       !ceval.opts.custom && threatButton(ctrl),
@@ -349,10 +347,10 @@ export function renderPvs(ctrl: CevalHandler): VNode | undefined {
     pvIndex = null;
   };
 
-  return hl(
-    'div.pv_box',
+  return div(
+    '.pv_box',
     {
-      attrs: { 'data-fen': node.fen },
+      'data-fen': node.fen,
       hook: {
         ...onInsert(el => {
           el.addEventListener('pointerdown', (e: PointerEvent) => {
@@ -404,7 +402,7 @@ export function renderPvs(ctrl: CevalHandler): VNode | undefined {
       },
     },
     [
-      [...Array(multiPv).keys()].map(i =>
+      Array.from({ length: multiPv }, (_, i) =>
         renderPv(threat, multiPv, pvs[i], pos.isOk ? pos.value : undefined),
       ),
       renderPvBoard(ctrl),
@@ -422,11 +420,11 @@ function renderPv(threat: boolean, multiPv: number, pv?: PvData, pos?: Position)
     if (multiPv > 1) children.push(hl('strong', defined(pv.mate) ? '#' + pv.mate : renderEval(pv.cp!)));
     if (pos) children.push(...renderPvMoves(pos.clone(), pv.moves.slice(0, MAX_NUM_MOVES)));
   }
-  return hl('div.pv.pv--nowrap', data, children);
+  return div('.pv.pv--nowrap', data, children);
 }
 
 function renderPvWrapToggle(): VNode {
-  return hl('span.pv-wrap-toggle', {
+  return span('.pv-wrap-toggle', {
     hook: onInsert(el => {
       for (const event of ['touchstart', 'mousedown']) {
         el.addEventListener(event, (e: Event) => {
@@ -446,15 +444,13 @@ function renderPvMoves(pos: Position, pv: Uci[]): VNode[] {
     let text;
     if (pos.turn === 'white') text = `${pos.fullmoves}.`;
     else if (i === 0) text = `${pos.fullmoves}...`;
-    if (text) vnodes.push(hl('span', { key: text }, text));
+    if (text) vnodes.push(span({ key: text }, text));
     const uci = pv[i];
     const san = makeSanAndPlay(pos, parseUci(uci)!);
     const fen = makeBoardFen(pos.board); // Chessground uses only board fen
     if (san === '--') break;
     key += '|' + uci;
-    vnodes.push(
-      hl('span.pv-san', { key, attrs: { 'data-move-index': i, 'data-board': `${fen}|${uci}` } }, san),
-    );
+    vnodes.push(span('.pv-san', { key, 'data-move-index': i, 'data-board': `${fen}|${uci}` }, san));
   }
   return vnodes;
 }
@@ -476,14 +472,14 @@ function renderPvBoard(ctrl: CevalHandler): VNode | undefined {
       visible: false,
     },
   };
-  const cgVNode = hl('div.cg-wrap.is2d', {
+  const cgVNode = div('.cg-wrap.is2d', {
     hook: {
       insert: (vnode: any) => (vnode.elm._cg = makeChessground(vnode.elm, cgConfig)),
       update: (vnode: any) => vnode.elm._cg?.set(cgConfig),
       destroy: (vnode: any) => vnode.elm._cg?.destroy(),
     },
   });
-  return hl('div.pv-board', hl('div.pv-board-square', cgVNode));
+  return div('.pv-board', div('.pv-board-square', cgVNode));
 }
 
 function loadingText(ctrl: CevalHandler): string {

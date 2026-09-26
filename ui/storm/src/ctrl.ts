@@ -138,7 +138,7 @@ export default class StormCtrl implements PuzCtrl {
         if (this.run.clock.flag()) this.end();
         else if (!this.incPuzzle()) this.end();
       }
-      this.run.current.playSound(puzzle);
+      this.run.current.playSound(correct ? puzzle : undefined);
       this.redraw();
       this.redrawQuick();
       this.redrawSlow();

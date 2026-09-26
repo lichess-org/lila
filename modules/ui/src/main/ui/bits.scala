@@ -51,7 +51,7 @@ object bits:
     div(cls := s"$prefix $prefix--$id")(
       a(
         href := prev.map(urlOf),
-        iconEl := Icon.lessThan,
+        dataIcon := Icon.LessThan,
         cls := List("disabled" -> prev.isEmpty)
       ),
       div(cls := prefixed("__selects"))(
@@ -76,7 +76,7 @@ object bits:
       ),
       a(
         href := next.map(urlOf),
-        iconEl := Icon.greaterThan,
+        dataIcon := Icon.GreaterThan,
         cls := List("disabled" -> next.isEmpty)
       )
     )
@@ -115,12 +115,12 @@ object bits:
 
   def markdownEditor(realm: MarkdownRealm)(textareaTag: Tag)(using
       imageGetOrigin: ImageGetOrigin
-  )(using ctx: Context) =
+  )(using ctx: Context)(using Translate) =
     val editorClass = if realm.toastUi then "markdown-toastui" else "markdown-textarea"
     val canUploadImages = ctx.me.soUse(lila.core.security.canUploadImages(realm.key))
     val uploadUrl = canUploadImages.option(routes.Main.uploadImage(realm))
     val imageUploadButton = (!realm.toastUi && canUploadImages).option:
-      button(cls := "upload-image", tpe := "button", title := "Upload image", iconEl := Icon.addPhotoOutline)
+      button(cls := "button-empty", tpe := "button", title := "Upload image")(span(cls := "upload-image"))
     val previewStyle = realm match
       case MarkdownRealm.blog => "ublog-post__markup"
       case MarkdownRealm.cms => "cms-preview"
@@ -134,8 +134,8 @@ object bits:
       uploadUrl.map(url => attr("data-image-upload-url") := url)
     )(
       div(cls := "header")(
-        button(cls := "header-tab write-tab active", tpe := "button")("Write"),
-        button(cls := "header-tab preview-tab", tpe := "button")("Preview"),
+        button(cls := "header-tab write-tab active", tpe := "button")(lila.core.i18n.I18nKey.site.write()),
+        button(cls := "header-tab preview-tab", tpe := "button")(lila.core.i18n.I18nKey.site.preview()),
         imageUploadButton
       ),
       div(cls := "content")(

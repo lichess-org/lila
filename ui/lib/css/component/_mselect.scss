@@ -13,23 +13,22 @@ $c-mselect: $c-primary;
   &__label {
     @extend %box-radius, %flex-between-nowrap, %metal-with-border;
     @include backdrop-blur-if-transparent;
-    @include padding-direction(0.3rem, 0.65rem, 0.3rem, 1rem);
+    @include padding-direction(0.3rem, 0.6rem, 0.3rem, 1rem);
 
     gap: 1ch;
     cursor: pointer;
 
     &::after {
-      @include icon-mask($icon-moreTriangle, 0.7rem);
+      @extend %data-icon;
 
+      content: $licon-MoreTriangle;
+      font-size: 70%;
       color: $c-mselect;
+      margin-inline: 0.4em 0;
     }
 
     &:focus-visible {
       outline: $outline;
-    }
-
-    .svg-icon {
-      font-size: 85%;
     }
   }
 
@@ -76,11 +75,9 @@ $c-mselect: $c-primary;
   }
 
   &__item {
-    align-items: center;
-    gap: 0.5em;
     white-space: nowrap;
     display: block;
-    padding: 0.3em 1em 0.3rem calc(1rem - 3px);
+    padding: 0.3em 1em;
     visibility: hidden;
     opacity: 0;
     color: $c-mselect;
@@ -103,8 +100,8 @@ $c-mselect: $c-primary;
       outline-offset: -2px;
     }
 
-    .svg-icon {
-      font-size: 85%;
+    &::before {
+      margin-inline-end: 0.4em;
     }
   }
 }

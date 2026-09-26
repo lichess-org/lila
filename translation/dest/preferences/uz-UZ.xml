@@ -41,6 +41,7 @@
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Yurish uch marta takrorlanganda avtomatik tarzda durang talab qilish</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">30 sekunddan kam vaqt qolganda</string>
   <string name="moveConfirmation">Yurishni tasdiqlash</string>
+  <string name="multipleChoices">Bir nechta tanlashingiz mumkin. </string>
   <string name="explainCanThenBeTemporarilyDisabled">Oʻyin vaqtida taxta menyusi orqali vaqtinchalik oʻchirib turish mumkin</string>
   <string name="inCorrespondenceGames">Yozishmali oʻyinlarda</string>
   <string name="correspondenceAndUnlimited">Yozishmali va vaqti cheksiz oʻyinlarda</string>
@@ -56,16 +57,12 @@
   <string name="scrollOnTheBoardToReplayMoves">Yurishlarni koʻrish uchun taxta ustida sichqonchani aylantirish</string>
   <string name="correspondenceEmailNotification">Yozishmali oʻyinlar haqida hisobotni e‑pochta orqali har kuni joʻnatish</string>
   <string name="notifyStreamStart">Strimer translyatsiya boshlaganida</string>
-  <string name="notifyInboxMsg">Yangi kiruvchi xabar</string>
-  <string name="notifyDirectMessage" comment="notifyInboxMsg&#10;&#10;A notification setting - notifies players when they receive a new message in their Lichess inbox Replaces old string notifyInboxMsg">Yangi shaxsiy xabar</string>
-  <string name="notifyForumMention">Forumdagi kommentlarda sizni eslatishganda</string>
-  <string name="notifyForumMentions" comment="notifyForumMention&#10;&#10; A notification setting - notifies players when someone has @mentioned their name in the Lichess Forum (https://lichess.org/forum) Replaces old string notifyForumMention">Forumda eslatishlar</string>
-  <string name="notifyInvitedStudy">Saboqqa taklif olganda</string>
-  <string name="notifyStudyInvites" comment="notifyInvitedStudy&#10;&#10; A notification setting - notifies players about invites to studies (https://lichess.org/study/) Replaces old string notifyInvitedStudy">Saboqqa takliflar</string>
+  <string name="notifyDirectMessage" comment="notifyInboxMsg&#10;&#10;A notification setting - notifies players when they receive a new message in their Lichess inbox">Yangi shaxsiy xabar</string>
+  <string name="notifyForumMentions" comment="notifyForumMention&#10;&#10; A notification setting - notifies players when someone has @mentioned their name in the Lichess Forum (https://lichess.org/forum)">Forumda eslatishlar</string>
+  <string name="notifyStudyInvites" comment="notifyInvitedStudy&#10;&#10; A notification setting - notifies players about invites to studies (https://lichess.org/study/)">Saboqqa takliflar</string>
   <string name="notifyGameEvent">Yozishmali oʻyinlardagi yangilanishlar</string>
   <string name="notifyChallenge">Chorlovlar</string>
-  <string name="notifyTournamentSoon">Turnir boshlanishiga vaqt oz qolganda</string>
-  <string name="notifyTournamentStartReminders" comment="notifyTournamentSoon&#10;&#10;A notification setting - notifies players if a tournament is starting soon. Replaces old string notifyTournamentSoon">Turnir boshlanishi haqida bildirishnomalar</string>
+  <string name="notifyTournamentStartReminders" comment="notifyTournamentSoon&#10;&#10;A notification setting - notifies players if a tournament is starting soon.">Turnir boshlanishi haqida bildirishnomalar</string>
   <string name="notifyBroadcasts">Translyatsiyalar</string>
   <string name="notifyTimeAlarm">Yozishmali oʻyin vaqti oz qolganda</string>
   <string name="notifyBell">Lichess ichida qoʻngʻiroq tovushli bildirishnoma</string>
@@ -93,4 +90,10 @@
   <string name="analysisSettings">Tahlil sozlamalari</string>
   <string name="maneuverArrowsHelp">Bitta dona uchun dvijokning yurishlar ketma‑ketligi</string>
   <string name="hoverOverSettingLabelsForHelp">Yordam olish uchun sozlama nomi ustiga kursorni qoʻying</string>
+  <string name="network">Tarmoq</string>
+  <string name="youAreCurrentlyUsingDirectRouting">Siz toʻgʻridan‑toʻgʻri marshrutizatsiya ishlatmoqdasiz.</string>
+  <string name="youAreCurrentlyUsingCdnRouting">Siz kontent yetkazib berish tarmogʻi (CDN) marshrutizatsiyasini ishlatmoqdasiz.</string>
+  <string name="frequentDisconnectsAdvice">Agar tez‑tez uzilishlar kuzatayotgan boʻlsangiz, marshrutizatsiyani oʻzgartirib koʻring.</string>
+  <string name="useDirectRouting">Toʻgʻridan‑toʻgʻri marshrutizatsiya ishlatish</string>
+  <string name="useCdnRouting">CDN marshrutizatsiya ishlatish</string>
 </resources>

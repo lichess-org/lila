@@ -156,7 +156,7 @@ final class AppealDiscussionUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
                 cls := "button button-empty mod-zone-toggle",
                 href := routes.User.mod(user.username),
                 titleOrText("Mod zone (Hotkey: m)"),
-                iconEl := Icon.agent
+                dataIcon := Icon.Agent
               )
             )
           ),
@@ -177,7 +177,7 @@ final class AppealDiscussionUi(helpers: Helpers, ui: AppealUi)(using NetDomain):
               ),
             standardFlash.orElse:
               markedByMe.option:
-                div(iconEl := Icon.cautionTriangle, cls := "marked-by-me text"):
+                div(dataIcon := Icon.CautionTriangle, cls := "marked-by-me text"):
                   "You have marked this user. Appeal should be handled by another moderator"
             ,
             if appeal.isClosed then appealIsClosed(appeal)

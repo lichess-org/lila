@@ -4,7 +4,7 @@ import { pubsub, type PubsubEvents } from '@/pubsub';
 import { storedStringProp, storedBooleanProp } from '@/storage';
 import { alert } from '@/view';
 
-import { prop, type Prop } from '../index';
+import { myUserId, type Prop } from '../index';
 import type {
   ChatOpts,
   Line,
@@ -40,9 +40,7 @@ export class ChatCtrl {
     readonly redraw: Redraw,
   ) {
     this.data = opts.data;
-    this.chatEnabled = this.data // tmp BC, remove check
-      ? storedBooleanProp(`chat.${this.data.resourceType}.enabled`, true)
-      : prop(false);
+    this.chatEnabled = storedBooleanProp(`chat.${this.data.resourceType}.enabled.${myUserId()}`, true);
     this.storedTabKey = storedStringProp(`chat.${opts.plugin ? opts.plugin.key + '.' : ''}tab`, 'discussion');
     if (!opts.kidMode) this.allTabs.push({ key: 'discussion' });
     if (opts.noteId) this.allTabs.push({ key: 'note' });

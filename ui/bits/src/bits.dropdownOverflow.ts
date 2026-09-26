@@ -1,6 +1,6 @@
+import { frag } from 'lib';
 import { isTouchDevice } from 'lib/device';
-import { type Icon } from 'lib/icons';
-import { domIcon } from 'lib/view';
+import { licon } from 'lib/licon';
 import { json as xhrJson } from 'lib/xhr';
 
 type HttpMethod = 'GET' | 'POST';
@@ -12,7 +12,7 @@ type Menu = {
 
 type MenuItem = {
   label: string;
-  icon: Icon;
+  icon: string;
   href: string;
   category?: string;
   cssClass?: string;
@@ -87,23 +87,21 @@ function renderMenu(container: HTMLElement): void {
 
   const createMenuButton = (className: string, item: MenuItem): HTMLElement => {
     if (item.httpMethod === 'POST') {
-      const form = document.createElement('form');
-      const button = document.createElement('button');
-      form.method = 'POST';
-      form.action = item.href;
-      button.type = 'submit';
-      button.className = 'button-text';
-      button.append(domIcon(item.icon), item.label);
-      form.append(button);
-      return form;
+      return frag($html`
+        <form method="POST" action="${item.href}">
+          <button type="submit" class="button-text" data-icon="${item.icon}">
+            ${item.label}
+          </button>
+        </form>`);
     }
     const button = document.createElement('a');
     button.className = className;
     if (item.cssClass) {
       button.classList.add(item.cssClass);
     }
-    button.append(domIcon(item.icon), item.label);
+    button.textContent = item.label;
     button.href = item.href;
+    button.setAttribute('data-icon', item.icon);
 
     return button;
   };
@@ -127,7 +125,7 @@ function renderMenu(container: HTMLElement): void {
       menuContainer.classList.remove('btn-rack');
       dropdownDiv.classList.remove('btn-rack__btn');
       moreButton.textContent = '';
-      moreButton.append(domIcon('hamburger'));
+      moreButton.setAttribute('data-icon', licon.Hamburger);
     }
 
     const dropdownWindow = document.createElement('div');

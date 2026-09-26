@@ -56,16 +56,12 @@
   <string name="scrollOnTheBoardToReplayMoves">Lăn chuột trên bàn cờ để xem lại nước đi</string>
   <string name="correspondenceEmailNotification">Email thông báo hàng ngày sẽ bao gồm cả các ván cờ qua thư</string>
   <string name="notifyStreamStart">Streamer đang phát trực tiếp</string>
-  <string name="notifyInboxMsg">Tin nhắn mới</string>
-  <string name="notifyDirectMessage" comment="notifyInboxMsg&#10;&#10;A notification setting - notifies players when they receive a new message in their Lichess inbox Replaces old string notifyInboxMsg">Tin nhắn trực tiếp mới</string>
-  <string name="notifyForumMention">Có bình luận diễn đàn đề cập đến bạn</string>
-  <string name="notifyForumMentions" comment="notifyForumMention&#10;&#10; A notification setting - notifies players when someone has @mentioned their name in the Lichess Forum (https://lichess.org/forum) Replaces old string notifyForumMention">Bình luận của diễn đàn đề cập đến bạn</string>
-  <string name="notifyInvitedStudy">Lời mời nghiên cứu</string>
-  <string name="notifyStudyInvites" comment="notifyInvitedStudy&#10;&#10; A notification setting - notifies players about invites to studies (https://lichess.org/study/) Replaces old string notifyInvitedStudy">Lời mời tham gia nghiên cứu</string>
+  <string name="notifyDirectMessage" comment="notifyInboxMsg&#10;&#10;A notification setting - notifies players when they receive a new message in their Lichess inbox">Tin nhắn trực tiếp mới</string>
+  <string name="notifyForumMentions" comment="notifyForumMention&#10;&#10; A notification setting - notifies players when someone has @mentioned their name in the Lichess Forum (https://lichess.org/forum)">Bình luận của diễn đàn đề cập đến bạn</string>
+  <string name="notifyStudyInvites" comment="notifyInvitedStudy&#10;&#10; A notification setting - notifies players about invites to studies (https://lichess.org/study/)">Lời mời tham gia nghiên cứu</string>
   <string name="notifyGameEvent">Những cập nhật liên quan đến ván cờ qua thư</string>
   <string name="notifyChallenge">Các lời thách đấu</string>
-  <string name="notifyTournamentSoon">Giải đấu sắp bắt đầu</string>
-  <string name="notifyTournamentStartReminders" comment="notifyTournamentSoon&#10;&#10;A notification setting - notifies players if a tournament is starting soon. Replaces old string notifyTournamentSoon">Thông báo giải đấu bắt đầu</string>
+  <string name="notifyTournamentStartReminders" comment="notifyTournamentSoon&#10;&#10;A notification setting - notifies players if a tournament is starting soon.">Thông báo giải đấu bắt đầu</string>
   <string name="notifyBroadcasts">Các phát sóng</string>
   <string name="notifyTimeAlarm">Thời gian đánh cờ qua thư sắp hết</string>
   <string name="notifyBell">Chuông thông báo khi đang truy cập Lichess</string>
@@ -82,7 +78,7 @@
   <string name="showGauge">Hiện thanh lợi thế</string>
   <string name="showMoveAnnotationsOnBoard">Hiện chú thích nước đi</string>
   <string name="showVariationArrows">Hiện mũi tên cho các biến</string>
-  <string name="showLiveGlyphs">Máy tính chú thích trực tiếp</string>
+  <string name="showLiveGlyphs">Công cụ chú thích trực tiếp</string>
   <string name="showUndefendedPieces">Hiện quân không được phòng thủ</string>
   <string name="showPinnedPieces">Hiện quân bị ghim</string>
   <string name="showCheckableKing">Hiển thị vua có thể bị chiếu</string>

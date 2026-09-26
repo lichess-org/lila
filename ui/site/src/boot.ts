@@ -4,16 +4,10 @@ import * as ab from 'ab/site';
 import { scrollToInnerSelector, requestIdleCallbackSafe } from 'lib';
 import { dispatchChessgroundResize } from 'lib/chessgroundResize';
 import { prefersLightThemeQuery } from 'lib/device';
+import { licon } from 'lib/licon';
 import { pubsub } from 'lib/pubsub';
 import { eventuallySetupDefaultConnection } from 'lib/socket';
-import {
-  domIcon,
-  initMiniBoards,
-  initMiniGames,
-  updateMiniGame,
-  finishMiniGame,
-  toggleBoxInit,
-} from 'lib/view';
+import { initMiniBoards, initMiniGames, updateMiniGame, finishMiniGame, toggleBoxInit } from 'lib/view';
 import { watchers } from 'lib/view/watchers';
 import { text as xhrText } from 'lib/xhr';
 
@@ -91,13 +85,13 @@ export function boot() {
       const url = '/tournament/' + data.id;
       $('body').append(
         $('<div id="announce">')
-          .append($('<a class="text">').attr('href', url).append(domIcon('trophy'), data.name))
+          .append($(`<a data-icon="${licon.Trophy}" class="text">`).attr('href', url).text(data.name))
           .append(
             $('<div class="actions">')
               .append(
-                $('<a class="withdraw text">')
+                $(`<a class="withdraw text" data-icon="${licon.Pause}">`)
                   .attr('href', url + '/withdraw')
-                  .append(domIcon('pause'), i18n.site.pause)
+                  .text(i18n.site.pause)
                   .on('click', function (this: HTMLAnchorElement) {
                     xhrText(this.href, { method: 'post' });
                     $('#announce').remove();
@@ -105,7 +99,9 @@ export function boot() {
                   }),
               )
               .append(
-                $('<a class="text">').attr('href', url).append(domIcon('playTriangle'), i18n.site.resume),
+                $(`<a class="text" data-icon="${licon.PlayTriangle}">`)
+                  .attr('href', url)
+                  .text(i18n.site.resume),
               ),
           ),
       );

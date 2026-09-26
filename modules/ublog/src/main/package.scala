@@ -10,6 +10,7 @@ val markdownOptions = lila.memo.MarkdownOptions(
   list = true,
   table = true,
   header = true,
+  headerAnchorLink = true,
   strikeThrough = true,
   blockQuote = true,
   code = true,

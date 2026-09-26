@@ -12,7 +12,7 @@
   h1 {
     margin: 0;
 
-    > .svg-icon {
+    &::before {
       margin-inline-end: 10px;
     }
   }
@@ -38,8 +38,8 @@
     padding-top: 10px;
   }
 
-  .is > .svg-icon {
-    width: 1.4em;
+  .is::before {
+    font-size: 1.4em;
   }
 
   .explanation {
@@ -70,12 +70,12 @@
     .is {
       font-size: 0;
 
-      > .svg-icon {
-        width: 1.3rem;
+      &::before {
+        font-size: 1.3rem;
       }
     }
 
-    h1 > .svg-icon {
+    h1::before {
       display: none;
     }
 

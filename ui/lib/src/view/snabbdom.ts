@@ -12,10 +12,11 @@ import {
   thunk,
 } from 'snabbdom';
 
+import type { LiconValue } from '@/licon';
 export type { Attrs, Hooks, Classes, VNode, VNodeData, VNodeChildElement, VNodeChildren };
 export type MaybeVNode = VNode | string | null | undefined;
 export type MaybeVNodes = MaybeVNode[];
-export { thunk };
+export { thunk, snabH };
 
 export function onInsert<A extends HTMLElement>(f: (element: A) => void): Hooks {
   return {
@@ -60,6 +61,10 @@ export function bindSubmit(f: (e: SubmitEvent) => void, redraw?: () => void): Ho
     false,
   );
 }
+
+export const dataIcon = (icon: LiconValue): Attrs => ({
+  'data-icon': icon,
+});
 
 export const testId = (id: string): Attrs => (site.debug ? { 'data-testid': id } : {});
 

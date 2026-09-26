@@ -34,11 +34,9 @@
   <string name="downloadAllRounds">Descargar toles rondes</string>
   <string name="resetRound">Restablecer esta ronda</string>
   <string name="deleteRound">Eliminar esta ronda</string>
-  <string name="definitivelyDeleteRound">Eliminar definitivamente la ronda y les sos partíes.</string>
   <string name="deleteAllGamesOfThisRound">Eliminar toles partíes d\'esta ronda. La fonte va tener que tar activa pa volver a crealos.</string>
   <string name="editRoundStudy">Editar estudiu de ronda</string>
   <string name="deleteTournament">Elimina esti tornéu</string>
-  <string name="definitivelyDeleteTournament">Elimina definitivamente tol tornéu, rondes y partíes incluyíes.</string>
   <string name="showScores">Amosar les puntuaciones de los xugadores según los resultaos de les partíes</string>
   <string name="replacePlayerTags">Opcional: reemplazar nomes de xugadores, puntuaciones y títulos</string>
   <string name="fideFederations">Federaciones FIDE</string>

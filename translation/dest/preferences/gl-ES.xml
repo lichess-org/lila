@@ -41,6 +41,7 @@
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Automaticamente reclamar táboas por tripla repetición</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Cando o tempo restante &lt;30 segundos</string>
   <string name="moveConfirmation">Confirmación do movemento</string>
+  <string name="multipleChoices">Pódense escoller varias opcións. </string>
   <string name="explainCanThenBeTemporarilyDisabled">Pode ser desactivado durante a partida dende o menú do taboleiro</string>
   <string name="inCorrespondenceGames">Partidas por correspondencia</string>
   <string name="correspondenceAndUnlimited">Correspondencia e ilimitado</string>
@@ -56,16 +57,12 @@
   <string name="scrollOnTheBoardToReplayMoves">Usar a roda do rato para amosar os movementos</string>
   <string name="correspondenceEmailNotification">Email diario listando as túas partidas por correspondencia</string>
   <string name="notifyStreamStart">Un presentador comeza unha transmisión en directo</string>
-  <string name="notifyInboxMsg">Novo correo</string>
-  <string name="notifyDirectMessage" comment="notifyInboxMsg&#10;&#10;A notification setting - notifies players when they receive a new message in their Lichess inbox Replaces old string notifyInboxMsg">Nova mensaxe directa</string>
-  <string name="notifyForumMention">Un comentario do foro menciónate</string>
-  <string name="notifyForumMentions" comment="notifyForumMention&#10;&#10; A notification setting - notifies players when someone has @mentioned their name in the Lichess Forum (https://lichess.org/forum) Replaces old string notifyForumMention">Mencións no Foro</string>
-  <string name="notifyInvitedStudy">Invitación a estudo</string>
-  <string name="notifyStudyInvites" comment="notifyInvitedStudy&#10;&#10; A notification setting - notifies players about invites to studies (https://lichess.org/study/) Replaces old string notifyInvitedStudy">Invitacións a estudos</string>
+  <string name="notifyDirectMessage" comment="notifyInboxMsg&#10;&#10;A notification setting - notifies players when they receive a new message in their Lichess inbox">Nova mensaxe directa</string>
+  <string name="notifyForumMentions" comment="notifyForumMention&#10;&#10; A notification setting - notifies players when someone has @mentioned their name in the Lichess Forum (https://lichess.org/forum)">Mencións no Foro</string>
+  <string name="notifyStudyInvites" comment="notifyInvitedStudy&#10;&#10; A notification setting - notifies players about invites to studies (https://lichess.org/study/)">Invitacións a estudos</string>
   <string name="notifyGameEvent">Actualizacións de partida por correspondencia</string>
   <string name="notifyChallenge">Desafíos</string>
-  <string name="notifyTournamentSoon">O torneo comeza pronto</string>
-  <string name="notifyTournamentStartReminders" comment="notifyTournamentSoon&#10;&#10;A notification setting - notifies players if a tournament is starting soon. Replaces old string notifyTournamentSoon">Recordatorios de comezo de torneo</string>
+  <string name="notifyTournamentStartReminders" comment="notifyTournamentSoon&#10;&#10;A notification setting - notifies players if a tournament is starting soon.">Recordatorios de comezo de torneo</string>
   <string name="notifyBroadcasts">Emisións</string>
   <string name="notifyTimeAlarm">Pouco tempo restante na partida por correspondencia</string>
   <string name="notifyBell">Notificación dentro de Lichess</string>
@@ -93,4 +90,10 @@
   <string name="analysisSettings">Axustes da análise</string>
   <string name="maneuverArrowsHelp">Secuencia de xogadas de computador para unha peza</string>
   <string name="hoverOverSettingLabelsForHelp">Pasa o rato sobre as opcións da configuración para obter axuda</string>
+  <string name="network">Rede</string>
+  <string name="youAreCurrentlyUsingDirectRouting">Nestes intres estás a usar o encamiñamento directo.</string>
+  <string name="youAreCurrentlyUsingCdnRouting">Nestes intres estás a usar o encamiñamento mediante Content Delivery Network (CDN).</string>
+  <string name="frequentDisconnectsAdvice">Se estás a experimentar desconexións frecuentes, proba a cambiar o encamiñamento.</string>
+  <string name="useDirectRouting">Usar o encamiñamento directo</string>
+  <string name="useCdnRouting">Usar o encamiñamento CDN</string>
 </resources>

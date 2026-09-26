@@ -30,7 +30,7 @@ final class DevUi(helpers: Helpers)(modMenu: String => Context ?=> Frag):
                         case Some(v: lila.core.data.Text) => textarea(name := "v")(v.value)
                         case v => input(name := "v", value := v.map(_.toString))
                       ,
-                      submitButton(cls := "button button-empty", iconEl := Icon.checkmark)
+                      submitButton(cls := "button button-empty", dataIcon := Icon.Checkmark)
                     )
         )
       )
@@ -140,4 +140,5 @@ fide player sync
 fide player rip 2026961 2025
 fide player delete 2026961
 relay owner {group or tour id} {username}
+user real-name {id} {real name}
 """

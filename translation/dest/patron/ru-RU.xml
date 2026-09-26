@@ -17,9 +17,9 @@
   <string name="freeChess">Бесплатные шахматы для всех, навсегда!</string>
   <string name="noAdsNoSubs">Без рекламы, без подписок, но с открытым исходным кодом и преданностью делу.</string>
   <string name="thankYou">Благодарим вас за пожертвование!</string>
-  <string name="youHaveLifetime">У вас есть пожизненная учётная запись спонсора. Это очень круто!</string>
-  <string name="patronUntil">Ваш аккаунт покровителя действует до %s.</string>
-  <string name="ifNotRenewedThenAccountWillRevert">Если не будет обновляться, то учётная запись опять станет обычной.</string>
+  <string name="youHaveLifetime">У вас есть пожизненный аккаунт спонсора. Это очень круто!</string>
+  <string name="patronUntil">Ваш аккаунт спонсора действует до %s.</string>
+  <string name="ifNotRenewedThenAccountWillRevert">Если не будет обновляться, то аккаунт опять станет обычным.</string>
   <string name="weAreNonProfit">Мы некоммерческая ассоциация, потому что мы считаем, что все должны иметь бесплатный и свободный доступ к шахматной платформе мирового класса.</string>
   <string name="weRelyOnSupport">Мы полагаемся на поддержку таких людей как вы. Если вам нравится Lichess, пожалуйста, поддержите нас, сделав пожертвование и став его спонсором!</string>
   <string name="lifetime">Пожизненная</string>
@@ -79,7 +79,7 @@
   <string name="date">Дата</string>
   <string name="amount">Сумма</string>
   <string name="transactionCompleted">Ваша транзакция завершена, и вам на почту отправлена квитанция о пожертвовании.</string>
-  <string name="permanentPatron">Теперь у вас учётная запись спонсора пожизненно.</string>
+  <string name="permanentPatron">Теперь у вас аккаунт спонсора пожизненно.</string>
   <string name="checkOutProfile">Посмотрите свою страницу профиля!</string>
   <string name="nowLifetime">Теперь вы пожизненный покровитель Lichess!</string>
   <string name="nowOneMonth">Теперь вы покровитель Lichess на один месяц!</string>

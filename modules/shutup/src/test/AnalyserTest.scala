@@ -14,6 +14,7 @@ class AnalyserTest extends munit.FunSuite:
     assert(grave("gets cancer"))
     assert(grave("ki11 yourself"))
     assert(grave("kys"))
+    assert(grave("kyskys"))
     assert(grave("kill you motherfucker"))
     assert(grave("kill your father"))
     assert(grave("rope"))

@@ -1,6 +1,7 @@
 .coach-widget {
   position: relative;
   display: flex;
+  padding-bottom: 1rem;
 
   @include transition;
 
@@ -73,27 +74,23 @@
     .rating td {
       @extend %flex-center;
 
-      gap: 0.5em;
-
       a {
         display: flex;
         color: $c-font;
-        gap: 0.5em;
 
-        .svg-icon {
-          width: 16px;
-          margin-inline-end: 0.2em;
+        span {
+          margin-inline-start: 0.5em;
         }
       }
     }
 
     .flag img {
       margin-inline-start: 0.5em;
-      vertical-align: bottom;
+      vertical-align: text-bottom;
       aspect-ratio: 1;
     }
 
-    :has(> .svg-icon) {
+    [data-icon] {
       @extend %flex-center;
     }
   }

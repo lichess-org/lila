@@ -32,11 +32,9 @@
   <string name="downloadAllRounds">ดาวน์โหลดรอบทั้งหมด</string>
   <string name="resetRound">รีเซ็ตรอบนี้</string>
   <string name="deleteRound">ลบรอบนี้</string>
-  <string name="definitivelyDeleteRound">ลบรอบนั้นและเกมทั้งหมดในรอบนั้นอย่างถาวร</string>
   <string name="deleteAllGamesOfThisRound">ลบเกมทั้งหมดในรอบนี้ แหล่งข้อมูลการออกอากาศต้องเปิดใช้งานเพื่อสร้างเกมเหล่านั้นขึ้นมาใหม่</string>
   <string name="editRoundStudy">แก้ไขการเรียนรู้จากเกม</string>
   <string name="deleteTournament">ลบทัวนาเมนต์นี้</string>
-  <string name="definitivelyDeleteTournament">ลบทัวร์นาเมนต์ทั้งหมดอย่างถาวร รวมถึงรอบการแข่งขันและเกมทั้งหมดด้วย</string>
   <string name="showScores">แสดงคะแนนผู้เล่นอ้างอิงจากผลของเกม</string>
   <string name="replacePlayerTags">ตัวเลือก: แทนที่ชื่อผู้เล่น, เรดติ้ง และ ตำแหน่ง</string>
   <string name="fideFederations">สหพันธ์ FIDE</string>

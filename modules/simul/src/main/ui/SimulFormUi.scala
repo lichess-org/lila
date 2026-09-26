@@ -25,13 +25,13 @@ final class SimulFormUi(helpers: Helpers)(
           h1(cls := "box__top")(trans.site.hostANewSimul()),
           postForm(cls := "form3", action := routes.Simul.create)(
             br,
-            p(trans.site.whenCreateSimul()),
+            p(trans.site.creatingASimul()),
             br,
             br,
             formContent(Right(form), teams, none),
             form3.actions(
               a(href := routes.Simul.home)(trans.site.cancel()),
-              form3.submit(trans.site.hostANewSimul(), icon = Icon.trophy.some)
+              form3.submit(trans.site.hostANewSimul(), icon = Icon.Trophy.some)
             )
           )
         )
@@ -46,15 +46,12 @@ final class SimulFormUi(helpers: Helpers)(
             formContent(form, teams, simul.some),
             form3.actions(
               a(href := routes.Simul.show(simul.id))(trans.site.cancel()),
-              form3.submit(trans.site.save(), icon = Icon.trophy.some)
+              form3.submit(trans.site.save(), icon = Icon.Trophy.some)
             )
           ),
           form.isRight.option:
             postForm(cls := "terminate", action := routes.Simul.abort(simul.id))(
-              submitButton(
-                iconEl := Icon.cautionCircle,
-                cls := "text button button-red yes-no-confirm"
-              )(
+              submitButton(dataIcon := Icon.CautionCircle, cls := "text button button-red yes-no-confirm")(
                 trans.site.cancelSimul()
               )
             )
@@ -125,7 +122,7 @@ final class SimulFormUi(helpers: Helpers)(
           form3.split(
             form3.group(
               form("clockExtra"),
-              trans.site.simulHostExtraTime(),
+              trans.site.extraClockTimeForHost(),
               help = trans.site.simulAddExtraTime().some,
               half = true
             )(

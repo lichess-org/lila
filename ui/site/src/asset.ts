@@ -29,7 +29,7 @@ export const flairSrc = (flair: Flair) => url(`flair/img/${flair}.webp`, { pathV
 
 // bump fide fed version if a fide fed is changed only (not added or removed)
 export const fideFedSrc = (fideFed: FideFed) =>
-  url(`fide/fed-webp/${fideFed}.webp`, { pathVersion: '_____2' });
+  url(`fide/fed-webp/${fideFed}.webp`, { pathVersion: '_____3' });
 
 export const loadCss = (href: string, key?: string): Promise<void> => {
   return new Promise(resolve => {
@@ -56,8 +56,7 @@ export const removeCssPath = (key: string) => $(`head > link[data-css-key="${key
 
 export const jsModule = (name: string, prefix = 'compiled/') => {
   if (name.endsWith('.js')) name = name.slice(0, -3);
-  const hash = site.manifest.js[name];
-  return `${prefix}${name}${hash ? `.${hash}` : ''}.js`;
+  return [`${prefix}${name}`, site.manifest.js[name], 'js'].filter(Boolean).join('.');
 };
 
 export const loadIife = (u: string, opts: AssetUrlOpts = {}): Promise<void> => {

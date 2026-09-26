@@ -11,6 +11,7 @@ final class PracticeUi(helpers: Helpers)(
     explorerAndCevalConfig: Context ?=> JsObject
 ):
   import helpers.{ *, given }
+  import trans.practice as trp
   import trans.learn as trl
 
   def show(us: UserStudy, data: JsonView.JsData)(using ctx: Context) =
@@ -36,8 +37,9 @@ final class PracticeUi(helpers: Helpers)(
         main(cls := "analyse")
 
   def index(data: lila.practice.UserPractice)(using ctx: Context) =
-    Page("Practice chess positions")
+    Page(s"${trans.site.practice.txt()} - ${trp.makesPerfect.txt()}")
       .css("bits.practice.index")
+      .i18n(_.practice)
       .graph(
         title = "Practice your chess",
         description = "Learn how to master the most common chess positions",
@@ -52,8 +54,8 @@ final class PracticeUi(helpers: Helpers)(
                 src := assetUrl("images/practice/robot-golem.svg")
               ),
               div(cls := "practice-side__title")(
-                h1("Practice"),
-                h2("makes your chess perfect")
+                h1(trans.site.practice()),
+                h2(trp.makesPerfect())
               )
             ),
             div(cls := "progress")(
@@ -68,13 +70,13 @@ final class PracticeUi(helpers: Helpers)(
                     title := trl.youWillLoseAllYourProgress.txt()
                   )(trl.resetMyProgress.txt())
                 )
-              else a(href := routes.Auth.signup)("Sign up to save your progress")
+              else a(href := routes.Auth.signup)(trp.signUpToSaveYourProgress())
             )
           ),
           div(cls := "page-menu__content practice-app")(
             data.structure.sections.map: section =>
               st.section(
-                h2(section.name),
+                h2(section.name()),
                 div(cls := "studies")(
                   section.studies.map: stud =>
                     val prog = data.progressOn(stud.id)
@@ -95,12 +97,13 @@ final class PracticeUi(helpers: Helpers)(
                       ),
                       iconTag(cls := stud.id),
                       span(cls := "text")(
-                        h3(stud.name),
-                        p(stud.desc)
+                        h3(stud.name()),
+                        em(stud.desc())
                       ),
-                      (!prog.complete).option(div(cls := "attention-effect"))
+                      prog.complete.not.option(div(cls := "attention-effect"))
                     )
                 )
               )
           )
         )
+      .hrefLangs(lila.ui.LangPath(routes.Practice.index))

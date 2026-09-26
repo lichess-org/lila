@@ -9,7 +9,6 @@ További részletekért lásd a %s oldalt.</string>
   <string name="accountMutedInfo">„Olvasd el a(z) %s-t! A kommunikációs irányelvek megszegése a fiók némítását vonhatja maga után.</string>
   <string name="excludedFromLeaderboards">A fiókodat kizárták a ranglistákról.</string>
   <string name="closedByModerators">Fiókodat zárolták a moderátorok.</string>
-  <string name="playTimeout">Ideiglenesen eltiltottunk a játéktól.</string>
   <string name="communicationGuidelines">kommunikációs irányelvek</string>
   <string name="fairPlay">Sportszerű játék</string>
 </resources>

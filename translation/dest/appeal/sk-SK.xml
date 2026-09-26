@@ -8,7 +8,6 @@
   <string name="accountMutedInfo">Prečítajte si naše %s. Nedodržanie komunikačných pokynov môže viesť k zákazu posielania správ.</string>
   <string name="excludedFromLeaderboards">Vaše konto bolo vylúčené z rebríčkov.</string>
   <string name="closedByModerators">Váš účet bol zrušený moderátormi.</string>
-  <string name="playTimeout">Máte dočasný zákaz hrania.</string>
   <string name="communicationGuidelines">komunikačné smernice</string>
   <string name="fairPlay">Fair Play</string>
 </resources>

@@ -1,7 +1,8 @@
 import { h, type VNode } from 'snabbdom';
 
 import { type Prop, type Toggle, propWithEffect, toggle, escapeHtml } from 'lib';
-import { bind, enter, onInsert, snabDialog, snabIcon } from 'lib/view';
+import { licon } from 'lib/licon';
+import { bind, dataIcon, enter, onInsert, snabDialog } from 'lib/view';
 
 import type { ChapterPreview } from './interfaces';
 import type { StudyChapters } from './studyChapters';
@@ -89,7 +90,7 @@ export function view(ctrl: SearchCtrl) {
                   c.name,
                 ),
                 c.playing
-                  ? h('ongoing', { attrs: { title: 'Ongoing' } }, [snabIcon('discBig')])
+                  ? h('ongoing', { attrs: { ...dataIcon(licon.DiscBig), title: 'Ongoing' } })
                   : c.status && h('res', c.status),
               ]),
             )

@@ -1,6 +1,8 @@
 /* context: .rmoves */
 @include mq-is-col1 {
-  @include backdrop-blur-if-transparent;
+  @include if-transp {
+    @include back-blur;
+  }
 
   overflow: hidden;
 

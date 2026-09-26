@@ -118,7 +118,7 @@ final class SwissShowUi(helpers: Helpers, ui: SwissBitsUi, gathering: GatheringU
   ) =
     frag(
       div(cls := "swiss__meta")(
-        st.section(iconEl := s.perfType.icon)(
+        st.section(dataIcon := s.perfType.icon.toString)(
           div(
             p(
               s.clock.show,
@@ -136,7 +136,7 @@ final class SwissShowUi(helpers: Helpers, ui: SwissBitsUi, gathering: GatheringU
               (Granter.opt(_.ManageTournament) || (ctx.is(s.createdBy) && s.isNotFinished)).option:
                 frag(
                   " ",
-                  a(href := routes.Swiss.edit(s.id), title := "Edit tournament")(iconEl(Icon.gear))
+                  a(href := routes.Swiss.edit(s.id), title := "Edit tournament")(iconTag(Icon.Gear))
                 )
             ),
             ui.showInterval(s)

@@ -44,15 +44,12 @@
   <string name="doubleCheckDescription">Шах дзвюма фігурамі адначасова, у выніку ўскрытыга нападу, калі і фігура, якая ходзіць, і раскрытая фігура атакуюць караля суперніка.</string>
   <string name="endgame">Эндшпіль</string>
   <string name="endgameDescription">Тактыка на апошнім этапе гульні.</string>
-  <string name="enPassantDescription">Задача звязаная з \"узяццем на праходзе\", дзе пешка можа ўзяць пешку суперніка, якая прайшла побач, выкарыстоўвыючы першы ход на два палі.</string>
   <string name="exposedKing">Адкрыты кароль</string>
   <string name="exposedKingDescription">Тактыка, уключаючая недастаткова абароненага караля, якая часта скончваецца матам.</string>
   <string name="fork">Відэлец</string>
-  <string name="forkDescription">Ход, калі фігура, якой пахадзілі, нападае адразу на дзве фігуры суперніка.</string>
   <string name="hangingPiece">Вісячая фігура</string>
   <string name="hangingPieceDescription">Тактыка, уключаючая неабароненую фігуру суперніка ці недастатковую колькасць яе абаронцоў, якую можна з\'есці.</string>
   <string name="hookMate">Хук-мат</string>
-  <string name="hookMateDescription">Мат ладдзёй, канём і пешкай разам з дапамогай адной пешкай суперніка, абмяжоўваючай адыход варожага караля.</string>
   <string name="interference">Перакрыццё</string>
   <string name="interferenceDescription">Перамяшчэнне фігуры паміж дзвюма фігурамі суперніка, каб адна або абедзве фігуры суперніка засталіся без абароны, напрыклад, конь на абароненым полі паміж дзвюма ладдзямі.</string>
   <string name="intermezzo">Прамежкавы ход</string>
@@ -88,7 +85,6 @@
   <string name="pin">Звязка</string>
   <string name="pinDescription">Тактыка, уключаючая звязкі, дзе фігура не можа рухацца, не дазволіўшы нападзенне на больш каштоўную фігуру.</string>
   <string name="promotion">Ператварэнне пешкі</string>
-  <string name="promotionDescription">Ператварыцце адну з пешак ў ферзя або легкую фігуру.</string>
   <string name="queenEndgame">Ферзевы эндшпіль</string>
   <string name="queenEndgameDescription">Эндшпіль выключна з ферзмі і пешкамі.</string>
   <string name="queenRookEndgame">Ферзева-ладдзейны эндшпіль</string>

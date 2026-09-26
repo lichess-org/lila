@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="community">Communauté</string>
+  <string name="communityBlogs">Blogues de la communauté</string>
   <string name="byMonth">Par mois</string>
   <string name="byTopic">Par sujet</string>
   <string name="byLichess">Par Lichess</string>
@@ -8,6 +9,7 @@
   <string name="myLikes">Articles que j\'ai aimés</string>
   <string name="myBlog">Mon blogue</string>
   <string name="likedBlogs">Articles de blogues aimés</string>
+  <string name="blogPostsByFriends">Messages de blogue par des amis</string>
   <plurals name="blogPosts">
     <item quantity="one">%s article de blogue</item>
     <item quantity="other">%s articles de blogue</item>
@@ -28,6 +30,8 @@
   <string name="createBlogDiscussionHelp">Un sujet sera créé dans le forum pour permettre aux gens de commenter votre message.</string>
   <string name="publishOnYourBlog">Publier sur votre blogue</string>
   <string name="publishHelp">Si coché, l’article sera listé sur votre blogue. Sinon, il restera privé dans vos brouillons</string>
+  <string name="includesPromotedContent">Inclut du contenu promu/parrainné ou des liens d\'affiliation</string>
+  <string name="mandatoryForSponsoredContent">Obligatoire pour le contenu parrainné, les liens d\'affiliation ou la publicité commerciale</string>
   <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">Publication épinglée</string>
   <string name="stickyPostHelp">Si vous sélectionnez cette option, votre publication s\'affichera en premier parmi les publications récentes de votre profil.</string>
   <plurals name="publishedNbBlogPosts">
@@ -44,16 +48,18 @@
   <string name="noPostsInThisBlogYet">Pas encore d’article dans ce blogue</string>
   <string name="noDrafts">Aucun brouillon à afficher</string>
   <string name="latestBlogPosts">Dernières publications du blogue</string>
+  <string name="recentPosts">Publications récentes</string>
   <plurals name="viewAllNbPosts">
     <item quantity="one">Voir la publication</item>
     <item quantity="other">Voir les %s publications</item>
   </plurals>
   <string name="imageAlt">Description de l\'image</string>
   <string name="imageCredit">Source de l\'image</string>
+  <string name="coverImage">Image de couverture</string>
   <string name="deleteBlog">Supprimer définitivement ce message</string>
-  <string name="safeToUseImages">Il est sécuritaire d\'utiliser des images des sites Web suivants : </string>
-  <string name="freeImagesComplyWithLicensing" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement. Replaces old string safeToUseImages">Les images des sites Web suivants sont gratuites. Assurez-vous de respecter les conditions de licence pour l\'image que vous utiliserez.</string>
+  <string name="freeImagesComplyWithLicensing" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Les images des sites Web suivants sont gratuites. Assurez-vous de respecter les conditions de licence pour l\'image que vous utiliserez.</string>
   <string name="selectPostTopics">Choisir les sujets de votre message</string>
+  <string name="etiquette">Étiquette</string>
   <string name="safeAndRespectfulContent">Veuillez ne publier que du contenu sûr et respectueux. Ne copiez pas le contenu de quelqu\'un d\'autre.</string>
   <string name="noCopyrightedImages">N\'utilisez que des images sans droits d\'auteur.</string>
   <string name="inappropriateContentAccountClosed">Toute conduite inappropriée peut aboutir à la fermeture de votre compte.</string>

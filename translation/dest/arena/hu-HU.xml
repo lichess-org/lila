@@ -24,7 +24,6 @@ Nem lehet Berserk-elni, amikor nulla a kezdő idő (0+1, 0+2).
 Berserk-nél az extra pont csak legalább 7 lépés megtétele után jár.</string>
   <string name="howIsTheWinnerDecided">Ki nyeri a versenyt?</string>
   <string name="howIsTheWinnerDecidedAnswer">Az lesz a győztes, akinek a verseny előre meghirdetett lezárásakor a legtöbb pontja van (lehet több győztes is).</string>
-  <string name="howDoesPairingWork">Hogyan történik a párosítás?</string>
   <string name="howDoesPairingWorkAnswer">A verseny kezdetekor a játékosokat a pontszámuk alapján párosítjuk.
 Amint befejeztél egy játszmát, és visszatértél a lobbiba: azt az ellenfelet kapod, aki a legközelebb áll a pontszámodhoz. Így a lehető legkevesebbet kell várakoznod, de előfordulhat, hogy nem fogsz mindenkivel játszani.
 Játssz gyorsan, térj vissza a lobbiba további játszmákért, hogy több pontot nyerhess.</string>
@@ -62,7 +61,6 @@ Játssz gyorsan, térj vissza a lobbiba további játszmákért, hogy több pont
   <string name="myTournaments">Versenyeim</string>
   <string name="editTournament">Verseny megtervezése</string>
   <string name="editTeamBattle">Csapatverseny módosítása</string>
-  <string name="defender">Védő</string>
   <string name="pickYourTeam">Válaszd ki a csapatodat</string>
   <string name="whichTeamWillYouRepresentInThisBattle">Melyik csapatot fogod képviselni ebben a versenyben?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">A részvételhez csatlakoznod kell az egyik csapathoz!</string>
@@ -70,9 +68,6 @@ Játssz gyorsan, térj vissza a lobbiba további játszmákért, hogy több pont
   <string name="recentlyPlayed">Nemrég játszott</string>
   <string name="bestResults">Legjobb eredmények</string>
   <string name="tournamentStats">Verseny statisztikák</string>
-  <string name="rankAvgHelp">A helyezés átlag az egy százaléka a helyezésednek. Alacsonyabb jobb.
-
-Például ha 3. helyezett lettél egy versenyen 100 játékos közül, az 3%. Ha 10. lettél egy versenyen 1000 játékosból, az 1%.</string>
   <string name="medians">medián</string>
   <string name="allAveragesAreX">Összes átlag az oldalon %s.</string>
   <string name="total">Összesen</string>
