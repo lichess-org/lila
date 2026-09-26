@@ -19,6 +19,7 @@
   <string name="bodenMate">Skakmat Boden</string>
   <string name="bodenMateDescription">Dua bidak gajah yang menyerang dengan diagonal berselang-seling mengantarkan raja skakmat karena terhalang oleh bidaknya sendiri, biasanya benteng dan pion.</string>
   <string name="castling">Rokade</string>
+  <string name="enPassant">En passant</string>
   <string name="castlingDescription">Letakkan posisi raja aman, dan manfaatkan benteng untuk menyerang.</string>
   <string name="capturingDefender">Memakan pelindung</string>
   <string name="capturingDefenderDescription">Memakan bidak yang sangat penting untuk menjaga bidak lain, memungkinkan bagian yang sekarang tidak terlindungi untuk ditangkap pada langkah berikut.</string>

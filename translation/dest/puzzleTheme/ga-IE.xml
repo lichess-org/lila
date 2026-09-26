@@ -19,6 +19,7 @@
   <string name="bodenMate">Marbhsháinn Boden</string>
   <string name="bodenMateDescription">Déanann dhá easpaig ar fiarthrasnáin chliathach ionsaí marbhsháinn ar rí a bhfuil píosaí cairdiúla ag cur bac air.</string>
   <string name="castling">Caisliú</string>
+  <string name="enPassant">En passant</string>
   <string name="castlingDescription">Cuir an rí i bhfolach, agus scaoil an caiseal le haghaidh ionsaí.</string>
   <string name="capturingDefender">Marú an cosantóir</string>
   <string name="capturingDefenderDescription">Bain amach píosa atá ríthábhachtach do cosaint píosa eile, ag ceadaigh an píosa atá anois gan chosaint a mharú an sa chéad bheart ina dhiaidh.</string>

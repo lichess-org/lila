@@ -131,6 +131,7 @@
 برای ادامه حرکتی کنید.</string>
   <string name="boardSetupComplete">شادبادش! شما می‌دانید چطور میزِ شطرنج را بچینید.</string>
   <string name="castling">قلعه‌روی</string>
+  <string name="enPassant">گرفتن هنگامِ عبور</string>
   <string name="theSpecialKingMove">حرکت ویژه شاه</string>
   <string name="castlingIntro">شاه‌تان را جای امنی ببرید و رخ‌تان را برای حمله به پا دارید!</string>
   <string name="castleKingSide">برای قلعه‌ی کوچک

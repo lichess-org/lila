@@ -19,6 +19,7 @@
   <string name="bodenMate">ბოდენის შამათი</string>
   <string name="bodenMateDescription">შამათი ორი შემტევი კუთი, როდესაც მოწინააღმდეგის მეფეს ხელს უშლიან საკუთარი ფიგურები.</string>
   <string name="castling">როქი</string>
+  <string name="enPassant">გავლით აყვანა</string>
   <string name="castlingDescription">დაიცავი მეფე და გამოიყვანე ეტლი, გააქტიურე.</string>
   <string name="capturingDefender">აყვანა და დაცვა</string>
   <string name="capturingDefenderDescription">დამცველი ფიგურის მოშორება,დაუცველი ფიგურის ასაყვანად.</string>

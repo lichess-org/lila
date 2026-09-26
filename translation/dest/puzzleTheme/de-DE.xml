@@ -23,6 +23,7 @@
   <string name="bodenMate">Boden-Matt</string>
   <string name="bodenMateDescription">Zwei angreifende Läufer auf sich kreuzenden Diagonalen setzen den König matt, der durch eigene Figuren behindert wird.</string>
   <string name="castling">Rochade</string>
+  <string name="enPassant">En passant</string>
   <string name="castlingDescription">Bringe deinen König in Sicherheit und den Turm in Angriffsposition.</string>
   <string name="capturingDefender">Schlage den Verteidiger</string>
   <string name="capturingDefenderDescription">Ein Verteidiger einer Figur (oder eines Feldes) wird geschlagen, wodurch das eigentliche Ziel die Deckung verliert.</string>

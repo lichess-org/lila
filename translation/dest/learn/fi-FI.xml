@@ -131,6 +131,7 @@ Daaminsa rinnalle.</string>
 Jatka tekemällä mikä tahansa siirto.</string>
   <string name="boardSetupComplete">Onneksi olkoon! Osaat asetella shakkilaudan.</string>
   <string name="castling">Linnoitus</string>
+  <string name="enPassant">Ohestalyönti</string>
   <string name="theSpecialKingMove">Kuninkaan erikoissiirto</string>
   <string name="castlingIntro">Vie kuninkaasi turvaan ja tuo tornisi mukaan hyökkäykseen!</string>
   <string name="castleKingSide">Siirrä kuningastasi kaksi ruutua

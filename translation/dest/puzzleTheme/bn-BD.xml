@@ -19,6 +19,7 @@
   <string name="bodenMate">বডেনের মাত</string>
   <string name="bodenMateDescription">দুইটা ক্রস করা আড়া-আড়ি রেখার উপর দুইটা হাতি যা নিজের গুটিতে আটে থাকা রাজাকে বাজিমাত করে।</string>
   <string name="castling">ক্যাসলিং</string>
+  <string name="enPassant">এন পাসান্ত</string>
   <string name="castlingDescription">রাজাকে নিরাপদে নিয়ে আসুন, এবং আপনার নৌকাকে স্থাপন করুন হামলার জন্য.</string>
   <string name="capturingDefender">রক্ষককে খান</string>
   <string name="capturingDefenderDescription">একটা গুটিকে খাওয়া যা আরেকটার প্রতিরক্ষা করে, যা পরের একটি চালে যেই গুটিকে রক্ষা করা হচ্ছিল তাকে খাওয়ার সুযোগ করে দেয়।</string>

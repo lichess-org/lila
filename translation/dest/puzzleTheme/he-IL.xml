@@ -19,6 +19,7 @@
   <string name="bodenMate">המט של בודן</string>
   <string name="bodenMateDescription">שני רצים התוקפים באלכסונים חוצים מבצעים מט למלך החסום בין כלים מכוחותיו.</string>
   <string name="castling">הצרחה</string>
+  <string name="enPassant">הכאה דרך הילוכו</string>
   <string name="castlingDescription">הביאו את המלך למקום מבטחים, והכינו את הצריח להתקפה.</string>
   <string name="capturingDefender">הכה את המגן</string>
   <string name="capturingDefenderDescription">הסרת כלי קריטי להגנה על כלי אחר, המאפשרת להכות את הכלי החשוף כעת במסע הבא.</string>

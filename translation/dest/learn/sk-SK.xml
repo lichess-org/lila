@@ -112,6 +112,7 @@ ale môžete sa brániť!</string>
   <string name="pawnsFormTheFrontLine">Pešiaci tvoria prvú líniu. Pre pokračovanie urobte ľubovoľný ťah.</string>
   <string name="boardSetupComplete">Gratulujeme! Dokážete rozložiť figúrky do základného postavenia.</string>
   <string name="castling">Rošáda</string>
+  <string name="enPassant">Branie mimochodom</string>
   <string name="theSpecialKingMove">Osobitý ťah kráľom</string>
   <string name="castlingIntro">Schovajte svojho kráľa do bezpečia a nasaďte vežu do útoku!</string>
   <string name="castleKingSide">Potiahnite kráľom o dve polia a urobte malú rošádu!</string>

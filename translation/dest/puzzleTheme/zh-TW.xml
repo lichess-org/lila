@@ -19,6 +19,7 @@
   <string name="bodenMate">波登殺法</string>
   <string name="bodenMateDescription">以在對角線上的兩個主教將死被自身棋子困住的王。</string>
   <string name="castling">易位</string>
+  <string name="enPassant">吃過路兵</string>
   <string name="castlingDescription">讓國王回到安全，並讓車發動攻擊。</string>
   <string name="capturingDefender">吃子 - 防守者</string>
   <string name="capturingDefenderDescription">移除防守其他棋子的防守者以攻擊未被保護的棋子</string>

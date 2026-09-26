@@ -23,6 +23,7 @@
   <string name="bodenMate">ボーデンのメイト</string>
   <string name="bodenMateDescription">味方の駒にじゃまされたキングを、2 個のビショップが交差した効き筋でメイトする形。</string>
   <string name="castling">キャスリング</string>
+  <string name="enPassant">アンパッサン</string>
   <string name="castlingDescription">キングを安全にし、ルークを攻撃に活用する。</string>
   <string name="capturingDefender">守り駒の除去</string>
   <string name="capturingDefenderDescription">別の駒を守っている駒を消して、無防備になった駒を取る。</string>

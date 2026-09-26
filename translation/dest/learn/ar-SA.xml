@@ -107,6 +107,7 @@
 العب أي نقلة للمتابعة.</string>
   <string name="boardSetupComplete">تهانينا! تعلمت كيف ترتب القطع على رقعة الشطرنج.</string>
   <string name="castling">التبييت</string>
+  <string name="enPassant">أسر بالمرور</string>
   <string name="theSpecialKingMove">نقلة الملك المميزة</string>
   <string name="castlingIntro">أمن ملكك، وأحضر رخك إلى وَسَط الرقعة!</string>
   <string name="castleKingSide">حرك ملكك مربعين للتبييت في جناح الملك!</string>

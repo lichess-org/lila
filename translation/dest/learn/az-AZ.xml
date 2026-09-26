@@ -130,6 +130,7 @@ Düz vəzirin yanına.</string>
 Davam etmək üçün bir gediş edir.</string>
   <string name="boardSetupComplete">Təbriklər! Artıq şahmat lövhəsini necə quracağınızı bilirsiniz.</string>
   <string name="castling">Qalaqurma</string>
+  <string name="enPassant">Keçiddə götürmə</string>
   <string name="theSpecialKingMove">Xüsusi şah gedişi</string>
   <string name="castlingIntro">Şahı təhlükəsiz yerə gətirin və hücum üçün topu hazırlayın!</string>
   <string name="castleKingSide">Qısa qalaqurma üçün

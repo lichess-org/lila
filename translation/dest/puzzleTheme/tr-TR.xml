@@ -23,6 +23,7 @@
   <string name="bodenMate">Boden matı</string>
   <string name="bodenMateDescription">İki fil, kendi taşları tarafından kısıtlanan şaha farklı açılardan girişerek onu mat eder.</string>
   <string name="castling">Rok</string>
+  <string name="enPassant">Geçerken alma</string>
   <string name="castlingDescription">Şahı güvene alırken kaleni saldırıya hazırla.</string>
   <string name="capturingDefender">Savunmayı baltala</string>
   <string name="capturingDefenderDescription">Bir taşı savunan diğer bir taşı ortadan kaldırarak savunmasız kalan taşı sonraki hamlede ele geçir.</string>

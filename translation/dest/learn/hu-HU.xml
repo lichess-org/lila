@@ -130,6 +130,7 @@ A vezér mellett áll.</string>
 A folytatáshoz lépj bármit.</string>
   <string name="boardSetupComplete">Gratulálunk! Most már tudod hogyan kell fölállítani a sakktáblát.</string>
   <string name="castling">Sáncolás</string>
+  <string name="enPassant">En passant</string>
   <string name="theSpecialKingMove">A király különleges lépése</string>
   <string name="castlingIntro">Helyezd a királyod biztonságba, és mozgósítsd a bástyádat!</string>
   <string name="castleKingSide">Lépj a királyoddal két mezőt

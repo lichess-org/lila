@@ -127,6 +127,7 @@ Zij staan in de hoeken.</string>
 Doe een willekeurige welke zet om door te gaan.</string>
   <string name="boardSetupComplete">Gefeliciteerd! Nu weet je hoe je het schaakbord moet klaarzetten.</string>
   <string name="castling">Rokeren</string>
+  <string name="enPassant">En passant</string>
   <string name="theSpecialKingMove">De speciale koningszet</string>
   <string name="castlingIntro">Breng je koning naar een veilige plaats, en zet je toren in voor de aanval!</string>
   <string name="castleKingSide">Beweeg je koning twee vakjes

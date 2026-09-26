@@ -33,9 +33,11 @@
   <string name="privateWillNeverBeShown">Pribadi. Tidak akan pernah ditampilkan di luar kelas. Membantu mengingat siapa siswa itu.</string>
   <string name="addStudent">Tambahkan siswa</string>
   <string name="lichessProfileXCreatedForY">Profil Lichess %1$s dibuat untuk %2$s.</string>
-  <string name="studentCredentials">Siswa: %1$s
+  <string name="studentCredentials">
+Siswa: %1$s
 Nama pengguna: %2$s
-Kata sandi: %3$s</string>
+Kata sandi: %3$s
+</string>
   <string name="inviteALichessAccount">Mengundang akun Lichess</string>
   <string name="inviteDesc1">Jika siswa sudah memiliki akun Lichess, Anda dapat mengundang mereka ke kelas.</string>
   <string name="inviteDesc2">Mereka akan menerima pesan di Lichess dengan tautan untuk bergabung di kelas.</string>

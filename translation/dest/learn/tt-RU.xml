@@ -113,6 +113,7 @@
   <string name="placeTheBishops">Филне урнаштырыгыз!
 Алар атчылар янына китәләр.</string>
   <string name="castling">Рокировка</string>
+  <string name="enPassant">Бик вакытлы</string>
   <string name="castlingComplete">Котлыйбыз! Сез һәрвакыт диярлек уенда калкалада булырга тиеш.</string>
   <string name="theSpecialPawnMove">Махсус җәяүле хәрәкәте</string>
   <string name="enPassantIntro">Рәкыйпнең җәяүле ике квадрат белән хәрәкәтләнгәндә, сез аны бер квадрат хәрәкәт кебек кабул итә аласыз.</string>

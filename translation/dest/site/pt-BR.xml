@@ -559,7 +559,9 @@
   <string name="onlineBots">Bots online</string>
   <string name="aboutBotsOnLichess">Sobre bots em Lichess</string>
   <string name="featuredBots">Bots em destaque</string>
+  <string name="tryPlayingTheseInnovativeChessEngines">Experimente jogar com estas engines inovadoras! São as nossas favoritas.</string>
   <string name="communityBots">Bots de comunidade</string>
+  <string name="moreChessEnginesCreatedByTheLichessCommunity">Mais engines criadas pela comunidade do Lichess. Elas são hospedadas por seus criadores e podem não estar sempre online.</string>
   <string name="name">Nome</string>
   <string name="description">Descrição</string>
   <string name="descPrivate">Descrição privada</string>
@@ -591,8 +593,8 @@
   <string name="other">Outro</string>
   <string name="reportCheatBoostHelp">Cole o link do(s) jogo(s) e explique o que há de errado com o comportamento do usuário. Não diga apenas \"ele trapaceia\", informe-nos como chegou a esta conclusão.</string>
   <string name="reportUsernameHelp">Explique porque este nome de usuário é ofensivo. Não diga apenas \"é ofensivo/inapropriado\", mas nos diga como chegou a essa conclusão especialmente se o insulto for ofuscado, não estiver em inglês, for uma gíria, ou for uma referência histórica/cultural.</string>
-  <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">Nós poderemos processar sua denúncia mais rápido se você escrevê-la em inglês</string>
-  <string name="error.provideOneCheatedGameLink">Por favor forneça ao menos um link para um jogo com suspeita de trapaça.</string>
+  <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">Podemos processar sua denúncia mais rapidamente se você escrever em inglês.</string>
+  <string name="error.provideOneCheatedGameLink">Por favor, inclua pelo menos um link de uma partida para análise.</string>
   <string name="by">por %s</string>
   <string name="importedByX">Importado por %s</string>
   <string name="thisTopicIsNowClosed">O tópico foi fechado.</string>
@@ -607,6 +609,7 @@
   <string name="clearField">Limpar campo</string>
   <string name="orSeparator">Ou</string>
   <string name="logInByEmail">Faça login por email</string>
+  <string name="emailLoginInstructions">Enviaremos um e-mail contendo um link de acesso à sua conta.</string>
   <string name="emailMeALink">Me envie um link</string>
   <string name="currentPassword">Senha atual</string>
   <string name="newPassword">Nova senha</string>
@@ -787,7 +790,7 @@
   <string name="crosstable">Tabela</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Você também pode rolar sobre o tabuleiro para percorrer as jogadas.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Passe o mouse pelas variações do computador para visualizá-las.</string>
-  <string name="analysisShapesHowTo">Pressione Shift+Clique ou clique com o botão direito do mouse para desenhar círculos e setas no tabuleiro.</string>
+  <string name="analysisShapesHowTo">Clique com o botão direito (ou shift+clique) para desenhar círculos e setas no tabuleiro. Para outras cores, use as seguintes combinações com o botão direito:</string>
   <string name="primaryColorArrowsHowTo">Ctrl ou shift = vermelho; comando, alt, ou meta = azul; uma tecla de cada = amarelo.</string>
   <string name="letOtherPlayersMessageYou">Permitir que outros jogadores lhe enviem mensagem</string>
   <string name="receiveForumNotifications">Receba notificações quando você for mencionado no fórum</string>
@@ -857,7 +860,7 @@
   <string name="notifications">Notificações</string>
   <string name="notificationsX">Notificações: %1$s</string>
   <string name="perfRatingLabel">Rating: %s.</string>
-  <string name="yourRatingIsX">Seu rating é %s </string>
+  <string name="yourRatingIsX">Seu rating é %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s segundo para fazer o primeiro lance</item>
     <item quantity="other">%s segundos para fazer o primeiro lance</item>
@@ -924,7 +927,7 @@
   <string name="potentialProblem">Quando um problema em potencial é detectado, nós mostramos esta mensagem.</string>
   <string name="howToAvoidThis">Como evitar isso?</string>
   <string name="playEveryGame">Jogue todas as partidas que você iniciar.</string>
-  <string name="tryToWin">Tente vencer (ou pelo menos empatar) todos as partidas que jogar.</string>
+  <string name="tryToWin">Tente vencer (ou pelo menos empatar) todas as partidas que jogar.</string>
   <string name="resignLostGames">Conceda partidas perdidas (não deixe o relógio ir até ao fim).</string>
   <string name="temporaryInconvenience">Pedimos desculpa pelo incômodo temporário,</string>
   <string name="wishYouGreatGames">e desejamos-lhe grandes jogos em lichess.org.</string>
@@ -950,7 +953,7 @@
   <string name="puzzleDesc">Treinador de táticas de xadrez</string>
   <string name="important">Importante</string>
   <string name="yourQuestionMayHaveBeenAnswered">A sua pergunta pode já ter sido respondida %1$s</string>
-  <string name="inTheFAQ">no F.A.Q.</string>
+  <string name="inTheFAQ">nas Perguntas Frequentes</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">Para denunciar um usuário por trapaças ou mau comportamento, %1$s</string>
   <string name="useTheReportForm">use o formulário de denúncia</string>
   <string name="toRequestSupport">Para solicitar ajuda, %1$s</string>
@@ -998,7 +1001,7 @@ Deixe em branco para começar as partidas na posição inicial padrão.</string>
   <string name="simulHostcolor">Cor do simultanista em cada jogo</string>
   <string name="estimatedStart">Tempo de início estimado</string>
   <string name="simulFeatured">Compartilhar em %s</string>
-  <string name="simulFeaturedHelp">Compartilhar a simultânia com todos em %s. Desative para jogos privados.</string>
+  <string name="simulFeaturedHelp">Destaque sua simultânea para todos no %s. Desative para simultâneas privadas.</string>
   <string name="simulDescription">Descrição da simultânea</string>
   <string name="simulDescriptionHelp">Você gostaria de dizer algo aos participantes?</string>
   <string name="youCanFormatTextUsing" comment="%s is &quot;Markdown&quot;, a proper noun. As such, the word is intentionally kept as a variable.&#10;&#10;Markdown is a markup language - a type of code that lets you format text (e.g. to create bold text).&#10;&#10;The text links to a reference guide for using Markdown to format text.">Você pode formatar seu texto usando %s.</string>
@@ -1034,7 +1037,7 @@ Deixe em branco para começar as partidas na posição inicial padrão.</string>
   <string name="ourEventTips">Nossas dicas para organização de eventos</string>
   <string name="instructions">Instruções</string>
   <string name="showMeEverything">Mostrar tudo</string>
-  <string name="lichessPatronInfo">Lichess é um software de código aberto, totalmente grátis e sem fins lucrativos. Todos os custos operacionais, de desenvolvimento, e os conteúdos são financiados unicamente através de doações de usuários.</string>
+  <string name="lichessPatronInfo">O Lichess é uma organização beneficente e um software totalmente livre e de código aberto. Dependemos das doações dos usuários para cobrir nossos custos operacionais, desenvolvimento e conteúdo. Sem nossa generosa comunidade, não conseguiríamos manter o site funcionando. Obrigado por fazer parte da nossa comunidade!</string>
   <string name="nothingToSeeHere">Nada para ver aqui no momento.</string>
   <string name="stats">Estatísticas</string>
   <string name="accessibility">Acessibilidade</string>

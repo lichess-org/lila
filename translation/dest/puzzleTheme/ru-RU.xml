@@ -23,6 +23,7 @@
   <string name="bodenMate">Мат Бодена</string>
   <string name="bodenMateDescription">Два слона на скрещённых диагоналях ставят мат вражескому королю, окружённому собственными фигурами.</string>
   <string name="castling">Рокировка</string>
+  <string name="enPassant">Взятие на проходе</string>
   <string name="castlingDescription">Помещение короля в надёжное место и вывод в бой ладьи.</string>
   <string name="capturingDefender">Уничтожение защитника</string>
   <string name="capturingDefenderDescription">Взятие или размен фигуры, защищающей другую фигуру, с последующим взятием фигуры, оставшейся без защиты.</string>

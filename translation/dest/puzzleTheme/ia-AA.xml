@@ -5,6 +5,7 @@
   <string name="anastasiaMate">Mat Anastasia</string>
   <string name="arabianMate">Mat arabe</string>
   <string name="castling">Roc</string>
+  <string name="enPassant">En passant</string>
   <string name="doubleCheck">Chaco duple</string>
   <string name="endgame">Fin del joco</string>
   <string name="exposedKing">Rege exponite</string>

@@ -19,6 +19,7 @@
   <string name="bodenMate">बोडेन का मात</string>
   <string name="bodenMateDescription">क्राइस-क्रॉसिंग विकर्णों पर दो हमलावर ऊँट मित्रवत टुकड़ों द्वारा बाधित एक राजा को चेकमेट वितरित करते हैं।</string>
   <string name="castling">कैसलिंग</string>
+  <string name="enPassant">En passant</string>
   <string name="castlingDescription">राजा को सुरक्षा के लिए लाएँ, और हमले के लिए हाथी तैनात करें।</string>
   <string name="capturingDefender">रक्षक को पकड़ना</string>
   <string name="capturingDefenderDescription">एक टुकड़े को निकालना जो दूसरे टुकड़े की रक्षा के लिए महत्वपूर्ण है, जिससे अब अपरिभाषित टुकड़ा को निम्नलिखित चाल पर कब्जा करने की अनुमति मिलती है।</string>

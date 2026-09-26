@@ -23,6 +23,7 @@
   <string name="bodenMate">كش مات بودين</string>
   <string name="bodenMateDescription">فيلين يهاجمان الملك على أوتار متقاطعة ويكون الملك محاصر بقطع صديقة ليشكل كش مات.</string>
   <string name="castling">تبييت</string>
+  <string name="enPassant">أسر بالمرور</string>
   <string name="castlingDescription">ضع الملك في أمان، وانشر القلعة للهجوم.</string>
   <string name="capturingDefender">أزل المدافع</string>
   <string name="capturingDefenderDescription">إزالة قطعة ذات أهمية حاسمة للدفاع عن قطعة أخرى، مما يسمح للقطعة التي لا يمكن الدفاع عنها الآن أن يتم الاستيلاء عليها في الحركة التالية.</string>
