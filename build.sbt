@@ -481,7 +481,7 @@ lazy val bookmark = module("bookmark",
 
 lazy val report = module("report",
   Seq(ui, memo),
-  Seq()
+  tests.bundle
 )
 
 lazy val appeal = module("appeal",

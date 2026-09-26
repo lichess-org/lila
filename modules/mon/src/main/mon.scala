@@ -275,6 +275,8 @@ object mod:
     def create(reason: String, score: Int) =
       counter("mod.report.create").withTags:
         tags("reason" -> reason, "score" -> score)
+    def createAttempt(client: String) = counter("mod.report.create.attempt").withTag("client", client)
+    def createLimited(client: String) = counter("mod.report.create.limited").withTag("client", client)
     object automod:
       val request = future("mod.report.automod.request")
       def assessment(a: String) = counter("mod.report.automod.assessment").withTag("assessment", a)
