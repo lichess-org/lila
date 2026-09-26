@@ -914,6 +914,7 @@ export default class AnalyseCtrl implements CevalHandler {
     if (!enable || !this.isCevalAllowed()) {
       this.setCevalPracticeOpts();
       this.showGround();
+      this.startCeval();
     } else {
       this.closeTools();
       this.threatMode(false);
