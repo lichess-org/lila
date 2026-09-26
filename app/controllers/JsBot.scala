@@ -59,11 +59,6 @@ final class JsBot(env: Env) extends LilaController(env):
       .nameAsset(none, key, name, none)
       .flatMap(_ => env.jsBot.assets.devGetAssets.map(JsonOk))
 
-  def devDeleteAsset(key: String) = Secure(_.BotEditor): _ ?=>
-    env.jsBot.repo
-      .deleteAsset(key)
-      .flatMap(_ => env.jsBot.assets.devGetAssets.map(JsonOk))
-
   def devPostAsset(tpe: String, key: String) = SecureBody(parse.multipartFormData)(_.BotEditor) { ctx ?=>
     AssetType
       .read(tpe)

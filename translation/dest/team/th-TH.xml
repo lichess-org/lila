@@ -27,17 +27,11 @@
   <string name="willBeReviewed">คำขอเข้าร่วมของคุณจะถูกพิจารณาโดยผู้นำทีม</string>
   <string name="beingReviewed">คำขอเข้าร่วมของคุณกำลังถูกพิจารณาโดยผู้นำทีม</string>
   <string name="requestDeclined">การข้อเข้าร่วมทีมถูกปฏิเสธโดยผู้นำทีม</string>
-  <string name="subToTeamMessages">สมัครสมาชิกให้ข้อความของทีม</string>
   <string name="teamBattle">การสู้เป็นทีม</string>
   <string name="teamBattleOverview">การแข่งขันแบบหลายทีม ผู้เล่นแต่ละคนจะต้องทำคะแนนเพื่อทีมของตัวเอง</string>
   <string name="teamTournament">ทัวร์นาเมนต์ทีม</string>
   <string name="teamTournamentOverview">สังเวียนทัวร์นาเมนต์ที่สมาชิกในทีมคุณเท่านั้นที่จะเข้าร่วมได้</string>
   <string name="swissTournamentOverview">ทัวร์นาเมนต์สวิสที่สมาชิกในทีมคุณเท่านั้นที่จะเข้าร่วมได้</string>
-  <string name="messageAllMembers">ข้อความให้สมาชิกทุกคน</string>
-  <string name="messageAllMembersOverview">ส่งข้อความส่วนตัวให้ผู้เล่นทุกคนในทีม</string>
-  <string name="messageAllMembersLongDescription">ส่งข้อความส่วนตัวถึงสมาชิกทุกคนในทีม
-คุณสามารถใช้สิ่งนี้เพื่อเรียกผู้เล่นให้เข้าร่วมการแข่งขันหรือการต่อสู้แบบทีม
-ผู้เล่นที่ไม่ชอบรับข้อความของคุณอาจออกจากทีมได้</string>
   <string name="teamsIlead">ทีมที่ฉันเป็นผู้นำ</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">คุณอาจต้องการเชื่อมโยงหนึ่งในทัวร์นาเมนต์ที่กำลังจะมาถึงหรือไม่?</string>
   <string name="leadersChat">ผู้นำของแชท</string>

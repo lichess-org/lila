@@ -27,7 +27,7 @@ object EndpointScopes extends TotalWrapper[EndpointScopes, List[OAuthScope]]:
   extension (e: EndpointScopes)
     def isEmpty = e.isEmpty
     def compatible(token: TokenScopes): Boolean = e.exists(token.has)
-    def show = e.map(_.key).mkString(" || ")
+    def show = e.filterNot(OAuthScope.concealedScopes).map(_.key).mkString(" || ")
 
 object OAuthScope:
 
@@ -50,6 +50,7 @@ object OAuthScope:
     case object Write extends OAuthScope("study:write", trans.studyWrite)
 
   object Tournament:
+    case object Read extends OAuthScope("tournament:read", I18nKey("Read private tournaments"))
     case object Write extends OAuthScope("tournament:write", trans.tournamentWrite)
 
   object Racer:
@@ -62,7 +63,7 @@ object OAuthScope:
   object Team:
     case object Read extends OAuthScope("team:read", trans.teamRead)
     case object Write extends OAuthScope("team:write", trans.teamWrite)
-    case object Lead extends OAuthScope("team:lead", trans.teamLead)
+    case object Lead extends OAuthScope("team:lead", trans.manageTeamsYouLead)
 
   object Follow:
     case object Read extends OAuthScope("follow:read", trans.followRead)
@@ -70,6 +71,9 @@ object OAuthScope:
 
   object Msg:
     case object Write extends OAuthScope("msg:write", trans.msgWrite)
+
+  object Note:
+    case object Write extends OAuthScope("note:write", I18nKey("Read and write notes on other players"))
 
   object Board:
     case object Play extends OAuthScope("board:play", trans.boardPlay)
@@ -82,8 +86,8 @@ object OAuthScope:
     case object Write extends OAuthScope("engine:write", trans.engineWrite)
 
   object Web:
-    case object Login extends OAuthScope("web:login", trans.webLogin)
     case object Mobile extends OAuthScope("web:mobile", I18nKey("Official Lichess mobile app"))
+    case object Takex3 extends OAuthScope("web:polygon", I18nKey("Take Take Take"))
     case object Mod extends OAuthScope("web:mod", trans.webMod)
 
   case class Scoped(me: Me, scopes: TokenScopes):
@@ -103,6 +107,7 @@ object OAuthScope:
     Challenge.Bulk,
     Study.Read,
     Study.Write,
+    Tournament.Read,
     Tournament.Write,
     Racer.Write,
     Puzzle.Read,
@@ -113,21 +118,23 @@ object OAuthScope:
     Follow.Read,
     Follow.Write,
     Msg.Write,
+    Note.Write,
     Board.Play,
     Bot.Play,
     Engine.Read,
     Engine.Write,
-    Web.Login,
     Web.Mobile,
+    Web.Takex3,
     Web.Mod
   )
 
   val classified: List[(I18nKey, List[OAuthScope])] = List(
     I18nKey("User account") -> List(Email.Read, Preference.Read, Preference.Write, Web.Mod),
-    I18nKey("Interactions") -> List(Follow.Read, Follow.Write, Msg.Write),
-    I18nKey("Play games") -> List(Challenge.Read, Challenge.Write, Challenge.Bulk, Tournament.Write),
+    I18nKey("Interactions") -> List(Follow.Read, Follow.Write, Msg.Write, Note.Write),
+    I18nKey("Play games") -> List(Challenge.Read, Challenge.Write, Challenge.Bulk),
     I18nKey("Teams") -> List(Team.Read, Team.Write, Team.Lead),
     I18nKey("Puzzles") -> List(Puzzle.Read, Puzzle.Write, Racer.Write),
+    I18nKey("Tournaments") -> List(Tournament.Read, Tournament.Write),
     I18nKey("Studies & Broadcasts") -> List(Study.Read, Study.Write),
     I18nKey("External play") -> List(Board.Play, Bot.Play),
     I18nKey("External engine") -> List(Engine.Read, Engine.Write)
@@ -135,21 +142,24 @@ object OAuthScope:
 
   val dangerList: OAuthScopes = OAuthScope.select(
     _.Team.Lead,
-    _.Web.Login,
     _.Web.Mod,
     _.Web.Mobile,
+    _.Web.Takex3,
     _.Msg.Write
   )
 
   val relevantToMods: OAuthScopes = OAuthScope.select(
     _.Team.Lead,
-    _.Web.Login,
     _.Web.Mobile,
+    _.Web.Takex3,
+    _.Web.Mod,
     _.Msg.Write,
     _.Board.Play
   )
 
   val byKey: Map[String, OAuthScope] = all.mapBy(_.key)
+
+  val concealedScopes = Set(Web.Mobile, Web.Takex3)
 
   def select(selectors: Iterable[Selector]): OAuthScopes =
     OAuthScopes(selectors.map(_(OAuthScope)).toList)
@@ -157,8 +167,17 @@ object OAuthScope:
 
   def canUseWebMod(using Option[Me]) =
     import lila.core.perm.*
-    List[Permission.Selector](_.Shusher, _.BoostHunter, _.CheatHunter, _.StudyAdmin, _.ApiChallengeAdmin)
+    List[Permission.Selector](
+      _.Shusher,
+      _.BoostHunter,
+      _.CheatHunter,
+      _.StudyAdmin,
+      _.ApiChallengeAdmin,
+      _.UserModView
+    )
       .exists(Granter.opt)
+
+  val dgtScopes = select(_.Challenge.Read, _.Challenge.Write, _.Preference.Read, _.Msg.Write, _.Board.Play)
 
   import reactivemongo.api.bson.*
   import lila.db.dsl.*

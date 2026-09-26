@@ -1,0 +1,36 @@
+@mixin animated-border($head-color, $tail-color) {
+  --border-angle: 0turn;
+  --gradient-border: conic-gradient(
+    from var(--border-angle),
+    transparent 25%,
+    #{$head-color},
+    #{$tail-color}
+  );
+
+  position: absolute;
+  inset: -1px;
+  z-index: -1;
+  border: 3px solid transparent;
+  border-radius: $box-radius-size;
+  background:
+    var(--gradient-border) border-box,
+    transparent border-box;
+  background-position: center center;
+  animation: bg-spin 3.5s linear infinite;
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+
+  @keyframes bg-spin {
+    to {
+      --border-angle: 1turn;
+    }
+  }
+}
+
+@property --border-angle {
+  syntax: '<angle>';
+  inherits: true;
+  initial-value: 0turn;
+}

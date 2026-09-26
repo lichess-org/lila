@@ -1,3 +1,8 @@
+import type StockfishWeb from '@lichess-org/stockfish-web';
+
+import { bigFileStorage } from '@/bigFileStorage';
+
+import { Protocol } from '../protocol';
 import {
   CevalState,
   type Work,
@@ -5,10 +10,7 @@ import {
   type BrowserEngineInfo,
   type EngineNotifier,
 } from '../types';
-import { Protocol } from '../protocol';
 import { sharedWasmMemory } from '../util';
-import type StockfishWeb from '@lichess-org/stockfish-web';
-import { bigFileStorage } from '@/bigFileStorage';
 
 export class StockfishWebEngine implements CevalEngine {
   failed: Error;
@@ -17,10 +19,9 @@ export class StockfishWebEngine implements CevalEngine {
 
   constructor(
     readonly info: BrowserEngineInfo,
-    readonly status?: EngineNotifier | undefined,
-    readonly variantMap?: (v: VariantKey) => string,
+    readonly status: EngineNotifier | undefined,
   ) {
-    this.protocol = new Protocol(variantMap);
+    this.protocol = new Protocol();
     this.boot().catch(e => {
       this.failed = e;
       this.status?.({ error: String(e) });
@@ -42,15 +43,14 @@ export class StockfishWebEngine implements CevalEngine {
     });
     if (this.info.tech === 'NNUE') {
       if (this.info.variants?.length === 1) {
-        const model = this.info.variants[0].toLowerCase(); // set variant first for fairy stockfish
-        module.uci(`setoption name UCI_Variant value ${model === 'threecheck' ? '3check' : model}`);
+        module.uci(`setoption name UCI_Variant value ${this.protocol.uciVariant(this.info.variants[0])}`);
       }
       module.onError = this.makeErrorHandler(module);
       const nnueFilenames: string[] = this.info.assets.nnue ?? [];
       if (!nnueFilenames.length)
         for (let i = 0; ; i++) {
           const nnueFilename = module.getRecommendedNnue(i);
-          if (!nnueFilename || nnueFilenames.includes(nnueFilename)) break;
+          if (!nnueFilename) break;
           nnueFilenames.push(nnueFilename);
         }
       await Promise.all(
@@ -64,7 +64,14 @@ export class StockfishWebEngine implements CevalEngine {
         }),
       );
     }
-    module.listen = (data: string) => this.protocol.received(data);
+    module.listen = (data: string) => {
+      try {
+        this.protocol.received(data);
+      } catch (e) {
+        this.failed = e as Error;
+        this.status?.({ error: String(e) });
+      }
+    };
     this.protocol.connected(cmd => module.uci(cmd));
     this.module = module;
   }

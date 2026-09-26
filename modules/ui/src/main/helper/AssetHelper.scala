@@ -58,7 +58,7 @@ trait AssetHelper:
   val flairVersion = "______4"
 
   // bump fide fed version if a fide fed is changed only (not added or removed)
-  val fideFedVersion = "______2"
+  val fideFedVersion = "______3"
 
   def staticAssetUrl(path: String): Url = Url(s"$assetBaseUrl/assets/$path")
 
@@ -79,9 +79,6 @@ trait AssetHelper:
       s"""<link rel="preload" href="$url" as="$as"$linkType${crossorigin.so(" crossorigin")}>"""
 
   def fingerprintTag: EsmList = Esm("bits.fipr")
-
-  def hcaptchaScript(re: lila.core.security.HcaptchaForm[?]): EsmList =
-    re.enabled.so(esmInitBit("hcaptcha"))
 
   def analyseNvuiTag(using ctx: Context) = ctx.blind.option(Esm("analyse.nvui"))
 

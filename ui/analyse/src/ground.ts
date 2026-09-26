@@ -1,21 +1,23 @@
-import { h, type VNode } from 'snabbdom';
-import type { Elements } from '@lichess-org/chessground/types';
-import resizeHandle from 'lib/chessgroundResize';
-import { storage } from 'lib/storage';
-import type AnalyseCtrl from './ctrl';
-import * as Prefs from 'lib/prefs';
 import { Chessground as makeChessground } from '@lichess-org/chessground';
+import type { Elements } from '@lichess-org/chessground/types';
+import { h, type VNode } from 'snabbdom';
+
+import resizeHandle from 'lib/chessgroundResize';
+import { isSafari } from 'lib/device';
+import * as Prefs from 'lib/prefs';
+import { storage } from 'lib/storage';
+import { onInsert } from 'lib/view';
+
+import type AnalyseCtrl from './ctrl';
 
 export const render = (ctrl: AnalyseCtrl): VNode =>
   h('div.cg-wrap.cgv' + ctrl.cgVersion.js, {
-    hook: {
-      insert: vnode => ctrl.setChessground(makeChessground(vnode.elm as HTMLElement, makeConfig(ctrl))),
-    },
+    hook: onInsert(elem => ctrl.setChessground(makeChessground(elem, makeConfig(ctrl)))),
   });
 
 export function promote(ground: CgApi, key: Key, role: Role) {
   const piece = ground.state.pieces.get(key);
-  if (piece && piece.role === 'pawn')
+  if (piece?.role === 'pawn')
     ground.setPieces(new Map([[key, { color: piece.color, role, promoted: true }]]));
 }
 
@@ -23,7 +25,7 @@ export function makeConfig(ctrl: AnalyseCtrl): CgConfig {
   const d = ctrl.data,
     pref = d.pref,
     opts = ctrl.makeCgOpts();
-  const config = {
+  const config: CgConfig = {
     turnColor: opts.turnColor,
     fen: opts.fen,
     check: opts.check,
@@ -35,6 +37,7 @@ export function makeConfig(ctrl: AnalyseCtrl): CgConfig {
     addDimensionsCssVarsTo: document.body,
     touchIgnoreRadius: 0,
     viewOnly: false,
+    jsHover: isSafari(),
     movable: {
       free: false,
       color: opts.movable!.color,
@@ -77,7 +80,7 @@ export function makeConfig(ctrl: AnalyseCtrl): CgConfig {
     },
     disableContextMenu: true,
   };
-  ctrl.study && ctrl.study.mutateCgConfig(config);
+  ctrl.study?.mutateCgConfig(config);
 
   return config;
 }

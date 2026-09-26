@@ -26,7 +26,7 @@ final class PlanStyle(helpers: Helpers):
             "pss__color--selectable" -> color.selectable(patron.tier)
           )
         )(
-          span(cls := s"patron-icon--shiny patron-icon--shiny--${color.id}")(i),
+          span(cls := s"patron-icon--shiny patron-icon--shiny--${color.id}")(iconTag),
           span(cls := "pss__color__tier-name")(tier.name)
         )
     ),

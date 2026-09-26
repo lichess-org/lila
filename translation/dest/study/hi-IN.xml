@@ -41,7 +41,6 @@
   <string name="youAreNowASpectator">अब आप एक दर्शक हैं</string>
   <string name="pgnTags">PGN टैग</string>
   <string name="like">लाइक</string>
-  <string name="unlike">नापसन्द करे</string>
   <string name="newTag">नया टैग</string>
   <string name="commentThisPosition">इस स्थिति पर टिप्पणी करें</string>
   <string name="commentThisMove">इस चाल पर टिप्पणी करें</string>
@@ -62,7 +61,6 @@
   <string name="downloadGame">खेल नीचे लादें</string>
   <string name="studyUrl">अध्ययन का URL</string>
   <string name="currentChapterUrl">वर्तमान अध्याय URL</string>
-  <string name="youCanPasteThisInTheForumToEmbed">आप अध्याय को जोड़ने के लिए इसे फ़ोरम में जोर सकते हैं</string>
   <string name="startAtInitialPosition">प्रारंभिक स्थिति में शुरू करें</string>
   <string name="startAtX">%s से प्रारंभ करें</string>
   <string name="embedInYourWebsite">अपनी वेबसाइट अथवा ब्लॉग पर प्रकाशित करें</string>

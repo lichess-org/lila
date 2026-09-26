@@ -28,25 +28,22 @@ final class OnlineApiUsers(
   private def publish(userId: UserId, isOnline: Boolean) =
     Bus.pub(ApiUserIsOnline(userId, isOnline))
 
-  private val usersCache = cacheApi.unit[List[UserWithPerfs]]:
+  private val usersCache = cacheApi.unit[List[UserWithPerfs]]("onlineApiUsers.list"):
     _.expireAfterWrite(10.seconds).buildAsyncTimeout(): _ =>
       userApi.visibleBotsByIds(cache.keySet)
 
   def getUsers = usersCache.get({})
 
-  private val jsonCache = cacheApi.unit[String]:
+  private val jsonCache = cacheApi.unit[String]("onlineApiUsers.json"):
     _.expireAfterWrite(10.seconds).buildAsyncFuture: _ =>
       for
         users <- getUsers
         jsons = users.map(u => jsonView.full(u.user, u.perfs.some, withProfile = true))
       yield jsons.map(play.api.libs.json.Json.stringify).mkString("\n")
 
-  def getNdJson(nb: Option[Int]): Fu[String] =
-    for
-      all <- jsonCache.get({})
-      lines = nb.fold(all): nb =>
-        all.linesIterator.take(nb).mkString("\n")
-    yield lines
+  def getNdJson(nb: Int): Fu[String] =
+    for all <- jsonCache.get({})
+    yield all.linesIterator.take(nb).mkString("\n")
 
 object OnlineApiUsers:
   case object SetOnline

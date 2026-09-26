@@ -4,6 +4,7 @@ import chess.ByColor
 import monocle.syntax.all.*
 
 import lila.db.dsl.{ *, given }
+import lila.mon.extensions.*
 
 final private class SwissDirector(
     mongo: SwissMongo,
@@ -28,7 +29,7 @@ final private class SwissDirector(
           val swiss = from.startRound
           for
             players <- SwissPlayer.fields { f =>
-              mongo.player.list[SwissPlayer]($doc(f.swissId -> swiss.id))
+              mongo.player.list[SwissPlayer](bdoc(f.swissId -> swiss.id))
             }
             ids <- idGenerator.games(pendingPairings.size)
             pairings = pendingPairings.zip(ids).map { case (SwissPairing.Pending(w, b), id) =>
@@ -44,8 +45,8 @@ final private class SwissDirector(
             _ <-
               mongo.swiss.update
                 .one(
-                  $id(swiss.id),
-                  $unset("nextRoundAt", "settings.mp") ++ $set(
+                  bid(swiss.id),
+                  unset("nextRoundAt", "settings.mp") ++ set(
                     "round" -> swiss.round,
                     "nbOngoing" -> pairings.size,
                     "lastRoundAt" -> nowInstant
@@ -56,8 +57,8 @@ final private class SwissDirector(
             _ <- SwissPlayer.fields { f =>
               mongo.player.update
                 .one(
-                  $doc(f.userId.$in(byes), f.swissId -> swiss.id),
-                  $addToSet(f.byes -> swiss.round),
+                  bdoc(f.userId.in(byes), f.swissId -> swiss.id),
+                  addToSet(f.byes -> swiss.round),
                   multi = true
                 )
                 .void
@@ -75,7 +76,7 @@ final private class SwissDirector(
           logger.info(s"BBPairing ${from.id} $input")
           from.some
       }
-      .monSuccess(_.swiss.startRound)
+      .monSuccess(lila.mon.swiss.startRound)
 
   private def makeGame(swiss: Swiss, players: Map[UserId, SwissPlayer])(pairing: SwissPairing): Game =
     lila.core.game

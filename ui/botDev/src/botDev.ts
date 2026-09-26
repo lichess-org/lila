@@ -1,16 +1,18 @@
+import type { RoundController } from 'round';
 import { attributesModule, classModule, init } from 'snabbdom';
-import { GameCtrl } from './gameCtrl';
-import { DevCtrl } from './devCtrl';
+
+import { makeZerofish } from 'lib/bot/botLoader';
+import type { LocalPlayOpts, LocalSetup } from 'lib/bot/types';
+
 import { DevAssets, type AssetList } from './devAssets';
-import { renderDevSide } from './devSideView';
 import { DevBotCtrl } from './devBotCtrl';
-import { PushCtrl } from './pushCtrl';
+import { DevCtrl } from './devCtrl';
 import { env, makeEnv } from './devEnv';
+import { renderDevSide } from './devSideView';
+import { GameCtrl } from './gameCtrl';
 import { renderGameView } from './gameView';
 import { LocalDb } from './localDb';
-import type { RoundController } from 'round';
-import type { LocalPlayOpts, LocalSetup } from 'lib/bot/types';
-import { makeZerofish } from 'lib/bot/botLoader';
+import { PushCtrl } from './pushCtrl';
 
 const patch = init([classModule, attributesModule]);
 
@@ -25,7 +27,7 @@ interface LocalPlayDevOpts extends LocalPlayOpts {
 
 export async function initModule(opts: LocalPlayDevOpts): Promise<void> {
   if (opts.pgn && opts.name) {
-    makeEnv({ bot: new DevBotCtrl(), assets: new DevAssets() });
+    makeEnv({ bot: new DevBotCtrl(), assets: new DevAssets(undefined) });
     await Promise.all([env.bot.init(), env.assets.init()]);
     await env.assets.importPgn(
       opts.name,

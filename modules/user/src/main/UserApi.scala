@@ -2,7 +2,7 @@ package lila.user
 
 import chess.{ ByColor, PlayerTitle }
 import chess.IntRating
-import reactivemongo.akkastream.cursorProducer
+import reactivemongo.pekkostream.cursorProducer
 import reactivemongo.api.bson.*
 
 import lila.core.LightUser
@@ -24,6 +24,7 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
     byIds,
     byIdAs,
     me,
+    meWithConfirmedEmail,
     email,
     emailOrPrevious,
     pair,
@@ -112,8 +113,8 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
       userRepo.coll
         .aggregateOne(): framework =>
           import framework.*
-          Match($id(u.id)) -> List:
-            PipelineOperator(perfsRepo.aggregate.lookup)
+          Match(bid(u.id)) -> List:
+            PipelineOperator(perfsRepo.aggregate.byId)
         .map: docO =>
           for
             doc <- docO
@@ -134,9 +135,9 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
       userRepo.coll
         .aggregateList(Int.MaxValue, if fromPri then _.pri else _.sec): framework =>
           import framework.*
-          Match($inIds(ids) ++ includeClosed.not.so(userRepo.enabledSelect)) -> List(
-            PipelineOperator(perfsRepo.aggregate.lookup),
-            AddFields($sort.orderField(ids)),
+          Match(inIds(ids) ++ includeClosed.not.so(userRepo.enabledSelect)) -> List(
+            PipelineOperator(perfsRepo.aggregate.byId),
+            AddFields(sort.orderField(ids)),
             Sort(Ascending("_order"))
           )
         .map: docs =>
@@ -162,9 +163,9 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
     userRepo.coll
       .aggregateList(Int.MaxValue, readPref): framework =>
         import framework.*
-        Match($inIds(ids)) -> List(
-          PipelineOperator(perfsRepo.aggregate.lookup(pk)),
-          AddFields($sort.orderField(ids)),
+        Match(inIds(ids)) -> List(
+          PipelineOperator(perfsRepo.aggregate.byPk(pk)),
+          AddFields(sort.orderField(ids)),
           Sort(Ascending("_order"))
         )
       .map: docs =>
@@ -196,7 +197,7 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
 
   def withEmails[U: UserIdOf](users: List[U]): Fu[List[WithEmails]] =
     userRepo.coll
-      .list[Bdoc]($inIds(users.map(_.id)), _.sec)
+      .list[Bdoc](inIds(users.map(_.id)), _.sec)
       .map: docs =>
         for
           doc <- docs
@@ -210,7 +211,7 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
     perfs <- perfsRepo.idsMap(users, _.sec)
     ids = users.map(_.id)
     users <- userRepo.coll
-      .list[Bdoc]($inIds(ids), _.sec)
+      .list[Bdoc](inIds(ids), _.sec)
       .map: docs =>
         for
           doc <- docs
@@ -230,23 +231,27 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
         perfsRepo.setBotInitialPerfs(user.id)
 
   def setKid(user: User, v: KidMode): Fu[Option[KidMode]] =
-    (user.kid != v)
-      .option:
-        for
-          _ <- userRepo.setKid(user, v)
-          _ = lila.common.Bus.pub(SetKidMode(user.copy(kid = v)))
-        yield v
-      .sequence
+    (user.kid != v).so:
+      for
+        _ <- userRepo.setKid(user, v)
+        _ <- v.yes.so(userRepo.unsetBio(user.id))
+        _ = lila.common.Bus.pub(SetKidMode(user.copy(kid = v)))
+      yield v.some
 
   def visibleBotsByIds(ids: Iterable[UserId]): Fu[List[UserWithPerfs]] =
+    val max = 512
     userRepo.coll
-      .aggregateList(onlineBotVisible.value, _.sec): framework =>
+      .aggregateList(max, _.sec): framework =>
         import framework.*
-        val inIds = ids.nonEmpty.so($inIds(ids))
-        Match(inIds ++ userRepo.botWithBioSelect ++ userRepo.enabledSelect ++ userRepo.notLame) -> List(
+        Match(
+          ids.nonEmpty.so(inIds(ids)) ++
+            userRepo.botWithBioSelect ++
+            userRepo.enabledSelect ++
+            userRepo.notLame
+        ) -> List(
           Sort(Descending(BSONFields.roles), Descending("time.human")),
-          Limit(onlineBotVisible.value),
-          PipelineOperator(perfsRepo.aggregate.lookup)
+          Limit(max),
+          PipelineOperator(perfsRepo.aggregate.byId)
         )
       .map: docs =>
         for
@@ -261,12 +266,12 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
         import framework.*
         import lila.user.BSONFields as F
         Match(
-          $inIds(ids) ++ $doc("standard.gl.d".$lt(chess.rating.glicko.provisionalDeviation))
+          inIds(ids) ++ bdoc("standard.gl.d".lt(chess.rating.glicko.provisionalDeviation))
         ) -> List(
           Sort(Descending("standard.gl.r")),
           Limit(nb * 5),
           PipelineOperator:
-            $lookup.simple(
+            lookup.simple(
               from = userRepo.coll,
               as = "user",
               local = "_id",
@@ -275,10 +280,10 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
           ,
           UnwindField("user"),
           Match:
-            $doc(
+            bdoc(
               s"user.${F.enabled}" -> true,
-              s"user.${F.marks}".$nin(List(UserMark.engine, UserMark.boost)),
-              s"user.${F.title}".$ne(PlayerTitle.BOT)
+              s"user.${F.marks}".nin(List(UserMark.engine, UserMark.boost)),
+              s"user.${F.title}".neq(PlayerTitle.BOT)
             )
           ,
           Limit(nb)

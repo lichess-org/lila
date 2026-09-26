@@ -44,17 +44,19 @@ final class UserTournament(env: Env, apiC: => Api) extends LilaController(env):
   def apiTournamentsByPlayer(name: UserStr) = AnonOrScoped():
     Found(meOrFetch(name)): user =>
       apiC.jsonDownload:
+        val withPerformance = getBool("performance")
         env.tournament.leaderboardApi
           .byPlayerStream(
             user.id,
-            withPerformance = getBool("performance"),
-            maxPerSecond(name),
+            withPerformance = withPerformance,
+            maxPerSecond(name, withPerformance),
             getInt("nb") | Int.MaxValue
           )
           .map(env.tournament.apiJsonView.byPlayer)
 
-  private def maxPerSecond(of: UserStr)(using ctx: Context) =
-    MaxPerSecond:
+  private def maxPerSecond(of: UserStr, withPerformance: Boolean = false)(using ctx: Context) =
+    val base =
       if ctx.is(of) then 50
       else if ctx.isOAuth then 30 // bonus for oauth logged in only (not for CSRF)
       else 20
+    MaxPerSecond(if withPerformance then base * 2 / 3 else base)

@@ -8,6 +8,7 @@ import scala.util.Success
 
 import lila.core.captcha.{ Captcha, CaptchaApi as ICaptchaApi, Solutions, WithCaptcha }
 import lila.core.game.Game
+import lila.mon.extensions.*
 
 // only works with standard chess (not chess960)
 final private class CaptchaApi(gameRepo: GameRepo)(using Executor) extends ICaptchaApi:
@@ -19,7 +20,7 @@ final private class CaptchaApi(gameRepo: GameRepo)(using Executor) extends ICapt
     case Some(c) => fuccess(c)
 
   def validate(gameId: GameId, move: String): Fu[Boolean] =
-    get(gameId).map(_.solutions.toList contains move)
+    get(gameId).map(_.solutions.contains(move))
 
   def validateSync(data: WithCaptcha): Boolean =
     validate(data.gameId, data.move).await(2.seconds, "CaptchaApi.validateSync")
@@ -72,13 +73,9 @@ final private class CaptchaApi(gameRepo: GameRepo)(using Executor) extends ICapt
       yield Captcha(game.id, fenOf(rewinded.position), rewinded.color, solutions, moves = moves)
 
     def solve(position: Position): Option[Solutions] =
-      position.moves.view
-        .flatMap: (_, moves) =>
-          moves.filter: move =>
-            move.after.checkMate
-        .to(List)
-        .map: move =>
-          s"${move.orig.key} ${move.dest.key}"
+      position.legalMoves
+        .filter(_.after.checkMate)
+        .map(m => s"${m.orig.key} ${m.dest.key}")
         .toNel
 
     def rewind(moves: Vector[SanStr]): Option[Position] =

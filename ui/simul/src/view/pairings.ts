@@ -1,18 +1,20 @@
-import { h } from 'snabbdom';
-import { onInsert, renderClock } from 'lib/view';
-import type SimulCtrl from '../ctrl';
-import type { Pairing } from '../interfaces';
 import { opposite } from '@lichess-org/chessground/util';
-import { userFlair } from 'lib/view/userLink';
+import { h } from 'snabbdom';
+
+import { onInsert, renderClock } from 'lib/view';
+import { profileUrl, userFlair } from 'lib/view/userLink';
+
+import type SimulCtrl from '@/ctrl';
+import type { Pairing } from '@/interfaces';
 
 export default function (ctrl: SimulCtrl) {
   return h('div.game-list.now-playing.box__pad', ctrl.data.pairings.map(miniPairing(ctrl)));
 }
 
 const miniPairing = (ctrl: SimulCtrl) => (pairing: Pairing) => {
-  const game = pairing.game,
-    player = pairing.player,
-    flair = userFlair(player);
+  const game = pairing.game;
+  const player = pairing.player;
+  const flair = userFlair(player);
   return h(
     `span.mini-game.mini-game-${game.id}.mini-game--init.is2d`,
     {
@@ -25,7 +27,7 @@ const miniPairing = (ctrl: SimulCtrl) => (pairing: Pairing) => {
     },
     [
       h('span.mini-game__player', [
-        h('a.mini-game__user.ulpt', { attrs: { href: `/@/${player.name}` } }, [
+        h('a.mini-game__user.ulpt', { attrs: { href: profileUrl(player.name) } }, [
           h(
             'span.name',
             player.title ? [h('span.utitle', player.title), ' ', player.name, flair] : [player.name, flair],

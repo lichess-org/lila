@@ -6,6 +6,7 @@
   &.black::before {
     content: $licon-DiscBigOutline;
   }
+
   @include if-light {
     &.white::before {
       content: $licon-DiscBigOutline;

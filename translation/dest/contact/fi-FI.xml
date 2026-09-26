@@ -25,7 +25,7 @@
   <string name="cantChangeMore">Pienien ja isojen kirjainten vaihtamista lukuun ottamatta mitään ei voi muuttaa. Teknisistä syistä se on suorastaan mahdotonta.</string>
   <string name="orCloseAccount">Voit kuitenkin sen sijaan sulkea nykyisen tunnuksesi ja avata uuden.</string>
   <string name="wantClearHistory">Haluan tyhjentää historiani tai vahvuuslukuni</string>
-  <string name="cantClearHistory">Pelihistoriaasi, tehtävähistoriaasi tai vahvuuslukuja ei voi tyhjentää.</string>
+  <string name="cantClearHistoryOrResetRatings">Pelihistoriasi, tehtävähistoriasi tai vahvuuslukujesi nollaaminen ei ole mahdollista.</string>
   <string name="wantReport">Haluan ilmoittaa pelaajan</string>
   <string name="toReportAPlayerUseForm">Ilmoittaaksesi pelaajasta, käytä raporttilomaketta</string>
   <string name="youCanAlsoReachReportPage">Pääset samalle sivulle myös klikkaamalla %s ilmoitusnappia pelaajan profiilisivulla.</string>
@@ -39,7 +39,7 @@
   <string name="reportMobileIssue">Lichessin mobiilisovellusongelmaksi GitHubissa</string>
   <string name="reportBugInDiscord">Lichessin Discord-palvelimella</string>
   <string name="howToReportBug">Kuvaile bugin luonnetta. Mitä odotit tapahtuvaksi sen sijaan, ja miten bugin voi toistaa.</string>
-  <string name="illegalPawnCapture" comment="Appears as an option for reasons to contact Lichess on the 'contact' page: https://lichess.org/contact#help-enpassant&#10;&#10;Players used to routinely write to Lichess stating that there was a bug, or that the other player had hacked their game in some way. In actuality, the player was using the legal move of en passant.&#10;&#10;Please translate this string from the perspective of the player who would be selecting this contact option, and call it 'Illegal', even though we know this is a legal move.">Laiton sotilaan lyönti</string>
+  <string name="illegalPawnCapture">Laiton sotilaan lyönti</string>
   <string name="calledEnPassant">Siirtoa kutsutaan ohestalyönniksi, ja se on osa shakin sääntöjä.</string>
   <string name="tryEnPassant">Opi lisää ohestalyönnistä kokeilemalla tätä pientä interaktiivista peliä.</string>
   <string name="illegalCastling">Laiton tai mahdoton linnoitus</string>
@@ -74,4 +74,13 @@
   <string name="noneOfTheAbove">Ei mitään näistä</string>
   <string name="sendEmailAt">Lähetä sähköpostia osoitteeseen %s.</string>
   <string name="explainYourRequest">Selitä pyyntösi selvästi ja kattavasti. Kerro Lichess-käyttäjänimesi ja kaikki muut tiedot, joista voi olla apua sinun auttamisessa.</string>
+  <string name="monetiseNotInterested">Emme ole kiinnostuneita minkäänlaisista keinoista Lichessin kaupallistamiseksi.</string>
+  <string name="monetiseNoAdsTrackingOrTraffic">Emme koskaan näytä minkäänlaisia mainoksia, emme seuraa pelaajiamme emmekä osta tai myy liikennettä tai käyttäjiä.</string>
+  <string name="monetiseNoMarketingEmail">Älä lähetä meille markkinointia, seurantaa tai mainontaa koskevaa sähköpostia.</string>
+  <string name="monetiseEncourageEveryoneTo" comment="string is value of key monetiseBlockAllAdsAndTrackers">Kannustamme kaikkia %s.</string>
+  <string name="monetiseBlockAllAdsAndTrackers">estämään kaikenlaiset mainokset ja seurantaohjelmat</string>
+  <string name="broadcastTournamentOnLichess">Lähetä turnaus Lichessissä</string>
+  <string name="ifYouWantToBroadcastClause1">Jos haluat turnauksesi virallisen lähetyksen Lichessiin tai jos sinulla on kysymyksiä lähetyksistämme:</string>
+  <string name="ifYouWantToBroadcastClause2" comment="string1 is Lichess email, string2 is value of key ourDiscordServer">Ota yhteyttä lähetystiimiimme osoitteessa %1$s tai %2$s.</string>
+  <string name="ourDiscordServer">Discord-palvelimellamme</string>
 </resources>

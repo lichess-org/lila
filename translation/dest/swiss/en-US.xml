@@ -11,8 +11,8 @@
     <item quantity="other">%s rounds</item>
   </plurals>
   <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
-    <item quantity="one">%s round Swiss</item>
-    <item quantity="other">%s rounds Swiss</item>
+    <item quantity="one">%s-round Swiss</item>
+    <item quantity="other">%s-round Swiss</item>
   </plurals>
   <plurals name="oneRoundEveryXDays">
     <item quantity="one">One round per day</item>
@@ -37,7 +37,7 @@
   <string name="numberOfRoundsHelp">An odd number of rounds allows optimal color balance.</string>
   <string name="roundInterval">Interval between rounds</string>
   <string name="forbiddenPairings">Forbidden pairings</string>
-  <string name="forbiddenPairingsHelp">Usernames of players that must not play together (Siblings, for instance). Two usernames per line, separated by a space.</string>
+  <string name="forbiddenPairingsHelp">Usernames of players who should not be paired (siblings, for instance). Two usernames per line, separated by a space.</string>
   <string name="manualPairings">Manual pairings in next round</string>
   <string name="manualPairingsHelp">Manually specify all pairings for the next round. One player pair per line. Example:
 PlayerA PlayerB
@@ -65,7 +65,7 @@ Add the scores of every opponent the player beats and half of the score of every
   <string name="pairingsA">With the %1$s, implemented by %2$s, in accordance with the %3$s.</string>
   <string name="moreRoundsThanPlayersQ">What happens if the tournament has more rounds than players?</string>
   <string name="moreRoundsThanPlayersA">When all possible pairings have been played, the tournament will be ended and a winner declared.</string>
-  <string name="restrictedToTeamsQ">Why is it restricted to teams?</string>
+  <string name="whyAreSwissTournamentsRestrictedToTeams">Why are Swiss tournaments restricted to teams?</string>
   <string name="restrictedToTeamsA">Swiss tournaments were not designed for online chess. They demand punctuality, dedication and patience from players.
 We think these conditions are more likely to be met within a team than in global tournaments.</string>
   <string name="numberOfByesQ">How many byes can a player get?</string>
@@ -74,19 +74,19 @@ Additionally, a single bye of half a point is attributed when a player late-join
   <string name="earlyDrawsQ">What happens with early draws?</string>
   <string name="earlyDrawsAnswer">In Swiss games, players cannot draw before 30 moves are played. While this measure cannot prevent pre-arranged draws, it does make it harder to agree to a draw on the fly.</string>
   <string name="whatIfOneDoesntPlayQ">What happens if a player doesn\'t play a game?</string>
-  <string name="whatIfOneDoesntPlayA">Their clock will tick, they will flag, and lose the game.
-Then the system will withdraw the player from the tournament, so they don\'t lose more games.
-They can re-join the tournament at any time.</string>
+  <string name="whatIfOneDoesntPlayA">Their clock will start, they will run out of time, and lose the game.
+The system will then withdraw them from the tournament so they don\'t lose more games.
+They will be able to re-join the tournament at any time.</string>
   <string name="protectionAgainstNoShowQ">What is done regarding no-shows?</string>
   <string name="protectionAgainstNoShowA">Players who sign up for Swiss events but don\'t play their games can be problematic.
-To alleviate this issue, Lichess prevents players who failed to play a game from joining a new Swiss event for a given amount of time.
+To alleviate this issue, Lichess temporarily restricts these players from joining new Swiss events for a period of time.
 The creator of a Swiss event can decide to let them join the event anyway.</string>
   <string name="lateJoinQ">Can players late-join?</string>
-  <string name="lateJoinA">Yes, until more than half the rounds have started; for example in a 11-rounds Swiss, players can join before round 6 starts and in a 12-rounds before round 7 starts.
+  <string name="lateJoinA">Yes, until more than half the rounds have started. For example in an 11-round Swiss tournament, players can join before round 6 starts. In a 12-round tournament, players can join before round 7 starts.
 Late joiners get a single bye, even if they missed several rounds.</string>
   <string name="willSwissReplaceArenasQ">Will Swiss replace arena tournaments?</string>
   <string name="willSwissReplaceArenasA">No. They\'re complementary features.</string>
-  <string name="roundRobinQ">What about round-robin?</string>
+  <string name="canPlayRoundRobinTournaments" comment="roundRobinQ&#10;&#10;Round-robin is a simple tournament format with some similarities to Swiss. It is not supported by Lichess.">Can I play round-robin tournaments on Lichess?</string>
   <string name="roundRobinA">We\'d like to add it, but unfortunately Round Robin doesn\'t work online.
 The reason is that it has no fair way of dealing with people leaving the tournament early. We cannot expect that all players will play all their games in an online event. It just won\'t happen, and as a result most Round Robin tournaments would be flawed and unfair, which defeats their very reason to exist.
 The closest you can get to Round Robin online is to play a Swiss tournament with a very high number of rounds. Then all possible pairings will be played before the tournament ends.</string>
@@ -119,10 +119,11 @@ The closest you can get to Round Robin online is to play a Swiss tournament with
   <string name="pause">Pause</string>
   <string name="pauseSwiss">Yes but might reduce the number of rounds</string>
   <string name="streaksAndBerserk">Streaks and Berserk</string>
-  <string name="similarToOTB">Similar to OTB tournaments</string>
+  <string name="similarToOTB">Similar to in-person tournaments</string>
   <string name="unlimitedAndFree">Unlimited and free</string>
   <string name="predefinedUsers">Only allow pre-defined users to join</string>
-  <string name="forbiddedUsers">If this list is non-empty, then users absent from this list will be forbidden to join. One username per line.</string>
+  <string name="predefinedUsersHelp">Enter one username per line. Only these players will be allowed to join.
+Leave blank to allow all eligible players.</string>
   <string name="playYourGames">Play your games</string>
   <string name="byes">Byes</string>
   <string name="absences">Absences</string>

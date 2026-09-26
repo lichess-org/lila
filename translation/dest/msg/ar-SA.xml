@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="lichobileNewAppAvailable">يتوفر الآن تطبيق جديد للهواتف المحمولة من Lichess!</string>
+  <string name="lichobileNewAppDownload" comment="The parameter links to https://lichess.org/app">الرجاء تحميل تطبيق Lichess الرسمي الجديد على %s.</string>
+  <string name="modActionFeedback">مرحبًا،
+
+لقد راجعنا البلاغ الذي أرسلته مؤخرًا، واتخذنا الإجراء المناسب. وبينما لا يمكننا مشاركة تفاصيل الإجراءات التي تم اتخاذها، فإننا نُقدّر بلاغك.
+
+شكرًا لمساعدتك في الحفاظ على Lichess مكانًا جيدًا للجميع.</string>
+</resources>

@@ -54,7 +54,7 @@ db.ublog_post.find({ blog: { $exists: false } }).forEach(p => {
           at: p.createdAt,
         },
         updated:
-          p.createdAt != p.updatedAt
+          p.createdAt !== p.updatedAt
             ? {
                 by: p.user,
                 at: p.updatedAt,

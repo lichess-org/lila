@@ -1,23 +1,24 @@
-import { PingCtrl } from './ping';
-import { LangsCtrl } from './langs';
-import { SoundCtrl } from './sound';
-import { BackgroundCtrl } from './background';
-import { BoardCtrl } from './board';
-import { PieceCtrl } from './piece';
-import { LinksCtrl } from './links';
-import type { MaybeVNode } from 'lib/view';
-import type { DasherData, Mode, PaneCtrl } from './interfaces';
 import { type Prop, prop } from 'lib';
+import type { MaybeVNode } from 'lib/view';
+
+import { BoardCtrl } from './board';
+import type { DasherData, Mode, PaneCtrl } from './interfaces';
+import { LangsCtrl } from './langs';
+import { LinksCtrl } from './links';
+import { PieceCtrl } from './piece';
+import { PingCtrl } from './ping';
+import { SoundCtrl } from './sound';
+import { ThemeCtrl } from './theme';
 
 const defaultMode: Mode = 'links';
 
-type ModeIndexed = { [key in Mode]: PaneCtrl };
+type ModeIndexed = Record<Mode, PaneCtrl>;
 
 export class DasherCtrl implements ModeIndexed {
   ping: PingCtrl;
   langs: LangsCtrl;
   sound: SoundCtrl;
-  background: BackgroundCtrl;
+  theme: ThemeCtrl;
   board: BoardCtrl;
   piece: PieceCtrl;
   links: LinksCtrl;
@@ -34,7 +35,7 @@ export class DasherCtrl implements ModeIndexed {
     this.ping = new PingCtrl(this);
     this.langs = new LangsCtrl(this);
     this.sound = new SoundCtrl(this);
-    this.background = new BackgroundCtrl(this);
+    this.theme = new ThemeCtrl(this);
     this.board = new BoardCtrl(this);
     this.piece = new PieceCtrl(this);
     this.links = new LinksCtrl(this);

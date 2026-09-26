@@ -21,7 +21,6 @@
   <string name="puzzleRead">Lexoni aktivitetin e enigmës</string>
   <string name="teamRead">Lexoni informacionin e ekipit privat</string>
   <string name="teamWrite">Bashkohuni dhe largohuni nga ekipet</string>
-  <string name="teamLead">Menaxhoni skuadrat që drejtoni: dërgoni PM, goditni anëtarët</string>
   <string name="followRead">Lexoni lojtarët e ndjekur</string>
   <string name="followWrite">Ndiqni dhe anuloni lojtarët e tjerë</string>
   <string name="msgWrite">Dërgoni mesazhe private te lojtarët e tjerë</string>
@@ -29,7 +28,6 @@
   <string name="botPlay">Luaj lojëra me API-në e robotëve</string>
   <string name="engineRead">Shikoni dhe përdorni motorët tuaj të jashtëm</string>
   <string name="engineWrite">Krijoni dhe përditësoni motorë të jashtëm</string>
-  <string name="webLogin">Krijoni sesione të vërtetuara në websajt (ju jep hyrje të plotë!)</string>
   <string name="webMod">Përdorni mjetet e moderatorit (brenda kufijve të lejes suaj)</string>
   <string name="personalAccessTokens">Token-ë personalë përdorimi API</string>
   <string name="canMakeOauthRequests">Mund të kryeni kërkessa OAuth pa kaluar nëpër %s.</string>

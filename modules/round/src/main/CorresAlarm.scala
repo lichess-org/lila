@@ -1,19 +1,19 @@
 package lila.round
 
-import akka.stream.scaladsl.*
-import reactivemongo.akkastream.cursorProducer
+import reactivemongo.pekkostream.cursorProducer
 import reactivemongo.api.bson.*
 
 import lila.common.{ Bus, LilaScheduler, LilaStream }
 import lila.core.user.LightUserApi
 import lila.db.dsl.{ *, given }
+import lila.mon.extensions.*
 
 final private class CorresAlarm(
     coll: Coll,
     hasUserId: (Game, UserId) => Fu[Boolean],
     proxyGame: GameId => Fu[Option[Game]],
     lightUser: LightUserApi
-)(using Executor, Scheduler, akka.stream.Materializer):
+)(using Executor, Scheduler, org.apache.pekko.stream.Materializer):
 
   private case class Alarm(
       _id: GameId,
@@ -24,7 +24,7 @@ final private class CorresAlarm(
   private given BSONDocumentHandler[Alarm] = Macros.handler
 
   Bus.sub[lila.core.game.FinishGame] { case lila.core.game.FinishGame(game, _) =>
-    if game.hasCorrespondenceClock && !game.hasAi then coll.delete.one($id(game.id))
+    if game.hasCorrespondenceClock && !game.hasAi then coll.delete.one(bid(game.id))
   }
 
   Bus.sub[lila.core.round.CorresMoveEvent] { case lila.core.round.CorresMoveEvent(move, _, _, true, _) =>
@@ -35,7 +35,7 @@ final private class CorresAlarm(
           val ringsAt = nowInstant.plusSeconds(remainingSeconds.toInt * 8 / 10)
           coll.update
             .one(
-              $id(game.id),
+              bid(game.id),
               Alarm(
                 _id = game.id,
                 ringsAt = ringsAt,
@@ -48,9 +48,9 @@ final private class CorresAlarm(
   }
 
   LilaScheduler("CorresAlarm", _.Every(10.seconds), _.AtMost(10.seconds), _.Delay(2.minutes)):
-    def deleteAlarm(id: GameId) = coll.delete.one($id(id)).void
+    def deleteAlarm(id: GameId) = coll.delete.one(bid(id)).void
     coll
-      .find($doc("ringsAt".$lt(nowInstant)))
+      .find(bdoc("ringsAt".lt(nowInstant)))
       .cursor[Alarm]()
       .documentSource(200)
       .mapAsyncUnordered(4)(alarm => proxyGame(alarm._id).map(alarm -> _))
@@ -69,7 +69,6 @@ final private class CorresAlarm(
             }
           )
         case (alarm, None) => deleteAlarm(alarm._id)
-      .toMat(LilaStream.sinkCount)(Keep.right)
-      .run()
-      .mon(_.round.alarm.time)
+      .runWith(LilaStream.sinkCount)
+      .mon(lila.mon.round.alarm.time)
       .void

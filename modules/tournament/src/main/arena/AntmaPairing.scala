@@ -3,7 +3,7 @@ package arena
 
 import scalalib.WMMatching
 
-import lila.common.Chronometer
+import lila.mon.Chronometer.syncMon
 import lila.tournament.arena.PairingSystem.Data
 
 private object AntmaPairing:
@@ -35,7 +35,7 @@ private object AntmaPairing:
 
       def duelScore: (RPlayer, RPlayer) => Option[Int] = (_, _) => Some(1)
 
-      Chronometer.syncMon(_.tournament.pairing.wmmatching):
+      syncMon(lila.mon.tournament.pairing.wmmatching):
         WMMatching(
           players.toArray,
           if data.tour.isTeamBattle then battleScore

@@ -2,13 +2,14 @@ package lila.activity
 
 import play.api.i18n.Lang
 import scalalib.HeapSort
+import chess.Speed.Correspondence
 
 import lila.core.chess.Rank
 import lila.core.game.LightPov
 import lila.core.swiss.IdName as SwissIdName
 import lila.db.AsyncCollFailingSilently
 import lila.db.dsl.*
-import chess.Speed.Correspondence
+import lila.mon.extensions.*
 
 final class ActivityReadApi(
     coll: AsyncCollFailingSilently,
@@ -33,16 +34,16 @@ final class ActivityReadApi(
     activities <-
       coll(
         _.find(regexId(u.id))
-          .sort($sort.desc("_id"))
+          .sort(sort.desc("_id"))
           .cursor[Activity]()
           .list(Activity.recentNb)
       ).dmap(_.filterNot(_.isEmpty))
-        .mon(_.user.segment("activity.raws"))
+        .mon(lila.mon.user.segment("activity.raws"))
     practiceStudies <- activities
       .exists(_.practice.isDefined)
       .optionFu(getPracticeStudies())
     views <- activities.sequentially: a =>
-      one(practiceStudies, a).mon(_.user.segment("activity.view"))
+      one(practiceStudies, a).mon(lila.mon.user.segment("activity.view"))
     _ <- preloadAll(views)
   yield addSignup(u.createdAt, views)
 
@@ -56,7 +57,7 @@ final class ActivityReadApi(
       allForumPosts <- a.forumPosts.traverse: p =>
         forumPostApi
           .miniViews(p.value)
-          .mon(_.user.segment("activity.posts"))
+          .mon(lila.mon.user.segment("activity.posts"))
       hiddenForumTeamIds <- teamApi.filterHideForum(
         (~allForumPosts).flatMap(_.topic.possibleTeamId).distinct
       )
@@ -67,7 +68,7 @@ final class ActivityReadApi(
         .traverse: p =>
           ublogApi
             .liveLightsByIds(p.value)
-            .mon(_.user.segment("activity.ublogs"))
+            .mon(lila.mon.user.segment("activity.ublogs"))
         .dmap(_.filter(_.nonEmpty))
       practice =
         for
@@ -117,7 +118,7 @@ final class ActivityReadApi(
                   )
                 )
               )
-            .mon(_.user.segment("activity.tours"))
+            .mon(lila.mon.user.segment("activity.tours"))
       swisses <-
         a.swisses.so: swisses =>
           toSwissesView(swisses.value).dmap(_.nonEmptyOption)
@@ -145,8 +146,8 @@ final class ActivityReadApi(
 
   def recentSwissRanks(userId: UserId): Fu[List[(SwissIdName, Rank)]] =
     coll(
-      _.find(regexId(userId) ++ $doc(BSONHandlers.ActivityFields.swisses.$exists(true)))
-        .sort($sort.desc("_id"))
+      _.find(regexId(userId) ++ bdoc(BSONHandlers.ActivityFields.swisses.exists(true)))
+        .sort(sort.desc("_id"))
         .cursor[Activity]()
         .list(10)
     ).flatMap { activities =>

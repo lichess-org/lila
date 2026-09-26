@@ -102,7 +102,7 @@
   <string name="timePlaying">وقت اللعب</string>
   <string name="variantXOverLastY">%1$s خلال آخر %2$s</string>
   <string name="winrate">نسبة الفوز</string>
-  <string name="na" comment="Appears as part of the 'Progress' column on Lichess classes, where a teacher is looking at their list of students under specific rating or variant categories.">غير متوفر</string>
+  <string name="na">غير متوفر</string>
   <string name="overview">نظرة عامة</string>
   <string name="news">الأخبار</string>
   <string name="classNews">أخبار الفصل</string>
@@ -132,4 +132,9 @@
   <string name="moveToAnotherClass">نقل إلى صف آخر</string>
   <string name="allowMessagingBetweenStudents">السماح بالرسائل بين التلاميذ</string>
   <string name="allowMessagingBetweenStudentsDesc">هذا ينطبق على الحسابات التي أنشأنها من أجل الدراسة فقط</string>
+  <string name="quickLoginCode">رمز تسجيل الدخول السريع</string>
+  <string name="quickLoginCodes">رموز تسجيل الدخول السريع</string>
+  <string name="quickLoginCodesDesc1" comment="String is a URL">استخدم هذه الرموز على %s لتسجيل طلابك في Lichess.</string>
+  <string name="quickLoginCodesDesc2">عند انتهاء صَلاحِيَة الرموز، سيبقى طلابك مسجلين الدخول، حتى يسجلوا الخروج يدويا.</string>
+  <string name="expirationInMomentFromNow" comment="String is the translation of, for example, 'in 2 hours'">انتهاء الصَّلاحِيَة %s</string>
 </resources>

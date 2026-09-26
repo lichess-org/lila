@@ -1,6 +1,6 @@
 package lila.study
 
-import chess.format.pgn.{ Comment as CommentStr, Glyphs, ParsedPgn, PgnNodeData, PgnStr, Tags, Tag }
+import chess.format.pgn.{ Comment as CommentStr, Glyphs, ParsedPgn, PgnNodeData, PgnStr, Tags }
 import chess.format.{ Fen, Uci }
 import chess.{ ByColor, Centis, ErrorStr, Node as PgnNode, Outcome, Status, TournamentClock, Ply }
 
@@ -10,6 +10,24 @@ import lila.tree.{ Branch, Branches, ImportResult, ParseImport, Root, Clock }
 
 object StudyPgnImport:
 
+  case class Annotators(default: Option[Comment.Author], known: Map[UserId, Comment.Author]):
+    def resolve(author: CommentParser.Author): Comment.Author =
+      author.accountId
+        .flatMap(known.get)
+        .orElse(byProfileUrl(author.name))
+        .getOrElse(Comment.Author.External(author.name))
+
+    // an [%anno] holding a profile URL is what a study export of a study export looks like,
+    // and the Annotator tag it came from used to resolve the same way
+    private def byProfileUrl(name: String): Option[Comment.Author] =
+      val lowered = name.toLowerCase
+      known.collectFirst:
+        case (id, author) if lowered.endsWith(s"/$id") => author
+
+  object Annotators:
+    def apply(default: Option[Comment.Author], contributors: List[LightUser]): Annotators =
+      Annotators(default, contributors.view.map(u => u.id -> Comment.author(u)).toMap)
+
   case class Context(
       currentPosition: chess.Position,
       clocks: ByColor[Option[Clock]],
@@ -17,25 +35,35 @@ object StudyPgnImport:
       ply: Ply
   )
 
-  def result(pgn: PgnStr, contributors: List[LightUser]): Either[ErrorStr, Result] =
+  def result(
+      pgn: PgnStr,
+      contributors: List[LightUser],
+      strict: Boolean = false,
+      importer: Option[LightUser] = None
+  ): Either[ErrorStr, Result] =
     if pgn.value.sizeIs > 100_000 then Left(ErrorStr("PGN too large"))
     else
       for
         parsed <- ParseImport.full(pgn)
-        full = result(parsed, contributors)
+        full = result(parsed, contributors, importer)
         valid <-
           if full.root.children.countRecursive > Chapter.maxNodes
           then Left(ErrorStr("PGN has too many moves/nodes"))
+          else if strict then parsed.replayError.toLeft(full)
           else Right(full)
       yield valid
 
   def result(importResult: ImportResult, contributors: List[LightUser]): Result =
+    result(importResult, contributors, None)
+
+  def result(importResult: ImportResult, contributors: List[LightUser], importer: Option[LightUser]): Result =
     import importResult.{ replay, initialFen, parsed }
-    val annotator = findAnnotator(parsed, contributors)
+    val annotator = findAnnotator(parsed, contributors).orElse(importer.map(Comment.author))
+    val annotators = Annotators(annotator, contributors ::: importer.toList)
 
     val timeControl = parsed.tags.timeControl
     val clock = timeControl.map(_.limit).map(Clock(_, trust = true.some))
-    parseComments(parsed.initialPosition.comments, annotator) match
+    parseComments(parsed.initialPosition.comments, annotators) match
       case (shapes, _, _, comments) =>
         val root = Root(
           ply = replay.setup.ply,
@@ -49,7 +77,7 @@ object StudyPgnImport:
             makeBranches(
               Context(replay.setup.position, ByColor.fill(clock), timeControl, replay.setup.ply),
               _,
-              annotator
+              annotators
             )
         )
 
@@ -72,7 +100,11 @@ object StudyPgnImport:
           root = commented,
           variant = replay.setup.position.variant,
           tags = StudyPgnTags
-            .withRelevantTags(parsed.tags, Set(Tag.WhiteClock, Tag.BlackClock)),
+            .withRelevantTags(
+              parsed.tags,
+              StudyPgnTags.clockTags,
+              replay.setup.position.variant
+            ),
           ending = ending,
           chapterNameHint = StudyChapterName.from(parsed.tags("ChapterName").map(_.trim).filter(_.nonEmpty))
         )
@@ -94,14 +126,14 @@ object StudyPgnImport:
 
   def findAnnotator(pgn: ParsedPgn, contributors: List[LightUser]): Option[Comment.Author] =
     pgn.tags("annotator").map { a =>
-      val lowered = a.toLowerCase
       contributors
-        .find: c =>
-          c.id.value == lowered || c.titleName.toLowerCase == lowered || lowered.endsWith(s"/${c.id}")
-        .map: c =>
-          Comment.Author.User(c.id, c.titleName)
-        .getOrElse(Comment.Author.External(a))
+        .find(c => annotatorMatches(a, c.id, c.titleName))
+        .fold(Comment.Author.External(a))(Comment.author)
     }
+
+  def annotatorMatches(annotator: String, id: UserId, name: String): Boolean =
+    val lowered = annotator.toLowerCase
+    id.value == lowered || name.toLowerCase == lowered || lowered.endsWith(s"/$id")
 
   def endComment(end: Ending): Comment =
     import end.*
@@ -110,7 +142,7 @@ object StudyPgnImport:
 
   def parseComments(
       comments: List[CommentStr],
-      annotator: Option[Comment.Author]
+      annotators: Annotators
   ): (Shapes, Option[Centis], Option[Centis], Comments) =
     comments.foldRight((Shapes(Nil), none[Centis], none[Centis], Comments(Nil))):
       case (txt, (shapes, clock, emt, comments)) =>
@@ -120,25 +152,34 @@ object StudyPgnImport:
               (shapes ++ s),
               c.orElse(clock),
               e.orElse(emt),
-              str.trimNonEmpty.fold(comments): com =>
-                comments + Comment(Comment.Id.make, com, annotator | Comment.Author.Lichess)
+              str.trimNonEmpty.fold(comments): text =>
+                val author = CommentParser
+                  .author(txt)
+                  .map(annotators.resolve)
+                  .orElse(annotators.default) | Comment.Author.Lichess
+                comments
+                  .findBy(author)
+                  .fold(comments + Comment(Comment.Id.make, text, author)): existing =>
+                    comments.set(existing.copy(text = CommentStr(s"$text\n${existing.text}")))
             )
 
   private def makeBranches(
       context: Context,
       node: PgnNode[PgnNodeData],
-      annotator: Option[Comment.Author]
+      annotators: Annotators
   ): Branches =
     val variations =
-      node.take(Node.MAX_PLIES).fold(Nil)(_.variations.flatMap(x => makeBranch(context, x.toNode, annotator)))
-    removeDuplicatedChildrenFirstNode(
-      Branches(makeBranch(context, node, annotator).fold(variations)(_ +: variations))
+      node
+        .take(Node.MAX_PLIES)
+        .fold(Nil)(_.variations.flatMap(x => makeBranch(context, x.toNode, annotators)))
+    mergeDuplicateVariations(
+      Branches(makeBranch(context, node, annotators).fold(variations)(_ +: variations))
     )
 
   private def makeBranch(
       context: Context,
       node: PgnNode[PgnNodeData],
-      annotator: Option[Comment.Author]
+      annotators: Annotators
   ): Option[Branch] =
     try
       node.value
@@ -150,7 +191,7 @@ object StudyPgnImport:
             val currentPly = context.ply.next
             val uci = moveOrDrop.toUci
             val sanStr = moveOrDrop.toSanStr
-            val (shapes, clock, emt, comments) = parseComments(node.value.metas.comments, annotator)
+            val (shapes, clock, emt, comments) = parseComments(node.value.metas.comments, annotators)
             val mover = !position.color
             val computedClock: Option[Clock] = clock
               .map(Clock(_, trust = true.some))
@@ -175,7 +216,7 @@ object StudyPgnImport:
                     currentPly
                   ),
                   _,
-                  annotator
+                  annotators
                 )
             ).some
         )
@@ -196,13 +237,18 @@ object StudyPgnImport:
    * 7. c4 (7. c4 Nf6) (7. c4 dxc4) 7... cxd4
    * where 7. c4 appears three times
    */
-  // TODO this could probably be refactored better or moved to scalachess
-  private def removeDuplicatedChildrenFirstNode(children: Branches): Branches =
-    children.first match
-      case Some(main) if children.variations.exists(_.id == main.id) =>
-        Branches:
-          main +: children.variations.flatMap { node =>
-            if node.id == main.id then node.children.toList
-            else List(node)
-          }
-      case _ => children
+
+  private def mergeDuplicateVariations(children: Branches): Branches =
+    val list = children.toList
+    if list.sizeIs < 2 then children
+    else
+      val ids = list.map(_.id).distinct
+      if ids.sizeCompare(list) == 0 then children
+      else
+        val deduplicated = ids.flatMap: id =>
+          val matching = list.filter(_.id == id)
+          matching.headOption.map: main =>
+            val mergedChildrenList = matching.flatMap(_.children.toList)
+            main.copy(children = mergeDuplicateVariations(Branches(mergedChildrenList)))
+
+        Branches(deduplicated)

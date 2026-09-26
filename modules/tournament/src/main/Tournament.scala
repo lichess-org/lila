@@ -32,9 +32,10 @@ case class Tournament(
     createdBy: UserId,
     startsAt: Instant,
     winnerId: Option[UserId] = None,
-    featuredId: Option[GameId] = None,
+    featured: Option[GameId] = None,
     spotlight: Option[Spotlight] = None,
     description: Option[String] = None,
+    payouts: Option[Payouts] = None,
     hasChat: Boolean = true
 ) extends lila.core.tournament.Tournament:
 
@@ -83,8 +84,10 @@ case class Tournament(
 
   def pairingsClosed = secondsToFinish < Seconds(math.max(30, math.min(clock.limitSeconds.value / 2, 120)))
 
-  def isStillWorthEntering = isMarathon || isUnique || {
-    secondsToFinish > Seconds((minutes * 60 / 3).atMost(20 * 60))
+  def isStillWorthEntering = isEnterable && {
+    isMarathon || isUnique || {
+      secondsToFinish > Seconds((minutes * 60 / 3).atMost(20 * 60))
+    }
   }
 
   def finishedSinceSeconds: Option[Long] = isFinished.option(nowSeconds - finishesAt.toSeconds)
@@ -152,6 +155,20 @@ case class Tournament(
     val estimatedGameSeconds: Double = clock.estimateTotalSeconds * 2 * 0.8 + 15
     (minutes * 60) / estimatedGameSeconds
 
+  def homepageSince: Option[Instant] = scheduleFreq.map: freq =>
+    startsAt.minusMinutes:
+      import Schedule.Freq.*
+      val base = freq match
+        case Unique => spotlight.flatMap(_.homepageHours).|(24) * 60
+        case Yearly | Marathon => 24 * 60
+        case Monthly | Shield => 6 * 60
+        case Weekly | Weekend => 3 * 45
+        case Daily => 1 * 30
+        case _ => 20
+      if variant.exotic && freq != Unique then base / 3 else base
+
+  def realNames = scheduleFreq.has(Schedule.Freq.Unique) && name.contains("Titled Arena")
+
   override def toString =
     s"$id $startsAt $name $minutes minutes, $clock, $nbPlayers players"
 
@@ -185,6 +202,7 @@ object Tournament:
       startsAt =
         setup.startDate | nowInstant.plusMinutes(setup.waitMinutes | TournamentForm.waitMinuteDefault),
       description = setup.description,
+      payouts = setup.payouts,
       hasChat = setup.hasChat | true
     )
 
@@ -206,7 +224,7 @@ object Tournament:
       startsAt = startsAt
     )
 
-  def tournamentUrl(tourId: TourId): String = s"https://lichess.org/tournament/$tourId"
+  def tournamentUrl(tourId: TourId) = Url(s"https://lichess.org/tournament/$tourId")
 
   def makeId = TourId(ThreadLocalRandom.nextString(8))
 

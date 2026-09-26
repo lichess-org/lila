@@ -1,15 +1,19 @@
 .lobby__timeline {
   @extend %page-text;
+
   flex: 1 1 auto;
   margin-inline-start: $block-gap;
 
   @include hoverflow;
 
   .entry {
-    @extend %roboto;
+    @extend %roboto, %break-word;
+
+    white-space: pre-wrap;
 
     a {
       @extend %base-font, %page-font;
+
       font-weight: normal;
     }
 
@@ -24,6 +28,7 @@
       height: 1px;
       background: linear-gradient(to start, $c-border 20%, $c-bg-page);
       margin: 0.7em 0;
+
       @include if-rtl {
         background: linear-gradient(to end, $c-border 20%, $c-bg-page);
       }
@@ -35,6 +40,6 @@
   }
 
   .more {
-    @extend %lobby__side__more;
+    @extend %lobby-side-more;
   }
 }

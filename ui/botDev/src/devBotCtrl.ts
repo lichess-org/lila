@@ -1,15 +1,17 @@
 import { type Zerofish } from '@lichess-org/zerofish';
-import { Bot } from 'lib/bot/bot';
-import { RateBot } from './rateBot';
-import { BotLoader, botAssetUrl } from 'lib/bot/botLoader';
-import { type ObjectStorage, objectStorage } from 'lib/objectStorage';
-import { deepFreeze } from 'lib/algo';
-import { pubsub } from 'lib/pubsub';
-import { type OpeningBook, makeBookFromPolyglot } from 'lib/game/polyglot';
-import { env } from './devEnv';
-import type { BotInfo, LocalSpeed, MoveArgs, MoveResult, MoveSource } from 'lib/bot/types';
-import type { CardData } from './handOfCards';
+
 import { defined } from 'lib';
+import { deepFreeze } from 'lib/algo';
+import { Bot } from 'lib/bot/bot';
+import { BotLoader, botAssetUrl } from 'lib/bot/botLoader';
+import type { BotInfo, LocalSpeed, MoveArgs, MoveResult, MoveSource } from 'lib/bot/types';
+import { type OpeningBook, makeBookFromPolyglot } from 'lib/game/polyglot';
+import { type ObjectStorage, objectStorage } from 'lib/objectStorage';
+import { pubsub } from 'lib/pubsub';
+
+import { env } from './devEnv';
+import type { CardData } from './handOfCards';
+import { RateBot } from './rateBot';
 
 const currentBotDbVersion = 3;
 
@@ -61,7 +63,7 @@ export class DevBotCtrl extends BotLoader {
     return move?.uci !== '0000' ? move : undefined;
   }
 
-  setUids({ white, black }: { white?: string | undefined; black?: string | undefined }): void {
+  setUids({ white, black }: { white?: string; black?: string }): void {
     this.uids.white = white;
     this.uids.black = black;
     this.reset();
@@ -92,7 +94,7 @@ export class DevBotCtrl extends BotLoader {
     return this.bots.keys().next()?.value;
   }
 
-  storeBot(bot: BotInfo): Promise<any> {
+  storeBot(bot: BotInfo): Promise<void | IDBValidKey> {
     delete this.localBots[bot.uid];
     this.bots.set(bot.uid, new Bot(bot, this));
     if (botEquals(this.serverBots[bot.uid], bot)) return this.store.remove(bot.uid);
@@ -189,7 +191,7 @@ export class DevBotCtrl extends BotLoader {
     );
   }
 
-  private upgrade = (change: IDBVersionChangeEvent, store: IDBObjectStore): void => {
+  private readonly upgrade = (change: IDBVersionChangeEvent, store: IDBObjectStore): void => {
     const req = store.openCursor();
     req.onsuccess = e => {
       const cursor = (e.target as IDBRequest<IDBCursorWithValue>).result;
@@ -205,7 +207,7 @@ export function uidToDomId(uid: string | undefined): string | undefined {
 }
 
 export function domIdToUid(domId: string | undefined): string | undefined {
-  return domId && domId.startsWith('bot-id-') ? `#${domId.slice(7)}` : undefined;
+  return domId?.startsWith('bot-id-') ? `#${domId.slice(7)}` : undefined;
 }
 
 export function botEquals(a: BotInfo | undefined, b: BotInfo | undefined): boolean {
@@ -246,7 +248,7 @@ function isEmpty(prop: any): boolean {
 
 function migrate(oldDbVersion: number, oldBot: any): BotInfo {
   const bot = structuredClone(oldBot);
-  if (oldDbVersion < currentBotDbVersion && bot && bot.fish) {
+  if (oldDbVersion < currentBotDbVersion && bot?.fish) {
     // fish search params recently flattened in BotInfo schema, delete before release
     bot.fish.depth = 'by' in bot.fish && 'depth' in bot.fish.by ? bot.fish.by.depth : 10;
   }

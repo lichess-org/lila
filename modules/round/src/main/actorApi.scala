@@ -5,18 +5,18 @@ import chess.{ Color, MoveMetrics }
 
 import lila.core.socket.SocketVersion
 
-private case class HumanPlay(
-    playerId: GamePlayerId,
-    uci: Uci,
-    blur: Boolean,
-    moveMetrics: chess.MoveMetrics = chess.MoveMetrics(),
-    promise: Option[Promise[Unit]] = None
+private class HumanPlay(
+    val playerId: GamePlayerId,
+    val uci: Uci,
+    val blur: Boolean,
+    val moveMetrics: chess.MoveMetrics = chess.MoveMetrics(),
+    val promise: Option[Promise[Unit]] = None
 )
 private case class ByePlayer(playerId: GamePlayerId)
 private case class GetSocketStatus(promise: Promise[SocketStatus])
-private case class GetGameAndSocketStatus(promise: Promise[GameAndSocketStatus])
-private case class SocketStatus(
-    version: SocketVersion,
+private case class GetGameAndSocketStatus(val promise: Promise[GameAndSocketStatus])
+private class SocketStatus(
+    val version: SocketVersion,
     whiteOnGame: Boolean,
     whiteIsGone: Boolean,
     blackOnGame: Boolean,
@@ -27,5 +27,5 @@ private case class SocketStatus(
   def colorsOnGame: Set[Color] = Color.all.filter(onGame).toSet
 private object SocketStatus:
   val default = SocketStatus(SocketVersion(0), false, false, false, false)
-private case class GameAndSocketStatus(game: Game, socket: SocketStatus)
-private case class RoomCrowd(white: Boolean, black: Boolean)
+private class GameAndSocketStatus(val game: Game, val socket: SocketStatus)
+private case class RoomCrowd(val white: Boolean, val black: Boolean)

@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
 import { MongoClient } from 'mongodb';
-import { setTimeout as sleep } from 'node:timers/promises';
-import fs from 'node:fs';
 import crypto from 'node:crypto';
+import fs from 'node:fs';
+import { setTimeout as sleep } from 'node:timers/promises';
 
 // consider a wrapper script to provide common options (like the together.ai api key).
 // bin/ublog-automod (with no extension) is .gitignored for this purpose.
@@ -68,7 +68,6 @@ const qualities = { spam: 0, weak: 1, good: 2, great: 3 }; // in sync with Ublog
 const schemaVersion = 1;
 const flushEvery = 100; // bulk write after every <flushEvery> assessments
 const concurrentRequests = 32;
-const model = 'Qwen/Qwen3-235B-A22B-Thinking-2507';
 
 let client = undefined;
 
@@ -82,6 +81,7 @@ const db = client.db();
 
 if (args.merge) await mergeAndExit();
 
+const model = (await db.collection('flag').findOne({ _id: 'ublogAutomodModel' })).setting;
 const prompt = (await db.collection('flag').findOne({ _id: 'ublogAutomodPrompt' })).setting;
 const temperature = 0; //(await db.collection('flag').findOne({ _id: 'ublogAutomodTemperature' }))?.setting ?? 0.3;
 const posts = await db
@@ -359,7 +359,7 @@ function showProgress() {
 
 // ===========================================================================================================
 
-function exit(message = undefined, code = 0) {
+function exit(message, code = 0) {
   if (message) console.log(message);
   if (!client) process.exit(code);
   return client.close().then(() => process.exit(code));

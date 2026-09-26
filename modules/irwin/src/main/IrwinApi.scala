@@ -26,12 +26,12 @@ final class IrwinApi(
   import BSONHandlers.given
 
   lila.common.Bus.sub[lila.core.user.UserDelete]: del =>
-    reportColl.delete.one($id(del.id))
+    reportColl.delete.one(bid(del.id))
 
   def dashboard: Fu[IrwinReport.Dashboard] =
     reportColl
-      .find($empty)
-      .sort($sort.desc("date"))
+      .find(emptyBdoc)
+      .sort(sort.desc("date"))
       .cursor[IrwinReport]()
       .list(20)
       .dmap(IrwinReport.Dashboard.apply)
@@ -41,7 +41,7 @@ final class IrwinApi(
     def insert(data: IrwinReport) = for
       prev <- get(data.userId)
       report = prev.fold(data)(_.add(data))
-      _ <- reportColl.update.one($id(report._id), report, upsert = true)
+      _ <- reportColl.update.one(bid(report._id), report, upsert = true)
       _ <- markOrReport(report)
     yield
       notification(report)
@@ -69,7 +69,7 @@ final class IrwinApi(
     private def markOrReport(report: IrwinReport): Funit =
       userApi.getTitle(report.suspectId.value).flatMap { title =>
         if report.activation >= thresholds.get().mark && title.isEmpty then
-          for _ <- modApi.autoMark(report.suspectId, report.note)(using UserId.irwin.into(MyId))
+          for _ <- modApi.autoEngine(report.suspectId, report.note)(using UserId.irwin.into(MyId))
           yield lila.mon.mod.irwin.mark.increment()
         else if report.activation >= thresholds.get().report then
           for

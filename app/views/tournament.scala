@@ -47,3 +47,5 @@ def show(
       writeable = !c.locked
     )
   showUi(tour, verdicts, shieldOwner, data, chat, views.streamer.bits.contextual(streamers))
+
+export showUi.restricted

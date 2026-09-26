@@ -2,12 +2,12 @@
 <resources>
   <string name="arena">ساحة</string>
   <string name="arenaTournaments">مسابقات الساحة</string>
-  <string name="isItRated">هل هي مقيمة؟</string>
-  <string name="willBeNotified">سيتم إعلامك عند بدء البطولة، لذا يمكنك اللعب في علامة تبويب أخرى أثناء الانتظار.</string>
+  <string name="isItRated">هل هي مصنفة؟</string>
+  <string name="willBeNotified">سيتم إعلامك عند بَدْء البطولة، لذا يمكنك اللعب في علامة تبويب أخرى في أثناء الانتظار.</string>
   <string name="isRated">هذه البطولة مقيمة وسوف تؤثر على تقييمك.</string>
-  <string name="isNotRated">هذه البطولة ليست مقيمة ولن تؤثر على تقييمك.</string>
-  <string name="someRated">بعض البطولات تكون مقيمة وتؤثر على تقييمك.</string>
-  <string name="howAreScoresCalculated">كيف تحتسب النقاط؟</string>
+  <string name="isNotRated">هذه البطولة ليست مصنفه ولن تؤثر على تقييمك.</string>
+  <string name="someRated">بعض البطولات تكون مصنفة وتؤثر على تقييمك.</string>
+  <string name="howAreScoresCalculated">كيف تحتسب النِّقَاط؟</string>
   <string name="howAreScoresCalculatedAnswer">الفوز نتيجته الأساسية  2 نقطة، التعادل: 1 نقطة، والخسارة 0 نقطة.
 إذا ربحت مباراتين على التوالي سوف تبدأ مرحلة مضاعفة النقاط، ويمثلها رمز الشعلة.
 وسوف تستمر المباريات التالية مضاعفة النقاط حتى تفشل في الفوز في مباراة.
@@ -21,7 +21,7 @@
   <string name="howIsTheWinnerDecided">كيف يحدد الفائز؟</string>
   <string name="howIsTheWinnerDecidedAnswer">اللاعب (اللاعبون) ذو النقاط الأعلى في نهاية الوقت المحدد للبطولة يتم إعلانه/م فائز/ين.
 عندما يحصل لاعبان أو أكثر على نفس عدد النقاط، يكون معدل الأداء في البطولة هو كسر التعادل.</string>
-  <string name="howDoesPairingWork">كيف يتم تحديد الخصوم؟</string>
+  <string name="howArePlayersPaired">كيف يتم إقران اللاعبين؟</string>
   <string name="howDoesPairingWorkAnswer">في بداية البطولة، يتم إزواج اللاعبين على أساس تقييمهم. بمجرد الانتهاء من مباراتك، والعودة إلى بهو البطولة: سيتم ازواجك مع لاعب قريب من ترتيبك. وهذا ما يضمن وقت إنتظار أقل،بأي حال قد لا تواجه سائر اللاعبين في هذه البطولة. العب سريعًا وعد إلى المسابقة للعب مباريات أكثر واكسب المزيد من النقاط.</string>
   <string name="howDoesItEnd">كيف تنتهي البطولة؟</string>
   <string name="howDoesItEndAnswer">للبطولة ساعة عد تنازلي. عندما تصل إلى الصفر، يتم تجميد ترتيب مراكز البطولة، ويتم الإعلان عن الفائز. يجب أن يتم الانتهاء من المباريات قيد اللعب، ومع ذلك فإنها لا تحتسب نتائجها في البطولة.</string>
@@ -65,7 +65,7 @@
   <string name="myTournaments">بطولاتي</string>
   <string name="editTournament">تعديل البطولة</string>
   <string name="editTeamBattle">تعديل معركة الفريق</string>
-  <string name="defender">مدافع</string>
+  <string name="defenderLabel" comment="In this context, this is the current holder of a shield trophy, who is defending their trophy in the next shield tournament of that variant. https://lichess.org/tournament/shields">المدافع:</string>
   <string name="pickYourTeam">اختر فريقك</string>
   <string name="whichTeamWillYouRepresentInThisBattle">أي فريق ستمثله في هذه المعركة؟</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">يجب أن تنضم إلى أحد هذه الفرق للمشاركة!</string>
@@ -73,9 +73,12 @@
   <string name="recentlyPlayed">لعب مؤخرًا</string>
   <string name="bestResults">أفضل النتائج</string>
   <string name="tournamentStats">إحصائيات البطولة</string>
-  <string name="rankAvgHelp">متوسط ​​الرتبة هو نسبة مئوية من رتبتك. الأقل أفضل.
+  <string name="rankAverageHelp">مثل متوسط ترتيبك مركزك المعتاد في نهاية البطولات، مقارنةً بإجمالي عدد اللاعبين في كل بطولة.
 
-على سبيل المثال، الحصول على المركز 3 في بطولة تضم 100 لاعب = 3%. حصولك على المركز العاشر في بطولة تضم 1000 لاعب = 1%.</string>
+وهذا المقياس يظهر ترتيبك في البطولات، وليس تصنيفك بشكل عام.
+
+على سبيل المثال:
+إذا كان متوسط ترتيبك 3%، فهذا يعني أنك عادةً ما تُنهي البطولة ضمن أفضل 3% من المشاركين، مثل احتلال المركز 30 من أصل 1,000 لاعب.</string>
   <string name="medians">متوسط</string>
   <string name="allAveragesAreX">جميع المعدلات في هذه الصفحة هي %s.</string>
   <string name="total">الإجمالي</string>
@@ -88,4 +91,5 @@
   <string name="onlyTitledHelp">يتطلب لقب رسمي للمشاركة</string>
   <string name="tournamentPairingsAreNowClosed">انتهت منافسات البطولة.</string>
   <string name="berserkRate">معدل المخاطرة</string>
+  <string name="leaguesAndStreamerBattles">الدوريات &amp; منافسات مشغّلي البث المباشر</string>
 </resources>

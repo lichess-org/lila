@@ -4,8 +4,7 @@ package ui
 import play.api.data.Form
 
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class ClasPages(helpers: Helpers, clasUi: ClasUi, dashUi: DashboardUi):
   import helpers.{ *, given }
@@ -62,21 +61,20 @@ final class ClasPages(helpers: Helpers, clasUi: ClasUi, dashUi: DashboardUi):
       }
     )
 
-  def create(form: lila.core.security.HcaptchaForm[ClasForm.ClasData])(using Context) =
-    ClasPage(trans.clas.newClass.txt(), Right("newClass"))(cls := "box-pad")
-      .js(hcaptchaScript(form))
-      .csp(_.withHcaptcha):
-        frag(
-          h1(cls := "box__top")(trans.clas.newClass()),
-          postForm(cls := "form3", action := routes.Clas.create)(
-            clasForm(form.form, none),
-            lila.ui.bits.hcaptcha(form),
-            form3.actions(
-              a(href := routes.Clas.index)(trans.site.cancel()),
-              form3.submit(trans.site.apply())
-            )
+  def create(form: Form[ClasForm.ClasData])(using Context) =
+    ClasPage(trans.clas.newClass.txt(), Right("newClass"))(cls := "clas-create"):
+      frag(
+        div(cls := "box-pad box__top")(
+          h1(trans.clas.newClass())
+        ),
+        postForm(cls := "form3 box-pad", action := routes.Clas.create)(
+          clasForm(form, none),
+          form3.actions(
+            a(href := routes.Clas.index)(trans.site.cancel()),
+            form3.submit(trans.site.apply())
           )
         )
+      )
 
   def edit(c: lila.clas.Clas, students: List[Student.WithUser], form: Form[ClasForm.ClasData])(using
       Context

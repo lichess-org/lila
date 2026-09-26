@@ -1,9 +1,11 @@
-import { storedBooleanProp } from 'lib/storage';
-import { url as xhrUrl } from 'lib/xhr';
-import * as licon from 'lib/licon';
-import type AnalyseCtrl from './ctrl';
-import { domDialog, type Dialog } from 'lib/view';
 import { opposite } from 'chessops';
+
+import { licon } from 'lib/licon';
+import { storedBooleanProp } from 'lib/storage';
+import { domDialog, type Dialog } from 'lib/view';
+import { url as xhrUrl } from 'lib/xhr';
+
+import type AnalyseCtrl from './ctrl';
 
 export function initModule(ctrl: AnalyseCtrl): void {
   let gifOrientation: Color = ctrl.bottomColor();
@@ -61,6 +63,7 @@ export function initModule(ctrl: AnalyseCtrl): void {
     class: 'gif-export',
     modal: true,
     show: true,
+    easyClose: 'clickOutside',
     htmlText: `
       <div class="gif-export-dialog">
         <strong style="font-size:1.5em">${i18n.site.gameAsGIF}</strong>

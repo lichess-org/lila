@@ -1,15 +1,17 @@
-import { withLinebreaks } from '../util';
-import { getStageRank } from '../score';
-import { numberSpread } from 'lib/i18n';
-import type { RunCtrl } from './runCtrl';
 import { h } from 'snabbdom';
-import { bind } from 'lib/view';
+
+import { numberSpread } from 'lib/i18n';
+import { licon } from 'lib/licon';
+import { bind, icon, onInsert } from 'lib/view';
+
 import { hashNavigate } from '../hashRouting';
-import * as licon from 'lib/licon';
+import { getStageRank } from '../score';
+import { withLinebreaks } from '../util';
+import type { RunCtrl } from './runCtrl';
 
 function makeStars(rank: number) {
   const stars = [];
-  for (let i = 3; i > 0; i--) stars.push(h('div.star-wrap', rank <= i ? h('i.star') : null));
+  for (let i = 3; i > 0; i--) stars.push(h('div.star-wrap', rank <= i ? h('icon.star') : null));
   return stars;
 }
 
@@ -34,12 +36,9 @@ export default function (ctrl: RunCtrl) {
           h(
             'span',
             {
-              hook: {
-                insert: vnode => {
-                  const el = vnode.elm as HTMLElement;
-                  setTimeout(() => numberSpread(el, 50, 3000, 0)(score), 300);
-                },
-              },
+              hook: onInsert(el => {
+                setTimeout(() => numberSpread(el, 50, 3000, 0)(score), 300);
+              }),
             },
             '0',
           ),
@@ -48,16 +47,15 @@ export default function (ctrl: RunCtrl) {
       h('p', withLinebreaks(stage.complete)),
       h('div.buttons', [
         next
-          ? h('a.next', { hook: bind('click', () => hashNavigate(next.id)) }, [
-              i18n.learn.nextX(next.title) + ' ',
-              h('i', { attrs: { 'data-icon': licon.GreaterThan } }),
+          ? h('button.button', { hook: bind('click', () => hashNavigate(next.id)) }, [
+              i18n.learn.nextX(next.title),
+              icon(licon.GreaterThan)(),
             ])
           : null,
-        h(
-          `a.back.text[data-icon=${licon.LessThan}]`,
-          { hook: bind('click', () => hashNavigate()) },
+        h(`button.button.button-empty`, { hook: bind('click', () => hashNavigate()) }, [
+          icon(licon.LessThan)(),
           i18n.learn.backToMenu,
-        ),
+        ]),
       ]),
     ]),
   );

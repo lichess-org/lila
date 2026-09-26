@@ -1,13 +1,13 @@
-import { jsonSimple } from 'lib/xhr';
-import { storedIntProp, storedBooleanPropWithEffect, storedIntPropWithEffect } from 'lib/storage';
-import * as licon from 'lib/licon';
-import { readFen, destsToUcis, square, type Board } from 'lib/game';
 import { charToRole } from 'chessops';
-import { type PromotionCtrl, promote } from 'lib/game/promotion';
+
+import { readFen, destsToUcis, square, type Board } from 'lib/game';
 import type { MoveRootCtrl, MoveUpdate } from 'lib/game/moveRootCtrl';
-import type { VoiceMove, VoiceCtrl, Entry, Match } from '../voice';
-import { coloredArrows, numberedArrows, brushes } from './arrows';
-import { settingNodes } from './view';
+import { type PromotionCtrl, promote } from 'lib/game/promotion';
+import { licon, type LiconValue } from 'lib/licon';
+import { storedIntProp, storedBooleanPropWithEffect, storedIntPropWithEffect } from 'lib/storage';
+import type { QuestionOpts } from 'lib/types';
+import { jsonSimple } from 'lib/xhr';
+
 import type { MsgType } from '../interfaces';
 import {
   spread,
@@ -24,6 +24,9 @@ import {
   type Transform,
   type SparseMap,
 } from '../util';
+import type { VoiceMove, VoiceCtrl, Entry, Match } from '../voice';
+import { coloredArrows, numberedArrows, brushes } from './arrows';
+import { settingNodes } from './view';
 
 export function initModule({
   root,
@@ -60,7 +63,7 @@ export function initModule({
 
   const listenHandlers = [handleConfirm, handleCommand, handleAmbiguity, handleMove];
 
-  const commands: { [_: string]: () => ListenResult[] } = {
+  const commands: Record<string, () => ListenResult[]> = {
     no: as(['ok', 'clear'], () => (voice.showHelp() ? voice.showHelp(false) : clearMoveProgress())),
     help: as(['ok'], () => voice.showHelp(true)),
     vocabulary: as(['ok'], () => voice.showHelp('list')),
@@ -427,9 +430,9 @@ export function initModule({
       }
       if (srole === 'P') {
         addToks(udest, uci); // includes en passant
-        if (uci[0] === uci[2]) {
+        if (uci.startsWith(uci[2])) {
           addToks(`P${udest}`);
-        } else if (dp) {
+        } else {
           addToks(`${usrc}x${udest}`);
           addToks(`Px${udest}`);
           addToks(`${uci[0]}x${udest}`, uci);
@@ -453,7 +456,7 @@ export function initModule({
           if ((nsrc & 7) === (other & 7)) rank = uci[1];
           else file = uci[0];
         }
-        for (const piece of [`${srole}${file}${rank}`, `${srole}`]) {
+        for (const piece of [`${srole}${file}${rank}`, srole]) {
           if (dp) addToks(`${piece}x${udest}`, uci);
           addToks(`${piece}${udest}`, uci);
         }
@@ -485,7 +488,10 @@ export function initModule({
       if (!'PNBRQK'.includes(xouts)) continue;
       const moves = spread(set).filter(x => x.length > 2);
       if (moves.length > maxArrows()) moves.forEach(x => remove(squares, xouts, x));
-      else if (moves.length > 0) [...set].filter(x => x.length === 2).forEach(x => remove(squares, xouts, x));
+      else if (moves.length > 0)
+        Array.from(set)
+          .filter(x => x.length === 2)
+          .forEach(x => remove(squares, xouts, x));
     }
     if (DEBUG.buildSquares) console.info('buildSquares', squares);
   }
@@ -533,7 +539,7 @@ export function initModule({
   }
 
   function question(): QuestionOpts | false {
-    const mkOpts = (prompt: string, yesIcon: string) => ({
+    const mkOpts = (prompt: string, yesIcon: LiconValue) => ({
       prompt,
       yes: { action: () => command?.action?.(true), key: 'yes', icon: yesIcon },
       no: { action: () => command?.action?.(false), key: 'no' },
@@ -579,7 +585,9 @@ export function initModule({
   }
 
   function toksVals(toks: string) {
-    return [...toks].map(tok => byTok.get(tok)?.val).join(',');
+    return Array.from(toks)
+      .map(tok => byTok.get(tok)?.val)
+      .join(',');
   }
 
   function tagWords(tags?: string[], intersect = false) {
@@ -626,7 +634,11 @@ export function initModule({
   }
 
   function valsWords(vals: string): string[] {
-    return valsToks(vals).map(toks => [...toks].map(tok => tokWord(tok)).join(' '));
+    return valsToks(vals).map(toks =>
+      Array.from(toks)
+        .map(tok => tokWord(tok))
+        .join(' '),
+    );
   }
 
   function valWord(val: string, tag?: string) {

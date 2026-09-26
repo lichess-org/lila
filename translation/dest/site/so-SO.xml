@@ -117,7 +117,6 @@
   <string name="enable">Fur</string>
   <string name="bestMoveArrow">Falaadha tallaabada ugu fiican</string>
   <string name="showVariationArrows">Tus falaadhaha faracyada</string>
-  <string name="evaluationGauge">Qiinqaynta tallaabada</string>
   <string name="multipleLines">Shaxo badan</string>
   <string name="cpus">CPUyada</string>
   <string name="memory">Baaxadda</string>
@@ -126,25 +125,13 @@
   <string name="blunder">Qalad</string>
   <string name="mistake">Qalad</string>
   <string name="inaccuracy">Khalad</string>
-  <plurals name="nbBlunders">
-    <item quantity="one">%s qalad</item>
-    <item quantity="other">%s qaladaad</item>
-  </plurals>
   <plurals name="numberBlunders">
     <item quantity="one">%s Qalad</item>
     <item quantity="other">%s Qaladaad</item>
   </plurals>
-  <plurals name="nbMistakes">
-    <item quantity="one">%s halmaam</item>
-    <item quantity="other">%s halmaamyo</item>
-  </plurals>
   <plurals name="numberMistakes">
     <item quantity="one">%s Halmaam</item>
     <item quantity="other">%s Halmaamyo</item>
-  </plurals>
-  <plurals name="nbInaccuracies">
-    <item quantity="one">%s aan fiicnayn</item>
-    <item quantity="other">%s aan fiicnayn</item>
   </plurals>
   <plurals name="numberInaccuracies">
     <item quantity="one">%s Aan fiicnayn</item>
@@ -221,7 +208,6 @@
   <string name="changeUsernameNotSame">Weynida xarfaha oo kaliiyaa is bedeli kara. Tusaale ahaan \"hebel\" iyo \"Hebel\".</string>
   <string name="changeUsernameDescription">Magac-koonkaaga beddel. Mar keliyaa kuu banana oo aad bedeli karto weynida xarfaha uun.</string>
   <string name="signupUsernameHint">Magac-akoon edeb leh dooro. Ma bedeli kartid mar dambe waana la xidhi doonaa magicii edeb darro ah!</string>
-  <string name="signupEmailHint">Waxan u isticmaalaynaa cusbaynta furahaaga oo keli ah.</string>
   <string name="password">Erey sir</string>
   <string name="changePassword">Beddel furaha</string>
   <string name="changeEmail">Beddel iimaylka</string>
@@ -244,10 +230,6 @@
   <string name="emailSent">Iimayl baan u dirnay %s.</string>
   <string name="emailCanTakeSomeTime">Wakhti yar sii si ay kuu soo gaadho.</string>
   <string name="refreshInboxAfterFiveMinutes">Sug 5 mirir oo ka dib baadh iimaylkaaga.</string>
-  <string name="checkSpamFolder">Sidoo kale eeg spam folderkaaga, halkaasaad ka heli kartaa. Haddii ay sidaa tahay, u beddel \"not spam\".</string>
-  <string name="emailForSignupHelp">Haddii ay waxba shaqayn waayaan, noosoo dir iimaylkan:</string>
-  <string name="copyTextToEmail">Koobi garee qoraalka sare oo u soo dir %s</string>
-  <string name="waitForSignupHelp">Waanu kuu soo laaban in yar ka dib si an kaaga caawinno diwaangelinta.</string>
   <string name="accountConfirmed">Akoonka %s waa la hubiyay si guul leh.</string>
   <string name="accountCanLogin">Hadda waxad ku geli kartaa %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Uma baahnid iimayl hubsasho ah.</string>
@@ -270,8 +252,6 @@
   </plurals>
   <string name="ok">Waayahay</string>
   <string name="cancel">Ka noqo</string>
-  <string name="whiteTimeOut">Wakhtigii ba ka dhamaaday cadaanka</string>
-  <string name="blackTimeOut">Wakhtigaa ka dhacay madowga</string>
   <string name="drawOfferSent">La dir dalbasho baraaje</string>
   <string name="drawOfferAccepted">Waa la aqbalay baraaje</string>
   <string name="whiteOffersDraw">Cadaankaa dalbaday baraaje</string>
@@ -392,7 +372,6 @@
   <string name="language">Luqadda</string>
   <string name="light">Iftiin</string>
   <string name="dark">Madow</string>
-  <string name="transparent">Hufan</string>
   <string name="usernameAlreadyUsed">Magacan-akoonkan waa la haystaa, fadlan tijaabi mid kale.</string>
   <string name="usernamePrefixInvalid">Magacan-akoonku waa inuu ku bilaabmo xaraf.</string>
   <string name="usernameSuffixInvalid">Magacan-akoonku waa inuu ku dhamaado xaraf ama tiro.</string>
@@ -413,7 +392,6 @@
   <string name="gameInProgress">Waxaad la ciyaaraysaa hadda %s.</string>
   <string name="abortTheGame">Tuur ciyaarta</string>
   <string name="resignTheGame">Is dhiib ciyaartan</string>
-  <string name="youCantStartNewGame">Ciyaar kale ma bilaabi kartid inta aanay tani fhamaan.</string>
   <string name="since">Ka dib</string>
   <string name="until">Ka hor</string>
   <string name="lichessDbExplanation">Ciyaaraha qiimaysan ee ka dhacay Lichess</string>

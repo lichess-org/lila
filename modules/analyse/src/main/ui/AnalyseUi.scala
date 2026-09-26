@@ -31,6 +31,7 @@ final class AnalyseUi(helpers: Helpers)(endpoints: AnalyseEndpoints):
       withForecast: Boolean = false,
       inlinePgn: Option[String] = None
   )(using ctx: Context): Page =
+    val hasWiki = pov.game.synthetic && pov.game.variant.standard
     Page(trans.site.analysis.txt())
       .css("analyse.free")
       .css((pov.game.variant == Crazyhouse).option("analyse.zh"))
@@ -45,7 +46,7 @@ final class AnalyseUi(helpers: Helpers)(endpoints: AnalyseEndpoints):
           Json
             .obj(
               "data" -> data,
-              "wiki" -> pov.game.variant.standard
+              "wiki" -> hasWiki
             )
             .add("inlinePgn", inlinePgn) ++
             explorerAndCevalConfig
@@ -62,7 +63,7 @@ final class AnalyseUi(helpers: Helpers)(endpoints: AnalyseEndpoints):
         main(
           cls := List(
             "analyse" -> true,
-            "analyse--wiki" -> pov.game.variant.standard
+            "analyse--wiki" -> hasWiki
           )
         )(
           pov.game.synthetic.option(
@@ -82,12 +83,11 @@ final class AnalyseUi(helpers: Helpers)(endpoints: AnalyseEndpoints):
                     )(v.variantTrans())
               ),
               pov.game.variant.chess960.option(chess960selector(chess960PositionNum)),
-              pov.game.variant.standard.option(
+              hasWiki.option:
                 fieldset(cls := "analyse__wiki empty toggle-box toggle-box--toggle", id := "wikibook-field")(
                   legend(tabindex := 0)("WikiBook"),
                   div(cls := "analyse__wiki-text")
                 )
-              )
             )
           ),
           div(cls := "analyse__board main-board")(chessgroundBoard),
@@ -119,9 +119,11 @@ final class AnalyseUi(helpers: Helpers)(endpoints: AnalyseEndpoints):
   private def iconByVariant(variant: Variant): Icon =
     PerfKey.byVariant(variant).fold(Icon.CrownElite)(_.perfIcon)
 
-  def titleOf(pov: Pov)(using Translate) =
-    val opening = pov.game.opening.fold(trans.site.analysis.txt())(_.opening.name)
-    s"${playerText(pov.game.whitePlayer)} vs ${playerText(pov.game.blackPlayer)}: $opening"
+  def titleFull(pov: Pov)(using ctx: Context) =
+    val openingName = gameOpening(pov.game, ctx.isAuth).fold(trans.site.analysis.txt())(_.name)
+    s"${titlePlayerVs(pov.game)} - $openingName"
+
+  def titlePlayerVs(g: Game) = s"${playerText(g.whitePlayer)} vs ${playerText(g.blackPlayer)}"
 
   object bits:
 
@@ -132,7 +134,7 @@ final class AnalyseUi(helpers: Helpers)(endpoints: AnalyseEndpoints):
         .flag(_.zoom)
         .flag(_.noRobots)
         .csp:
-          cspExternalEngine.compose(_.withPeer.withInlineIconFont.withChessDbCn)
+          cspExternalEngine.compose(_.withInlineIconFont.withChessDbCn)
 
     def cspExternalEngine: Update[ContentSecurityPolicy] =
       _.withWebAssembly.withExternalEngine(endpoints.externalEngine)

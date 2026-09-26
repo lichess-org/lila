@@ -24,7 +24,7 @@ class Scroller {
     this.enabled = v;
   };
   setMarker = () => {
-    this.marker = this.element && (this.element.querySelector('mine,their') as HTMLElement);
+    this.marker = this.element?.querySelector('mine,their') as HTMLElement;
   };
   toMarker = (): boolean => {
     if (this.marker && this.to(this.marker)) {

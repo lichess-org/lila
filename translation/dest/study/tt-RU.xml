@@ -38,7 +38,6 @@
   <string name="youAreNowASpectator">Сез хәзер тамашачы</string>
   <string name="pgnTags">PGN тамгасы</string>
   <string name="like">Ошый</string>
-  <string name="unlike">Ошамый</string>
   <string name="newTag">Яңа тамга</string>
   <string name="commentThisPosition">Ошбу позицияне шәрхләмәк</string>
   <string name="commentThisMove">Хәрәкәтне шәрхләү</string>
@@ -59,7 +58,6 @@
   <string name="downloadGame">Йөкләш уенны</string>
   <string name="studyUrl">Өйрәнеш URL</string>
   <string name="currentChapterUrl">Хәзерге баб URL</string>
-  <string name="youCanPasteThisInTheForumToEmbed">Сез җайлаштырасыз форумны ябыштырыш колыш</string>
   <string name="open">Ачу</string>
   <string name="orientation">Урнашу</string>
   <string name="analysisMode">Вәдъ әл-тәһлил</string>

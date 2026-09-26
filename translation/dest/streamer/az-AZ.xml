@@ -26,14 +26,13 @@
   <string name="approved">Yayımınız təsdiqləndi.</string>
   <string name="pendingReview">Yayımınız moderatorlar tərəfindən nəzərdən keçirilir.</string>
   <string name="pleaseFillIn">Lütfən yayımçı məlumatlarını doldurun və bir şəkil yükləyin.</string>
-  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Lichess yayımçısı kimi siyahıya alınmağa hazır olanda, %s</string>
   <string name="streamerName">Lichess yayımçı adınız</string>
   <plurals name="keepItShort">
     <item quantity="one">Qısa saxlayın: ən çox %s simvol</item>
     <item quantity="other">Qısa saxlayın: ən çox %s simvol</item>
   </plurals>
-  <string name="visibility" comment="A togglable setting. When enabled, the streamer profile you created will be listed on https://lichess.org/streamer">Yayımçılar səhifəsində görünsün</string>
-  <string name="whenApproved" comment="Subtitle to &quot;Visible on the streamers page&quot;.&#10;&#10;This subtitle is to clarify that Lichess moderators approve all applications for the https://lichess.org/streamer page">Moderatorlar tərəfindən təsdiqlənəndə</string>
+  <string name="visibility">Yayımçılar səhifəsində görünsün</string>
+  <string name="whenApproved">Moderatorlar tərəfindən təsdiqlənəndə</string>
   <string name="headline">Başlıq</string>
   <string name="tellUsAboutTheStream">Bir cümlə ilə yayımınızı təsvir edin</string>
   <string name="longDescription">Uzun açıqlama</string>

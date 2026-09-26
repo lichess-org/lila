@@ -4,7 +4,6 @@ package game
 import _root_.chess.Color.White
 import _root_.chess.format.UciDump
 import _root_.chess.format.pgn.SanStr
-import _root_.chess.opening.{ Opening, OpeningDb }
 import _root_.chess.variant.{ Standard, Variant }
 import _root_.chess.{
   ByColor,
@@ -40,7 +39,8 @@ case class Game(
     bookmarks: Int = 0,
     createdAt: Instant = nowInstant,
     movedAt: Instant = nowInstant,
-    metadata: GameMetadata
+    metadata: GameMetadata,
+    abortedBy: Option[Color] = None
 ):
 
   export chess.{ position, ply, clock, sans, startedAtPly, player as turnColor, history, variant }
@@ -108,7 +108,7 @@ case class Game(
 
   // not UCI. Only for lastMove display purposes.
   def lastMoveKeys: Option[String] =
-    history.lastMove.map(UciDump.lastMove(_, variant))
+    history.lastMove.map(UciDump.lastMove(_, position))
 
   def updatePlayer(color: Color, f: Player => Player) =
     copy(players = players.update(color, f))
@@ -251,14 +251,12 @@ case class Game(
     case a :: Nil => Some((a + IntRating(1500)).map(_ / 2))
     case _ => None
 
+  def isStrongOrRecent = averageUsersRating.exists(_.value >= 2200) ||
+    createdAt.isAfter(nowInstant.minus(10.days))
+
   def isPgnImport = pgnImport.isDefined
 
   def hasFewerMovesThanExpected = playedPlies <= reasonableMinimumNumberOfMoves(variant)
-
-  lazy val opening: Option[Opening.AtPly] =
-    if !fromPosition && Variant.list.openingSensibleVariants(variant)
-    then OpeningDb.search(sans)
-    else none
 
   def pov(c: Color) = Pov(this, c)
   def povs: ByColor[Pov] = ByColor(pov)

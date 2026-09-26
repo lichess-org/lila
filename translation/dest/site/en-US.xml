@@ -58,6 +58,8 @@
   <string name="blackLeftTheGame">Black left the game</string>
   <string name="whiteDidntMove">White didn\'t move</string>
   <string name="blackDidntMove">Black didn\'t move</string>
+  <string name="whiteAborted">White aborted the game</string>
+  <string name="blackAborted">Black aborted the game</string>
   <string name="requestAComputerAnalysis">Request a computer analysis</string>
   <string name="computerAnalysis">Computer analysis</string>
   <string name="computerAnalysisAvailable">Computer analysis available</string>
@@ -95,6 +97,8 @@
   <string name="database">Database</string>
   <string name="whiteDrawBlack">White / Draw / Black</string>
   <string name="averageRatingX">Average rating: %s</string>
+  <string name="minRatingX">Minimum rating of %s</string>
+  <string name="maxRatingX">Maximum rating of %s</string>
   <string name="recentGames">Recent games</string>
   <string name="topGames">Top games</string>
   <string name="masterDbExplanation">OTB games of %1$s+ FIDE rated players from %2$s to %3$s</string>
@@ -126,35 +130,32 @@
   <string name="enable">Enable</string>
   <string name="bestMoveArrow">Best move arrow</string>
   <string name="showVariationArrows">Show variation arrows</string>
-  <string name="evaluationGauge">Evaluation gauge</string>
+  <string name="visualMotifs">Visual motifs</string>
+  <string name="undefendedPieces">Undefended pieces</string>
+  <string name="pinnedPieces">Pinned pieces</string>
   <string name="checkableKing">Checkable king</string>
   <string name="multipleLines">Multiple lines</string>
+  <string name="multipleLinesDescription">Set number of evaluation lines and move arrows on the board</string>
+  <string name="searchTime">Search time</string>
+  <string name="searchTimeDescription">Set time to evaluate fresh positions</string>
+  <string name="threads">Threads</string>
+  <string name="threadsDescription">Set this below your CPU\'s thread count, the ticks mark a good safe choice</string>
+  <string name="threadsDescriptionMobile">More threads will use more battery for better analysis</string>
   <string name="cpus">CPUs</string>
   <string name="memory">Memory</string>
+  <string name="memoryDescription">Higher values may improve performance</string>
   <string name="infiniteAnalysis">Infinite analysis</string>
   <string name="removesTheDepthLimit">Removes the depth limit, and keeps your computer warm</string>
   <string name="blunder">Blunder</string>
   <string name="mistake">Mistake</string>
   <string name="inaccuracy">Inaccuracy</string>
-  <plurals name="nbBlunders">
-    <item quantity="one">%s blunder</item>
-    <item quantity="other">%s blunders</item>
-  </plurals>
   <plurals name="numberBlunders">
     <item quantity="one">%s Blunder</item>
     <item quantity="other">%s Blunders</item>
   </plurals>
-  <plurals name="nbMistakes">
-    <item quantity="one">%s mistake</item>
-    <item quantity="other">%s mistakes</item>
-  </plurals>
   <plurals name="numberMistakes">
     <item quantity="one">%s Mistake</item>
     <item quantity="other">%s Mistakes</item>
-  </plurals>
-  <plurals name="nbInaccuracies">
-    <item quantity="one">%s inaccuracy</item>
-    <item quantity="other">%s inaccuracies</item>
   </plurals>
   <plurals name="numberInaccuracies">
     <item quantity="one">%s Inaccuracy</item>
@@ -162,6 +163,10 @@
   </plurals>
   <string name="moveTimes">Move times</string>
   <string name="flipBoard">Flip board</string>
+  <string name="toggleLocalEngine">Toggle local engine</string>
+  <string name="engineSettings">Engine settings</string>
+  <string name="enginesFromStrongestToWeakest">Engines from strongest to weakest</string>
+  <string name="illegalPosition">Illegal position</string>
   <string name="threefoldRepetition">Threefold repetition</string>
   <string name="claimADraw">Claim a draw</string>
   <string name="drawClaimed">Draw claimed</string>
@@ -171,7 +176,7 @@
     <item quantity="one">%s player</item>
     <item quantity="other">%s players</item>
   </plurals>
-  <string name="drawByMutualAgreement">Draw by mutual agreement</string>
+  <string name="drawByMutualAgreement">Draw by agreement</string>
   <string name="fiftyMovesWithoutProgress">Fifty moves without progress</string>
   <string name="currentGames">Current games</string>
   <string name="joinedX">Joined %s</string>
@@ -228,14 +233,15 @@
   <string name="time">Time</string>
   <string name="rating">Rating</string>
   <string name="ratingStats">Rating stats</string>
-  <string name="username">User name</string>
+  <string name="username">Username</string>
   <string name="usernameOrEmail">User name or email</string>
   <string name="changeUsername">Change username</string>
   <string name="changeUsernameNotSame">Only the case of the letters can change. For example \"johndoe\" to \"JohnDoe\".</string>
   <string name="changeUsernameDescription">Change your username. This can only be done once and you are only allowed to change the case of the letters in your username.</string>
   <string name="signupUsernameHint">Be sure to choose a family-friendly username. You cannot change it later, and any accounts with inappropriate usernames will be closed!</string>
-  <string name="signupEmailHint">We will only use it for password reset.</string>
+  <string name="signupEmailPromise">We will only send you emails about your account and never share your email.</string>
   <string name="password">Password</string>
+  <string name="showPassword">Show password</string>
   <string name="changePassword">Change password</string>
   <string name="changeEmail">Change email</string>
   <string name="email">Email</string>
@@ -247,20 +253,18 @@
   <string name="youAreLeavingLichess">You are leaving Lichess</string>
   <string name="neverTypeYourPassword">Never type your Lichess password on another site!</string>
   <string name="proceedToX">Proceed to %s</string>
-  <string name="passwordSuggestion">Do not set a password suggested by someone else. They will use it to steal your account.</string>
-  <string name="emailSuggestion">Do not set an email address suggested by someone else. They will use it to steal your account.</string>
+  <string name="passwordSuggestion">Do not set a password suggested by someone else. They can use it to steal your account.</string>
+  <string name="emailSuggestion">Do not set an email address suggested by someone else. They can use it to steal your account.</string>
   <string name="emailConfirmHelp">Help with email confirmation</string>
   <string name="emailConfirmNotReceived">Didn\'t receive your confirmation email after signing up?</string>
-  <string name="whatSignupUsername">What username did you use to sign up?</string>
+  <string name="whatSignupUsername">What username did you register with?</string>
   <string name="usernameNotFound">We couldn\'t find any user by this name: %s.</string>
   <string name="usernameCanBeUsedForNewAccount">You can use this username to create a new account</string>
   <string name="emailSent">We have sent an email to %s.</string>
   <string name="emailCanTakeSomeTime">It can take some time to arrive.</string>
   <string name="refreshInboxAfterFiveMinutes">Wait 5 minutes and refresh your email inbox.</string>
-  <string name="checkSpamFolder">Also check your spam folder, it might end up there. If so, mark it as not spam.</string>
-  <string name="emailForSignupHelp">If you still have questions, please send us an email:</string>
-  <string name="copyTextToEmail">Copy and paste the above text and send it to %s</string>
-  <string name="waitForSignupHelp">We will come back to you shortly to help you complete your signup.</string>
+  <string name="checkSpamOrJunkFolder" comment="checkSpamFolder&#10;It = The confirmation email">If you do not receive a confirmation email, check your Spam or Junk folder. Be sure to indicate messages from lichess.org as safe and \"not spam\" so you can stay informed of important communications.</string>
+  <string name="sendEmailForAccountVerification">If you can\'t find your confirmation email, send an email to %s, and we\'ll confirm your account for you.</string>
   <string name="accountConfirmed">The user %s is successfully confirmed.</string>
   <string name="accountCanLogin">You can login right now as %s.</string>
   <string name="accountConfirmationEmailNotNeeded">You do not need a confirmation email.</string>
@@ -283,8 +287,8 @@
   </plurals>
   <string name="ok">OK</string>
   <string name="cancel">Cancel</string>
-  <string name="whiteTimeOut">White time out</string>
-  <string name="blackTimeOut">Black time out</string>
+  <string name="whiteRanOutOfTime" comment="whiteTimeOut&#10;&#10;Shows when White's time has run out. Is followed by the end condition, for example&#10;'White ran out of time · Draw'">White ran out of time</string>
+  <string name="blackRanOutOfTime" comment="blackTimeOut&#10;&#10;Shows when Black's time has run out. Is followed by the end condition, for example&#10;'Black ran out of time · Draw'">Black ran out of time</string>
   <string name="drawOfferSent">Draw offer sent</string>
   <string name="drawOfferAccepted">Draw offer accepted</string>
   <string name="whiteOffersDraw">White offers draw</string>
@@ -354,7 +358,7 @@
     <item quantity="one">Give %s second</item>
     <item quantity="other">Give %s seconds</item>
   </plurals>
-  <string name="thisAccountViolatedTos">This account violated the Lichess Terms of Service</string>
+  <string name="thisAccountViolatedTos">The Lichess Terms of Service were violated on this account</string>
   <string name="openingExplorerAndTablebase">Opening explorer &amp; tablebase</string>
   <string name="takeback">Takeback</string>
   <string name="proposeATakeback">Propose a takeback</string>
@@ -393,8 +397,8 @@
     <item quantity="other">≥ %s rated games</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
-    <item quantity="one">≥ %1$s %2$s rated game</item>
-    <item quantity="other">≥ %1$s %2$s rated games</item>
+    <item quantity="one">≥ %1$s rated %2$s game</item>
+    <item quantity="other">≥ %1$s rated %2$s games</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
     <item quantity="one">You need to play %1$s more %2$s rated game</item>
@@ -405,7 +409,8 @@
     <item quantity="other">You need to play %s more rated games</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Your %s rating is provisional</string>
-  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Rating filters are locked because your rating is not stable. Playing rated games will increase stability.</string>
+  <string name="cannotFilterByUnstableRating" comment="Tooltip to explain why the control for filtering by rating is disabled">It is not possible to filter by rating because your rating is not stable.
+Playing rated games will increase stability.</string>
   <string name="yourPerfRatingIsTooHigh">Your %1$s rating (%2$s) is too high</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Your top weekly %1$s rating (%2$s) is too high</string>
   <string name="yourPerfRatingIsTooLow">Your %1$s rating (%2$s) is too low</string>
@@ -426,7 +431,7 @@
   <string name="apply">Submit</string>
   <string name="save">Save</string>
   <string name="leaderboard">Leaderboard</string>
-  <string name="screenshotCurrentPosition">Screenshot current position</string>
+  <string name="positionAsImage" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position.">Position as image</string>
   <string name="gameAsGIF">Game as GIF</string>
   <string name="playerNames">Player names</string>
   <string name="moveAnnotations">Move annotations</string>
@@ -436,7 +441,7 @@
   <string name="continueFromHere">Continue from here</string>
   <string name="toStudy">Study</string>
   <string name="importGame">Import game</string>
-  <string name="importGameExplanation">Paste a game PGN to get a browsable replay, computer analysis, game chat and public shareable URL.</string>
+  <string name="importGameExplanation">Paste a game PGN to get a browsable replay, computer analysis, game chat, and a shareable link.</string>
   <string name="importGameDataPrivacyWarning">This PGN can be accessed by the public. To import a game privately, use a study.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s imported game</item>
@@ -473,6 +478,7 @@
     <item quantity="one">%s following</item>
     <item quantity="other">%s following</item>
   </plurals>
+  <string name="less">Less</string>
   <string name="more">More</string>
   <string name="memberSince">Member since</string>
   <string name="lastSeenActive">Active %s</string>
@@ -516,6 +522,7 @@
   <string name="popularOpenings">Popular openings</string>
   <string name="endgamePositions">Endgame positions</string>
   <string name="chess960StartPosition">Chess960 start position: %s</string>
+  <string name="randomChess960Position">Random Chess960 position</string>
   <string name="startPosition">Starting position</string>
   <string name="clearBoard">Clear board</string>
   <string name="loadPosition">Load position</string>
@@ -537,7 +544,6 @@
   <string name="oneUrlPerLine">One URL per line.</string>
   <string name="inlineNotation">Inline notation</string>
   <string name="makeAStudy">For safekeeping and sharing, consider making a study.</string>
-  <string name="clearSavedMoves">Clear moves</string>
   <string name="previouslyOnLichessTV">Previously on Lichess TV</string>
   <string name="onlinePlayers">Online players</string>
   <string name="activePlayers">Active players</string>
@@ -568,6 +574,9 @@
   <string name="replies">Replies</string>
   <string name="replyToThisTopic">Reply to this topic</string>
   <string name="reply">Reply</string>
+  <string name="reopen">Reopen</string>
+  <string name="quote">Quote</string>
+  <string name="postEdited">edited</string>
   <string name="message">Message</string>
   <string name="createTheTopic">Create the topic</string>
   <string name="reportAUser">Report a user</string>
@@ -579,8 +588,8 @@
   <string name="other">Other</string>
   <string name="reportCheatBoostHelp">Paste a link to the game(s) and explain what is wrong with this user\'s behavior. Don\'t just say \"they cheat,\" but tell us how you came to this conclusion.</string>
   <string name="reportUsernameHelp">Explain why this username is offensive. Don\'t just say \"it\'s offensive/inappropriate,\" but tell us how you came to this conclusion, especially if the offense is obscure, not in English, in slang, or a historical/cultural reference.</string>
-  <string name="reportProcessedFasterInEnglish">Your report will be processed faster if written in English.</string>
-  <string name="error.provideOneCheatedGameLink">Please provide at least one link to a game with suspected cheating.</string>
+  <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">We can process your report faster if you write in English.</string>
+  <string name="error.provideOneCheatedGameLink">Please provide at least one link to a game for review.</string>
   <string name="by">by %s</string>
   <string name="importedByX">Imported by %s</string>
   <string name="thisTopicIsNowClosed">This topic is now closed.</string>
@@ -592,6 +601,9 @@
   <string name="invalidUsernameOrPassword">Invalid username or password</string>
   <string name="incorrectPassword">Incorrect password</string>
   <string name="invalidAuthenticationCode">Invalid authentication code</string>
+  <string name="clearField">Clear field</string>
+  <string name="orSeparator">Or</string>
+  <string name="logInByEmail">Log in by email</string>
   <string name="emailMeALink">Email me a link</string>
   <string name="currentPassword">Current password</string>
   <string name="newPassword">New password</string>
@@ -612,7 +624,7 @@
   <string name="slow">Slow</string>
   <string name="insideTheBoard">Inside the board</string>
   <string name="outsideTheBoard">Outside the board</string>
-  <string name="allSquaresOfTheBoard">All squares on the board</string>
+  <string name="allSquaresOfTheBoard">All squares</string>
   <string name="onSlowGames">On slow games</string>
   <string name="always">Always</string>
   <string name="never">Never</string>
@@ -661,7 +673,7 @@
   <string name="onlyExistingConversations">Only existing conversations</string>
   <string name="onlyFriends">Only friends</string>
   <string name="menu">Menu</string>
-  <string name="castling" comment="Label for a box on the right side of the board editor, where the user can select castling rights. Noun.&#10;&#10;NOTE: this string used to read &quot;Castling&quot;, with &quot;rights&quot; added in 2026 for clarity.">Castling rights</string>
+  <string name="castling">Castling rights</string>
   <string name="whiteCastlingKingside">White O-O</string>
   <string name="blackCastlingKingside">Black O-O</string>
   <plurals name="nbForumPosts">
@@ -690,7 +702,7 @@
   <string name="yourPendingSimuls">Your pending simuls</string>
   <string name="createdSimuls">Newly created simuls</string>
   <string name="hostANewSimul">Host a new simul</string>
-  <string name="signUpToHostOrJoinASimul">Sign up to join or host a simul</string>
+  <string name="signUpToHostOrJoinASimul">Register to join or host a simul</string>
   <string name="noSimulFound">Simul not found</string>
   <string name="noSimulExplanation">This simultaneous exhibition does not exist.</string>
   <string name="returnToSimulHomepage">Return to simul homepage</string>
@@ -700,11 +712,11 @@
   <string name="aboutSimulRules">When the simul starts, every player starts a game with the host. The simul ends when all games are complete.</string>
   <string name="aboutSimulSettings">Simuls are always casual. Rematches, takebacks and adding time are disabled.</string>
   <string name="create">Create</string>
-  <string name="whenCreateSimul">When you create a Simul, you get to play several players at once.</string>
+  <string name="creatingASimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Creating a simul lets you play against multiple opponents at the same time.</string>
   <string name="simulVariantsHint">If you select several variants, each player gets to choose which one to play.</string>
-  <string name="simulClockHint">Fischer Clock setup. The more players you take on, the more time you may need.</string>
+  <string name="simulClockHint">The more players you take on, the more time you may need.</string>
   <string name="simulAddExtraTime">You may add extra initial time to your clock to help you cope with the simul.</string>
-  <string name="simulHostExtraTime">Host extra initial clock time</string>
+  <string name="extraClockTimeForHost" comment="Appears on: https://lichess.org/simul/new&#10;&#10;Allows a simul host to select extra time for the simul.&#10;&#10;Please note this string used to state &quot;Host extra clock time&quot;, without the word &quot;initial&quot;">Extra clock time for the host:</string>
   <string name="simulAddExtraTimePerPlayer">Add initial time to your clock for each player joining the simul.</string>
   <string name="simulHostExtraTimePerPlayer">Host extra clock time per player</string>
   <string name="lichessTournaments">Lichess tournaments</string>
@@ -715,14 +727,11 @@
   <string name="keyboardShortcuts">Keyboard shortcuts</string>
   <string name="keyMoveBackwardOrForward">move backward/forward</string>
   <string name="keyGoToStartOrEnd">go to start/end</string>
+  <string name="keyGoToPreviousOrNextLine">go to previous/next line</string>
   <string name="keyCycleSelectedVariation">Cycle selected variation</string>
   <string name="keyShowOrHideComments">show/hide comments</string>
+  <string name="keyShowOrHideCurrentVariation">show/hide current variation</string>
   <string name="keyEnterOrExitVariation">enter/exit variation</string>
-  <string name="keyRequestComputerAnalysis">Request computer analysis, Learn from your mistakes</string>
-  <string name="keyNextLearnFromYourMistakes">Next (Learn from your mistakes)</string>
-  <string name="keyNextBlunder">Next blunder</string>
-  <string name="keyNextMistake">Next mistake</string>
-  <string name="keyNextInaccuracy">Next inaccuracy</string>
   <string name="keyPreviousBranch">Previous branch</string>
   <string name="keyNextBranch">Next branch</string>
   <string name="toggleVariationArrows">Toggle variation arrows</string>
@@ -799,6 +808,8 @@
   <string name="xHostsY">%1$s hosts %2$s</string>
   <string name="xJoinsY">%1$s joins %2$s</string>
   <string name="xLikesY">%1$s likes %2$s</string>
+  <string name="like">Like</string>
+  <string name="liked">Liked</string>
   <string name="quickPairing">Quick pairing</string>
   <string name="lobby">Lobby</string>
   <string name="anonymous">Anonymous</string>
@@ -806,11 +817,15 @@
   <string name="language">Language</string>
   <string name="allLanguages">All languages</string>
   <string name="background">Background</string>
+  <string name="theme">Theme</string>
   <string name="light">Light</string>
   <string name="dark">Dark</string>
-  <string name="transparent">Transparent</string>
+  <string name="picture">Picture</string>
   <string name="deviceTheme">Device theme</string>
+  <string name="roundness">Roundness</string>
+  <string name="backgroundImage">Background image</string>
   <string name="backgroundImageUrl">Background image URL:</string>
+  <string name="imageOpacity">Image opacity</string>
   <string name="board">Board</string>
   <string name="size">Size</string>
   <string name="opacity">Opacity</string>
@@ -833,7 +848,7 @@
   <string name="custom">Custom</string>
   <string name="notifications">Notifications</string>
   <string name="notificationsX">Notifications: %1$s</string>
-  <string name="perfRatingX">Rating: %s</string>
+  <string name="perfRatingLabel">Rating: %s.</string>
   <string name="yourRatingIsX">Your rating is %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s second to play the first move</item>
@@ -868,11 +883,11 @@
   <string name="waitingForAnalysis">Waiting for analysis</string>
   <string name="noMistakesFoundForWhite">No significant mistakes found for White</string>
   <string name="noMistakesFoundForBlack">No significant mistakes found for Black</string>
-  <string name="doneReviewingWhiteMistakes">Done reviewing White mistakes</string>
-  <string name="doneReviewingBlackMistakes">Done reviewing Black mistakes</string>
+  <string name="doneReviewingWhiteMistakes">Done reviewing white\'s mistakes</string>
+  <string name="doneReviewingBlackMistakes">Done reviewing black\'s mistakes</string>
   <string name="doItAgain">Do it again</string>
-  <string name="reviewWhiteMistakes">Review White mistakes</string>
-  <string name="reviewBlackMistakes">Review Black mistakes</string>
+  <string name="reviewWhiteMistakes">Review white\'s mistakes</string>
+  <string name="reviewBlackMistakes">Review black\'s mistakes</string>
   <string name="advantage">Advantage</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s second</item>
@@ -892,7 +907,7 @@
     <item quantity="other">and save %s premove lines</item>
   </plurals>
   <string name="showUnreadLichessMessage">You have received a private message from Lichess.</string>
-  <string name="clickHereToReadIt">Click here to read it</string>
+  <string name="readTheMessage" comment="'It' refers to a private message. This text follows after a different string which advises players they have received a private message from Lichess. For users, this is appears as a regular private message from the Lichess account: https://lichess.org/@/Lichess">Read the message</string>
   <string name="sorry">Sorry :(</string>
   <string name="weHadToTimeYouOutForAWhile">We had to time you out for a while.</string>
   <string name="why">Why?</string>
@@ -911,7 +926,6 @@
   <string name="agreementAssistance">I agree that I will at no time receive assistance during my games (from a chess computer, book, database or another person).</string>
   <string name="agreementNice">I agree that I will always be respectful to other players.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">I agree that I will not create multiple accounts (except for the reasons stated in the %s).</string>
-  <string name="agreementPolicy">I agree that I will follow all Lichess policies.</string>
   <string name="searchOrStartNewDiscussion">Search or start new conversation</string>
   <string name="edit">Edit</string>
   <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">UltraBullet</string>
@@ -935,6 +949,7 @@
   <string name="tryTheContactPage">try the contact page</string>
   <string name="makeSureToRead">Make sure to read %1$s</string>
   <string name="theForumEtiquette">the forum etiquette</string>
+  <string name="pleaseBeNiceInTheForum">Please be nice in the forum.</string>
   <string name="thisTopicIsArchived">This topic has been archived and can no longer be replied to.</string>
   <string name="joinTheTeamXToPost">Join the %1$s, to post in this forum</string>
   <string name="teamNamedX">%1$s team</string>
@@ -947,7 +962,6 @@
   <string name="xInvitedYouToY">%1$s invited you to \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">You are now part of the team.</string>
   <string name="youHaveJoinedTeamX">You have joined \"%1$s\".</string>
-  <string name="someoneYouReportedWasBanned">Someone you reported was banned</string>
   <string name="congratsYouWon">Congratulations, you won!</string>
   <string name="gameVsX">Game vs %1$s</string>
   <string name="resVsX">%1$s vs %2$s</string>
@@ -978,21 +992,21 @@ Leave empty to start games from the normal initial position.</string>
   <string name="simulFeaturedHelp">Show your simul to everyone on %s. Disable for private simuls.</string>
   <string name="simulDescription">Simul description</string>
   <string name="simulDescriptionHelp">Anything you want to tell the participants?</string>
-  <string name="markdownIsAvailable">%s is available for formatting.</string>
+  <string name="youCanFormatTextUsing" comment="%s is &quot;Markdown&quot;, a proper noun. As such, the word is intentionally kept as a variable.&#10;&#10;Markdown is a markup language - a type of code that lets you format text (e.g. to create bold text).&#10;&#10;The text links to a reference guide for using Markdown to format text.">You can format text using %s.</string>
   <string name="embedsAvailable">Paste a game URL or a study chapter URL to embed it.</string>
   <string name="inYourLocalTimezone">In your own local timezone</string>
   <string name="tournChat">Tournament chat</string>
   <string name="noChat">No chat</string>
   <string name="onlyTeamLeaders">Only team leaders</string>
   <string name="onlyTeamMembers">Only team members</string>
-  <string name="navigateMoveTree">Navigate the move tree</string>
+  <string name="moveListNavigation" comment="navigateMoveTree&#10;&#10;Appears in the keyboard shortcuts/help screen. The 'move tree' is simply the list of moves.">Move list navigation</string>
   <string name="mouseTricks">Mouse tricks</string>
   <string name="toggleLocalAnalysis">Toggle local computer analysis</string>
   <string name="toggleAllAnalysis">Toggle all computer analysis</string>
   <string name="playComputerMove">Play best computer move</string>
   <string name="analysisOptions">Analysis options</string>
   <string name="focusChat">Focus chat</string>
-  <string name="showHelpDialog">Show this help dialog</string>
+  <string name="showHelpDialog">View this help overlay</string>
   <string name="reopenYourAccount">Reopen your account</string>
   <string name="reopenYourAccountDescription">If you closed your account but have since changed your mind, you may reopen it now.</string>
   <string name="emailAssociatedToaccount">Email address associated to the account</string>
@@ -1002,7 +1016,7 @@ Leave empty to start games from the normal initial position.</string>
   <string name="gameInProgress">You have a game in progress with %s.</string>
   <string name="abortTheGame">Abort the game</string>
   <string name="resignTheGame">Resign the game</string>
-  <string name="youCantStartNewGame">You can\'t start a new game until this one is finished.</string>
+  <string name="youCantStartNewGame">You can\'t start a new game while it\'s your turn.</string>
   <string name="since">Since</string>
   <string name="until">Until</string>
   <string name="lichessDbExplanation">Rated games sampled from all Lichess players</string>
@@ -1023,6 +1037,13 @@ All operating costs, development, and content are funded solely by user donation
   <string name="offline" comment="status of a user">offline</string>
   <string name="search">Search</string>
   <string name="clearSearch">Clear search</string>
+  <string name="thereAreNoResultsForX">No results for \"%s\"</string>
   <string name="tags">Tags</string>
-  <string name="enPassant" comment="Appears in the board editor (https://lichess.org/editor).&#10;&#10;It is for a setting to determine if en passant will be available for that current position.&#10;&#10;If it is selected, then it will be added to the FEN for that position - meaning that if you play the game from that exact position, it will be possible to capture en passant.&#10;&#10;NOTE: this string used to read &quot;En passant&quot;, with &quot;rights&quot; added in 2026 for clarity.">En passant rights</string>
+  <string name="enPassant">En passant rights</string>
+  <string name="settings">Settings</string>
+  <string name="verifyingYourDevice">Verifying your device...</string>
+  <string name="chessOpenings">Chess openings</string>
+  <string name="boards">Boards</string>
+  <string name="write">Write</string>
+  <string name="preview">Preview</string>
 </resources>

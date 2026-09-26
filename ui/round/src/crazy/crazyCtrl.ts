@@ -1,11 +1,13 @@
-import { isPlayerTurn } from 'lib/game';
 import { dragNewPiece } from '@lichess-org/chessground/drag';
 import { setDropMode, cancelDropMode } from '@lichess-org/chessground/drop';
-import type RoundController from '../ctrl';
 import type { MouchEvent } from '@lichess-org/chessground/types';
-import type { RoundData } from '../interfaces';
-import { storage } from 'lib/storage';
+
+import { isPlayerTurn } from 'lib/game';
 import { pubsub } from 'lib/pubsub';
+import { storage } from 'lib/storage';
+
+import type RoundController from '../ctrl';
+import type { RoundData } from '../interfaces';
 
 export const pieceRoles: Exclude<Role, 'king'>[] = ['pawn', 'knight', 'bishop', 'rook', 'queen'];
 
@@ -103,7 +105,7 @@ export function init(ctrl: RoundController): void {
       iStr,
       () => {
         const idx = crazyKeys.indexOf(i);
-        if (idx >= 0) {
+        if (idx !== -1) {
           crazyKeys.splice(idx, 1);
           if (idx === crazyKeys.length) {
             setDrop();
@@ -127,7 +129,7 @@ export function init(ctrl: RoundController): void {
   window.addEventListener(
     'focus',
     e => {
-      if (e.target && (e.target as HTMLElement).localName === 'input') resetKeys();
+      if ((e.target as HTMLElement).localName === 'input') resetKeys();
     },
     { capture: true },
   );

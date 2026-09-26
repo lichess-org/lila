@@ -1,7 +1,7 @@
 import { initMiniBoardWith } from 'lib/view';
 
 site.load.then(() => {
-  const rootEl = document.querySelector('.puzzle-openings') as HTMLElement | undefined;
+  const rootEl = document.querySelector<HTMLElement>('.puzzle-openings');
   if (rootEl && !('ontouchstart' in window)) loadBoardTips(rootEl);
 });
 
@@ -11,7 +11,7 @@ function loadBoardTips(rootEl: HTMLElement) {
     if (el.classList.contains('blpt')) makeBoardTip(el, e);
     else {
       const parent = el.parentNode as HTMLElement | undefined;
-      if (parent && parent.classList.contains('blpt')) makeBoardTip(parent, e);
+      if (parent?.classList?.contains('blpt')) makeBoardTip(parent, e);
     }
   });
 }
@@ -21,7 +21,7 @@ const makeBoardTip = (el: HTMLElement, e: Event) => {
     .removeClass('blpt')
     .powerTip({
       popupId: 'miniBoard',
-      preRender(el) {
+      async render(el) {
         const tipEl = document.getElementById('miniBoard') as HTMLDivElement;
         tipEl.innerHTML = `<div class="mini-board mini-board--init cg-wrap standard is2d"/>`;
         initMiniBoardWith(tipEl.querySelector('.cg-wrap')!, {

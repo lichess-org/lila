@@ -16,7 +16,6 @@
   <string name="noVideosForTheseTags">Mit dene Tags häts kei Videos:</string>
   <string name="thatsAllWeGotForTheseTags">Das isch alles wo\'s hät, mit dene Tags:</string>
   <string name="thatsAllWeGotForThisSearchX">Das isch alles wo\'s hät, mit em Begriff: \"%s\"</string>
-  <string name="thereAreNoResultsForX">Kei Ergäbnis zum Begriff: \"%s\"</string>
   <string name="viewMoreTags">Meh Tags azeige</string>
   <string name="videoNotFound">Video nöd g\'funde!</string>
   <string name="xByY">%1$s vu %2$s</string>

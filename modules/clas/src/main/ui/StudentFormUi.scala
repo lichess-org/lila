@@ -23,7 +23,9 @@ final class StudentFormUi(helpers: Helpers, clasUi: ClasUi, studentUi: StudentUi
     form3.group(
       form(fieldName),
       trans.clas.realName(),
-      help = trans.clas.privateWillNeverBeShown().some
+      help = frag(
+        trans.clas.privateWillNeverBeShown()
+      ).some
     )(form3.input(_))
 
   def newStudent(
@@ -171,10 +173,12 @@ final class StudentFormUi(helpers: Helpers, clasUi: ClasUi, studentUi: StudentUi
               form3.group(
                 form("realNames"),
                 trans.clas.studentsRealNamesOnePerLine(),
-                help = trans.clas.privateWillNeverBeShown().some
-              )(
-                form3.textarea(_)(autofocus, rows := 20)
-              ),
+                help = frag(
+                  trans.clas.privateWillNeverBeShown(),
+                  p:
+                    "If a line starts with a @, then the first word is the username. Else a random username will be generated."
+                ).some
+              )(form3.textarea(_)(autofocus, rows := 20)),
               form3.submit(trans.site.apply(), icon = none)
             )
           )
@@ -235,7 +239,7 @@ final class StudentFormUi(helpers: Helpers, clasUi: ClasUi, studentUi: StudentUi
         div(cls := "box__pad")(
           h2(trans.clas.releaseTheAccount()),
           p(
-            trans.clas.releaseDesc1(),
+            trans.clas.releaseDesc1.rawHtml(),
             br,
             trans.clas.releaseDesc2()
           ),

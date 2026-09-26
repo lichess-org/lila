@@ -1,4 +1,3 @@
-import { parseFen, makeBoardFen } from 'chessops/fen';
 import {
   parseSquare,
   makeSquare,
@@ -8,10 +7,12 @@ import {
   charToRole,
   opposite,
 } from 'chessops';
-import { Antichess, type Context } from 'chessops/variant';
 import { chessgroundDests } from 'chessops/compat';
-import type { CgMove } from './chessground';
+import { parseFen, makeBoardFen } from 'chessops/fen';
 import { makeSan } from 'chessops/san';
+import { Antichess, type Context } from 'chessops/variant';
+
+import type { CgMove } from './chessground';
 import { isRole, type PromotionChar, type PromotionRole } from './util';
 
 type LearnVariant = Chess | Antichess;
@@ -45,7 +46,7 @@ export default function (fen: string, appleKeys: SquareName[]): ChessCtrl {
   if (appleKeys) {
     const color = opposite(pos.turn);
     appleKeys.forEach(key => {
-      pos.board.set(parseSquare(key), { color: color, role: 'pawn' });
+      pos.board.set(parseSquare(key), { color, role: 'pawn' });
     });
   }
 
@@ -59,7 +60,7 @@ export default function (fen: string, appleKeys: SquareName[]): ChessCtrl {
       ? {
           blockers: occupied,
           checkers: pos.kingAttackers(king, opposite(pos.turn), occupied),
-          king: king,
+          king,
           mustCapture: false,
           variantEnd: false,
         }
@@ -124,11 +125,11 @@ export default function (fen: string, appleKeys: SquareName[]): ChessCtrl {
     );
 
   return {
-    dests: dests,
+    dests,
     getColor: () => pos.turn,
-    setColor: setColor,
+    setColor,
     fen: () => makeBoardFen(pos.board),
-    moves: moves,
+    moves,
     move: (orig: SquareName, dest: SquareName, prom?: PromotionChar | PromotionRole | '') => {
       const move: NormalMove = {
         from: parseSquare(orig),
@@ -143,7 +144,7 @@ export default function (fen: string, appleKeys: SquareName[]): ChessCtrl {
       return !clone.isCheck() ? move : null;
     },
     occupiedKeys: () => Array.from(pos.board.occupied).map(s => makeSquare(s)),
-    kingKey: kingKey,
+    kingKey,
     findCapture: () => {
       const captures = findCaptures(pos);
       return captures.length ? moveToCgMove(captures[0]) : undefined;
@@ -152,7 +153,7 @@ export default function (fen: string, appleKeys: SquareName[]): ChessCtrl {
       const maybeCapture = findCaptures(pos).find(capture => {
         const clone = cloneWithCtx(pos);
         clone.play({ from: capture.from, to: capture.to });
-        return !findCaptures(clone).find(m => m.to === capture.to);
+        return !findCaptures(clone).some(m => m.to === capture.to);
       });
       return maybeCapture ? moveToCgMove(maybeCapture) : undefined;
     },

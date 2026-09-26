@@ -7,7 +7,8 @@ import play.api.data.*
 import play.api.data.Forms.*
 import play.api.data.format.Formatter
 
-import lila.common.Form.{ cleanNonEmptyText, defaulting, formatter, into, given }
+import lila.common.Form.{ cleanNonEmptyText, defaulting, formatter, into, typeIn, tagifyValues, given }
+import lila.core.study.Visibility
 
 object StudyForm:
 
@@ -16,6 +17,43 @@ object StudyForm:
 
   private given Formatter[ChapterMaker.Orientation] =
     formatter.stringFormatter(_.key, ChapterMaker.Orientation.apply)
+
+  given Formatter[Visibility] =
+    formatter.stringOptionFormatter[Visibility](_.key, Visibility.byKey.get)
+
+  private given Formatter[Settings.UserSelection] =
+    formatter.stringOptionFormatter[Settings.UserSelection](_.key, Settings.UserSelection.byKey.get)
+
+  // also bound by JSON read from websocket message
+  case class FormData(
+      name: String,
+      flair: Option[String],
+      visibility: Visibility,
+      computer: Settings.UserSelection,
+      explorer: Settings.UserSelection,
+      cloneable: Settings.UserSelection,
+      shareable: Settings.UserSelection,
+      chat: Settings.UserSelection,
+      sticky: Option[Boolean],
+      description: Option[Boolean]
+  ):
+    def studyName = StudyName.from(lila.common.String.fullCleanUp(name).take(100).nonEmptyOption)
+    def settings = Settings(computer, explorer, cloneable, shareable, chat, sticky | true, ~description)
+
+  val form: Form[FormData] = Form:
+    val userSelectionField = typeIn(Settings.UserSelection.values.toSet)
+    mapping(
+      "name" -> nonEmptyText(minLength = 1, maxLength = 100),
+      "flair" -> optional(nonEmptyText(maxLength = 100)),
+      "visibility" -> typeIn(Visibility.values.toSet),
+      "computer" -> userSelectionField,
+      "explorer" -> userSelectionField,
+      "cloneable" -> userSelectionField,
+      "shareable" -> userSelectionField,
+      "chat" -> userSelectionField,
+      "sticky" -> optional(boolean),
+      "description" -> optional(boolean)
+    )(FormData.apply)(unapply)
 
   object importGame:
 
@@ -26,7 +64,8 @@ object StudyForm:
         "fen" -> optional(lila.common.Form.fen.playable(strict = false)),
         "pgn" -> optional(nonEmptyText.into[PgnStr]),
         "variant" -> optional(of[Variant]),
-        "as" -> optional(nonEmptyText)
+        "as" -> optional(nonEmptyText),
+        "mode" -> optional(of[ChapterMaker.Mode])
       )(Data.apply)(unapply)
     )
 
@@ -36,11 +75,14 @@ object StudyForm:
         fen: Option[Fen.Full] = None,
         pgnStr: Option[PgnStr] = None,
         variant: Option[Variant] = None,
-        asStr: Option[String] = None
+        asStr: Option[String] = None,
+        mode: Option[ChapterMaker.Mode] = None
     ):
       def as: As = asStr match
         case None | Some("study") => As.NewStudy
         case Some(studyId) => As.ChapterOf(StudyId(studyId))
+
+      def isNewStudy = as == As.NewStudy
 
       def toChapterData = ChapterMaker.Data(
         name = StudyChapterName(""),
@@ -49,7 +91,7 @@ object StudyForm:
         fen = fen,
         pgn = pgnStr,
         orientation = orientation | ChapterMaker.Orientation.Auto,
-        mode = ChapterMaker.Mode.Normal,
+        mode = mode | ChapterMaker.Mode.Normal,
         initial = false
       )
 
@@ -99,10 +141,15 @@ object StudyForm:
               isDefaultName = index > 0 || name.isEmpty || isDefaultName
             )
 
-  def topicsForm = Form(single("topics" -> text))
+  def topicsForm = Form:
+    single:
+      "topics" -> tagifyValues.field[String, StudyTopics]("value"): strs =>
+        StudyTopics.fromStrs(strs, StudyTopics.userMax)
 
   def topicsForm(topics: StudyTopics) =
     Form(single("topics" -> text)).fill(topics.value.mkString(","))
+
+  val replaceChapterPgnMoves = Form(single("pgn" -> nonEmptyText.into[PgnStr]))
 
   def chapterTagsForm = Form:
     import chess.format.pgn.{ Tags, Parser }

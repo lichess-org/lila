@@ -5,6 +5,7 @@ body {
     // ---zoom: 80; defined in the HTML, loaded from server
     ---board-scale: calc((var(---zoom) / 100) * 0.75 + 0.25);
   }
+
   ---col2-uniboard-width: #{$col2-uniboard-width};
   ---col3-uniboard-width: #{$col3-uniboard-width};
 }

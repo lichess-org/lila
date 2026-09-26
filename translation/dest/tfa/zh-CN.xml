@@ -7,7 +7,7 @@
   <string name="enterPassword">输入您的密码以及该应用生成的身份验证码以完成设置。此后每次登录时，您都需要一个身份验证码。</string>
   <string name="ifYouCannotScanEnterX">如果您无法扫描二维码，请将此密钥 %s 输入到您的应用中。</string>
   <string name="authenticationCode">身份验证码</string>
-  <string name="ifYouLoseAccessTwoFactor" comment="%s is &quot;Password reset&quot;.">注意：如果您丢失了双重认证码，可以通过电子邮件进行 %s。</string>
+  <string name="ifYouLoseAccessTwoFactor">注意：如果您丢失了双重认证码，可以通过电子邮件进行 %s。</string>
   <string name="enableTwoFactor">启用双重认证</string>
   <string name="disableTwoFactor">禁用双重认证</string>
   <string name="twoFactorEnabled">双重认证已启用</string>

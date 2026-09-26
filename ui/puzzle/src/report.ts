@@ -1,21 +1,23 @@
-import { report as xhrReport } from './xhr';
+import { winningChances } from 'lib/ceval';
+import { fenColor } from 'lib/game';
+import { plyToTurn, pieceCount } from 'lib/game/chess';
+import { licon } from 'lib/licon';
+import { type StoredProp, storedIntProp } from 'lib/storage';
+import type { ClientEval, PvData, TreeNode } from 'lib/tree/types';
+import { domDialog } from 'lib/view';
+
 import type PuzzleCtrl from './ctrl';
 import type { PuzzleId, ThemeKey } from './interfaces';
-import { winningChances } from 'lib/ceval';
-import * as licon from 'lib/licon';
-import { type StoredProp, storedIntProp } from 'lib/storage';
-import { domDialog } from 'lib/view';
-import { plyToTurn, pieceCount } from 'lib/game/chess';
-import type { ClientEval, PvData, TreeNode } from 'lib/tree/types';
+import { report as xhrReport } from './xhr';
 
 // bump when logic is changed, to distinguish cached clients from new ones
-const version = 10;
+const version = 11;
 
 export default class Report {
   // if local eval suspect multiple solutions, report the puzzle, once at most
-  private reported: boolean = false;
+  private reported = false;
   // timestamp (ms) of the last time the user clicked on the hide report dialog toggle
-  private tsHideReportDialog: StoredProp<number>;
+  private readonly tsHideReportDialog: StoredProp<number>;
   // number of evals that have triggered the `winningChances.hasMultipleSolutions` method
   // this is used to reduce the number of fps due to fluke eval
   private evalsWithMultipleSolutions = 0;
@@ -41,15 +43,14 @@ export default class Report {
       ctrl.data.puzzle.themes.some((t: ThemeKey) => t.toLowerCase().includes('mate')) ||
       // positions with 7 pieces or less can be checked with the tablebase
       pieceCount(ev.fen) <= 7 ||
-      // dynamic import from web worker feature is shared by all stockfish 16+ WASMs
-      !ctrl.ceval.engines.active?.requires?.includes('dynamicImportFromWorker') ||
+      !ctrl.ceval.engines.active()?.supportsPuzzleReport ||
       // if the user has chosen to hide the dialog less than a week ago
       this.tsHideReportDialog() > Date.now() - 1000 * 3600 * 24 * 7
     )
       return;
     const node = ctrl.node;
     // more resilient than checking the turn directly, if eventually puzzles get generated from 'from position' games
-    const nodeTurn = node.fen.includes(' w ') ? 'white' : 'black';
+    const nodeTurn = fenColor(node.fen);
     if (
       nextMoveInSolution(node) &&
       nodeTurn === ctrl.pov &&
@@ -58,9 +59,13 @@ export default class Report {
       const [bestEval, secondBestEval] = [ev.pvs[0], ev.pvs[1]];
       // stricter than lichess-puzzler v49 check in how it defines similar moves
       if (
+        ev.depth >= 18 &&
         (ev.depth > 50 || ev.nodes > 25_000_000) &&
         bestEval &&
         secondBestEval &&
+        // filter out incomplete searches
+        bestEval.moves.length > 1 &&
+        secondBestEval.moves.length > 1 &&
         winningChances.hasMultipleSolutions(ctrl.pov, bestEval, secondBestEval)
       ) {
         this.evalsWithMultipleSolutions += 1;
@@ -70,15 +75,15 @@ export default class Report {
       if (this.evalsWithMultipleSolutions === 2) {
         // in all case, we do not want to show the dialog more than once
         this.reported = true;
-        const engine = ctrl.ceval.engines.active;
-        const engineName = engine?.short || engine.name;
+        const engine = ctrl.ceval.engines.active()!;
+        const engineName = engine.short || engine.name;
         const reason = `(v${version}, ${engineName}) after move ${plyToTurn(node.ply)}. ${node.san}, at depth ${ev.depth}, multiple solutions:\n\n${ev.pvs.map(pv => `${pvEvalToStr(pv)}: ${pv.moves.join(' ')}`).join('\n\n')}`;
         this.reportDialog(ctrl.data.puzzle.id, reason);
       }
     }
   }
 
-  private reportDialog = (puzzleId: PuzzleId, reason: string) => {
+  private readonly reportDialog = (puzzleId: PuzzleId, reason: string) => {
     const switchButton =
       `<div class="switch switch-report-puzzle" title="temporarily disable reporting puzzles">` +
       `<input id="puzzle-toggle-report" class="cmn-toggle" type="checkbox">` +
@@ -91,6 +96,7 @@ export default class Report {
     domDialog({
       focus: '.apply',
       modal: true,
+      easyClose: 'clickOutside',
       htmlText:
         '<div><strong style="font-size:1.5em">' +
         'Report multiple solutions' +

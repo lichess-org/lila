@@ -59,33 +59,33 @@ final class PuzzleReplayApi(
         _.aggregateOne(_.sec): framework =>
           import framework.*
           Match(
-            $doc(
+            bdoc(
               "u" -> user.id,
-              "d".$gt(nowInstant.minusDays(days.value)),
-              "w".$ne(true)
+              "d".gt(nowInstant.minusDays(days.value)),
+              "w".neq(true)
             )
           ) -> List(
             Sort(Ascending("d")),
             PipelineOperator(
-              $lookup.pipelineFull(
+              lookup.pipelineFull(
                 from = colls.puzzle.name.value,
                 as = "puzzle",
-                let = $doc("pid" -> $doc("$arrayElemAt" -> $arr($doc("$split" -> $arr("$_id", ":")), 1))),
+                let = bdoc("pid" -> bdoc("$arrayElemAt" -> barr(bdoc("$split" -> barr("$_id", ":")), 1))),
                 pipe = List(
-                  $doc(
-                    "$match" -> $doc(
-                      $expr:
-                        if theme == PuzzleTheme.mix.key then $doc("$eq" -> $arr("$_id", "$$pid"))
+                  bdoc(
+                    "$match" -> bdoc(
+                      expr:
+                        if theme == PuzzleTheme.mix.key then bdoc("$eq" -> barr("$_id", "$$pid"))
                         else
-                          $doc:
-                            $and(
-                              $doc("$eq" -> $arr("$_id", "$$pid")),
-                              $doc("$in" -> $arr(theme, "$themes"))
+                          bdoc:
+                            and(
+                              bdoc("$eq" -> barr("$_id", "$$pid")),
+                              bdoc("$in" -> barr(theme, "$themes"))
                             )
                     )
                   ),
-                  $doc("$limit" -> maxPuzzles),
-                  $doc("$project" -> $doc("_id" -> true))
+                  bdoc("$limit" -> maxPuzzles),
+                  bdoc("$project" -> bdoc("_id" -> true))
                 )
               )
             ),

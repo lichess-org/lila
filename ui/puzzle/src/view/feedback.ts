@@ -1,14 +1,17 @@
-import { bind, requiresI18n, type MaybeVNode } from 'lib/view';
 import { h, type VNode } from 'snabbdom';
-import afterView from './after';
+
+import { capitalize } from 'lib/game';
+import { bind, requiresI18n, type MaybeVNode } from 'lib/view';
+
 import type PuzzleCtrl from '../ctrl';
+import afterView from './after';
 
 const viewSolution = (ctrl: PuzzleCtrl): VNode =>
   ctrl.streak
-    ? h('div.view_solution.skip', { class: { show: !!ctrl.streak?.data.skip } }, [
+    ? h('div.view_solution.skip', { class: { show: ctrl.streak?.data.skip } }, [
         requiresI18n('storm', ctrl.redraw, cat =>
           h(
-            'a.button.button-empty',
+            'button.button.button-empty',
             { hook: bind('click', ctrl.skip), attrs: { title: i18n.puzzle.streakSkipExplanation } },
             cat.skip,
           ),
@@ -17,12 +20,16 @@ const viewSolution = (ctrl: PuzzleCtrl): VNode =>
     : h('div.view_solution', { class: { show: ctrl.canViewSolution() } }, [
         ctrl.mode !== 'view'
           ? h(
-              'a.button' + (ctrl.showHint() ? '' : '.button-empty'),
+              'button.button' + (ctrl.showHint() ? '' : '.button-empty'),
               { hook: bind('click', ctrl.toggleHint) },
               i18n.site.getAHint,
             )
           : undefined,
-        h('a.button.button-empty', { hook: bind('click', ctrl.viewSolution) }, i18n.site.viewTheSolution),
+        h(
+          'button.button.button-empty',
+          { hook: bind('click', ctrl.viewSolution) },
+          i18n.site.viewTheSolution,
+        ),
       ]);
 
 const initial = (ctrl: PuzzleCtrl): VNode =>
@@ -31,7 +38,7 @@ const initial = (ctrl: PuzzleCtrl): VNode =>
       h('div.no-square', h('piece.king.' + ctrl.pov)),
       h('div.instruction', [
         h('strong', i18n.site.yourTurn),
-        h('em', i18n.puzzle[ctrl.pov === 'white' ? 'findTheBestMoveForWhite' : 'findTheBestMoveForBlack']),
+        h('em', i18n.puzzle[`findTheBestMoveFor${capitalize(ctrl.pov)}`]),
       ]),
     ]),
     viewSolution(ctrl),
@@ -65,5 +72,5 @@ export default function (ctrl: PuzzleCtrl): MaybeVNode {
     case 'fail':
       return fail(ctrl);
   }
-  return;
+  return undefined;
 }

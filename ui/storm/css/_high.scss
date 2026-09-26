@@ -2,6 +2,7 @@
   &__periods {
     display: flex;
     flex-flow: row wrap;
+    gap: 4%;
 
     @media (min-width: at-least($xx-small)) {
       flex-flow: row nowrap;
@@ -9,12 +10,12 @@
   }
 
   &__period {
-    @extend %flex-column, %box-neat, %roboto;
+    @extend %flex-column, %box-bordered, %roboto;
 
     align-items: center;
     justify-content: center;
     flex: 1 1 auto;
-    margin-inline-end: 4%;
+    min-width: calc(88% / 4);
     background: $c-bg-box;
     padding: 3em 1em 1.5em 1em;
 
@@ -28,7 +29,7 @@
     }
 
     strong {
-      font-family: 'storm';
+      font-family: storm;
       font-weight: normal;
       font-size: 3em;
 
@@ -39,7 +40,7 @@
 
     .highlight-alltime & {
       &:first-child {
-        background: linear-gradient(145deg, rgba(255, 255, 255, 0.3) 0%, transparent 45%) $c-brag;
+        background: linear-gradient(145deg, rgb(255 255 255 / 0.3) 0%, transparent 45%) $c-brag;
         color: $c-over;
 
         strong {

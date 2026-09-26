@@ -21,10 +21,10 @@
   <string name="ongoing">Ongoing</string>
   <string name="upcoming">Upcoming</string>
   <string name="roundName">Round name</string>
-  <string name="tournamentName">Tournament name</string>
+  <string name="tournamentName">Event name</string>
   <string name="tournamentDescription">Short tournament description</string>
-  <string name="fullDescription">Full tournament description</string>
-  <string name="fullDescriptionHelp">Optional long description of the tournament. %1$s is available. Length must be less than %2$s characters.</string>
+  <string name="fullDescription">Full event description</string>
+  <string name="fullDescriptionHelp">Optional long description of the event. You can use %1$s for additional formatting options. Length must be less than %2$s characters.</string>
   <string name="sourceSingleUrl">PGN Source URL</string>
   <string name="sourceUrlHelp">URL that Lichess will check to get PGN updates. It must be publicly accessible from the Internet.</string>
   <string name="sourceGameIds">Up to 64 Lichess game IDs, separated by spaces.</string>
@@ -34,12 +34,12 @@
   <string name="downloadAllRounds">Download all rounds</string>
   <string name="resetRound">Reset this round</string>
   <string name="deleteRound">Delete this round</string>
-  <string name="definitivelyDeleteRound">Definitively delete the round and all its games.</string>
+  <string name="permanentlyDeleteRound" comment="Refers to live tournaments being broadcast on Lichess (https://lichess.org/broadcast).&#10;&#10;Description (also translateable): Delete all games of this round. The source will need to be active in order to re-create them. This string has been amended since its initial publication; it didn't say &quot;all its games&quot; at the time.">Permanently delete this round and all its games?</string>
   <string name="deleteAllGamesOfThisRound">Delete all games of this round. The source will need to be active in order to re-create them.</string>
   <string name="editRoundStudy">Edit round study</string>
   <string name="deleteTournament">Delete this tournament</string>
-  <string name="definitivelyDeleteTournament">Definitively delete the entire tournament, all its rounds and all its games.</string>
-  <string name="showScores">Show players scores based on game results</string>
+  <string name="permanentlyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast">Permanently delete this tournament, including all rounds and games?</string>
+  <string name="showScores">Show player scores based on game results</string>
   <string name="replacePlayerTags">Optional: replace player names, ratings and titles</string>
   <string name="fideFederations">FIDE federations</string>
   <string name="top10Rating">Top 10 rating</string>
@@ -57,14 +57,16 @@
   <string name="subscribeTitle">Subscribe to be notified when each round starts. You can toggle bell or push notifications for broadcasts in your account preferences.</string>
   <string name="uploadImage">Upload tournament image</string>
   <string name="noBoardsYet">No boards yet. These will appear once games are uploaded.</string>
+  <string name="noPlayersYet">No players yet. They will appear once games are uploaded.</string>
   <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Boards can be loaded with a source or via the %s</string>
   <string name="startsAfter">Starts after %s</string>
   <string name="startVerySoon">The broadcast will start very soon.</string>
   <string name="notYetStarted">The broadcast has not yet started.</string>
   <string name="officialWebsite">Official website</string>
-  <string name="officialStandings">Official Standings</string>
-  <string name="iframeHelp" comment="%s is 'webmasters page'">More options on the %s</string>
-  <string name="webmastersPage">webmasters page</string>
+  <string name="officialStandings">Official standings</string>
+  <string name="regulations">Regulations</string>
+  <string name="iframeHelp" comment="%s is 'webmasters page'">Find more options on the %s.</string>
+  <string name="webmastersPage">Webmasters page</string>
   <string name="embedThisBroadcast">Embed this broadcast in your website</string>
   <string name="ratingDiff">Rating diff</string>
   <string name="gamesThisTournament">Games in this tournament</string>
@@ -72,7 +74,7 @@
   <string name="standingsDisclaimer">Standings are calculated using broadcasted games and may differ from official results.</string>
   <string name="allTeams">All teams</string>
   <string name="tournamentFormat">Tournament format</string>
-  <string name="tournamentLocation">Tournament Location</string>
+  <string name="tournamentLocation">Event location</string>
   <string name="topPlayers">Top players</string>
   <string name="timezone">Time zone</string>
   <string name="fideRatingCategory">FIDE rating category</string>
@@ -106,4 +108,15 @@
   <string name="tiebreaks">Tiebreaks</string>
   <string name="gameX">Game %s</string>
   <string name="knockouts">Knockouts</string>
+  <string name="pinPlayer">Pin player</string>
+  <string name="underXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament. e.g.
+
+'U18' will mean it is an tournament for under-18 years.
+
+Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">U%s</string>
+  <string name="underXEloTournament" comment="%s is the maximum Elo rating set by the organiser for a tournament.
+
+e.g. 'U2000' will mean it is an tournament for players with Elo under 2000.
+
+Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">U%s</string>
 </resources>

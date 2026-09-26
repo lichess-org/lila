@@ -55,7 +55,7 @@ object otherTrophies:
           ariaTitle(trans.coach.lichessCoach.txt())
         )(Icon.GraduateCap)
       ),
-      (info.isStreamer && ctx.kid.no).option {
+      (info.isStreamer && ctx.kid.no).option:
         val streaming = isStreaming(info.user.id)
         views.streamer.bits.redirectLink(info.user.username, streaming.some)(
           cls := List(
@@ -64,5 +64,4 @@ object otherTrophies:
           ),
           ariaTitle(if streaming then "Live now!" else "Lichess Streamer")
         )(Icon.Mic)
-      }
     )

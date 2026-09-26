@@ -22,10 +22,9 @@ final class CmsUi(helpers: Helpers)(menu: Context ?=> Frag):
     Page(p.title)
       .css("bits.page")
       .js(Esm("bits.expandText"))
-      .js(
-        (p.key == lila.core.id.CmsPageKey("fair-play"))
-          .option(esmInitBit("colorizeYesNoTable"))
-      ):
+      .js:
+        (p.key == CmsPageKey("fair-play")).option(esmInitBit("colorizeYesNoTable"))
+      .headAppend(alternateMarkdown(p)):
         main(cls := "page-small box box-pad page force-ltr")(pageContent(p))
 
   def render(page: CmsPage.Render)(using Context): Frag =
@@ -55,6 +54,9 @@ final class CmsUi(helpers: Helpers)(menu: Context ?=> Frag):
               dataIcon := Icon.Pencil
             )("Create this page")
           )
+
+  def alternateMarkdown(p: CmsPage.Render)(using ctx: Context) =
+    lila.ui.bits.markdownAlternate(ctx.req.uri, Map("lang" -> p.page.language.value))
 
   private def editButton(p: CmsPageId)(using Context) =
     Granter
@@ -208,14 +210,9 @@ final class CmsUi(helpers: Helpers)(menu: Context ?=> Frag):
         frag("Content"),
         help = trans.site.embedsAvailable().some
       ): field =>
-        frag(
-          form3.textarea(field)(),
-          div(
-            cls := "markdown-toastui",
-            attr("data-image-upload-url") := routes.Main.uploadImage("cmsPage"),
-            attr("data-image-download-origin") := imageGetOrigin
-          )
-        ),
+        bits.markdownEditor(MarkdownRealm.cms):
+          form3.textarea(field)(autocomplete := "off")
+      ,
       form3.split(
         form3.checkboxGroup(form("live"), raw("Live"), half = true)
       ),

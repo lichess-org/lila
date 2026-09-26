@@ -8,7 +8,7 @@ import lila.core.userId.*
 
 enum BusForum:
   case CreatePost(post: ForumPostMini)
-  case RemovePost(id: ForumPostId, by: Option[UserId], text: String, asAdmin: Boolean)(using val me: MyId)
+  case RemovePost(by: Option[UserId], text: String, asAdmin: Boolean)(using val me: MyId)
 
 trait ForumPost:
   val id: ForumPostId

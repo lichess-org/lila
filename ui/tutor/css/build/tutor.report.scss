@@ -1,0 +1,27 @@
+@import '../../../lib/css/plugin';
+@import '../../../lib/css/component/slist';
+@import '../../../lib/css/component/subnav';
+@import '../../../lib/css/component/mascot';
+@import '../../../lib/css/component/pgn-viewer';
+@import '../../../lib/css/component/mselect';
+@import '../../../lib/css/component/toggle-box';
+
+$c-grade-bad: color-mix(in oklab, $c-bad 80%, $c-font);
+$c-grade-avg: color-mix(in oklab, $c-brag 60%, $c-font-dim);
+$c-grade-good: color-mix(in oklab, $c-good 90%, $c-bg);
+
+@import '../util';
+@import '../waiting';
+@import '../layout';
+@import '../title';
+@import '../card';
+@import '../angles';
+@import '../concepts';
+@import '../grade';
+@import '../badge';
+@import '../report';
+@import '../openings';
+@import '../opening';
+@import '../phases';
+@import '../pieces';
+@import '../beta';

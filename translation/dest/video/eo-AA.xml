@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="chessVideos">Ŝakaj filmetoj</string>
+  <string name="allVideosAreFree">Ĉiuj filmetoj estas senpagaj por ĉiuj.</string>
+  <string name="freeChessVideos">Senpagaj ŝakaj filmetoj</string>
 </resources>

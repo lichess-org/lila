@@ -15,8 +15,9 @@
     .title {
       font-size: 0.9rem;
       line-height: 1.9em;
-      background: $m-secondary_bg--mix-40;
-      padding: 0 7px;
+      background: color-mix(in oklab, $c-secondary 40%, $c-bg);
+      padding: 0 1rem;
+
       a {
         font-weight: bold;
       }
@@ -31,8 +32,6 @@
     text-align: center;
 
     button {
-      @extend %button-none;
-
       margin-inline-start: 1em;
       color: $c-link;
 
@@ -45,6 +44,7 @@
 
 .analyse__moves {
   @include prevent-select;
+
   flex: 2 1 0;
   display: flex;
   flex-direction: column;
@@ -53,7 +53,6 @@
   // 0 size forces vertical scrollbar
   overflow-y: auto;
   overflow-x: hidden;
-
   position: relative;
 
   /* required so line::before scrolls along the moves! */
@@ -94,7 +93,7 @@
     }
 
     &.highlighted {
-      background: $m-primary_bg--mix-80;
+      background: color-mix(in oklab, $c-primary 80%, $c-bg);
       color: $c-over;
 
       &:hover {
@@ -119,10 +118,12 @@
   }
 
   .fbt {
-    @extend %page-text;
-
     flex: 0 0 2.5rem;
     transition: visibility 0s;
+  }
+
+  .fbt:not(.active, :hover) {
+    @extend %page-text;
   }
 
   .active {
@@ -132,6 +133,6 @@
   }
 
   .fbt.latent {
-    background-color: $m-secondary--fade-50;
+    background-color: rgb(from $c-secondary r g b / calc(alpha * 0.5));
   }
 }

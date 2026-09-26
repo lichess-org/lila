@@ -15,7 +15,6 @@
   <string name="noVideosForTheseTags">このタグの動画はありません：</string>
   <string name="thatsAllWeGotForTheseTags">このタグの動画はこれで全部です：</string>
   <string name="thatsAllWeGotForThisSearchX">検索語「%s」の動画はこれで全部です</string>
-  <string name="thereAreNoResultsForX">「%s」の検索結果はありません</string>
   <string name="viewMoreTags">他のタグを表示</string>
   <string name="videoNotFound">動画が見つかりません！</string>
   <string name="xByY">「%1$s」作成者：%2$s</string>

@@ -32,9 +32,6 @@ final private class ForumTopicApi(
 
   import BSONHandlers.given
 
-  def lastPage(topic: ForumTopic): Int =
-    topic.nbPosts / config.postMaxPerPage.value + 1
-
   def showLastPage(categId: ForumCategId, slug: ForumTopicSlug)(using NetDomain)(using me: Option[Me]) =
     topicRepo
       .byTree(categId, slug)
@@ -99,7 +96,6 @@ final private class ForumTopicApi(
         troll = me.marks.troll,
         text = spam.replace(data.post.text),
         lang = lang.map(_.language),
-        number = 1,
         categId = categ.id,
         modIcon = (~data.post.modIcon && MasterGranter(_.PublicMod)).option(true)
       )
@@ -108,7 +104,7 @@ final private class ForumTopicApi(
         case None =>
           for
             _ <- topicRepo.coll.insert.one(topic.withPost(post))
-            _ <- categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post))
+            _ <- categRepo.coll.update.one(bid(categ.id), categ.withPost(topic, post))
             _ <- postRepo.coll.insert.one(post)
           yield
             promotion.save(me, post.text)
@@ -155,7 +151,7 @@ final private class ForumTopicApi(
 
   private def makeNewTopic(categ: ForumCateg, topic: ForumTopic, post: ForumPost) = for
     _ <- topicRepo.coll.insert.one(topic.withPost(post))
-    _ <- categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post))
+    _ <- categRepo.coll.update.one(bid(categ.id), categ.withPost(topic, post))
     _ <- postRepo.coll.insert.one(post)
   yield Bus.pub(CreatePost(post.mini))
 
@@ -192,8 +188,8 @@ final private class ForumTopicApi(
     _ <-
       topicRepo.coll.update
         .one(
-          $id(topic.id),
-          $set:
+          bid(topic.id),
+          set:
             ~lila.db.BSON.toBdoc:
               topic.copy(
                 nbPosts = nbPosts,
@@ -223,7 +219,7 @@ final private class ForumTopicApi(
               lastPostId = topics.maxBy(_.updatedAt).lastPostId
               lastPostIdTroll = topics.maxBy(_.updatedAtTroll).lastPostIdTroll
               _ <- categRepo.coll.update
-                .one($id(cat.id), cat.withoutTopic(topic, lastPostId, lastPostIdTroll))
+                .one(bid(cat.id), cat.withoutTopic(topic, lastPostId, lastPostIdTroll))
             yield ()
 
   def relocate(fromTopic: ForumTopic, to: ForumCategId): Fu[ForumTopic] =
@@ -231,6 +227,6 @@ final private class ForumTopicApi(
       slug = fromTopic.slug.map(_ + "-" + scalalib.ThreadLocalRandom.nextString(4))
     )
     for
-      _ <- topicRepo.coll.update.one($id(topic.id), $set("categId" -> to, "slug" -> topic.slug))
-      _ <- postRepo.coll.update.one($doc("topicId" -> topic.id), $set("categId" -> to))
+      _ <- topicRepo.coll.update.one(bid(topic.id), set("categId" -> to, "slug" -> topic.slug))
+      _ <- postRepo.coll.update.one(bdoc("topicId" -> topic.id), set("categId" -> to))
     yield topic

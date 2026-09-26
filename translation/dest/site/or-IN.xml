@@ -78,7 +78,6 @@
   <string name="deleteThisImportedGame">ଏହି ଆମଦାନୀ ହୋଇଥିବା ଖେଳ ବିଲୋପ କରିବେ କି?</string>
   <string name="realtimeReplay">ପ୍ରକୃତ ସମୟ</string>
   <string name="enable">ସକ୍ଷମ କରନ୍ତୁ</string>
-  <string name="evaluationGauge">ମୂଲ୍ୟାଙ୍କନ ଗେଜ୍</string>
   <string name="multipleLines">ଏକାଧିକ ରେଖା</string>
   <string name="cpus">CPU ଗୁଡିକ</string>
   <string name="memory">ମେମୋରି</string>
@@ -86,17 +85,9 @@
   <string name="removesTheDepthLimit">ଗଭୀରତା ସୀମା ଅପସାରଣ କରେ, ଏବଂ ଆପଣଙ୍କ କମ୍ପ୍ୟୁଟରକୁ ଗରମ ରଖେ</string>
   <string name="blunder">ଗମ୍ଭୀର ଭୁଲ</string>
   <string name="mistake">ଭୁଲ</string>
-  <plurals name="nbBlunders">
-    <item quantity="one">%s ଗମ୍ଭୀର ତ୍ରୁଟି</item>
-    <item quantity="other">%s ଗମ୍ଭୀର ତ୍ରୁଟିଗୁଡିକ</item>
-  </plurals>
   <plurals name="numberBlunders">
     <item quantity="one">%s ଗମ୍ଭୀର ତ୍ରୁଟି</item>
     <item quantity="other">%s ଗମ୍ଭୀର ତ୍ରୁଟିଗୁଡିକ</item>
-  </plurals>
-  <plurals name="nbMistakes">
-    <item quantity="one">%s ଭୁଲ</item>
-    <item quantity="other">%s ଭୁଲଗୁଡିକ</item>
   </plurals>
   <plurals name="numberMistakes">
     <item quantity="one">%s ଭୁଲ</item>
@@ -288,7 +279,6 @@
   <string name="thankYouForReading">ପଢ଼ିବା ପାଇଁ ଧନ୍ୟବାଦ!</string>
   <string name="lifetimeScore">ଆଜୀବନ ସ୍କୋର୍</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">ମୁଁ ସହମତ ଯେ ମୁଁ ଏକାଧିକ ଆକାଉଣ୍ଟ୍ ସୃଷ୍ଟି କରିବି ନାହିଁ (%sରେ ଦର୍ଶାଯାଇଥିବା କାରଣ ବ୍ୟତୀତ)।</string>
-  <string name="agreementPolicy">ମୁଁ ସହମତ ଯେ ମୁଁ ସମସ୍ତ Lichess ନୀତି ଅନୁସରଣ କରିବି।</string>
   <string name="searchOrStartNewDiscussion">ଖୋଜ କିମ୍ବା ନୂଆ ବାର୍ତ୍ତାଳାପ ଆରମ୍ଭ କର</string>
   <string name="edit">ସମ୍ପାଦନା</string>
   <string name="rapid">ଶୀଘ୍ର</string>
@@ -302,7 +292,6 @@
   <string name="embedsAvailable">ଏହାକୁ ଗ୍ରନ୍ଥନ କରିବା ପାଇଁ ଏକ ଖେଳ URL କିମ୍ବା ଏକ ଅଧ୍ୟାୟ URL ପେଷ୍ଟ କରନ୍ତୁ।</string>
   <string name="onlyTeamMembers">କେବଳ ଦଳର ସଦସ୍ୟଗଣ</string>
   <string name="showHelpDialog">ଏହି ସାହାଯ୍ୟ ସଂଳାପ ଦେଖାନ୍ତୁ</string>
-  <string name="youCantStartNewGame">ଏହି ଖେଳ ଶେଷ ନହେବା ପର୍ଯ୍ୟନ୍ତ ଆପଣ ଏକ ନୂଆ ଖେଳ ଆରମ୍ଭ କରିପାରିବେ ନାହିଁ।</string>
   <string name="switchSides">ପାର୍ଶ୍ୱ ଅଦଳବଦଳ</string>
   <string name="closingAccountWithdrawAppeal">ଆପଣଙ୍କ ଆକାଉଣ୍ଟ୍ ବନ୍ଦ କରିବା ଆପଣଙ୍କ ଆବେଦନ ପ୍ରତ୍ୟାହାର କରାଇଦେବ</string>
 </resources>

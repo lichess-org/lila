@@ -2,7 +2,6 @@ package controllers
 import play.api.mvc.*
 
 import lila.app.{ *, given }
-import lila.common.HTTPRequest
 import lila.core.team.LightTeam
 import lila.swiss.Swiss.ChatFor
 import lila.swiss.{ Swiss as SwissModel, SwissForm }
@@ -11,7 +10,7 @@ final class Swiss(
     env: Env,
     tourC: Tournament,
     apiC: Api
-)(using akka.stream.Materializer)
+)(using org.apache.pekko.stream.Materializer)
     extends LilaController(env):
 
   private def swissNotFound(using Context) = NotFound.page(views.swiss.ui.notFound)
@@ -33,29 +32,33 @@ final class Swiss(
       swissOption.foreach((s, _) => env.swiss.api.maybeRecompute(s))
       negotiate(
         html = swissOption.fold(swissNotFound): (swiss, team) =>
-          for
-            verdicts <- env.swiss.api.verdicts(swiss)
-            version <- env.swiss.version(swiss.id)
-            isInTeam <- isUserInTheTeam(swiss.teamId)
-            json <- env.swiss.json(
-              swiss = swiss,
-              me = ctx.me,
-              verdicts = verdicts,
-              reqPage = page,
-              socketVersion = version.some,
-              playerInfo = none,
-              isInTeam = isInTeam
-            )
-            canChat <- canHaveChat(swiss.roundInfo)
-            chat <- canChat.optionFu:
-              env.chat.api.userChat.cached
-                .findMine(swiss.id.into(ChatId))
-                .map:
-                  _.copy(locked = !env.api.chatFreshness.of(swiss))
-            streamers <- streamerCache.get(swiss.id)
-            isLocalMod <- ctx.useMe(env.team.api.hasCommPerm(swiss.teamId))
-            page <- renderPage(views.swiss.show(swiss, team, verdicts, json, chat, streamers, isLocalMod))
-          yield Ok(page),
+          isRestricted(swiss).flatMap:
+            if _ then Ok.async(views.swiss.restricted(swiss, team))
+            else
+              for
+                verdicts <- env.swiss.api.verdicts(swiss)
+                version <- env.swiss.version(swiss.id)
+                isInTeam <- isUserInTheTeam(swiss.teamId)
+                json <- env.swiss.json(
+                  swiss = swiss,
+                  me = ctx.me,
+                  verdicts = verdicts,
+                  reqPage = page,
+                  socketVersion = version.some,
+                  playerInfo = none,
+                  isInTeam = isInTeam
+                )
+                canChat <- canHaveChat(swiss.roundInfo)
+                chat <- canChat.optionFu:
+                  env.chat.api.userChat.cached
+                    .findMine(swiss.id.into(ChatId))
+                    .map:
+                      _.copy(locked = !env.api.chatFreshness.of(swiss))
+                streamers <- streamerCache.get(swiss.id)
+                isLocalMod <- ctx.useMe(env.team.api.hasCommPerm(swiss.teamId))
+                page <- renderPage(views.swiss.show(swiss, team, verdicts, json, chat, streamers, isLocalMod))
+              yield Ok(page)
+        ,
         json = swissOption.fold[Fu[Result]](notFoundJson("No such Swiss tournament")): (swiss, _) =>
           for
             isInTeam <- isUserInTheTeam(swiss.teamId)
@@ -115,13 +118,13 @@ final class Swiss(
   def form(teamId: TeamId) = Auth { ctx ?=> me ?=>
     NoLameOrBot:
       CheckTeamLeader(teamId):
-        Ok.page(views.swiss.form.create(env.swiss.forms.create(me), teamId))
+        Ok.page(views.swiss.form.create(env.swiss.forms.create, teamId))
   }
 
   def create(teamId: TeamId) = AuthBody { ctx ?=> me ?=>
     NoLameOrBot:
       CheckTeamLeader(teamId):
-        bindForm(env.swiss.forms.create(me))(
+        bindForm(env.swiss.forms.create)(
           err => BadRequest.page(views.swiss.form.create(err, teamId)),
           data =>
             tourC.rateLimitCreation(isPrivate = true, Redirect(routes.Team.show(teamId))):
@@ -139,7 +142,7 @@ final class Swiss(
         .isGranted(teamId, _.Tour)
         .flatMap:
           if _ then
-            bindForm(env.swiss.forms.create(me))(
+            bindForm(env.swiss.forms.create)(
               doubleJsonFormError,
               data =>
                 tourC.rateLimitCreation(isPrivate = true, rateLimited):
@@ -180,12 +183,12 @@ final class Swiss(
 
   def edit(id: SwissId) = Auth { ctx ?=> me ?=>
     WithEditableSwiss(id): swiss =>
-      Ok.page(views.swiss.form.edit(swiss, env.swiss.forms.edit(me, swiss)))
+      Ok.page(views.swiss.form.edit(swiss, env.swiss.forms.edit(swiss)))
   }
 
   def update(id: SwissId) = AuthBody { ctx ?=> me ?=>
     WithEditableSwiss(id): swiss =>
-      bindForm(env.swiss.forms.edit(me, swiss))(
+      bindForm(env.swiss.forms.edit(swiss))(
         err => BadRequest.page(views.swiss.form.edit(swiss, err)),
         data => for _ <- env.swiss.api.update(swiss.id, data) yield Redirect(routes.Swiss.show(id))
       )
@@ -193,8 +196,8 @@ final class Swiss(
 
   def apiUpdate(id: SwissId) = ScopedBody(_.Tournament.Write) { req ?=> me ?=>
     WithEditableSwiss(id): swiss =>
-      bindForm(env.swiss.forms.edit(me, swiss))(
-        err => jsonFormError(err),
+      bindForm(env.swiss.forms.edit(swiss))(
+        jsonFormError,
         data =>
           env.swiss.api.update(swiss.id, data) >>
             FoundOk(env.swiss.api.update(swiss.id, data))(apiJson)
@@ -251,6 +254,9 @@ final class Swiss(
         .mapAsync(4)(apiJson)
         .throttle(20, 1.second)
 
+  private def isRestricted(s: SwissModel)(using Context) =
+    if s.isEnterable || s.isRecentlyFinished then fuFalse else couldBeEnum
+
   private def WithSwiss(id: SwissId)(f: SwissModel => Fu[Result])(using Context): Fu[Result] =
     env.swiss.cache.swissCache.byId(id).orNotFound(f)
 
@@ -268,7 +274,7 @@ final class Swiss(
       else fallback(swiss)
 
   private[controllers] def canHaveChat(swiss: SwissModel.RoundInfo)(using ctx: Context): Fu[Boolean] =
-    (ctx.kid.no && ctx.noBot && HTTPRequest.isHuman(ctx.req)).so:
+    (ctx.kid.no && ctx.noBot && ctx.req.client.isHuman).so:
       swiss.chatFor match
         case ChatFor.NONE => fuFalse
         case _ if isGrantedOpt(_.ChatTimeout) => fuTrue

@@ -16,7 +16,7 @@ final class CoordinateUi(helpers: Helpers):
       .css("voice")
       .i18n(_.coordinates, _.storm, _.study)
       .js(pageModule(scoreOption))
-      .csp(_.withPeer.withWebAssembly)
+      .csp(_.withWebAssembly)
       .graph(
         title = "Chess board coordinates trainer",
         url = routeUrl(routes.Coordinate.home),

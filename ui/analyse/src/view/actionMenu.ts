@@ -1,14 +1,14 @@
 import { isEmpty } from 'lib';
-import * as licon from 'lib/licon';
 import { displayColumns } from 'lib/device';
-import { domDialog, bind, dataIcon, hl, type VNode, type LooseVNodes, type MaybeVNodes } from 'lib/view';
-import { cmnToggleWrapProp, cmnToggleWrap } from 'lib/view/cmn-toggle';
-import type { AutoplayDelay } from '../autoplay';
-import type AnalyseCtrl from '../ctrl';
 import { cont as contRoute } from 'lib/game/router';
-import * as pgnExport from '../pgnExport';
-import { clamp } from 'lib/algo';
-import { config as motifConfig } from '../motif/motifView';
+import { licon } from 'lib/licon';
+import { domDialog, bind, dataIcon, hl, type VNode } from 'lib/view';
+
+import type { AutoplayDelay } from '@/autoplay';
+import type AnalyseCtrl from '@/ctrl';
+import * as pgnExport from '@/pgnExport';
+
+import { showSettingsDialog } from './settingsView';
 
 interface AutoplaySpeed {
   name: keyof I18n['site'];
@@ -56,14 +56,14 @@ function autoplayButtons(ctrl: AnalyseCtrl): VNode {
 const hiddenInput = (name: string, value: string) => hl('input', { attrs: { type: 'hidden', name, value } });
 
 function studyButton(ctrl: AnalyseCtrl) {
-  if (ctrl.study || ctrl.ongoing) return;
+  if (ctrl.study || ctrl.ongoing) return undefined;
   return hl(
     'form',
     {
       attrs: { method: 'post', action: '/study/as' },
       hook: bind('submit', e => {
         const pgnInput = (e.target as HTMLElement).querySelector('input[name=pgn]') as HTMLInputElement;
-        if (pgnInput && (ctrl.synthetic || ctrl.idbTree.isDirty)) {
+        if (pgnInput && (ctrl.synthetic || ctrl.idbTree.movesDirty)) {
           pgnInput.value = pgnExport.renderFullTxt(ctrl);
         }
       }),
@@ -86,7 +86,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
     canRetro = ctrl.hasFullComputerAnalysis() && !ctrl.isEmbed && !ctrl.retro,
     linkAttrs = { rel: ctrl.isEmbed ? '' : 'nofollow', target: ctrl.isEmbed ? '_blank' : '' };
 
-  const tools: MaybeVNodes = [
+  const tools = [
     hl('div.action-menu__tools', [
       hl(
         'a',
@@ -105,15 +105,9 @@ export function view(ctrl: AnalyseCtrl): VNode {
           'a',
           {
             attrs: {
-              href: d.userAnalysis
-                ? '/editor?' +
-                  new URLSearchParams({
-                    fen: ctrl.node.fen,
-                    variant: d.game.variant.key,
-                    color: ctrl.chessground.state.orientation,
-                  })
-                : `/${d.game.id}/edit?fen=${ctrl.node.fen}`,
               'data-icon': licon.Pencil,
+              href: ctrl.boardEditorUrl(),
+              title: 'Hotkey: b',
               ...linkAttrs,
             },
           },
@@ -124,167 +118,86 @@ export function view(ctrl: AnalyseCtrl): VNode {
         hl(
           'a',
           { hook: bind('click', () => ctrl.togglePractice()), attrs: dataIcon(licon.Bullseye) },
-          'Practice with computer',
+          i18n.site.practiceWithComputer,
         ),
       canRetro &&
         hl(
           'a',
           { hook: bind('click', ctrl.toggleRetro, ctrl.redraw), attrs: dataIcon(licon.GraduateCap) },
-          'Learn from your mistakes',
+          i18n.site.learnFromYourMistakes,
         ),
       canContinue &&
         hl(
           'a',
           {
             hook: bind('click', () =>
-              domDialog({ cash: $('.continue-with.g_' + d.game.id), modal: true, show: true }),
+              domDialog({
+                cash: $('.continue-with.g_' + d.game.id),
+                modal: true,
+                show: true,
+                easyClose: 'clickOutside',
+              }),
             ),
             attrs: dataIcon(licon.Swords),
           },
           i18n.site.continueFromHere,
         ),
       studyButton(ctrl),
-      ctrl.idbTree.isDirty &&
+      (ctrl.idbTree.movesDirty || ctrl.idbTree.hasLocalCeval) &&
         hl(
           'a',
           {
             attrs: {
-              title: i18n.site.clearSavedMoves,
               'data-icon': licon.Trash,
+              title: i18n.site.clearLocalData,
             },
-            hook: bind('click', ctrl.idbTree.clear),
+            hook: bind('click', () => ctrl.idbTree.clear()),
           },
-          i18n.site.clearSavedMoves,
+          i18n.site.clearLocalData,
         ),
+      hl(
+        'button',
+        {
+          attrs: { 'data-icon': licon.Gear, title: i18n.site.settings },
+          on: { click: () => showSettingsDialog(ctrl) },
+        },
+        i18n.site.settings,
+      ),
     ]),
   ];
 
-  const cevalConfig: LooseVNodes = ctrl.study?.isCevalAllowed() !== false && [
-    displayColumns() > 1 && hl('h2', i18n.site.computerAnalysis),
-    cmnToggleWrap({
-      id: 'all',
-      name: 'Show fishnet analysis',
-      title: 'Show fishnet analysis (Hotkey: z)',
-      checked: ctrl.showFishnetAnalysis(),
-      change: ctrl.toggleFishnetAnalysis,
-      redraw: ctrl.redraw,
-    }),
-    cmnToggleWrapProp({
-      id: 'shapes',
-      name: i18n.site.bestMoveArrow,
-      title: 'Hotkey: a',
-      prop: ctrl.showBestMoveArrowsProp,
-      redraw: ctrl.redraw,
-    }),
-    ctrl.showBestMoveArrowsProp() &&
-      cmnToggleWrapProp({
-        id: 'maneuver-arrows',
-        name: 'Piece maneuver arrows',
-        prop: ctrl.showManeuverMoveArrowsProp,
-        redraw: ctrl.redraw,
-      }),
-    displayColumns() > 1 &&
-      cmnToggleWrapProp({
-        id: 'gauge',
-        name: i18n.site.evaluationGauge,
-        prop: ctrl.showGauge,
-        redraw: ctrl.redraw,
-      }),
-  ];
-
-  const displayConfig = [
-    displayColumns() > 1 && hl('h2', 'Display'),
-    cmnToggleWrap({
-      id: 'inline',
-      name: i18n.site.inlineNotation,
-      title: 'Shift+I',
-      checked: ctrl.treeView.modePreference() === 'inline',
-      change(v) {
-        ctrl.treeView.modePreference(v ? 'inline' : 'column');
-        ctrl.actionMenu.toggle();
-      },
-      redraw: ctrl.redraw,
-    }),
-    cmnToggleWrapProp({
-      id: 'disclosure',
-      name: 'Disclosure buttons',
-      title: 'Show disclosure buttons to expand/collapse variations',
-      prop: ctrl.disclosureMode,
-      redraw: ctrl.redraw,
-    }),
-    !ctrl.ongoing &&
-      cmnToggleWrap({
-        id: 'move-annotation',
-        name: 'Annotations on board',
-        title: 'Display analysis symbols on the board',
-        checked: ctrl.possiblyShowMoveAnnotationsOnBoard(),
-        change: ctrl.togglePossiblyShowMoveAnnotationsOnBoard,
-        redraw: ctrl.redraw,
-      }),
-  ];
-
-  return hl('div.action-menu', [
-    tools,
-    displayConfig,
-    displayColumns() > 1 && renderVariationOpacitySlider(ctrl),
-    cevalConfig,
-    ctrl.motifAllowed() ? motifConfig(ctrl) : [],
-    displayColumns() === 1 && renderVariationOpacitySlider(ctrl),
-    ctrl.mainline.length > 4 && [hl('h2', i18n.site.replayMode), autoplayButtons(ctrl)],
-    canContinue &&
-      hl('div.continue-with.none.g_' + d.game.id, [
-        hl(
-          'a.button',
-          {
-            attrs: {
-              href: d.userAnalysis
-                ? '/?fen=' + ctrl.encodeNodeFen() + '#ai'
-                : contRoute(d, 'ai') + '?fen=' + ctrl.node.fen,
-              ...linkAttrs,
+  return hl('div.action-menu.sub-box.reduced', [
+    hl('div.title', i18n.site.analysis),
+    hl('div.inner', [
+      tools,
+      ctrl.mainline.length > 4 && [hl('h2', i18n.site.replayMode), autoplayButtons(ctrl)],
+      canContinue &&
+        hl('div.continue-with.none.g_' + d.game.id, [
+          hl(
+            'a.button',
+            {
+              attrs: {
+                href: d.userAnalysis
+                  ? '/?fen=' + ctrl.encodeNodeFen() + '#ai'
+                  : contRoute(d, 'ai') + '?fen=' + ctrl.node.fen,
+                ...linkAttrs,
+              },
             },
-          },
-          i18n.site.playAgainstComputer,
-        ),
-        hl(
-          'a.button',
-          {
-            attrs: {
-              href: d.userAnalysis
-                ? '/?fen=' + ctrl.encodeNodeFen() + '#friend'
-                : contRoute(d, 'friend') + '?fen=' + ctrl.node.fen,
-              ...linkAttrs,
+            i18n.site.playAgainstComputer,
+          ),
+          hl(
+            'a.button',
+            {
+              attrs: {
+                href: d.userAnalysis
+                  ? '/?fen=' + ctrl.encodeNodeFen() + '#friend'
+                  : contRoute(d, 'friend') + '?fen=' + ctrl.node.fen,
+                ...linkAttrs,
+              },
             },
-          },
-          i18n.site.challengeAFriend,
-        ),
-      ]),
-  ]);
-}
-
-function renderVariationOpacitySlider(ctrl: AnalyseCtrl) {
-  return hl('span.setting', [
-    hl('label', 'Variation opacity'),
-    hl('input.range', {
-      key: 'variation-arrows',
-      attrs: { min: 0, max: 1, step: 0.1, type: 'range', value: ctrl.variationArrowOpacity() || 0 },
-      props: { value: ctrl.variationArrowOpacity() || 0 },
-      hook: {
-        insert: (vnode: VNode) => {
-          const input = vnode.elm as HTMLInputElement;
-          input.addEventListener('input', () => {
-            ctrl.variationArrowOpacity(parseFloat(input.value));
-          });
-          input.addEventListener('wheel', e => {
-            e.preventDefault();
-            ctrl.variationArrowOpacity(
-              clamp((ctrl.variationArrowOpacity() || 0) + (e.deltaY > 0 ? -0.1 : 0.1), {
-                min: 0,
-                max: 1,
-              }),
-            );
-          });
-        },
-      },
-    }),
+            i18n.site.challengeAFriend,
+          ),
+        ]),
+    ]),
   ]);
 }

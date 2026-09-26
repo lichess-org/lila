@@ -25,11 +25,12 @@ final class UserTournament(helpers: Helpers, ui: TournamentUi):
         if pager.nbResults == 0 then div(cls := "box-pad")(trans.site.nothingToSeeHere())
         else
           div(cls := "tournament-list")(
+            div(cls := "box__top")(h1(frag(userLink(u, withOnline = true), " • ", trans.site.tournaments()))),
             table(cls := "slist")(
               thead(
                 tr(
                   th(cls := "count")(pager.nbResults),
-                  th(colspan := 2)(h1(frag(userLink(u, withOnline = true), " • ", trans.site.tournaments()))),
+                  th(colspan := 2)(trans.site.tournaments()),
                   th(trans.site.winner()),
                   th(trans.site.players())
                 )
@@ -56,13 +57,14 @@ final class UserTournament(helpers: Helpers, ui: TournamentUi):
       if pager.nbResults == 0 then div(cls := "box-pad")(trans.site.nothingToSeeHere())
       else
         div(cls := "tournament-list")(
+          div(cls := "box__top")(
+            h1(frag(userLink(u, withOnline = true)), " • ", trans.team.upcomingTournaments())
+          ),
           table(cls := "slist")(
             thead(
               tr(
                 th(cls := "count")(pager.nbResults),
-                th(colspan := 2)(
-                  h1(frag(userLink(u, withOnline = true)), " • ", trans.team.upcomingTournaments())
-                ),
+                th(colspan := 2)(trans.team.upcomingTournaments()),
                 th(trans.site.players())
               )
             ),
@@ -81,7 +83,7 @@ final class UserTournament(helpers: Helpers, ui: TournamentUi):
     page(u, title = s"${u.username} • ${trans.arena.tournamentStats.txt()}", path = "chart"):
       div(cls := "tournament-stats")(
         boxTop(h1(frag(userLink(u, withOnline = true), " • ", trans.arena.tournamentStats()))),
-        p(cls := "box__pad")(trans.arena.rankAvgHelp()),
+        p(cls := "box__pad")(trans.arena.rankAverageHelp()),
         p(cls := "box__pad")(
           trans.arena.allAveragesAreX:
             a(href := "https://www.dictionary.com/e/average-vs-mean-vs-median-vs-mode")(trans.arena.medians())
@@ -126,11 +128,12 @@ final class UserTournament(helpers: Helpers, ui: TournamentUi):
     if pager.nbResults == 0 then div(cls := "box-pad")(trans.site.nothingToSeeHere())
     else
       div(cls := "tournament-list")(
+        div(cls := "box__top")(h1(frag(userLink(u, withOnline = true), " • ", trans.site.tournaments()))),
         table(cls := "slist")(
           thead(
             tr(
               th(cls := "count")(count),
-              th(h1(frag(userLink(u, withOnline = true), " • ", trans.site.tournaments()))),
+              th(trans.site.tournaments()),
               th(trans.site.games()),
               th(trans.site.points()),
               th(trans.site.rank())
@@ -141,7 +144,7 @@ final class UserTournament(helpers: Helpers, ui: TournamentUi):
               tr(cls := List("paginated" -> true, "scheduled" -> e.tour.isScheduled))(
                 td(cls := "icon")(iconTag(ui.tournamentIcon(e.tour))),
                 td(cls := "header")(
-                  a(href := routes.Tournament.show(e.tour.id))(
+                  a(href := addQueryParam(routes.Tournament.show(e.tour.id).url, "player", u.username.value))(
                     span(cls := "name")(e.tour.name()),
                     span(cls := "setup")(
                       e.tour.clock.show,

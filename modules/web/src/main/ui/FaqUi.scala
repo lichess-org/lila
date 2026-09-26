@@ -17,11 +17,12 @@ final class FaqUi(helpers: Helpers, sitePages: SitePages)(
   private def cmsPageUrl(key: String) = routes.Cms.lonePage(lila.core.id.CmsPageKey(key))
 
   private def question(id: String, title: String, answer: Frag*) =
-    div(
+    details(
       st.id := id,
-      cls := "question"
+      cls := "question",
+      name := "faq"
     )(
-      h3(a(href := s"#$id")(title)),
+      summary(span(title)),
       div(cls := "answer")(answer)
     )
 
@@ -49,7 +50,7 @@ final class FaqUi(helpers: Helpers, sitePages: SitePages)(
             p(
               trf.whyIsLilaCalledLila(
                 a(href := "https://github.com/lichess-org/lila")("lila"),
-                a(href := "https://www.scala-lang.org/")("Scala")
+                a(href := "https://scala-lang.org/")("Scala")
               )
             )
           ),
@@ -130,7 +131,7 @@ final class FaqUi(helpers: Helpers, sitePages: SitePages)(
               trf.basedOnGameDuration(strong(trf.durationFormula()))
             ),
             ul(
-              li(trf.inferiorThanXsEqualYtimeControl(29, "UltraBullet")),
+              li(trf.inferiorThanXsEqualYtimeControl(29, trans.site.ultraBullet())),
               li(trf.inferiorThanXsEqualYtimeControl(179, trans.site.bullet())),
               li(trf.inferiorThanXsEqualYtimeControl(479, trans.site.blitz())),
               li(trf.inferiorThanXsEqualYtimeControl(1499, trans.site.rapid())),
@@ -330,7 +331,7 @@ final class FaqUi(helpers: Helpers, sitePages: SitePages)(
             trf.howToHideRatingWhilePlaying.txt(),
             p(
               trf.enableZenMode(
-                a(href := routes.Pref.form("game-display"))(trf.displayPreferences()),
+                a(href := routes.Pref.form("display"))(trf.displayPreferences()),
                 em("z")
               )
             )
@@ -359,11 +360,11 @@ final class FaqUi(helpers: Helpers, sitePages: SitePages)(
           question(
             "autoplay",
             trf.enableAutoplayForSoundsQ.txt(),
-            p(trf.enableAutoplayForSoundsA()),
+            p(trf.mostBrowsersPreventSoundAutoplay()),
             h3("Mozilla Firefox (", trf.desktop(), ")"),
             p(trf.enableAutoplayForSoundsFirefox()),
             h3("Google Chrome (", trf.desktop(), ")"),
-            p(trf.enableAutoplayForSoundsChrome()),
+            p(trf.enableAutoplayForSoundsChromeSiteInformation()),
             h3("Safari (", trf.desktop(), ")"),
             p(trf.enableAutoplayForSoundsSafari()),
             h3("Microsoft Edge (", trf.desktop(), ")"),

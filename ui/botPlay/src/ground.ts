@@ -1,14 +1,16 @@
+import { makeUci } from 'chessops';
+import { chessgroundDests, chessgroundMove } from 'chessops/compat';
+import { makeFen } from 'chessops/fen';
+import { h } from 'snabbdom';
+
 import resizeHandle from 'lib/chessgroundResize';
-import type PlayCtrl from './play/playCtrl';
 import { ShowResizeHandle, Coords, MoveEvent } from 'lib/prefs';
 import { storage } from 'lib/storage';
-import { makeFen } from 'chessops/fen';
-import { chessgroundDests, chessgroundMove } from 'chessops/compat';
+import { initMiniBoard, onInsert } from 'lib/view';
+
 import type { Board } from './chess';
-import { h } from 'snabbdom';
-import { initMiniBoard } from 'lib/view';
-import { makeUci } from 'chessops';
 import type { Game } from './game';
+import type PlayCtrl from './play/playCtrl';
 
 export const updateGround = (game: Game, board: Board): CgConfig => {
   const onLastPosition = board.onPly === game.ply();
@@ -93,5 +95,5 @@ export const miniBoard = (board: Board, pov: Color) =>
     attrs: {
       'data-state': `${fenOf(board)},${pov},${board.lastMove ? makeUci(board.lastMove) : ''}`,
     },
-    hook: { insert: vnode => initMiniBoard(vnode.elm as HTMLElement) },
+    hook: onInsert(initMiniBoard),
   });

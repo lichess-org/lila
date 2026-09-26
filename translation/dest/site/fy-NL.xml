@@ -111,7 +111,6 @@
   <string name="enable">Ynskeakelje</string>
   <string name="bestMoveArrow">Bêste set-pylk</string>
   <string name="showVariationArrows">Toan fariaasje pylken</string>
-  <string name="evaluationGauge">Evaluaasjemeter</string>
   <string name="multipleLines">Oantal farianten</string>
   <string name="cpus">CPUs</string>
   <string name="memory">Geheugen</string>
@@ -120,25 +119,13 @@
   <string name="blunder">Flater</string>
   <string name="mistake">Flater</string>
   <string name="inaccuracy">Ûnkrektens</string>
-  <plurals name="nbBlunders">
-    <item quantity="one">%s flater</item>
-    <item quantity="other">%s flaters</item>
-  </plurals>
   <plurals name="numberBlunders">
     <item quantity="one">%s Flater</item>
     <item quantity="other">%s Flaters</item>
   </plurals>
-  <plurals name="nbMistakes">
-    <item quantity="one">%s fout</item>
-    <item quantity="other">%s fouten</item>
-  </plurals>
   <plurals name="numberMistakes">
     <item quantity="one">%s Fout</item>
     <item quantity="other">%s Fouten</item>
-  </plurals>
-  <plurals name="nbInaccuracies">
-    <item quantity="one">%s ûnkrektens</item>
-    <item quantity="other">%s ûnkrektens</item>
   </plurals>
   <plurals name="numberInaccuracies">
     <item quantity="one">%s Ûnkrektens</item>
@@ -206,7 +193,6 @@
   <string name="changeUsernameNotSame">Allinne lytse letters feroarje yn grutte of oarsom. Bygelyks \"pytsjesmit\" yn \"PytsjeSmit\".</string>
   <string name="changeUsernameDescription">Feroarje dyn brûkersnamme. Dit kin mar ien kear dien wurde en do kinst allinich haad- en lytseletters yn dyn brûkersnamme feroarje.</string>
   <string name="signupUsernameHint">Tink derom in fatsoenlike gebrûkersnamme te kiezen. Kinst it letter net mear feroarje en alle accounts mei ûnfatsoenlike gebrûkersnammen wurde slúten!</string>
-  <string name="signupEmailHint">Wy sille it allinnich brûke foar wachtwurd reset.</string>
   <string name="password">Wachtwurd</string>
   <string name="changePassword">Wachtwurd feroarje</string>
   <string name="changeEmail">Email feroarje</string>
@@ -227,8 +213,6 @@
     <item quantity="other">%s spullen mei jo</item>
   </plurals>
   <string name="cancel">Annulearje</string>
-  <string name="whiteTimeOut">Tiid fan wyt ôfrûn</string>
-  <string name="blackTimeOut">Tiid fan swart ôfrûn</string>
   <string name="drawOfferSent">Remise oanbod stjoerd</string>
   <string name="drawOfferAccepted">Remise oanbod akseptearre</string>
   <string name="whiteOffersDraw">Wyt biedt remise oan</string>
@@ -469,7 +453,6 @@ kompjûteranalyze, partijpetear en dielbere URL te krijen.</string>
   <string name="practice">Oefenje</string>
   <string name="averageCentipawnLoss">Gemiddeld sintipion ferlies</string>
   <string name="accuracy">Krektens</string>
-  <string name="keyNextInaccuracy">Folgjende ûnkrektens</string>
   <string name="tournamentNotFound">Toernoai net fûn</string>
   <string name="tournamentDoesNotExist">Dizze toernoai bestiet net.</string>
   <string name="kidMode">Bern mode</string>
@@ -482,7 +465,6 @@ kompjûteranalyze, partijpetear en dielbere URL te krijen.</string>
   <string name="background">Achtergrûn</string>
   <string name="light">Ljocht</string>
   <string name="dark">Donker</string>
-  <string name="transparent">Trochsichtich</string>
   <string name="backgroundImageUrl">URL fan de achtergrûnôfbylding:</string>
   <string name="pieceSet">Ynstelle fan it soarte stik</string>
   <string name="embedInYourWebsite">Opnimme yn de eigen webside</string>

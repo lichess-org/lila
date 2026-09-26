@@ -1,7 +1,9 @@
-import { DasherCtrl } from './ctrl';
-import { json as xhrJson } from 'lib/xhr';
-import { spinnerVdom, spinnerHtml } from 'lib/view';
 import { init as initSnabbdom, type VNode, classModule, attributesModule, h } from 'snabbdom';
+
+import { spinnerVdom, spinnerHtml } from 'lib/view';
+import { json as xhrJson } from 'lib/xhr';
+
+import { DasherCtrl } from './ctrl';
 
 const patch = initSnabbdom([classModule, attributesModule]);
 

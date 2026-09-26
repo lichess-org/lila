@@ -1,13 +1,16 @@
 package lila.common
 
+import scala.util.matching.Regex
+
 import play.api.http.HeaderNames
 import play.api.mvc.RequestHeader
 import play.api.routing.Router
-
-import scala.util.matching.Regex
+import play.api.libs.typedmap.TypedKey
+import scalalib.net.{ UserAgent, Bearer }
 
 import lila.common.Form.trueish
 import lila.core.net.*
+import lila.core.data.UntypedFormRequest
 
 object HTTPRequest:
 
@@ -24,16 +27,17 @@ object HTTPRequest:
   def isXhrFromEmbed(req: RequestHeader) =
     isXhr(req) && referer(req).exists(_.contains(s"${req.host}/embed/"))
 
-  private val appOrigins = List(
-    "capacitor://localhost", // ios
-    "ionic://localhost", // ios
-    "http://localhost" // android/dev/flutter
-  )
+  private val appOrigins: List[Origin] = Origin.from:
+    List(
+      "capacitor://localhost", // ios
+      "ionic://localhost", // ios
+      "http://localhost" // android/dev/flutter
+    )
 
-  def appOrigin(req: RequestHeader): Option[String] =
+  def appOrigin(req: RequestHeader): Option[Origin] =
     origin(req).filter: reqOrigin =>
       appOrigins.exists: appOrigin =>
-        reqOrigin == appOrigin || reqOrigin.startsWith(s"$appOrigin:")
+        reqOrigin == appOrigin || reqOrigin.value.startsWith(s"$appOrigin:")
 
   def isApi(req: RequestHeader) = req.path.startsWith("/api/")
   def isApiOrApp(req: RequestHeader) = isApi(req) || appOrigin(req).isDefined
@@ -51,11 +55,9 @@ object HTTPRequest:
   val isMobileBrowser = UaMatcher("""(?i)iphone|ipad|ipod|android.+mobile""")
   def isLichessMobile(ua: UserAgent): Boolean = ua.value.startsWith("Lichess Mobile/")
   def isLichessMobile(req: RequestHeader): Boolean = isLichessMobile(userAgent(req))
-  def isLichobile(req: RequestHeader) = userAgent(req).value.contains("Lichobile/")
-  def isLichobileDev(req: RequestHeader) = // lichobile in a browser can't set its user-agent
-    isLichobile(req) || (appOrigin(req).isDefined && !isLichessMobile(req))
+  def isLichobile(ua: UserAgent): Boolean = ua.value.contains("Lichobile/")
+  def isLichobile(req: RequestHeader): Boolean = isLichobile(userAgent(req))
   def isAndroid = UaMatcher("Android")
-  def isLitools(req: RequestHeader) = userAgent(req) == UserAgent("litools")
   def lichessMobileVersion(ua: UserAgent): Option[LichessMobileVersion] =
     isLichessMobile(ua).so:
       for
@@ -67,8 +69,9 @@ object HTTPRequest:
           case _ => none
       yield version
 
-  def origin(req: RequestHeader): Option[String] = req.headers.get(HeaderNames.ORIGIN)
+  def origin(req: RequestHeader): Option[Origin] = Origin.from(req.headers.get(HeaderNames.ORIGIN))
   def referer(req: RequestHeader): Option[String] = req.headers.get(HeaderNames.REFERER)
+  def noReferer(req: RequestHeader): Boolean = referer(req).isEmpty
 
   def ipAddress(req: RequestHeader): IpAddress =
     IpAddress.unchecked(ipAddressStr(req))
@@ -77,30 +80,15 @@ object HTTPRequest:
     // chain of trusted proxies, strip scope id
     req.remoteAddress.split(", ").last.split("%").head
 
-  def isCrawler(req: RequestHeader) = Crawler(crawlerMatcher(req))
+  def isImagePreviewCrawler(req: RequestHeader) = imagePreviewCrawlerMatcher(req)
 
-  private val crawlerMatcher = UaMatcher:
-    // spiders/crawlers
-    """Qwantbot|Googlebot|GoogleOther|AdsBot|Google-Read-Aloud|bingbot|BingPreview|facebookexternalhit|meta-externalagent|SemrushBot|AhrefsBot|PetalBot|Applebot|YandexBot|YandexAdNet|YandexImages|Twitterbot|Bluesky|Baiduspider|Amazonbot|Bytespider|yacybot|ImagesiftBot|ChatGLM-Spider|YisouSpider|Yeti/|DataForSeoBot|ChatGPT|openai.com|anthropic.com|TikTokSpider""" +
-      // apps and servers that load previews
-      """|Discordbot|WhatsApp""" +
-      // http libs
-      """|HeadlessChrome|okhttp|axios|undici|wget|curl|python-requests|aiohttp|commons-httpclient|python-urllib|python-httpx|Nessus|imroc/req"""
-
-  def isImagePreviewCrawler(req: RequestHeader) = Crawler(imagePreviewCrawlerMatcher(req))
-
-  private val imagePreviewCrawlerMatcher = UaMatcher:
-    """BingPreview|Discordbot|WhatsApp"""
+  private val imagePreviewCrawlerMatcher = UaMatcher("""BingPreview|Discordbot|WhatsApp""")
 
   final class UaMatcher(rStr: String):
     private val pattern = rStr.r.pattern
     def apply(req: RequestHeader): Boolean = pattern.matcher(userAgent(req).value).find
 
   def uaMatches(req: RequestHeader, regex: Regex): Boolean = regex.find(userAgent(req).value)
-
-  def isFishnet(req: RequestHeader) = req.path.startsWith("/fishnet/")
-
-  def isHuman(req: RequestHeader) = isCrawler(req).no && !isFishnet(req)
 
   private val fileExtensionRegex = """\.(?<!^\.)[a-zA-Z0-9]{2,4}$""".r
 
@@ -111,15 +99,16 @@ object HTTPRequest:
   def printReq(req: RequestHeader) = s"${req.method} ${req.domain}${req.uri}"
 
   def printClient(req: RequestHeader) =
-    s"${ipAddress(req)} origin:${~origin(req)} referer:${~referer(req)} ua:${userAgent(req).value}"
+    s"${ipAddressStr(req)} origin:${origin(req).so(_.value)} referer:${~referer(req)} ua:${userAgent(req)}"
 
-  def bearer(req: RequestHeader): Option[Bearer] = for
+  def bearer(using req: RequestHeader): Option[(Bearer, Option[String])] = for
     authorization <- req.headers.get(HeaderNames.AUTHORIZATION)
     prefix = "Bearer "
     if authorization.startsWith(prefix)
-  yield Bearer(authorization.stripPrefix(prefix))
-
-  def isOAuth(req: RequestHeader) = bearer(req).isDefined
+    raw = authorization.stripPrefix(prefix)
+  yield raw.split(':') match
+    case Array(bearer, sign) => Bearer(bearer) -> sign.some
+    case _ => (Bearer(raw), none)
 
   private val webXhrAccepts = "application/web.lichess+json"
   def startsWithLichobileAccepts(a: String) = a.startsWith("application/vnd.lichess.v")
@@ -128,9 +117,12 @@ object HTTPRequest:
   def acceptsJson(req: RequestHeader) = accepts(req).exists: a =>
     a == webXhrAccepts || a.startsWith("application/json") || startsWithLichobileAccepts(a)
   def acceptsCsv(req: RequestHeader) = accepts(req) contains "text/csv"
+  def acceptsMarkdown(using req: RequestHeader) =
+    accepts(req).contains("text/markdown") ||
+      queryStringGet("output_format").exists(f => f == "md" || f == "markdown")
   def isEventSource(req: RequestHeader): Boolean = accepts(req) contains "text/event-stream"
   def isProgrammatic(req: RequestHeader) =
-    !isSynchronousHttp(req) || isFishnet(req) || isApi(req) || isPrometheus(req) ||
+    !isSynchronousHttp(req) || ClientName(req).isFishnet || isApi(req) || isPrometheus(req) ||
       accepts(req).exists(startsWithLichobileAccepts)
 
   def actionName(req: RequestHeader): String =
@@ -143,13 +135,6 @@ object HTTPRequest:
       case LichobileVersionHeaderPattern(v) => ApiVersion.from(v.toIntOption)
       case _ => none
 
-  def clientName(req: RequestHeader) =
-    // lichobile sends XHR headers
-    if isXhr(req) then apiVersion(req).fold("xhr")(v => s"lichobile/$v")
-    else if isLichessMobile(req) then "mobile"
-    else if isCrawler(req).yes then "crawler"
-    else "browser"
-
   def queryStringGet(name: String)(using req: RequestHeader): Option[String] =
     req.queryString.get(name).flatMap(_.headOption).filter(_.nonEmpty)
 
@@ -158,6 +143,12 @@ object HTTPRequest:
 
   def queryStringBoolOpt(name: String)(using req: RequestHeader): Option[Boolean] =
     queryStringGet(name).map(trueish)
+
+  def queryStringGetAs[A](name: String)(using req: RequestHeader, sr: SameRuntime[String, A]): Option[A] =
+    queryStringGet(name).map(sr.apply)
+
+  def fromFormOrQuery(name: String)(using req: UntypedFormRequest): Option[String] =
+    req.body.get(name).flatMap(_.headOption).filter(_.nonEmpty).orElse(queryStringGet(name))
 
   def looksLikeLichessBot(req: RequestHeader) =
     val ua = userAgent(req).value
@@ -169,3 +160,20 @@ object HTTPRequest:
 
   def isKid(req: RequestHeader) =
     req.headers.get("X-Lichess-KidMode").exists(trueish)
+
+enum ClientName:
+  case lichobile, xhr, mobile, crawler, browser, fishnet, unknown
+  def name = toString
+  def isCrawler = this == crawler
+  def isFishnet = this == fishnet
+  def isHuman = !isCrawler && !isFishnet
+  def isMobile = this == mobile
+  def isLichobile = this == lichobile
+  def isXhr = this == xhr
+
+object ClientName:
+
+  val reqAttr: TypedKey[ClientName] = TypedKey("ClientName")
+
+  def apply(req: RequestHeader): ClientName =
+    req.attrs.get(reqAttr).getOrElse(unknown)

@@ -16,8 +16,8 @@ object PuzzleTheme:
   case class WithCount(theme: PuzzleTheme, count: Int)
 
   enum VoteError:
+    case Unchanged
     case Fail(msg: String) extends VoteError
-    case Unchanged extends VoteError
     def message: String = this match
       case Fail(msg) => msg
       case Unchanged => "unchanged"
@@ -37,9 +37,10 @@ object PuzzleTheme:
   val bodenMate = PuzzleTheme(i.bodenMate, i.bodenMateDescription)
   val capturingDefender =
     PuzzleTheme(i.capturingDefender, i.capturingDefenderDescription)
+  val collinearMove = PuzzleTheme(i.collinearMove, i.collinearMoveDescription)
   val castling = PuzzleTheme(i.castling, i.castlingDescription)
   val clearance = PuzzleTheme(i.clearance, i.clearanceDescription)
-  val cornerMate = PuzzleTheme(i.cornerMate, i.cornerMateDescription)
+  val cornerMate = PuzzleTheme(i.cornerMate, i.cornerMateKnightDeliversDescription)
   val crushing = PuzzleTheme(i.crushing, i.crushingDescription)
   val defensiveMove = PuzzleTheme(i.defensiveMove, i.defensiveMoveDescription)
   val deflection = PuzzleTheme(i.deflection, i.deflectionDescription)
@@ -53,17 +54,18 @@ object PuzzleTheme:
     PuzzleTheme(i.dovetailMate, i.dovetailMateDescription)
   val equality = PuzzleTheme(i.equality, i.equalityDescription)
   val endgame = PuzzleTheme(i.endgame, i.endgameDescription)
-  val enPassant = PuzzleTheme(I18nKey.site.enPassant, i.enPassantDescription)
+  val epauletteMate = PuzzleTheme(i.epauletteMate, i.epauletteMateDescription)
+  val enPassant = PuzzleTheme(i.enPassant, i.enPassantAdjacentCaptureDescription)
   val exposedKing = PuzzleTheme(i.exposedKing, i.exposedKingDescription)
-  val fork = PuzzleTheme(i.fork, i.forkDescription)
+  val fork = PuzzleTheme(i.fork, i.forkOpposingPiecesDescription)
   val hangingPiece = PuzzleTheme(i.hangingPiece, i.hangingPieceDescription)
-  val hookMate = PuzzleTheme(i.hookMate, i.hookMateDescription)
+  val hookMate = PuzzleTheme(i.hookMate, i.hookMateOpposingPawnDescription)
   val interference = PuzzleTheme(i.interference, i.interferenceDescription)
   val intermezzo = PuzzleTheme(i.intermezzo, i.intermezzoDescription)
   val kingsideAttack = PuzzleTheme(i.kingsideAttack, i.kingsideAttackDescription)
   val killBoxMate = PuzzleTheme(i.killBoxMate, i.killBoxMateDescription)
-  val pillsburysMate = PuzzleTheme(i.pillsburysMate, i.pillsburysMateDescription)
-  val morphysMate = PuzzleTheme(i.morphysMate, i.morphysMateDescription)
+  val pillsburysMate = PuzzleTheme(i.pillsburysMate, i.pillsburyMateRookAndBishopDescription)
+  val morphysMate = PuzzleTheme(i.morphysMate, i.morphyMateBishopAndRookDescription)
   val vukovicMate = PuzzleTheme(i.vukovicMate, i.vukovicMateDescription)
   val knightEndgame = PuzzleTheme(i.knightEndgame, i.knightEndgameDescription)
   val long = PuzzleTheme(i.long, i.longDescription)
@@ -82,7 +84,7 @@ object PuzzleTheme:
   val operaMate = PuzzleTheme(i.operaMate, i.operaMateDescription)
   val pawnEndgame = PuzzleTheme(i.pawnEndgame, i.pawnEndgameDescription)
   val pin = PuzzleTheme(i.pin, i.pinDescription)
-  val promotion = PuzzleTheme(i.promotion, i.promotionDescription)
+  val promotion = PuzzleTheme(i.promotion, i.promotePawnToQueenRookOrMinor)
   val queenEndgame = PuzzleTheme(i.queenEndgame, i.queenEndgameDescription)
   val queenRookEndgame =
     PuzzleTheme(i.queenRookEndgame, i.queenRookEndgameDescription)
@@ -93,6 +95,7 @@ object PuzzleTheme:
   val short = PuzzleTheme(i.short, i.shortDescription)
   val skewer = PuzzleTheme(i.skewer, i.skewerDescription)
   val superGM = PuzzleTheme(i.superGM, i.superGMDescription)
+  val swallowstailMate = PuzzleTheme(i.swallowstailMate, i.swallowstailMateDescription)
   val trappedPiece = PuzzleTheme(i.trappedPiece, i.trappedPieceDescription)
   val underPromotion = PuzzleTheme(i.underPromotion, i.underPromotionDescription)
   val veryLong = PuzzleTheme(i.veryLong, i.veryLongDescription)
@@ -134,6 +137,7 @@ object PuzzleTheme:
     I18nKey.puzzle.advanced -> List(
       attraction,
       clearance,
+      collinearMove,
       discoveredCheck,
       defensiveMove,
       deflection,
@@ -161,11 +165,13 @@ object PuzzleTheme:
       cornerMate,
       doubleBishopMate,
       dovetailMate,
+      epauletteMate,
       hookMate,
       killBoxMate,
       pillsburysMate,
       morphysMate,
       operaMate,
+      swallowstailMate,
       triangleMate,
       vukovicMate,
       smotheredMate
@@ -241,6 +247,7 @@ object PuzzleTheme:
     attraction -> "3arGcr8n",
     backRankMate -> "VVzwe5vV",
     capturingDefender -> "2s7CaC2h",
+    collinearMove -> "lRxwUFY2",
     castling -> "edXPYM70",
     discoveredAttack -> "DYcrqEPt",
     doubleCheck -> "EXAQJVNm",

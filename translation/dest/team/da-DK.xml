@@ -30,17 +30,14 @@
   <string name="willBeReviewed">Din tilmeldingsanmodning vil blive gennemgået af holdlederen.</string>
   <string name="beingReviewed">Din tilmeldingsanmodning bliver gennemgået af holdlederen.</string>
   <string name="requestDeclined">Din tilmeldingsanmodning blev afvist af holdlederen.</string>
-  <string name="subToTeamMessages">Abonner på holdbeskeder</string>
   <string name="teamBattle">Holdkamp</string>
   <string name="teamBattleOverview">Et slag mellem adskillige hold, hver spiller scorer point for deres hold</string>
   <string name="teamTournament">Holdturnering</string>
   <string name="teamTournamentOverview">En arenaturnering som kun medlemmer af dit hold kan deltage i</string>
   <string name="swissTournamentOverview">En schweizerturnering som kun medlemmer af dit hold kan deltage i</string>
-  <string name="messageAllMembers">Send besked til alle medlemmer</string>
-  <string name="messageAllMembersOverview">Send en privat besked til alle medlemmer på holdet</string>
-  <string name="messageAllMembersLongDescription">Send en privat besked til ALLE medlemmer af holdet.
-Du kan bruge dette til at opfordre spillere til at tilmelde sig en turnering eller en holdkamp.
-Spillere som ikke bryder sig om at modtage dine beskeder forlader måske holdet.</string>
+  <string name="teamUpdates">Holdopdateringer</string>
+  <string name="subToTeamUpdates">Abonner på holdopdateringer</string>
+  <string name="newTeamUpdate">Ny holdopdatering</string>
   <string name="teamsIlead">Hold jeg leder</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Måske du bør linke til en af disse kommende turneringer?</string>
   <string name="leadersChat">Holdleder-chat</string>

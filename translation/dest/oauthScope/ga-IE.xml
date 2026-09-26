@@ -21,7 +21,6 @@
   <string name="puzzleRead">Léigh gníomhaíocht fadhbanna</string>
   <string name="teamRead">Léigh faisnéis foirne príobháideacha</string>
   <string name="teamWrite">Glac páirt agus fág foirne</string>
-  <string name="teamLead">Bainistigh na foirne atá i gceannas ort: seol teachtaireachtaí príobháideacha, ciceáil baill</string>
   <string name="followRead">Léigh imreoirí atá leanta</string>
   <string name="followWrite">Lean ficheallaithe eile agus dílean iad</string>
   <string name="msgWrite">Seol teachtaireachtaí príobháideacha chuig ficheallaithe eile</string>
@@ -29,6 +28,5 @@
   <string name="botPlay">Imir cluichí le bota api</string>
   <string name="engineRead">Féach ar agus úsáid do innill sheachtracha</string>
   <string name="engineWrite">Cruthaigh agus nuashonraigh innill sheachtracha</string>
-  <string name="webLogin">Cruthaigh seisiúin suíomh Gréasáin fíordheimhnithe (deonaíonn rochtain iomlán!)</string>
   <string name="webMod">Úsáid uirlisí modhnóra (laistigh de do chead)</string>
 </resources>

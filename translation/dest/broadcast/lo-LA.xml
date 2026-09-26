@@ -32,11 +32,9 @@
   <string name="downloadAllRounds">ດາວໂຫຼດທຸກຮອບ</string>
   <string name="resetRound">ຕັ້ງຄ່າຮອບນີ້ໃໝ່</string>
   <string name="deleteRound">ລຶບຮອບນີ້</string>
-  <string name="definitivelyDeleteRound">ລຶບຮອບນີ້ ແລະ ທຸກເກມໃນຮອບນີ້ຢ່າງຖາວອນ.</string>
   <string name="deleteAllGamesOfThisRound">ລຶບທຸກເກມໃນຮອບນີ້. ແຫຼ່ງຂໍ້ມູນຈຳເປັນຕ້ອງມີການເຄື່ອນໄຫວຢູ່ເພື່ອສ້າງເກມຂຶ້ນມາໃໝ່.</string>
   <string name="editRoundStudy">ແກ້ໄຂບົດສຶກສາຂອງຮອບ</string>
   <string name="deleteTournament">ລຶບການແຂ່ງຂັນນີ້</string>
-  <string name="definitivelyDeleteTournament">ລຶບການແຂ່ງຂັນທັງໝົດ, ທຸກຮອບ ແລະ ທຸກເກມຢ່າງຖາວອນ.</string>
   <string name="showScores">ສະແດງຄະແນນຜູ້ຫຼິ້ນໂດຍອີງຕາມຜົນການແຂ່ງຂັນ</string>
   <string name="replacePlayerTags">ບໍ່ບັງຄັບ: ແທນທີ່ຊື່ຜູ້ຫຼິ້ນ, ຄະແນນ (Rating) ແລະ ຕຳແໜ່ງ (Title)</string>
   <string name="fideFederations">ສະຫະພັນ FIDE</string>

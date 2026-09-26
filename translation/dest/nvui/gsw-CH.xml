@@ -11,6 +11,9 @@
   <string name="yourClock">Dini Zit</string>
   <string name="opponentClock">Zit vum Gägner</string>
   <string name="gameStart">Schpiel-Start</string>
+  <string name="boardCommandList">Lischt vo Bfähl, wenn\'s Brätt fokussiert isch</string>
+  <string name="inputFormCommandList">Schriib folgendi kommentär i\'d Konsole.</string>
+  <string name="goToInputForm">Zur Konsolä ga.</string>
   <string name="announceCurrentSquare">Zeig s\'aktuelli Fäld.</string>
   <string name="announceLastMove">Zeig de letscht Zug.</string>
   <string name="announceLastMoveCapture">Zeig die letscht g\'schlageni Figur.</string>
@@ -18,6 +21,13 @@
   <string name="announcePossibleCaptures">Zeig möglichi Schlagzüg mit de g\'wählte Figur.</string>
   <string name="moveWithArrows">Zieh is benachbarti Fäld links, rächts, obe oder unne.</string>
   <string name="moveToPieceByType">Zieh zu Fälder mit Figurenäme. z.B.: Es wiederholts k gaht zu jedem Schpringer-Fäld. Mit em Grossbuechstabe cheersch d\'Reihefolg um.</string>
+  <string name="moveToRank">Gang uf d\'Reihe 1-8.</string>
+  <string name="moveToFile">Gang uf d\'Linie a-h.</string>
+  <string name="announcePieceLocations">De Ort vo Figure asäge. Zum Biispil: p grossäs N für wiisi Springer, p chlises k für de Schwarze König, p grossäs A für alli wisse Figure.</string>
+  <string name="announcePiecesOnRankOrFile">Sägt d\'Figure uf Reihe odr Linie a, zum Biispil: s a, s 1.</string>
+  <string name="goToBoard">Gang zum Brett. De Standardort isch e-4. Du chasch es Fäld spezifizier: board a-1 odr b a-1 brint di uf s\'Fäld a-1.</string>
+  <string name="movePiece">Um e Figur z\'züchä, verwänd d\'algebraischi Notation.</string>
+  <string name="promotion">Um dr öppis anders wiä e Dame z\'hole, chasch du es gliichheytszeiche verwändä. Zum Biispiel a-8-gliichheytszeiche-n git dir en Springer uf a8.</string>
   <string name="king">König</string>
   <string name="whiteKing">wisse König</string>
   <string name="blackKing">schwarze König</string>

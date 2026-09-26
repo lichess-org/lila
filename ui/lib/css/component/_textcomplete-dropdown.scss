@@ -1,0 +1,45 @@
+.textcomplete-dropdown {
+  @extend %popup-shadow;
+
+  border: $border;
+  background: $c-bg-popup;
+  border-radius: $box-radius-size;
+  overflow: hidden;
+
+  li {
+    list-style: none;
+    border-top: $border;
+    padding: 0.5em;
+    min-width: 100px;
+    font-weight: bold;
+    cursor: pointer;
+
+    &.textcomplete-header + .textcomplete-item {
+      border-top: 0;
+    }
+
+    &.textcomplete-header,
+    &.textcomplete-footer {
+      display: none;
+    }
+  }
+
+  li:hover,
+  .active {
+    background-color: color-mix(in oklab, $c-accent 10%, $c-bg-popup);
+  }
+
+  a {
+    color: $c-font;
+  }
+
+  @include if-transp {
+    background: $c-bg-zebra;
+    border-color: rgb(from $c-border r g b / 0.4);
+
+    li:hover,
+    .active {
+      background-color: color-mix(in oklab, $c-accent 20%, $c-bg-popup);
+    }
+  }
+}

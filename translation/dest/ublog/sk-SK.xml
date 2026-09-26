@@ -5,7 +5,7 @@
   <string name="byTopic">Podľa témy</string>
   <string name="byLichess">Lichess-om</string>
   <string name="myFriends">Moji priatelia</string>
-  <string name="myLikes" comment="A page which lists blog posts that you have pressed ❤️ Like on: https://lichess.org/blog/liked">Obľúbené</string>
+  <string name="myLikes">Obľúbené</string>
   <string name="myBlog">Môj blog</string>
   <string name="likedBlogs">Blogové príspevky, ktoré sa Vám páčia</string>
   <plurals name="blogPosts">
@@ -56,13 +56,10 @@
     <item quantity="many">Prezrieť %s príspevkov</item>
     <item quantity="other">Prezrieť všetkých %s príspevkov</item>
   </plurals>
-  <string name="uploadAnImageForYourPost">Nahrať obrázok pre svoj príspevok</string>
   <string name="imageAlt">Alternatívny popis obrázka</string>
   <string name="imageCredit">Vlastník obrázka</string>
   <string name="deleteBlog">Definitívne vymazať tento blogový príspevok</string>
-  <string name="safeToUseImages">Používanie obrázkov z nasledovných webstránok je bezpečné: </string>
   <string name="selectPostTopics">Zvoľte témy o ktorých je Váš príspevok</string>
-  <string name="useImagesYouMadeYourself">Môžete tiež použiť Vami vyrobené obrázky, fotky ktoré ste odfotili, snímky obrazovky na stránke Lichess... čokoľvek, k čomu niekto iný nevlastní autorské práva.</string>
   <string name="safeAndRespectfulContent">Prosím, dbajte na to aby vaše príspevky neboli pohoršujúce a rešpektovali ostatných. Nekopírujte príspevky niekoho iného.</string>
   <string name="inappropriateContentAccountClosed">Akýkoľvek nevhodný obsah môže mať za následok zrušenie Vášho účtu.</string>
   <string name="blogTips">Naše jednoduché tipy ako písať skvelé blogové príspevky</string>

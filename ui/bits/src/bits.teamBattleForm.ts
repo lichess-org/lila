@@ -1,6 +1,7 @@
-import * as xhr from 'lib/xhr';
 import { Textcomplete } from '@textcomplete/core';
 import { TextareaEditor } from '@textcomplete/textarea';
+
+import * as xhr from 'lib/xhr';
 
 interface Team {
   id: string;
@@ -18,16 +19,18 @@ site.load.then(() => {
         id: 'team',
         match: /(^|\s)(.+)$/,
         index: 2,
-        search(term: string, callback: (res: Team[]) => void) {
+        search(term: string, searchCallback: (res: Team[]) => void) {
           xhr.json(xhr.url('/team/autocomplete', { term }), { cache: 'default' }).then(
             (res: Team[]) => {
-              const current = textarea.value
-                .split('\n')
-                .map(t => t.split(' ')[0])
-                .slice(0, -1);
-              callback(res.filter(t => !current.includes(t.id)));
+              const current = new Set(
+                textarea.value
+                  .split('\n')
+                  .map(t => t.split(' ')[0])
+                  .slice(0, -1),
+              );
+              searchCallback(res.filter(t => !current.has(t.id)));
             },
-            _ => callback([]),
+            _ => searchCallback([]),
           );
         },
         template: (team: Team) => team.name + ', by ' + team.owner + ', with ' + team.members + ' members',

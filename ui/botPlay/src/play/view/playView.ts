@@ -1,4 +1,14 @@
-import * as licon from 'lib/licon';
+import { Chessground } from '@lichess-org/chessground';
+
+import { repeater } from 'lib';
+import { type BotInfo, Bot } from 'lib/bot/bot';
+import { botAssetUrl } from 'lib/bot/botLoader';
+import { type TopOrBottom } from 'lib/game';
+import { renderClock } from 'lib/game/clock/clockView';
+import { renderMaterialDiffs } from 'lib/game/view/material';
+import { type StatusData, statusOf as viewStatus } from 'lib/game/view/status';
+import { licon, type LiconKey } from 'lib/licon';
+import { addPointerListeners } from 'lib/pointer';
 import {
   bind,
   hl,
@@ -6,25 +16,20 @@ import {
   type LooseVNodes,
   dataIcon,
   type VNode,
-  stepwiseScroll,
   toggleButton as boardMenuToggleButton,
 } from 'lib/view';
-import { Chessground } from '@lichess-org/chessground';
-import type PlayCtrl from '../playCtrl';
+import { renderBlindfoldToggle } from 'lib/view/blindfold';
+import stepwiseScroll from 'lib/view/stepwiseScroll';
+
 import { initialGround } from '@/ground';
-import { botAssetUrl } from 'lib/bot/botLoader';
-import { type BotInfo, Bot } from 'lib/bot/bot';
+
+import type PlayCtrl from '../playCtrl';
 import { autoScroll } from './autoScroll';
-import { repeater } from 'lib';
-import { addPointerListeners } from 'lib/pointer';
-import { type StatusData, statusOf as viewStatus } from 'lib/game/view/status';
 import boardMenu from './boardMenu';
-import { renderMaterialDiffs } from 'lib/game/view/material';
-import { type TopOrBottom } from 'lib/game';
-import { renderClock } from 'lib/game/clock/clockView';
 
 export const playView = (ctrl: PlayCtrl) =>
   hl(`main.bot-app.bot-game.unique-game-${ctrl.game.id}.bot-color--${ctrl.opts.bot.key}`, [
+    renderBlindfoldToggle(ctrl.blindfold),
     viewBoard(ctrl),
     hl('div.bot-game__table'),
     viewTable(ctrl),
@@ -70,7 +75,7 @@ const viewActions = (ctrl: PlayCtrl) =>
 
 const viewResult = (ctrl: PlayCtrl) => {
   const end = ctrl.game.end;
-  if (!end) return;
+  if (!end) return undefined;
   const result = end.winner === 'white' ? '1-0' : end.winner === 'black' ? '0-1' : '½-½';
   const statusData: StatusData = {
     winner: end.winner,
@@ -103,9 +108,11 @@ const viewMoves = (ctrl: PlayCtrl) => {
 
   const els: LooseVNodes = [];
   for (let i = 1; i <= pairs.length; i++) {
-    els.push(hl('turn', i + ''));
-    els.push(viewMove(i * 2 - 1, pairs[i - 1][0], ctrl.board.onPly));
-    els.push(viewMove(i * 2, pairs[i - 1][1], ctrl.board.onPly));
+    els.push(
+      hl('turn', i),
+      viewMove(i * 2 - 1, pairs[i - 1][0], ctrl.board.onPly),
+      viewMove(i * 2, pairs[i - 1][1], ctrl.board.onPly),
+    );
   }
   els.push(viewResult(ctrl));
 
@@ -141,15 +148,15 @@ const viewNavigation = (ctrl: PlayCtrl) => {
     boardMenu(ctrl),
     hl('div.noop'),
     [
-      [licon.JumpFirst, 0],
-      [licon.JumpPrev, ctrl.board.onPly - 1],
-      [licon.JumpNext, ctrl.board.onPly + 1],
-      [licon.JumpLast, ctrl.game.ply()],
-    ].map((b: [string, number], i) => {
+      ['JumpFirst', 0],
+      ['JumpPrev', ctrl.board.onPly - 1],
+      ['JumpNext', ctrl.board.onPly + 1],
+      ['JumpLast', ctrl.game.ply()],
+    ].map((b: [LiconKey, number], i) => {
       const enabled = ctrl.board.onPly !== b[1] && b[1] >= 0 && b[1] <= ctrl.game.ply();
       return hl('button.fbt.repeatable', {
         class: { glowing: i === 3 && !ctrl.isOnLastPly() },
-        attrs: { disabled: !enabled, 'data-icon': b[0], 'data-ply': enabled ? b[1] : '-' },
+        attrs: { disabled: !enabled, 'data-icon': licon[b[0]], 'data-ply': enabled ? b[1] : '-' },
         hook: onInsert(el => addPointerListeners(el, { click: e => goThroughMoves(ctrl, e), hold: 'click' })),
       });
     }),
@@ -172,7 +179,7 @@ const viewOpponent = (bot: BotInfo) =>
   hl('div.bot-game__opponent', [
     hl('div.bot-game__opponent__header', [
       hl('span.bot-game__opponent__name', bot.name),
-      hl('span.bot-game__opponent__rating', '' + Bot.rating(bot, 'classical')),
+      hl('span.bot-game__opponent__rating', Bot.rating(bot, 'classical')),
     ]),
     bot.image && hl('img.bot-game__opponent__image', { attrs: { src: botAssetUrl('image', bot.image) } }),
     // hl('div.bot-game__opponent__description', bot.description),
@@ -191,11 +198,13 @@ const boardScroll = (ctrl: PlayCtrl) =>
     ? undefined
     : bind(
         'wheel',
-        stepwiseScroll((e: WheelEvent, scroll: boolean) => {
-          e.preventDefault();
-          if (e.deltaY > 0 && scroll) ctrl.goDiff(1);
-          else if (e.deltaY < 0 && scroll) ctrl.goDiff(-1);
-        }),
+        stepwiseScroll(
+          e => {
+            if (e.deltaY > 0) ctrl.goDiff(1);
+            else if (e.deltaY < 0) ctrl.goDiff(-1);
+          },
+          () => false,
+        ),
         undefined,
         false,
       );

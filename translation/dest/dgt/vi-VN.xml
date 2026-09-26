@@ -5,7 +5,7 @@
   <string name="dgtBoardRequirements">Những yêu cầu về bàn cờ DGT</string>
   <string name="dgtBoardLimitations">Những hạn chế của bàn cờ DGT</string>
   <string name="thisPageAllowsConnectingDgtBoard">Trang này cho phép bạn kết nối bàn cờ DGT của mình với Lichess và sử dụng nó để chơi cờ.</string>
-  <string name="toConnectTheDgtBoard" comment="%s is a piece of software e.g. &quot;LiveChess 2.25+&quot;">Để kết nối với Bảng điện tử bàn cờ DGT, bạn sẽ cần cài đặt %s.</string>
+  <string name="toConnectTheDgtBoard">Để kết nối với Bảng điện tử bàn cờ DGT, bạn sẽ cần cài đặt %s.</string>
   <string name="downloadHere">Bạn có thể tải về phần mềm tại đây: %s.</string>
   <string name="ifLiveChessRunningOnThisComputer">Nếu %1$s đang chạy trên máy tính này, bạn có thể kiểm tra kết nối của mình với nó bằng cách %2$s.</string>
   <string name="openingThisLink">mở liên kết này</string>
@@ -18,9 +18,9 @@
   <string name="whenReadySetupBoard">Khi đã sẵn sàng, hãy thiết lập bàn cờ của bạn rồi nhấp vào %s.</string>
   <string name="ifMoveNotDetected">Nếu không phát hiện được nước cờ</string>
   <string name="checkYouHaveMadeOpponentsMove">Kiểm tra xem bạn đã thực hiện nước đi của đối thủ trên bàn cờ DGT trước chưa. Hoàn nguyên nước đi của bạn. Chơi lại.</string>
-  <string name="asALastResort" comment="%s is 'Reload this page', a separate translatable string.&#10;&#10;Appears on DGT board pages. A DGT board is a digitally connected real life board which requires the player to set up the real life board to match what it is on the screen. Hence needing it to be set up identically to what is visible on Lichess.">Phương án cuối cùng là thiết lập bàn cờ giống hệt như Lichess, sau đó %s</string>
+  <string name="asALastResort">Phương án cuối cùng là thiết lập bàn cờ giống hệt như Lichess, sau đó %s</string>
   <string name="reloadThisPage">Tải lại trang này</string>
-  <string name="dgtConfigure">Bàn cờ công nghệ kỹ thuật số (DGT) - Cấu hình</string>
+  <string name="configureYourDgtBoard">Cấu hình bàn cờ điện tử DGT của bạn</string>
   <string name="lichessConnectivity">Kết nối Lichess</string>
   <string name="validDgtOauthToken">Bạn có một mã thông báo OAuth phù hợp để chơi DGT.</string>
   <string name="dgtPlayMenuEntryAdded">Mục nhập %s đã được thêm vào mục lục PHÁT của bạn ở trên cùng.</string>
@@ -36,7 +36,7 @@
   <string name="announceAllMoves">Thông Báo Tất Cả Nước Đi</string>
   <string name="selectAnnouncePreference">Chọn CÓ để thông báo cả nước đi của bạn và nước đi của đối thủ. Chọn KHÔNG để chỉ thông báo nước đi của đối thủ.</string>
   <string name="announceMoveFormat">Định Dạng Thông Báo Nước Đi</string>
-  <string name="moveFormatDescription">SAN là tiêu chuẩn của Lichess như \"Nf6\". UCI phổ biến trên các động cơ cờ vua như \"g8f6\".</string>
+  <string name="moveFormatDescription">SAN là tiêu chuẩn của Lichess như \"Nf6\". UCI phổ biến trên các công cụ cờ vua như \"g8f6\".</string>
   <string name="keywords">Các từ khóa</string>
   <string name="keywordFormatDescription">Từ khóa có định dạng JSON. Chúng được sử dụng để dịch các nước đi và kết quả sang ngôn ngữ của bạn. Mặc định là tiếng Anh nhưng bạn có thể thoải mái thay đổi nó.</string>
   <string name="debug">Bắt lỗi</string>

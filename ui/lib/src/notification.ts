@@ -16,7 +16,7 @@ function listenToFocus() {
 function notify(msg: string | (() => string)) {
   const store = storage.make('just-notified');
   if (document.hasFocus() || Date.now() - parseInt(store.get()!, 10) < 1000) return;
-  store.set('' + Date.now());
+  store.set(String(Date.now()));
   if ($.isFunction(msg)) msg = msg();
   const notification = new Notification('lichess.org', {
     icon: site.asset.url('logo/lichess-favicon-256.png'),

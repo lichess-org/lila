@@ -1,6 +1,7 @@
 .vertical-resize {
   @extend %flex-column;
   @include transition;
+
   position: relative;
   display: none;
   justify-content: center;
@@ -19,20 +20,22 @@
   }
 
   &:hover {
-    background: $m-primary--fade-70;
+    background: rgb(from $c-primary r g b / calc(alpha * 0.3));
   }
 
   &.is-dragging {
-    background: $m-primary--fade-80;
+    background: rgb(from $c-primary r g b / calc(alpha * 0.2));
   }
 
   hr {
     @include transition;
+
     margin: 0;
     width: 14px;
     height: 1px;
     pointer-events: none;
   }
+
   .chat__members {
     position: absolute;
     top: 0;

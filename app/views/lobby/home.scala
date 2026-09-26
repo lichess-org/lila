@@ -10,6 +10,22 @@ object home:
 
   def apply(homepage: Homepage)(using ctx: Context) =
     import homepage.*
+    val donateLink =
+      a(cls := "lobby__support-link", href := routes.Plan.index())(
+        iconTag(patronIconChar),
+        span(cls := "lobby__support-link__text")(
+          strong(trans.patron.donate()),
+          span(trans.patron.becomePatron())
+        )
+      )
+    val swagLink =
+      a(cls := "lobby__support-link", href := "/swag")(
+        iconTag(Icon.Tshirt),
+        span(cls := "lobby__support-link__text")(
+          strong("Swag Store"),
+          span(trans.site.playChessInStyle())
+        )
+      )
     Page("")
       .copy(fullTitle = s"$siteName • ${trans.site.freeOnlineChess.txt()}".some)
       .i18n(_.variant)
@@ -43,41 +59,9 @@ object home:
             "lobby-nope" -> (playban.isDefined || currentGame.isDefined || homepage.hasUnreadLichessMessage)
           )
         )(
-          div(cls := "lobby__table")(
-            div(cls := "lobby__start")(
-              button(cls := "button button-metal lobby__start__button lobby__start__button--hook")(
-                trans.site.createLobbyGame()
-              ),
-              button(cls := "button button-metal lobby__start__button lobby__start__button--friend")(
-                trans.site.challengeAFriend()
-              ),
-              button(cls := "button button-metal lobby__start__button lobby__start__button--ai")(
-                trans.site.playAgainstComputer()
-              )
-            )
-          ),
-          currentGame
-            .map(bits.currentGameInfo)
-            .orElse:
-              hasUnreadLichessMessage.option(bits.showUnreadLichessMessage)
-            .orElse:
-              playban.map(bits.playbanInfo)
-            .getOrElse:
-              if ctx.blind then blindLobby(blindGames) else bits.lobbyApp
-          ,
           div(cls := "lobby__side")(
             ctx.blind.option(h2(trans.nvui.featuredEvents())),
-            ctx.kid.no.option(
-              st.section(cls := "lobby__streams")(
-                views.streamer.bits.liveStreams(streams),
-                streams.live.streams.nonEmpty.option(
-                  a(href := routes.Streamer.index(), cls := "more")(
-                    trans.site.streamersMenu(),
-                    " »"
-                  )
-                )
-              )
-            ),
+            ctx.kid.no.option(views.streamer.bits.liveStreams(streams)),
             div(cls := "lobby__spotlights"):
               val eventTags = events.map(bits.spotlight)
               val relayTags = views.relay.ui.spotlight(relays)
@@ -107,9 +91,7 @@ object home:
             if ctx.isAuth then
               div(cls := "lobby__timeline")(
                 ctx.blind.option(h2(trans.site.timeline())),
-                views.timeline.entries(userTimeline),
-                userTimeline.nonEmpty.option:
-                  a(cls := "more", href := routes.Timeline.home)(trans.site.more(), " »")
+                views.timeline.entries(userTimeline)
               )
             else
               div(cls := "about-side")(
@@ -122,43 +104,48 @@ object home:
                 a(href := "/about")(trans.site.aboutX("Lichess"), "...")
               )
           ),
-          featured.map: g =>
-            div(cls := "lobby__tv"):
-              views.game.mini(Pov.naturalOrientation(g), tv = true)
+          currentGame
+            .map(bits.currentGameInfo)
+            .orElse:
+              hasUnreadLichessMessage.option(bits.showUnreadLichessMessage)
+            .orElse:
+              playban.map(bits.playbanInfo)
+            .getOrElse:
+              if ctx.blind then blindLobby(blindGames) else bits.lobbyApp
           ,
-          puzzle.map: p =>
-            views.puzzle.bits.dailyLink(p)(cls := "lobby__puzzle"),
-          div(cls := "lobby__blog carousel")(
-            ublogPosts.map:
-              views.ublog.ui
-                .card(_, showAuthor = views.ublog.ui.ShowAt.bottom, showIntro = false, strictDate = false)
-          ),
-          ctx.noBot.option(bits.underboards(tours, simuls)),
-          div(cls := "lobby__feed"):
-            views.feed.lobbyUpdates(lastUpdates)
-          ,
-          div(cls := "lobby__support")(
-            a(href := routes.Plan.index())(
-              iconTag(patronIconChar),
-              span(cls := "lobby__support__text")(
-                strong(trans.patron.donate()),
-                span(trans.patron.becomePatron())
-              )
-            ),
-            a(href := "/swag")(
-              iconTag(Icon.Tshirt),
-              span(cls := "lobby__support__text")(
-                strong("Swag Store"),
-                span(trans.site.playChessInStyle())
+          div(cls := "lobby__table")(
+            div(cls := "lobby__start")(
+              button(cls := "button button-metal lobby__start__button lobby__start__button--hook")(
+                trans.site.createLobbyGame()
+              ),
+              button(cls := "button button-metal lobby__start__button lobby__start__button--friend")(
+                trans.site.challengeAFriend()
+              ),
+              button(cls := "button button-metal lobby__start__button lobby__start__button--ai")(
+                trans.site.playAgainstComputer()
               )
             )
           ),
+          div(cls := "lobby__support")(donateLink, swagLink),
+          div(cls := "lobby__tv")(
+            donateLink,
+            featured.map(g => views.game.mini(Pov.naturalOrientation(g), tv = true))
+          ),
+          div(cls := "lobby__puzzle")(
+            swagLink,
+            puzzle.map(p => views.puzzle.bits.dailyLink(p)())
+          ),
+          views.ublog.ui.homeCarousel(ublogPosts),
+          div(cls := "lobby__feed"):
+            views.feed.lobbyUpdates(lastUpdates)
+          ,
+          ctx.noBot.option(bits.underboards(tours, simuls)),
           div(cls := "lobby__about")(
             ctx.blind.option(h2(trans.site.about())),
             a(href := "/about")(trans.site.aboutX("Lichess")),
             a(href := "/faq")(trans.faq.faqAbbreviation()),
             a(href := "/contact")(trans.contact.contact()),
-            a(href := "/mobile")(trans.site.mobileApp()),
+            a(href := "/app")(trans.site.mobileApp()),
             a(href := routes.Cms.tos)(trans.site.termsOfService()),
             a(href := "/privacy")(trans.site.privacy()),
             a(href := "/source")(trans.site.sourceCode()),

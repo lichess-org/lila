@@ -1,17 +1,18 @@
 package lila.common
 
+import scalalib.actor.{ AsyncActorBounded, AsyncActorSequencer }
+
 // provides values of A one by one
 // but generates them in batches
-final class BatchProvider[A](name: String, timeout: FiniteDuration)(generateBatch: () => Fu[List[A]])(using
-    Executor,
-    Scheduler
-):
+final class BatchProvider[A](name: String, timeout: FiniteDuration, monitor: AsyncActorBounded.Monitor)(
+    generateBatch: () => Fu[List[A]]
+)(using Executor, Scheduler):
 
   private val workQueue = scalalib.actor.AsyncActorSequencer(
     maxSize = Max(4096),
     timeout = timeout,
     name = s"$name.batchProvider.workQueue",
-    lila.log.asyncActorMonitor.full
+    monitor = monitor
   )
 
   private var reserve = List.empty[A]

@@ -21,7 +21,7 @@
   <string name="puzzleRead">Consultar actividad de los ejercicios</string>
   <string name="teamRead">Consultar información privada del equipo</string>
   <string name="teamWrite">Unirse a equipos o salir de ellos</string>
-  <string name="teamLead">Administrar equipos que lideres: envíar mensajes privados, expulsar miembros</string>
+  <string name="manageTeamsYouLead">Administra equipos que lideras: envía mensajes privados, expulsa miembros</string>
   <string name="followRead">Consultar qué jugadores sigues</string>
   <string name="followWrite">Seguir y dejar de seguir a otros jugadores</string>
   <string name="msgWrite">Enviar mensajes privados a otros jugadores</string>
@@ -29,7 +29,6 @@
   <string name="botPlay">Jugar con la API para bots</string>
   <string name="engineRead">Ver y usar tu motor externo</string>
   <string name="engineWrite">Crear y actualizar motores externos</string>
-  <string name="webLogin">Crear sesiones web autenticadas (¡concede acceso completo!)</string>
   <string name="webMod">Usar herramientas de moderador (con las restricciones de tu usuario)</string>
   <string name="personalAccessTokens">Tokens personales de acceso a la API</string>
   <string name="canMakeOauthRequests">Puedes hacer solicitudes de OAuth sin pasar por el %s.</string>

@@ -2,8 +2,7 @@ package lila.api
 package ui
 
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.mod.Modlog
 import lila.appeal.AppealMsg
 import lila.user.Note
@@ -12,12 +11,15 @@ import lila.core.userId.ModId
 import lila.shutup.{ PublicLine, Analyser }
 import lila.core.chat.PublicSource
 import lila.core.i18n.Translate
+import lila.common.ClientName
 
 final class ModTimelineUi(helpers: Helpers)(
-    publicLineSource: PublicSource => Translate ?=> Frag
+    publicLineSource: PublicSource => (Translate, ClientName) ?=> Frag
 )(using NetDomain):
   import helpers.*
   import ModTimeline.*
+
+  private given ClientName = ClientName.browser
 
   def renderGeneral(t: ModTimeline)(using Translate) = render(t)(using Angle.None)
   def renderComm(t: ModTimeline)(using Translate) = render(t)(using Angle.Comm)

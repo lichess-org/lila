@@ -1,2 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+	<string name="hiUser" comment="%s is the title+username e.g. 'GM ABC' or simply ABC if there is no title">Hej %s</string>
+	<string name="awaitQuestion" comment="Displayed while waiting for results">Vad har du gjort under året?</string>
+	<string name="initTitle">Vilket schackår du haft!</string>
+	<string name="noGamesText">Du spelade inte några partier i år.</string>
+	<string name="noGamesCta">Vill du spela nu?</string>
+	<string name="gamesYouWon" comment="%s is the number of games won">Och du vann %s!</string>
+	<string name="timeTooMuch">Det är alldeles för mycket schack.</string>
+	<string name="timeALot">Det är mycket schack.</string>
+	<string name="timeReasonable">Det verkar som en rimlig mängd schack.</string>
+	<plurals name="nbMoves">
+		<item quantity="one">%s drag</item>
+		<item quantity="other">%s drag</item>
+	</plurals>
+	<string name="chessFoes">Dina bästa schackmotståndare</string>
+	<plurals name="nbGrams">
+		<item quantity="one">%s gram</item>
+		<item quantity="other">%s gram</item>
+	</plurals>
+	<plurals name="nbKilograms">
+		<item quantity="one">%s kilogram</item>
+		<item quantity="other">%s kilogram</item>
+	</plurals>
+	<string name="firstMoveStats" comment="Subtitle to your most played move e.g. '1. e4'. %s is the number of games played and its percentage in parentheses. e.g. '50 (67%)'">är hur du startade %s av dina partier som vit</string>
+	<plurals name="openingsMostPlayedAsWhite" comment="%s is the number of games">
+		<item quantity="one">Din mest spelade öppning som vit med %s parti</item>
+		<item quantity="other">Dina mest spelade öppningar som vit med %s partier</item>
+	</plurals>
+	<plurals name="openingsMostPlayedAsBlack" comment="%s is the number of games">
+		<item quantity="one">Din mest spelade öppning som svart med %s parti</item>
+		<item quantity="other">Dina mest spelade öppningar som svart med %s partier</item>
+	</plurals>
+	<string name="puzzlesYouWonOnFirstTry">Du vann %s av dem på första försök!</string>
+	<string name="sourcesTitle">Var fann du partier?</string>
+	<string name="malwareNoneLoaded" comment="%s is 0">%s annonser och spårare laddade</string>
+	<string name="malwareNoSell">Vi säljer inte din personliga data</string>
+	<string name="malwareNoAbuse">Vi använder inte din enhet mot dig</string>
+	<string name="malwareWarningPrefix" comment="%s is 'be careful'">Men andra webbplatser gör det, så snälla %s.</string>
+	<string name="malwareWarningCta" comment="It is a link to https://lichess.org/ads">var försiktig</string>
+	<string name="lichessGamesPlayedIn" comment="%1$s is the number of games, %2$s is the year">%1$s partier spelade på Lichess under %2$s</string>
+	<string name="lichessGamesOfThemYours" comment="%s is the percentage of games that are yours">%s av dem var dina.</string>
+	<string name="thanksTitle">Tack för att du spelar på Lichess!</string>
+	<string name="shareableMostPlayedOpponent">mest spelade motståndare</string>
+</resources>

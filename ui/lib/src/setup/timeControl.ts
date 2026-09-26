@@ -1,6 +1,7 @@
-import { propWithEffect, type Prop } from '@/index';
-import type { ClockConfig, InputValue, RealValue } from './interfaces';
 import { clockToSpeed } from '@/game';
+import { propWithEffect, type Prop } from '@/index';
+
+import type { ClockConfig, InputValue, RealValue } from './interfaces';
 
 export type TimeMode = 'realTime' | 'correspondence' | 'unlimited';
 
@@ -23,11 +24,10 @@ export class TimeControl {
 
   isRealTime = (): boolean => this.mode() === 'realTime';
 
-  realTimeValid = (minimumTime: number = 0): boolean =>
+  realTimeValid = (minimumTime = 0): boolean =>
     this.time() >= minimumTime && (this.time() > 0 || this.increment() > 0);
 
-  valid = (minimumTimeIfReal: number = 0): boolean =>
-    !this.isRealTime() || this.realTimeValid(minimumTimeIfReal);
+  valid = (minimumTimeIfReal = 0): boolean => !this.isRealTime() || this.realTimeValid(minimumTimeIfReal);
 
   initialSeconds = (): Seconds => this.time() * 60;
 
@@ -62,13 +62,7 @@ export const timeControlFromStoredValues = (
     presets,
   );
 
-export const timeModes: { id: number; key: TimeMode; name: string }[] = [
-  { id: 1, key: 'realTime', name: i18n.site.realTime },
-  { id: 2, key: 'correspondence', name: i18n.site.correspondence },
-  { id: 0, key: 'unlimited', name: i18n.site.unlimited },
-];
-
-export const allTimeModeKeys: TimeMode[] = ['realTime', 'correspondence', 'unlimited'];
+export const timeModes: TimeMode[] = ['unlimited', 'realTime', 'correspondence'];
 
 // When we store timeV, incrementV, and daysV in local storage, we save the actual time, increment,
 // and days, and not the value of the input element. We use this function to recompute the value of the

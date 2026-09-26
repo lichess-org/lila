@@ -1,21 +1,20 @@
 .fbt {
-  @extend %button-none;
-
+  color: $c-font;
   text-transform: uppercase;
   line-height: 1.5;
 
   @include transition;
 
   @media (hover: hover) {
-    &:hover:not(.disabled):not([disabled]) {
-      background: $m-secondary_bg--mix-75;
+    &:hover:not(.disabled, [disabled]) {
+      background: color-mix(in oklab, $c-secondary 75%, $c-bg);
       color: #fff;
     }
   }
 
   &.active {
     background: $c-secondary !important;
-    color: #fff;
+    color: $c-over;
   }
 
   &.disabled,

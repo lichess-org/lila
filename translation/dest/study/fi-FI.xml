@@ -42,7 +42,6 @@
   <string name="youAreNowASpectator">Olet nyt katsoja</string>
   <string name="pgnTags">PGN-tunnisteet</string>
   <string name="like">Tykkää</string>
-  <string name="unlike">Poista tykkäys</string>
   <string name="newTag">Uusi tunniste</string>
   <string name="commentThisPosition">Kommentoi asemaa</string>
   <string name="commentThisMove">Kommentoi siirtoa</string>
@@ -66,7 +65,7 @@
   <string name="downloadGame">Lataa peli</string>
   <string name="studyUrl">Tutkielman URL</string>
   <string name="currentChapterUrl">Tämän luvun URL</string>
-  <string name="youCanPasteThisInTheForumToEmbed">Voit upottaa tämän foorumiin liittämällä</string>
+  <string name="pasteToEmbedChapterInForumOrBlog" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.&#10;&#10;Please note this used to say &quot;in the forum to embed&quot;. It was then changed to include &quot;or a Lichess Blog&quot;. A further update was made to say &quot;or your Lichess blog&quot;, since you can only create blog posts as an individual.">Voit upottaa tämän luvun foorumille tai Lichess-blogiisi liittämällä tämän.</string>
   <string name="startAtInitialPosition">Aloita alkuperäisestä asemasta</string>
   <string name="startAtX">Aloita siirrosta %s</string>
   <string name="embedInYourWebsite">Upota sivustoosi tai blogiisi</string>
@@ -188,8 +187,8 @@
   <string name="fromInitialPositionText">Lauta on alkuasemassa valmiina uuteen peliin.&lt;br&gt;Tämä sopii avausten tutkimiseen.</string>
   <string name="customPositionTitle">Itse määritetty asema</string>
   <string name="customPositionText">Aseta nappulat laudalle haluamallasi tavalla.&lt;br&gt;Tämä sopii loppupelien tutkimiseen.</string>
-  <string name="loadExistingLichessGameTitle">Lataa Lichessissä pelattu peli</string>
-  <string name="loadExistingLichessGameText">Kun liität Lichessissä pelatun pelin URL:n&lt;br&gt;(esim. lichess.org/7fHIU0XI)&lt;br&gt;pelin siirrot latautuvat tutkielman lukuun.</string>
+  <string name="loadGameFromTheWebTitle">Lataa peli verkosta</string>
+  <string name="loadGameFromTheWebText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">Kopioi pelin siirrot kappaleeseen liittämällä pelin URL&lt;br&gt;(esim. lichess.org/7fHIU0XI)&lt;br&gt;.</string>
   <string name="fromFenStringTitle">Tuo FEN-asema</string>
   <string name="fromFenStringText">Kun liität aseman FEN-muodossa,&lt;br&gt;&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;&lt;br&gt;tutkielman luku alkaa kyseisestä asemasta.</string>
   <string name="fromPgnGameTitle">Tuo PGN-peli</string>

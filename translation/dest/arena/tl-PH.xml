@@ -23,7 +23,6 @@ Ang Berserk ay hindi available sa mga laro na may zero na initial na oras (0+1, 
 Ang Berserk ay itinutupad ang karagdagang punto kapag nakapaglaro ka ng kahit na 7 na mga hakbang sa laro.</string>
   <string name="howIsTheWinnerDecided">Paano napagdedesisyonan ang mananalo?</string>
   <string name="howIsTheWinnerDecidedAnswer">Ang mga manlalaro na may maraming puntos sa may konklusyon na limitado sa set na oras ng mga paligsahan ay ipinahahayag na mga panalo.</string>
-  <string name="howDoesPairingWork">Paano gumagana ang pagpapares?</string>
   <string name="howDoesPairingWorkAnswer">Sa simula ng laro, ang mga manlalaro ay ipinapares base sa kanilang rating.
 Sa madaling panahon na matatapos ang laro, bumalik sa lobby ng paligsahan: ikaw ay ipapares sa isang manlalaro na malapit sa iyong ranking. Ito ay itinitiyak na maliit lang ang oras ng paghintay, gayunpaman hindi mo mahaharap ang ibang mga manlalaro sa paligsahan.
 Maglaro ng mabilis at bumalik sa lobby para makapaglaro ng maraming mga laro at makapanalo ng maraming puntos.</string>
@@ -53,7 +52,6 @@ Maglaro ng mabilis at bumalik sa lobby para makapaglaro ng maraming mga laro at 
   <string name="myTournaments">Aking mga paligsahan</string>
   <string name="editTournament">I-edit ang paligsahan</string>
   <string name="editTeamBattle">I-edit ang labang koponan</string>
-  <string name="defender">Tagapagtanggol</string>
   <string name="pickYourTeam">Piliin ang iyong koponan</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">Kailangan mong sumali sa isa sa mga koponan upang sumali!</string>
   <string name="bestResults">Mga pinakamagandang resulta</string>

@@ -6,48 +6,62 @@
     width: 40em;
   }
 
-  ul {
-    margin: 25px;
-  }
   li {
     list-style: disc outside;
   }
 
   strong {
     @extend %break-word;
-    color: $c-brag;
+
+    color: $c-font-clear;
   }
+
   code {
-    word-wrap: anywhere;
+    overflow-wrap: anywhere;
   }
 
   &__top {
     text-align: center;
-    margin-bottom: 4em;
+    margin-bottom: 1em;
   }
 
-  &__logo {
-    font-size: 9em;
+  &__logo--font {
+    display: block;
+    font-size: 8em;
     color: $c-brag;
+    line-height: 1;
+    margin-bottom: 1rem;
   }
 
-  h1 {
-    @extend %break-word;
-    margin: 1rem 0 1.5rem 0;
+  &__access-text {
+    text-align: center;
+    color: $c-font-dim;
+  }
+
+  .oauth__client-name {
+    color: $c-font-clear;
   }
 
   &__scopes {
+    font-size: 0.9em;
+    margin-top: 3rem;
+    margin-inline-start: 3rem;
+
     li {
       margin: 0.7em 0;
     }
+
     .danger {
       @extend %box-neat;
+
       font-weight: bold;
       color: $c-over;
       background: $c-bad;
       padding: 0.3em 0.8em;
+
       &::before {
         @extend %data-icon;
+
         font-size: 1.5em;
         margin-inline: 0 0.2em;
         content: $licon-CautionTriangle;
@@ -56,13 +70,32 @@
     }
   }
 
-  .form-actions {
-    margin: 1.5rem 0;
-    padding-bottom: 1.5rem;
-    border-bottom: 1px solid $c-border;
+  &__action {
+    @extend %flex-center-center;
+
+    margin-block: 3em 4em;
+
+    .button {
+      text-transform: initial;
+    }
+
+    .oauth--takex3 & .button {
+      background-color: #5e00ff;
+    }
+  }
+
+  &__success {
+    @extend %box-neat;
+
+    padding: 2em;
+    background: $c-good;
+    color: $c-over;
+    font-weight: bold;
   }
 
   &__footer {
+    @extend %flex-between;
+
     color: $c-font-dim;
     font-size: 0.9em;
     text-align: center;
@@ -78,14 +111,17 @@
   #main-wrap {
     margin-top: 0;
   }
+
   .oauth__top {
     margin-bottom: 3vh;
   }
+
   .oauth {
     padding-block: 3vh;
   }
+
   p {
     overflow-wrap: break-word;
-    word-break: break-word;
+    word-break: normal;
   }
 }

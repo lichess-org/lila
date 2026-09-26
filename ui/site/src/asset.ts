@@ -1,6 +1,7 @@
-import { script as xhrScript } from 'lib/xhr';
-import { memoize } from 'lib';
 import { COLORS } from 'chessops';
+
+import { memoize } from 'lib';
+import { script as xhrScript } from 'lib/xhr';
 
 export const baseUrl = memoize(() => document.body.getAttribute('data-asset-url') || '');
 
@@ -20,7 +21,7 @@ export const url = (path: string, opts: AssetUrlOpts = {}) => {
 function asHashed(path: string, hash: string) {
   const name = path.slice(path.lastIndexOf('/') + 1);
   const extPos = name.lastIndexOf('.');
-  return `hashed/${extPos < 0 ? `${name}.${hash}` : `${name.slice(0, extPos)}.${hash}${name.slice(extPos)}`}`;
+  return `hashed/${extPos === -1 ? `${name}.${hash}` : `${name.slice(0, extPos)}.${hash}${name.slice(extPos)}`}`;
 }
 
 // bump flairs version if a flair is changed only (not added or removed)
@@ -28,7 +29,7 @@ export const flairSrc = (flair: Flair) => url(`flair/img/${flair}.webp`, { pathV
 
 // bump fide fed version if a fide fed is changed only (not added or removed)
 export const fideFedSrc = (fideFed: FideFed) =>
-  url(`fide/fed-webp/${fideFed}.webp`, { pathVersion: '_____2' });
+  url(`fide/fed-webp/${fideFed}.webp`, { pathVersion: '_____3' });
 
 export const loadCss = (href: string, key?: string): Promise<void> => {
   return new Promise(resolve => {
@@ -53,17 +54,13 @@ export const removeCss = (href: string) => $(`head > link[href="${href}"]`).remo
 
 export const removeCssPath = (key: string) => $(`head > link[data-css-key="${key}"]`).remove();
 
-export const jsModule = (name: string, prefix: string = 'compiled/') => {
+export const jsModule = (name: string, prefix = 'compiled/') => {
   if (name.endsWith('.js')) name = name.slice(0, -3);
-  const hash = site.manifest.js[name];
-  return `${prefix}${name}${hash ? `.${hash}` : ''}.js`;
+  return [`${prefix}${name}`, site.manifest.js[name], 'js'].filter(Boolean).join('.');
 };
 
-const scriptCache = new Map<string, Promise<void>>();
-
 export const loadIife = (u: string, opts: AssetUrlOpts = {}): Promise<void> => {
-  if (!scriptCache.has(u)) scriptCache.set(u, xhrScript(url(u, opts)));
-  return scriptCache.get(u)!;
+  return xhrScript(url(u, opts));
 };
 
 export async function loadEsm<T>(name: string, opts: EsmModuleOpts = {}): Promise<T> {
@@ -83,9 +80,7 @@ export const loadEsmPage = async (name: string) => {
 
 export const loadI18n = async (catalog: string) => {
   await import(document.body.dataset.i18nCatalog!);
-  const s = window.site;
-  const path = `compiled/i18n/${catalog}.${document.documentElement.lang}.${s.manifest.i18n![catalog]}.js`;
-  await import(url(path));
+  await import(url(`compiled/i18n/${catalog}.${window.site.manifest.i18n![catalog]}.js`));
 };
 
 export function embedChessground() {
@@ -105,7 +100,7 @@ export const loadPieces = new Promise<void>((resolve, reject) => {
           .slice(4, -1) // strip 'url(' + ... + ')'
           .replace(/\\([:/.])/g, '$1'), // webkit escapes
     )
-    .filter(x => x);
+    .filter(Boolean);
   let assetsToDecode = urls.length;
   if (assetsToDecode === 0) return resolve();
   urls.forEach(url => {

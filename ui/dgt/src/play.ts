@@ -1,9 +1,9 @@
+import { defaultSetup, fen, makeUci, parseUci } from 'chessops';
 import { Chess, normalizeMove, castlingSide } from 'chessops/chess';
+import { board } from 'chessops/debug';
 import { INITIAL_FEN, makeFen, parseFen } from 'chessops/fen';
 import { makeSan, parseSan } from 'chessops/san';
 import type { NormalMove } from 'chessops/types';
-import { board } from 'chessops/debug';
-import { defaultSetup, fen, makeUci, parseUci } from 'chessops';
 
 export default function (token: string): void {
   const root = document.getElementById('dgt-play-zone') as HTMLDivElement;
@@ -132,7 +132,7 @@ export default function (token: string): void {
           let output = '';
           for (let i = 0; i < arguments.length; i++) {
             const arg = arguments[i];
-            if (arg == '*' || arg == ':') {
+            if (arg === '*' || arg === ':') {
               output += arg;
             } else {
               output += '</br><span class="log-' + typeof arg + ' log-' + name + '">';
@@ -199,7 +199,7 @@ export default function (token: string): void {
         if (verbose) console.log('/api/account Response:' + JSON.stringify(data));
         //Display Title + UserName . Title may be undefined
         console.log('┌─────────────────────────────────────────────────────┐');
-        console.log('│ ' + (typeof data.title == 'undefined' ? '' : data.title) + ' ' + data.username);
+        console.log('│ ' + (typeof data.title === 'undefined' ? '' : data.title) + ' ' + data.username);
         //Display performance ratings
         console.table(data.perfs);
       })
@@ -251,7 +251,7 @@ export default function (token: string): void {
           try {
             const data = JSON.parse(jsonArray[i]);
             //JSON data found, let's check if this is a game that started. field type is mandatory except on http 4xx
-            if (data.type == 'gameStart') {
+            if (data.type === 'gameStart') {
               if (verbose)
                 console.log('connectToEventStream - gameStart event arrived. GameId: ' + data.game.id);
               try {
@@ -261,10 +261,10 @@ export default function (token: string): void {
                 //This will trigger if connectToGameStream fails
                 console.error('connectToEventStream - Failed to connect to game stream. ' + error);
               }
-            } else if (data.type == 'challenge') {
+            } else if (data.type === 'challenge') {
               //Challenge received
               //TODO
-            } else if (data.type == 'gameFinish') {
+            } else if (data.type === 'gameFinish') {
               //Game Finished
               //TODO Handle this event
             } else if (response.status >= 400) {
@@ -349,7 +349,7 @@ export default function (token: string): void {
           try {
             const data = JSON.parse(jsonArray[i]);
             //The first line is always of type gameFull.
-            if (data.type == 'gameFull') {
+            if (data.type === 'gameFull') {
               if (!verbose) console.clear();
               //Log game Summary
               //logGameSummary(data);
@@ -363,7 +363,7 @@ export default function (token: string): void {
               logGameState(gameId);
               //Call chooseCurrentGame to determine if this stream will be the new current game
               chooseCurrentGame();
-            } else if (data.type == 'gameState') {
+            } else if (data.type === 'gameState') {
               if (!verbose) console.clear();
               //Update the ChessBoard Map
               updateChessBoard(gameId, gameStateMap.get(gameId), data);
@@ -376,7 +376,7 @@ export default function (token: string): void {
               } else {
                 if (verbose) console.log('connectToGameStream - State received was not for current game.');
               }
-            } else if (data.type == 'chatLine') {
+            } else if (data.type === 'chatLine') {
               //Received chat line
               //TODO
             } else if (response.status >= 400) {
@@ -432,7 +432,7 @@ export default function (token: string): void {
         await sleep(5000);
         //Check if any started games are disconnected
         for (const [gameId, networkState] of gameConnectionMap) {
-          if (!networkState.connected && gameStateMap.get(gameId).status == 'started') {
+          if (!networkState.connected && gameStateMap.get(gameId).status === 'started') {
             //Game is not connected and has not finished, reconnect
             if (verbose)
               console.log(`Started game is disconnected. Attempting reconnection for gameId: ${gameId}`);
@@ -457,15 +457,6 @@ export default function (token: string): void {
     //Determine new value for currentGameId. First create an array with only the started games
     //So then there is none or more than one started game
     const playableGames = playableGamesArray();
-    //If there is only one started game, then it's easy
-    /*
-    if (playableGames.length === 1) {
-      currentGameId = playableGames[0].gameId;
-      attachCurrentGameIdToDGTBoard(); //Let the board know which color the player is actually playing and setup the position
-      console.log('Active game updated. currentGameId: ' + currentGameId);
-    }
-    else
-    */
     if (playableGames.length === 0) {
       console.log(
         'No started playable games, challenges or games are disconnected. Please start a new game or fix connection.',
@@ -500,7 +491,7 @@ export default function (token: string): void {
         if (
           gameStateMap.has(currentGameId) &&
           gameConnectionMap.get(currentGameId)!.connected &&
-          gameStateMap.get(currentGameId).status == 'started'
+          gameStateMap.get(currentGameId).status === 'started'
         ) {
           //No match found but there is a valid currentGameId , so keep it
           if (verbose)
@@ -516,13 +507,11 @@ export default function (token: string): void {
         }
       } else {
         //Position match found
-        if (currentGameId !== playableGames[Number(index)].gameId) {
+        if (currentGameId !== playableGames[index].gameId) {
           //This is the happy path, board matches and game needs to be updated
           if (verbose)
-            console.log(
-              'chooseCurrentGame - Position matched to gameId: ' + playableGames[Number(index)].gameId,
-            );
-          currentGameId = playableGames[Number(index)].gameId;
+            console.log('chooseCurrentGame - Position matched to gameId: ' + playableGames[index].gameId);
+          currentGameId = playableGames[index].gameId;
           attachCurrentGameIdToDGTBoard(); //Let the board know which color the player is actually playing and setup the position
           console.log('Active game updated. currentGameId: ' + currentGameId);
         } else {
@@ -553,7 +542,7 @@ export default function (token: string): void {
       for (let i = 0; i < moves.length; i++) {
         if (moves[i] !== '') {
           //Make any move that may have been already played on the ChessBoard. Useful when reconnecting
-          const uciMove = <NormalMove>parseUci(moves[i]);
+          const uciMove = parseUci(moves[i]) as NormalMove;
           const normalizedMove = normalizeMove(chess, uciMove); //This is because chessops uses UCI_960
           if (normalizedMove && chess.isLegal(normalizedMove)) chess.play(normalizedMove);
         }
@@ -591,7 +580,7 @@ export default function (token: string): void {
         for (let i = 0; i < moves.length; i++) {
           if (moves[i] !== '') {
             //Make the new move
-            const uciMove = <NormalMove>parseUci(moves[i]);
+            const uciMove = parseUci(moves[i]) as NormalMove;
             const normalizedMove = normalizeMove(chess, uciMove); //This is because chessops uses UCI_960
             if (normalizedMove && chess.isLegal(normalizedMove)) {
               //This is a good chance to get the move in SAN format
@@ -628,7 +617,7 @@ export default function (token: string): void {
     //Every times a new game is connected clear the console except on verbose
     if (!verbose) consoleOutput.innerHTML = '';
     //
-    if (me.id == gameInfoMap.get(currentGameId).white.id) currentGameColor = 'white';
+    if (me.id === gameInfoMap.get(currentGameId).white.id) currentGameColor = 'white';
     else currentGameColor = 'black';
     //Send the position to LiveChess for synchronization
     sendBoardToLiveChess(gameChessBoardMap.get(currentGameId)!);
@@ -655,23 +644,19 @@ export default function (token: string): void {
       'Last Move': string;
     }> = [];
     const keys = Array.from(gameConnectionMap.keys());
-    //The for each iterator is not used since we don't want to continue execution. We want a synchronous result
-    //for (let [gameId, networkState] of gameConnectionMap) {
-    //    if (gameConnectionMap.get(gameId).connected && gameStateMap.get(gameId).status == "started") {
     for (let i = 0; i < keys.length; i++) {
-      if (gameConnectionMap.get(keys[i])?.connected && gameStateMap.get(keys[i])?.status == 'started') {
+      if (gameConnectionMap.get(keys[i])?.connected && gameStateMap.get(keys[i])?.status === 'started') {
         //Game is good for commands
         const gameInfo = gameInfoMap.get(keys[i]);
-        //var gameState = gameStateMap.get(keys[i]);
         const lastMove = getLastUCIMove(keys[i]);
         const versus =
-          gameInfo.black.id == me.id
+          gameInfo.black.id === me.id
             ? (gameInfo.white.title ? gameInfo.white.title : '@') + ' ' + gameInfo.white.name
             : (gameInfo.black.title ? gameInfo.black.title : '@') + ' ' + gameInfo.black.name;
         playableGames.push({
           gameId: gameInfo.id,
-          versus: versus,
-          'vs rating': gameInfo.black.id == me.id ? gameInfo.white.rating : gameInfo.black.rating,
+          versus,
+          'vs rating': gameInfo.black.id === me.id ? gameInfo.white.rating : gameInfo.black.rating,
           'game rating': gameInfo.variant.short + ' ' + (gameInfo.rated ? 'rated' : 'unrated'),
           Timer:
             gameInfo.speed +
@@ -696,16 +681,7 @@ export default function (token: string): void {
       const gameInfo = gameInfoMap.get(gameId);
       const gameState = gameStateMap.get(gameId);
       const lastMove = getLastUCIMove(gameId);
-      console.log(''); //process.stdout.write("\n"); Changed to support browser
-      /* Log before migrating to browser
-      if (verbose) console.table({
-        'Title': { white: ((gameInfo.white.title) ? gameInfo.white.title : '@'), black: ((gameInfo.black.title) ? gameInfo.black.title : '@'), game: 'Id: ' + gameInfo.id },
-        'Username': { white: gameInfo.white.name, black: gameInfo.black.name, game: 'Status: ' + gameState.status },
-        'Rating': { white: gameInfo.white.rating, black: gameInfo.black.rating, game: gameInfo.variant.short + ' ' + (gameInfo.rated ? 'rated' : 'unrated') },
-        'Timer': { white: formattedTimer(gameState.wtime), black: formattedTimer(gameState.btime), game: gameInfo.speed + ' ' + ((gameInfo.clock) ? (String(gameInfo.clock.initial / 60000) + "'+" + String(gameInfo.clock.increment / 1000) + "''") : '∞') },
-        'Last Move': { white: (lastMove.player == 'white' ? lastMove.move : '?'), black: (lastMove.player == 'black' ? lastMove.move : '?'), game: lastMove.player },
-      });
-      */
+      console.log('');
       const innerTable =
         `<table class="dgt-table"><tr><th> - </th><th>Title</th><th>Username</th><th>Rating</th><th>Timer</th><th>Last Move</th><th>gameId: ${gameInfo.id}</th></tr>` +
         `<tr><td>White</td><td>${gameInfo.white.title ? gameInfo.white.title : '@'}</td><td>${
@@ -734,27 +710,21 @@ export default function (token: string): void {
           break;
         case 'outoftime':
           announceWinner(
-            keywords[gameState.winner],
             'flag',
             keywords[gameState.winner] + ' ' + keywords['wins by'] + ' ' + keywords['timeout'],
           );
           break;
         case 'resign':
           announceWinner(
-            keywords[gameState.winner],
             'resign',
             keywords[gameState.winner] + ' ' + keywords['wins by'] + ' ' + keywords['resignation'],
           );
           break;
         case 'mate':
-          announceWinner(
-            keywords[lastMove.player],
-            'mate',
-            keywords[lastMove.player] + ' ' + keywords['wins by'] + ' ' + keywords['#'],
-          );
+          announceWinner('mate', keywords[lastMove.player] + ' ' + keywords['wins by'] + ' ' + keywords['#']);
           break;
         case 'draw':
-          announceWinner('draw', 'draw', keywords['(=)']);
+          announceWinner('draw', keywords['(=)']);
           break;
         default:
           console.log(`Unknown status received: ${gameState.status}`);
@@ -780,7 +750,7 @@ export default function (token: string): void {
           console.log(
             `getLastUCIMove - ${moves.length} moves detected. Last one: ${moves[moves.length - 1]}`,
           );
-        if (moves.length % 2 == 0)
+        if (moves.length % 2 === 0)
           return { player: 'black', move: moves[moves.length - 1], by: gameInfo.black.id };
         else return { player: 'white', move: moves[moves.length - 1], by: gameInfo.white.id };
       }
@@ -793,14 +763,12 @@ export default function (token: string): void {
    * Feedback the user about the detected move
    *
    * @param lastMove JSON object with the move information
-   * @param wtime Remaining time for white
-   * @param btime Remaining time for black
    */
   function announcePlay(lastMove: { player: string; move: string; by: string }) {
     //ttsSay(lastMove.player);
     //Now play it using text to speech library
     let moveText: string;
-    if (announceMoveFormat && announceMoveFormat.toLowerCase() === 'san' && lastSanMove) {
+    if (announceMoveFormat?.toLowerCase() === 'san' && lastSanMove) {
       moveText = lastSanMove.move;
       ttsSay(replaceKeywords(padBeforeNumbers(lastSanMove.move)));
     } else {
@@ -808,20 +776,16 @@ export default function (token: string): void {
       ttsSay(padBeforeNumbers(lastMove.move));
     }
     if (lastMove.player === 'white') {
-      console.log('<span class="dgt-white-move">' + moveText + ' by White' + '</span>');
+      console.log(`<span class="dgt-white-move">${moveText} by White</span>`);
     } else {
-      console.log('<span class="dgt-black-move">' + moveText + ' by Black' + '</span>');
+      console.log(`<span class="dgt-black-move">${moveText} by Black</span>`);
     }
     //TODO
     //Give feedback on running out of time
   }
 
-  function announceWinner(winner: string, status: string, message: string) {
-    if (winner === 'white') {
-      console.log('  ' + status + '  -  ' + message);
-    } else {
-      console.log('  ' + status + '  -  ' + message);
-    }
+  function announceWinner(status: string, message: string) {
+    console.log('  ' + status + '  -  ' + message);
     //Now play message using text to speech library
     ttsSay(replaceKeywords(message.toLowerCase()));
   }
@@ -865,10 +829,10 @@ export default function (token: string): void {
       if (verbose) console.info('Websocket onmessage with data:' + e.data);
       const message = JSON.parse(e.data);
       //Store last board if received
-      if (message.response == 'feed' && !!message.param.board) {
+      if (message.response === 'feed' && !!message.param.board) {
         lastLiveChessBoard = message.param.board;
       }
-      if (message.response == 'call' && message.id == '1') {
+      if (message.response === 'call' && message.id === 1) {
         //Get the list of available boards on LiveChess
         boards = message.param;
         console.table(boards);
@@ -893,7 +857,7 @@ export default function (token: string): void {
         if (
           gameStateMap.has(currentGameId) &&
           gameConnectionMap.get(currentGameId)!.connected &&
-          gameStateMap.get(currentGameId).status == 'started'
+          gameStateMap.get(currentGameId).status === 'started'
         ) {
           //There is a game in progress, setup the board as per lichess board
           if (currentGameId !== DGTgameId) {
@@ -902,12 +866,12 @@ export default function (token: string): void {
             sendBoardToLiveChess(gameChessBoardMap.get(currentGameId)!);
           }
         }
-      } else if (message.response == 'feed' && !!message.param.san) {
+      } else if (message.response === 'feed' && !!message.param.san) {
         //Received move from board
         if (verbose) console.info('onmessage - san: ' + message.param.san);
         //get last move known to lichess and avoid calling multiple times this function
         const lastMove = getLastUCIMove(currentGameId);
-        if (message.param.san.length == 0) {
+        if (message.param.san.length === 0) {
           if (verbose) console.info('onmessage - san is empty');
         } else if (
           lastLegalParam !== undefined &&
@@ -963,7 +927,7 @@ export default function (token: string): void {
             //Get first move to process, usually the last since movesToProcess is usually 1
             SANMove = String(message.param.san[message.param.san.length - i]).trim();
             if (verbose) console.info('onmessage - SANMove = ' + SANMove);
-            const moveObject = <NormalMove | undefined>parseSan(localBoard, SANMove); //get move from DGT LiveChess
+            const moveObject = parseSan(localBoard, SANMove) as NormalMove | undefined; //get move from DGT LiveChess
             //if valid move on local chessops
             if (moveObject && localBoard.isLegal(moveObject)) {
               if (verbose) console.info('onmessage - Move is legal');
@@ -1021,7 +985,7 @@ export default function (token: string): void {
             }
           } //end for
         } //end else - move was received
-      } else if (message.response == 'feed') {
+      } else if (message.response === 'feed') {
         //feed received but not san
         //No moves received, this may be an out of snc problem or just the starting position
         if (verbose) console.info('onmessage - No move received on feed event.');
@@ -1071,7 +1035,7 @@ export default function (token: string): void {
         id: 1,
         method: 'setup',
         param: {
-          fen: fen,
+          fen,
         },
       },
     };
@@ -1106,7 +1070,7 @@ export default function (token: string): void {
       !(
         gameStateMap.has(currentGameId) &&
         gameConnectionMap.get(currentGameId)!.connected &&
-        gameStateMap.get(currentGameId).status == 'started'
+        gameStateMap.get(currentGameId).status === 'started'
       )
     ) {
       //Wait a few seconds to see if the games reconnects or starts and give some space to other code to run
@@ -1194,7 +1158,11 @@ export default function (token: string): void {
   function padBeforeNumbers(moveString: string) {
     let paddedMoveString = '';
     for (const c of moveString) {
-      Number.isInteger(+c) ? (paddedMoveString += ` ${c} `) : (paddedMoveString += c);
+      if (Number.isInteger(Number(c))) {
+        paddedMoveString += ` ${c} `;
+      } else {
+        paddedMoveString += c;
+      }
     }
     return paddedMoveString;
   }
@@ -1261,35 +1229,8 @@ export default function (token: string): void {
     return false;
   }
 
-  /*
-  function opponent(): { color: string, id: string, name: string } {
-    //"white":{"id":"godking666","name":"Godking666","title":null,"rating":1761},"black":{"id":"andrescavallin","name":"andrescavallin","title":null
-    if (gameInfoMap.get(currentGameId).white.id == me.id)
-      return { color: 'black', id: gameInfoMap.get(currentGameId).black.id, name: gameInfoMap.get(currentGameId).black.name };
-    else
-      return { color: 'white', id: gameInfoMap.get(currentGameId).white.id, name: gameInfoMap.get(currentGameId).white.name };
-  }
-  */
-
   function start() {
-    console.log('');
-    console.log('      ,....,                      ▄████▄   ██░ ██ ▓█████   ██████   ██████     ');
-    console.log('     ,::::::<                    ▒██▀ ▀█  ▓██░ ██▒▓█   ▀ ▒██    ▒ ▒██    ▒     ');
-    console.log('    ,::/^\\"``.                   ▒▓█    ▄ ▒██▀▀██░▒███   ░ ▓██▄   ░ ▓██▄       ');
-    console.log('   ,::/, `   e`.                 ▒▓▓▄ ▄██▒░▓█ ░██ ▒▓█  ▄   ▒   ██▒  ▒   ██▒    ');
-    console.log("  ,::; |        '.               ▒ ▓███▀ ░░▓█▒░██▓░▒████▒▒██████▒▒▒██████▒▒    ");
-    console.log('  ,::|  ___,-.  c)               ░ ░▒ ▒  ░ ▒ ░░▒░▒░░ ▒░ ░▒ ▒▓▒ ▒ ░▒ ▒▓▒ ▒ ░    ');
-    console.log("  ;::|     \\   '-'               ░  ▒    ▒ ░▒░ ░ ░ ░  ░░ ░▒  ░ ░░ ░▒  ░ ░      ");
-    console.log('  ;::|      \\                    ░         ░  ░░ ░   ░   ░  ░  ░  ░  ░  ░      ');
-    console.log('  ;::|   _.=`\\                   ░ ░       ░  ░  ░   ░  ░      ░        ░      ');
-    console.log('  `;:|.=` _.=`\\                  ░                                             ');
-    console.log("    '|_.=`   __\\                                                               ");
-    console.log('    `\\_..==`` /                 Lichess.org - DGT Electronic Board Connector   ');
-    console.log("     .'.___.-'.                Developed by Andres Cavallin and Juan Cavallin  ");
-    console.log('    /          \\                                  v1.0.7                       ');
-    console.log("jgs('--......--')                                                             ");
-    console.log("   /'--......--'\\                                                              ");
-    console.log('   `"--......--"`                                                             ');
+    console.log('Lichess.org - DGT Electronic Board Connector');
   }
 
   /**

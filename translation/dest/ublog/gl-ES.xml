@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="community">Comunidade</string>
+  <string name="communityBlogs">Blogs da comunidade</string>
   <string name="byMonth">Por mes</string>
   <string name="byTopic">Por tema</string>
   <string name="byLichess">De Lichess</string>
   <string name="myFriends">As miñas amizades</string>
-  <string name="myLikes" comment="A page which lists blog posts that you have pressed ❤️ Like on: https://lichess.org/blog/liked">Os meus preferidos</string>
+  <string name="myLikes">Os meus preferidos</string>
   <string name="myBlog">O meu blog</string>
   <string name="likedBlogs">Artigos que me gustan</string>
+  <string name="blogPostsByFriends">Entradas de blog das amizades</string>
   <plurals name="blogPosts">
     <item quantity="one">%s artigo no blog</item>
     <item quantity="other">%s artigos no blog</item>
@@ -27,9 +29,11 @@
   <string name="createBlogDiscussion">Activar comentarios</string>
   <string name="createBlogDiscussionHelp">Crearase un tema do foro para que a xente comente na túa publicación</string>
   <string name="publishOnYourBlog">Publica no teu blog</string>
-  <string name="publishHelp">Se está marcado, o artigo publicarase no teu blog. Se non, será privado, e estará xunto ós teus borradores</string>
+  <string name="publishHelp">Se está marcada, a túa publicación será listada no teu blog. Se non, será privada e ficará xunto ós teus borradores</string>
+  <string name="includesPromotedContent">Inclúe contido patrocinado ou ligazóns de referencia</string>
+  <string name="mandatoryForSponsoredContent">Obrigatorio para o contido patrocinado, as ligazóns afiliadas ou a publicidade comercial</string>
   <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">Fixar a publicación</string>
-  <string name="stickyPostHelp">Ó activares esta opción, esta entrada será a primeira das túas publicacións recentes no teu perfil e no teu blog.</string>
+  <string name="stickyPostHelp">Se se selecciona, este artigo será o primeiro no teu blog e no teu perfil.</string>
   <plurals name="publishedNbBlogPosts">
     <item quantity="one">Publicou un artigo no blog</item>
     <item quantity="other">Publicou %s artigos no blog</item>
@@ -44,18 +48,20 @@
   <string name="noPostsInThisBlogYet">Aínda non hai publicacións neste blog.</string>
   <string name="noDrafts">Non hai borradores que amosar.</string>
   <string name="latestBlogPosts">Últimas publicacións</string>
+  <string name="recentPosts">Publicacións recentes</string>
   <plurals name="viewAllNbPosts">
     <item quantity="one">Ver unha publicación</item>
     <item quantity="other">Ver todas as %s publicacións</item>
   </plurals>
-  <string name="uploadAnImageForYourPost">Sube unha imaxe para o teu artigo</string>
   <string name="imageAlt">Texto alternativo da imaxe</string>
   <string name="imageCredit">Créditos da imaxe</string>
-  <string name="deleteBlog">Borra para sempre esta publicación do blog</string>
-  <string name="safeToUseImages">É seguro usar imaxes das seguintes webs: </string>
+  <string name="coverImage">Imaxe de portada</string>
+  <string name="deleteBlog">Borra para sempre esta publicación</string>
+  <string name="freeImagesComplyWithLicensing" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">As seguintes páxinas web proporcionan imaxes de balde. Por favor, asegúrate de cumprir as condicións da licenza da imaxe que vas usar.</string>
   <string name="selectPostTopics">Selecciona os temas dos que trata este artigo</string>
-  <string name="useImagesYouMadeYourself">Tamén podes usar imaxes deseñadas por ti, as túas fotos, capturas de pantalla de Lichess... calquera cousa que non teña dereitos de autor doutra persoa.</string>
+  <string name="etiquette">Etiqueta</string>
   <string name="safeAndRespectfulContent">Por favor, publica só contido seguro e respectuoso. Non copies o contido doutra persoa.</string>
+  <string name="noCopyrightedImages">Emprega soamente imaxes que non teñan dereitos de autor doutra persoa.</string>
   <string name="inappropriateContentAccountClosed">Calquera cousa inadecuada pode facer que pechemos a túa conta.</string>
   <string name="blogTips">Os nosos sinxelos consellos para escribir boas publicacións</string>
   <string name="discussThisBlogPostInTheForum">Falar desta publicación no foro</string>

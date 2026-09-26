@@ -1,11 +1,13 @@
 import Lpv from '@lichess-org/pgn-viewer';
 import type { Opts } from '@lichess-org/pgn-viewer/interfaces';
+
+import { requestIdleCallbackSafe } from 'lib';
 import { initMiniBoards } from 'lib/view';
-import { requestIdleCallback } from 'lib';
-import type { OpeningPage } from './interfaces';
+
 import { renderHistoryChart } from './chart';
-import { init as searchEngine } from './search';
+import type { OpeningPage } from './interfaces';
 import panels from './panels';
+import { init as searchEngine } from './search';
 import renderPlaceholderWiki from './wiki';
 
 export function initModule(data?: OpeningPage): void {
@@ -35,7 +37,7 @@ function page(data: OpeningPage) {
     if (id === 'opening-panel-games') loadExampleGames();
   });
   searchEngine();
-  requestIdleCallback(() => {
+  requestIdleCallbackSafe(() => {
     renderHistoryChart(data);
     renderPlaceholderWiki(data);
   });

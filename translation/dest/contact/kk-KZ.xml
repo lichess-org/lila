@@ -25,7 +25,6 @@
   <string name="cantChangeMore">Біз әріп үлкендігінен басқа ешбір өзгерту жасай алмаймыз. Техникалық себеппен бұл мүмкін емес.</string>
   <string name="orCloseAccount">Дегенмен, сіз бұл тіркелгіні жауып, жаңадан жасай аласыз.</string>
   <string name="wantClearHistory">Мен өзімнің ойын тарихымды не рейтингімді өшіргім келеді</string>
-  <string name="cantClearHistory">Ойын тарихын, жұмбақ шешу тарихын немесе рейтингті өшіру мүмкін емес.</string>
   <string name="wantReport">Мен бір ойыншыға шағым білдіргім келеді</string>
   <string name="toReportAPlayerUseForm">Ойыншы үстіне шағымдану үшін шағым үлгісін ашыңыз</string>
   <string name="youCanAlsoReachReportPage">Бұл парақшаға жетудің тағы бір жолы: төлқұжаттағы %s шағым батырмасы.</string>
@@ -39,7 +38,7 @@
   <string name="reportMobileIssue">GitHub-та Личес мобилді қолданбасының ақаулығы туралы</string>
   <string name="reportBugInDiscord">Личестің Discord серверінде</string>
   <string name="howToReportBug">Ақауды сипаттап беріңізші, ақаудың орнына не күткен едіңіз, осы ақауды қайталау үшін қандай қадамдар жасау керек.</string>
-  <string name="illegalPawnCapture" comment="Appears as an option for reasons to contact Lichess on the 'contact' page: https://lichess.org/contact#help-enpassant&#10;&#10;Players used to routinely write to Lichess stating that there was a bug, or that the other player had hacked their game in some way. In actuality, the player was using the legal move of en passant.&#10;&#10;Please translate this string from the perspective of the player who would be selecting this contact option, and call it 'Illegal', even though we know this is a legal move.">Сарбазды қате жолмен басу</string>
+  <string name="illegalPawnCapture">Сарбазды қате жолмен басу</string>
   <string name="calledEnPassant">Бұл \"en passant\" деп аталады, шахматтағы ереженің бірі.</string>
   <string name="tryEnPassant">\"en passant\" туралы көбірек білу үшін осы шағын интерактивті ойынды ойнап көріңіз.</string>
   <string name="illegalCastling">Қате жасылынған не мүмкін емес бекіну</string>
@@ -59,7 +58,7 @@
   <string name="banAppeal">Бұғауға не IP шектеуге қарсылық шағым</string>
   <string name="engineAppeal">Есептеуіш не чит қолданды</string>
   <string name="sendAppealTo">Сіз өтінішті %s жібере аласыз.</string>
-  <string name="falsePositives">Жалған әрекеттер кейде болып тұрады, ол үшін кешірім сұраймыз.</string>
+  <string name="falsePositives">Кейбір шешімдеріміз қате болуы мүмкін, ол үшін кешірім сұраймыз.</string>
   <string name="ifLegit">Егер сіздің қарсылық шағымыңыз әділ болса, бұғаудан тез арада шығарамыз.</string>
   <string name="accountLost">Бірақ, егер де сіз, шынымен, есептеуіш көмегіне жүгінген болсаңыз (бір рет болса да), тіркелгіңізбен қоштассаңыз болады.</string>
   <string name="doNotDeny">Алдап ойнағаныңызды жасырмаңыз. Егер сіз жаңа тіркелгіге рұқсат аламын десеңіз, жасаған істі мойындап, оны қателік деп қабылдайтыныңызды көрсетіңіз.</string>

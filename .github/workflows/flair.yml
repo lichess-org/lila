@@ -2,18 +2,16 @@ name: Validate Flair
 
 on:
   push:
-    paths:
+    paths: &flair_paths
       - '.github/workflows/flair.yml'
       - 'public/flair/**'
   pull_request:
-    paths:
-      - '.github/workflows/flair.yml'
-      - 'public/flair/**'
+    paths: *flair_paths
 
 jobs:
   validate-flair:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - run: sudo apt-get update && sudo apt-get install -y imagemagick
       - run: ./bin/validate-flair public/flair/img/

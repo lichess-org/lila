@@ -7,6 +7,7 @@ import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
 import lila.puzzle.PuzzleColls
 import lila.common.BatchProvider
+import lila.mon.extensions.*
 
 /* The difficulty of storm should remain constant!
  * Be very careful when adjusting the selector.
@@ -46,11 +47,11 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(using Executor
   private val setSize = ratingBuckets._2F.sum // 137
 
   private val batchProvider =
-    BatchProvider[PuzzleSet]("stormSelector", timeout = 15.seconds): () =>
+    BatchProvider[PuzzleSet]("stormSelector", timeout = 15.seconds, lila.mon.asyncActorMonitor.full): () =>
       aggregateMultipleSets:
         if lila.common.Uptime.startedSinceMinutes(2) then setsPerAggregation else 1
 
-  private val current = cacheApi.unit[PuzzleSet]:
+  private val current = cacheApi.unit[PuzzleSet]("stormSelector.current"):
     _.refreshAfterWrite(7.seconds).buildAsyncFuture(_ => batchProvider.one)
 
   private var aggregationColor = chess.Color.White
@@ -59,25 +60,25 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(using Executor
     aggregationColor = !aggregationColor
     colls
       .path:
-        _.aggregateList(setSize * nbSets, _.sec): framework =>
+        _.aggregateList(setSize * nbSets): framework =>
           import framework.*
           Facet(
             ratingBuckets.map: (rating, nbPuzzles) =>
               val target = f"${theme}${sep}${tier}${sep}${rating}%04d"
               rating.toString -> List(
-                Match($doc("min".$lte(target), "max".$gte(target))),
+                Match(bdoc("min".lte(target), "max".gte(target))),
                 Sample(nbSets),
-                Project($doc("_id" -> false, "ids" -> true)),
+                Project(bdoc("_id" -> false, "ids" -> true)),
                 UnwindField("ids"),
                 // ensure we have enough after filtering deviation & color
-                Sample(nbPuzzles * nbSets * 7),
+                Sample(nbPuzzles * nbSets * 8),
                 PipelineOperator(withPuzzlePipeline(aggregationColor)),
                 UnwindField("puzzle"),
                 Sample(nbPuzzles * nbSets),
                 ReplaceRootField("puzzle")
               )
           ) -> List(
-            Project($doc("all" -> $doc("$setUnion" -> ratingBuckets.map(r => s"$$${r._1}")))),
+            Project(bdoc("all" -> bdoc("$setUnion" -> ratingBuckets.map(r => s"$$${r._1}")))),
             UnwindField("all"),
             ReplaceRootField("all"),
             Sort(Ascending("rating")),
@@ -92,7 +93,7 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(using Executor
             logger.warn:
               s"selector: $setSize x $nbSets. ${docs.size} docs, ${puzzles.size} puzzles, ${setsToMake} sets, ${groups.size} groups: $showGroups"
       .logTimeIfGt(s"storm selector x$nbSets", 8.seconds)
-      .monSuccess(_.storm.selector.time)
+      .monSuccess(lila.mon.storm.selector.time)
       .recoverWith:
         case e: IllegalArgumentException if nbSets > 1 =>
           val retryNbSets = nbSets / 2
@@ -101,29 +102,29 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(using Executor
       .addEffect(monitor)
 
   private def withPuzzlePipeline(color: chess.Color) =
-    $lookup.pipelineFull(
+    lookup.pipelineFull(
       from = colls.puzzle.name.value,
       as = "puzzle",
-      let = $doc("id" -> "$ids"),
+      let = bdoc("id" -> "$ids"),
       pipe = List(
-        $doc:
-          "$match" -> $expr:
-            $and(
-              $doc("$eq" -> $arr("$_id", "$$id")),
-              $doc("$lte" -> $arr("$glicko.d", maxDeviation)),
-              $doc(
-                "$regexMatch" -> $doc(
+        bdoc:
+          "$match" -> expr:
+            and(
+              bdoc("$eq" -> barr("$_id", "$$id")),
+              bdoc("$lte" -> barr("$glicko.d", maxDeviation)),
+              bdoc(
+                "$regexMatch" -> bdoc(
                   "input" -> "$fen",
                   "regex" -> { if color.white then " w " else " b " }
                 )
               )
             )
         ,
-        $doc:
-          "$project" -> $doc(
+        bdoc:
+          "$project" -> bdoc(
             "fen" -> true,
             "line" -> true,
-            "rating" -> $doc("$toInt" -> "$glicko.r")
+            "rating" -> bdoc("$toInt" -> "$glicko.r")
           )
       )
     )

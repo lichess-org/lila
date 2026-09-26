@@ -2,8 +2,15 @@ package lila.event
 import scalalib.model.Language
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
+import scalalib.paginator.Paginator
+import lila.db.paginator.Adapter
 
-final class EventApi(coll: Coll, cacheApi: lila.memo.CacheApi, eventForm: EventForm)(using
+final class EventApi(
+    coll: Coll,
+    cacheApi: lila.memo.CacheApi,
+    eventForm: EventForm,
+    ircApi: lila.core.irc.IrcApi
+)(using
     Executor,
     Scheduler
 ):
@@ -16,23 +23,48 @@ final class EventApi(coll: Coll, cacheApi: lila.memo.CacheApi, eventForm: EventF
         accepts(event.lang)
       .take(3)
 
-  private val promotable = cacheApi.unit[List[Event]]:
+  private val promotable = cacheApi.unit[List[Event]]("event.promotable"):
     _.refreshAfterWrite(5.minutes).buildAsyncTimeout()(_ => fetchPromotable)
 
   def fetchPromotable: Fu[List[Event]] =
     coll
       .find:
-        $doc(
+        bdoc(
           "enabled" -> true,
-          "startsAt".$gt(nowInstant.minusDays(1)).$lt(nowInstant.plusDays(1))
+          "startsAt".gt(nowInstant.minusDays(1)).lt(nowInstant.plusDays(1))
         )
-      .sort($sort.asc("startsAt"))
+      .sort(sort.asc("startsAt"))
       .cursor[Event]()
       .list(50)
       .dmap:
         _.filter(_.featureNow).take(10)
 
-  def list = coll.find($empty).sort($doc("startsAt" -> -1)).cursor[Event]().list(50)
+  def between(from: Instant, to: Instant, page: Int): Fu[Paginator[Event]] =
+    Paginator(
+      adapter = Adapter[Event](
+        collection = coll,
+        selector = bdoc(
+          "startsAt".lt(to),
+          "finishesAt".gt(from)
+        ),
+        projection = none,
+        sort = sort.asc("startsAt")
+      ),
+      currentPage = page,
+      maxPerPage = MaxPerPage(50)
+    )
+
+  def pager(page: Int) = Paginator(
+    adapter = Adapter[Event](
+      collection = coll,
+      selector = emptyBdoc,
+      projection = none,
+      sort = sort.desc("startsAt"),
+      _.sec
+    ),
+    currentPage = page,
+    maxPerPage = MaxPerPage(40)
+  )
 
   def oneEnabled(id: String) = coll.byId[Event](id).dmap(_.filter(_.enabled))
 
@@ -42,10 +74,13 @@ final class EventApi(coll: Coll, cacheApi: lila.memo.CacheApi, eventForm: EventF
     eventForm.form.fill:
       EventForm.Data.make(event)
 
-  def update(old: Event, data: EventForm.Data)(using MyId): Fu[Int] = for
-    res <- coll.update.one($id(old.id), data.update(old))
-    _ = promotable.invalidateUnit()
-  yield res.n
+  def update(old: Event, data: EventForm.Data)(using MyId): Fu[Int] =
+    val next = data.update(old)
+    for
+      res <- coll.update.one(bid(old.id), next)
+      _ = promotable.invalidateUnit()
+      _ = notifyBBB(next, old.some)
+    yield res.n
 
   def createForm = eventForm.form
 
@@ -54,6 +89,7 @@ final class EventApi(coll: Coll, cacheApi: lila.memo.CacheApi, eventForm: EventF
     for
       _ <- coll.insert.one(event)
       _ = promotable.invalidateUnit()
+      _ = notifyBBB(event, none)
     yield event
 
   def clone(old: Event) =
@@ -61,3 +97,8 @@ final class EventApi(coll: Coll, cacheApi: lila.memo.CacheApi, eventForm: EventF
       title = s"${old.title} (clone)",
       startsAt = nowInstant.plusDays(7)
     )
+
+  private def notifyBBB(next: Event, prev: Option[Event])(using me: MyId) =
+    lila.common
+      .ProductDiff(prev, next, ignoredFields = Set("_id", "createdBy", "createdAt", "updatedBy", "updatedAt"))
+      .foreach(ircApi.bbb(me, "event", next.title, routes.Event.show(next.id), _))

@@ -4,14 +4,14 @@ import java.nio.file.Files as NioFiles
 import play.api.libs.json.*
 import play.api.libs.Files
 import play.api.mvc.*
-import akka.stream.scaladsl.FileIO
+import org.apache.pekko.stream.scaladsl.FileIO
 import lila.common.config.GetRelativeFile
 
 // this stuff is for bot devs
 
 final private class JsBotAssetApi(repo: JsBotRepo, getFile: GetRelativeFile)(using
     Executor,
-    akka.stream.Materializer
+    org.apache.pekko.stream.Materializer
 ):
 
   type AlmostFileName = String

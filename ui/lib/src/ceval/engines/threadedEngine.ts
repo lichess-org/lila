@@ -1,3 +1,6 @@
+import type { Rules } from 'chessops';
+
+import { Cache } from '../cache';
 import { Protocol } from '../protocol';
 import {
   CevalState,
@@ -7,7 +10,6 @@ import {
   type EngineNotifier,
 } from '../types';
 import { sharedWasmMemory } from '../util';
-import { Cache } from '../cache';
 
 interface WasmModule {
   (opts: {
@@ -32,14 +34,14 @@ declare global {
 }
 
 export class ThreadedEngine implements CevalEngine {
-  failed: Error;
-  protocol: Protocol;
+  failed?: Error;
+  protocol?: Protocol;
   module?: Stockfish;
 
   constructor(
     readonly info: BrowserEngineInfo,
-    readonly status?: EngineNotifier | undefined,
-    readonly variantMap?: (v: string) => string,
+    readonly status: EngineNotifier | undefined,
+    readonly variantMap?: (v: Rules) => string,
   ) {}
 
   onError = (err: Error): void => {
@@ -116,8 +118,8 @@ export class ThreadedEngine implements CevalEngine {
       wasmMemory: sharedWasmMemory(this.info.minMem!),
     });
 
-    sf.addMessageListener(data => this.protocol.received(data));
-    this.protocol.connected(msg => sf.postMessage(msg));
+    sf.addMessageListener(data => this.protocol?.received(data));
+    this.protocol?.connected(msg => sf.postMessage(msg));
     this.module = sf;
   }
 
@@ -130,7 +132,7 @@ export class ThreadedEngine implements CevalEngine {
   }
 
   stop(): void {
-    this.protocol.compute(undefined);
+    this.protocol?.compute(undefined);
   }
 
   destroy(): void {

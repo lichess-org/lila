@@ -1,25 +1,26 @@
-import * as xhr from 'lib/xhr';
-import main from './main';
-import type { LobbyOpts } from './interfaces';
-import { wsConnect, wsPingInterval } from 'lib/socket';
 import { pubsub } from 'lib/pubsub';
+import { wsConnect, wsPingInterval } from 'lib/socket';
+import * as xhr from 'lib/xhr';
+
+import type { LobbyOpts } from './interfaces';
+import main from './main';
 
 export function initModule(opts: LobbyOpts) {
   opts.appElement = document.querySelector('.lobby__app') as HTMLElement;
   opts.tableElement = document.querySelector('.lobby__table') as HTMLElement;
   opts.pools = [
     // mirrors modules/pool/src/main/PoolList.scala
-    { id: '1+0', lim: 1, inc: 0, perf: i18n.site.bullet },
-    { id: '2+1', lim: 2, inc: 1, perf: i18n.site.bullet },
-    { id: '3+0', lim: 3, inc: 0, perf: i18n.site.blitz },
-    { id: '3+2', lim: 3, inc: 2, perf: i18n.site.blitz },
-    { id: '5+0', lim: 5, inc: 0, perf: i18n.site.blitz },
-    { id: '5+3', lim: 5, inc: 3, perf: i18n.site.blitz },
-    { id: '10+0', lim: 10, inc: 0, perf: i18n.site.rapid },
-    { id: '10+5', lim: 10, inc: 5, perf: i18n.site.rapid },
-    { id: '15+10', lim: 15, inc: 10, perf: i18n.site.rapid },
-    { id: '30+0', lim: 30, inc: 0, perf: i18n.site.classical },
-    { id: '30+20', lim: 30, inc: 20, perf: i18n.site.classical },
+    { id: '1+0', lim: 1, inc: 0 },
+    { id: '2+1', lim: 2, inc: 1 },
+    { id: '3+0', lim: 3, inc: 0 },
+    { id: '3+2', lim: 3, inc: 2 },
+    { id: '5+0', lim: 5, inc: 0 },
+    { id: '5+3', lim: 5, inc: 3 },
+    { id: '10+0', lim: 10, inc: 0 },
+    { id: '10+5', lim: 10, inc: 5 },
+    { id: '15+10', lim: 15, inc: 10 },
+    { id: '30+0', lim: 30, inc: 0 },
+    { id: '30+20', lim: 30, inc: 20 },
   ];
 
   opts.socketSend = wsConnect('/lobby/socket/v5', false, {
@@ -27,11 +28,8 @@ export function initModule(opts: LobbyOpts) {
     receive: (t: string, d: any) => lobbyCtrl.socket.receive(t, d),
     events: {
       n(_: string, msg: any) {
-        lobbyCtrl.spreadPlayersNumber && lobbyCtrl.spreadPlayersNumber(msg.d);
-        setTimeout(
-          () => lobbyCtrl.spreadGamesNumber && lobbyCtrl.spreadGamesNumber(msg.r),
-          wsPingInterval() / 2,
-        );
+        lobbyCtrl.spreadPlayersNumber?.(msg.d);
+        setTimeout(() => lobbyCtrl.spreadGamesNumber?.(msg.r), wsPingInterval() / 2);
       },
       reload_timeline() {
         xhr.text('/timeline').then(html => {
@@ -40,7 +38,10 @@ export function initModule(opts: LobbyOpts) {
         });
       },
       featured(o: { html: string }) {
-        $('.lobby__tv').html(o.html);
+        const $tv = $('.lobby__tv'),
+          $game = $tv.find('.mini-game');
+        if ($game.length) $game.replaceWith(o.html);
+        else $tv.append(o.html);
         pubsub.emit('content-loaded');
       },
       redirect(e: RedirectTo) {
@@ -65,7 +66,6 @@ export function initModule(opts: LobbyOpts) {
       },
     );
     lobbyCtrl.setTab('real_time');
-    lobbyCtrl.redraw();
     history.replaceState(null, '', '/');
   });
 

@@ -1,18 +1,26 @@
 import type { VNode } from 'snabbdom';
-import type { Player, Status, Source, Clock } from 'lib/game';
-import type { ForecastData } from './forecast/interfaces';
-import type { StudyPracticeData, Goal as PracticeGoal } from './study/practice/interfaces';
-import type { RelayData } from './study/relay/interfaces';
+
+import type { ExternalEngineInfoFromServer } from 'lib/ceval';
 import type { ChatCtrl, ChatPlugin, ChatOpts } from 'lib/chat/interfaces';
-import type { ExplorerOpts } from './explorer/interfaces';
-import type { StudyDataFromServer } from './study/interfaces';
-import type { AnalyseSocketSend } from './socket';
-import type { ExternalEngineInfo } from 'lib/ceval';
+import type { Player, Status, Source, Clock } from 'lib/game';
 import type { Coords, MoveEvent } from 'lib/prefs';
 import type { EnhanceOpts } from 'lib/richText';
+import type {
+  PvDataServer,
+  ServerEval,
+  TreeNode,
+  TreeNodeBase,
+  TreeNodeLite,
+  TreePath,
+} from 'lib/tree/types';
 
+import type { ExplorerOpts } from './explorer/interfaces';
+import type { ForecastData } from './forecast/interfaces';
+import type { AnalyseSocketSend } from './socket';
+import type { StudyDataFromServer } from './study/interfaces';
+import type { StudyPracticeData, Goal as PracticeGoal } from './study/practice/interfaces';
+import type { RelayData } from './study/relay/interfaces';
 import type * as studyDeps from './study/studyDeps';
-import type { PvDataServer, ServerEval, TreeNode, TreeNodeIncomplete, TreePath } from 'lib/tree/types';
 
 export interface NvuiPlugin {
   render(deps?: typeof studyDeps): VNode;
@@ -43,7 +51,7 @@ export interface AnalyseData {
   userAnalysis: boolean;
   forecast?: ForecastData;
   sidelines?: TreeNode[][];
-  treeParts: TreeNodeIncomplete[];
+  treeParts: TreeNodeBase[];
   practiceGoal?: PracticeGoal;
   clock?: Clock;
   pref: AnalysePref;
@@ -51,7 +59,7 @@ export interface AnalyseData {
     id: string;
   };
   puzzle?: OpeningPuzzle;
-  externalEngines?: ExternalEngineInfo[];
+  externalEngines?: ExternalEngineInfoFromServer[];
 }
 
 export interface AnalysePref {
@@ -70,7 +78,7 @@ export interface AnalysePref {
 export interface ServerEvalData {
   ch: string;
   analysis?: Analysis;
-  tree: TreeNodeIncomplete;
+  tree: TreeNodeLite;
   division?: Division;
 }
 
@@ -107,7 +115,7 @@ export interface Game {
   importedBy?: string;
   division?: Division;
   opening?: Opening;
-  perf: string;
+  perf: Perf;
   rated?: boolean;
   threefold?: boolean;
 }
@@ -125,10 +133,13 @@ export interface Division {
 
 export interface Analysis {
   id: string;
+  nodesPerMove: number;
   white: AnalysisSide;
   black: AnalysisSide;
   partial?: boolean;
 }
+
+export type GamePhase = 'opening' | 'middlegame' | 'endgame';
 
 export interface AnalysisSide {
   acpl: number;
@@ -136,6 +147,7 @@ export interface AnalysisSide {
   mistake: number;
   blunder: number;
   accuracy: number;
+  phases?: Partial<Record<GamePhase, number>>;
 }
 
 export interface AnalyseOpts {

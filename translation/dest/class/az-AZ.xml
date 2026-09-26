@@ -82,7 +82,7 @@ Sinfə daxil olmaq üçün link.</string>
   <string name="timePlaying">Oynama müddəti</string>
   <string name="variantXOverLastY">Son %2$s gündə %1$s</string>
   <string name="winrate">Qazanma əmsalı</string>
-  <string name="na" comment="Appears as part of the 'Progress' column on Lichess classes, where a teacher is looking at their list of students under specific rating or variant categories.">Məlumat Yoxdur</string>
+  <string name="na">Məlumat Yoxdur</string>
   <string name="editNews">Xəbərləri redaktə et</string>
   <string name="notifyAllStudents">Bütün tələbələri xəbərdar edin</string>
   <string name="nothingHere">Hələ heç nə yoxdur.</string>

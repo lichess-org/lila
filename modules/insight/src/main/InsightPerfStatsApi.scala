@@ -19,13 +19,11 @@ case class InsightPerfStats(
 object InsightPerfStats:
   case class WithGameIds(stats: InsightPerfStats, gameIds: List[GameId])
 
-final class InsightPerfStatsApi(
-    storage: InsightStorage,
-    pipeline: AggregationPipeline
-)(using Executor):
+final class InsightPerfStatsApi(storage: InsightStorage)(using Executor):
 
   def apply(
       user: User,
+      period: PairOf[Instant],
       perfTypes: List[PerfType],
       gameIdsPerPerf: Max
   ): Fu[Map[PerfType, InsightPerfStats.WithGameIds]] =
@@ -34,34 +32,37 @@ final class InsightPerfStatsApi(
         import framework.*
         import InsightEntry.BSONFields as F
         val filters = List(lila.insight.Filter(InsightDimension.Perf, perfTypes))
-        Match(InsightStorage.selectUserId(user.id) ++ pipeline.gameMatcher(filters)) -> List(
+        val gameSelector = InsightStorage.selectUserId(user.id) ++
+          InsightStorage.gameMatcher(filters) ++
+          dateBetween(F.date, period._1.some, period._2.some)
+        Match(gameSelector) -> List(
           Sort(Descending(F.date)),
           Limit(maxGames.value),
           Project(
-            $doc(
+            bdoc(
               F.perf -> true,
               F.rating -> true,
               F.color -> true,
               F.date -> true,
-              "t" -> $doc("$sum" -> s"$$${F.moves("t")}")
+              "t" -> bdoc("$sum" -> s"$$${F.moves("t")}")
             )
           ),
           GroupField(F.perf)(
             "r" -> AvgField(F.rating),
-            "nw" -> Sum($doc("$cond" -> $arr("$c", 1, 0))),
-            "nb" -> Sum($doc("$cond" -> $arr("$c", 0, 1))),
+            "nw" -> Sum(bdoc("$cond" -> barr("$c", 1, 0))),
+            "nb" -> Sum(bdoc("$cond" -> barr("$c", 0, 1))),
             "t" -> SumField("t"),
             "ids" -> PushField("_id"),
             "from" -> LastField(F.date),
             "to" -> FirstField(F.date)
           ),
           AddFields(
-            $doc(
-              "total" -> $doc("$add" -> $arr("$nw", "$nb")),
-              "ids" -> $doc("$slice" -> $arr("$ids", gameIdsPerPerf.value))
+            bdoc(
+              "total" -> bdoc("$add" -> barr("$nw", "$nb")),
+              "ids" -> bdoc("$slice" -> barr("$ids", gameIdsPerPerf.value))
             )
           ),
-          Match($doc("total".$gte(5)))
+          Match(bdoc("total".gte(5)))
         )
       .map: docs =>
         for

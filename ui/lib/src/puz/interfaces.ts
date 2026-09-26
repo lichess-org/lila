@@ -1,8 +1,8 @@
+import type { Coords } from '../prefs';
 import type { Clock } from './clock';
 import type { Combo } from './combo';
 import type CurrentPuzzle from './current';
 import type { PuzFilters } from './filters';
-import type { Coords } from '../prefs';
 
 export interface PuzCtrl {
   run: Run;
@@ -41,6 +41,7 @@ export interface Run {
   modifier: Modifier;
   endAt?: number;
   skipId?: string;
+  unfinishedId?: string;
 }
 
 export interface Round {

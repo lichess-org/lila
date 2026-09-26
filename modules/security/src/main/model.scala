@@ -1,8 +1,10 @@
 package lila.security
 
+import scalalib.net.UserAgent
+import scalalib.time.AtInstant
+
 import lila.core.id.SessionId
-import lila.core.net.{ IpAddress, UserAgent }
-import lila.core.misc.AtInstant
+import lila.core.net.IpAddress
 
 case class Dated[V](value: V, date: Instant):
   def map[X](f: V => X) = copy(value = f(value))

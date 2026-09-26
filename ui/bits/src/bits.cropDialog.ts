@@ -1,6 +1,8 @@
+import Cropper from 'cropperjs';
+
 import { defined } from 'lib';
 import { domDialog, spinnerHtml } from 'lib/view';
-import Cropper from 'cropperjs';
+
 import { supported, mimeAccept } from './crop';
 
 export interface CropOpts {
@@ -34,7 +36,6 @@ export async function initModule(o?: CropOpts): Promise<void> {
   }).catch(e => {
     URL.revokeObjectURL(url);
     opts.onCropped?.(false, `Image load failed: ${url} ${e.toString()}`);
-    return;
   });
 
   const viewBounds = constrain(image.naturalWidth / image.naturalHeight, {
@@ -67,6 +68,7 @@ export async function initModule(o?: CropOpts): Promise<void> {
     class: 'crop-viewer',
     css: [{ hashed: 'bits.cropDialog' }, { url: 'npm/cropper.min.css' }],
     modal: true,
+    easyClose: 'clickOutside',
     htmlText: $html`
       <h2>Crop image to desired shape</h2>
       <div class="crop-view"></div>
@@ -74,7 +76,7 @@ export async function initModule(o?: CropOpts): Promise<void> {
         <button class="button button-empty cancel">cancel</button>
         <button class="button submit">submit</button>
       </span>`,
-    append: [{ where: '.crop-view', node: container }],
+    insert: [{ selector: '.crop-view', nodes: container }],
     actions: [
       { selector: '.dialog-actions > .cancel', listener: (_, d) => d.close() },
       { selector: '.dialog-actions > .submit', listener: crop },
@@ -138,7 +140,7 @@ export async function initModule(o?: CropOpts): Promise<void> {
       input.onchange = () => {
         const file = input.files?.[0];
         if (file) resolve(file);
-        else reject();
+        else reject(new Error('Invalid image file'));
       };
       input.click();
     });

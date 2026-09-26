@@ -1,19 +1,21 @@
-import { snabDialog, bind, hl } from 'lib/view';
-import type SetupCtrl from '../setupCtrl';
 import { botAssetUrl } from 'lib/bot/botLoader';
-import { colorButtons } from 'lib/setup/view/color';
-import { colors } from 'lib/setup/color';
-import { timePickerAndSliders } from 'lib/setup/view/timeControl';
 import { pubsub } from 'lib/pubsub';
+import { colorChoiceName, colors } from 'lib/setup/color';
+import { colorButtons } from 'lib/setup/view/color';
+import { timePickerAndSliders } from 'lib/setup/view/timeControl';
+import { snabDialog, bind, hl } from 'lib/view';
+
+import type SetupCtrl from '../setupCtrl';
 
 export const setupDialog = (ctrl: SetupCtrl) => {
   const bot = ctrl.selectedBot;
-  if (!bot) return;
+  if (!bot) return undefined;
   return snabDialog({
     class: `bot-setup__dialog bot-color--${bot.key}`,
     onClose: ctrl.cancel,
     modal: true,
     noScrollable: true,
+    easyClose: 'clickOutside',
     onInsert(dialog) {
       ctrl.dialog = dialog;
       dialog.show();
@@ -47,6 +49,7 @@ export const setupDialog = (ctrl: SetupCtrl) => {
 };
 
 const settingsPreview = (ctrl: SetupCtrl) => {
-  const color = colors.find(c => c.key === ctrl.color())?.name ?? 'random';
-  return [color, ctrl.timeControl.isRealTime() ? ctrl.timeControl.clockStr() : 'No clock'].join(' | ');
+  const color = colors.find(c => c === ctrl.color()) ?? 'random';
+  const colorName = colorChoiceName(color);
+  return [colorName, ctrl.timeControl.isRealTime() ? ctrl.timeControl.clockStr() : 'No clock'].join(' | ');
 };

@@ -32,17 +32,14 @@ final class StreamerUi(helpers: Helpers, bits: StreamerBits)(using netDomain: Ne
     def widget(s: Streamer.WithContext, stream: Option[Stream]) =
       frag(
         if requests then a(href := s"${routes.Streamer.edit}?u=${s.user.username}", cls := "overlay")
-        else bits.redirectLink(s.user.username, stream.isDefined.some)(cls := "overlay"),
+        else bits.redirectLink(s.user.username, false.some)(cls := "overlay"),
         stream.isDefined.option(span(cls := "live-ribbon")(span(trans.streamer.live()))),
         bits.thumbnail(s.streamer, s.user),
         div(cls := "overview")(
           bits.streamerTitle(s),
           s.streamer.headline.map(_.value).map { d =>
-            p(
-              cls := s"headline ${
-                  if d.length < 60 then "small" else if d.length < 120 then "medium" else "large"
-                }"
-            )(d)
+            val cssClass = if d.length < 60 then "small" else if d.length < 120 then "medium" else "large"
+            p(cls := s"headline $cssClass")(d)
           },
           div(cls := "services")(
             s.streamer.twitch.map: twitch =>
@@ -61,10 +58,7 @@ final class StreamerUi(helpers: Helpers, bits: StreamerBits)(using netDomain: Ne
                     p(cls := "at")(trs.lastStream(momentFromNow(liveAt)))
                 )
           ,
-          div(cls := "streamer-footer")(
-            (!requests).option(bits.subscribeButtonFor(s)),
-            bits.streamerProfile(s)
-          )
+          div(cls := "streamer-footer")(bits.streamerProfile(s))
         )
       )
 
@@ -77,12 +71,11 @@ final class StreamerUi(helpers: Helpers, bits: StreamerBits)(using netDomain: Ne
           bits.menu(if requests then "requests" else "index", none)(cls := " page-menu__menu"),
           div(cls := "page-menu__content box streamer-list")(
             boxTop(h1(dataIcon := Icon.Mic, cls := "text")(title)),
-            (!requests).option(
-              div(cls := "list force-ltr live")(
+            (!requests).option:
+              div(cls := "list force-ltr live"):
                 live.map: s =>
                   st.article(cls := "streamer")(widget(s, s.stream))
-              )
-            ),
+            ,
             div(cls := "list force-ltr infinite-scroll")(
               (live.size % 2 == 1).option(div(cls := "none")),
               pager.currentPageResults.map: s =>
@@ -131,12 +124,11 @@ final class StreamerUi(helpers: Helpers, bits: StreamerBits)(using netDomain: Ne
                     )
                   case _ =>
                     s.streamer.twitch.map: twitch =>
-                      val darkChat = (ctx.pref.currentBg != "light").so("darkpopout&")
                       iframe(
                         frame.credentialless,
                         st.frameborder := "0",
                         frame.scrolling := "yes",
-                        src := s"https://twitch.tv/embed/${twitch.login}/chat?${darkChat}parent=$netDomain"
+                        src := s"https://twitch.tv/embed/${twitch.login}/chat?parent=$netDomain"
                       )
               )
             ),
@@ -168,7 +160,7 @@ final class StreamerUi(helpers: Helpers, bits: StreamerBits)(using netDomain: Ne
             standardFlash,
             div(cls := "box streamer")(
               bits.header(s),
-              div(cls := "description")(richText(s.streamer.description.fold("")(_.value))),
+              div(cls := "description")(richText(s.streamer.description.so(_.value))),
               ctx.pref.showRatings.option(a(cls := "ratings", href := routes.User.show(s.user.username)):
                 perfRatings),
               activities

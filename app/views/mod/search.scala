@@ -81,7 +81,7 @@ object search:
       users: List[lila.user.WithPerfsAndEmails],
       data: IpTrust.IpData,
       blocked: Boolean
-  )(using ctx: Context, renderIp: RenderIp) =
+  )(using Context, Me)(using renderIp: RenderIp) =
     Page("IP address")
       .css("mod.misc")
       .js(Esm("mod.search")):
@@ -112,7 +112,7 @@ object search:
                 data.proxy.toString
               )
             ),
-            userTable(users)
+            userTable(users, showUsernames = Granter(_.ViewIP))
           )
         )
 

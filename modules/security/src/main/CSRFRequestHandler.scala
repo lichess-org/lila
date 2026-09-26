@@ -3,7 +3,9 @@ package lila.security
 import play.api.mvc.RequestHeader
 
 import lila.common.HTTPRequest.*
+import lila.common.ClientName
 import lila.core.config.NetConfig
+import lila.core.net.Origin
 
 /* CSRF protection by using the HTTP origin header.
  * This applies to all incoming HTTP requests, and therefore, all forms of the site.
@@ -56,12 +58,12 @@ final class CSRFRequestHandler(net: NetConfig):
           false
 
   private def monitor(tpe: String, req: RequestHeader) =
-    lila.mon.http.csrfError(tpe, actionName(req), clientName(req)).increment()
+    lila.mon.http.csrfError(tpe, actionName(req), ClientName(req).toString).increment()
 
   private val topDomain = s"://${net.domain}"
   private val subDomain = s".${net.domain}"
 
   // origin = "https://lichess.org"
   // domain = "lichess.org"
-  private def isSubdomain(origin: String) =
-    origin.endsWith(subDomain) || origin.endsWith(topDomain)
+  private def isSubdomain(origin: Origin) =
+    origin.value.endsWith(subDomain) || origin.value.endsWith(topDomain)

@@ -29,7 +29,6 @@
     <item quantity="one">ఒక పోస్ట్‌ని వీక్షించండి</item>
     <item quantity="other">మొత్తం %s పోస్ట్‌లను చూడండి</item>
   </plurals>
-  <string name="uploadAnImageForYourPost">మీ పోస్ట్ కోసం చిత్రాన్ని అప్‌లోడ్ చేయండి</string>
   <string name="imageAlt">చిత్రం ప్రత్యామ్నాయ టెక్స్ట్</string>
   <string name="imageCredit">చిత్ర క్రెడిట్</string>
 </resources>

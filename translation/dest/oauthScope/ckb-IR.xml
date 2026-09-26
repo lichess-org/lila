@@ -21,7 +21,6 @@
   <string name="puzzleRead">چالاکیی مەتەڵ بخوێنەرەوە</string>
   <string name="teamRead">زانیارییەکانی تیمی تایبەت بخوێنەرەوە</string>
   <string name="teamWrite">بەشداریکردن و جێهێشتنی تیمەکان</string>
-  <string name="teamLead">بەڕێوەبردنی ئەو تیمانەی کە سەرکردایەتی دەکەیت: نامەی تایبەت بنێرە، یان ئەندامەکان دەربکە</string>
   <string name="followRead">خوێندنەوەی یاریزانانی فۆڵۆوکراو</string>
   <string name="followWrite">فۆڵۆو و ئەنفۆڵۆوی یاریزانانی تر بکە</string>
   <string name="msgWrite">ناردنی نامەی تایبەت بۆ یاریزانانی تر</string>
@@ -29,7 +28,6 @@
   <string name="botPlay">یاری لەگەڵ تەختەی APIـیەکە بکە</string>
   <string name="engineRead">بینین یان بەکارهێنانی بزوێنەرە دەرەکییەکان</string>
   <string name="engineWrite">دروستکردن یان نوێکردنەوەی بزوێنەری دەرەکی</string>
-  <string name="webLogin">دروستکردنی پێگەیەکی باوەڕپێکراو (رێگە بە گەیشتن بە هەمووی دەدات!)</string>
   <string name="webMod">ئامرازەکانی بەڕێوەبەر بەکاربهێنە (لە سنووری مۆڵەتەکەتدا)</string>
   <string name="personalAccessTokens">نیشانەی نوێ کەسی تایبەت بە API</string>
   <string name="canMakeOauthRequests">دەتوانیت داوای OAuth بکەیت بەبێ ئەوەی بچیتە %sەوە.</string>

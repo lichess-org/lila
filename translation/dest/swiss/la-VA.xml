@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="swiss">Helveticum</string>
+  <string name="swissTournaments">Certamenes helveticae</string>
+  <string name="identicalForbidden">Nefas</string>
+</resources>

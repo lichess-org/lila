@@ -27,17 +27,11 @@
   <string name="willBeReviewed">您的加入申請將會被此團隊的隊長審核</string>
   <string name="beingReviewed">您的加入申請正在被審核</string>
   <string name="requestDeclined">團隊負責人拒絕了您的加入請求。</string>
-  <string name="subToTeamMessages">訂閱團隊消息</string>
   <string name="teamBattle">團隊戰鬥</string>
   <string name="teamBattleOverview">一場多個團體的戰鬥，每位玩家為自己的團隊爭取積分</string>
   <string name="teamTournament">團隊錦標賽</string>
   <string name="teamTournamentOverview">一個只有在團隊裡的成員才能加入的錦標賽</string>
   <string name="swissTournamentOverview">只有您的團隊成員才能參加的瑞士錦標賽</string>
-  <string name="messageAllMembers">發出公告給所有團隊裡的玩家</string>
-  <string name="messageAllMembersOverview">發出私訊給所有團隊裡的玩家</string>
-  <string name="messageAllMembersLongDescription">向團隊的所有成員發送私人訊息。
-你可以用此功能來呼叫玩家參加錦標賽或團隊戰。
-玩家如果不喜歡接收您的消息可能會離開團隊。</string>
   <string name="teamsIlead">我領導的團隊</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">您可能想要鏈接一個即將到來的錦標賽？</string>
   <string name="leadersChat">隊長聊天</string>

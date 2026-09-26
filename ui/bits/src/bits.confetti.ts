@@ -1,4 +1,4 @@
-import confetti from 'canvas-confetti';
+import { create as createCanvas, type Options as CanvasOptions } from 'canvas-confetti';
 
 function randomInRange(min: number, max: number): number {
   return Math.random() * (max - min) + min;
@@ -15,9 +15,10 @@ export function initModule(
     fireworks: true,
   },
 ): void {
-  const canvas = document.querySelector('canvas#confetti') as HTMLCanvasElement;
+  const canvas = document.querySelector<HTMLCanvasElement>('canvas#confetti');
+  if (!canvas) return;
 
-  const party = confetti.create(canvas, {
+  const party = createCanvas(canvas, {
     disableForReducedMotion: true,
     useWorker: true,
     resize: true,
@@ -39,7 +40,7 @@ export function initModule(
   }
 
   const cannons = () => {
-    const fire = (custom: confetti.Options) =>
+    const fire = (custom: CanvasOptions) =>
       party({
         scalar: 0.9,
         gravity: 0.3,
@@ -51,7 +52,7 @@ export function initModule(
       });
 
     // left cannon
-    for (const _ in [0, 1])
+    for (const _ of [0, 1])
       fire({
         angle: randomInRange(50, 70),
         drift: randomInRange(0, 1),
@@ -59,7 +60,7 @@ export function initModule(
       });
 
     // right cannon
-    for (const _ in [0, 1])
+    for (const _ of [0, 1])
       fire({
         angle: randomInRange(110, 130),
         drift: randomInRange(-1, 0),
@@ -68,7 +69,7 @@ export function initModule(
   };
 
   const fireworks = () => {
-    const opts: confetti.Options = {
+    const opts: CanvasOptions = {
       spread: 360,
       ticks: 80,
       gravity: 0.15,

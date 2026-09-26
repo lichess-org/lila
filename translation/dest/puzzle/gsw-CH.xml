@@ -13,7 +13,6 @@
   <string name="origin">Herkunft</string>
   <string name="specialMoves">Spezielli Züg</string>
   <string name="didYouLikeThisPuzzle">Hät dir d\'Ufgab g\'falle?</string>
-  <string name="voteToLoadNextOne">Stimm ab, um die Nächscht z\'lade!</string>
   <string name="upVote">Die Ufgab positiv bewerte</string>
   <string name="downVote">Die Ufgab negativ bewerte</string>
   <string name="yourPuzzleRatingWillNotChange">Dini Ufgabe-Wertig veränderet sich nöd. Eusi Ufgabe sind kein Wettbewerb. Dini Wertig hilft nur Ufgabe z\'wähle, wo zu dinere aktuelle Schpielstärchi passed.</string>
@@ -94,6 +93,6 @@ Schpill schnälli und au klassischi Schpiel, will so erhöht sich d\'Chance, das
   </plurals>
   <string name="percentSolved">%s glöst</string>
   <string name="noPuzzlesToShow">Es git no nüt zum Zeige, lös zerscht es paar Ufgabe!</string>
-  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">Trainier mit dene Ufgabe und optimier din Fortschritt!</string>
+  <string name="improvementAreasDescription">Trainier mit dene Ufgabe und optimier din Fortschritt!</string>
   <string name="strengthDescription">Dini Leischtig isch am beschte i dene Theme</string>
 </resources>

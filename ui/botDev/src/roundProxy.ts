@@ -1,11 +1,13 @@
 import * as co from 'chessops';
-import { showSetupDialog } from './setupDialog';
-import { LocalGame } from './localGame';
-import { type Player, clockToSpeed } from 'lib/game';
 import type { RoundProxy as RoundProxyType, RoundData, RoundOpts } from 'round';
+
+import { myUserId } from 'lib';
+import { type Player, clockToSpeed } from 'lib/game';
+
 import { analyse } from './analyse';
 import { env } from './devEnv';
-import { myUserId } from 'lib';
+import { LocalGame } from './localGame';
+import { showSetupDialog } from './setupDialog';
 
 export class RoundProxy implements RoundProxyType {
   readonly data: RoundData;
@@ -24,7 +26,7 @@ export class RoundProxy implements RoundProxyType {
         id: 'synthetic',
         variant: { key: 'standard', name: 'Standard', short: 'Std' },
         speed: 'classical',
-        perf: 'unlimited',
+        perf: 'classical',
         fen: co.fen.INITIAL_FEN,
         turns: 0,
         source: 'local',

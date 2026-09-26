@@ -31,7 +31,7 @@ object ClasInvite:
     case Already
     case Invited
     case Found
-    case CantMsgKid(url: String)
+    case CantMsgKid(url: Url)
 
     def flash(u: UserName)(using Translate): (String, String) = this match
       case Already => "success" -> trans.xisNowAStudentOfTheClass.txt(u)

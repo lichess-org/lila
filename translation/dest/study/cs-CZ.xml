@@ -48,7 +48,6 @@
   <string name="youAreNowASpectator">Nyní jste divák</string>
   <string name="pgnTags">PGN tagy</string>
   <string name="like">To se mi líbí</string>
-  <string name="unlike">Už se mi nelíbí</string>
   <string name="newTag">Nový štítek</string>
   <string name="commentThisPosition">Komentář k tomuto příspěvku</string>
   <string name="commentThisMove">Komentář k tomuto tahu</string>
@@ -72,7 +71,6 @@
   <string name="downloadGame">Stáhnout hru</string>
   <string name="studyUrl">URL studie</string>
   <string name="currentChapterUrl">URL aktuální kapitoly</string>
-  <string name="youCanPasteThisInTheForumToEmbed">Tento odkaz můžete vložit např. do diskusního fóra</string>
   <string name="startAtInitialPosition">Začít ve výchozí pozici</string>
   <string name="startAtX">Začít u tahu %s</string>
   <string name="embedInYourWebsite">Vložte vaší stránku nebo blog</string>
@@ -196,8 +194,7 @@
   <string name="fromInitialPositionText">Jen deska pro novou hru.&lt;br&gt;Vhodná k prozkoumávání zahájení.</string>
   <string name="customPositionTitle">Vlastní pozice</string>
   <string name="customPositionText">Nastavte si desku jak chcete.&lt;br&gt;Vhodná ke studiu koncovek.</string>
-  <string name="loadExistingLichessGameTitle">Načíst existující lichess hru</string>
-  <string name="loadExistingLichessGameText">Vložte lichess game URL&lt;br&gt;(jako lichess.org/7fHIU0XI)&lt;br&gt;pro načtení hry pohyby v kapitole.</string>
+  <string name="loadGameFromTheWebTitle">Načíst hru z webu</string>
   <string name="fromFenStringTitle">Z FEN</string>
   <string name="fromFenStringText">Vložte pozici do FEN formátu&lt;br&gt;&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;&lt;br&gt;a začněte kapitolu z pozice.</string>
   <string name="fromPgnGameTitle">Ze hry PGN</string>

@@ -16,7 +16,6 @@
   <string name="noVideosForTheseTags">S’ka video për këto etiketa:</string>
   <string name="thatsAllWeGotForTheseTags">Kjo është krejt çka morëm për këto etiketa:</string>
   <string name="thatsAllWeGotForThisSearchX">Kjo është krejt çka morëm për këtë kërkim: “%s”</string>
-  <string name="thereAreNoResultsForX">S’ka përfundime për “%s”</string>
   <string name="viewMoreTags">Shihni më tepër etiketa</string>
   <string name="videoNotFound">Videoja s’u gjet!</string>
   <string name="xByY">%1$s nga %2$s</string>

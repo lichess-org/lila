@@ -6,6 +6,26 @@
 - [Pick a GitHub issue to work on](https://github.com/lichess-org/lila/issues). The [`good first issue`](https://github.com/lichess-org/lila/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22) and [`no scala`](https://github.com/lichess-org/lila/issues?q=is%3Aissue+is%3Aopen+label%3A%22no+scala%22) tags might be useful.
 - Communicate with other devs on [Discord](https://discord.gg/lichess).
 
+### Rules about AI-assisted code contributions
+
+Generated AI code can be accepted, under some conditions:
+
+- [Install lichess](https://github.com/lichess-org/lila/wiki) so that you can manually run and test your changes.
+- If you fix a bug, first reproduce it yourself - don't just make the AI write a test.
+- Carefully review and understand all the code you submit, and be able to explain it if asked.
+- Provide proof of human testing of the changes, with screenshots or ideally a video.
+- Include in the pull-request message, or in commit messages, the prompts you used to generate the code, and the AI tool you used.
+- Read our [AI Policy](./AI_POLICY.md) for more details.
+
+### General guidelines for pull requests
+
+- Explain why the change is needed, and what problem it solves.
+- Link to any relevant issues or discussions.
+- Prefer small, focused pull requests that only change one thing at a time.
+- Mark the pull request as a draft if you have not run the code.
+- Only mark the pull request as ready when you have confirmed that it works as intended - be on the lookout for edge cases.
+- If you're unsure about something, or want to ask if the change is desired before doing the work, ask us in the programming channels on https://discord.gg/lichess
+
 ## I want to contribute artwork or documentation
 
 Some issues that need artwork and documentation to be resolved are tagged [`nontechnical`](https://github.com/lichess-org/lila/issues?q=is%3Aissue+is%3Aopen+label%3A%22non+technical%22).
@@ -18,7 +38,7 @@ Some issues that need artwork and documentation to be resolved are tagged [`nont
 2. Search to make sure it isn't a duplicate. [The advanced search syntax](https://help.github.com/articles/searching-issues/) may come in handy.
 3. It is not a trivial problem or demands unrealistic dev time to fix. Such issues may be closed.
 
-Report mobile-only bugs to [Lichess mobile](https://github.com/lichess-org/lichobile).
+Report mobile-only bugs to [Lichess mobile](https://github.com/lichess-org/mobile).
 
 ## I want to suggest a feature for Lichess
 

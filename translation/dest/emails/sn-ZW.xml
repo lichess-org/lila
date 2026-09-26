@@ -15,7 +15,6 @@ Iyi ndiyo profile peji yako: %1$s. Unokwanisa kuita kuti iratidzike sezvaunoda p
 
 Nakirwa, uye tinoshuvira kuti zvidhori zvako zvigare zvichiwana zhira zvakananga kuna Mambo weVavengi vako!</string>
   <string name="logInToLichess">Pinda mu lichess.org, %s</string>
-  <string name="common_orPaste">\"(Paurikubaya Ringi zvirikuramba here? Imbozama kuriKopa woPaster muBrowser!)\"</string>
   <string name="common_note">\"Iyi iEmail yabva kubato rinoona nezveMashandisiro aunoita %s\".</string>
   <string name="common_contact">\"Kana uchida kutaura nesu tibate pa %s\".</string>
 </resources>

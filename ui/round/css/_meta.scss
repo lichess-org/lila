@@ -45,13 +45,14 @@
 
     abbr {
       text-decoration: none;
-      color: $m-primary_font--mix-50;
+      color: color-mix(in oklab, $c-primary 50%, $c-font);
     }
   }
 
   .bookmark {
-    position: absolute;
     @include inline-end(0);
+
+    position: absolute;
     z-index: $z-game-bookmark-2;
     color: $c-font-dim;
 

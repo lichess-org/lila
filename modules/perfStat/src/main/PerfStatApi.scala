@@ -40,7 +40,7 @@ final class PerfStatApi(
           .withPerfs(name.id)
           .flatMap:
             _.filter: u =>
-              (u.enabled.yes && (!u.lame || me.exists(_.is(u.user)))) || me.soUse(Granter(_.UserModView))
+              (u.enabled.yes && (!u.lame || me.exists(_.is(u.user)))) || me.soUse(Granter(_.AccountInfo))
             .filter: u =>
               !u.isBot || (perfKey != PerfKey.ultraBullet)
             .traverse: u =>
@@ -99,14 +99,14 @@ final class PerfStatApi(
             .coll[List[NbUsers]]: c =>
               c.aggregateList(maxDocs = Int.MaxValue): framework =>
                 import framework.*
-                Match($doc("perf" -> perfId)) -> List(
+                Match(bdoc("perf" -> perfId)) -> List(
                   Project(
-                    $doc(
+                    bdoc(
                       "_id" -> false,
-                      "r" -> $doc(
-                        "$subtract" -> $arr(
+                      "r" -> bdoc(
+                        "$subtract" -> barr(
                           "$rating",
-                          $doc("$mod" -> $arr("$rating", percentileOf.group))
+                          bdoc("$mod" -> barr("$rating", percentileOf.group))
                         )
                       )
                     )

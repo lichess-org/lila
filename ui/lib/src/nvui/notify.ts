@@ -1,18 +1,25 @@
 import { h, type VNode, type VNodeData } from 'snabbdom';
-import { requestIdleCallback } from '../index';
+
+import { pubsub } from '@/pubsub';
+
 import { isMac } from '../device';
+import { requestIdleCallbackSafe } from '../index';
 
 export class Notify {
   text = '';
-  date: Date | undefined;
+  date?: Date;
 
-  constructor(public redraw: Redraw | undefined = undefined) {}
+  constructor(public redraw: Redraw | undefined) {
+    pubsub.on('socket.online', online => {
+      this.set(online ? 'You are online' : 'You are disconnected');
+    });
+  }
 
   set = (msg: string): void => {
     this.text = msg + (this.text === msg ? '\u00A0' : '');
     this.date = new Date();
 
-    requestIdleCallback(() => this.redraw?.(), 500);
+    requestIdleCallbackSafe(() => this.redraw?.(), 500);
   };
 
   render = (): VNode => liveText(this.text, 'assertive', 'div.notify', this.date);
@@ -21,7 +28,7 @@ export class Notify {
 export function liveText(
   text: string,
   live: 'assertive' | 'polite' = 'polite',
-  sel: string = 'p',
+  sel = 'p',
   forceKey?: Date,
 ): VNode {
   const data: VNodeData = isMac()

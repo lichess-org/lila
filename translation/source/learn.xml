@@ -104,7 +104,7 @@ by taking the attacking piece.</string>
 through your defences!</string>
   <string name="escapeOrBlock">Escape with the king
 or block the attack!</string>
-  <string name="outOfCheckComplete">Congratulations! Your king can never be taken, make sure you can defend against a check!</string>
+  <string name="outOfCheckComplete">Congratulations! Your king must never be taken, so make sure you can defend against a check!</string>
   <string name="mateInOne">Mate in one</string>
   <string name="defeatTheOpponentsKing">Defeat the opponent's king</string>
   <string name="mateInOneIntro">You win when your opponent cannot defend against a check.</string>
@@ -132,6 +132,7 @@ Right next to his queen.</string>
 Make any move to continue.</string>
   <string name="boardSetupComplete">Congratulations! You know how to set up the chess board.</string>
   <string name="castling">Castling</string>
+  <string name="enPassant">En passant</string>
   <string name="theSpecialKingMove">The special king move</string>
   <string name="castlingIntro">Bring your king to safety, and deploy your rook for attack!</string>
   <string name="castleKingSide">Move your king two squares
@@ -156,7 +157,7 @@ castle king-side!</string>
 castle queen-side!</string>
   <string name="castlingComplete">Congratulations! You should almost always castle in a game.</string>
   <string name="theSpecialPawnMove">The special pawn move</string>
-  <string name="enPassantIntro">When the opponent pawn moved by two squares, you can take it like if it moved by one square.</string>
+  <string name="enPassantIntro">When the opponent's pawn moves two squares, you can still take it as if it had only moved one square.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Black just moved the pawn
 by two squares!
 Take it en passant.</string>
@@ -188,8 +189,8 @@ The king is priceless! Losing it means losing the game.</string>
 with the highest value!
 Queen > Bishop</string>
     <string name="pieceValueExchange">Take the piece with the highest value!
- Do not exchange
- a higher valued piece for a less valuable one.</string>
+Do not exchange
+a higher valued piece for a less valuable one.</string>
    <string name="pieceValueLegal">Take the piece
 with the highest value!
 Make sure your move is legal!</string>

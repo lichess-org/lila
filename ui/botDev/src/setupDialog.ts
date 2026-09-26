@@ -1,17 +1,19 @@
-import { handOfCards, type HandOfCards } from './handOfCards';
 import * as co from 'chessops';
-import { domDialog, type Dialog } from 'lib/view';
-import { fen960 } from 'lib/game/chess';
-import { pubsub } from 'lib/pubsub';
-import { definedMap, clamp } from 'lib/algo';
-import { domIdToUid, uidToDomId } from './devBotCtrl';
-import { rangeTicks } from './devUtil';
-import type { LocalSetup } from 'lib/bot/types';
-import { env } from './devEnv';
-import * as licon from 'lib/licon';
 import type { LichessEditor } from 'editor';
-import { json } from 'lib/xhr';
+
+import { definedMap, clamp } from 'lib/algo';
+import type { LocalSetup } from 'lib/bot/types';
 import { Janitor } from 'lib/event';
+import { fen960 } from 'lib/game/chess';
+import { licon } from 'lib/licon';
+import { pubsub } from 'lib/pubsub';
+import { domDialog, type Dialog } from 'lib/view';
+import { json } from 'lib/xhr';
+
+import { domIdToUid, uidToDomId } from './devBotCtrl';
+import { env } from './devEnv';
+import { rangeTicks } from './devUtil';
+import { handOfCards, type HandOfCards } from './handOfCards';
 
 export function showSetupDialog(setup: LocalSetup = {}): void {
   pubsub.after('botdev.images.ready').then(() => new SetupDialog(setup).show());
@@ -42,7 +44,7 @@ class SetupDialog {
           <div class="with-cards snap-pane">
             <div class="vs">
               <div class="player" data-color="black">
-                <img class="z-remove" src="${site.asset.flairSrc('symbols.cancel')}">
+                <icon class="z-remove" data-icon="${licon.X}"></icon>
                 <div class="placard none" data-color="black">Human Player</div>
               </div>
             </div>
@@ -69,9 +71,9 @@ class SetupDialog {
             </span>
           </div>
           <div class="actions">
-            <button class="button button-empty black"><i></i></button>
-            <button class="button button-empty random"><i></i></button>
-            <button class="button button-empty white"><i></i></button>
+            <button class="button button-empty black"><icon></icon></button>
+            <button class="button button-empty random"><icon></icon></button>
+            <button class="button button-empty white"><icon></icon></button>
           </div>
         </div>`,
       modal: true,
@@ -88,14 +90,14 @@ class SetupDialog {
         { selector: '.black', listener: () => this.fight('black') },
         { selector: '.random', listener: () => this.fight() },
         { selector: '[data-type]', event: 'input', listener: this.updateClock },
-        { selector: 'img.z-remove', listener: () => this.select() },
+        { selector: 'icon.z-remove', listener: () => this.select() },
       ],
       onClose: () => {
         localStorage.setItem('botdev.setup', JSON.stringify(this.setup));
         this.janitor.cleanup();
       },
-      noCloseButton: true, //env.game === undefined,
-      noClickAway: env.game === undefined,
+      noCloseButton: true,
+      easyClose: env.game && 'clickOutside',
     });
     this.dialog = dlg;
     this.mainContentEl = dlg.view.querySelector('.main-content')!;
@@ -157,7 +159,7 @@ class SetupDialog {
       .join('');
   }
 
-  private dropSelect = (_: HTMLElement, domId?: string) => {
+  private readonly dropSelect = (_: HTMLElement, domId?: string) => {
     this.select(domIdToUid(domId));
   };
 
@@ -166,7 +168,7 @@ class SetupDialog {
     const placard = this.view.querySelector('.placard') as HTMLElement;
     placard.textContent = bot?.description ?? '';
     placard.classList.toggle('none', !bot?.description);
-    this.dialog.view.querySelector(`img.z-remove`)?.classList.toggle('show', !!bot);
+    this.dialog.view.querySelector(`icon.z-remove`)?.classList.toggle('show', !!bot);
     this.setup[this.botColor] = this.uid = bot?.uid;
     if (!bot) this.hand.redraw();
   }
@@ -175,14 +177,14 @@ class SetupDialog {
     if (this.mainContentEl.scrollLeft > 0) this.mainContentEl.scrollLeft = this.mainContentEl.scrollWidth;
   }
 
-  private updateClock = () => {
+  private readonly updateClock = () => {
     for (const type of ['initial', 'increment'] as const) {
       const selectEl = this.dialog.view.querySelector<HTMLSelectElement>(`[data-type="${type}"]`);
       this.setup[type] = Number(selectEl?.value);
     }
   };
 
-  private fight = (asColor: Color = Math.random() < 0.5 ? 'white' : 'black') => {
+  private readonly fight = (asColor: Color = Math.random() < 0.5 ? 'white' : 'black') => {
     this.updateClock();
     this.setup.white = this.setup.black = undefined;
     if (asColor === 'black') this.setup.white = this.uid;

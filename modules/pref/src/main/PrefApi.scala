@@ -16,43 +16,35 @@ final class PrefApi(
   import PrefHandlers.given
 
   lila.common.Bus.sub[lila.core.user.UserDelete]: del =>
-    coll.delete.one($id(del.id)).void
+    coll.delete.one(bid(del.id)).void
 
-  private def fetchPref(id: UserId): Fu[Option[Pref]] = coll.find($id(id)).one[Pref]
+  private def fetchPref(id: UserId): Fu[Option[Pref]] = coll.find(bid(id)).one[Pref]
 
   private val cache = cacheApi[UserId, Option[Pref]](200_000, "pref.fetchPref"):
     _.expireAfterAccess(10.minutes).buildAsyncFuture(fetchPref)
 
-  export cache.get as getPrefById
-
   def saveTag(user: User, tag: Pref.Tag.type => String, value: Boolean) =
     for _ <-
         if value
-        then coll.update.one($id(user.id), $set(s"tags.${tag(Pref.Tag)}" -> "1"), upsert = true)
-        else coll.update.one($id(user.id), $unset(s"tags.${tag(Pref.Tag)}"))
+        then coll.update.one(bid(user.id), set(s"tags.${tag(Pref.Tag)}" -> "1"), upsert = true)
+        else coll.update.one(bid(user.id), unset(s"tags.${tag(Pref.Tag)}"))
     yield cache.invalidate(user.id)
 
-  def get(user: User): Fu[Pref] = cache
-    .get(user.id)
-    .dmap:
-      _ | Pref.create(user)
-
-  def get[A](user: User, pref: Pref => A): Fu[A] = get(user).dmap(pref)
+  def get(user: User): Fu[Pref] = cache.get(user.id).dmap(_ | Pref.create(user))
 
   def get[A](userId: UserId, pref: Pref => A): Fu[A] =
-    getPrefById(userId).dmap(p => pref(p | Pref.default))
+    cache.get(userId).dmap(p => pref(p | Pref.default))
 
-  def get(user: User, req: RequestHeader): Fu[Pref] =
-    get(user).dmap(RequestPref.queryParamOverride(req))
+  def getWithReq(user: User)(using RequestHeader): Fu[Pref] =
+    get(user).dmap(RequestPref.queryParamOverride)
 
-  def get(user: Option[User], req: RequestHeader): Fu[Pref] = user match
-    case Some(u) => get(u).dmap(RequestPref.queryParamOverride(req))
-    case None => fuccess(RequestPref.fromRequest(req))
+  def getWithReq(user: Option[User])(using RequestHeader): Fu[Pref] = user match
+    case Some(u) => get(u).dmap(RequestPref.queryParamOverride)
+    case None => fuccess(RequestPref.fromRequest)
 
   def byId(userId: UserId): Fu[Pref] = cache
     .get(userId)
-    .dmap:
-      _ | Pref.create(userId)
+    .dmap(_ | Pref.create(userId))
 
   def byId(both: ByColor[Option[UserId]]): Fu[ByColor[Pref]] =
     both.traverse(_.fold(fuccess(Pref.default))(byId))
@@ -69,12 +61,12 @@ final class PrefApi(
   def getStudyInvite(userId: UserId): Future[Int] = get(userId, _.studyInvite)
 
   def followable(userId: UserId): Fu[Boolean] =
-    coll.primitiveOne[Boolean]($id(userId), "follow").map(_ | Pref.default.follow)
+    coll.primitiveOne[Boolean](bid(userId), "follow").map(_ | Pref.default.follow)
 
   private def unfollowableIds(userIds: List[UserId]): Fu[Set[UserId]] =
     coll.secondary.distinctEasy[UserId, Set](
       "_id",
-      $inIds(userIds) ++ $doc("follow" -> false)
+      inIds(userIds) ++ bdoc("follow" -> false)
     )
 
   def followableIds(userIds: List[UserId]): Fu[Set[UserId]] =
@@ -87,7 +79,7 @@ final class PrefApi(
   private def unmentionableIds(userIds: Set[UserId]): Fu[Set[UserId]] =
     coll.secondary.distinctEasy[UserId, Set](
       "_id",
-      $inIds(userIds) ++ $doc("mention" -> false)
+      inIds(userIds) ++ bdoc("mention" -> false)
     )
 
   def mentionableIds(userIds: Set[UserId]): Fu[Set[UserId]] =
@@ -95,7 +87,7 @@ final class PrefApi(
 
   def setPref(user: User, pre: Pref): Funit =
     val pref = pre.isolate(user.marks.isolate)
-    for _ <- coll.update.one($id(pref.id), pref, upsert = true)
+    for _ <- coll.update.one(bid(pref.id), pref, upsert = true)
     yield cache.put(pref.id, fuccess(pref.some))
 
   def setPref(user: User, change: Pref => Pref): Funit =
@@ -104,7 +96,7 @@ final class PrefApi(
   def isolate(user: User) = setPref(user, identity[Pref])
 
   def agree(user: User): Funit =
-    for _ <- coll.update.one($id(user.id), $set("agreement" -> Pref.Agreement.current), upsert = true)
+    for _ <- coll.update.one(bid(user.id), set("agreement" -> Pref.Agreement.current), upsert = true)
     yield cache.invalidate(user.id)
 
   def setBot(user: User): Funit = setPref(
@@ -116,6 +108,6 @@ final class PrefApi(
     )
   )
 
-  def saveNewUserPrefs(user: User, req: RequestHeader): Funit =
-    val reqPref = RequestPref.fromRequest(req)
+  def saveNewUserPrefs(user: User)(using RequestHeader): Funit =
+    val reqPref = RequestPref.fromRequest
     (reqPref != Pref.default).so(setPref(user, reqPref.copy(id = user.id)))

@@ -18,7 +18,6 @@
   <string name="noVideosForTheseTags">Не знойдзена відэа па гэтых тэгах:</string>
   <string name="thatsAllWeGotForTheseTags">Гэта ўсё што мы знайшлі па гэтых тэгах:</string>
   <string name="thatsAllWeGotForThisSearchX">Гэта ўсё што мы знайшлі па запыту \"%s\"</string>
-  <string name="thereAreNoResultsForX">Няма рэзультатаў для \"%s\"</string>
   <string name="viewMoreTags">Паглядзець больш тэгаў</string>
   <string name="videoNotFound">Відэа не знойдзена!</string>
   <string name="xByY">%1$s ад %2$s</string>

@@ -1,20 +1,12 @@
+import type { ColorChoice } from 'lib/setup/color';
 import type { ClockConfig } from 'lib/setup/interfaces';
 import type { TimeMode } from 'lib/setup/timeControl';
-import type { ColorChoice } from 'lib/setup/color';
 
 export type Sort = 'rating' | 'time';
 export type Mode = 'list' | 'chart';
 export type Tab = 'pools' | 'real_time' | 'seeks' | 'now_playing';
 export type GameType = 'hook' | 'friend' | 'ai';
 export type GameMode = 'casual' | 'rated';
-
-export interface Variant {
-  id: number;
-  key: VariantKey;
-  name: string;
-  icon: string;
-  description: string;
-}
 
 export interface Hook {
   id: string;
@@ -49,7 +41,6 @@ export interface Seek {
 
 export interface Pool extends ClockConfig {
   id: PoolId;
-  perf: string;
 }
 
 export interface LobbyOpts {
@@ -121,6 +112,7 @@ export interface SetupStore {
   fen: FEN;
   timeMode: TimeMode;
   gameMode: GameMode;
+  color: ColorChoice;
   ratingMin: number;
   ratingMax: number;
   aiLevel: number;

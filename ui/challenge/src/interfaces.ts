@@ -1,3 +1,5 @@
+import type { LiconValue } from 'lib/licon';
+
 export interface ChallengeOpts {
   el: Element;
   data?: ChallengeData;
@@ -38,20 +40,16 @@ export interface Challenge {
   color: Color | 'random';
   finalColor: Color;
   perf: {
-    icon: string;
+    icon: LiconValue;
     name: string;
   };
   declined?: boolean;
 }
 
-export type Reasons = {
-  [key: string]: string;
-};
+export type Reasons = Record<string, string>;
 
 export interface ChallengeData {
   in: Array<Challenge>;
   out: Array<Challenge>;
   reasons?: Reasons;
 }
-
-export type Redraw = () => void;

@@ -12,10 +12,12 @@ final class PracticeUi(helpers: Helpers)(
 ):
   import helpers.{ *, given }
   import trans.practice as trp
+  import trans.learn as trl
 
   def show(us: UserStudy, data: JsonView.JsData)(using ctx: Context) =
     Page(us.practiceStudy.name.value)
       .css("analyse.practice")
+      .css(ctx.pref.hasKeyboardMove.option("keyboardMove"))
       .i18n(_.study)
       .i18nOpt(ctx.speechSynthesis, _.nvui)
       .i18nOpt(ctx.blind, _.keyboardMove)
@@ -45,19 +47,28 @@ final class PracticeUi(helpers: Helpers)(
       ):
         main(cls := "page-menu force-ltr")(
           st.aside(cls := "page-menu__menu practice-side")(
-            i(cls := "fat"),
-            h1(trans.site.practice()),
-            h2(trp.makesPerfect()),
+            div(cls := "practice-side__header")(
+              img(
+                cls := "practice-side__decoration",
+                alt := "Decorative image of a robotic golem",
+                src := assetUrl("images/practice/robot-golem.svg")
+              ),
+              div(cls := "practice-side__title")(
+                h1(trans.site.practice()),
+                h2(trp.makesPerfect())
+              )
+            ),
             div(cls := "progress")(
-              div(cls := "text")(trp.progressX(data.progressPercent.toString + "%")),
+              div(cls := "text")(trl.progressX(s"${data.progressPercent}%")),
               div(cls := "bar", style := s"width: ${data.progressPercent}%")
             ),
             postForm(action := routes.Practice.reset)(
               if ctx.isAuth then
                 (data.nbDoneChapters > 0).option(
                   submitButton(
-                    cls := "button ok-cancel-confirm"
-                  )(trp.resetMyProgress())
+                    cls := "ok-cancel-confirm",
+                    title := trl.youWillLoseAllYourProgress.txt()
+                  )(trl.resetMyProgress.txt())
                 )
               else a(href := routes.Auth.signup)(trp.signUpToSaveYourProgress())
             )
@@ -69,20 +80,27 @@ final class PracticeUi(helpers: Helpers)(
                 div(cls := "studies")(
                   section.studies.map: stud =>
                     val prog = data.progressOn(stud.id)
+                    val stateClas =
+                      if prog.complete then "done" else if prog.done > 0 then "ongoing" else "future";
                     a(
-                      cls := s"study ${if prog.complete then "done" else "ongoing"}",
+                      cls := s"study ${stateClas}",
                       href := routes.Practice.show(section.id, stud.slug, stud.id)
                     )(
                       ctx.isAuth.option(
                         span(cls := "ribbon-wrapper")(
-                          span(cls := "ribbon")(prog.done, " / ", prog.total)
+                          span(cls := s"ribbon ${stateClas}")(
+                            prog.done,
+                            " / ",
+                            prog.total
+                          )
                         )
                       ),
-                      i(cls := s"${stud.id}"),
+                      iconTag(cls := stud.id),
                       span(cls := "text")(
                         h3(stud.name()),
                         em(stud.desc())
-                      )
+                      ),
+                      prog.complete.not.option(div(cls := "attention-effect"))
                     )
                 )
               )

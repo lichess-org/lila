@@ -3,6 +3,7 @@ package lila.puzzle
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
 import lila.memo.CacheApi.buildAsyncTimeout
+import lila.mon.extensions.*
 
 case class PuzzleStreak(ids: String, first: Puzzle)
 
@@ -35,7 +36,7 @@ final class PuzzleStreakApi(colls: PuzzleColls, cacheApi: CacheApi)(using Execut
   private val poolSize = buckets._2F.sum
   private val theme = lila.puzzle.PuzzleTheme.mix.key
 
-  private val current = cacheApi.unit[Option[PuzzleStreak]]:
+  private val current = cacheApi.unit[Option[PuzzleStreak]]("puzzle.streak.current"):
     _.refreshAfterWrite(30.seconds).buildAsyncTimeout(20.seconds): _ =>
       colls
         .path:
@@ -47,19 +48,19 @@ final class PuzzleStreakApi(colls: PuzzleColls, cacheApi: CacheApi)(using Execut
                   if rating > 2300 then (PuzzleTier.good, 5, 110) else (PuzzleTier.top, 1, 85)
                 val target = f"${theme}${sep}${tier}${sep}${rating}%04d"
                 rating.toString -> List(
-                  Match($doc("min".$lte(target), "max".$gte(target))),
+                  Match(bdoc("min".lte(target), "max".gte(target))),
                   Sample(samples),
-                  Project($doc("_id" -> false, "ids" -> true)),
+                  Project(bdoc("_id" -> false, "ids" -> true)),
                   UnwindField("ids"),
                   // ensure we have enough after filtering deviation
                   Sample(nbPuzzles * 4),
                   PipelineOperator(
-                    $lookup.simple(
+                    lookup.simple(
                       from = colls.puzzle.name,
                       as = "puzzle",
                       local = "ids",
                       foreign = "_id",
-                      pipe = List($doc("$match" -> $doc("glicko.d".$lte(deviation))))
+                      pipe = List(bdoc("$match" -> bdoc("glicko.d".lte(deviation))))
                     )
                   ),
                   UnwindField("puzzle"),
@@ -67,7 +68,7 @@ final class PuzzleStreakApi(colls: PuzzleColls, cacheApi: CacheApi)(using Execut
                   ReplaceRootField("puzzle")
                 )
             ) -> List(
-              Project($doc("all" -> $doc("$setUnion" -> buckets.map(r => s"$$${r._1}")))),
+              Project(bdoc("all" -> bdoc("$setUnion" -> buckets.map(r => s"$$${r._1}")))),
               UnwindField("all"),
               ReplaceRootField("all"),
               Sort(Ascending("glicko.r")),
@@ -75,7 +76,7 @@ final class PuzzleStreakApi(colls: PuzzleColls, cacheApi: CacheApi)(using Execut
             )
           .map:
             _.flatMap(puzzleReader.readOpt)
-        .mon(_.streak.selector.time)
+        .mon(lila.mon.streak.selector.time)
         .addEffect(monitor)
         .map: puzzles =>
           puzzles.headOption.map:

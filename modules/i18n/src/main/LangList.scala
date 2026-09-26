@@ -2,109 +2,109 @@ package lila.i18n
 
 import play.api.i18n.Lang
 import scalalib.model.{ Language, LangTag }
-
+import scala.collection.immutable.SeqMap
 import lila.core.i18n.{ toLanguage, fixJavaLanguage }
 
 object LangList extends lila.core.i18n.LangList:
 
-  val all: Map[Lang, String] = Map(
-    Lang("en", "GB") -> "English",
+  private[i18n] val all: SeqMap[Lang, String] = SeqMap(
     Lang("af", "ZA") -> "Afrikaans",
+    Lang("so", "SO") -> "Af Soomaali",
     Lang("an", "ES") -> "Aragonés",
-    Lang("ar", "SA") -> "العربية",
     Lang("ast", "ES") -> "Asturianu",
-    Lang("av", "RU") -> "авар мацӀ",
     Lang("az", "AZ") -> "Azərbaycanca",
-    Lang("be", "BY") -> "Беларуская",
-    Lang("bg", "BG") -> "български език",
-    Lang("bn", "BD") -> "বাংলা",
-    Lang("br", "FR") -> "Brezhoneg",
+    Lang("id", "ID") -> "Bahasa Indonesia",
     Lang("bs", "BA") -> "Bosanski",
+    Lang("br", "FR") -> "Brezhoneg",
     Lang("ca", "ES") -> "Català, valencià",
-    Lang("ckb", "IR") -> "کوردی سۆرانی",
-    Lang("co", "FR") -> "Corsu",
     Lang("cs", "CZ") -> "Čeština",
-    Lang("cv", "CU") -> "чӑваш чӗлхи",
+    Lang("co", "FR") -> "Corsu",
     Lang("cy", "GB") -> "Cymraeg",
     Lang("da", "DK") -> "Dansk",
     Lang("de", "DE") -> "Deutsch",
-    Lang("el", "GR") -> "Ελληνικά",
-    Lang("en", "US") -> "English (US)",
-    Lang("eo", "AA") -> "Esperanto",
-    Lang("es", "ES") -> "Español",
     Lang("et", "EE") -> "Eesti keel",
+    Lang("en", "GB") -> "English",
+    Lang("en", "US") -> "English (US)",
+    Lang("es", "ES") -> "Español",
+    Lang("eo", "AA") -> "Esperanto",
     Lang("eu", "ES") -> "Euskara",
-    Lang("fa", "IR") -> "فارسی",
-    Lang("fi", "FI") -> "Suomen kieli",
+    Lang("mg", "MG") -> "Fiteny malagasy",
     Lang("fo", "FO") -> "Føroyskt",
     Lang("fr", "FR") -> "Français",
     Lang("fy", "NL") -> "Frysk",
     Lang("ga", "IE") -> "Gaeilge",
     Lang("gd", "GB") -> "Gàidhlig",
     Lang("gl", "ES") -> "Galego",
-    Lang("gsw", "CH") -> "Schwizerdütsch",
-    Lang("gu", "IN") -> "ગુજરાતી",
-    Lang("he", "IL") -> "עִבְרִית",
-    Lang("hi", "IN") -> "हिन्दी, हिंदी",
     Lang("hr", "HR") -> "Hrvatski",
-    Lang("hu", "HU") -> "Magyar",
-    Lang("hy", "AM") -> "Հայերեն",
     Lang("ia", "AA") -> "Interlingua",
-    Lang("id", "ID") -> "Bahasa Indonesia",
+    Lang("zu", "ZA") -> "IsiZulu",
     Lang("is", "IS") -> "Íslenska",
     Lang("it", "IT") -> "Italiano",
-    Lang("ja", "JP") -> "日本語",
-    Lang("jbo", "AA") -> "Lojban",
-    Lang("ka", "GE") -> "ქართული",
-    Lang("kab", "DZ") -> "Taqvaylit",
-    Lang("kk", "KZ") -> "қазақша",
+    Lang("sw", "KE") -> "Kiswahili",
     Lang("kmr", "TR") -> "Kurdî (Kurmancî)",
-    Lang("kn", "IN") -> "ಕನ್ನಡ",
-    Lang("ko", "KR") -> "한국어",
-    Lang("la", "VA") -> "Lingua Latina",
+    Lang("lv", "LV") -> "Latviešu valoda",
     Lang("lb", "LU") -> "Lëtzebuergesch",
     Lang("lt", "LT") -> "Lietuvių kalba",
-    Lang("lv", "LV") -> "Latviešu valoda",
-    Lang("mg", "MG") -> "Fiteny malagasy",
-    Lang("mk", "MK") -> "македонски јази",
-    Lang("ml", "IN") -> "മലയാളം",
-    Lang("mn", "MN") -> "монгол",
-    Lang("mr", "IN") -> "मराठी",
-    Lang("nb", "NO") -> "Norsk bokmål",
-    Lang("ne", "NP") -> "नेपाली",
+    Lang("la", "VA") -> "Lingua Latina",
+    Lang("jbo", "AA") -> "Lojban",
+    Lang("hu", "HU") -> "Magyar",
     Lang("nl", "NL") -> "Nederlands",
+    Lang("nb", "NO") -> "Norsk bokmål",
     Lang("nn", "NO") -> "Norsk nynorsk",
-    Lang("pi", "IN") -> "पालि",
+    Lang("uz", "UZ") -> "Oʻzbekcha",
     Lang("pl", "PL") -> "Polski",
-    Lang("ps", "AF") -> "پښتو",
     Lang("pt", "PT") -> "Português",
     Lang("pt", "BR") -> "Português (BR)",
     Lang("ro", "RO") -> "Română",
-    Lang("ru", "RU") -> "русский язык",
-    Lang("ry", "UA") -> "Русинська бисїда",
+    Lang("gsw", "CH") -> "Schwizerdütsch",
+    Lang("sq", "AL") -> "Shqip",
     Lang("sk", "SK") -> "Slovenčina",
     Lang("sl", "SI") -> "Slovenščina",
-    Lang("so", "SO") -> "Af Soomaali",
-    Lang("sq", "AL") -> "Shqip",
-    Lang("sr", "SP") -> "Српски језик",
+    Lang("fi", "FI") -> "Suomen kieli",
     Lang("sv", "SE") -> "Svenska",
-    Lang("sw", "KE") -> "Kiswahili",
-    Lang("ta", "IN") -> "தமிழ்",
-    Lang("th", "TH") -> "ไทย",
-    Lang("tk", "TM") -> "Türkmençe",
     Lang("tl", "PH") -> "Tagalog",
+    Lang("kab", "DZ") -> "Taqvaylit",
+    Lang("vi", "VN") -> "Tiếng Việt",
     Lang("tok", "AA") -> "Toki pona",
     Lang("tr", "TR") -> "Türkçe",
-    Lang("uk", "UA") -> "українська",
+    Lang("tk", "TM") -> "Türkmençe",
+    Lang("el", "GR") -> "Ελληνικά",
+    Lang("av", "RU") -> "Авар мацӀ",
+    Lang("be", "BY") -> "Беларуская",
+    Lang("bg", "BG") -> "Български език",
+    Lang("kk", "KZ") -> "Қазақша",
+    Lang("mk", "MK") -> "Македонски јази",
+    Lang("mn", "MN") -> "Монгол",
+    Lang("ry", "UA") -> "Русинська бисїда",
+    Lang("ru", "RU") -> "Русский язык",
+    Lang("sr", "SP") -> "Српски језик",
+    Lang("uk", "UA") -> "Українська",
+    Lang("cv", "CU") -> "Чӑваш чӗлхи",
+    Lang("ka", "GE") -> "ქართული",
+    Lang("hy", "AM") -> "Հայերեն",
+    Lang("he", "IL") -> "עִבְרִית",
     Lang("ur", "PK") -> "اُردُو",
-    Lang("uz", "UZ") -> "oʻzbekcha",
-    Lang("vi", "VN") -> "Tiếng Việt",
-    Lang("zh", "CN") -> "中文",
-    Lang("zh", "TW") -> "繁體中文",
-    Lang("zu", "ZA") -> "isiZulu"
+    Lang("ar", "SA") -> "العربية",
+    Lang("ps", "AF") -> "پښتو",
+    Lang("fa", "IR") -> "فارسی",
+    Lang("ckb", "IR") -> "کوردی سۆرانی",
+    Lang("ne", "NP") -> "नेपाली",
+    Lang("pi", "IN") -> "पालि",
+    Lang("mr", "IN") -> "मराठी",
+    Lang("hi", "IN") -> "हिन्दी, हिंदी",
+    Lang("bn", "BD") -> "বাংলা",
+    Lang("gu", "IN") -> "ગુજરાતી",
+    Lang("ta", "IN") -> "தமிழ்",
+    Lang("kn", "IN") -> "ಕನ್ನಡ",
+    Lang("ml", "IN") -> "മലയാളം",
+    Lang("th", "TH") -> "ไทย",
+    Lang("ja", "JP") -> "日本語",
+    Lang("ko", "KR") -> "한국어",
+    Lang("zh", "CN") -> "简体中文",
+    Lang("zh", "TW") -> "繁體中文"
   )
 
-  val defaultRegions = Map[String, Lang](
+  private[i18n] val defaultRegions = Map[String, Lang](
     "de" -> Lang("de", "DE"),
     "en" -> Lang("en", "US"),
     "pt" -> Lang("pt", "BR"),
@@ -127,7 +127,7 @@ object LangList extends lila.core.i18n.LangList:
   lazy val popularNoRegion: List[Lang] = popular.collect:
     case l if defaultRegions.get(l.language).forall(_ == l) => l
 
-  lazy val allLanguages: List[Language] = popularNoRegion.map(fixJavaLanguage)
+  private lazy val allLanguages: List[Language] = popularNoRegion.map(fixJavaLanguage)
   lazy val popularLanguages: List[Language] = allLanguages.take(20)
   lazy val popularAlternateLanguages: List[Language] = allLanguages.drop(1).take(20)
 
@@ -142,7 +142,6 @@ object LangList extends lila.core.i18n.LangList:
       toLanguage(l) -> name
     .toList
     .distinctBy(_._1)
-    .sortBy(_._1.value)
 
   lazy val popularLanguageChoices: List[(Language, String)] =
     popularNoRegion.flatMap: lang =>
@@ -152,7 +151,6 @@ object LangList extends lila.core.i18n.LangList:
     .map: (l, name) =>
       l.code -> name
     .toList
-    .sortBy(_._1)
 
   lazy val allLanguagesForm = new LangForm:
     val choices = languageChoices

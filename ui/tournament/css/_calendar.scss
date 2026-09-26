@@ -1,3 +1,13 @@
+#main-wrap {
+  @media (min-width: at-least($x-large)) {
+    ---main-max-width: min(90vw, 100vw - 140px);
+  }
+}
+
+main.box {
+  overflow: visible;
+}
+
 #tournament-calendar {
   @include prevent-select;
 
@@ -22,8 +32,7 @@
 
     date {
       flex: 0 0 40px;
-      margin-inline-start: -55px;
-      margin-inline-end: 15px;
+      margin-inline: -55px 15px;
     }
 
     lanes {
@@ -47,7 +56,7 @@
     top: 0;
     padding: 4px 0;
     background-color: #303e43;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.5);
     transition: filter 0.13s;
     color: #fff;
     white-space: nowrap;
@@ -66,7 +75,7 @@
       background-color: #0072b2;
     }
 
-    @keyframes animatedBackground {
+    @keyframes animated-background {
       from {
         background-position: 0 0;
       }
@@ -81,10 +90,10 @@
     &.monthly,
     &.marathon,
     &.yearly {
-      text-shadow: 0 0 2px rgba(0, 0, 0, 0.7);
+      text-shadow: 0 0 2px rgb(0 0 0 / 0.7);
       letter-spacing: 1px;
-      background-image: url(../images/grain.png);
-      animation: animatedBackground 50s linear infinite;
+      background-image: url('../images/grain.png');
+      animation: animated-background 50s linear infinite;
     }
 
     &.weekly {
@@ -109,7 +118,7 @@
     }
 
     &.max-rating {
-      background-color: #8572ff;
+      background-color: #6b55fc;
     }
 
     &.yesterday {
@@ -119,7 +128,8 @@
 
     .icon {
       font-size: 1.3em;
-      margin: 2px 1px -1px 3px;
+      line-height: 1;
+      margin: 0 2px 0 4px;
     }
 
     .body {
@@ -146,8 +156,4 @@
       border: none;
     }
   }
-}
-
-#main-wrap {
-  ---main-max-width: min(90vw, 100vw - 140px);
 }

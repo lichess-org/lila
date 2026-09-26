@@ -4,6 +4,7 @@ package fide
 import _root_.chess.{ FideId, FideTC, PlayerName, PlayerTitle }
 import _root_.chess.rating.{ Elo, KFactor }
 import play.api.libs.json.JsObject
+
 import lila.core.userId.UserId
 
 object Federation:
@@ -13,8 +14,9 @@ object Federation:
 
   type Name = String
   type ByFideIds = Map[FideId, Id]
-  type NamesOf = List[FideId] => Fu[Map[Federation.Id, Federation.Name]]
   type FedsOf = List[FideId] => Fu[Federation.ByFideIds]
+  type Guess = String => Option[Federation.Id]
+  type GetName = Id => Fu[Option[Federation.Name]]
 
   case class Stats(rank: Int, nbPlayers: Int, top10Rating: Int)
 
@@ -25,6 +27,7 @@ trait Player:
   def title: Option[PlayerTitle]
   def year: Option[Int]
   def ratingOf(tc: FideTC): Option[Elo]
+  def ratingOfOrStandard(tc: FideTC): Option[Elo]
   def kFactorOf(tc: FideTC): KFactor
   def ratingsMap: Map[FideTC, Elo]
 
@@ -37,11 +40,17 @@ opaque type PhotosJson = JsObject
 object PhotosJson extends TotalWrapper[PhotosJson, JsObject]:
   type Get = Set[FideId] => Fu[PhotosJson]
 
-type Tokenize = String => PlayerToken
+opaque type Tokenize = String => PlayerToken
+object Tokenize extends FunctionWrapper[Tokenize, String => PlayerToken]
 
 enum FidePlayerOrder:
   case name, standard, rapid, blitz, year, follow
   def key = toString
+  // which time control activity applies to that ordering
+  def fideTC: FideTC = this match
+    case FidePlayerOrder.rapid => FideTC.rapid
+    case FidePlayerOrder.blitz => FideTC.blitz
+    case _ => FideTC.standard
 
 object FidePlayerOrder:
   def all: List[FidePlayerOrder] = values.toList

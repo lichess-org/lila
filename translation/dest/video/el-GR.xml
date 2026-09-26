@@ -16,7 +16,6 @@
   <string name="noVideosForTheseTags">Δε βρέθηκαν βίντεο με τις ακόλουθες ετικέτες:</string>
   <string name="thatsAllWeGotForTheseTags">Αυτά είναι όλα τα βίντεο που βρέθηκαν με τις εξής ετικέτες:</string>
   <string name="thatsAllWeGotForThisSearchX">Αυτά είναι όλα τα βίντεο που βρέθηκαν για την αναζήτηση: «%s»</string>
-  <string name="thereAreNoResultsForX">Δε βρέθηκαν βίντεο που να αντιστοιχούν στον όρο αναζήτησης \"%s\"</string>
   <string name="viewMoreTags">Προβολή περισσότερων ετικετών</string>
   <string name="videoNotFound">Δεν ήταν δυνατή η εύρεση του βίντεο!</string>
   <string name="xByY">%1$s από τον/την %2$s</string>

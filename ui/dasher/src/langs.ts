@@ -1,8 +1,9 @@
 import { h, type VNode } from 'snabbdom';
-import * as licon from 'lib/licon';
+
+import { licon } from 'lib/licon';
+
+import { PaneCtrl } from './interfaces';
 import { header } from './util';
-import { type DasherCtrl, PaneCtrl } from './interfaces';
-import { onInsert } from 'lib/view';
 
 type Code = string;
 type Name = string;
@@ -16,10 +17,6 @@ export interface LangsData {
 }
 
 export class LangsCtrl extends PaneCtrl {
-  constructor(root: DasherCtrl) {
-    super(root);
-  }
-
   render = (): VNode =>
     h('div.sub.langs', [
       header(i18n.site.language, this.close),
@@ -28,12 +25,13 @@ export class LangsCtrl extends PaneCtrl {
         { attrs: { method: 'post', action: '/translation/select' } },
         this.list().map(([code, name]: Lang) =>
           h(
-            'button' +
-              (this.data.current === code ? '.current' : '') +
-              (this.data.accepted.includes(code) ? '.accepted' : ''),
+            'button',
             {
+              class: {
+                current: this.isCurrent(code),
+                accepted: this.isAccepted(code),
+              },
               attrs: { type: 'submit', name: 'lang', value: code, title: code },
-              hook: this.data.current === code ? onInsert(el => el.scrollIntoView({ block: 'center' })) : {},
             },
             name,
           ),
@@ -50,8 +48,11 @@ export class LangsCtrl extends PaneCtrl {
     return this.root.data.lang;
   }
 
-  private list = () => [
-    ...this.data.list.filter(lang => this.data.accepted.includes(lang[0])),
+  private readonly isCurrent = (code: Code) => this.data.current === code;
+  private readonly isAccepted = (code: Code) => this.data.accepted.includes(code);
+
+  private readonly list = () => [
+    ...this.data.list.filter(([code, _]) => this.isCurrent(code) || this.isAccepted(code)),
     ...this.data.list,
   ];
 }

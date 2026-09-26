@@ -1,15 +1,17 @@
 import { h, type VNode } from 'snabbdom';
+
+import { defined } from 'lib';
+import { userLink } from 'lib/view/userLink';
+
 import type SwissCtrl from '../ctrl';
 import type { PodiumPlayer } from '../interfaces';
-import { userLink } from 'lib/view/userLink';
-import { defined } from 'lib';
 
 const podiumStats = (p: PodiumPlayer, ctrl: SwissCtrl): VNode =>
   h('table.stats', [
-    h('tr', [h('th', i18n.site.points), h('td', '' + p.points)]),
-    h('tr', [h('th', i18n.swiss.tieBreak), h('td', '' + p.tieBreak)]),
+    h('tr', [h('th', i18n.site.points), h('td', p.points)]),
+    h('tr', [h('th', i18n.swiss.tieBreak), h('td', p.tieBreak)]),
     p.performance && ctrl.opts.showRatings
-      ? h('tr', [h('th', i18n.site.performance), h('td', '' + p.performance)])
+      ? h('tr', [h('th', i18n.site.performance), h('td', p.performance)])
       : null,
   ]);
 

@@ -25,7 +25,6 @@
   <string name="cantChangeMore">Av tøkniligum ávum ber ikki til at broyta annað enn støddina á bókstavum; um teir eru við stórum ella smáum.</string>
   <string name="orCloseAccount">Hinvegin ber til hjá tær at steingja tína núverandi kontu og stovna eina nýggja.</string>
   <string name="wantClearHistory">Eg vil strika mína hendingagongd ella mítt styrkital</string>
-  <string name="cantClearHistory">Tað er ikki møguligt at strika tínar talv- og uppgávuhendingagongdir ella styrkitøl tíni.</string>
   <string name="wantReport">Eg vil melda ein telvara</string>
   <string name="toReportAPlayerUseForm">Til tess at melda ein telvara, nýt fráboðanaroyðublaðið</string>
   <string name="youCanAlsoReachReportPage">Tú røkkur eisini teirri síðuni við at klikkja %s fráboðanarknøttin á eini vangamyndssíðu.</string>
@@ -39,7 +38,7 @@
   <string name="reportMobileIssue">Sum ein Lichess-fartelefonsapp-trupulleiki á GitHub</string>
   <string name="reportBugInDiscord">Í Lichess-tvídráttaambætaranum</string>
   <string name="howToReportBug">Greið vinaliga frá, hvussu trupulleikin ber seg at, hvat tú hevði væntað ístaðin, og tey stig, ið skulu til fyri at endurskapa trupulleikan.</string>
-  <string name="illegalPawnCapture" comment="Appears as an option for reasons to contact Lichess on the 'contact' page: https://lichess.org/contact#help-enpassant&#10;&#10;Players used to routinely write to Lichess stating that there was a bug, or that the other player had hacked their game in some way. In actuality, the player was using the legal move of en passant.&#10;&#10;Please translate this string from the perspective of the player who would be selecting this contact option, and call it 'Illegal', even though we know this is a legal move.">Ólógligur háttur at taka finnuna</string>
+  <string name="illegalPawnCapture">Ólógligur háttur at taka finnuna</string>
   <string name="calledEnPassant">Tað eitur at taka í framlopi (\"en passant\"), og er ein av reglunum í talvi.</string>
   <string name="tryEnPassant">Royn hetta lítla samvirkna spælið at læra meir um at taka í framlopi (\"en passant.\")</string>
   <string name="illegalCastling">Ólógligur ella ómøguligur máti at leypa í borg</string>

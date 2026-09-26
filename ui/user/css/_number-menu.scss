@@ -1,5 +1,6 @@
 .number-menu {
   @include prevent-select;
+
   display: flex;
 
   .nm-item {
@@ -41,7 +42,7 @@
     }
 
     &:hover {
-      background: $m-primary_bg--mix-10;
+      background: color-mix(in oklab, $c-primary 10%, $c-bg);
       color: $c-font-clear;
     }
 

@@ -19,17 +19,12 @@ final class Env(
     db: lila.db.Db,
     userApi: lila.core.user.UserApi,
     relationApi: lila.core.relation.RelationApi,
-    cacheApi: lila.memo.CacheApi,
     teamApi: lila.core.team.TeamApi
-)(using Executor, Scheduler):
+)(using Executor):
 
   private val config = appConfig.get[TimelineConfig]("timeline")(using AutoConfig.loader)
 
-  lazy val entryApi = EntryApi(
-    coll = db(config.entryColl),
-    cacheApi = cacheApi,
-    userMax = config.userDisplayMax
-  )
+  lazy val entryApi = EntryApi(db(config.entryColl), config.userDisplayMax)
 
   lazy val unsubApi = UnsubApi(db(config.unsubColl))
 
@@ -44,7 +39,7 @@ final class Env(
         else
           entryApi
             .channelUserIdRecentExists(channel, me)
-            .map:
+            .dmap:
               if _ then Some(false) // subbed
               else None // not applicable
 

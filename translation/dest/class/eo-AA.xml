@@ -18,7 +18,7 @@
   <string name="removedStudents">Forigita</string>
   <string name="inviteTheStudentBack">Denove inviti la lernanton</string>
   <string name="sendAMessage">Sendi mesaĝon al ĉiuj lernantoj.</string>
-  <string name="aLinkToTheClassWillBeAdded">Ligilo al la klaso memage aldoniĝos ĉe la fino de la mesaĝo, do vi ne devas enmeti ĝin vi mem.</string>
+  <string name="aLinkToTheClassWillBeAdded">Ligilo al la klaso aŭtomate aldoniĝos ĉe la fino de la mesaĝo, do vi ne devas enmeti ĝin vi mem.</string>
   <string name="className">Nomo de la leciono</string>
   <string name="classDescription">Priskribo de la leciono</string>
   <string name="visibleByBothStudentsAndTeachers">Videbla por instruistoj kaj lernantoj de la klaso</string>
@@ -90,7 +90,7 @@ Jen la ligo por aliri la klason.</string>
   <string name="timePlaying">Tempo pasita ludante</string>
   <string name="variantXOverLastY">%1$s sur la lastaj %2$s</string>
   <string name="winrate">Venka procento</string>
-  <string name="na" comment="Appears as part of the 'Progress' column on Lichess classes, where a teacher is looking at their list of students under specific rating or variant categories.">Ne havebla</string>
+  <string name="na">Ne havebla</string>
   <string name="overview">Superrigardo</string>
   <string name="news">Novaĵoj</string>
   <string name="classNews">Novaĵoj de la lecionoj</string>
@@ -119,5 +119,5 @@ Jen la ligo por aliri la klason.</string>
   <string name="moveToClass">Movi al %s</string>
   <string name="moveToAnotherClass">Movi al alia klaso</string>
   <string name="allowMessagingBetweenStudents">Permesi mesaĝojn inter studentoj</string>
-  <string name="expirationInMomentFromNow" comment="%s is relative time in the future. For example, 'in 2 hours'&#10;&#10;If it works better for your language, you can use punctuation e.g. &quot;Expiration: %s&quot;">Senvalidiĝo: %s</string>
+  <string name="expirationInMomentFromNow" comment="String is the translation of, for example, 'in 2 hours'">Senvalidiĝo: %s</string>
 </resources>

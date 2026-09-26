@@ -1,7 +1,7 @@
 package controllers
 
-import akka.stream.scaladsl.*
-import akka.util.ByteString
+import org.apache.pekko.stream.scaladsl.*
+import org.apache.pekko.util.ByteString
 import chess.format.{ Fen, Uci }
 import chess.variant.Variant
 import play.api.mvc.Result
@@ -25,9 +25,10 @@ final class Export(env: Env) extends LilaController(env):
     NoCrawlersUnlessPreview:
       exportImageOf(env.game.gameRepo.gameWithInitialFen(id)): g =>
         val options = lila.game.GifExport.Options.fromReq
-        stream(cacheSeconds = if g.game.finishedOrAborted then 3600 * 24 else 10):
+        val filename = s"lichess-game-${g.game.id}-${color.name}.gif"
+        stream(filename, cacheSeconds = if g.game.finishedOrAborted then 3600 * 24 else 10):
           for
-            analysis <- options.glyphs.so(env.analyse.analysisRepo.byGame(g.game))
+            analysis <- options.glyphs.so(env.analyse.repo.byGame(g.game))
             source <- env.game.gifExport.fromPov(
               Pov(g.game, color),
               g.fen,
@@ -43,9 +44,10 @@ final class Export(env: Env) extends LilaController(env):
 
   def gameThumbnail(id: GameId, theme: Option[String], piece: Option[String]) = Anon:
     exportImageOf(env.game.gameRepo.game(id)) { game =>
+      val filename = s"lichess-game-${game.id}-thumbnail.gif"
       env.game.gifExport
         .gameThumbnail(game, Theme(theme).name, PieceSet.get(piece).name)
-        .pipe(stream(cacheSeconds = if game.finishedOrAborted then 3600 * 24 else 10))
+        .pipe(stream(filename, cacheSeconds = if game.finishedOrAborted then 3600 * 24 else 10))
     }
 
   def puzzleThumbnail(id: PuzzleId, theme: Option[String], piece: Option[String]) = Anon:
@@ -59,7 +61,7 @@ final class Export(env: Env) extends LilaController(env):
           piece = PieceSet.get(piece).name,
           description = s"puzzleThumbnail ${puzzle.id}"
         )
-        .pipe(stream())
+        .pipe(stream(s"lichess-puzzle-${puzzle.id}.gif"))
 
   def fenThumbnail(
       fen: String,
@@ -79,14 +81,14 @@ final class Export(env: Env) extends LilaController(env):
           piece = PieceSet.get(piece).name,
           description = s"fenThumbnail $fen"
         )
-        .pipe(stream())
+        .pipe(stream(s"lichess-fen.gif"))
 
-  private def stream(contentType: String = "image/gif", cacheSeconds: Int = 1209600)(
+  private def stream(filename: String, contentType: String = "image/gif", cacheSeconds: Int = 1209600)(
       upstream: Fu[Source[ByteString, ?]]
   ): Fu[Result] = upstream
     .map: stream =>
       Ok.chunked(stream)
         .headerCacheSeconds(cacheSeconds)
         .as(contentType)
-        .noProxyBuffer
+        .asAttachmentStream(filename)
     .recover { case lila.game.GifExport.UpstreamStatus(code) => Status(code) }

@@ -24,7 +24,7 @@ object RoundGame:
       }
     def forceDrawable = g.playable && g.nonAi && !g.abortable && !g.isSwiss && !g.hasRule(_.noClaimWin)
 
-    def isSwitchable = g.nonAi && (g.isCorrespondence || g.isSimul)
+    def isSwitchable = g.isCorrespondence || g.isSimul
 
     def secondsSinceCreation = (nowSeconds - g.createdAt.toSeconds).toInt
 
@@ -32,3 +32,9 @@ object RoundGame:
 
     def timeBeforeExpiration: Option[Centis] = g.expirable.option:
       Centis.ofMillis(g.movedAt.toMillis - nowMillis + g.timeForFirstMove.millis).nonNeg
+
+  // We are always the player in the pov. However for a scalachess Position, the "player" and "opponent"
+  // are based on whose turn it is.
+  def cannotLose(p: Pov) =
+    (p.isMyTurn && p.game.position.opponentHasInsufficientMaterial) ||
+      (!p.isMyTurn && p.game.position.playerHasInsufficientMaterial)

@@ -3,17 +3,15 @@ package lila.clas
 import play.api.data.*
 import play.api.data.Forms.*
 import play.api.i18n.Lang
-import play.api.mvc.RequestHeader
 
 import lila.common.Form.{ cleanNonEmptyText, cleanText, into }
-import lila.core.security.{ Hcaptcha, HcaptchaForm }
 import lila.clas.Student.RealName
+import lila.mon.extensions.*
 
 final class ClasForm(
     lightUserAsync: lila.core.LightUser.Getter,
-    signupForm: lila.core.security.SignupForm,
-    nameGenerator: NameGenerator,
-    hcaptcha: Hcaptcha
+    signupForm: lila.core.security.SignupFormFields,
+    nameGenerator: NameGenerator
 )(using Executor):
 
   import ClasForm.*
@@ -35,8 +33,6 @@ final class ClasForm(
         "hasTeam" -> boolean
       )(ClasData.apply)(unapply)
 
-    def create(using RequestHeader): Fu[HcaptchaForm[ClasData]] = hcaptcha.form(form)
-
     def edit(c: Clas): Form[ClasData] = form.fill:
       ClasData(
         name = c.name,
@@ -54,7 +50,7 @@ final class ClasForm(
 
     val create: Form[CreateStudent] = Form:
       mapping(
-        "create-username" -> signupForm.username,
+        "create-username" -> signupForm.uniqueUsername,
         "create-realName" -> cleanNonEmptyText(maxLength = 100).into[RealName]
       )(CreateStudent.apply)(unapply)
 
@@ -70,7 +66,7 @@ final class ClasForm(
       mapping(
         "username" -> lila.common.Form.username.historicalField
           .verifying("Unknown username", { blockingFetchUser(_).exists(!_.isBot) })
-          .verifying("This is a teacher", u => !c.teachers.toList.contains(u.id)),
+          .verifying("This is a teacher", u => !c.teachers.contains(u.id)),
         "realName" -> cleanNonEmptyText.into[RealName]
       )(InviteStudent.apply)(unapply)
 
@@ -85,20 +81,10 @@ final class ClasForm(
 
     def release = Form(single("email" -> signupForm.emailField))
 
-    def manyCreate(max: Int): Form[ManyNewStudent] = Form:
-      mapping(
-        "realNames" -> cleanNonEmptyText
-      )(ManyNewStudent.apply)(_.realNamesText.some).verifying(
-        s"There can't be more than ${lila.clas.Clas.maxStudents} per class. Split the students into more classes.",
-        _.realNames.lengthIs <= max
-      )
-
   private def blockingFetchUser(username: UserStr) =
     lightUserAsync(username.id).await(1.second, "clasInviteUser")
 
 object ClasForm:
-
-  private val realNameMaxSize = 100
 
   case class ClasData(
       name: String,
@@ -142,7 +128,3 @@ object ClasForm:
         realName = realName,
         notes = notes
       )
-
-  case class ManyNewStudent(realNamesText: String):
-    def realNames = RealName.from:
-      realNamesText.linesIterator.map(_.trim.take(realNameMaxSize)).filter(_.nonEmpty).distinct.toList

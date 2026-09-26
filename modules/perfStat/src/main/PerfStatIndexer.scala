@@ -2,6 +2,7 @@ package lila.perfStat
 
 import lila.rating.PerfType
 import lila.rating.PerfType.GamePerf
+import lila.mon.extensions.*
 
 final class PerfStatIndexer(
     gameRepo: lila.core.game.GameRepo,
@@ -12,7 +13,7 @@ final class PerfStatIndexer(
     maxSize = Max(64),
     timeout = 10.seconds,
     name = "perfStatIndexer",
-    lila.log.asyncActorMonitor.full
+    lila.mon.asyncActorMonitor.full
   )
 
   private[perfStat] def userPerf(user: UserId, perf: GamePerf): Fu[PerfStat] =
@@ -30,7 +31,7 @@ final class PerfStatIndexer(
         else perfStat
       .flatMap: ps =>
         storage.insert(ps).recover(lila.db.ignoreDuplicateKey).inject(ps)
-      .mon(_.perfStat.indexTime)
+      .mon(lila.mon.perfStat.indexTime)
 
   def addGame(game: Game): Funit =
     game.players.toList.sequentiallyVoid: player =>

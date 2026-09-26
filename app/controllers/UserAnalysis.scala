@@ -37,7 +37,7 @@ final class UserAnalysis(
         Chess960.positionNumber(inputFen | variant.initialFen)
     val decodedFen: Option[Fen.Full] = inputFen.orElse(chess960PositionNum.flatMap(Chess960.positionToFen))
     val pov = makePov(decodedFen, variant)
-    val orientation = get("color").flatMap(Color.fromName) | pov.color
+    val orientation = getColor() | pov.color
     for
       data <- env.api.roundApi.userAnalysisJson(
         pov,
@@ -53,7 +53,7 @@ final class UserAnalysis(
 
   def pgn(pgn: String) = Open:
     val pov = makePov(none, Standard)
-    val orientation = get("color").flatMap(Color.fromName) | pov.color
+    val orientation = getColor() | pov.color
     val decodedPgn =
       lila.common.String
         .decodeUriPath(pgn.take(5000))
@@ -69,7 +69,7 @@ final class UserAnalysis(
   def embed = Anon:
     InEmbedContext:
       val pov = makePov(none, Standard)
-      val orientation = get("color").flatMap(Color.fromName) | pov.color
+      val orientation = getColor() | pov.color
       val fen = get("fen").flatMap(readFen)
       env.api.roundApi
         .userAnalysisJson(pov, ctx.pref, fen, orientation, owner = false)
@@ -111,7 +111,7 @@ final class UserAnalysis(
             else
               val owner = isMyPov(pov)
               for
-                initialFen <- env.game.gameRepo.initialFen(game.id)
+                initialFen <- env.game.gameRepo.initialFen(game)
                 data <-
                   env.api.roundApi
                     .userAnalysisJson(
@@ -119,8 +119,7 @@ final class UserAnalysis(
                       ctx.pref,
                       initialFen,
                       pov.color,
-                      owner = owner,
-                      addLichobileCompat = true
+                      owner = owner
                     )
                 withForecast = owner && !pov.game.synthetic && pov.game.playable
                 page <- renderPage:
@@ -132,7 +131,7 @@ final class UserAnalysis(
       }
 
   private def mobileAnalysis(pov: Pov)(using ctx: Context): Fu[Result] = for
-    initialFen <- env.game.gameRepo.initialFen(pov.gameId)
+    initialFen <- env.game.gameRepo.initialFen(pov.game)
     users <- env.user.api.gamePlayers.analysis(pov.game)
     owner = isMyPov(pov)
     _ = gameC.preloadUsers(users)
@@ -141,9 +140,10 @@ final class UserAnalysis(
     data <- env.api.roundApi.review(
       pov,
       users,
-      tv = none,
       analysis,
+      env.game.gameOpening.of(pov.game, ctx.isAuth),
       initialFen = initialFen,
+      tv = none,
       withFlags = ExportOptions(
         division = true,
         clocks = true,
@@ -163,6 +163,7 @@ final class UserAnalysis(
     import lila.round.Forecast
     Found(env.round.proxyRepo.pov(fullId)): pov =>
       if isTheft(pov) then theftResponse
+      else if !Forecast.isValid(ctx.body.body) then BadRequest
       else
         ctx.body.body
           .validate[Forecast.Steps]
@@ -189,6 +190,7 @@ final class UserAnalysis(
       import lila.round.Forecast
       Found(env.round.proxyRepo.pov(fullId)): pov =>
         if isTheft(pov) then theftResponse
+        else if !Forecast.isValid(ctx.body.body) then BadRequest
         else
           ctx.body.body
             .validate[Forecast.Steps]

@@ -27,7 +27,6 @@ object BSONFields:
   val toints = "toints"
   val playTime = "time"
   val playTimeTotal = "time.total"
-  val createdWithApiVersion = "createdWithApiVersion"
   val lang = "lang"
   val email = "email"
   val verbatimEmail = "verbatimEmail"
@@ -65,7 +64,7 @@ object BSONHandlers:
       since = r.dateO("since"),
       color = r.intO("color").flatMap(PatronColor.map.get).map(PatronColorChoice.apply)
     )
-    def writes(w: BSON.Writer, o: Plan) = $doc(
+    def writes(w: BSON.Writer, o: Plan) = bdoc(
       "months" -> w.int(o.months),
       "active" -> o.active,
       "lifetime" -> w.boolO(o.lifetime),
@@ -109,8 +108,7 @@ object BSONHandlers:
           case Some(f) if FlairApi.exists(f) => Some(f)
           case Some(f) => FlairApi.badFlairs.add(userId, f); None
           case None => None,
-        marks = r.getO[UserMarks](marks) | UserMarks(Nil),
-        hasEmail = r.contains(email)
+        marks = r.getO[UserMarks](marks) | UserMarks(Nil)
       )
 
     def writes(w: BSON.Writer, o: User) =

@@ -1,15 +1,17 @@
-import type AnalyseCtrl from './ctrl';
-import { baseUrl } from './view/util';
-import * as licon from 'lib/licon';
-import { url as xhrUrl, textRaw as xhrTextRaw } from 'lib/xhr';
-import type { AnalyseData } from './interfaces';
 import type { ChartGame, AcplChart } from 'chart';
-import { spinnerHtml, domDialog, alert, confirm } from 'lib/view';
-import { escapeHtml } from 'lib';
-import { storage } from 'lib/storage';
-import { pubsub } from 'lib/pubsub';
 
-export const stockfishName = 'Stockfish 18';
+import { escapeHtml } from 'lib';
+import { licon } from 'lib/licon';
+import { pubsub } from 'lib/pubsub';
+import { storage } from 'lib/storage';
+import { spinnerHtml, domDialog, alert, confirm } from 'lib/view';
+import { url as xhrUrl, textRaw as xhrTextRaw } from 'lib/xhr';
+
+import type AnalyseCtrl from './ctrl';
+import type { AnalyseData } from './interfaces';
+import { baseUrl } from './view/util';
+
+export const stockfishName = 'Stockfish 19';
 
 export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
   $(element).replaceWith(ctrl.opts.$underboard);
@@ -50,9 +52,9 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     pubsub.on('board.change', () => inputFen && updateGifLinks(inputFen.value));
     pubsub.on('analysis.comp.toggle', (v: boolean) => {
       if (v) {
-        setTimeout(() => $menu.find('.computer-analysis').first().trigger('mousedown'), 50);
+        setTimeout(() => $menu.find('.computer-analysis').first().trigger('click'), 50);
       } else {
-        $menu.find('span:not(.computer-analysis)').first().trigger('mousedown');
+        $menu.find('button:not(.computer-analysis)').first().trigger('click');
       }
     });
     pubsub.on('analysis.server.progress', (d: AnalyseData) => {
@@ -100,7 +102,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     if ((panel === 'computer-analysis' || ctrl.opts.hunter) && $('#acpl-chart-container').length)
       setTimeout(startAdvantageChart, 200);
   };
-  $menu.on('mousedown', 'span', function (this: HTMLElement) {
+  $menu.on('click', 'button', function (this: HTMLElement) {
     const panel = this.dataset.panel!;
     store.set(panel);
     setPanel(panel);
@@ -115,7 +117,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
   if (foundStored) setPanel(stored);
   else {
     const $menuCt = $menu.children('[data-panel="ctable"]');
-    ($menuCt.length ? $menuCt : $menu.children(':first-child')).trigger('mousedown');
+    ($menuCt.length ? $menuCt : $menu.children(':first-child')).trigger('click');
   }
   if (!data.analysis) {
     $panels.find('form.future-game-analysis').on('submit', function (this: HTMLFormElement) {
@@ -126,7 +128,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
         return false;
       }
       // ensure the analysis tab remains visible, if it was only displayed to render the request button
-      ctrl.showFishnetAnalysis(true);
+      ctrl.settings.set('showStaticAnalysis', true);
       ctrl.redraw();
       xhrTextRaw(this.action, { method: this.method }).then(res => {
         if (res.ok) startAdvantageChart();
@@ -157,6 +159,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     domDialog({
       modal: true,
       show: true,
+      easyClose: 'clickOutside',
       htmlText:
         '<div><strong style="font-size:1.5em">' +
         $(this).html() +

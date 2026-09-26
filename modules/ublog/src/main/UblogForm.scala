@@ -1,56 +1,38 @@
 package lila.ublog
 
 import play.api.data.*
+import play.api.data.format.Formatter
 import play.api.data.Forms.*
-import play.api.libs.json.*
-import play.api.libs.functional.syntax.toFunctionalBuilderOps
 import scalalib.model.Language
 
-import lila.common.Form.{ cleanNonEmptyText, cleanText, into, given }
+import lila.common.Form.{ formatter, typeIn, cleanNonEmptyText, cleanTextWithSymbols, cleanText, into, given }
 import lila.core.captcha.{ CaptchaApi, WithCaptcha }
-import lila.core.i18n.{ LangList, toLanguage, defaultLanguage }
+import lila.core.i18n.LangList
 import lila.core.ublog.Quality
 
-final class UblogForm(val captcher: CaptchaApi, langList: LangList):
+final class UblogForm(captcha: CaptchaApi, langList: LangList):
 
   import UblogForm.UblogPostData
 
-  private val base =
-    mapping(
-      "title" -> cleanNonEmptyText(minLength = 3, maxLength = 80),
-      "intro" -> cleanNonEmptyText(minLength = 0, maxLength = 1_000),
-      "markdown" -> cleanNonEmptyText(minLength = 0, maxLength = 100_000).into[Markdown],
-      "imageAlt" -> optional(cleanNonEmptyText(minLength = 3, maxLength = 200)),
-      "imageCredit" -> optional(cleanNonEmptyText(minLength = 3, maxLength = 200)),
-      "language" -> optional(langList.popularLanguagesForm.mapping),
-      "topics" -> optional(text),
-      "live" -> boolean,
-      "discuss" -> boolean,
-      "sticky" -> boolean,
-      "ads" -> boolean,
-      "gameId" -> of[GameId],
-      "move" -> text
-    )(UblogPostData.apply)(unapply)
+  private val base = mapping(
+    "title" -> cleanNonEmptyText(minLength = 3, maxLength = 80),
+    "intro" -> cleanNonEmptyText(minLength = 0, maxLength = 1_000),
+    "markdown" -> cleanTextWithSymbols(minLength = 0, maxLength = 100_000).into[Markdown],
+    "imageAlt" -> optional(cleanNonEmptyText(minLength = 3, maxLength = 200)),
+    "imageCredit" -> optional(cleanNonEmptyText(minLength = 3, maxLength = 200)),
+    "language" -> optional(langList.popularLanguagesForm.mapping),
+    "topics" -> optional(text),
+    "live" -> boolean,
+    "discuss" -> boolean,
+    "sticky" -> boolean,
+    "ads" -> boolean,
+    "gameId" -> of[GameId],
+    "move" -> text
+  )(UblogPostData.apply)(unapply)
 
-  val create = Form:
-    base.verifying(lila.core.captcha.failMessage, captcher.validateSync)
-
-  def edit(post: UblogPost) = Form(base).fill:
-    UblogPostData(
-      title = post.title,
-      intro = post.intro,
-      markdown = lila.common.MarkdownToastUi.latex.removeFrom(post.markdown),
-      imageAlt = post.image.flatMap(_.alt),
-      imageCredit = post.image.flatMap(_.credit),
-      language = post.language.some,
-      topics = post.topics.mkString(", ").some,
-      live = post.live,
-      discuss = ~post.discuss,
-      sticky = ~post.sticky,
-      ads = ~post.ads,
-      gameId = GameId(""),
-      move = ""
-    )
+  def apply(post: UblogPost) =
+    val m = if post.isEmpty then base.verifying(lila.core.captcha.failMessage, captcha.validateSync) else base
+    Form(m).fill(UblogForm.toData(post))
 
 object UblogForm:
 
@@ -70,30 +52,6 @@ object UblogForm:
       move: String
   ) extends WithCaptcha:
 
-    def create(user: User) =
-      UblogPost(
-        id = UblogPost.randomId,
-        blog = UblogBlog.Id.User(user.id),
-        title = title,
-        intro = intro,
-        markdown = markdown,
-        language = language.orElse(user.realLang.map(toLanguage)) | defaultLanguage,
-        topics = topics.so(UblogTopic.fromStrList),
-        image = none,
-        live = false,
-        discuss = Option(false),
-        sticky = Option(false),
-        ads = Option(false),
-        created = UblogPost.Recorded(user.id, nowInstant),
-        updated = none,
-        lived = none,
-        featured = none,
-        likes = UblogPost.Likes(1),
-        views = UblogPost.Views(0),
-        similar = none,
-        automod = none
-      )
-
     def update(user: User, prev: UblogPost) =
       prev.copy(
         title = title,
@@ -111,12 +69,28 @@ object UblogForm:
         lived = prev.lived.orElse(live.option(UblogPost.Recorded(user.id, nowInstant)))
       )
 
+  def toData(post: UblogPost) = UblogPostData(
+    title = post.title,
+    intro = post.intro,
+    markdown = lila.markdown.MarkdownToastUi.latex.removeFrom(post.markdown),
+    imageAlt = post.image.flatMap(_.alt),
+    imageCredit = post.image.flatMap(_.credit),
+    language = post.language.some,
+    topics = post.topics.mkString(", ").some,
+    live = post.live,
+    discuss = ~post.discuss,
+    sticky = ~post.sticky,
+    ads = ~post.ads,
+    gameId = GameId(""),
+    move = ""
+  )
+
   lazy val carouselSize =
     Form(single("size" -> number(min = 0, max = 30)))
 
   lazy val modBlogForm = Form(
     tuple(
-      "tier" -> number(min = UblogBlog.Tier.HIDDEN.value, max = UblogBlog.Tier.BEST.value)
+      "tier" -> number(min = UblogBlog.Tier.HIDDEN.value, max = UblogBlog.Tier.HIGH.value)
         .into[UblogBlog.Tier],
       "note" -> cleanText(0, 800)
     )
@@ -162,21 +136,14 @@ object UblogForm:
             else "pull from carousel"
         ).flatten.mkString(", ")
 
-  object ModPostData:
-    given Reads[Quality] = Reads
-      .of[Int]
-      .map(Quality.fromOrdinal)
-    def reads: Reads[ModPostData] =
-      (
-        (JsPath \ "quality")
-          .readNullable[Quality]
-          .and((JsPath \ "evergreen").readNullable[Boolean])
-          .and((JsPath \ "flagged").readNullable[String].map(_.map(_.take(200))))
-          .and((JsPath \ "commercial").readNullable[String].map(_.map(_.take(200))))
-          .and((JsPath \ "featured").readNullable[Boolean])
-          .and(
-            (JsPath \ "featuredUntil")
-              .readNullable[Int]
-              .filter(JsonValidationError(s"bad featuredUntil"))(_.forall(d => d > 0 && d <= 31))
-          )
-      )(ModPostData.apply)
+  private given Formatter[Quality] = formatter.stringOptionFormatter[Quality](_.name, Quality.byName.get)
+
+  val modForm: Form[ModPostData] = Form:
+    mapping(
+      "quality" -> optional(typeIn(Quality.values.toSet)),
+      "evergreen" -> optional(boolean),
+      "flagged" -> optional(nonEmptyText),
+      "commercial" -> optional(nonEmptyText),
+      "featured" -> optional(boolean),
+      "featuredUntil" -> optional(number(1, 31))
+    )(ModPostData.apply)(unapply)

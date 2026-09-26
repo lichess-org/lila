@@ -15,6 +15,7 @@ import lila.core.user.KidMode
 import lila.core.LightUser
 import lila.core.id.ForumTopicSlug
 import lila.memo.PicfitImage
+import lila.core.study.Study
 
 final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, presetsApi: ModPresetsApi)(using
     Executor
@@ -119,10 +120,10 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
     )
 
   def closedByMod(user: User): Fu[Boolean] =
-    fuccess(user.marks.alt) >>| coll.exists($doc("user" -> user.id, "action" -> Modlog.closeAccount))
+    fuccess(user.marks.alt) >>| coll.exists(bdoc("user" -> user.id, "action" -> Modlog.closeAccount))
 
   def closedByTeacher(user: User): Fu[Boolean] =
-    coll.exists($doc("user" -> user.id, "action" -> Modlog.teacherCloseAccount))
+    coll.exists(bdoc("user" -> user.id, "action" -> Modlog.teacherCloseAccount))
 
   def reopenAccount(user: UserId)(using Me) = add:
     Modlog(user.some, Modlog.reopenAccount)
@@ -133,8 +134,14 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
   def removeTitle(user: UserId)(using Me) = add:
     Modlog(user.some, Modlog.removeTitle)
 
-  def setEmail(user: UserId)(using Me) = add:
-    Modlog(user.some, Modlog.setEmail)
+  def setEmail(user: UserId, from: Option[EmailAddress], to: EmailAddress)(using Me) =
+    from
+      .forall(_ != to)
+      .so:
+        add(Modlog(user.some, Modlog.setEmail, s"${from | "none"} -> $to".some))
+
+  def setPassword(using me: Me) = add:
+    Modlog(me.some, Modlog.setPassword)
 
   def deletePost(user: Option[UserId], text: String)(using MyId) = add:
     Modlog(
@@ -187,8 +194,8 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
 
   def teamLog(teamId: TeamId): Fu[List[Modlog]] =
     repo.coll
-      .find($doc("index" -> "team", "details".$startsWith(s"$teamId: ")))
-      .sort($sort.desc("date"))
+      .find(bdoc("index" -> "team", "details".regexStart(s"$teamId: ")))
+      .sort(sort.desc("date"))
       .cursor[Modlog]()
       .list(30)
 
@@ -214,23 +221,23 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
     yield ()
 
   def wasUnteachered(user: UserId): Fu[Boolean] =
-    coll.exists($doc("user" -> user, "details".$regex(s"-${Permission.Teacher.toString}")))
+    coll.exists(bdoc("user" -> user, "details".regex(s"-${Permission.Teacher.toString}")))
 
   def wasMarkedBy(user: UserId)(using me: Me): Fu[Boolean] =
     coll.secondary.exists:
-      $doc(
+      bdoc(
         "user" -> user,
         "mod" -> me.userId,
-        "action".$in(markActions)
+        "action".in(markActions)
       )
 
   def wereMarkedBy(users: List[UserId])(using me: Me): Fu[Set[UserId]] =
     coll.distinctEasy[UserId, Set](
       "user",
-      $doc(
-        "user".$in(users),
+      bdoc(
+        "user".in(users),
         "mod" -> me.userId,
-        "action".$in(markActions)
+        "action".in(markActions)
       ),
       _.sec
     )
@@ -240,9 +247,6 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
 
   def modMessage(user: UserId, subject: String)(using MyId) = add:
     Modlog(user.some, Modlog.modMessage, details = subject.some)
-
-  def coachReview(coach: UserId, author: UserId)(using MyId) = add:
-    Modlog(coach.some, Modlog.coachReview, details = s"by $author".some)
 
   private def cheatDetected(user: UserId, gameId: GameId) = add:
     Modlog(UserId.lichess.into(ModId), user.some, Modlog.cheatDetected, details = s"game $gameId".some)
@@ -282,14 +286,17 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
       details = image.automod.flatMap(_.flagged)
     )
 
+  def studyUnfeature(study: Study)(using myId: MyId) = add:
+    Modlog(myId.modId, study.ownerId.some, Modlog.studyUnfeature, details = study.name.value.some)
+
   def wasUnengined(sus: Suspect, after: Option[Instant] = None) = coll.exists:
-    $doc(
+    bdoc(
       "user" -> sus.user.id,
       "action" -> Modlog.unengine
-    ) ++ after.so(d => $doc("date".$gte(d)))
+    ) ++ after.so(d => bdoc("date".gte(d)))
 
   def wasUnbooster(userId: UserId) = coll.exists:
-    $doc(
+    bdoc(
       "user" -> userId,
       "action" -> Modlog.unbooster
     )
@@ -297,21 +304,21 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
   def timeoutPersonalExport(userId: UserId): Fu[List[Modlog]] =
     coll.secondary
       .find(
-        $doc(
+        bdoc(
           "user" -> userId,
           "action" -> Modlog.chatTimeout
         )
       )
-      .sort($sort.desc("date"))
+      .sort(sort.desc("date"))
       .cursor[Modlog]()
       .list(100)
 
   def userHistory(userId: UserId): Fu[List[Modlog]] =
     coll.secondary
       .find(
-        $doc(
+        bdoc(
           "user" -> userId,
-          "action".$nin(
+          "action".nin(
             List(
               Modlog.teamKick,
               Modlog.teamEdit
@@ -319,45 +326,48 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
           )
         )
       )
-      .sort($sort.desc("date"))
+      .sort(sort.desc("date"))
       .cursor[Modlog]()
       .list(100)
 
   def countRecentCheatDetected(userId: UserId): Fu[Int] =
     coll.secondary.countSel:
-      $doc(
+      bdoc(
         "user" -> userId,
         "action" -> Modlog.cheatDetected,
-        "date".$gte(nowInstant.minusMonths(6))
+        "date".gt(nowInstant.minusMonths(6))
       )
+
+  def recentActionsOf(userId: UserId): Fu[List[String]] =
+    coll.secondary.primitive[String](bdoc("user" -> userId, "date".gt(nowInstant.minusWeeks(1))), "action")
 
   def countRecentRatingManipulationsWarnings(userId: UserId): Fu[Int] =
     coll.secondary.countSel:
-      $doc(
+      bdoc(
         "user" -> userId,
         "action" -> Modlog.modMessage,
-        $or(
-          $doc("details" -> SandbagWatch.msgPreset.sandbagAuto.name),
-          $doc("details" -> SandbagWatch.msgPreset.boostAuto.name)
+        or(
+          bdoc("details" -> SandbagWatch.msgPreset.sandbagAuto.name),
+          bdoc("details" -> SandbagWatch.msgPreset.boostAuto.name)
         ),
-        "date".$gte(nowInstant.minusMonths(6))
+        "date".gte(nowInstant.minusMonths(6))
       )
 
   def recentOf(id: Option[String] = None) =
     coll.secondary
       .find(
-        "mod".$nin(List(UserId.lichess, UserId.irwin, UserId.kaladin)) ++ id.so(cid =>
-          $doc("context.id" -> cid)
+        "mod".nin(List(UserId.lichess, UserId.irwin, UserId.kaladin)) ++ id.so(cid =>
+          bdoc("context.id" -> cid)
         )
       )
-      .sort($sort.desc("date"))
+      .sort(sort.desc("date"))
       .cursor[Modlog]()
       .list(300)
 
   def recentBy(mod: Mod) =
     coll.secondary
-      .find($doc("mod" -> mod.id))
-      .sort($sort.desc("date"))
+      .find(bdoc("mod" -> mod.id))
+      .sort(sort.desc("date"))
       .cursor[Modlog]()
       .list(200)
 
@@ -366,9 +376,9 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
       u.marks.value.nonEmpty || u.enabled.no
     coll.secondary
       .find(
-        $doc(
-          "user".$in(onlyUsers.map(_.id)),
-          "action".$in(
+        bdoc(
+          "user".in(onlyUsers.map(_.id)),
+          "action".in(
             List(
               Modlog.engine,
               Modlog.troll,
@@ -380,9 +390,9 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
             )
           )
         ),
-        $doc("user" -> true, "action" -> true, "date" -> true).some
+        bdoc("user" -> true, "action" -> true, "date" -> true, "details" -> true).some
       )
-      .sort($sort.asc("date"))
+      .sort(sort.asc("date"))
       .cursor[Modlog.UserEntry]()
       .listAll()
       .map:
@@ -393,12 +403,11 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
             case u => u
 
   private def add(m: Modlog): Funit =
-    lila.mon.mod.log.create.increment()
-    lila.log("mod").info(m.toString)
+    if !m.onSelf then lila.mon.mod.log.create(m.mod.userId, m.action).increment()
     m.notable.so:
       coll.insert.one {
-        bsonWriteObjTry[Modlog](m).get ++ (!m.isLichess).so($doc("human" -> true))
-      } >> (m.notableZulip.so(zulipMonitor(m)))
+        bsonWriteObjTry[Modlog](m).get ++ (!m.isLichess).so(bdoc("human" -> true))
+      } >> m.notableZulip.so(zulipMonitor(m))
 
   private def zulipMonitor(m: Modlog): Funit =
     import lila.mod.Modlog as M

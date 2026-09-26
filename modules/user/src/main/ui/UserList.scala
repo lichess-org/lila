@@ -135,7 +135,7 @@ final class UserList(helpers: Helpers, bits: UserBits):
 
   def bots(users: List[UserWithPerfs], bestPerfs: UserPerfs => List[PerfKey])(using Context) =
     val title = s"${users.size} Online bots"
-    val aboutLink = a(href := "/blog/WvDNticAAMu_mHKP/welcome-lichess-bots")("About Lichess Bots")
+    val aboutLink = a(href := "/blog/WvDNticAAMu_mHKP/welcome-lichess-bots")(trans.site.aboutBotsOnLichess())
     val (featured, community) = users.partition(_.isVerified)
     Page(title)
       .css("bits.slist")
@@ -145,19 +145,17 @@ final class UserList(helpers: Helpers, bits: UserBits):
           bits.communityMenu("bots"),
           div(cls := "bots page-menu__content")(
             div(cls := "box box-pad bots__categ")(
-              boxTop(h1("Featured bots")),
-              div("Try playing these innovative chess engines! These are our favourites.")
-            ),
-            div(cls := "bots__featured")(
-              botGrid(featured, bestPerfs)
-            ),
-            div(cls := "box box-pad bots__categ")(
-              boxTop(h1("Community bots"), aboutLink),
-              div(
-                "More chess engines created by the Lichess community. They are hosted by their creators, and as such might not always be online."
+              boxTop(h1(trans.site.featuredBots())),
+              p(trans.site.tryPlayingTheseInnovativeChessEngines()),
+              div(cls := "bots__featured")(
+                botGrid(featured, bestPerfs)
               )
             ),
-            botGrid(community, bestPerfs)
+            div(cls := "box box-pad bots__categ")(
+              boxTop(h1(trans.site.communityBots()), aboutLink),
+              p(trans.site.moreChessEnginesCreatedByTheLichessCommunity()),
+              botGrid(community, bestPerfs)
+            )
           )
         )
 

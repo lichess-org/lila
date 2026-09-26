@@ -1,6 +1,6 @@
 package lila.fishnet
 
-import reactivemongo.akkastream.cursorProducer
+import reactivemongo.pekkostream.cursorProducer
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
@@ -8,8 +8,8 @@ import lila.db.dsl.{ *, given }
 final private class Cleaner(
     repo: FishnetRepo,
     analysisColl: Coll,
-    system: akka.actor.ActorSystem
-)(using Executor, akka.stream.Materializer):
+    system: org.apache.pekko.actor.ActorSystem
+)(using Executor, org.apache.pekko.stream.Materializer):
 
   import BSONHandlers.given
 
@@ -20,8 +20,8 @@ final private class Cleaner(
 
   private def cleanAnalysis: Funit =
     analysisColl
-      .find($doc("acquired.date".$lt(durationAgo(analysisTimeoutBase))))
-      .sort($sort.desc("acquired.date"))
+      .find(bdoc("acquired.date".lt(durationAgo(analysisTimeoutBase))))
+      .sort(sort.desc("acquired.date"))
       .cursor[Work.Analysis]()
       .documentSource()
       .filter: ana =>

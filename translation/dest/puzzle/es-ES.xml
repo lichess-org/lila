@@ -13,7 +13,6 @@
   <string name="origin">Origen</string>
   <string name="specialMoves">Movimientos especiales</string>
   <string name="didYouLikeThisPuzzle">¿Te ha gustado este ejercicio?</string>
-  <string name="voteToLoadNextOne">¡Vota para pasar al siguiente!</string>
   <string name="upVote">Votar positivamente el ejercicio</string>
   <string name="downVote">Votar negativamente el ejercicio</string>
   <string name="yourPuzzleRatingWillNotChange">Tu puntuación de ejercicios no cambiará. Nota que los ejercicios no son una competición. La puntuación indica los ejercicios que se adecuan a tus habilidades.</string>
@@ -93,6 +92,6 @@
   </plurals>
   <string name="percentSolved">%s correctos</string>
   <string name="noPuzzlesToShow">Aún no hay nada que mostrar aquí. ¡Ve y haz algunos ejercicios!</string>
-  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">¡Entrena estas áreas para progresar!</string>
+  <string name="improvementAreasDescription">¡Entrena estas áreas para progresar!</string>
   <string name="strengthDescription">Estas son las áreas en las que eres más fuerte</string>
 </resources>

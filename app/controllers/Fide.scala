@@ -21,20 +21,22 @@ final class Fide(env: Env) extends LilaController(env):
           case Right(pager) => renderPage(views.fide.player.index(pager, q.so(_.trim), order)).map(Ok(_))
 
   def show(id: chess.FideId, slug: String, page: Int) = Open:
-    env.fide.repo.player
-      .fetch(id)
-      .flatMap:
-        case None => NotFound.page(views.fide.player.notFound(id))
-        case Some(player) =>
-          if player.slug != slug then Redirect(playerUrl(player))
-          else
-            for
-              user <- env.title.api.publicUserOf(player.id)
-              tours <- env.relay.playerTour.playerTours(player, page)
-              isFollowing <- ctx.userId.so(env.fide.repo.follower.isFollowing(_, id))
-              ratings <- env.fide.repo.rating.get(player.id)
-              rendered <- renderPage(views.fide.player.show(player, user, tours, ratings, isFollowing))
-            yield Ok(rendered)
+    WithProxy:
+      limit.enumeration.fidePlayer(rateLimited):
+        env.fide.playerApi
+          .get(id)
+          .flatMap:
+            case None => NotFound.page(views.fide.player.notFound(id))
+            case Some(player) =>
+              if player.slug != slug then Redirect(playerUrl(player))
+              else
+                for
+                  user <- env.title.api.publicUserOf(player.id)
+                  tours <- env.relay.playerTour.playerTours(player, page)
+                  isFollowing <- ctx.userId.so(env.fide.repo.follower.isFollowing(_, id))
+                  ratings <- env.fide.repo.rating.get(player.id)
+                  rendered <- renderPage(views.fide.player.show(player, user, tours, ratings, isFollowing))
+                yield Ok(rendered)
 
   def follow(fideId: chess.FideId, follow: Boolean) = AuthOrScopedBody(_.Web.Mobile): _ ?=>
     me ?=>
@@ -42,7 +44,14 @@ final class Fide(env: Env) extends LilaController(env):
       for _ <- f(me.userId, fideId) yield NoContent
 
   def apiShow(id: chess.FideId) = Anon:
-    Found(env.fide.playerApi.withFollow(id))(JsonOk)
+    WithProxy:
+      limit.enumeration.fidePlayer(rateLimited):
+        Found(env.fide.playerApi.withFollow(id))(JsonOk)
+
+  def apiRatings(id: chess.FideId) = AnonOrScoped():
+    def proceed = JsonOk(env.fide.playerApi.getRatings(id).map(_.toJson))
+    if isGrantedOpt(_.ApiHog) then proceed
+    else WithProxy(limit.enumeration.fidePlayer(rateLimited)(proceed))
 
   def apiSearch(q: String) = Anon:
     env.fide.search(q.some, 1, FidePlayerOrder.default).map(_.fold(Seq(_), _.currentPageResults)).map(JsonOk)
@@ -71,7 +80,7 @@ final class Fide(env: Env) extends LilaController(env):
 
   def playerPhoto(id: chess.FideId) = SecureBody(lila.web.HashedMultiPart(parse))(_.FidePlayer) {
     ctx ?=> _ ?=>
-      Found(env.fide.repo.player.fetch(id)): p =>
+      Found(env.fide.playerApi.get(id)): p =>
         ctx.body.body.file("photo") match
           case Some(photo) =>
             for
@@ -83,7 +92,7 @@ final class Fide(env: Env) extends LilaController(env):
   }
 
   def playerUpdate(id: chess.FideId) = SecureBody(_.FidePlayer) { ctx ?=> _ ?=>
-    Found(env.fide.repo.player.fetch(id)): p =>
+    Found(env.fide.playerApi.get(id)): p =>
       bindForm(FidePlayer.form.credit(p))(
         _ => funit,
         credit =>

@@ -35,7 +35,7 @@
   <string name="itsYourTurn">당신이 둘 차례입니다!</string>
   <string name="cheatDetected">부정행위 감지됨</string>
   <string name="kingInTheCenter">킹이 중앙에 도달</string>
-  <string name="threeChecks">세 번의 체크</string>
+  <string name="threeChecks">체크 세 번</string>
   <string name="raceFinished">킹이 보드 끝에 도달함</string>
   <string name="variantEnding">변형 종료</string>
   <string name="newOpponent">새로운 상대</string>
@@ -57,13 +57,15 @@
   <string name="blackLeftTheGame">흑 게임 퇴장</string>
   <string name="whiteDidntMove">백이 수를 두지 않음</string>
   <string name="blackDidntMove">흑이 수를 두지 않음</string>
+  <string name="whiteAborted">백 게임 중단</string>
+  <string name="blackAborted">흑 게임 중단</string>
   <string name="requestAComputerAnalysis">컴퓨터 분석 요청하기</string>
   <string name="computerAnalysis">컴퓨터 분석</string>
   <string name="computerAnalysisAvailable">컴퓨터 분석 가능</string>
   <string name="computerAnalysisDisabled">컴퓨터 분석 비활성화됨</string>
   <string name="analysis">분석</string>
   <string name="depthX">%s 수까지 탐색</string>
-  <string name="usingServerAnalysis">서버 분석 사용하기</string>
+  <string name="usingServerAnalysis">서버 분석 사용 중</string>
   <string name="loadingEngine">엔진 로드 중...</string>
   <string name="calculatingMoves">수 계산 중...</string>
   <string name="engineFailed">엔진 불러오는 도중 오류 발생</string>
@@ -94,9 +96,11 @@
   <string name="database">데이터베이스</string>
   <string name="whiteDrawBlack">백 / 무승부 / 흑</string>
   <string name="averageRatingX">평균 레이팅: %s</string>
+  <string name="minRatingX">%s의 최소 레이팅</string>
+  <string name="maxRatingX">%s의 최대 레이팅</string>
   <string name="recentGames">최근 대국</string>
   <string name="topGames">최고 레이팅 대국</string>
-  <string name="masterDbExplanation">%2$s년과 %3$s년 사이 FIDE 레이팅이 최소 %1$s였던 선수들의 기보가 약 2백만개 있습니다.</string>
+  <string name="masterDbExplanation">%2$s년과 %3$s년 사이 FIDE 레이팅이 최소 %1$s였던 선수들의 대면 경기</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="other">%s개의 반수 후 체크메이트</item>
   </plurals>
@@ -124,39 +128,40 @@
   <string name="enable">활성화</string>
   <string name="bestMoveArrow">최선의 수 화살표</string>
   <string name="showVariationArrows">라인을 화살표로 표시하기</string>
-  <string name="evaluationGauge">평가 게이지</string>
   <string name="visualMotifs">전술 시각화</string>
   <string name="undefendedPieces">수비가 없는 기물들</string>
   <string name="pinnedPieces">핀에 걸린 기물들</string>
   <string name="checkableKing">체크할 수 있는 킹</string>
   <string name="multipleLines">다중 라인 수</string>
+  <string name="multipleLinesDescription">평가 라인과 보드에 그릴 화살표의 개수 설정</string>
+  <string name="searchTime">검색 시간</string>
+  <string name="searchTimeDescription">새로운 포지션을 평가할 시간 설정</string>
+  <string name="threads">스레드</string>
+  <string name="threadsDescription">이 값을 CPU 스레드 수보다 낮게 설정하세요. 안전하고 적절한 값을 표시해 두었습니다</string>
+  <string name="threadsDescriptionMobile">스레드가 많을수록 더 나은 분석을 위해 배터리를 많이 소모합니다</string>
   <string name="cpus">CPU 수</string>
   <string name="memory">메모리</string>
+  <string name="memoryDescription">값이 클수록 성능이 개선될 수 있습니다</string>
   <string name="infiniteAnalysis">무한 분석</string>
   <string name="removesTheDepthLimit">탐색 깊이 제한을 없애고 컴퓨터를 따뜻하게 해줍니다</string>
   <string name="blunder">블런더</string>
   <string name="mistake">실수</string>
   <string name="inaccuracy">부정확한 수</string>
-  <plurals name="nbBlunders">
-    <item quantity="other">%s 블런더</item>
-  </plurals>
   <plurals name="numberBlunders">
     <item quantity="other">%s 블런더</item>
   </plurals>
-  <plurals name="nbMistakes">
-    <item quantity="other">%s 실수</item>
-  </plurals>
   <plurals name="numberMistakes">
     <item quantity="other">%s 실수</item>
-  </plurals>
-  <plurals name="nbInaccuracies">
-    <item quantity="other">%s 부정확한 수</item>
   </plurals>
   <plurals name="numberInaccuracies">
     <item quantity="other">%s 부정확한 수</item>
   </plurals>
   <string name="moveTimes">이동 시간</string>
   <string name="flipBoard">보드 돌리기</string>
+  <string name="toggleLocalEngine">로컬 엔진 켜기/끄기</string>
+  <string name="engineSettings">엔진 설정</string>
+  <string name="enginesFromStrongestToWeakest">엔진 (강한 순서대로)</string>
+  <string name="illegalPosition">합법적이지 않은 포지션</string>
   <string name="threefoldRepetition">3회 동형반복</string>
   <string name="claimADraw">무승부 처리</string>
   <string name="drawClaimed">무승부 처리됨</string>
@@ -222,8 +227,9 @@
   <string name="changeUsernameNotSame">글자의 대소문자 변경만 가능합니다 예: \"chulsoo\"에서 \"ChulSoo\"로.</string>
   <string name="changeUsernameDescription">사용자명 변경하기: 대/소문자만의 변경이 허용되며, 단 한번만 가능합니다.</string>
   <string name="signupUsernameHint">사용자 이름이 어린이를 포함해 모두에게 적절한지 확인하세요. 나중에 변경할 수 없으며 부적절한 사용자 이름을 가진 계정은 폐쇄됩니다!</string>
-  <string name="signupEmailHint">비밀번호 초기화를 위해서만 사용됩니다.</string>
+  <string name="signupEmailPromise">저희는 귀하의 계정에 대한 이메일만을 전송할 것이며 귀하의 이메일을 공유하지 않을 것입니다.</string>
   <string name="password">비밀번호</string>
+  <string name="showPassword">비밀번호 표시</string>
   <string name="changePassword">비밀번호 변경</string>
   <string name="changeEmail">이메일 주소 변경</string>
   <string name="email">이메일</string>
@@ -245,10 +251,8 @@
   <string name="emailSent">%s(으)로 이메일을 전송했습니다.</string>
   <string name="emailCanTakeSomeTime">이메일이 도착하는데 시간이 좀 걸릴 수 있습니다.</string>
   <string name="refreshInboxAfterFiveMinutes">5분 가량 기다린 후 이메일 수신함을 새로고침 해주세요.</string>
-  <string name="checkSpamFolder">또한 스팸 메일함에 들어가 있을 수 있습니다. 만약 그런 경우, 스팸이 아님으로 표시해 두세요.</string>
-  <string name="emailForSignupHelp">모두 실패했다면, 이곳으로 메일을 보내주세요:</string>
-  <string name="copyTextToEmail">위의 텍스트를 복사해서 %s(으)로 보내주세요</string>
-  <string name="waitForSignupHelp">가입을 완료할 수 있도록 빠르게 연락드리겠습니다.</string>
+  <string name="checkSpamOrJunkFolder" comment="checkSpamFolder&#10;It = The confirmation email">만약 확인 이메일을 받지 못하셨다면, 스팸함이나 휴지통을 확인하세요. 중요한 연락을 계속 통보받기 위해서는 lichess.org에서 발송된 메시지를 안전함 및 \"스팸이 아님\"으로 설정하세요.</string>
+  <string name="sendEmailForAccountVerification">확인 이메일을 찾을 수 없는 경우 %s에 이메일을 보내주시면 계정을 확인해 드리겠습니다.</string>
   <string name="accountConfirmed">유저 %s(이)가 성공적으로 확인되었습니다.</string>
   <string name="accountCanLogin">이제 %s(으)로 로그인할 수 있습니다.</string>
   <string name="accountConfirmationEmailNotNeeded">이메일 확인은 필요하지 않습니다.</string>
@@ -268,8 +272,8 @@
   </plurals>
   <string name="ok">확인</string>
   <string name="cancel">취소</string>
-  <string name="whiteTimeOut">백 시간 초과</string>
-  <string name="blackTimeOut">흑 시간 초과</string>
+  <string name="whiteRanOutOfTime" comment="whiteTimeOut&#10;&#10;Shows when White's time has run out. Is followed by the end condition, for example&#10;'White ran out of time · Draw'">백 시간 초과</string>
+  <string name="blackRanOutOfTime" comment="blackTimeOut&#10;&#10;Shows when Black's time has run out. Is followed by the end condition, for example&#10;'Black ran out of time · Draw'">흑 시간 초과</string>
   <string name="drawOfferSent">무승부 요청함</string>
   <string name="drawOfferAccepted">무승부 요청 수락됨</string>
   <string name="whiteOffersDraw">백이 무승부를 제안합니다</string>
@@ -282,8 +286,8 @@
   <string name="playingRightNow">지금 대국 중</string>
   <string name="eventInProgress">지금 대국 중</string>
   <string name="finished">종료됨</string>
-  <string name="abortGame">대국 취소</string>
-  <string name="gameAborted">대국 취소됨</string>
+  <string name="abortGame">대국 중단</string>
+  <string name="gameAborted">대국 중단됨</string>
   <string name="standard">스탠다드</string>
   <string name="customPosition">커스텀 포지션</string>
   <string name="unlimited">무제한</string>
@@ -377,7 +381,8 @@
     <item quantity="other">공식 대국을 %s회 더 두어야 합니다.</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">당신의 %s 레이팅은 임시 레이팅입니다</string>
-  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">귀하의 레이팅이 안정적이지 않기 때문에 레이팅 필터가 잠겨 있습니다. 레이팅 반영 게임을 플레이하면 안정성이 향상됩니다.</string>
+  <string name="cannotFilterByUnstableRating" comment="Tooltip to explain why the control for filtering by rating is disabled">귀하의 레이팅이 안정적이지 않기 때문에 레이팅으로 필터링할 수 없습니다. 
+레이팅 반영 게임을 플레이하면 안정성이 향상됩니다.</string>
   <string name="yourPerfRatingIsTooHigh">당신의 %1$s 레이팅(%2$s)은 너무 높습니다.</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">당신의 주간 최고 %1$s 레이팅(%2$s)은 너무 높습니다.</string>
   <string name="yourPerfRatingIsTooLow">당신의 %1$s 레이팅(%2$s)은 너무 낮습니다.</string>
@@ -398,7 +403,7 @@
   <string name="apply">저장</string>
   <string name="save">저장하기</string>
   <string name="leaderboard">리더보드</string>
-  <string name="screenshotCurrentPosition">스크린샷 찍기</string>
+  <string name="positionAsImage" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position.">포지션 이미지</string>
   <string name="gameAsGIF">GIF로 저장하기</string>
   <string name="playerNames">플레이어명</string>
   <string name="moveAnnotations">수 주석</string>
@@ -408,7 +413,7 @@
   <string name="continueFromHere">여기서부터 시작</string>
   <string name="toStudy">연구</string>
   <string name="importGame">대국 불러오기</string>
-  <string name="importGameExplanation">체스 대국의 PGN 을 붙여 넣으면, 복기와 컴퓨터 분석을 진행할 수 있고, 채팅을 칠 수도 있으며, 대국을 공유할 수 있는 URL 링크도 생성할 수 있습니다.</string>
+  <string name="importGameExplanation">체스 대국의 PGN을 붙여넣어 복기와 컴퓨터 분석을 진행하고, 채팅을 치고, 공유 가능한 링크를 생성하세요.</string>
   <string name="importGameDataPrivacyWarning">이 PGN은 모두가 볼 수 있게 됩니다. 비공개로 대국을 불러오려면, 연구 기능을 이용하세요.</string>
   <plurals name="nbImportedGames">
     <item quantity="other">불러온 대국 %s개</item>
@@ -441,6 +446,7 @@
   <plurals name="nbFollowing">
     <item quantity="other">팔로잉 %s명</item>
   </plurals>
+  <string name="less">간단히</string>
   <string name="more">더보기</string>
   <string name="memberSince">가입 시기:</string>
   <string name="lastSeenActive">최근 로그인: %s</string>
@@ -472,7 +478,7 @@
   <string name="youArePlaying">참가중!</string>
   <string name="winRate">승률</string>
   <string name="performance">퍼포먼스 레이팅</string>
-  <string name="tournamentComplete">대회 종료</string>
+  <string name="tournamentComplete">토너먼트 종료</string>
   <string name="movesPlayed">말 이동 횟수</string>
   <string name="whiteWins">백으로 승리</string>
   <string name="blackWins">흑으로 승리</string>
@@ -484,6 +490,7 @@
   <string name="popularOpenings">인기 있는 오프닝</string>
   <string name="endgamePositions">엔드게임 포지션</string>
   <string name="chess960StartPosition">체스960 시작 포지션: %s</string>
+  <string name="randomChess960Position">랜덤 체스960 포지션</string>
   <string name="startPosition">시작 포지션</string>
   <string name="clearBoard">보드 지우기</string>
   <string name="loadPosition">포지션 불러오기</string>
@@ -505,11 +512,11 @@
   <string name="oneUrlPerLine">한 줄에 당 URL 1개</string>
   <string name="inlineNotation">기보법 가로쓰기</string>
   <string name="makeAStudy">안전하게 보관하고 공유하려면 연구를 만들어 보세요.</string>
-  <string name="clearSavedMoves">저장된 움직임 삭제</string>
+  <string name="clearLocalData">로컬 데이터 지우기</string>
   <string name="previouslyOnLichessTV">이전 방송</string>
   <string name="onlinePlayers">접속한 플레이어</string>
   <string name="activePlayers">활동적인 플레이어</string>
-  <string name="bewareTheGameIsRatedButHasNoClock">주의하세요, 공식 대국이지만 시간 제한이 없습니다!</string>
+  <string name="bewareTheGameIsRatedButHasNoClock">주의하세요, 레이팅 대국이지만 시간 제한이 없습니다!</string>
   <string name="success">성공!</string>
   <plurals name="nbGamesInPlay">
     <item quantity="other">%s개의 대국 진행 중</item>
@@ -518,6 +525,11 @@
   <string name="autoSwitch">자동 전환</string>
   <string name="puzzles">퍼즐</string>
   <string name="onlineBots">온라인 봇</string>
+  <string name="aboutBotsOnLichess">Lichess의 봇에 대하여</string>
+  <string name="featuredBots">주요 봇</string>
+  <string name="tryPlayingTheseInnovativeChessEngines">이 혁신적인 체스 엔진들과 플레이해 보세요! 저희가 가장 좋아하는 엔진들입니다.</string>
+  <string name="communityBots">커뮤니티 봇</string>
+  <string name="moreChessEnginesCreatedByTheLichessCommunity">Lichess 커뮤니티가 만든 더 많은 체스 엔진들입니다. 만든 이가 호스팅하고 있으며, 항상 온라인이 아닐 수도 있습니다.</string>
   <string name="name">이름</string>
   <string name="description">설명</string>
   <string name="descPrivate">비공개 설명</string>
@@ -535,6 +547,9 @@
   <string name="replies">답글</string>
   <string name="replyToThisTopic">답글 달기</string>
   <string name="reply">전송</string>
+  <string name="reopen">다시 열기</string>
+  <string name="quote">인용하기</string>
+  <string name="postEdited">수정됨</string>
   <string name="message">내용</string>
   <string name="createTheTopic">새 주제 생성</string>
   <string name="reportAUser">사용자 신고</string>
@@ -546,8 +561,8 @@
   <string name="other">기타</string>
   <string name="reportCheatBoostHelp">대국 URL 주소를 붙여넣으시고 해당 사용자가 무엇을 잘못했는지 설명해 주세요. 그냥 \"그들이 부정행위를 했어요\" 라고만 말하지 말고, 어떻게 당신이 이 결론에 도달하게 됐는지 알려주세요.</string>
   <string name="reportUsernameHelp">왜 이 사용자의 이름이 불쾌한지 설명해주세요. 그저 \"불쾌해요/부적절해요\"라고만 말하지 마세요, 대신 왜 이런 결론에 도달했는지 말씀해 주세요. 단어가 난해하거나, 영어가 아니거나, 은어이거나, 문화적/역사적 배경이 있는 경우 특히 중요합니다.</string>
-  <string name="reportProcessedFasterInEnglish">귀하의 신고가 영어로 적혀있을 경우 빠르게 처리될 것입니다.</string>
-  <string name="error.provideOneCheatedGameLink">부정행위가 존재하는 대국의 링크를 제공해주세요.</string>
+  <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">신고를 영어로 작성하시면 더 빠르게 처리해 드릴 수 있습니다.</string>
+  <string name="error.provideOneCheatedGameLink">검토할 대국의 링크를 하나 이상 제공해 주세요.</string>
   <string name="by">작성: %s</string>
   <string name="importedByX">%s가 불러옴</string>
   <string name="thisTopicIsNowClosed">이 주제는 닫혔습니다.</string>
@@ -559,6 +574,10 @@
   <string name="invalidUsernameOrPassword">사용자 이름이나 비밀번호가 잘못되었습니다.</string>
   <string name="incorrectPassword">잘못된 비밀번호입니다.</string>
   <string name="invalidAuthenticationCode">잘못된 인증코드</string>
+  <string name="clearField">필드 지우기</string>
+  <string name="orSeparator">또는</string>
+  <string name="logInByEmail">이메일로 로그인</string>
+  <string name="emailLoginInstructions">로그인할 수 있는 링크가 포함된 이메일을 보내드리겠습니다.</string>
   <string name="emailMeALink">메일로 링크를 보내주세요</string>
   <string name="currentPassword">현재 비밀번호</string>
   <string name="newPassword">새 비밀번호</string>
@@ -583,6 +602,8 @@
   <string name="onSlowGames">느린 대국에서만</string>
   <string name="always">항상</string>
   <string name="never">안 함</string>
+  <string name="defeatOnly">패배 한정</string>
+  <string name="drawAndDefeat">무승부 및 패배</string>
   <string name="xCompetesInY">%1$s가 %2$s에 참가했습니다.</string>
   <string name="victory">승리</string>
   <string name="defeat">패배</string>
@@ -617,16 +638,16 @@
   <string name="error.email_acceptable">이 이메일 주소는 수용할 수 없습니다. 재확인 후 다시 시도해주세요.</string>
   <string name="error.email_unique">이메일 주소가 유효하지 않거나 이미 등록되었습니다</string>
   <string name="error.email_different">이미 당신의 이메일 주소입니다.</string>
-  <string name="error.minLength">최소 %s자여야 합니다.</string>
-  <string name="error.maxLength">최대 %s자여야 합니다</string>
-  <string name="error.min">최소 %s자 이어야 합니다.</string>
-  <string name="error.max">최대 %s자 이어야 합니다.</string>
+  <string name="error.minLength">%s자 이상이어야 합니다</string>
+  <string name="error.maxLength">%s자 이하여야 합니다</string>
+  <string name="error.min">%s 이상이어야 합니다</string>
+  <string name="error.max">%s 이하여야 합니다</string>
   <string name="ifRatingIsPlusMinusX">레이팅이 ± %s 이하일 경우</string>
   <string name="ifRegistered">가입된 사람만</string>
   <string name="onlyExistingConversations">기존에 대화한 경우만</string>
   <string name="onlyFriends">친구만</string>
   <string name="menu">메뉴</string>
-  <string name="castling">캐슬링</string>
+  <string name="castling">캐슬링 권리</string>
   <string name="whiteCastlingKingside">백 O-O</string>
   <string name="blackCastlingKingside">흑 O-O</string>
   <plurals name="nbForumPosts">
@@ -641,13 +662,16 @@
   <string name="mobileApp">모바일 앱</string>
   <string name="webmasters">웹마스터</string>
   <string name="about">Lichess 개요</string>
-  <string name="aboutX">%s에 대해</string>
+  <string name="aboutX">%s 정보</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s는 무료(%2$s)이고, 자유로우며, 광고가 없는 오픈 소스 체스 서버입니다.</string>
   <string name="really">정말입니다!</string>
+  <string name="lichessUpdates">Lichess 업데이트</string>
   <string name="contribute">기여하기</string>
+  <string name="changelog">변경 내역</string>
   <string name="termsOfService">이용 약관</string>
   <string name="titleVerification">타이틀 인증</string>
   <string name="sourceCode">소스 코드</string>
+  <string name="blockAds">광고 차단</string>
   <string name="simultaneousExhibitions">다면기</string>
   <string name="host">주최자</string>
   <string name="hostColorX">주최자 색: %s</string>
@@ -664,11 +688,11 @@
   <string name="aboutSimulRules">다면기가 시작되면, 모든 플레이어가 주최자와 대국을 합니다. 다면기는 모든 플레이어와 게임이 끝나면 종료됩니다.</string>
   <string name="aboutSimulSettings">다면기는 항상 캐주얼전입니다. 재대결, 무르기, 시간추가를 할 수 없습니다.</string>
   <string name="create">생성</string>
-  <string name="whenCreateSimul">다면기를 생성하면 한 번에 여러 명의 플레이어와 게임하게 됩니다.</string>
+  <string name="creatingASimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">다면기를 생성하여 여러 명의 상대와 동시에 대국할 수 있습니다.</string>
   <string name="simulVariantsHint">게임 방식을 한 개 이상 선택할 경우, 상대방 측에서 게임 방식을 선택하게 됩니다.</string>
   <string name="simulClockHint">피셔 방식 제한시간 설정: 여러 명의 사람들과 둔다면 더 많은 시간이 필요할 것입니다.</string>
   <string name="simulAddExtraTime">다면기를 위하여 당신에게만 여분의 시간을 더할 수 있습니다.</string>
-  <string name="simulHostExtraTime">다면기 시작 시 주최자의 추가 시간</string>
+  <string name="extraClockTimeForHost" comment="Appears on: https://lichess.org/simul/new&#10;&#10;Allows a simul host to select extra time for the simul.&#10;&#10;Please note this string used to state &quot;Host extra clock time&quot;, without the word &quot;initial&quot;">주최자 추가 시간:</string>
   <string name="simulAddExtraTimePerPlayer">다면기에 참여하는 각 플레이어에게 기본 시간을 추가합니다.</string>
   <string name="simulHostExtraTimePerPlayer">플레이어 당 주최자의 추가 시간</string>
   <string name="lichessTournaments">Lichess 토너먼트</string>
@@ -679,14 +703,11 @@
   <string name="keyboardShortcuts">키보드 단축키</string>
   <string name="keyMoveBackwardOrForward">뒤로/앞으로 가기</string>
   <string name="keyGoToStartOrEnd">처음/끝으로 가기</string>
+  <string name="keyGoToPreviousOrNextLine">이전/다음 라인으로 가기</string>
   <string name="keyCycleSelectedVariation">선택된 라인 순환하기</string>
-  <string name="keyShowOrHideComments">댓글 표시/숨기기</string>
+  <string name="keyShowOrHideComments">댓글 보이기/숨기기</string>
+  <string name="keyShowOrHideCurrentVariation">현재 라인 보이기/숨기기</string>
   <string name="keyEnterOrExitVariation">라인 들어가기/나오기</string>
-  <string name="keyRequestComputerAnalysis">컴퓨터 분석 요청, 실수에서 배우기</string>
-  <string name="keyNextLearnFromYourMistakes">다음 (실수에서 배우기)</string>
-  <string name="keyNextBlunder">다음 블런더</string>
-  <string name="keyNextMistake">다음 실수</string>
-  <string name="keyNextInaccuracy">다음 부정확한 수</string>
   <string name="keyPreviousBranch">이전 부</string>
   <string name="keyNextBranch">다음 부</string>
   <string name="toggleVariationArrows">라인 화살표 켜기/끄기</string>
@@ -694,7 +715,7 @@
   <string name="toggleGlyphAnnotations">수 주석 켜기/끄기</string>
   <string name="togglePositionAnnotations">포지션 주석 켜기/끄기</string>
   <string name="toggleObservationAnnotations">의견 주석 켜기/끄기</string>
-  <string name="variationArrowsInfo">변형 화살표를 사용하면 이동 목록을 사용하지 않고 탐색이 가능합니다.</string>
+  <string name="variationArrowsInfo">라인 화살표를 사용하면 수 목록을 사용하지 않고 탐색이 가능합니다.</string>
   <string name="playSelectedMove">선택한 수 두기</string>
   <string name="newTournament">새로운 토너먼트</string>
   <string name="tournamentHomeTitle">다양한 시간 제한과 변형을 지원하는 체스 토너먼트</string>
@@ -721,9 +742,9 @@
   <string name="ifYouDoNotGetTheEmail">만일 5분 이내에 이메일을 받지 않으신다면</string>
   <string name="checkAllEmailFolders">모든 쓰레기통, 스팸 폴더 등을 확인하세요</string>
   <string name="verifyYourAddress">%s이 자신의 이메일 주소가 맞는지 확인하세요</string>
-  <string name="weHaveSentYouAnEmailTo">%s 주소로 메일을 보냈습니다. 메일을 확인하고 비밀번호를 재설정하세요.</string>
-  <string name="byRegisteringYouAgreeToBeBoundByOur">이곳에 등록하면 당신은 이곳의 %s 약관에 동의하시는 것입니다.</string>
-  <string name="readAboutOur">%s를 읽어보세요.</string>
+  <string name="weHaveSentYouAnEmailTo">%s 주소로 메일을 보냈습니다. 메일에서 링크를 클릭해서 비밀번호를 재설정하세요.</string>
+  <string name="byRegisteringYouAgreeToBeBoundByOur">회원가입하시면 %s에 동의한 것으로 간주됩니다.</string>
+  <string name="readAboutOur">%s을 읽어보세요.</string>
   <string name="networkLagBetweenYouAndLichess">당신과 lichess 서버 간의 네트워크 지연 시간</string>
   <string name="timeToProcessAMoveOnLichessServer">lichess 서버에서 한 수를 계산하는 데 걸리는 시간</string>
   <string name="downloadAnnotated">주석이 달린 기보 다운로드</string>
@@ -761,6 +782,8 @@
   <string name="xHostsY">%2$s가 %1$s를 시작했습니다.</string>
   <string name="xJoinsY">%2$s가 %1$s에 참여했습니다.</string>
   <string name="xLikesY">%1$s(이)가 %2$s를 좋아합니다.</string>
+  <string name="like">좋아요</string>
+  <string name="liked">좋아함</string>
   <string name="quickPairing">빠른 상대 찾기</string>
   <string name="lobby">로비</string>
   <string name="anonymous">익명 플레이어</string>
@@ -768,14 +791,18 @@
   <string name="language">언어</string>
   <string name="allLanguages">모든 언어</string>
   <string name="background">배경</string>
+  <string name="theme">테마</string>
   <string name="light">밝게</string>
   <string name="dark">어둡게</string>
-  <string name="transparent">투명하게</string>
+  <string name="picture">사진</string>
   <string name="deviceTheme">기기 테마</string>
+  <string name="roundness">둥글기</string>
+  <string name="backgroundImage">배경 이미지</string>
   <string name="backgroundImageUrl">배경 이미지 URL:</string>
+  <string name="imageOpacity">이미지 불투명도</string>
   <string name="board">보드</string>
   <string name="size">크기</string>
-  <string name="opacity">투명도</string>
+  <string name="opacity">불투명도</string>
   <string name="brightness">명도</string>
   <string name="contrast">대비</string>
   <string name="hue">색상</string>
@@ -785,7 +812,7 @@
   <string name="usernameAlreadyUsed">이미 사용중인 사용자 이름입니다. 다른 이름을 사용해주세요.</string>
   <string name="usernamePrefixInvalid">사용자 이름의 첫 글자는 알파벳이어야 합니다.</string>
   <string name="usernameSuffixInvalid">사용자 이름의 끝 글자는 알파벳이나 숫자여야 합니다.</string>
-  <string name="usernameCharsInvalid">사용자 이름에는 알파벳, 숫자, 언더스코어 ( _ ), 하이픈 ( - ) 만을 사용할 수 있습니다.</string>
+  <string name="usernameCharsInvalid">사용자 이름에는 알파벳, 숫자, 언더스코어 ( _ ), 하이픈 ( - ) 만을 사용할 수 있습니다. 언더스코어와 하이픈은 연속으로 사용할 수 없습니다.</string>
   <string name="usernameUnacceptable">사용자 이름을 사용할 수 없습니다.</string>
   <string name="playChessInStyle">스타일리시하게 체스하기</string>
   <string name="chessBasics">체스의 기본</string>
@@ -795,7 +822,7 @@
   <string name="custom">사용자 지정</string>
   <string name="notifications">알림</string>
   <string name="notificationsX">알림: %1$s</string>
-  <string name="perfRatingX">레이팅: %s</string>
+  <string name="perfRatingLabel">레이팅: %s.</string>
   <string name="yourRatingIsX">당신의 레이팅: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="other">%s 초 안에 첫 수를 두십시오.</item>
@@ -842,7 +869,7 @@
   <string name="middlegame">미들게임</string>
   <string name="endgame">엔드게임</string>
   <string name="conditionalPremoves">수 예측</string>
-  <string name="addCurrentVariation">현재의 변화를 추가</string>
+  <string name="addCurrentVariation">현재 라인 추가</string>
   <string name="playVariationToCreateConditionalPremoves">기물을 움직여 조건적인 수를 만들기</string>
   <string name="noConditionalPremoves">조건적인 수가 없습니다</string>
   <string name="playX">%s 를 둠</string>
@@ -851,7 +878,7 @@
     <item quantity="other">%s 종류의 조건 수를 설정</item>
   </plurals>
   <string name="showUnreadLichessMessage">Lichess로부터 비공개 메시지를 받았습니다.</string>
-  <string name="clickHereToReadIt">클릭하여 읽기</string>
+  <string name="readTheMessage" comment="'It' refers to a private message. This text follows after a different string which advises players they have received a private message from Lichess. For users, this is appears as a regular private message from the Lichess account: https://lichess.org/@/Lichess">메시지 읽기</string>
   <string name="sorry">죄송합니다 :(</string>
   <string name="weHadToTimeYouOutForAWhile">짧은 시간동안 정지를 받으셨습니다.</string>
   <string name="why">왜 그런가요?</string>
@@ -870,7 +897,6 @@
   <string name="agreementAssistance">나는 대국 중 도움을 받지 않겠습니다 (체스 컴퓨터, 책, 데이터베이스나 다른 사람).</string>
   <string name="agreementNice">나는 항상 다른 플레이어들을 존중하겠습니다.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">나는 다중 계정을 생성하지 않을 것에 동의합니다. (%s에 명시된 경우 제외)</string>
-  <string name="agreementPolicy">나는 모든 Lichess 정책을 따르겠습니다.</string>
   <string name="searchOrStartNewDiscussion">대화 찾기 또는 새 대화 시작하기</string>
   <string name="edit">편집</string>
   <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">울트라불릿</string>
@@ -878,7 +904,7 @@
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">블리츠</string>
   <string name="rapid">래피드</string>
   <string name="classical">클래시컬</string>
-  <string name="ultraBulletDesc">가장 빠른 게임: 30초 미만</string>
+  <string name="ultraBulletDesc">가장 빠른 대국: 30초 미만</string>
   <string name="bulletDesc">매우 빠른 대국: 3분 미만</string>
   <string name="blitzDesc">빠른 대국: 3에서 8분</string>
   <string name="rapidDesc">래피드 대국: 8 ~ 25분</string>
@@ -887,13 +913,14 @@
   <string name="puzzleDesc">체스 전술 트레이너</string>
   <string name="important">중요!</string>
   <string name="yourQuestionMayHaveBeenAnswered">%1$s에 원하시는 답변이 있을 수 있습니다.</string>
-  <string name="inTheFAQ">F.A.Q</string>
+  <string name="inTheFAQ">FAQ</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">엔진 사용 등 부정 행위나 부적절하게 행동한 사용자는 %1$s에서 신고해주세요.</string>
   <string name="useTheReportForm">사용자 신고</string>
-  <string name="toRequestSupport">%1$s에서 문의하실 수 있습니다.</string>
-  <string name="tryTheContactPage">연락처</string>
-  <string name="makeSureToRead">%1$s를 꼭 읽으세요</string>
+  <string name="toRequestSupport">도움이 필요하시다면, %1$s에서 문의하실 수 있습니다.</string>
+  <string name="tryTheContactPage">문의 페이지</string>
+  <string name="makeSureToRead">%1$s을 꼭 읽으세요</string>
   <string name="theForumEtiquette">포럼 에티켓</string>
+  <string name="pleaseBeNiceInTheForum">포럼을 건전히 이용해 주세요.</string>
   <string name="thisTopicIsArchived">이 주제는 보존되어서 댓글을 남기실 수 없습니다.</string>
   <string name="joinTheTeamXToPost">이 포럼에 글을 올리시려면 %1$s에 가입하셔야 합니다.</string>
   <string name="teamNamedX">팀 %1$s</string>
@@ -906,7 +933,6 @@
   <string name="xInvitedYouToY">%1$s가 당신을 \"%2$s\"에 초대합니다.</string>
   <string name="youAreNowPartOfTeam">당신은 이제 팀에 소속되었습니다.</string>
   <string name="youHaveJoinedTeamX">\"%1$s\"에 가입되었습니다.</string>
-  <string name="someoneYouReportedWasBanned">당신이 신고한 플레이어가 차단되었습니다.</string>
   <string name="congratsYouWon">축하합니다. 승리하셨습니다!</string>
   <string name="gameVsX">Game vs %1$s</string>
   <string name="resVsX">%1$s vs %2$s</string>
@@ -937,14 +963,14 @@ FEN 포지션을 생성하기 위해 %s를 사용할 수 있습니다.
   <string name="simulFeaturedHelp">모두가 %s에서 다면기를 볼 수 있습니다. 비공개 대국을 위해서는 비활성화하세요.</string>
   <string name="simulDescription">다면기 설명</string>
   <string name="simulDescriptionHelp">참가자들에게 하고 싶은 말이 있나요?</string>
-  <string name="markdownIsAvailable">%s 서식을 사용할 수 있습니다.</string>
+  <string name="youCanFormatTextUsing" comment="%s is &quot;Markdown&quot;, a proper noun. As such, the word is intentionally kept as a variable.&#10;&#10;Markdown is a markup language - a type of code that lets you format text (e.g. to create bold text).&#10;&#10;The text links to a reference guide for using Markdown to format text.">%s으로 텍스트 서식을 설정할 수 있습니다.</string>
   <string name="embedsAvailable">포함할 대국 URL 또는 연구 챕터 URL을 붙여넣으세요.</string>
   <string name="inYourLocalTimezone">본인의 현지 시간대 기준</string>
   <string name="tournChat">토너먼트 채팅</string>
   <string name="noChat">채팅 없음</string>
   <string name="onlyTeamLeaders">팀 리더만</string>
   <string name="onlyTeamMembers">팀 멤버만</string>
-  <string name="navigateMoveTree">수순 트리 탐색</string>
+  <string name="moveListNavigation" comment="navigateMoveTree&#10;&#10;Appears in the keyboard shortcuts/help screen. The 'move tree' is simply the list of moves.">수순 리스트 탐색</string>
   <string name="mouseTricks">마우스 기능</string>
   <string name="toggleLocalAnalysis">로컬 컴퓨터 분석 켜기/끄기</string>
   <string name="toggleAllAnalysis">모든 컴퓨터 분석 켜기/끄기</string>
@@ -961,7 +987,7 @@ FEN 포지션을 생성하기 위해 %s를 사용할 수 있습니다.
   <string name="gameInProgress">%s와(과) 진행중인 대국이 있습니다.</string>
   <string name="abortTheGame">대국 중단</string>
   <string name="resignTheGame">대국 기권</string>
-  <string name="youCantStartNewGame">이 대국이 끝나기 전까지 새 대국을 시작할 수 없습니다.</string>
+  <string name="youCantStartNewGame">당신 턴에는 새로운 대국을 시작할 수 없습니다.</string>
   <string name="since">부터</string>
   <string name="until">까지</string>
   <string name="lichessDbExplanation">모든 Lichess 플레이어의 레이팅 대국 샘플</string>
@@ -970,8 +996,7 @@ FEN 포지션을 생성하기 위해 %s를 사용할 수 있습니다.
   <string name="ourEventTips">이벤트 준비를 위한 팁</string>
   <string name="instructions">설명</string>
   <string name="showMeEverything">모두 보기</string>
-  <string name="lichessPatronInfo">Lichess는 비영리 기구이며 완전한 무료/자유 오픈소스 소프트웨어입니다.
-모든 운영 비용, 개발, 컨텐츠 조달은 전적으로 사용자들의 기부로 이루어집니다.</string>
+  <string name="lichessPatronInfo">Lichess는 비영리 기구이며 완전한 무료/자유 오픈소스 소프트웨어입니다. 모든 운영 비용, 개발, 컨텐츠 조달은 전적으로 사용자들의 기부로 이루어집니다. 마음씨 좋은 사용자 분들이 없었더라면, 이 사이트는 유지될 수 없을 겁니다. 함께해 주셔서 감사합니다!  </string>
   <string name="nothingToSeeHere">지금은 여기에 볼 것이 없습니다.</string>
   <string name="stats">통계</string>
   <string name="accessibility">접근성</string>
@@ -982,6 +1007,13 @@ FEN 포지션을 생성하기 위해 %s를 사용할 수 있습니다.
   <string name="offline" comment="status of a user">오프라인</string>
   <string name="search">검색</string>
   <string name="clearSearch">검색 초기화</string>
+  <string name="thereAreNoResultsForX">\"%s\"에 대한 결과 없음</string>
   <string name="tags">태그</string>
-  <string name="enPassant">앙파상</string>
+  <string name="enPassant">앙파상 권리</string>
+  <string name="settings">설정</string>
+  <string name="verifyingYourDevice">디바이스 인증 중...</string>
+  <string name="chessOpenings">체스 오프닝</string>
+  <string name="boards">보드</string>
+  <string name="write">작성</string>
+  <string name="preview">미리보기</string>
 </resources>

@@ -25,7 +25,7 @@
       content: ' ';
       width: 5rem;
       height: 5rem;
-      background-image: url(../images/icons/tornado.svg);
+      background-image: url('../images/icons/tornado.svg');
       background-repeat: no-repeat;
       margin-inline-end: 1.5rem;
     }
@@ -89,7 +89,7 @@
     white-space: nowrap;
 
     &__text {
-      font-family: 'storm';
+      font-family: storm;
       font-size: 5.5rem;
       color: $c-brag;
       margin-inline-end: 1rem;

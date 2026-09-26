@@ -2,7 +2,7 @@ package lila.core
 package round
 
 import _root_.chess.format.{ Fen, Uci }
-import _root_.chess.{ Color, Move }
+import _root_.chess.{ Color, MoveOrDrop }
 import play.api.libs.json.{ JsArray, JsObject }
 import scalalib.bus.NotBuseable
 
@@ -67,7 +67,7 @@ case class Moretime(
 )
 case class ClientFlag(color: Color, fromPlayerId: Option[GamePlayerId])
 case object Abandon
-case class ForecastPlay(lastMove: Move)
+case class ForecastPlay(lastMove: MoveOrDrop)
 case class Cheat(color: Color)
 case class HoldAlert(playerId: GamePlayerId, mean: Int, sd: Int, ip: IpAddress)
 case class GoBerserk(color: Color, promise: Promise[Boolean])

@@ -37,8 +37,12 @@ object data:
   opaque type SafeJsonStr = String
   object SafeJsonStr extends OpaqueString[SafeJsonStr]
 
+  opaque type DiffStr = String
+  object DiffStr extends OpaqueString[DiffStr]
+
   opaque type Url = String
-  object Url extends OpaqueString[Url]
+  object Url extends OpaqueString[Url]:
+    val trackingParametersRegex = """(?i)(?:\?|&(?:amp;)?)(?:utm\\?_\w+|gclid|gclsrc|\\?_ga)=\w+""".r
 
   opaque type Template = String
   object Template extends OpaqueString[Template]
@@ -46,5 +50,6 @@ object data:
   opaque type ErrorMsg = String
   object ErrorMsg extends OpaqueString[ErrorMsg]
 
+  type UntypedFormRequest = play.api.mvc.Request[Map[String, Seq[String]]]
+
   final class CircularDep[A](val resolve: () => A)
-  final class LazyDep[A](val resolve: () => A)

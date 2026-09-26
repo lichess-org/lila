@@ -1,11 +1,11 @@
 package lila.tutor
 
+import scala.util.Try
 import chess.ByColor
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
 import lila.insight.InsightPerfStats
-import scala.util.Try
 
 private object TutorBsonHandlers:
 
@@ -13,15 +13,16 @@ private object TutorBsonHandlers:
   export lila.insight.BSONHandlers.given
   import lila.rating.BSONHandlers.perfTypeIdHandler
 
-  given BSONHandler[FiniteDuration] = lila.db.dsl.minutesHandler
+  given BSONHandler[FiniteDuration] = minutesHandler
   given BSONHandler[GoodPercent] = percentAsIntHandler[GoodPercent]
 
+  given BSONHandler[TutorConfig] = Macros.handler
+
   given [A](using handler: BSONHandler[A]): BSONHandler[ByColor[A]] =
-    mapHandler[A]
-      .as[ByColor[A]](
-        doc => ByColor(doc("w"), doc("b")),
-        map => Map("w" -> map.white, "b" -> map.black)
-      )
+    mapHandler[A].as[ByColor[A]](
+      doc => ByColor(doc("w"), doc("b")),
+      map => Map("w" -> map.white, "b" -> map.black)
+    )
 
   given [A](using handler: BSONHandler[A], ordering: Ordering[A]): BSONHandler[TutorBothOption[A]] =
     quickHandler[TutorBothOption[A]](
@@ -40,7 +41,7 @@ private object TutorBsonHandlers:
             b <- bothOpt
             v <- handler.writeOpt(b.mine.value)
             p <- handler.writeOpt(b.peer)
-          yield $arr(v, BSONInteger(b.mine.count), p)
+          yield barr(v, BSONInteger(b.mine.count), p)
         }.getOrElse(BSONNull)
     )
   given [A](using BSONHandler[A], Ordering[A]): BSONHandler[TutorBothValues[A]] =
@@ -58,8 +59,21 @@ private object TutorBsonHandlers:
         .map: docs =>
           TutorColorOpenings(docs.flatMap(_.asOpt[TutorOpeningFamily]))
 
+  private def listWrapper[A, W](using
+      handler: BSONHandler[List[A]]
+  )(from: List[A] => W, to: W => List[A]): BSONHandler[W] =
+    handler.as[W](from, to)
+
   given BSONDocumentHandler[TutorPhase] = Macros.handler
+  given BSONDocumentHandler[TutorPiece] = Macros.handler
   given BSONDocumentHandler[TutorFlagging] = Macros.handler
   given BSONDocumentHandler[InsightPerfStats] = Macros.handler
+  given BSONHandler[TutorPhases] = listWrapper[TutorPhase, TutorPhases](TutorPhases.apply, _.list)
+  given BSONHandler[TutorPieces] = listWrapper[TutorPiece, TutorPieces](TutorPieces.apply, _.list)
+
   given BSONDocumentHandler[TutorPerfReport] = Macros.handler
   given BSONDocumentHandler[TutorFullReport] = Macros.handler
+
+  given BSONDocumentHandler[TutorFullReport.Preview] =
+    given BSONDocumentHandler[TutorPerfReport.Preview] = Macros.handler
+    Macros.handler

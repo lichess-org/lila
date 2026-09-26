@@ -9,7 +9,7 @@ import lila.recap.Recap.Availability
 final class RecapApi(
     repo: RecapRepo,
     recapJson: RecapJson,
-    queue: lila.memo.ParallelMongoQueue[UserId]
+    queue: ParallelMongoQueue[UserId]
 )(using Executor, Scheduler):
 
   export repo.get
@@ -33,6 +33,6 @@ final class RecapApi(
     availability(user)(getCosts).flatMap:
       case Recap.Availability.Available(data) => fuccess(data)
       case Recap.Availability.Queued(_) =>
-        if counter < 100
-        then delay(1.second)(awaiter(user, counter + 1)(getCosts))
+        if counter < 60
+        then delay(2.seconds)(awaiter(user, counter + 1)(getCosts))
         else fufail(LilaException(s"Recap awaiter timeout for ${user.id}"))

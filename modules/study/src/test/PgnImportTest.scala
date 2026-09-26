@@ -7,6 +7,7 @@ import scala.language.implicitConversions
 
 import lila.core.LightUser
 import lila.tree.Clock
+import lila.tree.Node.Comment as NodeComment
 
 class PgnImportTest extends LilaTest:
 
@@ -45,9 +46,9 @@ class PgnImportTest extends LilaTest:
       .result("{test 1 } {test 2} 1.d4 {test 3} { test 4}", Nil)
       .assertRight: parsed =>
         val rootComments = parsed.root.comments.value.map(_.text)
-        assertEquals(rootComments, Comment.from(List("test 1", "test 2")))
+        assertEquals(rootComments, Comment.from(List("test 1\ntest 2")))
         val firstMoveComments = parsed.root.mainlineNodeList(1).comments.value.map(_.text)
-        assertEquals(firstMoveComments, Comment.from(List("test 3", "test 4")))
+        assertEquals(firstMoveComments, Comment.from(List("test 3\ntest 4")))
 
   test("import a simple pgn with a clock comment"):
     val x = StudyPgnImport.result("1.d4 {[%clk 1:59:59]}", Nil).toOption.get
@@ -107,7 +108,7 @@ Rad1 {[%clk 1:24:50]} b6 {[%clk 1:09:49]} 18. g4 {[%clk 1:03:52]} *""",
     assert(x.root.mainlineNodeList(1).clock.contains(Clock(chess.Centis(719900), true.some)))
     assert(x.root.mainlineNodeList(2).clock.contains(Clock(chess.Centis(718000), true.some)))
 
-  test("import a broadcast pgn with missing clock)"):
+  test("import a broadcast pgn with missing clock"):
     val x = StudyPgnImport
       .result(
         """
@@ -137,3 +138,241 @@ Rad1 {[%clk 1:24:50]} b6 {[%clk 1:09:49]} 18. g4 {[%clk 1:03:52]} *""",
       .drop(1) // skip the root
       .foreach: node =>
         assert(node.clock.isDefined)
+
+  import lila.tree.{ Node, Branch }
+  extension (node: Node)
+    def next: Branch = node.children.first.get
+    def nextSans: List[String] = node.children.toList.map(_.move.san.value)
+
+  test("merge duplicated children from engine analysis variations (issue #20342)"):
+    val bugPgn = """
+    [FEN "8/8/4kpp1/3p1b2/p6P/2B5/6P1/7K w - - 1 47"]
+
+    47. Kg1 Bh3 48. gxh3 Kf5 
+        ( 48... Kf5 49. Kf2 Ke4 50. h5 gxh5 )
+        ( 48... f5 49. Kf2 Kd6 50. Ke3 Kc5 )
+        ( 48... g5 49. Kf2 gxh4 50. Ke3 Kf5 )
+    49. Kf2 Ke4 50. Bxf6 d4 51. Be7 Kd3
+    """
+
+    StudyPgnImport
+      .result(bugPgn, Nil)
+      .assertRight: parsed =>
+        val gxh3 = parsed.root.next.next.next
+
+        assertEquals(gxh3.move.san.value, "gxh3")
+
+        assertEquals(gxh3.nextSans, List("Kf5", "f5", "g5"))
+
+        val pgnDump = Helpers.rootToPgn(parsed.root)
+        val pgnExpected =
+          """47. Kg1 Bh3 48. gxh3 Kf5 
+            |  (48... f5 49. Kf2 Kd6 50. Ke3 Kc5) 
+            |  (48... g5 49. Kf2 gxh4 50. Ke3 Kf5) 
+            |49. Kf2 Ke4 50. Bxf6 
+            |  (50. h5 gxh5) 
+            |50... d4 51. Be7 Kd3
+            |""".stripMargin.replaceAll("\n", "").replaceAll("\\s+", " ")
+        assertEquals(pgnDump.value, pgnExpected)
+
+  test("merge multiple duplicate variations with same first move"):
+    val multiDupPgn = """
+    1. e4 e5 2. Nf3 Nc6
+        ( 2... Nc6 3. Bb5 a6 )
+        ( 2... Nc6 3. Bc4 Nf6 )
+        ( 2... d6 3. d4 exd4 )
+    3. d4 exd4
+    """
+
+    StudyPgnImport
+      .result(multiDupPgn, Nil)
+      .assertRight: parsed =>
+        val e4 = parsed.root.next
+        val e5 = e4.next
+        val nf3 = e5.next
+        val nc6 = nf3.next
+
+        assertEquals(nc6.move.san.value, "Nc6")
+        assertEquals(nf3.nextSans, List("Nc6", "d6"))
+        assertEquals(nc6.nextSans, List("d4", "Bb5", "Bc4"))
+        val expectedPgn =
+          """1. e4 e5 2. Nf3 Nc6 (2... d6 3. d4 exd4) 3. d4 (3. Bb5 a6) (3. Bc4 Nf6) 3... exd4"""
+        assertEquals(Helpers.rootToPgn(parsed.root).value, expectedPgn)
+
+  test("merge duplicate from code comment pattern: same move appearing three times"):
+    val threeDupPgn = """1. d4 ( 1. d4 Nf6 ) ( 1. d4 d5 ) 1... e5"""
+    StudyPgnImport
+      .result(threeDupPgn, Nil)
+      .assertRight: parsed =>
+        assertEquals(parsed.root.nextSans, List("d4"))
+        val d4 = parsed.root.next
+        assertEquals(d4.nextSans, List("e5", "Nf6", "d5"))
+        val expectedPgn = "1. d4 e5 (1... Nf6) (1... d5)"
+        assertEquals(Helpers.rootToPgn(parsed.root).value, expectedPgn)
+
+  test("merge sibling variations that duplicate each other but NOT the mainline"):
+    val siblingDupPgn = """
+    1. e4 e5 2. Nf3 Nc6 (2... d6 3. d4) (2... d6 3. Bc4)
+    """
+    StudyPgnImport
+      .result(siblingDupPgn, Nil)
+      .assertRight: parsed =>
+        val e4 = parsed.root.next
+        val nf3 = e4.next.next
+        assertEquals(nf3.nextSans, List("Nc6", "d6"))
+        val d6 = nf3.children.variationsOnly.head
+        assertEquals(d6.nextSans, List("d4", "Bc4"))
+        val expectedPgn = "1. e4 e5 2. Nf3 Nc6 (2... d6 3. d4 (3. Bc4))"
+        assertEquals(Helpers.rootToPgn(parsed.root).value, expectedPgn)
+
+  test("merge duplicated children: sibling clone (Philidor variations)"):
+    val pgn = "1. e4 e5 2. Nf3 Nc6 (2... d6 3. d4) (2... d6 3. Bc4)"
+    StudyPgnImport
+      .result(pgn, Nil)
+      .assertRight: parsed =>
+        val expected = "1. e4 e5 2. Nf3 Nc6 (2... d6 3. d4 (3. Bc4))"
+        assertEquals(Helpers.rootToPgn(parsed.root).value, expected)
+
+  test("merge duplicated children: deep fork"):
+    val pgn = "1. e4 e5 2. Nf3 Nc6 (2... Nc6 3. Bc4 Bc5 4. c3) 3. Bc4 Bc5 4. d3"
+    StudyPgnImport
+      .result(pgn, Nil)
+      .assertRight: parsed =>
+        val expected = "1. e4 e5 2. Nf3 Nc6 3. Bc4 Bc5 4. d3 (4. c3)"
+        assertEquals(Helpers.rootToPgn(parsed.root).value, expected)
+
+  test("merge duplicated children: nested matryoshka (Philidor Exchange)"):
+    val pgn = "1. e4 e5 2. Nf3 Nc6 (2... d6 3. d4 exd4 (3... exd4 4. Nxd4) (3... exd4 4. Qxd4))"
+    StudyPgnImport
+      .result(pgn, Nil)
+      .assertRight: parsed =>
+        val expected = "1. e4 e5 2. Nf3 Nc6 (2... d6 3. d4 exd4 4. Nxd4 (4. Qxd4))"
+        assertEquals(Helpers.rootToPgn(parsed.root).value, expected)
+
+  test("merge duplicated children: triplicate branches"):
+    val pgn = "1. e4 e5 2. Nf3 Nc6 (2... Nc6 3. Bc4) (2... Nc6 3. d4) 3. Bb5"
+    StudyPgnImport
+      .result(pgn, Nil)
+      .assertRight: parsed =>
+        val expected = "1. e4 e5 2. Nf3 Nc6 3. Bb5 (3. Bc4) (3. d4)"
+        assertEquals(Helpers.rootToPgn(parsed.root).value, expected)
+
+  // Characterization of the bug in lichess-org/lila#21211, against the current
+  // behaviour. The PGN carries no per-comment author, so every comment in the
+  // tree is attributed to whoever the Annotator tag resolves to, and two
+  // comments on the same move written by different people collapse into one.
+
+  val bobby = LightUser.fallback(UserName("Bobby"))
+  val mary = LightUser.fallback(UserName("Mary"))
+
+  test("21211: every imported comment is attributed to the annotator"):
+    val pgn: PgnStr = """[Annotator "Bobby"]
+
+1. e4 { written by the owner } 1... e5 { written by the contributor }"""
+    StudyPgnImport
+      .result(pgn, List(bobby, mary))
+      .assertRight: parsed =>
+        val authors = parsed.root.mainlineNodeList.drop(1).flatMap(_.comments.value).map(_.by)
+        assertEquals(authors, List.fill(2)(NodeComment.author(bobby)))
+
+  test("21211: two comments on the same move collapse into a single one"):
+    val pgn: PgnStr = """[Annotator "Bobby"]
+
+1. e4 1... e5 { written by the contributor } { and this one by the owner }"""
+    StudyPgnImport
+      .result(pgn, List(bobby, mary))
+      .assertRight: parsed =>
+        val comments = parsed.root.mainlineNodeList(2).comments.value
+        assertEquals(comments.size, 1)
+        assertEquals(
+          comments.map(_.text),
+          Comment.from(List("written by the contributor\nand this one by the owner"))
+        )
+
+  test("21211: [%anno] keeps one author per comment"):
+    val pgn: PgnStr = """[Annotator "Bobby"]
+
+1. e4 { [%anno "Bobby", bobby] written by the owner } 1... e5 { [%anno "Mary", mary] written by the contributor }"""
+    StudyPgnImport
+      .result(pgn, List(bobby, mary))
+      .assertRight: parsed =>
+        val authors = parsed.root.mainlineNodeList.drop(1).flatMap(_.comments.value).map(_.by)
+        assertEquals(
+          authors,
+          List(NodeComment.author(bobby), NodeComment.author(mary))
+        )
+
+  test("21211: comments by different authors on the same move are kept apart"):
+    val pgn: PgnStr = """[Annotator "Bobby"]
+
+1. e4 1... e5 { [%anno "Mary", mary] written by the contributor } { [%anno "Bobby", bobby] and this one by the owner }"""
+    StudyPgnImport
+      .result(pgn, List(bobby, mary))
+      .assertRight: parsed =>
+        val comments = parsed.root.mainlineNodeList(2).comments.value
+        assertEquals(
+          comments.map(_.text),
+          Comment.from(List("written by the contributor", "and this one by the owner"))
+        )
+        assertEquals(
+          comments.map(_.by),
+          List(NodeComment.author(mary), NodeComment.author(bobby))
+        )
+
+  test("21211: two comments by the same author on the same move still collapse"):
+    val pgn: PgnStr = """[Annotator "Bobby"]
+
+1. e4 1... e5 { [%anno "Mary", mary] first } { [%anno "Mary", mary] second }"""
+    StudyPgnImport
+      .result(pgn, List(bobby, mary))
+      .assertRight: parsed =>
+        val comments = parsed.root.mainlineNodeList(2).comments.value
+        assertEquals(comments.map(_.text), Comment.from(List("first\nsecond")))
+        assertEquals(comments.map(_.by), List(NodeComment.author(mary)))
+
+  test("21211: an [%anno] that matches nobody is kept verbatim"):
+    val pgn: PgnStr = """[Annotator "Bobby"]
+
+1. e4 { [%anno "Garry Kasparov"] from a foreign database }"""
+    StudyPgnImport
+      .result(pgn, List(bobby, mary))
+      .assertRight: parsed =>
+        val comments = parsed.root.mainlineNodeList(1).comments.value
+        assertEquals(comments.map(_.by), List(NodeComment.Author.External("Garry Kasparov")))
+
+  test("21211: an [%anno] with a display name only resolves to that name"):
+    val pgn: PgnStr = """1. e4 { [%anno "Bobby"] no account id here }"""
+    StudyPgnImport
+      .result(pgn, List(bobby, mary))
+      .assertRight: parsed =>
+        val comments = parsed.root.mainlineNodeList(1).comments.value
+        assertEquals(comments.map(_.by), List(NodeComment.Author.External("Bobby")))
+
+  test("21211: the exporting user keeps their comments free of [%anno]"):
+    val pgn: PgnStr = """[Annotator "https://lichess.org/@/bobby"]
+
+1. e4 { [%anno "Bobby", bobby] written by the owner } 1... e5 { [%anno "Mary", mary] written by the contributor }"""
+    StudyPgnImport
+      .result(pgn, List(bobby, mary))
+      .assertRight: parsed =>
+        assertEquals(
+          Helpers.rootToPgn(parsed.root, parsed.tags).value,
+          """[Annotator "https://lichess.org/@/bobby"]
+
+1. e4 { written by the owner } 1... e5 { [%anno "Mary", mary] written by the contributor }"""
+        )
+
+  test("21211: an external author survives a round trip"):
+    val pgn: PgnStr = """1. e4 { [%anno "Garry Kasparov"] from a foreign database }"""
+    StudyPgnImport
+      .result(pgn, List(bobby, mary))
+      .assertRight: parsed =>
+        assertEquals(Helpers.rootToPgn(parsed.root, parsed.tags).value, pgn.value)
+
+  test("21211: an [%anno] holding a profile URL resolves to that contributor"):
+    val pgn: PgnStr = """1. e4 { [%anno "https://lichess.org/@/mary"] exported from another study }"""
+    StudyPgnImport
+      .result(pgn, List(bobby, mary))
+      .assertRight: parsed =>
+        val comments = parsed.root.mainlineNodeList(1).comments.value
+        assertEquals(comments.map(_.by), List(NodeComment.Author.User(mary.id, mary.name.value)))

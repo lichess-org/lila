@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="byLichess">Oleh Lichess</string>
+  <string name="myBlog">Laman blog saya</string>
   <string name="xBlog">Blog %s</string>
   <string name="newPost">Jawatan baru</string>
   <string name="editYourBlogPost">Edit catatan blog anda</string>
@@ -9,4 +11,6 @@
   <string name="postBody">Badan pos</string>
   <string name="drafts">Draf</string>
   <string name="published">Diterbitkan</string>
+  <string name="publishOnYourBlog">Terbitkan di laman blog anda</string>
+  <string name="xPublishedY">%1$s telah menerbitkan %2$s</string>
 </resources>

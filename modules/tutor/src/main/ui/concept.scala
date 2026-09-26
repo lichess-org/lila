@@ -1,7 +1,7 @@
 package lila.tutor
 package ui
 
-import lila.insight.{ InsightMetric, InsightDimension, Phase }
+import lila.insight.{ InsightMetric, Phase }
 import lila.ui.ScalatagsTemplate.*
 import lila.common.LilaOpeningFamily
 
@@ -10,8 +10,7 @@ sealed class TutorConcept(
     val descShort: String,
     val descLong: Option[Frag],
     val unit: TutorUnit,
-    val icon: TutorIcon,
-    val insightPath: Option[String] = none
+    val icon: TutorIcon
 )
 
 object concept:
@@ -51,8 +50,6 @@ object concept:
 
   private val winPercentLink = a(href := "/page/accuracy#first-compute-win")
   private val accuracyLink = a(href := "/page/accuracy#then-compute-accuracy")
-  private def insightPath(metric: InsightMetric, dimension: InsightDimension[?]) =
-    routes.Insight.path(UserStr("me"), metric.key, dimension.key, "").url.some
 
   val accuracy =
     TutorConcept(
@@ -64,8 +61,7 @@ object concept:
         ". It applies to all your moves, and reflects the global objective quality of your play."
       ).some,
       percent,
-      TutorIcon.targeting,
-      insightPath(InsightMetric.MeanAccuracy, InsightDimension.Perf)
+      TutorIcon.targeting
     )
   val tacticalAwareness =
     TutorConcept(
@@ -77,17 +73,16 @@ object concept:
         " of your moves after your opponent blunders. It shows your ability to identify and take advantage of tactical opportunities."
       ).some,
       percent,
-      TutorIcon.eyeTarget,
-      insightPath(InsightMetric.Awareness, InsightDimension.Perf)
+      TutorIcon.eyeTarget
     )
   val resourcefulness =
     TutorConcept(
       "Resourcefulness",
-      "Come back from lost positions",
+      "How often you come back from lost positions.",
       frag(
         "Percentage of games that you managed to save (win or draw) after being in a lost position (< 33% ",
         winPercentLink("winning chances"),
-        ").",
+        "). ",
         "It reflects how resilient you are in difficult positions, and how well you can find resources to turn things around."
       ).some,
       percent,
@@ -96,7 +91,7 @@ object concept:
   val conversion =
     TutorConcept(
       "Conversion",
-      "Convert good positions into victories",
+      "How often you convert good positions into victories.",
       frag(
         "When you get a winning position (",
         winPercentLink("winning chances"),
@@ -121,6 +116,16 @@ object concept:
     case Phase.End => TutorIcon.towerFall
 
   def phase(phase: Phase, unit: TutorUnit = percent) = adhoc(phase.name, phaseIcon(phase), unit)
+
+  val pieceIcon: chess.Role => TutorIcon =
+    case chess.Pawn => TutorIcon.pawn
+    case chess.Knight => TutorIcon.knight
+    case chess.Bishop => TutorIcon.bishop
+    case chess.Rook => TutorIcon.rook
+    case chess.Queen => TutorIcon.queen
+    case chess.King => TutorIcon.king
+
+  def piece(piece: chess.Role, unit: TutorUnit = percent) = adhoc(piece.name, pieceIcon(piece), unit)
 
   def opening(fam: LilaOpeningFamily, color: Color) = adhoc(s"${fam.name} as $color", TutorIcon.spellBook)
 

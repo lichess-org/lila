@@ -1,7 +1,8 @@
 import Tagify from '@yaireo/tagify';
 import debounce from 'debounce-promise';
-import { json as xhrJson, url as xhrUrl } from 'lib/xhr';
+
 import { userComplete } from 'lib/view/userComplete';
+import { json as xhrJson, url as xhrUrl } from 'lib/xhr';
 
 site.load.then(() => {
   $('#form3-leaders').each(function (this: HTMLInputElement) {

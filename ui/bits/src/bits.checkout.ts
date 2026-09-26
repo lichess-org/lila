@@ -1,8 +1,9 @@
-import * as xhr from 'lib/xhr';
-import { spinnerHtml, prompt } from 'lib/view';
-import { currencyFormat, roundToCurrency } from 'lib/i18n';
-import { contactEmail } from './bits';
 import { myUserId } from 'lib';
+import { currencyFormat, roundToCurrency } from 'lib/i18n';
+import { spinnerHtml, prompt } from 'lib/view';
+import * as xhr from 'lib/xhr';
+
+import { contactEmail } from './bits';
 
 export interface Pricing {
   currency: string;
@@ -95,7 +96,7 @@ export function initModule({
     if (isGift) {
       if ($monthly.is(':checked')) $('#freq_onetime').trigger('click');
       $checkout.find('.gift input').trigger('focus');
-    } else if (hasLifetime && $lifetime.is(':checked')) $('#freq_monthly').trigger('click');
+    } else if (hasLifetime && $lifetime.is(':checked')) $monthly.trigger('click');
     toggleCheckout();
   });
 
@@ -120,6 +121,7 @@ export function initModule({
     $(this).text(currencyFormat(amount, pricing.currency));
     ($(this).siblings('input').data('amount', amount)[0] as HTMLInputElement).checked = true;
     updateFeeLabel();
+    return true;
   });
 
   const $userInput = $checkout.find('input.user-autocomplete');
@@ -224,7 +226,7 @@ function payPalOrderStart($checkout: Cash, pricing: Pricing, getAmount: () => nu
       style: payPalStyle,
       createOrder: (_data: any, _actions: any) => {
         const amount = getAmount();
-        if (!amount) return;
+        if (!amount) return undefined;
         return xhr
           .jsonAnyResponse(`/patron/paypal/checkout?currency=${pricing.currency}`, {
             method: 'post',
@@ -235,6 +237,7 @@ function payPalOrderStart($checkout: Cash, pricing: Pricing, getAmount: () => nu
             if (data.error) showErrorThenReload(data.error);
             else if (data.order?.id) return data.order.id;
             else location.assign('/patron');
+            return undefined;
           });
       },
       onApprove: (data: any, _actions: any) => {
@@ -253,7 +256,7 @@ function payPalSubscriptionStart($checkout: Cash, pricing: Pricing, getAmount: (
       style: payPalStyle,
       createSubscription: (_data: any, _actions: any) => {
         const amount = getAmount();
-        if (!amount) return;
+        if (!amount) return undefined;
         return xhr
           .jsonAnyResponse(`/patron/paypal/checkout?currency=${pricing.currency}`, {
             method: 'post',
@@ -264,6 +267,7 @@ function payPalSubscriptionStart($checkout: Cash, pricing: Pricing, getAmount: (
             if (data.error) showErrorThenReload(data.error);
             else if (data.subscription?.id) return data.subscription.id;
             else location.assign('/patron');
+            return undefined;
           });
       },
       onApprove: (data: any, _actions: any) => {

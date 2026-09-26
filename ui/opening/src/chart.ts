@@ -1,6 +1,7 @@
-import * as chart from 'chart.js';
 import 'chartjs-adapter-dayjs-4';
+import * as chart from 'chart.js';
 import dayjs from 'dayjs';
+
 import type { OpeningPage } from './interfaces';
 
 chart.Chart.register(
@@ -17,7 +18,7 @@ chart.Chart.register(
 const firstDate = dayjs('2017-01-01');
 
 export const renderHistoryChart = (data: OpeningPage): void => {
-  if (!data.history.find(p => p > 0)) return;
+  if (!data.history.some(p => p > 0)) return;
   const canvas = $('.opening__popularity__chart')[0] as HTMLCanvasElement;
   new chart.Chart(canvas, {
     type: 'line',
@@ -25,8 +26,8 @@ export const renderHistoryChart = (data: OpeningPage): void => {
       datasets: [
         {
           data: data.history.map((n, i) => ({ x: firstDate.add(i, 'M').valueOf(), y: n })),
-          borderColor: 'hsla(37,74%,43%,1)',
-          backgroundColor: 'hsla(37,74%,43%,0.5)',
+          borderColor: 'hsl(37 74% 43%)',
+          backgroundColor: 'hsl(37 74% 43% / 0.5)',
           fill: true,
         },
       ],

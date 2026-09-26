@@ -1,9 +1,11 @@
-import makeCtrl from './ctrl';
-import menuHover from 'lib/menuHover';
-import makeView from './view/main';
-import type { AnalyseApi, AnalyseOpts } from './interfaces';
 import type { VNode } from 'snabbdom';
+
+import menuHover from 'lib/menuHover';
+
+import makeCtrl from './ctrl';
+import type { AnalyseApi, AnalyseOpts } from './interfaces';
 import type * as studyDeps from './study/studyDeps';
+import makeView from './view/main';
 
 export default function (
   patch: (oldVnode: VNode | Element | DocumentFragment, vnode: VNode) => VNode,

@@ -1,31 +1,27 @@
-import * as licon from 'lib/licon';
-import {
-  initMiniBoards,
-  initMiniGames,
-  updateMiniGame,
-  finishMiniGame,
-  toggleBoxInit,
-  alert,
-} from 'lib/view';
+/// <reference types="../types/ab" />
+import * as ab from 'ab/site';
+
+import { scrollToInnerSelector, requestIdleCallbackSafe } from 'lib';
+import { dispatchChessgroundResize } from 'lib/chessgroundResize';
+import { prefersLightThemeQuery } from 'lib/device';
+import { licon } from 'lib/licon';
+import { pubsub } from 'lib/pubsub';
+import { eventuallySetupDefaultConnection } from 'lib/socket';
+import { initMiniBoards, initMiniGames, updateMiniGame, finishMiniGame, toggleBoxInit } from 'lib/view';
+import { watchers } from 'lib/view/watchers';
 import { text as xhrText } from 'lib/xhr';
+
 import { display as announceDisplay } from './announce';
+import { upgradeNag } from './browserSupport';
+import { addDomHandlers } from './domHandlers';
 import OnlineFriends from './friends';
 import powertip from './powertip';
-import serviceWorker from './serviceWorker';
-import { watchers } from 'lib/view/watchers';
-import { isIos, isWebkit, prefersLightThemeQuery } from 'lib/device';
-import { scrollToInnerSelector, requestIdleCallback } from 'lib';
-import { dispatchChessgroundResize } from 'lib/chessgroundResize';
-import { addDomHandlers } from './domHandlers';
 import { updateTimeAgo, renderTimeAgo, renderLocalizedTimestamps } from './renderTimeAgo';
-import { pubsub } from 'lib/pubsub';
-import { once } from 'lib/storage';
+import serviceWorker from './serviceWorker';
 import { addExceptionListeners } from './unhandledError';
-import { eventuallySetupDefaultConnection } from 'lib/socket';
 
 export function boot() {
   addExceptionListeners();
-  $('#user_tag').removeAttr('href');
   const setBlind = location.hash === '#blind';
   const showDebug = location.hash.startsWith('#debug');
 
@@ -39,11 +35,11 @@ export function boot() {
     renderLocalizedTimestamps();
     pubsub.on('content-loaded', toggleBoxInit);
   });
-  requestIdleCallback(() => {
+  requestIdleCallbackSafe(() => {
     const friendsEl = document.getElementById('friend_box');
     if (friendsEl) new OnlineFriends(friendsEl);
 
-    const chatMembers = document.querySelector('.chat__members') as HTMLElement | null;
+    const chatMembers = document.querySelector<HTMLElement>('.chat__members');
     if (chatMembers) watchers(chatMembers);
 
     $('.subnav__inner').each(function (this: HTMLElement) {
@@ -54,15 +50,11 @@ export function boot() {
 
     addDomHandlers();
 
-    // prevent zoom when keyboard shows on iOS
-    if (isIos() && !('MSStream' in window)) {
-      const el = document.querySelector('meta[name=viewport]') as HTMLElement;
-      el.setAttribute('content', el.getAttribute('content') + ',maximum-scale=1.0');
-    }
-
     toggleBoxInit();
 
     window.addEventListener('resize', dispatchChessgroundResize);
+
+    ab.init();
 
     if (setBlind && !site.blindMode) setTimeout(() => $('#blind-mode button').trigger('click'), 1500);
 
@@ -75,12 +67,6 @@ export function boot() {
 
     // if not already connected by a ui module, setup default connection
     eventuallySetupDefaultConnection();
-
-    if (isUnsupportedBrowser() && once('upgrade.nag', { days: 14 })) {
-      pubsub
-        .after('polyfill.dialog')
-        .then(() => alert('Your browser is out of date.\nLichess may not work properly.'));
-    }
 
     // socket default receive handlers
     pubsub.on('socket.in.redirect', (d: RedirectTo) => {
@@ -127,20 +113,12 @@ export function boot() {
           document.documentElement.className = e.matches ? 'light' : 'dark';
       });
 
+    upgradeNag();
     mirrorCheck();
   }, 800);
 }
 
-const isUnsupportedBrowser = () => isWebkit({ below: '15.4' });
-
 function mirrorCheck() {
-  const mirrors: string[] = [
-    'lichess.dscs2009.com',
-    'joystickcaravan.org',
-    'gamelorecollective.com',
-    'joystick-astral.com',
-    'orbitofavatars.com',
-    'bealive.fit',
-  ];
+  const mirrors: string[] = ['bealive.fit'];
   if (mirrors.includes(location.host)) location.href = 'https://lichess.org' + location.pathname;
 }

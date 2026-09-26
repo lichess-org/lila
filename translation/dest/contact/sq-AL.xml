@@ -25,7 +25,6 @@
   <string name="cantChangeMore">S’mund të ndryshojmë më shumë se shkronjë të vogël a të madhe. Për arsye teknike, është thjesht e pamundur.</string>
   <string name="orCloseAccount">Megjithatë, mund të mbyllni llogarinë tuaj të tanishme dhe të krijoni një të re.</string>
   <string name="wantClearHistory">Dua të spastroj historikun ose klasifikimin tim</string>
-  <string name="cantClearHistory">S’është e mundur të fshini historikun e lojërave tuaja, historikun e ushtrimeve, ose klasifikimet.</string>
   <string name="wantReport">Dua të raportoj një lojtar</string>
   <string name="toReportAPlayerUseForm">Që të raportoni një lojtar, përdorni formularin e raportimeve</string>
   <string name="youCanAlsoReachReportPage">Mundeni edhe të kaloni në atë faqe duke klikuar butonin e raportimeve %s në një faqe profili.</string>
@@ -39,7 +38,7 @@
   <string name="reportMobileIssue">Si një problem aplikacioni Lichess për celular në GitHub</string>
   <string name="reportBugInDiscord">Te shërbyesi Discord i Lichess-it</string>
   <string name="howToReportBug">Ju lutemi, përshkruani se si duket e meta, ç’prisnit të ndodhte në vend të saj, si dhe hapat për të riprodhuar të metën.</string>
-  <string name="illegalPawnCapture" comment="Appears as an option for reasons to contact Lichess on the 'contact' page: https://lichess.org/contact#help-enpassant&#10;&#10;Players used to routinely write to Lichess stating that there was a bug, or that the other player had hacked their game in some way. In actuality, the player was using the legal move of en passant.&#10;&#10;Please translate this string from the perspective of the player who would be selecting this contact option, and call it 'Illegal', even though we know this is a legal move.">Ngrënie e paligjshme e ushtarit</string>
+  <string name="illegalPawnCapture">Ngrënie e paligjshme e ushtarit</string>
   <string name="calledEnPassant">Quhet “prerje” dhe është një nga rregullat e shahut.</string>
   <string name="tryEnPassant">Që të mësoni më tepër rreth “prerjeve”, provoni këtë lojë të vockël ndërvepruese.</string>
   <string name="illegalCastling">Rokadë e paligjshme ose e pamundshme</string>

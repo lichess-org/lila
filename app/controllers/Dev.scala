@@ -1,22 +1,20 @@
 package controllers
 
-import lila.app.*
+import lila.app.{ *, given }
 
 final class Dev(env: Env) extends LilaController(env):
 
   def settings = Secure(_.Settings) { _ ?=> _ ?=>
     Ok.page:
-      views.dev.settings(settingsList)
+      views.dev.settings(settingsListForMe)
   }
 
   def settingsPost(id: String) = SecureBody(_.Settings) { _ ?=> me ?=>
-    settingsList.flatMap(_._2).find(_.id == id).so { setting =>
+    settingsListForMe.flatMap(_._2).find(_.id == id).so { setting =>
       bindForm(setting.form)(
-        _ => BadRequest.page(views.dev.settings(settingsList)),
+        _ => BadRequest.page(views.dev.settings(settingsListForMe)),
         v =>
-          lila
-            .log("setting")
-            .info(s"${me.username} changes $id from ${setting.get()} to ${v.toString}")
+          lila.log.system.info(s"setting ${me.username} changes $id from ${setting.get()} to ${v.toString}")
           setting.setString(v.toString).inject(Redirect(routes.Dev.settings))
       )
     }
@@ -55,11 +53,25 @@ final class Dev(env: Env) extends LilaController(env):
       )
   }
 
+  def emailErrorPost = SecuredScopedBody(_.SetEmail)():
+    if env.web.emailError.setFromReq().isDefined then NoContent else BadRequest
+
+  def emailErrorGet = Open: ctx ?=>
+    ctx.isAnon
+      .so(lila.security.EmailConfirm.cookie.get(ctx.req))
+      .flatMap(u => env.web.emailError.get(u.email))
+      .fold(NoContent)(Ok(_))
+
   private def runCommand(command: String)(using Me): Fu[String] =
     for
       _ <- env.mod.logApi.cli(command)
       res <- env.api.cli.run(command.split(" ").toList)
     yield res
+
+  private def settingsListForMe(using me: Me) =
+    settingsList.flatMap: (categ, settings) =>
+      val sets = settings.filter(s => isGranted(s.perm))
+      sets.nonEmpty.option(categ -> sets)
 
   private lazy val settingsList = List[(String, List[lila.memo.SettingStore[?]])](
     "Moderation" -> List(
@@ -71,14 +83,14 @@ final class Dev(env: Env) extends LilaController(env):
       env.report.discordScoreThresholdSetting
     ),
     "Cheat" -> List(
-      env.round.selfReportEndGame,
-      env.round.selfReportMarkUser,
+      env.round.selfReport.endGameSetting,
+      env.round.selfReport.markUserSetting,
       env.bot.boardReport.domainSetting
     ),
     "Security" -> List(
       env.oAuth.originBlocklistSetting,
       env.security.proxy2faSetting,
-      env.security.alwaysCaptcha
+      env.security.lichobileLogin
     ),
     "Mailing" -> List(
       env.mailer.mailerSecondaryPermilleSetting,
@@ -99,9 +111,9 @@ final class Dev(env: Env) extends LilaController(env):
       env.fishnet.openingBookDepth
     ),
     "Broadcast" -> List(
-      env.relay.proxyDomainRegex,
-      env.relay.proxyHostPort,
-      env.relay.proxyCredentials
+      env.relay.proxy.domainRegex,
+      env.memo.proxy.hostPort,
+      env.memo.proxy.credentials
     ),
     "Tutor" -> List(
       env.tutor.nbAnalysisSetting,
@@ -116,8 +128,7 @@ final class Dev(env: Env) extends LilaController(env):
       env.ublog.ublogAutomod.promptSetting
     ),
     "Mobile" -> List(
-      env.web.mobile.androidVersion,
-      env.web.mobile.iosVersion
+      env.web.lichobileAnnounceApi.lichobileUpgrade
     ),
     "Config" -> List(
       env.plan.donationGoalSetting,

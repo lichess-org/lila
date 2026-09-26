@@ -1,21 +1,24 @@
-import { h, type VNode } from 'snabbdom';
-import type { Elements } from '@lichess-org/chessground/types';
-import resizeHandle from 'lib/chessgroundResize';
-import type CoordinateTrainerCtrl from './ctrl';
 import { Chessground as makeChessground } from '@lichess-org/chessground';
+import type { Elements } from '@lichess-org/chessground/types';
+import { h, type VNode } from 'snabbdom';
+
+import resizeHandle from 'lib/chessgroundResize';
+import { isSafari } from 'lib/device';
 import { pubsub } from 'lib/pubsub';
+import { onInsert } from 'lib/view';
+
+import type CoordinateTrainerCtrl from './ctrl';
 
 export default function (ctrl: CoordinateTrainerCtrl): VNode {
   return h('div.cg-wrap', {
     hook: {
-      insert: vnode => {
-        const el = vnode.elm as HTMLElement;
+      ...onInsert(el => {
         ctrl.chessground = makeChessground(el, makeConfig(ctrl));
         pubsub.on('board.change', (is3d: boolean) => {
           ctrl.chessground!.state.addPieceZIndex = is3d;
           ctrl.chessground!.redrawAll();
         });
-      },
+      }),
       destroy: () => ctrl.chessground!.destroy(),
     },
   });
@@ -29,6 +32,7 @@ function makeConfig(ctrl: CoordinateTrainerCtrl): CgConfig {
     coordinates: ctrl.showCoordinates(),
     coordinatesOnSquares: ctrl.showCoordsOnAllSquares(),
     addPieceZIndex: ctrl.config.is3d,
+    jsHover: isSafari(),
     movable: { free: false, color: undefined },
     drawable: { enabled: false },
     draggable: { enabled: false },

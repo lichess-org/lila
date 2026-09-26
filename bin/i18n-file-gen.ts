@@ -1,7 +1,7 @@
-import { readdirSync, readFileSync, writeFileSync } from 'fs';
-import path from 'path';
 import { XMLParser } from 'fast-xml-parser';
-import { fileURLToPath } from 'url';
+import { readdirSync, readFileSync, writeFileSync } from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 interface TranslationXml {
   '?xml': {
@@ -72,8 +72,8 @@ function keyListFrom(name: string): KeyList {
 
 const dbCode = (obj: KeyList) => `  object ${convertObjectName(obj.name)}:\n${obj.code}`;
 
-Promise.all(xmls.map(keyListFrom)).then(objs => {
-  const code = `// Generated with bin/i18n-file-gen.ts
+const objs = xmls.map(keyListFrom);
+const code = `// Generated with bin/i18n-file-gen.ts
 package lila.core.i18n
 
 opaque type I18nKey = String
@@ -86,19 +86,21 @@ object I18nKey:
       trans.translator.txt.literal(key, args, trans.lang)
     def pluralTxt(count: Count, args: Any*)(using trans: Translate): String =
       trans.translator.txt.plural(key, count, args, trans.lang)
-    def pluralSameTxt(count: Long)(using trans: Translate): String = pluralTxt(count, count)
+    def pluralSameTxt(count: Long)(using Translate): String = pluralTxt(count, count)
     def apply(args: Matchable*)(using trans: Translate): RawFrag =
       trans.translator.frag.literal(key, args, trans.lang)
     def plural(count: Count, args: Matchable*)(using trans: Translate): RawFrag =
       trans.translator.frag.plural(key, count, args, trans.lang)
-    def pluralSame(count: Int)(using trans: Translate): RawFrag = plural(count, count)
+    def pluralSame(count: Int)(using Translate): RawFrag = plural(count, count)
+    // the translated message contains HTML tags
+    def rawHtml(args: Any*)(using Translate): RawFrag = RawFrag(txt(args*))
+    def pluralRawHtml(count: Count, args: Any*)(using Translate): RawFrag = RawFrag(pluralTxt(count, args*))
 
   // format: OFF
 ${objs.map(dbCode).join('\n')}
 `;
 
-  const keyFile = path.resolve(lilaDir, 'modules/coreI18n/src/main/key.scala');
-  writeFileSync(keyFile, code);
+const keyFile = path.resolve(lilaDir, 'modules/coreI18n/src/main/key.scala');
+writeFileSync(keyFile, code);
 
-  console.log(`✅ Wrote ${keyFile}`);
-});
+console.log(`✅ Wrote ${keyFile}`);

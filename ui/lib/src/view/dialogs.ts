@@ -1,7 +1,7 @@
 // no side effects allowed due to re-export by index.ts
 
-import { type Dialog, domDialog } from './dialog';
 import { escapeHtml } from '../index';
+import { type Dialog, domDialog } from './dialog';
 
 // non-blocking window.alert-alike
 export async function alert(msg: string): Promise<void> {
@@ -11,7 +11,6 @@ export async function alert(msg: string): Promise<void> {
     class: 'alert',
     modal: true,
     noCloseButton: true,
-    noClickAway: true,
     show: true,
     actions: { selector: 'button', result: 'ok' },
   });
@@ -25,8 +24,9 @@ export async function info(msg: string, autoDismiss?: Millis): Promise<Dialog> {
   const dlg = await domDialog({
     htmlText: escapeHtmlAddBreaks(msg),
     noCloseButton: true,
+    easyClose: 'anyClick',
   });
-  if (!!autoDismiss) setTimeout(() => dlg.close(), autoDismiss);
+  if (autoDismiss) setTimeout(() => dlg.close(), autoDismiss);
   return dlg.show();
 }
 
@@ -36,31 +36,27 @@ export async function confirm(
   ok: string = i18n.site.ok,
   cancel: string = i18n.site.cancel,
 ): Promise<boolean> {
-  return (
-    (
-      await domDialog({
-        htmlText: $html`<div>${escapeHtmlAddBreaks(msg)}</div>
-          <span><button class="button button-empty cancel">${cancel}</button>
-          <button class="button ok">${ok}</button></span>`,
-        class: 'alert',
-        noCloseButton: true,
-        noClickAway: true,
-        modal: true,
-        show: true,
-        focus: '.ok',
-        actions: [
-          { selector: '.cancel', result: 'cancel' },
-          { selector: '.ok', result: 'ok' },
-        ],
-      })
-    ).returnValue === 'ok'
-  );
+  const confirmDialog = await domDialog({
+    htmlText: $html`<div>${escapeHtmlAddBreaks(msg)}</div>
+      <span><button class="button button-empty cancel">${cancel}</button>
+      <button class="button ok">${ok}</button></span>`,
+    class: 'alert',
+    noCloseButton: true,
+    modal: true,
+    show: true,
+    focus: '.ok',
+    actions: [
+      { selector: '.cancel', result: 'cancel' },
+      { selector: '.ok', result: 'ok' },
+    ],
+  });
+  return confirmDialog.returnValue === 'ok';
 }
 
 // non-blocking window.prompt-alike
 export async function prompt(
   msg: string,
-  def: string = '',
+  def = '',
   valid: (text: string) => boolean = () => true,
 ): Promise<string | null> {
   const res = await domDialog({
@@ -72,7 +68,6 @@ export async function prompt(
       </span>`,
     class: 'alert',
     noCloseButton: true,
-    noClickAway: true,
     modal: true,
     show: true,
     focus: 'input',
@@ -136,7 +131,6 @@ export async function choose(
       </span>`,
     class: 'alert',
     noCloseButton: mustChoose,
-    noClickAway: true,
     modal: true,
     show: true,
     actions: [

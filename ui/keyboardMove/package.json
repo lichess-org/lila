@@ -1,5 +1,5 @@
 {
-  "name": "keyboardMove",
+  "name": "keyboard-move",
   "private": true,
   "type": "module",
   "dependencies": {

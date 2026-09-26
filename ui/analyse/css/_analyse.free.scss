@@ -6,6 +6,7 @@ $label-width: 5ch;
 .copyables {
   .pair {
     @extend %flex-center;
+
     position: relative;
   }
 
@@ -16,6 +17,8 @@ $label-width: 5ch;
   }
 
   .copyable {
+    @include backdrop-blur-if-transparent;
+
     flex: 1 1 auto;
   }
 
@@ -28,8 +31,8 @@ $label-width: 5ch;
       overflow-x: hidden;
 
       &.is-error {
-        background: $m-bad_bg--mix-20;
-        box-shadow: 0 0 13px 2px $m-bad_bg--mix-20;
+        background: color-mix(in oklab, $c-bad 20%, $c-bg);
+        box-shadow: 0 0 13px 2px color-mix(in oklab, $c-bad 20%, $c-bg);
       }
     }
   }
@@ -66,8 +69,8 @@ $label-width: 5ch;
 
   .bottom-action {
     @extend %box-radius-bottom;
-
     @include inline-end(0);
+
     text-align: right;
   }
 
@@ -94,9 +97,10 @@ $label-width: 5ch;
 
 .jump-960 {
   margin-top: 1em;
-  margin-bottom: 1em; //col1
+  margin-bottom: 1em; // col1
   .control-960 {
     margin-top: 0.7em;
+
     button {
       margin-left: 1em;
     }

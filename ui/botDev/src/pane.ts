@@ -1,7 +1,5 @@
-import { removeObjectProperty, setObjectProperty, maxChars } from './devUtil';
 import { frag } from 'lib';
-import { getSchemaDefault, requiresOpRe } from './schema';
-import type { EditDialog } from './editDialog';
+
 import { env } from './devEnv';
 import type {
   PaneArgs,
@@ -15,6 +13,9 @@ import type {
   PropertyValue,
   Requirement,
 } from './devTypes';
+import { removeObjectProperty, setObjectProperty, maxChars } from './devUtil';
+import type { EditDialog } from './editDialog';
+import { getSchemaDefault, requiresOpRe } from './schema';
 
 export class Pane<Info extends PaneInfo = PaneInfo> {
   input?: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
@@ -23,7 +24,7 @@ export class Pane<Info extends PaneInfo = PaneInfo> {
   readonly info: Info;
   readonly host: EditDialog;
   readonly el: HTMLElement;
-  readonly parent: Pane | undefined;
+  readonly parent?: Pane;
 
   constructor(args: PaneArgs) {
     Object.assign(this, args);
@@ -166,7 +167,7 @@ export class Pane<Info extends PaneInfo = PaneInfo> {
   }
 
   protected get isDisabled(): boolean {
-    return this.host.editing().disabled.has(this.id) || (this.parent !== undefined && this.parent.isDisabled);
+    return this.host.editing().disabled.has(this.id) ?? this.parent?.isDisabled ?? false;
   }
 
   protected get children(): Pane[] {
@@ -190,7 +191,7 @@ export class Pane<Info extends PaneInfo = PaneInfo> {
     return kids.every(x => x.enabled || x.isOptional) && this.requirementsAllow;
   }
 
-  private evaluate(requirement: Requirement | undefined): boolean {
+  private evaluate(requirement?: Requirement): boolean {
     if (typeof requirement === 'string') {
       const req = requirement.trim();
       if (req.startsWith('!')) {
@@ -202,7 +203,7 @@ export class Pane<Info extends PaneInfo = PaneInfo> {
       const op = req.match(requiresOpRe)?.[0] as string;
       const [left, right] = req.split(op).map(x => x.trim());
 
-      if ([left, right].some(x => this.host.panes.byId[x]?.enabled === false)) return false;
+      if ([left, right].some(x => this.host.panes.byId[x]?.enabled)) return false;
 
       const maybeLeftPane = this.host.panes.byId[left];
       const maybeRightPane = this.host.panes.byId[right];
@@ -345,7 +346,7 @@ export class RangeSetting<Info extends RangeInfo = RangeInfo> extends NumberSett
 function getRequirementIds(r: Requirement | undefined): string[] {
   if (typeof r === 'string') {
     const req = r.trim();
-    if (req.startsWith('!')) return [`${req.slice(1).trim()}`];
+    if (req.startsWith('!')) return [req.slice(1).trim()];
     const [left, right] = req.split(requiresOpRe).map(x => x.trim());
     const ids = [];
     if (left && isNaN(Number(left))) ids.push(left);

@@ -21,7 +21,6 @@
   <string name="puzzleRead">Feladvány-aktivitási adatok olvasása</string>
   <string name="teamRead">Privát csapatinformációk</string>
   <string name="teamWrite">Csatlakozás és kilépés csapatokból</string>
-  <string name="teamLead">Csapatműveletek: privát üzenetek küldése, tagok eltávolítása</string>
   <string name="followRead">Követett játékosok megtekintése</string>
   <string name="followWrite">Játékosok követése</string>
   <string name="msgWrite">Privát üzenete küldése játékosoknak</string>
@@ -29,7 +28,6 @@
   <string name="botPlay">Játszma a Bot API segítségével</string>
   <string name="engineRead">Külső motorok megtekintése és használata</string>
   <string name="engineWrite">Külső motorok létrehozása és frissítése</string>
-  <string name="webLogin">Azonosított munkamenet létrehozása (teljes hozzáférést biztosít!)</string>
   <string name="webMod">Moderálási eszközök használata (jogosultsági köreiden belül)</string>
   <string name="personalAccessTokens">Egyéni API kulcsok</string>
   <string name="canMakeOauthRequests">OAuth-kéréseket a(z) %s nélkül is küldhetsz.</string>

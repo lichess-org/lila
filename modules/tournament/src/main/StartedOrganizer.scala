@@ -1,8 +1,7 @@
 package lila.tournament
 
-import akka.stream.scaladsl.*
-
 import lila.common.{ LilaScheduler, LilaStream }
+import lila.mon.extensions.*
 
 final private class StartedOrganizer(
     api: TournamentApi,
@@ -11,7 +10,7 @@ final private class StartedOrganizer(
     pairingRepo: PairingRepo,
     waitingUsersApi: WaitingUsersApi,
     socket: TournamentSocket
-)(using Executor, Scheduler, akka.stream.Materializer):
+)(using Executor, Scheduler, org.apache.pekko.stream.Materializer):
 
   var runCounter = 0
 
@@ -30,12 +29,11 @@ final private class StartedOrganizer(
           logger.error(s"StartedOrganizer $tour", e)
           0
         }
-      .toMat(LilaStream.sinkCount)(Keep.right)
-      .run()
+      .runWith(LilaStream.sinkCount)
       .addEffect: nb =>
         if doAllTournaments then lila.mon.tournament.started.update(nb)
         runCounter = runCounter + 1
-      .monSuccess(_.tournament.startedOrganizer.tick)
+      .monSuccess(lila.mon.tournament.startedOrganizer.tick)
       .void
 
   private def processTour(tour: Tournament): Funit =
@@ -55,7 +53,7 @@ final private class StartedOrganizer(
       for
         waitingBots <- fetchWaitingBots(tour)
         _ = if waitingBots.nonEmpty then waitingUsersApi.addApiUsers(tour, waitingBots)
-        waiting <- socket.getWaitingUsers(tour).monSuccess(_.tournament.startedOrganizer.waitingUsers)
+        waiting <- socket.getWaitingUsers(tour).monSuccess(lila.mon.tournament.startedOrganizer.waitingUsers)
         _ = waiting.hash
         _ = lila.mon.tournament.waitingPlayers.record(waiting.size)
         _ <- api.makePairings(tour, waiting, smallTourNbActivePlayers)

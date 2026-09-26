@@ -17,6 +17,7 @@ final class PlanUi(helpers: Helpers)(style: PlanStyle, contactEmail: EmailAddres
   private val stripeScript = script(src := "https://js.stripe.com/v3/")
   private val namespaceAttr = attr("data-namespace")
   private val dataForm = attr("data-form")
+  private val stripeBillingPortal = "https://billing.stripe.com/p/login/fZefZ2dCK9zq7Ty6oo"
 
   def index(
       email: Option[EmailAddress],
@@ -101,8 +102,7 @@ final class PlanUi(helpers: Helpers)(style: PlanStyle, contactEmail: EmailAddres
               div(cls := "wrapper")(
                 div(cls := "text")(
                   p(trp.weAreNonProfit()),
-                  p(trp.weRelyOnSupport()),
-                  p("Click donate to view payment options based on your device and currency.")
+                  p(trp.weRelyOnSupport())
                 ),
                 div(cls := "content")(
                   div(
@@ -241,7 +241,7 @@ final class PlanUi(helpers: Helpers)(style: PlanStyle, contactEmail: EmailAddres
                         else
                           a(
                             cls := "button",
-                            href := s"${routes.Auth.login}?referrer=${routes.Plan.index}"
+                            href := s"${routes.Auth.login}?referrer=${routes.Plan.index()}"
                           )(trp.logInToDonate())
                       ),
                       ctx.isAuth.option(
@@ -250,12 +250,10 @@ final class PlanUi(helpers: Helpers)(style: PlanStyle, contactEmail: EmailAddres
                         )
                       ),
                       form(cls := "currency none", action := routes.Plan.list)(
-                        select(name := "currency")(
-                          CurrencyApi.currencyList.map: cur =>
-                            st.option(
-                              value := cur.getCurrencyCode,
-                              (pricing.currencyCode == cur.getCurrencyCode).option(selected)
-                            )(showCurrency(cur))
+                        form3.selectLowLevel(
+                          "currency",
+                          CurrencyApi.currencyList.map(c => c.getCurrencyCode -> showCurrency(c)),
+                          selected = pricing.currencyCode.some
                         )
                       )
                     )
@@ -304,7 +302,10 @@ final class PlanUi(helpers: Helpers)(style: PlanStyle, contactEmail: EmailAddres
       dl(
         dt(trp.changeMonthlySupport()),
         dd(
-          trp.changeOrContact(a(href := routes.Main.contact, targetBlank)(trp.contactSupport()))
+          trp.changeSupport(
+            a(href := routes.Main.contact, targetBlank)(trp.contactSupport()),
+            a(href := routes.Plan.index())(trp.patronPage())
+          )
         ),
         dt(trp.otherMethods()),
         dd(
@@ -374,7 +375,7 @@ final class PlanUi(helpers: Helpers)(style: PlanStyle, contactEmail: EmailAddres
                   frag(
                     cancelButton,
                     postForm(cls := "cancel", action := routes.Plan.cancel)(
-                      p(trp.stopPayments()),
+                      p(trp.stopPaymentsPayPal()),
                       submitButton(cls := "button button-red")(trp.noLongerSupport()),
                       a(dataForm := "cancel")(trans.site.cancel())
                     )
@@ -484,7 +485,7 @@ final class PlanUi(helpers: Helpers)(style: PlanStyle, contactEmail: EmailAddres
                       a(dataForm := "switch")(trans.site.cancel())
                     ),
                     postForm(cls := "cancel", action := routes.Plan.cancel)(
-                      p(trp.stopPaymentsPayPal()),
+                      p(trp.stopPayments()),
                       submitButton(cls := "button button-red")(trp.noLongerSupport()),
                       a(dataForm := "cancel")(trans.site.cancel())
                     )
@@ -531,7 +532,7 @@ final class PlanUi(helpers: Helpers)(style: PlanStyle, contactEmail: EmailAddres
               tr(
                 th("Stripe"),
                 td:
-                  a(href := "https://billing.stripe.com/p/login/fZefZ2dCK9zq7Ty6oo"):
+                  a(href := stripeBillingPortal):
                     trp.stripeManageSub()
               ),
               tr(

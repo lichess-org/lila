@@ -25,7 +25,6 @@
   <string name="cantChangeMore">Δυστυχώς, για τεχνικούς λόγους, δεν μπορείτε να κάνετε τίποτα περισσότερο από αυτό.</string>
   <string name="orCloseAccount">Ωστόσο, μπορείτε να απενεργοποιήσετε τον λογαριασμό σας και να δημιουργήσετε έναν καινούριο.</string>
   <string name="wantClearHistory">Θέλω να διαγράψω το ιστορικό μου ή τη βαθμολογία μου</string>
-  <string name="cantClearHistory">Δεν είναι δυνατόν να διαγράψετε το ιστορικό παιχνιδιών ή των γρίφων σας, ή τη βαθμολογία σας.</string>
   <string name="wantReport">Θέλω να αναφέρω έναν χρήστη</string>
   <string name="toReportAPlayerUseForm">Για να αναφέρετε έναν χρήστη, χρησιμοποιήστε τη φόρμα αναφοράς</string>
   <string name="youCanAlsoReachReportPage">Μπορείτε επίσης να κάνετε κλικ στο κουμπί %s στη σελίδα προφίλ του χρήστη.</string>
@@ -39,7 +38,7 @@
   <string name="reportMobileIssue">στο αποθετήριο της εφαρμογής Lichess για κινητά στο GitHub, ανοίγοντας ένα issue</string>
   <string name="reportBugInDiscord">στον διακομιστή Discord του Lichess</string>
   <string name="howToReportBug">Περιγράψτε πώς εμφανίζεται το σφάλμα, τι περιμένατε να συμβεί κανονικά, και τα βήματα που οδήγησαν σε αυτό.</string>
-  <string name="illegalPawnCapture" comment="Appears as an option for reasons to contact Lichess on the 'contact' page: https://lichess.org/contact#help-enpassant&#10;&#10;Players used to routinely write to Lichess stating that there was a bug, or that the other player had hacked their game in some way. In actuality, the player was using the legal move of en passant.&#10;&#10;Please translate this string from the perspective of the player who would be selecting this contact option, and call it 'Illegal', even though we know this is a legal move.">Αντικανονική αιχμαλώτιση πιονιού</string>
+  <string name="illegalPawnCapture">Αντικανονική αιχμαλώτιση πιονιού</string>
   <string name="calledEnPassant">Ονομάζεται «en passant» και είναι ένας από τους κανόνες του σκακιού.</string>
   <string name="tryEnPassant">Παρακολουθήστε αυτό το μικρό διαδραστικό μάθημα για να μάθετε περισσότερα για το «en passant».</string>
   <string name="illegalCastling">Αντικανονικό ή αδύνατο ροκέ</string>
@@ -74,4 +73,13 @@
   <string name="noneOfTheAbove">Κανένα απο τα παραπάνω</string>
   <string name="sendEmailAt">Στείλτε μας email στη διεύθυνση %s.</string>
   <string name="explainYourRequest">Εξηγήστε το αίτημά σας με σαφή και λεπτομερή τρόπο. Γράψτε το όνομα χρήστη σας στο Lichess και κάθε πληροφορία που θα μπορούσε να μας βοηθήσει να σας βοηθήσουμε.</string>
+  <string name="monetiseNotInterested">Δεν έχουμε καμία πρόθεση να βγάλουμε χρήματα από το Lichess.</string>
+  <string name="monetiseNoAdsTrackingOrTraffic">Ποτέ δεν προβάλλουμε οποιουδήποτε είδους διαφημίσεις, δεν παρακολουθούμε τους παίκτες μας και δεν εμπορευόμαστε την επισκεψιμότητα ή τους χρήστες μας.</string>
+  <string name="monetiseNoMarketingEmail">Παρακαλούμε μη μας στέλνετε email για μάρκετινγκ, παρακολούθηση χρηστών ή διαφημίσεις.</string>
+  <string name="monetiseEncourageEveryoneTo" comment="string is value of key monetiseBlockAllAdsAndTrackers">Σας ενθαρρύνουμε να %s.</string>
+  <string name="monetiseBlockAllAdsAndTrackers">μπλοκάρετε όλες τις διαφημίσεις και τους ιχνηλάτες</string>
+  <string name="broadcastTournamentOnLichess">Μετάδοση τουρνουά στο Lichess</string>
+  <string name="ifYouWantToBroadcastClause1">Αν θέλετε να μεταδώσετε επίσημα ένα τουρνουά στο Lichess ή έχετε οποιαδήποτε απορία σχετικά με τις μεταδόσεις μας:</string>
+  <string name="ifYouWantToBroadcastClause2" comment="string1 is Lichess email, string2 is value of key ourDiscordServer">Παρακαλούμε επικοινωνήστε με την ομάδα μεταδόσεων στο %1$s ή μέσω %2$s.</string>
+  <string name="ourDiscordServer">του διακομιστή μας στο Discord</string>
 </resources>

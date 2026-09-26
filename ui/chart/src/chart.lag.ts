@@ -8,12 +8,13 @@ import {
   Title,
 } from 'chart.js';
 import dataLabels from 'chartjs-plugin-datalabels';
-import { fontColor, fontFamily } from './index';
+
 import { pubsub } from 'lib/pubsub';
 import { wsSend, wsAverageLag } from 'lib/socket';
 
+import { fontColor, fontFamily } from './index';
+
 declare module 'chart.js' {
-  // oxlint-disable-next-line no-unused-vars
   interface PluginOptionsByType<TType extends ChartType> {
     needle?: {
       value: number;
@@ -35,7 +36,7 @@ export async function initModule(): Promise<void> {
     const colors = ['#55bf3b', '#dddf0d', '#df5353'];
     const dataset: ChartDataset<'doughnut'>[] = [
       {
-        data: index ? [500, 150, 100] : [300, 250, 200],
+        data: index ? [400, 200, 200] : [100, 100, 100],
         backgroundColor: colors,
         hoverBackgroundColor: colors,
         borderColor: '#d9d9d9',
@@ -47,7 +48,7 @@ export async function initModule(): Promise<void> {
     const config: ChartConfiguration<'doughnut'> = {
       type: 'doughnut',
       data: {
-        labels: index ? ['0-500', '500-650', '650-750'] : ['0-300', '300-550', '550-750'],
+        labels: index ? ['0-400', '400-600', '600-800'] : ['0-100', '100-200', '200-300'],
         datasets: dataset,
       },
       options: {
@@ -75,7 +76,7 @@ export async function initModule(): Promise<void> {
             const ctx = chart.ctx;
             ctx.save();
             const data = chart.getDatasetMeta(0).data[0] as ArcElement;
-            const first = chart.data.datasets[0].data[0] as number;
+            const first = chart.data.datasets[0].data[0];
             let dest = data.circumference / Math.PI / first;
             dest = dest * (chart.options.plugins?.needle?.value ?? 1);
             const outer = data.outerRadius;
@@ -83,11 +84,11 @@ export async function initModule(): Promise<void> {
             ctx.rotate(Math.PI * (dest + 1.5));
             ctx.beginPath();
             ctx.fillStyle = '#838382';
-            ctx.moveTo(0 - 10, 0);
+            ctx.moveTo(-10, 0);
             ctx.lineWidth = 1;
             ctx.lineTo(0, -outer);
-            ctx.lineTo(0 + 10, 0);
-            ctx.lineTo(0 - 10, 0);
+            ctx.lineTo(10, 0);
+            ctx.lineTo(-10, 0);
             ctx.fill();
 
             ctx.beginPath();

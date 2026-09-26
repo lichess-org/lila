@@ -3,9 +3,9 @@ package lila.common
 import scalalib.data.LazyFu
 
 export lila.core.lilaism.Lilaism.{ *, given }
+import lila.core.perm.{ Permission, Granter }
 
 object extensions:
-  export Chronometer.futureExtension.*
   // replaces Product.unapply in play forms
   def unapply[P <: Product](p: P)(using m: scala.deriving.Mirror.ProductOf[P]): Option[m.MirroredElemTypes] =
     Some(Tuple.fromProductTyped(p))
@@ -17,9 +17,11 @@ object extensions:
 
 export extensions.*
 
-case class CliCommand(args: List[String], promise: Promise[LazyFu[String]])
+case class CliCommand(args: List[String], promise: Promise[LazyFu[String]])(using val me: Me)
 
 object Cli:
-  def handle(f: PartialFunction[List[String], Fu[String]]) =
+  def handle(perm: Permission.Selector = _.SuperAdmin)(f: PartialFunction[List[String], Fu[String]]) =
     Bus.sub[CliCommand]:
-      case c if f.isDefinedAt(c.args) => c.promise.success(LazyFu(() => f(c.args)))
+      case c if f.isDefinedAt(c.args) =>
+        if Granter(perm)(using c.me) then c.promise.success(LazyFu(() => f(c.args)))
+        else c.promise.success(LazyFu.sync(s"Unauthorized: requires ${perm(Permission)}"))

@@ -9,7 +9,5 @@ def platform(str: String): Option[Platform] = str.toLowerCase match
   case "youtube" => Some("youtube")
   case _ => None
 
-private val logger = lila.log("streamer")
-
 private val streamerPageActivationRoute =
   routes.Cms.lonePage(lila.core.id.CmsPageKey("streamer-page-activation"))

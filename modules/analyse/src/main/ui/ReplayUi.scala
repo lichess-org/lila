@@ -18,17 +18,16 @@ final class ReplayUi(helpers: Helpers)(analyseUi: AnalyseUi):
       pov: Pov,
       pgn: PgnStr,
       graph: OpenGraph,
+      chessground: Frag,
       gameSide: Option[Frag],
       crosstable: Option[Tag]
-  )(using Context) =
-    Page(analyseUi.titleOf(pov))
+  ) =
+    Page(analyseUi.titlePlayerVs(pov.game))
       .css("analyse.round")
-      .graph(graph)
-      .csp(analyseUi.bits.cspExternalEngine)
-      .flag(_.noRobots):
+      .graph(graph):
         main(cls := "analyse")(
           st.aside(cls := "analyse__side")(gameSide),
-          div(cls := "analyse__board main-board")(chessgroundBoard),
+          div(cls := "analyse__board main-board")(chessground),
           div(cls := "analyse__tools")(div(cls := "ceval")),
           div(cls := "analyse__controls"),
           div(cls := "analyse__underboard")(
@@ -63,7 +62,7 @@ final class ReplayUi(helpers: Helpers)(analyseUi: AnalyseUi):
       a(cls := "text game-gif", dataIcon := Icon.Download)(trans.site.gameAsGIF()),
       copyMeLink(
         fenThumbnailUrl(Fen.write(pov.game.position).opening, pov.color.some, pov.game.variant),
-        trans.site.screenshotCurrentPosition()
+        trans.site.positionAsImage()
       )(cls := "position-gif")
     )
 
@@ -79,7 +78,7 @@ final class ReplayUi(helpers: Helpers)(analyseUi: AnalyseUi):
     )
 
     analyseUi.bits
-      .page(analyseUi.titleOf(pov))
+      .page(analyseUi.titleFull(pov))
       .css("analyse.round")
       .css((pov.game.variant == Crazyhouse).option("analyse.zh"))
       .css(ctx.blind.option("round.nvui"))
@@ -113,7 +112,7 @@ final class ReplayUi(helpers: Helpers)(analyseUi: AnalyseUi):
                 div(cls := "analyse__underboard")(
                   div(role := "tablist", cls := "analyse__underboard__menu")(
                     analysable.option(
-                      span(
+                      button(
                         role := "tab",
                         cls := "computer-analysis",
                         dataPanel := "computer-analysis",
@@ -123,13 +122,13 @@ final class ReplayUi(helpers: Helpers)(analyseUi: AnalyseUi):
                     (!game.isPgnImport).option(
                       frag(
                         (game.ply > 1).option(
-                          span(role := "tab", dataPanel := "move-times", textAndTitle(trans.site.moveTimes))
+                          button(role := "tab", dataPanel := "move-times", textAndTitle(trans.site.moveTimes))
                         ),
                         crosstable.isDefined.option:
-                          span(role := "tab", dataPanel := "ctable", textAndTitle(trans.site.crosstable))
+                          button(role := "tab", dataPanel := "ctable", textAndTitle(trans.site.crosstable))
                       )
                     ),
-                    span(role := "tab", dataPanel := "fen-pgn", textAndTitle(trans.study.shareAndExport))
+                    button(role := "tab", dataPanel := "fen-pgn", textAndTitle(trans.study.shareAndExport))
                   ),
                   div(cls := "analyse__underboard__panels")(
                     analysable.option(

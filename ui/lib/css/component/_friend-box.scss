@@ -1,27 +1,22 @@
 #friend_box {
+  @include inline-end(0);
+
   display: none;
+  position: fixed;
+  bottom: 0;
+  z-index: $z-friend-box-2;
+  background: $c-bg-popup;
+  overflow: hidden;
+  border-inline-start: $border;
+  border-top-left-radius: $small-box-radius-size;
+  font-size: 0.9rem;
+  min-width: 150px;
+  max-height: 95%;
+  backface-visibility: hidden; // improve scroll perfs
 
   @include mq-topnav-visible-and-tall {
     display: block;
   }
-
-  position: fixed;
-  bottom: 0;
-  @include inline-end(0);
-  z-index: $z-friend-box-2;
-  background: $c-bg-popup;
-  border: $border;
-  border-inline-end: 0;
-  border-bottom: 0;
-  border-top-left-radius: $box-radius-size;
-  font-size: 0.9rem;
-  min-width: 150px;
-  max-height: 95%;
-
-  /* improve scroll perfs */
-  backface-visibility: hidden;
-
-  @include hoverflow;
 
   .friend_box_title {
     @extend %metal;
@@ -29,13 +24,11 @@
     cursor: pointer;
     padding: 3px 5px;
     border-bottom: $border;
-
-    &:hover {
-      @extend %metal-hover;
-    }
   }
 
   .content {
+    @include hoverflow;
+
     max-height: 80vh;
     overflow-x: hidden;
     overflow-y: auto;
@@ -44,13 +37,13 @@
       display: flex;
 
       &:hover {
-        background: $m-secondary_bg-popup--mix-10;
+        background: color-mix(in oklab, $c-secondary 10%, $c-bg-popup);
       }
     }
 
     a {
       flex: 1 1 100%;
-      padding: 3px 0px;
+      padding: 3px 0;
       display: block;
       transition: background 0.13s;
 

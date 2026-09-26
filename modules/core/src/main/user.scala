@@ -3,6 +3,7 @@ package lila.core
 import _root_.chess.{ Color, ByColor, PlayerTitle, IntRating }
 import _root_.chess.rating.IntRatingDiff
 import _root_.chess.rating.glicko.Glicko
+import _root_.chess.FideId
 import play.api.i18n.Lang
 import play.api.libs.json.JsObject
 import reactivemongo.api.bson.Macros.Annotations.Key
@@ -14,9 +15,9 @@ import lila.core.email.*
 import lila.core.id.Flair
 import lila.core.perf.{ KeyedPerf, Perf, PerfKey, UserPerfs, UserWithPerfs }
 import lila.core.userId.*
-import lila.core.misc.AtInstant
 import lila.core.plan.{ PatronMonths, PatronTier, PatronColorChoice }
 import lila.core.rating.UserRankMap
+import lila.core.data.Url
 
 object user:
 
@@ -37,8 +38,7 @@ object user:
       plan: Plan,
       flair: Option[Flair] = None,
       totpSecret: Option[TotpSecret] = None,
-      marks: UserMarks = UserMarks(Nil),
-      hasEmail: Boolean
+      marks: UserMarks = UserMarks(Nil)
   ):
     import lila.core.user.UserMarks.*
     import lila.core.user.UserEnabled.*
@@ -63,7 +63,7 @@ object user:
 
     def profileOrDefault = profile | Profile.default
 
-    def realNameOrUsername = profileOrDefault.nonEmptyRealName | username.value
+    def realNameOrUsername: String = profileOrDefault.nonEmptyRealName | username.value
 
     def titleUsername: String = title.fold(username.value)(t => s"$t $username")
 
@@ -109,6 +109,9 @@ object user:
   opaque type UserEnabled = Boolean
   object UserEnabled extends YesNo[UserEnabled]
 
+  opaque type RealName = String
+  object RealName extends OpaqueString[RealName]
+
   // in seconds
   case class PlayTime(
       total: Int,
@@ -133,7 +136,7 @@ object user:
       @Key("country") flag: Option[FlagCode] = None,
       location: Option[String] = None,
       bio: Option[String] = None,
-      realName: Option[String] = None,
+      realName: Option[RealName] = None,
       fideRating: Option[Int] = None,
       uscfRating: Option[Int] = None,
       ecfRating: Option[Int] = None,
@@ -142,7 +145,7 @@ object user:
       dsbRating: Option[Int] = None,
       links: Option[String] = None
   ):
-    def nonEmptyRealName = ne(realName)
+    def nonEmptyRealName: Option[RealName] = ne(realName)
 
     def nonEmptyLocation = ne(location)
 
@@ -152,6 +155,8 @@ object user:
 
     def completionPercent: Int =
       100 * List(flag, bio, realName).count(_.isDefined) / 3
+
+    def hasLinks = List(links, bio, location).exists(_.exists(_.contains("https://")))
 
     private def ne(str: Option[String]) = str.filter(_.nonEmpty)
 
@@ -184,6 +189,7 @@ object user:
     def byIds[U: UserIdOf](us: Iterable[U]): Fu[List[User]]
     def byIdAs[U: BSONDocumentReader](id: String, proj: BSONDocument): Fu[Option[U]]
     def me[U: UserIdOf](u: U): Fu[Option[Me]]
+    def meWithConfirmedEmail(u: UserId): Fu[Option[Either[Unit, Me]]]
     def email(id: UserId): Fu[Option[EmailAddress]]
     def withEmails[U: UserIdOf](user: U): Fu[Option[WithEmails]]
     def pair(x: UserId, y: UserId): Fu[Option[(User, User)]]
@@ -192,7 +198,7 @@ object user:
     def withIntRatingIn(userId: UserId, perf: PerfKey): Fu[Option[(User, IntRating)]]
     def createdAtById(id: UserId): Fu[Option[Instant]]
     def isEnabled(id: UserId): Fu[Boolean]
-    def langOf(id: UserId): Fu[Option[String]]
+    def langOf(id: UserId): Fu[Option[LangTag]]
     def isKid[U: UserIdOf](id: U): Fu[KidMode]
     def isTroll(id: UserId): Fu[Boolean]
     def isBot(id: UserId): Fu[Boolean]
@@ -256,6 +262,8 @@ object user:
     def preloadMany(ids: Seq[UserId]): Funit
     def preloadUser(user: User): Unit
     def invalidate(id: UserId): Unit
+    def realName(id: UserId): Option[RealName]
+    def preloadRealNames(ids: Seq[UserId]): Funit
     val isBotSync: LightUser.IsBotSync
 
   case class Emails(current: Option[EmailAddress], previous: Option[NormalizedEmailAddress]):
@@ -361,7 +369,9 @@ object user:
   type GameUser = Option[WithPerf]
   type GameUsers = ByColor[GameUser]
 
-  type PublicFideIdOf = LightUser => Fu[Option[_root_.chess.FideId]]
+  type PublicFideIdOf = LightUser => Fu[Option[FideId]]
+  type PublicTitle = (RealName, Option[FideId])
+  type PublicTitleOf = LightUser => Fu[Option[PublicTitle]]
 
   object TrophyKind:
     val marathonWinner = "marathonWinner"
@@ -371,7 +381,7 @@ object user:
     val marathonTopFivehundred = "marathonTopFivehundred"
 
   trait TrophyApi:
-    def award(trophyUrl: String, userId: UserId, kindKey: String): Funit
+    def award(trophyUrl: Url, userId: UserId, kindKey: String): Funit
 
   trait CachedApi:
     def getTop50Online: Fu[List[UserWithPerfs]]

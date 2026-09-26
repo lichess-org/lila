@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="community">Gemeenschap</string>
+  <string name="communityBlogs">Blogs van de gemeenschap</string>
   <string name="byMonth">Per maand</string>
   <string name="byTopic">Per onderwerp</string>
   <string name="byLichess">Door Lichess</string>
   <string name="myFriends">Mijn vrienden</string>
-  <string name="myLikes" comment="A page which lists blog posts that you have pressed ❤️ Like on: https://lichess.org/blog/liked">Mijn vind-ik-leuks</string>
+  <string name="myLikes">Mijn vind-ik-leuks</string>
   <string name="myBlog">Mijn blog</string>
   <string name="likedBlogs">Blogberichten leuk gevonden</string>
+  <string name="blogPostsByFriends">Blogberichten van vrienden</string>
   <plurals name="blogPosts">
     <item quantity="one">%s blogbericht</item>
     <item quantity="other">%s blogberichten</item>
@@ -28,6 +30,8 @@
   <string name="createBlogDiscussionHelp">Een forumbericht zal worden gemaakt waar mensen kunnen reageren op je bericht</string>
   <string name="publishOnYourBlog">Publiceren op jouw blog</string>
   <string name="publishHelp">Indien aangevinkt, zal het bericht worden weergegeven op uw blog. Zo niet, zal deze privé tussen uw conceptberichten staan</string>
+  <string name="includesPromotedContent">Bevat promotie, gesponsorde inhoud of verwijzingslinks</string>
+  <string name="mandatoryForSponsoredContent">Verplicht voor gesponsorde inhoud, affiliate-links of commerciële reclame</string>
   <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">Vastgepind bericht</string>
   <string name="stickyPostHelp">Indien aangevinkt, wordt dit bericht als eerste weergegeven bij de recente berichten op jouw profiel.</string>
   <plurals name="publishedNbBlogPosts">
@@ -44,18 +48,20 @@
   <string name="noPostsInThisBlogYet">Nog geen berichten in deze blog.</string>
   <string name="noDrafts">Geen concepten om weer te geven.</string>
   <string name="latestBlogPosts">Meest recente blogberichten</string>
+  <string name="recentPosts">Recente berichten</string>
   <plurals name="viewAllNbPosts">
     <item quantity="one">Bekijk één bericht</item>
     <item quantity="other">Bekijk alle %s berichten</item>
   </plurals>
-  <string name="uploadAnImageForYourPost">Upload een afbeelding voor je bericht</string>
   <string name="imageAlt">Alternatieve tekst voor afbeelding</string>
   <string name="imageCredit">Foto</string>
+  <string name="coverImage">Afbeelding</string>
   <string name="deleteBlog">Dit blogbericht definitief verwijderen</string>
-  <string name="safeToUseImages">Het is veilig om afbeeldingen van de volgende websites te gebruiken: </string>
+  <string name="freeImagesComplyWithLicensing" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">De volgende websites bieden afbeeldingen gratis. Zorg ervoor dat u voldoet aan licentievoorwaarden voor de afbeelding die u gebruikt.</string>
   <string name="selectPostTopics">Selecteer de onderwerpen waar je bericht over gaat</string>
-  <string name="useImagesYouMadeYourself">Je kunt ook afbeeldingen gebruiken die je zelf hebt gemaakt, foto\'s die je hebt gemaakt, screenshots van Lichess... alles waar geen auteursrechten van iemand anders op berusten.</string>
+  <string name="etiquette">Etiquette</string>
   <string name="safeAndRespectfulContent">Plaats alleen veilige en respectvolle inhoud. Kopieer geen inhoud van iemand anders.</string>
+  <string name="noCopyrightedImages">Gebruik alleen afbeeldingen waarvan het auteursrecht niet door iemand anders wordt beschermd.</string>
   <string name="inappropriateContentAccountClosed">Alles wat ongepast is kan sluiting van je account tot gevolg hebben.</string>
   <string name="blogTips">Onze simpele tips om geweldige blogberichten te schrijven</string>
   <string name="discussThisBlogPostInTheForum">Bespreek dit blogbericht in het forum</string>

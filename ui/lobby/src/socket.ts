@@ -1,11 +1,10 @@
-import * as hookRepo from './hookRepo';
-import type LobbyController from './ctrl';
-import type { PoolMember, Hook } from './interfaces';
 import { idleTimer } from 'lib/event';
 
-interface Handlers {
-  [key: string]: (data: any) => void;
-}
+import type LobbyController from './ctrl';
+import * as hookRepo from './hookRepo';
+import type { PoolMember, Hook } from './interfaces';
+
+type Handlers = Record<string, (data: any) => void>;
 
 export default class LobbySocket {
   handlers: Handlers;

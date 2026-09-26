@@ -1,10 +1,23 @@
-import type StormCtrl from '../ctrl';
-import { getNow } from 'lib/puz/util';
-import renderHistory from 'lib/puz/view/history';
 import { numberSpread } from 'lib/i18n';
-import { onInsert, type LooseVNodes, hl } from 'lib/view';
+import { getNow } from 'lib/puz/util';
+import {
+  onInsert,
+  type MaybeVNodes,
+  div,
+  strong,
+  span,
+  p,
+  table,
+  a,
+  button,
+  tbody,
+  tr,
+  th,
+  td,
+  makeExoticTag,
+} from 'lib/view';
 
-const renderEnd = (ctrl: StormCtrl): LooseVNodes => [renderSummary(ctrl), renderHistory(ctrl)];
+import type StormCtrl from '@/ctrl';
 
 const newHighI18n = {
   day: i18n.storm.newDailyHighscore,
@@ -13,54 +26,52 @@ const newHighI18n = {
   allTime: i18n.storm.newAllTimeHighscore,
 };
 
-const renderSummary = (ctrl: StormCtrl): LooseVNodes => {
+const number = makeExoticTag('number');
+
+export default function renderSummary(ctrl: StormCtrl): MaybeVNodes {
   const run = ctrl.runStats();
   const high = ctrl.vm.response?.newHigh;
+  const playAgain = ctrl.run.endAt! < getNow() - ctrl.duration ? a('/storm') : button;
   const accuracy = (100 * (run.moves - run.errors)) / run.moves;
   const scoreSteps = Math.min(run.score, 50);
   return [
-    high &&
-      hl(
-        'div.storm--end__high.storm--end__high-daily.bar-glider',
-        hl('div.storm--end__high__content', [
-          hl('div.storm--end__high__text', [
-            hl('strong', newHighI18n[high.key]),
-            high.prev ? hl('span', i18n.storm.previousHighscoreWasX(high.prev)) : null,
+    high
+      ? div(
+          '.storm--end__high.storm--end__high-daily.bar-glider',
+          div('.storm--end__high__content', [
+            div('.storm--end__high__text', [
+              strong(newHighI18n[high.key]),
+              high.prev ? span(i18n.storm.previousHighscoreWasX(high.prev)) : null,
+            ]),
           ]),
-        ]),
-      ),
-    hl('div.storm--end__score', [
-      hl(
-        'span.storm--end__score__number',
+        )
+      : null,
+    div('.storm--end__score', [
+      span(
+        '.storm--end__score__number',
         { hook: onInsert(el => numberSpread(el, scoreSteps, Math.round(scoreSteps * 50), 0)(run.score)) },
         '0',
       ),
-      hl('p', i18n.storm.puzzlesSolved),
+      p(i18n.storm.puzzlesSolved),
     ]),
-    hl('div.storm--end__stats.box.box-pad', [
-      hl('table.slist', [
-        hl('tbody', [
-          hl('tr', [hl('th', i18n.storm.moves), hl('td', hl('number', `${run.moves}`))]),
-          hl('tr', [
-            hl('th', i18n.storm.accuracy),
-            hl('td', [hl('number', Number(accuracy).toFixed(1)), '%']),
+    div('.storm--end__stats.box.box-pad', [
+      table('.slist', [
+        tbody([
+          tr([th(i18n.storm.moves), td(number(run.moves))]),
+          tr([
+            th(i18n.storm.accuracy),
+            td([number(accuracy ? accuracy.toFixed(1) : '-'), accuracy ? '%' : '']),
           ]),
-          hl('tr', [hl('th', i18n.storm.combo), hl('td', hl('number', `${ctrl.run.combo.best}`))]),
-          hl('tr', [hl('th', i18n.storm.time), hl('td', [hl('number', `${Math.round(run.time)}`), 's'])]),
-          hl('tr', [
-            hl('th', i18n.storm.timePerMove),
-            hl('td', [hl('number', Number(run.time / run.moves).toFixed(2)), 's']),
+          tr([th(i18n.storm.combo), td(number(ctrl.run.combo.best))]),
+          tr([th(i18n.storm.time), td([number(run.time ? Math.round(run.time) : 0), 's'])]),
+          tr([
+            th(i18n.storm.timePerMove),
+            td([number(run.time ? (run.time / run.moves).toFixed(2) : 0), 's']),
           ]),
-          hl('tr', [hl('th', i18n.storm.highestSolved), hl('td', hl('number', `${run.highest}`))]),
+          tr([th(i18n.storm.highestSolved), td(number(run.highest))]),
         ]),
       ]),
     ]),
-    hl(
-      'a.storm-play-again.button',
-      { attrs: ctrl.run.endAt! < getNow() - 900 ? { href: '/storm' } : {} },
-      i18n.storm.playAgain,
-    ),
+    playAgain('.storm-play-again.button', i18n.storm.playAgain),
   ];
-};
-
-export default renderEnd;
+}

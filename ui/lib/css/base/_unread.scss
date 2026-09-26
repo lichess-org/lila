@@ -8,13 +8,14 @@
 
   padding: 1px 5px 1px 4px;
   font-weight: bold;
-  font-size: 13px;
+  font-size: 12px;
 }
 
 .data-count::after {
+  @include inline-end(0);
+
   content: attr(data-count);
   top: -5px;
-  @include inline-end(0);
   position: absolute;
   padding: 0 3px;
   height: 15px;

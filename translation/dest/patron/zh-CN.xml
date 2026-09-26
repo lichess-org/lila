@@ -39,8 +39,8 @@
   <string name="officialNonProfit">Lichess 是正式的非营利组织吗？</string>
   <string name="actOfCreation">是的，这是（法文的）成立文件</string>
   <string name="changeMonthlySupport">我可以更改/取消我的月度赞助吗？</string>
-  <string name="changeOrContact">可以，随时可以在此页面操作。
-或者您可以 %s。</string>
+  <string name="changeSupport">如果您的付款由 PayPal 处理，您可以通过自己的 PayPal 账户取消/变更赞助，或者您也可以 %1$s，由我们代为操作。如果您未使用 PayPal，则您的付款由 Stripe 处理，您可以在 %2$s 上取消赞助或变更金额。</string>
+  <string name="patronPage">赞助页面</string>
   <string name="contactSupport">联系 Lichess 获取帮助</string>
   <string name="otherMethods">其他赞助方式？</string>
   <string name="lichessIsRegisteredWith">Lichess 已在 %s 注册。</string>
@@ -82,5 +82,5 @@
   <string name="paymentDetails">付款详情</string>
   <string name="updatePaymentMethod">更新付款方式</string>
   <string name="stripeManageSub">管理您的订阅并下载发票和收据</string>
-  <string name="coverFees" comment="%s is a monetary amount. It will be localised depending on the currency where you are e.g. &quot;$0.25&quot; in the United States, &quot;€0.20&quot; in the Eurozone, and so on.&#10;The amount may appear before or after the number, depending on the language (e.g. as &quot;0,25 €&quot; in certain languages &amp; locales).&#10;&#10;Appears as an option when donating to Lichess (https://lichess.org/patron), letting you pay a bit more to cover the transaction fees which would be part of your donation.">我将额外支付 %s，以承担这笔交易的手续费</string>
+  <string name="coverFees">我将额外支付 %s，以承担这笔交易的手续费</string>
 </resources>

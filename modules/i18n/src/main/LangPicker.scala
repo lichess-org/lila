@@ -33,8 +33,8 @@ object LangPicker extends lila.core.i18n.LangPicker:
   def byStr(str: String): Option[Lang] =
     Lang.get(str).flatMap(findCloser)
 
-  def byStrOrDefault(str: Option[String]): Lang =
-    str.flatMap(byStr) | defaultLang
+  def byLangTagOrDefault(lt: Option[LangTag]): Lang =
+    LangTag.raw(lt).flatMap(byStr) | defaultLang
 
   def sortFor(langs: List[Lang], req: RequestHeader): List[Lang] =
     val mine = allFromRequestHeaders(req).zipWithIndex.toMap

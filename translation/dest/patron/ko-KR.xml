@@ -39,8 +39,8 @@
   <string name="officialNonProfit">Lichess는 공식적인 비영리 단체인가요?</string>
   <string name="actOfCreation">예. 여기에 설립증이 있습니다(프랑스어)</string>
   <string name="changeMonthlySupport">월간 후원을 변경/취소할 수 있나요?</string>
-  <string name="changeOrContact">예. 언제든지 이 페이지에서 할 수 있습니다.
-또는 %s를 할 수 있습니다.</string>
+  <string name="changeSupport">결제가 PayPal에서 처리되었다면, 당신의 Paypal 계정을 통해 당신의 지원을 취소/변경할 수 있습니다. 또는 %1$s하시면 저희가 해드리겠습니다. PayPal을 사용하지 않으셨다면, 결제는 Stripe에서 처리되며, %2$s에서 기부를 취소하거나 양을 변경할 수 있습니다.</string>
+  <string name="patronPage">후원자 페이지</string>
   <string name="contactSupport">Lichess 지원팀에 문의</string>
   <string name="otherMethods">다른 기부 방법이 있나요?</string>
   <string name="lichessIsRegisteredWith">Lichess는 %s에 등록되어 있습니다.</string>
@@ -82,5 +82,5 @@
   <string name="paymentDetails">결제 세부사항</string>
   <string name="updatePaymentMethod">결제 수단 업데이트</string>
   <string name="stripeManageSub">구독 관리 및 청구서 및 영수증 다운로드</string>
-  <string name="coverFees" comment="%s is a monetary amount. It will be localised depending on the currency where you are e.g. &quot;$0.25&quot; in the United States, &quot;€0.20&quot; in the Eurozone, and so on.&#10;The amount may appear before or after the number, depending on the language (e.g. as &quot;0,25 €&quot; in certain languages &amp; locales).&#10;&#10;Appears as an option when donating to Lichess (https://lichess.org/patron), letting you pay a bit more to cover the transaction fees which would be part of your donation.">거래 수수료를 충당하기 위해서 %s만큼을 더하겠습니다</string>
+  <string name="coverFees">거래 수수료를 충당하기 위해서 %s만큼을 더하겠습니다</string>
 </resources>

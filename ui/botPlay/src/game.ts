@@ -1,13 +1,15 @@
 import { Chess, type Move as ChessMove, opposite } from 'chessops';
+import { normalizeMove } from 'chessops/chess';
 import { makeFen, parseFen } from 'chessops/fen';
 import { defaultGame, parsePgn, type PgnNodeData, type Game as PgnGame } from 'chessops/pgn';
-import type { ClockConfig, SetData as ClockState } from 'lib/game/clock/clockCtrl';
-import type { BotKey, GameData, GameEnd, GameId, Move } from './interfaces';
-import type { Board } from './chess';
 import { makeSan, parseSan } from 'chessops/san';
-import { normalizeMove } from 'chessops/chess';
+
 import { randomId } from 'lib/algo';
+import type { ClockConfig, SetData as ClockState } from 'lib/game/clock/clockCtrl';
+
+import type { Board } from './chess';
 import { computeClockState } from './clock';
+import type { BotKey, GameData, GameEnd, GameId, Move } from './interfaces';
 
 export class Game {
   constructor(readonly data: GameData) {
@@ -83,7 +85,7 @@ export class Game {
     this.data.end = endOnTheBoard(chess);
     if (this.end) return this.end;
     const clock = this.clockState();
-    if (!clock) return;
+    if (!clock) return undefined;
     const flag = (color: Color): GameEnd => ({
       winner: opposite(color),
       status: 'outoftime',
@@ -120,7 +122,7 @@ export class Game {
 }
 
 const endOnTheBoard = (chess: Chess): GameEnd | undefined => {
-  if (!chess.isEnd()) return;
+  if (!chess.isEnd()) return undefined;
   return {
     winner: chess.outcome()?.winner,
     status: chess.isCheckmate() ? 'mate' : chess.isStalemate() ? 'stalemate' : 'draw',

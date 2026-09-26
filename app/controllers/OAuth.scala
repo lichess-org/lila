@@ -3,57 +3,57 @@ package controllers
 import play.api.libs.json.{ JsNull, JsObject, JsValue, Json }
 import play.api.mvc.*
 import scalalib.ThreadLocalRandom
+import scalalib.net.Bearer
 import scalatags.Text.all.stringFrag
 import cats.mtl.Handle.*
 
 import lila.app.*
 import lila.common.HTTPRequest
 import lila.common.Json.given
-import lila.core.net.Bearer
-import lila.oauth.{ AccessTokenRequest, AuthorizationRequest, OAuthScopes }
+import lila.oauth.{ AccessTokenRequest, AuthorizationRequest, OAuthScopes, OAuthSignedClient }
 
 import Api.ApiResult
 
 final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
 
-  private def reqToAuthorizationRequest(using RequestHeader) =
-    import lila.oauth.Protocol.*
-    AuthorizationRequest.Raw(
-      clientId = getAs[ClientId]("client_id"),
-      responseType = get("response_type"),
-      redirectUri = get("redirect_uri"),
-      state = getAs[State]("state"),
-      codeChallengeMethod = get("code_challenge_method"),
-      codeChallenge = getAs[CodeChallenge]("code_challenge"),
-      scope = get("scope"),
-      username = getAs[UserStr]("username")
+  private def withPrompt(f: (AuthorizationRequest.Prompt, Option[OAuthSignedClient]) => Fu[Result])(using
+      ctx: Context
+  ): Fu[Result] =
+    env.oAuth.signedClients.forReq.fold(
+      err => BadRequest.page(views.site.message("Bad authorization request")(stringFrag(err))),
+      f.tupled
     )
 
-  private def withPrompt(f: AuthorizationRequest.Prompt => Fu[Result])(using ctx: Context): Fu[Result] =
-    reqToAuthorizationRequest.prompt match
-      case Right(prompt) =>
-        AuthorizationRequest.logPrompt(prompt, ctx.me)
-        f(prompt)
-      case Left(error) =>
-        BadRequest.page(views.site.message("Bad authorization request")(stringFrag(error.description)))
-
   def authorize = Open:
-    withPrompt: prompt =>
-      ctx.me.fold(Redirect(routes.Auth.login.url, Map("referrer" -> List(req.uri))).toFuccess): me =>
-        Ok.page:
-          views.oAuth.authorize(prompt, me, s"${routes.OAuth.authorizeApply}?${req.rawQueryString}")
+    withPrompt: (prompt, signedClient) =>
+      val action: OAuthSignedClient.Action = if getBool("signup") then "signup" else "login"
+      env.oAuth.signedClients.monitor(signedClient, prompt, action)
+      ctx.me match
+        case Some(me) =>
+          given Me = me
+          Ok.page(views.oAuth.authorize(prompt, signedClient))
+        case None =>
+          Redirect(
+            if action == "signup" then routes.Auth.signup.url else routes.Auth.login.url,
+            Map("referrer" -> List(req.uri))
+          ).toFuccess
 
   def legacyAuthorize = Anon:
     MovedPermanently(s"${routes.OAuth.authorize}?${req.rawQueryString}")
 
   def authorizeApply = Auth { _ ?=> me ?=>
-    withPrompt: prompt =>
+    withPrompt: (prompt, _) =>
       allow:
         for
           authorized <- prompt.authorize(me, env.oAuth.legacyClientApi.apply)
           code <- env.oAuth.authorizationApi.create(authorized)
-        yield SeeOther(authorized.redirectUrl(code))
+        yield
+          lila.mon.user.oauth.authorize("success").increment()
+          SeeOther(authorized.redirectUrl(code))
       .rescue: error =>
+        lila.oauth.logger.info:
+          s"OAuth.authorizeApply ${me.username} error: $error client: ${HTTPRequest.printClient(req)}"
+        lila.mon.user.oauth.authorize(error.error).increment()
         SeeOther(prompt.redirectUri.error(error, prompt.state))
   }
 
@@ -93,9 +93,8 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
       BadRequest(err.toJson)
 
   def tokenRevoke = Scoped() { ctx ?=> _ ?=>
-    HTTPRequest.bearer(ctx.req).so { token =>
-      env.oAuth.tokenApi.revoke(token).inject(NoContent)
-    }
+    HTTPRequest.bearer.so: (bearer, _) =>
+      env.oAuth.tokenApi.revoke(bearer).inject(NoContent)
   }
 
   def revokeClient = AuthBody { ctx ?=> _ ?=>
@@ -134,3 +133,6 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
           }))
         }
       .map(apiC.toHttp)
+
+  def mobileOAuthCallback = Open:
+    Ok.page(lila.web.ui.mobileRedirect)

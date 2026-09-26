@@ -1,8 +1,10 @@
 import type { MouchEvent } from '@lichess-org/chessground/types';
-import { onInsert, type LooseVNode } from 'lib/view';
 import { h } from 'snabbdom';
-import type RoundController from '../ctrl';
+
 import type { TopOrBottom } from 'lib/game';
+import { onInsert, type LooseVNode } from 'lib/view';
+
+import type RoundController from '../ctrl';
 import { plyStep } from '../util';
 import { crazyKeys, drag, pieceRoles } from './crazyCtrl';
 
@@ -10,7 +12,7 @@ const eventNames = ['mousedown', 'touchstart'];
 
 export default function pocket(ctrl: RoundController, color: Color, position: TopOrBottom): LooseVNode {
   const step = plyStep(ctrl.data, ctrl.ply);
-  if (!step.crazy) return;
+  if (!step.crazy) return undefined;
   const droppedRole = ctrl.justDropped,
     preDropRole = ctrl.preDrop,
     pocket = step.crazy.pockets[color === 'white' ? 0 : 1],

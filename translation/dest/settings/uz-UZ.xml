@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="settings">Sozlashlar</string>
-  <string name="closeAccount">Hisobni yopish</string>
-  <string name="managedAccountCannotBeClosed">Sizning hisobingiz boshqaruvda va yopilishi mumkin emas.</string>
-  <string name="cantOpenSimilarAccount" comment="Please note this string was simplified in January 2025. Before this, it used to state &quot;You will not be allowed to open a new account with the same name, even if the case is different.&quot; Please update existing translations as required.">Siz boshqa bunday nomli akkount yarata olmaysiz, hatto harflar katta-kichigi bilan farq qilsa ham.</string>
-  <string name="cancelKeepAccount">Bekor qiling va hisobni qoldiring</string>
-  <string name="closeAccountAreYouSure">Haqiqatan ham hisobingizni yopmoqchimisiz?</string>
-  <string name="thisAccountIsClosed" comment="Appears on mouseover for a user profile (account) which has been closed.&#10;&#10;This should be in the passive voice. It is typically the player's choice to close their own account, but it is could instead be Lichess moderators who closed the account.">Bu hisob yopilgan.</string>
+  <string name="settings">Sozlamalar</string>
+  <string name="closeAccount">Akkauntni yopish</string>
+  <string name="managedAccountCannotBeClosed">Akkauntingiz nazorat ostida, uni yopib boʻlmaydi.</string>
+  <string name="cantOpenSimilarAccount">Ushbu foydalanuvchi nomi bilan qayta roʻyxatdan oʻtib boʻlmaydi.</string>
+  <string name="cancelKeepAccount">Bekor qilish va akkauntni saqlab qolish</string>
+  <string name="closeAccountAreYouSure">Haqiqatan ham akkauntingizni yopmoqchimisiz?</string>
+  <string name="thisAccountIsClosed">Bu akkaunt yopilgan.</string>
+  <string name="wereSorryToSeeYouGo">Ketayotganingizdan afsusdamiz.</string>
+  <string name="closeAccountForeverLabel">Butunlay yopish: qayta ochish imkonini yoʻqotasiz</string>
+  <string name="closeAccountForeverWarning">Akkauntni keyinchalik qayta ochishni taqiqlash. Agar ushbu katakchani belgilasangiz, hatto administratorlar ham soʻrovingizga binoan akkauntingizni qayta tiklay olmaydi.</string>
+  <string name="deleteYourAccount">Akkauntingizni oʻchirib tashlash</string>
+  <string name="deleteAccountWarning">Akkauntingizni oʻchirib tashlaganingizdan soʻng, u Lichessʼdan butunlay oʻchiriladi va administratorlarimiz uni qayta tiklay olmaydi.</string>
+  <string name="wouldYouLikeToXInstead" comment="%s is close your account">Buning oʻrniga %sni xohlaysizmi?</string>
+  <string name="closeYourAccount">akkauntingizni yopish</string>
+  <string name="deleteAccountConfirmText">Oʻchirilgan akkauntlarni qayta tiklab boʻlmasligini tushunaman</string>
 </resources>

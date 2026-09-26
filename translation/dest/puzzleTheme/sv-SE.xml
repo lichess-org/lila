@@ -44,15 +44,12 @@
   <string name="doubleCheckDescription">Schack med två pjäser i samma drag, som ett resultat av avdragsattack (avdragsschack) där både den rörliga pjäsen och den avtäckta pjäsen attackerar motståndarens kung.</string>
   <string name="endgame">Slutspel</string>
   <string name="endgameDescription">En taktik under spelets sista fas.</string>
-  <string name="enPassantDescription">En taktik som involverar \"en passant\"-regeln, där en bonde kan slå en bonde som har passerat den med ett tvåstegsdrag.</string>
   <string name="exposedKing">Oskyddad kung</string>
   <string name="exposedKingDescription">En taktik som involverar en kung med få försvarare runt omkring sig, leder ofta till schack matt.</string>
   <string name="fork">Gaffel</string>
-  <string name="forkDescription">Ett drag där den rörda pjäsen attackerar två motståndarpjäser samtidigt.</string>
   <string name="hangingPiece">Ogarderad pjäs</string>
   <string name="hangingPieceDescription">En taktik som drar fördel av att en motståndares pjäs är oförsvarad eller otillräckligt försvarad och fri att slå.</string>
   <string name="hookMate">Krokmatt</string>
-  <string name="hookMateDescription">Schackmatta med ett torn, en springare och en bonde tillsammans med en motståndarbonde för att begränsa motståndarkungens undanflykt.</string>
   <string name="interference">Interference</string>
   <string name="interferenceDescription">Placerar en pjäs mellan två motståndares pjäser för att lämna en eller båda motståndarpjäserna ogarderade, till exempel springare på en garderad ruta mellan två torn.</string>
   <string name="intermezzo">Mellandrag</string>
@@ -92,7 +89,6 @@
   <string name="pin">Fastlåsning</string>
   <string name="pinDescription">En taktik som involverar fastlåsning, där en attackerad pjäs inte kan flyttas utan att exponera en mer värdefull pjäs.</string>
   <string name="promotion">Promovering</string>
-  <string name="promotionDescription">En taktik som bygger på en bonde som förvandlas eller hotar att förvandlas.</string>
   <string name="queenEndgame">Damslutspel</string>
   <string name="queenEndgameDescription">Ett slutspel med endast dam och bönder.</string>
   <string name="queenRookEndgame">Dam och torn</string>

@@ -25,7 +25,7 @@
   <string name="cantChangeMore">Chúng tôi không thể đổi nhiều chữ cái hơn. Vì lý do kỹ thuật, điều đó dứt khoát không thể.</string>
   <string name="orCloseAccount">Tuy nhiên, bạn có thể đóng tài khoản hiện tại của mình và tạo một tài khoản mới.</string>
   <string name="wantClearHistory">Tôi muốn xóa lịch sử hoặc hệ số</string>
-  <string name="cantClearHistory">Bạn không thể xóa lịch sử các ván đấu, câu đố hay hệ số.</string>
+  <string name="cantClearHistoryOrResetRatings">Bạn không thể xóa lịch sử đấu, lịch sử giải đố hoặc đặt lại hệ số của mình.</string>
   <string name="wantReport">Tôi muốn báo cáo một người chơi</string>
   <string name="toReportAPlayerUseForm">Để báo cáo một người chơi, dùng mẫu báo cáo</string>
   <string name="youCanAlsoReachReportPage">Bạn cũng có thể truy cập trang đó bằng cách nhấn vào nút báo báo %s trên một trang hồ sơ.</string>
@@ -39,7 +39,7 @@
   <string name="reportMobileIssue">Bằng một vấn đề (issue) cho ứng dụng điện thoại của Lichess trên GitHub</string>
   <string name="reportBugInDiscord">Trong máy chủ Discord của Lichess</string>
   <string name="howToReportBug">Vui lòng mô tả lỗi trông như thế nào, thay vào đó bạn mong đợi điều gì sẽ xảy ra và các bước để tái tạo lỗi.</string>
-  <string name="illegalPawnCapture" comment="Appears as an option for reasons to contact Lichess on the 'contact' page: https://lichess.org/contact#help-enpassant&#10;&#10;Players used to routinely write to Lichess stating that there was a bug, or that the other player had hacked their game in some way. In actuality, the player was using the legal move of en passant.&#10;&#10;Please translate this string from the perspective of the player who would be selecting this contact option, and call it 'Illegal', even though we know this is a legal move.">Nước ăn tốt không hợp lệ</string>
+  <string name="illegalPawnCapture">Nước ăn tốt không hợp lệ</string>
   <string name="calledEnPassant">Đây được gọi là \"Bắt tốt qua đường\" và là một luật chơi của cờ vua.</string>
   <string name="tryEnPassant">Thử trò chơi tương tác nhỏ này để học thêm về \"Bắt tốt qua đường\".</string>
   <string name="illegalCastling">Nước nhập thành không hợp lệ hoặc không khả thi</string>
@@ -57,7 +57,7 @@
   <string name="reportErrorPage">Nếu bạn gặp một trang lỗi, bạn có thể báo cáo nó:</string>
   <string name="learnHowToMakeBroadcasts">Tìm hiểu cách thức phát sóng trên Lichess</string>
   <string name="banAppeal">Khiếu nại lệnh cấm, hạn chế hoặc chặn IP</string>
-  <string name="engineAppeal">Đánh dấu gian lận hoặc dùng động cơ máy tính</string>
+  <string name="engineAppeal">Dấu hiệu gian lận hoặc sử dụng công cụ hỗ trợ</string>
   <string name="sendAppealTo">Bạn có thể gửi khiếu nại đến %s.</string>
   <string name="falsePositives">Những giá trị dương do đánh giá sai đôi khi vẫn xẩy ra và chúng tôi xin thứ lỗi vì điều đó.</string>
   <string name="ifLegit">Nếu khiếu nại của bạn hợp lệ, chúng tôi sẽ dỡ bỏ lệnh cấm sớm nhất có thể.</string>
@@ -74,4 +74,13 @@
   <string name="noneOfTheAbove">Không phải các phương án trên</string>
   <string name="sendEmailAt">Hãy gửi email cho chúng tôi tại %s.</string>
   <string name="explainYourRequest">Xin vui lòng giải thích yêu cầu của bạn một cách rõ ràng và thấu đáo. Đưa ra tên đang nhập Lichess của bạn, và bất cứ thông tin nào hữu ích có thể giúp chúng tôi giúp bạn.</string>
+  <string name="monetiseNotInterested">Chúng tôi không có ý định kiếm tiền từ Lichess bằng bất kỳ hình thức nào.</string>
+  <string name="monetiseNoAdsTrackingOrTraffic">Chúng tôi sẽ không bao giờ hiển thị bất kỳ loại quảng cáo nào, không theo dõi người chơi và không bán hoặc mua lưu lượng truy cập hoặc người dùng.</string>
+  <string name="monetiseNoMarketingEmail">Vui lòng không gửi email cho chúng tôi về vấn đề tiếp thị, trình theo dõi hoặc quảng cáo.</string>
+  <string name="monetiseEncourageEveryoneTo" comment="string is value of key monetiseBlockAllAdsAndTrackers">Chúng tôi khuyến khích mọi người %s.</string>
+  <string name="monetiseBlockAllAdsAndTrackers">chặn tất cả quảng cáo và trình theo dõi</string>
+  <string name="broadcastTournamentOnLichess">Phát sóng một giải đấu trên Lichess</string>
+  <string name="ifYouWantToBroadcastClause1">Nếu bạn muốn phát sóng chính thức một giải đấu trên Lichess, hoặc có bất kỳ câu hỏi nào về việc phát sóng của chúng tôi:</string>
+  <string name="ifYouWantToBroadcastClause2" comment="string1 is Lichess email, string2 is value of key ourDiscordServer">Vui lòng liên hệ với Nhóm Phát sóng của chúng tôi trong %2$s hoặc qua %1$s.</string>
+  <string name="ourDiscordServer">máy chủ Discord của chúng tôi</string>
 </resources>

@@ -136,20 +136,11 @@ Lichess上的電腦分析是基於Stockfish的。</string>
 單擊瀏覽器 URL 欄中 lichess.org 網址旁邊的鎖定圖標。
 然後選擇是否允許還是阻止來自 Lichess 的通知。</string>
   <string name="enableAutoplayForSoundsQ">如何啟用自動播放聲音？</string>
-  <string name="enableAutoplayForSoundsA">大多瀏覽器都會禁止網站在新載入分頁中播放影音以保護使用者。想像所有網站都可以以各種影音廣告轟炸您的耳朵。
-
-紅色靜音按鈕會在音效被阻擋時顯示。大多在點擊棋子時才會停用此種限制。在某些行動版瀏覽器上，拖曳一個棋子不會被認為為一種點擊方式。在那種情況下您必須在每個棋局開始後點擊棋盤以啟用音效。
-
-在此種限制發生時我們會以紅色圖示警告你。大多時候可以允許 lichess.org 播放音效。以下是如何在大多瀏覽器上啟用音效：</string>
   <string name="desktop">電腦</string>
   <string name="enableAutoplayForSoundsFirefox">1. 到 lichess.org
 2. 在 Linux/Windows 上按下 Ctrl-i  或是在 macOS 按下 cmd-i
 3. 點擊「權限」分頁
 4. 在 lichess.org 允許自動播放影音內容</string>
-  <string name="enableAutoplayForSoundsChrome">1. 到 lichess.org
-2. 在搜尋欄中點擊開關圖示
-3. 點擊網站設定
-4. 允許音效</string>
   <string name="enableAutoplayForSoundsSafari">1. 到 lichess.org
 2. 點擊 Safari 的選單
 3. 點擊「lichess.org 的設定...」

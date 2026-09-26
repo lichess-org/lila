@@ -1,16 +1,16 @@
 import type { Prop } from 'lib';
+import type { TreeNodeBase, TreePath } from 'lib/tree/types';
+
+import type AnalyseCtrl from '../ctrl';
+import type { Opening } from '../explorer/interfaces';
 import type { AnalyseData } from '../interfaces';
 import type { GamebookOverride } from './gamebook/interfaces';
-import type { Opening } from '../explorer/interfaces';
-import type AnalyseCtrl from '../ctrl';
-import type { TreeNodeIncomplete, TreePath } from 'lib/tree/types';
 
 export type Tab = 'intro' | 'members' | 'chapters';
 export type ChapterTab = 'init' | 'edit' | 'game' | 'fen' | 'pgn';
 export type ToolTab = 'tags' | 'comments' | 'glyphs' | 'serverEval' | 'share' | 'multiBoard';
 export type Visibility = 'public' | 'unlisted' | 'private';
 export type ChapterId = string;
-export type TeamName = string;
 export type PointsStr = '1' | '0' | '1/2';
 export type GamePointsStr = '1-0' | '0-1' | '½-½' | '0-0' | '½-0' | '0-½';
 export type StatusStr = GamePointsStr | '*';
@@ -39,8 +39,6 @@ export interface StudyVm {
   gamebookOverride: GamebookOverride;
 }
 
-export type Federations = { [key: string]: string };
-
 export interface StudyData {
   id: string;
   name: string;
@@ -62,7 +60,6 @@ export interface StudyData {
   topics?: Topic[];
   admin: boolean;
   showRatings: boolean;
-  federations?: Federations;
 }
 
 export interface StudyDataFromServer extends StudyData {
@@ -130,11 +127,6 @@ export interface StudyChapterServerEval {
   path: string;
 }
 
-export interface StudyChapterRelay {
-  path: TreePath;
-  lastMoveAt?: number;
-}
-
 interface StudyChapterSetup {
   gameId?: string;
   variant: {
@@ -152,24 +144,20 @@ interface StudyChapterFeatures {
 
 export type StudyMember = {
   user: {
-    id: string;
+    id: UserId;
     name: string;
     title?: string;
   };
   role: string;
 };
 
-export interface StudyMemberMap {
-  [id: string]: StudyMember;
-}
+export type StudyMemberMap = Record<UserId, StudyMember>;
 
 export type TagTypes = string[];
 export type TagArray = [string, string];
 export type TagMap = Map<string, string>;
 
-export interface LocalPaths {
-  [chapterId: string]: TreePath;
-}
+export type LocalPaths = Record<string, TreePath>;
 
 export interface ChapterPreviewBase {
   id: ChapterId;
@@ -203,6 +191,7 @@ export type FederationId = string;
 export interface Federation {
   id: FederationId;
   name: string;
+  i18nName?: string;
 }
 export interface StudyPlayerBase {
   name?: string;
@@ -245,7 +234,6 @@ export interface EditChapterData {
 export interface AnaMove {
   orig: string;
   dest: string;
-  fen: FEN;
   path: string;
   variant?: VariantKey;
   ch?: string;
@@ -256,12 +244,11 @@ export interface AnaDrop {
   role: Role;
   pos: Key;
   variant?: VariantKey;
-  fen: FEN;
   path: string;
   ch?: string;
 }
 export interface ServerNodeMsg extends WithWhoAndPos {
-  n: TreeNodeIncomplete;
+  n: TreeNodeBase;
   o: Opening;
   s: boolean;
   relayPath?: TreePath;

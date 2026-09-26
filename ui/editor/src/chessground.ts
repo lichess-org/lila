@@ -1,21 +1,24 @@
-import { h, type VNode } from 'snabbdom';
-import resizeHandle from 'lib/chessgroundResize';
+import { Chessground as makeChessground } from '@lichess-org/chessground';
 import type { MouchEvent } from '@lichess-org/chessground/types';
 import { eventPosition, opposite } from '@lichess-org/chessground/util';
-import type EditorCtrl from './ctrl';
-import { storage } from 'lib/storage';
-import { Chessground as makeChessground } from '@lichess-org/chessground';
-import { pubsub } from 'lib/pubsub';
+import { h, type VNode } from 'snabbdom';
+
+import resizeHandle from 'lib/chessgroundResize';
+import { isSafari } from 'lib/device';
 import { ShowResizeHandle } from 'lib/prefs';
+import { pubsub } from 'lib/pubsub';
+import { storage } from 'lib/storage';
+import { onInsert } from 'lib/view';
+
+import type EditorCtrl from './ctrl';
 
 export default function (ctrl: EditorCtrl): VNode {
   return h('div.cg-wrap', {
     hook: {
-      insert: vnode => {
-        const el = vnode.elm as HTMLElement;
+      ...onInsert(el => {
         ctrl.chessground = makeChessground(el, makeConfig(ctrl));
         bindEvents(el, ctrl);
-      },
+      }),
       destroy: () => ctrl.chessground!.destroy(),
     },
   });
@@ -49,7 +52,7 @@ function onMouseEvent(ctrl: EditorCtrl): (e: MouchEvent) => void {
 
     // do not generate corresponding mouse event
     // (https://developer.mozilla.org/en-US/docs/Web/API/Touch_events/Supporting_both_TouchEvent_and_MouseEvent)
-    if (sel !== 'pointer' && e.cancelable !== false && (e.type === 'touchstart' || e.type === 'touchmove'))
+    if (sel !== 'pointer' && e.cancelable && (e.type === 'touchstart' || e.type === 'touchmove'))
       e.preventDefault();
 
     if (isLeftClick(e) || e.type === 'touchstart' || e.type === 'touchmove') {
@@ -82,15 +85,10 @@ function onMouseEvent(ctrl: EditorCtrl): (e: MouchEvent) => void {
       }
       lastKey = key;
     } else if (isRightClick(e)) {
-      if (sel !== 'pointer') {
-        ctrl.chessground!.state.drawable.current = undefined;
-        ctrl.chessground!.state.drawable.shapes = [];
-
-        if (e.type === 'contextmenu' && sel !== 'trash') {
-          ctrl.chessground!.cancelMove();
-          sel[0] = opposite(sel[0]);
-          ctrl.redraw();
-        }
+      if (sel !== 'pointer' && sel !== 'trash' && e.type === 'contextmenu') {
+        ctrl.chessground!.cancelMove();
+        sel[0] = opposite(sel[0]);
+        ctrl.redraw();
       }
     }
   };
@@ -120,6 +118,7 @@ function makeConfig(ctrl: EditorCtrl): CgConfig {
     coordinates: ctrl.options.coordinates !== false,
     autoCastle: false,
     addPieceZIndex: ctrl.cfg.is3d,
+    jsHover: isSafari(),
     movable: {
       free: true,
       color: 'both',
@@ -131,7 +130,7 @@ function makeConfig(ctrl: EditorCtrl): CgConfig {
       enabled: false,
     },
     drawable: {
-      enabled: true,
+      enabled: ctrl.selected() === 'pointer',
       defaultSnapToValidMove: storage.boolean('arrow.snap').getOrDefault(true),
     },
     draggable: {

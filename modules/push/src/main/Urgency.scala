@@ -6,3 +6,5 @@ private enum Urgency(val key: String):
   case Low extends Urgency("low")
   case Normal extends Urgency("normal")
   case High extends Urgency("high")
+
+private given play.api.libs.json.Writes[Urgency] = scalalib.json.Json.writeAs(_.key)

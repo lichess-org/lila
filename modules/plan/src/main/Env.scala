@@ -76,11 +76,13 @@ final class Env(
   lila.common.Bus.sub[lila.core.user.ChangeEmail]:
     case lila.core.user.ChangeEmail(userId, email) => api.onEmailChange(userId, email)
 
-  lila.common.Cli.handle:
+  lila.common.Cli.handle(_.FreePatron):
     case "patron" :: "lifetime" :: user :: Nil =>
       userApi.byId(UserStr(user)).flatMapz(api.setLifetime).inject("ok")
     case "patron" :: "gift-month" :: user :: Nil =>
-      userApi.byId(UserStr(user)).flatMapz(api.freeMonth).inject("ok")
+      api.freeMonths(user, 1).inject("ok")
+    case "patron" :: "gift-months" :: user :: nbMonths :: Nil =>
+      nbMonths.toIntOption.so(api.freeMonths(user, _)).inject("ok")
     case "patron" :: "remove" :: user :: Nil =>
       userApi.byId(UserStr(user)).flatMapz(api.remove).inject("ok")
     case "patron" :: "set-months" :: user :: months :: Nil =>

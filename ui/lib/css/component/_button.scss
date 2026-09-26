@@ -1,8 +1,8 @@
 .button {
-  @extend %roboto, %button-shadow, %box-radius;
-
+  @extend %roboto, %box-radius;
   @include prevent-select;
   @include transition;
+  @include backdrop-blur-if-transparent;
 
   font-weight: 500;
   background: $c-primary;
@@ -11,8 +11,19 @@
   border: none;
   cursor: pointer;
   text-align: center;
-  white-space: nowrap;
   display: inline-block;
+  text-shadow: 0.5px 0.5px 0 rgb(from $c-dimmer r g b / calc(alpha * 0.8));
+
+  @include if-light {
+    text-shadow: 0.5px 0.5px 0 rgb(from $c-clearer r g b / calc(alpha * 0.7));
+  }
+
+  @include with-button-shadow(
+    hsl(from $c-primary h s calc(l + 32)),
+    hsl(from $c-primary h s calc(l - 18)),
+    hsl(from $c-primary h s calc(l + 44)),
+    hsl(from $c-primary h s calc(l - 14))
+  );
 
   &,
   &:visited,
@@ -21,10 +32,8 @@
   }
 
   &:not(.disabled):hover {
-    @extend %button-raised-shadow;
-
     color: $c-over;
-    background: $m-primary--lighten-7;
+    filter: brightness(1.15);
   }
 
   &:not(.disabled):focus-visible {
@@ -45,24 +54,36 @@
   }
 
   &-green {
+    @include with-button-shadow(
+      hsl(from $c-secondary h s calc(l + 32)),
+      hsl(from $c-secondary h s calc(l - 12)),
+      hsl(from $c-secondary h s calc(l + 44)),
+      hsl(from $c-secondary h s calc(l - 9))
+    );
+
     background: $c-secondary;
 
     &:not(.disabled):hover {
-      background: $m-secondary--lighten-4;
+      background: hsl(from $c-secondary h s calc(l + 4));
     }
   }
 
   &-red {
-    background: $c-error;
+    @include with-button-shadow(
+      hsl(from $c-bad h s calc(l + 32)),
+      hsl(from $c-bad h s calc(l - 15)),
+      hsl(from $c-bad h s calc(l + 44)),
+      hsl(from $c-bad h s calc(l - 10))
+    );
+
+    background: $c-bad;
 
     &:not(.disabled):hover {
-      background: $m-bad--lighten-11;
+      background: hsl(from $c-bad h s calc(l + 11));
     }
   }
 
   &-link {
-    @extend %button-none;
-
     color: $c-link;
 
     &:hover,
@@ -74,14 +95,18 @@
 
   &.button-empty {
     transition: none;
+    background: none;
+    box-shadow: none;
+
+    @include if-light {
+      box-shadow: none;
+      text-shadow: 0.5px 0.5px 0 rgb(from $c-dimmer r g b / calc(alpha * 0.8));
+    }
 
     &,
     &:hover {
       color: $c-primary;
     }
-
-    background: none;
-    box-shadow: none;
 
     &:not(.disabled):hover {
       @extend %button-shadow;
@@ -121,11 +146,13 @@
 
     &,
     &:not(.disabled):hover {
-      color: $c-font-dim;
+      color: $c-font;
     }
 
-    &:not(.disabled):hover {
-      @extend %metal-hover;
+    @include if-light {
+      &:hover {
+        filter: none;
+      }
     }
   }
 
@@ -137,7 +164,8 @@
     }
   }
 
-  &.disabled {
+  &.disabled,
+  &:disabled {
     opacity: 0.5;
     cursor: not-allowed;
   }
@@ -154,7 +182,9 @@
     color: #fff;
   }
 }
+
 .button-set {
   @extend %flex-center;
+
   gap: 1.5em;
 }

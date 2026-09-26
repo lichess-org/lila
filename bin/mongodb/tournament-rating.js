@@ -1,6 +1,6 @@
 db.tournament.find({}, { players: 1 }).forEach(function (tour) {
-  for (var i in tour.players) {
-    var p = tour.players[i];
+  for (let i in tour.players) {
+    const p = tour.players[i];
     p.rating = p.elo;
     delete p.elo;
     tour.players[i] = p;

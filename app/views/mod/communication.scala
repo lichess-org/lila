@@ -22,7 +22,7 @@ def communication(
     .js(isGranted(_.UserModView).option(Esm("mod.user"))):
       main(id := "communication", cls := "box box-pad")(
         commUi.commsHeader(u, priv),
-        isGranted(_.UserModView).option:
+        isGranted(_.AccountInfo).option:
           frag(
             div(cls := "mod-zone mod-zone-full none"),
             views.user.mod.otherUsers(u, logins, appeals)(cls := "mod-zone communication__logins")

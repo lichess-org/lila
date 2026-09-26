@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="playAgainstComputer">کۆمپیتەر</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">بۆ بانگهێشت کردنی کەسێک بۆ یاریکردن, ئەم بەستەرەیان پێ بدە</string>
   <string name="gameOver">یاریەکە کۆتایی هات</string>
   <string name="waitingForOpponent">چاوەڕوانی لایەینی بەرامبەر</string>
@@ -119,7 +120,6 @@
   <string name="enable">چالاککراوە</string>
   <string name="bestMoveArrow">باشترین جووڵە بە شێووی تیر دیاری بکە</string>
   <string name="showVariationArrows">تیرەکانی جۆرەکان پیشان بدە</string>
-  <string name="evaluationGauge">پێوانەی هەڵسەنگاندن</string>
   <string name="multipleLines">زیادکردنی هێڵەکان</string>
   <string name="cpus">CPUs</string>
   <string name="memory">یادگە</string>
@@ -128,25 +128,13 @@
   <string name="blunder">هەڵەی دۆڕان</string>
   <string name="mistake">هەڵە</string>
   <string name="inaccuracy">ناتەواو</string>
-  <plurals name="nbBlunders">
-    <item quantity="one">%s هەڵەی دۆڕان</item>
-    <item quantity="other">%s هەڵە دۆڕاو</item>
-  </plurals>
   <plurals name="numberBlunders">
     <item quantity="one">%s هەڵەی دۆڕان</item>
     <item quantity="other">%s هەڵە دۆڕن</item>
   </plurals>
-  <plurals name="nbMistakes">
-    <item quantity="one">%s هەڵە</item>
-    <item quantity="other">%s هەڵەکان</item>
-  </plurals>
   <plurals name="numberMistakes">
     <item quantity="one">%s هەڵە</item>
     <item quantity="other">%s هەڵەکان</item>
-  </plurals>
-  <plurals name="nbInaccuracies">
-    <item quantity="one">%s نا تەواو</item>
-    <item quantity="other">%s ناتەواوەکان</item>
   </plurals>
   <plurals name="numberInaccuracies">
     <item quantity="one">%s نا تەواو</item>
@@ -225,7 +213,6 @@
   <string name="changeUsernameNotSame">تەنها دەتوانی گەورە و بچوکی پیتەکان بگۆڕیت.</string>
   <string name="changeUsernameDescription">ناوی بەکارهێنەر بگۆڕە. بۆت هەیە تەنها یەکجار ناوی بەکارهێنەر بگۆڕیت، دواتر تەنها دەتوانی شێوازی گەورە و بچوکی پیتەکان دەستکاری بکەی.</string>
   <string name="signupUsernameHint">هەوڵدە ناوێکی شیاو هەڵبژێریت. داواتر لە هیچ هەژمارێک ڕێگەت پێنادرێ ناوەکە بگۆڕیت و هەرناوێکی نەشیاو هەبێت هەژمارەکەت دادەخرێت!</string>
-  <string name="signupEmailHint">ئێمە تەنها بۆ دووبارە نوێکردنەوەی ووشەی نهێنی بەکاری دەهێنین.</string>
   <string name="password">وشەی نهێنی</string>
   <string name="changePassword">گۆڕینی وشەی نهێنی</string>
   <string name="changeEmail">گۆڕینی ئیمێڵ</string>
@@ -248,10 +235,6 @@
   <string name="emailSent">ئیمێڵێکمان نارد بۆ %s.</string>
   <string name="emailCanTakeSomeTime">رەنگە کەمێک کات بخایەنێت تا دەگات.</string>
   <string name="refreshInboxAfterFiveMinutes">پێنج خولەک چاوەڕێبکە پاشان جارێکی دیکە ئیمێڵەکەت سەیربکە.</string>
-  <string name="checkSpamFolder">هەروەها بەشی سپام لە ناو ئیمێڵەکەت بپشکنە، ڕەنگە چوبێتە ئەوێ. ئەگەر لەوێ بوو، بیکەوە و نیشانیبکە کە \"سپام نییە\".</string>
-  <string name="emailForSignupHelp">ئەگەر هەموو ئەمانە شکستیان هێنا، ئەوکات ئیمێڵێک بۆ ئێمە بنێرە:</string>
-  <string name="copyTextToEmail">ئەو دەقەی سەرەوە کۆپی پەیست بکەو بینێرە بۆ %s</string>
-  <string name="waitForSignupHelp">لە ماوەیەکی کەم دەگەڕێینەوە لات بۆ ئەوەی یارمەتیت بدەین لە ناو تۆمارکردنەکەت.</string>
   <string name="accountConfirmed">ناوەکە %s بەسەرکەوتوویی پشتراست کرایەوە.</string>
   <string name="accountCanLogin">ئێستا تۆ دەتوانیت بچیتە ژوورەوە بە ناوی %s.</string>
   <string name="accountConfirmationEmailNotNeeded">پێویستت بە ئیمێڵی پشت راستکردنەوە نییە.</string>
@@ -274,8 +257,6 @@
   </plurals>
   <string name="ok">باشە</string>
   <string name="cancel">رەتکردنەوە</string>
-  <string name="whiteTimeOut">سپی کاتی تەواوبوو</string>
-  <string name="blackTimeOut">رەش کاتی تەواو بوو</string>
   <string name="drawOfferSent">داخوازی بۆ یەکسان بوون نێردرا</string>
   <string name="drawOfferAccepted">داخوازی بۆ یەکسانبوون قبوڵکرا</string>
   <string name="whiteOffersDraw">سپی داوای یەکسانبوون پێشکەش دەکات</string>
@@ -414,7 +395,6 @@
   <string name="apply">رازیبوون</string>
   <string name="save">هەڵگرتن</string>
   <string name="leaderboard">باشترین یاریزانەکان</string>
-  <string name="screenshotCurrentPosition">شوێنی ئێستای سکرینشۆت</string>
   <string name="gameAsGIF">یاری بە فۆرماتی GIF</string>
   <string name="pasteTheFenStringHere">لێرە FENـەکە پەیست بکە</string>
   <string name="pasteThePgnStringHere">لێرە PGNـەکە پەیست بکە</string>
@@ -523,7 +503,6 @@
   <string name="oneUrlPerLine">یەک URL بۆ هەر خانەیەک.</string>
   <string name="inlineNotation">نووسینی ناو هێڵ</string>
   <string name="makeAStudy">بۆ پاراستن و هاوبەشکردن، خوێندن لەبەرچاوبگرە.</string>
-  <string name="clearSavedMoves">سڕینەوەی جوڵەکان</string>
   <string name="previouslyOnLichessTV">پێشتر لە کەناڵی لیی چێس</string>
   <string name="onlinePlayers">یاریزانانی سەرهێڵ</string>
   <string name="activePlayers">یاریزانە چالاکەکان</string>
@@ -565,7 +544,6 @@
   <string name="other">ئەوانیتر</string>
   <string name="reportCheatBoostHelp">لینکی یارییەکە یان یاریەکان پەیست بکە و ڕوونی بکەرەوە کە چی هەڵەیە لە هەڵسوکەوتی ئەم بەکارهێنەرەدا. تەنها مەڵێ \"فێڵ دەکەن\"، بەڵکو پێمان بڵێ چۆن گەیشتووی بەم ئەنجامە.</string>
   <string name="reportUsernameHelp">ڕوونی بکەرەوە کە چی دەربارەی ئەم ناوی بەکارهێنەرە نەگونجاوە. تەنها مەڵێن \"ئەوە هێرشبەرە/نەگونجاو\"، بەڵکو پێمان بڵێ چۆن گەیشتووی بەم ئەنجامە، بەتایبەتی ئەگەر سووکایەتیەکە تەمومژاوی بێت نەک بە ئینگلیزی، بە زمانی بازاڕی بێت، یان ئاماژەیەکی مێژوویی/ کولتووری بێت.</string>
-  <string name="reportProcessedFasterInEnglish">ڕاپۆرتەکەت خێراتر پێڤاژۆ دەکرێت ئەگەر بە زمانی ئینگلیزی بنووسرێت.</string>
   <string name="error.provideOneCheatedGameLink">تکایە بەلایەنی کەمەوە لینکی یاریەک دابنێ بۆ ئەو یاریانەی فێڵی تێداکراوە.</string>
   <string name="by">لەلایەن %s</string>
   <string name="importedByX">هاوردەکراوە لەلایەن %s</string>
@@ -686,11 +664,9 @@
   <string name="aboutSimulRules">کاتێک سیمول دەست پێدەکات، هەموو یاریزانێک یارییەک لەگەڵ هۆستەکە دەستپێدەکات. سیمولەکە کاتێک کۆتایی دێت کە هەموو یارییەکان تەواو بوون.</string>
   <string name="aboutSimulSettings">سیمولەکان، کات زیادکردن، دووبارە کردنەوە یان وەرگرتنەوەی نییە.</string>
   <string name="create">دروستکردن</string>
-  <string name="whenCreateSimul">کاتێک سیموڵێک دروست دەکەی، ئەوە بەدەستدێنی کە بتوانی لە یەک کاتدا لەگەڵ چەند یاریزانێک یاری بکەیت.</string>
   <string name="simulVariantsHint">ئەگەر چەند جۆرێک هەڵبژێریت، هەر یاریزانێک دەتوانێت ئەوە هەڵبژێرێت کە دەیەوێت یاری پێبکات.</string>
   <string name="simulClockHint">ڕێکخستنی کاتژمێری فیشەر. تا یاریزانی زیاتر وەربگریت، ڕەنگە پێویستت بە کاتێکی زیاتر بێت.</string>
   <string name="simulAddExtraTime">لەوانەیە کاتێکی زیاتر بۆ کاتژمێرەکەت زیاد بکەیت بۆ ئەوەی یارمەتیت بدات لەگەڵ سیموڵدا ڕوبەڕو ببیتەوە.</string>
-  <string name="simulHostExtraTime">کاتی زیادکراو بۆ کاتژمێری هۆستەکە</string>
   <string name="simulAddExtraTimePerPlayer">کاتێکی سەرەتایی زیاد بکە بۆ کاتژمێرەکەت بۆ هەر یاریزانێک کە بەشداری لە هاوکاتەکە (simul) دەکات.</string>
   <string name="simulHostExtraTimePerPlayer">زیادکردنی کاتی کاتژمێر بۆ هەر یاریزانێک</string>
   <string name="lichessTournaments">پاڵەوانیەتەکانی لیی چێس</string>
@@ -703,11 +679,6 @@
   <string name="keyGoToStartOrEnd">برۆ بۆ کۆتا/سەرەتا</string>
   <string name="keyShowOrHideComments">پێشاندان/شاردنەوەی کۆمێنتەکان</string>
   <string name="keyEnterOrExitVariation">داخڵکردن/دەرچوون لە گۆڕاوەکان</string>
-  <string name="keyRequestComputerAnalysis">داواکردنی شیکاری کۆمپیوتەری، لە هەڵەکانتەوە فێربە</string>
-  <string name="keyNextLearnFromYourMistakes">دواتر (لە هەڵەکانتەوە فێرببە)</string>
-  <string name="keyNextBlunder">بڵەندەر(هەڵە) ی دواتر</string>
-  <string name="keyNextMistake">میستەیک(هەڵە) ی دواتر</string>
-  <string name="keyNextInaccuracy">جووڵەی ناپێویستی دواتر</string>
   <string name="keyPreviousBranch">لقی پێشوو</string>
   <string name="keyNextBranch">لقی دواتر</string>
   <string name="playSelectedMove">یاری بە جووڵەی ھەڵبژێردراو بکە</string>
@@ -786,7 +757,6 @@
   <string name="background">پاشبنەما</string>
   <string name="light">روناکی</string>
   <string name="dark">تاریک</string>
-  <string name="transparent">رۆشن</string>
   <string name="deviceTheme">هەمان شێوازی ئامێرەکەت</string>
   <string name="backgroundImageUrl">URLـی وێنەی پاشبنەما:</string>
   <string name="board">تەختە</string>
@@ -810,7 +780,6 @@
   <string name="custom">تەرخانکراو</string>
   <string name="notifications">ئاگادارکردنەوەکان</string>
   <string name="notificationsX">ئاگادارکردنەوەکان: %1$s</string>
-  <string name="perfRatingX">هەڵسەنگاندن: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s چرکە ماوە بۆ یەکەم جوڵە</item>
     <item quantity="other">%s چرکە ماوە بۆ یەکەم جوڵە</item>
@@ -867,7 +836,6 @@
     <item quantity="other">بەم جۆرە %s ـی پێش جوڵە پاشەکەوتبکە</item>
   </plurals>
   <string name="showUnreadLichessMessage">پەیامێکی تایبەتت لە لایەن لیچێسەوە پێگەیشتووە.</string>
-  <string name="clickHereToReadIt">بۆ خوێندنەوەی کلیک لێرە بکە</string>
   <string name="sorry">ببوورە :(</string>
   <string name="weHadToTimeYouOutForAWhile">ناچاربووین بۆ ماوەیەک دوورت بخەینەوە.</string>
   <string name="why">بۆ?</string>
@@ -886,7 +854,6 @@
   <string name="agreementAssistance">منیش ڕازیم کە لە هیچ کاتێکدا لە کاتی یارییەکانمدا یارمەتی وەرناگرم (لە کۆمپیوتەرێکی شەترەنج، کتێب، بنکەدراوە یان کەسێکی ترەوە).</string>
   <string name="agreementNice">منیش لەگەڵ ئەوەدام کە هەمیشە ڕێز لە یاریزانەکانی تر دەگرم.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">منیش لەگەڵ ئەوەدام کە چەندین ئەکاونت دروست ناکەم (جگە لەو هۆکارانەی کە لە %s دا هاتووە).</string>
-  <string name="agreementPolicy">منیش لەگەڵ ئەوەدام کە هەموو سیاسەتەکانی لیچێس پەیڕەو دەکەم.</string>
   <string name="searchOrStartNewDiscussion">گەڕان یان دەستپێکردنی گفتوگۆی نوێ</string>
   <string name="edit">دەستکاریکردن</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">بوڵێت \"Bullet\"</string>
@@ -921,7 +888,6 @@
   <string name="xInvitedYouToY">%1$s تۆی بانگهێشتکرد بۆ \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">ئێستا تۆ بەشێکی لەو یانەیە.</string>
   <string name="youHaveJoinedTeamX">تۆ باشداریتکرد لە \"%1$s\".</string>
-  <string name="someoneYouReportedWasBanned">کەسێک کە تۆ راپۆرتتلێدا ئێستا قەدەغەکراوە</string>
   <string name="congratsYouWon">پیرۆزە، تۆ بوویت بە براوە!</string>
   <string name="gameVsX">یاری لە دژی %1$s</string>
   <string name="resVsX">%1$s دژی %2$s</string>
@@ -959,7 +925,6 @@
   <string name="noChat">گفتوگۆکردن لەکارخراوە</string>
   <string name="onlyTeamLeaders">تەنها سەرکردەکانی یانە</string>
   <string name="onlyTeamMembers">تەنها ئەندامانی یانە</string>
-  <string name="navigateMoveTree">بە ناو درەختی جوڵەکاندا بگەرێ</string>
   <string name="mouseTricks">چەند فێڵێکی ماوس</string>
   <string name="toggleLocalAnalysis">شیکاری کۆمپیوتەری ناوخۆیی بگۆڕە</string>
   <string name="toggleAllAnalysis">شیکاری کۆمپیوتەری ناوخۆیی بگۆڕە</string>
@@ -976,7 +941,6 @@
   <string name="gameInProgress">یارییەکت لە پێشە لەگەڵ %s.</string>
   <string name="abortTheGame">یاریەکە هەڵوەشێنەوە</string>
   <string name="resignTheGame">دەست لە یاریەکە بکێشە</string>
-  <string name="youCantStartNewGame">تا ئەم یارییە تەواو نەبێت ناتوانیت دەست بە یارییەکی نوێ بکەیت.</string>
   <string name="since">لەوەتەی</string>
   <string name="until">تاوەکو</string>
   <string name="lichessDbExplanation">نمونەیەک لە یارییە هەڵسەنگێنراوەکان، لە هەموو یاریزانەکانی لیچێس</string>

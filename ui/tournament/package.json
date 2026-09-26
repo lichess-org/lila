@@ -4,9 +4,9 @@
   "type": "module",
   "dependencies": {
     "@types/dragscroll": "0.0.3",
-    "lib": "workspace:*",
     "date-fns": "2.30.0",
-    "dragscroll": "^0.0.8"
+    "dragscroll": "^0.0.8",
+    "lib": "workspace:*"
   },
   "build": {
     "bundle": "src/tournament.*ts"

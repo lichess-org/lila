@@ -1,4 +1,4 @@
-/* Type definitions for multiple-select.js */
+/* Type definitions for multipleSelect.js */
 
 interface Cash {
   multipleSelect: MultipleSelect;
@@ -58,13 +58,18 @@ interface MultiSelectOpts {
   styler?(value?: string): string | null;
   textTemplate?($elm: Cash): string;
   labelTemplate?($elm: Cash): string | null;
-  onOpen?(): any;
-  onClose?(): any;
-  onCheckAll?(): any;
-  onUncheckAll?(): any;
-  onFocus?(): any;
-  onBlur?(): any;
-  onOptgroupClick?(view: { label: string; checked: boolean; children: EleLoose[]; instance: any }): any;
-  onClick?(view: { label: string; value: string; checked: boolean; instance: any }): any;
-  onFilter?(text: string): any;
+  onOpen?(): boolean | void;
+  onClose?(): boolean | void;
+  onCheckAll?(): boolean | void;
+  onUncheckAll?(): boolean | void;
+  onFocus?(): boolean | void;
+  onBlur?(): boolean | void;
+  onOptgroupClick?(view: {
+    label: string;
+    checked: boolean;
+    children: EleLoose[];
+    instance: any;
+  }): boolean | void;
+  onClick?(view: { label: string; value: string; checked: boolean; instance: any }): boolean | void;
+  onFilter?(text: string): boolean;
 }

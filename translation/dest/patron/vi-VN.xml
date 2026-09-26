@@ -39,8 +39,8 @@ Sau đó chúng tôi trả lương cho một nhà phát triển toàn thời gia
   <string name="officialNonProfit">Lichess có phải là một tổ chức phi lợi nhuận chính thức?</string>
   <string name="actOfCreation">Đúng, và đây là tuyên bố thành lập (bằng tiếng Pháp)</string>
   <string name="changeMonthlySupport">Tôi có thể thay đổi/hủy việc đóng góp hàng tháng được không?</string>
-  <string name="changeOrContact">Có, bất cứ lúc nào, ở trang này.
-Hoặc bạn có thể %s.</string>
+  <string name="changeSupport">Nếu khoản thanh toán của bạn được xử lý qua PayPal, bạn có thể hủy/thay đổi khoản hỗ trợ thông qua tài khoản PayPal của mình, hoặc bạn có thể %1$s và chúng tôi sẽ làm điều đó giúp bạn. Nếu bạn không sử dụng PayPal, thì khoản thanh toán của bạn được xử lý qua Stripe, và bạn có thể hủy khoản quyên góp hoặc thay đổi số tiền tại %2$s.</string>
+  <string name="patronPage">trang người bảo trợ</string>
   <string name="contactSupport">liên hệ với bộ phận hỗ trợ Lichess</string>
   <string name="otherMethods">Phương thức quyên góp khác?</string>
   <string name="lichessIsRegisteredWith">Lichess được đăng ký với %s.</string>
@@ -82,5 +82,5 @@ Tuy nhiên, Patron được quyền khoe khoang với những đôi cánh Ngư�
   <string name="paymentDetails">Chi tiết thanh toán</string>
   <string name="updatePaymentMethod">Cập nhật phương thức thanh toán</string>
   <string name="stripeManageSub">Quản lý đăng ký của bạn và tải về hóa đơn và giấy biên nhận của bạn</string>
-  <string name="coverFees" comment="%s is a monetary amount. It will be localised depending on the currency where you are e.g. &quot;$0.25&quot; in the United States, &quot;€0.20&quot; in the Eurozone, and so on.&#10;The amount may appear before or after the number, depending on the language (e.g. as &quot;0,25 €&quot; in certain languages &amp; locales).&#10;&#10;Appears as an option when donating to Lichess (https://lichess.org/patron), letting you pay a bit more to cover the transaction fees which would be part of your donation.">Tôi sẽ cộng thêm %s để giúp trang trải chi phí xử lý giao dịch này</string>
+  <string name="coverFees">Tôi sẽ cộng thêm %s để giúp trang trải chi phí xử lý giao dịch này</string>
 </resources>

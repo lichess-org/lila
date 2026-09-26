@@ -2,6 +2,7 @@ package lila.tournament
 package arena
 
 import lila.core.chess.Rank
+import lila.mon.extensions.*
 
 final private[tournament] class PairingSystem(
     pairingRepo: PairingRepo,
@@ -14,6 +15,8 @@ final private[tournament] class PairingSystem(
 
   import PairingSystem.*
   import lila.tournament.Tournament.tournamentUrl
+
+  private lazy val pairingLogger = lila.log("tournament.pairing")
 
   // if waiting users can make pairings
   // then pair all users
@@ -33,9 +36,8 @@ final private[tournament] class PairingSystem(
       pairings <- prepsToPairings(tour, preps)
     yield pairings
   }.chronometer
-    .logIfSlow(500, pairingLogger) { pairings =>
+    .logIfSlow(500, pairingLogger): pairings =>
       s"createPairings ${tournamentUrl(tour.id)} ${pairings.size} pairings"
-    }
     .result
 
   private def evenOrAll(data: Data, users: WaitingUsers) =
@@ -63,7 +65,7 @@ final private[tournament] class PairingSystem(
             // then up to 6 more groups of cheap pairing
             proximityPairings(idles.slice(groupSize * 2, groupSize * 8))
       }
-  }.monSuccess(_.tournament.pairing.prep)
+  }.monSuccess(lila.mon.tournament.pairing.prep)
     .chronometer
     .logIfSlow(200, pairingLogger) { preps =>
       s"makePreps ${tournamentUrl(data.tour.id)} ${users.size} users, ${preps.size} preps"

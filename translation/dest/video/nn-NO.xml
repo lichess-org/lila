@@ -16,7 +16,6 @@
   <string name="noVideosForTheseTags">Ingen videoar for desse etikettane:</string>
   <string name="thatsAllWeGotForTheseTags">Det var alt vi fann med desse etikettane:</string>
   <string name="thatsAllWeGotForThisSearchX">Det var alt vi fann for dette søket: \"%s\"</string>
-  <string name="thereAreNoResultsForX">Det er ingen resultat for \"%s\"</string>
   <string name="viewMoreTags">Sjå fleire etikettar</string>
   <string name="videoNotFound">Finn ikkje video!</string>
   <string name="xByY">%1$s av %2$s</string>

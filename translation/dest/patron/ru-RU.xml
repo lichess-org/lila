@@ -17,9 +17,9 @@
   <string name="freeChess">Бесплатные шахматы для всех, навсегда!</string>
   <string name="noAdsNoSubs">Без рекламы, без подписок, но с открытым исходным кодом и преданностью делу.</string>
   <string name="thankYou">Благодарим вас за пожертвование!</string>
-  <string name="youHaveLifetime">У вас есть пожизненная учётная запись спонсора. Это очень круто!</string>
-  <string name="patronUntil">Ваш аккаунт покровителя действует до %s.</string>
-  <string name="ifNotRenewedThenAccountWillRevert">Если не будет обновляться, то учётная запись опять станет обычной.</string>
+  <string name="youHaveLifetime">У вас есть пожизненный аккаунт спонсора. Это очень круто!</string>
+  <string name="patronUntil">Ваш аккаунт спонсора действует до %s.</string>
+  <string name="ifNotRenewedThenAccountWillRevert">Если не будет обновляться, то аккаунт опять станет обычным.</string>
   <string name="weAreNonProfit">Мы некоммерческая ассоциация, потому что мы считаем, что все должны иметь бесплатный и свободный доступ к шахматной платформе мирового класса.</string>
   <string name="weRelyOnSupport">Мы полагаемся на поддержку таких людей как вы. Если вам нравится Lichess, пожалуйста, поддержите нас, сделав пожертвование и став его спонсором!</string>
   <string name="lifetime">Пожизненная</string>
@@ -42,8 +42,8 @@
   <string name="officialNonProfit">Правда, что Lichess официально некоммерческий?</string>
   <string name="actOfCreation">Да, вот документ (на французском языке)</string>
   <string name="changeMonthlySupport">Могу ли я изменить или отменить мою ежемесячную поддержку?</string>
-  <string name="changeOrContact">Да, в любое время, с этой страницы.
-Или вы можете %s.</string>
+  <string name="changeSupport">Если ваши платежи обрабатываются PayPal, вы можете отменить или изменить поддержку через аккаунт PayPal, или вы можете %1$s и мы сделаем это для вас. Если вы использовали не PayPal, то ваши платежи проводятся через Stripe, и вы можете отменить пожертвование или изменить его сумму на %2$s.</string>
+  <string name="patronPage">странице поддержки</string>
   <string name="contactSupport">связаться со службой поддержки Lichess</string>
   <string name="otherMethods">Есть ли другие способы сделать пожертвование?</string>
   <string name="lichessIsRegisteredWith">Lichess зарегистрирован на %s.</string>
@@ -79,7 +79,7 @@
   <string name="date">Дата</string>
   <string name="amount">Сумма</string>
   <string name="transactionCompleted">Ваша транзакция завершена, и вам на почту отправлена квитанция о пожертвовании.</string>
-  <string name="permanentPatron">Теперь у вас учётная запись спонсора пожизненно.</string>
+  <string name="permanentPatron">Теперь у вас аккаунт спонсора пожизненно.</string>
   <string name="checkOutProfile">Посмотрите свою страницу профиля!</string>
   <string name="nowLifetime">Теперь вы пожизненный покровитель Lichess!</string>
   <string name="nowOneMonth">Теперь вы покровитель Lichess на один месяц!</string>
@@ -88,5 +88,5 @@
   <string name="paymentDetails">Детали платежа</string>
   <string name="updatePaymentMethod">Обновить способ оплаты</string>
   <string name="stripeManageSub">Управление подпиской и загрузка счетов и чеков</string>
-  <string name="coverFees" comment="%s is a monetary amount. It will be localised depending on the currency where you are e.g. &quot;$0.25&quot; in the United States, &quot;€0.20&quot; in the Eurozone, and so on.&#10;The amount may appear before or after the number, depending on the language (e.g. as &quot;0,25 €&quot; in certain languages &amp; locales).&#10;&#10;Appears as an option when donating to Lichess (https://lichess.org/patron), letting you pay a bit more to cover the transaction fees which would be part of your donation.">Я добавлю %s для покрытия расходов сервиса</string>
+  <string name="coverFees">Я добавлю %s для покрытия расходов сервиса</string>
 </resources>

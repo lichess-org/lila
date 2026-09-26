@@ -3,9 +3,11 @@ package lila.gathering
 import scalalib.model.Days
 import chess.IntRating
 
+import lila.core.LightUser
 import lila.core.LightUser.Me
 import lila.core.i18n.{ I18nKey as trans, Translate }
 import lila.core.team.LightTeam.TeamName
+import lila.core.user.PublicTitleOf
 import lila.rating.PerfType
 
 trait Condition:
@@ -31,10 +33,18 @@ object Condition:
 
   case class WithVerdict(condition: Condition, verdict: Verdict)
 
-  case object Titled extends Condition with FlatCond:
-    def name(pt: PerfType)(using Translate) = trans.arena.onlyTitled.txt()
-    def apply(pt: PerfType)(using me: Me, perf: Perf) =
-      if me.title.exists(_.isFederation) then Accepted else Refused(name(pt)(using _))
+  case class Titled(public: Boolean = false) extends Condition:
+    def name(pt: PerfType)(using Translate) = name
+    def name(using Translate) =
+      if public then "Public titled accounts"
+      else trans.arena.onlyTitled.txt()
+    def apply(using me: Me, getPublicTitle: PublicTitleOf)(using Executor) =
+      if !me.title.exists(_.isFederation) then fuccess(Refused(name(using _)))
+      else if !public then fuccess(Accepted)
+      else
+        getPublicTitle(me).map: t =>
+          if t.isDefined then Accepted
+          else Refused(name(using _))
 
   case class Bots(allowed: Boolean) extends Condition with FlatCond:
     def name(pt: PerfType)(using Translate) =
@@ -134,6 +144,8 @@ object Condition:
       else Refused { _ => "Your name is not in the tournament line-up." }
     def userIds: Set[UserId] = UserId.from(segments - titled)
     def name(pt: PerfType)(using Translate) = "Fixed line-up"
+    def allows(u: LightUser): Boolean =
+      userIds.contains(u.id) || (allowAnyTitledUser && u.title.isDefined)
 
   case class WithVerdicts(list: List[WithVerdict]):
     def accepted = list.forall(_.verdict.accepted)

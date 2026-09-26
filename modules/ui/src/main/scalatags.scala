@@ -29,6 +29,7 @@ trait ScalatagsAttrs:
   val downloadAttr = attr("download").empty
   val viewBoxAttr = attr("viewBox")
   val enterkeyhint = attr("enterkeyhint")
+  val inertAttr = attr("inert").empty
   def attrData(name: String) = attr(s"data-$name")
   def aria(key: String) = attr(s"aria-$key")
   // https://accessibleweb.com/question-answer/when-should-i-use-a-null-or-empty-alt-tag/
@@ -53,8 +54,9 @@ trait ScalatagsSnippets:
 
   val nbsp: Frag = raw("&nbsp;")
   val amp: Frag = raw("&amp;")
-  def iconTag(icon: Icon): Tag = i(dataIcon := icon)
-  def iconTag(icon: Icon, text: Frag): Tag = i(dataIcon := icon, cls := "text")(text)
+  val iconTag: Tag = tag("icon")
+  def iconTag(i: Icon): Tag = iconTag(dataIcon := i)
+  def iconTag(i: Icon, text: Frag): Tag = iconTag(dataIcon := i, cls := "text")(text)
   val styleTag = tag("style")
   val ratingTag = tag("rating")
   val countTag = tag("count")

@@ -1,14 +1,17 @@
 package lila.core
 
+import io.mola.galimatias.URL
 import io.mola.galimatias.IPv4Address.parseIPv4Address
 import io.mola.galimatias.IPv6Address.parseIPv6Address
 import scalalib.SecureRandom
+import scalalib.net.IpAddressStr
 
 import java.net.InetAddress
 import scala.util.Try
 
 import lila.core.socket.Sri
 import lila.core.userId.UserId
+import lila.core.data.Url
 
 object net:
 
@@ -29,29 +32,6 @@ object net:
       else IpV6Address(parseIPv6Address(str).toString)
     def from(str: String): Option[IpAddress] = parse(str).toOption
     def unchecked(str: String): IpAddress = parse(str).get
-
-  opaque type IpAddressStr = String
-  object IpAddressStr extends OpaqueString[IpAddressStr]
-
-  opaque type Domain = String
-  object Domain extends OpaqueString[Domain]:
-    extension (a: Domain) def lower = Domain.Lower(a.value.toLowerCase)
-
-    // https://stackoverflow.com/a/26987741/1744715
-    private val regex = """(?i)^_?[a-z0-9-]{1,63}+(?:\._?[a-z0-9-]{1,63}+)*$""".r
-    def isValid(str: String) = str.contains('.') && regex.matches(str)
-    def from(str: String): Option[Domain] = isValid(str).option(Domain(str))
-    def unsafe(str: String): Domain = Domain(str)
-
-    opaque type Lower = String
-    object Lower extends OpaqueString[Lower]
-
-  opaque type UserAgent = String
-  object UserAgent extends OpaqueString[UserAgent]:
-    val zero: UserAgent = ""
-
-  opaque type Crawler = Boolean
-  object Crawler extends YesNo[Crawler]
 
   case class LichessMobileUa(
       version: String,
@@ -88,7 +68,15 @@ object net:
     private def random = AssetVersion(SecureRandom.nextString(6))
     case class Changed(version: AssetVersion)
 
-  opaque type Bearer = String
-  object Bearer extends OpaqueString[Bearer]:
-    def random() = Bearer(s"lio_${SecureRandom.nextString(32)}")
-    def randomPersonal() = Bearer(s"lip_${SecureRandom.nextString(20)}")
+  opaque type Origin = String
+  object Origin extends OpaqueString[Origin]:
+    def from(url: URL): Origin =
+      // https://github.com/smola/galimatias/issues/72 will be more precise
+      s"${url.scheme}://${Option(url.host).fold("")(_.toHostString)}"
+
+  opaque type ValidReferrer = String
+  object ValidReferrer extends OpaqueString[ValidReferrer]:
+    import scalalib.StringOps.addQueryParam
+    extension (a: ValidReferrer)
+      def propagate(url: Url): Url = url.map(addQueryParam(_, "referrer", a.value))
+      def propagate(call: play.api.mvc.Call): Url = propagate(Url(call.url))

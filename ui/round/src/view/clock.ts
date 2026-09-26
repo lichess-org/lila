@@ -1,9 +1,3 @@
-import { type LooseVNode, hl, bind } from 'lib/view';
-import * as licon from 'lib/licon';
-import { renderClock } from 'lib/game/clock/clockView';
-import RoundController from '../ctrl';
-import renderCorresClock from '../corresClock/corresClockView';
-import { moretime } from './button';
 import {
   aborted,
   berserkableBy,
@@ -13,7 +7,13 @@ import {
   type TopOrBottom,
   type TournamentRanks,
 } from 'lib/game';
-import { justIcon } from '../util';
+import { renderClock } from 'lib/game/clock/clockView';
+import { licon } from 'lib/licon';
+import { type LooseVNode, hl, bind, dataIcon } from 'lib/view';
+
+import renderCorresClock from '../corresClock/corresClockView';
+import type RoundController from '../ctrl';
+import { moretime } from './button';
 
 export const anyClockView = (ctrl: RoundController, position: TopOrBottom): LooseVNode => {
   const player = ctrl.playerAt(position);
@@ -34,14 +34,14 @@ const onTheSide = (round: RoundController) => (color: Color, position: TopOrBott
 
 function whosTurn(ctrl: RoundController, color: Color, position: TopOrBottom) {
   const d = ctrl.data;
-  if (finished(d) || aborted(d)) return;
+  if (finished(d) || aborted(d)) return undefined;
   return hl(
     'div.rclock.rclock-turn.rclock-' + position,
     d.game.player === color &&
       hl(
         'div.rclock-turn__text',
         d.player.spectator
-          ? i18n.site[d.game.player === 'white' ? 'whitePlays' : 'blackPlays']
+          ? i18n.site[`${d.game.player}Plays`]
           : i18n.site[d.game.player === d.player.color ? 'yourTurn' : 'waitingForOpponent'],
       ),
   );
@@ -51,13 +51,13 @@ const showBerserk = (ctrl: RoundController, color: Color): boolean =>
   ctrl.hasGoneBerserk(color) && !bothPlayersHavePlayed(ctrl.data) && playable(ctrl.data);
 
 const renderBerserk = (ctrl: RoundController, color: Color, position: TopOrBottom) =>
-  showBerserk(ctrl, color) ? hl('div.berserked.' + position, justIcon(licon.Berserk)) : null;
+  showBerserk(ctrl, color) ? hl('div.berserked.' + position, { attrs: dataIcon(licon.Berserk) }) : null;
 
 const goBerserk = (ctrl: RoundController, color: Color) =>
   berserkableBy(ctrl.data) &&
   !ctrl.hasGoneBerserk(color) &&
   hl('button.fbt.go-berserk', {
-    attrs: { title: 'GO BERSERK! Half the time, no increment, bonus point', 'data-icon': licon.Berserk },
+    attrs: { title: 'GO BERSERK! Half the time, no increment, bonus point', ...dataIcon(licon.Berserk) },
     hook: bind('click', ctrl.goBerserk),
   });
 

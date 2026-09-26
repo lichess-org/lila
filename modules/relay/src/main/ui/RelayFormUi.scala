@@ -6,6 +6,7 @@ import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ given, * }
 import lila.core.study.Visibility
 import chess.tiebreak.Tiebreak
+import play.api.libs.json.Json
 
 case class FormNavigation(
     group: Option[RelayGroup.WithTours],
@@ -28,7 +29,7 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, pageMenu: RelayMenuUi):
   import helpers.{ *, given }
   import trans.{ broadcast as trb, site as trs }
 
-  private def navigationMenu(nav: FormNavigation)(using Context) =
+  private def navigationMenu(nav: FormNavigation)(using ctx: Context) =
     def tourAndRounds(shortName: Option[RelayTour.Name]) = frag(
       a(
         href := routes.RelayTour.edit(nav.tour.id),
@@ -52,15 +53,17 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, pageMenu: RelayMenuUi):
               else Icon.DiscOutline
             )
           )(r.name.translate),
-        a(
-          href := routes.RelayRound.create(nav.tour.id),
-          cls := List(
-            "subnav__subitem text" -> true,
-            "active" -> nav.newRound,
-            "button" -> (nav.rounds.isEmpty && !nav.newRound)
-          ),
-          dataIcon := Icon.PlusButton
-        )(trb.addRound())
+        (Granter.opt(_.StudyAdmin) || ctx.me.exists(nav.tour.isOwnedBy)).option(
+          a(
+            href := routes.RelayRound.create(nav.tour.id),
+            cls := List(
+              "subnav__subitem text" -> true,
+              "active" -> nav.newRound,
+              "button" -> (nav.rounds.isEmpty && !nav.newRound)
+            ),
+            dataIcon := Icon.PlusButton
+          )(trb.addRound())
+        )
       )
     )
     lila.ui.bits.pageMenuSubnav(
@@ -70,19 +73,22 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, pageMenu: RelayMenuUi):
         case Some(g) =>
           frag(
             span(cls := "relay-form__subnav__group")(g.group.name),
-            g.withShorterTourNames.tours.map: t =>
+            g.withShorterTourNames.tours.toList.map: t =>
               if nav.tour.id == t.id then tourAndRounds(t.name.some)
               else a(href := routes.RelayTour.edit(t.id), cls := List("subnav__item" -> true))(t.name)
           )
     )
 
-  def noAccess(nav: FormNavigation)(using Context) =
+  def noAccess(rt: RelayRound | RelayTour) =
+    val call = rt match
+      case r: RelayRound => routes.RelayRound.show("-", "-", r.id)
+      case t: RelayTour => routes.RelayTour.show("-", t.id)
     Page("Insufficient permissions").css("bits.relay.form"):
-      main(cls := "page page-menu")(
-        navigationMenu(nav),
-        div(cls := "page-menu__content box box-pad")(
+      main(cls := "page page-small")(
+        div(cls := "box box-pad")(
           boxTop(h1("Insufficient permissions")),
-          p("You are not allowed to edit this broadcast or round.")
+          p("You are not allowed to edit this broadcast."),
+          p(a(href := call)("Back to broadcast"))
         )
       )
 
@@ -91,8 +97,13 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, pageMenu: RelayMenuUi):
     private def page(title: String, nav: FormNavigation)(using Context) =
       Page(title)
         .css("bits.relay.form")
-        .js(List(Esm("bits.flatpickr"), Esm("bits.relayForm")).map(some))
-        .js(esmInit("bits.broadcastForm.i18nCheck"))
+        .js(
+          List(
+            Esm("bits.flatpickr"),
+            Esm("bits.relayForm"),
+            esmInit("bits.broadcastForm.i18nCheck")
+          ).map(some)
+        )
         .i18n(_.broadcast)
         .wrap: body =>
           main(cls := "page page-menu")(
@@ -120,7 +131,7 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, pageMenu: RelayMenuUi):
         r: RelayRound,
         form: Form[RelayRoundForm.Data],
         nav: FormNavigation
-    )(using Context) =
+    )(using ctx: Context) =
       page(r.name.translate, nav):
         val rt = r.withTour(nav.tour)
         frag(
@@ -137,17 +148,17 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, pageMenu: RelayMenuUi):
           div(cls := "relay-form__actions")(
             postForm(action := routes.RelayRound.reset(r.id))(
               submitButton(
-                cls := "button button-red button-empty yes-no-confirm"
-              )(
-                strong(trb.resetRound()),
-                em(trb.deleteAllGamesOfThisRound())
-              )
+                cls := "button button-red button-empty yes-no-confirm",
+                title := trb.deleteAllGamesOfThisRound.txt()
+              )(strong(trb.resetRound()))
             ),
-            postForm(action := routes.Study.delete(r.studyId))(
-              submitButton(
-                cls := "button button-red button-empty yes-no-confirm"
-              )(strong(trb.deleteRound()), em(trb.definitivelyDeleteRound()))
-            )
+            (Granter.opt(_.StudyAdmin) || ctx.me.exists(nav.tour.isOwnedBy)).option:
+              postForm(action := routes.Study.delete(r.studyId))(
+                submitButton(
+                  cls := "button button-red button-empty yes-no-confirm",
+                  title := trb.permanentlyDeleteRound.txt()
+                )(strong(trb.deleteRound()))
+              )
           )
         )
 
@@ -377,21 +388,38 @@ Hanna Marie ; Kozul, Zdenko"""),
             toggle = nav.round.exists(r => r.customScoring.isDefined || r.teamCustomScoring.isDefined).some
           )(
             nav.tour.showRatingDiffs.option(
-              form3.group(form("rated"), raw("")): field =>
-                val withDefault =
-                  if nav.newRound && field.value.isEmpty then field.copy(value = "true".some) else field
-                form3.checkboxGroup(
-                  withDefault,
-                  "Rated round",
-                  help = frag("Include this round when calculating players' rating changes").some
-                )
+              form3.split(
+                form3.group(form("rated"), raw(""), half = true): field =>
+                  val withDefault =
+                    if nav.newRound && field.value.isEmpty then field.copy(value = "true".some) else field
+                  form3.checkboxGroup(
+                    withDefault,
+                    "Rated round",
+                    help = frag("Include this round when calculating players' rating changes").some,
+                    half = true
+                  )
+                ,
+                form3.group(
+                  form("fideTCOverride"),
+                  trb.fideRatingCategory(),
+                  help = frag("Optional. Override the FIDE rating category for this round").some,
+                  half = true
+                ):
+                  form3.select(
+                    _,
+                    chess.FideTC.values.map: tc =>
+                      tc.toString -> tc.toString.capitalize,
+                    default = "".some
+                  )
+              )
             ),
             Color.all.map: color =>
               form3.split:
                 List("win", "draw").map: result =>
                   form3.group(
                     form("customScoring")(color.name)(result),
-                    raw(s"Points for a $result as ${color.name}")
+                    raw(s"Points for a $result as ${color.name}"),
+                    half = true
                   )(
                     form3.input(_)(tpe := "number", step := 0.01f, min := 0.0f, max := 10.0f)
                   )
@@ -405,7 +433,8 @@ Hanna Marie ; Kozul, Zdenko"""),
                 List("win", "draw").map: result =>
                   form3.group(
                     form("teamCustomScoring")(result),
-                    raw(s"Team points for a match $result")
+                    raw(s"Team points for a match $result"),
+                    half = true
                   )(
                     form3.input(_)(tpe := "number", step := 0.01f, min := 0.0f, max := 10.0f)
                   )
@@ -432,7 +461,24 @@ Hanna Marie ; Kozul, Zdenko"""),
                   ).some,
                   half = true
                 )(form3.input(_, typ = "number"))
-              )
+              ),
+              nav.newRound.not.option:
+                form3.split(
+                  form3.group(
+                    form("move"),
+                    "Reorder the round in the tournament",
+                    half = true
+                  )(
+                    form3.select(
+                      _,
+                      List(
+                        "true" -> "Move up",
+                        "false" -> "Move down"
+                      ),
+                      default = "Don't move".some
+                    )
+                  )
+                )
             )
           ),
         form3.actions(
@@ -445,9 +491,18 @@ Hanna Marie ; Kozul, Zdenko"""),
 
     private def page(title: String, menu: Either[String, FormNavigation])(using Context) =
       Page(title)
-        .css("bits.relay.form")
-        .js(Esm("bits.relayForm"))
-        .js(esmInit("bits.broadcastForm.i18nCheck"))
+        .css("bits.relay.form", "bits.tagify")
+        .js(
+          List(
+            Esm("bits.relayForm"),
+            esmInit("bits.broadcastForm.i18nCheck"),
+            esmInitObj(
+              "bits.broadcastGroup",
+              Json.obj("studyAdmin" -> Granter.opt(_.StudyAdmin), "broadcaster" -> Granter.opt(_.Relay))
+            )
+          )
+            .map(some)
+        )
         .i18n(_.broadcast)
         .wrap: body =>
           main(cls := "page page-menu")(
@@ -468,7 +523,7 @@ Hanna Marie ; Kozul, Zdenko"""),
           )
         )
 
-    def edit(form: Form[RelayTourForm.Data], nav: FormNavigation)(using Context, Me) =
+    def edit(form: Form[RelayTourForm.Data], nav: FormNavigation)(using ctx: Context, me: Me) =
       page(nav.tour.name.value, menu = Right(nav)).markdownTextarea:
         frag(
           boxTop(h1(a(href := routes.RelayTour.show(nav.tour.slug, nav.tour.id))(nav.tour.name))),
@@ -482,21 +537,22 @@ Hanna Marie ; Kozul, Zdenko"""),
             )
           ),
           div(cls := "relay-form__actions")(
-            postForm(action := routes.RelayTour.delete(nav.tour.id))(
-              submitButton(
-                cls := "button button-red button-empty yes-no-confirm"
-              )(strong(trb.deleteTournament()), em(trb.definitivelyDeleteTournament()))
-            ),
+            (!nav.tour.official && (Granter.opt(_.StudyAdmin) || nav.tour.isOwnedBy(me))).option:
+              postForm(action := routes.RelayTour.delete(nav.tour.id))(
+                submitButton(
+                  cls := "button button-red button-empty yes-no-confirm",
+                  title := trb.permanentlyDeleteTournament.txt()
+                )(strong(trb.deleteTournament()))
+              )
+            ,
             Granter
               .opt(_.Relay)
               .option(
                 postForm(action := routes.RelayTour.cloneTour(nav.tour.id))(
                   submitButton(
-                    cls := "button button-green button-empty yes-no-confirm"
-                  )(
-                    strong("Clone as broadcast admin"),
-                    em("Clone this broadcast, its rounds, and their studies")
-                  )
+                    cls := "button button-green button-empty yes-no-confirm",
+                    title := "Clone this broadcast, its rounds, and their studies?"
+                  )(strong("Clone as broadcast admin"))
                 )
               )
           )
@@ -525,7 +581,8 @@ Hanna Marie ; Kozul, Zdenko"""),
                 Visibility.public.key -> "Public",
                 Visibility.unlisted.key -> "Unlisted (from URL only)",
                 Visibility.`private`.key -> "Private (invited members only)"
-              )
+              ),
+              disabled = tg.flatMap(_.tour.tier).isDefined && !Granter(_.Relay)
             )
           )
         ),
@@ -540,6 +597,7 @@ Hanna Marie ; Kozul, Zdenko"""),
             form3.group(
               form("info.location"),
               trb.tournamentLocation(),
+              help = frag("""e.g. "Paris, France" or "lichess.org"""").some,
               half = true
             )(form3.input(_))
           ),
@@ -547,7 +605,7 @@ Hanna Marie ; Kozul, Zdenko"""),
             form3.group(
               form("info.players"),
               trb.topPlayers(),
-              help = frag("Mention up to 4 of the best players participating").some,
+              help = frag("Up to 4 players, separated by commas").some,
               half = true
             )(form3.input(_)),
             form3.group(
@@ -562,11 +620,11 @@ Hanna Marie ; Kozul, Zdenko"""),
             form3.group(
               form("info.tc"),
               trs.timeControl(),
-              help = frag("""e.g. "15 min + 10 sec" or "15+10"""").some,
+              help = frag("""e.g. "15 min + 10 sec / move"""").some,
               half = true
             )(form3.input(_)),
             form3.group(
-              form("info.fideTc"),
+              form("info.fideTC"),
               trb.fideRatingCategory(),
               help = frag("Which FIDE ratings to use").some,
               half = true
@@ -591,6 +649,14 @@ Hanna Marie ; Kozul, Zdenko"""),
               half = true
             )(form3.input(_))
           ),
+          form3.split(
+            form3.group(
+              form("info.regulations"),
+              trb.regulations(),
+              help = frag("External regulations URL").some,
+              half = true
+            )(form3.input(_))
+          ),
           form3.group(
             form("markdown"),
             trb.fullDescription(),
@@ -604,7 +670,7 @@ Hanna Marie ; Kozul, Zdenko"""),
               )
               .some
           ): field =>
-            lila.ui.bits.markdownTextarea("broadcastDescription".some):
+            lila.ui.bits.markdownEditor(MarkdownRealm.broadcast):
               form3.textarea(field)(rows := 10)
         ),
         form3
@@ -663,10 +729,10 @@ Hanna Marie ; Kozul, Zdenko"""),
                 "If the player is NM or WNM, you can:",
                 pre("""Player Name / FIDE ID / title"""),
                 "Alternatively, you may set tags manually, like so:",
-                pre("player name / FIDE ID / title / rating / new name"),
+                pre("player name / FIDE ID / title / rating / new name / new fed"),
                 "All values are optional. Example:",
                 pre("""Magnus Carlsen / / GM / 2863
-YouGotLittUp / / / 1890 / Louis Litt""")
+YouGotLittUp / / / 1890 / Louis Litt / FID""")
               ).some,
               half = true
             )(form3.textarea(_)(rows := 3, spellcheck := "false", cls := "monospace")),
@@ -702,9 +768,12 @@ Team Dogs ; Scooby Doo"""),
             )
           )
         ,
-        tg.isDefined.option:
-          form3.fieldset("Grouping", toggle = false.some):
-            grouping(form)
+        tg.map: t =>
+          form3.fieldset(
+            "Grouping",
+            toggle = form.errors.exists(_.key.contains("grouping")).some
+          ):
+            grouping(form, t)
         ,
         if Granter.opt(_.Relay) then
           frag(
@@ -760,42 +829,43 @@ Team Dogs ; Scooby Doo"""),
                     )
                   )
                 )
-            ),
-            (tg.isDefined && Granter.opt(_.StudyAdmin)).option:
-              form3.fieldset("Pinned stream", toggle = form("pinnedStream.url").value.isDefined.some)(
-                form3.split(
-                  form3.group(
-                    form("pinnedStream.url"),
-                    "Stream URL",
-                    help = frag(
-                      p("Embed a live stream in the broadcast. Examples:"),
-                      ul(
-                        li("https://www.youtube.com/live/Lg0askmGqvo"),
-                        li("https://www.twitch.tv/tcec_chess_tv")
-                      )
-                    ).some,
-                    half = true
-                  )(form3.input(_)),
-                  form3.group(
-                    form("pinnedStream.name"),
-                    "Stream name",
-                    half = true
-                  )(form3.input(_))
-                ),
-                form3.split(
-                  form3.group(
-                    form("pinnedStream.text"),
-                    "Stream link label",
-                    help = frag(
-                      "Optional. Show a label on the image link to your live stream.",
-                      br,
-                      "Example: 'Watch us live on YouTube!'"
-                    ).some
-                  )(form3.input(_))
-                )
-              )
+            )
           )
         else form3.hidden(form("tier")),
+        (tg.isDefined && Granter.opt(_.RelayStream)).option(
+          form3.fieldset("Pinned stream", toggle = form("pinnedStream.url").value.isDefined.some)(
+            form3.split(
+              form3.group(
+                form("pinnedStream.url"),
+                "Stream URL",
+                help = frag(
+                  p("Embed a live stream in the broadcast. Examples:"),
+                  ul(
+                    li("https://www.youtube.com/live/Lg0askmGqvo"),
+                    li("https://www.twitch.tv/tcec_chess_tv")
+                  )
+                ).some,
+                half = true
+              )(form3.input(_)),
+              form3.group(
+                form("pinnedStream.name"),
+                "Stream name",
+                half = true
+              )(form3.input(_))
+            ),
+            form3.split(
+              form3.group(
+                form("pinnedStream.text"),
+                "Stream link label",
+                help = frag(
+                  "Optional. Show a label on the image link to your live stream.",
+                  br,
+                  "Example: 'Watch us live on YouTube!'"
+                ).some
+              )(form3.input(_))
+            )
+          )
+        ),
         form3.fieldset("Broadcaster note", toggle = tg.flatMap(_.tour.note).isDefined.some)(
           form3.group(
             form("note"),
@@ -804,7 +874,7 @@ Team Dogs ; Scooby Doo"""),
         )
       )
 
-  private def nameHelp = small(cls := "form-help relay-name-help text none", dataIcon := Icon.Checkmark)
+  private def nameHelp = small(cls := "form-help relay-name-help text none", dataIcon := Icon.Language)
 
   private def image(t: RelayTour)(using ctx: Context) =
     form3.fieldset("Image", toggle = true.some):
@@ -820,51 +890,73 @@ Team Dogs ; Scooby Doo"""),
           p("Upload a beautiful image to represent your tournament."),
           p("The image must be twice as wide as it is tall. Recommended resolution: 1000x500."),
           p(
-            "A picture of the city where the tournament takes place is a good idea, but feel free to design something different."
+            "The event logo or promo picture is preferred. Please ensure that you have the rights to use the image."
           ),
           p(trans.streamer.maxSize(s"${lila.memo.PicfitApi.uploadMaxMb}MB.")),
           form3.file.selectImage()
         )
       )
 
-  private def grouping(form: Form[RelayTourForm.Data])(using Context) =
+  private def grouping(form: Form[RelayTourForm.Data], twg: RelayTour.WithGroupTours)(using Context) =
+    val tour = twg.tour
+    val isDisabled = tour.tier.isDefined && !Granter.opt(_.Relay)
+    val disable = isDisabled.option(disabled)
+    def scoreGroupInput(sgIndex: Int) =
+      form3.group(form(s"grouping.scoreGroups[$sgIndex]"), s"Score Group ${sgIndex + 1}")(
+        form3.textarea(_)(rows := 1, spellcheck := "false", cls := "monospace", disable)
+      )
     div(cls := "relay-form__grouping")(
+      isDisabled.option:
+        div(cls := "form-group"):
+          span(dataIcon := Icon.CautionTriangle, cls := "text"):
+            "This broadcast is now official. Please contact the Lichess broadcast team to request changes."
+      ,
       form3.group(
-        form("grouping.info"),
-        "Optional: assign tournaments to a group",
+        form("grouping.info.name"),
+        "Optional: Group name",
+        help = frag("Name of the overall group. Example: Dutch Championships 2025").some
+      )(
+        form3.input(_)(disable)
+      ),
+      form3.group(
+        form("grouping.info.tours"),
+        "Optional: Broadcasts part of this group",
         help = frag( // do not translate
-          "First line is the group name.",
+          "Select tournaments from your 20 most recent broadcasts.",
           br,
-          "Subsequent lines are URLs of tournaments that will be part of the group.",
+          "You can add and remove tournaments.",
           br,
-          "You can add, remove, and re-order tournaments; and you can rename the group.",
+          "You can also re-order tournaments by dragging.",
           br,
-          "Example:",
-          pre("""Dutch Championships 2025
-https://lichess.org/broadcast/dutch-championships-2025--open--first-stage/ISdmqct3
-https://lichess.org/broadcast/dutch-championships-2025--women--first-stage/PGFBkEha
-https://lichess.org/broadcast/dutch-championships-2025--open--quarterfinals/Zi12QchK
-""")
+          "If the tournament you want is not listed in the dropdown you can paste the link to the tournament."
         ).some
-      )(form3.textarea(_)(rows := 5, spellcheck := "false", cls := "monospace")),
+      )(
+        form3.textarea(_)(
+          rows := 5,
+          spellcheck := "false",
+          cls := "monospace",
+          disable
+        )
+      ),
       form3.group(
         form("grouping.scoreGroups"),
         "Optional: Divide the group into score groups",
         help = frag(
-          "Each line defines a new score group with comma-separated tournament IDs.",
+          br,
+          "A score group combines players and games between two or more broadcasts.",
+          br,
+          "Each input defines a new score group.",
           br,
           "Only tournaments that are part of this group can be used in score groups.",
           br,
-          "Settings for scores, rating diffs and tiebreaks are taken from the first tournament in each score group.",
+          "Score groups cannot overlap.",
           br,
-          "Example:",
-          pre("""ISdmqct3,Zi12QchK
-PGFBkEha"""),
-          "Using the same example as above, this will create 2 score groups:",
-          br,
-          "1) Combines the open sections",
-          br,
-          "2) Is the lone women's section"
+          "Settings for scores, rating diffs and tiebreaks are taken from the first tournament in each score group."
         ).some
-      )(form3.textarea(_)(rows := 3, spellcheck := "false", cls := "monospace"))
+      )(field =>
+        frag(
+          errMsg(form("grouping")),
+          (field.indexes.toList.nonEmptyOption.fold(scoreGroupInput(0))(_.map(scoreGroupInput)))
+        )
+      )
     )

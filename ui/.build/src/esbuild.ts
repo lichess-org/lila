@@ -1,15 +1,17 @@
 import es from 'esbuild';
 import fs from 'node:fs';
 import { join, basename } from 'node:path';
-import { env, errorMark, warnMark, c } from './env.ts';
+import pc from 'picocolors';
+
+import { definedMap } from './algo.ts';
+import { env, errorMark, warnMark } from './env.ts';
 import { type Manifest, updateManifest } from './manifest.ts';
 import { makeTask, stopTask } from './task.ts';
-import { definedMap } from './algo.ts';
 
 let esbuildCtx: es.BuildContext | undefined;
 
-export async function esbuild(): Promise<any> {
-  if (!env.begin('esbuild')) return;
+export async function esbuild(): Promise<[string, string] | undefined> {
+  if (!env.begin('esbuild')) return undefined;
 
   const options: es.BuildOptions = {
     bundle: true,
@@ -48,7 +50,7 @@ export async function esbuild(): Promise<any> {
         await esbuildCtx?.dispose();
         entryPoints.sort();
         esbuildCtx = await es.context({ ...options, entryPoints });
-        if (env.watch) esbuildCtx.watch();
+        if (env.watch) await esbuildCtx.watch();
         else {
           await esbuildCtx.rebuild();
           await esbuildCtx.dispose();
@@ -130,10 +132,12 @@ function esbuildLog(msgs: es.Message[], error = false): void {
     const file = msg.location?.file.replace(/^[./]*/, '') ?? '<unknown>';
     const line = msg.location?.line
       ? `:${msg.location.line}`
-      : '' + (msg.location?.column ? `:${msg.location.column}` : '');
+      : msg.location?.column
+        ? `:${msg.location.column}`
+        : '';
     const srcText = msg.location?.lineText;
-    env.log(`${error ? errorMark : warnMark} - '${c.cyan(file + line)}' - ${msg.text}`, 'esbuild');
-    if (srcText) env.log('  ' + c.magenta(srcText), 'esbuild');
+    env.log(`${error ? errorMark : warnMark} - '${pc.cyan(file + line)}' - ${msg.text}`, 'esbuild');
+    if (srcText) env.log('  ' + pc.magenta(srcText), 'esbuild');
   }
 }
 
@@ -142,18 +146,19 @@ function splitPath(path: string) {
   return match ? { name: match[1], hash: match[2] } : undefined;
 }
 
-// $trim and $html will only process characters between the first two backticks encountered
+// $trim and $html are not recursive and will only process characters between pairs of backticks
 // so:
-//   $html`     <div>    ${    x ?      `<- 2nd backtick   ${y}${z}` : ''    }     </div>`
+//   $html`     <div>    ${    x ?     `    ${y}${z}` : ''    }     </div>`
 //
-// minifies (partially) to:
-//   `<div> ${ x ? `<- 2nd backtick   ${y}${z}` : ''    }     </div>`
+// minifies to:
+//   `<div> ${ x ? `    ${y}${z}` : ''    }     </div>`
 //
-// nested template literals in interpolations are unchanged and still work, but they
-// won't be minified.
+// nested template literals in interpolations WILL interrupt minification and MAY have unexpected results.
+// if you need to nest them, don't use $html or $trim
 //
-// $trim condenses multiline strings formatted for source code readability into the user-friendly format
-// by trimming each line and replacing single newlines
+// $trim condenses strings typically formatted for source code readability into a form suitable for
+// <pre> or <code> blocks. it trims horizontal whitespace, strips single newlines, and condenses spans
+// of 3+ down to exactly 2 newlines.
 
 const plugins = [
   {
@@ -172,15 +177,15 @@ const plugins = [
         esbuildLog(result.errors, true);
         esbuildLog(result.warnings);
         env.begin('esbuild');
-        env.done('esbuild', result.errors.length > 0 ? -3 : 0);
-        if (result.errors.length === 0) bundleManifest(result.metafile!);
+        env.setStatus('esbuild', result.errors.length > 0 ? -3 : 0);
+        if (result.errors.length === 0) bundleManifest(result.metafile);
       });
     },
   },
 ];
 
-// this may look ugly but it's 2-12x faster than regex scanning on V8, plus we can handle
-// escaping correctly when a backtick is preceded by any odd number of backslashes
+// use regex replace but gate with a procedural scanner (measured 2-12x faster than plain V8 regex).
+// note this code scans every byte of every typescript source, so performance does matter here
 function condenseLiterals(text: string) {
   const backtick = '`'.charCodeAt(0);
   const nextLiteral = (from: number): [number, boolean] | undefined => {
@@ -189,6 +194,7 @@ function condenseLiterals(text: string) {
       if (text.startsWith('html', i + 1)) return [i + 6, true];
       if (text.startsWith('trim', i + 1)) return [i + 6, false];
     }
+    return undefined;
   };
   const condense = (str: string, isHtml: boolean) =>
     isHtml

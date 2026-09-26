@@ -3,7 +3,7 @@
   &.forum-categ {
     .slist {
       thead,
-      td:not(.subject):not(.right) {
+      td:not(.subject, .right) {
         display: none;
 
         @media (min-width: at-least($xx-small)) {
@@ -44,8 +44,8 @@
     }
 
     td {
-      padding-top: 1.5rem;
-      padding-bottom: 1.5rem;
+      padding-top: 1.2rem;
+      padding-bottom: 1.2rem;
     }
 
     &.topics {
@@ -71,6 +71,7 @@
 
     &.categs .subject p {
       margin-top: 0.3em;
+      margin-bottom: 0.3em;
     }
   }
 }

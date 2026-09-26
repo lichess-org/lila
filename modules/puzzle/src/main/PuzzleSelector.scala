@@ -1,6 +1,7 @@
 package lila.puzzle
 
 import lila.db.dsl.{ *, given }
+import lila.mon.extensions.*
 
 final class PuzzleSelector(
     colls: PuzzleColls,
@@ -43,7 +44,7 @@ final class PuzzleSelector(
         ,
         some
       )
-      .mon(_.puzzle.selector.user.time(angle.categ))
+      .mon(lila.mon.puzzle.selector.user.time(angle.categ))
 
   private def findNextPuzzleFor(angle: PuzzleAngle, retries: Int)(using me: Me, perf: Perf): Fu[Puzzle] =
     sessionApi
@@ -96,19 +97,19 @@ final class PuzzleSelector(
       .path:
         _.aggregateOne(): framework =>
           import framework.*
-          Match($id(session.path)) -> List(
+          Match(bid(session.path)) -> List(
             // get the puzzle ID from session position
-            Project($doc("puzzleId" -> $doc("$arrayElemAt" -> $arr("$ids", session.positionInPath)))),
+            Project(bdoc("puzzleId" -> bdoc("$arrayElemAt" -> barr("$ids", session.positionInPath)))),
             Project:
-              $doc(
+              bdoc(
                 "puzzleId" -> true,
-                "roundId" -> $doc("$concat" -> $arr(s"${me.userId}${PuzzleRound.idSep}", "$puzzleId"))
+                "roundId" -> bdoc("$concat" -> barr(s"${me.userId}${PuzzleRound.idSep}", "$puzzleId"))
               )
             ,
             // fetch the puzzle
             PipelineOperator:
-              $doc:
-                "$lookup" -> $doc(
+              bdoc:
+                "$lookup" -> bdoc(
                   "from" -> colls.puzzle.name.value,
                   "localField" -> "puzzleId",
                   "foreignField" -> "_id",
@@ -117,8 +118,8 @@ final class PuzzleSelector(
             ,
             // look for existing round
             PipelineOperator:
-              $doc:
-                "$lookup" -> $doc(
+              bdoc:
+                "$lookup" -> bdoc(
                   "from" -> colls.round.name.value,
                   "localField" -> "roundId",
                   "foreignField" -> "_id",
@@ -140,4 +141,4 @@ final class PuzzleSelector(
                     PuzzleAlreadyPlayed(puzzle)
                   else PuzzleFound(puzzle)
       .monValue: result =>
-        _.puzzle.selector.nextPuzzleResult(result.name)
+        lila.mon.puzzle.selector.nextPuzzleResult(result.name)

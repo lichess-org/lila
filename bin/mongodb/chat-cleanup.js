@@ -17,10 +17,10 @@ const isChatGarbage = chat =>
 
 // system, anon, bots
 const isAuthorGarbage = author =>
-  author == 'lichess' || author == 'w' || author == 'b' || author.indexOf('BOT~') == 0;
+  author === 'lichess' || author === 'w' || author === 'b' || author.indexOf('BOT~') === 0;
 
 // shadowbanned and deleted
-const isFlagGarbage = flag => flag == '!' || flag == '?';
+const isFlagGarbage = flag => flag === '!' || flag === '?';
 
 const presets = new Set([
   'good luck',
@@ -34,10 +34,7 @@ const presets = new Set([
 ]);
 
 const isTextGarbage = text =>
-  text.indexOf(' ') < 0 ||
-  text.length < 9 ||
-  presets.has(text) ||
-  text.indexOf("I'm studying this game") == 0;
+  !text.includes(' ') || text.length < 9 || presets.has(text) || text.startsWith("I'm studying this game");
 
 const numberFormat = n => `${Math.round(n / 1000)}k`;
 
@@ -59,7 +56,7 @@ const flushBuffer = () => {
   }
   idBuffer = [];
   deleted += flushEvery;
-  if (deleted % 100000 == 0)
+  if (deleted % 100000 === 0)
     print(`${numberFormat(deleted)} / ${numberFormat(read)} - ${Math.round((deleted * 100) / read)}%`);
 };
 
@@ -70,7 +67,7 @@ db.chat
     ++read;
     if (isChatGarbage(chat)) {
       deleteChat(chat);
-      if (read % 10000 == 0) printjson(chat);
+      if (read % 10000 === 0) printjson(chat);
     }
   });
 

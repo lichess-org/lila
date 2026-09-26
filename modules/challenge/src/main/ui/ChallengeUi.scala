@@ -154,7 +154,7 @@ final class ChallengeUi(helpers: Helpers):
                           friends.nonEmpty.option(
                             div(cls := "invite__user__recent")(
                               friends.map: user =>
-                                button(cls := "button", dataUser := user.name):
+                                button(cls := "button button-metal", dataUser := user.name):
                                   lightUserSpan(user, withOnline = true)
                             )
                           ),

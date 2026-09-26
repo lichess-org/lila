@@ -3,15 +3,15 @@ package lila.tutor
 import lila.db.AggregationPipeline
 import lila.db.dsl.*
 import lila.insight.*
-import lila.rating.BSONHandlers.perfTypeIdHandler
 import lila.rating.PerfType
+import lila.mon.extensions.*
 
 final private class TutorCustomInsight[A: TutorNumber](
     users: NonEmptyList[TutorPlayer],
     question: Question[PerfType],
     monitoringKey: String,
     peerMatch: TutorPerfReport.PeerMatch => TutorBothOption[A]
-)(clusterParser: List[Bdoc] => List[Cluster[PerfType]]):
+)(clusterParser: List[Bdoc] => List[Cluster[PerfType]])(using config: TutorConfig):
 
   def apply(insightColl: Coll)(
       aggregateMine: Bdoc => AggregationPipeline[insightColl.PipelineOperator],
@@ -20,21 +20,23 @@ final private class TutorCustomInsight[A: TutorNumber](
     for
       mine <- insightColl
         .aggregateList(maxDocs = Int.MaxValue): _ =>
-          aggregateMine(InsightStorage.selectUserId(users.head.user.id))
+          aggregateMine:
+            InsightStorage.selectUserId(users.head.user.id) ++
+              InsightStorage.gameMatcher(question.timeFilter(config).filters)
         .map { docs => TutorBuilder.AnswerMine(Answer(question, clusterParser(docs), Nil)) }
-        .monSuccess(_.tutor.askMine(monitoringKey, "all"))
+        .monSuccess(lila.mon.tutor.askMine(monitoringKey, "all"))
       peerDocs <- users.toList.map { u =>
         u.peerMatch.flatMap(peerMatch).map(_.peer) match
           case Some(cached) =>
             val peerValue = summon[TutorNumber[A]].double(cached)
             fuccess(List(Cluster(u.perfType, Insight.Single(Point(peerValue)), maxGames.value, Nil)))
           case None =>
-            val peerSelect = $doc(lila.insight.InsightEntry.BSONFields.perf -> u.perfType) ++
+            val peerSelect = InsightStorage.gameMatcher(question.filters) ++
               InsightStorage.selectPeers(u.perfStats.peers)
             insightColl
               .aggregateList(maxDocs = Int.MaxValue)(_ => aggregatePeer(peerSelect))
               .map(clusterParser)
-              .monSuccess(_.tutor.askPeer(monitoringKey, u.perfType.key))
+              .monSuccess(lila.mon.tutor.askPeer(monitoringKey, u.perfType.key))
       }.parallel
       peer = TutorBuilder.AnswerPeer(Answer(question, peerDocs.flatten, Nil))
     yield TutorBuilder.Answers(mine, peer)

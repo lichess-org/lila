@@ -29,20 +29,18 @@
   }
 
   .goal {
-    @extend %flex-center;
+    @extend %flex-center-center;
 
     background: $c-bg-box;
     border: $border;
     border-top: none;
     padding: $block-gap;
     text-align: center;
-    justify-content: center;
   }
 
   .result {
-    @extend %flex-center;
+    @extend %flex-center-center;
 
-    justify-content: center;
     flex-flow: column nowrap;
     border: $border;
     border-top: none;
@@ -57,7 +55,7 @@
 
     @keyframes shadow-glow {
       50% {
-        box-shadow: 0 0 10px 10px rgba(255, 255, 255, 0.5);
+        box-shadow: 0 0 10px 10px rgb(255 255 255 / 0.5);
         transform: scale(1.05);
       }
     }
@@ -86,7 +84,7 @@
       margin-top: 4px;
     }
 
-    .stars i {
+    .stars icon {
       margin: 3px;
       animation: text-shadow-glow 1s 1;
     }
@@ -97,10 +95,9 @@
       font-weight: bold;
       text-transform: uppercase;
       background: #fff;
-      border: none;
-      border-radius: 5px;
+      border-radius: $box-radius-size;
       padding: 5px 10px;
-      box-shadow: 0 0 5px 5px rgba(255, 255, 255, 0.5);
+      box-shadow: 0 0 5px 5px rgb(255 255 255 / 0.5);
       animation: shadow-glow 1s infinite;
     }
 
@@ -171,7 +168,7 @@
       margin: auto;
     }
 
-    .st3 i:first-child {
+    .st3 icon:first-child {
       display: block;
     }
 

@@ -34,11 +34,11 @@
   <string name="downloadAllRounds">Download alle runder</string>
   <string name="resetRound">Nulstil denne runde</string>
   <string name="deleteRound">Slet denne runde</string>
-  <string name="definitivelyDeleteRound">Slet runden og dens partier endegyldigt.</string>
+  <string name="permanentlyDeleteRound" comment="Refers to live tournaments being broadcast on Lichess (https://lichess.org/broadcast).&#10;&#10;Description (also translateable): Delete all games of this round. The source will need to be active in order to re-create them. This string has been amended since its initial publication; it didn't say &quot;all its games&quot; at the time.">Slet denne runde og alle dens partier permanent?</string>
   <string name="deleteAllGamesOfThisRound">Slet alle partier i denne runde. Kilden skal være aktiv for at genskabe dem.</string>
   <string name="editRoundStudy">Rediger rundestudie</string>
   <string name="deleteTournament">Slet denne turnering</string>
-  <string name="definitivelyDeleteTournament">Slet hele turneringen, alle dens runder og alle dens partier.</string>
+  <string name="permanentlyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast">Slet denne turnering permanent, herunder alle runder og partier?</string>
   <string name="showScores">Vis spilleres point baseret på resultater fra partier</string>
   <string name="replacePlayerTags">Valgfrit: udskift spillernavne, ratings og titler</string>
   <string name="fideFederations">FIDE-føderationer</string>
@@ -57,18 +57,21 @@
   <string name="subscribeTitle">Abonner på at blive underrettet, når hver runde starter. Du kan skifte mellem klokke- eller push-meddelelser for udsendelser i dine kontoindstillinger.</string>
   <string name="uploadImage">Upload turneringsbillede</string>
   <string name="noBoardsYet">Ingen brætter endnu. Disse vises når partier er uploadet.</string>
+  <string name="noPlayersYet">Der er endnu ingen spillere. De vises, så snart partierne er uploadet.</string>
   <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Brætter kan indlæses med en kilde eller via %s</string>
   <string name="startsAfter">Starter efter %s</string>
   <string name="startVerySoon">Udsendelsen starter meget snart.</string>
   <string name="notYetStarted">Udsendelsen er endnu ikke startet.</string>
   <string name="officialWebsite">Officielt websted</string>
   <string name="officialStandings">Officiel stilling</string>
+  <string name="regulations">Regulativer</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Flere muligheder på %s</string>
   <string name="webmastersPage">webmasters side</string>
   <string name="embedThisBroadcast">Indlejr denne udsendelse på dit website</string>
   <string name="ratingDiff">Rating-forskel</string>
   <string name="gamesThisTournament">Partier i denne turnering</string>
   <string name="score">Score</string>
+  <string name="standingsDisclaimer">Stillingen beregnes på baggrund af transmitterede partier og kan afvige fra de officielle resultater.</string>
   <string name="allTeams">Alle hold</string>
   <string name="tournamentFormat">Turneringsformat</string>
   <string name="tournamentLocation">Turneringssted</string>
@@ -83,13 +86,20 @@
   <string name="liveboard">Live bræt</string>
   <string name="communityBroadcast">Fællesskabsudsendelse</string>
   <string name="createdAndManagedBy">Oprettet og administreret af %s.</string>
+  <string name="matchPoints">Matchpoint</string>
+  <string name="gamePoints">Partipoint</string>
+  <string name="matches">Matcher</string>
+  <string name="matchHistory">Match-historik</string>
+  <string name="teamResults">Holdresultater</string>
   <string name="termsAutomaticallyTranslated">Følgende udtryk vil automatisk blive oversat: %s.</string>
   <string name="roundX">Runde %s</string>
   <string name="defaultRoundNameHelp">Beholdes standardnavnet, oversættes det automatisk til alle andre sprog.</string>
+  <string name="openTournament">Open</string>
   <string name="womenTournament">Kvinder</string>
   <string name="menTournament">Mænd</string>
   <string name="girlsTournament">Piger</string>
   <string name="boysTournament">Drenge</string>
+  <string name="openUnderXAgeTournament">Open U%s</string>
   <string name="girlsUnderXAgeTournament">Piger U%s</string>
   <string name="boysUnderXAgeTournament">Drenge U%s</string>
   <string name="quarterfinals">Kvartfinaler</string>
@@ -97,4 +107,8 @@
   <string name="finals">Finaler</string>
   <string name="tiebreaks">Tiebreaks</string>
   <string name="gameX">Parti %s</string>
+  <string name="knockouts">Elimineringsrunder</string>
+  <string name="pinPlayer">Fastgør spiller</string>
+  <string name="underXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament. e.g.  'U18' will mean it is an tournament for under-18 years.  Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">U%s</string>
+  <string name="underXEloTournament" comment="%s is the maximum Elo rating set by the organiser for a tournament.  e.g. 'U2000' will mean it is an tournament for players with Elo under 2000.  Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">U%s</string>
 </resources>

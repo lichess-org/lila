@@ -2,23 +2,34 @@ package views.study
 
 import chess.format.pgn.PgnStr
 import play.api.libs.json.Json
+import play.api.data.Form
 
 import lila.app.UiEnv.{ *, given }
 import lila.common.Json.given
 import lila.core.socket.SocketVersion
-import lila.core.study.{ IdName, StudyOrder }
+import lila.core.study.IdName
 
 lazy val bits = lila.study.ui.StudyBits(helpers)
 lazy val ui = lila.study.ui.StudyUi(helpers)
-lazy val list = lila.study.ui.ListUi(helpers, bits)
+lazy val list = lila.study.ui.StudyListUi(helpers, bits)
 
-def staffPicks(p: lila.cms.CmsPage.Render)(using Context) =
-  Page(p.title).css("analyse.study.index", "bits.page"):
-    main(cls := "page-menu")(
-      list.menu("staffPicks", StudyOrder.mine, Nil),
-      main(cls := "page-menu__content box box-pad page"):
-        views.cms.pageContent(p)
-    )
+def staffPicks(p: lila.cms.CmsPage.Render, featuredForm: Option[Form[?]])(using Context) =
+  Page(p.title)
+    .css("analyse.study.index", "bits.page")
+    .css(featuredForm.isDefined.option("bits.form3")):
+      main(cls := "page-menu")(
+        list.menu(lila.study.StudyGroup.staffPicks, None, Nil),
+        div(cls := "page-menu__content box box-pad")(
+          featuredForm.map: form =>
+            postForm(action := routes.Study.staffPicks)(
+              form3.group(form("v"), "Featured studies on /study, one URL per line"): f =>
+                form3.textarea(f)(rows := 5),
+              form3.submit("Save"),
+              hr
+            ),
+          views.cms.pageContent(p)
+        )
+      )
 
 def streamers(streamers: List[UserId])(using Translate) =
   views.streamer.bits.contextual(streamers).map(_(cls := "none"))
@@ -76,7 +87,6 @@ def show(
               writeable = ctx.userId.exists(s.canChat),
               public = true,
               resource = lila.core.chat.PublicSource.Study(s.id),
-              voiceChat = ctx.userId.exists(s.isMember),
               localMod = ctx.userId.exists(s.canContribute)
             ),
           "socketUrl" -> socketUrl(s.id),
@@ -86,7 +96,7 @@ def show(
     )
     .flag(_.noRobots, !s.isPublic)
     .flag(_.zoom)
-    .csp(views.analyse.ui.bits.cspExternalEngine.compose(_.withPeer.withExternalAnalysisApis))
+    .csp(views.analyse.ui.bits.cspExternalEngine.compose(_.withExternalAnalysisApis))
     .graph(
       OpenGraph(
         title = s.name.value,

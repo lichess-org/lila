@@ -33,8 +33,8 @@ body.no-inquiry {
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
-  border-bottom: 1px solid $c-border;
-  box-shadow: 2px 5px 6px rgba(0, 0, 0, 0.3);
+  border-bottom: $border;
+  box-shadow: 2px 5px 6px rgb(0 0 0 / 0.3);
   position: fixed;
   top: 0;
   left: 0;
@@ -46,12 +46,12 @@ body.no-inquiry {
     height: 160px;
     width: 160px;
     margin: -80px 0 0 -80px;
-    background: $c-bg-zebra no-repeat url(../images/icons/octopus.svg);
+    background: $c-bg-zebra no-repeat url('../images/icons/octopus.svg');
     background-size: 35% 35%;
     background-position: 81% 81%;
     border-radius: 0 0 50% 0;
     border: 2px solid $c-border;
-    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+    box-shadow: 3px 3px 6px rgb(0 0 0 / 0.3);
     cursor: pointer;
 
     &:hover {
@@ -128,7 +128,7 @@ body.no-inquiry {
     @extend %box-radius-bottom, %dropdown-shadow;
 
     z-index: 2;
-    border-bottom: 1px solid $c-border;
+    border-bottom: $border;
     max-height: 500px;
     overflow-y: auto;
   }
@@ -150,6 +150,7 @@ body.no-inquiry {
 
   .doc.note {
     margin-top: 1em;
+
     p {
       margin: 0;
     }
@@ -177,23 +178,24 @@ body.no-inquiry {
 
   .score.green {
     /* actually blue */
-    background-color: rgba(32, 119, 192, 0.4);
+    background-color: rgb(32 119 192 / 0.4);
   }
 
   .score.yellow {
-    background-color: rgba(221, 207, 63, 0.4);
+    background-color: rgb(221 207 63 / 0.4);
   }
 
   .score.orange {
-    background-color: rgba(231, 155, 100, 0.4);
+    background-color: rgb(231 155 100 / 0.4);
   }
 
   .score.red {
-    background-color: rgba(231, 59, 56, 0.4);
+    background-color: rgb(231 59 56 / 0.4);
   }
 
   form.note {
     padding-top: 1em;
+
     textarea {
       width: 100%;
       resize: vertical;
@@ -215,7 +217,7 @@ body.no-inquiry {
   .actions:not(.close),
   .links {
     padding-inline-end: 10px;
-    border-inline-end: 1px solid $c-border;
+    border-inline-end: $border;
   }
 
   .actions > form {
@@ -231,12 +233,12 @@ body.no-inquiry {
   }
 
   .fbt:hover {
-    background: $m-primary_bg--mix-50;
+    background: color-mix(in oklab, $c-primary 50%, $c-bg);
   }
 
   .fbt.icon::before,
-  .warn i::before,
-  .alt i {
+  .warn icon::before,
+  .alt icon {
     font-size: 1.7em;
   }
 
@@ -246,7 +248,7 @@ body.no-inquiry {
 
   .links {
     padding: 0 10px;
-    border-inline-start: 1px solid $c-border;
+    border-inline-start: $border;
   }
 
   .links a {
@@ -284,7 +286,7 @@ body.no-inquiry {
     height: 100%;
 
     > span,
-    > i,
+    > icon,
     .main {
       display: block;
       height: 100%;
@@ -300,7 +302,9 @@ body.no-inquiry {
       display: none;
       position: absolute;
       top: 100%;
+
       @include inline-end(0);
+
       background: $c-bg-zebra2;
       overflow: scroll;
       max-height: 80vh;
@@ -309,7 +313,7 @@ body.no-inquiry {
 
     &:hover {
       > span,
-      > i,
+      > icon,
       .main {
         background: $c-bg-zebra2;
       }
@@ -324,7 +328,7 @@ body.no-inquiry {
       text-align: left;
     }
 
-    > i {
+    > icon {
       line-height: 40px;
     }
 
@@ -361,7 +365,9 @@ body.no-inquiry {
     &.counter > div,
     &.warn > div {
       width: 360px;
+
       @include inline-end(-155px);
+
       max-height: 500px;
       overflow-y: auto;
     }
@@ -377,6 +383,7 @@ body.no-inquiry {
     flex-flow: column;
     justify-content: center;
     text-align: center;
+
     .view-games-dropdown {
       a {
         display: block;
@@ -400,13 +407,15 @@ body.no-inquiry {
   .notes {
     span {
       transition: all 1s ease-out;
+
       &.note-flash {
         background: $c-primary;
-        box-shadow: 0 0px 15px $c-primary;
+        box-shadow: 0 0 15px $c-primary;
         transition: none;
+
         &.warning {
           background: $c-warn;
-          box-shadow: 0 0px 15px $c-warn;
+          box-shadow: 0 0 15px $c-warn;
         }
       }
     }

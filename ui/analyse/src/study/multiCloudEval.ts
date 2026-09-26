@@ -1,11 +1,12 @@
 import { type Prop, defined } from 'lib';
-import type { EvalHitMulti } from '../interfaces';
-import { storedBooleanPropWithEffect } from 'lib/storage';
-import { povChances } from 'lib/ceval/winningChances';
-import type { StudyChapters } from './studyChapters';
 import { debounce } from 'lib/async';
-import type { ServerNodeMsg } from './interfaces';
+import { povChances } from 'lib/ceval/winningChances';
+import { storedBooleanPropWithEffect } from 'lib/storage';
 import type { ClientEval, TreeNode } from 'lib/tree/types';
+
+import type { EvalHitMulti } from '../interfaces';
+import type { ServerNodeMsg } from './interfaces';
+import type { StudyChapters } from './studyChapters';
 
 export interface CloudEval extends EvalHitMulti {
   chances: number;
@@ -15,8 +16,8 @@ export type GetCloudEval = (fen: FEN) => CloudEval | undefined;
 export class MultiCloudEval {
   showEval: Prop<boolean>;
 
-  private observed: Set<HTMLElement> = new Set();
-  private observer: IntersectionObserver | undefined =
+  private readonly observed: Set<HTMLElement> = new Set();
+  private readonly observer: IntersectionObserver | undefined =
     window.IntersectionObserver &&
     new IntersectionObserver(
       entries =>
@@ -29,7 +30,7 @@ export class MultiCloudEval {
         }),
       { threshold: 0.2 },
     );
-  private cloudEvals: Map<FEN, CloudEval> = new Map();
+  private readonly cloudEvals: Map<FEN, CloudEval> = new Map();
 
   constructor(
     readonly redraw: () => void,
@@ -42,7 +43,7 @@ export class MultiCloudEval {
       this.requestNewEvals();
     });
     document.addEventListener('visibilitychange', () => {
-      if (document.visibilityState === 'visible') this.requestNewEvals();
+      if (!document.hidden) this.requestNewEvals();
     });
   }
 
@@ -50,12 +51,12 @@ export class MultiCloudEval {
 
   observe = (el: HTMLElement) => this.observer?.observe(el);
 
-  private observedIds = () => new Set(Array.from(this.observed).map(el => el.dataset.id));
+  private readonly observedIds = () => new Set(Array.from(this.observed).map(el => el.dataset.id));
 
   private lastRequestedFens: Set<FEN> = new Set();
 
-  private sendRequestNow = () => {
-    if (!this.showEval() || document.visibilityState === 'hidden') return;
+  private readonly sendRequestNow = () => {
+    if (!this.showEval() || document.hidden) return;
     const ids = this.observedIds();
     const chapters = this.chapters
       .all()
@@ -76,7 +77,7 @@ export class MultiCloudEval {
     }
   };
 
-  private requestNewEvals = debounce(this.sendRequestNow, 2000);
+  private readonly requestNewEvals = debounce(this.sendRequestNow, 2000);
 
   onCloudEval = (d: EvalHitMulti) => {
     this.cloudEvals.set(d.fen, { ...d, chances: povChances('white', d) });

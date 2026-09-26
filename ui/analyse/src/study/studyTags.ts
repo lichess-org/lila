@@ -1,11 +1,13 @@
-import { onInsert } from 'lib/view';
-import { throttle } from 'lib/async';
 import { type Attrs, h, thunk, type VNode } from 'snabbdom';
-import { option } from '../view/util';
-import { looksLikeLichessGame } from './studyChapters';
+
 import { prop } from 'lib';
-import type StudyCtrl from './studyCtrl';
+import { throttle } from 'lib/async';
+import { enter, onInsert } from 'lib/view';
+
+import { option } from '../view/util';
 import type { TagArray, TagMap } from './interfaces';
+import { looksLikeLichessGame } from './studyChapters';
+import type StudyCtrl from './studyCtrl';
 
 export const tagsToMap = (tags: TagArray[]): TagMap => {
   const map = new Map<string, string>();
@@ -22,7 +24,7 @@ export class TagsForm {
 
   getChapter = () => this.root.data.chapter;
 
-  private makeChange = throttle(500, (name: string, value: string) => {
+  private readonly makeChange = throttle(500, (name: string, value: string) => {
     this.root.makeChange('setTag', {
       chapterId: this.getChapter().id,
       name,
@@ -51,12 +53,10 @@ const editable = (
 ): VNode =>
   h('input', {
     key: value, // force to redraw on change, to visibly update the input value
-    attrs: { spellcheck: 'false', ...(inputAttrs[name] ?? {}), maxlength: 140, value },
+    attrs: { spellcheck: 'false', ...inputAttrs[name], maxlength: 140, value },
     hook: onInsert<HTMLInputElement>(el => {
-      el.onblur = () => submit(name, el.value, el);
-      el.onkeydown = e => {
-        if (e.key === 'Enter') el.blur();
-      };
+      el.onblur = () => el.checkValidity() && submit(name, el.value, el);
+      el.onkeydown = enter(() => el.blur());
     }),
   });
 
@@ -64,7 +64,7 @@ const editable = (
 const titles = 'GM|WGM|IM|WIM|FM|WFM|CM|WCM|NM|WNM|LM|BOT';
 const acceptableTitlePattern = `${titles}|${titles.toLowerCase()}`;
 
-const inputAttrs: { [name: string]: Attrs } = (() => {
+const inputAttrs: Record<string, Attrs> = (() => {
   const elo = { pattern: '\\d{3,4}' };
   const fideId = { pattern: '\\d{2,9}' };
   const title = { pattern: acceptableTitlePattern };
@@ -99,15 +99,13 @@ const inputAttrs: { [name: string]: Attrs } = (() => {
   };
 })();
 
-type TagRow = (string | VNode)[];
-
 const fixed = ([key, value]: [string, string]) =>
   key.endsWith('FideId') ? h('a', { attrs: { href: `/fide/${value}/redirect` } }, value) : fixedValue(value);
 
 const fixedValue = (value: string) => h('span', value);
 
 function renderPgnTags(tags: TagsForm, showRatings: boolean): VNode {
-  let rows: TagRow[] = [];
+  let rows = [];
   const chapter = tags.getChapter();
   if (chapter.setup.variant.key !== 'standard')
     rows.push(['Variant', fixedValue(chapter.setup.variant.name)]);
@@ -121,31 +119,33 @@ function renderPgnTags(tags: TagsForm, showRatings: boolean): VNode {
       .map(tag => [tag[0], tags.editable() ? editable(tag[0], tag[1], tags.submit) : fixed(tag)]),
   );
   if (tags.editable()) {
-    const existingTypes = chapter.tags.map(t => t[0]);
+    const existingTypes = new Set(chapter.tags.map(t => t[0]));
     rows.push([
       h(
         'select.button.button-metal',
         {
           hook: {
-            insert: vnode => {
-              const el = vnode.elm as HTMLInputElement;
-              tags.selectedType(el.value);
-              el.addEventListener('change', _ => {
-                tags.selectedType(el.value);
-                $(el)
+            ...onInsert<HTMLSelectElement>(elem => {
+              tags.selectedType(elem.value);
+              elem.addEventListener('change', _ => {
+                tags.selectedType(elem.value);
+                const pattern = inputAttrs[elem.value]?.pattern;
+                $(elem)
                   .parents('tr')
                   .find('input')
                   .each(function (this: HTMLInputElement) {
+                    if (pattern) this.setAttribute('pattern', String(pattern));
+                    else this.removeAttribute('pattern');
                     this.focus();
                   });
               });
-            },
-            postpatch: (_, vnode) => tags.selectedType((vnode.elm as HTMLInputElement).value),
+            }),
+            postpatch: (_, vnode) => tags.selectedType((vnode.elm as HTMLSelectElement).value),
           },
         },
         [
           h('option', i18n.study.newTag),
-          ...tags.types.map(t => (!existingTypes.includes(t) ? option(t, '', t) : undefined)),
+          ...tags.types.map(t => (!existingTypes.has(t) ? option(t, '', t) : undefined)),
         ],
       ),
       editable('', '', (_, value, el) => {

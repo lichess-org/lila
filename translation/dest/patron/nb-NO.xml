@@ -40,8 +40,8 @@ Dernest betaler vi en fulltidsutvikler: %s, grunnleggeren av Lichess.</string>
   <string name="officialNonProfit">Er Lichess offisielt en ideell forening?</string>
   <string name="actOfCreation">Ja, her er registermeldingen (på fransk)</string>
   <string name="changeMonthlySupport">Kan jeg endre/annullere det månedlige bidraget mitt?</string>
-  <string name="changeOrContact">Ja, når som helst, fra denne siden.
-Eller du kan %s.</string>
+  <string name="changeSupport">Hvis betalingene dine behandles av PayPal, kan du avslutte eller endre støtten via din egen PayPal-konto, eller du kan %1$s, så ordner vi det for deg. Hvis du ikke brukte PayPal, behandles betalingene av Stripe, og du kan avslutte bidraget eller endre beløpet på %2$s.</string>
+  <string name="patronPage">patronsiden</string>
   <string name="contactSupport">ta kontakt med Lichess-support</string>
   <string name="otherMethods">Andre måter å bidra på?</string>
   <string name="lichessIsRegisteredWith">Lichess er registrert hos %s.</string>
@@ -84,5 +84,5 @@ Patroner kan like fullt briske seg med et tøft, nytt profilikon.</string>
   <string name="paymentDetails">Betalingsdetaljer</string>
   <string name="updatePaymentMethod">Oppdater betalingsmåte</string>
   <string name="stripeManageSub">Administrer abonnementet ditt og last ned fakturaer og kvitteringer</string>
-  <string name="coverFees" comment="%s is a monetary amount. It will be localised depending on the currency where you are e.g. &quot;$0.25&quot; in the United States, &quot;€0.20&quot; in the Eurozone, and so on.&#10;The amount may appear before or after the number, depending on the language (e.g. as &quot;0,25 €&quot; in certain languages &amp; locales).&#10;&#10;Appears as an option when donating to Lichess (https://lichess.org/patron), letting you pay a bit more to cover the transaction fees which would be part of your donation.">Jeg legger til %s for å bidra til å dekke kostnadene ved å behandle denne transaksjonen</string>
+  <string name="coverFees">Jeg legger til %s for å bidra til å dekke kostnadene ved å behandle denne transaksjonen</string>
 </resources>

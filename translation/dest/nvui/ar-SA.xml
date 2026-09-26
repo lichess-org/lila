@@ -9,7 +9,7 @@
   <string name="inputForm">نموذج الإدخال</string>
   <string name="actions">الإجراءات</string>
   <string name="yourClock">ساعتك</string>
-  <string name="opponentClock">ساعة الخصم</string>
+  <string name="opponentClock">ساعة الخَصْم</string>
   <string name="gameStart">بدأت اللعبة</string>
   <string name="boardCommandList">قائمة الأوامر عندما تكون رقعة الشطرنج محط التركيز</string>
   <string name="inputFormCommandList">اكتب هذه الأوامر في نموذج إدخال الأوامر.</string>
@@ -33,8 +33,8 @@
   <string name="blackKing">الملك الأسود</string>
   <string name="queen">وزير</string>
   <string name="whiteQueen">الوزير الأبيض</string>
-  <string name="blackQueen">الوزبر الأسود</string>
-  <string name="rook">فلعة</string>
+  <string name="blackQueen">الوزير الأسود</string>
+  <string name="rook">قلعه</string>
   <string name="whiteRook">قلعة بيضاء</string>
   <string name="blackRook">قلعة سوداء</string>
   <string name="bishop">فيل</string>
@@ -56,6 +56,9 @@
   <string name="sanDroppedOn" comment="crazyhouse @">تم إسقاطها في</string>
   <string name="invalidMove">حركة غير ممكنة</string>
   <string name="premoveCancelled">تم إلغاء النقلة المسبقة</string>
-  <string name="premoveRecorded">تم تسجيل النقلة المسبقة: %s. إضغط على Enter للإلغاء</string>
+  <string name="premoveRecorded">تم تسجيل النقلة المسبقة: %s. اضغط على Enter للإلغاء</string>
   <string name="pockets" comment="Crazyhouse pockets">جيوب</string>
+  <string name="copyToClipboard">نسخ %s إلى الحافظة</string>
+  <string name="copiedToClipboard">%s نُسخ إلى الحافظة</string>
+  <string name="pgnAndFen">PGN و FEN</string>
 </resources>

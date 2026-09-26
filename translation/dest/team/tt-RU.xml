@@ -28,11 +28,6 @@
   <string name="teamBattleOverview">Төрле төркемнәр ярышы, һәр уенче үзенең төркеме өчен баллар җыя</string>
   <string name="teamTournament">Төркем турниры</string>
   <string name="teamTournamentOverview">Сезнең төркем уенчылары гына кушыла алган Арена турниры</string>
-  <string name="messageAllMembers">Бөтен уенчыларына хәбәр</string>
-  <string name="messageAllMembersOverview">Җәмәганең һәр уенчына шәхси хәбәр җибәрү</string>
-  <string name="messageAllMembersLongDescription">Төркемнең һәр уенчына шәхси хәбәр җибәрү.
-Сез моны уенчыларны турнирга я төркемнәр ярышына чакыру өчен итә аласыз.
-Сездән хәбәр алырга теләмәгән уенчылар төркемнән чыга ала.</string>
   <string name="teamsIlead">Җәмәга рәһбәсе</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Сез киләсе бәйгеләрнең берсен бәйләргә телисездер?</string>
   <string name="leadersChat">Рәһбәләр сөхбәтләшмәктә</string>

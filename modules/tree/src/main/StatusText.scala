@@ -12,7 +12,7 @@ object StatusText:
       case Aborted => "Game was aborted."
       case Mate => s"${winner(win)} wins by checkmate."
       case Resign => s"${loser(win)} resigns."
-      case UnknownFinish => s"${winner(win)} wins."
+      case UnknownFinish if win.isDefined => s"${winner(win)} wins."
       case Stalemate => "Draw by stalemate."
       case Timeout if win.isDefined => s"${loser(win)} left the game."
       case Timeout | Draw => "The game is a draw."

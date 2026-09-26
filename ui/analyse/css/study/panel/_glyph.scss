@@ -1,16 +1,21 @@
 .study__glyphs {
-  @extend %box-neat, %flex-center;
+  @extend %flex-center;
   @include prevent-select;
 
-  background: $c-bg-box;
   white-space: nowrap;
+
+  &:not(&:has(.study__message)) {
+    @extend %box-neat;
+
+    background: $c-bg-box;
+  }
 
   > div {
     flex: 1 0 30%;
   }
 
   button {
-    @extend %flex-center-nowrap, %button-none;
+    @extend %flex-center-nowrap;
 
     height: 2.3em;
     line-height: 2.3em;
@@ -18,9 +23,8 @@
     width: 100%;
 
     &::before {
-      @extend %flex-center;
+      @extend %flex-center-center;
 
-      justify-content: center;
       content: attr(data-symbol);
       font-size: 1.2em;
       font-weight: bold;

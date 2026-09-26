@@ -25,7 +25,6 @@
   <string name="cantChangeMore">Me ei saa vahetada peale suurte ja väikeste tähtede midagi muud. Tehnilistel põhjustel see on otseselt võimatu.</string>
   <string name="orCloseAccount">Sul on ikkagi võimalus sulgeda praegune konto ja luua uus kasutaja.</string>
   <string name="wantClearHistory">Ma tahan puhastada oma ajaloo või reitingu</string>
-  <string name="cantClearHistory">Mängu ajalugu, ülesannete ajalugu ja reitingut ei ole võimalik tühjendada.</string>
   <string name="wantReport">Tahan teatada mängijast</string>
   <string name="toReportAPlayerUseForm">Mängijast teatamiseks, kasuta seda vormi</string>
   <string name="youCanAlsoReachReportPage">Saad samale leheküljele ka siis kui klikid %s teata nuppu mängija profiililehel.</string>
@@ -39,7 +38,7 @@
   <string name="reportMobileIssue">Lichessi mobiiliäpi probleemiks GitHubis</string>
   <string name="reportBugInDiscord">Lichessi Discord-serveril</string>
   <string name="howToReportBug">Palun kirjelda kuidas viga näeb välja, mis ootasid et juhtub ja sammud kuidas viga uuesti luua.</string>
-  <string name="illegalPawnCapture" comment="Appears as an option for reasons to contact Lichess on the 'contact' page: https://lichess.org/contact#help-enpassant&#10;&#10;Players used to routinely write to Lichess stating that there was a bug, or that the other player had hacked their game in some way. In actuality, the player was using the legal move of en passant.&#10;&#10;Please translate this string from the perspective of the player who would be selecting this contact option, and call it 'Illegal', even though we know this is a legal move.">Ebaseaduslik etturi löömine</string>
+  <string name="illegalPawnCapture">Ebaseaduslik etturi löömine</string>
   <string name="calledEnPassant">Selle nimi on \"en passant\" ja see on üks osa malereeglitest.</string>
   <string name="tryEnPassant">Proovi seda väikest interaktiivset mängu, et tunda ära \"en passant\".</string>
   <string name="illegalCastling">Ebaseaduslik või võimatu vangerdamine</string>
@@ -74,4 +73,11 @@
   <string name="noneOfTheAbove">Mitte ükski nendest</string>
   <string name="sendEmailAt">Saada meile e-mail %s.</string>
   <string name="explainYourRequest">Palun kirjelda oma soov puhtalt ja selgelt. Maini oma Lichessi kasutajanimi ja muu informatsioon, mis aitaksid meid aitama sind.</string>
+  <string name="monetiseNotInterested">Me ei ole huvitatud Lichessi monetiseerimisest mis tahes viisil.</string>
+  <string name="monetiseNoAdsTrackingOrTraffic">Me ei näita kunagi mis tahes liiki reklaame, me ei jälgi oma mängijaid ega müü ega osta veebiliiklust ega kasutajaid.</string>
+  <string name="monetiseNoMarketingEmail">Palun ära saada meile e-kirju turunduse, jälgimise või reklaami teemadel.</string>
+  <string name="broadcastTournamentOnLichess">Turniiri ülekandmine Lichessis</string>
+  <string name="ifYouWantToBroadcastClause1">Kui soovid Lichessis turniiri ametlikult üle kanda või sul on meie ülekannetega seotud küsimusi:</string>
+  <string name="ifYouWantToBroadcastClause2" comment="string1 is Lichess email, string2 is value of key ourDiscordServer">Palun võta ühendust meie ülekannete grupiga aadressil %1$s või %2$s.</string>
+  <string name="ourDiscordServer">meie Discord server</string>
 </resources>

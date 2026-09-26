@@ -30,17 +30,14 @@
   <string name="willBeReviewed">Το αίτημα πρόσβασης θα αξιολογηθεί από έναν από τους αρχηγούς της ομάδας.</string>
   <string name="beingReviewed">Το αίτημά πρόσβασης εξετάζεται από κάποιον από τους αρχηγούς της ομάδας.</string>
   <string name="requestDeclined">Το αίτημα πρόσβασης απορρίφθηκε από κάποιον αρχηγό της ομάδας.</string>
-  <string name="subToTeamMessages">Εγγραφείτε στα μηνύματα της ομάδας</string>
   <string name="teamBattle">Ομαδική μάχη</string>
   <string name="teamBattleOverview">Μια μάχη μεταξύ πολλών ομάδων, στην οποία ο κάθε παίκτης κερδίζει βαθμούς για την ομάδα του</string>
   <string name="teamTournament">Τουρνουά ομάδας</string>
   <string name="teamTournamentOverview">Ένα τουρνουά Arena στο οποίο μπορούν να συμμετέχουν μόνο παίκτες της ομάδας σας</string>
   <string name="swissTournamentOverview">Ένα Ελβετικό τουρνουά στο οποίο μπορούν να συμμετέχουν μόνο μέλη της ομάδας σας</string>
-  <string name="messageAllMembers">Στείλτε μήνυμα σε όλα τα μέλη</string>
-  <string name="messageAllMembersOverview">Στείλτε ένα προσωπικό μήνυμα σε κάθε μέλος της ομάδας</string>
-  <string name="messageAllMembersLongDescription">Στείλτε ένα προσωπικό μήνυμα σε ΟΛΑ τα μέλη της ομάδας σας.
-Η δυνατότητα αυτή μπορεί να χρησιμοποιηθεί για να καλέσετε τους παίκτες να συμμετάσχουν σε ένα τουρνουά ή σε μια ομαδική μάχη.
-Οι παίκτες που δεν επιθυμούν να λαμβάνουν τα μηνύματά σας ενδέχεται να αποχωρήσουν από την ομάδα.</string>
+  <string name="teamUpdates">Ενημερώσεις ομάδας</string>
+  <string name="subToTeamUpdates">Εγγραφείτε στις ενημερώσεις της ομάδας</string>
+  <string name="newTeamUpdate">Νέα ενημέρωση ομάδας</string>
   <string name="teamsIlead">Ομάδες που είμαι αρχηγός</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Θέλετε να στείλετε τον σύνδεσμο του επερχόμενου τουρνουά;</string>
   <string name="leadersChat">Ομαδική συνομιλία αρχηγών</string>

@@ -45,8 +45,9 @@
   <string name="officialNonProfit">هل Lichess رسمياً غير ربحي؟</string>
   <string name="actOfCreation">نعم، إليك عملية الإنشاء (باللغة الفرنسية)</string>
   <string name="changeMonthlySupport">هل يمكنني تغيير/الغاء دعمي الشهري؟</string>
-  <string name="changeOrContact">نعم، في أي وقت، من هذه الصفحة.
-أو يمكنك %s.</string>
+  <string name="changeSupport">إذا كانت مدفوعاتك تُعالَج عبر PayPal، فيمكنك إلغاء أو تعديل دعمك من خلال حسابك في PayPal، أو يمكنك %1$s وسنقوم بذلك نيابةً عنك.
+أما إذا لم تستخدم PayPal، فإن مدفوعاتك تُعالَج عبر Stripe، ويمكنك إلغاء التبرع أو تعديل قيمته من خلال %2$s.</string>
+  <string name="patronPage">صفحة الداعم</string>
   <string name="contactSupport">التواصل مع فريق الدعم في Lichess</string>
   <string name="otherMethods">طرق أخرى للتبرع؟</string>
   <string name="lichessIsRegisteredWith">موقع ليتشيس مسجل لدى %s.</string>
@@ -93,4 +94,5 @@
   <string name="paymentDetails">تفاصيل الدفع</string>
   <string name="updatePaymentMethod">تحديث طريقة الدفع</string>
   <string name="stripeManageSub">إدارة الاشتراك وتنزيل الفواتير والإيصالات الخاصة بك</string>
+  <string name="coverFees">سوف أضيف %s للمساعدة في تغطية تكلفة معالجة هذه المعاملة</string>
 </resources>

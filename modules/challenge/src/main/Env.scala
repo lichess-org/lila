@@ -29,9 +29,9 @@ final class Env(
 )(using
     scheduler: Scheduler
 )(using
-    akka.actor.ActorSystem,
+    org.apache.pekko.actor.ActorSystem,
     Executor,
-    akka.stream.Materializer,
+    org.apache.pekko.stream.Materializer,
     lila.game.IdGenerator,
     lila.core.i18n.Translator,
     lila.core.config.RateLimit

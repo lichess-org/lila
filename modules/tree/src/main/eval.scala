@@ -14,10 +14,11 @@ case class Eval(cp: Option[Ev.Cp], mate: Option[Ev.Mate], best: Option[Uci]):
 
   def score: Option[Score] = cp.map(Score.Cp(_)).orElse(mate.map(Score.Mate(_)))
 
-  def forceAsCp: Option[Ev.Cp] = cp.orElse(mate.map {
-    case m if m.negative => Ev.Cp(Int.MinValue - m.value)
-    case m => Ev.Cp(Int.MaxValue - m.value)
-  })
+  def forceAsCp: Option[Ev.Cp] = cp.orElse:
+    mate.map: m =>
+      if m.value == 0 then Ev.Cp(Int.MinValue) // side to move is mated
+      else if m.negative then Ev.Cp(Int.MinValue - m.value)
+      else Ev.Cp(Int.MaxValue - m.value)
 
 object evals:
   val initial = Eval(Some(Ev.Cp.initial), None, None)
@@ -43,7 +44,7 @@ object Knodes extends OpaqueInt[Knodes]:
 
 case class Pv(score: Score, moves: Moves)
 
-case class CloudEval(pvs: NonEmptyList[Pv], knodes: Knodes, depth: lila.core.chess.Depth, by: UserId)
+case class CloudEval(pvs: NonEmptyList[Pv], knodes: Knodes, depth: lila.core.chess.Depth)
 
 object CloudEval:
   type GetSinglePvEval = Position => Fu[Option[CloudEval]]

@@ -1,3 +1,5 @@
+import { memoize } from '@/common';
+
 type Fetch<Result> = (term: string) => Promise<Result[]>;
 
 export interface CompleteOpts<Result> {
@@ -30,7 +32,7 @@ export function complete<Result>(opts: CompleteOpts<Result>): void {
       });
     },
     selectedResult = (): Result | undefined => {
-      if (selectedIndex === null) return;
+      if (selectedIndex === null) return undefined;
       return renderedResults[selectedIndex];
     },
     moveSelection = (offset: number) => {
@@ -42,12 +44,14 @@ export function complete<Result>(opts: CompleteOpts<Result>): void {
       if (result) opts.input.value = opts.populate(result);
     },
     renderSelection = () => {
-      $container.find('.complete-selected').removeClass('complete-selected');
+      $container().find('.complete-selected').removeClass('complete-selected');
       if (selectedIndex !== null)
-        $container.find('.complete-result').eq(selectedIndex).addClass('complete-selected');
+        $container().find('.complete-result').eq(selectedIndex).addClass('complete-selected');
     };
 
-  const $container: Cash = $('<div class="complete-list none"></div>').insertAfter(opts.input);
+  const $container: () => Cash = memoize(() =>
+    $('<div class="complete-list none"></div>').insertAfter(opts.input),
+  );
   let selectedIndex: number | null = null,
     renderedResults: Result[] = [];
 
@@ -57,7 +61,7 @@ export function complete<Result>(opts: CompleteOpts<Result>): void {
     const term = opts.input.value.trim();
     if (term.length >= minLength && (!opts.regex || term.match(opts.regex)))
       fetchResults(term).then(renderResults, console.log);
-    else $container.addClass('none');
+    else $container().addClass('none');
   };
 
   $(opts.input).on({
@@ -65,11 +69,11 @@ export function complete<Result>(opts: CompleteOpts<Result>): void {
     focus: update,
     // must be delayed, otherwise the result click event doesn't fire
     blur() {
-      setTimeout(() => $container.addClass('none'), 100);
+      setTimeout(() => $container().addClass('none'), 100);
       return true;
     },
     keydown(e: KeyboardEvent) {
-      if ($container.hasClass('none')) return;
+      if ($container().hasClass('none')) return undefined;
       if (e.code === 'ArrowDown') {
         moveSelection(1);
         return false;
@@ -79,10 +83,10 @@ export function complete<Result>(opts: CompleteOpts<Result>): void {
         return false;
       }
       if (e.code === 'Enter') {
-        $container.addClass('none');
+        $container().addClass('none');
         const result =
           selectedResult() ||
-          (renderedResults[0] && opts.populate(renderedResults[0]) == opts.input.value
+          (renderedResults[0] && opts.populate(renderedResults[0]) === opts.input.value
             ? renderedResults[0]
             : undefined);
         if (result) {
@@ -90,12 +94,12 @@ export function complete<Result>(opts: CompleteOpts<Result>): void {
           return false;
         }
       }
-      return;
+      return undefined;
     },
   });
 
   const renderResults = (results: Result[]) => {
-    $container.empty();
+    $container().empty();
     if (results[0]) {
       results.forEach(result =>
         $(opts.render(result))
@@ -110,12 +114,12 @@ export function complete<Result>(opts: CompleteOpts<Result>): void {
             if (opts.onSelect) opts.onSelect(result);
             return true;
           })
-          .appendTo($container),
+          .appendTo($container()),
       );
-    } else $container.html(empty());
+    } else $container().html(empty());
     renderedResults = results;
     selectedIndex = null;
     renderSelection();
-    $container.removeClass('none');
+    $container().removeClass('none');
   };
 }

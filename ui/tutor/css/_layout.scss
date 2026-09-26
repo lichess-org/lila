@@ -2,18 +2,21 @@
   @include mq-subnav-side {
     .subnav {
       width: 22ch;
+
       .subnav__subitem {
         margin-left: 1em;
       }
+
       .subnav__subitem2 {
         margin-left: 2em;
-        letter-spacing: 0px;
+        letter-spacing: 0;
       }
     }
   }
 
   &-layout {
     @extend %flex-column;
+
     gap: $block-gap;
   }
 }

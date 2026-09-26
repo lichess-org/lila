@@ -1,6 +1,6 @@
 package lila.common
 
-import akka.actor.*
+import org.apache.pekko.actor.*
 
 /** Delays the work, only runs once at a time per id. Work is ran as late as possible.
   */
@@ -31,7 +31,7 @@ final class LateMultiThrottler(
     case Done(id) =>
       executions = executions - id
 
-    case x => logger.branch("LateMultiThrottler").warn(s"Unsupported message $x")
+    case x => logger.warn(s"LateMultiThrottler Unsupported message $x")
 
 object LateMultiThrottler:
 

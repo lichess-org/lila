@@ -8,9 +8,10 @@ import play.api.libs.ws.StandaloneWSClient
 import scalalib.cache.FrequencyThreshold
 import scalalib.data.LazyFu
 
-import lila.common.Chronometer
+import lila.mon.extensions.*
 
 final private class FirebasePush(
+    unifiedPush: UnifiedWebPush,
     deviceApi: DeviceApi,
     ws: StandaloneWSClient,
     configs: FirebasePush.BothConfigs
@@ -26,35 +27,43 @@ final private class FirebasePush(
       maxSize = Max(512),
       timeout = 10.seconds,
       name = "firebasePush",
-      lila.log.asyncActorMonitor.full
+      lila.mon.asyncActorMonitor.full
     )
 
   def apply(userId: UserId, data: LazyFu[PushApi.Data]): Funit =
+    unifiedPush(userId, data)
     deviceApi
       .findLastManyByUserId("firebase", 3)(userId)
       .flatMap:
         _.sequentiallyVoid: device =>
-          val config = if device.isMobile then configs.mobile else configs.lichobile
-          config.googleCredentials.so: creds =>
-            for
-              data <- data.value
-              _ <-
-                if !data.mobileCompatible.exists(device.isMobileVersionCompatible)
-                then funit // don't send to mobile if incompatible version
-                else if data.firebaseMod.contains(PushApi.Data.FirebaseMod.DataOnly) && !device.isMobile
-                then funit // don't send data messages to lichobile
-                else
-                  for
-                    // access token has 1h lifetime and is requested only if expired
-                    token <- workQueue {
-                      Future:
-                        Chronometer.syncMon(_.blocking.time("firebase")):
-                          creds.refreshIfExpired()
-                          creds.getAccessToken()
-                    }.chronometer.mon(_.push.googleTokenTime).result
-                    _ <- send(token, device, config, data)
-                  yield ()
-            yield ()
+          val configOpt =
+            if device.isMobile then configs.mobile.some
+            else if device.isLichobile then configs.lichobile.some
+            else None
+          configOpt match
+            case None =>
+              logger.info(s"Unsupported firebase device $device")
+              // deviceApi.delete(device) // cleanup unsupported device?
+              funit
+            case Some(config) =>
+              config.googleCredentials.so: creds =>
+                for
+                  data <- data.value
+                  compatible =
+                    data.mobileCompatible.exists(device.isMobileVersionCompatible) ||
+                      data.lichobileCompatible && device.isLichobile
+                  _ <- compatible.so:
+                    for
+                      // access token has 1h lifetime and is requested only if expired
+                      token <- workQueue {
+                        Future:
+                          lila.mon.Chronometer.syncMon(lila.mon.blocking.time("firebase")):
+                            creds.refreshIfExpired()
+                            creds.getAccessToken()
+                      }.chronometer.mon(lila.mon.push.googleTokenTime).result
+                      _ <- send(token, device, config, data)
+                    yield ()
+                yield ()
 
   opaque type StatusCode = Int
   object StatusCode extends OpaqueInt[StatusCode]
@@ -74,36 +83,27 @@ final private class FirebasePush(
       )
       .post:
         Json.obj(
-          "message" -> Json
-            .obj(
-              "token" -> device._id,
-              "data" -> toDataKeyValue:
-                data.firebaseMod.match
-                  case Some(PushApi.Data.FirebaseMod.NotifOnly(mod)) => mod(data.payload.userData)
-                  case _ =>
-                    data.payload.userData ++ (data.iosBadge.map: number =>
-                      "iosBadge" -> number.toString),
-              "android" -> Json.obj("priority" -> "high")
-            )
-            .add:
-              "notification" -> data.firebaseMod.match
-                case Some(PushApi.Data.FirebaseMod.DataOnly) => none
-                case _ => Json.obj("body" -> data.body, "title" -> data.title).some
-            .add:
-              "apns" -> data.iosBadge.map: number =>
-                Json.obj(
-                  "headers" -> Json.obj("apns-priority" -> "10"),
-                  "payload" -> Json.obj:
-                    "aps" -> Json.obj("badge" -> number)
-                )
+          "message" ->
+            FirebasePush
+              .makeMobilePayload(data)
+              .add:
+                "token" -> device._id.some
+              .add:
+                "android" -> Json.obj("priority" -> "high").some
+              .add:
+                "apns" -> data.iosBadge.map: number =>
+                  Json.obj(
+                    "headers" -> Json.obj("apns-priority" -> "10"),
+                    "payload" -> Json.obj:
+                      "aps" -> Json.obj("badge" -> number)
+                  )
         )
       .flatMap: res =>
-        lila.mon.push.firebaseStatus(res.status).increment()
-        lila.mon.push
-          .firebaseType(data.firebaseMod.fold("both"):
-            case PushApi.Data.FirebaseMod.DataOnly => "data"
-            case PushApi.Data.FirebaseMod.NotifOnly(_) => "notif")
-          .increment()
+        val project = if device.isMobile then "mobileV2" else "lichobile"
+        val dataType = data.firebaseMod.fold("both"):
+          case PushApi.Data.FirebaseMod.DataOnly => "data"
+          case PushApi.Data.FirebaseMod.NotifOnly(_) => "notif"
+        lila.mon.push.firebaseStatus(project, dataType, res.status).increment()
         if res.status == 200 then funit
         else if res.status == 404 then
           logger.info(s"Delete missing firebase device $device")
@@ -112,18 +112,15 @@ final private class FirebasePush(
           if errorCounter(res.status) then logger.warn(s"[push] firebase: ${res.status}")
           funit
 
-  private def toDataKeyValue(data: PushApi.Data.KeyValue): JsObject = JsObject:
-    data.view
-      .map: (k, v) =>
-        s"lichess.$k" -> JsString(v)
-      .toMap
-
 private object FirebasePush:
 
-  final class Config(val url: String, val json: lila.core.config.Secret):
+  final class Config(val url: String, val json: lila.core.config.Secret, val jsonPath: String):
     lazy val googleCredentials: Option[GoogleCredentials] =
       try
-        json.value.nonEmptyOption.map: json =>
+        val jsonStr =
+          if jsonPath.nonEmpty then scala.io.Source.fromFile(jsonPath).mkString
+          else json.value
+        jsonStr.nonEmptyOption.map: json =>
           import java.nio.charset.StandardCharsets.UTF_8
           import scala.jdk.CollectionConverters.*
           ServiceAccountCredentials
@@ -138,3 +135,24 @@ private object FirebasePush:
   import lila.common.config.given
   given ConfigLoader[Config] = AutoConfig.loader[Config]
   given ConfigLoader[BothConfigs] = AutoConfig.loader[BothConfigs]
+
+  def makeMobilePayload(data: PushApi.Data): JsObject =
+    Json
+      .obj(
+        "data" -> toDataKeyValue:
+          data.firebaseMod.match
+            case Some(PushApi.Data.FirebaseMod.NotifOnly(mod)) => mod(data.payload.userData)
+            case _ =>
+              data.payload.userData ++ (data.iosBadge.map: number =>
+                "iosBadge" -> number.toString)
+      )
+      .add:
+        "notification" -> data.firebaseMod.match
+          case Some(PushApi.Data.FirebaseMod.DataOnly) => none
+          case _ => Json.obj("body" -> data.body, "title" -> data.title).some
+
+  private def toDataKeyValue(data: PushApi.Data.KeyValue): JsObject = JsObject:
+    data.view
+      .map: (k, v) =>
+        s"lichess.$k" -> JsString(v)
+      .toMap

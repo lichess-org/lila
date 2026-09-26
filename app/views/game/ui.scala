@@ -1,6 +1,6 @@
 package views.game
 
-import lila.app.UiEnv.*
+import lila.app.UiEnv.{ *, given }
 
 val ui = lila.game.ui.GameUi(helpers)
 export ui.mini
@@ -22,15 +22,15 @@ def sides(
 
 def widgets(
     games: Seq[Game],
-    notes: Map[GameId, String] = Map(),
     user: Option[User] = None,
     ownerLink: Boolean = false
 )(using ctx: lila.ui.Context): Frag =
   games.map: g =>
-    ui.widgets(g, notes.get(g.id), user, ownerLink):
+    ui.widgets(g, user = user, ownerLink = ownerLink):
       g.tournamentId
         .map: tourId =>
-          views.tournament.ui.tournamentLink(tourId)(using ctx.translate)
+          given Translate = ctx.translate
+          views.tournament.ui.tournamentLink(tourId)
         .orElse(g.simulId.map: simulId =>
           views.simul.ui.link(simulId))
         .orElse(g.swissId.map: swissId =>

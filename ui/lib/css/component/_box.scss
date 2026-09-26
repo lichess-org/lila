@@ -3,10 +3,9 @@ $vp-max-width: 1200px;
 
 .box {
   @extend %box-shadow;
+  @include backdrop-blur-if-transparent;
 
   background: $c-bg-box;
-
-  @include fluid-size('---box-padding', 15px, 50px);
 
   &-pad {
     @extend %box-padding;
@@ -18,6 +17,7 @@ $vp-max-width: 1200px;
 
   &__top {
     @extend %box-padding, %flex-between;
+
     gap: 1rem;
 
     &__actions {
@@ -31,10 +31,6 @@ $vp-max-width: 1200px;
     }
   }
 
-  // &:not(.box-pad) > h1 {
-  //   @extend %box-padding;
-  // }
-
   &__pad {
     @extend %box-padding-horiz;
   }
@@ -43,5 +39,7 @@ $vp-max-width: 1200px;
 @media (min-width: at-least($small)) {
   .box {
     @include box-radius;
+
+    overflow: hidden;
   }
 }

@@ -33,7 +33,7 @@ export function throttlePromiseWithResult<R, T extends (...args: any) => Promise
     if (!current) return runCurrent();
 
     pending?.reject();
-    const next = new Promise<R>((resolve, reject) => {
+    return new Promise<R>((resolve, reject) => {
       pending = {
         run: () =>
           runCurrent().then(
@@ -49,7 +49,6 @@ export function throttlePromiseWithResult<R, T extends (...args: any) => Promise
         reject: () => reject(new Error('Throttled')),
       };
     });
-    return next;
   };
 }
 
@@ -58,7 +57,7 @@ export function throttlePromise<T extends (...args: any) => Promise<void>>(
   wrapped: T,
 ): (...args: Parameters<T>) => Promise<void> {
   const throttler = throttlePromiseWithResult<void, T>(wrapped);
-  return function (this: any, ...args: Parameters<T>): Promise<void> {
+  return async function (this: any, ...args: Parameters<T>): Promise<void> {
     return throttler.apply(this, args).catch(() => {});
   };
 }
@@ -107,12 +106,11 @@ export function throttle<T extends (...args: any) => void>(
 
 export interface Sync<T> {
   promise: Promise<T>;
-  sync: T | undefined;
+  sync?: T;
 }
 
 export function sync<T>(promise: Promise<T>): Sync<T> {
   const sync: Sync<T> = {
-    sync: undefined,
     promise: promise.then(v => {
       sync.sync = v;
       return v;
@@ -123,7 +121,7 @@ export function sync<T>(promise: Promise<T>): Sync<T> {
 
 // Call an async function with a maximum time limit (in milliseconds) for the timeout
 export async function promiseTimeout<A>(asyncPromise: Promise<A>, timeLimit: number): Promise<A> {
-  let timeoutHandle: Timeout | undefined = undefined;
+  let timeoutHandle: Timeout | undefined;
 
   const timeoutPromise = new Promise<A>((_, reject) => {
     timeoutHandle = setTimeout(() => reject(new Error('Async call timeout limit reached')), timeLimit);
@@ -172,4 +170,42 @@ export function defer<A>(): Deferred<A> {
     deferred.reject = reject;
   });
   return deferred as Deferred<A>;
+}
+
+export function throttleWithFlush<T extends (...args: any[]) => void>(
+  interval: number,
+  wrapped: T,
+): ((...args: Parameters<T>) => void) & { flush: (...args: Parameters<T>) => void; clear: () => void } {
+  let timerId: ReturnType<typeof setTimeout> | undefined;
+  let queued: { thisArg: any; args: Parameters<T> } | undefined;
+
+  const runNext = () => {
+    if (!queued) return (timerId = undefined);
+    const { thisArg, args } = queued;
+    queued = undefined;
+    wrapped.apply(thisArg, args);
+    timerId = setTimeout(runNext, interval);
+    return timerId;
+  };
+
+  const throttled = function (this: any, ...args: Parameters<T>) {
+    if (timerId) queued = { thisArg: this, args };
+    else {
+      wrapped.apply(this, args);
+      timerId = setTimeout(runNext, interval);
+    }
+  };
+
+  throttled.clear = function () {
+    clearTimeout(timerId);
+    timerId = undefined;
+    queued = undefined;
+  };
+
+  throttled.flush = function (this: any, ...args: Parameters<T>) {
+    throttled.clear();
+    wrapped.apply(this, args);
+  };
+
+  return throttled;
 }

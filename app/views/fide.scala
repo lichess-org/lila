@@ -30,7 +30,7 @@ object player:
       player,
       user,
       (tours.nbResults > 0).option:
-        views.relay.tour.renderPager(views.relay.tour.asRelayPager(tours)):
+        views.relay.tour.renderPager(views.relay.tour.playerPager(tours)):
           routes.Fide.show(player.id, player.slug, _)
       ,
       ratings,

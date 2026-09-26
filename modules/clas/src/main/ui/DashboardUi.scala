@@ -317,7 +317,7 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
                       ),
                       td(prog.nb),
                       if progress.isPuzzle then td(dataSort := prog.winRate)(prog.winRate, "%")
-                      else td(dataSort := prog.millis)(lila.core.i18n.translateDuration(prog.duration)),
+                      else td(dataSort := prog.millis)(translator.duration(prog.duration)),
                       td(
                         if progress.isPuzzle then
                           a(href := routes.Puzzle.dashboard(progress.days, "home", user.username.some))(
@@ -371,8 +371,8 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
                         "%"
                       ),
                       td(dataSort := coord.white, cls := "coords")(
-                        i(cls := "color-icon is white")(coord.white),
-                        i(cls := "color-icon is black")(coord.black)
+                        iconTag(cls := "color-icon is white")(coord.white),
+                        iconTag(cls := "color-icon is black")(coord.black)
                       )
                     )
                   }

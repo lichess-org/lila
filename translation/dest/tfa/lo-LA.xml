@@ -7,7 +7,7 @@
   <string name="enterPassword">ປ້ອນລະຫັດຜ່ານຂອງທ່ານ ແລະ ລະຫັດຢືນຢັນທີ່ສ້າງຂຶ້ນໂດຍແອັບເພື່ອສຳເລັດການຕັ້ງຄ່າ. ທ່ານຈະຕ້ອງໃຊ້ລະຫັດຢືນຢັນທຸກຄັ້ງທີ່ທ່ານເຂົ້າສູ່ລະບົບ.</string>
   <string name="ifYouCannotScanEnterX">ຖ້າທ່ານບໍ່ສາມາດສະແກນລະຫັດໄດ້, ໃຫ້ປ້ອນລະຫັດລັບ %s ລົງໃນແອັບຂອງທ່ານ.</string>
   <string name="authenticationCode">ລະຫັດຢືນຢັນຕົວຕົນ</string>
-  <string name="ifYouLoseAccessTwoFactor" comment="%s is &quot;Password reset&quot;.">ໝາຍເຫດ: ຖ້າທ່ານບໍ່ສາມາດເຂົ້າເຖິງລະຫັດຢືນຢັນຕົວຕົນສອງຊັ້ນໄດ້, ທ່ານສາມາດ %s ຜ່ານອີເມວ.</string>
+  <string name="ifYouLoseAccessTwoFactor">ໝາຍເຫດ: ຖ້າທ່ານບໍ່ສາມາດເຂົ້າເຖິງລະຫັດຢືນຢັນຕົວຕົນສອງຊັ້ນໄດ້, ທ່ານສາມາດ %s ຜ່ານອີເມວ.</string>
   <string name="enableTwoFactor">ເປີດໃຊ້ການຢືນຢັນຕົວຕົນສອງຊັ້ນ</string>
   <string name="disableTwoFactor">ປິດໃຊ້ການຢືນຢັນຕົວຕົນສອງຊັ້ນ</string>
   <string name="twoFactorEnabled">ເປີດໃຊ້ການຢືນຢັນຕົວຕົນສອງຊັ້ນແລ້ວ</string>

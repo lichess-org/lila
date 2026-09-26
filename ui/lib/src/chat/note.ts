@@ -1,7 +1,9 @@
-import { h, type VNode } from 'snabbdom';
+import { debounce } from '@/async';
+import { blurOnEscape } from '@/common';
+import { type VNode, onInsert, div, textarea } from '@/view';
+
 import type { NoteCtrl, NoteOpts } from './interfaces';
 import * as xhr from './xhr';
-import { debounce } from '../async';
 
 export function noteCtrl(opts: NoteOpts): NoteCtrl {
   let text: string | undefined = opts.text;
@@ -26,16 +28,14 @@ export function noteCtrl(opts: NoteOpts): NoteCtrl {
 
 export function noteView(ctrl: NoteCtrl, autofocus: boolean): VNode {
   const text = ctrl.text();
-  if (text === undefined) return h('div.loading', { hook: { insert: ctrl.fetch } });
-  return h('textarea.mchat__note', {
+  if (text === undefined) return div('.loading', { hook: { insert: ctrl.fetch } });
+  return textarea()('.mchat__note', {
     attrs: { placeholder: i18n.site.typePrivateNotesHere, spellcheck: 'false' },
-    hook: {
-      insert(vnode) {
-        const el = vnode.elm as HTMLTextAreaElement;
-        el.value = text;
-        if (autofocus) el.focus();
-        $(el).on('change keyup paste', () => ctrl.post(el.value));
-      },
-    },
+    hook: onInsert<HTMLTextAreaElement>(el => {
+      el.value = text;
+      if (autofocus) el.focus();
+      blurOnEscape(el);
+      $(el).on('change keyup paste', () => ctrl.post(el.value));
+    }),
   });
 }

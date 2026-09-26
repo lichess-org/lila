@@ -24,7 +24,7 @@ private class RelayTeamsTextarea(val text: String):
   private type PlayerNameStr = String
 
   lazy val teams: Map[TeamName, List[PlayerNameStr | FideId]] = text.linesIterator
-    .take(1000)
+    .take(1500)
     .toList
     .flatMap: line =>
       line.split(';').map(_.trim) match
@@ -39,10 +39,10 @@ private class RelayTeamsTextarea(val text: String):
     teams.flatMap: (team, players) =>
       players.map(_ -> team)
 
-  def update(games: RelayGames): RelayGames = games.map: game =>
+  def update(games: RelayGames)(using Tokenize): RelayGames = games.map: game =>
     game.copy(tags = update(game.tags))
 
-  private def update(tags: Tags): Tags =
+  private def update(tags: Tags)(using Tokenize): Tags =
     Color.all.foldLeft(tags): (tags, color) =>
       val found = tags
         .fideIds(color)
@@ -51,17 +51,14 @@ private class RelayTeamsTextarea(val text: String):
       found.fold(tags): team =>
         tags + Tag(_.teams(color), team)
 
-  private def findMatching(player: PlayerNameStr | FideId)(using tokenize: Tokenize): Option[TeamName] =
-
-    val tokenizePlayer: PlayerNameStr | FideId => PlayerToken | FideId =
-      case name: PlayerNameStr => tokenize(name)
-      // typing with `fideId: FideId` results in a compiler warning. The current code however is ok.
-      case fideId => fideId
-
-    lazy val tokenizedPlayerTeams: Map[PlayerToken | FideId, TeamName] =
-      playerTeams.mapKeys(tokenizePlayer)
-
+  private def findMatching(player: PlayerNameStr | FideId)(using Tokenize): Option[TeamName] =
+    def tokenizedPlayerTeams: Map[PlayerToken | FideId, TeamName] = playerTeams.mapKeys(tokenizePlayer)
     playerTeams.get(player).orElse(tokenizedPlayerTeams.get(tokenizePlayer(player)))
+
+  private def tokenizePlayer(using tokenize: Tokenize): PlayerNameStr | FideId => PlayerToken | FideId =
+    case name: PlayerNameStr => tokenize.exec(name)
+    // typing with `fideId: FideId` results in a compiler warning. The current code however is ok.
+    case fideId => fideId
 
 object RelayTeam:
   import chess.{ Color, ByColor }
@@ -73,7 +70,11 @@ object RelayTeam:
         copy(players =
           players.updated(
             id,
-            players.get(id).fold(player)(rp => rp.copy(games = rp.games ++ player.games))
+            players
+              .get(id)
+              .fold(player)(rp =>
+                rp.copy(games = rp.games ++ player.games, score = rp.score |+| player.score)
+              )
           )
         )
     def points = players.values.toList.foldMap(_.score)
@@ -215,7 +216,8 @@ final class RelayTeamTable(
               round.rated,
               chess.FideTC.standard,
               round.customScoring,
-              false
+              unplayed = false,
+              ongoing = false
             )
           m0 = table.find(_.is(teams)) | TeamMatch(
             round.id,
@@ -311,8 +313,14 @@ final class RelayTeamLeaderboard(
       .showTeamScores(scoreGroup.head)
       .flatMapz:
         for
-          rounds <- scoreGroup.toList.flatTraverse(roundRepo.idsByTourOrdered)
-          matches <- rounds.flatTraverse(teamTable.table)
+          tourIds = scoreGroup.toList
+          tours <- tourRepo.byIds(tourIds)
+          rounds <-
+            if RelayGroup.sgIsParallel(tours)
+            then roundRepo.byToursOrdered(tourIds).map(_.sortBy(_.startsAtTime))
+            else tourIds.flatTraverse(roundRepo.byTourOrdered(_))
+          roundIds = rounds.map(_.id)
+          matches <- roundIds.flatTraverse(teamTable.table)
         yield matches.foldLeft(SeqMap.empty: TeamLeaderboard): (acc, matchup) =>
           matchup.teams
             .foldLeft(acc): (acc, team) =>

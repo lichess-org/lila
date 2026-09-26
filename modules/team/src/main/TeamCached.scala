@@ -32,6 +32,10 @@ final class TeamCached(
     def sync = TeamCached.this.sync
     export lightCache.preloadSet as preload
 
+  def lightMapById(ids: List[TeamId]): Fu[Map[TeamId, LightTeam]] =
+    for teams <- lightCache.asyncMany(ids)
+    yield teams.flatten.map(t => t.id -> t).toMap
+
   def isMember(teamId: TeamId)(using myId: MyId): Fu[Boolean] =
     teamIdsCache.async(myId).dmap(_.contains(teamId))
 
@@ -42,17 +46,17 @@ final class TeamCached(
       memberRepo.coll
         .aggregateOne(_.sec): framework =>
           import framework.*
-          Match($doc("_id".$startsWith(s"$u@"))) -> List(
-            Project($doc("_id" -> $doc("$substr" -> $arr("$_id", u.value.size + 1, -1)))),
+          Match(bdoc("_id".regexStart(s"$u@"))) -> List(
+            Project(bdoc("_id" -> bdoc("$substr" -> barr("$_id", u.value.size + 1, -1)))),
             PipelineOperator(
-              $lookup.simple(
+              lookup.simple(
                 from = teamRepo.coll,
                 as = "team",
                 local = "_id",
                 foreign = "_id",
                 pipe = List(
-                  $doc("$match" -> $doc("enabled" -> true)),
-                  $doc("$project" -> $id(true))
+                  bdoc("$match" -> bdoc("enabled" -> true)),
+                  bdoc("$project" -> bid(true))
                 )
               )
             ),
@@ -70,7 +74,7 @@ final class TeamCached(
   export teamIdsCache.{ async as teamIds, invalidate as invalidateTeamIds, sync as syncTeamIds }
   def teamIdsList[U: UserIdOf](user: U): Fu[List[TeamId]] = teamIds(user.id).dmap(_.toList)
 
-  val nbRequests = cacheApi[UserId, Int](32_768, "team.nbRequests"):
+  val nbRequests = cacheApi[UserId, Int](65_536, "team.nbRequests"):
     _.expireAfterAccess(40.minutes)
       .maximumSize(131_072)
       .buildAsyncFuture[UserId, Int]: userId =>
@@ -83,5 +87,5 @@ final class TeamCached(
   private[team] val forumAccess = cacheApi[TeamId, Access](256, "team.forum.access"):
     _.expireAfterWrite(5.minutes).buildAsyncFuture(id => teamRepo.forumAccess(id).dmap(_ | Access.None))
 
-  val unsubs = cacheApi[TeamId, Int](512, "team.unsubs"):
+  val unsubs = cacheApi[TeamId, Int](128, "team.unsubs"):
     _.expireAfterWrite(1.hour).buildAsyncFuture(memberRepo.countUnsub)

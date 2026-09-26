@@ -21,7 +21,7 @@
   <string name="puzzleRead">Bulmaca etkinliğini okuyun</string>
   <string name="teamRead">Özel ekip bilgilerini okuyun</string>
   <string name="teamWrite">Takımlara katıl ve ayrıl</string>
-  <string name="teamLead">Liderlik ettiğiniz ekipleri yönetin: PM\'ler gönderin, üyeleri atın</string>
+  <string name="manageTeamsYouLead">Lideri olduğunuz takımları yönetin: doğrudan mesaj gönderin, üyeleri çıkarın</string>
   <string name="followRead">Takip edilen oyuncuları oku</string>
   <string name="followWrite">Diğer oyuncuları takip edin ve takibi bırakın</string>
   <string name="msgWrite">Diğer oyunculara özel mesajlar gönderin</string>
@@ -29,7 +29,6 @@
   <string name="botPlay">Bot API\'si ile oyunlar oynayın</string>
   <string name="engineRead">Harici motorlarınızı görüntüleyin ve kullanın</string>
   <string name="engineWrite">Harici motorlar oluşturun ve güncelleyin</string>
-  <string name="webLogin">Kimliği doğrulanmış web sitesi oturumları oluşturun (tam erişim sağlar!)</string>
   <string name="webMod">Moderatör araçlarını kullanın (izniniz dahilinde)</string>
   <string name="personalAccessTokens">Kişisel API erişim jetonları</string>
   <string name="canMakeOauthRequests">OAuth isteklerini %s üzerinden geçmeden yapabilirsiniz.</string>

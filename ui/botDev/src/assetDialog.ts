@@ -1,13 +1,15 @@
-import { domDialog, type Dialog, alert, confirm } from 'lib/view';
-import { frag } from 'lib';
-import * as licon from 'lib/licon';
-import { renderRemoveButton } from './devUtil';
 import { wireCropDialog } from 'bits/crop';
+
+import { frag } from 'lib';
+import { licon } from 'lib/licon';
+import { domDialog, type Dialog, alert, confirm } from 'lib/view';
+
 import { env } from './devEnv';
+import { renderRemoveButton } from './devUtil';
 
 export type AssetType = 'image' | 'book' | 'sound';
 
-const mimeTypes: { [type in AssetType]?: string[] } = {
+const mimeTypes: Record<AssetType, string[]> = {
   image: ['image/jpeg', 'image/png', 'image/webp'],
   book: ['application/x-chess-pgn', 'application/vnd.chess-pgn', 'application/octet-stream', '.pgn'],
   sound: ['audio/mpeg', 'audio/aac'],
@@ -17,7 +19,7 @@ export class AssetDialog {
   private dlg: Dialog;
   private resolve?: (key: string | undefined) => void;
   private type: AssetType;
-  private isChooser: boolean;
+  private readonly isChooser: boolean;
   constructor(type?: AssetType) {
     if (!type || type === 'image') wireCropDialog();
     this.isChooser = type !== undefined;
@@ -48,6 +50,7 @@ export class AssetDialog {
         this.dlg = await domDialog({
           class: `dev-view asset-dialog${this.isChooser ? ' chooser' : ''}`,
           htmlText: this.bodyHtml(),
+          easyClose: 'clickOutside',
           onClose: () => this.resolve?.(undefined),
           actions: [
             { event: ['dragover', 'drop'], listener: this.dragDrop },
@@ -89,20 +92,19 @@ export class AssetDialog {
   }
 
   private renderAsset([key, name]: [string, string]) {
-    const wrap = frag<HTMLElement>(`<div class="asset-item${
-      env.assets.isLocalOnly(key) ? ' local-only' : ''
-    }" data-asset="${key}">
+    const localOnly = env.assets.isLocalOnly(key);
+    const wrap =
+      frag<HTMLElement>(`<div class="asset-item${localOnly ? ' local-only' : ''}" data-asset="${key}">
         <div class="asset-preview"></div>
-        <input type="text" class="asset-label" data-type="string" value="${name}"
-${this.isChooser || !env.canPost ? ' disabled' : ''} spellcheck="false"></input>
+        <input type="text" class="asset-label" data-type="string" value="${name}" ${this.isChooser || !env.canPost ? ' disabled' : ''} spellcheck="false" />
       </div>`);
     if (!this.isChooser) {
-      const localOnly = env.assets.isLocalOnly(key);
       if (localOnly || env.canPost) wrap.append(renderRemoveButton('upper-right'));
       if (localOnly && env.canPost) {
         wrap.append(
-          frag(`<button class="button button-empty icon-btn upper-left" tabindex="0"
-          data-icon="${licon.UploadCloud}" data-action="push" title="upload asset to server">`),
+          frag(
+            `<button class="button button-empty icon-btn upper-left" tabindex="0" data-icon="${licon.UploadCloud}" data-action="push" title="upload asset to server">`,
+          ),
         );
       }
     }
@@ -110,7 +112,7 @@ ${this.isChooser || !env.canPost ? ' disabled' : ''} spellcheck="false"></input>
     return wrap;
   }
 
-  private dragDrop = (e: DragEvent): void => {
+  private readonly dragDrop = (e: DragEvent): void => {
     e.preventDefault();
     if (e.type === 'dragover') {
       e.dataTransfer!.dropEffect = 'copy';
@@ -128,14 +130,14 @@ ${this.isChooser || !env.canPost ? ' disabled' : ''} spellcheck="false"></input>
     }
   };
 
-  private nameChange = (e: Event): void => {
+  private readonly nameChange = (e: Event): void => {
     const el = e.target as HTMLInputElement;
     const key = el.closest('.asset-item')!.getAttribute('data-asset')!;
     if (this.local.get(key) === el.value) return;
     if (this.validName(el.value)) env.assets.rename(this.type, key, el.value);
   };
 
-  private nameKeyDown = (e: KeyboardEvent): void => {
+  private readonly nameKeyDown = (e: KeyboardEvent): void => {
     const el = e.target as HTMLElement;
     if (e.key === 'Enter') {
       const key = el.closest('.asset-item')!.getAttribute('data-asset')!;
@@ -149,7 +151,7 @@ ${this.isChooser || !env.canPost ? ' disabled' : ''} spellcheck="false"></input>
     }
   };
 
-  private delete = async (e: Event): Promise<void> => {
+  private readonly delete = async (e: Event): Promise<void> => {
     e.stopPropagation();
     const el = (e.currentTarget as Element).closest('.asset-item')!;
     const key = el.getAttribute('data-asset')!;
@@ -158,7 +160,7 @@ ${this.isChooser || !env.canPost ? ' disabled' : ''} spellcheck="false"></input>
     this.update();
   };
 
-  private push = async (e: Event): Promise<string | undefined> => {
+  private readonly push = async (e: Event): Promise<string | undefined> => {
     e.stopPropagation();
     const el = (e.currentTarget as Element).closest('.asset-item') as HTMLElement;
     const key = el.dataset.asset!;
@@ -167,6 +169,7 @@ ${this.isChooser || !env.canPost ? ' disabled' : ''} spellcheck="false"></input>
         class: 'alert',
         htmlText: `<div>push as: <input type="text" value="${this.local.get(key) ?? key}"></div>
           <span><button class="button">upload</button></span>`,
+        easyClose: 'clickOutside',
         actions: {
           selector: 'button',
           listener: async (_, dlg) => {
@@ -190,7 +193,7 @@ ${this.isChooser || !env.canPost ? ' disabled' : ''} spellcheck="false"></input>
     return name;
   };
 
-  private clickTab = (e: Event): void => {
+  private readonly clickTab = (e: Event): void => {
     const tab = (e.currentTarget as HTMLElement).closest('.tab')!;
     const type = tab?.textContent?.slice(0, -1) as AssetType;
     if (!tab || type === this.type) return;
@@ -200,16 +203,16 @@ ${this.isChooser || !env.canPost ? ' disabled' : ''} spellcheck="false"></input>
     this.update();
   };
 
-  private clickItem = (e: Event): void => {
+  private readonly clickItem = (e: Event): void => {
     const item = (e.currentTarget as HTMLElement).closest('.asset-item') as HTMLElement;
     const oldKey = item?.getAttribute('data-asset');
     if (oldKey && this.isChooser) return this.resolve?.(oldKey);
   };
 
-  private addItem = () => {
+  private readonly addItem = () => {
     const fileInputEl = document.createElement('input');
     fileInputEl.type = 'file';
-    fileInputEl.accept = mimeTypes[this.type]!.join(',');
+    fileInputEl.accept = mimeTypes[this.type].join(',');
     fileInputEl.style.display = 'none';
     const onchange = () => {
       fileInputEl.removeEventListener('change', onchange);
@@ -246,7 +249,7 @@ ${this.isChooser || !env.canPost ? ' disabled' : ''} spellcheck="false"></input>
     return undefined;
   }
 
-  private categories = {
+  private readonly categories = {
     image: {
       placeholder: `<img src="/${env.assets.path}/image/gray-torso.webp">`,
       preview: (key: string) => frag<HTMLElement>(`<img src="${env.bot.getImageUrl(key)}">`),
@@ -298,7 +301,6 @@ ${this.isChooser || !env.canPost ? ' disabled' : ''} spellcheck="false"></input>
             show: true,
             modal: true,
             focus: '.name',
-            noClickAway: true,
             actions: [
               {
                 selector: '.options',
@@ -353,7 +355,7 @@ ${this.isChooser || !env.canPost ? ' disabled' : ''} spellcheck="false"></input>
       preview: (key: string) => {
         const soundEl = document.createElement('span');
         const audioEl = frag<HTMLAudioElement>(`<audio src="${env.bot.getSoundUrl(key)}"></audio>`);
-        const buttonEl = frag<Node>(
+        const buttonEl = frag(
           `<button class="button button-empty preview-sound" data-icon="${licon.PlayTriangle}" data-play="${key}">0.00s</button>`,
         );
         buttonEl.addEventListener('click', e => {

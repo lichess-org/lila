@@ -28,7 +28,6 @@
   <string name="approved">ستریمەکەی تۆ بە سەرکەوتوی وەرگیرا.</string>
   <string name="pendingReview">ستریمەکەت لەلایەن بەڕێوەبەرانەوە پێداچوونەوەی بۆ دەکرێت.</string>
   <string name="pleaseFillIn">تکایە زانیارییەکانی ستریمەرەکەت پڕبکەرەوە، و وێنەیەک دابنێ.</string>
-  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">کاتێک ئامادە بوویت بۆ ئەوەی وەک ستریمەرێکی لیچێس تۆمار بکرێت، %s</string>
   <string name="submitForReview">پێشکەشی بکە بۆ پێداچوونەوە</string>
   <string name="streamerLanguageSettings">لاپەڕەی ستریمەری لیچێس ئەتوانێت چێژی زیاتر ببەخشێت بە بینەرەکانت بەو زمانەی کە لەلایەن پلاتفۆرمی ستریمەکەتەوە دابینکراوە. زمانی پێشوەختەی دروست بۆ ستریمەکانی شەترەنجەکەت لە ئەپ یان خزمەتگوزارییەکەدا دابنێ کە بۆ پەخشکردن بەکاری دەهێنیت.</string>
   <string name="streamerName">ناوی پەخشەکەی تۆ لە لیچێس</string>
@@ -36,8 +35,8 @@
     <item quantity="one">کورتی بکەرەوە: زۆرترین پیت %s</item>
     <item quantity="other">کورتی بکەرەوە: زۆرترین پیت %s</item>
   </plurals>
-  <string name="visibility" comment="A togglable setting. When enabled, the streamer profile you created will be listed on https://lichess.org/streamer">لە پەیجی ستریمەرەکاندا دیارە</string>
-  <string name="whenApproved" comment="Subtitle to &quot;Visible on the streamers page&quot;.&#10;&#10;This subtitle is to clarify that Lichess moderators approve all applications for the https://lichess.org/streamer page">دوای ئەوەی بەرێوەبەرەکان قبوڵیان کرد</string>
+  <string name="visibility">لە پەیجی ستریمەرەکاندا دیارە</string>
+  <string name="whenApproved">دوای ئەوەی بەرێوەبەرەکان قبوڵیان کرد</string>
   <string name="headline">ناونیشان</string>
   <string name="tellUsAboutTheStream">بە ڕستەیەک بارودۆخی پەخشەکەتمان پێ بڵێ</string>
   <string name="longDescription">بە درێژی باسی بکە</string>

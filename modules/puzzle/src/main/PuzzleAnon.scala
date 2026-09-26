@@ -4,6 +4,7 @@ import scalalib.ThreadLocalRandom
 
 import lila.db.dsl.*
 import lila.memo.CacheApi
+import lila.mon.extensions.*
 
 final class PuzzleAnon(
     colls: PuzzleColls,
@@ -18,7 +19,7 @@ final class PuzzleAnon(
     pool
       .get(angle -> diff)
       .map(color.fold[Vector[Puzzle] => Option[Puzzle]](ThreadLocalRandom.oneOf)(selectWithColor))
-      .mon(_.puzzle.selector.anon.time)
+      .mon(lila.mon.puzzle.selector.anon.time)
       .addEffect:
         _.foreach: puzzle =>
           lila.mon.puzzle.selector.anon.vote.record(100 + math.round(puzzle.vote * 100))
@@ -31,7 +32,7 @@ final class PuzzleAnon(
     nextTry(1)
 
   def getBatchFor(angle: PuzzleAngle, diff: PuzzleDifficulty, nb: Int): Fu[Vector[Puzzle]] =
-    pool.get(angle -> diff).map(_.take(nb)).mon(_.puzzle.selector.anon.batch(nb))
+    pool.get(angle -> diff).map(_.take(nb)).mon(lila.mon.puzzle.selector.anon.batch(nb))
 
   private val poolSize = 150
 
@@ -61,12 +62,12 @@ final class PuzzleAnon(
               import framework.*
               Match(pathApi.select(angle, tier, ratingRange)) -> List(
                 Sample(pathSampleSize),
-                Project($doc("puzzleId" -> "$ids", "_id" -> false)),
+                Project(bdoc("puzzleId" -> "$ids", "_id" -> false)),
                 Unwind("puzzleId"),
                 Sample(poolSize),
                 PipelineOperator:
-                  $doc(
-                    "$lookup" -> $doc(
+                  bdoc(
+                    "$lookup" -> bdoc(
                       "from" -> colls.puzzle.name.value,
                       "localField" -> "puzzleId",
                       "foreignField" -> "_id",
@@ -75,7 +76,7 @@ final class PuzzleAnon(
                   )
                 ,
                 PipelineOperator:
-                  $doc("$replaceWith" -> $doc("$arrayElemAt" -> $arr("$puzzle", 0)))
+                  bdoc("$replaceWith" -> bdoc("$arrayElemAt" -> barr("$puzzle", 0)))
               )
             .map:
               _.view.flatMap(puzzleReader.readOpt).toVector

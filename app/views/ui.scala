@@ -25,9 +25,11 @@ val dgt = lila.web.ui.DgtUi(helpers)
 
 val relation = lila.relation.ui.RelationUi(helpers)
 
+val auth = lila.web.ui.AuthUi(helpers)
+
 object oAuth:
   val token = lila.oauth.ui.TokenUi(helpers)(account.ui.AccountPage, env.mode)
-  val authorize = lila.oauth.ui.AuthorizeUi(helpers)(lightUserFallback)
+  val authorize = lila.oauth.ui.AuthorizeUi(helpers)(lightUserFallback, auth.customLogo)
 
 val style = lila.plan.ui.PlanStyle(helpers)
 val plan = lila.plan.ui.PlanUi(helpers)(style, netConfig.email)
@@ -49,7 +51,7 @@ object account:
   val pages = lila.pref.ui.AccountPages(helpers, ui, flagApi)
   val pref = lila.pref.ui.AccountPref(helpers, prefHelper, ui)
   val twoFactor = lila.pref.ui.TwoFactorUi(helpers, ui)(netConfig.domain)
-  val security = lila.security.ui.AccountSecurity(helpers)(env.net.email, ui.AccountPage)
+  val security = lila.security.ui.AccountSecurity(helpers)(ui.AccountPage)
 
 val practice = lila.practice.ui.PracticeUi(helpers)(
   csp = analyse.ui.bits.cspExternalEngine,
@@ -76,8 +78,6 @@ object opening:
 val video = lila.video.ui.VideoUi(helpers)
 
 val gameSearch = lila.gameSearch.ui.GameSearchUi(helpers)(views.game.widgets(_))
-
-val auth = lila.web.ui.AuthUi(helpers)
 
 val storm = lila.storm.ui.StormUi(helpers)
 

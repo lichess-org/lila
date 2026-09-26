@@ -1,3 +1,4 @@
+@use 'sass:list';
 @import '../../../lib/css/component/material';
 
 $player-height: 1.6rem;
@@ -9,7 +10,7 @@ $player-height: 1.6rem;
 
   @include mq-at-least-col2 {
     .analyse__underboard {
-      margin-top: calc(#{$player-height / 2} + #{$analyse-block-gap} / 2);
+      margin-top: calc(#{list.slash($player-height, 2)} + #{list.slash($analyse-block-gap, 2)});
     }
   }
 
@@ -21,10 +22,11 @@ $player-height: 1.6rem;
 }
 
 .study__player {
-  @extend %flex-between-nowrap, %metal, %box-shadow;
+  @extend %flex-between-nowrap, %metal-bg, %box-shadow;
+  @include inline-end(0);
+  @include backdrop-blur-if-transparent;
 
   position: absolute;
-  @include inline-end(0);
   font-weight: bold;
   width: var(---cg-width, 100%);
   height: $player-height;
@@ -84,18 +86,21 @@ $player-height: 1.6rem;
 
   .info {
     @extend %flex-center-nowrap;
+
     margin-inline-start: 10px;
     overflow: hidden;
 
     .team,
     .name {
-      overflow: hidden;
-      text-overflow: ellipsis;
+      @extend %ellipsis;
+
       max-width: fit-content;
       flex: 1;
     }
+
     a.name {
       color: $c-font;
+
       &:hover {
         color: $c-link;
       }
@@ -106,13 +111,16 @@ $player-height: 1.6rem;
     margin-inline-start: 0.5ch;
     flex: 3;
   }
+
   .team {
     @extend %roboto;
+
     margin-inline-end: 1ch;
     padding: 0 1ch;
     flex: 2;
     color: $c-font-dim;
   }
+
   .mini-game__flag {
     height: 1em;
     width: 1em;

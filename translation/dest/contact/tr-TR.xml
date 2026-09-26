@@ -25,7 +25,7 @@
   <string name="cantChangeMore">Büyük ve küçük harfler dışında kullanıcı adınızı değiştiremeyiz. Teknik sebepler yüzünden bu durum mümkün değil.</string>
   <string name="orCloseAccount">Yine de mevcut hesabınızı kapatıp yeni bir hesap açabilirsiniz.</string>
   <string name="wantClearHistory">Oyun geçmişimi veya puanımı sıfırlamak istiyorum</string>
-  <string name="cantClearHistory">Oyun geçmişinizi, bulmaca geçmişinizi veya puanlarınızı sıfırlamamız maalesef mümkün değil.</string>
+  <string name="cantClearHistoryOrResetRatings">Oyun veya bulmaca geçmişinizi temizlemek, ya da puanlarınızı sıfırlamak mümkün değil.</string>
   <string name="wantReport">Bir oyuncuyu şikâyet etmek istiyorum</string>
   <string name="toReportAPlayerUseForm">Bir oyuncuyu şikayet etmek için şikayet formunu kullanınız</string>
   <string name="youCanAlsoReachReportPage">Ayrıca, oyuncunun profilindeki %s butonuna tıklayarak şikâyet formuna ulaşabilirsiniz.</string>
@@ -39,7 +39,7 @@
   <string name="reportMobileIssue">Lichess mobil uygulaması sorunları adı altında GitHub üzerinden</string>
   <string name="reportBugInDiscord">ve Lichess Discord sunucusundan bize iletebilirsiniz</string>
   <string name="howToReportBug">Lütfen yazılım hatasını tarif edin. Hatayı yaşadığınızda ne ile karşılaşmayı bekliyordunuz ve hangi adımları izledikten sonra hata meydan geldi?</string>
-  <string name="illegalPawnCapture" comment="Appears as an option for reasons to contact Lichess on the 'contact' page: https://lichess.org/contact#help-enpassant&#10;&#10;Players used to routinely write to Lichess stating that there was a bug, or that the other player had hacked their game in some way. In actuality, the player was using the legal move of en passant.&#10;&#10;Please translate this string from the perspective of the player who would be selecting this contact option, and call it 'Illegal', even though we know this is a legal move.">Kural dışı piyon hareketi</string>
+  <string name="illegalPawnCapture">Kural dışı piyon hareketi</string>
   <string name="calledEnPassant">Buna \"geçerken alma\" denir ve bu hareket satrancın kurallarından biridir.</string>
   <string name="tryEnPassant">\"Geçerken alma\" hakkında daha fazla bilgi edinmek için bu etkileşimli oyunu deneyin.</string>
   <string name="illegalCastling">Kural dışı rok atma</string>
@@ -74,4 +74,13 @@
   <string name="noneOfTheAbove">Yukarıdakilerden hiçbiri</string>
   <string name="sendEmailAt">%s üzerinden bize bir e-posta gönderin.</string>
   <string name="explainYourRequest">Lütfen talebinizi açık ve eksiksiz bir şekilde açıklayın. Lichess kullanıcı adınızı ve size yardımcı olmamıza katkıda bulunacak bilgileri belirtin.</string>
+  <string name="monetiseNotInterested">Lichess\'i herhangi bir şekilde ticarileştirmek istemiyoruz.</string>
+  <string name="monetiseNoAdsTrackingOrTraffic">Hiçbir şekilde reklam göstermeyeceğiz, oyuncularımızı takip etmeyeceğiz ve trafik veya kullanıcı alıp satmayacağız.</string>
+  <string name="monetiseNoMarketingEmail">Lütfen pazarlama, takip veya reklam konularında bize e-posta göndermeyin.</string>
+  <string name="monetiseEncourageEveryoneTo" comment="string is value of key monetiseBlockAllAdsAndTrackers">Herkesi %s konusunda teşvik ediyoruz.</string>
+  <string name="monetiseBlockAllAdsAndTrackers">tüm reklamları ve takip araçlarını engellemek</string>
+  <string name="broadcastTournamentOnLichess">Lichess\'te bir turnuva yayınla</string>
+  <string name="ifYouWantToBroadcastClause1">Bir turnuvayı Lichess\'te resmi olarak yayınlamak istiyorsanız veya yayınlarımız hakkında herhangi bir sorunuz varsa:</string>
+  <string name="ifYouWantToBroadcastClause2" comment="string1 is Lichess email, string2 is value of key ourDiscordServer">Lütfen %1$s adresinden veya %2$s üzerinden Yayın Ekibimizle iletişime geçin.</string>
+  <string name="ourDiscordServer">Discord sunucumuz</string>
 </resources>

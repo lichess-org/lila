@@ -48,6 +48,7 @@ object PrefForm:
     val confirmResign = "confirmResign" -> checkedNumber(Pref.ConfirmResign.choices)
     val moretime = "moretime" -> checkedNumber(Pref.Moretime.choices)
     val clockSound = "clockSound" -> booleanNumber
+    val clockTenths = "clockTenths" -> checkedNumber(Pref.ClockTenths.choices)
     val pieceNotation = "pieceNotation" -> booleanNumber
     val ratings = "ratings" -> checkedNumber(Pref.Ratings.choices)
     val flairs = "flairs" -> boolean
@@ -60,6 +61,8 @@ object PrefForm:
       val opacity = "boardOpacity" -> number(0, 100)
       val hue = "boardHue" -> number(0, 100)
     val sayGG = "sayGG" -> checkedNumber(Pref.SayGG.choices)
+    val uiRoundness = "uiRoundness" -> number(0, 15)
+    val bgOpacity = "bgOpacity" -> number(5, 100)
 
   def pref(lichobile: Boolean) = Form(
     mapping(

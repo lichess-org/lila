@@ -22,7 +22,7 @@ object SwissCondition:
       nbRatedGame: Option[NbRatedGame],
       maxRating: Option[MaxRating],
       minRating: Option[MinRating],
-      titled: Option[Titled.type],
+      titled: Option[Titled],
       accountAge: Option[AccountAge],
       allowList: Option[AllowList],
       playYourGames: Option[PlayYourGames.type]

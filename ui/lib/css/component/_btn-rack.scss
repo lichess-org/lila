@@ -5,6 +5,7 @@
   display: inline-flex;
   align-items: center;
   border: $border;
+  border-top: 0;
 
   .btn-rack {
     /* embedded racks */
@@ -12,7 +13,7 @@
   }
 
   &__btn,
-  form {
+  > form {
     @extend %flex-center-nowrap, %metal;
 
     justify-content: center;
@@ -24,8 +25,6 @@
     white-space: nowrap;
 
     &:hover {
-      @extend %metal-hover;
-
       color: $c-font;
     }
 
@@ -39,10 +38,24 @@
       border: 0;
     }
 
-    i {
+    &:first-child:last-child {
+      @extend %box-radius;
+    }
+
+    icon {
       @extend %roboto;
 
       letter-spacing: -1px;
+    }
+  }
+
+  > form {
+    overflow: hidden;
+
+    .btn-rack__btn {
+      border-radius: 0 !important;
+      border: 0;
+      box-shadow: none;
     }
   }
 
@@ -54,6 +67,7 @@
 
       color: #fff;
     }
+
     &[disabled] {
       opacity: 0.7;
       cursor: not-allowed;

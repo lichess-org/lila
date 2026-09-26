@@ -1,6 +1,7 @@
-import { describe, test } from 'node:test';
 import assert from 'node:assert/strict';
-import { embedYoutubeUrl, parseYoutubeUrl } from '../src/youtubeLinkProcessor.ts';
+import { describe, test } from 'node:test';
+
+import { embedYoutubeUrl, parseYoutubeUrl } from '../src/youtubeLinkProcessor';
 
 describe('parseYoutubeUrl - realistic URLs & edge cases', () => {
   test('youtube.com standard watch URL with video ID', () => {

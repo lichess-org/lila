@@ -26,7 +26,7 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
               Ok.page(views.relay.tour.search(pager, query))
         case None =>
           for
-            data <- env.relay.home.get(page)
+            data <- env.relay.home.get // no pagination here
             cms <- env.cms.renderKey("broadcast-announcement", liveCheck = true)
             res <- Ok.async(views.relay.tour.index(data, cms.map(_.html)))
           yield res
@@ -61,7 +61,13 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
           .map(_.mapResults(env.relay.jsonView.tourWithAnyRound(_)))
           .map(JsonOk(_))
 
-  def subscribed(page: Int) = Auth { ctx ?=> me ?=>
+  def pager(pager: String, page: Int) = pager match
+    case "subscribed" => subscribed(page)
+    case "all-private" => allPrivate(page)
+    case "non-official" => nonOfficial(page)
+    case _ => Open(notFound)
+
+  private def subscribed(page: Int) = Auth { ctx ?=> me ?=>
     Reasonable(page, Max(20)):
       for
         pager <- env.relay.pager.subscribedBy(me.userId, page)
@@ -69,13 +75,20 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
       yield page
   }
 
-  def allPrivate(page: Int) = Secure(_.StudyAdmin) { _ ?=> _ ?=>
+  private def allPrivate(page: Int) = Secure(_.StudyAdmin) { _ ?=> _ ?=>
     Reasonable(page, Max(20)):
-      env.relay.pager
-        .allPrivate(page)
-        .flatMap: pager =>
-          Ok.async:
-            views.relay.tour.allPrivate(pager)
+      for
+        pager <- env.relay.pager.allPrivate(page)
+        page <- Ok.async(views.relay.tour.allPrivate(pager))
+      yield page
+  }
+
+  private def nonOfficial(page: Int) = Secure(_.StudyAdmin) { _ ?=> _ ?=>
+    Reasonable(page, Max(20)):
+      for
+        pager <- env.relay.pager.nonOfficialExpensiveNoIndexHitForAdminsOnly(page)
+        page <- Ok.async(views.relay.tour.nonOfficial(pager))
+      yield page
   }
 
   private def page(key: String, menu: String) = Open:
@@ -125,15 +138,15 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
             jsonFormError(err)
           ),
         setup =>
-          env.relay.api.tourUpdate(nav.tour, setup) >>
+          env.relay.api.tourUpdate(nav.tourWithGroup, setup, ctx.impersonatedBy) >>
             negotiate(Redirect(routes.RelayTour.edit(nav.tour.id)).flashSuccess, jsonOkResult)
       )
   }
 
   def delete(id: RelayTourId) = AuthOrScoped(_.Study.Write) { _ ?=> me ?=>
     WithTour(id): tour =>
-      env.relay.api.deleteTourIfOwner(tour) >>
-        Redirect(routes.RelayTour.by(me.username)).flashSuccess
+      for _ <- env.relay.api.deleteTourIfOwner(tour)
+      yield Redirect(routes.RelayTour.by(me.username)).flashSuccess
   }
 
   def image(id: RelayTourId, tag: Option[String]) = AuthBody(lila.web.HashedMultiPart(parse)) { ctx ?=> _ ?=>
@@ -141,19 +154,19 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
       ctx.body.body.file("image") match
         case Some(image) =>
           limit.imageUpload(rateLimited):
-            env.relay.api.image.upload(nav.tour, image, tag).inject(Ok).recover { case e: Exception =>
-              BadRequest(e.getMessage)
+            env.relay.api.image.upload(nav.tour, image, tag, ctx.impersonatedBy).inject(Ok).recover {
+              case e: Exception => BadRequest(e.getMessage)
             }
-        case None => env.relay.api.image.delete(nav.tour, tag) >> Ok
+        case None => env.relay.api.image.delete(nav.tour, tag, ctx.impersonatedBy) >> Ok
   }
 
   def playersView(id: RelayTourId) = Open:
-    WithTour(id): tour =>
-      env.relay.playerApi.jsonList(tour.id).map(JsonStrOk)
+    Found(env.relay.api.tourExists(id)):
+      env.relay.playerApi.jsonList(id).map(JsonStrOk)
 
   def teamLeaderboard(id: RelayTourId) = Open:
-    WithTour(id): tour =>
-      env.relay.teamLeaderboard.leaderboardJson(tour.id).map(JsonStrOk)
+    Found(env.relay.api.tourExists(id)):
+      env.relay.teamLeaderboard.leaderboardJson(id).map(JsonStrOk)
 
   def subscribe(id: RelayTourId, isSubscribed: Boolean) = AuthOrScoped(_.Web.Mobile) { _ ?=> me ?=>
     for _ <- env.relay.api.subscribe(id, me.userId, isSubscribed)
@@ -162,12 +175,10 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
 
   def cloneTour(id: RelayTourId) = Secure(_.Relay) { _ ?=> me ?=>
     WithTour(id): from =>
-      env.relay.api
-        .cloneTour(from)
-        .map: tour =>
-          Redirect(routes.RelayTour.edit(tour.id)).flashSuccess:
-            tour.tier.isDefined.so:
-              "Tournament cloned and set to private for now. See the tier selector."
+      for tour <- env.relay.api.cloneTour(from)
+      yield Redirect(routes.RelayTour.edit(tour.id)).flashSuccess:
+        tour.tier.isDefined.so:
+          "Tournament cloned and set to private for now. See the tier selector."
   }
 
   def show(slug: String, id: RelayTourId) = Open:
@@ -196,7 +207,7 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
       then Redirect(routes.RelayTour.show(group.name.toSlug, id.into(RelayTourId)))
       else
         for
-          allTours <- env.relay.api.toursByIds(group.tours)
+          allTours <- env.relay.api.toursByIds(group.tours.toList)
           tours = if isGrantedOpt(_.StudyAdmin) then allTours else allTours.filter(_.canView)
           page <- Ok.page(views.relay.group.show(group, tours))
         yield page
@@ -221,22 +232,25 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
   yield page
 
   def apiShow(id: RelayTourId) = OpenOrScoped(_.Study.Read, _.Web.Mobile):
-    Found(env.relay.api.tourById(id)): tour =>
-      if !tour.canView && !isGrantedOpt(_.StudyAdmin)
-      then Unauthorized(jsonError("This tournament is private"))
-      else
-        for
-          trs <- env.relay.api.withRounds(tour)
-          group <- env.relay.api.withTours.get(tour.id)
-          photos <- env.relay.playerApi.photosJson(tour.id)
-          json = env.relay.jsonView.fullTourWithRounds(trs, group).add("photos" -> photos.some)
-        yield Ok(json)
+    limit.relay.apiGet(rateLimited):
+      Found(env.relay.api.tourById(id)): tour =>
+        if !tour.canView && !isGrantedOpt(_.StudyAdmin)
+        then Unauthorized(jsonError("This tournament is private"))
+        else
+          for
+            trs <- env.relay.api.withRounds(tour)
+            group <- env.relay.api.withTours.get(tour.id)
+            photos <- env.relay.playerApi.photosJson(tour.id)
+            json = env.relay.jsonView.fullTourWithRounds(trs, group).add("photos" -> photos.some)
+          yield Ok(json)
 
   def pgn(id: RelayTourId) = OpenOrScoped(): ctx ?=>
     Found(env.relay.api.tourById(id)): tour =>
       val canViewPrivate = ctx.isWebAuth || ctx.scopes.has(_.Study.Read)
-      apiC.GlobalConcurrencyLimitPerIP.download(req.ipAddress)(
-        env.relay.pgnStream.exportFullTourAs(tour, ctx.me.ifTrue(canViewPrivate))
+      limit.studyDownload()(
+        env.relay.pgnStream
+          .exportFullTourAs(tour, ctx.me.ifTrue(canViewPrivate))
+          .throttle(limit.studyDownload.perSecond, 1.second)
       ): source =>
         Ok.chunked(source)
           .asAttachmentStream(s"${env.relay.pgnStream.filename(tour)}.pgn")
@@ -245,10 +259,14 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
   def apiIndex = Anon:
     apiC.jsonDownload:
       env.relay.tourStream
-        .officialTourStream(MaxPerSecond(20), Max(getInt("nb") | 20).atMost(100))
+        .officialTourStream(
+          MaxPerSecond(20),
+          Max(getInt("nb") | 20).atMost(100),
+          liveOnly = getBool("live")
+        )
 
   def apiTop(page: Int) = Anon:
-    Reasonable(page, Max(20)):
+    Reasonable(page, Max(5)):
       JsonOk(env.relay.home.getJson(page))
 
   def apiSearch(page: Int, q: String) = Anon:
@@ -285,7 +303,7 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
       for
         canUpdate <- env.relay.api.canUpdate(tour)
         nav <- env.relay.api.formNavigation(tour)
-        res <- if canUpdate then f(nav) else Forbidden.page(views.relay.form.noAccess(nav))
+        res <- if canUpdate then f(nav) else Forbidden.page(views.relay.form.noAccess(tour))
       yield res
 
   private[controllers] def rateLimitCreation(
@@ -296,4 +314,4 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
       else if isGranted(_.Relay) then 2
       else if me.hasTitle || me.isVerified then 5
       else 10
-    limit.relayTour(me.userId -> req.ipAddress, fail, cost = cost)(create)
+    limit.relay.tourCreate(me.userId -> req.ipAddress, fail, cost = cost)(create)

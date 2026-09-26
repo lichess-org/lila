@@ -1,7 +1,7 @@
 package lila.streamer
 
 import scala.collection.concurrent.TrieMap
-import akka.stream.scaladsl.*
+import org.apache.pekko.stream.scaladsl.*
 import play.api.i18n.Lang
 import play.api.libs.json.*
 import play.api.libs.ws.DefaultBodyWritables.*
@@ -13,7 +13,6 @@ import play.api.mvc.Headers
 import lila.common.Json.given
 import lila.core.config.Secret
 import lila.core.config.NetConfig
-import lila.core.data.Html
 
 private object Twitch:
 
@@ -26,7 +25,7 @@ private object Twitch:
   case class HelixStream(
       user_id: TwitchId,
       user_login: TwitchLogin,
-      title: Html,
+      title: String,
       language: String,
       `type`: String
   ):
@@ -60,11 +59,11 @@ final private class TwitchApi(
     cfg: TwitchConfig,
     net: NetConfig,
     cacheApi: lila.memo.CacheApi
-)(using Executor, akka.stream.Materializer):
+)(using Executor, org.apache.pekko.stream.Materializer):
 
   import Twitch.{ given, * }
 
-  private val logger = lila.streamer.logger.branch("twitch")
+  private lazy val logger = lila.log("streamer.twitch")
   private val webhook = net.routeUrl(routes.Streamer.onTwitchEventSub)
   private val eventSubEndpoint = s"${cfg.helixEndpoint}/eventsub/subscriptions"
   private val eventVersions = Map("stream.online" -> "1", "stream.offline" -> "1", "channel.update" -> "2")
@@ -115,7 +114,7 @@ final private class TwitchApi(
               val title = ~(event \ "title").asOpt[String]
               val lang = (event \ "language").asOpt[String].filter(_.nonEmpty).getOrElse("en")
               logger.info(s"channel update: $login ($id) title: $title lang: $lang")
-              lives.updateWith(id)(_.map(_.copy(user_login = login, title = Html(title), language = lang)))
+              lives.updateWith(id)(_.map(_.copy(user_login = login, title = title, language = lang)))
             case _ => ()
           if done.isEmpty then logger.warn(s"Unknown Twitch event notification: $js")
           fuccess(none)
@@ -291,7 +290,7 @@ final private class TwitchApi(
 
   private object bearerToken:
 
-    private val cache = cacheApi.unit[Secret]:
+    private val cache = cacheApi.unit[Secret]("twitch.bearerToken"):
       _.refreshAfterWrite(55.minutes).buildAsyncFuture: _ =>
         renewToken()
 

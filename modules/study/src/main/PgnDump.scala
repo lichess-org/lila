@@ -1,12 +1,13 @@
 package lila.study
 
-import akka.stream.scaladsl.*
+import org.apache.pekko.stream.scaladsl.*
+import play.api.mvc.RequestHeader
 import chess.format.pgn as chessPgn
 import chess.format.pgn.{ Comment, Glyphs, InitialComments, Pgn, PgnStr, PgnTree, Tag, Tags }
 import scalalib.StringOps.slug
 
 import lila.tree.Node.{ Shape, Shapes }
-import lila.tree.{ Analysis, Metas, NewBranch, NewRoot, NewTree, Root }
+import lila.tree.{ Analysis, Branch, Node, Root }
 
 final class PgnDump(
     chapterRepo: ChapterRepo,
@@ -33,6 +34,22 @@ final class PgnDump(
     (flags.comments && chapter.serverEval.exists(_.done))
       .so(analyser.byId(Analysis.Id(study.id, chapter.id)))
       .map(ofChapter(study, flags)(chapter, _))
+
+  def requestPgnFlags(default: WithFlags = defaultFlags)(using RequestHeader): WithFlags =
+    import lila.common.HTTPRequest.{ queryStringBool, queryStringBoolOpt }
+    WithFlags(
+      comments = queryStringBoolOpt("comments") | default.comments,
+      variations = queryStringBoolOpt("variations") | default.variations,
+      clocks = queryStringBoolOpt("clocks") | default.clocks,
+      orientation = queryStringBool("orientation") | default.orientation
+    )
+
+  private val defaultFlags = WithFlags(
+    comments = true,
+    variations = true,
+    clocks = true,
+    orientation = false
+  )
 
   private val fileR = """[\s,]""".r
   private val dateFormatter = java.time.format.DateTimeFormatter.ofPattern("yyyy.MM.dd")
@@ -62,7 +79,10 @@ final class PgnDump(
   private def makeTags(study: Study, chapter: Chapter)(using flags: WithFlags): Tags =
     flags.updateTags:
       Tags:
-        val opening = chapter.opening
+        val opening =
+          chess.variant.Variant.list
+            .openingSensibleVariants(chapter.setup.variant)
+            .so(chess.opening.OpeningDb.searchInFens(chapter.root.mainline.take(40).map(_.fen.opening)))
         val genTags = List(
           Tag(_.Event, s"${study.name}: ${chapter.name}"),
           Tag(_.Variant, chapter.setup.variant.name.capitalize),
@@ -119,37 +139,71 @@ object PgnDump:
   val fullFlags = WithFlags(true, true, true, true)
   val withoutOrientation = fullFlags.copy(orientation = false)
 
+  // the Annotator tag already names the exporting user, so their own comments
+  // are left without an [%anno], which keeps it off the usual single author study
+  case class Exporter(annotator: Option[String]):
+    def owns(id: UserId, name: String): Boolean =
+      annotator.exists(StudyPgnImport.annotatorMatches(_, id, name))
+    def owns(name: String): Boolean =
+      annotator.exists(_.toLowerCase == name.toLowerCase)
+
+  private def exporterOf(tags: Tags) = Exporter(tags("annotator"))
+
   def rootToPgn(root: Root, tags: Tags, comments: InitialComments)(using WithFlags): Pgn =
-    rootToPgn(NewRoot(root), tags, comments)
+    given Exporter = exporterOf(tags)
+    lila.mon.Chronometer.syncMon(lila.mon.study.pgn.time):
+      Pgn(
+        tags,
+        comments,
+        root.children.first.map(branchToTree(_, root.children.variationsOnly)),
+        root.ply.next
+      )
 
-  def rootToPgn(root: Root, tags: Tags)(using WithFlags): Pgn =
-    rootToPgn(NewRoot(root), tags)
-
-  def rootToPgn(root: NewRoot, tags: Tags)(using flags: WithFlags): Pgn =
+  def rootToPgn(root: Root, tags: Tags)(using flags: WithFlags): Pgn =
+    given Exporter = exporterOf(tags)
     val comments =
-      if flags.comments then InitialComments(root.metas.commentWithShapes)
+      if flags.comments then InitialComments(commentsWithShapes(root))
       else InitialComments.empty
     rootToPgn(root, tags, comments)
 
-  def rootToPgn(root: NewRoot, tags: Tags, comments: InitialComments)(using WithFlags): Pgn =
-    Pgn(tags, comments, root.tree.map(treeToTree), root.ply.next)
+  private def branchToTree(branch: Branch, variations: List[Branch])(using
+      flags: WithFlags
+  )(using Exporter): PgnTree =
+    chess.Node(
+      value = branchToMove(branch),
+      child = branch.children.first.map(branchToTree(_, branch.children.variationsOnly)),
+      variations = flags.variations.so(variations.map(branchToVariation))
+    )
 
-  def treeToTree(tree: NewTree)(using flags: WithFlags): PgnTree =
-    if flags.variations then tree.map(branchToMove) else tree.mapMainline(branchToMove)
+  private def branchToVariation(branch: Branch)(using WithFlags, Exporter) =
+    chess.Variation(
+      value = branchToMove(branch),
+      child = branch.children.first.map(branchToTree(_, branch.children.variationsOnly))
+    )
 
-  private def branchToMove(node: NewBranch)(using flags: WithFlags) =
+  private def branchToMove(node: Branch)(using flags: WithFlags)(using Exporter) =
     chessPgn.Move(
       san = node.move.san,
-      glyphs = flags.comments.so(node.metas.glyphs),
-      comments = flags.comments.so(node.metas.commentWithShapes),
+      glyphs = flags.comments.so(node.glyphs),
+      comments = flags.comments.so(commentsWithShapes(node)),
       opening = none,
       result = none,
       timeLeft = flags.clocks.so(node.clock.map(_.centis.roundSeconds))
     )
 
-  extension (metas: Metas)
-    def commentWithShapes: List[Comment] =
-      metas.comments.value.map(_.text.into(Comment)) ::: shapeComment(metas.shapes).toList
+  private def commentsWithShapes(node: Node)(using Exporter): List[Comment] =
+    node.comments.value.map(authoredComment) ::: shapeComment(node.shapes).toList
+
+  private def authoredComment(comment: Node.Comment)(using exporter: Exporter): Comment =
+    comment.by match
+      case Node.Comment.Author.User(id, name) if !exporter.owns(id, name) =>
+        Comment(s"""[%anno "${annoName(name)}", $id] ${comment.text}""")
+      case Node.Comment.Author.External(name) if !exporter.owns(name) =>
+        Comment(s"""[%anno "${annoName(name)}"] ${comment.text}""")
+      case _ => comment.text.into(Comment)
+
+  // the name sits between quotes inside a [%...] block, and neither can be escaped there
+  private def annoName(name: String) = name.filterNot(c => c == '"' || c == ']')
 
   // [%csl Gb4,Yd5,Rf6][%cal Ge2e4,Ye2d4,Re2g4]
   private def shapeComment(shapes: Shapes): Option[Comment] =

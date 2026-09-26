@@ -4,21 +4,15 @@ import play.api.libs.json.*
 
 import lila.app.{ *, given }
 import lila.common.Json.given
-import lila.core.net.ApiVersion
 
 final class Msg(env: Env) extends LilaController(env):
-
-  private val newMobileApi = ApiVersion(5)
 
   def home(before: Option[Long] = None) = AuthOrScoped(_.Web.Mobile) { _ ?=> me ?=>
     before match
       case None =>
         negotiateApi(
           html = Ok.async(inboxJson(none).map(views.msg.home)).map(_.hasPersonalData),
-          api = v =>
-            JsonOk:
-              if v >= newMobileApi then inboxJson(none)
-              else env.msg.compat.inbox(getInt("page"))
+          api = _ => JsonOk(inboxJson(none))
         )
       case Some(before) =>
         JsonOk:
@@ -37,13 +31,10 @@ final class Msg(env: Env) extends LilaController(env):
         .flatMap:
           case None => negotiate(Redirect(routes.Msg.home()), notFoundJson())
           case Some(c) =>
-            def newJson = inboxJson(c.contact.id.some).map { _ + ("convo" -> env.msg.json.convo(c)) }
+            def json = inboxJson(c.contact.id.some).map { _ + ("convo" -> env.msg.json.convo(c)) }
             negotiateApi(
-              html = Ok.async(newJson.map(views.msg.home)),
-              api = v =>
-                JsonOk:
-                  if v >= newMobileApi then newJson
-                  else fuccess(env.msg.compat.thread(c))
+              html = Ok.async(json.map(views.msg.home)),
+              api = _ => JsonOk(json)
             ).map(_.hasPersonalData)
   }
 
@@ -62,19 +53,6 @@ final class Msg(env: Env) extends LilaController(env):
   def convoDelete(username: UserStr) = AuthOrScoped(_.Web.Mobile) { _ ?=> me ?=>
     env.msg.api.delete(username) >>
       JsonOk(inboxJson(none))
-  }
-
-  def compatCreate = AuthBody { ctx ?=> me ?=>
-    ctx.kid.no
-      .so(ctx.noBot)
-      .so(
-        env.msg.compat.create
-          .fold(
-            doubleJsonFormError,
-            _.map: id =>
-              Ok(Json.obj("ok" -> true, "id" -> id))
-          )
-      )
   }
 
   def apiPost(username: UserStr) = AuthOrScopedBody(_.Msg.Write) { ctx ?=> me ?=>

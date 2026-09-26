@@ -1124,10 +1124,6 @@ object Quote:
       "Frederick Milnes Edge"
     ),
     Quote(
-      "Chess is a contest between two men which lends itself particularly to the conflicts surrounding aggression.",
-      "Reuben Fine"
-    ),
-    Quote(
       "Chess is a contributor to net human unhappiness, since the pleasure of victory is greatly exceeded by the pain of defeat.",
       "Bill Hartston"
     ),
@@ -1219,10 +1215,6 @@ object Quote:
       "Michael Basman"
     ),
     Quote("Chess, like love, is infectious at any age.", "Salo Flohr"),
-    Quote(
-      "Chess-play is a good and witty exercise of the mind for some kind of men, but if it proceed from overmuch study, in such a case it may do more harm than good; it is a game too troublesome for some men's brains.",
-      "Robert Burton"
-    ),
     Quote(
       "Combinations with a queen sacrifice are among the most striking and memorable...",
       "Anatoly Karpov"

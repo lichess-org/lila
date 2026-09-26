@@ -52,8 +52,6 @@ object Step:
 
 object StepBuilder:
 
-  private val logger = lila.round.logger.branch("StepBuilder")
-
   def apply(id: GameId, sans: Vector[SanStr], variant: Variant, initialFen: Fen.Full): JsArray =
     val setup = chess.Position.AndFullMoveNumber(variant, initialFen)
 
@@ -87,4 +85,4 @@ object StepBuilder:
   private val logChessError = (id: String) =>
     (err: chess.ErrorStr) =>
       val path = if id == "synthetic" then "analysis" else id
-      logger.info(s"https://lichess.org/$path ${err.value}")
+      logger.info(s"round.StepBuilder https://lichess.org/$path ${err.value}")

@@ -10,20 +10,27 @@ import ScalatagsTemplate.{ *, given }
 final class PostUi(helpers: Helpers, bits: ForumBits):
   import helpers.{ *, given }
 
+  private val postId = attrData("post-id")
+
   def show(
       topic: ForumTopic,
       postWithFrag: ForumPost.WithFrag,
       url: String,
       canReply: Boolean,
       canModCateg: Boolean,
-      canReact: Boolean
+      canReact: Boolean,
+      isTopicFirst: Boolean
   )(using ctx: Context) = postWithFrag match
     case ForumPost.WithFrag(post, body, hide) =>
       val postFrag = div(cls := "forum-post__message expand-text")(
         if post.erased then "<Comment deleted by user>"
         else body
       )
-      st.article(cls := List("forum-post" -> true, "erased" -> post.erased), id := post.number)(
+      st.article(
+        cls := List("forum-post" -> true, "erased" -> post.erased),
+        id := post.id,
+        postId := post.id
+      )(
         div(cls := "forum-post__metas")(
           (!post.erased || canModCateg).option(
             div(
@@ -35,7 +42,10 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
                 post.updatedAt
                   .map: updatedAt =>
                     frag(
-                      span(cls := "post-edited")("edited "),
+                      span(cls := "post-edited")(
+                        trans.site.postEdited(),
+                        " "
+                      ),
                       momentFromNow(updatedAt)
                     )
                   .getOrElse:
@@ -46,9 +56,7 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
                   cls := "forum-post__button edit button button-empty text",
                   tpe := "button",
                   dataIcon := Icon.Pencil
-                )(
-                  "Edit"
-                )
+                )(trans.site.edit())
               ),
               ctx.me.flatMap: me =>
                 given Me = me
@@ -57,7 +65,7 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
                     cls := "forum-post__button quote button button-empty text",
                     tpe := "button",
                     dataIcon := "❝"
-                  )("Quote")
+                  )(trans.site.quote())
                 )
                 if !post.erased && post.canBeEditedByMe
                 then
@@ -66,14 +74,14 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
                       submitButton(
                         cls := "forum-post__button delete button button-empty yes-no-confirm",
                         dataIcon := Icon.Trash,
-                        title := "Delete"
+                        title := trans.site.delete.txt()
                       )
                     ),
                     quoteButton
                   ).some
                 else
                   frag(
-                    (canModCateg && post.number == 1).option:
+                    (isTopicFirst && canModCateg).option:
                       a(
                         cls := "forum-post__button mod-relocate button button-empty",
                         href := routes.ForumPost.relocate(post.id),
@@ -87,7 +95,7 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
                           cls := "forum-post__button delete button button-empty",
                           href := routes.ForumPost.delete(post.id),
                           dataIcon := Icon.Trash,
-                          title := "Delete"
+                          title := trans.site.delete.txt()
                         ),
                         quoteButton
                       )
@@ -124,10 +132,11 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
         ctx.me.soUse[Option[Tag]]:
           post.shouldShowEditForm.option:
             postForm(cls := "edit-post-form none", action := routes.ForumPost.edit(post.id))(
-              lila.ui.bits.markdownTextarea("forumPostBody".some):
+              lila.ui.bits.markdownEditor(MarkdownRealm.forum):
                 textarea(
                   bits.dataTopic := topic.id,
                   name := "changes",
+                  autocomplete := "off",
                   cls := "form-control post-text-area edit-post-box",
                   required
                 )
@@ -150,7 +159,7 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
     val canActuallyReact = canReact && ctx.me.exists(me => !me.isBot && !post.isBy(me))
     val allReactionsVisible =
       ForumPost.Reaction.list.forall(r => (~post.reactions.flatMap(_.get(r))).nonEmpty)
-    div(cls := List("reactions" -> true, "reactions-auth" -> canActuallyReact))(
+    div(cls := List("reactions" -> true, "reactions-auth" -> canActuallyReact), tabindex := -1)(
       (canActuallyReact && !allReactionsVisible).option(
         button(cls := "reactions-toggle", tpe := "button", dataIcon := Icon.PlusButton)
       ),
@@ -207,9 +216,7 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
                           a(cls := "post", href := routes.ForumPost.redirect(view.post.id))(
                             view.categ.name,
                             " - ",
-                            view.topic.name,
-                            "#",
-                            view.post.number
+                            view.topic.name
                           ),
                           p(shorten(Markdown(view.post.text).unlink, 200))
                         ),

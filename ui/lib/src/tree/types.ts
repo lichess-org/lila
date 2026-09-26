@@ -1,11 +1,11 @@
-import type { Outcome, Position, PositionError } from 'chessops';
 import type { Result } from '@badrap/result';
+import type { Outcome, Position } from 'chessops';
 
 export type TreeNodeId = string;
 export type TreePath = string;
 
 interface ClientEvalBase extends EvalScore {
-  bestmove?: Uci;
+  bestmove?: Uci | '(none)';
   ponder?: Uci;
   fen: FEN;
   depth: number;
@@ -19,6 +19,7 @@ export interface CloudEval extends ClientEvalBase {
 export interface LocalEval extends ClientEvalBase {
   cloud?: false;
   millis: number;
+  engineId?: string;
 }
 export type ClientEval = CloudEval | LocalEval;
 
@@ -39,12 +40,14 @@ export interface PvData extends EvalScore {
 }
 
 export interface TablebaseHit {
-  winner: Color | undefined;
+  winner?: Color;
   best?: Uci;
 }
 
 export interface TreeNodeBase {
   // file://./../../tree/src/tree.ts
+  id?: TreeNodeId;
+  children?: TreeNodeBase[];
   ply: Ply;
   uci?: Uci;
   fen: FEN;
@@ -66,18 +69,25 @@ export interface TreeNodeBase {
   puzzle?: 'win' | 'fail' | 'good' | 'retry';
   crazy?: NodeCrazy;
   collapsed?: boolean;
-}
-
-export type PositionResult = Result<Position, PositionError>;
-
-export interface TreeNodeIncomplete extends TreeNodeBase {
-  id?: TreeNodeId;
-  children?: TreeNodeIncomplete[];
   pos?: () => PositionResult; // precomputed
+  dests?: () => Dests;
+  drops?: () => Key[] | undefined;
+  check?: () => boolean;
+  outcome?: () => Outcome | undefined;
 }
 
-export interface TreeNode extends TreeNodeBase {
+type TreeNodeFunctionProps<T> = {
+  [K in keyof T]-?: NonNullable<T[K]> extends (...args: any) => any ? K : never;
+}[keyof T];
+
+export interface TreeNodeLite extends Omit<TreeNodeBase, TreeNodeFunctionProps<TreeNodeBase>> {
   id: TreeNodeId;
+  children: TreeNodeLite[];
+}
+
+export type PositionResult = Result<Position>;
+
+export interface TreeNode extends TreeNodeLite {
   children: TreeNode[];
   pos: () => PositionResult;
   dests: () => Dests;
@@ -90,7 +100,7 @@ export interface NodeCrazy {
   pockets: [CrazyPocket, CrazyPocket];
 }
 
-export type CrazyPocket = { [role in Exclude<Role, 'king'>]?: number };
+export type CrazyPocket = Record<Exclude<Role, 'king'>, number>;
 
 export interface TreeComment {
   id: string;

@@ -30,7 +30,7 @@ object BsonHandlers:
         byes = ~r.getO[Set[SwissRoundNumber]](byes)
       )
     def writes(w: BSON.Writer, o: SwissPlayer) =
-      $doc(
+      bdoc(
         id -> o.id,
         swissId -> o.swissId,
         userId -> o.userId,
@@ -77,7 +77,7 @@ object BsonHandlers:
           )
         case _ => sys.error("Invalid swiss pairing users")
     def writes(w: BSON.Writer, o: SwissPairing) =
-      $doc(
+      bdoc(
         id -> o.id,
         swissId -> o.swissId,
         round -> o.round,
@@ -94,6 +94,7 @@ object BsonHandlers:
         nbRounds = r.get[Int]("n"),
         rated = chess.Rated(r.boolO("r") | true),
         description = r.strO("d"),
+        payouts = r.getO[Payouts]("py"),
         position = r.getO[Fen.Full]("f"),
         chatFor = r.intO("c") | Swiss.ChatFor.default,
         roundInterval = (r.intO("i") | 60).seconds,
@@ -103,10 +104,11 @@ object BsonHandlers:
         manualPairings = r.getD[String]("mp")
       )
     def writes(w: BSON.Writer, s: Swiss.Settings) =
-      $doc(
+      bdoc(
         "n" -> s.nbRounds,
         "r" -> s.rated.no.option(false),
         "d" -> s.description,
+        "py" -> s.payouts,
         "f" -> s.position,
         "c" -> (s.chatFor != Swiss.ChatFor.default).option(s.chatFor),
         "i" -> s.roundInterval.toSeconds.toInt,
@@ -122,7 +124,7 @@ object BsonHandlers:
   def addFeaturable(s: Swiss): Bdoc =
     bsonWriteObjTry[Swiss](s).get ++ {
       s.isNotFinished.so(
-        $doc(
+        bdoc(
           "featurable" -> true,
           "garbage" -> s.unrealisticSettings.option(true)
         )

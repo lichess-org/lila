@@ -7,6 +7,7 @@ import play.api.mvc.{ EssentialAction, Result }
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
 import lila.core.socket.Sri
+import lila.core.id.SessionId
 import lila.game.AnonCookie
 import lila.setup.Processor.HookResult
 import lila.setup.ValidFen
@@ -56,7 +57,7 @@ final class Setup(
                   (origUser, ctx.req.sid)
                     .match
                       case (Some(orig), _) => toRegistered(orig).some
-                      case (_, Some(sid)) => Challenger.Anonymous(sid).some
+                      case (_, Some(sid)) => Challenger.Anonymous(sid.value).some
                       case _ if HTTPRequest.isLichobile(ctx.req) => Challenger.Open.some
                       case _ => none
                     .so: challenger =>
@@ -96,7 +97,7 @@ final class Setup(
         )
     case HookResult.Refused => JsonBadRequest(("Game was not created"))
 
-  def hook(sri: Sri) = OpenOrScopedBody(parse.anyContent)(_.Web.Mobile): ctx ?=>
+  def hook(sri: Sri) = OpenOrScopedBody(parse.anyContent)(_.Web.Mobile, _.Web.Takex3): ctx ?=>
     NoBot:
       NoPlaybanOrCurrent:
         bindForm(forms.hook)(
@@ -142,7 +143,7 @@ final class Setup(
   def boardApiHook = WithBoardApiHookAuthor { (author, reqSri) => ctx ?=>
     forms
       .boardApiHook:
-        ctx.isMobileOauth || (ctx.isAnon && HTTPRequest.isLichessMobile(ctx.req))
+        ctx.isMobileOauth || ctx.isTakex3 || (ctx.isAnon && HTTPRequest.isLichessMobile(ctx.req))
       .bindFromRequest()
       .fold(
         doubleJsonFormError,
@@ -151,17 +152,23 @@ final class Setup(
             me <- ctx.me.so(env.user.api.withPerfs)
             blocking <- ctx.me.so(env.relation.api.fetchBlocking(_))
             sri = orUserSri(author)
+            _ = lila.mon.lobby.hook
+              .apiCreate:
+                if ctx.isMobileOauth then env.oAuth.signedClients.mobile.clientId.value
+                else if ctx.isTakex3 then env.oAuth.signedClients.takex3.clientId.value
+                else "other"
+              .increment()
             forcedColor <- env.lobby.boardApiHookStream.mustPlayAsColor(config.color)
             res <- forcedColor.match
               case Some(forced) => fuccess(JsonBadRequest(s"You must also play some games as $forced"))
               case None =>
                 config
-                  .hook(reqSri | sri, me, sid = sri.value.some, lila.core.pool.Blocking(blocking))
+                  .hook(reqSri | sri, me, sid = sri.into(SessionId).some, lila.core.pool.Blocking(blocking))
                   .match
                     case Left(hook) =>
                       limit.setupPost(req.ipAddress, rateLimited):
                         limit
-                          .boardApiConcurrency(author.map(_.id), msg = req.userAgent.value)(
+                          .boardApiConcurrency(author.map(_.id))(
                             env.lobby.boardApiHookStream(hook.copy(boardApi = true))
                           )(jsOptToNdJson)
                           .toFuccess
@@ -189,7 +196,7 @@ final class Setup(
   private def WithBoardApiHookAuthor(
       f: (Either[Sri, lila.user.User], Option[Sri]) => BodyContext[?] ?=> Fu[Result]
   ): EssentialAction =
-    AnonOrScopedBody(parse.anyContent)(_.Board.Play, _.Web.Mobile): ctx ?=>
+    AnonOrScopedBody(parse.anyContent)(_.Board.Play, _.Web.Mobile, _.Web.Takex3): ctx ?=>
       NoBot:
         val reqSri = getAs[Sri]("sri")
         ctx.me match
@@ -207,17 +214,18 @@ final class Setup(
       case None => BadRequest
       case Some(v) => Ok.snip(views.analyse.ui.miniSpan(v.fen.board, v.color))
 
-  def apiAi = ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play, _.Web.Mobile) { ctx ?=> me ?=>
-    limit.setupBotAi(me, rateLimited, cost = me.isBot.so(1)):
-      limit.setupPost(req.ipAddress, rateLimited):
-        bindForm(forms.api.ai)(
-          doubleJsonFormError,
-          config =>
-            processor.apiAi(config).map { pov =>
-              val json = env.game.jsonView.apiAiNewGame(pov, config.fen)
-              Created(json).as(JSON)
-            }
-        )
+  def apiAi = ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play, _.Web.Mobile, _.Web.Takex3) {
+    ctx ?=> me ?=>
+      limit.setupBotAi(me, rateLimited, cost = me.isBot.so(1)):
+        limit.setupPost(req.ipAddress, rateLimited):
+          bindForm(forms.api.ai)(
+            doubleJsonFormError,
+            config =>
+              processor.apiAi(config).map { pov =>
+                val json = env.game.jsonView.apiAiNewGame(pov, config.fen)
+                Created(json).as(JSON)
+              }
+          )
   }
 
   private[controllers] def redirectPov(pov: Pov)(using ctx: Context) =

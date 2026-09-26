@@ -47,7 +47,7 @@
 
     margin: 3em 10% 1em 10%;
     padding: 2em 3em 3em 3em;
-    background: $m-secondary_bg--mix-30;
+    background: color-mix(in oklab, $c-secondary 30%, $c-bg);
     font-size: 1.3em;
 
     strong {

@@ -1,3 +1,4 @@
+@use 'sass:math';
 @import '../../lib/css/component/material';
 
 .material {
@@ -25,6 +26,7 @@
 
   score {
     @extend %roboto;
+
     line-height: 32px;
     vertical-align: top;
   }
@@ -38,8 +40,8 @@
     }
 
     mpiece {
-      width: $col1-mat-height * 3/4;
-      height: $col1-mat-height * 3/4;
+      width: math.div($col1-mat-height * 3, 4);
+      height: math.div($col1-mat-height * 3, 4);
       margin-inline-start: -8px !important;
     }
   }

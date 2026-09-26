@@ -1,36 +1,37 @@
-import { h } from 'snabbdom';
-import type LobbyController from '@/ctrl';
-import * as licon from 'lib/licon';
-import { bind } from 'lib/view';
-import { tds, perfNames } from '../util';
+import { perfName } from 'lib/game/perf';
 import perfIcons from 'lib/game/perfIcons';
+import { licon } from 'lib/licon';
+import { bind, dataIcon, tr, span, td, button, th, thead, tbody, icon, table } from 'lib/view';
+import { profileUrl } from 'lib/view/userLink';
+
+import type LobbyController from '@/ctrl';
 import * as hookRepo from '@/hookRepo';
 import type { Hook } from '@/interfaces';
 
 function renderHook(ctrl: LobbyController, hook: Hook) {
-  return h(
-    'tr.hook.' + hook.action,
+  return tr(
+    `.hook.${hook.action}`,
     {
       key: hook.id,
       class: { disabled: !!hook.disabled },
-      attrs: {
-        role: 'button',
-        title: hook.disabled
-          ? ''
-          : hook.action === 'join'
-            ? i18n.site.joinTheGame + ' | ' + perfNames[hook.perf]
-            : i18n.site.cancel,
-        'data-id': hook.id,
-      },
+      role: 'button',
+      title: hook.disabled
+        ? ''
+        : hook.action === 'join'
+          ? i18n.site.joinTheGame + ' | ' + perfName(hook.perf)
+          : i18n.site.cancel,
+      'data-id': hook.id,
     },
-    tds([
-      ctrl.me
-        ? h('span.ulink.ulpt.mobile-powertip', { attrs: { 'data-href': '/@/' + hook.u } }, hook.u)
-        : i18n.site.anonymous,
-      ...(!ctrl.me ? [] : !ctrl.opts.showRatings ? [''] : [hook.rating + (hook.prov ? '?' : '')]),
-      hook.clock,
-      h('span', { attrs: { 'data-icon': perfIcons[hook.perf] } }, i18n.site[hook.ra ? 'rated' : 'casual']),
-    ]),
+    [
+      td(
+        ctrl.me && hook.u
+          ? span('.ulink.ulpt.mobile-powertip', { 'data-href': profileUrl(hook.u) }, hook.u)
+          : i18n.site.anonymous,
+      ),
+      !ctrl.me ? null : td(!ctrl.opts.showRatings ? '' : [hook.rating + (hook.prov ? '?' : '')]),
+      td(hook.clock),
+      td(span({ ...dataIcon(perfIcons[hook.perf]) }, i18n.site[hook.ra ? 'rated' : 'casual'])),
+    ],
   );
 }
 
@@ -41,69 +42,66 @@ const isMine = (hook: Hook) => hook.action === 'cancel';
 const isNotMine = (hook: Hook) => !isMine(hook);
 
 export const toggle = (ctrl: LobbyController) =>
-  h('i.toggle', {
+  button('.toggle', {
     key: 'set-mode-chart',
-    attrs: { title: i18n.site.graph, 'data-icon': licon.LineGraph },
-    hook: bind('mousedown', _ => ctrl.setMode('chart'), ctrl.redraw),
+    title: i18n.site.graph,
+    ...dataIcon(licon.LineGraph),
+    hook: bind('click', _ => ctrl.setMode('chart'), ctrl.redraw),
   });
 
 export const render = (ctrl: LobbyController, allHooks: Hook[]) => {
-  const mine = allHooks.find(isMine),
-    max = mine ? 13 : 14,
-    hooks = allHooks.slice(0, max),
-    render = (hook: Hook) => renderHook(ctrl, hook),
-    standards = hooks.filter(isNotMine).filter(isStandard(true));
+  const mine = allHooks.find(isMine);
+  const max = mine ? 13 : 14;
+  const hooks = allHooks.slice(0, max);
+  const render = (hook: Hook) => renderHook(ctrl, hook);
+  const standards = hooks.filter(isNotMine).filter(isStandard(true));
   hookRepo.sort(ctrl, standards);
+
   const variants = hooks
     .filter(isNotMine)
     .filter(isStandard(false))
     .slice(0, Math.max(0, max - standards.length - 1));
   hookRepo.sort(ctrl, variants);
+
   const renderedHooks = [
     ...standards.map(render),
     variants.length
-      ? h('tr.variants', { key: 'variants' }, [
-          h('td', { attrs: { colspan: 5 } }, '— ' + i18n.site.variant + ' —'),
-        ])
+      ? tr('.variants', { key: 'variants' }, td({ attrs: { colspan: 5 } }, '— ' + i18n.site.variant + ' —'))
       : null,
     ...variants.map(render),
   ];
+
   if (mine) renderedHooks.unshift(render(mine));
-  return h('table.hooks__list', [
-    h(
-      'thead',
-      h('tr', [
-        h('th'),
-        ...[
+
+  return table('.hooks__list', [
+    thead(
+      tr([
+        th(),
+        ctrl.me
+          ? th(
+              {
+                class: { sortable: true, sort: ctrl.sort === 'rating' },
+                hook: bind('click', _ => ctrl.setSort('rating'), ctrl.redraw),
+              },
+              [icon(licon.DownTriangle)('.is'), i18n.site.rating],
+            )
+          : null,
+        th(
           ctrl.me
-            ? h(
-                'th',
-                {
-                  class: { sortable: true, sort: ctrl.sort === 'rating' },
-                  hook: bind('click', _ => ctrl.setSort('rating'), ctrl.redraw),
-                },
-                [h('i.is'), i18n.site.rating],
-              )
-            : null,
-          h(
-            'th',
-            ctrl.me
-              ? {
-                  key: 'time-header-with-rating',
-                  class: { sortable: true, sort: ctrl.sort === 'time' },
-                  hook: bind('click', _ => ctrl.setSort('time'), ctrl.redraw),
-                }
-              : {
-                  key: 'time-header-without-rating',
-                },
-            [h('i.is'), i18n.site.time],
-          ),
-        ],
-        h('th', [h('i.is'), i18n.site.mode]),
+            ? {
+                key: 'time-header-with-rating',
+                class: { sortable: true, sort: ctrl.sort === 'time' },
+                hook: bind('click', _ => ctrl.setSort('time'), ctrl.redraw),
+              }
+            : {
+                key: 'time-header-without-rating',
+              },
+          [icon(licon.DownTriangle)('.is'), i18n.site.time],
+        ),
+        th(i18n.site.mode),
       ]),
     ),
-    h(
-      'tbody',
+    tbody(
       {
         class: { stepping: ctrl.stepping },
         hook: bind(

@@ -35,13 +35,14 @@
   <string name="celebratedPatrons">Οι διάσημοι Υποστηρικτές που έκαναν το Lichess πραγματικότητα</string>
   <string name="whereMoneyGoes">Που πηγαίνουν τα χρήματα;</string>
   <string name="serversAndDeveloper">Καταρχάς, σε ισχυρούς διακομιστές.
-Έπειτα, πληρώνουμε έναν προγραμματιστή πλήρους απασχόλησης: τον %s, ιδρυτή του Lichess.</string>
+Έπειτα, πληρώνουμε έναν προγραμματιστή πλήρους απασχόλησης: τον %s, ιδρυτή του Lichess.
+</string>
   <string name="costBreakdown">Δείτε εδώ τα αναλυτικά έξοδα του lichess</string>
   <string name="officialNonProfit">Είναι το Lichess μια επίσημη μη κερδοσκοπική οργάνωση;</string>
   <string name="actOfCreation">Ναι, δείτε εδώ την ιδρυτική πράξη (στα γαλλικά)</string>
   <string name="changeMonthlySupport">Μπορώ να αλλάξω/ακυρώσω την μηνιαία υποστήριξη μου;</string>
-  <string name="changeOrContact">Ναι, οποιαδήποτε στιγμή, από αυτή τη σελίδα.
-Εναλλακτικά, μπορείτε %s.</string>
+  <string name="changeSupport">Αν οι πληρωμές σας πραγματοποιούνται μέσω PayPal, μπορείτε να ακυρώσετε/τροποποιήσετε το ποσό της στήριξης σας μέσω του PayPal λογαριασμού σας. Εναλλακτικά μπορείτε να %1$s και θα το κάνουμε εμείς για εσάς. Αντίθετα, αν δεν χρησιμοποιείτε PayPal, τότε το Stripe επεξεργάζεται τις πληρωμές σας και μπορείτε να ακυρώσετε την δωρεά σας ή να αλλάξετε το ποσό της στην %2$s.</string>
+  <string name="patronPage">σελίδα δωρεών</string>
   <string name="contactSupport">να επικοινωνήσετε με την εξυπηρέτηση του Lichess</string>
   <string name="otherMethods">Υπάρχουν άλλοι τρόποι δωρεάς;</string>
   <string name="lichessIsRegisteredWith">Το Lichess είναι συμβεβλημένο με την πλατφόρμα %s.</string>
@@ -84,5 +85,5 @@
   <string name="paymentDetails">Στοιχεία πληρωμής</string>
   <string name="updatePaymentMethod">Ενημέρωση μεθόδου πληρωμής</string>
   <string name="stripeManageSub">Διαχειριστείτε τη συνδρομή σας και κατεβάστε τα τιμολόγια και τις αποδείξεις σας</string>
-  <string name="coverFees" comment="%s is a monetary amount. It will be localised depending on the currency where you are e.g. &quot;$0.25&quot; in the United States, &quot;€0.20&quot; in the Eurozone, and so on.&#10;The amount may appear before or after the number, depending on the language (e.g. as &quot;0,25 €&quot; in certain languages &amp; locales).&#10;&#10;Appears as an option when donating to Lichess (https://lichess.org/patron), letting you pay a bit more to cover the transaction fees which would be part of your donation.">Θα δωρίσω επιπλέον %s για την κάλυψη του κόστους επεξεργασίας της συναλλαγής</string>
+  <string name="coverFees">Θα δωρίσω επιπλέον %s για την κάλυψη του κόστους επεξεργασίας της συναλλαγής</string>
 </resources>

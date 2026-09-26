@@ -1,7 +1,9 @@
-import { type GameCtrl } from './gameCtrl';
 import * as co from 'chessops';
+
 import { escapeHtml, frag } from 'lib';
+
 import { env } from './devEnv';
+import { type GameCtrl } from './gameCtrl';
 
 export function analyse(gameCtrl: GameCtrl): void {
   const local = gameCtrl.live;

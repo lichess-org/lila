@@ -1,15 +1,17 @@
 import type { VNode } from 'snabbdom';
-import * as licon from 'lib/licon';
+
+import { licon } from 'lib/licon';
 import { spinnerVdom, bind, dataIcon, hl } from 'lib/view';
+import { fullName } from 'lib/view/userLink';
 import { numberRow } from 'lib/view/util';
-import { player as renderPlayer } from './util';
+
+import type SwissCtrl from '../ctrl';
 import type { Pairing } from '../interfaces';
 import { isOutcome } from '../util';
-import type SwissCtrl from '../ctrl';
-import { fullName } from 'lib/view/userLink';
+import { player as renderPlayer } from './util';
 
 export default function (ctrl: SwissCtrl): VNode | undefined {
-  if (!ctrl.playerInfoId) return;
+  if (!ctrl.playerInfoId) return undefined;
   const data = ctrl.data.playerInfo;
   const tag = 'div.swiss__player-info.swiss__table';
   if (data?.user.id !== ctrl.playerInfoId)
@@ -20,7 +22,7 @@ export default function (ctrl: SwissCtrl): VNode | undefined {
     ? Math.round(data.sheet.reduce((r, p) => r + (!isOutcome(p) ? p.rating : 1), 0) / games)
     : undefined;
   return hl(tag, { hook: { insert: setup, postpatch: (_, vnode) => setup(vnode) } }, [
-    hl('a.close', {
+    hl('button.close', {
       attrs: dataIcon(licon.X),
       hook: bind('click', () => ctrl.showPlayerInfo(data), ctrl.redraw),
     }),
@@ -51,7 +53,7 @@ export default function (ctrl: SwissCtrl): VNode | undefined {
           const round = ctrl.data.round - i;
           if (isOutcome(p))
             return hl('tr.' + p, { key: round }, [
-              hl('th', '' + round),
+              hl('th', round),
               hl('td.outcome', { attrs: { colspan: 3 } }, p),
               hl('td', p === 'absent' ? '-' : p === 'bye' ? '1' : '½'),
             ]);
@@ -61,12 +63,12 @@ export default function (ctrl: SwissCtrl): VNode | undefined {
             {
               key: round,
               attrs: { 'data-href': '/' + p.g + (p.c ? '' : '/black') },
-              hook: { destroy: vnode => $.powerTip.destroy(vnode.elm as HTMLElement) },
+              hook: { destroy: vnode => $.powerTip.destroy(vnode.elm) },
             },
             [
-              hl('th', '' + round),
+              hl('th', round),
               hl('td', fullName(p.user)),
-              ctrl.opts.showRatings && hl('td', '' + p.rating),
+              ctrl.opts.showRatings && hl('td', p.rating),
               hl('td.is.color-icon.' + (p.c ? 'white' : 'black')),
               hl('td.result', res),
             ],

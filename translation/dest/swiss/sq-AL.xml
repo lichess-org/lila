@@ -60,7 +60,6 @@ Mblidhni pikët e çdo kundërshtari që lojtari mund dhe gjysmën e pikëve të
   <string name="pairingsA">Me %1$s, sendërtuar nga %2$s, në përputhje me %3$s.</string>
   <string name="moreRoundsThanPlayersQ">Ç’ndodh, nëse turneu ka më shumë raunde se lojtarë?</string>
   <string name="moreRoundsThanPlayersA">Kur janë luajtur krejt çiftimet e mundshme, turneu do të përfundojë dhe do të shpallet një fitues.</string>
-  <string name="restrictedToTeamsQ">Pse kufizohet për ekipet?</string>
   <string name="restrictedToTeamsA">Turnetë zvicerane nuk janë menduar për shah internetor. Ato lypin përpikëri, përkushtim dhe durim nga lojtarët.
 Mendojmë se këto kushte ka më shumë gjasa të plotësohen brenda një ekipi, se sa në turne globalë.</string>
   <string name="numberOfByesQ">Sa mirupafshim mund të marrë një lojtar?</string>
@@ -109,7 +108,6 @@ Gjëja më e afërt e një Round Robin-i në internet është të luhet një tur
   <string name="streaksAndBerserk">Vijimësi dhe Berserk</string>
   <string name="similarToOTB">I ngjashëm me turne OTB</string>
   <string name="unlimitedAndFree">I pakufizuar dhe i lirë</string>
-  <string name="forbiddedUsers">Nëse kjo listë s’është e zbrazët, atëherë përdorues jo të pranishën në këtë listë s’do të lejohen të marrin pjesë. Një emër përdoruesi për rresht.</string>
   <string name="playYourGames">Luani lojërat tuaja</string>
   <string name="absences">Mungesa</string>
 </resources>

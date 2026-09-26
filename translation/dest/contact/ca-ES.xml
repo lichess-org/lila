@@ -25,7 +25,7 @@
   <string name="cantChangeMore">No podem canviar més que les majúscules/minúscules. Per motius tècnics, és del tot impossible.</string>
   <string name="orCloseAccount">Tot i això, pots tancar el teu compte actual i crear-ne un de nou.</string>
   <string name="wantClearHistory">Vull esborrar el meu historial o puntuació</string>
-  <string name="cantClearHistory">No és possible esborrar l\'historial de jocs, l\'historial de trencaclosques o les classificacions.</string>
+  <string name="cantClearHistoryOrResetRatings">No és possible esborrar l\'historial de jocs, problemes o restablir les puntuacions.</string>
   <string name="wantReport">Vull denunciar un jugador</string>
   <string name="toReportAPlayerUseForm">Per denunciar un usuari, fes servir el formulari de denúncies</string>
   <string name="youCanAlsoReachReportPage">També podeu arribar a aquesta pàgina si feu clic al botó de denuncies per %s en una pàgina de perfil.</string>
@@ -39,7 +39,7 @@
   <string name="reportMobileIssue">Com un problema de l\'aplicació mòbil a Github</string>
   <string name="reportBugInDiscord">Al servidor Discord de Lichess</string>
   <string name="howToReportBug">Si us plau, descriu com es veu l\'error, què esperaves que succeís, i els passos per a reproduir l\'error.</string>
-  <string name="illegalPawnCapture" comment="Appears as an option for reasons to contact Lichess on the 'contact' page: https://lichess.org/contact#help-enpassant&#10;&#10;Players used to routinely write to Lichess stating that there was a bug, or that the other player had hacked their game in some way. In actuality, the player was using the legal move of en passant.&#10;&#10;Please translate this string from the perspective of the player who would be selecting this contact option, and call it 'Illegal', even though we know this is a legal move.">Captura de peo il·legal</string>
+  <string name="illegalPawnCapture">Captura de peo il·legal</string>
   <string name="calledEnPassant">Es diu captura al pas i és una de les regles dels escacs.</string>
   <string name="tryEnPassant">Prova aquest petit joc interactiu per aprendre més sobre la captura al pas.</string>
   <string name="illegalCastling">Enroc il·legal o impossible</string>
@@ -74,4 +74,13 @@
   <string name="noneOfTheAbove">Cap de les anteriors</string>
   <string name="sendEmailAt">Envia\'ns un correu a %s.</string>
   <string name="explainYourRequest">Expliqueu la vostra sol·licitud de manera clara i minuciosa. Indiqueu el vostre nom d’usuari de Lichess i qualsevol informació que ens pugui ajudar.</string>
+  <string name="monetiseNotInterested">No estem interessats en cap forma de monetitzar Lichess.</string>
+  <string name="monetiseNoAdsTrackingOrTraffic">Mai mostrarem cap mena d\'anunci, no fem seguiment dels nostres jugadors i no comprarem o vendrem tràfic o usuaris.</string>
+  <string name="monetiseNoMarketingEmail">Si us plau, no ens envieu email de màrqueting, seguiment o publicitat.</string>
+  <string name="monetiseEncourageEveryoneTo" comment="string is value of key monetiseBlockAllAdsAndTrackers">Recomanem a tothom %s.</string>
+  <string name="monetiseBlockAllAdsAndTrackers">bloquejar els anuncis i els seguiments</string>
+  <string name="broadcastTournamentOnLichess">Retransmet un torneig a Lichess</string>
+  <string name="ifYouWantToBroadcastClause1">Si voleu retransmetre un torneig de forma oficial a Lichess o teniu algun dubte sobre les retransmissions:</string>
+  <string name="ifYouWantToBroadcastClause2" comment="string1 is Lichess email, string2 is value of key ourDiscordServer">Si us plau, contacta el nostre equip de retransmissions a  %1$s o %2$s.</string>
+  <string name="ourDiscordServer">al nostre servidor de Discord</string>
 </resources>

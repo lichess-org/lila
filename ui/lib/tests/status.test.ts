@@ -1,7 +1,8 @@
-import { describe, test } from 'node:test';
 import assert from 'node:assert/strict';
-import { bishopOnColor, expandFen, insufficientMaterial } from '../src/game/view/status';
+import { describe, test } from 'node:test';
+
 import { each } from '../../.test/helpers.mts';
+import { bishopOnColor, expandFen, insufficientMaterial } from '../src/game/view/status';
 
 describe('expand fen', () => {
   test('starting position', () =>

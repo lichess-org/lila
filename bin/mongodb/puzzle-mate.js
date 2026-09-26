@@ -5,7 +5,7 @@ db.puzzle.find({ tags: { $exists: true } }).forEach(function (o) {
     },
     {
       $set: {
-        mate: o.tags.indexOf('forced mate') !== -1,
+        mate: o.tags.includes('forced mate'),
       },
       $unset: {
         tags: true,

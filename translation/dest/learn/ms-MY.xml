@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="byPlaying">!dengan bermain!</string>
+  <string name="learnChess">Belajar catur</string>
+  <string name="byPlaying">dengan bermain!</string>
   <string name="play">main!</string>
   <string name="chessPieces">Bidak catur</string>
   <string name="theRook">Benteng</string>
+  <string name="itMovesInStraightLines">Ia bergerak dalam garisan lurus</string>
   <string name="theBishop">Gajah</string>
+  <string name="bishopIntro">Sekarang, kita akan belajar cara mengawal gajah!</string>
   <string name="theQueen">Menteri</string>
   <string name="queenCombinesRookAndBishop">Menteri = Benteng + Gajah</string>
   <string name="theKing">Raja</string>

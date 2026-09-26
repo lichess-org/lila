@@ -1,29 +1,29 @@
 package views.lobby
 
 import lila.app.UiEnv.{ *, given }
+import lila.round.UrgentGames
 
 object blindLobby:
 
-  def apply(games: List[Pov])(using Context) =
+  def apply(games: UrgentGames)(using Context) =
     div(
-      h2(trans.swiss.ongoingGames(games.size)),
-      games.nonEmpty.option(ongoingGames(games)),
+      h2(trans.swiss.ongoingGames(games.value.size)),
+      games.value.nonEmpty.option(ongoingGames(games)),
       div(cls := "lobby__app")
     )
 
-  private def ongoingGames(games: List[Pov])(using Context) =
-    games.partition(_.isMyTurn) match
-      case (myTurn, opTurn) =>
-        frag(
-          h3(trans.site.yourTurn(), " : ", trans.site.nbGames.plural(myTurn.size, myTurn.size.localize)),
-          ul(myTurn.map(renderGame)),
-          h3(
-            trans.site.waitingForOpponent(),
-            " : ",
-            trans.site.nbGames.plural(opTurn.size, opTurn.size.localize)
-          ),
-          ul(opTurn.map(renderGame))
-        )
+  private def ongoingGames(games: UrgentGames)(using Context) =
+    val (myTurn, opTurn) = games.value.partition(_.isMyTurn)
+    frag(
+      h3(trans.site.yourTurn(), " : ", trans.site.nbGames.plural(myTurn.size, myTurn.size.localize)),
+      ul(myTurn.map(renderGame)),
+      h3(
+        trans.site.waitingForOpponent(),
+        " : ",
+        trans.site.nbGames.plural(opTurn.size, opTurn.size.localize)
+      ),
+      ul(opTurn.map(renderGame))
+    )
 
   private def renderGame(pov: Pov)(using Context) =
     li(

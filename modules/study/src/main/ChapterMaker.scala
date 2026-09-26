@@ -14,31 +14,51 @@ final private class ChapterMaker(
     chatApi: lila.core.chat.ChatApi,
     gameRepo: lila.core.game.GameRepo,
     pgnDump: lila.core.game.PgnDump,
-    namer: lila.core.game.Namer
+    namer: lila.core.game.Namer,
+    gameOpening: lila.core.game.GameOpening
 )(using Executor):
 
   import ChapterMaker.*
 
-  def apply(study: Study, data: Data, order: Int, userId: UserId, withRatings: Boolean): Fu[Chapter] =
+  def apply(
+      study: Study,
+      data: Data,
+      order: Int,
+      userId: UserId,
+      withRatings: Boolean,
+      nameOrder: Option[Int] = None
+  ): Fu[Chapter] =
     data.game
       .so(parseGame)
       .flatMap:
         case None => fromFenOrPgnOrBlank(study, data, order, userId)
         case Some(game) => fromGame(study, game, data, order, userId, withRatings)
       .map: c =>
-        if c.name.value.isEmpty then c.copy(name = Chapter.defaultName(order)) else c
+        if c.name.value.isEmpty then c.copy(name = Chapter.defaultName(nameOrder | order)) else c
 
   def fromFenOrPgnOrBlank(study: Study, data: Data, order: Int, userId: UserId): Fu[Chapter] =
     data.pgn.filter(_.value.trim.nonEmpty) match
       case Some(pgn) => fromPgn(study, pgn, data, order, userId)
       case None => fuccess(fromFenOrBlank(study, data, order, userId))
 
-  private def fromPgn(study: Study, pgn: PgnStr, data: Data, order: Int, userId: UserId): Fu[Chapter] =
-    for
-      contributors <- lightUser.asyncMany(study.members.contributorIds.toList)
-      parsed <- StudyPgnImport.result(pgn, contributors.flatten).toFuture.recoverWith { case e: Exception =>
-        fufail(ValidationException(e.getMessage))
+  def toStudyPgn(
+      study: Study,
+      pgn: PgnStr,
+      importerId: UserId,
+      strict: Boolean
+  ): Fu[StudyPgnImport.Result] = for
+    contributors <- lightUser.asyncMany(study.members.contributorIds.toList).map(_.flatten)
+    importer = contributors.find(_.id == importerId)
+    parsed <- StudyPgnImport
+      .result(pgn, contributors, strict = strict, importer = importer)
+      .toFuture
+      .recoverWith { case e: Exception =>
+        fufail(StudyValidationException(e.getMessage))
       }
+  yield parsed
+
+  private def fromPgn(study: Study, pgn: PgnStr, data: Data, order: Int, userId: UserId): Fu[Chapter] =
+    for parsed <- toStudyPgn(study, pgn, userId, strict = false)
     yield Chapter.make(
       studyId = study.id,
       name = getChapterNameFromPgn(data, parsed),
@@ -57,16 +77,18 @@ final private class ChapterMaker(
     )
 
   private def getChapterNameFromPgn(data: Data, parsed: StudyPgnImport.Result): StudyChapterName =
-    def vsFromPgnTags = for
-      white <- parsed.tags(_.White)
-      black <- parsed.tags(_.Black)
-    yield s"$white - $black"
+    def fromPgnTags =
+      (parsed.tags(_.White), parsed.tags(_.Black)) match
+        case (Some(white), Some(black)) => Some(s"$white - $black")
+        case (Some(white), None) => Some(white)
+        case (None, Some(black)) => Some(black)
+        case (None, None) => parsed.tags("Event")
     data.name.some
       .ifFalse(data.isDefaultName)
       .orElse(parsed.chapterNameHint)
       .orElse:
         StudyChapterName.from:
-          vsFromPgnTags.orElse(parsed.tags("Event")).map(_.trim).filter(_.nonEmpty)
+          fromPgnTags.map(_.trim).filter(_.nonEmpty)
       .getOrElse(data.name)
 
   private def resolveOrientation(data: Data, root: Root, userId: UserId, tags: Tags = Tags.empty): Color =
@@ -84,7 +106,7 @@ final private class ChapterMaker(
       // else we show from the perspective of whoever turn it is to move
       case _ => root.lastMainlineNode.color
 
-  private def fromFenOrBlank(study: Study, data: Data, order: Int, userId: UserId): Chapter =
+  def fromFenOrBlank(study: Study, data: Data, order: Int, userId: UserId): Chapter =
     val variant = data.variant | Variant.default
     val (root, isFromFen) =
       data.fen.filterNot(_.isInitial).flatMap { Fen.readWithMoveNumber(variant, _) } match
@@ -115,7 +137,7 @@ final private class ChapterMaker(
       conceal = data.isConceal.option(root.ply)
     )
 
-  private[study] def fromGame(
+  private def fromGame(
       study: Study,
       game: Game,
       data: Data,
@@ -126,7 +148,7 @@ final private class ChapterMaker(
   ): Fu[Chapter] =
     for
       root <- makeRoot(game, data.pgn, initialFen)
-      tags <- pgnDump.tags(game, initialFen, none, withOpening = true, withRatings)
+      tags <- pgnDump.tags(game, initialFen, none, gameOpening(game, true), withRatings)
       name <-
         if data.isDefaultName then
           StudyChapterName.from(namer.gameVsText(game, withRatings)(using lightUser.async))
@@ -164,7 +186,7 @@ final private class ChapterMaker(
         )
       }
 
-  private[study] def makeRoot(
+  def makeRoot(
       game: Game,
       pgnOpt: Option[PgnStr],
       initialFen: Option[Fen.Full]
@@ -191,9 +213,7 @@ final private class ChapterMaker(
       case UrlRegex(id) => parseGame(id)
       case _ => fuccess(none)
 
-private[study] object ChapterMaker:
-
-  case class ValidationException(message: String) extends lila.core.lilaism.LilaException
+private object ChapterMaker:
 
   enum Mode:
     def key = toString.toLowerCase

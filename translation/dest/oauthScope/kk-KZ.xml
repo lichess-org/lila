@@ -21,7 +21,6 @@
   <string name="puzzleRead">Жұмбақ шешу белсенділігін оқу</string>
   <string name="teamRead">Жеке топ мәліметтерін оқу</string>
   <string name="teamWrite">Топқа қосылу, шығу</string>
-  <string name="teamLead">Қоласты топтарыңызды басқару: жеке хабар жіберу, мүшелерін шығару</string>
   <string name="followRead">Серік болған ойыншыларды оқу</string>
   <string name="followWrite">Ойыншыларға серік болу, болмау</string>
   <string name="msgWrite">Ойыншыларға жеке хабар жіберу</string>
@@ -29,7 +28,6 @@
   <string name="botPlay">Бот API-мен ойнау</string>
   <string name="engineRead">Бөтен есептеуіштерді көру, қолдану</string>
   <string name="engineWrite">Бөтен есептеуіштерді құру, жаңарту</string>
-  <string name="webLogin">Сайттың өкіл-расталған сессиясын құру (толық рұқсаты болады!)</string>
   <string name="webMod">Модератор құралдарын пайдалану (рұқсаттар аясында)</string>
   <string name="personalAccessTokens">Жеке API токен-дер</string>
   <string name="canMakeOauthRequests">Сіз %s қолданбай-ақ OAuth сұранысын құра аласыз.</string>

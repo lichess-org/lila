@@ -44,7 +44,6 @@
   <string name="youAreNowASpectator">Tagad esat skatītājs</string>
   <string name="pgnTags">PGN birkas</string>
   <string name="like">Patīk</string>
-  <string name="unlike">Noņemt atzīmi \"patīk\"</string>
   <string name="newTag">Jauna birka</string>
   <string name="commentThisPosition">Komentēt šo pozīciju</string>
   <string name="commentThisMove">Komentēt šo gājienu</string>
@@ -65,7 +64,6 @@
   <string name="downloadGame">Lejupielādēt spēli</string>
   <string name="studyUrl">Izpētes URL</string>
   <string name="currentChapterUrl">Pašreizējās nodaļas URL</string>
-  <string name="youCanPasteThisInTheForumToEmbed">Šo varat ielīmēt forumā, lai iegultu</string>
   <string name="startAtInitialPosition">Sākt no sākotnējās pozīcijas</string>
   <string name="startAtX">Sākt ar %s</string>
   <string name="embedInYourWebsite">Iegult savā mājaslapā vai blogā</string>

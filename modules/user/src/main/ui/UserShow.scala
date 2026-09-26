@@ -33,14 +33,14 @@ final class UserShow(helpers: Helpers, bits: UserBits):
               cls := "upt__info__top__flag",
               title := (!hasRoomForNameText).option(c.name)
             )(
-              img(cls := "flag", src := assetUrl(s"flags/${c.code}.png")),
+              img(cls := "flag", src := assetUrl(s"flags/${c.code}.webp")),
               hasRoomForNameText.option(c.shortName)
             )
           ,
           ping.map(bits.signalBars)
         ),
         realName.map(div(cls := "upt__info__realname")(_)),
-        if u.lame && ctx.isnt(u) && !Granter.opt(_.UserModView)
+        if u.lame && ctx.isnt(u) && !Granter.opt(_.AccountInfo)
         then div(cls := "upt__info__warning")(trans.site.thisAccountViolatedTos())
         else
           ctx.pref.showRatings.option:
@@ -80,7 +80,7 @@ final class UserShow(helpers: Helpers, bits: UserBits):
       div(cls := "upt__details")(
         span(trans.site.nbGames.plural(u.count.game, u.count.game.localize)),
         span(trans.site.joinedX(momentFromNow(u.createdAt))),
-        (Granter.opt(_.UserModView) && (u.lameOrTroll || u.enabled.no || u.marks.rankban))
+        (Granter.opt(_.AccountInfo) && (u.lameOrTroll || u.enabled.no || u.marks.rankban))
           .option(span(cls := "upt__details__marks")(userMarks))
       ),
       playing
@@ -111,7 +111,7 @@ final class UserShow(helpers: Helpers, bits: UserBits):
             a(href := routes.Video.index)(trans.learn.videos())
           )
         ),
-        li(a(href := routes.Pref.form("game-display"))(tro.configureLichess())),
+        li(a(href := routes.Pref.form("display"))(tro.configureLichess())),
         li(tro.exploreTheSiteAndHaveFun())
       )
     )

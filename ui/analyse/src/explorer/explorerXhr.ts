@@ -1,7 +1,8 @@
-import type { ExplorerDb, OpeningData, TablebaseData } from './interfaces';
 import * as xhr from 'lib/xhr';
 import { readNdJson } from 'lib/xhr';
+
 import type { ExplorerConfigData } from './explorerConfig';
+import type { ExplorerDb, OpeningData, TablebaseData } from './interfaces';
 
 interface OpeningXhrOpts {
   endpoint: string;
@@ -21,7 +22,7 @@ export async function opening(
 ): Promise<void> {
   const conf = opts.config;
   const confByDb = conf.byDb();
-  const url = new URL(`/${opts.db}`, opts.endpoint);
+  const url = new URL(`./${opts.db}`, opts.endpoint);
   const params = url.searchParams;
   params.set('variant', opts.variant || 'standard');
   params.set('fen', opts.rootFen);
@@ -53,7 +54,7 @@ export async function opening(
   const res = await fetch(url.href, {
     cache: 'default',
     headers: {}, // avoid default headers for cors
-    credentials: 'omit',
+    credentials: 'include',
     signal,
   });
 

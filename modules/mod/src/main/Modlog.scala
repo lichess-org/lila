@@ -3,7 +3,7 @@ package lila.mod
 import lila.report.Suspect
 
 case class Modlog(
-    mod: ModId,
+    mod: ModId, // or user acting on their own account
     user: Option[UserId],
     action: String,
     details: Option[String] = None,
@@ -12,6 +12,7 @@ case class Modlog(
     context: Option[Modlog.Context] = None
 ):
   def isLichess = mod.is(UserId.lichess)
+  def onSelf = user.exists(_.is(mod))
 
   def notable = action != Modlog.terminateTournament
   def notableZulip = notable && !isLichess
@@ -48,6 +49,7 @@ case class Modlog(
     case Modlog.setTitle => "set FIDE title"
     case Modlog.removeTitle => "remove FIDE title"
     case Modlog.setEmail => "set email address"
+    case Modlog.setPassword => "set password"
     case Modlog.practiceConfig => "update practice config"
     case Modlog.deleteTeam => "delete team"
     case Modlog.disableTeam => "disable team"
@@ -71,7 +73,6 @@ case class Modlog(
     case Modlog.prizeban => "prizeban"
     case Modlog.unprizeban => "un-prizeban"
     case Modlog.modMessage => "send message"
-    case Modlog.coachReview => "disapprove coach review"
     case Modlog.cheatDetected => "game lost by cheat detection"
     case Modlog.cli => "run CLI command"
     case Modlog.garbageCollect => "garbage collect"
@@ -89,18 +90,20 @@ case class Modlog(
     case Modlog.unsetKidMode => "unset kid mode"
     case Modlog.weakPassword => "log in with weak password"
     case Modlog.blankPassword => "blank password"
-    case Modlog.blankedPassword => "log in with blanked password"
+    case Modlog.blankedPassword => "log in attempt with blanked password"
     case Modlog.giftPatronMonth => "gift patron month"
     case Modlog.setCarouselSize => "set blog carousel size"
     case Modlog.imagePass => "approve flagged image"
     case Modlog.imagePurge => "purge flagged image"
+    case Modlog.studyUnfeature => "unfeature study"
     case a => a
 
   override def toString = s"$mod $showAction $user $details"
 
 object Modlog:
 
-  case class UserEntry(user: UserId, action: String, date: Instant)
+  case class UserEntry(user: UserId, action: String, date: Instant, details: Option[String]):
+    def foreverClose = action == Modlog.closeAccount && details.exists(_.startsWith("forever"))
 
   case class Context(text: Option[String] = None, url: Option[String] = None, id: Option[String] = None)
 
@@ -203,6 +206,7 @@ object Modlog:
   val setTitle = "setTitle"
   val removeTitle = "removeTitle"
   val setEmail = "setEmail"
+  val setPassword = "setPassword"
   val practiceConfig = "practiceConfig"
   val deleteTeam = "deleteTeam"
   val disableTeam = "disableTeam"
@@ -219,7 +223,6 @@ object Modlog:
   val prizeban = "prizeban"
   val unprizeban = "unprizeban"
   val modMessage = "modMessage"
-  val coachReview = "coachReview"
   val cheatDetected = "cheatDetected"
   val cli = "cli"
   val garbageCollect = "garbageCollect"
@@ -242,6 +245,7 @@ object Modlog:
   val setCarouselSize = "setCarouselSize"
   val imagePass = "imagePass"
   val imagePurge = "imagePurge"
+  val studyUnfeature = "studyUnfeature"
 
   private val explainRegex = """^[\w-]{3,}+: (.++)$""".r
   def explain(e: Modlog) = e.index.has("team").so(~e.details) match

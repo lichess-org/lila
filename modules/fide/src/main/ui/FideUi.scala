@@ -58,7 +58,9 @@ final class FideUi(helpers: Helpers)(menu: String => Context ?=> Frag):
           tbody(cls := "infinite-scroll")(
             feds.currentPageResults.map: fed =>
               tr(cls := "paginated")(
-                td(a(href := routes.Fide.federation(fed.slug))(flag(fed.id, none), fed.name)),
+                td(
+                  a(href := routes.Fide.federation(fed.slug))(flag(fed.id, none), Federation.i18nName(fed.id))
+                ),
                 td(fed.nbPlayers.localize),
                 ratingCell(fed.standard),
                 ratingCell(fed.rapid),
@@ -74,7 +76,10 @@ final class FideUi(helpers: Helpers)(menu: String => Context ?=> Frag):
         cls := "fide-federation",
         div(cls := "box__top fide-federation__head")(
           flag(fed.id, none),
-          div(h1(fed.name), p(trs.nbPlayers.plural(fed.nbPlayers, fed.nbPlayers.localize))),
+          div(
+            h1(Federation.i18nName(fed.id)),
+            p(trs.nbPlayers.plural(fed.nbPlayers, fed.nbPlayers.localize))
+          ),
           (fed.id.value == "KOS").option(p(cls := "fide-federation__kosovo")(kosovoText))
         ),
         div(cls := "fide-cards fide-federation__cards box__pad")(

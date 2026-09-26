@@ -28,15 +28,14 @@
   <string name="approved">Jou uitsending is goedgekeur.</string>
   <string name="pendingReview">Jou uitsending word deur moderators hersien.</string>
   <string name="pleaseFillIn">Vul asseblief jou uitsending inligting in en laai \'n prent op.</string>
-  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Sodra jy gereed is om as \'n Lichess aanbieder te verskyn, %s</string>
   <string name="streamerLanguageSettings">Die Lichess uitsaaiingsblaai teiken jou gehoor met die voorsiende taal van jou uitsaaiings platform. Stel die versterkte taal vir jou skaak strome, in die uitsaaiings toepassing of diens wat jy gebruik.</string>
   <string name="streamerName">Jou uitsendingsnaam op Lichess</string>
   <plurals name="keepItShort">
     <item quantity="one">Hou dit kort: %s karakter maks</item>
     <item quantity="other">Hou dit kort: %s karakters maks</item>
   </plurals>
-  <string name="visibility" comment="A togglable setting. When enabled, the streamer profile you created will be listed on https://lichess.org/streamer">Sigbaar op die aanbiederblad</string>
-  <string name="whenApproved" comment="Subtitle to &quot;Visible on the streamers page&quot;.&#10;&#10;This subtitle is to clarify that Lichess moderators approve all applications for the https://lichess.org/streamer page">Wanneer moderator dit goedkeur</string>
+  <string name="visibility">Sigbaar op die aanbiederblad</string>
+  <string name="whenApproved">Wanneer moderator dit goedkeur</string>
   <string name="headline">Hoofopskrif</string>
   <string name="tellUsAboutTheStream">Vertel ons meer van jou uitsending in een sin</string>
   <string name="longDescription">Lang uitbreiding</string>

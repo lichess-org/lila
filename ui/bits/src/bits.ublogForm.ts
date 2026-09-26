@@ -1,14 +1,17 @@
-import { throttle } from 'lib/async';
 import Tagify from '@yaireo/tagify';
+
+import { throttle } from 'lib/async';
+
 import { wireCropDialog } from './crop';
 import { makeToastEditor, getSanitizedMarkdown } from './toastEditor';
 
 site.load.then(() => {
-  $('.markdown-toastui').each(function (this: HTMLTextAreaElement) {
-    const editor = makeToastEditor(this, $('#form3-markdown').val() as string, '60vh');
+  $('.markdown-toastui').each(function (this: HTMLElement) {
+    const markdownForm = this.querySelector<HTMLTextAreaElement>('.markdown-content-textarea')!;
+    const editor = makeToastEditor(this, markdownForm.value);
     editor.on(
       'change',
-      throttle(500, () => $('#form3-markdown').val(getSanitizedMarkdown(editor))),
+      throttle(500, () => (markdownForm.value = getSanitizedMarkdown(editor))),
     );
   });
   $('#form3-topics').each(function (this: HTMLTextAreaElement) {
@@ -21,6 +24,13 @@ site.load.then(() => {
     max: { pixels: 1600 },
     selectClicks: $('.select-image, .drop-target'),
     selectDrags: $('.drop-target'),
+    onCropped: blob => {
+      if (!blob) return;
+      const img = document.querySelector<HTMLImageElement>('img.ublog-post-image')!;
+      const url = URL.createObjectURL(blob);
+      img.src = url;
+      img.onload = img.onerror = () => URL.revokeObjectURL(url);
+    },
   });
 });
 

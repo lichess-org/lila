@@ -1,3 +1,7 @@
+import { randomToken } from '@/algo';
+import { throttle } from '@/async';
+import { readNdJson } from '@/xhr';
+
 import {
   type Work,
   type ExternalEngineInfo,
@@ -5,30 +9,31 @@ import {
   type EngineNotifier,
   CevalState,
 } from '../types';
-import { randomToken } from '@/algo';
-import { readNdJson } from '@/xhr';
-import { throttle } from '@/async';
 
-interface ExternalEngineOutput {
-  time: number;
-  depth: number;
-  nodes: number;
-  pvs: {
-    depth: number;
-    cp?: number;
-    mate?: number;
-    moves: Uci[];
-  }[];
-}
+type ExternalEngineOutput =
+  | { keepalive: true }
+  | {
+      time: number;
+      depth: number;
+      nodes: number;
+      pvs: {
+        depth: number;
+        cp?: number;
+        mate?: number;
+        moves: Uci[];
+      }[];
+      bestmove?: Uci;
+      ponder?: Uci;
+    };
 
 export class ExternalEngine implements CevalEngine {
   private state = CevalState.Initial;
-  private sessionId = randomToken();
-  private req: AbortController | undefined;
+  private readonly sessionId = randomToken();
+  private req?: AbortController;
 
   constructor(
-    private opts: ExternalEngineInfo,
-    private status?: EngineNotifier | undefined,
+    private readonly opts: ExternalEngineInfo,
+    private readonly status: EngineNotifier | undefined,
   ) {}
 
   getState(): CevalState {
@@ -52,6 +57,9 @@ export class ExternalEngine implements CevalEngine {
 
   private async analyse(work: Work, signal: AbortSignal): Promise<void> {
     try {
+      if ('movetime' in work.search && work.search.movetime === Infinity) {
+        work.search.movetime = 1000 * 60 * 60 * 24;
+      }
       const url = new URL(`${this.opts.endpoint}/api/external-engine/${this.opts.id}/analyse`);
       const res = await fetch(url.href, {
         signal,
@@ -77,15 +85,21 @@ export class ExternalEngine implements CevalEngine {
       });
       await readNdJson<ExternalEngineOutput>(res, line => {
         this.state = CevalState.Computing;
-        work.emit({
-          fen: work.currentFen,
-          depth: line.pvs[0]?.depth || 0,
-          millis: Math.max(line.time, 1),
-          nodes: line.nodes,
-          cp: line.pvs[0]?.cp,
-          mate: line.pvs[0]?.mate,
-          pvs: line.pvs,
-        });
+        if ('keepalive' in line) return;
+        work.emit(
+          {
+            bestmove: line.bestmove,
+            ponder: line.ponder,
+            fen: work.currentFen,
+            depth: line.pvs[0]?.depth || 0,
+            millis: Math.max(line.time, 1),
+            nodes: line.nodes,
+            cp: line.pvs[0]?.cp,
+            mate: line.pvs[0]?.mate,
+            pvs: line.pvs,
+          },
+          { threatMode: work.threatMode, path: work.path, ply: work.ply },
+        );
       });
 
       this.state = CevalState.Initial;

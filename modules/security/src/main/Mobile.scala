@@ -1,9 +1,10 @@
 package lila.security
 
 import play.api.mvc.RequestHeader
+import scalalib.net.UserAgent
 
 import lila.common.HTTPRequest
-import lila.core.net.{ ApiVersion, UserAgent }
+import lila.core.net.ApiVersion
 import lila.core.socket.Sri
 
 object Mobile:
@@ -20,7 +21,7 @@ object Mobile:
     def requestVersion(req: RequestHeader): Option[ApiVersion] =
       HTTPRequest.apiVersion(req).filter(acceptedVersions.contains)
 
-    def requested(req: RequestHeader) = requestVersion(req).isDefined
+    def requested(using req: RequestHeader) = requestVersion(req).isDefined
 
   // Lichess Mobile/{version} as:{username|anon} sri:{sri} os:{Android|iOS}/{os-version} dev:{device info}
   // see modules/api/src/test/MobileTest.scala
@@ -37,6 +38,7 @@ object Mobile:
           val userId = (user != "anon").option(UserStr(user).id)
           lila.core.net.LichessMobileUa(version, userId, Sri(sri), osName, osVersion, device).some
         case _ => none
+    def sriFromUA(using req: RequestHeader): Option[Sri] = parse(req).map(_.sri)
 
   // LM/{version} {Android|iOS}/{os-version} {device info}
   // stored in security documents

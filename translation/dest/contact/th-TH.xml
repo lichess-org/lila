@@ -25,7 +25,6 @@
   <string name="cantChangeMore">เราไม่สามารถเปลี่ยนได้มากกว่าตัวอักษรพิมพ์ใหญ่พิมพ์เล็ก ด้วยเหตุผลทางเทคนิคจึงเป็นไปไม่ได้โดยสิ้นเชิง</string>
   <string name="orCloseAccount">อย่างไรก็ตาม คุณสามารถปิดบัญชีปัจจุบันของคุณได้ แล้วก็สร้างบัญชีใหม่</string>
   <string name="wantClearHistory">ฉันต้องการล้างประวัติหรือระดับคะแนนของฉัน</string>
-  <string name="cantClearHistory">เป็นไปไม่ได้ที่จะล้างประวัติเกม, ประวัติปริศนา หรือระดับคะแนนของคุณ</string>
   <string name="wantReport">ฉันต้องการร้องเรียนผู้เล่น</string>
   <string name="toReportAPlayerUseForm">ในการรายงานผู้เล่น, ให้ใช้แบบรายงาน</string>
   <string name="youCanAlsoReachReportPage">คุณสามารถไปที่หน้านั้นได้โดยการคลิกปุ่มรายงาน %s บนหน้าโปรไฟล์</string>
@@ -39,7 +38,7 @@
   <string name="reportMobileIssue">เป็นปัญหาแอปมือถือ Lichess บน GitHub</string>
   <string name="reportBugInDiscord">ใน Lichess discord server</string>
   <string name="howToReportBug">โปรดอธิบายข้อบกพร่องที่ประสบ สิ่งที่คุณหวังจะให้เกิดขึ้นแทน และขั้นตอนในการเจอข้อบกพร่อง</string>
-  <string name="illegalPawnCapture" comment="Appears as an option for reasons to contact Lichess on the 'contact' page: https://lichess.org/contact#help-enpassant&#10;&#10;Players used to routinely write to Lichess stating that there was a bug, or that the other player had hacked their game in some way. In actuality, the player was using the legal move of en passant.&#10;&#10;Please translate this string from the perspective of the player who would be selecting this contact option, and call it 'Illegal', even though we know this is a legal move.">การกินเบี้ยแบบผิดกติกา</string>
+  <string name="illegalPawnCapture">การกินเบี้ยแบบผิดกติกา</string>
   <string name="calledEnPassant">มันถูกเรียกว่า \"การกินผ่าน\" และเป็นหนึ่งในกติกาของหมากรุกสากล</string>
   <string name="tryEnPassant">ลองเล่นเกมนี้ดูเล็กน้อย เพื่อเรียนรู้เกี่ยวกับ \"การกินผ่าน\"</string>
   <string name="illegalCastling">การเข้าป้อมผิดกติกาหรือที่เป็นไปไม่ได้</string>

@@ -7,7 +7,7 @@ import lila.ui.ScalatagsTemplate.*
 
 trait I18nHelper:
 
-  protected val translator: Translator
+  val translator: Translator
   protected val ratingApi: lila.ui.RatingApi
 
   val langList: LangList
@@ -42,7 +42,7 @@ trait I18nHelper:
 
   export lila.core.i18n.Translate
   export lila.core.i18n.I18nKey as trans
-  export I18nKey.{ txt, pluralTxt, pluralSameTxt, apply, plural, pluralSame }
+  export I18nKey.{ txt, pluralTxt, pluralSameTxt, apply, plural, pluralSame, rawHtml, pluralRawHtml }
 
   given (using ctx: Context): Translate = Translate(translator, ctx.lang)
   given (using trans: Translate): Lang = trans.lang

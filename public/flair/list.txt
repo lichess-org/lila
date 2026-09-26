@@ -32,6 +32,7 @@ activity.flying-disc
 activity.framed-picture
 activity.game-die
 activity.goal-net
+activity.googly-eye
 activity.heart-suit
 activity.ice-hockey
 activity.ice-skate
@@ -3296,6 +3297,7 @@ symbols.heart-with-arrow
 symbols.heart-with-ribbon
 symbols.heavy-dollar-sign
 symbols.heavy-equals-sign
+symbols.helix-logo
 symbols.hole
 symbols.hollow-red-circle
 symbols.hundred-points

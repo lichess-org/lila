@@ -44,15 +44,12 @@
   <string name="doubleCheckDescription">Šah kojeg daju dvije figure istovremeno kao rezultat otkrivenog šaha.</string>
   <string name="endgame">Završnica</string>
   <string name="endgameDescription">Taktički potezi u završnici.</string>
-  <string name="enPassantDescription">Taktika koja uključuje pravilo \"en passant\" po kojem pješak uzima protivničkog pješaka koji ga preskače koristeći inicijalno otvaranje pješaka za dva polja.</string>
   <string name="exposedKing">Izloženi kralj</string>
   <string name="exposedKingDescription">Taktika koja uključuje kralja okruženim nekolicinom obrambenih figura što često rezultira matom.</string>
   <string name="fork">Rašlje</string>
-  <string name="forkDescription">Situacija u šahovskoj partiji kad jedna figura napadne dvije ili više protivničkih.</string>
   <string name="hangingPiece">Viseća figura</string>
   <string name="hangingPieceDescription">Taktika koja uključuje neobranjenu ili nedovoljno obranjenu protivničku figuru besplatnu za uzimanje.</string>
   <string name="hookMate">Kuka-mat</string>
-  <string name="hookMateDescription">U kuka-matu sudjeluju top, skakač i pješak te jedan protivnički pješak koji onemogućuje bijeg svom kralju.</string>
   <string name="interference">Podmetanje</string>
   <string name="interferenceDescription">Pomicanje figure između dvije protivničke figure pritom ih napadajući. Kao rezultat protivnik nije u mogućnosti obraniti obe figure.</string>
   <string name="intermezzo">Međupotez</string>
@@ -92,7 +89,6 @@
   <string name="pin">Svezivanje</string>
   <string name="pinDescription">Taktika koja uključuje protivničku figuru koja je vezana za kralja ili drugu figuru veče vrijednosti.</string>
   <string name="promotion">Unapređenje</string>
-  <string name="promotionDescription">Pješak u postupku ili prijetnji promaknućem je ključan za taktiku.</string>
   <string name="queenEndgame">Kraljičina završnica</string>
   <string name="queenEndgameDescription">Završnica u kojoj sudjeluju samo kraljica i pješaci.</string>
   <string name="queenRookEndgame">Kraljica i top</string>

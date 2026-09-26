@@ -26,7 +26,6 @@
   <string name="howIsTheWinnerDecidedAnswer">Жарыстың белгіленген уақыты аяқталғанда, ең көп ұпайы бар ойыншы(лар) жеңімпаз деп жарияланады.
 
 Екі не одан көп ойыншының ұпай саны бірдей болғанда, жарыс тай-брейкпен жалғасады.</string>
-  <string name="howDoesPairingWork">Жұптастыру әдісі қандай?</string>
   <string name="howDoesPairingWorkAnswer">Турнирдің басында ойыншылар рейтинг негізінде жұптасады.
 Әр ойыннан кейін жарыстың бас парақшасына оралыңыз: рейтингіңізге жақын ойыншымен жұптасатын боласыз. Бұл шамалы уақытты қажет еткенімен, барлық ойыншылармен белдесуге үлгермеуіңіз мүмкін.
 Көп ойынға қатысып, көп ұпай алу үшін тез ойнап, жарыстың бас парақшасына оралуды ұмытпаңыз.</string>
@@ -64,7 +63,6 @@
   <string name="myTournaments">Менің жарыстарым</string>
   <string name="editTournament">Жарысты өңдеу</string>
   <string name="editTeamBattle">Топтар күресін өңдеу</string>
-  <string name="defender">Қорғаушы</string>
   <string name="pickYourTeam">Тобыңызды таңдаңыз</string>
   <string name="whichTeamWillYouRepresentInThisBattle">Осы күресте қай топқа мүшесіз?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">Қатысу үшін осы топтардың біріне қосылуыңыз керек!</string>
@@ -72,8 +70,6 @@
   <string name="recentlyPlayed">Кейінгі ойындар</string>
   <string name="bestResults">Үздік нәтиже</string>
   <string name="tournamentStats">Жарыс статистикасы</string>
-  <string name="rankAvgHelp">Орын орташасы деген орныңыздың пайыздық мөлшері. Азы жақсы.
-Мысалы, 100 ойыншы қатысқан жарыста орныңыз 3-інші болса, орын орташасы 3%-ға тең. 1000 ойыншының арасында 10-ыншы болсаңыз, 1%-ға тең.</string>
   <string name="medians">медианалар</string>
   <string name="allAveragesAreX">Бұл беттегі барлық орташалар - %s.</string>
   <string name="total">Барлығы</string>

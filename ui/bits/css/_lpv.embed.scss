@@ -2,23 +2,17 @@ body {
   margin: 0;
   background: $lpv-bg;
 }
+
 .lpv {
   border-radius: 0;
   box-shadow: none;
 }
-.lpv__pgn__text {
-  font-family: monospace;
-  font-size: 0.8em;
-}
+
 .not-found {
-  @extend %flex-center;
+  @extend %flex-center-center;
 
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  justify-content: center;
+  inset: 0;
   height: 100%;
   background: radial-gradient(circle, #484848, #2f3031);
 
@@ -27,7 +21,7 @@ body {
 
     font-size: 7vw;
     text-align: center;
-    color: rgba(255, 255, 255, 0.3);
-    text-shadow: 0 0 9px rgba(0, 0, 0, 0.3);
+    color: rgb(255 255 255 / 0.3);
+    text-shadow: 0 0 9px rgb(0 0 0 / 0.3);
   }
 }

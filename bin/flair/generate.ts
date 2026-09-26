@@ -1,7 +1,7 @@
 import * as cheerio from 'cheerio';
-import { readFileSync, writeFileSync } from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
+import { readFileSync, writeFileSync } from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 const __filename = fileURLToPath(import.meta.url);
 const lilaDir = path.resolve(path.dirname(__filename), '../..');

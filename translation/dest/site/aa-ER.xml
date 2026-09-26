@@ -1,6 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="gameSetup">Digir xikne</string>
+  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Kataysa gexkalit</string>
+  <string name="playAgainstComputer">Kompiter qagitak digir</string>
+  <string name="gameMode">Digir caalat</string>
+  <string name="createLobbyGame">Loobi digir hadlaanama</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">Inki num digirih arcibissuh, ta URL acuya</string>
+  <string name="gameOver">Digir gaba kaleh</string>
+  <string name="waitingForOpponent">Sadi num qammaala</string>
+  <string name="orLetYourOpponentScanQrCode">Hinnay ku sadeyni ta QR mudenta ixxoy</string>
+  <string name="reusableChallengeUrl">Qagitaak xoqoysil assam xiqta gexkalit URL</string>
+  <string name="permanentLinkForAnyoneToChallengeYou">Maytani yasgaarawi faxe num koo gexkalit too hunun farmooma.</string>
+  <string name="waiting">Qambaaliyya</string>
+  <string name="yourTurn">Ku midu</string>
+  <string name="aiNameLevelAiLevel">%1$scaddo%2$s</string>
   <string name="strength">ጥንካሬ</string>
   <string name="chat">ውይይት</string>
   <string name="randomColor">ቀለሞች</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="one">Ku sadeyni digir cabeh. Atu nammeyhaytoh addah mayso essertam %s duuddah.</item>
+    <item quantity="other">Ku sadeyni digir cabeh. Atu mayso sekenxitteh addat essertam %s duuddah.</item>
+  </plurals>
+  <string name="opponentLeftChoices">Ku sadeyni digir cabeh. Atu mayso essertam duddah, digirih muucisso intaah, akkek qammaltam duddah.</string>
 </resources>

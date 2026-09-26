@@ -1,16 +1,20 @@
-import type { AnalyseNvuiContext } from '../analyse.nvui';
-import { type LooseVNodes, hl } from 'lib/view';
+import { opposite } from 'chessops';
 import { type VNodeData } from 'snabbdom';
-import type AnalyseCtrl from '../ctrl';
-import type { RetroCtrl } from '../retrospect/retroCtrl';
+
+import { capitalize } from 'lib/game';
 import { renderSan } from 'lib/nvui/chess';
 import { liveText } from 'lib/nvui/notify';
-import { clickHook, renderCurrentNode } from '../view/nvuiView';
+import { type LooseVNodes, hl } from 'lib/view';
+
+import type { AnalyseNvuiContext } from '@/analyse.nvui';
+import type AnalyseCtrl from '@/ctrl';
+import { clickHook, renderCurrentNode } from '@/nvuiUtil';
+import type { RetroCtrl } from '@/retrospect/retroCtrl';
 
 export function renderRetro(nvuiCtx: AnalyseNvuiContext): LooseVNodes {
   const ctx = makeContext(nvuiCtx);
   const { ctrl } = ctx;
-  if (ctrl.ongoing || ctrl.synthetic || !ctrl.hasFullComputerAnalysis()) return;
+  if (ctrl.ongoing || ctrl.synthetic || !ctrl.hasFullComputerAnalysis()) return undefined;
   const current = ctrl.retro?.current();
   const mistakes = ctrl.retro?.completion();
 
@@ -34,22 +38,17 @@ function doneWithMistakes({ spoken, ctrl, focusFriendlyHook }: RetroContext, pre
   const noMistakes = !ctrl.retro.completion()[1];
   return [
     spoken(
-      (prelude ? prelude + '. ' : '') +
-        i18n.site[
-          noMistakes
-            ? ctrl.retro.color === 'white'
-              ? 'noMistakesFoundForWhite'
-              : 'noMistakesFoundForBlack'
-            : ctrl.retro.color === 'white'
-              ? 'doneReviewingWhiteMistakes'
-              : 'doneReviewingBlackMistakes'
-        ],
+      `${prelude ? `${prelude}. ` : ''}${
+        noMistakes
+          ? i18n.site[`noMistakesFoundFor${capitalize(ctrl.retro.color)}`]
+          : i18n.site[`doneReviewing${capitalize(ctrl.retro.color)}Mistakes`]
+      }`,
     ),
     !noMistakes && hl('button.retro-again', focusFriendlyHook(ctrl.retro.reset), i18n.site.doItAgain),
     hl(
       'button.retro-flip',
       focusFriendlyHook(ctrl.retro.flip),
-      i18n.site[ctrl.retro.color === 'white' ? 'reviewBlackMistakes' : 'reviewWhiteMistakes'],
+      i18n.site[`review${capitalize(opposite(ctrl.retro.color))}Mistakes`],
     ),
   ];
 }
@@ -84,14 +83,7 @@ const retroStateView = {
     const node = ctrl.retro.current()?.fault.node;
     if (!node) return doneWithMistakes(ctx, prelude);
     const c = ctrl.retro.color;
-    const trailer =
-      c === 'white'
-        ? tryAgain
-          ? i18n.site.tryAnotherMoveForWhite
-          : i18n.site.findBetterMoveForWhite
-        : tryAgain
-          ? i18n.site.tryAnotherMoveForBlack
-          : i18n.site.findBetterMoveForBlack;
+    const trailer = i18n.site[`${tryAgain ? 'tryAnother' : 'findBetter'}MoveFor${capitalize(c)}`];
     return [
       spoken(
         prelude +

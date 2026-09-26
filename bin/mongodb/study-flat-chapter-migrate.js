@@ -73,7 +73,7 @@ db.study_chapter_backup
     else batch.push(c);
     i++;
     sumMoves += nbMoves;
-    if (i % batchSize == 0) {
+    if (i % batchSize === 0) {
       coll.insertMany(batch, {
         ordered: false,
         writeConcern: { w: 0, j: false },

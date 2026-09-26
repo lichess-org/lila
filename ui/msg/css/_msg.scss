@@ -5,28 +5,27 @@ $msg-top-height: 4em;
 
 body {
   ---app-height: 100vh;
+
   overflow: hidden;
 }
 
 %msg-input-focus {
   outline: 0;
-  border-color: $c-bg-zebra2;
 
   &:focus {
-    border-color: $m-secondary_bg--mix-50;
+    border-color: color-mix(in oklab, $c-secondary 50%, $c-bg);
   }
 }
 
 .msg-app {
   display: flex;
   flex-flow: row nowrap;
+  overflow: hidden;
   height: calc(var(---app-height) - $site-header-height);
 
   @media (min-width: at-least($small)) {
     height: calc(var(---app-height) * 0.98 - $site-header-height);
   }
-
-  overflow: hidden;
 
   &__search {
     h2 {

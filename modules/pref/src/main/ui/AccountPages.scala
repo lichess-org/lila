@@ -4,8 +4,8 @@ package ui
 import play.api.data.Form
 
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
+import lila.core.security.TurnstilePublicConfig
 
 final class AccountPages(helpers: Helpers, ui: AccountUi, flagApi: lila.core.user.FlagApi):
   import helpers.{ *, given }
@@ -27,16 +27,26 @@ final class AccountPages(helpers: Helpers, ui: AccountUi, flagApi: lila.core.use
         if managed then p(trs.managedAccountCannotBeClosed())
         else
           postForm(cls := "form3", action := routes.Account.closeConfirm)(
-            div(cls := "form-group")(h2("We're sorry to see you go.")),
+            div(cls := "form-group")(h2(trs.wereSorryToSeeYouGo())),
             div(cls := "form-group")(trs.closeAccountAreYouSure()),
             div(cls := "form-group")(trs.cantOpenSimilarAccount()),
             myUsernamePasswordFields(form),
-            form3.checkboxGroup(
-              form("forever"),
-              raw("Forever close: make it impossible to reopen"),
-              help = raw(
-                "Prevent reopening the account later. If you check this box, even administrators will be unable to reopen your account at your request."
-              ).some
+            form3.split(
+              if me.totpSecret.isDefined
+              then
+                form3.group(
+                  form("token"),
+                  trans.tfa.authenticationCode(),
+                  half = true,
+                  help = Some(span(dataIcon := Icon.PhoneMobile)(trans.tfa.openTwoFactorApp()))
+                )(form3.totpTokenInput)
+              else form3.hidden(form("token")),
+              form3.checkboxGroup(
+                form("forever"),
+                trs.closeAccountForeverLabel(),
+                half = me.totpSecret.isDefined,
+                help = trs.closeAccountForeverWarning().some
+              )
             ),
             form3.actions(
               frag(
@@ -52,24 +62,22 @@ final class AccountPages(helpers: Helpers, ui: AccountUi, flagApi: lila.core.use
       )
 
   def delete(form: Form[?], managed: Boolean)(using Context)(using me: Me) =
-    AccountPage(s"${me.username} - Delete your account", "delete"):
+    AccountPage(s"${me.username} - ${trans.settings.deleteYourAccount.txt()}", "delete"):
       div(cls := "box box-pad")(
-        boxTop(h1(cls := "text", dataIcon := Icon.CautionCircle)("Delete your account")),
+        boxTop(h1(cls := "text", dataIcon := Icon.CautionCircle)(trs.deleteYourAccount())),
         if managed then p(trs.managedAccountCannotBeClosed())
         else
           postForm(cls := "form3", action := routes.Account.deleteConfirm)(
-            div(cls := "form-group")(h2("We're sorry to see you go.")),
-            div(cls := "form-group")(
-              "Once you delete your account, it’s removed from Lichess and our administrators won’t be able to bring it back for you."
-            ),
+            div(cls := "form-group")(h2(trs.wereSorryToSeeYouGo())),
+            div(cls := "form-group")(trs.deleteAccountWarning()),
             div(cls := "form-group")(trs.cantOpenSimilarAccount()),
             div(cls := "form-group")(
-              "Would you like to ",
-              a(href := routes.Account.close)("close your account"),
-              " instead?"
+              trs.wouldYouLikeToXInstead(
+                a(href := routes.Account.close)(trs.closeYourAccount())
+              )
             ),
             myUsernamePasswordFields(form),
-            form3.checkboxGroup(form("understand"), "I understand that deleted accounts aren't recoverable"),
+            form3.checkboxGroup(form("understand"), trs.deleteAccountConfirmText()),
             form3.errors(form("understand")),
             me.marks.dirty.option:
               div(cls := "form-group")(
@@ -122,7 +130,7 @@ final class AccountPages(helpers: Helpers, ui: AccountUi, flagApi: lila.core.use
   private lazy val flagPairs = flagApi.all.map: c =>
     c.code -> c.name
 
-  def profile(u: User, form: Form[?])(using ctx: Context) =
+  def profile(u: User, form: Form[?], fixedRealName: Boolean)(using ctx: Context) =
     AccountPage(s"${u.username} - ${trans.site.editProfile.txt()}", "editProfile"):
       div(cls := "box box-pad")(
         h1(cls := "box__top")(trans.site.editProfile()),
@@ -151,11 +159,17 @@ final class AccountPages(helpers: Helpers, ui: AccountUi, flagApi: lila.core.use
           ),
           form3.split(
             form3.group(form("flag"), trans.site.countryRegion(), half = true): f =>
-              form3.select(f, flagPairs, default = "".some),
+              form3.select(f, flagPairs, default = trans.site.unknown.txt().some),
             form3.group(form("location"), trans.site.location(), half = true)(form3.input(_))
           ),
           form3.split(
-            form3.group(form("realName"), trans.site.realName(), half = true)(form3.input(_))
+            form3.group(
+              form("realName"),
+              trans.site.realName(),
+              half = true,
+              help = fixedRealName.option("Publicly titled profiles cannot change their real name")
+            ): field =>
+              form3.input(field)(fixedRealName.option(inertAttr))
           ),
           form3.split(
             List("fide", "uscf", "ecf", "rcf", "cfc", "dsb").map: rn =>
@@ -248,16 +262,20 @@ final class AccountPages(helpers: Helpers, ui: AccountUi, flagApi: lila.core.use
         )
       )
 
-  def email(form: Form[?])(using Context) =
+  def email(form: Form[?], managed: Boolean)(using Context) =
     AccountPage(trans.site.changeEmail.txt(), "email"):
       div(cls := "box box-pad")(
         h1(cls := "box__top")(trans.site.changeEmail()),
-        standardFlash | flashMessage("warning")(trans.site.emailSuggestion()),
-        postForm(cls := "form3", action := routes.Account.emailApply)(
-          form3.passwordModified(form("passwd"), trans.site.password())(autofocus),
-          form3.group(form("email"), trans.site.email())(form3.input(_, typ = "email")(required)),
-          form3.action(form3.submit(trans.site.apply()))
-        )
+        if managed then p("Your account is managed. Ask your teacher to graduate it.")
+        else
+          frag(
+            standardFlash | flashMessage("warning")(trans.site.emailSuggestion()),
+            postForm(cls := "form3", action := routes.Account.emailApply)(
+              form3.passwordModified(form("passwd"), trans.site.password())(autofocus),
+              form3.group(form("email"), trans.site.email())(form3.input(_, typ = "email")(required)),
+              form3.action(form3.submit(trans.site.apply()))
+            )
+          )
       )
 
   def data(u: User)(using Context) =
@@ -273,11 +291,10 @@ final class AccountPages(helpers: Helpers, ui: AccountUi, flagApi: lila.core.use
 
   object reopen:
 
-    def form(form: lila.core.security.HcaptchaForm[?], error: Option[String] = None)(using ctx: Context) =
+    def form(form: Form[?], error: Option[String] = None)(using ctx: Context)(using TurnstilePublicConfig) =
       Page(trans.site.reopenYourAccount.txt())
         .css("bits.auth")
-        .js(hcaptchaScript(form))
-        .csp(_.withHcaptcha):
+        .csp(_.withTurnstile):
           main(cls := "page-small box box-pad")(
             h1(cls := "box__top")(trans.site.reopenYourAccount()),
             p(trans.site.reopenYourAccountDescription()),
@@ -290,7 +307,7 @@ final class AccountPages(helpers: Helpers, ui: AccountUi, flagApi: lila.core.use
                 .group(form("email"), trans.site.email(), help = trans.site.emailAssociatedToaccount().some)(
                   form3.input(_, typ = "email")
                 ),
-              lila.ui.bits.hcaptcha(form),
+              turnstile.widget(),
               form3.action(form3.submit(trans.site.emailMeALink()))
             )
           )

@@ -42,17 +42,14 @@
   <string name="willBeReviewed">سيراقب طلب انضمامك من قبل قائد الفريق.</string>
   <string name="beingReviewed">طلب انضمامك مازال يتم النظر فيه من قبل قائد الفريق.</string>
   <string name="requestDeclined">تم رفض طلب انضمامك للفريق من قبل القائد.</string>
-  <string name="subToTeamMessages">الاشتراك في رسائل الفريق</string>
   <string name="teamBattle">معركة الفرق</string>
   <string name="teamBattleOverview">معركة بين مجموعة فرق، كل لاعب يحرز النقاط لفريقه</string>
   <string name="teamTournament">بطولات الفريق</string>
   <string name="teamTournamentOverview">بطولة ألأرينا التي يمكن فقط لأعضاء فريقك الانضمام إليها</string>
   <string name="swissTournamentOverview">بطولة سويسرية يمكن فقط لأعضاء فريقك الانضمام إليها</string>
-  <string name="messageAllMembers">مراسلة جميع الأعضاء</string>
-  <string name="messageAllMembersOverview">ارسل رسالة خاصة إلى كل عضو في الفريق</string>
-  <string name="messageAllMembersLongDescription">إرسال رسالة خاصة إلى جميع أعضاء الفريق.
-يمكنك استخدام هذا لاستدعاء اللاعبين للانضمام إلى مسابقة للفريق أو مسابقة الفرق.
-اللاعبين الذين لا يحبون تلقي رسائلك قد يغادرون الفريق.</string>
+  <string name="teamUpdates">تحديثات الفريق</string>
+  <string name="subToTeamUpdates">إشعارات أو تحديثات الفريق</string>
+  <string name="newTeamUpdate">تحديث جديد للفريق</string>
   <string name="teamsIlead">الفرق التي أقودها</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">قد ترغب في ربط إحدى هذه البطولات القادمة؟</string>
   <string name="leadersChat">محادثة القادة</string>

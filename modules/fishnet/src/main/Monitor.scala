@@ -10,7 +10,7 @@ final private class Monitor(
     cacheApi: lila.memo.CacheApi
 )(using ec: Executor, scheduler: Scheduler):
 
-  val statusCache = cacheApi.unit[Monitor.Status]:
+  val statusCache = cacheApi.unit[Monitor.Status]("fishnet.monitor.status"):
     _.refreshAfterWrite(1.minute).buildAsyncTimeout(): _ =>
       repo.status.compute
 

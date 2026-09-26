@@ -6,6 +6,7 @@ import play.api.libs.json.*
 import lila.common.Json.given
 import lila.core.LightUser
 import lila.core.socket.SocketVersion
+import lila.mon.extensions.*
 import lila.db.dsl.{ *, given }
 import lila.gathering.Condition.WithVerdicts
 import lila.gathering.GreatPlayer
@@ -72,7 +73,7 @@ final class SwissJson(
       .add("greatPlayer" -> GreatPlayer.wikiUrl(swiss.name).map { url =>
         Json.obj("name" -> swiss.name, "url" -> url)
       })
-  }.monSuccess(_.swiss.json)
+  }.monSuccess(lila.mon.swiss.json)
 
   def fetchMyInfo(swiss: Swiss, me: User): Fu[Option[MyInfo]] =
     mongo.player.byId[SwissPlayer](SwissPlayer.makeId(swiss.id, me.id).value).flatMapz { player =>
@@ -82,8 +83,8 @@ final class SwissJson(
             .so:
               mongo.pairing
                 .find(
-                  $doc(f.swissId -> swiss.id, f.players -> player.userId, f.status -> SwissPairing.ongoing),
-                  $doc(f.id -> true).some
+                  bdoc(f.swissId -> swiss.id, f.players -> player.userId, f.status -> SwissPairing.ongoing),
+                  bdoc(f.id -> true).some
                 )
                 .one[Bdoc]
                 .dmap { _.flatMap(_.getAsOpt[GameId](f.id)) }
@@ -103,8 +104,8 @@ final class SwissJson(
           SwissPlayer.fields: f =>
             mongo.player.update
               .one(
-                $id(SwissPlayer.makeId(swiss.id, user.id)),
-                $set(f.rating -> perf.intRating)
+                bid(SwissPlayer.makeId(swiss.id, user.id)),
+                set(f.rating -> perf.intRating)
               )
               .void
       yield ()
@@ -113,8 +114,8 @@ final class SwissJson(
     swiss.isFinished.so:
       SwissPlayer.fields { f =>
         mongo.player
-          .find($doc(f.swissId -> swiss.id))
-          .sort($sort.desc(f.score))
+          .find(bdoc(f.swissId -> swiss.id))
+          .sort(sort.desc(f.score))
           .cursor[SwissPlayer]()
           .list(3)
           .flatMap { top3 =>
@@ -123,7 +124,7 @@ final class SwissJson(
               .map(_.userId)
               .filter(w => swiss.winnerId.forall(w !=))
               .foreach:
-                mongo.swiss.updateField($id(swiss.id), "winnerId", _).void
+                mongo.swiss.updateField(bid(swiss.id), "winnerId", _).void
 
             userApi.filterLame(top3.map(_.userId)).map { lame =>
               JsArray(
@@ -178,6 +179,7 @@ object SwissJson:
       .add("isRecentlyFinished" -> swiss.isRecentlyFinished)
       .add("password" -> swiss.settings.password.isDefined)
       .add("position" -> swiss.settings.position.map(fullFen => position(fullFen.opening)))
+      .add("payouts" -> swiss.settings.payouts)
 
   private[swiss] def playerJson(swiss: Swiss, view: SwissPlayer.View): JsObject =
     playerJsonBase(view, performance = false) ++ Json

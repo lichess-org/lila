@@ -2,7 +2,7 @@ package lila.round
 
 import reactivemongo.api.bson.*
 
-import lila.db.dsl.{ *, given }
+import lila.db.dsl.*
 
 final class NoteApi(coll: Coll)(using Executor):
 
@@ -10,26 +10,17 @@ final class NoteApi(coll: Coll)(using Executor):
   val noteField = "t"
 
   def get(gameId: GameId, userId: UserId): Fu[String] =
-    coll.primitiveOne[String]($id(makeId(gameId, userId)), noteField).dmap(~_)
+    coll.secondary.primitiveOne[String](bid(makeId(gameId, userId)), noteField).dmap(~_)
 
   def set(gameId: GameId, userId: UserId, text: String) = {
-    if text.isEmpty then coll.delete.one($id(makeId(gameId, userId)))
+    if text.isEmpty then coll.delete.one(bid(makeId(gameId, userId)))
     else
       coll.update.one(
-        $id(makeId(gameId, userId)),
-        $set(noteField -> text),
+        bid(makeId(gameId, userId)),
+        bset(noteField -> text),
         upsert = true
       )
   }.void
-
-  def byGameIds(gameIds: Seq[GameId])(using me: MyId): Fu[Map[GameId, String]] =
-    coll.byIds(gameIds.map(makeId(_, me)), _.sec).map { docs =>
-      (for
-        doc <- docs
-        gameId <- doc.getAsOpt[GameId]("_id")
-        note <- doc.string(noteField)
-      yield (gameId, note)).toMap
-    }
 
   val form =
     import play.api.data.Forms.*

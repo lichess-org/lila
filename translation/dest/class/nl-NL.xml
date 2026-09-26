@@ -90,7 +90,7 @@ Hier is de link om toegang te krijgen tot de groep.</string>
   <string name="timePlaying">Tijd gespeeld</string>
   <string name="variantXOverLastY">%1$s over laatste %2$s</string>
   <string name="winrate">Winratio</string>
-  <string name="na" comment="Appears as part of the 'Progress' column on Lichess classes, where a teacher is looking at their list of students under specific rating or variant categories.">N.v.t.</string>
+  <string name="na">N.v.t.</string>
   <string name="overview">Overzicht</string>
   <string name="news">Nieuws</string>
   <string name="classNews">Nieuws voor de klas</string>
@@ -121,7 +121,7 @@ Hier is de link om toegang te krijgen tot de groep.</string>
   <string name="allowMessagingBetweenStudentsDesc">Dit geldt alleen voor de accounts die u hebt aangemaakt voor uw leerlingen.</string>
   <string name="quickLoginCode">Snelle inlogcode</string>
   <string name="quickLoginCodes">Snelle inlogcodes</string>
-  <string name="quickLoginCodesDesc1" comment="%s is a link to https://lichess.org/class">Gebruik deze codes op %s om jouw studenten op Lichess in te loggen.</string>
+  <string name="quickLoginCodesDesc1" comment="String is a URL">Gebruik deze codes op %s om jouw studenten op Lichess in te loggen.</string>
   <string name="quickLoginCodesDesc2">Als de codes verlopen zullen jouw studenten ingelogd blijven, tot ze handmatig uitloggen.</string>
-  <string name="expirationInMomentFromNow" comment="%s is relative time in the future. For example, 'in 2 hours'&#10;&#10;If it works better for your language, you can use punctuation e.g. &quot;Expiration: %s&quot;">Verloopt %s</string>
+  <string name="expirationInMomentFromNow" comment="String is the translation of, for example, 'in 2 hours'">Verloopt %s</string>
 </resources>

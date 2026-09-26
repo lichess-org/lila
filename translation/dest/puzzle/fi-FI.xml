@@ -13,7 +13,6 @@
   <string name="origin">Alkuperä</string>
   <string name="specialMoves">Erityissiirrot</string>
   <string name="didYouLikeThisPuzzle">Piditkö tästä tehtävästä?</string>
-  <string name="voteToLoadNextOne">Anna arviosi, niin seuraava latautuu!</string>
   <string name="upVote">Arvioi tehtävä hyväksi</string>
   <string name="downVote">Arvioi tehtävä huonoksi</string>
   <string name="yourPuzzleRatingWillNotChange">Tehtävävahvuuslukusi ei muutu. Huomaa, että tehtävien ratkaisu ei ole kilpailu. Vahvuusluvun perusteella saat ratkaistavaksesi tämänhetkistä taitotasoasi parhaiten vastaavia tehtäviä.</string>
@@ -93,6 +92,6 @@ Kun pelaat lisää nopeita ja klassisia pelejä, on suurempi mahdollisuus, että
   </plurals>
   <string name="percentSolved">%s ratkaistu</string>
   <string name="noPuzzlesToShow">Täällä ei ole vielä mitään nähtävää – tee ensin joitakin tehtäviä!</string>
-  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">Harjoittele näitä tehostaaksesi edistymistäsi!</string>
+  <string name="improvementAreasDescription">Harjoittele näitä tehostaaksesi edistymistäsi!</string>
   <string name="strengthDescription">Suoriudut parhaiten näissä aiheissa</string>
 </resources>

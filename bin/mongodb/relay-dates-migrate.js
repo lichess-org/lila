@@ -11,7 +11,7 @@ const fetchDates = tourId =>
     ])
     .next();
 
-const cmp = (a, b) => (a ? a.getTime() : 0) == (b ? b.getTime() : 0);
+const cmp = (a, b) => (a ? a.getTime() : 0) === (b ? b.getTime() : 0);
 
 db.relay_tour
   .find()

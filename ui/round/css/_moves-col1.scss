@@ -1,5 +1,9 @@
 /* context: .rmoves */
 @include mq-is-col1 {
+  @include if-transp {
+    @include back-blur;
+  }
+
   overflow: hidden;
 
   .col1-moves {
@@ -24,13 +28,14 @@
     white-space: nowrap;
     overflow-x: scroll;
     color: $c-font-page;
-    box-shadow: 0 4px 12px #000 inset;
+    box-shadow: 0 4px 16px #0006 inset;
 
     @include if-light {
-      box-shadow: 0 4px 4px #aaa inset;
+      box-shadow: 0 4px 16px #aaa6 inset;
     }
+
     &::-webkit-scrollbar {
-      height: 0px;
+      height: 0;
     }
 
     > :first-child {
@@ -58,8 +63,9 @@
     &.#{$active-class},
     &:hover {
       background: $c-bg-zebra;
+
       @include if-light {
-        background: hsl($site-hue, 20%, 85%);
+        background: hsl(var(---site-hue) 20% 85%);
       }
     }
 

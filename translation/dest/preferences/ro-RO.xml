@@ -16,7 +16,8 @@
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Modul Zen</string>
   <string name="showPlayerRatings">Arată evaluările jucătorului</string>
   <string name="showFlairs">Arată pictograma personalizată a jucătorului</string>
-  <string name="explainShowPlayerRatings">Acest lucru permite ascunderea tuturor ratingurilor de pe site, pentru a ajuta la concentrarea pe jocul de șah. Jocurile pot fi evaluate, această setare este doar despre ce se poate vedea.</string>
+  <string name="explainShowPlayerRatings">Ascunde toate ratingurile de pe Lichess, pentru a te ajuta la concentrarea pe jocul de șah.
+Jocurile vor fi evaluate în continuare, această setare afectează doar ce e vizibil.</string>
   <string name="displayBoardResizeHandle">Arată indicatorul de redimensionare a tablei</string>
   <string name="onlyOnInitialPosition">Doar înainte de prima mutare</string>
   <string name="inGameOnly">Doar în joc</string>
@@ -41,6 +42,7 @@
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Declară automat o remiză în cazul a trei repetări</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Când timpul rămas e mai scurt de 30 de secunde</string>
   <string name="moveConfirmation">Confirmare mutare</string>
+  <string name="multipleChoices">Alegere multiplă. </string>
   <string name="explainCanThenBeTemporarilyDisabled">Poate fi dezactivat în timpul unui joc cu meniul de tablă</string>
   <string name="inCorrespondenceGames">În jocuri prin corespondență</string>
   <string name="correspondenceAndUnlimited">Corespondență sau timp nelimitat</string>
@@ -56,13 +58,13 @@
   <string name="scrollOnTheBoardToReplayMoves">Derulează pe tablă pentru a rejuca mutările</string>
   <string name="correspondenceEmailNotification">Notificare zilnică prin email cu lista jocurilor prin corespondență</string>
   <string name="notifyStreamStart">Un streamer e live</string>
-  <string name="notifyInboxMsg">Mesaj nou</string>
-  <string name="notifyForumMention">Un comentariu din forum vă menționează</string>
-  <string name="notifyInvitedStudy">Invitație la un studiu</string>
+  <string name="notifyDirectMessage" comment="notifyInboxMsg&#10;&#10;A notification setting - notifies players when they receive a new message in their Lichess inbox">Mesaj direct nou</string>
+  <string name="notifyForumMentions" comment="notifyForumMention&#10;&#10; A notification setting - notifies players when someone has @mentioned their name in the Lichess Forum (https://lichess.org/forum)">Menţiuni forum</string>
+  <string name="notifyStudyInvites" comment="notifyInvitedStudy&#10;&#10; A notification setting - notifies players about invites to studies (https://lichess.org/study/)">Invitații la studii</string>
   <string name="notifyGameEvent">Actualizări la jocurile prin corespondență</string>
   <string name="notifyChallenge">Provocări</string>
-  <string name="notifyTournamentSoon">Turneul începe în curând</string>
-  <string name="notifyBroadcasts">Transmisiuni la care te-ai abonat</string>
+  <string name="notifyTournamentStartReminders" comment="notifyTournamentSoon&#10;&#10;A notification setting - notifies players if a tournament is starting soon.">Notificări la începerea turneelor</string>
+  <string name="notifyBroadcasts">Transmisiuni</string>
   <string name="notifyTimeAlarm">Timpul rămas la jocurile prin corespondență e scurt</string>
   <string name="notifyBell">Notificare în Lichess</string>
   <string name="notifyPush">Notificare dispozitiv când nu ești în Lichess</string>
@@ -70,5 +72,29 @@
   <string name="notifyDevice">Dispozitiv</string>
   <string name="bellNotificationSound">Sunet de notificare</string>
   <string name="blindfold" comment="As in Blindfold chess">Legat la ochi</string>
-  <string name="showClockOnTheLeft" comment="IMPORTANT NOTE FOR LANGUAGES WRITTEN RIGHT-TO-LEFT (e.g. Arabic):&#10;Please translate &quot;left&quot; as &quot;right&quot;, because the layout is reversed in your language.&#10;&#10;---&#10;&#10;A user setting. When enabled, the clock will be shown on the left side of the screen. Only applies to mobile devices.&#10;&#10;&#10;Appears on https://lichess.org/account/preferences/chess-clock.">Afișează în partea stângă pe dispozitive mobile</string>
+  <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">Afișează în partea stângă pe dispozitive mobile</string>
+  <string name="inlineNotation">Notație integrată</string>
+  <string name="showServerAnalysis">Arată analiza serverului</string>
+  <string name="showBestMoveArrows">Arată săgeți cu cele mai bune mutări</string>
+  <string name="showManeuverArrows">Arată săgeți cu manevre</string>
+  <string name="showGauge">Arată indicator de evaluare</string>
+  <string name="showMoveAnnotationsOnBoard">Arată adnotările mutărilor</string>
+  <string name="showVariationArrows">Arată săgeţi cu variaţiile</string>
+  <string name="showLiveGlyphs">Adnotări direct de la motorul de analiză</string>
+  <string name="showUndefendedPieces">Arată piesele neapărate</string>
+  <string name="showPinnedPieces">Arată piesele legate</string>
+  <string name="showCheckableKing">Arată rege care poate fi pus in șah</string>
+  <string name="disclosureMode">Activează ascunderea variațiilor</string>
+  <string name="generalSettings">General</string>
+  <string name="moveListSettings">Lista de mutări</string>
+  <string name="boardSettings">Tablă</string>
+  <string name="analysisSettings">Setări analiză</string>
+  <string name="maneuverArrowsHelp">Secvența de mutări a motorului pentru o piesă</string>
+  <string name="hoverOverSettingLabelsForHelp">Plasați cursorul peste etichete pentru ajutor</string>
+  <string name="network">Rețea</string>
+  <string name="youAreCurrentlyUsingDirectRouting">În prezent folosiți rutarea directă.</string>
+  <string name="youAreCurrentlyUsingCdnRouting">În acest moment utilizaţi rutarea Reţea de Livrare a Conținutului (CDN).</string>
+  <string name="frequentDisconnectsAdvice">Dacă aveți deconectări frecvente, încercați să schimbați rutarea.</string>
+  <string name="useDirectRouting">Folosește rutare directă</string>
+  <string name="useCdnRouting">Folosește rutarea CDN</string>
 </resources>

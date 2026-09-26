@@ -1,10 +1,17 @@
-import { defined, prop, type Prop, scrollToInnerSelector } from 'lib';
-import * as licon from 'lib/licon';
-import { type VNode, bind, dataIcon, iconTag, hl, alert } from 'lib/view';
+import { INITIAL_FEN } from 'chessops/fen';
+import { opposite } from 'chessops/util';
+import type Sortable from 'sortablejs';
+
+import { blurIfPrimaryClick, defined, prop, type Prop, scrollToInnerSelector } from 'lib';
+import { fenColor } from 'lib/game/chess';
+import { licon } from 'lib/licon';
+import { type VNode, bind, hl, alert, icon, button } from 'lib/view';
+
 import type AnalyseCtrl from '../ctrl';
 import type { StudySocketSend } from '../socket';
 import { StudyChapterEditForm } from './chapterEditForm';
 import { StudyChapterNewForm } from './chapterNewForm';
+import { federations, localizedName } from './fideFeds';
 import type {
   LocalPaths,
   StudyChapter,
@@ -14,17 +21,12 @@ import type {
   ServerNodeMsg,
   ChapterPreviewFromServer,
   ChapterId,
-  Federations,
   StudyPlayerFromServer,
   StudyPlayer,
   ChapterSelect,
   StatusStr,
 } from './interfaces';
 import type StudyCtrl from './studyCtrl';
-import { opposite } from 'chessops/util';
-import { fenColor } from 'lib/game/chess';
-import type Sortable from 'sortablejs';
-import { INITIAL_FEN } from 'chessops/fen';
 
 /* read-only interface for external use */
 export class StudyChapters {
@@ -57,12 +59,12 @@ export default class StudyChaptersCtrl {
     readonly isBroadcast: boolean,
     setTab: () => void,
     chapterConfig: (id: string) => Promise<StudyChapterConfig>,
-    private readonly federations: () => Federations | undefined,
     root: AnalyseCtrl,
+    currentChapter: () => StudyChapter,
   ) {
     this.list = new StudyChapters(this.store);
     this.loadFromServer(initChapters);
-    this.newForm = new StudyChapterNewForm(send, this.list, isBroadcast, setTab, root);
+    this.newForm = new StudyChapterNewForm(send, this.list, isBroadcast, setTab, root, currentChapter);
     this.editForm = new StudyChapterEditForm(send, chapterConfig, isBroadcast, root.redraw);
   }
 
@@ -82,9 +84,8 @@ export default class StudyChaptersCtrl {
         lastMoveAt: defined(c.thinkTime) ? Date.now() - 1000 * c.thinkTime : undefined,
       })),
     );
-  private convertPlayersFromServer = (players: PairOf<StudyPlayerFromServer>) => {
-    const feds = this.federations(),
-      conv: StudyPlayer[] = players.map(p => convertPlayerFromServer(p, feds));
+  private readonly convertPlayersFromServer = (players: PairOf<StudyPlayerFromServer>) => {
+    const conv: StudyPlayer[] = players.map(convertPlayerFromServer);
     return { white: conv[0], black: conv[1] };
   };
 
@@ -116,13 +117,14 @@ export default class StudyChaptersCtrl {
   hasPlayingChapter = () => this.list.all().some(c => c.playing);
 }
 
-export const convertPlayerFromServer = <A extends StudyPlayerFromServer>(
-  player: A,
-  federations?: Federations,
-) => ({
-  ...player,
-  fed: player.fed ? { id: player.fed, name: federations?.[player.fed] || player.fed } : undefined,
-});
+export const convertPlayerFromServer = <A extends StudyPlayerFromServer>(player: A) => {
+  const i18nName = player.fed && localizedName(player.fed);
+  const fedName = player.fed && federations?.[player.fed]?.[0];
+  return {
+    ...player,
+    fed: player.fed && fedName ? { id: player.fed, name: fedName, i18nName } : undefined,
+  };
+};
 
 export function isFinished(c: StudyChapter) {
   const result = findTag(c.tags, 'result');
@@ -137,8 +139,8 @@ export const looksLikeLichessGame = (tags: TagArray[]) =>
 export const gameLinkAttrs = (roundPath: string, game: { id: ChapterId }) => ({
   href: `${roundPath}/${game.id}`,
 });
-export const gameLinksListener = (select: ChapterSelect) => (vnode: VNode) =>
-  (vnode.elm as HTMLElement).addEventListener(
+export const gameLinksListener = (select: ChapterSelect) => (elm: HTMLElement) =>
+  elm.addEventListener(
     'click',
     async e => {
       let target = e.target as HTMLLinkElement;
@@ -153,24 +155,26 @@ export const gameLinksListener = (select: ChapterSelect) => (vnode: VNode) =>
     { passive: false },
   );
 
-function onListUpdate(ctrl: StudyCtrl, vnode: VNode) {
-  const vData = vnode.data!.li!,
-    el = vnode.elm as HTMLElement;
-  ctrl.chapters.scroller.scrollIfNeeded(el);
-  if (ctrl.members.canContribute() && ctrl.chapters.list.size() > 1 && !vData.sortable) {
+function onListUpdate({ chapters, members }: StudyCtrl, vnode: VNode) {
+  const vData = vnode.data!.li!;
+  const el = vnode.elm as HTMLElement;
+
+  chapters.scroller.scrollIfNeeded(el);
+
+  if (members.canContribute() && chapters.list.size() > 1 && !vData.sortable) {
     site.asset.loadEsm<typeof Sortable>('sortable.esm', { npm: true }).then(s => {
       vData.sortable = s.create(el, {
         draggable: '.draggable',
         handle: 'ontouchstart' in window ? 'span' : undefined,
-        onSort: () => ctrl.chapters.sort(vData.sortable.toArray()),
+        onSort: () => chapters.sort(vData.sortable.toArray()),
       });
     });
   }
 }
 
 export function view(ctrl: StudyCtrl): VNode {
-  const canContribute = ctrl.members.canContribute(),
-    current = ctrl.currentChapter();
+  const canContribute = ctrl.members.canContribute();
+  const current = ctrl.currentChapter();
 
   return hl('div.study__chapters', [
     hl(
@@ -178,15 +182,6 @@ export function view(ctrl: StudyCtrl): VNode {
       {
         hook: {
           insert(vnode) {
-            (vnode.elm as HTMLElement).addEventListener('click', e => {
-              const target = e.target as HTMLElement;
-              const id = (target.parentNode as HTMLElement).dataset['id'] || target.dataset['id'];
-              if (!id) return;
-              if (target.className === 'act') {
-                const chapter = ctrl.chapters.list.get(id);
-                if (chapter) ctrl.chapters.editForm.toggle(chapter);
-              } else ctrl.setChapter(id);
-            });
             vnode.data!.li = {};
             ctrl.chapters.scroller.request('instant');
             onListUpdate(ctrl, vnode);
@@ -202,30 +197,58 @@ export function view(ctrl: StudyCtrl): VNode {
         },
       },
       ctrl.chapters.list.all().map((chapter, i) => {
-        const editing = ctrl.chapters.editForm.isEditing(chapter.id),
-          active = !ctrl.vm.loading && current?.id === chapter.id;
+        const editing = ctrl.chapters.editForm.isEditing(chapter.id);
+        const active = !ctrl.vm.loading && current?.id === chapter.id;
         return hl(
           'button',
           {
             key: chapter.id,
             attrs: { 'data-id': chapter.id },
             class: { active, editing, draggable: canContribute },
+            on: {
+              click: e => {
+                ctrl.setChapter(chapter.id);
+                blurIfPrimaryClick(e);
+              },
+            },
           },
           [
-            hl('span', (i + 1).toString()),
+            hl('span', i + 1),
             hl('h3', chapter.name),
             chapter.status && hl('res', chapter.status),
             canContribute &&
-              hl('i.act', { attrs: { ...dataIcon(licon.Gear), title: i18n.study.editChapter } }),
+              button(
+                '.act',
+                {
+                  on: {
+                    click: e => {
+                      ctrl.chapters.editForm.toggle(chapter);
+                      e.stopPropagation();
+                      blurIfPrimaryClick(e);
+                    },
+                  },
+                },
+                icon(licon.Gear)({ title: i18n.study.editChapter }),
+              ),
           ],
         );
       }),
     ),
     ctrl.members.canContribute() &&
-      hl('button.add', { hook: bind('click', ctrl.chapters.toggleNewForm, ctrl.redraw) }, [
-        hl('span', iconTag(licon.PlusButton)),
-        hl('h3', i18n.study.addNewChapter),
-      ]),
+      hl(
+        'button.add',
+        {
+          hook: bind(
+            'click',
+            e => {
+              blurIfPrimaryClick(e);
+              ctrl.chapters.toggleNewForm();
+            },
+            ctrl.redraw,
+          ),
+        },
+        [icon(licon.PlusButton)(), hl('h3', i18n.study.addNewChapter)],
+      ),
   ]);
 }
 

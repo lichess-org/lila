@@ -20,7 +20,7 @@ import lila.common.HTTPRequest
 
 final class Plan(env: Env) extends LilaController(env):
 
-  private val logger = lila.log("plan")
+  import lila.plan.logger
 
   def index(page: Int = 1) = Open:
     pageHit

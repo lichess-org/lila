@@ -56,13 +56,13 @@
   <string name="scrollOnTheBoardToReplayMoves">Brug musens scrollhjul på brættet for at afspille træk</string>
   <string name="correspondenceEmailNotification">Daglig e-mailnotifikation med dine korrespondance-spil</string>
   <string name="notifyStreamStart">Streamer går live</string>
-  <string name="notifyInboxMsg">Ny besked i indbakke</string>
-  <string name="notifyForumMention">Kommentar i forum nævner dig</string>
-  <string name="notifyInvitedStudy">Invitation til studie</string>
+  <string name="notifyDirectMessage" comment="notifyInboxMsg&#10;&#10;A notification setting - notifies players when they receive a new message in their Lichess inbox">Ny direkte besked</string>
+  <string name="notifyForumMentions" comment="notifyForumMention&#10;&#10; A notification setting - notifies players when someone has @mentioned their name in the Lichess Forum (https://lichess.org/forum)">Omtaler på forummet</string>
+  <string name="notifyStudyInvites" comment="notifyInvitedStudy&#10;&#10; A notification setting - notifies players about invites to studies (https://lichess.org/study/)">Invitationer til studie</string>
   <string name="notifyGameEvent">Opdateringer af korrespondancepartier</string>
   <string name="notifyChallenge">Udfordringer</string>
-  <string name="notifyTournamentSoon">Turneringsstart nærmer sig</string>
-  <string name="notifyBroadcasts">Udsendelser, du abonnerer på</string>
+  <string name="notifyTournamentStartReminders" comment="notifyTournamentSoon&#10;&#10;A notification setting - notifies players if a tournament is starting soon.">Påmindelser om turneringsstart</string>
+  <string name="notifyBroadcasts">Udsendelser</string>
   <string name="notifyTimeAlarm">Ur i korrespondance er ved at løbe ud</string>
   <string name="notifyBell">Klokkenotifikation i Lichess</string>
   <string name="notifyPush">Notifikation på enhed, når du ikke er på Lichess</string>
@@ -70,5 +70,23 @@
   <string name="notifyDevice">Enhed</string>
   <string name="bellNotificationSound">Notifikationslyd</string>
   <string name="blindfold" comment="As in Blindfold chess">Blindskak</string>
-  <string name="showClockOnTheLeft" comment="IMPORTANT NOTE FOR LANGUAGES WRITTEN RIGHT-TO-LEFT (e.g. Arabic):&#10;Please translate &quot;left&quot; as &quot;right&quot;, because the layout is reversed in your language.&#10;&#10;---&#10;&#10;A user setting. When enabled, the clock will be shown on the left side of the screen. Only applies to mobile devices.&#10;&#10;&#10;Appears on https://lichess.org/account/preferences/chess-clock.">Vis til venstre på mobile enheder</string>
+  <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">Vis til venstre på mobile enheder</string>
+  <string name="inlineNotation">Notation uden linjeskift</string>
+  <string name="showServerAnalysis">Vis serveranalyse</string>
+  <string name="showBestMoveArrows">Vis pile for bedste træk</string>
+  <string name="showManeuverArrows">Vis manøvrepile</string>
+  <string name="showGauge">Vis evalueringsindikator</string>
+  <string name="showMoveAnnotationsOnBoard">Vis træk-annotationer</string>
+  <string name="showVariationArrows">Vis variantpile</string>
+  <string name="showLiveGlyphs">Live skakprogram-annotationer</string>
+  <string name="showUndefendedPieces">Vis uforsvarede brikker</string>
+  <string name="showPinnedPieces">Vis bundne brikker</string>
+  <string name="showCheckableKing">Vis konge, der kan sættes skak</string>
+  <string name="disclosureMode">Aktiver skjulning af variation</string>
+  <string name="generalSettings">Generelt</string>
+  <string name="moveListSettings">Trækliste</string>
+  <string name="boardSettings">Bræt</string>
+  <string name="analysisSettings">Analyseindstillinger</string>
+  <string name="maneuverArrowsHelp">Sekvens af skakprogramtræk for en brik</string>
+  <string name="hoverOverSettingLabelsForHelp">Hold markøren over indstillingsetiketter for hjælp</string>
 </resources>

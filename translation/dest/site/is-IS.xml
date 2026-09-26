@@ -124,7 +124,6 @@
   <string name="enable">Á</string>
   <string name="bestMoveArrow">Ör sem sýnir besta leik</string>
   <string name="showVariationArrows">Sýna afbrigðaörvar</string>
-  <string name="evaluationGauge">Stöðumat</string>
   <string name="multipleLines">Mismunandi línur</string>
   <string name="cpus">Örgjörvar</string>
   <string name="memory">Minni</string>
@@ -133,25 +132,13 @@
   <string name="blunder">Afleikur</string>
   <string name="mistake">Mistök</string>
   <string name="inaccuracy">Ónákvæmni</string>
-  <plurals name="nbBlunders">
-    <item quantity="one">%s afleikur</item>
-    <item quantity="other">%s afleikir</item>
-  </plurals>
   <plurals name="numberBlunders">
     <item quantity="one">%s Afleikur</item>
     <item quantity="other">%s Afleikir</item>
   </plurals>
-  <plurals name="nbMistakes">
-    <item quantity="one">%s mistök</item>
-    <item quantity="other">%s mistök</item>
-  </plurals>
   <plurals name="numberMistakes">
     <item quantity="one">%s Mistök</item>
     <item quantity="other">%s Mistök</item>
-  </plurals>
-  <plurals name="nbInaccuracies">
-    <item quantity="one">%s ónákvæmni</item>
-    <item quantity="other">%s ónákvæmni</item>
   </plurals>
   <plurals name="numberInaccuracies">
     <item quantity="one">%s Ónákvæmni</item>
@@ -230,7 +217,6 @@
   <string name="changeUsernameNotSame">Aðeins er hægt að víxla á hástöfum og lágstöfum. Til dæmis „ómarragnarsson” í „ÓmarraGNARsson”.</string>
   <string name="changeUsernameDescription">Skiptu um notendanafn. Þú getur aðeins gert þetta einu sinni og þú mátt bara víxla á hástöfum og lágstöfum.</string>
   <string name="signupUsernameHint">Veldu notandanafn sem er viðeigandi fyrir alla, jafnvel börn. Ekki er hægt að breyta því síðar og allir aðgangar með óviðeigandi notendanöfn verða lokaðir!</string>
-  <string name="signupEmailHint">Við munum eingöngu nota það til að endursetja lykilorð.</string>
   <string name="password">Lykilorð</string>
   <string name="changePassword">Breyta lykilorði</string>
   <string name="changeEmail">Breyta tölvupóstfangi</string>
@@ -253,10 +239,6 @@
   <string name="emailSent">Við höfum sent tölvupóst á %s.</string>
   <string name="emailCanTakeSomeTime">Það gæti tekið smá tíma að skila sér.</string>
   <string name="refreshInboxAfterFiveMinutes">Hinkraðu í 5 mínútur og athuga svo innhólfið þitt.</string>
-  <string name="checkSpamFolder">Athugaðu einnig ruslmöppuna þína, pósturinn gæti hafa ratað þangað. Ef svo er, merktu hann öruggan.</string>
-  <string name="emailForSignupHelp">Ef allt annað bregst skaltu þá senda okkur þennan tölvupóst:</string>
-  <string name="copyTextToEmail">Afritaðu og límdu ofangreindan texta og sendu hann til %s</string>
-  <string name="waitForSignupHelp">Við munum hafa samband við þig innan skamms til þess að hjálpa þér að ljúka við skráninguna þína.</string>
   <string name="accountConfirmed">Notandinn %s hefur verið staðfestur.</string>
   <string name="accountCanLogin">Þú getur skráð þig inn núna sem %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Þú þarft ekki staðfestingar póst.</string>
@@ -279,8 +261,6 @@
   </plurals>
   <string name="ok">Í LAGI</string>
   <string name="cancel">Hætta við</string>
-  <string name="whiteTimeOut">Hvítur féll á tíma</string>
-  <string name="blackTimeOut">Svartur féll á tíma</string>
   <string name="drawOfferSent">Boð um jafntefli sent</string>
   <string name="drawOfferAccepted">Boði um jafntefli samþykkt</string>
   <string name="whiteOffersDraw">Hvítur býður jafntefli</string>
@@ -400,7 +380,6 @@
     <item quantity="other">Þú verður að tefla %s skákir með stigagjöf í viðbót</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Stig þín í %s eru tímabundin</string>
-  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Skákstyrkjasían er ekki þér aðgengileg vegna þess að skákstigatala þín er ekki stöðug. Að tefla stigaskákir mun auka stöðugleika.</string>
   <string name="yourPerfRatingIsTooHigh">Stig þín í %1$s (%2$s) eru of há</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Hæstu vikulegu stig þín í %1$s (%2$s) eru of há</string>
   <string name="yourPerfRatingIsTooLow">Stig þín í %1$s (%2$s) eru of lág</string>
@@ -421,7 +400,6 @@
   <string name="apply">Virkja</string>
   <string name="save">Vista</string>
   <string name="leaderboard">Stigatafla</string>
-  <string name="screenshotCurrentPosition">Taka skjáskot af núverandi stöðu</string>
   <string name="gameAsGIF">Skák sem GIF-snið</string>
   <string name="pasteTheFenStringHere">Límdu FEN strenginn hér</string>
   <string name="pasteThePgnStringHere">Límdu inn PGN-strenginn hér</string>
@@ -530,7 +508,6 @@
   <string name="oneUrlPerLine">Eitt URL í hverri línu.</string>
   <string name="inlineNotation">Stöðubundið ritunarkerfi</string>
   <string name="makeAStudy">Til þess að tryggja varðveislu og miðlun skaltu íhuga að útbúa stúderingu.</string>
-  <string name="clearSavedMoves">Hreinsa út leiki</string>
   <string name="previouslyOnLichessTV">Áður í Lichess-varpinu</string>
   <string name="onlinePlayers">Álínis notendur</string>
   <string name="activePlayers">Virkir notendur</string>
@@ -572,7 +549,6 @@
   <string name="other">Annað</string>
   <string name="reportCheatBoostHelp">Vinsamlegast límdu inn slóðina að skák(unum) og útskýrðu í hverju misferli notandans er fólgið. Forðastu að segja einungis „hann svindlar,“ heldur greindu frá því hvernig þú komst að þeirri niðurstöðu.</string>
   <string name="reportUsernameHelp">Við óskum eftir skýringu á því sem er móðgandi við þetta notandanafn. Ekki nægir að segja „það er óviðeigandi“, heldur upplýstu okkur um hvernig þú komst að þinni niðurstöðu, einkum ef móðgunin er dulbúin, ekki á ensku, í slangri eða vísar til sögulegra/menningarlegra atburða.</string>
-  <string name="reportProcessedFasterInEnglish">Tilkynning þín mun hljóta skjótari afgreiðslu sé hún færð á ensku.</string>
   <string name="error.provideOneCheatedGameLink">Vinsamlegast gefðu upp tengil á allavega eina skák þar sem svindlað var.</string>
   <string name="by">eftir %s</string>
   <string name="importedByX">Hlaðið inn af %s</string>
@@ -654,7 +630,7 @@
   <string name="onlyExistingConversations">Eingöngu samtöl sem eru þegar til</string>
   <string name="onlyFriends">Eingöngu vinir</string>
   <string name="menu">Valmynd</string>
-  <string name="castling" comment="Label for a box on the right side of the board editor, where the user can select castling rights. Noun.&#10;&#10;NOTE: this string used to read &quot;Castling&quot;, with &quot;rights&quot; added in 2026 for clarity.">Hrókering</string>
+  <string name="castling">Hrókering</string>
   <string name="whiteCastlingKingside">Hvítur O-O</string>
   <string name="blackCastlingKingside">Svartur O-O</string>
   <plurals name="nbForumPosts">
@@ -693,11 +669,9 @@
   <string name="aboutSimulRules">Þegar fjölteflið hefst, hefur hver skákmaður leik við gestgjafann. Fjölteflinu lýkur þegar allar skákir eru búnar.</string>
   <string name="aboutSimulSettings">Fjöltefli eru alltaf stigalaus. Aukaskákir, afturkallanir og viðbótartími eru ekki í boði.</string>
   <string name="create">Búa til</string>
-  <string name="whenCreateSimul">Þegar þú heldur fjöltefli geturðu teflt við marga skákmenn í einu.</string>
   <string name="simulVariantsHint">Ef þú velur nokkur afbrigði fær hver andstæðingur að ákveða hvert þeirra hann vill leika.</string>
   <string name="simulClockHint">Uppsetning á Fischer-klukku. Því fleiri andstæðinga sem þú teflir við, því meiri tíma gætirðu þurft.</string>
   <string name="simulAddExtraTime">Þú getur bætt við tíma til að hjálpa þér að ráða við hópskákina.</string>
-  <string name="simulHostExtraTime">Aukatími á klukku þess sem hýsir.</string>
   <string name="simulAddExtraTimePerPlayer">Bæta viðbótartíma við klukkuna þína fyrir hvern skákmann sem tekur þátt í fjöltefli.</string>
   <string name="simulHostExtraTimePerPlayer">Viðbótartími á klukku gestgjafa á skákmann</string>
   <string name="lichessTournaments">Lichess mót</string>
@@ -711,11 +685,6 @@
   <string name="keyCycleSelectedVariation">Fletta í gegnum valda afbrigðið</string>
   <string name="keyShowOrHideComments">sýna/fela athugasemd</string>
   <string name="keyEnterOrExitVariation">fara í/úr afbrigði</string>
-  <string name="keyRequestComputerAnalysis">Biðja um tölvugreiningu, Lærðu af mistökum þínum</string>
-  <string name="keyNextLearnFromYourMistakes">Næst (Lærðu af mistökum þínum)</string>
-  <string name="keyNextBlunder">Næsti afleikur</string>
-  <string name="keyNextMistake">Næstu mistök</string>
-  <string name="keyNextInaccuracy">Næsta ónákvæmni</string>
   <string name="keyPreviousBranch">Fyrri grein</string>
   <string name="keyNextBranch">Næsta grein</string>
   <string name="toggleVariationArrows">Víxla afbrigðisörvum</string>
@@ -801,7 +770,6 @@
   <string name="background">Bakgrunnur</string>
   <string name="light">Ljós</string>
   <string name="dark">Dökkur</string>
-  <string name="transparent">Gegnsær</string>
   <string name="deviceTheme">Þema tækis</string>
   <string name="backgroundImageUrl">URL á bakgrunnsmynd:</string>
   <string name="board">Borð</string>
@@ -825,7 +793,6 @@
   <string name="custom">Sérsniðin</string>
   <string name="notifications">Tilkynningar</string>
   <string name="notificationsX">Tilkynningar: %1$s</string>
-  <string name="perfRatingX">Skákstig: %s</string>
   <string name="yourRatingIsX">Skákstigin þín eru %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekúnda til að gera fyrsta leik</item>
@@ -884,7 +851,6 @@
     <item quantity="other">og vista %s forleikfléttur</item>
   </plurals>
   <string name="showUnreadLichessMessage">Þú hefur fengið einkaskilaboð frá Lichess.</string>
-  <string name="clickHereToReadIt">Ýttu hér til að lesa það</string>
   <string name="sorry">Afsakaðu :(</string>
   <string name="weHadToTimeYouOutForAWhile">Við þurftum að setja þig í stutt leikbann.</string>
   <string name="why">Afhverju?</string>
@@ -903,7 +869,6 @@
   <string name="agreementAssistance">Ég samþykki að ég mun alls ekki fá hjálp á meðan ég tefli (frá skákforriti, skákbók, gagnagrunni eða annari manneskju).</string>
   <string name="agreementNice">Ég lýsi yfir því að ég muni alltaf koma vel fram við aðra skákmenn.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Ég lýsi yfir því að ég muni ekki stofna marga aðganga (nema af þeim ástæðum sem tilgreindar eru í %s).</string>
-  <string name="agreementPolicy">Ég samþykki að ég muni fylgja öllum reglum Lichess.</string>
   <string name="searchOrStartNewDiscussion">Leita eða hefja nýtt samtal</string>
   <string name="edit">Breyta</string>
   <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">Örskák</string>
@@ -939,7 +904,6 @@
   <string name="xInvitedYouToY">%1$s bauð þér í „%2$s“.</string>
   <string name="youAreNowPartOfTeam">Þú ert nú hluti af hliðinu.</string>
   <string name="youHaveJoinedTeamX">Þú gekkst til liðs við „%1$s“.</string>
-  <string name="someoneYouReportedWasBanned">Einhver sem þú tilkynntir var bannaður</string>
   <string name="congratsYouWon">Til hamingju, þú vannst!</string>
   <string name="gameVsX">Skák á móti %1$s</string>
   <string name="resVsX">%1$s á móti %2$s</string>
@@ -970,14 +934,12 @@ Skildu eftir autt til að tefla útfrá hefðbundinni upphafsstöðu.</string>
   <string name="simulFeaturedHelp">Sýna öllum á %s fjöltefli þitt. Afvirktu ef um persónuleg fjöltefli er um að ræða.</string>
   <string name="simulDescription">Lýsing fjölteflis</string>
   <string name="simulDescriptionHelp">Er nokkuð eitthvað sem óskað er eftir að upplýsa þátttakendur um?</string>
-  <string name="markdownIsAvailable">%s er tiltækt til sniðmótunar.</string>
   <string name="embedsAvailable">Límdu vefslóð skákar eða vefslóð stúderingarkafla til þess að ívefja það.</string>
   <string name="inYourLocalTimezone">Samkvæmt þínum staðbundna tíma</string>
   <string name="tournChat">Spjall móts</string>
   <string name="noChat">Ekkert spjall</string>
   <string name="onlyTeamLeaders">Eingöngu liðsstjórar</string>
   <string name="onlyTeamMembers">Eingöngu liðsfélagar</string>
-  <string name="navigateMoveTree">Fletta í gegnum leikjalistann</string>
   <string name="mouseTricks">Músarklækir</string>
   <string name="toggleLocalAnalysis">Virkja tölvugreiningu á staðvél</string>
   <string name="toggleAllAnalysis">Virkja tölvugreiningu á öllum vélum</string>
@@ -994,7 +956,6 @@ Skildu eftir autt til að tefla útfrá hefðbundinni upphafsstöðu.</string>
   <string name="gameInProgress">Þú ert nú þegar með skák á móti %s.</string>
   <string name="abortTheGame">Hætta við skák</string>
   <string name="resignTheGame">Gefa upp skák</string>
-  <string name="youCantStartNewGame">Þú getur ekki hafið nýja skák fyrr en þessari er lokið.</string>
   <string name="since">Síðan</string>
   <string name="until">Uns</string>
   <string name="lichessDbExplanation">Skákir sem gilda til stiga sem leiknar eru á Lichess</string>

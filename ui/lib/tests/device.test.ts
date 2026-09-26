@@ -1,5 +1,6 @@
-import { describe, test } from 'node:test';
 import assert from 'node:assert/strict';
+import { describe, test } from 'node:test';
+
 import { isVersionCompatible } from '../src/device';
 
 describe('test isVersionCompatible', () => {
@@ -21,6 +22,6 @@ describe('test isVersionCompatible', () => {
     assert.equal(isVersionCompatible('1'), true);
     assert.equal(isVersionCompatible('', { below: '6' }), false);
     assert.equal(isVersionCompatible('', {}), false);
-    assert.equal(isVersionCompatible(false as any, {}), false);
+    assert.equal(isVersionCompatible(false, {}), false);
   });
 });

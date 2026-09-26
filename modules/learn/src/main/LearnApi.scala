@@ -10,17 +10,17 @@ final class LearnApi(coll: Coll)(using Executor):
     reset(del.id)
 
   def get(user: UserId): Fu[LearnProgress] =
-    coll.one[LearnProgress]($id(user)).dmap { _ | LearnProgress.empty(user.id) }
+    coll.one[LearnProgress](bid(user)).dmap { _ | LearnProgress.empty(user.id) }
 
   private def save(p: LearnProgress): Funit =
-    coll.update.one($id(p.id), p, upsert = true).void
+    coll.update.one(bid(p.id), p, upsert = true).void
 
   def setScore(user: UserId, stage: String, level: Int, score: StageProgress.Score) =
     get(user).flatMap: prog =>
       save(prog.withScore(stage, level, score))
 
   def reset(user: UserId) =
-    coll.delete.one($id(user)).void
+    coll.delete.one(bid(user)).void
 
   private val maxCompletion = 110
 
@@ -28,18 +28,18 @@ final class LearnApi(coll: Coll)(using Executor):
     coll
       .aggregateList(maxDocs = Int.MaxValue, _.sec): framework =>
         import framework.*
-        Match($doc("_id".$in(userIds))) -> List(
-          Project($doc("stages" -> $doc("$objectToArray" -> "$stages"))),
+        Match(bdoc("_id".in(userIds))) -> List(
+          Project(bdoc("stages" -> bdoc("$objectToArray" -> "$stages"))),
           UnwindField("stages"),
           Project(
-            $doc(
-              "stages" -> $doc(
-                "$size" -> $doc(
-                  "$filter" -> $doc(
+            bdoc(
+              "stages" -> bdoc(
+                "$size" -> bdoc(
+                  "$filter" -> bdoc(
                     "input" -> "$stages.v",
                     "as" -> "s",
-                    "cond" -> $doc(
-                      "$ne" -> $arr("$$s", 0)
+                    "cond" -> bdoc(
+                      "$ne" -> barr("$$s", 0)
                     )
                   )
                 )

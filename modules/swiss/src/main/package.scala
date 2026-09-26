@@ -2,10 +2,11 @@ package lila.swiss
 
 export lila.core.lilaism.Lilaism.{ *, given }
 export lila.common.extensions.*
+export lila.gathering.Payouts
 
 val lichessTeamId = TeamId("lichess-swiss")
 
-private val logger = lila.log("swiss")
+private lazy val logger = lila.log("swiss")
 
 // FIDE TRF player IDs
 private type PlayerIds = Map[UserId, Int]

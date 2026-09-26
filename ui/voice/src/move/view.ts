@@ -1,4 +1,5 @@
 import { h, type VNode } from 'snabbdom';
+
 import type { Prop } from 'lib';
 import { bind, rangeConfig } from 'lib/view';
 

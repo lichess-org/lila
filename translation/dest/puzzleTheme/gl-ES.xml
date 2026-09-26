@@ -14,7 +14,7 @@
   <string name="attractionDescription">Un intercambio ou sacrificio alentando ou forzando unha peza do opoñente a unha casa que permite unha táctica de seguimento.</string>
   <string name="backRankMate">Mate do corredor</string>
   <string name="backRankMateDescription">Xaque mate na última fila, onde o rei está atrapado polas súas propias pezas.</string>
-  <string name="balestraMate">Mate da besta</string>
+  <string name="balestraMate">Mate da bésta</string>
   <string name="balestraMateDescription">O bispo dá xaque mate mentres a dama bloquea as casas de escape</string>
   <string name="blindSwineMate">Mate do porco cego</string>
   <string name="blindSwineMateDescription">Dúas torres colaboran para dar mate ó rei nunha área de 2 x 2 casas.</string>
@@ -26,8 +26,10 @@
   <string name="castlingDescription">Pon o teu rei a salvo e desprega a túa torre para o ataque.</string>
   <string name="capturingDefender">Captura ao defensor</string>
   <string name="capturingDefenderDescription">Eliminar unha peza fundamental para a defensa doutra, permitindo capturar a peza, agora indefensa, no seguinte movemento.</string>
+  <string name="collinearMove">Movemento colineal</string>
+  <string name="collinearMoveDescription">Dúas pezas rivais enfróntanse entre si e unha delas desprázase pola liña de ataque sen capturar á rival.</string>
   <string name="cornerMate">Mate do curruncho</string>
-  <string name="cornerMateDescription">Confina o rei nun recuncho usando unha torre ou unha dama e un cabalo para facer xaque mate.</string>
+  <string name="cornerMateKnightDeliversDescription" comment="Description for the &quot;Corner mate&quot; puzzle theme.">Acurrala ó rei nun recanto empregando unha dama ou unha torre. Logo usa o cabalo para dar o xaque mate.</string>
   <string name="crushing">Vantaxe decisiva</string>
   <string name="crushingDescription">Detecta a metida de zoca do opoñente para obter unha vantaxe decisiva. (eval ≥ 600cp)</string>
   <string name="discoveredCheck">Xaque descuberto</string>
@@ -52,15 +54,17 @@
   <string name="doubleCheckDescription">Xaque con dúas pezas á vez, como resultado dun ataque descuberto onde tanto a peza que se move como a descuberta atacan ao rei do opoñente.</string>
   <string name="endgame">Final</string>
   <string name="endgameDescription">Táctica durante a derradeira fase do xogo.</string>
-  <string name="enPassantDescription">Táctica que involucra a captura ao paso, onde un peón pode capturar a un peón opoñente que o deixou atrás usando o seu movemento inicial de dúas casas.</string>
+  <string name="enPassantAdjacentCaptureDescription">Táctica que involucra a captura ao paso, onde un peón pode capturar a un peón do rival que acaba de poñerse ó seu carón nunha columna adxacente gracias ó seu movemento inicial de dúas casas.</string>
+  <string name="epauletteMate">Mate das xarreteiras</string>
+  <string name="epauletteMateDescription">As dúas casas de escape a ámbolos dous lados do rei en xaque están ocupadas.</string>
   <string name="exposedKing">Rei exposto</string>
   <string name="exposedKingDescription">Táctica que involucra a un rei con pouca defensa ó seu redor, a miúdo conducindo a xaque mate.</string>
   <string name="fork">Garfo</string>
-  <string name="forkDescription">Xogada na que a peza movida ataca dúas pezas adversarias simultaneamente.</string>
+  <string name="forkOpposingPiecesDescription">Xogada na que unha peza ataca a dúas ou máis pezas adversarias simultaneamente.</string>
   <string name="hangingPiece">Peza colgada</string>
   <string name="hangingPieceDescription">Unha táctica que involucra unha peza do opoñente que non está suficientemente defendida e que por tanto se pode capturar.</string>
   <string name="hookMate">Mate do gancho</string>
-  <string name="hookMateDescription">Xaque mate cunha torre, cabalo e peón xunto cun peón inimigo que limita a escapada do rei contrario.</string>
+  <string name="hookMateOpposingPawnDescription">Dar mate cunha torre, cabalo e peón contando coa axuda dun peón adversario que bloquea o escape do rei.</string>
   <string name="interference">Interferencia</string>
   <string name="interferenceDescription">Colocar unha peza entre dúas do opoñente de modo que unha delas ou ambas as dúas fican indefensas, como pode ser un cabalo nunha casa protexida entre dúas torres.</string>
   <string name="intermezzo">Xogada intermedia</string>
@@ -68,9 +72,11 @@
   <string name="killBoxMate">Mate da caixa</string>
   <string name="killBoxMateDescription">Unha torre canda o rei do adversario, defendida por unha dama que tamén bloquea as casas de escape do rei. A torre e a dama apreixan ao rei nun curruncho de 3 por 3.</string>
   <string name="pillsburysMate">Mate de Pillsbury</string>
-  <string name="pillsburysMateDescription">A torre dá xaque mate mentres o alfil confina ó rei rival.</string>
+  <string name="pillsburyMateRookAndBishopDescription">Unha torre dá xaque mate ó rei mentres un alfil axuda a confinalo.</string>
   <string name="morphysMate">Mate de Morphy</string>
-  <string name="morphysMateDescription">Usa o bispo para dar xaque mentres a torre axuda a confinar ó rei.</string>
+  <string name="morphyMateBishopAndRookDescription">Un alfil dá xaque mate ó rei mentres unha torre axuda a confinalo.</string>
+  <string name="swallowstailMate">Mate da cola de anduriña</string>
+  <string name="swallowstailMateDescription">É un patrón de mate que semella a cola en forma de V dunha anduriña.</string>
   <string name="triangleMate">Mate do triángulo</string>
   <string name="triangleMateDescription">Un triángulo fórmase do seguinte xeito: a dama e a torre atópanse na mesma fila ou columna, a unha casa de distancia entre si e do rei do opoñente.</string>
   <string name="vukovicMate">Mate de Vuković</string>
@@ -108,7 +114,7 @@
   <string name="pin">Cravada</string>
   <string name="pinDescription">Unha táctica que involucra cravadas, onde unha peza non se pode mover sen expoñer ó ataque unha peza de maior valor.</string>
   <string name="promotion">Promoción</string>
-  <string name="promotionDescription">Coroa un peón para convertelo en dama ou unha peza menor.</string>
+  <string name="promotePawnToQueenRookOrMinor">Coroa un dos teus peóns coma dama, torre ou unha peza menor.</string>
   <string name="queenEndgame">Final de damas</string>
   <string name="queenEndgameDescription">Un final no que só hai damas e peóns.</string>
   <string name="queenRookEndgame">Final de dama e torre</string>
@@ -116,7 +122,7 @@
   <string name="queensideAttack">Ataque no flanco de dama</string>
   <string name="queensideAttackDescription">Un ataque sobre o rei do opoñente, despois de que este enrocase en longo.</string>
   <string name="quietMove">Movemento tranquilo</string>
-  <string name="quietMoveDescription">Unha xogada que non dá xaque nin captura, nin tampouco ameaza con capturar, pero que prepara unha ameaza agochada e inevitable nun movemento posterior.</string>
+  <string name="quietMoveDescription">Unha xogada que non dá xaque, non captura nin tampouco ameaza con capturar. En troques, prepara unha ameaza agochada e inevitable nun movemento posterior.</string>
   <string name="rookEndgame">Final de torres</string>
   <string name="rookEndgameDescription">Un final no que só hai torres e peóns.</string>
   <string name="sacrifice">Sacrificio</string>
@@ -142,6 +148,6 @@
   <string name="mix">Mestura equilibrada</string>
   <string name="mixDescription">Un pouco de todo. Non sabes que vai vir, así que prepárate para calquera cousa! Coma nas partidas de verdade.</string>
   <string name="playerGames">Partidas de xogadores</string>
-  <string name="playerGamesDescription">Busca crebacabezas xerados a partir das túas partidas ou das doutros xogadores.</string>
+  <string name="playerGamesDescription">Exercicios xerados a partir das túas partidas ou dende partidas doutros xogadores.</string>
   <string name="puzzleDownloadInformation">Estes problemas son de dominio público e poden ser descargados en %s.</string>
 </resources>

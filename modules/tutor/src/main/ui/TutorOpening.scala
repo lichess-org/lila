@@ -8,41 +8,43 @@ import ScalatagsTemplate.{ *, given }
 final class TutorOpening(helpers: Helpers, bits: TutorBits, perfUi: TutorPerfUi):
   import helpers.{ *, given }
 
-  def openingMenu(perfReport: TutorPerfReport, report: TutorOpeningFamily, as: Color, user: User) =
-    frag(
-      perfReport.openings(as).families.map { family =>
+  private def openingSelector(
+      perfReport: TutorPerfReport,
+      report: TutorOpeningFamily,
+      as: Color
+  )(using config: TutorConfig) =
+    val all: List[(Color, TutorOpeningFamily)] = for
+      (color, fams) <- perfReport.openings.map(_.families).zipColor.mapList(identity)
+      fam <- fams
+    yield (color, fam)
+    lila.ui.bits.mselect(
+      "tutor-report-select",
+      span(s"$as ${report.family.name}"),
+      all.map: (color, family) =>
         a(
-          href := routes.Tutor
-            .opening(user.username, perfReport.perf.key, as, family.family.key.value),
-          cls := family.family.key.value.active(report.family.key.value)
-        )(family.family.name.value)
-      }
+          href := config.url.opening(perfReport.perf, color, family.family),
+          cls := (as == color && family.family.key == report.family.key).option("current")
+        )(s"$color ${family.family.name}")
     )
 
   def opening(
       full: TutorFullReport,
       perfReport: TutorPerfReport,
       report: TutorOpeningFamily,
-      as: Color,
-      user: User,
-      puzzle: Option[Frag]
+      as: Color
   )(using Context) =
     bits.page(
       title = s"Lichess Tutor • ${perfReport.perf.trans} • ${as.name} • ${report.family.name.value}",
-      menu = openingMenu(perfReport, report, as, user)
+      menu = perfUi.menu(perfReport, "opening".some)(using full.config)
     )(cls := "tutor__opening tutor-layout"):
       frag(
-        div(cls := "box tutor__first-box")(
+        div(cls := "tutor-header box")(
           boxTop(
             h1(
-              a(
-                href := routes.Tutor.openings(user.username, perfReport.perf.key),
-                dataIcon := Icon.LessThan,
-                cls := "text"
-              ),
-              bits.perfSelector(full, perfReport.perf)(routes.Tutor.openings),
-              s"$as ${report.family.name}",
-              bits.otherUser(user)
+              a(href := full.url.angle(perfReport.perf, "opening"), dataIcon := Icon.LessThan),
+              bits.perfSelector(full, perfReport.perf, "opening".some),
+              openingSelector(perfReport, report, as)(using full.config),
+              bits.otherUser(full.user)
             )
           ),
           bits.mascotSays(
@@ -74,9 +76,13 @@ final class TutorOpening(helpers: Helpers, bits: TutorBits, perfUi: TutorPerfUi)
                   cls := "button button-no-upper text",
                   dataIcon := Icon.Book,
                   href := s"${routes.UserAnalysis
-                      .pgn(report.family.anyOpening.pgn.value.replace(" ", "_"))}#explorer/${user.username}"
+                      .pgn(report.family.anyOpening.pgn.value.replace(" ", "_"))}#explorer/${full.user}"
                 )("Personal opening explorer"),
-                puzzle
+                a(
+                  cls := "button button-no-upper text",
+                  dataIcon := Icon.ArcheryTarget,
+                  href := routes.Puzzle.angleAndColor(report.family.key.value, as.name)
+                )("Train with puzzles")
               )
             )
           )
@@ -88,37 +94,38 @@ final class TutorOpening(helpers: Helpers, bits: TutorBits, perfUi: TutorPerfUi)
         )
       )
 
-  def openings(full: TutorFullReport, report: TutorPerfReport, user: User)(using ctx: Context) =
-    bits.page(menu = perfUi.menu(user, report, "openings"))(cls := "tutor__openings tutor-layout"):
+  def openings(full: TutorFullReport, report: TutorPerfReport)(using ctx: Context) =
+    given TutorConfig = full.config
+    bits.page(menu = perfUi.menu(report, "opening".some))(
+      cls := "tutor__openings tutor-layout"
+    ):
       frag(
-        div(cls := "tutor__first-box box")(
+        div(cls := "tutor-header box")(
           boxTop(
             h1(
-              a(
-                href := routes.Tutor.perf(user.username, report.perf.key),
-                dataIcon := Icon.LessThan,
-                cls := "text"
-              ),
-              bits.perfSelector(full, report.perf)(routes.Tutor.openings),
-              bits.reportSelector(report, "openings", user),
-              bits.otherUser(user)
+              a(href := full.config.url.perf(report.perf), dataIcon := Icon.LessThan),
+              bits.perfSelector(full, report.perf, "opening".some),
+              bits.reportSelector(report, "opening"),
+              bits.otherUser(full.user)
             )
           ),
           bits.mascotSays(
-            report.openingHighlights(3).map(compare.show)
+            report.openingHighlights(3).map(compare.show(_))
           )
         ),
         div(cls := "tutor__openings__colors tutor__pad")(Color.all.map { color =>
           st.section(cls := "tutor__openings__color")(
             h2("Your ", color.name, " openings"),
             div(cls := "tutor__openings__color__openings")(report.openings(color).families.map { fam =>
+              val opening = fam.family.anyOpening
               div(
                 cls := "tutor__openings__opening tutor-card tutor-card--link",
-                dataHref := routes.Tutor
-                  .opening(user.username, report.perf.key, color, fam.family.key.value)
+                dataHref := full.url.opening(report.perf, color, fam.family)
               )(
                 div(cls := "tutor-card__top")(
-                  div(cls := "no-square")(pieceTag(cls := s"pawn ${color.name}")),
+                  div(cls := "tutor-card__top__board")(
+                    chessgroundMini(opening.fen.board, color, lastMove = opening.lastUci)(div)
+                  ),
                   div(cls := "tutor-card__top__title")(
                     h3(cls := "tutor-card__top__title__text")(fam.family.name.value),
                     div(cls := "tutor-card__top__title__sub")(
@@ -137,10 +144,8 @@ final class TutorOpening(helpers: Helpers, bits: TutorBits, perfUi: TutorPerfUi)
             a(
               cls := "tutor__openings__color__explorer button button-no-upper text",
               dataIcon := Icon.Book,
-              href := s"${routes.UserAnalysis.index}?color=${color.name}#explorer/${user.username}"
+              href := s"${routes.UserAnalysis.index}?color=${color.name}#explorer/${full.user}"
             )("Personal explorer as ", color.name)
           )
         })
       )
-
-  private val pieceTag = tag("piece")

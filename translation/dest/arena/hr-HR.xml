@@ -25,7 +25,6 @@ Berserk daje dodatan bod samo ako odigraš barem 7 poteza u partiji.</string>
   <string name="howIsTheWinnerDecidedAnswer">Igrač(i) s najviše bodova na kraju zadanog turnirskog vremenskog ograničenja će biti proglašen(i) pobjednikom/pobjednicima.
 
 Ako dva igrača imaju isti broj bodova, performans na turniru je odlučujući faktor.</string>
-  <string name="howDoesPairingWork">Kako funkcionira uparivanje?</string>
   <string name="howDoesPairingWorkAnswer">Na početku turnira, igrači su upareni na temelju njihovog rejtinga.
 Čim završiš partiju, vrati se u turnirski lobi: tada ćeš biti uparen s igračem blizu tvog mjesta na ljestvici. To osigurava minimalno čekanje, međutim moguće je da nećeš igrati sa svim igračima u turniru.
 Igraj brzo i vrati se u lobi da igraš više partija i osvojiš više bodova.</string>
@@ -65,7 +64,6 @@ Igraj brzo i vrati se u lobi da igraš više partija i osvojiš više bodova.</s
   <string name="myTournaments">Moji turniri</string>
   <string name="editTournament">Prilagodi turnir</string>
   <string name="editTeamBattle">Prilagodi timsku borbu</string>
-  <string name="defender">Branitelj</string>
   <string name="pickYourTeam">Izaberite Vašu ekipu</string>
   <string name="whichTeamWillYouRepresentInThisBattle">Koju ekipu će te predstavljati u ovoj borbi?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">Morate se pridružiti jednom od ovih ekipa kako bi sudjelovali!</string>
@@ -73,9 +71,6 @@ Igraj brzo i vrati se u lobi da igraš više partija i osvojiš više bodova.</s
   <string name="recentlyPlayed">Prethodno odigrano</string>
   <string name="bestResults">Najbolji rezultati</string>
   <string name="tournamentStats">Statistika turnira</string>
-  <string name="rankAvgHelp">Prosječna pozicija je postotak tvoje pozicije. Niže je bolje.
-
-Na primjer, 3. pozicija u turniru sa 100 igrača = 3%. 10. pozicija u turiniru s 1000 igrača = 1%.</string>
   <string name="medians">medijani</string>
   <string name="allAveragesAreX">Svi prosjeci na ovoj stranici su %s.</string>
   <string name="total">Ukupno</string>

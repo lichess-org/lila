@@ -1,16 +1,17 @@
-import { drag } from './crazyCtrl';
 import { h } from 'snabbdom';
-import type { MouchEvent } from '@lichess-org/chessground/types';
-import { onInsert } from 'lib/view';
-import type AnalyseCtrl from '../ctrl';
 
-const eventNames = ['mousedown', 'touchstart'];
+import { onInsert } from 'lib/view';
+
+import type AnalyseCtrl from '../ctrl';
+import { drag } from './crazyCtrl';
+
+const eventNames = ['mousedown', 'touchstart'] as const;
 const oKeys = ['pawn', 'knight', 'bishop', 'rook', 'queen'] as const;
 
 type Position = 'top' | 'bottom';
 
 export default function (ctrl: AnalyseCtrl, color: Color, position: Position) {
-  if (!ctrl.node.crazy || ctrl.data.game.variant.key !== 'crazyhouse') return;
+  if (!ctrl.node.crazy || ctrl.data.game.variant.key !== 'crazyhouse') return undefined;
   const pocket = ctrl.node.crazy.pockets[color === 'white' ? 0 : 1];
   const dropped = ctrl.justDropped;
   const captured = ctrl.justCaptured;
@@ -23,7 +24,7 @@ export default function (ctrl: AnalyseCtrl, color: Color, position: Position) {
       class: { usable },
       hook: onInsert(el => {
         eventNames.forEach(name => {
-          el.addEventListener(name, e => drag(ctrl, color, e as MouchEvent));
+          el.addEventListener(name, e => drag(ctrl, color, e));
         });
       }),
     },
@@ -31,13 +32,13 @@ export default function (ctrl: AnalyseCtrl, color: Color, position: Position) {
       let nb = pocket[role] || 0;
       if (activeColor) {
         if (dropped === role) nb--;
-        if (captured && captured.role === role) nb++;
+        if (captured?.role === role) nb++;
       }
       return h(
         'div.pocket-c1',
         h(
           'div.pocket-c2',
-          h('piece.' + role + '.' + color, {
+          h(`piece.${role}.${color}`, {
             attrs: { 'data-role': role, 'data-color': color, 'data-nb': nb },
           }),
         ),

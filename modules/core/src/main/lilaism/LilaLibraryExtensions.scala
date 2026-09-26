@@ -28,7 +28,9 @@ trait LilaLibraryExtensions extends CoreExports:
 
   /* library-agnostic way to run a future after a delay */
   given (using sched: Scheduler, ec: Executor): FutureAfter =
-    [A] => (duration: FiniteDuration) => (fua: () => Future[A]) => akka.pattern.after(duration, sched)(fua())
+    [A] =>
+      (duration: FiniteDuration) =>
+        (fua: () => Future[A]) => org.apache.pekko.pattern.after(duration, sched)(fua())
 
   extension [A](self: Option[A])
 
@@ -72,6 +74,8 @@ trait LilaLibraryExtensions extends CoreExports:
           case _ => fufail(err.toString)
 
     inline def raiseIfLeft: FuRaise[A, B] = v.fold(_.raise, fuccess)
+
+  extension [A](v: Try[A]) def toFuture: Fu[A] = Future.fromTry(v)
 
   extension [A, B](v: (A, B)) def map2[C](f: B => C): (A, C) = (v._1, f(v._2))
 
@@ -146,6 +150,8 @@ trait LilaLibraryExtensions extends CoreExports:
     def parallelVoid(using Executor): Fu[Unit] =
       list.iterator
         .foldLeft(funit)((fr, fa) => fr.zipWith(fa)((_, _) => ()))
+
+  extension [A](nel: NonEmptyList[A]) def contains(a: A): Boolean = nel.head == a || nel.tail.contains(a)
 
   extension [A](fua: Fu[A])
 

@@ -1,15 +1,17 @@
 import { init, classModule, attributesModule } from 'snabbdom';
-import { view, awaiter } from './view';
-import { makeSwiper } from './swiper';
-import { json } from 'lib/xhr';
+
 import { isMobile } from 'lib/device';
+import { json } from 'lib/xhr';
+
 import type { Opts } from './interfaces';
+import { makeSwiper } from './swiper';
+import { view, awaiter } from './view';
 
 const patch = init([classModule, attributesModule]);
 
 export async function initModule(opts: Opts): Promise<void> {
   opts.navigation = !isMobile();
-  const getEl = () => document.querySelector('#recap-swiper') as HTMLElement;
+  const getEl = () => document.querySelector('#recap-swiper') as HTMLDivElement;
   if (opts.recap) {
     patch(getEl(), view(opts.recap, opts));
     makeSwiper(opts)(getEl());

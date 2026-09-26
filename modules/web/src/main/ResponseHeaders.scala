@@ -7,10 +7,10 @@ import lila.common.HTTPRequest
 
 trait ResponseHeaders extends HeaderNames:
 
-  def headersForApiOrApp(using req: RequestHeader) =
+  def headersForApiOrApp(using req: RequestHeader): List[PairOf[String]] =
     val appOrigin = HTTPRequest.appOrigin(req)
     List(
-      "Access-Control-Allow-Origin" -> appOrigin.getOrElse("*"),
+      "Access-Control-Allow-Origin" -> appOrigin.fold("*")(_.value),
       "Access-Control-Allow-Methods" -> allowMethods,
       "Access-Control-Allow-Headers" -> {
         List(
@@ -48,6 +48,8 @@ trait ResponseHeaders extends HeaderNames:
     ).mkString(", ")
 
   def lastModified(date: Instant) = LAST_MODIFIED -> date.atZone(utcZone)
+
+  val asMarkdown = CONTENT_TYPE -> "text/markdown; charset=utf-8"
 
   object crossOriginPolicy:
 

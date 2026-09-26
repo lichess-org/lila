@@ -34,7 +34,7 @@ case class Pov(game: Game, color: Color):
     game.clock
       .map(c => c.remainingTime(color).roundSeconds)
       .orElse:
-        game.playableCorrespondenceClock.map(_.remainingTime(color).toInt).map(Seconds(_))
+        Seconds.from(game.playableCorrespondenceClock.map(_.remainingTime(color).toInt))
 
   def hasMoved = game.playerHasMoved(color)
 

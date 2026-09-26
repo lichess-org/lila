@@ -117,7 +117,6 @@
   <string name="enable">Միացնել</string>
   <string name="bestMoveArrow">Լավագույն քայլի սլաքը</string>
   <string name="showVariationArrows">Ցուցադրել տարբերակների սլաքները</string>
-  <string name="evaluationGauge">Գնահատման սանդղակ</string>
   <string name="multipleLines">Մի քանի շարունակություն</string>
   <string name="cpus">Պրոցեսորներ</string>
   <string name="memory">Հիշողություն</string>
@@ -126,25 +125,13 @@
   <string name="blunder">Վրիպում</string>
   <string name="mistake">Սխալ</string>
   <string name="inaccuracy">Անճշտություն</string>
-  <plurals name="nbBlunders">
-    <item quantity="one">%s վրիպում</item>
-    <item quantity="other">%s վրիպում</item>
-  </plurals>
   <plurals name="numberBlunders">
     <item quantity="one">%s Վրիպում</item>
     <item quantity="other">%s Վրիպում</item>
   </plurals>
-  <plurals name="nbMistakes">
-    <item quantity="one">%s սխալ</item>
-    <item quantity="other">%s սխալ</item>
-  </plurals>
   <plurals name="numberMistakes">
     <item quantity="one">%s Սխալ</item>
     <item quantity="other">%s Սխալ</item>
-  </plurals>
-  <plurals name="nbInaccuracies">
-    <item quantity="one">%s անճշտություն</item>
-    <item quantity="other">%s անճշտություն</item>
   </plurals>
   <plurals name="numberInaccuracies">
     <item quantity="one">%s Անճշտություն</item>
@@ -221,7 +208,6 @@
   <string name="changeUsernameNotSame">Կարելի է փոխել միայն նշանների ստեղնաշարքը։ Օրինակ, «hayktadevosyan»-ը դարձնել «HaykTadevosyan»։</string>
   <string name="changeUsernameDescription">Փոխել օգտանունը։ Սա կարող է արվել ընդամենը մեկ անգամ, միայն թույլատրվում է օգտանվան փոքրատառերը դարձնել մեծատառ և հակառակը։</string>
   <string name="signupUsernameHint">Համոզվեք, որ ընտրել եք պարկեշտ մասնակցային անուն։ Հետագայում այն փոխել չեք կարողանա, ընդ որում, անպարկեշտ անուններով մասնակցային հաշիվները կփակվեն։</string>
-  <string name="signupEmailHint">Մենք այն օգտագործելու ենք միայն գաղտնաբառը չեղարկելու համար։</string>
   <string name="password">Գաղտնաբառ</string>
   <string name="changePassword">Փոխել գաղտնաբառը</string>
   <string name="changeEmail">Փոխել էլ. փոստը</string>
@@ -244,10 +230,6 @@
   <string name="emailSent">Մենք նամակ ենք ուղարկել %s հասցեին:</string>
   <string name="emailCanTakeSomeTime">Հասնելու համար կարող է որոշ ժամանակ պահանջվել։</string>
   <string name="refreshInboxAfterFiveMinutes">Սպասեք 5 րոպե և թարմացրեք Ձեր էլփոստի մուտքային արկղը։</string>
-  <string name="checkSpamFolder">Ստուգեք նաև սպամի պանակը, նամակը կարող է հայտնվել այնտեղ: Եթե ​​այդպես է, այն նշեք որպես ոչ սպամ:</string>
-  <string name="emailForSignupHelp">Եթե ​​մնացած ամեն ինչը ձախողվի, ապա գրեք մեզ այս էլեկտրոնային հասցեով.</string>
-  <string name="copyTextToEmail">Պատճենեք և տեղադրեք վերը նշված տեքստը և այն ուղարկեք %s-ին</string>
-  <string name="waitForSignupHelp">Մենք շուտով կվերադառնանք Ձեզ, որպեսզի օգնենք լրացնել Ձեր գրանցումը:</string>
   <string name="accountConfirmed">%s օգտատերը հաջողությամբ հաստատվել է:</string>
   <string name="accountCanLogin">Դուք կարող եք մուտք գործել հենց հիմա որպես %s:</string>
   <string name="accountConfirmationEmailNotNeeded">Ձեզ անհրաժեշտ չէ հաստատման նամակ։</string>
@@ -270,8 +252,6 @@
   </plurals>
   <string name="ok">Լավ</string>
   <string name="cancel">Հերքել</string>
-  <string name="whiteTimeOut">Սպիտակների ժամանակը սպառվեց</string>
-  <string name="blackTimeOut">Սևերի ժամանակը սպառվեց</string>
   <string name="drawOfferSent">Ոչ-ոքի առաջարկը ուղարկված է</string>
   <string name="drawOfferAccepted">Ոչ-ոքի առաջարկը ընդունվել է</string>
   <string name="whiteOffersDraw">Սպիտակներն առաջարկում են ոչ-ոքի</string>
@@ -402,7 +382,6 @@
   <string name="apply">Կիրառել</string>
   <string name="save">Պահպանել</string>
   <string name="leaderboard">Առաջատարներ</string>
-  <string name="screenshotCurrentPosition">Ստանալ այս դիրքի սքրինշոթը</string>
   <string name="gameAsGIF">Պարտիան GIF ձևաչափով</string>
   <string name="pasteTheFenStringHere">տեղադրել FEN տեքստը այստեղ</string>
   <string name="pasteThePgnStringHere">տեղադրել PGN-տողը այստեղ</string>
@@ -509,7 +488,6 @@
   <string name="oneUrlPerLine">Տողում՝ մեկ URL։</string>
   <string name="inlineNotation">Տողային նոտագրություն</string>
   <string name="makeAStudy">Պահպանելու և կիսվելու համար դիտարկեք ստուդիա ստեղծելու հնարավորությունը։</string>
-  <string name="clearSavedMoves">Մաքրել քայլերը</string>
   <string name="previouslyOnLichessTV">Նախորդները Lichess TV-ով</string>
   <string name="onlinePlayers">Առցանց խաղացողներ</string>
   <string name="activePlayers">Ակտիվ խաղացողներ</string>
@@ -668,11 +646,9 @@
   <string name="aboutSimulRules">Երբ սկսվում է միաժամանակյա խաղաշարը, յուրաքանչյուր խաղացող սկսում է պարտիան խաղաշարն անցկացնողի հետ, որը խաղում է սպիտակներով։ Խաղաշարն ավարտվում է, երբ խաղացվում են բոլոր պարտիաները։</string>
   <string name="aboutSimulSettings">Միաժամանակյա խաղաշարերը չեն ենթադրում վարկանիշային պարտիաներ։ Վերախաղարկումները, քայլերի չեղարկումները և ժամանակի հավելումները արգելված են։</string>
   <string name="create">Ստեղծել</string>
-  <string name="whenCreateSimul">Եթե ստեղծեք միաժամանակյա խաղաշար, ստիպված կլինեք խաղալու միաժամանակ մի քանի խաղացողի դեմ։</string>
   <string name="simulVariantsHint">Եթե ընտրեք խաղի մի քանի տարբերակ, յուրաքանչյուր խաղացող կընտրի դրանցից այն մեկը, որը կցանկանա խաղալ ձեզ հետ։</string>
   <string name="simulClockHint">Ֆիշերի ժամացույցի կարգավորումներ։ Որքան շատ մրցակից ունենաք, այնքան շատ ժամանակ ձեզ պետք կգա։</string>
   <string name="simulAddExtraTime">Պարտիաներում մտորելու համար դուք կարող եք ստանալ լրացուցիչ ժամանակ։</string>
-  <string name="simulHostExtraTime">Խաղաշար անցկացնողի լրացուցիչ ժամանակը</string>
   <string name="simulAddExtraTimePerPlayer">Ձեր ժամացույցի վրա ավելացրեք մեկնարկային ժամանակը յուրաքանչյուր խաղացողի համար, ով մուտք է գործել Ձեր միաժամանակյա խաղի նստաշրջան:</string>
   <string name="simulHostExtraTimePerPlayer">Յուրաքանչյուր խաղացողի համար նստաշրջանի ժամանակի լրացում</string>
   <string name="lichessTournaments">Lichess մրցաշարեր</string>
@@ -685,11 +661,6 @@
   <string name="keyGoToStartOrEnd">գնալ սկիզբ/վերջ</string>
   <string name="keyShowOrHideComments">ցույց տալ/թաքցնել մեկնաբանությունները</string>
   <string name="keyEnterOrExitVariation">բացել/փակել տարբերակը</string>
-  <string name="keyRequestComputerAnalysis">Պատվիրեք համակարգչային վերլուծություն, սովորեք սեփական սխալներից</string>
-  <string name="keyNextLearnFromYourMistakes">Հաջորդը (Սովորեք ձեր սխալներից)</string>
-  <string name="keyNextBlunder">Հաջորդ վրիպումը</string>
-  <string name="keyNextMistake">Հաջորդ սխալը</string>
-  <string name="keyNextInaccuracy">Հաջորդ անճշտությունը</string>
   <string name="keyPreviousBranch">Նախորդ ճյուղ</string>
   <string name="keyNextBranch">Հաջորդ ճյուղ</string>
   <string name="newTournament">Նոր մրցաշար</string>
@@ -759,7 +730,6 @@
   <string name="background">Ֆոն</string>
   <string name="light">Բաց</string>
   <string name="dark">Մուգ</string>
-  <string name="transparent">Թափանցիկ</string>
   <string name="deviceTheme">Սարքի թեման</string>
   <string name="backgroundImageUrl">Հետնաշերտի պատկերի հղում`</string>
   <string name="pieceSet">Խաղաքարերի ձևավորումը</string>
@@ -777,7 +747,6 @@
   <string name="custom">Սեփական խաղ</string>
   <string name="notifications">Ծանուցումներ</string>
   <string name="notificationsX">Ծանուցումներ: %1$s</string>
-  <string name="perfRatingX">Վարկանիշ՝ %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s վայրկյան առաջին քայլի համար</item>
     <item quantity="other">%s վայրկյան առաջին քայլի համար</item>
@@ -851,7 +820,6 @@
   <string name="agreementAssistance">Հաստատում եմ, որ իմ խաղերում երբեք չեմ օգտվի կողմնակի օգնությունից (շախմատային ծրագրերից, գրքերից, տվյալների բազաներից և այլ խաղացողներից)։</string>
   <string name="agreementNice">Հաստատում եմ, որ հարգանքով եմ վերաբերվելու այլ խաղացողներին։</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Համաձայն եմ, որ չպետք է ստեղծեմ բազմաթիվ մասնակցային հաշիվներ (բացառությամբ %sում նշված պատճառների)։</string>
-  <string name="agreementPolicy">Հաստատում եմ, որ հետևելու եմ Lichess-ի բոլոր կանոններին։</string>
   <string name="searchOrStartNewDiscussion">Գտնել քննարկումը կամ ստեղծել նորը</string>
   <string name="edit">Խմբագրել</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Բլից</string>
@@ -885,7 +853,6 @@
   <string name="xInvitedYouToY">%1$s-ը հրավիրել է Ձեզ  «%2$s»։</string>
   <string name="youAreNowPartOfTeam">Այժմ Դուք ակումբի անդամ եք։</string>
   <string name="youHaveJoinedTeamX">Դուք ընդգրկվել եք «%1$s»-ում։</string>
-  <string name="someoneYouReportedWasBanned">Ինչ-որ մենք արգելափակվել է Ձեր դիմումով</string>
   <string name="congratsYouWon">Շնորհավորո՜ւմ ենք, Դուք հաղթեցիք։</string>
   <string name="gameVsX">Խաղ ընդդեմ %1$s-ի</string>
   <string name="resVsX">%1$s-ն ընդդեմ %2$s-ի</string>
@@ -922,7 +889,6 @@
   <string name="noChat">Առանց զրուցարանի</string>
   <string name="onlyTeamLeaders">Միայն թիմի կազմակերպիչները</string>
   <string name="onlyTeamMembers">Միայն թիմի անդամները</string>
-  <string name="navigateMoveTree">Անցում ըստ քայլերի</string>
   <string name="mouseTricks">Շարժումներ մկնիկով</string>
   <string name="toggleLocalAnalysis">Միացնել համակարգչային վերլուծությունը</string>
   <string name="toggleAllAnalysis">Փոխել համակարգչային վերլուծության բոլոր եղանակները</string>
@@ -938,7 +904,6 @@
   <string name="gameInProgress">Դուք խաղի մեջ եք %s-ի հետ։</string>
   <string name="abortTheGame">Ընդհատել խաղը</string>
   <string name="resignTheGame">Հանձնվել</string>
-  <string name="youCantStartNewGame">Դուք չեք կարող սկսել նոր խաղ, քանի դեռ չի ավարտվել ընթացիկը։</string>
   <string name="since">Սկսած</string>
   <string name="until">Մինչև</string>
   <string name="lichessDbExplanation">Lichess-ի բոլոր խաղացողների վարկանիշային խաղեր</string>

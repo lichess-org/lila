@@ -12,6 +12,7 @@ export type NvuiContext = Readonly<{
   prefixStyle: s.Setting<s.PrefixStyle>;
   positionStyle: s.Setting<s.PositionStyle>;
   boardStyle: s.Setting<s.BoardStyle>;
+  pageStyle: s.Setting<s.PageStyle>;
 }>;
 
 export function makeContext<T extends NvuiContext>(
@@ -25,6 +26,7 @@ export function makeContext<T extends NvuiContext>(
     prefixStyle: s.prefixSetting(),
     positionStyle: s.positionSetting(),
     boardStyle: s.boardSetting(),
+    pageStyle: s.pageSetting(),
     ...ctx,
   } as T;
 }

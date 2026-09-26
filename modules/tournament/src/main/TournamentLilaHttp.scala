@@ -1,6 +1,7 @@
 package lila.tournament
 
-import akka.stream.scaladsl.*
+import org.apache.pekko.stream.scaladsl.*
+import lila.mon.extensions.*
 import io.lettuce.core.RedisClient
 import play.api.libs.json.*
 import scalalib.cache.{ ExpireSetMemo, FrequencyThreshold }
@@ -17,9 +18,10 @@ final class TournamentLilaHttp(
     statsApi: TournamentStatsApi,
     jsonView: JsonView,
     pause: Pause,
-    lightUserApi: lila.core.user.LightUserApi,
     redisClient: RedisClient
-)(using akka.stream.Materializer, Scheduler, Executor):
+)(using org.apache.pekko.stream.Materializer, Scheduler, Executor)(using
+    lightUserApi: lila.core.user.LightUserApi
+):
 
   def handles(tour: Tournament) = isOnLilaHttp.get(tour.id)
   private def handledIds = isOnLilaHttp.keys
@@ -44,7 +46,7 @@ final class TournamentLilaHttp(
         lila.mon.tournament.lilaHttp.fullSize.record(str.size)
         conn.async.publish(channel, str)
       .runWith(LilaStream.sinkCount)
-      .monSuccess(_.tournament.lilaHttp.tick)
+      .monSuccess(lila.mon.tournament.lilaHttp.tick)
       .addEffect(lila.mon.tournament.lilaHttp.nbTours.update(_))
       .void
 
@@ -53,6 +55,7 @@ final class TournamentLilaHttp(
     stats <- statsApi(tour)
     teamStanding <- tour.isTeamBattle.optionFu:
       jsonView.fetchAndRenderTeamStandingJson(TeamBattle.maxTeams)(tour.id)
+    realName = getRealName(tour)
     fullStanding <- playerRepo
       .sortedCursor(tour.id, 100, _.pri)
       .documentSource()
@@ -61,7 +64,7 @@ final class TournamentLilaHttp(
         for
           sheet <- cached.sheet(tour, player.userId)
           ranked = RankedPlayer(Rank(index.toInt + 1), player)
-          json <- playerJson(tour, sheet, ranked)
+          json <- playerJson(tour, sheet, ranked, realName)
         yield json
       .runWith(Sink.seq)
       .map(JsArray(_))
@@ -81,7 +84,8 @@ final class TournamentLilaHttp(
   private def playerJson(
       tour: Tournament,
       sheet: arena.Sheet,
-      rankedPlayer: RankedPlayer
+      rankedPlayer: RankedPlayer,
+      getRealName: GetRealName
   )(using Executor): Fu[JsObject] =
     val p = rankedPlayer.player
     lightUserApi
@@ -102,3 +106,4 @@ final class TournamentLilaHttp(
           .add("team" -> p.team)
           .add("fire" -> p.fire)
           .add("pause" -> p.withdraw.so(pause.remainingDelay(p.userId, tour)))
+          .add("realName" -> getRealName(p.userId))

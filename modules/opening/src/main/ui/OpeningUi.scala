@@ -16,22 +16,22 @@ final class OpeningUi(helpers: Helpers, bits: OpeningBits, wiki: WikiUi):
         OpenGraph(
           `type` = "article",
           image = fenThumbnailUrl(page.query.fen).some,
-          title = "Chess openings",
+          title = trans.site.chessOpenings.txt(),
           url = routeUrl(routes.Opening.index()),
-          description = "Explore the chess openings"
+          description = trans.site.chessOpenings.txt()
         )
       ):
         main(cls := "page box box-pad opening opening--index")(
           searchAndConfig(page.query.config, "", ""),
           resultsList(Nil),
           boxTop(
-            h1("Chess openings"),
+            h1(trans.site.chessOpenings()),
             div(cls := "box__top__actions")(
-              a(href := routes.Opening.tree)("Name tree"),
-              a(href := s"${routes.UserAnalysis.index}#explorer")("Explorer")
+              a(href := routes.Opening.tree)(trans.site.list()),
+              a(href := explorerUrl)(trans.site.openingExplorer())
             )
           ),
-          whatsNext(page) | p(cls := "opening__error")("Couldn't fetch the next moves, try again later."),
+          whatsNext(page),
           Granter.opt(_.OpeningWiki).option(showMissing(wikiMissing))
         )
 
@@ -41,10 +41,10 @@ final class OpeningUi(helpers: Helpers, bits: OpeningBits, wiki: WikiUi):
         searchAndConfig(config, "", "tree"),
         resultsList(Nil),
         boxTop(
-          h1("Chess openings name tree"),
+          h1(trans.site.chessOpenings(), " • ", trans.site.list()),
           div(cls := "box__top__actions")(
-            a(href := routes.Opening.index())("Opening pages"),
-            a(href := s"${routes.UserAnalysis.index}#explorer")("Explorer")
+            a(href := routes.Opening.index())(trans.site.boards()),
+            a(href := explorerUrl)(trans.site.openingExplorer())
           )
         ),
         div(cls := "opening__tree")(
@@ -74,16 +74,16 @@ final class OpeningUi(helpers: Helpers, bits: OpeningBits, wiki: WikiUi):
             ,
             span(cls := "opening__name")(
               page.nameParts.mapWithIndex: (part, i) =>
+                val isLast = i == page.nameParts.size - 1
                 frag(
                   part match
                     case Left(move) => span(cls := "opening__name__move")((i > 0).option(", "), move)
                     case Right((name, key)) =>
                       val className = s"opening__name__section opening__name__section--${i + 1}"
+                      val tag = key.ifFalse(isLast).fold(span)(k => a(href := openingKeyUrl(k)))
                       frag(
                         if i == 0 then emptyFrag else if i == 1 then ": " else ", ",
-                        key.fold(span(cls := className)(name)) { k =>
-                          a(href := openingKeyUrl(k))(cls := className)(name)
-                        }
+                        tag(cls := className)(name)
                       )
                 )
             )
@@ -116,32 +116,19 @@ final class OpeningUi(helpers: Helpers, bits: OpeningBits, wiki: WikiUi):
                     href := s"${routes.UserAnalysis.pgn(page.query.sans.mkString("_"))}#explorer"
                   )(trans.site.openingExplorer())
                 ),
-                page.explored.fold(
-                  _ =>
-                    p(cls := "opening__popularity opening__error")(
-                      "Couldn't fetch the popularity history, try again later."
-                    ),
-                  exp =>
-                    exp
-                      .so(_.history)
-                      .nonEmpty
-                      .option:
-                        div(cls := "opening__popularity opening__popularity--chart")(
-                          canvas(cls := "opening__popularity__chart")
-                        )
+                exploredOrError(page).fold(
+                  identity,
+                  _.history.nonEmpty.option:
+                    div(cls := "opening__popularity opening__popularity--chart")(
+                      canvas(cls := "opening__popularity__chart")
+                    )
                 )
               )
             )
           ),
           div(cls := "opening__panels")(
             lila.ui.bits.ariaTabList("opening", "next")(
-              (
-                "next",
-                "Popular continuations",
-                whatsNext(page) | p(cls := "opening__error")(
-                  "Couldn't fetch the next moves, try again later."
-                )
-              ),
+              ("next", "Popular continuations", whatsNext(page)),
               ("games", "Example games", exampleGames(page))
             )
           )
@@ -151,16 +138,16 @@ final class OpeningUi(helpers: Helpers, bits: OpeningBits, wiki: WikiUi):
     openingPage(s"${trans.site.opening.txt()} • $q", none):
       main(cls := "page box box-pad opening opening--search")(
         searchAndConfig(config, q, s"q:$q", searchFocus = true),
-        h1(cls := "box__top")("Chess openings"),
+        h1(cls := "box__top")(trans.site.chessOpenings()),
         resultsList(results)
       )
 
-  private def searchForm(q: String, focus: Boolean) =
+  private def searchForm(q: String, focus: Boolean)(using Context) =
     st.form(cls := "opening__search-form", action := routes.Opening.index(), method := "get")(
       input(
         cls := "opening__search-form__input",
         name := "q",
-        st.placeholder := "Search for openings",
+        st.placeholder := trans.site.search.txt(),
         st.value := q,
         autofocus := focus.option("true"),
         autocomplete := "off",
@@ -180,6 +167,8 @@ final class OpeningUi(helpers: Helpers, bits: OpeningBits, wiki: WikiUi):
         )
       }
     )
+
+  private val explorerUrl = s"${routes.UserAnalysis.index}#explorer"
 
   private def searchAndConfig(config: OpeningConfig, q: String, thenTo: String, searchFocus: Boolean = false)(
       using Context

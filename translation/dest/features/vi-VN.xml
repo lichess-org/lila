@@ -8,7 +8,7 @@
     <item quantity="other">%s ván mỗi ngày</item>
   </plurals>
   <string name="boardEditorAndAnalysisBoardWithEngine" comment="%s is the engine name (Stockfish, Fairy-Stockfish)">Chỉnh sửa bàn cờ và bàn cờ phân tích với %s</string>
-  <string name="cloudEngineAnalysis">Động cơ phân tích đám mây</string>
+  <string name="cloudEngineAnalysis">Công cụ phân tích đám mây</string>
   <string name="studies">Nghiên cứu (phân tích chung và liên tục)</string>
   <string name="chessInsights">Phân tích sâu cờ vua (phân tích chi tiết về cách chơi của bạn)</string>
   <string name="allChessBasicsLessons">Tất cả bài học cơ bản về cờ vua</string>
@@ -21,7 +21,7 @@
   <string name="tvForumBlogTeamsMessagingFriendsChallenges">Blog, diễn đàn, đội, TV, nhắn tin, bạn bè, thách đấu</string>
   <string name="lightOrDarkThemeCustomBoardsPiecesAndBackground">Chủ đề sáng/tối, bàn cờ, quân cờ và nền tùy chỉnh</string>
   <string name="ultraBulletBulletBlitzRapidClassicalAndCorrespondenceChess">Cờ Siêu đạn, Đạn, Chớp, Nhanh, Chậm, Qua thư</string>
-  <string name="allFeaturesToCome">Tất cả tính năng sắp ra mắt, mãi mãi!</string>
+  <string name="allFeaturesToCome">Tất cả tính năng sắp ra mắt trong tương lai, và mãi mãi!</string>
   <string name="landscapeSupportOnApp">Điện thoại iPhone &amp; Android và máy tính bảng, hỗ trợ landscape</string>
   <string name="everybodyGetsAllFeaturesForFree">Vâng, cả hai tài khoản đều có các tính năng như nhau!</string>
   <string name="weBelieveEveryChessPlayerDeservesTheBest">Chúng tôi tin rằng mọi người chơi cờ đều xứng đáng với điều tốt nhất, và vì vậy:</string>

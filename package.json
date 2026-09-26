@@ -1,34 +1,31 @@
 {
   "name": "lila",
   "private": true,
-  "packageManager": "pnpm@10.22.0+sha512.bf049efe995b28f527fd2b41ae0474ce29186f7edcb3bf545087bd61fbbebb2bf75362d1307fda09c2d288e1e499787ac12d4fcb617a974718a6051f2eee741c",
+  "packageManager": "pnpm@12.3.4",
   "engines": {
     "node": ">=24",
-    "pnpm": "10"
+    "pnpm": ">=12"
   },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "esbuild"
-    ],
-    "patchedDependencies": {
-      "@toast-ui/editor": "ui/bits/patches/@toast-ui__editor.patch"
-    }
-  },
-  "dependencies": {
-    "@lichess-org/chessground": "^10.0.2",
-    "@lichess-org/pgn-viewer": "^2.5.7",
+  "devDependencies": {
+    "@lichess-org/chessground": "^10.2.0",
+    "@lichess-org/pgn-viewer": "^2.6.4",
+    "@playwright/test": "^1.63.0",
     "@types/lichess": "workspace:*",
-    "@types/node": "^24.10.0",
+    "@types/node": "^24.13.5",
     "ab": "github:lichess-org/ab-stub",
-    "chessops": "^0.15",
-    "jsdom": "^27.1.0",
-    "lint-staged": "^16.2.6",
-    "oxfmt": "^0.28.0",
-    "oxlint": "^1.43.0",
-    "oxlint-tsgolint": "^0.11.4",
+    "chessops": "^0.15.1",
+    "jsdom": "^30.0.1",
+    "lint-staged": "^17.5.0",
+    "oxfmt": "0.68.0",
+    "oxlint": "1.85.0",
+    "oxlint-plugin-golden": "^0.1.2",
+    "oxlint-tsgolint": "7.0.2001",
     "snabbdom": "3.5.1",
-    "tsx": "^4.20.6",
-    "typescript": "^5.9.3"
+    "stylelint": "^17.15.0",
+    "stylelint-config-standard-scss": "^17.0.0",
+    "stylelint-scss": "^7.2.0",
+    "svgo": "^4.1.0",
+    "typescript": "^7.0.2"
   },
   "//": [
     "snabbdom pinned to 3.5.1 until https://github.com/snabbdom/snabbdom/issues/1114 is resolved",
@@ -36,22 +33,25 @@
   ],
   "scripts": {
     "format": "oxfmt",
+    "format:scala": "./lila.sh scalafmtAll",
     "check-format": "oxfmt --check",
-    "add-hooks": "git config get --all core.hooksPath | grep -Fxq bin/git-hooks || git config set --append core.hooksPath bin/git-hooks",
-    "remove-hooks": "git config unset --value=bin/git-hooks core.hooksPath || true",
-    "lint": "oxlint --type-aware --tsconfig=ui/tsconfig.base.json",
+    "lint": "pnpm lint:code && pnpm lint:style",
+    "lint:code": "oxlint --type-aware",
+    "lint:style": "stylelint \"ui/**/*.scss\"",
+    "lint:fix": "pnpm lint:code --fix && pnpm lint:style --fix",
+    "assets:optimize": "svgo -rf ./public/ ./public/",
+    "test": "node ui/test",
     "journal": "journalctl --user -fu lila -o cat",
-    "metals": "tail -F .metals/metals.log | stdbuf -oL cut -c 21- | rg -v '(notification for request|handleCancellation)'",
-    "serverlog": "pnpm journal & pnpm metals",
-    "i18n-file-gen": "pnpx tsx bin/i18n-file-gen.ts",
-    "multilog": "pnpm serverlog & ui/build -w"
+    "metals": "tail -F .metals/metals.log",
+    "serverlog": "journalctl --user -fu lila -o cat & tail -F .metals/metals.log",
+    "i18n-file-gen": "node bin/i18n-file-gen.ts",
+    "icon-files-gen": "python3 bin/gen/licon.py",
+    "multilog": "pnpm serverlog & ui/build -w",
+    "workspace-check": "pnpx @manypkg/cli check",
+    "add-hooks": "git config get --all core.hooksPath | grep -Fxq bin/git-hooks || git config set --append core.hooksPath bin/git-hooks",
+    "remove-hooks": "git config unset --value=bin/git-hooks core.hooksPath || true"
   },
-  "lint-staged": {
-    "*.{json,scss,ts,mts,mjs}": "pnpm lint --fix && pnpm format"
-  },
-  "browserslist": [
-    "defaults",
-    "not op_mini all",
-    "not kaios <= 4"
-  ]
+  "volta": {
+    "node": "24.20.0"
+  }
 }

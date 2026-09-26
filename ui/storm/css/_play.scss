@@ -1,9 +1,7 @@
 .storm {
   &--play {
     display: grid;
-
-    grid-row-gap: $block-gap;
-    grid-column-gap: $block-gap;
+    gap: $block-gap;
     grid-template-areas: 'board' 'side';
 
     @include mq-at-least-col2 {
@@ -34,5 +32,14 @@
       bottom: -3em;
       margin-inline-start: 0;
     }
+  }
+}
+
+.puz-side__control {
+  margin-bottom: 0.5em;
+  gap: 0.5em;
+
+  .button {
+    padding-inline: 1.25em;
   }
 }

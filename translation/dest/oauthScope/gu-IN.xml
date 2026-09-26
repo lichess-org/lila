@@ -21,7 +21,6 @@
   <string name="puzzleRead">પઝલ પ્રવૃત્તિ વાંચો</string>
   <string name="teamRead">ખાનગી ટીમ માહિતી વાંચો</string>
   <string name="teamWrite">ટીમોમાં જોડાઓ અને છોડો</string>
-  <string name="teamLead">તમે જે ટીમોનું નેતૃત્વ કરો છો તેનું સંચાલન કરો: PM મોકલો, સભ્યોને બહાર કાઢો</string>
   <string name="followRead">ફોલો કરેલા ખેલાડીઓ વાંચો</string>
   <string name="followWrite">અન્ય ખેલાડીઓને ફોલો કરો અને અનફોલો કરો</string>
   <string name="msgWrite">અન્ય ખેલાડીઓને ખાનગી સંદેશાઓ મોકલો</string>
@@ -29,7 +28,6 @@
   <string name="botPlay">બૉટ API સાથે રમતો રમો</string>
   <string name="engineRead">તમારા બાહ્ય એન્જિનો જુઓ અને ઉપયોગ કરો</string>
   <string name="engineWrite">બાહ્ય એન્જિનો બનાવો અને અપડેટ કરો</string>
-  <string name="webLogin">પ્રમાણિત વેબસાઇટ સત્રો બનાવો (સંપૂર્ણ ઍક્સેસ આપે છે!)</string>
   <string name="webMod">મોડરેટર ટૂલ્સનો ઉપયોગ કરો (તમારી પરવાનગીની મર્યાદામાં)</string>
   <string name="personalAccessTokens">વ્યક્તિગત API એક્સેસ ટોકન્સ</string>
   <string name="canMakeOauthRequests">તમે %s માંથી પસાર થયા વિના OAuth વિનંતીઓ કરી શકો છો.</string>

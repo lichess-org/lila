@@ -1,13 +1,14 @@
 package lila.core
 package security
 
-import play.api.data.{ Form, Mapping }
+import play.api.data.Mapping
 import play.api.mvc.RequestHeader
 
 import lila.core.email.EmailAddress
-import lila.core.net.{ ApiVersion, IpAddress }
+import lila.core.net.IpAddress
 import lila.core.user.{ Me, User }
 import lila.core.userId.{ UserId, UserName }
+import lila.core.id.SessionId
 
 case class GarbageCollect(userId: UserId)
 case class CloseAccount(userId: UserId)
@@ -28,25 +29,17 @@ trait LilaCookie:
 object LilaCookie:
   val sessionId = "sid"
   val noRemember = "noRemember"
-  def sid(req: RequestHeader): Option[String] = req.session.get(sessionId)
+  def sid(req: RequestHeader): Option[SessionId] = SessionId.from(req.session.get(sessionId))
 
 trait SecurityApi:
   def shareAnIpOrFp(users: PairOf[UserId]): Fu[Boolean]
   def getUserIdsWithSameIpAndPrint(userId: UserId): Fu[Set[UserId]]
 
-case class HcaptchaPublicConfig(key: String, enabled: Boolean)
-case class HcaptchaForm[A](form: Form[A], config: HcaptchaPublicConfig, skip: Boolean):
-  def enabled = config.enabled && !skip
-  def apply(key: String) = form(key)
-  def withForm[B](f: Form[B]) = copy(form = f)
-  def fill(data: A) = copy(form = form.fill(data))
+case class TurnstilePublicConfig(key: String, enabled: Boolean)
 
-trait Hcaptcha:
-  def form[A](form: Form[A])(using req: RequestHeader): Fu[HcaptchaForm[A]]
-
-trait SignupForm:
+trait SignupFormFields:
   val emailField: Mapping[EmailAddress]
-  val username: Mapping[UserName]
+  val uniqueUsername: Mapping[UserName]
 
 opaque type FingerHash = String
 object FingerHash extends OpaqueString[FingerHash]
@@ -56,14 +49,14 @@ case class UserSignup(
     email: EmailAddress,
     req: RequestHeader,
     fingerPrint: Option[FingerHash],
-    suspIp: Boolean,
-    apiVersion: Option[ApiVersion]
+    suspIp: Boolean
 )
 
 case class ClearPassword(value: String) extends AnyVal:
   override def toString = "ClearPassword(****)"
 
-case class HashedPassword(bytes: Array[Byte])
+case class HashedPassword(bytes: Array[Byte]):
+  def isBlank = bytes.isEmpty
 
 trait Authenticator:
   def passEnc(p: ClearPassword): HashedPassword
@@ -92,6 +85,8 @@ object IsProxy extends OpaqueString[IsProxy]:
     def isSafeish: Boolean = a == empty || isVpn
     def isFloodish: Boolean = in(_.public, _.web, _.tor, _.server)
     def isCrawler: Boolean = a == search
+    def isHttp1: Boolean = a == http1
+    def couldBeEnum = isFloodish || isCrawler || isHttp1
     def name = a.value.nonEmpty.option(a.value)
   def unapply(a: IsProxy): Option[String] = a.name
   // https://blog.ip2location.com/knowledge-base/what-are-the-proxy-types-supported-in-ip2proxy/
@@ -104,6 +99,7 @@ object IsProxy extends OpaqueString[IsProxy]:
   val web = IsProxy("WEB") // web proxies (garbage)
   val search = IsProxy("SES") // search engine crawlers
   val residential = IsProxy("RES") // residential proxies (suspect)
+  val http1 = IsProxy("HT1") // not found in proxy lists, but uses http 1.x
   val empty = IsProxy("")
 
 trait Ip2ProxyApi:
@@ -118,6 +114,6 @@ trait UserTrustApi:
 
 def canUploadImages(toRel: String)(using me: Me) = !me.marks.troll && me.kid.no && {
   me.isVerified ||
-  toRel == "ublogBody" ||
+  toRel.startsWith("ublog") ||
   (me.createdSinceDays(7) && !me.marks.alt)
 }

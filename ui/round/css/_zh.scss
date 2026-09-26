@@ -30,6 +30,18 @@
   }
 }
 
+.round__app:has(#voice-bar) {
+  @include mq-at-least-col2 {
+    .pocket-top {
+      margin-bottom: 2px;
+    }
+
+    .pocket-bottom {
+      margin-top: 2px;
+    }
+  }
+}
+
 @include mq-at-least-col2 {
   @media (min-height: at-least($short)) {
     #{$moves-tag} {

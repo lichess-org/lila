@@ -1,7 +1,7 @@
 package lila.memo
 
-import akka.stream.scaladsl.Source
-import akka.util.ByteString
+import org.apache.pekko.stream.scaladsl.Source
+import org.apache.pekko.util.ByteString
 import play.api.libs.ws.DefaultBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
 import play.api.mvc.MultipartFormData
@@ -11,6 +11,7 @@ import scala.util.matching.Regex.quote
 import scalalib.paginator.AdapterLike
 
 import lila.common.Bus
+import lila.mon.extensions.*
 import lila.core.id.ImageId
 import lila.db.dsl.{ *, given }
 
@@ -46,16 +47,16 @@ final class PicfitApi(
     if !ref.has(':') then fufail(s"PicfitApi.pullRef cant pull '$ref'")
     else
       for
-        ids <- coll.primitive[ImageId]($doc("refs" -> ref), "_id")
+        ids <- coll.primitive[ImageId](bdoc("refs" -> ref), "_id")
         _ <- ids.nonEmpty.so:
-          coll.update(ordered = false).one($inIds(ids), $pull("refs" -> ref), multi = true).void
+          coll.update(ordered = false).one(inIds(ids), pull("refs" -> ref), multi = true).void
         _ <- ids.nonEmpty.so:
-          coll.delete.one($inIds(ids) ++ $doc("refs" -> $doc("$size" -> 0))).void
+          coll.delete.one(inIds(ids) ++ bdoc("refs" -> bdoc("$size" -> 0))).void
       yield ()
 
   def deleteById(id: ImageId): Fu[Option[PicfitImage]] =
     coll
-      .findAndRemove($id(id))
+      .findAndRemove(bid(id))
       .map:
         _.result[PicfitImage].map: pic =>
           picfitServer.delete(pic)
@@ -63,10 +64,10 @@ final class PicfitApi(
 
   def setAutomod(id: ImageId, automod: ImageAutomod): Fu[Option[PicfitImage]] =
     val op = automod.flagged match
-      case Some(f) => $set("automod.flagged" -> f)
-      case _ => $unset("automod.flagged")
+      case Some(f) => bset("automod.flagged" -> f)
+      case _ => unset("automod.flagged")
     coll
-      .findAndUpdate($id(id), op)
+      .findAndUpdate(bid(id), op)
       .map(_.result[PicfitImage])
 
   def imageIds(markdown: Markdown): Seq[ImageId] =
@@ -82,7 +83,7 @@ final class PicfitApi(
       coll
         .aggregateList(length, _.sec): framework =>
           import framework.*
-          Match($doc("automod.flagged" -> $exists(true))) -> List(
+          Match(bdoc("automod.flagged" -> exists(true))) -> List(
             Sort(Descending("createdAt")),
             Skip(offset),
             Limit(length)
@@ -93,7 +94,7 @@ final class PicfitApi(
             image <- doc.asOpt[PicfitImage]
           yield image
 
-  def countFlagged = coll.countSel($doc("automod.flagged" -> $exists(true)))
+  def countFlagged = coll.countSel(bdoc("automod.flagged" -> exists(true)))
 
   private def uploadSource(
       file: FilePart,
@@ -102,13 +103,18 @@ final class PicfitApi(
       uniqueRef: Option[String],
       meta: Option[form.UploadData]
   ): Fu[ImageFresh] =
+    val validTypes = List(
+      "image/webp" -> "webp",
+      "image/png" -> "png",
+      "image/jpeg" -> "jpg"
+    )
     file.contentType
-      .collect:
-        case "image/webp" => "webp"
-        case "image/png" => "png"
-        case "image/jpeg" => "jpg"
+      .flatMap(validTypes.toMap.get)
       .match
-        case None => fufail(s"Invalid file type: ${file.contentType | "unknown"}")
+        case None =>
+          fufail(
+            lila.core.lilaism.LilaInvalid(s"File must be one of: ${validTypes.map(_._2).mkString(", ")}")
+          )
         case Some(extension) =>
           val image = PicfitImage(
             id = ImageId(s"$hash.$extension"),
@@ -133,7 +139,7 @@ final class PicfitApi(
       .recoverWith:
         case e: DatabaseException if e.code.contains(11000) =>
           if image.refs.nonEmpty then
-            for _ <- coll.update.one($id(image.id), $addToSet("refs" -> $doc("$each" -> image.refs)))
+            for _ <- coll.update.one(bid(image.id), addToSet("refs" -> bdoc("$each" -> image.refs)))
             yield ImageFresh(image, false)
           else fuccess(ImageFresh(image, false))
 
@@ -143,15 +149,15 @@ final class PicfitApi(
       coll
         .update(ordered = false)
         .one(
-          $inIds(ids),
-          $addToSet("refs" -> ref) ++ context.fold($doc())(ctx => $set("context" -> ctx)),
+          inIds(ids),
+          addToSet("refs" -> ref) ++ context.fold(bdoc())(ctx => bset("context" -> ctx)),
           multi = true
         )
         .void
 
   def deleteByUser(userId: UserId): Funit =
     for
-      ids <- coll.primitive[ImageId]($doc("user" -> userId), "_id")
+      ids <- coll.primitive[ImageId](bdoc("user" -> userId), "_id")
       _ <- ids.toList.sequentiallyVoid(deleteById)
     yield ()
 
@@ -182,16 +188,15 @@ final class PicfitApi(
             if image.size > 0 then lila.mon.picfit.uploadSize(image.user).record(image.size)
             funit
         }
-        .monSuccess(_.picfit.uploadTime(image.user))
+        .monSuccess(lila.mon.picfit.uploadTime(image.user))
 
     def delete(image: PicfitImage): Funit =
       ws.url(s"${config.endpointPost}/${image.id}")
         .delete()
         .addEffect: res =>
           if res.status / 100 != 2 then
-            logger
-              .branch("picfit")
-              .error(s"deleteFromPicfit ${image.id} ${res.statusText} ${res.body[String].take(200)}")
+            logger.error:
+              s"picfit deleteFromPicfit ${image.id} ${res.statusText} ${res.body[String].take(200)}"
         .addEffectAnyway:
           cloudflareApi.purge(image.urls)
         .void
@@ -204,7 +209,7 @@ object PicfitApi:
     private val once = scalalib.cache.OnceEvery.hashCode[(ImageId, Url)](1.day)
 
     def apply(id: ImageId, u: Url): Unit =
-      if once(id, u) then coll.updateUnchecked($id(id), $addToSet("urls" -> u))
+      if once(id, u) then coll.updateUnchecked(bid(id), addToSet("urls" -> u))
 
   val uploadMaxMb = 6
   val idSep = ':'

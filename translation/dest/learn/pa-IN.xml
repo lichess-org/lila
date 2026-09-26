@@ -1,2 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="learnChess">ਸ਼ਤਰੰਜ ਸਿੱਖੋ</string>
+  <string name="byPlaying">ਖੇਡਣ ਦੁਆਰਾ!</string>
+  <string name="theRook">ਹਾਥੀ</string>
+  <string name="theBishop">ਉੱਠ</string>
+  <string name="theQueen">ਰਾਣੀ</string>
+  <string name="queenCombinesRookAndBishop">ਰਾਣੀ = ਹਾਥੀ + ਉਠ</string>
+  <string name="theKnight">ਘੋੜਾ</string>
+  <string name="thePawn">ਪਿਆਦਾ</string>
+  <string name="itMovesForwardOnly">ਕੇਵਲ ਅੱਗੇ ਚਲਦਾ</string>
+  <string name="pawnIntro">ਪਿਆਦੇ ਕਮਜ਼ੋਰ ਹੁੰਦੇ ਨੇ, ਪਰ ਉਨ੍ਹਾ ਕੋਲ ਬਹੁਤ ਭਵਿਖ ਵੀ ਹੁੰਦਾ।</string>
+</resources>

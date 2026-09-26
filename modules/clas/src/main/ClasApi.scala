@@ -1,38 +1,34 @@
 package lila.clas
 
-import play.api.i18n.Lang
 import reactivemongo.api.*
-import scalalib.ThreadLocalRandom
 import scalalib.data.LazyFu
 
 import lila.common.Markdown
-import lila.core.config.BaseUrl
 import lila.core.id.{ ClasId, ClasInviteId, StudentId }
-import lila.core.msg.MsgApi
 import lila.db.dsl.{ *, given }
 import lila.rating.{ Perf, PerfType, UserPerfs }
-import lila.core.user.KidMode
+import lila.core.user.RealName
 import lila.common.Bus
+import lila.core.perm.Granter
 
 final class ClasApi(
     colls: ClasColls,
     filters: ClasUserFilters,
     matesCache: ClasMates,
-    nameGenerator: NameGenerator,
     userRepo: lila.user.UserRepo,
     perfsRepo: lila.user.UserPerfsRepo,
-    msgApi: MsgApi,
-    authenticator: lila.core.security.Authenticator,
-    baseUrl: BaseUrl
-)(using Executor, lila.core.i18n.Translator):
+    clasMsg: ClasMsg,
+    authenticator: lila.core.security.Authenticator
+)(using Executor):
 
   import BsonHandlers.given
+  import colls.selectArchived
   export filters.{ student as isStudent, teacher as isTeacher }
 
   Bus.sub[lila.core.user.UserDelete]: del =>
-    colls.clas.update.one($doc("created.by" -> del.id), $set("created.by" -> UserId.ghost), multi = true)
-    colls.clas.update.one($doc("teachers" -> del.id), $pull("teachers" -> del.id), multi = true)
-    colls.student.delete.one($doc("userId" -> del.id))
+    colls.clas.update.one(bdoc("created.by" -> del.id), set("created.by" -> UserId.ghost), multi = true)
+    colls.clas.update.one(bdoc("teachers" -> del.id), pull("teachers" -> del.id), multi = true)
+    colls.student.delete.one(bdoc("userId" -> del.id))
 
   object clas:
 
@@ -42,23 +38,23 @@ final class ClasApi(
 
     def of(teacher: User): Fu[List[Clas]] =
       coll
-        .find($doc("teachers" -> teacher.id))
-        .sort($doc("archived" -> 1, "viewedAt" -> -1))
+        .find(bdoc("teachers" -> teacher.id))
+        .sort(bdoc("archived" -> 1, "viewedAt" -> -1))
         .cursor[Clas]()
         .list(100)
 
     def countOf(teacher: User): Fu[Int] =
-      coll.countSel($doc("teachers" -> teacher.id))
+      coll.countSel(bdoc("teachers" -> teacher.id))
 
     private def activeByIds(clasIds: List[ClasId], nb: Int): Fu[List[Clas]] =
       coll
-        .find($inIds(clasIds) ++ selectArchived(false))
-        .sort($sort.desc("createdAt"))
+        .find(inIds(clasIds) ++ selectArchived(false))
+        .sort(sort.desc("createdAt"))
         .cursor[Clas]()
         .list(nb)
 
     def ofStudent(userId: UserId, nb: Int): Fu[List[Clas]] =
-      student.clasIdsOfUser(userId).flatMap(activeByIds(_, nb))
+      colls.clasIdsOfStudent(userId).flatMap(activeByIds(_, nb))
 
     def create(data: ClasForm.ClasData)(using teacher: Me): Fu[Clas] =
       val clas = data.make(teacher)
@@ -74,56 +70,55 @@ final class ClasApi(
         enabledTeachers <- userRepo.filterEnabled(clas.teachers.toList)
         fixedTeachers = clas.teachers.toList.filter(enabledTeachers.contains).toNel | from.teachers
         checked = clas.copy(teachers = fixedTeachers)
-        _ <- coll.update.one($id(clas.id), checked)
+        _ <- coll.update.one(bid(clas.id), checked)
         _ = fixedTeachers.toList.foreach(filters.teacher.add)
         _ = teamSync(checked)
       yield checked
 
     def updateWall(clas: Clas, text: Markdown): Funit =
-      coll.updateField($id(clas.id), "wall", text).void
+      coll.updateField(bid(clas.id), "wall", text).void
 
     def getAndView(id: ClasId)(using teacher: Me): Fu[Option[Clas]] =
       coll
         .findAndUpdateSimplified[Clas](
-          selector = $id(id) ++ $doc("teachers" -> teacher.userId),
-          update = $set("viewedAt" -> nowInstant),
+          selector = bid(id) ++ bdoc("teachers" -> teacher.userId),
+          update = bset("viewedAt" -> nowInstant),
           fetchNewObject = true
         )
 
     def teachers(clas: Clas): Fu[List[User]] =
       userRepo.byOrderedIds(clas.teachers.toList, readPref = _.sec)
 
-    def isTeacherOf(teacher: User, clasId: ClasId): Fu[Boolean] =
-      filters
-        .teacher(teacher.id)
+    def isTeacherIn(teacher: User, clasId: ClasId): Fu[Boolean] =
+      Granter
+        .of(_.Teacher)(teacher)
         .so:
-          coll.exists($id(clasId) ++ $doc("teachers" -> teacher.id))
+          coll.exists(bid(clasId) ++ bdoc("teachers" -> teacher.id))
 
     private def lookupClasOfTeacher(teacher: UserId) =
-      $lookup.simple(
+      lookup.simple(
         from = colls.clas,
         as = "clasId",
         local = "clasId",
         foreign = "_id",
         pipe = List(
-          $doc("$match" -> $doc("teachers" -> teacher)),
-          $doc("$limit" -> 1),
-          $doc("$project" -> $id(true))
+          bdoc("$match" -> bdoc("teachers" -> teacher)),
+          bdoc("$limit" -> 1),
+          bdoc("$project" -> bid(true))
         )
       )
 
     def isTeacherOf(teacher: UserId, student: UserId): Fu[Boolean] =
-      (isStudent(student) && isTeacher(teacher)).so:
-        colls.student
-          .aggregateExists(_.sec): framework =>
-            import framework.*
-            Match($doc("userId" -> student)) -> List(
-              Project($doc("clasId" -> true)),
-              PipelineOperator(lookupClasOfTeacher(teacher)),
-              Match("clasId".$ne($arr())),
-              Limit(1),
-              Project($id(true))
-            )
+      (isTeacher(teacher) && isStudent(student)).so:
+        colls.student.aggregateExists(_.sec): framework =>
+          import framework.*
+          Match(bdoc("userId" -> student)) -> List(
+            Project(bdoc("clasId" -> true)),
+            PipelineOperator(lookupClasOfTeacher(teacher)),
+            Match("clasId".neq(barr())),
+            Limit(1),
+            Project(bid(true))
+          )
 
     def myPotentialStudentNames(userIds: Iterable[UserId])(using me: Me): Fu[Map[UserId, Student.RealName]] =
       filters
@@ -134,10 +129,10 @@ final class ClasApi(
             colls.student
               .aggregateList(128, _.sec): framework =>
                 import framework.*
-                Match("userId".$in(potentialStudents)) -> List(
-                  Project($doc("userId" -> true, "clasId" -> true, "realName" -> true)),
+                Match("userId".in(potentialStudents)) -> List(
+                  Project(bdoc("userId" -> true, "clasId" -> true, "realName" -> true)),
                   PipelineOperator(lookupClasOfTeacher(me.userId)),
-                  Match("clasId".$ne($arr())),
+                  Match("clasId".neq(barr())),
                   GroupField("userId")("realName" -> LastField("realName"))
                 )
               .map:
@@ -150,40 +145,41 @@ final class ClasApi(
 
     /* Only if userId and I have a class in common,
      * wether we're teachers or students */
-    def realName(userId: UserId)(using me: Me): Fu[Option[String]] =
+    def realName(userId: UserId)(using me: Me): Fu[Option[RealName]] =
       if me.is(userId) then fuccess(none)
-      else if isTeacher(userId)
-      then userRepo.realName(userId)
       else
-        isStudent(userId)
-          .so:
-            if isTeacher(me.userId)
-            then myPotentialStudentNames(List(userId)).map(_.get(userId))
-            else
-              isStudent(me.userId).so:
-                matesCache.findMateStudent(userId).map2(_.realName)
-          .map2(_.value)
+        isTeacherOf(userId, me.userId).flatMap:
+          if _ then userRepo.realName(userId)
+          else
+            isStudent(userId)
+              .so:
+                if isTeacher(me.userId)
+                then myPotentialStudentNames(List(userId)).map(_.get(userId))
+                else
+                  isStudent(me.userId).so:
+                    matesCache.findMateStudent(userId).map2(_.realName)
+              .map2(_.into(RealName))
 
     def canKidsUseMessages(kid1: UserId, kid2: UserId): Fu[Boolean] =
       fuccess(isStudent(kid1) && isStudent(kid2)) >>&
         colls.student.aggregateExists(_.sec): framework =>
           import framework.*
-          Match($doc("userId".$in(List(kid1.id, kid2.id)))) -> List(
+          Match(bdoc("userId".in(List(kid1.id, kid2.id)))) -> List(
             PipelineOperator(
-              $lookup.simple(
+              lookup.simple(
                 from = colls.clas,
                 as = "clas",
                 local = "clasId",
                 foreign = "_id",
                 pipe = List(
-                  $doc("$match" -> $doc("canMsg" -> true)),
-                  $doc("$project" -> $id(true))
+                  bdoc("$match" -> bdoc("canMsg" -> true)),
+                  bdoc("$project" -> bid(true))
                 )
               )
             ),
             Unwind("clas"),
             GroupField("clas._id")("nb" -> SumAll),
-            Match($doc("nb" -> 2)),
+            Match(bdoc("nb" -> 2)),
             Limit(1)
           )
 
@@ -193,19 +189,22 @@ final class ClasApi(
 
     private def doArchiveOnly(from: Clas, v: Boolean)(using me: MyId): Fu[Clas] =
       val clas = from.copy(archived = v.option(Clas.Recorded(me.userId, nowInstant)))
-      for _ <- coll.updateOrUnsetField($id(clas.id), "archived", clas.archived)
+      for _ <- coll.updateOrUnsetField(bid(clas.id), "archived", clas.archived)
       yield clas
 
     def archiveAllInactive: Funit =
       for
         inactiveClasses <- coll
-          .find(selectArchived(false) ++ "viewedAt".$lte(nowInstant.minusDays(30)))
+          .find(selectArchived(false) ++ "viewedAt".lte(nowInstant.minusDays(100)))
           .cursor[Clas](ReadPref.sec)
           .list(100)
         _ = inactiveClasses.nonEmptyOption.foreach: classes =>
-          logger.info(s"Archiving ${classes.size} inactive classes: ${classes.map(_.id).mkString(", ")}")
+          lila.log.system.info:
+            s"Archiving ${classes.size} inactive classes: ${classes.map(_.id).mkString(", ")}"
         _ <- inactiveClasses.sequentiallyVoid: from =>
-          for clas <- doArchiveOnly(from, true)(using UserId.lichessAsMe)
+          for
+            clas <- doArchiveOnly(from, true)(using UserId.lichessAsMe)
+            _ <- clasMsg.onArchive(clas)
           yield teamSync(clas)(using None)
       yield ()
 
@@ -213,21 +212,23 @@ final class ClasApi(
 
     import lila.core.security.ClearPassword
 
+    export colls.countStudents as count
+
     private def coll = colls.student
 
     def activeOf(clas: Clas): Fu[List[Student]] =
-      of($doc("clasId" -> clas.id) ++ selectArchived(false))
+      of(bdoc("clasId" -> clas.id) ++ selectArchived(false))
 
     def activeUserIdsOf(clas: ClasId): Fu[List[UserId]] =
-      coll.primitive[UserId]($doc("clasId" -> clas) ++ selectArchived(false), $sort.asc("userId"), "userId")
+      coll.primitive[UserId](bdoc("clasId" -> clas) ++ selectArchived(false), sort.asc("userId"), "userId")
 
-    def allWithUsers(clas: Clas, selector: Bdoc = $empty): Fu[List[Student.WithUser]] =
+    def allWithUsers(clas: Clas, selector: Bdoc = emptyBdoc): Fu[List[Student.WithUser]] =
       colls.student
         .aggregateList(Int.MaxValue, _.sec): framework =>
           import framework.*
-          Match($doc("clasId" -> clas.id) ++ selector) -> List(
+          Match(bdoc("clasId" -> clas.id) ++ selector) -> List(
             PipelineOperator(
-              $lookup.simple(
+              lookup.simple(
                 from = userRepo.coll,
                 as = "user",
                 local = "userId",
@@ -264,23 +265,18 @@ final class ClasApi(
     private def of(selector: Bdoc): Fu[List[Student]] =
       coll
         .find(selector)
-        .sort($sort.asc("userId"))
+        .sort(sort.asc("userId"))
         .cursor[Student]()
         .list(500)
 
-    private[ClasApi] def clasIdsOfUser(userId: UserId): Fu[List[ClasId]] =
-      coll.distinctEasy[ClasId, List]("clasId", $doc("userId" -> userId) ++ selectArchived(false), _.sec)
-
-    def count(clasId: ClasId): Fu[Int] = coll.countSel($doc("clasId" -> clasId))
-
     def isManaged(user: User): Fu[Boolean] =
-      coll.exists($doc("userId" -> user.id, "managed" -> true))
+      coll.exists(bdoc("userId" -> user.id, "managed" -> true))
 
     def release(user: User): Funit =
-      coll.updateField($doc("userId" -> user.id, "managed" -> true), "managed", false).void
+      coll.updateField(bdoc("userId" -> user.id, "managed" -> true), "managed", false).void
 
     def findManaged(user: User): Fu[Option[Student.ManagedInfo]] =
-      coll.find($doc("userId" -> user.id, "managed" -> true)).one[Student].flatMapz { student =>
+      coll.find(bdoc("userId" -> user.id, "managed" -> true)).one[Student].flatMapz { student =>
         userRepo
           .byId(student.created.by)
           .zip(clas.byId(student.clasId))
@@ -288,7 +284,7 @@ final class ClasApi(
       }
 
     def get(clas: Clas, userId: UserId): Fu[Option[Student]] =
-      coll.one[Student]($id(Student.makeId(userId, clas.id)))
+      coll.one[Student](bid(Student.makeId(userId, clas.id)))
 
     def get(clas: Clas, user: User): Fu[Option[Student.WithUser]] =
       get(clas, user.id).map2 { Student.WithUser(_, user) }
@@ -299,9 +295,9 @@ final class ClasApi(
         colls.student
           .aggregateOne(_.sec): framework =>
             import framework.*
-            Match($doc("userId" -> s.user.id, "managed" -> true)) -> List(
+            Match(bdoc("userId" -> s.user.id, "managed" -> true)) -> List(
               PipelineOperator(
-                $lookup.simple(
+                lookup.simple(
                   from = colls.clas,
                   as = "clas",
                   local = "clasId",
@@ -316,35 +312,7 @@ final class ClasApi(
 
     def update(from: Student, data: ClasForm.StudentData): Fu[Student] =
       val student = data.update(from)
-      coll.update.one($id(student.id), student).inject(student)
-
-    def create(
-        clas: Clas,
-        data: ClasForm.CreateStudent
-    )(using teacher: Me): Fu[Student.WithPassword] =
-      val email = EmailAddress(s"noreply.class.${clas.id}.${data.username}@lichess.org")
-      val password = Student.password.generate()
-      lila.mon.clas.student.create(teacher.userId).increment()
-      for
-        user <- userRepo
-          .create(
-            name = data.username,
-            passwordHash = authenticator.passEnc(password),
-            email = email,
-            blind = false,
-            mobileApiVersion = none,
-            mustConfirmEmail = false,
-            lang = teacher.lang,
-            kid = KidMode.Yes
-          )
-          .orFail(s"No user could be created for ${data.username}")
-        _ = filters.student.add(user.id)
-        student = Student.make(user, clas, teacher.userId, data.realName, managed = true)
-        _ <- perfsRepo.setManagedUserInitialPerfs(user.id)
-        _ <- coll.insert.one(student)
-        _ <- sendWelcomeMessage(teacher.userId, user, clas)
-        _ = teamSync(clas)
-      yield Student.WithPassword(student, password)
+      coll.update.one(bid(student.id), student).inject(student)
 
     def move(fromClas: Clas, s: Student.WithUser, toClas: Clas)(using teacher: Me): Fu[Option[Student]] = for
       _ <- deleteStudent(fromClas, s)
@@ -362,25 +330,9 @@ final class ClasApi(
       _ = teamSync(toClas)
     yield moved
 
-    def manyCreate(
-        clas: Clas,
-        data: ClasForm.ManyNewStudent
-    )(using teacher: Me)(using Lang): Fu[List[Student.WithPassword]] =
-      for
-        nbCurrentStudents <- count(clas.id)
-        newStudents <- data.realNames
-          .take(Clas.maxStudents - nbCurrentStudents)
-          .sequentially: realName =>
-            nameGenerator().flatMap: username =>
-              val data = ClasForm.CreateStudent(
-                username = username | UserName(ThreadLocalRandom.nextString(10)),
-                realName = realName
-              )
-              create(clas, data)
-        _ = teamSync(clas)
-      yield newStudents
-
-    def resetPassword(s: Student): Fu[ClearPassword] =
+    def resetPassword(s: Student)(using me: Me): Fu[ClearPassword] =
+      lila.log.system.info:
+        s"Reset password for student ${s.userId} in class ${s.clasId} by teacher ${me.username}"
       val password = Student.password.generate()
       authenticator.setPassword(s.userId, password).inject(password)
 
@@ -388,10 +340,10 @@ final class ClasApi(
       for
         student <- coll
           .findAndUpdateSimplified[Student](
-            selector = $id(sId),
+            selector = bid(sId),
             update =
-              if v then $set("archived" -> Clas.Recorded(me, nowInstant))
-              else $unset("archived"),
+              if v then bset("archived" -> Clas.Recorded(me, nowInstant))
+              else unset("archived"),
             fetchNewObject = true
           )
         _ = teamSync(clas)
@@ -399,32 +351,14 @@ final class ClasApi(
 
     def archiveMany(clas: Clas, studentIds: List[StudentId], v: Boolean)(using me: Me): Funit =
       val archived = v.option(Clas.Recorded(me.userId, nowInstant))
-      for _ <- coll.updateOrUnsetField($inIds(studentIds), "archived", archived, multi = true)
+      for _ <- coll.updateOrUnsetField(inIds(studentIds), "archived", archived, multi = true)
       yield teamSync(clas)
 
     def deleteStudent(clas: Clas, s: Student.WithUser)(using Me): Funit =
-      for _ <- coll.delete.one($id(s.student.id))
+      for _ <- coll.delete.one(bid(s.student.id))
       yield teamSync(clas)
 
-    private[ClasApi] def sendWelcomeMessage(teacherId: UserId, student: User, clas: Clas): Funit =
-      given Lang = student.realLang | lila.core.i18n.defaultLang
-      msgApi
-        .post(
-          orig = teacherId,
-          dest = student.id,
-          text = s"""${lila.core.i18n.I18nKey.clas.welcomeToClass.txt(clas.name)}
-
-$baseUrl/class/${clas.id}
-
-${clas.desc}""",
-          multi = true
-        )
-        .void
-
   end student
-
-  // works for clas & student
-  private def selectArchived(v: Boolean) = $doc("archived".$exists(v))
 
   object invite:
 
@@ -443,25 +377,25 @@ ${clas.desc}""",
             .one(invite)
             .void
             .flatMap: _ =>
-              sendInviteMessage(teacher, user, clas, invite)
+              clasMsg.invitation(teacher, user, clas, invite)
             .recover:
               lila.db.recoverDuplicateKey(_ => Found)
 
-    def get(id: ClasInviteId) = colls.invite.one[ClasInvite]($id(id))
+    def get(id: ClasInviteId) = colls.invite.one[ClasInvite](bid(id))
 
     def view(id: ClasInviteId, user: User): Fu[Option[(ClasInvite, Clas)]] =
-      colls.invite.one[ClasInvite]($id(id) ++ $doc("userId" -> user.id)).flatMapz { invite =>
+      colls.invite.one[ClasInvite](bid(id) ++ bdoc("userId" -> user.id)).flatMapz { invite =>
         colls.clas.byId[Clas](invite.clasId.value).map2 { invite -> _ }
       }
 
     def accept(id: ClasInviteId, user: User): Fu[Option[Student]] =
-      colls.invite.one[ClasInvite]($id(id) ++ $doc("userId" -> user.id)).flatMapz { invite =>
-        colls.clas.one[Clas]($id(invite.clasId)).flatMapz { clas =>
+      colls.invite.one[ClasInvite](bid(id) ++ bdoc("userId" -> user.id)).flatMapz { invite =>
+        colls.clas.one[Clas](bid(invite.clasId)).flatMapz { clas =>
           val stu = Student.make(user, clas, invite.created.by, invite.realName, managed = false)
           val done = for
             _ <- colls.student.insert.one(stu)
-            _ <- colls.invite.updateField($id(id), "accepted", true)
-            _ <- student.sendWelcomeMessage(invite.created.by, user, clas)
+            _ <- colls.invite.updateField(bid(id), "accepted", true)
+            _ <- clasMsg.welcomeMessage(invite.created.by, user, clas)
             _ = filters.student.add(user.id)
             _ = teamSync(clas)(using none)
           yield stu.some
@@ -474,57 +408,34 @@ ${clas.desc}""",
     def decline(id: ClasInviteId): Fu[Option[ClasInvite]] =
       colls.invite
         .findAndUpdateSimplified[ClasInvite](
-          selector = $id(id),
-          update = $set("accepted" -> false)
+          selector = bid(id),
+          update = bset("accepted" -> false)
         )
 
     def listPending(clas: Clas): Fu[List[ClasInvite]] =
       colls.invite
-        .find($doc("clasId" -> clas.id, "accepted".$ne(true)))
-        .sort($sort.desc("created.at"))
+        .find(bdoc("clasId" -> clas.id, "accepted".neq(true)))
+        .sort(sort.desc("created.at"))
         .cursor[ClasInvite]()
         .list(100)
 
     def delete(id: ClasInviteId): Funit =
-      colls.invite.delete.one($id(id)).void
+      colls.invite.delete.one(bid(id)).void
 
     def deleteInvites(id: ClasId, userIds: List[UserId]): Funit =
       userIds.nonEmpty.so:
         colls.invite.delete
           .one(
-            $doc(
-              "userId".$in(userIds),
+            bdoc(
+              "userId".in(userIds),
               "clasId" -> id
             )
           )
           .void
 
-    private def sendInviteMessage(
-        teacher: Me,
-        student: User,
-        clas: Clas,
-        invite: ClasInvite
-    ): Fu[ClasInvite.Feedback] =
-      val url = s"$baseUrl/class/invitation/${invite.id}"
-      if student.kid.yes then fuccess(ClasInvite.Feedback.CantMsgKid(url))
-      else
-        import lila.core.i18n.I18nKey.clas.*
-        given play.api.i18n.Lang = student.realLang | lila.core.i18n.defaultLang
-        msgApi
-          .post(
-            orig = teacher.userId,
-            dest = student.id,
-            text = s"""${invitationToClass.txt(clas.name)}
-
-${clickToViewInvitation.txt()}
-
-$url""",
-            multi = true
-          )
-          .inject(ClasInvite.Feedback.Invited)
   end invite
 
-  private def teamSync(clas: Clas)(using Option[Me]): Unit =
+  private[clas] def teamSync(clas: Clas)(using Option[Me]): Unit =
     import lila.core.misc.clas.*
     val config = (~clas.hasTeam && clas.isActive).option:
       val students = LazyFu(() => student.activeUserIdsOf(clas.id))

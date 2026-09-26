@@ -1,14 +1,14 @@
 .round__app__table {
   @extend %box-radius-right, %box-shadow;
+  @include backdrop-blur-if-transparent;
 
   background: $c-bg-box;
 }
 
 .expiration {
-  @extend %flex-center;
+  @extend %flex-center-center;
 
   font-size: 0.9rem;
-  justify-content: center;
   line-height: 2;
   background: $c-good;
   color: #fff;

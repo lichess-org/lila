@@ -3,6 +3,7 @@ package lila.insight
 import scalalib.HeapSort.botN
 
 import lila.game.GameRepo
+import lila.mon.extensions.*
 
 final class InsightApi(
     storage: InsightStorage,
@@ -15,8 +16,8 @@ final class InsightApi(
 
   import InsightApi.*
 
-  private val userCache = cacheApi[UserId, InsightUser](1024, "insight.user"):
-    _.expireAfterWrite(15.minutes).maximumSize(4096).buildAsyncFuture(computeUser)
+  private val userCache = cacheApi[UserId, InsightUser](512, "insight.user"):
+    _.expireAfterWrite(15.minutes).maximumSize(1_024).buildAsyncFuture(computeUser)
 
   private def computeUser(userId: UserId): Fu[InsightUser] =
     storage
@@ -41,18 +42,18 @@ final class InsightApi(
             gameRepo.userPovsByGameIds(clusters.flatMap(_.gameIds).botN(4), user)
           .map { Answer(question, clusters, _) }
       }
-      .monSuccess(_.insight.user)
+      .monSuccess(lila.mon.insight.user)
 
   def askPeers[X](question: Question[X], rating: MeanRating, nbGames: Max): Fu[Answer[X]] =
     pipeline
       .aggregate(question, Right(PeersRatingRange.of(rating)), withPovs = false, nbGames = nbGames)
       .map: aggDocs =>
         Answer(question, AggregationClusters(question, aggDocs), Nil)
-      .monSuccess(_.insight.peers)
+      .monSuccess(lila.mon.insight.peers)
 
   def userStatus(user: User): Fu[UserStatus] =
-    gameRepo
-      .lastFinishedRatedNotFromPosition(user)
+    indexer
+      .lastIndexableGame(user)
       .flatMap:
         case None => fuccess(UserStatus.NoGame)
         case Some(game) =>
@@ -60,11 +61,12 @@ final class InsightApi(
             .fetchLast(user.id)
             .map:
               case None => UserStatus.Empty
-              case Some(entry) if entry.date.isBefore(game.createdAt) => UserStatus.Stale
+              case Some(entry) if entry.date.isBefore(game.createdAt) =>
+                UserStatus.Stale
               case _ => UserStatus.Fresh
 
   def indexAll(user: User, force: Boolean): Funit =
-    for _ <- indexer.all(user, force).monSuccess(_.insight.index)
+    for _ <- indexer.all(user, force).monSuccess(lila.mon.insight.index)
     yield userCache.put(user.id, computeUser(user.id))
 
   def updateGame(g: Game) =

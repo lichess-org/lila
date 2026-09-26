@@ -96,7 +96,6 @@
   <string name="byCPL">Per errores</string>
   <string name="enable">Activar</string>
   <string name="bestMoveArrow">Flecha de melior movimento</string>
-  <string name="evaluationGauge">Indicator de evalutation</string>
   <string name="multipleLines">Lineas de analyse</string>
   <string name="cpus">Processatores</string>
   <string name="memory">Memoria</string>
@@ -185,8 +184,6 @@
     <item quantity="other">%s partitas con te</item>
   </plurals>
   <string name="cancel">Cancellar</string>
-  <string name="whiteTimeOut">Le tempore del blanco ha finite</string>
-  <string name="blackTimeOut">Le tempore del nigro ha finite</string>
   <string name="drawOfferSent">Proposition de partita nulle inviate</string>
   <string name="drawOfferAccepted">Proposition de partita nulle acceptate</string>
   <string name="whiteOffersDraw">Le blanco propone le partita nulle</string>
@@ -537,11 +534,9 @@
   <string name="aboutSimulRules">Quando le exhibition simultanee initia, cata jocator initia un partita con le hospite, qui joca per le pecias blanc. Le exhibition simultanee fini quando tote le partitas es concludite.</string>
   <string name="aboutSimulSettings">Exhibitiones simultanee es sempre amical. Vindicantias, retornos del ultime movimento e \"plus tempore\" es disactivate.</string>
   <string name="create">Crear</string>
-  <string name="whenCreateSimul">Quando tu crea un exhibition simultanee, tu joca con diverse jocatores simul.</string>
   <string name="simulVariantsHint">Si tu selige plure variantes, cata jocator pote eliger qual jocar.</string>
   <string name="simulClockHint">Configuration de Horologio Fischer. Quanto plus jocatores tu accepta, tanto plus tempore tu pote requirer.</string>
   <string name="simulAddExtraTime">Tu pote adder tempore additional a tu horologio pro adjutar a arrangiar te con le exhibition simultanee.</string>
-  <string name="simulHostExtraTime">Tempore additional al hospite</string>
   <string name="lichessTournaments">Torneos official de Lichess</string>
   <string name="tournamentFAQ">Questiones frequente sur le torneos Arena</string>
   <string name="timeBeforeTournamentStarts">Tempore ante le initio del torneo</string>
@@ -614,7 +609,6 @@
   <string name="background">Fundo</string>
   <string name="light">Clar</string>
   <string name="dark">Obscur</string>
-  <string name="transparent">Transparente</string>
   <string name="backgroundImageUrl">Ligamine URL del imagine de fundo:</string>
   <string name="pieceSet">Stilo del pecias</string>
   <string name="embedInYourWebsite">Incorpora in tu sito web</string>
@@ -630,7 +624,6 @@
   <string name="invalidFen">FEN invalide</string>
   <string name="custom">Personalisate</string>
   <string name="notifications">Notificationes</string>
-  <string name="perfRatingX">Classification: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s secunda pro jocar le prime movimento</item>
     <item quantity="other">%s secundas pro jocar le prime movimento</item>
@@ -691,7 +684,6 @@
   <string name="thankYouForReading">Gratias pro leger isto!</string>
   <string name="agreementAssistance">Io accepta que in ulle occasion io non recipera assistentia durante mi partitas (ab un computator de chacos, base de datos o altere persona).</string>
   <string name="agreementNice">Io accepta que io sempre essera respectuose a altere jocatores.</string>
-  <string name="agreementPolicy">Io accepta que io sequera tote le politicas de Lichess.</string>
   <string name="searchOrStartNewDiscussion">Cerca o initia un nove conversation</string>
   <string name="edit">Modificar</string>
   <string name="rapid">Rapide</string>

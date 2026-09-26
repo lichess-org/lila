@@ -1,5 +1,5 @@
-import { test, mock, before } from 'node:test';
 import assert from 'node:assert/strict';
+import { test, mock, before } from 'node:test';
 
 const spamUrl = new URL('../src/chat/spam.ts', import.meta.url).href;
 const xhrUrl = new URL('../src/xhr.ts', import.meta.url).href;
@@ -10,7 +10,7 @@ test('self report', async () => {
     return 'ok';
   });
 
-  let selfReport: (msg: string) => Promise<unknown>;
+  let selfReport: (msg: string) => Promise<any>;
 
   before(async () => {
     const xhr = await import(xhrUrl);

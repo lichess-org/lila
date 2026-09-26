@@ -4,8 +4,11 @@ import com.github.blemale.scaffeine.Cache
 
 import lila.study.ChapterPreviewApi
 import lila.core.irc.IrcApi
+import lila.core.userId.ModId
+import lila.core.data.DiffStr
 
-private final class RelayNotifierAdmin(api: RelayApi, irc: IrcApi, previewApi: ChapterPreviewApi)(using
+private final class RelayNotifierAdmin(roundRepo: RelayRoundRepo, irc: IrcApi, previewApi: ChapterPreviewApi)(
+    using
     ex: Executor,
     scheduler: Scheduler
 ):
@@ -49,7 +52,7 @@ private final class RelayNotifierAdmin(api: RelayApi, irc: IrcApi, previewApi: C
     def schedule(id: RelayRoundId) =
       if once(id) then
         scheduler.scheduleOnce(1.minute):
-          api.byIdWithTour(id).flatMapz(checkNow)
+          roundRepo.byIdWithTour(id).flatMapz(checkNow)
 
     private def checkNow(rt: RelayRound.WithTour): Funit =
       if rt.round.sync.upstream.exists(_.isInternal)
@@ -66,3 +69,31 @@ private final class RelayNotifierAdmin(api: RelayApi, irc: IrcApi, previewApi: C
                   (chapter.id, player.name.fold("?")(_.value))
             missing.nonEmpty.so:
               irc.broadcastMissingFideId(rt.round.id, rt.fullNameNoTrans, missing)
+
+  def tourCreate(tour: RelayTour)(using Me): Funit =
+    tour.official.so:
+      val diff = DiffStr(s"+ tier: ${tour.tier.fold("(none)")(_.toString)}")
+      irc.broadcastTourUpdate(tour.name.value, tour.slug, tour.id, diff)
+
+  def tourChange(prev: RelayTour, tour: RelayTour, impersonatedBy: Option[ModId])(using Me): Funit =
+    lila.common
+      .ProductDiff(
+        prev.some,
+        tour,
+        ignoredFields = Set("id", "createdAt", "active", "live", "syncedAt", "note"),
+        nestedFields = Set("info", "spotlight"),
+        maxLength = 300
+      )
+      .so(irc.broadcastTourUpdate(tour.name.value, tour.slug, tour.id, _, impersonatedBy))
+
+  def imageDelete(t: RelayTour, tag: Option[String], impersonatedBy: Option[ModId])(using Me): Funit =
+    t.official.so:
+      val fieldName = tag | "image"
+      val diff = DiffStr(s"- $fieldName: ${t.image.fold("(none)")(_.toString)}\n+ $fieldName: (removed)")
+      irc.broadcastTourUpdate(t.name.value, t.slug, t.id, diff, impersonatedBy)
+
+  def imageUpload(t: RelayTour, tag: Option[String], impersonatedBy: Option[ModId])(using Me): Funit =
+    t.official.so:
+      val fieldName = tag | "image"
+      val diff = DiffStr(s"- $fieldName: ${t.image.fold("(none)")(_.toString)}\n+ $fieldName: (uploaded)")
+      irc.broadcastTourUpdate(t.name.value, t.slug, t.id, diff, impersonatedBy)

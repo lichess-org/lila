@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
-    "lib": "workspace:*",
-    "@lichess-org/vosk-browser": "0.0.3"
+    "@lichess-org/vosk-browser": "0.0.3",
+    "lib": "workspace:*"
   },
   "scripts": {
     "make-grammar": "node --experimental-strip-types --no-warnings makeGrammar.mts"

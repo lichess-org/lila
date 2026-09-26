@@ -8,6 +8,7 @@ import lila.core.ublog.Quality
 import lila.memo.SettingStore
 import lila.memo.SettingStore.Text.given
 import lila.report.Automod
+import lila.mon.extensions.*
 
 // see also:
 //   file://./../../../../bin/ublog-automod.mjs
@@ -17,26 +18,21 @@ object UblogAutomod:
 
   private val schemaVersion = 1
 
+  // not actually an automod assessment, as mods can edit it :-/
+  // except for the quality which now lives in UblogPost
   case class Assessment(
       quality: Quality,
       flagged: Option[String] = none,
       commercial: Option[String] = none,
       evergreen: Option[Boolean] = none,
       hash: Option[String] = none,
-      lockedBy: Option[UserId] = none,
       version: Int = schemaVersion
   ):
     def updateByLLM(llm: Assessment): Assessment =
-      if lockedBy.isDefined then
-        copy(
-          flagged = flagged.orElse(llm.flagged),
-          commercial = commercial.orElse(llm.commercial)
-        )
-      else
-        llm.copy(
-          quality = Quality.fromOrdinal:
-            llm.quality.ordinal.atLeast(quality.ordinal)
-        )
+      llm.copy(
+        quality = Quality.fromOrdinal:
+          llm.quality.ordinal.atLeast(quality.ordinal)
+      )
 
   private case class FuzzyResult(
       quality: String,
@@ -57,13 +53,15 @@ private final class UblogAutomod(
   val promptSetting = settingStore[Text](
     "ublogAutomodPrompt",
     text = "Ublog automod prompt".some,
-    default = Text("")
+    default = Text(""),
+    _.ModerateBlog
   )
 
   val modelSetting = settingStore[String](
     "ublogAutomodModel",
     text = "Ublog automod model".some,
-    default = "Qwen/Qwen3-235B-A22B-Thinking-2507"
+    default = "Qwen/Qwen3-235B-A22B-Thinking-2507",
+    _.ModerateBlog
   )
 
   private[ublog] def apply(post: UblogPost, temperature: Double = 0): Fu[Option[Assessment]] = post.live.so:
@@ -80,12 +78,12 @@ private final class UblogAutomod(
           model = modelSetting.get(),
           temperature = temperature
         )
-        .map:
-          _.flatMap(normalize).so: res =>
+        .map: res =>
+          normalize(res).so: res =>
             lila.mon.ublog.automod.quality(res.quality.toString).increment()
             lila.mon.ublog.automod.flagged(res.flagged.isDefined).increment()
             res.copy(hash = Algo.sha256(userText).hex.take(12).some).some // match bin/ublog-automod.mjs hash
-        .monSuccess(_.ublog.automod.request)
+        .monSuccess(lila.mon.ublog.automod.request)
     assessImages
       .zip(assessText)
       .map: (imgs, text) =>
@@ -96,13 +94,13 @@ private final class UblogAutomod(
     rsp
       .asOpt[FuzzyResult]
       .flatMap: res =>
-        Quality
-          .fromName(res.quality)
+        Quality.byName
+          .get(res.quality)
           .map: q =>
             import Quality.*
             Assessment(
               quality = q,
-              evergreen = if q == good || q == great then res.evergreen else none,
+              evergreen = res.evergreen.ifTrue(q == good),
               flagged = fixString(res.flagged),
               commercial = if q != spam then fixString(res.commercial) else none
             )

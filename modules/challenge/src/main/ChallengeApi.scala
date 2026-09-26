@@ -14,9 +14,10 @@ final class ChallengeApi(
     joiner: ChallengeJoiner,
     jsonView: JsonView,
     gameCache: lila.game.Cached,
+    rematches: lila.game.Rematches,
     cacheApi: lila.memo.CacheApi,
     langPicker: LangPicker
-)(using Executor, akka.actor.ActorSystem, Scheduler, lila.core.i18n.Translator):
+)(using Executor, org.apache.pekko.actor.ActorSystem, Scheduler, lila.core.i18n.Translator):
 
   import Challenge.*
 
@@ -68,15 +69,15 @@ final class ChallengeApi(
 
   def activeByIdFor(id: ChallengeId, dest: User): Future[Option[Challenge]] =
     repo.byIdFor(id, dest).dmap(_.filter(_.active))
-  def activeByIdBy(id: ChallengeId, maker: User): Future[Option[Challenge]] =
-    repo
-      .byId(id)
-      .dmap(_.filter { c =>
-        c.active && c.challenger.match
-          case Challenger.Registered(orig, _) if maker.is(orig) => true
-          case Challenger.Open if isOpenBy(id, maker) => true
-          case _ => false
-      })
+
+  def activeByIdBy(id: ChallengeId, by: User | String): Future[Option[Challenge]] =
+    for opt <- repo.byId(id)
+    yield opt.filter: c =>
+      c.active && (c.challenger, by).match
+        case (Challenger.Registered(orig, _), user: User) if user.is(orig) => true
+        case (Challenger.Open, user: User) if isOpenBy(id, user) => true
+        case (Challenger.Anonymous(secret), anonSecret: String) if secret == anonSecret => true
+        case _ => false
 
   val countInFor = cacheApi[UserId, Int](131_072, "challenge.countInFor"):
     _.expireAfterAccess(15.minutes).buildAsyncFuture(repo.countCreatedByDestId)
@@ -89,9 +90,13 @@ final class ChallengeApi(
       if nb > 5 then repo.createdByPopularDestId(max)(userId)
       else repo.createdByDestId()(userId)
 
+  // drop the cached offer id (as Rematcher.no does) so a new rematch challenge gets a fresh id
+  private def dropRematchOffer(c: Challenge): Unit = c.rematchOf.foreach(rematches.drop)
+
   def cancel(c: Challenge) =
     for _ <- repo.cancel(c)
     yield
+      dropRematchOffer(c)
       uncacheAndNotify(c)
       Bus.pub(NegativeEvent.Cancel(c.cancel))
 
@@ -108,6 +113,7 @@ final class ChallengeApi(
   def decline(c: Challenge, reason: Challenge.DeclineReason) =
     for _ <- repo.decline(c, reason)
     yield
+      dropRematchOffer(c)
       uncacheAndNotify(c)
       Bus.pub(NegativeEvent.Decline(c.declineWith(reason)))
 
@@ -115,12 +121,12 @@ final class ChallengeApi(
     maxSize = Max(64),
     timeout = 5.seconds,
     "challengeAccept",
-    lila.log.asyncActorMonitor.full
+    lila.mon.asyncActorMonitor.full
   )
 
   def accept(
       c: Challenge,
-      sid: Option[String],
+      anonSecret: Option[String],
       requestedColor: Option[Color] = None
   )(using me: Option[Me]): FuRaise[String, Option[Pov]] =
     acceptQueue:
@@ -144,7 +150,7 @@ final class ChallengeApi(
         then
           for
             me <- withPerf
-            _ <- repo.setChallenger(c.setChallenger(me, sid), color)
+            _ <- repo.setChallenger(c.setChallenger(me, anonSecret), color)
           yield none
         else if color.map(Challenge.ColorChoice.apply).has(c.colorChoice)
         then "This color has already been chosen".raise
@@ -210,7 +216,7 @@ final class ChallengeApi(
     def apply(userId: UserId): Unit = throttler(userId, 3.seconds):
       for
         all <- allFor(userId)
-        lang <- userApi.langOf(userId).map(langPicker.byStrOrDefault)
+        lang <- userApi.langOf(userId).map(langPicker.byLangTagOrDefault)
         _ <- lightUserApi.preloadMany(all.all.flatMap(_.userIds))
       yield
         given play.api.i18n.Lang = lang

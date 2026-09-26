@@ -75,10 +75,10 @@ export async function objectStorage<V, K extends IDBValidKey = IDBValidKey>(
     txn: (mode: IDBTransactionMode) => db.transaction(dbInfo.store, mode),
     cursor,
     readCursor: async (opts: CursorOpts, it: (v: V) => any): Promise<void> => {
-      for await (const c of cursor(opts, 'readonly')) await it(c.value);
+      for await (const c of cursor('readonly', opts)) await it(c.value);
     },
     writeCursor: async (opts: CursorOpts, it: WriteCursorCallback<V>): Promise<void> => {
-      for await (const c of cursor(opts, 'readwrite')) {
+      for await (const c of cursor('readwrite', opts)) {
         await it({
           value: c.value,
           update: (v: V) => promise(() => c.update(v)),
@@ -102,11 +102,12 @@ export async function objectStorage<V, K extends IDBValidKey = IDBValidKey>(
     });
   }
 
-  function cursor(opts: CursorOpts = {}, mode: IDBTransactionMode): AsyncGenerator<IDBCursorWithValue> {
+  function cursor(
+    mode: IDBTransactionMode,
+    { index, query, dir }: CursorOpts = {},
+  ): AsyncGenerator<IDBCursorWithValue> {
     const store = objectStore(mode);
-    const req = opts.index
-      ? store.index(opts.index).openCursor(opts.query, opts.dir)
-      : store.openCursor(opts.query, opts.dir);
+    const req = index ? store.index(index).openCursor(query, dir) : store.openCursor(query, dir);
     return (async function* () {
       while (true) {
         const cursor = await promise<IDBCursorWithValue | null>(() => req);
@@ -139,36 +140,6 @@ export function deleteObjectStorage(info: DbInfo): IDBOpenDBRequest | undefined 
   return 'indexedDB' in window && 'deleteDatabase' in window.indexedDB
     ? window.indexedDB.deleteDatabase(info.db ?? info.store)
     : undefined;
-}
-
-export async function nonEmptyStore(info: DbInfo): Promise<boolean> {
-  const dbName = info.db ?? info.store;
-  if (window.indexedDB.databases) {
-    const dbs = await window.indexedDB.databases();
-    if (dbs.every(db => db.name !== dbName)) return false;
-  }
-
-  return new Promise<boolean>(resolve => {
-    const request = window.indexedDB.open(dbName);
-
-    request.onerror = () => resolve(false);
-    request.onsuccess = (e: Event) => {
-      const db = (e.target as IDBOpenDBRequest).result;
-      if (!db.objectStoreNames.contains(info.store)) {
-        db.close();
-        resolve(false);
-      }
-      const cursorReq = db.transaction(info.store, 'readonly').objectStore(info.store).openCursor();
-      cursorReq.onsuccess = () => {
-        db.close();
-        resolve(Boolean(cursorReq.result));
-      };
-      cursorReq.onerror = () => {
-        db.close();
-        resolve(false);
-      };
-    };
-  });
 }
 
 export interface DbInfo {
@@ -227,7 +198,7 @@ export interface ObjectStorage<V, K extends IDBValidKey = IDBValidKey> {
   /** initiate a database transaction */
   txn(mode: IDBTransactionMode): IDBTransaction;
   /** create a raw cursor to iterate over an index or store's records */
-  cursor(opts: CursorOpts, mode: IDBTransactionMode): AsyncGenerator<IDBCursorWithValue>;
+  cursor(mode: IDBTransactionMode, opts?: CursorOpts): AsyncGenerator<IDBCursorWithValue>;
   /** read records using an idb cursor via simple value callback. resolves when iteration completes */
   readCursor(o: CursorOpts, it: (v: V) => any): Promise<void>;
   /** read, write, or delete records via cursor callback. promise resolves when iteration is done */
@@ -240,7 +211,7 @@ async function dbConnect(info: DbInfo): Promise<IDBDatabase> {
   const dbName = info.db ?? info.store;
 
   return new Promise<IDBDatabase>((resolve, reject) => {
-    if (!('indexedDB' in window) || !('open' in window.indexedDB)) reject('no indexedDB');
+    if (!('indexedDB' in window) || !('open' in window.indexedDB)) reject(new Error('no indexedDB'));
     const result = window.indexedDB.open(dbName, info?.version ?? 1);
 
     result.onsuccess = (e: Event) => resolve((e.target as IDBOpenDBRequest).result);

@@ -1,6 +1,7 @@
 .mchat {
   &__presets {
     @include prevent-select;
+
     display: flex;
     flex: 0 0 auto;
     align-items: center;
@@ -21,7 +22,7 @@
       @include transition;
 
       &.disabled {
-        background: $m-accent_bg--mix-15;
+        background: color-mix(in oklab, $c-accent 15%, $c-bg);
         color: transparent;
         cursor: default;
       }

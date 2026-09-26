@@ -23,7 +23,6 @@ Tlačítko Berserk není přístupné pro partie s nulovým základním časem (
 Hráč získá za Berserk bod navíc pouze v případě, že partie měla alespoň 7 tahů.</string>
   <string name="howIsTheWinnerDecided">Kdo se stane vítězem?</string>
   <string name="howIsTheWinnerDecidedAnswer">Hráč s nejvyšším počtem bodů na konci stanoveného časového limitu pro turnaj se stane jeho vítězem.</string>
-  <string name="howDoesPairingWork">Jak funguje párování?</string>
   <string name="howDoesPairingWorkAnswer">Na začátku turnaje jsou hráči spárováni podle svých ratingů.
 Jakmile skončíte svou partii, vraťte se do turnajové místnosti - budete spárováni s hráčem, který má podobný rating jako Vy. Díky tomu budete na další spárování čekat velmi krátce, ale pravděpodobně nebudete hrát se všemi ostatními hráči v turnaji.
 Hrajte rychle a vraťte se vždy co nejdříve do turnajové místnosti - stihnete tak odehrát více her a získat více bodů.</string>
@@ -40,7 +39,7 @@ Hrajte rychle a vraťte se vždy co nejdříve do turnajové místnosti - stihne
   <string name="thisIsPrivate">Toto je soukromý turnaj</string>
   <string name="shareUrl">Sdílejte tuto adresu URL, aby se mohli lidé připojit: %s</string>
   <string name="drawStreakStandard">Série remíz: když hráč několikrát po sobě skončí hru remízou v aréně, pouze první remíza mu dá bod, nebo pokud k remíze dojde po více než %s tazích. Série může být ukončena pouze výhrou, ne prohrou nebo další remízou.</string>
-  <string name="drawStreakVariants">Minimální délka hry pro bodovanou remízu se liší podle varianty. Níže uvedená tabulka uvádí hotnotu pro danou variantu.</string>
+  <string name="drawStreakVariants">Minimální délka hry pro bodovanou remízu se liší podle varianty. Níže uvedená tabulka uvádí hodnotu pro danou variantu.</string>
   <string name="variant">Varianta</string>
   <string name="minimumGameLength">Minimální délka hry</string>
   <string name="history">Historie arény</string>
@@ -65,7 +64,7 @@ Hrajte rychle a vraťte se vždy co nejdříve do turnajové místnosti - stihne
   <string name="myTournaments">Moje turnaje</string>
   <string name="editTournament">Upravit turnaj</string>
   <string name="editTeamBattle">Upravit týmové bitvy</string>
-  <string name="defender">Obránce</string>
+  <string name="defenderLabel" comment="In this context, this is the current holder of a shield trophy, who is defending their trophy in the next shield tournament of that variant. https://lichess.org/tournament/shields">Obránce:</string>
   <string name="pickYourTeam">Vyber si tým</string>
   <string name="whichTeamWillYouRepresentInThisBattle">Který tým budeš reprezentovat v této bitvě?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">Musíš se připojit k jednomu z těchto týmů!</string>
@@ -73,9 +72,10 @@ Hrajte rychle a vraťte se vždy co nejdříve do turnajové místnosti - stihne
   <string name="recentlyPlayed">Nedávno hrané</string>
   <string name="bestResults">Nejlepší výsledky</string>
   <string name="tournamentStats">Turnajové statistiky</string>
-  <string name="rankAvgHelp">Průměrný rank je procento umístění. Nižší je lepší.
+  <string name="rankAverageHelp">Vaše průměrné umístění představuje Vaše typické závěrečné umístění vzhledem k celkovému počtu hráčů v každém turnaji.
+Toto je ukazatel Vašeho umístění v turnajích, ne Váš obecný rating.
 
-Například, umístíte se 3 v turnaji o 100 hráčích tak rank je 3%. Umístíte se 10 v turnaji o 1000 hráčích task rank je 1%.</string>
+Například průměrné umístění 3 % znamená, že jste obvykle skončili mezi 3 % nejlepších (např. na 30. místě z 1000 hráčů).</string>
   <string name="medians">mediány</string>
   <string name="allAveragesAreX">Všechny průměry na této stránce jsou %s.</string>
   <string name="total">Celkem</string>

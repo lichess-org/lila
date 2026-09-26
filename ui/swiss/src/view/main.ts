@@ -1,4 +1,10 @@
-import * as licon from 'lib/licon';
+import { COLORS } from 'chessops';
+import flatpickr from 'flatpickr';
+
+import standaloneChat from 'lib/chat/standalone';
+import { use24h } from 'lib/i18n';
+import { licon } from 'lib/licon';
+import { once } from 'lib/storage';
 import {
   spinnerVdom,
   initMiniGames,
@@ -10,20 +16,17 @@ import {
   type LooseVNodes,
   hl,
 } from 'lib/view';
+import { renderPager, searchButton, searchInput } from 'lib/view/pagination';
 import { numberRow } from 'lib/view/util';
-import type SwissCtrl from '../ctrl';
-import { players, renderPager } from '../pagination';
-import type { SwissData, Pager } from '../interfaces';
-import header from './header';
-import standing from './standing';
-import * as boards from './boards';
-import podium from './podium';
-import playerInfo from './playerInfo';
-import flatpickr from 'flatpickr';
-import { use24h } from 'lib/i18n';
-import { once } from 'lib/storage';
 import { watchers } from 'lib/view/watchers';
-import standaloneChat from 'lib/chat/standalone';
+
+import type SwissCtrl from '../ctrl';
+import type { SwissData } from '../interfaces';
+import * as boards from './boards';
+import header from './header';
+import playerInfo from './playerInfo';
+import podium from './podium';
+import standing from './standing';
 
 export default function (ctrl: SwissCtrl) {
   const d = ctrl.data;
@@ -46,12 +49,11 @@ export default function (ctrl: SwissCtrl) {
 }
 
 function created(ctrl: SwissCtrl): LooseVNodes {
-  const pag = players(ctrl);
   return [
     header(ctrl),
     nextRound(ctrl),
-    controls(ctrl, pag),
-    standing(ctrl, pag, 'created'),
+    controls(ctrl),
+    standing(ctrl, 'created'),
     ctrl.data.quote &&
       hl('blockquote.pull-quote', [hl('p', ctrl.data.quote.text), hl('footer', ctrl.data.quote.author)]),
   ];
@@ -69,31 +71,32 @@ const notice = (ctrl: SwissCtrl) => {
 };
 
 function started(ctrl: SwissCtrl): LooseVNodes {
-  const pag = players(ctrl);
   return [
     header(ctrl),
     joinTheGame(ctrl) || notice(ctrl),
     nextRound(ctrl),
-    controls(ctrl, pag),
-    standing(ctrl, pag, 'started'),
+    controls(ctrl),
+    standing(ctrl, 'started'),
   ];
 }
 
 function finished(ctrl: SwissCtrl): LooseVNodes {
-  const pag = players(ctrl);
   return [
     hl('div.podium-wrap', [confetti(ctrl.data), header(ctrl), podium(ctrl)]),
-    controls(ctrl, pag),
-    standing(ctrl, pag, 'finished'),
+    controls(ctrl),
+    standing(ctrl, 'finished'),
   ];
 }
 
-function controls(ctrl: SwissCtrl, pag: Pager): VNode {
-  return hl('div.swiss__controls', [hl('div.pager', renderPager(ctrl, pag)), joinButton(ctrl)]);
+function controls(ctrl: SwissCtrl): VNode {
+  return hl('div.swiss__controls', [
+    hl('div.pager', renderPager(ctrl, searchButton(ctrl), searchInput(ctrl, { swiss: ctrl.data.id }))),
+    joinButton(ctrl),
+  ]);
 }
 
 function nextRound(ctrl: SwissCtrl): VNode | undefined {
-  if (!ctrl.opts.schedule || ctrl.data.nbOngoing || ctrl.data.round === 0) return;
+  if (!ctrl.opts.schedule || ctrl.data.nbOngoing || ctrl.data.round === 0) return undefined;
   return hl(
     'form.schedule-next-round',
     {
@@ -139,45 +142,38 @@ function joinButton(ctrl: SwissCtrl): VNode | undefined {
       i18n.team.joinTeam,
     );
 
-  if (d.canJoin)
-    return ctrl.joinSpinner
-      ? spinnerVdom()
-      : hl(
-          'button.fbt.text.highlight',
-          {
-            attrs: dataIcon(licon.PlayTriangle),
-            hook: bind(
-              'click',
-              async () => {
-                if (d.password) {
-                  const p = await prompt(i18n.site.tournamentEntryCode);
-                  if (p !== null) ctrl.join(p);
-                } else ctrl.join();
-              },
-              ctrl.redraw,
-            ),
-          },
-          i18n.site.join,
-        );
+  if (!d.canJoin && (d.me?.absent || !d.me)) return undefined;
+
+  if (ctrl.joinSpinner) return spinnerVdom();
+
+  const promptEntryCodeOrJoin = async () => {
+    if (d.password) {
+      const p = await prompt(i18n.site.tournamentEntryCode);
+      if (p !== null) ctrl.join(p);
+    } else ctrl.join();
+  };
 
   if (d.me && d.status !== 'finished')
     return d.me.absent
-      ? ctrl.joinSpinner
-        ? spinnerVdom()
-        : hl(
-            'button.fbt.text.highlight',
-            { attrs: dataIcon(licon.PlayTriangle), hook: bind('click', _ => ctrl.join(), ctrl.redraw) },
-            i18n.site.join,
-          )
-      : ctrl.joinSpinner
-        ? spinnerVdom()
-        : hl(
-            'button.fbt.text',
-            { attrs: dataIcon(licon.FlagOutline), hook: bind('click', ctrl.withdraw, ctrl.redraw) },
-            i18n.site.withdraw,
-          );
+      ? hl(
+          'button.fbt.text.highlight',
+          { attrs: dataIcon(licon.PlayTriangle), hook: bind('click', promptEntryCodeOrJoin, ctrl.redraw) },
+          i18n.site.join,
+        )
+      : hl(
+          'button.fbt.text',
+          { attrs: dataIcon(licon.FlagOutline), hook: bind('click', ctrl.withdraw, ctrl.redraw) },
+          i18n.site.withdraw,
+        );
 
-  return;
+  return hl(
+    'button.fbt.text.highlight',
+    {
+      attrs: dataIcon(licon.PlayTriangle),
+      hook: bind('click', promptEntryCodeOrJoin, ctrl.redraw),
+    },
+    i18n.site.join,
+  );
 }
 
 function joinTheGame(ctrl: SwissCtrl) {
@@ -198,9 +194,7 @@ function confetti(data: SwissData) {
     data.isRecentlyFinished &&
     once('tournament.end.canvas.' + data.id) &&
     hl('canvas#confetti', {
-      hook: {
-        insert: _ => site.asset.loadEsm('bits.confetti'),
-      },
+      hook: onInsert(() => site.asset.loadEsm('bits.confetti')),
     })
   );
 }
@@ -214,8 +208,7 @@ function stats(ctrl: SwissCtrl) {
     hl('table', [
       ctrl.opts.showRatings ? numberRow(i18n.site.averageElo, s.averageRating, 'raw') : null,
       numberRow(i18n.site.gamesPlayed, s.games),
-      numberRow(i18n.site.whiteWins, [s.whiteWins, slots], 'percent'),
-      numberRow(i18n.site.blackWins, [s.blackWins, slots], 'percent'),
+      ...COLORS.map(c => numberRow(i18n.site[`${c}Wins`], [s[`${c}Wins`], slots], 'percent')),
       numberRow(i18n.site.drawRate, [s.draws, slots], 'percent'),
       numberRow(i18n.swiss.byes, [s.byes, slots], 'percent'),
       numberRow(i18n.swiss.absences, [s.absences, slots], 'percent'),

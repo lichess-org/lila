@@ -4,7 +4,7 @@ export lila.core.lilaism.Lilaism.{ *, given }
 export lila.common.extensions.*
 export lila.core.user.Plan.*
 
-private val logger = lila.log("plan")
+lazy val logger = lila.log("plan")
 
 import lila.core.user.Plan
 extension (p: Plan)

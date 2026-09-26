@@ -18,6 +18,10 @@
   min-width: 200px;
 }
 
+.form-full {
+  flex: 100%;
+}
+
 .form-third {
   flex: 1 1 31%;
 }
@@ -72,8 +76,10 @@ textarea.form-control {
 .password-complexity-label {
   color: $c-font-dim;
 }
+
 .form-help pre {
   @extend %box-radius;
+
   padding: 0.2em 1em;
   margin: 0.2em 0;
   background: $c-bg-page;

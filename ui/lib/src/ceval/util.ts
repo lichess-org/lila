@@ -1,17 +1,13 @@
 // no side effects allowed due to re-export by index.ts
 
+import { isMobile } from '@/device';
 import type { ClientEval } from '@/tree/types';
-import { isMobile } from '../device';
-import { memoize, escapeHtml } from '../index';
-import { domDialog } from '../view/dialog';
+import { domDialog } from '@/view';
 
-export function isEvalBetter(a: ClientEval, b: ClientEval, desiredPvs: number): boolean {
-  return (
-    a.depth > b.depth ||
-    (a.depth === b.depth && a.nodes > b.nodes) ||
-    (a.pvs.length >= desiredPvs && b.pvs.length < desiredPvs)
-  );
-}
+import { memoize, escapeHtml } from '../index';
+
+export const useFirstEval = (a: ClientEval, b: ClientEval, desiredPvs: number): boolean =>
+  (a.pvs.length === desiredPvs && b.pvs.length !== desiredPvs) || a.nodes >= b.nodes;
 
 export function renderEval(e: number): string {
   e = Math.max(Math.min(Math.round(e / 10) / 10, 99), -99);
@@ -47,6 +43,7 @@ export function showEngineError(engine: string, error: string): void {
   domDialog({
     class: 'engine-error',
     modal: true,
+    easyClose: 'clickOutside',
     htmlText:
       `<h2>${escapeHtml(engine)} <bad>error</bad></h2>` +
       (error.includes('Status 503')

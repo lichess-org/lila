@@ -15,7 +15,6 @@
   <string name="noVideosForTheseTags">没有符合这些标签的视频：</string>
   <string name="thatsAllWeGotForTheseTags">这些标签的全部内容：</string>
   <string name="thatsAllWeGotForThisSearchX">搜索\"%s\"的全部内容</string>
-  <string name="thereAreNoResultsForX">没有\"%s\"的搜索结果</string>
   <string name="viewMoreTags">查看更多标签</string>
   <string name="videoNotFound">未找到视频！</string>
   <string name="xByY">%1$s，作者： %2$s</string>

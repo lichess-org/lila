@@ -6,7 +6,7 @@ function generateSearchParams(): string {
   $('#dl-form')
     .find('input[name], select[name]')
     .each((_, e: HTMLInputElement | HTMLSelectElement) => {
-      const val = e.type === 'checkbox' ? (e as HTMLInputElement).checked.toString() : e.value;
+      const val = e.type === 'checkbox' ? e.checked.toString() : e.value;
       if (val && e.name) searchParams.append(e.name, val);
     });
 
@@ -35,11 +35,10 @@ function generateSearchParams(): string {
 function update() {
   const params = generateSearchParams();
   const apiUrl = $('#dl-api-url');
-  console.log(params);
-  console.log(apiUrl.find('input'));
-  apiUrl
-    .find('input')
-    .val(`${window.location.protocol}//${window.location.host}${apiUrl.data('apiPath')}?${params}`);
+  const apiPath = apiUrl.data('apiPath');
+  if (apiPath) {
+    apiUrl.find('input').val(`${window.location.protocol}//${window.location.host}${apiPath}?${params}`);
+  }
   const btn = $('#dl-button');
   btn.prop('href', btn.prop('href').split('?')[0] + '?' + params);
 }

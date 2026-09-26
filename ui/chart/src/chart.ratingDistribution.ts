@@ -1,5 +1,3 @@
-import { animation, fontFamily, gridColor, hoverBorderColor } from './index';
-import type { DistributionData } from './interface';
 import {
   type ChartConfiguration,
   type ChartData,
@@ -15,6 +13,9 @@ import {
 } from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 
+import { fontFamily, gridColor, hoverBorderColor } from './index';
+import type { DistributionData } from './interface';
+
 Chart.register(LineController, LinearScale, PointElement, LineElement, Tooltip, Filler, ChartDataLabels);
 
 export async function initModule(data: DistributionData): Promise<void> {
@@ -29,8 +30,8 @@ export async function initModule(data: DistributionData): Promise<void> {
       cumul.push(arraySum(data.freq.slice(0, i)) / sum);
     }
     const gradient = this.getContext('2d')?.createLinearGradient(0, 0, 0, 400);
-    gradient?.addColorStop(0, 'rgba(119, 152, 191, 1)');
-    gradient?.addColorStop(1, 'rgba(119, 152, 191, 0.3)');
+    gradient?.addColorStop(0, 'rgb(119 152 191 / 1)');
+    gradient?.addColorStop(1, 'rgb(119 152 191 / 0.3)');
     const seriesCommonData = (color: string): Partial<ChartDataset<'line'>> => ({
       pointHoverRadius: 6,
       pointHoverBorderWidth: 2,
@@ -73,14 +74,14 @@ export async function initModule(data: DistributionData): Promise<void> {
         segment: {
           borderDash: [10],
         },
-        label: label,
+        label,
         pointRadius: 4,
         datalabels: {
           align: 'top',
           offset: 0,
           display: 'auto',
           formatter: (value: Point) => (value.y === 0 ? '' : label),
-          color: color,
+          color,
         },
       });
     if (data.myRating && data.myRating <= maxRating)
@@ -89,7 +90,7 @@ export async function initModule(data: DistributionData): Promise<void> {
       pushLine('#eeaaee', Math.min(data.otherRating, maxRating), `${data.otherPlayer} (${data.otherRating})`);
     const chartData: ChartData<'line'> = {
       labels: ratings,
-      datasets: datasets,
+      datasets,
     };
 
     const config: ChartConfiguration<'line'> = {
@@ -145,7 +146,7 @@ export async function initModule(data: DistributionData): Promise<void> {
             },
           },
         },
-        animations: animation(1000 / ratings.length),
+        animation: false,
         locale: document.documentElement.lang,
         maintainAspectRatio: false,
         responsive: true,

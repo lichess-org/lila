@@ -10,24 +10,25 @@
 
     > div {
       @extend %box-neat;
+
       padding: $block-gap;
       background: $c-bg-zebra;
     }
 
     &__qrcode {
       @extend %flex-between-nowrap;
+
       gap: $block-gap;
     }
 
     &__user {
       &__recent {
         @extend %flex-center;
+
         margin-top: 1em;
         gap: 0.5em;
 
         .button {
-          background: none;
-          border: $border;
           text-align: start;
           text-transform: none;
         }
@@ -72,7 +73,11 @@
     @extend %box-neat;
 
     ---font: #{$c-secondary};
-    ---bg: #{$m-secondary_bg--mix-10};
+    ---bg: #{color-mix(in oklab, $c-secondary 10%, $c-bg)};
+
+    @include if-transp {
+      ---bg: #{color-mix(in oklab, $c-secondary 10%, transparent)};
+    }
 
     padding: $block-gap 4vw;
     margin-bottom: 4rem;
@@ -90,6 +95,7 @@
 
       > div {
         flex: 0 1 auto;
+
         @extend %flex-center, %roboto;
 
         &::before {
@@ -125,6 +131,7 @@
 
       > div {
         @extend %flex-center;
+
         gap: 1em;
         margin-top: 1em;
 
@@ -141,13 +148,13 @@
   }
 
   .mobile-instructions {
-    @extend %flex-center;
-    justify-content: center;
+    @extend %flex-center-center;
+
     font-size: 1.5rem;
   }
 
   .mobile-instructions::before {
-    font-family: 'lichess';
+    font-family: lichess;
     font-size: 3rem;
     padding-inline-end: 1rem;
     content: $licon-ShareAndroid;

@@ -9,12 +9,13 @@ final private class StudyMaker(
     gameRepo: lila.core.game.GameRepo,
     namer: lila.core.game.Namer,
     chapterMaker: ChapterMaker,
-    pgnDump: lila.core.game.PgnDump
+    pgnDump: lila.core.game.PgnDump,
+    gameOpening: lila.core.game.GameOpening
 )(using Executor):
 
   def apply(data: StudyMaker.ImportGame, user: User, withRatings: Boolean): Fu[Study.WithChapter] =
-    (data.form.gameId
-      .so(gameRepo.gameWithInitialFen))
+    data.form.gameId
+      .so(gameRepo.gameWithInitialFen)
       .flatMap:
         case Some(WithInitialFen(game, initialFen)) =>
           createFromPov(
@@ -30,6 +31,19 @@ final private class StudyMaker(
         sc.copy(study = sc.study.copy(from = data.from | sc.study.from))
       }
 
+  def apply(data: StudyForm.FormData)(using me: Me): Study.WithChapter =
+    val study = Study.make(
+      me.value,
+      Study.From.Scratch,
+      id = none,
+      name = data.studyName,
+      settings = data.settings.some,
+      visibility = data.visibility
+    )
+    val chapterData = ChapterMaker.Data(StudyChapterName("Chapter 1"))
+    val chapter = chapterMaker.fromFenOrBlank(study, chapterData, order = 1, me.userId)
+    Study.WithChapter(study.withChapter(chapter), chapter)
+
   private def createFromScratch(data: StudyMaker.ImportGame, user: User): Fu[Study.WithChapter] =
     val study = Study.make(user, Study.From.Scratch, data.id, data.name, data.settings)
     chapterMaker
@@ -42,15 +56,14 @@ final private class StudyMaker(
           fen = data.form.fen,
           pgn = data.form.pgnStr,
           orientation = data.form.orientation | ChapterMaker.Orientation.Auto,
-          mode = ChapterMaker.Mode.Normal,
+          mode = data.form.mode | ChapterMaker.Mode.Normal,
           initial = true
         ),
         order = 1,
         userId = user.id
       )
-      .map { chapter =>
+      .map: chapter =>
         Study.WithChapter(study.withChapter(chapter), chapter)
-      }
 
   private def createFromPov(
       data: StudyMaker.ImportGame,
@@ -59,12 +72,11 @@ final private class StudyMaker(
       user: User,
       withRatings: Boolean
   ): Fu[Study.WithChapter] = {
-    // given play.api.i18n.Lang = lila.core.i18n.defaultLang
     for
       root <- chapterMaker.makeRoot(pov.game, data.form.pgnStr, initialFen)
-      tags <- pgnDump.tags(pov.game, initialFen, none, withOpening = true, withRatings)
+      tags <- pgnDump.tags(pov.game, initialFen, none, gameOpening(pov.game, true), withRatings)
       name <- StudyChapterName.from(namer.gameVsText(pov.game, withRatings)(using lightUserApi.async))
-      study = Study.make(user, Study.From.Game(pov.gameId), data.id, StudyName("Game study").some)
+      study = Study.make(user, Study.From.Game(pov.gameId), data.id, StudyName("Game study").some, none)
       chapter = Chapter.make(
         studyId = study.id,
         name = name,
@@ -82,9 +94,8 @@ final private class StudyMaker(
         conceal = None
       )
     yield Study.WithChapter(study.withChapter(chapter), chapter)
-  }.addEffect { swc =>
+  }.addEffect: swc =>
     chapterMaker.notifyChat(swc.study, pov.game, user.id)
-  }
 
 object StudyMaker:
 

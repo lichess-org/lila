@@ -1,4 +1,7 @@
 import { h, type VNode } from 'snabbdom';
+
+import { onInsert } from '@/view';
+
 import { type LichessStorage, storage } from '../storage';
 import { renderSan, renderPieceStyle, renderPrefixStyle } from './render';
 
@@ -33,18 +36,16 @@ export function renderSetting<A>(setting: Setting<A>, redraw: () => void): VNode
   return h(
     'select',
     {
-      hook: {
-        insert(vnode) {
-          (vnode.elm as HTMLSelectElement).addEventListener('change', e => {
-            setting.set((e.target as HTMLSelectElement).value as A);
-            redraw();
-          });
-        },
-      },
+      hook: onInsert<HTMLSelectElement>(el => {
+        el.addEventListener('change', e => {
+          setting.set((e.target as HTMLSelectElement).value as A);
+          redraw();
+        });
+      }),
     },
     setting.choices.map(choice => {
       const [key, name] = choice;
-      return h('option', { attrs: { value: '' + key, selected: key === v } }, name);
+      return h('option', { attrs: { value: String(key), selected: key === v } }, name);
     }),
   );
 }
@@ -57,6 +58,7 @@ const prefixStyles = ['letter', 'name', 'none'] as const;
 export type PrefixStyle = (typeof prefixStyles)[number];
 export type PositionStyle = 'before' | 'after' | 'none';
 export type BoardStyle = 'plain' | 'table';
+export type PageStyle = 'board-actions' | 'actions-board';
 
 export function boardSetting(): Setting<BoardStyle> {
   return makeSetting<BoardStyle>({
@@ -66,6 +68,17 @@ export function boardSetting(): Setting<BoardStyle> {
     ],
     default: 'plain',
     storage: storage.make('nvui.boardLayout'),
+  });
+}
+
+export function pageSetting(): Setting<PageStyle> {
+  return makeSetting<PageStyle>({
+    choices: [
+      ['actions-board', `${i18n.nvui.actions} ${i18n.site.board}`],
+      ['board-actions', `${i18n.site.board} ${i18n.nvui.actions}`],
+    ],
+    default: 'actions-board',
+    storage: storage.make('nvui.pageLayout'),
   });
 }
 

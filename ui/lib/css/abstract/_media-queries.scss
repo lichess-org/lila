@@ -1,80 +1,107 @@
 @mixin mq-is-col1 {
-  @media (max-width: at-most($small)) and (orientation: portrait) {
+  @media (width < $small) and (orientation: portrait) {
     @content;
   }
 }
+
 @mixin mq-phone-landscape {
-  @media (max-height: at-most($tall)) and (orientation: landscape) {
+  @media (height < $tall) and (orientation: landscape) {
     @content;
   }
 }
+
 @mixin mq-at-least-col2 {
-  @media (min-width: at-least($small)), (orientation: landscape) {
+  @media (width >= $small), (orientation: landscape) {
     @content;
   }
 }
+
 @mixin mq-is-col2-squeeze {
-  @media (max-width: at-most($small)) and (orientation: landscape) {
+  @media (width < $small) and (orientation: landscape) {
     @content;
   }
 }
+
 @mixin mq-at-least-col3 {
-  @media (min-width: at-least($x-large)) {
+  @media (width >= $x-large) {
     @content;
   }
 }
+
 @mixin mq-less-than-col3 {
-  @media (max-width: at-most($x-large)) {
+  @media (width < $x-large) {
     @content;
   }
 }
+
 @mixin mq-site-header-tall {
-  @media (min-height: at-least($tall)) {
+  @media (height >= $tall) {
     @content;
   }
 }
+
 @mixin mq-topnav-hidden {
-  @media (max-width: at-most($topnav-visible)) {
+  @media (width < $topnav-visible) {
     @content;
   }
 }
+
 @mixin mq-topnav-visible {
-  @media (min-width: at-least($topnav-visible)) {
+  @media (width >= $topnav-visible) {
     @content;
   }
 }
+
 @mixin mq-topnav-visible-and-tall {
-  @media (min-width: at-least($topnav-visible)) and (min-height: at-least($tall)) {
+  @media (width >= $topnav-visible) and (height >= $tall) {
     @content;
   }
 }
+
 @mixin mq-sticky-header {
-  @media (prefers-reduced-motion: no-preference) and (min-height: $tall) {
+  @media (prefers-reduced-motion: no-preference) and (height >= $tall) {
     @content;
   }
 }
+
 @mixin mq-subnav-top {
-  @media (max-width: at-most($small)) {
+  @media (width < $small) {
     @content;
   }
 }
+
 @mixin mq-subnav-side {
-  @media (min-width: at-least($small)) {
+  @media (width >= $small) {
     @content;
   }
 }
+
 @mixin mq-zoom-enabled {
-  @media (min-width: at-least($small)) and (min-height: at-least($short)) {
+  @media (width >= $small) and (height >= $short) {
     @content;
   }
 }
+
 @mixin mq-board-resizable {
-  @media (min-width: at-least($small)) {
+  @media (width >= $small) {
     @content;
   }
 }
+
 @mixin mq-safari {
   @supports (-webkit-touch-callout: none) {
+    @content;
+  }
+}
+
+@mixin mq-has-hover {
+  @media (hover: hover) and (pointer: fine) {
+    @content;
+  }
+}
+
+@mixin mq-no-hover {
+  @media (hover: none) or (pointer: coarse) {
     @content;
   }
 }

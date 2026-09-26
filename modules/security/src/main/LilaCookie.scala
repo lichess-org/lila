@@ -26,16 +26,14 @@ final class LilaCookie(baker: SessionCookieBaker, config: NetConfig) extends lil
   def withSession(remember: Boolean)(op: Session => Session)(using req: RequestHeader): Cookie =
     cookie(
       baker.COOKIE_NAME,
-      baker.encode(
-        baker.serialize(
-          op(
-            (if remember then req.session - LilaCookie.noRemember
-             else
-               req.session + (LilaCookie.noRemember -> "1")
-            ) + (LilaCookie.sessionId -> generateSessionId().value)
-          )
-        )
-      ),
+      baker.encode:
+        baker.serialize:
+          op:
+            val withRemember =
+              if remember then req.session - LilaCookie.noRemember
+              else req.session + (LilaCookie.noRemember -> "1")
+            withRemember + (LilaCookie.sessionId -> generateSessionId().value)
+      ,
       if remember then none else 0.some
     )
 
@@ -61,13 +59,13 @@ final class LilaCookie(baker: SessionCookieBaker, config: NetConfig) extends lil
   def discard(name: String) =
     DiscardingCookie(name, "/", cookieDomain.some, baker.httpOnly)
 
-  def ensure(req: RequestHeader)(res: Result): Result =
+  def ensure(res: Result)(using req: RequestHeader): Result =
     if req.session.data.contains(LilaCookie.sessionId) then res
     else res.withCookies(makeSessionId(using req))
 
-  def ensureAndGet(req: RequestHeader)(res: SessionId => Fu[Result])(using Executor): Fu[Result] =
+  def ensureAndGet(res: SessionId => Fu[Result])(using req: RequestHeader)(using Executor): Fu[Result] =
     LilaCookie.sid(req) match
-      case Some(sessionId) => res(SessionId(sessionId))
+      case Some(sessionId) => res(sessionId)
       case None =>
         val sid = generateSessionId()
         res(sid).map:

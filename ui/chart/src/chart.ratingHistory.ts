@@ -1,3 +1,4 @@
+import 'chartjs-adapter-dayjs-4';
 import {
   type ChartDataset,
   type Point,
@@ -11,17 +12,18 @@ import {
   Tooltip,
   LineElement,
 } from 'chart.js';
-import type { PerfRatingHistory } from './interface';
-import { fontColor, fontFamily, gridColor, hoverBorderColor, tooltipBgColor } from './index';
-import 'chartjs-adapter-dayjs-4';
 import zoomPlugin from 'chartjs-plugin-zoom';
-import noUiSlider, { type Options, PipsMode } from 'nouislider';
 import dayjs from 'dayjs';
-import duration from 'dayjs/plugin/duration';
 import dayOfYear from 'dayjs/plugin/dayOfYear';
+import duration from 'dayjs/plugin/duration';
 import utc from 'dayjs/plugin/utc';
+import { create as createSlider, type Options, PipsMode } from 'nouislider';
+
 import { memoize } from 'lib';
 import { pubsub } from 'lib/pubsub';
+
+import { fontColor, fontFamily, gridColor, hoverBorderColor, tooltipBgColor } from './index';
+import type { PerfRatingHistory } from './interface';
 
 interface Opts {
   data: PerfRatingHistory[];
@@ -84,11 +86,13 @@ export function initModule({ data, singlePerfName }: Opts): void {
 
   const $el = $('canvas.rating-history');
   if (!$el.length) return;
+
   const singlePerfIndex = data.findIndex(x => x.name === singlePerfName);
   if (singlePerfName && !data[singlePerfIndex]?.points.length) {
     $el.hide();
     return;
   }
+
   const allData = makeDatasets(1, { data, singlePerfName }, singlePerfIndex);
   const startDate = allData.startDate;
   const endDate = allData.endDate;
@@ -97,6 +101,7 @@ export function initModule({ data, singlePerfName }: Opts): void {
   const threeMonthsAgo = endDate.subtract(3, 'M');
   const initial = startDate < threeMonthsAgo ? threeMonthsAgo : startDate;
   let zoomedOut = initial.isSame(threeMonthsAgo);
+
   const config: ChartConfiguration<'line'> = {
     type: 'line',
     data: {
@@ -177,21 +182,29 @@ export function initModule({ data, singlePerfName }: Opts): void {
         },
         tooltip: {
           usePointStyle: true,
+          boxPadding: 2,
+          boxWidth: 8,
+          boxHeight: 8,
+          padding: 6,
           backgroundColor: tooltipBgColor,
           bodyColor: fontColor,
           titleColor: fontColor,
-          borderColor: fontColor,
+          borderColor: gridColor,
           borderWidth: 1,
           yAlign: 'center',
           caretPadding: 10,
           rtl: document.dir === 'rtl',
           callbacks: {
             title: items => dateFormat()(dayjs.utc(items[0].parsed.x).valueOf()),
+            label(context) {
+              return `${context.dataset.label}: ${context.formattedValue}`;
+            },
           },
         },
       },
     },
   };
+
   const chart = new Chart($el[0] as HTMLCanvasElement, config);
   const handlesSlider = $('#time-range-slider')[0];
   let yearPips = [];
@@ -220,11 +233,11 @@ export function initModule({ data, singlePerfName }: Opts): void {
     },
   };
   if (handlesSlider) {
-    const slider = noUiSlider.create(handlesSlider, opts);
+    const slider = createSlider(handlesSlider, opts);
     const slide = (values: (number | string)[]) => {
       $('.time-selector-buttons button').removeClass('active');
       if ($el.hasClass('panning')) return;
-      const [min, max] = values.map(v => Number(v));
+      const [min, max] = values.map(Number);
       // Downsample data for ranges > 2 years. For performance as well as aesthetics.
       const yearDiff = (max: number, min: number) => dayjs.utc(max).diff(min, 'year');
       const chartYear = yearDiff(chart.scales.x.max, chart.scales.x.min);
@@ -235,8 +248,7 @@ export function initModule({ data, singlePerfName }: Opts): void {
         if (newDs !== chart.data.datasets) chart.data.datasets = newDs;
         chart.update('none');
       }
-      if (chart.scales.x.min !== min || chart.scales.x.max !== max)
-        chart.zoomScale('x', { min: min, max: max });
+      if (chart.scales.x.min !== min || chart.scales.x.max !== max) chart.zoomScale('x', { min, max });
     };
     slider.on('update', slide);
     // Disable events while dragging for a slight performance boost
@@ -258,22 +270,23 @@ export function initModule({ data, singlePerfName }: Opts): void {
       { t: '1y', duration: dayjs.duration(1, 'y') },
       { t: 'all', duration: dayjs.duration(endDate.diff(startDate, 'd'), 'd') },
     ];
-    $('.time-selector-buttons').html(
-      buttons
-        .filter(b => startDate.isBefore(endDate.subtract(b.duration)) || b.t === 'all')
-        .map(b => timeBtn(b))
-        .join(''),
-    );
     const btnClick = (min: number) => {
       $('.time-selector-buttons .button').removeClass('active');
       slider.set([min, endDate.valueOf()]);
-      chart.zoomScale('x', { min: min, max: endDate.valueOf() });
+      chart.zoomScale('x', { min, max: endDate.valueOf() });
     };
-    $('.time-selector-buttons').on('mousedown', 'button', function (this: HTMLButtonElement) {
-      const min = buttons.find(b => b.t === this.textContent);
-      if (min) btnClick(Math.max(startDate.valueOf(), endDate.subtract(min.duration).valueOf()));
-      this.classList.add('active');
-    });
+    $('.time-selector-buttons')
+      .html(
+        buttons
+          .filter(b => startDate.isBefore(endDate.subtract(b.duration)) || b.t === 'all')
+          .map(b => timeBtn(b))
+          .join(''),
+      )
+      .on('mousedown', 'button', function (this: HTMLButtonElement) {
+        const min = buttons.find(b => b.t === this.textContent);
+        if (min) btnClick(Math.max(startDate.valueOf(), endDate.subtract(min.duration).valueOf()));
+        this.classList.add('active');
+      });
     chart.zoomScale('x', { min: initial.valueOf(), max: endDate.valueOf() });
   }
 }
@@ -298,13 +311,15 @@ function makeDatasets(step: number, { data, singlePerfName }: Opts, singlePerfIn
       type: 'line',
       label: serie.name,
       borderColor: perfStyle.color,
-      hoverBorderColor: hoverBorderColor,
+      hoverBorderColor,
       backgroundColor: perfStyle.color,
       pointRadius: data.length === 1 ? 3 : 0,
-      pointHoverRadius: 6,
-      data: data,
+      pointHoverRadius: 5,
+      pointHoverBorderWidth: 0.5,
+      pointHoverBorderColor: '#fff9',
+      data,
       pointStyle: perfStyle.symbol,
-      borderWidth: 2,
+      borderWidth: 1.5,
       tension: 0,
       borderDash: perfStyle.borderDash,
       stepped: false,
@@ -317,6 +332,7 @@ function makeDatasets(step: number, { data, singlePerfName }: Opts, singlePerfIn
   }
   return { ds: ds.filter(ds => ds.data.length), startDate, endDate };
 }
+
 function smoothDates(data: TsAndRating[], step: number, begin: number) {
   const oneStep = oneDay * step;
   if (!data.length) return [];

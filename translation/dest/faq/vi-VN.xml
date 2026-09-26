@@ -39,14 +39,14 @@ Ví dụ: thời lượng ước tính của một ván cờ 5+3 là 5 × 60 + 4
   <string name="whatVariantsCanIplay">Tôi có thể chơi những loại biến thể nào trên Lichess?</string>
   <string name="lichessSupportChessAnd">Lichess hỗ trợ cờ vua tiêu chuẩn và %1$s.</string>
   <string name="eightVariants">8 biến thể cờ vua khác</string>
-  <string name="whatIsACPL">Tỉ lệ mất tốt trung bình (ACPL) là gì?</string>
-  <string name="acplExplanation">Phần trăm tốt là đơn vị đo lường được sử dụng trong cờ vua để đại diện cho lợi thế. Một phần trăm tốt bằng 1/100 tốt. Do đó 100 phần trăm tốt = 1 tốt. Những giá trị này không đóng vai trò chính thức trong ván đấu nhưng hữu ích cho người chơi, và rất cần thiết trong cờ vua trên máy tính, để đánh giá các thế cờ.
+  <string name="whatIsACPL">Tỉ lệ mất centipawn trung bình (ACPL) là gì?</string>
+  <string name="acplExplanation">Phần trăm tốt (centipawn) là đơn vị đo lường được sử dụng trong cờ vua để đại diện cho lợi thế. Một centipawn bằng 1/100 quân tốt. Do đó 100 centipawn = 1 quân tốt. Những giá trị này không đóng vai trò chính thức trong ván đấu nhưng hữu ích cho người chơi, và rất cần thiết trong cờ vua máy tính, để đánh giá các thế cờ.
 
-Đẩy tốt lên cao sẽ có thể không làm mất phần trăm tốt, nhưng để tốt thấp sẽ làm giảm lợi thế, được đo bằng phần trăm tốt.
+Đẩy tốt lên cao sẽ có thể không làm mất centipawn, nhưng để tốt thấp sẽ làm giảm lợi thế, được đo bằng centipawn.
 
-Giá trị này có thể được sử dụng như một chỉ báo về chất lượng chơi. Càng ít phần trăm mất tốt mỗi nước đi, càng có lợi thế.
+Giá trị này có thể được sử dụng như một chỉ báo về chất lượng chơi. Càng ít centipawn mỗi nước đi, càng có lợi thế.
 
-Máy tính phân tích trên Lichess do Stockfish và Fairy-Stockfish cung cấp.</string>
+Máy tính phân tích trên Lichess do Stockfish cung cấp.</string>
   <string name="insufficientMaterial">Thua do thời gian, hòa và không đủ quân chiếu hết</string>
   <string name="lichessFollowFIDErules">Trong trường hợp một người chơi hết thời gian, người chơi đó thường sẽ bị xử thua. Tuy nhiên, ván đấu sẽ được xử hòa nếu ở thế trận đó mà đối phương không thể chiếu hết vua của họ bằng bất kỳ chuỗi nước đi hợp lệ nào có thể xảy ra (%1$s).
 
@@ -78,7 +78,7 @@ Xem %3$s về nước này để biết một cách thực hiện nó.</string>
   <string name="accounts">Tài Khoản</string>
   <string name="titlesAvailableOnLichess">Có những danh hiệu nào trên Lichess?</string>
   <string name="lichessRecognizeAllOTBtitles">Lichess công nhận tất cả các danh hiệu do FIDE ghi nhận từ OTB (thi đấu bên ngoài), cũng như %1$s. Đây là danh sách các danh hiệu được FIDE công nhận:</string>
-  <string name="showYourTitle">Nếu bạn có danh hiệu OTB, bạn có thể đăng ký để hiển thị danh hiệu này trên tài khoản của mình bằng cách hoàn thành %1$s, bao gồm hình ảnh rõ ràng của tài liệu/thẻ nhận dạng và ảnh tự chụp của bạn đang cầm tài liệu/thẻ.
+  <string name="showYourTitle">Nếu bạn có danh hiệu OTB, bạn có thể đăng ký để hiển thị danh hiệu này trên tài khoản của mình bằng cách hoàn thành %1$s, bao gồm hình ảnh rõ ràng của tài liệu/thẻ nhận dạng và ảnh bạn đang selfie cầm tài liệu/thẻ nhận dạng.
 
 Việc xác minh là người chơi có danh hiệu trên Lichess sẽ cho phép bạn chơi trong các sự kiện Titled Arena.
 
@@ -142,20 +142,21 @@ Nhấp vào biểu tượng ổ khóa bên cạnh địa chỉ lichess.org trong
 
 Sau đó, chọn cho phép hoặc chặn thông báo từ Lichess.</string>
   <string name="enableAutoplayForSoundsQ">Bật tính năng tự động phát âm thanh?</string>
-  <string name="enableAutoplayForSoundsA">Hầu hết các trình duyệt có thể ngăn âm thanh phát trên trang mới tải để bảo vệ người dùng. Hãy tưởng tượng nếu mọi trang web có thể ngay lập tức tấn công bạn bằng quảng cáo âm thanh sẽ như thế nào.
+  <string name="mostBrowsersPreventSoundAutoplay">Hầu hết các trình duyệt đều ngăn âm thanh phát ra trên các trang mới truy cập để bảo vệ người dùng.
 
-Biểu tượng tắt tiếng màu đỏ xuất hiện khi trình duyệt của bạn ngăn lichess.org phát âm thanh. Thông thường, hạn chế này sẽ được dỡ bỏ khi bạn nhấp vào thứ gì đó. Trên một số trình duyệt di động, thao tác chạm kéo một phần không được tính là một lần nhấp. Trong trường hợp đó, bạn phải chạm vào bàn cờ để phát ra âm thanh khi bắt đầu mỗi ván cờ.
+Biểu tượng tắt tiếng sẽ xuất hiện khi trình duyệt của bạn ngăn lichess.org phát âm thanh. Hạn chế này thường được gỡ bỏ sau khi bạn nhấp chuột vào một thứ gì đó.
+Trên một số trình duyệt di động, việc kéo quân cờ bằng cách vuốt không được tính là một cú nhấp chuột. Trong trường hợp đó, bạn phải chạm vào bàn cờ để cho phép âm thanh phát ra khi bắt đầu mỗi ván cờ.
 
-Chúng tôi hiển thị biểu tượng màu đỏ để cảnh báo bạn khi điều này xẩy ra. Thông thường, bạn có thể cho phép lichess.org phát âm thanh một cách rõ ràng. Dưới đây là hướng dẫn thực hiện trên các phiên bản gần đây của một số trình duyệt phổ biến.</string>
+Chúng tôi hiển thị biểu tượng tắt tiếng màu đỏ để cảnh báo bạn khi điều này xảy ra. Bạn có thể cho phép lichess.org phát âm thanh một cách rõ ràng trên hầu hết các trình duyệt. Dưới đây là hướng dẫn để cho phép trang web phát âm thanh trên các phiên bản gần đây của một số trình duyệt phổ biến:</string>
   <string name="desktop">máy tính để bàn</string>
   <string name="enableAutoplayForSoundsFirefox">1. Truy cập vào lichess.org
 2. Nhấn tổ hợp phím Ctrl-i trên Windows/Linux hoặc cmd-i trên MacOS
 3. Nhấn vào tab Quyền (Permissions)
 4. Cho phép Video và Âm Thanh (Audio)</string>
-  <string name="enableAutoplayForSoundsChrome">1. Truy cập vào lichess.org
-2. Nhấn hình ổ khoá trên thanh tìm kiếm
-3. Nhấn Cài đặt trang web
-4. Cho phép Âm thanh</string>
+  <string name="enableAutoplayForSoundsChromeSiteInformation" comment="Guidance for Google Chrome users on how to enable audio auto-play if they have sound issues.">1. Truy cập lichess.org
+2. Nhấp vào biểu tượng thông tin trang web trên thanh địa chỉ
+3. Nhấp vào Cài đặt trang web
+4. Cho phép âm thanh</string>
   <string name="enableAutoplayForSoundsSafari">1. Truy cập vào lichess.org
 2. Nhấn hình Safari trong thanh menu
 3. Nhấn vào Cài đặt cho lichess.org ...

@@ -17,7 +17,6 @@
   <string name="noVideosForTheseTags">Nema videa za ove oznake:</string>
   <string name="thatsAllWeGotForTheseTags">To je sve što imamo za ove oznake:</string>
   <string name="thatsAllWeGotForThisSearchX">To je sve što smo dobili za ovu pretragu: \"%s\"</string>
-  <string name="thereAreNoResultsForX">Nema rezultata za \"%s\"</string>
   <string name="viewMoreTags">Prikaži više oznaka</string>
   <string name="videoNotFound">Video nije pronađen!</string>
   <string name="xByY">%1$s po %2$s</string>

@@ -15,7 +15,7 @@ final private class FishnetRepo(
 
   private val clientCache = cacheApi[Client.Key, Option[Client]](256, "fishnet.client"):
     _.expireAfterWrite(20.minutes).buildAsyncFuture: key =>
-      clientColl.one[Client]($id(key))
+      clientColl.one[Client](bid(key))
 
   def getEnabledClient(key: Client.Key) = clientCache.get(key).dmap { _.filter(_.enabled) }
   def getOfflineClient: Fu[Client] =
@@ -25,23 +25,23 @@ final private class FishnetRepo(
       .updateInstance(instance)
       .fold(fuccess(client)): updated =>
         for
-          _ <- clientColl.update.one($id(client.key), $set("instance" -> updated.instance))
+          _ <- clientColl.update.one(bid(client.key), set("instance" -> updated.instance))
           _ = clientCache.invalidate(client.key)
         yield updated
   def addClient(client: Client) = clientColl.insert.one(client)
-  def deleteClient(key: Client.Key) = for _ <- clientColl.delete.one($id(key))
+  def deleteClient(key: Client.Key) = for _ <- clientColl.delete.one(bid(key))
   yield clientCache.invalidate(key)
   def enableClient(key: Client.Key, v: Boolean): Funit =
-    for _ <- clientColl.update.one($id(key), $set("enabled" -> v)) yield clientCache.invalidate(key)
+    for _ <- clientColl.update.one(bid(key), set("enabled" -> v)) yield clientCache.invalidate(key)
   def allRecentClients =
     clientColl.list[Client]:
-      $doc:
-        "instance.seenAt".$gt(Client.Instance.recentSince)
+      bdoc:
+        "instance.seenAt".gt(Client.Instance.recentSince)
 
   def addAnalysis(ana: Work.Analysis) = analysisColl.insert.one(ana).void
   def getAnalysis(id: Work.Id) = analysisColl.byId[Work.Analysis](id)
-  def updateAnalysis(ana: Work.Analysis) = analysisColl.update.one($id(ana.id), ana).void
-  def deleteAnalysis(ana: Work.Analysis) = analysisColl.delete.one($id(ana.id)).void
+  def updateAnalysis(ana: Work.Analysis) = analysisColl.update.one(bid(ana.id), ana).void
+  def deleteAnalysis(ana: Work.Analysis) = analysisColl.delete.one(bid(ana.id)).void
   def updateOrGiveUpAnalysis(ana: Work.Analysis, update: Work.Analysis => Work.Analysis) =
     if ana.isOutOfTries then
       logger.warn(s"Give up on analysis $ana")
@@ -49,19 +49,19 @@ final private class FishnetRepo(
     else updateAnalysis(update(ana))
 
   object status:
-    private def system(v: Boolean) = $doc("sender.system" -> v)
-    private def acquired(v: Boolean) = $doc("acquired".$exists(v))
+    private def system(v: Boolean) = bdoc("sender.system" -> v)
+    private def acquired(v: Boolean) = bdoc("acquired".exists(v))
     private def oldestSeconds(system: Boolean): Fu[Int] =
       analysisColl
-        .find($doc("sender.system" -> system) ++ acquired(false), $doc("createdAt" -> true).some)
-        .sort($sort.asc("createdAt"))
+        .find(bdoc("sender.system" -> system) ++ acquired(false), bdoc("createdAt" -> true).some)
+        .sort(sort.asc("createdAt"))
         .one[Bdoc]
         .map(~_.flatMap(_.getAsOpt[Instant]("createdAt").map { date =>
           (nowSeconds - date.toSeconds).toInt.atLeast(0)
         }))
 
     def compute = for
-      all <- analysisColl.countSel($empty)
+      all <- analysisColl.countSel(emptyBdoc)
       userAcquired <- analysisColl.countSel(system(false) ++ acquired(true))
       userQueued <- analysisColl.countSel(system(false) ++ acquired(false))
       userOldest <- oldestSeconds(false)
@@ -75,14 +75,14 @@ final private class FishnetRepo(
     )
 
   def getSimilarAnalysis(work: Work.Analysis): Fu[Option[Work.Analysis]] =
-    analysisColl.one[Work.Analysis]($doc("game.id" -> work.game.id))
+    analysisColl.one[Work.Analysis](bdoc("game.id" -> work.game.id))
 
   private[fishnet] def toKey(keyOrUser: String): Fu[Client.Key] =
     clientColl
       .primitiveOne[String](
-        $or(
-          "_id".$eq(keyOrUser),
-          "userId".$eq(UserStr(keyOrUser).id)
+        or(
+          bdoc("_id" -> keyOrUser),
+          bdoc("userId" -> UserStr(keyOrUser).id)
         ),
         "_id"
       )

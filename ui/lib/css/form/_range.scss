@@ -4,7 +4,7 @@
   border: 1px solid $c-font-dimmer;
   height: 1em;
   width: 1.5em;
-  border-radius: 12px;
+  border-radius: $box-radius-size;
   background: $c-bg-box;
   cursor: pointer;
 }
@@ -14,11 +14,11 @@
   height: 1em;
   cursor: pointer;
   background: $c-shade;
-  border-radius: 0.5em;
+  border-radius: $box-radius-size;
 }
 
 input.range {
-  -webkit-appearance: none;
+  appearance: none;
   background: none;
   border: 0;
 
@@ -33,7 +33,7 @@ input.range {
   &::-webkit-slider-thumb {
     @include range-thumb;
 
-    -webkit-appearance: none;
+    appearance: none;
   }
 
   &::-moz-range-track {
@@ -49,13 +49,11 @@ input.range {
   }
 
   &::-ms-fill-lower {
-    background: rgba(191, 191, 191, 0.78);
-    border-radius: 11.8px;
+    background: rgb(191 191 191 / 0.78);
   }
 
   &::-ms-fill-upper {
-    background: rgba(214, 214, 214, 0.78);
-    border-radius: 11.8px;
+    background: rgb(214 214 214 / 0.78);
   }
 
   &::-ms-thumb {
@@ -65,10 +63,12 @@ input.range {
     color: transparent;
   }
 
+  &:-moz-focusring::-moz-range-thumb {
+    outline: $outline;
+  }
+
   &:focus-visible {
-    &::-webkit-slider-thumb,
-    &::-moz-range-thumb,
-    &::-ms-thumb {
+    &::-webkit-slider-thumb {
       outline: $outline;
     }
   }

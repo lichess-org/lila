@@ -119,29 +119,14 @@ export interface BoardPlayer extends BasePlayer {
   rank: number;
 }
 
-export interface PerfType {
-  icon: string;
-  name: string;
-}
-
 export interface Clock {
   limit: number;
   increment: number;
 }
 
-export interface Pager {
-  nbResults: number;
-  nbPages: number;
-  from: number;
-  to: number;
-  currentPageResults: Page;
-}
-
 export type Page = Player[];
 
-export interface Pages {
-  [n: number]: Page;
-}
+export type Pages = Record<number, Page>;
 
 export interface PlayerExt extends Player {
   sheet: (PairingExt | Outcome)[];

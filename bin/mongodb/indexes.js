@@ -12,15 +12,19 @@ db.simul.createIndex({ status: 1, createdAt: -1 });
 db.simul.createIndex({ hostSeenAt: -1 }, { partialFilterExpression: { status: 10, featurable: true } });
 db.simul.createIndex({ finishedAt: -1, featurable: 1 });
 db.simul.createIndex({ hostId: 1 });
-db.ublog_post.createIndex({ blog: 1, 'live.at': -1 }, { partialFilterExpression: { live: true } });
+db.ublog_post.createIndex({ blog: 1, 'lived.at': -1 }, { partialFilterExpression: { live: true } });
 db.ublog_post.createIndex({ blog: 1, 'created.at': -1 }, { partialFilterExpression: { live: false } });
 db.ublog_post.createIndex({ rank: -1 }, { partialFilterExpression: { live: true } });
 db.ublog_post.createIndex({ likers: 1, rank: -1 }, { partialFilterExpression: { live: true } });
 db.ublog_post.createIndex({ language: 1, rank: -1 }, { partialFilterExpression: { live: true } });
 db.ublog_post.createIndex({ topics: 1, rank: -1 }, { partialFilterExpression: { live: true } });
 db.ublog_post.createIndex({ topics: 1, 'lived.at': -1 }, { partialFilterExpression: { live: true } });
-db.ublog_post.createIndex({ likers: 1, 'live.at': -1 }, { partialFilterExpression: { live: true } });
+db.ublog_post.createIndex({ likers: 1, 'lived.at': -1 }, { partialFilterExpression: { live: true } });
 db.ublog_post.createIndex({ prismicId: 1 }, { partialFilterExpression: { prismicId: { $exists: 1 } } });
+db.ublog_post.createIndex(
+  { 'lived.at': -1 },
+  { name: 'pendingReview', partialFilterExpression: { live: true, 'automod.quality': 2, quality: 1 } },
+);
 db.report2.createIndex({ room: 1, score: -1 }, { partialFilterExpression: { open: true } });
 db.report2.createIndex(
   { 'inquiry.mod': 1 },
@@ -58,6 +62,13 @@ db.relay_tour.createIndex(
 db.relay_tour.createIndex({ ownerIds: 1, syncedAt: -1 });
 db.relay_tour.createIndex({ ownerIds: 1, createdAt: -1 });
 db.relay_tour.createIndex({ subscribers: 1, createdAt: -1 });
+db.relay_tour.createIndex(
+  { syncedAt: -1 },
+  {
+    partialFilterExpression: { tier: { $exists: true }, visibility: 'public', active: false },
+    name: 'inactivePager',
+  },
+);
 db.relation_subs.createIndex({ s: 1 });
 db.round_alarm.createIndex({ ringsAt: 1 });
 db.round_alarm.createIndex({ expiresAt: 1 }, { expireAfterSeconds: 0 });
@@ -130,7 +141,13 @@ db.seek_archive.createIndex({ archivedAt: 1 }, { expireAfterSeconds: 604800 });
 db.seek_archive.createIndex({ gameId: 1 });
 db.swiss_player.createIndex({ s: 1, c: -1 });
 db.print_ban.createIndex({ date: 1 }, { expireAfterSeconds: 7776000 });
-db.appeal.createIndex({ status: 1, lastUnrepliedAt: 1 });
+db.appeal2.createIndex({ user: 1 });
+db.appeal2.createIndex(
+  { status: 1, topic: 1, firstUnrepliedAt: 1 },
+  { partialFilterExpression: { status: 'unread' } },
+);
+db.appeal2.createIndex({ user: 1, topic: 1 }, { unique: true });
+db.appeal2.createIndex({ closedUntil: 1 }, { partialFilterExpression: { closedUntil: { $exists: true } } });
 db.challenge.createIndex({ status: 1, 'challenger.id': 1, createdAt: 1 });
 db.challenge.createIndex({ status: 1, 'destUser.id': 1, createdAt: 1 });
 db.challenge.createIndex({ expiresAt: 1 });
@@ -146,6 +163,7 @@ db.donation.createIndex({ date: -1 });
 db.donation.createIndex({ gross: -1 });
 db.player_assessment.createIndex({ userId: 1, date: -1 });
 db.player_assessment.createIndex({ date: 1 }, { expireAfterSeconds: 15552000 });
+db.analysis2.createIndex({ hash: 1 }, { partialFilterExpression: { hash: { $exists: true } } });
 db.fishnet_analysis.createIndex({ 'sender.system': 1, createdAt: 1 });
 db.fishnet_analysis.createIndex({ 'game.id': 1 });
 db.fishnet_analysis.createIndex({ 'sender.userId': 1 });
@@ -166,13 +184,13 @@ db.team.createIndex({ enabled: 1, nbMembers: -1 });
 db.team.createIndex({ createdAt: -1 });
 db.team.createIndex({ createdBy: 1 });
 db.team.createIndex({ leaders: 1 });
+db.team_update.createIndex({ team: 1, date: -1 });
 db.swiss.createIndex({ teamId: 1, startsAt: 1 });
 db.swiss.createIndex({ nextRoundAt: 1 }, { partialFilterExpression: { nextRoundAt: { $exists: true } } });
 db.swiss.createIndex(
   { featurable: 1 },
   { partialFilterExpression: { featurable: true, 'settings.i': { $lte: 600 } } },
 );
-db.coach_review.createIndex({ coachId: 1 });
 db.analysis_requester.createIndex({ total: -1 });
 db.plan_patron.createIndex(
   { 'stripe.customerId': 1 },
@@ -204,7 +222,6 @@ db.tournament_leaderboard.createIndex({ u: 1, d: -1 });
 db.tournament_leaderboard.createIndex({ u: 1, w: 1 });
 db.coach.createIndex({ 'user.seenAt': -1 });
 db.coach.createIndex({ 'user.rating': -1 });
-db.coach.createIndex({ nvReviews: -1 });
 db.streamer.createIndex({ liveAt: -1 });
 db.streamer.createIndex(
   { 'approval.granted': 1, listed: 1 },
@@ -224,6 +241,10 @@ db.relay.createIndex(
 );
 db.oauth2_access_token.createIndex({ userId: 1 });
 db.oauth2_access_token.createIndex({ expires: 1 }, { expireAfterSeconds: 0 });
+db.oauth2_access_token.createIndex(
+  { clientOrigin: 1, used: 1 },
+  { partialFilterExpression: { clientOrigin: 'https://auth.taketaketake.com' } },
+);
 db.cache.createIndex({ e: 1 }, { expireAfterSeconds: 0 });
 db.forecast.createIndex({ date: 1 }, { expireAfterSeconds: 1296000 });
 db.msg_thread.createIndex({ users: 1, 'lastMsg.date': -1 });
@@ -328,7 +349,8 @@ db.kaladin_queue.createIndex(
   { partialFilterExpression: { 'response.at': { $exists: true } } },
 );
 db.tutor_queue.createIndex({ requestedAt: 1 });
-db.tutor_report.createIndex({ at: -1 });
+db.tutor_report.createIndex({ 'config.user': 1, at: -1 });
+db.tutor_report.createIndex({ at: -1 }); // for duration estimation
 
 // you may want to run these on the puzzle database
 db.puzzle2_round.createIndex({ p: 1 }, { partialFilterExpression: { t: { $exists: true } } });
@@ -348,3 +370,4 @@ db.puzzle2_path.createIndex({ min: 1, max: -1 });
 db.relay_delay.createIndex({ at: 1 }, { expireAfterSeconds: 7200 });
 db.ranking.createIndex({ expiresAt: 1 }, { expireAfterSeconds: 0 });
 db.ranking.createIndex({ perf: 1, rating: -1 }, { partialFilterExpression: { stable: true } });
+db.ranking.createIndex({ perf: 1, rating: -1, expiresAt: -1 }, { partialFilterExpression: { stable: true } });

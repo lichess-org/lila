@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="gameSetup">ಆಟದ ಸೆಟಪ್</string>
+  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">ಸ್ನೇಹಿತನೊಂದಿಗೆ ಆಟವಾಡಿ</string>
+  <string name="playAgainstComputer">ಕಂಪ್ಯೂಟರ್ ಜೊತೆ ಆಟವಾಡಿ</string>
+  <string name="gameMode">ರೇಟಿಂಗ್ ಪಡೆದ ಆಟ ಅಥವಾ ಕ್ಯಾಶುವಲ್ ಆಟ</string>
+  <string name="createLobbyGame">ಲಾಬಿ ಆಟವನ್ನು ರಚಿಸಿ</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">ಎದುರಾಳಿಯನ್ನು ಚೆಸ್ ಆಟಕ್ಕೆ ಆಹ್ವಾನಿಸಲು ಈ ಕೊಂಡಿಯನ್ನು ನೀಡಿ</string>
   <string name="gameOver">ಆಟ ಮುಗಿಯಿತು</string>
   <string name="waitingForOpponent">ಎದುರಾಳಿಯನ್ನು ನಿರೀಕ್ಷಿಸಲಾಗುತ್ತಿದೆ</string>
   <string name="orLetYourOpponentScanQrCode">ಅಥವಾ ನಿಮ್ಮ ಎದುರಾಳಿಯು ಈ QR ಕೋಡ್ ಅನ್ನು ಸ್ಕ್ಯಾನ್ ಮಾಡಲು ಅವಕಾಶ ಮಾಡಿಕೊಡಿ</string>
+  <string name="reusableChallengeUrl">ಮರುಬಳಕೆ ಮಾಡಬಹುದಾದ ಗೇಮ್ ಸೀಕ್ URL</string>
+  <string name="permanentLinkForAnyoneToChallengeYou">ಈ ನಿಖರವಾದ ಸೆಟ್ಟಿಂಗ್‌ಗಳೊಂದಿಗೆ ಯಾರಾದರೂ ನಿಮ್ಮೊಂದಿಗೆ ಆಟವಾಡಲು ಶಾಶ್ವತ ಲಿಂಕ್.</string>
   <string name="waiting">ಎದುರಾಳಿಯು ಸವಾಲು ಸ್ವೀಕರಿಸಲು ಕಾಯುತ್ತಿದ್ದೇವೆ</string>
   <string name="yourTurn">ನಿಮ್ಮ ಸರದಿ</string>
   <string name="aiNameLevelAiLevel">%1$s ಮಟ್ಟ %2$s</string>
@@ -20,6 +27,7 @@
   <string name="asBlack">ಕಪ್ಪು ದಳವಾಗಿ</string>
   <string name="randomColor">ಯಾವುದಾದರೊಂದು ಬಣ್ಣ</string>
   <string name="createAGame">ಆಟ ರಚಿಸಿ</string>
+  <string name="createTheGame">ಚೆಸ್ ಆಟವನ್ನು ಆಡಿ</string>
   <string name="whiteIsVictorious">ಬಿಳಿ ಜಯಶಾಲಿಯಾಗಿದೆ</string>
   <string name="blackIsVictorious">ಕಪ್ಪು ಜಯಶಾಲಿಯಾಗಿದೆ</string>
   <string name="youPlayTheWhitePieces">ನೀವು ಬಿಳಿ ದಳವಾಗಿ ಆಡುತ್ತೀರಿ</string>
@@ -50,6 +58,8 @@
   <string name="blackLeftTheGame">ಕಪ್ಪು ದಳ ಆಟವನ್ನು ತೊರೆದು ಹೋಗಿದ್ದಾರೆ</string>
   <string name="whiteDidntMove">ಬಿಳಿ ದಳ ಆಡಲಿಲ್ಲ</string>
   <string name="blackDidntMove">ಕಪ್ಪು ದಳ ಆಡಲಿಲ್ಲ</string>
+  <string name="whiteAborted">ವೈಟ್ ಆಟವನ್ನು ಕೊನೆಗೊಳಿಸಿದರು</string>
+  <string name="blackAborted">ಬ್ಲ್ಯಾಕ್ ಆಟವನ್ನು ಕೊನೆಗೊಳಿಸಿದನು</string>
   <string name="requestAComputerAnalysis">ಕಂಪ್ಯೂಟರ್ ವಿಶ್ಲೇಷಣೆ ವಿನಂತಿಸಿ</string>
   <string name="computerAnalysis">ಕಂಪ್ಯೂಟರ್ ವಿಶ್ಲೇಷಣೆ</string>
   <string name="computerAnalysisAvailable">ಕಂಪ್ಯೂಟರ್ ವಿಶ್ಲೇಷಣೆ ಲಭ್ಯವಿದೆ</string>
@@ -68,7 +78,11 @@
   <string name="promoteVariation">ಭಿನ್ನತೆಯನ್ನು ತೇರ್ಗಡಿಸಿ</string>
   <string name="makeMainLine">ಮುಖ್ಯವಾಹಿನಿಗೆ ತನ್ನಿ</string>
   <string name="deleteFromHere">ಇಲ್ಲಿಂದ ಅಳಿಸಿ</string>
+  <string name="collapseVariations">ಬದಲಾವಣೆಗಳನ್ನು ಕುಗ್ಗಿಸಿ</string>
+  <string name="expandVariations">ವ್ಯತ್ಯಾಸಗಳನ್ನು ವಿಸ್ತರಿಸಿ</string>
   <string name="forceVariation">ಈ ಬದಲಾವಣೆಯನ್ನು ಒತ್ತಾಯಿಸಿ</string>
+  <string name="copyVariationPgn">PGN ನಕಲು ಬದಲಾವಣೆ</string>
+  <string name="copyMainLinePgn">ಮುಖ್ಯ ಸಾಲಿನ PGN ಅನ್ನು ನಕಲಿಸಿ</string>
   <string name="move">ನಡೆ</string>
   <string name="variantLoss">ಭಿನ್ನತೆ ಸೋಲು</string>
   <string name="variantWin">ಭಿನ್ನತೆ ಗೆಲುವು</string>
@@ -83,6 +97,8 @@
   <string name="database">ಡೇಟಾಬೇಸ್</string>
   <string name="whiteDrawBlack">ಬಿಳಿ / ಡ್ರಾ / ಕಪ್ಪು</string>
   <string name="averageRatingX">ಸರಾಸರಿ ಧಾರಣೆ: %s</string>
+  <string name="minRatingX">Minimum rating of %s</string>
+  <string name="maxRatingX">%s ನ ಗರಿಷ್ಠ ರೇಟಿಂಗ್</string>
   <string name="recentGames">ಇತ್ತೀಚಿನ ಆಟಗಳು</string>
   <string name="topGames">ಅತ್ಯುತ್ತಮ ಆಟಗಳು</string>
   <string name="masterDbExplanation">%2$s ಇಂದ %3$s ವರೆಗಿನ %1$s+ FIDE ಧಾರಣೆಯ ಆಟಗಾರರ ಇಪ್ಪತ್ತು ಲಕ್ಷ O. T. B ಆಟಗಳು</string>
@@ -113,8 +129,15 @@
   <string name="byCPL">CPL ಇಂದ</string>
   <string name="enable">ಸಕ್ರಿಯಗೊಳಿಸಿ</string>
   <string name="bestMoveArrow">ಅತ್ಯುತ್ತಮ ನಡೆಯ ಬಾಣ</string>
-  <string name="evaluationGauge">ಮೌಲ್ಯಮಾಪನ ಗೇಜ್</string>
+  <string name="showVariationArrows">ಬದಲಾವಣೆಯ ಬಾಣಗಳನ್ನು ತೋರಿಸಿ</string>
+  <string name="visualMotifs">ದೃಶ್ಯ ಲಕ್ಷಣಗಳು</string>
+  <string name="undefendedPieces">ಅಸುರಕ್ಷಿತ ತುಣುಕು</string>
+  <string name="pinnedPieces">ಪಿನ್ ಮಾಡಿದ ತುಣುಕುಗಳು</string>
+  <string name="checkableKing">ಪರಿಶೀಲಿಸಬಹುದಾದ ರಾಜ</string>
   <string name="multipleLines">ಬಹು ಸಾಲುಗಳು</string>
+  <string name="multipleLinesDescription">ಮೌಲ್ಯಮಾಪನ ರೇಖೆಗಳ ಸಂಖ್ಯೆಯನ್ನು ಹೊಂದಿಸಿ ಮತ್ತು ಬೋರ್ಡ್‌ನಲ್ಲಿ ಬಾಣಗಳನ್ನು ಸರಿಸಿ</string>
+  <string name="searchTime">ಹುಡುಕಾಟ ಸಮಯ</string>
+  <string name="searchTimeDescription">ಹೊಸ ಹುದ್ದೆಗಳ ಮೌಲ್ಯಮಾಪನಕ್ಕೆ ಸಮಯ ನಿಗದಿಪಡಿಸಿ</string>
   <string name="cpus">CPU-ಗಳು</string>
   <string name="memory">ಮೆಮೊರಿ</string>
   <string name="infiniteAnalysis">ಅನಂತ ವಿಶ್ಲೇಷಣೆ</string>
@@ -122,25 +145,13 @@
   <string name="blunder">ಪ್ರಮಾದ</string>
   <string name="mistake">ತಪ್ಪು</string>
   <string name="inaccuracy">ಅಸ್ಪಷ್ಟತೆ</string>
-  <plurals name="nbBlunders">
-    <item quantity="one">%s ಪ್ರಮಾದ</item>
-    <item quantity="other">%sಪ್ರಮಾದ</item>
-  </plurals>
   <plurals name="numberBlunders">
     <item quantity="one">%s ಪ್ರಮಾದ</item>
     <item quantity="other">%sಪ್ರಮಾದ</item>
   </plurals>
-  <plurals name="nbMistakes">
-    <item quantity="one">%s ತಪ್ಪು</item>
-    <item quantity="other">%s ತಪ್ಪುಗಳು</item>
-  </plurals>
   <plurals name="numberMistakes">
     <item quantity="one">%s ತಪ್ಪು</item>
     <item quantity="other">%s ತಪ್ಪುಗಳು</item>
-  </plurals>
-  <plurals name="nbInaccuracies">
-    <item quantity="one">%s ಅಸ್ಪಷ್ಟತೆ</item>
-    <item quantity="other">%s ಅಸ್ಪಷ್ಟತೆಗಳು</item>
   </plurals>
   <plurals name="numberInaccuracies">
     <item quantity="one">%s ಅಸ್ಪಷ್ಟತೆ</item>
@@ -216,7 +227,6 @@
   <string name="changeUsernameNotSame">ಖಾತೆಯ ಹೆಸರಿನಲ್ಲಿ ಕೇವಲ \"case\" ಮಾತ್ರ ಬದಲಾಯಿಸಬಹುದಾಗಿದೆ. ಉದಾಹರಣೆಗೆ, \"johndoe\" ದಿಂದ \"JohnDoe\" ಕ್ಕೆ ಬದಲಾಯಿಸಬಹುದು.</string>
   <string name="changeUsernameDescription">ನಿಮ್ಮ ಖಾತೆಯ ಹೆಸರು, ಅಂದರೆ username, ಅನ್ನು ಬದಲಾಯಿಸಿ. ಈ ಬದಲಾವಣೆಯನ್ನು ಕೇವಲ ಒಂದೇ ಬಾರಿ ಮಾಡಲು ಅವಕಾಶವಿದೆಯಷ್ಟೆ. ಹಾಗೂ, ಈ ಅವಕಾಶ ಕೇವಲ ನಿಮ್ಮ \"username\" ನಲ್ಲಿರುವ \"case\" ಬದಲಾವಣೆಗಷ್ಟೇ ಸೀಮಿತಗೊಳಿಸಲಾಗಿದೆ.</string>
   <string name="signupUsernameHint">ಕುಟುಂಬ ಸ್ನೇಹಿತ ಬಳಕೆದಾರ ಹೆಸರನ್ನು ಆರಿಸರಿ. ನೀವು ನಂತರ ಅದನ್ನು ಬದಲಾಯಿಸಲಾಗುವುದಿಲ್ಲ ಮತ್ತು ಅನವಶ್ಯಕ ಹೆಸರುಗಳನ್ನು ಹೊಂದಿರುವ ಖಾತೆಗಳು ಮುಚ್ಚಲ್ಪಡುವುವು!</string>
-  <string name="signupEmailHint">ನಾವು ಅದನ್ನು ಪಾಸ್ವರ್ಡ್ ಮರುಹೊಂದಿಸುವಲ್ಲಿ ಮಾತ್ರ ಬಳಸುತ್ತೇವೆ.</string>
   <string name="password">ಗುಪ್ತಪದ</string>
   <string name="changePassword">ಗುಪ್ತಪದವನ್ನು ಬದಲಾಯಿಸಿ</string>
   <string name="changeEmail">ಇಮೇಲ್ ವಿಳಾಸ ಬದಲಿಸಿ</string>
@@ -239,10 +249,6 @@
   <string name="emailSent">ನಾವು %s ಗೆ ಇಮೇಲ್ ಕಳುಹಿಸಿದ್ದೇವೆ.</string>
   <string name="emailCanTakeSomeTime">ಬರಲು ಸ್ವಲ್ಪ ಸಮಯ ತೆಗೆದುಕೊಳ್ಳಬಹುದು.</string>
   <string name="refreshInboxAfterFiveMinutes">5 ನಿಮಿಷ ನಿರೀಕ್ಷಿಸಿ ಮತ್ತು ನಿಮ್ಮ ಇಮೇಲ್ ಇನ್‌ಬಾಕ್ಸ್ ಅನ್ನು ರಿಫ್ರೆಶ್ ಮಾಡಿ.</string>
-  <string name="checkSpamFolder">ನಿಮ್ಮ ಸ್ಪ್ಯಾಮ್ ಫೋಲ್ಡರ್ ಅನ್ನು ಸಹ ಪರಿಶೀಲಿಸಿ, ಅದು ಅಲ್ಲಿಗೆ ಕೊನೆಗೊಳ್ಳಬಹುದು. ಹಾಗಿದ್ದಲ್ಲಿ, ಅದನ್ನು ಸ್ಪ್ಯಾಮ್ ಅಲ್ಲ ಎಂದು ಗುರುತಿಸಿ.</string>
-  <string name="emailForSignupHelp">ಎಲ್ಲವೂ ವಿಫಲವಾದರೆ, ನಮಗೆ ಈ ಇಮೇಲ್ ಕಳುಹಿಸಿ:</string>
-  <string name="copyTextToEmail">ಮೇಲಿನ ಪಠ್ಯವನ್ನು ನಕಲಿಸಿ ಮತ್ತು ಅಂಟಿಸಿ ಮತ್ತು ಅದನ್ನು %s ಗೆ ಕಳುಹಿಸಿ</string>
-  <string name="waitForSignupHelp">ನಿಮ್ಮ ಸೈನ್ ಅಪ್ ಅನ್ನು ಪೂರ್ಣಗೊಳಿಸಲು ನಿಮಗೆ ಸಹಾಯ ಮಾಡಲು ನಾವು ಶೀಘ್ರದಲ್ಲೇ ನಿಮ್ಮ ಬಳಿಗೆ ಬರುತ್ತೇವೆ.</string>
   <string name="accountConfirmed">ಬಳಕೆದಾರ %s ಯಶಸ್ವಿಯಾಗಿ ದೃಢೀಕರಿಸಲಾಗಿದೆ.</string>
   <string name="accountCanLogin">ನೀವು ಇದೀಗ %s ನಂತೆ ಲಾಗಿನ್ ಮಾಡಬಹುದು.</string>
   <string name="accountConfirmationEmailNotNeeded">ನಿಮಗೆ ದೃಢೀಕರಣ ಇಮೇಲ್ ಅಗತ್ಯವಿಲ್ಲ.</string>
@@ -264,8 +270,6 @@
     <item quantity="other">%s ಆಟಗಳನ್ನು ನಿಮ್ಮೊಂದಿಗೆ ಆಡಿದ್ದಾರೆ</item>
   </plurals>
   <string name="cancel">ರದ್ದುಪಡಿಸು</string>
-  <string name="whiteTimeOut">ಬಿಳಿ ದಳದ ನಿಗದಿತ ಸಮಯ ಮುಕ್ತಾಯ</string>
-  <string name="blackTimeOut">ಕಪ್ಪು ದಳದ ನಿಗದಿತ ಸಮಯ ಮುಕ್ತಾಯ</string>
   <string name="drawOfferSent">ಡ್ರಾ ಮಾಡಿಕೊಳ್ಳಲು ಮನವಿ ಮಾಡಲಾಗಿದೆ</string>
   <string name="drawOfferAccepted">ಡ್ರಾ ಮನವಿಯನ್ನು ಸ್ವೀಕರಿಸಲಾಗಿದೆ</string>
   <string name="whiteOffersDraw">ಬಿಳಿ ದಳ ಡ್ರಾ ಸ್ವೀಕರಿಸಲು ಮನವಿ ಮಾಡುತ್ತಿದೆ</string>
@@ -395,7 +399,6 @@
   <string name="apply">ಸಲ್ಲಿಸಿ</string>
   <string name="save">ಉಳಿಸಿ</string>
   <string name="leaderboard">ಮುಂದಾಳುಗಳ ಪಟ್ಟಿ</string>
-  <string name="screenshotCurrentPosition">ಆಟದ ಫೋಟೊ ಪಡೆಯಲು</string>
   <string name="gameAsGIF">GIF ಆಗಿ ಆಟ ಪಡೆಯಲು</string>
   <string name="pasteTheFenStringHere">FEN ಅಕ್ಷರಮಾಲೆಯನ್ನು ಇಲ್ಲಿ ಅಂಟಿಸಿ</string>
   <string name="pasteThePgnStringHere">PGN ಅಕ್ಷರಮಾಲೆಯನ್ನು ಇಲ್ಲಿ ಅಂಟಿಸಿ</string>
@@ -495,7 +498,6 @@
   <string name="oneUrlPerLine">ಪ್ರತಿ ಸಾಲಿಗೆ ಒಂದು URL.</string>
   <string name="inlineNotation">ನಡೆಯ ಮಧ್ಯದ ಟಿಪ್ಪಣಿಗಳು</string>
   <string name="makeAStudy">ಸುರಕ್ಷಿತವಾಗಿರಿಸಲು ಮತ್ತು ಹಂಚಿಕೊಳ್ಳಲು, ಅಧ್ಯಯನವನ್ನು ಮಾಡಲು ಪರಿಗಣಿಸಿ.</string>
-  <string name="clearSavedMoves">ಎಲ್ಲಾ ಚಲನೆಗಳನ್ನು ತೆರವುಗೊಳಿಸಿ</string>
   <string name="previouslyOnLichessTV">ಹಿಂದೊಮ್ಮೆ ಲೀಚೆಸ್ ಟಿವಿಯಲ್ಲಿ</string>
   <string name="onlinePlayers">ಆನ್ಲೈನ್ ಇರುವ ಆಟಗಾರರು</string>
   <string name="activePlayers">ಸಕ್ರಿಯವಾಗಿರುವ ಆಟಗಾರರು</string>
@@ -612,7 +614,7 @@
   <string name="onlyExistingConversations">ಕೇವಲ ಸಧ್ಯದ ಸಂಭಾಷಣೆಗಳು ಮಾತ್ರ</string>
   <string name="onlyFriends">ಗೆಳೆಯ/ತಿಯರು ಮಾತ್ರ</string>
   <string name="menu">ಮೆನು</string>
-  <string name="castling" comment="Label for a box on the right side of the board editor, where the user can select castling rights. Noun.&#10;&#10;NOTE: this string used to read &quot;Castling&quot;, with &quot;rights&quot; added in 2026 for clarity.">ಕ್ಯಾಸಲಿಂಗ್</string>
+  <string name="castling">ಕ್ಯಾಸಲಿಂಗ್</string>
   <string name="whiteCastlingKingside">ಬಿಳಿ ದಳ O-O</string>
   <string name="blackCastlingKingside">ಕಪ್ಪು ದಳ O-O</string>
   <plurals name="nbForumPosts">
@@ -648,11 +650,9 @@
   <string name="aboutSimulRules">Simul ಪ್ರಾರಂಭವಾಗುವಾಗ, ಪ್ರತಿ ಎದುರಾಳಿ ಆಟಗಾರರೂ ಆತಿಥೇಯ ಆಟಗಾರರೊಂದಿಗೆ ಪಂದ್ಯ ಆರಂಭಿಸುತ್ತಾರೆ. ಎಲ್ಲಾ ಆಟಗಳು ಮುಕ್ತಾಯ ಆದ ಮೇಲೆಯೇ simul ಮುಗಿಯುತ್ತದೆ.</string>
   <string name="aboutSimulSettings">ಏಕಕಾಲಿಕ ಆಟಗಳು, ಅಂದರೆ Simul ಗಳು, ಯಾವತ್ತೂ ಧಾರಣೆ-ರಹಿತವಾಗಿರುತ್ತವೆ. ಮರುಪಂದ್ಯಗಳು, ನಡೆ-ಹಿಂಪಡೆಯುವಿಕೆಗಳು, ಹಾಗೂ ಸಮಯ ಸೇರಿಸುವಂತಹ ಅವಕಾಶಗಳು ಇರುವುದಿಲ್ಲ.</string>
   <string name="create">ರಚಿಸಿ</string>
-  <string name="whenCreateSimul">ನೀವು simul ಒಂದನ್ನು ರಚಿಸಿದಾಗ, ನಿಮಗೆ ಹಲವಾರು ಆಟಗಾರರ ವಿರುದ್ಧ ಏಕಕಾಲಕ್ಕೆ ಆಡುವ ಅವಕಾಶ ಸಿಗುತ್ತದೆ.</string>
   <string name="simulVariantsHint">ನೀವು ಹಲವಾರು ಆಟದ ಶೈಲಿಗಳನ್ನು ಆಯ್ಕೆ ಮಾಡಿದ್ದರೆ, ಪ್ರತಿ ಎದುರಾಳಿಗೂ ಆ ಆಯ್ಕೆಗಳಿಂದ ಒಂದನ್ನು ಆರಿಸುವ ಅವಕಾಶ ದೊರೆಯುತ್ತದೆ.</string>
   <string name="simulClockHint">ಫಿಷರ್ ಗಡಿಯಾರದ ಸಿದ್ಧತೆ. ಎಷ್ಟು ಹೆಚ್ಚು ಆಟಗಾರರನ್ನು ಆಯ್ಕೆ ಮಾಡುತ್ತೀರೋ, ಅಷ್ಟೇ ಹೆಚ್ಚಿನ ಸಮಯ ನಿಮಗೆ ಬೇಕಾಗಬಹುದು.</string>
   <string name="simulAddExtraTime">ನಿಮಗೆ ಬೇಕಾದರೆ, simul ನಿಭಾಯಿಸುವ ಸಲುವಾಗಿ, ನಿಮ್ಮ ಗಡಿಯಾರಕ್ಕೆ ಹೆಚ್ಚಿನ ಸಮಯವನ್ನು ಸೇರಿಸಿಕೊಳ್ಳಬಹುದು.</string>
-  <string name="simulHostExtraTime">ಆತಿಥೇಯರ ಗಡಿಯಾರದಲ್ಲಿನ ಅಧಿಕ ಸಮಯ</string>
   <string name="simulAddExtraTimePerPlayer">ಸಿಮುಲ್‌ಗೆ ಸೇರುವ ಪ್ರತಿಯೊಬ್ಬ ಆಟಗಾರನಿಗೆ ನಿಮ್ಮ ಗಡಿಯಾರಕ್ಕೆ ಆರಂಭಿಕ ಸಮಯವನ್ನು ಸೇರಿಸಿ.</string>
   <string name="simulHostExtraTimePerPlayer">ಪ್ರತಿ ಆಟಗಾರನಿಗೆ ಹೆಚ್ಚುವರಿ ಗಡಿಯಾರ ಸಮಯವನ್ನು ಹೋಸ್ಟ್ ಮಾಡಿ</string>
   <string name="lichessTournaments">ಲೀಚೆಸ್ ಪಂದ್ಯಾವಳಿಗಳು</string>
@@ -665,11 +665,6 @@
   <string name="keyGoToStartOrEnd">ಆರಂಭ/ಅಂತ್ಯಕ್ಕೆ ಹೋಗಿ</string>
   <string name="keyShowOrHideComments">ಅಭಿಪ್ರಾಯಗಳನ್ನು ತೋರಿಸಿ/ಅಡಗಿಸಿ</string>
   <string name="keyEnterOrExitVariation">ಕವಲುದಾರಿ ಪ್ರವೇಶಿಸಿ/ನಿರ್ಗಮಿಸಿ</string>
-  <string name="keyRequestComputerAnalysis">ಕಂಪ್ಯೂಟರ್ ವಿಶ್ಲೇಷಣೆಯನ್ನು ವಿನಂತಿಸಿ, ನಿಮ್ಮ ತಪ್ಪುಗಳಿಂದ ಕಲಿಯಿರಿ</string>
-  <string name="keyNextLearnFromYourMistakes">ಮುಂದೆ (ನಿಮ್ಮ ತಪ್ಪುಗಳಿಂದ ಕಲಿಯಿರಿ)</string>
-  <string name="keyNextBlunder">ಮುಂದಿನ ಪ್ರಮಾದ</string>
-  <string name="keyNextMistake">ಮುಂದಿನ ತಪ್ಪು</string>
-  <string name="keyNextInaccuracy">ಮುಂದಿನ ಅಚಾತುರ್ಯ</string>
   <string name="newTournament">ಹೊಸ ಪಂದ್ಯಾವಳಿ</string>
   <string name="tournamentHomeTitle">ವಿವಿಧ ಸಮಯದ ನಿಯಂತ್ರಣ ಹಾಗೂ ವಿವಿಧ ಶೈಲಿಗಳನ್ನು ಹೊಂದಿದ ಚೆಸ್ ಪಂದ್ಯಾವಳಿ</string>
   <string name="tournamentHomeDescription">ವೇಗ-ಗತಿಯ ಚೆಸ್ ಪಂದ್ಯಾವಳಿಗಳನ್ನು ಆಡಿ! ಅಧಿಕೃತ ನಿಗದಿತ ಪಂದ್ಯಾವಳಿಗಳನ್ನು ಸೇರಿ, ಅಥವಾ ನಿಮ್ಮದೇ ಸ್ವಂತ ಪಂದ್ಯಾವಳಿ ರಚಿಸಿ. ಅಪರಿಮಿತ ಚೆಸ್ ಆನಂದಕ್ಕಾಗಿ ಬುಲೆಟ್, ಬ್ಲಿಟ್ಜ್, ಶಾಸ್ತ್ರೀಯ, Chess೯೬೦, ಬೆಟ್ಟದ ರಾಜ, ತ್ರೀಚೆಕ್, ಹಾಗೂ ಇನ್ನೂ ಅಧಿಕ ಆಯ್ಕೆಗಳಿಂದ ಆಯ್ದುಕೊಳ್ಳಿ.</string>
@@ -738,7 +733,6 @@
   <string name="background">ಹಿನ್ನೆಲೆ</string>
   <string name="light">ತಿಳಿಬಣ್ಣ</string>
   <string name="dark">ಗಾಢ ಬಣ್ಣ</string>
-  <string name="transparent">ಪಾರದರ್ಶಕ</string>
   <string name="deviceTheme">ಸಾಧನದ ಥೀಮ್</string>
   <string name="backgroundImageUrl">ಹಿನ್ನೆಲೆ ಚಿತ್ರಕ್ಕೆ URL:</string>
   <string name="pieceSet">ಚೆಸ್ ಕಾಯಿಗಳ ಕಂತೆ</string>
@@ -756,7 +750,6 @@
   <string name="custom">ಸ್ವಂತೀಕರಿಸಿ</string>
   <string name="notifications">ಅಧಿಸೂಚನೆಗಳು</string>
   <string name="notificationsX">ಅಧಿಸೂಚನೆಗಳು: %1$s</string>
-  <string name="perfRatingX">ಧಾರಣೆ: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s ಸೆಕೆಂಡು ಬಾಕಿ ಇದೆ, ಮೊದಲ ನಡೆ ಆಡಲು</item>
     <item quantity="other">%s ಸೆಕೆಂಡುಗಳು ಬಾಕಿ ಇವೆ, ಮೊದಲ ನಡೆ ಆಡಲು</item>
@@ -830,7 +823,6 @@
   <string name="agreementAssistance">ಚೆಸ್ ಆಟ ಆಡುತ್ತಿರುವ ಸಮಯದಲ್ಲಿ ನಾನು ಯಾವುದೇ (ಚೆಸ್ ಕಂಪ್ಯೂಟರ್, ಪುಸ್ತಕಗಳು, ಡೇಟಾಬೇಸ್, ಅಥವಾ ಇನ್ಯಾವುದೇ ವ್ಯಕ್ತಿಯಿಂದ) ಸಹಾಯವನ್ನು ಪಡೆಯುವುದಿಲ್ಲ ಎಂದು ಸಮ್ಮತಿಸುತ್ತೇನೆ.</string>
   <string name="agreementNice">ಇತರೆ ಆಟಗಾರರೊಡನೆ ನಾನು ಯಾವತ್ತೂ ಗೌರವಯುತವಾಗಿ ವರ್ತಿಸುತ್ತೇನೆ ಎಂದು ಸಮ್ಮತಿಸುತ್ತೇನೆ.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">ಒಂದಕ್ಕಿಂತ ಹೆಚ್ಚು ಖಾತೆಗಳನ್ನು ತೆರೆಯುವುದಿಲ್ಲ ಎಂದು ನಾನು ಒಪ್ಪಿಕೊಳ್ಳುತ್ತೇನೆ (%s ಇಲ್ಲಿ ಹೇಳಿರುವ ಕಾರಣಗಳಿಗೆ ಹೊರತಾಗಿ).</string>
-  <string name="agreementPolicy">ಲೀಚೆಸ್ ನ ಎಲ್ಲ ನಿಯಮಾವಳಿ ಹಾಗೂ ನಿಬಂಧನೆಗಳನ್ನು ಪಾಲಿಸುತ್ತೇನೆ ಎಂದು ಸಮ್ಮತಿಸುತ್ತೇನೆ.</string>
   <string name="searchOrStartNewDiscussion">ಹುಡುಕಿ ಅಥವಾ ಹೊಸ ಸಂಭಾಷಣೆ ಆರಂಭಿಸಿ</string>
   <string name="edit">ತಿದ್ದಿ</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">ಬುಲೆಟ್</string>
@@ -865,7 +857,6 @@
   <string name="xInvitedYouToY">%1$s ಅವರು \"%2$s\" ಗೆ ನಿಮ್ಮನ್ನು ಆಹ್ವಾನಿಸಿದ್ದಾರೆ.</string>
   <string name="youAreNowPartOfTeam">ನೀವು ಈಗ ತಂಡದ ಭಾಗವಾಗಿದ್ದೀರಿ.</string>
   <string name="youHaveJoinedTeamX">ನೀವು ತಂಡ %1$s ವನ್ನು ಸೇರಿದ್ದೀರಿ.</string>
-  <string name="someoneYouReportedWasBanned">ನೀವು ದೂರು ಸಲ್ಲಿಸಿದ ಖಾತೆಯೊಂದನ್ನು ಬಹಿಸ್ಕರಿಸಲಾಗಿದೆ</string>
   <string name="congratsYouWon">ಅಭಿನಂದನೆಗಳು, ನೀವು ಗೆದ್ದಿದ್ದೀರಿ!</string>
   <string name="gameVsX">%1$s ಅವರ ವಿರುದ್ಧ</string>
   <string name="resVsX">%1$s ವಿರುದ್ಧ %2$s</string>
@@ -902,7 +893,6 @@
   <string name="noChat">ಯಾವುದೇ ಚಾಟ್ ಗಳು ಬೇಡ</string>
   <string name="onlyTeamLeaders">ತಂಡದ ನಾಯಕರು ಮಾತ್ರ</string>
   <string name="onlyTeamMembers">ತಂಡದ ಸದಸ್ಯರು ಮಾತ್ರ</string>
-  <string name="navigateMoveTree">ಚೆಸ್ ನಡೆಗಳ ಸರಪಳಿಯ ಮೂಲಕ ಚಲಿಸಿ</string>
   <string name="mouseTricks">ಮೌಸ್ ಆಧಾರಿತ ಉಪಾಯಗಳು</string>
   <string name="toggleLocalAnalysis">ಸ್ಥಳೀಯ ಕಂಪ್ಯೂಟರ್ ವಿಶ್ಲೇಷಣೆ ಬೇಕು/ಬೇಡ</string>
   <string name="toggleAllAnalysis">ಎಲ್ಲಾ ಕಂಪ್ಯೂಟರ್ ವಿಶ್ಲೇಷಣೆ ಬೇಕು/ಬೇಡ</string>
@@ -918,7 +908,6 @@
   <string name="gameInProgress">ಈಗಾಗಲೇ ನಿಮ್ಮ ಒಂದು ಆಟ %s ಅವರೊಂದಿಗೆ ಪ್ರಗತಿಯಲ್ಲಿದೆ.</string>
   <string name="abortTheGame">ಆಟವನ್ನು ಸ್ಥಗಿತಗೊಳಿಸಿ</string>
   <string name="resignTheGame">ಆಟದಿಂದ ರಾಜೀನಾಮೆ ಕೊಡಿ</string>
-  <string name="youCantStartNewGame">ಈ ಆಟ ಮುಗಿಯುವ ತನಕ ನೀವು ಇನ್ನೊಂದು ಹೊಸ ಆಟ ಆರಂಭಿಸುವಂತಿಲ್ಲ.</string>
   <string name="since">ರಿಂದ</string>
   <string name="until">ವರೆಗೆ</string>
   <string name="lichessDbExplanation">ಎಲ್ಲಾ ಲೀಚೆಸ್ ಆಟಗಾರರಿಂದ ಮಾದರಿ ಪಡೆದ ಧಾರಣೆ-ಸಹಿತ ಆಟಗಳು</string>

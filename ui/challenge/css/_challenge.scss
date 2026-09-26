@@ -1,23 +1,22 @@
 #challenge-app {
   @extend %box-radius-left, %dropdown-shadow;
-  overflow: hidden scroll;
+
+  overflow: hidden auto;
   max-height: 90vh;
   width: 300px;
   text-align: center;
 
   .empty {
-    background: $c-bg-header-dropdown;
     padding: 2rem 0;
   }
 
   .challenge {
-    background: $c-bg-header-dropdown;
     border-bottom: $border;
     padding-bottom: 0.5em;
 
     @media (hover: hover) {
       &:hover {
-        background: $m-primary_bg--mix-30;
+        background: color-mix(in oklab, $c-primary 30%, $c-bg);
         padding-bottom: 0;
         outline: 1px solid $c-primary;
 
@@ -33,6 +32,7 @@
 
     .buttons {
       @extend %flex-between-nowrap;
+
       align-items: stretch;
 
       @media (hover: hover) {
@@ -41,6 +41,7 @@
     }
 
     &:hover .buttons,
+    &:focus-within .buttons,
     .blind-mode & .buttons {
       display: flex;
     }
@@ -68,10 +69,9 @@
       padding: 0;
       background: transparent;
       font-size: 1.5rem;
+      box-shadow: none;
 
       @include transition;
-
-      box-shadow: none;
     }
 
     button,

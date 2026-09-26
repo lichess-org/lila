@@ -4,10 +4,23 @@
     margin-bottom: 1em;
   }
 
-  button.new {
-    margin: 1.5em auto;
-    display: block;
-    font-size: 2em;
+  button {
+    font-weight: 500;
+
+    &.new {
+      margin: 1.5em auto;
+      font-size: 2em;
+      align-items: center;
+      display: flex;
+    }
+
+    &.study {
+      text-align: left;
+      display: inline-block;
+      width: 100%;
+      margin-bottom: 3px;
+      text-transform: none;
+    }
   }
 
   .studies {
@@ -23,13 +36,9 @@
       }
     }
 
-    button {
-      width: 100%;
-      text-align: left;
-      overflow: hidden;
-      margin-bottom: 3px;
-      text-transform: none;
-      background: $m-primary_black--mix-70;
+    .placeholder {
+      color: $c-font-dim;
+      line-height: 38px;
     }
   }
 }

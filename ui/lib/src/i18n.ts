@@ -18,8 +18,12 @@ export const timeago: (d: DateLike) => string = (date: DateLike) =>
   formatAgo((Date.now() - toDate(date).getTime()) / 1000);
 
 // format Date / string / timestamp to Date instance.
-export const toDate = (input: DateLike): Date =>
-  input instanceof Date ? input : new Date(isNaN(input as any) ? input : parseInt(input as any));
+const IS_NUMBER = /^\d+$/;
+export const toDate = (input: DateLike): Date => {
+  if (input instanceof Date) return input;
+  else if (typeof input === 'string') return new Date(IS_NUMBER.test(input) ? Number(input) : input);
+  return new Date(input);
+};
 
 export const use24h = (): boolean => !commonDateFormatter.resolvedOptions().hour12;
 
@@ -56,7 +60,7 @@ const getNumberFormatter = (): Intl.NumberFormat | null => {
 
 export const numberFormat = (n: number): string => {
   const nf = getNumberFormatter();
-  return nf ? nf.format(n) : '' + n;
+  return nf ? nf.format(n) : String(n);
 };
 
 export const currencyFormat = (n: number, currency: string, options?: Intl.NumberFormatOptions): string => {
@@ -79,7 +83,7 @@ const getCurrencyDigits = (currency: string): number => {
     const digits = nf.resolvedOptions().maximumFractionDigits ?? 2;
     currencyDigitsCache.set(currency, digits);
     return digits;
-  } catch (_) {
+  } catch {
     return 2;
   }
 };

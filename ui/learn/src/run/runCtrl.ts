@@ -1,24 +1,24 @@
-import { stageStart, stageEnd } from '../sound';
 import { type Prop, prop } from 'lib';
+import type { WithGround } from 'lib/game/ground';
+import { pubsub } from 'lib/pubsub';
+
+import { hashNavigate } from '../hashRouting';
 import type { LearnProgress, LearnOpts } from '../learn';
+import { LevelCtrl } from '../levelCtrl';
+import { stageStart, stageEnd } from '../sound';
 import { type Stage, type Level, byId as stageById } from '../stage/list';
 import { clearTimeouts } from '../timeouts';
-import { LevelCtrl } from '../levelCtrl';
-import { hashNavigate } from '../hashRouting';
-import { pubsub } from 'lib/pubsub';
-import type { WithGround } from 'lib/game/ground';
 
 export class RunCtrl {
   data: LearnProgress = this.opts.storage.data;
-
-  chessground: CgApi | undefined;
+  chessground?: CgApi;
   levelCtrl: LevelCtrl;
 
   stageStarting: Prop<boolean> = prop(false);
   stageCompleted: Prop<boolean> = prop(false);
 
   get stage(): Stage {
-    return stageById[this.opts.stageId ?? 1]!;
+    return stageById[this.opts.stageId ?? 1];
   }
 
   constructor(
@@ -32,8 +32,10 @@ export class RunCtrl {
     // Helpful for debugging:
     // site.mousetrap.bind(['shift+enter'], this.levelCtrl.complete);
     pubsub.on('board.change', (is3d: boolean) => {
-      this.chessground!.state.addPieceZIndex = is3d;
-      this.chessground!.redrawAll();
+      this.withGround(g => {
+        g.state.addPieceZIndex = is3d;
+        g.redrawAll();
+      });
     });
   }
 
@@ -43,7 +45,7 @@ export class RunCtrl {
       this.stage.levels[Number(this.opts.levelId) - 1],
       {
         onCompleteImmediate: () => {
-          this.opts.storage.saveScore(this.stage, this.levelCtrl!.blueprint, this.levelCtrl!.vm.score);
+          this.opts.storage.saveScore(this.stage, this.levelCtrl.blueprint, this.levelCtrl.vm.score);
         },
         onComplete: () => {
           if (this.levelCtrl.blueprint.id < this.stage.levels.length) {

@@ -3,4 +3,4 @@ package lila.memo
 export lila.core.lilaism.Lilaism.{ *, given }
 export lila.common.extensions.*
 
-private val logger = lila.log("memo")
+private def logger = lila.log.system

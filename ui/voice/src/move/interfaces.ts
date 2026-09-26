@@ -1,5 +1,7 @@
-import type { PromotionCtrl } from 'lib/game/promotion';
 import type { MoveUpdate } from 'lib/game/moveRootCtrl';
+import type { PromotionCtrl } from 'lib/game/promotion';
+import type { QuestionOpts } from 'lib/types';
+
 import type { VoiceModule } from '../interfaces';
 
 export interface VoiceMove extends VoiceModule {

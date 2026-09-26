@@ -16,6 +16,14 @@
   align-items: center;
 }
 
+%flex-center-center {
+  /* extends %flex-center */
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: center;
+}
+
 %flex-between {
   /* extends %flex-center */
   display: flex;

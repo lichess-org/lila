@@ -21,7 +21,7 @@
   <string name="puzzleRead">Lire l\'activité des problèmes</string>
   <string name="teamRead">Lire les informations des équipes privées</string>
   <string name="teamWrite">Rejoindre et quitter des équipes</string>
-  <string name="teamLead">Gérer les équipes que vous dirigez : envoyer des messages privés, expulser des membres</string>
+  <string name="manageTeamsYouLead">Gérez vos équipes : envoyez des messages, expulsez des membres</string>
   <string name="followRead">Lire les joueurs suivis</string>
   <string name="followWrite">Suivre ou ne plus suivre d\'autres joueurs</string>
   <string name="msgWrite">Envoyer des messages privés aux autres joueurs</string>
@@ -29,7 +29,6 @@
   <string name="botPlay">Jouer des parties avec un moteur d\'échecs (BOT)</string>
   <string name="engineRead">Voir et utiliser vos moteurs externes</string>
   <string name="engineWrite">Créer et modifier des moteurs externes</string>
-  <string name="webLogin">Créer des sessions Web authentifiées (donne un accès complet !)</string>
   <string name="webMod">Utiliser les outils de modérateur (dans les limites de vos permissions)</string>
   <string name="personalAccessTokens">Jetons d\'accès personnel API</string>
   <string name="canMakeOauthRequests">Vous pouvez faire des demandes OAuth sans passer par le %s.</string>

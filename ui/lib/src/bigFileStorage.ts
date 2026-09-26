@@ -1,6 +1,6 @@
-import { objectStorage } from './objectStorage';
-import { memoize } from './index';
 import { randomToken } from './algo';
+import { memoize } from './index';
+import { objectStorage } from './objectStorage';
 import { log } from './permalog';
 
 // url keyed storage for very large assets
@@ -10,8 +10,8 @@ export const bigFileStorage: () => BigFileStorage = memoize(() => new BigFileSto
 type U8 = Uint8Array<ArrayBuffer>;
 
 class BigFileStorage {
-  private idb = memoize(() => objectStorage<U8>({ store: 'big-file' }));
-  private opfs = memoize(() => directoryHandleIfAvailable());
+  private readonly idb = memoize(() => objectStorage<U8>({ store: 'big-file' }));
+  private readonly opfs = memoize(() => directoryHandleIfAvailable());
 
   async get(assetUrl: string, onProgress?: (loaded: number, total: number) => void): Promise<U8> {
     const stored = await this.readFile(assetUrl).catch(() => undefined);
@@ -19,17 +19,22 @@ class BigFileStorage {
 
     const fetched = await new Promise<U8>((resolve, reject) => {
       const xhr = new XMLHttpRequest();
+
       xhr.open('GET', assetUrl, true);
       xhr.responseType = 'arraybuffer';
+
       if (onProgress) xhr.onprogress = e => onProgress(e.loaded, e.total);
+
       xhr.onerror = () => reject(new Error(`fetch '${assetUrl}' failed: ${xhr.status}`));
-      xhr.onload = () =>
-        xhr.status / 100 === 2
-          ? resolve(new Uint8Array(xhr.response))
-          : reject(new Error(`fetch '${assetUrl}' failed: ${xhr.status}`));
+      xhr.onload = () => {
+        if (Math.floor(xhr.status / 100) === 2) resolve(new Uint8Array(xhr.response));
+        else reject(new Error(`fetch '${assetUrl}' failed: ${xhr.status}`));
+      };
+
       xhr.send();
     });
-    this.writeFile(assetUrl, fetched);
+
+    await this.writeFile(assetUrl, fetched);
     return fetched;
   }
 
@@ -44,8 +49,7 @@ class BigFileStorage {
     if (!opfs) return this.idb().then(idb => idb.get(assetUrl));
 
     const file = await opfs.getFileHandle(opfsName(assetUrl), { create: false }).then(fh => fh.getFile());
-    const buffer = new ArrayBuffer(file.size);
-    const u8 = new Uint8Array(buffer);
+    const u8 = new Uint8Array(new ArrayBuffer(file.size));
     const reader = file.stream().getReader();
     let offset = 0;
 
@@ -78,10 +82,9 @@ async function directoryHandleIfAvailable(): Promise<FileSystemDirectoryHandle |
     const dirHandle = await navigator.storage?.getDirectory?.();
     const filename = `_${randomToken()}`;
     const out = await dirHandle.getFileHandle(filename, { create: true }).then(f => f.createWritable());
-    await out
-      .write(new Uint8Array(1))
-      .then(() => out.close())
-      .then(() => dirHandle.removeEntry(filename));
+    await out.write(new Uint8Array(1));
+    await out.close();
+    await dirHandle.removeEntry(filename);
     return dirHandle;
   } catch {
     return undefined;

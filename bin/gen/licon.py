@@ -66,6 +66,13 @@ debug_preamble = """<!--""" + comment_preamble + """-->
     </style>
   </head>
   <body>"""
+typescript_preamble = comment_preamble + "\nexport const licon = {\n"
+typescript_postamble = """};
+
+export type Licon = typeof licon;
+export type LiconKey = keyof Licon;
+export type LiconValue = Licon[LiconKey];
+"""
 
 def main():
     parser = argparse.ArgumentParser(description="""
@@ -80,7 +87,7 @@ def main():
 
     lila_chdir('public/font')
     codes = parse_codes()
-    
+
     if args.check:
         lila_chdir()
         sys.exit(check_sources({chr(v): k for k, v in codes.items()}))
@@ -137,15 +144,16 @@ def gen_sources(codes):
          open('../../ui/lib/css/abstract/_licon.scss', 'w') as scss, \
          open('../../public/oops/font.html', 'w') as debug:
         scala.write(scala_preamble)
-        ts.write(comment_preamble + '\n')
+        ts.write(typescript_preamble)
         scss.write(comment_preamble + '\n')
         debug.write(debug_preamble + '\n')
         for name in codes:
             scala.write(f'  val {with_type(name)} = "{chr(codes[name])}" // {codes[name]:x}\n')
-            ts.write(f"export const {name} = '{chr(codes[name])}'; // {codes[name]:x}\n")
+            ts.write(f"  {name}: '{chr(codes[name])}' as const, // {codes[name]:x}\n")
             scss.write(f"$licon-{name}: '{chr(codes[name])}'; // {codes[name]:x}\n")
             debug.write(f'    <i title="{name}">&#x{codes[name]:x};</i>\n')
         debug.write('  </body>\n</html>\n')
+        ts.write(typescript_postamble)
 
 def gen_fonts():
     [f, name] = tempfile.mkstemp(suffix='.pe', dir='.')

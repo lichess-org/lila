@@ -1,6 +1,7 @@
 import { throttle } from 'lib/async';
-import PlayCtrl from '../playCtrl';
 import { displayColumns } from 'lib/device';
+
+import PlayCtrl from '../playCtrl';
 
 const scrollMax = 99999;
 
@@ -10,7 +11,7 @@ export const autoScroll = throttle(100, (movesEl: HTMLElement, ctrl: PlayCtrl) =
     if (ctrl.board.onPly < 3) st = 0;
     else if (ctrl.isOnLastPly()) st = scrollMax;
     else {
-      const plyEl = movesEl.querySelector('.current') as HTMLElement | undefined;
+      const plyEl = movesEl.querySelector<HTMLElement>('.current');
       if (plyEl)
         st =
           displayColumns() === 1

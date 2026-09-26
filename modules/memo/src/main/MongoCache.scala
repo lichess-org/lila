@@ -4,6 +4,7 @@ import com.github.blemale.scaffeine.AsyncLoadingCache
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
+import lila.mon.extensions.*
 
 import CacheApi.*
 
@@ -23,32 +24,36 @@ final class MongoCache[K, V: BSONHandler] private (
 
   private val cache: AsyncLoadingCache[K, V] = build { loader => k =>
     val dbKey = makeDbKey(k)
-    coll
-      .one[Entry]($id(dbKey))
-      .flatMap:
-        case None =>
-          lila.mon.mongoCache.request(name, hit = false).increment()
-          loader(k)
-            .flatMap { v =>
-              coll.update
-                .one(
-                  $id(dbKey),
-                  Entry(dbKey, v, nowInstant.plus(dbTtl)),
-                  upsert = true
-                )
-                .inject(v)
-            }
-            .mon(_.mongoCache.compute(name))
-        case Some(entry) =>
-          lila.mon.mongoCache.request(name, hit = true).increment()
-          fuccess(entry.v)
+    dbEntry(k).flatMap:
+      case None =>
+        lila.mon.mongoCache.request(name, hit = false).increment()
+        loader(k)
+          .flatMap { v =>
+            coll.update
+              .one(
+                bid(dbKey),
+                Entry(dbKey, v, nowInstant.plus(dbTtl)),
+                upsert = true
+              )
+              .inject(v)
+          }
+          .mon(lila.mon.mongoCache.compute(name))
+      case Some(entry) =>
+        lila.mon.mongoCache.request(name, hit = true).increment()
+        fuccess(entry.v)
   }
 
   def get = cache.get
 
   def invalidate(key: K): Funit =
-    for _ <- coll.delete.one($id(makeDbKey(key)))
+    for _ <- coll.delete.one(bid(makeDbKey(key)))
     yield cache.invalidate(key)
+
+  // time since insertion
+  def dbValue(key: K): Fu[Option[(V, java.time.Duration)]] =
+    dbEntry(key).map2(entry => (entry.v, entry.e.minus(dbTtl).toNow))
+
+  private def dbEntry(key: K) = coll.one[Entry](bid(makeDbKey(key)))
 
   private def makeDbKey(key: K) = s"$name:${keyToString(key)}"
 
@@ -116,4 +121,4 @@ object MongoCache:
         _.expireAfterWrite(1.second).buildAsyncFuture(loader(f))
 
     def put[A: BSONWriter](key: String, value: A): Funit =
-      coll.update.one($id(key), $doc("v" -> value), upsert = true).void
+      coll.update.one(bid(key), bdoc("v" -> value), upsert = true).void

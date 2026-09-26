@@ -1,13 +1,12 @@
-import { alert, info, spinnerHtml } from 'lib/view';
-import { wireMarkdownImgResizers, naturalSize, markdownPicfitRegex } from 'lib/view/markdownImgResizer';
-import { marked } from 'marked';
-import { json as xhrJson } from 'lib/xhr';
 import { frag } from 'lib';
+import { alert, info, spinnerHtml } from 'lib/view';
+import { previousFocusable } from 'lib/view/focus';
+import { wireMarkdownImgResizers, naturalSize, markdownPicfitRegex } from 'lib/view/markdownImgResizer';
+import { text as xhrText, json as xhrJson, ValidationError } from 'lib/xhr';
 
 // also see markdownTextarea.ts
 
 site.load.then(() => {
-  marked.setOptions({ gfm: true, breaks: true });
   for (const markdown of document.querySelectorAll<HTMLElement>('.markdown-textarea')) {
     wireMarkdownTextarea(markdown);
   }
@@ -17,43 +16,75 @@ function wireMarkdownTextarea(markdown: HTMLElement) {
   const textarea = markdown.querySelector<HTMLTextAreaElement>('textarea');
   if (!textarea) return;
 
-  const previewTab = markdown.querySelector<HTMLButtonElement>('.preview')!;
-  const writeTab = markdown.querySelector<HTMLButtonElement>('.write')!;
-  const uploadBtn = markdown.querySelector<HTMLButtonElement>('.upload-image');
-  const preview = markdown.querySelector<HTMLElement>('.comment-preview')!;
+  const previewTab = markdown.querySelector<HTMLElement>('.preview-tab')!;
+  const writeTab = markdown.querySelector<HTMLElement>('.write-tab')!;
+  const uploadBtn = markdown.querySelector<HTMLElement>('button:has(.upload-image)');
+  const preview = markdown.querySelector<HTMLElement>('.preview')!;
 
   previewTab.addEventListener('click', async () => {
-    const html = await marked.parse(textarea.value ?? '');
-    preview.innerHTML = html;
+    preview.innerHTML = `<div class="busy">${spinnerHtml}</div>`;
     preview.classList.remove('none');
     uploadBtn?.classList.add('none');
     writeTab.classList.remove('active');
     previewTab.classList.add('active');
+    const rendered = frag<HTMLElement>(
+      await xhrText(`/markdown/preview/${markdown.dataset.formatKey ?? 'forum'}`, {
+        method: 'POST',
+        body: textarea.value,
+      }),
+    );
+    await Promise.all([
+      rendered.querySelector('.lpv--autostart') && site.asset.loadEsm('bits.lpv', { init: { el: rendered } }),
+      rendered.querySelector('a') && site.asset.loadEsm('bits.expandText', { init: rendered }),
+    ]);
+    preview.replaceChildren(rendered);
     if (markdownPicfitRegex().test(textarea.value) && !localStorage.getItem('markdown.rtfm')) {
-      info('Drag a side or bottom edge to resize an image.');
+      await info('Drag a side or bottom edge to resize an image.');
       localStorage.setItem('markdown.rtfm', '1');
     }
-    wireMarkdownImgResizers({
+    await wireMarkdownImgResizers({
       root: preview,
       update: {
         markdown: (text?: string) => (text !== undefined ? (textarea.value = text) : textarea.value),
       },
       origin: markdown.dataset.imageDownloadOrigin!,
       designWidth: Number(markdown.dataset.imageDesignWidth),
+      realm: markdown.dataset.markdownRealm!,
     });
   });
 
   writeTab.addEventListener('click', () => {
     previewTab.classList.remove('active');
     writeTab.classList.add('active');
-    preview.classList.add('none');
     uploadBtn?.classList.remove('none');
     preview.innerHTML = '';
+    preview.classList.add('none');
     textarea.focus();
   });
+
+  writeTab.addEventListener('focusin', () => {
+    if (writeTab.classList.contains('active')) textarea.focus();
+  });
+
+  textarea.addEventListener('focusout', e => {
+    if (!(e.relatedTarget instanceof HTMLElement)) return;
+
+    let nextTarget: HTMLElement | null = e.relatedTarget;
+
+    if ([uploadBtn, previewTab].includes(nextTarget)) {
+      nextTarget = previousFocusable(writeTab);
+    } else if (e.relatedTarget.closest('.form-help')) {
+      nextTarget = previewTab;
+    }
+    if (!nextTarget || nextTarget === e.relatedTarget) return;
+
+    nextTarget.focus();
+    e.preventDefault();
+  });
+
   if (!markdown.dataset.imageUploadUrl) return;
 
-  markdown.querySelector<HTMLElement>('.upload-image')?.addEventListener('click', () => {
+  uploadBtn?.addEventListener('click', () => {
     const input = frag<HTMLInputElement>('<input type="file" accept="image/*" multiple />');
     input.onchange = () => {
       if (!input.files) return;
@@ -85,7 +116,7 @@ function wireMarkdownTextarea(markdown: HTMLElement) {
       if (count >= Number(markdown.dataset.imageCountMax)) {
         throw `You can only upload ${markdown.dataset.imageCountMax} images here.`;
       }
-      preview.innerHTML = `<div class="uploading"><span>Uploading image...</span>${spinnerHtml}</div>`;
+      preview.innerHTML = `<div class="busy"><span>Uploading image...</span>${spinnerHtml}</div>`;
       preview.classList.remove('none');
       const { width, height } = await naturalSize(image);
       const body = new FormData();
@@ -104,7 +135,7 @@ function wireMarkdownTextarea(markdown: HTMLElement) {
       textarea.value = `${before}${maybeNewline}![${image.name}](${imageUrl})\n${after}`;
       textarea.selectionStart = textarea.selectionEnd = textarea.value.length - after.length;
     } catch (e) {
-      alert(String(e) || 'Image upload failed.');
+      alert(e instanceof ValidationError ? e.message : `Image upload failed: ${e}`);
     } finally {
       preview.classList.add('none');
       preview.innerHTML = '';

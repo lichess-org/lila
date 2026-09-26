@@ -1,12 +1,11 @@
-import * as licon from 'lib/licon';
-import { finished, aborted, userAnalysable, playable } from 'lib/game';
-import * as util from '../util';
-import { displayColumns } from 'lib/device';
-import type RoundController from '../ctrl';
+import { blurIfPrimaryClick, repeater } from 'lib';
 import { throttle } from 'lib/async';
-import viewStatus from 'lib/game/view/status';
+import { displayColumns } from 'lib/device';
+import { finished, aborted, userAnalysable, playable, capitalize } from 'lib/game';
 import { game as gameRoute } from 'lib/game/router';
-import type { Step } from '../interfaces';
+import viewStatus from 'lib/game/view/status';
+import { licon, type LiconKey } from 'lib/licon';
+import { addPointerListeners } from 'lib/pointer';
 import {
   toggleButton as boardMenuToggleButton,
   type VNode,
@@ -14,18 +13,21 @@ import {
   type LooseVNode,
   hl,
   onInsert,
+  dataIcon,
 } from 'lib/view';
+
+import type RoundController from '../ctrl';
+import type { Step } from '../interfaces';
+import * as util from '../util';
 import boardMenu from './boardMenu';
-import { repeater } from 'lib';
-import { addPointerListeners } from 'lib/pointer';
 
 const scrollMax = 99999,
-  moveTag = 'kwdb',
-  indexTag = 'i5z',
+  moveTag = 'Z7yx',
+  indexTag = 'qZM',
   indexTagUC = indexTag.toUpperCase(),
-  movesTag = 'l4x',
-  rmovesTag = 'rm6',
-  rbuttonsTag = 'rb1';
+  movesTag = 'aPp',
+  rmovesTag = 'i5d',
+  rbuttonsTag = 'bo3';
 
 const autoScroll = throttle(100, (movesEl: HTMLElement, ctrl: RoundController) =>
   window.requestAnimationFrame(() => {
@@ -34,7 +36,7 @@ const autoScroll = throttle(100, (movesEl: HTMLElement, ctrl: RoundController) =
     if (ctrl.ply < 3) st = 0;
     else if (ctrl.ply === util.lastPly(ctrl.data)) st = scrollMax;
     else {
-      const plyEl = movesEl.querySelector('.a1t') as HTMLElement | undefined;
+      const plyEl = movesEl.querySelector<HTMLElement>('.a1t');
       if (plyEl)
         st =
           displayColumns() === 1
@@ -54,7 +56,7 @@ const renderDrawOffer = () => hl('draw', { attrs: { title: 'Draw offer' } }, '½
 const renderMove = (step: Step, curPly: number, orEmpty: boolean, drawOffers: Set<number>) =>
   step
     ? hl(moveTag, { class: { a1t: step.ply === curPly } }, [
-        step.san[0] === 'P' ? step.san.slice(1) : step.san,
+        step.san.startsWith('P') ? step.san.slice(1) : step.san,
         drawOffers.has(step.ply) ? renderDrawOffer() : undefined,
       ])
     : orEmpty && hl(moveTag, '…');
@@ -87,11 +89,12 @@ export function renderResult(ctrl: RoundController): VNode | undefined {
       ),
     ]);
   }
-  return;
+  return undefined;
 }
 
 function renderMoves(ctrl: RoundController): LooseVNodes {
-  const steps = ctrl.data.steps,
+  const pending = ctrl.pendingStep(),
+    steps = pending ? [...ctrl.data.steps, pending] : ctrl.data.steps,
     firstPly = util.firstPly(ctrl.data),
     lastPly = util.lastPly(ctrl.data),
     indexOffset = Math.trunc(firstPly / 2) + 1,
@@ -108,11 +111,13 @@ function renderMoves(ctrl: RoundController): LooseVNodes {
   for (let i = startAt; i < steps.length; i += 2) pairs.push([steps[i], steps[i + 1]]);
 
   const els: LooseVNodes = [],
-    curPly = ctrl.ply;
+    curPly = pending ? pending.ply : ctrl.ply;
   for (let i = 0; i < pairs.length; i++) {
-    els.push(hl(indexTag, i + indexOffset + ''));
-    els.push(renderMove(pairs[i][0], curPly, true, drawPlies));
-    els.push(renderMove(pairs[i][1], curPly, false, drawPlies));
+    els.push(
+      hl(indexTag, i + indexOffset),
+      renderMove(pairs[i][0], curPly, true, drawPlies),
+      renderMove(pairs[i][1], curPly, false, drawPlies),
+    );
   }
   els.push(renderResult(ctrl));
 
@@ -157,16 +162,24 @@ function renderButtons(ctrl: RoundController) {
   return hl(rbuttonsTag, [
     analysisButton(ctrl) || hl('div.noop'),
     [
-      [licon.JumpFirst, firstPly],
-      [licon.JumpPrev, ctrl.ply - 1],
-      [licon.JumpNext, ctrl.ply + 1],
-      [licon.JumpLast, lastPly],
-    ].map((b: [string, number], i) => {
+      ['JumpFirst', firstPly],
+      ['JumpPrev', ctrl.ply - 1],
+      ['JumpNext', ctrl.ply + 1],
+      ['JumpLast', lastPly],
+    ].map((b: [LiconKey, number], i) => {
       const enabled = ctrl.ply !== b[1] && b[1] >= firstPly && b[1] <= lastPly;
       return hl('button.fbt.repeatable', {
         class: { glowing: i === 3 && ctrl.isLate() },
-        attrs: { disabled: !enabled, 'data-icon': b[0], 'data-ply': enabled ? b[1] : '-' },
-        hook: onInsert(el => addPointerListeners(el, { click: e => goThroughMoves(ctrl, e), hold: 'click' })),
+        attrs: { disabled: !enabled, 'data-icon': licon[b[0]], 'data-ply': enabled ? b[1] : '-' },
+        hook: onInsert(el =>
+          addPointerListeners(el, {
+            click: e => {
+              goThroughMoves(ctrl, e);
+              blurIfPrimaryClick(e);
+            },
+            hold: 'click',
+          }),
+        ),
       });
     }),
     boardMenuToggleButton(ctrl.menu, i18n.site.menu),
@@ -180,9 +193,9 @@ function initMessage(ctrl: RoundController) {
     playable(d) &&
     d.game.turns === 0 &&
     !d.player.spectator &&
-    hl('div.message', util.justIcon(licon.InfoCircle), [
+    hl('div.message', { attrs: dataIcon(licon.InfoCircle) }, [
       hl('div', [
-        i18n.site[d.player.color === 'white' ? 'youPlayTheWhitePieces' : 'youPlayTheBlackPieces'],
+        i18n.site[`youPlayThe${capitalize(ctrl.data.player.color)}Pieces`],
         d.player.color === 'white' && [hl('br'), hl('strong', i18n.site.itsYourTurn)],
       ]),
     ])
@@ -191,7 +204,7 @@ function initMessage(ctrl: RoundController) {
 
 const col1Button = (ctrl: RoundController, dir: number, icon: string, disabled: boolean) =>
   hl('button.fbt', {
-    attrs: { disabled: disabled, 'data-icon': icon, 'data-ply': ctrl.ply + dir },
+    attrs: { disabled, 'data-icon': icon, 'data-ply': ctrl.ply + dir },
     hook: onInsert(el => addPointerListeners(el, { click: e => goThroughMoves(ctrl, e), hold: 'click' })),
   });
 

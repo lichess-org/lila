@@ -1,13 +1,15 @@
 // no side effects allowed due to re-export by index.ts
 
-import { h, type VNode } from 'snabbdom';
-import * as domData from '@/data';
-import { lichessClockIsRunning, setClockWidget } from '@/game/clock/clockWidget';
-import { uciToMove, fenColor } from '@/game/chess';
 import { Chessground as makeChessground } from '@lichess-org/chessground';
+import { uciToMove } from '@lichess-org/chessground/util';
+import { COLORS } from 'chessops';
+import { h, type VNode } from 'snabbdom';
+
+import * as domData from '@/data';
+import { fenColor } from '@/game/chess';
+import { lichessClockIsRunning, setClockWidget } from '@/game/clock/clockWidget';
 import { pubsub } from '@/pubsub';
 import { wsSend } from '@/socket';
-import { COLORS } from 'chessops';
 
 export const initMiniBoard = (node: HTMLElement): void => {
   const [fen, orientation, lm] = node.getAttribute('data-state')!.split(',');
@@ -69,7 +71,7 @@ export const getChessground = (node: HTMLElement): CgApi => domData.get(node, 'c
 
 export const initMiniGames = (parent?: HTMLElement): void => {
   const nodes = Array.from((parent || document).getElementsByClassName('mini-game--init')),
-    ids = nodes.map(x => initMiniGame(x)).filter(id => id);
+    ids = nodes.map(x => initMiniGame(x)).filter(Boolean);
   if (ids.length) pubsub.after('socket.hasConnected').then(() => wsSend('startWatching', ids.join(' ')));
 };
 

@@ -4,7 +4,7 @@ const ids =
   );
 
 ids.forEach(id => {
-  var study = db.study.findOne({ _id: id });
+  const study = db.study.findOne({ _id: id });
   print(`${study._id} ${study.name}`);
   db.study_chapter
     .find({

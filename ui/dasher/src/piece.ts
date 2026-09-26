@@ -1,19 +1,22 @@
 import { h, type VNode } from 'snabbdom';
-import { text as xhrText, form as xhrForm } from 'lib/xhr';
-import { header, elementScrollBarWidthSlowGuess, moreButton } from './util';
-import { bind } from 'lib/view';
-import { type DasherCtrl, PaneCtrl } from './interfaces';
-import { pubsub } from 'lib/pubsub';
+
 import { type Toggle, toggle } from 'lib';
+import { bind } from 'lib/view';
+import { text as xhrText, form as xhrForm } from 'lib/xhr';
+
+import type { DasherCtrl } from '@/ctrl';
+
+import { type Dimension, PaneCtrl } from './interfaces';
+import { header, elementScrollBarWidthSlowGuess, moreButton } from './util';
 
 export class PieceCtrl extends PaneCtrl {
-  featured: { [key in 'd2' | 'd3']: string[] } = { d2: [], d3: [] };
+  featured: Record<Dimension, string[]> = { d2: [], d3: [] };
   more: Toggle;
 
   constructor(root: DasherCtrl) {
     super(root);
     this.more = toggle(false, root.redraw);
-    for (const dim of ['d2', 'd3'] as const) {
+    for (const dim of ['d2', 'd3'] as Dimension[]) {
       this.featured[dim] = this.root.data.piece[dim].list.filter(t => t.featured).map(t => t.name);
     }
   }
@@ -30,7 +33,7 @@ export class PieceCtrl extends PaneCtrl {
     const pieceSize = (222 - elementScrollBarWidthSlowGuess()) / (this.more() ? 4 : 3);
     const pieceImage = (t: string) =>
       this.is3d
-        ? `images/staunton/piece/${t}/White-Knight${t === 'Staunton' ? '-Preview' : ''}.png`
+        ? `images/staunton/piece/${t}/White-Knight${t === 'Staunton' ? '-Preview' : ''}.webp`
         : site.manifest.hashed[`piece/${t}/wN.webp`]
           ? `piece/${t}/wN.webp`
           : `piece/${t}/wN.svg`;
@@ -63,14 +66,13 @@ export class PieceCtrl extends PaneCtrl {
     if (!this.is3d) {
       pieceVarRules(t);
     }
-    pubsub.emit('board.change', this.is3d);
   };
 
   private get dimData() {
     return this.root.data.piece[this.dimension];
   }
 
-  private set = (t: string) => {
+  private readonly set = (t: string) => {
     this.apply(t);
     const field = `pieceSet${this.is3d ? '3d' : ''}`;
     xhrText(`/pref/${field}`, { body: xhrForm({ [field]: t }), method: 'post' }).catch(() =>

@@ -5,6 +5,7 @@ import {
   type ServerMessagePartialResult,
   createVoskClient,
 } from '@lichess-org/vosk-browser';
+
 import type { RecognizerOpts, VoskModule } from './interfaces';
 import { type Selectable, Switch } from './switch';
 
@@ -37,7 +38,7 @@ export function initModule(): VoskModule {
   function initRecognizer(opts: RecognizerOpts): AudioNode | undefined {
     if (!opts.words?.length || !voskClient) {
       recs.remove(opts.recId);
-      return;
+      return undefined;
     }
     const kaldi = new voskClient.KaldiRecognizer(opts.audioCtx.sampleRate, JSON.stringify(opts.words));
 
@@ -57,7 +58,7 @@ export function initModule(): VoskModule {
 
     if (LOG_LEVEL >= -1)
       console.info(
-        `Created ${opts.audioCtx.sampleRate.toFixed()}Hz recognizer '${
+        `Created ${opts.audioCtx.sampleRate.toFixed(0)}Hz recognizer '${
           opts.recId
         }' with buffer size ${bufSize}`,
         opts.words,

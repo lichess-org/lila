@@ -1,5 +1,12 @@
+import { COLORS } from 'chessops';
 import { parseFen } from 'chessops/fen';
+import type { LichessEditor } from 'editor';
+import { chess960IdToFEN, randomPositionId } from 'editor/chess960';
+
 import { defined, prop, type Prop, toggle } from 'lib';
+import { licon } from 'lib/licon';
+import { pubsub } from 'lib/pubsub';
+import { storedProp } from 'lib/storage';
 import {
   snabDialog,
   alert,
@@ -11,18 +18,23 @@ import {
   spinnerVdom,
   type Dialog,
   type VNode,
+  icon,
 } from 'lib/view';
-import * as licon from 'lib/licon';
-import { storedProp } from 'lib/storage';
 import { json as xhrJson, text as xhrText } from 'lib/xhr';
+
 import type AnalyseCtrl from '../ctrl';
 import type { StudySocketSend } from '../socket';
 import { option } from '../view/util';
-import type { ChapterData, ChapterMode, ChapterTab, Orientation, StudyTour } from './interfaces';
-import { importPgn, variants as xhrVariants } from './studyXhr';
+import type {
+  ChapterData,
+  ChapterMode,
+  ChapterTab,
+  Orientation,
+  StudyChapter,
+  StudyTour,
+} from './interfaces';
 import type { StudyChapters } from './studyChapters';
-import type { LichessEditor } from 'editor';
-import { pubsub } from 'lib/pubsub';
+import { importPgn, variants as xhrVariants } from './studyXhr';
 
 export const modeChoices = [
   ['normal', i18n.study.normalAnalysis],
@@ -37,21 +49,18 @@ export const fieldValue = (e: Event, id: string) =>
 export class StudyChapterNewForm {
   readonly multiPgnMax = 64;
   variants: Variant[] = [];
-  dialog: Dialog | undefined;
+  dialog?: Dialog;
   isOpen = toggle(false, val => {
     if (!val) this.dialog?.close();
   });
   initial = toggle(false);
-  tab = storedProp<ChapterTab>(
-    'analyse.study.form.tab',
-    'init',
-    str => str as ChapterTab,
-    v => v,
-  );
+  tab = storedProp<ChapterTab>('analyse.study.form.tab', 'init', str => str as ChapterTab);
   editor: LichessEditor | null = null;
   editorFen: Prop<FEN | null> = prop(null);
   isDefaultName = toggle(true);
   orientation: Color | 'automatic';
+  chess960Position: Prop<number> = prop(518); // 518 = standard chess starting position
+  selectedVariant: Prop<VariantKey> = prop('standard');
 
   constructor(
     private readonly send: StudySocketSend,
@@ -59,6 +68,7 @@ export class StudyChapterNewForm {
     readonly isBroadcast: boolean,
     readonly setChaptersTab: () => void,
     readonly root: AnalyseCtrl,
+    private readonly currentChapter: () => StudyChapter,
   ) {
     pubsub.on('analysis.closeAll', () => this.isOpen(false));
     this.orientation = root.bottomColor();
@@ -70,6 +80,9 @@ export class StudyChapterNewForm {
     this.isOpen(true);
     this.loadVariants();
     this.initial(false);
+    this.isDefaultName(true);
+    this.selectedVariant(this.currentChapter().setup.variant.key);
+    this.chess960Position(518);
   };
 
   toggle = () => (this.isOpen() ? this.isOpen(false) : this.open());
@@ -92,10 +105,11 @@ export class StudyChapterNewForm {
     this.open();
     this.initial(true);
   };
+
   submit = (d: Omit<ChapterData, 'initial'>) => {
     const study = this.root.study!;
     const showRatings = study.data.showRatings ? undefined : false; // define only if false
-    const dd = { ...d, sticky: study.vm.mode.sticky, showRatings: showRatings, initial: this.initial() };
+    const dd = { ...d, sticky: study.vm.mode.sticky, showRatings, initial: this.initial() };
     if (!dd.pgn) this.send('addChapter', dd);
     else
       importPgn(study.data.id, dd).catch(e => {
@@ -126,18 +140,14 @@ export function view(ctrl: StudyChapterNewForm): VNode {
   const activeTab = ctrl.tab();
   const makeTab = (key: ChapterTab, name: string, title: string) =>
     hl(
-      'span.' + key,
+      'button.' + key,
       {
         class: { active: activeTab === key },
-        attrs: { role: 'tab', title, tabindex: '0' },
+        attrs: { type: 'button', role: 'tab', title, tabindex: '0' },
         hook: onInsert(el => {
-          const select = (e: Event) => {
+          el.addEventListener('click', (e: Event) => {
             ctrl.setTab(key);
             e.preventDefault();
-          };
-          el.addEventListener('click', select);
-          el.addEventListener('keydown', e => {
-            if (e.key === 'Enter' || e.key === ' ') select(e);
           });
         }),
       },
@@ -161,7 +171,6 @@ export function view(ctrl: StudyChapterNewForm): VNode {
       ctrl.redraw();
     },
     modal: true,
-    noClickAway: true,
     onInsert: dlg => {
       ctrl.dialog = dlg;
       dlg.show();
@@ -170,25 +179,27 @@ export function view(ctrl: StudyChapterNewForm): VNode {
       activeTab !== 'edit' &&
         hl('h2', [
           i18n.study.newChapter,
-          hl('i.help', { attrs: { 'data-icon': licon.InfoCircle }, hook: bind('click', ctrl.startTour) }),
+          hl('icon.help', { attrs: dataIcon(licon.InfoCircle), hook: bind('click', ctrl.startTour) }),
         ]),
       hl(
         'form.form3',
         {
-          hook: bindSubmit(
-            e =>
-              ctrl.submit({
-                name: fieldValue(e, 'name'),
-                game: fieldValue(e, 'game'),
-                variant: fieldValue(e, 'variant') as VariantKey,
-                pgn: fieldValue(e, 'pgn'),
-                orientation: fieldValue(e, 'orientation') as Orientation,
-                mode: fieldValue(e, 'mode') as ChapterMode,
-                fen: fieldValue(e, 'fen') || (ctrl.tab() === 'edit' ? ctrl.editorFen() : null),
-                isDefaultName: ctrl.isDefaultName(),
-              }),
-            ctrl.redraw,
-          ),
+          hook: bindSubmit(e => {
+            const tab = ctrl.tab();
+            ctrl.submit({
+              name: fieldValue(e, 'name'),
+              game: fieldValue(e, 'game'),
+              variant: fieldValue(e, 'variant') as VariantKey,
+              pgn: fieldValue(e, 'pgn'),
+              orientation: fieldValue(e, 'orientation') as Orientation,
+              mode: fieldValue(e, 'mode') as ChapterMode,
+              fen:
+                tab === 'init' && ctrl.selectedVariant() === 'chess960'
+                  ? chess960IdToFEN(ctrl.chess960Position())
+                  : fieldValue(e, 'fen') || (tab === 'edit' ? ctrl.editorFen() : null),
+              isDefaultName: ctrl.isDefaultName(),
+            });
+          }, ctrl.redraw),
         },
         [
           hl('div.form-group', [
@@ -289,7 +300,7 @@ export function view(ctrl: StudyChapterNewForm): VNode {
                 {
                   hook: bind('click', () => ctrl.tab('edit'), ctrl.root.redraw),
                 },
-                [hl('i.text', { attrs: dataIcon(licon.Eye) }), i18n.study.editor],
+                [icon(licon.Eye)('.text'), i18n.study.editor],
               ),
             ]),
           activeTab === 'pgn' &&
@@ -340,7 +351,11 @@ export function view(ctrl: StudyChapterNewForm): VNode {
                 {
                   attrs: { disabled: gameOrPgn },
                   hook: bind('change', e => {
-                    ctrl.editor?.setVariant((e.target as HTMLSelectElement).value as VariantKey);
+                    const v = (e.target as HTMLSelectElement).value as VariantKey;
+                    ctrl.editor?.setVariant(v);
+                    ctrl.selectedVariant(v);
+                    if (v !== 'chess960') ctrl.chess960Position(518);
+                    ctrl.redraw();
                   }),
                 },
                 gameOrPgn
@@ -358,14 +373,49 @@ export function view(ctrl: StudyChapterNewForm): VNode {
                     ctrl.editor?.setOrientation(ctrl.orientation);
                   }),
                 },
-                [
-                  ...(activeTab === 'pgn' ? [['automatic', i18n.study.automatic]] : []),
-                  ['white', i18n.site.white],
-                  ['black', i18n.site.black],
-                ].map(([value, name]) => value && option(value, ctrl.orientation, name, { key: value })),
+                [...(activeTab === 'pgn' ? ['automatic' as const] : []), ...COLORS].map(orientation =>
+                  option(
+                    orientation,
+                    ctrl.orientation,
+                    orientation === 'automatic' ? i18n.study[orientation] : i18n.site[orientation],
+                    {
+                      key: orientation,
+                    },
+                  ),
+                ),
               ),
             ]),
           ]),
+          activeTab === 'init' &&
+            ctrl.selectedVariant() === 'chess960' &&
+            hl('div.form-group.chess960-position', [
+              hl('label.form-label', i18n.site.chess960StartPosition(ctrl.chess960Position())),
+              hl('div.chess960-position__inputs', [
+                hl('input.form-control', {
+                  attrs: { type: 'number', min: 0, max: 959, value: ctrl.chess960Position() },
+                  hook: onInsert((el: HTMLInputElement) => {
+                    el.addEventListener('input', () => {
+                      const pos = parseInt(el.value);
+                      if (!isNaN(pos) && pos >= 0 && pos <= 959) {
+                        ctrl.chess960Position(pos);
+                        ctrl.redraw();
+                      }
+                    });
+                  }),
+                }),
+                hl('button.button.button-empty', {
+                  attrs: {
+                    type: 'button',
+                    title: i18n.site.randomChess960Position,
+                    ...dataIcon(licon.DieSix),
+                  },
+                  hook: bind('click', () => {
+                    ctrl.chess960Position(randomPositionId());
+                    ctrl.redraw();
+                  }),
+                }),
+              ]),
+            ]),
           hl('div.form-group' + (ctrl.isBroadcast ? '.none' : ''), [
             hl('label.form-label', { attrs: { for: 'chapter-mode' } }, i18n.study.analysisMode),
             hl(

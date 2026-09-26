@@ -1,12 +1,11 @@
-import { hl } from 'lib/view';
-import type LobbyController from '@/ctrl';
-import { variants, variantsForGameType } from '@/options';
+import perfIcons from 'lib/game/perfIcons';
 import { option } from 'lib/setup/option';
-import type { VNode } from 'snabbdom';
+import { dataIcon, enter, hl } from 'lib/view';
 
-export const variantPicker = (ctrl: LobbyController) => {
-  const { setupCtrl } = ctrl;
+import { variantsForGameType } from '@/options';
+import type SetupController from '@/setupCtrl';
 
+export const variantPicker = (setupCtrl: SetupController) => {
   if (site.blindMode) {
     return hl('div.variant.label-select', [
       hl('label', { attrs: { for: 'sf_variant' } }, i18n.site.variant),
@@ -17,14 +16,14 @@ export const variantPicker = (ctrl: LobbyController) => {
             change: (e: Event) => setupCtrl.variant((e.target as HTMLSelectElement).value as VariantKey),
           },
         },
-        variantsForGameType(variants, setupCtrl.gameType!).map(variant =>
-          option(variant, setupCtrl.variant()),
+        variantsForGameType(setupCtrl.gameType!).map(variant =>
+          option({ key: variant, name: i18n.variant[variant] }, setupCtrl.variant()),
         ),
       ),
     ]);
   }
 
-  const currentVariant = variants.find(v => v.key === setupCtrl.variant()) || variants[0];
+  const currentVariant = setupCtrl.variant();
   const isOpen = setupCtrl.variantMenuOpen();
   const inputId = 'mselect-variant';
 
@@ -35,7 +34,7 @@ export const variantPicker = (ctrl: LobbyController) => {
     toggleVariant();
   };
 
-  const children: (VNode | string)[] = [
+  const children = [
     hl('input.mselect__toggle', {
       attrs: { type: 'checkbox', id: inputId },
       on: { change: toggleVariant },
@@ -46,44 +45,45 @@ export const variantPicker = (ctrl: LobbyController) => {
         attrs: { for: inputId },
       },
       [
-        hl('span.icon', { attrs: { 'data-icon': currentVariant.icon } }),
-        hl('div.text', [hl('span.name', currentVariant.name), hl('span.desc', currentVariant.description)]),
+        hl('span.icon', { attrs: dataIcon(perfIcons[currentVariant]) }),
+        hl('div.text', [
+          hl('span.name', i18n.variant[currentVariant]),
+          hl('span.desc', i18n.variant[`${currentVariant}Title`]),
+        ]),
       ],
     ),
   ];
 
   if (isOpen) {
-    children.push(hl('label.fullscreen-mask', { on: { click: updateCheckboxAndToggle } }));
     children.push(
+      hl('div.fullscreen-mask', { on: { click: updateCheckboxAndToggle } }),
       hl(
         'div.mselect__list',
         hl(
           'table',
           hl(
             'tbody',
-            variantsForGameType(variants, setupCtrl.gameType!).map(v =>
+            variantsForGameType(setupCtrl.gameType!).map(v =>
               hl(
                 'tr.mselect__item',
                 {
-                  class: { current: v.key === setupCtrl.variant() },
+                  class: { current: v === setupCtrl.variant() },
                   attrs: { tabindex: '0' },
                   on: {
                     click: () => {
-                      setupCtrl.variant(v.key);
+                      setupCtrl.variant(v);
                       updateCheckboxAndToggle();
                     },
-                    keydown: (event: KeyboardEvent) => {
-                      if (event.key === 'Enter') {
-                        setupCtrl.variant(v.key);
-                        updateCheckboxAndToggle();
-                      }
-                    },
+                    keydown: enter(() => {
+                      setupCtrl.variant(v);
+                      updateCheckboxAndToggle();
+                    }),
                   },
                 },
                 [
-                  hl('td.icon', hl('span', { attrs: { 'data-icon': v.icon } })),
-                  hl('td.name', v.name),
-                  hl('td.desc', v.description),
+                  hl('td.icon', hl('span', { attrs: dataIcon(perfIcons[v]) })),
+                  hl('td.name', i18n.variant[v]),
+                  hl('td.desc', i18n.variant[`${v}Title`]),
                 ],
               ),
             ),

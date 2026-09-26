@@ -1,19 +1,20 @@
 package lila.security
 
 import play.api.i18n.Lang
+import play.api.mvc.{ RequestHeader, Session, Cookie }
 import scalatags.Text.all.*
 
 import lila.core.config.*
 import lila.core.i18n.I18nKey.emails as trans
 import lila.mailer.Mailer
-import lila.user.{ Me, User, UserRepo }
+import lila.user.{ User, UserRepo }
 import lila.core.net.IpAddress
 import lila.memo.RateLimit
 
 final class PasswordReset(
     mailer: Mailer,
     userRepo: UserRepo,
-    baseUrl: BaseUrl,
+    routeUrl: RouteUrl,
     tokenerSecret: Secret
 )(using Executor, lila.core.i18n.Translator, lila.core.config.RateLimit):
 
@@ -22,7 +23,7 @@ final class PasswordReset(
   def send(user: User, email: EmailAddress)(using lang: Lang): Funit =
     tokener.make(user.id).flatMap { token =>
       lila.mon.email.send.resetPassword.increment()
-      val url = s"$baseUrl/password/reset/confirm/$token"
+      val url = routeUrl(routes.Auth.passwordResetConfirm(token))
       mailer.sendOrFail:
         Mailer.Message(
           to = email,
@@ -34,7 +35,7 @@ ${trans.passwordReset_clickOrIgnore.txt()}
 
 $url
 
-${trans.common_orPaste.txt()}"""),
+${trans.common_linkNotWorking.txt()}"""),
           htmlBody = emailMessage(
             pDesc(trans.passwordReset_intro()),
             p(trans.passwordReset_clickOrIgnore()),
@@ -44,8 +45,12 @@ ${trans.common_orPaste.txt()}"""),
         )
     }
 
-  def confirm(token: String): Fu[Option[Me]] =
-    tokener.read(token).flatMapz(userRepo.me).map(_.filter(Granter.canFullyLogin))
+  def confirm(token: String): Fu[Option[User]] =
+    tokener
+      .read(token)
+      .flatMapz(userRepo.notForeverClosedById)
+      .recover:
+        case _: reactivemongo.api.bson.exceptions.BSONValueNotFoundException => none
 
   val limiter: RateLimit.RateLimiter[(EmailAddress, IpAddress)] = RateLimit.combine(
     RateLimit[EmailAddress](credits = 3, duration = 1.day, key = "password.reset.email"),
@@ -61,3 +66,16 @@ ${trans.common_orPaste.txt()}"""),
         email <- userRepo.email(id)
       yield ~hash + email.so(_.value)
   )
+
+object PasswordReset:
+
+  object cookie:
+
+    private val name = "email_pw_reset"
+
+    def get(using req: RequestHeader): Option[EmailAddress] =
+      EmailAddress.from(req.session.get(name))
+
+    def set(lilaCookie: LilaCookie, email: EmailAddress)(using RequestHeader): Cookie =
+      lilaCookie.withSession(remember = false): _ =>
+        Session.emptyCookie + (name -> email.value)

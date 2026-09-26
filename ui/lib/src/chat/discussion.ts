@@ -1,30 +1,39 @@
-import * as licon from '../licon';
+import { blurIfEscape } from '@/common';
+import { pubsub } from '@/pubsub';
+import { tempStorage } from '@/storage';
+import { type VNode, type VNodeData, snabH, thunk, enter, alert, onInsert, input, li, span } from '@/view';
+import { userLink } from '@/view/userLink';
+
+import { licon } from '../licon';
 import * as enhance from '../richText';
-import { userLink } from '../view/userLink';
-import * as spam from './spam';
+import type { ChatCtrl } from './chatCtrl';
 import type { Line } from './interfaces';
-import { h, thunk, type VNode, type VNodeData } from 'snabbdom';
 import { lineAction as modLineAction, flagReport } from './moderation';
 import { presetView } from './preset';
-import type { ChatCtrl } from './chatCtrl';
-import { tempStorage } from '../storage';
-import { pubsub } from '../pubsub';
-import { alert } from '../view/dialogs';
+import * as spam from './spam';
 
 const whisperRegex = /^\/[wW](?:hisper)?\s/;
 const scrollState = { pinToBottom: true, lastScrollTop: 0 };
+let resizeObserver: ResizeObserver | null = null;
+
+const scrollToBottom = (el: HTMLElement, smooth: boolean): void => {
+  if (document.hidden || !smooth) el.scrollTop = el.scrollHeight;
+  else if (el.scrollTop + el.clientHeight < el.scrollHeight)
+    el.scrollTo({ top: el.scrollHeight, behavior: 'smooth' });
+  scrollState.lastScrollTop = el.scrollTop;
+};
 
 export default function (ctrl: ChatCtrl): Array<VNode | undefined> {
   if (!ctrl.chatEnabled()) return [];
   const hasMod = !!ctrl.moderation;
   const vnodes = [
-    h(
-      `ol.mchat__messages.chat-v-${ctrl.vm.domVersion}${hasMod ? '.as-mod' : ''}`,
+    snabH(
+      `ol.mchat__messages.chat-v-${ctrl.vm.domVersion}`,
       {
+        class: { 'as-mod': hasMod },
         attrs: { role: 'log', 'aria-live': 'polite', 'aria-atomic': 'false' },
         hook: {
-          insert(vnode) {
-            const el = vnode.elm as HTMLElement;
+          ...onInsert(el => {
             const $el = $(el).on('click', 'a.jump', (e: Event) => {
               const ply = (e.target as HTMLElement).getAttribute('data-ply');
               if (ply) pubsub.emit('jump', ply);
@@ -50,17 +59,19 @@ export default function (ctrl: ChatCtrl): Array<VNode | undefined> {
               scrollState.lastScrollTop = el.scrollTop;
             });
 
-            requestAnimationFrame(() => (el.scrollTop = el.scrollHeight));
-          },
+            resizeObserver?.disconnect();
+            resizeObserver = new ResizeObserver(() => {
+              if (scrollState.pinToBottom) scrollToBottom(el, false);
+            });
+            resizeObserver.observe(el);
+            requestAnimationFrame(() => scrollToBottom(el, false));
+          }),
           postpatch: (_, vnode) => {
-            const el = vnode.elm as HTMLElement;
-            if (!scrollState.pinToBottom) return;
-
-            if (document.visibilityState === 'hidden') el.scrollTop = el.scrollHeight;
-            else if (el.scrollTop + el.clientHeight < el.scrollHeight)
-              el.scrollTo({ top: el.scrollHeight, behavior: 'smooth' });
-
-            scrollState.lastScrollTop = el.scrollTop;
+            if (scrollState.pinToBottom) scrollToBottom(vnode.elm as HTMLElement, true);
+          },
+          destroy(_) {
+            resizeObserver?.disconnect();
+            resizeObserver = null;
           },
         },
       },
@@ -74,29 +85,24 @@ export default function (ctrl: ChatCtrl): Array<VNode | undefined> {
 }
 
 function renderInput(ctrl: ChatCtrl): VNode | undefined {
-  if (!ctrl.vm.writeable) return;
+  if (!ctrl.vm.writeable) return undefined;
   if ((ctrl.data.loginRequired && !ctrl.data.userId) || ctrl.data.restricted)
-    return h('input.mchat__say', {
-      attrs: { placeholder: i18n.site.loginToChat, disabled: true },
+    return input('text')('.mchat__say', {
+      placeholder: i18n.site.loginToChat,
+      disabled: true,
     });
   let placeholder: string;
   if (ctrl.vm.timeout) placeholder = i18n.site.youHaveBeenTimedOut;
   else if (ctrl.opts.blind) placeholder = 'Chat';
   else placeholder = i18n.site.talkInChat;
-  return h('input.mchat__say', {
-    attrs: {
-      placeholder,
-      autocomplete: 'off',
-      enterkeyhint: 'send',
-      maxlength: 140,
-      disabled: ctrl.vm.timeout || !ctrl.vm.writeable,
-      'aria-label': 'Chat input',
-    },
-    hook: {
-      insert(vnode) {
-        setupHooks(ctrl, vnode.elm as HTMLInputElement);
-      },
-    },
+  return input('text')('.mchat__say', {
+    placeholder,
+    autocomplete: 'off',
+    enterkeyhint: 'send',
+    maxlength: 140,
+    disabled: ctrl.vm.timeout || !ctrl.vm.writeable,
+    'aria-label': 'Chat input',
+    hook: onInsert<HTMLInputElement>(el => setupHooks(ctrl, el)),
   });
 }
 
@@ -111,7 +117,7 @@ let mouchListener: EventListener;
 const setupHooks = (ctrl: ChatCtrl, chatEl: HTMLInputElement) => {
   const inner = tempStorage.make(`chat.input`);
   const storage = {
-    get: (): string | undefined => {
+    get: () => {
       const v = inner.get();
       if (v) {
         try {
@@ -123,7 +129,7 @@ const setupHooks = (ctrl: ChatCtrl, chatEl: HTMLInputElement) => {
           console.log(`Could not parse "chat.input" value ${v}`);
         }
       }
-      return;
+      return undefined;
     },
     set: (txt: string) => {
       inner.set(JSON.stringify([ctrl.data.opponentId || '', txt]));
@@ -137,30 +143,31 @@ const setupHooks = (ctrl: ChatCtrl, chatEl: HTMLInputElement) => {
     if (!ctrl.opts.public && previousText.match(whisperRegex)) chatEl.classList.add('whisper');
   } else if (ctrl.vm.autofocus) chatEl.focus();
 
-  chatEl.addEventListener('keydown', (e: KeyboardEvent) => {
-    if (e.key !== 'Enter') return;
+  chatEl.addEventListener('keydown', e => {
+    blurIfEscape(e);
+    enter(target => {
+      setTimeout(() => {
+        const el = target as HTMLInputElement,
+          txt = el.value,
+          pub = ctrl.opts.public;
 
-    setTimeout(() => {
-      const el = e.target as HTMLInputElement,
-        txt = el.value,
-        pub = ctrl.opts.public;
-
-      if (txt === '')
-        $('.input-move input').each(function (this: HTMLInputElement) {
-          this.focus();
-        });
-      else {
-        if (!ctrl.opts.kobold) spam.selfReport(txt);
-        if (pub && spam.hasTeamUrl(txt)) alert("Please don't advertise teams in the chat.");
+        if (txt === '')
+          $('.input-move input').each(function (this: HTMLInputElement) {
+            this.focus();
+          });
         else {
-          scrollState.pinToBottom = true;
-          ctrl.post(txt);
+          if (!ctrl.opts.kobold) spam.selfReport(txt);
+          if (pub && spam.hasTeamUrl(txt)) alert("Please don't advertise teams in the chat.");
+          else {
+            scrollState.pinToBottom = true;
+            ctrl.post(txt);
+          }
+          el.value = '';
+          storage.inner.remove();
+          if (!pub) el.classList.remove('whisper');
         }
-        el.value = '';
-        storage.inner.remove();
-        if (!pub) el.classList.remove('whisper');
-      }
-    });
+      });
+    })(e);
   });
 
   chatEl.addEventListener('input', (e: KeyboardEvent) =>
@@ -169,12 +176,17 @@ const setupHooks = (ctrl: ChatCtrl, chatEl: HTMLInputElement) => {
         txt = el.value;
 
       el.removeAttribute('placeholder');
-      if (!ctrl.opts.public) el.classList.toggle('whisper', !!txt.match(whisperRegex));
+      if (!ctrl.opts.public) el.classList.toggle('whisper', whisperRegex.test(txt));
       storage.set(txt);
     }),
   );
 
-  site.mousetrap.bind('c', () => chatEl.focus(), undefined, false);
+  site.mousetrap.bind(
+    'c',
+    () => document.querySelector<HTMLInputElement>('input.mchat__say')?.focus(),
+    undefined,
+    false,
+  );
 
   // Ensure clicks remove chat focus.
   // See https://github.com/lichess-org/lila/pull/5323
@@ -228,9 +240,9 @@ function renderText(t: string, opts?: enhance.EnhanceOpts) {
   const processedText = processProfileLink(t);
   if (enhance.isMoreThanText(processedText)) {
     const hook = updateText(opts);
-    return h('t', { lichessChat: processedText, hook: { create: hook, update: hook } });
+    return snabH('t', { lichessChat: processedText, hook: { create: hook, update: hook } });
   }
-  return h('t', processedText);
+  return snabH('t', processedText);
 }
 
 const userThunk = (name: string, title?: string, patronColor?: PatronColor, flair?: Flair) =>
@@ -241,14 +253,14 @@ const actionIcons = (ctrl: ChatCtrl, line: Line): Array<VNode | null> => {
   const icons = [];
   if (ctrl.canPostArbitraryText() && !ctrl.data.resourceId.startsWith('game'))
     icons.push(
-      h('action.reply', {
+      snabH('action.reply', {
         attrs: { 'data-icon': licon.Back, title: 'Reply' },
       }),
     );
   icons.push(
     ctrl.moderation
       ? modLineAction()
-      : h('action.flag', {
+      : snabH('action.flag', {
           attrs: { 'data-icon': licon.CautionTriangle, title: 'Report', 'data-text': line.t },
         }),
   );
@@ -258,9 +270,9 @@ const actionIcons = (ctrl: ChatCtrl, line: Line): Array<VNode | null> => {
 function renderLine(ctrl: ChatCtrl, line: Line): VNode {
   const textNode = renderText(line.t, ctrl.opts.enhance);
 
-  if (line.u === 'lichess') return h('li.system', textNode);
+  if (line.u === 'lichess') return li('.system', textNode);
 
-  if (line.c) return h('li', [h('span.color', '[' + line.c + ']'), textNode]);
+  if (line.c) return li([span('.color', '[' + line.c + ']'), textNode]);
 
   const userNode = thunk('a', line.u, userThunk, [line.u, line.title, line.pc, line.f]);
   const userId = line.u?.toLowerCase();
@@ -272,8 +284,7 @@ function renderLine(ctrl: ChatCtrl, line: Line): VNode {
       .match(enhance.userPattern)
       ?.find(mention => mention.trim().toLowerCase() === `@${ctrl.data.userId}`);
 
-  return h(
-    'li',
+  return li(
     {
       class: {
         me: userId === myUserId,

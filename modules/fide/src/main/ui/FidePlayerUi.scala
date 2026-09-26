@@ -54,12 +54,12 @@ final class FidePlayerUi(helpers: Helpers, fideUi: FideUi, picfitUrl: lila.memo.
       )
     )
 
-  def searchForm(q: String) =
+  def searchForm(q: String)(using Translate) =
     st.form(cls := "fide-players__search-form", action := routes.Fide.index(), method := "get")(
       input(
         cls := "fide-players__search-form__input",
         name := "q",
-        st.placeholder := "Search for players",
+        st.placeholder := trs.search.txt(),
         st.value := q,
         autofocus := true,
         autocomplete := "off",
@@ -84,52 +84,56 @@ final class FidePlayerUi(helpers: Helpers, fideUi: FideUi, picfitUrl: lila.memo.
           )(label)
         )
       else th(label)
-    table(
-      cls := List("slist slist-pad fide-players-table" -> true, "fide-players-table--sortable" -> sortable)
-    )(
-      thead:
-        tr(
-          header(trs.name(), FidePlayerOrder.name),
-          header(trs.classical(), FidePlayerOrder.standard),
-          header(trs.rapid(), FidePlayerOrder.rapid),
-          header(trs.blitz(), FidePlayerOrder.blitz),
-          header(trb.age(), FidePlayerOrder.year),
-          ctx.isAuth.option(header(trs.follow(), FidePlayerOrder.follow))
+    div(cls := "slist-wrapper")(
+      table(
+        cls := List(
+          "slist slist-pad fide-players-table" -> true,
+          "fide-players-table--sortable" -> sortable
         )
-      ,
-      tbody(cls := "infinite-scroll")(
-        players.currentPageResults.map: p =>
-          val player = p.player
-          val link = a(href := routes.Fide.show(player.id, player.slug))
-          tr(cls := "paginated")(
-            td(cls := "player-intro-td")(
-              span(cls := "player-intro")(
-                link(cls := "player-intro__photo"):
-                  player.photo
-                    .fold(thumbnail.fallback(cls := "fide-players__photo fide-players__photo--fallback")):
-                      photo => img(src := thumbnail.url(photo.id, _.Small), cls := "fide-players__photo")
-                ,
-                span(cls := "player-intro__info")(
-                  link(cls := "player-intro__name")(titleTag(player.title), player.name),
-                  player.fed.map: fed =>
-                    span(cls := "player-intro__fed")(
-                      fideUi.federation.flag(fed, none),
-                      Federation.names.get(fed)
-                    )
-                )
-              )
-            ),
-            td(player.standard),
-            td(player.rapid),
-            td(player.blitz),
-            td(player.age),
-            ctx.isAuth.option(td(followButton(p)))
+      )(
+        thead:
+          tr(
+            header(trs.name(), FidePlayerOrder.name),
+            header(trs.classical(), FidePlayerOrder.standard),
+            header(trs.rapid(), FidePlayerOrder.rapid),
+            header(trs.blitz(), FidePlayerOrder.blitz),
+            header(trb.age(), FidePlayerOrder.year),
+            ctx.isAuth.option(header(trs.follow(), FidePlayerOrder.follow))
           )
         ,
-        pagerNextTable(players, np => addQueryParam(url(np).url, "order", order.key))
+        tbody(cls := "infinite-scroll")(
+          players.currentPageResults.map: p =>
+            val player = p.player
+            val link = a(href := routes.Fide.show(player.id, player.slug))
+            tr(cls := "paginated")(
+              td(cls := "player-intro-td")(
+                span(cls := "player-intro")(
+                  link(cls := "player-intro__photo"):
+                    player.photo
+                      .fold(thumbnail.fallback(cls := "fide-players__photo fide-players__photo--fallback")):
+                        photo => img(src := thumbnail.url(photo.id, _.Small), cls := "fide-players__photo")
+                  ,
+                  span(cls := "player-intro__info")(
+                    link(cls := "player-intro__name")(titleTag(player.title), player.name),
+                    player.fed.map: fed =>
+                      span(cls := "player-intro__fed")(
+                        fideUi.federation.flag(fed, none),
+                        Federation.i18nName(fed)
+                      )
+                  )
+                )
+              ),
+              td(player.standard),
+              td(player.rapid),
+              td(player.blitz),
+              td(player.age),
+              ctx.isAuth.option(td(followButton(p)))
+            )
+          ,
+          pagerNextTable(players, np => addQueryParam(url(np).url, "order", order.key))
+        )
       )
     )
-
   private def followButton(p: FidePlayer.WithFollow) =
     val id = s"fide-player-follow-${p.player.id}"
     label(cls := "fide-player__follow")(
@@ -165,7 +169,7 @@ final class FidePlayerUi(helpers: Helpers, fideUi: FideUi, picfitUrl: lila.memo.
         div(cls := "fide-player__header__info")(
           h1(cls := "fide-player__header__name")(
             span(titleTag(player.title), player.name),
-            user.map(userLink(_, withTitle = false)(cls := "fide-player__user"))
+            user.map(userLink(_, withTitle = false))
           ),
           ctx.isAuth.option(followButton(FidePlayer.WithFollow(player, isFollowing))(trans.site.follow())),
           table(cls := "fide-player__header__table")(
@@ -179,7 +183,7 @@ final class FidePlayerUi(helpers: Helpers, fideUi: FideUi, picfitUrl: lila.memo.
                       href := routes.Fide.federation(Federation.idToSlug(fed))
                     )(
                       fideUi.federation.flag(fed, none),
-                      Federation.name(fed)
+                      Federation.i18nName(fed)
                     )
                   )
                 ),
@@ -187,14 +191,15 @@ final class FidePlayerUi(helpers: Helpers, fideUi: FideUi, picfitUrl: lila.memo.
                 th(trb.fideProfile()),
                 td(a(href := s"https://ratings.fide.com/profile/${player.id}")(player.id))
               ),
-              tr(
-                th(trb.age()),
-                td(
-                  player.age,
-                  for by <- player.year; dy <- player.deceasedYear
-                  yield s" ($by - $dy)"
+              player.age.map: age =>
+                tr(
+                  th(trb.age()),
+                  td(
+                    age,
+                    for by <- player.year; dy <- player.deceasedYear
+                    yield s" ($by - $dy)"
+                  )
                 )
-              )
             )
           )
         )

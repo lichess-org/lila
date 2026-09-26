@@ -14,6 +14,8 @@ package routes:
   export lila.core.socket.Sri
   export lila.core.study.StudyOrder
   export lila.core.ublog.{ BlogsBy, QualityFilter as BlogQualityFilter }
+  export lila.core.misc.AppealTopic
+  export lila.ui.MarkdownRealm
   export lila.ui.LilaRouter.given
 
 package router.router:
@@ -30,6 +32,7 @@ package router.router:
   export lila.core.socket.Sri
   export lila.core.study.StudyOrder
   export lila.core.ublog.{ BlogsBy, QualityFilter as BlogQualityFilter }
+  export lila.ui.MarkdownRealm
   export lila.ui.LilaRouter.given
 
 package router.team:
@@ -49,6 +52,7 @@ package router.clas:
 package router.appeal:
 
   export lila.core.userId.UserStr
+  export lila.core.misc.AppealTopic
   export lila.ui.LilaRouter.given
 
 package router.report:

@@ -6,6 +6,7 @@ import alleycats.Zero
 import lila.core.id.*
 import lila.core.study.data.StudyName
 import lila.core.userId.*
+import lila.core.team.LightTeam.TeamName
 
 opaque type UnreadCount = Int
 object UnreadCount extends RelaxedOpaqueInt[UnreadCount]:
@@ -19,6 +20,7 @@ enum NotificationContent(val key: String):
   case InvitedToStudy(invitedBy: UserId, studyName: StudyName, studyId: StudyId)
       extends NotificationContent("invitedStudy")
   case TeamJoined(id: TeamId, name: String) extends NotificationContent("teamJoined")
+  case TeamUpdate(id: TeamId, name: TeamName, text: String) extends NotificationContent("teamUpdate")
   case MentionedInThread(
       mentionedBy: UserId,
       topicName: String,
@@ -33,14 +35,13 @@ enum NotificationContent(val key: String):
       text: Option[String],
       icon: String // should be lila.ui.Icon
   ) extends NotificationContent("genericLink")
-  case ReportedBanned extends NotificationContent("reportedBanned")
+  case ReportedBanned extends NotificationContent("reportedBanned") // BC
   case RatingRefund(perf: String, points: Int) extends NotificationContent("ratingRefund")
   case GameEnd(gameId: GameFullId, opponentId: Option[UserId], win: Option[Boolean])
       extends NotificationContent("gameEnd")
   case StreamStart(streamerId: UserId, streamerName: String) extends NotificationContent("streamStart")
   case BroadcastRound(url: String, title: String, text: String) extends NotificationContent("broadcastRound")
   case TitledTournamentInvitation(id: TourId, text: String) extends NotificationContent("titledTourney")
-  case CoachReview extends NotificationContent("coachReview")
   case PlanStart(userId: UserId) extends NotificationContent("planStart") // BC
   case PlanExpire(userId: UserId) extends NotificationContent("planExpire") // BC
   case CorresAlarm(gameId: GameId, opponent: String) extends NotificationContent("corresAlarm")
@@ -62,6 +63,7 @@ enum PrefEvent:
   case gameEvent
   case invitedStudy
   case broadcastRound
+  case teamUpdate
   def key = toString
 
 opaque type Allows = Int
@@ -88,5 +90,6 @@ abstract class NotifyApi(val prefColl: reactivemongo.api.bson.collection.BSONCol
   import reactivemongo.api.bson.BSONDocument
   def notifyOne[U: UserIdOf](to: U, content: NotificationContent): Funit
   def notifyMany(userIds: Iterable[UserId], content: NotificationContent): Funit
+  def notifyManyUnlessUnread(userIds: Iterable[UserId], content: NotificationContent): Funit
   def markRead(to: UserId, selector: BSONDocument): Funit
   def remove(to: UserId, selector: BSONDocument): Funit

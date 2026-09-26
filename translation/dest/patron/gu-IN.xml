@@ -40,8 +40,6 @@
   <string name="officialNonProfit">શું Lichess એક સત્તાવાર બિન-લાભકારી સંસ્થા છે?</string>
   <string name="actOfCreation">હા, અહીં સર્જનની ક્રિયા છે (ફ્રેન્ચમાં)</string>
   <string name="changeMonthlySupport">શું હું મારી માસિક સહાય બદલી/રદ કરી શકું?</string>
-  <string name="changeOrContact">હા, ગમે ત્યારે, આ પેજ પરથી.
-અથવા તમે %s કરી શકો છો.</string>
   <string name="contactSupport">Lichess સપોર્ટનો સંપર્ક કરો</string>
   <string name="otherMethods">દાનની અન્ય પદ્ધતિઓ?</string>
   <string name="lichessIsRegisteredWith">Lichess %s સાથે નોંધાયેલ છે.</string>

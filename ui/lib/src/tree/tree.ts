@@ -1,7 +1,7 @@
-import * as treePath from './path';
-import * as ops from './ops';
 import { defined } from '../index';
-import type { Clock, Glyph, Shape, TreeComment, TreeNode, TreePath } from './types';
+import * as ops from './ops';
+import * as treePath from './path';
+import type { Clock, Glyph, Shape, TreeComment, TreeNode, TreePath, TreeNodeLite } from './types';
 
 export { treePath as path, ops };
 
@@ -24,13 +24,12 @@ export interface TreeWrapper {
   pathIsMainline(path: TreePath): boolean;
   pathIsForcedVariation(path: TreePath): boolean;
   lastMainlineNode(path: TreePath): TreeNode;
-  extendPath(path: TreePath, isMainline: boolean): TreePath;
   pathExists(path: TreePath): boolean;
   deleteNodeAt(path: TreePath): void;
   promoteAt(path: TreePath, toMainline: boolean): void;
   forceVariationAt(path: TreePath, force: boolean): MaybeNode;
   getCurrentNodesAfterPly(nodeList: TreeNode[], mainline: TreeNode[], ply: number): TreeNode[];
-  merge(tree: TreeNode): void;
+  merge<T extends TreeNodeLite>(tree: T): void;
   removeCeval(): void;
   parentNode(path: TreePath): TreeNode;
   getParentClock(node: TreeNode, path: TreePath): Clock | undefined;
@@ -52,9 +51,9 @@ export function makeTree(root: TreeNode): TreeWrapper {
     return child ? nodeAtPathFrom(child, treePath.tail(path)) : node;
   }
 
-  const nodeAtPathOrNull = (path: TreePath): TreeNode | undefined => nodeAtPathOrNullFrom(root, path);
+  const nodeAtPathOrNull = (path: TreePath): MaybeNode => nodeAtPathOrNullFrom(root, path);
 
-  function nodeAtPathOrNullFrom(node: TreeNode, path: TreePath): TreeNode | undefined {
+  function nodeAtPathOrNullFrom(node: TreeNode, path: TreePath): MaybeNode {
     if (path === '') return node;
     const child = ops.childById(node, treePath.head(path));
     return child ? nodeAtPathOrNullFrom(child, treePath.tail(path)) : undefined;
@@ -86,7 +85,7 @@ export function makeTree(root: TreeNode): TreeWrapper {
 
   const pathExists = (path: TreePath): boolean => !!nodeAtPathOrNull(path);
 
-  const pathIsForcedVariation = (path: TreePath): boolean => !!getNodeList(path).find(n => n.forceVariation);
+  const pathIsForcedVariation = (path: TreePath): boolean => getNodeList(path).some(n => n.forceVariation);
 
   function lastMainlineNodeFrom(node: TreeNode, path: TreePath): TreeNode {
     if (path === '') return node;
@@ -97,21 +96,14 @@ export function makeTree(root: TreeNode): TreeWrapper {
   }
 
   const getNodeList = (path: TreePath): TreeNode[] =>
-    ops.collect(root, function (node: TreeNode) {
+    ops.collect(root, (node: TreeNode) => {
       const id = treePath.head(path);
-      if (id === '') return;
+      if (id === '') return undefined;
       path = treePath.tail(path);
       return ops.childById(node, id);
     });
 
-  const extendPath = (path: TreePath, isMainline: boolean): TreePath => {
-    let currNode = nodeAtPath(path);
-    while ((currNode = currNode?.children[0]) && !(isMainline && currNode.forceVariation))
-      path += currNode.id;
-    return path;
-  };
-
-  function updateAt(path: TreePath, update: (node: TreeNode) => void): TreeNode | undefined {
+  function updateAt(path: TreePath, update: (node: TreeNode) => void): MaybeNode {
     const node = nodeAtPathOrNull(path);
     if (node) update(node);
     return node;
@@ -190,7 +182,7 @@ export function makeTree(root: TreeNode): TreeWrapper {
   function walkUntilTrue(
     fn: (node: TreeNode, isMainline: boolean) => boolean,
     from: TreePath = '',
-    branchOnly: boolean = false,
+    branchOnly = false,
   ) {
     function traverse(node: TreeNode, isMainline: boolean): boolean {
       if (fn(node, isMainline)) return true;
@@ -230,7 +222,6 @@ export function makeTree(root: TreeNode): TreeWrapper {
     pathIsMainline,
     pathIsForcedVariation,
     lastMainlineNode: (path: TreePath): TreeNode => lastMainlineNodeFrom(root, path),
-    extendPath,
     pathExists,
     deleteNodeAt,
     promoteAt,
@@ -239,7 +230,7 @@ export function makeTree(root: TreeNode): TreeWrapper {
       return updateAt(path, node => (node.forceVariation = force));
     },
     getCurrentNodesAfterPly,
-    merge: (tree: TreeNode) => ops.merge(root, tree),
+    merge: <T extends TreeNodeLite>(tree: T) => ops.merge(root, tree),
     removeCeval: () =>
       ops.updateAll(root, function (n) {
         delete n.ceval;

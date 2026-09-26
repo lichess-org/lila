@@ -15,43 +15,43 @@ final class SubscriptionRepo(colls: Colls, userRepo: lila.core.user.UserRepo)(us
     coll
       .aggregateOne(_.sec): framework =>
         import framework.*
-        Match($doc("s" -> streamerId)) -> List(
+        Match(bdoc("s" -> streamerId)) -> List(
           PipelineOperator(
-            $lookup.simple(
+            lookup.simple(
               from = userRepo.coll,
               as = "user",
               local = "u",
               foreign = "_id",
               pipe = List(
-                $doc("$match" -> $expr($doc("$gt" -> $arr("$seenAt", nowInstant.minusDays(daysAgo))))),
-                $doc("$project" -> $id(true))
+                bdoc("$match" -> bdoc("seenAt".gt(nowInstant.minusDays(daysAgo)))),
+                bdoc("$project" -> bid(true))
               )
             )
           ),
-          Match("user".$ne($arr())),
+          Match("user".neq(barr())),
           Group(BSONNull)(
             "ids" -> PushField("u")
           )
         )
       .map(~_.flatMap(_.getAsOpt[List[UserId]]("ids")))
 
-  def subscribe(userId: UserId, streamerId: UserId): Funit =
-    coll.update
-      .one(
-        $id(makeId(userId, streamerId)),
-        $doc("u" -> userId, "s" -> streamerId),
-        upsert = true
-      )
-      .void
-
-  def unsubscribe(userId: UserId, streamerId: UserId): Funit =
-    coll.delete.one($id(makeId(userId, streamerId))).void
+  def subscribe(userId: UserId, streamerId: UserId, v: Boolean): Funit =
+    if v
+    then
+      coll.update
+        .one(
+          bid(makeId(userId, streamerId)),
+          bdoc("u" -> userId, "s" -> streamerId),
+          upsert = true
+        )
+        .void
+    else coll.delete.one(bid(makeId(userId, streamerId))).void
 
   def isSubscribed[U: UserIdOf, S: UserIdOf](userId: U, streamerId: S): Fu[Boolean] =
-    coll.exists($id(makeId(userId.id, streamerId.id)))
+    coll.exists(bid(makeId(userId.id, streamerId.id)))
 
   // only use "_id", not "s", so that mongo can work entirely from the index
   def filterSubscribed(subscriber: UserId, streamerIds: List[UserId]): Fu[Set[UserId]] =
-    coll.distinctEasy[String, Set]("_id", $inIds(streamerIds.map(makeId(subscriber, _)))).map { ids =>
+    coll.distinctEasy[String, Set]("_id", inIds(streamerIds.map(makeId(subscriber, _)))).map { ids =>
       UserId.from(ids.flatMap(_.split('/').lift(1)))
     }

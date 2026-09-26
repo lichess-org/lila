@@ -1,9 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="zeroAdsAndNoTracking">Без реклами и проследяване</string>
+  <string name="correspondenceWithConditionalPremoves">Кореспондентен шах с условни предварителни ходове</string>
+  <string name="standardChessAndX" comment="%s is 8 variants">Стандартен шах и %s</string>
+  <string name="deepXServerAnalysis" comment="%s is the engine name">Дълбок сървърен анализ със %s</string>
   <plurals name="gamesPerDay">
     <item quantity="one">%s игра на ден</item>
     <item quantity="other">%s игри на ден</item>
   </plurals>
+  <string name="boardEditorAndAnalysisBoardWithEngine" comment="%s is the engine name (Stockfish, Fairy-Stockfish)">Редактор на дъската и дъска за анализ със %s</string>
+  <string name="cloudEngineAnalysis">Облачен анализ от енджин</string>
+  <string name="studies">Студии (анализи с възможност за споделяне и запазване)</string>
+  <string name="chessInsights">Шахматни прозрения (подробен анализ на играта ви)</string>
+  <string name="allChessBasicsLessons">Всички уроци за основите на шаха</string>
+  <string name="tacticalPuzzlesFromUserGames">Тактически пъзели от игри на потребители</string>
+  <string name="personalOpeningExplorerX">%1$s (работи и за %2$s)</string>
+  <string name="personalOpeningExplorer">Личен изследовател на дебюти</string>
+  <string name="globalOpeningExplorerInNbGames">Глобален изследовател на дебюти (%s игри!)</string>
+  <string name="endgameTablebase">Таблица за 7-фигурни ендшпили</string>
+  <string name="downloadOrUploadAnyGameAsPgn">Изтегляне/качване на всяка игра като PGN</string>
+  <string name="tvForumBlogTeamsMessagingFriendsChallenges">Блог, форум, отбори, TV, съобщения, приятели, предизвикателства</string>
   <string name="lightOrDarkThemeCustomBoardsPiecesAndBackground">Светла/Тъмна тема, персонализирана дъска, фигури и фон</string>
-  <string name="supportUsWithAPatronAccount">Подкрепете ни като Patron!</string>
+  <string name="ultraBulletBulletBlitzRapidClassicalAndCorrespondenceChess">UltraBullet, Bullet, Blitz, Rapid, Classical, Кореспондентен шах</string>
+  <string name="allFeaturesToCome">Всички бъдещи функции, завинаги!</string>
+  <string name="landscapeSupportOnApp">iPhone и Android телефони и таблети, поддръжка на хоризонтален режим</string>
+  <string name="everybodyGetsAllFeaturesForFree">Да, и двата вида профили имат едни и същи функции!</string>
+  <string name="weBelieveEveryChessPlayerDeservesTheBest">Вярваме, че всеки шахматист заслужава най-доброто, затова:</string>
+  <string name="allFeaturesAreFreeForEverybody">Всички функции са безплатни за всички, завинаги!</string>
+  <string name="ifYouLoveLichess">Ако обичате Lichess,</string>
+  <string name="supportUsWithAPatronAccount">Подкрепете ни, като станете наш меценат!</string>
 </resources>

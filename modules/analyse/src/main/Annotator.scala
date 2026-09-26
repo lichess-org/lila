@@ -9,9 +9,9 @@ import lila.tree.{ Advice, Analysis, StatusText }
 
 final class Annotator(netDomain: lila.core.config.NetDomain) extends lila.tree.Annotator:
 
-  def apply(p: Pgn, game: Game, analysis: Option[Analysis]): Pgn =
+  def apply(p: Pgn, game: Game, analysis: Option[Analysis], opening: Option[Opening.AtPly]): Pgn =
     annotateStatus(game.winnerColor, game.status):
-      annotateOpening(game.opening) {
+      annotateOpening(opening) {
         annotateTurns(
           annotateDrawOffers(p, game.drawOffers),
           analysis.so(_.advices)
@@ -21,14 +21,14 @@ final class Annotator(netDomain: lila.core.config.NetDomain) extends lila.tree.A
       )
 
   def addEvals(p: Pgn, analysis: Analysis): Pgn =
-    analysis.infos.foldLeft(p) { (pgn, info) =>
-      pgn
-        .updatePly(
-          info.ply,
-          move => move.copy(comments = info.pgnComment.toList ::: move.comments)
-        )
-        .getOrElse(pgn)
-    }
+    lila.mon.Chronometer.syncMon(lila.mon.analyse.annotator.addEvalsTime):
+      analysis.infos.foldLeft(p): (pgn, info) =>
+        pgn
+          .updatePly(
+            info.ply,
+            move => move.copy(comments = info.pgnComment.toList ::: move.comments)
+          )
+          .getOrElse(pgn)
 
   // merge analysis & eval comments
   // 1. e4 { [%eval 0.17] } { [%clk 0:00:30] }

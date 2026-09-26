@@ -58,7 +58,11 @@ final class Env(
 
   val markdown = wire[MarkdownCache]
 
-  lila.common.Cli.handle:
+  val viewerCount = wire[ViewerCountApi]
+
+  val proxy = wire[HttpProxy]
+
+  lila.common.Cli.handle():
     case "cache" :: "clear" :: name :: Nil =>
       cacheApi.clearByName(name) match
         case Some(nb) => fuccess(s"Cleared $nb entries from cache $name")

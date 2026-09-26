@@ -7,7 +7,7 @@
   <string name="enterPassword">Орнатуды аяқтау үшін құпиясөзді, әрі қолданба шығарған өкіл-растау құлыпсанын жазыңыз. Тіркелгіге әр кірерде жаңа құлыпсан керек болады.</string>
   <string name="ifYouCannotScanEnterX">Егер кодты сканерлеу мүмкін болмай тұрса, қолданбаңызға құпия %s енгізіңіз.</string>
   <string name="authenticationCode">Өкіл-растау құлыпсаны</string>
-  <string name="ifYouLoseAccessTwoFactor" comment="%s is &quot;Password reset&quot;.">Ескертпе: Егер екісатылы өкіл-растау құлыпсанын алу жолдарынан айрылсаңыз, пошта арқылы %s амалы бар.</string>
+  <string name="ifYouLoseAccessTwoFactor">Ескертпе: Егер екісатылы өкіл-растау құлыпсанын алу жолдарынан айрылсаңыз, пошта арқылы %s амалы бар.</string>
   <string name="enableTwoFactor">Екісатылы өкіл-растауды қосу</string>
   <string name="disableTwoFactor">Екісатылы өкіл-растауды өшіру</string>
   <string name="twoFactorEnabled">Екісатылы өкіл-растау қосылған</string>

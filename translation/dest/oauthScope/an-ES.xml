@@ -21,7 +21,6 @@
   <string name="puzzleRead">Leyer l\'actividat de problemas</string>
   <string name="teamRead">Leyer la información privada d\'equipo</string>
   <string name="teamWrite">Unir-te y deixar equipos</string>
-  <string name="teamLead">Chestionar equipos que lideras: ninviar mensaches privaus, forachitar miembros</string>
   <string name="followRead">Leyer los chugadors seguius</string>
   <string name="followWrite">Seguir y deixar de seguir a atros chugadors</string>
   <string name="msgWrite">Ninviar mensaches privaus a atros chugadors</string>
@@ -29,6 +28,5 @@
   <string name="botPlay">Chugar con l\'API de bot</string>
   <string name="engineRead">Veyer y usar los tuyos modulos externos</string>
   <string name="engineWrite">Crear y esviellar modulos externos</string>
-  <string name="webLogin">Crear sesions web autentificadas (da acceso completo!)</string>
   <string name="webMod">Usar ferramientas de moderador (con los limites d\'os tuyos permisos)</string>
 </resources>

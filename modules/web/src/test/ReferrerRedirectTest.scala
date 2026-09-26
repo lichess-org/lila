@@ -5,36 +5,37 @@ import lila.core.config.BaseUrl
 class ReferrerRedirectTest extends munit.FunSuite:
 
   def r = new ReferrerRedirect(BaseUrl("https://lichess.org"))
+  def valid(ref: String) = r.valid(ref).map(_.value)
 
   test("be valid"):
-    assertEquals(r.valid("/tournament"), Some("https://lichess.org/tournament"))
-    assertEquals(r.valid("/@/neio"), Some("https://lichess.org/@/neio"))
-    assertEquals(r.valid("/@/Neio"), Some("https://lichess.org/@/Neio"))
-    assertEquals(r.valid("/"), Some("https://lichess.org/"))
-    assertEquals(r.valid("https://lichess.org/tournament"), Some("https://lichess.org/tournament"))
+    assertEquals(valid("/tournament"), Some("https://lichess.org/tournament"))
+    assertEquals(valid("/@/neio"), Some("https://lichess.org/@/neio"))
+    assertEquals(valid("/@/Neio"), Some("https://lichess.org/@/Neio"))
+    assertEquals(valid("/"), Some("https://lichess.org/"))
+    assertEquals(valid("https://lichess.org/tournament"), Some("https://lichess.org/tournament"))
     assertEquals(
-      r.valid("https://lichess.org/?a_a=b-b&C[]=#hash"),
+      valid("https://lichess.org/?a_a=b-b&C[]=#hash"),
       Some("https://lichess.org/?a_a=b-b&C[]=#hash")
     )
-    assertEquals(r.valid("/api"), Some("https://lichess.org/api"))
-    assertEquals(r.valid("/something/api/something"), Some("https://lichess.org/something/api/something"))
+    assertEquals(valid("/api"), Some("https://lichess.org/api"))
+    assertEquals(valid("/something/api/something"), Some("https://lichess.org/something/api/something"))
 
   test("be invalid"):
-    assertEquals(r.valid(""), None)
-    assertEquals(r.valid("//foo.lichess.org"), None)
-    assertEquals(r.valid("ftp://lichess.org/tournament"), None)
-    assertEquals(r.valid("https://evil.com"), None)
-    assertEquals(r.valid("https://evil.com/foo"), None)
-    assertEquals(r.valid("//evil.com"), None)
-    assertEquals(r.valid("//lichess.org.evil.com"), None)
-    assertEquals(r.valid("/\t/evil.com"), None)
-    assertEquals(r.valid("/ /evil.com"), None)
-    assertEquals(r.valid("http://lichess.org/"), None) // downgrade to http
-    assertEquals(r.valid("/login"), None)
-    assertEquals(r.valid("/account/personal-data"), None)
-    assertEquals(r.valid("/api/games/user/Cammy"), None)
-    assertEquals(r.valid("/api/broadcast/abcdefgh"), None)
-    assertEquals(r.valid("https://lichess.org/api/broadcast/abcdefgh"), None)
-    assertEquals(r.valid("https://lichess.org/something.pgn"), None)
-    assertEquals(r.valid("https://lichess.org/swiss/abcdefgh.trf"), None)
-    assertEquals(r.valid("https://lichess.org/games/export/Cammy"), None)
+    assertEquals(valid(""), None)
+    assertEquals(valid("//foo.lichess.org"), None)
+    assertEquals(valid("ftp://lichess.org/tournament"), None)
+    assertEquals(valid("https://evil.com"), None)
+    assertEquals(valid("https://evil.com/foo"), None)
+    assertEquals(valid("//evil.com"), None)
+    assertEquals(valid("//lichess.org.evil.com"), None)
+    assertEquals(valid("/\t/evil.com"), None)
+    assertEquals(valid("/ /evil.com"), None)
+    assertEquals(valid("http://lichess.org/"), None) // downgrade to http
+    assertEquals(valid("/login"), None)
+    assertEquals(valid("/account/personal-data"), None)
+    assertEquals(valid("/api/games/user/Cammy"), None)
+    assertEquals(valid("/api/broadcast/abcdefgh"), None)
+    assertEquals(valid("https://lichess.org/api/broadcast/abcdefgh"), None)
+    assertEquals(valid("https://lichess.org/something.pgn"), None)
+    assertEquals(valid("https://lichess.org/swiss/abcdefgh.trf"), None)
+    assertEquals(valid("https://lichess.org/games/export/Cammy"), None)

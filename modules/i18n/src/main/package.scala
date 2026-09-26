@@ -9,7 +9,7 @@ private type Count = Long
 private type MessageKey = String
 private type MessageMap = java.util.Map[MessageKey, Translation]
 
-private val logger = lila.log("i18n")
+private lazy val logger = lila.log("i18n")
 
 private val lichessCodes: Map[String, Lang] = Map(
   "fp" -> Lang("frp", "IT"),

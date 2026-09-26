@@ -24,13 +24,22 @@ case class FidePlayer(
     blitzK: Option[KFactor],
     year: Option[Int],
     deceasedYear: Option[Int] = None,
-    inactive: Boolean
+    gender: Option[FidePlayer.Gender] = None,
+    // FIDE flags inactivity separately in each rating list
+    inactive: Set[FideTC]
 ) extends lila.core.fide.Player:
+
+  def isInactiveForTc(tc: FideTC): Boolean = inactive(tc)
+
+  // Flagged inactive by FIDE, in every time control they're rated in.
+  def isInactive: Boolean = inactive.nonEmpty && ratingsMap.keys.forall(inactive.contains)
 
   def ratingOf(tc: FideTC): Option[Elo] = tc match
     case FideTC.standard => standard
     case FideTC.rapid => rapid
     case FideTC.blitz => blitz
+
+  def ratingOfOrStandard(tc: FideTC): Option[Elo] = ratingOf(tc).orElse(standard)
 
   def kFactorOf(tc: FideTC): KFactor = tc
     .match
@@ -39,7 +48,7 @@ case class FidePlayer(
       case FideTC.blitz => blitzK
     .|(KFactor.default)
 
-  def slug: String = FidePlayer.slugify(name)
+  lazy val slug: String = FidePlayer.slugify(name)
 
   def age: Option[Int] =
     val nowYear = nowInstant.date.getYear
@@ -51,7 +60,7 @@ case class FidePlayer(
   def isSame(other: FidePlayer) = fideData == other.fideData
 
   private def fideData =
-    (name, fed, title, standard, standardK, rapid, rapidK, blitz, blitzK, year, inactive)
+    (name, fed, title, standard, standardK, rapid, rapidK, blitz, blitzK, year, gender, inactive)
 
   def ratingsStr = List(
     "Standard" -> standard,
@@ -84,7 +93,10 @@ object FidePlayer:
 
   case class WithFollow(player: FidePlayer, follow: Boolean)
 
-  private[fide] val tokenize: Tokenize =
+  opaque type Gender = Char
+  object Gender extends TotalWrapper[Gender, Char]
+
+  private[fide] val tokenize: Tokenize = Tokenize:
     val nonLetterRegex = """[^a-zA-Z0-9\s]+""".r
     val splitRegex = """\W""".r
     str =>

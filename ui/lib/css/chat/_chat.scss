@@ -1,9 +1,7 @@
 @import '../form/cmn-toggle';
-
 @import 'tab';
 @import 'members';
 @import 'discussion';
-@import 'voicechat';
 
 .mchat {
   @extend %box-neat-force, %flex-column;
@@ -26,6 +24,7 @@
       line-height: 1.7em;
       outline: none;
       resize: none;
+
       &:focus {
         border-color: $c-primary;
       }

@@ -9,6 +9,7 @@ import play.api.libs.ws.StandaloneWSClient
 import scalalib.ThreadLocalRandom
 
 import lila.common.Json.given
+import lila.mon.extensions.*
 import lila.memo.SettingStore
 
 final private class FishnetOpeningBook(
@@ -24,6 +25,7 @@ final private class FishnetOpeningBook(
   def apply(game: Game, level: Int): Fu[Option[Uci]] =
     (game.ply < depth.get() && !outOfBook.get(game.id)).so:
       ws.url(s"${config.explorerEndpoint}/lichess")
+        .withHttpHeaders("Authorization" -> s"Bearer ${config.explorerOauthToken.value}")
         .withRequestTimeout(800.millis)
         .withQueryStringParameters(
           "variant" -> game.variant.key.value,
@@ -50,7 +52,7 @@ final private class FishnetOpeningBook(
           none
         }
         .monTry: res =>
-          _.fishnet.openingBook(
+          lila.mon.fishnet.openingBook(
             variant = game.variant,
             hit = res.toOption.exists(_.isDefined)
           )

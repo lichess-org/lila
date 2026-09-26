@@ -56,12 +56,8 @@
   <string name="scrollOnTheBoardToReplayMoves">Bläddra på tavlan för att spela upp rörelser</string>
   <string name="correspondenceEmailNotification">Daglig e-postavisering som listar dina korrespondensspel</string>
   <string name="notifyStreamStart">Strömmen går igång</string>
-  <string name="notifyInboxMsg">Nytt meddelande i inkorgen</string>
-  <string name="notifyForumMention">Forumkommentar nämner dig</string>
-  <string name="notifyInvitedStudy">Inbjudan till studier</string>
   <string name="notifyGameEvent">Korrespondensspelsuppdateringar</string>
   <string name="notifyChallenge">Utmaningar</string>
-  <string name="notifyTournamentSoon">Turneringen startar snart</string>
   <string name="notifyTimeAlarm">Korrespondensklockans tid tar slut</string>
   <string name="notifyBell">Spela upp ett klockljud vid ny avisering</string>
   <string name="notifyPush">Enhetsnotifiering när du inte använder Lichess</string>
@@ -69,4 +65,9 @@
   <string name="notifyDevice">Enhet</string>
   <string name="bellNotificationSound">Klock-notisljud</string>
   <string name="blindfold" comment="As in Blindfold chess">I blindo</string>
+  <string name="generalSettings">Allmänt</string>
+  <string name="moveListSettings">Draglista</string>
+  <string name="boardSettings">Bräde</string>
+  <string name="analysisSettings">Analysinställningar</string>
+  <string name="hoverOverSettingLabelsForHelp">Håll muspekaren över inställningsetiketterna för hjälp</string>
 </resources>

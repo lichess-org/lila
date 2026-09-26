@@ -1,4 +1,10 @@
 #dasher_app {
+  .links {
+    @extend %box-radius-top-left;
+
+    overflow: hidden;
+  }
+
   .links,
   .subs {
     padding: 5px 0;
@@ -8,7 +14,6 @@
   .links button,
   .subs .sub {
     @extend %nowrap-hidden;
-    @extend %button-none;
 
     display: block;
     padding: 0.5rem 1rem;
@@ -24,9 +29,11 @@
 
   .links .line {
     width: auto;
+
     &::before {
       display: inline-block;
       margin-inline: 0 0.4em;
+
       @include if-rtl {
         transform: scaleX(-1);
       }
@@ -50,8 +57,6 @@
   .links button {
     width: 100%;
     text-align: start;
-    border: 0;
-    background: none;
   }
 
   .subs:not(:first-child) {
@@ -66,6 +71,36 @@
       color: $c-dasher;
     }
 
+    &:hover::before {
+      color: $c-over;
+      opacity: 0.9;
+    }
+  }
+
+  .subs .sub {
+    display: flex;
+    align-items: center;
+    height: 34px;
+
+    &.language::before {
+      content: $licon-Language;
+    }
+
+    &::before {
+      font-family: lichess;
+      margin: 0;
+      margin-inline-end: 0.4em; // match .links line::before
+      font-size: 1.2em;
+    }
+
+    &::after {
+      font-family: lichess;
+      margin-inline-start: auto;
+      color: $c-dasher;
+      content: $licon-GreaterThan;
+    }
+
+    &:hover::after,
     &:hover::before {
       color: $c-over;
       opacity: 0.9;

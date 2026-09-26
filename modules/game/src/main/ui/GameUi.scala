@@ -5,10 +5,10 @@ import chess.format.Fen
 import chess.format.pgn.PgnStr
 
 import lila.core.game.{ Game, Player }
+import lila.core.i18n.I18nKey
 import lila.game.GameExt.*
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.game.Player.nameSplit
 
 final class GameUi(helpers: Helpers):
@@ -24,21 +24,23 @@ final class GameUi(helpers: Helpers):
     def apply(
         pov: Pov,
         ownerLink: Boolean = false,
-        tv: Boolean = false,
-        withLink: Boolean = true
-    )(using
-        ctx: Context
-    ): Tag =
+        tv: Boolean = false
+    )(using ctx: Context): Tag =
       renderMini(
         pov,
-        withLink.option(gameLink(pov.game, pov.color, ownerLink, tv)),
+        gameLink(pov.game, pov.color, ownerLink, tv),
         showRatings = ctx.pref.showRatings
       )
 
+    def many(games: List[Game])(using Context): Frag =
+      val color = chess.White
+      games.map: g =>
+        renderMini(g.pov(color), gameLink(g, color))
+
     def noCtx(pov: Pov, tv: Boolean = false, channelKey: Option[String] = None): Tag =
-      val link = if tv then channelKey.fold(routes.Tv.index) { routes.Tv.onChannel }
+      val link = if tv then channelKey.fold(routes.Tv.index)(routes.Tv.onChannel)
       else routes.Round.watcher(pov.gameId, pov.color)
-      renderMini(pov, link.url.some)(using transDefault, None)
+      renderMini(pov, link.url)(using transDefault, None)
 
     def renderState(pov: Pov)(using me: Option[Me]) =
       val fen =
@@ -51,12 +53,11 @@ final class GameUi(helpers: Helpers):
 
     private def renderMini(
         pov: Pov,
-        link: Option[String],
+        link: String,
         showRatings: Boolean = true
     )(using Translate, Option[Me]): Tag =
       import pov.game
-      val tag = if link.isDefined then a else span
-      tag(
+      a(
         href := link,
         cls := s"mini-game mini-game-${game.id} mini-game--init ${game.variant.key} is2d",
         dataLive := game.isBeingPlayed.option(game.id),
@@ -99,11 +100,18 @@ final class GameUi(helpers: Helpers):
     else if game.hasAi then Icon.Cogs
     else game.perfType.icon
 
+  def abortReason(game: Game): I18nKey =
+    game.abortedBy match
+      case Some(chess.White) => trans.site.whiteAborted
+      case Some(chess.Black) => trans.site.blackAborted
+      case None if game.playedPlies.turn.white => trans.site.whiteDidntMove
+      case None => trans.site.blackDidntMove
+
   def gameEndStatus(game: Game)(using Translate): String =
     import chess.{ White, Black, Status as S }
     import lila.game.GameExt.drawReason
     game.status match
-      case S.Aborted => trans.site.gameAborted.txt()
+      case S.Aborted => abortReason(game).txt()
       case S.Mate => trans.site.checkmate.txt()
       case S.Resign =>
         (if game.loser.exists(_.color.white) then trans.site.whiteResigned else trans.site.blackResigned)
@@ -130,13 +138,13 @@ final class GameUi(helpers: Helpers):
         trans.site.drawClaimed.txt() + " • " + trans.site.insufficientMaterial.txt()
       case S.Outoftime =>
         (game.turnColor, game.loser) match
-          case (White, Some(_)) => trans.site.whiteTimeOut.txt()
-          case (White, None) => trans.site.whiteTimeOut.txt() + " • " + trans.site.draw.txt()
-          case (Black, Some(_)) => trans.site.blackTimeOut.txt()
-          case (Black, None) => trans.site.blackTimeOut.txt() + " • " + trans.site.draw.txt()
+          case (White, Some(_)) => trans.site.whiteRanOutOfTime.txt()
+          case (White, None) => trans.site.whiteRanOutOfTime.txt() + " • " + trans.site.draw.txt()
+          case (Black, Some(_)) => trans.site.blackRanOutOfTime.txt()
+          case (Black, None) => trans.site.blackRanOutOfTime.txt() + " • " + trans.site.draw.txt()
       case S.NoStart =>
-        (if game.loser.exists(_.color.white) then trans.site.whiteDidntMove else trans.site.blackDidntMove)
-          .txt()
+        if game.loser.exists(_.color.white) then trans.site.whiteDidntMove.txt()
+        else trans.site.blackDidntMove.txt()
       case S.Cheat => trans.site.cheatDetected.txt()
       case S.VariantEnd =>
         game.variant match
@@ -243,11 +251,11 @@ final class GameUi(helpers: Helpers):
 
   object widgets:
 
-    val separator = " • "
+    val separator = span(" • ")(cls := "separator")
 
-    def apply(g: Game, note: Option[String], user: Option[User], ownerLink: Boolean)(
+    def apply(g: Game, user: Option[User], ownerLink: Boolean)(
         contextLink: Option[Tag]
-    )(using Context): Frag =
+    )(using ctx: Context): Frag =
       val fromPlayer = user.flatMap(g.player)
       val firstPlayer = fromPlayer | g.player(g.naturalOrientation)
       st.article(cls := "game-row paginated")(
@@ -261,7 +269,19 @@ final class GameUi(helpers: Helpers):
               contextLink.map(l => frag(separator, l))
             )
           ),
-          content(g, note, fromPlayer)
+          div(cls := "versus")(
+            gamePlayer(g.whitePlayer),
+            div(cls := "swords", dataIcon := Icon.Swords),
+            gamePlayer(g.blackPlayer)
+          ),
+          result(g, fromPlayer),
+          if g.playedPlies > 0 && ctx.isAuth then opening(g) else frag(br, br),
+          g.metadata.analysed.option(
+            div(cls := "metadata text", dataIcon := Icon.BarChart)(trans.site.computerAnalysisAvailable())
+          ),
+          g.pgnImport.flatMap(_.user).map { user =>
+            div(cls := "metadata")("PGN import by ", userIdLink(user.some))
+          }
         )
       )
 
@@ -273,24 +293,6 @@ final class GameUi(helpers: Helpers):
         if pov.game.variant == chess.variant.RacingKings then chess.White else pov.player.color,
         pov.game.history.lastMove
       )
-
-    def content(g: Game, note: Option[String], as: Option[Player])(using Context) = frag(
-      div(cls := "versus")(
-        gamePlayer(g.whitePlayer),
-        div(cls := "swords", dataIcon := Icon.Swords),
-        gamePlayer(g.blackPlayer)
-      ),
-      result(g, as),
-      if g.playedPlies > 0 then opening(g) else frag(br, br),
-      note.map: note =>
-        div(cls := "notes")(strong("Notes: "), note),
-      g.metadata.analysed.option(
-        div(cls := "metadata text", dataIcon := Icon.BarChart)(trans.site.computerAnalysisAvailable())
-      ),
-      g.pgnImport.flatMap(_.user).map { user =>
-        div(cls := "metadata")("PGN import by ", userIdLink(user.some))
-      }
-    )
 
     def source(g: Game)(using Context) =
       strong(
@@ -346,9 +348,7 @@ final class GameUi(helpers: Helpers):
 
     private def opening(g: Game) =
       div(cls := "opening")(
-        g.fromPosition.not.so(g.opening).map { opening =>
-          strong(opening.opening.name)
-        },
+        gameOpening(g, false).map(o => strong(o.name)),
         div(cls := "pgn")(
           g.sans
             .take(6)
@@ -370,7 +370,7 @@ final class GameUi(helpers: Helpers):
           gameEndStatus(g),
           g.winner.map: winner =>
             frag(
-              " • ",
+              span(" • ")(cls := "separator"),
               winner.color.fold(trans.site.whiteIsVictorious(), trans.site.blackIsVictorious())
             )
         )

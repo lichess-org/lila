@@ -15,8 +15,8 @@ $col2-panel-height: 240px;
     justify-content: center;
     align-items: flex-start;
 
-    > span {
-      @extend %roboto, %box-radius-top, %page-text, %ellipsis;
+    > button {
+      @extend %roboto, %box-radius-top, %page-text, %nowrap-ellipsis;
 
       flex: 1 1 0;
       text-align: center;
@@ -24,13 +24,12 @@ $col2-panel-height: 240px;
       padding: 0.4em 0.1em;
       cursor: pointer;
       position: relative;
-      white-space: nowrap;
+      border-bottom: $border;
 
       &:hover {
         background: $c-body-gradient;
       }
 
-      border-bottom: 1px solid $c-border;
       &.active {
         border-color: $c-accent;
       }
@@ -68,8 +67,9 @@ $col2-panel-height: 240px;
   }
 
   .ctable {
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
+    padding: 0.5em 0 0 0;
 
     &.active {
       display: flex;
@@ -79,6 +79,7 @@ $col2-panel-height: 240px;
   .computer-analysis {
     position: relative;
   }
+
   .future-game-analysis {
     text-align: center;
     margin-top: 2em;
@@ -92,8 +93,8 @@ $col2-panel-height: 240px;
 
     > div {
       @extend %flex-center-nowrap;
-      gap: 1em;
 
+      gap: 1em;
       margin-bottom: 1em;
     }
 
@@ -119,11 +120,11 @@ $col2-panel-height: 240px;
   height: var(---panel-height);
   background: linear-gradient(
     to bottom,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0) 20%,
-    rgba(128, 128, 128, 0.2) 50%,
-    rgba(255, 255, 255, 0) 80%,
-    rgba(255, 255, 255, 0) 100%
+    rgb(255 255 255 / 0) 0%,
+    rgb(255 255 255 / 0) 20%,
+    rgb(128 128 128 / 0.2) 50%,
+    rgb(255 255 255 / 0) 80%,
+    rgb(255 255 255 / 0) 100%
   );
   overflow: hidden;
   position: relative;
@@ -162,6 +163,7 @@ $col2-panel-height: 240px;
 
   .gif-actions {
     @extend %flex-center-nowrap;
+
     gap: 1em;
   }
 }

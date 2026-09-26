@@ -1,6 +1,6 @@
 package lila.plan
 
-import akka.actor.*
+import org.apache.pekko.actor.*
 
 import lila.common.Bus
 import lila.core.timeline.{ Atom, Propagate }

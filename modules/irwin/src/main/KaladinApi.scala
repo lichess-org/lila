@@ -33,7 +33,7 @@ final class KaladinApi(
     maxSize = Max(512),
     timeout = 2.minutes,
     name = "kaladinApi",
-    lila.log.asyncActorMonitor.full
+    lila.mon.asyncActorMonitor.full
   )
 
   private def sequence[A <: Matchable](user: Suspect)(f: Option[KaladinUser] => Fu[A]): Fu[A] =
@@ -45,13 +45,13 @@ final class KaladinApi(
   def dashboard: Fu[KaladinUser.Dashboard] = for
     c <- coll.get
     completed <- c
-      .find($doc("response.at".$exists(true)))
-      .sort($doc("response.at" -> -1))
+      .find(bdoc("response.at".exists(true)))
+      .sort(bdoc("response.at" -> -1))
       .cursor[KaladinUser]()
       .list(30)
     queued <- c
-      .find($doc("response.at".$exists(false)))
-      .sort($doc("queuedAt" -> -1))
+      .find(bdoc("response.at".exists(false)))
+      .sort(bdoc("queuedAt" -> -1))
       .cursor[KaladinUser]()
       .list(30)
   yield KaladinUser.Dashboard(completed ::: queued)
@@ -71,7 +71,7 @@ final class KaladinApi(
               if enoughMoves then
                 lila.mon.mod.kaladin.request(requester.name).increment()
                 insightApi.indexAll(user.user, force = false) >>
-                  coll(_.update.one($id(req.id), req, upsert = true)).void
+                  coll(_.update.one(bid(req.id), req, upsert = true)).void
               else
                 lila.mon.mod.kaladin.insufficientMoves(requester.name).increment()
                 funit
@@ -82,14 +82,14 @@ final class KaladinApi(
       // hits a mongodb index
       // db.kaladin_queue.createIndex({'response.at':1,'response.read':1},{partialFilterExpression:{'response.at':{$exists:true}}})
       coll
-        .find($doc("response.at".$exists(true), "response.read" -> false))
-        .sort($doc("response.at" -> 1))
+        .find(bdoc("response.at".exists(true), "response.read" -> false))
+        .sort(bdoc("response.at" -> 1))
         .hint(coll.hint("response.at_1_response.read_1"))
         .cursor[KaladinUser]()
         .list(50)
         .flatMap: docs =>
           docs.nonEmpty.so:
-            coll.update.one($inIds(docs.map(_.id)), $set("response.read" -> true), multi = true) >>
+            coll.update.one(inIds(docs.map(_.id)), set("response.read" -> true), multi = true) >>
               docs.sequentiallyVoid(readResponse)
         .void
 
@@ -130,7 +130,7 @@ final class KaladinApi(
         .flatMap:
           if _ then sendReport
           else
-            for _ <- modApi.autoMark(user.suspectId, pred.note)(using UserId.kaladin.into(MyId))
+            for _ <- modApi.autoEngine(user.suspectId, pred.note)(using UserId.kaladin.into(MyId))
             yield lila.mon.mod.kaladin.mark.increment()
     else if pred.percent >= thresholds.get().report then sendReport
     else funit
@@ -154,7 +154,7 @@ final class KaladinApi(
     coll {
       _.aggregateList(Int.MaxValue, _.sec): framework =>
         import framework.*
-        Match($doc("response.at".$exists(false))) -> List(GroupField("priority")("nb" -> SumAll))
+        Match(bdoc("response.at".exists(false))) -> List(GroupField("priority")("nb" -> SumAll))
       .map: res =>
         for
           obj <- res
@@ -182,7 +182,7 @@ final class KaladinApi(
           gameRepo.coll
             .find(
               Query.user(userId) ++ Query.rated ++ Query.createdSince(nowInstant.minusMonths(6)),
-              $doc(F.turns -> true, F.clock -> true).some
+              bdoc(F.turns -> true, F.clock -> true).some
             )
             .cursor[Bdoc](ReadPref.sec)
             .foldWhile(Counter(0, 0)):

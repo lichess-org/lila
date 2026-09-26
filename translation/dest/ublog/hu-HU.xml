@@ -5,7 +5,7 @@
   <string name="byTopic">Téma szerint</string>
   <string name="byLichess">Lichess szerint</string>
   <string name="myFriends">Barátaim posztjai</string>
-  <string name="myLikes" comment="A page which lists blog posts that you have pressed ❤️ Like on: https://lichess.org/blog/liked">Általam kedvelt posztok</string>
+  <string name="myLikes">Általam kedvelt posztok</string>
   <string name="myBlog">Az én blogom</string>
   <string name="likedBlogs">Kedvelt blog posztok</string>
   <plurals name="blogPosts">
@@ -26,7 +26,7 @@
   <string name="published">Közzétéve</string>
   <string name="createBlogDiscussion">Hozzászólások engedélyezése</string>
   <string name="createBlogDiscussionHelp">Egy új téma készül majd a fórumban azok számára akik hozzászólnának a bejegyzésedhez</string>
-  <string name="publishOnYourBlog">Tedd közzé a blogodon</string>
+  <string name="publishOnYourBlog">Közzététel a blogodon</string>
   <string name="publishHelp">Ha bejelölöd, a poszt nyilvános lesz. Ha nem, akkor privát poszt marad, és a piszkozatok között megtalálod</string>
   <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">Rögzített poszt</string>
   <string name="stickyPostHelp">Ha ezt bejelölöd, a poszt elsőként fog megjelenni a profilod legfrissebb posztjai között és a blogodon.</string>
@@ -48,13 +48,10 @@
     <item quantity="one">Nézz meg egy bejegyzést</item>
     <item quantity="other">Nézd meg az összes %s posztot</item>
   </plurals>
-  <string name="uploadAnImageForYourPost">Tölts fel egy képet a posztodhoz</string>
   <string name="imageAlt">Szöveget helyettesítő kép - látássérüléssel élők számára</string>
   <string name="imageCredit">Kép jogtulajdonosa</string>
   <string name="deleteBlog">Poszt végleges törlése</string>
-  <string name="safeToUseImages">Az alábbi oldalakról származó képek használata biztonságos: </string>
   <string name="selectPostTopics">Válaszd ki a posztodhoz illő témaköröket</string>
-  <string name="useImagesYouMadeYourself">Saját magad által készített képeket is használhatsz, például Lichess képernyőképek... bármit, ami nem áll szerzői jog alatt.</string>
   <string name="safeAndRespectfulContent">Kérjük, hogy nyugodt hangvételű, releváns posztot hozz létre! Ne másold más felhasználók tartalmát.</string>
   <string name="inappropriateContentAccountClosed">A nem megfelelő tartalmak akár a fiókod törlését is eredményezhetik.</string>
   <string name="blogTips">Néhány tipp színvonalas posztok létrehozásához</string>

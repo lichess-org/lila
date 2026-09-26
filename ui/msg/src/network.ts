@@ -1,7 +1,8 @@
+import { pubsub } from 'lib/pubsub';
+import { json, form } from 'lib/xhr';
+
 import type MsgCtrl from './ctrl';
 import type { MsgData, Contact, User, Msg, Convo, SearchResult } from './interfaces';
-import { json, form } from 'lib/xhr';
-import { pubsub } from 'lib/pubsub';
 
 export async function loadConvo(userId: string): Promise<MsgData> {
   const d = await json(`/inbox/${userId}`);
@@ -24,11 +25,11 @@ export async function loadMoreContacts(before: Date): Promise<Contact[]> {
 }
 
 export async function search(q: string): Promise<SearchResult> {
-  const res = await json(`/inbox/search?q=${q}`);
+  const res: SearchResult = await json(`/inbox/search?q=${q}`);
   return {
     ...res,
     contacts: res.contacts.map(upgradeContact),
-  } as SearchResult;
+  };
 }
 
 export function block(u: string) {
@@ -49,7 +50,7 @@ export function report(name: string, text: string): Promise<any> {
     method: 'post',
     body: form({
       username: name,
-      text: text,
+      text,
       resource: 'msg',
     }),
   });

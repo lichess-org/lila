@@ -15,7 +15,6 @@
   <string name="noVideosForTheseTags">Không có video nào cho các thẻ này:</string>
   <string name="thatsAllWeGotForTheseTags">Đó là tất cả những gì chúng tôi có cho các thẻ này:</string>
   <string name="thatsAllWeGotForThisSearchX">Đó là tất cả những gì chúng tôi có cho tìm kiếm này: \"%s\"</string>
-  <string name="thereAreNoResultsForX">Không có kết quả nào cho \"%s\"</string>
   <string name="viewMoreTags">Xem thêm các thẻ</string>
   <string name="videoNotFound">Không tìm thấy video!</string>
   <string name="xByY">%1$s bởi %2$s</string>

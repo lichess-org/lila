@@ -40,8 +40,8 @@ Lisäksi maksamme täysipäiväiselle kehittäjälle: %s:lle, Lichessin perustaj
   <string name="officialNonProfit">Onko Lichess virallisesti yleishyödyllinen yhteisö?</string>
   <string name="actOfCreation">On. Tässä on perustamiskirja (ranskan kielellä)</string>
   <string name="changeMonthlySupport">Voinko muuttaa/perua kuukausittaisen tukeni?</string>
-  <string name="changeOrContact">Voit, milloin vain tällä sivulla.
-Tai voit %s.</string>
+  <string name="changeSupport">Jos maksusi suoritetaan PayPalilla, voit peruuttaa tai vaihtaa tukesi oman Paypal-tilisi kautta, tai voit %1$s, niin voimme tehdä sen puolestasi. Jos et ole käyttänyt PayPalia, maksusi suoritetaan Stripella, ja voit peruuttaa lahjoituksesi tai vaihtaa sen summan %2$s.</string>
+  <string name="patronPage">tukijasivulla</string>
   <string name="contactSupport">ottaa yhteyttä Lichessin tukipalveluun</string>
   <string name="otherMethods">Muita lahjoitustapoja?</string>
   <string name="lichessIsRegisteredWith">Lichess on rekisteröity %syn.</string>
@@ -83,5 +83,5 @@ Tai voit %s.</string>
   <string name="paymentDetails">Maksun tiedot</string>
   <string name="updatePaymentMethod">Päivitä maksutapa</string>
   <string name="stripeManageSub">Hallitse tilaustasi ja lataa laskuja ja kuitteja</string>
-  <string name="coverFees" comment="%s is a monetary amount. It will be localised depending on the currency where you are e.g. &quot;$0.25&quot; in the United States, &quot;€0.20&quot; in the Eurozone, and so on.&#10;The amount may appear before or after the number, depending on the language (e.g. as &quot;0,25 €&quot; in certain languages &amp; locales).&#10;&#10;Appears as an option when donating to Lichess (https://lichess.org/patron), letting you pay a bit more to cover the transaction fees which would be part of your donation.">Lisään maksuuni %s kattaakseni tämän maksutapahtuman käsittelykustannukset</string>
+  <string name="coverFees">Lisään maksuuni %s kattaakseni tämän maksutapahtuman käsittelykustannukset</string>
 </resources>

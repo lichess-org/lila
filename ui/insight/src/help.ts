@@ -1,4 +1,5 @@
 import { h } from 'snabbdom';
+
 import type Ctrl from './ctrl';
 
 export default function (ctrl: Ctrl) {

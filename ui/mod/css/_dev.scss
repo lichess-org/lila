@@ -1,10 +1,12 @@
 #settings .toggle-box {
   > div > div {
     @extend %flex-column;
+
     gap: 1.5em;
     padding-bottom: 2em;
   }
 }
+
 #settings form {
   @extend %flex-center;
 

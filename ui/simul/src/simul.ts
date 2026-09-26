@@ -1,17 +1,20 @@
 import { init, type VNode, classModule, attributesModule } from 'snabbdom';
-import type { SimulOpts } from './interfaces';
-import SimulCtrl from './ctrl';
+
 import { wsConnect } from 'lib/socket';
+
+import SimulCtrl from './ctrl';
+import type { SimulOpts } from './interfaces';
 
 const patch = init([classModule, attributesModule]);
 
+import type { SimulTpe } from './socket';
 import view from './view/main';
 
 export function initModule(opts: SimulOpts) {
   const element = document.querySelector('main.simul') as HTMLElement;
 
-  opts.socketSend = wsConnect(`/simul/${opts.data.id}/socket/v4`, opts.socketVersion, {
-    receive: (t: string, d: any) => ctrl.socket.receive(t, d),
+  opts.socketSend = wsConnect<SimulTpe>(`/simul/${opts.data.id}/socket/v4`, opts.socketVersion, {
+    receive: (tpe, data) => ctrl.socket.receive({ tpe, data }),
   }).send;
   opts.element = element;
   opts.$side = $('.simul__side').clone();

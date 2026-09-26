@@ -1,4 +1,5 @@
 $analyse-block-gap: $block-gap;
+$analyse-gauge-gap: 4px;
 
 body {
   /* prevents scroll bar flicker on page height changes */
@@ -16,6 +17,13 @@ body {
 .analyse {
   grid-area: main;
   display: grid;
+
+  ---analyse-gauge-col: #{$analyse-block-gap};
+  ---analyse-gauge-offset: calc(var(---analyse-gauge-col) - #{$analyse-gauge-gap});
+
+  &.gauge-on {
+    ---analyse-gauge-col: calc(#{$block-gap} + #{$analyse-gauge-gap} * 2);
+  }
 
   &__side {
     grid-area: side;
@@ -61,6 +69,7 @@ body {
   .eval-gauge {
     grid-area: gauge;
     display: none;
+    margin: 0 $analyse-gauge-gap;
   }
 
   .keyboard-move {
@@ -68,6 +77,7 @@ body {
   }
 
   ---chat-height: fit-content(0);
+
   &--wiki {
     ---chat-height: 0;
   }
@@ -89,7 +99,12 @@ body {
     'uchat';
 
   @include mq-at-least-col2 {
-    grid-template-columns: var(---col2-uniboard-width) $analyse-block-gap $col2-uniboard-table;
+    grid-template-columns:
+      var(---col2-uniboard-width) var(---analyse-gauge-col)
+      minmax(
+        calc(#{$col3-uniboard-table-min} - var(---analyse-gauge-offset)),
+        calc(#{$col3-uniboard-table-max} - var(---analyse-gauge-offset))
+      );
     grid-template-rows: fit-content(0);
     grid-template-areas:
       'board      gauge tools'
@@ -99,11 +114,16 @@ body {
       'under      .     side'
       'chat       .     side'
       'uchat      .     side';
-    grid-row-gap: 0;
+    row-gap: 0;
 
     &__side {
       margin: $analyse-block-gap 0 0 0;
     }
+
+    &__tools {
+      height: var(---cg-height, 100%);
+    }
+
     .chat__members {
       margin: calc($analyse-block-gap / 2) 0 0 0;
     }
@@ -119,19 +139,27 @@ body {
     .keyboard-move {
       display: block;
       grid-area: kb-move;
-      margin: $analyse-block-gap;
-      margin: calc($analyse-block-gap / 2) 0 0 0;
+      margin: $block-gap 0;
     }
   }
 
   @include mq-is-col2-squeeze {
-    grid-template-columns: $col2-uniboard-squeeze-width $analyse-block-gap $col2-uniboard-squeeze-table;
+    grid-template-columns:
+      $col2-uniboard-squeeze-width var(---analyse-gauge-col)
+      minmax(
+        calc(#{$col2-uniboard-squeeze-table-min} - var(---analyse-gauge-offset)),
+        calc(#{$col2-uniboard-squeeze-table-max} - var(---analyse-gauge-offset))
+      );
   }
 
   @include mq-at-least-col3 {
     grid-template-columns:
       $col3-uniboard-side $analyse-block-gap var(---col3-uniboard-width)
-      $analyse-block-gap $col3-uniboard-table;
+      var(---analyse-gauge-col)
+      minmax(
+        calc(#{$col3-uniboard-table-min} - var(---analyse-gauge-offset)),
+        calc(#{$col3-uniboard-table-max} - var(---analyse-gauge-offset))
+      );
     grid-template-rows: auto $chat-height auto 2.5em 1fr;
     grid-template-areas:
       'side    . board   gauge tools'

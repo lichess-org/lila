@@ -3,8 +3,9 @@ package lila.oauth
 import reactivemongo.api.bson.*
 import reactivemongo.api.bson.Macros.Annotations.Key
 import com.roundeights.hasher.Algo
+import scalalib.net.{ Bearer, UserAgent }
 
-import lila.core.net.{ Bearer, UserAgent }
+import lila.core.net.Origin
 import lila.core.misc.oauth.AccessTokenId
 
 case class AccessToken(
@@ -13,9 +14,9 @@ case class AccessToken(
     userId: UserId,
     created: Option[Instant],
     description: Option[String], // for personal access tokens
-    usedAt: Option[Instant] = None,
+    @Key("used") usedAt: Option[Instant] = None,
     scopes: TokenScopes,
-    clientOrigin: Option[String],
+    clientOrigin: Option[Origin],
     userAgent: Option[UserAgent],
     expires: Option[Instant]
 ):
@@ -29,8 +30,9 @@ object AccessToken:
       userId: UserId,
       scopes: TokenScopes,
       tokenId: AccessTokenId,
-      clientOrigin: Option[String]
-  )
+      clientOrigin: Option[Origin]
+  ):
+    def show = s"$userId $scopes origin=$clientOrigin"
 
   case class Create(token: AccessToken)
 
@@ -41,13 +43,14 @@ object AccessToken:
     val usedAt = "used"
     val scopes = "scopes"
     val clientOrigin = "clientOrigin"
+    val description = "description"
 
   def idFrom(bearer: Bearer) = AccessTokenId(Algo.sha256(bearer.value).hex)
 
   import lila.db.dsl.{ *, given }
   import OAuthScope.given
 
-  private[oauth] val forAuthProjection = $doc(
+  private[oauth] val forAuthProjection = bdoc(
     BSONFields.userId -> true,
     BSONFields.scopes -> true,
     BSONFields.clientOrigin -> true
@@ -58,7 +61,7 @@ object AccessToken:
       tokenId <- doc.getAsTry[AccessTokenId](BSONFields.id)
       userId <- doc.getAsTry[UserId](BSONFields.userId)
       scopes <- doc.getAsTry[TokenScopes](BSONFields.scopes)
-      origin = doc.getAsOpt[String](BSONFields.clientOrigin)
+      origin = doc.getAsOpt[Origin](BSONFields.clientOrigin)
     yield ForAuth(userId, scopes, tokenId, origin)
 
   given BSONDocumentHandler[AccessToken] = Macros.handler

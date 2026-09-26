@@ -13,7 +13,6 @@
   <string name="origin">出所</string>
   <string name="specialMoves">特殊な手</string>
   <string name="didYouLikeThisPuzzle">この問題は気に入りましたか？</string>
-  <string name="voteToLoadNextOne">投票すると次を読み込みます！</string>
   <string name="upVote">上げ投票</string>
   <string name="downVote">下げ投票</string>
   <string name="yourPuzzleRatingWillNotChange">あなたのレーティングは動きません。タクティクス問題は競技ではありません。レーティングは今のあなたのスキルに見合った問題を選ぶのに役立ちます。</string>
@@ -86,6 +85,6 @@
   </plurals>
   <string name="percentSolved">%s に正解</string>
   <string name="noPuzzlesToShow">データがありません、まず問題をプレイしてから！</string>
-  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">ここのテーマを練習して前進！</string>
+  <string name="improvementAreasDescription">ここのテーマを練習して前進！</string>
   <string name="strengthDescription">これらのテーマで好成績でした</string>
 </resources>

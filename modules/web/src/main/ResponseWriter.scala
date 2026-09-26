@@ -43,7 +43,7 @@ trait ResponseWriter extends ContentTypes:
   val csvContentType = "text/csv"
 
   object ndJson:
-    import akka.stream.scaladsl.Source
+    import org.apache.pekko.stream.scaladsl.Source
     import play.api.libs.json.{ Json, JsValue }
 
     val contentType = "application/x-ndjson"

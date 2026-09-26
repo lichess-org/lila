@@ -51,7 +51,7 @@ final class LiveApi(
     streaming: Publisher
 )(using Executor):
 
-  private val cache = cacheApi.unit[LiveStreams]:
+  private val cache = cacheApi.unit[LiveStreams]("streamer.liveStreams"):
     _.refreshAfterWrite(2.seconds).buildAsyncFuture: _ =>
       fuccess(streaming.getLiveStreams)
         .dmap: s =>
@@ -72,6 +72,6 @@ final class LiveApi(
     Streamer.WithUserAndStream(s.streamer, s.user, live.get(s.streamer), s.subscribed)
 
   def userIds = userIdsCache
-  def isStreaming(userId: UserId) = userIdsCache contains userId
+  def isStreaming(userId: UserId) = userIdsCache.contains(userId)
   def one(userId: UserId): Fu[Option[Stream]] = all.map(_.streams.find(_.is(userId)))
   def many(userIds: Seq[UserId]): Fu[List[Stream]] = all.map(_.streams.filter(s => userIds.exists(s.is)))

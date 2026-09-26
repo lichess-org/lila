@@ -1,14 +1,18 @@
-import { winningChances, type CustomCeval } from 'lib/ceval';
-import { path as treePath } from 'lib/tree/tree';
-import { detectThreefold } from '../nodeFinder';
-import { tablebaseGuaranteed } from '../explorer/explorerCtrl';
-import type AnalyseCtrl from '../ctrl';
-import { defined, prop, type Prop, requestIdleCallback } from 'lib';
-import { parseUci } from 'chessops/util';
 import { makeSan } from 'chessops/san';
+import { parseUci } from 'chessops/util';
+
+import { defined, prop, type Prop, requestIdleCallbackSafe } from 'lib';
+import { api } from 'lib/api';
+import { winningChances, type CustomCeval } from 'lib/ceval';
 import { storedBooleanPropWithEffect } from 'lib/storage';
-import { renderCustomPearl, renderCustomStatus } from './practiceView';
+import { path as treePath } from 'lib/tree/tree';
 import type { TablebaseHit, TreeNode, TreePath } from 'lib/tree/types';
+
+import type AnalyseCtrl from '@/ctrl';
+import { tablebaseGuaranteed } from '@/explorer/explorerCtrl';
+import { detectThreefold } from '@/nodeFinder';
+
+import { renderCustomPearl, renderCustomStatus } from './practiceView';
 
 declare type Verdict = 'goodMove' | 'inaccuracy' | 'mistake' | 'blunder';
 
@@ -50,8 +54,7 @@ export interface PracticeCtrl {
   redraw: Redraw;
 }
 
-export function make(root: AnalyseCtrl, customPlayableDepth?: () => number): PracticeCtrl {
-  const playableDepth = customPlayableDepth ?? (() => 18);
+export function make(root: AnalyseCtrl): PracticeCtrl {
   const masteryMode = storedBooleanPropWithEffect('analyse.practice-hard-mode', false, root.redraw);
   const variant = root.data.game.variant.key,
     running = prop(true),
@@ -66,36 +69,35 @@ export function make(root: AnalyseCtrl, customPlayableDepth?: () => number): Pra
       e8h8: 'e8g8',
     };
 
-  function commentable(node: TreeNode, bonus = 0): boolean {
+  function commentable(node: TreeNode): boolean {
     if (node.tbhit || node.outcome()) return true;
-    const ceval = node.ceval;
-    return ceval
-      ? ceval.depth + bonus >= 15 || (ceval.depth >= 13 && !ceval.cloud && ceval.millis > 3000)
-      : false;
+    if (!node.ceval) return false;
+    if (api.overrides.practiceCommentReady)
+      return api.overrides.practiceCommentReady(structuredClone(node.ceval));
+
+    const { bestmove, nodes, millis } = node.ceval;
+    return Boolean(bestmove || nodes >= 400_000 || (millis ?? 0) > 1000);
   }
 
   function playable(node: TreeNode): boolean {
-    const ceval = node.ceval;
-    return ceval
-      ? masteryMode()
-        ? !root.ceval.isComputing
-        : ceval.depth >= playableDepth() || (ceval.depth >= 15 && (ceval.cloud || ceval.millis > 5000))
-      : false;
+    if (!node.ceval) return false;
+    if (api.overrides.practiceEvalReady) return api.overrides.practiceEvalReady(structuredClone(node.ceval));
+
+    const { bestmove, nodes, millis, cloud } = node.ceval;
+    return masteryMode()
+      ? !root.ceval.isComputing
+      : Boolean(bestmove || nodes >= 600_000 || cloud || millis > 2000);
   }
 
-  function tbhitToEval(hit: TablebaseHit | undefined | null) {
-    return (
-      hit &&
-      (hit.winner
-        ? {
-            mate: hit.winner === 'white' ? 10 : -10,
-          }
-        : { cp: 0 })
-    );
-  }
-  function nodeBestUci(node: TreeNode): Uci | undefined {
-    return (node.tbhit && node.tbhit.best) || (node.ceval && node.ceval.pvs[0].moves[0]);
-  }
+  const tbhitToEval = (hit: TablebaseHit | undefined | null) =>
+    hit &&
+    (hit.winner
+      ? {
+          mate: hit.winner === 'white' ? 10 : -10,
+        }
+      : { cp: 0 });
+
+  const nodeBestUci = (node: TreeNode): Uci | undefined => node.tbhit?.best || node.ceval?.pvs[0].moves[0];
 
   function makeComment(prev: TreeNode, node: TreeNode, path: TreePath): Comment {
     let verdict: Verdict, best: Uci | undefined;
@@ -143,9 +145,7 @@ export function make(root: AnalyseCtrl, customPlayableDepth?: () => number): Pra
     };
   }
 
-  function isMyTurn(): boolean {
-    return root.turnColor() === root.bottomColor();
-  }
+  const isMyTurn = (): boolean => root.turnColor() === root.bottomColor();
 
   function checkCeval() {
     const node = root.node;
@@ -164,7 +164,7 @@ export function make(root: AnalyseCtrl, customPlayableDepth?: () => number): Pra
       comment(null);
       if (node.san && commentable(node)) {
         const parentNode = root.tree.parentNode(root.path);
-        if (commentable(parentNode, +1)) comment(makeComment(parentNode, node, root.path));
+        if (commentable(parentNode)) comment(makeComment(parentNode, node, root.path));
         else {
           /*
            * Looks like the parent node didn't get enough analysis time
@@ -174,7 +174,7 @@ export function make(root: AnalyseCtrl, customPlayableDepth?: () => number): Pra
            * Since computer moves are supposed to preserve eval anyway.
            */
           const olderNode = root.tree.parentNode(treePath.init(root.path));
-          if (commentable(olderNode, +1)) comment(makeComment(olderNode, node, root.path));
+          if (commentable(olderNode)) comment(makeComment(olderNode, node, root.path));
         }
       }
       if (!played() && playable(node)) {
@@ -204,7 +204,7 @@ export function make(root: AnalyseCtrl, customPlayableDepth?: () => number): Pra
     checkCevalOrTablebase();
   }
 
-  requestIdleCallback(checkCevalOrTablebase, 800);
+  requestIdleCallbackSafe(checkCevalOrTablebase, 800);
 
   return {
     onCeval: checkCeval,
@@ -244,7 +244,7 @@ export function make(root: AnalyseCtrl, customPlayableDepth?: () => number): Pra
     },
     commentShape(enable: boolean) {
       const c = comment();
-      if (!enable || !c || !c.best) hovering(null);
+      if (!enable || !c?.best) hovering(null);
       else
         hovering({
           uci: c.best.uci,
@@ -254,7 +254,7 @@ export function make(root: AnalyseCtrl, customPlayableDepth?: () => number): Pra
     hint() {
       const best = root.node.ceval ? root.node.ceval.pvs[0].moves[0] : null,
         prev = hinting();
-      if (!best || (prev && prev.mode === 'move')) hinting(null);
+      if (!best || prev?.mode === 'move') hinting(null);
       else
         hinting({
           mode: prev ? 'move' : 'piece',
@@ -268,8 +268,8 @@ export function make(root: AnalyseCtrl, customPlayableDepth?: () => number): Pra
     customCeval: {
       search: () =>
         masteryMode() && !isMyTurn()
-          ? 60 * 1000
-          : { by: { depth: playableDepth() }, multiPv: 1, indeterminate: true },
+          ? 300 * 1000
+          : (api.overrides.practiceSearch?.() ?? { by: { nodes: 600_000 }, multiPv: 1, indeterminate: true }),
       pearlNode: () => renderCustomPearl(root, masteryMode()),
       statusNode: () => (root.ceval.isComputing ? undefined : renderCustomStatus(root, masteryMode)),
     },

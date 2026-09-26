@@ -18,17 +18,17 @@ final class RevolutionApi(
 
   private[tournament] def clear() = cache.invalidateUnit()
 
-  private val cache = cacheApi.unit[PerOwner]:
+  private val cache = cacheApi.unit[PerOwner]("tournament.revolution"):
     _.refreshAfterWrite(1.day).buildAsyncTimeout(1.minute): _ =>
       tournamentRepo.coll
         .find(
-          $doc(
+          bdoc(
             "schedule.freq" -> (Schedule.Freq.Unique: Schedule.Freq),
-            "startsAt".$lt(nowInstant).$gt(nowInstant.minusYears(1).minusDays(1)),
-            "name".$regex(Revolution.namePattern),
+            "startsAt".lt(nowInstant).gt(nowInstant.minusYears(1).minusDays(1)),
+            "name".regex(Revolution.namePattern),
             "status" -> (Status.finished: Status)
           ),
-          $doc("winner" -> true, "variant" -> true).some
+          bdoc("winner" -> true, "variant" -> true).some
         )
         .cursor[Bdoc](ReadPref.sec)
         .list(300)

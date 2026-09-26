@@ -1,11 +1,13 @@
-import GamebookPlayCtrl, { type State } from './gamebookPlayCtrl';
-import * as licon from 'lib/licon';
-import { type VNode, iconTag, bind, dataIcon, hl, requiresI18n } from 'lib/view';
+import { capitalize } from 'lib/game';
+import { licon } from 'lib/licon';
 import { richHTML } from 'lib/richText';
+import { type VNode, bind, dataIcon, hl, requiresI18n, onInsert, icon } from 'lib/view';
+
+import GamebookPlayCtrl, { type State } from './gamebookPlayCtrl';
 
 export function render(ctrl: GamebookPlayCtrl): VNode {
   const state = ctrl.state;
-  return hl('div.gamebook', { hook: { insert: _ => site.asset.loadCssPath('analyse.gamebook.play') } }, [
+  return hl('div.gamebook', { hook: onInsert(() => site.asset.loadCssPath('analyse.gamebook.play')) }, [
     (state.comment || state.feedback === 'play' || state.feedback === 'end') &&
       hl('div.comment', { class: { hinted: state.showHint } }, [
         state.comment
@@ -42,12 +44,12 @@ function renderFeedback(ctrl: GamebookPlayCtrl, state: State) {
     return hl(
       'button.feedback.act.bad' + (state.comment ? '.com' : ''),
       { attrs: { type: 'button' }, hook: bind('click', ctrl.retry) },
-      [iconTag(licon.Reload), hl('span', i18n.site.retry)],
+      [icon(licon.Reload)(), hl('span', i18n.site.retry)],
     );
   if (fb === 'good' && state.comment)
     return hl('button.feedback.act.good.com', { attrs: { type: 'button' }, hook: bind('click', ctrl.next) }, [
       hl('span.text', { attrs: dataIcon(licon.PlayTriangle) }, i18n.study.next),
-      hl('kbd', '<space>'),
+      hl('kbd', 'space'),
     ]);
   if (fb === 'end') return renderEnd(ctrl);
   return hl(
@@ -60,7 +62,7 @@ function renderFeedback(ctrl: GamebookPlayCtrl, state: State) {
             hl('div.instruction', [
               hl('strong', i18n.site.yourTurn),
               requiresI18n('puzzle', ctrl.redraw, cat =>
-                hl('em', cat[color === 'white' ? 'findTheBestMoveForWhite' : 'findTheBestMoveForBlack']),
+                hl('em', cat[`findTheBestMoveFor${capitalize(color)}`]),
               ),
             ]),
           ]

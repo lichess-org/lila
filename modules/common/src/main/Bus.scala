@@ -2,7 +2,7 @@ package lila.common
 
 import scala.util.NotGiven
 
-import akka.actor.ActorRef
+import org.apache.pekko.actor.ActorRef
 import scalalib.bus.{ Channel, Tellable, NotBuseable }
 
 val Bus = scalalib.bus.Bus(initialCapacity = 4096)

@@ -1,5 +1,5 @@
-import { arrow, assetUrl, roundSvg, toLevel } from '../util';
 import { and, pieceOn } from '../assert';
+import { arrow, assetUrl, roundSvg, toLevel } from '../util';
 import type { StageNoID } from './list';
 
 const imgUrl = assetUrl + 'images/learn/rally-the-troops.svg';

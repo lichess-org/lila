@@ -1,25 +1,26 @@
-import crypto from 'node:crypto';
-import fs from 'node:fs';
-import fg from 'fast-glob';
-import { join, basename } from 'node:path';
-import { XMLParser } from 'fast-xml-parser';
-import { env } from './env.ts';
-import { readable, isClose } from './parse.ts';
-import { makeTask } from './task.ts';
-import { type Manifest, updateManifest } from './manifest.ts';
-import { zip } from './algo.ts';
 import { transform } from 'esbuild';
+import fg from 'fast-glob';
+import { XMLParser } from 'fast-xml-parser';
+import fs from 'node:fs';
+import { join, basename } from 'node:path';
 
-type Plural = { [key in 'zero' | 'one' | 'two' | 'few' | 'many' | 'other']?: string };
+import { zip } from './algo.ts';
+import { env } from './env.ts';
+import { type Manifest, updateManifest } from './manifest.ts';
+import { readable, isClose, getHash } from './parse.ts';
+import { makeTask } from './task.ts';
+
+type PluralMode = 'zero' | 'one' | 'two' | 'few' | 'many' | 'other';
+type Plural = Record<PluralMode, string>;
 type Dict = Map<string, string | Plural>;
 
 const formatStringRe = /%(?:[\d]\$)?s/;
 
-let dicts: Map<string, Dict> = new Map();
+let dicts = new Map<string, Dict>();
 let locales: string[];
 let cats: string[];
 
-export function i18n(): Promise<any> {
+export function i18n(): Promise<void | string> {
   if (!env.begin('i18n')) return Promise.resolve();
 
   return makeTask({
@@ -53,7 +54,7 @@ async function compileTypings(): Promise<void> {
     fs.promises.mkdir(env.i18nJsDir).catch(() => {}),
   ]);
 
-  if (!tstat || catStats.some(x => x)) {
+  if (!tstat || catStats.some(Boolean)) {
     dicts = new Map(
       zip(
         cats,
@@ -88,7 +89,7 @@ async function compileTypings(): Promise<void> {
   }
 }
 
-function compileJavascripts(): Promise<any> {
+function compileJavascripts(): Promise<void[]> {
   return Promise.all(
     cats.map(async cat => {
       const u = await updated(cat);
@@ -110,17 +111,16 @@ async function writeJavascript(cat: string, locale?: string, xstat: fs.Stats | f
         .readFile(join(env.i18nDestDir, cat, `${locale}.xml`), 'utf-8')
         .catch(() => '')
         .then(parseXml)
-    : new Map<String, String | Plural>();
+    : new Map<string, string | Plural>();
 
   const translations = new Map([...dicts.get(cat)!, ...localeSpecific]);
   const lang = locale?.split('-')[0];
   const jsInit =
     cat !== 'site'
       ? ''
-      : siteInit +
-        'window.i18n.quantity=' +
+      : 'window.i18n={quantity:' +
         (jsQuantity.find(({ l }) => l.includes(lang ?? ''))?.q ?? `o=>o==1?'one':'other'`) +
-        ';';
+        '};';
   if (!jsInit && locale && !localeSpecific.size) return;
   const code =
     jsPrelude +
@@ -157,7 +157,7 @@ async function updated(cat: string, locale?: string): Promise<fs.Stats | false> 
 }
 
 function parseXml(xmlData: string): Map<string, string | Plural> {
-  const i18nMap: Map<string, string | Plural> = new Map();
+  const i18nMap = new Map<string, string | Plural>();
   if (!xmlData) return i18nMap;
 
   const parser = new XMLParser({ ignoreAttributes: false, attributeNamePrefix: '' });
@@ -169,7 +169,7 @@ function parseXml(xmlData: string): Map<string, string | Plural> {
     for (const item of Array.isArray(plural.item) ? plural.item : [plural.item]) {
       group[item.quantity] = item['#text'].replaceAll('\\"', '"').replaceAll("\\'", "'");
     }
-    i18nMap.set(plural.name, group);
+    i18nMap.set(plural.name, group as Plural);
   }
   return new Map([...i18nMap.entries()].sort(([a], [b]) => a.localeCompare(b)));
 }
@@ -186,7 +186,7 @@ export async function i18nManifest(): Promise<void> {
     (await fg.glob('*.js', { cwd: env.i18nJsDir, absolute: true })).map(async file => {
       const name = basename(file, '.js');
       const content = await fs.promises.readFile(file, 'utf-8');
-      const hash = crypto.createHash('md5').update(content).digest('hex').slice(0, 12);
+      const hash = getHash(content);
       const manifestPath = `i18n/${name}`;
       const destPath = join(env.jsOutDir, `${manifestPath}.${hash}.js`);
       i18n[manifestPath] = { hash };
@@ -200,12 +200,14 @@ export async function i18nManifest(): Promise<void> {
         ['window.site.manifest.i18n={'] +
         cats
           .map(cat => {
-            const hash = (i18n[`i18n/${cat}.${locale}`] ?? i18n[`i18n/${cat}.en-GB`]).hash;
-            return `${cat}:'${hash}'`;
+            const isCatalogLocalized = !!i18n[`i18n/${cat}.${locale}`];
+            const safeLocale = isCatalogLocalized ? locale : 'en-GB';
+            const hash = i18n[`i18n/${cat}.${safeLocale}`].hash;
+            return `${cat}:'${safeLocale}.${hash}'`;
           })
           .join(',') +
         '}';
-      const hash = crypto.createHash('md5').update(content).digest('hex').slice(0, 12);
+      const hash = getHash(content);
       const manifestPath = `i18n/${locale}`;
       const destPath = join(env.jsOutDir, `${manifestPath}.${hash}.js`);
       i18n[manifestPath] = { hash };
@@ -260,14 +262,6 @@ const jsPrelude =
       return n;
     }`,
   ));
-
-const siteInit = await minify(`
-  window.i18n = function(k) {
-    for (let v of Object.values(window.i18n)) {
-      if (v[k]) return v[k];
-      return k;
-    }
-  };`);
 
 const jsQuantity = [
   {
@@ -324,8 +318,36 @@ const jsQuantity = [
   },
   {
     l: [
-      ...['az', 'bm', 'fa', 'ig', 'hu', 'ja', 'kde', 'kea', 'ko', 'my', 'ses', 'sg', 'to', 'tr', 'vi', 'wo'],
-      ...['yo', 'zh', 'bo', 'dz', 'id', 'jv', 'ka', 'km', 'kn', 'ms', 'th', 'tp', 'io', 'ia'],
+      'az',
+      'bm',
+      'fa',
+      'ig',
+      'hu',
+      'ja',
+      'kde',
+      'kea',
+      'ko',
+      'my',
+      'ses',
+      'sg',
+      'to',
+      'tr',
+      'vi',
+      'wo',
+      'yo',
+      'zh',
+      'bo',
+      'dz',
+      'id',
+      'jv',
+      'ka',
+      'km',
+      'kn',
+      'ms',
+      'th',
+      'tp',
+      'io',
+      'ia',
     ],
     q: `o=>"other"`,
   },

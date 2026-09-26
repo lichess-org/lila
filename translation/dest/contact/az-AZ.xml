@@ -25,7 +25,6 @@
   <string name="cantChangeMore">Böyük və kiçik hərf xaricində başqa bir dəyişiklik edə bilmərik. Texniki səbəblərə görə bu mümkün deyil.</string>
   <string name="orCloseAccount">Bununla birlikdə, cari hesabınızı bağlaya və yenisini yarada bilərsiniz.</string>
   <string name="wantClearHistory">Tarixçəmi və ya reytinqimi sıfırlamaq istəyirəm</string>
-  <string name="cantClearHistory">Oyun tarixçənizi, tapmaca tarixçənizi və ya reytinqlərinizi sıfırlamaq mümkün deyil.</string>
   <string name="wantReport">Bir oyunçunu bildirmək istəyirəm</string>
   <string name="toReportAPlayerUseForm">Bir oyunçunu şikayət etmək üçün şikayət formundan istifadə edin</string>
   <string name="youCanAlsoReachReportPage">Bir profil səhifəsindəki %s şikayət düyməsinə basaraq da həmin səhifəyə daxil ola bilərsiniz.</string>
@@ -39,7 +38,7 @@
   <string name="reportMobileIssue">Lichess mobil tətbiqi problemləri GitHubda</string>
   <string name="reportBugInDiscord">Lichessin Discord serverində</string>
   <string name="howToReportBug">Lütfən, xətanın necə göründüyünü, bunun əvəzində nə olacağını gözlədiyinizi və xətanı yaradan addımları təsvir edin.</string>
-  <string name="illegalPawnCapture" comment="Appears as an option for reasons to contact Lichess on the 'contact' page: https://lichess.org/contact#help-enpassant&#10;&#10;Players used to routinely write to Lichess stating that there was a bug, or that the other player had hacked their game in some way. In actuality, the player was using the legal move of en passant.&#10;&#10;Please translate this string from the perspective of the player who would be selecting this contact option, and call it 'Illegal', even though we know this is a legal move.">Səhv piyada vurma hərəkəti</string>
+  <string name="illegalPawnCapture">Səhv piyada vurma hərəkəti</string>
   <string name="calledEnPassant">Buna \"keçiddə götürmə\" deyirlər və bu şahmatın qaydalarından biridir.</string>
   <string name="tryEnPassant">\"Keçiddə götürmə\" haqqında daha çox məlumat əldə etmək üçün bu kiçik interaktiv oyunu sınayın.</string>
   <string name="illegalCastling">Qanunsuz və ya qeyri-mümkün qalaqurma</string>

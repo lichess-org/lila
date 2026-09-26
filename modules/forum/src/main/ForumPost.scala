@@ -15,7 +15,6 @@ case class ForumPost(
     author: Option[String],
     userId: Option[UserId],
     text: String,
-    number: Int,
     troll: Boolean,
     lang: Option[String],
     editHistory: Option[List[OldVersion]] = None,
@@ -127,7 +126,6 @@ object ForumPost:
       categId: ForumCategId,
       userId: Option[UserId], // anon mod posts
       text: String,
-      number: Int = 1,
       lang: Option[String] = none,
       troll: Boolean = false,
       modIcon: Option[Boolean] = none
@@ -138,7 +136,6 @@ object ForumPost:
       author = none,
       userId = userId,
       text = text,
-      number = number,
       lang = lang,
       troll = troll,
       createdAt = nowInstant,

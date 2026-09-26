@@ -1,6 +1,8 @@
 // Best description is found at https://fr.wikipedia.org/wiki/%C3%89checs_al%C3%A9atoires_Fischer#Identification_des_positions_initiales
 
-import { FILE_NAMES } from 'chessops';
+import { FILE_NAMES, SquareSet } from 'chessops';
+import type { Board } from 'chessops/board';
+import type { Square } from 'chessops/types';
 
 // Square on rank 1
 const darkSquares = [0, 2, 4, 6];
@@ -51,14 +53,32 @@ export function chess960CastlingSquares(id: number | undefined): ByColor<Castlin
   };
 }
 
+export interface CastlingRooks {
+  rookQ?: Square;
+  rookK?: Square;
+}
+
+export function castlingRooksFromBoard(board: Board, color: Color): CastlingRooks {
+  const backRank = SquareSet.fromRank(color === 'white' ? 0 : 7),
+    king = board.king.intersect(board[color]).intersect(backRank).singleSquare();
+  if (king === undefined) return {};
+
+  const rooks = board.rook.intersect(board[color]).intersect(backRank),
+    queenside = rooks.first(),
+    kingside = rooks.last();
+  return {
+    rookQ: queenside !== undefined && queenside < king ? queenside : undefined,
+    rookK: kingside !== undefined && kingside > king ? kingside : undefined,
+  };
+}
+
 export const randomPositionId = (): number => Math.floor(Math.random() * 960);
 
 export const isValidPositionId = (id: number): boolean => Number.isInteger(id) && id >= 0 && id <= 959;
 
-export function fenToChess960Id(fen: FEN): number | undefined {
-  const parts = fen.split(' ');
-  if (parts.length < 1) return undefined;
-  const ranks = parts[0].split('/');
+export function boardFenToChess960Id(boardFen: string): number | undefined {
+  if (boardFen.includes(' ')) throw new Error('`boardFen` should only be the piece placement portion');
+  const ranks = boardFen.split('/');
   if (ranks.length !== 8) return undefined;
   const rank = ranks[7];
   if (rank.toLowerCase() !== ranks[0] || rank.length !== 8 || rank !== rank.toUpperCase()) return undefined;
@@ -97,6 +117,11 @@ export function fenToChess960Id(fen: FEN): number | undefined {
   return krnIndex === -1
     ? undefined
     : lightBishopIndex + 4 * darkBishopIndex + 16 * queenIndex + 96 * krnIndex;
+}
+
+export function fenToChess960Id(fen: FEN): number | undefined {
+  const parts = fen.split(' ');
+  return parts.length < 1 ? undefined : boardFenToChess960Id(parts[0]);
 }
 
 function chess960IdToRank(id: number): string {

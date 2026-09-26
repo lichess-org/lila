@@ -42,7 +42,6 @@
   <string name="youAreNowASpectator">Du bass elo en Zuschauer</string>
   <string name="pgnTags">PGN Tags</string>
   <string name="like">Gefällt mir</string>
-  <string name="unlike">Gefällt mer net méi</string>
   <string name="newTag">Néien Tag</string>
   <string name="commentThisPosition">Kommentéier dës Stellung</string>
   <string name="commentThisMove">Kommentéier dësen Zuch</string>
@@ -64,7 +63,6 @@
   <string name="downloadGame">Partie eroflueden</string>
   <string name="studyUrl">Etüden URL</string>
   <string name="currentChapterUrl">Aktuellt Kapitel URL</string>
-  <string name="youCanPasteThisInTheForumToEmbed">Zum Anbetten an een Forum oder Blog afügen</string>
   <string name="startAtInitialPosition">Mat der Ausgangsstellung ufänken</string>
   <string name="startAtX">Bei %s ufänken</string>
   <string name="embedInYourWebsite">An Websäit anbetten</string>

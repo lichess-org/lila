@@ -1,14 +1,17 @@
-import { h, type VNode } from 'snabbdom';
-import { myUsername, type Prop, prop } from 'lib';
-import * as licon from 'lib/licon';
-import { type Dialog, snabDialog, bind, dataIcon, iconTag, onInsert } from 'lib/view';
-import { storedProp, storedJsonProp, type StoredProp, storedStringProp } from 'lib/storage';
-import type { ExplorerDb, ExplorerSpeed, ExplorerMode } from './interfaces';
-import AnalyseCtrl from '../ctrl';
-import perfIcons from 'lib/game/perfIcons';
-import { ucfirst } from './explorerUtil';
 import { opposite } from '@lichess-org/chessground/util';
+import { h, type VNode } from 'snabbdom';
+
+import { myUsername, type Prop, prop } from 'lib';
+import { capitalize } from 'lib/game';
+import perfIcons from 'lib/game/perfIcons';
+import { licon } from 'lib/licon';
+import { storedProp, storedJsonProp, type StoredProp, storedStringProp } from 'lib/storage';
+import { type Dialog, snabDialog, bind, dataIcon, icon, onInsert } from 'lib/view';
 import { userComplete } from 'lib/view/userComplete';
+
+import type AnalyseCtrl from '../ctrl';
+import { ucfirst } from './explorerUtil';
+import type { ExplorerDb, ExplorerSpeed, ExplorerMode } from './interfaces';
 
 const allSpeeds: ExplorerSpeed[] = ['ultraBullet', 'bullet', 'blitz', 'rapid', 'classical', 'correspondence'];
 const allModes: ExplorerMode[] = ['casual', 'rated'];
@@ -20,9 +23,7 @@ type ByDbSetting = {
   since: StoredProp<Month>;
   until: StoredProp<Month>;
 };
-type ByDbSettings = {
-  [key in ExplorerDb]: ByDbSetting;
-};
+type ByDbSettings = Record<ExplorerDb, ByDbSetting>;
 
 export interface ExplorerConfigData {
   open: Prop<boolean>;
@@ -36,7 +37,7 @@ export interface ExplorerConfigData {
     value: StoredProp<string>;
     previous: Prop<string[]>;
   };
-  color: Prop<Color>;
+  color: StoredProp<Color>;
   byDb(): ByDbSetting;
 }
 
@@ -67,12 +68,7 @@ export class ExplorerConfigCtrl {
     const prevData = previous?.data;
     this.data = {
       open: prevData?.open || prop(false),
-      db: storedProp<ExplorerDb>(
-        'explorer.db2.' + variant,
-        this.allDbs[0],
-        str => str as ExplorerDb,
-        v => v,
-      ),
+      db: storedProp<ExplorerDb>('explorer.db2.' + variant, this.allDbs[0], str => str as ExplorerDb),
       rating: storedJsonProp('analyse.explorer.rating', () => allRatings.slice(1)),
       speed: storedJsonProp<ExplorerSpeed[]>('explorer.speed', () => allSpeeds.slice(1)),
       mode: storedJsonProp<ExplorerMode[]>('explorer.mode', () => allModes),
@@ -82,7 +78,7 @@ export class ExplorerConfigCtrl {
         value: storedStringProp('analyse.explorer.player.name', this.myName || ''),
         previous: storedJsonProp<string[]>('explorer.player.name.previous', () => []),
       },
-      color: prevData?.color || prop(root.bottomColor()),
+      color: storedProp<Color>('analyse.explorer.player.color', root.bottomColor(), str => str as Color),
       byDb() {
         return this.byDbData[this.db()] || this.byDbData.lichess;
       },
@@ -146,23 +142,21 @@ export class ExplorerConfigCtrl {
     (this.data.db() !== 'player' || this.data.mode().length === allModes.length);
 }
 
-export function view(ctrl: ExplorerConfigCtrl): VNode[] {
-  return [
-    ctrl.data.db() === 'masters'
-      ? masterDb(ctrl)
-      : ctrl.data.db() === 'lichess'
-        ? lichessDb(ctrl)
-        : playerDb(ctrl),
+export const view = (ctrl: ExplorerConfigCtrl): VNode[] => [
+  ctrl.data.db() === 'masters'
+    ? masterDb(ctrl)
+    : ctrl.data.db() === 'lichess'
+      ? lichessDb(ctrl)
+      : playerDb(ctrl),
+  h(
+    'section.save',
     h(
-      'section.save',
-      h(
-        'button.button.button-green.text',
-        { attrs: dataIcon(licon.Checkmark), hook: bind('click', ctrl.toggleOpen) },
-        i18n.site.allSet,
-      ),
+      'button.button.button-green.text',
+      { attrs: dataIcon(licon.Checkmark), hook: bind('click', ctrl.toggleOpen) },
+      i18n.site.allSet,
     ),
-  ];
-}
+  ),
+];
 
 const selectText = 'Select a Lichess player';
 
@@ -190,7 +184,7 @@ const playerDb = (ctrl: ExplorerConfigCtrl) => {
             attrs: dataIcon(licon.ChasingArrows),
             hook: bind('click', ctrl.toggleColor, ctrl.root.redraw),
           },
-          ` ${i18n.site[ctrl.data.color() === 'white' ? 'asWhite' : 'asBlack']}`,
+          ` ${i18n.site[`as${capitalize(ctrl.data.color())}`]}`,
         ),
       ]),
     ]),
@@ -212,15 +206,15 @@ const masterDb = (ctrl: ExplorerConfigCtrl) =>
   ]);
 
 const radioButton =
-  <T>(ctrl: ExplorerConfigCtrl, storage: Prop<T[]>, render?: (t: T) => VNode) =>
+  <T>(ctrl: ExplorerConfigCtrl, storage: Prop<T[]>, render: (t: T) => VNode | string) =>
   (v: T) =>
     h(
       'button',
       {
-        attrs: { 'aria-pressed': `${storage().includes(v)}`, title: render ? ucfirst('' + v) : '' },
+        attrs: { 'aria-pressed': `${storage().includes(v)}`, title: ucfirst(String(v)) },
         hook: bind('click', _ => ctrl.toggleMany(storage)(v), ctrl.root.redraw),
       },
-      render ? render(v) : i18n(v as string),
+      render(v),
     );
 
 const lichessDb = (ctrl: ExplorerConfigCtrl) =>
@@ -228,7 +222,7 @@ const lichessDb = (ctrl: ExplorerConfigCtrl) =>
     speedSection(ctrl),
     h('section.rating', [
       h('label', i18n.site.averageElo),
-      h('div.choices', allRatings.map(radioButton(ctrl, ctrl.data.rating))),
+      h('div.choices', allRatings.map(radioButton(ctrl, ctrl.data.rating, r => r.toString()))),
     ]),
     monthSection(ctrl),
   ]);
@@ -236,13 +230,13 @@ const lichessDb = (ctrl: ExplorerConfigCtrl) =>
 const speedSection = (ctrl: ExplorerConfigCtrl) =>
   h('section.speed', [
     h('label', i18n.site.timeControl),
-    h('div.choices', allSpeeds.map(radioButton(ctrl, ctrl.data.speed, s => iconTag(perfIcons[s])))),
+    h('div.choices', allSpeeds.map(radioButton(ctrl, ctrl.data.speed, s => icon(perfIcons[s])()))),
   ]);
 
 const modeSection = (ctrl: ExplorerConfigCtrl) =>
   h('section.mode', [
     h('label', i18n.site.mode),
-    h('div.choices', allModes.map(radioButton(ctrl, ctrl.data.mode))),
+    h('div.choices', allModes.map(radioButton(ctrl, ctrl.data.mode, m => i18n.site[m]))),
   ]);
 
 const monthInput = (prop: StoredProp<Month>, after: () => Month, redraw: Redraw) => {
@@ -261,8 +255,7 @@ const monthInput = (prop: StoredProp<Month>, after: () => Month, redraw: Redraw)
       value: prop() > max ? max : prop(),
     },
     hook: {
-      insert: vnode => {
-        const input = vnode.elm as HTMLInputElement;
+      ...onInsert<HTMLInputElement>(input => {
         validateRange(input);
         input.addEventListener('change', e => {
           const input = e.target as HTMLInputElement;
@@ -273,7 +266,7 @@ const monthInput = (prop: StoredProp<Month>, after: () => Month, redraw: Redraw)
             redraw();
           }
         });
-      },
+      }),
       update: (_, vnode) => validateRange(vnode.elm as HTMLInputElement),
     },
   });
@@ -293,8 +286,7 @@ const yearInput = (prop: StoredProp<Month>, after: () => Month, redraw: Redraw) 
       value: prop().split('-')[0],
     },
     hook: {
-      insert: vnode => {
-        const input = vnode.elm as HTMLInputElement;
+      ...onInsert<HTMLInputElement>(input => {
         validateRange(input);
         input.addEventListener('change', e => {
           const input = e.target as HTMLInputElement;
@@ -305,33 +297,33 @@ const yearInput = (prop: StoredProp<Month>, after: () => Month, redraw: Redraw) 
             redraw();
           }
         });
-      },
+      }),
       update: (_, vnode) => validateRange(vnode.elm as HTMLInputElement),
     },
   });
 };
 
-const monthSection = (ctrl: ExplorerConfigCtrl) =>
-  h('section.date', [
-    h('label', [i18n.site.since, monthInput(ctrl.data.byDb().since, () => '', ctrl.root.redraw)]),
-    h('label', [
-      i18n.site.until,
-      monthInput(ctrl.data.byDb().until, ctrl.data.byDb().since, ctrl.root.redraw),
-    ]),
+const monthSection = (ctrl: ExplorerConfigCtrl) => {
+  const db = ctrl.data.byDb();
+  return h('section.date', [
+    h('label', [i18n.site.since, monthInput(db.since, () => '', ctrl.root.redraw)]),
+    h('label', [i18n.site.until, monthInput(db.until, db.since, ctrl.root.redraw)]),
   ]);
+};
 
 const playerModal = (ctrl: ExplorerConfigCtrl) => {
   let dlg: Dialog;
-  const onSelect = (name: string | undefined) => {
+  const onSelect = (name?: string) => {
     ctrl.selectPlayer(name);
     dlg.close();
   };
-  const nameToOptionalColor = (name: string | undefined) => {
-    if (!name) return;
+  const nameToOptionalColor = (name?: string) => {
+    if (!name) return '';
     else if (name === ctrl.myName) return '.button-green';
     else if (ctrl.data.playerName.previous().includes(name)) return '';
     return '.button-metal';
   };
+
   return snabDialog({
     class: 'explorer__config__player__choice',
     onClose() {
@@ -340,6 +332,7 @@ const playerModal = (ctrl: ExplorerConfigCtrl) => {
     },
     onInsert: dialog => (dlg = dialog).show(),
     modal: true,
+    easyClose: 'clickOutside',
     vnodes: [
       h('h2', 'Personal opening explorer'),
       h('div.input-wrapper', [

@@ -1,11 +1,11 @@
-var ids = [];
+const ids = [];
 
 db.simul
   .find({
     status: 20,
   })
   .forEach(function (s) {
-    var finished = true;
+    let finished = true;
     printjson(s);
     s.pairings.forEach(function (p) {
       if (p.status < 25 && p.status !== 10) finished = false;

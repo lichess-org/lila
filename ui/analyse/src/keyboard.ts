@@ -1,30 +1,38 @@
-import * as control from './control';
-import type AnalyseCtrl from './ctrl';
-import * as xhr from 'lib/xhr';
-import { snabDialog } from 'lib/view';
 import type { VNode } from 'snabbdom';
+
 import { pubsub } from 'lib/pubsub';
+import { snabDialog } from 'lib/view';
+import * as xhr from 'lib/xhr';
+
+import type AnalyseCtrl from './ctrl';
+
+export const keyToMouseEvent = (key: string, eventName: string, selector: string) =>
+  window.site.mousetrap.bind(key, () =>
+    $(selector).each(function (this: HTMLElement) {
+      this.dispatchEvent(new MouseEvent(eventName));
+    }),
+  );
 
 export const bind = (ctrl: AnalyseCtrl) => {
   addModifierKeyListeners(ctrl);
   const kbd = window.site.mousetrap;
   kbd
     .bind(['left', 'k'], () => {
-      control.prev(ctrl);
+      ctrl.navigate.prev();
       ctrl.redraw();
     })
     .bind(['right', 'j'], () => {
-      control.next(ctrl);
+      ctrl.navigate.next();
       ctrl.redraw();
     })
     .bind(['up', '0', 'home'], e => {
       if (e.key === 'ArrowUp' && ctrl.fork.select('prev')) ctrl.setAutoShapes();
-      else control.first(ctrl);
+      else ctrl.navigate.first();
       ctrl.redraw();
     })
     .bind(['down', '$', 'end'], e => {
       if (e.key === 'ArrowDown' && ctrl.fork.select('next')) ctrl.setAutoShapes();
-      else control.last(ctrl);
+      else ctrl.navigate.last();
       ctrl.redraw();
     })
     .bind('shift+c', () => {
@@ -32,22 +40,25 @@ export const bind = (ctrl: AnalyseCtrl) => {
       ctrl.treeView.requestAutoScroll('smooth');
       ctrl.redraw();
     })
-    .bind('shift+i', () => {
-      ctrl.treeView.toggleModePreference();
-      ctrl.redraw();
-    });
+    .bind('shift+i', () => ctrl.settings.set('inline', !ctrl.settings.inline));
   kbd.bind('space', () => {
     const gb = ctrl.gamebookPlay();
     if (gb) gb.onSpace();
-    else if (ctrl.practice || ctrl.study?.practice) return;
+    else if (ctrl.practice || ctrl.study?.practice || ctrl.retro?.isSolving()) return undefined;
     else if (ctrl.cevalEnabled()) ctrl.playBestMove();
     else if (ctrl.isCevalAllowed() && ctrl.ceval.analysable) ctrl.cevalEnabled(!ctrl.cevalEnabled());
+    return undefined;
   });
 
   if (ctrl.study?.practice) return;
 
   kbd
+    .bind('h', () => {
+      ctrl.toggleActionMenu();
+      ctrl.redraw();
+    })
     .bind('f', ctrl.flip)
+    .bind('b', () => window.location.assign(ctrl.boardEditorUrl()))
     .bind('?', () => {
       ctrl.keyboardHelp = !ctrl.keyboardHelp;
       if (ctrl.keyboardHelp) pubsub.emit('analysis.closeAll');
@@ -56,19 +67,9 @@ export const bind = (ctrl: AnalyseCtrl) => {
     .bind('l', () => {
       if (ctrl.isCevalAllowed() && ctrl.ceval.analysable) ctrl.cevalEnabled(!ctrl.cevalEnabled());
     })
-    .bind('z', () => {
-      ctrl.toggleFishnetAnalysis();
-      ctrl.redraw();
-    })
-    .bind('a', () => {
-      ctrl.showBestMoveArrowsProp(!ctrl.showBestMoveArrowsProp());
-      ctrl.redraw();
-    })
-    .bind('v', () => {
-      ctrl.toggleVariationArrows();
-      ctrl.setAutoShapes();
-      ctrl.redraw();
-    })
+    .bind('z', () => ctrl.settings.set('showStaticAnalysis', !ctrl.settings.showStaticAnalysis))
+    .bind('a', () => ctrl.settings.set('showBestMoveArrows', !ctrl.settings.showBestMoveArrows))
+    .bind('v', () => ctrl.settings.set('showVariationArrows', !ctrl.settings.showVariationArrows))
     .bind('x', () => ctrl.toggleThreatMode())
     .bind('e', () => {
       ctrl.toggleExplorer();
@@ -76,11 +77,11 @@ export const bind = (ctrl: AnalyseCtrl) => {
     });
   kbd
     .bind(['shift+left', 'shift+k'], () => {
-      control.previousBranch(ctrl);
+      ctrl.navigate.previousBranch();
       ctrl.redraw();
     })
     .bind(['shift+right', 'shift+j'], () => {
-      control.nextBranch(ctrl);
+      ctrl.navigate.nextBranch();
       ctrl.redraw();
     })
     .bind('shift+down', () => {
@@ -92,22 +93,6 @@ export const bind = (ctrl: AnalyseCtrl) => {
       ctrl.redraw();
     });
 
-  const keyToMouseEvent = (key: string, eventName: string, selector: string) =>
-    kbd.bind(key, () =>
-      $(selector).each(function (this: HTMLElement) {
-        this.dispatchEvent(new MouseEvent(eventName));
-      }),
-    );
-
-  //'Request computer analysis' & 'Learn From Your Mistakes' (mutually exclusive)
-  keyToMouseEvent(
-    'r',
-    'click',
-    '.analyse__underboard__panels .computer-analysis button, .analyse__round-training .advice-summary a.button',
-  );
-  //'Next' button ("in Learn From Your Mistake")
-  keyToMouseEvent('enter', 'click', '.analyse__tools .training-box a.continue');
-
   //First explorer move
   kbd.bind('shift+space', () => {
     const move = document
@@ -115,44 +100,19 @@ export const bind = (ctrl: AnalyseCtrl) => {
       ?.getAttribute('data-uci');
     if (move) ctrl.explorerMove(move);
   });
-
-  [
-    ['b', '??'],
-    ['m', '?'],
-    ['i', '?!'],
-  ].forEach(([key, symbol]) => kbd.bind(key, () => ctrl.jumpToGlyphSymbol(ctrl.bottomColor(), symbol)));
-
-  if (!ctrl.study) return;
-
-  keyToMouseEvent('d', 'mousedown', '.study__buttons .comments');
-  keyToMouseEvent('g', 'mousedown', '.study__buttons .glyphs');
-
-  kbd.bind('p', ctrl.study.goToPrevChapter);
-  kbd.bind('n', ctrl.study.goToNextChapter);
-  // ! ? !! ?? !? ?! □ ⨀
-  for (let i = 1; i < 9; i++)
-    kbd.bind(i.toString(), () => ctrl.study?.glyphForm.toggleGlyph(i === 8 ? 22 : i));
-  // = ∞ ⩲ ⩱ ± ∓ +- -+
-  for (let i = 1; i < 9; i++)
-    kbd.bind(`shift+${i}`, () => ctrl.study?.glyphForm.toggleGlyph(i === 1 ? 10 : 11 + i));
-  // N ↑↑ ↑ → ⇆ ⊕ =∞ ∆
-  const observationIds = [146, 32, 36, 40, 132, 138, 44, 140];
-  for (let i = 1; i < 9; i++)
-    kbd.bind(`ctrl+shift+${i}`, () => ctrl.study?.glyphForm.toggleGlyph(observationIds[i - 1]));
-  kbd.bind('mod+z', ctrl.study.undoShapeChange);
 };
 
-export function view(ctrl: AnalyseCtrl): VNode {
-  return snabDialog({
+export const view = (ctrl: AnalyseCtrl): VNode =>
+  snabDialog({
     class: 'help.keyboard-help',
     htmlUrl: xhr.url('/analysis/help', { study: !!ctrl.study }),
     modal: true,
+    easyClose: 'clickOutside',
     onClose() {
       ctrl.keyboardHelp = false;
       ctrl.redraw();
     },
   });
-}
 
 function addModifierKeyListeners(ctrl: AnalyseCtrl) {
   let modifierOnly = false;

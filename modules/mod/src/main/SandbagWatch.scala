@@ -55,6 +55,9 @@ final private class SandbagWatch(
           else funit
       yield ()
 
+  private def isCorrespondenceTimeout(game: Game): Boolean =
+    game.isCorrespondence && game.status == chess.Status.Timeout
+
   private def sendMessage(userId: UserId, preset: MsgPreset): Funit =
     messageOnceEvery(userId).so:
       lila.common.Bus.pub(lila.core.mod.AutoWarning(userId, preset.name))
@@ -77,7 +80,7 @@ final private class SandbagWatch(
         else game.loserUserId.map(Boost.apply)
       .getOrElse(Good)
 
-  private def isSandbagOrBoost(game: Game): Boolean =
+  private def isSandbagOrBoost(game: Game): Boolean = !isCorrespondenceTimeout(game) && {
 
     def loserRatingGt(r: Int) = game.loser.flatMap(_.rating).exists(_ > IntRating(r))
 
@@ -93,6 +96,7 @@ final private class SandbagWatch(
       case _ => baseMinTurns
 
     game.playedPlies <= minTurns && game.winner.exists(_.ratingDiff.exists(_.positive))
+  }
 
 private object SandbagWatch:
 
@@ -142,7 +146,8 @@ private object SandbagWatch:
 
   If these quick losses were unintentional, please don't worry. This is just a friendly reminder about our Fair Play policy.
 
-  Thank you for helping keep Lichess fun and fair."""
+  Thank you for helping keep Lichess fun and fair.""",
+      mustRead = true
     )
     lazy val boostAuto = MsgPreset(
       name = "Warning: possible boosting",
@@ -152,5 +157,6 @@ private object SandbagWatch:
 
   If your quick wins were the result of fair play, please don't worry. This is just a friendly reminder about our Fair Play policy.
 
-  Thank you for helping keep Lichess fun and fair."""
+  Thank you for helping keep Lichess fun and fair.""",
+      mustRead = true
     )

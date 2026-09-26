@@ -10,6 +10,7 @@
 
   #{$moves-tag} {
     @include prevent-select;
+
     display: flex;
     flex-flow: row wrap;
     align-items: center;
@@ -45,7 +46,7 @@
 
     &.#{$active-class} {
       font-weight: bold;
-      background: $m-primary_bg--mix-20;
+      background: color-mix(in oklab, $c-primary 20%, $c-bg);
       color: $c-font-clear;
     }
   }
@@ -81,7 +82,11 @@
   }
 
   .board-menu {
-    border-radius: 0 0 $box-radius-size $box-radius-size;
+    &,
+    &::before {
+      border-radius: 0 0 $box-radius-size $box-radius-size;
+    }
+
     top: $buttons-height;
     border-top: 2px solid $c-secondary;
   }

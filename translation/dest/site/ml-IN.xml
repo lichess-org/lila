@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">കൂട്ടുകാരന് കളിക്കു വെല്ലുവിളി അയയ്ക്കുക</string>
+  <string name="playAgainstComputer">ഗണനിയിന്റെ എതിരെ കളിക്കുക</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">മറ്റാരുടെയെങ്കിലും കൂടെ മത്സരിക്കുവാനായി ഈ കണ്ണി നല്കുക</string>
   <string name="gameOver">കളി അവസാനിച്ചിരിക്കുന്നു</string>
   <string name="waitingForOpponent">എതിരാളിക്കായി കാത്തിരിക്കുന്നു</string>
@@ -117,8 +119,8 @@
   <string name="enable">വേണോ</string>
   <string name="bestMoveArrow">മികച്ച നീക്കത്തിന്റെ അമ്പു്</string>
   <string name="showVariationArrows">വ്യതിയാനയമ്പുകൾ കാണിക്കുക</string>
-  <string name="evaluationGauge">മൂല്യനിർണയ സംവിധാനം</string>
   <string name="multipleLines">ഒന്നിലധികം വരികൾ</string>
+  <string name="searchTime">തിരയൽ നേരം</string>
   <string name="cpus">CPUs</string>
   <string name="memory">ഓൎമ്മ</string>
   <string name="infiniteAnalysis">അനന്തമായ വിശകലനം</string>
@@ -126,25 +128,13 @@
   <string name="blunder">മണ്ടത്തരം</string>
   <string name="mistake">തെറ്റുകൾ</string>
   <string name="inaccuracy">പിഴവ്</string>
-  <plurals name="nbBlunders">
-    <item quantity="one">%s തെറ്റ്</item>
-    <item quantity="other">%s തെറ്റുകള്‍</item>
-  </plurals>
   <plurals name="numberBlunders">
     <item quantity="one">%s തെറ്റ്</item>
     <item quantity="other">%s തെറ്റുകള്‍</item>
   </plurals>
-  <plurals name="nbMistakes">
-    <item quantity="one">%s ചെറിയ തെറ്റുകള്‍</item>
-    <item quantity="other">%s ചെറിയ തെറ്റുകള്‍</item>
-  </plurals>
   <plurals name="numberMistakes">
     <item quantity="one">%s ചെറിയ തെറ്റുകള്‍</item>
     <item quantity="other">%s ചെറിയ തെറ്റുകള്‍</item>
-  </plurals>
-  <plurals name="nbInaccuracies">
-    <item quantity="one">%s കൃത്യത കുറവ്</item>
-    <item quantity="other">%s കൃത്യത കുറവുകള്‍</item>
   </plurals>
   <plurals name="numberInaccuracies">
     <item quantity="one">%s കൃത്യത കുറവ്</item>
@@ -163,6 +153,7 @@
   <string name="drawByMutualAgreement">പരസ്പര സമ്മതത്തോടുകൂടിയുള്ള സമനില</string>
   <string name="fiftyMovesWithoutProgress">മുന്നേറ്റമില്ലാതെ അൻപതു് നീക്കങ്ങൾ</string>
   <string name="currentGames">ഇപ്പോഴത്തെ കളികൾ</string>
+  <string name="joinedX">%s ചേൎന്നു</string>
   <plurals name="nbGames">
     <item quantity="one">%s കളികൾ</item>
     <item quantity="other">%s കളികൾ</item>
@@ -195,6 +186,7 @@
   <string name="minutesPerSide">ഇരുഭാഗത്തും അനുവദിച്ച മിനിറ്റുകള്‍</string>
   <string name="variant">വ്യത്യാസം</string>
   <string name="variants">വ്യത്യാസങൾ</string>
+  <string name="variantsDescription">കളിക്കാൻ ഇനിയും വഴികൾ</string>
   <string name="timeControl">സമയ നിയന്ത്രണം</string>
   <string name="realTime">റിയല്‍ ടൈം</string>
   <string name="correspondence">ദീർഘകാലകളി</string>
@@ -221,7 +213,6 @@
   <string name="changeUsernameNotSame">അക്ഷരങ്ങളുടെ കേസിനു മാത്രമേ മാറാൻ കഴിയുകയുള്ളൂ. ഉദാഹരണത്തിന് \"johndoe\" എന്നത് \"JohnDoe\" എന്നായി മാറും.</string>
   <string name="changeUsernameDescription">നിങ്ങളുടെ ഉപയോക്തൃനാമം മാറ്റുക. ഇത് ഒരിക്കൽ മാത്രമേ മാറ്റാൻ സാധിക്കുകയുള്ളു. അതിൽ തന്നെ യൂസർനെയിമിന്റെ അക്ഷരങ്ങളുടെ കേസ് മാത്രമേ മാറ്റാൻ സാധിക്കുകയുള്ളൂ.</string>
   <string name="signupUsernameHint">ദയവായിയൊരു സംസ്കാരമുള്ള ഉപയോക്തൃപേരു് തിരഞ്ഞെടുക്കുക. ഈ ഉപയോക്തൃപേരു് താങ്ങൾക്കു് പിന്നിടു് മാറ്റാൻ പറ്റത്തില്ല. അനുചിതമായ ഉപയോക്തൃപേരുള്ള അക്കൌണ്ടുകൾ അടച്ചുപൂട്ടിയിരിക്കും!</string>
-  <string name="signupEmailHint">ഞങ്ങൾ ഇത് വെരും രഹസ്യവാക്ക് മാറ്റാൻ ഉപയോഗിക്കും.</string>
   <string name="password">രഹസ്യവാക്ക്</string>
   <string name="changePassword">രഹസ്യവാക്ക് മാറ്റുക</string>
   <string name="changeEmail">ഇമെയില്‍ മാറ്റുക</string>
@@ -244,10 +235,6 @@
   <string name="emailSent">ഞങ്ങൾ %s -ക്ക് ഒരു മെയിൽ അയച്ചിട്ടുണ്ടു്.</string>
   <string name="emailCanTakeSomeTime">അത് എത്താൻ കുറച്ചു നേരം എടുക്കാം.</string>
   <string name="refreshInboxAfterFiveMinutes">൫ മിനിറ്റ് കാത്തിരുന്ന ശേഷം വീണ്ടും ഇ-തപാൽപെട്ടി ലോഡ് ചെയുക.</string>
-  <string name="checkSpamFolder">താങ്ങളുടെ പാഴ്മെയിൽ അറ (spam folder) കൂടി നോക്കുക, ചില്ലപ്പം ഇമെയിൽ അവിടേവരേ എത്താം.</string>
-  <string name="emailForSignupHelp">മറ്റേതൊന്നും നടന്നില്ലെങ്കിൽ, ഞങ്ങളേ ഈ ഇമെയിൽ അയക്കുക:</string>
-  <string name="copyTextToEmail">മേൽപറഞ്ഞ രേഖ പകർത്തി %s -ന് അയക്കുക</string>
-  <string name="waitForSignupHelp">താങ്ങളുടെ അക്കൗണ്ടു് തുടർച്ച തീർക്കാൻ ഞങ്ങൾ കുറച്ചു നേരം കഴിഞ്ഞു് തിരിച്ചു വരാം.</string>
   <string name="accountConfirmed">%s എന്ന ഉപയോക്താവ് സ്ഥിരീകരിക്കപെട്ടിരിക്കുന്നു.</string>
   <string name="accountCanLogin">താങ്ങൾക്ക് %s-ആയി പ്രവേശിക്കാം.</string>
   <string name="accountConfirmationEmailNotNeeded">താങ്ങൾക്ക് ഉറപ്പിക്കല്മെയിൽ ആവശ്യമില്ല.</string>
@@ -270,8 +257,6 @@
   </plurals>
   <string name="ok">ശരി</string>
   <string name="cancel">ഒഴിവാക്കുക</string>
-  <string name="whiteTimeOut">വെള്ള സമയം കഴിഞു</string>
-  <string name="blackTimeOut">കറുപ്പ് സമയം കഴിഞ്ഞു</string>
   <string name="drawOfferSent">സമനിലാ വാഗ്ദാനം അയച്ചു</string>
   <string name="drawOfferAccepted">സമനിലാ വാഗ്ദാനം സ്വീകരിക്കപ്പെട്ടു</string>
   <string name="whiteOffersDraw">വെള്ള സമനില വാഗ്ദാനം ചെയ്യുന്നു</string>
@@ -401,8 +386,8 @@
   <string name="apply">പ്രയോഗിക്കുക</string>
   <string name="save">സേവ് ചെയ്യുക</string>
   <string name="leaderboard">മികച്ച കളിക്കാര്‍</string>
-  <string name="screenshotCurrentPosition">താൽകാലിക കരുനില പ്രതലവെട്ടുക</string>
   <string name="gameAsGIF">കളി GIF ആയി ഇറക്കവയ്ക്കുക</string>
+  <string name="playerNames">കളിക്കാരുടെ പേരു്</string>
   <string name="pasteTheFenStringHere">FEN ടെക്സ്റ്റ്‌ ഇവിടെ കൊടുക്കുക</string>
   <string name="pasteThePgnStringHere">PGN ടെക്സ്റ്റ്‌ ഇവിടെ കൊടുക്കുക</string>
   <string name="orUploadPgnFile">അല്ലെങ്കിൽ ഒരു PGN രേഖയായി കയറ്റിവയ്ക്കുക</string>
@@ -456,6 +441,7 @@
   <string name="openTournaments">തുറന്ന മൽസര പരമ്പരകൾ</string>
   <string name="duration">ദൈര്‍ഘ്യം</string>
   <string name="winner">ജേതാവ്‌</string>
+  <string name="standings">നിലപ്പട്ടിക</string>
   <string name="createANewTournament">ഒരു പുതിയ മൽസര പരമ്പര തുടങ്ങാം</string>
   <string name="tournamentCalendar">ടൂർണമെൻറ് കലണ്ടർ</string>
   <string name="conditionOfEntry">പ്രവേശനത്തിനുള്ള നിബന്ധനം:</string>
@@ -508,7 +494,6 @@
   <string name="oneUrlPerLine">ഒരു വരിയിൽ ഒരു വിലാസം.</string>
   <string name="inlineNotation">ഇൻഫയൽ നോട്ടെഷൻ</string>
   <string name="makeAStudy">കരുതിവയ്ക്കാനും പങ്കിടാനും ഒരു പഠനം ഉണ്ടാക്കാൻ പരിഗണയിൽ എടുക്കുക.</string>
-  <string name="clearSavedMoves">നീക്കങ്ങൾ കളയുക</string>
   <string name="previouslyOnLichessTV">Lichess TV യിൽ നേരെത്തെയുള്ളത്</string>
   <string name="onlinePlayers">തൽസമയ കളിക്കാർ</string>
   <string name="activePlayers">സജീവ കളിക്കാർ</string>
@@ -548,7 +533,6 @@
   <string name="cheat">ചതി</string>
   <string name="troll">ചൂണ്ട</string>
   <string name="other">മറ്റുള്ളവ</string>
-  <string name="reportProcessedFasterInEnglish">താങ്ങളുടെ കുറ്റപെടുത്തൽരേഖ ഇംഗ്ലീഷിൽ എഴുതിയാൽ താങ്ങൾക്കു് ഉടനെ മറുപടി കിട്ടും.</string>
   <string name="error.provideOneCheatedGameLink">കുറഞ്ഞത് ഒരു കളിയുടെയെങ്കിലും ലിങ്ക് നല്‍കേണ്ടതാണ്.</string>
   <string name="by">%sന്റേത്</string>
   <string name="importedByX">%s ഇറക്കുമതി ചെയ്തത്</string>
@@ -561,6 +545,8 @@
   <string name="invalidUsernameOrPassword">യൂസർ നെയിം അല്ലെങ്കിൽ പാസ്സ്‌വേർഡ്‌ അസാധുവാണ്</string>
   <string name="incorrectPassword">തെറ്റായ രഹസ്യവാക്ക്</string>
   <string name="invalidAuthenticationCode">തെറ്റായ ഓതെന്റിക്കേഷൻ കോഡ്</string>
+  <string name="orSeparator">അല്ലെങ്കിൽ</string>
+  <string name="logInByEmail">ഇതപാൽ വഴി പ്രവേശിക്കുക</string>
   <string name="emailMeALink">ഒരു ലിങ്ക് ഇമെയിൽ ചെയ്യൂ</string>
   <string name="currentPassword">നിലവിലുള്ള രഹസ്യവാക്ക്</string>
   <string name="newPassword">പുതിയ രഹസ്യവാക്ക്</string>
@@ -630,7 +616,7 @@
   <string name="onlyExistingConversations">നിലവിലുള്ള സംഭാഷങ്ങൾ മാത്രം</string>
   <string name="onlyFriends">കൂട്ടുകാർ മാത്രം</string>
   <string name="menu">പട്ടിക</string>
-  <string name="castling" comment="Label for a box on the right side of the board editor, where the user can select castling rights. Noun.&#10;&#10;NOTE: this string used to read &quot;Castling&quot;, with &quot;rights&quot; added in 2026 for clarity.">കേസ്‌ലിങ്</string>
+  <string name="castling">കേസ്‌ലിങ്</string>
   <string name="whiteCastlingKingside">വെള്ള O-O</string>
   <string name="blackCastlingKingside">കറുപ്പ് O-O</string>
   <plurals name="nbForumPosts">
@@ -651,6 +637,7 @@
   <string name="really">സത്യമായിട്ടും</string>
   <string name="contribute">സംഭാവന</string>
   <string name="termsOfService">സേവന വ്യവസ്ഥകൾ</string>
+  <string name="titleVerification">തലക്കെട്ടു തീൎച്ചപ്പെടുത്തൽ</string>
   <string name="sourceCode">സോഴ്സ് കോഡ്</string>
   <string name="simultaneousExhibitions">ഈ വേളയിലെ പ്രദർശനങ്ങൾ</string>
   <string name="host">ഹോസ്റ്റ്</string>
@@ -668,11 +655,9 @@
   <string name="aboutSimulRules">Simul തുടങ്ങുമ്പോൾ, എല്ലാ വെള്ള കരുക്കളുമായി കളിക്കുന്ന കളിക്കാരും ഹോസ്റ്റുമായി ഗെയിം തുടങ്ങും. Simul അവസാനിക്കുന്നത് എല്ലാ ഗെയിമും പൂർത്തിയാവുമ്പോഴാണ്.</string>
   <string name="aboutSimulSettings">Simuls എപ്പോഴും സാധാരണ ഗെയിമുകളാണ്. പുനർകളികളും, \"കൂടുതൽ സമയവും\", തിരിച്ചെടുക്കലും ഒഴിവാക്കിയെന്ന വ്യത്യാസം മാത്രമേയുള്ളൂ.</string>
   <string name="create">തുടങ്ങുക</string>
-  <string name="whenCreateSimul">ഒരു simul ഉണ്ടാക്കുമ്പോൾ, നിങ്ങൾ ഒരുപാടു പേരെ ഒരുമിച്ചു കളിക്കുന്നു.</string>
   <string name="simulVariantsHint">കുറെ വേരിയന്റുകൾ നിങ്ങൾ തിരഞ്ഞെടുത്താൽ ഓരോ കളിക്കാർക്കും അവരുടെ വേരിയന്റ് തീരുമാനിക്കും.</string>
   <string name="simulClockHint">ഫിഷെറിന്റെ ക്ലോക്ക് ക്രമീകരണം. കൂടുതൽ കളിക്കാരെ നേരിടുമ്പോൾ കൂടുതൽ സമയം ആവശ്യമായി വരും.</string>
   <string name="simulAddExtraTime">Simul-മായി പൊരുത്തപ്പെടാൻ കുറച്ച് അധികം സമയം നിങ്ങൾക്ക് ചേർക്കാം.</string>
-  <string name="simulHostExtraTime">ഹോസ്റ്റിന്റെ കൂടുതൽ ക്ലോക്ക് സമയം</string>
   <string name="simulAddExtraTimePerPlayer">ഓരോ കളിക്കാരൻ ഒരേവേളകളിയിൽ കൂട്ടച്ചേരുമ്പോൾ താങ്ങളുടെ തുടക്കത്തിലുള്ള കളിസമയം കൂട്ടിക്കുക.</string>
   <string name="simulHostExtraTimePerPlayer">അതിഥേയനിനു് ഓരോ കളിക്കാരനുമധിക നാഴികമണിയിൽ സമയം</string>
   <string name="lichessTournaments">Lichess പരമ്പരകൾ</string>
@@ -686,11 +671,6 @@
   <string name="keyCycleSelectedVariation">തിരഞ്ഞെടുക്കപെട്ട വ്യതിയാനം തോടു് കടന്നുപോവുക</string>
   <string name="keyShowOrHideComments">അഭിപ്രായ പ്രകടനം കാണിക്കുക/മറയ്ക്കുക</string>
   <string name="keyEnterOrExitVariation">വേരിയേഷനിലേക്ക് കടക്കുക / പുറത്തുപോകുക</string>
-  <string name="keyRequestComputerAnalysis">ഗണനികവിശകലനം ആവശ്യപെടൂ, താങ്ങളുടെ തെറ്റുകൾ നിന്നു് പഠിക്കുക</string>
-  <string name="keyNextLearnFromYourMistakes">അടുത്ത (തെറ്റുകളിൽ നിന്ന് പഠിക്കുക)</string>
-  <string name="keyNextBlunder">അടുത്ത അബദ്ധം</string>
-  <string name="keyNextMistake">അടുത്ത തെറ്റ്</string>
-  <string name="keyNextInaccuracy">അടുത്ത കൃത്യമില്ലായ്മ</string>
   <string name="keyPreviousBranch">മുമ്പുള്ള വിഭാഗം</string>
   <string name="keyNextBranch">അടുത്ത വിഭാഗം</string>
   <string name="toggleVariationArrows">വ്യതിയാനം അമ്പുകൾ ടോഗിൾ ചെയ്യുക</string>
@@ -764,16 +744,17 @@
   <string name="anonymous">അജ്ഞാത</string>
   <string name="yourScore">നിങ്ങളുടെ സ്കോർ %s</string>
   <string name="language">ഭാഷ</string>
+  <string name="allLanguages">എല്ലാ മൊഴികളും</string>
   <string name="background">പശ്ചാത്തലം</string>
   <string name="light">വെളിച്ചപെട്ട</string>
   <string name="dark">ഇരുണ്ടത്</string>
-  <string name="transparent">സുതാര്യത</string>
   <string name="deviceTheme">ഉപകരണയലങ്കാരം</string>
   <string name="backgroundImageUrl">പശ്ചാത്തല ചിത്രത്തിന്റെ URL:</string>
   <string name="board">കളിക്കളം</string>
   <string name="size">വലിപ്പം</string>
   <string name="opacity">ഇരുൾ</string>
   <string name="brightness">കൂരിരുട്ട്</string>
+  <string name="contrast">വ്യത്യാസം</string>
   <string name="hue">നിറം</string>
   <string name="boardReset">നിറങ്ങൾ തനതേക്ക് മാറ്റുക</string>
   <string name="pieceSet">വിവിധ കരുക്കൾ</string>
@@ -791,7 +772,6 @@
   <string name="custom">ഇഷ്ടമ്പോലെ</string>
   <string name="notifications">അറിയിപ്പുകൾ</string>
   <string name="notificationsX">അറിയിക്കൽ: %1$s</string>
-  <string name="perfRatingX">നിലവാരം: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">ആദ്യ നീക്കം കളിയ്ക്കാൻ %s സെക്കന്റ് ബാക്കി നിൽക്കുന്നു</item>
     <item quantity="other">ആദ്യ നീക്കം കളിയ്ക്കാൻ %s സെക്കൻഡ്‌സ് ബാക്കി നിൽക്കുന്നു</item>
@@ -848,7 +828,6 @@
     <item quantity="other">എന്നിട്ട് %s premove ലൈനുകൾ സേവ് ചെയ്യൂ</item>
   </plurals>
   <string name="showUnreadLichessMessage">താങ്ങൾക്കു് Lichess നിന്നു് ഒരു സ്വകാര്യ അറിയിപ്പു് കിട്ടിയിരിക്കുന്നു.</string>
-  <string name="clickHereToReadIt">വായ്ക്കാൻ ഇവിടെ അമർത്തിക്കുക</string>
   <string name="sorry">പൊറുക്കണം :(</string>
   <string name="weHadToTimeYouOutForAWhile">ഞങ്ങൾക്ക് നിങ്ങളെ കുറച്ചു സമയം പുറത്തു നിർത്തേണ്ടി വന്നു.</string>
   <string name="why">എന്തുകൊണ്ട്?</string>
@@ -867,7 +846,6 @@
   <string name="agreementAssistance">എന്റെ കളികളിൽ ഞാൻ ഒരിക്കൽ പോലും മറ്റൊരാളുടെ സഹായം ഉപയോഗിക്കില്ലെന്ന് സമ്മതിക്കുന്നു (ഒരു ചെസ്സ് കംപ്യൂട്ടറിന്റെയോ പുസ്തകത്തിന്റെയോ ഡാറ്റാബേസിന്റെയോ മറ്റൊരാളുടെയോ അടുക്കൽ നിന്ന്).</string>
   <string name="agreementNice">ഞാൻ എല്ലായ്പ്പോഴും മറ്റു കളിക്കാരോട് മാന്യമായി പെരുമാറുമെന്ന് സമ്മതിക്കുന്നു.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">പല അക്കൗണ്ടുകൾ ഉണ്ടാക്കത്തില്ലെന്നു് ഞാൻ സമ്മതിക്കുന്നു (%s-ൽ പറഞ്ഞിരിക്കുന്ന കാരണങ്ങൾ ഒഴികേ).</string>
-  <string name="agreementPolicy">ഞാൻ Lichess പോളിസികൾ അനുകൂലിക്കുന്നതായി സമ്മതിക്കുന്നു.</string>
   <string name="searchOrStartNewDiscussion">കണ്ടുപിടിക്കുക അല്ലെങ്കിൽ പുതിയൊരു സംഭാഷണം ആരംഭിക്കുക</string>
   <string name="edit">മാറ്റുക</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">വെടിയുണ്ടകളി</string>
@@ -902,7 +880,6 @@
   <string name="xInvitedYouToY">%1$s നിങ്ങളെ %2$s ഇലേക്കു ക്ഷണിക്കുന്നു.</string>
   <string name="youAreNowPartOfTeam">നിങ്ങളിപ്പോൾ ടീമിന്റെ ഭാഗമായി.</string>
   <string name="youHaveJoinedTeamX">നിങ്ങൾ %1$s ഇൽ ചേർന്നു.</string>
-  <string name="someoneYouReportedWasBanned">നിങ്ങൾ റിപ്പോർട്ടുചെയ്‌ത ഒരു കളിക്കാരനെ നിരോധിച്ചിരിക്കുന്നു</string>
   <string name="congratsYouWon">അഭിനന്ദനങ്ങൾ, നിങ്ങൾ ജയിച്ചു!</string>
   <string name="gameVsX">%1$s ഇന് എതിരെയുള്ള കളി</string>
   <string name="resVsX">%1$s വസ് %2$s</string>
@@ -933,7 +910,6 @@
   <string name="noChat">സല്ലാപമുറി ഇല്ല</string>
   <string name="onlyTeamLeaders">കളികൂട്ടനേതാവ് മാത്രം</string>
   <string name="onlyTeamMembers">കളികൂട്ടം അംഗംക്കാർ മാത്രം</string>
-  <string name="navigateMoveTree">നീക്കചിത്രം കപ്പലോടുക</string>
   <string name="mouseTricks">മൌസു് സൂത്രങ്ങൾ</string>
   <string name="toggleLocalAnalysis">ഗണനികവിശകലനം ടോഗിൾ ചെയ്യുക</string>
   <string name="toggleAllAnalysis">എല്ലാ ഗണനികവിശകലനം ടോഗിൾ ചെയ്യുക</string>
@@ -949,7 +925,6 @@
   <string name="gameInProgress">താങ്ങൾ ഇപ്പോഴ് %s-ിന്റെ കൂടെ കളിക്കുന്നുണ്ട്.</string>
   <string name="abortTheGame">കളി കയ്യൊഴിഞ്ഞ് പോവുക</string>
   <string name="resignTheGame">കളി വഴങ്ങികൊടുക്കുക</string>
-  <string name="youCantStartNewGame">ഈ കളി പൂർത്തികരിക്കുന്നവരെ താങ്ങൾക്കു് പുതിയ കളി തുടങ്ങാൻ സാധിക്കത്തില്ല.</string>
   <string name="since">മുതൽ</string>
   <string name="until">വരേ</string>
   <string name="lichessDbExplanation">Lichess-ൽ കളിച്ചതുള്ള റേറ്റിങ്ങുള്ള കളികൾ</string>
@@ -962,4 +937,11 @@
 നടത്തിപ്പിനും വികാസനത്തിനും ഉള്ളടക്കത്തിനും ചെലവു് എല്ലാം ഉപയോക്താവു് സംഭാവനതോടാണു് കഴിയുന്നതു്.</string>
   <string name="nothingToSeeHere">അല്പസമയത്തേക്കു് ഒന്നും കാണാനില്ല.</string>
   <string name="stats">സ്ഥിതിവിവരണങ്ങൾ</string>
+  <string name="enableBlindMode">കുരുടൻ പരി പ്രവൎത്തനക്ഷമമാക്കുക</string>
+  <string name="disableBlindMode">കുരുടൻ പരി പ്രവൎത്തനരഹിതമാക്കുക</string>
+  <string name="copyToClipboard">പകൎത്തല്പെട്ടിയിലേക്കു പകൎത്തുക</string>
+  <string name="online" comment="status of a user">തത്സമയം</string>
+  <string name="search">തിരയുക</string>
+  <string name="clearSearch">തിരച്ചിൽ മായ്ക്കുക</string>
+  <string name="thereAreNoResultsForX">\"%s\" എന്നതിനു ഫലങ്ങൾ കണ്ടെത്താൻ കഴിഞ്ഞില്ല</string>
 </resources>

@@ -1,6 +1,6 @@
-import * as licon from 'lib/licon';
-import { bind, hl, type VNode } from 'lib/view';
 import { memoize, type Toggle } from 'lib';
+import { licon } from 'lib/licon';
+import { bind, hl, type VNode } from 'lib/view';
 
 export const header = (name: string, close: () => void): VNode =>
   hl(
@@ -13,7 +13,7 @@ export const moreButton = (toggle: Toggle): VNode =>
   hl(
     'button.button.more',
     {
-      attrs: { title: i18n.site.more },
+      attrs: { title: toggle() ? i18n.site.less : i18n.site.more },
       hook: bind('click', toggle.toggle),
     },
     toggle() ? '-' : '+',

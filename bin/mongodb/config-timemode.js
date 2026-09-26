@@ -1,7 +1,7 @@
 [db.config, db.config_anon].forEach(function (coll) {
   coll.find().forEach(function (o) {
-    var sets = {};
-    var unsets = {};
+    const sets = {};
+    const unsets = {};
     ['friend', 'hook', 'ai'].forEach(function (type) {
       if (!o[type]) return;
       sets[type + '.tm'] = o[type].k ? NumberInt(1) : NumberInt(0);

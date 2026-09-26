@@ -1,11 +1,14 @@
 import { h, type VNode } from 'snabbdom';
-import type { Contact, LastMsg, User } from '../interfaces';
-import type MsgCtrl from '../ctrl';
-import * as licon from 'lib/licon';
+
 import { hookMobileMousedown } from 'lib/device';
-import { fullName, userLine } from 'lib/view/userLink';
 import { timeago } from 'lib/i18n';
+import { licon } from 'lib/licon';
+import { icon } from 'lib/view';
 import type { MaybeVNodes } from 'lib/view/snabbdom';
+import { fullName, userLine } from 'lib/view/userLink';
+
+import type MsgCtrl from '../ctrl';
+import type { Contact, LastMsg, User } from '../interfaces';
 
 export default function renderContact(ctrl: MsgCtrl, contact: Contact, active?: string): VNode {
   const user = contact.user,
@@ -16,7 +19,7 @@ export default function renderContact(ctrl: MsgCtrl, contact: Contact, active?: 
     {
       key: user.id,
       class: { active: active === user.id },
-      hook: hookMobileMousedown(_ => ctrl.openConvo(user.id)),
+      hook: hookMobileMousedown(() => ctrl.openConvo(user.id)),
     },
     [
       userIcon(user, 'msg-app__side__contact__icon'),
@@ -31,7 +34,7 @@ export default function renderContact(ctrl: MsgCtrl, contact: Contact, active?: 
             { class: { 'msg-app__side__contact__msg--new': isNew } },
             msg.text,
           ),
-          isNew ? h('i.msg-app__side__contact__new', { attrs: { 'data-icon': licon.BellOutline } }) : null,
+          isNew ? icon(licon.BellOutline)('.msg-app__side__contact__new') : null,
         ]),
       ]),
     ],

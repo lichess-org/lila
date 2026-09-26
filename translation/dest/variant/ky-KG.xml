@@ -1,2 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="standard">Стандарт</string>
+  <string name="standardTitle">Шахматтын стандарт эрежелери (FIDE)</string>
+  <string name="chess960">Шахмат960</string>
+  <string name="chess960Title">Фигуралардын баштапкы ордулары башаламан коюлат.</string>
+</resources>

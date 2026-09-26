@@ -83,7 +83,7 @@ final class Practice(
   private def analysisJson(us: UserStudy)(using Context): Fu[(JsObject, JsObject)] = us match
     case UserStudy(_, _, chapters, WithChapter(study, chapter), _) =>
       for
-        studyJson <- env.study.jsonView.full(study, chapter, chapters.some, none, withMembers = false)
+        studyJson <- env.study.jsonView.full(study, chapter, chapters.some, withMembers = false)
         initialFen = chapter.root.fen.some
         pov = userAnalysisC.makePov(initialFen, chapter.setup.variant)
         baseData = env.round.jsonView
@@ -92,7 +92,8 @@ final class Practice(
             ctx.pref,
             initialFen,
             chapter.setup.orientation,
-            owner = false
+            owner = false,
+            opening = none
           )
         analysis = baseData ++ Json.obj(
           "treeParts" -> partitionTreeWriter(chapter.root, lichobile = false),

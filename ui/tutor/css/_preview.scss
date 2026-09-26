@@ -1,0 +1,57 @@
+.tutor-preview {
+  @extend %box-neat, %flex-between-nowrap, %nowrap-hidden;
+
+  background: $c-bg-box;
+  padding: 1em $box-padding;
+  color: $c-font;
+  gap: 1em;
+
+  &:hover {
+    background: color-mix(in oklab, $c-primary 10%, $c-bg);
+    color: $c-font-clearer;
+  }
+
+  &--empty {
+    background: color-mix(in oklab, $c-bad 05%, $c-bg);
+
+    &:hover {
+      background: color-mix(in oklab, $c-bad 10%, $c-bg);
+    }
+  }
+
+  &__badges {
+    @extend %flex-center-nowrap;
+
+    gap: 1em;
+  }
+
+  &__perfs {
+    @extend %flex-center-nowrap;
+
+    gap: 1em;
+  }
+
+  &__perf {
+    @extend %flex-center-nowrap, %box-radius;
+
+    @media (min-width: $xxx-small) {
+      padding: 0.5em 1em;
+      border: $border;
+    }
+
+    gap: 1ch;
+
+    &::before {
+      font-size: 2.5em;
+      opacity: 0.8;
+    }
+
+    &__data {
+      @extend %flex-column;
+
+      @media (max-width: $x-small) {
+        display: none;
+      }
+    }
+  }
+}

@@ -6,7 +6,7 @@ export lila.core.id.ChallengeId
 
 private def inTwoWeeks = nowInstant.plusWeeks(2)
 
-val logger = lila.log("challenge")
+private lazy val logger = lila.log("challenge")
 
 case class AllChallenges(in: List[Challenge], out: List[Challenge]):
   def all = in ::: out

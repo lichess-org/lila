@@ -7,6 +7,7 @@
 main {
   .coach-main {
     grid-area: main;
+    min-height: 70vh;
   }
 
   &.coach-full-page {
@@ -21,7 +22,7 @@ main {
     @media (min-width: at-least($large)) {
       grid-template-columns: 300px auto;
       grid-template-areas: 'side main';
-      grid-gap: 2rem;
+      gap: 2rem;
 
       .coach-side {
         margin: 4rem 0 0 0;

@@ -32,7 +32,7 @@ final class StudyUi(helpers: Helpers):
       if Study.maxChapters <= chapterCount then submitButton(cls := "disabled", st.disabled)
       else submitButton
 
-    btn(name := "as", value := s.id, cls := "button submit")(s.name)
+    btn(name := "as", value := s.id, cls := "button button-empty study submit")(s.name)
 
   def create(
       data: lila.study.StudyForm.importGame.Data,
@@ -46,6 +46,7 @@ final class StudyUi(helpers: Helpers):
         form3.hidden("fen", data.fen.map(_.value)),
         form3.hidden("pgn", data.pgnStr),
         form3.hidden("variant", data.variant.map(_.key)),
+        form3.hidden("mode", data.mode.map(_.key)),
         h2(trans.study.whereDoYouWantToStudyThat()),
         p(
           submitButton(
@@ -58,11 +59,13 @@ final class StudyUi(helpers: Helpers):
         div(cls := "studies")(
           div(
             h2(trans.study.myStudies()),
-            owner.map(studyButton)
+            if owner.nonEmpty then owner.map(studyButton)
+            else p(cls := "placeholder")(trans.site.none())
           ),
           div(
             h2(trans.study.studiesIContributeTo()),
-            contrib.map(studyButton)
+            if contrib.nonEmpty then contrib.map(studyButton)
+            else p(cls := "placeholder")(trans.site.none())
           )
         )
       )

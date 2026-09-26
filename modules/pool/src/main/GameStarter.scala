@@ -18,7 +18,7 @@ final private class GameStarter(
     maxSize = Max(64),
     timeout = 10.seconds,
     name = "gameStarter",
-    lila.log.asyncActorMonitor.full
+    lila.mon.asyncActorMonitor.full
   )
 
   def apply(pool: PoolConfig, couples: Vector[MatchMaking.Couple]): Funit =

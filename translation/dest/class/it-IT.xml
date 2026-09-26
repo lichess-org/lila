@@ -90,7 +90,7 @@ Questo è il link per accedere alla lezione.</string>
   <string name="timePlaying">Tempo giocato</string>
   <string name="variantXOverLastY">%1$s sopra gli ultimi %2$s</string>
   <string name="winrate">Percentuale di vittorie</string>
-  <string name="na" comment="Appears as part of the 'Progress' column on Lichess classes, where a teacher is looking at their list of students under specific rating or variant categories.">N/A</string>
+  <string name="na">N/A</string>
   <string name="overview">Panoramica</string>
   <string name="news">Notizie</string>
   <string name="classNews">News della classe</string>
@@ -119,4 +119,9 @@ Questo è il link per accedere alla lezione.</string>
   <string name="moveToAnotherClass">Vai a un\'altra lezione</string>
   <string name="allowMessagingBetweenStudents">Consenti messaggi tra studenti</string>
   <string name="allowMessagingBetweenStudentsDesc">Questo vale solo per gli account che hai creato per i tuoi studenti.</string>
+  <string name="quickLoginCode">Codice di log in rapido</string>
+  <string name="quickLoginCodes">Codici di log in rapido</string>
+  <string name="quickLoginCodesDesc1" comment="String is a URL">Usa questi codici su %s per inserire i tuoi studenti su Lichess.</string>
+  <string name="quickLoginCodesDesc2">Quando i codici scadranno, i tuoi studenti rimarranno inseriti, finché loro non usciranno manualmente.</string>
+  <string name="expirationInMomentFromNow" comment="String is the translation of, for example, 'in 2 hours'">Scadenza %s</string>
 </resources>

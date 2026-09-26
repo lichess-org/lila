@@ -1,7 +1,8 @@
 package lila.relay
 
+import java.time.temporal.ChronoUnit
 import play.api.mvc.Call
-import io.mola.galimatias.URL
+import io.mola.galimatias.{ URL, Host }
 import reactivemongo.api.bson.Macros.Annotations.Key
 import scalalib.ThreadLocalRandom
 import scalalib.model.Seconds
@@ -29,7 +30,8 @@ case class RelayRound(
     // crowdAt: Option[Instant], // in DB but not used by RelayRound
     rated: Rated = Rated.Yes,
     customScoring: Option[ByColor[RelayRound.CustomScoring]] = none,
-    teamCustomScoring: Option[RelayRound.CustomScoring] = none
+    teamCustomScoring: Option[RelayRound.CustomScoring] = none,
+    fideTCOverride: Option[chess.FideTC] = none
 ):
   inline def studyId = id.studyId
 
@@ -71,9 +73,17 @@ case class RelayRound(
       case Some(at) => at.isBefore(nowInstant.minusHours(3))
       case None => createdAt.isBefore(nowInstant.minusDays(1))
 
+  def daysSinceFinished = finishedAt.map(ChronoUnit.DAYS.between(_, nowInstant))
+
+  private[relay] def startsSoonOrAfterPrevious = startsAt.exists:
+    case RelayRound.Starts.At(at) => ChronoUnit.DAYS.between(nowInstant, at) <= 3
+    case RelayRound.Starts.AfterPrevious => true
+
   def withSync(f: Update[RelayRound.Sync]) = copy(sync = f(sync))
 
   def withTour(tour: RelayTour) = RelayRound.WithTour(this, tour)
+
+  def ratingAndScoringFields = (rated, customScoring, teamCustomScoring, fideTCOverride)
 
   override def toString = s"""relay #$id "$name" $sync"""
 
@@ -166,6 +176,10 @@ object RelayRound:
           case lccRegex(id, round) => round.toIntOption.map(Lcc(id, _))
           case _ => none
         def looksLikeLcc = url.host.toString.endsWith("livechesscloud.com")
+        def looksLikeIdChess = url.host.toString.endsWith("idchess.com")
+        def isLichess = isDomainOrSubdomain(url.host, "lichess.org")
+      // is host the same as domain, or a subdomain of domain
+      def isDomainOrSubdomain(host: Host, domain: String) = s".${host.toHostString}".endsWith(s".$domain")
     import url.*
 
     enum Upstream:
@@ -182,12 +196,16 @@ object RelayRound:
         case Url(url) => url.looksLikeLcc
         case Urls(urls) => urls.exists(_.looksLikeLcc)
         case _ => false
+      def hasIdChess = this match
+        case Url(url) => url.looksLikeIdChess
+        case Urls(urls) => urls.exists(_.looksLikeIdChess)
+        case _ => false
       def hasUnsafeHttp: Option[URL] = this match
         case Url(url) => Option.when(url.scheme == "http")(url)
         case Urls(urls) => urls.find(_.scheme == "http")
         case _ => none
       def roundId: Option[RelayRoundId] = this match
-        case Url(url) =>
+        case Url(url) if url.isLichess =>
           url.path.split("/") match
             case Array("", "broadcast", _, _, id) =>
               val cleanId = if id.endsWith(".pgn") then id.dropRight(4) else id
@@ -228,6 +246,7 @@ object RelayRound:
     def display = round
     def link = round
     def withStudy(study: Study) = WithTourAndStudy(round, tour, study)
+    def fideTC = round.fideTCOverride | tour.info.fideTCOrGuess
 
   case class WithTourAndGroup(round: RelayRound, tour: RelayTour, group: Option[RelayGroup.Name])
       extends AndTourAndGroup:

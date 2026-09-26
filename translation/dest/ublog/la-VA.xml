@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="myBlog">Meum diarium</string>
+  <plurals name="blogPosts">
+    <item quantity="one">%s commentatio</item>
+    <item quantity="other">%s commentatio</item>
+  </plurals>
+  <string name="xBlog">%s Diarium</string>
   <string name="imageAlt">Alternata imaginis inscriptio</string>
   <string name="imageCredit">Imaginis auctoritas</string>
 </resources>

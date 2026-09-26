@@ -110,7 +110,6 @@
   <string name="byCPL">Par CPP Centi Puntu Persu</string>
   <string name="enable">Attivà</string>
   <string name="bestMoveArrow">Fleccia per u colpu u più forte</string>
-  <string name="evaluationGauge">Stazza di valutazione</string>
   <string name="multipleLines">Parechje linee</string>
   <string name="cpus">Parechji CPU urdinatore d\' analisa</string>
   <string name="memory">Memoria</string>
@@ -119,25 +118,13 @@
   <string name="blunder">Sbaglione</string>
   <string name="mistake">Sbagliu</string>
   <string name="inaccuracy">Imprecisione</string>
-  <plurals name="nbBlunders">
-    <item quantity="one">%s sbaglione</item>
-    <item quantity="other">%s sbaglioni</item>
-  </plurals>
   <plurals name="numberBlunders">
     <item quantity="one">%s Sbaglione</item>
     <item quantity="other">%s Sbaglioni</item>
   </plurals>
-  <plurals name="nbMistakes">
-    <item quantity="one">%s sbagliu</item>
-    <item quantity="other">%s sbagli</item>
-  </plurals>
   <plurals name="numberMistakes">
     <item quantity="one">%s Sbagliu</item>
     <item quantity="other">%s Sbagli</item>
-  </plurals>
-  <plurals name="nbInaccuracies">
-    <item quantity="one">%s imprecisione</item>
-    <item quantity="other">%s imprecisioni</item>
   </plurals>
   <plurals name="numberInaccuracies">
     <item quantity="one">%s Imprecisione</item>
@@ -209,7 +196,6 @@
   <string name="changeUsernameNotSame">Solu per cambià e lettere. Per esempiu \"julianmoris\" diventa \'JulianMoris\".</string>
   <string name="changeUsernameDescription">Cambià u vostru nome d\' utilizatore. Pudete cambià lu solu una volta è ùn pudete cambià chè a forma di a lettera dighjà scritta in u vostru nome d\' utilizatore.</string>
   <string name="signupUsernameHint">Siate sicuru di sceglie un cugnome curtesu. Ùn lu puderete cambià pi tardu è i tutti i conti cù un nome seranu chjosi!</string>
-  <string name="signupEmailHint">Ùn l\' adupreremu soltantu pà riinizializà a vostra parolla d\' accessu.</string>
   <string name="password">Parolla d\'intesa</string>
   <string name="changePassword">Cambià a vostra parolla d\'intesa</string>
   <string name="changeEmail">Cambià u vostru currieru elettronicu</string>
@@ -232,8 +218,6 @@
     <item quantity="other">%s partite cù voi</item>
   </plurals>
   <string name="cancel">Annullà</string>
-  <string name="whiteTimeOut">I bianchi ùn anu più tempu</string>
-  <string name="blackTimeOut">I neri ùn anu più tempu</string>
   <string name="drawOfferSent">Offerta di partita patta mandata</string>
   <string name="drawOfferAccepted">Offerta di patta accettata</string>
   <string name="whiteOffersDraw">I bianchi pruponenu a partita patta</string>
@@ -357,7 +341,6 @@
   <string name="apply">Sottumette</string>
   <string name="save">Salvà</string>
   <string name="leaderboard">Scacchera di i ghjucadori i più forti</string>
-  <string name="screenshotCurrentPosition">Catturà u screnu di a pusizione attuale</string>
   <string name="gameAsGIF">Trasfurmà a partita in GIF</string>
   <string name="pasteTheFenStringHere">Incollà a u testu FEN qì</string>
   <string name="pasteThePgnStringHere">Incollà u testu PGN quì</string>
@@ -456,7 +439,6 @@
   <string name="oneUrlPerLine">Una URL per ogni linea.</string>
   <string name="inlineNotation">Nutazione in linea</string>
   <string name="makeAStudy">Pè guardà lu à longu andà è sparte lu, create piuttostu un studiu.</string>
-  <string name="clearSavedMoves">Sfassà i movi</string>
   <string name="previouslyOnLichessTV">Nanzu in Lichess TV</string>
   <string name="onlinePlayers">Ghjucadori nantu à u situ</string>
   <string name="activePlayers">Ghjucadori attivi</string>
@@ -607,11 +589,9 @@
   <string name="aboutSimulRules">Quandu a simultanea principia, ogni ghjucadore principia a partita cù l\' ostu. A simultanea finisce quandu tutte e partite sò finite.</string>
   <string name="aboutSimulSettings">E simultanee ùn sò mai classificate. Ripiglià un colpu, ricumincià a partita o raghjunghje u tempu ùn sò micca pussibule.</string>
   <string name="create">Creà</string>
-  <string name="whenCreateSimul">Quandu voi create una simultanea, avete da  parechji avversarii à tempu.</string>
   <string name="simulVariantsHint">Sèè vo sceglite parechji modi di ghjocu, ogni ghjucadore hà da sceglia a soia pè a partita.</string>
   <string name="simulClockHint">Sistemu di riloghju Fischer. Più ci seranu ghjucadore, più averete bisognu di tempu.</string>
   <string name="simulAddExtraTime">Pudete aghjnghje stratempu in più pè aiutà vi à finì a partita simultanea.</string>
-  <string name="simulHostExtraTime">Riloghju di u stratempu di l\' ostu</string>
   <string name="lichessTournaments">Ghjustre Lichess</string>
   <string name="tournamentFAQ">FAD di e ghjustre Arena</string>
   <string name="timeBeforeTournamentStarts">Tempu sin\' à u principiu di u turneu</string>
@@ -688,7 +668,6 @@
   <string name="background">Fondu</string>
   <string name="light">Lume</string>
   <string name="dark">Bughju</string>
-  <string name="transparent">Diafanu</string>
   <string name="deviceTheme">Tema dispusitivu</string>
   <string name="backgroundImageUrl">URL di a fiura di u fondu:</string>
   <string name="pieceSet">Aspettu di e pezze</string>
@@ -705,7 +684,6 @@
   <string name="invalidFen">FEN invalidu</string>
   <string name="custom">Abitudine</string>
   <string name="notifications">Nutificazioni</string>
-  <string name="perfRatingX">Classifica:%s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s secunda pè ghjucà u primu colpu</item>
     <item quantity="other">%s secondi pè ghjucà u primu colpu</item>
@@ -778,7 +756,6 @@
   <string name="agreementAssistance">Sò d\' accunsentu ch\' ùn piglieraghju mai cunsigliu durante e mo partite (da un urdinatore, d\'un libru, d\'una databasa o d\' una altra persona).</string>
   <string name="agreementNice">Sò d\' accunsentu chì seraghju sempre rispettosu di l\' altri ghjucadori.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Accettu d\' ùn creà parechji conti ( for\' di i raggioni mintuvati in u %s).</string>
-  <string name="agreementPolicy">Sò d\' accunsentu chì seguiteraghju tutte e regule di Lichess.</string>
   <string name="searchOrStartNewDiscussion">Cercà o principià una chjachjera nova</string>
   <string name="edit">Edità</string>
   <string name="rapid">Rapida</string>
@@ -809,7 +786,6 @@
   <string name="xInvitedYouToY">%1$s vi hà invitatu in %2$s.</string>
   <string name="youAreNowPartOfTeam">Site un membru di a squadra avà.</string>
   <string name="youHaveJoinedTeamX">Avete ghjuntu %1$s.</string>
-  <string name="someoneYouReportedWasBanned">Una persona ch\' avete denunciata hè stata messa fora</string>
   <string name="congratsYouWon">Felicitazioni, ai vintu!</string>
   <string name="gameVsX">Partita contru à %1$s</string>
   <string name="resVsX">%1$s contru à %2$s</string>
@@ -846,7 +822,6 @@ Lasciate viotu pè principià a partita cù una pusizione nurmale.</string>
   <string name="noChat">Senza chjachjera</string>
   <string name="onlyTeamLeaders">Soltantu i capitani di e squadre</string>
   <string name="onlyTeamMembers">Soltantu i membri di a squadra</string>
-  <string name="navigateMoveTree">Navigate in l\' arburu di colpi</string>
   <string name="mouseTricks">Cuntrolli cù u topulinu</string>
   <string name="toggleLocalAnalysis">Aduprà soltantu l\' analisi di l\' urdinatore lucale</string>
   <string name="toggleAllAnalysis">Aduprà l\' analisi di tutti l\' urdinatori</string>
@@ -862,7 +837,6 @@ Lasciate viotu pè principià a partita cù una pusizione nurmale.</string>
   <string name="gameInProgress">Ghjuccate una partita contru à %s.</string>
   <string name="abortTheGame">Aburtì a partita</string>
   <string name="resignTheGame">Lascià corre a partita</string>
-  <string name="youCantStartNewGame">Ùn pudete principià una partita nova senza finì una prima.</string>
   <string name="since">Da</string>
   <string name="until">Sin\' à</string>
   <string name="lichessDbExplanation">Partite classificate da tutti i Ghjucadori di Lichess</string>

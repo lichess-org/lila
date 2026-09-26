@@ -30,7 +30,7 @@ export default async function flairPickerLoader(element: HTMLElement): Promise<v
     site.asset.loadCssPath('bits.flairPicker'),
     site.asset.loadEsm('bits.flairPicker', {
       init: {
-        element: element.querySelector('.flair-picker')!,
+        element: pickerEl,
         onEmojiSelect,
         close: (e: PointerEvent) => {
           if (!isOpen() || selectEl.contains(e.target as Node)) return;
@@ -53,6 +53,6 @@ export default async function flairPickerLoader(element: HTMLElement): Promise<v
   if (!CSS.supports('selector(:has(option))')) {
     // let old browsers set and remove flairs
     element.querySelector('img')!.style.display = 'block';
-    element.querySelector<HTMLElement>('.emoji-remove')!.style.display = 'block';
+    removeEl.style.display = 'block';
   }
 }

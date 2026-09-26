@@ -47,7 +47,7 @@ final class Form3(formHelper: FormHelper & I18nHelper & AssetHelper, flairApi: F
       cls := List(
         "form-group" -> true,
         "is-invalid" -> field.hasErrors,
-        "form-half" -> half,
+        (if half then "form-half" else "form-full") -> true,
         klass -> klass.nonEmpty
       )
     )(
@@ -142,22 +142,32 @@ final class Form3(formHelper: FormHelper & I18nHelper & AssetHelper, flairApi: F
       required: Boolean = false
   ): Frag =
     frag(
-      st.select(
-        st.id := id(field),
-        name := field.name,
+      selectLowLevel(field.name, options, field.value, default, disabled, required)(
         cls := "form-control",
-        disabled.option(st.disabled),
-        required.option(st.required)
-      )(validationModifiers(field))(
-        default.map { option(value := "")(_) },
-        options.toSeq.map { (value, name) =>
-          option(
-            st.value := value.toString,
-            field.value.has(value.toString).option(selected)
-          )(name)
-        }
+        st.id := id(field)
       ),
       disabled.option(hidden(field))
+    )
+
+  def selectLowLevel(
+      field: String,
+      options: Iterable[(Any, String)],
+      selected: Option[String] = None,
+      default: Option[String] = None,
+      disabled: Boolean = false,
+      required: Boolean = false
+  ): Tag =
+    st.select(
+      name := field,
+      disabled.option(st.disabled),
+      required.option(st.required)
+    )(
+      default.map(option(value := "")(_)),
+      options.toSeq.map: (value, name) =>
+        option(
+          st.value := value.toString,
+          selected.has(value.toString).option(st.selected)
+        )(name)
     )
 
   def textarea(
@@ -221,45 +231,64 @@ final class Form3(formHelper: FormHelper & I18nHelper & AssetHelper, flairApi: F
     group(field, content, half = half): f =>
       div(cls := "password-wrapper")(
         input(f, typ = "password")(required)(modifiers),
-        reveal.option(button(cls := "password-reveal", tpe := "button", dataIcon := Icon.Eye))
+        reveal.option(passwordRevealButton)
       )
 
-  def passwordComplexityMeter(labelContent: Frag): Frag =
+  def passwordRevealButton(using Translate) =
+    button(
+      cls := "password-reveal",
+      tpe := "button",
+      ariaTitle(trans.site.showPassword.txt()),
+      aria("pressed") := "false"
+    )(dataIcon := Icon.Eye)
+
+  def passwordComplexityMeter(labelContent: Frag): Tag =
     div(cls := "password-complexity")(
       label(cls := "password-complexity-label")(labelContent),
       div(cls := "password-complexity-meter"):
         for _ <- 1 to 4 yield span
     )
 
+  def totpTokenInput(field: Field): Frag = input(field)(
+    attr("inputmode") := "numeric",
+    pattern := "[0-9]{6}",
+    autocomplete := "one-time-code",
+    required
+  )
+
   def globalError(form: Form[?])(using Translate): Option[Frag] =
     form.globalError.map: err =>
       div(cls := "form-group is-invalid")(error(err))
 
-  def fieldset(legend: Frag, toggle: Option[Boolean] = none): Tag =
+  def fieldset(legend: Frag, toggle: Option[Boolean] = none, disabled: Boolean = false): Tag =
     st.fieldset(
       cls := List(
         "toggle-box" -> true,
         "toggle-box--toggle" -> toggle.isDefined,
         "toggle-box--toggle-off" -> toggle.has(false)
-      )
+      ),
+      disabled.option(st.disabled)
     )(st.legend(toggle.map(_ => tabindex := 0))(legend))
 
   private val dataEnableTime = attr("data-enable-time")
   private val dataMinDate = attr("data-min-date")
+  private val dataMaxDate = attr("data-max-date")
   private val dataLocal = attr("data-local")
 
   def flatpickr(
       field: Field,
       withTime: Boolean = true,
       local: Boolean = false,
-      minDate: Option[String] = Some("today")
+      minDate: Option[String] = Some("today"),
+      maxDate: Option[String] = None
   ): Tag =
     input(field, klass = s"flatpickr")(
       withTime.option(dataEnableTime := true),
       local.option(dataLocal := true),
       dataMinDate := minDate.map:
         case "today" if local => "yesterday"
-        case d => d
+        case d => d,
+      dataMaxDate := maxDate
     )
 
   private lazy val exceptEmojis = data("except-emojis") := flairApi.adminFlairs.mkString(" ")

@@ -10,7 +10,7 @@ import lila.core.id.GameAnyId
 
 final class Game(env: Env, apiC: => Api) extends LilaController(env):
 
-  def bookmark(gameId: GameId) = AuthOrScopedBody(_.Web.Mobile) { _ ?=> me ?=>
+  def bookmark(gameId: GameId) = AuthOrScopedBody(_.Web.Mobile, _.Preference.Write) { _ ?=> me ?=>
     env.bookmark.api
       .toggle(env.round.gameProxy.updateIfPresent)(gameId, me, getBoolOpt("v"))
       .inject(NoContent)
@@ -22,7 +22,7 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
         for
           _ <- env.bookmark.api.removeByGameId(game.id)
           _ <- env.game.gameRepo.remove(game.id)
-          _ <- env.analyse.analysisRepo.remove(game.id)
+          _ <- env.analyse.repo.remove(game.id)
           _ <- env.game.cached.clearNbImportedByCache(me)
         yield Redirect(routes.User.show(me.username))
       else Redirect(routes.Round.watcher(game.id, game.naturalOrientation))
@@ -31,7 +31,8 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
   def exportOne(id: GameAnyId) = AnonOrScoped():
     exportGame(id.gameId)
 
-  private[controllers] def exportGame(gameId: GameId)(using Context): Fu[Result] =
+  private[controllers] def exportGame(gameId: GameId)(using ctx: Context): Fu[Result] =
+    given Option[Me] = ctx.isFullAuth.so(ctx.me)
     Found(env.round.proxyRepo.gameIfPresentOrFetch(gameId)): game =>
       val config = GameApiV2.OneConfig(
         format = GameApiV2.Format.byRequest,
@@ -46,60 +47,68 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
         .withHeaders(headersForApiOrApp*)
         .as(gameContentType(config))
 
-  def exportByUser(username: UserStr) = OpenOrScoped()(handleExport(username))
+  def exportByUser(username: UserStr) = AuthOrScoped()(handleExport(username))
   def apiExportByUser(username: UserStr) = OpenOrScoped()(handleExport(username))
 
   private def handleExport(username: UserStr)(using ctx: Context) =
-    meOrFetch(username).flatMap:
-      _.filter(u => u.enabled.yes || ctx.is(u) || isGrantedOpt(_.GamesModView)).so: user =>
-        val format = GameApiV2.Format.byRequest
-        WithVs: vs =>
-          env.security.ipTrust
-            .throttle(MaxPerSecond:
-              if ctx.is(UserId.explorer) then env.web.settings.apiExplorerGamesPerSecond.get()
-              else if ctx.is(user) then 60
-              else if ctx.isOAuth then 30 // bonus for oauth logged in only (not for CSRF)
-              else 25)
-            .flatMap: perSecond =>
-              val finished = getBoolOpt("finished") | true
-              val config = GameApiV2.ByUserConfig(
-                user = user,
-                format = format,
-                vs = vs,
-                since = getTimestamp("since"),
-                until = getTimestamp("until"),
-                max = getIntAs[Max]("max").map(_.atLeast(1)),
-                rated = getBoolOpt("rated"),
-                perfKey = get("perfType").orZero.split(",").flatMap { PerfKey(_) }.toSet,
-                color = get("color").flatMap(Color.fromName),
-                analysed = getBoolOpt("analysed"),
-                flags = requestPgnFlags(extended = false),
-                sort =
-                  if get("sort").has("dateAsc") then GameApiV2.GameSort.DateAsc
-                  else GameApiV2.GameSort.DateDesc,
-                perSecond = perSecond,
-                ongoing = getBool("ongoing") || !finished,
-                finished = finished
-              )
-              if ctx.is(UserId.explorer) then
-                Ok.chunked(env.api.gameApiV2.exportByUser(config))
-                  .noProxyBuffer
-                  .as(gameContentType(config))
-              else
-                apiC
-                  .GlobalConcurrencyLimitPerIpAndUserOption(user.some)(
-                    env.api.gameApiV2.exportByUser(config)
-                  ): source =>
-                    Ok.chunked(source)
-                      .asAttachmentStream:
-                        s"lichess_${user.username}_${fileDate}.${format.toString.toLowerCase}"
-                      .as(gameContentType(config))
+    NoCrawlers:
+      meOrFetch(username).flatMap:
+        _.filter(u => u.enabled.yes || ctx.is(u) || isGrantedOpt(_.GamesModView)).so: user =>
+          val format = GameApiV2.Format.byRequest
+          WithVs: vs =>
+            env.security.ipTrust
+              .throttle(MaxPerSecond:
+                if ctx.is(UserId.explorer) then env.web.settings.apiExplorerGamesPerSecond.get()
+                else if ctx.is(user) then 60
+                else if ctx.isOAuth then 30 // bonus for oauth logged in only (not for CSRF)
+                else 25)
+              .flatMap: perSecond =>
+                val finished = getBoolOpt("finished") | true
+                val config = GameApiV2.ByUserConfig(
+                  user = user,
+                  format = format,
+                  vs = vs,
+                  since = getTimestamp("since"),
+                  until = getTimestamp("until"),
+                  max = getIntAs[Max]("max").map(_.atLeast(1)),
+                  rated = getBoolOpt("rated"),
+                  perfKey = get("perfType").orZero.split(",").flatMap { PerfKey(_) }.toSet,
+                  color = getColor(),
+                  analysed = getBoolOpt("analysed"),
+                  flags = requestPgnFlags(extended = false),
+                  sort =
+                    if get("sort").has("dateAsc") then GameApiV2.GameSort.DateAsc
+                    else GameApiV2.GameSort.DateDesc,
+                  perSecond = perSecond,
+                  ongoing = getBool("ongoing") || !finished,
+                  finished = finished
+                )
+                if ctx.is(UserId.explorer) then
+                  Ok.chunked(env.api.gameApiV2.exportByUser(config))
+                    .noProxyBuffer
+                    .as(gameContentType(config))
+                else
+                  apiC
+                    .GlobalConcurrencyLimitPerIpAndUserOption(user.some)(
+                      env.api.gameApiV2.exportByUser(config)
+                    ): source =>
+                      Ok.chunked(source)
+                        .asAttachmentStream:
+                          s"lichess_${user.username}_${fileDate}.${format.toString.toLowerCase}"
+                        .as(gameContentType(config))
 
   private def fileDate = DateTimeFormatter.ofPattern("yyyy-MM-dd").print(nowInstant)
 
   def apiExportByUserImportedGames() = AuthOrScoped() { ctx ?=> me ?=>
+    val annotated = getBool("annotated")
+    val config = GameApiV2.ImportedConfig(
+      user = me.userId,
+      annotated = annotated,
+      flags = requestPgnFlags(extended = annotated)
+        .copy(literate = getBoolOpt("literate") | annotated)
+    )
     apiC.GlobalConcurrencyLimitPerIpAndUserOption(me.some)(
-      env.api.gameApiV2.exportUserImportedGames(me)
+      env.api.gameApiV2.exportUserImportedGames(config)
     ): source =>
       Ok.chunked(source)
         .asAttachmentStream(s"lichess_${me.username}_$fileDate.imported.pgn")
@@ -153,7 +162,10 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
       tags = getBoolOpt("tags") | true,
       clocks = getBoolOpt("clocks") | extended,
       evals = getBoolOpt("evals") | extended,
-      opening = getBoolOpt("opening") | extended,
+      opening = (getBoolOpt("opening"), extended) match
+        case (None, extended) => extended.option(true)
+        case (Some(false), _) => none
+        case (Some(true), extended) => extended.some,
       literate = getBool("literate"),
       pgnInJson = getBool("pgnInJson"),
       delayMoves = delayMovesFromReq,
@@ -165,7 +177,7 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
 
   private[controllers] def delayMovesFromReq(using RequestHeader)(using me: Option[Me]) =
     val trusted = get("key").exists(env.web.settings.noDelaySecret.get().value.contains) ||
-      me.exists(_.is(UserId.ttt))
+      me.exists(_.is(UserId.t3))
     !trusted
 
   private[controllers] def gameContentType(config: GameApiV2.Config) =

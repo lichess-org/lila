@@ -4,7 +4,7 @@
   <string name="puzzleThemes">Chủ đề câu đố</string>
   <string name="recommended">Được đề xuất</string>
   <string name="phases">Giai đoạn</string>
-  <string name="motifs">Các mô-típ</string>
+  <string name="motifs">Các đòn chiến thuật</string>
   <string name="advanced">Nâng cao</string>
   <string name="lengths">Thời lượng</string>
   <string name="mates">Chiếu hết</string>
@@ -13,7 +13,6 @@
   <string name="origin">Nguồn từ</string>
   <string name="specialMoves">Các nước cờ đặc biệt</string>
   <string name="didYouLikeThisPuzzle">Bạn thích câu đố này chứ?</string>
-  <string name="voteToLoadNextOne">Bình chọn để đến câu đố tiếp theo!</string>
   <string name="upVote">Thích câu đố</string>
   <string name="downVote">Không thích câu đố</string>
   <string name="yourPuzzleRatingWillNotChange">Hệ số giải câu đố của bạn sẽ không thay đổi. Lưu ý rằng giải câu đố không phải một cuộc thi. Hệ số của bạn nhằm giúp chọn những câu đố phù hợp nhất với trình độ của bạn.</string>
@@ -88,6 +87,6 @@ Hãy chơi thêm nhiều ván cờ nhanh và cờ chậm để có cơ hội có
   </plurals>
   <string name="percentSolved">Giải đúng %s</string>
   <string name="noPuzzlesToShow">Chưa có gì cả, hãy giải một vài câu đố trước đã!</string>
-  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">Luyện tập chúng để tối ưu hóa tiến trình của bạn!</string>
+  <string name="improvementAreasDescription">Luyện tập chúng để tối ưu hóa tiến trình của bạn!</string>
   <string name="strengthDescription">Bạn thể hiện tốt nhất ở những lĩnh vực này</string>
 </resources>

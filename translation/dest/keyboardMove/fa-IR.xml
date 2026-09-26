@@ -17,6 +17,6 @@
   <string name="includingAXToIndicateACapture">\"x\" نشان دهنده گرفتن اختیاری است</string>
   <string name="bothTheLetterOAndTheDigitZero">هردوی حرف «o» و عدد «0» می‌توانند هنگام قلعه‌روی استفاده شوند</string>
   <string name="ifItIsLegalToCastleBothWays">اگر قلعه در هر دو سو مجاز است، از «Enter» برای قلعه کوچک استفاده کنید.</string>
-  <string name="capitalizationOnlyMattersInAmbiguousSituations">از حروف بزرگ تنها در موقعیت های مبهم استفاده میشود مانند bishop و b-pawn</string>
+  <string name="capitalizationOnlyMattersInAmbiguousSituations">حروف بزرگ فقط در موقعیت‌های مبهم شاملِ «فیل [B] و پیادهٔ-ب [b]» اهمیت دارند.</string>
   <string name="toPremoveSimplyTypeTheDesiredPremove">برای ارتقا، کافی است قبل از اینکه نوبت شما شود، ارتقا مورد نظر را تایپ کنید</string>
 </resources>

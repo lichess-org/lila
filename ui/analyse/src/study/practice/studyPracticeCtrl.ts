@@ -1,11 +1,14 @@
-import { practiceComplete } from '../studyXhr';
 import { type Prop, prop } from 'lib';
+import { api } from 'lib/api';
+import type { Search } from 'lib/ceval/types';
 import { storedBooleanProp } from 'lib/storage';
-import makeSuccess from './studyPracticeSuccess';
-import { readOnlyProp } from '@/util';
-import type { StudyPracticeData, Goal } from './interfaces';
-import type { StudyData } from '../interfaces';
+
 import type AnalyseCtrl from '@/ctrl';
+
+import type { StudyData } from '../interfaces';
+import { practiceComplete } from '../studyXhr';
+import type { StudyPracticeData, Goal } from './interfaces';
+import makeSuccess from './studyPracticeSuccess';
 
 export default class StudyPracticeCtrl {
   goal: Prop<Goal>;
@@ -19,17 +22,13 @@ export default class StudyPracticeCtrl {
     readonly studyData: StudyData,
     readonly data: StudyPracticeData,
   ) {
-    this.goal = prop<Goal>(root.data.practiceGoal!);
+    this.goal = prop(root.data.practiceGoal!);
     site.sound.load('practiceSuccess', site.sound.url('other/energy3.mp3'));
     site.sound.load('practiceFailure', site.sound.url('other/failure2.mp3'));
     this.onLoad();
   }
 
   onLoad = () => {
-    this.root.showBestMoveArrowsProp = readOnlyProp(true);
-    this.root.showManeuverMoveArrowsProp = readOnlyProp(true);
-    this.root.showGauge = readOnlyProp(true);
-    this.root.showFishnetAnalysis = readOnlyProp(true);
     this.goal(this.root.data.practiceGoal!);
     this.nbMoves(0);
     this.success(null);
@@ -81,7 +80,7 @@ export default class StudyPracticeCtrl {
 
   onJump = () => {
     // reset failure state if no failed move found in mainline history
-    if (this.success() === false && !this.root.nodeList.find(n => !!n.fail)) this.success(null);
+    if (this.success() === false && !this.root.nodeList.some(n => !!n.fail)) this.success(null);
     this.checkSuccess();
   };
   onCeval = this.checkSuccess;
@@ -92,11 +91,9 @@ export default class StudyPracticeCtrl {
     this.onLoad();
     this.root.practice!.resume();
   };
-  // push to 20 to store AI moves in the cloud
-  // lower to 18 after task completion (or failure)
-  playableDepth = () => (this.success() === null ? 20 : 18);
-  customCeval = {
-    search: () => ({ by: { depth: this.playableDepth() }, multiPv: 1, indeterminate: true }),
+  customCeval: { search: () => Search } = {
+    search: () =>
+      api.overrides.studyPracticeSearch?.() ?? { by: { nodes: 600_000 }, multiPv: 1, indeterminate: true },
   };
   isWhite = this.root.bottomIsWhite;
   analysisUrl = () =>

@@ -1,15 +1,16 @@
 import { h, type VNode } from 'snabbdom';
-import * as licon from 'lib/licon';
-import { bind, dataIcon, type MaybeVNodes } from 'lib/view';
+
+import { licon } from 'lib/licon';
+import { bind, dataIcon, icon, type MaybeVNodes } from 'lib/view';
+import { renderPager, searchButton, searchInput } from 'lib/view/pagination';
+import { userLine, userLinkData } from 'lib/view/userLink';
 import { numberRow } from 'lib/view/util';
+
 import type TournamentController from '../ctrl';
-import { player as renderPlayer } from './util';
+import type { PodiumPlayer, StandingPlayer } from '../interfaces';
 import { teamName } from './battle';
-import type { Pagination, PodiumPlayer, StandingPlayer } from '../interfaces';
 import { joinWithdraw } from './button';
-import { renderPager } from '../pagination';
-import { userLink } from 'lib/view/userLink';
-import { defined } from 'lib';
+import { fullName, player as renderPlayer } from './util';
 
 const renderScoreString = (scoreString: string, streakable: boolean) => {
   const values = scoreString.split('').map(s => parseInt(s));
@@ -47,12 +48,7 @@ function playerTr(ctrl: TournamentController, player: StandingPlayer) {
       hook: bind('click', _ => ctrl.showPlayerInfo(player), ctrl.redraw),
     },
     [
-      h(
-        'td.rank',
-        player.withdraw
-          ? h('i', { attrs: { 'data-icon': licon.Pause, title: i18n.site.pause } })
-          : player.rank,
-      ),
+      h('td.rank', player.withdraw ? icon(licon.Pause)({ title: i18n.site.pause }) : player.rank),
       h('td.player', [
         renderPlayer(player, false, ctrl.opts.showRatings, userId === ctrl.data.defender),
         ...(battle && player.team ? [' ', teamName(battle, player.team)] : []),
@@ -91,12 +87,7 @@ export function podium(ctrl: TournamentController) {
     p
       ? h('div.' + pos, [
           h('div.trophy'),
-          userLink({
-            ...p,
-            line: defined(p.patronColor),
-            online: defined(p.patronColor),
-            rating: undefined,
-          }),
+          h('a', userLinkData(p), [p.patronColor && userLine(p), ...fullName(p)]),
           podiumStats(p, ctrl.data.berserkable, ctrl),
         ])
       : undefined;
@@ -107,11 +98,15 @@ export function podium(ctrl: TournamentController) {
   ]);
 }
 
-export function controls(ctrl: TournamentController, pag: Pagination): VNode {
-  return h('div.tour__controls', [h('div.pager', renderPager(ctrl, pag)), joinWithdraw(ctrl)]);
+export function controls(ctrl: TournamentController): VNode {
+  return h('div.tour__controls', [
+    h('div.pager', renderPager(ctrl, searchButton(ctrl), searchInput(ctrl, { tour: ctrl.data.id }))),
+    joinWithdraw(ctrl),
+  ]);
 }
 
-export function standing(ctrl: TournamentController, pag: Pagination, klass?: string): VNode {
+export function standing(ctrl: TournamentController, klass?: string): VNode {
+  const pag = ctrl.pager();
   const tableBody = pag.currentPageResults
     ? pag.currentPageResults.map(res => playerTr(ctrl, res))
     : lastBody;

@@ -6,7 +6,6 @@ coords {
   position: absolute;
   display: flex;
   pointer-events: none;
-
   color: #fff;
   text-shadow: 0 1px 2px #000;
   font-weight: bold;
@@ -15,6 +14,7 @@ coords {
   .coords-no & {
     display: none;
   }
+
   &.ranks {
     flex-flow: column-reverse;
     top: 1px;
@@ -30,7 +30,7 @@ coords {
   }
 
   &.files {
-    bottom: 0px;
+    bottom: 0;
     left: 0;
     text-align: left;
     flex-flow: row;

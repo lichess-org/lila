@@ -25,7 +25,7 @@ final class SimulFormUi(helpers: Helpers)(
           h1(cls := "box__top")(trans.site.hostANewSimul()),
           postForm(cls := "form3", action := routes.Simul.create)(
             br,
-            p(trans.site.whenCreateSimul()),
+            p(trans.site.creatingASimul()),
             br,
             br,
             formContent(Right(form), teams, none),
@@ -108,11 +108,11 @@ final class SimulFormUi(helpers: Helpers)(
         ),
       form.toOption.map: form =>
         form3.fieldset("Clock")(
+          p(trans.site.simulClockHint()),
           form3.split(
             form3.group(
               form("clockTime"),
               trans.site.clockInitialTime(),
-              help = trans.site.simulClockHint().some,
               half = true
             )(form3.select(_, clockTimeChoices)),
             form3.group(form("clockIncrement"), trans.site.clockIncrement(), half = true)(
@@ -122,7 +122,7 @@ final class SimulFormUi(helpers: Helpers)(
           form3.split(
             form3.group(
               form("clockExtra"),
-              trans.site.simulHostExtraTime(),
+              trans.site.extraClockTimeForHost(),
               help = trans.site.simulAddExtraTime().some,
               half = true
             )(

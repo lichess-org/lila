@@ -21,7 +21,6 @@
   <string name="puzzleRead">Lesa þrautavirkni</string>
   <string name="teamRead">Lesa upplýsingar um persónuleg lið</string>
   <string name="teamWrite">Gerast meðlimur og segja liði upp</string>
-  <string name="teamLead">Hagræða liðum sem þú stjórnar: senda einkaskilaboð, reka meðlimi</string>
   <string name="followRead">Lesa inn notendur sem verið er að fylgja</string>
   <string name="followWrite">Fylgjast með og hætta við að fylgjast með öðrum notendum</string>
   <string name="msgWrite">Senda einkaskilaboð til annarra notenda</string>
@@ -29,7 +28,6 @@
   <string name="botPlay">Leika skákir með forritaskil þjarka</string>
   <string name="engineRead">Skoða og nota útværu skákforritin þín</string>
   <string name="engineWrite">Búa til og uppfæra útvær skákforrit</string>
-  <string name="webLogin">Búa til sannvottaðar vefsíðulotur (veitir ótakmarkaðan aðgang!)</string>
   <string name="webMod">Nota gæslutól (innan marka leyfis þíns)</string>
   <string name="personalAccessTokens">Persónulegir aðgangstókar fyrir forritaskil</string>
   <string name="canMakeOauthRequests">Þú getur gert OAuth-beiðnir án þess að fara í gegnum %s.</string>

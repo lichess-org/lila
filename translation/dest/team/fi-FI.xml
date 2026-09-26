@@ -30,17 +30,14 @@
   <string name="willBeReviewed">Joukkueen johtaja tarkastaa liittymispyyntösi.</string>
   <string name="beingReviewed">Liittymispyyntösi on joukkueen johtajan tarkastettavana.</string>
   <string name="requestDeclined">Joukkueen johtaja hylkäsi liittymispyyntösi.</string>
-  <string name="subToTeamMessages">Tilaa joukkueen viestit</string>
   <string name="teamBattle">Joukkuetaisto</string>
   <string name="teamBattleOverview">Useiden joukkueiden keskinäinen kamppailu: kukin pelaaja kerää pisteitä joukkueelleen</string>
   <string name="teamTournament">Joukkueen sisäinen turnaus</string>
   <string name="teamTournamentOverview">Areena-turnaus, johon vain joukkueen jäsenet voivat osallistua</string>
   <string name="swissTournamentOverview">Sveitsiläinen turnaus, johon vain joukkueesi jäsenet voivat osallistua</string>
-  <string name="messageAllMembers">Lähetä viesti kaikille jäsenille</string>
-  <string name="messageAllMembersOverview">Lähetä yksityisviesti jokaiselle joukkueen jäsenelle</string>
-  <string name="messageAllMembersLongDescription">Lähetä henkilökohtainen viesti joukkueen KAIKILLE jäsenille.
-Voit kutsua tällä pelaajia liittymään turnauksiin tai joukkuetaisteluihin.
-Pelaajat, jotka eivät mielellään ota vastaan viestejäsi, saattavat lähteä joukkueesta.</string>
+  <string name="teamUpdates">Joukkueilmoitukset</string>
+  <string name="subToTeamUpdates">Tilaa joukkueilmoitukset</string>
+  <string name="newTeamUpdate">Uusi joukkueilmoitus</string>
   <string name="teamsIlead">Johtamani joukkueet</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Saatat haluta linkata yhden näistä tulevista turnauksista?</string>
   <string name="leadersChat">Johtajien keskustelu</string>

@@ -56,13 +56,8 @@
   <string name="scrollOnTheBoardToReplayMoves">Usa la rueda de desplazamientu sobro\'l tableru pa volver amosar los movimientos</string>
   <string name="correspondenceEmailNotification">Notificación diaria per corréu listando les tos partíes per correspondencia</string>
   <string name="notifyStreamStart">El presentador ta en vivu</string>
-  <string name="notifyInboxMsg">Nuevu mensaxe na bandexa d\'entrada</string>
-  <string name="notifyForumMention">Comentariu del foru que te menta</string>
-  <string name="notifyInvitedStudy">Invitación a un estudiu</string>
   <string name="notifyGameEvent">Actualizaciones de partida per correspondencia</string>
   <string name="notifyChallenge">Desafíos</string>
-  <string name="notifyTournamentSoon">El tornéu entama d\'arréu</string>
-  <string name="notifyBroadcasts">Tresmisiones a les que te suscribiste</string>
   <string name="notifyTimeAlarm">Pocu tiempu restante na partida per correspondencia</string>
   <string name="notifyBell">Notificación de campana dientro de Lichess</string>
   <string name="notifyPush">Notificación de dispositivu cuando nun teas en Lichess</string>
@@ -70,5 +65,5 @@
   <string name="notifyDevice">Dispositivu</string>
   <string name="bellNotificationSound">Campana de notificación</string>
   <string name="blindfold" comment="As in Blindfold chess">A ciegas</string>
-  <string name="showClockOnTheLeft" comment="IMPORTANT NOTE FOR LANGUAGES WRITTEN RIGHT-TO-LEFT (e.g. Arabic):&#10;Please translate &quot;left&quot; as &quot;right&quot;, because the layout is reversed in your language.&#10;&#10;---&#10;&#10;A user setting. When enabled, the clock will be shown on the left side of the screen. Only applies to mobile devices.&#10;&#10;&#10;Appears on https://lichess.org/account/preferences/chess-clock.">Amosar a la izquierda en dispositivos móviles</string>
+  <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">Amosar a la izquierda en dispositivos móviles</string>
 </resources>

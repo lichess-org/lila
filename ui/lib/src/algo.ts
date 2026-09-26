@@ -2,7 +2,7 @@ export const randomToken = (): string => {
   try {
     const data = globalThis.crypto.getRandomValues(new Uint8Array(9));
     return btoa(String.fromCharCode(...data)).replace(/[/+]/g, '_');
-  } catch (_) {
+  } catch {
     return Math.random().toString(36).slice(2, 12);
   }
 };
@@ -13,13 +13,18 @@ export function randomId(len = 8): string {
   return Array.from(buffer, byte => charSet32[byte % 32]).join('');
 }
 
+// NaN | undefined are ignored as bounds. value=NaN CAN be clamped with valid bound(s)
 export function clamp(value: number, bounds: { min?: number; max?: number }): number {
-  return Math.max(bounds.min ?? -Infinity, Math.min(value, bounds.max ?? Infinity));
+  const [min, max] = [validNumber(bounds.min), validNumber(bounds.max)];
+  if (validNumber(value) === false) return min !== false ? min : max !== false ? max : NaN;
+  if (max !== false) value = Math.min(value, max);
+  if (min !== false) value = Math.max(value, min);
+  return value;
 }
+const validNumber = (n?: number): number | false => Number(n) === n && n;
 
-export function quantize(n: number | undefined, factor: number): number {
-  return Math.round((n ?? 0) / factor) * factor;
-}
+export const quantize = (n: number | undefined, factor: number): number =>
+  Math.round((n ?? 0) / factor) * factor;
 
 export function shuffle<T>(arr: T[]): T[] {
   const shuffled = arr.slice();
@@ -60,25 +65,16 @@ export function definedUnique<T>(items: (T | undefined)[]): T[] {
   return [...new Set(items.filter((item): item is T => item !== undefined))];
 }
 
-/**
- * Comparison of enumerable primitives.
- * Complex properties get reference equality only.
- * If two vars have the same type and this type is in `excludedComparisonTypes`, then `true` is returned.
- */
-export function isEquivalent(a: any, b: any, excludedComparisonTypes: string[] = []): boolean {
+// Comparison of enumerable primitives. Complex properties get reference equality only.
+export function isEquivalent(a: any, b: any): boolean {
   if (a === b) return true;
   if (typeof a !== typeof b) return false;
-  if (excludedComparisonTypes.some(t => typeof a === t)) return true;
   if (Array.isArray(a))
-    return (
-      Array.isArray(b) &&
-      a.length === b.length &&
-      a.every((x, i) => isEquivalent(x, b[i], excludedComparisonTypes))
-    );
-  if (typeof a !== 'object') return false;
+    return Array.isArray(b) && a.length === b.length && a.every((x, i) => isEquivalent(x, b[i]));
+  if (typeof a !== 'object' || a === null || b === null) return false;
   const [aKeys, bKeys] = [Object.keys(a), Object.keys(b)];
   if (aKeys.length !== bKeys.length) return false;
-  return aKeys.every(key => bKeys.includes(key) && isEquivalent(a[key], b[key], excludedComparisonTypes));
+  return aKeys.every(key => bKeys.includes(key) && isEquivalent(a[key], b[key]));
 }
 
 // true if a merge of sub into o would result in no change to o (structural containment)
@@ -87,14 +83,11 @@ export function isContained(o: any, sub: any): boolean {
   if (typeof o !== typeof sub) return false;
   if (Array.isArray(o))
     return Array.isArray(sub) && o.length === sub.length && o.every((x, i) => isEquivalent(x, sub[i]));
-  if (typeof o !== 'object') return false;
+  if (typeof o !== 'object' || o === null || sub === null) return false;
   const [aKeys, subKeys] = [Object.keys(o), Object.keys(sub)];
   if (aKeys.length < subKeys.length) return false;
   return subKeys.every(key => aKeys.includes(key) && isContained(o[key], sub[key]));
 }
 
-export function shallowSort(obj: { [key: string]: any }): { [key: string]: any } {
-  const sorted: { [key: string]: any } = {};
-  for (const key of Object.keys(obj).sort()) sorted[key] = obj[key];
-  return sorted;
-}
+export const shallowSort = (obj: Record<string, any>): Record<string, any> =>
+  Object.fromEntries(Object.entries(obj).sort(([a], [b]) => a.localeCompare(b)));

@@ -5,6 +5,7 @@ import scala.util.Try
 import play.api.i18n.Lang
 import scalalib.data.SimpleMemo
 import lila.ui.ScalatagsTemplate.*
+import lila.core.security.TurnstilePublicConfig
 
 trait FormHelper:
   self: I18nHelper & AssetHelper =>
@@ -35,7 +36,7 @@ trait FormHelper:
   val submitButton = button(tpe := "submit")
 
   def markdownIsAvailable(using Translate): Frag =
-    trans.site.markdownIsAvailable:
+    trans.site.youCanFormatTextUsing:
       a(
         href := "https://www.markdownguide.org/cheat-sheet/",
         targetBlank
@@ -71,6 +72,39 @@ trait FormHelper:
       false -> trans.site.no.txt(),
       true -> trans.site.yes.txt()
     )
+
+  object turnstile:
+    def widget(hidden: Boolean = false)(using config: TurnstilePublicConfig, ctx: Context) =
+      config.enabled.option:
+        val theme = ctx.pref.bg match
+          case 500 => "auto"
+          case 100 => "light"
+          case _ => "dark"
+        val widget = div(
+          cls := "cf-turnstile form-group",
+          attrData("sitekey") := config.key,
+          attrData("language") := ctx.lang.code.toLowerCase,
+          attrData("theme") := theme,
+          hidden.option(attrData("appearance") := "interaction-only"),
+          attrData("retry-interval") := "3000"
+        )
+        val scriptUrl = "https://challenges.cloudflare.com/turnstile/v0/api.js"
+        val scriptTag =
+          if hidden then script(src := s"$scriptUrl?render=explicit")
+          else script(src := scriptUrl, deferAttr, async)
+        frag(scriptTag, widget, div(cls := "cf-turnstile-error error none"))
+
+    def submit(content: Frag)(using Translate) =
+      form3.submit(
+        frag(
+          span(cls := "button__ready")(content),
+          span(cls := "button__verifying")(
+            span(cls := "button__loader white")(HtmlHelper.spinner),
+            trans.site.verifyingYourDevice()
+          )
+        ),
+        icon = none
+      )
 
   object timeZone:
     import java.time.{ ZoneId, ZoneOffset }

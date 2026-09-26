@@ -1,8 +1,10 @@
 package lila.push
 
 import scala.math.Ordered.orderingToOrdered
+import scalalib.net.UserAgent
 
-import lila.core.net.{ UserAgent, LichessMobileVersion }
+import lila.core.net.LichessMobileVersion
+import lila.common.HTTPRequest
 import LichessMobileVersion.given
 
 final private case class Device(
@@ -12,10 +14,11 @@ final private case class Device(
     seenAt: Instant,
     ua: UserAgent
 ):
-  def isMobile = lila.common.HTTPRequest.isLichessMobile(ua)
+  def isMobile = HTTPRequest.isLichessMobile(ua)
+  def isLichobile = HTTPRequest.isLichobile(ua)
 
   def isMobileVersionCompatible(version: LichessMobileVersion): Boolean =
-    lila.common.HTTPRequest.lichessMobileVersion(ua).exists(_ >= version)
+    HTTPRequest.lichessMobileVersion(ua).exists(_ >= version)
 
   def deviceId = platform match
     case "ios" => _id.grouped(8).mkString("<", " ", ">")

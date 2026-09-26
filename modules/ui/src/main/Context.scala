@@ -23,7 +23,6 @@ trait Context:
   def pref: Pref
   def ip: IpAddress
   def blind: Boolean
-  def troll: Boolean
   def isBot: Boolean
   def kid: KidMode
 
@@ -49,7 +48,7 @@ trait PageContext extends Context:
   def teamNbRequests: Int
   def nbChallenges: Int
   def nbNotifications: UnreadCount
-  def hasClas: Boolean
+  def seesClassMenu: Boolean
   def hasInquiry: Boolean
   def nonce: Option[Nonce]
   def error: Boolean

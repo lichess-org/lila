@@ -16,14 +16,14 @@ final class CrudApi(tournamentRepo: TournamentRepo, tourApi: TournamentApi, crud
   def editForm(tour: Tournament)(using Me) =
     crudForm.edit(tour)
 
-  def update(old: Tournament, data: CrudForm.Data) =
+  def update(old: Tournament, data: CrudForm.Data)(using MyId) =
     tourApi.updateTour(old, data.setup, data.update(old)).void
 
   def createForm(using Me) = crudForm(none)
 
   def create(data: CrudForm.Data)(using Me): Fu[Tournament] =
     val tour = data.toTour
-    tournamentRepo.insert(tour).inject(tour)
+    tourApi.createTour(tour).inject(tour)
 
   def clone(old: Tournament) =
     old.copy(
@@ -37,8 +37,20 @@ final class CrudApi(tournamentRepo: TournamentRepo, tourApi: TournamentApi, crud
         collection = tournamentRepo.coll,
         selector = tournamentRepo.selectUnique,
         projection = none,
-        sort = $doc("startsAt" -> -1)
+        sort = bdoc("startsAt" -> -1)
       ),
       currentPage = page,
       maxPerPage = MaxPerPage(20)
+    )
+
+  def between(from: Instant, to: Instant, page: Int)(using Executor) =
+    Paginator[Tournament](
+      adapter = new Adapter[Tournament](
+        collection = tournamentRepo.coll,
+        selector = tournamentRepo.selectUnique ++ "startsAt".inRange(from, to),
+        projection = none,
+        sort = sort.asc("startsAt")
+      ),
+      currentPage = page,
+      maxPerPage = MaxPerPage(50)
     )

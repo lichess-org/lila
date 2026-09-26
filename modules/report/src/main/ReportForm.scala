@@ -8,6 +8,7 @@ import lila.common.Form.cleanNonEmptyText
 import lila.core.LightUser
 import lila.core.config.NetDomain
 import lila.core.report.SuspectId
+import lila.mon.extensions.*
 
 final private[report] class ReportForm(lightUserAsync: LightUser.Getter)(using domain: NetDomain):
   val cheatLinkConstraint: Constraint[ReportSetup] = Constraint("constraints.cheatgamelink"): setup =>

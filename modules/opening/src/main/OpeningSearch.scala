@@ -6,7 +6,7 @@ import scalalib.HeapSort.topN
 
 import java.text.Normalizer
 
-import lila.common.Chronometer
+import lila.mon.Chronometer
 import lila.memo.CacheApi
 
 case class OpeningSearchResult(opening: Opening):
@@ -95,7 +95,8 @@ private object OpeningSearch:
         entry.tokens(s"${token}s") // kings and queens can be matched by king and queen
     if entry.pgnLower.startsWith(query.raw) ||
       entry.pgnLower.startsWith(query.numberedPgn) ||
-      entry.uciLower.startsWith(query.raw)
+      entry.uciLower.startsWith(query.raw) ||
+      entry.opening.name.value.toLowerCase.startsWith(query.raw)
     then (query.raw.size * 1000 - entry.opening.nbMoves).some.filter(_ > 0)
     else
       query.tokens
@@ -114,7 +115,7 @@ private object OpeningSearch:
 
   private given Ordering[Match] = Ordering.by { case Match(_, score) => score }
 
-  def apply(str: String, max: Int): List[Opening] = Chronometer.syncMon(_.opening.searchTime):
+  def apply(str: String, max: Int): List[Opening] = Chronometer.syncMon(lila.mon.opening.searchTime):
     val query = makeQuery(str)
     index
       .flatMap: entry =>

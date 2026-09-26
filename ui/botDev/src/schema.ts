@@ -1,8 +1,9 @@
-import type { Schema, InfoKey, PropertyValue } from './devTypes';
 import { memoize } from 'lib';
+import { deepFreeze } from 'lib/algo';
 import { Bot } from 'lib/bot/bot';
 import type { FilterSpec } from 'lib/bot/filter';
-import { deepFreeze } from 'lib/algo';
+
+import type { Schema, InfoKey, PropertyValue } from './devTypes';
 
 // describe dialog content, define constraints, maps to Bot instance data
 
@@ -25,6 +26,8 @@ export const infoKeys: InfoKey[] = [
   'toggle',
 ]; // InfoKey in file://./devTypes.ts
 
+// This collides with our TS config.
+// oxlint-disable-next-line no-inferrable-types
 export const requiresOpRe: RegExp = /==|>=|>|<<=|<=|<|!=/; // <<= means startsWith
 
 const base: Schema = {
@@ -299,7 +302,7 @@ export const schema: () => Schema = memoize(() => {
       filterEntries.map(([key, { info }]) => [key, { enumerable: true, value: structuredClone(info) }]),
     ),
   );
-  return deepFreeze<Schema>(withFilters);
+  return deepFreeze(withFilters);
 });
 
 export function getSchemaDefault(id: string): PropertyValue {

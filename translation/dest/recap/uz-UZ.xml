@@ -1,2 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+	<string name="hiUser" comment="%s is the title+username e.g. 'GM ABC' or simply ABC if there is no title">Salom, %s</string>
+	<string name="awaitQuestion" comment="Displayed while waiting for results">Bu yilingiz qanday oʻtdi?</string>
+	<string name="initTitle">Naqadar shaxmatga boy yil boʻldi!</string>
+	<string name="noGamesText">Bu yil hech qanday oʻyin oʻynamadingiz.</string>
+	<string name="noGamesCta">Hozir oʻynamoqchimisiz?</string>
+	<string name="gamesYouWon" comment="%s is the number of games won">Va siz %s tasini yutdingiz!</string>
+	<string name="gamesNextQuestion">Bunga erishish uchun nimalar ketdi?</string>
+	<string name="timeSpentPlayingExclam" comment="%s is the time spent playing animated from 0 e.g. '1 day, 17 hours'. The time is also translated">%s oʻynadingiz!</string>
+	<string name="timeTooMuch">Bu juda ham koʻp shaxmat.</string>
+	<string name="timeALot">Bu ancha koʻp shaxmat.</string>
+	<string name="timeReasonable">Meʼyorida shaxmat oʻynabsiz.</string>
+	<string name="timeHowManyMoves">Shuncha vaqt mobaynida nechta yurish qildingiz?</string>
+	<plurals name="nbMovesPlayed">
+		<item quantity="one">%s yurish qildingiz</item>
+		<item quantity="other">%s yurish qildingiz</item>
+	</plurals>
+	<string name="movesOfWoodPushed" comment="%s is a weight in grams or kilograms">Bu %s yogʻoch surgandek!</string>
+	<string name="movesStandardPiecesWeight">Standart shaxmat donasini ogʻirligi taxminan 40 gramm</string>
+	<plurals name="nbMoves">
+		<item quantity="one">%s yurish</item>
+		<item quantity="other">%s yurish</item>
+	</plurals>
+	<string name="chessFoes">Sizning eng yaxshi raqiblaringiz</string>
+	<plurals name="nbGrams">
+		<item quantity="one">%s gramm</item>
+		<item quantity="other">%s gramm</item>
+	</plurals>
+	<plurals name="nbKilograms">
+		<item quantity="one">%s kilogramm</item>
+		<item quantity="other">%s kilogramm</item>
+	</plurals>
+	<string name="firstMoveStats" comment="Subtitle to your most played move e.g. '1. e4'. %s is the number of games played and its percentage in parentheses. e.g. '50 (67%)'">bilan %s ta oʻyinda oqlar sifatida boshladingiz</string>
+	<plurals name="openingsMostPlayedAsWhite" comment="%s is the number of games">
+		<item quantity="one">%s ta oʻyinda oqlar sifatida eng ko′p oʻynalgan debyutingiz</item>
+		<item quantity="other">%s ta oʻyinda oqlar sifatida eng ko′p oʻynalgan debyutingiz</item>
+	</plurals>
+	<plurals name="openingsMostPlayedAsBlack" comment="%s is the number of games">
+		<item quantity="one">%s ta oʻyinda qoralar sifatida eng koʻp oʻynalgan debyutingiz</item>
+		<item quantity="other">%s ta oʻyinda qoralar sifatida eng koʻp oʻynalgan debyutingiz</item>
+	</plurals>
+	<plurals name="puzzlesThanksVoting" comment="%s is the number of puzzles. It is also translated.">
+		<item quantity="one">%s ta masalani baholaganingiz uchun rahmat.</item>
+		<item quantity="other">%s ta masalani baholaganingiz uchun rahmat.</item>
+	</plurals>
+	<string name="puzzlesHelpedTagging" comment="%s is a number e.g. 5">Siz shuningdek, ulardan %s tasiga teg qoʻyishga yordam berdingiz.</string>
+	<string name="puzzlesNone">Bu yil siz hech qancha masala yechmadingiz.</string>
+	<string name="puzzlesTryNow">Hozir yechib koʻrmoqchimisiz?</string>
+	<string name="puzzlesYouWonOnFirstTry">Ulardan %s tasini birinchi urunishda yechdingiz!</string>
+	<string name="sourcesTitle">Qayerda oʻynadingiz?</string>
+	<string name="perfsTitle">Qaysi vaqt nazorati va variantlarni oʻynadingiz?</string>
+	<string name="malwareNoneLoaded" comment="%s is 0">%s ta reklama va treker yuklandi</string>
+	<string name="malwareNoSell">Biz sizni shaxsiy maʼlumotlaringizni sotmadik</string>
+	<string name="malwareNoAbuse">Biz sizni qurilmangizni sizga qarshi ishlatmadik</string>
+	<string name="malwareWarningPrefix" comment="%s is 'be careful'">Lekin boshqa veb‑saytlar buni qilishadi, iltimos %s.</string>
+	<string name="malwareWarningCta" comment="It is a link to https://lichess.org/ads">ogoh boʻling</string>
+	<string name="lichessGamesPlayedIn" comment="%1$s is the number of games, %2$s is the year">Lichessʼda %2$s‑yilda %1$s ta oʻyin oʻynaldi</string>
+	<string name="lichessGamesOfThemYours" comment="%s is the percentage of games that are yours">Ulardan %s sizniki edi.</string>
+	<string name="thanksTitle">Lichessʼda oʻynaganingiz uchun rahmat!</string>
+	<string name="thanksHaveAGreat" comment="%s is the next year">Bu yerda ekanligingiz bilan mamnunmiz. %s‑yilingiz maroqli oʻtsin!</string>
+	<string name="patronCostsThisYear" comment="%1$s is 'costs'. %2$s is the cost with currency symbol e.g. '$750,000'">Lichessʼni bu yilgi %1$s %2$s tashkil topdi.</string>
+	<string name="patronCosts" comment="It is a link to lichess.org/costs">xarajatlari</string>
+	<string name="patronCharity">Biz xayriya tashkilotimiz va faqat donatlar hisobiga ishlaymiz.</string>
+	<string name="patronConsiderDonating" comment="%s is 'supporting us with a donation'">Dasturimiz sizga manzur kelgan bo‘lsa yoki faoliyatimizni qo‘llasangiz, %s!</string>
+	<string name="patronMakeDonation" comment="It is a link to https://lichess.org/patron">donat qilib bizga yordam bering</string>
+	<string name="shareableTitle" comment="%s is the current year">%s‑yil sarhisobi</string>
+	<string name="shareableSpentPlaying" comment="subtitle to the translated time they have spent playing">vaqt oʻynadingiz</string>
+	<string name="shareableMostPlayedOpponent">ga qarshi eng koʻp oʻynadingiz</string>
+	<string name="shareableFavouriteVariant">sevimli variant</string>
+	<string name="shareableFavouriteTimeControl">sevimli vaqt nazorati</string>
+	<plurals name="shareableNbPuzzlesSolved">
+		<item quantity="one">%s masala yechdingiz</item>
+		<item quantity="other">%s masala yechdingiz</item>
+	</plurals>
+	<string name="recapReady" comment="%s is the year of the recap">Sizning %s‑yil sarhisobingiz tayyor!</string>
+</resources>

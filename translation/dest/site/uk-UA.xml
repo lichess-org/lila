@@ -10,7 +10,7 @@
   <string name="waitingForOpponent">Очікування на суперника</string>
   <string name="orLetYourOpponentScanQrCode">Або дайте вашому супернику просканувати цей QR-код</string>
   <string name="reusableChallengeUrl">Постійне посилання на виклик</string>
-  <string name="permanentLinkForAnyoneToChallengeYou">Постійне посилання, за яким хто-небудь може кинути вам виклик із цими налаштуваннями.</string>
+  <string name="permanentLinkForAnyoneToChallengeYou">Постійне посилання, за яким будь-хто може кинути вам виклик із цими налаштуваннями.</string>
   <string name="waiting">Очікування</string>
   <string name="yourTurn">Ваш хід</string>
   <string name="aiNameLevelAiLevel">%1$s, рівень %2$s</string>
@@ -60,6 +60,8 @@
   <string name="blackLeftTheGame">Чорні залишили гру</string>
   <string name="whiteDidntMove">Білі не зробили хід</string>
   <string name="blackDidntMove">Чорні не зробили хід</string>
+  <string name="whiteAborted">Білі скасували гру</string>
+  <string name="blackAborted">Чорні скасували гру</string>
   <string name="requestAComputerAnalysis">Зробити запит на комп’ютерний аналіз</string>
   <string name="computerAnalysis">Комп’ютерний аналіз</string>
   <string name="computerAnalysisAvailable">Комп\'ютерний аналіз доступний</string>
@@ -82,7 +84,7 @@
   <string name="expandVariations">Розгорнути варіанти</string>
   <string name="forceVariation">Зробити варіантом</string>
   <string name="copyVariationPgn">Скопіювати PGN варіанту</string>
-  <string name="copyMainLinePgn">Копіювати pgn головної лінії</string>
+  <string name="copyMainLinePgn">Копіювати PGN головної лінії</string>
   <string name="move">Хід</string>
   <string name="variantLoss">Шанс програшу</string>
   <string name="variantWin">Хід, що виграє</string>
@@ -97,6 +99,8 @@
   <string name="database">База даних</string>
   <string name="whiteDrawBlack">Білі / Нічия / Чорні</string>
   <string name="averageRatingX">Середній рейтинг: %s</string>
+  <string name="minRatingX">Мінімальний рейтинг %s</string>
+  <string name="maxRatingX">Максимальний рейтинг %s</string>
   <string name="recentGames">Останні ігри</string>
   <string name="topGames">Найкращі ігри</string>
   <string name="masterDbExplanation">ігор за дошкою гравців FIDE з рейтингом %1$s+ з %2$s по %3$s</string>
@@ -130,48 +134,36 @@
   <string name="enable">Увімкнути</string>
   <string name="bestMoveArrow">Стрілка «Найкращий хід»</string>
   <string name="showVariationArrows">Показати стрілки для варіантів</string>
-  <string name="evaluationGauge">Шкала оцінки</string>
   <string name="visualMotifs">Візуальні підказки</string>
   <string name="undefendedPieces">Незахищені фігури</string>
   <string name="pinnedPieces">Зв\'язані фігури</string>
   <string name="checkableKing">Король, якому можна поставити шах</string>
   <string name="multipleLines">Кількість стрілок</string>
+  <string name="multipleLinesDescription">Укажіть кількість стрілок аналізу на дошці</string>
+  <string name="searchTime">Час пошуку</string>
+  <string name="searchTimeDescription">Установити час для оцінки нових позицій</string>
+  <string name="threads">Потоки</string>
+  <string name="threadsDescription">Установіть значення нижче за вашу кількість потоків процесора. Галочки позначають безпечний вибір</string>
+  <string name="threadsDescriptionMobile">Більше потоків буде споживати більше заряду акумулятора, але надаватиме кращий аналіз</string>
   <string name="cpus">Потоки</string>
   <string name="memory">Пам\'ять</string>
+  <string name="memoryDescription">Вищі значення можуть підвищити продуктивність</string>
   <string name="infiniteAnalysis">Нескінченний аналіз</string>
   <string name="removesTheDepthLimit">Знімає обмеження на глибину аналізу - ваш комп’ютер стане теплішим</string>
   <string name="blunder">Груба помилка</string>
   <string name="mistake">Помилка</string>
   <string name="inaccuracy">Неточність</string>
-  <plurals name="nbBlunders">
-    <item quantity="one">%s груба помилка</item>
-    <item quantity="few">%s грубі помилки</item>
-    <item quantity="many">%s грубих помилок</item>
-    <item quantity="other">%s грубих помилок</item>
-  </plurals>
   <plurals name="numberBlunders">
     <item quantity="one">%s Груба помилка</item>
     <item quantity="few">%s Грубі помилки</item>
     <item quantity="many">%s Грубих помилок</item>
     <item quantity="other">%s Грубих помилок</item>
   </plurals>
-  <plurals name="nbMistakes">
-    <item quantity="one">%s помилка</item>
-    <item quantity="few">%s помилки</item>
-    <item quantity="many">%s помилок</item>
-    <item quantity="other">%s помилок</item>
-  </plurals>
   <plurals name="numberMistakes">
     <item quantity="one">%s Помилка</item>
     <item quantity="few">%s Помилки</item>
     <item quantity="many">%s Помилок</item>
     <item quantity="other">%s Помилок</item>
-  </plurals>
-  <plurals name="nbInaccuracies">
-    <item quantity="one">%s неточність</item>
-    <item quantity="few">%s неточності</item>
-    <item quantity="many">%s неточностей</item>
-    <item quantity="other">%s неточностей</item>
   </plurals>
   <plurals name="numberInaccuracies">
     <item quantity="one">%s Неточність</item>
@@ -181,6 +173,10 @@
   </plurals>
   <string name="moveTimes">Час на хід</string>
   <string name="flipBoard">Перевернути дошку</string>
+  <string name="toggleLocalEngine">Перемкнути локальний рушій</string>
+  <string name="engineSettings">Налаштування рушія</string>
+  <string name="enginesFromStrongestToWeakest">Рушії від найкращого до найгіршого</string>
+  <string name="illegalPosition">Недійсна позиція</string>
   <string name="threefoldRepetition">Триразове повторення</string>
   <string name="claimADraw">Оголосити нічию</string>
   <string name="drawClaimed">Оголошена нічия</string>
@@ -267,8 +263,9 @@
   <string name="changeUsernameNotSame">Можна змінити лише регістр літер. Наприклад, \"johndoe\" до \"JohnDoe\".</string>
   <string name="changeUsernameDescription">Змініть своє ім\'я користувача. Це може бути зроблено лише один раз і вам дозволено лише змінити регістр літер вашого імені користувача.</string>
   <string name="signupUsernameHint">Переконайтесь, що ви вибрали хороше ім\'я. Ви не можете змінити його потім, а профілі з непристойними іменами будуть заблоковані!</string>
-  <string name="signupEmailHint">Ми використаємо її лише для скидання пароля.</string>
+  <string name="signupEmailPromise">Ми надсилатимемо вам листи лише щодо вашого облікового запису та ніколи не будемо ділитися вашою електронною поштою.</string>
   <string name="password">Пароль</string>
+  <string name="showPassword">Показати пароль</string>
   <string name="changePassword">Змінити пароль</string>
   <string name="changeEmail">Змінити адресу електронної пошти</string>
   <string name="email">Електронна пошта</string>
@@ -290,10 +287,8 @@
   <string name="emailSent">Ми надіслали лист на %s.</string>
   <string name="emailCanTakeSomeTime">Отримання повідомлення може зайняти деякий час.</string>
   <string name="refreshInboxAfterFiveMinutes">Зачекайте 5 хвилин і оновіть поштову скриньку.</string>
-  <string name="checkSpamFolder">Також перевірте папку \"Спам\", лист міг потрапити туди. Якщо так, то позначте його як не спам.</string>
-  <string name="emailForSignupHelp">Якщо все інше не спрацювало, то надішліть нам цей електронний лист:</string>
-  <string name="copyTextToEmail">Скопіюйте та вставте текст зверху й відправте на %s</string>
-  <string name="waitForSignupHelp">Незабаром ми повернемося до вас, щоб допомогти вам завершити реєстрацію.</string>
+  <string name="checkSpamOrJunkFolder" comment="checkSpamFolder&#10;It = The confirmation email">Якщо ви не отримали електронного листа з підтвердженням, перевірте теку зі спамом та кошик. Позначте листи від lichess.org як «не спам», щоб ви могли залишатися в курсі подій.</string>
+  <string name="sendEmailForAccountVerification">Якщо ви не можете знайти лист підтвердження, відправте лист на %s, і ми підтвердимо ваш обліковий запис.</string>
   <string name="accountConfirmed">Користувач %s успішно підтверджений.</string>
   <string name="accountCanLogin">Тепер ви можете ввійти як %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Вам не потрібне підтвердження за електронною поштою.</string>
@@ -322,8 +317,8 @@
   </plurals>
   <string name="ok">Гаразд</string>
   <string name="cancel">Скасувати</string>
-  <string name="whiteTimeOut">Час білих вийшов</string>
-  <string name="blackTimeOut">Час чорних вийшов</string>
+  <string name="whiteRanOutOfTime" comment="whiteTimeOut&#10;&#10;Shows when White's time has run out. Is followed by the end condition, for example&#10;'White ran out of time · Draw'">У білих вичерпався час</string>
+  <string name="blackRanOutOfTime" comment="blackTimeOut&#10;&#10;Shows when Black's time has run out. Is followed by the end condition, for example&#10;'Black ran out of time · Draw'">У чорних вичерпався час</string>
   <string name="drawOfferSent">Пропозицію нічиєї надіслано</string>
   <string name="drawOfferAccepted">Пропозицію нічиєї прийнято</string>
   <string name="whiteOffersDraw">Білі пропонують нічию</string>
@@ -437,9 +432,9 @@
   </plurals>
   <plurals name="nbSimuls">
     <item quantity="one">%s сеанс</item>
-    <item quantity="few">%s сеанса</item>
+    <item quantity="few">%s сеанси</item>
     <item quantity="many">%s сеансів</item>
-    <item quantity="other">%s сеансів</item>
+    <item quantity="other">%s сеансу</item>
   </plurals>
   <string name="viewTournament">Переглянути турнір</string>
   <string name="backToTournament">Повернутися до турніру</string>
@@ -470,7 +465,8 @@
     <item quantity="other">Ви повинні зіграти ще %s рейтингових ігор</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Ваш рейтинг %s є умовним</string>
-  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Фільтри за рейтингом заблоковано, бо ваш рейтинг нестабільний. Стабільність підвищуватиметься, коли ви гратимете в рейтингові ігри.</string>
+  <string name="cannotFilterByUnstableRating" comment="Tooltip to explain why the control for filtering by rating is disabled">Ми не можемо фільтрувати за рейтингом, тому що ваш рейтинг нестабільний.
+Грайте в рейтингові ігри, аби покращити його стабільність.</string>
   <string name="yourPerfRatingIsTooHigh">Ваш рейтинг у %1$s (%2$s) занадто високий</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Ваш щотижневий рейтинг %1$s (%2$s) занадто високий</string>
   <string name="yourPerfRatingIsTooLow">Ваш рейтинг у %1$s (%2$s) занадто низький</string>
@@ -491,7 +487,7 @@
   <string name="apply">Застосувати</string>
   <string name="save">Зберегти</string>
   <string name="leaderboard">Дошка лідерів</string>
-  <string name="screenshotCurrentPosition">Скріншот поточної позиції</string>
+  <string name="positionAsImage" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position.">Позиція як зображення</string>
   <string name="gameAsGIF">Зберегти як GIF</string>
   <string name="playerNames">Імена гравців</string>
   <string name="moveAnnotations">Анотації ходу</string>
@@ -546,6 +542,7 @@
     <item quantity="many">%s спостерігають</item>
     <item quantity="other">%s спостерігають</item>
   </plurals>
+  <string name="less">Менше</string>
   <string name="more">Більше</string>
   <string name="memberSince">Зареєстрований з</string>
   <string name="lastSeenActive">Востаннє заходив %s</string>
@@ -566,7 +563,7 @@
   <string name="emptyTournamentName">Залиште пустим, щоб назвати турнір на честь випадкового гросмейстера.</string>
   <string name="makePrivateTournament">Зробити турнір приватним та обмежити доступ паролем</string>
   <string name="join">Приєднатись</string>
-  <string name="withdraw">Відступити</string>
+  <string name="withdraw">Вийти</string>
   <string name="points">Очки</string>
   <string name="wins">Перемоги</string>
   <string name="losses">Поразки</string>
@@ -589,6 +586,7 @@
   <string name="popularOpenings">Популярні дебюти</string>
   <string name="endgamePositions">Позиції ендшпілю</string>
   <string name="chess960StartPosition">Початкова позиція Chess960: %s</string>
+  <string name="randomChess960Position">Випадкова позиція в шахи-960</string>
   <string name="startPosition">Початкова позиція</string>
   <string name="clearBoard">Очистити дошку</string>
   <string name="loadPosition">Завантажити позицію</string>
@@ -610,7 +608,7 @@
   <string name="oneUrlPerLine">Одне посилання на рядок.</string>
   <string name="inlineNotation">Вбудована нотація</string>
   <string name="makeAStudy">Щоб зберегти та поділитися, подумайте про проведення дослідження.</string>
-  <string name="clearSavedMoves">Очистити ходи</string>
+  <string name="clearLocalData">Очистити локальні дані</string>
   <string name="previouslyOnLichessTV">Раніше на Lichess TV</string>
   <string name="onlinePlayers">Гравці онлайн</string>
   <string name="activePlayers">Активні гравці</string>
@@ -626,6 +624,10 @@
   <string name="autoSwitch">Автоперехід</string>
   <string name="puzzles">Задачі</string>
   <string name="onlineBots">Онлайн-боти</string>
+  <string name="aboutBotsOnLichess">Про боти на Lichess</string>
+  <string name="tryPlayingTheseInnovativeChessEngines">Зіграйте з цими інноваційними шаховими рушіями! Вони — наші улюблені.</string>
+  <string name="communityBots">Спільнотні боти</string>
+  <string name="moreChessEnginesCreatedByTheLichessCommunity">Інші шахові рушії, створені спільнотою Lichess. Вони розміщуються їхніми творцями й не завжди можуть працювати.</string>
   <string name="name">Назва</string>
   <string name="description">Опис</string>
   <string name="descPrivate">Приватний опис</string>
@@ -643,6 +645,9 @@
   <string name="replies">Відповідей</string>
   <string name="replyToThisTopic">Відповісти на цю тему</string>
   <string name="reply">Відповісти</string>
+  <string name="reopen">Відкрити ще раз</string>
+  <string name="quote">Цитувати</string>
+  <string name="postEdited">змінено</string>
   <string name="message">Повідомлення</string>
   <string name="createTheTopic">Створити тему</string>
   <string name="reportAUser">Поскаржитись на користувача</string>
@@ -654,7 +659,7 @@
   <string name="other">Інше</string>
   <string name="reportCheatBoostHelp">Вставте посилання на гру або ігри та поясніть, що не так з поведінкою цього користувача. Не кажіть «він нечесно грав», а поясніть, як ви прийшли до такого висновку.</string>
   <string name="reportUsernameHelp">Поясніть, що саме в цьому імені користувача є образливе. Не кажіть «воно образливе/неприйнятне», а поясніть, чому ви так вважаєте, особливо коли образа заплутана, не англійською, на сленгу, чи є посиланням на щось історичне/культурне.</string>
-  <string name="reportProcessedFasterInEnglish">Ваша скарга оброблятиметься швидше, якщо буде написана англійською.</string>
+  <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">Ми зможемо опрацювати вашу скаргу швидше, якщо вона буде англійською.</string>
   <string name="error.provideOneCheatedGameLink">Будь ласка, додайте посилання на хоча б одну нечесну гру.</string>
   <string name="by">від %s</string>
   <string name="importedByX">Завантажено гравцем - %s</string>
@@ -667,6 +672,10 @@
   <string name="invalidUsernameOrPassword">Недійсне ім\'я користувача або пароль</string>
   <string name="incorrectPassword">Невірний пароль</string>
   <string name="invalidAuthenticationCode">Недійсний код автентифікації</string>
+  <string name="clearField">Очистити поле</string>
+  <string name="orSeparator">або</string>
+  <string name="logInByEmail">Увійти через електронну пошту</string>
+  <string name="emailLoginInstructions">Ми відправимо вам лист з посиланням на вхід.</string>
   <string name="emailMeALink">Надішліть мені посилання</string>
   <string name="currentPassword">Поточний пароль</string>
   <string name="newPassword">Новий пароль</string>
@@ -691,6 +700,8 @@
   <string name="onSlowGames">У повільних іграх</string>
   <string name="always">Завжди</string>
   <string name="never">Ніколи</string>
+  <string name="defeatOnly">Лише при поразці</string>
+  <string name="drawAndDefeat">При поразці й нічиїй</string>
   <string name="xCompetesInY">%1$s бере участь у %2$s</string>
   <string name="victory">Перемога</string>
   <string name="defeat">Поразка</string>
@@ -761,7 +772,9 @@
   <string name="aboutX">Про %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s є безкоштовним (%2$s) шаховим сервером без реклами та з відкритим кодом.</string>
   <string name="really">дійсно</string>
+  <string name="lichessUpdates">Оновлення Lichess</string>
   <string name="contribute">Сприяти розвитку</string>
+  <string name="changelog">Список змін</string>
   <string name="termsOfService">Умови користування</string>
   <string name="titleVerification">Титульна перевірка</string>
   <string name="sourceCode">Вихідний код</string>
@@ -781,11 +794,10 @@
   <string name="aboutSimulRules">Коли сеанс розпочато, кожен гравець починає гру з організатором, який грає білими фігурами. Сеанс добігає кінця, коли завершуються всі партії.</string>
   <string name="aboutSimulSettings">Сеанси завжди нерейтингові. Опції реваншу, повернення ходу і додавання часу вимкнені.</string>
   <string name="create">Створити</string>
-  <string name="whenCreateSimul">Коли Ви створите сеанс, Вам треба буде грати проти кількох суперників одночасно.</string>
+  <string name="creatingASimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Створення сеансу дає вам змогу грати проти кількох суперників одночасно.</string>
   <string name="simulVariantsHint">Якщо Ви обираєте кілька шахових варіантів, кожен гравець буде визначатися, який із них обрати.</string>
   <string name="simulClockHint">Налаштування годинника Фішера. Чим більше учасників, тим більше часу Вам знадобиться.</string>
   <string name="simulAddExtraTime">Ви можете додати собі час, щоб упоратися з сеансом.</string>
-  <string name="simulHostExtraTime">Додатковий час організатора</string>
   <string name="simulAddExtraTimePerPlayer">Додавайте початковий час до вашого годинника для кожного гравця, що приєднується до сеансу.</string>
   <string name="simulHostExtraTimePerPlayer">Додатковий час для організатора за гравця</string>
   <string name="lichessTournaments">Турніри Lichess</string>
@@ -799,11 +811,6 @@
   <string name="keyCycleSelectedVariation">Прокрутити вибраний варіант</string>
   <string name="keyShowOrHideComments">показати/приховати коментарі</string>
   <string name="keyEnterOrExitVariation">зайти/вийти з варіанту</string>
-  <string name="keyRequestComputerAnalysis">Зробити запит на комп\'ютерний аналіз, Учіться на своїх помилках</string>
-  <string name="keyNextLearnFromYourMistakes">Далі (Вивчити свої помилки)</string>
-  <string name="keyNextBlunder">Наступна груба помилка</string>
-  <string name="keyNextMistake">Наступна помилка</string>
-  <string name="keyNextInaccuracy">Наступна неточність</string>
   <string name="keyPreviousBranch">Попередній варіант</string>
   <string name="keyNextBranch">Наступний варіант</string>
   <string name="toggleVariationArrows">Показати стрілки варіантів</string>
@@ -815,7 +822,7 @@
   <string name="playSelectedMove">зіграти обраний хід</string>
   <string name="newTournament">Новий турнір</string>
   <string name="tournamentHomeTitle">Шаховий турнір із різними контролем часу та варіантами</string>
-  <string name="tournamentHomeDescription">Грайте у швидкі шахи на турнірі! Приєднуйтеся до запланованих офіційних турнірів або створіть власний. Куля, бліц, класичні шахи, шахи Фішера, \"Цар гори\", \"Три шахи\" та інші варіанти забезпечать нескінченне задоволення.</string>
+  <string name="tournamentHomeDescription">Грайте на швидких турнірах із шахів! Приєднуйтеся до запланованих офіційних турнірів або створіть власний. Куля, бліц, класичні шахи, шахи-960, цар гори, три шахи та інші варіанти нададуть нескінченне задоволення.</string>
   <string name="tournamentNotFound">Турнір не знайдено</string>
   <string name="tournamentDoesNotExist">Цей турнір не існує.</string>
   <string name="tournamentMayHaveBeenCanceled">Турнір міг бути скасований, якщо всі гравці залишили його до початку.</string>
@@ -884,6 +891,8 @@
   <string name="xHostsY">%1$s створив %2$s</string>
   <string name="xJoinsY">%1$s приєднався до %2$s</string>
   <string name="xLikesY">%1$s сподобалось %2$s</string>
+  <string name="like">Уподобати</string>
+  <string name="liked">Уподобано</string>
   <string name="quickPairing">Швидкий старт</string>
   <string name="lobby">Лобі</string>
   <string name="anonymous">Анонім</string>
@@ -891,11 +900,14 @@
   <string name="language">Мова</string>
   <string name="allLanguages">Усі мови</string>
   <string name="background">Фон</string>
+  <string name="theme">Тема</string>
   <string name="light">Світлий</string>
   <string name="dark">Темний</string>
-  <string name="transparent">Прозорий</string>
+  <string name="picture">Зображення</string>
   <string name="deviceTheme">Тема пристрою</string>
+  <string name="roundness">Округлість</string>
   <string name="backgroundImageUrl">Посилання фонового зображення:</string>
+  <string name="imageOpacity">Прозорість зображення</string>
   <string name="board">Дошка</string>
   <string name="size">Розмір</string>
   <string name="opacity">Прозорість</string>
@@ -918,7 +930,7 @@
   <string name="custom">Своя гра</string>
   <string name="notifications">Сповіщення</string>
   <string name="notificationsX">Сповіщення: %1$s</string>
-  <string name="perfRatingX">Рейтинг: %s</string>
+  <string name="perfRatingLabel">Рейтинг: %s.</string>
   <string name="yourRatingIsX">Ваш рейтинг — %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s секунда на перший хід</item>
@@ -983,7 +995,6 @@
     <item quantity="other">і зберегти %s послідовностей</item>
   </plurals>
   <string name="showUnreadLichessMessage">Ви отримали особисте повідомлення від Lichess.</string>
-  <string name="clickHereToReadIt">Натисніть тут, щоб прочитати</string>
   <string name="sorry">Вибачте :(</string>
   <string name="weHadToTimeYouOutForAWhile">Нам довелося забанити вас на певний час.</string>
   <string name="why">Чому?</string>
@@ -1002,7 +1013,6 @@
   <string name="agreementAssistance">Я погоджуюся, що не буду отримувати допомогу під час моїх ігор (від шахового комп\'ютера, книги, бази даних або іншої особи).</string>
   <string name="agreementNice">Я погоджуюся, що я завжди буду ставитись чемно до інших гравців.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Я погоджуюсь с тим, що не буду створювати декілька облікових записів (крім причин, описаних у %s).</string>
-  <string name="agreementPolicy">Я погоджуюся, що я буду слідувати усім правилам Lichess.</string>
   <string name="searchOrStartNewDiscussion">Шукати або розпочати бесіду</string>
   <string name="edit">Змінити</string>
   <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">Ультракуля</string>
@@ -1010,7 +1020,7 @@
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Бліц</string>
   <string name="rapid">Швидкі</string>
   <string name="classical">Класичні</string>
-  <string name="ultraBulletDesc">Шалено швидкі ігри: менше 30 секунд</string>
+  <string name="ultraBulletDesc">Неймовірно швидкі ігри: менш ніж 30 секунд</string>
   <string name="bulletDesc">Дуже швидкі ігри: менш ніж 3 хвилини</string>
   <string name="blitzDesc">Швидкі ігри: від 3 до 8 хвилин</string>
   <string name="rapidDesc">Нетривалі ігри: від 8 до 25 хвилин</string>
@@ -1026,6 +1036,7 @@
   <string name="tryTheContactPage">спробуйте сторінку контактів</string>
   <string name="makeSureToRead">Варто прочитати %1$s</string>
   <string name="theForumEtiquette">етикет форуму</string>
+  <string name="pleaseBeNiceInTheForum">Будь ласка, будьте ввічливими на форумі.</string>
   <string name="thisTopicIsArchived">Ця тема була заархівована і додати відповідь більше не можна.</string>
   <string name="joinTheTeamXToPost">Приєднайтесь до %1$s, щоб писати у цьому форумі</string>
   <string name="teamNamedX">%1$s команда</string>
@@ -1038,7 +1049,6 @@
   <string name="xInvitedYouToY">%1$s запросив вас до \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Ви тепер частина команди.</string>
   <string name="youHaveJoinedTeamX">Ви приєдналися до \"%1$s\".</string>
-  <string name="someoneYouReportedWasBanned">Хтось на кого ви поскаржились був забанений</string>
   <string name="congratsYouWon">Вітання, ви виграли!</string>
   <string name="gameVsX">Гра проти %1$s</string>
   <string name="resVsX">%1$s vs %2$s</string>
@@ -1069,14 +1079,14 @@
   <string name="simulFeaturedHelp">Показати ваш сеанс для всіх на %s. Вимикати для приватних сеансів.</string>
   <string name="simulDescription">Опис сеансу</string>
   <string name="simulDescriptionHelp">Чи хочете ви щось повідомити учасникам?</string>
-  <string name="markdownIsAvailable">%s доступний для форматування.</string>
+  <string name="youCanFormatTextUsing" comment="%s is &quot;Markdown&quot;, a proper noun. As such, the word is intentionally kept as a variable.&#10;&#10;Markdown is a markup language - a type of code that lets you format text (e.g. to create bold text).&#10;&#10;The text links to a reference guide for using Markdown to format text.">Ви можете форматувати текст за допомогою %s.</string>
   <string name="embedsAvailable">Вставте посилання на гру чи розділ дослідження, щоб вставити його.</string>
   <string name="inYourLocalTimezone">У вашому місцевому часовому поясі</string>
   <string name="tournChat">Турнірний чат</string>
   <string name="noChat">Без чату</string>
   <string name="onlyTeamLeaders">Лише лідери команд</string>
   <string name="onlyTeamMembers">Лише члени команди</string>
-  <string name="navigateMoveTree">Навігація по нотації</string>
+  <string name="moveListNavigation" comment="navigateMoveTree&#10;&#10;Appears in the keyboard shortcuts/help screen. The 'move tree' is simply the list of moves.">Навігація по списку ходів</string>
   <string name="mouseTricks">Можливості миші</string>
   <string name="toggleLocalAnalysis">Ввімкнути локальний комп’ютерний аналіз</string>
   <string name="toggleAllAnalysis">Ввімкнути весь комп’ютерний аналіз</string>
@@ -1093,7 +1103,7 @@
   <string name="gameInProgress">У вас є активна гра з %s.</string>
   <string name="abortTheGame">Скасувати гру</string>
   <string name="resignTheGame">Здатися</string>
-  <string name="youCantStartNewGame">Ви не можете розпочати нову гру поки не закінчите активну гру.</string>
+  <string name="youCantStartNewGame">Ви не можете розпочати нову гру, коли ваша черга ходити.</string>
   <string name="since">Від</string>
   <string name="until">До</string>
   <string name="lichessDbExplanation">Рейтингові партії всіх гравців Lichess</string>
@@ -1114,6 +1124,10 @@
   <string name="offline" comment="status of a user">не в мережі</string>
   <string name="search">Пошук</string>
   <string name="clearSearch">Очистити пошук</string>
+  <string name="thereAreNoResultsForX">Нічого не знайдено для «%s»</string>
   <string name="tags">Теги</string>
   <string name="enPassant">Взяття на проході</string>
+  <string name="settings">Налаштування</string>
+  <string name="chessOpenings">Шахові дебюти</string>
+  <string name="boards">Дошки</string>
 </resources>

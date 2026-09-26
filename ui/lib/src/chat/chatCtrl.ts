@@ -1,3 +1,10 @@
+import { isContained } from '@/algo';
+import { isMobile } from '@/device';
+import { pubsub, type PubsubEvents } from '@/pubsub';
+import { storedStringProp, storedBooleanProp } from '@/storage';
+import { alert } from '@/view';
+
+import { myUserId, type Prop } from '../index';
 import type {
   ChatOpts,
   Line,
@@ -7,18 +14,11 @@ import type {
   ModerationCtrl,
   ChatData,
   NoteCtrl,
-  VoiceChatData,
   ChatPlugin,
 } from './interfaces';
-import { type PresetCtrl, presetCtrl } from './preset';
-import { noteCtrl } from './note';
 import { moderationCtrl } from './moderation';
-import { prop, type Prop } from '../index';
-import { storedStringProp, storedBooleanProp } from '../storage';
-import { pubsub, type PubsubEvents } from '../pubsub';
-import { alert } from '../view/dialogs';
-import { isContained } from '@/algo';
-import { isMobile } from '@/device';
+import { noteCtrl } from './note';
+import { type PresetCtrl, presetCtrl } from './preset';
 
 type SubPair = { [K in keyof PubsubEvents]: [K, PubsubEvents[K]] }[keyof PubsubEvents];
 
@@ -26,13 +26,12 @@ export class ChatCtrl {
   data: ChatData;
   private maxLines = 200;
   private maxLinesDrop = 50; // how many lines to drop at once
-  private storedTabKey: Prop<string>;
-  private allTabs: Tab[] = [];
+  private readonly storedTabKey: Prop<string>;
+  private readonly allTabs: Tab[] = [];
 
   chatEnabled: Prop<boolean>;
-  voiceChat: VoiceChatData;
-  moderation: ModerationCtrl | undefined;
-  note: NoteCtrl | undefined;
+  moderation?: ModerationCtrl;
+  note?: NoteCtrl;
   preset: PresetCtrl;
   vm: ViewModel;
 
@@ -41,9 +40,7 @@ export class ChatCtrl {
     readonly redraw: Redraw,
   ) {
     this.data = opts.data;
-    this.chatEnabled = this.data // tmp BC, remove check
-      ? storedBooleanProp(`chat.${this.data.resourceType}.enabled`, true)
-      : prop(false);
+    this.chatEnabled = storedBooleanProp(`chat.${this.data.resourceType}.enabled.${myUserId()}`, true);
     this.storedTabKey = storedStringProp(`chat.${opts.plugin ? opts.plugin.key + '.' : ''}tab`, 'discussion');
     if (!opts.kidMode) this.allTabs.push({ key: 'discussion' });
     if (opts.noteId) this.allTabs.push({ key: 'note' });
@@ -51,11 +48,6 @@ export class ChatCtrl {
       opts.plugin.redraw = redraw;
       this.allTabs.push(opts.plugin);
     }
-    this.voiceChat = {
-      instance: undefined,
-      loaded: false,
-      enabled: prop(!opts.kidMode && !!this.data.voiceChat),
-    };
     this.vm = {
       loading: false,
       autofocus: false,
@@ -88,7 +80,6 @@ export class ChatCtrl {
       ['socket.in.chat_reinstate', this.onReinstate],
       ['chat.writeable', this.onWriteable],
       ['chat.permissions', this.onPermissions],
-      ['voiceChat.toggle', this.voiceChat.enabled],
     ];
     subs.forEach(([eventName, callback]) => pubsub.on(eventName, callback));
   }
@@ -126,10 +117,10 @@ export class ChatCtrl {
 
   listenToIncoming = (cb: (line: Line) => void): void => pubsub.on('socket.in.message', cb);
 
-  private onTimeout = (userId: string): void => {
+  private readonly onTimeout = (userId: string): void => {
     let change = false;
     this.data.lines.forEach(l => {
-      if (l.u && l.u.toLowerCase() === userId) {
+      if (l.u?.toLowerCase() === userId) {
         l.d = true;
         change = true;
       }
@@ -141,14 +132,14 @@ export class ChatCtrl {
     }
   };
 
-  private onReinstate = (userId: string): void => {
+  private readonly onReinstate = (userId: string): void => {
     if (userId === this.data.userId) {
       this.vm.timeout = false;
       this.redraw();
     }
   };
 
-  private onMessage = (line: Line): void => {
+  private readonly onMessage = (line: Line): void => {
     this.data.lines.push(line);
     const nb = this.data.lines.length;
     if (nb > this.maxLines) {
@@ -158,17 +149,17 @@ export class ChatCtrl {
     this.redraw();
   };
 
-  private onWriteable = (v: boolean): void => {
+  private readonly onWriteable = (v: boolean): void => {
     this.vm.writeable = v;
   };
 
-  private onPermissions = (perms: Permissions): void => {
+  private readonly onPermissions = (perms: Permissions): void => {
     if (isContained(this.opts.permissions, perms)) return;
     Object.assign(this.opts.permissions, perms);
     this.instanciateModeration();
   };
 
-  private instanciateModeration = () => {
+  private readonly instanciateModeration = () => {
     if (this.opts.permissions.timeout || this.opts.permissions.broadcast || this.opts.permissions.local) {
       this.maxLines = 1000;
       this.maxLinesDrop = 500;

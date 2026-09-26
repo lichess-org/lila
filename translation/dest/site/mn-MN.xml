@@ -109,7 +109,6 @@
   <string name="enable">Нээх</string>
   <string name="bestMoveArrow">Хамгийн сайн нүүдэл харуулах сум</string>
   <string name="showVariationArrows">Хувилбарыг сумаар харуулах</string>
-  <string name="evaluationGauge">Шинжилгээний хэм</string>
   <string name="multipleLines">Олон хувилбарууд</string>
   <string name="cpus">CPU</string>
   <string name="memory">Санах ой</string>
@@ -118,10 +117,6 @@
   <string name="blunder">Ноцтой алдаа</string>
   <string name="mistake">Алдаа</string>
   <string name="inaccuracy">Оновчгүй нүүдэл</string>
-  <plurals name="nbInaccuracies">
-    <item quantity="one">%s-ийн оновчгүй нүүдэл</item>
-    <item quantity="other">%s-ийн оновчгүй нүүдэл</item>
-  </plurals>
   <plurals name="numberInaccuracies">
     <item quantity="one">%s-Ийн оновчгүй нүүдэл</item>
     <item quantity="other">%s-Ийн оновчгүй нүүдэл</item>
@@ -192,7 +187,6 @@
   <string name="changeUsernameNotSame">Зөвхөн үсэг нь зөвхөн өөрчлөгдөж болно. Жишээ нь \"johndoe\" нь \"JohnDoe\".</string>
   <string name="changeUsernameDescription">Хэрэглэгчийн нэрээ өөрчил. Энэ нь зөвхөн нэг удаа хийгдэж болох ба зөвхөн хэрэглэгчийн нэр дээр үсгээ засах боломжтой.</string>
   <string name="signupUsernameHint">Та өөрийнхөө нэрийг зохистой зохиогоорой. Та дараа нь нэрээ сольж болохгүй бөгөөд, зүй бус, зохисгүй нэрстэй хэрэглэгчдийн бүртгэлийг хаах болно!</string>
-  <string name="signupEmailHint">Би зөвхөн нууц үг сэргээхэд ашиглана.</string>
   <string name="password">Нууц үг</string>
   <string name="changePassword">Нэвтрэх үгээ өөрчлөх</string>
   <string name="changeEmail">Электрон шуудангийн хаягаа өөрчлөх</string>
@@ -215,9 +209,6 @@
   <string name="emailSent">Бид %s-луу email явууллаа.</string>
   <string name="emailCanTakeSomeTime">Очиход удаж магадгүй.</string>
   <string name="refreshInboxAfterFiveMinutes">5 минут хүлээгээд email-ийнхээ хуудсыг дахин ачааллуулж үзнэ үү.</string>
-  <string name="checkSpamFolder">Баталгаажуулах email тань мөн spam хэсэг дээр байж магадгүй тул бас шалгаад үзээрэй.</string>
-  <string name="emailForSignupHelp">Урд дурдсан алхмууд бүтэлгүйтвэл, бидэнд ийм email бичээрэй:</string>
-  <string name="copyTextToEmail">Дээр гарсан текстыг хуулаад %s-луу илгээгээрэй</string>
   <string name="accountConfirmed">Ашиглагч %s бүртгэлийг амжилттай баталгаажууллаа.</string>
   <string name="accountCanLogin">Та одооноос %s нэрээр нэвтрэх боломжтой боллоо.</string>
   <string name="accountConfirmationEmailNotNeeded">Танд баталгаажуулах email хэрэггүй.</string>
@@ -235,8 +226,6 @@
     <item quantity="other">%s өрөг таньтай тоглосон байна</item>
   </plurals>
   <string name="cancel">Цуцлах</string>
-  <string name="whiteTimeOut">Цагааны цаг дуусчихлаа тийм ээ</string>
-  <string name="blackTimeOut">Харын цаг дуусчихлаа тийм ээ</string>
   <string name="drawOfferSent">Тэнцэх санал илгээлээ</string>
   <string name="drawOfferAccepted">Тэнцэх саналыг зөвшөөрлөө</string>
   <string name="whiteOffersDraw">Цагаан тэнцэхийг санал болгож байна</string>
@@ -358,7 +347,6 @@
   <string name="apply">Тоглолтыг шүү</string>
   <string name="save">Хадгалах</string>
   <string name="leaderboard">Тэргүүлэгчид</string>
-  <string name="screenshotCurrentPosition">Одоогийн байрлалын зургийг дарах</string>
   <string name="gameAsGIF">Тоглолтыг GIF-ээр татаж авах</string>
   <string name="pasteTheFenStringHere">Өргийн байрлалын тэмдэглэлээ (FEN) энд хуулж оруулна уу</string>
   <string name="pasteThePgnStringHere">Өргийн тоглолтын тэмдэглэлээ (PGN) энд хуулж оруулна уу</string>
@@ -603,11 +591,9 @@
   <string name="aboutSimulRules">Үндсэн тоглогч цагаан талаар нүүнэ. Зэрэгцээ  өрөг бүх тоглолтууд дууссанаар өндөрлөнө.</string>
   <string name="aboutSimulSettings">Зэрэгцээ өрөг нь чансаа өөрчлөгддөггүй өрөг бөгөөд дахин тоглох, нүүдэл буцаах, цаг нэмж өгөх боломжгүй онцлогтой.</string>
   <string name="create">Шинэ өрөг үүсгэх</string>
-  <string name="whenCreateSimul">Тэ зэрэгцээ өрөг үүсгэвэл нэг зэрэг олон тоглогчидтой тоглох болно.</string>
   <string name="simulVariantsHint">Хэрэв та шатрын хэд хэдэн төрлийг сонговол эсрэг тоглогч аль төрлөөр тоглохыг сонгоно</string>
   <string name="simulClockHint">Фишерийн цагын тохиргоо. Олон тоглогчидтой тоглох тусам таньд илүү их цаг хэрэгтэй болно.</string>
   <string name="simulAddExtraTime">Зэрэгцээ  өрөг тоглож буй үед та өөртөө нэмэлт хугацаа өгч болно.</string>
-  <string name="simulHostExtraTime">Зэрэгцээ өрөг үүсгэгчийн нэмэлт цаг</string>
   <string name="lichessTournaments">Личессийн тэмцээнүүд</string>
   <string name="tournamentFAQ">Тэмцээний талаарх түгээмэл асуулт хариултууд</string>
   <string name="timeBeforeTournamentStarts">Тэмцээн эхлэх хүртэлх хугацаа</string>
@@ -617,9 +603,6 @@
   <string name="keyGoToStartOrEnd">эхлэл/төгсгөл рүү хүргэх</string>
   <string name="keyShowOrHideComments">сэтгэгдлийг ил эсвэл далд болгох</string>
   <string name="keyEnterOrExitVariation">хувилбараас гарах/орох</string>
-  <string name="keyNextBlunder">Дараагийн том алдаа</string>
-  <string name="keyNextMistake">Дараагийн алдаа</string>
-  <string name="keyNextInaccuracy">Дараагийн жижиг алдаа</string>
   <string name="keyPreviousBranch">Өмнөх салаа нүүдлүүд</string>
   <string name="keyNextBranch">Дараагийн салаа нүүдлүүд</string>
   <string name="toggleVariationArrows">Хувилбаруудыг сумаар харуулах</string>
@@ -681,7 +664,6 @@
   <string name="background">Дэвсгэр</string>
   <string name="light">Гэгээтэй</string>
   <string name="dark">Хар</string>
-  <string name="transparent">Уусмал</string>
   <string name="backgroundImageUrl">Ар фонын зурагны холбоос:</string>
   <string name="pieceSet">Дүрсний загвар</string>
   <string name="embedInYourWebsite">Вэб сайтадаа оруулах</string>
@@ -697,7 +679,6 @@
   <string name="invalidFen">Буруу FEN</string>
   <string name="custom">Өөрийнхөөр</string>
   <string name="notifications">Мэдэгдэлүүд</string>
-  <string name="perfRatingX">Чансаа:%s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">Эхний нүүдэл хийхэд %s секунд байна</item>
     <item quantity="other">Эхний нүүдэл хийхэд %s секунд байна</item>
@@ -746,7 +727,6 @@
   <string name="endgame">Төгсгөл үе</string>
   <string name="conditionalPremoves">Нөхцөлт түрүүлж нүүлтүүд</string>
   <string name="playX">%s-г тоглох</string>
-  <string name="clickHereToReadIt">Уншихын тулд энэн дээр дарна уу</string>
   <string name="sorry">Уучлаарай</string>
   <string name="weHadToTimeYouOutForAWhile">Таныг тоглох эрхийг түр хязгаарлах хэрэг гарлаа.</string>
   <string name="why">Яагаад</string>
@@ -758,7 +738,6 @@
   <string name="wishYouGreatGames">та lichess.org дээр олон сайхан тоглолтуудыг тоглоно гэж найдъя.</string>
   <string name="thankYouForReading">Уншсанд баярлалаа</string>
   <string name="lifetimeScore">Амьдралын оноо</string>
-  <string name="agreementPolicy">Личесс-н дүрмээ баримталж байхаа зөвшөөр ч байна уу?</string>
   <string name="edit">Засаж янзлах</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Сум</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Блитц</string>
@@ -799,7 +778,6 @@
   <string name="gameInProgress">Таны %s-тай тоглож буй тоглолт байсаар л байгаа.</string>
   <string name="abortTheGame">Тоглолтыг хаях</string>
   <string name="resignTheGame">Бууж өгөх</string>
-  <string name="youCantStartNewGame">Та аль хэдийн эхэлсэн тоглолтоо дуусгахгүйгээр шинэ тоглолт эхлүүлэх боломжгүй.</string>
   <string name="since">Хэзээнээс хойш</string>
   <string name="until">Хүртэл</string>
   <string name="switchSides">Хар цагаанаа солих</string>

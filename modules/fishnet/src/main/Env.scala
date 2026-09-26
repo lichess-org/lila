@@ -1,6 +1,6 @@
 package lila.fishnet
 
-import akka.actor.*
+import org.apache.pekko.actor.*
 import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
 import io.lettuce.core.*
@@ -8,17 +8,17 @@ import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
 
 import lila.common.Bus
-import lila.common.autoconfig.{ *, given }
+import lila.common.config.given
+import lila.common.autoconfig.*
 import lila.core.config.*
 
 @Module
 private class FishnetConfig(
-    @ConfigName("collection.analysis") val analysisColl: CollName,
-    @ConfigName("collection.client") val clientColl: CollName,
     @ConfigName("offline_mode") val offlineMode: Boolean,
     @ConfigName("client_min_version") val clientMinVersion: String,
     @ConfigName("redis.uri") val redisUri: String,
-    val explorerEndpoint: String
+    val explorerEndpoint: String,
+    val explorerOauthToken: Secret
 )
 
 @Module
@@ -36,12 +36,12 @@ final class Env(
     settingStore: lila.memo.SettingStore.Builder,
     ws: StandaloneWSClient,
     sink: lila.analyse.Analyser,
-    shutdown: akka.actor.CoordinatedShutdown
-)(using Executor, ActorSystem, Scheduler, akka.stream.Materializer, lila.core.config.RateLimit):
+    shutdown: org.apache.pekko.actor.CoordinatedShutdown
+)(using Executor, ActorSystem, Scheduler, org.apache.pekko.stream.Materializer, lila.core.config.RateLimit):
 
   private val config = appConfig.get[FishnetConfig]("fishnet")(using AutoConfig.loader)
 
-  private lazy val analysisColl = db(config.analysisColl)
+  private lazy val analysisColl = db(CollName("fishnet_analysis"))
 
   private lazy val redis = FishnetRedis(
     RedisClient.create(RedisURI.create(config.redisUri)),
@@ -54,7 +54,7 @@ final class Env(
 
   private lazy val repo = new FishnetRepo(
     analysisColl = analysisColl,
-    clientColl = db(config.clientColl),
+    clientColl = db(CollName("fishnet_client")),
     cacheApi = cacheApi
   )
 
@@ -92,7 +92,7 @@ final class Env(
   private def disable(keyOrUser: String) =
     repo.toKey(keyOrUser).flatMap { repo.enableClient(_, v = false) }
 
-  lila.common.Cli.handle:
+  lila.common.Cli.handle():
     case "fishnet" :: "client" :: "create" :: name :: Nil =>
       userApi
         .enabledById(UserStr(name))
@@ -113,7 +113,7 @@ final class Env(
   Bus.sub[lila.core.mod.MarkCheater]:
     case lila.core.mod.MarkCheater(userId, true) => disable(userId.value)
   Bus.sub[lila.core.mod.MarkBooster]:
-    case lila.core.mod.MarkBooster(userId) => disable(userId.value)
+    case lila.core.mod.MarkBooster(userId, true) => disable(userId.value)
   Bus.sub[lila.core.mod.Shadowban]:
     case lila.core.mod.Shadowban(userId, true) => disable(userId.value)
 
@@ -121,6 +121,8 @@ final class Env(
     case lila.core.fishnet.Bus.GameRequest(id) =>
       analyser(id, Work.Sender(userId = UserId.lichess, ip = none, mod = false, system = true))
     case req: lila.core.fishnet.Bus.StudyChapterRequest => analyser.study(req)
+    case req: lila.core.fishnet.Bus.StudyChapterDelete => analysisRepo.removeChapters(req.chapterIds)
+    case req: lila.core.fishnet.Bus.StudyChapterOrphan => analysisRepo.setOrphans(req.chapterIds)
 
   Bus.sub[lila.core.fishnet.FishnetMoveRequest]: req =>
     player(req.game)

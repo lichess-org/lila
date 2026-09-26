@@ -12,10 +12,11 @@ import {
   thunk,
 } from 'snabbdom';
 
+import type { LiconValue } from '@/licon';
 export type { Attrs, Hooks, Classes, VNode, VNodeData, VNodeChildElement, VNodeChildren };
 export type MaybeVNode = VNode | string | null | undefined;
 export type MaybeVNodes = MaybeVNode[];
-export { thunk };
+export { thunk, snabH };
 
 export function onInsert<A extends HTMLElement>(f: (element: A) => void): Hooks {
   return {
@@ -49,15 +50,23 @@ export const bindNonPassive = <K extends keyof GlobalEventHandlersEventMap>(
   redraw?: Redraw,
 ): Hooks => bind(eventName, f, redraw, false);
 
-export function bindSubmit(f: (e: SubmitEvent) => unknown, redraw?: () => void): Hooks {
-  return bind('submit', e => (e.preventDefault(), f(e)), redraw, false);
+export function bindSubmit(f: (e: SubmitEvent) => void, redraw?: () => void): Hooks {
+  return bind(
+    'submit',
+    e => {
+      e.preventDefault();
+      f(e);
+    },
+    redraw,
+    false,
+  );
 }
 
-export const dataIcon = (icon: string): Attrs => ({
+export const dataIcon = (icon: LiconValue): Attrs => ({
   'data-icon': icon,
 });
 
-export const iconTag = (icon: string): VNode => snabH('i', { attrs: dataIcon(icon) });
+export const testId = (id: string): Attrs => (site.debug ? { 'data-testid': id } : {});
 
 export type LooseVNode = VNodeChildElement | boolean;
 export type LooseVNodes = LooseVNode | LooseVNodes[];

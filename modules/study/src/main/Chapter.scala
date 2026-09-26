@@ -2,7 +2,6 @@ package lila.study
 
 import chess.format.pgn.{ Glyph, Tags }
 import chess.format.{ Fen, Uci, UciPath }
-import chess.opening.{ Opening, OpeningDb }
 import chess.variant.Variant
 import chess.{ ByColor, Centis, Color, Ply }
 import reactivemongo.api.bson.Macros.Annotations.Key
@@ -89,11 +88,6 @@ case class Chapter(
   def forceVariation(force: Boolean, path: UciPath): Option[Chapter] =
     updateRoot(_.forceVariationAt(force, path))
 
-  def opening: Option[Opening] =
-    Variant.list
-      .openingSensibleVariants(setup.variant)
-      .so(OpeningDb.searchInFens(root.mainline.map(_.fen.opening)))
-
   def isEmptyInitial = order == 1 && root.children.isEmpty && tags.value.isEmpty
 
   def cloneFor(study: Study) =
@@ -117,6 +111,8 @@ case class Chapter(
   def tagsExport = StudyPgnTags.cleanUpForPublication(tags)
 
   def withTags(t: Tags) = copy(tags = t)
+
+  def withOrientation(color: Color) = copy(setup = setup.copy(orientation = color))
 
 object Chapter:
 
@@ -164,9 +160,6 @@ object Chapter:
   case class IdName(@Key("_id") id: StudyChapterId, name: StudyChapterName)
 
   def defaultName(order: Order) = StudyChapterName(s"Chapter $order")
-
-  private val defaultNameRegex = """Chapter \d+""".r
-  def isDefaultName(n: StudyChapterName) = n.value.isEmpty || defaultNameRegex.matches(n.value)
 
   def fixName(n: StudyChapterName) = StudyChapterName(lila.common.String.softCleanUp(n.value).take(80))
 

@@ -1,5 +1,4 @@
 @import '../../../lib/css/embed';
-@import '../analyse.abstract';
 @import '../../../lib/css/base/util';
 @import '../../../lib/css/base/form';
 @import '../../../lib/css/form/form3';
@@ -14,9 +13,10 @@
 @import '../../../lib/css/component/button';
 @import '../../../fide/css/table';
 @import '../../../fide/css/show';
-
+@import '../analyse.abstract';
 @import '../study/show';
 
 $player-height: 45px;
+
 @import '../study/relay/show';
 @import '../study/relay/embed';

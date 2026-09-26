@@ -6,6 +6,7 @@ import lila.mod.IpRender.RenderIp
 import lila.mod.UserWithModlog
 import lila.mod.ui.{ mzSection, ModUserTableUi }
 import lila.security.{ Dated, UserAgentParser, UserClient, UserLogins }
+import lila.oauth.OAuthScope
 
 object mod:
 
@@ -19,17 +20,19 @@ object mod:
       a(href := routes.Clas.show(managed.clas.id))(managed.clas.name)
     )
 
-  def boardTokens(tokens: List[lila.oauth.AccessToken]): Frag =
+  def oauthTokens(tokens: List[lila.oauth.AccessToken]): Frag =
     if tokens.isEmpty then emptyFrag
     else
-      mzSection("boardTokens")(
-        strong(cls := "inline")(pluralize("Board token", tokens.size)),
+      mzSection("oauthTokens")(
+        strong(cls := "inline")(pluralize("OAuth token", tokens.size)),
         ul:
           tokens.map: token =>
             li(
-              List(token.description, token.clientOrigin).flatten.mkString(" "),
+              strong(token.scopes.value.filter(OAuthScope.relevantToMods.has).map(_.key).mkString("+")),
               token.usedAt.map: at =>
-                frag(", last used ", momentFromNowOnce(at))
+                frag(" ", momentFromNowOnce(at)),
+              br,
+              small(List(token.description, token.clientOrigin).flatten.mkString(" "))
             )
       )
 
@@ -108,8 +111,7 @@ object mod:
           othersWithEmail.others.map { case other @ UserLogins.OtherUser(log @ UserWithModlog(o, _), _, _) =>
             val userNotes = notes.filter: n =>
               n.to.is(o.id) && (ctx.me.exists(n.isFrom) || Granter.opt(_.Admin))
-            val userAppeal = appeals.find(_.isAbout(o.id))
-            val closedInfo = log.closed
+            val userAppeals = appeals.filter(_.user.is(o.id))
             tr(
               dataUsername := o.username,
               dataTitle := o.title,
@@ -143,12 +145,14 @@ object mod:
               markTd(o.marks.troll.so(1), shadowban, log.dateOf(_.troll)),
               markTd(o.marks.boost.so(1), boosting, log.dateOf(_.booster)),
               markTd(o.marks.engine.so(1), engine, log.dateOf(_.engine)),
-              closedInfo.fold(markTd(0, closed)): c =>
+              log.closed.fold(markTd(0, closed)): c =>
                 markTd(
                   1,
                   if c.byMod then modClosed else closed,
                   c.at.some
-                )(title := (if c.byMod then "Closed by mod" else "Self closed")),
+                )(title := (if c.byMod then "Closed by mod" else s"Self closed${c.forever.so(" forever")}"))(
+                  c.forever.option("∞")
+                ),
               markTd(o.marks.reportban.so(1), reportban, log.dateOf(_.reportban)),
               userNotes.nonEmpty
                 .option:
@@ -162,20 +166,27 @@ object mod:
                     )
                   )
                 .getOrElse(td(dataSort := 0)),
-              userAppeal match
-                case None => td(dataSort := 0)
-                case Some(appeal) =>
-                  td(dataSort := 1)(
+              userAppeals match
+                case Nil => td(dataSort := 0)
+                case appeals =>
+                  val nbMsgs = appeals.map(_.msgs.size).sum
+                  val closed = appeals.forall(_.isClosed)
+                  val muted = appeals.exists(_.muted)
+                  td(dataSort := nbMsgs)(
                     a(
-                      href := Granter.opt(_.Appeals).option(routes.Appeal.show(o.username).url),
+                      href := Granter.opt(_.Appeals).option(routes.Appeal.modShowAll(o.id)),
                       cls := List(
                         "text" -> true,
-                        "appeal-recent" -> appeal.isRecent,
-                        "appeal-muted" -> appeal.isMuted
+                        "appeal-recent" -> appeals.exists(_.isRecent),
+                        "appeal-old" -> appeals.forall(_.isOld),
+                        "appeal-closed" -> closed,
+                        "appeal-muted" -> muted
                       ),
                       dataIcon := Icon.InkQuill,
-                      title := s"${pluralize("appeal message", appeal.msgs.size)}${appeal.isMuted.so(" [MUTED]")}"
-                    )(appeal.msgs.size)
+                      title := s"${pluralize("appeal message", nbMsgs)}${
+                          if muted then " [MUTED]" else if closed then " [CLOSED]" else ""
+                        }\nLast message: ${pastMomentServerText(appeals.map(_.updatedAt).max)}"
+                    )(nbMsgs)
                   )
               ,
               td(dataSort := o.createdAt.toMillis)(pastMomentServer(o.createdAt)),
@@ -197,14 +208,14 @@ object mod:
         case email => frag(email)
 
   def identification(logins: UserLogins, othersPartiallyLoaded: Boolean)(using
-      ctx: Context,
       renderIp: RenderIp
-  ): Frag =
-    val canIpBan = Granter.opt(_.IpBan)
-    val canFpBan = Granter.opt(_.PrintBan)
-    val canLocate = Granter.opt(_.Admin)
-    val canViewUA = Granter.opt(_.AccountInfo)
-    val canViewPrint = Granter.opt(_.ViewPrintNoIP)
+  )(using Context, Me): Frag =
+    val canIpBan = Granter(_.IpBan)
+    val canFpBan = Granter(_.PrintBan)
+    val canLocate = Granter(_.Admin)
+    val canViewUA = Granter(_.AccountInfo)
+    val canViewPrint = Granter(_.ViewPrintNoIP)
+    val canViewIp = Granter(_.ViewIP)
     mzSection("identification")(
       canLocate.option:
         div(cls := "spy_locs")(
@@ -250,7 +261,7 @@ object mod:
               logins.uas
                 .sortBy(-_.seconds)
                 .map { case Dated(ua, date) =>
-                  val parsed = UserAgentParser.parse(ua)
+                  val parsed = UserAgentParser.parseSlowly(ua)
                   tr(
                     td(title := ua.value)(
                       if parsed.device.family == "Other" then "Computer" else parsed.device.family
@@ -265,7 +276,7 @@ object mod:
           )
         )
       ),
-      canViewPrint.option:
+      (canViewPrint || canViewIp).option:
         div(id := "identification_screen", cls := "spy_ips")(
           table(cls := "slist spy_filter slist--sort")(
             thead(

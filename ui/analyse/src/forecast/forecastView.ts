@@ -1,26 +1,26 @@
 import { h, type VNode } from 'snabbdom';
-import * as licon from 'lib/licon';
+
+import { playable } from 'lib/game';
+import { fixCrazySan } from 'lib/game/chess';
+import { licon } from 'lib/licon';
 import { bind, dataIcon, spinnerVdom as spinner } from 'lib/view';
-import type { ForecastStep } from './interfaces';
+
 import type AnalyseCtrl from '../ctrl';
 import { renderNodesHtml } from '../pgnExport';
-import { fixCrazySan } from 'lib/game/chess';
 import type ForecastCtrl from './forecastCtrl';
-import { playable } from 'lib/game';
+import type { ForecastStep } from './interfaces';
 
 function onMyTurn(fctrl: ForecastCtrl, cNodes: ForecastStep[]): VNode | undefined {
   const firstNode = cNodes[0];
-  if (!firstNode) return;
+  if (!firstNode) return undefined;
   const fcs = fctrl.findStartingWithNode(firstNode);
-  if (!fcs.length) return;
-  const lines = fcs.filter(function (fc) {
-    return fc.length > 1;
-  });
+  if (!fcs.length) return undefined;
+  const lines = fcs.filter(fc => fc.length > 1);
   return h(
     'button.on-my-turn.button.text',
     {
       attrs: dataIcon(licon.Checkmark),
-      hook: bind('click', _ => fctrl.playAndSave(firstNode)),
+      hook: bind('click', () => fctrl.playAndSave(firstNode)),
     },
     [
       h('span', [
@@ -76,7 +76,7 @@ export default function (ctrl: AnalyseCtrl, fctrl: ForecastCtrl): VNode {
             [
               h('button.del', {
                 hook: bind('click', _ => fctrl.removeIndex(i), ctrl.redraw),
-                attrs: { 'data-icon': licon.X, type: 'button' },
+                attrs: { ...dataIcon(licon.X), type: 'button' },
               }),
               h('sans', renderNodesHtml(nodes)),
             ],
@@ -88,7 +88,7 @@ export default function (ctrl: AnalyseCtrl, fctrl: ForecastCtrl): VNode {
         {
           class: { enabled: isCandidate },
           attrs: dataIcon(isCandidate ? licon.PlusButton : licon.InfoCircle),
-          hook: bind('click', _ => fctrl.addNodes(makeCnodes(ctrl, fctrl)), ctrl.redraw),
+          hook: bind('click', () => fctrl.addNodes(makeCnodes(ctrl, fctrl)), ctrl.redraw),
         },
         [
           isCandidate

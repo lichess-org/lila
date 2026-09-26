@@ -1,3 +1,28 @@
+import { type Result } from '@badrap/result';
+import type { Api as CgApi } from '@lichess-org/chessground/api';
+import { opposite } from '@lichess-org/chessground/util';
+import { parseSquare } from 'chessops';
+import { Board } from 'chessops/board';
+import { lichessRules } from 'chessops/compat';
+import { makeFen, parseFen, parseCastlingFen, INITIAL_FEN, EMPTY_FEN } from 'chessops/fen';
+import { type Setup, Material, RemainingChecks, defaultSetup } from 'chessops/setup';
+import type { Rules, Square } from 'chessops/types';
+import { Castles, defaultPosition, Position, setupPosition } from 'chessops/variant';
+
+import { defined, prop, propWithEffect, type Prop } from 'lib';
+import { CevalCtrl, type CevalHandler, type CevalOpts } from 'lib/ceval';
+import { completeNode } from 'lib/tree/node';
+import type { TreeNode } from 'lib/tree/types';
+import { prompt } from 'lib/view';
+
+import {
+  castlingRooksFromBoard,
+  chess960CastlingSquares,
+  chess960IdToFEN,
+  fenToChess960Id,
+  boardFenToChess960Id,
+  randomPositionId,
+} from './chess960';
 import {
   type EditorState,
   type Selected,
@@ -8,38 +33,30 @@ import {
   type CastlingToggles,
   CASTLING_TOGGLES,
 } from './interfaces';
-import { type Result } from '@badrap/result';
-import type { Api as CgApi } from '@lichess-org/chessground/api';
-import type { Rules, Square } from 'chessops/types';
-import { Board } from 'chessops/board';
-import { type Setup, Material, RemainingChecks, defaultSetup } from 'chessops/setup';
-import { Castles, defaultPosition, Position, PositionError, setupPosition } from 'chessops/variant';
-import { makeFen, parseFen, parseCastlingFen, INITIAL_FEN, EMPTY_FEN } from 'chessops/fen';
-import { lichessRules } from 'chessops/compat';
-import { defined, prop, type Prop } from 'lib';
-import { prompt } from 'lib/view';
-import { opposite } from '@lichess-org/chessground/util';
-import { parseSquare } from 'chessops';
-import { chess960CastlingSquares, chess960IdToFEN, fenToChess960Id, randomPositionId } from './chess960';
 
-export default class EditorCtrl {
+export default class EditorCtrl implements CevalHandler {
   options: Options;
-  chessground: CgApi | undefined;
-
+  chessground?: CgApi;
   selected: Prop<Selected>;
-
   initialFen: FEN;
-  pockets: Material | undefined;
+  pockets?: Material;
   turn: Color;
   castlingToggles: CastlingToggles<boolean>;
   enabledCastlingToggles: CastlingToggles<boolean>;
-  epSquare: Square | undefined;
-  remainingChecks: RemainingChecks | undefined;
+  epSquare?: Square;
+  remainingChecks?: RemainingChecks;
   variant: VariantKey = 'standard';
   halfmoves: number;
   fullmoves: number;
   guessCastlingToggles: boolean;
-  chess960PositionId: number | undefined;
+  chess960PositionId?: number;
+  ceval: CevalCtrl;
+  cevalNode: TreeNode;
+  ongoing = false;
+  showEvalGauge: Prop<boolean> = prop(false);
+  threatMode: Prop<boolean> = prop(false);
+  private readonly cevalEnabledProp = prop(false);
+  private cevalPosition?: string;
 
   constructor(
     readonly cfg: Config,
@@ -47,20 +64,35 @@ export default class EditorCtrl {
   ) {
     this.options = cfg.options || {};
 
-    this.selected = prop('pointer');
+    this.selected = propWithEffect('pointer', selected => {
+      // right click paints the opposite color while a piece is selected, so shapes
+      // can only be drawn with the pointer
+      if (this.chessground)
+        this.chessground.set({
+          drawable: { enabled: selected === 'pointer' },
+        });
+    });
 
     [...(cfg.positions || []), ...(cfg.endgamePositions || [])].forEach(
       p => (p.epd = p.fen.split(' ').slice(0, 4).join(' ')),
     );
 
     if (this.options.bindHotkeys !== false)
-      site.mousetrap.bind('f', () => {
-        if (this.chessground) {
-          this.chessground.toggleOrientation();
-          if (this.options.orientation) this.setOrientation(opposite(this.options.orientation));
-        }
-        this.onChange();
-      });
+      site.mousetrap
+        .bind('f', () => {
+          if (this.chessground) {
+            this.chessground.toggleOrientation();
+            if (this.options.orientation) this.setOrientation(opposite(this.options.orientation));
+          }
+          this.onChange();
+        })
+        .bind('a', () => {
+          const state = this.getState();
+          if (state.legalFen)
+            window.location.assign(this.makeAnalysisUrl(state.legalFen, this.bottomColor()));
+        })
+        .bind('l', () => this.cevalEnabled(!this.cevalEnabled()))
+        .bind('x', () => this.toggleThreatMode());
 
     this.castlingToggles = { K: false, Q: false, k: false, q: false };
     const params = new URLSearchParams(location.search);
@@ -82,9 +114,22 @@ export default class EditorCtrl {
       this.initialFen = INITIAL_FEN;
       this.setSetup(defaultSetup());
     });
+
+    const cevalFen = this.getLegalFen() || this.getFen();
+    this.cevalNode = this.makeCevalNode(cevalFen);
+    this.ceval = new CevalCtrl(this.makeCevalOpts(cevalFen));
+    this.cevalPosition = `${this.variant}:${cevalFen}`;
+
+    new MutationObserver(mutations => {
+      for (const m of mutations) {
+        if (!m.attributeName || !(m.attributeName === 'data-board' || m.attributeName === 'data-piece-set'))
+          continue;
+        this.redraw();
+      }
+    }).observe(window.document.body, { attributes: true });
   }
 
-  private indexOfNthOccurrence = (haystack: string, needle: string, n: number): number => {
+  private readonly indexOfNthOccurrence = (haystack: string, needle: string, n: number): number => {
     let index = haystack.indexOf(needle);
     for (; n > 1 && index !== -1; n--) index = haystack.indexOf(needle, index + needle.length);
     return index;
@@ -102,18 +147,124 @@ export default class EditorCtrl {
     return `${fen.substring(0, epIndex)}${enPassant}${fen.substring(epEndIndex)}`;
   }
 
+  private makeCevalNode(fen: FEN): TreeNode {
+    const ply = Math.max(0, (this.fullmoves - 1) * 2 + (this.turn === 'black' ? 1 : 0));
+    return completeNode(this.variant)({ ply, fen });
+  }
+
+  private makeCevalOpts(fen: FEN): CevalOpts {
+    return {
+      variant: {
+        key: this.variant,
+        name: this.variant,
+        short: this.variant,
+      },
+      initialFen: fen,
+      emit: (ev, meta) => {
+        if (!ev) {
+          this.cevalEnabled(false);
+          return;
+        }
+
+        const node = this.cevalNode;
+        if (meta.threatMode) {
+          node.threat = ev;
+        } else if (ev.fen === node.fen) {
+          node.ceval = ev;
+        }
+        this.redraw();
+      },
+      onUciHover: () => {},
+      redraw: this.redraw,
+      onSelectEngine: () => {
+        this.updateCeval(true);
+        this.redraw();
+      },
+    };
+  }
+
+  private updateCeval(force?: boolean): void {
+    const legalFen = this.getLegalFen();
+    const fen = legalFen || this.getFen();
+    const position = `${this.variant}:${fen}`;
+    if (!force && this.cevalPosition === position) return;
+
+    this.cevalPosition = position;
+    this.cevalNode = this.makeCevalNode(fen);
+    const wasUnloaded = this.ceval.wasUnloadedByAnotherWindow;
+    this.ceval.init(this.makeCevalOpts(fen));
+    this.ceval.wasUnloadedByAnotherWindow = wasUnloaded;
+    if (legalFen && this.cevalEnabled()) this.startCeval();
+  }
+
+  cevalEnabled = (enable?: boolean): boolean => {
+    const enabled = this.cevalEnabledProp() && !this.ceval.wasUnloadedByAnotherWindow;
+    if (enable === undefined) return enabled;
+
+    this.cevalEnabledProp(enable);
+    if (enable && this.ceval.wasUnloadedByAnotherWindow) this.ceval.reset();
+    if (enable !== enabled) {
+      if (enable) this.startCeval();
+      else {
+        this.threatMode(false);
+        this.ceval.reset();
+      }
+      this.ceval.showEnginePrefs(false);
+      this.redraw();
+    }
+    return enable;
+  };
+
+  startCeval = (): void => {
+    if (!this.ceval.download) this.ceval.reset();
+    if (!this.cevalEnabled() || !this.ceval.analysable || this.cevalNode.outcome()) return;
+    this.ceval.start('', [this.cevalNode], undefined, this.threatMode());
+  };
+
+  clearCeval = (): void => {
+    this.cevalNode.ceval = undefined;
+    this.cevalNode.threat = undefined;
+    this.startCeval();
+  };
+
+  toggleThreatMode(v?: boolean): void {
+    const enable = v ?? !this.threatMode();
+    if (enable === this.threatMode() || this.cevalNode.check() || !this.cevalEnabled()) return;
+    this.threatMode(enable);
+    this.startCeval();
+    this.redraw();
+  }
+
+  nextNodeBest(): string | undefined {
+    return undefined;
+  }
+
+  playUciList(_uciList: string[]): void {
+    // The board editor has no move tree to navigate.
+  }
+
+  getOrientation(): Color {
+    return this.bottomColor();
+  }
+
+  getNode(): TreeNode {
+    return this.cevalNode;
+  }
+
   onChange(): void {
+    // We can use the first field of the fen now; it's the ep and castle fields that may be inaccurate at the moment.
+    this.chess960PositionId = boardFenToChess960Id(this.getFen().split(' ')[0]) ?? this.chess960PositionId;
+    // The id will be used for computing castling toggles, which will in turn be used in the later `this.getFen()` call.
     this.enabledCastlingToggles = this.computeCastlingToggles();
     if (this.guessCastlingToggles) {
       this.castlingToggles = { ...this.enabledCastlingToggles };
     }
-
     const fen = this.fenFixedEp(this.getFen());
     if (!this.cfg.embed) {
       window.history.replaceState(null, '', this.makeEditorUrl(fen, this.bottomColor()));
     }
     this.options.onChange?.(fen);
-    this.chess960PositionId = fenToChess960Id(fen) ?? this.chess960PositionId;
+    this.updateCeval();
     this.redraw();
   }
 
@@ -124,9 +275,20 @@ export default class EditorCtrl {
   }
 
   private computeCastlingToggles(): CastlingToggles<boolean> {
+    const board = this.getBoard();
+    if (this.variant === 'chess960') {
+      const white = castlingRooksFromBoard(board, 'white'),
+        black = castlingRooksFromBoard(board, 'black');
+      return {
+        K: defined(white.rookK),
+        Q: defined(white.rookQ),
+        k: defined(black.rookK),
+        q: defined(black.rookQ),
+      };
+    }
+
     const chess960Castling = chess960CastlingSquares(this.chess960PositionId);
-    const board = this.getBoard(),
-      whiteKingOnE1 = board.king.intersect(board.white).has(parseSquare(chess960Castling.white.king)!),
+    const whiteKingOnE1 = board.king.intersect(board.white).has(parseSquare(chess960Castling.white.king)!),
       blackKingOnE8 = board.king.intersect(board.black).has(parseSquare(chess960Castling.black.king)!),
       whiteRooks = board.rook.intersect(board.white),
       blackRooks = board.rook.intersect(board.black);
@@ -168,7 +330,7 @@ export default class EditorCtrl {
     return makeFen(this.getSetup());
   }
 
-  getPosition(): Result<Position, PositionError> {
+  getPosition(): Result<Position> {
     return setupPosition(this.getRules(), this.getSetup());
   }
 
@@ -190,7 +352,7 @@ export default class EditorCtrl {
   // https://github.com/niklasf/chessops/issues/154
   private getEnPassantOptions(fen: FEN): string[] {
     const unpackRank = (packedRank: string) =>
-      [...packedRank].reduce((accumulator, current) => {
+      Array.from(packedRank).reduce((accumulator, current) => {
         const parsedInt = parseInt(current);
         return accumulator + (parsedInt >= 1 ? 'x'.repeat(parsedInt) : current);
       }, '');
@@ -219,7 +381,7 @@ export default class EditorCtrl {
     const legalFen = this.getLegalFen();
     return {
       fen: this.getFen(),
-      legalFen: legalFen,
+      legalFen,
       playable: ['standard', 'chess960', 'fromPosition'].includes(this.variant) && this.isPlayable(),
       enPassantOptions: legalFen ? this.getEnPassantOptions(legalFen) : [],
     };
@@ -229,7 +391,7 @@ export default class EditorCtrl {
     const variant = this.variant === 'standard' ? '' : this.variant + '/';
     const chess960PositionId =
       this.chess960PositionId === undefined ? '' : `&position=${this.chess960PositionId}`;
-    return `/analysis/${variant}${urlFen(legalFen)}?color=${orientation}${chess960PositionId}`;
+    return `/analysis/${variant}${this.urlFen(legalFen)}?color=${orientation}${chess960PositionId}`;
   }
 
   makeEditorUrl(fen: FEN, orientation: Color = 'white'): string {
@@ -239,11 +401,8 @@ export default class EditorCtrl {
     const chess960PositionId =
       this.chess960PositionId === undefined ? '' : `&position=${this.chess960PositionId}`;
     const orientationParam = variant ? `&color=${orientation}` : `?color=${orientation}`;
-    return `${this.cfg.baseUrl}/${urlFen(fen)}${variant}${orientationParam}${chess960PositionId}`;
+    return `${this.cfg.baseUrl}/${this.urlFen(fen)}${variant}${orientationParam}${chess960PositionId}`;
   }
-
-  makeImageUrl = (fen: FEN): string =>
-    `${site.asset.baseUrl()}/export/fen.gif?fen=${urlFen(fen)}&color=${this.bottomColor()}`;
 
   bottomColor = (): Color =>
     this.chessground ? this.chessground.state.orientation : this.options.orientation || 'white';
@@ -279,12 +438,12 @@ export default class EditorCtrl {
     return this.setFen(parts.join(' '));
   };
 
-  loadNewFen(fen: FEN | 'prompt'): void {
+  loadNewFen(fen: FEN): void {
     if (fen === 'prompt') prompt('Paste FEN position').then(fen => fen && this.setFen(fen.trim()));
     else this.setFen(fen);
   }
 
-  private setSetup = (setup: Setup): void => {
+  private readonly setSetup = (setup: Setup): void => {
     this.pockets = setup.pockets;
     this.turn = setup.turn;
     this.epSquare = setup.epSquare;
@@ -336,8 +495,8 @@ export default class EditorCtrl {
     const id = randomPositionId();
     id !== this.chess960PositionId ? this.set960Position(id) : this.setRandom960Position();
   }
-}
 
-function urlFen(fen: FEN): string {
-  return encodeURIComponent(fen).replace(/%20/g, '_').replace(/%2F/g, '/');
+  urlFen(fen: FEN): string {
+    return encodeURIComponent(fen).replace(/%20/g, '_').replace(/%2F/g, '/');
+  }
 }

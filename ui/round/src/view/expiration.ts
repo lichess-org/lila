@@ -1,13 +1,15 @@
 import { h } from 'snabbdom';
-import type RoundController from '../ctrl';
+
 import { isPlayerTurn, playable } from 'lib/game';
 import type { MaybeVNode } from 'lib/view';
+
+import type RoundController from '../ctrl';
 
 let rang = false;
 
 export default function (ctrl: RoundController): MaybeVNode {
   const d = playable(ctrl.data) && ctrl.data.expiration;
-  if (!d) return;
+  if (!d) return undefined;
   const timeLeft = Math.max(0, d.movedAt - Date.now() + d.millisToMove),
     secondsLeft = Math.floor(timeLeft / 1000),
     myTurn = isPlayerTurn(ctrl.data),
@@ -20,6 +22,6 @@ export default function (ctrl: RoundController): MaybeVNode {
   return h(
     'div.expiration.expiration-' + side,
     { class: { emerg, 'bar-glider': myTurn } },
-    i18n.site.nbSecondsToPlayTheFirstMove.asArray(secondsLeft, h('strong', '' + secondsLeft)),
+    i18n.site.nbSecondsToPlayTheFirstMove.asArray(secondsLeft, h('strong', secondsLeft)),
   );
 }

@@ -1,10 +1,12 @@
-import { debounce } from 'lib/async';
-import * as xhr from 'lib/xhr';
-import { isSafari } from 'lib/device';
-import { notNull } from 'lib';
 import Tagify from '@yaireo/tagify';
-import { wireCropDialog } from './crop';
+
+import { notNull } from 'lib';
+import { debounce } from 'lib/async';
+import { isSafari } from 'lib/device';
 import { spinnerHtml } from 'lib/view';
+import * as xhr from 'lib/xhr';
+
+import { wireCropDialog } from './crop';
 
 if (isSafari()) wireCropDialog(); // preload
 
@@ -18,7 +20,7 @@ site.load.then(() => {
 
     const must = [
       {
-        html: '<a href="/account/profile">Complete your lichess profile</a>',
+        html: '<a href="/account/profile">Complete your Lichess profile</a>',
         check() {
           return $el.data('profile');
         },
@@ -50,7 +52,7 @@ site.load.then(() => {
       },
     ];
 
-    return function () {
+    return () => {
       const points: Cash[] = must.filter(o => !o.check()).map(o => $('<li>').html(o.html));
       const $ul = $el.find('ul').empty();
       points.forEach(p => $ul.append(p));
@@ -61,27 +63,25 @@ site.load.then(() => {
     };
   })();
 
-  {
-    // languages
-    const langInput = document.getElementById('form3-languages') as HTMLInputElement;
-    const whitelistJson = langInput.getAttribute('data-all');
-    const whitelist = whitelistJson ? (JSON.parse(whitelistJson) as Tagify.TagData[]) : undefined;
-    const tagify = new Tagify(langInput, {
-      maxTags: 10,
-      whitelist,
-      enforceWhitelist: true,
-      dropdown: {
-        enabled: 1,
-      },
-    });
-    tagify.addTags(
-      langInput
-        .getAttribute('data-value')
-        ?.split(',')
-        .map(code => whitelist?.find(l => l.code == code))
-        .filter(notNull) as Tagify.TagData[],
-    );
-  }
+  // languages
+  const langInput = document.querySelector<HTMLInputElement>('#form3-languages')!;
+  const whitelistJson = langInput.getAttribute('data-all');
+  const whitelist = whitelistJson ? (JSON.parse(whitelistJson) as Tagify.TagData[]) : undefined;
+  const tagify = new Tagify(langInput, {
+    maxTags: 10,
+    whitelist,
+    enforceWhitelist: true,
+    dropdown: {
+      enabled: 1,
+    },
+  });
+  tagify.addTags(
+    langInput
+      .getAttribute('data-value')
+      ?.split(',')
+      .map(code => whitelist?.find(l => l.code === code))
+      .filter(notNull) as Tagify.TagData[],
+  );
 
   $editor.find('.tabs > div').on('click', function (this: HTMLElement) {
     $editor.find('.tabs > div').removeClass('active');
@@ -90,8 +90,9 @@ site.load.then(() => {
     $editor.find('.panel.' + this.dataset.tab).addClass('active');
     $editor.find('div.status').removeClass('saved');
   });
+
   const submit = debounce(() => {
-    const form = document.querySelector('form.async') as HTMLFormElement;
+    const form = document.querySelector<HTMLFormElement>('form.async');
     if (!form) return;
     xhr.formToXhr(form).then(() => {
       $editor.find('div.status').addClass('saved');

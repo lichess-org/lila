@@ -16,8 +16,8 @@ final class ClasLoginApi(colls: ClasColls, userRepo: lila.user.UserRepo)(using E
   import BsonHandlers.given
 
   def create(clas: Clas, students: List[Student])(using teacher: Me): Fu[ClasLogin] = for
-    cur <- coll.exists($id(clas.id))
-    _ <- cur.so(coll.delete.one($id(clas.id)).void)
+    cur <- coll.exists(bid(clas.id))
+    _ <- cur.so(coll.delete.one(bid(clas.id)).void)
     login = ClasLogin(clas.id, Clas.Recorded(teacher.userId, nowInstant), makeCodes(students))
     _ <- coll.insert.one(login)
   yield login
@@ -26,7 +26,7 @@ final class ClasLoginApi(colls: ClasColls, userRepo: lila.user.UserRepo)(using E
 
   def login(code: String): Fu[Option[(User, ClasId)]] =
     coll
-      .find($doc("codes.code" -> code))
+      .find(bdoc("codes.code" -> code))
       .one[ClasLogin]
       .flatMapz: login =>
         login.codes

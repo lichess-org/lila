@@ -1,14 +1,16 @@
-import { storage } from 'lib/storage';
-import { isIos } from 'lib/device';
+import { defined, requestIdleCallbackSafe, memoize } from 'lib';
 import { throttle } from 'lib/async';
-import { defined } from 'lib';
+import { isIos } from 'lib/device';
 import { speakable } from 'lib/game/sanWriter';
+import { log } from 'lib/permalog';
+import { storage } from 'lib/storage';
 
 type Name = string;
 type Path = string;
 
 export default new (class implements SoundI {
-  ctx = makeAudioContext();
+  ctx?: AudioContext;
+  ctxPromise: Promise<AudioContext>;
   listeners = new Set<SoundListener>();
   sounds = new Map<Path, Sound>(); // All loaded sounds and their instances
   paths = new Map<Name, Path>(); // sound names to paths
@@ -18,23 +20,33 @@ export default new (class implements SoundI {
   volumeStorage = storage.make('sound-volume');
   music?: SoundMove;
   primerEvents = ['touchend', 'pointerup', 'pointerdown', 'mousedown', 'keydown'];
-  primer = () => {
-    this.ctx?.resume().then(() => {
-      setTimeout(() => $('#warn-no-autoplay').removeClass('shown'), 500);
-    });
-    for (const e of this.primerEvents) window.removeEventListener(e, this.primer, { capture: true });
-  };
+  voiceRateRange = { min: 0.3, max: 1.7 };
+  nvuiReady = memoize(() => site.asset.loadI18n('nvui'));
 
   constructor() {
     this.primerEvents.forEach(e => window.addEventListener(e, this.primer, { capture: true }));
-    window.speechSynthesis?.getVoices(); // preload
+    this.ctxPromise = new Promise((resolve, fail) => {
+      requestIdleCallbackSafe(() => {
+        this.ctx = makeAudioContext();
+        if (this.ctx) resolve(this.ctx);
+        else fail(new Error('AudioContext not supported'));
+        window.speechSynthesis?.getVoices(); // preload
+      });
+    });
   }
 
+  primer = async () => {
+    const ctx = await this.ctxPromise;
+    await ctx.resume();
+    setTimeout(() => $('#warn-no-autoplay').removeClass('shown'), 500);
+    for (const e of this.primerEvents) window.removeEventListener(e, this.primer, { capture: true });
+  };
+
   async load(name: Name, path?: Path): Promise<Sound | undefined> {
-    if (!this.ctx) return;
+    const ctx = await this.ctxPromise;
     if (path) this.paths.set(name, path);
     else path = this.paths.get(name) ?? this.resolvePath(name);
-    if (!path) return;
+    if (!path) return undefined;
     if (this.sounds.has(path)) return this.sounds.get(path);
 
     const result = await fetch(path);
@@ -42,27 +54,26 @@ export default new (class implements SoundI {
 
     const arrayBuffer = await result.arrayBuffer();
     const audioBuffer = await new Promise<AudioBuffer>((resolve, reject) => {
-      if (this.ctx?.decodeAudioData.length === 1)
-        this.ctx?.decodeAudioData(arrayBuffer).then(resolve).catch(reject);
-      else this.ctx?.decodeAudioData(arrayBuffer, resolve, reject);
+      if (ctx.decodeAudioData.length === 1) ctx.decodeAudioData(arrayBuffer).then(resolve).catch(reject);
+      else ctx.decodeAudioData(arrayBuffer, resolve, reject);
     });
-    const sound = new Sound(this.ctx, audioBuffer);
+    const sound = new Sound(ctx, audioBuffer);
     this.sounds.set(path, sound);
     return sound;
   }
 
   resolvePath(name: Name): string | undefined {
-    if (!this.enabled()) return;
+    if (!this.enabled()) return undefined;
     let dir = this.theme;
     if (this.theme === 'music' || this.speech()) {
-      if (['move', 'capture', 'check', 'checkmate'].includes(name)) return;
+      if (['move', 'capture', 'check', 'checkmate'].includes(name)) return undefined;
       dir = 'standard';
     }
     return this.url(`${dir}/${name[0].toUpperCase() + name.slice(1)}.mp3`);
   }
 
   url(name: Name): string {
-    return site.asset.url(`sound/${name}`); //, { pathVersion: '_____1' });
+    return site.asset.url(`sound/${name}`);
   }
 
   async play(name: Name, volume = 1): Promise<void> {
@@ -117,7 +128,7 @@ export default new (class implements SoundI {
     const doIt = () => {
       const store = storage.make('just-played');
       if (Date.now() - parseInt(store.get()!, 10) < 2000) return;
-      store.set('' + Date.now());
+      store.set(String(Date.now()));
       this.play(name);
     };
     if (document.hasFocus()) doIt();
@@ -138,8 +149,7 @@ export default new (class implements SoundI {
       o = JSON.parse(this.voiceStorage.get() ?? JSON.stringify(o));
     } catch {}
     const voiceMap = this.getVoiceMap();
-    const voice = voiceMap.get(o.name) ?? [...voiceMap.values()].find(v => v.lang.startsWith(o.lang));
-    return voice;
+    return voiceMap.get(o.name) ?? [...voiceMap.values()].find(v => v.lang.startsWith(o.lang));
   };
 
   getVoiceMap = (): Map<string, SpeechSynthesisVoice> => {
@@ -172,35 +182,36 @@ export default new (class implements SoundI {
   say = (text: string, cut = false, force = false, translated = false) =>
     this.sayLazy(() => text, cut, force, translated);
 
-  sayLazy = (text: () => string, cut = false, force = false, translated = false) => {
+  sayLazy = (text: () => string, cut = false, force = false, translated = false): boolean => {
     if (typeof window.speechSynthesis === 'undefined') return false;
-    try {
-      if (cut) speechSynthesis.cancel();
-      if (!this.speech() && !force) return false;
-      const msg = new SpeechSynthesisUtterance(text());
-      const selectedVoice = this.getVoice();
-      if (selectedVoice) {
-        msg.voice = selectedVoice;
-      } else {
-        msg.lang = translated ? document.documentElement.lang : 'en-GB';
-      }
-      msg.volume = this.getVolume();
-      if (!isIos()) {
-        // speech events are unreliable on iOS, but iphones do their own cancellation
-        msg.onstart = () => this.listeners.forEach(l => l('start', text()));
-        msg.onend = msg.onerror = () => this.listeners.forEach(l => l('stop'));
-      }
-      window.speechSynthesis.speak(msg);
-      return true;
-    } catch (err) {
-      console.error(err);
-      return false;
-    }
+    if (!this.speech() && !force) return false;
+    this.nvuiReady()
+      .then(() => {
+        if (cut) speechSynthesis.cancel();
+        const msg = new SpeechSynthesisUtterance(text());
+        const selectedVoice = this.getVoice();
+        if (selectedVoice) {
+          msg.voice = selectedVoice;
+        } else {
+          msg.lang = translated ? document.documentElement.lang : 'en-GB';
+        }
+        msg.volume = this.getVolume();
+        const rate = Number(localStorage.getItem('speech.rate'));
+        if (rate >= this.voiceRateRange.min && rate <= this.voiceRateRange.max) msg.rate = rate;
+        if (!isIos()) {
+          // speech events are unreliable on iOS, but iphones do their own cancellation
+          msg.onstart = () => this.listeners.forEach(l => l('start', text()));
+          msg.onend = msg.onerror = () => this.listeners.forEach(l => l('stop'));
+        }
+        window.speechSynthesis.speak(msg);
+      })
+      .catch(log);
+    return true;
   };
 
   saySan = (san?: San, cut?: boolean, force?: boolean) => this.sayLazy(() => speakable(san), cut, force);
 
-  sayOrPlay = (name: string, text: string) => this.say(text) || this.play(name);
+  sayOrPlay = (name: string, text: string, cut = false) => this.sayLazy(() => text, cut) || this.play(name);
 
   changeSet = (s: string) => {
     if (isIos()) this.ctx?.resume();
@@ -222,17 +233,18 @@ export default new (class implements SoundI {
       }
     }
     // if suspended, try audioContext.resume() with a timeout (sometimes it never resolves)
-    if (this.ctx?.state === 'suspended')
-      await new Promise<void>(resolve => {
-        const resumeTimer = setTimeout(() => {
-          $('#warn-no-autoplay').addClass('shown');
-          resolve();
-        }, 400);
-        this.ctx?.resume().then(() => {
-          clearTimeout(resumeTimer);
-          resolve();
-        });
-      });
+    if (this.ctx?.state === 'suspended') {
+      await Promise.race([
+        this.ctx.resume(),
+        new Promise<void>(resolve => {
+          setTimeout(() => {
+            $('#warn-no-autoplay').addClass('shown');
+            resolve();
+          }, 400);
+        }),
+      ]);
+    }
+
     if (this.ctx?.state !== 'running') return false;
     $('#warn-no-autoplay').removeClass('shown');
     return true;

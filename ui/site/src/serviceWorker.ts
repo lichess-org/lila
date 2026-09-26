@@ -1,6 +1,7 @@
-import { url as assetUrl, jsModule } from './asset';
 import { log } from 'lib/permalog';
 import { storage } from 'lib/storage';
+
+import { url as assetUrl, jsModule } from './asset';
 
 export default async function () {
   if (!('serviceWorker' in navigator && 'Notification' in window && 'PushManager' in window)) return;
@@ -28,10 +29,10 @@ export default async function () {
       body: JSON.stringify(newSub),
     });
 
-    if (res.ok && !res.redirected) store.set('' + Date.now());
+    if (res.ok && !res.redirected) store.set(String(Date.now()));
     else throw new Error(res.statusText);
   } catch (err: any) {
     log('serviceWorker.ts:', err.message, newSub);
-    if (newSub?.endpoint) newSub.unsubscribe();
+    if (newSub?.endpoint) await newSub?.unsubscribe();
   }
 }

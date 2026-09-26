@@ -1,15 +1,17 @@
 .keyboard-move {
   @extend %flex-center-nowrap;
+
   height: fit-content;
 
   input {
+    @include transition;
+    @include backdrop-blur-if-transparent;
+
     width: 4.5em;
     font-size: 1.1em;
     font-weight: bold;
     margin-inline-end: 1rem;
     border: $border;
-
-    @include transition;
 
     &.wrong {
       background: $c-bad;
@@ -20,13 +22,16 @@
   em {
     color: $c-font-dim;
   }
+
+  kbd {
+    margin-inline: 3px;
+  }
 }
 
 .keyboard-move-help {
   td.tips li {
     list-style: disc;
-    margin-inline-start: 2em;
-    margin-inline-end: 1em;
+    margin-inline: 2em 1em;
   }
 
   a {

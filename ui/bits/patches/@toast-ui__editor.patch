@@ -10,3 +10,24 @@ index 941abe3546bba24c4b0b2851ab0b9d92286aff07..a8abea4a8f30cba512d39c077c5603a6
        "import": "./dist/esm/index.js",
        "require": "./dist/toastui-editor.js"
      },
+diff --git a/dist/esm/index.js b/dist/esm/index.js
+index 195b156..1046e69 100644
+--- a/dist/esm/index.js
++++ b/dist/esm/index.js
+@@ -16279,1 +16279,1 @@
+-        _this = _super.call(this, ranges[0].$from, ranges[0].$to, ranges) || this;
++        _this = Reflect.construct(_super, [ranges[0].$from, ranges[0].$to, ranges], CellSelection);
+@@ -18272,1 +18272,4 @@
+-    return inFirstRow || inLastRow;
++    const inFirstCell = direction === "left" && rowIdx === 0 && colIdx === 0;
++    const inLastCell = direction === "right" &&
++      rowIdx === map.totalRowCount - 1 && colIdx === map.totalColumnCount - 1;
++    return inFirstRow || inLastRow || inFirstCell || inLastCell;
+@@ -18602,1 +18606,3 @@
+-                    newTr = addParagraphAfterTable(tr, map, schema);
++                    newTr = direction === "left"
++                      ? addParagraphBeforeTable(tr, map, schema)
++                      : addParagraphAfterTable(tr, map, schema);
+@@ -18951,1 +18957,1 @@
+-                attrs: __assign$1({ imageUrl: { default: '' }, altText: { default: null }, rawHTML: { default: null } }, getDefaultCustomAttrs()),
++                attrs: __assign$1({ imageUrl: { default: '' }, altText: { default: null }, rawHTML: { default: null }, styleWidth: { default: null } }, getDefaultCustomAttrs()),

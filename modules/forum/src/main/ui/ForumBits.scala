@@ -36,6 +36,10 @@ final class ForumBits(helpers: Helpers):
   val dataTopic = attr("data-topic")
   val dataUnsub = attr("data-unsub")
 
-  def postTextarea(field: play.api.data.Field)(modifiers: Modifier*)(using Me) =
-    bits.markdownTextarea("forumPostBody".some):
-      form3.textarea(field, "post-text-area")(rows := 10)(modifiers)
+  def postTextarea(field: play.api.data.Field)(modifiers: Modifier*)(using Context) =
+    bits.markdownEditor(MarkdownRealm.forum):
+      form3.textarea(field, "post-text-area")(
+        rows := 10,
+        autocomplete := "off",
+        placeholder := trans.site.pleaseBeNiceInTheForum.txt()
+      )(modifiers)

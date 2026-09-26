@@ -1,11 +1,12 @@
-import { initMiniBoardWith, onInsert } from '@/view';
-import { uciToMove } from '@/game/chess';
-import type { PuzCtrl } from '@/puz/interfaces';
+import { uciToMove } from '@lichess-org/chessground/util';
 import { Chess } from 'chessops/chess';
-import { h, type VNode } from 'snabbdom';
 import { parseFen, makeFen } from 'chessops/fen';
 import { parseUci } from 'chessops/util';
+import { h, type VNode } from 'snabbdom';
+
 import type { Toggle } from '@/index';
+import type { PuzCtrl, Round } from '@/puz/interfaces';
+import { initMiniBoardWith, onInsert } from '@/view';
 
 const slowPuzzleIds = (ctrl: PuzCtrl): Set<string> | undefined => {
   if (!ctrl.filters.slow() || !ctrl.run.history.length) return undefined;
@@ -27,6 +28,8 @@ const toggleButton = (prop: Toggle, title: string): VNode =>
 export default (ctrl: PuzCtrl): VNode => {
   const slowIds = slowPuzzleIds(ctrl),
     filters = ctrl.filters,
+    unfinishedId = ctrl.run.unfinishedId,
+    klass = (r: Round) => (r.puzzle.id === unfinishedId ? 'unfinished' : r.win ? 'good' : 'bad'),
     buttons: VNode[] = [
       toggleButton(filters.fail, i18n.storm.failedPuzzles),
       toggleButton(filters.slow, i18n.storm.slowPuzzles),
@@ -39,13 +42,13 @@ export default (ctrl: PuzCtrl): VNode => {
       ctrl.run.history
         .filter(
           r =>
-            (!r.win || !filters.fail()) &&
+            ((!r.win && r.puzzle.id !== unfinishedId) || !filters.fail()) &&
             (!slowIds || slowIds.has(r.puzzle.id)) &&
             (!filters.skip || !filters.skip() || r.puzzle.id === ctrl.run.skipId),
         )
         .map(round =>
           h('div.puz-history__round', { key: round.puzzle.id }, [
-            h('a.puz-history__round__puzzle.mini-board.cg-wrap.is2d', {
+            h(`a.puz-history__round__puzzle.mini-board.cg-wrap.is2d.${klass(round)}`, {
               attrs: {
                 href: `/training/${round.puzzle.id}`,
                 target: '_blank',
@@ -63,7 +66,7 @@ export default (ctrl: PuzCtrl): VNode => {
             }),
             h('span.puz-history__round__meta', [
               h('span.puz-history__round__result', [
-                h(round.win ? 'good' : 'bad', Math.round(round.millis / 1000) + 's'),
+                h(klass(round), Math.round(round.millis / 1000) + 's'),
                 ctrl.pref.ratings ? h('rating', round.puzzle.rating) : '',
               ]),
               h('span.puz-history__round__id', '#' + round.puzzle.id),

@@ -1,5 +1,6 @@
-import { h, type Hooks } from 'snabbdom';
-import { spinnerVdom, onInsert } from 'lib/view';
+import { clockToSpeed } from 'lib/game';
+import { spinnerVdom, onInsert, div, makeExoticTag } from 'lib/view';
+
 import type LobbyController from '../ctrl';
 
 const createHandler = (ctrl: LobbyController) => (e: Event) => {
@@ -10,50 +11,50 @@ const createHandler = (ctrl: LobbyController) => (e: Event) => {
     e.preventDefault(); // Prevent page scroll on space
   }
 
-  const id =
-    (e.target as HTMLElement).dataset['id'] ||
-    ((e.target as HTMLElement).parentNode as HTMLElement).dataset['id'];
+  const target = e.target as HTMLElement;
+  const id = target.dataset['id'] || (target.parentNode as HTMLElement).dataset['id'];
   if (id === 'custom') ctrl.setupCtrl.openModal('hook');
   else if (id) ctrl.clickPool(id);
 
   ctrl.redraw();
 };
 
-export const hooks = (ctrl: LobbyController): Hooks =>
+export const hooks = (ctrl: LobbyController) =>
   onInsert(el => {
     const handler = createHandler(ctrl);
     el.addEventListener('click', handler);
     el.addEventListener('keydown', handler);
   });
 
-export function render(ctrl: LobbyController) {
-  const member = ctrl.poolMember;
-  return ctrl.pools
+const poolButton = makeExoticTag('div.lpool', {
+  role: 'button',
+  tabindex: '0',
+});
+
+export function render({ pools, poolMember, opts }: LobbyController) {
+  return pools
     .map(pool => {
-      const active = member?.id === pool.id,
-        transp = !!member && !active;
-      return h(
-        'div.lpool',
+      const active = poolMember?.id === pool.id;
+      return poolButton(
         {
-          class: { active, transp },
-          attrs: { role: 'button', 'data-id': pool.id, tabindex: '0' },
+          class: { active, transp: !!poolMember && !active },
+          'data-id': pool.id,
         },
         [
-          h('div.clock', `${pool.lim}+${pool.inc}`),
+          div('.clock', `${pool.lim}+${pool.inc}`),
           active
-            ? member.range && ctrl.opts.showRatings
-              ? h('div.range', member.range.replace('-', '–'))
+            ? poolMember.range && opts.showRatings
+              ? div('.range', poolMember.range.replace('-', '–'))
               : spinnerVdom()
-            : h('div.perf', pool.perf),
+            : div('.perf', i18n.site[clockToSpeed(pool.lim * 60, pool.inc)]),
         ],
       );
     })
     .concat(
-      h(
-        'div.lpool',
+      poolButton(
         {
-          class: { transp: !!member },
-          attrs: { role: 'button', 'data-id': 'custom', tabindex: '0' },
+          class: { transp: !!poolMember },
+          'data-id': 'custom',
         },
         i18n.site.custom,
       ),

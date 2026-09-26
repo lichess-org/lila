@@ -10,15 +10,13 @@
     flex: 1 1 auto;
     text-align: center;
     padding: 0.4em 10px;
-
-    // background: $c-shade;
     cursor: pointer;
     color: $c-font-page;
 
     @include transition;
 
     &:hover {
-      background: $m-accent_bg--mix-15;
+      background: color-mix(in oklab, $c-accent 15%, $c-bg);
     }
 
     &-active {

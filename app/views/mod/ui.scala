@@ -4,10 +4,11 @@ import lila.app.UiEnv.{ *, given }
 import lila.mod.ui.*
 import lila.shutup.Analyser.highlightBad
 import lila.core.chat.PublicSource
+import lila.common.ClientName
 
 lazy val ui = ModUi(helpers)
 lazy val userTable = ModUserTableUi(helpers, ui)
-lazy val user = ModUserUi(helpers, ui)
+lazy val user = ModUserUi(helpers, ui, env.mod.mailerEventsUrl)
 lazy val gamify = GamifyUi(helpers)(views.mod.ui.menu("gamify"))
 lazy val publicChat = PublicChatUi(helpers)(views.mod.ui.menu("public-chat"), highlightBad)
 lazy val commUi = ModCommUi(helpers)(highlightBad)
@@ -15,7 +16,7 @@ lazy val inquiryUi = ModInquiryUi(helpers)(publicLineSource, env.mod.presets.get
 
 val timeline = lila.api.ui.ModTimelineUi(helpers)(publicLineSource = publicLineSource)
 
-private def publicLineSource(source: PublicSource)(using Translate): Tag = source match
+private def publicLineSource(source: PublicSource)(using Translate, ClientName): Tag = source match
   case PublicSource.Tournament(id) => views.tournament.ui.tournamentLink(id)
   case PublicSource.Simul(id) => views.simul.ui.link(id)
   case PublicSource.Team(id) => teamLink(id)

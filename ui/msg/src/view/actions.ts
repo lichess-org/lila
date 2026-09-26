@@ -1,8 +1,10 @@
 import { h, type VNode } from 'snabbdom';
-import * as licon from 'lib/licon';
+
+import { licon } from 'lib/licon';
 import { bind, confirm } from 'lib/view';
-import type { Convo } from '../interfaces';
+
 import type MsgCtrl from '../ctrl';
+import type { Convo } from '../interfaces';
 
 export default function renderActions(ctrl: MsgCtrl, convo: Convo): VNode[] {
   if (convo.user.id === 'lichess') return [];
@@ -17,8 +19,8 @@ export default function renderActions(ctrl: MsgCtrl, convo: Convo): VNode[] {
         title: i18n.challenge.challengeToPlay,
       },
     }),
+    h('div.msg-app__convo__action__sep', '|'),
   );
-  nodes.push(h('div.msg-app__convo__action__sep', '|'));
   if (convo.relations.out === false)
     nodes.push(
       h(`button.${cls}.text.hover-text`, {
@@ -50,8 +52,6 @@ export default function renderActions(ctrl: MsgCtrl, convo: Convo): VNode[] {
       attrs: { 'data-icon': licon.Trash, type: 'button', title: i18n.site.delete },
       hook: bind('click', withConfirm(ctrl.delete)),
     }),
-  );
-  nodes.push(
     h(`a.${cls}.bad`, {
       key: 'report',
       attrs: {

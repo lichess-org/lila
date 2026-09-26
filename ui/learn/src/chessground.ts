@@ -1,12 +1,16 @@
-import { h, type VNode } from 'snabbdom';
-import type { RunCtrl } from './run/runCtrl';
-import { Coords } from 'lib/prefs';
 import { Chessground as makeChessground } from '@lichess-org/chessground';
+import { h, type VNode } from 'snabbdom';
+
+import { isSafari } from 'lib/device';
+import { Coords } from 'lib/prefs';
+import { onInsert } from 'lib/view';
+
+import type { RunCtrl } from './run/runCtrl';
 
 export interface Shape {
   orig: Key;
   dest?: Key;
-  color?: string;
+  brush?: string;
 }
 
 export type CgMove = {
@@ -17,11 +21,10 @@ export type CgMove = {
 export default function (ctrl: RunCtrl): VNode {
   return h('div.cg-wrap', {
     hook: {
-      insert: vnode => {
-        const el = vnode.elm as HTMLElement;
+      ...onInsert(el => {
         el.addEventListener('contextmenu', e => e.preventDefault());
         ctrl.setChessground(makeChessground(el, makeConfig(ctrl)));
-      },
+      }),
       destroy: () => ctrl.chessground?.destroy(),
     },
   });
@@ -32,6 +35,7 @@ const makeConfig = (ctrl: RunCtrl): CgConfig => ({
   blockTouchScroll: true,
   coordinates: true,
   coordinatesOnSquares: ctrl.pref.coords === Coords.All,
+  jsHover: isSafari(),
   movable: { free: false, color: undefined, showDests: ctrl.pref.destination },
   drawable: { enabled: false },
   draggable: { enabled: true },

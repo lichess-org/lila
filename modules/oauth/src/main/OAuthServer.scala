@@ -1,40 +1,45 @@
 package lila.oauth
 
-import com.roundeights.hasher.Algo
 import com.softwaremill.tagging.*
 import play.api.mvc.{ RequestHeader, Result }
+import scalalib.net.{ Bearer, UserAgent }
 
 import lila.common.HTTPRequest
-import lila.core.config.Secret
-import lila.core.net.{ Bearer, UserAgent }
 import lila.memo.SettingStore
 
 final class OAuthServer(
     userApi: lila.core.user.UserApi,
     tokenApi: AccessTokenApi,
     originBlocklist: SettingStore[lila.core.data.Strings] @@ OriginBlocklist,
-    mobileSecrets: List[Secret] @@ MobileSecrets
+    signedClients: OAuthSignedClients
 )(using mode: play.api.Mode)(using Executor):
 
   import OAuthServer.*
 
-  def authReq(req: RequestHeader, accepted: EndpointScopes): AccessFu =
+  private type Signature = Option[String]
+
+  def authReq(accepted: EndpointScopes)(using req: RequestHeader): AccessFu =
     val res = for
-      bearer <- HTTPRequest.bearer(req).raiseIfNone(MissingAuthorizationHeader)
+      bearer <- HTTPRequest.bearer.raiseIfNone(MissingAuthorizationHeader)
       res <- auth(bearer, accepted, req.some)
       _ <- checkOauthUaUser(res, HTTPRequest.userAgent(req)).raiseIfSome(funit)
     yield res
     res.onComplete(x => monitorAuth(x.isSuccess))
     res
 
-  def auth(tokenId: Bearer, accepted: EndpointScopes, andLogReq: Option[RequestHeader]): AccessFu = for
-    at <- getTokenFromSignedBearer(tokenId)
+  def auth(
+      bearer: (Bearer, Signature),
+      accepted: EndpointScopes,
+      andLogReq: Option[RequestHeader]
+  ): AccessFu = for
+    at <- getTokenFromSignedBearer(bearer)
     at <- at.raiseIfNone(NoSuchToken)
     _ <- raiseIf(!accepted.isEmpty && !accepted.compatible(at.scopes)):
       MissingScope(accepted, at.scopes)
-    u <- userApi.me(at.userId)
+    u <- userApi.meWithConfirmedEmail(at.userId)
     u <- u.raiseIfNone(NoSuchUser)
-    blocked = at.clientOrigin.exists(origin => originBlocklist.get().value.exists(origin.contains))
+    u <- u.left.map(_ => EmailUnconfirmed).raiseIfLeft
+    blocked = at.clientOrigin.exists(origin => originBlocklist.get().value.exists(origin.value.contains))
     _ = andLogReq
       .filter: req =>
         blocked || (u.isnt(UserId.explorer) && !HTTPRequest.looksLikeLichessBot(req))
@@ -49,8 +54,8 @@ final class OAuthServer(
       token1: Bearer,
       token2: Bearer
   ): FuRaise[AuthError, (User, User)] = for
-    auth1 <- auth(token1, scopes, req.some)
-    auth2 <- auth(token2, scopes, req.some)
+    auth1 <- auth(token1 -> none, scopes, req.some)
+    auth2 <- auth(token2 -> none, scopes, req.some)
     _ <- raiseIf(auth1.user.is(auth2.user))(OneUserWithTwoTokens)
   yield auth1.user -> auth2.user
 
@@ -60,26 +65,15 @@ final class OAuthServer(
       case UaUserRegex(u) if access.me.isnt(UserStr(u)) => UserAgentMismatch.some
       case _ => none
 
-  private val bearerSigners = mobileSecrets.map(s => Algo.hmac(s.value))
-
-  private def checkSignedBearer(bearer: String, signed: String): Boolean =
-    bearerSigners.exists: signer =>
-      signer.sha1(bearer).hash_=(signed)
-
-  private def getTokenFromSignedBearer(full: Bearer): Fu[Option[AccessToken.ForAuth]] =
-    val (bearer, signed) = full.value.split(':') match
-      case Array(bearer, signed) if checkSignedBearer(bearer, signed) => (Bearer(bearer), true)
-      case _ => (full, false)
+  private def getTokenFromSignedBearer(pair: (Bearer, Signature)): Fu[Option[AccessToken.ForAuth]] =
+    val (bearer, signature) = pair
     tokenApi
       .get(bearer)
       .mapz: token =>
-        if token.scopes.has(_.Web.Mobile) && !signed then
-          logger.warn(s"Web:Mobile token requested but not signed: $token")
-          mode.isDev.option(token)
-        else if token.scopes.has(_.Web.Mobile) && !token.clientOrigin.has("org.lichess.mobile://") then
-          logger.warn(s"Web:Mobile token requested but invalid origin: $token")
-          mode.isDev.option(token)
-        else token.some
+        if signedClients.allow(bearer, token, signature) then token.some
+        else
+          logger.warn(s"declined token for ${token.show}, signed=${signature.isDefined}")
+          none
 
   private def monitorAuth(success: Boolean) =
     lila.mon.user.oauth.request(success).increment()
@@ -98,6 +92,7 @@ object OAuthServer:
   case object OneUserWithTwoTokens extends AuthError("Both tokens belong to the same user")
   case object OriginBlocked extends AuthError("Origin blocked")
   case object UserAgentMismatch extends AuthError("The user in the user-agent doesn't match the token bearer")
+  case object EmailUnconfirmed extends AuthError("Please check your email for a confirmation link")
 
   def responseHeaders(accepted: EndpointScopes, tokenScopes: TokenScopes)(res: Result): Result =
     res.withHeaders(

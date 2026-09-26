@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="community">Comunidad</string>
+  <string name="communityBlogs">Blogs de la comunidad</string>
   <string name="byMonth">Por mes</string>
   <string name="byTopic">Por tema</string>
   <string name="byLichess">Por Lichess</string>
   <string name="myFriends">Mis amigos</string>
-  <string name="myLikes" comment="A page which lists blog posts that you have pressed ❤️ Like on: https://lichess.org/blog/liked">Mis \"Me gusta\"</string>
+  <string name="myLikes">Mis \"Me gusta\"</string>
   <string name="myBlog">Mi blog</string>
   <string name="likedBlogs">Entradas de blog preferidas</string>
+  <string name="blogPostsByFriends">Entradas de blog de amigos</string>
   <plurals name="blogPosts">
     <item quantity="one">%s entrada de blog</item>
     <item quantity="other">%s publicaciones en el blog</item>
   </plurals>
-  <string name="continueReadingPost">Continuar leyendo esta entrada</string>
-  <string name="lichessBlogPostsFromXYear">Entradas de blog de Lichess en %s</string>
+  <string name="continueReadingPost">Continuar leyendo el post</string>
+  <string name="lichessBlogPostsFromXYear">Publicaciones de blogs de Lichess en %s</string>
   <string name="previousBlogPosts">Entradas de blog anteriores</string>
   <string name="xBlog">Blog de %s</string>
   <string name="newPost">Nueva entrada</string>
@@ -28,6 +30,8 @@
   <string name="createBlogDiscussionHelp">Se creará un tema del foro para que la gente comente en tu publicación</string>
   <string name="publishOnYourBlog">Publicar en tu blog</string>
   <string name="publishHelp">Si está marcado, la entrada aparecerá en tu blog. Si no, será privada en tus borradores</string>
+  <string name="includesPromotedContent">Incluye contenido patrocinado o enlaces de referencia</string>
+  <string name="mandatoryForSponsoredContent">Obligatorio para contenido patrocinado, enlaces de afiliados o publicidad comercial</string>
   <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">Entrada fijada</string>
   <string name="stickyPostHelp">Si está marcado, esta entrada aparecerá en el primer lugar de las entradas recientes en tu perfil.</string>
   <plurals name="publishedNbBlogPosts">
@@ -44,18 +48,20 @@
   <string name="noPostsInThisBlogYet">Aún no hay entradas en este blog.</string>
   <string name="noDrafts">No hay borradores que mostrar.</string>
   <string name="latestBlogPosts">Últimas entradas de blog</string>
+  <string name="recentPosts">Publicaciones recientes</string>
   <plurals name="viewAllNbPosts">
     <item quantity="one">Ver una entrada</item>
     <item quantity="other">Ver las %s entradas</item>
   </plurals>
-  <string name="uploadAnImageForYourPost">Subir una imagen para tu entrada</string>
   <string name="imageAlt">Texto alternativo de la imagen</string>
   <string name="imageCredit">Créditos de la imagen</string>
+  <string name="coverImage">Imagen de portada</string>
   <string name="deleteBlog">Eliminar esta entrada del blog definitivamente</string>
-  <string name="safeToUseImages">Es seguro usar imágenes de los siguientes sitios web: </string>
+  <string name="freeImagesComplyWithLicensing" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Los siguientes sitios proporcionan imágenes gratis. Por favor, asegúrate de cumplir con las condiciones de licencia para la imagen que utilizas.</string>
   <string name="selectPostTopics">Selecciona los temas sobre los que trata tu entrada</string>
-  <string name="useImagesYouMadeYourself">También puedes usar imágenes que has hecho tú mismo, imágenes que has tomado, capturas de pantalla de Lichess... cualquier cosa que no tenga derechos de autor de otra persona.</string>
+  <string name="etiquette">Normas de convivencia</string>
   <string name="safeAndRespectfulContent">Por favor, publica solo contenido seguro y respetuoso. No copies el contenido de otra persona.</string>
+  <string name="noCopyrightedImages">Solo utiliza imágenes que no tengan derechos de autor.</string>
   <string name="inappropriateContentAccountClosed">Cualquier cosa inapropiada puede causar el cierre de tu cuenta.</string>
   <string name="blogTips">Nuestros sencillos consejos para escribir buenas entradas en el blog</string>
   <string name="discussThisBlogPostInTheForum">Discutir esta publicación en el foro</string>

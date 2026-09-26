@@ -4,6 +4,7 @@ import play.api.libs.json.*
 import play.api.mvc.*
 
 import lila.app.*
+import lila.core.msg.SystemMsg
 
 final class Github(env: Env) extends LilaController(env):
 
@@ -14,7 +15,8 @@ final class Github(env: Env) extends LilaController(env):
           .secretScanning(scans)
           .flatMap:
             _.sequentially: (token, url) =>
-              env.msg.api.systemPost(token.userId, lila.msg.MsgPreset.apiTokenRevoked(url))
+              val text = lila.msg.MsgPreset.apiTokenRevoked(url)
+              env.msg.api.systemPost(SystemMsg.mustRead(token.userId, text))
         NoContent
       case None => badRequest("JSON does not match expected format")
 

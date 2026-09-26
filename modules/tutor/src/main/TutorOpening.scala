@@ -46,10 +46,15 @@ private case object TutorOpening:
 
   val nbOpeningsPerColor = 5
 
-  def compute(user: TutorPlayer)(using InsightApi, Executor): Fu[ByColor[TutorColorOpenings]] =
+  def compute(user: TutorPlayer)(using
+      TutorConfig,
+      InsightApi,
+      Executor
+  ): Fu[ByColor[TutorColorOpenings]] =
     ByColor(computeOpenings(user, _))
 
   private def computeOpenings(user: TutorPlayer, color: Color)(using
+      TutorConfig,
       InsightApi,
       Executor
   ): Fu[TutorColorOpenings] =

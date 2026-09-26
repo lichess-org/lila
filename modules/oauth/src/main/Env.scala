@@ -4,8 +4,7 @@ import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
 import play.api.Configuration
 
-import lila.common.config.given
-import lila.core.config.{ CollName, Secret }
+import lila.core.config.{ BaseUrl, CollName }
 import lila.core.data.Strings
 import lila.memo.SettingStore.Strings.given
 
@@ -15,8 +14,9 @@ final class Env(
     userApi: lila.core.user.UserApi,
     settingStore: lila.memo.SettingStore.Builder,
     appConfig: Configuration,
+    baseUrl: BaseUrl,
     db: lila.db.Db
-)(using Executor, akka.stream.Materializer, play.api.Mode):
+)(using Executor, org.apache.pekko.stream.Materializer, play.api.Mode):
 
   lazy val originBlocklistSetting = settingStore[Strings](
     "oauthOriginBlocklist",
@@ -24,19 +24,14 @@ final class Env(
     text = "OAuth origin blocklist".some
   ).taggedWith[OriginBlocklist]
 
+  lazy val signedClients = wire[OAuthSignedClients]
+
   lazy val legacyClientApi = LegacyClientApi(db(CollName("oauth2_legacy_client")))
 
   lazy val authorizationApi = AuthorizationApi(db(CollName("oauth2_authorization")))
 
   lazy val tokenApi = AccessTokenApi(db(CollName("oauth2_access_token")), cacheApi, userApi)
 
-  private val mobileSecrets =
-    appConfig
-      .get[List[String]]("oauth.mobile.secrets")
-      .map(Secret(_))
-      .taggedWith[MobileSecrets]
-
   lazy val server = wire[OAuthServer]
 
 trait OriginBlocklist
-trait MobileSecrets

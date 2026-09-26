@@ -21,7 +21,6 @@
   <string name="puzzleRead">Pročitajte aktivnost u vezi s problemima</string>
   <string name="teamRead">Pročitajte informacije o privatnom timu</string>
   <string name="teamWrite">Pridružite se timu, napustite ga i upravljajte njim</string>
-  <string name="teamLead">Upravljajte timovima koje vodite: šaljite privatne poruke, izbacite članove</string>
   <string name="followRead">Čitajte praćene igrače</string>
   <string name="followWrite">Pratite i prestanite pratiti druge igrače</string>
   <string name="msgWrite">Pošaljite privatnu poruku drugim igračima</string>
@@ -29,7 +28,6 @@
   <string name="botPlay">Igrajte partije s API-botom</string>
   <string name="engineRead">Pogledajte i koristite Vaš vanjski šahovski program</string>
   <string name="engineWrite">Kreirajte i ažurirajte vanjski šahovski program</string>
-  <string name="webLogin">Kreirajte autorizirane sesije na veb-sajtu (omogućava puni pristup!)</string>
   <string name="webMod">Koristite moderatorske alate (u granicama Vaših dozvola)</string>
   <string name="personalAccessTokens">Osobni API pristupni token</string>
   <string name="canMakeOauthRequests">Možete kreirati OAuth zahtjeve bez da prolazite kroz %s.</string>

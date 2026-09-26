@@ -2,19 +2,14 @@ package lila.web
 
 import play.api.mvc.RequestHeader
 
-import lila.common.Form.trueish
 import lila.common.HTTPRequest
 
 trait RequestGetter:
 
   export HTTPRequest.queryStringGet as get
   export HTTPRequest.queryStringBool as getBool
-
-  protected def getAs[A](name: String)(using
-      req: RequestHeader,
-      sr: SameRuntime[String, A]
-  ): Option[A] =
-    get(name).map(sr.apply)
+  export HTTPRequest.queryStringBoolOpt as getBoolOpt
+  export HTTPRequest.queryStringGetAs as getAs
 
   protected def getUserStr(name: String)(using RequestHeader): Option[UserStr] =
     get(name).flatMap(UserStr.read)
@@ -37,10 +32,10 @@ trait RequestGetter:
   protected def getBoolAs[A](name: String)(using req: RequestHeader, yn: SameRuntime[Boolean, A]): A =
     yn(getBool(name))
 
-  protected def getBoolOpt(name: String)(using RequestHeader): Option[Boolean] =
-    getInt(name).map(trueish).orElse(get(name).map(trueish))
-
   protected def getBoolOptAs[A](
       name: String
   )(using req: RequestHeader, yn: SameRuntime[Boolean, A]): Option[A] =
     getBoolOpt(name).map(yn.apply)
+
+  protected def getColor(name: String = "color")(using RequestHeader): Option[Color] =
+    get(name).flatMap(Color.fromName)

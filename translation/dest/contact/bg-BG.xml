@@ -25,7 +25,6 @@
   <string name="cantChangeMore">Не можем да променим повече. По технически причини е направо невъзможно.</string>
   <string name="orCloseAccount">Обаче може да затворите текущия си акаунт и да създадете нов.</string>
   <string name="wantClearHistory">Искам да изчистя моята история или рейтинг</string>
-  <string name="cantClearHistory">Не е възможно да почистите в играта своите история, шахматни задачи или рейтинги.</string>
   <string name="wantReport">Искам да докладвам играч</string>
   <string name="toReportAPlayerUseForm">За да подадете сигнал за играч, използвайте формуляра</string>
   <string name="youCanAlsoReachReportPage">Също можете да посетите тази страница с натискането на %s бутона за докладване на страница на профил.</string>
@@ -39,7 +38,7 @@
   <string name="reportMobileIssue">Като проблем за мобилно приложение Lichess в GitHub</string>
   <string name="reportBugInDiscord">В Discord сървъра на Lichess</string>
   <string name="howToReportBug">Моля, опишете как изглежда грешката, какво очаквате да се случи вместо това и стъпките за възпроизвеждане на грешката.</string>
-  <string name="illegalPawnCapture" comment="Appears as an option for reasons to contact Lichess on the 'contact' page: https://lichess.org/contact#help-enpassant&#10;&#10;Players used to routinely write to Lichess stating that there was a bug, or that the other player had hacked their game in some way. In actuality, the player was using the legal move of en passant.&#10;&#10;Please translate this string from the perspective of the player who would be selecting this contact option, and call it 'Illegal', even though we know this is a legal move.">Нелегално взимане на пешка</string>
+  <string name="illegalPawnCapture">Нелегално взимане на пешка</string>
   <string name="calledEnPassant">Нарича се \"ан пасан\" и е едно от правилата на шаха.</string>
   <string name="tryEnPassant">Опитайте тази малка интерактивна игра за да научите повече за \"ан пасан\".</string>
   <string name="illegalCastling">Нелегална или невъзможна рокада</string>

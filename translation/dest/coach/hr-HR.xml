@@ -24,4 +24,7 @@
   <string name="teachingMethod">Metodologija poučavanja</string>
   <string name="publicStudies">Javne studije</string>
   <string name="youtubeVideos">YouTube videi</string>
+  <string name="allCountries">Sve države</string>
+  <string name="lastLogin">Zadnji login</string>
+  <string name="lichessRating">Lichess rejting</string>
 </resources>

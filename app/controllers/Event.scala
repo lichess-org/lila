@@ -1,5 +1,7 @@
 package controllers
 
+import scalalib.Json.given
+
 import lila.app.*
 
 final class Event(env: Env) extends LilaController(env):
@@ -11,9 +13,17 @@ final class Event(env: Env) extends LilaController(env):
       for html <- env.event.markdown.of(event)
       yield views.event.show(event, html)
 
-  def manager = Secure(_.ManageEvent) { ctx ?=> _ ?=>
+  def manager(page: Int) = Secure(_.ManageEvent) { ctx ?=> _ ?=>
     Ok.async:
-      api.list.map(views.event.manager)
+      api.pager(page).map(views.event.manager)
+  }
+
+  def apiCalendar(page: Int) = SecuredScoped(_.ManageEvent) { ctx ?=> _ ?=>
+    Reasonable(page, Max(20)):
+      val since = getTimestamp("since").getOrElse(nowInstant)
+      val until = getTimestamp("until").getOrElse(nowInstant.plusDays(7))
+      for pager <- api.between(since, until, page)
+      yield JsonOk(pager.mapResults(env.event.jsonView.calendar))
   }
 
   def edit(id: String) = Secure(_.ManageEvent) { ctx ?=> _ ?=>

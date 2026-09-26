@@ -3,15 +3,15 @@ package lila.ui
 import play.api.i18n.Lang
 import java.time.YearMonth
 import chess.format.Fen
+import scalalib.StringOps.addQueryParams
 
 import lila.core.i18n.Translate
-import lila.core.security.HcaptchaForm
 import lila.core.config.ImageGetOrigin
 import lila.ui.ScalatagsTemplate.{ *, given }
 
 object bits:
 
-  val engineFullName = "Stockfish 18"
+  val engineFullName = "Stockfish 19"
 
   def subnav(mods: Modifier*) = st.aside(cls := "subnav"):
     st.nav(cls := "subnav__inner")(mods)
@@ -86,11 +86,6 @@ object bits:
       lila.core.i18n.I18nKey.site.analysis()
     )
 
-  private val dataSitekey = attr("data-sitekey")
-
-  def hcaptcha(form: HcaptchaForm[?]) =
-    div(cls := "h-captcha form-group", dataSitekey := form.config.key)
-
   def contactEmailLinkEmpty(email: String) =
     a(cls := "contact-email-obfuscated", attr("data-email") := scalalib.StringOps.base64.encode(email))
 
@@ -118,41 +113,41 @@ object bits:
     )
   )
 
-  def markdownTextarea(picfitIdPrefix: Option[String])(textareaTag: Tag)(using
+  def markdownEditor(realm: MarkdownRealm)(textareaTag: Tag)(using
       imageGetOrigin: ImageGetOrigin
-  )(using Me) =
-    val canUploadImages = lila.core.security.canUploadImages(~picfitIdPrefix)
+  )(using ctx: Context)(using Translate) =
+    val editorClass = if realm.toastUi then "markdown-toastui" else "markdown-textarea"
+    val canUploadImages = ctx.me.soUse(lila.core.security.canUploadImages(realm.key))
+    val uploadUrl = canUploadImages.option(routes.Main.uploadImage(realm))
+    val imageUploadButton = (!realm.toastUi && canUploadImages).option:
+      button(cls := "button-empty", tpe := "button", title := "Upload image")(span(cls := "upload-image"))
+    val previewStyle = realm match
+      case MarkdownRealm.blog => "ublog-post__markup"
+      case MarkdownRealm.cms => "cms-preview"
+      case _ => ""
     div(
-      cls := "markdown-textarea",
+      cls := s"markdown-editor $editorClass",
+      attr("data-markdown-realm") := realm.key,
       attr("data-image-download-origin") := imageGetOrigin,
-      attr("data-image-count-max") := picfitIdPrefix.match
-        case Some(p) if p.startsWith("forum") => 5
-        case Some(p) if p.startsWith("team") => 2
-        case _ => 1,
-      canUploadImages
-        .so(picfitIdPrefix)
-        .map(id => attr("data-image-upload-url") := routes.Main.uploadImage(id)),
-      picfitIdPrefix.flatMap(imageDesignWidth).map(dw => attr("data-image-design-width") := dw)
+      attr("data-image-count-max") := realm.maxImageCount,
+      attr("data-image-design-width") := realm.imageDesignWidth,
+      uploadUrl.map(url => attr("data-image-upload-url") := url)
     )(
-      div(cls := "comment-header")(
-        button(cls := "header-tab write active", tpe := "button")("Write"),
-        button(
-          cls := "header-tab preview",
-          tpe := "button",
-          canUploadImages.option(title := "Preview and resize images")
-        )("Preview"),
-        canUploadImages.option(button(cls := "upload-image", tpe := "button", title := "Upload image"))
+      div(cls := "header")(
+        button(cls := "header-tab write-tab active", tpe := "button")(lila.core.i18n.I18nKey.site.write()),
+        button(cls := "header-tab preview-tab", tpe := "button")(lila.core.i18n.I18nKey.site.preview()),
+        imageUploadButton
       ),
-      div(cls := "comment-content")(
-        textareaTag,
-        div(cls := "comment-preview none")
+      div(cls := "content")(
+        textareaTag(cls := "markdown-content-textarea", tabindex := -1),
+        if realm.toastUi then div(cls := "toastui-container") else emptyFrag,
+        div(cls := s"preview none $previewStyle")
       )
     )
 
-  def imageDesignWidth(rel: String) =
-    if rel.startsWith("forum") then 864.some
-    else if rel.startsWith("ublog") then 800.some
-    else if rel.startsWith("cms") then 800.some
-    else if rel.startsWith("broadcast") then 800.some
-    else if rel.startsWith("team") then 768.some // desc & private desc
-    else none
+  def markdownAlternate(url: String, params: Map[String, String] = Map.empty) =
+    link(
+      rel := "alternate",
+      tpe := "text/markdown",
+      href := addQueryParams(url, params + ("output_format" -> "md"))
+    )

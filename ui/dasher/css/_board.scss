@@ -1,3 +1,4 @@
+@use 'sass:map';
 @import '../../lib/css/theme/board/boards';
 
 #dasher_app .board {
@@ -8,19 +9,17 @@
   }
 
   .list button {
+    @extend %flex-center-center;
+
     flex: 0 0 33%;
     height: 40px;
-
-    @extend %flex-center;
-    @extend %button-none;
-
-    justify-content: center;
   }
 
   .list span {
     display: block;
     width: 64px;
     height: 32px;
+
     body:not(.simple-board) & {
       filter: hue-rotate(calc(var(---board-hue) * 3.6deg));
     }
@@ -39,8 +38,8 @@
   }
 
   .reset {
-    @extend %button-none;
     padding: 0.5rem 1rem;
+
     &:hover {
       color: $c-primary;
     }
@@ -50,6 +49,7 @@
     display: flex;
     justify-content: stretch;
   }
+
   .zoom,
   .board-brightness,
   .board-contrast,
@@ -59,6 +59,7 @@
     grid-template-columns: 45% 55%;
     align-items: center;
     padding: 0.5rem 1rem;
+
     label {
       white-space: nowrap;
     }
@@ -82,11 +83,17 @@
   &.d2 {
     @each $name, $theme in $board-themes-2d {
       .#{$name} {
-        $file-ext: map-get($theme, file-ext);
-        $name-override: map-get($theme, name-override);
-        $file-name: if($name-override, $name-override, $name);
+        $file-ext: map.get($theme, file-ext);
+        $name-override: map.get($theme, name-override);
+        $file-name: $name;
 
-        @if $file-name == 'newspaper' {
+        @if $name-override {
+          $file-name: $name-override;
+        }
+
+        // svg boards live in a subdirectory and ship no thumbnail, so they scale the
+        // board itself. Keyed on the extension, as in _board-2d.scss.
+        @if $file-ext == 'svg' {
           background-image: url(../images/board/svg/#{$file-name}.svg);
           background-size: 256px;
         } @else {
@@ -97,9 +104,9 @@
   }
 
   &.d3 {
-    @each $name in map-keys($board-themes-3d) {
+    @each $name in map.keys($board-themes-3d) {
       .#{$name} {
-        background-image: url(../images/staunton/board/#{$name}.thumbnail.png);
+        background-image: url(../images/staunton/board/#{$name}.thumbnail.webp);
       }
     }
   }

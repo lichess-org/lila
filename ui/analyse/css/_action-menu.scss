@@ -4,13 +4,15 @@
 
 .action-menu {
   @extend %border-bottom-active, %flex-column;
-  position: absolute;
-  z-index: $z-action-menu-99;
-  inset: 0;
+
   background: $c-bg-opaque;
-  overflow: auto;
-  padding: $analyse-block-gap;
-  gap: $analyse-block-gap;
+
+  .inner {
+    display: flex;
+    flex-direction: column;
+    padding: 0 1rem 1rem;
+    gap: 1rem;
+  }
 
   h2 {
     font-size: 1em;
@@ -19,8 +21,8 @@
     white-space: nowrap;
     display: table;
 
-    &:before,
-    &:after {
+    &::before,
+    &::after {
       border-top: $border;
       content: '';
       display: table-cell;
@@ -29,11 +31,11 @@
       width: 45%;
     }
 
-    &:before {
+    &::before {
       @include inline-end(8px);
     }
 
-    &:after {
+    &::after {
       @include inline-start(8px);
     }
   }
@@ -45,19 +47,23 @@
 
     button,
     > a {
-      @extend %button-none;
+      color: $c-font;
       display: flex;
       align-items: center;
-      line-height: 1.2em;
-      min-height: 3em;
+      min-height: 4em;
 
       &::before {
         padding-inline-end: 8px;
-        font-size: 1.7em;
+        font-size: 1.5em;
+        color: $c-font-dim;
       }
 
       &:hover {
         color: $c-primary;
+
+        &::before {
+          color: $c-primary-dim;
+        }
       }
     }
   }
@@ -66,13 +72,14 @@
     @extend %flex-wrap;
 
     .button {
-      &-empty {
-        color: $c-font-dim;
-      }
       font-size: 0.9em;
       flex: 1 1 auto;
       padding: 7px 0;
       text-align: center;
+
+      &-empty {
+        color: $c-font-dim;
+      }
     }
   }
 
@@ -98,7 +105,6 @@
 
     input[type='range'] {
       flex: 1 4 auto;
-      padding: 0;
       height: 1.6em;
       width: 100%;
       margin: 0 1ch;
@@ -115,6 +121,7 @@
 
   span {
     @extend %flex-center;
+
     justify-content: start;
     gap: 0.6em;
   }

@@ -57,6 +57,8 @@
   <string name="blackLeftTheGame">ดำทิ้งเกม</string>
   <string name="whiteDidntMove">ขาวไม่ได้เดิน</string>
   <string name="blackDidntMove">ดำไม่ได้เดิน</string>
+  <string name="whiteAborted">ฝ่ายขาวยกเลิกเกม</string>
+  <string name="blackAborted">ฝ่ายดำยกเลิกเกม</string>
   <string name="requestAComputerAnalysis">ขอการวิเคราะห์ด้วยคอมพิวเตอร์</string>
   <string name="computerAnalysis">การวิเคราะห์ด้วยคอมพิวเตอร์</string>
   <string name="computerAnalysisAvailable">สามารถวิเคราะห์ด้วยคอมพิวเตอร์</string>
@@ -94,6 +96,8 @@
   <string name="database">ฐานข้อมูล</string>
   <string name="whiteDrawBlack">ขาวชนะ / เสมอ / ดำชนะ</string>
   <string name="averageRatingX">แต้มเฉลี่ยอยู่ที่ %s แต้ม</string>
+  <string name="minRatingX">ระดับคะแนนต่ำสุดที่ %s</string>
+  <string name="maxRatingX">ระดับคะแนนสูงสุดที่ %s</string>
   <string name="recentGames">เกมเมื่อเร็ว ๆ นี้</string>
   <string name="topGames">เกมเด่น</string>
   <string name="masterDbExplanation">เกม OTB สองล้านเกมโดยผู้เล่นที่มีแต้ม FIDE %1$s ขึ้นไปตั้งแต่ปี %2$s ถึงปี %3$s</string>
@@ -124,29 +128,30 @@
   <string name="enable">เปิดใช้งาน</string>
   <string name="bestMoveArrow">ศรตาเดินที่ดีที่สุด</string>
   <string name="showVariationArrows">แสดงศรการเดินอื่นๆ</string>
-  <string name="evaluationGauge">แถบประเมิน</string>
+  <string name="visualMotifs">แสดงสัญลักษณ์</string>
+  <string name="undefendedPieces">หมากไร้ตัวป้องกัน</string>
+  <string name="pinnedPieces">หมากที่โดนกด</string>
+  <string name="checkableKing">คิงที่โดนรุกได้</string>
   <string name="multipleLines">จำนวนเส้นทางการเดิน</string>
+  <string name="multipleLinesDescription">กำหนดจำนวนตาเดินอื่นๆที่ถูกประเมินผลและตาเดินลูกศรบนกระดาน</string>
+  <string name="searchTime">เวลาในการค้นหา</string>
+  <string name="searchTimeDescription">กำหนดเวลาเพื่อประเมินตำแหน่งใหม่</string>
+  <string name="threads">ความเสี่ยง</string>
+  <string name="threadsDescription">ตั้งค่าตัวนี้ใช้ต่ำกว่าจำนวน CPU ที่ใช้ ต่ำกว่าหรือเท่ากับลูกศรสีฟ้าถือว่าดี</string>
+  <string name="threadsDescriptionMobile">จำนวนตาเสี่ยงที่มากขึ้นจะใช้แบตเตอรี่มากขึ้นเพื่อการวิเคราะห์ที่ดีขึ้น</string>
   <string name="cpus">จำนวนซีพียูที่ใช้</string>
   <string name="memory">หน่วยความจำที่ใช้</string>
+  <string name="memoryDescription">ค่าที่สูงขึ้นอาจช่วยปรับปรุงประสิทธิภาพได้</string>
   <string name="infiniteAnalysis">การวิเคราะห์อนันต์</string>
   <string name="removesTheDepthLimit">ไม่จำกัดความลึก อาจทำให้เครื่องร้อน</string>
   <string name="blunder">พลาดมหันต์</string>
   <string name="mistake">พลาด</string>
   <string name="inaccuracy">ไม่แม่นยำ</string>
-  <plurals name="nbBlunders">
-    <item quantity="other">%s พลาดมหันต์</item>
-  </plurals>
   <plurals name="numberBlunders">
     <item quantity="other">%s พลาดมหันต์</item>
   </plurals>
-  <plurals name="nbMistakes">
-    <item quantity="other">%s พลาด</item>
-  </plurals>
   <plurals name="numberMistakes">
     <item quantity="other">%s พลาด</item>
-  </plurals>
-  <plurals name="nbInaccuracies">
-    <item quantity="other">%s ไม่แม่นยำ</item>
   </plurals>
   <plurals name="numberInaccuracies">
     <item quantity="other">%s ไม่แม่นยำ</item>
@@ -218,7 +223,7 @@
   <string name="changeUsernameNotSame">เฉพาะตัวอักษรพิมพ์ใหญ่พิมพ์เล็กที่เปลี่ยนได้ เช่น \"johndoe\" เป็น \"JohnDoe\"</string>
   <string name="changeUsernameDescription">เปลี่ยนชื่อผู้ใช้ของคุณ สามารถทำได้เพียงครั้งเดียวเท่านั้น และอนุญาตให้เปลี่ยนได้เฉพาะตัวอักษรพิมพ์ใหญ่พิมพ์เล็ก</string>
   <string name="signupUsernameHint">กรุณาใช้ชื่อที่สุภาพและเป็นมิตรต่อทุกวัย คุณไม่สามารถเปลี่ยนมันได้หลังจากนี้ ชื่อบัญชีที่ไม่มีความเหมาะสมจะถูกปิด</string>
-  <string name="signupEmailHint">เราจะใช้อีเมลนี้เพื่อการรีเซทรหัสผ่านเท่านั้น</string>
+  <string name="signupEmailPromise">เราจะส่งอีเมลเฉพาะเรื่องที่เกี่ยวข้องกับบัญชีของคุณเท่านั้น และจะไม่เปิดเผยอีเมลของคุณให้ผู้อื่นทราบโดยเด็ดขาด</string>
   <string name="password">รหัสผ่าน</string>
   <string name="changePassword">เปลี่ยนรหัสผ่าน</string>
   <string name="changeEmail">เปลี่ยนอีเมล</string>
@@ -241,10 +246,7 @@
   <string name="emailSent">เราได้ส่งอีเมลไปที่ %s</string>
   <string name="emailCanTakeSomeTime">อาจจะเป็นเวลาสักพักก่อนที่จะได้รับ</string>
   <string name="refreshInboxAfterFiveMinutes">รอ 5 นาทีและรีเฟรชกล่องจดหมายของคุณ</string>
-  <string name="checkSpamFolder">ตรวจสอบโฟลเดอร์สแปมของคุณด้วย มันอาจจะไปอยู่ที่นั่น หากเป็นเช่นนั้น ให้ทำเครื่องหมายว่าไม่ใช่สแปม</string>
-  <string name="emailForSignupHelp">ถ้ายังไม่สามารถสมัครได้ ส่งอีเมลมาหาเราที่นี่:</string>
-  <string name="copyTextToEmail">คัดลอกและวางข้อความข้างบน แล้วส่งไปที่ %s</string>
-  <string name="waitForSignupHelp">เราจะติดต่อคุณอย่างรวดเร็วเพื่อช่วยคุณสมัครบัญชีให้สำเร็จ</string>
+  <string name="sendEmailForAccountVerification">ถ้าคุณหาการยืนยันอีเมลของคุณไม่เจอ ให้ส่งอีเมลไปหา %s และพวกเราจะยืนยันบัญชีของคุณให้</string>
   <string name="accountConfirmed">ผู้ใช้ %s ถูกยืนยันโดยสมบูรณ์</string>
   <string name="accountCanLogin">คุณสามารถเข้าใช้งานได้แล้ว ด้วยชื่อ %s</string>
   <string name="accountConfirmationEmailNotNeeded">คุณไม่จำเป็นต้องมีอีเมลยืนยัน</string>
@@ -264,8 +266,6 @@
   </plurals>
   <string name="ok">ตกลง</string>
   <string name="cancel">ยกเลิก</string>
-  <string name="whiteTimeOut">ขาวหมดเวลา</string>
-  <string name="blackTimeOut">ดำหมดเวลา</string>
   <string name="drawOfferSent">ส่งการขอเสมอแล้ว</string>
   <string name="drawOfferAccepted">ยอมรับการขอเสมอแล้ว</string>
   <string name="whiteOffersDraw">ขาวขอเสมอ</string>
@@ -373,7 +373,6 @@
     <item quantity="other">คุณจำเป็นต้องเล่นเกม %s ที่คิดคะแนนเพิ่มเติม</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">ระดับคะแนน %s ของคุณเป็นแบบชั่วคราว</string>
-  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">ตัวกำหนดช่วงเรดติ้งถูกล็อก เพราะเรดติ้งคุณยังไม่คงที่ เล่นเกมคิดคะแนนอีกเพื่อให้เรดติ้งมั่นคงขึ้น</string>
   <string name="yourPerfRatingIsTooHigh">ระดับคะแนน %1$s ของคุณ (%2$s) สูงเกินไป</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">ระดับคะแนน %1$s รายสัปดาห์ของคุณ (%2$s) สูงเกินไป</string>
   <string name="yourPerfRatingIsTooLow">ระดับคะแนน %1$s ของคุณ (%2$s) ต่ำเกินไป</string>
@@ -394,9 +393,9 @@
   <string name="apply">ใช้งาน</string>
   <string name="save">Save</string>
   <string name="leaderboard">กระดานผู้นำ</string>
-  <string name="screenshotCurrentPosition">จับภาพหน้าจอตำแหน่งปัจจุบัน</string>
   <string name="gameAsGIF">เกมเป็น GIF</string>
   <string name="playerNames">ชื่อผู้เล่น</string>
+  <string name="moveAnnotations">สัญกรณ์การเดิน</string>
   <string name="pasteTheFenStringHere">วางสตริง FEN ที่นี่</string>
   <string name="pasteThePgnStringHere">วางสตริง PGN ที่นี่</string>
   <string name="orUploadPgnFile">หรืออัปโหลดไฟล์ PGN</string>
@@ -479,6 +478,7 @@
   <string name="popularOpenings">การเปิดหมากยอดนิยม</string>
   <string name="endgamePositions">ตำแหน่งจบเกม</string>
   <string name="chess960StartPosition">ตำแหน่งเริ่มต้น Chess960: %s</string>
+  <string name="randomChess960Position">หมากรุกสุ่ม960 ตำแหน่ง</string>
   <string name="startPosition">ตำแหน่งเริ่มต้น</string>
   <string name="clearBoard">ล้างกระดาน</string>
   <string name="loadPosition">โหลดตำแหน่ง</string>
@@ -500,7 +500,6 @@
   <string name="oneUrlPerLine">หนึ่ง URL ต่อบรรทัด</string>
   <string name="inlineNotation">สัญกรณ์ในบรรทัด</string>
   <string name="makeAStudy">เพื่อความปลอดภัยและการแบ่งปัน โปรดพิจารณาทำการศึกษา</string>
-  <string name="clearSavedMoves">ล้างตาเดิน</string>
   <string name="previouslyOnLichessTV">Lichess TV ก่อนหน้า</string>
   <string name="onlinePlayers">ผู้เล่นออนไลน์</string>
   <string name="activePlayers">ผู้เล่นที่ขยัน</string>
@@ -541,7 +540,6 @@
   <string name="other">อื่นๆ</string>
   <string name="reportCheatBoostHelp">วางลิงก์ไปยังเกม และอธิบายสิ่งผิดปกติเกี่ยวกับพฤติกรรมของผู้ใช้นี้ อย่าแค่พูดว่า \"พวกเขาโกง\" แต่บอกเราว่าคุณมาถึงข้อสรุปนี้ได้อย่างไร</string>
   <string name="reportUsernameHelp">อธิบายว่าชื่อผู้ใช้นี้ไม่เหมาะสมอย่างไร อย่าเพียงแค่พูดว่า \"มันน่ารังเกียจ/ไม่เหมาะสม\" แต่บอกเราว่าคุณมาถึงข้อสรุปนี้ได้อย่างไร โดยเฉพาะหากชื่อนั้นคลุมเครือ ไม่ใช่ภาษาอังกฤษ เป็นคำสแลง หรือเป็นการอ้างอิงทางประวัติศาสตร์/วัฒนธรรม</string>
-  <string name="reportProcessedFasterInEnglish">รายงานของคุณจะได้รับการดำเนินการเร็วขึ้นหากเขียนเป็นภาษาอังกฤษ</string>
   <string name="error.provideOneCheatedGameLink">โปรดระบุอย่างน้อยหนึ่งลิงก์ เพื่อเชื่อมโยงไปยังเกมที่มีการโกง</string>
   <string name="by">โดย %s</string>
   <string name="importedByX">ถูกนำเข้าโดย %s</string>
@@ -554,6 +552,9 @@
   <string name="invalidUsernameOrPassword">ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง</string>
   <string name="incorrectPassword">รหัสผ่านไม่ถูกต้อง</string>
   <string name="invalidAuthenticationCode">โค้ดยืนยันตัวตนไม่ถูกต้อง</string>
+  <string name="clearField">ล้างข้อมูล</string>
+  <string name="orSeparator">หรือ</string>
+  <string name="logInByEmail">เข้าระบบโดยอีเมล</string>
   <string name="emailMeALink">ส่งลิงค์ให้ฉันทางอีเมล</string>
   <string name="currentPassword">รหัสผ่านปัจจุบัน</string>
   <string name="newPassword">รหัสผ่านใหม่</string>
@@ -621,7 +622,7 @@
   <string name="onlyExistingConversations">การสนทนาที่มีอยู่เท่านั้น</string>
   <string name="onlyFriends">เฉพาะเพื่อน</string>
   <string name="menu">เมนู</string>
-  <string name="castling" comment="Label for a box on the right side of the board editor, where the user can select castling rights. Noun.&#10;&#10;NOTE: this string used to read &quot;Castling&quot;, with &quot;rights&quot; added in 2026 for clarity.">การเข้าป้อม</string>
+  <string name="castling">การเข้าป้อม</string>
   <string name="whiteCastlingKingside">ขาว O-O</string>
   <string name="blackCastlingKingside">ดำ O-O</string>
   <plurals name="nbForumPosts">
@@ -659,11 +660,9 @@
   <string name="aboutSimulRules">เมื่อไซมัลเริ่มต้น ผู้เล่นทุกคนจะเล่นเกมกับโฮสต์ผู้ซึ่งจะเล่นเป็นฝ่ายสีขาว ไซมัลจะจบเมื่อทุกเกมจบอย่างสมบูรณ์</string>
   <string name="aboutSimulSettings">ไซมัลจะใช้การเล่นแบบธรรมดา  การขอเล่นอีกครั้ง, การเดินใหม่, หรือ \"เพิ่มเวลา\" จะไม่อนุญาตให้ใช้</string>
   <string name="create">สร้าง</string>
-  <string name="whenCreateSimul">เมื่อคุณสร้างไซมัล คุณจะได้เล่นกับหลายผู้เล่นในครั้งเดียว</string>
   <string name="simulVariantsHint">ถ้าคุณเลือกหลายตัวแปรกติกา ผู้เล่นแต่ละคนจะเลือกได้ว่าจะเล่นอันไหน</string>
   <string name="simulClockHint">การตั้งนาฬิกาฟิสเชอร์ ยิ่งคุณเล่นกับผู้เล่นหลายคน คุณยิ่งต้องการเวลามากขึ้น</string>
   <string name="simulAddExtraTime">คุณอาจบวกเวลาพิเศษให้นาฬิกาของคุณ เพื่อช่วยคุณรับมือกับไซมัล</string>
-  <string name="simulHostExtraTime">เวลานาฬิกาพิเศษโฮสต์</string>
   <string name="simulAddExtraTimePerPlayer">เพิ่มเวลาเริ่มต้นลงในนาฬิกาของคุณสำหรับผู้เล่นแต่ละคนที่เข้าร่วมไซมัล</string>
   <string name="simulHostExtraTimePerPlayer">โฮสต์เวลานาฬิกาเพิ่มเติมต่อผู้เล่น</string>
   <string name="lichessTournaments">ทัวร์นาเมนต์ Lichess</string>
@@ -677,11 +676,6 @@
   <string name="keyCycleSelectedVariation">กู้คืน ตาเดินที่ถูกเลือก</string>
   <string name="keyShowOrHideComments">แสดง/ซ่อนความคิดเห็น</string>
   <string name="keyEnterOrExitVariation">เข้าสู่/ออกจากตัวแปรกติกา</string>
-  <string name="keyRequestComputerAnalysis">ข้อการวิเคราะห์ด้วยคอมพิวเตอร์</string>
-  <string name="keyNextLearnFromYourMistakes">ต่อไป (เรียนรู้จากความผิดพลาดของคุณ)</string>
-  <string name="keyNextBlunder">ตาเดินที่ผิดมหันต์ต่อไป</string>
-  <string name="keyNextMistake">ตาเดินที่ผิดพลาดต่อไป</string>
-  <string name="keyNextInaccuracy">ตาเดินที่ไม่แม่นยำต่อไป</string>
   <string name="keyPreviousBranch">แขนงก่อนหน้า</string>
   <string name="keyNextBranch">แขนงต่อไป</string>
   <string name="toggleVariationArrows">ควบคุมศรตาเดินแขนงอื่น</string>
@@ -756,6 +750,8 @@
   <string name="xHostsY">%1$s เป็นโฮสต์ %2$s</string>
   <string name="xJoinsY">%1$s เข้าร่วม %2$s</string>
   <string name="xLikesY">%1$s ชื่นชอบ %2$s</string>
+  <string name="like">ถูกใจ</string>
+  <string name="liked">ถูกใจแล้ว</string>
   <string name="quickPairing">จับคู่ด่วน</string>
   <string name="lobby">ล็อบบี้</string>
   <string name="anonymous">นิรนาม</string>
@@ -765,7 +761,6 @@
   <string name="background">พื้นหลัง</string>
   <string name="light">สว่าง</string>
   <string name="dark">มืด</string>
-  <string name="transparent">โปร่งใส</string>
   <string name="deviceTheme">ธีมของเครื่อง</string>
   <string name="backgroundImageUrl">URL รูปภาพพื้นหลัง:</string>
   <string name="board">สีกระดาน</string>
@@ -790,7 +785,6 @@
   <string name="custom">กำหนด​เอง</string>
   <string name="notifications">การแจ้งเตือน</string>
   <string name="notificationsX">การแจ้งเตือน: %1$s</string>
-  <string name="perfRatingX">ระดับคะแนน: %s</string>
   <string name="yourRatingIsX">เรดติ้งคุณคือ %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="other">%s วินาทีต้องเริ่มเดินตาแรก</item>
@@ -846,7 +840,6 @@
     <item quantity="other">และบันทึก %s เส้นทางเดินล่วงหน้า</item>
   </plurals>
   <string name="showUnreadLichessMessage">คุณได้รับข้อความส่วนตัวจาก Lichess</string>
-  <string name="clickHereToReadIt">คลิกที่นี้เพื่ออ่าน</string>
   <string name="sorry">ขออภัย :(</string>
   <string name="weHadToTimeYouOutForAWhile">เราจำเป็นต้องให้คุณรอคอยสักช่วงหนึ่ง</string>
   <string name="why">ทำไม?</string>
@@ -865,7 +858,6 @@
   <string name="agreementAssistance">ฉันยอมรับว่า จะไม่ใช้ตัวช่วยระหว่างเกมของฉัน (จากคอมพิวเตอร์หมากรุก, หนังสือ, ฐานข้อมูล หรือบุคคลอื่น)</string>
   <string name="agreementNice">ฉันยอมรับว่า ฉันจะเคารพผู้เล่นคนอื่นเสมอ</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">ฉันยอมรับว่าฉันจะไม่สร้างหลายบัญชี (ยกเว้นเหตุผลที่ชี้แจงไว้ใน %s)</string>
-  <string name="agreementPolicy">ฉันยอมรับว่า ฉันจะปฏิบัติตามทุกนโยบายของ Lichess</string>
   <string name="searchOrStartNewDiscussion">ค้นหา หรือเริ่มการสนทนาใหม่</string>
   <string name="edit">แก้ไข</string>
   <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">อัลตร้าบูลเล็ต</string>
@@ -889,6 +881,7 @@
   <string name="tryTheContactPage">ลงใช้หน้าการติดต่อ</string>
   <string name="makeSureToRead">ให้แน่ใจว่าอ่าน %1$s</string>
   <string name="theForumEtiquette">มารยาทในฟอรั่ม</string>
+  <string name="pleaseBeNiceInTheForum">กรุณาสนทนาอย่างสุภาพในกระทู้</string>
   <string name="thisTopicIsArchived">หัวข้อนี้ถูกจัดเก็บแล้ว และไม่สามารถตอบกลับได้อีกต่อไป</string>
   <string name="joinTheTeamXToPost">เข้าร่วม %1$s, เพื่อโพสต์ในห้องอภิปรายนี้</string>
   <string name="teamNamedX">ทีม %1$s</string>
@@ -901,7 +894,6 @@
   <string name="xInvitedYouToY">%1$s ได้เชิญคุณไปที่ \"%2$s\"</string>
   <string name="youAreNowPartOfTeam">ตอนนี้คุณเป็นส่วนหนึ่งของทีม</string>
   <string name="youHaveJoinedTeamX">คุณได้เข้าร่วม \"%1$s\"</string>
-  <string name="someoneYouReportedWasBanned">ผู้เล่นที่คุณรายงานถูกแบนแล้ว</string>
   <string name="congratsYouWon">ยินดีด้วย คุณชนะแล้ว</string>
   <string name="gameVsX">เกม vs %1$s</string>
   <string name="resVsX">%1$s vs %2$s</string>
@@ -932,14 +924,12 @@
   <string name="simulFeaturedHelp">แสคงไซมัลให้ทุกคนบน %s ถูกปิดการใช้งานสำหรับไซมัลส่วนตัว</string>
   <string name="simulDescription">คำบรรยายไซมัล</string>
   <string name="simulDescriptionHelp">คุณต้องการบอกอะไรผู้เข้าร่วมไหม?</string>
-  <string name="markdownIsAvailable">สามารถใช้ %s ในการจัดรูปแบบได้</string>
   <string name="embedsAvailable">วาง URLของเกม หรือ ศึกษา URL ของบทที่จะตรึงไว้</string>
   <string name="inYourLocalTimezone">ในเขตเวลาท้องถิ่นของคุณ</string>
   <string name="tournChat">แชททัวร์นาเมนต์</string>
   <string name="noChat">ไม่มีแชท</string>
   <string name="onlyTeamLeaders">หัวหน้าทีมเท่านั้น</string>
   <string name="onlyTeamMembers">สมาชิกทีมเท่านั้น</string>
-  <string name="navigateMoveTree">นำทางรายการการเดิน</string>
   <string name="mouseTricks">หน้าที่เมาส์</string>
   <string name="toggleLocalAnalysis">ควบคุมการวิเคราะห์ค้วยคอมพิวเตอร์ในท้องถิ่น</string>
   <string name="toggleAllAnalysis">ควบคุมการวิเคราะห์ด้วยคอมพิวเตอร์</string>
@@ -956,7 +946,6 @@
   <string name="gameInProgress">คุณมีเกมกำลังเล่นอยู่กับ %s</string>
   <string name="abortTheGame">ทิ้งเกม</string>
   <string name="resignTheGame">ยอมแพ้เกม</string>
-  <string name="youCantStartNewGame">คุณไม่สามารถเริ่มเกมใหม่จนกว่าเกมนี้จะจบสิ้น</string>
   <string name="since">ตั้งแต่</string>
   <string name="until">จนถึง</string>
   <string name="lichessDbExplanation">เกมคิดคะแนนที่เล่นใน Lichess</string>
@@ -977,6 +966,7 @@
   <string name="offline" comment="status of a user">ออฟไลน์</string>
   <string name="search">ค้นหา</string>
   <string name="clearSearch">ล้างการค้นหา</string>
+  <string name="thereAreNoResultsForX">ไม่มีผลลัพธ์สำหรับ \"%s\"</string>
   <string name="tags">แท็ก</string>
-  <string name="enPassant" comment="Appears in the board editor (https://lichess.org/editor).&#10;&#10;It is for a setting to determine if en passant will be available for that current position.&#10;&#10;If it is selected, then it will be added to the FEN for that position - meaning that if you play the game from that exact position, it will be possible to capture en passant.&#10;&#10;NOTE: this string used to read &quot;En passant&quot;, with &quot;rights&quot; added in 2026 for clarity.">การกินผ่าน</string>
+  <string name="enPassant">การกินผ่าน</string>
 </resources>

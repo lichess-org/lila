@@ -34,11 +34,11 @@
   <string name="downloadAllRounds">Transferir todas as rondas</string>
   <string name="resetRound">Reiniciar esta ronda</string>
   <string name="deleteRound">Apagar esta ronda</string>
-  <string name="definitivelyDeleteRound">Eliminar definitivamente a ronda e os seus jogos.</string>
+  <string name="permanentlyDeleteRound" comment="Refers to live tournaments being broadcast on Lichess (https://lichess.org/broadcast).&#10;&#10;Description (also translateable): Delete all games of this round. The source will need to be active in order to re-create them. This string has been amended since its initial publication; it didn't say &quot;all its games&quot; at the time.">Eliminar permanentemente esta ronda e todos os seus jogos?</string>
   <string name="deleteAllGamesOfThisRound">Eliminar todos os jogos desta ronda. A fonte deverá estar ativa para poder recriá-los.</string>
   <string name="editRoundStudy">Editar estudo da ronda</string>
   <string name="deleteTournament">Eliminar este torneio</string>
-  <string name="definitivelyDeleteTournament">Excluir definitivamente todo o torneio, todas as rondas e todos os jogos.</string>
+  <string name="permanentlyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast">Eliminar permanentemente esse torneio, incluindo todas as rondas e jogos?</string>
   <string name="showScores">Mostra as pontuações dos jogadores com base nos resultados dos jogos</string>
   <string name="replacePlayerTags">Opcional: substituir nomes de jogadores, avaliações e títulos</string>
   <string name="fideFederations">Federações FIDE</string>
@@ -57,18 +57,21 @@
   <string name="subscribeTitle">Subscreva para ser notificado quando cada ronda começar. Podes ativar o sino ou as notificações push para transmissões nas preferências da tua conta.</string>
   <string name="uploadImage">Carregar imagem do torneio</string>
   <string name="noBoardsYet">Ainda não há tabuleiros. Estes aparecerão assim que os jogos forem carregados.</string>
+  <string name="noPlayersYet">Nenhum jogador ainda. Eles aparecerão quando os jogos foram carregados.</string>
   <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Os tabuleiros podem ser carregados com uma fonte ou através do %s</string>
   <string name="startsAfter">Começa após %s</string>
   <string name="startVerySoon">A transmissão terá início muito em breve.</string>
   <string name="notYetStarted">A transmissão ainda não começou.</string>
   <string name="officialWebsite">Website oficial</string>
   <string name="officialStandings">Classificações oficiais</string>
+  <string name="regulations">Regulamentos</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Mais opções na %s</string>
   <string name="webmastersPage">página webmasters</string>
   <string name="embedThisBroadcast">Incorporar esta transmissão no teu website</string>
   <string name="ratingDiff">Diferença de Elo</string>
   <string name="gamesThisTournament">Jogos deste torneio</string>
   <string name="score">Pontuação</string>
+  <string name="standingsDisclaimer">As classificações são calculadas com base nos jogos transmitidos e podem diferir dos resultados oficiais.</string>
   <string name="allTeams">Todas as equipas</string>
   <string name="tournamentFormat">Formato do torneio</string>
   <string name="tournamentLocation">Localização do Torneio</string>
@@ -83,6 +86,28 @@
   <string name="liveboard">Tabuleiro em direto</string>
   <string name="communityBroadcast">Transmissão comunitária</string>
   <string name="createdAndManagedBy">Criado e administrado por %s.</string>
+  <string name="matchPoints">Pontos de jogo</string>
+  <string name="gamePoints">Pontos do Jogo</string>
+  <string name="matches">Partidas</string>
+  <string name="matchHistory">Histórico de Jogos</string>
+  <string name="teamResults">Resultados das Equipas</string>
+  <string name="termsAutomaticallyTranslated">O(s) seguinte(s) termo(s) será(ão) traduzido(s) automaticamente: %s.</string>
   <string name="roundX">Ronda %s</string>
   <string name="defaultRoundNameHelp">Manter o nome padrão irá traduzi-lo automaticamente para todas as outras línguas.</string>
+  <string name="openTournament">Absoluto</string>
+  <string name="womenTournament">Feminino</string>
+  <string name="menTournament">Masculino</string>
+  <string name="girlsTournament">Feminino</string>
+  <string name="boysTournament">Rapazes</string>
+  <string name="openUnderXAgeTournament">Absoluto Sub%s</string>
+  <string name="girlsUnderXAgeTournament">Feminino Sub%s</string>
+  <string name="boysUnderXAgeTournament">Rapazes Sub%s</string>
+  <string name="quarterfinals">Quartos de final</string>
+  <string name="semifinals">Meias-finais</string>
+  <string name="finals">Finais</string>
+  <string name="tiebreaks">Desempates</string>
+  <string name="gameX">Jogo %s</string>
+  <string name="knockouts">Eliminatórias</string>
+  <string name="underXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament. e.g.  'U18' will mean it is an tournament for under-18 years.  Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">Sub%s</string>
+  <string name="underXEloTournament" comment="%s is the maximum Elo rating set by the organiser for a tournament.  e.g. 'U2000' will mean it is an tournament for players with Elo under 2000.  Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">Sub%s</string>
 </resources>

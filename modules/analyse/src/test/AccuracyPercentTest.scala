@@ -1,8 +1,10 @@
 package lila.analyse
 
-import chess.{ ByColor, Color }
+import chess.{ ByColor, Color, Division, Ply }
 import chess.eval.Eval.Cp
 import scalalib.Maths.isCloseTo
+
+import lila.tree.{ Analysis, Eval, Info }
 
 class AccuracyPercentTest extends munit.FunSuite:
 
@@ -10,7 +12,7 @@ class AccuracyPercentTest extends munit.FunSuite:
   type AccMap = ByColor[AccuracyPercent]
 
   def compute(cps: List[Int]): Option[AccMap] =
-    gameAccuracy(Color.white, cps.map(Cp(_)))
+    gameAccuracy(Color.white, cps.map(Cp(_)).map(Some(_)))
 
   test("empty game"):
     assertEquals(compute(Nil), None)
@@ -61,7 +63,13 @@ class AccuracyPercentTest extends munit.FunSuite:
     assert(isCloseTo(a.white.value, 20d, 8d))
     assert(isCloseTo(a.black.value, 20d, 8d))
 
-  def computeBlack(cps: List[Int]) = gameAccuracy(Color.black, cps.map(Cp(_)))
+  test("phase accuracy uses previous phase eval"):
+    val infos = List(15, 900, 0, 0).zipWithIndex.map: (cp, i) =>
+      Info(Ply(i + 1), Eval(Some(Cp(cp)), None, None), Nil)
+    val analysis = Analysis(Analysis.Id(GameId("abcd")), infos, Ply.initial, nowInstant, None, None)
+    assert(phaseAccuracies(Division(Some(Ply(3)), None, Ply(4)), analysis).white("middlegame").value < 20)
+
+  def computeBlack(cps: List[Int]) = gameAccuracy(Color.black, cps.map(Cp(_)).map(Some(_)))
 
   test("black moves first, empty game"):
     assertEquals(computeBlack(Nil), None)

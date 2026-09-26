@@ -1,7 +1,7 @@
-import view from './view/calendarView';
-
 import { init, type VNode, classModule, attributesModule } from 'snabbdom';
+
 import type { Tournament } from './interfaces';
+import view from './view/calendarView';
 
 const patch = init([classModule, attributesModule]);
 
@@ -15,6 +15,7 @@ export interface Data {
 
 export interface Ctrl {
   data: Data;
+  wide: boolean;
 }
 
 export function initModule(opts: { data: Data }) {
@@ -30,6 +31,7 @@ export function initModule(opts: { data: Data }) {
 
   const ctrl: Ctrl = {
     data: opts.data,
+    wide: window.matchMedia('(min-width: 800px)').matches,
   };
 
   let vnode: VNode;

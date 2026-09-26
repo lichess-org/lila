@@ -172,19 +172,20 @@ final private class StudySocket(
               applyWho(api.clearVariations(studyId, id))
 
         case "sortChapters" =>
-          o.get[List[StudyChapterId]]("d")
-            .foreach: ids =>
-              applyWho(api.sortChapters(studyId, ids))
+          if o.arr("d").forall(_.value.sizeIs <= 200) then
+            o.get[List[StudyChapterId]]("d")
+              .foreach: ids =>
+                applyWho(api.sortChapters(studyId, ids))
 
         case "editStudy" =>
           (o \ "d")
-            .asOpt[Study.Data]
+            .asOpt[StudyForm.FormData]
             .foreach: data =>
               applyWho(api.editStudy(studyId, data))
 
         case "setTag" =>
           reading[SetTag](o): setTag =>
-            applyWho(api.setTag(studyId, setTag))
+            applyWho(api.setTagFromUI(studyId, setTag))
 
         case "setComment" =>
           reading[AtPosition](o): position =>
@@ -376,11 +377,10 @@ final private class StudySocket(
         "w" -> who
       )
     )
-  private[study] def reloadChapters(previews: ChapterPreview.AsJsons) = version("chapters", previews)
+  private[study] def sendChapterPreviews(previews: ChapterPreview.AsJsons) = version("chapters", previews)
   def reloadAll = version("reload", JsNull)
   def changeChapter(pos: Position.Ref, who: Who) = version("changeChapter", Json.obj("p" -> pos, "w" -> who))
-  def updateChapter(chapterId: StudyChapterId, who: Who) =
-    version("updateChapter", Json.obj("chapterId" -> chapterId, "w" -> who))
+  def reloadStudy(who: Who) = version("reloadStudy", Json.obj("w" -> who))
   def descChapter(chapterId: StudyChapterId, desc: Option[String], who: Who) =
     version(
       "descChapter",
@@ -457,7 +457,7 @@ object StudySocket:
       given Reads[ChapterMaker.EditData] = Json.reads
       given Reads[ChapterMaker.DescData] = Json.reads
       given Reads[Visibility] = stringRead(v => Visibility.byKey.getOrElse(v, Visibility.public))
-      given studyDataReads: Reads[Study.Data] = Json.reads
+      given Reads[StudyForm.FormData] = Json.reads
       given Reads[SetTag] = Json.reads
       given Reads[Gamebook] = Json.reads
       given Reads[ExplorerGame] = Json.reads

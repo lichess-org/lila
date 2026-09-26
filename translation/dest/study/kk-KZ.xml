@@ -41,7 +41,6 @@
   <string name="youAreNowASpectator">Сіз енді көрерменсіз</string>
   <string name="pgnTags">PGN тэгтері</string>
   <string name="like">Ұнату</string>
-  <string name="unlike">Ұнатпаймын</string>
   <string name="newTag">Жаңа тэг</string>
   <string name="commentThisPosition">Осы тақта күйі туралы пікір қалдыру</string>
   <string name="commentThisMove">Осы жүріс туралы пікір қалдыру</string>
@@ -62,7 +61,6 @@
   <string name="downloadGame">Ойынды жүктеп алу</string>
   <string name="studyUrl">Зерттеудің сілтемесі</string>
   <string name="currentChapterUrl">Қазіргі бөлімнің сілтемесі</string>
-  <string name="youCanPasteThisInTheForumToEmbed">Сіз бұны форумға не Личес блогыңызға қоя аласыз</string>
   <string name="startAtInitialPosition">Басталуы: бастапқы күйден</string>
   <string name="startAtX">Басталуы: %s</string>
   <string name="embedInYourWebsite">Сіздің сайт не блогыңызға арналған енгізу сілтемесі</string>

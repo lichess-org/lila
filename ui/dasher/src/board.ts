@@ -1,23 +1,23 @@
-import { header, moreButton } from './util';
-import { hyphenToCamel, type Toggle, toggle } from 'lib';
-import { debounce } from 'lib/async';
-import * as licon from 'lib/licon';
-import { text as xhrText, form as xhrForm } from 'lib/xhr';
-import { bind, hl, type VNode } from 'lib/view';
-import { type DasherCtrl, PaneCtrl } from './interfaces';
+import { type Toggle, toggle } from 'lib';
+import { licon } from 'lib/licon';
 import { pubsub } from 'lib/pubsub';
+import { bind, hl, onInsert, type VNode } from 'lib/view';
+import { text as xhrText, form as xhrForm } from 'lib/xhr';
 
-type Range = { min: number; max: number; step: number };
+import type { DasherCtrl } from '@/ctrl';
+
+import { type Dimension, PaneCtrl, type Range } from './interfaces';
+import { header, moreButton } from './util';
 
 export class BoardCtrl extends PaneCtrl {
   sliderKey: number = Date.now(); // changing the value attribute doesn't always flush to DOM.
-  featured: { [key in 'd2' | 'd3']: string[] } = { d2: [], d3: [] };
+  featured: Record<Dimension, string[]> = { d2: [], d3: [] };
   more: Toggle;
 
   constructor(root: DasherCtrl) {
     super(root);
     this.more = toggle(false, root.redraw);
-    for (const dim of ['d2', 'd3'] as const) {
+    for (const dim of ['d2', 'd3'] as Dimension[]) {
       this.featured[dim] = this.data[dim].list.filter(t => t.featured).map(t => t.name);
     }
   }
@@ -92,7 +92,7 @@ export class BoardCtrl extends PaneCtrl {
     this.data[this.dimension].current = t;
   }
 
-  private setBoard = (t: string) => {
+  private readonly setBoard = (t: string) => {
     this.apply(t);
     const field = `theme${this.is3d ? '3d' : ''}`;
     xhrText(`/pref/${field}`, { body: xhrForm({ [field]: t }), method: 'post' }).catch(() =>
@@ -101,7 +101,7 @@ export class BoardCtrl extends PaneCtrl {
     this.redraw();
   };
 
-  private reset = () => {
+  private readonly reset = () => {
     this.defaults
       .filter(([prop, v]) => this.getVar(prop) !== v)
       .forEach(([prop, v], i) => {
@@ -114,24 +114,14 @@ export class BoardCtrl extends PaneCtrl {
     this.redraw();
   };
 
-  private getVar = (prop: string) =>
-    parseInt(window.getComputedStyle(document.body).getPropertyValue(`---${prop}`));
-
-  private setVar = (prop: string, v: number) => {
+  private readonly setVar = (prop: string, v: number) => {
     this.showReset(this.showReset() || !this.isDefault());
     document.body.style.setProperty(`---${prop}`, v.toString());
     document.body.classList.toggle('simple-board', this.isDefault());
     if (prop === 'zoom') window.dispatchEvent(new Event('resize'));
   };
 
-  private postPref = debounce((prop: string) => {
-    const body = new FormData();
-    body.set(hyphenToCamel(prop), this.getVar(prop).toString());
-    const path = prop === 'zoom' ? `/pref/zoom?v=${this.getVar(prop)}` : `/pref/${hyphenToCamel(prop)}`;
-    xhrText(path, { body, method: 'post' }).catch(() => site.announce({ msg: `Failed to save ${prop}` }));
-  }, 1000);
-
-  private set3d = async (v: boolean) => {
+  private readonly set3d = async (v: boolean) => {
     if (this.is3d === v) return;
     this.data.is3d = v;
     xhrText('/pref/is3d', { body: xhrForm({ is3d: v }), method: 'post' }).catch(() =>
@@ -147,33 +137,32 @@ export class BoardCtrl extends PaneCtrl {
     this.redraw();
   };
 
-  private apply = (t: string = this.current) => {
+  private readonly apply = (t: string = this.current) => {
     this.current = t;
     document.body.dataset[this.is3d ? 'board3d' : 'board'] = t;
     pubsub.emit('board.change', this.is3d);
     this.root?.piece.apply();
   };
 
-  private defaults: [string, number][] = [
+  private readonly defaults: [string, number][] = [
     ['board-opacity', 100],
     ['board-brightness', 100],
     ['board-contrast', 100],
     ['board-hue', 0],
   ];
 
-  private isDefault = () => this.defaults.every(([prop, v]) => this.getVar(prop) === v);
-  private showReset = toggle(!this.isDefault());
+  private readonly isDefault = () => this.defaults.every(([prop, v]) => this.getVar(prop) === v);
+  private readonly showReset = toggle(!this.isDefault());
 
-  private propSliders = () => {
+  private readonly propSliders = () => {
     const sliders = [];
     if (!Number.isNaN(this.getVar('zoom')))
       sliders.push(this.propSlider('zoom', i18n.site.size, { min: 0, max: 100, step: 1 }));
-    if (document.body.dataset.theme === 'transp')
+    if (document.body.dataset.theme?.includes('transp'))
       sliders.push(this.propSlider('board-opacity', i18n.site.opacity, { min: 0, max: 100, step: 1 }));
-    else
-      sliders.push(this.propSlider('board-brightness', i18n.site.brightness, { min: 20, max: 140, step: 1 }));
-    sliders.push(this.propSlider('board-contrast', i18n.site.contrast, { min: 40, max: 200, step: 2 }));
     sliders.push(
+      this.propSlider('board-brightness', i18n.site.brightness, { min: 20, max: 140, step: 1 }),
+      this.propSlider('board-contrast', i18n.site.contrast, { min: 40, max: 200, step: 2 }),
       this.propSlider(
         'board-hue',
         i18n.site.hue,
@@ -184,7 +173,7 @@ export class BoardCtrl extends PaneCtrl {
     return sliders;
   };
 
-  private propSlider = (prop: string, label: string, range: Range, title?: (v: number) => string) =>
+  private readonly propSlider = (prop: string, label: string, range: Range, title?: (v: number) => string) =>
     hl(
       `div.${prop}`,
       { attrs: { title: title ? title(this.getVar(prop)) : `${Math.round(this.getVar(prop))}%` } },
@@ -193,23 +182,20 @@ export class BoardCtrl extends PaneCtrl {
         hl('input.range', {
           key: this.sliderKey + prop,
           attrs: { ...range, type: 'range', value: this.getVar(prop) },
-          hook: {
-            insert: (vnode: VNode) => {
-              const input = vnode.elm as HTMLInputElement;
-              const setAndSave = (v: number) => {
-                if (v < range.min || v > range.max) return;
-                this.setVar(prop, v);
-                this.redraw();
-                this.postPref(prop);
-              };
-              $(input)
-                .on('input', () => setAndSave(parseInt(input.value)))
-                .on('wheel', e => {
-                  e.preventDefault();
-                  setAndSave(this.getVar(prop) + (e.deltaY > 0 ? -range.step : range.step));
-                });
-            },
-          },
+          hook: onInsert<HTMLInputElement>(input => {
+            const setAndSave = (v: number) => {
+              if (v < range.min || v > range.max) return;
+              this.setVar(prop, v);
+              this.redraw();
+              this.postPref(prop);
+            };
+            $(input)
+              .on('input', () => setAndSave(parseInt(input.value)))
+              .on('wheel', e => {
+                e.preventDefault();
+                setAndSave(this.getVar(prop) + (e.deltaY > 0 ? -range.step : range.step));
+              });
+          }),
         }),
       ],
     );

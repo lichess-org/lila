@@ -42,7 +42,6 @@
   <string name="youAreNowASpectator">Nun vi estas spektanto</string>
   <string name="pgnTags">PGN etikedoj</string>
   <string name="like">Ŝati</string>
-  <string name="unlike">Malŝati</string>
   <string name="newTag">Nova etikedo</string>
   <string name="commentThisPosition">Komenti tiun posicion</string>
   <string name="commentThisMove">Komenti tiun movon</string>
@@ -53,7 +52,7 @@
   <string name="makeSureTheChapterIsComplete">Certiĝu, ke la ĉapitro estas kompleta. Vi nur povas peti analizon unu foje.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Ĉiuj sinkronigitaj membroj restas ĉe la sama pozicio</string>
   <string name="shareChanges">Diskonigi ŝanĝojn al spektantoj kaj konservi tiujn ĉe la servilo</string>
-  <string name="playing">Ludanta</string>
+  <string name="playing">Ludata</string>
   <string name="showResults">Rezultoj</string>
   <string name="showEvalBar">Taksaj stangoj</string>
   <string name="next">Sekva</string>
@@ -66,7 +65,6 @@
   <string name="downloadGame">Elŝuti ludon</string>
   <string name="studyUrl">URL de la studo</string>
   <string name="currentChapterUrl">URL de tiu ĉi ĉapitro</string>
-  <string name="youCanPasteThisInTheForumToEmbed">Vi povas alglui ĉi tiun en la forumo aŭ via Lichess blogo por enkorpigi</string>
   <string name="startAtInitialPosition">Starti ekde komenca pozicio</string>
   <string name="startAtX">Komenci je %s</string>
   <string name="embedInYourWebsite">Enkorpigi en via retejo</string>

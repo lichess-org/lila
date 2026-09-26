@@ -25,9 +25,8 @@
   <string name="cantChangeMore">Не можемо променити више од врсте слова. Због техничких разлога, просто је немогуће.</string>
   <string name="orCloseAccount">Међутим, можеш затворити свој тренутни налог и направити нови.</string>
   <string name="wantClearHistory">Желим да обришем своју историју или рејтинг</string>
-  <string name="cantClearHistory">Није могуће обрисати твоју историју партија, историју проблема или рејтинге.</string>
   <string name="wantReport">Желим да пријавим играча</string>
-  <string name="toReportAPlayerUseForm">Да бисте пријавили играча, користите форму за пријављивање</string>
+  <string name="toReportAPlayerUseForm">Да пријваиш играча, користи образац за пријаву</string>
   <string name="youCanAlsoReachReportPage">Можеш доћи до те странице и кликом на %s дугме за пријаву на профилној страници.</string>
   <string name="doNotReportInForum">Немој пријављивати играче на форуму.</string>
   <string name="doNotSendReportEmails">Немој нам слати имејлове за пријаву.</string>
@@ -39,7 +38,7 @@
   <string name="reportMobileIssue">Као проблем Lichess мобилне апликације на GitHub-у</string>
   <string name="reportBugInDiscord">У Lichess Дискорд серверу</string>
   <string name="howToReportBug">Молимо да опишеш како грешка изгледа, шта си уместо грешке очекивао/ла да се деси и кораке да се грешка репродукује.</string>
-  <string name="illegalPawnCapture" comment="Appears as an option for reasons to contact Lichess on the 'contact' page: https://lichess.org/contact#help-enpassant&#10;&#10;Players used to routinely write to Lichess stating that there was a bug, or that the other player had hacked their game in some way. In actuality, the player was using the legal move of en passant.&#10;&#10;Please translate this string from the perspective of the player who would be selecting this contact option, and call it 'Illegal', even though we know this is a legal move.">Неправилно узимање пешака</string>
+  <string name="illegalPawnCapture">Неправилно узимање пешака</string>
   <string name="calledEnPassant">Зове се \"ан пасан\" и једно је од правила шаха.</string>
   <string name="tryEnPassant">Пробај ову малу интеркативну игру да научиш више о \"ан пасану\".</string>
   <string name="illegalCastling">Неправилно или немогуће рокадирање</string>
@@ -52,6 +51,7 @@
   <string name="knightMate">Могуће је шах-матирати са само скакачем или ловцем, ако противник има више од краља на табли.</string>
   <string name="noRatingPoints">Нису додељени рејтинг бодови</string>
   <string name="ratedGame">Провери да си одиграо/ла рангирану партију. Нерангиране партије не утичу на играчев рејтинг.</string>
+  <string name="botRatingAbuse">У одређеним случајевима када се игра против бот налога, рангирана партије можда не додели бодове ако установимо да играч злоупотребљава бота за рејтинг бодове.</string>
   <string name="errorPage">Страница грешке</string>
   <string name="reportErrorPage">Ако си видео/ла страницу грешке, можеш је пријавити:</string>
   <string name="banAppeal">Жалба на забрану или IP ограничење</string>

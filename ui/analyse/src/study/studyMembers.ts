@@ -1,22 +1,23 @@
-import type { AnalyseSocketSend } from '../socket';
-import * as licon from 'lib/licon';
-import { type VNode, iconTag, bind, onInsert, dataIcon, bindNonPassive, hl } from 'lib/view';
-import { makeCtrl as inviteFormCtrl, type StudyInviteFormCtrl } from './inviteForm';
-import type { NotifCtrl } from './notif';
 import { prop, type Prop, scrollTo } from 'lib';
+import { licon } from 'lib/licon';
+import { pubsub } from 'lib/pubsub';
+import { once } from 'lib/storage';
+import { type VNode, bind, onInsert, dataIcon, bindNonPassive, hl, icon, button } from 'lib/view';
+import { cmnToggleWrap } from 'lib/view/cmn-toggle';
+import { userLink } from 'lib/view/userLink';
+import { textRaw as xhrTextRaw } from 'lib/xhr';
+
+import type { AnalyseSocketSend } from '../socket';
 import { titleNameToId } from '../view/util';
 import type { StudyMember, StudyMemberMap, Tab } from './interfaces';
-import { textRaw as xhrTextRaw } from 'lib/xhr';
-import { userLink } from 'lib/view/userLink';
+import { makeCtrl as inviteFormCtrl, type StudyInviteFormCtrl } from './inviteForm';
+import type { NotifCtrl } from './notif';
 import type StudyCtrl from './studyCtrl';
-import { once } from 'lib/storage';
-import { pubsub } from 'lib/pubsub';
-import { cmnToggleWrap } from 'lib/view/cmn-toggle';
 
 interface Opts {
   initDict: StudyMemberMap;
-  myId: string | undefined;
-  ownerId: string;
+  myId?: UserId;
+  ownerId: UserId;
   send: AnalyseSocketSend;
   tab: Prop<Tab>;
   startTour(): void;
@@ -38,15 +39,15 @@ function memberActivity(onIdle: () => void) {
 
 export class StudyMemberCtrl {
   dict: Prop<StudyMemberMap>;
-  confing = prop<string | null>(null);
+  config = prop<UserId | null>(null);
   inviteForm: StudyInviteFormCtrl;
-  readonly active: Map<string, () => void> = new Map();
-  online: { [id: string]: boolean } = {};
-  spectatorIds: string[] = [];
+  readonly active: Map<UserId, () => void> = new Map();
+  online: Record<UserId, boolean> = {};
+  spectatorIds: UserId[] = [];
   max = 30;
 
   constructor(readonly opts: Opts) {
-    this.dict = prop<StudyMemberMap>(opts.initDict);
+    this.dict = prop(opts.initDict);
     this.inviteForm = inviteFormCtrl(opts.send, this.dict, () => opts.tab('members'), opts.redraw);
     pubsub.on('socket.in.crowd', d => {
       const names: string[] = d.users || [];
@@ -64,7 +65,7 @@ export class StudyMemberCtrl {
 
   canContribute = (): boolean => this.myMember()?.role === 'w';
 
-  setActive = (id: string) => {
+  setActive = (id: UserId) => {
     if (this.opts.tab() !== 'members') return;
     const active = this.active.get(id);
     if (active) active();
@@ -89,7 +90,7 @@ export class StudyMemberCtrl {
   };
 
   update = (members: StudyMemberMap) => {
-    if (this.isOwner()) this.confing(Object.keys(members).find(sri => !this.dict()[sri]) || null);
+    if (this.isOwner()) this.config(Object.keys(members).find(sri => !this.dict()[sri]) || null);
     const wasViewer = this.myMember() && !this.canContribute();
     const wasContrib = this.myMember() && this.canContribute();
     this.dict(members);
@@ -110,11 +111,11 @@ export class StudyMemberCtrl {
   setRole = (userId: string, role: string) => {
     this.setActive(userId);
     this.opts.send('setRole', { userId, role });
-    this.confing(null);
+    this.config(null);
   };
   kick = (id: string) => {
     this.opts.send('kick', id);
-    this.confing(null);
+    this.config(null);
   };
   leave = () => this.opts.send('leave');
   ordered = () => {
@@ -133,64 +134,70 @@ export class StudyMemberCtrl {
 }
 
 export function view(ctrl: StudyCtrl): VNode {
-  const members = ctrl.members,
-    isOwner = members.isOwner();
+  const { members, data } = ctrl;
+  const isOwner = members.isOwner();
 
-  function statusIcon(member: StudyMember) {
-    const contrib = member.role === 'w';
+  function statusIcon({ user, role }: StudyMember) {
+    const contrib = role === 'w';
     return hl(
       'span.status',
       {
         class: {
           contrib,
-          active: members.active.has(member.user.id),
-          online: members.isOnline(member.user.id),
+          active: members.active.has(user.id),
+          online: members.isOnline(user.id),
         },
         attrs: { title: i18n.study[contrib ? 'contributor' : 'spectator'] },
       },
-      [iconTag(contrib ? licon.User : licon.Eye)],
+      icon(contrib ? licon.User : licon.Eye)(),
     );
   }
 
-  function configButton(ctrl: StudyCtrl, member: StudyMember) {
-    if (isOwner && (member.user.id !== members.opts.myId || ctrl.data.admin))
-      return hl('i.act', {
-        attrs: dataIcon(licon.Gear),
-        hook: bind(
-          'click',
-          () => members.confing(members.confing() === member.user.id ? null : member.user.id),
-          ctrl.redraw,
-        ),
-      });
-    if (!isOwner && member.user.id === members.opts.myId)
-      return hl('i.act.leave', {
-        attrs: { 'data-icon': licon.InternalArrow, title: i18n.study.leaveTheStudy },
-        hook: bind('click', members.leave, ctrl.redraw),
-      });
+  function configButton(ctrl: StudyCtrl, { user }: StudyMember) {
+    if (isOwner && (user.id !== members.opts.myId || data.admin))
+      return button(
+        '.act',
+        {
+          hook: bind(
+            'click',
+            () => members.config(members.config() === user.id ? null : user.id),
+            ctrl.redraw,
+          ),
+        },
+        icon(licon.Gear)(),
+      );
+    if (!isOwner && user.id === members.opts.myId)
+      return button(
+        '.act.leave',
+        {
+          title: i18n.study.leaveTheStudy,
+          hook: bind('click', members.leave, ctrl.redraw),
+        },
+        icon(licon.InternalArrow)(),
+      );
     return undefined;
   }
 
-  function memberConfig(member: StudyMember): VNode {
-    const roleId = 'member-role';
+  function memberConfig({ user, role }: StudyMember): VNode {
     return hl(
       'm-config',
       {
-        key: member.user.id + '-config',
+        key: user.id + '-config',
         hook: onInsert(el => scrollTo(el.closest('.study-list')!, el)),
       },
       [
         cmnToggleWrap({
-          id: roleId,
+          id: 'member-role',
           name: i18n.study.contributor,
-          checked: member.role === 'w',
-          change: v => members.setRole(member.user.id, v ? 'w' : 'r'),
+          checked: role === 'w',
+          change: v => members.setRole(user.id, v ? 'w' : 'r'),
           redraw: ctrl.redraw,
         }),
         hl(
           'div.kick',
-          hl(
-            'a.button.button-red.button-empty.text',
-            { attrs: dataIcon(licon.X), hook: bind('click', _ => members.kick(member.user.id), ctrl.redraw) },
+          button(
+            '.button.button-red.button-empty.text',
+            { ...dataIcon(licon.X), hook: bind('click', _ => members.kick(user.id), ctrl.redraw) },
             i18n.study.kick,
           ),
         ),
@@ -203,39 +210,35 @@ export function view(ctrl: StudyCtrl): VNode {
   return hl('div.study__members', [
     hl(
       'div.study-list',
-      ordered
-        .map(member => {
-          const confing = members.confing() === member.user.id;
-          return [
-            hl('div', { key: member.user.id, class: { editing: !!confing } }, [
-              hl('div.left', [statusIcon(member), userLink({ ...member.user, line: false })]),
-              configButton(ctrl, member),
-            ]),
-            confing && memberConfig(member),
-          ];
-        })
-        .reduce((a, b) => a.concat(b), []),
+      ordered.flatMap(member => {
+        const config = members.config() === member.user.id;
+        return [
+          hl('div', { key: member.user.id, class: { editing: config } }, [
+            hl('div.left', [statusIcon(member), userLink({ ...member.user, line: false })]),
+            configButton(ctrl, member),
+          ]),
+          config && memberConfig(member),
+        ];
+      }),
     ),
     isOwner &&
       ordered.length < members.max &&
-      hl('button.add', { key: 'add', hook: bind('click', members.inviteForm.toggle) }, [
-        hl('div.left', [
-          hl('span.status', iconTag(licon.PlusButton)),
-          hl('div.user-link', i18n.study.addMembers),
-        ]),
+      button('.add', { key: 'add', hook: bind('click', members.inviteForm.toggle) }, [
+        icon(licon.PlusButton)(),
+        hl('h3', i18n.study.addMembers),
       ]),
     !members.canContribute() &&
-      ctrl.data.admin &&
+      data.admin &&
       hl(
         'form.admin',
         {
           key: ':admin',
           hook: bindNonPassive('submit', () => {
-            xhrTextRaw(`/study/${ctrl.data.id}/admin`, { method: 'post' }).then(() => location.reload());
+            xhrTextRaw(`/study/${data.id}/admin`, { method: 'post' }).then(() => location.reload());
             return false;
           }),
         },
-        [hl('button.button.button-red.button-thin', 'Enter as admin')],
+        button('.button.button-red.button-thin', 'Enter as admin'),
       ),
   ]);
 }

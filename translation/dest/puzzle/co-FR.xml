@@ -12,7 +12,6 @@
   <string name="origin">Origine</string>
   <string name="specialMoves">Colpu speciale</string>
   <string name="didYouLikeThisPuzzle">Vi hà piaciutu stu ?</string>
-  <string name="voteToLoadNextOne">Vutate pà carigà u prossimu!</string>
   <string name="upVote">Vutà pà stu prublema</string>
   <string name="downVote">Vutà contru à issu prublema</string>
   <string name="yourPuzzleRatingWillNotChange">A vostra classifica di  ùn hà da cambià. Issi prublemi ùn sò una cumpetizione. A vostra classifica ci permette di prupone vi prublemi addattati à u vostru livellu attuale.</string>
@@ -83,6 +82,6 @@ Ghjucate e partite rapide è e partite classiche per aumintà a prubabilità d\'
   </plurals>
   <string name="percentSolved">%s risolti</string>
   <string name="noPuzzlesToShow">Nunda à mustrà, ghjucate parechji prublemi innanzu!</string>
-  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">Addestrate vi in issi duminii pà prugressà du modu ottimu!</string>
+  <string name="improvementAreasDescription">Addestrate vi in issi duminii pà prugressà du modu ottimu!</string>
   <string name="strengthDescription">Avete riesciutu di modu ottimu in issi temi</string>
 </resources>

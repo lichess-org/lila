@@ -35,13 +35,14 @@
   <string name="celebratedPatrons">Os famosos Patronos que tornam o Lichess possível</string>
   <string name="whereMoneyGoes">Para onde vai o dinheiro?</string>
   <string name="serversAndDeveloper">Primeiro de tudo, servidores poderosos.
-Em seguida, pagamos um desenvolvedor em tempo integral: %s, o fundador do Lichess.</string>
+Em seguida, pagamos um desenvolvedor em tempo integral: %s, o fundador do Lichess.
+</string>
   <string name="costBreakdown">Veja a análise detalhada do custo</string>
   <string name="officialNonProfit">O Lichess é uma organização sem fins lucrativos?</string>
   <string name="actOfCreation">Sim, aqui está o ato de criação (em francês)</string>
   <string name="changeMonthlySupport">Posso mudar/cancelar meu suporte mensal?</string>
-  <string name="changeOrContact">Sim, a qualquer momento, a partir desta página.
-Ou você pode %s.</string>
+  <string name="changeSupport">Caso seus pagamentos sejam processados pelo PayPal, você pode cancelar/alterar o seu apoio através da sua própria conta PayPal, ou você pode %1$s e nós faremos isso por você. Caso você não tenha utilizado PayPal, os seus pagamentos são processados pela Stripe, e você pode cancelar a sua doação ou mudar a quantia em %2$s.</string>
+  <string name="patronPage">a página de patrono</string>
   <string name="contactSupport">entrar em contato com o suporte do Lichess</string>
   <string name="otherMethods">Outros métodos de doação?</string>
   <string name="lichessIsRegisteredWith">Lichess está registrado em %s.</string>
@@ -84,5 +85,5 @@ No entanto, Patronos têm direito de se gabar com um novo ícone legal de perfil
   <string name="paymentDetails">Detalhes de pagamento</string>
   <string name="updatePaymentMethod">Atualizar forma de pagamento</string>
   <string name="stripeManageSub">Gerencie sua assinatura e faça o download de suas faturas e recibos</string>
-  <string name="coverFees" comment="%s is a monetary amount. It will be localised depending on the currency where you are e.g. &quot;$0.25&quot; in the United States, &quot;€0.20&quot; in the Eurozone, and so on.&#10;The amount may appear before or after the number, depending on the language (e.g. as &quot;0,25 €&quot; in certain languages &amp; locales).&#10;&#10;Appears as an option when donating to Lichess (https://lichess.org/patron), letting you pay a bit more to cover the transaction fees which would be part of your donation.">Vou adicionar %s para ajudar a cobrir o custo do processamento desta transação</string>
+  <string name="coverFees">Vou adicionar %s para ajudar a cobrir o custo do processamento desta transação</string>
 </resources>

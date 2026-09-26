@@ -8,9 +8,8 @@
     .warning {
       @extend %box-radius;
 
-      border-radius: 20px;
       padding: 1rem;
-      background: $m-bad_bg--mix-15;
+      background: color-mix(in oklab, $c-bad 15%, $c-bg);
       border: 1px solid $c-error;
       text-align: center;
       font-size: 1.3em;
@@ -29,7 +28,6 @@
   }
 
   &__posts {
-    margin-top: 2rem;
     margin-bottom: 2rem;
   }
 
@@ -52,6 +50,7 @@
       }
     }
   }
+
   .reply label[for='form3-text'] {
     display: none;
   }

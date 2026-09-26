@@ -1,22 +1,25 @@
-import { type Classes, h, type VNode } from 'snabbdom';
-import eachDayOfInterval from 'date-fns/eachDayOfInterval';
 import addDays from 'date-fns/addDays';
+import areIntervalsOverlapping from 'date-fns/areIntervalsOverlapping';
+import eachDayOfInterval from 'date-fns/eachDayOfInterval';
+import format from 'date-fns/format';
 import getHours from 'date-fns/getHours';
 import getMinutes from 'date-fns/getMinutes';
-import areIntervalsOverlapping from 'date-fns/areIntervalsOverlapping';
-import format from 'date-fns/format';
+import { type Classes, h, type VNode } from 'snabbdom';
+
+import perfIcons from 'lib/game/perfIcons';
+import { licon } from 'lib/licon';
+import { dataIcon } from 'lib/view';
+
 import type { Tournament } from '../interfaces';
 import type { Ctrl, Lanes } from '../tournament.calendar';
-import * as licon from 'lib/licon';
-import perfIcons from 'lib/game/perfIcons';
 
 function tournamentClass(tour: Tournament, day: Date): Classes {
-  const classes = {
+  const classes: Classes = {
     rated: tour.rated,
     casual: !tour.rated,
     'max-rating': tour.hasMaxRating,
     yesterday: tour.bounds.start < day,
-  } as Classes;
+  };
   if (tour.schedule) classes[tour.schedule.freq] = true;
   return classes;
 }
@@ -41,10 +44,7 @@ function renderTournament(tour: Tournament, day: Date) {
         title: `${tour.fullName} - ${format(tour.bounds.start, 'EEEE, dd/MM/yyyy HH:mm')}`,
       },
     },
-    [
-      h('span.icon', tour.perf ? { attrs: { 'data-icon': iconOf(tour) } } : {}),
-      h('span.body', [tour.fullName]),
-    ],
+    [h('span.icon', tour.perf ? { attrs: dataIcon(iconOf(tour)) } : {}), h('span.body', [tour.fullName])],
   );
 }
 
@@ -87,13 +87,14 @@ function renderDay(ctrl: Ctrl) {
 
 function renderGroup(ctrl: Ctrl) {
   return function (group: Date[]): VNode {
-    return h('group', [renderTimeline(), h('days', group.map(renderDay(ctrl)))]);
+    return h('group', [renderTimeline(ctrl), h('days', group.map(renderDay(ctrl)))]);
   };
 }
 
-function renderTimeline() {
+function renderTimeline(ctrl: Ctrl) {
   const hours: number[] = [];
-  for (let i = 0; i < 24; i++) hours.push(i);
+  const step = ctrl.wide ? 1 : 2;
+  for (let i = 0; i < 24; i += step) hours.push(i);
   return h(
     'div.timeline',
     hours.map(hour =>

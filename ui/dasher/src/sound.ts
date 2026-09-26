@@ -1,11 +1,15 @@
-import * as licon from 'lib/licon';
-import { text as xhrText, form as xhrForm } from 'lib/xhr';
-import { throttle, throttlePromiseDelay } from 'lib/async';
 import { h, type VNode } from 'snabbdom';
-import { header } from './util';
-import { bind, dataIcon, snabDialog } from 'lib/view';
-import { type DasherCtrl, PaneCtrl } from './interfaces';
+
+import { throttle, throttlePromiseDelay } from 'lib/async';
 import { isSafari } from 'lib/device';
+import { licon } from 'lib/licon';
+import { bind, dataIcon, onInsert, snabDialog } from 'lib/view';
+import { text as xhrText, form as xhrForm } from 'lib/xhr';
+
+import type { DasherCtrl } from '@/ctrl';
+
+import { PaneCtrl } from './interfaces';
+import { header } from './util';
 
 type Key = string;
 
@@ -17,7 +21,7 @@ export interface SoundData {
 }
 
 export class SoundCtrl extends PaneCtrl {
-  private list: Sound[];
+  private readonly list: Sound[];
   private showVoiceSelection = false;
 
   constructor(root: DasherCtrl) {
@@ -48,13 +52,10 @@ export class SoundCtrl extends PaneCtrl {
               orient: 'vertical',
               style: isSafari({ below: '18' }) ? 'appearance: slider-vertical' : '',
             },
-            hook: {
-              insert: vnode => {
-                const input = vnode.elm as HTMLInputElement,
-                  setVolume = throttle(150, this.volume);
-                $(input).on('input', () => setVolume(parseFloat(input.value)));
-              },
-            },
+            hook: onInsert<HTMLInputElement>(input => {
+              const setVolume = throttle(150, this.volume);
+              $(input).on('input', () => setVolume(parseFloat(input.value)));
+            }),
           }),
           h(
             'div.selector',
@@ -76,18 +77,18 @@ export class SoundCtrl extends PaneCtrl {
     );
   };
 
-  private voiceSelectionDialog = () => {
-    if (!this.showVoiceSelection) return;
+  private readonly voiceSelectionDialog = () => {
+    if (!this.showVoiceSelection) return undefined;
     const content = this.renderVoiceSelection();
-    if (!content) return;
+    if (!content) return undefined;
     return snabDialog({
       onClose: () => {
-        if (!i18n.nvui) return site.reload();
         this.showVoiceSelection = false;
         this.redraw();
       },
       modal: true,
-      vnodes: [content],
+      easyClose: 'clickOutside',
+      vnodes: content,
       onInsert: dlg => {
         dlg.show();
         dlg.view.querySelector('.active')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -95,40 +96,64 @@ export class SoundCtrl extends PaneCtrl {
     });
   };
 
-  private getCurrent = (): Key => (site.sound.speech() ? 'speech' : site.sound.theme);
+  private readonly getCurrent = (): Key => (site.sound.speech() ? 'speech' : site.sound.theme);
 
-  private renderVoiceSelection(): VNode | false {
+  private readonly setVoiceRate = (v: string) => {
+    localStorage.setItem('speech.rate', v);
+    if (this.rateInput) this.rateInput.value = v;
+    site.sound.say('Speech synthesis ready');
+  };
+  private rateInput?: HTMLInputElement;
+
+  private renderVoiceSelection(): VNode[] | false {
     const selectedVoice = site.sound.getVoice();
     const voiceMap = site.sound.getVoiceMap();
-    return voiceMap.size < 2
+    const rate = Number(localStorage.getItem('speech.rate')) || 1;
+    return voiceMap.size === 0
       ? false
-      : h(
-          'div.selector',
-          [...voiceMap.keys()]
-            .sort((a, b) => a.localeCompare(b))
-            .map(name =>
-              h(
-                'button.text',
-                {
-                  hook: bind('click', event => {
-                    const target = event.target as HTMLElement;
-                    site.sound.setVoice(voiceMap.get(target.textContent!)!);
-                    site.sound.say('Speech synthesis ready');
-                    this.redraw();
-                  }),
-                  class: { active: name === selectedVoice?.name },
-                  attrs: {
-                    ...dataIcon(name === selectedVoice?.name ? licon.Checkmark : ''),
-                    type: 'button',
+      : [
+          h('div.rate', [
+            'Speech rate',
+            h('input.rate', {
+              attrs: { ...site.sound.voiceRateRange, step: 0.05, type: 'range', value: rate },
+              hook: onInsert<HTMLInputElement>(el => {
+                this.rateInput = el;
+                el.onchange = () => this.setVoiceRate(el.value);
+              }),
+            }),
+            h('button', {
+              attrs: { type: 'button', ...dataIcon(licon.Back) },
+              hook: bind('click', () => this.setVoiceRate('1')),
+            }),
+          ]),
+          h(
+            'div.selector',
+            [...voiceMap.keys()]
+              .sort((a, b) => a.localeCompare(b))
+              .map(name =>
+                h(
+                  'button.text',
+                  {
+                    hook: bind('click', event => {
+                      const target = event.target as HTMLElement;
+                      site.sound.setVoice(voiceMap.get(target.textContent)!);
+                      site.sound.say('Speech synthesis ready');
+                      this.redraw();
+                    }),
+                    class: { active: name === selectedVoice?.name },
+                    attrs: {
+                      ...(name === selectedVoice?.name ? dataIcon(licon.Checkmark) : {}),
+                      type: 'button',
+                    },
                   },
-                },
-                name,
+                  name,
+                ),
               ),
-            ),
-        );
+          ),
+        ];
   }
 
-  private postSet = throttlePromiseDelay(
+  private readonly postSet = throttlePromiseDelay(
     () => 1000,
     (soundSet: string) =>
       xhrText('/pref/soundSet', { body: xhrForm({ soundSet }), method: 'post' }).catch(() =>
@@ -136,12 +161,12 @@ export class SoundCtrl extends PaneCtrl {
       ),
   );
 
-  private makeList = () => {
+  private readonly makeList = () => {
     const canSpeech = window.speechSynthesis?.getVoices().length;
     return this.list.filter(s => s[0] !== 'speech' || canSpeech);
   };
 
-  private set = (k: Key) => {
+  private readonly set = (k: Key) => {
     site.sound.speech(k === 'speech');
     if (site.sound.speech()) {
       this.showVoiceSelection = true;
@@ -156,9 +181,9 @@ export class SoundCtrl extends PaneCtrl {
     this.redraw();
   };
 
-  private volume = (v: number) => {
+  private readonly volume = (v: number) => {
     site.sound.setVolume(v);
     // plays a move sound if speech is off
-    site.sound.sayOrPlay('move', 'knight F 7');
+    site.sound.sayOrPlay('move', 'knight F 7', true);
   };
 }

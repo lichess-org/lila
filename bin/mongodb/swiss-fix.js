@@ -24,7 +24,7 @@ db.swiss
 
 db.swiss.find({ nbOngoing: { $ne: 0 } }).forEach(s => {
   const count = db.swiss_pairing.count({ s: s._id, t: true });
-  if (count != s.nbOngoing) {
+  if (count !== s.nbOngoing) {
     print(`nbOngoing ${s._id} ${s.name} ${s.nbOngoing} -> ${count}`);
     const set = {
       nbOngoing: NumberInt(count),

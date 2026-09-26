@@ -21,7 +21,6 @@ final class RateLimit[K](
 
   private inline def makeClearAt = nowMillis + duration.toMillis
 
-  private val logger = RateLimit.logger.branch(key)
   private val monitor = lila.mon.security.rateLimit(key)
 
   def chargeable[A](k: K, default: => A, cost: Cost = 1, msg: => String = "")(
@@ -44,14 +43,13 @@ final class RateLimit[K](
           storage.put(k, cost -> makeClearAt)
           op
         case _ if enforce.yes =>
-          if log then logger.info(s"$credits/$duration $k cost: $cost $msg")
+          if log then RateLimit.logger.info(s"$key $credits/$duration $k cost: $cost $msg")
           monitor.increment()
           default
         case _ =>
           op
 
-  def zero[A](k: K, cost: Cost = 1, msg: => String = "")(op: => A)(using default: Zero[A]): A =
-    apply[A](k, default.zero, cost, msg)(op)
+  def status(k: K) = Status(storage.getIfPresent(k).so(_._1), credits)
 
   def isLimited(k: K): Option[Instant] =
     enforce.yes
@@ -72,13 +70,19 @@ object RateLimit:
 
   enum LimitResult:
     case Through, Limited
+    def ok = this == Through
 
   case class Limited(key: String, msg: String, until: Instant)
+
+  case class Status(used: Int, max: Int):
+    def reached = used >= max
 
   trait RateLimiter[K]:
     def apply[A](k: K, default: => A, cost: Cost = 1, msg: => String = "")(op: => A): A
     def chargeable[A](k: K, default: => A, cost: Cost = 1, msg: => String = "")(op: ChargeWith => A): A
-    def test[A](k: K, cost: Cost = 1, msg: => String = ""): Boolean = apply(k, false, cost, msg)(true)
+    def hit[A](k: K, cost: Cost = 1, msg: => String = ""): Boolean = apply(k, false, cost, msg)(true)
+    def zero[A](k: K, cost: Cost = 1, msg: => String = "")(op: => A)(using default: Zero[A]): A =
+      apply[A](k, default.zero, cost, msg)(op)
 
   val logger = lila.log("ratelimit")
 

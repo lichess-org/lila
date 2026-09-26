@@ -12,7 +12,7 @@ export interface Vm {
 }
 
 export interface Env {
-  i18n: { [key: string]: string };
+  i18n: Record<string, string>;
   initialQuestion: Question;
   myUserId: string;
   pageUrl: string;
@@ -37,9 +37,7 @@ export interface Question {
   filters: Filters;
 }
 
-export type Filters = {
-  [L in string]: string[];
-};
+export type Filters = Record<string, string[]>;
 
 export interface UI {
   dimensionCategs: Categ<Dimension>[];

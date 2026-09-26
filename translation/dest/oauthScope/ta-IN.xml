@@ -21,7 +21,6 @@
   <string name="puzzleRead">புதிர் செயல்பாட்டைப் படிக்கவும்</string>
   <string name="teamRead">தனிப்பட்ட குழு தகவலைப் படிக்கவும்</string>
   <string name="teamWrite">அணிகளில் சேர்ந்து வெளியேறவும்</string>
-  <string name="teamLead">நீங்கள் வழிநடத்தும் அணிகளை நிர்வகிக்கவும்: PMகளை அனுப்பவும், உறுப்பினர்களை உதைக்கவும்</string>
   <string name="followRead">பின்தொடர்ந்த வீரர்களைப் படிக்கவும்</string>
   <string name="followWrite">மற்ற வீரர்களைப் பின்தொடரவும், பின்தொடரவும்</string>
   <string name="msgWrite">பிற வீரர்களுக்கு தனிப்பட்ட செய்திகளை அனுப்பவும்</string>
@@ -29,7 +28,6 @@
   <string name="botPlay">பாட் ஏபிஐ மூலம் கேம்களை விளையாடுங்கள்</string>
   <string name="engineRead">உங்கள் வெளிப்புற இயந்திரங்களைப் பார்த்து பயன்படுத்தவும்</string>
   <string name="engineWrite">வெளிப்புற இயந்திரங்களை உருவாக்கி புதுப்பிக்கவும்</string>
-  <string name="webLogin">அங்கீகரிக்கப்பட்ட இணையதள அமர்வுகளை உருவாக்கவும் (முழு அணுகலை வழங்குகிறது!)</string>
   <string name="webMod">மதிப்பீட்டாளர் கருவிகளைப் பயன்படுத்தவும் (உங்கள் அனுமதியின் எல்லைக்குள்)</string>
   <string name="personalAccessTokens">தனிப்பட்ட API அணுகல் டோக்கன்கள்</string>
   <string name="canMakeOauthRequests">OAuth கோரிக்கைகளை %s வழியாகச் செல்லாமல் செய்யலாம்.</string>

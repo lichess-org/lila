@@ -155,7 +155,6 @@ object CurrencyApi:
     "BAM",
     "BBD",
     "BDT",
-    "BGN",
     "BIF",
     "BMD",
     "BND",

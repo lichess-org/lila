@@ -1,3 +1,6 @@
+nodeVersion: 24.20.0
+allowBuilds:
+  esbuild: true
 ignoredOptionalDependencies:
   - '@esbuild/*-arm'
   - '@esbuild/*-ia32'
@@ -13,3 +16,6 @@ ignoredOptionalDependencies:
   - '@esbuild/openharmony-*'
   - '@esbuild/netbsd-*'
   - '@esbuild/sunos-*'
+minimumReleaseAgeExclude:
+  - sasso-native-*
+  - sasso

@@ -1,8 +1,8 @@
+import { idleTimer } from 'lib/event';
+
+import type { SimulData, SimulOpts } from './interfaces';
 import { makeSocket, type SimulSocket } from './socket';
 import xhr from './xhr';
-import type { SimulData, SimulOpts } from './interfaces';
-import { storage } from 'lib/storage';
-import { idleTimer } from 'lib/event';
 
 export default class SimulCtrl {
   data: SimulData;
@@ -17,8 +17,7 @@ export default class SimulCtrl {
     if (this.createdByMe() && this.data.isCreated) this.setupCreatedHost();
   }
 
-  private setupCreatedHost = () => {
-    storage.set('site.move_on', '1'); // hideous hack :D
+  private readonly setupCreatedHost = () => {
     let hostIsAround = true;
     idleTimer(
       15 * 60 * 1000,

@@ -1,5 +1,6 @@
 .site-title {
   @extend %base-font, %page-text-shadow, %flex-center-nowrap;
+
   padding: 0 1rem;
   margin-inline-start: 0.5rem;
   gap: 0.75rem;
@@ -23,38 +24,44 @@
     }
   }
 
+  &:focus-visible {
+    outline-offset: -2px;
+  }
+
   .site-name {
     display: none;
   }
 
   .site-icon {
+    display: none;
     font-size: 24px;
-    @media (min-height: at-least($tall)) {
+
+    @media (height >= $tall) {
       font-size: 36px;
     }
+  }
+
+  @media (width < $xx-small) {
     display: none;
   }
 
-  @media (max-width: at-least($xx-small)) {
-    display: none;
-  }
-
-  @media (min-width: at-least($xx-small)) {
+  @media (width >= $xx-small) {
     .site-icon {
       display: block;
     }
   }
 
-  @media (min-width: at-least(1180px)) {
+  @media (width >= $large) {
     .site-name {
       display: block;
     }
+
     .site-icon {
       display: none;
     }
   }
 
-  @media (min-width: at-least($xx-large)) {
+  @media (width >= $xx-large) {
     .site-icon {
       display: block;
     }

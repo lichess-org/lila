@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="gameSetup">Ойын пішімі</string>
+  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Досты шақыру</string>
   <string name="playAgainstComputer">Компьютермен ойнау</string>
+  <string name="createLobbyGame">Ойын құру</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Ойынға біреуді шақыру үшін бұл сілтемені жіберіңіз</string>
   <string name="gameOver">Ойын аяқталды</string>
   <string name="waitingForOpponent">Қарсыласты тосып тұрмыз</string>
@@ -100,10 +103,10 @@
   <string name="maxDepthReached">Іздеу шегіне жетті!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Баптаулар мәзірінен тағы ойындар қосайық па?</string>
   <string name="openings">Бастаулар</string>
-  <string name="openingExplorer">Бастаулар қазынасы</string>
-  <string name="openingEndgameExplorer">Бастау/ойынсоңы қоры</string>
-  <string name="xOpeningExplorer">%s бастаулар қазынасы</string>
-  <string name="playFirstOpeningEndgameExplorerMove">Бастау/ойынсоңы қорынан бірінші қадам жасау</string>
+  <string name="openingExplorer">Бастама қоры</string>
+  <string name="openingEndgameExplorer">Бастама/ойынсоңы қоры</string>
+  <string name="xOpeningExplorer">%s Бастама Қоры</string>
+  <string name="playFirstOpeningEndgameExplorerMove">Бастама/ойынсоңы қорының бірінші жүрісін жасау</string>
   <string name="winPreventedBy50MoveRule">50 жүрістік ережемен жеңіске жеткізбеу</string>
   <string name="lossSavedBy50MoveRule">50 жүрістік ережемен жеңілістен құтылу</string>
   <string name="winOr50MovesByPriorMistake">Жеңіс немесе 50 жүріс ережесі</string>
@@ -119,7 +122,6 @@
   <string name="enable">Қосу</string>
   <string name="bestMoveArrow">Үздік жүрісті нұсқағыш</string>
   <string name="showVariationArrows">Тармақта нұсқағышты көрсету</string>
-  <string name="evaluationGauge">Бағалауышты көрсету</string>
   <string name="multipleLines">Бірнеше жол</string>
   <string name="cpus">Процессор</string>
   <string name="memory">Жад</string>
@@ -128,25 +130,13 @@
   <string name="blunder">Өрескел қателік</string>
   <string name="mistake">Қателік</string>
   <string name="inaccuracy">Жеңіл қате</string>
-  <plurals name="nbBlunders">
-    <item quantity="one">%s өрескел қателік</item>
-    <item quantity="other">%s өрескел қателік</item>
-  </plurals>
   <plurals name="numberBlunders">
     <item quantity="one">%s Өрескел қателік</item>
     <item quantity="other">%s Өрескел қателік</item>
   </plurals>
-  <plurals name="nbMistakes">
-    <item quantity="one">%s қателік</item>
-    <item quantity="other">%s қателік</item>
-  </plurals>
   <plurals name="numberMistakes">
     <item quantity="one">%s Қателік</item>
     <item quantity="other">%s Қателік</item>
-  </plurals>
-  <plurals name="nbInaccuracies">
-    <item quantity="one">%s ағаттық</item>
-    <item quantity="other">%s ағаттық</item>
   </plurals>
   <plurals name="numberInaccuracies">
     <item quantity="one">%s Ағаттық</item>
@@ -224,7 +214,6 @@
   <string name="changeUsernameNotSame">Тек әріптер үлкендігін өзгерту рұқсат. Мысалы, \"tolebi\" дегенді \"ToleBi\" деп.</string>
   <string name="changeUsernameDescription">Пайдаланушы атын өзгертіңіз. Бұны бір мәрте ғана жасауға рұқсат. Тек әріптің үлкендігін ғана өзгерте аласыз.</string>
   <string name="signupUsernameHint">Тіркеулі атты таңдағанда, өз үйіңізде айтуға лайықты болатындай болсын. Оны кейін өзгерте алмайсыз. Орынсыз, ұятсыз сөздері болса, тіркелгіңіз толықтай жабылады!</string>
-  <string name="signupEmailHint">Құпиясөзді қайта орнату үшін ғана керек.</string>
   <string name="password">Құпиясөз</string>
   <string name="changePassword">Құпиясөзді өзгерту</string>
   <string name="changeEmail">Поштаны ауыстыру</string>
@@ -247,10 +236,6 @@
   <string name="emailSent">%s поштасына хат жібердік.</string>
   <string name="emailCanTakeSomeTime">Жетуіне біршама уақыт керек.</string>
   <string name="refreshInboxAfterFiveMinutes">5 минут күтіп, поштаңыздың бетін жаңартып көріңіз.</string>
-  <string name="checkSpamFolder">Сонымен қатар, Спам қалтасында қарап көріңіз. Хат сонда болса, \"Спам емес\" деп белгілеу жөн болар.</string>
-  <string name="emailForSignupHelp">Егер де осы амалдардың бәрі жарамаса, бізге осындай хат жіберіңіз:</string>
-  <string name="copyTextToEmail">Осы мәтінді көшіріп, %s жіберіңіз</string>
-  <string name="waitForSignupHelp">Тіркелуді аяқтау үшін біз тез арада жауап береміз.</string>
   <string name="accountConfirmed">%s тіркелгісі расталды.</string>
   <string name="accountCanLogin">%s атымен дәл қазір тіркелкіге кіре аласыз.</string>
   <string name="accountConfirmationEmailNotNeeded">Сізге растау хаты керек емес.</string>
@@ -273,8 +258,6 @@
   </plurals>
   <string name="ok">Иә</string>
   <string name="cancel">Болдыртпау</string>
-  <string name="whiteTimeOut">Ақтың уақыты бітті</string>
-  <string name="blackTimeOut">Қараның уақыты бітті</string>
   <string name="drawOfferSent">Тепе-теңдік сұрауда</string>
   <string name="drawOfferAccepted">Тепе-теңдікке келісті</string>
   <string name="whiteOffersDraw">Ақ тепе-теңдік сұрауда</string>
@@ -338,12 +321,13 @@
     <item quantity="other">%s ойналуда</item>
   </plurals>
   <string name="exportGames">Ойынды жүктеп алу</string>
+  <string name="ratingFilter">Қарсылас рейтинг ауқымы</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">%s секунд беру</item>
     <item quantity="other">%s секунд беру</item>
   </plurals>
   <string name="thisAccountViolatedTos">Бұл тіркелгі Личес-тің Қызмет көрсету шартын бұзды</string>
-  <string name="openingExplorerAndTablebase">Бастаулар мен ойынсоңдарының қоры</string>
+  <string name="openingExplorerAndTablebase">Бастама мен ойынсоңы қоры</string>
   <string name="takeback">Қайтару</string>
   <string name="proposeATakeback">Жүріс қайтаруды сұрау</string>
   <string name="takebackPropositionSent">Жүрісті қайтару сұралуда</string>
@@ -405,7 +389,6 @@
   <string name="apply">Сақтау</string>
   <string name="save">Сақтау</string>
   <string name="leaderboard">Мықтылар қатары</string>
-  <string name="screenshotCurrentPosition">Осы күйді суретке түсіру</string>
   <string name="gameAsGIF">GIF етіп сақтау</string>
   <string name="pasteTheFenStringHere">FEN мәтінін осы жерге қойыңыз</string>
   <string name="pasteThePgnStringHere">PGN мәтінін осы жерге қойыңыз</string>
@@ -514,7 +497,6 @@
   <string name="oneUrlPerLine">Бір жолға бір URL.</string>
   <string name="inlineNotation">Біржолды хаттама</string>
   <string name="makeAStudy">Ұзаққа сақтау әрі бөлісу үшін зерттеуді жасаған дұрыс.</string>
-  <string name="clearSavedMoves">Жүрістерді жою</string>
   <string name="previouslyOnLichessTV">Личес ТВ-да көрсетілген</string>
   <string name="onlinePlayers">Желідегі ойыншылар</string>
   <string name="activePlayers">Белсенділер</string>
@@ -556,7 +538,6 @@
   <string name="other">Басқа</string>
   <string name="reportCheatBoostHelp">Ойын сілтемесін қойып, осы ойыншының қай әрекеті орынсыз болғанын түсіндіріп беріңіз. Жай ғана \"ол алдап ойнады\" демей, осы ойға қалай келгеніңізді айтып беріңіз.</string>
   <string name="reportUsernameHelp">Осы ойыншы аты неге қорлау болып көрінетінін айтып беріңіз. Жай ғана \"Бұл қорлау/орынсыз\" демей, осы ойға қалай келгеніңізді жайып берсеңіз жөн. Әсіресе, қорлау жасырын түрде не ағылшын тілде емес не сленг не тарихи, мәдени бір сілтеме түрінде болса, түсіндірмеңіз қажет.</string>
-  <string name="reportProcessedFasterInEnglish">Шағымды ағылшынша жазсаңыз, шешім тезірек шығатын болады.</string>
   <string name="error.provideOneCheatedGameLink">Кемі бір ойынның сілтемесін беруіңізді сұраймыз.</string>
   <string name="by">жасаған – %s</string>
   <string name="importedByX">Жүктеп салған – %s</string>
@@ -569,6 +550,9 @@
   <string name="invalidUsernameOrPassword">Атыңыз не құпиясөз қате</string>
   <string name="incorrectPassword">Құпиясөз қате</string>
   <string name="invalidAuthenticationCode">Өкіл-растау құлыпсаны қате</string>
+  <string name="clearField">Жолды тазарту</string>
+  <string name="orSeparator">болмаса</string>
+  <string name="logInByEmail">Пошта арқылы кіру</string>
   <string name="emailMeALink">Поштама сілтеме жібер</string>
   <string name="currentPassword">Қазіргі құпиясөз</string>
   <string name="newPassword">Жаңа кұпиясөз</string>
@@ -676,11 +660,9 @@
   <string name="aboutSimulRules">Қалың ойын басталысымен әр ойыншы бас ойыншымен бел ұстасады. Барлық ішкі ойындар аяқталғанда, жалпы ойын да аяқталады.</string>
   <string name="aboutSimulSettings">Қалың ойын – әрқашанда жай ойын. Қайта ойнау, жүрісті қайтару, уақыт қосу дегендер болмайды.</string>
   <string name="create">Құру</string>
-  <string name="whenCreateSimul">Сіз қалың ойын құрғанда, бір мезгілде бірнеше қарсыласпен ойнайсыз.</string>
   <string name="simulVariantsHint">Егер сіз бірнеше шахмат түрін таңдасаңыз, әр ойыншы соның арасынан біреуін таңдайды.</string>
   <string name="simulClockHint">Фишер Сағатын баптау. Қарсыластарыңыз көп болса, уақыт та көп қажет.</string>
   <string name="simulAddExtraTime">Қалың ойынды жеңілдету үшін өзіңізге қосымша уақыт қоса аласыз.</string>
-  <string name="simulHostExtraTime">Бас ойыншының қосымша уақыты</string>
   <string name="simulAddExtraTimePerPlayer">Жаңа кірген әр ойыншы үшін өзіңіздің бастапқы уақытыңызды көбейту.</string>
   <string name="simulHostExtraTimePerPlayer">Әр ойыншы үшін бас ойыншыға берілетін қосымша уақыт</string>
   <string name="lichessTournaments">Личес жарыстары</string>
@@ -694,11 +676,6 @@
   <string name="keyCycleSelectedVariation">Тандалған тармақтан шықпау</string>
   <string name="keyShowOrHideComments">пікірлерді көрсету/жасыру</string>
   <string name="keyEnterOrExitVariation">тармаққа кіру/шығу</string>
-  <string name="keyRequestComputerAnalysis">Компьютерлік талдауды бастаңыз, Әр қателіктен сабақ алыңыз</string>
-  <string name="keyNextLearnFromYourMistakes">Келесі (Қателіктен сабақ алыңыз)</string>
-  <string name="keyNextBlunder">Келесі өрескел қателік</string>
-  <string name="keyNextMistake">Келесі қателік</string>
-  <string name="keyNextInaccuracy">Келесі ағаттық</string>
   <string name="keyPreviousBranch">Алдынғы тармақ</string>
   <string name="keyNextBranch">Келесі тармақ</string>
   <string name="toggleVariationArrows">Тармақ нұсқағышты көрсету</string>
@@ -764,7 +741,7 @@
   <string name="revokeAllSessions">бәрін ажырату</string>
   <string name="playChessEverywhere">Шахматты кез-келген жерде ойнаңыз</string>
   <string name="everybodyGetsAllFeaturesForFree">Барлық құралдары барлық адам үшін тегін</string>
-  <string name="viewTheSolution">Жауабын қарау</string>
+  <string name="viewTheSolution">Шешімін көру</string>
   <string name="noChallenges">Шақыру жоқ.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">%s тілде нұсқасы бар!</item>
@@ -779,12 +756,11 @@
   <string name="yourScore">Жетістігіңіз: %s</string>
   <string name="language">Тіл</string>
   <string name="allLanguages">Барлық тілдер</string>
-  <string name="background">Фон</string>
+  <string name="background">Артқы кескін</string>
   <string name="light">Жарық</string>
   <string name="dark">Қараңғы</string>
-  <string name="transparent">Мөлдір</string>
   <string name="deviceTheme">Құрылғы кейпі</string>
-  <string name="backgroundImageUrl">Фон суретіне сілтеме:</string>
+  <string name="backgroundImageUrl">Артқы сурет сілтемесі:</string>
   <string name="board">Тақта</string>
   <string name="size">Үлкендігі</string>
   <string name="opacity">Айқындығы</string>
@@ -806,7 +782,7 @@
   <string name="custom">Басқа</string>
   <string name="notifications">Хабарлама</string>
   <string name="notificationsX">Хабарламалар: %1$s</string>
-  <string name="perfRatingX">Рейтинг: %s</string>
+  <string name="yourRatingIsX">Сіздің рейтингіңіз %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">Бірінші жүріске %s секунд бар</item>
     <item quantity="other">Бірінші жүріске %s секунд бар</item>
@@ -863,7 +839,6 @@
     <item quantity="other">әрі ертелі жүрістердің %s жолын сақтау</item>
   </plurals>
   <string name="showUnreadLichessMessage">Сізге Личестен жеке хат келді.</string>
-  <string name="clickHereToReadIt">Осында басып оқыңыз</string>
   <string name="sorry">Өкінішті-ақ :(</string>
   <string name="weHadToTimeYouOutForAWhile">Сізді уақытша шектеуге мәжбүрміз.</string>
   <string name="why">Себебі қандай?</string>
@@ -882,7 +857,6 @@
   <string name="agreementAssistance">Мен ойнап отырғанда, сырттан (басқа адамнан, компьютер, кітап не дерекқорды пайдалана) ешбір көмек алмаймын деп уәде беремін.</string>
   <string name="agreementNice">Мен басқа ойыншыларға құрметпен қараймын деп уәде беремін.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Бірден артық тіркелгі жасамауға уәде етемін (%s-нда көрсетілген).</string>
-  <string name="agreementPolicy">Мен Личестің барлық қағидаларын ұстанамын деп уәде беремін.</string>
   <string name="searchOrStartNewDiscussion">Жаңа әңгімелесуді бастау не іздеу</string>
   <string name="edit">Өзгерту</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Буллит</string>
@@ -917,7 +891,6 @@
   <string name="xInvitedYouToY">%1$s сізді %2$s шақырды.</string>
   <string name="youAreNowPartOfTeam">Сізді енді топ құрамындасыз.</string>
   <string name="youHaveJoinedTeamX">Сіз %1$s қосылдыңыз.</string>
-  <string name="someoneYouReportedWasBanned">Сіздің шағымыңыздан кейін біреу бұғауланды</string>
   <string name="congratsYouWon">Құтты болсын, сіз жеңдіңіз!</string>
   <string name="gameVsX">%1$s қарсы ойын</string>
   <string name="resVsX">%1$s қарсы %2$s</string>
@@ -955,7 +928,6 @@
   <string name="noChat">Сұхбатты өшіру</string>
   <string name="onlyTeamLeaders">Тек топ жетекшілері</string>
   <string name="onlyTeamMembers">Тек топ мүшелері</string>
-  <string name="navigateMoveTree">Жүрістер тізімін шолу</string>
   <string name="mouseTricks">Тіңтуір әдістері</string>
   <string name="toggleLocalAnalysis">Өз компьютеріңізде талдауды қосу</string>
   <string name="toggleAllAnalysis">Барлық компьютер талдауларын қосу</string>
@@ -972,7 +944,6 @@
   <string name="gameInProgress">%s сізді қазір ойында күтіп тұр.</string>
   <string name="abortTheGame">Ойынды үзу</string>
   <string name="resignTheGame">Берілу</string>
-  <string name="youCantStartNewGame">Бұл ойын аяқталмағанша, сіз жаңа ойын бастай алмайсыз.</string>
   <string name="since">Бастап</string>
   <string name="until">Дейін</string>
   <string name="lichessDbExplanation">Личес-тегі бағалы ойындар</string>

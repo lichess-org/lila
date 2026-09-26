@@ -1,2 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="standard">Standardni šah</string>
+  <string name="standardTitle">Standardna pravila šaha (FIDE)</string>
+  <string name="chess960">Fišerski šah</string>
+  <string name="chess960Title">Početna pozicija figura domaćeg reda je nasumično odabrana.</string>
+  <string name="kingOfTheHill">Kralj brda</string>
+  <string name="kingOfTheHillTitle">Vodi svog kralja u centar da bi pobijedio partiju.</string>
+  <string name="threeCheck">Three-Check</string>
+  <string name="threeCheckTitle">Daj protivniku 3 puta šah da bi pobijedio partiju.</string>
+  <string name="antichess">Antichess</string>
+  <string name="antichessTitle">Izgubi sve svoje figure (ili budi patiran) da bi pobijedio partiju.</string>
+  <string name="atomic">Atomski šah</string>
+  <string name="atomicTitle">Uništavaj protivničkog kralja nuklearnim bombama da bi pobijedio partiju.</string>
+  <string name="horde">Horda</string>
+  <string name="hordeTitle">Jedna strana ima veliki broj pješaka, druga ima normalnu vojsku.</string>
+  <string name="racingKings">Racing Kings</string>
+  <string name="racingKingsTitle">Vodi svog kralja na drugu stranu ploče da bi pobijedio partiju.</string>
+  <string name="crazyhouse">Crazyhouse</string>
+  <string name="crazyhouseTitle">Igrači mogu vratiti pojedene figure na ploču umjesto jednog poteza.</string>
+  <string name="fromPosition">Iz pozicije</string>
+  <string name="fromPositionTitle">Standardni šah iz prilagođene pozicije</string>
+</resources>

@@ -1,6 +1,6 @@
 package lila.msg
 
-import akka.actor.Cancellable
+import org.apache.pekko.actor.Cancellable
 
 import lila.common.String.shorten
 import lila.core.notify.{ NotifyApi, NotificationContent }
@@ -24,7 +24,7 @@ final private class MsgNotify(
       notifyApi
         .markRead(
           userId,
-          $doc(
+          bdoc(
             "content.type" -> "privateMessage",
             "content.user" -> contactId
           )
@@ -34,7 +34,7 @@ final private class MsgNotify(
   def deleteAllBy(threads: List[MsgThread], user: User): Funit =
     threads.sequentiallyVoid { thread =>
       cancel(thread.id)
-      notifyApi.remove(thread.other(user.id), $doc("content.user" -> user.id)).void
+      notifyApi.remove(thread.other(user.id), bdoc("content.user" -> user.id)).void
     }
 
   private def schedule(threadId: MsgThread.Id): Unit = delayed.compute(threadId): canc =>
@@ -52,8 +52,6 @@ final private class MsgNotify(
     colls.thread.byId[MsgThread](threadId.value).flatMapz { thread =>
       val msg = thread.lastMsg
       (!thread.delBy(thread.other(msg.user))).so:
-        notifyApi.notifyOne(
-          thread.other(msg.user),
-          NotificationContent.PrivateMessage(msg.user, text = shorten(msg.text, 40))
-        )
+        val notification = NotificationContent.PrivateMessage(msg.user, text = shorten(msg.text, 40))
+        notifyApi.notifyOne(thread.other(msg.user), notification).void
     }

@@ -17,5 +17,7 @@
   <string name="racingKings">Racing Kings</string>
   <string name="racingKingsTitle">Porta il tuo re dall\'altra parte della scacchiera per vincere.</string>
   <string name="crazyhouse">Crazyhouse</string>
-  <string name="crazyhouseTitle">I pezzi catturati possono essere riemssi sulla scacchiera invece di spostare un pezzo.</string>
+  <string name="crazyhouseTitle">I pezzi catturati possono essere rimessi sulla scacchiera invece di spostare un pezzo.</string>
+  <string name="fromPosition">Dalla posizione</string>
+  <string name="fromPositionTitle">Scacchi tradizionali da una posizione personalizzata</string>
 </resources>

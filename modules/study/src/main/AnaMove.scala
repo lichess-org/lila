@@ -9,21 +9,19 @@ import lila.common.Json.given
 import lila.tree.Branch
 
 trait AnaAny:
-  def branch(variant: Variant): Either[ErrorStr, Branch]
+  def branch(variant: Variant, fen: Fen.Full): Either[ErrorStr, Branch]
   def chapterId: Option[StudyChapterId]
   def path: UciPath
 
-// TODO StudyChapterId, UciPath
 case class AnaMove(
     orig: chess.Square,
     dest: chess.Square,
-    fen: Fen.Full,
     path: UciPath,
     chapterId: Option[StudyChapterId],
     promotion: Option[chess.PromotableRole]
 ) extends AnaAny:
 
-  def branch(variant: Variant): Either[ErrorStr, Branch] =
+  def branch(variant: Variant, fen: Fen.Full): Either[ErrorStr, Branch] =
     chess
       .Game(variant.some, fen.some)(orig, dest, promotion)
       .map: (game, move) =>
@@ -41,12 +39,10 @@ object AnaMove:
       d <- o.obj("d")
       orig <- d.str("orig").flatMap(chess.Square.fromKey)
       dest <- d.str("dest").flatMap(chess.Square.fromKey)
-      fen <- d.get[Fen.Full]("fen")
       path <- d.get[UciPath]("path")
     yield AnaMove(
       orig = orig,
       dest = dest,
-      fen = fen,
       path = path,
       chapterId = d.get[StudyChapterId]("ch"),
       promotion = d.str("promotion").flatMap(chess.Role.promotable)

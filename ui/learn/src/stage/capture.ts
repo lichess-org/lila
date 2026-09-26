@@ -1,6 +1,6 @@
+import { extinct } from '../assert';
 import { arrow, assetUrl, roundSvg, toLevel } from '../util';
 import type { LevelPartial, StageNoID } from './list';
-import { extinct } from '../assert';
 
 const imgUrl = assetUrl + 'images/learn/bowman.svg';
 const stage: StageNoID = {

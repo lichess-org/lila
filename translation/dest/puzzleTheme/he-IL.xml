@@ -44,15 +44,12 @@
   <string name="doubleCheckDescription">שח עם שני כלים במקביל, כתוצאה מהתקפה נגלית בה הכלי הזז והכלי הנחשף מאיימים על המלך היריב.</string>
   <string name="endgame">סיום</string>
   <string name="endgameDescription">טקטיקה במהלך השלב האחרון של המשחק.</string>
-  <string name="enPassantDescription">טקטיקה המשלבת את חוק ״הכאה דרך הילוכו\", בו רגלי יכול להכות רגלי יריב שעבר אותו בתנועתו על ידי מסע של שתי משבצות לפנים מהמשבצת ההתחלתית.</string>
   <string name="exposedKing">מלך חשוף</string>
   <string name="exposedKingDescription">טקטיקה המשלבת מלך עם מעט מגנים סביבו, שלרוב מובילה למט.</string>
   <string name="fork">מזלג</string>
-  <string name="forkDescription">מסע בו הכלי הנע מאיים על שני כלי יריב במקביל.</string>
   <string name="hangingPiece">כלי תלוי ללא חיפוי</string>
   <string name="hangingPieceDescription">טקטיקה המשלבת כלי יריב לא מוגן או מוגן לא כהלכה וזמין להכאה.</string>
   <string name="hookMate">מט קרס</string>
-  <string name="hookMateDescription">מט עם צריח, פרש ורגלי יחד עם רגלי יריב המגבילים את בריחת המלך היריב.</string>
   <string name="interference">קטיעת קו הגנה</string>
   <string name="interferenceDescription">הזזת כלי בין שני כלים יריבים על מנת להותיר אותם לא מוגנים, למשל פרש על משבצת מוגנת בין שני צריחים.</string>
   <string name="intermezzo">אינטרמצו</string>
@@ -90,7 +87,6 @@
   <string name="pin">ריתוק</string>
   <string name="pinDescription">טקטיקה המשלבת ריתוק, בו כלי מנוע מלזוז מבלי לחשוף איום על כלי חשוב יותר.</string>
   <string name="promotion">הכתרה</string>
-  <string name="promotionDescription">הכתרת אחד מהרגלים למלכה או לכלי משני.</string>
   <string name="queenEndgame">סיום מלכות</string>
   <string name="queenEndgameDescription">סיום עם מלכות ורגלים בלבד.</string>
   <string name="queenRookEndgame">מלכה וצריח</string>

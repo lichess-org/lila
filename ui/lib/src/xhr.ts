@@ -1,4 +1,11 @@
-import { defined } from './index';
+import { defined, notNull } from './index';
+
+export class ValidationError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = 'ValidationError';
+  }
+}
 
 export const jsonHeader = {
   Accept: 'application/web.lichess+json',
@@ -13,11 +20,15 @@ export const xhrHeader = {
   'X-Requested-With': 'XMLHttpRequest', // so lila knows it's XHR
 };
 
-export const ensureOk = (res: Response): Response => {
+export const ensureOk = async (res: Response): Promise<Response> => {
   if (res.ok) return res;
-  if (res.status === 429) throw new Error('Too many requests');
   if (res.status === 413) throw new Error('The uploaded file is too large');
-  throw new Error(`Error ${res.status}`);
+  if (res.status === 422) {
+    const body = await res.json().catch(() => null);
+    throw new ValidationError(body?.error || 'Unprocessable entity');
+  }
+  if (res.status === 429) throw new Error('Too many requests');
+  throw new Error(`Error ${res.status} ${res.statusText} ${await res.text()}`);
 };
 
 /* fetch a static JSON asset without headers that trigger CORS preflight */
@@ -27,11 +38,11 @@ export const jsonSimple = (url: string, init: RequestInit = {}): Promise<any> =>
       ...jsonHeader,
     },
     ...init,
-  }).then(res => ensureOk(res).json());
+  }).then(res => ensureOk(res).then(r => r.json()));
 
 /* fetch a JSON value */
-export const json = (url: string, init: RequestInit = {}): Promise<any> =>
-  jsonAnyResponse(url, init).then(res => ensureOk(res).json());
+export const json = <A = any>(url: string, init: RequestInit = {}): Promise<A> =>
+  jsonAnyResponse(url, init).then(res => ensureOk(res).then(r => r.json()));
 
 export const jsonAnyResponse = (url: string, init: RequestInit = {}): Promise<any> =>
   fetch(url, {
@@ -45,7 +56,7 @@ export const jsonAnyResponse = (url: string, init: RequestInit = {}): Promise<an
 
 /* fetch a string */
 export const text = (url: string, init: RequestInit = {}): Promise<string> =>
-  textRaw(url, init).then(res => ensureOk(res).text());
+  textRaw(url, init).then(res => ensureOk(res).then(r => r.text()));
 
 export const textRaw = (url: string, init: RequestInit = {}): Promise<Response> =>
   fetch(url, {
@@ -57,26 +68,28 @@ export const textRaw = (url: string, init: RequestInit = {}): Promise<Response> 
 /* load & inject a remote script */
 export const script = (src: string): Promise<void> =>
   new Promise((resolve, reject) => {
-    const nonce = document.body.getAttribute('data-nonce'),
-      el = document.createElement('script');
+    const nonce = document.body.getAttribute('data-nonce');
+    const el = document.createElement('script');
     if (nonce) el.setAttribute('nonce', nonce);
-    el.onload = resolve as () => void;
+    el.onload = () => resolve();
     el.onerror = reject;
     el.src = src;
     document.head.append(el);
   });
 
 /* produce HTTP form data from a JS object */
-export const form = (data: any): FormData => {
+export const form = (
+  data: Record<string, string | string[] | boolean | number | null | undefined>,
+): FormData => {
   const formData = new FormData();
-  for (const k of Object.keys(data)) if (defined(data[k])) formData.append(k, data[k]);
+  for (const k of Object.keys(data)) if (notNull(data[k])) formData.append(k, data[k].toString());
   return formData;
 };
 
 /* constructs a url with escaped parameters */
-export const url = (path: string, params: { [k: string]: string | number | boolean | undefined }): string => {
+export const url = (path: string, params: Record<string, string | number | boolean | undefined>): string => {
   const searchParams = new URLSearchParams();
-  for (const k of Object.keys(params)) if (defined(params[k])) searchParams.append(k, params[k] as string);
+  for (const k of Object.keys(params)) if (defined(params[k])) searchParams.append(k, params[k].toString());
   const query = searchParams.toString();
   return query ? `${path}?${query}` : path;
 };
@@ -91,7 +104,7 @@ export const formToXhr = (el: HTMLFormElement, submitter?: HTMLButtonElement): P
         method: el.method,
         body,
       })
-    : Promise.reject(`Form has no action: ${el}`);
+    : Promise.reject(new Error(`Form has no action: ${el}`));
 };
 
 export type ProcessLine<T> = (line: T) => void;
@@ -117,10 +130,7 @@ export const readNdJson = async <T>(response: Response, processLine: ProcessLine
   } while (!done);
 };
 
-export async function writeTextClipboard(
-  url: string,
-  callbackOnSuccess: (() => void) | undefined = undefined,
-): Promise<void> {
+export async function writeTextClipboard(url: string, callbackOnSuccess?: () => void): Promise<void> {
   // Ancient browsers may not support `ClipboardItem`
   if (typeof ClipboardItem === 'undefined') {
     const t = await text(url);

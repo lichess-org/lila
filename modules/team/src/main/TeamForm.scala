@@ -10,11 +10,13 @@ import lila.common.Form.{
   into,
   mustNotContainLichess,
   numberIn,
+  tagifyValues,
   given
 }
 import lila.core.captcha.CaptchaApi
 import lila.core.team.Access
 import lila.core.user.FlairApi
+import lila.mon.extensions.*
 import lila.db.dsl.{ *, given }
 
 final private class TeamForm(teamRepo: TeamRepo, captcha: CaptchaApi, flairApi: FlairApi)(using
@@ -30,11 +32,13 @@ final private class TeamForm(teamRepo: TeamRepo, captcha: CaptchaApi, flairApi: 
       Fields.description,
       Fields.descPrivate,
       Fields.request,
+      Fields.chat,
+      Fields.forum,
       "flair" -> flairApi.formField(),
       Fields.gameId,
       Fields.move
     )(TeamSetup.apply)(unapply)
-      .verifying("team:teamAlreadyExists", d => !teamExists(d).await(2.seconds, "teamExists"))
+      .verifying("team:teamAlreadyExists", d => !teamExists(d).await(1.seconds, "teamExists"))
       .verifying(lila.core.captcha.failMessage, captcha.validateSync)
 
   def edit(team: Team)(using Me) = Form(
@@ -92,19 +96,20 @@ final private class TeamForm(teamRepo: TeamRepo, captcha: CaptchaApi, flairApi: 
 
   def createWithCaptcha(using Me) = create -> captcha.any
 
-  val pmAll = Form:
-    single("message" -> cleanTextWithSymbols(minLength = 3, maxLength = 9000))
+  val update = Form:
+    single("message" -> cleanTextWithSymbols(minLength = 3, maxLength = 9_000)).into[Markdown]
 
   val explain = Form:
-    single("explain" -> cleanText(minLength = 3, maxLength = 9000))
+    single("explain" -> cleanText(minLength = 3, maxLength = 4_000))
 
   def members = Form:
-    single("members" -> nonEmptyText)
+    import lila.common.Json.given
+    single("members" -> tagifyValues.field[UserStr, List[UserId]]("value")(_.flatMap(_.validateId)))
 
   val blocklist = Form:
     val sep = "\n"
     single:
-      "names" -> cleanText(maxLength = 9000)
+      "names" -> cleanText(maxLength = 9_000)
         .transform[String](_.split(sep).take(300).toList.flatMap(UserStr.read).mkString(sep), identity)
 
   val searchDeclinedForm: Form[Option[UserStr]] = Form(
@@ -114,7 +119,7 @@ final private class TeamForm(teamRepo: TeamRepo, captcha: CaptchaApi, flairApi: 
   val subscribe = Form(single("subscribe" -> optional(boolean)))
 
   private def teamExists(setup: TeamSetup) =
-    teamRepo.coll.exists($id(Team.nameToId(setup.name)))
+    teamRepo.coll.exists(bid(Team.nameToId(setup.name)))
 
 private case class TeamSetup(
     name: String,
@@ -123,6 +128,8 @@ private case class TeamSetup(
     description: Markdown,
     descPrivate: Option[Markdown],
     request: Boolean,
+    chat: Access,
+    forum: Access,
     flair: Option[Flair],
     gameId: GameId,
     move: String

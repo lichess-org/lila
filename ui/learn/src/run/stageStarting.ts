@@ -1,7 +1,9 @@
+import { h } from 'snabbdom';
+
+import { bind } from 'lib/view';
+
 import { withLinebreaks } from '../util';
 import type { RunCtrl } from './runCtrl';
-import { h } from 'snabbdom';
-import { bind } from 'lib/view';
 
 export default function (ctrl: RunCtrl) {
   return h(
@@ -14,7 +16,7 @@ export default function (ctrl: RunCtrl) {
       h(
         'div.buttons',
         h(
-          'a.next',
+          'button.button',
           {
             key: ctrl.stage.id,
             hook: bind('click', ctrl.hideStartingPane),

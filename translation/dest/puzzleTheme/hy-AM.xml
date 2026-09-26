@@ -44,15 +44,12 @@
   <string name="doubleCheckDescription">Շախ միաժամանակ երկու խաղաքարով՝ բաց հարձակման միջոցով։ Հնարավոր չէ վերցնել երկու գրոհող խաղաքարերը և հնարավոր չէ ծածկվել դրանցից, հետևաբար արքան կարող է միայն հեռանալ շախից։</string>
   <string name="endgame">Վերջնախաղ</string>
   <string name="endgameDescription">Մարտավարություն խաղի վերջնամասում։</string>
-  <string name="enPassantDescription">Մարտավարություն «կողանցիկ հարված» կանոնի կիրառմամբ, որտեղ զինվորը կարող է հարվածել մրցակցի զինվորը, որը առաջին քայլն է կատարել՝ տեղաշարժվելով երկու դաշտ, ընդ որում՝ հատվող դաշտը գտնվում է մրցակցի զինվորի հարվածի տակ, որը կարող է վերցնել այդ զինվորը։</string>
   <string name="exposedKing">Մերկ արքա</string>
   <string name="exposedKingDescription">Անպաշտպան կամ թույլ պաշտպանված արքան հաճախ դառնում է մատային գրոհի զոհը։</string>
   <string name="fork">Պատառաքաղ</string>
-  <string name="forkDescription">Քայլ, որի դեպքում հարվածի տակ է հայտնվում մրցակցի երկու խաղաքար։</string>
   <string name="hangingPiece">Անպաշտպան խաղաքար</string>
   <string name="hangingPieceDescription">Մարտավարություն, որի ժամանակ մրցակցի խաղաքարը պաշտպանված չէ կամ լավ պաշտպանված չէ և կարող է վերցվել։</string>
   <string name="hookMate">Հուք մատ</string>
-  <string name="hookMateDescription">Մատ զինվորով պաշտպանված ձիով և նավակով, ընդ որում` մրցակցի զինվորներից մեկը զբաղեցնում է նրա արքայի նահանջի միակ դաշտը։</string>
   <string name="interference">Ծածկում</string>
   <string name="interferenceDescription">Քայլ, որով ծածկվում է մրցակցի հեռահար խաղաքարերի համագործակցության գիծը, որի արդյունքում այդ խաղաքարերը կամ նրանցից մեկը դառնում են անպաշտպան։ Օրինակ, ձին կանգնում է նավակների միջև գտնվող պաշտպանված վանդակին։</string>
   <string name="intermezzo">Միջանկյալ քայլ</string>
@@ -92,7 +89,6 @@
   <string name="pin">Կապ</string>
   <string name="pinDescription">Կապի օգտագործումով մարտավարություն, երբ խաղաքարը չի կարող քայլել, այլապես գրոհի տակ կհայտնվի նրա հետևում գտնվող ավելի արժեքավոր խաղաքարը։</string>
   <string name="promotion">Վերածում</string>
-  <string name="promotionDescription">Քայլ, որի ժամանակ զինվորը հասնում է վերջին հորիզոնականին և վերածվում նույն գույնի ցանկացած խաղաքարի, բացի արքայից։</string>
   <string name="queenEndgame">Թագուհու վերջնախաղ</string>
   <string name="queenEndgameDescription">Միայն թագուհիներով և զինվորներով վերջնախաղ։</string>
   <string name="queenRookEndgame">Թագուհով և նավակով վերջնախաղ</string>

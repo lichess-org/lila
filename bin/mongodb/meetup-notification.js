@@ -1,7 +1,7 @@
-var sender = 'lichess';
-var threadName = 'Lichess meetup in London, November 24th';
+const sender = 'lichess';
+const threadName = 'Lichess meetup in London, November 24th';
 
-var sent = 0;
+let sent = 0;
 
 db.user4
   .find({
@@ -18,7 +18,7 @@ db.user4
       })
     )
       return;
-    var threadId = Math.random().toString(36).substring(2, 10);
+    const threadId = Math.random().toString(36).substring(2, 10);
     db.notify.insert({
       _id: Math.random().toString(36).substring(2, 10),
       notifies: user._id,

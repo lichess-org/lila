@@ -2,8 +2,8 @@ import { attributesModule, classModule, init } from 'snabbdom';
 
 import Ctrl from './ctrl';
 import type { Env } from './interfaces';
-import { view } from './view';
 import { registerMultipleSelect } from './multipleSelect';
+import { view } from './view';
 
 const patch = init([classModule, attributesModule]);
 
@@ -25,17 +25,4 @@ export function initModule(opts: Env) {
   }
 
   return ctrl;
-}
-
-export function registerFormHandler() {
-  $('form.insight-refresh').on('submit', function (this: HTMLFormElement) {
-    fetch(this.action, {
-      method: 'post',
-      credentials: 'same-origin',
-    }).then(site.reload);
-
-    $(this).replaceWith($(this).find('.crunching').removeClass('none'));
-
-    return false;
-  });
 }

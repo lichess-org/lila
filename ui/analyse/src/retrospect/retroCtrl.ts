@@ -1,11 +1,14 @@
 import { opposite } from '@lichess-org/chessground/util';
-import { evalSwings } from '../nodeFinder';
+
+import { isEmpty, type Prop, prop } from 'lib';
+import { api } from 'lib/api';
 import { winningChances } from 'lib/ceval';
 import { path as treePath } from 'lib/tree/tree';
-import { isEmpty, type Prop, prop } from 'lib';
-import type { OpeningData } from '../explorer/interfaces';
-import type AnalyseCtrl from '../ctrl';
 import type { TreeNode } from 'lib/tree/types';
+
+import type AnalyseCtrl from '../ctrl';
+import type { OpeningData } from '../explorer/interfaces';
+import { evalSwings } from '../nodeFinder';
 
 export interface RetroCtrl {
   isSolving(): boolean;
@@ -57,9 +60,9 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
     if (!site.blindMode) root.redraw();
   }
 
-  function isPlySolved(ply: Ply): boolean {
-    return solvedPlies.includes(ply);
-  }
+  // TODO these functions return false positives for variation plies.
+  const isPlySolved = (ply: Ply): boolean => solvedPlies.includes(ply);
+  const isPlyLearnCandidate = (ply: Ply): boolean => candidateNodes.some(n => n.ply === ply);
 
   function findNextNode(): TreeNode | undefined {
     const colorModulo = color === 'white' ? 1 : 0;
@@ -102,20 +105,23 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
       game.division &&
       (!game.division.middle || fault.node.ply < game.division.middle)
     ) {
-      root.explorer.fetchMasterOpening(prev.node.fen).then((res: OpeningData) => {
-        const cur = current()!;
-        const ucis: Uci[] = [];
-        res.moves.forEach(m => {
-          if (m.white + m.draws + m.black > 1) ucis.push(m.uci);
-        });
-        if (ucis.includes(fault.node.uci!)) {
-          explorerCancelPlies.push(fault.node.ply);
-          setTimeout(jumpToNext, 100);
-        } else {
-          cur.openingUcis = ucis;
-          current(cur);
-        }
-      });
+      root.explorer
+        .fetchMasterOpening(prev.node.fen)
+        .then((res: OpeningData) => {
+          const cur = current()!;
+          const ucis: Uci[] = [];
+          res.moves.forEach(m => {
+            if (m.white + m.draws + m.black > 1) ucis.push(m.uci);
+          });
+          if (ucis.includes(fault.node.uci!)) {
+            explorerCancelPlies.push(fault.node.ply);
+            setTimeout(jumpToNext, 100);
+          } else {
+            cur.openingUcis = ucis;
+            current(cur);
+          }
+        })
+        .catch(() => {});
     }
     root.userJump(prev.path);
     safeRedraw();
@@ -135,10 +141,8 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
       return;
     }
     if (isSolving() && cur.fault.node.ply === node.ply) {
-      if (cur.openingUcis.includes(node.uci!) || node.san?.endsWith('#') || node.comp)
-        onWin(); // found in opening explorer, checkmate ends the game, or comp solution line
-      else if (node.eval)
-        onFail(); // the move that was played in the game
+      if (cur.openingUcis.includes(node.uci!) || node.san?.endsWith('#') || node.comp) onWin(); // found in opening explorer, checkmate ends the game, or comp solution line
+      else if (node.eval) onFail(); // the move that was played in the game
       else {
         feedback('eval');
         checkCeval();
@@ -147,11 +151,13 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
     root.setAutoShapes();
   }
 
-  function isCevalReady(node: TreeNode): boolean {
-    return node.ceval
-      ? node.ceval.depth >= 18 || (node.ceval.depth >= 14 && (node.ceval.millis ?? 0) > 6000)
-      : false;
-  }
+  const isCevalReady = (node: TreeNode): boolean => {
+    if (!node.ceval) return false;
+    return (
+      api.overrides.learnFromMistakesEvalReady?.(structuredClone(node.ceval)) ??
+      Boolean(node.ceval.bestmove || node.ceval.nodes >= 1_000_000 || (node.ceval.millis ?? 0) > 3000)
+    );
+  };
 
   function checkCeval(): void {
     const node = root.node,
@@ -197,20 +203,15 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
     if (current()) solvedPlies.push(current()!.fault.node.ply);
   }
 
-  function hideComputerLine(node: TreeNode): boolean {
-    return (node.ply % 2 === 0) !== (color === 'white') && !isPlySolved(node.ply);
-  }
+  const hideComputerLine = (node: TreeNode): boolean =>
+    isPlyLearnCandidate(node.ply) && !isPlySolved(node.ply);
 
   function showBadNode(): TreeNode | undefined {
     const cur = current();
-    if (cur && isSolving() && cur.prev.path === root.path) return cur.fault.node;
-    return undefined;
+    return cur && isSolving() && cur.prev.path === root.path ? cur.fault.node : undefined;
   }
 
-  function isSolving(): boolean {
-    const fb = feedback();
-    return fb === 'find' || fb === 'fail';
-  }
+  const isSolving = (): boolean => ['find', 'fail'].includes(feedback());
 
   jumpToNext();
 

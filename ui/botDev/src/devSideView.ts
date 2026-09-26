@@ -1,16 +1,18 @@
 import * as co from 'chessops';
-import { type VNode, hl, onInsert, bind, domDialog } from 'lib/view';
-import * as licon from 'lib/licon';
-import { storedBooleanProp, storedIntProp } from 'lib/storage';
-import { EditDialog } from './editDialog';
+
+import { definedMap } from 'lib/algo';
 import { Bot } from 'lib/bot/bot';
+import type { LocalSpeed, LocalSetup } from 'lib/bot/types';
+import { licon, type LiconValue } from 'lib/licon';
+import { storedBooleanProp, storedIntProp } from 'lib/storage';
+import { type VNode, hl, onInsert, bind, domDialog, dataIcon, icon } from 'lib/view';
+
+import { domIdToUid, uidToDomId } from './devBotCtrl';
+import { env } from './devEnv';
 import { resultsString, playersWithResults, rangeTicks } from './devUtil';
+import { EditDialog } from './editDialog';
 import { type Drop, type HandOfCards, handOfCards } from './handOfCards';
 import { showSetupDialog } from './setupDialog';
-import { domIdToUid, uidToDomId } from './devBotCtrl';
-import { definedMap } from 'lib/algo';
-import type { LocalSpeed, LocalSetup } from 'lib/bot/types';
-import { env } from './devEnv';
 
 export function renderDevSide(): VNode {
   return hl('div.dev-side.dev-view', [
@@ -98,16 +100,11 @@ function ratingText(uid: string, speed: LocalSpeed): string {
 
 function ratingSpan(p: Bot): VNode {
   const glicko = env.dev.getRating(p.uid, env.game.speed);
-  return hl('span.stats', [
-    hl('i', { attrs: { 'data-icon': speedIcon(env.game.speed) } }),
-    `${glicko.r}${glicko.rd > 80 ? '?' : ''}`,
-  ]);
+  return hl('span.stats', [icon(speedIcon(env.game.speed))(), `${glicko.r}${glicko.rd > 80 ? '?' : ''}`]);
 }
 
-function speedIcon(speed: LocalSpeed = env.game.speed): string {
+function speedIcon(speed: LocalSpeed = env.game.speed): LiconValue {
   switch (speed) {
-    case 'classical':
-      return licon.Turtle;
     case 'rapid':
       return licon.Rabbit;
     case 'blitz':
@@ -115,8 +112,12 @@ function speedIcon(speed: LocalSpeed = env.game.speed): string {
     case 'bullet':
     case 'ultraBullet':
       return licon.Bullet;
+    case 'classical':
+    default:
+      return licon.Turtle;
   }
 }
+
 async function editBot(color: Color) {
   await new EditDialog(color).show();
   env.redraw();
@@ -189,18 +190,18 @@ function dashboard() {
       hl('button.button.button-metal', { hook: bind('click', () => roundRobin()) }, 'tour'),
       hl('div.spacer'),
       hl('button.button.button-metal', {
-        attrs: { 'data-icon': licon.ShareIos },
+        attrs: dataIcon(licon.ShareIos),
         hook: bind('click', () => report()),
       }),
       hl(`button.board-action.button.button-metal`, {
-        attrs: { 'data-icon': licon.Switch },
+        attrs: dataIcon(licon.Switch),
         hook: bind('click', () => {
           env.game.load({ white: env.bot.uids.black, black: env.bot.uids.white });
           env.redraw();
         }),
       }),
       hl(`button.board-action.button.button-metal`, {
-        attrs: { 'data-icon': licon.Reload },
+        attrs: dataIcon(licon.Reload),
         hook: onInsert(el =>
           el.addEventListener('click', () => {
             env.game.load(undefined);
@@ -218,7 +219,7 @@ function progress() {
     hl('div.results', [
       env.dev.log.length > 0 &&
         hl('button.button.button-empty.button-red.icon-btn.upper-right', {
-          attrs: { 'data-icon': licon.Cancel },
+          attrs: dataIcon(licon.Cancel),
           hook: bind('click', () => {
             env.dev.log = [];
             env.redraw();
@@ -317,13 +318,7 @@ function roundRobin() {
           if (participants.length < 2) return;
           const iterationField = dlg.view.querySelector('input[type="number"]') as HTMLInputElement;
           const iterations = Number(iterationField.value);
-          env.dev.run(
-            {
-              type: 'roundRobin',
-              players: participants,
-            },
-            isNaN(iterations) ? 1 : iterations,
-          );
+          env.dev.run({ type: 'roundRobin', players: participants }, isNaN(iterations) ? 1 : iterations);
           dlg.close();
         },
       },
@@ -338,6 +333,7 @@ function roundRobin() {
       },
     ],
     show: true,
+    easyClose: 'clickOutside',
     modal: true,
   });
 }
@@ -363,7 +359,7 @@ function showBotSelector(clickedEl: HTMLElement) {
 
   document.querySelectorAll<HTMLElement>('main .player')?.forEach(el => {
     const selected = uidToDomId(env.bot[el.dataset.color as Color]?.uid);
-    drops.push({ el: el as HTMLElement, selected });
+    drops.push({ el, selected });
   });
   botSelector = handOfCards({
     viewEl: main,

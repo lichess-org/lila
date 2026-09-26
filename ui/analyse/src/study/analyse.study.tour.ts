@@ -1,8 +1,10 @@
-import type AnalyseCtrl from '../ctrl';
 import Shepherd from 'shepherd.js';
-import type { ChapterTab, StudyTour, Tab } from './interfaces';
+
+import { licon } from 'lib/licon';
 import { pubsub } from 'lib/pubsub';
-import * as licon from 'lib/licon';
+
+import type AnalyseCtrl from '../ctrl';
+import type { ChapterTab, StudyTour, Tab } from './interfaces';
 
 export function initModule(): StudyTour {
   return {
@@ -10,8 +12,8 @@ export function initModule(): StudyTour {
     chapter,
   };
 
-  function iconTag(i: string) {
-    return `<i data-icon='${i}'></i>`;
+  function iconI18nTag(i: string) {
+    return `<icon data-icon='${i}'></icon>`;
   }
 
   function study(ctrl: AnalyseCtrl) {
@@ -47,7 +49,7 @@ export function initModule(): StudyTour {
       },
       {
         title: i18n.study.studyMembersTitle,
-        text: i18n.study.studyMembersText(iconTag(licon.Eye), iconTag(licon.User)),
+        text: i18n.study.studyMembersText(iconI18nTag(licon.Eye), iconI18nTag(licon.User)),
         attachTo: { element: '.study__members', on: 'right' },
         when: onTab('members'),
       },
@@ -56,7 +58,7 @@ export function initModule(): StudyTour {
     if (ctrl.study?.members.isOwner()) {
       steps.push({
         title: i18n.study.addMembers,
-        text: i18n.study.addMembersText(iconTag(licon.PlusButton)),
+        text: i18n.study.addMembersText(iconI18nTag(licon.PlusButton)),
         attachTo: { element: '.study__members .add', on: 'right' },
         when: onTab('members'),
       });
@@ -70,16 +72,18 @@ export function initModule(): StudyTour {
     });
 
     if (ctrl.study?.members.canContribute()) {
-      steps.push({
-        title: i18n.study.commentPositionTitle,
-        text: i18n.study.commentPositionText(iconTag(licon.BubbleSpeech)),
-        attachTo: { element: '.study__buttons .left-buttons .comments', on: 'top' },
-      });
-      steps.push({
-        title: i18n.study.annotatePositionTitle,
-        text: i18n.study.annotatePositionText,
-        attachTo: { element: '.study__buttons .left-buttons .glyphs', on: 'top' },
-      });
+      steps.push(
+        {
+          title: i18n.study.commentPositionTitle,
+          text: i18n.study.commentPositionText(iconI18nTag(licon.BubbleSpeech)),
+          attachTo: { element: '.study__buttons .left-buttons .comments', on: 'top' },
+        },
+        {
+          title: i18n.study.annotatePositionTitle,
+          text: i18n.study.annotatePositionText,
+          attachTo: { element: '.study__buttons .left-buttons .glyphs', on: 'top' },
+        },
+      );
     }
 
     steps.push({
@@ -88,7 +92,7 @@ export function initModule(): StudyTour {
       attachTo: { element: helpButtonSelector, on: 'top' },
       buttons: [
         {
-          text: iconTag(licon.Checkmark),
+          text: iconI18nTag(licon.Checkmark),
           action: tourCtrl.tour.next,
         },
       ],
@@ -125,8 +129,8 @@ export function initModule(): StudyTour {
         when: onTab('edit'),
       },
       {
-        title: i18n.study.loadExistingLichessGameTitle,
-        text: i18n.study.loadExistingLichessGameText,
+        title: i18n.study.loadGameFromTheWebTitle,
+        text: i18n.study.loadGameFromTheWebText,
         attachTo: { element: `${viewSel} .tabs-horiz .game`, on: 'top' },
         when: onTab('game'),
       },
@@ -153,7 +157,7 @@ export function initModule(): StudyTour {
         text: i18n.study.chapterConclusionText,
         buttons: [
           {
-            text: iconTag(licon.Checkmark),
+            text: iconI18nTag(licon.Checkmark),
             action: tourCtrl.tour.next,
           },
         ],

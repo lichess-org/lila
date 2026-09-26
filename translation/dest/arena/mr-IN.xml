@@ -26,7 +26,6 @@
   <string name="howIsTheWinnerDecidedAnswer">स्पर्धेच्या निर्धारित मुदतीच्या समाप्तीच्या वेळी सर्वाधिक गुण असणारा खेळाडू विजेता घोषित केला जाईल.
 
 जेव्हा दोन किंवा अधिक खेळाडूंचे गुण समान असतात, तेव्हा स्पर्धेतील कामगिरी टाय ब्रेक होते.</string>
-  <string name="howDoesPairingWork">जोड्या कश्या ठरवल्या जातात?</string>
   <string name="howDoesPairingWorkAnswer">स्पर्धेच्या सुरूवातीला, खेळाडूंच्या मानांकनाच्या आधारे जोड्या तयार करतात.
 एखादा खेळ संपताच, स्पर्धेच्या लॉबीकडे परत या: त्यानंतर आपल्यास आपल्या क्रमवारीच्या जवळच्या खेळाडूसह जोडले जाईल. यामुळे पुढच्या खेळासाठी जास्त वेळ प्रतीक्षा करावी लागत नाही, तथापि आपण स्पर्धेत इतर सर्व खेळाडूंना सामोरे जाऊ शकत नाही.
 अधिक खेळ खेळण्यासाठी आणि अधिक गुण जिंकण्यासाठी जलद खेळा आणि लॉबीवर परत या.</string>
@@ -64,7 +63,6 @@
   <string name="myTournaments">माझ्या स्पर्धा</string>
   <string name="editTournament">आखाड्यात संपादने आणा</string>
   <string name="editTeamBattle">सांघिक लढाईत संपादने आणा</string>
-  <string name="defender">रक्षक</string>
   <string name="pickYourTeam">तुमचा संघ निवडा</string>
   <string name="whichTeamWillYouRepresentInThisBattle">तुम्ही ह्या लढाईत कोणत्या संघाच्या बाजूने खेळाल?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">तुम्हाला खेळण्यासाठी ह्यांमधून एका संघाला निवडावे लागेल!</string>
@@ -72,10 +70,6 @@
   <string name="recentlyPlayed">नुकतेच खेळले गेले</string>
   <string name="bestResults">सर्वोत्तम निकाल</string>
   <string name="tournamentStats">आखाड्याची आकडेवारी</string>
-  <string name="rankAvgHelp">पदांची सरासरी तुमच्या पदाचा काही टक्का आहे.
-जेवढे कमी असेल तेवढे चांगले.
-
-उदाहरण, एका आखाड्यात 100 लोकांमधून जर तुमचे 3rd स्थान आले तर सरासरी = 3%. एका आखाड्यात 1000 लोकांमधून जर तुमचे 10th स्थान आले तर सरासरी = 1%.</string>
   <string name="medians">मध्यवर्ती</string>
   <string name="allAveragesAreX">ह्या पानावरचे सर्व सरासरी %s आहेत.</string>
   <string name="total">एकूण</string>

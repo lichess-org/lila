@@ -1,4 +1,4 @@
-import type { FideId, PointsStr } from '../interfaces';
+import type { Federation, FideId, PointsStr } from '../interfaces';
 import type { RelayPlayer } from './relayPlayers';
 
 export interface RelayData {
@@ -15,9 +15,7 @@ export interface RelayData {
   photos: Photos;
 }
 
-export interface Photos {
-  [id: FideId]: Photo;
-}
+export type Photos = Record<FideId, Photo>;
 
 export interface Photo {
   small: string;
@@ -26,12 +24,13 @@ export interface Photo {
 }
 
 export interface RelayGroup {
-  id: string;
+  id: GroupId;
   slug: string;
   name: string;
   tours: RelayTourPreview[];
 }
 
+export type GroupId = string;
 export type TourId = string;
 export type RoundId = string;
 
@@ -54,7 +53,7 @@ export interface RelayRound {
   name: string;
   slug: string;
   url: string;
-  finished?: boolean;
+  finishedAt?: number;
   ongoing?: boolean;
   startsAt?: number;
   startsAfterPrevious?: boolean;
@@ -67,11 +66,12 @@ export type StatByFideTC = Record<FideTC, number>;
 export interface RelayTourInfo {
   format?: string;
   tc?: string;
-  fideTc?: FideTC;
+  fideTC?: FideTC;
   location?: string;
   players?: string;
   website?: string;
   standings?: string;
+  regulations?: string;
 }
 
 export type RelayTourDates = [number] | [number, number];
@@ -120,13 +120,17 @@ export interface POVTeamMatch {
 
 export type RelayTeamName = string;
 
-export interface RelayTeamStandingsEntry {
+export interface RelayTeamStandingsFromServer {
   name: RelayTeamName;
   mp: number;
   gp: number;
   matches: POVTeamMatch[];
   players: RelayPlayer[];
   averageRating?: number;
+}
+
+export interface RelayTeamStandingsEntry extends RelayTeamStandingsFromServer {
+  fed?: Federation;
 }
 
 export type RelayTeamStandings = RelayTeamStandingsEntry[];

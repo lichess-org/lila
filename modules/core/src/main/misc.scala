@@ -1,16 +1,12 @@
 package lila.core
 package misc
 
+import play.api.i18n.Lang
 import scalalib.data.LazyFu
-import lila.core.id.{ GameId, ClasId }
+
+import lila.core.id.{ GameId, ClasId, PuzzleId }
 import lila.core.userId.*
 import lila.core.user.Me
-
-trait AtInstant[A]:
-  def apply(a: A): Instant
-  extension (a: A) inline def atInstant: Instant = apply(a)
-object AtInstant:
-  given atInstantOrdering: [A: AtInstant] => Ordering[A] = Ordering.by[A, Instant](_.atInstant)
 
 package streamer:
   case class StreamStart(userId: UserId, streamerName: String)
@@ -34,6 +30,8 @@ package puzzle:
   case class RacerRun(userId: UserId, score: Int)
 
   case class StreakRun(userId: UserId, score: Int)
+
+  case class DailyChange(id: PuzzleId)
 
 package lpv:
   import _root_.chess.format.pgn.PgnStr
@@ -70,3 +68,13 @@ type BookmarkExists = (game.Game, Option[userId.UserId]) => Fu[Boolean]
 package practice:
   import lila.core.id.{ StudyId, StudyChapterId }
   case class OnComplete(userId: UserId, studyId: StudyId, chapterId: StudyChapterId)
+
+case class AuthCustomUi(name: String, imagePath: String, cssClass: String, lang: Lang)
+
+enum AppealTopic:
+  case cheat, boost, close, comm, rank, arena, prize, report, play, chat, blog, streamer, warning, legacy
+  def key = toString
+object AppealTopic:
+  def byKey = values.mapBy(_.toString)
+
+type AppealPresetTag = AppealTopic | "any" | "none"

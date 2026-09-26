@@ -1,3 +1,5 @@
+import type { LiconValue } from 'lib/licon';
+
 export interface StandingPlayer extends SimplePlayer {
   id: string;
   withdraw?: boolean;
@@ -68,7 +70,7 @@ export interface TournamentData {
   defender?: string;
   spotlight?: {
     iconImg: string;
-    iconFont: string;
+    iconFont: LiconValue;
   };
   schedule?: {
     freq: 'shield' | 'marathon';
@@ -111,13 +113,10 @@ export interface FeaturedGame {
   winner?: Color;
 }
 
-export interface SimplePlayer {
-  name: string;
+export interface SimplePlayer extends LightUserNoId {
   rating: number;
-  title?: string;
-  flair?: string;
   provisional?: boolean;
-  patronColor?: PatronColor;
+  realName?: string;
 }
 
 interface FeaturedPlayer extends SimplePlayer {
@@ -130,9 +129,7 @@ type TeamFlair = string;
 export type LightTeam = [TeamName, TeamFlair?];
 
 export interface TeamBattle {
-  teams: {
-    [id: string]: LightTeam;
-  };
+  teams: Record<string, LightTeam>;
   joinWith: string[];
   hasMoreThanTenTeams?: boolean;
 }
@@ -153,9 +150,7 @@ export interface TeamPlayer {
 
 export type Page = StandingPlayer[];
 
-export interface Pages {
-  [n: number]: Page;
-}
+export type Pages = Record<number, Page>;
 
 export interface Player extends SimplePlayer {
   id: string;
@@ -217,29 +212,18 @@ export interface DuelPlayer {
   t?: string; // title
 }
 
-export interface DuelTeams {
-  [userId: string]: string;
-}
+export type DuelTeams = Record<string, string>;
 
 export interface PodiumPlayer extends LightUser {
   performance?: number;
   nb: Nb;
+  realName?: string;
 }
 
 export interface Nb {
   game: number;
   win: number;
   berserk: number;
-}
-
-export interface Pagination {
-  currentPage: number;
-  maxPerPage: number;
-  from: number;
-  to: number;
-  currentPageResults: Page;
-  nbResults: number;
-  nbPages: number;
 }
 
 export interface Tournament {

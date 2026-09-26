@@ -25,7 +25,6 @@
   <string name="cantChangeMore">Vi kan inte ändra mer än shiftläget. Av tekniska skäl är det rent ut sagt omöjligt.</string>
   <string name="orCloseAccount">Du kan dock stänga ditt nuvarande konto och skapa ett nytt.</string>
   <string name="wantClearHistory">Jag vill rensa min historik eller rating</string>
-  <string name="cantClearHistory">Det är inte möjligt att rensa din partihistorik, historik för schackproblem eller rating.</string>
   <string name="wantReport">Jag vill rapportera en spelare</string>
   <string name="toReportAPlayerUseForm">Använd rapportformuläret för att rapportera en spelare</string>
   <string name="youCanAlsoReachReportPage">Du kan också nå den sidan genom att klicka på knappen %s rapportera på en profilsida.</string>
@@ -39,7 +38,7 @@
   <string name="reportMobileIssue">Som ett Lichess-mobilappärende på GitHub</string>
   <string name="reportBugInDiscord">På Lichess Discord-server</string>
   <string name="howToReportBug">Var vänlig, beskriv hur felet ser ut, vad du förväntade dig att hända istället, och stegen för att reproducera felet.</string>
-  <string name="illegalPawnCapture" comment="Appears as an option for reasons to contact Lichess on the 'contact' page: https://lichess.org/contact#help-enpassant&#10;&#10;Players used to routinely write to Lichess stating that there was a bug, or that the other player had hacked their game in some way. In actuality, the player was using the legal move of en passant.&#10;&#10;Please translate this string from the perspective of the player who would be selecting this contact option, and call it 'Illegal', even though we know this is a legal move.">Otillåtet bondeslag</string>
+  <string name="illegalPawnCapture">Otillåtet bondeslag</string>
   <string name="calledEnPassant">Det kallas \"en passant\" och är en av schackreglerna.</string>
   <string name="tryEnPassant">Prova detta lilla interaktiva spel för att lära dig mer om \"en passant\".</string>
   <string name="illegalCastling">Otillåten eller omöjlig rockad</string>
@@ -74,4 +73,6 @@
   <string name="noneOfTheAbove">Inget av ovanstående</string>
   <string name="sendEmailAt">Skicka ett mejl till oss på %s.</string>
   <string name="explainYourRequest">Vänligen förklara din begäran tydligt och grundligt. Ange ditt Lichess-användarnamn och annan information som kan hjälpa oss att hjälpa dig.</string>
+  <string name="monetiseEncourageEveryoneTo" comment="string is value of key monetiseBlockAllAdsAndTrackers">Vi uppmuntrar alla att %s.</string>
+  <string name="ourDiscordServer">vår Discord-server</string>
 </resources>

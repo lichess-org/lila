@@ -1,10 +1,10 @@
+import { extractHashParameters } from './hashRouting';
 import type { LearnProgress, LearnOpts } from './learn';
-import { type Stage, byId as stageById } from './stage/list';
+import { RunCtrl } from './run/runCtrl';
 import { gtz } from './score';
 import { SideCtrl } from './sideCtrl';
+import { type Stage, byId as stageById } from './stage/list';
 import { clearTimeouts } from './timeouts';
-import { extractHashParameters } from './hashRouting';
-import { RunCtrl } from './run/runCtrl';
 
 export class LearnCtrl {
   data: LearnProgress = this.opts.storage.data;
@@ -39,9 +39,9 @@ export class LearnCtrl {
       levelId ||
       // otherwise find a level id based on the last completed level
       (() => {
-        if (!stageId) return;
+        if (!stageId) return null;
         const stage = stageById[stageId];
-        if (!stage) return;
+        if (!stage) return null;
         const result = this.data.stages[stage.key];
         let it = 0;
         if (result) while (result.scores[it]) it++;

@@ -10,9 +10,13 @@ import {
   type PointStyle,
   Tooltip,
 } from 'chart.js';
+import { COLORS } from 'chessops';
+
+import { pubsub } from 'lib/pubsub';
+
+import division from './division';
 import {
   type MovePoint,
-  animation,
   blackFill,
   fontColor,
   fontFamily,
@@ -25,9 +29,6 @@ import {
   axisOpts,
 } from './index';
 import type { AnalyseData, Player, PlyChart } from './interface';
-import division from './division';
-import { pubsub } from 'lib/pubsub';
-import { COLORS } from 'chessops';
 
 Chart.register(LineController, LinearScale, PointElement, LineElement, Tooltip, BarElement, BarController);
 
@@ -39,8 +40,9 @@ export default async function (
   const possibleChart = maybeChart(el);
   if (possibleChart) return possibleChart as PlyChart;
   const moveCentis = data.game.moveCentis;
-  if (!moveCentis) return; // imported games
+  if (!moveCentis) return undefined; // imported games
   type PlotSeries = { white: MovePoint[]; black: MovePoint[] };
+  type MovetimeDataset = ChartDataset<'line'> | ChartDataset<'bar', MovePoint[]>;
   const moveSeries: PlotSeries = {
     white: [],
     black: [],
@@ -49,14 +51,14 @@ export default async function (
     white: [],
     black: [],
   };
-  const labels: string[] = [];
+  const labels: { title: string; label: string[] }[] = [];
   const blueLineColor = '#3893e8';
   const pointStyles: { white: PointStyle[]; black: PointStyle[] } = { white: [], black: [] };
   const pointRadius: { white: number[]; black: number[] } = { white: [], black: [] };
 
   const tree = data.treeParts;
   const firstPly = tree[0].ply;
-  for (let i = 0; i <= firstPly; i++) labels.push('');
+  for (let i = 0; i <= firstPly; i++) labels.push({ title: '', label: [''] });
   const showTotal = !hunter;
 
   const logC = Math.pow(Math.log(3), 2);
@@ -78,7 +80,7 @@ export default async function (
     const colorName = color ? 'white' : 'black';
 
     const y = Math.pow(Math.log(0.005 * Math.min(centis, 12e4) + 3), 2) - logC;
-    let label = turn + (color ? '. ' : '... ') + san;
+    let title = turn + (color ? '. ' : '... ') + san;
     const movePoint: MovePoint = {
       x: node ? node.ply : tree[x].ply + 1,
       y: color ? y : -y,
@@ -87,14 +89,14 @@ export default async function (
     if (blurs[color].shift() === '1') {
       pointStyles[colorName].push('rect');
       pointRadius[colorName].push(4.5);
-      label += ' [blur]';
+      title += ' [blur]';
     } else {
       pointStyles[colorName].push('circle');
       pointRadius[colorName].push(0);
     }
 
     const seconds = (centis / 100).toFixed(centis >= 200 ? 1 : 2);
-    label += '\n' + i18n.site.nbSeconds(Number(seconds));
+    const label = [i18n.site.nbSeconds(Number(seconds))];
     moveSeries[colorName].push(movePoint);
 
     let clock = node ? node.clock : undefined;
@@ -106,13 +108,13 @@ export default async function (
       }
     }
     if (clock) {
-      label += '\n' + formatClock(clock);
+      label.push(`${i18n.site.clock}: ${formatClock(clock)}`);
       totalSeries[colorName].push({
         x: node ? node.ply : tree[x].ply + 1,
         y: color ? clock : -clock,
       });
     }
-    labels.push(label);
+    labels.push({ title, label });
   });
 
   const colorSeriesMax = (series: PlotSeries) =>
@@ -120,7 +122,7 @@ export default async function (
   const totalSeriesMax = colorSeriesMax(totalSeries);
   const moveSeriesMax = colorSeriesMax(moveSeries);
 
-  const lineBuilder = (series: PlotSeries, moveSeries: boolean): ChartDataset[] =>
+  const lineBuilder = (series: PlotSeries, moveSeries: boolean): ChartDataset<'line'>[] =>
     COLORS.map(color => ({
       type: 'line',
       data: series[color].map(point => ({
@@ -137,14 +139,14 @@ export default async function (
       pointStyle: moveSeries && !showTotal ? pointStyles[color] : undefined,
       fill: {
         target: 'origin',
-        above: moveSeries ? whiteFill : 'rgba(153, 153, 153, .3)',
-        below: moveSeries ? blackFill : 'rgba(0,0,0,0.3)',
+        above: moveSeries ? whiteFill : 'rgb(153 153 153 / 0.3)',
+        below: moveSeries ? blackFill : 'rgb(0 0 0 / 0.3)',
       },
       order: moveSeries ? 2 : 1,
       datalabels: { display: false },
     }));
 
-  const moveSeriesSet: ChartDataset[] = showTotal
+  const moveSeriesSet: MovetimeDataset[] = showTotal
     ? COLORS.map(color => ({
         type: 'bar',
         data: moveSeries[color].map(point => ({ x: point.x, y: point.y / moveSeriesMax })),
@@ -159,7 +161,7 @@ export default async function (
       }))
     : lineBuilder(moveSeries, true);
   const divisionLines = division(data.game.division);
-  const datasets: ChartDataset[] = [...moveSeriesSet];
+  const datasets: MovetimeDataset[] = [...moveSeriesSet];
   if (showTotal) datasets.push(...lineBuilder(totalSeries, false));
   datasets.push(plyLine(firstPly), ...divisionLines);
 
@@ -169,17 +171,17 @@ export default async function (
      * Side effect: makes the chart smaller than the canvas area.
      */,
     data: {
-      labels: labels,
-      datasets: datasets,
+      labels,
+      datasets: datasets as ChartDataset[],
     },
     options: {
       maintainAspectRatio: false,
       responsive: true,
-      animations: animation(800 / labels.length - 1),
+      animation: false,
       scales: axisOpts(
         firstPly + 1,
         // Omit game-ending action to sync acpl and movetime charts
-        labels.length - (labels[labels.length - 1].includes('-') ? 1 : 0),
+        labels.length - (labels[labels.length - 1].title.includes('-') ? 1 : 0),
       ),
       plugins: {
         tooltip: {
@@ -187,13 +189,22 @@ export default async function (
           borderWidth: 1,
           backgroundColor: tooltipBgColor,
           caretPadding: 15,
+          bodyColor: fontColor,
           titleColor: fontColor,
-          titleFont: fontFamily(13),
+          titleFont: fontFamily(14, 'bold'),
+          bodyFont: fontFamily(13),
           displayColors: false,
           callbacks: {
-            title: items =>
-              labels[items[0].dataset.label === 'bar' ? items[0].parsed.x * 2 : items[0].parsed.x],
-            label: () => '',
+            title: items => {
+              if (!items[0].parsed.x) return undefined;
+              const index = items[0].dataset.label === 'bar' ? items[0].parsed.x * 2 : items[0].parsed.x;
+              return index ? labels[index].title : '';
+            },
+            label: item => {
+              if (!item.parsed.x) return undefined;
+              const index = item.dataset.label === 'bar' ? item.parsed.x * 2 : item.parsed.x;
+              return item.parsed.x ? labels[index].label : '';
+            },
           },
         },
       },
@@ -222,8 +233,7 @@ const addGameDuration = (el: HTMLCanvasElement, moveCentis: number[]) => {
   label.text(i18n.site.duration + ' ' + formatClock(duration));
 };
 
-const toBlurArray = (player: Player) =>
-  player.blurs && player.blurs.bits ? player.blurs.bits.split('') : [];
+const toBlurArray = (player: Player) => (player.blurs?.bits ? player.blurs.bits.split('') : []);
 
 const formatClock = (centis: number) => {
   let result = '';

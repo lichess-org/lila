@@ -43,7 +43,7 @@
   <string name="moveConfirmation">Potvrzení tahu</string>
   <string name="explainCanThenBeTemporarilyDisabled">Může být zakázáno během hry v menu šachovnice</string>
   <string name="inCorrespondenceGames">V korespondenčním šachu</string>
-  <string name="correspondenceAndUnlimited">Korespondeční a bez limitu</string>
+  <string name="correspondenceAndUnlimited">Korespondenční a bez limitu</string>
   <string name="confirmResignationAndDrawOffers">Potvrzovat rezignaci a nabídku remízy</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Způsob provádění rošády</string>
   <string name="castleByMovingTwoSquares">Pohnout králem o dvě pole</string>
@@ -56,12 +56,13 @@
   <string name="scrollOnTheBoardToReplayMoves">Rolováním na šachovnici přehrát tahy</string>
   <string name="correspondenceEmailNotification">Denní e-mailové oznámení se seznamem vašich korespondenčních her</string>
   <string name="notifyStreamStart">Streamer vysílá živě</string>
-  <string name="notifyInboxMsg">Nová zpráva</string>
-  <string name="notifyForumMention">Komentář ve fóru Vás zmiňuje</string>
-  <string name="notifyInvitedStudy">Pozvánka do studie</string>
+  <string name="notifyDirectMessage" comment="notifyInboxMsg&#10;&#10;A notification setting - notifies players when they receive a new message in their Lichess inbox">Nová zpráva</string>
+  <string name="notifyForumMentions" comment="notifyForumMention&#10;&#10; A notification setting - notifies players when someone has @mentioned their name in the Lichess Forum (https://lichess.org/forum)">Zmínka ve fóru</string>
+  <string name="notifyStudyInvites" comment="notifyInvitedStudy&#10;&#10; A notification setting - notifies players about invites to studies (https://lichess.org/study/)">Pozvánky do studie</string>
   <string name="notifyGameEvent">Aktualizace korespondenční hry</string>
   <string name="notifyChallenge">Výzvy</string>
-  <string name="notifyTournamentSoon">Turnaj brzy začne</string>
+  <string name="notifyTournamentStartReminders" comment="notifyTournamentSoon&#10;&#10;A notification setting - notifies players if a tournament is starting soon.">Připomenutí začátku turnaje</string>
+  <string name="notifyBroadcasts">Vysílání</string>
   <string name="notifyTimeAlarm">Dochází čas na korespondenčních hodinách</string>
   <string name="notifyBell">Zvuková upozornění na Lichess</string>
   <string name="notifyPush">Oznámení zařízení, když nejste na Lichess</string>
@@ -69,4 +70,22 @@
   <string name="notifyDevice">Zařízení</string>
   <string name="bellNotificationSound">Typ zvukového upozornění</string>
   <string name="blindfold" comment="As in Blindfold chess">Páska přes oči</string>
+  <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">Zobrazit vlevo na mobilních zařízeních</string>
+  <string name="inlineNotation">Řádková notace</string>
+  <string name="showServerAnalysis">Zobrazit serverovou analýzu</string>
+  <string name="showBestMoveArrows">Zobrazit šipky nejlepšího tahu</string>
+  <string name="showManeuverArrows">Zobrazit šipky manévru</string>
+  <string name="showGauge">Zobrazit měřítko hodnocení</string>
+  <string name="showMoveAnnotationsOnBoard">Zobrazit anotace tahů</string>
+  <string name="showVariationArrows">Zobrazit šipky variant</string>
+  <string name="showLiveGlyphs">Živé anotace od počítače</string>
+  <string name="showUndefendedPieces">Zobrazit nebráněné figury</string>
+  <string name="showPinnedPieces">Zobrazit „připnuté“ figury</string>
+  <string name="showCheckableKing">Zobrazit krále v šachu</string>
+  <string name="disclosureMode">Povolit skrývání variant</string>
+  <string name="generalSettings">Obecné</string>
+  <string name="moveListSettings">Seznam tahů</string>
+  <string name="boardSettings">Šachovnice</string>
+  <string name="analysisSettings">Nastavení analýzy</string>
+  <string name="hoverOverSettingLabelsForHelp">Najeďte kurzorem na popisky nastavení pro zobrazení nápovědy</string>
 </resources>

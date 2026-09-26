@@ -1,10 +1,11 @@
 package lila.study
 
-import chess.format.{ Fen, UciPath }
+import chess.format.{ Fen, Uci, UciPath }
 import chess.format.pgn.{ Parser, Tags, Comment as CommentStr }
+import chess.variant.Variant
 
 import lila.tree.Node.Comment
-import lila.tree.{ Branch, Node, Root }
+import lila.tree.{ Branch, Branches, Node, Root }
 
 final private class ExplorerGameApi(
     explorer: lila.core.game.Explorer,
@@ -12,6 +13,8 @@ final private class ExplorerGameApi(
     lightUserApi: lila.core.user.LightUserApi,
     net: lila.core.config.NetConfig
 )(using Executor):
+
+  import ExplorerGameApi.*
 
   def quote(gameId: GameId): Fu[Option[Comment]] =
     explorer(gameId).map2(gameComment)
@@ -30,36 +33,19 @@ final private class ExplorerGameApi(
                 path = UciPath.fromIds(root.mainline.map(_.id))
               )
             .so: gameRoot =>
-              merge(fromNode, position.path, gameRoot).flatMap { (newNode, path) =>
+              val variant = position.chapter.setup.variant
+              merge(fromNode, position.path, gameRoot, variant, gameId).flatMap { (newNode, path) =>
                 position.chapter.addNode(newNode, path).map(_ -> path)
               }
-
-  private def compareFens(a: Fen.Full, b: Fen.Full, strict: Boolean) =
-    if strict then a == b else a.simple == b.simple
-
-  private def gameNodes(fromNode: Node, game: Root, firstTry: Boolean): List[Branch] =
-    if compareFens(fromNode.fen, game.fen, firstTry) then game.mainline
-    else
-      val nodes = game.mainline.dropWhile(n => !compareFens(n.fen, fromNode.fen, firstTry))
-      if nodes.nonEmpty || !firstTry then nodes.drop(1) else gameNodes(fromNode, game, false)
-
-  private def merge(fromNode: Node, fromPath: UciPath, game: Root): Option[(Branch, UciPath)] =
-    val (path, foundGameNode) = gameNodes(fromNode, game, true).foldLeft((UciPath.root, none[Branch])):
-      case ((path, None), gameNode) =>
-        val nextPath = path + gameNode.id
-        if fromNode.children.nodeAt(nextPath).isDefined then (nextPath, none)
-        else (path, gameNode.some)
-      case (found, _) => found
-    foundGameNode.map { _ -> fromPath.+(path) }
 
   private def gameComment(game: Game) =
     Comment(
       id = Comment.Id.make,
-      text = CommentStr(s"${gameTitle(game)}, ${gameUrl(game)}"),
+      text = CommentStr(s"${gameTitle(game)}, ${gameUrl(game.id)}"),
       by = Comment.Author.Lichess
     )
 
-  private def gameUrl(game: Game) = s"${net.baseUrl}/${game.id}"
+  private def gameUrl(gameId: GameId) = s"${net.baseUrl}/$gameId"
 
   private def gameTitle(g: Game): String =
     val tags = g.pgnImport.flatMap(pgni => Parser.tags(pgni.pgn).toOption).getOrElse(Tags.empty)
@@ -75,3 +61,55 @@ final private class ExplorerGameApi(
         case (Some(event), Some(year)) => s"$event, $year".some
         case (eventO, yearO) => eventO.orElse(yearO)
     s"$white - $black, $result, ${event | "-"}"
+
+private object ExplorerGameApi:
+
+  def merge(
+      fromNode: Node,
+      fromPath: UciPath,
+      game: Root,
+      variant: Variant,
+      gameId: GameId
+  ): Option[(Branch, UciPath)] =
+    @annotation.tailrec
+    def dropKnown(parent: Node, path: UciPath, nodes: List[Branch]): (Node, UciPath, List[Branch]) =
+      nodes match
+        case gameNode :: rest =>
+          parent.children.get(gameNode.id) match
+            case Some(child) => dropKnown(child, path + gameNode.id, rest)
+            case None => (parent, path, nodes)
+        case Nil => (parent, path, nodes)
+    val (parent, path, newNodes) = dropKnown(fromNode, UciPath.root, gameNodes(fromNode, game))
+    replay(parent, newNodes, variant, gameId).map { _ -> fromPath.+(path) }
+
+  private def replay(parent: Node, nodes: List[Branch], variant: Variant, gameId: GameId): Option[Branch] =
+    val setup = chess.Position.AndFullMoveNumber(variant, parent.fen)
+    val sources = nodes.toVector
+    val (result, error) = setup.position.foldRight(nodes.map(_.move.uci), parent.ply)(
+      none[Branch],
+      (step, acc) =>
+        val source = sources((step.ply - parent.ply - 1).value)
+        inline def branch = makeBranch(source, step.move, step.ply)
+        acc.fold(branch)(branch.prependChildUnchecked).some
+    )
+    error.foreach: err =>
+      logger.warn(s"ExplorerGame replay /$gameId ${err.value}")
+    result
+
+  private def gameNodes(fromNode: Node, game: Root): List[Branch] =
+    val mainline = game.mainline
+    mainline.lastIndexWhere(n => compareFens(n.fen, fromNode.fen, false)) match
+      case -1 => if compareFens(game.fen, fromNode.fen, false) then mainline else Nil
+      case i => mainline.drop(i + 1)
+
+  private def compareFens(a: Fen.Full, b: Fen.Full, strict: Boolean) =
+    if strict then a == b else a.simple == b.simple
+
+  private def makeBranch(source: Branch, move: chess.MoveOrDrop, ply: chess.Ply): Branch =
+    source.copy(
+      ply = ply,
+      move = Uci.WithSan(move.toUci, move.toSanStr),
+      fen = Fen.write(move.after, ply.fullMoveNumber),
+      crazyData = move.after.crazyData,
+      children = Branches.empty
+    )

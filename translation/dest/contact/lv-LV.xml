@@ -25,7 +25,6 @@
   <string name="cantChangeMore">Nevaram mainīt vairāk kā tikai lielumu. Tehnisku iemeslu dēļ, tas ir pilnīgi neiespējami.</string>
   <string name="orCloseAccount">Taču varat slēgt pašreizējo kontu un atvērt jaunu.</string>
   <string name="wantClearHistory">Vēlos notīrīt savu vēsturi vai reitingu</string>
-  <string name="cantClearHistory">Nav iespējams notīrīt spēļu vēsturi, uzdevumu vēsturi vai reitingus.</string>
   <string name="wantReport">Vēlos ziņot par spēlētāju</string>
   <string name="toReportAPlayerUseForm">Lai ziņotu par spēlētāju, aizpildiet ziņošanas veidlapu</string>
   <string name="youCanAlsoReachReportPage">Varat arī nonākt tajā lapā, klikšķinot uz %s pogas \"ziņot\" profila lapā.</string>
@@ -39,7 +38,7 @@
   <string name="reportMobileIssue">Kā Lichess mobilās aplikācijas kļūdu platformā GitHub</string>
   <string name="reportBugInDiscord">Lichess Discord serverī</string>
   <string name="howToReportBug">Lūdzu aprakstiet, kā izpaužas kļūda, ko jūs tā vietā sagaidījāt un soļus, kas jāveic, lai atkārtotu kļūdu.</string>
-  <string name="illegalPawnCapture" comment="Appears as an option for reasons to contact Lichess on the 'contact' page: https://lichess.org/contact#help-enpassant&#10;&#10;Players used to routinely write to Lichess stating that there was a bug, or that the other player had hacked their game in some way. In actuality, the player was using the legal move of en passant.&#10;&#10;Please translate this string from the perspective of the player who would be selecting this contact option, and call it 'Illegal', even though we know this is a legal move.">Nelegāls bandinieka sitiens</string>
+  <string name="illegalPawnCapture">Nelegāls bandinieka sitiens</string>
   <string name="calledEnPassant">Tas ir viens no šaha noteikumiem, ko sauc \"en passant\".</string>
   <string name="tryEnPassant">Pamēģiniet šo nelielo interaktīvo spēli, lai uzzinātu vairāk par \"en passant\".</string>
   <string name="illegalCastling">Nelegāla vai neiespējama rokāde</string>

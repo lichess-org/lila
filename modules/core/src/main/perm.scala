@@ -52,7 +52,8 @@ enum Permission(val key: String, val alsoGrants: List[Permission], val name: Str
   case MarkEngine extends Permission("ADJUST_CHEATER", List(UserModView), "Mark as cheater")
   case MarkBooster extends Permission("ADJUST_BOOSTER", List(UserModView), "Mark as booster")
   case ViewPrintNoIP extends Permission("VIEW_PRINT_NOIP", "View Print & NoIP")
-  case IpBan extends Permission("IP_BAN", List(UserModView, ViewPrintNoIP), "IP ban")
+  case ViewIP extends Permission("VIEW_IP", List(ViewPrintNoIP), "View IP address")
+  case IpBan extends Permission("IP_BAN", List(UserModView, ViewPrintNoIP, ViewIP), "IP ban")
   case IpTiers extends Permission("IP_TIERS", "IP limit tiers")
   case PrintBan extends Permission("PRINT_BAN", List(UserModView), "Print ban")
   case DisableTwoFactor extends Permission("DISABLE_2FA", "Disable 2FA")
@@ -89,13 +90,14 @@ enum Permission(val key: String, val alsoGrants: List[Permission], val name: Str
   case PrizeBan extends Permission("PRIZE_BAN", "Ban from prized tournaments")
   case ModMessage extends Permission("MOD_MESSAGE", "Send mod messages")
   case Impersonate extends Permission("IMPERSONATE", "Impersonate")
-  case DisapproveCoachReview extends Permission("DISAPPROVE_COACH_REVIEW", "Disapprove coach review")
   case PayPal extends Permission("PAYPAL", "PayPal")
   // Set the tier of own broadcasts, making them official. Group own broadcasts.
   case Relay extends Permission("RELAY", "Broadcast official")
+  case RelayStream extends Permission("RELAY_STREAM", "Broadcast Live stream")
   case FidePlayer extends Permission("FIDE_PLAYER", "Edit FIDE players")
-  case Cli extends Permission("CLI", "Command line")
-  case Settings extends Permission("SETTINGS", "Lila settings")
+  case Cli extends Permission("CLI", "Command line base permission") // tho most commands require SUPER_ADMIN
+  case Settings
+      extends Permission("SETTINGS", "Settings base permission") // tho most settings require SUPER_ADMIN
   case Streamers extends Permission("STREAMERS", "Manage streamers")
   case Verified extends Permission("VERIFIED", "Verified badge")
   case Pages extends Permission("PAGES", "Lichess pages")
@@ -103,12 +105,13 @@ enum Permission(val key: String, val alsoGrants: List[Permission], val name: Str
   case MonitoredCheatMod extends Permission("MONITORED_MOD_CHEAT", "Monitored mod: cheat")
   case MonitoredBoostMod extends Permission("MONITORED_MOD_BOOST", "Monitored mod: boost")
   case MonitoredCommMod extends Permission("MONITORED_MOD_COMM", "Monitored mod: comms")
-  case StudyAdmin extends Permission("STUDY_ADMIN", List(Relay), "Study/Broadcast admin")
+  case StudyAdmin extends Permission("STUDY_ADMIN", List(Relay, RelayStream), "Study/Broadcast admin")
   case ApiHog extends Permission("API_HOG", "API hog")
   case ApiChallengeAdmin extends Permission("API_CHALLENGE_ADMIN", "API Challenge admin")
   case LichessTeam extends Permission("LICHESS_TEAM", List(Beta), "Lichess team")
   case BotEditor extends Permission("BOT_EDITOR", "Bot editor")
   case Diagnostics extends Permission("DIAGNOSTICS", "Diagnostics")
+  case NotifyMany extends Permission("NOTIFY_MANY", "Notify many users with CLI")
   case DeveloperTeam
       extends Permission(
         "DEVELOPER_TEAM",
@@ -126,6 +129,7 @@ enum Permission(val key: String, val alsoGrants: List[Permission], val name: Str
         "BOOST_HUNTER",
         List(
           LichessTeam,
+          UserSearch,
           MarkBooster,
           ArenaBan,
           UserModView,
@@ -147,6 +151,7 @@ enum Permission(val key: String, val alsoGrants: List[Permission], val name: Str
         "CHEAT_HUNTER",
         List(
           LichessTeam,
+          UserSearch,
           ViewBlurs,
           MarkEngine,
           UserModView,
@@ -170,6 +175,7 @@ enum Permission(val key: String, val alsoGrants: List[Permission], val name: Str
         List(
           LichessTeam,
           AccountInfo,
+          UserSearch,
           TimeoutMod,
           ViewPrivateComms,
           Shadowban,
@@ -193,9 +199,12 @@ enum Permission(val key: String, val alsoGrants: List[Permission], val name: Str
           LichessTeam,
           UserSearch,
           AccountInfo,
+          ViewIP,
+          ModLog,
           CloseAccount,
           GdprErase,
           SetEmail,
+          FreePatron,
           DisableTwoFactor
         ),
         "Email answerer"
@@ -236,7 +245,8 @@ enum Permission(val key: String, val alsoGrants: List[Permission], val name: Str
           FidePlayer,
           BroadcastTimeout,
           ApiChallengeAdmin,
-          Feed
+          Feed,
+          Settings
         ),
         "Admin"
       )
@@ -250,7 +260,6 @@ enum Permission(val key: String, val alsoGrants: List[Permission], val name: Str
           FullCommsExport,
           PayPal,
           Cli,
-          Settings,
           TitleRequest
         ),
         "Super Admin"
@@ -280,6 +289,7 @@ object Permission:
   val modPermissions: Set[Permission] = all.diff(nonModPermissions)
 
   val allByDbKey: Map[RoleDbKey, Permission] = all.mapBy(_.dbKey)
+  val allByKeyLower: Map[String, Permission] = all.mapBy(_.key.toLowerCase)
 
   def apply(u: User): Set[Permission] = ofDbKeys(u.roles)
   def ofDbKey(dbKey: RoleDbKey): Option[Permission] = allByDbKey.get(dbKey)

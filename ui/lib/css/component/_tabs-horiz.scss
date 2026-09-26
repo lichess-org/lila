@@ -1,8 +1,10 @@
 $c-tabs-active: $c-accent !default;
+$c-tabs-hover: $c-accent-cloud !default;
 
 .tabs-horiz {
   @extend %flex-center-nowrap, %page-text;
   @include prevent-select;
+  @include backdrop-blur-if-transparent;
 
   justify-content: center;
   align-items: flex-end;
@@ -20,29 +22,23 @@ $c-tabs-active: $c-accent !default;
     padding: 0.5em 0.2em;
     cursor: pointer;
     position: relative;
-    border: 0;
-    background: none;
     border-bottom: 2px solid transparent;
-
-    transition:
-      color 0.25s,
-      border-color 0.25s;
-
     min-width: 15%;
     letter-spacing: -0.5px;
+
+    @include transition(color border-color, 0.25s);
 
     @media (min-width: at-least($xx-small)) {
       letter-spacing: inherit;
     }
 
-    &.active,
     &:hover {
-      color: $c-font-clear;
-      border-color: $c-tabs-active;
+      border-color: $c-tabs-hover;
     }
 
     &.active {
       color: $c-tabs-active;
+      border-color: $c-tabs-active;
     }
 
     &.narrow {

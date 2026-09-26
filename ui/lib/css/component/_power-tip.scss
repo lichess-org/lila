@@ -6,7 +6,7 @@
   width: 21rem;
   min-height: 3em;
   background: $c-bg-popup;
-  display: none;
+  visibility: hidden;
   position: absolute;
   z-index: $z-powertip-120;
 
@@ -26,12 +26,14 @@
     body.no-rating & {
       height: unset;
     }
+
     padding: 0.4em 0.5em 0.3em 0.5em;
     border-bottom: $border;
     overflow: hidden;
 
     &__top {
       @extend %flex-between-nowrap, %ellipsis;
+
       gap: 0.6ch;
 
       .user-link {
@@ -39,8 +41,10 @@
         display: block;
         font-size: 1.1em;
       }
+
       &__flag {
         @extend %flex-center;
+
         margin-inline-start: 0.5ch;
         gap: 0.5ch;
         flex: 1 1 auto;
@@ -48,6 +52,7 @@
         font-size: 0.9em;
         color: $c-font-dim;
       }
+
       signal {
         flex: 0 0 auto;
       }
@@ -70,6 +75,7 @@
         padding: 2px 3px;
         text-align: left;
       }
+
       body.no-rating & {
         display: none;
       }
@@ -99,6 +105,11 @@
     border: 0;
     border-radius: 0;
 
+    .btn-rack__btn:first-child,
+    .btn-rack__btn:last-child {
+      border-radius: 0;
+    }
+
     a {
       flex: 0 0 18%;
 
@@ -110,6 +121,7 @@
 
   &__details {
     @extend %flex-between;
+
     white-space: nowrap;
 
     &__marks {
@@ -126,7 +138,7 @@
 
 #miniGame,
 #miniBoard {
-  min-height: 262px;
+  min-height: fit-content;
 
   .spinner {
     margin: 82px auto 0 auto;

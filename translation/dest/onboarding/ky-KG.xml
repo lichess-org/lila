@@ -1,2 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="logInAsUsername">%s катары кирүү</string>
+  <string name="welcome">Кош келиңиз!</string>
+  <string name="welcomeToLichess">Lichess\'ке кош келиңиз!</string>
+  <string name="thisIsYourProfilePage">Бул сиздин профилиңиздин баракчасы.</string>
+</resources>
