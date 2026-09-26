@@ -1,7 +1,17 @@
 .security {
-  .revoke-all,
-  .revoke-all button {
-    display: inline;
+  &__header {
+    @extend %flex-between;
+
+    @media (min-width: at-least($x-small)) {
+      flex-wrap: nowrap;
+    }
+
+    margin-bottom: 3em;
+    gap: 2em;
+
+    .button {
+      white-space: nowrap;
+    }
   }
 
   .ua {

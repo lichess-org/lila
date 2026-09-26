@@ -16,6 +16,7 @@
   <string name="quitTeam">Leave team</string>
   <string name="manuallyReviewAdmissionRequests">Manually review admission requests</string>
   <string name="manuallyReviewAdmissionRequestsHelp">If checked, players will need to request to join the team, which you can accept or decline.</string>
+  <string name="hideMembersDesc" comment="Checkbox label: option to hide the team member list from non-members">Hide team member list from non-members.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Team leader</item>
     <item quantity="other">Team leaders</item>
@@ -49,6 +50,9 @@
   <string name="entryCode">Team entry code</string>
   <string name="entryCodeDescriptionForLeader">(Optional) An entry code that new members must know to join this team.</string>
   <string name="incorrectEntryCode">Incorrect entry code.</string>
+  <string name="forumLabel">Team forum</string>
+  <string name="forumVisibilityHelp">Who can see the team forum on the team page?&lt;br&gt;Only team members can post in the team forum.</string>
+  <string name="forumVisibilityNone">Hide the forum</string>
   <string name="teamAlreadyExists">This team already exists.</string>
   <string name="upcomingTournaments">Upcoming tournaments</string>
   <string name="completedTourns">Completed tournaments</string>

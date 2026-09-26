@@ -807,12 +807,14 @@ Playing rated games will increase stability.</string>
   <string name="enableKidMode">Enable Kid mode</string>
   <string name="disableKidMode">Disable Kid mode</string>
   <string name="security">Security</string>
+  <string name="activeSessionsDescription">This is a list of devices and applications that are logged into your account. If you notice any suspicious activity, make sure to &lt;a href='%1$s'&gt;check your recovery email address&lt;/a&gt; and &lt;a href='%2$s'&gt;change your password&lt;/a&gt;.</string>
   <string name="sessions">Sessions</string>
   <string name="revokeAllSessions">revoke all sessions</string>
   <string name="playChessEverywhere">Play chess everywhere</string>
   <string name="everybodyGetsAllFeaturesForFree">Everybody gets all features for free</string>
   <string name="viewTheSolution">View the solution</string>
   <string name="noChallenges">No challenges.</string>
+  <string name="browserNotificationsDenied">Notification popups disabled by browser setting</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Available in %s language!</item>
     <item quantity="other">Available in %s languages!</item>

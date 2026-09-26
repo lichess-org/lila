@@ -166,11 +166,13 @@ We show the red mute icon to alert you when this happens. You can explicitly all
 3. Click Cookies and Site Permissions
 4. Scroll down and click Media autoplay
 5. Add lichess.org to Allow</string>
-<string name="stopMyselfFromPlaying">Stop myself from playing?</string>
-<string name="mentalHealthCondition">stand-alone mental health condition</string>
-<string name="lichessUserstyles">Lichess userstyles</string>
-<string name="fewerLobbyPools">fewer lobby pools</string>
-<string name="adviceOnMitigatingAddiction">We regularly receive messages from users asking us for help to stop them from playing too much.
+  <string name="makeBotTitle">Make a bot on Lichess?</string>
+  <string name="makeBotDescription">To learn how to build a &lt;a href='%1$s'&gt;custom chess bot&lt;/a&gt; to play on Lichess, please read &lt;a href='%2$s'&gt;this blog post about creating bots&lt;/a&gt;.</string>
+  <string name="stopMyselfFromPlaying">Stop myself from playing?</string>
+  <string name="mentalHealthCondition">stand-alone mental health condition</string>
+  <string name="lichessUserstyles">Lichess userstyles</string>
+  <string name="fewerLobbyPools">fewer lobby pools</string>
+  <string name="adviceOnMitigatingAddiction">We regularly receive messages from users asking us for help to stop them from playing too much.
 
 While Lichess doesn’t ban or block players except for Terms of Service violations, we recommend the use of external tools to limit excessive playing behavior. Some common suggestions for website blockers include %1$s, %2$s, and %3$s. If you want to keep using the site but not get tempted by fast time controls, you might also be interested in %4$s, here is one with %5$s.
 
