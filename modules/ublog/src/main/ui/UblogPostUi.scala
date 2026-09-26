@@ -187,21 +187,23 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
     )
 
   def modTools(post: UblogPost, isInCarousel: Boolean) =
-    val nonPendingQuality = post.isPendingQuality.not.option(post.quality)
     div(id := "ublog-mod-tools", data("url") := routes.Ublog.modPost(post.id).url)(
       div(
         div(
           span(cls := "btn-rack")(
             lila.core.ublog.Quality.values.map: q =>
               button(
-                cls := s"quality-btn btn-rack__btn ${(nonPendingQuality.contains(q)).so("lit")}",
+                cls := s"quality-btn btn-rack__btn ${(post.quality == q).so("lit")}",
                 value := q.name
               )(q.name.capitalize)
           ),
-          post.automod
-            .ifTrue(post.modQuality.isEmpty)
-            .map: auto =>
-              span("AI thought it was ", auto.quality.name, ".")
+          post.automod match
+            case Some(auto) =>
+              span(s"AI thought it was ${auto.quality.name}")
+            case None if post.approval != UblogPost.Approval.verified =>
+              span("No assessment yet")
+            case _ =>
+              emptyFrag
         ),
         fieldset(cls := "carousel-fields")(
           legend(a(href := routes.Ublog.modShowCarousel)("Edit Carousel"), isInCarousel.option("(live)")),

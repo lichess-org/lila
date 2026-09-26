@@ -214,3 +214,26 @@ final class Report(env: Env, userC: => User, modC: => Mod) extends LilaControlle
             .map:
               views.report.ui.thanks(reported.id, _)
   }
+
+  def automodStatus = Secure(_.SeeReport) { _ ?=> me ?=>
+    env.report.automodRepo
+      .statusJson(adminLinks)
+      .flatMap: health =>
+        Ok.page:
+          views.report.ui.automodStatus(health)(views.mod.ui.menu("automod"))
+  }
+
+  def automodStatusXhr = Secure(_.SeeReport) { _ ?=> _ ?=>
+    env.report.automodRepo
+      .statusJson(adminLinks)
+      .map(JsonOk.apply)
+  }
+
+  private def adminLinks(using Me) =
+    isGranted(_.ModerateBlog)
+      .option:
+        lila.report.AutomodRepo.AdminLink(
+          jobType = lila.report.Automod.JobType.blog,
+          url = routes.Ublog.failedAutomod().url
+        )
+      .toList
