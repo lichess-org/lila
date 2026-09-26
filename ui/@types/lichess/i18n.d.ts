@@ -2331,10 +2331,6 @@ interface I18n {
   practice: {
     /** makes your chess perfect */
     makesPerfect: string;
-    /** Progress: %s */
-    progressX: I18nFormat;
-    /** Reset my progress */
-    resetMyProgress: string;
     /** Advanced tactics */
     secHeadAdvancedTactics: string;
     /** Checkmates */
