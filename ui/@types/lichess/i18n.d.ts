@@ -5967,14 +5967,8 @@ interface I18n {
     entryCodeDescriptionForLeader: string;
     /** Team forum */
     forumLabel: string;
-    /** Show to everyone */
-    forumVisibilityEveryone: string;
     /** Who can see the team forum on the team page?<br>Only team members can post in the team forum. */
     forumVisibilityHelp: string;
-    /** Show to team leaders */
-    forumVisibilityLeaders: string;
-    /** Show to members */
-    forumVisibilityMembers: string;
     /** Hide the forum */
     forumVisibilityNone: string;
     /** Hide team member list from non-members. */

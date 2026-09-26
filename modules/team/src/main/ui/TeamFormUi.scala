@@ -154,9 +154,9 @@ final class TeamFormUi(helpers: Helpers, bits: TeamUi)(
           form3.select(
             f,
             Seq(
-              Access.Everyone.id -> trans.team.forumVisibilityEveryone.txt(),
-              Access.Members.id -> trans.team.forumVisibilityMembers.txt(),
-              Access.Leaders.id -> trans.team.forumVisibilityLeaders.txt(),
+              Access.Everyone.id -> trans.study.everyone.txt(),
+              Access.Members.id -> trans.site.onlyTeamMembers.txt(),
+              Access.Leaders.id -> trans.site.onlyTeamLeaders.txt(),
               Access.None.id -> trans.team.forumVisibilityNone.txt()
             )
           )
