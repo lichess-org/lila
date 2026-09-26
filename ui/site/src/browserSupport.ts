@@ -1,9 +1,13 @@
 import { frag, once } from 'lib';
-import { isIos, isSafari, isWebkit, isFirefox, isChrome } from 'lib/device';
+import { isIos, isSafari, isWebkit, isFirefox, isChrome, features } from 'lib/device';
 import { pubsub } from 'lib/pubsub';
 import { alert } from 'lib/view';
 
 export async function loadPolyfills(): Promise<void> {
+  features(); // freeze detection so hasFeature('structuredClone') actually tests native support
+  if (!('structuredClone' in window)) {
+    (window as any).structuredClone = (x: unknown) => JSON.parse(JSON.stringify(x));
+  }
   await Promise.all([dialogPolyfill(), resizePolyfill()]);
 }
 
