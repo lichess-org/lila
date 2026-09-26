@@ -1,0 +1,151 @@
+/*!
+ * hcg-tooltip v1.0.0 modified for Lichess.
+ * @see https://www.html-code-generator.com/javascript/tooltip-library
+ * @license MIT
+ */
+
+.hcg-tooltip {
+  --hcg-tooltip-bg: #000;
+  --hcg-tooltip-color: #fff;
+  --hcg-tooltip-opacity: 1;
+  --hcg-tooltip-radius: #{$small-box-radius-size};
+  --hcg-tooltip-font-size: 11px;
+  --hcg-tooltip-max-width: 200px;
+  --hcg-tooltip-z: #{$z-powertip-120};
+  --hcg-tooltip-arrow-size: 5px;
+
+  position: absolute;
+  z-index: var(--hcg-tooltip-z);
+  padding: var(--hcg-tooltip-arrow-size);
+  font-size: var(--hcg-tooltip-font-size);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 150ms ease;
+
+  &--visible {
+    opacity: var(--hcg-tooltip-opacity);
+  }
+
+  @starting-style {
+    &--visible {
+      opacity: 0;
+    }
+  }
+
+  &-body {
+    max-width: var(--hcg-tooltip-max-width);
+    padding: 4px 8px 6px;
+    overflow-wrap: break-word;
+    color: var(--hcg-tooltip-color);
+    line-height: calc(var(--hcg-tooltip-font-size) + 3px);
+    text-align: center;
+    background-color: var(--hcg-tooltip-bg);
+    border-radius: var(--hcg-tooltip-radius);
+  }
+
+  &-arrow {
+    position: absolute;
+    width: 0;
+    height: 0;
+    line-height: 0;
+    border: var(--hcg-tooltip-arrow-size) dashed var(--hcg-tooltip-bg);
+
+    &-n {
+      border-bottom-color: var(--hcg-tooltip-bg);
+    }
+
+    &-s {
+      border-top-color: var(--hcg-tooltip-bg);
+    }
+
+    &-e {
+      border-left-color: var(--hcg-tooltip-bg);
+    }
+
+    &-w {
+      border-right-color: var(--hcg-tooltip-bg);
+    }
+  }
+
+  &--n &-arrow {
+    top: 0;
+    left: 50%;
+    margin-left: calc(var(--hcg-tooltip-arrow-size) * -1);
+    border-top: none;
+    border-right-color: transparent;
+    border-bottom-style: solid;
+    border-left-color: transparent;
+  }
+
+  &--nw &-arrow {
+    top: 0;
+    left: 10px;
+    border-top: none;
+    border-right-color: transparent;
+    border-bottom-style: solid;
+    border-left-color: transparent;
+  }
+
+  &--ne &-arrow {
+    top: 0;
+    right: 10px;
+    border-top: none;
+    border-right-color: transparent;
+    border-bottom-style: solid;
+    border-left-color: transparent;
+  }
+
+  &--s &-arrow {
+    bottom: 0;
+    left: 50%;
+    margin-left: calc(var(--hcg-tooltip-arrow-size) * -1);
+    border-top-style: solid;
+    border-right: none;
+    border-bottom: none;
+    border-left-color: transparent;
+  }
+
+  &--sw &-arrow {
+    bottom: 0;
+    left: 10px;
+    border-top-style: solid;
+    border-right: none;
+    border-bottom: none;
+    border-left-color: transparent;
+  }
+
+  &--se &-arrow {
+    right: 10px;
+    bottom: 0;
+    border-top-style: solid;
+    border-right: none;
+    border-bottom: none;
+    border-left-color: transparent;
+  }
+
+  &--e &-arrow {
+    top: 50%;
+    right: 0;
+    margin-top: calc(var(--hcg-tooltip-arrow-size) * -1);
+    border-top-color: transparent;
+    border-right: none;
+    border-bottom-color: transparent;
+    border-left-style: solid;
+  }
+
+  &--w &-arrow {
+    top: 50%;
+    left: 0;
+    margin-top: calc(var(--hcg-tooltip-arrow-size) * -1);
+    border-top-color: transparent;
+    border-right-style: solid;
+    border-bottom-color: transparent;
+    border-left: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hcg-tooltip {
+    transition: none;
+  }
+}
