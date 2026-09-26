@@ -23,6 +23,7 @@
   <string name="bodenMate">Boden moti</string>
   <string name="bodenMateDescription">Ikkita hujumchi fil kesishuvchi diagonallar boʻylab oʻz donalari bilan qamalib qolgan shohga mot beradi.</string>
   <string name="castling">Rokirovka</string>
+  <string name="enPassant">Yo\'lakda olish</string>
   <string name="castlingDescription">Shohni xavfsiz joyga oʻtkazing va ruxni hujumga tayyorlang.</string>
   <string name="capturingDefender">Himoyachini yoʻq qilish</string>
   <string name="capturingDefenderDescription">Boshqa bir donani himoya qilayotgan muhim donani urib olish. Bu esa oʻsha himoyasiz qolgan donani keyingi yurishda qoʻlga kiritish imkonini beradi.</string>

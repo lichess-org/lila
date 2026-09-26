@@ -132,6 +132,7 @@
 ಮುಂದುವರೆಯಲು ಯಾವುದೇ ನಡೆಯನ್ನು ಮಾಡಿ.</string>
   <string name="boardSetupComplete">ಅಭಿನಂದನೆಗಳು! ಚೆಸ್ ಬೋರ್ಡ್ ಅನ್ನು ಹೇಗೆ ಹೊಂದಿಸುವುದು ಎಂದು ನಿಮಗೆ ತಿಳಿದಿದೆ.</string>
   <string name="castling">ಕ್ಯಾಸ್ಲಿಂಗ್</string>
+  <string name="enPassant">ಎನ್ ಪಾಸಂಟ್</string>
   <string name="theSpecialKingMove">ವಿಶೇಷ ರಾಜನ ನಡೆ</string>
   <string name="castlingIntro">ನಿಮ್ಮ ರಾಜನನ್ನು ಸುರಕ್ಷಿತವಾಗಿ ತನ್ನಿ, ಮತ್ತು ದಾಳಿಗೆ ನಿಮ್ಮ ರೂಕ್ ಅನ್ನು ನಿಯೋಜಿಸಿ!</string>
   <string name="castleKingSide">ನಿಮ್ಮ ರಾಜನನ್ನು ಎರಡು ಚೌಕಗಳನ್ನು ಸರಿಸಿ

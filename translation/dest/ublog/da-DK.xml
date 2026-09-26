@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="community">Fællesskab</string>
+  <string name="communityBlogs">Blogs fra fællesskabet</string>
   <string name="byMonth">Efter måned</string>
   <string name="byTopic">Efter emne</string>
   <string name="byLichess">Af Lichess</string>
@@ -8,6 +9,7 @@
   <string name="myLikes">Mine likes</string>
   <string name="myBlog">Min blog</string>
   <string name="likedBlogs">Blogindlæg, du synes godt om</string>
+  <string name="blogPostsByFriends">Blogindlæg fra venner</string>
   <plurals name="blogPosts">
     <item quantity="one">%s blogindlæg</item>
     <item quantity="other">%s blogindlæg</item>
@@ -44,6 +46,7 @@
   <string name="noPostsInThisBlogYet">Ingen indlæg på denne blog, endnu.</string>
   <string name="noDrafts">Ingen udkast at vise.</string>
   <string name="latestBlogPosts">Seneste blog-indlæg</string>
+  <string name="recentPosts">Seneste indlæg</string>
   <plurals name="viewAllNbPosts">
     <item quantity="one">Se et indlæg</item>
     <item quantity="other">Se alle %s indlæg</item>
@@ -53,6 +56,7 @@
   <string name="deleteBlog">Slet dette blogindlæg for altid</string>
   <string name="freeImagesComplyWithLicensing" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Følgende websteder tilbyder billeder gratis. Sørg for at overholde licensbetingelserne for det billede, du bruger.</string>
   <string name="selectPostTopics">Vælg de emner dit indlæg handler om</string>
+  <string name="etiquette">Etikette</string>
   <string name="safeAndRespectfulContent">Skriv kun sikkert og respektfuldt indhold. Kopiér ikke andres indhold.</string>
   <string name="noCopyrightedImages">Brug kun billeder, der ikke er beskyttet af andres ophavsret.</string>
   <string name="inappropriateContentAccountClosed">Alt upassende kan medføre, at din konto lukkes.</string>

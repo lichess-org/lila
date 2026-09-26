@@ -23,6 +23,7 @@
   <string name="bodenMate">Bodenen matea</string>
   <string name="bodenMateDescription">Bi alfilek beren piezen artean trabatuta dagoen erregeari ematen dioten matea.</string>
   <string name="castling">Endrokea</string>
+  <string name="enPassant">Igarotzean harrapatzea</string>
   <string name="castlingDescription">Babestu erregea eta ekarri gaztelua erasora.</string>
   <string name="capturingDefender">Defendatzailea harrapatu</string>
   <string name="capturingDefenderDescription">Beste pieza bat defendatzeko funtsezkoa den pieza kentzea, hurrengo jokaldietan lehenengo pieza hori harrapatzeko.</string>

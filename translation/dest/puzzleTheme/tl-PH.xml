@@ -13,6 +13,7 @@
   <string name="bodenMate">Mate ni Boden</string>
   <string name="bodenMateDescription">Dalawang umaatakeng bishop sa mga pagtawid-tawid na pahalang ay nagdadala ng mate sa hari na hinaharangan ng mga kaibigang piraso.</string>
   <string name="castling">Castling</string>
+  <string name="enPassant">En passant</string>
   <string name="castlingDescription">Dalhin ang hari sa kaligtasan, at ilabas ang rook upang umatake.</string>
   <string name="capturingDefender">Kunin ang tagapagtanggol</string>
   <string name="crushing">Pagdurog</string>

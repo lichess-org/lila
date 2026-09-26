@@ -113,6 +113,7 @@ Zu de Dame - näbe sini Königin.</string>
 Mach irgend en Zug zum witer fahre.</string>
   <string name="boardSetupComplete">Gratuliere, du weisch jetzt, wie mer all Schachfigure richtig ufschtellt.</string>
   <string name="castling">Rochade</string>
+  <string name="enPassant">En passant</string>
   <string name="theSpecialKingMove">De schpezielli Königszug</string>
   <string name="castlingIntro">Bring din König i Sicherheit und de Turm i Agrifsposizion!</string>
   <string name="castleKingSide">Zieh de König - uf de Königssite - zwei Fälder. 

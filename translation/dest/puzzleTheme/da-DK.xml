@@ -23,6 +23,7 @@
   <string name="bodenMate">Bodens mat</string>
   <string name="bodenMateDescription">To angribende løbere på krydsende diagonaler giver mat til en konge, som er blokeret af egne brikker.</string>
   <string name="castling">Rokade</string>
+  <string name="enPassant">En passant</string>
   <string name="castlingDescription">Bring din konge i sikkerhed og gør dit tårn klar til angreb.</string>
   <string name="capturingDefender">Tag forsvareren</string>
   <string name="capturingDefenderDescription">Tag en brik som er kritisk i forsvaret af en anden brik, så det er muligt at tage den uforsvarede brik på et efterfølgende træk.</string>

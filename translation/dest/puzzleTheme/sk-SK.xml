@@ -23,6 +23,7 @@
   <string name="bodenMate">Bodenov mat</string>
   <string name="bodenMateDescription">Dvaja útočiaci strelci na križujúcich sa diagonálach zmatujú kráľa zablokovaného vlastnými figúrkami.</string>
   <string name="castling">Rošáda</string>
+  <string name="enPassant">Branie mimochodom</string>
   <string name="castlingDescription">Schovajte svojho kráľa do bezpečia a nasaďte vežu do útoku.</string>
   <string name="capturingDefender">Odstránenie obrany</string>
   <string name="capturingDefenderDescription">Odstránenie figúry, ktorá je dôležitá pri obrane inej figúry, dovoľujúc branie novo nebránenej figúry v následujúcom ťahu.</string>

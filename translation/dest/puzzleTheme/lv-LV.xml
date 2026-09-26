@@ -19,6 +19,7 @@
   <string name="bodenMate">Bodena mats</string>
   <string name="bodenMateDescription">Divi laidņi uz pretēju krāsu krusteniskām diagonālēm piesaka matu karalim, kura izbēgšanu traucē paša figūras.</string>
   <string name="castling">Rokāde</string>
+  <string name="enPassant">Sitiens garāmejot</string>
   <string name="castlingDescription">Nogādājiet karali drošībā un novietojiet torni uzbrukuma pozīcijā.</string>
   <string name="capturingDefender">Sargājošas figūras nosišana</string>
   <string name="capturingDefenderDescription">Nosist figūru, kas nepieciešama citas figūras aizsardzībai, padarot iespējamu neaizsargātās figūras nosišanu nākamajā gājienā.</string>

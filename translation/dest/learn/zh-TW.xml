@@ -124,6 +124,7 @@
 請任意走一步棋來繼續。</string>
   <string name="boardSetupComplete">恭喜！你已經知道該如何準備一場國際象棋了。</string>
   <string name="castling">王車易位</string>
+  <string name="enPassant">吃過路兵</string>
   <string name="theSpecialKingMove">國王特殊移動</string>
   <string name="castlingIntro">讓國王被安全的保護著，並讓城堡加入戰場。</string>
   <string name="castleKingSide">移動國王兩格來進行短易位。</string>

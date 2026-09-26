@@ -23,6 +23,7 @@
   <string name="bodenMate">Chiếu hết kiểu Boden</string>
   <string name="bodenMateDescription">Hai quân Tượng tấn công trên các đường chéo chéo nhau chiếu hết quân vua bị kẹt bởi đồng đội của nó.</string>
   <string name="castling">Nhập thành</string>
+  <string name="enPassant">Bắt tốt qua đường</string>
   <string name="castlingDescription">Chuyển quân vua đến vị trí an toàn và triển khai quân xe để tấn công.</string>
   <string name="capturingDefender">Ăn quân phòng thủ</string>
   <string name="capturingDefenderDescription">Loại bỏ một quân cực kỳ quan trọng đối với việc bảo vệ một quân cờ khác, khiến cho quân cờ hiện không được bảo vệ có thể bị ăn vào một nước sau đó.</string>

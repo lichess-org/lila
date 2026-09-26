@@ -19,6 +19,7 @@
   <string name="bodenMate">Mate de Boden</string>
   <string name="bodenMateDescription">Dos alfils atacando en diagonals que se cruzan fan mate a un rei que queda atrapau entre piezas propias.</string>
   <string name="castling">Enroque</string>
+  <string name="enPassant">Captura a lo paso</string>
   <string name="castlingDescription">Asegura lo rei y apresta la torre pa l\'ataque.</string>
   <string name="capturingDefender">Capturar lo defensor</string>
   <string name="capturingDefenderDescription">Minchar una pieza que ye vita pa desfender-ne unatra, fendo que se pueda minchar la pieza que agora ya no ye desfendida.</string>

@@ -131,6 +131,7 @@ Díreach in aice lena bhanríon.</string>
 Déan aon bheart le leanúint.</string>
   <string name="boardSetupComplete">Comhghairdeas! Tá a fhios agat anois leagan amach clár fichille.</string>
   <string name="castling">Caisliú</string>
+  <string name="enPassant">En passant</string>
   <string name="theSpecialKingMove">Beart speisialta an rí</string>
   <string name="castlingIntro">Cuir do rí chuig sábháilteachta, agus scaoil do caiseal le haghaidh ionsaí!</string>
   <string name="castleKingSide">Bog do rí dhá chearnóg

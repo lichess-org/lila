@@ -131,6 +131,7 @@ Bên phải cạnh quân Hậu.</string>
 Hãy đi nước bất kỳ để tiếp tục.</string>
   <string name="boardSetupComplete">Chúc mừng! Bạn đã biết cách thiết lập bàn cờ.</string>
   <string name="castling">Nhập thành</string>
+  <string name="enPassant">Bắt tốt qua đường</string>
   <string name="theSpecialKingMove">Nước đi đặc biệt của quân Vua</string>
   <string name="castlingIntro">Chuyển quân Vua đến vị trí an toàn, và triển khai quân Xe để tấn công!</string>
   <string name="castleKingSide">Di chuyển quân Vua 2 ô để nhập thành gần!</string>

@@ -23,6 +23,7 @@
   <string name="bodenMate">Boden-mát</string>
   <string name="bodenMateDescription">Tveir biskupar sem hóta kóngi á krosslögðum skálínum máta hann, en kóngurinn er tepptur af eigin taflmönnum.</string>
   <string name="castling">Hrókering</string>
+  <string name="enPassant">Framhjáhlaup</string>
   <string name="castlingDescription">Færðu kónginn á öruggan stað og undirbúðu hrókinn fyrir árás.</string>
   <string name="capturingDefender">Dreptu varnarmanninn</string>
   <string name="capturingDefenderDescription">Að fjarlægja taflmann sem er mikilvægur fyrir völd annars taflmanns, svo að hinn óvaldaði taflmaður geti verið drepinn í næsta leik.</string>

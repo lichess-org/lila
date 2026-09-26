@@ -8,6 +8,7 @@
   <string name="attackingF2F7">o utala e f2 e f7</string>
   <string name="attackingF2F7Description">o utala tawa jan utala lon f2 anu f7.</string>
   <string name="castling">tawa pi \"tomo awen\"</string>
+  <string name="enPassant">tawa la o anpa</string>
   <string name="castlingDescription">o awen e lawa mije sina. o tawa e tomo utala sina tawa ni: ona li ken utala e ijo ante.</string>
   <string name="capturingDefender">o anpa e ijo pi awen ijo</string>
   <string name="capturingDefenderDescription">ijo musi li awen e ijo ante. sina anpa e ona la, ijo ante li awen ala. sina ken anpa e ijo ante lon tenpo tawa kama sina.</string>

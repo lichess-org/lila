@@ -19,6 +19,7 @@
   <string name="bodenMate">போடனின் முற்றுகை</string>
   <string name="bodenMateDescription">நட்புத் துண்டுகளால் தடுக்கப்பட்ட ஒரு அரசருக்கு, குறுக்காகக் கடக்கும் மூலைவிட்டங்களில் தாக்குதல் நடத்தும் இரு நெடுங்கோணிகள் முற்றுகையிடுகிறார்கள்.</string>
   <string name="castling">கோட்டை கட்டுதல்</string>
+  <string name="enPassant">மூலம்</string>
   <string name="castlingDescription">அரசரைப் பாதுகாப்பிற்குள் கொண்டு வாருங்கள், மற்றும் தாக்குதலுக்கு யானையைக் களமிறக்குங்கள்.</string>
   <string name="capturingDefender">பாதுகாவலரைப் பிடிக்கவும்</string>
   <string name="capturingDefenderDescription">மற்றொரு காயின் பாதுகாப்பிற்கு முக்கியமான ஒரு காயை அகற்றுதல், தற்போது பாதுகாக்கப்படாத காயை அடுத்த நகர்வில் கைப்பற்ற அனுமதிக்கிறது.</string>

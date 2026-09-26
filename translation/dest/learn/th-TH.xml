@@ -131,6 +131,7 @@
 จงทำการเดิน เพื่อดำเนินต่อ</string>
   <string name="boardSetupComplete">ยินดีด้วย! คุณรู้วิธีจัดกระดานหมากรุกแล้ว</string>
   <string name="castling">การเข้าป้อม</string>
+  <string name="enPassant">การกินผ่าน</string>
   <string name="theSpecialKingMove">การเดินคิงแบบพิเศษ</string>
   <string name="castlingIntro">นำคิงของคุณไปที่ปลอดภัย และเคลื่อนเรือของคุณเพื่อการโจมตี!</string>
   <string name="castleKingSide">เดินคิงของคุณสองช่อง

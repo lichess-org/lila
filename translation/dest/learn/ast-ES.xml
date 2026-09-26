@@ -116,6 +116,7 @@ Al llau de la dama.</string>
 Mueve cualquier pieza pa siguir.</string>
   <string name="boardSetupComplete">¡Felicidaes! Yá sabes cómo asitiar les pieces nel tableru.</string>
   <string name="castling">Enroque</string>
+  <string name="enPassant">Garrar al pasu</string>
   <string name="theSpecialKingMove">El movimientu especial del rei</string>
   <string name="castlingIntro">¡Pon al to rei a salvo y esplega la to torre para atacar!</string>
   <string name="castleKingSide">Mueve\'l to rei dos casielles pa facer un enroque curtiu!</string>

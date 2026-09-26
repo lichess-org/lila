@@ -19,6 +19,7 @@
   <string name="bodenMate">Bodensmát</string>
   <string name="bodenMateDescription">Tveir bispar, ið leypa á á krossandi hornalinjum (diagonalum), seta kongin, ið er forðaður av sínum egna fólki, skák og mát.</string>
   <string name="castling">At leypa í borg</string>
+  <string name="enPassant">At taka í framlopi</string>
   <string name="castlingDescription">Flyt kongin í tryggleika, og tak rókin í nýtslu, so hann fær lopið á.</string>
   <string name="capturingDefender">Tak fólkið, ið verjir</string>
   <string name="capturingDefenderDescription">At beina eitt fólk burtur, ið hevur týdning í verjuni av einum øðrum fólki. Hetta ger tað møguligt at taka fólkið, ið nú er óvart, í einum seinni leiki.</string>

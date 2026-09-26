@@ -23,6 +23,7 @@
   <string name="bodenMate">Mate de Boden</string>
   <string name="bodenMateDescription">Dous alfís atacando en diagonais cruzadas dan mate ao rei obstaculizado polas súas propias pezas.</string>
   <string name="castling">Enroque</string>
+  <string name="enPassant">Captura ao paso</string>
   <string name="castlingDescription">Pon o teu rei a salvo e desprega a túa torre para o ataque.</string>
   <string name="capturingDefender">Captura ao defensor</string>
   <string name="capturingDefenderDescription">Eliminar unha peza fundamental para a defensa doutra, permitindo capturar a peza, agora indefensa, no seguinte movemento.</string>

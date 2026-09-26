@@ -19,6 +19,7 @@
   <string name="bodenMate">Bodenov mat</string>
   <string name="bodenMateDescription">Dva lovca napadaju po unakrsnim dijagonalama i matiraju kralja okruženog njegovim figurama.</string>
   <string name="castling">Rokada</string>
+  <string name="enPassant">En passant</string>
   <string name="castlingDescription">Dovedi svog kralja na sigurno i postavi svog topa za napad.</string>
   <string name="capturingDefender">Eliminiraj obranu</string>
   <string name="capturingDefenderDescription">Eliminacijom figure koja brani ili je neizravno uključena u obranu druge figure omogućujete uzimanje figure koja ostaje bez obrane.</string>
