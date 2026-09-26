@@ -52,9 +52,6 @@
   <string name="incorrectEntryCode">Incorrect entry code.</string>
   <string name="forumLabel">Team forum</string>
   <string name="forumVisibilityHelp">Who can see the team forum on the team page?&lt;br&gt;Only team members can post in the team forum.</string>
-  <string name="forumVisibilityEveryone">Show to everyone</string>
-  <string name="forumVisibilityMembers">Show to members</string>
-  <string name="forumVisibilityLeaders">Show to team leaders</string>
   <string name="forumVisibilityNone">Hide the forum</string>
   <string name="teamAlreadyExists">This team already exists.</string>
   <string name="upcomingTournaments">Upcoming tournaments</string>
