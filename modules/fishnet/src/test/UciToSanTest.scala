@@ -8,7 +8,7 @@ import chess.eval.Eval.*
 import scala.language.implicitConversions
 
 import lila.analyse.{ Analysis, Info }
-import lila.tree.Eval
+import lila.tree.{ Engine, Eval }
 
 final class UciToSanTest extends munit.FunSuite:
 
@@ -233,8 +233,7 @@ final class UciToSanTest extends munit.FunSuite:
       ),
       0,
       now,
-      None,
-      None
+      Engine.unknown
     )
 
     val pgn =
@@ -314,6 +313,6 @@ final class UciToSanTest extends munit.FunSuite:
     )
     val andPly = Position.AndFullMoveNumber(chess.variant.KingOfTheHill, none)
     val positions = andPly.playPositions(pgn).toOption.get
-    val uciAnalysis = Analysis(Analysis.Id(GameId("g5hX8efz")), Nil, 0, now, None, None)
+    val uciAnalysis = Analysis(Analysis.Id(GameId("g5hX8efz")), Nil, 0, now, Engine.unknown)
     UciToSan(positions, andPly.ply, uciAnalysis) match
       case (_, errs) => assertEquals(errs, Nil)

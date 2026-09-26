@@ -424,8 +424,8 @@ export default class StudyCtrl {
     },
   );
 
-  onSetPath = throttle(300, (path: TreePath) => {
-    if (this.vm.mode.sticky && path !== this.data.position.path)
+  onSetPath = throttle(300, (path: TreePath, node: TreeNode) => {
+    if (this.vm.mode.sticky && !node.comp && path !== this.data.position.path)
       this.makeChange('setPath', this.addChapterId({ path }));
   });
 
@@ -576,7 +576,7 @@ export default class StudyCtrl {
 
   setPath = (path: TreePath, node: TreeNode) => {
     this.arrowHistory = [];
-    this.onSetPath(path);
+    this.onSetPath(path, node);
     this.commentForm.onSetPath(this.vm.chapterId, path, node);
   };
   deleteNode = (path: TreePath) =>

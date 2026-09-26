@@ -25,7 +25,8 @@ case class Chapter(
     relay: Option[Chapter.Relay] = None,
     serverEval: Option[Chapter.ServerEval] = None,
     denorm: Option[Chapter.LastPosDenorm] = None,
-    createdAt: Instant
+    createdAt: Instant,
+    analysisGameId: Option[GameId] = None
 ) extends Chapter.Like:
 
   import Chapter.BothClocks
@@ -95,6 +96,7 @@ case class Chapter(
       id = Chapter.makeId,
       studyId = study.id,
       ownerId = study.ownerId,
+      analysisGameId = None,
       createdAt = nowInstant
     )
 
