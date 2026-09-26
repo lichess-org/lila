@@ -21,6 +21,7 @@ Disallow: /embed/
 Disallow: /video?*
 Disallow: /training/of-player
 Allow: /game/export/gif/thumbnail/
+Sitemap: /sitemap.xml
 """
 
   def manifest(net: NetConfig) =

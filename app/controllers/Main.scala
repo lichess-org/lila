@@ -61,10 +61,13 @@ final class Main(env: Env, assetsC: ExternalAssets) extends LilaController(env):
     NoContent
 
   val robots = Anon:
-    Ok:
-      if env.net.crawlable && req.domain == env.net.domain.value && env.mode.isProd
-      then StaticContent.robotsTxt
-      else "User-agent: *\nDisallow: /"
+    Ok(if crawlable then StaticContent.robotsTxt else "User-agent: *\nDisallow: /")
+
+  val sitemap = Anon:
+    ( /* crawlable */ env.mode.isDev).so(Ok(env.web.sitemap.xml))
+
+  private def crawlable(using req: RequestHeader) =
+    env.net.crawlable && req.domain == env.net.domain.value && env.mode.isProd
 
   def manifest = Anon:
     JsonOk:
