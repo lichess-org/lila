@@ -52,7 +52,7 @@ final class ActivityReadApi(
     _ <- getTourName.preload(views.flatMap(_.tours.so(_.best.map(_.tourId))))
   yield ()
 
-  private def one(practiceStudies: Option[lila.ui.practice.Studies], a: Activity): Fu[ActivityView] =
+  private def one(practiceStudies: Option[lila.ui.practice.GetStudy], a: Activity): Fu[ActivityView] =
     for
       allForumPosts <- a.forumPosts.traverse: p =>
         forumPostApi

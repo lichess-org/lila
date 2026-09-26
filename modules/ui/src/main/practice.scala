@@ -14,5 +14,5 @@ trait Study:
   val name: I18nKey
   def slug: String
 
-type Studies = StudyId => Option[Study]
-type GetStudies = () => Fu[Studies]
+type GetStudy = StudyId => Option[Study]
+type GetStudies = () => Fu[GetStudy]

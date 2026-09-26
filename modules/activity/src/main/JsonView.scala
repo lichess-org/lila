@@ -89,8 +89,7 @@ final class JsonView(
 
   private given OWrites[lila.core.study.IdName] = Json.writes
 
-  def apply(a: ActivityView, user: User)(using trans: Translate): Fu[JsObject] =
-    given Lang = trans.lang
+  def apply(a: ActivityView, user: User)(using Lang, Translate): Fu[JsObject] =
     fuccess:
       Json
         .obj("interval" -> a.interval)
