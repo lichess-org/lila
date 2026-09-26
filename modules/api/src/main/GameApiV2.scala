@@ -119,7 +119,7 @@ final class GameApiV2(
           .fold(Query.nowPlaying(config.user.id)):
             Query.nowPlayingVs(config.user.id, _)
     val requiresElasticSearch =
-      config.perfKey.nonEmpty || config.analysed.nonEmpty || config.color.nonEmpty || config.rated.nonEmpty || config.wonBy.nonEmpty
+      config.perfKey.nonEmpty || config.analysed.nonEmpty || config.color.nonEmpty || config.rated.nonEmpty
     val gameSource: Source[Game, ?] =
       if requiresElasticSearch then
         import lila.search.Size
@@ -135,6 +135,7 @@ final class GameApiV2(
         gameRepo
           .sortedCursor(
             playerSelect ++
+              config.wonBy.fold(emptyBdoc)(w => Query.wonBy(w.id)) ++
               Query.createdBetween(config.since, config.until) ++
               (!config.ongoing).so(Query.finished),
             config.sort.bson,

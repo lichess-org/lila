@@ -82,8 +82,10 @@ object Query:
       s"${F.playingUids}.1".in(userIds)
     )
 
+  def wonBy(u: UserId): Bdoc = bdoc(F.winnerId -> u)
+
   // use the us index
-  def win(u: UserId) = user(u) ++ bdoc(F.winnerId -> u)
+  def win(u: UserId) = user(u) ++ wonBy(u)
 
   def loss(u: UserId) =
     user(u) ++ bdoc(

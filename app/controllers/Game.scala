@@ -164,8 +164,7 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
     getUserStr("wonBy").fold(f(none)): name =>
       meOrFetch(name).flatMap:
         _.fold[Fu[Result]](notFoundJson(s"No such winner: $name")): winner =>
-          // the search index only supports winner constrained to one of the players,
-          // so wonBy must be the exported user or the vs opponent
+          // a game only ever has the two players as possible winners
           if winner.is(user) || vs.exists(winner.is(_)) then f(winner.some)
           else
             notFoundJson(
