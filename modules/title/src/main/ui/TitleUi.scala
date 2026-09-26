@@ -84,7 +84,7 @@ Today's date is [current date]""")
           )
         )(cls := "title__cancel")
       )
-    )(inert.option(attr("inert").empty))
+    )(inert.option(inertAttr))
 
   private def showStatus(req: TitleRequest) =
     import TitleRequest.Status
