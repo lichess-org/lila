@@ -110,7 +110,7 @@ export class CevalCtrl {
   }
 
   available(): boolean {
-    return !document.hidden && this.analysable;
+    return !(document.hidden && isTouchDevice()) && this.analysable;
   }
 
   goDeeper = (): void => {
