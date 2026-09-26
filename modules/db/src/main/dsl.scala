@@ -134,6 +134,11 @@ trait dsl:
   def ifNull(expr: Bdoc, replacement: Bdoc): Bdoc =
     bdoc("$ifNull" -> barr(expr, replacement))
 
+  def pushEach[T: BSONWriter](field: String, values: T*): Bdoc = bdoc:
+    "$push" -> bdoc:
+      field -> bdoc:
+        "$each" -> values
+
   // End ofTop Level Array Update Operators
   // **********************************************************************************************//
 

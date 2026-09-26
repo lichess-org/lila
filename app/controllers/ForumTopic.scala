@@ -14,9 +14,12 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
     NoBot:
       NotForKids:
         FoundPage(env.forum.categRepo.byId(categId)): categ =>
-          categ.team.so(env.team.api.isLeader).map { inOwnTeam =>
-            views.forum.topic.form(categ, forms.topic(inOwnTeam), anyCaptcha)
-          }
+          for
+            inOwnTeam <- categ.team.so(env.team.api.isLeader)
+            usermod <-
+              if categ.isDiagnostic then fuccess(none)
+              else env.forum.usermod.active(me.userId)
+          yield views.forum.topic.form(categ, forms.topic(inOwnTeam), anyCaptcha, usermod)
   }
 
   def create(categId: ForumCategId) = AuthBody { ctx ?=> me ?=>
@@ -25,7 +28,7 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
         Found(env.forum.categRepo.byId(categId)): categ =>
           categ.team.so(env.team.api.isLeader).flatMap { inOwnTeam =>
             bindForm(forms.topic(inOwnTeam))(
-              err => BadRequest.page(views.forum.topic.form(categ, err, anyCaptcha)),
+              err => BadRequest.page(views.forum.topic.form(categ, err, anyCaptcha, None)),
               data =>
                 limit.forumTopic(ctx.ip, rateLimited):
                   for
@@ -55,15 +58,21 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
             canModCateg <- access.isGrantedMod(categ.id)
             replyBlocked <- ctx.useMe(access.isReplyBlockedOnUBlog(topic, canModCateg))
             inOwnTeam <- ctx.useMe(categ.team.so(env.team.api.isLeader))
+            usermod <-
+              if categ.isDiagnostic then fuccess(none)
+              else
+                ctx.me.so: me =>
+                  env.forum.usermod.active(me.userId)
             form = ctx.me
-              .filter(_ => canWrite && topic.open && !topic.isOld && !replyBlocked)
+              .filter(_ => canWrite && topic.open && !topic.isOld && !replyBlocked && usermod.isEmpty)
               .soUse: _ ?=>
                 forms.postWithCaptcha(inOwnTeam).some
             _ <- env.user.lightUserApi.preloadMany(posts.currentPageResults.flatMap(_.post.userId))
             res <-
               if canRead then
                 Ok.page(
-                  views.forum.topic.show(categ, topic, posts, form, unsub, canModCateg, None, replyBlocked)
+                  views.forum.topic
+                    .show(categ, topic, posts, form, unsub, canModCateg, None, replyBlocked, usermod)
                 ).map(_.withCanonical(routes.ForumTopic.show(categ.id, topic.slug, page)))
               else notFound
           yield res
