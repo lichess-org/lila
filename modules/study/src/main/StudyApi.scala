@@ -772,7 +772,6 @@ final class StudyApi(
               _ <- chapterRepo.update(newChapter)
               _ <- (study.position.chapterId == chapter.id).so:
                 studyRepo.setPosition(study.id, study.position.withPath(UciPath.root))
-              _ = preview.invalidate(study.id)
             yield
               sendChapterPreviews(study)
               reloadStudy(study.id, Who(me.userId, Sri("api")))
@@ -943,6 +942,7 @@ final class StudyApi(
     sendTo(study.id)(_.reloadSriBecauseOf(sri, chapterId, reason))
 
   def sendChapterPreviews(study: Study) =
+    preview.invalidate(study.id)
     for previews <- preview.jsonList(study.id)
     do sendTo(study.id)(_.sendChapterPreviews(previews))
 
