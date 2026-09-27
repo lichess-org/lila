@@ -127,9 +127,7 @@
       transform: translateX(calc(100% + 10px));
     }
 
-    @include if-transp {
-      @include back-blur;
-    }
+    @include backdrop-blur-if-transparent;
 
     @include mq-safari {
       min-height: 75vh; // safari has funny ideas about fixed parents bounding fixed children
