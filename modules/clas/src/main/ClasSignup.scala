@@ -110,8 +110,8 @@ final class ClasSignup(
                 userRepo
                   .existsSec(username)
                   .flatMap:
-                    case true => fuccess(none)
-                    case false =>
+                    if _ then fuccess(none)
+                    else
                       val data = ClasForm.CreateStudent(username, realName)
                       one.create(clas, data).dmap(some)
         _ = clasApi.teamSync(clas)
