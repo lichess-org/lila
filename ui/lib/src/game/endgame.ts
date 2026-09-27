@@ -25,18 +25,15 @@ const endgameResult = (
   gameWinner: Color | undefined,
   gameStatus: StatusName,
 ): EndgameResult => {
-  const isTerminal = node.dests().size === 0,
+  const outcome = node.outcome(),
+    isTerminal = node.dests().size === 0,
     isMate = node.check() && isTerminal,
-    isStalemate = !node.check() && isTerminal,
+    isStalemate = !node.check() && isTerminal && outcome && !outcome.winner,
     isGameEnd = isLast || isTerminal;
 
   if (!isGameEnd) return {};
   return {
-    winner: isMate
-      ? opposite(fenColor(node.fen))
-      : isStalemate
-        ? undefined
-        : (node.outcome()?.winner ?? gameWinner),
+    winner: isMate ? opposite(fenColor(node.fen)) : isStalemate ? undefined : (outcome?.winner ?? gameWinner),
     status: isMate ? 'mate' : isStalemate ? 'stalemate' : gameStatus,
   };
 };
