@@ -44,7 +44,6 @@
           scala = prev.scala_3.override { jre = jdk; };
 
           nodejs = prev."nodejs_${nodeMajorVersion}";
-          pnpm = (prev.pnpm.override { inherit nodejs; });
 
           esbuild = prev.esbuild.overrideAttrs (previousAttrs: rec {
             version = "0.25.11";
