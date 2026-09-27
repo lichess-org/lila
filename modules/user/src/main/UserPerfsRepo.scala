@@ -57,7 +57,7 @@ final class UserPerfsRepo(c: Coll)(using Executor) extends lila.core.user.PerfsR
     idsMap(us, readPref).map: perfs =>
       us.view.map(u => lila.rating.UserWithPerfs(u, perfs.get(u.id))).toList
 
-  def updatePerfs(prev: UserPerfs, cur: UserPerfs) =
+  private[user] def updatePerfs(prev: UserPerfs, cur: UserPerfs) =
     val diff = for
       pt <- PerfType.all
       if cur(pt).nb != prev(pt).nb
