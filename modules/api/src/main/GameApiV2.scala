@@ -436,7 +436,7 @@ object GameApiV2:
         players = SearchPlayer(
           a = user.id.into(UserStr).some,
           b = vs.map(_.id.into(UserStr)),
-          winner = wonBy.map(_.id.into(UserStr)),
+          winner = wonBy.map(_.into(UserStr)),
           white = color.exists(_.white).option(user.id.into(UserStr)),
           black = color.exists(_.black).option(user.id.into(UserStr))
         ),
