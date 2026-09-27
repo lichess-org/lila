@@ -21,17 +21,14 @@ type EndgameNode = {
 
 const endgameResult = (
   node: EndgameNode,
-  isLast: boolean,
   gameWinner: Color | undefined,
   gameStatus: StatusName,
 ): EndgameResult => {
   const outcome = node.outcome(),
     isTerminal = node.dests().size === 0,
-    isMate = node.check() && isTerminal,
-    isStalemate = !node.check() && isTerminal && outcome && !outcome.winner,
-    isGameEnd = isLast || isTerminal;
+    isMate = isTerminal && node.check(),
+    isStalemate = isTerminal && !node.check() && outcome && !outcome.winner;
 
-  if (!isGameEnd) return {};
   return {
     winner: isMate ? opposite(fenColor(node.fen)) : isStalemate ? undefined : (outcome?.winner ?? gameWinner),
     status: isMate ? 'mate' : isStalemate ? 'stalemate' : gameStatus,
@@ -44,7 +41,8 @@ export function endgameShapesForNode(
   gameWinner: Color | undefined,
   gameStatus: StatusName,
 ): DrawShape[] {
-  const result = endgameResult(node, isLast, gameWinner, gameStatus);
+  if (!isLast) return [];
+  const result = endgameResult(node, gameWinner, gameStatus);
   return endgameShapes(node.fen, result.winner, result.status);
 }
 
