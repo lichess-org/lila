@@ -12,7 +12,8 @@ case class Puzzle(
     glicko: Glicko,
     plays: Int,
     vote: Float, // denormalized ratio of voteUp/voteDown
-    themes: Set[PuzzleTheme.Key]
+    themes: Set[PuzzleTheme.Key],
+    issue: Option[String] = None
 ):
   // ply after "initial move" when we start solving
   def initialPly: Ply = Fen.readPly(fen) | Ply.initial

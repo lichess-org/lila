@@ -53,6 +53,12 @@ const puzzleInfos = (ctrl: PuzzleCtrl): VNode => {
           ),
         ),
       hl('p', i18n.puzzle.playedXTimes.asArray(puzzle.plays, hl('strong', numberFormat(puzzle.plays)))),
+      ctrl.data.puzzle.issue &&
+        hl(
+          'p.infos__issue',
+          { attrs: { title: 'direct link only, unrated' } },
+          `Issue: ${ctrl.data.puzzle.issue}`,
+        ),
     ]),
   ]);
 };
