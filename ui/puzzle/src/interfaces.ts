@@ -110,6 +110,7 @@ export interface Puzzle {
   plays: number;
   initialPly: number;
   themes: ThemeKey[];
+  issue?: string;
 }
 
 export interface PuzzleResult {

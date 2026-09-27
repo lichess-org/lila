@@ -38,6 +38,25 @@
         font-size: 90%;
       }
     }
+
+    &__issue {
+      @extend %flex-center-nowrap;
+
+      margin-top: 1.2vh;
+      padding-top: 1.2vh;
+      border-top: $border;
+      color: $c-bad;
+      font-size: 0.9em;
+      white-space: normal;
+
+      span {
+        margin-inline-end: 0.5em;
+
+        &::before {
+          font-size: 1.3em;
+        }
+      }
+    }
   }
 
   &__user {

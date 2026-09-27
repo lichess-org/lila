@@ -12,8 +12,19 @@ import type { Angle, PuzzleDifficulty } from '@/interfaces';
 import type PuzzleStreak from '@/streak';
 
 export function puzzleBox(ctrl: PuzzleCtrl): VNode {
-  return hl('div.puzzle__side__metas', [puzzleInfos(ctrl), gameInfos(ctrl)]);
+  return hl('div.puzzle__side__metas', [puzzleInfos(ctrl), gameInfos(ctrl), puzzleIssue(ctrl)]);
 }
+
+const puzzleIssue = (ctrl: PuzzleCtrl): MaybeVNode => {
+  const issue = ctrl.data.puzzle.issue;
+  return (
+    issue &&
+    hl('div.puzzle__side__metas__issue', [
+      hl('span', { attrs: dataIcon(licon.CautionTriangle) }),
+      hl('div', `direct link only, issue: ${issue}`),
+    ])
+  );
+};
 
 const angleImg = (angle: Angle): string => {
   const name =

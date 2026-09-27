@@ -227,13 +227,15 @@ object JsonView:
   def puzzleJsonStandalone(puzzle: Puzzle): JsObject =
     puzzleJsonBase(puzzle) ++ puzzleJsonInitialPos(puzzle)
 
-  private def puzzleJsonBase(puzzle: Puzzle): JsObject = Json.obj(
-    "id" -> puzzle.id,
-    "rating" -> puzzle.glicko.intRating,
-    "plays" -> puzzle.plays,
-    "solution" -> puzzle.line.tail.map(_.uci),
-    "themes" -> simplifyThemes(puzzle.themes)
-  )
+  private def puzzleJsonBase(puzzle: Puzzle): JsObject = Json
+    .obj(
+      "id" -> puzzle.id,
+      "rating" -> puzzle.glicko.intRating,
+      "plays" -> puzzle.plays,
+      "solution" -> puzzle.line.tail.map(_.uci),
+      "themes" -> simplifyThemes(puzzle.themes)
+    )
+    .add("issue" -> puzzle.issue)
   private def simplifyThemes(themes: Set[PuzzleTheme.Key]) =
     themes.filterNot(_ == PuzzleTheme.mate.key)
 

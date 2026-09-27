@@ -24,6 +24,7 @@ private object BsonHandlers:
       plays <- r.getAsTry[Int](plays)
       vote <- r.getAsTry[Float](vote)
       themes <- r.getAsTry[Set[PuzzleTheme.Key]](themes)
+      issue = r.getAsOpt[String](Puzzle.BSONFields.issue)
     yield Puzzle(
       id = id,
       gameId = gameId,
@@ -32,7 +33,8 @@ private object BsonHandlers:
       glicko = glicko,
       plays = plays,
       vote = vote,
-      themes = themes.diff(PuzzleTheme.hiddenThemesKey)
+      themes = themes.diff(PuzzleTheme.hiddenThemesKey),
+      issue = issue
     )
 
   private[puzzle] given roundIdHandler: BSONHandler[PuzzleRound.Id] = tryHandler[PuzzleRound.Id](
