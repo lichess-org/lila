@@ -159,17 +159,11 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
           f(user.some)
 
   private def WithWonBy(user: lila.user.User, vs: Option[lila.user.User])(
-      f: Option[lila.user.User] => Fu[Result]
-  )(using Context): Fu[Result] =
-    getUserStr("wonBy").fold(f(none)): name =>
-      meOrFetch(name).flatMap:
-        _.fold[Fu[Result]](notFoundJson(s"No such winner: $name")): winner =>
-          // a game only ever has the two players as possible winners
-          if winner.is(user) || vs.exists(winner.is(_)) then f(winner.some)
-          else
-            notFoundJson(
-              s"wonBy must be ${user.username} or ${vs.map(_.username).getOrElse("an opponent")}"
-            )
+      f: Option[UserId] => Fu[Result]
+  )(using RequestHeader): Fu[Result] =
+    getUserStr("wonBy").fold(f(none)): winner =>
+      if winner.is(user) || vs.exists(winner.is(_)) then f(winner.id.some)
+      else notFoundJson(s"Invalid wonBy parameter: $winner")
 
   private[controllers] def requestPgnFlags(extended: Boolean)(using RequestHeader, Option[Me]) =
     lila.game.PgnDump.WithFlags(

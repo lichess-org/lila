@@ -135,7 +135,7 @@ final class GameApiV2(
         gameRepo
           .sortedCursor(
             playerSelect ++
-              config.wonBy.fold(emptyBdoc)(w => Query.wonBy(w.id)) ++
+              config.wonBy.so(Query.wonBy) ++
               Query.createdBetween(config.since, config.until) ++
               (!config.ongoing).so(Query.finished),
             config.sort.bson,
@@ -405,7 +405,7 @@ object GameApiV2:
   case class ByUserConfig(
       user: User,
       vs: Option[User],
-      wonBy: Option[User],
+      wonBy: Option[UserId],
       format: Format,
       since: Option[Instant] = None,
       until: Option[Instant] = None,
