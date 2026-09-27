@@ -13,7 +13,9 @@
       javaVersion = 21;
       # Source of truth for Node version is .node-version
       nodeVersionFile = builtins.readFile ./.node-version;
-      nodeMajorVersion = builtins.elemAt (inputs.nixpkgs.lib.strings.split "\\." (builtins.replaceStrings [ "v" ] [ "" ] nodeVersionFile)) 0;
+      nodeMajorVersion = builtins.elemAt (inputs.nixpkgs.lib.strings.split "\\." (
+        builtins.replaceStrings [ "v" ] [ "" ] nodeVersionFile
+      )) 0;
       supportedSystems = [
         "x86_64-linux"
         "aarch64-linux"
@@ -44,7 +46,6 @@
           scala = prev.scala_3.override { jre = jdk; };
 
           nodejs = prev."nodejs_${nodeMajorVersion}";
-          pnpm = (prev.pnpm.override { inherit nodejs; });
 
           esbuild = prev.esbuild.overrideAttrs (previousAttrs: rec {
             version = "0.25.11";

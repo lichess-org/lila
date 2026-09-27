@@ -8,7 +8,7 @@ import chess.rating.glicko.Glicko
 import lila.core.perf.{ UserPerfs, UserWithPerfs }
 import lila.core.user.WithPerf
 import lila.db.dsl.{ *, given }
-import lila.rating.{ Perf, PerfType, UserPerfs }
+import lila.rating.{ Perf, PerfType, UserPerfs as defaults }
 
 final class UserPerfsRepo(c: Coll)(using Executor) extends lila.core.user.PerfsRepo(c):
 
@@ -19,7 +19,7 @@ final class UserPerfsRepo(c: Coll)(using Executor) extends lila.core.user.PerfsR
   def glickoField(perf: PerfKey) = s"$perf.gl"
 
   def byId[U: UserIdOf](u: U): Fu[UserPerfs] =
-    coll.byId[UserPerfs](u.id).dmap(_ | lila.rating.UserPerfs.default(u.id))
+    coll.byId[UserPerfs](u.id).dmap(_ | defaults.default(u.id))
 
   def idsMap[U: UserIdOf](
       u: Seq[U],
@@ -28,7 +28,7 @@ final class UserPerfsRepo(c: Coll)(using Executor) extends lila.core.user.PerfsR
     coll.idsMap[UserPerfs, UserId](u.map(_.id), none, readPref)(_.id)
 
   def idsMap[U: UserIdOf](u: Seq[U], pk: PerfKey, readPref: ReadPref): Fu[Map[UserId, Perf]] =
-    given BSONDocumentReader[(UserId, Perf)] = lila.rating.UserPerfs.idPerfReader(pk)
+    given BSONDocumentReader[(UserId, Perf)] = defaults.idPerfReader(pk)
     coll
       .find(inIds(u.map(_.id)), bdoc(pk.value -> true).some)
       .cursor[(UserId, Perf)](readPref)
@@ -36,14 +36,14 @@ final class UserPerfsRepo(c: Coll)(using Executor) extends lila.core.user.PerfsR
       .map(_.toMap)
 
   def perfsOf[U: UserIdOf](u: U): Fu[UserPerfs] =
-    coll.byId[UserPerfs](u.id).dmap(_ | lila.rating.UserPerfs.default(u.id))
+    coll.byId[UserPerfs](u.id).dmap(_ | defaults.default(u.id))
 
   def perfsOf[U: UserIdOf](us: PairOf[U], primary: Boolean): Fu[PairOf[UserPerfs]] =
     val (x, y) = us
     idsMap(List(x, y), if primary then _.pri else _.sec).dmap: ps =>
-      ps.getOrElse(x.id, lila.rating.UserPerfs.default(x.id)) -> ps.getOrElse(
+      ps.getOrElse(x.id, defaults.default(x.id)) -> ps.getOrElse(
         y.id,
-        lila.rating.UserPerfs.default(y.id)
+        defaults.default(y.id)
       )
 
   def withPerfs(u: User): Fu[UserWithPerfs] =
@@ -66,9 +66,9 @@ final class UserPerfsRepo(c: Coll)(using Executor) extends lila.core.user.PerfsR
     diff.nonEmpty.so(coll.update.one(bid(cur.id), bdoc("$set" -> bdoc(diff*)), upsert = true).void)
 
   def setManagedUserInitialPerfs(id: UserId) =
-    coll.update.one(bid(id), lila.rating.UserPerfs.defaultManaged(id), upsert = true).void
+    coll.update.one(bid(id), defaults.defaultManaged(id), upsert = true).void
   def setBotInitialPerfs(id: UserId) =
-    coll.update.one(bid(id), lila.rating.UserPerfs.defaultBot(id), upsert = true).void
+    coll.update.one(bid(id), defaults.defaultBot(id), upsert = true).void
 
   def setPerf(userId: UserId, pk: PerfKey, perf: Perf): Funit =
     coll.update.one(bid(userId), set(pk.value -> perf), upsert = true).void
@@ -163,7 +163,7 @@ final class UserPerfsRepo(c: Coll)(using Executor) extends lila.core.user.PerfsR
   def dubiousPuzzle(id: UserId, puzzle: Perf): Fu[Boolean] =
     (puzzle.glicko.rating >= 2500).so:
       perfOptionOf(id, PerfType.Standard).map:
-        _.forall(lila.rating.UserPerfs.dubiousPuzzle(puzzle, _))
+        _.forall(defaults.dubiousPuzzle(puzzle, _))
 
   object aggregate:
     val byId = lookup.simple(coll, "perfs", "_id", "_id")
@@ -176,7 +176,7 @@ final class UserPerfsRepo(c: Coll)(using Executor) extends lila.core.user.PerfsR
       root
         .getAsOpt[List[UserPerfs]]("perfs")
         .flatMap(_.headOption)
-        .getOrElse(lila.rating.UserPerfs.default(u.id))
+        .getOrElse(defaults.default(u.id))
 
     def readFirst(root: Bdoc, pk: PerfKey): Perf = (for
       perfs <- root.getAsOpt[List[Bdoc]]("perfs")
@@ -185,6 +185,6 @@ final class UserPerfsRepo(c: Coll)(using Executor) extends lila.core.user.PerfsR
     yield perf).getOrElse(Perf.default)
 
     def readFrom[U: UserIdOf](doc: Bdoc, u: U): UserPerfs =
-      doc.asOpt[UserPerfs].getOrElse(lila.rating.UserPerfs.default(u.id))
+      doc.asOpt[UserPerfs].getOrElse(defaults.default(u.id))
 
   export aggregate.{ byId as aggregateLookup, readFirst as aggregateReadFirst }
