@@ -4,7 +4,7 @@ import { parseFen } from 'chessops/fen';
 import { makeSquare, opposite } from 'chessops/util';
 
 import { fenColor } from './chess';
-import { endgameGlyphs } from './glyphs';
+import { endgameGlyphs, type EndgameGlyph } from './glyphs';
 import type { StatusName } from './status';
 
 export interface EndgameResult {
@@ -53,8 +53,6 @@ export function findKingSquare(fen: FEN, color: Color): Key | undefined {
   );
   return king === undefined ? undefined : makeSquare(king);
 }
-
-type EndgameGlyph = keyof typeof endgameGlyphs;
 
 const loserGlyph = (status: StatusName | undefined): EndgameGlyph =>
   status === 'mate'
