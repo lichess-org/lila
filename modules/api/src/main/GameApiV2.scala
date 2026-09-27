@@ -136,6 +136,7 @@ final class GameApiV2(
           .sortedCursor(
             playerSelect ++
               config.wonBy.so(Query.winnerNotUsingIndex) ++
+              config.lostBy.so(Query.loserNotUsingIndex) ++
               Query.createdBetween(config.since, config.until) ++
               (!config.ongoing).so(Query.finished),
             config.sort.bson,
@@ -406,6 +407,7 @@ object GameApiV2:
       user: User,
       vs: Option[User],
       wonBy: Option[UserId],
+      lostBy: Option[UserId],
       format: Format,
       since: Option[Instant] = None,
       until: Option[Instant] = None,
@@ -437,6 +439,7 @@ object GameApiV2:
           a = user.id.into(UserStr).some,
           b = vs.map(_.id.into(UserStr)),
           winner = wonBy.map(_.into(UserStr)),
+          loser = lostBy.map(_.into(UserStr)),
           white = color.exists(_.white).option(user.id.into(UserStr)),
           black = color.exists(_.black).option(user.id.into(UserStr))
         ),
