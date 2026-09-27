@@ -135,7 +135,7 @@ final class GameApiV2(
         gameRepo
           .sortedCursor(
             playerSelect ++
-              config.wonBy.so(Query.wonBy) ++
+              config.wonBy.so(Query.winnerNotUsingIndex) ++
               Query.createdBetween(config.since, config.until) ++
               (!config.ongoing).so(Query.finished),
             config.sort.bson,
