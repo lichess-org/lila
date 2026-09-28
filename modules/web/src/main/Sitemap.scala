@@ -5,6 +5,7 @@ import lila.core.config.BaseUrl
 final class Sitemap(baseUrl: BaseUrl):
 
   val paths = List(
+    "about",
     "training",
     "training/themes",
     "study",
