@@ -29,6 +29,11 @@ const settings: Record<SettingKey, Setting> = {
     group: i18n.preferences.generalSettings,
     helpHtml: imageHtml('info-evaluation-gauge'),
   },
+  useCloudEval: {
+    label: 'Use cloud evaluation',
+    group: i18n.preferences.generalSettings,
+    helpHtml: imageHtml('info-use-cloud-eval'),
+  },
   inline: {
     label: i18n.preferences.inlineNotation,
     shortcutHtml: '<kbd>shift</kbd> +<kbd>i</kbd>',

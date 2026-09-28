@@ -242,29 +242,35 @@ export class CevalCtrl {
     this.unload();
   }
 
-  isFinished(search: Search, step: Step): boolean {
+  isFinished(search: Search, step: Step, isThreat: boolean): boolean {
     return (
       !this.isDeeper() &&
       'movetime' in search.by &&
       !step.ceval?.cloud &&
-      (step.threat?.millis ?? step.ceval?.millis ?? 0) >= search.by.movetime &&
+      (isThreat ? (step.threat?.millis ?? 0) : (step.ceval?.millis ?? 0)) >= search.by.movetime &&
       step.ceval?.pvs.length === search.multiPv &&
       step.ceval?.engineId === this.engines.active()?.id
     );
   }
 
-  // Node counts, like depth, dont compare well across engines, but cloud evals have no engineId field.
-  // So cross-engine comparisons are only allowed for cloud evals (a tradeoff that defers to their utility).
-  // This function always prefers the latest unless:
-  // - latest has the wrong multipv and stored eval has the right one
-  // - stored eval has higher node count AND either stored and latest lack engineId or their engineIds match
+  // preferLatestEval is not great because cloud evals do not yet track engineId and node counts do not
+  // equate eval strength across different engines
 
   preferLatestEval(latest: ClientEval, stored: ClientEval | null | undefined): boolean {
     if (!stored) return true;
+
+    // If one has the correct multipv and the other doesn't, prefer the right multipv regardless of strength
     const multipv = this.search.multiPv;
     if (stored.pvs.length === multipv && latest.pvs.length !== multipv) return false;
     if (latest.pvs.length === multipv && stored.pvs.length !== multipv) return true;
+
+    // If the engine has changed and neither are cloud, prefer the latest eval regardless of strength
     if ('engineId' in stored && 'engineId' in latest && stored.engineId !== latest.engineId) return true;
+
+    // By user expectation when going deeper, the latest engine eval always wins regardless of strength
+    if (this.isDeeper() && !latest.cloud) return true;
+
+    // If engines match or one is cloud, the latest eval wins when its node count is equal or higher
     return latest.nodes >= stored.nodes;
   }
 
@@ -272,7 +278,7 @@ export class CevalCtrl {
     this.lastStarted = s;
     const step = s.steps[s.steps.length - 1];
     const { search, threads, hashSize, engine } = this.info(this.opts.custom)!;
-    if (this.isFinished(search, step)) return;
+    if (this.isFinished(search, step, s.threatMode)) return;
 
     const work: Work = {
       variant: this.rules,
@@ -331,7 +337,7 @@ export class CevalCtrl {
       fen: undefined as string | undefined,
       emit: this.opts.emit,
       movetime: 'movetime' in this.search.by && this.search.by.movetime,
-      dontStop: Boolean(this.engines.external || this.opts.custom || this.isDeeper() || this.isInfinite),
+      dontStop: Boolean(this.opts.custom || this.isDeeper() || this.isInfinite),
     };
     const emitter = throttleWithFlush(125, (ev: LocalEval, meta: EvalMeta) => {
       this.curEval = ev;
