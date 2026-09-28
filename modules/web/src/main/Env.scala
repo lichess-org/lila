@@ -26,6 +26,8 @@ final class Env(
 
   val github = wire[GitHub]
 
+  val static = wire[StaticContent]
+
   lazy val emailError = wire[EmailError]
 
   lazy val t3AuthMonitor = T3AuthMonitor()

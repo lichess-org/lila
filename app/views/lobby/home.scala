@@ -51,7 +51,8 @@ object home:
           description = trans.site.siteDescription.txt()
         )
       )
-      .hrefLangs(lila.ui.LangPath("/")):
+      .hrefLangs(lila.ui.LangPath("/"))
+      .headAppend(staticContent.organizationScript):
         given Option[UserWithPerfs] = homepage.me
         main(
           cls := List(

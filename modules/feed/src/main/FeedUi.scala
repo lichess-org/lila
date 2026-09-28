@@ -4,7 +4,7 @@ package ui
 import play.api.data.Form
 import scalalib.paginator.Paginator
 
-import lila.ui.*
+import lila.ui.{ *, given }
 import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class FeedUi(helpers: Helpers, atomUi: AtomUi)(
