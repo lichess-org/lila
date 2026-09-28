@@ -4,8 +4,7 @@ package ui
 import lila.common.String.removeMultibyteSymbols
 import lila.core.study.StudyOrder
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class StudyBits(helpers: Helpers):
   import helpers.{ *, given }

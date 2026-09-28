@@ -5,8 +5,7 @@ import play.api.data.Form
 
 import lila.core.id.SessionId
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class AccountSecurity(helpers: Helpers)(
     AccountPage: (String, String) => Context ?=> Page

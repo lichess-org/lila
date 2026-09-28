@@ -3,7 +3,7 @@ package ui
 
 import scalalib.model.Days
 import lila.ui.*
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class TopNav(helpers: Helpers):
   import helpers.{ *, given }

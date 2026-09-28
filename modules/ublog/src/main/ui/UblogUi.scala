@@ -8,7 +8,7 @@ import scalalib.model.Language
 import lila.ui.*
 import lila.core.ublog.{ BlogsBy, QualityFilter }
 
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.ublog.UblogPost.PreviewPost
 
 final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)(

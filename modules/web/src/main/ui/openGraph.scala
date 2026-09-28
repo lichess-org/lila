@@ -2,8 +2,7 @@ package lila.web
 package ui
 
 import lila.ui.*
-
-import ScalatagsTemplate.*
+import lila.ui.ScalatagsTemplate.*
 
 def openGraph(graph: OpenGraph): List[Frag] =
   import graph.*

@@ -4,8 +4,7 @@ package ui
 import play.api.libs.json.Json
 
 import lila.ui.*
-
-import ScalatagsTemplate.*
+import lila.ui.ScalatagsTemplate.*
 
 final class LearnUi(helpers: Helpers):
   import helpers.{ *, given }

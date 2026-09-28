@@ -9,7 +9,7 @@ import lila.ui.*
 
 import lila.report.Mod
 
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class ModUi(helpers: Helpers):
   import helpers.{ *, given }

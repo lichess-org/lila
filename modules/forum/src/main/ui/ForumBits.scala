@@ -2,8 +2,7 @@ package lila.forum
 package ui
 
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class ForumBits(helpers: Helpers):
   import helpers.{ *, given }

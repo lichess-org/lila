@@ -6,8 +6,7 @@ import play.api.data.{ Field, Form }
 import lila.core.captcha.Captcha
 import lila.core.team.Access
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class TeamFormUi(helpers: Helpers, bits: TeamUi)(
     renderCaptcha: (Form[?] | Field, Captcha) => Context ?=> Frag

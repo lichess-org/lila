@@ -4,8 +4,7 @@ import chess.format.{ Fen, Uci }
 import chess.Color
 
 import lila.ui.*
-
-import ScalatagsTemplate.*
+import lila.ui.ScalatagsTemplate.*
 
 object ChessHelper:
 

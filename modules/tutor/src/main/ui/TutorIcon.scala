@@ -1,7 +1,7 @@
 package lila.tutor
 
 import lila.ui.*
-import ScalatagsTemplate.*
+import lila.ui.ScalatagsTemplate.*
 
 opaque type TutorIcon = Frag
 

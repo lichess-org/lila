@@ -7,7 +7,7 @@ import scalalib.paginator.Paginator
 import lila.core.LightUser
 import lila.relay.RelayTour.{ WithLastRound, WithFirstRound }
 import lila.ui.*
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 import scalatags.Text.TypedTag
 
 final class RelayTourUi(helpers: Helpers, ui: RelayUi, card: RelayCardUi, pageMenu: RelayMenuUi):

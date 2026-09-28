@@ -1,7 +1,7 @@
 package lila.ui
 
 import lila.core.i18n.I18nModule
-import ScalatagsTemplate.*
+import lila.ui.ScalatagsTemplate.*
 
 opaque type LangPath = String
 object LangPath extends OpaqueString[LangPath]:

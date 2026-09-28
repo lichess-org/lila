@@ -7,8 +7,7 @@ import scalalib.model.Language
 import lila.core.i18n.I18nModule
 import lila.core.report.ScoreThresholds
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
     popularAlternateLanguages: List[Language],

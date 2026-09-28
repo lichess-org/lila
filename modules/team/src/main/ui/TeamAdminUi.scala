@@ -4,8 +4,7 @@ package ui
 import play.api.data.{ Field, Form }
 
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class TeamAdminUi(helpers: Helpers, bits: TeamUi):
   import helpers.{ *, given }

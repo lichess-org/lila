@@ -2,8 +2,7 @@ package lila.web
 package ui
 
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 val fideHandbookUrl = "https://handbook.fide.com/chapter/E012023"
 
