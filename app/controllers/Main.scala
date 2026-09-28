@@ -7,13 +7,12 @@ import scalalib.model.Language
 import lila.app.{ *, given }
 import lila.common.Json.given
 import lila.core.id.{ GameFullId, ImageId }
-import lila.web.{ StaticContent, WebForms }
 import lila.ui.MarkdownRealm
 
 final class Main(env: Env, assetsC: ExternalAssets) extends LilaController(env):
 
   def toggleBlindMode = OpenBody:
-    bindForm(WebForms.blind)(
+    bindForm(lila.web.WebForms.blind)(
       _ => BadRequest,
       (enable, redirect) =>
         Redirect(redirect).withCookies:
@@ -42,10 +41,10 @@ final class Main(env: Env, assetsC: ExternalAssets) extends LilaController(env):
 
   def redirectToAppStore = Anon:
     pageHit
-    Redirect(StaticContent.appStoreUrl)
+    Redirect(env.web.static.appStoreUrl)
 
   def redirectToSwag = Anon:
-    Redirect(StaticContent.swagUrl(env.security.geoIP(ctx.ip).so(_.countryCode)))
+    Redirect(env.web.static.swagUrl(env.security.geoIP(ctx.ip).so(_.countryCode)))
 
   private def serveApp(using Context) =
     pageHit
@@ -61,7 +60,7 @@ final class Main(env: Env, assetsC: ExternalAssets) extends LilaController(env):
     NoContent
 
   val robots = Anon:
-    Ok(if crawlable then StaticContent.robotsTxt else "User-agent: *\nDisallow: /")
+    Ok(if crawlable then env.web.static.robotsTxt else "User-agent: *\nDisallow: /")
 
   val sitemap = Anon:
     ( /* crawlable */ env.mode.isDev).so(Ok(env.web.sitemap.xml))
@@ -69,9 +68,8 @@ final class Main(env: Env, assetsC: ExternalAssets) extends LilaController(env):
   private def crawlable(using req: RequestHeader) =
     env.net.crawlable && req.domain == env.net.domain.value && env.mode.isProd
 
-  def manifest = Anon:
-    JsonOk:
-      StaticContent.manifest(env.net)
+  val manifest = Anon:
+    JsonOk(env.web.static.manifest)
 
   def getFishnet = Open:
     pageHit
@@ -122,7 +120,7 @@ final class Main(env: Env, assetsC: ExternalAssets) extends LilaController(env):
 
   def legacyQaQuestion(id: Int, @annotation.nowarn slug: String) = Anon:
     MovedPermanently:
-      StaticContent.legacyQaQuestion(id)
+      env.web.static.legacyQaQuestion(id)
 
   def devAsset(@annotation.nowarn v: String, path: String, file: String) = assetsC.at(path, file)
 

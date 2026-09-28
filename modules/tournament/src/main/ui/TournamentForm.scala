@@ -10,8 +10,7 @@ import lila.gathering.GatheringClock
 import lila.gathering.ui.GatheringFormUi
 import lila.tournament.crud.CrudForm
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 opaque type FormPrefix = Option[String]
 object FormPrefix extends TotalWrapper[FormPrefix, Option[String]]:

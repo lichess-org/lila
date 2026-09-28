@@ -5,8 +5,7 @@ import play.api.data.Form
 import play.api.libs.json.Json
 
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class CoachEditUi(helpers: Helpers, ui: CoachUi):
   import helpers.{ *, given }

@@ -41,6 +41,7 @@
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Reivindicar empate sobre a repetição tripla automaticamente</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Quando o tempo restante &lt; 30 segundos</string>
   <string name="moveConfirmation">Confirmação de movimento</string>
+  <string name="multipleChoices">Múltiplas escolhas. </string>
   <string name="explainCanThenBeTemporarilyDisabled">Pode ser desativado durante a partida no menu do tabuleiro</string>
   <string name="inCorrespondenceGames">Jogos por correspondência</string>
   <string name="correspondenceAndUnlimited">Por correspondência e sem limites</string>
@@ -90,6 +91,9 @@
   <string name="maneuverArrowsHelp">Sequência de lances de computador para uma peça</string>
   <string name="hoverOverSettingLabelsForHelp">Passe o mouse sobre as etiquetas de configuração para obter ajuda</string>
   <string name="network">Rede</string>
+  <string name="youAreCurrentlyUsingDirectRouting">Atualmente você está usando o roteamento direto.</string>
+  <string name="youAreCurrentlyUsingCdnRouting">Atualmente você está usando o roteamento pela Rede de Distribuição de Conteúdo (CDN).</string>
+  <string name="frequentDisconnectsAdvice">Se tiver desconexões frequentes, tente mudar o roteamento.</string>
   <string name="useDirectRouting">Usar roteamento direto</string>
   <string name="useCdnRouting">Usar roteamento CDN</string>
 </resources>

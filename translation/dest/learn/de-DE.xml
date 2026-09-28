@@ -102,6 +102,7 @@
   <string name="pawnsFormTheFrontLine">Bauern bilden die Front. Ziehe einen beliebigen Zug, um fortzufahren.</string>
   <string name="boardSetupComplete">Herzlichen Glückwunsch! Du weißt jetzt, wie man die Schachfiguren aufstellt.</string>
   <string name="castling">Rochade</string>
+  <string name="enPassant">En passant</string>
   <string name="theSpecialKingMove">Der besondere Königszug</string>
   <string name="castlingIntro">Bringe deinen König in Sicherheit und den Turm in Angriffsposition!</string>
   <string name="castleKingSide">Bewege deinen König zwei Felder, um kurz zu rochieren!</string>

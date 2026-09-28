@@ -7,7 +7,7 @@ import play.api.libs.json.Json
 import lila.ui.*
 import lila.common.Json.given
 
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 import scalalib.model.Days
 
 final class PuzzleBits(helpers: Helpers):

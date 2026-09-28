@@ -11,8 +11,7 @@ import lila.core.team.LightTeam
 import lila.gathering.ui.GatheringUi
 import lila.gathering.Condition.WithVerdicts
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class TournamentShow(helpers: Helpers, gathering: GatheringUi)(
     variantTeamLinks: Map[chess.variant.Variant.LilaKey, (LightTeam, Frag)]

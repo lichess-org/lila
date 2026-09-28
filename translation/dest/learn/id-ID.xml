@@ -114,6 +114,7 @@ Mereka ada disebelah kuda.</string>
   <string name="pawnsFormTheFrontLine">Pion membentuk garis depan. Buat langkah apa saja untuk melanjutkan.</string>
   <string name="boardSetupComplete">Selamat! Anda tahu cara memasang papan catur.</string>
   <string name="castling">Castling</string>
+  <string name="enPassant">En passant</string>
   <string name="theSpecialKingMove">Raja khusus bergerak</string>
   <string name="castlingIntro">Bawa raja anda ke tempat aman, dan siapkan benteng anda untuk menyerang!</string>
   <string name="castleKingSide">Gerakkan raja anda dua kotak untuk rokade ke sisi raja!</string>

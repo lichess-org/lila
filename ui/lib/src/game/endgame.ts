@@ -4,7 +4,7 @@ import { parseFen } from 'chessops/fen';
 import { makeSquare, opposite } from 'chessops/util';
 
 import { fenColor } from './chess';
-import { endgameGlyphs } from './glyphs';
+import { endgameGlyphs, type EndgameGlyph } from './glyphs';
 import type { StatusName } from './status';
 
 export interface EndgameResult {
@@ -21,22 +21,16 @@ type EndgameNode = {
 
 const endgameResult = (
   node: EndgameNode,
-  isLast: boolean,
   gameWinner: Color | undefined,
   gameStatus: StatusName,
 ): EndgameResult => {
-  const isTerminal = node.dests().size === 0,
-    isMate = node.check() && isTerminal,
-    isStalemate = !node.check() && isTerminal,
-    isGameEnd = isLast || isTerminal;
+  const outcome = node.outcome(),
+    isTerminal = node.dests().size === 0,
+    isMate = isTerminal && node.check(),
+    isStalemate = isTerminal && !node.check() && outcome && !outcome.winner;
 
-  if (!isGameEnd) return {};
   return {
-    winner: isMate
-      ? opposite(fenColor(node.fen))
-      : isStalemate
-        ? undefined
-        : (node.outcome()?.winner ?? gameWinner),
+    winner: isMate ? opposite(fenColor(node.fen)) : isStalemate ? undefined : (outcome?.winner ?? gameWinner),
     status: isMate ? 'mate' : isStalemate ? 'stalemate' : gameStatus,
   };
 };
@@ -47,7 +41,8 @@ export function endgameShapesForNode(
   gameWinner: Color | undefined,
   gameStatus: StatusName,
 ): DrawShape[] {
-  const result = endgameResult(node, isLast, gameWinner, gameStatus);
+  if (!isLast) return [];
+  const result = endgameResult(node, gameWinner, gameStatus);
   return endgameShapes(node.fen, result.winner, result.status);
 }
 
@@ -58,8 +53,6 @@ export function findKingSquare(fen: FEN, color: Color): Key | undefined {
   );
   return king === undefined ? undefined : makeSquare(king);
 }
-
-type EndgameGlyph = keyof typeof endgameGlyphs;
 
 const loserGlyph = (status: StatusName | undefined): EndgameGlyph =>
   status === 'mate'

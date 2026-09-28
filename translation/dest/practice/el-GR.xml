@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="secHeadPawnEndgames">Φινάλε Πιονιών</string>
+  <string name="secHeadRookEndgames">Φινάλε Πύργων</string>
+  <string name="stNamThePin">Το Κάρφωμα</string>
+  <string name="stNamTheSkewer">Το Σούβλισμα</string>
+  <string name="stNamTheFork">Το Πιρούνι</string>
+  <string name="stNamDiscoveredAttacks">Επιθέσεις από Αποκάλυψη</string>
+  <string name="stNamDoubleCheck">Διπλό Σαχ</string>
+  <string name="stNamZwischenzug">Ενδιάμεση Κίνηση</string>
+  <string name="stNamZugzwang">Τσούγκσβανγκ</string>
+  <string name="stNamGreekGift">Ελληνικό Δώρο</string>
+  <string name="stNamDeflection">Αντιπερισπασμός</string>
+  <string name="stNamAttraction">Έλξη</string>
+  <string name="stNamOpposition">Αντιπαράθεση</string>
+</resources>

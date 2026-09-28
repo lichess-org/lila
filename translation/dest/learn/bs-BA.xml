@@ -131,6 +131,7 @@ Odmah pored svoje kraljice.</string>
 Napravite bilo koji potez da nastavite.</string>
   <string name="boardSetupComplete">Čestitke! Znate postaviti šahovsku ploču.</string>
   <string name="castling">Rokada</string>
+  <string name="enPassant">En passant</string>
   <string name="theSpecialKingMove">Poseban potez kralja</string>
   <string name="castlingIntro">Dovedite Vašeg kralja na sigurno, i razvijte topa za napad!</string>
   <string name="castleKingSide">Pomaknite svog kralja za dva polja

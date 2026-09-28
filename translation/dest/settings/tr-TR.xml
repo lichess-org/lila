@@ -7,5 +7,12 @@
   <string name="cancelKeepAccount">Vazgeç ve hesabımı koru</string>
   <string name="closeAccountAreYouSure">Hesabınızı kapatmak istediğinize emin misiniz?</string>
   <string name="thisAccountIsClosed">Hesap kapatılmıştır.</string>
+  <string name="wereSorryToSeeYouGo">Aramızdan ayrıldığınız için üzgünüz.</string>
+  <string name="closeAccountForeverLabel">Sonsuza dek kapat: Yeniden açılmasını imkansız kıl</string>
+  <string name="closeAccountForeverWarning">Hesabın daha sonra yeniden açılmasını önleyin. Bu kutuyu işaretlerseniz, siz talep etseniz bile yöneticiler hesabınızı yeniden açamayacaktır.</string>
   <string name="deleteYourAccount">Hesabınızı silin</string>
+  <string name="deleteAccountWarning">Hesabınızı sildiğinizde, hesap Lichess\'ten kaldırılır ve yöneticilerimiz onu sizin için geri getiremez.</string>
+  <string name="wouldYouLikeToXInstead" comment="%s is close your account">Bunun yerine %s ister misiniz?</string>
+  <string name="closeYourAccount">hesabını kapat</string>
+  <string name="deleteAccountConfirmText">Silinen hesapların kurtarılamayacağını anlıyorum</string>
 </resources>

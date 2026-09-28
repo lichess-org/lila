@@ -5,8 +5,7 @@ import play.api.libs.json.*
 
 import lila.core.id.CmsPageKey
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class RacerUi(helpers: Helpers):
   import helpers.{ *, given }

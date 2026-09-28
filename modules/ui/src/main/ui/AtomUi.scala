@@ -2,7 +2,7 @@ package lila.ui
 
 import java.time.LocalDate
 
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.core.config.RouteUrl
 
 final class AtomUi(routeUrl: RouteUrl):

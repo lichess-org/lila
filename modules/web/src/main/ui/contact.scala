@@ -4,8 +4,7 @@ package ui
 import lila.core.i18n.{ I18nKey as trans, Translate }
 import lila.core.id.ForumCategId
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 object contact:
 

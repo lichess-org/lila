@@ -8,8 +8,7 @@ import play.api.data.{ Field, Form }
 import lila.core.rating.RatingRange
 import lila.rating.PerfType
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class SetupUi(helpers: Helpers):
   import helpers.{ *, given }

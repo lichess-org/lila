@@ -1,8 +1,7 @@
 package lila.clas
 package ui
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class ClasUi(helpers: lila.ui.Helpers)(searchMenu: Context ?=> Frag):
   import helpers.{ *, given }

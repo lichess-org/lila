@@ -126,6 +126,7 @@
 ഏതെങ്കിലും നീക്കത്തോടെ നമുക്ക് തുടരാം.</string>
   <string name="boardSetupComplete">അഭിനന്ദനങൾ! നിങ്ങൾ ചെസ്സ് കരുക്കൾ അണിനിരത്താൻ പഠിച്ചിരിക്കുന്നു.</string>
   <string name="castling">കാസ്റ്റലിങ്</string>
+  <string name="enPassant">എൻ പാസ്സൻറ്</string>
   <string name="theSpecialKingMove">രാജാവിന്റെ പ്രത്യേക നീക്കം</string>
   <string name="castlingIntro">നിങ്ങളുടെ രാജാവിനെ സുരക്ഷിതത്വത്തിലേക്ക് കൊണ്ടുവരൂ, എന്നിട്ട് തേരാളിയെ ആക്രമണത്തിനായി പറഞ്ഞയാക്കൂ!</string>
   <string name="castleKingSide">രണ്ടു കളങ്ങൾ നീക്കി രാജാവിന്റെ വശത്തേക്ക് 

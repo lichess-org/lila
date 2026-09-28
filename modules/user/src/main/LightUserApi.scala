@@ -94,7 +94,7 @@ final class LightUserApi(repo: UserRepo, cacheApi: CacheApi)(using Executor)
 
   private val realNameCache: Syncache[UserId, Option[RealName]] = cacheApi.sync[UserId, Option[RealName]](
     name = "user.realName",
-    initialCapacity = 512,
+    initialCapacity = 2048,
     compute = repo.realName,
     default = _ => none,
     strategy = Syncache.Strategy.NeverWait,

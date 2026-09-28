@@ -5,8 +5,7 @@ import lila.core.perf.{ UserPerfs, UserWithPerfs }
 import lila.core.user.LightPerf
 import lila.rating.PerfType
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 import scalalib.paginator.Paginator
 
 final class UserList(helpers: Helpers, bits: UserBits):

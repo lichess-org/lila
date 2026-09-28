@@ -19,6 +19,7 @@
   <string name="bodenMate">Բոդենի մատ</string>
   <string name="bodenMateDescription">Խաչվող անկյունագծերում գտնվող երկու փղերը մատ են հայտարարում մրցակցի արքային, որը շրջափակված է սեփական խաղաքարերով։</string>
   <string name="castling">Փոխատեղում</string>
+  <string name="enPassant">Կողանցիկ հարված</string>
   <string name="castlingDescription">Արքայի տեղափոխումն ապահով տեղ և նավակի դուրսբերումը մարտի։</string>
   <string name="capturingDefender">Պաշտպանի վերացում</string>
   <string name="capturingDefenderDescription">Այլ խաղաքարը պաշտպանող խաղաքարի շահում կամ փոխանակում՝ հետագայում անպաշտպան մնացած խաղաքարի շահումով։</string>

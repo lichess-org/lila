@@ -739,8 +739,9 @@ object ublog:
     def quality(q: String) = counter("ublog.automod.quality").withTag("quality", q)
     def flagged(f: Boolean) = counter("ublog.automod.flagged").withTag("flagged", f)
 object picfit:
-  def uploadTime(user: UserId) = future("picfit.upload.time", tags("user" -> user))
-  def uploadSize(user: UserId) = histogram("picfit.upload.size").withTag("user", user)
+  def uploadTime = future("picfit.upload.time")
+  def uploadSize = histogram("picfit.upload.size").withoutTags()
+  def uploadCount(by: UserId) = counter("picfit.upload.count").withTag("by", by)
 object fideSync:
   val time = future("fide.sync.time")
   val players = gauge("fide.sync.players").withoutTags()

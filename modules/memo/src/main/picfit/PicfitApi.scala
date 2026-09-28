@@ -112,9 +112,8 @@ final class PicfitApi(
       .flatMap(validTypes.toMap.get)
       .match
         case None =>
-          fufail(
+          fufail:
             lila.core.lilaism.LilaInvalid(s"File must be one of: ${validTypes.map(_._2).mkString(", ")}")
-          )
         case Some(extension) =>
           val image = PicfitImage(
             id = ImageId(s"$hash.$extension"),
@@ -185,10 +184,11 @@ final class PicfitApi(
           case res if res.status != 200 =>
             fufail(s"${res.statusText} ${res.body[String].take(200)}")
           case _ =>
-            if image.size > 0 then lila.mon.picfit.uploadSize(image.user).record(image.size)
+            lila.mon.picfit.uploadCount(image.user).increment()
+            if image.size > 0 then lila.mon.picfit.uploadSize.record(image.size)
             funit
         }
-        .monSuccess(lila.mon.picfit.uploadTime(image.user))
+        .monSuccess(lila.mon.picfit.uploadTime)
 
     def delete(image: PicfitImage): Funit =
       ws.url(s"${config.endpointPost}/${image.id}")

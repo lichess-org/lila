@@ -23,6 +23,7 @@
   <string name="bodenMate">Bodens matt</string>
   <string name="bodenMateDescription">To angripende løpere på kryssende diagonaler setter matt, da kongen er blokkert av egne brikker.</string>
   <string name="castling">Rokade</string>
+  <string name="enPassant">En passant</string>
   <string name="castlingDescription">Få kongen i sikkerhet og gjør tårnet klart for angrep.</string>
   <string name="capturingDefender">Slå forsvareren</string>
   <string name="capturingDefenderDescription">Ta en brikke som gir avgjørende dekning for en annen brikke, slik at den nå udekkede brikken kan slås senere.</string>
