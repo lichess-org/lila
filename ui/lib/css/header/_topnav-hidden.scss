@@ -114,7 +114,7 @@
     position: fixed;
     top: $site-header-height;
     bottom: 0;
-    background: $c-bg-high;
+    background: $c-dimmer;
     padding-bottom: 1.2rem;
     overflow-y: auto;
     overscroll-behavior: contain;
@@ -126,8 +126,6 @@
     @include if-rtl {
       transform: translateX(calc(100% + 10px));
     }
-
-    @include backdrop-blur-if-transparent;
 
     @include mq-safari {
       min-height: 75vh; // safari has funny ideas about fixed parents bounding fixed children
