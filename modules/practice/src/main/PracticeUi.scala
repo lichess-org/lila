@@ -15,7 +15,7 @@ final class PracticeUi(helpers: Helpers)(
   import trans.learn as trl
 
   def show(us: UserStudy, data: JsonView.JsData)(using ctx: Context) =
-    Page(us.practiceStudy.name.value)
+    Page(us.practiceStudy.name.txt())
       .css("analyse.practice")
       .css(ctx.pref.hasKeyboardMove.option("keyboardMove"))
       .i18n(_.study)
