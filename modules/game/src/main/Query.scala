@@ -84,17 +84,12 @@ object Query:
 
   def winnerNotUsingIndex(u: UserId): Bdoc = bdoc(F.winnerId -> u)
 
+  def loserNotUsingIndex(u: UserId): Bdoc = bdoc(F.winnerId -> bdoc("$exists" -> true, "$ne" -> u))
+
   // use the us index
   def win(u: UserId) = user(u) ++ winnerNotUsingIndex(u)
 
-  def loss(u: UserId) =
-    user(u) ++ bdoc(
-      F.status.in(Status.finishedWithWinner.map(_.id)),
-      F.winnerId -> bdoc(
-        "$exists" -> true,
-        "$ne" -> u
-      )
-    )
+  def loss(u: UserId) = user(u) ++ loserNotUsingIndex(u)
 
   def opponents(u1: User, u2: User) =
     bdoc(F.playerUids.all(List(u1, u2).sortBy(_.count.game).map(_.id)))
