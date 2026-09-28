@@ -6,7 +6,6 @@ import play.api.mvc.RequestHeader
 import lila.common.HTTPRequest
 import lila.common.Json.given
 import lila.core.config.NetConfig
-import lila.ui.ScalatagsTemplate.*
 
 final class StaticContent(net: NetConfig):
 
@@ -114,26 +113,22 @@ Allow: /game/export/gif/thumbnail/
       case 122 => s"$faq#marks"
       case _ => faq
 
-  val organizationScript = raw:
-    val js = Json.stringify:
-      Json.obj(
-        "@context" -> "https://schema.org",
-        "@type" -> "Organization",
-        "url" -> net.baseUrl,
-        "sameAs" -> List(
-          "https://mastodon.online/@lichess",
-          "https://github.com/lichess-org",
-          "https://discord.gg/lichess",
-          "https://bsky.app/profile/lichess.org",
-          "https://youtube.com/@LichessDotOrg",
-          "https://www.twitch.tv/lichessdotorg"
-        ),
-        "logo" -> s"https://${net.assetDomain}/assets/logo/lichess.svg",
-        "name" -> "Lichess free online chess",
-        "description" -> "The (really) free, no-ads, open source chess server.",
-        "email" -> "contact@lichess.org"
-      )
-    s"""<script type="application/ld+json">$js</script>"""
+  val organizationScript = lila.ui.bits.structuredData("Organization"):
+    Json.obj(
+      "url" -> net.baseUrl,
+      "sameAs" -> List(
+        "https://mastodon.online/@lichess",
+        "https://github.com/lichess-org",
+        "https://discord.gg/lichess",
+        "https://bsky.app/profile/lichess.org",
+        "https://youtube.com/@LichessDotOrg",
+        "https://www.twitch.tv/lichessdotorg"
+      ),
+      "logo" -> s"https://${net.assetDomain}/assets/logo/lichess.svg",
+      "name" -> "Lichess free online chess",
+      "description" -> "The (really) free, no-ads, open source chess server.",
+      "email" -> "contact@lichess.org"
+    )
 
 object StaticContent:
 
