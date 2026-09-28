@@ -132,7 +132,7 @@ final class ChatApi(
     )(using mod: MyId): Funit =
       def canTimeOut(using Me) =
         isMod || (busChan(BusChan) == BusChan.study && isRelayMod) || scope == ChatTimeout.Scope.Local
-      for
+      val res = for
         chat <- OptionT(coll.byId[UserChat](chatId.value))
         me <- OptionT(userApi.me(mod))
         user <- OptionT(userApi.byId(userId))
@@ -140,7 +140,7 @@ final class ChatApi(
           canTimeOut(using me).so:
             doTimeout(chat, user, reason, scope, text, busChan)(using me)
       yield ()
-    .getOrElse(())
+      res.getOrElse(())
 
     def publicTimeout(data: ChatTimeout.TimeoutFormData)(using MyId): Funit =
       ChatTimeout
