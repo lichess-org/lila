@@ -217,10 +217,6 @@ html:not(.transp) body:not(.simple-board) {
   }
 }
 
-body.no-resultsGlyphs .cg-custom-svgs .endgame {
-  display: none;
-}
-
 html.transp body:not(.simple-board) cg-board {
   piece,
   square {
