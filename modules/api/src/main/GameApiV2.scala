@@ -405,9 +405,7 @@ object GameApiV2:
 
   case class ByUserConfig(
       user: User,
-      vs: Option[User],
-      wonBy: Option[UserId],
-      lostBy: Option[UserId],
+      players: GamePlayersConfig,
       format: Format,
       since: Option[Instant] = None,
       until: Option[Instant] = None,
@@ -425,6 +423,7 @@ object GameApiV2:
       extends Config:
     import lila.search.spec.DateRange
     import lila.gameSearch.*
+    export players.*
 
     private def ts(i: Instant): Timestamp = Timestamp.fromEpochMilli(i.toEpochMilli)
 
@@ -450,6 +449,8 @@ object GameApiV2:
         perf = perfKey.view.map(_.id.value).toList,
         rated = rated
       )
+
+  case class GamePlayersConfig(vs: Option[User], wonBy: Option[UserId], lostBy: Option[UserId])
 
   case class ByIdsConfig(
       ids: Seq[GameId],
