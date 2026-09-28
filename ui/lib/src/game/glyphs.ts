@@ -45,14 +45,7 @@ export const glyphToSvg: Record<string, (stackedNumber: number) => string> = cgG
 export const analysisGlyphs: Record<string, (stackedNumber: number) => string> =
   cgGlyphs.analysisGlyphs(maxGlyphs);
 
-export type EndgameGlyph =
-  | 'win'
-  | 'mate'
-  | 'resign'
-  | 'abandoned'
-  | 'outoftime'
-  | 'unknown'
-  | 'draw'
-  | 'stalemate';
+export type EndgameGlyph = cgGlyphs.EndgameOutcome;
+
 export const endgameGlyphs: Record<EndgameGlyph, (stackedNumber: number) => string> =
   cgGlyphs.endgameGlyphs(maxGlyphs);
