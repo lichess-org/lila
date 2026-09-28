@@ -19,6 +19,7 @@
   <string name="bodenMate">ಬೋಡೆನ್ನ ಸಂಗಾತಿ</string>
   <string name="bodenMateDescription">ಕ್ರಿಸ್-ಕ್ರಾಸಿಂಗ್ ಕರ್ಣಗಳ ಮೇಲೆ ದಾಳಿ ಮಾಡುವ ಇಬ್ಬರು ಬಿಷಪ್‌ಗಳು ಸ್ನೇಹಪರ ತುಣುಕುಗಳಿಂದ ಅಡ್ಡಿಪಡಿಸಿದ ರಾಜನಿಗೆ ಸಂಗಾತಿಯನ್ನು ತಲುಪಿಸುತ್ತಾರೆ.</string>
   <string name="castling">ಕ್ಯಾಸ್ಲಿಂಗ್</string>
+  <string name="enPassant">ಎನ್ ಪಾಸಂಟ್</string>
   <string name="castlingDescription">ರಾಜನನ್ನು ಸುರಕ್ಷಿತವಾಗಿ ಕರೆತನ್ನಿ, ಮತ್ತು ದಾಳಿಗೆ ರೂಕ್ ಅನ್ನು ನಿಯೋಜಿಸಿ.</string>
   <string name="capturingDefender">ರಕ್ಷಕನನ್ನು ಸೆರೆಹಿಡಿಯಿರಿ</string>
   <string name="capturingDefenderDescription">ಮತ್ತೊಂದು ತುಣುಕಿನ ರಕ್ಷಣೆಗೆ ನಿರ್ಣಾಯಕವಾದ ತುಣುಕನ್ನು ತೆಗೆದುಹಾಕುವುದು, ಈಗ ರಕ್ಷಿಸದ ತುಂಡನ್ನು ಕೆಳಗಿನ ಚಲನೆಯಲ್ಲಿ ಸೆರೆಹಿಡಿಯಲು ಅನುವು ಮಾಡಿಕೊಡುತ್ತದೆ.</string>

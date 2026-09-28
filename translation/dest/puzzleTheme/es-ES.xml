@@ -23,6 +23,7 @@
   <string name="bodenMate">Mate de Boden</string>
   <string name="bodenMateDescription">Dos alfiles atacantes en diagonales cruzadas dan mate al rey, obstruido por piezas de su bando.</string>
   <string name="castling">Enroque</string>
+  <string name="enPassant">Captura al paso</string>
   <string name="castlingDescription">Lleva al rey a un lugar seguro y despliega la torre para atacar.</string>
   <string name="capturingDefender">Capturar al defensor</string>
   <string name="capturingDefenderDescription">Eliminar una pieza fundamental para la defensa de otra, permitiendo capturar la pieza, ahora indefensa, en el futuro.</string>

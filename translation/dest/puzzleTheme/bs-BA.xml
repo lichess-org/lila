@@ -23,6 +23,7 @@
   <string name="bodenMate">Bodenov mat</string>
   <string name="bodenMateDescription">Dva napadačka biskupa na ukrštenim dijagonalama isporučuju partnera kralju spriječenom prijateljskim figurama.</string>
   <string name="castling">Rokada</string>
+  <string name="enPassant">En passant</string>
   <string name="castlingDescription">Sklonite kralja na sigurno i razvijte topa za napad.</string>
   <string name="capturingDefender">Uzmite figuru koja brani drugu</string>
   <string name="capturingDefenderDescription">Uklanjanje figure koja je ključna za odbranu druge figure, što omogućuje da sada nebranjena figura bude uzeta u sljedećem potezu.</string>

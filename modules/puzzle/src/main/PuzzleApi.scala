@@ -41,7 +41,8 @@ final class PuzzleApi(
     def setIssue(id: PuzzleId, issue: String): Fu[Boolean] =
       colls.puzzle(_.updateField(bid(id), Puzzle.BSONFields.issue, issue).map(_.n > 0))
 
-    val reportDedup = scalalib.cache.OnceEvery[PuzzleId](7.days)
+    def hasIssue(id: PuzzleId): Fu[Boolean] =
+      colls.puzzle(_.exists(bid(id) ++ Puzzle.BSONFields.issue.exists(true)))
 
   private[puzzle] object round:
 

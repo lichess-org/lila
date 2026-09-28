@@ -14,6 +14,9 @@
   <string name="reloadThisPage">ह्या पृष्ठाला पुनः आयात करा</string>
   <string name="lichessConnectivity">Lichess विद्युतसंबंधता</string>
   <string name="validDgtOauthToken">DGT खेळासाठी योग्य तुमच्याकडे एक OAuth प्रवेशचिन्ह आहे.</string>
+  <string name="dgtPlayMenuEntryAdded">तुमच्या वरच्या बाजूला असलेल्या PLAY मेनूमध्ये %s ही नोंद जोडली गेली.</string>
+  <string name="noSuitableOauthToken">कोणताही योग्य OAuth प्रवेशचिन्ह तयार केलेला नाही.</string>
+  <string name="clickToGenerateOne">एक तयार करण्यासाठी इथे दाबा</string>
   <string name="webSocketUrl">%s वेबगुरू URL</string>
   <string name="textToSpeech">संहिता-ते-उच्चार</string>
   <string name="enableSpeechSynthesis">भाषण संश्लेषण सक्षम करा</string>

@@ -23,6 +23,7 @@
   <string name="bodenMate">Мат Бодена</string>
   <string name="bodenMateDescription">Два слони на перехресних діагоналях ставлять мат королю, який оточений власними фігурами.</string>
   <string name="castling">Рокіровка</string>
+  <string name="enPassant">Взяття на проході</string>
   <string name="castlingDescription">Захистіть свого короля й виведіть у бій туру.</string>
   <string name="capturingDefender">Захоплення захисника</string>
   <string name="capturingDefenderDescription">Захоплення фігури, що захищає іншу фігуру, дозволяє захопити незахищену фігуру наступним ходом.</string>

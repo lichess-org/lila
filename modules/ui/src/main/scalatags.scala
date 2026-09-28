@@ -29,6 +29,7 @@ trait ScalatagsAttrs:
   val downloadAttr = attr("download").empty
   val viewBoxAttr = attr("viewBox")
   val enterkeyhint = attr("enterkeyhint")
+  val inertAttr = attr("inert").empty
   def attrData(name: String) = attr(s"data-$name")
   def aria(key: String) = attr(s"aria-$key")
   // https://accessibleweb.com/question-answer/when-should-i-use-a-null-or-empty-alt-tag/

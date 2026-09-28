@@ -132,6 +132,7 @@ Kohe lipu kõrvale.</string>
 Tee käik, et jätkata.</string>
   <string name="boardSetupComplete">Õnnitlused! Tead kuidas seadistada malelauda.</string>
   <string name="castling">Vangerdus</string>
+  <string name="enPassant">En passant</string>
   <string name="theSpecialKingMove">Kuninga eriline käik</string>
   <string name="castlingIntro">Too oma kuningas turvalisse kohta, ja kasuta oma vankreid rünnakuks!</string>
   <string name="castleKingSide">Liiguta oma kuningat kahe ruudu võrra,

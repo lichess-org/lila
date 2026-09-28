@@ -40,6 +40,7 @@
   <string name="mateInOne">gasnu lo caxmata ba\'o pa nunmu\'u</string>
   <string name="howTheGameStarts">lo nunji\'a cu cfari tai ma kau</string>
   <string name="castling">lo badydi\'ulujnunmu\'u</string>
+  <string name="enPassant">lo lamgresoinunmu\'u</string>
   <string name="theSpecialKingMove">lo se steci be fi lo\'i nunmu\'u pe lo noltrunau</string>
   <string name="theSpecialPawnMove">lo se steci be fi lo\'i nunmu\'u pe lo sonci</string>
   <string name="takeAllThePawnsEnPassant">ko kavbu ro lo sonci fau lo lamgresoinunmu\'u</string>

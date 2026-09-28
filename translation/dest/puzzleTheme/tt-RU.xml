@@ -11,6 +11,7 @@
   <string name="bodenMate">Боден маты</string>
   <string name="bodenMateDescription">Ике һөҗүм итүче киселешәләр диагональ буенча һәм рәкыйпнең үз дуст сөякләре кома шаулаган шаһына мат куялар.</string>
   <string name="castling">Рокировка</string>
+  <string name="enPassant">Бик вакытлы</string>
   <string name="crushing">Изеш</string>
   <string name="doubleBishopMate">Икеләтә филь маты</string>
   <string name="equality">Тигезлек</string>

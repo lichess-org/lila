@@ -109,6 +109,7 @@ Det er inga grunn til omvandling.</string>
   <string name="pawnsFormTheFrontLine">Bøndene dannar frontlina. Gjer eit valfritt trekk når du vil halda fram.</string>
   <string name="boardSetupComplete">Gratulerar! No kjenner du til korleis brikkene står stilt opp på brettet når eit parti sjakk startar.</string>
   <string name="castling">Rokade</string>
+  <string name="enPassant">En passant</string>
   <string name="theSpecialKingMove">Det særeigne kongetrekket</string>
   <string name="castlingIntro">Få kongen din i tryggleik og gjer tårnet klårt for åtak!</string>
   <string name="castleKingSide">Flytt kongen to felt mot kongefløya for å rokere kort!</string>

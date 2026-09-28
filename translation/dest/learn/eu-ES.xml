@@ -132,6 +132,7 @@ Bere damaren ondoan kokatu.</string>
 Egin edozein jokaldi jarraitzeko.</string>
   <string name="boardSetupComplete">Zorionak! Badakizu xake-taula nola kokatu.</string>
   <string name="castling">Endrokea</string>
+  <string name="enPassant">Igarotzean harrapatzea</string>
   <string name="theSpecialKingMove">Erregearen jokaldi berezia</string>
   <string name="castlingIntro">Segurtasuna eman zure erregeari eta ekarri gaztelua erasora!</string>
   <string name="castleKingSide">Mugitu zure erregea bi lauki

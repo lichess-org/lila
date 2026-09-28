@@ -57,6 +57,7 @@
   <string name="subscribeTitle">प्रत्येक फेरी सुरू झाल्यावर सूचना मिळवण्यासाठी सदस्यता घ्या. तुम्ही तुमच्या खाते प्राधान्यांमध्ये प्रसारणासाठी बेल किंवा पुश सूचना निवडू शकता.</string>
   <string name="uploadImage">स्पर्धेचे चित्र टाका</string>
   <string name="noBoardsYet">आता पट नाही आहेत. हे खेळ टाकल्यावर दिसतील.</string>
+  <string name="noPlayersYet">अद्याप कोणतेही खेळाडू नाहीत. खेळ आयात झाल्यावर ते दिसू लागतील.</string>
   <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">पट स्रोता बरोबर किंवा %s ने भारले जाऊ शकतात</string>
   <string name="startsAfter">%s नंतर चालू होईल</string>
   <string name="startVerySoon">प्रसारण लवकरच चालू होईल.</string>
@@ -107,6 +108,7 @@
   <string name="tiebreaks">बरोबरीभंग फेऱ्या</string>
   <string name="gameX">खेळ %s</string>
   <string name="knockouts">बाद फेऱ्या</string>
+  <string name="pinPlayer">खेळाडू ठळकपणे दर्शवा</string>
   <string name="underXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament. e.g.  'U18' will mean it is an tournament for under-18 years.  Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">%s वर्षांखालील</string>
   <string name="underXEloTournament" comment="%s is the maximum Elo rating set by the organiser for a tournament.  e.g. 'U2000' will mean it is an tournament for players with Elo under 2000.  Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">%s वर्षांखालील</string>
 </resources>

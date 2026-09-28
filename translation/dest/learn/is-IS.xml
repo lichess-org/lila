@@ -132,6 +132,7 @@ Við hlið drottningarinnar.</string>
 Veldu hvaða leik sem er.</string>
   <string name="boardSetupComplete">Til hamingju! Nú veistu hvernig taflmönnunum er raðað upp.</string>
   <string name="castling">Hrókering</string>
+  <string name="enPassant">Framhjáhlaup</string>
   <string name="theSpecialKingMove">Óvenjulega hreyfing kóngsins</string>
   <string name="castlingIntro">Færðu kónginn á öruggan stað og undirbúðu hrókinn fyrir árás!</string>
   <string name="castleKingSide">Færðu kónginn um tvo reiti

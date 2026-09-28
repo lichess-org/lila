@@ -15,7 +15,7 @@
   <string name="backRankMate">शेवटच्या पंक्तीत मात</string>
   <string name="backRankMateDescription">राजाला त्याच्या पहिल्या पंक्तीत शह आणि मात देणे, जेव्हा राज्य त्याच्याच सोंगट्यांमुळे अडकला असेल.</string>
   <string name="balestraMate">बॅलेस्ट्रा मात</string>
-  <string name="balestraMateDescription">एक उंट मात पोहोचवतो, तर एक राणी उर्वरित पाळण्याची जागा बंद करते.</string>
+  <string name="balestraMateDescription">एक उंट मात पोहोचवतो, तर एक राणी उर्वरित पाळण्याची जागा बंद करते</string>
   <string name="blindSwineMate">दुहेरी हत्तींची मात</string>
   <string name="blindSwineMateDescription">दोन हत्ती एकत्र येऊन राजाला २ घरात अडकवून मात देतात.</string>
   <string name="bishopEndgame">उंटाचा अंत्यखेळ</string>
@@ -23,19 +23,21 @@
   <string name="bodenMate">बोडनची मात</string>
   <string name="bodenMateDescription">दोन हल्ले करणारे उंट तिरक्या कर्णावरुन विरोधकाच्याच सोंगट्यामध्ये अडकलेल्या राजाला मात देतात.</string>
   <string name="castling">किल्लेकोट</string>
+  <string name="enPassant">एन पसांट</string>
   <string name="castlingDescription">आपल्या राजाला सुरक्षित ठिकाणी पोचवा, आणि हत्तीला हल्ल्यासाठी तैनात करा.</string>
   <string name="capturingDefender">रक्षकाला मारा</string>
   <string name="capturingDefenderDescription">एखाद्या सोंगटीच्या बचाव करणाऱ्या सोंगटीला वगळणे, त्यामुळे नवीन असुरक्षित झालेल्या सोंगटीला पुढच्या चालीत परत मारता येऊ शकते.</string>
   <string name="collinearMove">समरेख डाव</string>
   <string name="collinearMoveDescription">दोन विरुद्ध सोंगट्या एकमेकांसमोर येतात आणि एक शत्रूच्या सोंगट्याला न पकडता आक्रमण रेषेवर सरकतो.</string>
-  <string name="cornerMate">कोपऱ्यातले मात.</string>
+  <string name="cornerMate">कोपऱ्यातले मात</string>
+  <string name="cornerMateKnightDeliversDescription" comment="Description for the &quot;Corner mate&quot; puzzle theme.">हत्ती किंवा राणीचा वापर करून राजाला कोपऱ्यात कोंडा आणि घोड्याचा वापर करून शहमत करा.</string>
   <string name="crushing">निर्णायक</string>
   <string name="crushingDescription">विरोधकाची घोडचूक ओळखून निर्णायक स्थिती प्राप्त करा. (मूल्यांकन ≥ 600cp)</string>
   <string name="discoveredCheck">उलगडलेला शह</string>
   <string name="discoveredCheckDescription">लपलेल्या आक्रमक मोहऱ्यापासून शह उलगडण्यासाठी समोरील मोहरा हलवा, ज्यामुळे अनेकदा निर्णायक फायदा होतो.</string>
   <string name="doubleBishopMate">दोन उंटांची मात</string>
   <string name="doubleBishopMateDescription">दोन हल्ले करणारे उंट तिरक्या कर्णावरुन विरोधकाच्याच सोंगट्यामध्ये अडकलेल्या राजाला मात देतात.</string>
-  <string name="dovetailMate">डवटेल मात</string>
+  <string name="dovetailMate">जुळणीची मात</string>
   <string name="dovetailMateDescription">वजीर जवळच्या राजाला मात देतो, जिथे राजाला सुटकेसाठी फक्त दोन उपलब्ध घरे त्याच्याच सोंगट्यांनी अडवली आहेत.</string>
   <string name="equality">समानता</string>
   <string name="equalityDescription">पराभवाच्या स्थितीतून बाहेर पडून खेळ बरोबरीत सोडवा किंवा संतुलित स्थिती प्राप्त करा. (मूल्यांकन ≤ 200cp)</string>
@@ -105,7 +107,7 @@
   <string name="operaMateDescription">राजाला हत्तीने शह द्या व उंटाने हत्तीचे रक्षण करा.</string>
   <string name="pawnEndgame">प्याद्यांचा अंत्यखेळ</string>
   <string name="pawnEndgameDescription">फक्त प्याद्यांचा अंत्यखेळ.</string>
-  <string name="pin">पीन</string>
+  <string name="pin">टाचणी</string>
   <string name="pinDescription">टाचण किंवा सोंगटी हलल्यास तिच्या मागील जास्त मुल्याच्या सोंगटीवर हल्ला होईल असे डावपेच.</string>
   <string name="promotion">पदोन्नती</string>
   <string name="queenEndgame">वझीराचा अंत्यखेळ</string>
@@ -122,7 +124,7 @@
   <string name="sacrificeDescription">अल्पकाळासाठी मोहरे गमावून काही चालीनंतर परत फायदेशीर स्थिती प्राप्त करण्याचे डावपेच.</string>
   <string name="short">छोटे कोडे</string>
   <string name="shortDescription">विजयासाठी दोन चाली.</string>
-  <string name="skewer">कट्यार</string>
+  <string name="skewer">सळई</string>
   <string name="skewerDescription">या प्रकारात जास्त मूल्याच्या मोहऱ्यांवर हल्ला केला जातो मग तो जास्त मूल्याचा मोहऱा बाजूला झाल्यामुळे मागच्या कमी मूल्याच्या मोहऱ्यावर हल्ला होऊन तो मारला जाऊ शकतो, म्हणजे पीनच्या उलट.</string>
   <string name="smotheredMate">गुदमरून मात</string>
   <string name="smotheredMateDescription">घोड्याने दिलेल्या शहामुळे राजाची स्वतःच्याच सोंगट्यांमध्ये अडकून (गुदमरून) झालेली शहमात.</string>

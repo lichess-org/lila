@@ -25,6 +25,7 @@ Eden od vaših kmetov je globoko na nasprotnikovem področju in ima morda možno
   <string name="bodenMate">Bodenov mat</string>
   <string name="bodenMateDescription">Lovca na križajočih se diagonalah matirata kralja, ki ga ovirajo njegove figure.</string>
   <string name="castling">Rokada</string>
+  <string name="enPassant">En passant</string>
   <string name="castlingDescription">Umik kralja na varno in razporeditev trdnjave za napad.</string>
   <string name="capturingDefender">Zajem branilca</string>
   <string name="capturingDefenderDescription">Odstranitev figure, ki je ključna za obrambo druge figure, kar omogoča, da se nezaščitena figura zajame z naslednjo potezo.</string>

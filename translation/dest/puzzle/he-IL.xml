@@ -40,7 +40,6 @@
   <plurals name="playedXTimes">
     <item quantity="one">שוחק פעם %s</item>
     <item quantity="two">שוחק %s פעמים</item>
-    <item quantity="many">שוחק %s פעמים</item>
     <item quantity="other">שוחק %s פעמים</item>
   </plurals>
   <string name="fromGameLink">מתוך משחק %s</string>
@@ -52,7 +51,6 @@
   <plurals name="nbPointsBelowYourPuzzleRating">
     <item quantity="one">נקודה %s מתחת לדירוג החידות שלך</item>
     <item quantity="two">%s נקודות מתחת לדירוג החידות שלך</item>
-    <item quantity="many">%s נקודות מתחת לדירוג החידות שלך</item>
     <item quantity="other">%s נקודות מתחת לדירוג החידות שלך</item>
   </plurals>
   <string name="harder">קשה מאוד</string>
@@ -60,7 +58,6 @@
   <plurals name="nbPointsAboveYourPuzzleRating">
     <item quantity="one">נקודה %s מעל לדירוג החידות שלך</item>
     <item quantity="two">נקודה 1 מתחת לדירוג הפזלים שלך</item>
-    <item quantity="many">%s נקודות מעל לדירוג החידות שלך</item>
     <item quantity="other">%s נקודות מעל לדירוג החידות שלך</item>
   </plurals>
   <string name="example">דוגמה</string>
@@ -87,13 +84,11 @@
   <plurals name="nbPlayed">
     <item quantity="one">%s שוּחק</item>
     <item quantity="two">%s שוחקו</item>
-    <item quantity="many">%s שוחקו</item>
     <item quantity="other">%s שוחקו</item>
   </plurals>
   <plurals name="nbToReplay">
     <item quantity="one">%s שכדאי לפתור שוב</item>
     <item quantity="two">%s שכדאי לפתור שוב</item>
-    <item quantity="many">%s שכדאי לפתור שוב</item>
     <item quantity="other">%s שכדאי לפתור שוב</item>
   </plurals>
   <string name="percentSolved">%s נפתרו</string>

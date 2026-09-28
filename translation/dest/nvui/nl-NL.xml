@@ -31,9 +31,9 @@
   <string name="king">koning</string>
   <string name="whiteKing">witte koning</string>
   <string name="blackKing">zwarte koning</string>
-  <string name="queen">koningin</string>
-  <string name="whiteQueen">witte koningin</string>
-  <string name="blackQueen">zwarte koningin</string>
+  <string name="queen">dame</string>
+  <string name="whiteQueen">witte dame</string>
+  <string name="blackQueen">zwarte dame</string>
   <string name="rook">toren</string>
   <string name="whiteRook">witte toren</string>
   <string name="blackRook">zwarte toren</string>

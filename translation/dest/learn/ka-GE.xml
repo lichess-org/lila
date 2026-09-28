@@ -123,6 +123,7 @@
 გააკეთე სვლა.</string>
   <string name="boardSetupComplete">გილოცავ! დაფის დაწყობა ისწავლე.</string>
   <string name="castling">როქი</string>
+  <string name="enPassant">გავლით აყვანა</string>
   <string name="theSpecialKingMove">სპეციალური მეფის სვლა</string>
   <string name="castlingIntro">დაიცავი მეფე და გამოიყვანე ეტლი!</string>
   <string name="castleKingSide">გადაადგილე მეფე ორი უჯრით

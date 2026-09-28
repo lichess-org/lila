@@ -125,6 +125,7 @@
 아무 수나 두어 진행하십시오.</string>
   <string name="boardSetupComplete">축하합니다! 이제 당신도 체스판을 구성할 수 있게 되었네요!</string>
   <string name="castling">캐슬링</string>
+  <string name="enPassant">앙파상</string>
   <string name="theSpecialKingMove">왕의 특혜</string>
   <string name="castlingIntro">왕을 안전하게 피신시키고, 룩을 세워 공격 태세를 갖춥니다.</string>
   <string name="castleKingSide">킹 사이드 캐슬링을 하려면 킹을 두 칸 움직이세요.</string>

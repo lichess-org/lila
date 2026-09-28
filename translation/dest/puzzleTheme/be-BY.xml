@@ -19,6 +19,7 @@
   <string name="bodenMate">Мат Бодэна</string>
   <string name="bodenMateDescription">Два нападаючых слана па перакрыжаваных дыяганалях матуюць караля, які акружаны сваімі фігурамі.</string>
   <string name="castling">Ракіроўка</string>
+  <string name="enPassant">Узяцце на праходзе</string>
   <string name="castlingDescription">Адпраўце караля ў бяспеку і выведзіце ладдзю ў атаку.</string>
   <string name="capturingDefender">Узяцце абаронцы</string>
   <string name="capturingDefenderDescription">Адцягненне або ўзяцце фігуры, якая з\'яўляца крытычнай для абароны іншай фігуры, што дазваляе ўзяце неабароненую фігуру наступным ходам.</string>

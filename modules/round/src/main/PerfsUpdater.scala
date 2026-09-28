@@ -11,7 +11,7 @@ import lila.rating.{ PerfType, RatingRegulator }
 import lila.user.{ RankingApi, UserApi }
 import lila.rating.PerfExt.toGlickoPlayer
 
-final class PerfsUpdater(
+private final class PerfsUpdater(
     gameRepo: lila.game.GameRepo,
     userApi: UserApi,
     rankingApi: RankingApi,

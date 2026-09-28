@@ -121,6 +121,7 @@ ona li wile lon poka pi lawa meli.</string>
 o pali e tawa.</string>
   <string name="boardSetupComplete">pona a! sina sona e ni: nasin pi open musi li seme?</string>
   <string name="castling">tawa pi \"tomo awen\"</string>
+  <string name="enPassant">tawa la o anpa</string>
   <string name="theSpecialKingMove">lawa mije en tomo utala li ken tawa lon tenpo sama</string>
   <string name="castlingIntro">o awen e lawa mije. o tawa e tomo utala tawa ni: ona li ken utala e ijo ante!</string>
   <string name="castleKingSide">o tawa e lawa mije sina tawa ma tu pi poka mije!</string>
