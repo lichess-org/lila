@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="secHeadCheckmates">Maty</string>
+  <string name="secHeadFundamentalTactics">Podstawowe taktyki</string>
+  <string name="secHeadAdvancedTactics">Zaawansowane taktyki</string>
+  <string name="secHeadPawnEndgames">Końcówka pionkowa</string>
+  <string name="secHeadRookEndgames">Końcówka wieżowa</string>
+  <string name="stNamPieceCheckmatesI">Maty figurami I</string>
+  <string name="stNamCheckmatePatternsI">Motywy matowe I</string>
+  <string name="stNamCheckmatePatternsII">Motywy matowe II</string>
+  <string name="stNamCheckmatePatternsIII">Motywy matowe III</string>
+  <string name="stNamCheckmatePatternsIV">Motywy matowe IV</string>
+  <string name="stNamPieceCheckmatesII">Maty figurami II</string>
+  <string name="stNamKnightAndBishopMate">Matowanie skoczkiem i gońcem</string>
+  <string name="stNamThePin">Związanie</string>
+  <string name="stNamTheSkewer">Szpila</string>
+  <string name="stNamTheFork">Widełki</string>
+  <string name="stNamDiscoveredAttacks">Atak z odsłony</string>
+  <string name="stNamDoubleCheck">Podwójny szach</string>
+  <string name="stNamOverloadedPieces">Przeciążone bierki</string>
+  <string name="stNamZwischenzug">Wtrącony ruch</string>
+  <string name="stNamXRay">Rentgen</string>
+  <string name="stNamZugzwang">Zugzwang</string>
+  <string name="stNamInterference">Przesłona</string>
+  <string name="stNamGreekGift">Ofiara</string>
+  <string name="stNamDeflection">Odciągnięcie</string>
+  <string name="stNamAttraction">Przyciąganie</string>
+  <string name="stNamUnderpromotion">Promocja na słabszą figurę</string>
+  <string name="stNamDesperado">Wściekła figura</string>
+  <string name="stNamCounterCheck">Szach z zasłony</string>
+  <string name="stNamUndermining">Podważanie</string>
+  <string name="stNamClearance">Oczyszczenie pola</string>
+  <string name="stNamKeySquares">Kluczowe pola</string>
+  <string name="stNamOpposition">Opozycja</string>
+  <string name="stNamBasicRookEndgames">Podstawowe końcowki wieżowe</string>
+  <string name="stNamPracticalRookEndings">Praktyczne końcówki wieżowe</string>
+  <string name="stDesBasicCheckmates">Podstawowe maty</string>
+  <string name="stDesRecognizeThePatterns">Rozpoznaj motywy</string>
+  <string name="stDesInteractiveLesson">Interaktywna lekcja</string>
+  <string name="stDesDistractingADefender">Odciąganie obrońcy</string>
+  <string name="stDesPromoteButNotToAQueen">Promuj - ale nie do hetmana!</string>
+  <string name="stDesAPieceIsLostButItCanStillHelp">Figura stracona, ale nadal może być użyteczna</string>
+  <string name="stDesRespondToACheckWithACheck">Na szacha odpowiedz szachem</string>
+</resources>

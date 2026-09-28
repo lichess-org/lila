@@ -23,6 +23,7 @@
   <string name="bodenMate">Mate de Boden</string>
   <string name="bodenMateDescription">Dois bispos atacantes em diagonais cruzadas dão um mate em um rei obstruído por peças amigas.</string>
   <string name="castling">Roque</string>
+  <string name="enPassant">En passant</string>
   <string name="castlingDescription">Traga o seu rei para a segurança, e prepare sua torre para o ataque.</string>
   <string name="capturingDefender">Capture o defensor</string>
   <string name="capturingDefenderDescription">Remover uma peça que seja importante na defesa de outra, permitindo que agora a peça indefesa seja capturada na jogada seguinte.</string>
@@ -63,7 +64,7 @@
   <string name="forkOpposingPiecesDescription">Um lance em que uma peça ataca duas ou mais peças adversárias simultaneamente.</string>
   <string name="hangingPiece">Peça pendurada</string>
   <string name="hangingPieceDescription">Uma táctica que envolve uma peça indefesa do oponente ou insuficientemente defendida e livre para ser capturada.</string>
-  <string name="hookMate">Xeque gancho</string>
+  <string name="hookMate">Mate gancho</string>
   <string name="hookMateOpposingPawnDescription">Xeque-mate aplicado com torre, cavalo e peão, em que um peão adversário impede a fuga do rei.</string>
   <string name="interference">Interferência</string>
   <string name="interferenceDescription">Mover uma peça entre duas peças do oponente para deixar uma ou duas peças do oponente indefesas, como um cavalo em uma casa defendida por duas torres.</string>

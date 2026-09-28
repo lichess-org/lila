@@ -132,6 +132,7 @@
 好きな手を指して。</string>
   <string name="boardSetupComplete">おめでとう！　駒の並べ方を覚えました！</string>
   <string name="castling">キャスリング</string>
+  <string name="enPassant">アンパッサン</string>
   <string name="theSpecialKingMove">キングの特殊な動き</string>
   <string name="castlingIntro">キングを安全にし、ルークを攻撃に活用します！</string>
   <string name="castleKingSide">キングを 2 マス動かして

@@ -115,6 +115,7 @@ Tieši blakus dāmai.</string>
 Veiciet jebkādu gājienu lai turpinātu.</string>
   <string name="boardSetupComplete">Apsveicam! Tagad zināt, kā uzstādīt šaha galdiņu.</string>
   <string name="castling">Rokāde</string>
+  <string name="enPassant">Sitiens garāmejot</string>
   <string name="theSpecialKingMove">Īpašais karaļa gājiens</string>
   <string name="castlingIntro">Nogādājiet karali drošībā un novietojiet torni uzbrukuma pozīcijā!</string>
   <string name="castleKingSide">Pārvietojiet karali par diviem lauciņiem, lai roķētu karaļa spārnā!</string>

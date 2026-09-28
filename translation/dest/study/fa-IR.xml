@@ -136,7 +136,7 @@
   <string name="interestingMove">حرکت جالب</string>
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">حرکت مشکوک</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">تک‌حرکت</string>
-  <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">اکراهی</string>
+  <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">اِکراه</string>
   <string name="equalPosition">وضعیت برابر</string>
   <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">وضعیت ناروشن</string>
   <string name="whiteIsSlightlyBetter">سفید کمی بهتر است</string>

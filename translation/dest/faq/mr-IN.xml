@@ -142,11 +142,22 @@ LM पदवी मागू नका.</string>
 
 त्यानंतर Lichess कडून येणाऱ्या सूचनांना परवानगी द्यायची की ब्लॉक करायचे, हे निवडा.</string>
   <string name="enableAutoplayForSoundsQ">आवाजांसाठी ऑटोप्ले चालू करायचा का?</string>
+  <string name="mostBrowsersPreventSoundAutoplay">बहुतेक ब्राउझर वापरकर्त्यांच्या सुरक्षेसाठी, नव्याने भेट दिलेल्या पानांवर आवाज वाजण्यापासून प्रतिबंधित करतात.
+
+जेव्हा तुमचा ब्राउझर lichess.org वर आवाज वाजण्यापासून प्रतिबंधित करतो, तेव्हा म्यूट आयकॉन दिसतो. तुम्ही कशावर तरी क्लिक करताच हे बंधन सामान्यतः हटवले जाते.
+
+काही मोबाईल ब्राउझरवर, सोंगटीला टच-ड्रॅग करणे हे क्लिक म्हणून गणले जात नाही. अशावेळी, प्रत्येक खेळाच्या सुरुवातीला आवाज सुरू करण्यासाठी तुम्हाला बोर्डवर टॅप करावे लागेल.
+
+असे घडल्यास तुम्हाला सतर्क करण्यासाठी आम्ही लाल रंगाचा म्यूट आयकॉन दाखवतो. तुम्ही बहुतेक ब्राउझरवर lichess.org ला आवाज वाजवण्याची स्पष्टपणे परवानगी देऊ शकता. काही लोकप्रिय ब्राउझरच्या अलीकडील आवृत्त्यांवर वेबसाइटला ऑडिओ वाजवण्याची परवानगी देण्यासाठी येथे सूचना दिल्या आहेत:</string>
   <string name="desktop">डेस्कटॉप</string>
   <string name="enableAutoplayForSoundsFirefox">१. lichess.org वर जा
 २. Linux/Windows वर Ctrl-i किंवा MacOS वर cmd-i दाबा
 ३. परवानग्या (Permissions) टॅबवर क्लिक करा
 ४. lichess.org वर ऑडिओ आणि व्हिडिओला परवानगी द्या</string>
+  <string name="enableAutoplayForSoundsChromeSiteInformation" comment="Guidance for Google Chrome users on how to enable audio auto-play if they have sound issues.">१. lichess.org वर जा
+२. ॲड्रेस बारमधील साइट माहितीच्या आयकॉनवर दाबा
+३. साइट सेटिंग्जवर क्लिक करा
+४. आवाजाला परवानगी द्या</string>
   <string name="enableAutoplayForSoundsSafari">१. lichess.org वर जा
 २. मेनू बारमधील Safari वर क्लिक करा
 ३. lichess.org साठी सेटिंग्जवर क्लिक करा ...

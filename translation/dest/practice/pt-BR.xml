@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="signUpToSaveYourProgress">Cadastre-se para salvar seu progresso</string>
+  <string name="secHeadCheckmates">Xeque-mates</string>
+  <string name="secHeadFundamentalTactics">Táticas fundamentais</string>
+  <string name="secHeadAdvancedTactics">Táticas avançadas</string>
+  <string name="secHeadPawnEndgames">Finais de peões</string>
+  <string name="secHeadRookEndgames">Finais de Torres</string>
+  <string name="stNamZwischenzug">Zwischenzug</string>
+  <string name="stNamXRay">Raio-X</string>
+  <string name="stNamZugzwang">Zugzwang</string>
+  <string name="stNamInterference">Interferência</string>
+  <string name="stNamGreekGift">Presente Grego</string>
+  <string name="stNamAttraction">Atração</string>
+  <string name="stNamOpposition">Oposição</string>
+  <string name="stNamBasicRookEndgames">Finais Básicos de Torre</string>
+  <string name="stNamPracticalRookEndings">Finais Práticos de Torre</string>
+  <string name="stDesBasicCheckmates">Xeque-mates básicos</string>
+  <string name="stDesRecognizeThePatterns">Reconhecer os padrões</string>
+  <string name="stDesChallengingCheckmates">Xeque-mates desafiadores</string>
+  <string name="stDesInteractiveLesson">Lição interativa</string>
+</resources>

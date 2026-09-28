@@ -132,6 +132,7 @@ Pranë mbretëreshës së tij.</string>
 Bëni ndonjë lëvizje për të vazhduar.</string>
   <string name="boardSetupComplete">Urime! Ju e dini se si të vendosni tabelën e shahut.</string>
   <string name="castling">Rokada</string>
+  <string name="enPassant">Prerja e ushtarit</string>
   <string name="theSpecialKingMove">Lëvizja e veçantë e mbretit</string>
   <string name="castlingIntro">Sillni mbretin tuaj në vend të sigurtë dhe vendoseni topin tuaj për sulm!</string>
   <string name="castleKingSide">Lëvizeni mbretin dy kuti
