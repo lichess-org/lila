@@ -1301,6 +1301,7 @@ object I18nKey:
     val `zenMode`: I18nKey = "preferences:zenMode"
     val `showPlayerRatings`: I18nKey = "preferences:showPlayerRatings"
     val `showFlairs`: I18nKey = "preferences:showFlairs"
+    val `showResultsGlyphs`: I18nKey = "preferences:showResultsGlyphs"
     val `explainShowPlayerRatings`: I18nKey = "preferences:explainShowPlayerRatings"
     val `displayBoardResizeHandle`: I18nKey = "preferences:displayBoardResizeHandle"
     val `onlyOnInitialPosition`: I18nKey = "preferences:onlyOnInitialPosition"

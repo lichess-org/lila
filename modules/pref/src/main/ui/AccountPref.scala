@@ -87,7 +87,7 @@ final class AccountPref(helpers: Helpers, helper: PrefHelper, bits: AccountUi):
               "showFlairs"
             ),
             setting(
-              "Show Results glyphs",
+              trp.showResultsGlyphs(),
               radios(form("resultsGlyphs"), translatedBooleanChoices),
               "showResultsGlyphs"
             )

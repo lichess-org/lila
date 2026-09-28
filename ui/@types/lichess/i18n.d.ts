@@ -2647,6 +2647,8 @@ interface I18n {
     showPinnedPieces: string;
     /** Show player ratings */
     showPlayerRatings: string;
+    /** Show Results glyphs */
+    showResultsGlyphs: string;
     /** Show server analysis */
     showServerAnalysis: string;
     /** Show undefended pieces */
