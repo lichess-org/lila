@@ -84,13 +84,7 @@ object Query:
 
   def winnerNotUsingIndex(u: UserId): Bdoc = bdoc(F.winnerId -> u)
 
-  def loserNotUsingIndex(u: UserId): Bdoc = bdoc(
-    F.status.in(Status.finishedWithWinner.map(_.id)),
-    F.winnerId -> bdoc(
-      "$exists" -> true,
-      "$ne" -> u
-    )
-  )
+  def loserNotUsingIndex(u: UserId): Bdoc = bdoc(F.winnerId -> bdoc("$exists" -> true, "$ne" -> u))
 
   // use the us index
   def win(u: UserId) = user(u) ++ winnerNotUsingIndex(u)
