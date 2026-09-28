@@ -113,6 +113,7 @@ object page:
               "playing fixed-scroll" -> playing,
               "no-rating" -> (!pref.showRatings || (playing && pref.hideRatingsInGame)),
               "no-flair" -> !pref.flairs,
+              "no-resultsGlyphs" -> !pref.resultsGlyphs,
               "zen" -> (zenable && (pref.isZen || (playing && pref.isZenAuto))),
               "zenable" -> zenable,
               "zen-auto" -> (zenable && pref.isZenAuto)

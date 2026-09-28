@@ -85,6 +85,11 @@ final class AccountPref(helpers: Helpers, helper: PrefHelper, bits: AccountUi):
               trp.showFlairs(),
               radios(form("flairs"), translatedBooleanChoices),
               "showFlairs"
+            ),
+            setting(
+              "Show Results glyphs",
+              radios(form("resultsGlyphs"), translatedBooleanChoices),
+              "showResultsGlyphs"
             )
           ),
           categFieldset(PrefCateg.ChessClock, categ)(

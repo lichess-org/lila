@@ -52,6 +52,7 @@ object PrefForm:
     val pieceNotation = "pieceNotation" -> booleanNumber
     val ratings = "ratings" -> checkedNumber(Pref.Ratings.choices)
     val flairs = "flairs" -> boolean
+    val resultsGlyphs = "resultsGlyphs" -> boolean
     val follow = "follow" -> booleanNumber
     val challenge = "challenge" -> checkedNumber(Pref.Challenge.choices)
     val message = "message" -> checkedNumber(Pref.Message.choices)
@@ -106,7 +107,8 @@ object PrefForm:
       "studyInvite" -> optional(checkedNumber(Pref.StudyInvite.choices)),
       "insightShare" -> numberIn(Set(0, 1, 2)),
       fields.ratings.map2(optional),
-      fields.flairs.map2(optional)
+      fields.flairs.map2(optional),
+      fields.resultsGlyphs.map2(optional),
     )(PrefData.apply)(unapply)
   )
 
@@ -153,7 +155,8 @@ object PrefForm:
       studyInvite: Option[Int],
       insightShare: Int,
       ratings: Option[Int],
-      flairs: Option[Boolean]
+      flairs: Option[Boolean],
+      resultsGlyphs: Option[Boolean]
   ):
 
     def apply(pref: Pref) =
@@ -184,6 +187,7 @@ object PrefForm:
         zen = display.zen | pref.zen,
         ratings = ratings | pref.ratings,
         flairs = flairs | pref.flairs,
+        resultsGlyphs = resultsGlyphs | pref.resultsGlyphs,
         resizeHandle = display.resizeHandle | pref.resizeHandle,
         rookCastle = behavior.rookCastle | pref.rookCastle,
         sayGG = behavior.sayGG | pref.sayGG,
@@ -230,7 +234,8 @@ object PrefForm:
         studyInvite = pref.studyInvite.some,
         insightShare = pref.insightShare,
         ratings = pref.ratings.some,
-        flairs = pref.flairs.some
+        flairs = pref.flairs.some,
+        resultsGlyphs = pref.resultsGlyphs.some
       )
 
   def prefOf(p: Pref): Form[PrefData] = pref(lichobile = false).fill(PrefData(p))
