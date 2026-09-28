@@ -127,6 +127,7 @@
 请走任意棋子继续</string>
   <string name="boardSetupComplete">恭喜！您知道如何布置棋盘了。</string>
   <string name="castling">王车易位</string>
+  <string name="enPassant">吃过路兵</string>
   <string name="theSpecialKingMove">王的特殊走法</string>
   <string name="castlingIntro">将您的王带到安全地带，并调动您的车用于进攻！</string>
   <string name="castleKingSide">请将您的王移动两格

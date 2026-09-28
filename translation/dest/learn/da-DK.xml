@@ -102,6 +102,7 @@
   <string name="pawnsFormTheFrontLine">Bønder udgør frontlinjen. Lav et træk for at fortsætte.</string>
   <string name="boardSetupComplete">Tillykke! Du ved nu, hvordan man stiller brættet op.</string>
   <string name="castling">Rokade</string>
+  <string name="enPassant">En passant</string>
   <string name="theSpecialKingMove">Det særlige kongetræk</string>
   <string name="castlingIntro">Bring din konge i sikkerhed og gør dit tårn klar til angreb!</string>
   <string name="castleKingSide">Flyt din konge to felter

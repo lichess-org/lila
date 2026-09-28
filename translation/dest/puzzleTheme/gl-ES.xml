@@ -23,6 +23,7 @@
   <string name="bodenMate">Mate de Boden</string>
   <string name="bodenMateDescription">Dous alfís atacando en diagonais cruzadas dan mate ao rei obstaculizado polas súas propias pezas.</string>
   <string name="castling">Enroque</string>
+  <string name="enPassant">Captura ao paso</string>
   <string name="castlingDescription">Pon o teu rei a salvo e desprega a túa torre para o ataque.</string>
   <string name="capturingDefender">Captura ao defensor</string>
   <string name="capturingDefenderDescription">Eliminar unha peza fundamental para a defensa doutra, permitindo capturar a peza, agora indefensa, no seguinte movemento.</string>
@@ -68,7 +69,7 @@
   <string name="interference">Interferencia</string>
   <string name="interferenceDescription">Colocar unha peza entre dúas do opoñente de modo que unha delas ou ambas as dúas fican indefensas, como pode ser un cabalo nunha casa protexida entre dúas torres.</string>
   <string name="intermezzo">Xogada intermedia</string>
-  <string name="intermezzoDescription">En troques de facer a xogada agardada, interpoñer un movemento que xera unha ameaza inmediata que forza unha resposta do opoñente. Tamén se di \"Zwischenzug\" ou \"Intermezzo\".</string>
+  <string name="intermezzoDescription">En troques de facer o movemento agardado, o xogador interpón un movemento que xera unha ameaza inmediata que forza unha resposta do rival. Tamén se di \"Zwischenzug\" ou \"Intermezzo\".</string>
   <string name="killBoxMate">Mate da caixa</string>
   <string name="killBoxMateDescription">Unha torre canda o rei do adversario, defendida por unha dama que tamén bloquea as casas de escape do rei. A torre e a dama apreixan ao rei nun curruncho de 3 por 3.</string>
   <string name="pillsburysMate">Mate de Pillsbury</string>

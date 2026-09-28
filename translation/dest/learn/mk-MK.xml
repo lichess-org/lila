@@ -128,6 +128,7 @@
 Направи потег за да продолжиш.</string>
   <string name="boardSetupComplete">Честитки! Сега знаеш како се поставува шаховската табла.</string>
   <string name="castling">Рокада</string>
+  <string name="enPassant">Ан Пасан</string>
   <string name="theSpecialKingMove">Специјалниот потег на кралот</string>
   <string name="castlingIntro">Заштити си го кралот и намести го топот за напад!</string>
   <string name="castleKingSide">Помести го кралот две полиња за да 

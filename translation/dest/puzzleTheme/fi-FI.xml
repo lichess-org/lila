@@ -23,6 +23,7 @@
   <string name="bodenMate">Bodenin matti</string>
   <string name="bodenMateDescription">Kaksi ristiäviltä diagonaaleilta hyökkäävää lähettiä matittaa omien nappuloidensa estämän kuninkaan.</string>
   <string name="castling">Linnoitus</string>
+  <string name="enPassant">Ohestalyönti</string>
   <string name="castlingDescription">Vie kuninkaasi turvaan ja tuo tornisi mukaan hyökkäykseen.</string>
   <string name="capturingDefender">Lyö puolustava nappula</string>
   <string name="capturingDefenderDescription">Lyö toisen nappulan suojelemiseen käytetty nappula, jotta voit seuraavilla siirroilla lyödä toisen nappulan, joka ei ole enää suojeltu.</string>

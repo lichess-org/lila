@@ -23,6 +23,7 @@
   <string name="bodenMate">ການຈົນແບບ Boden</string>
   <string name="bodenMateDescription">ບິຊອບ (Bishop) ສອງຕົວທີ່ບຸກໃນແນວສະຫຼຽງຕັດກັນ ທຳການຈົນຄິງທີ່ຖືກຕົວໝາກຝ່າຍດຽວກັນຂວາງທາງໄວ້.</string>
   <string name="castling">ການເຂົ້າປ້ອມ (Castling)</string>
+  <string name="enPassant">ການກິນຜ່ານ (En passant)</string>
   <string name="castlingDescription">ນຳຄິງໄປຫາບ່ອນປອດໄພ ແລະ ກຽມເຮືອອອກບຸກໂຈມຕີ.</string>
   <string name="capturingDefender">ກິນຕົວປ້ອງກັນ</string>
   <string name="capturingDefenderDescription">ການກຳຈັດຕົວໝາກທີ່ສຳຄັນໃນການປ້ອງກັນຕົວອື່ນ, ເພື່ອໃຫ້ສາມາດກິນຕົວໝາກທີ່ບໍ່ມີຕົວປ້ອງກັນນັ້ນໄດ້ໃນຕາຕໍ່ໄປ.</string>

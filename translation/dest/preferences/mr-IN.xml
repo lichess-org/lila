@@ -41,6 +41,7 @@
   <string name="claimDrawOnThreefoldRepetitionAutomatically">त्रिवार पुनरावृतींनवर सामना आपोआप बरोबरीत सोडवा</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">जेव्हा वेळ &lt; ३० सेकंद</string>
   <string name="moveConfirmation">चालींचे पुष्टीकरण</string>
+  <string name="multipleChoices">अनेक पर्याय</string>
   <string name="explainCanThenBeTemporarilyDisabled">बोर्ड मेनूसह गेम दरम्यान अक्षम केले जाऊ शकते</string>
   <string name="inCorrespondenceGames">दीर्घकालीन खेळ</string>
   <string name="correspondenceAndUnlimited">दीर्घकालीन आणि अमर्याद</string>
@@ -89,4 +90,10 @@
   <string name="analysisSettings">विशलेषण प्राधान्ये</string>
   <string name="maneuverArrowsHelp">एका सोंगट्यासाठी डावयंत्राचे डावक्रम</string>
   <string name="hoverOverSettingLabelsForHelp">समर्थनासाठी प्राधान्य शिक्कांवर द्विधा अवस्थेत राहा</string>
+  <string name="network">नेटवर्क</string>
+  <string name="youAreCurrentlyUsingDirectRouting">तुम्ही सध्या थेट मार्गनिर्धारण वापरत आहात.</string>
+  <string name="youAreCurrentlyUsingCdnRouting">तुम्ही सध्या सामग्री वितरण नेटवर्क (CDN) मार्गनिर्धारण वापरत आहात.</string>
+  <string name="frequentDisconnectsAdvice">जर तुमची जोडणी वारंवार खंडित होत असेल, तर मार्गनिर्धारण बदलून पहा.</string>
+  <string name="useDirectRouting">थेट मार्गनिर्धारण वापरा</string>
+  <string name="useCdnRouting">CDN मार्गनिर्धारण वापरा</string>
 </resources>

@@ -23,6 +23,7 @@
   <string name="bodenMate">બોડેનનો મેટ</string>
   <string name="bodenMateDescription">ક્રોસ-ક્રોસિંગ કર્ણ પર બે હુમલો કરતા ઊંટ મિત્રતાપૂર્ણ ટુકડાઓ દ્વારા અવરોધિત રાજા ને મેટ પહોંચાડે છે.</string>
   <string name="castling">કેસલિંગ</string>
+  <string name="enPassant">એન પાસન્ટ</string>
   <string name="castlingDescription">રાજા ને સલામતીમાં લાવો, અને હુમલા માટે રૂકને તૈનાત કરો.</string>
   <string name="capturingDefender">ડિફેન્ડરને પકડો</string>
   <string name="capturingDefenderDescription">એક ટુકડાને દૂર કરવો જે અન્ય ટુકડાના સંરક્ષણ માટે નિર્ણાયક હોય, હવે અસુરક્ષિત ટુકડાને ફોલો-અપ મૂવ પર કબજે કરવાની મંજૂરી આપે છે.</string>

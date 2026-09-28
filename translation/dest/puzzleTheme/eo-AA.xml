@@ -22,6 +22,7 @@
   <string name="bodenMate">Boden ŝakmato</string>
   <string name="bodenMateDescription">Du kontraŭaj kurieroj sur interkruciĝantaj diagonaloj liveras maton al reĝo ĉirkaŭbarita per amikaj ŝakpecoj.</string>
   <string name="castling">Aroko</string>
+  <string name="enPassant">Preterpasa kapto</string>
   <string name="castlingDescription">Alportu la reĝo en sekurecon, kaj lanĉu la turon por atako.</string>
   <string name="capturingDefender">Kapti la defendanton</string>
   <string name="capturingDefenderDescription">Forprenu ŝakpecon, kiu estas grava por defendo de alia ŝakpeco, ebligante la kapto de la nun nedefendata ŝakpeco dum sekva movo.</string>

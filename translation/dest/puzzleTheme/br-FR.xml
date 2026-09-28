@@ -5,6 +5,7 @@
   <string name="attackingF2F7">Tagañ f2 pe f7</string>
   <string name="bodenMate">Lamm d\'ar roue mod Boden</string>
   <string name="castling">Rokañ</string>
+  <string name="enPassant">En ur dremen</string>
   <string name="castlingDescription">Gwarezit ho roue ha kasit ho tour d\'an emgann.</string>
   <string name="dovetailMate">Lamm d\'ar roue mod Dovetail</string>
   <string name="kingsideAttack">Tagañ tu ar roue</string>

@@ -9,6 +9,7 @@
   <string name="myLikes">Minhas curtidas</string>
   <string name="myBlog">Meu blog</string>
   <string name="likedBlogs">Curtidas em postagens de blogs</string>
+  <string name="blogPostsByFriends">Publicações de amigos</string>
   <plurals name="blogPosts">
     <item quantity="one">%s postagem de blog</item>
     <item quantity="other">%s postagens de blog</item>

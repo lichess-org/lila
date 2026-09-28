@@ -116,6 +116,7 @@
   <string name="pawnsFormTheFrontLine">מקמו את הרגלים בשורה שלפני הקצינים, לכל אורכה. בצעו כל מהלך כדי להמשיך.</string>
   <string name="boardSetupComplete">יפה, את/ה יודע/ת להכין את הלוח למשחק!</string>
   <string name="castling">הצרחה</string>
+  <string name="enPassant">הכאה דרך הילוכו</string>
   <string name="theSpecialKingMove">מהלך מיוחד של המלך</string>
   <string name="castlingIntro">ההצרחה: מגנה על המלך ומכינה את הצריח להתקפה!</string>
   <string name="castleKingSide">הצרחה קטנה (באגף המלך): המלך זז הצידה שני מקומות!</string>

@@ -126,6 +126,7 @@
 Κάντε οποιαδήποτε κίνηση για συνέχεια.</string>
   <string name="boardSetupComplete">Συγχαρητήρια! Ξέρετε πως να στήνετε την σκακιέρα.</string>
   <string name="castling">Pοκέ</string>
+  <string name="enPassant">Εν διελεύσει</string>
   <string name="theSpecialKingMove">Ειδική κίνηση βασιλιά</string>
   <string name="castlingIntro">Φέρτε τον Βασιλιά σε ασφάλεια, και αναπτύξτε τον πύργο για επίθεση!</string>
   <string name="castleKingSide">Μετακινήστε τον βασιλιά δύο τετράγωνα για ροκέ

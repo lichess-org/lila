@@ -129,6 +129,7 @@ Fix lângă regina sa.</string>
 Mută oricare piesă pentru a continua.</string>
   <string name="boardSetupComplete">Felicitări! Știi cum să pregătești tabla de șah.</string>
   <string name="castling">Rocada</string>
+  <string name="enPassant">En passant</string>
   <string name="theSpecialKingMove">Mutarea specială a regelui</string>
   <string name="castlingIntro">Adu-ți regele la adăpost, și scoate-ți turnul pentru atac!</string>
   <string name="castleKingSide">Mută-ți regele două pătrățele
