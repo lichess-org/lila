@@ -108,7 +108,7 @@ object PrefForm:
       "insightShare" -> numberIn(Set(0, 1, 2)),
       fields.ratings.map2(optional),
       fields.flairs.map2(optional),
-      fields.resultsGlyphs.map2(optional),
+      fields.resultsGlyphs.map2(optional)
     )(PrefData.apply)(unapply)
   )
 
