@@ -7,6 +7,7 @@ import lila.core.shutup.ShutupApi
 import lila.core.chat.PublicSource
 import lila.core.timeline.{ ForumPost as TimelinePost, Propagate }
 import lila.db.dsl.{ *, given }
+import cats.data.OptionT
 
 final class ForumPostApi(
     postRepo: ForumPostRepo,
@@ -208,15 +209,11 @@ final class ForumPostApi(
 
   private def diagnosticForUser(user: User): Fu[Option[CategView]] = // CategView with user's topic/post
     for
-      categOpt <- categRepo.byId(ForumCateg.diagnosticId)
-      topicOpt <- topicRepo.byTree(ForumCateg.diagnosticId, ForumTopic.problemReportSlug(user.id))
-      postOpt <- topicOpt.so(t => postRepo.coll.byId[ForumPost](t.lastPostId(user.some)))
-    yield
-      for
-        post <- postOpt
-        topic <- topicOpt
-        categ <- categOpt
-      yield CategView(categ, (topic, post, topic.lastPage(config.postMaxPerPage)).some, user.some)
+      categ <- OptionT(categRepo.byId(ForumCateg.diagnosticId))
+      topic <- OptionT(topicRepo.byTree(ForumCateg.diagnosticId, ForumTopic.problemReportSlug(user.id)))
+      post <- OptionT(postRepo.coll.byId[ForumPost](topic.lastPostId(user.some)))
+    yield CategView(categ, (topic, post, topic.lastPage(config.postMaxPerPage)).some, user.some)
+  .value
 
   private def recentUserIds(topic: ForumTopic) =
     postRepo.coll
