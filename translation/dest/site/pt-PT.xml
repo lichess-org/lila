@@ -974,7 +974,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="cancelTournament">Cancelar o torneio</string>
   <string name="tournDescription">Descrição do torneio</string>
   <string name="tournDescriptionHelp">Quer dizer alguma coisa em especial aos participantes? Seja breve. Estão disponíveis ligações de Markdown: [nome](https://url)</string>
-  <string name="ratedFormHelp">Os jogos são contam para ELO e afetam as pontuações dos jogadores</string>
+  <string name="ratedFormHelp">Os jogos são contam para Elo e afetam as pontuações dos jogadores</string>
   <string name="onlyMembersOfTeam">Apenas membros da equipa</string>
   <string name="noRestriction">Sem restrições</string>
   <string name="minimumRatedGames">Jogos com classificação mínima</string>

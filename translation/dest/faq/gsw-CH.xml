@@ -105,7 +105,7 @@ Also verlang de Titel nöd.</string>
   <string name="goldenZeeExplanation">De Schpiller \"ZugAddict\" hät mal - ime Stream - über 2 Schtund lang versuecht de Computer, uf Schtufe 8, im Bullet 1+0 z\'besiege - aber ohni Erfolg. De \"Thibault\" hät ihm dänn e einzigartigi Trophäe versproche, falls er das doch mal schaffe würd. Ei Schtund spöter hät de \"ZugAddicr\" de \"Stockfish\" besiegt und das Verschpräche isch ighalte worde.</string>
   <string name="lichessRatings">Lichess Wertige</string>
   <string name="whichRatingSystemUsedByLichess">Was für es Wertigs-System benutzt Lichess?</string>
-  <string name="ratingSystemUsedByLichess">Wertige (\"Wertigszahle\", \"Ratings\") werded mit de Glicko-2-Wertigsmethode - entwicklet vum Mark Glickman - berächnet. Das isch e sehr beliebti Methode und wird vonere bedütende Azahl vu Schachorganisatione verwändet (d\'FIDE isch es bemerkenswerts Gägebischpil wo immer no s\'veraltete ELO-Wertigs-Syschtem verwändet).
+  <string name="ratingSystemUsedByLichess">Wertige (\"Wertigszahle\", \"Ratings\") werded mit de Glicko-2-Wertigsmethode - entwicklet vum Mark Glickman - berächnet. Das isch e sehr beliebti Methode und wird vonere bedütende Azahl vu Schachorganisatione verwändet (d\'FIDE isch es bemerkenswerts Gägebischpil wo immer no s\'veraltete Elo-Wertigs-Syschtem verwändet).
 
 Grundsätzlich verwändet d\'Glicko-Wertig \"Konfidänzintervall\" bi de Berächnig vu Wertige. Wer zum erschte Mal uf dere Website schpillt, fangt sini Wertig bi 1500 ± 1000 Pünkt a. Die 1500 schtelled e Grundwertig dar und die 1000 schtellt s\'Konfidänzintervall dar.
 
@@ -127,7 +127,7 @@ En witere Punkt isch, dass sich s\'Konfidänzintervall im Lauf vu de Zit erhöht
   <string name="beInTopTen">i de Top-Ten vu dere Wertigskategorie si.</string>
   <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">Die 2. Bedingig dient dezue, dass Schpiller wo ihres Konto nüme benutzed, au nüme i Ranglischte uftauched.</string>
   <string name="whyAreRatingHigher">Wieso sind d\'Wertige höcher, im Verglich zu andere Schachserver oder Organisazione wie FIDE, USCF und em ICC?</string>
-  <string name="whyAreRatingHigherExplanation">Es isch am beschte, Wertige nöd als absoluti Zahle z\'betrachte oder si mit anderne Organisazione z\'vergliche. Verschideni Organisazione händ underschidlichi Schpiller Klasse, verschideni Wertigs-Syschtem (ELO, Glicko, Glicko-2, oder e modifizierti Version devo). Die Faktore chönd di absolute Zahle (Wertige) drastisch beiiflusse.
+  <string name="whyAreRatingHigherExplanation">Es isch am beschte, Wertige nöd als absoluti Zahle z\'betrachte oder si mit anderne Organisazione z\'vergliche. Verschideni Organisazione händ underschidlichi Schpiller Klasse, verschideni Wertigs-Syschtem (Elo, Glicko, Glicko-2, oder e modifizierti Version devo). Die Faktore chönd di absolute Zahle (Wertige) drastisch beiiflusse.
  
 Es isch am beschte, Wertige als \"relativi\" Wert z\'betrachte (im Gägesatz zu \"absolute\" Wert): Innerhalb vu me Pool a Schpiller hälfed dir relativi Underschid ide Wertige debi abzschätze, wer ehner günnt/verlürt und wie oft öppe. Z\'säge \"Ich han e X-Wertig\" bedütet nüt, es sei dänn, es git anderi Schpiller, mit dene du dini Wertig verglichsch.</string>
   <string name="howToHideRatingWhilePlaying">Wie chann mer Wertige während em Schpiel usblände?</string>

@@ -101,7 +101,7 @@
   <string name="maxRatingX">Puntuació màxima de %s</string>
   <string name="recentGames">Partides recents</string>
   <string name="topGames">Millors partides</string>
-  <string name="masterDbExplanation">Dos milions de partides OTB de jugadors amb ELO FIDE +%1$s des de %2$s fins a %3$s</string>
+  <string name="masterDbExplanation">Dos milions de partides OTB de jugadors amb Elo FIDE +%1$s des de %2$s fins a %3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Mat en %s mig-moviment</item>
     <item quantity="other">Mat en %s jugades</item>
