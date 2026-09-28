@@ -105,7 +105,10 @@ export default class RacerCtrl implements PuzCtrl {
       this.vm.startsAt = new Date(Date.now() + data.startsIn);
       this.run.current.startAt = getNow() + data.startsIn;
       if (data.startsIn > 0) this.countdown.start(this.vm.startsAt, this.isPlayer());
-      else this.run.clock.start();
+      else {
+        this.run.clock.start();
+        if (this.run.clock.flag()) this.run.endAt = getNow(); // the race was already over
+      }
     }
   };
 
@@ -117,7 +120,7 @@ export default class RacerCtrl implements PuzCtrl {
 
   raceFull = () => this.data.players.length >= 10;
 
-  status = (): RaceStatus => (this.run.clock.started() ? (this.run.clock.flag() ? 'post' : 'racing') : 'pre');
+  status = (): RaceStatus => (this.run.endAt ? 'post' : this.run.clock.started() ? 'racing' : 'pre');
 
   isRacing = () => this.status() === 'racing';
 
@@ -142,8 +145,8 @@ export default class RacerCtrl implements PuzCtrl {
       : undefined;
 
   end = (): void => {
-    this.run.unfinishedId = this.run.current.puzzle.id;
-    this.pushToHistory(false); // add last unsolved puzzle
+    if (this.run.endAt) return;
+    this.run.endAt = getNow();
     this.setGround();
     this.redraw();
     sound.end();
@@ -151,6 +154,15 @@ export default class RacerCtrl implements PuzCtrl {
     $('body').toggleClass('playing'); // end zen
     this.redrawSlow();
     clearInterval(this.redrawInterval);
+  };
+
+  endNow = (): void => {
+    if (this.run.endAt) return;
+    if (this.isPlayer()) {
+      this.run.unfinishedId = this.run.current.puzzle.id;
+      this.pushToHistory(false);
+    }
+    this.end();
   };
 
   canSkip = () => this.skipAvailable;
@@ -175,7 +187,8 @@ export default class RacerCtrl implements PuzCtrl {
   playUci = (uci: Uci): void => {
     const now = getNow();
     const puzzle = this.run.current;
-    if (puzzle.startAt + config.minFirstMoveTime > now) console.log('reverted!');
+    if (this.run.clock.flag()) this.endNow();
+    else if (puzzle.startAt + config.minFirstMoveTime > now) console.log('reverted!');
     else {
       this.run.moves++;
       this.promotion.cancel();
@@ -201,8 +214,7 @@ export default class RacerCtrl implements PuzCtrl {
         sound.wrong();
         this.run.errors++;
         this.run.combo.reset();
-        if (this.run.clock.flag()) this.end();
-        else if (!this.incPuzzle(false)) this.end();
+        if (!this.incPuzzle(false)) this.end();
       }
       this.redraw();
       this.redrawQuick();
