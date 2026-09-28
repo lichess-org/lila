@@ -1259,6 +1259,10 @@ interface I18n {
     lichessUserstyles: string;
     /** This honorific title is unofficial and only exists on Lichess. */
     lMtitleComesToYouDoNotRequestIt: string;
+    /** To learn how to build a <a href='%1$s'>custom chess bot</a> to play on Lichess, please read <a href='%2$s'>this blog post about creating bots</a>. */
+    makeBotDescription: I18nFormat;
+    /** Make a bot on Lichess? */
+    makeBotTitle: string;
     /** stand-alone mental health condition */
     mentalHealthCondition: string;
     /** Most browsers prevent sound from playing on newly-visited pages to protect users. */
@@ -2043,6 +2047,18 @@ interface I18n {
     newAccessToken: string;
     /** New access token */
     newToken: string;
+    /** External engine */
+    oauthCatExternalEngine: string;
+    /** External play */
+    oauthCatExternalPlay: string;
+    /** Interactions */
+    oauthCatInteractions: string;
+    /** Play games */
+    oauthCatPlayGames: string;
+    /** Studies & Broadcasts */
+    oauthCatStudiesBroadcasts: string;
+    /** User account */
+    oauthCatUserAccount: string;
     /** Personal API access tokens */
     personalAccessTokens: string;
     /** personal token app example */
@@ -2055,8 +2071,12 @@ interface I18n {
     preferenceWrite: string;
     /** Read puzzle activity */
     puzzleRead: string;
+    /** Solve puzzles */
+    puzzleWrite: string;
     /** Create and join puzzle races */
     racerWrite: string;
+    /** Read and write notes on other players */
+    readWriteNotesOnPlayers: string;
     /** So you remember what this token is for */
     rememberTokenUse: string;
     /** Read private studies and broadcasts */
@@ -2073,6 +2093,8 @@ interface I18n {
     tokenDescription: string;
     /** A token grants other people permission to use your account. */
     tokenGrantsPermission: string;
+    /** Read private tournaments */
+    tournamentRead: string;
     /** Create, update, and join tournaments */
     tournamentWrite: string;
     /** Use moderator tools (within bounds of your permission) */
@@ -3343,6 +3365,8 @@ interface I18n {
     accuracy: string;
     /** Active players */
     activePlayers: string;
+    /** This is a list of devices and applications that are logged into your account. If you notice any suspicious activity, make sure to <a href='%1$s'>check your recovery email address</a> and <a href='%2$s'>change your password</a>. */
+    activeSessionsDescription: I18nFormat;
     /** Add current variation */
     addCurrentVariation: string;
     /** Advanced settings */
@@ -3489,6 +3513,8 @@ interface I18n {
     bookmarkThisGame: string;
     /** Brightness */
     brightness: string;
+    /** Notification popups disabled by browser setting */
+    browserNotificationsDenied: string;
     /** Bullet */
     bullet: string;
     /** Very fast games: less than 3 minutes */
@@ -5939,6 +5965,14 @@ interface I18n {
     entryCode: string;
     /** (Optional) An entry code that new members must know to join this team. */
     entryCodeDescriptionForLeader: string;
+    /** Team forum */
+    forumLabel: string;
+    /** Who can see the team forum on the team page?<br>Only team members can post in the team forum. */
+    forumVisibilityHelp: string;
+    /** Hide the forum */
+    forumVisibilityNone: string;
+    /** Hide team member list from non-members. */
+    hideMembersDesc: string;
     /** Incorrect entry code. */
     incorrectEntryCode: string;
     /** Inner team */
