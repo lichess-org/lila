@@ -121,17 +121,17 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
     hovering = ctrl.ceval.hovering();
   }
 
-  let statusName = ctrl.data.game.status.name
+  let statusName = ctrl.data.game.status.name;
   let studyWinner = ctrl.data.game.winner;
-  const resultStudy = ctrl.study?.data.chapter.tags.find(r => r[0] === "Result")?.[1]
+  const resultStudy = ctrl.study?.data.chapter.tags.find(r => r[0] === 'Result')?.[1];
   if (resultStudy) {
-    resultStudy === "1-0"
-      ? studyWinner = "white"
-      : resultStudy === "0-1"
-        ? studyWinner = "black"
-        : resultStudy === "1/2-1/2"
-          ? statusName = "draw"
-          : undefined
+    resultStudy === '1-0'
+      ? (studyWinner = 'white')
+      : resultStudy === '0-1'
+        ? (studyWinner = 'black')
+        : resultStudy === '1/2-1/2'
+          ? (statusName = 'draw')
+          : undefined;
   }
 
   let shapes: DrawShape[] = endgameShapesForNode(
