@@ -39,6 +39,13 @@ final class PuzzleComplete(
                 Json.obj("next" -> nextJson)
               }
       case None =>
+        // a streak that beat the last puzzle has no next id, so it lands here
+        data.streakScore
+          .filter(_ > 0)
+          .so: score =>
+            ctx.userId.so: userId =>
+              lila.mon.streak.run.score(ctx.isAuth.toString).record(score)
+              setStreakResult(userId, score)
         lila.mon.puzzle.round.attempt(ctx.isAuth, angle.key, data.rated.yes).increment()
         ctx.me match
           case Some(me) =>
