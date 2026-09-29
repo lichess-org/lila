@@ -121,11 +121,24 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
     hovering = ctrl.ceval.hovering();
   }
 
+  let statusName = ctrl.data.game.status.name
+  let studyWinner = ctrl.data.game.winner;
+  const resultStudy = ctrl.study?.data.chapter.tags.find(r => r[0] === "Result")?.[1]
+  if (resultStudy) {
+    resultStudy === "1-0"
+      ? studyWinner = "white"
+      : resultStudy === "0-1"
+        ? studyWinner = "black"
+        : resultStudy === "1/2-1/2"
+          ? statusName = "draw"
+          : undefined
+  }
+
   let shapes: DrawShape[] = endgameShapesForNode(
     ctrl.node,
     ctrl.node === last(ctrl.mainline),
-    ctrl.data.game.winner,
-    ctrl.data.game.status.name,
+    studyWinner,
+    statusName,
   );
   let badNode: TreeNode | undefined;
   if ((badNode = ctrl.retro?.showBadNode()) && badNode.uci) {
