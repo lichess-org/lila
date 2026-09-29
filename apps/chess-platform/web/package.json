@@ -1,0 +1,7 @@
+{
+  "name": "@chess-platform/web",
+  "private": true,
+  "type": "module",
+  "scripts": { "dev": "vite", "build": "vite build" },
+  "devDependencies": { "vite": "^7.1.7", "typescript": "^5.9.2" }
+}
