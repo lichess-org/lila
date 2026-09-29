@@ -403,7 +403,7 @@ export default class StudyCtrl {
     this.serverEval.reset();
     this.commentForm.onSetPath(this.data.chapter.id, this.ctrl.path, this.ctrl.node);
     this.redraw();
-    this.ctrl.startCeval();
+    this.ctrl.startCevalIfEnabled();
     this.updateHistoryAndAddressBar();
   };
 
@@ -633,7 +633,7 @@ export default class StudyCtrl {
     this.configureAnalysis();
     this.ctrl.userJump(this.ctrl.path);
     if (!o) this.xhrReload();
-    else if (o === 'analyse') this.ctrl.startCeval();
+    else if (o === 'analyse') this.ctrl.startCevalIfEnabled();
   };
   explorerGame = (gameId: string, insert: boolean) =>
     this.makeChange('explorerGame', this.withPosition({ gameId, insert }));

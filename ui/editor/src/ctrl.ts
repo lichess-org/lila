@@ -194,7 +194,7 @@ export default class EditorCtrl implements CevalHandler {
     const wasUnloaded = this.ceval.wasUnloadedByAnotherWindow;
     this.ceval.init(this.makeCevalOpts(fen));
     this.ceval.wasUnloadedByAnotherWindow = wasUnloaded;
-    if (legalFen && this.cevalEnabled()) this.startCeval();
+    if (legalFen && this.cevalEnabled()) this.startCevalIfEnabled();
   }
 
   cevalEnabled = (enable?: boolean): boolean => {
@@ -204,7 +204,7 @@ export default class EditorCtrl implements CevalHandler {
     this.cevalEnabledProp(enable);
     if (enable && this.ceval.wasUnloadedByAnotherWindow) this.ceval.reset();
     if (enable !== enabled) {
-      if (enable) this.startCeval();
+      if (enable) this.startCevalIfEnabled();
       else {
         this.threatMode(false);
         this.ceval.reset();
@@ -215,7 +215,7 @@ export default class EditorCtrl implements CevalHandler {
     return enable;
   };
 
-  startCeval = (): void => {
+  startCevalIfEnabled = (): void => {
     if (!this.ceval.download) this.ceval.reset();
     if (!this.cevalEnabled() || !this.ceval.analysable || this.cevalNode.outcome()) return;
     this.ceval.start('', [this.cevalNode], undefined, this.threatMode());
@@ -224,14 +224,14 @@ export default class EditorCtrl implements CevalHandler {
   clearCeval = (): void => {
     this.cevalNode.ceval = undefined;
     this.cevalNode.threat = undefined;
-    this.startCeval();
+    this.startCevalIfEnabled();
   };
 
   toggleThreatMode(v?: boolean): void {
     const enable = v ?? !this.threatMode();
     if (enable === this.threatMode() || this.cevalNode.check() || !this.cevalEnabled()) return;
     this.threatMode(enable);
-    this.startCeval();
+    this.startCevalIfEnabled();
     this.redraw();
   }
 
