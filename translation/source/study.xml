@@ -90,6 +90,7 @@
   <string name="noPinnedComment">None</string>
   <string name="normalAnalysis">Normal analysis</string>
   <string name="hideNextMoves">Hide next moves</string>
+  <string name="recall">Recall practice</string>
   <string name="interactiveLesson">Interactive lesson</string>
   <string name="chapterX">Chapter %s</string>
   <string name="empty">Empty</string>
@@ -199,4 +200,15 @@
   <string name="doubleDefeat">Double defeat</string>
   <string name="blackDefeatWhiteCanNotWin">Black defeat, but White can't win</string>
   <string name="whiteDefeatBlackCanNotWin">White defeat, but Black can't win</string>
+  <string name="recallNoMovesYet">This chapter has no moves to recall yet.</string>
+  <string name="recallExplanation">Recall practice quizzes you on the moves that are already stored in the chapter.</string>
+  <string name="recallHowToStoreMoves" comment="%1$s is the name of the &quot;Normal analysis&quot; chapter mode, %2$s is the name of the &quot;Recall practice&quot; chapter mode">Set the chapter mode to %1$s, enter the moves you want to remember, then switch it back to %2$s.</string>
+  <string name="recallMovesAreHidden">The moves are hidden. Your attempts are checked against the chapter, and never saved to it.</string>
+  <string name="recallPlayTheMoveYouRemember">Your turn: play the move you remember.</string>
+  <string name="recallWaitingForTheReply">Waiting for the reply...</string>
+  <string name="recallRightMove" comment="Shown when the user recalls the correct move stored in the chapter.">Correct!</string>
+  <string name="recallWrongMove">Wrong move, try again.</string>
+  <string name="recallEndOfTheLine">End of the line, well done!</string>
+  <string name="showMoves">Show moves</string>
+  <string name="hideMoves">Hide moves</string>
 </resources>
