@@ -89,9 +89,8 @@ final class PracticeUi(helpers: Helpers)(
                       ctx.isAuth.option(
                         span(cls := "ribbon-wrapper")(
                           span(cls := s"ribbon ${stateClas}")(
-                            prog.done,
-                            " / ",
-                            prog.total
+                            if stateClas == "done" then trans.site.done()
+                            else s"${prog.done} / ${prog.total}"
                           )
                         )
                       ),

@@ -53,7 +53,8 @@
     text-shadow: 0 0 1.5px rgb(0 0 0 / 0.5);
 
     @include if-light {
-      color: hsl(from $c-brag h calc(s + 40) calc(l + 20));
+      color: hsl(from $c-brag h calc(s + 35) calc(l + 16));
+      text-shadow: 0 0 1.5px rgb(0 0 0 / 0.66);
     }
   }
 
@@ -92,7 +93,7 @@
     box-shadow: 1px 0 3px rgb(from $c-secondary r g b / calc(alpha * 0.5));
 
     @include if-light {
-      background-color: hsl(from $c-secondary h calc(s - 15) calc(l + 30));
+      background-color: hsl(from $c-secondary h calc(s - 18) calc(l + 32));
     }
   }
 

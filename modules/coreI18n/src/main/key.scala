@@ -2602,6 +2602,7 @@ object I18nKey:
     val `boards`: I18nKey = "boards"
     val `write`: I18nKey = "write"
     val `preview`: I18nKey = "preview"
+    val `done`: I18nKey = "done"
     val `opponentLeftCounter`: I18nKey = "opponentLeftCounter"
     val `mateInXHalfMoves`: I18nKey = "mateInXHalfMoves"
     val `numberBlunders`: I18nKey = "numberBlunders"
