@@ -1,0 +1,23 @@
+services:
+  mongo:
+    image: mongo:8
+    restart: unless-stopped
+    ports: ["27017:27017"]
+    volumes: [chess-mongo:/data/db]
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    ports: ["6379:6379"]
+
+  server:
+    build: ./server
+    environment:
+      PORT: 8080
+      MONGO_URL: mongodb://mongo:27017/chess_platform
+      REDIS_URL: redis://redis:6379
+    ports: ["8080:8080"]
+    depends_on: [mongo, redis]
+
+volumes:
+  chess-mongo:
