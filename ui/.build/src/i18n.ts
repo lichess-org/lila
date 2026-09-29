@@ -26,7 +26,7 @@ export function i18n(): Promise<void | string> {
   return makeTask({
     includes: [
       { cwd: env.i18nSrcDir, path: '*.xml' },
-      { cwd: join(env.i18nDestDir, 'site'), path: '*.xml' },
+      { cwd: env.i18nDestDir, path: '**/*.xml' },
     ],
     ctx: 'i18n',
     debounce: 500,
