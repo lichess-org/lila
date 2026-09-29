@@ -76,8 +76,9 @@
       line-height: 1;
     }
 
-    p {
+    em {
       margin: 4px 0 0 0;
+      display: inline-block;
       line-height: 1.2;
       opacity: 0.8;
       color: $c-font-dim;
