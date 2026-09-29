@@ -11,7 +11,6 @@ import lila.common.Bus
 
 final private class RelaySync(
     studyApi: StudyApi,
-    preview: ChapterPreviewApi,
     chapterRepo: ChapterRepo,
     tourRepo: RelayTourRepo,
     groupRepo: RelayGroupRepo,
