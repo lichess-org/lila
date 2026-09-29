@@ -14,6 +14,7 @@ import lila.core.user.KidMode
 import lila.security.IsPwned
 import lila.core.security.ClearPassword
 import lila.core.net.ValidReferrer
+import lila.oauth.OAuthScope
 
 final class Account(
     env: Env,
@@ -332,6 +333,38 @@ final class Account(
     getBoolOptAs[KidMode]("v") match
       case None => BadRequest(jsonError("Missing v parameter"))
       case Some(v) => env.user.api.setKid(me, v).inject(jsonOkResult)
+  }
+
+  /* Mobile equivalent of POST /account/close.
+   * Reuses the web form and guards, so it requires the username, the password, and
+   * the TOTP code when the account has two-factor authentication enabled.
+   * Token-only: the official app holds no session, and keeping the browser path out
+   * avoids a second, weaker way to trigger an irreversible action.
+   */
+  def apiClose = ScopedBody(parse.formUrlEncoded)(Seq[OAuthScope.Selector](_ => OAuthScope.Web.Mobile)) {
+    _ ?=> me ?=>
+      NotManaged:
+        auth.HasherRateLimit:
+          env.security.forms.closeAccount.flatMap: form =>
+            bindForm(form)(
+              badJsonFormError,
+              forever => env.api.accountTermination.disable(me.value, forever = forever).inject(NoContent)
+            )
+  }
+
+  /* Mobile equivalent of POST /account/delete.
+   * Same form and guards as the web flow: username, password, and an explicit
+   * acknowledgement. Deletion is scheduled, not immediate, so it is recoverable.
+   */
+  def apiDelete = ScopedBody(parse.formUrlEncoded)(Seq[OAuthScope.Selector](_ => OAuthScope.Web.Mobile)) {
+    _ ?=> me ?=>
+      NotManaged:
+        auth.HasherRateLimit:
+          env.security.forms.deleteAccount.flatMap: form =>
+            bindForm(form)(
+              badJsonFormError,
+              _ => env.api.accountTermination.scheduleDelete(me.value).inject(NoContent)
+            )
   }
 
   def security = Auth { _ ?=> me ?=>
