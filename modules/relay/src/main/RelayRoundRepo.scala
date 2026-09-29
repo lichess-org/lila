@@ -41,6 +41,11 @@ final private class RelayRoundRepo(val coll: Coll, tourRepo: RelayTourRepo)(usin
       .cursor[RelayRound]()
       .list(RelayTour.maxRelays.value * tourIds.size)
 
+  def roundsOfScoreGroup(tours: List[RelayTour]): Fu[List[RelayRound]] =
+    if RelayGroup.sgIsParallel(tours)
+    then byToursOrdered(tours.map(_.id)).map(_.sortBy(_.startsAtTime))
+    else tours.map(_.id).flatTraverse(byTourOrdered(_))
+
   def idsByTourOrdered(tour: RelayTourId): Fu[List[RelayRoundId]] =
     coll.primitive[RelayRoundId](
       selector = selectors.tour(tour),
