@@ -2,7 +2,7 @@
   &__header {
     @extend %flex-between;
 
-    @media (width >= $x-small) {
+    @media (min-width: at-least($x-small)) {
       flex-wrap: nowrap;
     }
 
