@@ -13,7 +13,9 @@ object Pov:
   private val someTime = Seconds(30)
 
   def priority(a: Pov, b: Pov) =
-    if !a.isMyTurn && !b.isMyTurn then isFresher(a, b)
+    if a.game.hasClock && !b.game.hasClock then true
+    else if !a.game.hasClock && b.game.hasClock then false
+    else if !a.isMyTurn && !b.isMyTurn then isFresher(a, b)
     else if !a.isMyTurn && b.isMyTurn then false
     else if a.isMyTurn && !b.isMyTurn then true
     // first move has priority over games with more than 30s left
