@@ -3,8 +3,7 @@ package ui
 
 import lila.core.i18n.{ I18nKey as trans, Translate }
 import lila.ui.*
-
-import ScalatagsTemplate.*
+import lila.ui.ScalatagsTemplate.*
 
 object help:
 

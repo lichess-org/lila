@@ -12,7 +12,7 @@ import { alert } from 'lib/view';
 import { text as xhrText } from 'lib/xhr';
 
 import RoundController from './ctrl';
-import type { RoundData, RoundOpts } from './interfaces';
+import type { RoundData, RoundOpts, RoundSocket, SocketInEvents } from './interfaces';
 import type MoveOn from './moveOn';
 import { tourStandingCtrl, type TourStandingCtrl } from './tourStanding';
 import { main as view } from './view/main';
@@ -61,7 +61,7 @@ async function boot(
   opts.socketSend = wsConnect(socketUrl, data.player.version, {
     options: { reloadOnResume: true },
     params: { userTv: data.userTv?.id },
-    receive(t: string, d: any) {
+    receive<K extends keyof SocketInEvents>(t: K, d: Parameters<SocketInEvents[K]>) {
       round.socketReceive(t, d);
     },
     events: {
@@ -164,7 +164,7 @@ const startsWithPrefix = (t: string, prefix: string) =>
   t.toLowerCase().startsWith(`${prefix}, ${myUserId()}`);
 
 type RoundApi = {
-  socketReceive: (typ: string, data: any) => boolean;
+  socketReceive: RoundSocket['receive'];
   moveOn: MoveOn;
 };
 

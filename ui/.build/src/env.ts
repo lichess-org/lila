@@ -140,7 +140,7 @@ export const env = new (class {
     this.status[ctx] = code;
     if (this.buildOk()) {
       if (this.startTime) {
-        const doneMsg = `Done in ${pc.green(String((Date.now() - this.startTime) / 1000) + 's')}`;
+        const doneMsg = `Done in ${pc.green(String(((Date.now() - this.startTime) / 1000).toFixed(3)) + 's')}`;
         this.log(doneMsg + (this.stdin ? `. Press ${pc.gray('<space>')} to trigger clean rebuild` : ''));
       }
       this.onSuccess.forEach(yay => yay());
@@ -187,6 +187,7 @@ const contextColors: Record<string, (text: string) => string> = {
   hash: pc.blue,
   i18n: x => pc.bold(pc.cyan(x)),
   web: x => pc.bold(pc.magenta(x)),
+  pnpm: x => pc.bold(pc.gray(x)),
 };
 
 function colorForCtx(ctx: string): (text: string) => string {

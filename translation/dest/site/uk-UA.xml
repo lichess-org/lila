@@ -487,6 +487,7 @@
   <string name="apply">Застосувати</string>
   <string name="save">Зберегти</string>
   <string name="leaderboard">Дошка лідерів</string>
+  <string name="positionAsImage" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position.">Позиція як зображення</string>
   <string name="gameAsGIF">Зберегти як GIF</string>
   <string name="playerNames">Імена гравців</string>
   <string name="moveAnnotations">Анотації ходу</string>
@@ -623,6 +624,10 @@
   <string name="autoSwitch">Автоперехід</string>
   <string name="puzzles">Задачі</string>
   <string name="onlineBots">Онлайн-боти</string>
+  <string name="aboutBotsOnLichess">Про боти на Lichess</string>
+  <string name="tryPlayingTheseInnovativeChessEngines">Зіграйте з цими інноваційними шаховими рушіями! Вони — наші улюблені.</string>
+  <string name="communityBots">Спільнотні боти</string>
+  <string name="moreChessEnginesCreatedByTheLichessCommunity">Інші шахові рушії, створені спільнотою Lichess. Вони розміщуються їхніми творцями й не завжди можуть працювати.</string>
   <string name="name">Назва</string>
   <string name="description">Опис</string>
   <string name="descPrivate">Приватний опис</string>
@@ -670,6 +675,7 @@
   <string name="clearField">Очистити поле</string>
   <string name="orSeparator">або</string>
   <string name="logInByEmail">Увійти через електронну пошту</string>
+  <string name="emailLoginInstructions">Ми відправимо вам лист з посиланням на вхід.</string>
   <string name="emailMeALink">Надішліть мені посилання</string>
   <string name="currentPassword">Поточний пароль</string>
   <string name="newPassword">Новий пароль</string>
@@ -694,6 +700,8 @@
   <string name="onSlowGames">У повільних іграх</string>
   <string name="always">Завжди</string>
   <string name="never">Ніколи</string>
+  <string name="defeatOnly">Лише при поразці</string>
+  <string name="drawAndDefeat">При поразці й нічиїй</string>
   <string name="xCompetesInY">%1$s бере участь у %2$s</string>
   <string name="victory">Перемога</string>
   <string name="defeat">Поразка</string>
@@ -764,7 +772,9 @@
   <string name="aboutX">Про %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s є безкоштовним (%2$s) шаховим сервером без реклами та з відкритим кодом.</string>
   <string name="really">дійсно</string>
+  <string name="lichessUpdates">Оновлення Lichess</string>
   <string name="contribute">Сприяти розвитку</string>
+  <string name="changelog">Список змін</string>
   <string name="termsOfService">Умови користування</string>
   <string name="titleVerification">Титульна перевірка</string>
   <string name="sourceCode">Вихідний код</string>

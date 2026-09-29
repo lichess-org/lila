@@ -58,7 +58,7 @@
   <string name="teams">Клубы</string>
   <string name="boards">Доски</string>
   <string name="overview">Обзор</string>
-  <string name="subscribeTitle">Подпишитесь, чтобы получать уведомления о начале каждого раунда. Вы можете включить звуковое или пуш-уведомление для трансляций в своих настройках.</string>
+  <string name="subscribeTitle">Подпишитесь, чтобы получать уведомления о начале каждого раунда. Вы можете включить звуковое или всплывающее уведомление для трансляций в своих настройках.</string>
   <string name="uploadImage">Загрузить изображение турнира</string>
   <string name="noBoardsYet">Пока нет досок. Они появятся после загрузки партий.</string>
   <string name="noPlayersYet">Пока игроков нет. Они появятся сразу после загрузки партий.</string>

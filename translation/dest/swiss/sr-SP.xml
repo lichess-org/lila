@@ -41,6 +41,9 @@
   <string name="forbiddenPairings">Забрањена упарења</string>
   <string name="forbiddenPairingsHelp">Корисничка имена играча који не би требали бити упарени (браћа и сестре, на пример). Два корисничка имена по линији, одвојена размаком.</string>
   <string name="newSwiss">Нови Швајцарски турнир</string>
+  <string name="swissVsArenaQ">Када користити Швајцарске турнире уместо арена?</string>
+  <string name="swissVsArenaA">У Швајцарском турниру, сви учесници играју исти број партија и могу играти међусобно само једном.
+Може бити добра опција за клубове и званичне турнире.</string>
   <string name="pointsCalculationQ">Како се бодови рачунају?</string>
   <string name="pointsCalculationA">Победа вреди један бод, реми је пола бода, а губитак је нула бодова.
 Када играч не може бити упарен током рунде, добија слободну рунду вредну један бод.</string>
@@ -58,9 +61,11 @@
 Додатно, једна слободна рунда од пола бода је дата када се играч касно придружи у турнир.</string>
   <string name="whatIfOneDoesntPlayQ">Шта се деси ако играч не одигра партију?</string>
   <string name="lateJoinQ">Да ли се играчи могу касно придружити?</string>
+  <string name="willSwissReplaceArenasQ">Да ли ће Швајцарски заменити арена турнире?</string>
   <string name="willSwissReplaceArenasA">Не. То су комплементарне могућности.</string>
   <string name="otherSystemsQ">Шта је са другим турнирским системима?</string>
   <string name="otherSystemsA">Не планирамо да додамо више турнирских система на Lichess тренутно.</string>
+  <string name="swissDescription">У Швајцарском турниру %1$s, такмичар не мора нужно играти са свим другим учесницима. Такмичари се сусрећу један на један у свакој рунди и упарени су скупом правила осмишљених тако да осигурају да сваки такмичар игра са противницима са сличним кретајућим резултатом, али не и истим провником више од једном. Победник је такмичар са највишим укупним освојеним бодовима у свим рундама. Сви такмичари играју сваку рунду осим ако је број играча непаран.</string>
   <string name="joinOrCreateTeam">Придружи се или направи тим</string>
   <string name="nowPlaying">Тренутно играју</string>
   <string name="startingSoon">Почиње ускоро</string>
@@ -71,12 +76,18 @@
   <string name="numberOfGames">Број партија</string>
   <string name="numberOfGamesAsManyAsPossible">Онолико колико може бити одиграно у предвиђеном времену</string>
   <string name="numberOfGamesPreDefined">Одлучен унапред, исти за све играче</string>
+  <string name="pairingSystem">Систем упаривања</string>
   <string name="pairingSystemArena">Сваки доступни противник са сличним рангом</string>
   <string name="pairingSystemSwiss">Најбоље упаривање на основу бодова и тај-брејкова</string>
   <string name="pairingWaitTime">Време чекања упаривања</string>
   <string name="identicalPairing">Идентично упаривање</string>
   <string name="possibleButNotConsecutive">Могуће, али не узастопно</string>
+  <string name="identicalForbidden">Забрањено</string>
+  <string name="lateJoin">Касно придруживање</string>
   <string name="lateJoinUntil">Да док више од половине рунди не почне</string>
+  <string name="pause">Пауза</string>
+  <string name="pauseSwiss">Да али може смањити број рунди</string>
   <string name="streaksAndBerserk">Низови и Берсерк</string>
+  <string name="unlimitedAndFree">Неограничено и бесплатно</string>
   <string name="absences">Изостанци</string>
 </resources>

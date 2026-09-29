@@ -7,4 +7,12 @@
   <string name="cancelKeepAccount">Avbryt og behald kontoen min</string>
   <string name="closeAccountAreYouSure">Er du sikker på at du vil avslutta kontoen din?</string>
   <string name="thisAccountIsClosed">Denne kontoen er stengd.</string>
+  <string name="wereSorryToSeeYouGo">Vi er lei oss for at du forlet oss.</string>
+  <string name="closeAccountForeverLabel">Lukk for all framtid: Gjer det umogeleg å opna på ny</string>
+  <string name="closeAccountForeverWarning">Forhindre opning av kontoen seinere. Om du kryssar av denne boksen, vil sjølv ikkje administratorar kunne opne kontoen igjen, om du skulle spørja om det.</string>
+  <string name="deleteYourAccount">Slett kontoen din</string>
+  <string name="deleteAccountWarning">Så snart du slettar kontoen din, vert den fjerna frå Lichess og administratorane våre vil ikkje kunne få den tilbake for deg.</string>
+  <string name="wouldYouLikeToXInstead" comment="%s is close your account">Ønskjer du å %s i staden?</string>
+  <string name="closeYourAccount">steng kontoen din</string>
+  <string name="deleteAccountConfirmText">Eg er innforstått med at sletta kontoar ikkje kan gjenskapast</string>
 </resources>

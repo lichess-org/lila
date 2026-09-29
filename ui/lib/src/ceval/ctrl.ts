@@ -123,7 +123,7 @@ export class CevalCtrl {
   }
 
   available(): boolean {
-    return (this.isBackground || !document.hidden) && this.analysable;
+    return (this.isBackground || !(document.hidden && isTouchDevice())) && this.analysable;
   }
 
   goDeeper = (): void => {

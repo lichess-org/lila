@@ -7,4 +7,12 @@
   <string name="cancelKeepAccount">취소하고 계정 유지하기</string>
   <string name="closeAccountAreYouSure">정말로 탈퇴하시겠습니까?</string>
   <string name="thisAccountIsClosed">계정이 폐쇄되었습니다.</string>
+  <string name="wereSorryToSeeYouGo">떠나신다니 아쉽습니다.</string>
+  <string name="closeAccountForeverLabel">영구 폐쇄: 재활성화 금지하기</string>
+  <string name="closeAccountForeverWarning">계정을 나중에 재활성화하는 것을 방지합니다. 만약 이 박스에 체크한다면, 관리자도 당신의 요청에 따라 계정을 재활성화할 수 없습니다.</string>
+  <string name="deleteYourAccount">계정 삭제</string>
+  <string name="deleteAccountWarning">계정을 삭제하는 즉시, 해당 계정은 Lichess에서 제거되며 관리자 역시 계정을 복구해드릴 수 없습니다.</string>
+  <string name="wouldYouLikeToXInstead" comment="%s is close your account">대신 %s하는 건 어떠신가요?</string>
+  <string name="closeYourAccount">계정을 폐쇄</string>
+  <string name="deleteAccountConfirmText">계정 삭제는 복구가 불가능함을 이해하였습니다</string>
 </resources>

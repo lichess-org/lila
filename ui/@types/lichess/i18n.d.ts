@@ -1259,6 +1259,10 @@ interface I18n {
     lichessUserstyles: string;
     /** This honorific title is unofficial and only exists on Lichess. */
     lMtitleComesToYouDoNotRequestIt: string;
+    /** To learn how to build a <a href='%1$s'>custom chess bot</a> to play on Lichess, please read <a href='%2$s'>this blog post about creating bots</a>. */
+    makeBotDescription: I18nFormat;
+    /** Make a bot on Lichess? */
+    makeBotTitle: string;
     /** stand-alone mental health condition */
     mentalHealthCondition: string;
     /** Most browsers prevent sound from playing on newly-visited pages to protect users. */
@@ -1581,6 +1585,8 @@ interface I18n {
     defendYourKing: string;
     /** Don't let them take */
     dontLetThemTakeAnyUndefendedPiece: string;
+    /** En passant */
+    enPassant: string;
     /** Congratulations! You can now take en passant. */
     enPassantComplete: string;
     /** When the opponent's pawn moves two squares, you can still take it as if it had only moved one square. */
@@ -2113,6 +2119,18 @@ interface I18n {
     newAccessToken: string;
     /** New access token */
     newToken: string;
+    /** External engine */
+    oauthCatExternalEngine: string;
+    /** External play */
+    oauthCatExternalPlay: string;
+    /** Interactions */
+    oauthCatInteractions: string;
+    /** Play games */
+    oauthCatPlayGames: string;
+    /** Studies & Broadcasts */
+    oauthCatStudiesBroadcasts: string;
+    /** User account */
+    oauthCatUserAccount: string;
     /** Personal API access tokens */
     personalAccessTokens: string;
     /** personal token app example */
@@ -2125,8 +2143,12 @@ interface I18n {
     preferenceWrite: string;
     /** Read puzzle activity */
     puzzleRead: string;
+    /** Solve puzzles */
+    puzzleWrite: string;
     /** Create and join puzzle races */
     racerWrite: string;
+    /** Read and write notes on other players */
+    readWriteNotesOnPlayers: string;
     /** So you remember what this token is for */
     rememberTokenUse: string;
     /** Read private studies and broadcasts */
@@ -2143,6 +2165,8 @@ interface I18n {
     tokenDescription: string;
     /** A token grants other people permission to use your account. */
     tokenGrantsPermission: string;
+    /** Read private tournaments */
+    tournamentRead: string;
     /** Create, update, and join tournaments */
     tournamentWrite: string;
     /** Use moderator tools (within bounds of your permission) */
@@ -2397,6 +2421,142 @@ interface I18n {
     viewTheGames: string;
     /** Winning streak */
     winningStreak: string;
+  };
+  practice: {
+    /** makes your chess perfect */
+    makesPerfect: string;
+    /** Advanced tactics */
+    secHeadAdvancedTactics: string;
+    /** Checkmates */
+    secHeadCheckmates: string;
+    /** Fundamental tactics */
+    secHeadFundamentalTactics: string;
+    /** Pawn Endgames */
+    secHeadPawnEndgames: string;
+    /** Rook Endgames */
+    secHeadRookEndgames: string;
+    /** Sign up to save your progress */
+    signUpToSaveYourProgress: string;
+    /** And Passive Rook vs Rook */
+    stDesAndPassiveRookVsRook: string;
+    /** A piece is lost, but it can still help */
+    stDesAPieceIsLostButItCanStillHelp: string;
+    /** Attacking through an enemy piece */
+    stDesAttackingThroughAnEnemyPiece: string;
+    /** A very powerful tactic */
+    stDesAVeryPowerfulTactic: string;
+    /** Basic checkmates */
+    stDesBasicCheckmates: string;
+    /** Being forced to move */
+    stDesBeingForcedToMove: string;
+    /** Broaden your knowledge */
+    stDesBroadenYourKnowledge: string;
+    /** Challenging checkmates */
+    stDesChallengingCheckmates: string;
+    /** Distracting a defender */
+    stDesDistractingADefender: string;
+    /** Get out of the way! */
+    stDesGetOutOfTheWay: string;
+    /** In-between moves */
+    stDesInBetweenMoves: string;
+    /** Including discovered checks */
+    stDesIncludingDiscoveredChecks: string;
+    /** Interactive lesson */
+    stDesInteractiveLesson: string;
+    /** Interpose a piece to great effect */
+    stDesInterposeAPieceToGreatEffect: string;
+    /** Lucena and Philidor */
+    stDesLucenaAndPhilidor: string;
+    /** Lure a piece to a bad square */
+    stDesLureAPieceToABadSquare: string;
+    /** Pin it to win it */
+    stDesPinItToWinIt: string;
+    /** Promote - but not to a queen! */
+    stDesPromoteButNotToAQueen: string;
+    /** Reach a key square */
+    stDesReachAKeySquare: string;
+    /** Recognize the patterns */
+    stDesRecognizeThePatterns: string;
+    /** Remove the defending piece */
+    stDesRemoveTheDefendingPiece: string;
+    /** Respond to a check with a check */
+    stDesRespondToACheckWithACheck: string;
+    /** Rook endings with several pawns */
+    stDesRookEndingsWithSeveralPawns: string;
+    /** Study the greek gift sacrifice */
+    stDesStudyTheGreekGiftSacrifice: string;
+    /** Take the opposition */
+    stDesTakeTheOpposition: string;
+    /** They have too much work */
+    stDesTheyHaveTooMuchWork: string;
+    /** Use the fork, Luke */
+    stDesUseTheForkLuke: string;
+    /** Versus a Queen */
+    stDesVersusAQueen: string;
+    /** Yum - skewers! */
+    stDesYumSkewers: string;
+    /** 7th-Rank Rook Pawn */
+    stNam7thRankRookPawn: string;
+    /** Attraction */
+    stNamAttraction: string;
+    /** Basic Rook Endgames */
+    stNamBasicRookEndgames: string;
+    /** Checkmate Patterns I */
+    stNamCheckmatePatternsI: string;
+    /** Checkmate Patterns II */
+    stNamCheckmatePatternsII: string;
+    /** Checkmate Patterns III */
+    stNamCheckmatePatternsIII: string;
+    /** Checkmate Patterns IV */
+    stNamCheckmatePatternsIV: string;
+    /** Clearance */
+    stNamClearance: string;
+    /** Counter Check */
+    stNamCounterCheck: string;
+    /** Deflection */
+    stNamDeflection: string;
+    /** Desperado */
+    stNamDesperado: string;
+    /** Discovered Attacks */
+    stNamDiscoveredAttacks: string;
+    /** Double Check */
+    stNamDoubleCheck: string;
+    /** Greek Gift */
+    stNamGreekGift: string;
+    /** Interference */
+    stNamInterference: string;
+    /** Intermediate Rook Endings */
+    stNamIntermediateRookEndings: string;
+    /** Key Squares */
+    stNamKeySquares: string;
+    /** Knight & Bishop Mate */
+    stNamKnightAndBishopMate: string;
+    /** Opposition */
+    stNamOpposition: string;
+    /** Overloaded Pieces */
+    stNamOverloadedPieces: string;
+    /** Piece Checkmates I */
+    stNamPieceCheckmatesI: string;
+    /** Piece Checkmates II */
+    stNamPieceCheckmatesII: string;
+    /** Practical Rook Endings */
+    stNamPracticalRookEndings: string;
+    /** The Fork */
+    stNamTheFork: string;
+    /** The Pin */
+    stNamThePin: string;
+    /** The Skewer */
+    stNamTheSkewer: string;
+    /** Undermining */
+    stNamUndermining: string;
+    /** Underpromotion */
+    stNamUnderpromotion: string;
+    /** X-Ray */
+    stNamXRay: string;
+    /** Zugzwang */
+    stNamZugzwang: string;
+    /** Zwischenzug */
+    stNamZwischenzug: string;
   };
   preferences: {
     /** Analysis settings */
@@ -2845,6 +3005,8 @@ interface I18n {
     endgame: string;
     /** A tactic during the last phase of the game. */
     endgameDescription: string;
+    /** En passant */
+    enPassant: string;
     /** A tactic involving the en passant rule, where a pawn can capture an opposing pawn that has just moved next to it with its initial two-square move. */
     enPassantAdjacentCaptureDescription: string;
     /** Epaulette mate */
@@ -3275,6 +3437,8 @@ interface I18n {
     accuracy: string;
     /** Active players */
     activePlayers: string;
+    /** This is a list of devices and applications that are logged into your account. If you notice any suspicious activity, make sure to <a href='%1$s'>check your recovery email address</a> and <a href='%2$s'>change your password</a>. */
+    activeSessionsDescription: I18nFormat;
     /** Add current variation */
     addCurrentVariation: string;
     /** Advanced settings */
@@ -3421,6 +3585,8 @@ interface I18n {
     bookmarkThisGame: string;
     /** Brightness */
     brightness: string;
+    /** Notification popups disabled by browser setting */
+    browserNotificationsDenied: string;
     /** Bullet */
     bullet: string;
     /** Very fast games: less than 3 minutes */
@@ -5881,6 +6047,14 @@ interface I18n {
     entryCode: string;
     /** (Optional) An entry code that new members must know to join this team. */
     entryCodeDescriptionForLeader: string;
+    /** Team forum */
+    forumLabel: string;
+    /** Who can see the team forum on the team page?<br>Only team members can post in the team forum. */
+    forumVisibilityHelp: string;
+    /** Hide the forum */
+    forumVisibilityNone: string;
+    /** Hide team member list from non-members. */
+    hideMembersDesc: string;
     /** Incorrect entry code. */
     incorrectEntryCode: string;
     /** Inner team */

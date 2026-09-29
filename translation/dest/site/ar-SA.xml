@@ -692,6 +692,11 @@
   <string name="autoSwitch">تبديل تلقائي</string>
   <string name="puzzles">الألغاز</string>
   <string name="onlineBots">الروبوتات المتصلة</string>
+  <string name="aboutBotsOnLichess">حول الروبوتات على Lichess</string>
+  <string name="featuredBots">الروبوتات المميزة</string>
+  <string name="tryPlayingTheseInnovativeChessEngines">جرّب اللعب ضد محركات الشطرنج المبتكرة هذه! إنها المفضلة لدينا.</string>
+  <string name="communityBots">روبوتات المجتمع</string>
+  <string name="moreChessEnginesCreatedByTheLichessCommunity">المزيد من محركات الشطرنج التي أنشأها مجتمع Lichess. يستضيفها منشئوها، وقد لا تكون متاحة دائمًا على الإنترنت.</string>
   <string name="name">الاسم</string>
   <string name="description">الوصف</string>
   <string name="descPrivate">وصف خاص</string>
@@ -742,6 +747,7 @@ https://lichess. org/report.</string>
   <string name="clearField">مسح الحقل</string>
   <string name="orSeparator">أو</string>
   <string name="logInByEmail">تسجيل الدخول بالبريد الإلكتروني</string>
+  <string name="emailLoginInstructions">سنرسل إليك بريدًا إلكترونيًا يتضمن رابط تسجيل الدخول.</string>
   <string name="emailMeALink">أرسل لي الرابط بالبريد الإلكتروني</string>
   <string name="currentPassword">كلمة المرور الحالية</string>
   <string name="newPassword">كلمة المرور الجديدة</string>
@@ -766,6 +772,8 @@ https://lichess. org/report.</string>
   <string name="onSlowGames">في المباريات البطيئة</string>
   <string name="always">دائماً</string>
   <string name="never">إطلاقا</string>
+  <string name="defeatOnly">الهزائم فقط</string>
+  <string name="drawAndDefeat">التعادل والهزائم</string>
   <string name="xCompetesInY">%1$s تنافس في %2$s</string>
   <string name="victory">أحسنت!</string>
   <string name="defeat">هزيمة</string>
@@ -842,10 +850,13 @@ https://lichess. org/report.</string>
   <string name="aboutX">عن %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s هو (%2$s) خادم شطرنج مجاني، حر، بدون إعلانات، مفتوح المصدر.</string>
   <string name="really">حقاً</string>
+  <string name="lichessUpdates">تحديثات Lichess</string>
   <string name="contribute">ساهم</string>
+  <string name="changelog">سجل التغييرات</string>
   <string name="termsOfService">شروط الخدمة</string>
   <string name="titleVerification">التحقق من اللقب</string>
   <string name="sourceCode">الكود المصدر</string>
+  <string name="blockAds">حظر الإعلانات</string>
   <string name="simultaneousExhibitions">معارض التزامنيات</string>
   <string name="host">المضيف</string>
   <string name="hostColorX">لون المضيف: %s</string>
@@ -1215,4 +1226,6 @@ https://lichess. org/report.</string>
   <string name="verifyingYourDevice">جارٍ التحقق من جهازك...</string>
   <string name="chessOpenings">افتتاحيات الشطرنج</string>
   <string name="boards">الألواح</string>
+  <string name="write">كتابة</string>
+  <string name="preview">معاينة</string>
 </resources>

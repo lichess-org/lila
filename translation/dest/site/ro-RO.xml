@@ -591,6 +591,11 @@ Jucarea de jocuri oficiale va crește stabilitatea.</string>
   <string name="autoSwitch">Schimbă automat</string>
   <string name="puzzles">Probleme de șah</string>
   <string name="onlineBots">Boți online</string>
+  <string name="aboutBotsOnLichess">Despre boții de pe Lichess</string>
+  <string name="featuredBots">Boți recomandați</string>
+  <string name="tryPlayingTheseInnovativeChessEngines">Încearcă să joci împotriva acestor motoare inovatoare de șah! Sunt favoritele noastre.</string>
+  <string name="communityBots">Boți ai comunității</string>
+  <string name="moreChessEnginesCreatedByTheLichessCommunity">Mai multe motoare de șah create de comunitatea Lichess. Ele sunt găzduite de creatorii lor și s-ar putea să nu fie întotdeauna online.</string>
   <string name="name">Nume</string>
   <string name="description">Descriere</string>
   <string name="descPrivate">Descriere privată</string>
@@ -638,6 +643,7 @@ Jucarea de jocuri oficiale va crește stabilitatea.</string>
   <string name="clearField">Șterge câmpul</string>
   <string name="orSeparator">Sau</string>
   <string name="logInByEmail">Autentificare prin e-mail</string>
+  <string name="emailLoginInstructions">Vă vom trimite un e-mail care conţine un link pentru autentificare.</string>
   <string name="emailMeALink">Trimite-mi un email cu link-ul</string>
   <string name="currentPassword">Parola curentă</string>
   <string name="newPassword">Noua parolă</string>
@@ -662,6 +668,8 @@ Jucarea de jocuri oficiale va crește stabilitatea.</string>
   <string name="onSlowGames">În jocurile lente</string>
   <string name="always">Întotdeauna</string>
   <string name="never">Niciodată</string>
+  <string name="defeatOnly">Doar după înfrângeri</string>
+  <string name="drawAndDefeat">Remize și înfrângeri</string>
   <string name="xCompetesInY">%1$s concurează în %2$s</string>
   <string name="victory">Victorie</string>
   <string name="defeat">Înfrângere</string>
@@ -729,10 +737,13 @@ Jucarea de jocuri oficiale va crește stabilitatea.</string>
   <string name="aboutX">Despre %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s este un server de șah gratuit (%2$s), fără reclame și open-source.</string>
   <string name="really">pe bune</string>
+  <string name="lichessUpdates">Actualizări Lichess</string>
   <string name="contribute">Contribuie</string>
+  <string name="changelog">Jurnal de schimbări</string>
   <string name="termsOfService">Termeni și condiții</string>
   <string name="titleVerification">Verificarea titlului</string>
   <string name="sourceCode">Cod sursă</string>
+  <string name="blockAds">Blochează reclamele</string>
   <string name="simultaneousExhibitions">Simultane de șah</string>
   <string name="host">Gazdă</string>
   <string name="hostColorX">Culoarea gazdei: %s</string>
@@ -1087,4 +1098,6 @@ Toate costurile de operare și de dezvoltare sunt finanțate doar din donațiile
   <string name="verifyingYourDevice">Verificarea dispozitivului...</string>
   <string name="chessOpenings">Deschideri de șah</string>
   <string name="boards">Table</string>
+  <string name="write">Scrie</string>
+  <string name="preview">Previzualizare</string>
 </resources>

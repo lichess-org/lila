@@ -134,7 +134,7 @@ final class Env(
 
   private lazy val farmBoostDetection = wire[FarmBoostDetection]
 
-  lazy val perfsUpdater: PerfsUpdater = wire[PerfsUpdater]
+  private lazy val perfsUpdater: PerfsUpdater = wire[PerfsUpdater]
 
   lazy val forecastApi: ForecastApi = ForecastApi(coll = db(config.forecastColl), roundApi = roundApi)
 

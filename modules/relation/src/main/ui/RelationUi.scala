@@ -5,8 +5,7 @@ import scalalib.paginator.Paginator
 
 import lila.core.perf.UserWithPerfs
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class RelationUi(helpers: Helpers):
   import helpers.{ *, given }

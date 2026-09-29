@@ -6,14 +6,6 @@
     "node": ">=24",
     "pnpm": ">=12"
   },
-  "optionalDependencies": {
-    "sass-embedded-darwin-arm64": "1.104.1",
-    "sass-embedded-darwin-x64": "1.104.1",
-    "sass-embedded-linux-arm64": "1.104.1",
-    "sass-embedded-linux-x64": "1.104.1",
-    "sass-embedded-win32-arm64": "1.104.1",
-    "sass-embedded-win32-x64": "1.104.1"
-  },
   "dependencies": {
     "@types/micromatch": "4.0.10",
     "@types/node": "24.13.5",
@@ -25,6 +17,7 @@
     "lightningcss": "^1.33.0",
     "micromatch": "4.0.8",
     "picocolors": "^1.1.1",
+    "sasso": "^0.18.0",
     "typescript": "7.0.2"
   },
   "scripts": {

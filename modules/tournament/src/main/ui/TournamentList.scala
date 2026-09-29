@@ -7,8 +7,7 @@ import scalalib.paginator.Paginator
 import lila.rating.PerfType
 import lila.tournament.Schedule.Freq
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class TournamentList(helpers: Helpers, ui: TournamentUi)(
     communityMenu: Context ?=> Frag,

@@ -121,6 +121,7 @@ Uni farzinning yoniga qoʻying.</string>
 Davom etish uchun ixtiyoriy yurishni amalga oshiring.</string>
   <string name="boardSetupComplete">Barakalla! Endi siz shaxmat taxtasini terishni bilasiz.</string>
   <string name="castling">Rokirovka</string>
+  <string name="enPassant">Yo\'lakda olish</string>
   <string name="theSpecialKingMove">Shohning maxsus yurishi</string>
   <string name="castlingIntro">Shohingizni xavfsiz joyga oʻtkazing, ruxingizni esa hujumga shaylang!</string>
   <string name="castleKingSide">Qisqa rokirovka qilish uchun shohingizni ikki katak suring!</string>

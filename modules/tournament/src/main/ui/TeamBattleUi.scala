@@ -5,8 +5,7 @@ import play.api.data.Form
 
 import lila.core.team.LightTeam
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class TeamBattleUi(helpers: Helpers):
   import helpers.{ *, given }

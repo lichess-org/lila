@@ -43,7 +43,7 @@ class PrometheusReporter(configPath: String = DefaultConfigPath, initialConfig: 
     val scrapeDataBuilder =
       new ScrapeDataBuilder(_reporterSettings.generic, environmentTags(_reporterSettings.generic))
 
-    scrapeDataBuilder.appendCounters(currentData.counters)
+    scrapeDataBuilder.appendCounters(removeZeros(currentData.counters))
     scrapeDataBuilder.appendGauges(currentData.gauges)
     scrapeDataBuilder.appendDistributionMetricsAsGauges(
       snapshot.rangeSamplers ++ snapshot.histograms ++ snapshot.timers
@@ -55,6 +55,9 @@ class PrometheusReporter(configPath: String = DefaultConfigPath, initialConfig: 
 
   def scrapeData(): String =
     _preparedScrapeData
+
+  private val removeZeros: Update[Seq[MetricSnapshot.Values[Long]]] =
+    _.filter(_.instruments.exists(_.value != 0L))
 
 object PrometheusReporter:
 

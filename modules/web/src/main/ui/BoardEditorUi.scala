@@ -6,8 +6,7 @@ import play.api.libs.json.*
 
 import lila.common.Json.given
 import lila.ui.*
-
-import ScalatagsTemplate.*
+import lila.ui.ScalatagsTemplate.*
 
 final class BoardEditorUi(helpers: Helpers):
   import helpers.{ *, given }

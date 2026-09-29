@@ -131,6 +131,7 @@ piece {
   z-index: $z-cg__piece-2;
   will-change: transform;
   pointer-events: none;
+  color-scheme: light only;
 
   &.dragging {
     cursor: move;

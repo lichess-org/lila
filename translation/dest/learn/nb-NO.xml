@@ -110,6 +110,7 @@ men du kan forsvare!</string>
   <string name="pawnsFormTheFrontLine">Bøndene danner frontlinja. Gjør et valgfritt trekk når du vil fortsette.</string>
   <string name="boardSetupComplete">Gratulerer! Du kjenner nå til hvordan brikkene stilles opp på brettet.</string>
   <string name="castling">Rokade</string>
+  <string name="enPassant">En passant</string>
   <string name="theSpecialKingMove">Det spesielle kongetrekket</string>
   <string name="castlingIntro">Få kongen din i sikkerhet, og gjør tårnet klart for angrep!</string>
   <string name="castleKingSide">Flytt kongen to felt mot kongefløyen for å rokere kort!</string>

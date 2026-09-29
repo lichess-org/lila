@@ -558,6 +558,11 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="autoSwitch">Hopp automatisk til neste parti</string>
   <string name="puzzles">Sjakknøtter</string>
   <string name="onlineBots">Online botar</string>
+  <string name="aboutBotsOnLichess">Om bottar på Lichess</string>
+  <string name="featuredBots">Framheva bottar</string>
+  <string name="tryPlayingTheseInnovativeChessEngines">Prøv å spela desse nyskapande sjakkmotorane! Dei er favorittane våre.</string>
+  <string name="communityBots">Bottar frå sjakkmiljøet</string>
+  <string name="moreChessEnginesCreatedByTheLichessCommunity">Fleire sjakkmotorar laga av Lichess-samfunnet. Skaparane av motorane er sjølve vertar, og kanskje ikkje alltid online.</string>
   <string name="name">Namn</string>
   <string name="description">Forklaring</string>
   <string name="descPrivate">Privat omtale</string>
@@ -605,6 +610,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="clearField">Tøm felt</string>
   <string name="orSeparator">Eller</string>
   <string name="logInByEmail">Logg inn via e-post</string>
+  <string name="emailLoginInstructions">Vi sender deg ein e-post med ei påloggingslenke.</string>
   <string name="emailMeALink">Send lekkje til meg på epost</string>
   <string name="currentPassword">Gjeldande passord</string>
   <string name="newPassword">Nytt passord</string>
@@ -629,6 +635,8 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="onSlowGames">I parti med lang tid</string>
   <string name="always">Alltid</string>
   <string name="never">Aldri</string>
+  <string name="defeatOnly">Berre ved tap</string>
+  <string name="drawAndDefeat">Ved remis og tap</string>
   <string name="xCompetesInY">%1$s deltek i %2$s</string>
   <string name="victory">Vinst</string>
   <string name="defeat">Tap</string>
@@ -693,10 +701,13 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="aboutX">Om %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s er ein fritt tilgjengeleg (%2$s), libre, annonsefri, open kjeldekode sjakk-server.</string>
   <string name="really">verkeleg</string>
+  <string name="lichessUpdates">Lichess-oppdateringar</string>
   <string name="contribute">Bidra</string>
+  <string name="changelog">Endringslogg</string>
   <string name="termsOfService">Brukarvilkår</string>
   <string name="titleVerification">Verifisering av tittel</string>
   <string name="sourceCode">Kjeldekode</string>
+  <string name="blockAds">Blokker annonsar</string>
   <string name="simultaneousExhibitions">Simultanframsyningar</string>
   <string name="host">Vert</string>
   <string name="hostColorX">Vertsfarge: %s</string>

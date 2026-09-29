@@ -21,6 +21,7 @@ object page:
       active = active,
       contentCls = "page box box-pad force-ltr"
     ).css("bits.page")
+      .headAppend((active == "about").option(staticContent.organizationScript))
       .headAppend(views.cms.alternateMarkdown(p)):
         views.cms.pageContent(p)
 

@@ -139,7 +139,7 @@ final class TitleApi(
 
     def fideId(user: LightUser): Fu[Option[FideId]] = get(user).dmap(_.flatMap(_._2))
 
-    def realName(user: LightUser): Fu[Option[RealName]] = get(user).dmap(_.map(_._1))
+    def realName(user: LightUser): Fu[Option[RealName]] = get(user).dmap(_._1F)
 
   private def sendFeedback(to: UserId, feedback: String): Unit =
     val pm = s"""

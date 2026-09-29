@@ -558,6 +558,11 @@ Para incrementar a súa estabilidade tes que xogar máis partidas puntuadas.</st
   <string name="autoSwitch">Auto-cambio</string>
   <string name="puzzles">Problemas</string>
   <string name="onlineBots">Bots en liña</string>
+  <string name="aboutBotsOnLichess">Sobre os bots en Lichess</string>
+  <string name="featuredBots">Bots destacados</string>
+  <string name="tryPlayingTheseInnovativeChessEngines">Proba a xogar con estas innovadoras máquinas de xadrez! Son as nosas favoritas.</string>
+  <string name="communityBots">Bots da comunidade</string>
+  <string name="moreChessEnginesCreatedByTheLichessCommunity">Máis máquinas de xadrez creadas pola comunidade de Lichess. Están aloxadas polos seus creadores, polo que non sempre están en liña.</string>
   <string name="name">Nome</string>
   <string name="description">Descrición</string>
   <string name="descPrivate">Descrición privada</string>
@@ -605,6 +610,7 @@ Para incrementar a súa estabilidade tes que xogar máis partidas puntuadas.</st
   <string name="clearField">Limpar campo</string>
   <string name="orSeparator">Ou</string>
   <string name="logInByEmail">Iniciar sesión co correo electrónico</string>
+  <string name="emailLoginInstructions">Enviarémosche un correo electrónico cunha ligazón para que inicies a túa sesión.</string>
   <string name="emailMeALink">Mándame unha ligazón por correo</string>
   <string name="currentPassword">Contrasinal actual</string>
   <string name="newPassword">Novo contrasinal</string>
@@ -629,6 +635,8 @@ Para incrementar a súa estabilidade tes que xogar máis partidas puntuadas.</st
   <string name="onSlowGames">En partidas lentas</string>
   <string name="always">Sempre</string>
   <string name="never">Nunca</string>
+  <string name="defeatOnly">Só nas derrotas</string>
+  <string name="drawAndDefeat">Táboas e derrotas</string>
   <string name="xCompetesInY">%1$s participa en %2$s</string>
   <string name="victory">Vitoria</string>
   <string name="defeat">Derrota</string>
@@ -693,10 +701,13 @@ Para incrementar a súa estabilidade tes que xogar máis partidas puntuadas.</st
   <string name="aboutX">Acerca de %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s é un servidor de xadrez de código aberto, gratuíto (%2$s), libre, e sen publicidade.</string>
   <string name="really">de verdade</string>
+  <string name="lichessUpdates">Actualizacións de Lichess</string>
   <string name="contribute">Contribuír</string>
+  <string name="changelog">Rexistro de cambios</string>
   <string name="termsOfService">Termos do Servizo</string>
   <string name="titleVerification">Verificación de título</string>
   <string name="sourceCode">Código Fonte</string>
+  <string name="blockAds">Bloquear anuncios</string>
   <string name="simultaneousExhibitions">Exhibicións simultáneas</string>
   <string name="host">Anfitrión</string>
   <string name="hostColorX">Cor do anfitrión: %s</string>
@@ -1044,4 +1055,6 @@ Deixa en branco para comezar as partidas dende a posición inicial normal.</stri
   <string name="verifyingYourDevice">Verificando o teu dispositivo...</string>
   <string name="chessOpenings">Aperturas de xadrez</string>
   <string name="boards">Taboleiros</string>
+  <string name="write">Escribir</string>
+  <string name="preview">Vista previa</string>
 </resources>

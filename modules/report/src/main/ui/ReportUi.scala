@@ -5,8 +5,7 @@ import play.api.data.Form
 
 import lila.core.i18n.{ I18nKey as trans, Translate }
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.core.perf.UserWithPerfs
 
 case class PendingCounts(streamers: Int, appeals: Int, titles: Int, images: Int)

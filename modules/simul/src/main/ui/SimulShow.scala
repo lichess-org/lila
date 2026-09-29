@@ -7,8 +7,7 @@ import lila.common.Json.given
 import lila.gathering.Condition.WithVerdicts
 import lila.gathering.ui.GatheringUi
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class SimulShow(helpers: Helpers, gathering: GatheringUi):
   import helpers.{ *, given }

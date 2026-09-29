@@ -2,8 +2,7 @@ package lila.ublog
 package ui
 
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
   import helpers.{ *, given }

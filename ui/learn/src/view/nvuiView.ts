@@ -2,10 +2,10 @@ import { Chessground as makeChessground } from '@lichess-org/chessground';
 import type { Api } from '@lichess-org/chessground/api';
 import { opposite, type SquareName } from 'chessops';
 
-import { throttle } from 'lib/async';
 import * as nv from 'lib/nvui/chess';
 import { commands, addBreaks } from 'lib/nvui/command';
 import { renderAdvancedSettings } from 'lib/nvui/renderAdvancedSettings';
+import { selectSound, borderSound, errorSound } from 'lib/nvui/sound';
 import { type VNode, bind, onInsert, hl } from 'lib/view';
 
 import type { LearnCtrl } from '../ctrl';
@@ -21,11 +21,6 @@ const promotionByChar: Record<string, PromotionRole> = {
   b: 'bishop',
   n: 'knight',
 };
-
-const throttled = (sound: string) => throttle(100, () => site.sound.play(sound));
-const selectSound = throttled('select');
-const borderSound = throttled('outOfBound');
-const errorSound = throttled('error');
 
 export function renderNvui(ctx: LearnNvuiContext): VNode {
   const { ctrl } = ctx;

@@ -116,6 +116,7 @@ Norėdami pradėti padarykite ėjimą.</string>
   <string name="pawnsFormTheFrontLine">Pėstininkai sudaro priekinę liniją. Darykite ėjimą tam, kad pradėti.</string>
   <string name="boardSetupComplete">Sveikiname. Jūs žinote kaip sudėti šachmatų figūras.</string>
   <string name="castling">Rokiruotė</string>
+  <string name="enPassant">Kirtimas prasilenkiant</string>
   <string name="theSpecialKingMove">Specialus karaliaus ėjimas</string>
   <string name="castlingIntro">Paslėpk savo karalių saugioje vietoje bei išvesk bokštą į puolimą!</string>
   <string name="castleKingSide">Pajudink savo karalių per du laukelius,

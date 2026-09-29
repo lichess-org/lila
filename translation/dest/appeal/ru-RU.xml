@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="cleanAllGood">Ваша учётная запись не помечена и не ограничена. Всё в порядке!</string>
-  <string name="engineMarked">Ваша учётная запись была заблокирована за использование движков или компьютерной помощи.</string>
+  <string name="cleanAllGood">Ваш аккаунт не помечен и не ограничен. Всё в порядке!</string>
+  <string name="engineMarked">Ваш аккаунт был заблокирован за использование движков или компьютерной помощи.</string>
   <string name="engineMarkedInfo">Мы определяем это как использование любой внешней помощи для усиления ваших знаний или расчётов с целью получения несправедливого преимущества над противником. Смотрите страницу %s для более подробной информации.</string>
-  <string name="arenaBanned">Ваша учётная запись заблокирована для участия на Аренах.</string>
-  <string name="prizeBanned">Ваша учётная запись заблокирована для участия в турнирах с реальными призами.</string>
-  <string name="boosterMarked">Эта учётная запись была заблокирована из-за манипуляций рейтингом или за совместное использование.</string>
-  <string name="accountMuted">Ваша учётная запись ограничена.</string>
-  <string name="accountMutedInfo">Прочтите наши %s. Несоблюдение правил общения может привести к ограничению учётных записей.</string>
-  <string name="excludedFromLeaderboards">Ваша учётная запись исключена из списка лидеров.</string>
-  <string name="onlyOneAccountOnLeaderboards">В списке лидеров может быть только одна учётная запись на человека.</string>
-  <string name="closedByModerators">Ваша учётная запись была закрыта модераторами.</string>
+  <string name="arenaBanned">Ваш аккаунт заблокирован от участия на аренах.</string>
+  <string name="prizeBanned">Ваш аккаунт заблокирован от участия в турнирах с реальными призами.</string>
+  <string name="boosterMarked">Ваш аккаунт был заблокирован из-за манипуляций рейтингом или за совместное использование.</string>
+  <string name="accountMuted">Ваш аккаунт ограничен. Вы не можете общаться!</string>
+  <string name="accountMutedInfo">Прочтите наши %s. Несоблюдение правил общения может привести к ограничению функций общения на аккаунте.</string>
+  <string name="excludedFromLeaderboards">Ваш аккаунт исключён из списка лидеров.</string>
+  <string name="onlyOneAccountOnLeaderboards">В списке лидеров может быть только один аккаунт на человека.</string>
+  <string name="closedByModerators">Ваш аккаунт был закрыт модераторами.</string>
   <string name="blogRestriction">Для вас установлено ограничение на блог.</string>
   <string name="blogRestrictionInfo">Прочитайте наш %s, его нарушения могут привести к определённым воздействиям.</string>
   <string name="reportBanned">Вы не можете жаловаться на модераторов</string>
   <string name="reportBannedInfo">Мы заметили некоторое злоупотребление нашей системой обращений. Это могло случиться по разным причинам, например, выбором неправильных категорий нарушений, использованием неуместных или оскорбительных высказываний, обращениями для чрезмерного количества игр, или, наоборот, отсутствием информации о том, что именно нарушил ваш соперник.</string>
-  <string name="temporarilyRestrictedFromPlaying" comment="play timeout = Lichess prevents you temporarily from playing any games">Ваша учётная запись временно ограничена для участия в играх.</string>
+  <string name="temporarilyRestrictedFromPlaying" comment="play timeout = Lichess prevents you temporarily from playing any games">Ваш аккаунт временно ограничен от участия в играх.</string>
   <string name="communicationGuidelines">правила общения</string>
   <string name="blogEtiquette">этикет блога</string>
   <string name="fairPlay">Честная игра</string>

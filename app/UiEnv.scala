@@ -43,6 +43,7 @@ object UiEnv
   def isOnline = env.socket.isOnline
   def lightUserSync = env.user.lightUserSync
   def manifest = env.web.manifest
+  def staticContent = env.web.static
   def analyseEndpoints = env.web.analyseEndpoints
   val translator = lila.i18n.Translator
   val langList = lila.i18n.LangList

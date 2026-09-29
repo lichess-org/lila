@@ -525,6 +525,11 @@
   <string name="autoSwitch">자동 전환</string>
   <string name="puzzles">퍼즐</string>
   <string name="onlineBots">온라인 봇</string>
+  <string name="aboutBotsOnLichess">Lichess의 봇에 대하여</string>
+  <string name="featuredBots">주요 봇</string>
+  <string name="tryPlayingTheseInnovativeChessEngines">이 혁신적인 체스 엔진들과 플레이해 보세요! 저희가 가장 좋아하는 엔진들입니다.</string>
+  <string name="communityBots">커뮤니티 봇</string>
+  <string name="moreChessEnginesCreatedByTheLichessCommunity">Lichess 커뮤니티가 만든 더 많은 체스 엔진들입니다. 만든 이가 호스팅하고 있으며, 항상 온라인이 아닐 수도 있습니다.</string>
   <string name="name">이름</string>
   <string name="description">설명</string>
   <string name="descPrivate">비공개 설명</string>
@@ -572,6 +577,7 @@
   <string name="clearField">필드 지우기</string>
   <string name="orSeparator">또는</string>
   <string name="logInByEmail">이메일로 로그인</string>
+  <string name="emailLoginInstructions">로그인할 수 있는 링크가 포함된 이메일을 보내드리겠습니다.</string>
   <string name="emailMeALink">메일로 링크를 보내주세요</string>
   <string name="currentPassword">현재 비밀번호</string>
   <string name="newPassword">새 비밀번호</string>
@@ -596,6 +602,8 @@
   <string name="onSlowGames">느린 대국에서만</string>
   <string name="always">항상</string>
   <string name="never">안 함</string>
+  <string name="defeatOnly">패배 한정</string>
+  <string name="drawAndDefeat">무승부 및 패배</string>
   <string name="xCompetesInY">%1$s가 %2$s에 참가했습니다.</string>
   <string name="victory">승리</string>
   <string name="defeat">패배</string>
@@ -657,10 +665,13 @@
   <string name="aboutX">%s 정보</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s는 무료(%2$s)이고, 자유로우며, 광고가 없는 오픈 소스 체스 서버입니다.</string>
   <string name="really">정말입니다!</string>
+  <string name="lichessUpdates">Lichess 업데이트</string>
   <string name="contribute">기여하기</string>
+  <string name="changelog">변경 내역</string>
   <string name="termsOfService">이용 약관</string>
   <string name="titleVerification">타이틀 인증</string>
   <string name="sourceCode">소스 코드</string>
+  <string name="blockAds">광고 차단</string>
   <string name="simultaneousExhibitions">다면기</string>
   <string name="host">주최자</string>
   <string name="hostColorX">주최자 색: %s</string>
@@ -1003,4 +1014,6 @@ FEN 포지션을 생성하기 위해 %s를 사용할 수 있습니다.
   <string name="verifyingYourDevice">디바이스 인증 중...</string>
   <string name="chessOpenings">체스 오프닝</string>
   <string name="boards">보드</string>
+  <string name="write">작성</string>
+  <string name="preview">미리보기</string>
 </resources>

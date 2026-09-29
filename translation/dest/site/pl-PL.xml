@@ -624,6 +624,11 @@ Partie rankingowe zwiększą stabilność rankingu.</string>
   <string name="autoSwitch">Przełącz po ruchu</string>
   <string name="puzzles">Zadania szachowe</string>
   <string name="onlineBots">Boty online</string>
+  <string name="aboutBotsOnLichess">O botach na Lichess</string>
+  <string name="featuredBots">Polecane boty</string>
+  <string name="tryPlayingTheseInnovativeChessEngines">Spróbuj zagrać przeciwko tym udoskonalonym silnikom szachowym! To są nasze ulubione.</string>
+  <string name="communityBots">Boty społeczności</string>
+  <string name="moreChessEnginesCreatedByTheLichessCommunity">Więcej silników szachowych stworzonych przez społeczność Lichess. Udostępniane są przez swoich twórców i mogą nie zawsze być online.</string>
   <string name="name">Nazwa</string>
   <string name="description">Opis</string>
   <string name="descPrivate">Prywatny opis</string>
@@ -671,6 +676,7 @@ Partie rankingowe zwiększą stabilność rankingu.</string>
   <string name="clearField">Wyczyść pole</string>
   <string name="orSeparator">lub</string>
   <string name="logInByEmail">Zaloguj się przez e-mail</string>
+  <string name="emailLoginInstructions">Wyślemy Ci wiadomość e-mail zawierającą link do logowania.</string>
   <string name="emailMeALink">Wyślij mi link</string>
   <string name="currentPassword">Aktualne hasło</string>
   <string name="newPassword">Nowe hasło</string>
@@ -695,6 +701,8 @@ Partie rankingowe zwiększą stabilność rankingu.</string>
   <string name="onSlowGames">W wolniejszych partiach</string>
   <string name="always">Zawsze</string>
   <string name="never">Nigdy</string>
+  <string name="defeatOnly">Tylko po porażce</string>
+  <string name="drawAndDefeat">Po porażce lub remisie</string>
   <string name="xCompetesInY">%1$s przystąpił do turnieju %2$s</string>
   <string name="victory">Wygrana</string>
   <string name="defeat">Przegrana</string>
@@ -765,10 +773,13 @@ Partie rankingowe zwiększą stabilność rankingu.</string>
   <string name="aboutX">Informacje o %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s jest %2$s darmowym, wolnym, pozbawionym reklam, otwartym serwisem szachowym.</string>
   <string name="really">naprawdę</string>
+  <string name="lichessUpdates">Aktualizacje Lichess</string>
   <string name="contribute">Wsparcie</string>
+  <string name="changelog">Dziennik zmian</string>
   <string name="termsOfService">Regulamin</string>
   <string name="titleVerification">Weryfikacja tytułu</string>
   <string name="sourceCode">Kod źródłowy</string>
+  <string name="blockAds">Blokowanie reklam</string>
   <string name="simultaneousExhibitions">Symultany</string>
   <string name="host">Symultanista</string>
   <string name="hostColorX">Kolor symultanisty: %s</string>
@@ -1128,4 +1139,6 @@ Wszystkie koszty operacyjne, rozwój i treści są finansowane wyłącznie z dar
   <string name="verifyingYourDevice">Zweryfikuj swoje urządzenie...</string>
   <string name="chessOpenings">Otwarcia szachowe</string>
   <string name="boards">Szachownice</string>
+  <string name="write">Napisz</string>
+  <string name="preview">Podgląd</string>
 </resources>

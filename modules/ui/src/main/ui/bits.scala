@@ -1,6 +1,7 @@
 package lila.ui
 
 import play.api.i18n.Lang
+import play.api.libs.json.{ JsObject, Json }
 import java.time.YearMonth
 import chess.format.Fen
 import scalalib.StringOps.addQueryParams
@@ -151,3 +152,8 @@ object bits:
       tpe := "text/markdown",
       href := addQueryParams(url, params + ("output_format" -> "md"))
     )
+
+  def structuredData(tpe: String)(json: JsObject) = raw:
+    val js = Json.stringify:
+      Json.obj("@context" -> "https://schema.org", "@type" -> tpe) ++ json
+    s"""<script type="application/ld+json">$js</script>"""

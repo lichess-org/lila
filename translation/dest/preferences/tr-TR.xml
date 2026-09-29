@@ -41,6 +41,7 @@
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Üçlü tekrarda otomatik olarak beraberlik teklif et</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Kalan zaman 30 saniyeden az ise</string>
   <string name="moveConfirmation">Hamleyi onayla</string>
+  <string name="multipleChoices">Çoklu seçenek. </string>
   <string name="explainCanThenBeTemporarilyDisabled">Oyun esnasında tahta menüsünden devre dışı bırakılabilir</string>
   <string name="inCorrespondenceGames">Yazışmalı oyunlar</string>
   <string name="correspondenceAndUnlimited">Yazışmalı ve sınırsız</string>
@@ -89,4 +90,10 @@
   <string name="analysisSettings">İnceleme Ayarları</string>
   <string name="maneuverArrowsHelp">Bir taşın motor hamleleri dizisi</string>
   <string name="hoverOverSettingLabelsForHelp">Yardım için ayar etiketlerinin üzerine gelin</string>
+  <string name="network">Ağ</string>
+  <string name="youAreCurrentlyUsingDirectRouting">Şu anda doğrudan yönlendirme kullanıyorsunuz.</string>
+  <string name="youAreCurrentlyUsingCdnRouting">Şu anda İçerik Dağıtım Ağı (CDN) yönlendirmesi kullanıyorsunuz.</string>
+  <string name="frequentDisconnectsAdvice">Sık sık bağlantı kopmaları yaşıyorsanız, yönlendirmeyi değiştirmeyi deneyin.</string>
+  <string name="useDirectRouting">Doğrudan yönlendirme kullan</string>
+  <string name="useCdnRouting">CDN yönlendirmesi kullan</string>
 </resources>

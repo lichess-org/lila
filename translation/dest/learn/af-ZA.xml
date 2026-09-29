@@ -130,6 +130,7 @@ Hy staan reg langs sy dame.</string>
 Maak enige skuif om voort te gaan.</string>
   <string name="boardSetupComplete">Goeie werk! Jy weet nou hoe om die skaakbord op te stel.</string>
   <string name="castling">Rokering</string>
+  <string name="enPassant">En passant</string>
   <string name="theSpecialKingMove">Die koning se spesiale skuif</string>
   <string name="castlingIntro">Neem jou koning na veiligheid, en ontplooi jou toring vir die aanval!</string>
   <string name="castleKingSide">Skuif jou koning twee blokkies

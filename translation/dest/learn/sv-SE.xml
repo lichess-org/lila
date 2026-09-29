@@ -108,6 +108,7 @@ Men när de når andra sidan av brädet så promoveras de till en starkare pjäs
   <string name="pawnsFormTheFrontLine">Bönder bildar frontlinjen. Gör ett valfritt drag för att fortsätta.</string>
   <string name="boardSetupComplete">Grattis! Du vet nu hur man ställer upp schackbrädet.</string>
   <string name="castling">Rockad</string>
+  <string name="enPassant">En passant (slag i förbigående)</string>
   <string name="theSpecialKingMove">Det speciella kungsdraget</string>
   <string name="castlingIntro">För din kung i säkerhet, och använd ditt torn till att angripa!</string>
   <string name="castleKingSide">Flytta din kung två rutor för att rockera kort!</string>

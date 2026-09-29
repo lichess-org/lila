@@ -708,12 +708,12 @@ final class StudyApi(
                   newChapter.practice != chapter.practice ||
                   newChapter.gamebook != chapter.gamebook ||
                   newChapter.description != chapter.description
-              shouldSendChapterPreviews = newChapter.name != chapter.name
+              shouldUpdateChapterPreviews = newChapter.name != chapter.name
               _ <- shouldResetPosition.so:
                 studyRepo.setPosition(study.id, study.position.withPath(UciPath.root))
             yield
               if shouldReload then sendTo(study.id)(_.reloadStudy(who))
-              if shouldSendChapterPreviews then sendChapterPreviews(study)
+              if shouldUpdateChapterPreviews then invalidateAndSendChapterPreviews(study)
               setStudyUpdated(study)
         }
 
@@ -758,7 +758,7 @@ final class StudyApi(
           yield
             if chapter.serverEval.isDefined
             then Bus.pub(lila.core.fishnet.Bus.StudyChapterOrphan(chapterId :: Nil))
-            sendChapterPreviews(study)
+            invalidateAndSendChapterPreviews(study)
             setStudyUpdated(study)
         }
 
@@ -782,9 +782,8 @@ final class StudyApi(
               _ <- chapterRepo.update(newChapter)
               _ <- (study.position.chapterId == chapter.id).so:
                 studyRepo.setPosition(study.id, study.position.withPath(UciPath.root))
-              _ = preview.invalidate(study.id)
             yield
-              sendChapterPreviews(study)
+              invalidateAndSendChapterPreviews(study)
               reloadStudy(study.id, Who(me.userId, Sri("api")))
               true
 
@@ -804,7 +803,7 @@ final class StudyApi(
       Contribute(who.u, study):
         for _ <- chapterRepo.updateOrders(study, chapterIds)
         yield
-          sendChapterPreviews(study)
+          invalidateAndSendChapterPreviews(study)
           setStudyUpdated(study)
 
   def descStudy(studyId: StudyId, desc: String)(who: Who) =
@@ -952,7 +951,8 @@ final class StudyApi(
   ) =
     sendTo(study.id)(_.reloadSriBecauseOf(sri, chapterId, reason))
 
-  def sendChapterPreviews(study: Study) =
+  def invalidateAndSendChapterPreviews(study: Study) =
+    preview.invalidate(study.id)
     for previews <- preview.jsonList(study.id)
     do sendTo(study.id)(_.sendChapterPreviews(previews))
 

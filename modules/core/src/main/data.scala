@@ -50,4 +50,6 @@ object data:
   opaque type ErrorMsg = String
   object ErrorMsg extends OpaqueString[ErrorMsg]
 
+  type UntypedFormRequest = play.api.mvc.Request[Map[String, Seq[String]]]
+
   final class CircularDep[A](val resolve: () => A)

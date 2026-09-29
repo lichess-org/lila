@@ -231,6 +231,10 @@
       color: $c-font-clear;
     }
 
+    img {
+      @extend %box-radius;
+    }
+
     ul,
     ol {
       margin: 2em 0;

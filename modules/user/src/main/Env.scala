@@ -6,6 +6,7 @@ import com.softwaremill.tagging.*
 import lila.core.config.*
 import lila.core.userId
 import lila.common.Bus
+import lila.core.user.RealName
 
 @Module
 final class Env(
@@ -67,6 +68,14 @@ final class Env(
 
   Bus.sub[lila.core.misc.puzzle.StreakRun]: r =>
     api.addPuzRun("streak", r.userId, r.score)
+
+  lila.common.Cli.handle(_.SetTitle):
+    case "user" :: "real-name" :: id :: name =>
+      val realName = RealName(name.mkString(" "))
+      UserStr
+        .read(id)
+        .so: uid =>
+          repo.setRealName(uid.id, realName).inject(s"Set real name of $id to $realName")
 
   scheduler.scheduleAtFixedRate(1.hour, 1.hour): () =>
     repo.unsetFlairs(FlairApi.badFlairs.flush())

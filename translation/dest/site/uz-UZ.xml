@@ -558,6 +558,11 @@ Reytingli oʻyinlar o\'ynasangiz reyting barqarorligi oshadi.</string>
   <string name="autoSwitch">Avtomatik oʻtish</string>
   <string name="puzzles">Masalalar</string>
   <string name="onlineBots">Onlayn botlar</string>
+  <string name="aboutBotsOnLichess">Lichessʼdagi botlar haqida</string>
+  <string name="featuredBots">Tavsiya etilgan botlar</string>
+  <string name="tryPlayingTheseInnovativeChessEngines">Ushbu innovatsion shaxmat dvijoklari bilan oʻynab koʻring! Bular bizning eng sara botlarimizdir.</string>
+  <string name="communityBots">Hamjamiyat botlari</string>
+  <string name="moreChessEnginesCreatedByTheLichessCommunity">Lichess hamjamiyati tomonidan yaratilgan boshqa shaxmat dvijoklari. Ular bot mualliflarning serverlarida joylashgan boʻlib, har doim ham onlayn boʻlmasligi mumkin.</string>
   <string name="name">Nomi</string>
   <string name="description">Izoh</string>
   <string name="descPrivate">Yopiq tavsif</string>
@@ -605,6 +610,7 @@ Reytingli oʻyinlar o\'ynasangiz reyting barqarorligi oshadi.</string>
   <string name="clearField">Maydonni tozalash</string>
   <string name="orSeparator">Yoki</string>
   <string name="logInByEmail">E-pochta yordamida kirish</string>
+  <string name="emailLoginInstructions">Sizga tizimga kirish uchun elektron pochta orqali havola yuboramiz.</string>
   <string name="emailMeALink">E‑pochtamga havola joʻnat</string>
   <string name="currentPassword">Joriy parol</string>
   <string name="newPassword">Yangi parol</string>
@@ -629,6 +635,8 @@ Reytingli oʻyinlar o\'ynasangiz reyting barqarorligi oshadi.</string>
   <string name="onSlowGames">Sekin oʻyinlarda</string>
   <string name="always">Har doim</string>
   <string name="never">Hech qachon</string>
+  <string name="defeatOnly">Faqat magʻlub boʻlganda</string>
+  <string name="drawAndDefeat">Faqat magʻlub yoki durang boʻlganda</string>
   <string name="xCompetesInY">%1$s %2$sʼda qatnashadi</string>
   <string name="victory">Gʻalaba</string>
   <string name="defeat">Magʻlubiyat</string>
@@ -693,10 +701,13 @@ Reytingli oʻyinlar o\'ynasangiz reyting barqarorligi oshadi.</string>
   <string name="aboutX">%s haqida</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s — bu %2$s bepul, reklamasiz, ochiq kodli shaxmat serveri.</string>
   <string name="really">mutlaqo</string>
+  <string name="lichessUpdates">Lichess yangiliklari</string>
   <string name="contribute">Hissa qo‘shish</string>
+  <string name="changelog">Oʻzgarishlar roʻyxati</string>
   <string name="termsOfService">Foydalanish shartlari</string>
   <string name="titleVerification">Unvonni tasdiqlash</string>
   <string name="sourceCode">Dastur kodi</string>
+  <string name="blockAds">Reklamalarni bloklash</string>
   <string name="simultaneousExhibitions">Sinxron seanslar</string>
   <string name="host">Seans oʻtkazuvchi</string>
   <string name="hostColorX">Seans oʻtkazuvchi rangi: %s</string>
@@ -808,7 +819,7 @@ Reytingli oʻyinlar o\'ynasangiz reyting barqarorligi oshadi.</string>
   </plurals>
   <string name="xHostsY">%1$s %2$s sinxron seansini qildi</string>
   <string name="xJoinsY">%1$s %2$sʼga qatnashdi</string>
-  <string name="xLikesY">%1$sʼga shu yoqdi: %2$s</string>
+  <string name="xLikesY">%1$sʼga yoqdi: %2$s</string>
   <string name="like">Yoqdi</string>
   <string name="liked">Yoqdi</string>
   <string name="quickPairing">Raqibni tez topish</string>
@@ -1046,4 +1057,6 @@ Loyiha faoliyati, uni rivojlantirish va barcha xarajatlar faqat foydalanuvchilar
   <string name="verifyingYourDevice">Qurilmangiz tasdiqlanmoqda...</string>
   <string name="chessOpenings">Shaxmat debyutlari</string>
   <string name="boards">Taxtalar</string>
+  <string name="write">Yozish</string>
+  <string name="preview">Oldindan koʻrish</string>
 </resources>

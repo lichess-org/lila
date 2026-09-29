@@ -1044,4 +1044,6 @@ All operating costs, development, and content are funded solely by user donation
   <string name="verifyingYourDevice">Verifying your device...</string>
   <string name="chessOpenings">Chess openings</string>
   <string name="boards">Boards</string>
+  <string name="write">Write</string>
+  <string name="preview">Preview</string>
 </resources>

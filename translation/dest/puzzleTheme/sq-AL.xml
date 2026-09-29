@@ -23,6 +23,7 @@
   <string name="bodenMate">Mati i Bodenit</string>
   <string name="bodenMateDescription">Dy fila sulmues në diagonalet kryqëzuese i bëjne mat një mbreti të penguar nga figura miqësore.</string>
   <string name="castling">Rokadë</string>
+  <string name="enPassant">Prerja e ushtarit</string>
   <string name="castlingDescription">Siguroni mbretin dhe futeni torrën në sulm.</string>
   <string name="capturingDefender">Merrni mbrojtësin</string>
   <string name="capturingDefenderDescription">Heqja e një pjese që është kritike për mbrojtjen e një pjese tjetër, çka tani lejon që pjesa e pambrojtur të merret me një lëvizje vijuese.</string>

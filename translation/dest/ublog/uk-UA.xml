@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="community">Спільнота</string>
+  <string name="communityBlogs">Спільнотні блоги</string>
   <string name="byMonth">За місяцем</string>
   <string name="byTopic">За темою</string>
   <string name="byLichess">Від Lichess</string>
@@ -8,6 +9,7 @@
   <string name="myLikes">Сподобалися мені</string>
   <string name="myBlog">Мій блог</string>
   <string name="likedBlogs">Вподобані дописи</string>
+  <string name="blogPostsByFriends">Блоги від друзів</string>
   <plurals name="blogPosts">
     <item quantity="one">%s публікація в блозі</item>
     <item quantity="few">%s публікації в блозі</item>
@@ -30,6 +32,8 @@
   <string name="createBlogDiscussionHelp">Тема форуму буде створена для того, щоб коментувати ваш допис</string>
   <string name="publishOnYourBlog">Опублікувати у вашому блозі</string>
   <string name="publishHelp">Якщо відмічено, цей допис буде опубліковано у вашому блозі. У іншому разі він буде приватним, у вашій чернетці дописів</string>
+  <string name="includesPromotedContent">Уключає спонсорований уміст чи реферальні посилання</string>
+  <string name="mandatoryForSponsoredContent">Обов\'язкове для спонсорованого вмісту, партнерських посилань чи комерційної реклами</string>
   <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">Закріплений пост</string>
   <string name="stickyPostHelp">Якщо обрано, цей пост показуватиметься першим у списку останніх постів.</string>
   <plurals name="publishedNbBlogPosts">
@@ -50,6 +54,7 @@
   <string name="noPostsInThisBlogYet">У цьому блозі ще немає дописів.</string>
   <string name="noDrafts">Немає чернеток для перегляду.</string>
   <string name="latestBlogPosts">Останні дописи у блозі</string>
+  <string name="recentPosts">Нещодавні пости</string>
   <plurals name="viewAllNbPosts">
     <item quantity="one">Переглянути один допис</item>
     <item quantity="few">Переглянути %s дописи</item>
@@ -59,7 +64,9 @@
   <string name="imageAlt">Текстовий опис зображення</string>
   <string name="imageCredit">Права на зображення</string>
   <string name="deleteBlog">Остаточно видалити цей допис</string>
+  <string name="freeImagesComplyWithLicensing" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Наступні вебсайти надають зображення безплатно. Переконайтеся, що дотримуєтеся умов ліцензування на використані зображення.</string>
   <string name="selectPostTopics">Виберіть тему вашого допису</string>
+  <string name="etiquette">Етикет</string>
   <string name="safeAndRespectfulContent">Будь ласка, публікуйте тільки безпечний і шанобливий контент. Не копіюйте чужий контент.</string>
   <string name="noCopyrightedImages">Використовуйте лише ті зображення, які не мають авторських прав.</string>
   <string name="inappropriateContentAccountClosed">Невідповідності в дописі можуть спричинити блокування профілю.</string>
