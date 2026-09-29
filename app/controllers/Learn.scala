@@ -35,3 +35,12 @@ final class Learn(env: Env) extends LilaController(env):
     for _ <- env.learn.api.reset(me)
     yield jsonOkResult
   }
+
+  /* Mobile only, to sync progress both ways. */
+  def apiProgress = Scoped(_.Web.Mobile) { _ ?=> me ?=>
+    env.learn.api
+      .get(me)
+      .map(lila.learn.LearnJsonView.api)
+      .map(JsonOk)
+      .map(_.hasPersonalData)
+  }

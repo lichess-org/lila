@@ -323,6 +323,7 @@ GET   /$lang<\w\w\w?>/broadcast               controllers.RelayTour.indexLang(la
 GET   /learn                           controllers.Learn.index
 POST  /learn/score                     controllers.Learn.score
 POST  /learn/reset                     controllers.Learn.reset
+GET   /api/learn/progress              controllers.Learn.apiProgress
 GET   /$lang<\w\w\w?>/learn            controllers.Learn.indexLang(lang: Language)
 
 # Patron
