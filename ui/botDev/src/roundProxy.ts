@@ -11,7 +11,7 @@ import { showSetupDialog } from './setupDialog';
 
 export class RoundProxy implements RoundProxyType {
   readonly data: RoundData;
-  readonly handlers: SocketHandlers = {
+  readonly handlers: RoundProxyType['handlers'] = {
     move: (d: any) => env.game.move(d.u),
     resign: () => env.game.resign(),
     'blindfold-no': () => {},
