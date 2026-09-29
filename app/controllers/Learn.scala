@@ -19,7 +19,7 @@ final class Learn(env: Env) extends LilaController(env):
       .flatMap: progress =>
         Ok.page(views.learn(progress))
 
-  def score = AuthBody { ctx ?=> me ?=>
+  def score = AuthOrScopedBody(_.Web.Mobile) { ctx ?=> me ?=>
     bindForm(lila.learn.StageProgress.form)(
       jsonFormError,
       (stage, level, s) =>
@@ -31,7 +31,7 @@ final class Learn(env: Env) extends LilaController(env):
     )
   }
 
-  def reset = AuthBody { _ ?=> me ?=>
+  def reset = AuthOrScopedBody(_.Web.Mobile) { _ ?=> me ?=>
     for _ <- env.learn.api.reset(me)
     yield jsonOkResult
   }
