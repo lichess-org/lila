@@ -592,8 +592,8 @@ export default class PuzzleCtrl implements CevalHandler {
   outcome = (): Outcome | undefined => this.position().outcome();
 
   jump = (path: TreePath): void => {
-    const pathChanged = path !== this.path,
-      isForwardStep = pathChanged && path.length === this.path.length + 2;
+    const pathChanged = path !== this.path;
+    const isForwardStep = pathChanged && path.length === this.path.length + 2;
     this.setPath(path);
     this.withGround(this.showGround);
     if (pathChanged) {

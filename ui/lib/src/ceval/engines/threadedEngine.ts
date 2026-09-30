@@ -68,12 +68,12 @@ export class ThreadedEngine implements CevalEngine {
 
   private async boot() {
     const [root, js, wasm, pathVersion] = [
-        this.info.assets.root,
-        this.info.assets.js,
-        this.info.assets.wasm,
-        this.info.assets.version,
-      ],
-      wasmPath = `${root}/${wasm}`;
+      this.info.assets.root,
+      this.info.assets.js,
+      this.info.assets.wasm,
+      this.info.assets.version,
+    ];
+    const wasmPath = `${root}/${wasm}`;
 
     let wasmBinary: ArrayBuffer | undefined;
     if (this.info.id === '__sf14nnue') {

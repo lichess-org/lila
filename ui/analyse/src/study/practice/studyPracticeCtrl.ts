@@ -65,8 +65,8 @@ export default class StudyPracticeCtrl {
   };
 
   saveNbMoves = (): void => {
-    const chapterId = this.root.study!.currentChapter().id,
-      former = this.data.completion[chapterId];
+    const chapterId = this.root.study!.currentChapter().id;
+    const former = this.data.completion[chapterId];
     if (typeof former === 'undefined' || this.nbMoves() < former) {
       this.data.completion[chapterId] = this.nbMoves();
       practiceComplete(chapterId, this.nbMoves());

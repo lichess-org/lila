@@ -120,7 +120,8 @@ export const readNdJson = async <T>(response: Response, processLine: ProcessLine
   const matcher = /\r?\n/;
   const decoder = new TextDecoder();
   let buf = '';
-  let done, value;
+  let done;
+  let value;
   do {
     ({ done, value } = await stream.read());
     buf += decoder.decode(value || new Uint8Array(), { stream: !done });

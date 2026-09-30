@@ -265,9 +265,9 @@ export default class AnalyseCtrl implements CevalHandler {
   private readonly makeInitialPath = (): TreePath => {
     // if correspondence, always use latest actual move to set 'current' style
     if (this.ongoing) return treePath.fromNodeList(treeOps.mainlineNodeList(this.tree.root));
-    const loc = window.location,
-      hashPly = loc.hash === '#last' ? this.tree.lastPly() : parseInt(loc.hash.slice(1)),
-      startPly = hashPly >= 0 ? hashPly : this.opts.inlinePgn ? this.tree.lastPly() : undefined;
+    const loc = window.location;
+    const hashPly = loc.hash === '#last' ? this.tree.lastPly() : parseInt(loc.hash.slice(1));
+    const startPly = hashPly >= 0 ? hashPly : this.opts.inlinePgn ? this.tree.lastPly() : undefined;
     if (defined(startPly)) {
       // remove location hash - https://stackoverflow.com/questions/1397329/how-to-remove-the-hash-from-window-location-with-javascript-without-page-refresh/5298684#5298684
       window.history.replaceState(null, '', loc.pathname + loc.search);
@@ -353,28 +353,28 @@ export default class AnalyseCtrl implements CevalHandler {
   serverMainline = () => this.mainline.slice(0, playedTurns(this.data) + 1);
 
   makeCgOpts(): ChessgroundConfig {
-    const node = this.node,
-      color = this.turnColor(),
-      dests = this.node.dests(),
-      drops = this.node.drops(),
-      gamebookPlay = this.gamebookPlay(),
-      movableColor = gamebookPlay
-        ? gamebookPlay.movableColor()
-        : this.practice
-          ? this.bottomColor()
-          : dests.size || drops?.length
-            ? color
-            : undefined,
-      config: ChessgroundConfig = {
-        fen: node.fen,
-        turnColor: color,
-        movable: {
-          color: movableColor,
-          dests: (movableColor === color && dests) || new Map(),
-        },
-        check: node.check(),
-        lastMove: uciToMove(node.uci),
-      };
+    const node = this.node;
+    const color = this.turnColor();
+    const dests = this.node.dests();
+    const drops = this.node.drops();
+    const gamebookPlay = this.gamebookPlay();
+    const movableColor = gamebookPlay
+      ? gamebookPlay.movableColor()
+      : this.practice
+        ? this.bottomColor()
+        : dests.size || drops?.length
+          ? color
+          : undefined;
+    const config: ChessgroundConfig = {
+      fen: node.fen,
+      turnColor: color,
+      movable: {
+        color: movableColor,
+        dests: (movableColor === color && dests) || new Map(),
+      },
+      check: node.check(),
+      lastMove: uciToMove(node.uci),
+    };
     config.premovable = {
       enabled: config.movable!.color && config.turnColor !== config.movable!.color,
     };
@@ -412,8 +412,8 @@ export default class AnalyseCtrl implements CevalHandler {
     !!this.justPlayed && !!this.node.uci && this.node.uci.startsWith(this.justPlayed);
 
   jump(path: TreePath): void {
-    const pathChanged = path !== this.path,
-      isForwardStep = pathChanged && path.length === this.path.length + 2;
+    const pathChanged = path !== this.path;
+    const isForwardStep = pathChanged && path.length === this.path.length + 2;
     if (this.path !== path)
       this.treeView.requestAutoScroll(treeOps.distance(this.path, path) > 8 ? 'instant' : 'smooth');
     this.setPath(path);

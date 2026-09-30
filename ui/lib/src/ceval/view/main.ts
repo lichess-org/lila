@@ -38,9 +38,9 @@ import { renderCevalSettings } from './settings';
 type EvalInfo = { knps: number; npsText: string; depthText: string };
 
 function localEvalNodes(ctrl: CevalHandler, evs: NodeEvals): Array<VNode | string> {
-  const ceval = ctrl.ceval,
-    state = ceval.state,
-    status = ceval.opts.custom?.statusNode?.();
+  const ceval = ctrl.ceval;
+  const state = ceval.state;
+  const status = ceval.opts.custom?.statusNode?.();
   if (status) return [status];
   if (!evs.client) {
     if (!ceval.analysable) return ['Engine cannot analyze this position'];
@@ -160,17 +160,17 @@ export function renderGauge(ctrl: CevalHandler): VNode | undefined {
 
 export function renderCeval(ctrl: CevalHandler): VNode[] {
   const ceval = ctrl.ceval;
-  const node = ctrl.getNode(),
-    enabled = !ceval.wasUnloadedByAnotherWindow && ctrl.cevalEnabled(),
-    client = node.ceval,
-    server = node.eval,
-    threatMode = ctrl.threatMode(),
-    threat = threatMode ? node.threat : undefined,
-    bestEv = getBestEval(ctrl),
-    search = ceval.search,
-    download = ceval.download;
-  let pearl: LooseVNode,
-    percent = 0;
+  const node = ctrl.getNode();
+  const enabled = !ceval.wasUnloadedByAnotherWindow && ctrl.cevalEnabled();
+  const client = node.ceval;
+  const server = node.eval;
+  const threatMode = ctrl.threatMode();
+  const threat = threatMode ? node.threat : undefined;
+  const bestEv = getBestEval(ctrl);
+  const search = ceval.search;
+  const download = ceval.download;
+  let pearl: LooseVNode;
+  let percent = 0;
   if (client) {
     if ((client.cloud && !threatMode) || ceval.isDeeper() || ceval.isInfinite) percent = 100;
     else if ('movetime' in search.by)
@@ -325,13 +325,13 @@ function setHovering(ceval: CevalCtrl, fen: FEN | null, uci?: Uci): void {
 export function renderPvs(ctrl: CevalHandler): VNode | undefined {
   if (!ctrl.cevalEnabled()) return undefined;
   const ceval = ctrl.ceval;
-  const multiPv = ceval.search.multiPv,
-    node = ctrl.getNode(),
-    setup = parseFen(node.fen).unwrap();
-  let pvs: PvData[],
-    threat = false,
-    pvMoves: (string | null)[],
-    pvIndex: number | null = null;
+  const multiPv = ceval.search.multiPv;
+  const node = ctrl.getNode();
+  const setup = parseFen(node.fen).unwrap();
+  let pvs: PvData[];
+  let threat = false;
+  let pvMoves: (string | null)[];
+  let pvIndex: number | null = null;
   if (ctrl.threatMode() && node.threat) {
     pvs = node.threat.pvs;
     threat = true;

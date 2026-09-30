@@ -4,13 +4,13 @@ import { key2pos, pos2key } from '@lichess-org/chessground/util';
 import type RoundController from './ctrl';
 
 export function capture(ctrl: RoundController, key: Key): void {
-  const exploding: Key[] = [],
-    diff: PiecesDiff = new Map(),
-    orig = key2pos(key),
-    minX = Math.max(0, orig[0] - 1),
-    maxX = Math.min(7, orig[0] + 1),
-    minY = Math.max(0, orig[1] - 1),
-    maxY = Math.min(7, orig[1] + 1);
+  const exploding: Key[] = [];
+  const diff: PiecesDiff = new Map();
+  const orig = key2pos(key);
+  const minX = Math.max(0, orig[0] - 1);
+  const maxX = Math.min(7, orig[0] + 1);
+  const minY = Math.max(0, orig[1] - 1);
+  const maxY = Math.min(7, orig[1] + 1);
 
   for (let x = minX; x <= maxX; x++) {
     for (let y = minY; y <= maxY; y++) {

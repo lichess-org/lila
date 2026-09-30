@@ -120,9 +120,9 @@ export const tourSide = (ctx: RelayViewContext, kid: LooseVNode) => {
 };
 
 const startCountdown = (relay: RelayCtrl) => {
-  const round = relay.round,
-    startsAt = defined(round.startsAt) && new Date(round.startsAt),
-    date = startsAt && hl('time', commonDateFormat(startsAt));
+  const round = relay.round;
+  const startsAt = defined(round.startsAt) && new Date(round.startsAt);
+  const date = startsAt && hl('time', commonDateFormat(startsAt));
   return hl('div.relay-tour__side__empty', { attrs: dataIcon(licon.RadioTower) }, [
     hl('strong', round.name),
     startsAt
@@ -448,9 +448,9 @@ const renderNote = (title: VNode, desc?: VNode) => hl('div.relay-tour__note', hl
 
 const header = (ctx: RelayViewContext) => {
   const { ctrl, relay } = ctx;
-  const d = relay.data,
-    group = d.group,
-    studyD = ctrl.study?.data.description;
+  const d = relay.data;
+  const group = d.group;
+  const studyD = ctrl.study?.data.description;
 
   return [
     hl('div.relay-tour__header', [
@@ -516,8 +516,8 @@ const subscribe = (relay: RelayCtrl, ctrl: AnalyseCtrl) =>
     : [];
 
 const makeTabs = (ctrl: AnalyseCtrl) => {
-  const study = ctrl.study,
-    relay = study?.relay;
+  const study = ctrl.study;
+  const relay = study?.relay;
   if (!relay) return undefined;
 
   const makeTab = (key: RelayTab, name: string) =>
@@ -567,8 +567,8 @@ const roundStateIcon = (round: RelayRound, titleAsText: boolean) =>
 
 const broadcastImageOrStream = (ctx: RelayViewContext) => {
   const { relay, allowVideo } = ctx;
-  const d = relay.data,
-    embedVideo = (d.videoUrls || relay.isPinnedStreamOngoing()) && allowVideo;
+  const d = relay.data;
+  const embedVideo = (d.videoUrls || relay.isPinnedStreamOngoing()) && allowVideo;
 
   return hl(
     `div.relay-tour__header__image${embedVideo ? '.video' : ''}`,

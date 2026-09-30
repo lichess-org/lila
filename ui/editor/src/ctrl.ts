@@ -277,8 +277,8 @@ export default class EditorCtrl implements CevalHandler {
   private computeCastlingToggles(): CastlingToggles<boolean> {
     const board = this.getBoard();
     if (this.variant === 'chess960') {
-      const white = castlingRooksFromBoard(board, 'white'),
-        black = castlingRooksFromBoard(board, 'black');
+      const white = castlingRooksFromBoard(board, 'white');
+      const black = castlingRooksFromBoard(board, 'black');
       return {
         K: defined(white.rookK),
         Q: defined(white.rookQ),
@@ -288,10 +288,10 @@ export default class EditorCtrl implements CevalHandler {
     }
 
     const chess960Castling = chess960CastlingSquares(this.chess960PositionId);
-    const whiteKingOnE1 = board.king.intersect(board.white).has(parseSquare(chess960Castling.white.king)!),
-      blackKingOnE8 = board.king.intersect(board.black).has(parseSquare(chess960Castling.black.king)!),
-      whiteRooks = board.rook.intersect(board.white),
-      blackRooks = board.rook.intersect(board.black);
+    const whiteKingOnE1 = board.king.intersect(board.white).has(parseSquare(chess960Castling.white.king)!);
+    const blackKingOnE8 = board.king.intersect(board.black).has(parseSquare(chess960Castling.black.king)!);
+    const whiteRooks = board.rook.intersect(board.white);
+    const blackRooks = board.rook.intersect(board.black);
     return {
       K: whiteKingOnE1 && whiteRooks.has(parseSquare(chess960Castling.white.rookK)!),
       Q: whiteKingOnE1 && whiteRooks.has(parseSquare(chess960Castling.white.rookQ)!),

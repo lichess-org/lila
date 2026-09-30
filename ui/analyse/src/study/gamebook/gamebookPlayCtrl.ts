@@ -26,15 +26,15 @@ export default class GamebookPlayCtrl {
   }
 
   private readonly makeState = (): void => {
-    const node = this.root.node,
-      nodeComment = (node.comments || [])[0],
-      state: Partial<State> = {
-        init: this.root.path === '',
-        comment: nodeComment ? nodeComment.text : undefined,
-        showHint: false,
-      },
-      parPath = treePath.init(this.root.path),
-      parNode = this.root.tree.nodeAtPath(parPath);
+    const node = this.root.node;
+    const nodeComment = (node.comments || [])[0];
+    const state: Partial<State> = {
+      init: this.root.path === '',
+      comment: nodeComment ? nodeComment.text : undefined,
+      showHint: false,
+    };
+    const parPath = treePath.init(this.root.path);
+    const parNode = this.root.tree.nodeAtPath(parPath);
     if (
       (this.root.onMainline && !node.children[0]) ||
       (!this.root.onMainline && !this.root.tree.pathIsMainline(parPath))

@@ -25,8 +25,8 @@ site.load.then(() => {
   });
 
   const tutorUser = $('.tutor__waiting__games').data('tutor-user');
-  const waitingGames = Array.from($('.tutor__waiting-game')),
-    nbWaitingGames = waitingGames.length;
+  const waitingGames = Array.from($('.tutor__waiting-game'));
+  const nbWaitingGames = waitingGames.length;
   if (tutorUser && nbWaitingGames) {
     setTimeout(() => location.assign(`/tutor/${tutorUser}?waiting=1`), 60 * 1000);
 

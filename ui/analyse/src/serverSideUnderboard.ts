@@ -15,11 +15,11 @@ export const stockfishName = 'Stockfish 19';
 
 export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
   $(element).replaceWith(ctrl.opts.$underboard);
-  const data = ctrl.data,
-    $panels = $('.analyse__underboard__panels > div'),
-    $menu = $('.analyse__underboard__menu'),
-    inputFen = document.querySelector<HTMLInputElement>('.analyse__underboard__fen input'),
-    positionGifLink = document.querySelector<HTMLAnchorElement>('.position-gif a');
+  const data = ctrl.data;
+  const $panels = $('.analyse__underboard__panels > div');
+  const $menu = $('.analyse__underboard__menu');
+  const inputFen = document.querySelector<HTMLInputElement>('.analyse__underboard__fen input');
+  const positionGifLink = document.querySelector<HTMLAnchorElement>('.position-gif a');
   let lastInputHash: string;
   let advChart: AcplChart;
   let timeChartLoaded = false;
@@ -143,8 +143,8 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
   }
 
   $panels.on('click', '.pgn', function (this: HTMLElement) {
-    const selection = window.getSelection(),
-      range = document.createRange();
+    const selection = window.getSelection();
+    const range = document.createRange();
     range.selectNodeContents(this);
     const currentlyUnselected = selection!.isCollapsed;
     selection!.removeAllRanges();

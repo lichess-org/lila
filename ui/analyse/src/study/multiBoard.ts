@@ -193,10 +193,10 @@ export function view(ctrl: MultiBoardCtrl, study: StudyCtrl): MaybeVNode {
 }
 
 function renderPagerNav(pager: Paginator<ChapterPreview>, ctrl: MultiBoardCtrl): VNode {
-  const page = ctrl.page,
-    from = Math.min(pager.nbResults, (page - 1) * pager.maxPerPage + 1),
-    to = Math.min(pager.nbResults, page * pager.maxPerPage),
-    max = ctrl.maxPerPage();
+  const page = ctrl.page;
+  const from = Math.min(pager.nbResults, (page - 1) * pager.maxPerPage + 1);
+  const to = Math.min(pager.nbResults, page * pager.maxPerPage);
+  const max = ctrl.maxPerPage();
   return h('div.study__multiboard__pager', [
     pagerButton(licon.JumpFirst, () => ctrl.setPage(1), page > 1, ctrl),
     pagerButton(licon.JumpPrev, ctrl.prevPage, page > 1, ctrl),

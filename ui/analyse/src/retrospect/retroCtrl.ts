@@ -128,9 +128,9 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
   }
 
   function onJump(): void {
-    const node = root.node,
-      fb = feedback(),
-      cur = current();
+    const node = root.node;
+    const fb = feedback();
+    const cur = current();
     if (!cur) return;
     if (
       (fb === 'eval' && cur.fault.node.ply !== node.ply) ||
@@ -160,8 +160,8 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
   };
 
   function checkCeval(): void {
-    const node = root.node,
-      cur = current();
+    const node = root.node;
+    const cur = current();
     if (!cur || feedback() !== 'eval' || cur.fault.node.ply !== node.ply) return;
     if (isCevalReady(node)) {
       const diff = winningChances.povDiff(color, node.ceval!, cur.prev.node.eval!);
