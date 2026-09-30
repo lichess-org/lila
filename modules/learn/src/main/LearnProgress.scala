@@ -26,3 +26,9 @@ object LearnProgress:
       createdAt = nowInstant,
       updatedAt = nowInstant
     )
+
+  import play.api.libs.json.*
+  given OWrites[LearnProgress] = progress =>
+    Json.obj:
+      "stages" -> Json.toJson:
+        progress.stages.map((stage, stageProgress) => stage -> stageProgress.scores.map(_.value))
