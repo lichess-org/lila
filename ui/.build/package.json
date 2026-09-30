@@ -12,7 +12,6 @@
     "browserslist": "^4.28.9",
     "esbuild": "0.28.2",
     "fast-glob": "3.3.3",
-    "fast-xml-parser": "5.11.1",
     "json-stringify-pretty-compact": "4.0.0",
     "lightningcss": "^1.33.0",
     "micromatch": "4.0.8",
