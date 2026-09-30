@@ -12,6 +12,7 @@ final class PuzzleComplete(
     session: PuzzleSessionApi,
     selector: PuzzleSelector,
     replayApi: PuzzleReplayApi,
+    streakApi: PuzzleStreakApi,
     jsonView: JsonView
 )(using Executor):
 
@@ -28,24 +29,13 @@ final class PuzzleComplete(
           .flatMap:
             case None => fuccess(Json.obj("streakComplete" -> true))
             case Some(puzzle) =>
-              for
-                score <- data.streakScore
-                if data.win.no
-                if score > 0
-                _ = lila.mon.streak.run.score(ctx.isAuth.toString).record(score)
-                userId <- ctx.userId
-              do setStreakResult(userId, score)
+              if data.win.no then streakApi.setResult(data)
               jsonView.analysis(puzzle, angle).map { nextJson =>
                 Json.obj("next" -> nextJson)
               }
       case None =>
         // a streak that beat the last puzzle has no next id, so it lands here
-        data.streakScore
-          .filter(_ > 0)
-          .so: score =>
-            ctx.userId.so: userId =>
-              lila.mon.streak.run.score(ctx.isAuth.toString).record(score)
-              setStreakResult(userId, score)
+        streakApi.setResult(data)
         lila.mon.puzzle.round.attempt(ctx.isAuth, angle.key, data.rated.yes).increment()
         ctx.me match
           case Some(me) =>
@@ -106,6 +96,3 @@ final class PuzzleComplete(
                   _.so(jsonView.analysis(_, angle))
                 .map: json =>
                   Json.obj("next" -> json)
-
-  def setStreakResult(userId: UserId, score: Int) =
-    lila.common.Bus.pub(lila.core.misc.puzzle.StreakRun(userId, score))
