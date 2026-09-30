@@ -8,7 +8,7 @@ final class Learn(env: Env) extends LilaController(env):
 
   import lila.learn.LearnHandlers.given
 
-  def index = Open(serveIndex)
+  def index = OpenOrScoped(_.Web.Mobile)(serveIndex)
   def indexLang = LangPage(routes.Learn.index)(serveIndex)
 
   private def serveIndex(using ctx: Context) = NoBot:
@@ -17,7 +17,7 @@ final class Learn(env: Env) extends LilaController(env):
       .traverse: me =>
         env.learn.api.get(me).map(Json.toJson)
       .flatMap: progress =>
-        Ok.page(views.learn(progress))
+        negotiate(Ok.page(views.learn(progress)), JsonOk(progress))
 
   def score = AuthOrScopedBody(_.Web.Mobile) { ctx ?=> me ?=>
     bindForm(lila.learn.StageProgress.form)(
@@ -34,8 +34,4 @@ final class Learn(env: Env) extends LilaController(env):
   def reset = AuthOrScopedBody(_.Web.Mobile) { _ ?=> me ?=>
     for _ <- env.learn.api.reset(me)
     yield jsonOkResult
-  }
-
-  def apiProgress = Scoped(_.Web.Mobile) { _ ?=> me ?=>
-    JsonOk(env.learn.api.get(me))
   }
