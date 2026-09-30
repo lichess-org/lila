@@ -1060,4 +1060,5 @@ Leave empty to start games from the normal initial position.</string>
   <string name="boards">Boards</string>
   <string name="write">Write</string>
   <string name="preview">Preview</string>
+  <string name="done">Done</string>
 </resources>
