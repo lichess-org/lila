@@ -177,7 +177,9 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
 
   def sendToZulip(username: UserStr, topic: AppealTopic) = Secure(_.SendToZulip) { _ ?=> _ ?=>
     asMod(username, topic): (_, s) =>
-      for _ <- env.irc.api.userAppeal(s.user.light)
+      for
+        markers <- env.mod.logApi.markers(s.user.id)
+        _ <- env.irc.api.userAppeal(s.user.light, markers)
       yield NoContent
   }
 

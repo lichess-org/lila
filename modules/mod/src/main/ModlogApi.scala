@@ -242,6 +242,16 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
       _.sec
     )
 
+  def markers(user: UserId): Fu[List[ModId]] =
+    coll.distinctEasy[ModId, List](
+      "mod",
+      bdoc(
+        "user" -> user,
+        "action".in(markActions)
+      ),
+      _.sec
+    )
+
   def reportban(sus: Suspect, v: Boolean)(using MyId) = add:
     Modlog.make(sus, if v then Modlog.reportban else Modlog.unreportban)
 
