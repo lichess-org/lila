@@ -84,6 +84,7 @@ This setting only affects what you see. Rated games will still impact your ratin
   <string name="showUndefendedPieces">Show undefended pieces</string>
   <string name="showPinnedPieces">Show pinned pieces</string>
   <string name="showCheckableKing">Show checkable king</string>
+  <string name="showCloudEval">Show cloud evaluation</string>
   <string name="disclosureMode">Enable variation hiding</string>
   <string name="generalSettings">General</string>
   <string name="moveListSettings">Move list</string>
