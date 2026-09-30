@@ -14,7 +14,6 @@ import lila.core.user.KidMode
 import lila.security.IsPwned
 import lila.core.security.ClearPassword
 import lila.core.net.ValidReferrer
-import lila.oauth.OAuthScope
 
 final class Account(
     env: Env,
@@ -266,13 +265,17 @@ final class Account(
     yield res
   }
 
-  def closeConfirm = AuthBody { ctx ?=> me ?=>
+  def closeConfirm = AuthOrScopedBody(_.Web.Mobile) { ctx ?=> me ?=>
     NotManaged:
       auth.HasherRateLimit:
         env.security.forms.closeAccount.flatMap: form =>
-          FormFuResult(form)(err => renderPage(pages.close(err, managed = false))): forever =>
-            for _ <- env.api.accountTermination.disable(me.value, forever = forever)
-            yield Redirect(routes.Lobby.home).withCookies(env.security.lilaCookie.newSession)
+          def doClose(forever: Boolean) = env.api.accountTermination.disable(me.value, forever = forever)
+          negotiate(
+            html = FormFuResult(form)(err => renderPage(pages.close(err, managed = false))): forever =>
+              for _ <- doClose(forever)
+              yield Redirect(routes.Lobby.home).withCookies(env.security.lilaCookie.newSession),
+            json = bindForm(form)(badJsonFormError, forever => doClose(forever).inject(NoContent))
+          )
   }
 
   def delete = Auth { _ ?=> me ?=>
@@ -283,13 +286,17 @@ final class Account(
     yield res
   }
 
-  def deleteConfirm = AuthBody { ctx ?=> me ?=>
+  def deleteConfirm = AuthOrScopedBody(_.Web.Mobile) { ctx ?=> me ?=>
     NotManaged:
       auth.HasherRateLimit:
         env.security.forms.deleteAccount.flatMap: form =>
-          FormFuResult(form)(err => renderPage(pages.delete(err, managed = false))): _ =>
-            for _ <- env.api.accountTermination.scheduleDelete(me.value)
-            yield Redirect(routes.Account.deleteDone).withCookies(env.security.lilaCookie.newSession)
+          def doDelete = env.api.accountTermination.scheduleDelete(me.value)
+          negotiate(
+            html = FormFuResult(form)(err => renderPage(pages.delete(err, managed = false))): _ =>
+              for _ <- doDelete
+              yield Redirect(routes.Account.deleteDone).withCookies(env.security.lilaCookie.newSession),
+            json = bindForm(form)(badJsonFormError, _ => doDelete.inject(NoContent))
+          )
   }
 
   def deleteDone = Open { ctx ?=>
@@ -333,38 +340,6 @@ final class Account(
     getBoolOptAs[KidMode]("v") match
       case None => BadRequest(jsonError("Missing v parameter"))
       case Some(v) => env.user.api.setKid(me, v).inject(jsonOkResult)
-  }
-
-  /* Mobile equivalent of POST /account/close.
-   * Reuses the web form and guards, so it requires the username, the password, and
-   * the TOTP code when the account has two-factor authentication enabled.
-   * Token-only: the official app holds no session, and keeping the browser path out
-   * avoids a second, weaker way to trigger an irreversible action.
-   */
-  def apiClose = ScopedBody(parse.formUrlEncoded)(Seq[OAuthScope.Selector](_ => OAuthScope.Web.Mobile)) {
-    _ ?=> me ?=>
-      NotManaged:
-        auth.HasherRateLimit:
-          env.security.forms.closeAccount.flatMap: form =>
-            bindForm(form)(
-              badJsonFormError,
-              forever => env.api.accountTermination.disable(me.value, forever = forever).inject(NoContent)
-            )
-  }
-
-  /* Mobile equivalent of POST /account/delete.
-   * Same form and guards as the web flow: username, password, and an explicit
-   * acknowledgement. Deletion is scheduled, not immediate, so it is recoverable.
-   */
-  def apiDelete = ScopedBody(parse.formUrlEncoded)(Seq[OAuthScope.Selector](_ => OAuthScope.Web.Mobile)) {
-    _ ?=> me ?=>
-      NotManaged:
-        auth.HasherRateLimit:
-          env.security.forms.deleteAccount.flatMap: form =>
-            bindForm(form)(
-              badJsonFormError,
-              _ => env.api.accountTermination.scheduleDelete(me.value).inject(NoContent)
-            )
   }
 
   def security = Auth { _ ?=> me ?=>

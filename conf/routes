@@ -780,8 +780,6 @@ GET   /api/account/playing             controllers.Account.apiNowPlaying
 GET   /api/account/email               controllers.Account.apiEmail
 GET   /api/account/kid                 controllers.Account.apiKid
 POST  /api/account/kid                 controllers.Account.apiKidPost
-POST  /api/account/close               controllers.Account.apiClose
-POST  /api/account/delete              controllers.Account.apiDelete
 GET   /api/account/preferences         controllers.Pref.apiGet
 POST  /api/account/preferences/:name   controllers.Pref.apiSet(name)
 GET   /api/challenge                   controllers.Challenge.apiList
