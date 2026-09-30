@@ -128,6 +128,7 @@ final class TournamentApi(
       then playerRepo.teamsWithPlayers(tour.id).map(_ ++ formTeamIds).map(_.take(TeamBattle.maxTeams))
       else fuccess(formTeamIds)
     _ <- tournamentRepo.setTeamBattle(tour.id, TeamBattle(teamIds, data.nbLeaders))
+    _ <- tournamentRepo.removeForTeamsNotIn(tour.id, teamIds)
     _ <- tour.isCreated.so:
       for _ <- playerRepo.removeNotInTeams(tour.id, teamIds) yield updateNbPlayers(tour.id)
   yield
