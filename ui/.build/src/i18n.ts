@@ -19,8 +19,13 @@ let dicts = new Map<string, Dict>();
 let locales: string[];
 let cats: string[];
 
+export const i18nTypingsReady = Promise.withResolvers<void>();
+
 export function i18n(): Promise<void | string> {
-  if (!env.begin('i18n')) return Promise.resolve();
+  if (!env.begin('i18n')) {
+    i18nTypingsReady.resolve();
+    return i18nTypingsReady.promise;
+  }
 
   return makeTask({
     includes: [
@@ -38,7 +43,7 @@ export function i18n(): Promise<void | string> {
         ])
       ).map(list => list.map(x => x.split('.')[0]));
       await Promise.allSettled(cats.map(async cat => fs.promises.mkdir(join(env.i18nDestDir, cat))));
-      await compileTypings();
+      await compileTypings().finally(i18nTypingsReady.resolve);
       await compileJavascripts();
       await i18nManifest();
     },
