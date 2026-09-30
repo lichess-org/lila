@@ -230,7 +230,12 @@ export function lastCapturedCommandHandler(
   return (): Cash => $('.boardstatus').text(lastCaptured());
 }
 
-export function possibleMovesHandler(yourColor: Color, cg: CgApi, variant: VariantKey, steps: RoundStep[]) {
+export function possibleMovesHandler(
+  yourColor: Color,
+  cg: CgApi,
+  variant: VariantKey,
+  steps: NVUIRoundStep[],
+) {
   return (ev: KeyboardEvent): void => {
     if (ev.key.toLowerCase() !== 'm') return;
     const pos = keyFromAttrs(ev.target as HTMLElement);
@@ -305,7 +310,7 @@ export function inputToMove(input: string, fen: string, chessground: CgApi): Uci
 const squareSelector = (rank: string, file: string) =>
   `.board-wrapper button[rank="${rank}"][file="${file}"]`;
 
-interface RoundStep {
+interface NVUIRoundStep {
   uci?: Uci;
   fen: FEN;
 }
