@@ -10,7 +10,6 @@ import { fenColor } from 'lib/game';
 import { isUci } from 'lib/game/chess';
 import { endgameShapesForNode } from 'lib/game/endgame';
 import { annotationShapes, analysisGlyphs } from 'lib/game/glyphs';
-import { last } from 'lib/tree/ops';
 import type { ServerEval, TreeNode } from 'lib/tree/types';
 
 import type AnalyseCtrl from './ctrl';
@@ -124,7 +123,7 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
 
   let shapes: DrawShape[] = [];
 
-  if (ctrl.node === last(ctrl.mainline)) {
+  if (ctrl.node.children.length === 0) {
     const [winner, status] = ctrl.study
       ? tagsResult(ctrl.study.data.chapter.tags)
       : [ctrl.data.game.winner, ctrl.data.game.status.name];
