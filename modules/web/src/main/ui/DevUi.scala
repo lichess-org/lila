@@ -138,6 +138,7 @@ cache clear security.session.info
 fide player sync
 fide player rip 2026961 2025
 fide player delete 2026961
+fide player year delete 2026961
 relay owner {group or tour id} {username}
 user real-name {id} {real name}
 """
