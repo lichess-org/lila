@@ -6,5 +6,5 @@ inputs:
   nixpkgs-master:
     url: github:NixOS/nixpkgs/master
   sasso:
-    url: github:momiji-rs/sasso/v0.18.0
+    url: github:momiji-rs/sasso/v0.19.2
 allowUnfree: true
