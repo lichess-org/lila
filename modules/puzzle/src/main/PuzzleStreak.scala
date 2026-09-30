@@ -14,12 +14,13 @@ final class PuzzleStreakApi(colls: PuzzleColls, cacheApi: CacheApi)(using Execut
 
   def apply: Fu[Option[PuzzleStreak]] = current.get {}
 
-  def setResult(data: PuzzleForm.RoundData)(using me: Option[Me]) = for
-    score <- data.streakScore
-    if score > 0
-    _ = lila.mon.streak.run.score(me.isDefined.toString).record(score)
-    userId <- me.map(_.userId)
-  do lila.common.Bus.pub(lila.core.misc.puzzle.StreakRun(userId, score))
+  def setResult(data: PuzzleForm.RoundData)(using Option[Me]): Unit = data.streakScore.foreach(setResult)
+
+  def setResult(score: Int)(using me: Option[Me]): Unit =
+    if score > 0 && score < PuzzleForm.maxStreakScore then
+      lila.mon.streak.run.score(me.isDefined.toString).record(score)
+      me.foreach: u =>
+        lila.common.Bus.pub(lila.core.misc.puzzle.StreakRun(u.userId, score))
 
   /* for path boundaries:
    * 800,  900,  1000, 1100, 1200, 1270, 1340, 1410, 1480, 1550, 1620,
