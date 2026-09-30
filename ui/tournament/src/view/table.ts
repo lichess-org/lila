@@ -46,8 +46,8 @@ const duelPlayerMeta = (p: DuelPlayer, ctrl: TournamentController) => [
 ];
 
 function renderDuel(ctrl: TournamentController) {
-  const battle = ctrl.data.teamBattle,
-    duelTeams = ctrl.data.duelTeams;
+  const battle = ctrl.data.teamBattle;
+  const duelTeams = ctrl.data.duelTeams;
   return (d: Duel) =>
     hl('a.glpt.force-ltr', { key: d.id, attrs: { href: '/' + d.id } }, [
       battle &&

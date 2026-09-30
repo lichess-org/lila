@@ -121,8 +121,8 @@ const viewMoves = (ctrl: PlayCtrl) => {
     {
       hook: onInsert(el => {
         el.addEventListener('mousedown', e => {
-          let node = e.target as HTMLElement,
-            offset = -2;
+          let node = e.target as HTMLElement;
+          let offset = -2;
           if (node.tagName !== 'MOVE') return;
           while ((node = node.previousSibling as HTMLElement)) {
             offset++;

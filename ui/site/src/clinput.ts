@@ -76,8 +76,8 @@ function isUser(e: string | LightUserOnline): e is LightUserOnline {
 }
 
 function command(q: string) {
-  const parts = q.split(' '),
-    exec = parts[0];
+  const parts = q.split(' ');
+  const exec = parts[0];
 
   const is = function (commands: string) {
     return commands.split(' ').includes(exec);

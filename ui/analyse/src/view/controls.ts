@@ -12,8 +12,8 @@ type Action = 'first' | 'prev' | 'next' | 'last' | 'opening-explorer' | 'menu' |
 type EngineMode = 'ceval' | 'practice' | 'retro';
 
 export function renderControls(ctrl: AnalyseCtrl) {
-  const canJumpPrev = ctrl.path !== '',
-    canJumpNext = !!ctrl.node.children[0];
+  const canJumpPrev = ctrl.path !== '';
+  const canJumpNext = !!ctrl.node.children[0];
 
   return hl(
     'div.analyse__controls.analyse-controls',
@@ -76,11 +76,11 @@ const renderPracticeTab = (ctrl: AnalyseCtrl): LooseVNode =>
   });
 
 function renderMobileCevalTab(ctrl: AnalyseCtrl): LooseVNode {
-  const engineMode = ctrl.activeControlMode() || 'ceval',
-    ev = ctrl.allowedEval() || undefined,
-    evalstr = ev?.cp !== undefined ? renderEval(ev.cp) : ev?.mate ? '#' + ev.mate : '',
-    active = ctrl.activeControlMode() && !ctrl.activeControlBarTool(),
-    latent = ctrl.activeControlMode() && !!ctrl.activeControlBarTool();
+  const engineMode = ctrl.activeControlMode() || 'ceval';
+  const ev = ctrl.allowedEval() || undefined;
+  const evalstr = ev?.cp !== undefined ? renderEval(ev.cp) : ev?.mate ? '#' + ev.mate : '';
+  const active = ctrl.activeControlMode() && !ctrl.activeControlBarTool();
+  const latent = ctrl.activeControlMode() && !!ctrl.activeControlBarTool();
 
   return hl(
     'button.fbt',

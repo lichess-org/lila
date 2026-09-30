@@ -29,8 +29,8 @@ export class DescriptionCtrl {
 export const descTitle = (chapter: boolean) => `Pinned ${chapter ? 'chapter' : 'study'} comment`;
 
 export function view(study: StudyCtrl, chapter: boolean): VNode | undefined {
-  const desc = chapter ? study.chapterDesc : study.studyDesc,
-    contrib = study.members.canContribute() && !study.gamebookPlay;
+  const desc = chapter ? study.chapterDesc : study.studyDesc;
+  const contrib = study.members.canContribute() && !study.gamebookPlay;
   if (desc.edit) return edit(desc, chapter ? study.data.chapter.id : study.data.id, chapter);
   const isEmpty = desc.text === '-';
   if (!desc.text || (isEmpty && !contrib)) return undefined;

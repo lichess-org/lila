@@ -2,14 +2,14 @@ export async function initModule(): Promise<SoundMove> {
   let currentNotes = 0;
 
   const volumes: Record<string, number> = {
-      celesta: 0.3,
-      clav: 0.2,
-      swells: 0.8,
-    },
-    noteOverlap = 15,
-    noteTimeout = 300,
-    maxPitch = 23,
-    uciBase = 64;
+    celesta: 0.3,
+    clav: 0.2,
+    swells: 0.8,
+  };
+  const noteOverlap = 15;
+  const noteTimeout = 300;
+  const maxPitch = 23;
+  const uciBase = 64;
 
   const play = (instrument: string, pitch: number, volume: number) => {
     pitch = Math.round(Math.max(0, Math.min(maxPitch, pitch)));

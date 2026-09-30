@@ -3,9 +3,9 @@ import flatpickr from 'flatpickr';
 import { use24h } from 'lib/i18n';
 
 site.load.then(() => {
-  const $variant = $('#form3-variant'),
-    showPosition = () =>
-      $('.form3 .position').toggleClass('none', !['1', 'standard'].includes($variant.val() as string));
+  const $variant = $('#form3-variant');
+  const showPosition = () =>
+    $('.form3 .position').toggleClass('none', !['1', 'standard'].includes($variant.val() as string));
 
   $variant.on('change', showPosition);
   showPosition();

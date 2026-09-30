@@ -103,10 +103,10 @@ function eventCountdown() {
     const seconds = parseInt(this.dataset.seconds) - 1;
     const target = Date.now() + seconds * 1000;
 
-    const second = 1000,
-      minute = second * 60,
-      hour = minute * 60,
-      day = hour * 24;
+    const second = 1000;
+    const minute = second * 60;
+    const hour = minute * 60;
+    const day = hour * 24;
 
     const redraw = function () {
       const distance = target - Date.now();
@@ -178,11 +178,11 @@ function relayForm() {
     selectDrags: $('.drop-target'),
   });
 
-  const $source = $('#form3-syncSource'),
-    showSource = () =>
-      $('.relay-form__sync').each(function (this: HTMLElement) {
-        this.classList.toggle('none', !this.classList.contains(`relay-form__sync-${$source.val()}`));
-      });
+  const $source = $('#form3-syncSource');
+  const showSource = () =>
+    $('.relay-form__sync').each(function (this: HTMLElement) {
+      this.classList.toggle('none', !this.classList.contains(`relay-form__sync-${$source.val()}`));
+    });
 
   $source.on('change', showSource);
   showSource();

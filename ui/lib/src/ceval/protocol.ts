@@ -75,14 +75,14 @@ export class Protocol {
       this.swapWork();
     } else if (this.work && !this.work.stopRequested && parts[0] === 'info') {
       this.throwOnFatalError(parts);
-      let depth = 0,
-        nodes,
-        multiPv = 1,
-        millis,
-        evalType,
-        isMate = false,
-        povEv,
-        moves: string[] = [];
+      let depth = 0;
+      let nodes;
+      let multiPv = 1;
+      let millis;
+      let evalType;
+      let isMate = false;
+      let povEv;
+      let moves: string[] = [];
       for (let i = 1; i < parts.length; i++) {
         switch (parts[i]) {
           case 'depth':
