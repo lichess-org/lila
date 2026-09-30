@@ -81,19 +81,17 @@ final class PracticeUi(helpers: Helpers)(
                   section.studies.map: stud =>
                     val prog = data.progressOn(stud.id)
                     val stateClas =
-                      if prog.complete then "done" else if prog.done > 0 then "ongoing" else "future";
+                      if prog.complete then "done" else if prog.done > 0 then "ongoing" else "future"
                     a(
-                      cls := s"study ${stateClas}",
+                      cls := s"study $stateClas",
                       href := routes.Practice.show(section.id, stud.slug, stud.id)
                     )(
-                      ctx.isAuth.option(
-                        span(cls := "ribbon-wrapper")(
-                          span(cls := s"ribbon ${stateClas}")(
-                            if stateClas == "done" then trans.site.done()
+                      ctx.isAuth.option:
+                        span(cls := "ribbon-wrapper"):
+                          span(cls := s"ribbon $stateClas"):
+                            if prog.complete then trans.site.done()
                             else s"${prog.done} / ${prog.total}"
-                          )
-                        )
-                      ),
+                      ,
                       iconTag(cls := stud.id),
                       span(cls := "text")(
                         h3(stud.name()),
