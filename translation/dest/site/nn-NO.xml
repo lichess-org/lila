@@ -807,12 +807,14 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="enableKidMode">Skru på barnemodus</string>
   <string name="disableKidMode">Skru av barnemodus</string>
   <string name="security">Tryggleik</string>
+  <string name="activeSessionsDescription">Dette er ei liste over einingar og applikasjonar som er logga inn på kontoen din. Dersom du legg merke til mistenkeleg aktivitet, sørg då for at &lt;a href=\'%1$s\'&gt;sjekk gjenopprettings-postadressa di&lt;/a&gt; og &lt;a href=\'%2$s\'&gt;endre passordet ditt&lt;/a&gt;.</string>
   <string name="sessions">Økter</string>
   <string name="revokeAllSessions">lukke alle økter</string>
   <string name="playChessEverywhere">Spel sjakk overalt</string>
   <string name="everybodyGetsAllFeaturesForFree">Alle saman får tilgang til alle tenester gratis</string>
   <string name="viewTheSolution">Vis løysinga</string>
   <string name="noChallenges">Ingen utfordringar.</string>
+  <string name="browserNotificationsDenied">Sprettopp-vindauge med varslingar er deaktivert ved hjelp av nettlesarinnstillingane</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Tilgjengeleg på %s språk!</item>
     <item quantity="other">Tilgjengeleg på %s språk!</item>
@@ -1057,4 +1059,6 @@ Alle kostnader for drift, utvikling og innhald vert finansiert eine og åleine a
   <string name="verifyingYourDevice">Verifiserer eininga di...</string>
   <string name="chessOpenings">Sjakkopningar</string>
   <string name="boards">Brett</string>
+  <string name="write">Skriv</string>
+  <string name="preview">Førehandsvising</string>
 </resources>

@@ -20,6 +20,7 @@
   <string name="quitTeam">انسحب من الفريق</string>
   <string name="manuallyReviewAdmissionRequests">مراجعة طلبات القبول يدويًا</string>
   <string name="manuallyReviewAdmissionRequestsHelp">إن حددت، سيحتاج اللاعبون من أجل الانضمام إلا الفريق كتابة طلب يمكنك رفضه أم قبوله.</string>
+  <string name="hideMembersDesc" comment="Checkbox label: option to hide the team member list from non-members">إخفاء قائمة أعضاء الفريق عن غير الأعضاء.</string>
   <plurals name="teamLeaders">
     <item quantity="zero">قائد الفريق</item>
     <item quantity="one">قائد الفريق</item>
@@ -61,6 +62,10 @@
   <string name="entryCode">رمز دخول الفريق</string>
   <string name="entryCodeDescriptionForLeader">(اختياري) كلمة مرور يجب أن يعرفها الأعضاء الجدد للانضمام إلى هذا الفريق.</string>
   <string name="incorrectEntryCode">رمز خاطئ.</string>
+  <string name="forumLabel">منتدى الفريق</string>
+  <string name="forumVisibilityHelp">من يمكنه رؤية منتدى الفريق في صفحة الفريق؟&lt;br&gt;
+يمكن لأعضاء الفريق فقط النشر في منتدى الفريق.</string>
+  <string name="forumVisibilityNone">إخفاء المنتدى</string>
   <string name="teamAlreadyExists">هذا الفريق موجود بالفعل.</string>
   <string name="upcomingTournaments">البطولات القادمة</string>
   <string name="completedTourns">البطولات المنتهية</string>

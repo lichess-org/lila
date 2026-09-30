@@ -15,6 +15,7 @@
   <string name="quitTeam">离开团队</string>
   <string name="manuallyReviewAdmissionRequests">手动审核加入请求</string>
   <string name="manuallyReviewAdmissionRequestsHelp">如果勾选，棋手需要提交加入团队的申请，您可以拒绝或接受。</string>
+  <string name="hideMembersDesc" comment="Checkbox label: option to hide the team member list from non-members">向非成员隐藏团队成员列表。</string>
   <plurals name="teamLeaders">
     <item quantity="other">团队领导</item>
   </plurals>
@@ -46,6 +47,9 @@
   <string name="entryCode">团队准入码</string>
   <string name="entryCodeDescriptionForLeader">（可选）新成员加入此团队必须知道的准入码。</string>
   <string name="incorrectEntryCode">准入码不正确。</string>
+  <string name="forumLabel">团队论坛</string>
+  <string name="forumVisibilityHelp">谁可以在团队页面上看到团队论坛？&lt;br&gt;只有团队成员才能在团队论坛中发帖。</string>
+  <string name="forumVisibilityNone">隐藏论坛</string>
   <string name="teamAlreadyExists">此团队已存在。</string>
   <string name="upcomingTournaments">即将开始的锦标赛</string>
   <string name="completedTourns">已结束的锦标赛</string>

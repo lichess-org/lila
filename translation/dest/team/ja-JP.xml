@@ -15,6 +15,7 @@
   <string name="quitTeam">チームを辞める</string>
   <string name="manuallyReviewAdmissionRequests">入会要請を手動で許可</string>
   <string name="manuallyReviewAdmissionRequestsHelp">ここにチェックすると、チームに加入したい人は申請が必要になります。許可するかどうかはあなたが決めます。</string>
+  <string name="hideMembersDesc" comment="Checkbox label: option to hide the team member list from non-members">チームメンバーのリストを非メンバーには見せない。</string>
   <plurals name="teamLeaders">
     <item quantity="other">チームリーダー</item>
   </plurals>
@@ -46,6 +47,9 @@
   <string name="entryCode">チーム参加コード</string>
   <string name="entryCodeDescriptionForLeader">（オプション）新メンバーがこのチームに加入する時に必要なコード。</string>
   <string name="incorrectEntryCode">参加コードが違います。</string>
+  <string name="forumLabel">チームのフォーラム</string>
+  <string name="forumVisibilityHelp">チームのフォーラムを誰が見られるか。&lt;br&gt;投稿できるのはチームのメンバーだけです。</string>
+  <string name="forumVisibilityNone">フォーラムを隠す</string>
   <string name="teamAlreadyExists">このチームはすでに存在します。</string>
   <string name="upcomingTournaments">今後のトーナメント</string>
   <string name="completedTourns">完了したトーナメント</string>
