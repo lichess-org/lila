@@ -119,7 +119,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
       }.nonEmptyOption
     )
 
-  def closedByMod(user: User): Fu[Boolean] =
+  def closedByMod(user: User): Fu[Boolean] = user.enabled.no.so:
     fuccess(user.marks.alt) >>| coll.exists(bdoc("user" -> user.id, "action" -> Modlog.closeAccount))
 
   def closedByTeacher(user: User): Fu[Boolean] =
