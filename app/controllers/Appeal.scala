@@ -17,12 +17,13 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
     Ok.async(renderAppealOrTree()).map(_.hasPersonalData)
   }
 
-  def landing = Auth { ctx ?=> _ ?=>
-    if ctx.isAppealUser || isGranted(_.Appeals) then
-      FoundPage(env.cms.renderKey("appeal-landing")):
-        views.cms.lone
-      .map(_.hasPersonalData)
-    else notFound
+  def landing = Auth { ctx ?=> me ?=>
+    if isGranted(_.Appeals) then Redirect(routes.Appeal.modQueue)
+    else
+      Found(env.mod.logApi.closedByMod(me)):
+        FoundPage(env.cms.renderKey("appeal-landing")):
+          views.cms.lone
+        .map(_.hasPersonalData)
   }
 
   def closedByTeacher = Auth { ctx ?=> _ ?=>
@@ -47,7 +48,8 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
     playban <- env.playban.api.currentBan(user).dmap(_.isDefined)
     blogHidden <- env.ublog.api.isHiddenWithPosts(user)
     modActions <- env.mod.logApi.recentActionsOf(user.id)
-  yield lila.appeal.UserStatus(user, playban, blogHidden, modActions)
+    modClosed <- env.mod.logApi.closedByMod(user)
+  yield lila.appeal.UserStatus(user, playban, blogHidden, modActions, modClosed)
 
   def post(topic: AppealTopic) = AuthBody { ctx ?=> me ?=>
     for
@@ -175,7 +177,9 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
 
   def sendToZulip(username: UserStr, topic: AppealTopic) = Secure(_.SendToZulip) { _ ?=> _ ?=>
     asMod(username, topic): (_, s) =>
-      for _ <- env.irc.api.userAppeal(s.user.light)
+      for
+        markers <- env.mod.logApi.markers(s.user.id)
+        _ <- env.irc.api.userAppeal(s.user.light, markers)
       yield NoContent
   }
 

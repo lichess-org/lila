@@ -221,11 +221,13 @@ final class IrcApi(
     zulip(_.broadcast, s"orphan boards - $tier tier"):
       s"""${markdown.broadcastGameLink(id, chapterId, name)} $boardName"""
 
-  def userAppeal(user: LightUser)(using mod: LightUser.Me): Funit =
+  def userAppeal(user: LightUser, markers: List[ModId])(using mod: LightUser.Me): Funit =
     zulip
       .sendAndGetLink(_.mod.adminAppeal, "/" + user.name):
         val link = markdown.lichessLink(s"/appeal/${user.name}", user.name)
-        s"${markdown.modLink(mod.name)} :monkahmm: is looking at the appeal of **$link**"
+        val markersTxt = markers.map(m => lightUser(m.userId).name).mkString(", ")
+        s"${markdown.modLink(mod.name)} :monkahmm: is looking at the appeal of **$link**" +
+          markersTxt.nonEmpty.so(s" (marked by $markersTxt)")
       .flatMapz: zulipAppealConv =>
         noteApi.write(user.id, s"Appeal discussion: $zulipAppealConv", modOnly = true, dox = true)
 
