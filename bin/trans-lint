@@ -233,6 +233,10 @@ def lint_href(ctx, href):
         ctx.error("vbscript: href")
         return
 
+    # allow placeholders, like %s or %1$s
+    if re.fullmatch(r"%(\d+\$)?s", stripped):
+        return
+
     if stripped.startswith("/") or stripped.startswith("#"):
         return
 
