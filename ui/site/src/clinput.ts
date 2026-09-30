@@ -86,8 +86,11 @@ function command(q: string) {
   if (is('tv follow') && parts[1]) location.href = '/@/' + parts[1] + '/tv';
   else if (is('tv')) location.href = '/tv';
   else if (is('play challenge match') && parts[1]) location.href = '/?user=' + parts[1] + '#friend';
-  else if (is('light dark transp system')) loadDasher().then(m => m.theme.set(exec));
-  else if (is('stream') && parts[1]) location.href = '/streamer/' + parts[1];
+  else if (is('light dark system')) loadDasher().then(m => m.theme.set(exec));
+  else if (is('transpLight transpDark')) {
+    loadDasher().then(m => m.theme.set(exec.replace('transp', 'transp ').toLowerCase()));
+  } else if (is('stream') && parts[1]) location.href = '/streamer/' + parts[1];
+  else if (is('blind')) document.querySelector<HTMLFormElement>('#blind-mode')?.requestSubmit();
   else if (is('help')) help();
   else alert(`Unknown command: "${q}". Type /help for the list of commands`);
 }
@@ -114,8 +117,9 @@ function help() {
       '<div><h3>Commands</h3>' +
       commandHelp('/tv /follow', ' <user>', 'Watch someone play') +
       commandHelp('/play /challenge /match', ' <user>', 'Challenge someone to play') +
-      commandHelp('/light /dark /transp /system', '', 'Change the background theme') +
+      commandHelp('/light /dark /transpLight /transpDark /system', '', 'Change the background theme') +
       commandHelp('/stream', '<user>', 'Watch someone stream') +
+      commandHelp('/blind', '', 'Turn on blind mode (NVUI)') +
       '<h3>Global hotkeys</h3>' +
       commandHelp('s', '', 'Search for a user') +
       commandHelp('/', '', 'Type a command') +
