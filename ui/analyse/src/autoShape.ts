@@ -122,16 +122,14 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
     hovering = ctrl.ceval.hovering();
   }
 
-  const [winner, status] = ctrl.study
-    ? tagsResult(ctrl.study.data.chapter.tags)
-    : [ctrl.data.game.winner, ctrl.data.game.status.name];
+  let shapes: DrawShape[] = [];
 
-  let shapes: DrawShape[] = endgameShapesForNode(
-    ctrl.node,
-    ctrl.node === last(ctrl.mainline),
-    winner,
-    status,
-  );
+  if (ctrl.node === last(ctrl.mainline)) {
+    const [winner, status] = ctrl.study
+      ? tagsResult(ctrl.study.data.chapter.tags)
+      : [ctrl.data.game.winner, ctrl.data.game.status.name];
+    shapes.push(...endgameShapesForNode(ctrl.node, winner, status));
+  }
   let badNode: TreeNode | undefined;
   if ((badNode = ctrl.retro?.showBadNode()) && badNode.uci) {
     return makeShapesFromUci(color, badNode.uci, 'paleRed', { lineWidth: 8 });
