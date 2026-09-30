@@ -37,6 +37,5 @@ final class Learn(env: Env) extends LilaController(env):
   }
 
   def apiProgress = Scoped(_.Web.Mobile) { _ ?=> me ?=>
-    import lila.learn.LearnProgress.given
     JsonOk(env.learn.api.get(me))
   }
