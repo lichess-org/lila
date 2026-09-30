@@ -10,10 +10,10 @@ import { fenColor } from 'lib/game';
 import { isUci } from 'lib/game/chess';
 import { endgameShapesForNode } from 'lib/game/endgame';
 import { annotationShapes, analysisGlyphs } from 'lib/game/glyphs';
-import { last } from 'lib/tree/ops';
 import type { ServerEval, TreeNode } from 'lib/tree/types';
 
 import type AnalyseCtrl from './ctrl';
+import { tagsResult } from './study/studyTags';
 
 const pieceDrop = (key: Key, role: Role, color: Color): DrawShape => ({
   orig: key,
@@ -121,12 +121,14 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
     hovering = ctrl.ceval.hovering();
   }
 
-  let shapes: DrawShape[] = endgameShapesForNode(
-    ctrl.node,
-    ctrl.node === last(ctrl.mainline),
-    ctrl.data.game.winner,
-    ctrl.data.game.status.name,
-  );
+  let shapes: DrawShape[] = [];
+
+  if (ctrl.node.children.length === 0) {
+    const [winner, status] = ctrl.study
+      ? tagsResult(ctrl.study.data.chapter.tags)
+      : [ctrl.data.game.winner, ctrl.data.game.status.name];
+    shapes.push(...endgameShapesForNode(ctrl.node, winner, status));
+  }
   let badNode: TreeNode | undefined;
   if ((badNode = ctrl.retro?.showBadNode()) && badNode.uci) {
     return makeShapesFromUci(color, badNode.uci, 'paleRed', { lineWidth: 8 });

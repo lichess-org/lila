@@ -37,11 +37,9 @@ const endgameResult = (
 
 export function endgameShapesForNode(
   node: EndgameNode,
-  isLast: boolean,
   gameWinner: Color | undefined,
   gameStatus: StatusName,
 ): DrawShape[] {
-  if (!isLast) return [];
   const result = endgameResult(node, gameWinner, gameStatus);
   return endgameShapes(node.fen, result.winner, result.status);
 }
