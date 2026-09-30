@@ -90,7 +90,7 @@ function command(q: string) {
   else if (is('transpLight transpDark')) {
     loadDasher().then(m => m.theme.set(exec.replace('transp', 'transp ').toLowerCase()));
   } else if (is('stream') && parts[1]) location.href = '/streamer/' + parts[1];
-  else if (is('blind')) document.querySelector<HTMLFormElement>('#blind-mode')?.requestSubmit();
+  else if (is('blind') || is('nvui')) document.querySelector<HTMLFormElement>('#blind-mode')?.requestSubmit();
   else if (is('help')) help();
   else alert(`Unknown command: "${q}". Type /help for the list of commands`);
 }
@@ -119,7 +119,7 @@ function help() {
       commandHelp('/play /challenge /match', ' <user>', 'Challenge someone to play') +
       commandHelp('/light /dark /transpLight /transpDark /system', '', 'Change the background theme') +
       commandHelp('/stream', '<user>', 'Watch someone stream') +
-      commandHelp('/blind', '', 'Turn on blind mode (NVUI)') +
+      commandHelp('/blind /nvui', '', 'Turn on blind mode (NVUI)') +
       '<h3>Global hotkeys</h3>' +
       commandHelp('s', '', 'Search for a user') +
       commandHelp('/', '', 'Type a command') +
