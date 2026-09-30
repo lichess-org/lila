@@ -46,7 +46,7 @@ export async function build(pkgs: string[]): Promise<void> {
     } finally {
       monitor(pkgs);
     }
-    await Promise.all([i18n(), sync().then(hash).then(sass), tsc(), esbuild()]);
+    await Promise.all([i18n().then(tsc), sync().then(hash).then(sass), esbuild()]);
   } catch (e) {
     env.log(`${errorMark} ${e instanceof Error ? (e.stack ?? e.message) : String(e)}`);
     if (env.watch) env.log(pc.gray('Watching...'));
