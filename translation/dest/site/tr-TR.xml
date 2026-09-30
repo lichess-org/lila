@@ -807,12 +807,14 @@ Puanlı oyunlar oynamak istikrarınızı artıracaktır.</string>
   <string name="enableKidMode">Çocuk modunu aktifleştir</string>
   <string name="disableKidMode">Çocuk modunu devre dışı bırak</string>
   <string name="security">Güvenlik</string>
+  <string name="activeSessionsDescription">Hesabınıza giriş yapmış cihaz ve uygulamaların listesidir. Eğer şüpheli bir hareket fark ederseniz &lt;a href=\'%1$s\'&gt;kurtarma e-postanızı kontrol edin&lt;/a&gt; ve &lt;a href=\'%2$s\'&gt;şifrenizi değiştirin&lt;/a&gt;.</string>
   <string name="sessions">Oturumlar</string>
   <string name="revokeAllSessions">tüm oturumları kaldır</string>
   <string name="playChessEverywhere">Her yerde satranç oyna</string>
   <string name="everybodyGetsAllFeaturesForFree">Bütün özellikler ücretsizdir</string>
   <string name="viewTheSolution">Çözümü göster</string>
   <string name="noChallenges">Meydan okuma yok.</string>
+  <string name="browserNotificationsDenied">Bildirim açılır pencereleri, tarayıcı tarafından devre dışı bırakıldı</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">%s farklı dili destekler!</item>
     <item quantity="other">%s farklı dili destekler!</item>

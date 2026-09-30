@@ -17,6 +17,7 @@
   <string name="quitTeam">Ieşi din echipă</string>
   <string name="manuallyReviewAdmissionRequests">Verificați manual cererile de admitere</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Dacă este bifat, jucătorii vor trebui să scrie o cerere pentru a se alătura echipei, pe care o puteți refuza sau accepta.</string>
+  <string name="hideMembersDesc" comment="Checkbox label: option to hide the team member list from non-members">Ascunde lista de membri ai echipei față de non-membri.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Lider de echipă</item>
     <item quantity="few">Lideri de echipa</item>
@@ -52,6 +53,9 @@
   <string name="entryCode">Cod de intrare în echipă</string>
   <string name="entryCodeDescriptionForLeader">(Opțional) Un cod de intrare pe care noii membri trebuie să îl cunoască pentru a se alătura acestei echipe.</string>
   <string name="incorrectEntryCode">Cod de intrare incorect.</string>
+  <string name="forumLabel">Forumul echipei</string>
+  <string name="forumVisibilityHelp">Cine poate vedea forumul de echipă pe pagina echipei?&lt;br&gt;Numai membrii echipei pot posta în forumul echipei.</string>
+  <string name="forumVisibilityNone">Ascunde forumul</string>
   <string name="teamAlreadyExists">Această echipă există deja.</string>
   <string name="upcomingTournaments">Turnee viitoare</string>
   <string name="completedTourns">Turnee finalizate</string>

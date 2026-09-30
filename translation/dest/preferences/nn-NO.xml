@@ -41,6 +41,7 @@
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Krev remis automatisk ved trekkgjentaking</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Når attverande tid &lt; 30 sekundar</string>
   <string name="moveConfirmation">Trekkstadfesting</string>
+  <string name="multipleChoices">Fleire val. </string>
   <string name="explainCanThenBeTemporarilyDisabled">Kan under pågåande parti deaktiveras ved hjelp av brettmenyen</string>
   <string name="inCorrespondenceGames">I fjernsjakksparti</string>
   <string name="correspondenceAndUnlimited">Fjernsjakk og uavgrensa tid</string>
@@ -89,4 +90,10 @@
   <string name="analysisSettings">Analyseinnstillingar</string>
   <string name="maneuverArrowsHelp">Sekvens av sjakkprogramtrekk for ei brikke</string>
   <string name="hoverOverSettingLabelsForHelp">Hald musepeikaren over innstillingsetiketten om du vil sjå hjelpeteksten</string>
+  <string name="network">Nettverk</string>
+  <string name="youAreCurrentlyUsingDirectRouting">Nett no brukar du direkte ruting.</string>
+  <string name="youAreCurrentlyUsingCdnRouting">Nett no brukar du ruting gjennom Content Delivery Network (CDN).</string>
+  <string name="frequentDisconnectsAdvice">Prøv å ende ruting dersom du ofte blir fråkopla.</string>
+  <string name="useDirectRouting">Bruk direkte ruting</string>
+  <string name="useCdnRouting">Bruk CDN-ruting</string>
 </resources>

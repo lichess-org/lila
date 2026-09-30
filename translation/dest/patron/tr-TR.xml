@@ -31,7 +31,7 @@ sonsuza kadar!</string>
   <string name="otherAmount">Diğer</string>
   <string name="pleaseEnterAmountInX">Lütfen %s cinsinden bir tutar girin</string>
   <string name="withCreditCard">Kredi Kartı</string>
-  <string name="logInToDonate">Bağış yapmak için kayıt olun</string>
+  <string name="logInToDonate">Bağış yapmak için giriş yap</string>
   <string name="weAreSmallTeam">Biz küçük bir ekibiz, dolayısıyla desteğiniz büyük bir fark yaratacak!</string>
   <string name="celebratedPatrons">Lichess\'i mümkün kılan değerli destekçilerimiz</string>
   <string name="whereMoneyGoes">Bağışlar nereye gidiyor?</string>

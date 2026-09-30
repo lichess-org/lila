@@ -148,6 +148,8 @@
 3. 「Cookie とサイトのアクセス許可」をクリック
 4. スクロールして「メディアの自動再生」をクリック
 5. 「許可」に lichess.org を追加</string>
+  <string name="makeBotTitle">Lichess で動くボットを作るには？</string>
+  <string name="makeBotDescription">Lichess で動く&lt;a href=\'%1$s\'&gt;独自のチェスボット&lt;/a&gt;の作り方については、&lt;a href=\'%2$s\'&gt;このブログ記事&lt;/a&gt;をお読みください。</string>
   <string name="stopMyselfFromPlaying">チェスのやりすぎを止めるには？</string>
   <string name="mentalHealthCondition">独立した疾病</string>
   <string name="lichessUserstyles">Lichess ユーザースタイル</string>

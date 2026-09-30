@@ -16,6 +16,7 @@
   <string name="quitTeam">Forlad holdet</string>
   <string name="manuallyReviewAdmissionRequests">Gennemgå anmodninger om optagelse manuelt</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Hvis markeret, skal spillere skriftligt anmode om optagelse på holdet, hvilket du kan afvise eller acceptere.</string>
+  <string name="hideMembersDesc" comment="Checkbox label: option to hide the team member list from non-members">Skjul holdmedlemsliste for ikke-medlemmer.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Holdleder</item>
     <item quantity="other">Holdledere</item>
@@ -49,6 +50,9 @@
   <string name="entryCode">Holdadgangskode</string>
   <string name="entryCodeDescriptionForLeader">(Valgfrit) En adgangskode som nye medlemmer skal kende for at melde sig til dette hold.</string>
   <string name="incorrectEntryCode">Forkert adgangskode.</string>
+  <string name="forumLabel">Holdforum</string>
+  <string name="forumVisibilityHelp">Hvem kan se holdforummet på holdsiden?&lt;br&gt;Kun holdmedlemmer kan skrive i holdforummet.</string>
+  <string name="forumVisibilityNone">Skjul forummet</string>
   <string name="teamAlreadyExists">Dette hold findes allerede.</string>
   <string name="upcomingTournaments">Kommende turneringer</string>
   <string name="completedTourns">Afsluttede turneringer</string>

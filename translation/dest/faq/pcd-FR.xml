@@ -165,6 +165,8 @@ Nous affichons l\'icône de sourdine en rouge pour vous avertir lorsque cela se 
 3. Cliquez sur Cookies et Autorisations du site
 4. Faites défiler la page vers le bas et cliquez sur Lecture automatique du support
 5. Ajoutez lichess.org pour autoriser</string>
+  <string name="makeBotTitle">Créer un bot sur Lichess?</string>
+  <string name="makeBotDescription">Pour apprendre à créer un &lt;a href=\'%1$s\'&gt;bot d\'échecs personnalisé&lt;/a&gt; sur Lichess, veuillez lire &lt;a href=\'%2$s\'&gt;cette publication de blogue sur la création de bots&lt;/a&gt;.</string>
   <string name="stopMyselfFromPlaying">Devrais-je arrêter de jouer?</string>
   <string name="mentalHealthCondition">problème de santé mentale distinct</string>
   <string name="lichessUserstyles">styles utilisateur de Lichess</string>
