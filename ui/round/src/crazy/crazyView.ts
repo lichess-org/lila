@@ -2,13 +2,14 @@ import type { MouchEvent } from '@lichess-org/chessground/types';
 import { h } from 'snabbdom';
 
 import type { TopOrBottom } from 'lib/game';
+import { MoveEvent } from 'lib/prefs';
 import { onInsert, type LooseVNode } from 'lib/view';
 
 import type RoundController from '../ctrl';
 import { plyStep } from '../util';
-import { crazyKeys, drag, pieceRoles } from './crazyCtrl';
+import { click, crazyKeys, drag, isClicked, pieceRoles } from './crazyCtrl';
 
-const eventNames = ['mousedown', 'touchstart'];
+const dragEventNames = ['mousedown', 'touchstart'];
 
 export default function pocket(ctrl: RoundController, color: Color, position: TopOrBottom): LooseVNode {
   const step = plyStep(ctrl.data, ctrl.ply);
@@ -25,13 +26,18 @@ export default function pocket(ctrl: RoundController, color: Color, position: To
     'div.pocket.is2d.pocket-' + position,
     {
       class: { usable },
-      hook: onInsert(el =>
-        eventNames.forEach(name =>
-          el.addEventListener(name, (e: MouchEvent) => {
-            if (position === (ctrl.flip ? 'top' : 'bottom') && crazyKeys.length === 0) drag(ctrl, e);
-          }),
-        ),
-      ),
+      hook: onInsert(el => {
+        if (ctrl.data.pref.moveEvent !== MoveEvent.Click)
+          dragEventNames.forEach(name =>
+            el.addEventListener(name, (e: MouchEvent) => {
+              if (usablePos && crazyKeys.length === 0) drag(ctrl, e);
+            }),
+          );
+        if (ctrl.data.pref.moveEvent !== MoveEvent.Drag)
+          el.addEventListener('click', (e: MouchEvent) => {
+            if (usablePos) click(ctrl, e);
+          });
+      }),
     },
     pieceRoles.map(role => {
       let nb = pocket[role] || 0;
@@ -44,7 +50,7 @@ export default function pocket(ctrl: RoundController, color: Color, position: To
         h(
           'div.pocket-c2',
           h('piece.' + role + '.' + color, {
-            class: { premove: activeColor && preDropRole === role },
+            class: { premove: activeColor && preDropRole === role, selected: isClicked(color, role) },
             attrs: { 'data-role': role, 'data-color': color, 'data-nb': nb },
           }),
         ),
