@@ -137,8 +137,8 @@ importers:
         specifier: ^1.1.1
         version: 1.1.1
       sasso:
-        specifier: ^0.19.2
-        version: 0.19.2
+        specifier: ^0.19.3
+        version: 0.19.3
       typescript:
         specifier: 7.0.2
         version: 7.0.2
@@ -488,34 +488,34 @@ packages:
   run-parallel@1.2.0:
     resolution: {integrity: sha512-5l4VyZR86LZ/lDxZTR6jqL8AFE2S0IFLMP26AbjsLVADxHdhB/c0GUsH+y39UfCi3dzz8OlQuPmnaJOMoDHQBA==}
 
-  sasso-native-darwin-arm64@0.19.2:
-    resolution: {integrity: sha512-ECzTDF+Rm+QzG1orzG2Up9AG+qYwo6elqr/mejNR9JJyrKSi1LG1kilVBcg7qBx+3wutnFrp1XJUyw553q7MaA==}
+  sasso-native-darwin-arm64@0.19.3:
+    resolution: {integrity: sha512-IMmUbAQJLzYoIRtZupguzOdltHJ0EJ8U/Hh/AGYYa4+0aF+oTOtK+7ktZtd7yT1Ok4vsCpBEN4duO6tMJdBuHg==}
     engines: {node: '>=18'}
     cpu: [arm64]
     os: [darwin]
 
-  sasso-native-darwin-x64@0.19.2:
-    resolution: {integrity: sha512-1tl4fSAfIceLDfJITwtR6E0GF7hubYfHIdUlaWA7BMAPeMZ/cR3DvkRz62Ycx4W5R88TdvA6JqZY9QXigmXCXw==}
+  sasso-native-darwin-x64@0.19.3:
+    resolution: {integrity: sha512-NW3F1w9BaiNzyM9fvoun+F9JleI+K7hI1aHUA+/d9jngSRbN2GOMTtj/rtI6/rrcJxP2zQJ6sMC2u/1bgbtGCA==}
     engines: {node: '>=18'}
     cpu: [x64]
     os: [darwin]
 
-  sasso-native-linux-arm64-gnu@0.19.2:
-    resolution: {integrity: sha512-J3RoJ71aKeZeSFp7kShm088JXHOU0f4HCrGSaw+eqOaXU4IM0+TqSQrxsf0TQZ9QP3UUoydpMzeN2OdeqmWahw==}
+  sasso-native-linux-arm64-gnu@0.19.3:
+    resolution: {integrity: sha512-Jxfw88NYPJJzK6ThYjg5HmlXtrFSnA4Ovmhy6zSBUSXdlU06nhcJ3IWMEM6e8peLt65WOuwdRA1wsdWzuY9PZg==}
     engines: {node: '>=18'}
     cpu: [arm64]
     os: [linux]
     libc: [glibc]
 
-  sasso-native-linux-x64-gnu@0.19.2:
-    resolution: {integrity: sha512-STnHrsF7utQs8/nphIpGSeaBA2FXOJJ1NmARoGkU1HrxM4iLQJeXtJ+GLyqOr+6LHkA7awBNWHRCSQ48Suacdg==}
+  sasso-native-linux-x64-gnu@0.19.3:
+    resolution: {integrity: sha512-dpjDaoLA1U+itA3EAHK/7yNeM4uuTiaw73iP2UHAEXNOcCTx+hicRbZ688Dr/XgsvXxuW52PIlOOp+zb5u/Yqg==}
     engines: {node: '>=18'}
     cpu: [x64]
     os: [linux]
     libc: [glibc]
 
-  sasso@0.19.2:
-    resolution: {integrity: sha512-qGsZhf90w+sWB7AQQME9uA3qW2AWa4gAkVySkF81ug1huAiXz49lw5wktGOMHgUJZbMnayeYCha96S95OdsYyg==}
+  sasso@0.19.3:
+    resolution: {integrity: sha512-59rcPxU22hhl6TSFr12L9o8NBt9nwuvyUHU8pVowtADEZLTwiQ87nL43a1jFGfQh4w9f3BRBSaqhuPeEVHoq0g==}
     engines: {node: '>=16'}
     hasBin: true
 
@@ -786,24 +786,24 @@ snapshots:
     dependencies:
       queue-microtask: 1.2.3
 
-  sasso-native-darwin-arm64@0.19.2:
+  sasso-native-darwin-arm64@0.19.3:
     optional: true
 
-  sasso-native-darwin-x64@0.19.2:
+  sasso-native-darwin-x64@0.19.3:
     optional: true
 
-  sasso-native-linux-arm64-gnu@0.19.2:
+  sasso-native-linux-arm64-gnu@0.19.3:
     optional: true
 
-  sasso-native-linux-x64-gnu@0.19.2:
+  sasso-native-linux-x64-gnu@0.19.3:
     optional: true
 
-  sasso@0.19.2:
+  sasso@0.19.3:
     optionalDependencies:
-      sasso-native-darwin-arm64: 0.19.2
-      sasso-native-darwin-x64: 0.19.2
-      sasso-native-linux-arm64-gnu: 0.19.2
-      sasso-native-linux-x64-gnu: 0.19.2
+      sasso-native-darwin-arm64: 0.19.3
+      sasso-native-darwin-x64: 0.19.3
+      sasso-native-linux-arm64-gnu: 0.19.3
+      sasso-native-linux-x64-gnu: 0.19.3
 
   to-regex-range@5.0.1:
     dependencies:
