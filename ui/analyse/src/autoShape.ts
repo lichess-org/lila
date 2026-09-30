@@ -14,6 +14,7 @@ import { last } from 'lib/tree/ops';
 import type { ServerEval, TreeNode } from 'lib/tree/types';
 
 import type AnalyseCtrl from './ctrl';
+import { tagsResult } from './study/studyTags';
 
 const pieceDrop = (key: Key, role: Role, color: Color): DrawShape => ({
   orig: key,
@@ -121,24 +122,15 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
     hovering = ctrl.ceval.hovering();
   }
 
-  let statusName = ctrl.data.game.status.name;
-  let studyWinner = ctrl.data.game.winner;
-  const resultStudy = ctrl.study?.data.chapter.tags.find(r => r[0] === 'Result')?.[1];
-  if (resultStudy) {
-    resultStudy === '1-0'
-      ? (studyWinner = 'white')
-      : resultStudy === '0-1'
-        ? (studyWinner = 'black')
-        : resultStudy === '1/2-1/2'
-          ? (statusName = 'draw')
-          : undefined;
-  }
+  const [winner, status] = ctrl.study
+    ? tagsResult(ctrl.study.data.chapter.tags)
+    : [ctrl.data.game.winner, ctrl.data.game.status.name];
 
   let shapes: DrawShape[] = endgameShapesForNode(
     ctrl.node,
     ctrl.node === last(ctrl.mainline),
-    studyWinner,
-    statusName,
+    winner,
+    status,
   );
   let badNode: TreeNode | undefined;
   if ((badNode = ctrl.retro?.showBadNode()) && badNode.uci) {
