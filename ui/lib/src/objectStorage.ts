@@ -252,7 +252,15 @@ async function dbConnect(info: DbInfo): Promise<IDBDatabase> {
     if (!('indexedDB' in window) || !('open' in window.indexedDB)) reject(new Error('no indexedDB'));
     const result = window.indexedDB.open(dbName, info?.version ?? 1);
 
-    result.onsuccess = (e: Event) => resolve((e.target as IDBOpenDBRequest).result);
+    result.onsuccess = () => {
+      const db = result.result;
+      db.onversionchange = () => db.close();
+      resolve(db);
+    };
+    result.onblocked = () => {
+      result.onsuccess = () => result.result.close();
+      reject(new Error(`Lichess needs to upgrade '${dbName}'. Close other tabs and reload.`));
+    };
     result.onerror = (e: Event) => reject((e.target as IDBOpenDBRequest).error ?? 'IndexedDB Unavailable');
     result.onupgradeneeded = (e: IDBVersionChangeEvent) => {
       const db = (e.target as IDBOpenDBRequest).result;

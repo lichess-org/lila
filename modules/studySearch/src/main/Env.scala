@@ -1,20 +1,17 @@
 package lila.studySearch
 
+import com.softwaremill.macwire.*
+import org.apache.pekko.actor.Cancellable
+
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.atomic.AtomicBoolean
 import scala.jdk.CollectionConverters.*
 
-import org.apache.pekko.actor.Cancellable
-
-import com.softwaremill.macwire.*
-
 import lila.common.Lilakka
-import lila.search.SearchClient
-import lila.core.study.StudyOrder
-import lila.study.ui.StudyFormat
-import lila.core.study.IndexStudySearch
-import lila.core.study.RemoveStudy
 import lila.core.id.StudyId
+import lila.core.study.{ IndexStudySearch, RemoveStudy, StudyOrder }
+import lila.search.SearchClient
+import lila.study.ui.StudyFormat
 
 final class Env(
     studyRepo: lila.study.StudyRepo,
@@ -29,26 +26,13 @@ final class Env(
     val query =
       StudySearchApi.Query(
         text.take(100),
-        order.toSpec,
+        StudySearchApi.Sorting.fromStudyOrder(order),
         me.map(_.userId.value)
       )
     lila.search
       .PaginatorBuilder(api, pager.maxPerPage)(query, page)
       .flatMap(_.mapFutureList(pager.withChaptersAndLiking()))
       .dmap(_.toPaginator)
-
-  extension (order: StudyOrder)
-    def toSpec: Option[StudySearchApi.Sorting] =
-      import StudySearchApi.{ Field, Order, Sorting }
-      order.match
-        case StudyOrder.alphabetical => Sorting(Field.Name, Order.Asc).some
-        case StudyOrder.hot => Sorting(Field.Hot, Order.Desc).some
-        case StudyOrder.newest => Sorting(Field.CreatedAt, Order.Desc).some
-        case StudyOrder.oldest => Sorting(Field.CreatedAt, Order.Asc).some
-        case StudyOrder.popular => Sorting(Field.Likes, Order.Desc).some
-        case StudyOrder.updated => Sorting(Field.UpdatedAt, Order.Desc).some
-        case StudyOrder.mine => Sorting(Field.Likes, Order.Asc).some
-        case StudyOrder.relevant => none
 
   private val pendingUpserts = ConcurrentHashMap[StudyId, Cancellable]()
   private val shuttingDown = AtomicBoolean(false)
@@ -59,6 +43,9 @@ final class Env(
     elastic.delete(SearchClient.Index.Study, event.studyId)
 
   lila.common.Bus.sub[IndexStudySearch]: event =>
+    indexStudy(event).logFailure(lila.log("studySearch"))
+
+  private def indexStudy(event: IndexStudySearch): Funit =
     if shuttingDown.get || event.now then
       Option(pendingUpserts.remove(event.studyId)).so(_.cancel())
       elastic.upsert(SearchClient.Index.Study, event.studyId)
@@ -72,6 +59,7 @@ final class Env(
       if shuttingDown.get && pendingUpserts.remove(event.studyId, scheduled) then
         scheduled.cancel()
         elastic.upsert(SearchClient.Index.Study, event.studyId)
+      else funit
 
   Lilakka.shutdown(shutdown, _.PhaseBeforeServiceUnbind, "Flush study search updates"): () =>
     shuttingDown.set(true)

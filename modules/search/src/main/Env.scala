@@ -1,8 +1,8 @@
 package lila.search
 
 import com.softwaremill.macwire.*
-import play.api.libs.ws.StandaloneWSClient
 import play.api.Configuration
+import play.api.libs.ws.StandaloneWSClient
 
 import lila.core.config.CollName
 

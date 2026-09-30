@@ -1,4 +1,5 @@
 import type { VNode } from 'snabbdom';
+import type { StudyNavigationRequest } from 'study-db/types';
 
 import type { ExternalEngineInfoFromServer } from 'lib/ceval';
 import type { ChatCtrl, ChatPlugin, ChatOpts } from 'lib/chat/interfaces';
@@ -29,7 +30,9 @@ export interface NvuiPlugin {
 export interface AnalyseApi {
   socketReceive(type: string, data: any): boolean;
   path(): TreePath;
-  setChapter(id: string): void;
+  setChapter(id: string): Promise<boolean>;
+  restoreStudyPosition(request: StudyNavigationRequest): boolean;
+  reload(opts: AnalyseOpts): Promise<void>;
 }
 
 export interface OpeningPuzzle {

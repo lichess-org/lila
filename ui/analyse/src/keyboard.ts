@@ -1,20 +1,27 @@
+import type { Reaper } from 'lib/event';
 import { pubsub } from 'lib/pubsub';
 import { domDialog } from 'lib/view';
 import * as xhr from 'lib/xhr';
 
 import type AnalyseCtrl from './ctrl';
 
-export const keyToMouseEvent = (key: string, eventName: string, selector: string) =>
-  window.site.mousetrap.bind(key, () =>
-    $(selector).each(function (this: HTMLElement) {
-      this.dispatchEvent(new MouseEvent(eventName));
-    }),
-  );
+export const makeBinder = (reaper: Reaper) => {
+  const trap = window.site.mousetrap;
+  return {
+    bind(keys: string | string[], callback: (e: KeyboardEvent) => any) {
+      trap.bind(keys, callback);
+      reaper.addCleanup(() => {
+        for (const key of Array.isArray(keys) ? keys : [keys]) trap.unbind(key, callback);
+      });
+      return this;
+    },
+  };
+};
 
 export const bind = (ctrl: AnalyseCtrl) => {
   if (location.hash === '#keyboard') showHelp(ctrl);
   addModifierKeyListeners(ctrl);
-  const kbd = window.site.mousetrap;
+  const kbd = makeBinder(ctrl.reaper);
   kbd
     .bind(['left', 'k'], () => {
       ctrl.navigate.prev();
@@ -45,7 +52,7 @@ export const bind = (ctrl: AnalyseCtrl) => {
     if (gb) gb.onSpace();
     else if (ctrl.practice || ctrl.study?.practice || ctrl.retro?.isSolving()) return undefined;
     else if (ctrl.cevalEnabled()) ctrl.playBestMove();
-    else if (ctrl.isCevalAllowed() && ctrl.ceval.analysable) ctrl.cevalEnabled(!ctrl.cevalEnabled());
+    else if (ctrl.isCevalAllowed() && ctrl.ceval?.analysable) ctrl.cevalEnabled(!ctrl.cevalEnabled());
     return undefined;
   });
 
@@ -60,7 +67,7 @@ export const bind = (ctrl: AnalyseCtrl) => {
     .bind('b', () => window.location.assign(ctrl.boardEditorUrl()))
     .bind('?', () => showHelp(ctrl))
     .bind('l', () => {
-      if (ctrl.isCevalAllowed() && ctrl.ceval.analysable) ctrl.cevalEnabled(!ctrl.cevalEnabled());
+      if (ctrl.isCevalAllowed() && ctrl.ceval?.analysable) ctrl.cevalEnabled(!ctrl.cevalEnabled());
     })
     .bind('z', () => ctrl.settings.set('showMainlineAnalysis', !ctrl.settings.showMainlineAnalysis))
     .bind('a', () => ctrl.settings.set('showBestMoveArrows', !ctrl.settings.showBestMoveArrows))
@@ -112,14 +119,14 @@ export const showHelp = (ctrl: AnalyseCtrl) => {
 function addModifierKeyListeners(ctrl: AnalyseCtrl) {
   let modifierOnly = false;
 
-  window.addEventListener('mousedown', () => (modifierOnly = false), { capture: true });
+  ctrl.reaper.addListener(window, 'mousedown', () => (modifierOnly = false), { capture: true });
 
-  document.addEventListener('keydown', e => {
+  ctrl.reaper.addListener(document, 'keydown', (e: KeyboardEvent) => {
     if (e.key === 'Shift' || e.key === 'Control') modifierOnly = !modifierOnly;
     else modifierOnly = false;
   });
 
-  document.addEventListener('keyup', e => {
+  ctrl.reaper.addListener(document, 'keyup', (e: KeyboardEvent) => {
     if (!modifierOnly) return;
 
     modifierOnly = false;

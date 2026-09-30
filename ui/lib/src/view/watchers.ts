@@ -14,8 +14,8 @@ let watchersData: Data | undefined;
 
 const name = (u: string) => (u.includes(' ') ? u.split(' ')[1] : u);
 
-export function watchers(element: HTMLElement, withUserList = true): void {
-  if (element.dataset.watched) return;
+export function watchers(element: HTMLElement, withUserList = true): () => void {
+  if (element.dataset.watched) return () => {};
   element.dataset.watched = '1';
   const $innerElement = $('<div class="chat__members__inner">').appendTo(element);
   const $numberEl = $(
@@ -24,7 +24,8 @@ export function watchers(element: HTMLElement, withUserList = true): void {
   const $listEl = $('<div>').appendTo($innerElement);
   const listEl = $listEl[0] as HTMLElement;
 
-  pubsub.on('socket.in.crowd', data => setWatchers(data.watchers || data));
+  const onCrowd = (data: Data) => setWatchers(data.watchers || data);
+  pubsub.on('socket.in.crowd', onCrowd);
 
   const setWatchers = (data: Data): void => {
     watchersData = data;
@@ -53,4 +54,5 @@ export function watchers(element: HTMLElement, withUserList = true): void {
   };
 
   if (watchersData) setWatchers(watchersData);
+  return () => pubsub.off('socket.in.crowd', onCrowd);
 }

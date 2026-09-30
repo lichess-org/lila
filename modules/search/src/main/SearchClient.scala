@@ -8,7 +8,7 @@ import scalalib.newtypes.SameRuntime
 
 import scala.concurrent.duration.FiniteDuration
 
-import lila.db.dsl.{ bdoc, Coll }
+import lila.db.dsl.{ Coll, bdoc }
 import lila.mon.extensions.*
 
 final class SearchClient(
@@ -31,6 +31,18 @@ final class SearchClient(
       context: => Any,
       timeout: Option[FiniteDuration] = None
   ): Fu[List[String]] =
+    searchHits(index, query, sort, offset, length, context, timeout)
+      .map(_.map(hit => (hit \ "_id").as[String]))
+
+  def searchHits(
+      index: Index,
+      query: JsObject,
+      sort: JsArray,
+      offset: Long,
+      length: Long,
+      context: => Any,
+      timeout: Option[FiniteDuration] = None
+  ): Fu[List[JsObject]] =
     elastic("search", index, context, Nil)(
       ws.url(s"$endpoint/${index.esPath}/_search")
         .post(
@@ -42,7 +54,7 @@ final class SearchClient(
             "size" -> length
           ) ++ timeout.fold(Json.obj())(duration => Json.obj("timeout" -> s"${duration.toMillis}ms"))
         )
-    )(js => (js \ "hits" \ "hits").as[List[JsObject]].map(hit => (hit \ "_id").as[String]))
+    )(js => (js \ "hits" \ "hits").as[List[JsObject]])
 
   def count(index: Index, query: JsObject, context: => Any): Fu[Long] =
     countCache.get(CountKey(index, query, context.toString))

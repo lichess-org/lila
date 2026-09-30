@@ -6,8 +6,8 @@ const { window } = new JSDOM('<!doctype html><html><body></body></html>', {
   pretendToBeVisual: true,
 });
 
-define('$html', (s: TemplateStringsArray, ..._: any[]) => s[0]);
-define('$trim', (s: TemplateStringsArray, ..._: any[]) => s[0]);
+define('$html', String.raw);
+define('$trim', String.raw);
 define('window', window);
 define('document', window.document);
 define('navigator', window.navigator);
@@ -46,6 +46,10 @@ define(
 );
 define('site', {
   sri: '_test_sri_',
+  asset: {
+    url: (path: string) => new URL(path, `${window.location.origin}/assets/`).href,
+    flairSrc: (flair: string) => site.asset.url(`flair/img/${flair}.webp`),
+  },
 });
 
 function define(k: any, v: any) {

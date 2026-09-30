@@ -29,9 +29,9 @@ let resizeCache: {
   meta: HTMLElement | null;
 };
 
-export default function (deps?: typeof studyDeps) {
-  return function (ctrl: AnalyseCtrl): VNode {
-    resizeCache ??= resizeHandler(ctrl);
+export default function (ctrl: AnalyseCtrl, deps?: typeof studyDeps) {
+  resizeCache = resizeHandler(ctrl);
+  return function (): VNode {
     if (ctrl.nvui) return ctrl.nvui.render(deps);
     else if (deps && ctrl.study?.relay) return relayView(ctrl, ctrl.study, ctrl.study.relay, deps);
     else if (deps && ctrl.study) return studyView(ctrl, ctrl.study, deps);
@@ -87,7 +87,7 @@ function analyseView(ctrl: AnalyseCtrl, deps?: typeof studyDeps): VNode {
 }
 
 function resizeHandler(ctrl: AnalyseCtrl) {
-  window.addEventListener('resize', () => {
+  ctrl.reaper.addListener(window, 'resize', () => {
     if (resizeCache.columns !== displayColumns()) ctrl.redraw();
     resizeCache.columns = displayColumns();
 

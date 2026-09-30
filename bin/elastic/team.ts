@@ -4,7 +4,7 @@ export function getIndexSchema(): IndexSchema {
   return {
     name: 'team',
     esPath: 'team',
-    batchSize: 100,
+    batchSize: 1000,
     source: false,
     settings: {
       number_of_shards: 5,

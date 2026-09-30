@@ -281,13 +281,11 @@ export class Engines {
   }
 
   setActive(id: string): EngineInfo | undefined {
-    if (!this.activeEngine || id !== this.activeEngine.id) {
-      this.activeEngine = this.getEngine({
-        id,
-        rules: this.ctrl.rules,
-        nonStandardMaterial: this.ctrl.nonStandardMaterial,
-      });
-    }
+    this.activeEngine = this.getEngine({
+      id,
+      rules: this.ctrl.rules,
+      nonStandardMaterial: this.ctrl.nonStandardMaterial,
+    });
     return this.activeEngine;
   }
 

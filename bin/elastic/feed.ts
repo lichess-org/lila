@@ -4,7 +4,7 @@ export function getIndexSchema(): IndexSchema {
   return {
     name: 'feed',
     esPath: 'feed',
-    batchSize: 100,
+    batchSize: 1000,
     source: false,
     settings: { number_of_shards: 1, number_of_replicas: 0, refresh_interval: '10s' },
     properties,

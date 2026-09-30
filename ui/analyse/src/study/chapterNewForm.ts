@@ -144,6 +144,7 @@ export class StudyChapterNewForm {
       site.asset.loadCss({ key: 'bits.shepherd' }),
     ]);
 
+    if (this.root.reaper.disposed) return;
     tour.chapter(tab => {
       this.tab(tab);
       this.redraw();

@@ -12,3 +12,9 @@ export interface QuestionOpts {
   yes?: QuestionChoice;
   no?: QuestionChoice;
 }
+
+export interface StudyOrientationMeta {
+  studyId: string;
+  chapterId: string;
+  orientation: Color;
+}

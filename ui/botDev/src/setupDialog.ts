@@ -3,7 +3,7 @@ import type { LichessEditor } from 'editor';
 
 import { definedMap, clamp } from 'lib/algo';
 import type { LocalSetup } from 'lib/bot/types';
-import { Janitor } from 'lib/event';
+import { Reaper } from 'lib/event';
 import { fen960 } from 'lib/game/chess';
 import { licon } from 'lib/licon';
 import { pubsub } from 'lib/pubsub';
@@ -29,7 +29,7 @@ class SetupDialog {
   hand: HandOfCards;
   uid?: string;
   dialog: Dialog;
-  janitor = new Janitor();
+  reaper = new Reaper();
 
   constructor(setup: LocalSetup) {
     this.setup = { ...setup };
@@ -94,7 +94,7 @@ class SetupDialog {
       ],
       onClose: () => {
         localStorage.setItem('botdev.setup', JSON.stringify(this.setup));
-        this.janitor.cleanup();
+        this.reaper.cleanup();
       },
       easyClose: env.game && 'clickOutside',
     });
@@ -122,7 +122,7 @@ class SetupDialog {
       orientation: 'bottom',
       peek: clamp(0.5 + (window.innerHeight - 320) / 960, { min: 0.5, max: 1.0 }),
     });
-    this.janitor.addListener(window, 'resize', () => {
+    this.reaper.addListener(window, 'resize', () => {
       this.hand.resize();
       this.snapToPane();
     });

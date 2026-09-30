@@ -164,6 +164,21 @@ object Chapter:
 
   case class IdName(@Key("_id") id: StudyChapterId, name: StudyChapterName)
 
+  case class Metadata(
+      @Key("_id") id: StudyChapterId,
+      studyId: StudyId,
+      name: StudyChapterName,
+      setup: Setup,
+      tags: Tags,
+      order: Order,
+      ownerId: UserId,
+      createdAt: Instant,
+      description: Option[String],
+      conceal: Option[Ply],
+      practice: Option[Boolean],
+      gamebook: Option[Boolean]
+  )
+
   def defaultName(order: Order) = StudyChapterName(s"Chapter $order")
 
   def fixName(n: StudyChapterName) = StudyChapterName(lila.common.String.softCleanUp(n.value).take(80))

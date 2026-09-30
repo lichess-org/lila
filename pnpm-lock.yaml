@@ -301,6 +301,9 @@ importers:
       sortablejs:
         specifier: ^1.15.7
         version: 1.15.7
+      study-db:
+        specifier: workspace:*
+        version: link:../studyDb
 
   ui/bits:
     dependencies:
@@ -715,6 +718,12 @@ importers:
         version: link:../lib
 
   ui/storm:
+    dependencies:
+      lib:
+        specifier: workspace:*
+        version: link:../lib
+
+  ui/studyDb:
     dependencies:
       lib:
         specifier: workspace:*

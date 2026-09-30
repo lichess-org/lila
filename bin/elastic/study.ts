@@ -6,7 +6,7 @@ export function getIndexSchema(): IndexSchema {
   return {
     name: 'study',
     esPath: 'study_with_chapters',
-    batchSize: 100,
+    batchSize: 1000,
     source: true,
     settings: {
       number_of_shards: 5,
@@ -14,6 +14,11 @@ export function getIndexSchema(): IndexSchema {
       refresh_interval: '10s',
       analysis: {
         analyzer: {
+          proper_name: {
+            type: 'custom',
+            tokenizer: 'standard',
+            filter: ['lowercase', 'asciifolding'],
+          },
           english_with_chess_synonyms: {
             type: 'custom',
             tokenizer: 'standard',
@@ -63,8 +68,8 @@ const properties: Properties = {
         properties: {
           variant: { type: 'keyword', doc_values: false },
           event: { type: 'text', analyzer: 'english', search_analyzer: 'english_with_chess_synonyms' },
-          white: { type: 'text', analyzer: 'english', search_analyzer: 'english_with_chess_synonyms' },
-          black: { type: 'text', analyzer: 'english', search_analyzer: 'english_with_chess_synonyms' },
+          white: { type: 'text', analyzer: 'proper_name' },
+          black: { type: 'text', analyzer: 'proper_name' },
           whiteFideId: { type: 'keyword', doc_values: false },
           blackFideId: { type: 'keyword', doc_values: false },
           eco: { type: 'keyword', doc_values: false },
@@ -119,7 +124,12 @@ const mapping: Mapping = {
 async function chaptersByStudyIds(chapters: Collection<MongoDoc>, ids: string[]) {
   const map = new Map<string, JsonDoc[]>();
   if (ids.length === 0) return map;
-  for (const chapter of await chapters.find({ studyId: { $in: ids } }).toArray()) {
+  for (const chapter of await chapters
+    .find(
+      { studyId: { $in: ids } },
+      { projection: { _id: 1, studyId: 1, name: 1, description: 1, setup: 1, tags: 1 } },
+    )
+    .toArray()) {
     const list = map.get(chapter.studyId) ?? [];
     list.push(chapter);
     map.set(chapter.studyId, list);
@@ -148,6 +158,19 @@ function toStudyDoc(study: JsonDoc, chapters: JsonDoc[] | undefined) {
   return doc;
 }
 
+const variantKeys: Record<number, string> = {
+  1: 'standard',
+  2: 'chess960',
+  3: 'fromposition',
+  4: 'kingofthehill',
+  5: 'threecheck',
+  6: 'antichess',
+  7: 'atomic',
+  8: 'horde',
+  9: 'racingkings',
+  10: 'crazyhouse',
+};
+
 function toChapterDoc(chapter: JsonDoc) {
   const tagMap = Object.fromEntries(
     (Array.isArray(chapter.tags) ? chapter.tags : [])
@@ -156,7 +179,8 @@ function toChapterDoc(chapter: JsonDoc) {
       .map(([name, value]: string[]) => [name, value]),
   );
   const tags: JsonDoc = {};
-  if (tagMap.Variant != null) tags.variant = tagMap.Variant;
+  const variant = variantKeys[chapter.setup?.variant ?? 1];
+  if (variant) tags.variant = variant;
   if (tagMap.Event != null) tags.event = tagMap.Event;
   if (tagMap.White != null) tags.white = tagMap.White;
   if (tagMap.Black != null) tags.black = tagMap.Black;

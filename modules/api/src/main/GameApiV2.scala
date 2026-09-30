@@ -13,6 +13,7 @@ import lila.analyse.{ AccuracyPercent, Analysis, JsonView as analysisJson }
 import lila.common.HTTPRequest
 import lila.common.Json.given
 import lila.core.LightUser
+import lila.core.round.CurrentlyPlaying
 import lila.db.dsl.{ *, given }
 import lila.game.JsonView.given
 import lila.game.PgnDump.{ WithFlags, applyDelay }
@@ -21,7 +22,6 @@ import lila.gameSearch.GameSearchApi
 import lila.round.GameProxyRepo
 import lila.team.GameTeams
 import lila.tournament.Tournament
-import lila.core.round.CurrentlyPlaying
 
 final class GameApiV2(
     pgnDump: PgnDump,

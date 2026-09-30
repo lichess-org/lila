@@ -1,7 +1,9 @@
 import type { DrawShape } from '@lichess-org/chessground/draw';
 import { opposite } from 'chessops/util';
+import { idbStudy } from 'study-db/idbStudy';
+import type { ChapterData as DbChapterData, StudyData as DbStudyData } from 'study-db/types';
 
-import { prop, defined } from 'lib';
+import { prop, defined, myUserId } from 'lib';
 import { debounce, throttle, throttlePromiseDelay } from 'lib/async';
 import { displayColumns } from 'lib/device';
 import { pubsub } from 'lib/pubsub';
@@ -122,7 +124,7 @@ export default class StudyCtrl {
     relayData?: RelayData,
   ) {
     this.data = data;
-    this.notif = new NotifCtrl(ctrl.redraw);
+    this.notif = new NotifCtrl(this.redraw);
     const isManualChapter = data.chapter.id !== data.position.chapterId;
     const sticked =
       data.features.sticky &&
@@ -146,10 +148,12 @@ export default class StudyCtrl {
       updatedAt: Date.now() - data.secondsSinceUpdate * 1000,
       gamebookOverride: undefined,
     };
-    pubsub.on('analysis.comp.toggle', enabled => {
-      if (enabled) this.vm.toolTab('serverEval');
-      else if (this.vm.toolTab() === 'serverEval') this.vm.toolTab('tags');
-    });
+    ctrl.reaper.addCleanup(
+      pubsub.on('analysis.comp.toggle', enabled => {
+        if (enabled) this.vm.toolTab('serverEval');
+        else if (this.vm.toolTab() === 'serverEval') this.vm.toolTab('tags');
+      }),
+    );
 
     this.members = new StudyMemberCtrl({
       initDict: data.members,
@@ -161,7 +165,7 @@ export default class StudyCtrl {
       notif: this.notif,
       onBecomingContributor: () => (this.vm.mode.write = !relayData || this.relayRecProp()),
       admin: data.admin,
-      redraw: ctrl.redraw,
+      redraw: this.redraw,
     });
     this.chapters = new StudyChaptersCtrl(
       data.chapters!,
@@ -201,6 +205,7 @@ export default class StudyCtrl {
       debounce(t => {
         data.description = t;
         this.send('descStudy', t);
+        this.publishUpdated();
       }, 500),
       this.redraw,
     );
@@ -209,6 +214,7 @@ export default class StudyCtrl {
       debounce(t => {
         data.chapter.description = t;
         this.send('descChapter', { id: this.vm.chapterId, desc: t });
+        this.publishUpdated();
       }, 500),
       this.redraw,
     );
@@ -256,7 +262,9 @@ export default class StudyCtrl {
 
     studyKeyboard(this);
 
-    window.addEventListener('popstate', () => window.location.reload());
+    this.publishUpdated();
+
+    ctrl.reaper.addListener(window, 'popstate', () => window.location.reload());
   }
 
   send = this.ctrl.socket.send;
@@ -268,7 +276,7 @@ export default class StudyCtrl {
       site.asset.loadCss({ key: 'bits.shepherd' }),
     ]);
 
-    tour.study(this.ctrl);
+    if (!this.ctrl.reaper.disposed) tour.study(this.ctrl);
   };
 
   setTab = (tab: Tab) => {
@@ -350,6 +358,7 @@ export default class StudyCtrl {
   };
 
   onReload = (d: ReloadData) => {
+    if (this.ctrl.reaper.disposed) return;
     const s = d.study;
     const prevPath = this.ctrl.path;
     const sameChapter = this.data.chapter.id === s.chapter.id;
@@ -361,6 +370,7 @@ export default class StudyCtrl {
     if (this.vm.mode.sticky) this.vm.behind = 0;
     this.data.position = s.position;
     this.data.name = s.name;
+    this.data.metadataRevision = s.metadataRevision;
     this.data.flair = s.flair;
     this.data.visibility = s.visibility;
     this.data.features = s.features;
@@ -369,6 +379,8 @@ export default class StudyCtrl {
     this.data.likes = s.likes;
     this.data.liked = s.liked;
     this.data.description = s.description;
+    this.data.topics = s.topics;
+    this.vm.updatedAt = Date.now() - s.secondsSinceUpdate * 1000;
     this.chapterDesc.set(this.data.chapter.description);
     this.studyDesc.set(this.data.description);
     document.title = this.relay?.fullRoundName() ?? this.data.name;
@@ -411,12 +423,14 @@ export default class StudyCtrl {
     this.redraw();
     this.ctrl.startCevalIfEnabled();
     this.updateHistoryAndAddressBar();
+    this.publishUpdated();
   };
 
   xhrReload = throttlePromiseDelay(
     () => 400,
     /* `callback` runs immediately after the xhr, and is not affected by the delay */
-    (withChapters = false, immediateCallback: () => void = () => {}) => {
+    async (withChapters = false, immediateCallback: () => void = () => {}) => {
+      if (this.ctrl.reaper.disposed) return;
       this.vm.loading = true;
       return xhr
         .reload(
@@ -426,7 +440,9 @@ export default class StudyCtrl {
           withChapters,
         )
         .then(this.onReload, site.reload)
-        .then(immediateCallback);
+        .then(() => {
+          if (!this.ctrl.reaper.disposed) immediateCallback();
+        });
     },
   );
 
@@ -521,6 +537,7 @@ export default class StudyCtrl {
       this.chapters.scroller.request('smooth'); // sticky scroll request is set in `changeChapter`
       await this.xhrReload(false, () => componentCallbacks(id));
     }
+    if (this.ctrl.reaper.disposed) return false;
     if (displayColumns() > 2) window.scrollTo(0, 0);
     return true;
   };
@@ -771,23 +788,25 @@ export default class StudyCtrl {
     },
     descChapter: d => {
       this.setMemberActive(d.w);
-      if (d.w && d.w.s === site.sri) return;
       if (this.data.chapter.id === d.chapterId) {
         this.data.chapter.description = d.desc;
         this.chapterDesc.set(d.desc);
       }
+      const chapter = this.chapters.list.get(d.chapterId);
+      if (chapter) this.publishUpdated({ id: chapter.id, name: chapter.name, description: d.desc });
       this.redraw();
     },
     descStudy: d => {
       this.setMemberActive(d.w);
-      if (d.w && d.w.s === site.sri) return;
       this.data.description = d.desc;
       this.studyDesc.set(d.desc);
+      this.publishUpdated();
       this.redraw();
     },
     setTopics: d => {
       this.setMemberActive(d.w);
       this.data.topics = d.topics;
+      this.publishUpdated();
       this.redraw();
     },
     addChapter: d => {
@@ -805,17 +824,23 @@ export default class StudyCtrl {
     members: d => {
       this.members.update(d);
       this.configureAnalysis();
+      this.publishUpdated();
       this.redraw();
     },
     chapters: d => {
       const prevChapters = this.chapters.list.all();
       this.chapters.loadFromServer(d);
+      const loadedChapter = this.chapters.list.get(this.data.chapter.id);
+      if (loadedChapter && loadedChapter.name !== this.data.chapter.name) {
+        this.data.chapter.name = loadedChapter.name;
+      }
       if (!this.currentChapter()) {
         const prevIndex = prevChapters.findIndex(ch => ch.id === this.vm.chapterId);
         const newIndex = prevIndex === -1 ? 0 : prevIndex >= d.length ? d.length - 1 : prevIndex;
         this.vm.chapterId = d[newIndex].id;
         if (!this.vm.mode.sticky) this.xhrReload();
       }
+      this.publishUpdated();
       this.redraw();
     },
     shapes: d => {
@@ -845,9 +870,12 @@ export default class StudyCtrl {
     setTags: d => {
       this.setMemberActive(d.w);
       this.chapters.setTags(d.chapterId, d.tags);
-      if (d.chapterId !== this.vm.chapterId) return;
-      this.data.chapter.tags = d.tags;
-      this.relay?.onNewTags(d.chapterId, d.tags);
+      if (d.chapterId === this.data.chapter.id) {
+        this.data.chapter.tags = d.tags;
+        this.relay?.onNewTags(d.chapterId, d.tags);
+      }
+      const chapter = this.chapters.list.get(d.chapterId);
+      if (chapter) this.publishUpdated({ id: chapter.id, name: chapter.name, tags: d.tags });
       this.redraw();
     },
     deleteComment: d => {
@@ -887,11 +915,13 @@ export default class StudyCtrl {
     conceal: d => {
       if (this.wrongChapter(d)) return;
       this.data.chapter.conceal = d.ply;
+      this.publishUpdated();
       this.redraw();
     },
     liking: d => {
       this.data.likes = d.l.likes;
       if (d.w && d.w.s === site.sri) this.data.liked = d.l.me;
+      this.publishUpdated();
       this.redraw();
     },
     error(msg: string) {
@@ -902,5 +932,76 @@ export default class StudyCtrl {
         this.multiBoard.multiCloudEval?.onCloudEval(ev);
       });
     },
+  };
+
+  private studyMetadata(changedChapter?: DbChapterData): DbStudyData {
+    const { data } = this;
+    const members = this.members.dict();
+    const member = members[myUserId() ?? ''];
+    return {
+      studyId: data.id,
+      studyName: data.name,
+      metadataRevision: data.metadataRevision,
+      role:
+        data.ownerId === myUserId()
+          ? 'owner'
+          : member
+            ? member.role === 'w'
+              ? 'contributor'
+              : 'member'
+            : undefined,
+      visibility: data.visibility,
+      public: data.visibility === 'public',
+      updatedAt: this.vm.updatedAt,
+      createdAt: data.createdAt,
+      description: data.description,
+      ownerId: data.ownerId,
+      owner: members[data.ownerId]?.user,
+      settings: { ...data.settings },
+      from: typeof data.from === 'string' ? data.from : { ...data.from },
+      topics: data.topics ?? [],
+      liked: data.liked,
+      likes: data.likes,
+      flair: data.flair,
+      members: Object.values(members).map(member => ({
+        user: member.user,
+        role: member.role === 'w' ? 'w' : 'r',
+      })),
+      chapterCount: this.chapters.list.size(),
+      chapters: this.chapters.list.all().map((chapter, order) => ({
+        id: chapter.id,
+        name: chapter.name,
+        order,
+        ...(chapter.id === data.chapter.id
+          ? {
+              ownerId: data.chapter.ownerId,
+              description: data.chapter.description,
+              tags: data.chapter.tags,
+              conceal: data.chapter.conceal,
+              practice: data.chapter.practice,
+              gamebook: data.chapter.gamebook,
+              variant: data.chapter.setup.variant.key,
+              setup: { ...data.chapter.setup, fromFen: !!data.chapter.setup.fromFen },
+            }
+          : {}),
+        ...(chapter.id === changedChapter?.id ? changedChapter : {}),
+      })),
+      studyDbExcluded: !!(this.relay || this.practice || data.studyDbExcluded),
+    };
+  }
+
+  private readonly publishUpdated = (changedChapter?: DbChapterData) => {
+    if (this.ctrl.reaper.disposed) return;
+    const study = this.studyMetadata(changedChapter);
+    const chapter = study.chapters?.find(chapter => chapter.id === this.data.chapter.id);
+    if (!chapter) return;
+    const update = structuredClone({
+      study,
+      chapterId: chapter.id,
+      path: this.ctrl.path,
+      orientation: this.ctrl.getOrientation(),
+    });
+    idbStudy.updateStudy(update).catch(() => {});
+    pubsub.emit('studyDb.updated', update);
   };
 }

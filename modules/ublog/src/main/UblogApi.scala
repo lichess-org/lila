@@ -5,12 +5,12 @@ import reactivemongo.api.bson.BSONDocument
 import reactivemongo.pekkostream.{ PekkoStreamCursor, cursorProducer }
 
 import lila.common.LilaFuture.delay
+import lila.core.config.RateLimit
 import lila.core.shutup.ShutupApi
 import lila.core.timeline.{ Propagate, UblogPostLike }
 import lila.core.ublog.BlogsBy
 import lila.core.user.KidMode
 import lila.core.{ LightUser, timeline as tl }
-import lila.core.config.RateLimit
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.buildAsyncTimeout
 import lila.memo.PicfitApi
@@ -415,11 +415,11 @@ final class UblogApi(
         Match(select ++ bdoc("live" -> true)) -> {
           Sort(aggSort) :: Limit(cut) ::
             removeUnlistedOrClosedAndProjectForPreview(colls.post, framework) :::
-            List(Skip(offset.pp), Limit(length.pp))
+            List(Skip(offset), Limit(length))
         }
       .map: docs =>
         for
-          doc <- docs.pp(docs.length)
+          doc <- docs
           post <- doc.asOpt[UblogPost.PreviewPost]
         yield post
     aggregate(2 * (offset + length) + length).flatMap: posts =>

@@ -4,8 +4,8 @@ import play.api.libs.json.*
 
 import lila.core.id.UblogPostId
 import lila.core.ublog.BlogsBy
-import lila.search.{ SearchClient, SearchApi, SearchChunk, SearchCursor }
 import lila.search.SearchClient.*
+import lila.search.{ SearchApi, SearchChunk, SearchClient, SearchCursor }
 
 final class UblogSearch(elastic: SearchClient, config: UblogConfig)(using Executor)
     extends SearchApi[UblogPostId, UblogSearch.Query]:

@@ -38,15 +38,14 @@ import { renderCevalSettings } from './settings';
 
 type EvalInfo = { knps: number; npsText: string; depthText: string };
 
-function localEvalNodes(ctrl: CevalHandler, evs: NodeEvals): Array<VNode | string> {
-  const ceval = ctrl.ceval;
+function localEvalNodes(ctrl: CevalHandler, ceval: CevalCtrl, evs: NodeEvals): Array<VNode | string> {
   const state = ceval.state;
   const status = ceval.opts.custom?.statusNode?.();
   if (status) return [status];
   if (!evs.client) {
     if (!ceval.analysable) return ['Engine cannot analyze this position'];
     if (state === CevalState.Failed) return [i18n.site.engineFailed];
-    const localEvalText = state === CevalState.Loading ? loadingText(ctrl) : i18n.site.calculatingMoves;
+    const localEvalText = state === CevalState.Loading ? loadingText(ceval) : i18n.site.calculatingMoves;
     return [evs.server && ctrl.nextNodeBest() ? i18n.site.usingServerAnalysis : localEvalText];
   }
   const t: Array<VNode | string> = [];
@@ -68,7 +67,7 @@ function localEvalNodes(ctrl: CevalHandler, evs: NodeEvals): Array<VNode | strin
       );
     }
   }
-  const { depthText, npsText } = localInfo(ctrl, evs.client);
+  const { depthText, npsText } = localInfo(ceval, evs.client);
 
   t.push(depthText);
   if (evs.client.cloud && !ceval.isComputing)
@@ -78,12 +77,12 @@ function localEvalNodes(ctrl: CevalHandler, evs: NodeEvals): Array<VNode | strin
   return t;
 }
 
-function threatInfo(ctrl: CevalHandler, threat?: LocalEval | false): string {
-  const info = localInfo(ctrl, threat);
+function threatInfo(ceval: CevalCtrl, threat?: LocalEval | false): string {
+  const info = localInfo(ceval, threat);
   return info.depthText + (info.knps ? ' · ' + info.npsText : '');
 }
 
-function localInfo(ctrl: CevalHandler, ev?: ClientEval | false): EvalInfo {
+function localInfo(ceval: CevalCtrl, ev?: ClientEval | false): EvalInfo {
   const info = {
     npsText: '',
     knps: 0,
@@ -92,7 +91,6 @@ function localInfo(ctrl: CevalHandler, ev?: ClientEval | false): EvalInfo {
 
   if (!ev) return info;
 
-  const ceval = ctrl.ceval;
   info.depthText = ev.depth > 0 ? i18n.site.depthX(ev.depth || 0) : '';
 
   if (!ceval.isComputing) return info;
@@ -107,8 +105,8 @@ function localInfo(ctrl: CevalHandler, ev?: ClientEval | false): EvalInfo {
   return info;
 }
 
-const threatButton = (ctrl: CevalHandler): VNode | null =>
-  ctrl.ceval.download
+const threatButton = (ctrl: CevalHandler, ceval: CevalCtrl): VNode | null =>
+  ceval.download
     ? null
     : button('.show-threat', {
         class: { active: ctrl.threatMode(), hidden: ctrl.getNode().check() },
@@ -173,6 +171,7 @@ export function renderGauge(ctrl: CevalHandler): VNode | undefined {
 
 export function renderCeval(ctrl: CevalHandler): VNode[] {
   const ceval = ctrl.ceval;
+  if (!ceval) return [];
   const node = ctrl.getNode();
   const enabled = !ceval.wasUnloadedByAnotherWindow && ctrl.cevalEnabled();
   const client = node.ceval;
@@ -233,8 +232,8 @@ export function renderCeval(ctrl: CevalHandler): VNode[] {
               : node.threefold
                 ? [i18n.site.threefoldRepetition]
                 : threatMode
-                  ? [threatInfo(ctrl, threat)]
-                  : localEvalNodes(ctrl, { client, server }),
+                  ? [threatInfo(ceval, threat)]
+                  : localEvalNodes(ctrl, ceval, { client, server }),
           ),
         ]),
       ]
@@ -269,15 +268,16 @@ export function renderCeval(ctrl: CevalHandler): VNode[] {
     hl('div.ceval', { class: { enabled: !!enabled, computing: ceval.isComputing } }, [
       renderCevalSwitch(ctrl),
       body,
-      !ceval.opts.custom && threatButton(ctrl),
+      !ceval.opts.custom && threatButton(ctrl, ceval),
       settingsGear,
       progressBar,
     ]),
-    renderCevalSettings(ctrl),
+    renderCevalSettings(ctrl, ceval),
   ].filter(v => v != null);
 }
 
 export const renderCevalSwitch = (ctrl: CevalHandler): VNode | false =>
+  !!ctrl.ceval &&
   ctrl.cevalEnabled() !== 'force' &&
   cmnToggle({
     id: 'analyse-toggle-ceval',
@@ -340,6 +340,7 @@ function setHovering(ceval: CevalCtrl, fen: FEN | null, uci?: Uci): void {
 export function renderPvs(ctrl: CevalHandler): VNode | undefined {
   if (!ctrl.cevalEnabled()) return undefined;
   const ceval = ctrl.ceval;
+  if (!ceval) return undefined;
   const multiPv = ceval.search.multiPv;
   const node = ctrl.getNode();
   const setup = parseFen(node.fen).unwrap();
@@ -421,7 +422,7 @@ export function renderPvs(ctrl: CevalHandler): VNode | undefined {
       Array.from({ length: multiPv }, (_, i) =>
         renderPv(threat, multiPv, pvs[i], pos.isOk ? pos.value : undefined),
       ),
-      renderPvBoard(ctrl),
+      renderPvBoard(ctrl, ceval),
     ],
   );
 }
@@ -473,8 +474,7 @@ function renderPvMoves(pos: Position, pv: Uci[]): VNode[] {
   return vnodes;
 }
 
-function renderPvBoard(ctrl: CevalHandler): VNode | undefined {
-  const ceval = ctrl.ceval;
+function renderPvBoard(ctrl: CevalHandler, ceval: CevalCtrl): VNode | undefined {
   const pvBoard = ceval.pvBoard();
   if (!pvBoard) return undefined;
   const { fen, uci } = pvBoard;
@@ -500,8 +500,8 @@ function renderPvBoard(ctrl: CevalHandler): VNode | undefined {
   return div('.pv-board', div('.pv-board-square', cgVNode));
 }
 
-function loadingText(ctrl: CevalHandler): string {
-  const d = ctrl.ceval.download;
+function loadingText(ceval: CevalCtrl): string {
+  const d = ceval.download;
   return d?.total
     ? `Downloaded ${Math.round((d.bytes * 100) / d.total)}% of ${Math.round(d.total / 1000 / 1000)}MB`
     : i18n.site.loadingEngine;

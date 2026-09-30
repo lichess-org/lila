@@ -162,18 +162,27 @@ export default class Mousetrap {
     return this;
   };
 
-  unbind = (key: string): void => {
-    this.bindings[key]?.forEach((b, i) => {
-      if (b.modifiers.length === 0) this.bindings[key].splice(i, 1);
-    });
+  unbind = (key: string, callback?: Callback, action?: Action): void => {
+    if (!callback) {
+      if (this.bindings[key]) this.bindings[key] = this.bindings[key].filter(b => b.modifiers.length !== 0);
+      return;
+    }
+    const info = getKeyInfo(key, action);
+    if (this.bindings[info.key])
+      this.bindings[info.key] = this.bindings[info.key].filter(
+        b =>
+          b.callback !== callback || b.action !== info.action || !modifiersMatch(b.modifiers, info.modifiers),
+      );
   };
 
   private readonly handleKeyEvent = (e: KeyboardEvent) => {
     if (document.querySelector<HTMLElement>('dialog:modal')) return;
     const el = e.target as HTMLElement;
+    if (e.key === ' ' && el.closest('button, a[href], summary, [role="button"], [role="tab"]')) return;
     for (const binding of this.getMatches(e)) {
       if (
         binding.combination === 'esc' ||
+        (e.ctrlKey && el.closest('[pass-ctrl]')) ||
         (!['INPUT', 'SELECT', 'OPTION', 'TEXTAREA'].includes(el.tagName) &&
           !el.isContentEditable &&
           !el.hasAttribute('trap-bypass'))

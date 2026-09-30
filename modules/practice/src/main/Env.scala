@@ -15,4 +15,6 @@ final class Env(
 
   lazy val api: PracticeApi = wire[PracticeApi]
 
+  def studyIds = PracticeStructure.studyIds
+
   export api.structure.getStudies

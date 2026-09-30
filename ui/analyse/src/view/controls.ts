@@ -87,7 +87,7 @@ function renderMobileCevalTab(ctrl: AnalyseCtrl): LooseVNode {
     {
       key: 'engine-mode',
       attrs: { 'data-act': 'engine-mode', 'data-mode': engineMode },
-      class: { active, latent, computing: ctrl.ceval.isComputing },
+      class: { active, latent, computing: Boolean(ctrl.ceval?.isComputing) },
     },
     [
       engineMode === 'ceval' && [

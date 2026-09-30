@@ -2,7 +2,7 @@ package lila.team
 
 import play.api.libs.json.*
 
-import lila.search.{ SearchClient, SearchApi, PaginatorBuilder }
+import lila.search.{ PaginatorBuilder, SearchApi, SearchClient }
 
 final class TeamSearchApi(elastic: SearchClient)(using Executor)
     extends SearchApi[TeamId, TeamSearchApi.Query]:

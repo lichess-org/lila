@@ -10,7 +10,7 @@ import {
 } from 'snabbdom';
 
 import { isTouchDevice } from '@/device';
-import { Janitor } from '@/event';
+import { Reaper } from '@/event';
 import { frag } from '@/index';
 import { licon } from '@/licon';
 import { pubsub } from '@/pubsub';
@@ -100,7 +100,7 @@ export async function domDialog<Ctx = undefined>(o: DomDialogOpts<Ctx>): Promise
   for (const [k, v] of Object.entries(o.attrs?.view ?? {})) view.setAttribute(k, String(v));
   if (html) view.innerHTML = html;
 
-  const scrollable = frag<Element>(`<div class="${o.noScrollable ? 'not-' : ''}scrollable">`);
+  const scrollable = frag<Element>('<div class="scrollable">');
   scrollable.appendChild(view);
   dialog.appendChild(scrollable);
 
@@ -182,7 +182,7 @@ export function snabDialog<Ctx = undefined>(o: SnabDialogOpts<Ctx>): Promise<Dia
   });
 }
 
-const easyCloseHandler = new (class {
+const lifecycleHandler = new (class {
   private stack: DialogWrapper[] = [];
 
   push(dlg: DialogWrapper<any>) {
@@ -227,8 +227,8 @@ const easyCloseHandler = new (class {
 })();
 
 class DialogWrapper<Ctx = undefined> implements Dialog<Ctx> {
-  private readonly dialogEvents = new Janitor();
-  private readonly actionEvents = new Janitor();
+  private readonly dialogEvents = new Reaper();
+  private readonly actionEvents = new Reaper();
   private resolve?: (dialog: Dialog<Ctx>) => void;
   private readonly observer: MutationObserver = new MutationObserver(list => {
     for (const m of list)
@@ -277,8 +277,8 @@ class DialogWrapper<Ctx = undefined> implements Dialog<Ctx> {
       this.dialog.showModal();
     } else this.dialog.show();
 
-    easyCloseHandler.push(this);
-    this.dialogEvents.addCleanupTask(() => easyCloseHandler.remove(this));
+    lifecycleHandler.push(this);
+    this.dialogEvents.addCleanup(() => lifecycleHandler.remove(this));
 
     this.autoFocus();
     this.o.onShow?.(this);
@@ -348,8 +348,8 @@ class DialogWrapper<Ctx = undefined> implements Dialog<Ctx> {
     this.resolve?.(this);
     this.dialog.remove();
     this.o.css?.forEach(site.asset.releaseCss);
-    this.actionEvents.cleanup();
-    this.dialogEvents.cleanup();
+    this.actionEvents.dispose();
+    this.dialogEvents.dispose();
     this.o.onClose?.(this);
   };
 }

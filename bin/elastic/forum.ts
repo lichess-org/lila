@@ -6,7 +6,7 @@ export function getIndexSchema(): IndexSchema {
   return {
     name: 'forum',
     esPath: 'forum',
-    batchSize: 100,
+    batchSize: 1000,
     source: false,
     settings: {
       number_of_shards: 5,

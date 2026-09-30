@@ -4,6 +4,8 @@ import { Client, type estypes } from '@elastic/elasticsearch';
 import { MongoClient, type MongoClientOptions } from 'mongodb';
 import { createServer, type Server } from 'node:http';
 import process from 'node:process';
+import { createInterface } from 'node:readline/promises';
+import { isDeepStrictEqual } from 'node:util';
 
 import type { Args, MongoDoc, Operations, IndexSchema, IndexName, Context } from './types.ts';
 
@@ -33,7 +35,7 @@ options:
                              # elasticsearch_events mailbox is drained and metrics are updated; default 10s
 
 examples:
-  # watch mode (all indices, 127.0.0.1, 30s interval etc):
+  # watch mode (all indices, 127.0.0.1, 10s interval etc):
   ./bin/elastic/ingest.ts
 
   # index every document and exit:
@@ -52,7 +54,7 @@ examples:
 let mongoClient: MongoClient;
 let metricsServer: Server | undefined;
 
-const indexNames: IndexName[] = ['forum', 'ublog', 'team', 'study', 'game', 'feed']; // each with .ts file
+const indexNames: IndexName[] = ['forum', 'ublog', 'team', 'study', 'game', 'feed'];
 const args = parseArgs();
 const esClient = new Client({ node: args.esUri });
 const indexing = Object.fromEntries(
@@ -197,7 +199,38 @@ async function writeToIndex(index: IndexName, { toUpsert, toDelete }: Operations
 // ===========================================================================================================
 
 async function ensureIndex(config: IndexSchema) {
-  if ((await esClient.indices.exists({ index: config.esPath })).body) return;
+  if ((await esClient.indices.exists({ index: config.esPath })).body) {
+    const existingBody = (await esClient.indices.get({ index: config.esPath })).body[config.esPath];
+    const existingSettings = new Map(Object.entries(existingBody.settings?.index ?? {}));
+    const { index: existingIndex, ...expectedSettings } = config.settings;
+    const checks = [
+      {
+        field: '_source.enabled',
+        existing: existingBody.mappings?._source?.enabled ?? true,
+        expected: config.source,
+      },
+      { field: 'properties', existing: existingBody.mappings?.properties, expected: config.properties },
+      ...Object.entries({ ...expectedSettings, ...existingIndex }).map(([field, expected]) => ({
+        field,
+        existing: existingSettings.get(field),
+        expected,
+      })),
+    ];
+    const changed = checks
+      .filter(({ existing, expected }) =>
+        expected !== null && typeof expected === 'object'
+          ? !isDeepStrictEqual(existing, expected)
+          : String(existing) !== String(expected),
+      )
+      .map(
+        ({ field, existing, expected }) =>
+          `  EXISTING: ${field}: ${JSON.stringify(existing)}\n  EXPECTED: ${JSON.stringify(expected)}\n`,
+      );
+    if (!changed.length) return;
+    if (args.mode === 'watch' || !(await confirmRecreateIndex(config.esPath, changed)))
+      throw `/${config.esPath} has changed. run a backfill to replace it`;
+    await esClient.indices.delete({ index: config.esPath });
+  }
   await esClient.indices.create({
     index: config.esPath,
     body: {
@@ -206,6 +239,19 @@ async function ensureIndex(config: IndexSchema) {
     },
   });
   console.log(`created /${config.esPath}`);
+}
+
+// ===========================================================================================================
+
+async function confirmRecreateIndex(index: string, changed: string[]): Promise<boolean> {
+  console.log(`/${index} index has changed.\n`);
+  for (const difference of changed) console.log(difference);
+  const readline = createInterface({ input: process.stdin, output: process.stdout });
+  try {
+    return /^[yY]/.test(await readline.question(`\nRecreate /${index} and backfill? (y/N) `));
+  } finally {
+    readline.close();
+  }
 }
 
 // ===========================================================================================================

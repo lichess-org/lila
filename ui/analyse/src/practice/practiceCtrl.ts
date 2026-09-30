@@ -85,7 +85,7 @@ export function make(root: AnalyseCtrl): PracticeCtrl {
 
     const { bestmove, nodes, millis, cloud } = node.ceval;
     return masteryMode()
-      ? !root.ceval.isComputing
+      ? !root.ceval?.isComputing
       : Boolean(bestmove || nodes >= 600_000 || cloud || millis > 2000);
   }
 
@@ -273,7 +273,7 @@ export function make(root: AnalyseCtrl): PracticeCtrl {
           ? { maxMovetime: 300 * 1000 }
           : (api.overrides.practiceSearch?.() ?? { by: { nodes: 600_000 }, multiPv: 1, indeterminate: true }),
       pearlNode: () => renderCustomPearl(root, masteryMode()),
-      statusNode: () => (root.ceval.isComputing ? undefined : renderCustomStatus(root, masteryMode)),
+      statusNode: () => (root.ceval?.isComputing ? undefined : renderCustomStatus(root, masteryMode)),
     },
   };
 }

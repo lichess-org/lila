@@ -13,10 +13,9 @@ import lila.core.perm.Granter
 import lila.core.socket.Sri
 import lila.core.study as hub
 import lila.core.timeline.{ Propagate, StudyLike }
-import lila.study.Node.extensions.*
+import lila.study.Node.extensions.deleteNodeAtAndPruneComp
 import lila.tree.Clock
 import lila.tree.Node.{ Comment, Gamebook, Shapes }
-import lila.study.Node.extensions.*
 
 final class StudyApi(
     studyRepo: StudyRepo,
@@ -839,7 +838,8 @@ final class StudyApi(
       (study.visibility != visibility).so:
         for _ <- studyRepo.updateSomeFields(study.copy(visibility = visibility))
         yield
-          studyRepo.updateElasticIndex(study.id, now = true)
+          if study.visibility == hub.Visibility.public && visibility != study.visibility then
+            studyRepo.updateElasticIndex(study.id, now = true)
           sendTo(study.id)(_.reloadAll)
 
   def addTopics(studyId: StudyId, topics: List[String]) =
@@ -864,7 +864,7 @@ final class StudyApi(
             (newStudy != study).so:
               for _ <- studyRepo.updateSomeFields(newStudy)
               yield
-                if study.visibility != newStudy.visibility then
+                if study.visibility == hub.Visibility.public && newStudy.visibility != study.visibility then
                   studyRepo.updateElasticIndex(study.id, now = true)
                 sendTo(study.id)(_.reloadAll)
 

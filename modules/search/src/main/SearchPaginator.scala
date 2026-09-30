@@ -4,6 +4,7 @@ import alleycats.Zero
 import play.api.libs.json.{ Json as PlayJson, * }
 import scalalib.Json.given
 import scalalib.paginator.Paginator
+
 import scala.concurrent.Future
 
 // this is probably misplaced, but i figure we should start using Long for offset/length somewhere.

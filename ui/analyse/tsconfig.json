@@ -6,6 +6,7 @@
     { "path": "../chart/tsconfig.json" },
     { "path": "../lib/tsconfig.json" },
     { "path": "../editor/tsconfig.json" },
-    { "path": "../keyboardMove/tsconfig.json" }
+    { "path": "../keyboardMove/tsconfig.json" },
+    { "path": "../studyDb/tsconfig.json" }
   ]
 }

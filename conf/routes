@@ -264,6 +264,13 @@ GET   /study/topic/:topic/:order       controllers.Study.byTopic(topic, order: S
 GET   /study/topic/autocomplete        controllers.Study.topicAutocomplete
 GET   /study/glyphs/:lang.json         controllers.Study.glyphs(lang: String)
 GET   /$lang<\w\w\w?>/study            controllers.Study.homeLang(lang: Language)
+
+POST  /study/db/sync                   controllers.Study.dbSync
+POST  /study/db/search                 controllers.Study.dbSearch
+GET   /study/db/load/$id<\w{8}>        controllers.Study.dbLoadStudy(id: StudyId, chapterId: Option[StudyChapterId] ?= None)
+GET   /study/db/bookmarks              controllers.Study.dbBookmarks
+POST  /study/db/bookmarks              controllers.Study.dbBookmarksSave
+
 POST  /api/study                       controllers.Study.apiCreate
 GET   /api/study/$id<\w{8}>.pgn        controllers.Study.apiPgn(id: StudyId)
 GET   /api/study/$id<\w{8}>/$chapterId<\w{8}>.pgn controllers.Study.apiChapterPgn(id: StudyId, chapterId: StudyChapterId)

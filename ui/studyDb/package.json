@@ -1,0 +1,20 @@
+{
+  "name": "study-db",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "lib": "workspace:*"
+  },
+  "exports": {
+    "./*": {
+      "types": "./*.d.ts",
+      "import": {
+        "source": "./src/*.ts",
+        "default": "./dist/*.js"
+      }
+    }
+  },
+  "build": {
+    "bundle": "src/**/studyDb.*ts"
+  }
+}

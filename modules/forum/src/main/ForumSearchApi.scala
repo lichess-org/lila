@@ -3,7 +3,7 @@ package lila.forum
 import play.api.libs.json.*
 
 import lila.core.id.ForumPostId
-import lila.search.{ SearchClient, SearchApi, PaginatorBuilder }
+import lila.search.{ PaginatorBuilder, SearchApi, SearchClient }
 
 final class ForumSearchApi(elastic: SearchClient, config: ForumConfig)(using Executor)
     extends SearchApi[ForumPostId, ForumSearchApi.Query]:

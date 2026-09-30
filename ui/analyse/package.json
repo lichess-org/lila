@@ -16,7 +16,8 @@
     "lib": "workspace:*",
     "prop-types": "^15.8.1",
     "shepherd.js": "11.2.0",
-    "sortablejs": "^1.15.7"
+    "sortablejs": "^1.15.7",
+    "study-db": "workspace:*"
   },
   "build": {
     "bundle": "src/**/analyse.*ts",

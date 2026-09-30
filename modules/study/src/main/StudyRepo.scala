@@ -207,6 +207,7 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
   def setOwner(study: StudyId, userId: UserId): Funit = for
     _ <- addMember(study, StudyMember(userId, StudyMember.Role.Write))
     _ <- coll(_.update.one(bid(study), bset("ownerId" -> userId)))
+      .addEffect(_ => updateElasticIndex(study))
   yield ()
 
   def membersDoc(id: StudyId): Fu[Option[Bdoc]] =
@@ -329,6 +330,29 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
 
   def updateElasticIndex(studyId: StudyId, now: Boolean = false) =
     lila.common.Bus.pub(hub.IndexStudySearch(studyId, now))
+
+  def incrementMetadataRevisions(revisions: Map[StudyId, Long]): Funit =
+    revisions.nonEmpty.so:
+      coll: collection =>
+        val bulk = collection.update(ordered = false)
+        for
+          updates <- revisions.toList.parallel: (id, count) =>
+            bulk.element(q = bid(id), u = inc("metadataRevision" -> count))
+          _ <- bulk.many(updates)
+        yield ()
+
+  def syncSource(userId: UserId, excludedIds: List[StudyId]): Source[Study, ?] =
+    Source.futureSource:
+      coll.map: collection =>
+        collection
+          .find(
+            or(selectOwnerId(userId), selectMemberId(userId)) ++
+              bdoc("from" -> not(bdoc("$regex" -> "^relay(?: |$)"))) ++ bdoc("_id".nin(excludedIds)),
+            projection.some
+          )
+          .sort(bdoc("updatedAt" -> -1, "_id" -> -1))
+          .cursor[Study]()
+          .documentSource()
 
   private[study] def isAdminMember(study: Study, userId: UserId): Fu[Boolean] =
     coll(_.exists(bid(study.id) ++ bdoc(s"members.$userId.admin" -> true)))

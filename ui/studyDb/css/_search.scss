@@ -1,0 +1,153 @@
+.study-db {
+  .search {
+    flex: 1;
+    min-height: 0;
+    overflow: auto;
+    padding: 8px;
+    container-type: inline-size;
+  }
+
+  .search-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .search-main {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    display: flex;
+    border-radius: $box-radius-size;
+    background: $c-bg-high;
+    cursor: default;
+
+    input {
+      @include study-db-input;
+
+      flex: 1;
+      border-start-end-radius: 0;
+      border-end-end-radius: 0;
+    }
+
+    button {
+      flex: none;
+      width: 28px;
+      border: $border;
+      border-inline-start: 0;
+      border-radius: $box-radius-size;
+      border-start-start-radius: 0;
+      border-end-start-radius: 0;
+      background: $c-bg-low;
+      color: $c-font;
+      cursor: pointer;
+    }
+
+    input:focus-visible,
+    button:focus-visible {
+      outline: none;
+    }
+
+    &:has(input:focus-visible, .search-submit:focus-visible) {
+      outline: 2px solid $c-primary;
+      outline-offset: -2px;
+
+      button {
+        background-color: $c-primary;
+        color: white;
+      }
+    }
+  }
+
+  .search-submit {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .search-fields {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    min-width: 0;
+  }
+
+  .search-field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+    color: $c-font-dim;
+    font-size: 12px;
+
+    input,
+    select {
+      @include study-db-input;
+
+      font-size: 13px;
+    }
+
+    select {
+      cursor: pointer;
+    }
+  }
+
+  .search-order {
+    @include study-db-input;
+
+    flex: 0 0 76px;
+    border-inline-start: 0;
+    border-radius: 0;
+    background: $c-bg-zebra;
+    font-size: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
+  }
+
+  .search-players {
+    grid-column: 1 / -1;
+  }
+
+  .search-players,
+  .search-pair {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    min-width: 0;
+  }
+
+  .search-player {
+    display: grid;
+    gap: 8px;
+    min-width: 0;
+    margin: 0;
+    padding: 6px 8px 8px;
+    border: $border;
+    border-radius: $box-radius-size;
+    background: $c-bg-zebra;
+
+    legend {
+      max-width: 100%;
+      padding: 0 4px;
+      color: $c-font;
+
+      select {
+        @include study-db-input;
+
+        max-width: 100%;
+        padding: 2px 4px;
+        border: 0;
+        background: $c-bg-high;
+        font-size: 12px;
+        cursor: pointer;
+      }
+    }
+  }
+
+  @container (max-width: 300px) {
+    .search-fields {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+}

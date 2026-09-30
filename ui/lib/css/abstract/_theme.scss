@@ -48,3 +48,7 @@ $outline: 2px solid $c-primary;
     z-index: -1;
   }
 }
+
+@function opaque($color) {
+  @return hsl(from $color h s l / 1);
+}

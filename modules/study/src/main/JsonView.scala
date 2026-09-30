@@ -94,6 +94,50 @@ final class JsonView(
       )
       .add("flair", s.study.flair)
 
+  def studyDbMetadata(study: Study, chapters: List[Chapter.Metadata], userId: UserId): JsObject =
+    val role =
+      if study.isOwner(userId) then Some("owner")
+      else if study.isMember(userId) then
+        Some(if study.canContribute(userId) then "contributor" else "member")
+      else None
+    Json
+      .obj(
+        "studyId" -> study.id,
+        "studyName" -> study.name,
+        "metadataRevision" -> study.metadataRevision,
+        "ownerId" -> study.ownerId,
+        "owner" -> lightUserApi.syncFallback(study.ownerId),
+        "members" -> study.members.members.values,
+        "visibility" -> study.visibility,
+        "public" -> study.isPublic,
+        "topics" -> study.topicsOrEmpty,
+        "likes" -> study.likes,
+        "createdAt" -> study.createdAt.toEpochMilli,
+        "updatedAt" -> study.updatedAt.toEpochMilli,
+        "settings" -> study.settings,
+        "from" -> study.from,
+        "chapterCount" -> chapters.size,
+        "chapters" -> chapters.map: chapter =>
+          Json
+            .obj(
+              "id" -> chapter.id,
+              "name" -> chapter.name,
+              "setup" -> chapter.setup,
+              "variant" -> chapter.setup.variant.key,
+              "tags" -> chapter.tags,
+              "order" -> chapter.order,
+              "ownerId" -> chapter.ownerId,
+              "createdAt" -> chapter.createdAt.toEpochMilli
+            )
+            .add("description", chapter.description)
+            .add("conceal", chapter.conceal)
+            .add("practice", chapter.practice)
+            .add("gamebook", chapter.gamebook)
+      )
+      .add("role", role)
+      .add("flair", study.flair)
+      .add("description", study.description)
+
   private def addChapterMode(c: Chapter)(js: JsObject): JsObject =
     js.add("practice", c.isPractice)
       .add("gamebook", c.isGamebook)
@@ -112,6 +156,7 @@ final class JsonView(
       .obj(
         "id" -> s.id,
         "name" -> s.name,
+        "metadataRevision" -> s.metadataRevision,
         "members" -> s.members,
         "position" -> s.position,
         "ownerId" -> s.ownerId,

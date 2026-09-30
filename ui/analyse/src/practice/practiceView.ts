@@ -81,7 +81,8 @@ function renderRunning(root: AnalyseCtrl, ctrl: PracticeCtrl): VNode {
   ]);
 }
 
-export function renderCustomPearl({ ceval }: AnalyseCtrl, hardMode: boolean): VNode {
+export function renderCustomPearl({ ceval }: AnalyseCtrl, hardMode: boolean): VNode | undefined {
+  if (!ceval) return undefined;
   if (hardMode) {
     const time = i18n.site.nbSeconds(
       !isFinite(ceval.storedMovetime()) ? 300 : Math.round(ceval.storedMovetime() / 1000),
@@ -95,7 +96,7 @@ export function renderCustomPearl({ ceval }: AnalyseCtrl, hardMode: boolean): VN
 }
 
 export const renderCustomStatus = ({ ceval }: AnalyseCtrl, hardMode: Prop<boolean>): VNode | undefined =>
-  ceval.isComputing
+  !ceval || ceval.isComputing
     ? undefined
     : hl(
         'button.status.button-link',

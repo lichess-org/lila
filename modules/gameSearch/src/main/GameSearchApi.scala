@@ -3,7 +3,7 @@ package lila.gameSearch
 import org.apache.pekko.stream.scaladsl.*
 import play.api.libs.json.*
 
-import lila.search.{ SearchClient, SearchApi }
+import lila.search.{ SearchApi, SearchClient }
 
 // see file://./../../../../bin/elastic/game.ts
 

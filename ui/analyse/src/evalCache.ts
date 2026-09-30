@@ -66,7 +66,6 @@ function toCeval(e: EvalHit): ClientEval {
   if (defined(res.pvs[0].cp)) res.cp = res.pvs[0].cp;
   else res.mate = res.pvs[0].mate;
   if (e.engineId) res.engineId = e.engineId;
-  res.cloud = true;
   return res;
 }
 

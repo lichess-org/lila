@@ -1,7 +1,7 @@
 package lila.gameSearch
 package ui
 
-import play.api.data.{ Form, Field }
+import play.api.data.{ Field, Form }
 
 import java.time.format.DateTimeFormatter
 
