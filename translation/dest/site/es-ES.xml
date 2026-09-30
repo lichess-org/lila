@@ -807,12 +807,14 @@ Jugar por puntos aumentará la estabilidad.</string>
   <string name="enableKidMode">Activar el modo infantil</string>
   <string name="disableKidMode">Desactivar el modo infantil</string>
   <string name="security">Seguridad</string>
+  <string name="activeSessionsDescription">Esta es una lista de dispositivos y aplicaciones que han iniciado sesión en tu cuenta. Si notas alguna actividad sospechosa, Asegúrate de revisar &lt;a href=\'%1$s\'&gt;tu dirección de correo electrónico de recuperación&lt;/a&gt; y &lt;a href=\'%2$s\'&gt;cambiar tu contraseña&lt;/a&gt;.</string>
   <string name="sessions">Sesiones</string>
   <string name="revokeAllSessions">cerrar todas las sesiones</string>
   <string name="playChessEverywhere">Juega al ajedrez donde sea</string>
   <string name="everybodyGetsAllFeaturesForFree">Todos tienen acceso gratuito a todas las funciones</string>
   <string name="viewTheSolution">Ver la solución</string>
   <string name="noChallenges">Sin desafíos.</string>
+  <string name="browserNotificationsDenied">Ventanas de notificación desactivadas por configuración del navegador</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">¡Disponible en %s idioma!</item>
     <item quantity="other">¡Disponible en %s idiomas!</item>

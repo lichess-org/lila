@@ -194,7 +194,7 @@
   </plurals>
   <string name="viewInFullSize">In voller Größe anzeigen</string>
   <string name="logOut">Abmelden</string>
-  <string name="signIn">Einloggen</string>
+  <string name="signIn">Anmelden</string>
   <string name="rememberMe">Angemeldet bleiben</string>
   <string name="youNeedAnAccountToDoThat">Dazu brauchst du ein Benutzerkonto</string>
   <string name="signUp">Registrieren</string>
@@ -807,12 +807,14 @@ Wenn du gewertete Partien spielst, wird die Stabilität erhöht.</string>
   <string name="enableKidMode">Kindermodus aktivieren</string>
   <string name="disableKidMode">Kindermodus deaktivieren</string>
   <string name="security">Sicherheit</string>
+  <string name="activeSessionsDescription">Dies ist eine Liste and Geräten und Applikationen, welche mit deinem Benutzerkonto angemeldet sind. Falls du irgedwelche verdächtigen Aktivitäten erkennst, stelle sicher &lt;a href=\'%1$s\'&gt;, überprüfe deine Wiederherstellungs-Mailadresse &lt;/a&gt;und &lt;a href=\'%2$s\'&gt;ändere dein Passwort&lt;/a&gt;.</string>
   <string name="sessions">Sitzungen</string>
   <string name="revokeAllSessions">alle Sitzungen beenden</string>
   <string name="playChessEverywhere">Spiele Schach überall</string>
   <string name="everybodyGetsAllFeaturesForFree">Jeder erhält alle Funktionen völlig kostenlos</string>
   <string name="viewTheSolution">Lösung ansehen</string>
   <string name="noChallenges">Keine Herausforderungen.</string>
+  <string name="browserNotificationsDenied">Benachrichtigungs-Popups durch Browsereinstellungen deaktiviert</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Verfügbar in %s Sprache!</item>
     <item quantity="other">Verfügbar in %s Sprachen!</item>

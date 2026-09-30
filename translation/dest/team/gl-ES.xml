@@ -16,6 +16,7 @@
   <string name="quitTeam">Saír do equipo</string>
   <string name="manuallyReviewAdmissionRequests">Revisar manualmente as solicitudes de admisión</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Se está marcado, os xogadores terán que solicitar unirse ao equipo e ti poderás aceptalos ou rexeitalos.</string>
+  <string name="hideMembersDesc" comment="Checkbox label: option to hide the team member list from non-members">Ocultar a lista dos membros do equipo ós que non son membros.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Líder do equipo</item>
     <item quantity="other">Líderes do equipo</item>
@@ -49,6 +50,9 @@
   <string name="entryCode">Código de entrada no equipo</string>
   <string name="entryCodeDescriptionForLeader">(Opcional) Un contrasinal que os novos membros deben saber para unirse a este equipo.</string>
   <string name="incorrectEntryCode">Código de entrada incorrecto.</string>
+  <string name="forumLabel">Foro do equipo</string>
+  <string name="forumVisibilityHelp">Quen pode ver o foro do equipo na páxina do equipo?&lt;br&gt;Só os membros do equipo poden comentar no foro do equipo.</string>
+  <string name="forumVisibilityNone">Agochar o foro</string>
   <string name="teamAlreadyExists">Este equipo xa existe.</string>
   <string name="upcomingTournaments">Vindeiros torneos</string>
   <string name="completedTourns">Torneos finalizados</string>

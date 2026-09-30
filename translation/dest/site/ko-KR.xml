@@ -770,12 +770,14 @@
   <string name="enableKidMode">어린이 모드 활성화하기</string>
   <string name="disableKidMode">어린이 모드 비활성화하기</string>
   <string name="security">보안</string>
+  <string name="activeSessionsDescription">귀하의 계정에 로그인되어 있는 디바이스와 애플리케이션의 목록입니다. 의심스러운 활동이 확인된다면, 반드시 &lt;a href=\'%1$s\'&gt;복구 이메일 주소를 확인&lt;/a&gt;하고 &lt;a href=\'%2$s\'&gt;비밀번호를 변경&lt;/a&gt;하십시오.</string>
   <string name="sessions">세션</string>
   <string name="revokeAllSessions">모든 세션 비활성화</string>
   <string name="playChessEverywhere">어디에서나 체스를 즐기세요</string>
   <string name="everybodyGetsAllFeaturesForFree">모두가 모든 기능을 무료로 이용할 수 있습니다</string>
   <string name="viewTheSolution">정답 보기</string>
   <string name="noChallenges">도전 없음.</string>
+  <string name="browserNotificationsDenied">브라우저 설정에 의해 알림 팝업이 비활성화됨</string>
   <plurals name="availableInNbLanguages">
     <item quantity="other">%s개의 언어를 지원합니다!</item>
   </plurals>

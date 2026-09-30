@@ -6,6 +6,9 @@
   <string name="tokenDescription">Opis tokenu</string>
   <string name="rememberTokenUse">Pamiętaj więc do czego służy ten token</string>
   <string name="whatTheTokenCanDo">Co token może zrobić w Twoim imieniu:</string>
+  <string name="oauthCatUserAccount">Konto użytkownika</string>
+  <string name="oauthCatStudiesBroadcasts">Opracowania &amp; Transmisje</string>
+  <string name="oauthCatExternalEngine">Silnik zewnętrzny</string>
   <string name="doNotShareIt">Token zapewni dostęp do Twojego konta. NIE udostępniaj go nikomu!</string>
   <string name="copyTokenNow">Skopiuj swój nowy osobisty token dostępu. Nie można go zobaczyć ponownie!</string>
   <string name="preferenceRead">Odczyt ustawień</string>
@@ -19,6 +22,7 @@
   <string name="tournamentWrite">Tworzenie, edycja i dołączanie do turniejów</string>
   <string name="racerWrite">Tworzenie i dołączanie do wyścigów w rozwiązywaniu zadań</string>
   <string name="puzzleRead">Odczyt aktywności w rozwiązywaniu zadań</string>
+  <string name="puzzleWrite">Rozwiąż zadania</string>
   <string name="teamRead">Odczyt prywatnych informacji o klubie</string>
   <string name="teamWrite">Dołączanie, opuszczanie i zarządzanie klubem</string>
   <string name="manageTeamsYouLead">Zarządzaj klubami, które prowadzisz: wysyłaj bezpośrednie wiadomości, wyrzucaj członków</string>

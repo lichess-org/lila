@@ -101,7 +101,7 @@
   <string name="maxRatingX">Puntuació màxima de %s</string>
   <string name="recentGames">Partides recents</string>
   <string name="topGames">Millors partides</string>
-  <string name="masterDbExplanation">Dos milions de partides OTB de jugadors amb ELO FIDE +%1$s des de %2$s fins a %3$s</string>
+  <string name="masterDbExplanation">Dos milions de partides OTB de jugadors amb Elo FIDE +%1$s des de %2$s fins a %3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Mat en %s mig-moviment</item>
     <item quantity="other">Mat en %s jugades</item>
@@ -795,12 +795,14 @@ Juga partides puntuades per augmentar l\'estabilitat.</string>
   <string name="enableKidMode">Activar el mode de nen</string>
   <string name="disableKidMode">Desactivar el mode de nen</string>
   <string name="security">Seguretat</string>
+  <string name="activeSessionsDescription">Aquesta és una llista dels dispositius i aplicacions que estan autentificades al vostre compte. Si detecteu alguna activitat sospitosa, assegureu-vos de &lt;a href=\'%1$s\'&gt;comprovar el vostre correu de recuperació&lt;/a&gt; i &lt;a href=\'%2$s\'&gt;canviar la vostra contrasenya&lt;/a&gt;.</string>
   <string name="sessions">Sessions</string>
   <string name="revokeAllSessions">tancar totes les sessions</string>
   <string name="playChessEverywhere">Jugueu a escacs a qualsevol lloc</string>
   <string name="everybodyGetsAllFeaturesForFree">Tothom accedeix gratuïtament a totes les funcions</string>
   <string name="viewTheSolution">Veure la solució</string>
   <string name="noChallenges">Sense desafiaments.</string>
+  <string name="browserNotificationsDenied">Les notificacions han estat desactivades per la configuració del navegador</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Disponible en %s idiomes</item>
     <item quantity="other">Disponible en %s idiomes</item>

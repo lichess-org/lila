@@ -16,6 +16,7 @@
   <string name="quitTeam">Team verlassen</string>
   <string name="manuallyReviewAdmissionRequests">Beitrittsanfragen manuell überprüfen</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Wenn diese Option aktiviert ist, müssen Spieler eine Anfrage schreiben, um dem Team beizutreten, welche du ablehnen oder akzeptieren kannst.</string>
+  <string name="hideMembersDesc" comment="Checkbox label: option to hide the team member list from non-members">Teammitgliederliste bei Nicht-Mitgliedern ausblenden.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Teamleiter</item>
     <item quantity="other">Teamleiter</item>
@@ -49,6 +50,9 @@
   <string name="entryCode">Teambeitrittscode</string>
   <string name="entryCodeDescriptionForLeader">(Optional) Ein Passwort, das neue Teammitglieder kennen müssen, um dem Team beizutreten.</string>
   <string name="incorrectEntryCode">Falscher Beitrittscode.</string>
+  <string name="forumLabel">Teamforum</string>
+  <string name="forumVisibilityHelp">Wer kann das Teamforum auf der Teamseite sehen?&lt;br&gt;Nur Teammitglieder können im Teamforum posten.</string>
+  <string name="forumVisibilityNone">Forum ausblenden</string>
   <string name="teamAlreadyExists">Dieses Team existiert bereits.</string>
   <string name="upcomingTournaments">Kommende Turniere</string>
   <string name="completedTourns">Beendete Turniere</string>

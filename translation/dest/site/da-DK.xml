@@ -807,12 +807,14 @@ At spille ratede partier vil øge stabiliteten.</string>
   <string name="enableKidMode">Aktiver børnetilstand</string>
   <string name="disableKidMode">Deaktiver børnetilstand</string>
   <string name="security">Sikkerhed</string>
+  <string name="activeSessionsDescription">Dette er en liste over enheder og applikationer, der er logget ind på din konto. Hvis du bemærker mistænkelig aktivitet, skal du sørge for at &lt;a href=\'%1$s\'&gt;tjekke din e-mailadresse til gendannelse&lt;/a&gt; and &lt;a href=\'%2$s\'&gt;ændre din adgangskode&lt;/a&gt;.</string>
   <string name="sessions">Sessioner</string>
   <string name="revokeAllSessions">annuller alle sessioner</string>
   <string name="playChessEverywhere">Spil skak hvor som helst</string>
   <string name="everybodyGetsAllFeaturesForFree">Alle får alle funktioner gratis</string>
   <string name="viewTheSolution">Se løsningen</string>
   <string name="noChallenges">Ingen udfordringer.</string>
+  <string name="browserNotificationsDenied">Notifikationspop-vinduer deaktiveret af browserindstilling</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Tilgængelig på %s sprog!</item>
     <item quantity="other">Tilgængelig på %s sprog!</item>

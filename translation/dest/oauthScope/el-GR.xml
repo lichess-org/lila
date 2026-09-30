@@ -6,6 +6,8 @@
   <string name="tokenDescription">Περιγραφή διακριτικού</string>
   <string name="rememberTokenUse">Για να θυμόσαστε τον σκοπό του διακριτικού</string>
   <string name="whatTheTokenCanDo">Δικαιώματα και άδειες διακριτικού:</string>
+  <string name="oauthCatUserAccount">Λογαριασμός χρήστη</string>
+  <string name="oauthCatInteractions">Αλληλεπιδράσεις</string>
   <string name="doNotShareIt">Το διακριτικό θα δώσει πρόσβαση στον λογαριασμό σας. ΜΗΝ το μοιραστείτε με κανέναν!</string>
   <string name="copyTokenNow">Βεβαιωθείτε ότι έχετε αντιγράψει το νέο σας διακριτικό. Δε θα μπορέσετε να το δείτε ξανά!</string>
   <string name="preferenceRead">Ανάγνωση των ρυθμίσεών σας</string>
@@ -19,6 +21,7 @@
   <string name="tournamentWrite">Δημιουργία, ενημέρωση και συμμετοχή σε τουρνουά</string>
   <string name="racerWrite">Δημιουργία και συμμετοχή σε αγώνες τακτικών</string>
   <string name="puzzleRead">Ανάγνωση ιστορικού τακτικών</string>
+  <string name="puzzleWrite">Λύστε γρίφων</string>
   <string name="teamRead">Ανάγνωση ιδιωτικών πληροφοριών ομάδας</string>
   <string name="teamWrite">Συμμετοχή και αποχώρηση από ομάδες</string>
   <string name="followRead">Ανάγνωση των χρηστών που ακολουθείτε</string>

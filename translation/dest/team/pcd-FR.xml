@@ -16,6 +16,7 @@
   <string name="quitTeam">Quitter l\'équipe</string>
   <string name="manuallyReviewAdmissionRequests">Examiner manuellement les demandes d\'admission</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Si coché, les joueurs devront rédiger une demande pour rejoindre l\'équipe, que vous pourrez refuser ou accepter.</string>
+  <string name="hideMembersDesc" comment="Checkbox label: option to hide the team member list from non-members">Cacher la liste des membres de l\'équipe aux non-membres</string>
   <plurals name="teamLeaders">
     <item quantity="one">Chef d\'équipe</item>
     <item quantity="other">Chefs d\'équipe</item>
@@ -49,6 +50,9 @@
   <string name="entryCode">Mot de passe de l’équipe</string>
   <string name="entryCodeDescriptionForLeader">(Optionnel) Mot de passe que les nouveaux membres doivent connaître pour se joindre à l\'équipe.</string>
   <string name="incorrectEntryCode">Mot de passe incorrect.</string>
+  <string name="forumLabel">Forum de l\'équipe</string>
+  <string name="forumVisibilityHelp">Qui peut voir le forum de l\'équipe sur la page de l\'équipe?&lt;br&gt;Seuls les membres de l\'équipe peuvent publier un message dans le forum de l\'équipe.</string>
+  <string name="forumVisibilityNone">Cacher le forum</string>
   <string name="teamAlreadyExists">Cette équipe existe déjà.</string>
   <string name="upcomingTournaments">Tournois à venir</string>
   <string name="completedTourns">Tournois terminés</string>
