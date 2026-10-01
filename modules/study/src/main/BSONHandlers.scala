@@ -164,7 +164,7 @@ object BSONHandlers:
       .flatMap(_.score)
       .map: score =>
         if eval.exists(_.static) then bdoc(Node.BsonFields.static -> score)
-        else summon[BSONWriter[WhiteScore]].writeTry(score).get
+        else bsonWriteOpt(score).get
 
   // shallow read, as not reading children
   private[study] def readBranch(doc: Bdoc): Option[Branch] =
@@ -211,7 +211,7 @@ object BSONHandlers:
       F.shapes -> n.shapes.value.nonEmpty.option(n.shapes),
       F.comments -> n.comments.value.nonEmpty.option(n.comments),
       F.gamebook -> n.gamebook,
-      F.glyphs -> n.glyphs.value.nonEmpty.option(n.glyphs),
+      F.glyphs -> n.glyphs.nonEmptyOption,
       F.score -> writeEval(n.eval),
       F.clock -> n.clock,
       F.crazy -> n.crazyData,
@@ -244,7 +244,7 @@ object BSONHandlers:
           F.shapes -> r.shapes.value.nonEmpty.option(r.shapes),
           F.comments -> r.comments.value.nonEmpty.option(r.comments),
           F.gamebook -> r.gamebook,
-          F.glyphs -> r.glyphs.value.nonEmpty.option(r.glyphs),
+          F.glyphs -> r.glyphs.nonEmptyOption,
           F.score -> writeEval(r.eval),
           F.clock -> r.clock,
           F.crazy -> r.crazyData
