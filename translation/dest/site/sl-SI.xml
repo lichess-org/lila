@@ -1107,4 +1107,5 @@ Vsi operativni stroški, razvoj in vsebina se financirajo izključno iz donacij 
   <string name="thereAreNoResultsForX">Ni rezultatov za \"%s\"</string>
   <string name="tags">Oznake</string>
   <string name="enPassant">En passant</string>
+  <string name="done">Opravljeno</string>
 </resources>

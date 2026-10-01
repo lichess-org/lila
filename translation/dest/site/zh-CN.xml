@@ -1019,4 +1019,5 @@
   <string name="boards">棋盘</string>
   <string name="write">撰写</string>
   <string name="preview">预览</string>
+  <string name="done">完成</string>
 </resources>

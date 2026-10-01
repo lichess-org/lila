@@ -1,2 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="signUpToSaveYourProgress">Progressni saqlash uchun kiring</string>
+  <string name="secHeadCheckmates">Mot</string>
+  <string name="secHeadFundamentalTactics">Fundamental taktikalar</string>
+  <string name="secHeadPawnEndgames">Piyodali endshpil</string>
+  <string name="secHeadRookEndgames">Ruxli endshpil</string>
+  <string name="stNamThePin">Ochmas</string>
+  <string name="stNamTheSkewer">Shampur</string>
+  <string name="stNamTheFork">Vilka</string>
+  <string name="stNamXRay">Rentgen</string>
+  <string name="stNamZugzwang">Sugsvang</string>
+</resources>
