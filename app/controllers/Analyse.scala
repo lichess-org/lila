@@ -235,20 +235,6 @@ final class Analyse(
       env.study.serverEvalMerger.remove(studyId, chapterId).inject(NoContent)
   }
 
-  def divisionXhr = OpenBodyOf(parse.json): ctx ?=>
-    val json = ctx.body.body
-    val parsed = for
-      variantKey <- (json \ "variant").validate[String]
-      variant <- Variant(Variant.LilaKey(variantKey)).fold[JsResult[Variant]](
-        JsError(s"Invalid variant: $variantKey")
-      )(JsSuccess(_))
-      initialFen <- (json \ "initialFen")
-        .validateOpt[String]
-        .map(_.map(fen => Fen.Full.clean(fen): Fen.Full))
-      sans <- (json \ "moves").validate[Vector[String]].map(_.map(SanStr(_)))
-    yield env.game.divider(sans, variant, initialFen)
-    parsed.fold(errs => BadRequest(errs.mkString("\n")).toFuccess, JsonOk(_))
-
   def reviewXhr = OpenBodyOf(parse.json): ctx ?=>
     val json = ctx.body.body
     val parsed = for
