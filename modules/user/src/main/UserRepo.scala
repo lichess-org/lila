@@ -180,7 +180,8 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
 
   val enabledSelect = bdoc(F.enabled -> true)
   val disabledSelect = bdoc(F.enabled -> false)
-  val notForeverClosedSelect = F.foreverClosed.neq(true)
+  val notForeverClosedSelect =
+    bdoc(F.foreverClosed.neq(true), F.delete.exists(false), F.deletedAt.exists(false))
   def markSelect(mark: UserMark)(v: Boolean): Bdoc =
     if v then bdoc(F.marks -> mark.key)
     else F.marks.neq(mark.key)
@@ -390,12 +391,8 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
 
     def findNextScheduled: Fu[Option[User]] =
       val requestedAt = nowInstant.minusDays(7)
-      coll
-        .find:
-          bdoc( // hits the delete.requested_1 index
-            s"${F.delete}.requested".lt(requestedAt),
-            s"${F.delete}.done" -> false
-          )
+      coll.secondary
+        .find(bdoc(s"${F.delete}.requested".lt(requestedAt)))
         .sort(bdoc(s"${F.delete}.requested" -> 1))
         .one[User]
 
