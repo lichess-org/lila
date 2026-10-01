@@ -29,7 +29,5 @@ jobs:
 
       - name: Make sure `./ui/build` requirements are satisfied
         shell: devenv shell -- bash -e {0}
-        env:
-          pnpm_config_pm_on_fail: error
         run: |
           ./ui/build --help
