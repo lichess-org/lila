@@ -29,4 +29,3 @@ patchedDependencies:
 minimumReleaseAgeExclude:
   - '@lichess-org/*'
   - chessops@0.15.1
-  - tsx@4.23.5
