@@ -148,18 +148,18 @@ Solo conlleva 5 minutos.
 Tus respuestas irán directamente al equipo de Lichess.`,
   },
   fr: {
-    0: `Participez à notre sondage ! Ça ne prend que 5 minutes ! Lichess va avoir 16 ans. Nous voulons en savoir plus sur votre expérience pour nous aider à l'améliorer.
+    0: `Participez à notre sondage ! Ça ne prend que 5 minutes ! Lichess va avoir 16 ans. Nous voulons en savoir plus sur votre expérience pour nous aider à l'améliorer.
 
 Donnez-nous votre opinion ici : {URL}
 
-Merci !`,
-    1: `Vous avez 5 minutes pour nous aider à améliorer Lichess?
+Merci !`,
+    1: `Vous avez 5 minutes pour nous aider à améliorer Lichess ?
 
-Nous souhaitons avoir vos commentaires comme utilisateur de Lichess pour nous aider à améliorer votre expérience. Nous vous invitons à remplir un court sondage : {URL}`,
-    2: `Comment peut-on améliorer Lichess? Entrez vos suggestions ici : {URL}
+Nous souhaitons avoir vos commentaires comme utilisateur de Lichess pour nous aider à améliorer votre expérience. Nous vous invitons à remplir un court sondage : {URL}`,
+    2: `Comment peut-on améliorer Lichess ? Entrez vos suggestions ici : {URL}
 
 Le sondage ne prend que 5 minutes. Vos réponses nous aideront à décider ce qu'il faut améliorer.`,
-    3: `Aidez-nous à améliorer Lichess. Répondez à notre sondage : {URL}
+    3: `Aidez-nous à améliorer Lichess. Répondez à notre sondage : {URL}
 Il ne prend que 5 minutes.
 
 Vos réponses vont directement à l'équipe Lichess.`,
