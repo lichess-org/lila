@@ -2681,6 +2681,8 @@ interface I18n {
     zenMode: string;
   };
   puzzle: {
+    /** About puzzle themes */
+    aboutPuzzleThemes: string;
     /** Add another theme */
     addAnotherTheme: string;
     /** Advanced */

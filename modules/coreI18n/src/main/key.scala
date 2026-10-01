@@ -1430,6 +1430,7 @@ object I18nKey:
     val `hardest`: I18nKey = "puzzle:hardest"
     val `example`: I18nKey = "puzzle:example"
     val `addAnotherTheme`: I18nKey = "puzzle:addAnotherTheme"
+    val `aboutPuzzleThemes`: I18nKey = "puzzle:aboutPuzzleThemes"
     val `nextPuzzle`: I18nKey = "puzzle:nextPuzzle"
     val `jumpToNextPuzzleImmediately`: I18nKey = "puzzle:jumpToNextPuzzleImmediately"
     val `puzzleDashboard`: I18nKey = "puzzle:puzzleDashboard"

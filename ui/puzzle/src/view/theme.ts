@@ -136,7 +136,7 @@ const editor = (ctrl: PuzzleCtrl): VNode[] => {
           hl(
             'a.puzzle__themes__study.text',
             { attrs: { 'data-icon': licon.InfoCircle, href: STUDY_URL, target: '_blank' } },
-            'About puzzle themes',
+            i18n.puzzle.aboutPuzzleThemes,
           ),
         ]
       : []),
