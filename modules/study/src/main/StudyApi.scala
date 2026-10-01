@@ -170,7 +170,7 @@ final class StudyApi(
         .byId(lila.tree.Analysis.Id(gameId))
         .map:
           _.fold(chapter): analysis =>
-            ServerEval
+            serverEval
               .replace(chapter, analysis.some)
               .copy(
                 serverEval = Chapter.ServerEval(path = chapter.root.mainlinePath, done = true).some,

@@ -232,9 +232,7 @@ private def analysisLine(root: Node, variant: chess.variant.Variant, info: Info)
   val (result, error) = setup.position
     .foldRight(info.variation.take(20), setup.ply)(
       none[Branch],
-      (step, acc) =>
-        inline def branch = makeBranch(step.move, step.ply)
-        acc.fold(branch)(acc => branch.addChild(acc)).some
+      (step, acc) => acc.foldLeft(makeBranch(step.move, step.ply))(_.addChild(_)).some
     )
   error.foreach(e => logger.info(e.value))
   result
