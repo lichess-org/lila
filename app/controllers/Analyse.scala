@@ -13,7 +13,6 @@ import lila.common.HTTPRequest
 import lila.core.misc.lpv.LpvEmbed
 import lila.game.PgnDump
 import lila.oauth.AccessToken
-import lila.study.Study.WithChapter
 import lila.tree.{ ExportOptions, Analysis }
 
 final class Analyse(
@@ -192,47 +191,6 @@ final class Analyse(
 
   def externalEngineDelete(id: String) = AuthOrScoped(_.Engine.Write) { _ ?=> me ?=>
     env.analyse.externalEngine.delete(me, id).elseNotFound(jsonOkResult)
-  }
-
-  private def WithStudyContributor(id: Analysis.Id)(
-      f: lila.study.Chapter => Fu[Result]
-  )(using Context, Me): Fu[Result] = id match
-    case Analysis.Id.Study(studyId, chapterId) =>
-      Found(env.study.api.byIdWithChapter(studyId, chapterId)):
-        case WithChapter(study, chapter) =>
-          if study.canContribute(summon[Me]) then f(chapter) else forbiddenJson()
-    case Analysis.Id.Game(_) => fuccess(BadRequest("Study analysis required"))
-
-  def postAnalysisXhr = AuthBody(parse.json) { ctx ?=> me ?=>
-    ctx.body.body.validate[lila.analyse.Analysis] match
-      case JsError(errs) => fuccess(BadRequest(errs.mkString("\n")))
-      case JsSuccess(uploaded, _) =>
-        WithStudyContributor(uploaded.id): chapter =>
-          val moves = chess.format
-            .UciDump(
-              moves = chapter.root.mainline.map(_.move.san),
-              initialFen = chapter.root.fen.some,
-              variant = chapter.setup.variant
-            )
-            .toOption
-            .map(_.flatMap(chess.format.Uci.apply).map(_.uci).mkString(" ")) | ""
-          for
-            requested <- env.fishnet.api.userAnalysisExists(uploaded.id)
-            result <-
-              if requested then fuccess(Locked)
-              else
-                env.analyse.analyser
-                  .save(
-                    uploaded,
-                    (() => Analysis.positionHash(chapter.setup.variant, chapter.root.fen.some, moves)).some
-                  )
-                  .inject(Ok)
-          yield result
-  }
-
-  def deleteAnalysisXhr(studyId: StudyId, chapterId: StudyChapterId) = Auth { _ ?=> me ?=>
-    WithStudyContributor(Analysis.Id(studyId, chapterId)): _ =>
-      env.study.serverEvalMerger.remove(studyId, chapterId).inject(NoContent)
   }
 
   def reviewXhr = OpenBodyOf(parse.json): ctx ?=>

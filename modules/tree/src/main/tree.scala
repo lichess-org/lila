@@ -40,13 +40,6 @@ object Branches:
     def get(id: UciCharPair): Option[Branch] = nodes.find(_.id == id)
     def hasNode(id: UciCharPair): Boolean = nodes.exists(_.id == id)
 
-    def hasNonComp: Boolean =
-      nodes.exists: node =>
-        !node.comp ||
-          node.comments.withoutComp.value.nonEmpty ||
-          node.glyphs.withoutComp.value.nonEmpty ||
-          node.children.hasNonComp
-
     def nodeAt(path: UciPath): Option[Branch] =
       path.split.flatMap: (head, rest) =>
         rest.computeIds.foldLeft(get(head)): (cur, id) =>
@@ -396,7 +389,6 @@ object Node:
     extension (a: Shapes) def ++(shapes: Shapes): Shapes = (a ::: shapes.value).distinct
     val empty: Shapes = Nil
 
-  // scalachess Glyph and Glyphs are wrapped here to carry lila-specific 'comp' flag
   case class Glyph(value: BaseGlyph, comp: Boolean = false):
     export value.{ id, name, symbol }
 
@@ -412,11 +404,9 @@ object Node:
       def toBase = split(glyphs, false).merge(split(glyphs, true))
       def merge(other: Glyphs): Glyphs =
         fromBase(split(glyphs, false).merge(split(other, false))) :::
-          fromBase(split(glyphs, true).merge(split(other, true)), comp = true) // partitions can contain dups
+          fromBase(split(glyphs, true).merge(split(other, true)), comp = true)
       def toggle(glyph: BaseGlyph): Glyphs =
         fromBase(split(glyphs, false).toggle(glyph)) ::: glyphs.value.filter(_.comp)
-      def withoutComp: Glyphs = glyphs.value.filterNot(_.comp)
-      def bake: Glyphs = fromBase(toBase) // dedups
       def nonEmptyOption: Option[Glyphs] = Option.when(glyphs.nonEmpty)(glyphs)
 
     val empty: Glyphs = Nil
@@ -498,9 +488,6 @@ object Node:
       def ++(comments: Comments): Comments = a ::: comments.value
       def filterEmpty: Comments = a.filter(_.text.value.nonEmpty)
       def hasLichessComment = a.exists(_.by == Comment.Author.Lichess)
-      def hasComp = a.exists(_.comp)
-      def withoutComp: Comments = a.filterNot(_.comp)
-      def bake: Comments = a.map(_.copy(comp = false))
     val empty = Comments(Nil)
 
   case class Gamebook(deviation: Option[String], hint: Option[String]):

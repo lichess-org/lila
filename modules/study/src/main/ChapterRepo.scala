@@ -297,6 +297,16 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, org.apache.pekko.st
 
   def update(c: Chapter): Funit = coll(_.update.one(bid(c.id), c.updateDenorm)).void
 
+  private[study] def updateAnalysis(previous: Chapter, next: Chapter): Funit =
+    val (sets, unsets) = BSONHandlers.treeDiff(previous.root, next.root)
+    coll:
+      _.update
+        .one(
+          bid(previous.id),
+          bset(sets ++ bdoc("serverEval" -> next.serverEval)) ++ unset(unsets :+ "analysisGameId")
+        )
+        .void
+
   def delete(id: StudyChapterId): Funit = coll(_.delete.one(bid(id))).void
   def delete(c: Chapter): Funit = delete(c.id)
 

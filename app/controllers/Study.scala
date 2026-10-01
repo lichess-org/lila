@@ -240,6 +240,47 @@ final class Study(
           sc.chapter.analysisGameId.fold(Analysis.Id(sc.study.id, sc.chapter.id))(Analysis.Id(_))
         )
 
+  private def WithStudyContributor(id: Analysis.Id)(
+      f: Chapter => Fu[Result]
+  )(using Context, Me): Fu[Result] = id match
+    case Analysis.Id.Study(studyId, chapterId) =>
+      Found(env.study.api.byIdWithChapter(studyId, chapterId)):
+        case WithChapter(study, chapter) =>
+          if study.canContribute(summon[Me]) then f(chapter) else forbiddenJson()
+    case Analysis.Id.Game(_) => fuccess(BadRequest("Study analysis required"))
+
+  def postAnalysisXhr = AuthBody(parse.json) { ctx ?=> me ?=>
+    ctx.body.body.validate[Analysis] match
+      case JsError(errs) => fuccess(BadRequest(errs.mkString("\n")))
+      case JsSuccess(uploaded, _) =>
+        WithStudyContributor(uploaded.id): chapter =>
+          val moves = chess.format
+            .UciDump(
+              moves = chapter.root.mainline.map(_.move.san),
+              initialFen = chapter.root.fen.some,
+              variant = chapter.setup.variant
+            )
+            .toOption
+            .map(_.flatMap(chess.format.Uci.apply).map(_.uci).mkString(" ")) | ""
+          for
+            requested <- env.fishnet.api.userAnalysisExists(uploaded.id)
+            result <-
+              if requested then fuccess(Locked)
+              else
+                env.analyse.analyser
+                  .save(
+                    uploaded,
+                    (() => Analysis.positionHash(chapter.setup.variant, chapter.root.fen.some, moves)).some
+                  )
+                  .inject(Ok)
+          yield result
+  }
+
+  def deleteAnalysisXhr(studyId: StudyId, chapterId: StudyChapterId) = Auth { _ ?=> me ?=>
+    WithStudyContributor(Analysis.Id(studyId, chapterId)): _ =>
+      env.study.serverEvalMerger.remove(studyId, chapterId).inject(NoContent)
+  }
+
   def show(id: StudyId) = OpenOrScoped(_.Study.Read, _.Web.Mobile):
     orRelayRedirect(id):
       env.study.api.byIdWithChapter(id).flatMap(showQuery)

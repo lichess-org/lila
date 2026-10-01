@@ -7,6 +7,8 @@ import play.api.libs.json.*
 
 import lila.core.perm.Granter
 import lila.core.relay.GetCrowd
+import lila.study.Node.{ Comments, Glyphs }
+import lila.study.Node.extensions.*
 import lila.tree.Node.{ Comment, Glyphs as NodeGlyphs }
 import lila.tree.{ Advice, Analysis, Branch, Info, Node, Root }
 
@@ -67,7 +69,6 @@ private[study] final class Merger(
       sequencer.sequenceStudyWithChapter(studyId, chapterId):
         case Study.WithChapter(_, chapter) =>
           val merged = replace(chapter, analysis.some).copy(
-            analysisGameId = none,
             serverEval = Chapter
               .ServerEval(
                 path = chapter.serverEval.fold(chapter.root.mainlinePath)(_.path),
@@ -76,7 +77,7 @@ private[study] final class Merger(
               .some
           )
           for
-            _ <- chapterRepo.update(merged)
+            _ <- chapterRepo.updateAnalysis(chapter, merged)
             _ <- sendProgress(studyId, chapterId, analysis).logFailure(logger)
           yield ()
     case _ => funit
@@ -181,8 +182,8 @@ private[study] def clearAnalysis(root: Root, incomingCompPaths: Set[UciPath] = S
         val path = parentPath + node.id
         val cleaned = node.copy(
           eval = node.eval.filterNot(_.static),
-          comments = node.comments.withoutComp,
-          glyphs = node.glyphs.withoutComp,
+          comments = Comments.withoutComp(node.comments),
+          glyphs = Glyphs.withoutComp(node.glyphs),
           children = cleanChildren(node.children, path)
         )
         val hasUserContent =
@@ -195,8 +196,8 @@ private[study] def clearAnalysis(root: Root, incomingCompPaths: Set[UciPath] = S
 
   root.copy(
     eval = root.eval.filterNot(_.static),
-    comments = root.comments.withoutComp,
-    glyphs = root.glyphs.withoutComp,
+    comments = Comments.withoutComp(root.comments),
+    glyphs = Glyphs.withoutComp(root.glyphs),
     children = cleanChildren(root.children, UciPath.root)
   )
 
@@ -247,14 +248,14 @@ private def makeBranch(m: chess.MoveOrDrop, ply: chess.Ply): Branch =
     forceVariation = false
   )
 
-private def annotate(node: Branch, info: Info, advOpt: Option[Advice]): Branch =
+private[study] def annotate(node: Branch, info: Info, advOpt: Option[Advice]): Branch =
   val withEval =
     if info.eval.score.isDefined && node.eval.isEmpty then
       node.copy(eval = info.eval.copy(static = true).some)
     else node
   advOpt.fold(withEval): adv =>
     val comments =
-      if withEval.comments.hasComp then withEval.comments
+      if Comments.hasComp(withEval.comments) then withEval.comments
       else
         withEval.comments
           + Comment(Comment.Id.make, adv.makeComment(false), Comment.Author.Lichess, comp = true)

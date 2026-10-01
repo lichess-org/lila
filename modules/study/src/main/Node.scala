@@ -2,6 +2,8 @@ package lila.study
 
 object Node:
 
+  import lila.tree.Node as TreeNode
+
   val MAX_PLIES = 600
 
   object BsonFields:
@@ -21,12 +23,28 @@ object Node:
     val forceVariation = "fv"
     val comp = "cp"
 
+  object Comments:
+    def hasComp(comments: TreeNode.Comments): Boolean = comments.value.exists(_.comp)
+    def withoutComp(comments: TreeNode.Comments): TreeNode.Comments =
+      TreeNode.Comments(comments.value.filterNot(_.comp))
+
+  object Glyphs:
+    def withoutComp(glyphs: TreeNode.Glyphs): TreeNode.Glyphs =
+      TreeNode.Glyphs(glyphs.value.filterNot(_.comp))
+
   object extensions:
 
     import lila.tree.Branches
     import chess.format.UciPath
 
     extension (nodes: Branches)
+
+      def hasNonComp: Boolean =
+        nodes.toList.exists: node =>
+          !node.comp ||
+            Comments.withoutComp(node.comments).value.nonEmpty ||
+            Glyphs.withoutComp(node.glyphs).value.nonEmpty ||
+            node.children.hasNonComp
 
       def deleteNodeAt(path: UciPath): Option[Branches] =
         path.split.flatMap:

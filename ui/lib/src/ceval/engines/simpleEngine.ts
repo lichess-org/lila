@@ -3,11 +3,13 @@ import { CevalState, type Work, type CevalEngine, type BrowserEngineInfo } from 
 
 export class SimpleEngine implements CevalEngine {
   private failed: Error;
-  private readonly protocol = new Protocol();
   private worker?: Worker;
   url: string;
 
-  constructor(readonly info: BrowserEngineInfo) {
+  constructor(
+    readonly info: BrowserEngineInfo,
+    private readonly protocol: Protocol = new Protocol(info),
+  ) {
     this.url = `${info.assets.root}/${info.assets.js}`;
   }
 

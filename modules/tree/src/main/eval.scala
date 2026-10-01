@@ -59,7 +59,12 @@ object Knodes extends OpaqueInt[Knodes]:
 
 case class Pv(score: WhiteScore, moves: Moves)
 
-case class CloudEval(pvs: NonEmptyList[Pv], knodes: Knodes, depth: lila.core.chess.Depth):
+case class CloudEval(
+    pvs: NonEmptyList[Pv],
+    knodes: Knodes,
+    depth: lila.core.chess.Depth,
+    engineId: Option[String] = None
+):
   def isGameOver = pvs.exists(_.score.isGameOver)
 
 object CloudEval:

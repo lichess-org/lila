@@ -8,19 +8,42 @@ import { log } from '@/permalog';
 import { xhrHeader } from '@/xhr';
 
 import type { CevalCtrl } from '../ctrl';
-import type { FishnetEfficiency } from '../types';
+import type { NodeEfficiencyVsFishnet } from '../types';
 import { ExternalEngine } from './externalEngine';
 import { SimpleEngine } from './simpleEngine';
 import { StockfishWebEngine } from './stockfishWebEngine';
 import { ThreadedEngine } from './threadedEngine';
 
+// These comments can be deleted after at least two other people have read them
+//
+// nodeEfficiencyVsFishnet is the constant divisor of 1,000,000 nodes for a given engine to achieve
+// parity with the official stockfish used by current fishnet playing at a fixed 1,000,000 nodes per move.
+//
+// so that `go nodes (1_000_000 / nodeEfficiencyVsFishnet)` on the measured engine plays 50/50/x vs
+// `go nodes 1_000_000` on fishnet's official stockfish (or fairy stockfish HCE for variants)
+//
+// I used https://github.com/disservin/fastchess with 200 round binary searches to zero in on this value for
+// the 1MB smallnet with 1 thread and default hash. The remaining ones for older wasms are just "estimated"
+//
+// When a new fishnet is released, the previous fishnet should be compared against it.
+// That factor should then be scaled into the existing nodeEfficiencyVsFishnet values. This can be
+// done programmatically at startup to reduce code churn.
+//
+// Letting them float against the current fishnet seems better than pinning everything to a fixed
+// arbitrary fishnet version. Doing that creates a currency that looks increasingly strange as time passes.
+// If it were more complicated than just multiplying in the new factor, I would probably not feel this
+// way.
+//
+// We are mostly interested in relating one engine strength to another instead of absolute
+// values. We treat external engines as having unknown efficiency, or 1x when required.
+
 export class Engines {
   localEngineMap: Map<string, { info: BrowserEngineInfo; make: (e: BrowserEngineInfo) => CevalEngine }>;
   externalEngines: ExternalEngineInfo[];
   private activeEngine: EngineInfo | undefined = undefined;
-  readonly retiredEnginesVsFishnet: Map<string, FishnetEfficiency> = new Map([
-    // This map estimates search node efficiency for retired engines vs the latest fishnet
-    // Live engines should use the EngineInfo field instead
+  readonly retiredEnginesVsFishnet: Map<string, NodeEfficiencyVsFishnet> = new Map([
+    // This map is a placeholder for search node efficiency of retired engines vs the latest fishnet
+    // Live engines should define the EngineInfo.nodeEfficiencyVsFishnet field instead
     ['__example_legacy_engine_id', { chess: 0.001, variant: 0.001 }],
   ]);
 
@@ -74,7 +97,7 @@ export class Engines {
           short: 'SF 19 1MB',
           url: 'https://github.com/lichess-org/stockfish-web#sf_19_smallnet-stockfish-19-with-sscg13size-optimize-nnue',
           tech: 'NNUE',
-          nodeEfficiencyVsFishnet: { chess: 0.3 },
+          nodeEfficiencyVsFishnet: { chess: 0.146 },
           requires: ['sharedMem', 'simd', 'dynamicImportFromWorker'],
           minMem: 1536,
           supportsCloudEval: true,
@@ -87,27 +110,25 @@ export class Engines {
         },
         make: (e: BrowserEngineInfo) => new StockfishWebEngine(e, this.statusCallback),
       }),
-      ...variants.map(
-        ({ key, nnue }: Variant): WithMake => ({
-          info: {
-            id: `__fsfnnue-${key}`,
-            name: 'Fairy Stockfish 14+ NNUE',
-            short: 'FSF 14+',
-            url: 'https://github.com/lichess-org/stockfish-web#fsf_14-fairy-stockfish-14',
-            tech: 'NNUE',
-            nodeEfficiencyVsFishnet: { chess: 0.01, variant: 10 },
-            requires: ['sharedMem', 'simd', 'dynamicImportFromWorker'],
-            variants: [key],
-            supportsCloudEval: true,
-            assets: {
-              root: 'npm/stockfish-web',
-              nnue: [`${nnue}.nnue`],
-              js: 'fsf_14.js',
-            },
+      ...variants.map(({ key, nnue }: Variant): WithMake => ({
+        info: {
+          id: `__fsfnnue-${key}`,
+          name: 'Fairy Stockfish 14+ NNUE',
+          short: 'FSF 14+',
+          url: 'https://github.com/lichess-org/stockfish-web#fsf_14-fairy-stockfish-14',
+          tech: 'NNUE',
+          nodeEfficiencyVsFishnet: { chess: 0.005, variant: 10 },
+          requires: ['sharedMem', 'simd', 'dynamicImportFromWorker'],
+          variants: [key],
+          supportsCloudEval: true,
+          assets: {
+            root: 'npm/stockfish-web',
+            nnue: [`${nnue}.nnue`],
+            js: 'fsf_14.js',
           },
-          make: (e: BrowserEngineInfo) => new StockfishWebEngine(e, this.statusCallback),
-        }),
-      ),
+        },
+        make: (e: BrowserEngineInfo) => new StockfishWebEngine(e, this.statusCallback),
+      })),
       {
         info: {
           id: '__sf14nnue',
@@ -115,7 +136,7 @@ export class Engines {
           short: 'SF 14',
           url: 'https://github.com/lichess-org/stockfish-nnue.wasm',
           tech: 'NNUE',
-          nodeEfficiencyVsFishnet: { chess: 0.1 },
+          nodeEfficiencyVsFishnet: { chess: 0.05 },
           obsoletedBy: 'dynamicImportFromWorker',
           requires: ['sharedMem', 'simd'],
           minMem: 2048,
@@ -135,7 +156,7 @@ export class Engines {
           short: 'FSF 14+',
           url: 'https://github.com/lichess-org/stockfish-web#fsf_14-fairy-stockfish-14',
           tech: 'HCE',
-          nodeEfficiencyVsFishnet: { chess: 0.01, variant: 1 },
+          nodeEfficiencyVsFishnet: { chess: 0.005, variant: 1 },
           requires: ['sharedMem', 'simd', 'dynamicImportFromWorker'],
           variants: ['chess', ...variants.map(v => v.key)],
           supportsNonStandardMaterial: true,
@@ -153,7 +174,7 @@ export class Engines {
           short: 'SF 11',
           url: 'https://github.com/lichess-org/stockfish.wasm',
           tech: 'HCE',
-          nodeEfficiencyVsFishnet: { chess: 0.01 },
+          nodeEfficiencyVsFishnet: { chess: 0.005 },
           requires: ['sharedMem'],
           minThreads: 1,
           assets: {
@@ -171,7 +192,7 @@ export class Engines {
           name: 'Stockfish 11 Multi-Variant',
           short: 'SF 11 MV',
           tech: 'HCE',
-          nodeEfficiencyVsFishnet: { variant: 0.1 },
+          nodeEfficiencyVsFishnet: { chess: 0.005, variant: 0.5 },
           requires: ['sharedMem'],
           minThreads: 1,
           variants: ['chess', ...variants.map(v => v.key)],
@@ -195,7 +216,7 @@ export class Engines {
           tech: 'HCE',
           minThreads: 1,
           maxThreads: 1,
-          nodeEfficiencyVsFishnet: { chess: 0.007 },
+          nodeEfficiencyVsFishnet: { chess: 0.002 },
           requires: ['wasm'],
           obsoletedBy: 'sharedMem',
           assets: {
@@ -215,7 +236,7 @@ export class Engines {
           tech: 'HCE',
           minThreads: 1,
           maxThreads: 1,
-          nodeEfficiencyVsFishnet: { chess: 0.007 },
+          nodeEfficiencyVsFishnet: { chess: 0.002 },
           requires: [],
           obsoletedBy: 'wasm',
           assets: {
@@ -334,10 +355,8 @@ export class Engines {
 }
 
 function maxHashMB() {
-  if (isAndroid())
-    return 64; // budget androids are easy to crash @ 128
-  else if (isIPad())
-    return 64; // iPadOS safari pretends to be desktop but acts more like iphone
+  if (isAndroid()) return 64; // budget androids are easy to crash @ 128
+  else if (isIPad()) return 64; // iPadOS safari pretends to be desktop but acts more like iphone
   else if (isIos()) return 32;
   return 512; // allocating 1024 often fails and offers little benefit over 512, or 16 for that matter
 }

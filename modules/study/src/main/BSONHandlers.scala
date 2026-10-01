@@ -124,10 +124,11 @@ object BSONHandlers:
             case _ => none
     },
     glyphs =>
-      BSONArray:
+      BSONArray(
         glyphs.value.toList.map: glyph =>
           if glyph.comp then bdoc("i" -> glyph.id, "c" -> true)
           else BSONInteger(glyph.id)
+      )
   )
 
   given BSONHandler[WhiteScore] =
@@ -254,6 +255,16 @@ object BSONHandlers:
 
   given BSONHandler[Variant] = variantByIdHandler
 
+  private[study] def treeDiff(previous: Root, next: Root): (Bdoc, List[String]) =
+    val writer = summon[BSON[Root]]
+    val before =
+      writer.writes(new Writer, previous).elements.map(element => element.name -> element.value).toMap
+    val after = writer.writes(new Writer, next).elements.map(element => element.name -> element.value).toMap
+    val sets = after.toList.collect:
+      case (key, value) if !before.get(key).contains(value) => s"root.$key" -> value
+    val unsets = (before.keySet -- after.keySet).toList.map(key => s"root.$key")
+    bdoc(sets) -> unsets
+
   given BSONHandler[Tag] = tryHandler[Tag](
     { case BSONString(v) =>
       v.split(":", 2) match
@@ -269,7 +280,17 @@ object BSONHandlers:
     id => BSONInteger(id.so(_.value))
   )
   given BSONDocumentHandler[Chapter.Relay] = Macros.handler
-  given BSONDocumentHandler[Chapter.ServerEval] = Macros.handler
+  given BSON[Chapter.ServerEval] with
+    def reads(r: Reader) = Chapter.ServerEval(
+      path = r.get[UciPath]("path"),
+      done = r.bool("done"),
+      version = r.intO("version")
+    )
+    def writes(w: Writer, eval: Chapter.ServerEval) = bdoc(
+      "path" -> eval.path,
+      "done" -> eval.done,
+      "version" -> eval.version
+    )
 
   private val clockPair: BSONHandler[PairOf[Option[Centis]]] = optionTupleHandler
   given BSONHandler[Chapter.BothClocks] = clockPair.as[Chapter.BothClocks](ByColor.fromPair, _.toPair)

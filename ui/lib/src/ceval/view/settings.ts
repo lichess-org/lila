@@ -152,29 +152,37 @@ export function renderCevalSettings(ctrl: CevalHandler): VNode | null {
               ],
             );
           })('analyse-threads'),
-        (id =>
-          div('.setting', { title: i18n.site.memoryDescription }, [
-            label({ for: id }, i18n.site.memory),
-            input('range')(`#${id}`, {
-              min: 4,
-              max: Math.floor(Math.log2(engine.maxHash ?? 32)),
-              step: 1,
-              'aria-valuetext': formatHashSize(hashSize),
-              hook: rangeConfig(
-                () => Math.floor(Math.log2(hashSize)),
-                v => {
-                  ceval.setHashSize(Math.pow(2, v));
-                  ctrl.startCevalIfEnabled();
-                  ceval.opts.redraw();
-                },
-              ),
-            }),
-
-            div('.range_value', formatHashSize(hashSize)),
-          ]))('analyse-memory'),
+        hashSetting(engine, hashSize, hash => {
+          ceval.setHashSize(hash);
+          ctrl.startCevalIfEnabled();
+          ceval.opts.redraw();
+        }),
       ],
     ),
   );
+}
+
+export function hashSetting(
+  engine: EngineInfo,
+  hashSize: number,
+  onChange: (hashSize: number) => void,
+  id = 'analyse-memory',
+  name: string = i18n.site.memory,
+): VNode {
+  return div('.setting', { title: i18n.site.memoryDescription }, [
+    label({ for: id }, name),
+    input('range')(`#${id}`, {
+      min: 4,
+      max: Math.floor(Math.log2(engine.maxHash ?? 32)),
+      step: 1,
+      'aria-valuetext': formatHashSize(hashSize),
+      hook: rangeConfig(
+        () => Math.floor(Math.log2(hashSize)),
+        value => onChange(Math.pow(2, value)),
+      ),
+    }),
+    div('.range_value', formatHashSize(hashSize)),
+  ]);
 }
 
 function formatHashSize(v: number) {
@@ -207,16 +215,10 @@ function engineSelection(ctrl: CevalHandler) {
 
   return div('.setting', [
     label({ for: 'select-engine' }, 'Engine:'),
-    select(
-      '#select-engine',
-      {
-        hook: bind('change', e => {
-          ceval.selectEngine((e.target as HTMLSelectElement).value);
-          ctrl.startCevalIfEnabled();
-        }),
-      },
-      engines.map(({ id, name }) => option({ value: id, selected: active?.id === id }, name)),
-    ),
+    engineSelect(engines, active?.id, id => {
+      ceval.selectEngine(id);
+      ctrl.startCevalIfEnabled();
+    }),
     external &&
       button('.button.button-red.button-empty', {
         ...dataIcon(licon.Trash),
@@ -242,6 +244,19 @@ function engineSelection(ctrl: CevalHandler) {
       },
     }),
   ]);
+}
+
+export function engineSelect(
+  engines: EngineInfo[],
+  activeId: string | undefined,
+  onChange: (id: string) => void,
+  id = 'select-engine',
+): VNode {
+  return select(
+    `#${id}`,
+    { hook: bind('change', event => onChange((event.target as HTMLSelectElement).value)) },
+    engines.map(engine => option({ value: engine.id, selected: activeId === engine.id }, engine.name)),
+  );
 }
 
 function engineInfo(engines: EngineInfo[]) {

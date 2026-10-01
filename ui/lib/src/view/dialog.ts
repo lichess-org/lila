@@ -64,7 +64,7 @@ export interface SnabDialogOpts<Ctx = undefined> extends DialogOpts<Ctx> {
 }
 
 // unlike snabDialog, jsxDialog patches a standalone vdom root. don't call it from a render loop.
-//   jsx: (redraw, dialog) => <div>...</div>;
+//   jsx: (redraw, dialog) => [<div>...</div>, ...];
 export interface JsxDialogOpts<Ctx = undefined> extends DialogOpts<Ctx> {
   render: (redraw: Redraw, dialog: Dialog<Ctx>) => LooseVNodes;
   parentEl?: Element; // unmanaged parent for the VDOM root; defaults to document.body
@@ -177,20 +177,19 @@ export function snabDialog<Ctx = undefined>(o: SnabDialogOpts<Ctx>): VNode {
 
 export function jsxDialog<Ctx = undefined>(o: JsxDialogOpts<Ctx>): Redraw {
   const patch = init([classModule, attributesModule, propsModule, eventListenersModule, styleModule]);
-  const { render, parentEl, onClose, ...dialogOpts } = o;
+  const { render, parentEl, ...dialogOpts } = o;
 
   let vnode: VNode | Element = (parentEl ?? document.body).appendChild(document.createElement('div'));
   let dialog: Dialog<Ctx> | undefined;
 
   const redraw = () => {
     if (!dialog) return;
-    vnode = patch(vnode, snabDialog({ ...dialogOpts, onClose, vnodes: render(redraw, dialog) }));
+    vnode = patch(vnode, snabDialog({ ...dialogOpts, vnodes: render(redraw, dialog) }));
   };
   vnode = patch(
     vnode,
     snabDialog({
       ...dialogOpts,
-      onClose,
       onInsert: dlg => {
         dialog = dlg;
         if (parentEl) dialog.dialog.style.position = 'absolute';
@@ -364,8 +363,11 @@ class DialogWrapper<Ctx = undefined> implements Dialog<Ctx> {
     if (!this.dialog.returnValue) this.dialog.returnValue = 'cancel';
     this.resolve?.(this);
     this.o.onClose?.(this);
-    if (this.dialog.parentElement?.classList.contains('snab-modal-mask')) this.dialog.parentElement.remove();
-    else this.dialog.remove();
+    if (this.dialog.parentElement?.classList.contains('snab-modal-mask')) {
+      this.dialog.parentElement.remove(); // TODO - this is bad if snab-modal-mask's parent is vdom
+    } else {
+      this.dialog.remove();
+    }
     for (const css of this.o.css ?? []) {
       if ('hashed' in css) site.asset.removeCssPath(css.hashed);
       else if ('url' in css) site.asset.removeCss(css.url);

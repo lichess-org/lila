@@ -109,7 +109,7 @@ class BsonHandlersTest extends munit.FunSuite:
       .get
     val roundTripped = treeBson.reads(treeBson.writes(w, withServerAnnotations))
     val node = roundTripped.nodeAt(path).get
-    assert(node.glyphs.value.toList.exists(_.comp))
+    assert(node.glyphs.value.exists(_.comp))
     assert(node.comments.value.exists(_.comp))
 
   test("eval provenance survives round trip"):

@@ -10,7 +10,7 @@ import type { CevalCtrl } from './ctrl';
 export type WinningChances = number;
 export type SearchBy = { movetime: number } | { depth: number } | { nodes: number };
 export type Search = { by: SearchBy; multiPv: number; indeterminate?: boolean };
-export type FishnetEfficiency = Partial<Record<'chess' | 'variant', number>>;
+export type NodeEfficiencyVsFishnet = Partial<Record<'chess' | 'variant', number>>;
 
 export interface EvalMeta {
   path: TreePath;
@@ -47,7 +47,7 @@ export interface BaseEngineInfo {
   requires?: Feature[];
   supportsPuzzleReport?: boolean;
   supportsCloudEval?: boolean;
-  nodeEfficiencyVsFishnet?: FishnetEfficiency; // analysis strength per node compared to fishnet's big dogs
+  nodeEfficiencyVsFishnet?: NodeEfficiencyVsFishnet; // analysis strength per node compared to fishnet's big dogs
 }
 
 export interface ExternalEngineInfoFromServer extends BaseEngineInfo {

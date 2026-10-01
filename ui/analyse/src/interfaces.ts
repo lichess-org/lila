@@ -85,6 +85,7 @@ export interface AnalysisUpdate {
 
 export interface EvalHit {
   fen: FEN;
+  engineId?: string;
   knodes: number;
   depth: number;
   pvs: PvDataServer[];
@@ -198,6 +199,7 @@ export interface EvalGetData {
 
 export interface EvalPutData extends ServerEval {
   variant?: VariantKey;
+  engineId: string;
 }
 
 export type Conceal = false | 'conceal' | 'hide' | null;

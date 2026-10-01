@@ -18,47 +18,6 @@ $c-content: color-mix(in oklab, var(--c-bg) 50%, var(--c-bg-page));
     min-height: min(200px, 75vh);
   }
 
-  .preset-tabs {
-    display: flex;
-    flex-flow: row nowrap;
-    align-items: center;
-    justify-content: start;
-    width: 100%;
-
-    * {
-      padding-inline: min(2.5vw, 2rem);
-    }
-  }
-
-  .preset-tab {
-    height: 60px;
-    margin-bottom: -1px;
-    padding-block: 1rem;
-    background-color: transparent;
-    color: $c-font-dimmer;
-    font-size: 1.3rem;
-    border: 1px solid transparent;
-    border-bottom: none;
-    border-radius: 6px 6px 0 0;
-    outline: none;
-    cursor: default;
-  }
-
-  .preset-tab.checked {
-    color: $c-border;
-  }
-
-  .preset-tab.active {
-    z-index: 1;
-    background-color: $c-content;
-    border-color: hsl(from $c-border h s l / 0.6);
-    color: $c-font;
-  }
-
-  .preset-tab.active.checked::after {
-    opacity: 1;
-  }
-
   .chart-container {
     position: absolute;
     padding: min(2vw, 2rem);
@@ -82,7 +41,7 @@ $c-content: color-mix(in oklab, var(--c-bg) 50%, var(--c-bg-page));
     align-items: center;
 
     .spinner {
-      margin: 6%;
+      margin-block: max(4vh, 12%) 6%;
       opacity: 0.3;
     }
 
@@ -94,11 +53,11 @@ $c-content: color-mix(in oklab, var(--c-bg) 50%, var(--c-bg-page));
     }
   }
 
-  .preset-info {
+  .analysis-info {
     display: grid;
-    grid-template-columns: fit-content(0) 25% fit-content(0) 1fr;
+    grid-template-columns: fit-content(0) 25% auto 1fr;
     grid-auto-rows: auto;
-    gap: 0.5rem min(2vw, 1rem);
+    gap: max(2vh, 0.5rem) min(2vw, 1rem);
     padding: min(2vw, 2rem);
     place-items: start start;
     inset: 0;
@@ -123,7 +82,6 @@ $c-content: color-mix(in oklab, var(--c-bg) 50%, var(--c-bg-page));
     }
 
     > label {
-      text-wrap: nowrap;
       color: $c-font-dim;
     }
 
@@ -176,6 +134,18 @@ $c-content: color-mix(in oklab, var(--c-bg) 50%, var(--c-bg-page));
     }
   }
 
+  .analysis-settings {
+    grid-column: span 4;
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, max(180px, 34%)), 1fr));
+    gap: max(2vh, 0.5rem) 2em;
+
+    .setting select {
+      padding-inline: 8px;
+    }
+  }
+
   .footer {
     position: relative;
     display: flex;
@@ -191,6 +161,8 @@ $c-content: color-mix(in oklab, var(--c-bg) 50%, var(--c-bg-page));
       min-width: 48px;
       top: 50%;
       transform: translateY(-50%);
+
+      @include fluid-size('font-size', 10px, 16px);
     }
 
     .status {
@@ -207,24 +179,5 @@ $c-content: color-mix(in oklab, var(--c-bg) 50%, var(--c-bg-page));
     .ok-btn {
       right: 0.5rem;
     }
-  }
-}
-
-@media (hover: hover) {
-  .local-analysis-dialog .preset-tab:not(.active):hover {
-    background-color: hsl(from $c-border h s l / 0.2);
-    border-color: hsl(from $c-border h s l / 0.35);
-    color: $c-font-dim;
-    cursor: pointer;
-  }
-}
-
-@include mq-at-least-col2 {
-  .preset-tab.checked::after {
-    font-family: lichess;
-    color: $c-good;
-    margin-inline-start: 0.5rem;
-    content: '✔';
-    opacity: 0.5;
   }
 }

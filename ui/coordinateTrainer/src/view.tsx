@@ -22,8 +22,7 @@ const textOverlay = (ctrl: CoordinateTrainerCtrl) => {
                   remove: { opacity: '0', transform: 'translate(-8px, 60px)' },
                 }
               : undefined
-          }
-        >
+          }>
           <text>{modifier === 'current' ? ctrl.currentKey : ctrl.nextKey}</text>
         </g>
       ))}
@@ -88,8 +87,7 @@ const coordinateInput = (ctrl: CoordinateTrainerCtrl) => {
                     ctrl.checkKeyboardInput();
                   }
                 },
-              }}
-            >
+              }}>
               {fileOrRank}
             </button>
           ))}

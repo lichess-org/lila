@@ -15,6 +15,7 @@ interface ClientEvalBase extends EvalScore {
 export interface CloudEval extends ClientEvalBase {
   cloud: true;
   millis?: undefined;
+  engineId?: string;
 }
 export interface LocalEval extends ClientEvalBase {
   cloud?: false;

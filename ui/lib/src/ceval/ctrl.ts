@@ -268,9 +268,6 @@ export class CevalCtrl {
     );
   }
 
-  // preferLatestEval is not great because cloud evals do not yet track engineId and node counts do not
-  // equate eval strength across different engines
-
   preferLatestEval(latest: ClientEval, stored: ClientEval | null | undefined): boolean {
     if (!stored) return true;
 
@@ -280,7 +277,7 @@ export class CevalCtrl {
     if (latest.pvs.length === multipv && stored.pvs.length !== multipv) return true;
 
     // If the engine has changed and neither are cloud, prefer the latest eval regardless of strength
-    if ('engineId' in stored && 'engineId' in latest && stored.engineId !== latest.engineId) return true;
+    if (!stored.cloud && !latest.cloud && stored.engineId !== latest.engineId) return true;
 
     // By user expectation when going deeper, the latest engine eval always wins regardless of strength
     if (this.isDeeper() && !latest.cloud) return true;
