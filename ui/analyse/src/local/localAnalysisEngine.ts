@@ -48,7 +48,8 @@ export class LocalAnalysisEngine {
   }
 
   async getDivision(): Promise<Division> {
-    const rsp = await fetch(`/game/export/${this.ctrl.data.game.id}?divisionOnly=1`);
+    const url = this.ctrl.study?.chapterConfigUrl() ?? `/game/export/${this.ctrl.data.game.id}`;
+    const rsp = await fetch(`${url}?divisionOnly=1`);
     if (!rsp.ok) throw new Error(`${rsp.status} ${rsp.statusText} ${(await rsp.text()).slice(0, 255)}`);
     return rsp.json();
   }

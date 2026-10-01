@@ -653,11 +653,11 @@ export default class StudyCtrl {
   };
   updateHistoryAndAddressBar = () => {
     if (this.ctrl.isEmbed) return;
-    const studyUrl = this.baseUrl();
-    const chapterUrl = `${studyUrl}/${this.vm.chapterId}`;
-    if (this.relay) this.relay.updateAddressBar(studyUrl, chapterUrl);
+    const chapterUrl = `${this.baseUrl()}/${this.vm.chapterId}`;
+    if (this.relay) this.relay.updateAddressBar(this.baseUrl(), chapterUrl);
     else if (chapterUrl !== location.href) history.replaceState({}, '', chapterUrl);
   };
+  chapterConfigUrl = () => `/study/${this.data.id}/${this.vm.chapterId}/config`;
   socketSendNodeData = () => {
     if (!this.isWriting()) return false;
     const data: { ch: string; sticky?: false } = { ch: this.vm.chapterId };
