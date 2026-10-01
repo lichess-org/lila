@@ -89,4 +89,5 @@
   <string name="onlyTitledHelp">Необхідний офіційний титул, щоб приєднатися до турніру</string>
   <string name="tournamentPairingsAreNowClosed">Формування пар у турнірі завершено.</string>
   <string name="berserkRate">Ігор з берсерком</string>
+  <string name="leaguesAndStreamerBattles">Ліги й битви стримерів</string>
 </resources>

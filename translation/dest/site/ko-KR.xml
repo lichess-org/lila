@@ -1018,4 +1018,5 @@ FEN 포지션을 생성하기 위해 %s를 사용할 수 있습니다.
   <string name="boards">보드</string>
   <string name="write">작성</string>
   <string name="preview">미리보기</string>
+  <string name="done">완료</string>
 </resources>

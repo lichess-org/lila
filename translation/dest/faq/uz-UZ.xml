@@ -168,6 +168,7 @@ Bu sodir boʻlganda sizni ogohlantirish uchun qizil ovozsiz belgisini koʻrsatam
 3. Cookie-fayllar va sayt ruxsatlari (Cookies and Site Permissions) bandini tanlang
 4. Pastga tushib, Media kontentni avtomatik ijro etish (Media autoplay) qismini bosing
 5. Ruxsat berish (Allow) roʻyxatiga lichess.org saytini qoʻshing</string>
+  <string name="makeBotTitle">Lichessʼda bot yaratish?</string>
   <string name="stopMyselfFromPlaying">Oʻyinni bas qila olmayapman, nima qilsam boʻladi?</string>
   <string name="mentalHealthCondition">alohida ruhiy kasallik</string>
   <string name="lichessUserstyles">foydalanuvchi Lichess CSS stillari</string>

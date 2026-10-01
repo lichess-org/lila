@@ -668,7 +668,7 @@
   <string name="notes">Нотатки</string>
   <string name="typePrivateNotesHere">Залишайте приватні нотатки тут</string>
   <string name="writeAPrivateNoteAboutThisUser">Напишіть приватну нотатку про цього користувача</string>
-  <string name="noNoteYet">Нотаток поки нема</string>
+  <string name="noNoteYet">Поки немає нотаток</string>
   <string name="invalidUsernameOrPassword">Недійсне ім\'я користувача або пароль</string>
   <string name="incorrectPassword">Невірний пароль</string>
   <string name="invalidAuthenticationCode">Недійсний код автентифікації</string>
@@ -876,12 +876,14 @@
   <string name="enableKidMode">Увімкнути дитячий режим</string>
   <string name="disableKidMode">Вимкнути дитячий режим</string>
   <string name="security">Безпека</string>
+  <string name="activeSessionsDescription">Ось список пристроїв та застосунків, які здійснили вхід в обліковий запис. Якщо ви помітили підозрілу активність, &lt;a href=\'%1$s\'&gt;перевірте свою резервну електронну пошту&lt;/a&gt; та &lt;a href=\'%2$s\'&gt;змініть пароль&lt;/a&gt;.</string>
   <string name="sessions">Сесії</string>
   <string name="revokeAllSessions">завершити усі сеанси</string>
   <string name="playChessEverywhere">Грайте в шахи будь-де</string>
   <string name="everybodyGetsAllFeaturesForFree">Усі можливості безкоштовні для всіх</string>
   <string name="viewTheSolution">Дивитись рішення</string>
   <string name="noChallenges">Немає викликів.</string>
+  <string name="browserNotificationsDenied">Спливні сповіщення вимкнено браузером</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Доступно %s мовою!</item>
     <item quantity="few">Доступно %s мовами!</item>
@@ -906,6 +908,7 @@
   <string name="picture">Зображення</string>
   <string name="deviceTheme">Тема пристрою</string>
   <string name="roundness">Округлість</string>
+  <string name="backgroundImage">Фонове зображення</string>
   <string name="backgroundImageUrl">Посилання фонового зображення:</string>
   <string name="imageOpacity">Прозорість зображення</string>
   <string name="board">Дошка</string>
@@ -1128,6 +1131,10 @@
   <string name="tags">Теги</string>
   <string name="enPassant">Взяття на проході</string>
   <string name="settings">Налаштування</string>
+  <string name="verifyingYourDevice">Перевірка пристрою…</string>
   <string name="chessOpenings">Шахові дебюти</string>
   <string name="boards">Дошки</string>
+  <string name="write">Написати</string>
+  <string name="preview">Перегляд</string>
+  <string name="done">Готово</string>
 </resources>

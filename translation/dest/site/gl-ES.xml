@@ -606,7 +606,7 @@ Para incrementar a súa estabilidade tes que xogar máis partidas puntuadas.</st
   <string name="noNoteYet">Aínda non hai notas</string>
   <string name="invalidUsernameOrPassword">Nome de usuario ou contrasinal non válidos</string>
   <string name="incorrectPassword">Contrasinal incorrecto</string>
-  <string name="invalidAuthenticationCode">Código de autenticación inválido</string>
+  <string name="invalidAuthenticationCode">Código de autenticación non válido</string>
   <string name="clearField">Limpar campo</string>
   <string name="orSeparator">Ou</string>
   <string name="logInByEmail">Iniciar sesión co correo electrónico</string>
@@ -1059,4 +1059,5 @@ Deixa en branco para comezar as partidas dende a posición inicial normal.</stri
   <string name="boards">Taboleiros</string>
   <string name="write">Escribir</string>
   <string name="preview">Vista previa</string>
+  <string name="done">Feito</string>
 </resources>

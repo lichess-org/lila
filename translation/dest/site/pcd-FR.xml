@@ -1060,4 +1060,5 @@ Tous les coûts d\'exploitation, le développement et le contenu sont financés 
   <string name="boards">Échiquiers</string>
   <string name="write">Écrire</string>
   <string name="preview">Aperçu</string>
+  <string name="done">Terminé</string>
 </resources>
