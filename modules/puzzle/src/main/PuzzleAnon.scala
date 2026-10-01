@@ -22,7 +22,8 @@ final class PuzzleAnon(
       .mon(lila.mon.puzzle.selector.anon.time)
       .addEffect:
         _.foreach: puzzle =>
-          lila.mon.puzzle.selector.anon.vote.record(100 + math.round(puzzle.vote * 100))
+          if puzzle.vote < 0 then logger.warn(s"Anon puzzle with negative vote ${puzzle.id} ${puzzle.vote}")
+          else lila.mon.puzzle.selector.anon.vote.record(100 + math.round(puzzle.vote * 100))
 
   private def selectWithColor(color: Color)(puzzles: Vector[Puzzle]): Option[Puzzle] =
     def nextTry(attempts: Int): Option[Puzzle] =
