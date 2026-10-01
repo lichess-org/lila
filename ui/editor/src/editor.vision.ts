@@ -12,8 +12,9 @@ import type { VisionWorkerResponse } from './editor.vision.worker';
 export async function initModule({ file }: { file: File }): Promise<FEN> {
   const statusDialog = await domDialog({
     htmlText: $html`
-      <strong class="status">Downloading ChessQueries Lite...</strong>
-      <div class="mini-board cg-wrap is2d standard" style="width: 240px; margin: 1em auto 0"></div>`,
+      <p><strong class="status">Downloading ChessQueries Lite...</strong></p>
+      <div class="mini-board cg-wrap is2d standard" style="width: 240px;height:240px"></div>`,
+    class: 'vision-status',
     modal: false,
     noCloseButton: true,
   });

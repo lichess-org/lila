@@ -166,6 +166,7 @@ export function view(ctrl: StudyChapterNewForm): VNode {
   return snabDialog({
     class: 'chapter-new',
     onClose() {
+      ctrl.editor?.close();
       ctrl.dialog = undefined;
       ctrl.isOpen(false);
       ctrl.redraw();

@@ -4,13 +4,11 @@ import menuHover from 'lib/menuHover';
 
 import EditorCtrl from './ctrl';
 import type { LichessEditor, Config } from './interfaces';
-import view, { loadFromImage } from './view';
+import view from './view';
 
 const patch = init([classModule, attributesModule, propsModule, eventListenersModule]);
 
 export type { LichessEditor } from './interfaces';
-
-let pasteListener: (e: ClipboardEvent) => void;
 
 export function initModule(config: Config): LichessEditor {
   const ctrl = new EditorCtrl(config, redraw);
@@ -29,14 +27,11 @@ export function initModule(config: Config): LichessEditor {
 
   menuHover();
 
-  if (pasteListener) {
-    document.removeEventListener('paste', pasteListener);
-  }
-  pasteListener = e => {
+  const pasteListener = (e: ClipboardEvent) => {
     const file = Array.from(e.clipboardData?.files || []).find(file => file.type.startsWith('image/'));
     if (file) {
       e.preventDefault();
-      void loadFromImage(ctrl, file);
+      ctrl.loadFromImage(file);
     }
   };
   document.addEventListener('paste', pasteListener);
@@ -46,5 +41,6 @@ export function initModule(config: Config): LichessEditor {
     setFen: fen => ctrl.setFen(fen),
     setOrientation: ctrl.setOrientation.bind(ctrl),
     setVariant: ctrl.setVariant.bind(ctrl),
+    close: () => document.removeEventListener('paste', pasteListener),
   };
 }
