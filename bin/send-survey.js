@@ -131,7 +131,7 @@ Deine Antworten gehen direkt an das Lichess-Team.`,
 Οι απαντήσεις σας θα σταλούν απευθείας στην ομάδα του Lichess.`,
   },
   es: {
-    0: `¡Esta encuesta solo te llevará 5 min.! Por los 16 años de Lichess, queremos conocer mejor tu experiencia para poder mejorar.
+    0: `¡Esta encuesta solo te llevará 5 min! Como Lichess cumple 16 años, queremos conocer mejor tu experiencia para poder mejorar.
 
 Por favor, comparte tus ideas aquí: {URL}
 
@@ -148,18 +148,18 @@ Solo conlleva 5 minutos.
 Tus respuestas irán directamente al equipo de Lichess.`,
   },
   fr: {
-    0: `Participez à notre sondage! Ça ne prend que 5 minutes! Lichess va avoir 16 ans. Nous voulons en savoir plus sur votre expérience pour nous aider à l'améliorer.
+    0: `Participez à notre sondage ! Ça ne prend que 5 minutes ! Lichess va avoir 16 ans. Nous voulons en savoir plus sur votre expérience pour nous aider à l'améliorer.
 
 Donnez-nous votre opinion ici : {URL}
 
-Merci !`,
-    1: `Vous avez 5 minutes pour nous aider à améliorer Lichess?
+Merci !`,
+    1: `Vous avez 5 minutes pour nous aider à améliorer Lichess ?
 
-Nous souhaitons avoir vos commentaires comme utilisateur de Lichess pour nous aider à améliorer votre expérience. Nous vous invitons à remplir un court sondage : {URL}`,
-    2: `Comment peut-on améliorer Lichess? Entrez vos suggestions ici : {URL}
+Nous souhaitons avoir vos commentaires comme utilisateur de Lichess pour nous aider à améliorer votre expérience. Nous vous invitons à remplir un court sondage : {URL}`,
+    2: `Comment peut-on améliorer Lichess ? Entrez vos suggestions ici : {URL}
 
 Le sondage ne prend que 5 minutes. Vos réponses nous aideront à décider ce qu'il faut améliorer.`,
-    3: `Aidez-nous à améliorer Lichess. Répondez à notre sondage : {URL}
+    3: `Aidez-nous à améliorer Lichess. Répondez à notre sondage : {URL}
 Il ne prend que 5 minutes.
 
 Vos réponses vont directement à l'équipe Lichess.`,
@@ -233,7 +233,7 @@ Demora apenas 5 minutos.
 As tuas respostas vão diretamente para a equipa do Lichess.`,
   },
   ru: {
-    0: `Пройдите наш 5-минутный опрос! В честь 16-летия Linchess мы хотим узнать больше о вашем опыте, чтобы сделать Linchess лучше.
+    0: `Пройдите наш 5-минутный опрос! Lichess исполняется 16 лет, и мы хотим узнать ваше мнение, чтобы сделать платформу еще лучше.
 
 Пожалуйста, поделитесь своими мыслями здесь: {URL}
 
