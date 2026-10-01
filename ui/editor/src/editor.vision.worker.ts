@@ -4,38 +4,25 @@ import type * as ort from 'onnxruntime-web';
 // https://huggingface.co/joelseytre/chessqueries
 // https://arxiv.org/abs/2608.30762
 
-export type VisionWorkerResponse = VisionReadyResponse | VisionPlacementResponse | VisionErrorResponse;
+export type VisionWorkerResponse =
+  | { type: 'ready' }
+  | { type: 'placement'; boardFen: string }
+  | { type: 'error'; message: string };
 
-interface VisionLoadRequest {
-  type: 'load';
-  runtimeUrl: string;
-  modelUrl: string;
-  wasmUrl: string;
-  wasmModuleUrl: string;
-  executionProviders: ('webgpu' | 'wasm')[];
-  threads: number;
-}
-
-interface VisionImageRequest {
-  type: 'image';
-  image: ImageBitmap;
-}
-
-type VisionWorkerRequest = VisionLoadRequest | VisionImageRequest;
-
-interface VisionReadyResponse {
-  type: 'ready';
-}
-
-interface VisionPlacementResponse {
-  type: 'placement';
-  boardFen: string;
-}
-
-interface VisionErrorResponse {
-  type: 'error';
-  message: string;
-}
+type VisionWorkerRequest =
+  | {
+      type: 'load';
+      runtimeUrl: string;
+      modelUrl: string;
+      wasmUrl: string;
+      wasmModuleUrl: string;
+      executionProviders: ('webgpu' | 'wasm')[];
+      threads: number;
+    }
+  | {
+      type: 'image';
+      image: ImageBitmap;
+    };
 
 let runtime: typeof ort | undefined;
 let session: ort.InferenceSession | undefined;
@@ -104,9 +91,9 @@ function makeTensor(runtime: typeof ort, image: ImageBitmap): ort.Tensor {
   const pixels = context.getImageData(0, 0, RESOLUTION, RESOLUTION).data;
   const input = new Float32Array(3 * CHANNEL_SIZE);
   for (let pixel = 0, rgba = 0; pixel < CHANNEL_SIZE; pixel++, rgba += 4) {
-    input[pixel] = (pixels[rgba] / 255 - MEAN[0]) / STD[0];
-    input[CHANNEL_SIZE + pixel] = (pixels[rgba + 1] / 255 - MEAN[1]) / STD[1];
-    input[2 * CHANNEL_SIZE + pixel] = (pixels[rgba + 2] / 255 - MEAN[2]) / STD[2];
+    for (let ch = 0; ch < 3; ch++) {
+      input[ch * CHANNEL_SIZE + pixel] = (pixels[rgba + ch] / 255 - MEAN[ch]) / STD[ch];
+    }
   }
   return new runtime.Tensor('float32', input, [1, 3, RESOLUTION, RESOLUTION]);
 }
