@@ -1,7 +1,6 @@
+import type { DrawShape } from '@lichess-org/chessground/draw';
 import assert from 'node:assert/strict';
 import { describe, test } from 'node:test';
-
-import type { DrawShape } from '@lichess-org/chessground/draw';
 
 import { annotationShapes, endgameGlyphs, glyphToSvg } from '../src/game/glyphs';
 import type { TreeNode } from '../src/tree/types';
