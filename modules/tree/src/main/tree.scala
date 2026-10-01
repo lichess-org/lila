@@ -435,6 +435,7 @@ object Node:
         fromBase(split(glyphs, false).toggle(glyph)) ::: glyphs.value.filter(_.comp)
       def withoutComp: Glyphs = glyphs.value.filterNot(_.comp)
       def bake: Glyphs = fromBase(toBase) // dedups
+      def nonEmptyOption: Option[Glyphs] = Option.when(glyphs.nonEmpty)(glyphs)
 
     val empty: Glyphs = Nil
 
@@ -576,7 +577,7 @@ object Node:
         .add("eval", eval.filterNot(_.isEmpty))
         .add("comments", comments.nonEmpty.option(comments))
         .add("gamebook", gamebook)
-        .add("glyphs", glyphs.nonEmpty.option(glyphs))
+        .add("glyphs", glyphs.nonEmptyOption)
         .add("shapes", shapes.nonEmpty.option(shapes))
         .add("clock", clock.map(_.centis))
         .add("crazy", crazyData)
