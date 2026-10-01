@@ -11,6 +11,10 @@ let
   sasso = inputs.sasso.packages.${pkgs.stdenv.system}.default;
 in
 {
+  env = {
+    pnpm_config_pm_on_fail = "error";
+  };
+
   # https://devenv.sh/languages/
   languages = {
     java = {
