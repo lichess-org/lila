@@ -180,8 +180,7 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
 
   val enabledSelect = bdoc(F.enabled -> true)
   val disabledSelect = bdoc(F.enabled -> false)
-  val notForeverClosedSelect =
-    bdoc(F.foreverClosed.neq(true), F.delete.exists(false), F.deletedAt.exists(false))
+  val notForeverClosedSelect = bdoc(F.foreverClosed.neq(true), F.deletedAt.exists(false))
   def markSelect(mark: UserMark)(v: Boolean): Bdoc =
     if v then bdoc(F.marks -> mark.key)
     else F.marks.neq(mark.key)
@@ -367,14 +366,14 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
         blind,
         salt,
         bpass,
-        "mustConfirmEmail",
+        F.mustConfirmEmail,
         colorIt,
-        F.foreverClosed,
+        foreverClosed,
         F.delete
       )
       coll.update.one(
         bid(user.id),
-        unset(fields) ++ set("deletedAt" -> nowInstant)
+        unset(fields) ++ set(deletedAt -> nowInstant)
       )
 
     def nowFully(user: User) = for
@@ -382,9 +381,9 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
       _ <- coll.update.one(
         bid(user.id),
         bdoc(
-          "prevEmail" -> lockEmail,
-          "createdAt" -> user.createdAt,
-          "deletedAt" -> nowInstant
+          F.prevEmail -> lockEmail,
+          F.createdAt -> user.createdAt,
+          F.deletedAt -> nowInstant
         )
       )
     yield ()
