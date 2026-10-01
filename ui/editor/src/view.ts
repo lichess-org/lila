@@ -130,19 +130,21 @@ function cameraButton(ctrl: EditorCtrl): VNode {
         async click(e) {
           e.preventDefault();
           const file = await selectImage();
-          if (!file) return;
-
-          try {
-            const placement = await site.asset.loadEsm<FEN>('editor.vision', { init: { file } });
-            if (!ctrl.setFen(`${placement} w - - 0 1`)) throw new Error("Oops! Couldn't do it");
-          } catch (error) {
-            alert(String(error));
-          }
+          if (file) void loadFromImage(ctrl, file);
         },
       },
     },
     'Camera',
   );
+}
+
+export async function loadFromImage(ctrl: EditorCtrl, file: File): Promise<void> {
+  try {
+    const placement = await site.asset.loadEsm<FEN>('editor.vision', { init: { file } });
+    if (!ctrl.setFen(`${placement} w - - 0 1`)) throw new Error("Oops! Couldn't do it");
+  } catch (error) {
+    alert(String(error));
+  }
 }
 
 function selectImage(): Promise<File | undefined> {
@@ -527,11 +529,36 @@ export default function (ctrl: EditorCtrl): VNode {
   const state = ctrl.getState();
   const color = ctrl.bottomColor();
 
-  return div(`.board-editor.board-editor--${ctrl.variant}`, [
-    sparePieces(ctrl, opposite(color), 'top'),
-    div('.main-board', { attrs: { style: `cursor: ${makeCursor(ctrl.selected())}` } }, chessground(ctrl)),
-    sparePieces(ctrl, color, 'bottom'),
-    controls(ctrl, state),
-    inputs(ctrl, state.legalFen || state.fen),
-  ]);
+  return div(
+    `.board-editor.board-editor--${ctrl.variant}`,
+    {
+      on: {
+        dragover(e: DragEvent) {
+          if (Array.from(e.dataTransfer?.items || []).some(item => item.type.startsWith('image/'))) {
+            e.preventDefault();
+            (e.currentTarget as HTMLElement).classList.add('image-dragover');
+          }
+        },
+        dragleave(e: DragEvent) {
+          if (!(e.currentTarget as HTMLElement).contains(e.relatedTarget as Node))
+            (e.currentTarget as HTMLElement).classList.remove('image-dragover');
+        },
+        drop(e: DragEvent) {
+          (e.currentTarget as HTMLElement).classList.remove('image-dragover');
+          const file = Array.from(e.dataTransfer?.files || []).find(file => file.type.startsWith('image/'));
+          if (file) {
+            e.preventDefault();
+            void loadFromImage(ctrl, file);
+          }
+        },
+      },
+    },
+    [
+      sparePieces(ctrl, opposite(color), 'top'),
+      div('.main-board', { attrs: { style: `cursor: ${makeCursor(ctrl.selected())}` } }, chessground(ctrl)),
+      sparePieces(ctrl, color, 'bottom'),
+      controls(ctrl, state),
+      inputs(ctrl, state.legalFen || state.fen),
+    ],
+  );
 }
