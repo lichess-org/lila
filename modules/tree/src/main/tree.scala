@@ -28,6 +28,7 @@ object Branches:
 
   extension (nodes: Branches)
     def toList: List[Branch] = nodes
+    def map(f: Update[List[Branch]]): Branches = f(nodes)
     def first: Option[Branch] = nodes.headOption
     def mainlineFirst: Option[Branch] = first.filterNot(_.forceVariation)
     def variationsOnly: List[Branch] = nodes match
@@ -70,25 +71,6 @@ object Branches:
 
     // doesn't check if a node with the same ID exists!
     def prependUnchecked(b: Branch): Branches = b :: nodes
-
-    def deleteNodeAt(path: UciPath): Option[Branches] =
-      path.split.flatMap:
-        case (head, p) if p.isEmpty && hasNode(head) => nodes.filterNot(_.id == head).some
-        case (_, p) if p.isEmpty => none
-        case (head, tail) => updateChildren(head, _.deleteNodeAt(tail))
-
-    def deleteNodeAtAndPruneComp(path: UciPath): Option[Branches] =
-      path.split.flatMap:
-        case (head, p) if p.isEmpty && hasNode(head) => nodes.filterNot(_.id == head).some
-        case (_, p) if p.isEmpty => none
-        case (head, tail) =>
-          for
-            node <- get(head)
-            children <- node.children.deleteNodeAtAndPruneComp(tail)
-            updated = node.copy(children = children)
-          yield
-            if updated.comp && !updated.children.hasNonComp then nodes.filterNot(_.id == head)
-            else nodes.map(n => if n.id == head then updated else n)
 
     def promoteToMainlineAt(path: UciPath): Option[Branches] =
       path.split.fold(nodes.some): (head, tail) =>
