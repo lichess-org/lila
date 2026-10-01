@@ -59,13 +59,13 @@ export interface CastlingRooks {
 }
 
 export function castlingRooksFromBoard(board: Board, color: Color): CastlingRooks {
-  const backRank = SquareSet.fromRank(color === 'white' ? 0 : 7),
-    king = board.king.intersect(board[color]).intersect(backRank).singleSquare();
+  const backRank = SquareSet.fromRank(color === 'white' ? 0 : 7);
+  const king = board.king.intersect(board[color]).intersect(backRank).singleSquare();
   if (king === undefined) return {};
 
-  const rooks = board.rook.intersect(board[color]).intersect(backRank),
-    queenside = rooks.first(),
-    kingside = rooks.last();
+  const rooks = board.rook.intersect(board[color]).intersect(backRank);
+  const queenside = rooks.first();
+  const kingside = rooks.last();
   return {
     rookQ: queenside !== undefined && queenside < king ? queenside : undefined,
     rookK: kingside !== undefined && kingside > king ? kingside : undefined,

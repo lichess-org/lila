@@ -85,8 +85,8 @@ export default class EvalCache {
   private readonly onCrowd: PubsubEvents['socket.in.crowd'] = d => this.upgradable(d.nb > 2 && d.nb < 99999);
 
   onLocalCeval = throttle(500, () => {
-    const node = this.opts.getNode(),
-      ev = node.ceval;
+    const node = this.opts.getNode();
+    const ev = node.ceval;
     const fetched = this.fetchedByFen.get(node.fen);
     if (
       ev &&

@@ -54,3 +54,14 @@ $col2-uniboard-squeeze-width: minmax(
   calc(100vh - #{$site-header-outer-height} - #{$block-gap})
 );
 $col1-uniboard-controls: 5rem;
+
+// Fallback for browsers without CSS min(), including Chromium 75.
+$col3-uniboard-fallback-min-width: calc(70vmin * var(---board-scale));
+$col3-uniboard-fallback-max-width: calc(
+  100vh * var(---board-scale) - #{$site-header-outer-height} - #{$col3-uniboard-controls}
+);
+$col3-uniboard-fallback-width: minmax(
+  #{$col3-uniboard-fallback-min-width},
+  #{$col3-uniboard-fallback-max-width}
+);
+$col2-uniboard-fallback-width: $col3-uniboard-fallback-width;

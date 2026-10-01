@@ -1,5 +1,7 @@
 // no side effects allowed due to re-export by index.ts
 
+import type { NodeCrazy } from '@/tree/types';
+
 import type { Status } from './status';
 
 export interface GameData {
@@ -177,5 +179,5 @@ export interface RoundStep {
   san: San;
   uci: Uci;
   check?: boolean;
-  crazy?: Record<string, any>;
+  crazy?: NodeCrazy;
 }

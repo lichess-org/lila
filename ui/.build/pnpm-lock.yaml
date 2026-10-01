@@ -124,9 +124,6 @@ importers:
       fast-glob:
         specifier: 3.3.3
         version: 3.3.3
-      fast-xml-parser:
-        specifier: 5.11.1
-        version: 5.11.1
       json-stringify-pretty-compact:
         specifier: 4.0.0
         version: 4.0.0
@@ -140,8 +137,8 @@ importers:
         specifier: ^1.1.1
         version: 1.1.1
       sasso:
-        specifier: ^0.18.0
-        version: 0.18.0
+        specifier: ^0.19.3
+        version: 0.19.3
       typescript:
         specifier: 7.0.2
         version: 7.0.2
@@ -183,9 +180,6 @@ packages:
     engines: {node: '>=18'}
     cpu: [x64]
     os: [win32]
-
-  '@nodable/entities@3.0.0':
-    resolution: {integrity: sha512-8L9xFeTYKhm49xfIypoe2W5wV1m/3Z58kT+7kR9A8OyFxcPduI4VmxaUMQyKYrRjUoLLSXv6EKKID5Tvj9cUVw==}
 
   '@nodelib/fs.scandir@2.1.5':
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
@@ -328,9 +322,6 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  anynum@1.0.1:
-    resolution: {integrity: sha512-N6//FLET/tXYNM/F6ABca1oH6fWB+KlTt909Le28WMDBk8oaT4vY17DCrwg2MvmuqUKt3Ni4N5dGJ/EoBgcO6A==}
-
   baseline-browser-mapping@2.11.20:
     resolution: {integrity: sha512-H0ulySigv6icDJ1F7SjtdCD6PrhTpdYCmP0CactWy1+ekh0AFd0o1Wn5T8b+hnTmdBx19u9yhL6wvCylXMY7zw==}
     engines: {node: '>=6.0.0'}
@@ -368,13 +359,6 @@ packages:
     resolution: {integrity: sha512-7MptL8U0cqcFdzIzwOTHoilX9x5BrNqye7Z/LuC7kCMRio1EMSyqRK3BEAUD7sXRq4iT4AzTVuZdhgQ2TCvYLg==}
     engines: {node: '>=8.6.0'}
 
-  fast-xml-builder@1.3.0:
-    resolution: {integrity: sha512-F74cZEdCvuw9P41GAC3rod4X04jjWGM1JPEv/GWSqFTWLsdyMSBMBMlm9Hk3GLBgLBbdBNY8yee0pQh2RBVESQ==}
-
-  fast-xml-parser@5.11.1:
-    resolution: {integrity: sha512-TBw6K/fxoQGGjCmZDw9w/ZwP3uDcnTM4YH/g+PFRWr8sbe5idXtxNN6vITh4+1ruCZaho6uBFurElsA7F0zzgw==}
-    hasBin: true
-
   fastq@1.19.0:
     resolution: {integrity: sha512-7SFSRCNjBQIZH/xZR3iy5iQYR8aGBE0h3VG6/cwlbrpdciNYBMotQav8c1XI3HjHH+NikUpP53nPdlZSdWmFzA==}
 
@@ -397,9 +381,6 @@ packages:
   is-number@7.0.0:
     resolution: {integrity: sha512-41Cifkg6e8TylSpdtTpeLVMqvSBEVzTttHvERD741+pnZ8ANv0004MRL43QKPDlK9cGvNp6NZWZUBlbGXYxxng==}
     engines: {node: '>=0.12.0'}
-
-  is-unsafe@2.0.0:
-    resolution: {integrity: sha512-2LdV822R+wmI86unXA93WCFpL6g+av8ynWk0nrHyJqGop5VoocYsSLFgN8jrfalT6iGeLNM4KXuVSsULP53kEA==}
 
   json-stringify-pretty-compact@4.0.0:
     resolution: {integrity: sha512-3CNZ2DnrpByG9Nqj6Xo8vqbjT4F6N+tb4Gb28ESAZjYZ5yqvmc56J+/kuIwkaAMOyblTQhUW7PxMkUb8Q36N3Q==}
@@ -490,10 +471,6 @@ packages:
     resolution: {integrity: sha512-YHs7BmmcsdAI5Ozuf8JZo6PT0mv2GIWC9vMfvUC3dp65M8hn7Ux8CPL+2oBI7juNuj9d0ndhTcznq2ODBps9cQ==}
     engines: {node: '>=18'}
 
-  path-expression-matcher@1.6.2:
-    resolution: {integrity: sha512-enSlaiat05iasnzmgNxRj8reFdj3puY2QpNgP1aPIaVfT6nn9ICuPoFlKHk8EN22HcwewshO+mN2DGbkCEOtqQ==}
-    engines: {node: '>=14.0.0'}
-
   picocolors@1.1.1:
     resolution: {integrity: sha512-xceH2snhtb5M9liqDsmEw56le376mTZkEX/jEb/RxNFyegNul7eNslCXP9FDj/Lcu0X8KEyMceP2ntpaHrDEVA==}
 
@@ -511,39 +488,36 @@ packages:
   run-parallel@1.2.0:
     resolution: {integrity: sha512-5l4VyZR86LZ/lDxZTR6jqL8AFE2S0IFLMP26AbjsLVADxHdhB/c0GUsH+y39UfCi3dzz8OlQuPmnaJOMoDHQBA==}
 
-  sasso-native-darwin-arm64@0.18.0:
-    resolution: {integrity: sha512-UygtZeYx3myY2VpYGBEFCCrwq5YlhJmVBsCrnLt4sZDM06n1hCIuFJsOFd2b6vHX6UppGjy2Wtq1Fq+0Eg6IyA==}
+  sasso-native-darwin-arm64@0.19.3:
+    resolution: {integrity: sha512-IMmUbAQJLzYoIRtZupguzOdltHJ0EJ8U/Hh/AGYYa4+0aF+oTOtK+7ktZtd7yT1Ok4vsCpBEN4duO6tMJdBuHg==}
     engines: {node: '>=18'}
     cpu: [arm64]
     os: [darwin]
 
-  sasso-native-darwin-x64@0.18.0:
-    resolution: {integrity: sha512-TfWViggDzJhO2embsz6UzvbU+etIdz9dRkCa5PV/s4ILKLRfEZ11q02csv8mCZ+Kqp+g7sE+MC775mZT1n1AFg==}
+  sasso-native-darwin-x64@0.19.3:
+    resolution: {integrity: sha512-NW3F1w9BaiNzyM9fvoun+F9JleI+K7hI1aHUA+/d9jngSRbN2GOMTtj/rtI6/rrcJxP2zQJ6sMC2u/1bgbtGCA==}
     engines: {node: '>=18'}
     cpu: [x64]
     os: [darwin]
 
-  sasso-native-linux-arm64-gnu@0.18.0:
-    resolution: {integrity: sha512-H+LdAlW6WcrQPgEsstQwJg7CYQOxDeCKmsimIMTfQslAC8MSguIaBDJl97ESvIqRtiErypHVF4wFZvBvb4htZA==}
+  sasso-native-linux-arm64-gnu@0.19.3:
+    resolution: {integrity: sha512-Jxfw88NYPJJzK6ThYjg5HmlXtrFSnA4Ovmhy6zSBUSXdlU06nhcJ3IWMEM6e8peLt65WOuwdRA1wsdWzuY9PZg==}
     engines: {node: '>=18'}
     cpu: [arm64]
     os: [linux]
     libc: [glibc]
 
-  sasso-native-linux-x64-gnu@0.18.0:
-    resolution: {integrity: sha512-GsahOJcocQftBW25oTK1NUEWMnHzSM48xupkI2JGzPIr8JHE4O/fG5WM4C/PPkWi4Q5SXJ1TpQkyxn8pMUpmUQ==}
+  sasso-native-linux-x64-gnu@0.19.3:
+    resolution: {integrity: sha512-dpjDaoLA1U+itA3EAHK/7yNeM4uuTiaw73iP2UHAEXNOcCTx+hicRbZ688Dr/XgsvXxuW52PIlOOp+zb5u/Yqg==}
     engines: {node: '>=18'}
     cpu: [x64]
     os: [linux]
     libc: [glibc]
 
-  sasso@0.18.0:
-    resolution: {integrity: sha512-skuztOv8dZCxpqCqR7GlCV6P3bMg6gSfpLcYPkZz5+A2QIqqdFvD6vVyZ8+GXbHUu553j8mWWdAy5FnfT2R1Mg==}
+  sasso@0.19.3:
+    resolution: {integrity: sha512-59rcPxU22hhl6TSFr12L9o8NBt9nwuvyUHU8pVowtADEZLTwiQ87nL43a1jFGfQh4w9f3BRBSaqhuPeEVHoq0g==}
     engines: {node: '>=16'}
     hasBin: true
-
-  strnum@2.4.2:
-    resolution: {integrity: sha512-rDG3Ah4TV0k1hWvLSzkZtMmLN9+eS+h3knq4MP6A42Y3Yh5qGNnOUs1jJkoSr8FG5dsL28c7KgkIBzSEykqtuw==}
 
   to-regex-range@5.0.1:
     resolution: {integrity: sha512-65P7iz6X5yEr1cwcgvQxbbIw7Uk3gOy5dIdtZ4rDveLqhrdJP+Li/Hx6tyK0NEb+2GCyneCMJiGqrADCSNk8sQ==}
@@ -562,10 +536,6 @@ packages:
     hasBin: true
     peerDependencies:
       browserslist: '>= 4.21.0'
-
-  xml-naming@0.3.0:
-    resolution: {integrity: sha512-ghig2TBE/H11aOVgmahA3MhimvkBr6JIYknH/Dhdk10nXwdbIqBJsbfMxpvFPG8bAw77gN29aQWvKpmVoPlvPQ==}
-    engines: {node: '>=16.0.0'}
 
 ignoredOptionalDependencies:
   - '@esbuild/*-arm'
@@ -602,8 +572,6 @@ snapshots:
 
   '@esbuild/win32-x64@0.28.2':
     optional: true
-
-  '@nodable/entities@3.0.0': {}
 
   '@nodelib/fs.scandir@2.1.5':
     dependencies:
@@ -687,8 +655,6 @@ snapshots:
   '@typescript/typescript-win32-x64@7.0.2':
     optional: true
 
-  anynum@1.0.1: {}
-
   baseline-browser-mapping@2.11.20: {}
 
   braces@3.0.3:
@@ -728,20 +694,6 @@ snapshots:
       merge2: 1.4.1
       micromatch: 4.0.8
 
-  fast-xml-builder@1.3.0:
-    dependencies:
-      path-expression-matcher: 1.6.2
-      xml-naming: 0.3.0
-
-  fast-xml-parser@5.11.1:
-    dependencies:
-      '@nodable/entities': 3.0.0
-      fast-xml-builder: 1.3.0
-      is-unsafe: 2.0.0
-      path-expression-matcher: 1.6.2
-      strnum: 2.4.2
-      xml-naming: 0.3.0
-
   fastq@1.19.0:
     dependencies:
       reusify: 1.0.4
@@ -761,8 +713,6 @@ snapshots:
       is-extglob: 2.1.1
 
   is-number@7.0.0: {}
-
-  is-unsafe@2.0.0: {}
 
   json-stringify-pretty-compact@4.0.0: {}
 
@@ -824,8 +774,6 @@ snapshots:
 
   node-releases@2.0.54: {}
 
-  path-expression-matcher@1.6.2: {}
-
   picocolors@1.1.1: {}
 
   picomatch@2.3.1: {}
@@ -838,28 +786,24 @@ snapshots:
     dependencies:
       queue-microtask: 1.2.3
 
-  sasso-native-darwin-arm64@0.18.0:
+  sasso-native-darwin-arm64@0.19.3:
     optional: true
 
-  sasso-native-darwin-x64@0.18.0:
+  sasso-native-darwin-x64@0.19.3:
     optional: true
 
-  sasso-native-linux-arm64-gnu@0.18.0:
+  sasso-native-linux-arm64-gnu@0.19.3:
     optional: true
 
-  sasso-native-linux-x64-gnu@0.18.0:
+  sasso-native-linux-x64-gnu@0.19.3:
     optional: true
 
-  sasso@0.18.0:
+  sasso@0.19.3:
     optionalDependencies:
-      sasso-native-darwin-arm64: 0.18.0
-      sasso-native-darwin-x64: 0.18.0
-      sasso-native-linux-arm64-gnu: 0.18.0
-      sasso-native-linux-x64-gnu: 0.18.0
-
-  strnum@2.4.2:
-    dependencies:
-      anynum: 1.0.1
+      sasso-native-darwin-arm64: 0.19.3
+      sasso-native-darwin-x64: 0.19.3
+      sasso-native-linux-arm64-gnu: 0.19.3
+      sasso-native-linux-x64-gnu: 0.19.3
 
   to-regex-range@5.0.1:
     dependencies:
@@ -895,5 +839,3 @@ snapshots:
       browserslist: 4.28.9
       escalade: 3.2.0
       picocolors: 1.1.1
-
-  xml-naming@0.3.0: {}

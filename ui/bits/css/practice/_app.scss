@@ -6,7 +6,6 @@
       font-size: 2em;
       letter-spacing: 1px;
       text-transform: uppercase;
-      font-weight: 500;
       color: $c-font-dim;
     }
   }
@@ -50,8 +49,8 @@
     }
 
     icon {
-      width: 58px;
-      height: 58px;
+      width: 60px;
+      height: 60px;
       padding: 8px;
       margin: 0 1em;
       opacity: 0.75;
@@ -77,9 +76,11 @@
       line-height: 1;
     }
 
-    p {
+    em {
       margin: 4px 0 0 0;
+      display: inline-block;
       line-height: 1.2;
+      opacity: 0.8;
       color: $c-font-dim;
     }
 
@@ -87,7 +88,7 @@
       icon {
         border-color: hsl(from $c-primary h s calc(l - 10));
         background-image:
-          var(---icon-bg-image), linear-gradient(130deg, $c-primary, hsl(from $c-primary h s calc(l - 20)));
+          var(---icon-bg-image), linear-gradient(130deg, $c-primary, hsl(from $c-primary h s calc(l - 16)));
       }
 
       .attention-effect {
@@ -103,7 +104,7 @@
         border-color: hsl(from $c-secondary h s calc(l - 10));
         background-image:
           var(---icon-bg-image),
-          linear-gradient(130deg, $c-secondary, hsl(from $c-secondary h s calc(l - 20)));
+          linear-gradient(130deg, $c-secondary, hsl(from $c-secondary h s calc(l - 16)));
       }
     }
 
@@ -111,7 +112,7 @@
       icon {
         border-color: hsl(from $c-future h s calc(l - 10));
         background-image:
-          var(---icon-bg-image), linear-gradient(130deg, $c-future, hsl(from $c-future h s calc(l - 20)));
+          var(---icon-bg-image), linear-gradient(130deg, $c-future, hsl(from $c-future h s calc(l - 16)));
       }
     }
 

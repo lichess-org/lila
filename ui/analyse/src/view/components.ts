@@ -348,9 +348,9 @@ function renderPlayerStrips(ctrl: AnalyseCtrl): [VNode, VNode] | undefined {
   const renderPlayerStrip = (cls: string, materialDiff: VNode, clock?: VNode): VNode =>
     hl('div.analyse__player_strip.' + cls, [materialDiff, clock]);
 
-  const clocks = renderClocks(ctrl, ctrl.path),
-    whitePov = ctrl.bottomIsWhite(),
-    materialDiffs = renderMaterialDiffs(ctrl);
+  const clocks = renderClocks(ctrl, ctrl.path);
+  const whitePov = ctrl.bottomIsWhite();
+  const materialDiffs = renderMaterialDiffs(ctrl);
 
   return [
     renderPlayerStrip('top', materialDiffs[0], clocks?.[whitePov ? 1 : 0]),

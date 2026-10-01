@@ -78,8 +78,8 @@ async function boot(
       },
       endData() {
         xhrText(`${data.tv ? '/tv' : ''}/${data.game.id}/${data.player.color}/sides`).then(html => {
-          const $html = $(html),
-            $meta = $html.find('.game__meta');
+          const $html = $(html);
+          const $meta = $html.find('.game__meta');
           $meta.length && $('.game__meta').replaceWith($meta);
           $('.crosstable').replaceWith($html.find('.crosstable'));
           startTournamentClock();

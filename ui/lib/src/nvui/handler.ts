@@ -230,7 +230,12 @@ export function lastCapturedCommandHandler(
   return (): Cash => $('.boardstatus').text(lastCaptured());
 }
 
-export function possibleMovesHandler(yourColor: Color, cg: CgApi, variant: VariantKey, steps: RoundStep[]) {
+export function possibleMovesHandler(
+  yourColor: Color,
+  cg: CgApi,
+  variant: VariantKey,
+  steps: NVUIRoundStep[],
+) {
   return (ev: KeyboardEvent): void => {
     if (ev.key.toLowerCase() !== 'm') return;
     const pos = keyFromAttrs(ev.target as HTMLElement);
@@ -276,12 +281,12 @@ export type DropMove = { role: Role; key: Key };
 export function inputToMove(input: string, fen: string, chessground: CgApi): Uci | DropMove | undefined {
   const dests = chessground.state.movable.dests;
   if (!dests || input.length < 1) return undefined;
-  const legalUcis = destsToUcis(dests),
-    legalSans = sanWriter(fen, legalUcis),
-    cleanedMixedCase = input[0] + input.slice(1).replace(/\+|#/g, '').toLowerCase();
+  const legalUcis = destsToUcis(dests);
+  const legalSans = sanWriter(fen, legalUcis);
+  const cleanedMixedCase = input[0] + input.slice(1).replace(/\+|#/g, '').toLowerCase();
   // initialize uci preserving first char of input because we need to differentiate bxc3 and Bxc3
-  let uci = (sanToUci(cleanedMixedCase, legalSans) || cleanedMixedCase).toLowerCase(),
-    promotion = '';
+  let uci = (sanToUci(cleanedMixedCase, legalSans) || cleanedMixedCase).toLowerCase();
+  let promotion = '';
 
   const cleaned = cleanedMixedCase.toLowerCase();
   const drop = cleaned.match(dropRegex);
@@ -305,7 +310,7 @@ export function inputToMove(input: string, fen: string, chessground: CgApi): Uci
 const squareSelector = (rank: string, file: string) =>
   `.board-wrapper button[rank="${rank}"][file="${file}"]`;
 
-interface RoundStep {
+interface NVUIRoundStep {
   uci?: Uci;
   fen: FEN;
 }

@@ -6,9 +6,9 @@ import { upgradeData } from './network';
 import view from './view/main';
 
 export function initModule(opts: MsgOpts) {
-  const element = document.querySelector('.msg-app') as HTMLElement,
-    patch = init([classModule, attributesModule]),
-    appHeight = () => document.body.style.setProperty('---app-height', `${window.innerHeight}px`);
+  const element = document.querySelector('.msg-app') as HTMLElement;
+  const patch = init([classModule, attributesModule]);
+  const appHeight = () => document.body.style.setProperty('---app-height', `${window.innerHeight}px`);
   window.addEventListener('resize', appHeight);
   appHeight();
   const ctrl = new MsgCtrl(upgradeData(opts.data), redraw);

@@ -157,9 +157,9 @@ export class LevelCtrl {
         redraw();
         return;
       }
-      let took = false,
-        inScenario,
-        captured = false;
+      let took = false;
+      let inScenario;
+      let captured = false;
       items.doIfKeyExists(makeSquare(move.to), () => {
         vm.score += apple;
         items.remove(makeSquare(move.to));

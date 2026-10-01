@@ -45,6 +45,8 @@ final private class FideRepo(
       playerColl.updateOrUnsetField(bid(p.id) ++ bdoc("photo.id".exists(true)), "photo.credit", credit).void
     def setDeceasedYear(id: FideId, year: Option[Int]): Funit =
       playerColl.updateOrUnsetField(bid(id), "deceasedYear", year).void
+    def unsetYear(id: FideId): Funit =
+      playerColl.unsetField(bid(id), "year").void
 
   object rating:
     given BSONDocumentHandler[FideRatingHistory] = Macros.handler

@@ -6,12 +6,13 @@ import { createInterface } from 'node:readline';
 import pc from 'picocolors';
 
 import { env, errorMark, warnMark } from './env.ts';
+import { i18nTypingsReady } from './i18n.ts';
 
 let tscPs: ChildProcess | undefined;
 
 export async function tsc(): Promise<void> {
   if (!env.begin('tsc')) return;
-  await fs.promises.mkdir(env.buildTempDir, { recursive: true });
+  await Promise.all([i18nTypingsReady.promise, fs.promises.mkdir(env.buildTempDir, { recursive: true })]);
 
   const buildPaths = (await fg.glob('*/tsconfig*.json', { cwd: env.uiDir, absolute: true }))
     .sort((a, b) => a.localeCompare(b)) // repeatable build order

@@ -15,8 +15,8 @@ function loginStart() {
   const selector = '.auth-login form';
 
   (function load() {
-    const form = document.querySelector(selector) as HTMLFormElement,
-      $f = $(form);
+    const form = document.querySelector(selector) as HTMLFormElement;
+    const $f = $(form);
     turnstile($f);
     initTextClear(form);
     form.addEventListener('submit', (e: Event) => {
@@ -60,13 +60,13 @@ function loginStart() {
 }
 
 function signupStart() {
-  const $form = $('#signup-form'),
-    $exists = $form.find('.username-exists'),
-    $username = $form.find('input[name="username"]').on('change keyup paste', () => {
-      $exists.addClass('none');
-      usernameCheck();
-    }),
-    $password = $form.find('input[name="password"]');
+  const $form = $('#signup-form');
+  const $exists = $form.find('.username-exists');
+  const $username = $form.find('input[name="username"]').on('change keyup paste', () => {
+    $exists.addClass('none');
+    usernameCheck();
+  });
+  const $password = $form.find('input[name="password"]');
 
   const usernameCheck = debounce(async () => {
     const name = $username.val() as string;

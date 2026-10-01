@@ -94,8 +94,8 @@ export function renderNvui(ctx: RoundNvuiContext): VNode {
 
 function inputForm(ctx: RoundNvuiContext): LooseVNodes {
   const { ctrl, notify, moveStyle } = ctx;
-  const d = ctrl.data,
-    nvui = ctrl.nvui!;
+  const d = ctrl.data;
+  const nvui = ctrl.nvui!;
   return hl('div.move-input', [
     hl('h2', i18n.nvui.inputForm),
     hl(
@@ -130,11 +130,11 @@ function inputForm(ctx: RoundNvuiContext): LooseVNodes {
 
 function gameInfo(ctx: RoundNvuiContext): LooseVNodes {
   const { ctrl, notify, moveStyle } = ctx;
-  const d = ctrl.data,
-    step = plyStep(d, ctrl.ply),
-    style = moveStyle.get(),
-    pockets = step.crazy?.pockets,
-    clocks = [anyClock(ctrl, 'bottom'), anyClock(ctrl, 'top')];
+  const d = ctrl.data;
+  const step = plyStep(d, ctrl.ply);
+  const style = moveStyle.get();
+  const pockets = step.crazy?.pockets;
+  const clocks = [anyClock(ctrl, 'bottom'), anyClock(ctrl, 'top')];
 
   return [
     hl('h1', gameText(ctrl)),
@@ -491,8 +491,8 @@ const sendMove = (uciOrDrop: string | nv.DropMove, ctrl: RoundController, premov
     : ctrl.sendNewPiece(uciOrDrop.role, uciOrDrop.key, premove);
 
 function anyClock(ctrl: RoundController, position: TopOrBottom): VNode | undefined {
-  const d = ctrl.data,
-    player = ctrl.playerAt(position);
+  const d = ctrl.data;
+  const player = ctrl.playerAt(position);
   return (
     (ctrl.clock && renderClock(ctrl.clock, player.color, position, _ => [])) ||
     (d.correspondence && renderCorresClock(ctrl.corresClock!, player.color, position, d.game.player))
@@ -508,11 +508,11 @@ const renderMoves = (steps: Step[], style: nv.MoveStyle) =>
 
 function playerHtml(ctrl: RoundController, player: Player) {
   if (player.ai) return i18n.site.aiNameLevelAiLevel('Stockfish', player.ai);
-  const perf = ctrl.data.game.perf,
-    user = player.user,
-    rating = user?.perfs[perf]?.rating,
-    rd = player.ratingDiff,
-    ratingDiff = rd ? (rd > 0 ? '+' + rd : rd < 0 ? '−' + -rd : '') : '';
+  const perf = ctrl.data.game.perf;
+  const user = player.user;
+  const rating = user?.perfs[perf]?.rating;
+  const rd = player.ratingDiff;
+  const ratingDiff = rd ? (rd > 0 ? '+' + rd : rd < 0 ? '−' + -rd : '') : '';
   return user
     ? hl('span', [
         hl(
@@ -529,8 +529,8 @@ function playerHtml(ctrl: RoundController, player: Player) {
 function playerText(ctrl: RoundController) {
   const player = ctrl.data.opponent;
   if (player.ai) return i18n.site.aiNameLevelAiLevel('Stockfish', player.ai);
-  const user = player.user,
-    rating = player?.rating ?? user?.perfs[ctrl.data.game.perf]?.rating ?? i18n.site.unknown;
+  const user = player.user;
+  const rating = player?.rating ?? user?.perfs[ctrl.data.game.perf]?.rating ?? i18n.site.unknown;
   return !user ? i18n.site.anonymous : `${user.title || ''} ${user.username}. ${i18n.site.rating} ${rating}`;
 }
 

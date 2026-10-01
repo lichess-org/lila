@@ -257,14 +257,14 @@ export default class RoundController implements MoveRootCtrl {
     this.ply = ply;
     this.justDropped = undefined;
     this.preDrop = undefined;
-    const s = this.stepAt(ply),
-      config: CgConfig = {
-        fen: s.fen,
-        lastMove: uciToMove(s.uci),
-        check: !!s.check,
-        turnColor: plyColor(this.ply),
-        drawable: { autoShapes: ground.endgameShapesForStep(this, s) },
-      };
+    const s = this.stepAt(ply);
+    const config: CgConfig = {
+      fen: s.fen,
+      lastMove: uciToMove(s.uci),
+      check: !!s.check,
+      turnColor: plyColor(this.ply),
+      drawable: { autoShapes: ground.endgameShapesForStep(this, s) },
+    };
     this.promotion.dismiss();
     if (this.replaying()) this.chessground.stop();
     else
@@ -437,8 +437,8 @@ export default class RoundController implements MoveRootCtrl {
       else {
         // This block needs to be idempotent, even for castling moves in
         // Chess960.
-        const keys = uciToMove(o.uci)!,
-          pieces = this.chessground.state.pieces;
+        const keys = uciToMove(o.uci)!;
+        const pieces = this.chessground.state.pieces;
         if (
           !o.castle ||
           (pieces.get(o.castle.king[0])?.role === 'king' && pieces.get(o.castle.rook[0])?.role === 'rook')
@@ -481,8 +481,8 @@ export default class RoundController implements MoveRootCtrl {
     this.data.forecastCount = undefined;
     if (o.clock) {
       this.shouldSendMoveTime = true;
-      const oc = o.clock,
-        delay = playing && activeColor ? 0 : oc.lag || 1;
+      const oc = o.clock;
+      const delay = playing && activeColor ? 0 : oc.lag || 1;
       if (this.clock)
         this.clock.setClock({
           white: oc.white,
