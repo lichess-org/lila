@@ -4,6 +4,7 @@ import play.api.libs.json.*
 import play.api.mvc.*
 import scalalib.Json.given
 import scalalib.paginator.Paginator
+import chess.json.Json.given
 
 import lila.analyse.Analysis
 import lila.app.{ *, given }
@@ -258,7 +259,8 @@ final class Study(
 
   def chapterConfig(id: StudyId, chapterId: StudyChapterId) = Open:
     Found(env.study.chapterRepo.byIdAndStudy(chapterId, id)): chapter =>
-      Ok(env.study.jsonView.chapterConfig(chapter))
+      if getBool("divisionOnly") then JsonOk(env.study.serverEvalMerger.divisionOf(chapter))
+      else Ok(env.study.jsonView.chapterConfig(chapter))
 
   private[controllers] def chatOf(study: lila.study.Study)(using ctx: Context) = {
     ctx.kid.no && ctx.noBot // no public chats for kids and bots
