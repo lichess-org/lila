@@ -16,6 +16,7 @@ ignoredOptionalDependencies:
   - '@esbuild/openharmony-*'
   - '@esbuild/netbsd-*'
   - '@esbuild/sunos-*'
+minimumReleaseAge: 10080
 minimumReleaseAgeExclude:
-  - sasso-native-*
-  - sasso
+  - sasso-native-* # 2026/10/07 remove me
+  - sasso # 2026/10/07 remove me
