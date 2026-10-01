@@ -48,15 +48,7 @@ export class LocalAnalysisEngine {
   }
 
   async getDivision(): Promise<Division> {
-    const rsp = await fetch('/analysis/division', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        variant: this.ctrl.variantKey,
-        initialFen: this.nodes[0].fen,
-        moves: this.nodes.slice(1).map(n => n.san),
-      }),
-    });
+    const rsp = await fetch(`/game/export/${this.ctrl.data.game.id}?divisionOnly=1`);
     if (!rsp.ok) throw new Error(`${rsp.status} ${rsp.statusText} ${(await rsp.text()).slice(0, 255)}`);
     return rsp.json();
   }
