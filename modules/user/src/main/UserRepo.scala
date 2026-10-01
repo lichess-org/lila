@@ -555,7 +555,7 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
     user.enabled.no.so:
       coll
         .exists(bid(user.id) ++ bdoc(F.foreverClosed -> true))
-        .zip(coll.exists(bid(user.id) ++ bdoc(s"${F.delete}.done" -> true)))
+        .zip(coll.exists(bid(user.id) ++ F.deletedAt.exists(true)))
         .map(ClosedFlags(_, _).some)
 
   def filterClosedOrInactiveIds(since: Instant)(ids: Iterable[UserId]): Fu[List[UserId]] =
