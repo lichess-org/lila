@@ -11,6 +11,7 @@ import {
   type LooseVNode,
   hl,
   bind,
+  bindClickAndFocus,
   onInsert,
   dataIcon,
 } from 'lib/view';
@@ -162,41 +163,23 @@ const fbtCancel = (f: (v: boolean) => void) =>
     hook: bind('click', () => f(false)),
   });
 
-export const resignConfirm = (ctrl: RoundController): VNode => {
-  const click = bind('click', () => ctrl.resign(true));
-  const focus = onInsert(el => el.focus());
-  return hl('div.act-confirm', [
+export const resignConfirm = (ctrl: RoundController): VNode =>
+  hl('div.act-confirm', [
     hl('button.fbt.yes', {
       attrs: { title: i18n.site.resign, 'data-icon': licon.FlagOutline },
-      hook: {
-        ...click,
-        insert: vnode => {
-          click.insert?.(vnode);
-          focus.insert?.(vnode);
-        },
-      },
+      hook: bindClickAndFocus(() => ctrl.resign(true)),
     }),
     fbtCancel(ctrl.resign),
   ]);
-};
 
-export const drawConfirm = (ctrl: RoundController): VNode => {
-  const click = bind('click', () => ctrl.offerDraw(true));
-  const focus = onInsert(el => el.focus());
-  return hl('div.act-confirm', [
+export const drawConfirm = (ctrl: RoundController): VNode =>
+  hl('div.act-confirm', [
     hl('button.fbt.yes.draw-yes', {
       attrs: { title: i18n.site.offerDraw, 'data-icon': licon.OneHalf },
-      hook: {
-        ...click,
-        insert: vnode => {
-          click.insert?.(vnode);
-          focus.insert?.(vnode);
-        },
-      },
+      hook: bindClickAndFocus(() => ctrl.offerDraw(true)),
     }),
     fbtCancel(ctrl.offerDraw),
   ]);
-};
 
 export const claimThreefold = (ctrl: RoundController, condition: (d: RoundData) => ButtonState): VNode =>
   hl(
