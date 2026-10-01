@@ -7,9 +7,9 @@
   <string name="thisPageAllowsConnectingDgtBoard">Diese Seite erlaubt dir, dein DGT-Brett mit Lichess zu verbinden und es zu benutzen, um damit Partien zu spielen.</string>
   <string name="toConnectTheDgtBoard">Um das elektronische DGT-Brett zu verbinden, musst du %s installieren.</string>
   <string name="downloadHere">Du kannst die Software hier herunterladen: %s.</string>
-  <string name="ifLiveChessRunningOnThisComputer">Falls %1$s auf diesem Computer läuft, kannst du die Verbindung mittels %2$s überprüfen.</string>
-  <string name="openingThisLink">Öffnen dieses Links</string>
-  <string name="ifLiveChessRunningElsewhere">Falls %1$s auf einem anderen System oder Port läuft, musst du die IP-Adresse und Port hier in %2$s eingeben.</string>
+  <string name="ifLiveChessRunningOnThisComputer">Falls %1$s auf diesem Computer läuft, kannst du deine Verbindung durch %2$s überprüfen.</string>
+  <string name="openingThisLink">diesen Link</string>
+  <string name="ifLiveChessRunningElsewhere">Falls %1$s auf einem anderen System oder Port läuft, musst du die IP-Adresse und Port hier im %2$s eingeben.</string>
   <string name="configurationSection">Konfigurations-Abschnitt</string>
   <string name="keepPlayPageOpen">Die Partieseite muss in deinem Browser geöffnet bleiben. Sie muss nicht sichtbar sein, du kannst sie minimieren oder neben die Lichess Partieseite ziehen, jedoch nicht schließen, da ansonsten das Brett nicht mehr funktionieren wird.</string>
   <string name="boardWillAutoConnect">Das Brett wird sich automatisch zu der Partie verbinden, die gerade im Gange ist, oder zu einer neuen Partie, sobald diese gestartet wurde. Die Möglichkeit auszuwählen, welcher Partie beigetreten werden soll, folgt in Kürze.</string>

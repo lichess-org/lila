@@ -70,10 +70,10 @@ export function initNvui(ctx: AnalyseNvuiContext): void {
 export function renderNvui(ctx: AnalyseNvuiContext): VNode {
   const { ctrl, deps, notify, moveStyle, pieceStyle, prefixStyle, positionStyle, boardStyle, pageStyle } =
     ctx;
-  const d = ctrl.data,
-    style = moveStyle.get(),
-    clocks = renderClocks(ctrl, ctrl.path),
-    pockets = ctrl.node.crazy?.pockets;
+  const d = ctrl.data;
+  const style = moveStyle.get();
+  const clocks = renderClocks(ctrl, ctrl.path);
+  const pockets = ctrl.node.crazy?.pockets;
   ctrl.chessground = makeChessground(document.createElement('div'), {
     ...makeCgConfig(ctrl),
     animation: { enabled: false },
@@ -294,8 +294,8 @@ function boardEventsHook(
 
 function renderEvalAndDepth(ctrl: AnalyseCtrl): string {
   if (ctrl.threatMode()) return `${evalInfo(ctrl.node.threat)} ${depthInfo(ctrl.node.threat, false)}`;
-  const evs = { client: ctrl.getNode().ceval, server: ctrl.getNode().eval },
-    bestEv = cevalView.getBestEval(ctrl);
+  const evs = { client: ctrl.getNode().ceval, server: ctrl.getNode().eval };
+  const bestEv = cevalView.getBestEval(ctrl);
   const evalStr = evalInfo(bestEv);
   return !evalStr ? noEvalStr(ctrl) : `${evalStr} ${depthInfo(evs.client, !!evs.client?.cloud)}`;
 }
@@ -324,8 +324,8 @@ function toggleLocalEvaluation(ctrl: AnalyseCtrl): void {
 function renderBestMove({ ctrl, moveStyle }: AnalyseNvuiContext): string {
   const noEvalMsg = noEvalStr(ctrl);
   if (noEvalMsg) return noEvalMsg;
-  const node = ctrl.node,
-    setup = parseFen(node.fen).unwrap();
+  const node = ctrl.node;
+  const setup = parseFen(node.fen).unwrap();
   let pvs: PvData[] = [];
   if (ctrl.threatMode() && node.threat) {
     pvs = node.threat.pvs;
@@ -544,12 +544,12 @@ const renderPlayer = (ctrl: AnalyseCtrl, player: Player): LooseVNodes =>
   player.ai ? i18n.site.aiNameLevelAiLevel('Stockfish', player.ai) : userHtml(ctrl, player);
 
 function userHtml(ctrl: AnalyseCtrl, player: Player) {
-  const d = ctrl.data,
-    user = player.user,
-    perf = user ? user.perfs[d.game.perf] : null,
-    rating = player.rating ?? perf?.rating,
-    rd = player.ratingDiff,
-    ratingDiff = rd ? (rd > 0 ? '+' + rd : rd < 0 ? '−' + -rd : '') : '';
+  const d = ctrl.data;
+  const user = player.user;
+  const perf = user ? user.perfs[d.game.perf] : null;
+  const rating = player.rating ?? perf?.rating;
+  const rd = player.ratingDiff;
+  const ratingDiff = rd ? (rd > 0 ? '+' + rd : rd < 0 ? '−' + -rd : '') : '';
   const studyPlayers = ctrl.study && renderStudyPlayer(ctrl, player.color);
   return user
     ? hl('span', [

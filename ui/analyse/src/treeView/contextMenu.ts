@@ -57,10 +57,10 @@ function getPosition(e: MouseEvent | TouchEvent): Coords | null {
 }
 
 function positionMenu(menu: HTMLElement, coords: Coords): void {
-  const menuWidth = menu.offsetWidth + 4,
-    menuHeight = menu.offsetHeight + 4,
-    windowWidth = window.innerWidth,
-    windowHeight = window.innerHeight;
+  const menuWidth = menu.offsetWidth + 4;
+  const menuHeight = menu.offsetHeight + 4;
+  const windowWidth = window.innerWidth;
+  const windowHeight = window.innerHeight;
 
   menu.style.left =
     windowWidth - coords.x < menuWidth ? windowWidth - menuWidth + 'px' : (menu.style.left = coords.x + 'px');
@@ -105,8 +105,8 @@ function action(
 function view(ctrl: AnalyseCtrl, path: TreePath, coords: Coords): VNode {
   const { tree, idbTree } = ctrl;
   const canPrune = ctrl.ongoing && path.startsWith(ctrl.initialPath); // correspondence
-  const node = tree.nodeAtPath(path),
-    onMainline = tree.pathIsMainline(path) && !tree.pathIsForcedVariation(path);
+  const node = tree.nodeAtPath(path);
+  const onMainline = tree.pathIsMainline(path) && !tree.pathIsForcedVariation(path);
   let canPromote = !onMainline;
   for (let iter = tree.lastMainlineNode(path).children[1]; canPromote && iter; iter = iter.children[0]) {
     if (iter === node) canPromote = false;

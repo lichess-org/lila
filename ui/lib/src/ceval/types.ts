@@ -153,7 +153,7 @@ export interface CevalHandler {
   getNode(): TreeNode;
   getNodeKey?: () => string;
   clearCeval: () => void;
-  startCeval: () => void;
+  startCevalIfEnabled: () => void;
   cevalEnabled: (enable?: boolean) => boolean | 'force';
   externalEngines?: () => ExternalEngineInfo[] | undefined;
   showEvaluation?: () => boolean;

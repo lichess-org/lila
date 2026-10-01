@@ -16,6 +16,7 @@
   <string name="quitTeam">Verlaat het team</string>
   <string name="manuallyReviewAdmissionRequests">Handmatig toelatingsverzoeken beoordelen</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Indien aangevinkt, moeten spelers schriftelijk verzoeken om lid te worden van het team. Dat verzoek kun je weigeren of accepteren.</string>
+  <string name="hideMembersDesc" comment="Checkbox label: option to hide the team member list from non-members">Lijst met teamleden verbergen voor niet-leden.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Teamleider</item>
     <item quantity="other">Teamleiders</item>
@@ -49,6 +50,8 @@
   <string name="entryCode">Team toegangscode</string>
   <string name="entryCodeDescriptionForLeader">(Optioneel) Een toegangscode die nieuwe leden moeten weten om lid te worden van dit team.</string>
   <string name="incorrectEntryCode">Onjuiste toegangscode.</string>
+  <string name="forumLabel">Teamforum</string>
+  <string name="forumVisibilityNone">Forum verbergen</string>
   <string name="teamAlreadyExists">Deze teamnaam bestaat al.</string>
   <string name="upcomingTournaments">Aankomende toernooien</string>
   <string name="completedTourns">Voltooide toernooien</string>

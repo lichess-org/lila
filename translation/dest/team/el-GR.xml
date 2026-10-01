@@ -49,6 +49,8 @@
   <string name="entryCode">Κωδικός εισόδου ομάδας</string>
   <string name="entryCodeDescriptionForLeader">(Προαιρετικό) Ένας κωδικός εισόδου τον οποίο πρέπει να γνωρίζουν όλα τα νέα μέλη για να συμμετάσχουν σε αυτήν την ομάδα.</string>
   <string name="incorrectEntryCode">Ο κωδικός εισόδου είναι λανθασμένος.</string>
+  <string name="forumLabel">Φόρουμ ομάδας</string>
+  <string name="forumVisibilityNone">Απόκρυψη του φόρουμ</string>
   <string name="teamAlreadyExists">Αυτή η ομάδα υπάρχει ήδη.</string>
   <string name="upcomingTournaments">Επερχόμενα τουρνουά</string>
   <string name="completedTourns">Ολοκληρωμένα τουρνουά</string>

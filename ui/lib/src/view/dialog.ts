@@ -336,9 +336,9 @@ class DialogWrapper<Ctx = undefined> implements Dialog<Ctx> {
         else if (bti > 0 && ati !== bti) return 1;
         else return a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_PRECEDING ? 1 : -1;
       });
-      const first = focii[0],
-        last = focii[focii.length - 1],
-        focus = document.activeElement as HTMLElement;
+      const first = focii[0];
+      const last = focii[focii.length - 1];
+      const focus = document.activeElement as HTMLElement;
 
       if (focus === last && !e.shiftKey) first?.focus();
       else if (focus === first && e.shiftKey) last?.focus();

@@ -858,12 +858,14 @@ Igranje rangiranih iger bo povečalo stabilnost.</string>
   <string name="enableKidMode">Vključite otroški način</string>
   <string name="disableKidMode">Izključite otroški način</string>
   <string name="security">Varnost</string>
+  <string name="activeSessionsDescription">To je seznam naprav in aplikacij, ki so prijavljene v vaš račun. Če opazite kakršno koli sumljivo dejavnost, &lt;a href=\'%1$s\'&gt;preverite svoj e-poštni naslov za obnovitev&lt;/a&gt; in &lt;a href=\'%2$s\'&gt;spremenite geslo&lt;/a&gt;.</string>
   <string name="sessions">Seje</string>
   <string name="revokeAllSessions">preklic vseh sej</string>
   <string name="playChessEverywhere">Igraj šah kjerkoli</string>
   <string name="everybodyGetsAllFeaturesForFree">Vsak dobi vse funkcije zastonj</string>
   <string name="viewTheSolution">Poglej rešitev</string>
   <string name="noChallenges">Ni izzivov.</string>
+  <string name="browserNotificationsDenied">Pojavna okna z obvestili so onemogočena zaradi nastavitve brskalnika</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Na voljo v %s jeziku!</item>
     <item quantity="two">Na voljo v %s jezikih!</item>
@@ -1105,4 +1107,5 @@ Vsi operativni stroški, razvoj in vsebina se financirajo izključno iz donacij 
   <string name="thereAreNoResultsForX">Ni rezultatov za \"%s\"</string>
   <string name="tags">Oznake</string>
   <string name="enPassant">En passant</string>
+  <string name="done">Opravljeno</string>
 </resources>

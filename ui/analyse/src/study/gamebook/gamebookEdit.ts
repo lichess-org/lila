@@ -15,10 +15,10 @@ export const running = (ctrl: AnalyseCtrl): boolean =>
   ctrl.study.vm.gamebookOverride !== 'analyse';
 
 export function render(ctrl: AnalyseCtrl): VNode {
-  const study = ctrl.study!,
-    isMyMove = ctrl.turnColor() === ctrl.data.orientation,
-    isCommented = (ctrl.node.comments || []).some(c => c.text.length > 2),
-    hasVariation = ctrl.tree.parentNode(ctrl.path).children.length > 1;
+  const study = ctrl.study!;
+  const isMyMove = ctrl.turnColor() === ctrl.data.orientation;
+  const isCommented = (ctrl.node.comments || []).some(c => c.text.length > 2);
+  const hasVariation = ctrl.tree.parentNode(ctrl.path).children.length > 1;
 
   let content: MaybeVNodes;
 

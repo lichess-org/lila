@@ -806,12 +806,14 @@
   <string name="enableKidMode">Activer le mode enfants</string>
   <string name="disableKidMode">Désactiver le mode enfants</string>
   <string name="security">Sécurité</string>
+  <string name="activeSessionsDescription">Voici la liste des appareils et des applications connectés à votre compte. Si vous remarquez une activité suspecte, assurez-vous de &lt;a href=\'%1$s\'&gt;vérifier votre adresse courriel de récupération&lt;/a&gt; et &lt;a href=\'%2$s\'&gt;de changer votre mot de passe&lt;/a&gt;.</string>
   <string name="sessions">Sessions</string>
   <string name="revokeAllSessions">supprimer toutes les sessions</string>
   <string name="playChessEverywhere">Jouez aux échecs partout</string>
   <string name="everybodyGetsAllFeaturesForFree">Toutes les fonctionnalités sont gratuites pour tout le monde</string>
   <string name="viewTheSolution">Regarder la solution</string>
   <string name="noChallenges">Pas de défis.</string>
+  <string name="browserNotificationsDenied">Notifications désactivées dans les paramètres du navigateur</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Disponible en %s langue !</item>
     <item quantity="other">Disponible en %s langues !</item>
@@ -1058,4 +1060,5 @@ Tous les coûts d\'exploitation, le développement et le contenu sont financés 
   <string name="boards">Échiquiers</string>
   <string name="write">Écrire</string>
   <string name="preview">Aperçu</string>
+  <string name="done">Terminé</string>
 </resources>

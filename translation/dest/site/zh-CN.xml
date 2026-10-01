@@ -770,12 +770,14 @@
   <string name="enableKidMode">启用儿童模式</string>
   <string name="disableKidMode">禁用儿童模式</string>
   <string name="security">安全</string>
+  <string name="activeSessionsDescription">这是已登录到您账户的设备和应用列表。如果您发现任何可疑活动，请务必&lt;a href=\'%1$s\'&gt;检查您的备用邮箱地址&lt;/a&gt;并&lt;a href=\'%2$s\'&gt;更改密码&lt;/a&gt;。</string>
   <string name="sessions">登录会话</string>
   <string name="revokeAllSessions">撤销所有会话</string>
   <string name="playChessEverywhere">在任何地方下棋！</string>
   <string name="everybodyGetsAllFeaturesForFree">所有人均可免费使用全部功能</string>
   <string name="viewTheSolution">查看解答</string>
   <string name="noChallenges">暂无挑战</string>
+  <string name="browserNotificationsDenied">浏览器设置已禁用通知弹窗</string>
   <plurals name="availableInNbLanguages">
     <item quantity="other">支持 %s 种语言！</item>
   </plurals>
@@ -1017,4 +1019,5 @@
   <string name="boards">棋盘</string>
   <string name="write">撰写</string>
   <string name="preview">预览</string>
+  <string name="done">完成</string>
 </resources>

@@ -39,6 +39,7 @@ object BSONFields:
   val totpSecret = "totp"
   val changedCase = "changedCase"
   val delete = "delete"
+  val deletedAt = "deletedAt"
   val foreverClosed = "foreverClosed"
   val blind = "blind"
 

@@ -124,7 +124,7 @@ db.user4.createIndex({ roles: 1 }, { partialFilterExpression: { roles: { $exists
 db.user4.createIndex({ prevEmail: 1 }, { sparse: 1 });
 db.user4.createIndex(
   { 'delete.requested': 1 },
-  { partialFilterExpression: { 'delete.requested': { $exists: 1 }, 'delete.done': false } },
+  { partialFilterExpression: { 'delete.requested': { $exists: 1 } } },
 );
 db.user4.createIndex(
   { mustConfirmEmail: 1 },

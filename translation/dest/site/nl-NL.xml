@@ -353,7 +353,7 @@
     <item quantity="other">%s bezig</item>
   </plurals>
   <string name="exportGames">Partijen exporteren</string>
-  <string name="ratingFilter">Filter van rating</string>
+  <string name="ratingFilter">Ratingfilter</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Geef %s seconde</item>
     <item quantity="other">Geef %s seconden</item>
@@ -813,6 +813,7 @@ Spelen met rating verhoogt de stabiliteit.</string>
   <string name="everybodyGetsAllFeaturesForFree">Iedereen krijgt gratis alle mogelijkheden</string>
   <string name="viewTheSolution">Bekijk de oplossing</string>
   <string name="noChallenges">Geen uitdagingen.</string>
+  <string name="browserNotificationsDenied">Meldingsvenster uitgeschakeld door browserinstelling</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Beschikbaar in %s taal!</item>
     <item quantity="other">Beschikbaar in %s talen!</item>
@@ -1059,4 +1060,5 @@ Alle exploitatiekosten, ontwikkeling en inhoud worden enkel gefinancierd door do
   <string name="boards">Borden</string>
   <string name="write">Schrijven</string>
   <string name="preview">Voorvertoning</string>
+  <string name="done">Gereed</string>
 </resources>

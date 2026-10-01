@@ -31,9 +31,9 @@ site.load.then(() => {
   });
 
   $('form.autosubmit').each(function (this: HTMLFormElement) {
-    const form = this,
-      $form = $(form),
-      showSaved = () => $form.find('.saved').removeClass('none');
+    const form = this;
+    const $form = $(form);
+    const showSaved = () => $form.find('.saved').removeClass('none');
     computeBitChoices($form, 'behavior.submitMove');
     $form.find('input').on('change', function (this: HTMLInputElement) {
       computeBitChoices($form, 'behavior.submitMove');
@@ -55,8 +55,8 @@ site.load.then(() => {
   );
 
   $('form[action="/account/oauth/token/create"]').each(function (this: HTMLFormElement) {
-    const form = $(this),
-      submit = form.find('button.submit');
+    const form = $(this);
+    const submit = form.find('button.submit');
     let isDanger = false;
     const checkDanger = () => {
       isDanger = !!form.find('.danger input:checked').length;

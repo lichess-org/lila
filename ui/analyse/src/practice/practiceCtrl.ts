@@ -56,18 +56,18 @@ export interface PracticeCtrl {
 
 export function make(root: AnalyseCtrl): PracticeCtrl {
   const masteryMode = storedBooleanPropWithEffect('analyse.practice-hard-mode', false, root.redraw);
-  const variant = root.data.game.variant.key,
-    running = prop(true),
-    comment = prop<Comment | null>(null),
-    hovering = prop<{ uci: string } | null>(null),
-    hinting = prop<Hinting | null>(null),
-    played = prop(false),
-    altCastles = {
-      e1a1: 'e1c1',
-      e1h1: 'e1g1',
-      e8a8: 'e8c8',
-      e8h8: 'e8g8',
-    };
+  const variant = root.data.game.variant.key;
+  const running = prop(true);
+  const comment = prop<Comment | null>(null);
+  const hovering = prop<{ uci: string } | null>(null);
+  const hinting = prop<Hinting | null>(null);
+  const played = prop(false);
+  const altCastles = {
+    e1a1: 'e1c1',
+    e1h1: 'e1g1',
+    e8a8: 'e8c8',
+    e8h8: 'e8g8',
+  };
 
   function commentable(node: TreeNode): boolean {
     if (node.tbhit || node.outcome()) return true;
@@ -100,7 +100,8 @@ export function make(root: AnalyseCtrl): PracticeCtrl {
   const nodeBestUci = (node: TreeNode): Uci | undefined => node.tbhit?.best || node.ceval?.pvs[0].moves[0];
 
   function makeComment(prev: TreeNode, node: TreeNode, path: TreePath): Comment {
-    let verdict: Verdict, best: Uci | undefined;
+    let verdict: Verdict;
+    let best: Uci | undefined;
     const outcome = node.outcome();
 
     if (outcome?.winner) verdict = 'goodMove';
@@ -252,8 +253,8 @@ export function make(root: AnalyseCtrl): PracticeCtrl {
       root.setAutoShapes();
     },
     hint() {
-      const best = root.node.ceval ? root.node.ceval.pvs[0].moves[0] : null,
-        prev = hinting();
+      const best = root.node.ceval ? root.node.ceval.pvs[0].moves[0] : null;
+      const prev = hinting();
       if (!best || prev?.mode === 'move') hinting(null);
       else
         hinting({

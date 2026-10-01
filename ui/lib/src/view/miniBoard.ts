@@ -38,21 +38,21 @@ export const renderClock = (color: Color, time: number): VNode =>
   });
 
 export const initMiniGame = (node: Element, withCg?: typeof makeChessground): string | null => {
-  const [fen, color, lm] = node.getAttribute('data-state')!.split(','),
-    config = {
-      coordinates: false,
-      viewOnly: true,
-      fen,
-      orientation: color as Color,
-      lastMove: uciToMove(lm),
-      drawable: {
-        enabled: false,
-        visible: false,
-      },
+  const [fen, color, lm] = node.getAttribute('data-state')!.split(',');
+  const config = {
+    coordinates: false,
+    viewOnly: true,
+    fen,
+    orientation: color as Color,
+    lastMove: uciToMove(lm),
+    drawable: {
+      enabled: false,
+      visible: false,
     },
-    $el = $(node).removeClass('mini-game--init'),
-    $cg = $el.find('.cg-wrap'),
-    turnColor = fenColor(fen);
+  };
+  const $el = $(node).removeClass('mini-game--init');
+  const $cg = $el.find('.cg-wrap');
+  const turnColor = fenColor(fen);
 
   domData.set($cg[0] as Element, 'chessground', (withCg ?? makeChessground)($cg[0] as HTMLElement, config));
 
@@ -70,14 +70,14 @@ export const initMiniGame = (node: Element, withCg?: typeof makeChessground): st
 export const getChessground = (node: HTMLElement): CgApi => domData.get(node, 'chessground');
 
 export const initMiniGames = (parent?: HTMLElement): void => {
-  const nodes = Array.from((parent || document).getElementsByClassName('mini-game--init')),
-    ids = nodes.map(x => initMiniGame(x)).filter(Boolean);
+  const nodes = Array.from((parent || document).getElementsByClassName('mini-game--init'));
+  const ids = nodes.map(x => initMiniGame(x)).filter(Boolean);
   if (ids.length) pubsub.after('socket.hasConnected').then(() => wsSend('startWatching', ids.join(' ')));
 };
 
 export const updateMiniGame = (node: HTMLElement, data: MiniGameUpdateData): void => {
-  const lm = data.lm,
-    cg = getChessground(node.querySelector('.cg-wrap')!);
+  const lm = data.lm;
+  const cg = getChessground(node.querySelector('.cg-wrap')!);
   if (cg)
     cg.set({
       fen: data.fen,

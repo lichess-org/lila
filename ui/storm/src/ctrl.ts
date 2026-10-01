@@ -1,5 +1,4 @@
 import type { Api as CgApi } from '@lichess-org/chessground/api';
-import { parseUci } from 'chessops/util';
 
 import { prop, type Prop } from 'lib';
 import type { WithGround } from 'lib/game/ground';
@@ -10,6 +9,7 @@ import { Combo } from 'lib/puz/combo';
 import CurrentPuzzle from 'lib/puz/current';
 import { PuzFilters } from 'lib/puz/filters';
 import type { PuzCtrl, Run } from 'lib/puz/interfaces';
+import { playAndTestMutatingPosition } from 'lib/puz/moveTest';
 import { makeCgOpts } from 'lib/puz/run';
 import sign from 'lib/puz/sign';
 import { getNow, puzzlePov, sound } from 'lib/puz/util';
@@ -105,10 +105,13 @@ export default class StormCtrl implements PuzCtrl {
       this.run.clock.start();
       this.run.moves++;
       this.promotion.cancel();
-      const uci = `${orig}${dest}${promotion ? (promotion === 'knight' ? 'n' : promotion[0]) : ''}`;
-      const pos = puzzle.position();
-      pos.play(parseUci(uci)!);
-      const correct = pos.isCheckmate() || uci === puzzle.expectedMove();
+      const correct = playAndTestMutatingPosition(
+        puzzle.position(),
+        puzzle.expectedMove(),
+        orig,
+        dest,
+        promotion,
+      );
       if (correct) {
         puzzle.moveIndex++;
         this.run.combo.inc();

@@ -770,12 +770,14 @@
   <string name="enableKidMode">キッズモードを有効化</string>
   <string name="disableKidMode">キッズモードを無効化</string>
   <string name="security">セキュリティ</string>
+  <string name="activeSessionsDescription">これはあなたのアカウントにログインしているデバイスとアプリの一覧です。 不審な活動に気づいた場合 &lt;a href=\'%1$s\'&gt;リカバリ用のメールアドレス&lt;/a&gt; を確認し、 &lt;a href=\'%2$s\'&gt;パスワード&lt;/a&gt;を変更してください。</string>
   <string name="sessions">セッション</string>
   <string name="revokeAllSessions">すべてのセッションを取り消す</string>
   <string name="playChessEverywhere">どこでもチェスを対局</string>
   <string name="everybodyGetsAllFeaturesForFree">誰でもすべての機能が無料です</string>
   <string name="viewTheSolution">解答を見る</string>
   <string name="noChallenges">チャレンジはありません。</string>
+  <string name="browserNotificationsDenied">ブラウザの設定で通知ポップアップが無効になります</string>
   <plurals name="availableInNbLanguages">
     <item quantity="other">%s言語で利用可能</item>
   </plurals>

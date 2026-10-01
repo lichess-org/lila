@@ -84,11 +84,11 @@ function studyButton(ctrl: AnalyseCtrl) {
 }
 
 export function view(ctrl: AnalyseCtrl): VNode {
-  const d = ctrl.data,
-    canContinue = !ctrl.ongoing && d.game.variant.key === 'standard',
-    canPractice = ctrl.isCevalAllowed() && !ctrl.isEmbed && !ctrl.isGamebook() && !ctrl.practice,
-    canRetro = ctrl.hasFullComputerAnalysis() && !ctrl.isEmbed && !ctrl.retro,
-    linkAttrs = { rel: ctrl.isEmbed ? '' : 'nofollow', target: ctrl.isEmbed ? '_blank' : '' };
+  const d = ctrl.data;
+  const canContinue = !ctrl.ongoing && d.game.variant.key === 'standard';
+  const canPractice = ctrl.isCevalAllowed() && !ctrl.isEmbed && !ctrl.isGamebook() && !ctrl.practice;
+  const canRetro = ctrl.hasFullComputerAnalysis() && !ctrl.isEmbed && !ctrl.retro;
+  const linkAttrs = { rel: ctrl.isEmbed ? '' : 'nofollow', target: ctrl.isEmbed ? '_blank' : '' };
 
   const tools = [
     hl('div.action-menu__tools', [

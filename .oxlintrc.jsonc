@@ -44,6 +44,7 @@
     ],
     "no-var": "error",
     "object-shorthand": "error",
+    "one-var": ["error", "never"],
     "prefer-const": "error",
     "prefer-promise-reject-errors": "error",
     "prefer-spread": "error",
@@ -115,7 +116,6 @@
     "no-useless-escape": "off",
     "no-control-regex": "off",
     "no-unused-expressions": "off",
-    "one-var": ["off", "never"],
     "prefer-named-capture-group": "off",
     "typescript/method-signature-style": ["off", "property"], // We would also need to flip "strictFunctionTypes" flag in TypeScript config.
     "typescript/no-base-to-string": "off",
@@ -137,6 +137,7 @@
         "await-thenable": "off",
         "consistent-return": "off",
         "no-unused-vars": "off",
+        "one-var": ["off", "never"],
         "prefer-const": "off",
         "unicorn/prefer-set-has": "off",
       },

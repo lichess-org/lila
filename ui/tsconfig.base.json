@@ -17,6 +17,7 @@
     "isolatedDeclarations": true,
     "composite": true,
     "libReplacement": false,
+    "skipDefaultLibCheck": true,
     "moduleResolution": "bundler",
     "module": "ESNext",
     "jsx": "react",

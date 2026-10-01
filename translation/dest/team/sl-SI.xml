@@ -18,6 +18,7 @@
   <string name="quitTeam">Zapusti ekipo</string>
   <string name="manuallyReviewAdmissionRequests">Ročno preglejte zahteve za sprejem</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Če je polje potrjeno, bodo morali igralci napisati zahtevo za pridružitev ekipi, ki jo lahko zavrnete ali sprejmete.</string>
+  <string name="hideMembersDesc" comment="Checkbox label: option to hide the team member list from non-members">Skrij seznam članov ekipe pred nečlani.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Vodja ekipe</item>
     <item quantity="two">Vodji ekipe</item>
@@ -55,6 +56,9 @@
   <string name="entryCode">Koda za vstop v ekipo</string>
   <string name="entryCodeDescriptionForLeader">(Izbirno) Geslo, ki ga morajo poznati novi člani, da se pridružijo tej skupini.</string>
   <string name="incorrectEntryCode">Nepravilna vstopna koda.</string>
+  <string name="forumLabel">Forum ekipe</string>
+  <string name="forumVisibilityHelp">Kdo lahko vidi forum ekipe na strani ekipe?&lt;br&gt;Samo člani ekipe lahko objavljajo na forumu ekipe.</string>
+  <string name="forumVisibilityNone">Skrij forum</string>
   <string name="teamAlreadyExists">Ta ekipa že obstaja.</string>
   <string name="upcomingTournaments">Prihajajoči turnirji</string>
   <string name="completedTourns">Končani turnirji</string>

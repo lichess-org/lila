@@ -50,4 +50,5 @@
   <string name="stDesTheyHaveTooMuchWork">Dei har for mye å gjera</string>
   <string name="stDesInBetweenMoves">\"Zwischenzug\"</string>
   <string name="stDesAttackingThroughAnEnemyPiece">Åtak gjennom motspelarbrikke</string>
+  <string name="stDesBeingForcedToMove">Å måtte trekke</string>
 </resources>

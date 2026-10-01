@@ -50,8 +50,8 @@ export class GlyphForm {
 export const viewDisabled = (why: string): VNode => h('div.study__glyphs', [h('div.study__message', why)]);
 
 export function view(ctrl: GlyphForm): VNode {
-  const all = ctrl.all(),
-    node = ctrl.root.node;
+  const all = ctrl.all();
+  const node = ctrl.root.node;
 
   return h(
     'div.study__glyphs' + (all ? '' : '.empty'),

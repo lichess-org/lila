@@ -15,6 +15,7 @@
   <string name="quitTeam">팀 탈퇴</string>
   <string name="manuallyReviewAdmissionRequests">수동으로 가입 요청 검토하기</string>
   <string name="manuallyReviewAdmissionRequestsHelp">체크한다면, 플레이어는 팀에 가입하기 위해 요청서를 작성해야 합니다. 당신은 이를 받아들이거나 거절할 수 있습니다.</string>
+  <string name="hideMembersDesc" comment="Checkbox label: option to hide the team member list from non-members">팀 멤버 목록을 멤버가 아닌 유저에게 숨깁니다.</string>
   <plurals name="teamLeaders">
     <item quantity="other">팀 운영자</item>
   </plurals>
@@ -46,6 +47,9 @@
   <string name="entryCode">팀 가입 코드</string>
   <string name="entryCodeDescriptionForLeader">(선택 사항) 새 멤버가 가입하기 위해서는 코드를 반드시 알아야 합니다.</string>
   <string name="incorrectEntryCode">코드가 잘못되었습니다.</string>
+  <string name="forumLabel">팀 포럼</string>
+  <string name="forumVisibilityHelp">누가 팀 페이지에서 팀 포럼을 볼 수 있나요?&lt;br&gt;팀 멤버만이 팀 포럼에 글을 작성할 수 있습니다.</string>
+  <string name="forumVisibilityNone">포럼 숨기기</string>
   <string name="teamAlreadyExists">팀이 이미 존재합니다.</string>
   <string name="upcomingTournaments">다가오는 토너먼트</string>
   <string name="completedTourns">종료된 토너먼트</string>

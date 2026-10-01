@@ -147,9 +147,9 @@ const setupHooks = (ctrl: ChatCtrl, chatEl: HTMLInputElement) => {
     blurIfEscape(e);
     enter(target => {
       setTimeout(() => {
-        const el = target as HTMLInputElement,
-          txt = el.value,
-          pub = ctrl.opts.public;
+        const el = target as HTMLInputElement;
+        const txt = el.value;
+        const pub = ctrl.opts.public;
 
         if (txt === '')
           $('.input-move input').each(function (this: HTMLInputElement) {
@@ -172,8 +172,8 @@ const setupHooks = (ctrl: ChatCtrl, chatEl: HTMLInputElement) => {
 
   chatEl.addEventListener('input', (e: KeyboardEvent) =>
     setTimeout(() => {
-      const el = e.target as HTMLInputElement,
-        txt = el.value;
+      const el = e.target as HTMLInputElement;
+      const txt = el.value;
 
       el.removeAttribute('placeholder');
       if (!ctrl.opts.public) el.classList.toggle('whisper', whisperRegex.test(txt));

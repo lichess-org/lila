@@ -43,7 +43,7 @@ export function renderCevalSettings(ctrl: CevalHandler): VNode | null {
 
   function clickThreads(x = ceval.recommendedThreads) {
     ceval.setThreads(x);
-    ctrl.startCeval();
+    ctrl.startCevalIfEnabled();
     ceval.opts.redraw();
   }
 
@@ -82,7 +82,7 @@ export function renderCevalSettings(ctrl: CevalHandler): VNode | null {
               'aria-valuetext': i18n.site.nbSeconds(searchTicks[searchTick()]),
               hook: rangeConfig(searchTick, n => {
                 ceval.storedMovetime(searchTicks[n] * 1000);
-                ctrl.startCeval();
+                ctrl.startCevalIfEnabled();
                 ceval.opts.redraw();
               }),
             }),
@@ -164,7 +164,7 @@ export function renderCevalSettings(ctrl: CevalHandler): VNode | null {
                 () => Math.floor(Math.log2(hashSize)),
                 v => {
                   ceval.setHashSize(Math.pow(2, v));
-                  ctrl.startCeval();
+                  ctrl.startCevalIfEnabled();
                   ceval.opts.redraw();
                 },
               ),
@@ -212,7 +212,7 @@ function engineSelection(ctrl: CevalHandler) {
       {
         hook: bind('change', e => {
           ceval.selectEngine((e.target as HTMLSelectElement).value);
-          ctrl.startCeval();
+          ctrl.startCevalIfEnabled();
         }),
       },
       engines.map(({ id, name }) => option({ value: id, selected: active?.id === id }, name)),

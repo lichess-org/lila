@@ -205,7 +205,9 @@ class HandOfCardsImpl {
     const isHovered = hoverIndex === index;
     const isAfterHovered = hoverIndex === -1 || index <= hoverIndex;
 
-    let x, y, cardRotation;
+    let x;
+    let y;
+    let cardRotation;
     let angle = visibleArc * (0.46 - index / visibleCards);
 
     if (this.isLeft) {
@@ -484,10 +486,10 @@ class TouchDragShape {
   }
 
   get momentum(): { speed: number; dir: 'towards-drop' | 'next-group' | 'lateral' | undefined } {
-    let towardsDrop = 0,
-      nextGroup = 0,
-      lateral = 0,
-      total = 0;
+    let towardsDrop = 0;
+    let nextGroup = 0;
+    let lateral = 0;
+    let total = 0;
     const r = this.recent;
 
     for (let i = 1; i < r.length; i++) {

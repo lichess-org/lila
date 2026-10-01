@@ -844,12 +844,14 @@ Jucarea de jocuri oficiale va crește stabilitatea.</string>
   <string name="enableKidMode">Activează modul „copil”</string>
   <string name="disableKidMode">Dezactivează modul „copil”</string>
   <string name="security">Securitate</string>
+  <string name="activeSessionsDescription">Aceasta este o listă de dispozitive și aplicații care sunt conectate la contul dvs. Dacă observaţi orice activitate suspectă, asigurați-vă că &lt;a href=\'%1$s\'&gt;verificați adresa de e-mail de recuperare&lt;/a&gt; și &lt;a href=\'%2$s\'&gt;vă modificați parola&lt;/a&gt;.</string>
   <string name="sessions">Sesiuni</string>
   <string name="revokeAllSessions">revocați toate sesiunile</string>
   <string name="playChessEverywhere">Joacă șah oriunde</string>
   <string name="everybodyGetsAllFeaturesForFree">Toată lumea are access la toate opțiunile, gratuit</string>
   <string name="viewTheSolution">Vezi soluția</string>
   <string name="noChallenges">Nici o provocare.</string>
+  <string name="browserNotificationsDenied">Popup-urile de notificare dezactivate de setările browser-ului</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Disponibil într-o limbă!</item>
     <item quantity="few">Disponibil în %s limbi!</item>
@@ -1100,4 +1102,5 @@ Toate costurile de operare și de dezvoltare sunt finanțate doar din donațiile
   <string name="boards">Table</string>
   <string name="write">Scrie</string>
   <string name="preview">Previzualizare</string>
+  <string name="done">Finalizat</string>
 </resources>

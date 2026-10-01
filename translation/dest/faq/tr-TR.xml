@@ -145,7 +145,7 @@ Derecelendirmeleri \"göreceli\" rakamlar olarak düşünmek en iyisidir (\"mutl
 Bunun için tarayıcının adres çubuğundaki lichess.org bağlantısının sol tarafında bulunan kilit işaretine tıklayın.
 
 Ardından Lichess bildirimlerini açabilir veya kapatabilirsiniz.</string>
-  <string name="enableAutoplayForSoundsQ">Sesler için otomatik oynatma etkinleştir?</string>
+  <string name="enableAutoplayForSoundsQ">Sesler için otomatik oynatmayı etkinleştiririm?</string>
   <string name="mostBrowsersPreventSoundAutoplay">Çoğu tarayıcı, kullanıcıları korumak için yeni ziyaret edilen sayfalarda ses oynatılmasını engeller.
 
 Tarayıcınız lichess.org\'un ses oynatmasını engellediğinde sessize alma simgesi görünür. Bu kısıtlama genellikle bir şeye tıkladığınızda kaldırılır. Bazı mobil tarayıcılarda bir taşı dokunarak sürüklemek tıklama olarak sayılmaz. Bu durumda, her oyunun başında sesin etkinleşmesi için tahtaya dokunmanız gerekir.
@@ -169,6 +169,8 @@ Bu durum gerçekleştiğinde sizi uyarmak için kırmızı sessize alma simgesin
 3. Sol taraftan Tanılama bilgileri ve site izinlerine tıklayın
 4. Aşağıya inin ve Medya otomatik yürütmeye tıklayın
 5. İzin Ver listesine lichess.org\'u ekleyin</string>
+  <string name="makeBotTitle">Bir Lichess botu yaparım?</string>
+  <string name="makeBotDescription">Lichess\'te oynamak üzere bir &lt;a href=\'%1$s\'&gt;özel satranç botu&lt;/a&gt; oluşturmayı öğrenmek için, &lt;a href=\'%2$s\'&gt;bot oluşturma hakkındaki bu blog yazısını&lt;/a&gt; okuyun.</string>
   <string name="stopMyselfFromPlaying">Kendimi oynamaktan nasıl alıkoyabilirim?</string>
   <string name="mentalHealthCondition">kendine özgü bir ruh sağlığı durumu</string>
   <string name="lichessUserstyles">Lichess kullanıcı stilleri</string>

@@ -3,7 +3,7 @@
 
   inputs = {
     nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1"; # unstable Nixpkgs
-    sasso.url = "github:momiji-rs/sasso/v0.18.0";
+    sasso.url = "github:momiji-rs/sasso/v0.19.3";
   };
 
   outputs =

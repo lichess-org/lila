@@ -200,8 +200,8 @@ function confetti(data: SwissData) {
 }
 
 function stats(ctrl: SwissCtrl) {
-  const s = ctrl.data.stats,
-    slots = ctrl.data.round * ctrl.data.nbPlayers;
+  const s = ctrl.data.stats;
+  const slots = ctrl.data.round * ctrl.data.nbPlayers;
   if (!s) return undefined;
   return hl('div.swiss__stats', [
     hl('h2', i18n.site.tournamentComplete),

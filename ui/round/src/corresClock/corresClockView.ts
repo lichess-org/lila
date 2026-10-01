@@ -11,11 +11,11 @@ const prefixInteger = (num: number, length: number): string =>
 const bold = (x: string) => `<b>${x}</b>`;
 
 function formatClockTime(time: Millis) {
-  const date = new Date(time),
-    minutes = prefixInteger(date.getUTCMinutes(), 2),
-    seconds = prefixInteger(date.getSeconds(), 2);
-  let hours: number,
-    str = '';
+  const date = new Date(time);
+  const minutes = prefixInteger(date.getUTCMinutes(), 2);
+  const seconds = prefixInteger(date.getSeconds(), 2);
+  let hours: number;
+  let str = '';
   if (time >= 86400 * 1000) {
     // days : hours
     const days = date.getUTCDate() - 1;
@@ -39,12 +39,12 @@ export default function (
   position: TopOrBottom,
   runningColor: Color,
 ): VNode {
-  const millis = ctrl.millisOf(color),
-    update = (el: HTMLElement) => {
-      el.innerHTML = site.blindMode ? formatClockTimeVerbal(millis) : formatClockTime(millis);
-    },
-    isPlayer = ctrl.root.data.player.color === color,
-    direction = document.dir === 'rtl' && millis < 86400 * 1000 ? 'ltr' : undefined;
+  const millis = ctrl.millisOf(color);
+  const update = (el: HTMLElement) => {
+    el.innerHTML = site.blindMode ? formatClockTimeVerbal(millis) : formatClockTime(millis);
+  };
+  const isPlayer = ctrl.root.data.player.color === color;
+  const direction = document.dir === 'rtl' && millis < 86400 * 1000 ? 'ltr' : undefined;
   return hl(
     'div.rclock.rclock-correspondence.rclock-' + position,
     { class: { outoftime: millis <= 0, running: runningColor === color } },

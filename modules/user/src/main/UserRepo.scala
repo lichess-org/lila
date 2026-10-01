@@ -180,7 +180,7 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
 
   val enabledSelect = bdoc(F.enabled -> true)
   val disabledSelect = bdoc(F.enabled -> false)
-  val notForeverClosedSelect = F.foreverClosed.neq(true)
+  val notForeverClosedSelect = bdoc(F.foreverClosed.neq(true), F.deletedAt.exists(false))
   def markSelect(mark: UserMark)(v: Boolean): Bdoc =
     if v then bdoc(F.marks -> mark.key)
     else F.marks.neq(mark.key)
@@ -366,14 +366,14 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
         blind,
         salt,
         bpass,
-        "mustConfirmEmail",
+        F.mustConfirmEmail,
         colorIt,
-        F.foreverClosed,
+        foreverClosed,
         F.delete
       )
       coll.update.one(
         bid(user.id),
-        unset(fields) ++ set("deletedAt" -> nowInstant)
+        unset(fields) ++ set(deletedAt -> nowInstant)
       )
 
     def nowFully(user: User) = for
@@ -381,21 +381,17 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
       _ <- coll.update.one(
         bid(user.id),
         bdoc(
-          "prevEmail" -> lockEmail,
-          "createdAt" -> user.createdAt,
-          "deletedAt" -> nowInstant
+          F.prevEmail -> lockEmail,
+          F.createdAt -> user.createdAt,
+          F.deletedAt -> nowInstant
         )
       )
     yield ()
 
     def findNextScheduled: Fu[Option[User]] =
       val requestedAt = nowInstant.minusDays(7)
-      coll
-        .find:
-          bdoc( // hits the delete.requested_1 index
-            s"${F.delete}.requested".lt(requestedAt),
-            s"${F.delete}.done" -> false
-          )
+      coll.secondary
+        .find(bdoc(s"${F.delete}.requested".lt(requestedAt)))
         .sort(bdoc(s"${F.delete}.requested" -> 1))
         .one[User]
 
@@ -555,7 +551,7 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
     user.enabled.no.so:
       coll
         .exists(bid(user.id) ++ bdoc(F.foreverClosed -> true))
-        .zip(coll.exists(bid(user.id) ++ bdoc(s"${F.delete}.done" -> true)))
+        .zip(coll.exists(bid(user.id) ++ F.deletedAt.exists(true)))
         .map(ClosedFlags(_, _).some)
 
   def filterClosedOrInactiveIds(since: Instant)(ids: Iterable[UserId]): Fu[List[UserId]] =

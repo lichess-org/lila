@@ -160,6 +160,9 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
   private[tournament] def setForTeam(tourId: TourId, teamId: TeamId) =
     coll.update.one(bid(tourId), addToSet("forTeams" -> teamId))
 
+  private[tournament] def removeForTeamsNotIn(tourId: TourId, teamIds: Set[TeamId]) =
+    coll.update.one(bid(tourId), pull("forTeams".nin(teamIds)))
+
   def isForTeam(tourId: TourId, teamId: TeamId) =
     coll.exists(bid(tourId) ++ bdoc("forTeams" -> teamId))
 

@@ -606,7 +606,7 @@ Para incrementar a súa estabilidade tes que xogar máis partidas puntuadas.</st
   <string name="noNoteYet">Aínda non hai notas</string>
   <string name="invalidUsernameOrPassword">Nome de usuario ou contrasinal non válidos</string>
   <string name="incorrectPassword">Contrasinal incorrecto</string>
-  <string name="invalidAuthenticationCode">Código de autenticación inválido</string>
+  <string name="invalidAuthenticationCode">Código de autenticación non válido</string>
   <string name="clearField">Limpar campo</string>
   <string name="orSeparator">Ou</string>
   <string name="logInByEmail">Iniciar sesión co correo electrónico</string>
@@ -807,12 +807,14 @@ Para incrementar a súa estabilidade tes que xogar máis partidas puntuadas.</st
   <string name="enableKidMode">Activar modo infantil</string>
   <string name="disableKidMode">Desactivar modo infantil</string>
   <string name="security">Seguridade</string>
+  <string name="activeSessionsDescription">Esta é unha lista de dispositivos e aplicacións que están conectados á túa conta. Se observas algunha actividade sospeitosa, asegúrate de &lt;a href=\'%1$s\'&gt;revisar o teu enderezo electrónico de recuperación&lt;/a&gt; e &lt;a href=\'%2$s\'&gt;de cambiar o teu contrasinal&lt;/a&gt;.</string>
   <string name="sessions">Sesións</string>
   <string name="revokeAllSessions">pechar todas as sesións</string>
   <string name="playChessEverywhere">Xoga ó xadrez en todas partes</string>
   <string name="everybodyGetsAllFeaturesForFree">Todo o mundo obtén todas as funcións gratis</string>
   <string name="viewTheSolution">Mirar a solución</string>
   <string name="noChallenges">Sen desafíos.</string>
+  <string name="browserNotificationsDenied">As notificacións emerxentes están desactivadas pola configuración do navegador</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Dispoñible en %s idioma!</item>
     <item quantity="other">Dispoñible en %s idiomas!</item>
@@ -1057,4 +1059,5 @@ Deixa en branco para comezar as partidas dende a posición inicial normal.</stri
   <string name="boards">Taboleiros</string>
   <string name="write">Escribir</string>
   <string name="preview">Vista previa</string>
+  <string name="done">Feito</string>
 </resources>

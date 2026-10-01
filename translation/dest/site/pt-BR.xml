@@ -806,12 +806,14 @@
   <string name="enableKidMode">Habilitar o modo infantil</string>
   <string name="disableKidMode">Desabilitar o modo infantil</string>
   <string name="security">Segurança</string>
+  <string name="activeSessionsDescription">Esta é uma lista de dispositivos e aplicativos conectados à sua conta. Se você notar alguma atividade suspeita, não deixe de &lt;a href=\'%1$s\'&gt;conferir seu endereço de e-mail de recuperação&lt;/a&gt; e &lt;a href=\'%2$s\'&gt;alterar sua senha&lt;/a&gt;.</string>
   <string name="sessions">Sessões</string>
   <string name="revokeAllSessions">revogar todas as sessões</string>
   <string name="playChessEverywhere">Jogue xadrez em qualquer lugar</string>
   <string name="everybodyGetsAllFeaturesForFree">Todos têm todos os recursos de graça</string>
   <string name="viewTheSolution">Ver a solução</string>
   <string name="noChallenges">Sem desafios.</string>
+  <string name="browserNotificationsDenied">Pop-ups de notificação desativados pelas configurações do navegador</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Disponível em %s idiomas!</item>
     <item quantity="other">Disponível em %s idiomas!</item>

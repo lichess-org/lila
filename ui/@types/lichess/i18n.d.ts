@@ -3813,6 +3813,8 @@ interface I18n {
     discussions: string;
     /** Do it again */
     doItAgain: string;
+    /** Done */
+    done: string;
     /** Done reviewing black's mistakes */
     doneReviewingBlackMistakes: string;
     /** Done reviewing white's mistakes */

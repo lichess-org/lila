@@ -1,10 +1,11 @@
 import { existsSync, readFileSync } from 'node:fs';
+import { registerHooks } from 'node:module';
 import { dirname, join } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 
 type ResolveContext = { parentURL?: string; conditions: string[] };
 type ResolveResult = { url: string; shortCircuit?: boolean; format?: string };
-type NextResolver = (specifier: string, context: ResolveContext) => Promise<ResolveResult>;
+type NextResolver = (specifier: string, context: ResolveContext) => ResolveResult;
 
 const pkgNameCache = new Map<string, string | undefined>();
 
@@ -29,11 +30,7 @@ function findPkg(parent: string): string | undefined {
   }
 }
 
-export async function resolve(
-  specifier: string,
-  context: ResolveContext,
-  next: NextResolver,
-): Promise<ResolveResult> {
+export function resolve(specifier: string, context: ResolveContext, next: NextResolver): ResolveResult {
   if (specifier.startsWith('@/')) {
     const pkg = findPkg(context.parentURL ?? import.meta.url);
     if (pkg) return next(`${pkg}/${specifier.slice(2)}`, context);
@@ -58,3 +55,5 @@ export async function resolve(
 
   return next(match ? `${isFileUrl ? pathToFileURL(match).href : match}${suffix}` : specifier, context);
 }
+
+registerHooks({ resolve });
