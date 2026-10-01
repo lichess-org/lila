@@ -128,7 +128,7 @@ export class IdbTree {
   }
 
   async saveCeval(path: TreePath, ceval: LocalEval): Promise<IDBValidKey | undefined> {
-    if (this.noop || ceval.cloud) return undefined;
+    if (this.noop) return undefined;
     const id = this.id;
     this.cache.cevals.set(path, ceval);
     return this.cevalDb().then(db => db.put([id, path], { path, ceval }));

@@ -736,7 +736,7 @@ export default class AnalyseCtrl implements CevalHandler {
         node.threat = ev as LocalEval;
       } else if (this.ceval.preferLatestEval(ev, node.ceval)) {
         node.ceval = ev;
-        this.idbTree.saveCeval(path, ev);
+        if (!ev.cloud) this.idbTree.saveCeval(path, ev);
         this.liveAnnotate?.onNewCeval(path, node, this.tree);
         this.retro?.onCeval();
         this.study?.practice?.onCeval();
