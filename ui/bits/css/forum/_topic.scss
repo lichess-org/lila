@@ -4,6 +4,15 @@
     unicode-bidi: plaintext;
   }
 
+  &:not(.topic-form) {
+    padding-inline: 0;
+
+    .box__top,
+    .form3 {
+      padding-inline: $box-padding;
+    }
+  }
+
   &.topic-form {
     .warning {
       @extend %box-radius;
@@ -36,18 +45,29 @@
 
     margin-top: 1rem;
     margin-bottom: 2rem;
+    padding-inline: $box-padding;
+
+    p {
+      margin-bottom: 0;
+    }
 
     div {
       @extend %flex-wrap;
 
-      .button {
-        margin-inline-start: 1rem;
-      }
+      gap: 0.5em;
 
       .unsub.on .off,
       .unsub.off .on {
         display: none;
       }
+    }
+  }
+
+  .form3 .form-actions {
+    border-color: $c-bg-zebra2;
+
+    @include if-transp-light {
+      border-color: $c-dimmer;
     }
   }
 
