@@ -18,7 +18,7 @@
 
   .friend_box_count {
     white-space: nowrap;
-    padding: 0.5em;
+    padding: 0.5em 0.75em;
   }
 
   .content_wrap {
@@ -26,12 +26,12 @@
     @extend %box-radius, %dropdown-shadow;
 
     position: absolute;
-    top: 100%;
+    top: $site-header-height;
     z-index: $z-dropdown-109;
     min-width: 200px;
     max-height: 95vh;
     overflow: hidden;
-    background: $c-bg-popup;
+    background: $c-bg-header-dropdown;
   }
 
   .content {
@@ -51,13 +51,13 @@
       border-radius: $small-box-radius-size;
 
       &:hover {
-        background: color-mix(in oklab, $c-secondary 10%, $c-bg-popup);
+        background: color-mix(in oklab, $c-secondary 10%, $c-bg-header-dropdown);
       }
     }
 
     a {
       flex: 1 1 100%;
-      padding: 4px 0;
+      padding: 4px 0.25em;
       display: block;
       transition: background 0.13s;
 
@@ -68,7 +68,7 @@
       &.user-link {
         @extend %ellipsis;
 
-        max-width: 150px;
+        max-width: 200px;
       }
 
       &.tv {
