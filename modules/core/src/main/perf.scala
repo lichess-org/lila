@@ -78,8 +78,6 @@ object perf:
     def apply(key: String): Option[PerfKey] = Option.when(all.contains(key))(key)
     def apply(variant: Variant, speed: Speed): PerfKey = byVariant(variant) | standardBySpeed(speed)
 
-    def keyToId(key: PerfKey): PerfId = keyIdMap(key)
-
     def byVariant(variant: Variant): Option[PerfKey] = variant match
       case ChessVariant.Standard => none
       case ChessVariant.FromPosition => none
