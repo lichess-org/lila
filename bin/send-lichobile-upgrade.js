@@ -6,13 +6,13 @@ import path from 'node:path';
 
 async function letsGo() {
   const oauthToken = process.env.OAUTH_TOKEN;
-  console.log(`Using OAuth token: ${oauthToken}`);
+  // console.log(`Using OAuth token: ${oauthToken}`);
   const client = new MongoClient('mongodb://127.0.0.1:27917/lichess', {
     directConnection: true,
   });
   // const client = new MongoClient('mongodb://127.0.0.1:27017/lichess');
   const lichessUrl = 'https://lichess.org';
-  const dryRun = false;
+  const dryRun = true;
 
   const coll = client.db().collection('lm_user_recent_nomobile');
 
