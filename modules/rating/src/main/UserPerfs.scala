@@ -1,15 +1,16 @@
 package lila.rating
 
 import chess.IntRating
-import scalalib.HeapSort.*
+import scalalib.HeapSort
 
 import lila.core.perf.{ KeyedPerf, Perf, PuzPerf, UserPerfs }
 import lila.core.user.LightPerf
 import lila.rating.PerfExt.*
+import scala.collection.View
 
 object UserPerfsExt:
 
-  extension (ps: List[Perf]) def sumNb: Int = ps.foldMap(_.nb)
+  extension (ps: View[Perf]) def sumNb: Int = ps.foldLeft(0)(_ + _.nb)
 
   extension (p: UserPerfs)
 
@@ -43,36 +44,36 @@ object UserPerfsExt:
     def hasEstablishedRating(pk: PerfKey) = p(pk).established
 
     def bestRatedPerf: Option[KeyedPerf] =
-      val ps = perfsList.filter(p => p._1 != PerfKey.puzzle && p._1 != PerfKey.standard)
+      val ps = perfsList.view.filter(p => p._1 != PerfKey.puzzle && p._1 != PerfKey.standard)
       val minNb = (ps.map(_._2).sumNb / 10).atLeast(1)
       ps.filter(_._2.nb >= minNb)
         .maxByOption(_._2.intRating)
         .map(KeyedPerf.apply)
 
     def bestPerfs(nb: Int): List[KeyedPerf] =
-      val ps = PerfType.nonPuzzle.map(pt => pt.key -> p(pt))
+      val ps = PerfType.nonPuzzle.view.map(pt => pt.key -> p(pt))
       val minNb = (ps.map(_._2).sumNb / 15).atLeast(1)
-      ps.filter(p => p._2.nb >= minNb).topN(nb).map(KeyedPerf.apply)
+      HeapSort.topNToList(ps.filter(p => p._2.nb >= minNb), nb).map(KeyedPerf.apply)
 
     def bestRating: IntRating = bestRatingIn(PerfType.leaderboardable)
 
     def bestStandardRating: IntRating = bestRatingIn(PerfType.standard)
 
     def bestRatingIn(types: List[PerfKey]): IntRating =
-      val ps = types.nonEmptyOption.map(_.map(p(_))) | List(p.standard)
+      val ps = types.nonEmptyOption.map(_.view.map(p(_))) | List(p.standard).view
       val minNb = ps.sumNb / 10
       val minGames = ps.filter(_.nb >= minNb)
       bestFromPerfs(minGames).intRating
 
-    def bestFromPerfs(types: List[Perf]): Perf =
-      types.maxByOption(_.intRating).getOrElse(lila.rating.Perf.default)
+    def bestFromPerfs(types: Iterable[Perf]): Perf =
+      types.maxByOption(_.intRating) | lila.rating.Perf.default
 
-    def bestPerf(types: List[PerfKey]): Perf = bestFromPerfs(types.map(p(_)))
+    def bestPerf(types: List[PerfKey]): Perf = bestFromPerfs(types.view.map(p(_)))
 
     def dubiousPuzzle = UserPerfs.dubiousPuzzle(p)
 
   private given Ordering[IntRating] = intOrdering
-  private given [A]: Ordering[(A, Perf)] = Ordering.by[(A, Perf), IntRating](_._2.intRating)
+  private given [A]: Ordering[(A, Perf)] = Ordering.by(_._2.intRating)
 
 object UserPerfs:
 
