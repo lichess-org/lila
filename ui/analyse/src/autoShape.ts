@@ -188,7 +188,7 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
     const liveGlyph = ctrl.liveAnnotate?.get(ctrl.path);
     if (liveGlyph && ctrl.settings.showLiveAnnotations && !glyphs.some(g => g.id <= 6))
       glyphs.push(liveGlyph);
-    shapes = shapes.concat(annotationShapes({ ...ctrl.node, glyphs }));
+    shapes = shapes.concat(annotationShapes({ ...ctrl.node, glyphs }, shapes));
   }
   if (ctrl.showVariationArrows()) hiliteVariations(ctrl, shapes);
 

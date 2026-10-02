@@ -7,7 +7,7 @@ import type { Glyph, TreeNode } from '@/tree/types';
 // maximum number of glyphs to show for a given move
 const maxGlyphs = 4;
 
-export function annotationShapes(node: TreeNode): DrawShape[] {
+export function annotationShapes(node: TreeNode, existingShapes: DrawShape[] = []): DrawShape[] {
   const { uci, glyphs, san } = node;
   if (uci && san && glyphs) {
     return (
@@ -25,7 +25,9 @@ export function annotationShapes(node: TreeNode): DrawShape[] {
                 : 'g8'
             : makeSquare(move.to);
           const symbol = glyph.symbol;
-          const prerendered = glyphToSvg[symbol] ? glyphToSvg[symbol](idx) : undefined;
+          const stackedNumber =
+            idx + existingShapes.filter(shape => shape.orig === destSquare && shape.customSvg).length;
+          const prerendered = glyphToSvg[symbol] ? glyphToSvg[symbol](stackedNumber) : undefined;
           return {
             orig: destSquare,
             brush: prerendered ? '' : undefined,
