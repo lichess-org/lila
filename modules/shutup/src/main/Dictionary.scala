@@ -115,7 +115,7 @@ pe*nis?
 p[i\|\\]g
 pimp
 pis+
-poo+f
+poo+f(ter|)
 poo+n
 poo++p(face|)
 po?rn(hub|)
@@ -257,6 +257,7 @@ uebok
 """)
 
   def es = dict("""
+basura
 bolud[oa]
 cabr[oó]na?
 cag[oó]n
