@@ -538,7 +538,7 @@ function cameraButton(ctrl: EditorCtrl, icon?: LiconValue): VNode {
     {
       type: 'button',
       ...(icon ? dataIcon(icon) : {}),
-      classes: { text: Boolean(icon) },
+      class: { text: Boolean(icon) },
       on: {
         async click(e) {
           e.preventDefault();
