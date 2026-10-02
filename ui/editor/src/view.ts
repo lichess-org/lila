@@ -6,6 +6,7 @@ import { parseFen } from 'chessops/fen';
 import { parseSquare, makeSquare } from 'chessops/util';
 
 import { view as cevalView } from 'lib/ceval';
+import { displayColumns, isTouchDevice } from 'lib/device';
 import { fenToEpd } from 'lib/game/chess';
 import { variants } from 'lib/game/perf';
 import { licon, type LiconValue } from 'lib/licon';
@@ -549,7 +550,13 @@ function cameraButton(ctrl: EditorCtrl, icon?: LiconValue): VNode {
             input.addEventListener('change', () => resolve(input.files?.[0]), { once: true });
             input.click();
           });
-          if (file) ctrl.loadFromImage(file);
+          if (!file) return;
+
+          await ctrl.loadFromImage(file);
+          if (displayColumns() === 1 && isTouchDevice())
+            document
+              .querySelector<HTMLElement>('.main-board')
+              ?.scrollIntoView({ behavior: 'smooth', block: 'center' });
         },
       },
     },
