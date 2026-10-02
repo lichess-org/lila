@@ -1,12 +1,9 @@
 #friend_box {
-  display: block;
   position: relative;
-  z-index: $z-friend-box-2;
   overflow: visible;
   font-size: 0.9rem;
 
   .friend_box_button {
-    cursor: pointer;
     height: $site-header-height;
     line-height: $site-header-height;
     padding: 0 0.7rem;
