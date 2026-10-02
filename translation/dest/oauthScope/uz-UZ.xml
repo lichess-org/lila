@@ -6,6 +6,10 @@
   <string name="tokenDescription">Token tavsifi</string>
   <string name="rememberTokenUse">Bu tokendan nima maqsadda foydalanishingizni eslab qolish uchun</string>
   <string name="whatTheTokenCanDo">Token sizning nomingizdan nimalar qila oladi:</string>
+  <string name="oauthCatUserAccount">Foydalanuvchi akkaunti</string>
+  <string name="oauthCatPlayGames">Oʻyin oʻynash</string>
+  <string name="oauthCatStudiesBroadcasts">Saboqlar va translyatsiyalar</string>
+  <string name="oauthCatExternalEngine">Tashqi dvijok</string>
   <string name="doNotShareIt">Ushbu token hisobingizga kirish huquqini beradi. Uni HECH KIMGA bermang!</string>
   <string name="copyTokenNow">Yangi shaxsiy tokeningizni hoziroq nusxalab oling. Uni keyin qayta koʻra olmaysiz!</string>
   <string name="preferenceRead">Sozlamalarni oʻqish</string>
@@ -16,9 +20,11 @@
   <string name="challengeBulk">Boshqa oʻyinchilar uchun bir vaqtning oʻzida koʻplab oʻyinlar yaratish</string>
   <string name="studyRead">Shaxsiy saboqlar va translyatsiyalarni koʻrish</string>
   <string name="studyWrite">Saboqlarni va translyatsiyalarni yaratish, yangilash hamda oʻchirish</string>
+  <string name="tournamentRead">Maxfiy turnirlarni oʻqish</string>
   <string name="tournamentWrite">Turnirlar yaratish, yangilash va ularga qoʻshilish</string>
   <string name="racerWrite">Puzzle race yaratish va unga qoʻshilish</string>
   <string name="puzzleRead">Masalalar boʻyicha faollikni koʻrish</string>
+  <string name="puzzleWrite">Masalalarni yechish</string>
   <string name="teamRead">Jamoalarning yopiq maʼlumotlarini koʻrish</string>
   <string name="teamWrite">Jamoalarga qoʻshilish va ulardan chiqish</string>
   <string name="manageTeamsYouLead">Oʻzingiz sardor boʻlgan jamoalarni boshqarish: xabarlar yuborish, aʼzolarni chetlatish</string>

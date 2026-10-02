@@ -10,7 +10,7 @@ case class WithPerfsAndEmails(user: UserWithPerfs, emails: Emails)
 opaque type TotpToken = String
 object TotpToken extends OpaqueString[TotpToken]
 
-case class UserDelete(requested: Instant, done: Boolean = false)
+case class UserDelete(requested: Instant)
 
 case class ClosedFlags(forever: Boolean, deleted: Boolean)
 

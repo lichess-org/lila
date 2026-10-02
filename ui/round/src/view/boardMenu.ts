@@ -8,10 +8,10 @@ import type RoundController from '../ctrl';
 
 export default function (ctrl: RoundController): LooseVNode {
   return menuDropdown(ctrl.redraw, ctrl.menu, menu => {
-    const d = ctrl.data,
-      spectator = d.player.spectator,
-      portraitMobile = displayColumns() === 1 && isTouchDevice(),
-      swapClockStorage = storage.boolean('swapClock');
+    const d = ctrl.data;
+    const spectator = d.player.spectator;
+    const portraitMobile = displayColumns() === 1 && isTouchDevice();
+    const swapClockStorage = storage.boolean('swapClock');
     return [
       hl('section', [
         menu.flip(i18n.site.flipBoard, ctrl.flip, () => {

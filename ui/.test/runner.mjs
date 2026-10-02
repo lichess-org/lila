@@ -2,7 +2,8 @@
 
 import { spawn } from 'node:child_process';
 import { readdirSync } from 'node:fs';
-import { dirname } from 'node:path';
+import { tmpdir } from 'node:os';
+import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 process.chdir(dirname(dirname(fileURLToPath(import.meta.url))));
@@ -21,7 +22,7 @@ const args = [
   '--experimental-test-module-mocks',
   '--experimental-transform-types',
   '--no-warnings',
-  '--loader',
+  '--import',
   './.test/resolve.mts',
   '--import',
   './.test/setup.mts',
@@ -29,7 +30,9 @@ const args = [
   ...globs,
 ];
 
-const child = spawn(process.execPath, args, { stdio: 'inherit' });
+// Each test file runs in its own process; the cache spares them all recompiling jsdom and friends.
+const env = { NODE_COMPILE_CACHE: join(tmpdir(), 'node-compile-cache'), ...process.env };
+const child = spawn(process.execPath, args, { stdio: 'inherit', env });
 child.on('exit', code => process.exit(code ?? 1));
 child.on('error', err => {
   console.error(err);

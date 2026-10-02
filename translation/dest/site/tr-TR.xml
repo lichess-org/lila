@@ -165,6 +165,8 @@
   <string name="flipBoard">Tahtayı döndür</string>
   <string name="toggleLocalEngine">Yerel motoru aç/kapat</string>
   <string name="engineSettings">Motor ayarları</string>
+  <string name="enginesFromStrongestToWeakest">En güçlüden en zayıfa motorlar</string>
+  <string name="illegalPosition">Kural dışı pozisyon</string>
   <string name="threefoldRepetition">Üç kez hamle tekrarı</string>
   <string name="claimADraw">Beraberlik talep et</string>
   <string name="drawClaimed">Beraberlik iddia edildi</string>
@@ -455,7 +457,7 @@ Puanlı oyunlar oynamak istikrarınızı artıracaktır.</string>
   <string name="reconnecting">Yeniden bağlanılıyor</string>
   <string name="noNetwork">Çevrimdışı</string>
   <plurals name="nbFriendsOnline">
-    <item quantity="one">%s arkadaş çevrim içi</item>
+    <item quantity="one">%s arkadaş çevrimiçi</item>
     <item quantity="other">%s arkadaş çevrim içi</item>
   </plurals>
   <string name="favoriteOpponents">Favori rakipler</string>
@@ -542,6 +544,7 @@ Puanlı oyunlar oynamak istikrarınızı artıracaktır.</string>
   <string name="oneUrlPerLine">Her satıra bir bağlantı yazın.</string>
   <string name="inlineNotation">Notasyonu aynı satırda göster</string>
   <string name="makeAStudy">Bunları kaydetmek ve paylaşmak için çalışma oluşturabilirsiniz.</string>
+  <string name="clearLocalData">Yerel verileri temizle</string>
   <string name="previouslyOnLichessTV">Lichess TV\'de bunlar da vardı;</string>
   <string name="onlinePlayers">Çevrimiçi oyuncular</string>
   <string name="activePlayers">Aktif oyuncular</string>
@@ -555,6 +558,11 @@ Puanlı oyunlar oynamak istikrarınızı artıracaktır.</string>
   <string name="autoSwitch">Otomatik Seç</string>
   <string name="puzzles">Bulmacalar</string>
   <string name="onlineBots">Çevrimiçi botlar</string>
+  <string name="aboutBotsOnLichess">Lichess\'teki botlar hakkında</string>
+  <string name="featuredBots">Öne çıkan botlar</string>
+  <string name="tryPlayingTheseInnovativeChessEngines">Bu yenilikçi satranç motorlarıyla oynamayı deneyin! Bunlar bizim favorilerimiz.</string>
+  <string name="communityBots">Topluluk botları</string>
+  <string name="moreChessEnginesCreatedByTheLichessCommunity">Lichess topluluğu tarafından oluşturulan daha fazla satranç motoru. Bunlar, yaratıcıları tarafından barındırılır ve her zaman çevrimiçi olmayabilirler.</string>
   <string name="name">İsim</string>
   <string name="description">Açıklama</string>
   <string name="descPrivate">Üyelere özel açıklama</string>
@@ -602,6 +610,7 @@ Puanlı oyunlar oynamak istikrarınızı artıracaktır.</string>
   <string name="clearField">Alanı temizle</string>
   <string name="orSeparator">Veya</string>
   <string name="logInByEmail">E-posta ile giriş yap</string>
+  <string name="emailLoginInstructions">Size giriş yapmanızı sağlayacak bağlantıyı içeren bir e-posta göndereceğiz.</string>
   <string name="emailMeALink">E-Posta ile giriş linki yolla</string>
   <string name="currentPassword">Mevcut şifre</string>
   <string name="newPassword">Yeni şifre</string>
@@ -626,6 +635,8 @@ Puanlı oyunlar oynamak istikrarınızı artıracaktır.</string>
   <string name="onSlowGames">Yavaş oyunlarda</string>
   <string name="always">Her zaman</string>
   <string name="never">Asla</string>
+  <string name="defeatOnly">Sadece yenilgi</string>
+  <string name="drawAndDefeat">Berabere ve yenilgi</string>
   <string name="xCompetesInY">%1$s, %2$s\'ya katıldı</string>
   <string name="victory">Zafer</string>
   <string name="defeat">Yenilgi</string>
@@ -690,10 +701,13 @@ Puanlı oyunlar oynamak istikrarınızı artıracaktır.</string>
   <string name="aboutX">%s hakkında</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s; tamamen ücretsiz (%2$s), özgür, reklamsız, açık kaynak kodlu bir satranç sitesidir.</string>
   <string name="really">ciddiyiz</string>
+  <string name="lichessUpdates">Lichess güncellemeleri</string>
   <string name="contribute">Katkıda bulun</string>
+  <string name="changelog">Değişiklik Notları</string>
   <string name="termsOfService">Hizmet koşulları</string>
   <string name="titleVerification">Ünvan doğrulaması</string>
   <string name="sourceCode">Kaynak Kodu</string>
+  <string name="blockAds">Reklamları engelle</string>
   <string name="simultaneousExhibitions">Eş zamanlı gösteriler</string>
   <string name="host">Ev Sahibi</string>
   <string name="hostColorX">Ev sahibi rengi: %s</string>
@@ -725,8 +739,10 @@ Puanlı oyunlar oynamak istikrarınızı artıracaktır.</string>
   <string name="keyboardShortcuts">Klavye kısayolları</string>
   <string name="keyMoveBackwardOrForward">önceki/sonraki hamle</string>
   <string name="keyGoToStartOrEnd">başa/sona git</string>
+  <string name="keyGoToPreviousOrNextLine">önceki/sonraki satıra git</string>
   <string name="keyCycleSelectedVariation">Seçilen varyasyonu değiştir</string>
   <string name="keyShowOrHideComments">yorumları gizle/göster</string>
+  <string name="keyShowOrHideCurrentVariation">mevcut varyasyonu göster/gizle</string>
   <string name="keyEnterOrExitVariation">varyasyona gir/çık</string>
   <string name="keyPreviousBranch">Önceki dal</string>
   <string name="keyNextBranch">Sıradaki dal</string>
@@ -791,12 +807,14 @@ Puanlı oyunlar oynamak istikrarınızı artıracaktır.</string>
   <string name="enableKidMode">Çocuk modunu aktifleştir</string>
   <string name="disableKidMode">Çocuk modunu devre dışı bırak</string>
   <string name="security">Güvenlik</string>
+  <string name="activeSessionsDescription">Hesabınıza giriş yapmış cihaz ve uygulamaların listesidir. Eğer şüpheli bir hareket fark ederseniz &lt;a href=\'%1$s\'&gt;kurtarma e-postanızı kontrol edin&lt;/a&gt; ve &lt;a href=\'%2$s\'&gt;şifrenizi değiştirin&lt;/a&gt;.</string>
   <string name="sessions">Oturumlar</string>
   <string name="revokeAllSessions">tüm oturumları kaldır</string>
   <string name="playChessEverywhere">Her yerde satranç oyna</string>
   <string name="everybodyGetsAllFeaturesForFree">Bütün özellikler ücretsizdir</string>
   <string name="viewTheSolution">Çözümü göster</string>
   <string name="noChallenges">Meydan okuma yok.</string>
+  <string name="browserNotificationsDenied">Bildirim açılır pencereleri, tarayıcı tarafından devre dışı bırakıldı</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">%s farklı dili destekler!</item>
     <item quantity="other">%s farklı dili destekler!</item>
@@ -809,10 +827,6 @@ Puanlı oyunlar oynamak istikrarınızı artıracaktır.</string>
   <string name="quickPairing">Hızlı eşleşme</string>
   <string name="lobby">Lobi</string>
   <string name="anonymous">Anonim</string>
-  <plurals name="nbAnonymous">
-    <item quantity="one">Anonim</item>
-    <item quantity="other">Anonim (%s)</item>
-  </plurals>
   <string name="yourScore">Puan durumu: %s</string>
   <string name="language">Dil</string>
   <string name="allLanguages">Tüm diller</string>
@@ -1032,7 +1046,7 @@ Başlangıç pozisyonundan oynamak için boş bırakınız.</string>
   <string name="enableBlindMode">Kör modunu aktifleştir</string>
   <string name="disableBlindMode">Kör modunu devre dışı bırak</string>
   <string name="copyToClipboard">Panoya kopyala</string>
-  <string name="online" comment="status of a user">çevrımıcı</string>
+  <string name="online" comment="status of a user">çevrimiçi</string>
   <string name="offline" comment="status of a user">çevrimdışı</string>
   <string name="search">Ara</string>
   <string name="clearSearch">Aramayı temizle</string>
@@ -1040,6 +1054,10 @@ Başlangıç pozisyonundan oynamak için boş bırakınız.</string>
   <string name="tags">Etiketler</string>
   <string name="enPassant">Geçerken alma</string>
   <string name="settings">Ayarlar</string>
+  <string name="verifyingYourDevice">Cihazınız doğrulanıyor...</string>
   <string name="chessOpenings">Satranç açılışları</string>
   <string name="boards">Tahtalar</string>
+  <string name="write">Yaz</string>
+  <string name="preview">Önizleme</string>
+  <string name="done">Bitti</string>
 </resources>

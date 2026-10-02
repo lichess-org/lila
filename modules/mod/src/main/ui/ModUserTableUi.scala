@@ -4,7 +4,7 @@ package ui
 import lila.ui.*
 import lila.user.WithPerfsAndEmails
 
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 object ModUserTableUi:
 

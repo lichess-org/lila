@@ -1,3 +1,4 @@
+import { opposite } from 'chessops';
 import { type VNodeData } from 'snabbdom';
 
 import { capitalize } from 'lib/game';
@@ -37,22 +38,17 @@ function doneWithMistakes({ spoken, ctrl, focusFriendlyHook }: RetroContext, pre
   const noMistakes = !ctrl.retro.completion()[1];
   return [
     spoken(
-      (prelude ? prelude + '. ' : '') +
-        i18n.site[
-          noMistakes
-            ? ctrl.retro.color === 'white'
-              ? 'noMistakesFoundForWhite'
-              : 'noMistakesFoundForBlack'
-            : ctrl.retro.color === 'white'
-              ? 'doneReviewingWhiteMistakes'
-              : 'doneReviewingBlackMistakes'
-        ],
+      `${prelude ? `${prelude}. ` : ''}${
+        noMistakes
+          ? i18n.site[`noMistakesFoundFor${capitalize(ctrl.retro.color)}`]
+          : i18n.site[`doneReviewing${capitalize(ctrl.retro.color)}Mistakes`]
+      }`,
     ),
     !noMistakes && hl('button.retro-again', focusFriendlyHook(ctrl.retro.reset), i18n.site.doItAgain),
     hl(
       'button.retro-flip',
       focusFriendlyHook(ctrl.retro.flip),
-      i18n.site[`review${capitalize(ctrl.retro.color)}Mistakes`],
+      i18n.site[`review${capitalize(opposite(ctrl.retro.color))}Mistakes`],
     ),
   ];
 }

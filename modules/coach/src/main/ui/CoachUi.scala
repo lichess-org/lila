@@ -9,8 +9,7 @@ import lila.core.data.RichText
 import lila.core.user.{ Flag, Profile }
 import lila.rating.UserPerfsExt.{ best6Perfs, hasEstablishedRating }
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class CoachUi(helpers: Helpers)(
     picfitUrl: lila.memo.PicfitUrl,

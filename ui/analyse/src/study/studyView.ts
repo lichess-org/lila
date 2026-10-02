@@ -168,8 +168,8 @@ export const overboard = (ctrl: StudyCtrl) =>
 
 export function underboard(ctrl: AnalyseCtrl): LooseVNodes {
   if (ctrl.study?.practice) return practiceView.underboard(ctrl.study);
-  const study = ctrl.study!,
-    toolTab = study.vm.toolTab();
+  const study = ctrl.study!;
+  const toolTab = study.vm.toolTab();
   if (study.gamebookPlay)
     return [gbPlayButtons(ctrl), descView(study, true), descView(study, false), metadata(study)];
   let panel;
@@ -240,10 +240,11 @@ const toolButton = (opts: ToolButtonOpts): VNode =>
   );
 
 function buttons(root: AnalyseCtrl): VNode {
-  const ctrl: StudyCtrl = root.study!,
-    canContribute = ctrl.members.canContribute(),
-    showSticky = ctrl.data.features.sticky && (canContribute || (ctrl.vm.behind && ctrl.isUpdatedRecently())),
-    gbButton = gbOverrideButton(ctrl);
+  const ctrl: StudyCtrl = root.study!;
+  const canContribute = ctrl.members.canContribute();
+  const showSticky =
+    ctrl.data.features.sticky && (canContribute || (ctrl.vm.behind && ctrl.isUpdatedRecently()));
+  const gbButton = gbOverrideButton(ctrl);
   return hl('div.study__buttons', [
     hl('div.left-buttons.tabs-horiz', { attrs: { role: 'tablist' } }, [
       // distinct classes (sync, write) allow snabbdom to differentiate buttons
@@ -330,8 +331,8 @@ function buttons(root: AnalyseCtrl): VNode {
 }
 
 function metadata(ctrl: StudyCtrl): VNode {
-  const d = ctrl.data,
-    title = `${d.name}: ${ctrl.currentChapter().name}`;
+  const d = ctrl.data;
+  const title = `${d.name}: ${ctrl.currentChapter().name}`;
   return hl('div.study__metadata', [
     hl('h2', [
       hl('span.name', { attrs: { title } }, [

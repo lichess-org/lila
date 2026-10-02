@@ -16,6 +16,7 @@
   <string name="quitTeam">Takımdan ayrıl</string>
   <string name="manuallyReviewAdmissionRequests">Katılım başvuruları onayınızdan geçsin</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Şık işaretliyse, oyuncuların mesaj yazarak yapabileceği takıma katılım başvurusu onayınıza sunulacak.</string>
+  <string name="hideMembersDesc" comment="Checkbox label: option to hide the team member list from non-members">Takım üye listesini, üye olmayanlardan gizle.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Takım lideri</item>
     <item quantity="other">Takım liderleri</item>
@@ -49,6 +50,9 @@
   <string name="entryCode">Takıma giriş kodu</string>
   <string name="entryCodeDescriptionForLeader">(İsteğe bağlı) Takıma yeni katılan üyelerin bu kodu bilmesi gerekir.</string>
   <string name="incorrectEntryCode">Giriş kodu yanlış.</string>
+  <string name="forumLabel">Takım forumu</string>
+  <string name="forumVisibilityHelp">Takım sayfasındaki takım forumunu kimler görebilir?&lt;br&gt;Takım forumunda yalnızca takım üyeleri paylaşım yapabilir.</string>
+  <string name="forumVisibilityNone">Forumu gizle</string>
   <string name="teamAlreadyExists">Böyle bir takım zaten mevcut.</string>
   <string name="upcomingTournaments">Yaklaşan turnuvalar</string>
   <string name="completedTourns">Tamamlanan turnuvalar</string>

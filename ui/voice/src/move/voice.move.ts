@@ -402,12 +402,12 @@ export function initModule({
     sans.clear();
     const xvalset: Set<string> = new Set(); // allowable exact phrases for uci
     for (const uci of ucis) {
-      const usrc = src(uci),
-        udest = dest(uci),
-        nsrc = square(usrc),
-        ndest = square(udest),
-        dp = board.pieces[ndest],
-        srole = board.pieces[nsrc].toUpperCase();
+      const usrc = src(uci);
+      const udest = dest(uci);
+      const nsrc = square(usrc);
+      const ndest = square(udest);
+      const dp = board.pieces[ndest];
+      const srole = board.pieces[nsrc].toUpperCase();
 
       if (srole === 'K') {
         if (isOurs(dp)) {
@@ -448,8 +448,8 @@ export function initModule({
         }
       } else {
         const others: number[] = movesTo(ndest, srole, board);
-        let rank = '',
-          file = '';
+        let rank = '';
+        let file = '';
         for (const other of others) {
           if (other === nsrc || board.pieces[other] !== board.pieces[nsrc]) continue;
           if (nsrc >> 3 === other >> 3) file = uci[0];
@@ -471,12 +471,12 @@ export function initModule({
     for (const uci of ucis) {
       const sel = selection();
       if (sel && !uci.startsWith(sel)) continue;
-      const usrc = src(uci),
-        udest = dest(uci),
-        nsrc = square(usrc),
-        ndest = square(udest),
-        dp = board.pieces[ndest],
-        srole = board.pieces[nsrc].toUpperCase() as 'P' | 'N' | 'B' | 'R' | 'Q' | 'K';
+      const usrc = src(uci);
+      const udest = dest(uci);
+      const nsrc = square(usrc);
+      const ndest = square(udest);
+      const dp = board.pieces[ndest];
+      const srole = board.pieces[nsrc].toUpperCase() as 'P' | 'N' | 'B' | 'R' | 'Q' | 'K';
       pushMap(squares, `${usrc[0]},${usrc[1]}`, usrc);
       pushMap(squares, `${udest[0]},${udest[1]}`, uci);
       pushMap(squares, srole, uci);

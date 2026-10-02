@@ -27,8 +27,8 @@ export function makeCtrl(
   setTab: () => void,
   redraw: () => void,
 ): StudyInviteFormCtrl {
-  const open = prop(false),
-    spectators = prop<string[]>([]);
+  const open = prop(false);
+  const spectators = prop<string[]>([]);
 
   const toggle = () => {
     if (!open()) pubsub.emit('analysis.closeAll');

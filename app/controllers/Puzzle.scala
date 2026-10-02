@@ -142,12 +142,9 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
     env.puzzle.streakJsonAndPuzzle.orNotFound: (json, _) =>
       JsonOk(json)
 
-  def apiStreakResult(score: Int) = ScopedBody(_.Puzzle.Write, _.Web.Mobile) { _ ?=> me ?=>
-    if score > 0 && score < PuzzleForm.maxStreakScore then
-      lila.mon.streak.run.score("mobile").record(score)
-      env.puzzle.complete.setStreakResult(me, score)
-      NoContent
-    else BadRequest
+  def apiStreakResult(score: Int) = ScopedBody(_.Puzzle.Write, _.Web.Mobile) { _ ?=> _ ?=>
+    env.puzzle.streak.setResult(score)
+    NoContent
   }
 
   def vote(id: PuzzleId) = AuthBody { _ ?=> me ?=>
@@ -165,10 +162,10 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
       bindForm(env.puzzle.forms.report)(
         badJsonFormError,
         reportText =>
-          env.puzzle.api.puzzle
-            .reportDedup(id)
-            .so(env.irc.api.reportPuzzle(me.light, id, reportText))
-            .inject(jsonOkResult)
+          for
+            known <- env.puzzle.api.puzzle.hasIssue(id)
+            _ <- known.not.so(env.irc.api.reportPuzzle(me.light, id, reportText))
+          yield jsonOkResult
       )
   }
 

@@ -115,7 +115,7 @@ export default class RoundController implements MoveRootCtrl {
       this.firstSeconds = false;
       this.redraw();
     }, 3000);
-    this.socket = d.local ?? makeSocket(opts.socketSend!, this);
+    this.socket = (d.local as unknown as RoundSocket) ?? makeSocket(opts.socketSend!, this);
     this.blindfoldStorage = storage.boolean(`blindfold.${this.data.player.user?.id ?? 'anon'}`);
 
     this.updateClockCtrl();
@@ -257,13 +257,14 @@ export default class RoundController implements MoveRootCtrl {
     this.ply = ply;
     this.justDropped = undefined;
     this.preDrop = undefined;
-    const s = this.stepAt(ply),
-      config: CgConfig = {
-        fen: s.fen,
-        lastMove: uciToMove(s.uci),
-        check: !!s.check,
-        turnColor: plyColor(this.ply),
-      };
+    const s = this.stepAt(ply);
+    const config: CgConfig = {
+      fen: s.fen,
+      lastMove: uciToMove(s.uci),
+      check: !!s.check,
+      turnColor: plyColor(this.ply),
+      drawable: { autoShapes: ground.endgameShapesForStep(this, s) },
+    };
     this.promotion.dismiss();
     if (this.replaying()) this.chessground.stop();
     else
@@ -436,8 +437,8 @@ export default class RoundController implements MoveRootCtrl {
       else {
         // This block needs to be idempotent, even for castling moves in
         // Chess960.
-        const keys = uciToMove(o.uci)!,
-          pieces = this.chessground.state.pieces;
+        const keys = uciToMove(o.uci)!;
+        const pieces = this.chessground.state.pieces;
         if (
           !o.castle ||
           (pieces.get(o.castle.king[0])?.role === 'king' && pieces.get(o.castle.rook[0])?.role === 'rook')
@@ -480,8 +481,8 @@ export default class RoundController implements MoveRootCtrl {
     this.data.forecastCount = undefined;
     if (o.clock) {
       this.shouldSendMoveTime = true;
-      const oc = o.clock,
-        delay = playing && activeColor ? 0 : oc.lag || 1;
+      const oc = o.clock;
+      const delay = playing && activeColor ? 0 : oc.lag || 1;
       if (this.clock)
         this.clock.setClock({
           white: oc.white,
@@ -571,12 +572,14 @@ export default class RoundController implements MoveRootCtrl {
 
   endWithData = (o: ApiEnd): void => {
     const d = this.data;
+    const ply = this.lastPly();
+    const step = this.stepAt(ply);
     d.game.winner = o.winner;
     d.game.status = o.status;
     d.game.abortedBy = o.abortedBy;
     d.game.boosted = o.boosted;
     d.player.blindfold = false;
-    this.userJump(this.lastPly());
+    this.userJump(ply);
     d.game.fen = util.lastStep(this.data).fen;
     // If losing/drawing on time but locally it is the opponent's turn, move did not reach server before the end
     if (
@@ -618,7 +621,7 @@ export default class RoundController implements MoveRootCtrl {
     this.onChange();
     if (d.tv) setTimeout(site.reload, 10000);
     wakeLock.release();
-    if (this.data.game.status.name === 'started') site.sound.saySan(this.stepAt(this.ply).san, false);
+    if (this.data.game.status.name === 'started') site.sound.saySan(step.san, false);
     else site.sound.say(viewStatus(this.data), false, false, true);
     this.server.alive();
     if (
@@ -628,6 +631,7 @@ export default class RoundController implements MoveRootCtrl {
     ) {
       notify(viewStatus(this.data));
     }
+    ground.sync(this, step, false);
   };
 
   challengeRematch = async (): Promise<void> => {

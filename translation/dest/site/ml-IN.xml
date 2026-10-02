@@ -742,10 +742,6 @@
   <string name="quickPairing">പെട്ടെന്ന് ഇണചേൎക്കൽ നടത്തുക</string>
   <string name="lobby">ഇടനാഴി</string>
   <string name="anonymous">അജ്ഞാത</string>
-  <plurals name="nbAnonymous">
-    <item quantity="one">പേരില്ലാത്തവൻ</item>
-    <item quantity="other">പേരില്ലാത്തവർ (%s)</item>
-  </plurals>
   <string name="yourScore">നിങ്ങളുടെ സ്കോർ %s</string>
   <string name="language">ഭാഷ</string>
   <string name="allLanguages">എല്ലാ മൊഴികളും</string>

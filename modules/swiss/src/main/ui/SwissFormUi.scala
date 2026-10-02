@@ -8,8 +8,7 @@ import lila.core.i18n.Translate
 import lila.gathering.GatheringClock
 import lila.gathering.ui.GatheringFormUi
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class SwissFormUi(helpers: Helpers)(
     translatedVariantChoicesWithVariants: (

@@ -20,9 +20,11 @@ The input CSV must have a header row. Required columns:
   attribute_1               Lichess username
   token                     Access code (generated if missing)
 
-Optional columns:
-  attribute_45              Lichess language/locale (omitted from survey URL if empty)
+Optional columns (first non-empty is used):
+  language                  LimeSurvey language
+  attribute_3               Lichess language (LimeSurvey export)
   invitation_message        Which message to send: 0, 1, 2 or 3 (defaults to 0)
+  attribute_4               Invitation message (LimeSurvey export)
 
 Header labels may include a parenthetical description, e.g. "attribute_1 (username)";
 only the attribute_N / token name is used.
@@ -129,7 +131,7 @@ Deine Antworten gehen direkt an das Lichess-Team.`,
 Οι απαντήσεις σας θα σταλούν απευθείας στην ομάδα του Lichess.`,
   },
   es: {
-    0: `¡Esta encuesta solo te llevará 5 min.! Por los 16 años de Lichess, queremos conocer mejor tu experiencia para poder mejorar.
+    0: `¡Esta encuesta solo te llevará 5 min! Como Lichess cumple 16 años, queremos conocer mejor tu experiencia para poder mejorar.
 
 Por favor, comparte tus ideas aquí: {URL}
 
@@ -146,18 +148,18 @@ Solo conlleva 5 minutos.
 Tus respuestas irán directamente al equipo de Lichess.`,
   },
   fr: {
-    0: `Participez à notre sondage! Ça ne prend que 5 minutes! Lichess va avoir 16 ans. Nous voulons en savoir plus sur votre expérience pour nous aider à l'améliorer.
+    0: `Participez à notre sondage ! Ça ne prend que 5 minutes ! Lichess va avoir 16 ans. Nous voulons en savoir plus sur votre expérience pour nous aider à l'améliorer.
 
 Donnez-nous votre opinion ici : {URL}
 
-Merci !`,
-    1: `Vous avez 5 minutes pour nous aider à améliorer Lichess?
+Merci !`,
+    1: `Vous avez 5 minutes pour nous aider à améliorer Lichess ?
 
-Nous souhaitons avoir vos commentaires comme utilisateur de Lichess pour nous aider à améliorer votre expérience. Nous vous invitons à remplir un court sondage : {URL}`,
-    2: `Comment peut-on améliorer Lichess? Entrez vos suggestions ici : {URL}
+Nous souhaitons avoir vos commentaires comme utilisateur de Lichess pour nous aider à améliorer votre expérience. Nous vous invitons à remplir un court sondage : {URL}`,
+    2: `Comment peut-on améliorer Lichess ? Entrez vos suggestions ici : {URL}
 
 Le sondage ne prend que 5 minutes. Vos réponses nous aideront à décider ce qu'il faut améliorer.`,
-    3: `Aidez-nous à améliorer Lichess. Répondez à notre sondage : {URL}
+    3: `Aidez-nous à améliorer Lichess. Répondez à notre sondage : {URL}
 Il ne prend que 5 minutes.
 
 Vos réponses vont directement à l'équipe Lichess.`,
@@ -231,7 +233,7 @@ Demora apenas 5 minutos.
 As tuas respostas vão diretamente para a equipa do Lichess.`,
   },
   ru: {
-    0: `Пройдите наш 5-минутный опрос! В честь 16-летия Linchess мы хотим узнать больше о вашем опыте, чтобы сделать Linchess лучше.
+    0: `Пройдите наш 5-минутный опрос! Lichess исполняется 16 лет, и мы хотим узнать ваше мнение, чтобы сделать платформу еще лучше.
 
 Пожалуйста, поделитесь своими мыслями здесь: {URL}
 
@@ -310,7 +312,7 @@ for (const row of rows) {
   const username = row.attribute_1?.trim();
   if (!username) continue;
 
-  const lang = normalizeLang(row.attribute_45 ?? row.attribute_4);
+  const lang = normalizeLang(row.language || row.attribute_3);
   let token = row.token?.trim();
   if (!token) token = generateToken(usedTokens);
   else validateToken(token);
@@ -321,7 +323,7 @@ for (const row of rows) {
   }
   usedTokens.add(token);
 
-  const messageId = normalizeMessageId(row.invitation_message);
+  const messageId = normalizeMessageId(row.invitation_message || row.attribute_4);
 
   participants.push({ username, lang, token, messageId, url: surveyLink(surveyId, token, lang) });
 }
@@ -339,7 +341,7 @@ if (writeParticipants) {
 console.log(`Sending surveys to ${participants.length} users...`);
 
 for (const { username, lang, messageId, url } of participants) {
-  console.log(`${lang ?? 'null'} ${username} -> ${url}`);
+  console.log(`${lang ?? 'null'}/${messageId} ${username} -> ${url}`);
 
   const text = makeMessage(lang, messageId, url);
 
@@ -485,7 +487,7 @@ function surveyLink(id, token, lang) {
 }
 
 function formatParticipantsCsv(participants) {
-  const header = 'token,attribute_1,attribute_45';
+  const header = 'token,attribute_1,attribute_3';
   const lines = participants.map(({ token, username, lang }) =>
     [csvCell(token), csvCell(username), csvCell(lang ?? '')].join(','),
   );

@@ -2,7 +2,7 @@ import { memoize } from 'lib';
 import { objectStorage } from 'lib/objectStorage';
 import { completeNode } from 'lib/tree/node';
 import * as treeOps from 'lib/tree/ops';
-import type { LocalEval, TreeNodeLite, TreePath } from 'lib/tree/types';
+import type { ClientEval, LocalEval, TreeNodeLite, TreePath } from 'lib/tree/types';
 
 import type AnalyseCtrl from './ctrl';
 
@@ -106,8 +106,8 @@ export class IdbTree {
     return this.moveDb().then(db => db.put(this.id, { root }));
   }
 
-  async saveCeval(path: TreePath, ceval: LocalEval): Promise<IDBValidKey | undefined> {
-    if (this.noop) return undefined;
+  async saveCeval(path: TreePath, ceval: ClientEval): Promise<IDBValidKey | undefined> {
+    if (this.noop || ceval.cloud) return undefined;
     const id = this.id;
     this.cache.cevals.set(path, ceval);
     return this.cevalDb().then(db => db.put([id, path], { path, ceval }));

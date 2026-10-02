@@ -56,8 +56,7 @@ export const removeCssPath = (key: string) => $(`head > link[data-css-key="${key
 
 export const jsModule = (name: string, prefix = 'compiled/') => {
   if (name.endsWith('.js')) name = name.slice(0, -3);
-  const hash = site.manifest.js[name];
-  return `${prefix}${name}${hash ? `.${hash}` : ''}.js`;
+  return [`${prefix}${name}`, site.manifest.js[name], 'js'].filter(Boolean).join('.');
 };
 
 export const loadIife = (u: string, opts: AssetUrlOpts = {}): Promise<void> => {

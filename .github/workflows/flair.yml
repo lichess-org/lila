@@ -2,13 +2,11 @@ name: Validate Flair
 
 on:
   push:
-    paths:
+    paths: &flair_paths
       - '.github/workflows/flair.yml'
       - 'public/flair/**'
   pull_request:
-    paths:
-      - '.github/workflows/flair.yml'
-      - 'public/flair/**'
+    paths: *flair_paths
 
 jobs:
   validate-flair:

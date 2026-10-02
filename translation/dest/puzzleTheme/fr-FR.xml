@@ -23,6 +23,7 @@
   <string name="bodenMate">Mat de Boden</string>
   <string name="bodenMateDescription">Deux Fous contrôlant des diagonales qui s\'entrecroisent matent un Roi bloqué par ses propres pièces.</string>
   <string name="castling">Roque</string>
+  <string name="enPassant">Prise en passant</string>
   <string name="castlingDescription">Mettez votre Roi en sécurité et développez vos Tours pour attaquer.</string>
   <string name="capturingDefender">Capturez le défenseur</string>
   <string name="capturingDefenderDescription">Retire une pièce essentielle à la défense d\'une autre pièce, permettant à la pièce non protégée d\'être capturée au coup suivant.</string>

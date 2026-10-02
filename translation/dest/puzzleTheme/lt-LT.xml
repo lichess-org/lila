@@ -19,6 +19,7 @@
   <string name="bodenMate">Bodeno matas</string>
   <string name="bodenMateDescription">Du puolantys rikiai susikryžiojančiose įstrižainėse atlieka matą priešininko karaliui, įkalintam draugiškų figūrų.</string>
   <string name="castling">Rokiruotės</string>
+  <string name="enPassant">Kirtimas prasilenkiant</string>
   <string name="castlingDescription">Parveskite karalių į saugią vietą ir panaudokite atakai bokštą.</string>
   <string name="capturingDefender">Nukirskite gynėją</string>
   <string name="capturingDefenderDescription">Pašalinkite figūrą, kuri yra kritiškai svarbi kitos figūros gynybai, paruošdami naujai neapsaugotą figūrą kirtimui kitu ėjimu.</string>

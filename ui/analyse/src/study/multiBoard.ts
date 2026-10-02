@@ -193,10 +193,10 @@ export function view(ctrl: MultiBoardCtrl, study: StudyCtrl): MaybeVNode {
 }
 
 function renderPagerNav(pager: Paginator<ChapterPreview>, ctrl: MultiBoardCtrl): VNode {
-  const page = ctrl.page,
-    from = Math.min(pager.nbResults, (page - 1) * pager.maxPerPage + 1),
-    to = Math.min(pager.nbResults, page * pager.maxPerPage),
-    max = ctrl.maxPerPage();
+  const page = ctrl.page;
+  const from = Math.min(pager.nbResults, (page - 1) * pager.maxPerPage + 1);
+  const to = Math.min(pager.nbResults, page * pager.maxPerPage);
+  const max = ctrl.maxPerPage();
   return h('div.study__multiboard__pager', [
     pagerButton(licon.JumpFirst, () => ctrl.setPage(1), page > 1, ctrl),
     pagerButton(licon.JumpPrev, ctrl.prevPage, page > 1, ctrl),
@@ -285,6 +285,9 @@ export const previewContent = (
 ) => {
   const makeCgConfig = () => ({
     ...(showResults ? previewToCgConfig(preview) : { fen: EMPTY_BOARD_FEN }),
+    // previewToCgConfig sets the chapter orientation; the caller may want another one,
+    // like the liveboard following the main board flip.
+    orientation,
     ...(extraCgConfig ? extraCgConfig() : {}),
   });
   return [
@@ -300,7 +303,6 @@ export const previewContent = (
               vnode.data!.cg = makeChessground(el, {
                 coordinates: false,
                 viewOnly: true,
-                orientation,
                 drawable: { enabled: false, visible: false },
                 ...makeCgConfig(),
               });
@@ -310,7 +312,7 @@ export const previewContent = (
               if (!showResults) return;
               const oldCg: CgApi = old.data!.cg;
               // `cg.getFen()` is boardFen not fullFen
-              if (old.data!.fen !== preview.fen || oldCg.state.orientation !== preview.orientation)
+              if (old.data!.fen !== preview.fen || oldCg.state.orientation !== orientation)
                 oldCg.set(makeCgConfig());
               vnode.data!.fen = preview.fen;
               vnode.data!.cg = oldCg;

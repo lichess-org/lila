@@ -23,6 +23,7 @@
   <string name="bodenMate">Mat-ul lui Boden</string>
   <string name="bodenMateDescription">Doi nebuni care atacă pe diagonale încrucișate livrează mat-ul unui rege blocat de piese aliate.</string>
   <string name="castling">Rocada</string>
+  <string name="enPassant">En passant</string>
   <string name="castlingDescription">Adu regele în siguranță și mută tura pentru atac.</string>
   <string name="capturingDefender">Capturează apărătorul</string>
   <string name="capturingDefenderDescription">Capturarea unei piese esențiale apărării alteia, permițând captura piesei acum neapărată la o mutare ulterioară.</string>

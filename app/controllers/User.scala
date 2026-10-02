@@ -107,11 +107,12 @@ final class User(
             snip = lila.ui.Snippet(views.activity(withPerfs, as))
           yield status(snip)
 
-  def download(username: UserStr) = OpenBody:
+  def download(username: UserStr) = AuthBody { _ ?=> _ ?=>
     val user =
-      meOrFetch(username).dmap(_.filter(u => u.enabled.yes || ctx.is(u) || isGrantedOpt(_.GamesModView)))
+      meOrFetch(username).map(_.filter(u => u.enabled.yes || ctx.is(u) || isGrantedOpt(_.GamesModView)))
     FoundPage(user):
       views.user.download(_)
+  }
 
   def gamesAll(username: UserStr, page: Int) = games(username, GameFilter.all.name, page)
 
@@ -169,6 +170,11 @@ final class User(
             .flatMap:
               case Some(url) => Redirect(url).toFuccess
               case None if isGrantedOpt(_.AccountInfo) => ctx.useMe(modC.searchTerm(username.value))
+              case None if username.id.is(UserId("me")) =>
+                negotiate(
+                  Redirect(routes.Auth.login.url, Map("referrer" -> List(ctx.req.uri))).toFuccess,
+                  authenticationFailed
+                )
               case None => notFound(true)
         case Some(u) if u.enabled.yes || isGrantedOpt(_.AccountInfo) => f(u)
         case u => notFound(u.isEmpty)

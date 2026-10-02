@@ -11,8 +11,7 @@ import lila.core.team.LightTeam
 import lila.gathering.Condition.WithVerdicts
 import lila.gathering.ui.GatheringUi
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class SwissShowUi(helpers: Helpers, ui: SwissBitsUi, gathering: GatheringUi)(using NetDomain):
   import helpers.{ *, given }

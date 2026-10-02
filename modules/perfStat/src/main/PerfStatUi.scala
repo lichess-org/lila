@@ -8,8 +8,7 @@ import lila.core.perf.UserWithPerfs
 import lila.core.perm.Granter
 import lila.rating.PerfType
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class PerfStatUi(helpers: Helpers)(communityMenu: Context ?=> Frag):
   import helpers.{ *, given }

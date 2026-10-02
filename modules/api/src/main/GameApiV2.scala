@@ -135,6 +135,8 @@ final class GameApiV2(
         gameRepo
           .sortedCursor(
             playerSelect ++
+              config.wonBy.so(Query.winnerNotUsingIndex) ++
+              config.lostBy.so(Query.loserNotUsingIndex) ++
               Query.createdBetween(config.since, config.until) ++
               (!config.ongoing).so(Query.finished),
             config.sort.bson,
@@ -403,7 +405,7 @@ object GameApiV2:
 
   case class ByUserConfig(
       user: User,
-      vs: Option[User],
+      players: GamePlayersConfig,
       format: Format,
       since: Option[Instant] = None,
       until: Option[Instant] = None,
@@ -421,6 +423,7 @@ object GameApiV2:
       extends Config:
     import lila.search.spec.DateRange
     import lila.gameSearch.*
+    export players.*
 
     private def ts(i: Instant): Timestamp = Timestamp.fromEpochMilli(i.toEpochMilli)
 
@@ -434,6 +437,8 @@ object GameApiV2:
         players = SearchPlayer(
           a = user.id.into(UserStr).some,
           b = vs.map(_.id.into(UserStr)),
+          winner = wonBy.map(_.into(UserStr)),
+          loser = lostBy.map(_.into(UserStr)),
           white = color.exists(_.white).option(user.id.into(UserStr)),
           black = color.exists(_.black).option(user.id.into(UserStr))
         ),
@@ -444,6 +449,8 @@ object GameApiV2:
         perf = perfKey.view.map(_.id.value).toList,
         rated = rated
       )
+
+  case class GamePlayersConfig(vs: Option[User], wonBy: Option[UserId], lostBy: Option[UserId])
 
   case class ByIdsConfig(
       ids: Seq[GameId],

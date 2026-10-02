@@ -34,6 +34,8 @@ final class Env(
 
   lazy val mates = wire[ClasMates]
 
+  private lazy val clasMsg = wire[ClasMsg]
+
   lazy val api: ClasApi = wire[ClasApi]
 
   lazy val progressApi = wire[ClasProgressApi]
@@ -41,6 +43,8 @@ final class Env(
   lazy val markdown = wire[ClasMarkdown]
 
   lazy val login = wire[ClasLoginApi]
+
+  lazy val signup = wire[ClasSignup]
 
   lazy val bulk = wire[ClasBulkApi]
 

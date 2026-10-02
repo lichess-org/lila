@@ -845,11 +845,6 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="quickPairing">Brzo uparivanje</string>
   <string name="lobby">Lobi</string>
   <string name="anonymous">Anoniman igrač</string>
-  <plurals name="nbAnonymous">
-    <item quantity="one">Anonimni korisnik</item>
-    <item quantity="few">Anonimni korisnici (%s)</item>
-    <item quantity="other">Anonimni korisnici (%s)</item>
-  </plurals>
   <string name="yourScore">Vaš rezultat: %s</string>
   <string name="language">Jezik</string>
   <string name="allLanguages">Svi jezici</string>

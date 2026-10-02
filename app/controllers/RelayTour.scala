@@ -145,8 +145,8 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
 
   def delete(id: RelayTourId) = AuthOrScoped(_.Study.Write) { _ ?=> me ?=>
     WithTour(id): tour =>
-      env.relay.api.deleteTourIfOwner(tour) >>
-        Redirect(routes.RelayTour.by(me.username)).flashSuccess
+      for _ <- env.relay.api.deleteTourIfOwner(tour)
+      yield Redirect(routes.RelayTour.by(me.username)).flashSuccess
   }
 
   def image(id: RelayTourId, tag: Option[String]) = AuthBody(lila.web.HashedMultiPart(parse)) { ctx ?=> _ ?=>
@@ -161,12 +161,12 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
   }
 
   def playersView(id: RelayTourId) = Open:
-    WithTour(id): tour =>
-      env.relay.playerApi.jsonList(tour.id).map(JsonStrOk)
+    Found(env.relay.api.tourExists(id)):
+      env.relay.playerApi.jsonList(id).map(JsonStrOk)
 
   def teamLeaderboard(id: RelayTourId) = Open:
-    WithTour(id): tour =>
-      env.relay.teamLeaderboard.leaderboardJson(tour.id).map(JsonStrOk)
+    Found(env.relay.api.tourExists(id)):
+      env.relay.teamLeaderboard.leaderboardJson(id).map(JsonStrOk)
 
   def subscribe(id: RelayTourId, isSubscribed: Boolean) = AuthOrScoped(_.Web.Mobile) { _ ?=> me ?=>
     for _ <- env.relay.api.subscribe(id, me.userId, isSubscribed)
@@ -175,12 +175,10 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
 
   def cloneTour(id: RelayTourId) = Secure(_.Relay) { _ ?=> me ?=>
     WithTour(id): from =>
-      env.relay.api
-        .cloneTour(from)
-        .map: tour =>
-          Redirect(routes.RelayTour.edit(tour.id)).flashSuccess:
-            tour.tier.isDefined.so:
-              "Tournament cloned and set to private for now. See the tier selector."
+      for tour <- env.relay.api.cloneTour(from)
+      yield Redirect(routes.RelayTour.edit(tour.id)).flashSuccess:
+        tour.tier.isDefined.so:
+          "Tournament cloned and set to private for now. See the tier selector."
   }
 
   def show(slug: String, id: RelayTourId) = Open:

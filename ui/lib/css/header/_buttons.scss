@@ -142,6 +142,16 @@
   &:hover::after {
     color: $c-font-clearer;
   }
+
+  @media (max-width: at-most($xxx-small)) {
+    &::after {
+      margin-left: 0;
+    }
+
+    span {
+      display: none;
+    }
+  }
 }
 
 #notify-app .initiating {

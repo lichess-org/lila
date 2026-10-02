@@ -119,7 +119,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
       }.nonEmptyOption
     )
 
-  def closedByMod(user: User): Fu[Boolean] =
+  def closedByMod(user: User): Fu[Boolean] = user.enabled.no.so:
     fuccess(user.marks.alt) >>| coll.exists(bdoc("user" -> user.id, "action" -> Modlog.closeAccount))
 
   def closedByTeacher(user: User): Fu[Boolean] =
@@ -237,6 +237,16 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
       bdoc(
         "user".in(users),
         "mod" -> me.userId,
+        "action".in(markActions)
+      ),
+      _.sec
+    )
+
+  def markers(user: UserId): Fu[List[ModId]] =
+    coll.distinctEasy[ModId, List](
+      "mod",
+      bdoc(
+        "user" -> user,
         "action".in(markActions)
       ),
       _.sec

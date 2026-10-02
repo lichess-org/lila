@@ -9,7 +9,8 @@ import { loaded, loading } from './view';
 const patch = init([classModule, attributesModule]);
 
 export function initModule(opts: ChallengeOpts) {
-  let vnode: VNode, ctrl: ChallengeCtrl;
+  let vnode: VNode;
+  let ctrl: ChallengeCtrl;
 
   function redraw() {
     vnode = patch(vnode || opts.el, ctrl ? loaded(ctrl) : loading());

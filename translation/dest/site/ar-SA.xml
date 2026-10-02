@@ -692,6 +692,11 @@
   <string name="autoSwitch">تبديل تلقائي</string>
   <string name="puzzles">الألغاز</string>
   <string name="onlineBots">الروبوتات المتصلة</string>
+  <string name="aboutBotsOnLichess">حول الروبوتات على Lichess</string>
+  <string name="featuredBots">الروبوتات المميزة</string>
+  <string name="tryPlayingTheseInnovativeChessEngines">جرّب اللعب ضد محركات الشطرنج المبتكرة هذه! إنها المفضلة لدينا.</string>
+  <string name="communityBots">روبوتات المجتمع</string>
+  <string name="moreChessEnginesCreatedByTheLichessCommunity">المزيد من محركات الشطرنج التي أنشأها مجتمع Lichess. يستضيفها منشئوها، وقد لا تكون متاحة دائمًا على الإنترنت.</string>
   <string name="name">الاسم</string>
   <string name="description">الوصف</string>
   <string name="descPrivate">وصف خاص</string>
@@ -742,6 +747,7 @@ https://lichess. org/report.</string>
   <string name="clearField">مسح الحقل</string>
   <string name="orSeparator">أو</string>
   <string name="logInByEmail">تسجيل الدخول بالبريد الإلكتروني</string>
+  <string name="emailLoginInstructions">سنرسل إليك بريدًا إلكترونيًا يتضمن رابط تسجيل الدخول.</string>
   <string name="emailMeALink">أرسل لي الرابط بالبريد الإلكتروني</string>
   <string name="currentPassword">كلمة المرور الحالية</string>
   <string name="newPassword">كلمة المرور الجديدة</string>
@@ -766,6 +772,8 @@ https://lichess. org/report.</string>
   <string name="onSlowGames">في المباريات البطيئة</string>
   <string name="always">دائماً</string>
   <string name="never">إطلاقا</string>
+  <string name="defeatOnly">الهزائم فقط</string>
+  <string name="drawAndDefeat">التعادل والهزائم</string>
   <string name="xCompetesInY">%1$s تنافس في %2$s</string>
   <string name="victory">أحسنت!</string>
   <string name="defeat">هزيمة</string>
@@ -842,10 +850,13 @@ https://lichess. org/report.</string>
   <string name="aboutX">عن %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s هو (%2$s) خادم شطرنج مجاني، حر، بدون إعلانات، مفتوح المصدر.</string>
   <string name="really">حقاً</string>
+  <string name="lichessUpdates">تحديثات Lichess</string>
   <string name="contribute">ساهم</string>
+  <string name="changelog">سجل التغييرات</string>
   <string name="termsOfService">شروط الخدمة</string>
   <string name="titleVerification">التحقق من اللقب</string>
   <string name="sourceCode">الكود المصدر</string>
+  <string name="blockAds">حظر الإعلانات</string>
   <string name="simultaneousExhibitions">معارض التزامنيات</string>
   <string name="host">المضيف</string>
   <string name="hostColorX">لون المضيف: %s</string>
@@ -857,14 +868,14 @@ https://lichess. org/report.</string>
   <string name="noSimulExplanation">معرض هذه التزامنية غير موجود.</string>
   <string name="returnToSimulHomepage">العودة لصفحة التزامنية</string>
   <string name="aboutSimul">التزامنيات هي لاعب واحد يواجه عدة خصوم في وقت واحد.</string>
-  <string name="aboutSimulImage">مع 50 خصماً, فاز فيشر بـ 47 مباراة, تعادل في اثنتين, وخسر واحدة.</string>
+  <string name="aboutSimulImage">من أصل 50 خصمًا، فاز فيشر بـ47 مباراة، وتعادل في مباراتين، وخسر مباراة واحدة.</string>
   <string name="aboutSimulRealLife">تم أخذ مفهوم التزامنيات من أحداث الحياة الواقعية. حيث ينتقل المضيف من طاولة لأخرى للعب.</string>
   <string name="aboutSimulRules">عندما تبدأ التزامنية، يبدأ كل لاعب مباراة مع المضيف، حيث يلعب المضيف بالقطع البيضاء. تنتهي التزامنية بإنتهاء جميع المبارايات.</string>
   <string name="aboutSimulSettings">التزامنيات دائما عفوية. لا يمكن استرجاع النقلات، أضافة الوقت، او حتى طلب لعبة أخرى.</string>
   <string name="create">ابدأ</string>
   <string name="creatingASimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">إنشاء مباراة محاكاة يسمح لك بمواجهة عدة لاعبين في آنٍ واحد.</string>
   <string name="simulVariantsHint">إذا اخترت عدة أنواع, كل لاعب يمكنه اختيار النوع الذي يريد.</string>
-  <string name="simulClockHint">ضبط توقيت بالزيادة . كلما زاد عدد اللاعبين كلما احتجت لوقت أطول.</string>
+  <string name="simulClockHint">كلما زاد عدد اللاعبين الذين تواجههم، قد تحتاج إلى وقت أطول.</string>
   <string name="simulAddExtraTime">يمكنك زيادة الوقت لساعتك للمساعدة في التزامنية.</string>
   <string name="extraClockTimeForHost" comment="Appears on: https://lichess.org/simul/new&#10;&#10;Allows a simul host to select extra time for the simul.&#10;&#10;Please note this string used to state &quot;Host extra clock time&quot;, without the word &quot;initial&quot;">وقت إضافي للمضيف:</string>
   <string name="simulAddExtraTimePerPlayer">أضف وقتًا ابتدائيًا إلى ساعتك لكل لاعب ينضم إلى المحاكاة.</string>
@@ -949,12 +960,14 @@ https://lichess. org/report.</string>
   <string name="enableKidMode">تمكين نمط الطفل</string>
   <string name="disableKidMode">تعطيل نمط الطفل</string>
   <string name="security">الأمان</string>
+  <string name="activeSessionsDescription">هذه قائمة بالأجهزة والتطبيقات التي سجّلت الدخول إلى حسابك. إذا لاحظت أي نشاط مريب، فتحقق من &lt;a href=\'%1$s\'&gt; التحقق من بريدك الإلكتروني للاسترداد &lt;/a&gt;&lt;a href=\'%2$s\'&gt; و &lt;a href=\'%2$s\'&gt;تغيير كلمة مرورك &lt;/a&gt;.</string>
   <string name="sessions">جلسات</string>
   <string name="revokeAllSessions">إلغاء كافة جلسات العمل</string>
   <string name="playChessEverywhere">العب الشطرنج فى كل مكان</string>
   <string name="everybodyGetsAllFeaturesForFree">كل المميزات لكل الأعضاء مجاناً</string>
   <string name="viewTheSolution">الحل</string>
   <string name="noChallenges">لا توجد تحديات.</string>
+  <string name="browserNotificationsDenied">النوافذ المنبثقة للإشعارات معطّلة في إعدادات المتصفح</string>
   <plurals name="availableInNbLanguages">
     <item quantity="zero">متاح ب %s لغات!</item>
     <item quantity="one">متاح ب %s لغات!</item>
@@ -971,14 +984,6 @@ https://lichess. org/report.</string>
   <string name="quickPairing">مزاوجة سريعة</string>
   <string name="lobby">الصالة</string>
   <string name="anonymous">مجهول</string>
-  <plurals name="nbAnonymous">
-    <item quantity="zero">مجهول (%s)</item>
-    <item quantity="one">مجهول</item>
-    <item quantity="two">مجهولين (%s)</item>
-    <item quantity="few">مجهولين (%s)</item>
-    <item quantity="many">مجهولين (%s)</item>
-    <item quantity="other">مجهولين (%s)</item>
-  </plurals>
   <string name="yourScore">نقاطك: %s</string>
   <string name="language">اللغة</string>
   <string name="allLanguages">كل اللغات</string>
@@ -1223,4 +1228,7 @@ https://lichess. org/report.</string>
   <string name="verifyingYourDevice">جارٍ التحقق من جهازك...</string>
   <string name="chessOpenings">افتتاحيات الشطرنج</string>
   <string name="boards">الألواح</string>
+  <string name="write">كتابة</string>
+  <string name="preview">معاينة</string>
+  <string name="done">تم</string>
 </resources>

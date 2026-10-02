@@ -1,8 +1,7 @@
 package lila.pref
 package ui
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class AccountUi(helpers: Helpers):
   import helpers.{ *, given }
@@ -119,7 +118,7 @@ final class AccountUi(helpers: Helpers):
           ),
           div(cls := "sep"),
           a(activeCls("network"), href := routes.Pref.network)(
-            "Network"
+            trans.preferences.network()
           ),
           ctx.noBot.option(
             a(href := routes.DgtCtrl.index)(

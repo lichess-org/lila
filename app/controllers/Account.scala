@@ -265,13 +265,17 @@ final class Account(
     yield res
   }
 
-  def closeConfirm = AuthBody { ctx ?=> me ?=>
+  def closeConfirm = AuthOrScopedBody(_.Web.Mobile) { ctx ?=> me ?=>
     NotManaged:
       auth.HasherRateLimit:
         env.security.forms.closeAccount.flatMap: form =>
-          FormFuResult(form)(err => renderPage(pages.close(err, managed = false))): forever =>
-            for _ <- env.api.accountTermination.disable(me.value, forever = forever)
-            yield Redirect(routes.Lobby.home).withCookies(env.security.lilaCookie.newSession)
+          def doClose(forever: Boolean) = env.api.accountTermination.disable(me.value, forever = forever)
+          negotiate(
+            html = FormFuResult(form)(err => renderPage(pages.close(err, managed = false))): forever =>
+              for _ <- doClose(forever)
+              yield Redirect(routes.Lobby.home).withCookies(env.security.lilaCookie.newSession),
+            json = bindForm(form)(badJsonFormError, forever => doClose(forever).inject(NoContent))
+          )
   }
 
   def delete = Auth { _ ?=> me ?=>
@@ -282,13 +286,17 @@ final class Account(
     yield res
   }
 
-  def deleteConfirm = AuthBody { ctx ?=> me ?=>
+  def deleteConfirm = AuthOrScopedBody(_.Web.Mobile) { ctx ?=> me ?=>
     NotManaged:
       auth.HasherRateLimit:
         env.security.forms.deleteAccount.flatMap: form =>
-          FormFuResult(form)(err => renderPage(pages.delete(err, managed = false))): _ =>
-            for _ <- env.api.accountTermination.scheduleDelete(me.value)
-            yield Redirect(routes.Account.deleteDone).withCookies(env.security.lilaCookie.newSession)
+          def doDelete = env.api.accountTermination.scheduleDelete(me.value)
+          negotiate(
+            html = FormFuResult(form)(err => renderPage(pages.delete(err, managed = false))): _ =>
+              for _ <- doDelete
+              yield Redirect(routes.Account.deleteDone).withCookies(env.security.lilaCookie.newSession),
+            json = bindForm(form)(badJsonFormError, _ => doDelete.inject(NoContent))
+          )
   }
 
   def deleteDone = Open { ctx ?=>

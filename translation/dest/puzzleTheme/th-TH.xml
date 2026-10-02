@@ -23,6 +23,7 @@
   <string name="bodenMate">การรุกจนแบบ Boden</string>
   <string name="bodenMateDescription">บิชอปที่ใช้โจมตี 2 ตัวควบคุมช่องเป็นกากบาทในแนวเฉียง ส่งผลให้คิงที่ถูกหมากฝ่ายตนเองขวางโดนรุกจน</string>
   <string name="castling">การเข้าป้อม</string>
+  <string name="enPassant">การกินผ่าน</string>
   <string name="castlingDescription">นำคิงของคุณไปที่ปลอดภัย และเคลื่อนเรือของคุณเพื่อการโจมตี</string>
   <string name="capturingDefender">กินผู้ป้องกัน</string>
   <string name="capturingDefenderDescription">กีกกันหมากที่สำคัญออกไปจากการป้องหมากตัวอื่น ทำให้หมากที่สูญเสียการป้องกันสามารถถูกกินในตาต่อไปได้</string>

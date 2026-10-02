@@ -813,10 +813,6 @@ Playing rated games will increase stability.</string>
   <string name="quickPairing">Quick pairing</string>
   <string name="lobby">Lobby</string>
   <string name="anonymous">Anonymous</string>
-  <plurals name="nbAnonymous">
-    <item quantity="one">Anonymous</item>
-    <item quantity="other">Anonymous (%s)</item>
-  </plurals>
   <string name="yourScore">Your score: %s</string>
   <string name="language">Language</string>
   <string name="allLanguages">All languages</string>
@@ -1048,4 +1044,6 @@ All operating costs, development, and content are funded solely by user donation
   <string name="verifyingYourDevice">Verifying your device...</string>
   <string name="chessOpenings">Chess openings</string>
   <string name="boards">Boards</string>
+  <string name="write">Write</string>
+  <string name="preview">Preview</string>
 </resources>

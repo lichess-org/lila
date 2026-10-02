@@ -4,8 +4,7 @@ package ui
 import lila.core.perf.UserWithPerfs
 import lila.core.user.Flag
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class UserShow(helpers: Helpers, bits: UserBits):
   import helpers.{ *, given }

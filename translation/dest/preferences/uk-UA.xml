@@ -58,7 +58,7 @@
   <string name="notifyStreamStart">Стрімер почав трансляцію</string>
   <string name="notifyDirectMessage" comment="notifyInboxMsg&#10;&#10;A notification setting - notifies players when they receive a new message in their Lichess inbox">Нові особисті повідомлення</string>
   <string name="notifyForumMentions" comment="notifyForumMention&#10;&#10; A notification setting - notifies players when someone has @mentioned their name in the Lichess Forum (https://lichess.org/forum)">Згадки в форумі</string>
-  <string name="notifyStudyInvites" comment="notifyInvitedStudy&#10;&#10; A notification setting - notifies players about invites to studies (https://lichess.org/study/)">Запрошення до навчання</string>
+  <string name="notifyStudyInvites" comment="notifyInvitedStudy&#10;&#10; A notification setting - notifies players about invites to studies (https://lichess.org/study/)">Запрошення до дослідження</string>
   <string name="notifyGameEvent">Оновлення заочних партій</string>
   <string name="notifyChallenge">Виклики</string>
   <string name="notifyTournamentStartReminders" comment="notifyTournamentSoon&#10;&#10;A notification setting - notifies players if a tournament is starting soon.">Нагадування про початок турніру</string>

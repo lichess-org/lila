@@ -28,6 +28,7 @@ export async function build(pkgs: string[]): Promise<void> {
           execSync(`pnpm install --color=${env.noColor ? 'never' : 'always'}`, {
             encoding: 'utf8',
           }),
+          'pnpm',
         );
       }
       if (!pkgs.length) env.log(`Parsing packages in '${pc.cyan(env.uiDir)}'`);

@@ -7,8 +7,7 @@ import scalalib.model.Language
 import lila.core.i18n.I18nModule
 import lila.core.report.ScoreThresholds
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
     popularAlternateLanguages: List[Language],
@@ -23,7 +22,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
   val topComment = raw("""<!-- Lichess is open source! See https://lichess.org/source -->""")
   val charset = raw("""<meta charset="utf-8">""")
   val viewport = raw:
-    """<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,viewport-fit=cover">"""
+    """<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, viewport-fit=cover">"""
   def metaCsp(csp: ContentSecurityPolicy): Frag = raw:
     s"""<meta http-equiv="Content-Security-Policy" content="${lila.web.ContentSecurityPolicy.render(csp)}">"""
   def metaCsp(csp: Option[ContentSecurityPolicy])(using Context, Option[Nonce]): Frag =
@@ -63,6 +62,24 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
   </button>
   <div id="notify-app" class="dropdown"></div>
 </div>"""
+
+  private def friendBox(using Translate) =
+    val titleTxt = trans.site.friends.txt()
+    div(id := "friend_box")(
+      button(
+        tpe := "button",
+        cls := "friend_box_button toggle link",
+        title := titleTxt,
+        aria.label := titleTxt,
+        dataIcon := Icon.Friends
+      ),
+      div(cls := "content_wrap dropdown")(
+        div(cls := "friend_box_count")(
+          trans.site.nbFriendsOnline.plural(0, "")
+        ),
+        div(cls := "content list")
+      )
+    )
 
   def clinput(using ctx: Context) =
     val label = trans.search.search.txt()
@@ -122,7 +139,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
 
   def dasher(me: User) =
     div(cls := "dasher")(
-      button(id := "user_tag", cls := "toggle link")(me.username),
+      button(id := "user_tag", cls := "toggle link")(span(me.username)),
       div(id := "dasher_app", cls := "dropdown")
     )
 
@@ -225,19 +242,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
   }
 </style>"""
 
-  def bottomHtml(using ctx: Context) = frag(
-    ctx.me
-      .exists(_.enabled.yes)
-      .option(
-        div(id := "friend_box")(
-          div(cls := "friend_box_title")(
-            trans.site.nbFriendsOnline.plural(0, iconTag(Icon.UpTriangle))
-          ),
-          div(cls := "content_wrap none")(
-            div(cls := "content list")
-          )
-        )
-      ),
+  def bottomHtml = frag(
     Option.when(netConfig.socketDomains.nonEmpty)(networkAlert),
     spinnerMask
   )
@@ -334,7 +339,11 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
           else
             ctx.me
               .map: me =>
-                frag(allNotifications(challenges, notifications), dasher(me))
+                frag(
+                  me.enabled.yes.option(friendBox),
+                  allNotifications(challenges, notifications),
+                  dasher(me)
+                )
               .getOrElse:
                 error.not.option(anonDasher)
         )

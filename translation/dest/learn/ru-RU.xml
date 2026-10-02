@@ -128,6 +128,7 @@
 Сделайте любой ход, чтобы продолжить.</string>
   <string name="boardSetupComplete">Поздравляем! Теперь вы знаете, как расставить фигуры на шахматной доске.</string>
   <string name="castling">Рокировка</string>
+  <string name="enPassant">Взятие на проходе</string>
   <string name="theSpecialKingMove">Особый ход короля</string>
   <string name="castlingIntro">Поместите своего короля в надёжное место, и выведите в бой ладью!</string>
   <string name="castleKingSide">Передвиньте своего короля на две клетки

@@ -163,7 +163,7 @@ export const openingColor = (os: ByColor<Counted<Opening>>, color: Color): VNode
     div(a(`/opening/${o.value.key}`)({ target: '_blank' }, o.value.name)),
     div(
       p(
-        i18n.recap[color === 'white' ? 'openingsMostPlayedAsWhite' : 'openingsMostPlayedAsBlack'].asArray(
+        i18n.recap[`openingsMostPlayedAs${capitalize(color)}`].asArray(
           o.count,
           strong(animateNumber(o.count)),
         ),

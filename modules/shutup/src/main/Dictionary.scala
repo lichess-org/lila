@@ -20,7 +20,7 @@ anal(plug|se[ckx]+|)
 anus
 ape
 arse(hole|wipe|)
-ass
+ass+
 as+(hole|fag)
 autist(ic|)
 au[cs]+hw[i\|\\]tz
@@ -32,7 +32,7 @@ blumpkin
 bol+o[ck]+
 bomb (yo)?ur?(self)?
 boner
-boob
+boo+b
 bozo
 brain(dea?d|les+)
 bug+er
@@ -48,12 +48,12 @@ cl[i\|\\]t(oris|)
 clown
 co[ck]+(su[ck]+(er|ing)|)
 condom
-coon
+coo+n
 coward?
 cr[i\|\\]p+le
 cry(baby|ing|)
 cu[ck]+(old|)
-cun+ilingu
+cun+(ilingu|t)
 di[ck]+(head|face|su[ck]+er|)
 dildo
 dog+ystyle
@@ -114,8 +114,8 @@ pa?ederast
 pe*nis?
 p[i\|\\]g
 pimp
-piss
-poo+f
+pis+
+poo+f(ter|)
 poo+n
 poo++p(face|)
 po?rn(hub|)
@@ -123,7 +123,7 @@ pos\b
 pr[i\|\\][ck]+
 prost[i\|\\]tute
 punani
-pus+([i\|\\]|y|[i\|\\]e|)
+pu?s+([i\|\\]|y|[i\|\\]e|)
 que+r
 rap[i\|\\]st
 rat\b
@@ -257,6 +257,7 @@ uebok
 """)
 
   def es = dict("""
+basura
 bolud[oa]
 cabr[oó]na?
 cag[oó]n
@@ -346,6 +347,10 @@ schwuchtel
 trottel
 untermensch
 wi(chs|x++)er
+""")
+
+  def pt = dict("""
+lixo
 """)
 
   def tr = dict("""

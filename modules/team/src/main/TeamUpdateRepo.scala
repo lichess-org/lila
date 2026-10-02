@@ -30,14 +30,8 @@ private final class TeamUpdateRepo(val coll: Coll)(using Executor):
         "seenBy".neq(me.userId)
       )
 
-  def markSeen(team: TeamId)(using me: Me): Funit =
-    coll.update
-      .one(
-        teamSelect(team) ++ bdoc("seenBy".neq(me.userId)),
-        bdoc("$addToSet" -> bdoc("seenBy" -> me.userId)),
-        multi = true
-      )
-      .void
+  def markSeen(msgIds: Seq[TeamUpdate.ID])(using me: Me): Funit = msgIds.nonEmpty.so:
+    coll.update.one(inIds(msgIds.distinct), addToSet("seenBy" -> me.userId), multi = true).void
 
   def teamLatest(team: TeamId): Fu[Option[DbTeamUpdate]] =
     coll.secondary

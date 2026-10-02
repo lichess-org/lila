@@ -42,6 +42,7 @@ Jocurile vor fi evaluate în continuare, această setare afectează doar ce e vi
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Declară automat o remiză în cazul a trei repetări</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Când timpul rămas e mai scurt de 30 de secunde</string>
   <string name="moveConfirmation">Confirmare mutare</string>
+  <string name="multipleChoices">Alegere multiplă. </string>
   <string name="explainCanThenBeTemporarilyDisabled">Poate fi dezactivat în timpul unui joc cu meniul de tablă</string>
   <string name="inCorrespondenceGames">În jocuri prin corespondență</string>
   <string name="correspondenceAndUnlimited">Corespondență sau timp nelimitat</string>
@@ -90,4 +91,10 @@ Jocurile vor fi evaluate în continuare, această setare afectează doar ce e vi
   <string name="analysisSettings">Setări analiză</string>
   <string name="maneuverArrowsHelp">Secvența de mutări a motorului pentru o piesă</string>
   <string name="hoverOverSettingLabelsForHelp">Plasați cursorul peste etichete pentru ajutor</string>
+  <string name="network">Rețea</string>
+  <string name="youAreCurrentlyUsingDirectRouting">În prezent folosiți rutarea directă.</string>
+  <string name="youAreCurrentlyUsingCdnRouting">În acest moment utilizaţi rutarea Reţea de Livrare a Conținutului (CDN).</string>
+  <string name="frequentDisconnectsAdvice">Dacă aveți deconectări frecvente, încercați să schimbați rutarea.</string>
+  <string name="useDirectRouting">Folosește rutare directă</string>
+  <string name="useCdnRouting">Folosește rutarea CDN</string>
 </resources>

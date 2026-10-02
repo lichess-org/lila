@@ -28,7 +28,8 @@ object header:
             u.light,
             relation = social.relation,
             followable = social.followable,
-            blocked = social.blocked
+            blocked = social.blocked,
+            messageable = social.messageable
           )
       ,
       ctx.useMe(lila.mod.canImpersonate(u.id))

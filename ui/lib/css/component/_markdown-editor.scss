@@ -107,6 +107,10 @@
     justify-content: center;
     align-items: center;
   }
+
+  .content:has(.preview:not(.none)) .markdown-content-textarea {
+    visibility: hidden;
+  }
 }
 
 @media (hover: hover) and (pointer: fine) {

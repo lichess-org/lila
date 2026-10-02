@@ -22,11 +22,19 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
     blocked <- ctx.userId.so(api.fetchBlocks(user.id, _))
     res <-
       if mini then
-        Ok.snip:
-          views.relation.mini(user.id, blocked = blocked, followable = followable, relation)
+        fuccess:
+          Ok.snip:
+            views.relation.mini(user.id, blocked = blocked, followable = followable, relation)
       else
-        JsonOk:
-          views.relation.actions(user, relation, blocked = blocked, followable = followable)
+        for messageable <- ctx.me.soUse(env.socialInfo.messageable(user.id))
+        yield JsonOk:
+          views.relation.actions(
+            user,
+            relation,
+            blocked = blocked,
+            followable = followable,
+            messageable = messageable
+          )
   yield res
 
   private def RatelimitWith(

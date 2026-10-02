@@ -84,6 +84,8 @@ final class Env(
       fuccess("Updating the player database in the background.")
     case "fide" :: "player" :: "delete" :: id :: Nil =>
       FideId.from(id.toIntOption).so(playerApi.delete).inject("done")
+    case "fide" :: "player" :: "year" :: "delete" :: id :: Nil =>
+      FideId.from(id.toIntOption).so(repo.player.unsetYear).inject("done")
     case "fide" :: "player" :: "rip" :: fideId :: year :: Nil =>
       FideId
         .from(fideId.toIntOption)

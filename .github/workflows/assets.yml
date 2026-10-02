@@ -5,7 +5,7 @@ env:
 
 on:
   push:
-    paths:
+    paths: &assets_paths
       - '.github/workflows/assets.yml'
       - 'public/**'
       - 'ui/**'
@@ -13,13 +13,7 @@ on:
       - 'pnpm-lock.yaml'
       - '.node-version'
   pull_request:
-    paths:
-      - '.github/workflows/assets.yml'
-      - 'public/**'
-      - 'ui/**'
-      - 'package.json'
-      - 'pnpm-lock.yaml'
-      - '.node-version'
+    paths: *assets_paths
   workflow_dispatch:
   workflow_call:
 

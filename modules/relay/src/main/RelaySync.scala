@@ -11,7 +11,6 @@ import lila.common.Bus
 
 final private class RelaySync(
     studyApi: StudyApi,
-    preview: ChapterPreviewApi,
     chapterRepo: ChapterRepo,
     tourRepo: RelayTourRepo,
     groupRepo: RelayGroupRepo,
@@ -42,8 +41,7 @@ final private class RelaySync(
     // So, send them all the chapter preview with `reloadChapters`
     reloadChapters = updates.exists(_.newEnd) || plan.isJustInitialChapterUpdate
     _ = if reloadChapters then
-      preview.invalidate(study.id)
-      studyApi.sendChapterPreviews(study)
+      studyApi.invalidateAndSendChapterPreviews(study)
       players.invalidate(rt.tour.id)
       teamLeaderboard.invalidate(rt.tour.id)
   yield

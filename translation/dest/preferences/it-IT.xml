@@ -41,6 +41,7 @@
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Reclama patta automaticamente dopo triplice ripetizione</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Quando il tempo rimanente è &lt; 30 secondi</string>
   <string name="moveConfirmation">Conferma della mossa</string>
+  <string name="multipleChoices">Multipli scelte.</string>
   <string name="explainCanThenBeTemporarilyDisabled">Può essere disabilitato durante una partita dal menu della scacchiera</string>
   <string name="inCorrespondenceGames">Partite per corrispondenza</string>
   <string name="correspondenceAndUnlimited">Corrispondenza e senza limiti di tempo</string>
@@ -74,4 +75,5 @@
   <string name="generalSettings">Generale</string>
   <string name="boardSettings">Bacheca</string>
   <string name="analysisSettings">Impostazioni analisi</string>
+  <string name="network">Network</string>
 </resources>

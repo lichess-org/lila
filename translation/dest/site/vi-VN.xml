@@ -775,9 +775,6 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="quickPairing">Xếp cặp nhanh</string>
   <string name="lobby">Phòng chờ</string>
   <string name="anonymous">Ẩn danh</string>
-  <plurals name="nbAnonymous">
-    <item quantity="other">Ẩn danh (%s)</item>
-  </plurals>
   <string name="yourScore">Điểm của bạn: %s</string>
   <string name="language">Ngôn ngữ</string>
   <string name="allLanguages">Tất cả ngôn ngữ</string>

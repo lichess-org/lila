@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
   <string name="community">Community</string>
+  <string name="communityBlogs">Community blogs</string>
   <string name="byMonth">By month</string>
   <string name="byTopic">By topic</string>
   <string name="byLichess">By Lichess</string>
@@ -8,6 +9,7 @@
   <string name="myLikes">My likes</string>
   <string name="myBlog">My blog</string>
   <string name="likedBlogs">Liked blog posts</string>
+  <string name="blogPostsByFriends">Blog posts by friends</string>
   <plurals name="blogPosts">
     <item quantity="one">%s blog post</item>
     <item quantity="other">%s blog posts</item>
@@ -28,6 +30,8 @@
   <string name="createBlogDiscussionHelp">A forum topic will be created for people to comment on your post</string>
   <string name="publishOnYourBlog">Publish on your blog</string>
   <string name="publishHelp">If checked, the post will be listed on your blog. If not, it will be private and remain in your draft posts</string>
+  <string name="includesPromotedContent">Includes promoted/sponsored content or referral links</string>
+  <string name="mandatoryForSponsoredContent">Mandatory for sponsored content, affiliate links or commercial advertisement</string>
   <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">Sticky post</string>
   <string name="stickyPostHelp">When selected, this post will be listed first on your blog and on your profile.</string>
   <plurals name="publishedNbBlogPosts">
@@ -44,15 +48,18 @@
   <string name="noPostsInThisBlogYet">No posts in this blog, yet.</string>
   <string name="noDrafts">No drafts to show.</string>
   <string name="latestBlogPosts">Latest blog posts</string>
+  <string name="recentPosts">Recent posts</string>
   <plurals name="viewAllNbPosts">
     <item quantity="one">View one post</item>
     <item quantity="other">View all %s posts</item>
   </plurals>
   <string name="imageAlt">Image alternative text</string>
   <string name="imageCredit">Image credit</string>
+  <string name="coverImage">Cover image</string>
   <string name="deleteBlog">Delete this blog post permanently</string>
   <string name="freeImagesComplyWithLicensing" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">The following websites provide images for free. Please ensure you comply with licensing conditions for the image you use.</string>
   <string name="selectPostTopics">Select the topics your post is about</string>
+  <string name="etiquette">Etiquette</string>
   <string name="safeAndRespectfulContent">Please only post safe and respectful content. Do not copy someone else's content.</string>
   <string name="noCopyrightedImages">Only use images that are not copyrighted by someone else.</string>
   <string name="inappropriateContentAccountClosed">Anything inappropriate could get your account closed.</string>

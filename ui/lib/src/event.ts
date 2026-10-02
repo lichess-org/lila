@@ -1,9 +1,9 @@
 export function idleTimer(delay: number, onIdle: () => void, onWakeUp: () => void): void {
   const events = ['mousemove', 'touchstart'];
 
-  let listening = false,
-    active = true,
-    lastSeenActive = performance.now();
+  let listening = false;
+  let active = true;
+  let lastSeenActive = performance.now();
 
   const onActivity = () => {
     if (!active) {

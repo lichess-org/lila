@@ -23,6 +23,7 @@
   <string name="bodenMate">Mat Bodena</string>
   <string name="bodenMateDescription">Dwa atakujące gońce na przeciwnych przekątnych matują króla ograniczonego przez własne bierki.</string>
   <string name="castling">Roszada</string>
+  <string name="enPassant">Bicie w przelocie</string>
   <string name="castlingDescription">Zabezpiecz swojego króla i wprowadź do gry wieżę.</string>
   <string name="capturingDefender">Zbicie obrońcy</string>
   <string name="capturingDefenderDescription">Usunięcie obrońcy kluczowego dla ochrony innej bierki, umożliwiające zbicie niebronionej bierki w następnym ruchu.</string>

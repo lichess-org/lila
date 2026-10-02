@@ -501,7 +501,7 @@ At spille ratede partier vil øge stabiliteten.</string>
   <string name="join">Deltag</string>
   <string name="withdraw">Frameld</string>
   <string name="points">Points</string>
-  <string name="wins">Gevinster</string>
+  <string name="wins">Sejre</string>
   <string name="losses">Tabte</string>
   <string name="startingIn" comment="Displayed above a timer">Starter om</string>
   <string name="standByX">Et øjeblik %s, parrer spillere – gør dig klar!</string>
@@ -558,6 +558,11 @@ At spille ratede partier vil øge stabiliteten.</string>
   <string name="autoSwitch">Autoskift</string>
   <string name="puzzles">Taktikopgaver</string>
   <string name="onlineBots">Online bots</string>
+  <string name="aboutBotsOnLichess">Om bots på Lichess</string>
+  <string name="featuredBots">Fremhævede bots</string>
+  <string name="tryPlayingTheseInnovativeChessEngines">Prøv at spille mod disse innovative skakmotorer! De er vores favoritter.</string>
+  <string name="communityBots">Bots fra fællesskabet</string>
+  <string name="moreChessEnginesCreatedByTheLichessCommunity">Flere skakmotorer skabt af Lichess-fællesskabet. De er hostet af deres skabere, og måske ikke altid online.</string>
   <string name="name">Navn</string>
   <string name="description">Beskrivelse</string>
   <string name="descPrivate">Privat beskrivelse</string>
@@ -605,6 +610,7 @@ At spille ratede partier vil øge stabiliteten.</string>
   <string name="clearField">Ryd felt</string>
   <string name="orSeparator">Eller</string>
   <string name="logInByEmail">Log ind via e-mail</string>
+  <string name="emailLoginInstructions">Vi sender dig en e-mail, der indeholder et link til at logge dig ind.</string>
   <string name="emailMeALink">E-mail mig et link</string>
   <string name="currentPassword">Nuværende adgangskode</string>
   <string name="newPassword">Ny adgangskode</string>
@@ -629,6 +635,8 @@ At spille ratede partier vil øge stabiliteten.</string>
   <string name="onSlowGames">I langsomme spil</string>
   <string name="always">Altid</string>
   <string name="never">Aldrig</string>
+  <string name="defeatOnly">Kun nederlag</string>
+  <string name="drawAndDefeat">Remis og nederlag</string>
   <string name="xCompetesInY">%1$s konkurrerer i %2$s</string>
   <string name="victory">Sejr</string>
   <string name="defeat">Nederlag</string>
@@ -693,10 +701,13 @@ At spille ratede partier vil øge stabiliteten.</string>
   <string name="aboutX">Om %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s er en gratis (%2$s), uafhængig, reklamefri, open source skak-server.</string>
   <string name="really">det er sandt</string>
+  <string name="lichessUpdates">Lichess-opdateringer</string>
   <string name="contribute">Bidrag</string>
+  <string name="changelog">Ændringslog</string>
   <string name="termsOfService">Servicevilkår</string>
   <string name="titleVerification">Bekræftelse af titel</string>
   <string name="sourceCode">Kildekode</string>
+  <string name="blockAds">Bloker reklamer</string>
   <string name="simultaneousExhibitions">Simultanskak</string>
   <string name="host">Bliv vært</string>
   <string name="hostColorX">Værtsfarve: %s</string>
@@ -796,12 +807,14 @@ At spille ratede partier vil øge stabiliteten.</string>
   <string name="enableKidMode">Aktiver børnetilstand</string>
   <string name="disableKidMode">Deaktiver børnetilstand</string>
   <string name="security">Sikkerhed</string>
+  <string name="activeSessionsDescription">Dette er en liste over enheder og applikationer, der er logget ind på din konto. Hvis du bemærker mistænkelig aktivitet, skal du sørge for at &lt;a href=\'%1$s\'&gt;tjekke din e-mailadresse til gendannelse&lt;/a&gt; and &lt;a href=\'%2$s\'&gt;ændre din adgangskode&lt;/a&gt;.</string>
   <string name="sessions">Sessioner</string>
   <string name="revokeAllSessions">annuller alle sessioner</string>
   <string name="playChessEverywhere">Spil skak hvor som helst</string>
   <string name="everybodyGetsAllFeaturesForFree">Alle får alle funktioner gratis</string>
   <string name="viewTheSolution">Se løsningen</string>
   <string name="noChallenges">Ingen udfordringer.</string>
+  <string name="browserNotificationsDenied">Notifikationspop-vinduer deaktiveret af browserindstilling</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Tilgængelig på %s sprog!</item>
     <item quantity="other">Tilgængelig på %s sprog!</item>
@@ -814,10 +827,6 @@ At spille ratede partier vil øge stabiliteten.</string>
   <string name="quickPairing">Hurtig parring</string>
   <string name="lobby">Lobbyen</string>
   <string name="anonymous">Anonym</string>
-  <plurals name="nbAnonymous">
-    <item quantity="one">Anonym</item>
-    <item quantity="other">Anonyme (%s)</item>
-  </plurals>
   <string name="yourScore">Din score: %s</string>
   <string name="language">Sprog</string>
   <string name="allLanguages">Alle sprog</string>
@@ -1050,4 +1059,7 @@ Alle driftsomkostninger, udvikling og indhold finansieres udelukkende af brugerd
   <string name="verifyingYourDevice">Bekræfter din enhed...</string>
   <string name="chessOpenings">Skakåbninger</string>
   <string name="boards">Brætter</string>
+  <string name="write">Skriv</string>
+  <string name="preview">Forhåndsvisning</string>
+  <string name="done">Færdig</string>
 </resources>

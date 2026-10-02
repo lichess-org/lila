@@ -335,7 +335,7 @@ export const renderPlayers = (
                         {
                           class: { pinned },
                           attrs: {
-                            title: 'Pin player',
+                            title: i18n.broadcast.pinPlayer,
                           },
                           on: {
                             click() {

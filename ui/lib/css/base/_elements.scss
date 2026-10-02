@@ -1,6 +1,5 @@
 html {
   min-height: 100%;
-  color-scheme: light dark;
 
   @include mq-sticky-header {
     :target {
@@ -29,8 +28,7 @@ body {
   overflow-x: hidden;
 
   &.fixed-scroll {
-    /* prevents scroll bar flicker when dragging a piece out */
-    overflow-y: scroll;
+    @include body-fixed-scroll;
   }
 }
 

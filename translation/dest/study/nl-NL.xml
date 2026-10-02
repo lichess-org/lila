@@ -166,7 +166,7 @@
   <string name="youCompletedThisLesson">Gefeliciteerd! Je hebt deze les voltooid.</string>
   <string name="perPage">%s per pagina</string>
   <string name="getTheTour">Hulp nodig? Volg de rondleiding!</string>
-  <string name="welcomeToLichessStudyTitle">Welkom bij Lichess Study!</string>
+  <string name="welcomeToLichessStudyTitle">Welkom bij Lichess Studie!</string>
   <string name="welcomeToLichessStudyText">Dit is een gedeeld analyselbord.&lt;br&gt;&lt;br&gt;Gebruik het om partijen te analyseren en aantekeningen te maken,&lt;br&gt;stellingen met vrienden te bespreken,&lt;br&gt;en natuurlijk voor schaaklessen!&lt;br&gt;&lt;br&gt;Het is een krachtig gereedschap, laten we even de tijd nemen om te zien hoe het werkt.</string>
   <string name="sharedAndSaveTitle" comment="As in: shared with other members and saved to database">Gedeeld en opgeslagen</string>
   <string name="sharedAndSavedText">Andere leden kunnen in real time je zetten zien!&lt;br&gt;Plus, alles wordt voor altijd bewaard.</string>

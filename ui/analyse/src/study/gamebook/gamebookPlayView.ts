@@ -1,3 +1,4 @@
+import { capitalize } from 'lib/game';
 import { licon } from 'lib/licon';
 import { richHTML } from 'lib/richText';
 import { type VNode, bind, dataIcon, hl, requiresI18n, onInsert, icon } from 'lib/view';
@@ -29,16 +30,16 @@ export function render(ctrl: GamebookPlayCtrl): VNode {
 }
 
 function hintZone(ctrl: GamebookPlayCtrl) {
-  const state = ctrl.state,
-    buttonData = () => ({ attrs: { type: 'button' }, hook: bind('click', ctrl.hint, ctrl.redraw) });
+  const state = ctrl.state;
+  const buttonData = () => ({ attrs: { type: 'button' }, hook: bind('click', ctrl.hint, ctrl.redraw) });
   if (state.showHint) return hl('button', buttonData(), [hl('div.hint', { hook: richHTML(state.hint!) })]);
   if (state.hint) return hl('button.hint', buttonData(), i18n.site.getAHint);
   return undefined;
 }
 
 function renderFeedback(ctrl: GamebookPlayCtrl, state: State) {
-  const fb = state.feedback,
-    color = ctrl.root.turnColor();
+  const fb = state.feedback;
+  const color = ctrl.root.turnColor();
   if (fb === 'bad')
     return hl(
       'button.feedback.act.bad' + (state.comment ? '.com' : ''),
@@ -61,7 +62,7 @@ function renderFeedback(ctrl: GamebookPlayCtrl, state: State) {
             hl('div.instruction', [
               hl('strong', i18n.site.yourTurn),
               requiresI18n('puzzle', ctrl.redraw, cat =>
-                hl('em', cat[color === 'white' ? 'findTheBestMoveForWhite' : 'findTheBestMoveForBlack']),
+                hl('em', cat[`findTheBestMoveFor${capitalize(color)}`]),
               ),
             ]),
           ]

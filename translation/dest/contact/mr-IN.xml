@@ -25,6 +25,7 @@
   <string name="cantChangeMore">आम्ही अक्षरांच्या प्रकारापेक्षा जास्त बदलू शकत नाही. तांत्रिक कारणांसाठी हे सरळ अशक्य आहे.</string>
   <string name="orCloseAccount">तथापि, तुम्ही तुमच्या वर्तमान खात्याला बंद करू शकता, आणि नवीन बनवू शकता.</string>
   <string name="wantClearHistory">मला माझे इतिहास किंवा रेटिंग मिटवायचे आहे</string>
+  <string name="cantClearHistoryOrResetRatings">तुमचा खेळांचा इतिहास किंवा कोडी सोडवण्याचा इतिहास पुसून टाकणे किंवा तुमच्या मानांकनाची पुनर्रचना करणे शक्य नाही.</string>
   <string name="wantReport">मला एक खेळाडूचा अहवाल करायचा आहे</string>
   <string name="toReportAPlayerUseForm">एका खेळाडूचे अहवाल करण्यासाठी, अहवाल विवरणपत्र वापरा</string>
   <string name="youCanAlsoReachReportPage">तुम्ही त्या पृष्ठावर चरित्र पृष्ठावरचे %s अहवाल बटण दाबून पण पोहोचू शकता.</string>
@@ -78,5 +79,8 @@
   <string name="monetiseNoMarketingEmail">कृपया जाहिरातींबाबत आम्हाला ई-मेल करू नका.</string>
   <string name="monetiseEncourageEveryoneTo" comment="string is value of key monetiseBlockAllAdsAndTrackers">आम्ही प्रत्येकाला प्रोत्साहित करतो कि ते %s.</string>
   <string name="monetiseBlockAllAdsAndTrackers">सर्व जाहिराती आणि देठ करणाऱ्या संस्थेंना बंद करा</string>
+  <string name="broadcastTournamentOnLichess">Lichess वर एक स्पर्धा प्रसारित करा</string>
+  <string name="ifYouWantToBroadcastClause1">जर तुम्हाला Lichess वर एकादी स्पर्धा अधिकृतपणे प्रसारित करायची असेल, किंवा आमच्या प्रसारणांबाबत काही प्रश्न असतील तर:</string>
+  <string name="ifYouWantToBroadcastClause2" comment="string1 is Lichess email, string2 is value of key ourDiscordServer">कृपया आमच्या प्रसारण संघाला %1$s वर किंवा %2$s वर भेट द्या.</string>
   <string name="ourDiscordServer">आमचे Discord सर्व्हर</string>
 </resources>

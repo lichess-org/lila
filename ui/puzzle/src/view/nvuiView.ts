@@ -2,12 +2,13 @@ import { Chessground as makeChessground } from '@lichess-org/chessground';
 import type { Api } from '@lichess-org/chessground/api';
 import { makeSquare, opposite } from 'chessops';
 
-import { throttle } from 'lib/async';
 import { isTouchDevice } from 'lib/device';
+import { capitalize } from 'lib/game';
 import * as nv from 'lib/nvui/chess';
 import { commands, boardCommands, addBreaks } from 'lib/nvui/command';
 import { scanDirectionsHandler } from 'lib/nvui/directionScan';
-import { renderSetting } from 'lib/nvui/setting';
+import { renderAdvancedSettings } from 'lib/nvui/renderAdvancedSettings';
+import { selectSound, borderSound, errorSound } from 'lib/nvui/sound';
 import type { TreeNode } from 'lib/tree/types';
 import { type VNode, bind, onInsert, requiresI18n, hl, type LooseVNodes, type LooseVNode } from 'lib/view';
 
@@ -18,11 +19,6 @@ import type { PuzzleNvuiContext } from '@/puzzle.nvui';
 import { makeConfig } from '@/view/chessground';
 import { puzzleBox, renderDifficultyForm, userBox } from '@/view/side';
 import theme from '@/view/theme';
-
-const throttled = (sound: string) => throttle(100, () => site.sound.play(sound));
-const selectSound = throttled('select');
-const borderSound = throttled('outOfBound');
-const errorSound = throttled('error');
 
 export function renderNvui(ctx: PuzzleNvuiContext): VNode {
   const { ctrl, notify, moveStyle, pieceStyle, prefixStyle, positionStyle, boardStyle, pageStyle } = ctx;
@@ -106,16 +102,14 @@ export function renderNvui(ctx: PuzzleNvuiContext): VNode {
         'form#move-form',
         {
           hook: onInsert(el => {
-            const $form = $(el),
-              $input = $form.find('.move').val('');
+            const $form = $(el);
+            const $input = $form.find('.move').val('');
             $form.on('submit', onSubmit(ctrl, notify.set, moveStyle.get, $input, ground));
           }),
         },
         [
           hl('label', [
-            ctrl.mode === 'view'
-              ? 'Command input'
-              : i18n.puzzle[ctrl.pov === 'white' ? 'findTheBestMoveForWhite' : 'findTheBestMoveForBlack'],
+            ctrl.mode === 'view' ? 'Command input' : i18n.puzzle[`findTheBestMoveFor${capitalize(ctrl.pov)}`],
             hl('input.move.mousetrap', {
               attrs: { name: 'move', type: 'text', autocomplete: 'off', autofocus: true },
             }),
@@ -127,14 +121,10 @@ export function renderNvui(ctx: PuzzleNvuiContext): VNode {
       ctrl.mode === 'view' ? afterActions(ctrl) : playActions({ ctrl, notify } as PuzzleNvuiContext),
       ...(!boardFirst ? boardView : []),
       hl('div.boardstatus', { attrs: { 'aria-live': 'polite', 'aria-atomic': 'true' } }, ''),
-      hl('h2', i18n.site.advancedSettings),
-      hl('label', ['Move notation', renderSetting(moveStyle, ctrl.redraw)]),
-      hl('h3', 'Board settings'),
-      hl('label', ['Piece style', renderSetting(pieceStyle, ctrl.redraw)]),
-      hl('label', ['Piece prefix style', renderSetting(prefixStyle, ctrl.redraw)]),
-      hl('label', ['Show position', renderSetting(positionStyle, ctrl.redraw)]),
-      hl('label', ['Board layout', renderSetting(boardStyle, ctrl.redraw)]),
       ...(!ctrl.data.replay && !ctrl.streak ? [hl('h3', 'Puzzle Settings'), renderDifficultyForm(ctrl)] : []),
+      ...renderAdvancedSettings(moveStyle, pageStyle, pieceStyle, prefixStyle, positionStyle, boardStyle, {
+        redraw: ctrl.redraw,
+      }),
       hl('h2', i18n.site.keyboardShortcuts),
       hl('p', [
         `Left and right arrow keys: ${i18n.site.keyMoveBackwardOrForward}`,

@@ -2,8 +2,7 @@ package lila.streamer
 package ui
 import lila.core.id.CmsPageKey
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class StreamerBits(helpers: Helpers)(picfitUrl: lila.memo.PicfitUrl):
   import helpers.{ *, given }

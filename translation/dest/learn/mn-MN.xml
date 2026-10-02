@@ -103,6 +103,7 @@
   <string name="pawnsFormTheFrontLine">Хүүнүүд өмнөд фронтыг үүсгэнэ. Дурын нүүдэл хийж үргэлжлүүлээрэй.</string>
   <string name="boardSetupComplete">Баяр хүргэе! Та шатрын хөлгийг хэрхэн байрлуулахыг сурлаа.</string>
   <string name="castling">Сэлгээ</string>
+  <string name="enPassant">Ан-пассан дүрэм</string>
   <string name="theSpecialKingMove">Ноёны тусгай нүүдэл</string>
   <string name="castlingIntro">Ноёны аюулгүй байдлыг хангаж, тэргээ довтолгоонд оруул!</string>
   <string name="castleKingSide">Ноёноо хоёр нүд нүүж ноёны тал руу сэлгэ!</string>

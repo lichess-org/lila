@@ -102,9 +102,9 @@ export function detectPins(cb: Board): Pin[] {
           pins.push({ pinned, pinner: square, target });
         } else {
           // Relative pin
-          const valTarget = values[targetPiece.role],
-            valPinned = values[pinnedPiece.role],
-            valAttacker = values[piece.role];
+          const valTarget = values[targetPiece.role];
+          const valPinned = values[pinnedPiece.role];
+          const valAttacker = values[piece.role];
 
           if (
             valTarget > valPinned && // Back piece is worth more than front piece

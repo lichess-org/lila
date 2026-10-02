@@ -14,6 +14,8 @@ final private class RelayTourRepo(val coll: Coll)(using Executor):
 
   def byId(tourId: RelayTourId): Fu[Option[RelayTour]] = coll.byIdProj[RelayTour](tourId, modelProjection)
 
+  def exists(tourId: RelayTourId): Fu[Boolean] = coll.exists(bid(tourId))
+
   def setSyncedNow(tour: RelayTour): Funit =
     coll.updateField(bid(tour.id), "syncedAt", nowInstant).void
 

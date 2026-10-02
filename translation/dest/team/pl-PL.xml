@@ -55,6 +55,8 @@
   <string name="entryCode">Klubowy kod dostępu</string>
   <string name="entryCodeDescriptionForLeader">Opcjonalny kod dostępu, który należy znać, aby dołączyć do tego klubu.</string>
   <string name="incorrectEntryCode">Niepoprawny kod dostępu.</string>
+  <string name="forumLabel">Forum klubu</string>
+  <string name="forumVisibilityNone">Ukryj forum</string>
   <string name="teamAlreadyExists">Taki klub już istnieje.</string>
   <string name="upcomingTournaments">Nadchodzące turnieje</string>
   <string name="completedTourns">Ukończone turnieje</string>

@@ -4,8 +4,7 @@ package ui
 import scalalib.paginator.Paginator
 
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class PostUi(helpers: Helpers, bits: ForumBits):
   import helpers.{ *, given }

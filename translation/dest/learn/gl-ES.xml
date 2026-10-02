@@ -132,6 +132,7 @@ Xusto ao carón da súa dama.</string>
 Fai calquera movemento para continuar.</string>
   <string name="boardSetupComplete">Parabéns! Sabes como colocar as pezas no taboleiro.</string>
   <string name="castling">Enroque</string>
+  <string name="enPassant">Captura ao paso</string>
   <string name="theSpecialKingMove">O movemento especial do rei</string>
   <string name="castlingIntro">Pon o teu rei a salvo e desprega as túas torres para o ataque!</string>
   <string name="castleKingSide">Move o teu rei dúas casas

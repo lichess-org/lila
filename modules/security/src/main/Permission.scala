@@ -88,7 +88,8 @@ object Permission:
       Coach,
       Teacher,
       ApiHog,
-      ApiChallengeAdmin
+      ApiChallengeAdmin,
+      NotifyMany
     ),
     "Badge" -> List(
       Tech,

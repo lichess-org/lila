@@ -1,7 +1,8 @@
-import { defined, requestIdleCallbackSafe } from 'lib';
+import { defined, requestIdleCallbackSafe, memoize } from 'lib';
 import { throttle } from 'lib/async';
 import { isIos } from 'lib/device';
 import { speakable } from 'lib/game/sanWriter';
+import { log } from 'lib/permalog';
 import { storage } from 'lib/storage';
 
 type Name = string;
@@ -20,6 +21,7 @@ export default new (class implements SoundI {
   music?: SoundMove;
   primerEvents = ['touchend', 'pointerup', 'pointerdown', 'mousedown', 'keydown'];
   voiceRateRange = { min: 0.3, max: 1.7 };
+  nvuiReady = memoize(() => site.asset.loadI18n('nvui'));
 
   constructor() {
     this.primerEvents.forEach(e => window.addEventListener(e, this.primer, { capture: true }));
@@ -180,37 +182,36 @@ export default new (class implements SoundI {
   say = (text: string, cut = false, force = false, translated = false) =>
     this.sayLazy(() => text, cut, force, translated);
 
-  sayLazy = (text: () => string, cut = false, force = false, translated = false) => {
+  sayLazy = (text: () => string, cut = false, force = false, translated = false): boolean => {
     if (typeof window.speechSynthesis === 'undefined') return false;
-    try {
-      if (cut) speechSynthesis.cancel();
-      if (!this.speech() && !force) return false;
-      const msg = new SpeechSynthesisUtterance(text());
-      const selectedVoice = this.getVoice();
-      if (selectedVoice) {
-        msg.voice = selectedVoice;
-      } else {
-        msg.lang = translated ? document.documentElement.lang : 'en-GB';
-      }
-      msg.volume = this.getVolume();
-      const rate = Number(localStorage.getItem('speech.rate'));
-      if (rate >= this.voiceRateRange.min && rate <= this.voiceRateRange.max) msg.rate = rate;
-      if (!isIos()) {
-        // speech events are unreliable on iOS, but iphones do their own cancellation
-        msg.onstart = () => this.listeners.forEach(l => l('start', text()));
-        msg.onend = msg.onerror = () => this.listeners.forEach(l => l('stop'));
-      }
-      window.speechSynthesis.speak(msg);
-      return true;
-    } catch (err) {
-      console.error(err);
-      return false;
-    }
+    if (!this.speech() && !force) return false;
+    this.nvuiReady()
+      .then(() => {
+        if (cut) speechSynthesis.cancel();
+        const msg = new SpeechSynthesisUtterance(text());
+        const selectedVoice = this.getVoice();
+        if (selectedVoice) {
+          msg.voice = selectedVoice;
+        } else {
+          msg.lang = translated ? document.documentElement.lang : 'en-GB';
+        }
+        msg.volume = this.getVolume();
+        const rate = Number(localStorage.getItem('speech.rate'));
+        if (rate >= this.voiceRateRange.min && rate <= this.voiceRateRange.max) msg.rate = rate;
+        if (!isIos()) {
+          // speech events are unreliable on iOS, but iphones do their own cancellation
+          msg.onstart = () => this.listeners.forEach(l => l('start', text()));
+          msg.onend = msg.onerror = () => this.listeners.forEach(l => l('stop'));
+        }
+        window.speechSynthesis.speak(msg);
+      })
+      .catch(log);
+    return true;
   };
 
   saySan = (san?: San, cut?: boolean, force?: boolean) => this.sayLazy(() => speakable(san), cut, force);
 
-  sayOrPlay = (name: string, text: string, cut = false) => this.say(text, cut) || this.play(name);
+  sayOrPlay = (name: string, text: string, cut = false) => this.sayLazy(() => text, cut) || this.play(name);
 
   changeSet = (s: string) => {
     if (isIos()) this.ctx?.resume();

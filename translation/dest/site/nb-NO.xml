@@ -813,10 +813,6 @@ Spill ratede partier for å øke stabiliteten.</string>
   <string name="quickPairing">Raskt parti</string>
   <string name="lobby">Lobby</string>
   <string name="anonymous">Anonym</string>
-  <plurals name="nbAnonymous">
-    <item quantity="one">Anonym</item>
-    <item quantity="other">Anonyme (%s)</item>
-  </plurals>
   <string name="yourScore">Din poengsum: %s</string>
   <string name="language">Språk</string>
   <string name="allLanguages">Alle språk</string>

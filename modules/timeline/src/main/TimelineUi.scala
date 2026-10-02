@@ -3,8 +3,7 @@ package ui
 
 import lila.core.timeline.*
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class TimelineUi(helpers: Helpers):
   import helpers.{ *, given }

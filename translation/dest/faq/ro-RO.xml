@@ -167,6 +167,8 @@ Iti arătăm iconița roșie pentru a te alerta când se întamplă asta. Puteț
 3. Faceți clic pe Cookie-uri și Permisiunile site-ului
 4. Derulați în jos și apăsați pe Media autoplay
 5. Adăugați lichess.org pentru a permite</string>
+  <string name="makeBotTitle">Fă un bot pe Lichess?</string>
+  <string name="makeBotDescription">Pentru a învăța cum să construiești un bot de șah personalizat &lt;a href=\'%1$s\'&gt;&lt;/a&gt; care să joace pe Lichess, te rugăm să citești &lt;a href=\'%2$s\'&gt;acest articol de blog despre crearea boților&lt;/a&gt;.</string>
   <string name="stopMyselfFromPlaying">Să mă opresc din a juca?</string>
   <string name="mentalHealthCondition">afecţiuni mintale autonome</string>
   <string name="lichessUserstyles">Stiluri utilizatori Lichess</string>

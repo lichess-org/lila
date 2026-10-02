@@ -2,8 +2,7 @@ package lila.swiss
 package ui
 
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class SwissHomeUi(helpers: Helpers):
   import helpers.{ *, given }

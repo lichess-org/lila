@@ -41,6 +41,7 @@
   <string name="claimDrawOnThreefoldRepetitionAutomatically">3회 동형반복 시 자동으로 무승부 요청</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">남은 시간이 30초 미만일 때만</string>
   <string name="moveConfirmation">수 확인</string>
+  <string name="multipleChoices">중복 선택 가능. </string>
   <string name="explainCanThenBeTemporarilyDisabled">경기 도중 보드 메뉴에서 비활성화할 수 있습니다.</string>
   <string name="inCorrespondenceGames">통신 대국</string>
   <string name="correspondenceAndUnlimited">통신 대국과 무제한</string>
@@ -89,4 +90,10 @@
   <string name="analysisSettings">분석 설정</string>
   <string name="maneuverArrowsHelp">하나의 기물에 대한 일련의 엔진수</string>
   <string name="hoverOverSettingLabelsForHelp">설정 라벨에 커서를 올려서 도움말을 볼 수 있습니다</string>
+  <string name="network">네트워크</string>
+  <string name="youAreCurrentlyUsingDirectRouting">현재 직접 라우팅을 사용하고 있습니다.</string>
+  <string name="youAreCurrentlyUsingCdnRouting">현재 컨텐츠 전송 네트워크 (CDN) 라우팅을 사용하고 있습니다.</string>
+  <string name="frequentDisconnectsAdvice">만약 자주 연결이 끊기신다면, 라우팅을 변경해 보세요.</string>
+  <string name="useDirectRouting">직접 라우팅 사용하기</string>
+  <string name="useCdnRouting">CDN 라우팅 사용하기</string>
 </resources>

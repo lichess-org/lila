@@ -4,8 +4,7 @@ package ui
 import lila.core.data.UserIds
 import lila.gathering.Condition.{ WithVerdict, WithVerdicts, Verdict }
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 def translateRated(rated: chess.Rated)(using lila.core.i18n.Translate): Frag =
   if rated.yes then lila.core.i18n.I18nKey.site.ratedTournament()

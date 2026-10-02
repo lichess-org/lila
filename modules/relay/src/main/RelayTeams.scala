@@ -24,7 +24,7 @@ private class RelayTeamsTextarea(val text: String):
   private type PlayerNameStr = String
 
   lazy val teams: Map[TeamName, List[PlayerNameStr | FideId]] = text.linesIterator
-    .take(1000)
+    .take(1500)
     .toList
     .flatMap: line =>
       line.split(';').map(_.trim) match

@@ -42,6 +42,7 @@ This setting only affects what you see. Rated games will still impact your ratin
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Claim draw on threefold repetition automatically</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">When time remaining &lt; 30 seconds</string>
   <string name="moveConfirmation">Move confirmation</string>
+  <string name="multipleChoices">Multiple choices. </string>
   <string name="explainCanThenBeTemporarilyDisabled">Can be disabled during a game with the board menu</string>
   <string name="inCorrespondenceGames">Correspondence games</string>
   <string name="correspondenceAndUnlimited">Correspondence and unlimited</string>
@@ -90,4 +91,10 @@ This setting only affects what you see. Rated games will still impact your ratin
   <string name="analysisSettings">Analysis settings</string>
   <string name="maneuverArrowsHelp">Sequence of engine moves for one piece</string>
   <string name="hoverOverSettingLabelsForHelp">Hover over setting labels for help</string>
+  <string name="network">Network</string>
+  <string name="youAreCurrentlyUsingDirectRouting">You are currently using direct routing.</string>
+  <string name="youAreCurrentlyUsingCdnRouting">You are currently using Content Delivery Network (CDN) routing.</string>
+  <string name="frequentDisconnectsAdvice">If you have frequent disconnects, try changing the routing.</string>
+  <string name="useDirectRouting">Use direct routing</string>
+  <string name="useCdnRouting">Use CDN routing</string>
 </resources>

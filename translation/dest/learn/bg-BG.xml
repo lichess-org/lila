@@ -115,6 +115,7 @@
 Направете какъвто и да е ход, за да продължите.</string>
   <string name="boardSetupComplete">Поздравления! Вие знаете как се нарежда шахматната дъска.</string>
   <string name="castling">Рокада</string>
+  <string name="enPassant">Ан пасан</string>
   <string name="theSpecialKingMove">Специалните ходове на царя</string>
   <string name="castlingIntro">Защитете царя си, и пригответе топа си за атака!</string>
   <string name="castleKingSide">Преместете царя си с две полета за малка рокада!</string>

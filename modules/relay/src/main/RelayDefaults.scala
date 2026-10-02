@@ -20,6 +20,13 @@ final class RelayDefaults(
         .flatMapz: group =>
           tourRepo.byIds(group.tours.toList).map(RelayDefaults.defaultTourOfGroup)
 
+  val studyRedirect = cacheApi[(StudyId, Option[StudyChapterId]), Option[Url]](4096, "relay.studyRedirect"):
+    _.expireAfterWrite(1.minute).buildAsyncFuture: (id, chapterId) =>
+      roundRepo
+        .byIdWithTour(id.into(RelayRoundId))
+        .map2: rt =>
+          Url(chapterId.fold(rt.call)(rt.call).url)
+
   private def tourWithRounds(id: RelayTourId): Fu[Option[RelayTour.WithRounds]] =
     tourRepo.coll
       .aggregateOne(): framework =>

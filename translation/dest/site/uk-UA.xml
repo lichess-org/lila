@@ -176,6 +176,7 @@
   <string name="toggleLocalEngine">Перемкнути локальний рушій</string>
   <string name="engineSettings">Налаштування рушія</string>
   <string name="enginesFromStrongestToWeakest">Рушії від найкращого до найгіршого</string>
+  <string name="illegalPosition">Недійсна позиція</string>
   <string name="threefoldRepetition">Триразове повторення</string>
   <string name="claimADraw">Оголосити нічию</string>
   <string name="drawClaimed">Оголошена нічия</string>
@@ -486,6 +487,7 @@
   <string name="apply">Застосувати</string>
   <string name="save">Зберегти</string>
   <string name="leaderboard">Дошка лідерів</string>
+  <string name="positionAsImage" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position.">Позиція як зображення</string>
   <string name="gameAsGIF">Зберегти як GIF</string>
   <string name="playerNames">Імена гравців</string>
   <string name="moveAnnotations">Анотації ходу</string>
@@ -622,6 +624,10 @@
   <string name="autoSwitch">Автоперехід</string>
   <string name="puzzles">Задачі</string>
   <string name="onlineBots">Онлайн-боти</string>
+  <string name="aboutBotsOnLichess">Про боти на Lichess</string>
+  <string name="tryPlayingTheseInnovativeChessEngines">Зіграйте з цими інноваційними шаховими рушіями! Вони — наші улюблені.</string>
+  <string name="communityBots">Спільнотні боти</string>
+  <string name="moreChessEnginesCreatedByTheLichessCommunity">Інші шахові рушії, створені спільнотою Lichess. Вони розміщуються їхніми творцями й не завжди можуть працювати.</string>
   <string name="name">Назва</string>
   <string name="description">Опис</string>
   <string name="descPrivate">Приватний опис</string>
@@ -662,13 +668,14 @@
   <string name="notes">Нотатки</string>
   <string name="typePrivateNotesHere">Залишайте приватні нотатки тут</string>
   <string name="writeAPrivateNoteAboutThisUser">Напишіть приватну нотатку про цього користувача</string>
-  <string name="noNoteYet">Нотаток поки нема</string>
+  <string name="noNoteYet">Поки немає нотаток</string>
   <string name="invalidUsernameOrPassword">Недійсне ім\'я користувача або пароль</string>
   <string name="incorrectPassword">Невірний пароль</string>
   <string name="invalidAuthenticationCode">Недійсний код автентифікації</string>
   <string name="clearField">Очистити поле</string>
   <string name="orSeparator">або</string>
   <string name="logInByEmail">Увійти через електронну пошту</string>
+  <string name="emailLoginInstructions">Ми відправимо вам лист з посиланням на вхід.</string>
   <string name="emailMeALink">Надішліть мені посилання</string>
   <string name="currentPassword">Поточний пароль</string>
   <string name="newPassword">Новий пароль</string>
@@ -693,6 +700,8 @@
   <string name="onSlowGames">У повільних іграх</string>
   <string name="always">Завжди</string>
   <string name="never">Ніколи</string>
+  <string name="defeatOnly">Лише при поразці</string>
+  <string name="drawAndDefeat">При поразці й нічиїй</string>
   <string name="xCompetesInY">%1$s бере участь у %2$s</string>
   <string name="victory">Перемога</string>
   <string name="defeat">Поразка</string>
@@ -763,7 +772,9 @@
   <string name="aboutX">Про %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s є безкоштовним (%2$s) шаховим сервером без реклами та з відкритим кодом.</string>
   <string name="really">дійсно</string>
+  <string name="lichessUpdates">Оновлення Lichess</string>
   <string name="contribute">Сприяти розвитку</string>
+  <string name="changelog">Список змін</string>
   <string name="termsOfService">Умови користування</string>
   <string name="titleVerification">Титульна перевірка</string>
   <string name="sourceCode">Вихідний код</string>
@@ -865,12 +876,14 @@
   <string name="enableKidMode">Увімкнути дитячий режим</string>
   <string name="disableKidMode">Вимкнути дитячий режим</string>
   <string name="security">Безпека</string>
+  <string name="activeSessionsDescription">Ось список пристроїв та застосунків, які здійснили вхід в обліковий запис. Якщо ви помітили підозрілу активність, &lt;a href=\'%1$s\'&gt;перевірте свою резервну електронну пошту&lt;/a&gt; та &lt;a href=\'%2$s\'&gt;змініть пароль&lt;/a&gt;.</string>
   <string name="sessions">Сесії</string>
   <string name="revokeAllSessions">завершити усі сеанси</string>
   <string name="playChessEverywhere">Грайте в шахи будь-де</string>
   <string name="everybodyGetsAllFeaturesForFree">Усі можливості безкоштовні для всіх</string>
   <string name="viewTheSolution">Дивитись рішення</string>
   <string name="noChallenges">Немає викликів.</string>
+  <string name="browserNotificationsDenied">Спливні сповіщення вимкнено браузером</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Доступно %s мовою!</item>
     <item quantity="few">Доступно %s мовами!</item>
@@ -885,12 +898,6 @@
   <string name="quickPairing">Швидкий старт</string>
   <string name="lobby">Лобі</string>
   <string name="anonymous">Анонім</string>
-  <plurals name="nbAnonymous">
-    <item quantity="one">Анонім</item>
-    <item quantity="few">%s аноніми</item>
-    <item quantity="many">%s анонімів</item>
-    <item quantity="other">%s аноніма</item>
-  </plurals>
   <string name="yourScore">Ваш рахунок: %s</string>
   <string name="language">Мова</string>
   <string name="allLanguages">Усі мови</string>
@@ -901,6 +908,7 @@
   <string name="picture">Зображення</string>
   <string name="deviceTheme">Тема пристрою</string>
   <string name="roundness">Округлість</string>
+  <string name="backgroundImage">Фонове зображення</string>
   <string name="backgroundImageUrl">Посилання фонового зображення:</string>
   <string name="imageOpacity">Прозорість зображення</string>
   <string name="board">Дошка</string>
@@ -1123,6 +1131,10 @@
   <string name="tags">Теги</string>
   <string name="enPassant">Взяття на проході</string>
   <string name="settings">Налаштування</string>
+  <string name="verifyingYourDevice">Перевірка пристрою…</string>
   <string name="chessOpenings">Шахові дебюти</string>
   <string name="boards">Дошки</string>
+  <string name="write">Написати</string>
+  <string name="preview">Перегляд</string>
+  <string name="done">Готово</string>
 </resources>

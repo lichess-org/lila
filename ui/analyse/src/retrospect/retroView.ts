@@ -1,3 +1,5 @@
+import { opposite } from 'chessops';
+
 import { capitalize } from 'lib/game';
 import { licon } from 'lib/licon';
 import type { TreeNode } from 'lib/tree/types';
@@ -136,15 +138,9 @@ const feedback = {
         hl('div.instruction', [
           hl(
             'em',
-            i18n.site[
-              nothing
-                ? ctrl.color === 'white'
-                  ? 'noMistakesFoundForWhite'
-                  : 'noMistakesFoundForBlack'
-                : ctrl.color === 'white'
-                  ? 'doneReviewingWhiteMistakes'
-                  : 'doneReviewingBlackMistakes'
-            ],
+            nothing
+              ? i18n.site[`noMistakesFoundFor${capitalize(ctrl.color)}`]
+              : i18n.site[`doneReviewing${capitalize(ctrl.color)}Mistakes`],
           ),
           hl('div.choices.end', [
             !nothing &&
@@ -162,7 +158,7 @@ const feedback = {
                 key: 'flip',
                 hook: bind('click', ctrl.flip),
               },
-              i18n.site[`review${capitalize(ctrl.color)}Mistakes`],
+              i18n.site[`review${capitalize(opposite(ctrl.color))}Mistakes`],
             ),
           ]),
         ]),
@@ -182,8 +178,8 @@ function renderFeedback(root: AnalyseCtrl, fb: Exclude<keyof typeof feedback, 'e
 export default function (root: AnalyseCtrl): VNode | undefined {
   const ctrl = root.retro;
   if (!ctrl) return undefined;
-  const fb = ctrl.feedback(),
-    completion = ctrl.completion();
+  const fb = ctrl.feedback();
+  const completion = ctrl.completion();
   return hl('div.retro-box.training-box.sub-box', [
     hl('div.title', [
       hl('span', i18n.site.learnFromYourMistakes),

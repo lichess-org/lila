@@ -1,16 +1,15 @@
-import autoprefixer from 'autoprefixer';
+import browserslist from 'browserslist';
+import { browserslistToTargets, Features, transform } from 'lightningcss';
 import cps from 'node:child_process';
 import fs from 'node:fs';
 import { basename, dirname, join, relative, resolve } from 'node:path';
-import ps from 'node:process';
 import pc from 'picocolors';
-import postcss from 'postcss';
 
 import { env, errorMark, trimLines } from './env.ts';
 import { hashedBasename, symlinkTargetHashes } from './hash.ts';
 import { updateManifest } from './manifest.ts';
 import { glob, readable, getHash } from './parse.ts';
-import { makeTask, runTask, addIncludes } from './task.ts';
+import { makeTask, addIncludes } from './task.ts';
 
 const importMap = new Map<string, Set<string>>();
 
@@ -26,6 +25,11 @@ export function stopSass(): void {
 export async function sass(): Promise<string | undefined> {
   if (!env.begin('sass')) return undefined;
 
+  const sassBin =
+    process.env.SASS_PATH ??
+    (await fs.promises.realpath(join(env.buildDir, 'node_modules', `.bin`, 'sasso')));
+  if (!(await readable(sassBin))) env.exit(`Sass executable not found '${pc.cyan(sassBin)}'`, 'sass');
+
   await Promise.allSettled([
     fs.promises.mkdir(env.cssOutDir),
     fs.promises.mkdir(env.themeGenDir),
@@ -33,16 +37,6 @@ export async function sass(): Promise<string | undefined> {
   ]);
   let remaining: Set<string> | undefined;
 
-  makeTask({
-    // this one just tickles the main sass task when scss variable mappings change
-    includes: { cwd: env.themeGenDir, path: '_wrap.scss' },
-    debounce: 500,
-    monitorOnly: true,
-    execute: () => {
-      remaining = undefined;
-      return runTask('sass');
-    },
-  });
   return makeTask({
     ctx: 'sass',
     key: 'sass',
@@ -59,20 +53,18 @@ export async function sass(): Promise<string | undefined> {
       const urlTargetTouched = await sourcesWithUrls(modified.filter(isUrlTarget));
       const transitiveTouched = [...partialTouched, ...urlTargetTouched].flatMap(p => [...dependsOn(p)]);
       const concreteTouched = [...new Set([...transitiveTouched, ...modified])].filter(isConcrete);
-      const themesTouched = partialTouched.some(src => src.startsWith('ui/lib/css/theme/_theme.'));
-      remaining = remaining
-        ? new Set([...remaining, ...concreteTouched].filter(x => concreteAll.has(x)))
-        : concreteAll;
+      const freshColorWrap =
+        partialTouched.some(src => src.startsWith('ui/lib/css/theme/_theme.')) && (await buildColorWrap());
       const processed = new Set<string>();
       await Promise.all(concreteTouched.map(src => parseScss(src, processed)));
 
-      if (themesTouched) {
-        await buildColorWrap();
-        for (const src of await glob('lib.theme.*.scss', { cwd: 'ui/lib/css/build' }))
-          remaining.add(relative(env.rootDir, src));
-      }
+      remaining =
+        freshColorWrap || !remaining
+          ? concreteAll
+          : new Set([...remaining, ...concreteTouched].filter(x => concreteAll.has(x)));
+
       const buildSources = [...remaining];
-      remaining = new Set(await compile(buildSources, remaining.size < concreteAll.size));
+      remaining = new Set(await compile(sassBin, buildSources, remaining.size < concreteAll.size));
 
       if (remaining.size) throw `in ${[...remaining].map(s => `'${pc.cyan(s)}'`).join(', ')}`;
       const replacements = urlReplacements();
@@ -85,93 +77,108 @@ export async function sass(): Promise<string | undefined> {
   });
 }
 
-// compile an array of concrete scss files, return any that error
-async function compile(sources: string[], logAll = true): Promise<string[]> {
-  const sassBin =
-    process.env.SASS_PATH ??
-    (await fs.promises.realpath(
-      join(env.buildDir, 'node_modules', `sass-embedded-${ps.platform}-${ps.arch}`, 'dart-sass', 'sass'),
-    ));
-  if (!(await readable(sassBin))) env.exit(`Sass executable not found '${pc.cyan(sassBin)}'`, 'sass');
+const SASS_ARGS = [
+  '--no-error-css',
+  '--stop-on-error',
+  '--no-color',
+  '--quiet-deps',
+  // TODO: remove 'global-builtin' silence when png-viewer code is updated
+  '--silence-deprecation=import,global-builtin',
+].concat(env.prod ? ['--style=compressed', '--no-source-map'] : ['--embed-sources']);
 
+// compile an array of concrete scss files, return any that error
+async function compile(sassBin: string, sources: string[], logAll = true): Promise<string[]> {
   return new Promise(resolveWithErrors => {
     if (!sources.length) return resolveWithErrors([]);
     if (logAll) sources.forEach(src => env.log(`Building '${pc.cyan(src)}'`, 'sass'));
     else env.log('Building', 'sass');
 
-    const sassArgs = [
-      '--no-error-css',
-      '--stop-on-error',
-      '--no-color',
-      '--quiet-deps',
-      // TODO: remove 'global-builtin' silence when png-viewer code is updated
-      '--silence-deprecation=import,global-builtin',
-    ];
     sassPs?.removeAllListeners();
-    sassPs = cps.spawn(
-      sassBin,
-      sassArgs.concat(
-        env.prod ? ['--style=compressed', '--no-source-map'] : ['--embed-sources'],
-        sources.map((src: string) => `${src}:${absTempCss(src)}`),
-      ),
-    );
+
+    const compileStarted = Date.now();
+    sassPs = cps.spawn(sassBin, SASS_ARGS.concat(sources.map((src: string) => `${src}:${absTempCss(src)}`)));
 
     sassPs.stderr?.on('data', (buf: Buffer) => sassError(buf.toString('utf8')));
     sassPs.stdout?.on('data', (buf: Buffer) => sassError(buf.toString('utf8')));
     sassPs.on('close', async (code: number) => {
-      sassPs = undefined;
-      if (code === 0)
-        Promise.all(sources.map(addVendorPrefixes))
-          .then(() => resolveWithErrors([]))
+      env.log(`Compile ${pc.gray(`(${((Date.now() - compileStarted) / 1000).toFixed(3)}s)`)}`, 'sass');
+      if (code === 0) {
+        const postProcessorStarted = Date.now();
+        Promise.all(sources.map(postProcessCSS))
+          .then(generated => {
+            env.log(
+              `Lightning CSS ${pc.gray(`(${((Date.now() - postProcessorStarted) / 1000).toFixed(3)}s)`)}`,
+              'sass',
+            );
+            if (!logAll) {
+              const total = generated.reduce((sum, { size }) => sum + size, 0);
+              env.log(
+                `Generated ${generated.length} CSS files ${pc.gray(`(${(total / 1024).toFixed(1)} KB)`)}`,
+                'sass',
+              );
+            }
+            return resolveWithErrors([]);
+          })
           .catch(() => resolveWithErrors(sources));
-      else
-        Promise.all(sources.map(async s => ({ s, exists: await readable(absTempCss(s)) })))
-          .then(srcExists => resolveWithErrors(srcExists.filter(({ exists }) => !exists).map(({ s }) => s)))
-          .catch(() => resolveWithErrors(sources));
+      }
     });
   });
 }
 
-async function addVendorPrefixes(src: string): Promise<void> {
+async function postProcessCSS(src: string): Promise<{ size: number }> {
   const cssPath = absTempCss(src);
   const css = await fs.promises.readFile(cssPath, 'utf8');
-  const result = await postcss([autoprefixer]).process(css, { from: cssPath });
-  await fs.promises.writeFile(cssPath, result.css);
+  const result = transform({
+    filename: cssPath,
+    code: Buffer.from(css),
+    minify: env.prod,
+    targets: browserslistToTargets(browserslist(null, { path: env.buildDir })),
+    include: Features.MediaQueries,
+  });
+  await fs.promises.writeFile(cssPath, result.code);
+  return { size: result.code.byteLength };
 }
 
-// recursively parse scss file and its imports to build dependency maps
+const URL_PROP_REGEX = /[^a-zA-Z0-9\-_]url\((?:['"])?(\.\.\/[^'")]+)/g;
+const CSS_IMPORT_REGEX = /@import\s+['"]([^'"]+)/g;
+const SCSS_INTERPOLATION_REGEX = /#\{[^}]+\}/g;
+
+// Recursively parse scss and css files and its imports to build dependency maps
 async function parseScss(src: string, processed: Set<string>) {
-  if (src.includes('sass:')) return;
-  if (dirname(src).endsWith('/gen')) return;
-  if (processed.has(src)) return;
+  if (src.includes('sass:') || dirname(src).endsWith('/gen') || processed.has(src)) return;
+
   processed.add(src);
+  try {
+    const text = await fs.promises.readFile(src, 'utf8');
 
-  const text = await fs.promises.readFile(src, 'utf8');
+    for (const [, urlProp] of text.matchAll(URL_PROP_REGEX)) {
+      const url = urlProp.replaceAll(SCSS_INTERPOLATION_REGEX, '*'); // scss interpolation -> glob
 
-  for (const [, urlProp] of text.matchAll(/[^a-zA-Z0-9\-_]url\((?:['"])?(\.\.\/[^'")]+)/g)) {
-    const url = urlProp.replaceAll(/#\{[^}]+\}/g, '*'); // scss interpolation -> glob
+      if (url.includes('*')) {
+        for (const file of await glob(url, { cwd: env.cssOutDir, absolute: false })) {
+          if (!importMap.get(file)?.add(src)) importMap.set(file, new Set([src]));
+        }
+      } else if (!importMap.get(url)?.add(src)) importMap.set(url, new Set([src]));
+    }
 
-    if (url.includes('*')) {
-      for (const file of await glob(url, { cwd: env.cssOutDir, absolute: false })) {
-        if (!importMap.get(file)?.add(src)) importMap.set(file, new Set([src]));
-      }
-    } else if (!importMap.get(url)?.add(src)) importMap.set(url, new Set([src]));
-  }
+    for (const [, cssImport] of text.matchAll(CSS_IMPORT_REGEX)) {
+      if (!cssImport) continue;
 
-  for (const [, cssImport] of text.matchAll(/^@(?:import|use)\s+['"](.*)['"]/gm)) {
-    if (!cssImport) continue;
+      const dir = dirname(src);
+      const importPath = resolve(dir, `${cssImport}.scss`);
+      const absDep = (await readable(importPath)) ? importPath : resolve(dir, resolvePartial(cssImport));
 
-    const absDep = (await readable(resolve(dirname(src), cssImport + '.scss')))
-      ? resolve(dirname(src), cssImport + '.scss')
-      : resolve(dirname(src), resolvePartial(cssImport));
+      if (/node_modules.*\.css/.test(absDep)) continue;
+      else if (!absDep.startsWith(env.rootDir)) throw `Bad import '${cssImport}`;
 
-    if (/node_modules.*\.css/.test(absDep)) continue;
-    else if (!absDep.startsWith(env.rootDir)) throw `Bad import '${cssImport}`;
-
-    const dep = relative(env.rootDir, absDep);
-    if (!importMap.get(dep)?.add(src)) importMap.set(dep, new Set<string>([src]));
-    addIncludes([{ cwd: dirname(dep), path: '*.scss' }], 'sass'); // could be outside of ui/** glob
-    await parseScss(dep, processed);
+      const dep = relative(env.rootDir, absDep);
+      if (!importMap.get(dep)?.add(src)) importMap.set(dep, new Set([src]));
+      addIncludes([{ cwd: dirname(dep), path: '*.scss' }], 'sass'); // could be outside of ui/** glob
+      await parseScss(dep, processed);
+    }
+  } catch (e) {
+    if (typeof e !== 'string') throw String(e);
+    throw `'${pc.cyan(src)}' -> ` + e;
   }
 }
 
@@ -197,9 +204,10 @@ async function buildColorWrap() {
   const wrapFile = join(env.themeDir, 'gen', '_wrap.scss');
   await fs.promises.mkdir(dirname(wrapFile), { recursive: true });
   if (await readable(wrapFile)) {
-    if ((await fs.promises.readFile(wrapFile, 'utf8')) === scssWrap) return; // dont touch wrap if same
+    if ((await fs.promises.readFile(wrapFile, 'utf8')) === scssWrap) return false; // dont touch wrap if same
   }
-  return fs.promises.writeFile(wrapFile, scssWrap);
+  await fs.promises.writeFile(wrapFile, scssWrap);
+  return true;
 }
 
 async function hashCss(src: string, replacements: Record<string, string> | undefined) {

@@ -2,8 +2,7 @@ package lila.ublog
 package ui
 
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
   import helpers.{ *, given }
@@ -20,7 +19,7 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
       isInCarousel: Boolean
   )(using ctx: Context) =
     val imageUrl = post.image.isDefined.option(ui.thumbnailUrl(post, _.Size.Large))
-    Page(s"${trans.ublog.xBlog.txt(user.username)} • ${post.title}")
+    Page(s"${post.title} • ${trans.ublog.xBlog.txt(user.username)}")
       .css("bits.ublog")
       .js(Esm("bits.expandText") ++ ctx.isAuth.so(Esm("bits.ublog")))
       .graph:

@@ -46,6 +46,7 @@ object Analyser extends lila.core.shutup.TextAnalyser:
       case '3' => 'e'
       case '4' => 'a'
       case '5' => 's'
+      case '7' => 't'
       case 'е' => 'e'
       case 'а' => 'a'
       case 'ı' => 'i'
@@ -81,6 +82,7 @@ object Analyser extends lila.core.shutup.TextAnalyser:
       } ++
       Dictionary.tr ++
       Dictionary.it ++
+      Dictionary.pt ++
       bannedYoutubeIds
 
   private val latinBigRegex = {

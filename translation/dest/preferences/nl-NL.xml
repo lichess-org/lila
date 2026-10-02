@@ -41,6 +41,7 @@
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Eis automatisch remise op bij driemaal dezelfde stelling</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Wanneer resterende tijd &lt; 30 seconden</string>
   <string name="moveConfirmation">Zetbevestiging</string>
+  <string name="multipleChoices">Meerdere keuzes. </string>
   <string name="explainCanThenBeTemporarilyDisabled">Kan tijdens een partij uitgeschakeld worden via het bordmenu</string>
   <string name="inCorrespondenceGames">Bij correspondentiepartijen</string>
   <string name="correspondenceAndUnlimited">Correspondentiepartij en zonder klok</string>
@@ -89,4 +90,10 @@
   <string name="analysisSettings">Analyse-instellingen</string>
   <string name="maneuverArrowsHelp">Volgorde van computerzetten voor één stuk</string>
   <string name="hoverOverSettingLabelsForHelp">Beweeg over instellingslabels voor hulp</string>
+  <string name="network">Netwerk</string>
+  <string name="youAreCurrentlyUsingDirectRouting">Je gebruikt momenteel directe routering.</string>
+  <string name="youAreCurrentlyUsingCdnRouting">Je gebruikt momenteel routering via Content Delivery Netwerk (CDN).</string>
+  <string name="frequentDisconnectsAdvice">Als je verbinding regelmatig verbreekt, probeer dan de routering te veranderen.</string>
+  <string name="useDirectRouting">Directe routering gebruiken</string>
+  <string name="useCdnRouting">CDN-routering gebruiken</string>
 </resources>

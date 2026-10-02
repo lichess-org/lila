@@ -48,7 +48,8 @@ final class Env(
     settingStore[UserIds](
       "streamerAlwaysFeatured",
       default = UserIds(Nil),
-      text = "Twitch streamers featured without the keyword - lichess usernames separated by a comma".some
+      text = "Twitch streamers featured without the keyword - lichess usernames separated by a comma".some,
+      perm = _.Streamers
     )
 
   lazy val homepageMaxSetting =

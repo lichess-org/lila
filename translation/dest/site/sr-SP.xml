@@ -818,11 +818,6 @@
   <string name="quickPairing">Брзо упаривање</string>
   <string name="lobby">Лоби</string>
   <string name="anonymous">Анониман</string>
-  <plurals name="nbAnonymous">
-    <item quantity="one">Анониман</item>
-    <item quantity="few">Анонимна (%s)</item>
-    <item quantity="other">Анонимних (%s)</item>
-  </plurals>
   <string name="yourScore">Твој скор: %s</string>
   <string name="language">Језик</string>
   <string name="allLanguages">Сви језици</string>

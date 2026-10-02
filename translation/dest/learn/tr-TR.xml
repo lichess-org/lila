@@ -103,6 +103,7 @@ Terfiye gerek yok.</string>
   <string name="pawnsFormTheFrontLine">Piyonlar ön hattı oluşturur. Devam etmek için bir hamle yap.</string>
   <string name="boardSetupComplete">Bravo! Artık satranç taşlarının nasıl dizildiğini biliyorsun.</string>
   <string name="castling">Rok atma</string>
+  <string name="enPassant">Geçerken alma</string>
   <string name="theSpecialKingMove">Şaha özgü bir hareket</string>
   <string name="castlingIntro">Şahı güvene alırken kaleni saldırıya hazırla!</string>
   <string name="castleKingSide">Şah tarafına rok atmak için şahını iki kare hareket ettir!</string>

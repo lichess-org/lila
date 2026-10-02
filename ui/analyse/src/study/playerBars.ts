@@ -30,12 +30,12 @@ export default function (ctrl: AnalyseCtrl): VNode[] | undefined {
   const showTeamLeaderboard = !!study.relay?.data.tour.showTeamScores;
   const relayTeamLeaderboard = study.relay?.teamLeaderboard;
 
-  const players = study.currentChapter().players,
-    tags = study.data.chapter.tags,
-    clocks = renderClocks(ctrl, selectClockPath(ctrl, study)),
-    tickingColor = study.isClockTicking(ctrl.path) && ctrl.turnColor(),
-    materialDiffs = renderMaterialDiffs(ctrl),
-    tagsMap = tagsToMap(tags);
+  const players = study.currentChapter().players;
+  const tags = study.data.chapter.tags;
+  const clocks = renderClocks(ctrl, selectClockPath(ctrl, study));
+  const tickingColor = study.isClockTicking(ctrl.path) && ctrl.turnColor();
+  const materialDiffs = renderMaterialDiffs(ctrl);
+  const tagsMap = tagsToMap(tags);
 
   return COLORS.map(color =>
     renderPlayer(
@@ -76,25 +76,25 @@ function renderPlayer(
   relayTeamLeaderboard?: { show: boolean; leaderboard?: RelayTeamLeaderboard },
 ): VNode {
   const showResult: boolean =
-      !defined(ctrl.study?.relay) ||
-      ctrl.study?.multiBoard.showResults() ||
-      ctrl.node.ply === ctrl.tree.lastPly(),
-    team = tags.get(`${color}team`),
-    rawStatus = showResult ? tags.get('result')?.replace(/1\/2/g, '½') : undefined,
-    status = rawStatus && rawStatus !== '*' ? (rawStatus as StatusStr) : undefined,
-    result = showResult ? resultOf(tags, color === 'white') : undefined,
-    top = ctrl.bottomColor() !== color,
-    eloTag = tags.get(`${color}elo`),
-    fideIdTag = tags.get(`${color}fideid`),
-    fideId = fideIdTag ? parseInt(fideIdTag) : undefined,
-    player: StudyPlayer = {
-      ...players?.[color],
-      name: tags.get(color),
-      title: tags.get(`${color}title`),
-      rating: showRatings && eloTag ? parseInt(eloTag) : undefined,
-      fideId,
-    },
-    photo = fideId ? relayPlayers?.fidePhoto(fideId) : undefined;
+    !defined(ctrl.study?.relay) ||
+    ctrl.study?.multiBoard.showResults() ||
+    ctrl.node.ply === ctrl.tree.lastPly();
+  const team = tags.get(`${color}team`);
+  const rawStatus = showResult ? tags.get('result')?.replace(/1\/2/g, '½') : undefined;
+  const status = rawStatus && rawStatus !== '*' ? (rawStatus as StatusStr) : undefined;
+  const result = showResult ? resultOf(tags, color === 'white') : undefined;
+  const top = ctrl.bottomColor() !== color;
+  const eloTag = tags.get(`${color}elo`);
+  const fideIdTag = tags.get(`${color}fideid`);
+  const fideId = fideIdTag ? parseInt(fideIdTag) : undefined;
+  const player: StudyPlayer = {
+    ...players?.[color],
+    name: tags.get(color),
+    title: tags.get(`${color}title`),
+    rating: showRatings && eloTag ? parseInt(eloTag) : undefined,
+    fideId,
+  };
+  const photo = fideId ? relayPlayers?.fidePhoto(fideId) : undefined;
   const coloredResult = status && status !== '*' && playerColoredResult(status, color, round?.customScoring);
   const resultNode = coloredResult
     ? hl(`${coloredResult.tag}.result`, coloredResult.points)
@@ -127,7 +127,7 @@ function renderPlayer(
                   )
                 : undefined,
               playerFedFlag(player?.fed),
-              player.rating && hl('span.elo', `${player.rating}`),
+              !!player.rating && hl('span.elo', `${player.rating}`),
             ]),
           ]),
           resultNode,
@@ -148,7 +148,7 @@ function renderPlayer(
                 { attrs: fidePageLinkAttrs(player, ctrl.isEmbed) },
                 player.name,
               ),
-            player.rating && hl('span.elo', `${player.rating}`),
+            !!player.rating && hl('span.elo', `${player.rating}`),
           ]),
         ]),
         materialDiffs[top ? 0 : 1],

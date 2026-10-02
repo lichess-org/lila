@@ -1,5 +1,6 @@
 import { h, type VNode } from 'snabbdom';
 
+import { capitalize } from 'lib/game';
 import { bind, requiresI18n, type MaybeVNode } from 'lib/view';
 
 import type PuzzleCtrl from '../ctrl';
@@ -37,7 +38,7 @@ const initial = (ctrl: PuzzleCtrl): VNode =>
       h('div.no-square', h('piece.king.' + ctrl.pov)),
       h('div.instruction', [
         h('strong', i18n.site.yourTurn),
-        h('em', i18n.puzzle[ctrl.pov === 'white' ? 'findTheBestMoveForWhite' : 'findTheBestMoveForBlack']),
+        h('em', i18n.puzzle[`findTheBestMoveFor${capitalize(ctrl.pov)}`]),
       ]),
     ]),
     viewSolution(ctrl),

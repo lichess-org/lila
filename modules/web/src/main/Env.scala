@@ -26,6 +26,8 @@ final class Env(
 
   val github = wire[GitHub]
 
+  val static = wire[StaticContent]
+
   lazy val emailError = wire[EmailError]
 
   lazy val t3AuthMonitor = T3AuthMonitor()
@@ -63,7 +65,8 @@ final class Env(
       "prizeTournamentMakers",
       default = UserIds(Nil),
       text =
-        "User IDs who can make prize tournaments (arena & swiss) without a warning. Separated by commas.".some
+        "User IDs who can make prize tournaments (arena & swiss) without a warning. Separated by commas.".some,
+      perm = _.ManageTournament
     )
     val apiExplorerGamesPerSecond = settingStore[Int](
       "apiExplorerGamesPerSecond",

@@ -1,4 +1,4 @@
-nodeVersion: 24.21.0
+nodeVersion: 24.20.0
 pmOnFail: warn
 packages:
   - 'bin'
@@ -29,4 +29,3 @@ patchedDependencies:
 minimumReleaseAgeExclude:
   - '@lichess-org/*'
   - chessops@0.15.1
-  - tsx@4.23.5

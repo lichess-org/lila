@@ -7,7 +7,6 @@ import { charToRole, opposite, parseUci } from 'chessops/util';
 import { setupPosition } from 'chessops/variant';
 
 import { defined } from 'lib';
-import { throttle } from 'lib/async';
 import { view as cevalView, renderEval } from 'lib/ceval';
 import { renderChat } from 'lib/chat/renderChat';
 import { isTouchDevice } from 'lib/device';
@@ -36,7 +35,8 @@ import {
 import { commands, boardCommands, addBreaks } from 'lib/nvui/command';
 import { scanDirectionsHandler } from 'lib/nvui/directionScan';
 import { liveText } from 'lib/nvui/notify';
-import { renderSetting } from 'lib/nvui/setting';
+import { renderAdvancedSettings } from 'lib/nvui/renderAdvancedSettings';
+import { selectSound, borderSound, errorSound } from 'lib/nvui/sound';
 import { pubsub } from 'lib/pubsub';
 import { ops, path as treePath } from 'lib/tree/tree';
 import type { ClientEval, PvData } from 'lib/tree/types';
@@ -58,11 +58,6 @@ import { showInfo as tourOverview } from '../study/relay/relayTourView';
 import renderClocks from '../view/clocks';
 import { renderResult, viewContext, type RelayViewContext } from '../view/components';
 
-const throttled = (sound: string) => throttle(100, () => site.sound.play(sound));
-const selectSound = throttled('select');
-const borderSound = throttled('outOfBound');
-const errorSound = throttled('error');
-
 export function initNvui(ctx: AnalyseNvuiContext): void {
   const { ctrl, notify } = ctx;
   pubsub.on('analysis.server.progress', (data: AnalyseData) => {
@@ -75,10 +70,10 @@ export function initNvui(ctx: AnalyseNvuiContext): void {
 export function renderNvui(ctx: AnalyseNvuiContext): VNode {
   const { ctrl, deps, notify, moveStyle, pieceStyle, prefixStyle, positionStyle, boardStyle, pageStyle } =
     ctx;
-  const d = ctrl.data,
-    style = moveStyle.get(),
-    clocks = renderClocks(ctrl, ctrl.path),
-    pockets = ctrl.node.crazy?.pockets;
+  const d = ctrl.data;
+  const style = moveStyle.get();
+  const clocks = renderClocks(ctrl, ctrl.path);
+  const pockets = ctrl.node.crazy?.pockets;
   ctrl.chessground = makeChessground(document.createElement('div'), {
     ...makeCgConfig(ctrl),
     animation: { enabled: false },
@@ -191,13 +186,9 @@ export function renderNvui(ctx: AnalyseNvuiContext): VNode {
           });
         }),
       }),
-      hl('h2', i18n.site.advancedSettings),
-      hl('label', ['Move notation', renderSetting(moveStyle, ctrl.redraw)]),
-      hl('h3', 'Board settings'),
-      hl('label', ['Piece style', renderSetting(pieceStyle, ctrl.redraw)]),
-      hl('label', ['Piece prefix style', renderSetting(prefixStyle, ctrl.redraw)]),
-      hl('label', ['Show position', renderSetting(positionStyle, ctrl.redraw)]),
-      hl('label', ['Board layout', renderSetting(boardStyle, ctrl.redraw)]),
+      ...renderAdvancedSettings(moveStyle, pageStyle, pieceStyle, prefixStyle, positionStyle, boardStyle, {
+        redraw: ctrl.redraw,
+      }),
       hl('h2', i18n.site.keyboardShortcuts),
       hl(
         'p',
@@ -303,8 +294,8 @@ function boardEventsHook(
 
 function renderEvalAndDepth(ctrl: AnalyseCtrl): string {
   if (ctrl.threatMode()) return `${evalInfo(ctrl.node.threat)} ${depthInfo(ctrl.node.threat, false)}`;
-  const evs = { client: ctrl.getNode().ceval, server: ctrl.getNode().eval },
-    bestEv = cevalView.getBestEval(ctrl);
+  const evs = { client: ctrl.getNode().ceval, server: ctrl.getNode().eval };
+  const bestEv = cevalView.getBestEval(ctrl);
   const evalStr = evalInfo(bestEv);
   return !evalStr ? noEvalStr(ctrl) : `${evalStr} ${depthInfo(evs.client, !!evs.client?.cloud)}`;
 }
@@ -333,8 +324,8 @@ function toggleLocalEvaluation(ctrl: AnalyseCtrl): void {
 function renderBestMove({ ctrl, moveStyle }: AnalyseNvuiContext): string {
   const noEvalMsg = noEvalStr(ctrl);
   if (noEvalMsg) return noEvalMsg;
-  const node = ctrl.node,
-    setup = parseFen(node.fen).unwrap();
+  const node = ctrl.node;
+  const setup = parseFen(node.fen).unwrap();
   let pvs: PvData[] = [];
   if (ctrl.threatMode() && node.threat) {
     pvs = node.threat.pvs;
@@ -551,12 +542,12 @@ const renderPlayer = (ctrl: AnalyseCtrl, player: Player): LooseVNodes =>
   player.ai ? i18n.site.aiNameLevelAiLevel('Stockfish', player.ai) : userHtml(ctrl, player);
 
 function userHtml(ctrl: AnalyseCtrl, player: Player) {
-  const d = ctrl.data,
-    user = player.user,
-    perf = user ? user.perfs[d.game.perf] : null,
-    rating = player.rating ?? perf?.rating,
-    rd = player.ratingDiff,
-    ratingDiff = rd ? (rd > 0 ? '+' + rd : rd < 0 ? '−' + -rd : '') : '';
+  const d = ctrl.data;
+  const user = player.user;
+  const perf = user ? user.perfs[d.game.perf] : null;
+  const rating = player.rating ?? perf?.rating;
+  const rd = player.ratingDiff;
+  const ratingDiff = rd ? (rd > 0 ? '+' + rd : rd < 0 ? '−' + -rd : '') : '';
   const studyPlayers = ctrl.study && renderStudyPlayer(ctrl, player.color);
   return user
     ? hl('span', [

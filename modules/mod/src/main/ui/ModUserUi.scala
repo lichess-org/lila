@@ -7,7 +7,7 @@ import lila.evaluation.Display
 import lila.ui.*
 import lila.user.{ ClosedFlags, WithPerfsAndEmails }
 
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.report.Report
 
 def mzSection(key: String): Tag =

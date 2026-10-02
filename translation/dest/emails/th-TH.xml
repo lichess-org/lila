@@ -17,6 +17,7 @@
 
 ขอให้สนุก และหวังว่าหมากของคุณจะพบหนทางไปสู่คิงของคู่แข่งของคุณเสมอ!</string>
   <string name="logInToLichess">เข้าสู่ระบบ lichess.org, %s</string>
+  <string name="common_linkNotWorking" comment="common_orPaste&#10;&#10;Part of the e-mail received from lichess when changing your e-mail address.">(ลิงก์ใช้งานไม่ได้ใช่ไหม? ลองคัดลอกไปวางในเบราว์เซอร์ของคุณดูสิ!)</string>
   <string name="common_note">นี่คืออีเมลบริการที่เกี่ยวข้องกับการใช้ %s ของคุณ</string>
   <string name="common_contact">เพื่อติดต่อเราให้ใช้ %s</string>
 </resources>

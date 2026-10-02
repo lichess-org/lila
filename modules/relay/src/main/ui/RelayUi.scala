@@ -9,7 +9,7 @@ import lila.ui.*
 import lila.relay.RelayRound.WithTourAndStudy
 import lila.core.socket.SocketVersion
 
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class RelayUi(helpers: Helpers)(
     picfitUrl: lila.memo.PicfitUrl,

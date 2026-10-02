@@ -435,6 +435,7 @@
   <plurals name="nbFollowing">
     <item quantity="other">กำลังติดตาม %s</item>
   </plurals>
+  <string name="less">ย่อลง</string>
   <string name="more">เพิ่มเติม</string>
   <string name="memberSince">สมาชิกตั้งแต่</string>
   <string name="lastSeenActive">ลงชื่อเข้าครั้งล่าสุด %s</string>
@@ -500,6 +501,7 @@
   <string name="oneUrlPerLine">หนึ่ง URL ต่อบรรทัด</string>
   <string name="inlineNotation">สัญกรณ์ในบรรทัด</string>
   <string name="makeAStudy">เพื่อความปลอดภัยและการแบ่งปัน โปรดพิจารณาทำการศึกษา</string>
+  <string name="clearLocalData">ล้างข้อมูลในเครื่อง</string>
   <string name="previouslyOnLichessTV">Lichess TV ก่อนหน้า</string>
   <string name="onlinePlayers">ผู้เล่นออนไลน์</string>
   <string name="activePlayers">ผู้เล่นที่ขยัน</string>
@@ -529,6 +531,9 @@
   <string name="replies">ตอบ</string>
   <string name="replyToThisTopic">ตอบกลับหัวข้อนี้</string>
   <string name="reply">ตอบกลับ</string>
+  <string name="reopen">เปิดอีกรอบ</string>
+  <string name="quote">อ้างคำพูด</string>
+  <string name="postEdited">แก้ไขเมื่อ</string>
   <string name="message">ข้อความ</string>
   <string name="createTheTopic">สร้างหัวข้อ</string>
   <string name="reportAUser">ร้องเรียนผู้ใช้</string>
@@ -540,6 +545,7 @@
   <string name="other">อื่นๆ</string>
   <string name="reportCheatBoostHelp">วางลิงก์ไปยังเกม และอธิบายสิ่งผิดปกติเกี่ยวกับพฤติกรรมของผู้ใช้นี้ อย่าแค่พูดว่า \"พวกเขาโกง\" แต่บอกเราว่าคุณมาถึงข้อสรุปนี้ได้อย่างไร</string>
   <string name="reportUsernameHelp">อธิบายว่าชื่อผู้ใช้นี้ไม่เหมาะสมอย่างไร อย่าเพียงแค่พูดว่า \"มันน่ารังเกียจ/ไม่เหมาะสม\" แต่บอกเราว่าคุณมาถึงข้อสรุปนี้ได้อย่างไร โดยเฉพาะหากชื่อนั้นคลุมเครือ ไม่ใช่ภาษาอังกฤษ เป็นคำสแลง หรือเป็นการอ้างอิงทางประวัติศาสตร์/วัฒนธรรม</string>
+  <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">เราสามารถดำเนินการเกี่ยวกับรายงานของคุณได้เร็วยิ่งขึ้นหากคุณเขียนเป็นภาษาอังกฤษ</string>
   <string name="error.provideOneCheatedGameLink">โปรดระบุอย่างน้อยหนึ่งลิงก์ เพื่อเชื่อมโยงไปยังเกมที่มีการโกง</string>
   <string name="by">โดย %s</string>
   <string name="importedByX">ถูกนำเข้าโดย %s</string>
@@ -555,6 +561,7 @@
   <string name="clearField">ล้างข้อมูล</string>
   <string name="orSeparator">หรือ</string>
   <string name="logInByEmail">เข้าระบบโดยอีเมล</string>
+  <string name="emailLoginInstructions">เราจะส่งอีเมลที่มีลิงก์สำหรับเข้าสู่ระบบไปให้คุณ</string>
   <string name="emailMeALink">ส่งลิงค์ให้ฉันทางอีเมล</string>
   <string name="currentPassword">รหัสผ่านปัจจุบัน</string>
   <string name="newPassword">รหัสผ่านใหม่</string>
@@ -579,6 +586,8 @@
   <string name="onSlowGames">ในเกมรูปแบบช้า</string>
   <string name="always">เสมอ</string>
   <string name="never">ไม่ต้อง</string>
+  <string name="defeatOnly">ปราชัย</string>
+  <string name="drawAndDefeat">เสมอ และ ปราชัย</string>
   <string name="xCompetesInY">%1$s แข่งขันใน %2$s</string>
   <string name="victory">ชัยชนะ</string>
   <string name="defeat">ปราชัย</string>
@@ -640,10 +649,13 @@
   <string name="aboutX">เกี่ยวกับ %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s เป็นเซิร์ฟเวอร์หมากรุกระบบเปิด ซึ่งอิสระ ไม่มีโฆษณา และฟรี (%2$s)</string>
   <string name="really">จริง ๆ</string>
+  <string name="lichessUpdates">อัปเดตของ Lichess</string>
   <string name="contribute">เอื้อเฟื้อ</string>
+  <string name="changelog">เซฟการเปลี่ยนแปลง</string>
   <string name="termsOfService">ข้อกำหนดการใช้</string>
   <string name="titleVerification">ยืนยันตำแหน่ง</string>
   <string name="sourceCode">ซอร์สโค้ด</string>
+  <string name="blockAds">บล็อกโฆษณา</string>
   <string name="simultaneousExhibitions">มหกรรมไซมัลเทเนียส</string>
   <string name="host">โฮสต์</string>
   <string name="hostColorX">สีโฮสต์: %s</string>
@@ -660,6 +672,7 @@
   <string name="aboutSimulRules">เมื่อไซมัลเริ่มต้น ผู้เล่นทุกคนจะเล่นเกมกับโฮสต์ผู้ซึ่งจะเล่นเป็นฝ่ายสีขาว ไซมัลจะจบเมื่อทุกเกมจบอย่างสมบูรณ์</string>
   <string name="aboutSimulSettings">ไซมัลจะใช้การเล่นแบบธรรมดา  การขอเล่นอีกครั้ง, การเดินใหม่, หรือ \"เพิ่มเวลา\" จะไม่อนุญาตให้ใช้</string>
   <string name="create">สร้าง</string>
+  <string name="creatingASimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">การสร้างเกมแบบไซมัลช่วยให้คุณสามารถเล่นแข่งกับคู่ต่อสู้หลายคนได้ในเวลาเดียวกัน</string>
   <string name="simulVariantsHint">ถ้าคุณเลือกหลายตัวแปรกติกา ผู้เล่นแต่ละคนจะเลือกได้ว่าจะเล่นอันไหน</string>
   <string name="simulClockHint">การตั้งนาฬิกาฟิสเชอร์ ยิ่งคุณเล่นกับผู้เล่นหลายคน คุณยิ่งต้องการเวลามากขึ้น</string>
   <string name="simulAddExtraTime">คุณอาจบวกเวลาพิเศษให้นาฬิกาของคุณ เพื่อช่วยคุณรับมือกับไซมัล</string>
@@ -673,8 +686,10 @@
   <string name="keyboardShortcuts">ปุ่มลัดแป้นพิมพ์</string>
   <string name="keyMoveBackwardOrForward">เดินถอยหลัง/ไปหน้า</string>
   <string name="keyGoToStartOrEnd">ไปยังตอนเริ่ม/ตอนจบ</string>
+  <string name="keyGoToPreviousOrNextLine">ไปเส้นทางตาเดินก่อนหน้า/ถัดไป</string>
   <string name="keyCycleSelectedVariation">กู้คืน ตาเดินที่ถูกเลือก</string>
   <string name="keyShowOrHideComments">แสดง/ซ่อนความคิดเห็น</string>
+  <string name="keyShowOrHideCurrentVariation">เพิ่มหรือซ่อนการแปรผันปัจจุบัน</string>
   <string name="keyEnterOrExitVariation">เข้าสู่/ออกจากตัวแปรกติกา</string>
   <string name="keyPreviousBranch">แขนงก่อนหน้า</string>
   <string name="keyNextBranch">แขนงต่อไป</string>
@@ -755,17 +770,19 @@
   <string name="quickPairing">จับคู่ด่วน</string>
   <string name="lobby">ล็อบบี้</string>
   <string name="anonymous">นิรนาม</string>
-  <plurals name="nbAnonymous">
-    <item quantity="other">นิรนาม(%s)</item>
-  </plurals>
   <string name="yourScore">สกอร์ของคุณ: %s</string>
   <string name="language">ภาษา</string>
   <string name="allLanguages">ภาษาทั้งหมด</string>
   <string name="background">พื้นหลัง</string>
+  <string name="theme">ธีม</string>
   <string name="light">สว่าง</string>
   <string name="dark">มืด</string>
+  <string name="picture">รูปภาพ</string>
   <string name="deviceTheme">ธีมของเครื่อง</string>
+  <string name="roundness">ความโค้งมน</string>
+  <string name="backgroundImage">ภาพพื้นหลัง</string>
   <string name="backgroundImageUrl">URL รูปภาพพื้นหลัง:</string>
+  <string name="imageOpacity">ความทึบแสงภาพ</string>
   <string name="board">สีกระดาน</string>
   <string name="size">ขนาด</string>
   <string name="opacity">ค่าความทึบ</string>
@@ -788,6 +805,7 @@
   <string name="custom">กำหนด​เอง</string>
   <string name="notifications">การแจ้งเตือน</string>
   <string name="notificationsX">การแจ้งเตือน: %1$s</string>
+  <string name="perfRatingLabel">เรดติ้ง: %s</string>
   <string name="yourRatingIsX">เรดติ้งคุณคือ %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="other">%s วินาทีต้องเริ่มเดินตาแรก</item>
@@ -843,6 +861,7 @@
     <item quantity="other">และบันทึก %s เส้นทางเดินล่วงหน้า</item>
   </plurals>
   <string name="showUnreadLichessMessage">คุณได้รับข้อความส่วนตัวจาก Lichess</string>
+  <string name="readTheMessage" comment="'It' refers to a private message. This text follows after a different string which advises players they have received a private message from Lichess. For users, this is appears as a regular private message from the Lichess account: https://lichess.org/@/Lichess">อ่านข้อความ</string>
   <string name="sorry">ขออภัย :(</string>
   <string name="weHadToTimeYouOutForAWhile">เราจำเป็นต้องให้คุณรอคอยสักช่วงหนึ่ง</string>
   <string name="why">ทำไม?</string>
@@ -949,6 +968,7 @@
   <string name="gameInProgress">คุณมีเกมกำลังเล่นอยู่กับ %s</string>
   <string name="abortTheGame">ทิ้งเกม</string>
   <string name="resignTheGame">ยอมแพ้เกม</string>
+  <string name="youCantStartNewGame">คุณเริ่มเกมใหม่ไม่ได้เมื่อเป็นตาคุณเดิน</string>
   <string name="since">ตั้งแต่</string>
   <string name="until">จนถึง</string>
   <string name="lichessDbExplanation">เกมคิดคะแนนที่เล่นใน Lichess</string>
@@ -972,4 +992,10 @@
   <string name="thereAreNoResultsForX">ไม่มีผลลัพธ์สำหรับ \"%s\"</string>
   <string name="tags">แท็ก</string>
   <string name="enPassant">การกินผ่าน</string>
+  <string name="settings">การตั้งค่า</string>
+  <string name="verifyingYourDevice">กำลังตรวจสอบอุปกรณ์ของคุณ...</string>
+  <string name="chessOpenings">การเปิดหมาก</string>
+  <string name="boards">กระดาน</string>
+  <string name="write">เขียน</string>
+  <string name="preview">ดูตัวอย่าง</string>
 </resources>

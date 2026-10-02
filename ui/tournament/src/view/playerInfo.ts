@@ -17,8 +17,8 @@ const playerTitle = (player: Player, tourId: string) =>
   ]);
 
 function setup(vnode: VNode) {
-  const el = vnode.elm as HTMLElement,
-    p = site.powertip;
+  const el = vnode.elm as HTMLElement;
+  const p = site.powertip;
   p.manualUserIn(el);
   p.manualGameIn(el);
 }
@@ -28,11 +28,11 @@ export default function (ctrl: TournamentController): VNode {
   const tag = 'div.tour__player-info.tour__actor-info';
   if (!data || data.player.id !== ctrl.playerInfo.id)
     return hl(tag, [hl('div.stats', [playerTitle(ctrl.playerInfo.player!, ctrl.data.id), spinner()])]);
-  const nb = data.player.nb,
-    pairingsLen = data.pairings.length,
-    avgOp = pairingsLen
-      ? Math.round(data.pairings.reduce((a, b) => a + b.op.rating, 0) / pairingsLen)
-      : undefined;
+  const nb = data.player.nb;
+  const pairingsLen = data.pairings.length;
+  const avgOp = pairingsLen
+    ? Math.round(data.pairings.reduce((a, b) => a + b.op.rating, 0) / pairingsLen)
+    : undefined;
   return hl(tag, { hook: { insert: setup, postpatch: (_, vnode) => setup(vnode) } }, [
     hl('button.close', {
       attrs: dataIcon(licon.X),

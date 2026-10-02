@@ -1,8 +1,10 @@
 package lila.tournament
 
+import lila.core.i18n.I18nKey
 import lila.core.i18n.Translate
 import chess.variant.Variant
 import chess.format.Fen
+import lila.rating.PerfType
 
 private object TournamentName:
 
@@ -85,21 +87,22 @@ private object TournamentName:
       }
       if full then xArena.txt(n) else n
     else
+      val v = PerfKey.byVariant(variant).map(PerfType(_)).fold(variant.name)(_.trans)
       freq match
-        case Hourly if full => hourlyXArena.txt(variant.name)
-        case Hourly => hourlyX.txt(variant.name)
-        case Daily if full => dailyXArena.txt(variant.name)
-        case Daily => dailyX.txt(variant.name)
-        case Eastern if full => easternXArena.txt(variant.name)
-        case Eastern => easternX.txt(variant.name)
-        case Weekly if full => weeklyXArena.txt(variant.name)
-        case Weekly => weeklyX.txt(variant.name)
-        case Monthly if full => monthlyXArena.txt(variant.name)
-        case Monthly => monthlyX.txt(variant.name)
-        case Yearly if full => yearlyXArena.txt(variant.name)
-        case Yearly => yearlyX.txt(variant.name)
-        case Shield if full => xShieldArena.txt(variant.name)
-        case Shield => xShield.txt(variant.name)
+        case Hourly if full => hourlyXArena.txt(v)
+        case Hourly => hourlyX.txt(v)
+        case Daily if full => dailyXArena.txt(v)
+        case Daily => dailyX.txt(v)
+        case Eastern if full => easternXArena.txt(v)
+        case Eastern => easternX.txt(v)
+        case Weekly if full => weeklyXArena.txt(v)
+        case Weekly => weeklyX.txt(v)
+        case Monthly if full => monthlyXArena.txt(v)
+        case Monthly => monthlyX.txt(v)
+        case Yearly if full => yearlyXArena.txt(v)
+        case Yearly => yearlyX.txt(v)
+        case Shield if full => xShieldArena.txt(v)
+        case Shield => xShield.txt(v)
         case _ =>
-          val n = s"${freq.name} ${variant.name}"
+          val n = s"${freq.name} $v"
           if full then xArena.txt(n) else n

@@ -128,6 +128,7 @@ Proprio al fianco della sua regina.</string>
 Fai una mossa per continuare.</string>
   <string name="boardSetupComplete">Congratulazioni! Ora sai come preparare la scacchiera.</string>
   <string name="castling">L\'arrocco</string>
+  <string name="enPassant">Wenn Passant (presa al varco)</string>
   <string name="theSpecialKingMove">La mossa speciale del re</string>
   <string name="castlingIntro">Metti il tuo re in sicurezza e sviluppa la tua torre per l\'attacco!</string>
   <string name="castleKingSide">Muovi il re di due case sull\'ala di re

@@ -558,6 +558,11 @@ Jugar por puntos aumentará la estabilidad.</string>
   <string name="autoSwitch">Cambio automático</string>
   <string name="puzzles">Ejercicios</string>
   <string name="onlineBots">Bots en línea</string>
+  <string name="aboutBotsOnLichess">Acerca de los bots en Lichess</string>
+  <string name="featuredBots">Bots destacados</string>
+  <string name="tryPlayingTheseInnovativeChessEngines">¡Prueba a jugar con estos innovadores motores de ajedrez! Son nuestros favoritos.</string>
+  <string name="communityBots">Bots de la comunidad</string>
+  <string name="moreChessEnginesCreatedByTheLichessCommunity">Más motores de ajedrez creados por la comunidad de Lichess. Están alojados por sus creadores y pueden no estar siempre en línea.</string>
   <string name="name">Nombre</string>
   <string name="description">Descripción</string>
   <string name="descPrivate">Descripción privada</string>
@@ -605,6 +610,7 @@ Jugar por puntos aumentará la estabilidad.</string>
   <string name="clearField">Borrar campo</string>
   <string name="orSeparator">o</string>
   <string name="logInByEmail">Iniciar sesión con el correo electrónico</string>
+  <string name="emailLoginInstructions">Te enviaremos un correo electrónico con un enlace para iniciar sesión.</string>
   <string name="emailMeALink">Envíame un enlace por correo electrónico</string>
   <string name="currentPassword">Contraseña actual</string>
   <string name="newPassword">Nueva contraseña</string>
@@ -629,6 +635,8 @@ Jugar por puntos aumentará la estabilidad.</string>
   <string name="onSlowGames">En partidas lentas</string>
   <string name="always">Siempre</string>
   <string name="never">Nunca</string>
+  <string name="defeatOnly">Derrota solamente</string>
+  <string name="drawAndDefeat">Tablas y derrota</string>
   <string name="xCompetesInY">%1$s compite en %2$s</string>
   <string name="victory">Victoria</string>
   <string name="defeat">Derrota</string>
@@ -693,10 +701,13 @@ Jugar por puntos aumentará la estabilidad.</string>
   <string name="aboutX">Acerca de %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s es un servidor de ajedrez libre y gratuito (%2$s) de código abierto y sin publicidad.</string>
   <string name="really">realmente</string>
+  <string name="lichessUpdates">Actualizaciones de Lichess</string>
   <string name="contribute">Contribuir</string>
+  <string name="changelog">Registro de cambios</string>
   <string name="termsOfService">Condiciones del servicio</string>
   <string name="titleVerification">Verificación de título</string>
   <string name="sourceCode">Código fuente</string>
+  <string name="blockAds">Bloquear anuncios</string>
   <string name="simultaneousExhibitions">Partidas simultáneas</string>
   <string name="host">Anfitrión</string>
   <string name="hostColorX">Color del anfitrión: %s</string>
@@ -796,12 +807,14 @@ Jugar por puntos aumentará la estabilidad.</string>
   <string name="enableKidMode">Activar el modo infantil</string>
   <string name="disableKidMode">Desactivar el modo infantil</string>
   <string name="security">Seguridad</string>
+  <string name="activeSessionsDescription">Esta es una lista de dispositivos y aplicaciones que han iniciado sesión en tu cuenta. Si notas alguna actividad sospechosa, Asegúrate de revisar &lt;a href=\'%1$s\'&gt;tu dirección de correo electrónico de recuperación&lt;/a&gt; y &lt;a href=\'%2$s\'&gt;cambiar tu contraseña&lt;/a&gt;.</string>
   <string name="sessions">Sesiones</string>
   <string name="revokeAllSessions">cerrar todas las sesiones</string>
   <string name="playChessEverywhere">Juega al ajedrez donde sea</string>
   <string name="everybodyGetsAllFeaturesForFree">Todos tienen acceso gratuito a todas las funciones</string>
   <string name="viewTheSolution">Ver la solución</string>
   <string name="noChallenges">Sin desafíos.</string>
+  <string name="browserNotificationsDenied">Ventanas de notificación desactivadas por configuración del navegador</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">¡Disponible en %s idioma!</item>
     <item quantity="other">¡Disponible en %s idiomas!</item>
@@ -814,10 +827,6 @@ Jugar por puntos aumentará la estabilidad.</string>
   <string name="quickPairing">Emparejamiento rápido</string>
   <string name="lobby">Sala de espera</string>
   <string name="anonymous">Anónimo</string>
-  <plurals name="nbAnonymous">
-    <item quantity="one">Anónimo</item>
-    <item quantity="other">Anónimos (%s)</item>
-  </plurals>
   <string name="yourScore">Tu puntuación: %s</string>
   <string name="language">Idioma</string>
   <string name="allLanguages">Cualquier idioma</string>
@@ -1050,4 +1059,7 @@ Todos los gastos de funcionamiento, desarrollo y contenidos se financian exclusi
   <string name="verifyingYourDevice">Verificando tu dispositivo...</string>
   <string name="chessOpenings">Aperturas de ajedrez</string>
   <string name="boards">Tableros</string>
+  <string name="write">Escribir</string>
+  <string name="preview">Vista previa</string>
+  <string name="done">Listo</string>
 </resources>

@@ -6,8 +6,7 @@ import play.api.data.Form
 import lila.core.captcha.Captcha
 import lila.core.id.CmsPageKey
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class UblogFormUi(helpers: Helpers, ui: UblogUi)(
     renderCaptcha: (Form[?], Option[Captcha]) => Context ?=> Frag
@@ -80,7 +79,7 @@ final class UblogFormUi(helpers: Helpers, ui: UblogUi)(
                   ),
                   form3.checkboxGroup(
                     form("ads"),
-                    "Includes promoted/sponsored content or referral links",
+                    trans.ublog.includesPromotedContent(),
                     help = ads.some,
                     half = true
                   )
@@ -108,7 +107,7 @@ final class UblogFormUi(helpers: Helpers, ui: UblogUi)(
         )
 
   private def image(post: UblogPost, form: Form[UblogForm.UblogPostData])(using ctx: Context) =
-    form3.fieldset("Cover image")(
+    form3.fieldset(trans.ublog.coverImage())(
       div(cls := "ublog-image-edit", data("post-url") := routes.Ublog.image(post.id))(
         ui.thumbnail(post, _.Size.Large)(
           cls := "drop-target " + post.image.isDefined.so("user-image"),
@@ -132,7 +131,7 @@ final class UblogFormUi(helpers: Helpers, ui: UblogUi)(
     )
 
   private def etiquette(using Translate) =
-    form3.fieldset("Etiquette")(
+    form3.fieldset(trans.ublog.etiquette())(
       p(trans.ublog.safeAndRespectfulContent()),
       p(trans.ublog.noCopyrightedImages()),
       p(trans.ublog.inappropriateContentAccountClosed()),
@@ -142,7 +141,7 @@ final class UblogFormUi(helpers: Helpers, ui: UblogUi)(
           href := routes.Cms.lonePage(CmsPageKey("blog-etiquette")),
           cls := "text",
           targetBlank
-        )("Ranking your blog")
+        )(trans.appeal.blogEtiquette())
       ),
       p(tips)
     )
@@ -154,9 +153,9 @@ final class UblogFormUi(helpers: Helpers, ui: UblogUi)(
     targetBlank
   )(trans.ublog.blogTips())
 
-  val ads = a(
+  def ads(using Translate) = a(
     dataIcon := Icon.InfoCircle,
     href := routes.Cms.lonePage(CmsPageKey("blog-etiquette")),
     cls := "text",
     targetBlank
-  )("Mandatory for sponsored content, affiliate links or commercial advertisement")
+  )(trans.ublog.mandatoryForSponsoredContent())
