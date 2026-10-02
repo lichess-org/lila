@@ -48,7 +48,7 @@ export function bindClickAndFocus(f: (ev: MouseEvent) => void): Hooks {
   return {
     insert: vnode => {
       bind('click', f).insert?.(vnode);
-      onInsert(el => el.focus()).insert?.(vnode);
+      (vnode.elm as HTMLElement).focus();
     },
   };
 }
