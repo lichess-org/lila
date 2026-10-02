@@ -44,6 +44,15 @@ export function bind<K extends keyof GlobalEventHandlersEventMap>(
   );
 }
 
+export function bindClickAndFocus(f: (ev: MouseEvent) => void): Hooks {
+  return {
+    insert: vnode => {
+      bind('click', f).insert?.(vnode);
+      (vnode.elm as HTMLElement).focus();
+    },
+  };
+}
+
 export const bindNonPassive = <K extends keyof GlobalEventHandlersEventMap>(
   eventName: K,
   f: (ev: GlobalEventHandlersEventMap[K]) => any,

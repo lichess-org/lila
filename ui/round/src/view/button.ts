@@ -11,6 +11,7 @@ import {
   type LooseVNode,
   hl,
   bind,
+  bindClickAndFocus,
   onInsert,
   dataIcon,
 } from 'lib/view';
@@ -166,7 +167,7 @@ export const resignConfirm = (ctrl: RoundController): VNode =>
   hl('div.act-confirm', [
     hl('button.fbt.yes', {
       attrs: { title: i18n.site.resign, 'data-icon': licon.FlagOutline },
-      hook: bind('click', () => ctrl.resign(true)),
+      hook: bindClickAndFocus(() => ctrl.resign(true)),
     }),
     fbtCancel(ctrl.resign),
   ]);
@@ -175,7 +176,7 @@ export const drawConfirm = (ctrl: RoundController): VNode =>
   hl('div.act-confirm', [
     hl('button.fbt.yes.draw-yes', {
       attrs: { title: i18n.site.offerDraw, 'data-icon': licon.OneHalf },
-      hook: bind('click', () => ctrl.offerDraw(true)),
+      hook: bindClickAndFocus(() => ctrl.offerDraw(true)),
     }),
     fbtCancel(ctrl.offerDraw),
   ]);

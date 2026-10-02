@@ -14,7 +14,7 @@ import lila.db.dsl.{ *, given }
 import lila.common.String.shorten
 
 case class TeamUpdate[T, U](
-    @Key("_id") id: String,
+    @Key("_id") id: TeamUpdate.ID,
     team: T,
     text: Markdown,
     sender: U,
@@ -27,6 +27,7 @@ case class TeamUpdates[T](team: T, unread: Int, last: Instant)
 case class TeamUpdateSeen[T, U](msg: TeamUpdate[T, U], seen: Boolean)
 
 object TeamUpdate:
+  type ID = String
   type Recent = Paginator[TeamUpdateSeen[LightTeam, LightUser]]
   type ByTeams = List[TeamUpdates[LightTeam]]
   type DbTeamUpdate = TeamUpdate[TeamId, UserId]
@@ -54,7 +55,8 @@ final class TeamUpdateApi(
   def teamRecentAndMarkRead(team: Team, page: Int)(using me: Me): Fu[TeamUpdate.Recent] =
     for
       msgs <- Paginator(updateRepo.teamRecent(team.id), page, maxPerPage)
-      _ <- msgs.currentPageResults.exists(!_.seen).so(updateRepo.markSeen(team.id))
+      seenIds = msgs.currentPageResults.filter(!_.seen).map(_.msg.id)
+      _ <- updateRepo.markSeen(seenIds)
       senders <- pageSenders(msgs)
     yield msgs.mapList: results =>
       for
