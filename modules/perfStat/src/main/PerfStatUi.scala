@@ -25,8 +25,9 @@ final class PerfStatUi(helpers: Helpers)(communityMenu: Context ?=> Frag):
       .js(ratingChart.map: rc =>
         esmInit(
           "chart.ratingHistory",
-          SafeJsonStr(s"{data:$rc,singlePerfName:'${perfType.trans(using transDefault)}'}")
+          SafeJsonStr(s"{data:$rc,singlePerfName:'${perfType.key}'}")
         ))
+      .i18n(_.variant)
       .css("user.perf.stat"):
         main(cls := s"page-menu")(
           st.aside(cls := "page-menu__menu")(side),
