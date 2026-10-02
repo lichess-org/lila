@@ -82,6 +82,10 @@ const dateFormat = memoize(() =>
 );
 
 export function initModule({ data, singlePerfName }: Opts): void {
+  site.asset.loadI18n('variant').then(() => renderChart({ data, singlePerfName }));
+}
+
+function renderChart({ data, singlePerfName }: Opts) {
   $('.spinner').remove();
 
   const $el = $('canvas.rating-history');
