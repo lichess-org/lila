@@ -4,22 +4,9 @@ import lila.core.i18n.I18nKey
 import lila.core.i18n.Translate
 import chess.variant.Variant
 import chess.format.Fen
+import lila.rating.PerfType
 
 private object TournamentName:
-
-  private def variantI18nKey(variant: Variant): Option[I18nKey] =
-    if variant == chess.variant.Chess960 then Some(I18nKey.variant.chess960)
-    else if variant == chess.variant.KingOfTheHill then Some(I18nKey.variant.kingOfTheHill)
-    else if variant == chess.variant.ThreeCheck then Some(I18nKey.variant.threeCheck)
-    else if variant == chess.variant.Antichess then Some(I18nKey.variant.antichess)
-    else if variant == chess.variant.Atomic then Some(I18nKey.variant.atomic)
-    else if variant == chess.variant.Horde then Some(I18nKey.variant.horde)
-    else if variant == chess.variant.RacingKings then Some(I18nKey.variant.racingKings)
-    else if variant == chess.variant.Crazyhouse then Some(I18nKey.variant.crazyhouse)
-    else None
-
-  private def variantName(variant: Variant)(using Translate): String =
-    variantI18nKey(variant).fold(variant.name)(_.txt())
 
   def apply(tour: Tournament, full: Boolean)(using Translate): String =
     tour.scheduleData.fold(if full then s"${tour.name} Arena" else tour.name): (freq, speed) =>
@@ -100,7 +87,7 @@ private object TournamentName:
       }
       if full then xArena.txt(n) else n
     else
-      val v = variantName(variant)
+      val v = PerfKey.byVariant(variant).map(PerfType(_)).fold(variant.name)(_.trans)
       freq match
         case Hourly if full => hourlyXArena.txt(v)
         case Hourly => hourlyX.txt(v)
