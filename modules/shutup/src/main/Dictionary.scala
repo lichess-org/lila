@@ -349,6 +349,10 @@ untermensch
 wi(chs|x++)er
 """)
 
+  def pt = dict("""
+lixo
+""")
+
   def tr = dict("""
 am[iı]na ((koy?dum)|(koya(y[iı]m|m))|(soka(y[iı]m|m))|([cç]aka(y[iı]m|m)))
 amc[iı]k
