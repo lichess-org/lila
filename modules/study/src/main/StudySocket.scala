@@ -2,7 +2,7 @@ package lila.study
 
 import chess.Centis
 import chess.format.UciPath
-import chess.format.pgn.{ Glyph, Glyphs }
+import chess.format.pgn.Glyph
 import play.api.libs.json.*
 import scalalib.actor.SyncActorMap
 
@@ -345,7 +345,7 @@ final private class StudySocket(
         "w" -> who
       )
     )
-  def setGlyphs(pos: Position.Ref, glyphs: Glyphs, who: Who) =
+  def setGlyphs(pos: Position.Ref, glyphs: lila.tree.Node.Glyphs, who: Who) =
     version(
       "glyphs",
       Json.obj(

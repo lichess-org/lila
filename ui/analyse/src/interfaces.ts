@@ -47,7 +47,7 @@ export interface AnalyseData {
   spectator?: boolean; // for compat with GameData, for game functions
   takebackable: boolean;
   moretimeable: boolean;
-  analysis?: Analysis;
+  analysis?: AnalysisMeta;
   userAnalysis: boolean;
   forecast?: ForecastData;
   sidelines?: TreeNode[][];
@@ -75,9 +75,10 @@ export interface AnalysePref {
   moveEvent: MoveEvent;
 }
 
-export interface ServerEvalData {
+export interface AnalysisUpdate {
   ch: string;
-  analysis?: Analysis;
+  analysis?: AnalysisMeta;
+  meta?: AnalysisMeta;
   tree: TreeNodeLite;
   division?: Division;
 }
@@ -131,17 +132,24 @@ export interface Division {
   end?: number;
 }
 
-export interface Analysis {
+export interface AnalysisMeta {
   id: string;
-  nodesPerMove: number;
-  white: AnalysisSide;
-  black: AnalysisSide;
+  white: AnalysisMetaSide;
+  black: AnalysisMetaSide;
   partial?: boolean;
+  engine?: AnalysisEngineInfo;
+}
+
+export interface AnalysisEngineInfo {
+  nodesPerMove: number;
+  id: string;
+  userId: string;
+  engineVersion: string;
 }
 
 export type GamePhase = 'opening' | 'middlegame' | 'endgame';
 
-export interface AnalysisSide {
+export interface AnalysisMetaSide {
   acpl: number;
   inaccuracy: number;
   mistake: number;

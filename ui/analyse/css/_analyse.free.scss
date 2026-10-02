@@ -1,5 +1,7 @@
 /* free analysis on /analysis */
 @import 'analyse.base';
+@import 'retro'; // now available via local analysis
+@import 'round-training';
 
 $label-width: 5ch;
 

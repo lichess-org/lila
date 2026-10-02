@@ -19,6 +19,14 @@ $c-study-button: $c-accent;
     flex: 1 9 10%;
   }
 
+  .comp-off & .serverEval {
+    opacity: 0.5;
+
+    &:hover {
+      opacity: 0.75;
+    }
+  }
+
   .behind {
     background: $c-bad;
     color: $c-over;

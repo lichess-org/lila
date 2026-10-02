@@ -1,4 +1,5 @@
 package lila.analyse
+
 import chess.format.pgn.{ InitialComments, Move, Parser, Pgn, PgnStr, SanStr, Tag, Tags }
 import chess.opening.OpeningDb
 import chess.{ ByColor, Node, Ply }
@@ -7,13 +8,14 @@ import lila.core.LightUser
 import lila.core.config.NetDomain
 import lila.core.id.GamePlayerId
 import lila.core.user.LightUserApiMinimal
-import lila.tree.Eval
+import lila.tree.{ Engine, Eval, Analysis }
 
 class AnnotatorTest extends munit.FunSuite:
 
   given Executor = scala.concurrent.ExecutionContextOpportunistic
 
   val annotator = Annotator(NetDomain("l.org"))
+  val engine = Engine.unknown
   def makeGame(g: chess.Game) =
     lila.core.game
       .newGame(
@@ -26,7 +28,7 @@ class AnnotatorTest extends munit.FunSuite:
       .sloppy
   val emptyPgn = Pgn(Tags.empty, InitialComments.empty, None, Ply.initial)
   def withAnnotator(pgn: Pgn) = pgn.copy(tags = pgn.tags + Tag(name = "Annotator", value = "l.org"))
-  val emptyAnalysis = Analysis(Analysis.Id(GameId("abcd")), Nil, Ply.initial, nowInstant, None, None)
+  val emptyAnalysis = Analysis(Analysis.Id(GameId("abcd")), Nil, Ply.initial, nowInstant, Engine.unknown)
   val emptyEval = Eval(none, none, none)
 
   val pgnStr = PgnStr("""1. a3 g6?! 2. g4""")

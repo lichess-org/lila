@@ -125,6 +125,7 @@ export interface StudyChapter {
 export interface StudyChapterServerEval {
   done: boolean;
   path: string;
+  version?: number;
 }
 
 interface StudyChapterSetup {

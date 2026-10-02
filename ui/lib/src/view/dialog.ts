@@ -1,5 +1,14 @@
 // no side effects allowed due to re-export by index.ts
 
+import {
+  attributesModule,
+  classModule,
+  eventListenersModule,
+  init,
+  propsModule,
+  styleModule,
+} from 'snabbdom';
+
 import { isTouchDevice } from '@/device';
 import { Janitor } from '@/event';
 import { frag } from '@/index';
@@ -17,18 +26,16 @@ export interface Dialog<Ctx = undefined> {
   readonly returnValue?: 'ok' | 'cancel' | string; // how did we close?
 
   show(): Promise<Dialog<Ctx>>; // promise resolves on close
-  updateActions(actions?: Action<Ctx> | Action<Ctx>[]): void; // set new actions or reattach existing if no args
+  updateActions(actions?: Action<Ctx> | Action<Ctx>[]): void; // set actions, or reattach existing ones if omitted
   close(returnValue?: string): void;
 }
+
+type CssAsset = { url: string } | { hashed: string };
 
 export interface DialogOpts<Ctx = undefined> {
   ctx?: Ctx;
   class?: string; // classes for your view div
-  css?: ({ url: string } | { hashed: string })[]; // hashed or full url css
-  htmlText?: string; // content, htmlText is inserted as fragment into DOM
-  cash?: Cash; // content, precedence over htmlText, cash will be cloned and any 'none' class removed
-  htmlUrl?: string; // content, precedence over htmlText and cash, url will be xhr'd
-  insert?: { nodes: Node | Node[]; selector?: string; position?: 'child' | 'before' | 'after' }[]; // 'child'
+  css?: CssAsset[]; // hashed or full url css
   attrs?: { dialog?: Attrs; view?: Attrs }; // optional attrs for dialog and view div
   focus?: string; // query selector for focus on show
   actions?: Action<Ctx> | Action<Ctx>[]; // add listeners to controls, call updateActions() to reattach
@@ -42,13 +49,25 @@ export interface DialogOpts<Ctx = undefined> {
 
 // show is an explicit property for domDialog.
 export interface DomDialogOpts<Ctx = undefined> extends DialogOpts<Ctx> {
-  parent?: Element; // for centering and dom placement, otherwise fixed on document.body
+  htmlText?: string; // content, htmlText is inserted as fragment into DOM
+  cash?: Cash; // content, precedence over htmlText, cash will be cloned and any 'none' class removed
+  htmlUrl?: string; // content, precedence over htmlText and cash, url will be xhr'd
+  insert?: { nodes: Node | Node[]; selector?: string; position?: 'child' | 'before' | 'after' }[]; // 'child'
+  parentEl?: Element; // parent for placement and centering; defaults to document.body
   show?: boolean; // show dialog immediately after construction
 }
 
 export interface SnabDialogOpts<Ctx = undefined> extends DialogOpts<Ctx> {
-  vnodes?: LooseVNodes; // content, overrides all other content properties
+  htmlUrl?: string; // legacy HTML content; ignored when vnodes are provided
+  vnodes?: LooseVNodes; // dialog content
   onInsert?: (dialog: Dialog<Ctx>) => void; // if provided you must call show
+}
+
+// unlike snabDialog, jsxDialog patches a standalone vdom root. don't call it from a render loop.
+//   jsx: (redraw, dialog) => <div>...</div>;
+export interface JsxDialogOpts<Ctx = undefined> extends DialogOpts<Ctx> {
+  render: (redraw: Redraw, dialog: Dialog<Ctx>) => LooseVNodes;
+  parentEl?: Element; // unmanaged parent for the VDOM root; defaults to document.body
 }
 
 export type ActionListener<T extends Event = Event, Ctx = undefined> = (
@@ -60,19 +79,25 @@ export type ActionListener<T extends Event = Event, Ctx = undefined> = (
 // Actions are listeners / results for controls
 // if no event is specified, then 'click' is assumed
 // if no selector is given, the handler is attached to the dialog-content view div
+// vdom dialogs reattach configured actions after each patch, so snab/jsx event listeners are preferred there
 export type Action<Ctx = undefined> =
   | { selector?: string; event?: string | string[]; listener: ActionListener<any, Ctx> }
   | { selector?: string; event?: string | string[]; result: string };
 
-// when opts contains 'show', domDialog function's result promise resolves on dialog closure.
-// otherwise, the promise resolves once assets are loaded and it is safe to call show
+// when opts contains 'show', domDialog resolves on closure
+// otherwise, domDialog resolves when assets are loaded and is ready to show
 export async function domDialog<Ctx = undefined>(o: DomDialogOpts<Ctx>): Promise<Dialog<Ctx>> {
-  const html = await loadAssets(o);
+  const html = await loadWithCss(
+    o.css,
+    o.htmlUrl
+      ? xhr.text(o.htmlUrl)
+      : Promise.resolve(o.cash?.clone().removeClass('none')[0]?.outerHTML ?? o.htmlText),
+  );
 
   const dialog = document.createElement('dialog');
   for (const [k, v] of Object.entries(o.attrs?.dialog ?? {})) dialog.setAttribute(k, String(v));
   if (isTouchDevice()) dialog.classList.add('touch-scroll');
-  if (o.parent) dialog.style.position = 'absolute';
+  if (o.parentEl) dialog.style.position = 'absolute';
 
   if (!o.noCloseButton) {
     const anchor = frag<Element>('<div class="close-button-anchor">');
@@ -90,7 +115,16 @@ export async function domDialog<Ctx = undefined>(o: DomDialogOpts<Ctx>): Promise
   scrollable.appendChild(view);
   dialog.appendChild(scrollable);
 
-  (o.parent ?? document.body).appendChild(dialog);
+  (o.parentEl ?? document.body).appendChild(dialog);
+
+  for (const app of o.insert ?? []) {
+    if (app.nodes === view) break;
+    const nodes = Array.isArray(app.nodes) ? app.nodes : [app.nodes];
+    const target = (app.selector ? view.querySelector(app.selector) : view)!;
+    if (app.position === 'before') target.before(...nodes);
+    else if (app.position === 'after') target.after(...nodes);
+    else target.append(...nodes);
+  }
 
   const wrapper = new DialogWrapper<Ctx>(dialog, view, o);
   return o.show ? wrapper.show() : wrapper;
@@ -98,7 +132,7 @@ export async function domDialog<Ctx = undefined>(o: DomDialogOpts<Ctx>): Promise
 
 export function snabDialog<Ctx = undefined>(o: SnabDialogOpts<Ctx>): VNode {
   let dialog: HTMLDialogElement;
-  const classes = o.class?.split(/[. ]/).filter(Boolean) ?? [];
+  let dlg: Dialog<Ctx> | undefined;
   const dialogVNode = hl(
     'dialog',
     {
@@ -119,15 +153,18 @@ export function snabDialog<Ctx = undefined>(o: SnabDialogOpts<Ctx>): VNode {
         hl(
           'div.dialog-content',
           {
-            class: Object.fromEntries(classes.map(c => [c, true])),
+            class: Object.fromEntries((o.class?.split(/[. ]/).filter(Boolean) ?? []).map(c => [c, true])),
             attrs: o.attrs?.view,
-            hook: onInsert(async view => {
-              const html = await loadAssets(o);
-              if (!o.vnodes && html) view.innerHTML = html;
-              const dlg = new DialogWrapper<Ctx>(dialog, view, o);
-              if (o.onInsert) o.onInsert(dlg);
-              else dlg.show();
-            }),
+            hook: {
+              ...onInsert(async view => {
+                const html = await loadWithCss(o.css, o.htmlUrl ? xhr.text(o.htmlUrl) : undefined);
+                if (!o.vnodes && html) view.innerHTML = html;
+                dlg = new DialogWrapper<Ctx>(dialog, view, o);
+                if (o.onInsert) o.onInsert(dlg);
+                else dlg.show();
+              }),
+              postpatch: () => o.actions && dlg?.updateActions(),
+            },
           },
           o.vnodes,
         ),
@@ -136,6 +173,33 @@ export function snabDialog<Ctx = undefined>(o: SnabDialogOpts<Ctx>): VNode {
   );
   if (!o.modal) return dialogVNode;
   return hl('div.snab-modal-mask', { class: { none: Boolean(o.onInsert) } }, dialogVNode);
+}
+
+export function jsxDialog<Ctx = undefined>(o: JsxDialogOpts<Ctx>): Redraw {
+  const patch = init([classModule, attributesModule, propsModule, eventListenersModule, styleModule]);
+  const { render, parentEl, onClose, ...dialogOpts } = o;
+
+  let vnode: VNode | Element = (parentEl ?? document.body).appendChild(document.createElement('div'));
+  let dialog: Dialog<Ctx> | undefined;
+
+  const redraw = () => {
+    if (!dialog) return;
+    vnode = patch(vnode, snabDialog({ ...dialogOpts, onClose, vnodes: render(redraw, dialog) }));
+  };
+  vnode = patch(
+    vnode,
+    snabDialog({
+      ...dialogOpts,
+      onClose,
+      onInsert: dlg => {
+        dialog = dlg;
+        if (parentEl) dialog.dialog.style.position = 'absolute';
+        redraw();
+        dialog.show();
+      },
+    }),
+  );
+  return redraw;
 }
 
 const easyCloseHandler = new (class {
@@ -215,14 +279,6 @@ class DialogWrapper<Ctx = undefined> implements Dialog<Ctx> {
         'click',
         () => this.close('cancel'),
       );
-    for (const app of o.insert ?? []) {
-      if (app.nodes === view) break;
-      const nodes = Array.isArray(app.nodes) ? app.nodes : [app.nodes];
-      const target = (app.selector ? view.querySelector(app.selector) : view)!;
-      if (app.position === 'before') target.before(...nodes);
-      else if (app.position === 'after') target.after(...nodes);
-      else target.append(...nodes);
-    }
     this.updateActions();
     this.dialogEvents.addListener(this.dialog, 'keydown', this.onKeydown);
   }
@@ -319,15 +375,13 @@ class DialogWrapper<Ctx = undefined> implements Dialog<Ctx> {
   };
 }
 
-async function loadAssets<Ctx>(o: DialogOpts<Ctx>): Promise<string> {
+async function loadWithCss<T = string>(css: CssAsset[] = [], value?: Promise<T>): Promise<T | undefined> {
   const results = await Promise.allSettled([
-    o.htmlUrl
-      ? xhr.text(o.htmlUrl)
-      : Promise.resolve(o.cash?.clone().removeClass('none')[0]?.outerHTML ?? o.htmlText),
+    value,
     site.asset.loadCssPath('bits.dialog'),
-    ...(o.css ?? []).map(css =>
-      'hashed' in css ? site.asset.loadCssPath(css.hashed) : site.asset.loadCss(css.url),
+    ...css.map(asset =>
+      'hashed' in asset ? site.asset.loadCssPath(asset.hashed) : site.asset.loadCss(asset.url),
     ),
   ]);
-  return (results[0]?.status === 'fulfilled' && results[0].value) || '';
+  return results[0]?.status === 'fulfilled' ? results[0].value : undefined;
 }

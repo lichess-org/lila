@@ -3,9 +3,12 @@
 $col1-panel-height: 30vh;
 $col2-panel-height: 240px;
 
-// show the request button even if analysis is disabled
-.comp-off .analyse__underboard:not(:has(.future-game-analysis)) .computer-analysis {
-  display: none !important;
+.comp-off .analyse__underboard__menu .computer-analysis {
+  opacity: 0.5;
+
+  &:hover {
+    opacity: 0.75;
+  }
 }
 
 .analyse__underboard {
@@ -76,13 +79,17 @@ $col2-panel-height: 240px;
     }
   }
 
-  .computer-analysis {
+  .computer-analysis.active,
+  .analyse-hunter & .computer-analysis {
+    display: flex;
+    place-content: start center;
+    align-items: start;
     position: relative;
-  }
+    gap: 2em;
 
-  .future-game-analysis {
-    text-align: center;
-    margin-top: 2em;
+    button {
+      margin-top: 2em;
+    }
   }
 
   .fen-pgn {

@@ -102,7 +102,7 @@ export class StockfishWebEngine implements CevalEngine {
 
   start = (work?: Work): void => this.protocol.compute(work);
   stop = (): void => this.protocol.compute(undefined);
-  engineName = (): string | undefined => this.protocol.engineName;
+  version = (): string | undefined => this.protocol.engineName;
   destroy = (): void => {
     this.module?.uci('quit');
     this.module = undefined;
