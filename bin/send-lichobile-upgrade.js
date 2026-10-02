@@ -12,7 +12,7 @@ async function letsGo() {
   });
   // const client = new MongoClient('mongodb://127.0.0.1:27017/lichess');
   const lichessUrl = 'https://lichess.org';
-  const dryRun = true;
+  const dryRun = false;
 
   const coll = client.db().collection('lm_user_recent_nomobile');
 
@@ -75,7 +75,7 @@ async function letsGo() {
 
     for await (const user of coll.find({ lang, ...unsent })) {
       chunk.push(user);
-      if (chunk.length >= 200) {
+      if (chunk.length >= 100) {
         await processUsers(chunk, lang);
         chunk.length = 0; // Clear the chunk
       }
