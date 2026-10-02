@@ -77,7 +77,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
           trans.site.nbFriendsOnline.plural(0, "")
         ),
         div(cls := "content list")
-      ),
+      )
     )
 
   def clinput(using ctx: Context) =
