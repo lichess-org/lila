@@ -1,14 +1,16 @@
 package lila.rating
 
-import chess.{ Speed, IntRating }
-import chess.rating.IntRatingDiff
-import scalalib.HeapSort.*
+import chess.IntRating
+import scalalib.HeapSort
 
 import lila.core.perf.{ KeyedPerf, Perf, PuzPerf, UserPerfs }
 import lila.core.user.LightPerf
 import lila.rating.PerfExt.*
+import scala.collection.View
 
 object UserPerfsExt:
+
+  extension (ps: View[Perf]) def sumNb: Int = ps.foldLeft(0)(_ + _.nb)
 
   extension (p: UserPerfs)
 
@@ -42,76 +44,36 @@ object UserPerfsExt:
     def hasEstablishedRating(pk: PerfKey) = p(pk).established
 
     def bestRatedPerf: Option[KeyedPerf] =
-      val ps = perfsList.filter(p => p._1 != PerfKey.puzzle && p._1 != PerfKey.standard)
-      val minNb = math.max(1, ps.foldLeft(0)(_ + _._2.nb) / 10)
-      ps
-        .foldLeft(none[(PerfKey, Perf)]):
-          case (ro, p) if p._2.nb >= minNb =>
-            ro.fold(p.some): r =>
-              Some(if p._2.intRating > r._2.intRating then p else r)
-          case (ro, _) => ro
+      val ps = perfsList.view.filter(p => p._1 != PerfKey.puzzle && p._1 != PerfKey.standard)
+      val minNb = (ps.map(_._2).sumNb / 10).atLeast(1)
+      ps.filter(_._2.nb >= minNb)
+        .maxByOption(_._2.intRating)
         .map(KeyedPerf.apply)
 
     def bestPerfs(nb: Int): List[KeyedPerf] =
-      val ps = PerfType.nonPuzzle.map: pt =>
-        pt.key -> apply(pt)
-      val minNb = math.max(1, ps.foldLeft(0)(_ + _._2.nb) / 15)
-      ps.filter(p => p._2.nb >= minNb).topN(nb).map(KeyedPerf.apply)
+      val ps = PerfType.nonPuzzle.view.map(pt => pt.key -> p(pt))
+      val minNb = (ps.map(_._2).sumNb / 15).atLeast(1)
+      HeapSort.topNToList(ps.filter(p => p._2.nb >= minNb), nb).map(KeyedPerf.apply)
 
     def bestRating: IntRating = bestRatingIn(PerfType.leaderboardable)
 
     def bestStandardRating: IntRating = bestRatingIn(PerfType.standard)
 
     def bestRatingIn(types: List[PerfKey]): IntRating =
-      val ps = types.map(p(_)) match
-        case Nil => List(p.standard)
-        case x => x
-      val minNb = ps.foldLeft(0)(_ + _.nb) / 10
-      ps.foldLeft(none[IntRating]):
-        case (ro, p) if p.nb >= minNb =>
-          ro.fold(p.intRating) { r =>
-            if p.intRating > r then p.intRating else r
-          }.some
-        case (ro, _) => ro
-      .getOrElse(lila.rating.Perf.default.intRating)
+      val ps = types.nonEmptyOption.map(_.view.map(p(_))) | List(p.standard).view
+      val minNb = ps.sumNb / 10
+      val minGames = ps.filter(_.nb >= minNb)
+      bestFromPerfs(minGames).intRating
 
-    def bestPerf(types: List[PerfKey]): Perf =
-      types
-        .map(p(_))
-        .foldLeft(none[Perf]):
-          case (ro, p) if ro.forall(_.intRating < p.intRating) => p.some
-          case (ro, _) => ro
-        .getOrElse(lila.rating.Perf.default)
+    def bestFromPerfs(types: Iterable[Perf]): Perf =
+      types.maxByOption(_.intRating) | lila.rating.Perf.default
 
-    def bestRatingInWithMinGames(types: List[PerfKey], nbGames: Int): Option[IntRating] =
-      types
-        .map(p(_))
-        .foldLeft(none[IntRating]):
-          case (ro, p) if p.nb >= nbGames && ro.forall(_ < p.intRating) => p.intRating.some
-          case (ro, _) => ro
-
-    def bestProgress: IntRatingDiff = bestProgressIn(PerfType.leaderboardable)
-
-    def bestProgressIn(types: List[PerfKey]): IntRatingDiff =
-      types.foldLeft[IntRatingDiff](IntRatingDiff(0)): (max, t) =>
-        val p = apply(t).progress
-        if p > max then p else max
-
-    def ratingOf(pt: PerfKey): IntRating = p(pt).intRating
-
-    def apply(perfType: PerfType): Perf = p(perfType.key)
-
-    def latest: Option[Instant] =
-      p.perfsList
-        .flatMap(_._2.latest)
-        .foldLeft(none[Instant]):
-          case (None, date) => date.some
-          case (Some(acc), date) if date.isAfter(acc) => date.some
-          case (acc, _) => acc
+    def bestPerf(types: List[PerfKey]): Perf = bestFromPerfs(types.view.map(p(_)))
 
     def dubiousPuzzle = UserPerfs.dubiousPuzzle(p)
 
-  private given [A]: Ordering[(A, Perf)] = Ordering.by[(A, Perf), Int](_._2.intRating.value)
+  private given Ordering[IntRating] = intOrdering
+  private given [A]: Ordering[(A, Perf)] = Ordering.by(_._2.intRating)
 
 object UserPerfs:
 
@@ -173,28 +135,6 @@ object UserPerfs:
       correspondence = bot,
       chess960 = bot
     )
-
-  def variantLens(variant: chess.variant.Variant): Option[UserPerfs => Perf] =
-    variant match
-      case chess.variant.Standard => Some(_.standard)
-      case chess.variant.Chess960 => Some(_.chess960)
-      case chess.variant.KingOfTheHill => Some(_.kingOfTheHill)
-      case chess.variant.ThreeCheck => Some(_.threeCheck)
-      case chess.variant.Antichess => Some(_.antichess)
-      case chess.variant.Atomic => Some(_.atomic)
-      case chess.variant.Horde => Some(_.horde)
-      case chess.variant.RacingKings => Some(_.racingKings)
-      case chess.variant.Crazyhouse => Some(_.crazyhouse)
-      case _ => none
-
-  def speedLens(speed: Speed): UserPerfs => Perf = perfs =>
-    speed match
-      case Speed.Bullet => perfs.bullet
-      case Speed.Blitz => perfs.blitz
-      case Speed.Rapid => perfs.rapid
-      case Speed.Classical => perfs.classical
-      case Speed.Correspondence => perfs.correspondence
-      case Speed.UltraBullet => perfs.ultraBullet
 
   import lila.db.BSON
   import lila.db.dsl.given
