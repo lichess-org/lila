@@ -64,12 +64,13 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
 </div>"""
 
   private def friendBox(using Translate) =
+    val titleTxt = trans.site.friends.txt()
     div(id := "friend_box")(
       button(
         tpe := "button",
         cls := "friend_box_button toggle link",
-        title := trans.site.friends.txt(),
-        aria.label := trans.site.friends.txt(),
+        title := titleTxt,
+        aria.label := titleTxt,
         dataIcon := Icon.Friends
       ),
       div(cls := "content_wrap dropdown")(
