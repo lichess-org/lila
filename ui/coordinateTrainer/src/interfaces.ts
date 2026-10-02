@@ -21,5 +21,3 @@ export interface CoordinateTrainerConfig {
 }
 
 export type CoordModifier = 'next' | 'current';
-
-export type Redraw = () => void;
