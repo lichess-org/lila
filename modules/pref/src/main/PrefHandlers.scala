@@ -84,7 +84,7 @@ private object PrefHandlers:
         usingAltSocket = r.getO("usingAltSocket"),
         sayGG = r.getD("sayGG", d.sayGG),
         hasDgt = r.getD("hasDgt", d.hasDgt),
-          favFed = r.getO[lila.core.fide.Federation.Id]("favFed"),
+        favFed = r.getO[lila.core.fide.Federation.Id]("favFed"),
         lobbyShortcuts = r.getO[JsValue]("lobbyShortcuts")
       )
 
@@ -136,6 +136,6 @@ private object PrefHandlers:
         "blogFilter" -> o.blogFilter.ordinal,
         "sayGG" -> o.sayGG,
         "hasDgt" -> o.hasDgt,
-          "favFed" -> o.favFed,
+        "favFed" -> o.favFed,
         "lobbyShortcuts" -> o.lobbyShortcuts
       )

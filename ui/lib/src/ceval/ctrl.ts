@@ -109,7 +109,7 @@ export class CevalCtrl {
     });
   }
 
-  private stopFromOtherTab = (): void => {
+  private readonly stopFromOtherTab = (): void => {
     if (this.isBackground || !this.worker) return;
     this.worker.destroy();
     this.worker = undefined; // release memory

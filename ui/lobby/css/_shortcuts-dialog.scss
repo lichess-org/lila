@@ -110,7 +110,7 @@ dialog:has(.shortcuts-dialog) {
   }
 
   .shortcut {
-    @include fluid-size-orientation('gap', 0px, 6px);
+    @include fluid-size-orientation('gap', 0px, 6px); /* stylelint-disable-line */
 
     view-transition-class: shortcut;
     padding: calc(var(---scale, 1) * 4px);
