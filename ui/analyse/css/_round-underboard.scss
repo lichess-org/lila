@@ -135,6 +135,8 @@ $col2-panel-height: 240px;
   position: absolute;
   bottom: 0;
   right: 1.5em;
+  padding: 0 0.4em;
+  background: $c-bg-box;
   pointer-events: none;
   font-family: Roboto, sans-serif;
 }
