@@ -7,7 +7,7 @@ import { parseSquare, makeSquare } from 'chessops/util';
 import type { On } from 'snabbdom';
 
 import { view as cevalView } from 'lib/ceval';
-import { displayColumns, isTouchDevice, hasFeature, isAndroid } from 'lib/device';
+import { displayColumns, isTouchDevice, hasFeature, isAndroid, isChrome } from 'lib/device';
 import { fenToEpd } from 'lib/game/chess';
 import { variants } from 'lib/game/perf';
 import { licon, type LiconValue } from 'lib/licon';
@@ -544,9 +544,8 @@ function fromImageButton(ctrl: EditorCtrl, icon?: LiconValue): MaybeVNode {
           const file = await new Promise<File | undefined>(resolve => {
             const input = document.createElement('input');
             input.type = 'file';
-            input.accept = 'image/*';
+            input.accept = isAndroid() && isChrome() ? 'image/*,application/x-nonexistent' : 'image/*';
             input.multiple = false;
-            if (isAndroid()) input.capture = 'environment';
             input.addEventListener('change', () => resolve(input.files?.[0]), { once: true });
             input.addEventListener('cancel', () => resolve(undefined), { once: true });
             input.click();
