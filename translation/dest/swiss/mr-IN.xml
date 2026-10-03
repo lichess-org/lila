@@ -37,8 +37,66 @@
   <string name="numberOfRoundsHelp">फेऱ्यांची संख्या विषम ठेवल्यास रंगांतील समतोल अधिक चांगला राहील.</string>
   <string name="roundInterval">फेऱ्यांमधील अंतर</string>
   <string name="forbiddenPairings">निषिद्ध जोड्या</string>
+  <string name="forbiddenPairingsHelp">ज्या खेळाडूंची जोडी बनवू नये (उदा. भावंडे), त्यांचे वापरकर्तानावे. प्रत्येक ओळीत दोन नावे, ज्यांच्यामध्ये एक रिकामी जागा असेल.</string>
+  <string name="manualPairings">पुढील फेरीत हाताने जोड्या बनवणे</string>
+  <string name="manualPairingsHelp">पुढील फेरीसाठी सर्व जोड्या स्वतः निश्चित करा. प्रत्येक ओळीत खेळाडूंची एक जोडी लिहा. उदाहरणार्थ:
+PlayerA PlayerB
+PlayerC PlayerD
+जोडी न बनवता एखाद्या खेळाडूला \'बाय\' (१ गुण) द्यायचा असल्यास, खालीलप्रमाणे ओळ लिहा:
+PlayerE 1
+ज्या खेळाडूंचा यात समावेश नसेल, त्यांना अनुपस्थित मानले जाईल आणि शून्य गुण दिले जातील.
+Lichess द्वारे आपोआप जोड्या तयार करण्यासाठी ही जागा रिकामी ठेवा.</string>
+  <string name="mustHavePlayedTheirLastSwissGame">त्यांनी त्यांचा स्विस पद्धतीचा शेवटचा सामना खेळला असणार </string>
+  <string name="mustHavePlayedTheirLastSwissGameHelp">केवळ अशाच खेळाडूंना सहभागी होऊ द्या ज्यांनी त्यांचा मागील स्विस सामना खेळला आहे. जर ते अलीकडील एखाद्या स्विस स्पर्धेला उपस्थित राहिले नसतील, तर त्यांना तुमच्या स्पर्धेत प्रवेश मिळणार नाही. यामुळे, प्रत्यक्ष उपस्थित राहणाऱ्या खेळाडूंना स्विस स्पर्धेचा अधिक चांगला अनुभव मिळतो.</string>
+  <string name="newSwiss">नवीन स्विस स्पर्धा</string>
+  <string name="swissVsArenaQ">अखाडा ऐवजी \'स्विस\' स्पर्धांचा वापर कधी करावा?</string>
+  <string name="swissVsArenaA">स्विस स्पर्धेत सर्व स्पर्धक समान संख्येचे सामने खेळतात आणि ते एकमेकांविरुद्ध केवळ एकदाच खेळू शकतात.
+मंडळ आणि अधिकृत स्पर्धांसाठी हा एक चांगला पर्याय ठरू शकतो.</string>
+  <string name="pointsCalculationQ">गुण कसे मोजले जातात?</string>
+  <string name="pointsCalculationA">विजयी खेळाडूला एक गुण, सामना बरोबरीत सुटल्यास अर्धा गुण आणि पराभव झाल्यास शून्य गुण मिळतात.
+एखाद्या फेरीदरम्यान जेव्हा खेळाडूची जोडी जुळवता येत नाही, तेव्हा त्याला \'बाय\' मिळतो आणि त्यासाठी एक गुण दिला जातो.</string>
+  <string name="tiebreaksCalculationQ">बरोबरीत संपलेल्या सामन्यांची गणना कशी केली जाते?</string>
+  <string name="sonnebornBergerScore">सोनबॉर्न-बर्जर गुणसंख्या</string>
+  <string name="tiebreaksCalculationA">%s बरोबर.
+खेळाडूने पराभूत केलेल्या प्रत्येक प्रतिस्पर्ध्याचे गुण आणि बरोबरीत सुटलेल्या सामन्यातील प्रत्येक प्रतिस्पर्ध्याच्या गुणांपैकी अर्धे गुण यांची बेरीज करा.</string>
+  <string name="pairingsQ">जोड्या कशा ठरवल्या जातात?</string>
   <string name="dutchSystem">डच प्रणाली</string>
   <string name="FIDEHandbook">FIDE हस्तपुस्तिका</string>
+  <string name="pairingsA">%3$s च्या अनुषंगाने, %2$s द्वारे अंमलात आणलेल्या %1$s सह.</string>
+  <string name="moreRoundsThanPlayersQ">जर स्पर्धेत खेळाडूंपेक्षा जास्त फेऱ्या असतील, तर काय होईल?</string>
+  <string name="moreRoundsThanPlayersA">सर्व संभाव्य जोड्यांचे सामने खेळून झाल्यावर स्पर्धा संपवली जाईल आणि विजेत्याची घोषणा केली जाईल.</string>
+  <string name="whyAreSwissTournamentsRestrictedToTeams">स्विस स्पर्धा केवळ संघांपुरत्याच मर्यादित का असतात?</string>
+  <string name="restrictedToTeamsA">स्विस स्पर्धांची रचना ऑनलाइन बुद्धिबळासाठी केलेली नव्हती. या स्पर्धांमध्ये खेळाडूंकडून वक्तशीरपणा, निष्ठा आणि संयम यांची अपेक्षा असते.
+आम्हाला वाटते की, जागतिक स्पर्धांच्या तुलनेत एखाद्या संघामध्ये या अटींची पूर्तता होण्याची शक्यता अधिक असते.</string>
+  <string name="numberOfByesQ">एका खेळाडूला किती \'बाय\' मिळू शकतात?</string>
+  <string name="numberOfByesA">जेव्हा जोड्या लावण्याच्या प्रणालीद्वारे एखाद्या खेळाडूसाठी जोडी जुळवता येत नाही, तेव्हा त्या खेळाडूला एक गुणाची \'बाय\' मिळते.
+याव्यतिरिक्त, एखादा खेळाडू स्पर्धेत उशिरा सामील झाल्यास त्याला अर्ध्या गुणाची \'बाय\' दिली जाते.</string>
+  <string name="earlyDrawsQ">सुरुवातीच्या टप्प्यावर सामने बरोबरीत सुटल्यास काय होते?</string>
+  <string name="earlyDrawsAnswer">स्विस खेळांमध्ये, ३० चाली खेळल्याशिवाय खेळाडू सामना बरोबरीत सोडवू शकत नाहीत. जरी या उपायामुळे पूर्वनियोजित बरोबरी टाळता येत नसली तरी, ऐनवेळी बरोबरीवर सहमत होणे अधिक कठीण होते.</string>
+  <string name="whatIfOneDoesntPlayQ">जर एखादा खेळाडू सामना खेळला नाही, तर काय होते?</string>
+  <string name="whatIfOneDoesntPlayA">त्यांची वेळ सुरू होईल, ती संपेल आणि ते सामना हरतील.
+त्यानंतर ही प्रणाली त्यांना स्पर्धेतून बाहेर काढेल, जेणेकरून ते आणखी सामने हरणार नाहीत.
+ते कोणत्याही वेळी स्पर्धेत पुन्हा सामील होऊ शकतील.</string>
+  <string name="protectionAgainstNoShowQ">न येणाऱ्या व्यक्तीं बाबत काय केले जाते?</string>
+  <string name="protectionAgainstNoShowA">जे खेळाडू स्विस स्पर्धांसाठी नोंदणी करतात पण प्रत्यक्षात सामने खेळत नाहीत, त्यांच्यामुळे समस्या निर्माण होऊ शकते.
+ही समस्या कमी करण्यासाठी, Lichess अशा खेळाडूंना काही काळासाठी नवीन स्विस स्पर्धांमध्ये सहभागी होण्यापासून तात्पुरते रोखते.
+तथापि, स्विस स्पर्धेचे आयोजन करणारी व्यक्ती त्यांना स्पर्धेत सहभागी होऊ देण्याचा निर्णय घेऊ शकते.</string>
+  <string name="lateJoinQ">खेळाडू उशिरा सामील होऊ शकतात का?</string>
+  <string name="lateJoinA">हो, जोपर्यंत निम्म्याहून अधिक फेऱ्या सुरू झालेल्या नाहीत, तोपर्यंत सहभागी होता येते. उदाहरणार्थ, ११ फेऱ्यांच्या स्विस स्पर्धेत, खेळाडू ६ वी फेरी सुरू होण्यापूर्वी सहभागी होऊ शकतात. १२ फेऱ्यांच्या स्पर्धेत, खेळाडू ७ वी फेरी सुरू होण्यापूर्वी सहभागी होऊ शकतात.
+उशिरा सहभागी होणाऱ्या खेळाडूंना - त्यांनी कितीही फेऱ्या गमावल्या असल्या तरीही - केवळ एकच \'बाय\' मिळतो.</string>
+  <string name="willSwissReplaceArenasQ">काय स्विस पद्धत अखाडा स्पर्धांची जागा घेईल?</string>
+  <string name="willSwissReplaceArenasA">नाही. ती पूरक वैशिष्ट्ये आहेत.</string>
+  <string name="canPlayRoundRobinTournaments" comment="roundRobinQ&#10;&#10;Round-robin is a simple tournament format with some similarities to Swiss. It is not supported by Lichess.">मी Lichess वर राउंड-रॉबिन स्पर्धा खेळू शकतो का?</string>
+  <string name="roundRobinA">आम्हाला ते समाविष्ट करायला आवडेल, पण दुर्दैवाने राऊंड रॉबिन ऑनलाइन चालत नाही.
+
+याचे कारण असे आहे की, स्पर्धेतून लवकर बाहेर पडणाऱ्या खेळाडूंना हाताळण्यासाठी यात कोणताही योग्य मार्ग नाही. ऑनलाइन स्पर्धेत सर्व खेळाडू त्यांचे सर्व सामने खेळतील अशी अपेक्षा आपण करू शकत नाही. ते शक्यच नाही, आणि परिणामी बहुतेक राऊंड रॉबिन स्पर्धा सदोष आणि अन्यायकारक ठरतील, ज्यामुळे त्यांच्या अस्तित्वाचे मूळ कारणच निष्फळ ठरेल.
+
+ऑनलाइन राऊंड रॉबिनच्या सर्वात जवळचा अनुभव घेण्यासाठी, तुम्ही खूप जास्त फेऱ्या असलेली स्विस स्पर्धा खेळू शकता. अशावेळी, स्पर्धा संपण्यापूर्वी सर्व संभाव्य जोड्या खेळल्या जातील.</string>
+  <string name="otherSystemsQ">इतर स्पर्धा पद्धतींबद्दल काय?</string>
+  <string name="otherSystemsA">सध्या Lichess वर आणखी स्पर्धा प्रणाली जोडण्याची आमची योजना नाही.</string>
+  <string name="swissDescription">स्विस प्रकारच्या स्पर्धेत %1$s, प्रत्येक स्पर्धक इतर सर्व स्पर्धकांशी खेळेलच असे नाही. प्रत्येक फेरीत स्पर्धक एकमेकांविरुद्ध खेळतात आणि त्यांच्या जोड्या अशा नियमांनुसार लावल्या जातात की, ज्यामुळे प्रत्येक स्पर्धकाचा सामना साधारणपणे समान गुणसंख्या असलेल्या प्रतिस्पर्ध्याशी होतो, मात्र एकाच प्रतिस्पर्ध्याशी पुन्हा सामना होत नाही. सर्व फेऱ्यांनंतर ज्या स्पर्धकाचे एकूण गुण सर्वाधिक असतात, तो विजेता ठरतो. खेळाडूंची संख्या विषम असल्यास अपवाद वगळता, सर्व स्पर्धक प्रत्येक फेरीत खेळतात.</string>
+  <string name="teamOnly">स्विस स्पर्धा केवळ संघ-प्रमुखच तयार करू शकतात आणि त्यांत केवळ संघाचे सदस्यच खेळू शकतात.
+स्विस स्पर्धांमध्ये खेळायला सुरुवात करण्यासाठी %1$s.</string>
   <string name="joinOrCreateTeam">संघ बनवा किंवा सामील व्हा</string>
   <string name="nowPlaying">आता चालू</string>
   <string name="startingSoon">लवकरच सुरू होत आहेत</string>
@@ -47,6 +105,29 @@
   <string name="predefinedDuration">पूर्वनिर्धारित अवधी मिनीटांत</string>
   <string name="durationUnknown">पूर्वनिर्धारित महत्तम फेऱ्या, पण अज्ञात अवधी</string>
   <string name="numberOfGames">खेळांची संख्या</string>
+  <string name="numberOfGamesAsManyAsPossible">दिलेल्या कालावधीत जेवढे खेळता येतील तितके</string>
+  <string name="numberOfGamesPreDefined">आधीच ठरवलेले, सर्व खेळाडूंसाठी समान</string>
+  <string name="pairingSystem">जोडी जुळवण्याची प्रणाली</string>
+  <string name="pairingSystemArena">समान मानांकन असलेला कोणताही उपलब्ध प्रतिस्पर्धी</string>
+  <string name="pairingSystemSwiss">गुण आणि समान-तोड आधारित सर्वोत्तम जोड्या</string>
+  <string name="pairingWaitTime">जोड्या बनवण्यासाठी लागणारा वेळ</string>
+  <string name="pairingWaitTimeArena">जलद: सर्व खेळाडूंची वाट पाहत नाही</string>
+  <string name="pairingWaitTimeSwiss">हळू: सर्व खेळाडूंची वाट पाहते</string>
+  <string name="identicalPairing">तंतोतंत जोडी</string>
+  <string name="possibleButNotConsecutive">शक्य, पण सलग नाही</string>
   <string name="identicalForbidden">निषिद्ध</string>
+  <string name="lateJoin">उशिरा सामील झाले</string>
+  <string name="lateJoinUntil">हो, जोपर्यंत निम्म्याहून अधिक फेऱ्या सुरू होणार नाहीत तोपर्यंत</string>
+  <string name="pause">थांबा</string>
+  <string name="pauseSwiss">हो पण ते फेऱ्यांची संख्या कमी करू शकते</string>
   <string name="streaksAndBerserk">विजयी मालिका आणि बेभान खेळ</string>
+  <string name="similarToOTB">प्रत्यक्ष स्पर्धांसारखे</string>
+  <string name="unlimitedAndFree">अमर्यादित आणि मोफत</string>
+  <string name="predefinedUsers">केवळ विशिष्ट खेळाडूंनाच सामील होण्याची परवानगी द्या</string>
+  <string name="predefinedUsersHelp">प्रत्येक ओळीवर एकच वापरकर्तानाव लिहा. केवळ या खेळाडूंनाच सहभागी होण्याची परवानगी असेल.
+सर्व पात्र खेळाडूंना परवानगी देण्यासाठी ही जागा रिकामी ठेवा.</string>
+  <string name="playYourGames">तुमचे खेळ खेळा</string>
+  <string name="byes">त्यागित</string>
+  <string name="absences">अनुपस्थिती</string>
+  <string name="tieBreak">बरोबरी तोडण्यासाठी खेळ</string>
 </resources>

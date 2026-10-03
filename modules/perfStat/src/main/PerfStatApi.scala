@@ -99,14 +99,14 @@ final class PerfStatApi(
             .coll[List[NbUsers]]: c =>
               c.aggregateList(maxDocs = Int.MaxValue): framework =>
                 import framework.*
-                Match($doc("perf" -> perfId)) -> List(
+                Match(bdoc("perf" -> perfId)) -> List(
                   Project(
-                    $doc(
+                    bdoc(
                       "_id" -> false,
-                      "r" -> $doc(
-                        "$subtract" -> $arr(
+                      "r" -> bdoc(
+                        "$subtract" -> barr(
                           "$rating",
-                          $doc("$mod" -> $arr("$rating", percentileOf.group))
+                          bdoc("$mod" -> barr("$rating", percentileOf.group))
                         )
                       )
                     )

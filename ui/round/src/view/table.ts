@@ -1,7 +1,7 @@
 import { h } from 'snabbdom';
 
 import { abortable, playable, drawableSwiss, resignable, takebackable, type TopOrBottom } from 'lib/game';
-import * as licon from 'lib/licon';
+import { licon, type LiconValue } from 'lib/licon';
 import { type LooseVNodes, hl, bind, toggleButton as boardMenuToggleButton, dataIcon } from 'lib/view';
 
 import type RoundController from '../ctrl';
@@ -47,7 +47,7 @@ const prompt = (ctrl: RoundController) => {
   const o = ctrl.question();
   if (!o) return {};
 
-  const btn = (tpe: 'yes' | 'no', icon: LiconType, text: string, action: () => void) =>
+  const btn = (tpe: 'yes' | 'no', icon: LiconValue, text: string, action: () => void) =>
     ctrl.nvui
       ? hl('button', { hook: bind('click', action) }, text)
       : hl(`a.${tpe}`, { attrs: dataIcon(icon), hook: bind('click', action) });
@@ -63,60 +63,60 @@ const prompt = (ctrl: RoundController) => {
 };
 
 export const renderTablePlay = (ctrl: RoundController): LooseVNodes => {
-  const d = ctrl.data,
-    loading = isLoading(ctrl),
-    { promptVNode, isQuestion } = prompt(ctrl),
-    icons =
-      loading || isQuestion
-        ? []
-        : [
-            abortable(d)
-              ? button.standard(ctrl, undefined, licon.X, i18n.site.abortGame, 'abort')
+  const d = ctrl.data;
+  const loading = isLoading(ctrl);
+  const { promptVNode, isQuestion } = prompt(ctrl);
+  const icons =
+    loading || isQuestion
+      ? []
+      : [
+          abortable(d)
+            ? button.standard(ctrl, undefined, licon.X, i18n.site.abortGame, 'abort')
+            : button.standard(
+                ctrl,
+                d => ({ enabled: takebackable(d) }),
+                licon.Back,
+                i18n.site.proposeATakeback,
+                'takeback-yes',
+                ctrl.takebackYes,
+              ),
+          ctrl.drawConfirm
+            ? button.drawConfirm(ctrl)
+            : ctrl.data.game.threefold
+              ? button.claimThreefold(ctrl, d => {
+                  const threefoldable = drawableSwiss(d);
+                  return {
+                    enabled: threefoldable,
+                    overrideHint: threefoldable ? undefined : i18n.site.noDrawBeforeSwissLimit,
+                  };
+                })
               : button.standard(
                   ctrl,
-                  d => ({ enabled: takebackable(d) }),
-                  licon.Back,
-                  i18n.site.proposeATakeback,
-                  'takeback-yes',
-                  ctrl.takebackYes,
+                  d => ({
+                    enabled: ctrl.canOfferDraw(),
+                    overrideHint: drawableSwiss(d) ? undefined : i18n.site.noDrawBeforeSwissLimit,
+                  }),
+                  licon.OneHalf,
+                  i18n.site.offerDraw,
+                  'draw-yes',
+                  () => ctrl.offerDraw(true),
                 ),
-            ctrl.drawConfirm
-              ? button.drawConfirm(ctrl)
-              : ctrl.data.game.threefold
-                ? button.claimThreefold(ctrl, d => {
-                    const threefoldable = drawableSwiss(d);
-                    return {
-                      enabled: threefoldable,
-                      overrideHint: threefoldable ? undefined : i18n.site.noDrawBeforeSwissLimit,
-                    };
-                  })
-                : button.standard(
-                    ctrl,
-                    d => ({
-                      enabled: ctrl.canOfferDraw(),
-                      overrideHint: drawableSwiss(d) ? undefined : i18n.site.noDrawBeforeSwissLimit,
-                    }),
-                    licon.OneHalf,
-                    i18n.site.offerDraw,
-                    'draw-yes',
-                    () => ctrl.offerDraw(true),
-                  ),
-            ctrl.resignConfirm
-              ? button.resignConfirm(ctrl)
-              : button.standard(
-                  ctrl,
-                  d => ({ enabled: resignable(d) }),
-                  licon.FlagOutline,
-                  i18n.site.resign,
-                  'resign',
-                  () => ctrl.resign(true),
-                ),
-            analysisButton(ctrl),
-            boardMenuToggleButton(ctrl.menu, i18n.site.menu),
-          ],
-    buttons = loading
-      ? [loader()]
-      : [promptVNode, button.opponentGone(ctrl), button.threefoldSuggestion(ctrl)];
+          ctrl.resignConfirm
+            ? button.resignConfirm(ctrl)
+            : button.standard(
+                ctrl,
+                d => ({ enabled: resignable(d) }),
+                licon.FlagOutline,
+                i18n.site.resign,
+                'resign',
+                () => ctrl.resign(true),
+              ),
+          analysisButton(ctrl),
+          boardMenuToggleButton(ctrl.menu, i18n.site.menu),
+        ];
+  const buttons = loading
+    ? [loader()]
+    : [promptVNode, button.opponentGone(ctrl), button.threefoldSuggestion(ctrl)];
   return [
     renderReplay(ctrl),
     hl('div.rcontrols', [

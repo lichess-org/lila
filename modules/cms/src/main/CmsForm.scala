@@ -25,7 +25,7 @@ final class CmsForm(langList: LangList):
     CmsForm.CmsPageData(
       key = page.key,
       title = page.title,
-      markdown = lila.common.MarkdownToastUi.latex.removeFrom(page.markdown),
+      markdown = lila.markdown.MarkdownToastUi.latex.removeFrom(page.markdown),
       language = page.language,
       live = page.live,
       canonicalPath = page.canonicalPath

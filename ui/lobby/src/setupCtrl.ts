@@ -2,20 +2,15 @@ import { INITIAL_FEN } from 'chessops/fen';
 
 import { type Prop, propWithEffect, toggle } from 'lib';
 import { debounce } from 'lib/async';
+import { variants } from 'lib/game/perf';
 import type { ColorChoice, ColorProp } from 'lib/setup/color';
-import {
-  allTimeModeKeys,
-  timeControlFromStoredValues,
-  timeModes,
-  type TimeControl,
-} from 'lib/setup/timeControl';
+import { timeModes, timeControlFromStoredValues, type TimeControl } from 'lib/setup/timeControl';
 import { storedJsonProp } from 'lib/storage';
 import { alert } from 'lib/view';
 import * as xhr from 'lib/xhr';
 
 import type LobbyController from './ctrl';
 import type { ForceSetupOptions, GameMode, GameType, PoolMember, SetupStore } from './interfaces';
-import { keyToId, variants } from './options';
 
 const getPerf = (variant: VariantKey, tc: TimeControl): Perf =>
   variant !== 'standard' && variant !== 'fromPosition' ? variant : tc.speed();
@@ -67,6 +62,7 @@ export default class SetupController {
       increment: 3,
       days: 2,
       gameMode: gameType === 'ai' || !this.root.me ? 'casual' : 'rated',
+      color: 'random',
       ratingMin: -500,
       ratingMax: 500,
       aiLevel: 1,
@@ -80,7 +76,7 @@ export default class SetupController {
     const canChangeTimeMode = !!this.root.me || this.gameType !== 'hook';
     this.timeControl = timeControlFromStoredValues(
       propWithEffect(forceOptions?.timeMode || storeProps.timeMode, this.onDropdownChange),
-      canChangeTimeMode ? allTimeModeKeys : ['realTime'],
+      canChangeTimeMode ? timeModes : ['realTime'],
       forceOptions?.time ?? storeProps.time,
       forceOptions?.increment ?? storeProps.increment,
       forceOptions?.days ?? storeProps.days,
@@ -91,7 +87,7 @@ export default class SetupController {
     this.ratingMin = this.propWithApply(storeProps.ratingMin);
     this.ratingMax = this.propWithApply(storeProps.ratingMax);
     this.aiLevel = this.propWithApply(storeProps.aiLevel);
-    this.color(forceOptions?.color || 'random');
+    this.color(forceOptions?.color || storeProps.color || 'random');
 
     this.enforcePropRules();
     // Upon loading the props from the store, overriding with forced options, and enforcing rules,
@@ -117,21 +113,27 @@ export default class SetupController {
     }
   };
 
-  private readonly savePropsToStore = (override: Partial<SetupStore> = {}) =>
-    this.gameType &&
+  private readonly savePropsToStore = (override: Partial<SetupStore> = {}) => {
+    if (!this.gameType) return;
+
+    // Don't persist position passed through URL
+    const prevSetup = this.forced?.fen ? this.store[this.gameType]() : undefined;
+
     this.store[this.gameType]({
-      variant: this.variant(),
-      fen: this.fen(),
+      variant: prevSetup?.variant ?? this.variant(),
+      fen: prevSetup?.fen ?? this.fen(),
       timeMode: this.timeControl.mode(),
       time: this.timeControl.time(),
       increment: this.timeControl.increment(),
       days: this.timeControl.days(),
       gameMode: this.gameMode(),
+      color: this.color(),
       ratingMin: this.ratingMin(),
       ratingMax: this.ratingMax(),
       aiLevel: this.aiLevel(),
       ...override,
     });
+  };
 
   private readonly savePropsToStoreExceptRating = () =>
     this.gameType &&
@@ -247,19 +249,14 @@ export default class SetupController {
 
   propsToFormData = (color: ColorChoice) =>
     xhr.form({
-      variant: keyToId(this.variant(), variants).toString(),
+      variant: variants.findIndex(v => v === this.variant()) + 1,
       fen: this.variant() === 'fromPosition' ? this.fen() : undefined,
-      timeMode: keyToId(this.timeControl.mode(), timeModes).toString(),
+      timeMode: timeModes.findIndex(tm => tm === this.timeControl.mode()),
       time: this.timeControl.time().toString(),
-      time_range: this.timeControl.timeV().toString(),
       increment: this.timeControl.increment().toString(),
-      increment_range: this.timeControl.incrementV().toString(),
       days: this.timeControl.days().toString(),
-      days_range: this.timeControl.daysV().toString(),
       mode: this.gameMode() === 'casual' ? '0' : '1',
       ratingRange: this.ratingRange(),
-      ratingRange_range_min: this.ratingMin().toString(),
-      ratingRange_range_max: this.ratingMax().toString(),
       level: this.aiLevel().toString(),
       color,
     });

@@ -1,6 +1,4 @@
-import { h } from 'snabbdom';
-
-import { bind, confirm } from 'lib/view';
+import { a, bind, button, confirm, div, h1, h2, img, span } from 'lib/view';
 
 import type { LearnCtrl } from './ctrl';
 import { BASE_LEARN_PATH, hashHref } from './hashRouting';
@@ -13,40 +11,24 @@ export function mapSideView(ctrl: LearnCtrl) {
   else return renderHome(ctrl.sideCtrl);
 }
 
+const helmImg = img(assetUrl + 'images/learn/brutal-helm.svg', '');
+
 function renderInStage(ctrl: SideCtrl) {
-  return h('div.learn__side-map', [
-    h('div.stages', [
-      h(
-        'a.back',
-        {
-          attrs: { href: BASE_LEARN_PATH },
-        },
-        [h('img', { attrs: { alt: '', src: assetUrl + 'images/learn/brutal-helm.svg' } }), i18n.site.menu],
-      ),
+  return div('.learn__side-map', [
+    div('.stages', [
+      a(BASE_LEARN_PATH)('.back', [helmImg(), i18n.site.menu]),
       ...categs.map((categ, categId) =>
-        h(
-          'div.categ',
-          {
-            class: { active: categId === ctrl.categId() },
-          },
-          [
-            h('h2', { hook: bind('click', () => ctrl.categId(categId)) }, categ.name),
-            h(
-              'div.categ_stages',
-              categ.stages.map(s => {
-                const result = ctrl.data.stages[s.key];
-                const status = s.id === ctrl.activeStageId() ? 'active' : result ? 'done' : 'future';
-                return h(
-                  `a.stage.${status}`,
-                  {
-                    attrs: { href: hashHref(s.id) },
-                  },
-                  [h('img', { attrs: { src: s.image } }), h('span', s.title)],
-                );
-              }),
-            ),
-          ],
-        ),
+        div('.categ', { class: { active: categId === ctrl.categId() } }, [
+          h2({ hook: bind('click', () => ctrl.categId(categId)) }, categ.name),
+          div(
+            '.categ_stages',
+            categ.stages.map(s => {
+              const result = ctrl.data.stages[s.key];
+              const status = s.id === ctrl.activeStageId() ? 'active' : result ? 'done' : 'future';
+              return a(hashHref(s.id))(`.stage.${status}`, [img(s.image, '')(), span(s.title)]);
+            }),
+          ),
+        ]),
       ),
     ]),
   ]);
@@ -54,24 +36,20 @@ function renderInStage(ctrl: SideCtrl) {
 
 function renderHome(ctrl: SideCtrl) {
   const progress = ctrl.progress();
-  return h('div.learn__side-home', [
-    h('div.learn__side-home__header', [
-      h('img.decoration', { attrs: { alt: '', src: assetUrl + 'images/learn/brutal-helm.svg' } }),
-      h('div.learn__side-home__title', [h('h1', i18n.learn.learnChess), h('h2', i18n.learn.byPlaying)]),
+  return div('.learn__side-home', [
+    div('.learn__side-home__header', [
+      helmImg('.decoration'),
+      div('.learn__side-home__title', [h1(i18n.learn.learnChess), h2(i18n.learn.byPlaying)]),
     ]),
-    h('div.progress', [
-      h('div.text', i18n.learn.progressX(progress + '%')),
-      h('div.bar', {
-        style: {
-          width: progress + '%',
-        },
-      }),
+    div('.progress', [
+      div('.text', i18n.learn.progressX(progress + '%')),
+      div('.bar', { style: { width: progress + '%' } }),
     ]),
     progress > 0
-      ? h(
-          'div.actions',
-          h(
-            'a.confirm',
+      ? div(
+          '.actions',
+          button(
+            '.confirm',
             {
               hook: bind('click', async () => {
                 if (await confirm(i18n.learn.youWillLoseAllYourProgress)) ctrl.reset();

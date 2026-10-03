@@ -25,7 +25,6 @@
   <string name="cantChangeMore">Ní féidir linn níos mó a athrú ná an cás. Ar chúiseanna teicniúla, tá sé dodhéanta go hiomlán.</string>
   <string name="orCloseAccount">Mar sin féin, is féidir leat do chuntas reatha a dhúnadh, agus ceann nua a chruthú.</string>
   <string name="wantClearHistory">Ba mhaith liom mo stair nó mo rátáil a ghlanadh</string>
-  <string name="cantClearHistory">Ní féidir stair do chluiche, stair bhfreagra, nó rátálacha a ghlanadh.</string>
   <string name="wantReport">Ba mhaith liom ficheallaí a thuairisciú</string>
   <string name="toReportAPlayerUseForm">Chun imreoir a thuairisciú, úsáid as an bhfoirm tuarascála</string>
   <string name="youCanAlsoReachReportPage">Is féidir leat an leathanach sin a fháil freisin tríd an cnaipe tuairiscithe %s a chliceáil ar leathanach próifíle.</string>
@@ -52,7 +51,7 @@
   <string name="knightMate">Is féidir marbhsháinn a dhéanamh le ridire nó easpag amháin, má tá níos mó ná rí ag an céile comhraic.</string>
   <string name="noRatingPoints">Níor bronnadh aon phointí rátála</string>
   <string name="ratedGame">Déan cinnte gur imir tú cluiche rátáilte. Ní dhéanann cluichí ócáideacha difear do rátálacha na n-imreoirí.</string>
-  <string name="botRatingAbuse" comment="The original English text was changed in March 2026, from &quot;if it is determined&quot; to &quot;if we determine&quot;.">In imthosca áirithe agus é ag imirt i gcoinne cuntas bot, ní fhéadfaidh cluiche rátáilte pointí a dhámhachtain má chinntear go bhfuil an t-imreoir ag mí-úsáid an bot le haghaidh pointí rátála.</string>
+  <string name="botRatingAbuse">In imthosca áirithe agus é ag imirt i gcoinne cuntas bot, ní fhéadfaidh cluiche rátáilte pointí a dhámhachtain má chinntear go bhfuil an t-imreoir ag mí-úsáid an bot le haghaidh pointí rátála.</string>
   <string name="errorPage">Leathanach earráide</string>
   <string name="reportErrorPage">Má thiteann tú ar leathanach earráide, féadfaidh tú é a thuairisciú:</string>
   <string name="banAppeal">Achomharc ar thoirmeasc nó srian IP</string>

@@ -25,7 +25,6 @@
   <string name="cantChangeMore">Nun podemos camudar más que les mayúscules/minúscules. Por razones técniques, ye totalmente imposible.</string>
   <string name="orCloseAccount">Sin embargo, puedes zarrar la to cuenta actual y crear una nueva.</string>
   <string name="wantClearHistory">Quiero borrar el mio historial o puntuación</string>
-  <string name="cantClearHistory">Nun puedes borrar el to historial de partíes, exercicios o puntuaciones.</string>
   <string name="wantReport">Quiero denunciar a un xugador</string>
   <string name="toReportAPlayerUseForm">Pa denunciar a un xugador utiliza el formulariu de denuncia</string>
   <string name="youCanAlsoReachReportPage">Tamién puedes aportar a esa páxina pulsiando el botón de denuncia %s nun perfil.</string>
@@ -52,7 +51,7 @@
   <string name="knightMate">Puedes facer xaque mate con namás un caballu o un alfil, si l\'oponente tien más qu\'un rei nel tableru.</string>
   <string name="noRatingPoints">Nun s\'otorgaron puntos</string>
   <string name="ratedGame">Asegúrate de xugar una partida por puntuación. Les partíes amistoses nun afecten a les puntuaciones de los xugadores.</string>
-  <string name="botRatingAbuse" comment="The original English text was changed in March 2026, from &quot;if it is determined&quot; to &quot;if we determine&quot;.">Al xugar contra una cuenta de bot, pue que una partida por puntos nun se contabilice si determinese que\'l xugador abusa del bot pa consiguir puntos.</string>
+  <string name="botRatingAbuse">Al xugar contra una cuenta de bot, pue que una partida por puntos nun se contabilice si determinese que\'l xugador abusa del bot pa consiguir puntos.</string>
   <string name="errorPage">Páxina d\'error</string>
   <string name="reportErrorPage">Si una páxina date error, puedes reportala:</string>
   <string name="learnHowToMakeBroadcasts">Apriende cómo facer les tos propies emisiones en Lichess</string>

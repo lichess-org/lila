@@ -53,7 +53,7 @@ final class PlanPages(helpers: Helpers)(fishnetPerDay: Int):
                 trans.features.deepXServerAnalysis(lila.ui.bits.engineFullName)
               ),
               tr(unlimited)(
-                trans.features.boardEditorAndAnalysisBoardWithEngine("Stockfish 16+ NNUE")
+                trans.features.boardEditorAndAnalysisBoardWithEngine("Stockfish 19")
               ),
               tr(unlimited)(
                 a(href := "https://lichess.org/blog/WN-gLzAAAKlI89Xn/thousands-of-stockfish-analysers")(

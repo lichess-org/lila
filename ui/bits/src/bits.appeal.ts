@@ -2,57 +2,99 @@ import { formToXhr } from 'lib/xhr';
 
 export function initModule(): void {
   if ($('.nav-tree').length) location.hash = location.hash || '#help-root';
-  $('select.appeal-presets').on('change', function (this: HTMLSelectElement, e: Event) {
+
+  $('.appeal-presets button').on('click', function (this: HTMLSelectElement, e: Event) {
     $(this)
       .parents('form')
-      .find('textarea')
-      .val((e.target as HTMLTextAreaElement).value);
+      .find('#form3-text')
+      .val((e.target as HTMLButtonElement).value);
   });
 
-  $('form.appeal__actions__slack').on('submit', (e: Event) => {
+  $('form.appeal__actions__zulip').on('submit', (e: SubmitEvent) => {
     const form = e.target as HTMLFormElement;
     formToXhr(form);
     $(form).find('button').text('Sent!').attr('disabled', 'true');
     return false;
   });
 
-  const isoDateRegex = /\b(\d{4}-\d{2}-\d{2})\b/g;
-  const now = new Date();
-  now.setHours(0, 0, 0, 0);
+  $('form select[name="months"]').on('click', function (this: HTMLSelectElement) {
+    if (this.value) (this.parentElement as HTMLFormElement).submit();
+  });
 
-  $('.appeal__msg--mod .appeal__msg__text').each(function (this: HTMLElement) {
-    const walker = document.createTreeWalker(this, NodeFilter.SHOW_TEXT);
+  initInfoStep();
+  initAccountsStep();
+}
 
-    let node: Text | null;
-    while ((node = walker.nextNode() as Text | null)) {
-      if (!node || !node.nodeValue) continue;
-      const text = node.nodeValue;
-      const matches = [...text.matchAll(isoDateRegex)];
-      if (matches.length === 0) continue;
+function initInfoStep(): void {
+  document.querySelectorAll<HTMLElement>('.appeal-info').forEach(root => {
+    const checkbox = root.querySelector<HTMLInputElement>('.appeal-info__agree input[type="checkbox"]');
+    const continueButton = root.querySelector<HTMLAnchorElement>('.appeal-info__continue');
+    if (!checkbox || !continueButton) return;
 
-      const frag = document.createDocumentFragment();
-      let lastIndex = 0;
+    const sync = () => continueButton.classList.toggle('disabled', !checkbox.checked);
+    checkbox.addEventListener('change', sync);
+    continueButton.addEventListener('click', e => {
+      if (!checkbox.checked) e.preventDefault();
+    });
+    sync();
+  });
+}
 
-      matches.forEach(match => {
-        const date = new Date(match[0]);
-        const color = date > now ? 'var(--c-bad)' : 'var(--c-good)';
+function initAccountsStep(): void {
+  document.querySelectorAll<HTMLElement>('.appeal-accounts').forEach(root => {
+    const leafId = root.dataset.leaf;
+    const onlyRadio = root.querySelector<HTMLInputElement>('.appeal-accounts__only');
+    const othersRadio = root.querySelector<HTMLInputElement>('.appeal-accounts__others-radio');
+    const othersText = root.querySelector<HTMLTextAreaElement>('textarea.appeal-accounts__others');
+    const forgotten = root.querySelector<HTMLInputElement>(
+      '.appeal-accounts__forgotten input[type="checkbox"]',
+    );
+    const household = root.querySelector<HTMLTextAreaElement>('.appeal-accounts__household');
+    const continueButton = root.querySelector<HTMLAnchorElement>('.appeal-accounts__continue');
+    if (!leafId || !onlyRadio || !othersRadio || !othersText || !forgotten || !household || !continueButton)
+      return;
 
-        frag.append(text.slice(lastIndex, match.index));
+    const canContinue = () =>
+      onlyRadio.checked || (othersRadio.checked && (othersText.value.trim().length > 0 || forgotten.checked));
 
-        const span = document.createElement('span');
-        span.style.color = color;
-        span.textContent = date.toLocaleDateString(undefined, {
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric',
-        });
+    const sync = () => {
+      const others = othersRadio.checked;
+      othersText.disabled = !others;
+      forgotten.disabled = !others;
+      if (!others) {
+        othersText.value = '';
+        forgotten.checked = false;
+      }
+      continueButton.classList.toggle('disabled', !canContinue());
+    };
 
-        frag.append(span);
-        lastIndex = match.index + match[0].length;
-      });
+    const copyToAppealForm = (): boolean => {
+      if (!canContinue()) return false;
+      const form = document.querySelector<HTMLFormElement>(`#help-${leafId} form`);
+      if (!form) return false;
+      const set = (name: string, value: string) => {
+        let input = form.querySelector<HTMLInputElement>(`input[name="${name}"]`);
+        if (!input) {
+          input = document.createElement('input');
+          input.type = 'hidden';
+          input.name = name;
+          form.appendChild(input);
+        }
+        input.value = value;
+      };
+      set('accounts.otherUsernames', othersRadio.checked ? othersText.value : '');
+      set('accounts.moreForgotten', forgotten.checked ? 'true' : 'false');
+      set('accounts.household', household.value);
+      return true;
+    };
 
-      frag.append(text.slice(lastIndex));
-      node.replaceWith(frag);
-    }
+    onlyRadio.addEventListener('change', sync);
+    othersRadio.addEventListener('change', sync);
+    othersText.addEventListener('input', sync);
+    forgotten.addEventListener('change', sync);
+    continueButton.addEventListener('click', e => {
+      if (!copyToAppealForm()) e.preventDefault();
+    });
+    sync();
   });
 }

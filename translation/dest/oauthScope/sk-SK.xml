@@ -21,7 +21,6 @@
   <string name="puzzleRead">Čítať aktivitu v šachových úlohách</string>
   <string name="teamRead">Čítať súkromné informácie o tímoch</string>
   <string name="teamWrite">Pripojiť sa k tímom alebo sa odpojiť</string>
-  <string name="teamLead">Spravujte tímy, ktoré vediete: posielajte súkromné správy, vyhadzujte členov</string>
   <string name="followRead">Čítať sledovaných hráčov</string>
   <string name="followWrite">Sledovať a zrušiť sledovanie iných hráčov</string>
   <string name="msgWrite">Posielať súkromné správy iným hráčom</string>

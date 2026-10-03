@@ -7,8 +7,7 @@ import lila.core.i18n.Translate
 import lila.core.team.LightTeam
 import lila.gathering.ui.GatheringFormUi
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class SimulFormUi(helpers: Helpers)(
     setupCheckboxes: (Field, Seq[(Any, String, Option[String])], Set[String]) => Frag,
@@ -25,7 +24,7 @@ final class SimulFormUi(helpers: Helpers)(
           h1(cls := "box__top")(trans.site.hostANewSimul()),
           postForm(cls := "form3", action := routes.Simul.create)(
             br,
-            p(trans.site.whenCreateSimul()),
+            p(trans.site.creatingASimul()),
             br,
             br,
             formContent(Right(form), teams, none),
@@ -122,7 +121,7 @@ final class SimulFormUi(helpers: Helpers)(
           form3.split(
             form3.group(
               form("clockExtra"),
-              trans.site.simulHostExtraTime(),
+              trans.site.extraClockTimeForHost(),
               help = trans.site.simulAddExtraTime().some,
               half = true
             )(

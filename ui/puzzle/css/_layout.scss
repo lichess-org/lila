@@ -1,4 +1,4 @@
-$puzzle-block-gap: $block-gap;
+$puzzle-block-gap: 4px;
 
 #main-wrap {
   ---main-max-width: calc(100vh - #{$site-header-outer-height} - #{$col1-uniboard-controls});
@@ -18,6 +18,14 @@ $puzzle-block-gap: $block-gap;
 .puzzle {
   grid-area: main;
   display: grid;
+  gap: calc($block-gap / 2) $puzzle-block-gap;
+
+  ---puzzle-gauge-col: #{$puzzle-block-gap};
+  ---puzzle-gauge-offset: calc(var(---puzzle-gauge-col) - #{$puzzle-block-gap});
+
+  &.gauge-on {
+    ---puzzle-gauge-col: calc(#{$puzzle-block-gap} * 3.75);
+  }
 
   &--nvui {
     display: block;
@@ -60,14 +68,18 @@ $puzzle-block-gap: $block-gap;
   }
 
   grid-template-areas: 'board' 'controls' 'tools' 'session' 'side' 'kb-move';
-  row-gap: $puzzle-block-gap;
 
   &__moves {
     display: none;
   }
 
   @include mq-at-least-col2 {
-    grid-template-columns: var(---col2-uniboard-width) $puzzle-block-gap $col2-uniboard-table;
+    grid-template-columns:
+      var(---col2-uniboard-width) var(---puzzle-gauge-col)
+      minmax(
+        calc(#{$col3-uniboard-table-min} - var(---puzzle-gauge-offset)),
+        calc(#{$col3-uniboard-table-max} - var(---puzzle-gauge-offset))
+      );
     grid-template-rows: fit-content(0);
     grid-template-areas:
       'board   gauge tools'
@@ -75,13 +87,22 @@ $puzzle-block-gap: $block-gap;
       'kb-move .     controls'
       'side    side  side';
 
+    &__tools {
+      height: var(---cg-height, 100%);
+    }
+
     &__moves {
       display: block;
     }
   }
 
   @include mq-is-col2-squeeze {
-    grid-template-columns: $col2-uniboard-squeeze-width $puzzle-block-gap $col2-uniboard-squeeze-table;
+    grid-template-columns:
+      $col2-uniboard-squeeze-width var(---puzzle-gauge-col)
+      minmax(
+        calc(#{$col2-uniboard-squeeze-table-min} - var(---puzzle-gauge-offset)),
+        calc(#{$col2-uniboard-squeeze-table-max} - var(---puzzle-gauge-offset))
+      );
   }
 
   @include mq-at-least-col3 {
@@ -92,12 +113,16 @@ $puzzle-block-gap: $block-gap;
       'side    . .       .     .';
     grid-template-columns:
       $col3-uniboard-side $puzzle-block-gap var(---col3-uniboard-width)
-      $puzzle-block-gap $col3-uniboard-table;
+      var(---puzzle-gauge-col)
+      minmax(
+        calc(#{$col3-uniboard-table-min} - var(---puzzle-gauge-offset)),
+        calc(#{$col3-uniboard-table-max} - var(---puzzle-gauge-offset))
+      );
   }
 
   &__side {
     display: grid;
-    gap: $puzzle-block-gap;
+    gap: $block-gap;
     grid-template-areas: 'user' 'theme' 'metas' 'config';
 
     .puzzle-replay & {

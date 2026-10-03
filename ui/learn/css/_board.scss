@@ -43,8 +43,8 @@
 
   @keyframes rank-glow {
     50% {
-      background-color: rgba(255, 255, 255, 0.5);
-      box-shadow: 0 0 40px rgba(255, 255, 255, 0.7);
+      background-color: rgb(255 255 255 / 0.5);
+      box-shadow: 0 0 40px rgb(255 255 255 / 0.7);
     }
   }
 
@@ -59,8 +59,8 @@
 
     @include inline-start(0);
 
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
-    background-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 15px rgb(255 255 255 / 0.2);
+    background-color: rgb(255 255 255 / 0.2);
     animation: 1s rank-glow ease-in-out infinite;
   }
 
@@ -102,8 +102,8 @@
     top: 14px;
     color: #fff;
     text-shadow:
-      0 0 9px rgba(0, 0, 0, 1),
-      0 0 4px rgba(0, 0, 0, 1);
+      0 0 9px rgb(0 0 0 / 1),
+      0 0 4px rgb(0 0 0 / 1);
     font-size: 30px;
     font-weight: bold;
   }

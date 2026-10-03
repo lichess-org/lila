@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichobileNewAppAvailable" comment="Part of a message sent to users of the old mobile app (https://github.com/lichess-org/lichobile).">新しい Lichess モバイルアプリができました！</string>
-  <string name="lichobileNewAppDownload" comment="%s links to https://lichess.org/app&#10;&#10;Part of a message sent to users of the old mobile app (https://github.com/lichess-org/lichobile).">新しい Lichess 公式アプリを %s からダウンロードしよう。</string>
+  <string name="lichobileNewAppAvailable">新しい Lichess モバイルアプリができました！</string>
+  <string name="lichobileNewAppDownload" comment="The parameter links to https://lichess.org/app">新しい Lichess 公式アプリを %s からダウンロードしよう。</string>
+  <string name="modActionFeedback">こんにちは、
+
+先日のあなたの通報内容を検討して対応しました。対応の内容は明かせませんが通報に感謝します。
+
+Lichess を誰もが気持ちよく遊べる場所にするため力を貸してくださってありがとう。</string>
 </resources>

@@ -95,8 +95,8 @@
   }
 
   .failure {
-    background: $m-bad_bg--mix-20;
-    box-shadow: 0 0 13px 6px $m-bad_bg--mix-20;
+    background: color-mix(in oklab, $c-bad 20%, $c-bg);
+    box-shadow: 0 0 13px 6px color-mix(in oklab, $c-bad 20%, $c-bg);
     border-radius: 0.5rem;
   }
 }

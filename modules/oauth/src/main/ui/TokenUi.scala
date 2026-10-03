@@ -4,8 +4,7 @@ package ui
 import play.api.data.Form
 
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class TokenUi(helpers: Helpers)(
     AccountPage: (String, String) => Context ?=> Page,
@@ -44,7 +43,7 @@ final class TokenUi(helpers: Helpers)(
           br,
           br,
           ot.apiDocumentationLinks(
-            a(href := "https://github.com/lichess-org/api/tree/master/example/oauth-personal-token")(
+            a(href := "https://github.com/lichess-org/api-demo/tree/master/example/oauth-personal-token")(
               ot.personalTokenAppExample()
             ),
             a(href := "/api")(ot.apiDocumentation())

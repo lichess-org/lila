@@ -1,0 +1,12 @@
+{
+  "name": "team",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "bits": "workspace:*",
+    "lib": "workspace:*"
+  },
+  "build": {
+    "bundle": "src/team.*ts"
+  }
+}

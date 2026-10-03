@@ -1,9 +1,10 @@
 import type { TreeNode } from 'lib/tree/types';
 import { type LooseVNodes, hl, type VNode } from 'lib/view';
 
-import type AnalyseCtrl from '../ctrl';
-import type { ConcealOf } from '../interfaces';
-import { renderIndex } from '../view/components';
+import type AnalyseCtrl from '@/ctrl';
+import type { ConcealOf } from '@/interfaces';
+import { renderIndex } from '@/view/components';
+
 import { InlineView, type Args } from './inlineView';
 
 export function renderColumnView(ctrl: AnalyseCtrl, concealOf: ConcealOf = () => () => null): VNode {
@@ -33,11 +34,11 @@ class ColumnView extends InlineView {
   }
 
   renderNodes([child, ...siblings]: TreeNode[], opts: Args): LooseVNodes {
-    if (!child) return;
+    if (!child) return undefined;
     const { parentPath, parentDisclose } = opts;
     const childPath = parentPath + child.id;
     const conceal = opts.conceal ?? this.concealOf(true)(childPath, child);
-    if (conceal === 'hide') return;
+    if (conceal === 'hide') return undefined;
     const emptyMove = () => hl('move.empty', { class: { conceal: conceal === 'conceal' } }, '...');
     const isWhite = child.ply % 2 === 1;
     const comments = this.commentNodes(child, { conceal: conceal === 'conceal' });

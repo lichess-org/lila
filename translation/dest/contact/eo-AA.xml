@@ -25,7 +25,6 @@
   <string name="cantChangeMore">Ni ne povas ŝanĝi pli ol la kazon. Pro teknikaj kialoj, ĝi estas tute neebla.</string>
   <string name="orCloseAccount">Tamen vi povas fermi vian nunan konton kaj krei novan.</string>
   <string name="wantClearHistory">Mi volas forigi mian historion aŭ poentaron</string>
-  <string name="cantClearHistory">Ne eblas malplenigi vian ludan historion, puzlan historion aŭ poentaron.</string>
   <string name="wantReport">Mi volas raporti ludanton</string>
   <string name="toReportAPlayerUseForm">Por raporti ludanton, uzu la formularon por raportoj</string>
   <string name="youCanAlsoReachReportPage">Vi ankaŭ povas atingi tiun paĝon alklakante la raportan butonon %s en profilpaĝo.</string>
@@ -52,7 +51,7 @@
   <string name="knightMate">Eblas ŝakmati nur per ĉevalo aŭ kuriero, se la kontraŭulo havas pli ol reĝon sur la tabulo.</string>
   <string name="noRatingPoints">Neniuj taksadpunktoj estis aljuĝitaj</string>
   <string name="ratedGame">Certigu, ke vi ludis taksitan ludon. Kazaj ludoj ne influas la taksojn de ludantoj.</string>
-  <string name="botRatingAbuse" comment="The original English text was changed in March 2026, from &quot;if it is determined&quot; to &quot;if we determine&quot;.">En certaj cirkonstancoj kiam ludanta kontraŭ robotkonto, ranga ludo eble ne aljuĝas poentojn se estas determinite ke la ludanto misuzas la roboton por rangaj poentoj.</string>
+  <string name="botRatingAbuse">En certaj cirkonstancoj kiam ludanta kontraŭ robotkonto, ranga ludo eble ne aljuĝas poentojn se estas determinite ke la ludanto misuzas la roboton por rangaj poentoj.</string>
   <string name="errorPage">Erara paĝo</string>
   <string name="reportErrorPage">Se vi trovas eraran paĝon, vi povas raporti ĝin:</string>
   <string name="learnHowToMakeBroadcasts">Lerni kiel fari viajn proprajn elsendojn ĉe Lichess</string>

@@ -1,4 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="zeroAdsAndNoTracking">Nulis reklamos, jokio sekimo</string>
+  <string name="correspondenceWithConditionalPremoves">Korespondenciniai šachmatai su sąlyginiais išankstiniais ėjimais</string>
+  <string name="standardChessAndX" comment="%s is 8 variants">Standartiniai šachmatai bei %s</string>
+  <string name="deepXServerAnalysis" comment="%s is the engine name">Gili „%s“ serverio analizė</string>
+  <string name="boardEditorAndAnalysisBoardWithEngine" comment="%s is the engine name (Stockfish, Fairy-Stockfish)">Lentų rengyklė ir analizės lenta su „%s“</string>
+  <string name="cloudEngineAnalysis">Nuotolinio variklio analizė</string>
+  <string name="studies">Studijos (pasidalinama ir išliekanti analizė)</string>
+  <string name="chessInsights">Šachmatų įžvalgos (detali jūsų žaidimo analizė)</string>
+  <string name="allChessBasicsLessons">Visos šachmatų pradmenų pamokos</string>
+  <string name="tacticalPuzzlesFromUserGames">Taktiniai galvosūkiai iš žaidėjų partijų</string>
+  <string name="personalOpeningExplorerX">%1$s (taip pat veikia su %2$s)</string>
+  <string name="personalOpeningExplorer">Asmeninė debiutų naršyklė</string>
+  <string name="globalOpeningExplorerInNbGames">Visuotinė debiutų naršyklė (%s partijų!)</string>
+  <string name="endgameTablebase">7 figūrų endšpilių duomenų bazė</string>
+  <string name="downloadOrUploadAnyGameAsPgn">Bet kurios partijos parsisiuntimas/įkėlimas PGN formatu</string>
+  <string name="tvForumBlogTeamsMessagingFriendsChallenges">Tinklaraštis, diskusijos, komandos, TV, susirašinėjimai, draugai, iššūkiai</string>
+  <string name="lightOrDarkThemeCustomBoardsPiecesAndBackground">Šviesi/tamsi tema, tinkintos lentos, figūros, ir fonas</string>
+  <string name="ultraBulletBulletBlitzRapidClassicalAndCorrespondenceChess">Ultra kulkos, kulkos, žaibo, greitieji, klasikiniai, korespondenciniai šachmatai</string>
+  <string name="allFeaturesToCome">Visas būsimas funkcionalumas, amžinai!</string>
+  <string name="landscapeSupportOnApp">iPhone bei Android telefonai ir plnašetės, peizažo režimas</string>
+  <string name="everybodyGetsAllFeaturesForFree">Taip, abi paskyros turi vienodas galimybes!</string>
+  <string name="weBelieveEveryChessPlayerDeservesTheBest">Mes tikime, kad kiekvienas šachmatų žaidėjas nusipelno geriausio, todėl:</string>
+  <string name="allFeaturesAreFreeForEverybody">Viso funkcijos yra visiems nemokamos, amžinai!</string>
+  <string name="ifYouLoveLichess">Jei mylite „Lichess“,</string>
+  <string name="supportUsWithAPatronAccount">Paremkite mus su Patron paskyra!</string>
 </resources>

@@ -2,8 +2,8 @@ package lila.oauth
 
 import play.api.libs.json.*
 import reactivemongo.api.bson.*
-import reactivemongo.akkastream.cursorProducer
-import akka.stream.scaladsl.Source
+import reactivemongo.pekkostream.cursorProducer
+import org.apache.pekko.stream.scaladsl.Source
 import scalalib.net.{ Bearer, UserAgent }
 
 import lila.common.Json.given
@@ -15,21 +15,21 @@ final class AccessTokenApi(
     coll: Coll,
     cacheApi: lila.memo.CacheApi,
     userApi: lila.core.user.UserApi
-)(using Executor, akka.stream.Materializer):
+)(using Executor, org.apache.pekko.stream.Materializer):
 
   import OAuthScope.given
   import AccessToken.{ BSONFields as F, given }
 
   private def createAndRotate(token: AccessToken): Fu[AccessToken] = for
     oldDocs <- coll
-      .find($doc(F.userId -> token.userId, F.clientOrigin -> token.clientOrigin), $doc(F.id -> true).some)
-      .sort($doc(F.usedAt -> -1, F.created -> -1))
+      .find(bdoc(F.userId -> token.userId, F.clientOrigin -> token.clientOrigin), bdoc(F.id -> true).some)
+      .sort(bdoc(F.usedAt -> -1, F.created -> -1))
       .skip(30)
       .cursor[Bdoc](ReadPref.sec)
       .listAll()
     oldIds = oldDocs.flatMap { _.getAsOpt[AccessTokenId](F.id) }
     _ <- oldIds.nonEmpty.so:
-      coll.delete.one($doc(F.id.$in(oldIds))).void
+      coll.delete.one(bdoc(F.id.in(oldIds))).void
     _ <- coll.insert.one(token)
   yield
     lila.common.Bus.pub(AccessToken.Create(token))
@@ -60,16 +60,19 @@ final class AccessTokenApi(
     yield res
 
   def create(granted: AccessTokenRequest.Granted)(using ua: UserAgent): Fu[AccessToken] =
+    create(granted.userId, granted.scopes, granted.redirectUri.origin)
+
+  def create(userId: UserId, scopes: TokenScopes, origin: Origin)(using ua: UserAgent): Fu[AccessToken] =
     val plain = Bearer.random()
     createAndRotate:
       AccessToken(
         id = AccessToken.idFrom(plain),
         plain = plain,
-        userId = granted.userId,
+        userId = userId,
         description = None,
         created = nowInstant.some,
-        scopes = granted.scopes,
-        clientOrigin = granted.redirectUri.origin.some,
+        scopes = scopes,
+        clientOrigin = origin.some,
         userAgent = ua.some,
         expires = nowInstant.plusMonths(12).some
       )
@@ -83,7 +86,7 @@ final class AccessTokenApi(
     tokens <- users.sequentially: user =>
       coll
         .one[AccessToken]:
-          $doc(
+          bdoc(
             F.userId -> user.id,
             F.clientOrigin -> setup.description,
             F.scopes -> scope.key
@@ -123,11 +126,11 @@ final class AccessTokenApi(
   def listPersonal(using me: MyId): Fu[List[AccessToken]] =
     coll
       .find:
-        $doc(
+        bdoc(
           F.userId -> me,
-          F.clientOrigin -> $exists(false)
+          F.clientOrigin -> exists(false)
         )
-      .sort($sort.desc(F.created)) // c.f. isBrandNew
+      .sort(sort.desc(F.created)) // c.f. isBrandNew
       .cursor[AccessToken]()
       .list(100)
 
@@ -136,15 +139,15 @@ final class AccessTokenApi(
       .aggregateList(30): framework =>
         import framework.*
         Match(
-          $doc(
+          bdoc(
             F.userId -> user,
-            F.scopes.$in(OAuthScope.relevantToMods.value.map(_.key)),
-            F.usedAt.$exists(true)
+            F.scopes.in(OAuthScope.relevantToMods.value.map(_.key)),
+            F.usedAt.exists(true)
           )
         ) -> List(
           Sort(Descending(F.usedAt)),
           Group(
-            $doc(
+            bdoc(
               F.scopes -> s"$$${F.scopes}",
               F.description -> s"$$${F.description}",
               F.clientOrigin -> s"$$${F.clientOrigin}"
@@ -156,17 +159,17 @@ final class AccessTokenApi(
 
   def countPersonal(using me: MyId): Fu[Int] =
     coll.countSel:
-      $doc(
+      bdoc(
         F.userId -> me,
-        F.clientOrigin -> $exists(false)
+        F.clientOrigin -> exists(false)
       )
 
   def findCompatiblePersonal(scopes: OAuthScopes)(using me: MyId): Fu[Option[AccessToken]] =
     coll.one[AccessToken]:
-      $doc(
+      bdoc(
         F.userId -> me,
-        F.clientOrigin -> $exists(false),
-        F.scopes.$all(scopes.value)
+        F.clientOrigin -> exists(false),
+        F.scopes.all(scopes.value)
       )
 
   def listClients(limit: Int)(using me: MyId): Fu[List[AccessTokenApi.Client]] =
@@ -174,9 +177,9 @@ final class AccessTokenApi(
       .aggregateList(limit): framework =>
         import framework.*
         Match(
-          $doc(
+          bdoc(
             F.userId -> me,
-            F.clientOrigin -> $exists(true)
+            F.clientOrigin -> exists(true)
           )
         ) -> List(
           Unwind(path = F.scopes, includeArrayIndex = None, preserveNullAndEmptyArrays = Some(true)),
@@ -196,12 +199,12 @@ final class AccessTokenApi(
         yield AccessTokenApi.Client(origin, usedAt, scopes)
 
   def revokeById(id: AccessTokenId)(using me: MyId): Funit =
-    for _ <- coll.delete.one($doc(F.id -> id, F.userId -> me))
+    for _ <- coll.delete.one(bdoc(F.id -> id, F.userId -> me))
     yield onRevoke(id)
 
   def revokeAllByUser(userId: UserId): Funit =
     coll
-      .find($doc(F.userId -> userId))
+      .find(bdoc(F.userId -> userId))
       .cursor[AccessToken]()
       .documentSource()
       .mapAsyncUnordered(4)(token => revokeById(token.id)(using userId.into(MyId)))
@@ -211,7 +214,7 @@ final class AccessTokenApi(
   def revokeByClientOrigin(clientOrigin: Origin)(using me: MyId): Funit =
     coll
       .find(
-        $doc(
+        bdoc(
           F.userId -> me,
           F.clientOrigin -> clientOrigin
         )
@@ -222,14 +225,14 @@ final class AccessTokenApi(
       .run()
       .void
 
-  def userIdsByClientOrigin(clientOrigin: Origin): Source[UserId, ?] =
+  def userIdsByClientOrigin(clientOrigin: Origin, seenSince: FiniteDuration): Source[UserId, ?] =
     coll
       .aggregateWith[Bdoc](readPreference = ReadPref.sec): framework =>
         import framework.*
         List(
-          Match($doc(F.clientOrigin -> clientOrigin)),
+          Match(bdoc(F.clientOrigin -> clientOrigin, F.usedAt.gt(nowInstant.minus(seenSince)))),
           Group(BSONNull)("u" -> AddFieldToSet("userId")),
-          Project($doc("_id" -> 0)),
+          Project(bdoc("_id" -> 0)),
           Unwind("u")
         )
       .documentSource()
@@ -239,16 +242,16 @@ final class AccessTokenApi(
     coll
       .aggregateOne(readPref = _.sec): framework =>
         import framework.*
-        Match($doc(F.clientOrigin -> clientOrigin) ++ F.usedAt.$gt(since)) -> List(
+        Match(bdoc(F.clientOrigin -> clientOrigin) ++ F.usedAt.gt(since)) -> List(
           Group(BSONNull)("u" -> AddFieldToSet("userId")),
-          Project($doc("_id" -> 0))
+          Project(bdoc("_id" -> 0))
         )
       .map:
         _.headOption.so(_.getAsOpt[List[UserId]]("u")).orZero
 
   def revoke(bearer: Bearer) =
     val id = AccessToken.idFrom(bearer)
-    for _ <- coll.delete.one($id(id)) yield onRevoke(id)
+    for _ <- coll.delete.one(bid(id)) yield onRevoke(id)
 
   private[oauth] def get(bearer: Bearer) = accessTokenCache.get(AccessToken.idFrom(bearer))
 
@@ -271,21 +274,21 @@ final class AccessTokenApi(
       lila.mon.security.secretScanning(scan.`type`, scan.source, compromised.isDefined).increment()
       compromised match
         case Some(token) =>
-          logger.branch("github").info(s"revoking token ${token.plain} for user ${token.userId}")
+          logger.info(s"github revoking token ${token.plain} for user ${token.userId}")
           revoke(token.plain).inject((token, scan.url).some)
         case None =>
-          logger.branch("github").info(s"ignoring token ${scan.token}")
+          logger.info(s"github ignoring token ${scan.token}")
           fuccess(none)
   yield res.flatten
 
   private val accessTokenCache =
-    cacheApi[AccessTokenId, Option[AccessToken.ForAuth]](8_192, "oauth.access_token"):
+    cacheApi[AccessTokenId, Option[AccessToken.ForAuth]](16_384, "oauth.access_token"):
       _.expireAfterWrite(5.minutes).buildAsyncFuture(fetchAccessToken)
 
   private def fetchAccessToken(id: AccessTokenId): Fu[Option[AccessToken.ForAuth]] =
     coll.findAndUpdateSimplified[AccessToken.ForAuth](
-      selector = $id(id),
-      update = $set(F.usedAt -> nowInstant),
+      selector = bid(id),
+      update = set(F.usedAt -> nowInstant),
       fields = AccessToken.forAuthProjection.some
     )
 

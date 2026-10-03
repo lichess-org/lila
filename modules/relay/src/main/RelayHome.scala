@@ -12,18 +12,14 @@ final class RelayHomeApi(listing: RelayListing, pager: RelayPager, jsonView: Rel
     using scheduler: Scheduler
 ):
 
-  private def home: Fu[RelayHome] = for
+  def get: Fu[RelayHome] = for
     active <- listing.active
     past <- pager.inactive(1)
     (recent, reallyPast) = stealRecentFromPast(past.currentPageResults)
   yield RelayHome(active, recent, past.withCurrentPageResults(reallyPast))
 
-  def get(page: Int): Fu[RelayHome | Paginator[WithLastRound]] =
-    if page == 1 then home
-    else pager.inactive(page)
-
   def getJson(page: Int)(using RelayJsonView.Config, Translate): Fu[JsObject] =
-    if page == 1 then home.map(jsonView.home)
+    if page == 1 then get.map(jsonView.home)
     else pager.inactive(page).map(jsonView.top(Nil, _))
 
   private def stealRecentFromPast(past: Seq[WithLastRound]): (List[WithLastRound], List[WithLastRound]) =

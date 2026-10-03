@@ -1,7 +1,7 @@
 import type { ChartGame, AcplChart } from 'chart';
 
 import { escapeHtml } from 'lib';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { pubsub } from 'lib/pubsub';
 import { storage } from 'lib/storage';
 import { spinnerHtml, domDialog, alert, confirm } from 'lib/view';
@@ -11,15 +11,15 @@ import type AnalyseCtrl from './ctrl';
 import type { AnalyseData } from './interfaces';
 import { baseUrl } from './view/util';
 
-export const stockfishName = 'Stockfish 18';
+export const stockfishName = 'Stockfish 19';
 
 export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
   $(element).replaceWith(ctrl.opts.$underboard);
-  const data = ctrl.data,
-    $panels = $('.analyse__underboard__panels > div'),
-    $menu = $('.analyse__underboard__menu'),
-    inputFen = document.querySelector<HTMLInputElement>('.analyse__underboard__fen input'),
-    positionGifLink = document.querySelector<HTMLAnchorElement>('.position-gif a');
+  const data = ctrl.data;
+  const $panels = $('.analyse__underboard__panels > div');
+  const $menu = $('.analyse__underboard__menu');
+  const inputFen = document.querySelector<HTMLInputElement>('.analyse__underboard__fen input');
+  const positionGifLink = document.querySelector<HTMLAnchorElement>('.position-gif a');
   let lastInputHash: string;
   let advChart: AcplChart;
   let timeChartLoaded = false;
@@ -128,7 +128,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
         return false;
       }
       // ensure the analysis tab remains visible, if it was only displayed to render the request button
-      ctrl.showFishnetAnalysis(true);
+      ctrl.settings.set('showStaticAnalysis', true);
       ctrl.redraw();
       xhrTextRaw(this.action, { method: this.method }).then(res => {
         if (res.ok) startAdvantageChart();
@@ -143,8 +143,8 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
   }
 
   $panels.on('click', '.pgn', function (this: HTMLElement) {
-    const selection = window.getSelection(),
-      range = document.createRange();
+    const selection = window.getSelection();
+    const range = document.createRange();
     range.selectNodeContents(this);
     const currentlyUnselected = selection!.isCollapsed;
     selection!.removeAllRanges();
@@ -159,6 +159,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     domDialog({
       modal: true,
       show: true,
+      easyClose: 'clickOutside',
       htmlText:
         '<div><strong style="font-size:1.5em">' +
         $(this).html() +

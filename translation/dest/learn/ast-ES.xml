@@ -89,7 +89,7 @@ garrando la pieza qu\'ataca al rei.</string>
   <string name="thisKnightIsCheckingThroughYourDefenses">¡Esti caballu ta dándote xaque
 per enriba de las tos defenses!</string>
   <string name="escapeOrBlock">¡Escapa col rei o bloquia l\'ataque!</string>
-  <string name="outOfCheckComplete" comment="A brief description indicating that the user has reached the end of the out of check chapter.&#10;&#10;Note: In March 2026, this was changed from &quot;can never be taken&quot; to &quot;must never be taken&quot;.">¡Felicidaes! Nun puedes dexar que garren el to rei, ¡ten les tos defenses llistes pa un xaque!</string>
+  <string name="outOfCheckComplete">¡Felicidaes! Nun puedes dexar que garren el to rei, ¡ten les tos defenses llistes pa un xaque!</string>
   <string name="mateInOne">Xaque mate n\'una</string>
   <string name="defeatTheOpponentsKing">Derrota al rei enemigu</string>
   <string name="mateInOneIntro">Ganes cuando el to oponente nun pue defendese d\'un xaque.</string>
@@ -116,6 +116,7 @@ Al llau de la dama.</string>
 Mueve cualquier pieza pa siguir.</string>
   <string name="boardSetupComplete">¡Felicidaes! Yá sabes cómo asitiar les pieces nel tableru.</string>
   <string name="castling">Enroque</string>
+  <string name="enPassant">Garrar al pasu</string>
   <string name="theSpecialKingMove">El movimientu especial del rei</string>
   <string name="castlingIntro">¡Pon al to rei a salvo y esplega la to torre para atacar!</string>
   <string name="castleKingSide">Mueve\'l to rei dos casielles pa facer un enroque curtiu!</string>

@@ -10,7 +10,7 @@ export default function (start: (opts: AnalyseOpts) => AnalyseApi) {
     cfg.$underboard = $('.analyse__underboard').clone();
     cfg.socketSend = wsConnect(socketUrl, cfg.data.player.version, {
       params: {
-        userTv: cfg.data.userTv && cfg.data.userTv.id,
+        userTv: cfg.data.userTv?.id,
       },
       receive(t: string, d: any) {
         analyse.socketReceive(t, d);

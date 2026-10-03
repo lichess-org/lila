@@ -53,23 +53,23 @@ object Theme extends ThemeObject:
 object Theme3d extends ThemeObject:
 
   val all = List(
-    Theme("Woodi", "Woodi.png", Featured.Yes), // 13/8
-    Theme("Black-White-Aluminium", "Black-White-Aluminium.png", Featured.Yes), // 15/5
-    Theme("Brushed-Aluminium", "Brushed-Aluminium.png"), // 5/16
-    Theme("China-Blue", "China-Blue.png", Featured.Yes), // 11/10
-    Theme("China-Green", "China-Green.png", Featured.Yes), // 18/3
-    Theme("China-Grey", "China-Grey.png", Featured.Yes), // 17/4
-    Theme("China-Scarlet", "China-Scarlet.png", Featured.Yes), // 13/7
-    Theme("China-Yellow", "China-Yellow.png"), // 5/15
-    Theme("Classic-Blue", "Classic-Blue.png"), // 5/15
-    Theme("Gold-Silver", "Gold-Silver.png"), // 9/11
-    Theme("Green-Glass", "Green-Glass.png"), // 1/19
-    Theme("Light-Wood", "Light-Wood.png", Featured.Yes), // 18/1
-    Theme("Power-Coated", "Power-Coated.png", Featured.Yes), // 11/9
-    Theme("Purple-Black", "Purple-Black.png"), // 5/15
-    Theme("Rosewood", "Rosewood.png", Featured.Yes), // 12/8
-    Theme("Wood-Glass", "Wood-Glass.png"), // 3/16
-    Theme("Marble", "Marble.png", Featured.Yes), // 14/4
-    Theme("Wax", "Wax.png", Featured.Yes), // 9/11 (featured for an even 12)
-    Theme("Jade", "Jade.png", Featured.Yes) // 10/9
+    Theme("Woodi", "Woodi.webp", Featured.Yes), // 13/8
+    Theme("Black-White-Aluminium", "Black-White-Aluminium.webp", Featured.Yes), // 15/5
+    Theme("Brushed-Aluminium", "Brushed-Aluminium.webp"), // 5/16
+    Theme("China-Blue", "China-Blue.webp", Featured.Yes), // 11/10
+    Theme("China-Green", "China-Green.webp", Featured.Yes), // 18/3
+    Theme("China-Grey", "China-Grey.webp", Featured.Yes), // 17/4
+    Theme("China-Scarlet", "China-Scarlet.webp", Featured.Yes), // 13/7
+    Theme("China-Yellow", "China-Yellow.webp"), // 5/15
+    Theme("Classic-Blue", "Classic-Blue.webp"), // 5/15
+    Theme("Gold-Silver", "Gold-Silver.webp"), // 9/11
+    Theme("Green-Glass", "Green-Glass.webp"), // 1/19
+    Theme("Light-Wood", "Light-Wood.webp", Featured.Yes), // 18/1
+    Theme("Power-Coated", "Power-Coated.webp", Featured.Yes), // 11/9
+    Theme("Purple-Black", "Purple-Black.webp"), // 5/15
+    Theme("Rosewood", "Rosewood.webp", Featured.Yes), // 12/8
+    Theme("Wood-Glass", "Wood-Glass.webp"), // 3/16
+    Theme("Marble", "Marble.webp", Featured.Yes), // 14/4
+    Theme("Wax", "Wax.webp", Featured.Yes), // 9/11 (featured for an even 12)
+    Theme("Jade", "Jade.webp", Featured.Yes) // 10/9
   )

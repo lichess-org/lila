@@ -11,6 +11,8 @@ trait GameHelper:
 
   protected val namer: Namer
 
+  def gameOpening: (Game, Boolean) => Option[_root_.chess.opening.Opening]
+
   def titleGame(g: Game) =
     val speed = chess.Speed(g.clock.map(_.config)).name
     val variant = g.variant.exotic.so(s" ${g.variant.name}")
@@ -107,54 +109,10 @@ trait GameHelper:
             (player.ratingDiff.ifTrue(withDiff && ctx.pref.showRatings)).map { d =>
               frag(" ", showRatingDiff(d))
             },
-            tosMark(engine)
+            engine.option(span(cls := "tos_violation", title := trans.site.thisAccountViolatedTos.txt()))
           ),
           statusIcon
         )
-
-  def lightPlayerLink(
-      player: LightPlayer,
-      cssClass: Option[String] = None,
-      withOnline: Boolean = true,
-      withRating: Boolean = true,
-      withDiff: Boolean = true,
-      engine: Boolean = false,
-      withBerserk: Boolean = false,
-      mod: Boolean = false,
-      link: Boolean = true
-  )(using ctx: Context): Frag =
-    val statusIcon = (withBerserk && player.berserk).option(berserkIconSpan)
-    player.userId.flatMap(lightUserSync) match
-      case None =>
-        val klass = cssClass.so(" " + _)
-        span(cls := s"user-link$klass")(
-          player.aiLevel.fold(trans.site.anonymous())(aiNameFrag),
-          player.rating.ifTrue(withRating && ctx.pref.showRatings).map { rating => s" ($rating)" },
-          statusIcon
-        )
-      case Some(user) =>
-        frag(
-          (if link then a else span) (
-            cls := userClass(user.id, cssClass, withOnline),
-            (if link then href
-             else dataHref) := s"${routes.User.show(user.name)}${if mod then "?mod" else ""}"
-          )(
-            withOnline.option(frag(lineIcon(user), " ")),
-            playerUsername(
-              player,
-              user.some,
-              withRating = withRating && ctx.pref.showRatings
-            ),
-            (player.ratingDiff.ifTrue(withDiff && ctx.pref.showRatings)).map { d =>
-              frag(" ", showRatingDiff(d))
-            },
-            tosMark(engine)
-          ),
-          statusIcon
-        )
-
-  private def tosMark(mark: Boolean)(using Translate): Option[Tag] =
-    mark.option(span(cls := "tos_violation", title := trans.site.thisAccountViolatedTos.txt()))
 
   def gameResult(game: Game) =
     Outcome.showResult(game.finished.option(Outcome(game.winnerColor)))

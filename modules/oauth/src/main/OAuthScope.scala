@@ -21,8 +21,6 @@ object TokenScopes extends TotalWrapper[TokenScopes, List[OAuthScope]]:
   extension (e: TokenScopes)
     def intersects(other: OAuthScopes): Boolean = e.exists(other.contains)
     def has(s: OAuthScope.Selector): Boolean = e.contains(s(OAuthScope))
-    def mobile: Boolean = has(_.Web.Mobile)
-    def takex3: Boolean = has(_.Web.Takex3)
 
 opaque type EndpointScopes = List[OAuthScope]
 object EndpointScopes extends TotalWrapper[EndpointScopes, List[OAuthScope]]:
@@ -52,6 +50,7 @@ object OAuthScope:
     case object Write extends OAuthScope("study:write", trans.studyWrite)
 
   object Tournament:
+    case object Read extends OAuthScope("tournament:read", trans.tournamentRead)
     case object Write extends OAuthScope("tournament:write", trans.tournamentWrite)
 
   object Racer:
@@ -59,12 +58,12 @@ object OAuthScope:
 
   object Puzzle:
     case object Read extends OAuthScope("puzzle:read", trans.puzzleRead)
-    case object Write extends OAuthScope("puzzle:write", I18nKey("Solve puzzles"))
+    case object Write extends OAuthScope("puzzle:write", trans.puzzleWrite)
 
   object Team:
     case object Read extends OAuthScope("team:read", trans.teamRead)
     case object Write extends OAuthScope("team:write", trans.teamWrite)
-    case object Lead extends OAuthScope("team:lead", trans.teamLead)
+    case object Lead extends OAuthScope("team:lead", trans.manageTeamsYouLead)
 
   object Follow:
     case object Read extends OAuthScope("follow:read", trans.followRead)
@@ -72,6 +71,9 @@ object OAuthScope:
 
   object Msg:
     case object Write extends OAuthScope("msg:write", trans.msgWrite)
+
+  object Note:
+    case object Write extends OAuthScope("note:write", trans.readWriteNotesOnPlayers)
 
   object Board:
     case object Play extends OAuthScope("board:play", trans.boardPlay)
@@ -105,6 +107,7 @@ object OAuthScope:
     Challenge.Bulk,
     Study.Read,
     Study.Write,
+    Tournament.Read,
     Tournament.Write,
     Racer.Write,
     Puzzle.Read,
@@ -115,6 +118,7 @@ object OAuthScope:
     Follow.Read,
     Follow.Write,
     Msg.Write,
+    Note.Write,
     Board.Play,
     Bot.Play,
     Engine.Read,
@@ -125,14 +129,15 @@ object OAuthScope:
   )
 
   val classified: List[(I18nKey, List[OAuthScope])] = List(
-    I18nKey("User account") -> List(Email.Read, Preference.Read, Preference.Write, Web.Mod),
-    I18nKey("Interactions") -> List(Follow.Read, Follow.Write, Msg.Write),
-    I18nKey("Play games") -> List(Challenge.Read, Challenge.Write, Challenge.Bulk, Tournament.Write),
-    I18nKey("Teams") -> List(Team.Read, Team.Write, Team.Lead),
-    I18nKey("Puzzles") -> List(Puzzle.Read, Puzzle.Write, Racer.Write),
-    I18nKey("Studies & Broadcasts") -> List(Study.Read, Study.Write),
-    I18nKey("External play") -> List(Board.Play, Bot.Play),
-    I18nKey("External engine") -> List(Engine.Read, Engine.Write)
+    trans.oauthCatUserAccount -> List(Email.Read, Preference.Read, Preference.Write, Web.Mod),
+    trans.oauthCatInteractions -> List(Follow.Read, Follow.Write, Msg.Write, Note.Write),
+    trans.oauthCatPlayGames -> List(Challenge.Read, Challenge.Write, Challenge.Bulk),
+    lila.core.i18n.I18nKey.team.teams -> List(Team.Read, Team.Write, Team.Lead),
+    lila.core.i18n.I18nKey.puzzle.puzzles -> List(Puzzle.Read, Puzzle.Write, Racer.Write),
+    lila.core.i18n.I18nKey.site.tournaments -> List(Tournament.Read, Tournament.Write),
+    trans.oauthCatStudiesBroadcasts -> List(Study.Read, Study.Write),
+    trans.oauthCatExternalPlay -> List(Board.Play, Bot.Play),
+    trans.oauthCatExternalEngine -> List(Engine.Read, Engine.Write)
   )
 
   val dangerList: OAuthScopes = OAuthScope.select(
@@ -162,8 +167,17 @@ object OAuthScope:
 
   def canUseWebMod(using Option[Me]) =
     import lila.core.perm.*
-    List[Permission.Selector](_.Shusher, _.BoostHunter, _.CheatHunter, _.StudyAdmin, _.ApiChallengeAdmin)
+    List[Permission.Selector](
+      _.Shusher,
+      _.BoostHunter,
+      _.CheatHunter,
+      _.StudyAdmin,
+      _.ApiChallengeAdmin,
+      _.UserModView
+    )
       .exists(Granter.opt)
+
+  val dgtScopes = select(_.Challenge.Read, _.Challenge.Write, _.Preference.Read, _.Msg.Write, _.Board.Play)
 
   import reactivemongo.api.bson.*
   import lila.db.dsl.*

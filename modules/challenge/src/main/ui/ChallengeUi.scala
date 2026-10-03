@@ -9,8 +9,7 @@ import lila.core.game.GameRule
 import lila.core.user.WithPerf
 import lila.core.relation.Relation
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class ChallengeUi(helpers: Helpers):
   import helpers.{ *, given }

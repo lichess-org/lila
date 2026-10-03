@@ -27,11 +27,9 @@
   <string name="downloadAllRounds">دابەزاندنی ھەموو خولەکان</string>
   <string name="resetRound">دەسکاری کردنی ئەم خولە</string>
   <string name="deleteRound">سڕینەوەی ئەم خولە</string>
-  <string name="definitivelyDeleteRound">بە دڵنیاییەوە خولەکە و یاریەکانی بسڕەوە.</string>
   <string name="deleteAllGamesOfThisRound">هەموو یارییەکانی ئەم خولە بسڕەوە. سەرچاوەکە پێویستی بە چالاکبوون دەبێت بۆ ئەوەی دووبارە دروستیان بکاتەوە.</string>
   <string name="editRoundStudy">دەسکاری کردنی خولی فێربون</string>
   <string name="deleteTournament">ئەم پاڵەوانێتییە بسڕەوە</string>
-  <string name="definitivelyDeleteTournament">بە دڵنیاییەوە تەواوی پاڵەوانێتییەکە و هەموو خولەکانی و هەموو یارییەکانی بسڕەوە.</string>
   <string name="showScores">نمرەکانی یاریزانان پیشان بدە بە پشتبەستن بە ئەنجامی یارییەکان</string>
   <string name="replacePlayerTags">ئارەزوومەندانە: گۆڕینی ناوی یاریزانان، هەڵسەنگاندن و نازناوەکان</string>
   <string name="fideFederations">فیدراسیۆنی FIDE</string>

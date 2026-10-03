@@ -12,10 +12,11 @@ import {
 } from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 
-import { winningChances } from 'lib/ceval';
+import { defined } from 'lib';
+import { renderEval, winningChances } from 'lib/ceval';
 import { plyToTurn } from 'lib/game/chess';
 import { pubsub } from 'lib/pubsub';
-import type { TreeNode, TreeNodeIncomplete } from 'lib/tree/types';
+import type { TreeNodeBase } from 'lib/tree/types';
 
 import division from './division';
 import {
@@ -36,7 +37,7 @@ Chart.register(LineController, LinearScale, PointElement, LineElement, Tooltip, 
 export default async function (
   el: HTMLCanvasElement,
   data: AnalyseData,
-  mainline: TreeNodeIncomplete[],
+  mainline: TreeNodeBase[],
 ): Promise<AcplChart> {
   const possibleChart = maybeChart(el);
   if (possibleChart) return possibleChart as AcplChart;
@@ -45,11 +46,11 @@ export default async function (
   const ply = plyLine(0);
   const divisionLines = division(data.game.division);
   const firstPly = mainline[0].ply;
-  const isPartial = (d: AnalyseData) => !d.analysis || d.analysis.partial;
+  const isPartial = (d: AnalyseData) => !d.analysis || !!d.analysis.partial;
 
   const makeDataset = (
     d: AnalyseData,
-    mainline: TreeNodeIncomplete[],
+    mainline: TreeNodeBase[],
   ): { acpl: ChartDataset<'line'>; moveLabels: string[]; adviceHoverColors: string[] } => {
     const pointBackgroundColors: (
       | typeof orangeAccent
@@ -66,13 +67,13 @@ export default async function (
     mainline.slice(1).map(node => {
       const isWhite = (node.ply & 1) === 1;
       let cp: number | undefined = node.eval && 0;
-      if (node.eval && node.eval.mate) cp = node.eval.mate > 0 ? Infinity : -Infinity;
+      if (node.eval?.mate) cp = node.eval.mate > 0 ? Infinity : -Infinity;
       else if (node.san?.includes('#')) cp = isWhite ? Infinity : -Infinity;
       if (cp && d.game.variant.key === 'antichess' && node.san?.includes('#')) cp = -cp;
       else if (node.eval?.cp) cp = node.eval.cp;
       const turn = plyToTurn(node.ply);
       const dots = isWhite ? '.' : '...';
-      const winchance = winningChances.povChances('white', { cp: cp });
+      const winchance = winningChances.povChances('white', { cp });
       // Plot winchance because logarithmic but display the corresponding cp.eval from AnalyseData in the tooltip
       winChances.push({ x: node.ply, y: winchance });
 
@@ -111,8 +112,8 @@ export default async function (
         order: 5,
         datalabels: { display: false },
       },
-      moveLabels: moveLabels,
-      adviceHoverColors: adviceHoverColors,
+      moveLabels,
+      adviceHoverColors,
     };
   };
 
@@ -152,18 +153,7 @@ export default async function (
             label: item => {
               const ev = mainline[item.dataIndex + 1]?.eval;
               if (!ev) return ''; // Pos is mate
-              let e = 0,
-                mateSymbol = '',
-                advantageSign = '';
-              if (ev.cp) {
-                e = Math.max(Math.min(Math.round(ev.cp / 10) / 10, 99), -99);
-                if (ev.cp > 0) advantageSign = '+';
-              }
-              if (ev.mate) {
-                e = ev.mate;
-                mateSymbol = '#';
-              }
-              return i18n.site.advantage + ': ' + mateSymbol + advantageSign + e;
+              return i18n.site.advantage + ': ' + (defined(ev.mate) ? '#' + ev.mate : renderEval(ev.cp!));
             },
             title: items => (items[0] ? moveLabels[items[0].dataIndex] : ''),
           },
@@ -177,7 +167,7 @@ export default async function (
   };
   const acplChart = new Chart(el, config) as AcplChart;
   acplChart.selectPly = selectPly.bind(acplChart);
-  acplChart.updateData = (d: AnalyseData, mainline: TreeNode[]) => {
+  acplChart.updateData = (d: AnalyseData, mainline: TreeNodeBase[]) => {
     const dataset = makeDataset(d, mainline);
     adviceHoverColors = dataset.adviceHoverColors;
     const acpl = dataset.acpl;
@@ -192,7 +182,7 @@ export default async function (
 }
 
 type Advice = 'blunder' | 'mistake' | 'inaccuracy';
-const glyphProperties = (node: TreeNodeIncomplete): { advice?: Advice; color?: string } => {
+const glyphProperties = (node: TreeNodeBase): { advice?: Advice; color?: string } => {
   if (node.glyphs?.some(g => g.id === 4)) return { advice: 'blunder', color: '#db3031' };
   else if (node.glyphs?.some(g => g.id === 2)) return { advice: 'mistake', color: '#e69d00' };
   else if (node.glyphs?.some(g => g.id === 6)) return { advice: 'inaccuracy', color: '#4da3d5' };
@@ -201,9 +191,10 @@ const glyphProperties = (node: TreeNodeIncomplete): { advice?: Advice; color?: s
 
 const toBlurArray = (player: Player) => player.blurs?.bits?.split('') ?? [];
 
-function christmasTree(chart: AcplChart, mainline: TreeNodeIncomplete[], hoverColors: string[]) {
+function christmasTree(chart: AcplChart, mainline: TreeNodeBase[], hoverColors: string[]) {
   $('div.advice-summary')
     .on('mouseenter', 'div.symbol', function (this: HTMLElement) {
+      if (!chart.canvas.isConnected) return;
       const symbol = this.getAttribute('data-symbol');
       const playerColorBit = this.getAttribute('data-color') === 'white' ? 1 : 0;
       const acplDataset = chart.data.datasets[0];
@@ -220,6 +211,7 @@ function christmasTree(chart: AcplChart, mainline: TreeNodeIncomplete[], hoverCo
       }
     })
     .on('mouseleave', 'div.symbol', function (this: HTMLElement) {
+      if (!chart.canvas.isConnected) return;
       chart.setActiveElements([]);
       chart.data.datasets[0].pointHoverBackgroundColor = orangeAccent;
       chart.data.datasets[0].pointBorderColor = orangeAccent;

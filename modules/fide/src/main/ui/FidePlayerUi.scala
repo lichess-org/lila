@@ -54,12 +54,12 @@ final class FidePlayerUi(helpers: Helpers, fideUi: FideUi, picfitUrl: lila.memo.
       )
     )
 
-  def searchForm(q: String) =
+  def searchForm(q: String)(using Translate) =
     st.form(cls := "fide-players__search-form", action := routes.Fide.index(), method := "get")(
       input(
         cls := "fide-players__search-form__input",
         name := "q",
-        st.placeholder := "Search for players",
+        st.placeholder := trs.search.txt(),
         st.value := q,
         autofocus := true,
         autocomplete := "off",
@@ -191,14 +191,15 @@ final class FidePlayerUi(helpers: Helpers, fideUi: FideUi, picfitUrl: lila.memo.
                 th(trb.fideProfile()),
                 td(a(href := s"https://ratings.fide.com/profile/${player.id}")(player.id))
               ),
-              tr(
-                th(trb.age()),
-                td(
-                  player.age,
-                  for by <- player.year; dy <- player.deceasedYear
-                  yield s" ($by - $dy)"
+              player.age.map: age =>
+                tr(
+                  th(trb.age()),
+                  td(
+                    age,
+                    for by <- player.year; dy <- player.deceasedYear
+                    yield s" ($by - $dy)"
+                  )
                 )
-              )
             )
           )
         )

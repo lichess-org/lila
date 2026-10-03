@@ -30,17 +30,11 @@
   <string name="willBeReviewed">உங்கள் சேர்வதற்கான கோரிக்கை குழுத் தலைவரால் மதிப்பாய்வு செய்யப்படும்.</string>
   <string name="beingReviewed">உங்கள் சேர்வதற்கான கோரிக்கை குழுத் தலைவரால் மதிப்பாய்வு செய்யப்படுகிறது.</string>
   <string name="requestDeclined">குழுத் தலைவரால் நீங்கள் சேருவதற்கான கோரிக்கை நிராகரிக்கப்பட்டது.</string>
-  <string name="subToTeamMessages">குழு செய்திகளுக்குக் குழுசேரவும்</string>
   <string name="teamBattle">குழுப் போர்</string>
   <string name="teamBattleOverview">பல குழுக்களின் போர், ஒவ்வொரு வீரரும் தங்கள் குழுவிற்கு புள்ளிகளைப் பெறுகிறார்கள்</string>
   <string name="teamTournament">குழு போட்டி</string>
   <string name="teamTournamentOverview">உங்கள் குழு உறுப்பினர்கள் மட்டுமே சேரக்கூடிய ஒரு கோதா போட்டி</string>
   <string name="swissTournamentOverview">உங்கள் குழு உறுப்பினர்கள் மட்டுமே சேரக்கூடிய சுவிஸ் போட்டி</string>
-  <string name="messageAllMembers">அனைத்து உறுப்பினர்களுக்கும் செய்தி அனுப்பவும்</string>
-  <string name="messageAllMembersOverview">குழுவின் ஒவ்வொரு உறுப்பினருக்கும் தனிப்பட்ட செய்தியை அனுப்பவும்</string>
-  <string name="messageAllMembersLongDescription">குழுவில் உள்ள அனைத்து உறுப்பினர்களுக்கும் தனிப்பட்ட செய்தியை அனுப்பவும்.
-ஒரு போட்டி அல்லது குழு போரில் சேர வீரர்களை அழைக்க இதைப் பயன்படுத்தலாம்.
-உங்கள் செய்திகளைப் பெற விரும்பாத வீரர்கள் குழுவை விட்டு வெளியேறலாம்.</string>
   <string name="teamsIlead">நான் வழிநடத்தும் குழுக்கள்</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">வரவிருக்கும் போட்டிகளில் ஒன்றை இணைக்க வேண்டுமா?</string>
   <string name="leadersChat">தலைவர்கள் அரட்டை</string>

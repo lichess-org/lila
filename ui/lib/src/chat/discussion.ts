@@ -1,12 +1,10 @@
-import { h, thunk, type VNode, type VNodeData } from 'snabbdom';
-
 import { blurIfEscape } from '@/common';
 import { pubsub } from '@/pubsub';
 import { tempStorage } from '@/storage';
-import { enter, alert } from '@/view';
+import { type VNode, type VNodeData, snabH, thunk, enter, alert, onInsert, input, li, span } from '@/view';
 import { userLink } from '@/view/userLink';
 
-import * as licon from '../licon';
+import { licon } from '../licon';
 import * as enhance from '../richText';
 import type { ChatCtrl } from './chatCtrl';
 import type { Line } from './interfaces';
@@ -29,13 +27,13 @@ export default function (ctrl: ChatCtrl): Array<VNode | undefined> {
   if (!ctrl.chatEnabled()) return [];
   const hasMod = !!ctrl.moderation;
   const vnodes = [
-    h(
-      `ol.mchat__messages.chat-v-${ctrl.vm.domVersion}${hasMod ? '.as-mod' : ''}`,
+    snabH(
+      `ol.mchat__messages.chat-v-${ctrl.vm.domVersion}`,
       {
+        class: { 'as-mod': hasMod },
         attrs: { role: 'log', 'aria-live': 'polite', 'aria-atomic': 'false' },
         hook: {
-          insert(vnode) {
-            const el = vnode.elm as HTMLElement;
+          ...onInsert(el => {
             const $el = $(el).on('click', 'a.jump', (e: Event) => {
               const ply = (e.target as HTMLElement).getAttribute('data-ply');
               if (ply) pubsub.emit('jump', ply);
@@ -67,7 +65,7 @@ export default function (ctrl: ChatCtrl): Array<VNode | undefined> {
             });
             resizeObserver.observe(el);
             requestAnimationFrame(() => scrollToBottom(el, false));
-          },
+          }),
           postpatch: (_, vnode) => {
             if (scrollState.pinToBottom) scrollToBottom(vnode.elm as HTMLElement, true);
           },
@@ -87,29 +85,24 @@ export default function (ctrl: ChatCtrl): Array<VNode | undefined> {
 }
 
 function renderInput(ctrl: ChatCtrl): VNode | undefined {
-  if (!ctrl.vm.writeable) return;
+  if (!ctrl.vm.writeable) return undefined;
   if ((ctrl.data.loginRequired && !ctrl.data.userId) || ctrl.data.restricted)
-    return h('input.mchat__say', {
-      attrs: { placeholder: i18n.site.loginToChat, disabled: true },
+    return input('text')('.mchat__say', {
+      placeholder: i18n.site.loginToChat,
+      disabled: true,
     });
   let placeholder: string;
   if (ctrl.vm.timeout) placeholder = i18n.site.youHaveBeenTimedOut;
   else if (ctrl.opts.blind) placeholder = 'Chat';
   else placeholder = i18n.site.talkInChat;
-  return h('input.mchat__say', {
-    attrs: {
-      placeholder,
-      autocomplete: 'off',
-      enterkeyhint: 'send',
-      maxlength: 140,
-      disabled: ctrl.vm.timeout || !ctrl.vm.writeable,
-      'aria-label': 'Chat input',
-    },
-    hook: {
-      insert(vnode) {
-        setupHooks(ctrl, vnode.elm as HTMLInputElement);
-      },
-    },
+  return input('text')('.mchat__say', {
+    placeholder,
+    autocomplete: 'off',
+    enterkeyhint: 'send',
+    maxlength: 140,
+    disabled: ctrl.vm.timeout || !ctrl.vm.writeable,
+    'aria-label': 'Chat input',
+    hook: onInsert<HTMLInputElement>(el => setupHooks(ctrl, el)),
   });
 }
 
@@ -154,9 +147,9 @@ const setupHooks = (ctrl: ChatCtrl, chatEl: HTMLInputElement) => {
     blurIfEscape(e);
     enter(target => {
       setTimeout(() => {
-        const el = target as HTMLInputElement,
-          txt = el.value,
-          pub = ctrl.opts.public;
+        const el = target as HTMLInputElement;
+        const txt = el.value;
+        const pub = ctrl.opts.public;
 
         if (txt === '')
           $('.input-move input').each(function (this: HTMLInputElement) {
@@ -179,11 +172,11 @@ const setupHooks = (ctrl: ChatCtrl, chatEl: HTMLInputElement) => {
 
   chatEl.addEventListener('input', (e: KeyboardEvent) =>
     setTimeout(() => {
-      const el = e.target as HTMLInputElement,
-        txt = el.value;
+      const el = e.target as HTMLInputElement;
+      const txt = el.value;
 
       el.removeAttribute('placeholder');
-      if (!ctrl.opts.public) el.classList.toggle('whisper', !!txt.match(whisperRegex));
+      if (!ctrl.opts.public) el.classList.toggle('whisper', whisperRegex.test(txt));
       storage.set(txt);
     }),
   );
@@ -247,9 +240,9 @@ function renderText(t: string, opts?: enhance.EnhanceOpts) {
   const processedText = processProfileLink(t);
   if (enhance.isMoreThanText(processedText)) {
     const hook = updateText(opts);
-    return h('t', { lichessChat: processedText, hook: { create: hook, update: hook } });
+    return snabH('t', { lichessChat: processedText, hook: { create: hook, update: hook } });
   }
-  return h('t', processedText);
+  return snabH('t', processedText);
 }
 
 const userThunk = (name: string, title?: string, patronColor?: PatronColor, flair?: Flair) =>
@@ -260,14 +253,14 @@ const actionIcons = (ctrl: ChatCtrl, line: Line): Array<VNode | null> => {
   const icons = [];
   if (ctrl.canPostArbitraryText() && !ctrl.data.resourceId.startsWith('game'))
     icons.push(
-      h('action.reply', {
+      snabH('action.reply', {
         attrs: { 'data-icon': licon.Back, title: 'Reply' },
       }),
     );
   icons.push(
     ctrl.moderation
       ? modLineAction()
-      : h('action.flag', {
+      : snabH('action.flag', {
           attrs: { 'data-icon': licon.CautionTriangle, title: 'Report', 'data-text': line.t },
         }),
   );
@@ -277,9 +270,9 @@ const actionIcons = (ctrl: ChatCtrl, line: Line): Array<VNode | null> => {
 function renderLine(ctrl: ChatCtrl, line: Line): VNode {
   const textNode = renderText(line.t, ctrl.opts.enhance);
 
-  if (line.u === 'lichess') return h('li.system', textNode);
+  if (line.u === 'lichess') return li('.system', textNode);
 
-  if (line.c) return h('li', [h('span.color', '[' + line.c + ']'), textNode]);
+  if (line.c) return li([span('.color', '[' + line.c + ']'), textNode]);
 
   const userNode = thunk('a', line.u, userThunk, [line.u, line.title, line.pc, line.f]);
   const userId = line.u?.toLowerCase();
@@ -291,8 +284,7 @@ function renderLine(ctrl: ChatCtrl, line: Line): VNode {
       .match(enhance.userPattern)
       ?.find(mention => mention.trim().toLowerCase() === `@${ctrl.data.userId}`);
 
-  return h(
-    'li',
+  return li(
     {
       class: {
         me: userId === myUserId,

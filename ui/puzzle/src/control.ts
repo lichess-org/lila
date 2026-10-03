@@ -2,10 +2,6 @@ import { path as treePath } from 'lib/tree/tree';
 
 import type PuzzleCtrl from './ctrl';
 
-export function canGoForward(ctrl: PuzzleCtrl): boolean {
-  return ctrl.node.children.length > 0;
-}
-
 export function next(ctrl: PuzzleCtrl): void {
   const child = ctrl.node.children[0];
   if (!child) return;

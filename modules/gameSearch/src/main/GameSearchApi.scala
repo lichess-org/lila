@@ -1,6 +1,6 @@
 package lila.gameSearch
 
-import akka.stream.scaladsl.*
+import org.apache.pekko.stream.scaladsl.*
 
 import lila.search.client.SearchClient
 import lila.search.spec.Query

@@ -1,6 +1,6 @@
 package lila.video
 
-import scalalib.net.Crawler
+import lila.common.ClientName
 
 case class TagNb(_id: Tag, nb: Int):
 
@@ -20,9 +20,8 @@ case class Filter(tags: List[String]):
 case class UserControl(
     filter: Filter,
     tags: List[TagNb],
-    query: Option[String],
-    crawler: Crawler
-):
+    query: Option[String]
+)(using client: ClientName):
 
   def toggleTag(tag: String) =
     copy(
@@ -38,4 +37,4 @@ case class UserControl(
       }
     ).flatten.mkString("&")
 
-  def queryStringUnlessBot = crawler.no.so(queryString)
+  def queryStringUnlessBot = client.isHuman.so(queryString)

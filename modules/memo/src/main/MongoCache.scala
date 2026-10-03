@@ -31,7 +31,7 @@ final class MongoCache[K, V: BSONHandler] private (
           .flatMap { v =>
             coll.update
               .one(
-                $id(dbKey),
+                bid(dbKey),
                 Entry(dbKey, v, nowInstant.plus(dbTtl)),
                 upsert = true
               )
@@ -46,14 +46,14 @@ final class MongoCache[K, V: BSONHandler] private (
   def get = cache.get
 
   def invalidate(key: K): Funit =
-    for _ <- coll.delete.one($id(makeDbKey(key)))
+    for _ <- coll.delete.one(bid(makeDbKey(key)))
     yield cache.invalidate(key)
 
   // time since insertion
   def dbValue(key: K): Fu[Option[(V, java.time.Duration)]] =
     dbEntry(key).map2(entry => (entry.v, entry.e.minus(dbTtl).toNow))
 
-  private def dbEntry(key: K) = coll.one[Entry]($id(makeDbKey(key)))
+  private def dbEntry(key: K) = coll.one[Entry](bid(makeDbKey(key)))
 
   private def makeDbKey(key: K) = s"$name:${keyToString(key)}"
 
@@ -121,4 +121,4 @@ object MongoCache:
         _.expireAfterWrite(1.second).buildAsyncFuture(loader(f))
 
     def put[A: BSONWriter](key: String, value: A): Funit =
-      coll.update.one($id(key), $doc("v" -> value), upsert = true).void
+      coll.update.one(bid(key), bdoc("v" -> value), upsert = true).void

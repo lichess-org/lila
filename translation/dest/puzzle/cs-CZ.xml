@@ -83,6 +83,12 @@
   <string name="searchPuzzles">Hledat hádanky</string>
   <string name="fromMyGamesNone">V databázi nemáte žádné úlohy, ale Lichess vás stále velmi miluje.
 Hrajte rapid a klasické hry ke zvýšení šance na přidání vlastní úlohy!</string>
+  <plurals name="puzzlesFoundInUserGames">
+    <item quantity="one">Nalezena jedna úloha z her od %2$s</item>
+    <item quantity="few">Nalezeny %1$s úlohy z her od %2$s</item>
+    <item quantity="many">Nalezeno %1$s úloh z her od %2$s</item>
+    <item quantity="other">Nalezeno %1$s úloh z her od %2$s</item>
+  </plurals>
   <string name="puzzleDashboardDescription">Trénujte, analyzujte, zlepšujte</string>
   <plurals name="nbPlayed">
     <item quantity="one">%s zahána</item>

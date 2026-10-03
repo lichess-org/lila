@@ -17,17 +17,18 @@ import dayjs from 'dayjs';
 import dayOfYear from 'dayjs/plugin/dayOfYear';
 import duration from 'dayjs/plugin/duration';
 import utc from 'dayjs/plugin/utc';
-import noUiSlider, { type Options, PipsMode } from 'nouislider';
+import { create as createSlider, type Options, PipsMode } from 'nouislider';
 
 import { memoize } from 'lib';
+import { perfName } from 'lib/game/perf';
 import { pubsub } from 'lib/pubsub';
 
 import { fontColor, fontFamily, gridColor, hoverBorderColor, tooltipBgColor } from './index';
-import type { PerfRatingHistory } from './interface';
+import type { PerfRatingHistory, PerfOrPuzzle } from './interface';
 
 interface Opts {
   data: PerfRatingHistory[];
-  singlePerfName?: string;
+  singlePerfName?: PerfOrPuzzle;
 }
 
 type TsAndRating = { ts: number; rating: number };
@@ -36,7 +37,6 @@ type ChartPerf = {
   color: string;
   borderDash: number[];
   symbol: PointStyle;
-  name: string;
 };
 
 type TimeButton = 'all' | '1y' | 'YTD' | '6m' | '3m' | '1m';
@@ -52,21 +52,21 @@ const noDash: number[] = [];
 const longDash = [10, 5];
 // order from RatingChartApi
 const styles: ChartPerf[] = [
-  { color: '#009E73', borderDash: longDash, symbol: 'triangle', name: 'UltraBullet' },
-  { color: '#56B4E9', borderDash: noDash, symbol: 'circle', name: 'Bullet' },
-  { color: '#0072B2', borderDash: noDash, symbol: 'rectRot', name: 'Blitz' },
-  { color: '#009E73', borderDash: noDash, symbol: 'rect', name: 'Rapid' },
-  { color: '#459f3b', borderDash: noDash, symbol: 'triangle', name: 'Classical' },
-  { color: '#F0E442', borderDash: shortDash, symbol: 'triangle', name: 'Correspondence' },
-  { color: '#56B4E9', borderDash: longDash, symbol: 'rectRounded', name: 'Crazyhouse' },
-  { color: '#E69F00', borderDash: shortDash, symbol: 'circle', name: 'Chess960' },
-  { color: '#D55E00', borderDash: shortDash, symbol: 'rectRot', name: 'KingOfTheHill' },
-  { color: '#CC79A7', borderDash: shortDash, symbol: 'rect', name: 'ThreeCheck' },
-  { color: '#DF5353', borderDash: shortDash, symbol: 'triangle', name: 'Antichess' },
-  { color: '#66558C', borderDash: shortDash, symbol: 'triangle', name: 'Atomic' },
-  { color: '#99E699', borderDash: longDash, symbol: 'circle', name: 'Horde' },
-  { color: '#FFAEAA', borderDash: shortDash, symbol: 'rectRot', name: 'RacingKings' },
-  { color: '#0072B2', borderDash: longDash, symbol: 'triangle', name: 'Puzzle' },
+  { color: '#009E73', borderDash: longDash, symbol: 'triangle' }, // UltraBullet
+  { color: '#56B4E9', borderDash: noDash, symbol: 'circle' }, // Bullet
+  { color: '#0072B2', borderDash: noDash, symbol: 'rectRot' }, // Blitz
+  { color: '#009E73', borderDash: noDash, symbol: 'rect' }, // Rapid
+  { color: '#459f3b', borderDash: noDash, symbol: 'triangle' }, // Classical
+  { color: '#F0E442', borderDash: shortDash, symbol: 'triangle' }, // Correspondence
+  { color: '#56B4E9', borderDash: longDash, symbol: 'rectRounded' }, // Crazyhouse
+  { color: '#E69F00', borderDash: shortDash, symbol: 'circle' }, // Chess960
+  { color: '#D55E00', borderDash: shortDash, symbol: 'rectRot' }, // KingOfTheHill
+  { color: '#CC79A7', borderDash: shortDash, symbol: 'rect' }, // ThreeCheck
+  { color: '#DF5353', borderDash: shortDash, symbol: 'triangle' }, // Antichess
+  { color: '#66558C', borderDash: shortDash, symbol: 'triangle' }, // Atomic
+  { color: '#99E699', borderDash: longDash, symbol: 'circle' }, // Horde
+  { color: '#FFAEAA', borderDash: shortDash, symbol: 'rectRot' }, // RacingKings
+  { color: '#0072B2', borderDash: longDash, symbol: 'triangle' }, //  Puzzle
 ];
 
 const oneDay = 24 * 60 * 60 * 1000;
@@ -82,15 +82,21 @@ const dateFormat = memoize(() =>
 );
 
 export function initModule({ data, singlePerfName }: Opts): void {
+  site.asset.loadI18n('variant').then(() => renderChart({ data, singlePerfName }));
+}
+
+function renderChart({ data, singlePerfName }: Opts) {
   $('.spinner').remove();
 
   const $el = $('canvas.rating-history');
   if (!$el.length) return;
+
   const singlePerfIndex = data.findIndex(x => x.name === singlePerfName);
   if (singlePerfName && !data[singlePerfIndex]?.points.length) {
     $el.hide();
     return;
   }
+
   const allData = makeDatasets(1, { data, singlePerfName }, singlePerfIndex);
   const startDate = allData.startDate;
   const endDate = allData.endDate;
@@ -99,6 +105,7 @@ export function initModule({ data, singlePerfName }: Opts): void {
   const threeMonthsAgo = endDate.subtract(3, 'M');
   const initial = startDate < threeMonthsAgo ? threeMonthsAgo : startDate;
   let zoomedOut = initial.isSame(threeMonthsAgo);
+
   const config: ChartConfiguration<'line'> = {
     type: 'line',
     data: {
@@ -179,21 +186,29 @@ export function initModule({ data, singlePerfName }: Opts): void {
         },
         tooltip: {
           usePointStyle: true,
+          boxPadding: 2,
+          boxWidth: 8,
+          boxHeight: 8,
+          padding: 6,
           backgroundColor: tooltipBgColor,
           bodyColor: fontColor,
           titleColor: fontColor,
-          borderColor: fontColor,
+          borderColor: gridColor,
           borderWidth: 1,
           yAlign: 'center',
           caretPadding: 10,
           rtl: document.dir === 'rtl',
           callbacks: {
             title: items => dateFormat()(dayjs.utc(items[0].parsed.x).valueOf()),
+            label(context) {
+              return `${context.dataset.label}: ${context.formattedValue}`;
+            },
           },
         },
       },
     },
   };
+
   const chart = new Chart($el[0] as HTMLCanvasElement, config);
   const handlesSlider = $('#time-range-slider')[0];
   let yearPips = [];
@@ -222,11 +237,11 @@ export function initModule({ data, singlePerfName }: Opts): void {
     },
   };
   if (handlesSlider) {
-    const slider = noUiSlider.create(handlesSlider, opts);
+    const slider = createSlider(handlesSlider, opts);
     const slide = (values: (number | string)[]) => {
       $('.time-selector-buttons button').removeClass('active');
       if ($el.hasClass('panning')) return;
-      const [min, max] = values.map(v => Number(v));
+      const [min, max] = values.map(Number);
       // Downsample data for ranges > 2 years. For performance as well as aesthetics.
       const yearDiff = (max: number, min: number) => dayjs.utc(max).diff(min, 'year');
       const chartYear = yearDiff(chart.scales.x.max, chart.scales.x.min);
@@ -237,8 +252,7 @@ export function initModule({ data, singlePerfName }: Opts): void {
         if (newDs !== chart.data.datasets) chart.data.datasets = newDs;
         chart.update('none');
       }
-      if (chart.scales.x.min !== min || chart.scales.x.max !== max)
-        chart.zoomScale('x', { min: min, max: max });
+      if (chart.scales.x.min !== min || chart.scales.x.max !== max) chart.zoomScale('x', { min, max });
     };
     slider.on('update', slide);
     // Disable events while dragging for a slight performance boost
@@ -263,7 +277,7 @@ export function initModule({ data, singlePerfName }: Opts): void {
     const btnClick = (min: number) => {
       $('.time-selector-buttons .button').removeClass('active');
       slider.set([min, endDate.valueOf()]);
-      chart.zoomScale('x', { min: min, max: endDate.valueOf() });
+      chart.zoomScale('x', { min, max: endDate.valueOf() });
     };
     $('.time-selector-buttons')
       .html(
@@ -299,15 +313,17 @@ function makeDatasets(step: number, { data, singlePerfName }: Opts, singlePerfIn
     return {
       indexAxis: 'x',
       type: 'line',
-      label: serie.name,
+      label: serie.name === 'puzzle' ? i18n.site.puzzles : perfName(serie.name),
       borderColor: perfStyle.color,
-      hoverBorderColor: hoverBorderColor,
+      hoverBorderColor,
       backgroundColor: perfStyle.color,
       pointRadius: data.length === 1 ? 3 : 0,
-      pointHoverRadius: 6,
-      data: data,
+      pointHoverRadius: 5,
+      pointHoverBorderWidth: 0.5,
+      pointHoverBorderColor: '#fff9',
+      data,
       pointStyle: perfStyle.symbol,
-      borderWidth: 2,
+      borderWidth: 1.5,
       tension: 0,
       borderDash: perfStyle.borderDash,
       stepped: false,
@@ -320,6 +336,7 @@ function makeDatasets(step: number, { data, singlePerfName }: Opts, singlePerfIn
   }
   return { ds: ds.filter(ds => ds.data.length), startDate, endDate };
 }
+
 function smoothDates(data: TsAndRating[], step: number, begin: number) {
   const oneStep = oneDay * step;
   if (!data.length) return [];

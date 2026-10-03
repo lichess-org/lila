@@ -16,7 +16,7 @@
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Zen-modus</string>
   <string name="showPlayerRatings">Vis spillerratinger</string>
   <string name="showFlairs">Vis spillerflairer</string>
-  <string name="explainShowPlayerRatings" comment="A site-wide setting: https://lichess.org/account/preferences/display&#10;&#10;This string used to say &quot;[...] hides all ratings from the website&quot;, but because people can access Lichess in other ways, it has been updated to say &quot;Hide all ratings from Lichess&quot;. Please update translations as needed.">Denne innstillingen skjuler alle ratingene på nettstedet, slik at du kan fokusere på sjakken. Du kan fortsatt spille ratede partier.</string>
+  <string name="explainShowPlayerRatings">Denne innstillingen skjuler alle ratingene på nettstedet, slik at du kan fokusere på sjakken. Du kan fortsatt spille ratede partier.</string>
   <string name="displayBoardResizeHandle">Vis håndtak for brettstørrelse</string>
   <string name="onlyOnInitialPosition">Kun for utgangsstillingen</string>
   <string name="inGameOnly">Bare under partier</string>
@@ -56,19 +56,37 @@
   <string name="scrollOnTheBoardToReplayMoves">Bruk musehjulet for å spille av trekk</string>
   <string name="correspondenceEmailNotification">Daglig oversikt over fjernsjakkpartiene dine tilsendt på e-post</string>
   <string name="notifyStreamStart">Strømmer begynner å strømme</string>
-  <string name="notifyInboxMsg">Ny melding i innboksen</string>
-  <string name="notifyForumMention">Forumkommentar nevner deg</string>
-  <string name="notifyInvitedStudy">Invitasjon til studie</string>
+  <string name="notifyDirectMessage" comment="notifyInboxMsg&#10;&#10;A notification setting - notifies players when they receive a new message in their Lichess inbox">Ny direktemelding</string>
+  <string name="notifyForumMentions" comment="notifyForumMention&#10;&#10; A notification setting - notifies players when someone has @mentioned their name in the Lichess Forum (https://lichess.org/forum)">Omtaler i forumet</string>
+  <string name="notifyStudyInvites" comment="notifyInvitedStudy&#10;&#10; A notification setting - notifies players about invites to studies (https://lichess.org/study/)">Invitasjoner til studier</string>
   <string name="notifyGameEvent">Oppdateringer for fjernsjakkpartier</string>
   <string name="notifyChallenge">Utfordringer</string>
-  <string name="notifyTournamentSoon">Turnering starter snart</string>
-  <string name="notifyBroadcasts">Overføringer du abonnerer på</string>
+  <string name="notifyTournamentStartReminders" comment="notifyTournamentSoon&#10;&#10;A notification setting - notifies players if a tournament is starting soon.">Påminnelser om turneringsstart</string>
+  <string name="notifyBroadcasts">Direkteoverføringer</string>
   <string name="notifyTimeAlarm">Fjernsjakkur i ferd med å løpe ut</string>
-  <string name="notifyBell" comment="A notification setting - toggles a bell sound being played when a notification appears.&#10;&#10;This text used to say &quot;Bell notification within Lichess&quot;. The word &quot;bell&quot; can be removed, as it is obvious from the context.">Bjellevarsel innenfor Lichess</string>
+  <string name="notifyBell">Bjellevarsel innenfor Lichess</string>
   <string name="notifyPush">Enhetsvarsel utenfor Lichess</string>
   <string name="notifyWeb">Nettleser</string>
   <string name="notifyDevice">Enhet</string>
   <string name="bellNotificationSound">Bjellevarsel med lyd</string>
   <string name="blindfold" comment="As in Blindfold chess">Blindsjakk</string>
   <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">Vis til venstre på mobile enheter</string>
+  <string name="inlineNotation">Innebygd notasjon</string>
+  <string name="showServerAnalysis">Vis serveranalyse</string>
+  <string name="showBestMoveArrows">Vis piler for beste trekk</string>
+  <string name="showManeuverArrows">Vis manøverpiler</string>
+  <string name="showGauge">Vis evalueringsmåler</string>
+  <string name="showMoveAnnotationsOnBoard">Vis trekkvurderinger på brettet</string>
+  <string name="showVariationArrows">Vis variantpiler</string>
+  <string name="showLiveGlyphs">Trekkvurderinger fra sjakkmotoren i sanntid</string>
+  <string name="showUndefendedPieces">Vis udekkede brikker</string>
+  <string name="showPinnedPieces">Vis bundne brikker</string>
+  <string name="showCheckableKing">Vis sjakkbar konge</string>
+  <string name="disclosureMode">Skjul varianter</string>
+  <string name="generalSettings">Generelt</string>
+  <string name="moveListSettings">Trekkliste</string>
+  <string name="boardSettings">Brett</string>
+  <string name="analysisSettings">Analyseinnstillinger</string>
+  <string name="maneuverArrowsHelp">Trekkrekkefølge fra sjakkmotoren for én brikke</string>
+  <string name="hoverOverSettingLabelsForHelp">Hold pekeren over innstillingsnavnene for hjelp</string>
 </resources>

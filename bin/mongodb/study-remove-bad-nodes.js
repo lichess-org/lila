@@ -4,7 +4,7 @@ function dig(chapId, node, path) {
   for (let i in node.n) {
     const c = node.n[i];
     const newPath = `${path}.n.${i}`;
-    if (!c || !c.i) {
+    if (!c?.i) {
       const set = {
         [`${path}.n`]: [],
       };

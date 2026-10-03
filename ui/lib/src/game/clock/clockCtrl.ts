@@ -1,3 +1,5 @@
+import { COLORS } from 'chessops';
+
 import { ShowClockTenths } from '@/prefs';
 
 import { updateElements, formatClockTimeVerbal } from './clockView';
@@ -53,12 +55,13 @@ interface EmergSound {
 export interface SetData {
   white: Seconds;
   black: Seconds;
-  ticking: Color | undefined;
+  ticking?: Color;
   delay?: Centis; // network lag to visually compensate
 }
 
 export class ClockCtrl {
   readonly config: ClockConfig;
+
   emergSound: EmergSound = {
     play: () => site.sound.play('lowTime'),
     delay: 20000,
@@ -67,16 +70,13 @@ export class ClockCtrl {
       black: true,
     },
   };
-
   showTenths: (millis: Millis) => boolean;
   showBar: boolean;
   times: Times;
-
   barTime: number;
   timeRatioDivisor: number;
   emergMs: Millis;
   alarmAction?: { seconds: Seconds; fire: () => void };
-
   elements: ByColor<ClockElements> = { white: {}, black: {} };
 
   private tickTimeout?: Timeout;
@@ -195,14 +195,7 @@ export class ClockCtrl {
   isRunning = (): boolean => this.times.activeColor !== undefined;
 
   speak = (): void => {
-    const msgs = [
-      { key: 'white', i18nName: i18n.site.white },
-      { key: 'black', i18nName: i18n.site.black },
-    ].map(color => {
-      const time = this.millisOf(color.key as Color);
-      const msg = formatClockTimeVerbal(time);
-      return `${color.i18nName} - ${msg}`;
-    });
+    const msgs = COLORS.map(color => `${i18n.site[color]} - ${formatClockTimeVerbal(this.millisOf(color))}`);
     site.sound.say(msgs.join('. '), false, true, true);
   };
 }

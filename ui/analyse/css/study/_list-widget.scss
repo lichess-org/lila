@@ -75,7 +75,7 @@
 
       .study__icon {
         flex: 0 0 auto;
-        color: $m-primary_bg--mix-80;
+        color: color-mix(in oklab, $c-primary 80%, $c-bg);
         font-size: 3em;
 
         img {
@@ -89,11 +89,29 @@
     }
 
     &:hover {
-      background: $m-primary_bg--mix-10;
+      background: color-mix(in oklab, $c-primary 10%, $c-bg);
 
       .top::before {
         color: $c-link;
       }
+    }
+  }
+
+  &.compact {
+    position: relative;
+
+    // Mask the container edge so only internal right borders remain visible.
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0 0 0 auto;
+      width: 1px;
+      background: $c-bg-box;
+      pointer-events: none;
+    }
+
+    .study.compact > .study__icon {
+      margin-inline-end: 0.3em;
     }
   }
 

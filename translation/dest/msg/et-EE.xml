@@ -1,2 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="lichobileNewAppAvailable">Saadaval on uus Lichessi mobiilirakendus!</string>
+  <string name="lichobileNewAppDownload" comment="The parameter links to https://lichess.org/app">Palun laadige alla uus ametlik Lichessi rakendus aadressilt %s.</string>
+  <string name="modActionFeedback">Tere!
+
+Oleme sinu hiljutise teate läbi vaadanud ja alustanud tegevusega. Kuigi me ei saa võetud meetmete üksikasju avaldada, oleme teate eest tänulikud.
+
+Täname teid abi eest, et Lichess oleks kõigile meeldiv koht.</string>
+</resources>

@@ -1,3 +1,5 @@
+import type { Rules } from 'chessops';
+
 import { Cache } from '../cache';
 import { Protocol } from '../protocol';
 import {
@@ -38,8 +40,8 @@ export class ThreadedEngine implements CevalEngine {
 
   constructor(
     readonly info: BrowserEngineInfo,
-    readonly status?: EngineNotifier | undefined,
-    readonly variantMap?: (v: string) => string,
+    readonly status: EngineNotifier | undefined,
+    readonly variantMap?: (v: Rules) => string,
   ) {}
 
   onError = (err: Error): void => {
@@ -66,12 +68,12 @@ export class ThreadedEngine implements CevalEngine {
 
   private async boot() {
     const [root, js, wasm, pathVersion] = [
-        this.info.assets.root,
-        this.info.assets.js,
-        this.info.assets.wasm,
-        this.info.assets.version,
-      ],
-      wasmPath = `${root}/${wasm}`;
+      this.info.assets.root,
+      this.info.assets.js,
+      this.info.assets.wasm,
+      this.info.assets.version,
+    ];
+    const wasmPath = `${root}/${wasm}`;
 
     let wasmBinary: ArrayBuffer | undefined;
     if (this.info.id === '__sf14nnue') {

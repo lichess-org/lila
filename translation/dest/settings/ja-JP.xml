@@ -3,8 +3,16 @@
   <string name="settings">設定</string>
   <string name="closeAccount">アカウント停止</string>
   <string name="managedAccountCannotBeClosed">あなたのアカウントは別の人が管理しており、自分では停止できません。</string>
-  <string name="cantOpenSimilarAccount" comment="Please note this string was simplified in January 2025. Before this, it used to state &quot;You will not be allowed to open a new account with the same name, even if the case is different.&quot; Please update existing translations as required.">同じ名前（大文字・小文字が違っていても）で別のアカウントを作ることもできません。</string>
+  <string name="cantOpenSimilarAccount">同じ名前（大文字・小文字が違っていても）で別のアカウントを作ることもできません。</string>
   <string name="cancelKeepAccount">キャンセルしてアカウントを保持する</string>
   <string name="closeAccountAreYouSure">ほんとうにアカウントを閉鎖しますか？</string>
-  <string name="thisAccountIsClosed" comment="Appears on mouseover for a user profile (account) which has been closed.&#10;&#10;This should be in the passive voice. It is typically the player's choice to close their own account, but it is could instead be Lichess moderators who closed the account.">このアカウントは停止されました</string>
+  <string name="thisAccountIsClosed">このアカウントは停止されました</string>
+  <string name="wereSorryToSeeYouGo">とても残念です。</string>
+  <string name="closeAccountForeverLabel">永久に閉鎖、つまり再開できなくする</string>
+  <string name="closeAccountForeverWarning">後でアカウントを再開できないようにします。このボックスにチェックを入れると、要請を受けた管理者でもアカウントを再開できません。</string>
+  <string name="deleteYourAccount">アカウントを削除</string>
+  <string name="deleteAccountWarning">「アカウントを削除」すると Lichess からアカウントが消え、管理者もアカウントを回復できなくなります。</string>
+  <string name="wouldYouLikeToXInstead" comment="%s is close your account">代わりに %s しますか？</string>
+  <string name="closeYourAccount">アカウントを閉鎖</string>
+  <string name="deleteAccountConfirmText">私は削除されたアカウントが回復できないことを理解しています</string>
 </resources>

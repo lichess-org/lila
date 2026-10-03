@@ -14,7 +14,7 @@ export function makeEnv(cfg: Partial<DevEnv>): DevEnv {
 }
 
 export class DevEnv {
-  canPost: boolean;
+  canPost?: boolean;
   game: GameCtrl;
   db: LocalDb;
   bot: DevBotCtrl;

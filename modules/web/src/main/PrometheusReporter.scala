@@ -14,7 +14,6 @@ class PrometheusReporter(configPath: String = DefaultConfigPath, initialConfig: 
     extends MetricReporter
     with ScrapeSource:
 
-  import PrometheusReporter.readSettings
   import kamon.prometheus.PrometheusSettings.environmentTags
 
   private val stalePeriod = Duration.ofSeconds(2 * 24 * 60 * 60 + 1) // 2 days + 1 second
@@ -24,7 +23,8 @@ class PrometheusReporter(configPath: String = DefaultConfigPath, initialConfig: 
   @volatile private var _preparedScrapeData: String =
     "# The kamon-prometheus module didn't receive any data just yet.\n"
 
-  @volatile private var _reporterSettings = readSettings(initialConfig.getConfig(configPath))
+  @volatile private var _reporterSettings =
+    PrometheusSettings.readSettings(initialConfig.getConfig(configPath))
 
   override def stop(): Unit =
     // Removes a reference to the last reporter to avoid leaking instances.
@@ -35,15 +35,15 @@ class PrometheusReporter(configPath: String = DefaultConfigPath, initialConfig: 
     PrometheusReporter._lastCreatedInstance = None
 
   override def reconfigure(newConfig: Config): Unit =
-    _reporterSettings = readSettings(newConfig.getConfig(configPath))
+    _reporterSettings = PrometheusSettings.readSettings(newConfig.getConfig(configPath))
 
   override def reportPeriodSnapshot(snapshot: PeriodSnapshot): Unit =
     _snapshotAccumulator.add(snapshot)
     val currentData = _snapshotAccumulator.peek()
     val scrapeDataBuilder =
-      new ScrapeDataBuilder(_reporterSettings.generic, environmentTags(_reporterSettings.generic))
+      new ScrapeDataBuilder(_reporterSettings, environmentTags(_reporterSettings))
 
-    scrapeDataBuilder.appendCounters(currentData.counters)
+    scrapeDataBuilder.appendCounters(currentData.counters.map(removeZeros))
     scrapeDataBuilder.appendGauges(currentData.gauges)
     scrapeDataBuilder.appendDistributionMetricsAsGauges(
       snapshot.rangeSamplers ++ snapshot.histograms ++ snapshot.timers
@@ -55,6 +55,9 @@ class PrometheusReporter(configPath: String = DefaultConfigPath, initialConfig: 
 
   def scrapeData(): String =
     _preparedScrapeData
+
+  private val removeZeros: Update[MetricSnapshot.Values[Long]] = m =>
+    m.copy(instruments = m.instruments.filter(_.value != 0L))
 
 object PrometheusReporter:
 
@@ -70,21 +73,27 @@ object PrometheusReporter:
     * to keep references to those instances programmatically and calling `.scrapeData()` directly on them
     * instead of using this function.
     */
-  def latestScrapeData(): Option[String] =
-    _lastCreatedInstance.map(_.scrapeData())
+  def latestScrapeData(): String =
+    _lastCreatedInstance.map(_.scrapeData()).orZero
+
+  def linesPerMetric(): Map[String, Int] =
+    latestScrapeData().linesIterator
+      .filter(_.nonEmpty)
+      .filterNot(_.startsWith("#"))
+      .foldLeft(Map.empty[String, Int]): (acc, line) =>
+        val metricName = line.takeWhile(c => c != ' ' && c != '{')
+        acc.updated(metricName, acc.getOrElse(metricName, 0) + 1)
+
+  private[web] def setupPeriodicMonitor()(using scheduler: Scheduler)(using Executor): Unit =
+    import scala.concurrent.duration.*
+    scheduler.scheduleAtFixedRate(1.minute, 1.minute): () =>
+      val perMetric = linesPerMetric()
+      perMetric.foreach: (name, lines) =>
+        lila.mon.prometheus.linesPerMetric(name).update(lines)
+      lila.mon.prometheus.lines.update(perMetric.values.sum)
 
   class Factory extends ModuleFactory:
     override def create(settings: ModuleFactory.Settings): Module =
       val reporter = new PrometheusReporter(DefaultConfigPath, settings.config)
       _lastCreatedInstance = Some(reporter)
       reporter
-
-  def create(): PrometheusReporter =
-    new PrometheusReporter()
-
-  case class Settings(generic: PrometheusSettings.Generic)
-
-  def readSettings(prometheusConfig: Config): PrometheusReporter.Settings =
-    PrometheusReporter.Settings(
-      generic = PrometheusSettings.readSettings(prometheusConfig)
-    )

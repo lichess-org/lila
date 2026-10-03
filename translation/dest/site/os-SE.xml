@@ -104,25 +104,13 @@
   <string name="blunder">Хæлиудзыхдзинад</string>
   <string name="mistake">Рæдыд</string>
   <string name="inaccuracy">Æнæдырысдзинад</string>
-  <plurals name="nbBlunders">
-    <item quantity="one">%s хæлиудзыхдзинад</item>
-    <item quantity="other">%s хæлиудзыхдзинæдты</item>
-  </plurals>
   <plurals name="numberBlunders">
     <item quantity="one">%s Хæлиудзыхдзинад</item>
     <item quantity="other">%s Хæлиудзыхдзинæдты</item>
   </plurals>
-  <plurals name="nbMistakes">
-    <item quantity="one">%s рæдыд</item>
-    <item quantity="other">%s рæдыдтыты</item>
-  </plurals>
   <plurals name="numberMistakes">
     <item quantity="one">%s Рæдыд</item>
     <item quantity="other">%s Рæдыдтыты</item>
-  </plurals>
-  <plurals name="nbInaccuracies">
-    <item quantity="one">%s æнæдырысдзинад</item>
-    <item quantity="other">%s æнæдырысдзинæдты</item>
   </plurals>
   <plurals name="numberInaccuracies">
     <item quantity="one">%s Æнæдырысдзинад</item>
@@ -208,8 +196,6 @@
     <item quantity="other">%s хъазты демæ</item>
   </plurals>
   <string name="cancel">Аивын</string>
-  <string name="whiteTimeOut">Урсытæн рæстæг фæци</string>
-  <string name="blackTimeOut">Саутæн рæстæг фæци</string>
   <string name="drawOfferSent">Хæрæгсаст фæуын æнхъарæн æрвыст у</string>
   <string name="drawOfferAccepted">Хæрæгсаст фæуын æнхъарæн райст уыди</string>
   <string name="whiteOffersDraw">Урсытæ æнхъарынц хæрæхсаст фæуын</string>
@@ -536,7 +522,6 @@
   <string name="cumulative">Æдæппæт</string>
   <string name="glicko2Rating">Glicko-2 рейтинг</string>
   <string name="background">Бындурон хуыз</string>
-  <string name="perfRatingX">Рейтинг: %s</string>
   <string name="xMentionedYouInY">%1$s дæ ской кодта «%2$s»-ы.</string>
   <string name="refundXpointsTimeControlY">Раздæхт: %1$s %2$s рейтинг очкоты.</string>
 </resources>

@@ -56,11 +56,12 @@ $user-list-width: 30ch;
     .leaderboards {
       @extend %box-radius;
 
+      overflow: hidden;
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax($user-list-width, 1fr));
 
       .user-top {
-        border: 1px solid $m-brag--fade-50;
+        border: 1px solid rgb(from $c-brag r g b / calc(alpha * 0.5));
       }
 
       h2 {

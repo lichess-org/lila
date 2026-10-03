@@ -3,8 +3,16 @@
   <string name="settings">Configurações</string>
   <string name="closeAccount">Encerrar conta</string>
   <string name="managedAccountCannotBeClosed">Sua conta é gerenciada, e não pode ser encerrada.</string>
-  <string name="cantOpenSimilarAccount" comment="Please note this string was simplified in January 2025. Before this, it used to state &quot;You will not be allowed to open a new account with the same name, even if the case is different.&quot; Please update existing translations as required.">Você não poderá abrir uma nova conta com o mesmo nome, mesmo que alterne entre maiúsculas e minúsculas.</string>
+  <string name="cantOpenSimilarAccount">Você não poderá abrir uma nova conta com o mesmo nome, mesmo que alterne entre maiúsculas e minúsculas.</string>
   <string name="cancelKeepAccount">Cancelar e manter minha conta</string>
   <string name="closeAccountAreYouSure">Você tem certeza de que deseja encerrar sua conta?</string>
-  <string name="thisAccountIsClosed" comment="Appears on mouseover for a user profile (account) which has been closed.&#10;&#10;This should be in the passive voice. It is typically the player's choice to close their own account, but it is could instead be Lichess moderators who closed the account.">Esta conta foi encerrada.</string>
+  <string name="thisAccountIsClosed">Esta conta foi encerrada.</string>
+  <string name="wereSorryToSeeYouGo">Lamentamos ver você partir.</string>
+  <string name="closeAccountForeverLabel">Encerrar permanentemente: impossibilitar a reabertura</string>
+  <string name="closeAccountForeverWarning">Impeça a reabertura da conta no futuro. Se você marcar esta opção, nem mesmo os administradores conseguirão reabri-la a seu pedido.</string>
+  <string name="deleteYourAccount">Excluir sua conta</string>
+  <string name="deleteAccountWarning">Uma vez excluída, sua conta será removida do Lichess e nossos administradores não conseguirão recuperá-la para você.</string>
+  <string name="wouldYouLikeToXInstead" comment="%s is close your account">Você prefere %s?</string>
+  <string name="closeYourAccount">encerrar sua conta</string>
+  <string name="deleteAccountConfirmText">Entendo que contas excluídas não podem ser recuperadas</string>
 </resources>

@@ -48,14 +48,12 @@
     <item quantity="one">Ein Post zeige</item>
     <item quantity="other">Zeig all %s Biträg</item>
   </plurals>
-  <string name="uploadAnImageForYourPost">Lad für din Bitrag es Bild ufe</string>
   <string name="imageAlt">Alternative Bildtegscht</string>
   <string name="imageCredit">Bild Herkunft</string>
   <string name="deleteBlog">Lösch de Blog-Post definitiv</string>
-  <string name="safeToUseImages">Es isch sicher, Bilder vu folgende Website z\'verwände: </string>
   <string name="selectPostTopics">Wähl d\'Theme vu dim Post us</string>
-  <string name="useImagesYouMadeYourself">Du chasch auch sälber g\'machti- oder knipsti Bilder verwände oder Screenshots vu Lichess... eifach alles, was nöd vu öpper anderem urheberrächtlich gschützt isch.</string>
   <string name="safeAndRespectfulContent">Bitte nur sicheri und reschpäktvolli Inhält poschte. Kopier nöd Inhält vu öpper anderem.</string>
+  <string name="noCopyrightedImages">Verwend nume söttige Bilder, wo nid vo öppert andersem g\'copyrighted sind.</string>
   <string name="inappropriateContentAccountClosed">Irgendwelchi unagmässeni Inhält, chönd zur Schlüssig vu dim Konto fühere.</string>
   <string name="blogTips">Eusi eifache Tips, für tolli Blog-Biträg</string>
   <string name="discussThisBlogPostInTheForum">Diskutier de Blog-Bitrag im Forum</string>

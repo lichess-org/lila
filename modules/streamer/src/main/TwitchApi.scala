@@ -1,7 +1,7 @@
 package lila.streamer
 
 import scala.collection.concurrent.TrieMap
-import akka.stream.scaladsl.*
+import org.apache.pekko.stream.scaladsl.*
 import play.api.i18n.Lang
 import play.api.libs.json.*
 import play.api.libs.ws.DefaultBodyWritables.*
@@ -59,11 +59,11 @@ final private class TwitchApi(
     cfg: TwitchConfig,
     net: NetConfig,
     cacheApi: lila.memo.CacheApi
-)(using Executor, akka.stream.Materializer):
+)(using Executor, org.apache.pekko.stream.Materializer):
 
   import Twitch.{ given, * }
 
-  private val logger = lila.streamer.logger.branch("twitch")
+  private lazy val logger = lila.log("streamer.twitch")
   private val webhook = net.routeUrl(routes.Streamer.onTwitchEventSub)
   private val eventSubEndpoint = s"${cfg.helixEndpoint}/eventsub/subscriptions"
   private val eventVersions = Map("stream.online" -> "1", "stream.offline" -> "1", "channel.update" -> "2")
@@ -290,7 +290,7 @@ final private class TwitchApi(
 
   private object bearerToken:
 
-    private val cache = cacheApi.unit[Secret]:
+    private val cache = cacheApi.unit[Secret]("twitch.bearerToken"):
       _.refreshAfterWrite(55.minutes).buildAsyncFuture: _ =>
         renewToken()
 

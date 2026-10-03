@@ -78,9 +78,9 @@ export default class SetupCtrl {
 
   ongoingGameWorthResuming = () => {
     const game = this.ongoing();
-    if (!game?.worthResuming()) return;
+    if (!game?.worthResuming()) return undefined;
     const bot = this.opts.bots.find(b => b.key === game.botKey);
-    if (!bot) return;
+    if (!bot) return undefined;
     return { game, board: game.lastBoard(), bot };
   };
 }

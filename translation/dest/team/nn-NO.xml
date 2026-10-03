@@ -16,6 +16,7 @@
   <string name="quitTeam">Forlat laget</string>
   <string name="manuallyReviewAdmissionRequests">Gå manuelt gjennom førespurnader om opptak</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Om merka av må spelarane skriva ein førespurnad for å bli tatt opp som medlem i laget. Du avslår eller aksepterer førespurnaden.</string>
+  <string name="hideMembersDesc" comment="Checkbox label: option to hide the team member list from non-members">Skjul gruppemedlemslista frå ikkje-medlemar.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Gruppeleiar</item>
     <item quantity="other">Gruppeleiar</item>
@@ -30,17 +31,14 @@
   <string name="willBeReviewed">Lagleiaren vil vurdere din førespurnad om å bli med.</string>
   <string name="beingReviewed">Lagleiaren vil vurdere din førespurnad om å bli med.</string>
   <string name="requestDeclined">Lagleiaren avslo din førespurnad om å bli med.</string>
-  <string name="subToTeamMessages">Abonner på lagmeldingar</string>
   <string name="teamBattle">Lagkamp</string>
   <string name="teamBattleOverview">Ein konkurranse mellom fleire lag, kvar spelar skårar poeng for sitt eige lag</string>
   <string name="teamTournament">Lagturnering</string>
   <string name="teamTournamentOverview">Ei arenaturnering som berre medlemar av laget ditt kan vere med på</string>
   <string name="swissTournamentOverview">Ein monradturnering som berre medlemar av laget ditt kan vera med på</string>
-  <string name="messageAllMembers">Send melding til alle medlemmar</string>
-  <string name="messageAllMembersOverview">Send ei privat melding til alle medlemmane i laget</string>
-  <string name="messageAllMembersLongDescription">Send ei privat melding til alle gruppemedlemane.
-Du kan bruke dette til å ta kontakt med spelarar for å gjere dei merksame på ei turnering eller ein lagmatch dei kan delta på.
-Spelarar som ikkje er interesserte i å få meldingar kan kome til å forlate gruppa.</string>
+  <string name="teamUpdates">Lagoppdateringar</string>
+  <string name="subToTeamUpdates">Abonner på lagmeldingar</string>
+  <string name="newTeamUpdate">Ny lagoppdatering</string>
   <string name="teamsIlead">Grupper eg er leiar av</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Du vil kan hende lage ei lenke til ei av desse kommande turneringane?</string>
   <string name="leadersChat">Chatt for gruppeleiarar</string>
@@ -52,6 +50,9 @@ Spelarar som ikkje er interesserte i å få meldingar kan kome til å forlate gr
   <string name="entryCode">Lagtilgangskode</string>
   <string name="entryCodeDescriptionForLeader">(Valfritt) Ein tilgangskode som nye medlemar må kjenne til for å bli med på dette laget.</string>
   <string name="incorrectEntryCode">Feil tilgangskode.</string>
+  <string name="forumLabel">Lagforum</string>
+  <string name="forumVisibilityHelp">Kven kan sjå laget sitt forum på lagsida?&lt;br&gt;Berre lagmedlemar kan publisere i laget sitt forum.</string>
+  <string name="forumVisibilityNone">Skjul forumet</string>
   <string name="teamAlreadyExists">Dette laget finst allereie.</string>
   <string name="upcomingTournaments">Komande turneringar</string>
   <string name="completedTourns">Avslutta turneringar</string>

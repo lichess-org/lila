@@ -4,10 +4,10 @@
   <string name="twoFactorHelp">Двофакторска аутентификација додаје још један слој безбедности Вашем налогу.</string>
   <string name="scanTheCode">Скенирајte QR код уз помоћ апликације.</string>
   <string name="enterPassword">Унесите своју лозинку и аутентификациони код који је генерисала апликација да бисте завршили подешавање. Аутентификациони код ће Вам бити потребан при сваком пријављивању.</string>
-  <string name="ifYouCannotScanEnterX">Ако не можете скенирати код, унесите тајни %s у Вашу апликацију.</string>
+  <string name="ifYouCannotScanEnterX">Ако не можеш скенирати код, унеси тајни кључ %s ручно у твоју апликацију.</string>
   <string name="authenticationCode">Аутентификациони код</string>
   <string name="enableTwoFactor">Омогући двофакторску аутентификацију</string>
   <string name="disableTwoFactor">Онемогући двофакторску аутентификацију</string>
   <string name="twoFactorEnabled">Двофакторска аутентификација омогућена</string>
-  <string name="openTwoFactorApp">Отворите апликацију за аутентификацију на Вашем уређају како бисте видели Ваш аутентификациони код и потврдите Ваш идентитет.</string>
+  <string name="openTwoFactorApp">Отвори апликацију за двофакторску аутентификацију на твом уређају да видиш свој аутентификациони код и потврдиш свој идентитет.</string>
 </resources>

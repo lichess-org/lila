@@ -7,6 +7,8 @@ import scalalib.newtypes.SameRuntime
 import lila.core.id.*
 import lila.core.study.StudyOrder as StudyOrder
 import lila.core.ublog.{ BlogsBy, QualityFilter as BlogQualityFilter }
+import lila.core.misc.AppealTopic
+import lila.ui.MarkdownRealm
 
 object LilaRouter:
 
@@ -50,6 +52,9 @@ object LilaRouter:
     _.key
   )
 
+  given PathBindable[AppealTopic] = strPath(AppealTopic.byKey.get, "Invalid appeal topic", _.toString)
+  given PathBindable[MarkdownRealm] = strPath(MarkdownRealm.byKey.get, "Invalid markdown realm")
+
   private def urlEncode(str: String) = java.net.URLEncoder.encode(str, "utf-8")
 
   private def strQueryString[A](
@@ -68,6 +73,7 @@ object LilaRouter:
   given QueryStringBindable[Color] =
     strQueryString[Color](Color.fromName, "Invalid chess color, should be white or black", _.name)
   given QueryStringBindable[Uci] = strQueryString[Uci](Uci.apply, "Invalid UCI move", _.uci)
-  given QueryStringBindable[BlogsBy] = strQueryString[BlogsBy](BlogsBy.fromName, "Invalid order", _.toString)
+  given QueryStringBindable[BlogsBy] =
+    strQueryString[BlogsBy](BlogsBy.byName.get, "Invalid order", _.toString)
   given QueryStringBindable[BlogQualityFilter] =
-    strQueryString[BlogQualityFilter](BlogQualityFilter.fromName, "Invalid quality", _.name)
+    strQueryString[BlogQualityFilter](BlogQualityFilter.byName.get, "Invalid quality", _.name)

@@ -103,7 +103,7 @@ bằng cách ăn quân đang chiếu.</string>
 xuyên qua các quân phòng thủ!</string>
   <string name="escapeOrBlock">Chạy quân Vua 
 hoặc chặn nước chiếu!</string>
-  <string name="outOfCheckComplete" comment="A brief description indicating that the user has reached the end of the out of check chapter.&#10;&#10;Note: In March 2026, this was changed from &quot;can never be taken&quot; to &quot;must never be taken&quot;.">Chúc mừng! Quân Vua có thể không bao giờ bị bắt, hãy đảm bảo bạn có thể phòng thủ nước chiếu!</string>
+  <string name="outOfCheckComplete">Chúc mừng! Quân Vua có thể không bao giờ bị bắt, hãy đảm bảo bạn có thể phòng thủ nước chiếu!</string>
   <string name="mateInOne">Chiếu hết trong 1 nước</string>
   <string name="defeatTheOpponentsKing">Đánh bại Vua đối phương</string>
   <string name="mateInOneIntro">Bạn thắng khi đối phương không thể phòng thủ nước chiếu.</string>
@@ -131,6 +131,7 @@ Bên phải cạnh quân Hậu.</string>
 Hãy đi nước bất kỳ để tiếp tục.</string>
   <string name="boardSetupComplete">Chúc mừng! Bạn đã biết cách thiết lập bàn cờ.</string>
   <string name="castling">Nhập thành</string>
+  <string name="enPassant">Bắt tốt qua đường</string>
   <string name="theSpecialKingMove">Nước đi đặc biệt của quân Vua</string>
   <string name="castlingIntro">Chuyển quân Vua đến vị trí an toàn, và triển khai quân Xe để tấn công!</string>
   <string name="castleKingSide">Di chuyển quân Vua 2 ô để nhập thành gần!</string>
@@ -230,7 +231,7 @@ trong 2 nước!</string>
   <string name="youreGoodAtThis">Bạn giỏi quá!</string>
   <string name="nailedIt">Luyện tập tốt.</string>
   <string name="rightOn">Chính xác, tuyệt vời!</string>
-  <string name="stageXComplete">Hoàn thành chặng %s</string>
+  <string name="stageXComplete">Chặng %s hoàn thành</string>
   <string name="next">Tiếp</string>
   <string name="nextX">Tiếp theo: %s</string>
   <string name="backToMenu">Quay lại mục lục</string>

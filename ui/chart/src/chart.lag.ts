@@ -36,7 +36,7 @@ export async function initModule(): Promise<void> {
     const colors = ['#55bf3b', '#dddf0d', '#df5353'];
     const dataset: ChartDataset<'doughnut'>[] = [
       {
-        data: index ? [500, 150, 100] : [300, 250, 200],
+        data: index ? [400, 200, 200] : [100, 100, 100],
         backgroundColor: colors,
         hoverBackgroundColor: colors,
         borderColor: '#d9d9d9',
@@ -48,7 +48,7 @@ export async function initModule(): Promise<void> {
     const config: ChartConfiguration<'doughnut'> = {
       type: 'doughnut',
       data: {
-        labels: index ? ['0-500', '500-650', '650-750'] : ['0-300', '300-550', '550-750'],
+        labels: index ? ['0-400', '400-600', '600-800'] : ['0-100', '100-200', '200-300'],
         datasets: dataset,
       },
       options: {

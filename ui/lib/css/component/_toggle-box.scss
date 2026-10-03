@@ -15,6 +15,8 @@
     text-align: right;
     font-size: 1.2em;
     line-height: 26px;
+    border: 1px solid transparent;
+    border-top-color: $c-border;
 
     &:focus-visible {
       outline: $outline;
@@ -24,13 +26,26 @@
 
 .toggle-box--toggle {
   legend {
-    border: 1px solid transparent;
-    border-top-color: $c-border;
+    @include backdrop-blur-if-transparent(10px);
+
+    padding: 0.5em 2.5em 0.5em 1.5em;
     cursor: pointer;
+    position: relative;
 
     &::after {
-      content: '▲';
-      margin-left: 1ch;
+      @extend %data-icon;
+
+      content: $licon-GreaterThan;
+      position: absolute;
+      font-size: 14px;
+      transform: rotate(-90deg);
+      margin-left: 0.5em;
+      opacity: 0.66;
+      transition: transform 0.2s ease-in-out;
+    }
+
+    &:hover {
+      color: $c-primary;
     }
   }
 }
@@ -47,13 +62,11 @@
     background: none;
 
     &:hover {
-      @extend %box-neat;
-
       background: $c-bg-zebra;
     }
 
     &::after {
-      content: '▼';
+      transform: rotate(90deg);
     }
   }
 

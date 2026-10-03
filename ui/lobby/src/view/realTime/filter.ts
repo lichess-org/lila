@@ -1,18 +1,18 @@
 import { h } from 'snabbdom';
 
-import * as licon from 'lib/licon';
-import { bind } from 'lib/view';
+import { licon } from 'lib/licon';
+import { bind, onInsert } from 'lib/view';
 import * as xhr from 'lib/xhr';
 
 import type LobbyController from '@/ctrl';
 
 function initialize(ctrl: LobbyController, el: FilterNode) {
-  const f = ctrl.filter.data?.form,
-    $div = $(el),
-    $ratingRange = $div.find('.rating-range'),
-    $rangeInput = $ratingRange.find('input[name="ratingRange"]'),
-    $minInput = $ratingRange.find('.rating-range__min'),
-    $maxInput = $ratingRange.find('.rating-range__max');
+  const f = ctrl.filter.data?.form;
+  const $div = $(el);
+  const $ratingRange = $div.find('.rating-range');
+  const $rangeInput = $ratingRange.find('input[name="ratingRange"]');
+  const $minInput = $ratingRange.find('.rating-range__min');
+  const $maxInput = $ratingRange.find('.rating-range__max');
 
   if (f)
     Object.keys(f).forEach(k => {
@@ -84,15 +84,12 @@ export interface FilterNode extends HTMLElement {
 
 export const render = (ctrl: LobbyController) =>
   h('div.hook__filters.cache-buster-' + ctrl.filter.uiCacheBuster, {
-    hook: {
-      insert(vnode) {
-        const el = vnode.elm as FilterNode;
-        if (el.filterLoaded) return;
-        xhr.text('/setup/filter').then(html => {
-          el.innerHTML = html;
-          el.filterLoaded = true;
-          initialize(ctrl, el);
-        });
-      },
-    },
+    hook: onInsert<FilterNode>(el => {
+      if (el.filterLoaded) return;
+      xhr.text('/setup/filter').then(html => {
+        el.innerHTML = html;
+        el.filterLoaded = true;
+        initialize(ctrl, el);
+      });
+    }),
   });

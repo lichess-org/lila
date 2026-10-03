@@ -1,5 +1,5 @@
 import { myUserId } from 'lib';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { pubsub } from 'lib/pubsub';
 import { alert, makeLinkPopups } from 'lib/view';
 import * as xhr from 'lib/xhr';
@@ -20,7 +20,7 @@ export async function initModule(): Promise<void> {
     $zone.find('textarea')[0]?.focus();
     if ($zone.hasClass('loaded')) return;
     $zone.addClass('loaded');
-    $noteToggle.find('strong').text('' + $zone.find('.note').length);
+    $noteToggle.find('strong').text(String($zone.find('.note').length));
     $zone.find('.note-form button[type=submit]').on('click', function (this: HTMLButtonElement) {
       $(this)
         .parents('form')
@@ -51,15 +51,15 @@ export async function initModule(): Promise<void> {
   });
 
   $('.user-show .angles').each(function (this: HTMLElement) {
-    const $angles = $(this),
-      $content = $('.angle-content'),
-      browseTo = (path: string) =>
-        xhr.text(path).then(html => {
-          $content.html(html);
-          pubsub.emit('content-loaded', $content[0]); // TODO don't do this twice
-          history.replaceState({}, '', path);
-          site.asset.loadEsm('bits.infiniteScroll');
-        });
+    const $angles = $(this);
+    const $content = $('.angle-content');
+    const browseTo = (path: string) =>
+      xhr.text(path).then(html => {
+        $content.html(html);
+        pubsub.emit('content-loaded', $content[0]); // TODO don't do this twice
+        history.replaceState({}, '', path);
+        site.asset.loadEsm('bits.infiniteScroll');
+      });
     $angles.on('click', 'a', function (this: HTMLAnchorElement) {
       if ($('#games .to-search').hasClass('active')) return true;
       $angles.find('.active').removeClass('active');
@@ -80,8 +80,8 @@ export async function initModule(): Promise<void> {
 }
 
 function tmpRandomTutorLink() {
-  const me = myUserId(),
-    userId = $('main.page-menu').data('username').toLowerCase();
+  const me = myUserId();
+  const userId = $('main.page-menu').data('username').toLowerCase();
   if (!me || !userId || me !== userId) return;
   const getNbGames = (icon: string) => {
     const text = $(`.sub-ratings a[data-icon=${icon}] rating span:last-child`).text();

@@ -51,9 +51,9 @@ export const viewDisabled = (root: AnalyseCtrl, why: string): VNode =>
   h('div.study__comments', [currentComments(root, true), h('div.study__message', why)]);
 
 export function view(root: AnalyseCtrl): VNode {
-  const study = root.study!,
-    ctrl = study.commentForm,
-    current = ctrl.current();
+  const study = root.study!;
+  const ctrl = study.commentForm;
+  const current = ctrl.current();
   if (!current) return viewDisabled(root, 'Select a move to comment');
 
   const setupTextarea = (vnode: VNode, old?: VNode) => {
@@ -87,7 +87,7 @@ export function view(root: AnalyseCtrl): VNode {
               const el = vnode.elm as HTMLInputElement;
               el.oninput = () => setTimeout(() => ctrl.submit(el.value), 50);
               const heightStore = storage.make('study.comment.height');
-              el.onmouseup = () => heightStore.set('' + el.offsetHeight);
+              el.onmouseup = () => heightStore.set(String(el.offsetHeight));
               el.style.height = parseInt(heightStore.get() || '80') + 'px';
               blurOnEscape(el);
             },

@@ -21,7 +21,6 @@
   <string name="puzzleRead">קריאה של פעילות החידות</string>
   <string name="teamRead">קריאת מידע על קבוצות פרטיות</string>
   <string name="teamWrite">הצטרפות, יצירה וניהול של קבוצות</string>
-  <string name="teamLead">ניהול קבוצות בהובלתך: שליחת הודעות פרטיות, העפת חברים</string>
   <string name="followRead">קריאה של השחקנים ברשימת המעקב</string>
   <string name="followWrite">מעקב וביטול מעקב אחר שחקנים אחרים</string>
   <string name="msgWrite">שליחת הודעה פרטית לשחקנים אחרים</string>

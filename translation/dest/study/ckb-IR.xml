@@ -63,7 +63,6 @@
   <string name="downloadGame">دابەزاندی یاری</string>
   <string name="studyUrl">خوێندنی URL</string>
   <string name="currentChapterUrl">لینکی یاریەکانی ئێستا</string>
-  <string name="youCanPasteThisInTheForumToEmbed">دەتوانیت ئەمە لە مەکۆکە یان بلۆگی لیچێسەکەتدا لێبدەیت بۆ جێگیرکردن</string>
   <string name="startAtInitialPosition">له شوێنێکی سەرەتایی دەستپێبکە</string>
   <string name="startAtX">دەس پێ ئەکات لە %s</string>
   <string name="embedInYourWebsite">لە ماڵپەڕەکەتدا جێگیر بکە</string>

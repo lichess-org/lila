@@ -14,7 +14,7 @@
 এটা হবে একট ৪ পয়েন্টের জয়, সমান: ২ পয়েন্ট, এবং হারায় দেখার মতো কোন পয়েন্ট থাকবে না.
 
 যেমন, দুটি জয় করে অনুসরন করা হবে একটি সমান ৬ পয়েন্ট: ২ + ২ +২ (২ x ১)</string>
-  <string name="berserk" comment="Appears as a heading on the Arena tournament FAQ on https://lichess.org/tournament/help&#10;&#10;This string used to read &quot;Arena Berserk&quot;, and was changed in March 2026 to just &quot;Berserk&quot;.">ক্ষিপ্ত রণক্ষেত্র</string>
+  <string name="berserk">ক্ষিপ্ত রণক্ষেত্র</string>
   <string name="berserkAnswer">যখন একজন খেলোয়াড় খেলার শুরুতে ক্ষিপ্ত বাটনে ক্লিক করে, তারা তাদের ঘড়ির অর্ধেক সময় হারায়, কিন্তু জয় হয় অতিরিক্ত প্রতিযোগিতা পয়েন্টে
 
 ক্ষিপ্ত সময় বাড়ানোর সাথে সাথে বাড়তি সময় বৃদ্ধিও করা যাবে (0+1, 0+2).
@@ -24,7 +24,6 @@
 যদি আপনি কমপক্ষে ৭ টি চাল দিন তাহলে ক্ষিপ্তের অতিরিক্ত একটি পয়েন্ট অনুদান হবে.</string>
   <string name="howIsTheWinnerDecided">কিভাবে জয়ী সিদ্ধান্ত নিয়েছে?</string>
   <string name="howIsTheWinnerDecidedAnswer">সবচেয়ে বেশি পয়েন্টের সাথে বিজয়ী (গুলি) নির্ধারিত প্রতিযোগিতার সময়ের সীমার শেষে প্রতিযোগিতা (গুলি) ঘোষণা করা হবে।.</string>
-  <string name="howDoesPairingWork">কিভাবে জোরায় কাজ করে?</string>
   <string name="howDoesPairingWorkAnswer">প্রতিযোগিতার শুরুর সময়, খেলোয়াড়দের জোড়া তাদের অনুপাতের ভিত্তিতে আছে.
 যত তাড়া তাড়ি আপনি খেলা শেষ করবেন, প্রতিযোগিতার উপশালায় ফিরে আসুন: আপনি তারপর আপনার অনুপাতের খেলোয়াড়ের সাথে জোড়া করা হবে.
 এটা সর্বনিম্ন অপেক্ষা সময় নিশ্চিত, যাইহক আপনার হয়তো প্রতিযোগিতার সকল খেলোয়াড়দের মুখোমুখি না হতে পারে.

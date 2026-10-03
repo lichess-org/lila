@@ -13,20 +13,20 @@
   <string name="studies">Estudos (partilhável e análise persistente)</string>
   <string name="chessInsights">Insights de xadrez (análise detalhada do teu jogo)</string>
   <string name="allChessBasicsLessons">Todas as aulas básicas de xadrez</string>
-  <string name="tacticalPuzzlesFromUserGames">Desafios táticos de jogos de utilizadores</string>
+  <string name="tacticalPuzzlesFromUserGames">Problemas provenientes de jogos de utilizadores</string>
   <string name="personalOpeningExplorerX">%1$s (também funciona %2$s)</string>
   <string name="personalOpeningExplorer">Explorador de aberturas pessoal</string>
   <string name="globalOpeningExplorerInNbGames">Explorador de aberturas global (%s jogos!)</string>
   <string name="endgameTablebase">Tablebase de finais com 7 peças</string>
-  <string name="downloadOrUploadAnyGameAsPgn">Descarregar/Enviar qualquer jogo como PGN</string>
+  <string name="downloadOrUploadAnyGameAsPgn">Descarregar/Carregar qualquer jogo como PGN</string>
   <string name="tvForumBlogTeamsMessagingFriendsChallenges">Blog, fórum, equipas, TV, mensagens, amigos, desafios</string>
-  <string name="lightOrDarkThemeCustomBoardsPiecesAndBackground">Tema claro/escuro e tabuleiros, peças e fundo personalizados</string>
+  <string name="lightOrDarkThemeCustomBoardsPiecesAndBackground">Tema claro/escuro, tabuleiros, peças e fundo personalizados</string>
   <string name="ultraBulletBulletBlitzRapidClassicalAndCorrespondenceChess">Xadrez UltraBullet, Bullet, Rápido, Semi-rápido, Clássico, Correspondência</string>
-  <string name="allFeaturesToCome">Todas as funcionalidades que virão para sempre!</string>
+  <string name="allFeaturesToCome">Todas as funcionalidades que virão, para sempre!</string>
   <string name="landscapeSupportOnApp">iPhone &amp; telemóveis e tablets Android, suporte panorâmico</string>
   <string name="everybodyGetsAllFeaturesForFree">Sim, ambas as contas têm os mesmos recursos!</string>
   <string name="weBelieveEveryChessPlayerDeservesTheBest">Acreditamos que todos os jogadores de xadrez merecem o melhor, e por isso:</string>
-  <string name="allFeaturesAreFreeForEverybody">Todas as funcionalidades são gratuitos para todos, para sempre!</string>
+  <string name="allFeaturesAreFreeForEverybody">Todas as funcionalidades são gratuitas para todos, para sempre!</string>
   <string name="ifYouLoveLichess">Se amas o Lichess,</string>
   <string name="supportUsWithAPatronAccount">Apoia-nos com uma conta Patrono!</string>
 </resources>

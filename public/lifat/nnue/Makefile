@@ -8,5 +8,5 @@ all: $(TARGETS)
 	mv $@.tmp $@
 
 %.gz: %
-	gzip $< --keep --stdout > $@.tmp
+	gzip --no-name $< --keep --stdout > $@.tmp
 	mv $@.tmp $@

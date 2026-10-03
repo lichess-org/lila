@@ -15,7 +15,6 @@
 
 Таны хөлөг эсрэг талын ноёны руу хүрэх замаа үргэлж олох болтугай. Та сайхан тоглоорой!</string>
   <string name="logInToLichess">%s, lichess.org нэвтэрч орох</string>
-  <string name="common_orPaste">(Товшихоор ажиллахгүй байна уу? Та холбоосыг интернет хөтөч дээр хуулж тавид уншуулж үзээрэй!)</string>
   <string name="common_note">Таны %s-ийг хэрэглэж буйтай хамааралтай зурвас болно.</string>
   <string name="common_contact">Бидэнтэй холбогдохыг хүсвэл %s-г дарна уу.</string>
 </resources>

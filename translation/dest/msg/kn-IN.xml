@@ -1,2 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="lichobileNewAppAvailable">ಹೊಸ ಲೈಚೆಸ್ ಮೊಬೈಲ್ ಅಪ್ಲಿಕೇಶನ್ ಲಭ್ಯವಿದೆ!</string>
+  <string name="lichobileNewAppDownload" comment="The parameter links to https://lichess.org/app">ದಯವಿಟ್ಟು %s ನಲ್ಲಿ ಹೊಸ ಅಧಿಕೃತ ಲೈಚೆಸ್ ಅಪ್ಲಿಕೇಶನ್ ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ.</string>
+  <string name="modActionFeedback">ನಮಸ್ಕಾರ,
+
+ನಿಮ್ಮ ಇತ್ತೀಚಿನ ವರದಿಯನ್ನು ನಾವು ಪರಿಶೀಲಿಸಿದ್ದೇವೆ ಮತ್ತು ಕ್ರಮ ಕೈಗೊಂಡಿದ್ದೇವೆ. ತೆಗೆದುಕೊಂಡ ಕ್ರಮಗಳ ಕುರಿತು ವಿವರಗಳನ್ನು ಹಂಚಿಕೊಳ್ಳಲು ಸಾಧ್ಯವಾಗದಿದ್ದರೂ, ನಿಮ್ಮ ವರದಿಯನ್ನು ನಾವು ಪ್ರಶಂಸಿಸುತ್ತೇವೆ.
+
+ಲೈಚೆಸ್ ಅನ್ನು ಎಲ್ಲರಿಗೂ ಉತ್ತಮ ಸ್ಥಳವಾಗಿಡುವಲ್ಲಿ ನಿಮ್ಮ ಸಹಾಯಕ್ಕಾಗಿ ಧನ್ಯವಾದಗಳು.</string>
+</resources>

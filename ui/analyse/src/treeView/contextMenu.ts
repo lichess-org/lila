@@ -1,12 +1,12 @@
 import { isTouchDevice } from 'lib/device';
-import * as licon from 'lib/licon';
+import { licon, type LiconValue } from 'lib/licon';
 import type { TreePath } from 'lib/tree/types';
 import { type VNode, onInsert, hl, dataIcon } from 'lib/view';
 
-import type AnalyseCtrl from '../ctrl';
-import { renderVariationPgn } from '../pgnExport';
-import * as studyView from '../study/studyView';
-import { patch, nodeFullName } from '../view/util';
+import type AnalyseCtrl from '@/ctrl';
+import { renderNodesPgn } from '@/pgnExport';
+import * as studyView from '@/study/studyView';
+import { patch, nodeFullName } from '@/view/util';
 
 export function renderContextMenu(e: MouseEvent, ctrl: AnalyseCtrl, path: TreePath): void {
   let pos = getPosition(e);
@@ -57,10 +57,10 @@ function getPosition(e: MouseEvent | TouchEvent): Coords | null {
 }
 
 function positionMenu(menu: HTMLElement, coords: Coords): void {
-  const menuWidth = menu.offsetWidth + 4,
-    menuHeight = menu.offsetHeight + 4,
-    windowWidth = window.innerWidth,
-    windowHeight = window.innerHeight;
+  const menuWidth = menu.offsetWidth + 4;
+  const menuHeight = menu.offsetHeight + 4;
+  const windowWidth = window.innerWidth;
+  const windowHeight = window.innerHeight;
 
   menu.style.left =
     windowWidth - coords.x < menuWidth ? windowWidth - menuWidth + 'px' : (menu.style.left = coords.x + 'px');
@@ -72,7 +72,7 @@ function positionMenu(menu: HTMLElement, coords: Coords): void {
 }
 
 function action(
-  icon: LiconType,
+  icon: LiconValue,
   text: string,
   onClick: () => void,
   onHover?: () => void,
@@ -82,24 +82,21 @@ function action(
     'a',
     {
       attrs: dataIcon(icon),
-      hook: {
-        insert: vnode => {
-          const elm = vnode.elm as HTMLElement;
-          elm.addEventListener('click', onClick);
-          if (onHover && !isTouchDevice())
-            elm.addEventListener('mouseover', () => {
-              onHover();
-              // If there is a special action for hover, make the menu transparent so that effects
-              // on the move list can be fully seen:
-              $('#' + elementId).addClass('transparent');
-            });
-          if (onLeave)
-            elm.addEventListener('mouseout', () => {
-              onLeave();
-              $('#' + elementId).removeClass('transparent');
-            });
-        },
-      },
+      hook: onInsert(elm => {
+        elm.addEventListener('click', onClick);
+        if (onHover && !isTouchDevice())
+          elm.addEventListener('mouseover', () => {
+            onHover();
+            // If there is a special action for hover, make the menu transparent so that effects
+            // on the move list can be fully seen:
+            $('#' + elementId).addClass('transparent');
+          });
+        if (onLeave)
+          elm.addEventListener('mouseout', () => {
+            onLeave();
+            $('#' + elementId).removeClass('transparent');
+          });
+      }),
     },
     text,
   );
@@ -107,9 +104,9 @@ function action(
 
 function view(ctrl: AnalyseCtrl, path: TreePath, coords: Coords): VNode {
   const { tree, idbTree } = ctrl;
-  const node = tree.nodeAtPath(path),
-    onMainline = tree.pathIsMainline(path) && !tree.pathIsForcedVariation(path),
-    extendedPath = tree.extendPath(path, onMainline);
+  const canPrune = ctrl.ongoing && path.startsWith(ctrl.initialPath); // correspondence
+  const node = tree.nodeAtPath(path);
+  const onMainline = tree.pathIsMainline(path) && !tree.pathIsForcedVariation(path);
   let canPromote = !onMainline;
   for (let iter = tree.lastMainlineNode(path).children[1]; canPromote && iter; iter = iter.children[0]) {
     if (iter === node) canPromote = false;
@@ -129,31 +126,31 @@ function view(ctrl: AnalyseCtrl, path: TreePath, coords: Coords): VNode {
     [
       hl('p.title', nodeFullName(node)),
 
+      idbTree.someCollapsedOf(false) && // with variation hiding enabled, collapse/expand all are most common
+        action(licon.MinusButton, 'Collapse all', () => idbTree.setCollapsedFrom('', true)),
+
+      idbTree.someCollapsedOf(true) &&
+        action(licon.PlusButton, 'Expand all', () => idbTree.setCollapsedFrom('', false)),
+
+      canPrune && action(licon.Prune, 'Prune to main line', () => ctrl.pruneToMainline(path)), // correspondence
+
       canPromote && action(licon.UpTriangle, i18n.site.promoteVariation, () => ctrl.promote(path, false)),
-
       !onMainline && action(licon.Checkmark, i18n.site.makeMainLine, () => ctrl.promote(path, true)),
-
       path && ctrl.study && studyView.contextMenu(ctrl.study, path, node),
 
       path &&
         onMainline &&
         action(licon.InternalArrow, i18n.site.forceVariation, () => ctrl.forceVariation(path, true)),
 
-      idbTree.someCollapsedOf(false) &&
-        action(licon.MinusButton, 'Collapse all', () => idbTree.setCollapsedFrom('', true)),
-
-      idbTree.someCollapsedOf(true) &&
-        action(licon.PlusButton, 'Expand all', () => idbTree.setCollapsedFrom('', false)),
-
       action(
         licon.Clipboard,
         onMainline ? i18n.site.copyMainLinePgn : i18n.site.copyVariationPgn,
         () =>
           navigator.clipboard.writeText(
-            renderVariationPgn(ctrl.data.game, ctrl.tree.getNodeList(extendedPath)),
+            renderNodesPgn(ctrl.data.game, ctrl.tree.getNodeList(path), !onMainline),
           ),
-        () => ctrl.pendingCopyPath(extendedPath),
-        () => ctrl.pendingCopyPath(null),
+        () => ctrl.pendingCopy({ eventPath: path, withVariations: !onMainline }),
+        () => ctrl.pendingCopy(null),
       ),
 
       path &&

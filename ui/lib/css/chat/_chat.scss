@@ -2,7 +2,6 @@
 @import 'tab';
 @import 'members';
 @import 'discussion';
-@import 'voicechat';
 
 .mchat {
   @extend %box-neat-force, %flex-column;

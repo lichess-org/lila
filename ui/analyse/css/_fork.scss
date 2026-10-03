@@ -9,7 +9,7 @@ $c-fork: $c-primary;
     @include prevent-select;
     @extend %san, %flex-center;
 
-    background: $m-primary_bg--mix-25;
+    background: color-mix(in oklab, $c-primary 25%, $c-bg);
     color: $c-font-clear;
     flex: 0 0 50%;
     cursor: pointer;
@@ -22,11 +22,11 @@ $c-fork: $c-primary;
     }
 
     &.correct {
-      background: $m-secondary_bg--mix-25;
+      background: color-mix(in oklab, $c-secondary 25%, $c-bg);
     }
 
     &.wrong {
-      background: $m-bad_bg--mix-25;
+      background: color-mix(in oklab, $c-bad 25%, $c-bg);
     }
   }
 

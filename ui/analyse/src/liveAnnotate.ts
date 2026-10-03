@@ -2,10 +2,10 @@ import { povChances } from 'lib/ceval/winningChances';
 import type { TreeWrapper } from 'lib/tree';
 import type { Glyph, TreeNode, TreePath } from 'lib/tree/types';
 
-const glyphs = {
-  inaccuracy: { id: 6, symbol: '?!', name: 'Inaccuracy' } as Glyph,
-  mistake: { id: 2, symbol: '?', name: 'Mistake' } as Glyph,
-  blunder: { id: 4, symbol: '??', name: 'Blunder' } as Glyph,
+const glyphs: Record<string, Glyph> = {
+  inaccuracy: { id: 6, symbol: '?!', name: 'Inaccuracy' },
+  mistake: { id: 2, symbol: '?', name: 'Mistake' },
+  blunder: { id: 4, symbol: '??', name: 'Blunder' },
 };
 
 export default class LiveAnnotate {
@@ -20,10 +20,11 @@ export default class LiveAnnotate {
   };
 
   private readonly liveGlyph = (node: TreeNode, parent: TreeNode): Glyph | undefined => {
-    if (!parent.ceval || !node.ceval || node.uci === (parent.ceval.pvs[0]?.moves[0] ?? parent.ceval.bestmove))
-      return undefined;
-    const color: Color = node.ply % 2 === 1 ? 'white' : 'black';
-    const loss = povChances(color, parent.ceval) - povChances(color, node.ceval);
+    if (!parent.ceval || node.uci === parent.ceval.bestmove) return undefined;
+    const postMoveEval = parent.ceval.pvs.find(pv => node.uci === pv.moves[0]) ?? node.ceval;
+    if (!postMoveEval) return undefined;
+    const color = node.ply % 2 === 1 ? 'white' : 'black';
+    const loss = povChances(color, parent.ceval) - povChances(color, postMoveEval);
     if (loss > 0.3) return glyphs.blunder;
     if (loss > 0.2) return glyphs.mistake;
     if (loss > 0.1) return glyphs.inaccuracy;

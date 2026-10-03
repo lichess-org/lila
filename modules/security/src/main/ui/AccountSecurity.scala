@@ -5,8 +5,7 @@ import play.api.data.Form
 
 import lila.core.id.SessionId
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class AccountSecurity(helpers: Helpers)(
     AccountPage: (String, String) => Context ?=> Page
@@ -25,25 +24,17 @@ final class AccountSecurity(helpers: Helpers)(
         div(cls := "box")(
           h1(cls := "box__top")(trans.site.security()),
           standardFlash.map(div(cls := "box__pad")(_)),
-          div(cls := "box__pad")(
+          div(cls := "box__pad security__header")(
             p(
-              "This is a list of devices and applications that are logged into your account. If you notice any suspicious activity, make sure to ",
-              a(href := routes.Account.email)("check your recovery email address"),
-              " and ",
-              a(href := routes.Account.passwd)("change your password"),
-              "."
-            ),
-            (sessions.sizeIs > 1).option(
-              div(
-                "You can also ",
-                postForm(cls := "revoke-all", action := routes.Account.signout("all"))(
-                  submitButton(cls := "button button-empty button-red yes-no-confirm")(
-                    trans.site.revokeAllSessions()
-                  )
-                ),
-                "."
+              trans.site.activeSessionsDescription.rawHtml(
+                routes.Account.email.url,
+                routes.Account.passwd.url
               )
-            )
+            ),
+            (sessions.sizeIs > 1).option:
+              postForm(cls := "revoke-all", action := routes.Account.signout("all")):
+                submitButton(cls := "button button-empty button-red yes-no-confirm"):
+                  trans.site.revokeAllSessions()
           ),
           table(sessions, curSessionId, clients, personalAccessTokens)
         )
@@ -140,7 +131,7 @@ final class AccountSecurity(helpers: Helpers)(
 
   import lila.security.EmailConfirm.Help.Status
   def emailConfirmHelp(form: Form[?], status: Option[Status])(using Context) =
-    Page(trans.site.emailConfirmHelp.txt()).css("email-confirm"):
+    Page(trans.site.emailConfirmHelp.txt()).css("bits.email-confirm"):
       frag(
         main(cls := "page-small box box-pad email-confirm-help")(
           h1(cls := "box__top")(trans.site.emailConfirmHelp()),
@@ -181,7 +172,7 @@ final class AccountSecurity(helpers: Helpers)(
                       strong(trans.site.refreshInboxAfterFiveMinutes())
                     )
                   ),
-                  li(trans.site.checkSpamFolder()),
+                  li(trans.site.checkSpamOrJunkFolder()),
                   li(
                     p(trans.site.sendEmailForAccountVerification(strong(a(href := mailto)(sendTo)))),
                     a(cls := "button", href := mailto):

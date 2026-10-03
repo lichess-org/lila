@@ -1,5 +1,5 @@
 package lila.web
-import play.api.{ Application, Configuration, Environment, Mode, Play }
+import play.api.{ Application, Configuration, Environment, Mode }
 import play.core.server.{
   NettyServer,
   RealServerProcess,
@@ -28,18 +28,14 @@ object PlayServer:
 
       val config: ServerConfig = readServerConfigSettings(process)
 
-      lila
-        .log("boot")
-        .info:
-          val java = System.getProperty("java.version")
-          val mem = Runtime.getRuntime.maxMemory() / 1024 / 1024
-          s"lila ${config.mode} / java $java, memory: ${mem}MB"
+      lila.log.system.info:
+        val java = System.getProperty("java.version")
+        val mem = Runtime.getRuntime.maxMemory() / 1024 / 1024
+        s"lila ${config.mode} / java $java, memory: ${mem}MB"
 
       val environment: Environment = Environment(config.rootDir, process.classLoader, config.mode)
 
       val application = makeApplication(environment)
-
-      Play.start(application)
 
       val server = NettyServer(
         config,

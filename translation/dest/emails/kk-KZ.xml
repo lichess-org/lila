@@ -16,7 +16,6 @@
 
 Ойынды пайдаға жаратып, шахмат тастарыңыздың жолы болсын!</string>
   <string name="logInToLichess">%s, lichess.org тіркелгісіне кіріңіз</string>
-  <string name="common_orPaste">(Басылмай жатыр ма? Браузердің жолағына көшіріп көріңіз!)</string>
   <string name="common_note">Осы қызметтік хат сіздің %s сайтындағы әрекетіңізге қатысты.</string>
   <string name="common_contact">Бізбен байланысу - %s.</string>
 </resources>

@@ -1,6 +1,6 @@
 import { h, type VNode } from 'snabbdom';
 
-import * as licon from '../licon';
+import { licon } from '../licon';
 import { bind, onInsert, type MaybeVNodes } from './snabbdom';
 import { userComplete, type UserCompleteOpts } from './userComplete';
 
@@ -91,10 +91,10 @@ export function renderPager<A>(ctrl: PaginatedCtrl<A>, searchButton: VNode, sear
 }
 
 export function pagerData<A>(ctrl: PaginatedCtrl<A>): PagerData<A> {
-  const page = ctrl.page,
-    nbResults = ctrl.data.nbPlayers,
-    from = (page - 1) * maxPerPage,
-    to = Math.min(nbResults, page * maxPerPage);
+  const page = ctrl.page;
+  const nbResults = ctrl.data.nbPlayers;
+  const from = (page - 1) * maxPerPage;
+  const to = Math.min(nbResults, page * maxPerPage);
   return {
     from,
     to,

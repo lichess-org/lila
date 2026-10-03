@@ -36,14 +36,15 @@ final class FishnetApi(
 
   def keyExists(key: Client.Key) = repo.getEnabledClient(key).map(_.isDefined)
 
-  def authenticateClient(req: JsonApi.Request, ip: IpAddress): Fu[Try[Client]] = {
+  def authenticateClient(key: Client.Key, version: Client.Version, ip: IpAddress): Fu[Try[Client]] = {
     if config.offlineMode then repo.getOfflineClient.map(some)
-    else repo.getEnabledClient(req.fishnet.apikey)
+    else repo.getEnabledClient(key)
   }.map {
     case None => Failure(LilaNoStackTrace("Can't authenticate: invalid key or disabled client"))
-    case Some(client) => clientVersion.accept(req.fishnet.version).map(_ => client)
+    case Some(client) => clientVersion.accept(version).map(_ => client)
   }.flatMap:
-    case Success(client) => repo.updateClientInstance(client, req.instance(ip)).map(Success.apply)
+    case Success(client) =>
+      repo.updateClientInstance(client, Client.Instance(version, ip, nowInstant)).map(Success.apply)
     case invalid => fuccess(invalid)
 
   def acquire(client: Client, slow: Boolean): Fu[Option[JsonApi.Work]] =
@@ -61,14 +62,14 @@ final class FishnetApi(
     workQueue {
       analysisColl
         .find(
-          $doc("acquired".$exists(false)) ++ {
-            (!client.offline).so($doc("lastTryByKey".$ne(client.key))) // client alternation
+          bdoc("acquired".exists(false)) ++ {
+            (!client.offline).so(bdoc("lastTryByKey".neq(client.key))) // client alternation
           } ++ {
-            slow.so($doc("origin".$in(Work.Origin.slowOk)))
+            slow.so(bdoc("origin".in(Work.Origin.slowOk)))
           }
         )
         .sort(
-          $doc(
+          bdoc(
             "sender.system" -> 1, // user requests first, then lichess auto analysis
             "createdAt" -> 1 // oldest requests first
           )
@@ -108,7 +109,7 @@ final class FishnetApi(
             }
           else fuccess(PostAnalysisResult.UnusedPartial)
     res <- res match
-      case r @ PostAnalysisResult.Complete(res) => sink.save(res).inject(r)
+      case r @ PostAnalysisResult.Complete(res) => sink.save(res, work.game.hash).inject(r)
       case r @ PostAnalysisResult.Partial(res) => sink.progress(res).inject(r)
       case r @ PostAnalysisResult.UnusedPartial => fuccess(r)
   yield res
@@ -122,7 +123,7 @@ final class FishnetApi(
 
   def userAnalysisExists(gameId: GameId) =
     analysisColl.exists(
-      $doc(
+      bdoc(
         "game.id" -> gameId,
         "sender.system" -> false
       )

@@ -1,6 +1,7 @@
 import { opposite } from '@lichess-org/chessground/util';
 
 import { isEmpty, type Prop, prop } from 'lib';
+import { api } from 'lib/api';
 import { winningChances } from 'lib/ceval';
 import { path as treePath } from 'lib/tree/tree';
 import type { TreeNode } from 'lib/tree/types';
@@ -104,29 +105,32 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
       game.division &&
       (!game.division.middle || fault.node.ply < game.division.middle)
     ) {
-      root.explorer.fetchMasterOpening(prev.node.fen).then((res: OpeningData) => {
-        const cur = current()!;
-        const ucis: Uci[] = [];
-        res.moves.forEach(m => {
-          if (m.white + m.draws + m.black > 1) ucis.push(m.uci);
-        });
-        if (ucis.includes(fault.node.uci!)) {
-          explorerCancelPlies.push(fault.node.ply);
-          setTimeout(jumpToNext, 100);
-        } else {
-          cur.openingUcis = ucis;
-          current(cur);
-        }
-      });
+      root.explorer
+        .fetchMasterOpening(prev.node.fen)
+        .then((res: OpeningData) => {
+          const cur = current()!;
+          const ucis: Uci[] = [];
+          res.moves.forEach(m => {
+            if (m.white + m.draws + m.black > 1) ucis.push(m.uci);
+          });
+          if (ucis.includes(fault.node.uci!)) {
+            explorerCancelPlies.push(fault.node.ply);
+            setTimeout(jumpToNext, 100);
+          } else {
+            cur.openingUcis = ucis;
+            current(cur);
+          }
+        })
+        .catch(() => {});
     }
     root.userJump(prev.path);
     safeRedraw();
   }
 
   function onJump(): void {
-    const node = root.node,
-      fb = feedback(),
-      cur = current();
+    const node = root.node;
+    const fb = feedback();
+    const cur = current();
     if (!cur) return;
     if (
       (fb === 'eval' && cur.fault.node.ply !== node.ply) ||
@@ -137,10 +141,8 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
       return;
     }
     if (isSolving() && cur.fault.node.ply === node.ply) {
-      if (cur.openingUcis.includes(node.uci!) || node.san?.endsWith('#') || node.comp)
-        onWin(); // found in opening explorer, checkmate ends the game, or comp solution line
-      else if (node.eval)
-        onFail(); // the move that was played in the game
+      if (cur.openingUcis.includes(node.uci!) || node.san?.endsWith('#') || node.comp) onWin(); // found in opening explorer, checkmate ends the game, or comp solution line
+      else if (node.eval) onFail(); // the move that was played in the game
       else {
         feedback('eval');
         checkCeval();
@@ -149,14 +151,17 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
     root.setAutoShapes();
   }
 
-  const isCevalReady = (node: TreeNode): boolean =>
-    node.ceval
-      ? node.ceval.depth >= 18 || (node.ceval.depth >= 14 && (node.ceval.millis ?? 0) > 6000)
-      : false;
+  const isCevalReady = (node: TreeNode): boolean => {
+    if (!node.ceval) return false;
+    return (
+      api.overrides.learnFromMistakesEvalReady?.(structuredClone(node.ceval)) ??
+      Boolean(node.ceval.bestmove || node.ceval.nodes >= 1_000_000 || (node.ceval.millis ?? 0) > 3000)
+    );
+  };
 
   function checkCeval(): void {
-    const node = root.node,
-      cur = current();
+    const node = root.node;
+    const cur = current();
     if (!cur || feedback() !== 'eval' || cur.fault.node.ply !== node.ply) return;
     if (isCevalReady(node)) {
       const diff = winningChances.povDiff(color, node.ceval!, cur.prev.node.eval!);

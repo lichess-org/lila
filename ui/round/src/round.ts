@@ -12,7 +12,7 @@ import { alert } from 'lib/view';
 import { text as xhrText } from 'lib/xhr';
 
 import RoundController from './ctrl';
-import type { RoundData, RoundOpts } from './interfaces';
+import type { RoundData, RoundOpts, RoundSocket, SocketInEvents } from './interfaces';
 import type MoveOn from './moveOn';
 import { tourStandingCtrl, type TourStandingCtrl } from './tourStanding';
 import { main as view } from './view/main';
@@ -60,26 +60,26 @@ async function boot(
 
   opts.socketSend = wsConnect(socketUrl, data.player.version, {
     options: { reloadOnResume: true },
-    params: { userTv: data.userTv && data.userTv.id },
-    receive(t: string, d: any) {
+    params: { userTv: data.userTv?.id },
+    receive<K extends keyof SocketInEvents>(t: K, d: Parameters<SocketInEvents[K]>) {
       round.socketReceive(t, d);
     },
     events: {
       tvSelect({ channel, player }: TVOptions) {
-        if (data.tv && data.tv.channel === channel) site.reload();
+        if (data.tv?.channel === channel) site.reload();
         else
           $(`.tv-channels .${channel} .champion`).html(
             player
               ? [player.title, player.name, data.pref.ratings ? player.rating : '']
-                  .filter(x => x)
+                  .filter(Boolean)
                   .join('&nbsp')
               : 'Anonymous',
           );
       },
       endData() {
         xhrText(`${data.tv ? '/tv' : ''}/${data.game.id}/${data.player.color}/sides`).then(html => {
-          const $html = $(html),
-            $meta = $html.find('.game__meta');
+          const $html = $(html);
+          const $meta = $html.find('.game__meta');
           $meta.length && $('.game__meta').replaceWith($meta);
           $('.crosstable').replaceWith($html.find('.crosstable'));
           startTournamentClock();
@@ -164,7 +164,7 @@ const startsWithPrefix = (t: string, prefix: string) =>
   t.toLowerCase().startsWith(`${prefix}, ${myUserId()}`);
 
 type RoundApi = {
-  socketReceive: (typ: string, data: any) => boolean;
+  socketReceive: RoundSocket['receive'];
   moveOn: MoveOn;
 };
 

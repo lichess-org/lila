@@ -39,6 +39,7 @@ export function wireCropDialog(
         }
       }
     }
+    return undefined;
   });
 }
 

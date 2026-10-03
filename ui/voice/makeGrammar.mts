@@ -42,7 +42,9 @@ async function main() {
 
     builder = new Builder(lexicon);
     const entries = lexicon.crowdv
-      ? ((await parseCrowdvData(lexicon.crowdv)).map(data => makeLexEntry(data)).filter(x => x) as LexEntry[])
+      ? ((await parseCrowdvData(lexicon.crowdv))
+          .map(data => makeLexEntry(data))
+          .filter(Boolean) as LexEntry[])
       : [];
 
     for (const e of entries.filter(e => e.h !== e.x)) {
@@ -53,7 +55,7 @@ async function main() {
     buildCostMap(subMap, freqThreshold, countThreshold).forEach((sub, key) => {
       ppCost(key, sub);
       const [from, to] = key.split(' ');
-      builder.addSub(from, { to: to, cost: sub.cost ?? 1 });
+      builder.addSub(from, { to, cost: sub.cost ?? 1 });
     });
     const patch = `lexicon/${grammar}-patch.json`;
     if (fs.existsSync(patch))

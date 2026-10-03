@@ -4,7 +4,7 @@ import { defined, memoize, onClickAway } from 'lib';
 import { renderChat } from 'lib/chat/renderChat';
 import { displayColumns } from 'lib/device';
 import { commonDateFormat, timeago } from 'lib/i18n';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { pubsub } from 'lib/pubsub';
 import { innerHTML, richHTML } from 'lib/richText';
 import { bind, dataIcon, onInsert, hl, type LooseVNode, copyMeInput } from 'lib/view';
@@ -55,7 +55,7 @@ export const tourSide = (ctx: RelayViewContext, kid: LooseVNode) => {
     'aside.relay-tour__side',
     {
       hook: {
-        insert: gameLinksListener(study.chapterSelect),
+        ...onInsert(gameLinksListener(study.chapterSelect)),
         update: v => {
           if (resizeId) return;
           (v.elm as HTMLElement).querySelectorAll<HTMLElement>('.relay-games, .mchat').forEach(el => {
@@ -120,9 +120,9 @@ export const tourSide = (ctx: RelayViewContext, kid: LooseVNode) => {
 };
 
 const startCountdown = (relay: RelayCtrl) => {
-  const round = relay.round,
-    startsAt = defined(round.startsAt) && new Date(round.startsAt),
-    date = startsAt && hl('time', commonDateFormat(startsAt));
+  const round = relay.round;
+  const startsAt = defined(round.startsAt) && new Date(round.startsAt);
+  const date = startsAt && hl('time', commonDateFormat(startsAt));
   return hl('div.relay-tour__side__empty', { attrs: dataIcon(licon.RadioTower) }, [
     hl('strong', round.name),
     startsAt
@@ -203,7 +203,7 @@ const share = (ctx: RelayViewContext) => {
   const link = (text: string, path: string, help?: VNode) =>
     hl('div.form-group', [
       hl('label.form-label', text),
-      copyMeInput(path.startsWith('/') ? `${baseUrl()}${path}` : path),
+      copyMeInput(path.startsWith('/') ? `${baseUrl()}${path}` : path, { inputAttrs: { readonly: true } }),
       help,
     ]);
   const roundName = ctx.relay.round.name;
@@ -292,7 +292,7 @@ const tourSelect = (ctx: RelayViewContext, group: RelayGroup) => {
         group.tours.find(t => t.id === relay.data.tour.id)?.name || relay.data.tour.name,
       ),
       relay.tourSelectShow() && [
-        hl('label.fullscreen-mask', { on: { click: updateCheckboxAndToggle } }),
+        hl('div.fullscreen-mask', { on: { click: updateCheckboxAndToggle } }),
         hl(
           'nav.mselect__list',
           group.tours.map(tour =>
@@ -368,7 +368,7 @@ const roundSelect = (relay: RelayCtrl, study: StudyCtrl) => {
         ],
       ),
       relay.roundSelectShow() && [
-        hl('label.fullscreen-mask', { on: { click: updateCheckboxAndToggle } }),
+        hl('div.fullscreen-mask', { on: { click: updateCheckboxAndToggle } }),
         hl(
           'div.relay-tour__round-select__list.mselect__list',
           {
@@ -448,9 +448,9 @@ const renderNote = (title: VNode, desc?: VNode) => hl('div.relay-tour__note', hl
 
 const header = (ctx: RelayViewContext) => {
   const { ctrl, relay } = ctx;
-  const d = relay.data,
-    group = d.group,
-    studyD = ctrl.study?.data.description;
+  const d = relay.data;
+  const group = d.group;
+  const studyD = ctrl.study?.data.description;
 
   return [
     hl('div.relay-tour__header', [
@@ -516,8 +516,8 @@ const subscribe = (relay: RelayCtrl, ctrl: AnalyseCtrl) =>
     : [];
 
 const makeTabs = (ctrl: AnalyseCtrl) => {
-  const study = ctrl.study,
-    relay = study?.relay;
+  const study = ctrl.study;
+  const relay = study?.relay;
   if (!relay) return undefined;
 
   const makeTab = (key: RelayTab, name: string) =>
@@ -558,7 +558,7 @@ const roundStateIcon = (round: RelayRound, titleAsText: boolean) =>
         { attrs: { ...dataIcon(licon.DiscBig), title: !titleAsText && i18n.broadcast.ongoing } },
         titleAsText && i18n.broadcast.ongoing,
       )
-    : round.finished &&
+    : round.finishedAt &&
       hl(
         'span.round-state.finished',
         { attrs: { ...dataIcon(licon.Checkmark), title: !titleAsText && i18n.site.finished } },
@@ -567,8 +567,8 @@ const roundStateIcon = (round: RelayRound, titleAsText: boolean) =>
 
 const broadcastImageOrStream = (ctx: RelayViewContext) => {
   const { relay, allowVideo } = ctx;
-  const d = relay.data,
-    embedVideo = (d.videoUrls || relay.isPinnedStreamOngoing()) && allowVideo;
+  const d = relay.data;
+  const embedVideo = (d.videoUrls || relay.isPinnedStreamOngoing()) && allowVideo;
 
   return hl(
     `div.relay-tour__header__image${embedVideo ? '.video' : ''}`,

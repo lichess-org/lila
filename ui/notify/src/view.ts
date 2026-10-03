@@ -1,6 +1,6 @@
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { pubsub } from 'lib/pubsub';
-import { hl, type VNode, type LooseVNodes, spinnerVdom as spinner, dataIcon } from 'lib/view';
+import { hl, type VNode, type LooseVNodes, spinnerVdom as spinner, dataIcon, onInsert } from 'lib/view';
 
 import type { Ctrl, NotifyData, Notification } from './interfaces';
 import makeRenderers from './renderers';
@@ -50,15 +50,11 @@ function renderContent(ctrl: Ctrl, d: NotifyData): LooseVNodes {
   ];
 }
 
-export function asText(n: Notification): string | undefined {
-  return renderers[n.type] ? renderers[n.type].text(n) : undefined;
-}
-
 function notificationDenied(): VNode {
   return hl(
     'a.browser-notification.denied',
     { attrs: { href: '/faq#browser-notifications', target: '_blank' } },
-    'Notification popups disabled by browser setting',
+    i18n.site.browserNotificationsDenied,
   );
 }
 
@@ -67,11 +63,9 @@ function asHtml(n: Notification): VNode | undefined {
 }
 
 function clickHook(f: () => void) {
-  return {
-    insert: (vnode: VNode) => {
-      (vnode.elm as HTMLElement).addEventListener('click', f);
-    },
-  };
+  return onInsert(el => {
+    el.addEventListener('click', f);
+  });
 }
 
 const contentLoaded = (vnode: VNode) => pubsub.emit('content-loaded', vnode.elm as HTMLElement);
@@ -83,10 +77,10 @@ function recentNotifications(d: NotifyData, scrolling: boolean): VNode {
       class: { notifications: true, scrolling },
       hook: { insert: contentLoaded, postpatch: contentLoaded },
     },
-    d.pager.currentPageResults.map(n => asHtml(n)) as VNode[],
+    d.pager.currentPageResults.map(asHtml),
   );
 }
 
 function empty() {
-  return hl('div.empty.text', { attrs: dataIcon(licon.InfoCircle) }, 'No notifications.');
+  return hl('div.empty.text', { attrs: dataIcon(licon.InfoCircle) }, i18n.site.nothingToSeeHere);
 }

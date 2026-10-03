@@ -47,7 +47,7 @@
       &.active {
         font-weight: bold;
         color: $c-brag;
-        background: $m-brag--fade-85;
+        background: rgb(from $c-brag r g b / calc(alpha * 0.15));
       }
     }
   }

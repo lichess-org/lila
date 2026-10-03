@@ -1,13 +1,12 @@
 import { status } from 'lib/game';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { spinnerVdom as spinner, type VNode, bind, dataIcon, hl } from 'lib/view';
-import { fullName } from 'lib/view/userLink';
 import { numberRow } from 'lib/view/util';
 
 import type TournamentController from '../ctrl';
 import type { Player } from '../interfaces';
 import { teamName } from './battle';
-import { player as renderPlayer } from './util';
+import { fullName, player as renderPlayer } from './util';
 
 const playerTitle = (player: Player, tourId: string) =>
   hl('h2', [
@@ -18,8 +17,8 @@ const playerTitle = (player: Player, tourId: string) =>
   ]);
 
 function setup(vnode: VNode) {
-  const el = vnode.elm as HTMLElement,
-    p = site.powertip;
+  const el = vnode.elm as HTMLElement;
+  const p = site.powertip;
   p.manualUserIn(el);
   p.manualGameIn(el);
 }
@@ -29,11 +28,11 @@ export default function (ctrl: TournamentController): VNode {
   const tag = 'div.tour__player-info.tour__actor-info';
   if (!data || data.player.id !== ctrl.playerInfo.id)
     return hl(tag, [hl('div.stats', [playerTitle(ctrl.playerInfo.player!, ctrl.data.id), spinner()])]);
-  const nb = data.player.nb,
-    pairingsLen = data.pairings.length,
-    avgOp = pairingsLen
-      ? Math.round(data.pairings.reduce((a, b) => a + b.op.rating, 0) / pairingsLen)
-      : undefined;
+  const nb = data.player.nb;
+  const pairingsLen = data.pairings.length;
+  const avgOp = pairingsLen
+    ? Math.round(data.pairings.reduce((a, b) => a + b.op.rating, 0) / pairingsLen)
+    : undefined;
   return hl(tag, { hook: { insert: setup, postpatch: (_, vnode) => setup(vnode) } }, [
     hl('button.close', {
       attrs: dataIcon(licon.X),
@@ -75,10 +74,10 @@ export default function (ctrl: TournamentController): VNode {
             {
               key: p.id,
               attrs: { 'data-href': '/' + p.id + '/' + p.color },
-              hook: { destroy: vnode => $.powerTip.destroy(vnode.elm as HTMLElement) },
+              hook: { destroy: vnode => $.powerTip.destroy(vnode.elm) },
             },
             [
-              hl('th', '' + (Math.max(nb.game, pairingsLen) - i)),
+              hl('th', Math.max(nb.game, pairingsLen) - i),
               hl('td', fullName(p.op)),
               ctrl.opts.showRatings ? hl('td', `${p.op.rating}`) : null,
               berserkTd(!!p.op.berserk),

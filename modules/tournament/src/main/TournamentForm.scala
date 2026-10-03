@@ -40,6 +40,7 @@ final class TournamentForm:
       berserkable = forClas.not.some,
       streakable = forClas.not.some,
       description = none,
+      payouts = none,
       hasChat = forClas.not.some
     )
 
@@ -63,6 +64,7 @@ final class TournamentForm:
       berserkable = tour.berserkable.some,
       streakable = tour.streakable.some,
       description = tour.description,
+      payouts = tour.payouts,
       hasChat = tour.hasChat.some
     )
 
@@ -82,6 +84,15 @@ final class TournamentForm:
           .verifying(
             "Can't change bot entry condition after the tournament started",
             d => (d.conditions.allowsBots == tour.conditions.allowsBots) || tour.isCreated
+          )
+          .verifying(
+            "Can't change start date of a team battle after 10 players have joined",
+            d =>
+              d.startDate.isEmpty ||
+                d.startDate.contains(tour.startsAt) ||
+                tour.nbPlayers < 10 ||
+                tour.teamBattle.isEmpty ||
+                Granter(_.ManageTournament)
           )
 
   private def makeMapping(leaderTeams: List[LightTeam], prev: Option[Tournament])(using me: Me) =
@@ -106,6 +117,7 @@ final class TournamentForm:
       "berserkable" -> optional(boolean),
       "streakable" -> optional(boolean),
       "description" -> optional(cleanNonEmptyText),
+      "payouts" -> (if manager then optional(cleanNonEmptyText.into[Payouts]) else ignored(none)),
       "hasChat" -> optional(boolean)
     )(TournamentSetup.apply)(unapply)
       .verifying("Invalid clock", _.validClock(prev))
@@ -169,6 +181,7 @@ private[tournament] case class TournamentSetup(
     berserkable: Option[Boolean],
     streakable: Option[Boolean],
     description: Option[String],
+    payouts: Option[Payouts],
     hasChat: Option[Boolean]
 ):
   def validClock(prev: Option[Tournament]) =
@@ -180,6 +193,8 @@ private[tournament] case class TournamentSetup(
       !conditions.allowsBots || lila.core.game.isBotCompatible(clockConfig)
 
   private def sameClock(prev: Option[Tournament]) = prev.exists(_.clock == clockConfig)
+  private def sameClockAndDuration(prev: Option[Tournament]) =
+    sameClock(prev) && prev.exists(_.minutes == minutes)
   private def sameBots(prev: Option[Tournament]) =
     prev.exists(_.conditions.allowsBots == conditions.allowsBots)
 
@@ -200,8 +215,10 @@ private[tournament] case class TournamentSetup(
     (prev.exists(p => p.rated == realRated && p.variant == realVariant) && sameClock(prev)) ||
       realRated.no || lila.core.game.allowRated(realVariant, clockConfig.some)
 
-  def sufficientDuration(prev: Option[Tournament]) = sameClock(prev) || estimateNumberOfGamesOneCanPlay >= 3
-  def excessiveDuration(prev: Option[Tournament]) = sameClock(prev) || estimateNumberOfGamesOneCanPlay <= 150
+  def sufficientDuration(prev: Option[Tournament]) =
+    sameClockAndDuration(prev) || estimateNumberOfGamesOneCanPlay >= 3
+  def excessiveDuration(prev: Option[Tournament]) =
+    sameClockAndDuration(prev) || estimateNumberOfGamesOneCanPlay <= 150
 
   def isPrivate = password.isDefined || conditions.teamMember.isDefined
 
@@ -233,6 +250,7 @@ private[tournament] case class TournamentSetup(
         noStreak = !(~streakable),
         teamBattle = old.teamBattle,
         description = description,
+        payouts = payouts,
         hasChat = hasChat | true
       )
 
@@ -257,6 +275,7 @@ private[tournament] case class TournamentSetup(
         noStreak = streakable.fold(old.noStreak)(!_),
         teamBattle = old.teamBattle,
         description = description.fold(old.description)(_.nonEmptyOption),
+        payouts = payouts.fold(old.payouts)(_.nonEmptyOption),
         hasChat = hasChat | old.hasChat
       )
 

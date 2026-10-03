@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichobileNewAppAvailable" comment="Part of a message sent to users of the old mobile app (https://github.com/lichess-org/lichobile).">Uusi Lichess-mobiilisovellus on saatavilla!</string>
-  <string name="lichobileNewAppDownload" comment="%s links to https://lichess.org/app&#10;&#10;Part of a message sent to users of the old mobile app (https://github.com/lichess-org/lichobile).">Lataa uusi virallinen Lichess-sovellus osoitteesta %s.</string>
+  <string name="lichobileNewAppAvailable">Uusi Lichess-mobiilisovellus on saatavilla!</string>
+  <string name="lichobileNewAppDownload" comment="The parameter links to https://lichess.org/app">Lataa uusi virallinen Lichess-sovellus osoitteesta %s.</string>
+  <string name="modActionFeedback">Hei,
+
+käsittelimme raporttisi ja tartuimme toimeen. Vaikkemme voi kertoa toimiemme yksityiskohtia, kiitämme raportoinnistasi.
+
+Kiitos kun autat pitämään Lichessin hyvänä paikkana kaikille.</string>
 </resources>

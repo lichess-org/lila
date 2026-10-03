@@ -110,7 +110,7 @@ export function pushMap<T>(m: SparseMap<T>, key: string, val: T): void {
   if (!v) m.set(key, val);
   else {
     if (v instanceof Set) v.add(val);
-    else if (v !== val) m.set(key, new Set([v as T, val]));
+    else if (v !== val) m.set(key, new Set([v, val]));
   }
 }
 

@@ -1,2 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="standard">Estándard</string>
+  <string name="standardTitle">Reglas estándard d\'os escaques (FIDE)</string>
+  <string name="chess960">Chess960 (Escaques960)</string>
+  <string name="chess960Title">La posición incial d\'as piezas d\'a primer ringlera ye aleatoria.</string>
+  <string name="kingOfTheHill">Rei d\'o Tozal</string>
+  <string name="kingOfTheHillTitle">Traye lo Rei ta lo centro pa ganar la partida.</string>
+  <string name="threeCheck">Tres-escaques</string>
+  <string name="threeCheckTitle">Fe escaque tres vegadas pa ganar la partida.</string>
+  <string name="antichess">Antiescaques</string>
+  <string name="antichessTitle">Pierde totas las piezas (u fe-te afogar lo rei) pa ganar la partida.</string>
+  <string name="atomic">Atomico</string>
+  <string name="atomicTitle">Fe esclatar lo rei d\'o tuyo rival pa ganar.</string>
+  <string name="horde">Horda</string>
+  <string name="hordeTitle">Un chugador tien a saber-los peons, l\'atro un exercito normal.</string>
+  <string name="racingKings">Corrida de reis</string>
+  <string name="racingKingsTitle">Fe arribar lo tuyo rei ta l\'atro costau t\'o tablero.</string>
+  <string name="crazyhouse">Pasa piezas</string>
+  <string name="crazyhouseTitle">Las piezas capturadas se pueden tornar a meter en o tablero en cuenta de mover una pieza.</string>
+  <string name="fromPosition">Dende la posición</string>
+  <string name="fromPositionTitle">Escaques estándar dende una posición personalizada</string>
+</resources>

@@ -57,46 +57,46 @@ final class PracticeApi(
   yield UserStudy(up, practiceStudy, previews, sc, section)
 
   object structure:
-    private val cache = cacheApi.unit[PracticeStructure]:
+    private val cache = cacheApi.unit[PracticeStructure]("practice.structure"):
       _.expireAfterAccess(3.hours).buildAsyncTimeout(): _ =>
         studyApi.chapterIdNames(PracticeStructure.studyIds).map(PracticeStructure.withChapters)
     def get = cache.getUnit
     def clear() = cache.invalidateUnit()
 
-    val getStudies: lila.core.practice.GetStudies = () => get.map(_.study)
+    val getStudies: lila.ui.practice.GetStudies = () => get.map(_.study)
 
   object progress:
 
     lila.common.Bus.sub[lila.core.user.UserDelete]: del =>
-      coll.delete.one($id(del.id)).void
+      coll.delete.one(bid(del.id)).void
 
     import PracticeProgress.NbMoves
 
     def get(user: User): Fu[PracticeProgress] =
-      coll.one[PracticeProgress]($id(user.id)).dmap(_ | PracticeProgress.empty(user.id))
+      coll.one[PracticeProgress](bid(user.id)).dmap(_ | PracticeProgress.empty(user.id))
 
     private def save(p: PracticeProgress): Funit =
-      coll.update.one($id(p.id), p, upsert = true).void
+      coll.update.one(bid(p.id), p, upsert = true).void
 
     def setNbMoves(user: User, chapterId: StudyChapterId, score: NbMoves): Funit = for
       prog <- get(user)
       _ <- save(prog.withNbMoves(chapterId, score))
       studyId <- studyApi.studyIdOf(chapterId)
     yield studyId.so: studyId =>
-      Bus.pub(lila.core.practice.OnComplete(user.id, studyId, chapterId))
+      Bus.pub(lila.core.misc.practice.OnComplete(user.id, studyId, chapterId))
 
     def reset(user: User) =
-      coll.delete.one($id(user.id)).void
+      coll.delete.one(bid(user.id)).void
 
     def completionPercent(userIds: List[UserId]): Fu[Map[UserId, Int]] =
       coll
         .aggregateList(Int.MaxValue, _.sec): framework =>
           import framework.*
-          Match($doc("_id".$in(userIds))) -> List(
+          Match(bdoc("_id".in(userIds))) -> List(
             Project(
-              $doc(
-                "nb" -> $doc(
-                  "$size" -> $doc(
+              bdoc(
+                "nb" -> bdoc(
+                  "$size" -> bdoc(
                     "$objectToArray" -> "$chapters"
                   )
                 )

@@ -2,11 +2,11 @@ package lila.chat
 
 import play.api.libs.json.*
 
-import lila.common.Json.given
+import lila.common.Json.{ lightUser, given }
 import lila.core.LightUser
 import lila.core.user.LightUserApi
 
-final class ChatJsonView(lightUser: LightUserApi)(using Executor):
+final class ChatJsonView(lightUserApi: LightUserApi)(using Executor):
 
   import ChatJsonView.*
 
@@ -14,7 +14,7 @@ final class ChatJsonView(lightUser: LightUserApi)(using Executor):
     OWrites[ChatTimeout.UserEntry]: e =>
       Json.obj(
         "reason" -> e.reason.key,
-        "mod" -> lightUser.syncFallback(e.mod).name,
+        "mod" -> lightUserApi.syncFallback(e.mod).name,
         "date" -> e.createdAt
       )
 
@@ -30,7 +30,7 @@ final class ChatJsonView(lightUser: LightUserApi)(using Executor):
     yield lineWriter(users).writes(line)
 
   private def chatUsers(userIds: Set[UserId]): Fu[LightUser.IdMap] =
-    lightUser.asyncIdMapFallback(userIds - UserId.lichess)
+    lightUserApi.asyncIdMapFallback(userIds - UserId.lichess)
 
   def userModInfo(u: UserModInfo) = modView(u.user) ++ Json.obj("history" -> u.history)
 
@@ -47,8 +47,18 @@ final class ChatJsonView(lightUser: LightUserApi)(using Executor):
 
   def boardApi(chat: UserChat) = JsArray:
     chat.lines.collect:
-      case UserLine(name, text, troll, del) if !troll && !del =>
-        Json.obj("text" -> text, "user" -> name)
+      case l if l.isVisible => Json.obj("text" -> l.text, "user" -> l.userId)
+
+  def modApi(chat: UserChat): Fu[JsObject] =
+    for users <- lightUserApi.asyncIdMapFallback(chat.userIds)
+    yield Json.obj(
+      "users" -> users.view.mapValues(lightUser.writeNoId),
+      "lines" -> chat.lines.map: l =>
+        Json
+          .obj("text" -> l.text, "user" -> l.userId)
+          .add("r" -> l.troll)
+          .add("d" -> l.deleted)
+    )
 
 object ChatJsonView:
 

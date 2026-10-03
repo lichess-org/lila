@@ -24,7 +24,7 @@ final private class ChallengeSocket(
   }
 
   socketKit.subscribe("chal-in", Protocol.In.reader.orElse(RP.In.reader))(
-    challengeHandler.orElse(minRoomHandler(rooms, lila.log("challenge"))).orElse(socketKit.baseHandler)
+    challengeHandler.orElse(minRoomHandler(rooms, logger)).orElse(socketKit.baseHandler)
   )
 
   api.registerSocket(this)

@@ -1,7 +1,8 @@
 import { h, type VNode } from 'snabbdom';
 
-import * as licon from 'lib/licon';
-import { iconTag } from 'lib/view';
+import { licon } from 'lib/licon';
+import { icon } from 'lib/view';
+import { profileUrl } from 'lib/view/userLink';
 
 import type { LearnCtrl } from './ctrl';
 import { hashHref } from './hashRouting';
@@ -45,7 +46,7 @@ const mapView = (ctrl: LearnCtrl) =>
     ]),
   ]);
 
-const makeStars = (rank: scoring.Rank): VNode[] => Array(4 - rank).fill(iconTag(licon.Star));
+const makeStars = (rank: scoring.Rank): VNode[] => Array(4 - rank).fill(icon(licon.Star)());
 
 const ongoingStr = (ctrl: LearnCtrl, s: Stage): string => {
   const progress = ctrl.stageProgress(s);
@@ -63,7 +64,7 @@ const ribbon = (ctrl: LearnCtrl, s: Stage, status: Exclude<Status, 'future'>, st
 
 function whatNext(ctrl: LearnCtrl) {
   const makeStage = (href: string, img: string, title: string, subtitle: string, done?: boolean) => {
-    return h(`a.stage.done`, { attrs: { href: href } }, [
+    return h(`a.stage.done`, { attrs: { href } }, [
       done ? h('span.ribbon-wrapper', h('span.ribbon.done', makeStars(1))) : null,
       h('img', { attrs: { src: assetUrl + 'images/learn/' + img + '.svg' } }),
       h('div.text', [h('h3', title), h('p.subtitle', subtitle)]),
@@ -76,7 +77,7 @@ function whatNext(ctrl: LearnCtrl) {
     h('div.categ_stages', [
       userId
         ? makeStage(
-            '/@/' + userId,
+            profileUrl(userId),
             'beams-aura',
             i18n.learn.register,
             i18n.learn.getAFreeLichessAccount,

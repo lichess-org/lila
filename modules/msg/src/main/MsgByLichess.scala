@@ -3,6 +3,7 @@ package lila.msg
 import lila.memo.MongoCache
 import lila.core.config.BaseUrl
 import lila.core.i18n.I18nKey.msg as trans
+import lila.core.msg.SystemMsg
 
 final class MsgByLichess(
     mongoCache: MongoCache.Api,
@@ -28,37 +29,17 @@ final class MsgByLichess(
                 .flatMap:
                   case Some(user) =>
                     given play.api.i18n.Lang = user.realLang | lila.core.i18n.defaultLang
-                    api.systemPost(userId, lila.core.i18n.I18nKey.tfa.setupReminder.txt()).inject(false)
+                    val msg =
+                      SystemMsg.standard(userId, lila.core.i18n.I18nKey.tfa.setupReminder.txt())
+                    for _ <- api.systemPost(msg)
+                    yield false
                   case _ => fuccess(true)
-
-  object emailReminder:
-    def apply(userId: UserId) = cache.get(userId)
-    private val text = s"""No email associated with your account
-
-  Hello, as you have an early Lichess account, no email was required when you registered.
-
-  However this makes it easy for you to lose access to your account.
-  If you forget your password, or if your password is leaked from another website, or if we decide that your password is too easy-to-guess to be secure, your account will be lost.
-
-  Please visit $baseUrl/account/email to set your account email address. That way, you'll be able to reset your password when needed."""
-    private val cache = mongoCache[UserId, Boolean](1024, "security:email:reminder", 10.days, _.value):
-      loader =>
-        _.expireAfterWrite(3.hours)
-          .maximumSize(8 * 1024)
-          .buildAsyncFuture:
-            loader: userId =>
-              userApi
-                .enabledById(userId)
-                .flatMap:
-                  _.filterNot(_.hasEmail).fold(fuccess(true)): user =>
-                    for _ <- api.systemPost(user.id, text) yield false
 
   def lichobileDeprecationMessage(user: lila.core.user.User) =
     given play.api.i18n.Lang = user.realLang | lila.core.i18n.defaultLang
-    api.systemPost(
-      user.id,
+    val text =
       s"""${trans.lichobileNewAppAvailable.txt()}\n\n${trans.lichobileNewAppDownload.txt(s"$baseUrl/app")}"""
-    )
+    api.systemPost(SystemMsg.mustRead(user.id, text))
 
   object chatTimeout:
     def apply(userId: UserId) = cache.get(userId)
@@ -72,4 +53,4 @@ Please review the chat rules on ${lila.core.chat.etiquetteUrl}."""
             .isTroll(userId)
             .not
             .flatMapz:
-              api.systemPost(userId, text).inject(true)
+              api.systemPost(SystemMsg.mustRead(userId, text)).inject(true)

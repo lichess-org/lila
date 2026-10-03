@@ -5,8 +5,6 @@ import lila.search.spec.{ DateRange, IntRange }
 export lila.core.lilaism.Lilaism.{ *, given }
 export lila.common.extensions.*
 
-private val logger = lila.log("gameSearch")
-
 val index = lila.search.Index.Game
 
 val perfKeys: List[PerfKey] = PerfKey.list.filter: p =>

@@ -1,6 +1,6 @@
 package lila.db
 
-import akka.actor.CoordinatedShutdown
+import org.apache.pekko.actor.CoordinatedShutdown
 import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
 import com.typesafe.config.Config

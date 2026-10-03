@@ -21,7 +21,6 @@
   <string name="puzzleRead">ອ່ານກິດຈະກຳການແກ້ສະໜັບ (Puzzle)</string>
   <string name="teamRead">ອ່ານຂໍ້ມູນທີມສ່ວນຕົວ</string>
   <string name="teamWrite">ເຂົ້າຮ່ວມ ແລະ ອອກຈາກທີມ</string>
-  <string name="teamLead">ຈັດການທີມທີ່ທ່ານເປັນຫົວໜ້າ: ສົ່ງຂໍ້ຄວາມສ່ວນຕົວ, ເຊີນສະມາຊິກອອກ</string>
   <string name="followRead">ອ່ານລາຍຊື່ຜູ້ຫຼິ້ນທີ່ຕິດຕາມ</string>
   <string name="followWrite">ຕິດຕາມ ແລະ ເລີກຕິດຕາມຜູ້ຫຼິ້ນຄົນອື່ນ</string>
   <string name="msgWrite">ສົ່ງຂໍ້ຄວາມສ່ວນຕົວຫາຜູ້ຫຼິ້ນຄົນອື່ນ</string>

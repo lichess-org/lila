@@ -1,7 +1,6 @@
 /// <reference path="./chessground.d.ts" />
 /// <reference path="./cash.d.ts" />
 /// <reference path="./i18n.d.ts" />
-/// <reference path="./licon.d.ts" />
 
 // file://./../../site/src/site.ts
 interface Site {
@@ -86,19 +85,6 @@ interface LichessPowertip {
   forcePlacementHook?: (el: HTMLElement) => PowerTip.Placement | null;
 }
 
-interface QuestionChoice {
-  // file://./../../round/src/ctrl.ts
-  action: () => void;
-  icon?: LiconType;
-  text?: string;
-}
-
-interface QuestionOpts {
-  prompt: string; // TODO i18nkey, or just always pretranslate
-  yes?: QuestionChoice;
-  no?: QuestionChoice;
-}
-
 type SoundMoveOpts = {
   name?: string; // either provide this or valid san/uci
   san?: string;
@@ -114,6 +100,7 @@ interface SoundI {
   // file://./../../site/src/sound.ts
   listeners: Set<SoundListener>;
   theme: string;
+  voiceRateRange: { min: number; max: number };
   move: SoundMove;
   load(name: string, path?: string): Promise<any>;
   play(name: string, volume?: number): Promise<void>;
@@ -127,10 +114,9 @@ interface SoundI {
   setVoice(v: { name: string; lang: string }): void;
   speech(v?: boolean): boolean;
   changeSet(s: string): void;
-  sayLazy(text: () => string, cut?: boolean, force?: boolean, translated?: boolean): boolean;
-  say(text: string, cut?: boolean, force?: boolean, translated?: boolean): boolean;
+  say(text: string, cut?: boolean, force?: boolean, translated?: boolean): void;
   saySan(san?: San, cut?: boolean, force?: boolean): void;
-  sayOrPlay(name: string, text: string): void;
+  sayOrPlay(name: string, text: string, cut?: boolean): void;
   preloadBoardSounds(): void;
   url(name: string): string;
 }
@@ -202,7 +188,7 @@ interface LightUserNoId {
   name: string;
   title?: string;
   flair?: Flair;
-  patron?: boolean;
+  patron?: boolean; // BC
   patronColor?: PatronColor;
 }
 
@@ -280,7 +266,7 @@ declare namespace PowerTip {
   type BasePlacement = 'n' | 'e' | 's' | 'w' | 'nw' | 'ne' | 'sw' | 'se';
   type Placement = BasePlacement | 'n-alt' | 'e-alt' | 's-alt' | 'w-alt';
   interface Options {
-    preRender?: (el: HTMLElement) => void;
+    render?: (el: HTMLElement) => Promise<void>;
     placement?: Placement;
     smartPlacement?: boolean;
     popupId?: string;

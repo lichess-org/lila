@@ -2,7 +2,7 @@ package lila.relay
 
 import java.time.temporal.ChronoUnit
 import play.api.mvc.Call
-import io.mola.galimatias.URL
+import io.mola.galimatias.{ URL, Host }
 import reactivemongo.api.bson.Macros.Annotations.Key
 import scalalib.ThreadLocalRandom
 import scalalib.model.Seconds
@@ -177,6 +177,9 @@ object RelayRound:
           case _ => none
         def looksLikeLcc = url.host.toString.endsWith("livechesscloud.com")
         def looksLikeIdChess = url.host.toString.endsWith("idchess.com")
+        def isLichess = isDomainOrSubdomain(url.host, "lichess.org")
+      // is host the same as domain, or a subdomain of domain
+      def isDomainOrSubdomain(host: Host, domain: String) = s".${host.toHostString}".endsWith(s".$domain")
     import url.*
 
     enum Upstream:
@@ -202,7 +205,7 @@ object RelayRound:
         case Urls(urls) => urls.find(_.scheme == "http")
         case _ => none
       def roundId: Option[RelayRoundId] = this match
-        case Url(url) =>
+        case Url(url) if url.isLichess =>
           url.path.split("/") match
             case Array("", "broadcast", _, _, id) =>
               val cleanId = if id.endsWith(".pgn") then id.dropRight(4) else id

@@ -132,7 +132,7 @@ function renderGooglySvg(square: number, bottomColor: Color, layout: GooglyEyeLa
   const rx = rightEyeX + dx;
   const ry = eyeY + dy;
   return $html`
-  <g transform="translate(50, 50)">
+  <g class="googly-eyes" transform="translate(50, 50)">
     <circle cx="${leftEyeX}" cy="${eyeY}" r="8" fill="white" stroke="#333" stroke-width="1.5"/>
     <circle cx="${lx}" cy="${ly}" r="5" fill="#222"/>
     <circle cx="${lx - 2}" cy="${ly - 2.5}" r="1.5" fill="white" opacity="0.9"/>

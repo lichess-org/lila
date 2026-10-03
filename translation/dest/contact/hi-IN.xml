@@ -25,7 +25,6 @@
   <string name="cantChangeMore">हम हालत से ज्यादा नहीं बदल सकते। तकनीकी कारणों से, यह सर्वथा असंभव है।</string>
   <string name="orCloseAccount">हालाँकि, आप अपना चालू खाता बंद कर सकते हैं, और एक नया बना सकते हैं।</string>
   <string name="wantClearHistory">मैं अपना इतिहास या रेटिंग मिटाना चाहता हूं</string>
-  <string name="cantClearHistory">आपके खेल के इतिहास, पहेली इतिहास, या रेटिंग को मिटाना संभव नहीं है।</string>
   <string name="wantReport">मैं एक खिलाड़ी की रिपोर्ट करना चाहता हूं</string>
   <string name="toReportAPlayerUseForm">किसी खिलाड़ी को रिपोर्ट करने के लिए, रिपोर्ट फ़ॉर्म का उपयोग करें</string>
   <string name="youCanAlsoReachReportPage">आप प्रोफाइल पेज पर %s रिपोर्ट बटन पर क्लिक करके भी उस पृष्ठ पर पहुँच सकते हैं।</string>
@@ -52,7 +51,7 @@
   <string name="knightMate">केवल एक घोड़ा या ऊँट के साथ मात करना संभव है अगर बोर्ड पर राजा के अलावा कोई और मोहरा मौजूद है।</string>
   <string name="noRatingPoints">कोई रेटिंग अंक प्रदान नहीं किया गया</string>
   <string name="ratedGame">सुनिश्चित करें कि आपने एक रेटेड गेम खेला है। आकस्मिक खेल खिलाड़ियों की रेटिंग को प्रभावित नहीं करते हैं।</string>
-  <string name="botRatingAbuse" comment="The original English text was changed in March 2026, from &quot;if it is determined&quot; to &quot;if we determine&quot;.">कुछ परिस्थितियों में जब एक बॉट खाते के खिलाफ खेलते हैं, तो एक रेटेड गेम अंक नहीं दे सकता है यदि यह निर्धारित किया जाता है कि खिलाड़ी रेटिंग अंक के लिए बॉट का दुरुपयोग कर रहा है।</string>
+  <string name="botRatingAbuse">कुछ परिस्थितियों में जब एक बॉट खाते के खिलाफ खेलते हैं, तो एक रेटेड गेम अंक नहीं दे सकता है यदि यह निर्धारित किया जाता है कि खिलाड़ी रेटिंग अंक के लिए बॉट का दुरुपयोग कर रहा है।</string>
   <string name="errorPage">त्रुटि पृष्ठ</string>
   <string name="reportErrorPage">यदि आपको कोई त्रुटि आई है, तो आप इसकी रिपोर्ट कर सकते हैं:</string>
   <string name="banAppeal">प्रतिबंध या आईपी प्रतिबंध के लिए अपील</string>

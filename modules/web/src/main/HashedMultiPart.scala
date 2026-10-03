@@ -1,7 +1,7 @@
 package lila.web
 
-import akka.stream.scaladsl.{ Source, Sink }
-import akka.util.ByteString
+import org.apache.pekko.stream.scaladsl.{ Source, Sink }
+import org.apache.pekko.util.ByteString
 import play.api.mvc.MultipartFormData
 import play.api.libs.streams.Accumulator
 import play.api.mvc.{ BodyParser, PlayBodyParsers }

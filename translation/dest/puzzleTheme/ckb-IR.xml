@@ -19,6 +19,7 @@
   <string name="bodenMate">کشوماتی \"بۆدین\"</string>
   <string name="bodenMateDescription">دوو فیل لە سەر هێڵی لاری خۆیان هێرش دەکەنە سەر پاشای ڕکابەر، کاتێک پاشاکە لە نێو دوو داشی خۆی گیری خواردووە.</string>
   <string name="castling">ماڵکردن</string>
+  <string name="enPassant">ئانپاسانت</string>
   <string name="castlingDescription">پاشا بە سەلامەتی بهێڵەرەوە، و قەڵاکە بێنە مەیدان بۆ هێرشکردن.</string>
   <string name="capturingDefender">بەرگریکارەکان بگرە</string>
   <string name="capturingDefenderDescription">خواردنی داشێک کە گرینگە بۆ بەرگریکردن لە داشێکی تر، ڕێگەت دەدات ئەو داشەی بەرگری نامێنێت لە جوڵەی دواتردا ئاسانتر بگیرێت.</string>
@@ -44,20 +45,17 @@
   <string name="doubleCheckDescription">کشکردن بە دوو داش لە یەک کاتدا، ئەنجامی هێرشێکە کە بە دوو داش دەکرێت لە کاتی جوڵانی داشێک کە کشی پێدەکەیت و داشێک کە نەتجوڵاندووە و ئۆتۆماتیکی دەکەوێتە بەرانبەر پاشای رکابەرەکەت و کش دەکات.</string>
   <string name="endgame">قۆناغی کۆتایی یاری</string>
   <string name="endgameDescription">تاکتیکی ماوەی قۆناغی کۆتایی یاری.</string>
-  <string name="enPassantDescription">تاکتیکێک کە یاسای ئانپاسان دەگرێتەوە، لە شوێنێک سەربازی رکابەرەکەت دوو خانە جوڵە دەکات تۆ دەتوانی بیگریت \"بیخۆیت\" کاتێک جوڵەکە لە بەرانبەر سەربازی تۆ دەکرێت.</string>
   <string name="exposedKing">پاشای ئاشکرا</string>
   <string name="exposedKingDescription">زۆرجار تاکتیکێک کە پاشا تێیدا بەشدارە لە کاتێکدا بە چەند بەرگریکارێکی کەم دەورەدراوە دەبێتە هۆی کشومات.</string>
   <string name="fork">چەتاڵ</string>
-  <string name="forkDescription">جوڵیەکە کە داشی جوڵاو لە یەککاتدا هێرش دەکاتە سەر دوو داشی ڕکابەرەکەت.</string>
   <string name="hangingPiece">داشی بێ بەرگری</string>
   <string name="hangingPieceDescription">تاکتیکێکە داشێکی بەرانبەرەکەتی تێدا بەشدارە کە هیچ بەرگریەکی نییە، یان بەرگری پێویستی نییە و ئاسان دەتوانی بەدەستی بێنی.</string>
   <string name="hookMate">کشومات بە قەڵغان</string>
-  <string name="hookMateDescription">کشومات بە قەڵا و ئەسپ و سەرباز، لەگەڵ سەربازێکی دوژمن بۆ کەمکردنەوەی سنوری هەڵاتنی پاشا.</string>
   <string name="interference">تێکەڵبوون</string>
   <string name="interferenceDescription">جوڵاندنی داشێکە بۆ نێوان دوو داشی بەرگری لێ نەکراوی بەرانبەر، وەک جوڵاندنی فیل بۆ خانەیەک بتوانێ هێرش بکاتە سەر دوو قەڵا.</string>
   <string name="intermezzo">جوڵەی نێوان</string>
   <string name="intermezzoDescription">لەبری ئەوەی جوڵەی چاوەڕوانکراو یاری بکەیت، سەرەتا جوڵەیەکی تر بخەرە نێوانیانەوە کە مەترسییەکی دەستبەجێ دروست بکات کە دەبێت بەرامبەرەکە وەڵامی بداتەوە. ئەو شێوازە بە \"زویشنزوگ\" یان \"لە نێوانیاندا\" ناسراوە.</string>
-  <string name="vukovicMate" comment="This was previously &quot;Vukovic&quot;. It can be safely updated to &quot;Vuković&quot;">ماتی ڤۆکۆڤیک</string>
+  <string name="vukovicMate">ماتی ڤۆکۆڤیک</string>
   <string name="vukovicMateDescription">قەڵا و ئەسپ یەکدەگرن بۆ ئەوەی پاشا کشومات بکەن. قەڵا جوڵەی کشومات دەکات لەکاتێکدا لەلایەن داشی سێیەمەوە بەرگری دەکرێت، ئەسپەکەش بەکاردێت بۆ ڕێگریکردن لە چوارگۆشەکانی هەڵهاتنی پاشا.</string>
   <string name="knightEndgame">قۆناغی کۆتایی یاری بە فیل</string>
   <string name="knightEndgameDescription">جۆرێک لە قۆناغی کۆتایی یاری کە تەنها فیلەکان و سەربازەکان بەشدارن.</string>
@@ -90,7 +88,6 @@
   <string name="pin">جێگیرکردن</string>
   <string name="pinDescription">تاکتیکی جێگیرکردن، ئەوەیە کە بتوانی بەرانبەرەکەت بوەستێنی لە جوڵاندنی داشێک لەبەر بوونی داشێکی بەهێزتر لە دوای ئەمەوە.</string>
   <string name="promotion">پلە بەرزکردنەوە</string>
-  <string name="promotionDescription">پلەی یەکێک لە سەربازەکانت بۆ ئاستی شاژن یان داشێکی لەم بەها کەمتر بەرزبکەوە.</string>
   <string name="queenEndgame">کۆتیی یاری بە شاژن</string>
   <string name="queenEndgameDescription">قۆناغی کۆتایی یاری بە بوونی سەربازەکان و شاژن.</string>
   <string name="queenRookEndgame">شاژن و قەڵا</string>

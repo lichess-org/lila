@@ -25,7 +25,6 @@
   <string name="cantChangeMore">ناتوانین بێ لە گەورەیی و بچووکیی پیتەکان ھیچی تر بگۆڕین. لەبەر ھۆکارە تەکنیکییەکان، ئەمە مەحاڵە.</string>
   <string name="orCloseAccount">بەڵام، دەتوانیت ئەم ھەژمارەت دابخەیت و دانەیەکی نوێ دروست بکەیت.</string>
   <string name="wantClearHistory">دەمەوێت تۆمارەکانم یان ھەڵسەنگاندنەکانم بسڕمەوە</string>
-  <string name="cantClearHistory">باتواندرێت تۆماری یارییەکانت، مەتەڵەکان، یان ھەڵسەنگاندنەکانت بسڕێنەوە.</string>
   <string name="wantReport">من دەمەوێت سکاڵا لەسەر یاریزانێک تۆمار بکەم</string>
   <string name="toReportAPlayerUseForm">بۆ تۆمارکردنی سکاڵا بەرامبەر یاریزانێک، فۆڕمی سکاڵا بەکاربھێنە</string>
   <string name="youCanAlsoReachReportPage">دەتوانیت لەڕێی دوگمەی سکاڵای %sەشەوە بگەیت بەم پەڕەیە، کە لەسەر پەڕەی پڕۆفایلەکانە.</string>
@@ -52,7 +51,7 @@
   <string name="knightMate">تەنھا لەڕێی ئەسپ و فیلەوە کشومات دەکرێت، ئەگەر ڕکابەرەکەت لە پاشا زیاتری مابوو لەسەر تەختەکە.</string>
   <string name="noRatingPoints">ھیچ خاڵێکی ھەڵسەنگاندن نەبەخشرا</string>
   <string name="ratedGame">دڵنیا ببەرەوە کە یاریی ھەڵسەنگاندن دەکەیت، یارییە ئاسایییەکان کار ناکەنە سەر ھەڵسەنگاندنی یاریزانەکان.</string>
-  <string name="botRatingAbuse" comment="The original English text was changed in March 2026, from &quot;if it is determined&quot; to &quot;if we determine&quot;.">لە ھەندێک حاڵەتدا کاتێک بەرامبەر ھەژمارێکی بۆت یاری دەکەیت، یاریی ھەڵسەنگاندن لەوانەیە خاڵت پێ نەبەخشێت ئەگەر دەربکەوێت کە یاریزانەکە بۆتەکە خراپ بەکاردەھێنێت بۆ خاڵی ھەڵسەنگاندن.</string>
+  <string name="botRatingAbuse">لە ھەندێک حاڵەتدا کاتێک بەرامبەر ھەژمارێکی بۆت یاری دەکەیت، یاریی ھەڵسەنگاندن لەوانەیە خاڵت پێ نەبەخشێت ئەگەر دەربکەوێت کە یاریزانەکە بۆتەکە خراپ بەکاردەھێنێت بۆ خاڵی ھەڵسەنگاندن.</string>
   <string name="errorPage">لاپەڕەی ھەڵە</string>
   <string name="reportErrorPage">ئەگەر ڕووبەڕووی لاپەڕەیەکی ھەڵە بوویتەتەوە، دەکرێ سکاڵا بکەیت:</string>
   <string name="learnHowToMakeBroadcasts">فێربە چۆن پەخشی خۆت دروست بکەیت لە لیچێس</string>

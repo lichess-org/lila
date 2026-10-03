@@ -27,9 +27,9 @@ final class Env(
     baseUrl: BaseUrl
 )(using
     Executor,
-    akka.actor.ActorSystem,
+    org.apache.pekko.actor.ActorSystem,
     Scheduler,
-    akka.stream.Materializer,
+    org.apache.pekko.stream.Materializer,
     lila.core.game.IdGenerator,
     play.api.Mode,
     lila.core.i18n.Translator,
@@ -101,7 +101,7 @@ final class Env(
   Bus.sub[lila.core.mod.MarkCheater]:
     case lila.core.mod.MarkCheater(userId, true) => api.kickLame(userId)
   Bus.sub[lila.core.mod.MarkBooster]:
-    case lila.core.mod.MarkBooster(userId) => api.kickLame(userId)
+    case lila.core.mod.MarkBooster(userId, true) => api.kickLame(userId)
 
   LilaScheduler("Swiss.startPendingRounds", _.Every(1.seconds), _.AtMost(20.seconds), _.Delay(20.seconds)):
     api.startPendingRounds.logFailure(logger)

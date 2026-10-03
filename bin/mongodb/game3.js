@@ -29,7 +29,7 @@ function clean(arr, key) {
 }
 
 function cleanArray(arr, key) {
-  if (typeof arr[key] !== 'undefined' && arr[key].length === 0) {
+  if (arr[key]?.length === 0) {
     delete arr[key];
   }
 }

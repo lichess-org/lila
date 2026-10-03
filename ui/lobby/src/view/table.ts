@@ -10,7 +10,7 @@ type ButtonInfo = { gameType: GameType | 'dev' | 'bots'; label: string; disabled
 
 export default function table(ctrl: LobbyController) {
   const { data, opts } = ctrl;
-  const hasOngoingRealTimeGame = ctrl.hasOngoingRealTimeGame();
+  const hasOngoingRealTimeGame = ctrl.hasOngoingRealTimeGame(true);
   const hookDisabled =
     opts.playban || opts.hasUnreadLichessMessage || ctrl.me?.isBot || hasOngoingRealTimeGame;
   const { members, rounds } = data.counters;

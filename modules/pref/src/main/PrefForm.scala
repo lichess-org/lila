@@ -61,6 +61,8 @@ object PrefForm:
       val opacity = "boardOpacity" -> number(0, 100)
       val hue = "boardHue" -> number(0, 100)
     val sayGG = "sayGG" -> checkedNumber(Pref.SayGG.choices)
+    val uiRoundness = "uiRoundness" -> number(0, 15)
+    val bgOpacity = "bgOpacity" -> number(5, 100)
 
   def pref(lichobile: Boolean) = Form(
     mapping(

@@ -2,8 +2,7 @@ package lila.forum
 package ui
 
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class ForumBits(helpers: Helpers):
   import helpers.{ *, given }
@@ -36,9 +35,10 @@ final class ForumBits(helpers: Helpers):
   val dataTopic = attr("data-topic")
   val dataUnsub = attr("data-unsub")
 
-  def postTextarea(field: play.api.data.Field)(modifiers: Modifier*)(using Translate, Me) =
-    bits.markdownTextarea("forumPostBody".some):
+  def postTextarea(field: play.api.data.Field)(modifiers: Modifier*)(using Context) =
+    bits.markdownEditor(MarkdownRealm.forum):
       form3.textarea(field, "post-text-area")(
         rows := 10,
+        autocomplete := "off",
         placeholder := trans.site.pleaseBeNiceInTheForum.txt()
       )(modifiers)

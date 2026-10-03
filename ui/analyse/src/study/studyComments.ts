@@ -1,11 +1,13 @@
 import { h, type VNode } from 'snabbdom';
 
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { richHTML } from 'lib/richText';
 import { bind, confirm } from 'lib/view';
+import { profileUrl } from 'lib/view/userLink';
 
-import type AnalyseCtrl from '../ctrl';
-import { nodeFullName } from '../view/util';
+import type AnalyseCtrl from '@/ctrl';
+import { nodeFullName } from '@/view/util';
+
 import type StudyCtrl from './studyCtrl';
 
 export type AuthorObj = {
@@ -17,7 +19,7 @@ export type Author = AuthorObj | string;
 function authorDom(author: Author): string | VNode {
   if (!author) return 'Unknown';
   if (typeof author === 'string') return author;
-  return h('span.user-link.ulpt', { attrs: { 'data-href': '/@/' + author.id } }, author.name);
+  return h('span.user-link.ulpt', { attrs: { 'data-href': profileUrl(author.id) } }, author.name);
 }
 
 export const isAuthorObj = (author: Author): author is AuthorObj => typeof author === 'object';
@@ -26,18 +28,18 @@ export const authorText = (author?: Author): string =>
   !author ? 'Unknown' : typeof author === 'string' ? author : author.name;
 
 export function currentComments(ctrl: AnalyseCtrl, includingMine: boolean): VNode | undefined {
-  if (!ctrl.node.comments) return;
-  const node = ctrl.node,
-    study: StudyCtrl = ctrl.study!,
-    chapter = study.currentChapter(),
-    comments = node.comments!;
-  if (!comments.length) return;
+  if (!ctrl.node.comments) return undefined;
+  const node = ctrl.node;
+  const study: StudyCtrl = ctrl.study!;
+  const chapter = study.currentChapter();
+  const comments = node.comments!;
+  if (!comments.length) return undefined;
   return h(
     'div',
     comments.map(comment => {
       const by: Author = comment.by;
       const isMine = isAuthorObj(by) && by.id === ctrl.opts.userId;
-      if (!includingMine && isMine) return;
+      if (!includingMine && isMine) return undefined;
       return h('div.study__comment.' + comment.id, [
         study.members.canContribute() && study.vm.mode.write
           ? h('a.edit', {

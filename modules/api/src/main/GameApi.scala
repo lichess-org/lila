@@ -21,7 +21,8 @@ final private[api] class GameApi(
     gameRepo: lila.game.GameRepo,
     gameCache: lila.game.Cached,
     analysisRepo: lila.analyse.AnalysisRepo,
-    crosstableApi: lila.game.CrosstableApi
+    crosstableApi: lila.game.CrosstableApi,
+    gameOpening: lila.game.GameOpening
 )(using Executor):
 
   import GameApi.WithFlags
@@ -47,21 +48,21 @@ final private[api] class GameApi(
         selector = {
           if ~playing then lila.game.Query.nowPlayingVs(users._1.id, users._2.id)
           else
-            lila.game.Query.opponents(users._1, users._2) ++ $doc(
-              G.status.$gte(chess.Status.Mate.id),
+            lila.game.Query.opponents(users._1, users._2) ++ bdoc(
+              G.status.gte(chess.Status.Mate.id),
               G.analysed -> analysed.map[BSONValue] {
                 if _ then BSONBoolean(true)
-                else $doc("$exists" -> false)
+                else bdoc("$exists" -> false)
               }
             )
-        } ++ $doc(
+        } ++ bdoc(
           G.rated -> rated.map[BSONValue] {
             if _ then BSONBoolean(true)
-            else $doc("$exists" -> false)
+            else bdoc("$exists" -> false)
           }
         ),
         projection = none,
-        sort = $doc(G.createdAt -> -1),
+        sort = bdoc(G.createdAt -> -1),
         _.sec
       ).withNbResults(
         if ~playing then gameCache.nbPlaying(users._1.id)
@@ -91,22 +92,22 @@ final private[api] class GameApi(
         selector = {
           if ~playing then lila.game.Query.nowPlayingVs(userIds)
           else
-            lila.game.Query.opponents(userIds) ++ $doc(
-              G.status.$gte(chess.Status.Mate.id),
+            lila.game.Query.opponents(userIds) ++ bdoc(
+              G.status.gte(chess.Status.Mate.id),
               G.analysed -> analysed.map[BSONValue] {
                 if _ then BSONBoolean(true)
-                else $doc("$exists" -> false)
+                else bdoc("$exists" -> false)
               }
             )
-        } ++ $doc(
+        } ++ bdoc(
           G.rated -> rated.map[BSONValue] {
             if _ then BSONBoolean(true)
-            else $doc("$exists" -> false)
+            else bdoc("$exists" -> false)
           },
-          G.createdAt.$gte(since)
+          G.createdAt.gte(since)
         ),
         projection = none,
-        sort = $doc(G.createdAt -> -1),
+        sort = bdoc(G.createdAt -> -1),
         _.sec
       ),
       currentPage = page,
@@ -177,9 +178,7 @@ final private[api] class GameApi(
                 .flatMap(analysisJson.player(g.pov(p.color).sideAndStart)(_, accuracy = none))
             )
         }),
-        "analysis" -> analysisOption.ifTrue(withFlags.analysis).map(analysisJson.moves(_)),
         "moves" -> withFlags.moves.option(g.sans.mkString(" ")),
-        "opening" -> (withFlags.opening.so(g.opening): Option[chess.opening.Opening.AtPly]),
         "fens" -> ((withFlags.fens && g.finished).so {
           chess
             .Position(g.variant, initialFen)
@@ -190,6 +189,8 @@ final private[api] class GameApi(
         "winner" -> g.winnerColor.map(_.name),
         "url" -> makeUrl(g)
       )
+      .add("analysis", analysisOption.ifTrue(withFlags.analysis).map(analysisJson.moves(_)))
+      .add("opening", withFlags.opening.so(gameOpening.quickAtPly(g)))
       .noNull
 
 object GameApi:

@@ -2,23 +2,37 @@
 @import '../../../lib/css/plugin';
 
 .shepherd {
+  &-content,
+  &-element {
+    @extend %box-radius;
+  }
+
+  &-header {
+    @extend %box-radius-top;
+  }
+
+  &-footer {
+    @extend %box-radius-bottom;
+  }
+
   &-element {
     border: $border;
-    background-color: $m-bg--alpha-92;
+    background-color: rgb(from $c-bg r g b / 0.92);
     backdrop-filter: blur(6px);
 
     @include if-light {
-      background-color: $m-bg--alpha-84;
+      background-color: rgb(from $c-bg r g b / 0.84);
     }
 
     @include if-transp {
-      background-color: $m-bg--alpha-82;
+      background-color: rgb(from $c-bg r g b / 0.82);
     }
   }
 
   &-has-title &-content &-header {
-    @extend %metal;
+    @extend %metal-bg;
 
+    background-color: transparent;
     border-bottom: $border;
 
     h3 {
@@ -34,10 +48,11 @@
 
   &-text {
     color: $c-font;
+    padding-inline: 14px;
   }
 
   &-button {
-    @extend %roboto;
+    @extend %roboto, %box-radius;
 
     background-color: $c-primary;
     color: $c-over;
@@ -45,7 +60,7 @@
 
     &:not(:disabled):hover {
       color: $c-over;
-      background: $m-primary--lighten-7;
+      background: hsl(from $c-primary h s calc(l + 7));
     }
   }
 

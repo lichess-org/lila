@@ -39,6 +39,7 @@ object BSONFields:
   val totpSecret = "totp"
   val changedCase = "changedCase"
   val delete = "delete"
+  val deletedAt = "deletedAt"
   val foreverClosed = "foreverClosed"
   val blind = "blind"
 
@@ -64,7 +65,7 @@ object BSONHandlers:
       since = r.dateO("since"),
       color = r.intO("color").flatMap(PatronColor.map.get).map(PatronColorChoice.apply)
     )
-    def writes(w: BSON.Writer, o: Plan) = $doc(
+    def writes(w: BSON.Writer, o: Plan) = bdoc(
       "months" -> w.int(o.months),
       "active" -> o.active,
       "lifetime" -> w.boolO(o.lifetime),
@@ -108,8 +109,7 @@ object BSONHandlers:
           case Some(f) if FlairApi.exists(f) => Some(f)
           case Some(f) => FlairApi.badFlairs.add(userId, f); None
           case None => None,
-        marks = r.getO[UserMarks](marks) | UserMarks(Nil),
-        hasEmail = r.contains(email)
+        marks = r.getO[UserMarks](marks) | UserMarks(Nil)
       )
 
     def writes(w: BSON.Writer, o: User) =

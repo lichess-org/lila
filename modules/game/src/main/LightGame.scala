@@ -10,7 +10,7 @@ object LightGame:
   import Game.BSONFields as F
 
   def projection =
-    lila.db.dsl.$doc(
+    lila.db.dsl.bdoc(
       F.whitePlayer -> true,
       F.blackPlayer -> true,
       F.playerUids -> true,

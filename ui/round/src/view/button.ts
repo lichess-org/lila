@@ -3,7 +3,7 @@ import type { VNode, Hooks } from 'snabbdom';
 import { finished, aborted, replayable, rematchable, moretimeable, type PlayerUser } from 'lib/game';
 import type { ClockData } from 'lib/game/clock/clockCtrl';
 import { game as gameRoute } from 'lib/game/router';
-import * as licon from 'lib/licon';
+import { licon, type LiconValue } from 'lib/licon';
 import { pubsub } from 'lib/pubsub';
 import {
   spinnerVdom as spinner,
@@ -11,6 +11,7 @@ import {
   type LooseVNode,
   hl,
   bind,
+  bindClickAndFocus,
   onInsert,
   dataIcon,
 } from 'lib/view';
@@ -32,8 +33,8 @@ function poolUrl(clock: ClockData, blocking?: PlayerUser) {
 }
 
 function analysisButton(ctrl: RoundController): VNode | false {
-  const d = ctrl.data,
-    url = gameRoute(d, analysisBoardOrientation(d)) + '#' + ctrl.ply;
+  const d = ctrl.data;
+  const url = gameRoute(d, analysisBoardOrientation(d)) + '#' + ctrl.ply;
   return (
     replayable(d) &&
     hl(
@@ -60,10 +61,10 @@ function analysisButton(ctrl: RoundController): VNode | false {
 }
 
 function rematchButtons(ctrl: RoundController): LooseVNodes {
-  const d = ctrl.data,
-    me = !!d.player.offeringRematch,
-    disabled = !me && !d.opponent.onGame && (!!d.clock || !d.player.user || !d.opponent.user),
-    them = !!d.opponent.offeringRematch && !disabled;
+  const d = ctrl.data;
+  const me = !!d.player.offeringRematch;
+  const disabled = !me && !d.opponent.onGame && (!!d.clock || !d.player.user || !d.opponent.user);
+  const them = !!d.opponent.offeringRematch && !disabled;
   if (!rematchable(d)) return [];
   return [
     them &&
@@ -112,7 +113,7 @@ function rematchButtons(ctrl: RoundController): LooseVNodes {
 export function standard(
   ctrl: RoundController,
   condition: ((d: RoundData) => ButtonState) | undefined,
-  icon: LiconType,
+  icon: LiconValue,
   hint: string,
   socketMsg: EventsWithoutPayload,
   onclick?: () => void,
@@ -139,7 +140,7 @@ export function opponentGone(ctrl: RoundController): LooseVNode {
     ? hl('div.suggestion', [
         hl('p', { hook: onSuggestionHook }, i18n.site.opponentLeftChoices),
         hl(
-          'button.button',
+          'button.button.button-green',
           { hook: bind('click', () => ctrl.socket.sendLoading('resign-force')) },
           i18n.site.forceResignation,
         ),
@@ -152,7 +153,7 @@ export function opponentGone(ctrl: RoundController): LooseVNode {
     : gone !== false &&
         hl(
           'div.suggestion.opponent-left-counter',
-          hl('p', i18n.site.opponentLeftCounter.asArray(gone, hl('strong', '' + gone))),
+          hl('p', i18n.site.opponentLeftCounter.asArray(gone, hl('strong', gone))),
         );
 }
 
@@ -166,7 +167,7 @@ export const resignConfirm = (ctrl: RoundController): VNode =>
   hl('div.act-confirm', [
     hl('button.fbt.yes', {
       attrs: { title: i18n.site.resign, 'data-icon': licon.FlagOutline },
-      hook: bind('click', () => ctrl.resign(true)),
+      hook: bindClickAndFocus(() => ctrl.resign(true)),
     }),
     fbtCancel(ctrl.resign),
   ]);
@@ -175,7 +176,7 @@ export const drawConfirm = (ctrl: RoundController): VNode =>
   hl('div.act-confirm', [
     hl('button.fbt.yes.draw-yes', {
       attrs: { title: i18n.site.offerDraw, 'data-icon': licon.OneHalf },
-      hook: bind('click', () => ctrl.offerDraw(true)),
+      hook: bindClickAndFocus(() => ctrl.offerDraw(true)),
     }),
     fbtCancel(ctrl.offerDraw),
   ]);
@@ -258,16 +259,16 @@ export function moretime(ctrl: RoundController): LooseVNode {
 }
 
 export function followUp(ctrl: RoundController): VNode {
-  const d = ctrl.data,
-    rematchable =
-      !d.game.rematch &&
-      (finished(d) || (aborted(d) && (!d.game.rated || !['lobby', 'pool'].includes(d.game.source)))) &&
-      !d.tournament &&
-      !d.simul &&
-      !d.swiss &&
-      !d.game.boosted,
-    newable = (finished(d) || aborted(d)) && ['lobby', 'pool', 'local'].includes(d.game.source),
-    rematchZone = rematchable || d.game.rematch ? rematchButtons(ctrl) : [];
+  const d = ctrl.data;
+  const rematchable =
+    !d.game.rematch &&
+    (finished(d) || (aborted(d) && (!d.game.rated || !['lobby', 'pool'].includes(d.game.source)))) &&
+    !d.tournament &&
+    !d.simul &&
+    !d.swiss &&
+    !d.game.boosted;
+  const newable = (finished(d) || aborted(d)) && ['lobby', 'pool', 'local'].includes(d.game.source);
+  const rematchZone = rematchable || d.game.rematch ? rematchButtons(ctrl) : [];
   return hl('div.follow-up', [
     rematchZone,
     d.tournament &&
@@ -290,20 +291,16 @@ export function followUp(ctrl: RoundController): VNode {
 }
 
 export function watcherFollowUp(ctrl: RoundController): LooseVNode {
-  const d = ctrl.data,
-    content = [
-      d.game.rematch &&
-        hl(
-          'a.fbt.text',
-          { attrs: { href: `/${d.game.rematch}/${d.opponent.color}` } },
-          i18n.site.viewRematch,
-        ),
-      d.tournament &&
-        hl('a.fbt', { attrs: { href: '/tournament/' + d.tournament.id } }, i18n.site.viewTournament),
+  const d = ctrl.data;
+  const content = [
+    d.game.rematch &&
+      hl('a.fbt.text', { attrs: { href: `/${d.game.rematch}/${d.opponent.color}` } }, i18n.site.viewRematch),
+    d.tournament &&
+      hl('a.fbt', { attrs: { href: '/tournament/' + d.tournament.id } }, i18n.site.viewTournament),
 
-      d.swiss && hl('a.fbt', { attrs: { href: '/swiss/' + d.swiss.id } }, i18n.site.viewTournament),
-      analysisButton(ctrl),
-    ];
+    d.swiss && hl('a.fbt', { attrs: { href: '/swiss/' + d.swiss.id } }, i18n.site.viewTournament),
+    analysisButton(ctrl),
+  ];
   return content.find(x => !!x) && hl('div.follow-up', content);
 }
 

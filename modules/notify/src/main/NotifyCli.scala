@@ -1,7 +1,7 @@
 package lila.notify
 
-import akka.stream.Materializer
-import akka.stream.scaladsl.*
+import org.apache.pekko.stream.Materializer
+import org.apache.pekko.stream.scaladsl.*
 
 import lila.db.dsl.{ *, given }
 import lila.core.user.UserRepo
@@ -9,7 +9,7 @@ import lila.ui.Icon
 
 final private class NotifyCli(api: NotifyApi, userRepo: UserRepo)(using Materializer, Executor):
 
-  lila.common.Cli.handle:
+  lila.common.Cli.handle(_.NotifyMany):
     case "notify" :: "url" :: "users" :: users :: url :: words =>
       val userIds = users.split(',').flatMap(UserStr.read).map(_.id).toIndexedSeq
       notifyUrlTo(Source(userIds), url, words)
@@ -19,7 +19,7 @@ final private class NotifyCli(api: NotifyApi, userRepo: UserRepo)(using Material
       notifyUrlTo(titledUserIds, url, words, Icon.Trophy)
 
   private def titledUserIds =
-    enabledTitledSource($id(true).some).mapConcat(_.getAsOpt[UserId]("_id").toList)
+    enabledTitledSource(bid(true).some).mapConcat(_.getAsOpt[UserId]("_id").toList)
 
   private def notifyUrlTo(
       userIds: Source[UserId, ?],
@@ -40,12 +40,12 @@ final private class NotifyCli(api: NotifyApi, userRepo: UserRepo)(using Material
 
   private def enabledTitledSource(proj: Option[Bdoc]) =
     import lila.core.user.BSONFields
-    import reactivemongo.akkastream.cursorProducer
+    import reactivemongo.pekkostream.cursorProducer
     userRepo.coll
       .find(
-        $doc(
+        bdoc(
           BSONFields.enabled -> true,
-          BSONFields.title -> $doc(
+          BSONFields.title -> bdoc(
             "$exists" -> true,
             "$nin" -> List(chess.PlayerTitle.LM, chess.PlayerTitle.BOT)
           )

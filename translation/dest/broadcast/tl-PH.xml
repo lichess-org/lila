@@ -30,10 +30,8 @@
   <string name="downloadAllRounds">I-download ang lahat ng mga round</string>
   <string name="resetRound">I-reset ang round na ito</string>
   <string name="deleteRound">Tanggalin ang round na ito</string>
-  <string name="definitivelyDeleteRound">Tahasang tanggalin ang round at lahat ng mga laro nito.</string>
   <string name="editRoundStudy">I-edit ang round ng pag-aaral</string>
   <string name="deleteTournament">Tanggalin ang torneo na ito</string>
-  <string name="definitivelyDeleteTournament">Tahasang tanggalin ang buong torneo, lahat ng mga round nito at lahat ng mga laro nito.</string>
   <string name="showScores">Ipakita ang mga puntos ng mga manlalaro batay sa mga resulta ng laro</string>
   <string name="replacePlayerTags">Opisyonal: palitan ang mga pangalan ng manlalaro, mga marka at mga titulo</string>
   <string name="fideFederations">Mga FIDE pederasyon</string>

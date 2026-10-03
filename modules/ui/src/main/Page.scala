@@ -1,7 +1,7 @@
 package lila.ui
 
 import lila.core.i18n.I18nModule
-import ScalatagsTemplate.*
+import lila.ui.ScalatagsTemplate.*
 
 opaque type LangPath = String
 object LangPath extends OpaqueString[LangPath]:
@@ -52,11 +52,12 @@ case class Page(
   def csp(up: Update[ContentSecurityPolicy]): Page = copy(csp = csp.fold(up)(up.compose).some)
   def hrefLangs(path: Option[LangPath]): Page = copy(withHrefLangs = path)
   def hrefLangs(path: LangPath): Page = copy(withHrefLangs = path.some)
-  def transformHead(f: Update[Frag]): Page = copy(transformHead = transformHead.compose(f))
-  def preloadImage(url: Url)(helper: AssetHelper): Page =
-    transformHead(head => frag(head, helper.imagePreload(url)))
+  def preloadImage(url: Url)(helper: AssetHelper): Page = headAppend(helper.imagePreload(url))
   def preloadImage(url: Option[Url])(helper: AssetHelper): Page =
     url.fold(this)(preloadImage(_)(helper))
+  def headAppend(f: Frag): Page = transformHead(head => frag(head, f))
+  def headAppend(f: Option[Frag]): Page = f.fold(this)(f => transformHead(head => frag(head, f)))
+  private def transformHead(f: Update[Frag]): Page = copy(transformHead = transformHead.compose(f))
 
   // body stuff
   def body(b: Frag): Page = copy(body = b.some)

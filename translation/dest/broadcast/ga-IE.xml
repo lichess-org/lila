@@ -17,6 +17,5 @@
   <string name="downloadAllRounds">Íoslódáil gach babhta</string>
   <string name="resetRound">Athshocraigh an babhta seo</string>
   <string name="deleteRound">Scrios an babhta seo</string>
-  <string name="definitivelyDeleteRound">Scrios go cinntitheach an babhta agus a chuid cluichí.</string>
   <string name="deleteAllGamesOfThisRound">Scrios gach cluiche den bhabhta seo. Caithfidh an fhoinse a bheith gníomhach chun iad a athchruthú.</string>
 </resources>

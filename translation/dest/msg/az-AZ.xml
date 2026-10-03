@@ -1,2 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="modActionFeedback">Salam,
+
+Son göndərdiyiniz şikayəti nəzərdən keçirdik və müvafiq tədbir gördük. Görülən tədbirin təfərrüatlarını paylaşa bilməsək də, şikayətiniz üçün Sizə təşəkkür edirik.
+
+Lichess-in hər kəs üçün əlverişli bir mühitə çevrilməsinə kömək etdiyiniz üçün təşəkkür edirik.</string>
+</resources>

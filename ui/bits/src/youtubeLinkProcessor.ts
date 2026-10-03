@@ -13,7 +13,7 @@ const videoIdRegex = /^[a-zA-Z0-9_-]{11}$/;
 export function parseYoutubeUrl(url: string): YoutubeMatch | undefined {
   const youtubeUrl = toURL(url);
   if (!youtubeUrl) {
-    return;
+    return undefined;
   }
 
   switch (getDomainType(youtubeUrl.hostname)) {
@@ -21,6 +21,8 @@ export function parseYoutubeUrl(url: string): YoutubeMatch | undefined {
       return handleYoutuBe(youtubeUrl);
     case 'youtube.com':
       return handleYoutubeCom(youtubeUrl);
+    default:
+      return undefined;
   }
 }
 
@@ -51,6 +53,8 @@ function getDomainType(hostname: string): DomainType | undefined {
   if ('youtu.be' === hostname) {
     return 'youtu.be';
   }
+
+  return undefined;
 }
 
 function handleYoutubeCom(url: URL): YoutubeMatch | undefined {
@@ -61,7 +65,7 @@ function handleYoutubeCom(url: URL): YoutubeMatch | undefined {
   let { videoId } = parsedResult;
 
   if (!videoType) {
-    return;
+    return undefined;
   }
 
   let startTimeParamName = 't';
@@ -81,7 +85,7 @@ function handleYoutubeCom(url: URL): YoutubeMatch | undefined {
     case 'playlist':
       const playlistId = searchParams.get('list');
       if (!playlistId || !isPlaylistIdValid(playlistId)) {
-        return;
+        return undefined;
       }
 
       return {
@@ -92,7 +96,7 @@ function handleYoutubeCom(url: URL): YoutubeMatch | undefined {
   }
 
   if (!isVideoIdValid(videoId) || !videoId) {
-    return;
+    return undefined;
   }
   const startTime = extractStartTime(searchParams.get(startTimeParamName) ?? '');
 
@@ -108,7 +112,7 @@ function handleYoutuBe(url: URL): YoutubeMatch | undefined {
 
   const [videoId] = getPathSegments(pathname);
   if (!isVideoIdValid(videoId) || !videoId) {
-    return;
+    return undefined;
   }
 
   const startTimeParamName = 't';
@@ -133,12 +137,10 @@ function parseVideoPath(path: string): {
   videoId?: string | null;
 } {
   const [type, id] = getPathSegments(path);
-
-  const videoType = supportedVideoTypes.includes(type as VideoType) ? (type as VideoType) : undefined;
-
-  const videoId = isVideoIdValid(id) ? id : undefined;
-
-  return { videoType, videoId };
+  return {
+    videoType: supportedVideoTypes.includes(type) ? (type as VideoType) : undefined,
+    videoId: isVideoIdValid(id) ? id : undefined,
+  };
 }
 
 const isVideoIdValid = (id?: string | null) =>

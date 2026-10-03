@@ -3,6 +3,7 @@ import debounce from 'debounce-promise';
 import * as xhr from '@/xhr';
 
 import { complete } from './complete';
+import { profileUrl } from './userLink';
 
 export interface UserCompleteResult {
   result: LightUserOnline[];
@@ -66,5 +67,5 @@ export const renderUserEntry = (o: LightUserOnline, tag = 'a'): string => {
     ? `<span class="utitle"${o.title === 'BOT' ? ' data-bot="data-bot"' : ''}>${o.title}</span>&nbsp;`
     : '';
   const flair = o.flair ? `<img class="uflair" src="${site.asset.flairSrc(o.flair)}" alt="" />` : '';
-  return `<${tag} class="complete-result ulpt user-link${o.online ? ' online' : ''}" ${hrefAttr}="/@/${o.name}"><icon class="line${o.patron ? ' patron' : ''}${patronClass}"></icon>${title}${o.name}${flair}</${tag}>`;
+  return `<${tag} class="complete-result ulpt user-link${o.online ? ' online' : ''}" ${hrefAttr}="${profileUrl(o.name)}"><icon class="line${o.patron ? ' patron' : ''}${patronClass}"></icon>${title}${o.name}${flair}</${tag}>`;
 };

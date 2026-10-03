@@ -85,7 +85,7 @@
       &.active,
       &:hover {
         color: $c-font-clear;
-        background: rgba(128, 128, 128, 0.07);
+        background: rgb(128 128 128 / 0.07);
       }
 
       &.active {

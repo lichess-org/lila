@@ -1,6 +1,6 @@
 package lila.tournament
 
-import akka.actor.*
+import org.apache.pekko.actor.*
 
 import lila.common.Json.given
 import lila.common.LateMultiThrottler

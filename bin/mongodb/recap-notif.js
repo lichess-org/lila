@@ -50,6 +50,7 @@ function* group(size) {
 function sendToUser(user) {
   if (!user.count?.game && !hasPuzzles(user._id)) return;
   if (!dry)
+    // call the recap function with user._id;
     db.notify.insertOne({
       _id: Math.random().toString(36).substring(2, 10),
       notifies: user._id,

@@ -25,7 +25,6 @@
   <string name="cantChangeMore">Nevaram mainīt vairāk kā tikai lielumu. Tehnisku iemeslu dēļ, tas ir pilnīgi neiespējami.</string>
   <string name="orCloseAccount">Taču varat slēgt pašreizējo kontu un atvērt jaunu.</string>
   <string name="wantClearHistory">Vēlos notīrīt savu vēsturi vai reitingu</string>
-  <string name="cantClearHistory">Nav iespējams notīrīt spēļu vēsturi, uzdevumu vēsturi vai reitingus.</string>
   <string name="wantReport">Vēlos ziņot par spēlētāju</string>
   <string name="toReportAPlayerUseForm">Lai ziņotu par spēlētāju, aizpildiet ziņošanas veidlapu</string>
   <string name="youCanAlsoReachReportPage">Varat arī nonākt tajā lapā, klikšķinot uz %s pogas \"ziņot\" profila lapā.</string>
@@ -52,7 +51,7 @@
   <string name="knightMate">Mats var būt iespējams ar karali un laidni, ja pretiniekam ir vairāk kā tikai karalis uz galdiņa.</string>
   <string name="noRatingPoints">Neviens reitinga punkts netika piešķirts</string>
   <string name="ratedGame">Pārliecinieties, ka spēlējāt vērtētu spēli. Draudzīgas spēles nemaina spēlētāju reitingus.</string>
-  <string name="botRatingAbuse" comment="The original English text was changed in March 2026, from &quot;if it is determined&quot; to &quot;if we determine&quot;.">Noteiktos gadījumos, spēlējot pret datorprogrammu, par vērtētām spēlēm nepiešķir punktus, ja ir noteikts, ka spēlētājs ļaunprātīgi izmanto programmu, lai paaugstinātu reitingu.</string>
+  <string name="botRatingAbuse">Noteiktos gadījumos, spēlējot pret datorprogrammu, par vērtētām spēlēm nepiešķir punktus, ja ir noteikts, ka spēlētājs ļaunprātīgi izmanto programmu, lai paaugstinātu reitingu.</string>
   <string name="errorPage">Kļūdas lapa</string>
   <string name="reportErrorPage">Ja saskārāties ar kļūdas lapu, varat par to ziņot:</string>
   <string name="learnHowToMakeBroadcasts">Uzzini kā veidot savas pārraides Lichess-ā</string>

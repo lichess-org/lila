@@ -34,6 +34,12 @@ object Forecast:
 
   def maxPlies(steps: Steps): Int = steps.foldLeft(0)(_ max _.size)
 
+  def isValid(js: JsValue): Boolean =
+    js.asOpt[JsArray]
+      .forall: lines =>
+        lines.value.sizeIs <= 30 && lines.value.forall:
+          _.asOpt[JsArray].forall(_.value.sizeIs <= 30)
+
   case class Step(
       ply: Ply,
       uci: String,

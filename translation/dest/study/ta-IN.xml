@@ -63,7 +63,6 @@
   <string name="downloadGame">விளையாட்டைப் பதிவிறக்க</string>
   <string name="studyUrl">கற்கை URL</string>
   <string name="currentChapterUrl">இந்த அத்தியாய URL</string>
-  <string name="youCanPasteThisInTheForumToEmbed">மன்றத்தில் அல்லது லீசெஸ் வலைப்பதிவில் உட்பொதிக்க நீங்கள் இதை ஒட்டலாம்</string>
   <string name="startAtInitialPosition">கற்கையை இந்த இடத்திலிருந்து ஆரம்பிக்கவும்</string>
   <string name="startAtX">%s இல் ஆரம்பிக்க</string>
   <string name="embedInYourWebsite">உங்கள் வலைத்தளத்தில் உட்பொதிக்க</string>
@@ -179,6 +178,5 @@
   <string name="createChapterText">ஒரு ஆய்வில் பல அத்தியாயங்கள் இருக்கலாம்.&lt;br&gt;ஒவ்வொரு அத்தியாயமும் ஒரு தனித்துவமான நகர்வு மரத்தைக் கொண்டுள்ளது,&lt;br&gt;மேலும் பல்வேறு வழிகளில் உருவாக்கப்படலாம்.</string>
   <string name="fromInitialPositionTitle">தொடக்க நிலையிலிருந்து</string>
   <string name="customPositionTitle">விருப்ப நிலை</string>
-  <string name="loadExistingLichessGameTitle">ஏற்கனவே உள்ள ஒரு Lichess விளையாட்டை ஏற்றவும்</string>
   <string name="fromPgnGameTitle">ஒரு PGN விளையாட்டிலிருந்து</string>
 </resources>

@@ -1,7 +1,16 @@
 #insight .filters {
+  @include backdrop-blur-if-transparent;
+
+  position: relative;
+  z-index: $z-mz-menu-4;
+
   .box {
-    border-bottom-width: 0;
+    border-radius: 0;
     overflow: visible;
+
+    @include if-transp {
+      backdrop-filter: none;
+    }
   }
 
   .box:last-child {
@@ -16,22 +25,26 @@
     }
 
     &.selected .ms-choice {
-      @include gradient-border($m-accent--fade-30, to right, to left);
+      @include gradient-border(rgb(from $c-accent r g b / calc(alpha * 0.7)), to right, to left);
     }
 
     &:hover .ms-choice {
-      background: $m-accent_bg--mix-20;
+      background: color-mix(in oklab, $c-accent 20%, $c-bg);
     }
   }
 
   .ms-choice {
     @include transition;
 
+    @include if-transp {
+      background: none;
+    }
+
     padding: 15px 10px;
     border-width: 0 0 1px 0;
 
     &.selected {
-      background: $m-primary_bg--mix-20;
+      background: color-mix(in oklab, $c-primary 20%, $c-bg);
       border-left: 3px solid $c-link;
     }
 

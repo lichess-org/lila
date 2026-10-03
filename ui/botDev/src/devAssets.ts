@@ -38,7 +38,7 @@ export class DevAssets {
     {} as Record<AssetType, Map<string, string>>,
   );
 
-  constructor(public rlist?: AssetList | undefined) {
+  constructor(public rlist: AssetList | undefined) {
     this.update(rlist);
     window.addEventListener('storage', this.onStorageEvent);
   }
@@ -159,7 +159,7 @@ export class DevAssets {
     if (!book.cover) throw new Error(`error parsing ${blobname}`);
     const key = await hashBlob(blob);
     const name = blobname.endsWith('.bin') ? blobname.slice(0, -4) : blobname;
-    const asset = { blob: blob, name, user: myUserId() ?? 'anonymous' };
+    const asset = { blob, name, user: myUserId() ?? 'anonymous' };
     const cover = { blob: book.cover, name, user: myUserId() ?? 'anonymous' };
     await Promise.all([this.idb.book.put(key, asset), this.idb.bookCover.put(key, cover)]);
     this.urls.bookCover.set(key, URL.createObjectURL(new Blob([book.cover], { type: 'image/png' })));

@@ -110,7 +110,7 @@
         @extend %msg-input-focus;
 
         flex: 1 1 100%;
-        border-radius: 1.5em;
+        border-radius: calc($box-radius-size * 2);
         background: $c-bg-box;
         resize: none;
       }
@@ -118,12 +118,10 @@
       &__submit {
         outline: 0;
         margin-inline-start: 1em;
-        border-radius: 99px;
-        background: $c-font-dimmer;
+        border-radius: calc($box-radius-size * 2);
 
-        &.connected,
-        &.connected:hover {
-          background: $c-secondary;
+        &:disabled {
+          background: $c-font-dimmer;
         }
       }
     }

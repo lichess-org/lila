@@ -55,9 +55,10 @@
     @include inline-start(34px);
 
     position: absolute;
-    width: 80%;
-    max-width: 240px;
-    z-index: 1;
+    inset-block-start: 100%;
+    width: min(80%, 240px, 40vmin);
+    margin-block-start: 4px;
+    z-index: $z-board-popover;
 
     .pv-board-square {
       @extend %square;
@@ -75,7 +76,7 @@
 
 @media (hover: hover) and (pointer: fine) {
   .pv_box .pv[data-uci]:hover {
-    background: $m-secondary_bg--mix-20;
+    background: color-mix(in oklab, $c-secondary 20%, $c-bg);
     cursor: pointer;
   }
 
@@ -91,7 +92,7 @@
 
 @include mq-is-col1 {
   .pv_box {
-    background: $m-secondary_bg--mix-20;
+    background: color-mix(in oklab, $c-secondary 20%, $c-bg);
     padding-inline: 8px;
   }
 

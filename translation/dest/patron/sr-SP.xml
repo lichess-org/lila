@@ -5,6 +5,11 @@
   <string name="freeAccount">Бесплатан налог</string>
   <string name="becomePatron">Постани Lichess Покровитељ</string>
   <string name="xBecamePatron">%s је постао/ла Lichess Покровитељ</string>
+  <plurals name="xIsPatronForNbMonths">
+    <item quantity="one">%1$s је Lichess Покровитељ %2$s месец</item>
+    <item quantity="few">%1$s је Lichess Покровитељ %2$s месеца</item>
+    <item quantity="other">%1$s је Lichess Покровитељ %2$s месеци</item>
+  </plurals>
   <string name="newPatrons">Нови Покровитељи</string>
   <string name="freeChess">Бесплатан шах за све, заувек!</string>
   <string name="noAdsNoSubs">Нема реклама, нема претплата; само отворен изворни код и страст.</string>
@@ -21,18 +26,18 @@
   <string name="onetime">Једнократно</string>
   <string name="singleDonation">Једна донација која ти додељује Покровитељска крила на један месец.</string>
   <string name="otherAmount">Остале</string>
+  <string name="pleaseEnterAmountInX">Молимо да унесеш износ у %s</string>
   <string name="withCreditCard">Кредитна Картица</string>
   <string name="weAreSmallTeam">Ми смо мали тим, тако да твоја подршка прави огромну разлику!</string>
   <string name="celebratedPatrons">Слављени Покровитељи који праве Lichess могићим</string>
   <string name="whereMoneyGoes">Где иде новац?</string>
   <string name="serversAndDeveloper">Пре свега, снажне сервере.
-Након тога плаћамо програмера са пуним радним временом: %s, оснивача Lichess-а.</string>
+Након тога плаћамо програмера са пуним радним временом: %s, оснивача Lichess-а.
+</string>
   <string name="costBreakdown">Види детаљано образложење трошкова</string>
   <string name="officialNonProfit">Да ли је Lichess званична непрофитна организација?</string>
   <string name="actOfCreation">Да, овде је чин стварања (на француском)</string>
   <string name="changeMonthlySupport">Могу ли променити/отказати моју месечну подршку?</string>
-  <string name="changeOrContact">Да, у било које време, са ове странице.
-Или можеш %s.</string>
   <string name="contactSupport">контактирати Lichess подршку</string>
   <string name="otherMethods">Друге методе донације?</string>
   <string name="bankTransfers">Такође прихватамо банковне трансфере</string>
@@ -51,6 +56,7 @@
   <string name="nextPayment">Следећа уплата</string>
   <string name="youWillBeChargedXOnY">Биће ти наплаћено %1$s на %2$s.</string>
   <string name="makeAdditionalDonation">Направи додатну донацију</string>
+  <string name="giftPatronWings">Поклони Покровитељска крила играчу</string>
   <string name="update">Ажурирај</string>
   <string name="changeMonthlyAmount">Промени месечни износ (%s)</string>
   <string name="cancelSupport">Откажи твоју подршку</string>
@@ -67,4 +73,5 @@
   <string name="nowLifetime">Сада си доживотни Lichess Покровитељ!</string>
   <string name="nowOneMonth">Сада си Lichess Покровитељ на један месец!</string>
   <string name="downgradeNextMonth">За месец дана, НЕЋЕШ бити поново наплаћен/а и твој Lichess налог ће се вратити на обичан налог.</string>
+  <string name="changeCurrency">Промени валуту</string>
 </resources>

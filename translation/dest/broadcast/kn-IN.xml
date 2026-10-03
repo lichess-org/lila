@@ -21,9 +21,7 @@
   <string name="downloadAllRounds">ಎಲ್ಲಾ ಸುತ್ತುಗಳನ್ನು ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ</string>
   <string name="resetRound">ಈ ಸುತ್ತನ್ನು ಮರುಹೊಂದಿಸಿ</string>
   <string name="deleteRound">ಈ ಸುತ್ತನ್ನು ಅಳಿಸಿ</string>
-  <string name="definitivelyDeleteRound">ರೌಂಡ್ ಮತ್ತು ಅದರ ಎಲ್ಲಾ ಆಟಗಳನ್ನು ಖಚಿತವಾಗಿ ಅಳಿಸಿ.</string>
   <string name="deleteAllGamesOfThisRound">ಈ ಸುತ್ತಿನ ಎಲ್ಲಾ ಆಟಗಳನ್ನು ಅಳಿಸಿ. ಅವುಗಳನ್ನು ಮರು-ರಚಿಸಲು ಮೂಲವು ಸಕ್ರಿಯವಾಗಿರಬೇಕು.</string>
   <string name="editRoundStudy">ಸುತ್ತಿನ ಅಧ್ಯಯನವನ್ನು ಸಂಪಾದಿಸಿ</string>
   <string name="deleteTournament">ಈ ಪಂದ್ಯಾವಳಿಯನ್ನು ಅಳಿಸಿ</string>
-  <string name="definitivelyDeleteTournament">ಸಂಪೂರ್ಣ ಪಂದ್ಯಾವಳಿ, ಅದರ ಎಲ್ಲಾ ಸುತ್ತುಗಳು ಮತ್ತು ಅದರ ಎಲ್ಲಾ ಆಟಗಳನ್ನು ಖಚಿತವಾಗಿ ಅಳಿಸಿ.</string>
 </resources>

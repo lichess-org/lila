@@ -8,9 +8,8 @@ import play.api.libs.json.*
 
 import lila.common.Json.given
 import lila.core.i18n.Translate
-import lila.tree.{ Metas, NewBranch, NewTree }
+import lila.tree.{ Branch, Node }
 import lila.core.net.ApiVersion
-import lila.ui.Context
 
 final class JsonView(
     gameJson: GameJson,
@@ -53,8 +52,8 @@ final class JsonView(
       replay: Option[lila.puzzle.PuzzleReplay] = None,
       newMe: Option[Me] = None,
       apiVersion: Option[ApiVersion] = None
-  )(using ctx: Context)(using Perf, Translate): Fu[JsObject] =
-    given me: Option[Me] = newMe.orElse(ctx.me)
+  )(using oldMe: Option[Me])(using Perf, Translate): Fu[JsObject] =
+    given me: Option[Me] = newMe.orElse(oldMe)
     for
       puzzleJson <-
         if apiVersion.exists(v => !ApiVersion.puzzleV2(v))
@@ -62,6 +61,10 @@ final class JsonView(
         else apply(puzzle, angle.some, replay)
       enginesJson <- myEngines.get(me)
     yield puzzleJson ++ enginesJson
+
+  def streak(puzzle: Puzzle, ids: String)(using Translate, Option[Me], Perf) =
+    for puzzleJson <- analysis(puzzle, PuzzleAngle.mix)
+    yield (puzzleJson ++ Json.obj("streak" -> ids), puzzle)
 
   def userJson(using perf: Perf, me: Option[Me]) = me.isDefined.option:
     Json
@@ -179,7 +182,7 @@ final class JsonView(
       "lines" -> puzzle.line.tail.reverse.foldLeft[JsValue](JsString("win")): (acc, move) =>
         Json.obj(move.uci -> acc),
       "vote" -> 0,
-      "branch" -> makeTree(puzzle).map(NewTree.lichobileNodeJsonWriter.writes)
+      "branch" -> makeBranch(puzzle).map(Node.defaultNodeJsonWriter.writes)
     )
 
 object JsonView:
@@ -198,23 +201,19 @@ object JsonView:
 
   given OWrites[PuzzleReplay] = Json.writes[PuzzleReplay]
 
-  def makeTree(puzzle: Puzzle): Option[NewTree] =
-
-    def makeNode(prev: chess.Game, uci: Uci.Move): (chess.Game, NewTree) =
-      val (game, move) = prev(uci.orig, uci.dest, uci.promotion)
-        .fold(err => sys.error(s"puzzle ${puzzle.id} $err"), identity)
-      game -> chess.Node(
-        NewBranch(
+  private def makeBranch(puzzle: Puzzle): Option[Branch] =
+    val (_, branches) = puzzle.line.tail.foldLeft[(chess.Game, List[Branch])]((puzzle.initialGame, Nil)):
+      case ((previous, branches), uci) =>
+        val (game, move) = previous(uci.orig, uci.dest, uci.promotion)
+          .fold(err => sys.error(s"puzzle ${puzzle.id} $err"), identity)
+        val branch = Branch(
+          ply = game.ply,
           move = Uci.WithSan(move.toUci, game.sans.last),
-          metas = Metas(
-            fen = Fen.write(game),
-            ply = game.ply,
-            crazyData = none
-          )
+          fen = Fen.write(game),
+          crazyData = none
         )
-      )
-
-    chess.Tree.buildAccumulate(puzzle.line.tail, puzzle.initialGame, makeNode)
+        game -> (branch :: branches)
+    branches.reduceOption((child, branch) => branch.addChild(child))
 
   def puzzleAndGamejson(puzzle: Puzzle, game: JsObject, withInitialPos: Boolean) = Json.obj(
     "game" -> game,

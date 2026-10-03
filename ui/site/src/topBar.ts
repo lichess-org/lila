@@ -6,16 +6,17 @@ import { wsSend } from 'lib/socket';
 import { spinnerHtml } from 'lib/view';
 
 import { loadCssPath, loadEsm } from './asset';
+import { addClinputKeyHandler } from './clinput';
 
 export default function () {
   const top = document.getElementById('top')!;
 
-  const initiatingHtml = `<div class="initiating">${spinnerHtml}</div>`,
-    isVisible = (selector: string) => {
-      const el = document.querySelector(selector),
-        display = el && window.getComputedStyle(el).display;
-      return display && display !== 'none';
-    };
+  const initiatingHtml = `<div class="initiating">${spinnerHtml}</div>`;
+  const isVisible = (selector: string) => {
+    const el = document.querySelector(selector);
+    const display = el && window.getComputedStyle(el).display;
+    return display && display !== 'none';
+  };
 
   // On touchscreens, clicking the top menu element expands it. There's no top link.
   // Only for mq-topnav-visible in ui/lib/css/abstract/_media-queries.scss
@@ -58,8 +59,8 @@ export default function () {
   {
     // challengeApp
     let instance: Promise<any> | undefined;
-    const $toggle = $('#challenge-toggle'),
-      $countSpan = $toggle.find('span');
+    const $toggle = $('#challenge-toggle');
+    const $countSpan = $toggle.find('span');
     $toggle.one('mouseover click', () => load());
     const load = function (data?: any) {
       if (instance) return;
@@ -93,9 +94,9 @@ export default function () {
   {
     // notifyApp
     let instance: Promise<any> | undefined;
-    const $toggle = $('#notify-toggle'),
-      $countSpan = $toggle.find('span'),
-      selector = '#notify-app';
+    const $toggle = $('#notify-toggle');
+    const $countSpan = $toggle.find('span');
+    const selector = '#notify-app';
 
     const load = (data?: any) => {
       if (instance) return;
@@ -161,34 +162,33 @@ export default function () {
     const $wrap = $('#clinput');
     if (!$wrap.length) return;
     const $input = $wrap.find('input');
-    let booted = false;
-    const boot = () => {
-      if (booted) return;
-      booted = true;
-      loadEsm('cli', { init: { input: $input[0] } }).catch(() => (booted = false));
-    };
+    let clicked = false;
+    addClinputKeyHandler({ input: $input[0] as HTMLInputElement });
     $input.on({
       keydown: blurIfEscape,
+      click: () => {
+        clicked = true;
+      },
       blur() {
+        clicked = false;
         $input.val('');
         $('body').removeClass('clinput');
       },
       focus() {
-        boot();
         $('body').addClass('clinput');
       },
     });
     $wrap.find('a').on({
-      mouseover: boot,
       click() {
         $('body').hasClass('clinput') ? $input[0]!.blur() : $input[0]!.focus();
       },
     });
-    $wrap.on('mouseenter', () => {
-      if ($input[0] !== document.activeElement) $input[0]!.focus();
-    });
+    if (!isTouchDevice())
+      $wrap.on('mouseenter', () => {
+        if ($input[0] !== document.activeElement) $input[0]!.focus();
+      });
     $wrap.on('mouseleave', () => {
-      if (!$input.val()) $input[0]!.blur();
+      if (!clicked && !$input.val()) $input[0]!.blur();
     });
     site.mousetrap
       .bind('/', () => {

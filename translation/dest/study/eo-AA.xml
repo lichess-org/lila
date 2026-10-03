@@ -65,7 +65,6 @@
   <string name="downloadGame">Elŝuti ludon</string>
   <string name="studyUrl">URL de la studo</string>
   <string name="currentChapterUrl">URL de tiu ĉi ĉapitro</string>
-  <string name="youCanPasteThisInTheForumToEmbed">Vi povas alglui ĉi tiun en la forumo aŭ via Lichess blogo por enkorpigi</string>
   <string name="startAtInitialPosition">Starti ekde komenca pozicio</string>
   <string name="startAtX">Komenci je %s</string>
   <string name="embedInYourWebsite">Enkorpigi en via retejo</string>

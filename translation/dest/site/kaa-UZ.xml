@@ -91,25 +91,13 @@
   <string name="blunder">Qopal qáte</string>
   <string name="mistake">Qátelik</string>
   <string name="inaccuracy">Túnisiniksizlik</string>
-  <plurals name="nbBlunders">
-    <item quantity="one">%s qopal qáte</item>
-    <item quantity="other">%s qopal qáte</item>
-  </plurals>
   <plurals name="numberBlunders">
     <item quantity="one">%s Qopal qáte</item>
     <item quantity="other">%s Qopal qáte</item>
   </plurals>
-  <plurals name="nbMistakes">
-    <item quantity="one">%s qáte</item>
-    <item quantity="other">%s qáte</item>
-  </plurals>
   <plurals name="numberMistakes">
     <item quantity="one">%s Qáte</item>
     <item quantity="other">%s Qáte</item>
-  </plurals>
-  <plurals name="nbInaccuracies">
-    <item quantity="one">%s túsiniksizlik</item>
-    <item quantity="other">%s túsiniksizlik</item>
   </plurals>
   <plurals name="numberInaccuracies">
     <item quantity="one">%s Túsiniksizlik</item>
@@ -191,8 +179,6 @@
     <item quantity="other">Siz benen %s oyın</item>
   </plurals>
   <string name="cancel">Biykarlaw</string>
-  <string name="whiteTimeOut">Aqtıń waqtı tawsıldı</string>
-  <string name="blackTimeOut">Qaranıń waqtı tawsıldı</string>
   <string name="drawOfferSent">Pat usınısı jiberildi</string>
   <string name="drawOfferAccepted">Pat usınısı qabıllandı</string>
   <string name="whiteOffersDraw">Aqlar pattı usınıs etpekte</string>

@@ -4,8 +4,7 @@ package ui
 import lila.core.i18n.{ I18nKey as trans, Translate }
 import lila.core.id.ForumCategId
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 object contact:
 
@@ -126,7 +125,7 @@ object contact:
               "clear-history",
               wantClearHistory(),
               frag(
-                p(cantClearHistory()),
+                p(cantClearHistoryOrResetRatings()),
                 p(orCloseAccount())
               )
             )
@@ -277,18 +276,14 @@ object contact:
             ),
             Leaf(
               "contact-broadcast",
-              "Broadcast a tournament on Lichess",
+              broadcastTournamentOnLichess(),
               frag(
+                p(ifYouWantToBroadcastClause1()),
                 p(
-                  "If you want to officially broadcast a tournament on Lichess, ",
-                  "or have any questions about our broadcasts:"
-                ),
-                p(
-                  "Please contact our Broadcast Team at ",
-                  contactEmailLink("broadcast@lichess.org"),
-                  " or on ",
-                  a(href := "https://discord.gg/Syx9CbN8Jv")("our discord"),
-                  "."
+                  ifYouWantToBroadcastClause2(
+                    contactEmailLink("broadcast@lichess.org"),
+                    a(href := "https://discord.gg/Syx9CbN8Jv")(ourDiscordServer())
+                  )
                 )
               )
             ),
@@ -305,15 +300,14 @@ object contact:
               "monetize",
               monetizing(),
               frag(
-                p("We are not interested in any way of monetizing Lichess."),
+                p(monetiseNotInterested()),
                 p(
-                  "We will never display any kind of ads, we won't track our players, and we won't sell or buy traffic or users."
+                  monetiseNoAdsTrackingOrTraffic()
                 ),
-                p("Please do not email us about marketing, tracking, or advertising."),
+                p(monetiseNoMarketingEmail()),
                 br,
                 p(
-                  "We encourage everyone to ",
-                  a(href := "/ads")("block all ads and trackers.")
+                  monetiseEncourageEveryoneTo(a(href := "/ads")(monetiseBlockAllAdsAndTrackers()))
                 )
               )
             ),

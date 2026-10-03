@@ -1,9 +1,7 @@
 package lila.team
 
 import java.time.Period
-import scala.util.Try
 import scalalib.actor.AsyncActorSequencers
-import play.api.libs.json.{ JsSuccess, Json, Reads }
 import play.api.mvc.RequestHeader
 
 import lila.common.Bus
@@ -11,6 +9,7 @@ import lila.core.perm.Granter
 import lila.core.team.*
 import lila.core.timeline as tl
 import lila.core.userId.UserSearch
+import lila.core.notify.{ NotifyApi, NotificationContent }
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
 
@@ -18,16 +17,18 @@ final class TeamApi(
     teamRepo: TeamRepo,
     memberRepo: TeamMemberRepo,
     requestRepo: TeamRequestRepo,
+    updateApi: TeamUpdateApi,
     userApi: lila.core.user.UserApi,
     cached: TeamCached,
-    notifier: Notifier,
-    chatApi: lila.core.chat.ChatApi
+    notifyApi: NotifyApi,
+    chatApi: lila.core.chat.ChatApi,
+    spam: lila.core.security.SpamApi
 )(using Executor, Scheduler)
     extends lila.core.team.TeamApi:
 
   import BSONHandlers.given
 
-  export teamRepo.{ filterHideForum, onUserDelete, deleteNewlyCreatedBy }
+  export teamRepo.{ filterHideForum, onUserDelete, deleteNewlyCreatedBy, creatorOf }
 
   private val workQueue = AsyncActorSequencers[TeamId](
     maxSize = Max(8),
@@ -41,7 +42,7 @@ final class TeamApi(
 
   def teamEnabled(id: TeamId) = teamRepo.enabled(id)
 
-  def leaderTeam(id: TeamId) = teamRepo.coll.byId[LightTeam](id, $doc("name" -> true))
+  def leaderTeam(id: TeamId) = teamRepo.coll.byId[LightTeam](id, bdoc("name" -> true))
 
   def lightsByTourLeader[U: UserIdOf](leader: U): Fu[List[LightTeam]] =
     memberRepo.teamsLedBy(leader, Some(_.Tour)).flatMap(teamRepo.lightsByIds)
@@ -52,6 +53,15 @@ final class TeamApi(
   def forumAccessOf(id: TeamId) = cached.forumAccess.get(id)
 
   def request(id: TeamRequest.ID) = requestRepo.coll.byId[TeamRequest](id)
+
+  def show(team: Team)(using me: Option[Me]): Fu[Team.TeamShow] = for
+    leaders <- memberRepo.leaders(team.id)
+    member <- me.soUse(memberOf(team.id))
+    requests <- (team.enabled && member.exists(_.hasPerm(_.Request))).so(requestsWithUsers(team))
+    myRequest <- member.isEmpty.so(me.so(m => requestRepo.find(team.id, m.userId)))
+    update <- ((team.enabled && member.isDefined) || Granter.opt(_.ManageTeam))
+      .so(updateApi.teamLatest(team.id))
+  yield Team.TeamShow(team, leaders, member, myRequest, requests, update)
 
   def create(setup: TeamSetup)(using me: Me): Fu[Team] =
     val bestId = Team.nameToId(setup.name)
@@ -89,8 +99,8 @@ final class TeamApi(
     old.copy(
       password = edit.password,
       intro = edit.intro,
-      description = edit.description,
-      descPrivate = edit.descPrivate,
+      description = edit.description.map(spam.replace),
+      descPrivate = edit.descPrivate.map(_.map(spam.replace)),
       open = edit.isOpen,
       chat = edit.chat,
       forum = edit.forum,
@@ -102,7 +112,7 @@ final class TeamApi(
     import reactivemongo.api.bson.*
     for
       blocklist <- blocklist.get(team)
-      _ <- teamRepo.coll.update.one($id(team.id), bsonWriteDoc(team) ++ $doc("blocklist" -> blocklist))
+      _ <- teamRepo.coll.update.one(bid(team.id), bsonWriteDoc(team) ++ bdoc("blocklist" -> blocklist))
       isLeader <- hasPerm(team.id, _.Settings)
     yield
       cached.forumAccess.invalidate(team.id)
@@ -206,13 +216,13 @@ final class TeamApi(
 
   def processRequest(team: Team, request: TeamRequest, decision: String): Funit = workQueue(team.id) {
     if decision == "decline"
-    then requestRepo.coll.updateField($id(request.id), "declined", true).void
+    then requestRepo.coll.updateField(bid(request.id), "declined", true).void
     else if decision == "accept"
     then
       for
         _ <- requestRepo.remove(request.id)
-        userOption <- userApi.byId(request.user)
-        _ <- userOption.so(user => doJoin(team, user.id) >> notifier.acceptRequest(team, request))
+        _ <- doJoin(team, request.user)
+        _ <- notifyApi.notifyOne(request.user, NotificationContent.TeamJoined(team.id, team.name))
       yield ()
     else funit
   }.addEffect: _ =>
@@ -278,13 +288,15 @@ final class TeamApi(
     _ = cached.invalidateTeamIds(userId)
   yield teamIds
 
-  def searchMembersAs(teamId: TeamId, term: UserSearch, nb: Int)(using me: Option[MyId]): Fu[List[UserId]] =
+  def searchMembersAs(teamId: TeamId, term: UserSearch, nb: Int, showHidden: Boolean)(using
+      me: Option[MyId]
+  ): Fu[List[UserId]] =
     team(teamId).flatMapz: team =>
-      val canSee = fuccess(team.publicMembers) >>| me.soUse(cached.isMember(teamId))
+      val canSee = fuccess(team.publicMembers) >>| me.ifTrue(showHidden).soUse(cached.isMember(teamId))
       canSee.flatMapz:
         memberRepo.coll.primitive[UserId](
-          selector = memberRepo.teamQuery(teamId) ++ $doc("user".$startsWith(term.value)),
-          sort = $sort.desc("user"),
+          selector = memberRepo.teamQuery(teamId) ++ bdoc("user".regexStart(term.value)),
+          sort = sort.desc("user"),
           nb = nb,
           field = "user"
         )
@@ -294,48 +306,33 @@ final class TeamApi(
       kicked <- memberRepo.get(team.id, userId)
       myself <- memberRepo.get(team.id, me)
       allowed = userId.isnt(team.createdBy) && kicked.exists: kicked =>
-        myself.exists: myself =>
-          kicked.perms.isEmpty || myself.hasPerm(_.Admin) || Granter(_.ManageTeam)
+        Granter(_.ManageTeam) || myself.exists: myself =>
+          kicked.perms.isEmpty || myself.hasPerm(_.Admin)
       _ <- allowed.so:
         // create a request to set declined in order to prevent kicked use to rejoin
         val request = TeamRequest.make(team.id, userId, "Kicked from team", declined = true)
         for
-          _ <- requestRepo.coll.update.one($id(request.id), request, upsert = true)
+          _ <- requestRepo.coll.update.one(bid(request.id), request, upsert = true)
           _ <- doQuit(team, userId)
         yield Bus.pub(KickFromTeam(teamId = team.id, teamName = team.name, userId = userId))
     yield ()
 
-  def kickMembers(team: Team, json: String)(using me: Me, req: RequestHeader): Funit =
-    val users = parseTagifyInput(json).toList
+  def kickMembers(team: Team, users: List[UserId])(using me: Me, req: RequestHeader): Funit =
     val client = lila.common.HTTPRequest.printClient(req)
     logger.info:
-      s"kick members ${users.size} by ${me.username} from lichess.org/team/${team.slug} $client | ${users.map(_.id).mkString(" ")}"
+      s"kick members ${users.size} by ${me.username} from lichess.org/team/${team.slug} $client | ${users.mkString(" ")}"
     users.sequentiallyVoid(kick(team, _))
 
   object blocklist:
     def set(team: Team, list: String): Funit =
-      teamRepo.coll.updateOrUnsetField($id(team.id), "blocklist", list.nonEmpty.option(list)).void
+      teamRepo.coll.updateOrUnsetField(bid(team.id), "blocklist", list.nonEmpty.option(list)).void
     def get(team: Team): Fu[String] =
       teamRepo.coll
-        .primitiveOne[String]($id(team.id), "blocklist")
+        .primitiveOne[String](bid(team.id), "blocklist")
         .dmap(~_)
     def has(team: Team, user: UserId): Fu[Boolean] =
       get(team).map: list =>
         UserStr.from(list.split("\n")).exists(_.is(user))
-
-  private case class TagifyUser(value: String)
-  private given Reads[TagifyUser] = Json.reads
-
-  private def parseTagifyInput(json: String): Set[UserId] = Try {
-    json.trim.nonEmpty.so:
-      Json.parse(json).validate[List[TagifyUser]] match
-        case JsSuccess(users, _) =>
-          users.toList
-            .flatMap(u => UserStr.read(u.value))
-            .map(_.id)
-            .toSet
-        case _ => Set.empty[UserId]
-  }.getOrElse(Set.empty)
 
   def toggleEnabled(team: Team, explain: String)(using me: Me): Funit =
     isCreatorGranted(team, _.Admin).flatMap: activeCreator =>
@@ -374,7 +371,7 @@ final class TeamApi(
 
   // delete forever, with members but not forums
   def delete(team: Team, by: User, explain: String): Funit = for
-    _ <- teamRepo.coll.delete.one($id(team.id))
+    _ <- teamRepo.coll.delete.one(bid(team.id))
     _ <- memberRepo.removeByTeam(team.id)
   yield logger.info(s"delete team ${team.id} by @${by.id}: $explain")
 
@@ -418,16 +415,16 @@ final class TeamApi(
     memberRepo.leaders(team.id).map(Team.WithLeaders(team, _))
 
   def filterExistingIdsNoClas(ids: Set[TeamId]): Fu[Set[TeamId]] =
-    teamRepo.coll.distinctEasy[TeamId, Set]("_id", $inIds(ids) ++ teamRepo.noClasSelect, _.sec)
+    teamRepo.coll.distinctEasy[TeamId, Set]("_id", inIds(ids) ++ teamRepo.noClasSelect, _.sec)
 
   def autocomplete(term: String, max: Int): Fu[List[Team]] =
     teamRepo.coll
       .find:
-        $doc(
-          "name".$startsWith(java.util.regex.Pattern.quote(term), "i"),
+        bdoc(
+          "name".regexStart(java.util.regex.Pattern.quote(term), "i"),
           "enabled" -> true
         )
-      .sort($sort.desc("nbMembers"))
+      .sort(sort.desc("nbMembers"))
       .cursor[Team](ReadPref.sec)
       .list(max)
 

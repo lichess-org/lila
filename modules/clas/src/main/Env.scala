@@ -20,7 +20,7 @@ final class Env(
     cacheApi: lila.memo.CacheApi,
     markdownCache: lila.memo.MarkdownCache,
     routeUrl: RouteUrl
-)(using Executor, akka.stream.Materializer, lila.core.i18n.Translator, play.api.Mode)(using
+)(using Executor, org.apache.pekko.stream.Materializer, lila.core.i18n.Translator, play.api.Mode)(using
     scheduler: Scheduler
 ):
 
@@ -34,6 +34,8 @@ final class Env(
 
   lazy val mates = wire[ClasMates]
 
+  private lazy val clasMsg = wire[ClasMsg]
+
   lazy val api: ClasApi = wire[ClasApi]
 
   lazy val progressApi = wire[ClasProgressApi]
@@ -41,6 +43,8 @@ final class Env(
   lazy val markdown = wire[ClasMarkdown]
 
   lazy val login = wire[ClasLoginApi]
+
+  lazy val signup = wire[ClasSignup]
 
   lazy val bulk = wire[ClasBulkApi]
 

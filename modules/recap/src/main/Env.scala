@@ -4,6 +4,7 @@ import com.softwaremill.macwire.*
 
 import lila.core.config.CollName
 import lila.db.dsl.{ *, given }
+import lila.core.i18n.{ LangPicker, Translator, I18nKey }
 
 @Module
 final class Env(
@@ -11,8 +12,10 @@ final class Env(
     gameRepo: lila.game.GameRepo,
     puzzleColls: lila.puzzle.PuzzleColls,
     lightUserApi: lila.core.user.LightUserApi,
+    userApi: lila.user.UserApi,
+    langPicker: LangPicker,
     settingStore: lila.memo.SettingStore.Builder
-)(using Executor, Scheduler, akka.stream.Materializer, play.api.Mode):
+)(using Translator, Executor, Scheduler, org.apache.pekko.stream.Materializer, play.api.Mode):
 
   lazy val parallelismSetting = settingStore[Int](
     "recapParallelism",
@@ -37,5 +40,12 @@ final class Env(
     builder.compute(uid)
 
   lazy val api = wire[RecapApi]
+
+  def translateNotif(userId: UserId, year: String): Fu[(String, String)] = for
+    lang <- userApi.langOf(userId).map(langPicker.byLangTagOrDefault)
+    given play.api.i18n.Lang = lang
+    title = I18nKey.recap.recapReady.txt(year)
+    body = I18nKey.recap.awaitQuestion.txt()
+  yield (title, body)
 
 final private class RecapColls(val recap: Coll, val queue: Coll)

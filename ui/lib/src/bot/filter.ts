@@ -43,7 +43,7 @@ export function addPoint(f: Filter, facet: FilterFacetKey, add: Point): void {
   const qX = quantize(add[0], filterFacets[facet].quantum);
   const data = (f[facet] ??= []);
   const i = data.findIndex(p => p[0] >= qX);
-  if (i >= 0) {
+  if (i !== -1) {
     if (data[i][0] === qX) data[i] = [qX, add[1]];
     else data.splice(i, 0, [qX, add[1]]);
   } else data.push([qX, add[1]]);
@@ -70,7 +70,7 @@ export function quantizeFilter(f: Filter): void {
     const newData = f[facet].reduce((acc: Point[], p) => {
       const x = quantize(p[0], filterFacets[facet].quantum);
       const i = acc.findIndex(q => q[0] === x);
-      if (i >= 0) acc[i] = [x, p[1]];
+      if (i !== -1) acc[i] = [x, p[1]];
       else acc.push([x, p[1]]);
       return acc;
     }, []);
@@ -111,5 +111,7 @@ export function combine(v: FilterFacetValue, by: FilterBy): number {
       return Math.min(...Object.values(v));
     case 'avg':
       return Object.values(v).reduce((sum, w) => sum + w, 0) / Object.keys(v).length;
+    default:
+      return 0;
   }
 }

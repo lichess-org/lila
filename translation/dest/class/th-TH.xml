@@ -40,6 +40,8 @@
   <string name="createDesc3">สำคัญ: นักเรียนไม่สามารถมีหลายบัญชีได้</string>
   <string name="lichessUsername">ชี่อผู้ใช้ Lichess</string>
   <string name="generateANewUsername">สร้างชื่อผู้ใช้ใหม่</string>
+  <string name="pending">รอดำเนินการ</string>
+  <string name="declined">ปฏิเสธ</string>
   <string name="release">สำเร็จหลักสูตร</string>
   <string name="releaseTheAccount">สำเร็จหลักสูตรบัญชีนี้ เพี่อที่จะให้นักเรียนสามารถใช้งานบัญชีได้อย่างอิสระ</string>
   <string name="closeStudent">ปิดบัญชี</string>

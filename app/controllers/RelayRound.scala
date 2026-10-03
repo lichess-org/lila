@@ -7,7 +7,7 @@ import scala.annotation.nowarn
 
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
-import lila.core.id.{ RelayRoundId, RelayTourId }
+import lila.core.id.{ RelayRoundId, RelayTourId, RelayGroupId }
 import lila.relay.ui.FormNavigation
 import lila.relay.{ RelayRound as RoundModel, RelayTour as TourModel, RelayVideoEmbed as VideoEmbed }
 import lila.study.Study as StudyModel
@@ -83,7 +83,7 @@ final class RelayRound(
                 err => fuccess(Left((round, nav, err))),
                 data =>
                   env.relay.api
-                    .update(round)(data.update(nav.tour.official))
+                    .formUpdate(round, data, nav.tour)
                     .dmap(_.withTour(nav.tour))
                     .dmap(Right(_))
               )
@@ -179,38 +179,38 @@ final class RelayRound(
       )
 
   private def doApiShow(id: RelayRoundId)(using Context): Fu[Result] =
-    Found(env.relay.api.byIdWithTour(id))(doApiShow)
-
-  def doApiShow(rt: RoundModel.WithTour)(using Context): Fu[Result] =
-    Found(env.study.studyRepo.byId(rt.round.studyId)): study =>
-      studyC.CanView(study)(
-        for
-          group <- env.relay.api.withTours.get(rt.tour.id)
-          previews <- env.study.preview.jsonList.withoutInitialEmpty(study.id)
-          targetRound <- env.relay.api.officialTarget(rt.round)
-          isSubscribed <- ctx.userId.traverse(env.relay.api.isSubscribed(rt.tour.id, _))
-          sVersion <- HTTPRequest.isLichessMobile(ctx.req).optionFu(env.study.version(study.id))
-          photos <- env.relay.playerApi.photosJson(rt.tour.id)
-          _ = env.relay.stats.viewers.hit(rt)
-        yield JsonOk:
-          env.relay.jsonView
-            .withUrlAndPreviews(
-              rt.withStudy(study),
-              previews,
-              group,
-              targetRound,
-              isSubscribed,
-              sVersion,
-              photos
-            )
-      )(studyC.privateUnauthorizedJson, studyC.privateForbiddenJson)
+    limit.relay.apiGet(rateLimited):
+      Found(env.relay.api.byIdWithTour(id)): rt =>
+        Found(env.study.studyRepo.byId(rt.round.studyId)): study =>
+          studyC.CanView(study)(
+            for
+              group <- env.relay.api.withTours.get(rt.tour.id)
+              previews <- env.study.preview.jsonList.withoutInitialEmpty(study.id)
+              targetRound <- env.relay.api.officialTarget(rt.round)
+              isSubscribed <- ctx.userId.traverse(env.relay.api.isSubscribed(rt.tour.id, _))
+              sVersion <- HTTPRequest.isLichessMobile(ctx.req).optionFu(env.study.version(study.id))
+              photos <- env.relay.playerApi.photosJson(rt.tour.id)
+              _ = env.relay.stats.viewers.hit(rt)
+            yield JsonOk:
+              env.relay.jsonView
+                .withUrlAndPreviews(
+                  rt.withStudy(study),
+                  previews,
+                  group,
+                  targetRound,
+                  isSubscribed,
+                  sVersion,
+                  photos
+                )
+          )(studyC.privateUnauthorizedJson, studyC.privateForbiddenJson)
 
   def pgn(ts: String, rs: String, id: RelayRoundId) = Open:
     pgnWithFlags(ts, rs, id)
 
   def apiPgn(id: RelayRoundId) = AnonOrScoped(_.Study.Read): ctx ?=>
     env.relay.pgnStream.parseExportDate(id) match
-      case Some(since) if isGrantedOpt(_.StudyAdmin) => Ok.chunked(env.relay.pgnStream.exportFullMonth(since))
+      case Some(since) if isGrantedOpt(_.StudyAdmin) =>
+        Ok.chunked(env.relay.pgnStream.exportFullMonth(since))
       case _ => pgnWithFlags("-", "-", id)
 
   private def pgnWithFlags(ts: String, rs: String, id: RelayRoundId)(using Context): Fu[Result] =
@@ -228,13 +228,30 @@ final class RelayRound(
     apiC.GlobalConcurrencyLimitPerIP.download(ctx.ip)(source)(jsToNdJson)
   }
 
-  def stream(id: RelayRoundId) = AnonOrScoped(): ctx ?=>
+  def apiSpotlightRounds = SecuredScoped(_.StudyAdmin) { ctx ?=> _ ?=>
+    val source = env.relay.api
+      .spotlightRounds(MaxPerSecond(120), getIntAs[Max]("nb"), getTimestamp("since"), getTimestamp("until"))
+      .map(env.relay.jsonView.withSpotlight)
+    apiC.GlobalConcurrencyLimitPerIP.download(ctx.ip)(source)(jsToNdJson)
+  }
+
+  def streamRound(id: RelayRoundId) = AnonOrScoped(): ctx ?=>
     Found(env.relay.api.byIdWithStudy(id)): rs =>
-      val limiter = apiC.GlobalConcurrencyLimitPerIP.events
       studyC.CanView(rs.study) {
-        limiter(req.ipAddress)(env.relay.pgnStream.streamRoundGames(rs)): source =>
-          Ok.chunked[PgnStr](source.keepAlive(60.seconds, () => PgnStr(" "))).noProxyBuffer
+        pgnStream(env.relay.pgnStream.streamRoundGames(rs))
       }(Unauthorized, Forbidden)
+
+  def streamTour(id: RelayTourId) = AnonOrScoped(): ctx ?=>
+    Found(env.relay.api.tourById(id)): tour =>
+      pgnStream(env.relay.pgnStream.streamTourGames(tour))
+
+  def streamGroup(id: RelayGroupId) = AnonOrScoped(): ctx ?=>
+    Found(env.relay.api.groupById(id)): group =>
+      pgnStream(env.relay.pgnStream.streamGroupGames(group))
+
+  private def pgnStream(source: => org.apache.pekko.stream.scaladsl.Source[PgnStr, ?])(using Context) =
+    limit.relay.stream()(source): limited =>
+      Ok.chunked[PgnStr](limited.keepAlive(60.seconds, () => PgnStr(" "))).noProxyBuffer
 
   def chapter(ts: String, rs: String, id: RelayRoundId, chapterId: StudyChapterId) =
     Open:
@@ -352,4 +369,4 @@ final class RelayRound(
       else if isGranted(_.Relay) then 2
       else if me.hasTitle || me.isVerified then 5
       else 10
-    limit.relay(me.userId -> req.ipAddress, fail, cost)(create)
+    limit.relay.roundCreate(me.userId -> req.ipAddress, fail, cost)(create)

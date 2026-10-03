@@ -1,6 +1,9 @@
 name: Reviewable
 
-on: [pull_request_target]
+on: [pull_request]
+
+permissions:
+  pull-requests: read
 
 jobs:
   review:

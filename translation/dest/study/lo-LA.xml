@@ -62,7 +62,6 @@
   <string name="downloadGame">ດາວໂຫຼດເກມ</string>
   <string name="studyUrl">URL ຂອງບົດສຶກສາ</string>
   <string name="currentChapterUrl">URL ຂອງບົດປັດຈຸບັນ</string>
-  <string name="youCanPasteThisInTheForumToEmbed">ທ່ານສາມາດວາງລິ້ງນີ້ໃນຟໍຣຳ ຫຼື ບລັອກ Lichess ຂອງທ່ານເພື່ອຝັງ (Embed)</string>
   <string name="startAtInitialPosition">ເລີ່ມຈາກຕຳແໜ່ງເລີ່ມຕົ້ນ</string>
   <string name="startAtX">ເລີ່ມທີ່ %s</string>
   <string name="embedInYourWebsite">ຝັງໃນເວັບໄຊຂອງທ່ານ</string>
@@ -183,8 +182,6 @@
   <string name="fromInitialPositionText">ພຽງແຕ່ການຕັ້ງກະດານສຳລັບເກມໃໝ່.&lt;br&gt;ເໝາະສຳລັບການສຶກສາຮູບແບບການເປີດເກມ.</string>
   <string name="customPositionTitle">ກຳນົດຕຳແໜ່ງເອງ</string>
   <string name="customPositionText">ຕັ້ງກະດານຕາມແບບຂອງທ່ານ.&lt;br&gt;ເໝາະສຳລັບການສຶກສາໄລຍະທ້າຍເກມ (Endgames).</string>
-  <string name="loadExistingLichessGameTitle">ໂຫຼດເກມ Lichess ທີ່ມີຢູ່ແລ້ວ</string>
-  <string name="loadExistingLichessGameText">ວາງ URL ຂອງເກມ Lichess&lt;br&gt;(ເຊັ່ນ lichess.org/7fHIU0XI)&lt;br&gt;ເພື່ອໂຫຼດການເດີນໝາກເຂົ້າໃນບົດນີ້.</string>
   <string name="fromFenStringTitle">ຈາກ FEN string</string>
   <string name="fromFenStringText">ວາງຕຳແໜ່ງໃນຮູບແບບ FEN&lt;br&gt;&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;&lt;br&gt;ເພື່ອເລີ່ມຕົ້ນບົດຈາກຕຳແໜ່ງນັ້ນ.</string>
   <string name="fromPgnGameTitle">ຈາກເກມ PGN</string>

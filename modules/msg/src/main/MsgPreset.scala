@@ -16,7 +16,8 @@ object MsgPreset:
       text = s"""Sorry, you can't follow more than $max players on Lichess.
 To follow new players, you must first unfollow some on $baseUrl/@/$username/following.
 
-Thank you for your understanding."""
+Thank you for your understanding.""",
+      mustRead = false
     )
 
   def forumRelocation(title: String, newUrl: String) =
@@ -49,6 +50,19 @@ $forumPost
     s"""@${by.name} has changed your leader permissions in the team "${team.name}".
 Your new permissions are: ${perms.mkString(", ")}.
 ${teamUrl}"""
+
+  def payoutEligible(payoutsUrl: Url, msg: lila.core.msg.PayoutMessages) =
+    import msg.*
+    val deadline = finishedAt.atZone(java.time.ZoneOffset.UTC).toLocalDate.plusMonths(6)
+    Msg(
+      name = "Prize payout",
+      text = s"""Congratulations on your finish in $tourName! $tourUrl
+
+Lichess is offering prizes to top finishers in this tournament, and your performance means you may be eligible for a prize.
+
+Please visit $payoutsUrl to provide the necessary information for payout. The deadline for claiming prizes is $deadline.""",
+      mustRead = true
+    )
 
   def apiTokenRevoked(url: String) =
     s"""Your Lichess API token has been found on GitHub

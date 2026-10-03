@@ -4,9 +4,9 @@ import { blurIfPrimaryClick } from 'lib';
 import { view as cevalView } from 'lib/ceval';
 import { renderChat } from 'lib/chat/renderChat';
 import { displayColumns, shareIcon } from 'lib/device';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import type { TreeNode, TreePath } from 'lib/tree/types';
-import { type VNode, iconTag, bind, dataIcon, type LooseVNodes, onInsert, hl } from 'lib/view';
+import { type VNode, bind, dataIcon, type LooseVNodes, onInsert, hl, icon } from 'lib/view';
 import { verticalResize } from 'lib/view/verticalResize';
 import { watchers } from 'lib/view/watchers';
 
@@ -63,7 +63,7 @@ export function studyView(ctrl: AnalyseCtrl, study: StudyCtrl, deps: typeof stud
           'aside.analyse__side',
           {
             hook: onInsert(elm => {
-              if (ctrl.opts.$side && ctrl.opts.$side.length) {
+              if (ctrl.opts.$side?.length) {
                 $(elm).replaceWith(ctrl.opts.$side);
                 wikiToggleBox();
               }
@@ -168,8 +168,8 @@ export const overboard = (ctrl: StudyCtrl) =>
 
 export function underboard(ctrl: AnalyseCtrl): LooseVNodes {
   if (ctrl.study?.practice) return practiceView.underboard(ctrl.study);
-  const study = ctrl.study!,
-    toolTab = study.vm.toolTab();
+  const study = ctrl.study!;
+  const toolTab = study.vm.toolTab();
   if (study.gamebookPlay)
     return [gbPlayButtons(ctrl), descView(study, true), descView(study, false), metadata(study)];
   let panel;
@@ -240,10 +240,11 @@ const toolButton = (opts: ToolButtonOpts): VNode =>
   );
 
 function buttons(root: AnalyseCtrl): VNode {
-  const ctrl: StudyCtrl = root.study!,
-    canContribute = ctrl.members.canContribute(),
-    showSticky = ctrl.data.features.sticky && (canContribute || (ctrl.vm.behind && ctrl.isUpdatedRecently())),
-    gbButton = gbOverrideButton(ctrl);
+  const ctrl: StudyCtrl = root.study!;
+  const canContribute = ctrl.members.canContribute();
+  const showSticky =
+    ctrl.data.features.sticky && (canContribute || (ctrl.vm.behind && ctrl.isUpdatedRecently()));
+  const gbButton = gbOverrideButton(ctrl);
   return hl('div.study__buttons', [
     hl('div.left-buttons.tabs-horiz', { attrs: { role: 'tablist' } }, [
       // distinct classes (sync, write) allow snabbdom to differentiate buttons
@@ -255,7 +256,7 @@ function buttons(root: AnalyseCtrl): VNode {
             class: { on: ctrl.vm.mode.sticky },
             hook: bind('click', ctrl.toggleSticky),
           },
-          [ctrl.vm.behind ? hl('span.behind', '' + ctrl.vm.behind) : hl('icon.is'), 'SYNC'],
+          [ctrl.vm.behind ? hl('span.behind', ctrl.vm.behind) : hl('icon.is'), 'SYNC'],
         ),
       canContribute &&
         hl(
@@ -271,7 +272,7 @@ function buttons(root: AnalyseCtrl): VNode {
         ctrl,
         tab: 'tags',
         hint: i18n.study.pgnTags,
-        icon: iconTag(licon.Tag),
+        icon: icon(licon.Tag)(),
         shouldBlurIfPrimaryClick: true,
       }),
       canContribute &&
@@ -279,7 +280,7 @@ function buttons(root: AnalyseCtrl): VNode {
           ctrl,
           tab: 'comments',
           hint: i18n.study.commentThisPosition,
-          icon: iconTag(licon.BubbleSpeech),
+          icon: icon(licon.BubbleSpeech)(),
           onClick() {
             ctrl.commentForm.start(ctrl.vm.chapterId, root.path, root.node);
           },
@@ -299,7 +300,7 @@ function buttons(root: AnalyseCtrl): VNode {
           ctrl,
           tab: 'serverEval',
           hint: i18n.site.computerAnalysis,
-          icon: iconTag(licon.BarChart),
+          icon: icon(licon.BarChart)(),
           count: root.data.analysis && '✓',
           shouldBlurIfPrimaryClick: true,
         }),
@@ -307,16 +308,17 @@ function buttons(root: AnalyseCtrl): VNode {
         ctrl,
         tab: 'multiBoard',
         hint: 'Multiboard',
-        icon: iconTag(licon.Multiboard),
+        icon: icon(licon.Multiboard)(),
         shouldBlurIfPrimaryClick: true,
       }),
-      toolButton({
-        ctrl,
-        tab: 'share',
-        hint: i18n.study.shareAndExport,
-        icon: iconTag(shareIcon()),
-        shouldBlurIfPrimaryClick: true,
-      }),
+      ctrl.share.shareable() &&
+        toolButton({
+          ctrl,
+          tab: 'share',
+          hint: i18n.study.shareAndExport,
+          icon: icon(shareIcon())(),
+          shouldBlurIfPrimaryClick: true,
+        }),
       !ctrl.relay &&
         !ctrl.data.chapter.gamebook &&
         hl('button.help', {
@@ -329,8 +331,8 @@ function buttons(root: AnalyseCtrl): VNode {
 }
 
 function metadata(ctrl: StudyCtrl): VNode {
-  const d = ctrl.data,
-    title = `${d.name}: ${ctrl.currentChapter().name}`;
+  const d = ctrl.data;
+  const title = `${d.name}: ${ctrl.currentChapter().name}`;
   return hl('div.study__metadata', [
     hl('h2', [
       hl('span.name', { attrs: { title } }, [
@@ -347,7 +349,7 @@ function metadata(ctrl: StudyCtrl): VNode {
           },
           hook: bind('click', ctrl.toggleLike),
         },
-        '' + d.likes,
+        d.likes,
       ),
     ]),
     topicsView(ctrl),

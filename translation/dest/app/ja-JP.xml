@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="lichessMobileApp">Lichess モバイルアプリ</string>
+  <string name="returningToApp" comment="Displayed on interstitial page that automatically opens the Lichess app">Lichess アプリに復帰中</string>
+  <string name="ifAppDoesNotOpenAutomatically">アプリが自動的に開かない時は「%s」ボタンをタップします。</string>
+  <string name="openTheApp" comment="Button text to open the Lichess app on the device">Lichess アプリを開く</string>
+  <string name="viewAllReleases" comment="To view a list of all mobile app releases on Github">GitHub で %s を表示</string>
+  <string name="allReleases">すべてのリリース</string>
+  <string name="downloadOnAppleAppStore">Apple App Storeでダウンロード</string>
+  <string name="downloadOnGooglePlay">Google Playでダウンロード</string>
+  <string name="downloadOnFdroid">F-Droid でダウンロード</string>
+  <string name="lichessMobileScreen" comment="Alt text for screenshot of the Lichess mobile app">Lichess アプリの画像</string>
+</resources>

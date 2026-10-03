@@ -6,6 +6,12 @@
   <string name="tokenDescription">Description du jeton</string>
   <string name="rememberTokenUse">Afin de vous souvenir de l’usage de ce jeton</string>
   <string name="whatTheTokenCanDo">Ce que le jeton peut faire en votre nom :</string>
+  <string name="oauthCatUserAccount">Compte d\'utilisateur</string>
+  <string name="oauthCatInteractions">Interactions</string>
+  <string name="oauthCatPlayGames">Jouer des parties</string>
+  <string name="oauthCatStudiesBroadcasts">Études et diffusions</string>
+  <string name="oauthCatExternalPlay">Partie externe</string>
+  <string name="oauthCatExternalEngine">Moteur externe</string>
   <string name="doNotShareIt">Le jeton donnera l’accès à votre compte. Ne le partagez PAS avec qui que ce soit !</string>
   <string name="copyTokenNow">Assurez-vous de copier votre nouveau jeton d\'accès personnel immédiatement. Vous ne pourrez pas le voir à nouveau !</string>
   <string name="preferenceRead">Lire les préférences</string>
@@ -16,15 +22,18 @@
   <string name="challengeBulk">Créer plusieurs parties à la fois pour d\'autres joueurs</string>
   <string name="studyRead">Lire les études privées et les diffusions</string>
   <string name="studyWrite">Créer, modifier, supprimer les études et diffusions</string>
+  <string name="tournamentRead">Lire des tournois privés</string>
   <string name="tournamentWrite">Créer et modifier les tournois et y participer</string>
   <string name="racerWrite">Créer les courses de problèmes et y participer</string>
   <string name="puzzleRead">Lire l\'activité des problèmes</string>
+  <string name="puzzleWrite">Résoudre des problèmes</string>
   <string name="teamRead">Lire les informations des équipes privées</string>
   <string name="teamWrite">Rejoindre et quitter des équipes</string>
-  <string name="teamLead">Gérer les équipes que vous dirigez : envoyer des messages privés, expulser des membres</string>
+  <string name="manageTeamsYouLead">Gérez vos équipes : envoyez des messages, expulsez des membres</string>
   <string name="followRead">Lire les joueurs suivis</string>
   <string name="followWrite">Suivre ou ne plus suivre d\'autres joueurs</string>
   <string name="msgWrite">Envoyer des messages privés aux autres joueurs</string>
+  <string name="readWriteNotesOnPlayers">Lire et écrire des notes sur d\'autres joueurs</string>
   <string name="boardPlay">Jouer des parties depuis une tierce partie</string>
   <string name="botPlay">Jouer des parties avec un moteur d\'échecs (BOT)</string>
   <string name="engineRead">Voir et utiliser vos moteurs externes</string>
@@ -32,13 +41,13 @@
   <string name="webMod">Utiliser les outils de modérateur (dans les limites de vos permissions)</string>
   <string name="personalAccessTokens">Jetons d\'accès personnel API</string>
   <string name="canMakeOauthRequests">Vous pouvez faire des demandes OAuth sans passer par le %s.</string>
-  <string name="authorizationCodeFlow">processus de code d\'autorisation.</string>
+  <string name="authorizationCodeFlow">processus de code d\'autorisation</string>
   <string name="insteadGenerateToken" comment="The parameter is a link to generate a token a personal access token">Au lieu de cela, %s que vous pouvez utiliser directement dans les requêtes API.</string>
   <string name="generatePersonalToken">créez un jeton d\'accès personnel</string>
   <string name="guardTokensCarefully">Protégez vos jetons ! Ils sont comme des mots de passe. L\'avantage d\'utiliser un jeton plutôt qu\'un mot de passe dans un script, c\'est qu\'un jeton peut être révoqué et que vous pouvez en générer beaucoup.</string>
   <string name="apiDocumentationLinks" comment="The first parameter links to a personal token app example. The second parameter links to the API documentation">Voici un %1$s et la %2$s.</string>
   <string name="personalTokenAppExample">exemple d\'application de jeton personnel</string>
-  <string name="apiDocumentation">documentation API.</string>
+  <string name="apiDocumentation">documentation API</string>
   <string name="newToken">Nouveau jeton d\'accès</string>
   <string name="apiAccessTokens">Jeton d\'accès API</string>
   <string name="created">Création : %s</string>

@@ -25,8 +25,14 @@ case class FidePlayer(
     year: Option[Int],
     deceasedYear: Option[Int] = None,
     gender: Option[FidePlayer.Gender] = None,
-    inactive: Boolean
+    // FIDE flags inactivity separately in each rating list
+    inactive: Set[FideTC]
 ) extends lila.core.fide.Player:
+
+  def isInactiveForTc(tc: FideTC): Boolean = inactive(tc)
+
+  // Flagged inactive by FIDE, in every time control they're rated in.
+  def isInactive: Boolean = inactive.nonEmpty && ratingsMap.keys.forall(inactive.contains)
 
   def ratingOf(tc: FideTC): Option[Elo] = tc match
     case FideTC.standard => standard
@@ -90,7 +96,7 @@ object FidePlayer:
   opaque type Gender = Char
   object Gender extends TotalWrapper[Gender, Char]
 
-  private[fide] val tokenize: Tokenize =
+  private[fide] val tokenize: Tokenize = Tokenize:
     val nonLetterRegex = """[^a-zA-Z0-9\s]+""".r
     val splitRegex = """\W""".r
     str =>

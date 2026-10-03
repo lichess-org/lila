@@ -16,6 +16,7 @@
   <string name="quitTeam">Abandonar el equipo</string>
   <string name="manuallyReviewAdmissionRequests">Revisar manualmente las solicitudes de admisión</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Si está marcado, los jugadores tendrán que escribir una solicitud para unirse al equipo, que tú puedes rechazar o aceptar.</string>
+  <string name="hideMembersDesc" comment="Checkbox label: option to hide the team member list from non-members">Ocultar lista de miembros del equipo a los no miembros.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Líder del equipo</item>
     <item quantity="other">Líderes del equipo</item>
@@ -30,17 +31,14 @@
   <string name="willBeReviewed">El líder del equipo revisará tu solicitud de ingreso.</string>
   <string name="beingReviewed">El líder del equipo está revisando tu solicitud de ingreso.</string>
   <string name="requestDeclined">Tu solicitud de ingreso fue rechazada por un líder del equipo.</string>
-  <string name="subToTeamMessages">Suscribirse a los mensajes del equipo</string>
   <string name="teamBattle">Batalla por Equipos</string>
   <string name="teamBattleOverview">Una batalla de varios equipos, cada jugador anota puntos para su equipo</string>
   <string name="teamTournament">Torneo de equipo</string>
   <string name="teamTournamentOverview">Un torneo al que sólo pueden unirse los miembros de tu equipo</string>
   <string name="swissTournamentOverview">Un torneo por sistema suizo en el que sólo pueden participar los miembros de este equipo</string>
-  <string name="messageAllMembers">Enviar mensaje a todos los miembros</string>
-  <string name="messageAllMembersOverview">Enviar un mensaje privado a cada miembro del equipo</string>
-  <string name="messageAllMembersLongDescription">Este mensaje se enviará a TODOS los miembros del equipo.
-Puedes usar esto para convocar a jugadores a un torneo o a una batalla de equipo.
-Los jugadores a los que no les guste recibir tus mensajes pueden abandonar el equipo.</string>
+  <string name="teamUpdates">Actualizaciones de equipo</string>
+  <string name="subToTeamUpdates">Suscribirse a las actualizaciones de equipo</string>
+  <string name="newTeamUpdate">Nueva actualización de equipo</string>
   <string name="teamsIlead">Equipos que lidero</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">¿Quieres incluir un enlace a alguno de estos próximos torneos?</string>
   <string name="leadersChat">Chat de líderes</string>
@@ -52,6 +50,9 @@ Los jugadores a los que no les guste recibir tus mensajes pueden abandonar el eq
   <string name="entryCode">Código de entrada al equipo</string>
   <string name="entryCodeDescriptionForLeader">(Opcional) Un código de entrada que los nuevos miembros deben saber para unirse a este equipo.</string>
   <string name="incorrectEntryCode">Código de entrada incorrecto.</string>
+  <string name="forumLabel">Foro del equipo</string>
+  <string name="forumVisibilityHelp">¿Quién puede ver el foro del equipo en la página del equipo?&lt;br&gt;Solo los miembros del equipo pueden publicar en su foro.</string>
+  <string name="forumVisibilityNone">Ocultar el foro</string>
   <string name="teamAlreadyExists">Este equipo ya existe.</string>
   <string name="upcomingTournaments">Próximos torneos</string>
   <string name="completedTourns">Torneos terminados</string>

@@ -3,8 +3,16 @@
   <string name="settings">Instellingen</string>
   <string name="closeAccount">Verwijder account</string>
   <string name="managedAccountCannotBeClosed">Je account wordt beheerd, en kan niet verwijderd worden.</string>
-  <string name="cantOpenSimilarAccount" comment="Please note this string was simplified in January 2025. Before this, it used to state &quot;You will not be allowed to open a new account with the same name, even if the case is different.&quot; Please update existing translations as required.">Het is niet toegestaan om een nieuw account met dezelfde naam aan te maken, ook al is het hoofdlettergebruik anders.</string>
+  <string name="cantOpenSimilarAccount">Het is niet toegestaan om een nieuw account met dezelfde naam aan te maken, ook al is het hoofdlettergebruik anders.</string>
   <string name="cancelKeepAccount">Annuleer en behoud mijn account</string>
   <string name="closeAccountAreYouSure">Weet je zeker dat je je account wilt verwijderen?</string>
-  <string name="thisAccountIsClosed" comment="Appears on mouseover for a user profile (account) which has been closed.&#10;&#10;This should be in the passive voice. It is typically the player's choice to close their own account, but it is could instead be Lichess moderators who closed the account.">Dit account is gesloten.</string>
+  <string name="thisAccountIsClosed">Dit account is gesloten.</string>
+  <string name="wereSorryToSeeYouGo">We vinden het jammer dat je weggaat.</string>
+  <string name="closeAccountForeverLabel">Sluit voor altijd: maak heractiveren onmogelijk</string>
+  <string name="closeAccountForeverWarning">Voorkom het opnieuw activeren van je account. Als je dit vakje aanvinkt, kunnen zelfs beheerders je account niet heropenen op jouw verzoek.</string>
+  <string name="deleteYourAccount">Verwijder je account</string>
+  <string name="deleteAccountWarning">Zodra je je account verwijdert, wordt deze van Lichess gehaald en kunnen onze beheerders hem niet meer voor je terugbrengen.</string>
+  <string name="wouldYouLikeToXInstead" comment="%s is close your account">Wil je in plaats daarvan je %s?</string>
+  <string name="closeYourAccount">account sluiten</string>
+  <string name="deleteAccountConfirmText">Ik begrijp dat verwijderde accounts niet te herstellen zijn</string>
 </resources>

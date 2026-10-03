@@ -131,7 +131,7 @@ final private class StripeClient(ws: StandaloneWSClient, config: StripeClient.Co
   def setSubscriptionPaymentMethod(subscription: StripeSubscription, paymentMethod: String): Funit =
     postOne[JsObject](s"subscriptions/${subscription.id}", "default_payment_method" -> paymentMethod).void
 
-  private val logger = lila.plan.logger.branch("stripe")
+  private lazy val logger = lila.log("plan.stripe")
 
   private def getOne[A: Reads](url: String, queryString: (String, Matchable)*): Fu[Option[A]] =
     get[A](url, queryString)

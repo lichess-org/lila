@@ -1,14 +1,10 @@
 import { Position } from 'chessops';
 
 import { completeNode } from 'lib/tree/node';
-import type { TreeNode, TreeNodeIncomplete } from 'lib/tree/types';
-
-export function readOnlyProp<A>(value: A): () => A {
-  return () => value;
-}
+import type { TreeNode, TreeNodeBase } from 'lib/tree/types';
 
 export function treeReconstruct(
-  parts: TreeNodeIncomplete[],
+  parts: TreeNodeBase[],
   variant: VariantKey,
   sidelines?: TreeNode[][],
 ): TreeNode {

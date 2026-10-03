@@ -7,8 +7,13 @@
     }
   }
 
+  &__mark {
+    margin: 1em 0;
+  }
+
   .mz-section--others {
-    margin-bottom: 3em;
+    margin-bottom: 2em;
+    max-height: 30vh;
   }
 
   &__help {
@@ -32,6 +37,8 @@
   }
 
   &__msg {
+    @extend %box-neat;
+
     padding: 1.5em;
     margin-bottom: 2em;
 
@@ -46,7 +53,7 @@
     }
 
     &--suspect {
-      border-inline-end: 10px solid $c-bg-zebra;
+      border: $border;
     }
 
     img {
@@ -58,11 +65,16 @@
     display: flex;
     padding-top: 2em;
     border-top: $border;
-    margin-top: 2em;
+    margin-top: 1.5em;
+    gap: 1em;
+  }
 
-    .button {
-      margin-inline-end: 1em;
-    }
+  &__withdraw {
+    text-align: end;
+  }
+
+  .form-actions {
+    gap: 1em;
   }
 
   .marked-by-me {
@@ -70,26 +82,149 @@
 
     border-radius: 20px;
     padding: 1rem;
-    background: $m-brag_bg--mix-60;
+    background: color-mix(in oklab, $c-brag 60%, $c-bg);
     border: 1px solid $c-warn;
     text-align: center;
     font-size: 1.2em;
+    margin-bottom: 2em;
   }
 
   .root h2 {
+    @extend %box-bordered;
+
     padding: 0.7em;
     text-align: center;
+  }
+
+  .appeal-clean .root h2 {
     background: $c-good;
     color: $c-over;
   }
 
-  .marked .root h2 {
+  .appeal-marked .root h2 {
     background: $c-bad;
     color: $c-over;
   }
 
+  .form-toggle {
+    margin-top: 2em;
+    padding-bottom: 2em;
+  }
+
+  .appeal-info,
+  .appeal-accounts {
+    .form-actions {
+      border-top: none;
+      padding-top: 1em;
+      justify-content: flex-end;
+    }
+  }
+
+  .appeal-info {
+    &__terms {
+      margin: 0 0 1.5em;
+
+      p {
+        margin-bottom: 0.8em;
+      }
+    }
+
+    &__agree {
+      margin-bottom: 0.5em;
+    }
+  }
+
+  .appeal-accounts {
+    @extend %flex-column;
+
+    gap: 1em;
+
+    &__option {
+      @extend %flex-center;
+
+      gap: 0.5em;
+      margin-bottom: 0.6em;
+    }
+
+    textarea {
+      @extend %box-radius;
+
+      width: 100%;
+      padding: 0.6em 0.8em;
+      border: $border;
+      background: $c-bg-box;
+      color: $c-font;
+
+      &:disabled {
+        opacity: 0.5;
+      }
+    }
+  }
+
+  &__accounts {
+    margin-bottom: 1.5em;
+
+    h3 {
+      margin-bottom: 0.5em;
+    }
+
+    &__row {
+      @extend %flex-center;
+
+      align-items: flex-start;
+      gap: 1em;
+      margin-bottom: 0.35em;
+    }
+
+    &__label {
+      flex: 0 0 12em;
+      color: $c-font-dim;
+      font-weight: bold;
+      line-height: 1.5;
+    }
+
+    &__value {
+      flex: 1 1 auto;
+      min-width: 0;
+      line-height: 1.5;
+    }
+
+    &__text {
+      @extend %box-radius;
+
+      white-space: pre-wrap;
+      margin: 0;
+      padding: 0.35em 0.6em;
+      background: $c-bg-zebra;
+    }
+  }
+
+  .appeal-closed {
+    margin-top: 3em;
+  }
+
   .appeal-presets {
-    margin-inline-end: 1em;
+    @extend %flex-column;
+
+    flex: 0 1 54ch;
+    margin-bottom: 0;
+    overflow-y: auto;
+    max-height: 30em;
+
+    button {
+      @extend %box-radius-left;
+
+      padding: 0.4em 1em;
+
+      &:hover {
+        background: $c-bg-zebra;
+        color: $c-font-clearer;
+      }
+    }
+  }
+
+  .appeal-textarea {
+    flex: 2 1 auto;
   }
 
   &__rules {
@@ -105,26 +240,21 @@
     }
   }
 
-  @keyframes reveal {
-    0%,
-    95% {
-      opacity: 0;
-    }
-
-    100% {
-      opacity: 1;
-    }
-  }
-
-  #help-engine-deny form {
-    opacity: 0;
-  }
-
-  #help-engine-deny:target form {
-    animation: 20s reveal forwards !important; // play even with "prefers-reduced-motion: reduce"
-  }
-
   .warning-closure {
     color: $c-bad;
   }
+}
+
+.appeal-topic {
+  @extend %box-neat;
+
+  border: $border;
+  padding: 0.2em 0.5em;
+  margin: 0.1em;
+}
+
+.line-center-text {
+  @extend %flex-center-center;
+
+  font-style: italic;
 }

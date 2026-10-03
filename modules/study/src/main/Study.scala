@@ -82,8 +82,6 @@ case class Study(
 
   def withoutMembers = copy(members = StudyMembers.empty)
 
-  def light = LightStudy(isPublic, members.contributorIds)
-
   def topicsOrEmpty = topics | StudyTopics.empty
 
   def addTopics(ts: StudyTopics) =
@@ -135,16 +133,15 @@ object Study:
 
   case class WithLiked(study: Study, liked: Boolean)
 
-  case class LightStudy(isPublic: Boolean, contributors: Set[UserId])
-
   def makeId = StudyId(ThreadLocalRandom.nextString(8))
 
   def make(
       user: User,
       from: From,
-      id: Option[StudyId] = None,
-      name: Option[StudyName] = None,
-      settings: Option[Settings] = None
+      id: Option[StudyId],
+      name: Option[StudyName],
+      settings: Option[Settings],
+      visibility: Visibility = Visibility.unlisted
   ) =
     val owner = StudyMember(id = user.id, role = StudyMember.Role.Write)
     Study(
@@ -153,7 +150,7 @@ object Study:
       members = StudyMembers(Map(user.id -> owner)),
       position = Position.Ref(StudyChapterId(""), UciPath.root),
       ownerId = user.id,
-      visibility = Visibility.unlisted,
+      visibility = visibility,
       settings = settings | Settings.init,
       from = from,
       likes = Likes(1),

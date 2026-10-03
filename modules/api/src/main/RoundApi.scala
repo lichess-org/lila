@@ -1,13 +1,14 @@
 package lila.api
 
 import chess.format.Fen
+import chess.opening.Opening
+import scalalib.data.Preload
 import play.api.libs.json.*
 
 import lila.analyse.{ Analysis, JsonView as analysisJson }
 import lila.api.Context.given
 import lila.common.HTTPRequest
 import lila.common.Json.given
-import scalalib.data.Preload
 import lila.core.i18n.Translate
 import lila.core.perm.Granter
 import lila.core.user.GameUsers
@@ -36,7 +37,9 @@ final private[api] class RoundApi(
     userApi: lila.user.UserApi,
     prefApi: lila.pref.PrefApi,
     getLightUser: lila.core.LightUser.GetterSync,
-    userLag: lila.socket.UserLagCache
+    userLag: lila.socket.UserLagCache,
+    divider: lila.game.Divider,
+    gameOpening: lila.game.GameOpening
 )(using Executor):
 
   def player(
@@ -74,16 +77,18 @@ final private[api] class RoundApi(
       users: GameUsers,
       tour: Option[TourView],
       tv: Option[lila.round.OnTv],
+      details: Boolean,
       initialFenO: Option[Option[Fen.Full]] = None // Preload[Option[Fen.Full]]?
   )(using ctx: Context): Fu[JsObject] = {
     for
       initialFen <- initialFenO.fold(gameRepo.initialFen(pov.game))(fuccess)
       given Translate = ctx.translate
+      opening = details.so(gameOpening.of(pov.game, full = ctx.isAuth))
       (json, simul, swiss, note, bookmarked) <-
         (
-          jsonView.watcherJson(pov, users, ctx.pref.some, ctx.me, tv, initialFen, ctxFlags),
+          jsonView.watcherJson(pov, users, opening, ctx.pref.some, ctx.me, tv, initialFen, ctxFlags),
           pov.game.simulId.so(simulApi.find),
-          swissApi.gameView(pov),
+          details.so(swissApi.gameView(pov)),
           ctx.me.ifTrue(ctx.isMobileApi).so(noteApi.get(pov.gameId, _)),
           bookmarkApi.exists(pov.game, ctx.me)
         ).tupled
@@ -108,10 +113,11 @@ final private[api] class RoundApi(
   def review(
       pov: Pov,
       users: GameUsers,
-      tv: Option[lila.round.OnTv] = None,
-      analysis: Option[Analysis] = None,
+      analysis: Option[Analysis],
+      opening: Option[Opening],
       initialFen: Option[Fen.Full],
       withFlags: ExportOptions,
+      tv: Option[lila.round.OnTv] = None,
       owner: Boolean = false
   )(using ctx: Context): Fu[JsObject] =
     given Translate = ctx.translate
@@ -119,6 +125,7 @@ final private[api] class RoundApi(
       jsonView.watcherJson(
         pov,
         users,
+        opening,
         ctx.pref.some,
         ctx.me,
         tv,
@@ -130,7 +137,7 @@ final private[api] class RoundApi(
       swissApi.gameView(pov),
       ctx.me.ifTrue(ctx.isMobileApi).so(noteApi.get(pov.gameId, _)),
       owner.so(forecastApi.loadForDisplay(pov)),
-      withFlags.puzzles.so(pov.game.opening.map(_.opening)).so(puzzleOpeningApi.getClosestTo(_, true)),
+      withFlags.puzzles.so(opening).so(puzzleOpeningApi.getClosestTo(_, true)),
       bookmarkApi.exists(pov.game, ctx.me)
     ).mapN: (json, tour, simul, swiss, note, fco, puzzleOpening, bookmarked) =>
       (
@@ -140,7 +147,7 @@ final private[api] class RoundApi(
           .compose(withNote(note))
           .compose(withBookmark(bookmarked))
           .compose(withTree(pov, analysis, initialFen, withFlags))
-          .compose(withAnalysis(pov.game, analysis))
+          .compose(withAnalysis(pov.game, analysis, initialFen))
           .compose(withForecast(pov, fco))
           .compose(withPuzzleOpening(puzzleOpening))
       )(json)
@@ -154,7 +161,7 @@ final private[api] class RoundApi(
       orientation: Color,
       owner: Boolean,
       addLichobileCompat: Boolean = false
-  )(using Option[Me]) =
+  )(using me: Option[Me]) =
     owner
       .so(forecastApi.loadForDisplay(pov))
       .map: fco =>
@@ -166,7 +173,8 @@ final private[api] class RoundApi(
               pref,
               initialFen,
               orientation,
-              owner = owner
+              owner = owner,
+              opening = gameOpening.of(pov.game, full = me.isDefined)
             )
       .flatMap(externalEngineApi.withExternalEngines)
 
@@ -182,7 +190,7 @@ final private[api] class RoundApi(
         analysis,
         initialFen | pov.game.variant.initialFen,
         withFlags,
-        logChessError = lila.log("api.round").warn
+        logChessError = lila.log.system.warn
       ))
 
   private def withSteps(pov: Pov, initialFen: Option[Fen.Full])(obj: JsObject) =
@@ -237,10 +245,10 @@ final private[api] class RoundApi(
       )
     else json
 
-  private def withAnalysis(g: Game, o: Option[Analysis])(json: JsObject) =
+  private def withAnalysis(g: Game, o: Option[Analysis], initialFen: Option[Fen.Full])(json: JsObject) =
     json.add(
       "analysis",
-      o.map { analysisJson.bothPlayers(g.startedAtPly, _) }
+      o.map { analysisJson.bothPlayers(g.startedAtPly, _, division = divider(g, initialFen)) }
     )
 
   def withTournament(pov: Pov, viewO: Option[TourView])(json: JsObject)(using Translate) =

@@ -4,8 +4,7 @@ package ui
 import scalalib.paginator.Paginator
 
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class PostUi(helpers: Helpers, bits: ForumBits):
   import helpers.{ *, given }
@@ -33,7 +32,7 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
       )(
         div(cls := "forum-post__metas")(
           (!post.erased || canModCateg).option(
-            div(
+            frag(
               bits.authorLink(
                 post = post,
                 cssClass = s"author${(topic.userId == post.userId).so(" author--op")}".some
@@ -42,78 +41,81 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
                 post.updatedAt
                   .map: updatedAt =>
                     frag(
-                      span(cls := "post-edited")("edited "),
+                      span(cls := "post-edited")(
+                        trans.site.postEdited(),
+                        " "
+                      ),
                       momentFromNow(updatedAt)
                     )
                   .getOrElse:
                     momentFromNow(post.createdAt)
               ),
-              (!post.erased && ctx.me.soUse(post.shouldShowEditForm)).option(
-                button(
-                  cls := "forum-post__button edit button button-empty text",
-                  tpe := "button",
-                  dataIcon := Icon.Pencil
-                )(
-                  "Edit"
-                )
-              ),
-              ctx.me.flatMap: me =>
-                given Me = me
-                val quoteButton = (canReply && !post.erased).option(
+              div(cls := "forum-post__actions")(
+                (!post.erased && ctx.me.soUse(post.shouldShowEditForm)).option(
                   button(
-                    cls := "forum-post__button quote button button-empty text",
+                    cls := "forum-post__button edit button button-empty text",
                     tpe := "button",
-                    dataIcon := "❝"
-                  )("Quote")
-                )
-                if !post.erased && post.canBeEditedByMe
-                then
-                  frag(
-                    postForm(action := routes.ForumPost.delete(post.id))(
-                      submitButton(
-                        cls := "forum-post__button delete button button-empty yes-no-confirm",
-                        dataIcon := Icon.Trash,
-                        title := "Delete"
-                      )
-                    ),
-                    quoteButton
-                  ).some
-                else
-                  frag(
-                    (isTopicFirst && canModCateg).option:
-                      a(
-                        cls := "forum-post__button mod-relocate button button-empty",
-                        href := routes.ForumPost.relocate(post.id),
-                        dataIcon := Icon.Forward,
-                        title := "Relocate"
-                      )
-                    ,
-                    if canModCateg || topic.isUblogAuthor(me) then
-                      frag(
-                        a(
-                          cls := "forum-post__button delete button button-empty",
-                          href := routes.ForumPost.delete(post.id),
+                    dataIcon := Icon.Pencil
+                  )(trans.site.edit())
+                ),
+                ctx.me.flatMap: me =>
+                  given Me = me
+                  val quoteButton = (canReply && !post.erased).option(
+                    button(
+                      cls := "forum-post__button quote button button-empty text",
+                      tpe := "button",
+                      dataIcon := "❝"
+                    )(trans.site.quote())
+                  )
+                  if !post.erased && post.canBeEditedByMe
+                  then
+                    frag(
+                      quoteButton,
+                      postForm(action := routes.ForumPost.delete(post.id))(
+                        submitButton(
+                          cls := "forum-post__button delete button button-empty yes-no-confirm",
                           dataIcon := Icon.Trash,
-                          title := "Delete"
-                        ),
-                        quoteButton
+                          title := trans.site.delete.txt()
+                        )
                       )
-                    else
-                      post.userId.map: userId =>
-                        val postUrl = routeUrl(routes.ForumPost.redirect(post.id))
-                        span(cls := "forum-post__actions")(
+                    ).some
+                  else
+                    frag(
+                      (isTopicFirst && canModCateg).option:
+                        a(
+                          cls := "forum-post__button mod-relocate button button-empty",
+                          href := routes.ForumPost.relocate(post.id),
+                          dataIcon := Icon.Forward,
+                          title := "Relocate"
+                        )
+                      ,
+                      if canModCateg || topic.isUblogAuthor(me) then
+                        frag(
                           a(
-                            titleOrText(trans.site.reportXToModerators.txt(userId)),
-                            cls := "forum-post__button report button button-empty",
-                            href := addQueryParams(
-                              routes.Report.form.url,
-                              Map("username" -> userId.value, "postUrl" -> postUrl.value, "from" -> "forum")
-                            ),
-                            dataIcon := Icon.CautionTriangle
+                            cls := "forum-post__button delete button button-empty",
+                            href := routes.ForumPost.delete(post.id),
+                            dataIcon := Icon.Trash,
+                            title := trans.site.delete.txt()
                           ),
                           quoteButton
                         )
-                  ).some
+                      else
+                        post.userId.map: userId =>
+                          val postUrl = routeUrl(routes.ForumPost.redirect(post.id))
+                          span(cls := "forum-post__actions")(
+                            a(
+                              titleOrText(trans.site.reportXToModerators.txt(userId)),
+                              cls := "forum-post__button report button button-empty",
+                              href := addQueryParams(
+                                routes.Report.form.url,
+                                Map("username" -> userId.value, "postUrl" -> postUrl.value, "from" -> "forum")
+                              ),
+                              dataIcon := Icon.CautionTriangle
+                            ),
+                            quoteButton
+                          )
+                    ).some
+              )
             )
           )
         ),
@@ -131,10 +133,11 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
         ctx.me.soUse[Option[Tag]]:
           post.shouldShowEditForm.option:
             postForm(cls := "edit-post-form none", action := routes.ForumPost.edit(post.id))(
-              lila.ui.bits.markdownTextarea("forumPostBody".some):
+              lila.ui.bits.markdownEditor(MarkdownRealm.forum):
                 textarea(
                   bits.dataTopic := topic.id,
                   name := "changes",
+                  autocomplete := "off",
                   cls := "form-control post-text-area edit-post-box",
                   required
                 )

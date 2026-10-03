@@ -23,26 +23,26 @@ final class TutorApi(
       then fuccess(TutorAvailability.InsufficientGames)
       else queue.awaiting(user.id).map(TutorHome(user.id, reports, _)).map(TutorAvailability.Available(_))
 
-  private val previewProjection = $doc(
+  private val previewProjection = bdoc(
     TutorFullReport.F.config -> true,
     TutorFullReport.F.at -> true,
     s"${TutorFullReport.F.perfs}.perf" -> true,
     s"${TutorFullReport.F.perfs}.stats" -> true
   )
   def previews(userId: UserId): Fu[List[TutorFullReport.Preview]] = colls.report:
-    _.find($doc(TutorFullReport.F.user -> userId), previewProjection.some)
-      .sort($sort.desc(TutorFullReport.F.at))
+    _.find(bdoc(TutorFullReport.F.user -> userId), previewProjection.some)
+      .sort(sort.desc(TutorFullReport.F.at))
       .cursor[TutorFullReport.Preview]()
       .list(16)
 
   def get(config: TutorConfig): Fu[Option[TutorFullReport]] = cache.get(config)
 
   def delete(config: TutorConfig): Funit =
-    for _ <- colls.report(_.delete.one($id(config.id)))
+    for _ <- colls.report(_.delete.one(bid(config.id)))
     yield cache.invalidate(config)
 
   private val initialDelay = if mode.isProd then 1.minute else 5.second
-  LilaScheduler("TutorQueue", _.Every(1.second), _.AtMost(10.seconds), _.Delay(initialDelay))(pollQueue)
+  LilaScheduler("TutorQueue", _.Every(2.second), _.AtMost(10.seconds), _.Delay(initialDelay))(pollQueue)
 
   private def pollQueue = queue.next.flatMap: items =>
     lila.mon.tutor.parallelism.update(items.size)
@@ -58,11 +58,8 @@ final class TutorApi(
   // we only wait for queue.start
   // NOT for builder
   private def buildThenRemoveFromQueue(config: TutorConfig) =
-    val chrono = lila.mon.Chronometer.start
-    logger.info(s"Start ${config.user}")
     for _ <- queue.start(config.user)
     yield builder(config).foreach: report =>
-      logger.info(s"${report.id} in ${chrono().seconds} seconds")
       cache.put(config, fuccess(report.some))
       queue.remove(config.user)
 
@@ -70,4 +67,4 @@ final class TutorApi(
     _.expireAfterAccess(2.minutes).buildAsyncFuture(findByConfig)
 
   private def findByConfig(config: TutorConfig) = colls.report:
-    _.find($id(config.id)).one[TutorFullReport]
+    _.find(bid(config.id)).one[TutorFullReport]

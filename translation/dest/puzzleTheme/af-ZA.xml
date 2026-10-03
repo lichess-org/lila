@@ -19,6 +19,7 @@
   <string name="bodenMate">Boden se mat</string>
   <string name="bodenMateDescription">Twee aanvallende lopers op oorkruisende diagonale mat \'n koning wat deur sy eie stukke geblok word.</string>
   <string name="castling">Kasteel</string>
+  <string name="enPassant">En passant</string>
   <string name="castlingDescription">Bring die koning in veiligheid en sit die toring in vir aanval.</string>
   <string name="capturingDefender">Vang die verdediger vas</string>
   <string name="capturingDefenderDescription">Verwyder \'n stuk wat van kritieke belang is vir die verdediging van \'n ander stuk, sodat die nou onverdedigde stuk op \'n volgende skuif vasgevang kan word.</string>
@@ -44,20 +45,17 @@
   <string name="doubleCheckDescription">Kontroleer met twee stukke gelyktydig, as gevolg van \'n ontdekte aanval waar beide die bewegende stuk en die onthulde stuk die teenstander se koning aanval.</string>
   <string name="endgame">Eindspel</string>
   <string name="endgameDescription">\'N Taktiek tydens die laaste fase van die wedstryd.</string>
-  <string name="enPassantDescription">\'N Taktiek waarby die en passant-reël betrokke is, waar \'n pion \'n teenstanderspion kan vang wat dit omseil het met die aanvanklike beweging van twee vierkante.</string>
   <string name="exposedKing">Blootgestelde koning</string>
   <string name="exposedKingDescription">\'N Taktiek waarby \'n koning betrokke was, met min verdedigers rondom, wat dikwels gelei het tot skaakmat.</string>
   <string name="fork">Vurk</string>
-  <string name="forkDescription">\'N Beweging waar die bewegende stuk twee teenstanderstukke gelyktydig aanval.</string>
   <string name="hangingPiece">Hangstuk</string>
   <string name="hangingPieceDescription">\'N Taktiek waarby \'n teenstander onverdedig of onvoldoende verdedig word en vry is om vas te lê.</string>
   <string name="hookMate">Haak mat</string>
-  <string name="hookMateDescription">Skaakmat deur \'n toring, ruiter en pion saam met een van die opponent se pione wat die ontsnapping keer.</string>
   <string name="interference">Inmenging</string>
   <string name="interferenceDescription">Om \'n stuk tussen twee teenstanderstukke te skuif om een ​​of albei teenstanderstukke onverdedig te laat, soos \'n ridder op \'n verdedigde vierkant tussen twee toring.</string>
   <string name="intermezzo">Intermezzo</string>
   <string name="intermezzoDescription">In plaas daarvan om die verwagte skuif te speel, moet u eers \'n ander stap inbring wat \'n onmiddellike bedreiging inhou wat die opponent moet beantwoord. Ook bekend as \"Zwischenzug\" of \"Tussenin\".</string>
-  <string name="vukovicMate" comment="This was previously &quot;Vukovic&quot;. It can be safely updated to &quot;Vuković&quot;">Vucovic-mat</string>
+  <string name="vukovicMate">Vucovic-mat</string>
   <string name="vukovicMateDescription">\'n Toring en \'n ruiter werk saam om die koning te mat. Die toring verkry die mat gesteun deur \'n derde stuk, en die ruiter blok die koning se ontsnappingsblokkies.</string>
   <string name="knightEndgame">Ridder eindspel</string>
   <string name="knightEndgameDescription">\'N Eindspel met net ridders en pionne.</string>
@@ -90,7 +88,6 @@
   <string name="pin">Speld</string>
   <string name="pinDescription">\'N Taktiek wat spelde insluit, waar \'n stuk nie kan beweeg sonder om \'n aanval op \'n stuk met \'n hoër waarde te openbaar nie.</string>
   <string name="promotion">Promosie</string>
-  <string name="promotionDescription">\'N Pion wat bevorder of dreig om te bevorder, is die sleutel tot die taktiek.</string>
   <string name="queenEndgame">Koningin eindspel</string>
   <string name="queenEndgameDescription">\'N Eindspel met slegs koninginne en pionne.</string>
   <string name="queenRookEndgame">Queen and Rook endgame</string>

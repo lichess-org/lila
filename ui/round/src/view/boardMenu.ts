@@ -8,10 +8,10 @@ import type RoundController from '../ctrl';
 
 export default function (ctrl: RoundController): LooseVNode {
   return menuDropdown(ctrl.redraw, ctrl.menu, menu => {
-    const d = ctrl.data,
-      spectator = d.player.spectator,
-      portraitMobile = displayColumns() === 1 && isTouchDevice(),
-      swapClockStorage = storage.boolean('swapClock');
+    const d = ctrl.data;
+    const spectator = d.player.spectator;
+    const portraitMobile = displayColumns() === 1 && isTouchDevice();
+    const swapClockStorage = storage.boolean('swapClock');
     return [
       hl('section', [
         menu.flip(i18n.site.flipBoard, ctrl.flip, () => {
@@ -30,7 +30,15 @@ export default function (ctrl: RoundController): LooseVNode {
             id: 'haptics',
             name: 'Vibration feedback',
             checked: ctrl.vibration(),
-            change: v => ctrl.vibration(v),
+            change: ctrl.vibration,
+            redraw: ctrl.redraw,
+          }),
+        !portraitMobile &&
+          cmnToggleWrap({
+            id: 'streamer',
+            name: 'Streamer mode',
+            checked: ctrl.streamer(),
+            change: ctrl.streamerMode,
             redraw: ctrl.redraw,
           }),
         portraitMobile &&
@@ -38,7 +46,7 @@ export default function (ctrl: RoundController): LooseVNode {
             id: 'swapClock',
             name: 'Show clock on left',
             checked: swapClockStorage.get(),
-            change: v => swapClockStorage.set(v),
+            change: swapClockStorage.set,
             redraw: ctrl.redraw,
           }),
 

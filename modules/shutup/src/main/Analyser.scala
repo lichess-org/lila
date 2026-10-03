@@ -1,5 +1,8 @@
 package lila.shutup
 
+import java.util.regex.Pattern
+import scalatags.Text.all.*
+
 import lila.common.constants.bannedYoutubeIds
 
 object Analyser extends lila.core.shutup.TextAnalyser:
@@ -12,7 +15,7 @@ object Analyser extends lila.core.shutup.TextAnalyser:
         ruBigRegex.findAllMatchIn(lower).toList
       TextAnalysis(lower, matches.map(_.toString))
     .mon(lila.mon.shutup.analyzer)
-    .logIfSlow(100, logger)(_ => s"Slow shutup analyser ${raw.take(400)}")
+    .logIfSlow(100, lila.log.system)(_ => s"Slow shutup analyser ${raw.take(400)}")
     .result
 
   def isCritical(raw: String) =
@@ -21,20 +24,29 @@ object Analyser extends lila.core.shutup.TextAnalyser:
   def containsLink(raw: String) = raw.contains("http://") || raw.contains("https://")
 
   // incompatible with richText
-  def highlightBad(text: String): scalatags.Text.Frag =
-    import scalatags.Text.all.*
+  def highlightBad(text: String): Frag = try
     import scalalib.StringUtils.escapeHtmlRaw
     val words = apply(text).badWords
     if words.isEmpty then frag(text)
     else
-      val regex = { """(?iu)""" + bounds.wrap(words.mkString("(", "|", ")")) }.r
+      val regex = { """(?iu)""" + bounds.wrap(words.map(Pattern.quote).mkString("(", "|", ")")) }.r
       def tag(word: String) = s"<bad>$word</bad>"
       raw(regex.replaceAllIn(escapeHtmlRaw(text), m => tag(m.toString)))
-
-  private val logger = lila.log("security").branch("shutup")
+  catch
+    case e: Exception =>
+      lila.log.system.warn(s"Analyser.highlightBad: $text", e)
+      scalatags.Text.all.raw(text)
 
   private def latinify(text: String): String =
     text.map:
+      case '@' => 'a'
+      case '$' => 's'
+      case '0' => 'o'
+      case '1' => 'i'
+      case '3' => 'e'
+      case '4' => 'a'
+      case '5' => 's'
+      case '7' => 't'
       case 'е' => 'e'
       case 'а' => 'a'
       case 'ı' => 'i'
@@ -56,7 +68,7 @@ object Analyser extends lila.core.shutup.TextAnalyser:
 
   private def latinWordsRegexes =
     Dictionary.en.map { word =>
-      word + (if word.endsWith("e") then "s?+" else "(es|s|)")
+      word + (if word.endsWith("e") then "s*+" else "[aeiou]?s*+")
     } ++
       Dictionary.es.map { word =>
         word + (if word.endsWith("e") then "" else "e?+") + "s?+"
@@ -70,6 +82,7 @@ object Analyser extends lila.core.shutup.TextAnalyser:
       } ++
       Dictionary.tr ++
       Dictionary.it ++
+      Dictionary.pt ++
       bannedYoutubeIds
 
   private val latinBigRegex = {
@@ -93,5 +106,5 @@ object Analyser extends lila.core.shutup.TextAnalyser:
   private val criticalRegex = {
     """(?i)\b""" +
       Dictionary.critical.mkString("(", "|", ")").replace("(", "(?:") +
-      """\b"""
+      """s?\b"""
   }.r

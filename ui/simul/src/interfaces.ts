@@ -1,3 +1,5 @@
+import type { LiconValue } from 'lib/licon';
+
 export interface SimulOpts {
   data: SimulData;
   userId?: string;
@@ -31,7 +33,7 @@ export interface SimulData {
 export interface Variant {
   key: VariantKey;
   name: string;
-  icon: LiconType;
+  icon: LiconValue;
 }
 
 export interface Player extends LightUserOnline {

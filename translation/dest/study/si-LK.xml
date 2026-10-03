@@ -61,7 +61,6 @@
   <string name="downloadGame">ක්‍රීඩාව බාගන්න</string>
   <string name="studyUrl">අධ්‍යයන URL</string>
   <string name="currentChapterUrl">වත්මන් පරිච්ඡේද URL</string>
-  <string name="youCanPasteThisInTheForumToEmbed">ඔබට මෙය සංසදයේ හෝ ඔබේ Lichess බ්ලොග් අඩවියේ ඇලවිය හැක</string>
   <string name="startAtInitialPosition">ආරම්භක ස්ථානයේ සිට ආරම්භ කරන්න</string>
   <string name="startAtX">%s ට අරඹන්න</string>
   <string name="embedInYourWebsite">ඔබේ වෙබ් අඩවියට ඇතුළත් කරන්න</string>

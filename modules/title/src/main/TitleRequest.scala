@@ -7,6 +7,7 @@ import reactivemongo.api.bson.Macros.Annotations.Key
 import scalalib.ThreadLocalRandom
 
 import lila.core.id.{ ImageId, TitleRequestId }
+import lila.core.user.RealName
 
 case class TitleRequest(
     @Key("_id") id: TitleRequestId,
@@ -20,6 +21,8 @@ case class TitleRequest(
   import TitleRequest.*
 
   def status = history.head.status
+
+  def imported = status.is(_.imported)
 
   def approved = status == Status.approved
 
@@ -52,7 +55,7 @@ case class TitleRequest(
 object TitleRequest:
 
   case class FormData(
-      realName: String,
+      realName: RealName,
       title: PlayerTitle,
       fideId: Option[FideId],
       federationUrl: Option[URL],

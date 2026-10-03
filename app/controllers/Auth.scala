@@ -1,7 +1,9 @@
 package controllers
+
 import play.api.data.Form
 import play.api.libs.json.*
 import play.api.mvc.*
+import scalalib.net.Bearer
 
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
@@ -10,6 +12,7 @@ import lila.core.id.SessionId
 import lila.core.email.{ UserIdOrEmail, UserStrOrEmail }
 import lila.core.net.ValidReferrer
 import lila.core.security.ClearPassword
+import lila.core.misc.AuthCustomUi
 import lila.memo.RateLimit
 import lila.security.SecurityForm.{ MagicLink, PasswordReset }
 import lila.security.{ FingerPrint, Signup, EmailConfirm, IsPwned }
@@ -17,6 +20,7 @@ import lila.security.{ FingerPrint, Signup, EmailConfirm, IsPwned }
 final class Auth(env: Env, accountC: => Account) extends LilaController(env):
 
   import env.security.{ api, forms }
+  def logger = lila.security.loggerAuth
 
   private given (using Context): Option[ValidReferrer] = env.web.referrerRedirect.fromReq
 
@@ -79,16 +83,19 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
   def loginLang = LangPage(routes.Auth.login)(serveLogin)
 
   private def serveLogin(using ctx: Context, referrer: Option[ValidReferrer]) = NoBot:
-    val switch = get("switch").orElse(get("as"))
-    t3Counter(_.login.load)
-    referrer.ifTrue(ctx.isAuth).ifTrue(switch.isEmpty) match
-      case Some(url) =>
-        t3Counter(_.login.success)
-        Redirect(url.value) // redirect immediately if already logged in
-      case None =>
-        val prefillUsername = UserStrOrEmail(~switch.filter(_ != "1"))
-        val form = api.loginFormFilled(prefillUsername)
-        Ok.page(views.auth.login(form)).map(_.withCanonical(routes.Auth.login))
+    env.security.lilaCookie.ensureAndGet: sid =>
+      val switch = get("switch").orElse(get("as"))
+      t3Counter(_.login.load(sid))
+      referrer.ifTrue(ctx.isAuth).ifTrue(switch.isEmpty) match
+        case Some(url) =>
+          t3Counter(_.login.success)
+          Redirect(url.value) // redirect immediately if already logged in
+        case None =>
+          val prefillUsername = UserStrOrEmail(~switch.filter(_ != "1"))
+          val form = api.loginFormFilled(prefillUsername)
+          Ok.page(views.auth.login(form))
+            .map(_.withCanonical(routes.Auth.login))
+            .map(env.security.lilaCookie.ensure)
 
   def authenticate = OpenBody:
     NoCrawlers:
@@ -128,9 +135,10 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
                                 negotiate(
                                   lila.security.LoginCandidate.totpError(err) match
                                     case None =>
-                                      t3Counter(_.login.failure("credentials"))
+                                      t3Counter(_.login.fail("credentials", err.some))
                                       Unauthorized.page(views.auth.login(err, isRemember))
                                     case Some(err) =>
+                                      t3Counter(_.login.fail("2fa"))
                                       for cookie <- env.security.turnstileCookie.create(loginData)
                                       yield Ok(err).withCookies(cookie),
                                   Unauthorized(doubleJsonFormErrorBody(err))
@@ -139,7 +147,7 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
                               _.toOption match
                                 case None => InternalServerError("Authentication error")
                                 case Some(u) if u.enabled.no =>
-                                  t3Counter(_.login.failure("closed"))
+                                  t3Counter(_.login.fail("closed"))
                                   negotiate(
                                     env.mod.logApi.closedByTeacher(u).flatMap {
                                       if _ then
@@ -163,7 +171,7 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
                             )
                         }
                 else
-                  t3Counter(_.login.failure("turnstile"))
+                  t3Counter(_.login.fail("turnstile"))
                   BadRequest.page:
                     views.auth
                       .login(
@@ -172,10 +180,8 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
                       )
           )
 
-  private def t3Counter(counter: lila.mon.signedClient.type => String => kamon.metric.Counter)(using
-      Option[ValidReferrer]
-  ) = simpleSignup.foreach: ss =>
-    counter(lila.mon.signedClient)(ss.client.value).increment()
+  private def t3Counter(counter: lila.web.T3AuthMonitor => String => Unit)(using Option[ValidReferrer]) =
+    simpleSignup.map(_.client.clientId.value).foreach(counter(env.web.t3AuthMonitor))
 
   private val clasLoginRateLimit =
     env.security.ipTrust.rateLimit(300, 1.hour, "clas.login")
@@ -200,7 +206,7 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
     val sid = env.security.api.reqSessionId(ctx.req)
     for
       _ <- sid.so(env.security.store.delete)
-      _ <- sid.so(env.push.webSubscriptionApi.unsubscribeBySession)
+      _ <- sid.so(env.push.browserSub.unsubscribeBySession)
       res <- negotiate(Redirect(routes.Auth.login), jsonOkResult)
     yield res.withCookies(env.security.lilaCookie.newSession)
 
@@ -217,16 +223,20 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
   def signupLang = LangPage(routes.Auth.signup)(serveSignup)
 
   private def serveSignup(using Context) = NoTor:
-    t3Counter(_.signup.load)
-    val form = forms.signup.full(simpleSignup)
-    Ok.page(views.auth.signup(form.form, form.simple))
+    env.security.lilaCookie.ensureAndGet: sid =>
+      t3Counter(_.signup.load(sid))
+      val form = forms.signup.full(simpleSignup)
+      Ok.page(views.auth.signup(form.form, form.simple))
 
   private def simpleSignup(using ref: Option[ValidReferrer]) =
     ref.flatMap(env.oAuth.signedClients.simpleSignupFrom)
 
+  private given (using ref: Option[ValidReferrer]): Option[AuthCustomUi] =
+    simpleSignup.flatMap(_.client.design)
+
   private def authLog(user: UserName, email: Option[EmailAddress], msg: String)(using ctx: Context) =
     for proxy <- env.security.ip2proxy.ofReq(ctx.req)
-    do lila.log("auth").info(s"$proxy $user ${email.fold("-")(_.value)} $msg")
+    do logger.info(s"$proxy $user ${email.fold("-")(_.value)} $msg")
 
   def signupPost = OpenBody:
     NoTor:
@@ -244,15 +254,15 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
                 .website(ctx.blind, simpleSignup)
                 .flatMap:
                   case RateLimited | ForbiddenNetwork | SimpleSignupDuplicate =>
-                    t3Counter(_.signup.failure("rateLimit"))
+                    t3Counter(_.signup.fail("rateLimit"))
                     rateLimited
                   case TurnstileFail =>
-                    t3Counter(_.signup.failure("turnstile"))
+                    t3Counter(_.signup.fail("turnstile"))
                     val f = forms.signup.full(simpleSignup)
                     val form = f.form.withGlobalError("Invalid captcha")
                     BadRequest.page(views.auth.signup(form, f.simple))
                   case FormInvalid(err) =>
-                    t3Counter(_.signup.failure("form"))
+                    t3Counter(_.signup.fail("form", err.some))
                     val f = forms.signup.full(simpleSignup)
                     BadRequest.page(views.auth.signup(err, f.simple))
                   case ConfirmEmail(user, email) =>
@@ -269,7 +279,7 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
     garbageCollect(user)(email)
     if sendWelcomeEmail then env.mailer.automaticEmail.welcomeEmail(user, email)
     env.mailer.automaticEmail.welcomePM(user)
-    env.pref.api.saveNewUserPrefs(user, ctx.req)
+    env.pref.api.saveNewUserPrefs(user)
 
   private def garbageCollect(user: UserModel)(email: EmailAddress)(using ctx: Context) =
     env.security.garbageCollector.delay(user, email, ctx.req, quickly = lila.web.AnnounceApi.get.isDefined)
@@ -280,7 +290,7 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
         case None => Ok.async(accountC.renderCheckYourEmail)
         case Some(userEmail) =>
           env.user.repo
-            .exists(userEmail.username)
+            .existsPri(userEmail.username)
             .flatMap:
               if _ then Ok.async(accountC.renderCheckYourEmail)
               else Redirect(routes.Auth.signup).withCookies(env.security.lilaCookie.newSession)
@@ -360,7 +370,7 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
     lila.mon.http.fingerPrint.record(ms)
     api
       .setFingerPrint(ctx.req, FingerPrint(fp))
-      .logFailure(lila.log("fp"), _ => s"${HTTPRequest.print(ctx.req)} $fp")
+      .logFailure(logger, _ => s"FP ${HTTPRequest.print(ctx.req)} $fp")
       .flatMapz { hash =>
         (!me.lame).so(for
           otherIds <- api.recentUserIdsByFingerHash(hash).map(_.filterNot(_.is(me)))
@@ -396,20 +406,23 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
                 data =>
                   env.security.passwordReset
                     .limiter(data.email -> req.ipAddress, badRequest("Too many requests")):
+                      def redirect(email: EmailAddress) = Redirect(routes.Auth.passwordResetSent).withCookies:
+                        lila.security.PasswordReset.cookie.set(env.security.lilaCookie, email)
                       env.user.repo.notClosedForeverWithEmail(data.email.normalize).flatMap {
                         case Some(user, storedEmail) =>
                           lila.mon.user.auth.passwordResetRequest("success").increment()
                           for _ <- env.security.passwordReset.send(user, storedEmail)
-                          yield Redirect(routes.Auth.passwordResetSent(storedEmail.value))
+                          yield redirect(storedEmail)
                         case _ =>
                           lila.mon.user.auth.passwordResetRequest("noEmail").increment()
-                          Redirect(routes.Auth.passwordResetSent(data.email.value))
+                          redirect(data.email)
                       }
               )
           else badRequest("Invalid captcha")
 
-  def passwordResetSent(email: String) = Open:
-    Ok.page(views.auth.passwordResetSent(email))
+  def passwordResetSent = Open:
+    lila.security.PasswordReset.cookie.get.so: email =>
+      Ok.page(views.auth.passwordResetSent(email))
 
   def passwordResetConfirm(token: String) = Open:
     env.security.passwordReset
@@ -448,7 +461,7 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
                   welcome(user, _, sendWelcomeEmail = false)
                 _ <- env.user.repo.disableTwoFactor(user.id)
                 _ <- env.security.store.closeAllSessionsOf(user.id)
-                _ <- env.push.webSubscriptionApi.unsubscribeByUser(user)
+                _ <- env.push.browserSub.unsubscribeByUser(user)
                 _ <- env.push.unregisterDevices(user)
                 res <- authenticateUser(user, remember = true, pwned = IsPwned.No)
               yield
@@ -475,13 +488,10 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
             .fold(
               err => BadRequest.async(renderMagicLink(err.some, fail = true)),
               data =>
-                env.user.repo.notClosedForeverWithEmail(data.email.normalize).flatMap {
-                  case Some(user, storedEmail) =>
-                    env.security.loginToken.rateLimit[Result](user, storedEmail, ctx.req, rateLimited):
-                      for _ <- env.security.loginToken.send(user, storedEmail)
-                      yield Redirect(routes.Auth.magicLinkSent)
-                  case _ => Redirect(routes.Auth.magicLinkSent)
-                }
+                for
+                  limit <- env.security.loginToken.magicLink.send(data.email)
+                  res <- if limit.ok then Redirect(routes.Auth.magicLinkSent).toFuccess else rateLimited
+                yield res
             )
         else BadRequest.async(renderMagicLink(none, fail = true))
       }
@@ -489,24 +499,13 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
   def magicLinkSent = Open:
     Ok.page(views.auth.magicLinkSent)
 
-  def makeLoginToken = Auth { ctx ?=> me ?=>
-    JsonOk:
-      env.security.loginToken
-        .generate(me)
-        .map: token =>
-          Json.obj(
-            "userId" -> me.userId,
-            "url" -> routeUrl(routes.Auth.loginWithToken(token))
-          )
-  }
-
   def loginWithToken(token: String) = Open:
     if ctx.isAuth then Redirect(referrerOr(routes.Lobby.home))
     else
       Firewall:
         consumingToken(token): user =>
           Ok.async:
-            env.security.loginToken
+            env.security.loginToken.magicLink
               .generate(user)
               .map(views.auth.tokenLoginConfirmation(user, _))
 
@@ -518,6 +517,21 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
           consumingToken(token): user =>
             if user.enabled.yes then authenticateUser(user, remember = true, pwned = IsPwned.No)
             else authenticateAppealUser(user, Redirect(_))
+
+  def mobileCodeEmail = AnonBodyOf(parse.tolerantFormUrlEncoded): _ =>
+    Firewall:
+      NoTor:
+        for
+          limit <- env.security.loginToken.storedCode.createAndSend
+          res <- if limit.ok then NoContent.toFuccess else rateLimited
+        yield res
+
+  def mobileCodeBearer = AnonBodyOf(parse.tolerantFormUrlEncoded): _ =>
+    Firewall:
+      NoTor:
+        env.security.loginToken.storedCode.consume.flatMap:
+          case limit: RateLimit.LimitResult => if limit.ok then notFound else rateLimited
+          case token: lila.oauth.AccessToken => Ok(token.plain).toFuccess
 
   def check = OpenOrScoped() { ctx ?=>
     ctx.me match
@@ -533,8 +547,13 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
       case None => Unauthorized
   }
 
+  def apiEmailValidate = ScopedBody() { _ ?=> me ?=>
+    if me.isnt(UserId.t3) then notFound
+    else bindForm(env.security.forms.signup.emailCheck)(jsonFormError, JsonOk(_))
+  }
+
   private def consumingToken(token: String)(f: UserModel => Fu[Result])(using Context) =
-    env.security.loginToken
+    env.security.loginToken.magicLink
       .consume(token)
       .flatMap:
         case None =>

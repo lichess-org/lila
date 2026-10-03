@@ -31,11 +31,11 @@
       cursor: pointer;
       opacity: 0.7;
       transition: 0.3s;
-    }
 
-    .liking:hover {
-      opacity: 1;
-      color: $c-bad;
+      &:hover {
+        opacity: 1;
+        color: $c-bad;
+      }
     }
   }
 }
@@ -69,23 +69,22 @@
     border: none;
     background: none;
     width: 100%;
-  }
 
-  input:hover,
-  input:focus {
-    background: $m-primary_bg--mix-10;
-  }
+    &:hover,
+    &:focus {
+      background: color-mix(in oklab, $c-primary 10%, $c-bg);
+    }
 
-  input:invalid {
-    border: 1px solid $c-bad;
-    color: $c-bad;
+    &:invalid {
+      border: 1px solid $c-bad;
+      color: $c-bad;
+    }
   }
 
   select {
-    cursor: pointer;
     border: none;
-    background: none;
-    padding: 0;
+    padding-block: 4px;
+    min-width: 120px;
   }
 }
 
@@ -97,7 +96,7 @@
   .topic {
     @extend %box-radius;
 
-    background: $m-primary_bg--mix-17;
+    background: color-mix(in oklab, $c-primary 17%, $c-bg);
     padding: 0.2em 0.6em;
     margin: 0.2em;
     unicode-bidi: plaintext;

@@ -7,7 +7,9 @@ import lila.common.HTTPRequest
 import lila.common.Json.given
 import lila.core.config.NetConfig
 
-object StaticContent:
+final class StaticContent(net: NetConfig):
+
+  import StaticContent.*
 
   val robotsTxt = """User-agent: *
 Allow: /
@@ -15,45 +17,44 @@ Disallow: /game/export/
 Disallow: /games/export/
 Disallow: /api/
 Disallow: /opening/config/
+Disallow: /study/search
+Disallow: /study/embed/
+Disallow: /embed/
+Disallow: /video?*
+Disallow: /training/of-player
 Allow: /game/export/gif/thumbnail/
 """
 
-  def manifest(net: NetConfig) =
-    Json.obj(
-      "name" -> net.domain,
-      "short_name" -> "Lichess",
-      "start_url" -> "/",
-      "display" -> "standalone",
-      "background_color" -> "#161512",
-      "theme_color" -> "#161512",
-      "description" -> "The (really) free, no-ads, open source chess server.",
-      "icons" -> List(32, 64, 128, 192, 256, 512, 1024).map: size =>
-        Json.obj(
-          "src" -> s"//${net.assetDomain}/assets/logo/lichess-favicon-$size.png",
-          "sizes" -> s"${size}x$size",
-          "type" -> "image/png"
-        ),
-      "related_applications" -> Json.arr(
-        Json.obj(
-          "platform" -> "play",
-          "url" -> mobileAndroidUrl,
-          "id" -> mobileAndroidId
-        ),
-        Json.obj(
-          "platform" -> "itunes",
-          "url" -> mobileIosUrl
-        ),
-        Json.obj(
-          "platform" -> "ios",
-          "url" -> mobileIosUrl
-        )
+  val manifest = Json.obj(
+    "name" -> net.domain,
+    "short_name" -> "Lichess",
+    "start_url" -> "/",
+    "display" -> "standalone",
+    "background_color" -> "#161512",
+    "theme_color" -> "#161512",
+    "description" -> "The (really) free, no-ads, open source chess server.",
+    "icons" -> List(32, 64, 128, 192, 256, 512, 1024).map: size =>
+      Json.obj(
+        "src" -> s"//${net.assetDomain}/assets/logo/lichess-favicon-$size.png",
+        "sizes" -> s"${size}x$size",
+        "type" -> "image/png"
+      ),
+    "related_applications" -> Json.arr(
+      Json.obj(
+        "platform" -> "play",
+        "url" -> mobileAndroidUrl,
+        "id" -> mobileAndroidId
+      ),
+      Json.obj(
+        "platform" -> "itunes",
+        "url" -> mobileIosUrl
+      ),
+      Json.obj(
+        "platform" -> "ios",
+        "url" -> mobileIosUrl
       )
     )
-
-  val mobileAndroidId = "org.lichess.mobileV2"
-  val mobileAndroidUrl = s"https://play.google.com/store/apps/details?id=$mobileAndroidId"
-  val mobileIosUrl = "https://apps.apple.com/app/lichess/id1662361230"
-  val mobileFdroidUrl = s"https://f-droid.org/packages/$mobileAndroidId"
+  )
 
   def appStoreUrl(using req: RequestHeader) =
     if HTTPRequest.isAndroid(req) then mobileAndroidUrl else mobileIosUrl
@@ -82,14 +83,13 @@ Allow: /game/export/gif/thumbnail/
     val tld = swagStoreTlds.getOrElse(~countryCode, "net")
     s"https://lichess.myspreadshop.$tld/"
 
-  val variantsJson =
-    JsArray(chess.variant.Variant.list.all.map { v =>
+  val variantsJson = JsArray:
+    chess.variant.Variant.list.all.map: v =>
       Json.obj(
         "id" -> v.id,
         "key" -> v.key,
         "name" -> v.name
       )
-    })
 
   def legacyQaQuestion(id: Int) =
     val faq = routes.Main.faq.url
@@ -112,3 +112,27 @@ Allow: /game/export/gif/thumbnail/
       case 46 => s"$faq#name"
       case 122 => s"$faq#marks"
       case _ => faq
+
+  val organizationScript = lila.ui.bits.structuredData("Organization"):
+    Json.obj(
+      "url" -> net.baseUrl,
+      "sameAs" -> List(
+        "https://mastodon.online/@lichess",
+        "https://github.com/lichess-org",
+        "https://discord.gg/lichess",
+        "https://bsky.app/profile/lichess.org",
+        "https://youtube.com/@LichessDotOrg",
+        "https://www.twitch.tv/lichessdotorg"
+      ),
+      "logo" -> s"https://${net.assetDomain}/assets/logo/lichess.svg",
+      "name" -> "Lichess free online chess",
+      "description" -> "The (really) free, no-ads, open source chess server.",
+      "email" -> "contact@lichess.org"
+    )
+
+object StaticContent:
+
+  val mobileAndroidId = "org.lichess.mobileV2"
+  val mobileAndroidUrl = s"https://play.google.com/store/apps/details?id=$mobileAndroidId"
+  val mobileIosUrl = "https://apps.apple.com/app/lichess/id1662361230"
+  val mobileFdroidUrl = s"https://f-droid.org/packages/$mobileAndroidId"

@@ -21,7 +21,6 @@
   <string name="puzzleRead">چالاکیی مەتەڵ بخوێنەرەوە</string>
   <string name="teamRead">زانیارییەکانی تیمی تایبەت بخوێنەرەوە</string>
   <string name="teamWrite">بەشداریکردن و جێهێشتنی تیمەکان</string>
-  <string name="teamLead">بەڕێوەبردنی ئەو تیمانەی کە سەرکردایەتی دەکەیت: نامەی تایبەت بنێرە، یان ئەندامەکان دەربکە</string>
   <string name="followRead">خوێندنەوەی یاریزانانی فۆڵۆوکراو</string>
   <string name="followWrite">فۆڵۆو و ئەنفۆڵۆوی یاریزانانی تر بکە</string>
   <string name="msgWrite">ناردنی نامەی تایبەت بۆ یاریزانانی تر</string>

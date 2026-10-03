@@ -47,7 +47,7 @@ function makeMovetimer(initial: Seconds, increment: Seconds, rating: number): (t
 
   const index = keys.findIndex(i => i > cappedInitial);
   const lowerKey = index > 0 ? keys[index - 1] : keys[0];
-  const upperKey = index > -1 ? keys[index] : keys[keys.length - 1];
+  const upperKey = index !== -1 ? keys[index] : keys[keys.length - 1];
 
   const mix = upperKey === lowerKey ? 0 : (initial - lowerKey) / (upperKey - lowerKey);
   const lowerFrame = keyframes.get(lowerKey)!;

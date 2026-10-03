@@ -6,10 +6,7 @@ import scalalib.actor.{ AsyncActorBounded, AsyncActorSequencer }
 // but generates them in batches
 final class BatchProvider[A](name: String, timeout: FiniteDuration, monitor: AsyncActorBounded.Monitor)(
     generateBatch: () => Fu[List[A]]
-)(using
-    Executor,
-    Scheduler
-):
+)(using Executor, Scheduler):
 
   private val workQueue = scalalib.actor.AsyncActorSequencer(
     maxSize = Max(4096),

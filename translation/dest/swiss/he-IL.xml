@@ -5,45 +5,38 @@
   <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
     <item quantity="one">צפו בסיבוב</item>
     <item quantity="two">צפו בכל %s הסיבובים</item>
-    <item quantity="many">צפו בכל %s הסיבובים</item>
     <item quantity="other">צפו בכל %s הסיבובים</item>
   </plurals>
   <plurals name="nbRounds" comment="%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3">
     <item quantity="one">סבב %s</item>
     <item quantity="two">%s סבבים</item>
-    <item quantity="many">%s סבבים</item>
     <item quantity="other">%s סבבים</item>
   </plurals>
   <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
     <item quantity="one">טורניר שוויצרי עם סבב %s</item>
     <item quantity="two">טורניר שוויצרי עם %s סבבים</item>
-    <item quantity="many">טורניר שוויצרי עם %s סבבים</item>
     <item quantity="other">טורניר שוויצרי עם %s סבבים</item>
   </plurals>
   <plurals name="oneRoundEveryXDays">
     <item quantity="one">סיבוב אחד ליום</item>
     <item quantity="two">סיבוב אחד כל %s ימים</item>
-    <item quantity="many">סיבוב אחד כל %s ימים</item>
     <item quantity="other">סיבוב אחד כל %s ימים</item>
   </plurals>
   <string name="roundsAreStartedManually">סבבים מתחילים באופן ידני</string>
   <plurals name="xSecondsBetweenRounds">
     <item quantity="one">שנייה %s בין סבבים</item>
     <item quantity="two">%s שניות בין סבבים</item>
-    <item quantity="many">%s שניות בין סבבים</item>
     <item quantity="other">%s שניות בין סבבים</item>
   </plurals>
   <plurals name="xMinutesBetweenRounds">
     <item quantity="one">דקה %s בין סבבים</item>
     <item quantity="two">%s דקות בין סבבים</item>
-    <item quantity="many">%s דקות בין סבבים</item>
     <item quantity="other">%s דקות בין סבבים</item>
   </plurals>
   <string name="nextRound">הסבב הבא</string>
   <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
     <item quantity="one">משחק נוכחי</item>
     <item quantity="two">משחקים נוכחיים</item>
-    <item quantity="many">משחקים נוכחיים</item>
     <item quantity="other">משחקים נוכחיים</item>
   </plurals>
   <string name="tournStartDate">תאריך תחילת הטורניר</string>
@@ -79,7 +72,6 @@ PlayerE 1
   <string name="pairingsA">לפי %1$s, המוצאת אל הפועל על ידי %2$s, בהתאם ל%3$s.</string>
   <string name="moreRoundsThanPlayersQ">מה קורה אם בטורניר ישנם יותר סבבים משחקנים?</string>
   <string name="moreRoundsThanPlayersA">כאשר כל השיבוצים האפשריים לזוגות ישוחקו, הטורניר יסתיים ויוכרז מנצח.</string>
-  <string name="restrictedToTeamsQ">מדוע הם מוגבלים לקבוצות?</string>
   <string name="restrictedToTeamsA">טורנירים שווייצרים לא תוכננו עבור שח אונליין. הם דורשים דייקנות, התמדה וסבלנות מצד השחקנים. אנו חושבים שהתנאים הללו יכולים להתקיים בסבירות גבוהה יותר בקבוצה מאשר בטורניר גלובלי.</string>
   <string name="numberOfByesQ">כמה פעמים שחקן יכול לקבל נקודה כי לא שובץ?</string>
   <string name="numberOfByesA">בכל פעם שלא נמצא עבורו שיבוץ. חוץ מזה, כאשר שחקן מצטרף באיחור לטורניר הוא מקבל חצי נקודה.</string>
@@ -93,7 +85,6 @@ PlayerE 1
   <string name="lateJoinA">כן, עד אשר שוחקו יותר ממחצית הסבבים. לדוגמה, בטורניר של 11 סבבים ניתן להצטרף לפני שסיבוב 6 מתחיל ואם יש 12 סבבים ניתן להצטרף לפני שסיבוב 7 מתחיל. מצטרפים באיחור מקבלים חצי נקודה בלבד, אף אם החמיצו מספר סבבים.</string>
   <string name="willSwissReplaceArenasQ">האם טורנירים שוויצריים יחליפו את טורנירי הזירה?</string>
   <string name="willSwissReplaceArenasA">לא. הם מאפיינים משלימים.</string>
-  <string name="roundRobinQ">ומה בנוגע לשיטת Round Robin?</string>
   <string name="roundRobinA">היינו רוצים להוסיף אותה, אך לצערנו שיטת Round Robin לא עובדת אונליין. אנו לא יכולים לצפות מכל השחקנים לשחק את כל המשחקים הדרושים באירוע מקוון, ולכן מרבית האירועים הללו יהיו פגומים ולא הוגנים, מה שחוטא למטרה שלשמה הם נועדו. הפורמט הכי קרוב שניתן לשחק אונליין הוא טורניר שוויצרי בו כל השיבוצים האפשריים ישוחקו טרם סיום הטורניר.</string>
   <string name="otherSystemsQ">ומה באשר לשיטות טורניר אחרות?</string>
   <string name="otherSystemsA">נכון לכרגע אין לנו כוונה להוסיף ל־Lichess שיטות טורניר נוספות.</string>
@@ -126,7 +117,6 @@ PlayerE 1
   <string name="similarToOTB">דומה לטורנירים על־גבי לוח</string>
   <string name="unlimitedAndFree">לא מוגבל וחינמי</string>
   <string name="predefinedUsers">אפשרו רק לשחקנים מוגדרים מראש להצטרף</string>
-  <string name="forbiddedUsers">אם תמלא/י את הרשימה הזאת, משתמשים שלא יופיעו בה לא יורשו להצטרף. כתבו שם משתמש אחד בכל שורה.</string>
   <string name="playYourGames">שחקו את כל המשחקים שלכם</string>
   <string name="byes">נקודות ״מתנה״</string>
   <string name="absences">חיסורים</string>

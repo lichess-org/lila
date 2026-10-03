@@ -25,7 +25,7 @@ final class RelationApi(
     extends lila.core.relation.RelationApi(repo.coll):
 
   def fetchRelation(u1: UserId, u2: UserId): Fu[Option[Relation]] =
-    (u1 != u2).so(coll.primitiveOne[Relation]($doc("u1" -> u1, "u2" -> u2), "r"))
+    (u1 != u2).so(coll.primitiveOne[Relation](bdoc("u1" -> u1, "u2" -> u2), "r"))
 
   def fetchRelation[U1: UserIdOf, U2: UserIdOf](u1: U1, u2: U2): Fu[Option[Relation]] =
     fetchRelation(u1.id, u2.id)
@@ -54,8 +54,8 @@ final class RelationApi(
         import framework.*
         List(
           Match(
-            $doc(
-              "$or" -> $arr($doc("u1" -> userId), $doc("u2" -> userId)),
+            bdoc(
+              "$or" -> barr(bdoc("u1" -> userId), bdoc("u2" -> userId)),
               "r" -> Follow
             )
           ),
@@ -63,24 +63,24 @@ final class RelationApi(
             "u1" -> AddFieldToSet("u1"),
             "u2" -> AddFieldToSet("u2")
           ),
-          Project($id($doc("$setIntersection" -> $arr("$u1", "$u2"))))
+          Project(bid(bdoc("$setIntersection" -> barr("$u1", "$u2"))))
         )
       .headOption
       .map:
         ~_.flatMap(_.getAsOpt[Set[UserId]]("_id")) - userId
 
   def fetchFollows(u1: UserId, u2: UserId): Fu[Boolean] =
-    (u1 != u2).so(coll.exists($doc("_id" -> makeId(u1, u2), "r" -> Follow)))
+    (u1 != u2).so(coll.exists(bdoc("_id" -> makeId(u1, u2), "r" -> Follow)))
 
   def fetchBlocks(u1: UserId, u2: UserId): Fu[Boolean] =
-    (u1 != u2).so(coll.exists($doc("_id" -> makeId(u1, u2), "r" -> Block)))
+    (u1 != u2).so(coll.exists(bdoc("_id" -> makeId(u1, u2), "r" -> Block)))
 
   def fetchAreFriends(u1: UserId, u2: UserId): Fu[Boolean] =
     fetchFollows(u1, u2) >>& fetchFollows(u2, u1)
 
   private val countFollowingCache = cacheApi[UserId, Int](16_384, "relation.count.following"):
     _.maximumSize(16_384).buildAsyncFuture: userId =>
-      coll.countSel($doc("u1" -> userId, "r" -> Follow))
+      coll.countSel(bdoc("u1" -> userId, "r" -> Follow))
 
   def countFollowing(userId: UserId) = countFollowingCache.get(userId)
 
@@ -100,23 +100,23 @@ final class RelationApi(
     countFollowingCache.get(userId).map(config.maxFollow <= _)
 
   def countBlocking(userId: UserId) =
-    coll.countSel($doc("u1" -> userId, "r" -> Block))
+    coll.countSel(bdoc("u1" -> userId, "r" -> Block))
 
   def followingPaginatorAdapter(userId: UserId) =
     Adapter[Followed](
       collection = coll,
-      selector = $doc("u1" -> userId, "r" -> Follow),
-      projection = $doc("u2" -> true, "_id" -> false).some,
-      sort = $empty
+      selector = bdoc("u1" -> userId, "r" -> Follow),
+      projection = bdoc("u2" -> true, "_id" -> false).some,
+      sort = emptyBdoc
     ).withNbResults(countFollowing(userId))
       .map(_.userId)
 
   def blockingPaginatorAdapter(userId: UserId) =
     Adapter[Blocked](
       collection = coll,
-      selector = $doc("u1" -> userId, "r" -> Block),
-      projection = $doc("u2" -> true, "_id" -> false).some,
-      sort = $empty
+      selector = bdoc("u1" -> userId, "r" -> Block),
+      projection = bdoc("u2" -> true, "_id" -> false).some,
+      sort = emptyBdoc
     ).map(_.userId)
 
   def follow(u1: User, u2: UserId): Funit = (u1.id != u2).so:
@@ -185,7 +185,7 @@ final class RelationApi(
   def isBlockedByAny(by: Iterable[UserId])(using me: Option[Me]): Fu[Boolean] =
     me.ifTrue(by.nonEmpty)
       .so: me =>
-        coll.exists($doc("_id".$in(by.map(makeId(_, me.userId))), "r" -> Block))
+        coll.exists(bdoc("_id".in(by.map(makeId(_, me.userId))), "r" -> Block))
 
   def searchFollowedBy(u: UserId, term: UserSearch, max: Int): Fu[List[UserId]] =
     repo

@@ -25,7 +25,7 @@ Lichess is written in [Scala 3](https://www.scala-lang.org/),
 and relies on a modified [Play 2.8](https://www.playframework.com/) framework.
 [scalatags](https://com-lihaoyi.github.io/scalatags/) is used for templating.
 Pure chess logic is contained in the [scalachess](https://github.com/lichess-org/scalachess) submodule.
-The server is fully asynchronous, making heavy use of Scala Futures and [Akka streams](https://akka.io).
+The server is fully asynchronous, making heavy use of Scala Futures and [Pekko streams](https://pekko.apache.org).
 WebSocket connections are handled by a [separate server](https://github.com/lichess-org/lila-ws) that communicates using [redis](https://redis.io/).
 Lichess talks to [Stockfish](https://stockfishchess.org/) deployed in an [AI cluster](https://github.com/lichess-org/fishnet) of donated servers.
 It uses [MongoDB](https://www.mongodb.com) to store more than 12 billion games, which are indexed by [elasticsearch](https://github.com/elastic/elasticsearch).
@@ -34,6 +34,7 @@ The web client is written in [TypeScript](https://www.typescriptlang.org/) and [
 All rated games are published in a [free PGN database](https://database.lichess.org).
 Browser testing done with [Browserstack](https://www.browserstack.com).
 Proxy detection done with [IP2Proxy database](https://www.ip2location.com/database/ip2proxy).
+Software builds and CI/CD done with [Depot](https://depot.dev/).
 Please help us [translate Lichess with Crowdin](https://crowdin.com/project/lichess).
 
 See [lichess.org/source](https://lichess.org/source) for a list of repositories.
@@ -60,9 +61,9 @@ Feel free to use the [Lichess API](https://lichess.org/api) in your applications
 | ----------------- | ------- | -------------------------- |
 | Firefox           | 115+    | Full support (recommended) |
 | Chromium / Chrome | 112+    | Full support               |
-| Edge              | 109+    | Full support               |
-| Opera             | 91+     | Reasonable support         |
-| Safari            | 13.1+   | Reasonable support         |
+| Edge              | 111+    | Full support               |
+| Opera             | 97+     | Reasonable support         |
+| Safari            | 16.2+   | Reasonable support         |
 
 Older browsers will not work.
 For your own sake, please upgrade. Security and performance, think about it!

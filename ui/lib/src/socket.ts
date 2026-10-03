@@ -44,12 +44,12 @@ interface Params extends Record<string, any> {
   flag?: string;
 }
 
-interface Settings {
-  receive?: (t: Tpe, d: Payload) => void;
+type Settings<T = Tpe> = {
+  receive?: (t: T, d: Payload) => void;
   events: Record<string, (d: Payload | null, msg: MsgIn) => any>;
   params?: Partial<Params>;
   options?: Partial<Options>;
-}
+};
 
 export interface SocketSendOpts {
   sign: string;
@@ -58,7 +58,11 @@ export interface SocketSendOpts {
   millis?: number;
 }
 
-export function wsConnect(url: string, version: number | false, settings: Partial<Settings> = {}): WsSocket {
+export function wsConnect<T extends string = Tpe>(
+  url: string,
+  version: number | false,
+  settings: Partial<Settings<T>> = {},
+): WsSocket {
   return (siteSocket = new WsSocket(url, version, settings));
 }
 
@@ -95,7 +99,7 @@ class WsSocket {
   private readonly settings: Settings;
   private readonly options: Options;
   private version: number | false;
-  private ws: WebSocket | undefined;
+  private ws?: WebSocket;
   private pingSchedule: Timeout;
   private connectSchedule: Timeout;
   private readonly ackable: Ackable = new Ackable((t, d, o) => this.send(t, d, o));
@@ -143,6 +147,16 @@ class WsSocket {
     this.ackable.sign(s);
   };
 
+  private readonly onOnline = (online: boolean): void => {
+    const cl = document.body.classList;
+    cl.toggle('offline', !online);
+    cl.toggle('online', online);
+    if (pubsub.past('socket.hasConnected')) {
+      if (online) document.body.classList.add('reconnected');
+      pubsub.emit('socket.online', online);
+    }
+  };
+
   private readonly connect = (): void => {
     this.destroy();
     this.lastUrl = xhr.url(this.options.protocol + '//' + this.nextBaseUrl() + this.url, {
@@ -157,10 +171,7 @@ class WsSocket {
       ws.onopen = () => {
         this.lastUrl = ws.url;
         this.debug('connected to ' + this.lastUrl);
-        const cl = document.body.classList;
-        if (pubsub.past('socket.hasConnected')) cl.add('reconnected');
-        cl.remove('offline');
-        cl.add('online');
+        this.onOnline(true);
         this.onSuccess();
         this.pingNow();
         this.resendWhenOpen.forEach(([t, d, o]) => this.send(t, d, o));
@@ -197,7 +208,7 @@ class WsSocket {
     if (t === 'move' && o.sign !== this._sign) {
       let stack: string;
       try {
-        stack = new Error().stack!.split('\n').join(' / ').replace(/\s+/g, ' ');
+        stack = new Error('Move error').stack!.split('\n').join(' / ').replace(/\s+/g, ' ');
       } catch (e: any) {
         stack = `${e.message} ${navigator.userAgent}`;
       }
@@ -220,8 +231,7 @@ class WsSocket {
     clearTimeout(this.pingSchedule);
     clearTimeout(this.connectSchedule);
     this.connectSchedule = setTimeout(() => {
-      document.body.classList.add('offline');
-      document.body.classList.remove('online');
+      this.onOnline(false);
       if (isOnline()) $('#network-status').text(i18n?.site?.reconnecting ?? 'Reconnecting');
       else $('#network-status').text(i18n?.site?.noNetwork ?? 'Offline');
       this.tryOtherUrl = true;
@@ -301,9 +311,13 @@ class WsSocket {
         break;
       default:
         // return true in a receive handler to prevent pubsub and events
-        if (!(this.settings.receive && this.settings.receive(m.t, m.d))) {
-          const sentAsEvent = this.settings.events[m.t] && this.settings.events[m.t](m.d || null, m);
-          if (!sentAsEvent) pubsub.emit(('socket.in.' + m.t) as PubsubEventKey, m.d, m);
+        if (!this.settings.receive?.(m.t, m.d)) {
+          if (this.settings.events[m.t]) {
+            if (this.settings.events[m.t](m.d || null, m)) {
+              return;
+            }
+          }
+          pubsub.emit(('socket.in.' + m.t) as PubsubEventKey, m.d, m);
         }
     }
   };
@@ -404,8 +418,8 @@ class Ackable {
   register = (t: string, d: Payload): void => {
     d.a = this.currentId++;
     this.messages.push({
-      t: t,
-      d: d,
+      t,
+      d,
       at: performance.now(),
     });
   };

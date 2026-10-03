@@ -5,11 +5,11 @@ import type AnalyseCtrl from './ctrl';
 export type AutoplayDelay = number | 'realtime' | 'cpl';
 
 export class Autoplay {
-  private timeout: Timeout | undefined;
-  private delay: AutoplayDelay | undefined;
-  private redrawInterval: Timeout | undefined;
+  private timeout?: Timeout;
+  private delay?: AutoplayDelay;
+  private redrawInterval?: Timeout;
 
-  lastMoveAt: number | undefined;
+  lastMoveAt?: number;
 
   constructor(private readonly ctrl: AnalyseCtrl) {}
 

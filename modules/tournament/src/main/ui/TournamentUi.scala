@@ -1,12 +1,13 @@
 package lila.tournament
 package ui
 
+import play.api.i18n.Lang
+
 import lila.core.i18n.Translate
 import lila.rating.PerfType
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
-import play.api.i18n.Lang
+import lila.ui.ScalatagsTemplate.{ *, given }
+import lila.common.ClientName
 
 final class TournamentUi(helpers: Helpers)(getTourName: GetTourName):
   import helpers.{ *, given }
@@ -94,15 +95,15 @@ final class TournamentUi(helpers: Helpers)(getTourName: GetTourName):
       href := routes.Tournament.show(tour.id).url
     )(tour.name())
 
-  def tournamentLink(tourId: TourId)(using Translate): Tag =
+  def tournamentLink(tourId: TourId)(using Translate, ClientName): Tag =
     a(
       dataIcon := Icon.Trophy.value,
       cls := "text",
       href := routes.Tournament.show(tourId).url
     )(tournamentIdToName(tourId))
 
-  def tournamentIdToName(id: TourId)(using Lang): String =
-    getTourName.sync(id).getOrElse(s"Tournament #$id")
+  def tournamentIdToName(id: TourId)(using Lang)(using client: ClientName): String =
+    client.isHuman.so(getTourName.sync(id)).getOrElse(s"Tournament #$id")
 
   def teamTournamentRow(t: Tournament)(using Translate) =
     tr(cls := List("enterable" -> t.isEnterable, "soon" -> t.isNowOrSoon))(

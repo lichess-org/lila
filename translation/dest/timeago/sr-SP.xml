@@ -1,11 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="justNow" comment="This string refers to an event which has not started yet, but will begin in the next few seconds-to-milliseconds, depending on when your browser refreshes. Used in areas with live-refreshing text like this, such as the list of Open Tournaments on the homepage.&#10;&#10;There is a separate string for right after events that have begun, which reads &quot;right now&quot;.">управо сада</string>
+  <string name="justNow">управо сада</string>
   <plurals name="inNbSeconds">
-    <item quantity="one">за %s секунди</item>
-    <item quantity="few">за %s сати</item>
+    <item quantity="one">за %s секунд</item>
+    <item quantity="few">за %s секунде</item>
+    <item quantity="other">за %s секунди</item>
+  </plurals>
+  <plurals name="inNbMinutes">
+    <item quantity="one">за %s минут</item>
+    <item quantity="few">за %s минута</item>
+    <item quantity="other">за %s минута</item>
+  </plurals>
+  <plurals name="inNbHours">
+    <item quantity="one">за %s сат</item>
+    <item quantity="few">за %s сата</item>
+    <item quantity="other">за %s сати</item>
+  </plurals>
+  <plurals name="inNbDays">
+    <item quantity="one">за %s дан</item>
+    <item quantity="few">за %s дана</item>
     <item quantity="other">за %s дана</item>
   </plurals>
-  <string name="rightNow" comment="This string refers to an event that has started in the last few milliseconds-to-seconds, depending on when your browser refreshes. Used in areas with live-refreshing text like this, such as the list of Open Tournaments on the homepage.&#10;&#10;There is a separate string for just before events that have begun, which reads &quot;just now&quot;.">управо сад</string>
+  <plurals name="inNbWeeks">
+    <item quantity="one">за %s недељу</item>
+    <item quantity="few">за %s недеље</item>
+    <item quantity="other">за %s недеља</item>
+  </plurals>
+  <plurals name="inNbMonths">
+    <item quantity="one">за %s месец</item>
+    <item quantity="few">за %s месеца</item>
+    <item quantity="other">за %s месеци</item>
+  </plurals>
+  <plurals name="inNbYears">
+    <item quantity="one">за %s годину</item>
+    <item quantity="few">за %s године</item>
+    <item quantity="other">за %s година</item>
+  </plurals>
+  <string name="rightNow">управо сад</string>
+  <plurals name="nbMinutesAgo">
+    <item quantity="one">пре %s минут</item>
+    <item quantity="few">пре %s минута</item>
+    <item quantity="other">пре %s минута</item>
+  </plurals>
+  <plurals name="nbHoursAgo">
+    <item quantity="one">пре %s сат</item>
+    <item quantity="few">пре %s сата</item>
+    <item quantity="other">пре %s сати</item>
+  </plurals>
+  <plurals name="nbDaysAgo">
+    <item quantity="one">пре %s дан</item>
+    <item quantity="few">пре %s дана</item>
+    <item quantity="other">пре %s дана</item>
+  </plurals>
+  <plurals name="nbWeeksAgo">
+    <item quantity="one">пре %s недељу</item>
+    <item quantity="few">пре %s недеље</item>
+    <item quantity="other">пре %s недеља</item>
+  </plurals>
+  <plurals name="nbMonthsAgo">
+    <item quantity="one">пре %s месец</item>
+    <item quantity="few">пре %s месеца</item>
+    <item quantity="other">пре %s месеци</item>
+  </plurals>
+  <plurals name="nbYearsAgo">
+    <item quantity="one">пре %s годину</item>
+    <item quantity="few">пре %s године</item>
+    <item quantity="other">пре %s година</item>
+  </plurals>
+  <plurals name="nbMinutesRemaining">
+    <item quantity="one">преостао још %s минут</item>
+    <item quantity="few">преостала још %s минута</item>
+    <item quantity="other">преостало још %s минута</item>
+  </plurals>
+  <plurals name="nbHoursRemaining">
+    <item quantity="one">преостао још %s сат</item>
+    <item quantity="few">преостала још %s сата</item>
+    <item quantity="other">преостало још %s сати</item>
+  </plurals>
   <string name="completed">завршено</string>
 </resources>

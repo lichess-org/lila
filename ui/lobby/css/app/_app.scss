@@ -30,7 +30,7 @@
     }
 
     @include if-transp {
-      background: $m-bg--fade-20;
+      background: rgb(from $c-bg r g b / calc(alpha * 0.8));
     }
 
     overflow-x: hidden;

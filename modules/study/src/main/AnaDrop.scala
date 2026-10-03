@@ -11,12 +11,11 @@ import lila.tree.Branch
 case class AnaDrop(
     role: chess.Role,
     pos: chess.Square,
-    fen: Fen.Full,
     path: UciPath,
     chapterId: Option[StudyChapterId]
 ) extends AnaAny:
 
-  def branch(variant: Variant): Either[ErrorStr, Branch] =
+  def branch(variant: Variant, fen: Fen.Full): Either[ErrorStr, Branch] =
     chess
       .Game(variant.some, fen.some)
       .drop(role, pos)
@@ -35,12 +34,10 @@ object AnaDrop:
       d <- o.obj("d")
       role <- d.str("role").flatMap(chess.Role.allByName.get)
       pos <- d.str("pos").flatMap(chess.Square.fromKey)
-      fen <- d.get[Fen.Full]("fen")
       path <- d.get[UciPath]("path")
     yield AnaDrop(
       role = role,
       pos = pos,
-      fen = fen,
       path = path,
       chapterId = d.get[StudyChapterId]("ch")
     )

@@ -13,8 +13,9 @@
   <string name="joinTeam">팀 가입</string>
   <string name="onlyLeaderLeavesTeam">탈퇴하기 전에 새 팀 운영자를 추가하거나, 팀을 폐쇄하세요.</string>
   <string name="quitTeam">팀 탈퇴</string>
-  <string name="manuallyReviewAdmissionRequests">수동으로 가입 요청을 검토합니다.</string>
+  <string name="manuallyReviewAdmissionRequests">수동으로 가입 요청 검토하기</string>
   <string name="manuallyReviewAdmissionRequestsHelp">체크한다면, 플레이어는 팀에 가입하기 위해 요청서를 작성해야 합니다. 당신은 이를 받아들이거나 거절할 수 있습니다.</string>
+  <string name="hideMembersDesc" comment="Checkbox label: option to hide the team member list from non-members">팀 멤버 목록을 멤버가 아닌 유저에게 숨깁니다.</string>
   <plurals name="teamLeaders">
     <item quantity="other">팀 운영자</item>
   </plurals>
@@ -27,17 +28,14 @@
   <string name="willBeReviewed">팀 운영자가 가입 요청을 검토할 것입니다.</string>
   <string name="beingReviewed">팀 운영자가 가입 요청을 검토하고 있습니다.</string>
   <string name="requestDeclined">당신의 가입 요청이 팀 리더에 의해 거절되었습니다.</string>
-  <string name="subToTeamMessages">팀 메시지 구독하기</string>
   <string name="teamBattle">팀 배틀</string>
   <string name="teamBattleOverview">각각의 플레이어가 팀의 점수를 올리는 여러 팀간의 대결</string>
   <string name="teamTournament">팀 토너먼트</string>
   <string name="teamTournamentOverview">팀원만 참가할 수 있는 아레나 토너먼트</string>
   <string name="swissTournamentOverview">팀원만 참가할 수 있는 스위스 토너먼트</string>
-  <string name="messageAllMembers">팀원 전원에게 메시지 보내기</string>
-  <string name="messageAllMembersOverview">팀원 전원에게 비밀 메시지 보내기</string>
-  <string name="messageAllMembersLongDescription">팀원 전원에게 비밀 메시지를 보냅니다.
-토너먼트나 팀 배틀에 참여하도록 플레이어를 초대하기 위해 사용할 수 있습니다. 
-메시지를 받기 싫어하는 팀원은 팀을 탈퇴할 수 있습니다.</string>
+  <string name="teamUpdates">팀 업데이트</string>
+  <string name="subToTeamUpdates">팀 업데이트 구독하기</string>
+  <string name="newTeamUpdate">새 팀 업데이트</string>
   <string name="teamsIlead">내가 이끄는 팀</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">곧 있을 다음 토너먼트들의 링크가 필요하신가요?</string>
   <string name="leadersChat">리더 채팅</string>
@@ -49,6 +47,9 @@
   <string name="entryCode">팀 가입 코드</string>
   <string name="entryCodeDescriptionForLeader">(선택 사항) 새 멤버가 가입하기 위해서는 코드를 반드시 알아야 합니다.</string>
   <string name="incorrectEntryCode">코드가 잘못되었습니다.</string>
+  <string name="forumLabel">팀 포럼</string>
+  <string name="forumVisibilityHelp">누가 팀 페이지에서 팀 포럼을 볼 수 있나요?&lt;br&gt;팀 멤버만이 팀 포럼에 글을 작성할 수 있습니다.</string>
+  <string name="forumVisibilityNone">포럼 숨기기</string>
   <string name="teamAlreadyExists">팀이 이미 존재합니다.</string>
   <string name="upcomingTournaments">다가오는 토너먼트</string>
   <string name="completedTourns">종료된 토너먼트</string>

@@ -25,7 +25,6 @@
   <string name="cantChangeMore">Kami tidak dapat mengubah kasus lebih dari ini. Untuk alasan teknis, itu benar-benar mustahil.</string>
   <string name="orCloseAccount">Namun, Anda dapat menutup akun Anda saat ini, dan membuat yang baru.</string>
   <string name="wantClearHistory">Saya ingin menghapus riwayat atau rating</string>
-  <string name="cantClearHistory">Sangat mustahil dapat menghapus riwayat permainan, riwayat teka-teki, atau rating Anda.</string>
   <string name="wantReport">Saya ingin melaporkan pemain</string>
   <string name="toReportAPlayerUseForm">Untuk melaporkan pemain, gunakan kolom lapor</string>
   <string name="youCanAlsoReachReportPage">Anda juga dapat mencapai halaman itu dengan mengeklik tombol laporan terkait %s pada halaman profil.</string>
@@ -52,7 +51,7 @@
   <string name="knightMate">Dimungkinkan untuk skakmat hanya dengan sebuah kuda atau sebuah gajah, jika lawan memiliki lebih dari satu raja di papan.</string>
   <string name="noRatingPoints">Tidak ada poin rating yang diberikan</string>
   <string name="ratedGame">Pastikan Anda memainkan permainan ber rating. Permainan santai tidak memengaruhi rating pemain.</string>
-  <string name="botRatingAbuse" comment="The original English text was changed in March 2026, from &quot;if it is determined&quot; to &quot;if we determine&quot;.">Dalam keadaan tertentu saat bermain melawan akun bot, sebuah game yang diberi peringkat mungkin tidak memberikan poin jika ditentukan bahwa pemain menyalahgunakan bot untuk poin peringkat.</string>
+  <string name="botRatingAbuse">Dalam keadaan tertentu saat bermain melawan akun bot, sebuah game yang diberi peringkat mungkin tidak memberikan poin jika ditentukan bahwa pemain menyalahgunakan bot untuk poin peringkat.</string>
   <string name="errorPage">Halaman bermasalah</string>
   <string name="reportErrorPage">Jika Anda menghadapi halaman bermasalah, Anda dapat melaporkannya:</string>
   <string name="banAppeal">Pertimbangan untuk larangan atau pembatasan IP</string>

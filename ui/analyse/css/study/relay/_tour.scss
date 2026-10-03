@@ -26,6 +26,7 @@
     &__header {
       @extend %flex-center-nowrap, %box-radius-top;
       @include prevent-select;
+      @include backdrop-blur-if-transparent;
 
       position: relative;
       overflow: hidden;
@@ -73,12 +74,11 @@
     }
 
     &__name {
-      @extend %nowrap-ellipsis;
-
       flex: 1;
       padding: 1em;
       gap: 0.7em;
       font-weight: bold;
+      line-height: 1.1em;
 
       &::before {
         @extend %data-icon;
@@ -90,10 +90,6 @@
 
       main.has-relay-tour &::before {
         content: $licon-RadioTower;
-      }
-
-      main.has-relay-tour & {
-        background: $c-bg-zebra;
       }
     }
 
@@ -131,7 +127,7 @@
 
         &:hover,
         &:hover::before {
-          background: $m-primary_font--mix-90;
+          background: color-mix(in oklab, $c-primary 90%, $c-font);
           color: white;
         }
       }
@@ -153,7 +149,7 @@
     }
 
     .streamer-menu {
-      @extend %flex-column, %dropdown-shadow, %box-radius-bottom;
+      @extend %flex-column, %popup-shadow, %box-radius-bottom;
 
       position: absolute;
       max-height: 12em;
@@ -181,7 +177,7 @@
       }
 
       &:hover {
-        background: $m-primary_bg--mix-30;
+        background: color-mix(in oklab, $c-primary 30%, $c-bg);
         color: $c-font-clearer;
         box-shadow: none !important;
       }
@@ -194,7 +190,7 @@
     padding-top: 1em;
     padding-bottom: 1em;
     margin: -1em 0;
-    background: $m-primary_bg--mix-10;
+    background: color-mix(in oklab, $c-primary 10%, $c-bg);
 
     strong {
       @extend %roboto;
@@ -203,7 +199,7 @@
     }
 
     &.ongoing {
-      background: $m-accent_bg--mix-10;
+      background: color-mix(in oklab, $c-accent 10%, $c-bg);
       color: $c-accent;
     }
   }
@@ -226,7 +222,7 @@
       > img {
         width: 100%;
 
-        @include broken-img(2 / 1);
+        @include broken-img(2);
       }
 
       .video-player-close {
@@ -613,6 +609,10 @@
           &.pinned {
             filter: none;
             transform: rotate(-45deg) translate(-2px, 2px);
+
+            &:hover {
+              transform: rotate(-25deg);
+            }
           }
         }
       }
@@ -667,7 +667,7 @@
       align-items: center;
       gap: 0.5em;
       background: $c-bg-zebra;
-      padding: 1em 1em;
+      padding: 1em;
 
       &.active span {
         color: $c-brag;
@@ -772,21 +772,6 @@
     }
   }
 
-  %game-link-styles {
-    @extend %flex-center-nowrap, %box-radius;
-
-    padding: 0.4em 0.5em;
-
-    @media (min-width: at-least($medium)) {
-      font-size: 1.6em;
-    }
-
-    &:hover {
-      background: $m-primary_bg--mix-20;
-      color: $c-font-clearer;
-    }
-  }
-
   .fide-players-table {
     .game-link {
       @extend %game-link-styles;
@@ -821,6 +806,7 @@
 
 .relay-games {
   @extend %flex-column, %box-radius-bottom, %box-shadow;
+  @include backdrop-blur-if-transparent;
 
   background: $c-bg-box;
   flex: 1 1 auto;
@@ -844,7 +830,7 @@
   border-left: 3px solid transparent;
 
   &:hover {
-    background: $m-primary_bg--mix-12;
+    background: color-mix(in oklab, $c-primary 12%, $c-bg);
     color: $c-font-clearer;
 
     .mini-game__flag {
@@ -855,7 +841,7 @@
   }
 
   &--current {
-    background: $m-primary_bg--mix-20;
+    background: color-mix(in oklab, $c-primary 20%, $c-bg);
     border-left-color: $c-primary;
   }
 

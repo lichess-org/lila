@@ -42,8 +42,8 @@ Zapłacimy również pracującemu na pełny etat programiście: %s, założyciel
   <string name="officialNonProfit">Czy Lichess jest oficjalną organizacją non-profit?</string>
   <string name="actOfCreation">Tak, oto akt utworzenia (w języku francuskim)</string>
   <string name="changeMonthlySupport">Czy mogę zmienić/anulować moje wsparcie miesięczne?</string>
-  <string name="changeOrContact">Tak - możesz to zrobić w każdej chwili na tej stronie.
-Możesz też w tej sprawie %s.</string>
+  <string name="changeSupport">Jeśli Twoje płatności są przetwarzane przez PayPal, możesz anulować/zmienić wsparcie za pośrednictwem własnego konta PayPal, lub możesz %1$s i możemy to zrobić dla Ciebie. Jeśli nie korzystałeś z PayPal, Twoje płatności są przetwarzane przez Stripe i anulujesz darowiznę lub zmień kwotę na %2$s.</string>
+  <string name="patronPage">strona patrona</string>
   <string name="contactSupport">skontaktować się z działem wsparcia Lichess</string>
   <string name="otherMethods">Inne metody wspierania?</string>
   <string name="lichessIsRegisteredWith">Lichess jest zarejestrowany w %s.</string>

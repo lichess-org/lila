@@ -9,7 +9,6 @@
     padding-right: $box-padding;
   }
 
-  .toggle-box,
   .flash {
     @extend %box-margin-horiz;
   }
@@ -30,6 +29,23 @@
   .tagify {
     margin: 0;
   }
+
+  .etiquette-and-image {
+    display: flex;
+    align-items: stretch;
+    gap: 2em;
+
+    @media (max-width: at-most($x-small)) {
+      flex-direction: column;
+    }
+
+    fieldset {
+      margin: 0;
+      padding: 2em;
+      min-width: 300px;
+      flex: auto;
+    }
+  }
 }
 
 #form3-markdown {
@@ -39,7 +55,28 @@
 .ublog-image-edit {
   @extend %image-preview-and-upload;
 
+  background: unset;
+  gap: 2em;
+
   img {
     width: 65%;
+  }
+
+  span {
+    flex: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: stretch;
+    gap: min(2em, 2vw);
+
+    @media (max-width: at-most($large)) and (min-width: at-least($x-small)) {
+      flex-direction: row;
+      align-items: end;
+    }
+
+    label {
+      font-size: 11px;
+    }
   }
 }

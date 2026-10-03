@@ -8,14 +8,17 @@ import {
   type Hooks,
   type Attrs,
   type Classes,
+  type JsxVNodeChildren,
   h as snabH,
+  jsx as snabbdomJsx,
   thunk,
 } from 'snabbdom';
 
+import type { LiconValue } from '@/licon';
 export type { Attrs, Hooks, Classes, VNode, VNodeData, VNodeChildElement, VNodeChildren };
 export type MaybeVNode = VNode | string | null | undefined;
 export type MaybeVNodes = MaybeVNode[];
-export { thunk };
+export { thunk, snabH };
 
 export function onInsert<A extends HTMLElement>(f: (element: A) => void): Hooks {
   return {
@@ -43,13 +46,22 @@ export function bind<K extends keyof GlobalEventHandlersEventMap>(
   );
 }
 
+export function bindClickAndFocus(f: (ev: MouseEvent) => void): Hooks {
+  return {
+    insert: vnode => {
+      bind('click', f).insert?.(vnode);
+      (vnode.elm as HTMLElement).focus();
+    },
+  };
+}
+
 export const bindNonPassive = <K extends keyof GlobalEventHandlersEventMap>(
   eventName: K,
   f: (ev: GlobalEventHandlersEventMap[K]) => any,
   redraw?: Redraw,
 ): Hooks => bind(eventName, f, redraw, false);
 
-export function bindSubmit(f: (e: SubmitEvent) => unknown, redraw?: () => void): Hooks {
+export function bindSubmit(f: (e: SubmitEvent) => void, redraw?: () => void): Hooks {
   return bind(
     'submit',
     e => {
@@ -61,23 +73,11 @@ export function bindSubmit(f: (e: SubmitEvent) => unknown, redraw?: () => void):
   );
 }
 
-export const dataIcon = (icon: LiconType): Attrs => ({
+export const dataIcon = (icon: LiconValue): Attrs => ({
   'data-icon': icon,
 });
 
 export const testId = (id: string): Attrs => (site.debug ? { 'data-testid': id } : {});
-
-export const iconTag = (icon: LiconType, attrs?: Attrs & { cls?: string }): VNode => {
-  let sel = 'icon';
-  if (attrs?.cls) {
-    sel += '.' + attrs.cls;
-    delete attrs.cls;
-  }
-  return snabH(sel, { attrs: { ...attrs, ...dataIcon(icon) } });
-};
-
-export const iconCls = (icon: LiconType, cls: string): VNode =>
-  snabH('icon.' + cls, { attrs: dataIcon(icon) });
 
 export type LooseVNode = VNodeChildElement | boolean;
 export type LooseVNodes = LooseVNode | LooseVNodes[];
@@ -122,3 +122,47 @@ export const requiresI18n = <Cat extends keyof I18n>(
   }
   return render(window.i18n[catalog]);
 };
+
+export function getEventTarget<T extends HTMLElement>(event: Event): T {
+  return event.target as T;
+}
+
+export function getEventTargetInputValue<T extends string>(event: Event): T {
+  return (event.target as HTMLInputElement).value as T;
+}
+
+export function jsx(tag: string, data: VNodeData | null, ...children: JsxVNodeChildren[]): VNode {
+  return snabbdomJsx(
+    tag,
+    data &&
+      Object.entries(data).reduce<VNodeData>((normalized, [name, value]) => {
+        if (name === 'attrs') {
+          normalized.attrs = { ...normalized.attrs, ...value };
+        } else if (['hook', 'key', 'on', 'props', 'style'].includes(name)) {
+          normalized[name] = value;
+        } else if (name === 'class') {
+          normalized.attrs = {
+            ...normalized.attrs,
+            class: Array.isArray(value) ? value.filter(Boolean).join(' ') : value,
+          };
+        } else {
+          normalized.attrs = { ...normalized.attrs, [name]: value };
+        }
+        return normalized;
+      }, {}),
+    ...children,
+  );
+}
+
+export namespace jsx {
+  export namespace JSX {
+    export type Element = VNode;
+    export type IntrinsicElements = Record<
+      string,
+      Omit<VNodeData, 'class'> & {
+        class?: Classes | string | (string | false | null | undefined)[];
+        [name: string]: any;
+      }
+    >;
+  }
+}

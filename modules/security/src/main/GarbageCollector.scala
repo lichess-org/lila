@@ -18,7 +18,7 @@ final class GarbageCollector(
     userRepo: lila.user.UserRepo
 )(using ec: Executor, scheduler: Scheduler):
 
-  private val logger = lila.security.logger.branch("GarbageCollector")
+  private lazy val logger = lila.log("security.GarbageCollector")
 
   private val justOnce = scalalib.cache.OnceEvery[UserId](1.hour)
 

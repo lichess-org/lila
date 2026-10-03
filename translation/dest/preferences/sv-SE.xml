@@ -16,7 +16,7 @@
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Zen-läge</string>
   <string name="showPlayerRatings">Visa spelarens rating</string>
   <string name="showFlairs">Visa spelarflairs</string>
-  <string name="explainShowPlayerRatings" comment="A site-wide setting: https://lichess.org/account/preferences/display&#10;&#10;This string used to say &quot;[...] hides all ratings from the website&quot;, but because people can access Lichess in other ways, it has been updated to say &quot;Hide all ratings from Lichess&quot;. Please update translations as needed.">Detta gör det möjligt att dölja all rating från webbplatsen, för att fokusera på schackspelet. Partiet kan fortfarande vara med rating, detta handlar bara om vad du får se.</string>
+  <string name="explainShowPlayerRatings">Detta gör det möjligt att dölja all rating från webbplatsen, för att fokusera på schackspelet. Partiet kan fortfarande vara med rating, detta handlar bara om vad du får se.</string>
   <string name="displayBoardResizeHandle">Visa handtag för att ändra brädets storlek</string>
   <string name="onlyOnInitialPosition">Endast vid ursprunglig position</string>
   <string name="inGameOnly">Endast i parti</string>
@@ -56,17 +56,18 @@
   <string name="scrollOnTheBoardToReplayMoves">Bläddra på tavlan för att spela upp rörelser</string>
   <string name="correspondenceEmailNotification">Daglig e-postavisering som listar dina korrespondensspel</string>
   <string name="notifyStreamStart">Strömmen går igång</string>
-  <string name="notifyInboxMsg">Nytt meddelande i inkorgen</string>
-  <string name="notifyForumMention">Forumkommentar nämner dig</string>
-  <string name="notifyInvitedStudy">Inbjudan till studier</string>
   <string name="notifyGameEvent">Korrespondensspelsuppdateringar</string>
   <string name="notifyChallenge">Utmaningar</string>
-  <string name="notifyTournamentSoon">Turneringen startar snart</string>
   <string name="notifyTimeAlarm">Korrespondensklockans tid tar slut</string>
-  <string name="notifyBell" comment="A notification setting - toggles a bell sound being played when a notification appears.&#10;&#10;This text used to say &quot;Bell notification within Lichess&quot;. The word &quot;bell&quot; can be removed, as it is obvious from the context.">Spela upp ett klockljud vid ny avisering</string>
+  <string name="notifyBell">Spela upp ett klockljud vid ny avisering</string>
   <string name="notifyPush">Enhetsnotifiering när du inte använder Lichess</string>
   <string name="notifyWeb">Webbläsare</string>
   <string name="notifyDevice">Enhet</string>
   <string name="bellNotificationSound">Klock-notisljud</string>
   <string name="blindfold" comment="As in Blindfold chess">I blindo</string>
+  <string name="generalSettings">Allmänt</string>
+  <string name="moveListSettings">Draglista</string>
+  <string name="boardSettings">Bräde</string>
+  <string name="analysisSettings">Analysinställningar</string>
+  <string name="hoverOverSettingLabelsForHelp">Håll muspekaren över inställningsetiketterna för hjälp</string>
 </resources>

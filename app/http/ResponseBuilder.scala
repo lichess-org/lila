@@ -11,7 +11,7 @@ import lila.ui.{ Page, Snippet }
 
 trait ResponseBuilder(using Executor)
     extends lila.web.ResponseBuilder
-    with lila.web.CtrlExtensions
+    with lila.web.CtrlGivens
     with RequestContext
     with CtrlPage:
 
@@ -28,6 +28,9 @@ trait ResponseBuilder(using Executor)
 
   def Found[A](a: Option[A])(f: A => Fu[Result])(using Context): Fu[Result] =
     a.fold(notFound)(f)
+
+  def Found(a: Fu[Boolean])(f: => Fu[Result])(using Context): Fu[Result] =
+    a.flatMap(if _ then f else notFound)
 
   def FoundOk[A, B: Writeable](fua: Fu[Option[A]])(op: A => Fu[B])(using Context): Fu[Result] =
     Found(fua): a =>
@@ -101,7 +104,7 @@ trait ResponseBuilder(using Executor)
             case Some(login) => s"${routes.Auth.login.url}?as=$login"
             case _ => routes.Auth.signup.url
       ),
-      json = env.security.lilaCookie.ensure(ctx.req):
+      json = env.security.lilaCookie.ensure:
         Unauthorized(jsonError("Login required"))
     )
 

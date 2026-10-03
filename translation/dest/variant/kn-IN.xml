@@ -1,2 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="standard">ಸ್ಟ್ಯಾಂಡರ್ಡ್</string>
+  <string name="standardTitle">ಚದುರಂಗದ ಪ್ರಮಾಣಿತ ನಿಯಮಗಳು (FIDE)</string>
+  <string name="chess960">ಚೆಸ್೯೬೦</string>
+  <string name="chess960Title">ಹೋಮ್ ರ‍್ಯಾಂಕ್ ತುಣುಕುಗಳ ಆರಂಭಿಕ ಸ್ಥಾನವನ್ನು ಯಾದೃಚ್ಛಿಕಗೊಳಿಸಲಾಗಿದೆ.</string>
+  <string name="kingOfTheHill">ಬೆಟ್ಟದ ರಾಜ</string>
+  <string name="kingOfTheHillTitle">ಪಂದ್ಯವನ್ನು ಗೆಲ್ಲಲು ನಿಮ್ಮ ರಾಜನನ್ನು ಮಧ್ಯಕ್ಕೆ ತನ್ನಿ.</string>
+  <string name="threeCheck">ತ್ರೀಚೆಕ್</string>
+  <string name="threeCheckTitle">ಪಂದ್ಯವನ್ನು ಗೆಲ್ಲಲು ನಿಮ್ಮ ಎದುರಾಳಿಯನ್ನು 3 ಬಾರಿ ಪರಿಶೀಲಿಸಿ.</string>
+</resources>

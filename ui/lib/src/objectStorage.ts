@@ -142,36 +142,6 @@ export function deleteObjectStorage(info: DbInfo): IDBOpenDBRequest | undefined 
     : undefined;
 }
 
-export async function nonEmptyStore(info: DbInfo): Promise<boolean> {
-  const dbName = info.db ?? info.store;
-  if (window.indexedDB.databases) {
-    const dbs = await window.indexedDB.databases();
-    if (dbs.every(db => db.name !== dbName)) return false;
-  }
-
-  return new Promise<boolean>(resolve => {
-    const request = window.indexedDB.open(dbName);
-
-    request.onerror = () => resolve(false);
-    request.onsuccess = (e: Event) => {
-      const db = (e.target as IDBOpenDBRequest).result;
-      if (!db.objectStoreNames.contains(info.store)) {
-        db.close();
-        resolve(false);
-      }
-      const cursorReq = db.transaction(info.store, 'readonly').objectStore(info.store).openCursor();
-      cursorReq.onsuccess = () => {
-        db.close();
-        resolve(Boolean(cursorReq.result));
-      };
-      cursorReq.onerror = () => {
-        db.close();
-        resolve(false);
-      };
-    };
-  });
-}
-
 export interface DbInfo {
   /** name of the object store */
   store: string;

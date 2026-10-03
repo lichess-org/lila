@@ -26,15 +26,15 @@ export default class GamebookPlayCtrl {
   }
 
   private readonly makeState = (): void => {
-    const node = this.root.node,
-      nodeComment = (node.comments || [])[0],
-      state: Partial<State> = {
-        init: this.root.path === '',
-        comment: nodeComment ? nodeComment.text : undefined,
-        showHint: false,
-      },
-      parPath = treePath.init(this.root.path),
-      parNode = this.root.tree.nodeAtPath(parPath);
+    const node = this.root.node;
+    const nodeComment = (node.comments || [])[0];
+    const state: Partial<State> = {
+      init: this.root.path === '',
+      comment: nodeComment ? nodeComment.text : undefined,
+      showHint: false,
+    };
+    const parPath = treePath.init(this.root.path);
+    const parNode = this.root.tree.nodeAtPath(parPath);
     if (
       (this.root.onMainline && !node.children[0]) ||
       (!this.root.onMainline && !this.root.tree.pathIsMainline(parPath))
@@ -42,7 +42,7 @@ export default class GamebookPlayCtrl {
       state.feedback = 'end';
     else if (this.isMyMove()) {
       state.feedback = 'play';
-      state.hint = (node.gamebook || {}).hint;
+      state.hint = node.gamebook?.hint;
     } else if (this.root.onMainline) state.feedback = 'good';
     else {
       state.feedback = 'bad';
@@ -99,7 +99,7 @@ export default class GamebookPlayCtrl {
 
   solution = () => {
     this.root.chessground.setShapes(
-      makeShapesFromUci(this.root.turnColor(), this.root.node.children[0].uci!, 'green'),
+      makeShapesFromUci(this.root.turnColor(), this.root.node.children[0].uci, 'green'),
     );
   };
 
@@ -113,7 +113,7 @@ export default class GamebookPlayCtrl {
 
   onShapeChange = (shapes: Shape[]) => {
     const node = this.root.node;
-    if (node.gamebook && node.gamebook.shapes && !shapes.length) {
+    if (node.gamebook?.shapes && !shapes.length) {
       node.shapes = node.gamebook.shapes.slice(0);
       this.root.jump(this.root.path);
     }

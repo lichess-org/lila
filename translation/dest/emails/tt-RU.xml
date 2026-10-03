@@ -14,7 +14,6 @@
 Сезнең профиль сәхифәгез: %1$s. Сез аны монда үзгәртә аласыз: %2$s.
 Уеныгыз күңелле булсын, һәм фигураларыгызга җиңу юлы гел ачык булсын!</string>
   <string name="logInToLichess">%s, lichess.org сайтына керү</string>
-  <string name="common_orPaste">(Сылтама басылмый? Браузерның адрес панеленә күчереп карагыз!)</string>
   <string name="common_note">Бу - сезнең %s кулланыуна бәйле булган хезмәтле хат.</string>
   <string name="common_contact">Безнең белән бәйләнеш өчен: %s.</string>
 </resources>

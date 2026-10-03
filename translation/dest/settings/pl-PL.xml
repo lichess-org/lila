@@ -3,8 +3,16 @@
   <string name="settings">Ustawienia</string>
   <string name="closeAccount">Zamknij konto</string>
   <string name="managedAccountCannotBeClosed">Twoim kontem zarządza nauczyciel, nie możesz go zamknąć.</string>
-  <string name="cantOpenSimilarAccount" comment="Please note this string was simplified in January 2025. Before this, it used to state &quot;You will not be allowed to open a new account with the same name, even if the case is different.&quot; Please update existing translations as required.">Nie będzie można otworzyć nowego konta z tą samą nazwą, nawet jeśli wielkość liter będzie inna.</string>
+  <string name="cantOpenSimilarAccount">Nie będzie można otworzyć nowego konta z tą samą nazwą, nawet jeśli wielkość liter będzie inna.</string>
   <string name="cancelKeepAccount">Anuluj i zachowaj moje konto</string>
   <string name="closeAccountAreYouSure">Czy na pewno chcesz zamknąć swoje konto?</string>
-  <string name="thisAccountIsClosed" comment="Appears on mouseover for a user profile (account) which has been closed.&#10;&#10;This should be in the passive voice. It is typically the player's choice to close their own account, but it is could instead be Lichess moderators who closed the account.">Konto zostało zamknięte.</string>
+  <string name="thisAccountIsClosed">Konto zostało zamknięte.</string>
+  <string name="wereSorryToSeeYouGo">​​Przykro nam, że nas opuszczasz.</string>
+  <string name="closeAccountForeverLabel">Zamknij na zawsze: uniemożliwiając ponowne otwarcie</string>
+  <string name="closeAccountForeverWarning">Zablokuj możliwość ponownego otwarcia konta w przyszłości. Jeśli zaznaczysz to pole, nawet administratorzy nie będą mogli ponownie otworzyć Twojego konta na Twoje żądanie.</string>
+  <string name="deleteYourAccount">Usuń swoje konto</string>
+  <string name="deleteAccountWarning">Kiedy usuniesz swoje konto, zostanie ono usunięte z Lichessa i nasi administratorzy nie będą mogli go dla Ciebie przywrócić.</string>
+  <string name="wouldYouLikeToXInstead" comment="%s is close your account">Czy chcesz zamiast tego %s?</string>
+  <string name="closeYourAccount">zamknąć swoje konto</string>
+  <string name="deleteAccountConfirmText">Rozumiem, że usunięte konta nie są możliwe do odzyskania</string>
 </resources>

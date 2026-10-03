@@ -2,7 +2,7 @@ package lila.mailer
 
 final private class MailerCli(mailer: Mailer):
 
-  lila.common.Cli.handle:
+  lila.common.Cli.handle():
     case "test-email" :: clientName :: address :: Nil =>
       EmailAddress.from(address) match
         case None => fuccess(s"Invalid email address: $address")

@@ -8,15 +8,20 @@
 
 .slist td {
   vertical-align: middle;
-}
 
-.slist td .lb__trophy {
-  display: inline-block;
-  vertical-align: middle;
-  margin-right: 6px;
-  margin-left: -4px;
-  overflow: visible;
-  line-height: 0;
+  .lb__trophy {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 6px;
+    margin-left: -4px;
+    overflow: visible;
+    line-height: 0;
+  }
+
+  .lb__rank-num {
+    display: inline-block;
+    vertical-align: middle;
+  }
 }
 
 .slist .lb__trophy img {
@@ -26,11 +31,6 @@
   vertical-align: middle;
   transform: scale(1.6) translateY(-2px);
   transform-origin: left center;
-}
-
-.slist td .lb__rank-num {
-  display: inline-block;
-  vertical-align: middle;
 }
 
 .pager__label {

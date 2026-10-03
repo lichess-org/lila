@@ -41,14 +41,16 @@ export function makeCarousel({ selector, itemWidth, pauseFor, slideFor = 0.6 }: 
           fix(false);
         }, slideFor * 1000);
       };
-      $(el).on('click', '.carousel__prev', () => {
-        track.prepend(track.lastChild!);
-        fix();
-      });
-      $(el).on('click', '.carousel__next', () => {
-        track.append(track.firstChild!);
-        fix();
-      });
+      $(el)
+        .off('click.carousel')
+        .on('click.carousel', '.carousel__prev', () => {
+          track.prepend(track.lastChild!);
+          fix();
+        })
+        .on('click.carousel', '.carousel__next', () => {
+          track.append(track.firstChild!);
+          fix();
+        });
       const fix = (killTimer = true) => {
         kids.forEach(k => (k.style.transition = ''));
         kids.forEach(k => (k.style.transform = ''));

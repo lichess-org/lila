@@ -18,7 +18,7 @@ final class Env(
 
   def getSinglePvEval: lila.tree.CloudEval.GetSinglePvEval = api.getSinglePvEval
 
-  lila.common.Cli.handle:
+  lila.common.Cli.handle():
     case "eval-cache" :: "drop" :: variantKey :: fenParts =>
       Variant(Variant.LilaKey(variantKey)).fold(fufail("Invalid variant")): variant =>
         api

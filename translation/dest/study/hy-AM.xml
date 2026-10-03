@@ -61,7 +61,6 @@
   <string name="downloadGame">Ներբեռնել պարտիան</string>
   <string name="studyUrl">Ստուդիայի հղումը</string>
   <string name="currentChapterUrl">Այս գլխի հղումը</string>
-  <string name="youCanPasteThisInTheForumToEmbed">Ֆորումում կամ Lichess-ի բլոգում ներդնելու համար տեղադրեք այս կոդը</string>
   <string name="startAtInitialPosition">Բացել սկզբնական դիրքում</string>
   <string name="startAtX">Սկսել %s-ից</string>
   <string name="embedInYourWebsite">Ներդնել սեփական կայքում կամ բլոգում</string>

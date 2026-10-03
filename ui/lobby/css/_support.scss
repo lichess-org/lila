@@ -1,22 +1,20 @@
-$c-support: $c-brag;
+.lobby__support-link {
+  @extend %flex-center-nowrap, %box-neat;
 
-.lobby__support {
-  a {
-    @extend %flex-center-nowrap, %box-neat;
+  display: none;
+  margin-bottom: $block-gap;
+  background: $c-bg-box;
+  font-size: 1.3em;
+  padding: 0.5em;
 
-    background: $c-bg-box;
-    font-size: 1.3em;
-    padding: 0.2em 0.5em;
+  @include transition(background);
 
-    @include transition(background);
+  &:hover {
+    background: $c-accent-glass;
 
-    &:hover {
-      background: $c-support;
-    }
-
-    &:hover .lobby__support__text,
-    &:hover icon::before {
-      color: #fff;
+    .lobby__support-link__text,
+    icon::before {
+      color: $c-brag-hover;
     }
   }
 
@@ -26,7 +24,7 @@ $c-support: $c-brag;
 
     &::before {
       margin-inline-end: 0.15em;
-      color: $c-support;
+      color: $c-brag;
       font-size: 2.6em;
 
       @include transition(color);
@@ -35,7 +33,7 @@ $c-support: $c-brag;
 
   &__text {
     flex: 1 1 auto;
-    color: $c-support;
+    color: $c-brag;
 
     @include transition(color);
 
@@ -51,4 +49,10 @@ $c-support: $c-brag;
       font-size: 0.8em;
     }
   }
+}
+
+.lobby__support a {
+  display: flex;
+  padding: 0.2em 0.5em;
+  margin: 0;
 }

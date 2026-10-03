@@ -26,7 +26,7 @@
     padding: 0.5em 0.7em 0.5em 1.5em;
 
     &:hover {
-      background: $m-primary_bg--mix-10;
+      background: color-mix(in oklab, $c-primary 10%, $c-bg);
     }
 
     &.opening-mine {
@@ -34,7 +34,7 @@
       font-weight: bold;
 
       &:hover {
-        background: $m-brag_bg--mix-20;
+        background: color-mix(in oklab, $c-brag 20%, $c-bg);
       }
     }
 

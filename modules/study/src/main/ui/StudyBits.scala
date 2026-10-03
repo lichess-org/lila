@@ -4,8 +4,7 @@ package ui
 import lila.common.String.removeMultibyteSymbols
 import lila.core.study.StudyOrder
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class StudyBits(helpers: Helpers):
   import helpers.{ *, given }
@@ -32,10 +31,7 @@ final class StudyBits(helpers: Helpers):
       )
     )
 
-  def authLinks(
-      activeCls: StudyGroup => AttrPair,
-      order: StudyGroup => StudyOrder
-  )(using Context) =
+  def authLinks(activeCls: StudyGroup => AttrPair, order: StudyGroup => StudyOrder)(using Context) =
     frag(
       a(activeCls(StudyGroup.mine), href := routes.Study.mine(order(StudyGroup.mine)))(
         trans.study.myStudies()

@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichobileNewAppAvailable" comment="Part of a message sent to users of the old mobile app (https://github.com/lichess-org/lichobile).">Ứng dụng Lichess dành cho điện thoại đã có phiên bản mới!</string>
-  <string name="lichobileNewAppDownload" comment="%s links to https://lichess.org/app&#10;&#10;Part of a message sent to users of the old mobile app (https://github.com/lichess-org/lichobile).">Vui lòng tải xuống ứng dụng Lichess chính thức mới tại %s.</string>
+  <string name="lichobileNewAppAvailable">Ứng dụng Lichess dành cho điện thoại đã có phiên bản mới!</string>
+  <string name="lichobileNewAppDownload" comment="The parameter links to https://lichess.org/app">Vui lòng tải xuống ứng dụng Lichess chính thức mới tại %s.</string>
+  <string name="modActionFeedback">Chào bạn,
+
+Chúng tôi đã xem xét báo cáo gần đây của bạn và đã có hành động cần thiết. Mặc dù chúng tôi không thể chia sẻ chi tiết về các hành động đã thực hiện, nhưng chúng tôi đánh giá cao báo cáo của bạn.
+
+Cảm ơn bạn đã giúp giữ cho Lichess là một nơi tuyệt vời cho tất cả mọi người.</string>
 </resources>

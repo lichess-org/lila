@@ -5,8 +5,7 @@ import scalalib.paginator.Paginator
 
 import lila.core.i18n.Translate
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class UserTournament(helpers: Helpers, ui: TournamentUi):
   import helpers.{ *, given }
@@ -83,7 +82,7 @@ final class UserTournament(helpers: Helpers, ui: TournamentUi):
     page(u, title = s"${u.username} • ${trans.arena.tournamentStats.txt()}", path = "chart"):
       div(cls := "tournament-stats")(
         boxTop(h1(frag(userLink(u, withOnline = true), " • ", trans.arena.tournamentStats()))),
-        p(cls := "box__pad")(trans.arena.rankAvgHelp()),
+        p(cls := "box__pad")(trans.arena.rankAverageHelp()),
         p(cls := "box__pad")(
           trans.arena.allAveragesAreX:
             a(href := "https://www.dictionary.com/e/average-vs-mean-vs-median-vs-mode")(trans.arena.medians())

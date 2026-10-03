@@ -37,8 +37,20 @@ final class CrudApi(tournamentRepo: TournamentRepo, tourApi: TournamentApi, crud
         collection = tournamentRepo.coll,
         selector = tournamentRepo.selectUnique,
         projection = none,
-        sort = $doc("startsAt" -> -1)
+        sort = bdoc("startsAt" -> -1)
       ),
       currentPage = page,
       maxPerPage = MaxPerPage(20)
+    )
+
+  def between(from: Instant, to: Instant, page: Int)(using Executor) =
+    Paginator[Tournament](
+      adapter = new Adapter[Tournament](
+        collection = tournamentRepo.coll,
+        selector = tournamentRepo.selectUnique ++ "startsAt".inRange(from, to),
+        projection = none,
+        sort = sort.asc("startsAt")
+      ),
+      currentPage = page,
+      maxPerPage = MaxPerPage(50)
     )

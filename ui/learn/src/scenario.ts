@@ -38,7 +38,7 @@ export default function (blueprint: ScenarioLevel | undefined, opts: ScenarioOpt
 
   const opponent = () => {
     const step = steps[it];
-    if (!step) return;
+    if (!step) return undefined;
     const move = decomposeUci(step.move);
     const res = opts.chess.move(move[0], move[1], move[2]);
     if (!res) return fail();

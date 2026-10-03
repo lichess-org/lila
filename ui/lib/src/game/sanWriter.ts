@@ -18,10 +18,10 @@ export function square(name: string): Square {
 }
 
 export function squareDist(a: number, b: number): number {
-  const x1 = a & 7,
-    x2 = b & 7;
-  const y1 = a >> 3,
-    y2 = b >> 3;
+  const x1 = a & 7;
+  const x2 = b & 7;
+  const y1 = a >> 3;
+  const y2 = b >> 3;
   return Math.max(Math.abs(x1 - x2), Math.abs(y1 - y2));
 }
 
@@ -30,11 +30,11 @@ function isBlack(p: string) {
 }
 
 export function readFen(fen: string): Board {
-  const parts = fen.split(' '),
-    board: Board = {
-      pieces: {},
-      turn: parts[1] === 'w',
-    };
+  const parts = fen.split(' ');
+  const board: Board = {
+    pieces: {},
+    turn: parts[1] === 'w',
+  };
 
   parts[0]
     .split('/')
@@ -90,7 +90,7 @@ function slidingMovesTo(s: number, deltas: number[], board: Board): number[] {
  * but lacks the check/checkmate flag,
  * and probably has incomplete disambiguation.
  * But it's quick. */
-export function almostSanOf(board: Board, uci: string, legalUcis?: Set<Uci> | undefined): AlmostSan {
+export function almostSanOf(board: Board, uci: string, legalUcis?: Set<Uci>): AlmostSan {
   if (uci.includes('@')) return fixCrazySan(uci);
 
   const move = decomposeUci(uci);
@@ -125,8 +125,8 @@ export function almostSanOf(board: Board, uci: string, legalUcis?: Set<Uci> | un
   else if (pt === 'b') candidates = slidingMovesTo(to, BISHOP_DELTAS, board);
   else if (pt === 'q') candidates = slidingMovesTo(to, QUEEN_DELTAS, board);
 
-  let rank = false,
-    file = false;
+  let rank = false;
+  let file = false;
   for (let i = 0; i < candidates.length; i++) {
     if (candidates[i] === from || board.pieces[candidates[i]] !== p) continue;
     if (legalUcis && !legalUcis.has(makeSquare(candidates[i]) + move[1])) continue;
@@ -181,8 +181,8 @@ export const sanToWords = (san: string): string =>
     .replace('O - O - O', i18n.nvui.sanLongCastling)
     .replace('O - O', i18n.nvui.sanShortCastling);
 
-const transRole = (role: Role): string =>
-  (i18n.nvui[role as keyof typeof i18n.nvui] as string) || (role as string);
+export const transRole = (role: Role): string =>
+  (i18n.nvui[role as keyof typeof i18n.nvui] as string) || role;
 
 export function speakable(san?: San): string {
   return !san

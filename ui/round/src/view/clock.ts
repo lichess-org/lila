@@ -8,7 +8,7 @@ import {
   type TournamentRanks,
 } from 'lib/game';
 import { renderClock } from 'lib/game/clock/clockView';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { type LooseVNode, hl, bind, dataIcon } from 'lib/view';
 
 import renderCorresClock from '../corresClock/corresClockView';
@@ -34,14 +34,14 @@ const onTheSide = (round: RoundController) => (color: Color, position: TopOrBott
 
 function whosTurn(ctrl: RoundController, color: Color, position: TopOrBottom) {
   const d = ctrl.data;
-  if (finished(d) || aborted(d)) return;
+  if (finished(d) || aborted(d)) return undefined;
   return hl(
     'div.rclock.rclock-turn.rclock-' + position,
     d.game.player === color &&
       hl(
         'div.rclock-turn__text',
         d.player.spectator
-          ? i18n.site[d.game.player === 'white' ? 'whitePlays' : 'blackPlays']
+          ? i18n.site[`${d.game.player}Plays`]
           : i18n.site[d.game.player === d.player.color ? 'yourTurn' : 'waitingForOpponent'],
       ),
   );

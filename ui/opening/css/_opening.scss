@@ -16,7 +16,7 @@
   }
 
   &__beta {
-    @extend %box-radius;
+    @extend %box-bordered;
 
     display: inline-block;
     vertical-align: text-top;
@@ -27,18 +27,18 @@
   }
 
   &__warning {
-    @extend %box-neat;
+    @extend %box-bordered;
 
-    background: $m-brag_bg--mix-20;
-    border: 1px solid $c-brag;
+    background: color-mix(in oklab, $c-brag 20%, $c-bg);
+    border-color: color-mix(in oklab, $c-brag 35%, $c-bg);
     padding: 1em 2em;
   }
 
   &__error {
-    @extend %box-neat;
+    @extend %box-bordered;
 
-    background: $m-bad_bg--mix-20;
-    border: 1px solid $c-error;
+    background: color-mix(in oklab, $c-bad 20%, $c-bg);
+    border-color: color-mix(in oklab, $c-bad 35%, $c-bg);
     padding: 1em 2em;
   }
 

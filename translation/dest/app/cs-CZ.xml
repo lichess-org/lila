@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="lichessMobileApp">Mobilní aplikace Lichess</string>
+  <string name="returningToApp" comment="Displayed on interstitial page that automatically opens the Lichess app">Probíhá návrat do aplikace Lichess</string>
+  <string name="ifAppDoesNotOpenAutomatically">Pokud se aplikace neotevře automaticky, klepněte na tlačítko „%s“.</string>
+  <string name="openTheApp" comment="Button text to open the Lichess app on the device">Otevřít aplikaci Lichess</string>
+  <string name="viewAllReleases" comment="To view a list of all mobile app releases on Github">Zobrazit %s na GitHubu</string>
+  <string name="allReleases">všechny verze</string>
+  <string name="downloadOnAppleAppStore">Stáhnout v Apple App Store</string>
+  <string name="downloadOnGooglePlay">Stáhnout na Google Play</string>
+  <string name="downloadOnFdroid">Stáhnout na F-Droid</string>
+  <string name="lichessMobileScreen" comment="Alt text for screenshot of the Lichess mobile app">Mobilní obrazovka Lichess</string>
+</resources>

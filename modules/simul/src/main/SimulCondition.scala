@@ -1,6 +1,5 @@
 package lila.simul
 
-import lila.core.LightUser.Me
 import lila.core.team.LightTeam
 import lila.core.user.UserApi
 import lila.gathering.Condition.*

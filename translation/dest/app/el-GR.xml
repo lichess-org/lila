@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="lichessMobileApp">Εφαρμογή Lichess για κινητά</string>
+  <string name="returningToApp" comment="Displayed on interstitial page that automatically opens the Lichess app">Επιστροφή στην εφαρμογή Lichess</string>
+  <string name="ifAppDoesNotOpenAutomatically">Εάν η εφαρμογή δεν ανοίξει αυτόματα, πατήστε το κουμπί \"%s\".</string>
+  <string name="openTheApp" comment="Button text to open the Lichess app on the device">Άνοιγμα της εφαρμογής Lichess</string>
+  <string name="viewAllReleases" comment="To view a list of all mobile app releases on Github">Δείτε %s στο Github</string>
+  <string name="allReleases">όλες τις εκδόσεις</string>
+  <string name="downloadOnAppleAppStore">Κατεβάστε την στο Apple App Store</string>
+  <string name="downloadOnGooglePlay">Κατεβάστε την στο Google Play</string>
+  <string name="downloadOnFdroid">Κατεβάστε την στο F-Droid</string>
+  <string name="lichessMobileScreen" comment="Alt text for screenshot of the Lichess mobile app">Προεπισκόπηση της εφαρμογής του Lichess</string>
+</resources>

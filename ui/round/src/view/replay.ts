@@ -1,10 +1,10 @@
 import { blurIfPrimaryClick, repeater } from 'lib';
 import { throttle } from 'lib/async';
 import { displayColumns } from 'lib/device';
-import { finished, aborted, userAnalysable, playable } from 'lib/game';
+import { finished, aborted, userAnalysable, playable, capitalize } from 'lib/game';
 import { game as gameRoute } from 'lib/game/router';
 import viewStatus from 'lib/game/view/status';
-import * as licon from 'lib/licon';
+import { licon, type LiconKey } from 'lib/licon';
 import { addPointerListeners } from 'lib/pointer';
 import {
   toggleButton as boardMenuToggleButton,
@@ -21,13 +21,13 @@ import type { Step } from '../interfaces';
 import * as util from '../util';
 import boardMenu from './boardMenu';
 
-const scrollMax = 99999,
-  moveTag = 'kwdb',
-  indexTag = 'i5z',
-  indexTagUC = indexTag.toUpperCase(),
-  movesTag = 'l4x',
-  rmovesTag = 'rm6',
-  rbuttonsTag = 'rb1';
+const scrollMax = 99999;
+const moveTag = 'Z7yx';
+const indexTag = 'qZM';
+const indexTagUC = indexTag.toUpperCase();
+const movesTag = 'aPp';
+const rmovesTag = 'i5d';
+const rbuttonsTag = 'bo3';
 
 const autoScroll = throttle(100, (movesEl: HTMLElement, ctrl: RoundController) =>
   window.requestAnimationFrame(() => {
@@ -93,11 +93,12 @@ export function renderResult(ctrl: RoundController): VNode | undefined {
 }
 
 function renderMoves(ctrl: RoundController): LooseVNodes {
-  const steps = ctrl.data.steps,
-    firstPly = util.firstPly(ctrl.data),
-    lastPly = util.lastPly(ctrl.data),
-    indexOffset = Math.trunc(firstPly / 2) + 1,
-    drawPlies = new Set(ctrl.data.game.drawOffers || []);
+  const pending = ctrl.pendingStep();
+  const steps = pending ? [...ctrl.data.steps, pending] : ctrl.data.steps;
+  const firstPly = util.firstPly(ctrl.data);
+  const lastPly = util.lastPly(ctrl.data);
+  const indexOffset = Math.trunc(firstPly / 2) + 1;
+  const drawPlies = new Set(ctrl.data.game.drawOffers || []);
 
   if (typeof lastPly === 'undefined') return [];
 
@@ -109,12 +110,14 @@ function renderMoves(ctrl: RoundController): LooseVNodes {
   }
   for (let i = startAt; i < steps.length; i += 2) pairs.push([steps[i], steps[i + 1]]);
 
-  const els: LooseVNodes = [],
-    curPly = ctrl.ply;
+  const els: LooseVNodes = [];
+  const curPly = pending ? pending.ply : ctrl.ply;
   for (let i = 0; i < pairs.length; i++) {
-    els.push(hl(indexTag, i + indexOffset + ''));
-    els.push(renderMove(pairs[i][0], curPly, true, drawPlies));
-    els.push(renderMove(pairs[i][1], curPly, false, drawPlies));
+    els.push(
+      hl(indexTag, i + indexOffset),
+      renderMove(pairs[i][0], curPly, true, drawPlies),
+      renderMove(pairs[i][1], curPly, false, drawPlies),
+    );
   }
   els.push(renderResult(ctrl));
 
@@ -154,20 +157,20 @@ const goThroughMoves = (ctrl: RoundController, e: Event) => {
 };
 
 function renderButtons(ctrl: RoundController) {
-  const firstPly = util.firstPly(ctrl.data),
-    lastPly = util.lastPly(ctrl.data);
+  const firstPly = util.firstPly(ctrl.data);
+  const lastPly = util.lastPly(ctrl.data);
   return hl(rbuttonsTag, [
     analysisButton(ctrl) || hl('div.noop'),
     [
-      [licon.JumpFirst, firstPly],
-      [licon.JumpPrev, ctrl.ply - 1],
-      [licon.JumpNext, ctrl.ply + 1],
-      [licon.JumpLast, lastPly],
-    ].map((b: [string, number], i) => {
+      ['JumpFirst', firstPly],
+      ['JumpPrev', ctrl.ply - 1],
+      ['JumpNext', ctrl.ply + 1],
+      ['JumpLast', lastPly],
+    ].map((b: [LiconKey, number], i) => {
       const enabled = ctrl.ply !== b[1] && b[1] >= firstPly && b[1] <= lastPly;
       return hl('button.fbt.repeatable', {
         class: { glowing: i === 3 && ctrl.isLate() },
-        attrs: { disabled: !enabled, 'data-icon': b[0], 'data-ply': enabled ? b[1] : '-' },
+        attrs: { disabled: !enabled, 'data-icon': licon[b[0]], 'data-ply': enabled ? b[1] : '-' },
         hook: onInsert(el =>
           addPointerListeners(el, {
             click: e => {
@@ -192,7 +195,7 @@ function initMessage(ctrl: RoundController) {
     !d.player.spectator &&
     hl('div.message', { attrs: dataIcon(licon.InfoCircle) }, [
       hl('div', [
-        i18n.site[d.player.color === 'white' ? 'youPlayTheWhitePieces' : 'youPlayTheBlackPieces'],
+        i18n.site[`youPlayThe${capitalize(ctrl.data.player.color)}Pieces`],
         d.player.color === 'white' && [hl('br'), hl('strong', i18n.site.itsYourTurn)],
       ]),
     ])
@@ -201,44 +204,44 @@ function initMessage(ctrl: RoundController) {
 
 const col1Button = (ctrl: RoundController, dir: number, icon: string, disabled: boolean) =>
   hl('button.fbt', {
-    attrs: { disabled: disabled, 'data-icon': icon, 'data-ply': ctrl.ply + dir },
+    attrs: { disabled, 'data-icon': icon, 'data-ply': ctrl.ply + dir },
     hook: onInsert(el => addPointerListeners(el, { click: e => goThroughMoves(ctrl, e), hold: 'click' })),
   });
 
 export function render(ctrl: RoundController): LooseVNode {
-  const d = ctrl.data,
-    moves =
-      ctrl.replayEnabledByPref() &&
-      hl(
-        movesTag,
-        {
-          hook: onInsert(el => {
-            el.addEventListener('mousedown', e => {
-              let node = e.target as HTMLElement,
-                offset = -2;
-              if (node.tagName !== moveTag.toUpperCase()) return;
-              while ((node = node.previousSibling as HTMLElement)) {
-                offset++;
-                if (node.tagName === indexTagUC) {
-                  if (ctrl.toSubmit) ctrl.submitMove(false);
-                  ctrl.userJump(2 * parseInt(node.textContent || '') + offset);
-                  ctrl.redraw();
-                  break;
-                }
+  const d = ctrl.data;
+  const moves =
+    ctrl.replayEnabledByPref() &&
+    hl(
+      movesTag,
+      {
+        hook: onInsert(el => {
+          el.addEventListener('mousedown', e => {
+            let node = e.target as HTMLElement;
+            let offset = -2;
+            if (node.tagName !== moveTag.toUpperCase()) return;
+            while ((node = node.previousSibling as HTMLElement)) {
+              offset++;
+              if (node.tagName === indexTagUC) {
+                if (ctrl.toSubmit) ctrl.submitMove(false);
+                ctrl.userJump(2 * parseInt(node.textContent || '') + offset);
+                ctrl.redraw();
+                break;
               }
-            });
-            ctrl.autoScroll = () => autoScroll(el, ctrl);
-            if (ctrl.ply > 2) {
-              ctrl.autoScroll();
-              if (displayColumns() === 1) ctrl.autoScroll();
-              /* On a phone, the first `autoScroll()` sometimes doesn't fully show the current move. It's possible this
+            }
+          });
+          ctrl.autoScroll = () => autoScroll(el, ctrl);
+          if (ctrl.ply > 2) {
+            ctrl.autoScroll();
+            if (displayColumns() === 1) ctrl.autoScroll();
+            /* On a phone, the first `autoScroll()` sometimes doesn't fully show the current move. It's possible this
                is due to some needed data not loading in time. The second `autoScroll()` fixes the issue, since the throttle
                ensures a min wait of 100ms. */
-            }
-          }),
-        },
-        renderMoves(ctrl),
-      );
+          }
+        }),
+      },
+      renderMoves(ctrl),
+    );
   const renderMovesOrResult = moves ? moves : renderResult(ctrl);
   return (
     !ctrl.nvui &&

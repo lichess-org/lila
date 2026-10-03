@@ -22,6 +22,7 @@
   <string name="bodenMate">Boden ŝakmato</string>
   <string name="bodenMateDescription">Du kontraŭaj kurieroj sur interkruciĝantaj diagonaloj liveras maton al reĝo ĉirkaŭbarita per amikaj ŝakpecoj.</string>
   <string name="castling">Aroko</string>
+  <string name="enPassant">Preterpasa kapto</string>
   <string name="castlingDescription">Alportu la reĝo en sekurecon, kaj lanĉu la turon por atako.</string>
   <string name="capturingDefender">Kapti la defendanton</string>
   <string name="capturingDefenderDescription">Forprenu ŝakpecon, kiu estas grava por defendo de alia ŝakpeco, ebligante la kapto de la nun nedefendata ŝakpeco dum sekva movo.</string>
@@ -47,15 +48,12 @@
   <string name="doubleCheckDescription">Ŝakanta per du ŝakpecoj samtempe, kiel rezulto de malkovrita atako, kie kaj la moviĝa ŝakpeco kaj la malvualita ŝakpeco ataki la reĝo de la kontraŭulo.</string>
   <string name="endgame">Finaĵo</string>
   <string name="endgameDescription">Taktiko dum la lasta fazo de la ludo.</string>
-  <string name="enPassantDescription">Taktiko kiu temas pri la preterpasa prena regulo, per kiu soldato povas kapti kontraŭan soldaton kiu preterpasis ĝin dum sia komenca du-ĉela movo.</string>
   <string name="exposedKing">Neprotektita reĝo</string>
   <string name="exposedKingDescription">Taktiko temas pri reĝo kun iometaj defendantoj ĉirkaŭ ĝin, ofte kondukanta al ŝakmato.</string>
   <string name="fork">Forko</string>
-  <string name="forkDescription">Movo, kie la movita ŝakpeco atakas du kontraŭajn ŝakpecojn samtempe.</string>
   <string name="hangingPiece">Pendanta ŝakpeco</string>
   <string name="hangingPieceDescription">Taktiko temas pri kontraŭa ŝakpeco, kiu estas nedefendita aŭ malsufiĉe defendita kaj libera por kapti.</string>
   <string name="hookMate">Hoka ŝakmato</string>
-  <string name="hookMateDescription">Ŝakmato per turo, ĉevalo, kaj soldato plus unu kontraŭa soldato por limigi la fuĝon de la kontraŭa reĝo.</string>
   <string name="interference">Interfero</string>
   <string name="interferenceDescription">Movo de peco inter du kontraŭaj pecoj por lasi unu aŭ ambaŭ kontraŭaj pecoj sendefenda, kiel ĉevalo sur defendita ĉelo inter du turoj.</string>
   <string name="intermezzo">Intermeza movo</string>
@@ -92,7 +90,6 @@
   <string name="pin">Alpinglo</string>
   <string name="pinDescription">Taktiko temas pri alpingloj, kie ŝakpeco ne povas movi sen malkovri atakon sur pli valora ŝakpeco.</string>
   <string name="promotion">Damigo</string>
-  <string name="promotionDescription">Rangaltigi soldaton al damo aŭ malpli grava peco.</string>
   <string name="queenEndgame">Dama finaĵo</string>
   <string name="queenEndgameDescription">Finaĵo nur kun damoj kaj soldatoj.</string>
   <string name="queenRookEndgame">Damo kaj Turo</string>

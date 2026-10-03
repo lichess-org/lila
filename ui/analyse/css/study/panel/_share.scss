@@ -35,6 +35,18 @@
       margin: 0 2px 0.5em 2px;
     }
   }
+
+  div.form-label {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+    .form-help {
+      font-weight: normal;
+    }
+  }
 }
 
 .study__share .url-start-at-ply {

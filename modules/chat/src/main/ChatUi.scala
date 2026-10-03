@@ -4,8 +4,7 @@ import play.api.libs.json.*
 
 import lila.common.Json.given
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.core.chat.PublicSource
 
 object ChatUi:
@@ -33,7 +32,6 @@ object ChatUi:
       withNoteAge: Option[Int] = None,
       writeable: Boolean = true,
       localMod: Boolean = false,
-      voiceChat: Boolean = false,
       opponentId: Option[UserId] = None
   )(using Context): JsObject =
     json(
@@ -47,7 +45,6 @@ object ChatUi:
       resource = resource,
       restricted = chat.restricted,
       localMod = localMod,
-      voiceChat = voiceChat,
       opponentId = opponentId
     )
 
@@ -63,7 +60,6 @@ object ChatUi:
       restricted: Boolean = false,
       localMod: Boolean = false,
       broadcastMod: Boolean = false,
-      voiceChat: Boolean = false,
       hostIds: List[UserId] = Nil,
       opponentId: Option[UserId] = None
   )(using ctx: Context): JsObject =
@@ -82,7 +78,6 @@ object ChatUi:
           .add("userId" -> ctx.userId)
           .add("loginRequired" -> chat.loginRequired)
           .add("restricted" -> restricted)
-          .add("voiceChat" -> (voiceChat && ctx.isAuth))
           .add("opponentId" -> opponentId),
         "writeable" -> writeable,
         "public" -> public,
@@ -93,7 +88,7 @@ object ChatUi:
           .add("shadowban" -> (public && Granter.opt(_.Shadowban)))
       )
       .add("kidMode" -> ctx.kid)
-      .add("kobold" -> ctx.troll)
+      .add("kobold" -> ctx.me.exists(_.marks.troll))
       .add("blind" -> ctx.blind)
       .add("timeout" -> timeout)
       .add("noteId" -> noteId)

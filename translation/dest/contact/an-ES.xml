@@ -25,7 +25,6 @@
   <string name="cantChangeMore">No podemos cambiar soque las mayusclas/minusclas. Per razons tecnicas, ye imposible de tot.</string>
   <string name="orCloseAccount">Manimenos, puez zarrar la tuya cuenta actual y crear-ne una nueva.</string>
   <string name="wantClearHistory">Quiero borrar lo mío historial u puntuación</string>
-  <string name="cantClearHistory">No ye posible borrar lo tuyo historial de chuegos, historial de rompecabezas u cualificacions.</string>
   <string name="wantReport">Quiero reportar un chugador</string>
   <string name="toReportAPlayerUseForm">Pa reportar a un chugador, fe servir lo formulario de reporte</string>
   <string name="youCanAlsoReachReportPage">Tamién puez acceder a ixa pachina pretando lo botón %s en un perfil.</string>
@@ -52,7 +51,7 @@
   <string name="knightMate">Puez fer escaque y mate con nomás un caballo u un alfil, si l\'oponent tiene mas que un rei en o escaquero.</string>
   <string name="noRatingPoints">No s\'ha atorgau puntos</string>
   <string name="ratedGame">Asegura-te d\'haber chugau una partida per puntuación. Las partidas amistosas no afectan a las puntuacions d\'os chugadors.</string>
-  <string name="botRatingAbuse" comment="The original English text was changed in March 2026, from &quot;if it is determined&quot; to &quot;if we determine&quot;.">En bels casos, cuan se chuga contra una cuenta de bot, una partida con puntuación puede que no de puntos si se determina que lo chugador ye abusando d\'o bot pa obtener puntos.</string>
+  <string name="botRatingAbuse">En bels casos, cuan se chuga contra una cuenta de bot, una partida con puntuación puede que no de puntos si se determina que lo chugador ye abusando d\'o bot pa obtener puntos.</string>
   <string name="errorPage">Pachina d\'error</string>
   <string name="reportErrorPage">Si una pachina te da error, puez reportar-la:</string>
   <string name="learnHowToMakeBroadcasts">Aprende cómo puez anyadir las tuyas propias retransmisions a Lichess</string>

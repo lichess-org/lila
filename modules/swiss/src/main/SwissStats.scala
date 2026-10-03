@@ -1,6 +1,6 @@
 package lila.swiss
 
-import akka.stream.scaladsl.*
+import org.apache.pekko.stream.scaladsl.*
 import reactivemongo.api.bson.*
 import chess.IntRating
 
@@ -20,7 +20,7 @@ final class SwissStatsApi(
     mongo: SwissMongo,
     sheetApi: SwissSheetApi,
     mongoCache: lila.memo.MongoCache.Api
-)(using Executor, akka.stream.Materializer):
+)(using Executor, org.apache.pekko.stream.Materializer):
 
   import BsonHandlers.given
 
@@ -38,7 +38,7 @@ final class SwissStatsApi(
       .flatMap:
         _.filter(_.nbPlayers > 0).fold(fuccess(SwissStats())) { swiss =>
           sheetApi
-            .source(swiss, sort = $empty)
+            .source(swiss, sort = emptyBdoc)
             .runWith(Sink.fold(SwissStats()) { case (stats, (player, pairings, sheet)) =>
               val (games, whiteWins, blackWins, draws) =
                 pairings.values.foldLeft((0, 0, 0, 0)):

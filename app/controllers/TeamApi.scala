@@ -22,7 +22,7 @@ final class TeamApi(env: Env, apiC: => Api) extends LilaController(env):
           _ <- env.user.lightUserApi.preloadMany(pager.currentPageResults.flatMap(_.publicLeaders))
         yield pager
 
-  def show(id: TeamId) = OpenOrScoped(): ctx ?=>
+  def show(id: TeamId) = OpenOrScoped(_.Team.Read): ctx ?=>
     JsonOptionOk:
       api
         .teamEnabled(id)
@@ -71,7 +71,7 @@ final class TeamApi(env: Env, apiC: => Api) extends LilaController(env):
             leads <- teams.mapFutureList(env.team.memberRepo.addPublicLeaderIds)
           yield leads
 
-  def teamsOf(username: UserStr) = Scoped(): ctx ?=>
+  def teamsOf(username: UserStr) = Scoped(_.Team.Read): ctx ?=>
     Found(meOrFetch(username)): user =>
       import env.team.jsonView.given
       JsonOk:
@@ -124,9 +124,8 @@ final class TeamApi(env: Env, apiC: => Api) extends LilaController(env):
     WithOwnedTeamEnabled(teamId, _.Kick): team =>
       def limited =
         if kickLimitReportOnce(username.id) then
-          lila
-            .log("security")
-            .warn(s"API team.kick limited team:${teamId} user:${me.username} ip:${req.ipAddress}")
+          lila.security.logger.warn:
+            s"API team.kick limited team:${teamId} user:${me.username} ip:${req.ipAddress}"
         fuccess(ApiResult.Limited)
       limit.teamKick(req.ipAddress, limited, cost = if me.isVerified || me.isApiHog then 0 else 1):
         api.kick(team, username.id).inject(ApiResult.Done)

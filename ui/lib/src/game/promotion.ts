@@ -1,4 +1,3 @@
-import type { DrawShape } from '@lichess-org/chessground/draw';
 import type { MoveMetadata } from '@lichess-org/chessground/types';
 import { opposite, key2pos } from '@lichess-org/chessground/util';
 import { h } from 'snabbdom';
@@ -24,8 +23,7 @@ const PROMOTABLE_ROLES: Role[] = ['queen', 'knight', 'rook', 'bishop'];
 
 export function promote(g: CgApi, key: Key, role: Role): void {
   const piece = g.state.pieces.get(key);
-  if (piece && piece.role === 'pawn')
-    g.setPieces(new Map([[key, { color: piece.color, role, promoted: true }]]));
+  if (piece?.role === 'pawn') g.setPieces(new Map([[key, { color: piece.color, role, promoted: true }]]));
 }
 
 export class PromotionCtrl {
@@ -71,16 +69,21 @@ export class PromotionCtrl {
     }) || false;
 
   cancel = (): void => {
-    this.cancelPrePromotion();
-    if (this.promoting) {
-      this.promoting = undefined;
-      this.onCancel();
-      this.redraw();
-    }
+    if (this.dismiss()) this.onCancel();
   };
 
-  cancelPrePromotion = (): void => {
-    this.promoting?.hooks.show?.(this, false);
+  dismiss = (): boolean => {
+    const promoting = this.promoting;
+    this.promoting = undefined;
+    this.cancelPrePromotion(promoting);
+    if (promoting) {
+      this.redraw();
+    }
+    return !!promoting;
+  };
+
+  cancelPrePromotion = (promoting: Promoting | undefined = this.promoting): void => {
+    promoting?.hooks.show?.(this, false);
     if (this.prePromotionRole) {
       this.withGround(g => g.setAutoShapes([]));
       this.prePromotionRole = undefined;
@@ -90,7 +93,7 @@ export class PromotionCtrl {
 
   view = (antichess?: boolean): MaybeVNode => {
     const promoting = this.promoting;
-    if (!promoting) return;
+    if (!promoting) return undefined;
     promoting.hooks.show?.(this, antichess ? [...PROMOTABLE_ROLES, 'king'] : PROMOTABLE_ROLES);
 
     return (
@@ -127,9 +130,9 @@ export class PromotionCtrl {
       g.setAutoShapes([
         {
           orig: dest,
-          piece: { color: opposite(g.state.turnColor), role, opacity: 0.8 },
+          piece: { color: opposite(g.state.turnColor), role },
           brush: '',
-        } as DrawShape,
+        },
       ]),
     );
   }

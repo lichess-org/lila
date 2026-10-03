@@ -3,18 +3,19 @@ package controllers
 import lila.app.{ *, given }
 import lila.core.i18n.I18nKey as trans
 import lila.core.id.{ ForumCategId, ForumTopicSlug }
+import lila.core.msg.SystemMsg
 import lila.msg.MsgPreset
 
 final class ForumPost(env: Env) extends LilaController(env) with ForumController:
 
-  def search(text: String, page: Int) =
-    OpenBody:
+  def search(text: String, page: Int) = AuthBody: _ ?=>
+    _ ?=>
       NotForKids:
         if text.trim.isEmpty
         then Redirect(routes.ForumCateg.index)
         else
           for
-            ids <- env.forumSearch(text, page, ctx.troll)
+            ids <- env.forumSearch(text, page)
             posts <- ids.mapFutureList(env.forum.postApi.viewsFromIds)
             pager <- posts.mapFutureResults: post =>
               access
@@ -111,7 +112,7 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
                   else if topic.exists(_.isUblogAuthor(me)) then
                     MsgPreset.forumDeletion.byBlogAuthor(me.username)
                   else MsgPreset.forumDeletion.byTeamLeader(post.categId)
-              do env.msg.api.systemPost(userId, preset(reason, view.logFormatted))
+              do env.msg.api.systemPost(SystemMsg.standard(userId, preset(reason, view.logFormatted)))
               NoContent
   }
 
@@ -126,7 +127,8 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
             .map: topic =>
               post.post.userId.foreach: op =>
                 val newUrl = routes.ForumTopic.show(to, topic.slug, 1).url
-                env.msg.api.systemPost(op, MsgPreset.forumRelocation(topic.name, newUrl))
+                env.msg.api.systemPost:
+                  SystemMsg.standard(op, MsgPreset.forumRelocation(topic.name, newUrl))
               Redirect(routes.ForumCateg.show(to)).flashSuccess
   }
 

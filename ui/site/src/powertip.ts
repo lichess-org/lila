@@ -1,42 +1,25 @@
 import { requestIdleCallbackSafe } from 'lib';
-import * as licon from 'lib/licon';
 import { pubsub } from 'lib/pubsub';
-import { spinnerHtml } from 'lib/view';
 import { text as xhrText } from 'lib/xhr';
 
 // Thanks Steven Benner! - adapted from https://github.com/stevenbenner/jquery-powertip
 
 const inCrosstable = (el: HTMLElement) => document.querySelector('.crosstable')?.contains(el);
 
-const onPowertipPreRender = (id: string, preload?: (url: string) => void) => (el: HTMLAnchorElement) => {
+const makeRender = (id: string) => async (el: HTMLAnchorElement) => {
   const url = (el.dataset.href || el.href).replace(/\?.+$/, '');
-  if (preload) preload(url);
-  xhrText(url + '/mini').then(html => {
+  return xhrText(url + '/mini').then(html => {
     const el = document.getElementById(id) as HTMLElement;
     el.innerHTML = html;
     pubsub.emit('content-loaded', el);
   });
 };
 
-const uptA = (url: string, icon: string) => `<a class="btn-rack__btn" href="${url}" data-icon="${icon}"></a>`;
-
 const userPowertip = (el: HTMLElement, pos?: PowerTip.Placement) =>
   $(el)
     .removeClass('ulpt')
     .powerTip({
-      preRender: onPowertipPreRender('powerTip', (url: string) => {
-        const u = url.slice(3);
-        const name = el.dataset.name || $(el).html();
-        $('#powerTip').html(
-          '<div class="upt__info"><div class="upt__info__top"><span class="user-link offline">' +
-            name +
-            '</span></div></div><div class="upt__actions btn-rack">' +
-            uptA('/@/' + u + '/tv', licon.AnalogTv) +
-            uptA('/inbox/new?user=' + u, licon.BubbleSpeech) +
-            uptA('/?user=' + u + '#friend', licon.Swords) +
-            '<a class="btn-rack__btn relation-button" disabled></a></div>',
-        );
-      }),
+      render: makeRender('powerTip'),
       placement:
         pos || (el.getAttribute('data-pt-pos') as PowerTip.Placement) || (inCrosstable(el) ? 'n' : 's'),
     });
@@ -45,7 +28,7 @@ const gamePowertip = (el: HTMLElement) =>
   $(el)
     .removeClass('glpt')
     .powerTip({
-      preRender: onPowertipPreRender('miniGame', () => spinnerHtml),
+      render: makeRender('miniGame'),
       placement: inCrosstable(el) ? 'n' : 'w',
       defaultSize: [264, 264],
       popupId: 'miniGame',
@@ -133,8 +116,8 @@ $.fn.powerTip = function (opts) {
   }
 
   // extend options and instantiate TooltipController
-  const options = Object.assign({}, defaults, opts) as Options,
-    tipController = new TooltipController(options);
+  const options = Object.assign({}, defaults, opts) as Options;
+  const tipController = new TooltipController(options);
 
   // hook mouse and viewport dimension tracking, causes layout reflow
   requestIdleCallbackSafe(() => initTracking());
@@ -156,10 +139,10 @@ $.fn.powerTip = function (opts) {
   // attach events to matched elements if the manual options is not enabled
   this.on({
     // mouse events
-    mouseenter: function (event) {
+    mouseenter(event) {
       $.powerTip.show(this, event);
     },
-    mouseleave: function () {
+    mouseleave() {
       $.powerTip.hide(this);
     },
   });
@@ -181,14 +164,15 @@ const defaults: Options = {
 };
 
 const smartPlacementLists: Record<PowerTip.BasePlacement, string[]> = {
-  n: ['n', 'ne', 'nw', 's', 'se', 'sw', 'e', 'w'],
-  e: ['e', 'ne', 'se', 'w', 'nw', 'sw', 'n', 's'],
-  s: ['s', 'se', 'sw', 'n', 'ne', 'nw', 'e', 'w'],
-  w: ['w', 'nw', 'sw', 'e', 'ne', 'se', 'n', 's'],
-  nw: ['nw', 'w', 'sw', 'n', 's', 'se', 'nw', 'e'],
-  ne: ['ne', 'e', 'se', 'n', 's', 'sw', 'ne', 'w'],
-  sw: ['sw', 'w', 'nw', 's', 'n', 'ne', 'sw', 'e'],
-  se: ['se', 'e', 'ne', 's', 'n', 'nw', 'se', 'w'],
+  // alternating clockwise then counter-clockwise steps away from preferred placement for maximum befuddlement
+  n: ['n', 'ne', 'nw', 'e', 'w', 's', 'n'],
+  e: ['e', 'se', 'ne', 's', 'n', 'w', 'e'],
+  s: ['s', 'sw', 'se', 'w', 'e', 'n', 's'],
+  w: ['w', 'nw', 'sw', 'n', 's', 'e', 'w'],
+  nw: ['nw', 'n', 'w', 'ne', 'sw', 'e', 's', 'se', 'nw'],
+  ne: ['ne', 'e', 'n', 'se', 'nw', 's', 'w', 'sw', 'ne'],
+  sw: ['sw', 'w', 's', 'nw', 'se', 'n', 'e', 'ne', 'sw'],
+  se: ['se', 's', 'e', 'sw', 'nw', 'w', 'n', 'nw', 'se'],
 };
 
 /**
@@ -226,14 +210,14 @@ $.powerTip = {
 // csscoordinates.js
 
 type Coords = {
-  left: number | 'auto';
-  right: number | 'auto';
-  top: number | 'auto';
-  bottom: number | 'auto';
+  left: number;
+  top: number;
+  right: 'auto';
+  bottom: 'auto';
 };
 
 function cssCoordinates(): Coords {
-  return { left: 'auto', top: 'auto', right: 'auto', bottom: 'auto' };
+  return { left: 0, top: 0, right: 'auto', bottom: 'auto' };
 }
 
 // displaycontroller.js
@@ -291,9 +275,9 @@ class DisplayController {
 
   checkForIntent() {
     // calculate mouse position difference
-    const xDifference = Math.abs(session.previousX - session.currentX),
-      yDifference = Math.abs(session.previousY - session.currentY),
-      totalDifference = xDifference + yDifference;
+    const xDifference = Math.abs(session.previousX - session.currentX);
+    const yDifference = Math.abs(session.previousY - session.currentY);
+    const totalDifference = xDifference + yDifference;
 
     // check if difference has passed the sensitivity threshold
     if (totalDifference < (this.options.intentSensitivity ?? 0)) {
@@ -337,7 +321,7 @@ function placementCalculator() {
       switch (placement) {
         case 'n':
           coords.left = position.left - tipWidth / 2;
-          coords.bottom = session.windowHeight - position.top + offset;
+          coords.top = position.top - tipHeight - offset;
           break;
         case 'e':
           coords.left = position.left + offset;
@@ -348,20 +332,20 @@ function placementCalculator() {
           coords.top = position.top + offset;
           break;
         case 'w':
+          coords.left = position.left - tipWidth - offset;
           coords.top = position.top - tipHeight / 2;
-          coords.right = session.windowWidth - position.left + offset;
           break;
         case 'nw':
-          coords.bottom = session.windowHeight - position.top + offset;
-          coords.right = session.windowWidth - position.left - 20;
+          coords.left = position.left + 20 - tipWidth;
+          coords.top = position.top - tipHeight - offset;
           break;
         case 'ne':
           coords.left = position.left - 20;
-          coords.bottom = session.windowHeight - position.top + offset;
+          coords.top = position.top - tipHeight - offset;
           break;
         case 'sw':
+          coords.left = position.left + 20 - tipWidth;
           coords.top = position.top + offset;
-          coords.right = session.windowWidth - position.left - 20;
           break;
         case 'se':
           coords.left = position.left - 20;
@@ -460,7 +444,7 @@ class TooltipController {
     this.doShowTip(element);
   }
 
-  doShowTip(element: Cash) {
+  async doShowTip(element: Cash) {
     // it is possible, especially with keyboard navigation, to move on to
     // another element with a tooltip during the queue to get to this point
     // in the code. if that happens then we need to not proceed or we may
@@ -479,15 +463,10 @@ class TooltipController {
       }, 100);
       return;
     }
+    await this.options.render?.($as(element));
 
     // set tooltip position
     this.resetPosition(element);
-
-    // trigger powerTipPreRender event
-    if (this.options.preRender) {
-      this.tipElement.empty();
-      this.options.preRender($as(element));
-    }
 
     this.scoped.activeHover = element;
     this.scoped.isTipOpen = true;
@@ -546,7 +525,10 @@ class TooltipController {
         const coords = this.placeTooltip(element, pos);
         const collisions = getViewportCollisions(coords, elementWidth, elementHeight);
         // only attempt to nudge when the issue is horizontal overflow
-        if (collisions & (Collision.left | Collision.right)) {
+        if (
+          (collisions === Collision.left || collisions === Collision.right) &&
+          (pos === 'n' || pos === 's')
+        ) {
           const nudged = nudgeToFit(coords, collisions, elementWidth);
           if (nudged) {
             this.tipElement.css(nudged);
@@ -563,10 +545,10 @@ class TooltipController {
   }
 
   placeTooltip(element: Cash, placement: PowerTip.Placement) {
-    let iterationCount = 0,
-      tipWidth,
-      tipHeight,
-      coords = cssCoordinates();
+    let iterationCount = 0;
+    let tipWidth;
+    let tipHeight;
+    let coords = cssCoordinates();
 
     // to support elastic tooltips we need to check for a change in the
     // rendered dimensions after the tooltip has been positioned
@@ -664,8 +646,8 @@ function initTracking() {
     window.addEventListener(
       'scroll',
       function () {
-        const x = window.scrollX,
-          y = window.scrollY;
+        const x = window.scrollX;
+        const y = window.scrollY;
         if (x !== session.scrollLeft) {
           session.currentX += x - session.scrollLeft;
           session.scrollLeft = x;
@@ -724,10 +706,10 @@ function nudgeToFit(coords: Coords, collisions: number, tipWidth: number): Coord
 }
 
 function getViewportCollisions(coords: Coords, elementWidth: number, elementHeight: number) {
-  const viewportTop = session.scrollTop,
-    viewportLeft = session.scrollLeft,
-    viewportBottom = viewportTop + session.windowHeight,
-    viewportRight = viewportLeft + session.windowWidth;
+  const viewportTop = session.scrollTop;
+  const viewportLeft = session.scrollLeft;
+  const viewportBottom = viewportTop + session.windowHeight;
+  const viewportRight = viewportLeft + session.windowWidth;
   let collisions = Collision.none;
   if (
     coords.top < viewportTop ||

@@ -4,9 +4,9 @@ import chess.format.UciPath
 
 import lila.mon.Chronometer.syncMon
 import lila.db.dsl.*
-import lila.tree.{ Branch, Branches, NewBranch, NewRoot, NewTree, Root }
+import lila.tree.{ Branch, Branches, Root }
 
-import BSONHandlers.{ readBranch, writeBranch, readNewBranch, writeNewBranch }
+import BSONHandlers.{ readBranch, writeBranch }
 
 private object StudyFlatTree:
 
@@ -17,23 +17,11 @@ private object StudyFlatTree:
       readBranch(data).map:
         _.copy(children = children | Branches.empty)
 
-    def toNodeWithChild(child: Option[NewTree]): Option[NewTree] =
-      readNewBranch(data).map(NewTree(_, child, Nil))
-
   object reader:
 
     def rootChildren(flatTree: Bdoc): Branches =
       syncMon(lila.mon.study.tree.read):
         traverse:
-          flatTree.elements.toList
-            .collect:
-              case el if el.name != UciPathDb.rootDbKey =>
-                FlatNode(UciPathDb.decodeDbKey(el.name), el.value.asOpt[Bdoc].get)
-            .sortBy(-_.depth)
-
-    def newRoot(flatTree: Bdoc): Option[NewTree] =
-      syncMon(lila.mon.study.tree.read):
-        traverseN:
           flatTree.elements.toList
             .collect:
               case el if el.name != UciPathDb.rootDbKey =>
@@ -54,34 +42,11 @@ private object StudyFlatTree:
         }
         .get(UciPath.root) | Branches.empty
 
-    private def traverseN(xs: List[FlatNode]): Option[NewTree] =
-      xs.nonEmpty.so(
-        xs.foldLeft(Map.empty[UciPath, NewTree]) { (roots, flat) =>
-          // assumes that node has a greater depth than roots (sort beforehand)
-          flat
-            .toNodeWithChild(roots.get(flat.path))
-            .fold(roots): node =>
-              roots
-                .removed(flat.path)
-                .updatedWith(flat.path.parent):
-                  case None => node.some
-                  case Some(siblings) => siblings.addVariation(node.toVariation).some
-        }.get(UciPath.root)
-      )
-
   object writer:
 
     def rootChildren(root: Root): List[(String, Bdoc)] =
       syncMon(lila.mon.study.tree.write):
         root.children.toList.flatMap { traverse(_, UciPath.root) }
-
-    def newRootChildren(root: NewRoot): List[(String, Bdoc)] =
-      syncMon(lila.mon.study.tree.write):
-        root.tree.so:
-          _.mapAccuml_(UciPath.root)((acc, branch) =>
-            val path = acc + branch.id
-            path -> (UciPathDb.encodeDbKey(path) -> writeNewBranch(branch))
-          ).toList
 
     private def traverse(node: Branch, parentPath: UciPath): List[(String, Bdoc)] =
       (parentPath.depth < Node.MAX_PLIES).so:

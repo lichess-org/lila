@@ -2,7 +2,7 @@ import { h, type VNode } from 'snabbdom';
 
 import { shuffle } from 'lib/algo';
 import { bind, type MaybeVNode, snabDialog } from 'lib/view';
-import { fullName, userFlair } from 'lib/view/userLink';
+import { fullName, profileUrl, userFlair } from 'lib/view/userLink';
 
 import type TournamentController from '../ctrl';
 import type { TeamBattle, RankedTeam, LightTeam } from '../interfaces';
@@ -16,6 +16,7 @@ export function joinWithTeamSelector(ctrl: TournamentController) {
   return snabDialog({
     class: 'team-battle__choice',
     modal: true,
+    easyClose: 'clickOutside',
     onInsert(dlg) {
       $('.team-picker__team', dlg.view).on('click', e => {
         ctrl.join(e.target.dataset['id']);
@@ -56,9 +57,9 @@ export function joinWithTeamSelector(ctrl: TournamentController) {
 const renderTeamArray = (team: LightTeam | undefined) => team && [team[0], userFlair({ flair: team[1] })];
 
 export function teamStanding(ctrl: TournamentController, klass?: string): VNode | null {
-  const battle = ctrl.data.teamBattle,
-    standing = ctrl.data.teamStanding,
-    bigBattle = battle && Object.keys(battle.teams).length > 10;
+  const battle = ctrl.data.teamBattle;
+  const standing = ctrl.data.teamStanding;
+  const bigBattle = battle && Object.keys(battle.teams).length > 10;
   return battle && standing
     ? h('table.slist.tour__team-standing' + (klass ? '.' + klass : ''), [
         h('tbody', [
@@ -106,10 +107,10 @@ function teamTr(ctrl: TournamentController, battle: TeamBattle, team: RankedTeam
         {
           key: p.user.name,
           class: { top: i === 0 },
-          attrs: { 'data-href': '/@/' + p.user.name },
-          hook: { destroy: vnode => $.powerTip.destroy(vnode.elm as HTMLElement) },
+          attrs: { 'data-href': profileUrl(p.user.name) },
+          hook: { destroy: vnode => $.powerTip.destroy(vnode.elm) },
         },
-        [...(i === 0 ? [h('username', fullName(p.user)), ' '] : []), '' + p.score],
+        [...(i === 0 ? [h('username', fullName(p.user)), ' '] : []), p.score],
       ),
     );
   });
@@ -121,7 +122,7 @@ function teamTr(ctrl: TournamentController, battle: TeamBattle, team: RankedTeam
       hook: bind('click', _ => ctrl.showTeamInfo(team.id), ctrl.redraw),
     },
     [
-      h('td.rank', '' + team.rank),
+      h('td.rank', team.rank),
       h('td.team', [teamName(battle, team.id)]),
       h(
         'td.players',
@@ -136,7 +137,7 @@ function teamTr(ctrl: TournamentController, battle: TeamBattle, team: RankedTeam
         },
         players,
       ),
-      h('td.total', [h('strong', '' + team.score)]),
+      h('td.total', [h('strong', team.score)]),
     ],
   );
 }

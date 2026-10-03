@@ -4,8 +4,8 @@ import type Sortable from 'sortablejs';
 
 import { blurIfPrimaryClick, defined, prop, type Prop, scrollToInnerSelector } from 'lib';
 import { fenColor } from 'lib/game/chess';
-import * as licon from 'lib/licon';
-import { type VNode, bind, iconTag, hl, alert } from 'lib/view';
+import { licon } from 'lib/licon';
+import { type VNode, bind, hl, alert, icon, button } from 'lib/view';
 
 import type AnalyseCtrl from '../ctrl';
 import type { StudySocketSend } from '../socket';
@@ -90,8 +90,8 @@ export default class StudyChaptersCtrl {
   };
 
   addNode = (d: ServerNodeMsg) => {
-    const pos = d.p,
-      node = d.n;
+    const pos = d.p;
+    const node = d.n;
     const cp = this.list.get(pos.chapterId);
     if (cp) {
       const onRelayPath = d.relayPath === d.p.path + d.n.id;
@@ -109,8 +109,8 @@ export default class StudyChaptersCtrl {
   };
 
   setTags = (id: ChapterId, tags: TagArray[]) => {
-    const chap = this.list.get(id),
-      result = findTag(tags, 'result');
+    const chap = this.list.get(id);
+    const result = findTag(tags, 'result');
     if (chap && result) chap.status = result.replace(/1\/2/g, '½') as StatusStr;
   };
 
@@ -139,8 +139,8 @@ export const looksLikeLichessGame = (tags: TagArray[]) =>
 export const gameLinkAttrs = (roundPath: string, game: { id: ChapterId }) => ({
   href: `${roundPath}/${game.id}`,
 });
-export const gameLinksListener = (select: ChapterSelect) => (vnode: VNode) =>
-  (vnode.elm as HTMLElement).addEventListener(
+export const gameLinksListener = (select: ChapterSelect) => (elm: HTMLElement) =>
+  elm.addEventListener(
     'click',
     async e => {
       let target = e.target as HTMLLinkElement;
@@ -155,24 +155,26 @@ export const gameLinksListener = (select: ChapterSelect) => (vnode: VNode) =>
     { passive: false },
   );
 
-function onListUpdate(ctrl: StudyCtrl, vnode: VNode) {
-  const vData = vnode.data!.li!,
-    el = vnode.elm as HTMLElement;
-  ctrl.chapters.scroller.scrollIfNeeded(el);
-  if (ctrl.members.canContribute() && ctrl.chapters.list.size() > 1 && !vData.sortable) {
+function onListUpdate({ chapters, members }: StudyCtrl, vnode: VNode) {
+  const vData = vnode.data!.li!;
+  const el = vnode.elm as HTMLElement;
+
+  chapters.scroller.scrollIfNeeded(el);
+
+  if (members.canContribute() && chapters.list.size() > 1 && !vData.sortable) {
     site.asset.loadEsm<typeof Sortable>('sortable.esm', { npm: true }).then(s => {
       vData.sortable = s.create(el, {
         draggable: '.draggable',
         handle: 'ontouchstart' in window ? 'span' : undefined,
-        onSort: () => ctrl.chapters.sort(vData.sortable.toArray()),
+        onSort: () => chapters.sort(vData.sortable.toArray()),
       });
     });
   }
 }
 
 export function view(ctrl: StudyCtrl): VNode {
-  const canContribute = ctrl.members.canContribute(),
-    current = ctrl.currentChapter();
+  const canContribute = ctrl.members.canContribute();
+  const current = ctrl.currentChapter();
 
   return hl('div.study__chapters', [
     hl(
@@ -180,16 +182,6 @@ export function view(ctrl: StudyCtrl): VNode {
       {
         hook: {
           insert(vnode) {
-            (vnode.elm as HTMLElement).addEventListener('click', e => {
-              const target = e.target as HTMLElement;
-              const id = (target.parentNode as HTMLElement).dataset['id'] || target.dataset['id'];
-              if (!id) return;
-              if (target.className === 'act') {
-                const chapter = ctrl.chapters.list.get(id);
-                if (chapter) ctrl.chapters.editForm.toggle(chapter);
-              } else ctrl.setChapter(id);
-              blurIfPrimaryClick(e);
-            });
             vnode.data!.li = {};
             ctrl.chapters.scroller.request('instant');
             onListUpdate(ctrl, vnode);
@@ -205,20 +197,39 @@ export function view(ctrl: StudyCtrl): VNode {
         },
       },
       ctrl.chapters.list.all().map((chapter, i) => {
-        const editing = ctrl.chapters.editForm.isEditing(chapter.id),
-          active = !ctrl.vm.loading && current?.id === chapter.id;
+        const editing = ctrl.chapters.editForm.isEditing(chapter.id);
+        const active = !ctrl.vm.loading && current?.id === chapter.id;
         return hl(
           'button',
           {
             key: chapter.id,
             attrs: { 'data-id': chapter.id },
             class: { active, editing, draggable: canContribute },
+            on: {
+              click: e => {
+                ctrl.setChapter(chapter.id);
+                blurIfPrimaryClick(e);
+              },
+            },
           },
           [
-            hl('span', (i + 1).toString()),
+            hl('span', i + 1),
             hl('h3', chapter.name),
             chapter.status && hl('res', chapter.status),
-            canContribute && iconTag(licon.Gear, { title: i18n.study.editChapter, cls: 'act' }),
+            canContribute &&
+              button(
+                '.act',
+                {
+                  on: {
+                    click: e => {
+                      ctrl.chapters.editForm.toggle(chapter);
+                      e.stopPropagation();
+                      blurIfPrimaryClick(e);
+                    },
+                  },
+                },
+                icon(licon.Gear)({ title: i18n.study.editChapter }),
+              ),
           ],
         );
       }),
@@ -236,7 +247,7 @@ export function view(ctrl: StudyCtrl): VNode {
             ctrl.redraw,
           ),
         },
-        [hl('span', iconTag(licon.PlusButton)), hl('h3', i18n.study.addNewChapter)],
+        [icon(licon.PlusButton)(), hl('h3', i18n.study.addNewChapter)],
       ),
   ]);
 }

@@ -26,7 +26,11 @@ final class Env(
 
   val github = wire[GitHub]
 
+  val static = wire[StaticContent]
+
   lazy val emailError = wire[EmailError]
+
+  lazy val t3AuthMonitor = T3AuthMonitor()
 
   private lazy val influxEvent = InfluxEvent(
     ws = ws,
@@ -40,6 +44,7 @@ final class Env(
   val lichobileAnnounceApi = wire[LichobileAnnounceApi]
 
   AnnounceApi.setupPeriodicUpdate()
+  PrometheusReporter.setupPeriodicMonitor()
 
   object settings:
     import lila.core.data.{ Strings, UserIds }
@@ -60,7 +65,8 @@ final class Env(
       "prizeTournamentMakers",
       default = UserIds(Nil),
       text =
-        "User IDs who can make prize tournaments (arena & swiss) without a warning. Separated by commas.".some
+        "User IDs who can make prize tournaments (arena & swiss) without a warning. Separated by commas.".some,
+      perm = _.ManageTournament
     )
     val apiExplorerGamesPerSecond = settingStore[Int](
       "apiExplorerGamesPerSecond",

@@ -35,7 +35,7 @@ trait AssetFullHelper:
     )
 
   def jsonScript(json: JsValue | SafeJsonStr) =
-    script(tpe := "application/json", st.id := "page-init-data"):
+    script(tpe := "application/json", id := "page-init-data"):
       raw:
         json match
           case json: JsValue => safeJsonValue(json).value

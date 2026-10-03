@@ -39,7 +39,7 @@ final class UserApi(
   export userApi.withPerfs
   import UserApi.Opts
 
-  def one(u: UserWithPerfs | LightUser, joinedAt: Option[Instant] = None): JsObject = {
+  def one(u: UserWithPerfs | LightUser, joinedAt: Option[Instant] = None)(using Option[Me]): JsObject = {
     val (light, userJson) = u match
       case u: UserWithPerfs => (u.user.light, jsonView.full(u.user, u.perfs.some, withProfile = false))
       case u: LightUser => (u, Json.toJsObject(u))
@@ -47,19 +47,13 @@ final class UserApi(
       Json.obj("url" -> makeUrl(s"@/${light.name}")) // for app BC
   }.add("joinedTeamAt", joinedAt)
 
-  def extended(
-      username: UserStr,
-      opts: Opts
-  )(using Option[Me], Lang): Fu[Option[JsObject]] =
+  def extended(username: UserStr, opts: Opts)(using Option[Me], Lang): Fu[Option[JsObject]] =
     userApi
       .withPerfs(username)
       .flatMapz:
         extended(_, opts).dmap(some)
 
-  def extended(
-      u: User | UserWithPerfs,
-      opts: Opts
-  )(using as: Option[Me], lang: Lang): Fu[JsObject] =
+  def extended(u: User | UserWithPerfs, opts: Opts)(using as: Option[Me], lang: Lang): Fu[JsObject] =
     u.match
       case u: User => userApi.withPerfs(u)
       case u: UserWithPerfs => fuccess(u)
@@ -140,7 +134,7 @@ final class UserApi(
                             Json.obj("channel" -> y.fullUrl)
                         )
                   ) ++
-                  as.isDefined.so:
+                  (opts.withRelation && as.isDefined).so:
                     Json.obj(
                       "followable" -> followable,
                       "following" -> relation.exists(_.isFollow),
@@ -153,6 +147,7 @@ final class UserApi(
     Opts(
       withTrophies = false,
       withCanChallenge = me.exists(_.isnt(user)),
+      withRelation = true,
       withPlayban = me.exists(_.is(user)),
       urgent = urgent
     )
@@ -215,6 +210,7 @@ object UserApi:
   case class Opts(
       withTrophies: Boolean,
       withCanChallenge: Boolean,
+      withRelation: Boolean,
       withProfile: Boolean = true,
       withRank: Boolean = false,
       withPlayban: Boolean = false,

@@ -14,10 +14,10 @@ export const pieceRoles: Exclude<Role, 'king'>[] = ['pawn', 'knight', 'bishop', 
 export function drag(ctrl: RoundController, e: MouchEvent): void {
   if (e.button !== undefined && e.button !== 0) return; // only touch or left click
   if (ctrl.replaying() || !ctrl.isPlaying()) return;
-  const el = e.target as HTMLElement,
-    role = el.getAttribute('data-role') as Role,
-    color = el.getAttribute('data-color') as Color,
-    number = el.getAttribute('data-nb');
+  const el = e.target as HTMLElement;
+  const role = el.getAttribute('data-role') as Role;
+  const color = el.getAttribute('data-color') as Color;
+  const number = el.getAttribute('data-nb');
   if (!role || !color || number === '0') return;
   e.stopPropagation();
   e.preventDefault();
@@ -68,9 +68,9 @@ export function init(ctrl: RoundController): void {
   const setDrop = () => {
     if (activeCursor) document.body.classList.remove(activeCursor);
     if (crazyKeys.length > 0) {
-      const role = pieceRoles[crazyKeys[crazyKeys.length - 1] - 1],
-        color = ctrl.data.player.color,
-        crazyData = ctrl.data.crazyhouse;
+      const role = pieceRoles[crazyKeys[crazyKeys.length - 1] - 1];
+      const color = ctrl.data.player.color;
+      const crazyData = ctrl.data.crazyhouse;
       if (!crazyData) return;
 
       const nb = crazyData.pockets[color === 'white' ? 0 : 1][role];
@@ -105,7 +105,7 @@ export function init(ctrl: RoundController): void {
       iStr,
       () => {
         const idx = crazyKeys.indexOf(i);
-        if (idx >= 0) {
+        if (idx !== -1) {
           crazyKeys.splice(idx, 1);
           if (idx === crazyKeys.length) {
             setDrop();
@@ -129,7 +129,7 @@ export function init(ctrl: RoundController): void {
   window.addEventListener(
     'focus',
     e => {
-      if (e.target && (e.target as HTMLElement).localName === 'input') resetKeys();
+      if ((e.target as HTMLElement).localName === 'input') resetKeys();
     },
     { capture: true },
   );

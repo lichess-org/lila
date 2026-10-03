@@ -21,7 +21,6 @@
   <string name="puzzleRead">ප්‍රහේලිකා ක්‍රියාකාරකම් කියවන්න</string>
   <string name="teamRead">පුද්ගලික කණ්ඩායම් තොරතුරු කියවන්න</string>
   <string name="teamWrite">කණ්ඩායම් වලට එකතු වන්න සහ ඉවත් වන්න​</string>
-  <string name="teamLead">ඔබ නායකත්වය දෙන කණ්ඩායම් කළමනාකරණය කරන්න: PM යවන්න, සාමාජිකයින්ට පයින් ගසන්න</string>
   <string name="followRead">අනුගමනය කරන ක්‍රීඩකයින් කියවන්න</string>
   <string name="followWrite">අනෙකුත් ක්‍රීඩකයින් අනුගමනය කරන්න සහ අනුගමනය නොකරන්න</string>
   <string name="msgWrite">වෙනත් ක්‍රීඩකයින්ට පුද්ගලික පණිවිඩ යවන්න</string>

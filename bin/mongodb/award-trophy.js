@@ -4,7 +4,7 @@ const kind = 'marathonSurvivor';
 
 db.trophy.insert({
   _id: kind + '/' + user,
-  user: user,
-  kind: kind,
+  user,
+  kind,
   date: new Date(),
 });

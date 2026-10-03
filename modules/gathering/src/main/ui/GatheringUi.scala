@@ -4,8 +4,7 @@ package ui
 import lila.core.data.UserIds
 import lila.gathering.Condition.{ WithVerdict, WithVerdicts, Verdict }
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 def translateRated(rated: chess.Rated)(using lila.core.i18n.Translate): Frag =
   if rated.yes then lila.core.i18n.I18nKey.site.ratedTournament()
@@ -64,6 +63,13 @@ final class GatheringUi(helpers: Helpers)(prizeTournamentMakers: () => UserIds):
                       case _ => condition.name(pk)
           )
 
+  def payouts(txt: Payouts) =
+    st.section(cls := "description"):
+      p(
+        a(href := routes.Cms.lonePage(lila.core.id.CmsPageKey("lichess-prizes")))("Prizes: "),
+        txt
+      )
+
 final class GatheringFormUi(helpers: Helpers):
   import helpers.*
   import play.api.data.Field
@@ -100,7 +106,7 @@ final class GatheringFormUi(helpers: Helpers):
     form3.group(
       field,
       trans.swiss.predefinedUsers(),
-      help = trans.swiss.forbiddedUsers().some,
+      help = trans.swiss.predefinedUsersHelp().some,
       half = true
     )(form3.textarea(_)(rows := 4))
 
@@ -123,3 +129,28 @@ final class GatheringFormUi(helpers: Helpers):
       ).some,
       disabled = disabledAfterStart
     )
+
+  def description(field: Field)(using Translate) =
+    form3.group(
+      field,
+      trans.site.tournDescription(),
+      help = trans.site.tournDescriptionHelp().some,
+      half = true
+    )(form3.textarea(_)(rows := 5))
+
+  def payouts(field: Field)(using Option[Me], Translate) =
+    Granter
+      .opt(_.ManageTournament)
+      .option:
+        form3.group(
+          field,
+          frag("Prize payouts"),
+          help = frag(
+            "Only if Lichess is responsible for the payout",
+            br,
+            "Amounts in USD: e.g. $500/$250/$100/$50/$25",
+            br,
+            "If set, winners will automatically be sent a DM to claim their prize via the Payment Portal"
+          ).some,
+          half = true
+        )(form3.input(_))

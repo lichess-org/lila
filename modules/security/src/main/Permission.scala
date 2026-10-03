@@ -58,6 +58,7 @@ object Permission:
     ),
     "Broadcast" -> List(
       Relay,
+      RelayStream,
       BroadcastTimeout,
       FidePlayer,
       StudyAdmin
@@ -87,7 +88,8 @@ object Permission:
       Coach,
       Teacher,
       ApiHog,
-      ApiChallengeAdmin
+      ApiChallengeAdmin,
+      NotifyMany
     ),
     "Badge" -> List(
       Tech,

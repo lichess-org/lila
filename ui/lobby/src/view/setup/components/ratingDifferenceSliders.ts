@@ -44,7 +44,7 @@ export const ratingDifferenceSliders = ({ setupCtrl, me, data }: LobbyController
       class: { disabled: isProvisional },
     },
     isProvisional
-      ? hl('span', i18n.site.ratingRangeIsDisabledBecauseYourRatingIsProvisional)
+      ? hl('span', i18n.site.cannotFilterByUnstableRating)
       : [
           i18n.site.ratingFilter,
           hl('div.rating-range', [

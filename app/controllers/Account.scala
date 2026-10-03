@@ -23,40 +23,46 @@ final class Account(
 
   private given (using Context): Option[ValidReferrer] = env.web.referrerRedirect.fromReq
 
-  def profile = Auth { _ ?=> me ?=>
-    Ok.page:
-      pages.profile(me, env.user.forms.profileOf(me))
-  }
-
   def username = Auth { _ ?=> me ?=>
     Ok.page:
       pages.username(me, env.user.forms.usernameOf(me))
   }
 
-  def profileApply = AuthOrScopedBody(_.Web.Mobile) { _ ?=> me ?=>
-    bindForm(env.user.forms.profile)(
-      err =>
-        negotiate(
-          BadRequest.page(pages.profile(me, err)),
-          jsonFormError(err)
-        ),
-      profile =>
-        for
-          _ <- profile.bio
-            .exists(env.security.spam.detect)
-            .option("profile.bio" -> ~profile.bio)
-            .orElse:
-              profile.links.exists(env.security.spam.detect).option("profile.links" -> ~profile.links)
-            .so: (resource, text) =>
-              env.report.api.autoCommFlag(lila.report.Suspect(me).id, resource, text)
-          _ <- env.user.repo.setProfile(me, profile)
-          flairForm = env.user.forms.flair(asMod = isGranted(_.LichessTeam))
-          _ <- bindForm(flairForm)(_ => funit, env.user.repo.setFlair(me, _))
-        yield
-          env.user.lightUserApi.invalidate(me)
-          Redirect(routes.User.show(me.username)).flashSuccess
-    )
+  def profile = Auth { _ ?=> me ?=>
+    Ok.async:
+      profileForm(me).map: (form, realName) =>
+        pages.profile(me, form, realName.isDefined)
   }
+
+  def profileApply = AuthOrScopedBody(_.Web.Mobile) { _ ?=> me ?=>
+    profileForm(me).flatMap: (form, realName) =>
+      bindForm(form)(
+        err =>
+          negotiate(
+            BadRequest.page(pages.profile(me, err, realName.isDefined)),
+            jsonFormError(err)
+          ),
+        profile =>
+          for
+            _ <- profile.bio
+              .exists(env.security.spam.detect)
+              .option("profile.bio" -> ~profile.bio)
+              .orElse:
+                profile.links.exists(env.security.spam.detect).option("profile.links" -> ~profile.links)
+              .so: (resource, text) =>
+                env.report.api.autoCommFlag(lila.report.Suspect(me).id, resource, text)
+            _ <- env.user.repo.setProfile(me, profile)
+            flairForm = env.user.forms.flair(asMod = isGranted(_.LichessTeam))
+            _ <- bindForm(flairForm)(_ => funit, env.user.repo.setFlair(me, _))
+          yield
+            env.user.lightUserApi.invalidate(me)
+            Redirect(routes.User.show(me.username)).flashSuccess
+      )
+  }
+
+  private def profileForm(me: Me) =
+    for realName <- env.title.api.publicTitle.realName(me.light)
+    yield (env.user.forms.profileOf(me, realName), realName)
 
   def usernameApply = AuthBody { _ ?=> me ?=>
     FormFuResult(env.user.forms.username(me))(err => renderPage(pages.username(me, err))): username =>
@@ -109,6 +115,7 @@ final class Account(
             lila.api.UserApi.Opts(
               withTrophies = false,
               withCanChallenge = false,
+              withRelation = false,
               withPlayban = getBool("playban"),
               forWiki = wikiGranted
             )
@@ -119,26 +126,15 @@ final class Account(
   def apiNowPlaying = Scoped()(doNowPlaying)
 
   private def doNowPlaying(using ctx: Context)(using me: Me) =
-    env.round.proxyRepo
-      .urgentGames(me)
-      .map:
-        _.value.take((getInt("nb") | 9).atMost(50))
-      .map:
-        _.map(env.api.lobbyApi.nowPlaying)
-      .map: povs =>
-        Ok(Json.obj("nowPlaying" -> JsArray(povs)))
-
-  def dasher = Auth { _ ?=> me ?=>
-    negotiateJson:
-      env.pref.api
-        .get(me)
-        .map: prefs =>
-          Ok:
-            lila.common.Json.lightUser.write(me.light) ++ Json.obj(
-              "coach" -> isGranted(_.Coach),
-              "prefs" -> lila.pref.toJson(prefs, lichobileCompat = false)
-            )
-  }
+    for
+      all <- env.round.proxyRepo.urgentGames(me)
+      selected = all.value.take((getInt("nb") | 9).atMost(50))
+      povs = selected.map(env.api.lobbyApi.nowPlaying)
+    yield Ok:
+      Json.obj(
+        "nowPlaying" -> JsArray(povs),
+        "nbMyTurn" -> all.value.count(_.isMyTurn)
+      )
 
   def passwd = Auth { _ ?=> me ?=>
     env.security.forms.passwdChange.flatMap: form =>
@@ -160,7 +156,7 @@ final class Account(
 
   private def refreshSessionId(result: Result, pwned: IsPwned)(using ctx: Context, me: Me): Fu[Result] = for
     _ <- env.security.store.closeAllSessionsOf(me)
-    _ <- env.push.webSubscriptionApi.unsubscribeByUser(me)
+    _ <- env.push.browserSub.unsubscribeByUser(me)
     _ <- env.push.unregisterDevices(me)
     sessionId <- env.security.api.saveAuthentication(me, ctx.mobileApiVersion, pwned)
   yield result.withCookies(env.security.lilaCookie.session(env.security.api.sessionIdKey, sessionId.value))
@@ -269,13 +265,17 @@ final class Account(
     yield res
   }
 
-  def closeConfirm = AuthBody { ctx ?=> me ?=>
+  def closeConfirm = AuthOrScopedBody(_.Web.Mobile) { ctx ?=> me ?=>
     NotManaged:
       auth.HasherRateLimit:
         env.security.forms.closeAccount.flatMap: form =>
-          FormFuResult(form)(err => renderPage(pages.close(err, managed = false))): forever =>
-            for _ <- env.api.accountTermination.disable(me.value, forever = forever)
-            yield Redirect(routes.Lobby.home).withCookies(env.security.lilaCookie.newSession)
+          def doClose(forever: Boolean) = env.api.accountTermination.disable(me.value, forever = forever)
+          negotiate(
+            html = FormFuResult(form)(err => renderPage(pages.close(err, managed = false))): forever =>
+              for _ <- doClose(forever)
+              yield Redirect(routes.Lobby.home).withCookies(env.security.lilaCookie.newSession),
+            json = bindForm(form)(badJsonFormError, forever => doClose(forever).inject(NoContent))
+          )
   }
 
   def delete = Auth { _ ?=> me ?=>
@@ -286,13 +286,17 @@ final class Account(
     yield res
   }
 
-  def deleteConfirm = AuthBody { ctx ?=> me ?=>
+  def deleteConfirm = AuthOrScopedBody(_.Web.Mobile) { ctx ?=> me ?=>
     NotManaged:
       auth.HasherRateLimit:
         env.security.forms.deleteAccount.flatMap: form =>
-          FormFuResult(form)(err => renderPage(pages.delete(err, managed = false))): _ =>
-            for _ <- env.api.accountTermination.scheduleDelete(me.value)
-            yield Redirect(routes.Account.deleteDone).withCookies(env.security.lilaCookie.newSession)
+          def doDelete = env.api.accountTermination.scheduleDelete(me.value)
+          negotiate(
+            html = FormFuResult(form)(err => renderPage(pages.delete(err, managed = false))): _ =>
+              for _ <- doDelete
+              yield Redirect(routes.Account.deleteDone).withCookies(env.security.lilaCookie.newSession),
+            json = bindForm(form)(badJsonFormError, _ => doDelete.inject(NoContent))
+          )
   }
 
   def deleteDone = Open { ctx ?=>
@@ -356,7 +360,7 @@ final class Account(
     else
       for
         _ <- env.security.store.closeUserAndSessionId(me, SessionId(sessionId))
-        _ <- env.push.webSubscriptionApi.unsubscribeBySession(SessionId(sessionId))
+        _ <- env.push.browserSub.unsubscribeBySession(SessionId(sessionId))
       yield NoContent
   }
 
@@ -379,7 +383,7 @@ final class Account(
                 env.security.reopen
                   .prepare(data.username, data.email, env.mod.logApi.closedByMod)
                   .flatMap: user =>
-                    env.security.loginToken.rateLimit[Result](user, data.email, ctx.req, rateLimited):
+                    env.security.loginToken.rateLimit[Result](data.email.normalize, rateLimited):
                       lila.mon.user.auth.reopenRequest("success").increment()
                       env.security.reopen
                         .send(user, data.email)

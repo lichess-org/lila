@@ -70,11 +70,8 @@ final class Automod(
             "Content-Type" -> "application/json"
           )
           .post(body)
-          .map: rsp =>
-            rsp -> extractJsonFromResponse(rsp)
-          .flatMap:
-            case (rsp, Left(err)) => fufail(s"${rsp.status} $err ${(rsp.body: String).take(500)}")
-            case (_, Right(res)) => fuccess(res)
+          .map(extractJsonFromResponse)
+          .flatMap(_.toFuture)
 
   def markdownImages(markdown: Markdown): Fu[Seq[lila.memo.PicfitImage]] =
     val ids = picfitApi.imageIds(markdown)
@@ -137,7 +134,7 @@ final class Automod(
 
   private def extractJsonFromResponse(rsp: StandaloneWSResponse): Either[String, JsObject] =
     for
-      _ <- Either.cond(rsp.status == 200, (), s"API error ${rsp.status}: ${(rsp.body: String).take(300)}")
+      _ <- Either.cond(rsp.status == 200, (), s"API error ${rsp.status}")
       choices <- (rsp.body \ "choices").asOpt[List[JsObject]].toRight("No choices in response")
       best <- choices.headOption.toRight("Empty choices in response")
       msg <- (best \ "message" \ "content").validate[String].asEither.left.map(_.toString)

@@ -1,26 +1,21 @@
 package lila.pref
 
-import monocle.syntax.all.*
 import play.api.mvc.RequestHeader
 
 object RequestPref:
 
   import Pref.default
 
-  def queryParamOverride(req: RequestHeader)(pref: Pref): Pref =
-    val queryPref = queryParam(req.queryString, "bg")
+  def queryParamOverride(pref: Pref)(using req: RequestHeader): Pref =
+    queryParam("bg")
       .flatMap(Pref.Bg.fromString.get)
       .fold(pref): bg =>
         pref.copy(bg = bg)
-    if queryPref.bg == Pref.Bg.DARKBOARD then
-      queryPref.copy(bg = Pref.Bg.DARK).focus(_.board.brightness).replace(60)
-    else queryPref // we can remove this darkboard hack with a db migration script
 
-  def fromRequest(req: RequestHeader): Pref =
-    val qs = req.queryString
-    if qs.isEmpty && req.session.isEmpty then default
+  def fromRequest(using req: RequestHeader): Pref =
+    if req.queryString.isEmpty && req.session.isEmpty then default
     else
-      def paramOrSession(name: String): Option[String] = queryParam(qs, name).orElse(req.session.get(name))
+      def paramOrSession(name: String): Option[String] = queryParam(name).orElse(req.session.get(name))
       default.copy(
         bg = paramOrSession("bg").flatMap(Pref.Bg.fromString.get) | default.bg,
         theme = paramOrSession("theme") | default.theme,
@@ -28,8 +23,8 @@ object RequestPref:
         pieceSet = paramOrSession("pieceSet") | default.pieceSet,
         pieceSet3d = paramOrSession("pieceSet3d") | default.pieceSet3d,
         soundSet = paramOrSession("soundSet") | default.soundSet,
-        bgImg = paramOrSession("bgImg"),
         is3d = paramOrSession("is3d").has("true"),
+        uiRoundness = paramOrSession("uiRoundness").flatMap(_.toIntOption) | default.uiRoundness,
         board = default.board.copy(
           opacity = paramOrSession("boardOpacity").flatMap(_.toIntOption) | default.board.opacity,
           brightness = paramOrSession("boardBrightness").flatMap(_.toIntOption) | default.board.brightness,
@@ -38,9 +33,5 @@ object RequestPref:
         )
       )
 
-  private def queryParam(queryString: Map[String, Seq[String]], name: String): Option[String] =
-    queryString
-      .get(name)
-      .flatMap(_.headOption)
-      .filter: v =>
-        v.nonEmpty && v != "auto"
+  private def queryParam(name: String)(using RequestHeader): Option[String] =
+    lila.common.HTTPRequest.queryStringGet(name).filter(_ != "auto")

@@ -1,6 +1,6 @@
 package lila.simul
 
-import akka.actor.*
+import org.apache.pekko.actor.*
 import chess.variant.Variant
 import chess.{ ByColor, Status }
 import monocle.syntax.all.*
@@ -46,7 +46,7 @@ final class SimulApi(
 
   def isSimulHost(userId: UserId): Fu[Boolean] = currentHostIds.map(_ contains userId)
 
-  private val currentHostIdsCache = cacheApi.unit[Set[UserId]]:
+  private val currentHostIdsCache = cacheApi.unit[Set[UserId]]("simul.currentHostIds"):
     _.refreshAfterWrite(5.minutes).buildAsyncTimeout(): _ =>
       repo.allStarted.dmap(_.view.map(_.hostId).toSet)
 
@@ -164,11 +164,6 @@ final class SimulApi(
           publish()
       }
 
-  def setText(simulId: SimulId, text: String): Funit =
-    repo.find(simulId).flatMapz { simul =>
-      for _ <- repo.setText(simul, text) yield socket.reload(simulId)
-    }
-
   private[simul] def finishGame(game: Game): Funit =
     game.simulId.so:
       finishGame(_, game.id, game.status, game.winnerUserId)
@@ -219,10 +214,10 @@ final class SimulApi(
       yield ()
 
   def idToName(id: SimulId): Fu[Option[String]] =
-    repo.coll.primitiveOne[String]($id(id), "name").dmap2(_ + " simul")
+    repo.coll.primitiveOne[String](bid(id), "name").dmap2(_ + " simul")
 
   def teamOf(id: SimulId): Fu[Option[TeamId]] =
-    repo.coll.primitiveOne[TeamId]($id(id), "team")
+    repo.coll.primitiveOne[TeamId](bid(id), "team")
 
   def hostedByUser(userId: UserId, page: Int): Fu[Paginator[Simul]] =
     Paginator(

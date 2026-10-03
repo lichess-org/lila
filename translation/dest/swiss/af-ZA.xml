@@ -54,7 +54,6 @@ Tel die tellings van die spelers wat deur die speler gewen is op asook halfte va
   <string name="pairingsA">Met die %1$s, geïmplementeer deur %2$s, ooreenstemmend met die %3$s.</string>
   <string name="moreRoundsThanPlayersQ">Wat gebeur as die toernooi meer rondes as spelers het?</string>
   <string name="moreRoundsThanPlayersA">Wanneer al moontlike indelings gespeel is, sal die toernooi geëndig word en `n wenner verklaar word.</string>
-  <string name="restrictedToTeamsQ">Hoekom is dit beperk tot spanne?</string>
   <string name="restrictedToTeamsA">Switserse toernooie is nie ontwerp vir aanlyn skaak nie. Dit verg stiptilikheid, toewyding en gedult van spelers.
 Ons dink hierdie voorwaardes is meer waarskynlik binne \'n span, as in werêlds-toernooie.</string>
   <string name="numberOfByesQ">Hoeveel loslootjies kan \'n speler kry?</string>
@@ -69,7 +68,6 @@ Hulle kan die toernooi enige tyd heraansluit.</string>
 Laat aansluiters kry \'n enkel loslootjie, selfs as hulle verskeie rondtes gemis het.</string>
   <string name="willSwissReplaceArenasQ">Gaan switserse toernooie, arena toernooie vervang?</string>
   <string name="willSwissReplaceArenasA">Nee. Hulle is komplementêre eienskappe.</string>
-  <string name="roundRobinQ">Wat van rondomtalie toernooie?</string>
   <string name="roundRobinA">Ons wil graag dit byvoeg, maar ongelukkig werk rondomtalie toernooie nie aanlyn nie.
 Die rede hiervoor is dat, daar nie \'n goeie manier is om situasies te hanteer waar mense die toernooi vroeg verlaat nie. Ons kan nie verwag dat alle spelers al hulle spelle sal speel nie, wat veroorsaak dat meeste rondomtalie toernooie foutief en onregverdig sal wees, wat die sisteem se bestaansrede omverwerp. Die naste wat jy aan \'n rondomtalie toernooi aanlyn kan kry is deur \'n Switserse toernooi met \'n hoë aantal rondtes. Dan sal alle moontlike parings voor die einde van die toernooi bereik word.</string>
   <string name="otherSystemsQ">Wat van ander toernooie sisteme?</string>
@@ -104,5 +102,4 @@ Die rede hiervoor is dat, daar nie \'n goeie manier is om situasies te hanteer w
   <string name="similarToOTB">Eenders as oor die bord toernooie</string>
   <string name="unlimitedAndFree">Onbeperk en verniet</string>
   <string name="predefinedUsers">Laat slegs vooraf-gestelde gebruikers om aan te sluit</string>
-  <string name="forbiddedUsers">As die lys nie leeg is nie, dan sal die gebruikers wat afwesig van die lys is verbied word om aan te sluit. Een gebruiker per lyn.</string>
 </resources>

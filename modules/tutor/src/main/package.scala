@@ -7,8 +7,6 @@ import lila.insight.{ ClockPercent, InsightPerfStats, MeanRating, Question }
 export lila.core.lilaism.Lilaism.{ *, given }
 export lila.common.extensions.*
 
-private val logger = lila.log("tutor")
-
 private val supportedPerfs = lila.rating.PerfType.standardWithUltra ::: lila.rating.PerfType.variants
 
 private given Ordering[lila.analyse.AccuracyPercent] = doubleOrdering

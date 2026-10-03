@@ -35,7 +35,7 @@ You can convert your png to webp with `cwebp`:
 cwebp path/to/horsey.png -o lila/public/flair/img/activity.lichess-horsey.webp
 ```
 
-Similar programs are available, such as [ImageMagick](https://imagemagick.org/index.php).
+Similar programs are available, such as [ImageMagick](https://imagemagick.org/).
 
 ### Naming
 
@@ -56,10 +56,14 @@ and wait for someone else to compile it before it comes online.
 
 [Save](https://github.com/lichess-org/lila/pull/18368#issuecomment-3385711626) https://emojipedia.org/google into bin/flair/emojipedia.html.
 
+```sh
+curl --location https://github.com/user-attachments/files/22797197/emojipedia.html > bin/flair/emojipedia.html 
+```
+
 Run the generation script:
 
 ```shell
-pnpx tsx bin/flair/generate.ts
+pnpm node bin/flair/generate.ts
 ```
 
 It will update the `public/flair/list.txt` file which you must commit along with the updated flair images.

@@ -22,8 +22,9 @@ private final class TimelineApi(
         .foreach: users =>
           if users.nonEmpty then
             for _ <- insertEntry(users, data)
-            yield lila.common.Bus.pub(ReloadTimelines(users))
-          lila.mon.timeline.notification.increment(users.size)
+            yield
+              lila.common.Bus.pub(ReloadTimelines(users))
+              lila.mon.timeline.notification.increment(users.size)
 
   private def doPropagate(propagations: List[Propagation]): Fu[List[UserId]] =
     Future
@@ -47,8 +48,7 @@ private final class TimelineApi(
               .forumAccessOf(teamId)
               .flatMap:
                 case Access.Members =>
-                  fus.flatMap: us =>
-                    teamApi.filterUserIdsInTeam(teamId, us).map(_.toList)
+                  fus.flatMap(teamApi.filterUserIdsInTeam(teamId, _))
                 case Access.Leaders =>
                   fus.flatMap: us =>
                     teamApi.leaderIds(teamId).map(us.toSet.intersect).map(_.toList)

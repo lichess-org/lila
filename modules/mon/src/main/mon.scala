@@ -10,6 +10,7 @@ import scalalib.net.UserAgent
 import lila.core.id.*
 import lila.core.userId.{ UserId, UserName }
 import lila.core.perf.PerfKey
+import lila.core.net.Origin
 
 // https://github.com/kamon-io/Kamon/issues/752
 extension (s: String)
@@ -25,7 +26,11 @@ private def tags(elems: (String, Any)*): Map[String, Any] = Map.from(elems)
 object http:
   private val reqTime = timer("http.time")
   private val reqCount = counter("http.count")
-  private val mobCount = counter("http.mobile.count")
+  private val mobCountAction = counter("http.mobile.count.action")
+  private val mobCountVersion = counter("http.mobile.count.version")
+  private val mobCountAuth = counter("http.mobile.count.auth")
+  private val mobCountOs = counter("http.mobile.count.os")
+  private val agentCount = counter("http.agent.count")
 
   def time(action: String) = reqTime.withTag("action", action)
 
@@ -37,14 +42,14 @@ object http:
     counter("http.error").withTags:
       tags("action" -> action, "client" -> client, "method" -> method, "code" -> code.toLong)
 
-  def mobileCount(action: String, version: String, auth: Boolean, os: String) =
-    mobCount.withTags:
-      tags(
-        "action" -> action,
-        "version" -> version,
-        "auth" -> (if auth then "auth" else "anon"),
-        "os" -> os
-      )
+  def mobileCount(action: String, m: lila.core.net.LichessMobileUa): Unit =
+    mobCountAction.withTag("action", action).increment()
+    mobCountVersion.withTag("version", m.version).increment()
+    mobCountAuth.withTag("auth", if m.userId.isDefined then "auth" else "anon").increment()
+    mobCountOs.withTag("os", m.osName).increment()
+
+  def apiAgentCount(action: String, agent: String) =
+    agentCount.withTags(tags("action" -> action, "agent" -> agent))
 
   def path(p: String) = counter("http.path.count").withTag("path", p.escape)
   val userGamesCost = counter("http.userGames.cost").withoutTags()
@@ -84,8 +89,7 @@ object mongoCache:
   def compute(name: String) = timer("mongocache.compute").withTag("name", name)
 object evalCache:
   private val r = counter("evalCache.request")
-  def request(ply: Int, isHit: Boolean) =
-    r.withTags(tags("ply" -> (if ply < 15 then ply.toString else "15+"), "hit" -> isHit))
+  def request(isHit: Boolean) = r.withTag("hit", isHit)
   object upgrade:
     val count = counter("evalCache.upgrade.count").withoutTags()
     val members = gauge("evalCache.upgrade.members").withoutTags()
@@ -247,14 +251,19 @@ object user:
     def reopenRequest(s: String) = counter("user.auth.reopenRequest").withTag("type", s)
     def reopenConfirm(s: String) = counter("user.auth.reopenConfirm").withTag("type", s)
   object oauth:
-    def request(success: Boolean) = counter("user.oauth.request").withTags:
-      tags("success" -> successTag(success))
+    def request(success: Boolean) = counter("user.oauth.request").withTag("success", successTag(success))
+    def authorize(result: String) = counter("user.oauth.authorize").withTag("result", result)
   private val userSegment = timer("user.segment")
   def segment(seg: String) = userSegment.withTag("segment", seg)
   def leaderboardCompute = future("user.leaderboard.compute")
   def weeklyStableRanking(perf: PerfKey) = future("user.weeklyStableRanking", perf.value)
 object actor:
   def queueSize(name: String) = gauge("trouper.queueSize").withTag("name", name)
+object appeal:
+  private val unreadGauge = gauge("appeal.unread")
+  def unreadByTopic(list: Map[lila.core.misc.AppealTopic, Int]) =
+    list.map: (topic, count) =>
+      unreadGauge.withTag("topic", topic.key).update(count)
 object mod:
   def queueStatus(room: String, score: Int) =
     gauge("mod.queueStatus").withTags:
@@ -319,6 +328,8 @@ object relay:
     histogram("relay.push.errors").withTags(histogramTags).record(errors)
     counter("relay.push.games.nb").withTags(counterTags).increment(games)
     counter("relay.push.moves.nb").withTags(counterTags).increment(moves)
+  object listing:
+    def time(section: String) = timer("relay.listing.time").withTag("section", section)
 
 object bot:
   def moves(username: String) = counter("bot.moves").withTag("name", username)
@@ -337,6 +348,7 @@ object email:
     private val c = counter("email.send")
     val resetPassword = c.withTag("type", "resetPassword")
     val magicLink = c.withTag("type", "magicLink")
+    val storedCode = c.withTag("type", "storedCode")
     val reopen = c.withTag("type", "reopen")
     val fix = c.withTag("type", "fix")
     val change = c.withTag("type", "change")
@@ -357,6 +369,8 @@ object security:
       counter("security.proxy.hit").withTags(tags("proxy" -> prox, "action" -> action))
   def rateLimit(key: String) = counter("security.rateLimit.count").withTag("key", key)
   def concurrencyLimit(key: String) = counter("security.concurrencyLimit.count").withTag("key", key)
+  def concurrencyLevel(key: String, client: String) =
+    gauge("security.concurrencyLimit.level").withTags(tags("key" -> key, "client" -> client))
   object dnsApi:
     val mx = future("security.dnsApi.mx.time")
   object verifyMailApi:
@@ -381,7 +395,7 @@ object security:
           "pwned" -> pwned,
           "result" -> result
         )
-    def proxy(tpe: String) = counter("security.login.proxy").withTag("proxy", tpe)
+    def must2fa(reason: String) = counter("security.login.must2fa").withTag("reason", reason.escape)
   def secretScanning(tokenType: String, source: String, hit: Boolean) =
     counter("security.githubSecretScanning.hit").withTags(
       tags("type" -> tokenType, "source" -> source.escape, "hit" -> hit)
@@ -443,8 +457,8 @@ object tournament:
         "client" -> client
       )
   def withdrawableIds(reason: String) = future("tournament.withdrawableIds", reason)
-  def action(tourId: String, action: String) =
-    timer("tournament.api.action").withTags(tags("tourId" -> tourId, "action" -> action))
+  def action(action: String) =
+    timer("tournament.api.action").withTags(tags("action" -> action))
   object notifier:
     def tournaments = counter("tournament.notify.tournaments").withoutTags()
     def players = counter("tournament.notify.players").withoutTags()
@@ -490,10 +504,8 @@ object forum:
     val view = counter("forum.topic.view").withoutTags()
   def reaction(r: String) = counter("forum.reaction").withTag("reaction", r)
 object msg:
-  def post(verdict: String, isNew: Boolean, multi: Boolean) = counter("msg.post").withTags(
+  def post(verdict: String, isNew: Boolean, multi: Boolean) = counter("msg.post").withTags:
     tags("verdict" -> verdict, "isNew" -> isNew, "multi" -> multi)
-  )
-  val teamBulk = histogram("msg.bulk.team").withoutTags()
   def clasBulk(clasId: ClasId) = histogram("msg.bulk.clas").withTag("id", clasId.value)
 object puzzle:
   object selector:
@@ -586,10 +598,13 @@ object game:
     def decode(format: String) = timer("game.pgn.decode").withTag("format", format)
   val idCollision = counter("game.idCollision").withoutTags()
   def idGenerator(collisions: Int) = timer("game.idGenerator").withTags(tags("collisions" -> collisions))
-  object streamByOauthOrigin:
-    def event(tpe: String) = counter("game.streamByOauthOrigin.event").withTag("type", tpe)
-    def users(sel: String) = gauge("game.streamByOauthOrigin.users").withTag("selector", sel)
-    def streams(ua: UserAgent) = gauge("game.streamByOauthOrigin.streams").withTag("ua", ua.value)
+  final class StreamByOauthOrigin(origin: Origin):
+    def event(tpe: String) =
+      counter("game.streamByOauthOrigin.event").withTags(tags("type" -> tpe, "origin" -> origin))
+    def users(sel: String) =
+      gauge("game.streamByOauthOrigin.users").withTags(tags("selector" -> sel, "origin" -> origin))
+    def streams(ua: UserAgent) =
+      gauge("game.streamByOauthOrigin.streams").withTags(tags("ua" -> ua, "origin" -> origin))
 object chat:
   private val msgCounter = counter("chat.message")
   def message(parent: String, troll: Boolean) =
@@ -623,6 +638,7 @@ object push:
     val invitedStudy = send("invitedStudy")
     val streamStart = send("streamStart")
     val broadcastRound = send("broadcastRound")
+    val recap = send("recap")
 
     object challenge:
       val create = send("challengeCreate")
@@ -666,6 +682,7 @@ object fishnet:
     val evalCacheHits = histogram("fishnet.analysis.evalCacheHits").withoutTags()
     val skipPositionsGame = future("fishnet.analysis.skipPositions.game")
     val skipPositionsStudy = future("fishnet.analysis.skipPositions.study")
+    def sameHash(tpe: "game" | "study") = counter("fishnet.analysis.sameHash").withTag("type", tpe)
   object http:
     def request(hit: Boolean) = counter("fishnet.http.acquire").withTag("hit", hit)
   def move(level: Int) = counter("fishnet.move.time").withTag("level", level)
@@ -682,6 +699,8 @@ object study:
     val write = timer("study.tree.write").withoutTags()
   object sequencer:
     val chapterTime = timer("study.sequencer.chapter.time").withoutTags()
+  object pgn:
+    val time = timer("study.pgn.time").withoutTags()
 object api:
   val users = counter("api.cost").withTag("endpoint", "users")
   val activity = counter("api.cost").withTag("endpoint", "activity")
@@ -693,6 +712,9 @@ object `export`:
   object png:
     val game = counter("export.png").withTag("type", "game")
     val puzzle = counter("export.png").withTag("type", "puzzle")
+object analyse:
+  object annotator:
+    val addEvalsTime = timer("analyse.annotator.addEvalsTime").withoutTags()
 object bus:
   val classifiers = gauge("bus.classifiers").withoutTags()
 object blocking:
@@ -717,8 +739,9 @@ object ublog:
     def quality(q: String) = counter("ublog.automod.quality").withTag("quality", q)
     def flagged(f: Boolean) = counter("ublog.automod.flagged").withTag("flagged", f)
 object picfit:
-  def uploadTime(user: UserId) = future("picfit.upload.time", tags("user" -> user))
-  def uploadSize(user: UserId) = histogram("picfit.upload.size").withTag("user", user)
+  def uploadTime = future("picfit.upload.time")
+  def uploadSize = histogram("picfit.upload.size").withoutTags()
+  def uploadCount(by: UserId) = counter("picfit.upload.count").withTag("by", by)
 object fideSync:
   val time = future("fide.sync.time")
   val players = gauge("fide.sync.players").withoutTags()
@@ -728,14 +751,21 @@ object recap:
   val puzzles = future("recap.build.puzzles.time")
 object signedClient:
   final class AuthPage(name: String):
-    def load(client: String) = counter(s"signedClient.$name.load").withTag("client", client)
-    def success(client: String) = counter(s"signedClient.$name.success").withTag("client", client)
+    def load(unique: Boolean)(client: String) = counter(s"signedClient.$name.load")
+      .withTags(tags("client" -> client, "unique" -> unique))
+    def success(hasFailed: Boolean)(client: String) =
+      counter(s"signedClient.$name.success").withTags(tags("client" -> client, "hasFailed" -> hasFailed))
     def step(s: String)(client: String) =
       counter(s"signedClient.$name.step").withTags(tags("client" -> client, "step" -> s))
-    def failure(reason: String)(client: String) =
-      counter(s"signedClient.$name.failure").withTags(tags("client" -> client, "reason" -> reason))
-  val login = AuthPage("login")
-  val signup = AuthPage("signup")
+    def failure(reason: String, unique: Boolean)(client: String) =
+      counter(s"signedClient.$name.failure")
+        .withTags(tags("client" -> client, "reason" -> reason, "unique" -> unique))
+    def formError(keys: String, messages: String)(client: String) =
+      counter(s"signedClient.$name.formError").withTags:
+        tags("client" -> client, "key" -> keys, "msg" -> messages)
+    def alreadyLoggedIn(client: String, loggedIn: Boolean) =
+      counter(s"signedClient.$name.alreadyLoggedIn").withTags:
+        tags("client" -> client, "loggedIn" -> loggedIn)
 
 object jvm:
   def threads() =
@@ -748,7 +778,8 @@ object jvm:
     yield perState.withTags(tags("name" -> group.name, "state" -> state.toString)).update(count)
 
 object prometheus:
-  val lines = gauge("prometheus.lines").withoutTags()
+  def lines = gauge("prometheus.lines").withoutTags()
+  def linesPerMetric(metric: String) = gauge("prometheus.lines.metric").withTag("metric", metric)
 
 def chronoSync[A] = Chronometer.syncMon[A]
 

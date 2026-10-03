@@ -41,6 +41,7 @@ export interface Run {
   modifier: Modifier;
   endAt?: number;
   skipId?: string;
+  unfinishedId?: string;
 }
 
 export interface Round {

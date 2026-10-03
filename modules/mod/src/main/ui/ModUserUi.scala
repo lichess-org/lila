@@ -7,7 +7,7 @@ import lila.evaluation.Display
 import lila.ui.*
 import lila.user.{ ClosedFlags, WithPerfsAndEmails }
 
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.report.Report
 
 def mzSection(key: String): Tag =
@@ -44,7 +44,7 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi, mailerEventsUrl: Url):
       u: User,
       emails: lila.core.user.Emails,
       closedFlags: Option[ClosedFlags],
-      pmPresets: ModPresets
+      pmPresets: PmPresets
   )(using Context, Me): Frag =
     mzSection("actions")(
       div(cls := "btn-rack")(

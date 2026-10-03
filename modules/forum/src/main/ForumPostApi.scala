@@ -7,6 +7,7 @@ import lila.core.shutup.ShutupApi
 import lila.core.chat.PublicSource
 import lila.core.timeline.{ ForumPost as TimelinePost, Propagate }
 import lila.db.dsl.{ *, given }
+import cats.data.OptionT
 
 final class ForumPostApi(
     postRepo: ForumPostRepo,
@@ -50,8 +51,8 @@ final class ForumPostApi(
       case _ =>
         for
           _ <- postRepo.coll.insert.one(post)
-          _ <- topicRepo.coll.update.one($id(topic.id), topic.withPost(post))
-          _ <- categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post))
+          _ <- topicRepo.coll.update.one(bid(topic.id), topic.withPost(post))
+          _ <- categRepo.coll.update.one(bid(categ.id), categ.withPost(topic, post))
         yield
           promotion.save(me, post.text)
           if post.isTeam
@@ -94,7 +95,7 @@ final class ForumPostApi(
           val newPost = post.editPost(nowInstant, spam.replace(newText))
           val save = (newPost.text != post.text).so:
             for
-              _ <- postRepo.coll.update.one($id(post.id), newPost)
+              _ <- postRepo.coll.update.one(bid(post.id), newPost)
               _ <- newPost.isAnonModPost.so(logAnonPost(newPost, edit = true))
             yield promotion.save(me, newPost.text)
           save.inject(newPost)
@@ -127,10 +128,10 @@ final class ForumPostApi(
       for
         post <- postRepo.coll
           .findAndUpdateSimplified[ForumPost](
-            selector = $id(postId) ++ $doc("categId" -> categId, "userId".$ne(me.userId)),
+            selector = bid(postId) ++ bdoc("categId" -> categId, "userId".neq(me.userId)),
             update =
-              if v then $addToSet(s"reactions.$reaction" -> me.userId)
-              else $pull(s"reactions.$reaction" -> me.userId),
+              if v then addToSet(s"reactions.$reaction" -> me.userId)
+              else pull(s"reactions.$reaction" -> me.userId),
             fetchNewObject = true
           )
         _ =
@@ -189,7 +190,7 @@ final class ForumPostApi(
 
   def allUserIds(topicId: ForumTopicId) = postRepo.allUserIdsByTopicId(topicId)
 
-  def nbByUser(userId: UserId) = postRepo.coll.secondary.countSel($doc("userId" -> userId))
+  def nbByUser(userId: UserId) = postRepo.coll.secondary.countSel(bdoc("userId" -> userId))
 
   def categsForUser(teams: Iterable[TeamId], forUser: Option[User]): Fu[List[CategView]] =
     val isMod = forUser.fold(false)(MasterGranter.of(_.ModerateForum))
@@ -208,23 +209,19 @@ final class ForumPostApi(
 
   private def diagnosticForUser(user: User): Fu[Option[CategView]] = // CategView with user's topic/post
     for
-      categOpt <- categRepo.byId(ForumCateg.diagnosticId)
-      topicOpt <- topicRepo.byTree(ForumCateg.diagnosticId, ForumTopic.problemReportSlug(user.id))
-      postOpt <- topicOpt.so(t => postRepo.coll.byId[ForumPost](t.lastPostId(user.some)))
-    yield
-      for
-        post <- postOpt
-        topic <- topicOpt
-        categ <- categOpt
-      yield CategView(categ, (topic, post, topic.lastPage(config.postMaxPerPage)).some, user.some)
+      categ <- OptionT(categRepo.byId(ForumCateg.diagnosticId))
+      topic <- OptionT(topicRepo.byTree(ForumCateg.diagnosticId, ForumTopic.problemReportSlug(user.id)))
+      post <- OptionT(postRepo.coll.byId[ForumPost](topic.lastPostId(user.some)))
+    yield CategView(categ, (topic, post, topic.lastPage(config.postMaxPerPage)).some, user.some)
+  .value
 
   private def recentUserIds(topic: ForumTopic) =
     postRepo.coll
       .distinctEasy[UserId, List](
         "userId",
-        $doc(
+        bdoc(
           "topicId" -> topic.id,
-          "createdAt".$gt(nowInstant.minusDays(2))
+          "createdAt".gt(nowInstant.minusDays(2))
         ),
         _.sec
       )
@@ -232,11 +229,11 @@ final class ForumPostApi(
   def erasePost(post: ForumPost) =
     for
       _ <- picfitApi.pullRef(picRef(post.id))
-      _ <- postRepo.coll.update.one($id(post.id), post.erase)
+      _ <- postRepo.coll.update.one(bid(post.id), post.erase)
     yield ()
 
   def teamIdOfPost(post: ForumPost): Fu[Option[TeamId]] =
-    categRepo.coll.primitiveOne[TeamId]($id(post.categId), "team")
+    categRepo.coll.primitiveOne[TeamId](bid(post.categId), "team")
 
   private def logAnonPost(post: ForumPost, edit: Boolean)(using Me): Funit =
     topicRepo.byId(post.topicId).orFail(s"No such topic ${post.topicId}").flatMap { topic =>

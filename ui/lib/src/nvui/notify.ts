@@ -1,13 +1,19 @@
 import { h, type VNode, type VNodeData } from 'snabbdom';
 
+import { pubsub } from '@/pubsub';
+
 import { isMac } from '../device';
 import { requestIdleCallbackSafe } from '../index';
 
 export class Notify {
   text = '';
-  date: Date | undefined;
+  date?: Date;
 
-  constructor(public redraw: Redraw | undefined) {}
+  constructor(public redraw: Redraw | undefined) {
+    pubsub.on('socket.online', online => {
+      this.set(online ? 'You are online' : 'You are disconnected');
+    });
+  }
 
   set = (msg: string): void => {
     this.text = msg + (this.text === msg ? '\u00A0' : '');

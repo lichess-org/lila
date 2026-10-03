@@ -21,7 +21,6 @@
   <string name="puzzleRead">Čitanje zagonetke</string>
   <string name="teamRead">Pročitajte informacije o privatnom timu</string>
   <string name="teamWrite">Pridružite se, napustite i upravljajte timom</string>
-  <string name="teamLead">Upravljajte timovima koje vodite: šaljite osobne poruke, izbacite članove</string>
   <string name="followRead">Pročitajte praćene igrače</string>
   <string name="followWrite">Pratite i prestanite pratiti druge igrače</string>
   <string name="msgWrite">Šaljite privatne poruke drugim igračima</string>

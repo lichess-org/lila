@@ -52,7 +52,7 @@ final class FlairApi(getFile: lila.common.config.GetRelativeFile)(using Executor
     val source = scala.io.Source.fromFile(path, "UTF-8")
     try
       db = Flair.from(source.getLines().toSet)
-      logger.info(s"Updated flair db with ${db.size} flairs")
+      lila.log.system.info(s"Updated flair db with ${db.size} flairs")
     finally source.close()
 
   scheduler.scheduleOnce(18.seconds)(refresh())

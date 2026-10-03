@@ -96,7 +96,7 @@ pero pwede mong harangan ang atake!</string>
   <string name="youCanGetOutOfCheckByTaking">Pwede kang makawala sa pagkacheck sa pamamagitan ng pag-atake sa umatakeng piraso.</string>
   <string name="thisKnightIsCheckingThroughYourDefenses">Ang kabayong ito ay sumusuri sa iyong depensa!</string>
   <string name="escapeOrBlock">Itakas ang hari o harangan ang atake!</string>
-  <string name="outOfCheckComplete" comment="A brief description indicating that the user has reached the end of the out of check chapter.&#10;&#10;Note: In March 2026, this was changed from &quot;can never be taken&quot; to &quot;must never be taken&quot;.">Binabati kita! Ang iyong hari ay hindi kailanman makukuha, siguraduhin na ikaw ay makakadepensa sa check!</string>
+  <string name="outOfCheckComplete">Binabati kita! Ang iyong hari ay hindi kailanman makukuha, siguraduhin na ikaw ay makakadepensa sa check!</string>
   <string name="mateInOne">Mag-abot sa isa</string>
   <string name="defeatTheOpponentsKing">Talunin ang kalabang hari</string>
   <string name="mateInOneIntro">Ikaw ay panalo kapag ang iyong kalaban ay hindi na makadepensa sa isang check.</string>
@@ -123,6 +123,7 @@ Sunod ng kanyang reyna.</string>
 Gumawa ng kahit anong galaw para magpatuloy.</string>
   <string name="boardSetupComplete">Binabati kita! Marunong ka ng mag-ayos ng chess board.</string>
   <string name="castling">Pag-enrock</string>
+  <string name="enPassant">En passant</string>
   <string name="theSpecialKingMove">Ang espesyal na galaw ng hari</string>
   <string name="castlingIntro">Iligtas ang hari, at ilabas ang rook upang umatake!</string>
   <string name="castleKingSide">Galawin ang iyong hari ng upang depensahan ang panig ng hari!</string>

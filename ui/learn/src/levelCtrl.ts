@@ -148,7 +148,7 @@ export class LevelCtrl {
       vm.nbMoves++;
       const enemyRoleCaptured = enemyRoleToBeCaptured(orig, dest);
       const move = chess.move(orig, dest, prom);
-      if (move) this.setFen(chess.fen(), blueprint.color, new Map());
+      if (move) this.setFen(chess.fen(), blueprint.color, new Map(), [orig, dest]);
       else {
         // moving into check
         vm.failed = true;
@@ -157,9 +157,9 @@ export class LevelCtrl {
         redraw();
         return;
       }
-      let took = false,
-        inScenario,
-        captured = false;
+      let took = false;
+      let inScenario;
+      let captured = false;
       items.doIfKeyExists(makeSquare(move.to), () => {
         vm.score += apple;
         items.remove(makeSquare(move.to));
@@ -210,7 +210,7 @@ export class LevelCtrl {
         turnColor: color,
         fen,
         movable: { color, dests },
-        lastMove: lastMove,
+        lastMove,
       }),
     );
 

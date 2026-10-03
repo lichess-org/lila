@@ -51,7 +51,7 @@ class HandOfCardsImpl {
   animFrame = 0;
   scaleFactor = 1;
   groups: Set<string | undefined>;
-  group: string | undefined;
+  group?: string;
   drag?: {
     when: number;
     card: HTMLElement;
@@ -205,7 +205,9 @@ class HandOfCardsImpl {
     const isHovered = hoverIndex === index;
     const isAfterHovered = hoverIndex === -1 || index <= hoverIndex;
 
-    let x, y, cardRotation;
+    let x;
+    let y;
+    let cardRotation;
     let angle = visibleArc * (0.46 - index / visibleCards);
 
     if (this.isLeft) {
@@ -241,8 +243,8 @@ class HandOfCardsImpl {
   selectedTransform(card: HTMLElement) {
     if (this.opts.transient || card === this.drag?.card) return false;
     const dindex = this.drops.findIndex(x => x.selected === card.id);
-    card.classList.toggle('selected', dindex >= 0);
-    if (dindex < 0) return false;
+    card.classList.toggle('selected', dindex !== -1);
+    if (dindex === -1) return false;
     const to = this.drops[dindex].el;
     const scale = to.offsetHeight / this.cardSize;
     const x = to.offsetLeft + (to.offsetWidth - this.cardSize) / 2;
@@ -484,10 +486,10 @@ class TouchDragShape {
   }
 
   get momentum(): { speed: number; dir: 'towards-drop' | 'next-group' | 'lateral' | undefined } {
-    let towardsDrop = 0,
-      nextGroup = 0,
-      lateral = 0,
-      total = 0;
+    let towardsDrop = 0;
+    let nextGroup = 0;
+    let lateral = 0;
+    let total = 0;
     const r = this.recent;
 
     for (let i = 1; i < r.length; i++) {

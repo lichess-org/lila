@@ -25,7 +25,6 @@
   <string name="cantChangeMore">ನಾವು ಪ್ರಕರಣಕ್ಕಿಂತ ಹೆಚ್ಚಿನದನ್ನು ಬದಲಾಯಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ. ತಾಂತ್ರಿಕ ಕಾರಣಗಳಿಗಾಗಿ, ಇದು ಸಂಪೂರ್ಣವಾಗಿ ಅಸಾಧ್ಯ.</string>
   <string name="orCloseAccount">ಆದಾಗ್ಯೂ, ನೀವು ನಿಮ್ಮ ಪ್ರಸ್ತುತ ಖಾತೆಯನ್ನು ಮುಚ್ಚಬಹುದು ಮತ್ತು ಹೊಸದನ್ನು ರಚಿಸಬಹುದು.</string>
   <string name="wantClearHistory">ನನ್ನ ಇತಿಹಾಸ ಅಥವಾ ರೇಟಿಂಗ್ ಅನ್ನು ತೆರವುಗೊಳಿಸಲು ನಾನು ಬಯಸುತ್ತೇನೆ</string>
-  <string name="cantClearHistory">ನಿಮ್ಮ ಆಟದ ಇತಿಹಾಸ, ಒಗಟು ಇತಿಹಾಸ ಅಥವಾ ರೇಟಿಂಗ್‌ಗಳನ್ನು ತೆರವುಗೊಳಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ.</string>
   <string name="wantReport">ನಾನು ಆಟಗಾರನನ್ನು ವರದಿ ಮಾಡಲು ಬಯಸುತ್ತೇನೆ</string>
   <string name="toReportAPlayerUseForm">ಆಟಗಾರನನ್ನು ವರದಿ ಮಾಡಲು, ವರದಿ ಫಾರ್ಮ್ ಅನ್ನು ಬಳಸಿ</string>
   <string name="youCanAlsoReachReportPage">ಪ್ರೊಫೈಲ್ ಪುಟದಲ್ಲಿ %s ವರದಿ ಬಟನ್ ಅನ್ನು ಕ್ಲಿಕ್ ಮಾಡುವ ಮೂಲಕ ನೀವು ಆ ಪುಟವನ್ನು ತಲುಪಬಹುದು.</string>
@@ -52,7 +51,7 @@
   <string name="knightMate">ಬೋರ್ಡ್‌ನಲ್ಲಿ ಎದುರಾಳಿಯು ರಾಜನಿಗಿಂತ ಹೆಚ್ಚಿನವರನ್ನು ಹೊಂದಿದ್ದರೆ, ಒಬ್ಬ ನೈಟ್ ಅಥವಾ ಬಿಷಪ್‌ನೊಂದಿಗೆ ಚೆಕ್‌ಮೇಟ್ ಮಾಡಲು ಸಾಧ್ಯವಿದೆ.</string>
   <string name="noRatingPoints">ಯಾವುದೇ ರೇಟಿಂಗ್ ಅಂಕಗಳನ್ನು ನೀಡಲಾಗಿಲ್ಲ</string>
   <string name="ratedGame">ನೀವು ರೇಟ್ ಮಾಡಿದ ಆಟವನ್ನು ಆಡಿದ್ದೀರಿ ಎಂದು ಖಚಿತಪಡಿಸಿಕೊಳ್ಳಿ. ಕ್ಯಾಶುಯಲ್ ಆಟಗಳು ಆಟಗಾರರ ರೇಟಿಂಗ್‌ಗಳ ಮೇಲೆ ಪರಿಣಾಮ ಬೀರುವುದಿಲ್ಲ.</string>
-  <string name="botRatingAbuse" comment="The original English text was changed in March 2026, from &quot;if it is determined&quot; to &quot;if we determine&quot;.">ಕೆಲವು ಸಂದರ್ಭಗಳಲ್ಲಿ ಬೋಟ್ ಖಾತೆಯ ವಿರುದ್ಧ ಆಡುವಾಗ, ಆಟಗಾರನು ರೇಟಿಂಗ್ ಪಾಯಿಂಟ್‌ಗಳಿಗಾಗಿ ಬೋಟ್ ಅನ್ನು ದುರುಪಯೋಗಪಡಿಸಿಕೊಳ್ಳುತ್ತಿದ್ದಾರೆ ಎಂದು ನಿರ್ಣಯಿಸಿದರೆ ರೇಟ್ ಮಾಡಲಾದ ಆಟವು ಅಂಕಗಳನ್ನು ನೀಡುವುದಿಲ್ಲ.</string>
+  <string name="botRatingAbuse">ಕೆಲವು ಸಂದರ್ಭಗಳಲ್ಲಿ ಬೋಟ್ ಖಾತೆಯ ವಿರುದ್ಧ ಆಡುವಾಗ, ಆಟಗಾರನು ರೇಟಿಂಗ್ ಪಾಯಿಂಟ್‌ಗಳಿಗಾಗಿ ಬೋಟ್ ಅನ್ನು ದುರುಪಯೋಗಪಡಿಸಿಕೊಳ್ಳುತ್ತಿದ್ದಾರೆ ಎಂದು ನಿರ್ಣಯಿಸಿದರೆ ರೇಟ್ ಮಾಡಲಾದ ಆಟವು ಅಂಕಗಳನ್ನು ನೀಡುವುದಿಲ್ಲ.</string>
   <string name="errorPage">ದೋಷ ಪುಟ</string>
   <string name="reportErrorPage">ನೀವು ದೋಷ ಪುಟವನ್ನು ಎದುರಿಸಿದರೆ, ನೀವು ಅದನ್ನು ವರದಿ ಮಾಡಬಹುದು:</string>
   <string name="learnHowToMakeBroadcasts">Lichess ನಲ್ಲಿ ನಿಮ್ಮ ಸ್ವಂತ ಪ್ರಸಾರವನ್ನು ಹೇಗೆ ಮಾಡಬೇಕೆಂದು ತಿಳಿಯಿರಿ</string>

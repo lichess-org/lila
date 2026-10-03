@@ -22,11 +22,19 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
     blocked <- ctx.userId.so(api.fetchBlocks(user.id, _))
     res <-
       if mini then
-        Ok.snip:
-          views.relation.mini(user.id, blocked = blocked, followable = followable, relation)
+        fuccess:
+          Ok.snip:
+            views.relation.mini(user.id, blocked = blocked, followable = followable, relation)
       else
-        JsonOk:
-          views.relation.actions(user, relation, blocked = blocked, followable = followable)
+        for messageable <- ctx.me.soUse(env.socialInfo.messageable(user.id))
+        yield JsonOk:
+          views.relation.actions(
+            user,
+            relation,
+            blocked = blocked,
+            followable = followable,
+            messageable = messageable
+          )
   yield res
 
   private def RatelimitWith(
@@ -113,8 +121,9 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
   def apiMobileFollowing = Scoped(_.Web.Mobile) { ctx ?=> _ ?=>
     import env.user.lightUserApi.reader
     val nb = getInt("nb").fold(10)(_.squeeze(1, 100))
-    jsToNdJson:
-      env.relation.stream.recentlySeen(nb, env.user.lightUserApi.projection, env.round.playing.apply)
+    env.relation.stream
+      .recentlySeenList(nb, env.user.lightUserApi.projection, env.round.playing.apply)
+      .map(jsToNdJson)
   }
 
   // for lichobile, remove at some point

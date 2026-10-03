@@ -1,6 +1,5 @@
-useNodeVersion: 24.14.0
-managePackageManagerVersions: true
-updateNotified: false
+nodeVersion: 24.20.0
+pmOnFail: warn
 packages:
   - 'bin'
   - 'ui/*'
@@ -22,5 +21,12 @@ ignoredOptionalDependencies:
   - '@ox*/*-sunos-*'
 allowBuilds:
   esbuild: true
+  protobufjs: false
+overrides:
+  fast-uri: ^3.1.7
+  undici: ^8.10.2
 patchedDependencies:
   '@toast-ui/editor@3.2.2': ui/bits/patches/@toast-ui__editor.patch
+minimumReleaseAgeExclude:
+  - '@lichess-org/*'
+  - chessops@0.15.1

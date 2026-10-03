@@ -8,10 +8,10 @@ import play.api.libs.json.{ JsObject, JsValue, Json, Reads }
 import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
 import scala.util.{ Failure, Success, Try }
-import scalalib.net.Crawler
 
 import lila.core.config.Secret
 import lila.mon.extensions.*
+import lila.common.ClientName
 
 final private class OpeningExplorer(
     ws: StandaloneWSClient,
@@ -23,7 +23,7 @@ final private class OpeningExplorer(
   private val requestTimeout = 4.seconds
 
   // weird looking return type, but it was convenient here
-  def stats(play: Vector[Uci], config: OpeningConfig, crawler: Crawler): Fu[Try[Option[Position]]] =
+  def stats(play: Vector[Uci], config: OpeningConfig)(using client: ClientName): Fu[Try[Option[Position]]] =
     ws.url(s"$explorerEndpoint/lichess")
       .withHttpHeaders("Authorization" -> s"Bearer ${oauthToken.value}")
       .withQueryStringParameters(
@@ -32,7 +32,7 @@ final private class OpeningExplorer(
         "ratings" -> config.ratings.mkString(","),
         "speeds" -> config.speeds.map(_.key).mkString(","),
         "history" -> "yes",
-        "source" -> (if crawler.yes then "openingCrawler" else "opening")
+        "source" -> (if client.isCrawler then "openingCrawler" else "opening")
       )
       .withRequestTimeout(requestTimeout)
       .get()

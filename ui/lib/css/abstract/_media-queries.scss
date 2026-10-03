@@ -93,3 +93,15 @@
     @content;
   }
 }
+
+@mixin mq-has-hover {
+  @media (hover: hover) and (pointer: fine) {
+    @content;
+  }
+}
+
+@mixin mq-no-hover {
+  @media (hover: none) or (pointer: coarse) {
+    @content;
+  }
+}

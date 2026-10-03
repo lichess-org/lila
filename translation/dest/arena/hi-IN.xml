@@ -14,7 +14,7 @@
 यही है, एक जीत 4 अंक के लायक होगी, एक ड्रॉ: 2 अंक, और एक नुकसान कोई अंक नहीं रह जाएगा
 
 उदाहरण के लिए, एक ड्रॉ के बाद दो जीत के लायक 6 अंक होंगे: 2 + 2 + (2 x 1)</string>
-  <string name="berserk" comment="Appears as a heading on the Arena tournament FAQ on https://lichess.org/tournament/help&#10;&#10;This string used to read &quot;Arena Berserk&quot;, and was changed in March 2026 to just &quot;Berserk&quot;.">अखाड़ा निडर</string>
+  <string name="berserk">अखाड़ा निडर</string>
   <string name="berserkAnswer">जब कोई खिलाड़ी खेल की शुरुआत में निडर बटन पर क्लिक करता है, तो वे अपने घड़ी का आधा हिस्सा खो देते हैं, लेकिन जीत एक अतिरिक्त टूर्नामेंट बिंदु के बराबर होती है।
 
 निडर के साथ समय की वृद्धि रद्द हो जाता है। (1 + 2 एक अपवाद है, यह 1 + 0 देता है)
@@ -24,7 +24,6 @@
 निडर केवल एक अतिरिक्त बिंदु प्रदान करता है यदि आप खेल में कम से कम 7 चालें खेलते हैं।</string>
   <string name="howIsTheWinnerDecided">कैसे विजेता का फैसला किया है?</string>
   <string name="howIsTheWinnerDecidedAnswer">टूर्नामेंट की निर्धारित समय सीमा के समापन पर सबसे अधिक अंक वाले खिलाड़ी (विजेता) को विजेता घोषित किया जाएगा।</string>
-  <string name="howDoesPairingWork">पेयरिंग काम कैसे करता है?</string>
   <string name="howDoesPairingWorkAnswer">टूर्नामेंट की शुरुआत में खिलाड़ियों को उनकी रेटिंग के आधार पर जोड़ा जाता है।
 जैसे ही आप एक खेल खत्म करते हैं, टूर्नामेंट लॉबी पर वापस लौटें: आपको फिर से आपकी रैंकिंग के करीब खिलाड़ी के साथ रखा जाएगा। यह न्यूनतम प्रतीक्षा समय सुनिश्चित करता है, हालांकि आप टूर्नामेंट में अन्य सभी खिलाड़ियों का सामना नहीं कर सकते हैं।
 तेजी से खेलते हैं और अधिक गेम खेलने और अधिक अंक जीतने के लिए लॉबी पर लौटें।</string>
@@ -62,17 +61,13 @@
   <string name="myTournaments">मेरे टूर्नामेंट</string>
   <string name="editTournament">टूर्नामेंट संपादित करें</string>
   <string name="editTeamBattle">टीम लड़ाई संपादित करें</string>
-  <string name="defender">रक्षक</string>
   <string name="pickYourTeam">अपनी टीम चुनें</string>
   <string name="whichTeamWillYouRepresentInThisBattle">इस लड़ाई में आप किस टीम का प्रतिनिधित्व करेंगे?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">भाग लेने के लिए आपको इनमें से किसी एक टीम में शामिल होना होगा!</string>
   <string name="created">बनाया था</string>
-  <string name="recentlyPlayed" comment="Acts as the title of a personal page featuring the tournaments a player participated in, sorted by most recent Please keep your translation brief. Example: https://lichess.org/@/thibault/tournaments/recent&#10;&#10;This text used to say &quot;Recently played&quot; and was changed to &quot;Last played&quot; for clarity.">हाल ही में खेला</string>
+  <string name="recentlyPlayed">हाल ही में खेला</string>
   <string name="bestResults">सर्वोत्तम परिणाम</string>
   <string name="tournamentStats">टूर्नामेंट आँकड़े</string>
-  <string name="rankAvgHelp">रैंक औसत आपकी रैंकिंग का एक प्रतिशत है। कम बेहतर है।
-
-उदाहरण के लिए, 100 खिलाड़ियों के टूर्नामेंट में तीसरा स्थान प्राप्त होना = 3%। 1000 खिलाड़ियों के टूर्नामेंट में 10वें स्थान पर होना = 1%।</string>
   <string name="medians">माध्यिकाओं</string>
   <string name="allAveragesAreX">इस पृष्ठ पर सभी औसत हैं %s</string>
   <string name="total">कुल</string>

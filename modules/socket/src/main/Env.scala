@@ -1,6 +1,6 @@
 package lila.socket
 
-import akka.actor.{ CoordinatedShutdown, Scheduler }
+import org.apache.pekko.actor.{ CoordinatedShutdown, Scheduler }
 import com.softwaremill.macwire.*
 import io.lettuce.core.*
 import play.api.Configuration

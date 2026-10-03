@@ -20,7 +20,7 @@ object EvaluationBsonHandlers:
         suspiciousHoldAlert = r.boolD("sha")
       )
     def writes(w: BSON.Writer, o: PlayerFlags) =
-      $doc(
+      bdoc(
         "ser" -> w.boolO(o.suspiciousErrorRate),
         "aha" -> w.boolO(o.alwaysHasAdvantage),
         "hbr" -> w.boolO(o.highBlurRate),
@@ -59,7 +59,7 @@ object EvaluationBsonHandlers:
       tcFactor = r.doubleO("tcFactor")
     )
     def writes(w: BSON.Writer, o: PlayerAssessment) =
-      $doc(
+      bdoc(
         "_id" -> o._id,
         "gameId" -> o.gameId,
         "userId" -> o.userId,

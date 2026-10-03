@@ -8,7 +8,7 @@
   position: absolute;
   top: -4px;
 
-  @media (width < $xx-small) {
+  @media (max-width: $xx-small) {
     @include inline-end(-13px);
 
     scale: 0.75;
@@ -29,23 +29,34 @@
   font-size: 15px;
   font-weight: bold;
   text-align: center;
-  text-shadow: rgba(255, 255, 255, 0.5) 0 1px 0;
   position: relative;
   padding: 7px 0;
   top: 15px;
   width: 120px;
-  color: #5c5c5c;
-  box-shadow: 1px 0 3px rgba(0, 0, 0, 0.3);
+  color: #fff;
+  z-index: 1;
+  text-shadow: rgb(0 0 0 / 0.4) 0 1px 0;
+  box-shadow: 1px 0 3px rgb(0 0 0 / 0.3);
   transform: rotate(45deg);
 
   @include if-rtl {
     transform: rotate(-45deg);
   }
 
+  @include if-light {
+    color: #000;
+    text-shadow: rgb(255 255 255 / 0.4) 0 1px 0;
+  }
+
   icon {
-    color: $c-brag;
+    color: hsl(from $c-brag h calc(s + 10) calc(l + 10));
     animation: 0.6s soft-hue ease-in-out infinite;
-    text-shadow: 0 -0.5px 1px rgba(0, 0, 0, 0.5);
+    text-shadow: 0 0 1.5px rgb(0 0 0 / 0.5);
+
+    @include if-light {
+      color: hsl(from $c-brag h calc(s + 35) calc(l + 16));
+      text-shadow: 0 0 1.5px rgb(0 0 0 / 0.66);
+    }
   }
 
   icon:nth-child(2) {
@@ -79,17 +90,29 @@
   }
 
   &.done {
-    background-color: #c5e791;
-    box-shadow: 1px 0 3px $m-secondary--fade-50;
+    background-color: hsl(from $c-secondary h calc(s - 20) l);
+    box-shadow: 1px 0 3px rgb(from $c-secondary r g b / calc(alpha * 0.5));
+
+    @include if-light {
+      background-color: hsl(from $c-secondary h calc(s - 18) calc(l + 32));
+    }
   }
 
   &.ongoing {
-    background-color: #bddffa;
-    box-shadow: 1px 0 3px $m-primary--fade-50;
+    background-color: hsl(from $c-primary h calc(s - 20) l);
+    box-shadow: 1px 0 3px rgb(from $c-primary r g b / calc(alpha * 0.5));
+
+    @include if-light {
+      background-color: hsl(from $c-primary h calc(s - 10) calc(l + 30));
+    }
   }
 
   &.future {
-    background-color: $m-future--lighten-22;
-    box-shadow: 1px 0 3px $m-future--fade-50;
+    background-color: hsl(from $c-future h calc(s - 20) l);
+    box-shadow: 1px 0 3px rgb(from $c-future r g b / calc(alpha * 0.5));
+
+    @include if-light {
+      background-color: hsl(from $c-future h calc(s - 5) calc(l + 15));
+    }
   }
 }

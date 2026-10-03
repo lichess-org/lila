@@ -45,4 +45,5 @@ export const view = (ctrl: PuzzleCtrl) =>
     htmlUrl: '/training/help',
     onClose: () => ctrl.keyboardHelp(false),
     modal: true,
+    easyClose: 'clickOutside',
   });

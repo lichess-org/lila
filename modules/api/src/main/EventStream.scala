@@ -1,7 +1,7 @@
 package lila.api
 
-import akka.actor.*
-import akka.stream.scaladsl.*
+import org.apache.pekko.actor.*
+import org.apache.pekko.stream.scaladsl.*
 import play.api.i18n.Lang
 import play.api.libs.json.*
 import scalalib.net.Bearer
@@ -11,6 +11,7 @@ import lila.common.Bus
 import lila.common.actorBus.*
 import lila.common.Json.given
 import lila.core.game.{ FinishGame, StartGame }
+import lila.core.challenge.PositiveEvent
 import lila.game.Rematches
 import lila.user.{ LightUserApi, Me, UserRepo }
 import lila.bot.OnlineApiUsers.*
@@ -27,7 +28,7 @@ final class EventStream(
 )(using system: ActorSystem, scheduler: Scheduler)(using Executor, lila.core.i18n.Translator):
 
   private val blueprint =
-    Source.queue[Option[JsObject]](32, akka.stream.OverflowStrategy.dropHead)
+    Source.queue[Option[JsObject]](32, org.apache.pekko.stream.OverflowStrategy.dropHead)
 
   def apply(
       gamesInProgress: List[Game],
@@ -66,14 +67,14 @@ final class EventStream(
       override def preStart(): Unit =
         super.preStart()
         Bus.subscribeActorRefDyn(self, channels)
-        Bus.subscribeActorRef[lila.core.challenge.PositiveEvent](self)
+        Bus.subscribeActorRef[PositiveEvent](self)
         Bus.subscribeActorRef[NegativeEvent](self)
 
       override def postStop() =
         super.postStop()
         channels.foreach(Bus.unsubscribeActorRefDyn(self, _))
-        Bus.subscribeActorRef[lila.core.challenge.PositiveEvent](self)
-        Bus.subscribeActorRef[NegativeEvent](self)
+        Bus.unsubscribeActorRef[PositiveEvent](self)
+        Bus.unsubscribeActorRef[NegativeEvent](self)
         queue.complete()
 
       self ! SetOnline
@@ -97,7 +98,7 @@ final class EventStream(
 
         case FinishGame(game, _) => queue.offer(gameJson(game, "gameFinish"))
 
-        case lila.core.challenge.PositiveEvent.Create(c) if isMyChallenge(c) =>
+        case PositiveEvent.Create(c) if isMyChallenge(c) =>
           challengeApi
             .byId(c.id)
             .foreach:

@@ -18,5 +18,3 @@ def ignoreDuplicateKey: PartialFunction[Throwable, Unit] =
 def isDuplicateKey(wr: WriteResult) = wr.code.contains(11000)
 
 type AggregationPipeline[Operator] = (Operator, List[Operator])
-
-private val logger = lila.log("db")

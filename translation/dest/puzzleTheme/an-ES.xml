@@ -19,6 +19,7 @@
   <string name="bodenMate">Mate de Boden</string>
   <string name="bodenMateDescription">Dos alfils atacando en diagonals que se cruzan fan mate a un rei que queda atrapau entre piezas propias.</string>
   <string name="castling">Enroque</string>
+  <string name="enPassant">Captura a lo paso</string>
   <string name="castlingDescription">Asegura lo rei y apresta la torre pa l\'ataque.</string>
   <string name="capturingDefender">Capturar lo defensor</string>
   <string name="capturingDefenderDescription">Minchar una pieza que ye vita pa desfender-ne unatra, fendo que se pueda minchar la pieza que agora ya no ye desfendida.</string>
@@ -44,22 +45,19 @@
   <string name="doubleCheckDescription">Meter en escaque con dos piezas de vez, como resultau d\'un ataque a la descubierta an que tanto la pieza que s\'ha moviu como la pieza descubierta ataquen a lo rei de l\'oponent.</string>
   <string name="endgame">Final</string>
   <string name="endgameDescription">Una tactica en a zaguera fase d\'o chuego.</string>
-  <string name="enPassantDescription">Una tactic aque involucra la captura a lo paso, an que un peón puede capturar un peón oponent que l\'ha pasau emplegando lo suyo movimiento inicial de dos cuadrez.</string>
   <string name="exposedKing">Rei exposau</string>
   <string name="exposedKingDescription">Una tactica que involucra un rei con bels defensor alredor d\'él, que a ormino remata en escaque y mate.</string>
   <string name="fork">Doble</string>
-  <string name="forkDescription">Una chugada an que la pieza movida ataca de vez dos piezas de l\'oponent.</string>
   <string name="hangingPiece">Pieza penchada</string>
   <string name="hangingPieceDescription">Una tactica que involucra una pieza de l\'oponent que no ye suficientment defendida y que se puede capturar.</string>
   <string name="hookMate">Mate d\'o gancho</string>
-  <string name="hookMateDescription">Escaque y mate con una torre, un caballo y un peón chunto con un peón enemigo que limita lo escape d\'o rei adversario.</string>
   <string name="interference">Interferencia</string>
   <string name="interferenceDescription">Mover una pieza entre dos piezas de l\'oponent que deixa una u dos piezas indefensas de l\'oponent, como un caballo en un cuadret defendiu entre dos torres.</string>
   <string name="intermezzo">Chugada intermedia</string>
   <string name="intermezzoDescription">En cuenta de fer la chugada esperada, interposar un movimiento previo que chenera un periglo imminent a lo cual l\'oponent ha de responder. Tamién se conoixe como \"Zwichenzug\" u \"Intermezzo\".</string>
   <string name="killBoxMate">Mate d\'a caixa mortal</string>
   <string name="killBoxMateDescription">Una torre ye a lo costau d\'o rei enemigo sostenida per una dama que tamién bloqueya los cuadrez d\'escape. La torre y la dama cazan a lo rei enemigo con una \"caixa mortal\" 3x3.</string>
-  <string name="vukovicMate" comment="This was previously &quot;Vukovic&quot;. It can be safely updated to &quot;Vuković&quot;">Mate de Vukovic</string>
+  <string name="vukovicMate">Mate de Vukovic</string>
   <string name="vukovicMateDescription">Una torre y un caballo colaboran pa fer mate a lo rei. La torre da lo mate mientres ye defendida per una atra pieza. Lo caballo se fa servir pa blocar los cuadrez de salida d\'o rei.</string>
   <string name="knightEndgame">Final de caballos</string>
   <string name="knightEndgameDescription">Un final con caballos y peons nomás.</string>
@@ -92,7 +90,6 @@
   <string name="pin">Clavada</string>
   <string name="pinDescription">Una tactica que incluye clavadas, an que una pieza no se puede mover sin descubrir un ataque a una pieza de mayor valura.</string>
   <string name="promotion">Promoción</string>
-  <string name="promotionDescription">Promocionar un peón a una dama u pieza menor.</string>
   <string name="queenEndgame">Final de damas</string>
   <string name="queenEndgameDescription">Un final con damas y peons nomás.</string>
   <string name="queenRookEndgame">Dama y Torre</string>

@@ -1,9 +1,8 @@
 package lila.tournament
 
-import akka.stream.scaladsl.*
 import play.api.libs.json.*
 
-import lila.core.chess.Rank
+import lila.core.user.LightUserApi
 import lila.memo.CacheApi.*
 
 /*
@@ -15,30 +14,10 @@ import lila.memo.CacheApi.*
 final class TournamentStandingApi(
     playerRepo: PlayerRepo,
     cached: TournamentCache,
-    cacheApi: lila.memo.CacheApi,
-    lightUserApi: lila.core.user.LightUserApi
-)(using Executor, akka.stream.Materializer):
+    cacheApi: lila.memo.CacheApi
+)(using Executor)(using lightUserApi: LightUserApi):
 
   private val perPage = 10
-
-  def fullStanding(tour: Tournament): Fu[JsArray] =
-    playerRepo
-      .sortedCursor(tour.id, 100, _.pri)
-      .documentSource()
-      .zipWithIndex
-      .mapAsync(16): (player, index) =>
-        for
-          sheet <- cached.sheet(tour, player.userId)
-          json <- JsonView.playerJson(
-            lightUserApi,
-            sheet.some,
-            RankedPlayer(Rank(index.toInt + 1), player),
-            streakable = tour.streakable,
-            withScores = true
-          )
-        yield json
-      .runWith(Sink.seq)
-      .map(JsArray(_))
 
   def apply(tour: Tournament, forPage: Int, withScores: Boolean): Fu[JsObject] =
     val page = forPage.atMost(Math.ceil(tour.nbPlayers.toDouble / perPage).toInt).atLeast(1)
@@ -68,17 +47,19 @@ final class TournamentStandingApi(
     }
 
   private def compute(tour: Tournament, page: Int, withScores: Boolean): Fu[JsObject] =
+    given GetRealName = getRealName(tour)
     for
       rankedPlayers <-
         if page < 10 then playerRepo.bestByTourWithRankByPage(tour.id, perPage, page)
         else playerIdsOnPage(tour, page).flatMap { playerRepo.byPlayerIdsOnPage(_, page) }
+      _ <- tour.realNames.so(lightUserApi.preloadRealNames(rankedPlayers.map(_.player.userId)))
       sheets <- rankedPlayers
         .map: p =>
           cached.sheet(tour, p.player.userId).dmap { p.player.userId -> _ }
         .parallel
         .dmap(_.toMap)
       players <- rankedPlayers
-        .map(JsonView.playerJson(lightUserApi, sheets, streakable = tour.streakable, withScores = withScores))
+        .map(JsonView.playerJson(sheets, streakable = tour.streakable, withScores = withScores))
         .parallel
     yield Json.obj(
       "page" -> page,

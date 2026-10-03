@@ -13,6 +13,7 @@ import lila.core.net.IpAddress
 import lila.core.perm.Permission
 import lila.core.security.FingerHash
 import lila.core.userId.ModId
+import lila.core.msg.SystemMsg
 import lila.mod.{ Modlog, ModUserSearch }
 import lila.report.{ Mod as AsMod, Suspect }
 import lila.mon.extensions.*
@@ -21,7 +22,7 @@ final class Mod(
     env: Env,
     reportC: => report.Report,
     userC: => User
-)(using akka.stream.Materializer)
+)(using org.apache.pekko.stream.Materializer)
     extends LilaController(env):
 
   import env.mod.{ api, assessApi }
@@ -38,7 +39,7 @@ final class Mod(
   }(reportC.onModAction)
 
   def altMany = SecureBody(parse.tolerantText)(_.CloseAccount) { ctx ?=> me ?=>
-    import akka.stream.scaladsl.*
+    import org.apache.pekko.stream.scaladsl.*
     Source(ctx.body.body.split(' ').toList.flatMap(UserStr.read))
       .mapAsync(1): username =>
         withSuspect(username): prev =>
@@ -94,9 +95,10 @@ final class Mod(
     env.mod.presets.getPmPresets.named(subject).so { preset =>
       withSuspect(username): suspect =>
         for
-          _ <- env.msg.api.systemPost(suspect.user.id, preset.text)
+          _ <- env.msg.api.systemPost(SystemMsg.mustRead(suspect.user.id, preset.text))
           _ <- env.mod.logApi.modMessage(suspect.user.id, preset.name)
           _ <- preset.isNameClose.so(env.irc.api.nameClosePreset(suspect.user.username))
+          _ <- env.mod.api.afterWarning(suspect)
         yield suspect.some
     }
   }(reportC.onModAction)
@@ -111,6 +113,7 @@ final class Mod(
         _ <- env.mod.publicChat.deleteAll(sus)
         _ <- env.forum.delete.allByUser(sus.user)
         _ <- env.msg.api.deleteAllBy(sus.user)
+        _ <- env.api.accountTermination.deleteAllGameChats(sus.user)
         _ <- env.mod.logApi.deleteComms(sus)
         _ <- env.memo.picfitApi.deleteByUser(sus.user.id)
       yield ().some
@@ -322,8 +325,10 @@ final class Mod(
         Ok.chunked(source).asAttachmentStream(s"full-comms-export-of-${user.id}.txt")
     }
 
-  protected[controllers] def redirect(username: UserStr, mod: Boolean = true) =
-    Redirect(userUrl(username, mod))
+  protected[controllers] def redirect(username: UserStr, mod: Boolean = true)(using RequestHeader) =
+    env.web.referrerRedirect.fromReq match
+      case Some(ref) => Redirect(ref.value).flashSuccess
+      case None => Redirect(userUrl(username, mod))
 
   protected[controllers] def userUrl(username: UserStr, mod: Boolean = true) =
     s"${routes.User.show(username).url}${mod.so("?mod")}"
@@ -338,24 +343,8 @@ final class Mod(
 
   def spontaneousInquiry(username: UserStr) = Secure(_.SeeReport) { ctx ?=> me ?=>
     Found(env.user.repo.byId(username)): user =>
-      (getBool("appeal") && isGranted(_.Appeals)).so(env.appeal.api.exists(user)).flatMap { isAppeal =>
-        isAppeal
-          .so(env.report.api.inquiries.ongoingAppealOf(user.id))
-          .flatMap:
-            case Some(ongoing) if ongoing.mod != me.id =>
-              env.user.lightUserApi
-                .asyncFallback(ongoing.mod)
-                .map: mod =>
-                  Redirect(routes.Appeal.show(user.username))
-                    .flashFailure(s"Currently processed by ${mod.name}")
-            case _ =>
-              val f =
-                if isAppeal then env.report.api.inquiries.appeal
-                else env.report.api.inquiries.spontaneous
-              f(Suspect(user)).inject:
-                if isAppeal then Redirect(s"${routes.Appeal.show(user.username)}#appeal-actions")
-                else redirect(user.username, mod = true)
-      }
+      for _ <- env.report.api.inquiries.spontaneous(Suspect(user))
+      yield redirect(user.username, mod = true)
   }
 
   def gamify = Secure(_.GamifyView) { ctx ?=> _ ?=>
@@ -415,7 +404,7 @@ final class Mod(
     for _ <- env.security.printBan.toggle(hash, v) yield Redirect(routes.Mod.print(fh))
   }
 
-  def singleIp(ip: String) = SecureBody(_.ViewPrintNoIP) { ctx ?=> me ?=>
+  def singleIp(ip: String) = SecureBody(_.ViewIP) { ctx ?=> me ?=>
     given lila.mod.IpRender.RenderIp = env.mod.ipRender.apply
     env.mod.ipRender.decrypt(ip).so { address =>
       for
@@ -531,16 +520,24 @@ final class Mod(
   }
 
   def presets(group: String) = Secure(_.Presets) { ctx ?=> _ ?=>
-    Found(env.mod.presets.get(group)): setting =>
-      Ok.page(views.mod.ui.presets(group, setting.form))
+    lila.mod.ModPresets.Group.byKey
+      .get(group)
+      .so: typedGroup =>
+        Ok.page(views.mod.ui.presets(typedGroup, env.mod.presets.get(typedGroup).form))
   }
 
   def presetsUpdate(group: String) = SecureBody(_.Presets) { ctx ?=> _ ?=>
-    Found(env.mod.presets.get(group)): setting =>
-      bindForm(setting.form)(
-        err => BadRequest.page(views.mod.ui.presets(group, err)),
-        v => setting.setString(v.toString).inject(Redirect(routes.Mod.presets(group)).flashSuccess)
-      )
+    lila.mod.ModPresets.Group.byKey
+      .get(group)
+      .so: typedGroup =>
+        val setting = env.mod.presets.get(typedGroup)
+        bindForm(setting.form)(
+          err => BadRequest.page(views.mod.ui.presets(typedGroup, err)),
+          v =>
+            setting
+              .setString(v.toString)
+              .inject(Redirect(routes.Mod.presets(typedGroup.toString)).flashSuccess)
+        )
   }
 
   def eventStream = SecuredScoped(_.Admin) { _ ?=> _ ?=>

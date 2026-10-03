@@ -5,7 +5,7 @@
   <string name="chess960">Chess960</string>
   <string name="chess960Title">Vị trí bắt đầu của các quân cờ hàng 1 và  8 được sắp xếp ngẫu nhiên.</string>
   <string name="kingOfTheHill">Vua lên đồi</string>
-  <string name="kingOfTheHillTitle">Mang quân Vua của bạn vào các ô trung tâm để chiến thắng.</string>
+  <string name="kingOfTheHillTitle">Mang quân Vua của bạn vào 4 ô trung tâm để chiến thắng.</string>
   <string name="threeCheck">3 lần chiếu tướng</string>
   <string name="threeCheckTitle">Chiếu vua đối thủ 3 lần để giành chiến thắng.</string>
   <string name="antichess">Phản cờ vua</string>
@@ -16,7 +16,7 @@
   <string name="hordeTitle">Một bên có số lượng quân tốt lớn, bên kia chỉ có đội quân bình thường.</string>
   <string name="racingKings">Vua chạy đua</string>
   <string name="racingKingsTitle">Đưa vua của bạn sang phía bên kia của bàn cờ để giành chiến thắng.</string>
-  <string name="crazyhouse">Ngôi nhà điên khùng</string>
+  <string name="crazyhouse">Cờ đặt quân</string>
   <string name="crazyhouseTitle">Các quân cờ bắt được có thể được thả lại vào bàn cờ thay vì chỉ di chuyển một quân cờ.</string>
   <string name="fromPosition">Từ thế cờ</string>
   <string name="fromPositionTitle">Cờ tiêu chuẩn từ một thế trận tùy chỉnh</string>

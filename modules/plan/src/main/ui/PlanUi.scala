@@ -102,8 +102,7 @@ final class PlanUi(helpers: Helpers)(style: PlanStyle, contactEmail: EmailAddres
               div(cls := "wrapper")(
                 div(cls := "text")(
                   p(trp.weAreNonProfit()),
-                  p(trp.weRelyOnSupport()),
-                  p("Click donate to view payment options based on your device and currency.")
+                  p(trp.weRelyOnSupport())
                 ),
                 div(cls := "content")(
                   div(
@@ -251,12 +250,10 @@ final class PlanUi(helpers: Helpers)(style: PlanStyle, contactEmail: EmailAddres
                         )
                       ),
                       form(cls := "currency none", action := routes.Plan.list)(
-                        select(name := "currency")(
-                          CurrencyApi.currencyList.map: cur =>
-                            st.option(
-                              value := cur.getCurrencyCode,
-                              (pricing.currencyCode == cur.getCurrencyCode).option(selected)
-                            )(showCurrency(cur))
+                        form3.selectLowLevel(
+                          "currency",
+                          CurrencyApi.currencyList.map(c => c.getCurrencyCode -> showCurrency(c)),
+                          selected = pricing.currencyCode.some
                         )
                       )
                     )

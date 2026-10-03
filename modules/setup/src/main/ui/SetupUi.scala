@@ -8,8 +8,7 @@ import play.api.data.{ Field, Form }
 import lila.core.rating.RatingRange
 import lila.rating.PerfType
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class SetupUi(helpers: Helpers):
   import helpers.{ *, given }
@@ -20,17 +19,15 @@ final class SetupUi(helpers: Helpers):
       checks: Set[String] = Set.empty
   ): Frag =
     options.mapWithIndex { case ((value, text, hint), index) =>
+      val id = s"setup-${field.name}-$index"
       div(cls := "checkable")(
-        label(title := hint)(
-          input(
-            tpe := "checkbox",
-            cls := "regular-checkbox",
-            name := s"${field.name}[$index]",
-            st.value := value.toString,
-            checks(value.toString).option(checked)
-          ),
-          raw(text)
-        )
+        form3.nativeCheckbox(
+          fieldId = id,
+          fieldName = s"${field.name}[$index]",
+          checks(value.toString),
+          value.toString
+        ),
+        label(title := hint, `for` := id)(raw(text))
       )
     }
 
@@ -38,7 +35,7 @@ final class SetupUi(helpers: Helpers):
     st.form(novalidate)(
       table(
         tbody(
-          tr(cls := "variant")(
+          tr(cls := "filter-variant")(
             td(trans.site.variant()),
             td(
               setupCheckboxes(

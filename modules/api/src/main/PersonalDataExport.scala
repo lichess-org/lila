@@ -1,8 +1,8 @@
 package lila.api
 
-import akka.stream.Materializer
-import akka.stream.scaladsl.*
-import reactivemongo.akkastream.cursorProducer
+import org.apache.pekko.stream.Materializer
+import org.apache.pekko.stream.scaladsl.*
+import reactivemongo.pekkostream.cursorProducer
 
 import lila.coach.Coach
 import lila.db.dsl.{ *, given }
@@ -121,14 +121,14 @@ final class PersonalDataExport(
         .aggregateWith[Bdoc](readPreference = ReadPref.sec): framework =>
           import framework.*
           List(
-            Match($doc(Game.BSONFields.playerUids -> user.id)),
-            Project($id(true)),
+            Match(bdoc(Game.BSONFields.playerUids -> user.id)),
+            Project(bid(true)),
             PipelineOperator(lookup),
             Unwind("chat"),
             ReplaceRootField("chat"),
-            Project($doc("_id" -> false, "l" -> true)),
+            Project(bdoc("_id" -> false, "l" -> true)),
             Unwind("l"),
-            Match("l".$startsWith(s"${user.id} ", "i"))
+            Match("l".regexStart(s"${user.id} ", "i"))
           )
         .documentSource()
         .map { _.string("l").so(_.drop(user.id.value.size + 1)) }
@@ -136,11 +136,11 @@ final class PersonalDataExport(
 
     val spectatorGameChats =
       Source(List(textTitle("Spectator game chat messages"))).concat(gameChatsLookup:
-        $lookup.pipelineFull(
+        lookup.pipelineFull(
           from = chatEnv.coll.name,
           as = "chat",
-          let = $doc("id" -> $doc("$concat" -> $arr("$_id", "/w"))),
-          pipe = List($doc("$match" -> $expr($doc("$eq" -> $arr("$_id", "$$id")))))
+          let = bdoc("id" -> bdoc("$concat" -> barr("$_id", "/w"))),
+          pipe = List(bdoc("$match" -> expr(bdoc("$eq" -> barr("$_id", "$$id")))))
         ))
 
     val gameNotes =
@@ -149,19 +149,19 @@ final class PersonalDataExport(
           .aggregateWith[Bdoc](readPreference = ReadPref.sec): framework =>
             import framework.*
             List(
-              Match($doc(Game.BSONFields.playerUids -> user.id)),
-              Project($id(true)),
+              Match(bdoc(Game.BSONFields.playerUids -> user.id)),
+              Project(bid(true)),
               PipelineOperator(
-                $lookup.pipelineFull(
+                lookup.pipelineFull(
                   from = noteApi.collName,
                   as = "note",
-                  let = $doc("id" -> $doc("$concat" -> $arr("$_id", user.id))),
-                  pipe = List($doc("$match" -> $expr($doc("$eq" -> $arr("$_id", "$$id")))))
+                  let = bdoc("id" -> bdoc("$concat" -> barr("$_id", user.id))),
+                  pipe = List(bdoc("$match" -> expr(bdoc("$eq" -> barr("$_id", "$$id")))))
                 )
               ),
               Unwind("note"),
               ReplaceRootField("note"),
-              Project($doc("_id" -> false, "t" -> true))
+              Project(bdoc("_id" -> false, "t" -> true))
             )
           .documentSource()
           .map(~_.string("t"))
@@ -191,12 +191,12 @@ final class PersonalDataExport(
 
     val appeals = Source.futureSource:
       appealApi
-        .byId(user)
-        .map: opt =>
+        .findAll(user)
+        .map: appeals =>
           Source:
-            opt.so: appeal =>
+            appeals.flatMap: appeal =>
               List(textTitle("Appeal")) ++ appeal.msgs.map: msg =>
-                val author = if appeal.isAbout(msg.by) then "you" else "Lichess"
+                val author = if appeal.user.is(msg.by) then "you" else "Lichess"
                 s"${textDate(msg.at)} by $author\n${msg.text}$bigSep"
 
     val reports = Source.futureSource:
@@ -236,13 +236,13 @@ final class PersonalDataExport(
             List(textTitle("Title request")) ++ reqs.map: req =>
               import req.data.*
               s"""Title: $title
-              | Real name:  $realName
-              | FIDE ID: ${fideId | "-"}
-              | Federation URL: ${federationUrl | "-"}
-              | Public: $public
-              | Coach: ${req.data.coach}
-              | Comment: ${comment | "-"}
-              | $bigSep""".stripMargin
+                 | Real name:  $realName
+                 | FIDE ID: ${fideId | "-"}
+                 | Federation URL: ${federationUrl | "-"}
+                 | Public: $public
+                 | Coach: ${req.data.coach}
+                 | Comment: ${comment | "-"}
+                 | $bigSep""".stripMargin
 
     val outro = Source(List(textTitle("End of data export.")))
 

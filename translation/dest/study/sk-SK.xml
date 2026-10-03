@@ -71,7 +71,6 @@
   <string name="downloadGame">Stiahnúť hru</string>
   <string name="studyUrl">URL štúdie</string>
   <string name="currentChapterUrl">URL aktuálnej kapitoly</string>
-  <string name="youCanPasteThisInTheForumToEmbed">Vložte pre zobrazenie vo fóre</string>
   <string name="startAtInitialPosition">Začať zo základného postavenia</string>
   <string name="startAtX">Začať na %s</string>
   <string name="embedInYourWebsite">Vložte na svoju webstránku alebo blog</string>
@@ -195,8 +194,6 @@
   <string name="fromInitialPositionText">Len nastavenie šachovnice pre novú partiu.&lt;br&gt;Vhodné na štúdium otvorení.</string>
   <string name="customPositionTitle">Vlastná pozícia</string>
   <string name="customPositionText">Nastavte si šachovnicu podľa seba.&lt;br&gt;Vhodné na štúdium koncoviek.</string>
-  <string name="loadExistingLichessGameTitle">Nehrať existujúcu lichess partiu</string>
-  <string name="loadExistingLichessGameText">Vložte URL adresu lichess partie&lt;br&gt;(napríklad lichess.org/7fHIU0XI)&lt;br&gt;na načítanie ťahov partie v kapitole.</string>
   <string name="fromFenStringTitle">Z reťazca FEN</string>
   <string name="fromFenStringText">Vloženie pozície vo formáte FEN&lt;br&gt;&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;&lt;br&gt;na spustenie kapitoly od pozície.</string>
   <string name="fromPgnGameTitle">Z PGN partie</string>

@@ -6,6 +6,12 @@
   <string name="tokenDescription">Zugangsschlüssel-Beschreibung</string>
   <string name="rememberTokenUse">Damit du dich daran erinnerst, wofür der Zugangsschlüssel gedacht ist</string>
   <string name="whatTheTokenCanDo">Was der Zugangsschlüssel in deinem Namen tun kann:</string>
+  <string name="oauthCatUserAccount">Benutzerkonto</string>
+  <string name="oauthCatInteractions">Interaktionen</string>
+  <string name="oauthCatPlayGames">Partien spielen</string>
+  <string name="oauthCatStudiesBroadcasts">Studien &amp; Übertragungen</string>
+  <string name="oauthCatExternalPlay">Externes Spielen</string>
+  <string name="oauthCatExternalEngine">Externe Schach-Engine</string>
   <string name="doNotShareIt">Der Zugangsschlüssel wird Zugriff auf dein Konto ermöglichen. Teile ihn NIEMALS!</string>
   <string name="copyTokenNow">Stelle sicher, dass du deinen persönlichen Zugangsschlüssel jetzt kopierst. Du wirst ihn nicht erneut sehen können!</string>
   <string name="preferenceRead">Einstellungen lesen</string>
@@ -16,15 +22,18 @@
   <string name="challengeBulk">Erstelle viele Partien gleichzeitig für andere Spieler</string>
   <string name="studyRead">Private Studien und Übertragungen lesen</string>
   <string name="studyWrite">Erstelle, aktualisiere und lösche Studien und Übertragungen</string>
+  <string name="tournamentRead">Private Turniere lesen</string>
   <string name="tournamentWrite">Erstelle, aktualisiere und trete Turnieren bei</string>
   <string name="racerWrite">Erstelle und trete Aufgaben-Rennen bei</string>
   <string name="puzzleRead">Aufgaben-Aktivität lesen</string>
+  <string name="puzzleWrite">Aufgaben lösen</string>
   <string name="teamRead">Private Team-Informationen lesen</string>
   <string name="teamWrite">Teams beitreten und verlassen</string>
-  <string name="teamLead">Verwalte von dir geleitete Teams: Sende PMs, entferne Mitglieder</string>
+  <string name="manageTeamsYouLead">Verwalte von dir geleitete Teams: Sende Direktnachrichten, entferne Mitglieder</string>
   <string name="followRead">Gefolge Spieler lesen</string>
   <string name="followWrite">Anderen Spielern folgen und entfolgen</string>
   <string name="msgWrite">Anderen Spielern private Nachrichten senden</string>
+  <string name="readWriteNotesOnPlayers">Lies und schreibe Notizen über andere Spieler</string>
   <string name="boardPlay">Partien mit der Board-API spielen</string>
   <string name="botPlay">Partien mit der Bot-API spielen</string>
   <string name="engineRead">Deine externen Engine</string>
@@ -34,7 +43,7 @@
   <string name="canMakeOauthRequests">Du kannst OAuth-Anfragen erstellen, ohne den %s zu durchlaufen.</string>
   <string name="authorizationCodeFlow">Autorisierung-Code-Prozess</string>
   <string name="insteadGenerateToken" comment="The parameter is a link to generate a token a personal access token">Stattdessen %s, den du direkt in deinen API-Anfragen benutzen kannst.</string>
-  <string name="generatePersonalToken">generiere einen persönlichen Zugangs-Schlüssel</string>
+  <string name="generatePersonalToken">einen persönlichen Zugangs-Schlüssel generieren</string>
   <string name="guardTokensCarefully">Hüte diese Schlüssel gewissenhaft! Sie sind wie Passwörter. Der Vorteil bei der Verwendung von Schlüsseln anstelle von Passwörtern in Skripten ist, dass Schlüssel widerrufen werden können und du viele von ihnen generieren kannst.</string>
   <string name="apiDocumentationLinks" comment="The first parameter links to a personal token app example. The second parameter links to the API documentation">Hier ist ein %1$s und die %2$s.</string>
   <string name="personalTokenAppExample">Beispiel für eine Anwendung mit persönlichem Zugangs-Schlüssel</string>

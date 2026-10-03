@@ -1,13 +1,13 @@
 import { h } from 'snabbdom';
 
 import { numberFormat } from 'lib/i18n';
-import { spinnerVdom as spinner } from 'lib/view';
+import { onInsert, spinnerVdom as spinner } from 'lib/view';
 import { json as xhrJson } from 'lib/xhr';
 
 import type { RelayRound } from './interfaces';
 
 type Data = {
-  viewers: any;
+  viewers: [number, number][];
   unique?: number;
 };
 
@@ -36,11 +36,7 @@ export const statsView = (ctrl: RelayStats) =>
     'div.relay-tour__stats',
     {
       class: { loading: !ctrl.data },
-      hook: {
-        insert: _ => {
-          ctrl.loadFromXhr();
-        },
-      },
+      hook: onInsert(() => ctrl.loadFromXhr()),
     },
     ctrl.data
       ? [

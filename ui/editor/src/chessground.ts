@@ -8,17 +8,17 @@ import { isSafari } from 'lib/device';
 import { ShowResizeHandle } from 'lib/prefs';
 import { pubsub } from 'lib/pubsub';
 import { storage } from 'lib/storage';
+import { onInsert } from 'lib/view';
 
 import type EditorCtrl from './ctrl';
 
 export default function (ctrl: EditorCtrl): VNode {
   return h('div.cg-wrap', {
     hook: {
-      insert: vnode => {
-        const el = vnode.elm as HTMLElement;
+      ...onInsert(el => {
         ctrl.chessground = makeChessground(el, makeConfig(ctrl));
         bindEvents(el, ctrl);
-      },
+      }),
       destroy: () => ctrl.chessground!.destroy(),
     },
   });
@@ -85,15 +85,10 @@ function onMouseEvent(ctrl: EditorCtrl): (e: MouchEvent) => void {
       }
       lastKey = key;
     } else if (isRightClick(e)) {
-      if (sel !== 'pointer') {
-        ctrl.chessground!.state.drawable.current = undefined;
-        ctrl.chessground!.state.drawable.shapes = [];
-
-        if (e.type === 'contextmenu' && sel !== 'trash') {
-          ctrl.chessground!.cancelMove();
-          sel[0] = opposite(sel[0]);
-          ctrl.redraw();
-        }
+      if (sel !== 'pointer' && sel !== 'trash' && e.type === 'contextmenu') {
+        ctrl.chessground!.cancelMove();
+        sel[0] = opposite(sel[0]);
+        ctrl.redraw();
       }
     }
   };
@@ -135,7 +130,7 @@ function makeConfig(ctrl: EditorCtrl): CgConfig {
       enabled: false,
     },
     drawable: {
-      enabled: true,
+      enabled: ctrl.selected() === 'pointer',
       defaultSnapToValidMove: storage.boolean('arrow.snap').getOrDefault(true),
     },
     draggable: {

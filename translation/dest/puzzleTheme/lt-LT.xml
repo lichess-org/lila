@@ -19,6 +19,7 @@
   <string name="bodenMate">Bodeno matas</string>
   <string name="bodenMateDescription">Du puolantys rikiai susikryžiojančiose įstrižainėse atlieka matą priešininko karaliui, įkalintam draugiškų figūrų.</string>
   <string name="castling">Rokiruotės</string>
+  <string name="enPassant">Kirtimas prasilenkiant</string>
   <string name="castlingDescription">Parveskite karalių į saugią vietą ir panaudokite atakai bokštą.</string>
   <string name="capturingDefender">Nukirskite gynėją</string>
   <string name="capturingDefenderDescription">Pašalinkite figūrą, kuri yra kritiškai svarbi kitos figūros gynybai, paruošdami naujai neapsaugotą figūrą kirtimui kitu ėjimu.</string>
@@ -44,22 +45,19 @@
   <string name="doubleCheckDescription">Šachas dviem figūrom vienu metu. Įvyksta po atidengimo atakos, kai ir perkelta figūra ir atidengta figūra puola priešininko karalių.</string>
   <string name="endgame">Endšpilis</string>
   <string name="endgameDescription">Taktika, skirta paskutinei žaidimo fazei.</string>
-  <string name="enPassantDescription">Taktika susijusi su kirtimu prasilenkiant (en passant). Pėstininkas gali nukirsti priešininko pėstininką, kuris \"aplenkė\" pirmąjį perkeltas per du langelius.</string>
   <string name="exposedKing">Atidengtas karalius</string>
   <string name="exposedKingDescription">Taktika, susijusi su karaliumi, kuris neturi daug gynejų aplink save. Tai dažnai priveda prie mato.</string>
   <string name="fork">Šakutė</string>
-  <string name="forkDescription">Ėjimas, kurio metu perkelta figūra puola dvi ar daugiau priešininko figūrų vienu metu.</string>
   <string name="hangingPiece">Kabanti figūra</string>
   <string name="hangingPieceDescription">Taktika, susijusi su neapginta ar nepakankamai apginta ir lengvai nukertama priešininko figūra.</string>
   <string name="hookMate">Kablio matas</string>
-  <string name="hookMateDescription">Matas su bokštu, žirgu ir pėstininku palei vieną iš priešininko pėstininkų, apribojančių priešininko karaliaus pabėgimą.</string>
   <string name="interference">Trukdymas</string>
   <string name="interferenceDescription">Figūros perkėlimas tarp dviejų priešininko figūrų, paliekant vieną ar abi jų neapgintas. Pavyzdžiui: perkeliant žirgą į apgintą laukelį tarp dviejų bokštų.</string>
   <string name="intermezzo">Tarpinis ėjimas</string>
   <string name="intermezzoDescription">Vietoje to, kad būtų padarytas ėjimas, kurio tikėtasi, įterpiamas kitas ėjimas, kuris apgaulingai pateikiamas kaip staigi ataka priešininkui, į kurią jis turi atsakyti. Dar žinomas kaip \"intermezzo\" ar \"zwischenzug\".</string>
   <string name="killBoxMate">Mirtinos dėžutės matas</string>
   <string name="killBoxMateDescription">Bokštas yra šalia varžovo karaliaus ir jį palaiko karalienė, kuri tuo pačiu uždaro karaliaus pabėgimo langelius. Bokštas ir karalienė sugauna varžovo karalių 3×3 langelių „mirties dėžutėje“.</string>
-  <string name="vukovicMate" comment="This was previously &quot;Vukovic&quot;. It can be safely updated to &quot;Vuković&quot;">Vukovic matas</string>
+  <string name="vukovicMate">Vukovic matas</string>
   <string name="vukovicMateDescription">Bokštas ir žirgas kartu matuoja karalių. Bokštas atlieka matą, jį palaiko trečioji figūra, o žirgas naudojamas uždaryti karaliaus pabėgimo langelius.</string>
   <string name="knightEndgame">Žirgų endšpilis</string>
   <string name="knightEndgameDescription">Endšpilis tik su žirgais ir pėstininkais.</string>
@@ -92,7 +90,6 @@
   <string name="pin">Surišimas</string>
   <string name="pinDescription">Taktika susijusi su surišimais, kai figūra negali pajudėti neatidengdama atakos į kitą, vertingesnę figūrą.</string>
   <string name="promotion">Paaukštinimas</string>
-  <string name="promotionDescription">Pėstininkas, kuris pasiaukština ar kėsinasi pasiaukštinti yra raktas šiai taktikai.</string>
   <string name="queenEndgame">Valdovės endšpilis</string>
   <string name="queenEndgameDescription">Endšpilis tik su valdovėmis ir pėstininkais.</string>
   <string name="queenRookEndgame">Valdovės ir bokšto endšpilis</string>

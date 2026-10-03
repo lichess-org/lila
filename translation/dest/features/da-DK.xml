@@ -9,7 +9,7 @@
     <item quantity="other">%s partier pr. dag</item>
   </plurals>
   <string name="boardEditorAndAnalysisBoardWithEngine" comment="%s is the engine name (Stockfish, Fairy-Stockfish)">Bræt-editor og analysebræt med %s</string>
-  <string name="cloudEngineAnalysis">Analyse med cloud-motor</string>
+  <string name="cloudEngineAnalysis">Analyse med cloud-skakprogram</string>
   <string name="studies">Studier (Fælles og sammenhængende analyse)</string>
   <string name="chessInsights">Skakindsigt (detaljeret analyse af dit spil)</string>
   <string name="allChessBasicsLessons">Alle grundlæggende skaklektioner</string>

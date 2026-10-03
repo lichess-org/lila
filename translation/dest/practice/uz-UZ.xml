@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="signUpToSaveYourProgress">Progressni saqlash uchun kiring</string>
+  <string name="secHeadCheckmates">Mot</string>
+  <string name="secHeadFundamentalTactics">Fundamental taktikalar</string>
+  <string name="secHeadAdvancedTactics">Ilgʻor taktikalar</string>
+  <string name="secHeadPawnEndgames">Piyodali endshpil</string>
+  <string name="secHeadRookEndgames">Ruxli endshpil</string>
+  <string name="stNamCheckmatePatternsI">Mot misollari I</string>
+  <string name="stNamCheckmatePatternsII">Mot misollari II</string>
+  <string name="stNamCheckmatePatternsIII">Mot misollari III</string>
+  <string name="stNamCheckmatePatternsIV">Mot misollari IV</string>
+  <string name="stNamThePin">Ochmas</string>
+  <string name="stNamTheSkewer">Shampur</string>
+  <string name="stNamTheFork">Vilka</string>
+  <string name="stNamDoubleCheck">Ikkiyoqlama shoh</string>
+  <string name="stNamXRay">Rentgen</string>
+  <string name="stNamZugzwang">Sugsvang</string>
+  <string name="stNamInterference">Toʻsiq</string>
+  <string name="stNamDeflection">Chalgʻitish</string>
+  <string name="stNamAttraction">Jalb qilish</string>
+  <string name="stNamUnderpromotion">Boshqa donaga almashtirish</string>
+  <string name="stNamClearance">Tozalash</string>
+  <string name="stNamOpposition">Oppozitsiya</string>
+  <string name="stDesInteractiveLesson">Interaktiv dars</string>
+  <string name="stDesTakeTheOpposition">Oppozitsiyani oling</string>
+  <string name="stDesVersusAQueen">Farzinga qarshi</string>
+  <string name="stDesLucenaAndPhilidor">Lucena va Philidor</string>
+</resources>

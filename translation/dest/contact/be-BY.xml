@@ -25,7 +25,6 @@
   <string name="cantChangeMore">Мы не можам змяніць нічога акрамя за рэгістра. Па тэнічных прычынах гэта проста немагчыма.</string>
   <string name="orCloseAccount">Аднак, вы можаце зачыніць ваш бягучы ўліковы запіс і потым стварыць новы.</string>
   <string name="wantClearHistory">Я хачу ачысціць сваю гісторыю альбо рэйтынг</string>
-  <string name="cantClearHistory">Немагчыма ачысціць гісторыю гульняў, гісторыю задач ці рэйтынг.</string>
   <string name="wantReport">Хачу паскардзіцца на гульца</string>
   <string name="toReportAPlayerUseForm">Каб паскардзіцца на гульца, выкарыстайце форму скаргі</string>
   <string name="youCanAlsoReachReportPage">Вы таксама можаце трапіць на гэту старонку націснуўшы %s кнопгу скаргі на старонцы профілю.</string>
@@ -52,7 +51,7 @@
   <string name="knightMate">Магчыма паставіць мат адзіным канём або сланом, кал ў суперніка застаўся не толькі кароль.</string>
   <string name="noRatingPoints">Рэйтынг ня быў даданы</string>
   <string name="ratedGame">Пераканайцеся, што вы згулялі рэйтынгавую гульню. Таварыскія гульні не ўплываюць на рэйтынг гульцоў.</string>
-  <string name="botRatingAbuse" comment="The original English text was changed in March 2026, from &quot;if it is determined&quot; to &quot;if we determine&quot;.">У пэўных абставінах, калі гуляючы супраць уліковых запісаў ботаў, рэйтангавая партыя можа не прыводзіць да змены рэйтынгу. Калі ўстаноўлена, што гулец злоўжывае бота дзеля павялячэння рэйтынгу.</string>
+  <string name="botRatingAbuse">У пэўных абставінах, калі гуляючы супраць уліковых запісаў ботаў, рэйтангавая партыя можа не прыводзіць да змены рэйтынгу. Калі ўстаноўлена, што гулец злоўжывае бота дзеля павялячэння рэйтынгу.</string>
   <string name="errorPage">Старонка памылкі</string>
   <string name="reportErrorPage">Калі вы траміце на старонку з памылкай, вы можаце паведаміць пра яе:</string>
   <string name="learnHowToMakeBroadcasts">Дазнайцеся, як карыстацца трансляцыямі Lichess</string>

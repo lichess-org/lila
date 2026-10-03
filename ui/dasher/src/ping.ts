@@ -6,8 +6,8 @@ import { pubsub } from 'lib/pubsub';
 import type { DasherCtrl } from '@/ctrl';
 
 export class PingCtrl {
-  ping: number | undefined;
-  server: number | undefined;
+  ping?: number;
+  server?: number;
 
   constructor(readonly root: DasherCtrl) {}
 
@@ -49,7 +49,7 @@ export class PingCtrl {
   signalBars(): VNode {
     const lagRating = !this.ping ? 0 : this.ping < 150 ? 4 : this.ping < 300 ? 3 : this.ping < 500 ? 2 : 1;
     const bars = [];
-    for (let i = 1; i <= 4; i++) bars.push(h(i <= lagRating ? 'icon' : 'icon.off'));
+    for (let i = 1; i <= 4; i++) bars.push(h(i <= lagRating ? 'i' : 'i.off'));
     return h('signal.q' + lagRating, bars);
   }
 

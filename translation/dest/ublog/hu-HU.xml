@@ -48,13 +48,10 @@
     <item quantity="one">Nézz meg egy bejegyzést</item>
     <item quantity="other">Nézd meg az összes %s posztot</item>
   </plurals>
-  <string name="uploadAnImageForYourPost">Tölts fel egy képet a posztodhoz</string>
   <string name="imageAlt">Szöveget helyettesítő kép - látássérüléssel élők számára</string>
   <string name="imageCredit">Kép jogtulajdonosa</string>
   <string name="deleteBlog">Poszt végleges törlése</string>
-  <string name="safeToUseImages">Az alábbi oldalakról származó képek használata biztonságos: </string>
   <string name="selectPostTopics">Válaszd ki a posztodhoz illő témaköröket</string>
-  <string name="useImagesYouMadeYourself">Saját magad által készített képeket is használhatsz, például Lichess képernyőképek... bármit, ami nem áll szerzői jog alatt.</string>
   <string name="safeAndRespectfulContent">Kérjük, hogy nyugodt hangvételű, releváns posztot hozz létre! Ne másold más felhasználók tartalmát.</string>
   <string name="inappropriateContentAccountClosed">A nem megfelelő tartalmak akár a fiókod törlését is eredményezhetik.</string>
   <string name="blogTips">Néhány tipp színvonalas posztok létrehozásához</string>

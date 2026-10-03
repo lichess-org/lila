@@ -1,6 +1,7 @@
 import { h, type VNode } from 'snabbdom';
 
 import { defined } from '@/index';
+import { onInsert } from '@/view';
 
 import type { Run, TimeMod } from '../interfaces';
 import { getNow } from '../util';
@@ -13,11 +14,10 @@ let lastText: string;
 export default function renderClock(run: Run, onFlag: OnFlag, withBonus: boolean): VNode {
   return h('div.puz-clock__time', {
     hook: {
-      insert(node) {
-        const el = node.elm as HTMLDivElement;
+      ...onInsert(el => {
         el.innerText = formatMs(run.clock.millis());
         refreshInterval = setInterval(() => renderIn(run, onFlag, el, withBonus), 100);
-      },
+      }),
       destroy() {
         if (refreshInterval) clearInterval(refreshInterval);
       },
@@ -40,9 +40,9 @@ function renderIn(run: Run, onFlag: OnFlag, el: HTMLElement, withBonus: boolean)
 const pad = (x: number): string => (x < 10 ? '0' : '') + x;
 
 const formatMs = (millis: number): string => {
-  const date = new Date(Math.max(0, Math.ceil(millis / 1000) * 1000)),
-    minutes = date.getUTCMinutes(),
-    seconds = date.getUTCSeconds();
+  const date = new Date(Math.max(0, Math.ceil(millis / 1000) * 1000));
+  const minutes = date.getUTCMinutes();
+  const seconds = date.getUTCSeconds();
   return minutes + ':' + pad(seconds);
 };
 

@@ -15,7 +15,7 @@ final class AutomaticEmail(
     mailer: Mailer,
     routeUrl: RouteUrl,
     lightUser: lila.core.user.LightUserApi
-)(using Executor, Translator):
+)(using Executor)(using translator: Translator):
 
   import Mailer.html.*
 
@@ -253,11 +253,11 @@ $disableSettingNotice $disableLink"""
   private def showGame(opponent: CorrespondenceOpponent)(using Lang) =
     val opponentName = opponent.opponentId.fold("Anonymous")(lightUser.syncFallback(_).name)
     opponent.remainingTime.fold(s"It's your turn in your game with $opponentName:"): remainingTime =>
-      s"You have ${lila.core.i18n.translateDuration(remainingTime)} remaining in your game with $opponentName:"
+      s"You have ${translator.duration(remainingTime)} remaining in your game with $opponentName:"
 
   private def alsoSendAsPrivateMessage(user: User)(body: Lang => String): String =
     body(userLang(user)).tap: txt =>
-      lila.common.Bus.pub(SystemMsg(user.id, txt))
+      lila.common.Bus.pub(SystemMsg.standard(user.id, txt))
 
   private def sendAsPrivateMessageAndEmail(user: User)(subject: Lang => String, body: Lang => String): Funit =
     alsoSendAsPrivateMessage(user)(body).pipe: body =>

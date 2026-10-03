@@ -1,6 +1,6 @@
-import { escapeHtml, myUserId } from 'lib';
+import { escapeHtml, myUserId, myUsername } from 'lib';
 import { isTouchDevice } from 'lib/device';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { log } from 'lib/permalog';
 import { storage } from 'lib/storage';
 import { domDialog } from 'lib/view';
@@ -18,6 +18,9 @@ export async function initModule(opts?: DiagnosticOpts): Promise<void> {
   const text =
     opts?.text ??
     `Browser: ${navigator.userAgent}\n` +
+      `User: ${myUsername() ?? '(anon)'}, ` +
+      `HTTP: ${(performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming)?.nextHopProtocol ?? 'unknown'}` +
+      `\n` +
       ('userAgentData' in navigator
         ? // @ts-ignore userAgentData not documented in TypeScript https://developer.mozilla.org/en-US/docs/Web/API/Navigator/userAgentData
           `Brand: "${navigator.userAgentData.brands.map(b => `${b.brand} ${b.version}`).join('; ')}", `

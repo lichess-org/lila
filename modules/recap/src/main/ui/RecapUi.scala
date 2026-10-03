@@ -2,7 +2,7 @@ package lila.recap
 package ui
 
 import lila.ui.*
-import ScalatagsTemplate.*
+import lila.ui.ScalatagsTemplate.*
 import lila.recap.Recap.Availability
 
 final class RecapUi(helpers: Helpers):
@@ -27,8 +27,8 @@ final class RecapUi(helpers: Helpers):
   def notAvailable(year: Int) =
     Page("Recap not available yet"):
       main(cls := "page-small box box-pad page")(
-        h1(cls := "box__top")(s"Lichess Recap $year will be available soon."),
+        h1(cls := "box__top")(s"Your $year Lichess Recap"),
         div(
-          p("Check back at the end of the year!")
+          p("Your recap will be available at the end of the year. Check back then!")
         )
       )

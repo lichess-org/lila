@@ -14,7 +14,7 @@ import lila.mon.extensions.*
 final class ActivityReadApi(
     coll: AsyncCollFailingSilently,
     gameRepo: lila.core.game.GameRepo,
-    getPracticeStudies: lila.core.practice.GetStudies,
+    getPracticeStudies: lila.ui.practice.GetStudies,
     forumPostApi: lila.core.forum.ForumPostApi,
     ublogApi: lila.core.ublog.UblogApi,
     simulApi: lila.core.simul.SimulApi,
@@ -34,7 +34,7 @@ final class ActivityReadApi(
     activities <-
       coll(
         _.find(regexId(u.id))
-          .sort($sort.desc("_id"))
+          .sort(sort.desc("_id"))
           .cursor[Activity]()
           .list(Activity.recentNb)
       ).dmap(_.filterNot(_.isEmpty))
@@ -52,7 +52,7 @@ final class ActivityReadApi(
     _ <- getTourName.preload(views.flatMap(_.tours.so(_.best.map(_.tourId))))
   yield ()
 
-  private def one(practiceStudies: Option[lila.core.practice.Studies], a: Activity): Fu[ActivityView] =
+  private def one(practiceStudies: Option[lila.ui.practice.GetStudy], a: Activity): Fu[ActivityView] =
     for
       allForumPosts <- a.forumPosts.traverse: p =>
         forumPostApi
@@ -146,8 +146,8 @@ final class ActivityReadApi(
 
   def recentSwissRanks(userId: UserId): Fu[List[(SwissIdName, Rank)]] =
     coll(
-      _.find(regexId(userId) ++ $doc(BSONHandlers.ActivityFields.swisses.$exists(true)))
-        .sort($sort.desc("_id"))
+      _.find(regexId(userId) ++ bdoc(BSONHandlers.ActivityFields.swisses.exists(true)))
+        .sort(sort.desc("_id"))
         .cursor[Activity]()
         .list(10)
     ).flatMap { activities =>

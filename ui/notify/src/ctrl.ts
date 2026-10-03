@@ -4,9 +4,9 @@ import { json as xhrJson, url as xhrUrl, text as xhrText } from 'lib/xhr';
 import type { Ctrl, NotifyOpts, NotifyData, Redraw } from './interfaces';
 
 export default function makeCtrl(opts: NotifyOpts, redraw: Redraw): Ctrl {
-  let data: NotifyData | undefined,
-    initiating = true,
-    scrolling = false;
+  let data: NotifyData | undefined;
+  let initiating = true;
+  let scrolling = false;
 
   const readAllStorage = storage.make('notify-read-all');
 
@@ -36,7 +36,7 @@ export default function makeCtrl(opts: NotifyOpts, redraw: Redraw): Ctrl {
   }
 
   const loadPage = (page: number) =>
-    xhrJson(xhrUrl('/notify', { page: page || 1 })).then(
+    xhrJson<NotifyData>(xhrUrl('/notify', { page: page || 1 })).then(
       d => update(d),
       _ => site.announce({ msg: 'Failed to load notifications' }),
     );

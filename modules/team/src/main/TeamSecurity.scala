@@ -14,7 +14,7 @@ object TeamSecurity:
     case Tour extends Permission("Tournaments", "Create, manage and join team tournaments")
     case Comm extends Permission("Moderation", "Moderate the forum and chats")
     case Request extends Permission("Requests", "Accept and decline join requests")
-    case PmAll extends Permission("Messages", "Send private messages to all members")
+    case PmAll extends Permission("Updates", "Send team updates to members")
     case Kick extends Permission("Kick", "Kick members of the team")
     case Admin extends Permission("Admin", "Manage leader permissions")
     def key = toString.toLowerCase

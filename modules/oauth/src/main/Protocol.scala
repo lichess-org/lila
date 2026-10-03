@@ -65,9 +65,8 @@ object Protocol:
     def withoutQuery: String = value.withQuery(null).toString
 
     def error(error: Error, state: Option[State]): String = value
-      .withQuery(
+      .withQuery:
         s"error=${urlencode(error.error)}&error_description=${urlencode(error.description)}&state=${urlencode(~state)}"
-      )
       .toString
 
     def code(code: AuthorizationCode, state: Option[State]): String = value

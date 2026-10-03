@@ -8,6 +8,7 @@ import lila.core.perf.UserWithPerfs
 import lila.core.report.SuspectId
 import lila.core.userId.ModId
 import lila.core.chat.PublicSource
+import lila.core.misc.AppealTopic
 
 case class Report(
     @Key("_id") id: ReportId, // also the url slug
@@ -74,7 +75,8 @@ case class Report(
   def isRecentCommOf(sus: Suspect) = isRecentComm && user == sus.user.id
   def isPlay = room == Room.Boost || room == Room.Cheat
 
-  def isAppeal = room == Room.Other && atoms.head.text == Report.appealText
+  def appealTopic: Option[AppealTopic] = (room == Room.Other).so(Report.textAppeal(atoms.head.text))
+  def isAppeal = appealTopic.isDefined
   def isAppealInquiryByMe(using me: MyId) = isAppeal && atoms.head.by.is(me)
 
   def isSpontaneous = room == Room.Other && atoms.head.text == Report.spontaneousText
@@ -134,7 +136,7 @@ object Report:
 
   case class Done(by: ModId, at: Instant)
 
-  case class Inquiry(mod: UserId, seenAt: Instant)
+  case class Inquiry(mod: ModId, seenAt: Instant)
 
   case class WithSuspect(report: Report, suspect: UserWithPerfs, isOnline: Boolean):
     def urgency: Int =
@@ -169,7 +171,10 @@ object Report:
         )
 
   private[report] val spontaneousText = "Spontaneous inquiry"
-  private[report] val appealText = "Appeal"
+  private[report] val appealTextPrefix = "Appeal: "
+  private[report] def appealText(topic: AppealTopic) = s"$appealTextPrefix$topic"
+  private[report] def textAppeal(text: String): Option[AppealTopic] =
+    text.startsWith(appealTextPrefix).so(AppealTopic.byKey.get(text.stripPrefix(appealTextPrefix)))
 
   def make(c: Candidate.Scored, existing: Option[Report]) =
     import c.*

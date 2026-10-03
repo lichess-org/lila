@@ -52,12 +52,12 @@
     a {
       @extend %box-radius;
 
-      background: $m-primary_bg--mix-12;
+      background: color-mix(in oklab, $c-primary 12%, $c-bg);
       padding: 0.2em 0.6em;
       margin: 0.2em;
 
       &:hover {
-        background: $m-primary_bg--mix-15;
+        background: color-mix(in oklab, $c-primary 15%, $c-bg);
       }
 
       white-space: nowrap;
@@ -164,7 +164,7 @@
     margin-bottom: 4rem;
     gap: 1rem;
 
-    @media (width <= $xx-small) {
+    @media (max-width: $xx-small) {
       grid-template-columns: 1fr;
     }
 
@@ -192,7 +192,7 @@
   }
 }
 
-#mod-tools {
+#ublog-mod-tools {
   display: flex;
   gap: 2rem;
 
@@ -213,7 +213,8 @@
   }
 
   fieldset {
-    border: $border-width $border-style $c-border;
+    border: $border;
+    border-radius: $box-radius-size;
     padding: 1rem 1.5rem 1.5rem;
   }
 
@@ -281,18 +282,6 @@
       flex: none;
       width: 1.2rem;
       height: 1.2rem;
-    }
-
-    .commercial {
-      color: $c-secondary;
-    }
-
-    .flagged {
-      color: $c-bad;
-    }
-
-    .empty {
-      color: $c-font-dimmer;
     }
   }
 }

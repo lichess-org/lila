@@ -2,7 +2,7 @@ import type { Config } from './interfaces';
 import { getNow } from './util';
 
 export class Clock {
-  startAt: number | undefined;
+  startAt?: number;
   initialMillis: number;
 
   public constructor(

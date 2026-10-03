@@ -18,7 +18,7 @@ final class RelayPlayerTour(
       chapterRepo
         .studyIdsByRelayFideId(fideId)
         .flatMap: studyIds =>
-          colls.round.distinctEasy[RelayTourId, List]("tourId", $inIds(studyIds))
+          colls.round.distinctEasy[RelayTourId, List]("tourId", inIds(studyIds))
 
   def playerTours(player: Player, page: Int): Fu[Paginator[RelayTour.WithLastRound]] =
     tourIdsCache

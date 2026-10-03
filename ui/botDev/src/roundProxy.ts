@@ -11,7 +11,7 @@ import { showSetupDialog } from './setupDialog';
 
 export class RoundProxy implements RoundProxyType {
   readonly data: RoundData;
-  readonly handlers: SocketHandlers = {
+  readonly handlers: RoundProxyType['handlers'] = {
     move: (d: any) => env.game.move(d.u),
     resign: () => env.game.resign(),
     'blindfold-no': () => {},
@@ -26,7 +26,7 @@ export class RoundProxy implements RoundProxyType {
         id: 'synthetic',
         variant: { key: 'standard', name: 'Standard', short: 'Std' },
         speed: 'classical',
-        perf: 'unlimited',
+        perf: 'classical',
         fen: co.fen.INITIAL_FEN,
         turns: 0,
         source: 'local',

@@ -21,7 +21,6 @@
   <string name="puzzleRead">Se pusselaktivitet</string>
   <string name="teamRead">Se privat laginformation</string>
   <string name="teamWrite">Gå med i och lämna lag</string>
-  <string name="teamLead">Hantera lag som du leder: skicka privata meddelanden, sparka medlemmar</string>
   <string name="followRead">Se följda spelare</string>
   <string name="followWrite">Följa och sluta följa andra spelare</string>
   <string name="msgWrite">Skicka privata meddelanden till andra spelare</string>

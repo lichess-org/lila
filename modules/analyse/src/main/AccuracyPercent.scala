@@ -1,6 +1,6 @@
 package lila.analyse
 
-import chess.{ ByColor, Color }
+import chess.{ ByColor, Color, Division, Ply }
 import chess.eval.WinPercent
 import chess.eval.Eval.Cp
 import scalalib.Maths
@@ -77,8 +77,12 @@ for x in xs:
     gameAccuracy(startColor, analysis.infos.map(_.eval.forceAsCp))
 
   // a mean of volatility-weighted mean and harmonic mean
-  def gameAccuracy(startColor: Color, cps: List[Option[Cp]]): Option[ByColor[AccuracyPercent]] =
-    val allWinPercents = (Some(Cp.initial) :: cps).map(_.map(WinPercent.fromCentiPawns))
+  def gameAccuracy(
+      startColor: Color,
+      cps: List[Option[Cp]],
+      initialCp: Option[Cp] = Some(Cp.initial)
+  ): Option[ByColor[AccuracyPercent]] =
+    val allWinPercents = (initialCp :: cps).map(_.map(WinPercent.fromCentiPawns))
     val windowSize = (cps.size / 10).squeeze(2, 8)
 
     val windows = List.fill(windowSize.atMost(allWinPercents.size) - 2)(allWinPercents.take(windowSize))
@@ -111,3 +115,22 @@ for x in xs:
     yield AccuracyPercent((weighted + harmonic) / 2)
 
     ByColor(colorAccuracy)
+
+  // Accuracy of each color within each game phase, reusing gameAccuracy on the phase's moves.
+  def phaseAccuracies(div: Division, analysis: Analysis): ByColor[Map[GamePhase, AccuracyPercent]] =
+    div.middle.so: middlePly =>
+      def phaseOf(ply: Ply): GamePhase =
+        if ply < middlePly then "opening" else if div.end.exists(_ <= ply) then "endgame" else "middlegame"
+
+      val byPhase: List[(GamePhase, ByColor[AccuracyPercent])] = for
+        phase <- phaseNames
+        slice = analysis.infos.filter(i => phaseOf(i.ply) == phase)
+        accuracy <- slice.headOption.so: first =>
+          val initialCp = analysis.infos
+            .find(_.ply == first.prevPly)
+            .fold(Cp.initial.some)(_.eval.forceAsCp)
+          gameAccuracy(first.color, slice.map(_.eval.forceAsCp), initialCp)
+      yield phase -> accuracy
+
+      ByColor[Map[GamePhase, AccuracyPercent]]: color =>
+        byPhase.map((phase, acc) => phase -> acc(color)).toMap

@@ -1,6 +1,5 @@
 import { COLORS } from 'chessops';
 
-import { defined } from 'lib';
 import { throttle } from 'lib/async';
 import { type Simul, setOnGame, isPlayerTurn, plyColor } from 'lib/game';
 import { pubsub } from 'lib/pubsub';
@@ -8,23 +7,26 @@ import { wsSign, wsVersion } from 'lib/socket';
 import { domDialog } from 'lib/view';
 
 import type RoundController from './ctrl';
-import type { RoundSocketSend, EventsWithoutPayload } from './interfaces';
+import type {
+  RoundSocketSend,
+  EventsWithoutPayload,
+  SocketInEvents,
+  TakeBackOffers,
+  Reloads,
+  ReloadEvent,
+} from './interfaces';
 import { reload as xhrReload } from './xhr';
 
+type Handlers = SocketInEvents & Reloads;
 export interface RoundSocket {
   send: RoundSocketSend;
-  handlers: SocketHandlers;
+  handlers: Handlers;
   moreTime(): void;
   outoftime(): void;
   berserk(): void;
   sendLoading(typ: EventsWithoutPayload): void;
-  receive(typ: string, data: any): boolean;
-  reload(o?: Incoming, isRetry?: boolean): void;
-}
-
-interface Incoming {
-  t: string;
-  d: any;
+  receive<T extends keyof SocketInEvents>(typ: T, data: Parameters<SocketInEvents[T]>): boolean;
+  reload<K extends keyof Reloads>(o?: ReloadEvent<K>, isRetry?: boolean): void;
 }
 
 type Callback = (...args: any[]) => void;
@@ -54,11 +56,12 @@ function backoff(delay: number, factor: number, callback: Callback): Callback {
 export function make(send: RoundSocketSend, ctrl: RoundController): RoundSocket {
   wsSign(ctrl.sign);
 
-  const reload = (o?: Incoming, isRetry?: boolean) => {
+  const reload = <K extends keyof Reloads>(o?: ReloadEvent<K>, isRetry?: boolean) => {
     // avoid reload if possible!
-    if (o && o.t) {
+    if (o?.t) {
       ctrl.setLoading(false);
-      handlers[o.t]!(o.d);
+      const handler = handlers[o.t] as unknown as (cb: Parameters<Reloads[K]>) => void;
+      handler(o.d);
     } else
       xhrReload(ctrl.data).then(data => {
         const version = wsVersion();
@@ -71,8 +74,8 @@ export function make(send: RoundSocketSend, ctrl: RoundController): RoundSocket 
       }, site.reload);
   };
 
-  const handlers: SocketHandlers = {
-    takebackOffers(o: { white?: boolean; black?: boolean }) {
+  const handlers: Handlers = {
+    takebackOffers(o: TakeBackOffers) {
       ctrl.data.player.proposingTakeback = o[ctrl.data.player.color];
       const fromOp = (ctrl.data.opponent.proposingTakeback = o[ctrl.data.opponent.color]);
       if (fromOp) ctrl.opponentRequest('takeback', i18n.site.yourOpponentProposesATakeback);
@@ -98,12 +101,12 @@ export function make(send: RoundSocketSend, ctrl: RoundController): RoundSocket 
     },
     crowd(o: { white: boolean; black: boolean }) {
       COLORS.forEach(c => {
-        if (defined(o[c])) setOnGame(ctrl.data, c, o[c]);
+        setOnGame(ctrl.data, c, o[c]);
       });
       ctrl.redraw();
     },
     endData: ctrl.endWithData,
-    rematchOffer(by: Color) {
+    rematchOffer(by?: Color) {
       ctrl.data.player.offeringRematch = by === ctrl.data.player.color;
       if ((ctrl.data.opponent.offeringRematch = by === ctrl.data.opponent.color))
         ctrl.opponentRequest('rematch', i18n.site.yourOpponentWantsToPlayANewGameWithYou);
@@ -153,6 +156,7 @@ export function make(send: RoundSocketSend, ctrl: RoundController): RoundSocket 
     },
     simulEnd(simul: Simul) {
       domDialog({
+        easyClose: 'clickOutside',
         htmlText:
           '<div><p>Simul complete!</p><br /><br />' +
           `<a class="button" href="/simul/${simul.id}">Back to ${simul.name} simul</a></div>`,
@@ -172,8 +176,8 @@ export function make(send: RoundSocketSend, ctrl: RoundController): RoundSocket 
       ctrl.setLoading(true);
       send(typ);
     },
-    receive(typ: string, data: any): boolean {
-      const handler = handlers[typ];
+    receive<T extends keyof SocketInEvents>(typ: T, data: Parameters<SocketInEvents[T]>): boolean {
+      const handler = handlers[typ] as ((cb: Parameters<SocketInEvents[T]>) => void) | undefined;
       if (handler) {
         handler(data);
         return true;

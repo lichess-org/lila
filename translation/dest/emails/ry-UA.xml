@@ -15,7 +15,6 @@
 
 Бавте из дяков, и най вам фіґуры усе найдут путь од чужому корольови!</string>
   <string name="logInToLichess">Зайдіт на lichess.org, %s</string>
-  <string name="common_orPaste">(Клопканя не помагат? Копіруйте ай перенесіт у браузер!)</string>
   <string name="common_note">Исе служебна уповістка, зязана из хоснованьом %s.</string>
   <string name="common_contact">Хоснуйте %s, обы контактовати из нами.</string>
 </resources>

@@ -25,7 +25,6 @@
   <string name="cantChangeMore">Ennél nagyobb változtatást nem lehet kérni. Technikai okok miatt ez úgyis lehetetlen.</string>
   <string name="orCloseAccount">Azonban lezárhatod a mostani fiókod, és nyithatsz egy újat.</string>
   <string name="wantClearHistory">Szeretném törölni az előzményeket vagy az értékszámom</string>
-  <string name="cantClearHistory">Nincs lehetőség a játékelőzményed, feladványelőzményeid és értékszámod törlésére.</string>
   <string name="wantReport">Jelenteni akarok egy játékost</string>
   <string name="toReportAPlayerUseForm">Játékos jelentéséhez használd az űrlapot</string>
   <string name="youCanAlsoReachReportPage">Ezt az oldalt úgy is elérheted, ha a %s jelentése gombra kattintasz a profil oldalon.</string>
@@ -52,7 +51,7 @@
   <string name="knightMate">Lehet mattot adni egy futóval vagy egy huszárral is, ha az ellenfélnek van még figurája a királyon kívül.</string>
   <string name="noRatingPoints">Nem kaptam értékpontot jutalmul</string>
   <string name="ratedGame">Ellenőrizd, hogy rangsorolt játszmát játszol. Nem rangsorolt játékok nincsenek hatással az értékszámra.</string>
-  <string name="botRatingAbuse" comment="The original English text was changed in March 2026, from &quot;if it is determined&quot; to &quot;if we determine&quot;.">Bizonyos helyzetekben amikor a játékos bot ellen játszik, az értékelt játszma nem feltétlen oszt pontokat, ha a játékos kikövetkeztethetően visszaél a bottal szemben értékpontok miatt.</string>
+  <string name="botRatingAbuse">Bizonyos helyzetekben amikor a játékos bot ellen játszik, az értékelt játszma nem feltétlen oszt pontokat, ha a játékos kikövetkeztethetően visszaél a bottal szemben értékpontok miatt.</string>
   <string name="errorPage">Hibaoldal</string>
   <string name="reportErrorPage">Ha hibaoldallal találkoztál, itt jelentheted:</string>
   <string name="learnHowToMakeBroadcasts">Tudd meg, hogyan indíthatod el a saját közvetítésedet</string>

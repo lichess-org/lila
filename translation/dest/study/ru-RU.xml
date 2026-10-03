@@ -71,7 +71,6 @@
   <string name="downloadGame">Скачать партию</string>
   <string name="studyUrl">Ссылка на студию</string>
   <string name="currentChapterUrl">Ссылка на эту главу</string>
-  <string name="youCanPasteThisInTheForumToEmbed">Вставьте этот код на форум для вставки</string>
   <string name="startAtInitialPosition">Открыть в начальной позиции</string>
   <string name="startAtX">Начать с %s</string>
   <string name="embedInYourWebsite">Вставить в свой сайт или блог</string>
@@ -195,8 +194,6 @@
   <string name="fromInitialPositionText">Расстановка для новой партии.&lt;br&gt;Подходит для исследования дебютов.</string>
   <string name="customPositionTitle">Пользовательская расстановка</string>
   <string name="customPositionText">Расставьте фигуры по своему усмотрению. &lt;br&gt;Подходит для исследования эндшпилей.</string>
-  <string name="loadExistingLichessGameTitle">Загрузите существующую партию Lichess</string>
-  <string name="loadExistingLichessGameText">Вставьте URL игры Lichess&lt;br&gt;(например, lichess.org/7fHIU0XI)&lt;br&gt;для загрузки ходов партии в главу.</string>
   <string name="fromFenStringTitle">Из нотации FEN</string>
   <string name="fromFenStringText">Вставьте позицию в формате FEN&lt;br&gt;&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;&lt;br&gt;для старта главы с этой позиции.</string>
   <string name="fromPgnGameTitle">Из нотации PGN</string>

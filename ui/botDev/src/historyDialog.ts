@@ -3,7 +3,7 @@ import stringify from 'json-stringify-pretty-compact';
 
 import { frag, escapeHtml, myUserId } from 'lib';
 import type { BotInfo } from 'lib/bot/types';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { domDialog, type Dialog } from 'lib/view';
 
 import { env } from './devEnv';
@@ -43,8 +43,8 @@ class HistoryDialog {
       </div>`);
     await this.updateHistory();
     this.dlg = await domDialog({
-      append: [{ node: this.view }],
-      onClose: () => {},
+      insert: [{ nodes: this.view }],
+      easyClose: 'clickOutside',
       actions: [
         { selector: '[data-action="pull"]', listener: this.pull },
         { selector: '[data-action="push"]', listener: this.push },
@@ -109,7 +109,7 @@ class HistoryDialog {
   }
 
   version(version: string | number | undefined): BotVersionInfo | undefined {
-    if (!version) return;
+    if (!version) return undefined;
     return this.versions.find(b => String(b.version) === String(version));
   }
 

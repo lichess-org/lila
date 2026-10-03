@@ -56,12 +56,12 @@ export default class Filter {
 
   filter = (hooks: Hook[]): Filtered => {
     if (!this.data) return { visible: hooks, hidden: 0 };
-    const f = this.data.filter,
-      ratingRange = f.ratingRange && f.ratingRange.split('-').map((r: string) => parseInt(r, 10)),
-      seen: string[] = [],
-      visible: Hook[] = [];
-    let variant: string,
-      hidden = 0;
+    const f = this.data.filter;
+    const ratingRange = f.ratingRange?.split('-').map((r: string) => parseInt(r, 10));
+    const seen: string[] = [];
+    const visible: Hook[] = [];
+    let variant: string;
+    let hidden = 0;
     hooks.forEach(hook => {
       variant = hook.variant;
       if (hook.action === 'cancel') visible.push(hook);

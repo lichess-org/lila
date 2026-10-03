@@ -24,4 +24,7 @@
   <string name="teachingMethod">Методыка выкладання</string>
   <string name="publicStudies">Даступныя ўсім уроки</string>
   <string name="youtubeVideos">Відэа YouTube</string>
+  <string name="allCountries">Усі краіны</string>
+  <string name="lastLogin">Апошні ўваход</string>
+  <string name="lichessRating">Рэйтынг Lichess</string>
 </resources>

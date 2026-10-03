@@ -7,7 +7,7 @@ import lila.ui.ScalatagsTemplate.*
 
 trait I18nHelper:
 
-  protected val translator: Translator
+  val translator: Translator
   protected val ratingApi: lila.ui.RatingApi
 
   val langList: LangList

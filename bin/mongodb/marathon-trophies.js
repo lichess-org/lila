@@ -5,8 +5,8 @@ for (let i of users) {
   const user = users[i];
   db.trophy.insert({
     _id: kind + '/' + user,
-    user: user,
-    kind: kind,
+    user,
+    kind,
     date: new Date(),
   });
 }

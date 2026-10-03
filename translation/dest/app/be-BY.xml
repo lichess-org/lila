@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="lichessMobileApp">Мабільны дадатак Lichess</string>
+  <string name="returningToApp" comment="Displayed on interstitial page that automatically opens the Lichess app">Вяртанне да дадатку Lichess</string>
+  <string name="ifAppDoesNotOpenAutomatically">Калі дадатак не адчыняецца сам, націсніце на кнопку \"%s\".</string>
+  <string name="openTheApp" comment="Button text to open the Lichess app on the device">Адчыніць Lichess</string>
+  <string name="viewAllReleases" comment="To view a list of all mobile app releases on Github">Паглядзець %s у GitHub</string>
+  <string name="allReleases">усе рэлізы</string>
+  <string name="downloadOnAppleAppStore">Спампаваць у Apple App Store</string>
+  <string name="downloadOnGooglePlay">Спампаваць у Google Play</string>
+  <string name="downloadOnFdroid">Спампаваць у F-Droid</string>
+  <string name="lichessMobileScreen" comment="Alt text for screenshot of the Lichess mobile app">Мабільны экран Lichess</string>
+</resources>

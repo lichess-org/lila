@@ -2,8 +2,7 @@ package lila.ublog
 package ui
 
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
   import helpers.{ *, given }
@@ -20,10 +19,10 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
       isInCarousel: Boolean
   )(using ctx: Context) =
     val imageUrl = post.image.isDefined.option(ui.thumbnailUrl(post, _.Size.Large))
-    Page(s"${trans.ublog.xBlog.txt(user.username)} • ${post.title}")
+    Page(s"${post.title} • ${trans.ublog.xBlog.txt(user.username)}")
       .css("bits.ublog")
       .js(Esm("bits.expandText") ++ ctx.isAuth.so(Esm("bits.ublog")))
-      .graph(
+      .graph:
         OpenGraph(
           `type` = "article",
           image = imageUrl,
@@ -31,7 +30,7 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
           url = routeUrl(routes.Ublog.post(user.username, post.slug, post.id)),
           description = post.intro
         )
-      )
+      .headAppend(lila.ui.bits.markdownAlternate(ctx.req.uri))
       .preloadImage(imageUrl)(helpers)
       .copy(atomLinkTag =
         link(
@@ -40,7 +39,7 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
         ).some
       )
       .flag(_.noRobots, !blog.listed || !post.indexable || blog.tier < UblogBlog.Tier.HIGH)
-      .csp(_.withTwitter.withInlineIconFont):
+      .csp(_.withInlineIconFont):
         main(cls := "page-menu page-small")(
           ui.menu(Left(user.id)),
           div(cls := "page-menu__content box box-pad ublog-post")(
@@ -54,7 +53,7 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
             Granter
               .opt(_.ModerateBlog)
               .option:
-                div(id := "mod-tools-container")(modTools(post, isInCarousel))
+                div(id := "ublog-mod-tools-container")(modTools(post, isInCarousel))
             ,
             div(cls := "ublog-post__meta")(
               a(
@@ -187,19 +186,21 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
     )
 
   def modTools(post: UblogPost, isInCarousel: Boolean) =
-    val am = post.automod
-    val evergreen = ~am.flatMap(_.evergreen)
-    val flagged = ~am.flatMap(_.flagged)
-    val comm = ~am.flatMap(_.commercial)
-
-    div(id := "mod-tools", data("url") := routes.Ublog.modPost(post.id).url)(
+    val nonPendingQuality = post.isPendingQuality.not.option(post.quality)
+    div(id := "ublog-mod-tools", data("url") := routes.Ublog.modPost(post.id).url)(
       div(
-        span(cls := "btn-rack")(
-          lila.core.ublog.Quality.values.map: q =>
-            button(
-              cls := s"quality-btn btn-rack__btn ${am.exists(_.quality == q).so("lit")}",
-              value := q.ordinal.toString
-            )(q.name.capitalize)
+        div(
+          span(cls := "btn-rack")(
+            lila.core.ublog.Quality.values.map: q =>
+              button(
+                cls := s"quality-btn btn-rack__btn ${(nonPendingQuality.contains(q)).so("lit")}",
+                value := q.name
+              )(q.name.capitalize)
+          ),
+          post.automod
+            .ifTrue(post.modQuality.isEmpty)
+            .map: auto =>
+              span("AI thought it was ", auto.quality.name, ".")
         ),
         fieldset(cls := "carousel-fields")(
           legend(a(href := routes.Ublog.modShowCarousel)("Edit Carousel"), isInCarousel.option("(live)")),
@@ -210,28 +211,33 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
               "or",
               button(cls := "button button-metal carousel-pin-btn")("pin")
             )
-        ),
-        span(cls := "ublog-mod-assess-footer")(
-          button(cls := "button button-metal assess-btn", data("url") := routes.Ublog.modAssess(post.id))(
-            if am.isDefined then "reassess" else "assess"
-          ),
-          am.flatMap(_.lockedBy).map(u => span(s"* $u"))
         )
       ),
       fieldset(cls := "submit-fields")(
         legend("Tags", button(cls := "button button-empty none submit")("Submit")),
         span(
           "Evergreen",
-          input(id := "evergreen", tpe := "checkbox", evergreen.option(checked)),
+          input(
+            id := "evergreen",
+            tpe := "checkbox",
+            post.automod.flatMap(_.evergreen).orZero.option(checked)
+          ),
           "(for recommendations)"
         ),
-        span(cls := s"commercial ${comm.isEmpty.so("empty")}", title := comm)(
+        span(
           "Commercial",
-          input(id := "commercial", value := comm)
+          input(id := "commercial", value := ~post.automod.flatMap(_.commercial))
         ),
-        span(cls := s"flagged ${flagged.isEmpty.so("empty")}", title := flagged)(
-          "Flagged",
-          input(id := "flagged", value := flagged)
-        )
+        span("Flagged", input(id := "flagged", value := ~post.automod.flatMap(_.flagged)))
       )
     )
+
+  def markdownForAgents(post: UblogPost): String =
+    s"""---
+title: ${post.title}
+description: ${post.intro}
+image: ${ui.thumbnailUrl(post, _.Size.Large)}
+---
+
+${post.markdown}
+"""

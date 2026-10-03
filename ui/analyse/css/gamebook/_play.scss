@@ -43,33 +43,36 @@
 
   .comment {
     @extend %flex-column, %box-shadow;
+    @include backdrop-blur-if-transparent;
 
     font-size: 1.1em;
     background: $c-bg-box;
-    border-radius: 1rem;
+    border-radius: $box-radius-size;
     position: relative;
+    border: 1px solid $c-border;
 
     /* fixes firefox overflow when comment is long https://stackoverflow.com/questions/28636832/firefox-overflow-y-not-working-with-nested-flexbox */
     min-height: 0;
 
-    @include if-not-light {
-      border: 1px solid $c-font-dimmer;
-    }
-
     &::after {
+      @include inline-end(20%);
+      @include backdrop-blur-if-transparent;
+
       position: absolute;
       content: '';
-      bottom: -9px;
-
-      @include inline-end(20%);
-
+      bottom: -8px;
       width: 15px;
       height: 15px;
       background: $c-bg-box;
-      border-inline-end: 1px solid $c-font-dimmer;
-      border-bottom: 1.5px solid $c-font-dimmer;
+      border-inline-end: 1px solid $c-border;
+      border-bottom: 1.5px solid $c-border;
       transform: skew(45deg) rotate(45deg);
       z-index: 1;
+
+      @include if-transp {
+        clip-path: polygon(100% 0%, 100% 0%, 100% 100%, 0% 100%);
+        opacity: 0.8;
+      }
     }
 
     &.hinted::after {
@@ -208,19 +211,21 @@
 
       button {
         @extend %flex-column;
+        @include transition;
 
         flex: 1 1 100%;
-        background: $m-primary_bg--mix-80;
+        background: color-mix(in oklab, $c-primary 80%, $c-bg);
         color: $c-over;
         font-size: 1.2em;
         align-items: center;
         justify-content: center;
         text-align: center;
         padding: 0.5em;
-        border-inline-start: 1px solid rgba(255, 255, 255, 0.3);
         line-height: 1.2em;
 
-        @include transition;
+        &:not(:first-child) {
+          border-inline-start: 1px solid rgb(255 255 255 / 0.3);
+        }
 
         &::before {
           font-size: 2.2em;

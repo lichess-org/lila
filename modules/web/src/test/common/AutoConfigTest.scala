@@ -13,12 +13,13 @@ class AutoConfigTest extends munit.FunSuite:
     case class Foo(str: String, int: Int)
     given ConfigLoader[Foo] = AutoConfig.loader
 
-    val config = Configuration(ConfigFactory.parseString("""
-      |foo = {
-      |  str = string
-      |  int = 7
-      |}
-    """.stripMargin))
+    val config = Configuration(ConfigFactory.parseString:
+      """
+        |foo = {
+        |  str = string
+        |  int = 7
+        |}
+    """.stripMargin)
 
     assertEquals(config.get[Foo]("foo"), Foo("string", 7))
 

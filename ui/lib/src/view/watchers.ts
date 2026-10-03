@@ -1,11 +1,12 @@
 import { get, set } from '@/data';
-import * as licon from '@/licon';
+import { licon } from '@/licon';
 import { pubsub } from '@/pubsub';
+
+import { profileUrl } from './userLink';
 
 export interface Data {
   nb: number;
   users?: string[];
-  anons?: number;
   watchers?: Data;
 }
 
@@ -28,7 +29,9 @@ export function watchers(element: HTMLElement, withUserList = true): void {
   const setWatchers = (data: Data): void => {
     watchersData = data;
 
-    if (!data || !data.nb) {
+    if (!data.nb && data.users) data.nb = data.users.length;
+
+    if (!data.nb) {
       element.classList.add('none');
       return;
     }
@@ -36,14 +39,12 @@ export function watchers(element: HTMLElement, withUserList = true): void {
     $numberEl.text(withUserList ? String(data.nb) : i18n.broadcast.nbViewers(data.nb));
 
     if (data.users && withUserList) {
-      const prevUsers = data.users.map(u => u || '').join(';');
-      if (get(listEl, 'prevUsers') !== prevUsers) {
-        set(listEl, 'prevUsers', prevUsers);
+      const currUsers = data.users.map(u => u || '').join(';');
+      if (get(listEl, 'prevUsers') !== currUsers) {
+        set(listEl, 'prevUsers', currUsers);
         const tags = data.users.map(u =>
-          u ? `<a class="user-link ulpt" href="/@/${name(u)}">${u}</a>` : 'Anonymous',
+          u ? `<a class="user-link ulpt" href="${profileUrl(name(u))}">${u}</a>` : i18n.site.anonymous,
         );
-        if (data.anons === 1) tags.push('Anonymous');
-        else if (data.anons) tags.push(`Anonymous (${data.anons})`);
         $listEl.html(tags.join(', '));
       }
     } else $listEl.html('');

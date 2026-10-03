@@ -72,12 +72,12 @@ final class WinnersApi(
   private def fetchLastFreq(freq: Freq, since: Instant): Fu[List[Tournament]] =
     tournamentRepo.coll
       .find:
-        $doc(
+        bdoc(
           "schedule.freq" -> freq.name,
-          "startsAt".$gt(since.minusHours(12)),
-          "winner".$exists(true)
+          "startsAt".gt(since.minusHours(12)),
+          "winner".exists(true)
         )
-      .sort($sort.desc("startsAt"))
+      .sort(sort.desc("startsAt"))
       .cursor[Tournament](ReadPref.sec)
       .list(Int.MaxValue)
 

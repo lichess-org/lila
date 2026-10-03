@@ -2,15 +2,15 @@ import fg from 'fast-glob';
 import mm from 'micromatch';
 import fs from 'node:fs';
 import { join, relative, basename } from 'node:path';
+import pc from 'picocolors';
 
 import { randomToken, definedUnique } from './algo.ts';
-import { type Context, env, c, errorMark } from './env.ts';
-import { type Package, glob, isFolder, subfolders, isClose } from './parse.ts';
+import { type Context, type Package, env, errorMark } from './env.ts';
+import { glob, isFolder, subfolders, isClose } from './parse.ts';
 
 const fsWatches = new Map<AbsPath, FSWatch>();
 const tasks = new Map<TaskKey, Task>();
 const fileTimes = new Map<AbsPath, number>();
-let activeTaskCount = 0;
 
 type Path = string;
 type AbsPath = string;
@@ -23,17 +23,17 @@ type Debounce = {
   rename: boolean;
   files: Set<AbsPath>;
 };
-type Task = Omit<TaskOpts, 'glob' | 'debounce'> & {
+type Task = Omit<TaskOpts, 'glob' | 'debounce' | 'includes' | 'excludes'> & {
   includes: CwdPath[];
   excludes: Path[];
   key: TaskKey;
   debounce: Debounce;
   fileTimes: Map<AbsPath, number>;
-  status: 'ok' | 'error' | undefined;
+  status?: 'ok' | 'error';
 };
 type TaskOpts = {
   includes: CwdPath | CwdPath[];
-  execute: (touched: AbsPath[], fullList: AbsPath[]) => Promise<any>;
+  execute: (touched: AbsPath[], fullList: AbsPath[]) => Promise<void>;
   excludes?: Path | Path[];
   key?: TaskKey; // optional key for task overwrite and stopTask
   ctx?: Context; // optional build step context for logging
@@ -92,7 +92,25 @@ export function taskOk(ctx?: Context): boolean {
   return all.some(w => !w.monitorOnly) && all.every(w => w.status === 'ok');
 }
 
-export const tasksIdle = (): boolean => activeTaskCount === 0;
+export const tasksIdle = (): boolean => [...tasks.values()].every(x => x.status);
+
+export async function addIncludes(includes: CwdPath[], key: TaskKey): Promise<void> {
+  const t = tasks.get(key);
+  if (!t) return;
+
+  const existing = t.includes.map(i => relative(t.root!, join(i.cwd, i.path)));
+
+  for (const include of Array.isArray(includes) ? includes : [includes]) {
+    if (mm.isMatch(join(include.cwd, include.path), existing)) continue;
+
+    t.includes.push(include);
+    if (!env.watch) continue;
+
+    const globs = await fg.glob(include.path, { cwd: include.cwd, absolute: true });
+    await Promise.all(globs.map(async f => t.fileTimes.set(f, await cachedFileTime(f))));
+    watchGlob(include, key);
+  }
+}
 
 async function execute(t: Task, firstRun = false): Promise<void> {
   const makeRelative = (files: AbsPath[]) => (t.root ? files.map(f => relative(t.root!, f)) : files);
@@ -128,18 +146,15 @@ async function execute(t: Task, firstRun = false): Promise<void> {
   if (t.ctx) env.begin(t.ctx);
   t.status = undefined;
   try {
-    activeTaskCount++;
     await t.execute(makeRelative(modified), makeRelative([...t.fileTimes.keys()]));
     t.status = 'ok';
-    if (t.ctx && !t.noEnvStatus && taskOk(t.ctx)) env.done(t.ctx, 0);
+    if (t.ctx && !t.noEnvStatus && taskOk(t.ctx)) env.setStatus(t.ctx, 0);
   } catch (e) {
     t.status = 'error';
     const message = e instanceof Error ? (e.stack ?? e.message) : String(e);
     if (!env.watch) env.exit(`${errorMark} ${message}`, t.ctx);
-    else if (e) env.log(`${errorMark} ${t.pkg?.name ? `[${c.grey(t.pkg.name)}] ` : ''}- ${message}`, t.ctx);
-    if (t.ctx && !t.noEnvStatus) env.done(t.ctx, -1);
-  } finally {
-    activeTaskCount--;
+    else if (e) env.log(`${errorMark} ${t.pkg?.name ? `[${pc.gray(t.pkg.name)}] ` : ''}- ${message}`, t.ctx);
+    if (t.ctx && !t.noEnvStatus) env.setStatus(t.ctx, -1);
   }
 }
 
@@ -165,13 +180,12 @@ async function watchGlob({ cwd, path: globPath }: CwdPath, key: TaskKey): Promis
 async function onFsEvent(fsw: FSWatch, event: string, filename: string | null) {
   const fullpath = join(fsw.cwd, filename ?? '');
 
-  if (event === 'change')
-    try {
-      await cachedFileTime(fullpath, true);
-    } catch {
-      fileTimes.delete(fullpath);
-      event = 'rename';
-    }
+  try {
+    await cachedFileTime(fullpath, true);
+  } catch {
+    fileTimes.delete(fullpath);
+    event = 'rename';
+  }
   for (const watch of [...fsw.keys].map(k => tasks.get(k)!)) {
     const fullglobs = definedUnique(watch.includes.map(({ cwd, path }) => join(cwd, path)));
     if (!mm.isMatch(fullpath, fullglobs)) {

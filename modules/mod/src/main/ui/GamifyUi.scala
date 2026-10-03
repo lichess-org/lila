@@ -3,8 +3,7 @@ package ui
 
 import lila.mod.Gamify.Period
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class GamifyUi(helpers: Helpers)(modMenu: Context ?=> Frag):
   import helpers.{ *, given }

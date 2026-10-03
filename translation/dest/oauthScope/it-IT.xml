@@ -21,7 +21,6 @@
   <string name="puzzleRead">Leggi l\'attività dei problemi</string>
   <string name="teamRead">Leggi le informazioni private della squadra</string>
   <string name="teamWrite">Unisciti a e abbandona squadre</string>
-  <string name="teamLead">Gestisci le squadre di cui sei il capo: manda messaggi privati, espelli membri</string>
   <string name="followRead">Leggi i giocatori seguiti</string>
   <string name="followWrite">Segui e smetti di seguire altri giocatori</string>
   <string name="msgWrite">Invia messaggi privati ad altri giocatori</string>

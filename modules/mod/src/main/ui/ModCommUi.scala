@@ -2,8 +2,7 @@ package lila.mod
 package ui
 
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.chat.MixedChat
 import lila.core.shutup.PublicLine
 import lila.core.chat.PublicSource

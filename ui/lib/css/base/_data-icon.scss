@@ -7,6 +7,7 @@
 .is.text::before,
 .text[data-icon]::before {
   margin-inline: 0 0.4em;
+  line-height: 1;
 }
 
 .is-green::before {

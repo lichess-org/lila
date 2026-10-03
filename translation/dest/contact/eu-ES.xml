@@ -25,7 +25,7 @@
   <string name="cantChangeMore">Ezin dugu zure erabiltzaile-izena berriz aldatu. Arrazoi teknikoak direla-eta ezin dugu egin.</string>
   <string name="orCloseAccount">Baina zure kontua itxi egin dezakezu eta berri bat sortu.</string>
   <string name="wantClearHistory">Nire historikoa edo puntuazioa berrezarri nahi ditut</string>
-  <string name="cantClearHistory">Ezin da zure partiden historikoa, ariketena edo puntuazioa berrezarri.</string>
+  <string name="cantClearHistoryOrResetRatings">Ez da posible zure partiden eta ariketen historia edo zure puntuazioa berrezartzea.</string>
   <string name="wantReport">Erabiltzaile baten inguruko kexa jarri nahi dut</string>
   <string name="toReportAPlayerUseForm">Jokalari bati buruzko kexa egiteko, erabili kexa formularioa</string>
   <string name="youCanAlsoReachReportPage">Orrialde horretara jokalariaren profilaren orrialdeko %s berri emateko botoian sakatuta hel zaitezke.</string>
@@ -39,10 +39,10 @@
   <string name="reportMobileIssue">GitHub erabiliz telefonoko aplikazioaren ticket bezala</string>
   <string name="reportBugInDiscord">Lichessen discord zerbitzarian</string>
   <string name="howToReportBug">Azaldu zein den arazoa, zer gertatzea espero zenuen eta zer gertatu den, eta ez ahaztu zure pausoak zein izan diren azaltzea, errorea geuk ere ikusi dezagun.</string>
-  <string name="illegalPawnCapture">Peoiarekin legez-kanpoko harrapaketa</string>
+  <string name="illegalPawnCapture">Peoiarekin legez kanpoko harrapaketa</string>
   <string name="calledEnPassant">\"Pausuan\" edo \"Igarotzean\" harrapatzea deitzen zaio eta xakearen arauetako bat da.</string>
   <string name="tryEnPassant">Ikusi joko hau \"igarotzean\" egiten den harrapaketa honi buruz.</string>
-  <string name="illegalCastling">Legez-kanpoko edo ezinezko endrokea</string>
+  <string name="illegalCastling">Legez kanpoko edo ezinezko endrokea</string>
   <string name="castlingPrevented">Endrokea ezin da egin erregea aurkariak mehatxatutako lauki batetik pasatu behar bada.</string>
   <string name="castlingRules">Ziurtatu endrokearen arauak ezagutzen dituzuna</string>
   <string name="tryCastling">Probatu partida hau xakeko endrokea praktikatzeko</string>
@@ -52,7 +52,7 @@
   <string name="knightMate">Posible izan daiteke zaldun edo alfil batekin aurkariari xake-mate ematea, aurkariak erregeaz gain beste piezaren bat badu.</string>
   <string name="noRatingPoints">Ez da puntuaziorik jaso</string>
   <string name="ratedGame">Ziurtatu puntuaziorako baliogarria den partida bat jokatu duzula. Lagunarteko partidek ez dute eraginik jokalarien puntuazioan.</string>
-  <string name="botRatingAbuse" comment="The original English text was changed in March 2026, from &quot;if it is determined&quot; to &quot;if we determine&quot;.">Kasu batzutan robot baten aurka jokatzean, partida batek ez ditu sailkapenerako puntuak ematen jokalaria robotarekin gehiegitan jokatzen ari bada.</string>
+  <string name="botRatingAbuse">Kasu batzutan robot baten aurka jokatzean, partida batek ez ditu sailkapenerako puntuak ematen jokalaria robotarekin gehiegitan jokatzen ari bada.</string>
   <string name="errorPage">Errore orrialdea</string>
   <string name="reportErrorPage">Errorea orrialdea agertu bazaizu, horren berri eman diezagukezu:</string>
   <string name="learnHowToMakeBroadcasts">Ikasi nola egin emanaldiak Lichessen</string>
@@ -74,4 +74,13 @@
   <string name="noneOfTheAbove">Aurreko bat ere ez</string>
   <string name="sendEmailAt">Bidali email bat hona %s.</string>
   <string name="explainYourRequest">Azaldu zure eskaera ahalik eta argien. Esan zein den zure erabiltzaile-izena eta laguntzeko beste edozein informazio.</string>
+  <string name="monetiseNotInterested">Ez dugu Lichessekin dirua irabazteko interesik.</string>
+  <string name="monetiseNoAdsTrackingOrTraffic">Ez dugu sekulara iragarkirik erakutsiko, ez ditugu gure jokalariak jarraituko eta ez dugu trafikorik edo erabiltzailerik saldu edo erosiko.</string>
+  <string name="monetiseNoMarketingEmail">Ez idatzi marketing, jarraipen edo iragarki kontuengatik.</string>
+  <string name="monetiseEncourageEveryoneTo" comment="string is value of key monetiseBlockAllAdsAndTrackers">Guztiok %s animatzen zaituztegu.</string>
+  <string name="monetiseBlockAllAdsAndTrackers">iragarki eta jarraipen tresna guztiak blokeatzera</string>
+  <string name="broadcastTournamentOnLichess">Txapelketa bat zuzenean eman Lichessen</string>
+  <string name="ifYouWantToBroadcastClause1">Txapelketa bat Lichess bidez zuzenean eman nahi baduzu eta gure zuzenekoei buruzko galderak badituzu:</string>
+  <string name="ifYouWantToBroadcastClause2" comment="string1 is Lichess email, string2 is value of key ourDiscordServer">Jarri zaitez zure Zuzenekoen Taldearekin harremanetan %1$s edo %2$s erabiliz.</string>
+  <string name="ourDiscordServer">gure Discord zerbitzarian</string>
 </resources>

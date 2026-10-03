@@ -17,14 +17,11 @@ final class IpTrust(proxyApi: Ip2ProxyApi, geoApi: GeoIP, firewallApi: Firewall)
     else if geoApi.isSuspicious(ip) then fuTrue
     else proxyApi.ofIp(ip).dmap(_.yes)
 
-  private[security] def isSuspicious(ipData: UserLogins.IPData): Fu[Boolean] =
-    isSuspicious(ipData.ip.value)
-
   def ipData(ip: IpAddress): Fu[IpData] =
     proxyApi.ofIp(ip).dmap(IpData(_, geoApi.orUnknown(ip)))
 
-  def reqData(req: RequestHeader): Fu[IpData] =
-    proxyApi.ofReq(req).dmap(IpData(_, geoApi.orUnknown(HTTPRequest.ipAddress(req))))
+  def reqData(req: RequestHeader)(using p: IsProxy): IpData =
+    IpData(p, geoApi.orUnknown(HTTPRequest.ipAddress(req)))
 
   def isPubOrTor(req: RequestHeader): Fu[Boolean] = proxyApi
     .ofReq(req)
@@ -85,6 +82,7 @@ object IpTrust:
     case IsProxy.web => 3
     case IsProxy.search => 0.5
     case IsProxy.residential => 3
+    case IsProxy.http1 => 2
     case _ => 1
 
   def proxyMultiplier(times: Float): RateLimitStrategy =
@@ -94,6 +92,7 @@ object IpTrust:
 
   def antiScraping(dch: Float, others: Float): RateLimitStrategy =
     case IsProxy.server => dch
+    case IsProxy.http1 => dch
     case IsProxy.search => 0.5 // search factor is < 1 so don't multiply it
     case proxy => defaultRateLimitStrategy(proxy) * others
 

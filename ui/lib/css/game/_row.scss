@@ -13,7 +13,7 @@
   }
 
   &:hover {
-    background: $m-primary_bg--mix-20;
+    background: color-mix(in oklab, $c-primary 20%, $c-bg);
   }
 
   &__overlay {
@@ -53,8 +53,13 @@
 
         font-weight: normal;
         font-size: 1.4em;
+        line-height: 1;
         text-transform: uppercase;
         display: block;
+
+        .separator {
+          color: $c-font-dim;
+        }
       }
     }
   }
@@ -91,7 +96,7 @@
       line-height: 2em;
     }
 
-    @media (width <= $xxx-small) {
+    @media (max-width: $xxx-small) {
       column-gap: 1em;
 
       .swords {
@@ -103,6 +108,10 @@
   .result {
     display: block;
     text-align: center;
+
+    .separator {
+      opacity: 0.75;
+    }
   }
 
   .win {

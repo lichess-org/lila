@@ -20,7 +20,10 @@ object page:
       title = p.title,
       active = active,
       contentCls = "page box box-pad force-ltr"
-    ).css("bits.page")(views.cms.pageContent(p))
+    ).css("bits.page")
+      .headAppend((active == "about").option(staticContent.organizationScript))
+      .headAppend(views.cms.alternateMarkdown(p)):
+        views.cms.pageContent(p)
 
   def contact(using Context) =
     ui.SitePage(
@@ -33,10 +36,19 @@ object page:
   def webmasters(using Context) =
     ui.webmasters(lila.pref.PieceSet.all.map(_.name))
 
+  def survey =
+    Page(title = "User Survey")
+      .flag(_.noRobots)
+      .js(Esm("bits.survey"))(
+        main(cls := "survey-redirect")(
+          h1("Redirecting...")
+        )
+      )
+
 object variant:
 
   def show(
-      p: lila.cms.CmsPage.Render,
+      p: CmsPage.Render,
       variant: chess.variant.Variant,
       perfType: lila.rating.PerfType
   )(using Context) =
@@ -44,12 +56,13 @@ object variant:
       title = s"${variant.variantTrans.txt()} • ${variant.variantTitleTrans.txt()}",
       klass = "box-pad page variant",
       active = perfType.key.some
-    ).csp(_.withInlineIconFont):
-      frag(
-        boxTop(h1(cls := "text", dataIcon := perfType.icon)(variant.variantTrans())),
-        h2(cls := "headline")(variant.variantTitleTrans()),
-        div(cls := "body expand-text")(views.cms.render(p))
-      )
+    ).csp(_.withInlineIconFont)
+      .headAppend(views.cms.alternateMarkdown(p)):
+        frag(
+          boxTop(h1(cls := "text", dataIcon := perfType.icon)(variant.variantTrans())),
+          h2(cls := "headline")(variant.variantTitleTrans()),
+          div(cls := "body expand-text")(views.cms.render(p))
+        )
 
   def home(using Context) =
     page(title = "Lichess variants", klass = "variants"):

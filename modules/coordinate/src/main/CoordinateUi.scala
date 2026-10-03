@@ -4,8 +4,7 @@ package ui
 import play.api.libs.json.Json
 
 import lila.ui.*
-
-import ScalatagsTemplate.*
+import lila.ui.ScalatagsTemplate.*
 
 final class CoordinateUi(helpers: Helpers):
   import helpers.{ *, given }
@@ -16,7 +15,7 @@ final class CoordinateUi(helpers: Helpers):
       .css("voice")
       .i18n(_.coordinates, _.storm, _.study)
       .js(pageModule(scoreOption))
-      .csp(_.withPeer.withWebAssembly)
+      .csp(_.withWebAssembly)
       .graph(
         title = "Chess board coordinates trainer",
         url = routeUrl(routes.Coordinate.home),

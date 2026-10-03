@@ -59,6 +59,8 @@
     <item quantity="many">%s чакаючых запрашэнняў</item>
     <item quantity="other">%s чакаючых запрашэнняў</item>
   </plurals>
+  <string name="pending">У чаканні</string>
+  <string name="declined">Адхілена</string>
   <string name="onlyVisibleToTeachers">Бачны толькі для выкладчыкаў занятку</string>
   <string name="lastActiveDate">Анлайн</string>
   <string name="managed">Кіраваны</string>
@@ -120,4 +122,11 @@
   <string name="anInvitationHasBeenSentToX">Запрашэнне адпраўлена да %s</string>
   <string name="xAlreadyHasAPendingInvitation">%s ужо мае запрашэнне</string>
   <string name="xIsAKidAccountWarning">Уліковы запіс %1$s - дзіцячы, таму не можа атрымліваць паведамленні. Вам трэба перадаць запрашальную спасылку ўласнаручна: %2$s</string>
+  <string name="moveToClass">Перамясціць у %s</string>
+  <string name="moveToAnotherClass">Перамясціць у другі клас</string>
+  <string name="allowMessagingBetweenStudents">Дазволіць вучням абмен паведамленнямі</string>
+  <string name="quickLoginCode">Код хуткага ўваходу</string>
+  <string name="quickLoginCodes">Кады хуткага ўваходу</string>
+  <string name="quickLoginCodesDesc2">Пасля заканчэння тэрміну дзеяння кодаў вашы студэнты застануцца ў сістэме, пакуль не выйдуць з яе ўручную.</string>
+  <string name="expirationInMomentFromNow" comment="String is the translation of, for example, 'in 2 hours'">Сканчэнне %s</string>
 </resources>

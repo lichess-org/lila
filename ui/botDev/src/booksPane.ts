@@ -2,7 +2,7 @@ import { opposite } from 'chessops';
 
 import { frag } from 'lib';
 import type { Book } from 'lib/bot/types';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 
 import { env } from './devEnv';
 import type { PaneArgs, BooksInfo, RangeInfo } from './devTypes';

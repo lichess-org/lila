@@ -3,6 +3,7 @@ package lila.security
 import play.api.mvc.RequestHeader
 
 import lila.common.HTTPRequest.*
+import lila.common.ClientName
 import lila.core.config.NetConfig
 import lila.core.net.Origin
 
@@ -57,7 +58,7 @@ final class CSRFRequestHandler(net: NetConfig):
           false
 
   private def monitor(tpe: String, req: RequestHeader) =
-    lila.mon.http.csrfError(tpe, actionName(req), clientName(req)).increment()
+    lila.mon.http.csrfError(tpe, actionName(req), ClientName(req).toString).increment()
 
   private val topDomain = s"://${net.domain}"
   private val subDomain = s".${net.domain}"

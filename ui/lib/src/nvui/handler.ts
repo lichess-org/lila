@@ -40,7 +40,7 @@ export function pieceJumpingHandler(selectSound: () => void, errorSound: () => v
       const $boardLive = $('.boardstatus');
       const promotionPiece = ev.key.toLowerCase();
       const promotionChoice = isAntichess ? /^[kqnrb]$/ : /^[qnrb]$/;
-      if (!promotionPiece.match(promotionChoice)) {
+      if (!promotionChoice.test(promotionPiece)) {
         const msg = 'Invalid promotion piece. q for queen, n for knight, r for rook, b for bishop';
         $boardLive.text(msg + (isAntichess ? ', k for king' : ''));
         return;
@@ -230,7 +230,12 @@ export function lastCapturedCommandHandler(
   return (): Cash => $('.boardstatus').text(lastCaptured());
 }
 
-export function possibleMovesHandler(yourColor: Color, cg: CgApi, variant: VariantKey, steps: RoundStep[]) {
+export function possibleMovesHandler(
+  yourColor: Color,
+  cg: CgApi,
+  variant: VariantKey,
+  steps: NVUIRoundStep[],
+) {
   return (ev: KeyboardEvent): void => {
     if (ev.key.toLowerCase() !== 'm') return;
     const pos = keyFromAttrs(ev.target as HTMLElement);
@@ -275,13 +280,13 @@ export type DropMove = { role: Role; key: Key };
 
 export function inputToMove(input: string, fen: string, chessground: CgApi): Uci | DropMove | undefined {
   const dests = chessground.state.movable.dests;
-  if (!dests || input.length < 1) return;
-  const legalUcis = destsToUcis(dests),
-    legalSans = sanWriter(fen, legalUcis),
-    cleanedMixedCase = input[0] + input.slice(1).replace(/\+|#/g, '').toLowerCase();
+  if (!dests || input.length < 1) return undefined;
+  const legalUcis = destsToUcis(dests);
+  const legalSans = sanWriter(fen, legalUcis);
+  const cleanedMixedCase = input[0] + input.slice(1).replace(/\+|#/g, '').toLowerCase();
   // initialize uci preserving first char of input because we need to differentiate bxc3 and Bxc3
-  let uci = (sanToUci(cleanedMixedCase, legalSans) || cleanedMixedCase).toLowerCase(),
-    promotion = '';
+  let uci = (sanToUci(cleanedMixedCase, legalSans) || cleanedMixedCase).toLowerCase();
+  let promotion = '';
 
   const cleaned = cleanedMixedCase.toLowerCase();
   const drop = cleaned.match(dropRegex);
@@ -290,10 +295,10 @@ export function inputToMove(input: string, fen: string, chessground: CgApi): Uci
       role: charToRole(cleaned[0]) || 'pawn',
       key: cleaned.split('@')[1].slice(0, 2) as Key,
     };
-  if (cleaned.match(promotionRegex)) {
+  if (promotionRegex.test(cleaned)) {
     uci = sanToUci(cleaned.slice(0, -2), legalSans) || cleaned;
     promotion = cleaned.slice(-1);
-  } else if (cleaned.match(uciPromotionRegex)) {
+  } else if (uciPromotionRegex.test(cleaned)) {
     uci = cleaned.slice(0, -1);
     promotion = cleaned.slice(-1);
   } else if ('18'.includes(uci[3]) && chessground.state.pieces.get(uci.slice(0, 2) as Key)?.role === 'pawn')
@@ -305,7 +310,7 @@ export function inputToMove(input: string, fen: string, chessground: CgApi): Uci
 const squareSelector = (rank: string, file: string) =>
   `.board-wrapper button[rank="${rank}"][file="${file}"]`;
 
-interface RoundStep {
+interface NVUIRoundStep {
   uci?: Uci;
   fen: FEN;
 }

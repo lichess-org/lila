@@ -1,7 +1,6 @@
 import { Result } from '@badrap/result';
 import type { Api as ChessgroundApi } from '@lichess-org/chessground/api';
 import type { Config as ChessgroundConfig } from '@lichess-org/chessground/config';
-import type { DrawShape } from '@lichess-org/chessground/draw';
 import { uciToMove } from '@lichess-org/chessground/util';
 import { makeFen } from 'chessops/fen';
 import type { PgnError } from 'chessops/pgn';
@@ -22,21 +21,14 @@ import {
   type Prop,
   type Toggle,
 } from 'lib';
-import {
-  CevalCtrl,
-  isEvalBetter,
-  sanIrreversible,
-  type CevalHandler,
-  type EvalMeta,
-  type CevalOpts,
-} from 'lib/ceval';
+import { CevalCtrl, sanIrreversible, type CevalHandler, type CevalOpts } from 'lib/ceval';
 import { ChatCtrl } from 'lib/chat/chatCtrl';
 import { displayColumns } from 'lib/device';
-import { playable, playedTurns, fenToEpd, validUci } from 'lib/game';
+import { playable, playedTurns, fenToEpd, validUci, finished } from 'lib/game';
 import { plyColor } from 'lib/game/chess';
 import { PromotionCtrl } from 'lib/game/promotion';
 import { pubsub } from 'lib/pubsub';
-import { storedBooleanProp, storedBooleanPropWithEffect } from 'lib/storage';
+import { storedBooleanProp } from 'lib/storage';
 import { makeTree, treePath, treeOps, type TreeWrapper } from 'lib/tree';
 import { completeNode } from 'lib/tree/node';
 import type { ClientEval, LocalEval, ServerEval, TreeNode, TreePath } from 'lib/tree/types';
@@ -59,6 +51,7 @@ import { nextGlyphSymbol, add3or5FoldGlyphs } from './nodeFinder';
 import pgnImport from './pgnImport';
 import { make as makePractice, type PracticeCtrl } from './practice/practiceCtrl';
 import { make as makeRetro, type RetroCtrl } from './retrospect/retroCtrl';
+import { SettingsCtrl } from './settingsCtrl';
 import { make as makeSocket, type Socket } from './socket';
 import type GamebookPlayCtrl from './study/gamebook/gamebookPlayCtrl';
 import type { AnaMove } from './study/interfaces';
@@ -76,7 +69,7 @@ export default class AnalyseCtrl implements CevalHandler {
   chessground: ChessgroundApi;
   ceval: CevalCtrl;
   evalCache: EvalCache;
-  liveAnnotate: LiveAnnotate;
+  liveAnnotate = new LiveAnnotate();
   navigate: Navigate;
   idbTree: IdbTree = new IdbTree(this);
   actionMenu: Toggle = toggle(false);
@@ -109,24 +102,19 @@ export default class AnalyseCtrl implements CevalHandler {
   onMainline = true;
   synthetic: boolean; // false if coming from a real game
   ongoing: boolean; // true if real game is ongoing
+  asyncReady = false; // cannot accurately draw movelist or start ceval until this is true
   private readonly cevalEnabledProp = storedBooleanProp('engine.enabled', false);
 
   // display flags
   flipped = false;
   showComments = true; // whether to display comments in the move tree
-  showBestMoveArrowsProp: Prop<boolean>;
-  showManeuverMoveArrowsProp: Prop<boolean>;
-  variationArrowOpacity: Prop<number | false>;
-  showGauge = storedBooleanProp('analyse.show-gauge', true);
+  settings: SettingsCtrl;
   private readonly showCevalProp: Prop<boolean> = storedBooleanProp(
     'analyse.show-engine',
-    !!this.cevalEnabledProp(),
+    this.cevalEnabledProp(),
   );
-  showFishnetAnalysis = storedBooleanProp('analyse.show-computer', true);
-  possiblyShowMoveAnnotationsOnBoard = storedBooleanProp('analyse.show-move-annotation', true);
   keyboardHelp: boolean = location.hash === '#keyboard';
   threatMode: Prop<boolean> = prop(false);
-  disclosureMode = storedBooleanProp('analyse.disclosure.enabled', false);
 
   treeView: TreeView;
   cgVersion = {
@@ -143,7 +131,7 @@ export default class AnalyseCtrl implements CevalHandler {
   initialPath: TreePath;
   contextMenuPath?: TreePath;
   gamePath?: TreePath;
-  pendingCopyPath: Prop<TreePath | null>;
+  pendingCopy: Prop<{ eventPath: TreePath; withVariations: boolean } | null>;
   pendingDeletionPath: Prop<TreePath | null>;
 
   // misc
@@ -161,6 +149,7 @@ export default class AnalyseCtrl implements CevalHandler {
     this.data = opts.data;
     this.element = opts.element;
     this.isEmbed = !!opts.embed;
+    this.settings = new SettingsCtrl(this.onUpdateSettings);
     this.treeView = new TreeView(this);
     this.navigate = new Navigate(this);
     this.promotion = new PromotionCtrl(
@@ -168,7 +157,7 @@ export default class AnalyseCtrl implements CevalHandler {
       () => this.withCg(g => g.set(this.cgConfig)),
       this.redraw,
     );
-    this.motif = new MotifCtrl(this.setAutoShapes);
+    this.motif = new MotifCtrl(this.settings);
 
     if (this.data.forecast) this.forecast = new ForecastCtrl(this.data.forecast, this.data, redraw);
     if (this.opts.wiki) this.wiki = wikiTheory();
@@ -179,30 +168,17 @@ export default class AnalyseCtrl implements CevalHandler {
       });
 
     this.instanciateEvalCache();
-    this.liveAnnotate = new LiveAnnotate();
 
     if (opts.inlinePgn) this.data = this.changePgn(opts.inlinePgn, false) || this.data;
 
     this.initialize(this.data, false);
     this.initCeval();
-    this.pendingCopyPath = propWithEffect(null, this.redraw);
+    this.pendingCopy = propWithEffect(null, this.redraw);
     this.pendingDeletionPath = propWithEffect(null, this.redraw);
     this.initialPath = this.makeInitialPath();
     this.setPath(this.initialPath);
 
     this.showGround();
-
-    this.variationArrowOpacity = this.makeVariationOpacityProp();
-    this.showBestMoveArrowsProp = storedBooleanPropWithEffect(
-      'analyse.auto-shapes',
-      true,
-      this.setAutoShapes,
-    );
-    this.showManeuverMoveArrowsProp = storedBooleanPropWithEffect(
-      'analyse.maneuver-arrows',
-      false,
-      this.setAutoShapes,
-    );
     this.resetAutoShapes();
     this.explorer.setNode();
     this.study =
@@ -210,17 +186,15 @@ export default class AnalyseCtrl implements CevalHandler {
         ? new makeStudy(opts.study, this, (opts.tagTypes || '').split(','), opts.practice, opts.relay)
         : undefined;
 
-    if (location.hash === '#practice' || (this.study && this.study.data.chapter.practice))
-      this.togglePractice();
+    if (location.hash === '#practice' || this.study?.data.chapter.practice) this.togglePractice();
     else if (location.hash === '#menu') requestIdleCallbackSafe(this.actionMenu.toggle, 500);
     this.setCevalPracticeOpts();
-    this.startCeval();
     keyboard.bind(this);
 
     const urlEngine = new URLSearchParams(location.search).get('engine');
     if (urlEngine) {
       try {
-        this.ceval.engines.select(urlEngine);
+        this.ceval.selectEngine(urlEngine);
         this.cevalEnabled(true);
         this.threatMode(false);
       } catch (e) {
@@ -253,10 +227,6 @@ export default class AnalyseCtrl implements CevalHandler {
         redraw();
       }
     });
-    document.addEventListener('visibilitychange', () => {
-      if (!document.hidden) this.startCeval(); // maybe resume eval when coming back to the tab
-    });
-    this.mergeIdbThenShowTreeView();
     (window as any).lichess.analysis = {
       playUci: this.playUci,
       navigate: this.navigate,
@@ -268,10 +238,10 @@ export default class AnalyseCtrl implements CevalHandler {
     this.data = data;
     this.synthetic = data.game.id === 'synthetic';
     this.ongoing = !this.synthetic && playable(data);
-    this.treeView.hidden = true;
     const prevTree = merge && this.tree.root;
     this.tree = makeTree(treeReconstruct(this.data.treeParts, this.variantKey, this.data.sidelines));
     if (prevTree) this.tree.merge(prevTree);
+    treeOps.updateAll(this.tree.root, this.ensureServerEvalNodes);
     const mainline = treeOps.mainlineNodeList(this.tree.root);
     if (this.data.game.status.name === 'draw') {
       if (add3or5FoldGlyphs(mainline)) this.data.game.threefold = true;
@@ -285,6 +255,7 @@ export default class AnalyseCtrl implements CevalHandler {
     this.fork = new ForkCtrl(this);
 
     site.sound.preloadBoardSounds();
+    this.asyncLoadThenShow();
   }
 
   get variantKey(): VariantKey {
@@ -294,9 +265,9 @@ export default class AnalyseCtrl implements CevalHandler {
   private readonly makeInitialPath = (): TreePath => {
     // if correspondence, always use latest actual move to set 'current' style
     if (this.ongoing) return treePath.fromNodeList(treeOps.mainlineNodeList(this.tree.root));
-    const loc = window.location,
-      hashPly = loc.hash === '#last' ? this.tree.lastPly() : parseInt(loc.hash.slice(1)),
-      startPly = hashPly >= 0 ? hashPly : this.opts.inlinePgn ? this.tree.lastPly() : undefined;
+    const loc = window.location;
+    const hashPly = loc.hash === '#last' ? this.tree.lastPly() : parseInt(loc.hash.slice(1));
+    const startPly = hashPly >= 0 ? hashPly : this.opts.inlinePgn ? this.tree.lastPly() : undefined;
     if (defined(startPly)) {
       // remove location hash - https://stackoverflow.com/questions/1397329/how-to-remove-the-hash-from-window-location-with-javascript-without-page-refresh/5298684#5298684
       window.history.replaceState(null, '', loc.pathname + loc.search);
@@ -333,7 +304,7 @@ export default class AnalyseCtrl implements CevalHandler {
     });
     if (this.retro && this.data.game.variant.key !== 'racingKings')
       this.retro = makeRetro(this, this.bottomColor());
-    if (this.practice) this.startCeval();
+    if (this.practice) this.startCevalIfEnabled();
     this.explorer.onFlip();
     this.onChange();
     this.redraw();
@@ -368,11 +339,11 @@ export default class AnalyseCtrl implements CevalHandler {
   }
 
   private showGround(): void {
-    if (this.node.pos().isErr || this.node.outcome()) this.ceval.stop();
+    if (this.node.pos().isErr || this.node.outcome()) this.ceval.reset();
     this.withCg(cg => {
       cg.set(this.makeCgOpts());
       this.setAutoShapes();
-      if (this.node.shapes) cg.setShapes(this.node.shapes.slice() as DrawShape[]);
+      if (this.node.shapes) cg.setShapes(this.node.shapes.slice());
       cg.playPremove();
     });
     this.pluginUpdate(this.node.fen);
@@ -382,28 +353,28 @@ export default class AnalyseCtrl implements CevalHandler {
   serverMainline = () => this.mainline.slice(0, playedTurns(this.data) + 1);
 
   makeCgOpts(): ChessgroundConfig {
-    const node = this.node,
-      color = this.turnColor(),
-      dests = this.node.dests(),
-      drops = this.node.drops(),
-      gamebookPlay = this.gamebookPlay(),
-      movableColor = gamebookPlay
-        ? gamebookPlay.movableColor()
-        : this.practice
-          ? this.bottomColor()
-          : dests.size || drops?.length
-            ? color
-            : undefined,
-      config: ChessgroundConfig = {
-        fen: node.fen,
-        turnColor: color,
-        movable: {
-          color: movableColor,
-          dests: (movableColor === color && dests) || new Map(),
-        },
-        check: !!node.check(),
-        lastMove: uciToMove(node.uci),
-      };
+    const node = this.node;
+    const color = this.turnColor();
+    const dests = this.node.dests();
+    const drops = this.node.drops();
+    const gamebookPlay = this.gamebookPlay();
+    const movableColor = gamebookPlay
+      ? gamebookPlay.movableColor()
+      : this.practice
+        ? this.bottomColor()
+        : dests.size || drops?.length
+          ? color
+          : undefined;
+    const config: ChessgroundConfig = {
+      fen: node.fen,
+      turnColor: color,
+      movable: {
+        color: movableColor,
+        dests: (movableColor === color && dests) || new Map(),
+      },
+      check: node.check(),
+      lastMove: uciToMove(node.uci),
+    };
     config.premovable = {
       enabled: config.movable!.color && config.turnColor !== config.movable!.color,
     };
@@ -425,7 +396,7 @@ export default class AnalyseCtrl implements CevalHandler {
     }
 
     this.setAutoShapes();
-    if (this.node.shapes) this.chessground.setShapes(this.node.shapes.slice() as DrawShape[]);
+    if (this.node.shapes) this.chessground.setShapes(this.node.shapes.slice());
     this.cgVersion.dom = this.cgVersion.js;
   };
 
@@ -441,8 +412,8 @@ export default class AnalyseCtrl implements CevalHandler {
     !!this.justPlayed && !!this.node.uci && this.node.uci.startsWith(this.justPlayed);
 
   jump(path: TreePath): void {
-    const pathChanged = path !== this.path,
-      isForwardStep = pathChanged && path.length === this.path.length + 2;
+    const pathChanged = path !== this.path;
+    const isForwardStep = pathChanged && path.length === this.path.length + 2;
     if (this.path !== path)
       this.treeView.requestAutoScroll(treeOps.distance(this.path, path) > 8 ? 'instant' : 'smooth');
     this.setPath(path);
@@ -455,8 +426,8 @@ export default class AnalyseCtrl implements CevalHandler {
         else site.sound.move(this.node);
       }
       this.threatMode(false);
-      this.ceval?.stop();
-      this.startCeval();
+      this.ceval?.reset();
+      this.startCevalIfEnabled();
       site.sound.saySan(this.node.san, true);
     }
     this.justPlayed = this.justDropped = this.justCaptured = undefined;
@@ -521,7 +492,6 @@ export default class AnalyseCtrl implements CevalHandler {
     this.initCeval();
     this.instanciateEvalCache();
     this.cgVersion.js++;
-    this.mergeIdbThenShowTreeView();
   }
 
   changePgn(pgn: string, andReload: boolean): AnalyseData | undefined {
@@ -579,7 +549,6 @@ export default class AnalyseCtrl implements CevalHandler {
         role: piece.role,
         pos,
         variant: this.data.game.variant.key,
-        fen: this.node.fen,
         path: this.path,
       };
       if (this.study) this.socket.sendAnaDrop(drop);
@@ -606,7 +575,6 @@ export default class AnalyseCtrl implements CevalHandler {
       orig,
       dest,
       variant: this.data.game.variant.key,
-      fen: this.node.fen,
       path: this.path,
     };
     if (prom) move.promotion = prom;
@@ -679,12 +647,29 @@ export default class AnalyseCtrl implements CevalHandler {
     this.redraw();
   }
 
-  allowedEval(node: TreeNode = this.node): ClientEval | ServerEval | false | undefined {
-    return (this.cevalEnabled() && node.ceval) || (this.showFishnetAnalysis() && node.eval);
+  isPendingCopy(path: TreePath, isMainline: boolean): boolean {
+    const pending = this.pendingCopy();
+    if (!pending) return false;
+    const { eventPath, withVariations } = pending;
+    return withVariations ? treePath.areComparable(path, eventPath) : isMainline;
   }
 
-  motifAllowed = (): boolean => this.study?.isCevalAllowed() !== false;
+  allowedEval(node: TreeNode = this.node): ClientEval | ServerEval | false | undefined {
+    return (this.cevalEnabled() && node.ceval) || (this.settings.showStaticAnalysis && node.eval);
+  }
+
+  motifAllowed = (): boolean => this.study?.isCevalAllowed() !== false && !this.retro?.isSolving();
   motifEnabled = (): boolean => this.motifAllowed() && this.motif.supports(this.data.game.variant.key);
+
+  async pruneToMainline(path: TreePath): Promise<void> {
+    const nodeList = this.tree.getNodeList(path);
+    for (let i = 0; i < nodeList.length - 1; i++) {
+      if (nodeList[i].forceVariation) delete nodeList[i].forceVariation;
+      nodeList[i].children = [nodeList[i + 1]];
+    }
+    this.jump(path);
+    this.redraw();
+  }
 
   promote(path: TreePath, toMainline: boolean): void {
     this.tree.promoteAt(path, toMainline);
@@ -702,7 +687,7 @@ export default class AnalyseCtrl implements CevalHandler {
     return node.children.filter(
       kid =>
         !kid.comp ||
-        (this.showFishnetAnalysis() && !this.retro?.hideComputerLine(kid)) ||
+        (this.settings.showStaticAnalysis && !this.retro?.hideComputerLine(kid)) ||
         (treeOps.contains(kid, this.node) && !this.retro?.forceCeval()),
     );
   }
@@ -726,42 +711,33 @@ export default class AnalyseCtrl implements CevalHandler {
 
   private readonly onNewCeval = (ev: ClientEval, path: TreePath, isThreat?: boolean): void => {
     this.tree.updateAt(path, (node: TreeNode) => {
-      if (node.fen !== ev.fen && !isThreat) return;
+      if (this.path !== path || !ev.fen.startsWith(node.fen.split(' ')[0])) return;
 
       if (isThreat) {
-        const threat = ev as LocalEval;
-        if (!node.threat || isEvalBetter(threat, node.threat, this.ceval.search.multiPv))
-          node.threat = threat;
-      } else if (
-        (!node.ceval || isEvalBetter(ev, node.ceval, this.ceval.search.multiPv)) &&
-        !(ev.cloud && this.ceval.engines.external)
-      )
+        node.threat = ev as LocalEval;
+      } else if (this.ceval.preferLatestEval(ev, node.ceval)) {
         node.ceval = ev;
-      else if (!ev.cloud) {
-        if (node.ceval?.cloud && this.ceval.isDeeper()) node.ceval = ev;
+        this.idbTree.saveCeval(path, ev);
+        this.liveAnnotate?.onNewCeval(path, node, this.tree);
+        this.retro?.onCeval();
+        this.study?.practice?.onCeval();
+        this.practice?.onCeval();
+        this.study?.multiCloudEval?.onLocalCeval(node, ev);
+        this.evalCache.onLocalCeval();
       }
-
-      if (!isThreat) this.liveAnnotate.onNewCeval(path, node, this.tree);
-
-      if (path === this.path) {
-        this.setAutoShapes();
-        if (!isThreat) {
-          this.retro?.onCeval();
-          this.study?.practice?.onCeval();
-          this.practice?.onCeval();
-          this.study?.multiCloudEval?.onLocalCeval(node, ev);
-          this.evalCache.onLocalCeval();
-        }
-        if (!(site.blindMode && this.retro)) this.redraw();
-      }
+      this.setAutoShapes();
+      if (!(site.blindMode && this.retro)) this.redraw();
     });
   };
 
-  private initCeval(): void {
+  initCeval(mergeOpts?: Partial<CevalOpts>): void {
     const opts: CevalOpts = {
       variant: this.data.game.variant,
       initialFen: this.data.game.initialFen,
-      emit: (ev: ClientEval, work: EvalMeta) => this.onNewCeval(ev, work.path, work.threatMode),
+      emit: (ev, meta) => {
+        if (ev) this.onNewCeval(ev, meta.path, meta.threatMode);
+        else this.cevalEnabled(false);
+      },
       onUciHover: this.setAutoShapes,
       redraw: this.redraw,
       externalEngines:
@@ -773,6 +749,9 @@ export default class AnalyseCtrl implements CevalHandler {
         this.initCeval();
         this.redraw();
       },
+      hideErrors: this.isEmbed,
+      localEval: () => (this.node.ceval && !this.node.ceval.cloud ? this.node.ceval : null),
+      ...mergeOpts,
     };
     if (this.ceval) this.ceval.init(opts);
     else this.ceval = new CevalCtrl(opts);
@@ -780,25 +759,26 @@ export default class AnalyseCtrl implements CevalHandler {
 
   isCevalAllowed = () =>
     !this.ongoing &&
-    this.study?.isCevalAllowed() !== false &&
+    (!this.study || this.study.isCevalAllowed()) &&
     (this.synthetic || !playable(this.data)) &&
     !location.search.includes('evals=0');
 
   cevalEnabled = (enable?: boolean): boolean | 'force' => {
     const force = Boolean(this.study?.practice || this.practice || this.retro?.forceCeval());
-    const unforcedState = this.cevalEnabledProp() && this.isCevalAllowed() && !this.ceval.isPaused;
+    const unforcedState =
+      this.cevalEnabledProp() && this.isCevalAllowed() && !this.ceval.wasUnloadedByAnotherWindow;
 
     if (enable === undefined) return force ? 'force' : unforcedState;
     if (!force) {
       this.showCevalProp(enable);
       this.cevalEnabledProp(enable);
     }
-    if (enable && this.ceval.isPaused) this.ceval.resume();
+    if (enable && this.ceval.wasUnloadedByAnotherWindow) this.ceval.reset();
     if (enable !== unforcedState) {
-      if (enable) this.startCeval();
+      if (enable) this.startCevalIfEnabled();
       else {
         this.threatMode(false);
-        this.ceval.stop();
+        this.ceval.reset();
       }
       this.setAutoShapes();
       this.ceval.showEnginePrefs(false);
@@ -807,8 +787,9 @@ export default class AnalyseCtrl implements CevalHandler {
     return force ? 'force' : enable;
   };
 
-  startCeval = () => {
-    if (!this.ceval.download) this.ceval.stop();
+  startCevalIfEnabled = () => {
+    if (!this.asyncReady) return;
+    if (!this.ceval.download) this.ceval.reset();
     if (this.node.threefold || !this.cevalEnabled() || this.node.outcome()) return;
     this.ceval.start(this.path, this.nodeList, undefined, this.threatMode());
     this.evalCache.fetch(this.path, this.ceval.search.multiPv);
@@ -817,29 +798,28 @@ export default class AnalyseCtrl implements CevalHandler {
   clearCeval(): void {
     this.tree.removeCeval();
     this.evalCache.clear();
-    this.startCeval();
+    this.startCevalIfEnabled();
   }
 
   showVariationArrows() {
-    if (!this.allowLines()) return false;
-    const kids = this.variationArrowOpacity() ? this.node.children : [];
-    return Boolean(kids.filter(x => !x.comp || this.showFishnetAnalysis()).length);
+    if (!this.allowLines() || !this.settings.showVariationArrows) return false;
+    return Boolean(this.node.children.filter(x => !x.comp || this.settings.showStaticAnalysis).length);
   }
 
-  showAnalysis() {
-    return this.showFishnetAnalysis() || (this.cevalEnabled() && this.isCevalAllowed());
+  showEvaluation() {
+    return this.settings.showStaticAnalysis || (this.cevalEnabled() && this.isCevalAllowed());
   }
 
-  showMoveGlyphs = (): boolean => (this.study && !this.study.relay) || this.showFishnetAnalysis();
+  showMoveGlyphs = (): boolean => (this.study && !this.study.relay) || this.settings.showStaticAnalysis;
 
-  showMoveAnnotationsOnBoard = (): boolean =>
-    this.possiblyShowMoveAnnotationsOnBoard() && this.showMoveGlyphs();
+  showMoveAnnotations = (): boolean =>
+    this.settings.showMoveAnnotationsOnBoard && !this.retro?.isSolving() && this.showMoveGlyphs();
 
   showEvalGauge(): boolean {
     return (
-      this.showGauge() &&
+      this.settings.showGauge &&
       displayColumns() > 1 &&
-      this.showAnalysis() &&
+      this.showEvaluation() &&
       this.isCevalAllowed() &&
       (this.cevalEnabled() || !!this.node.eval || !!this.node.ceval) &&
       !this.node.outcome()
@@ -885,24 +865,13 @@ export default class AnalyseCtrl implements CevalHandler {
 
   toggleThreatMode = (v = !this.threatMode()) => {
     if (v === this.threatMode()) return;
-    if (this.node.check() || !this.showAnalysis()) return;
+    if (this.node.check() || !this.showEvaluation()) return;
     if (!this.cevalEnabled()) return;
     this.threatMode(v);
     if (this.threatMode() && this.practice) this.togglePractice();
     this.setAutoShapes();
-    this.startCeval();
+    this.startCevalIfEnabled();
     this.redraw();
-  };
-
-  togglePossiblyShowMoveAnnotationsOnBoard = (v: boolean): void => {
-    this.possiblyShowMoveAnnotationsOnBoard(v);
-    this.resetAutoShapes();
-  };
-
-  toggleFishnetAnalysis = () => {
-    this.showFishnetAnalysis(!this.showFishnetAnalysis());
-    this.resetAutoShapes();
-    pubsub.emit('analysis.comp.toggle', this.showFishnetAnalysis());
   };
 
   toggleActionMenu = () => {
@@ -934,18 +903,19 @@ export default class AnalyseCtrl implements CevalHandler {
     if (!enable || !this.isCevalAllowed()) {
       this.setCevalPracticeOpts();
       this.showGround();
+      if (this.isCevalAllowed()) this.startCevalIfEnabled();
     } else {
       this.closeTools();
       this.threatMode(false);
-      this.practice = makePractice(this, this.study?.practice?.playableDepth);
+      this.practice = makePractice(this);
       this.setCevalPracticeOpts();
       this.setAutoShapes();
-      this.startCeval();
+      this.startCevalIfEnabled();
     }
   };
 
   private setCevalPracticeOpts() {
-    this.ceval.setOpts({ custom: this.study?.practice?.customCeval ?? this.practice?.customCeval });
+    this.initCeval({ custom: this.study?.practice?.customCeval ?? this.practice?.customCeval });
   }
 
   gamebookPlay = (): GamebookPlayCtrl | undefined => this.study?.gamebookPlay;
@@ -971,6 +941,7 @@ export default class AnalyseCtrl implements CevalHandler {
     const tree = completeNode(this.variantKey)(data.tree);
     this.tree.merge(tree);
     this.data.treeParts = treeOps.mainlineNodeList(this.tree.root);
+    this.data.treeParts.forEach(this.ensureServerEvalNodes);
     this.data.analysis = data.analysis;
     if (data.analysis) data.analysis.partial = !!treeOps.findInMainline(tree, this.partialAnalysisCallback);
     if (data.division) this.data.game.division = data.division;
@@ -1017,6 +988,11 @@ export default class AnalyseCtrl implements CevalHandler {
     });
   };
 
+  private readonly onUpdateSettings = () => {
+    this.setAutoShapes();
+    this.redraw();
+  };
+
   playUci = (uci: Uci, uciQueue?: Uci[]) => {
     this.pvUciQueue = uciQueue ?? [];
     const move = parseUci(uci)!;
@@ -1047,8 +1023,8 @@ export default class AnalyseCtrl implements CevalHandler {
   }
 
   explorerMove(uci: Uci): void {
-    this.playUci(uci);
     this.explorer.loading(true);
+    this.playUci(uci);
   }
 
   playBestMove(): void {
@@ -1073,28 +1049,6 @@ export default class AnalyseCtrl implements CevalHandler {
     this.redraw();
   };
 
-  toggleVariationArrows = () => {
-    const trueValue = this.variationArrowOpacity(false);
-    if (typeof trueValue === 'number') {
-      this.variationArrowOpacity(trueValue === 0 ? 0.6 : -trueValue);
-    }
-  };
-
-  private makeVariationOpacityProp(): Prop<number | false> {
-    let value = parseFloat(localStorage.getItem('analyse.variation-arrow-opacity') || '0');
-    if (isNaN(value) || value < -1 || value > 1) value = 0;
-    return (v?: number | false) => {
-      if (v === false) return value;
-      if (v === undefined || isNaN(v)) return value > 0 ? value : false;
-      value = Math.min(1, Math.max(-1, v));
-      localStorage.setItem('analyse.variation-arrow-opacity', value.toString());
-      this.setAutoShapes();
-      this.chessground.redrawAll();
-      this.redraw();
-      return value;
-    };
-  }
-
   private readonly pluginUpdate = (fen: FEN) => {
     // If controller and chessground board states differ, ignore this update. Once the chessground
     // state is updated to match, pluginUpdate will be called again.
@@ -1102,23 +1056,49 @@ export default class AnalyseCtrl implements CevalHandler {
     this.keyboardMove?.update({ fen, canMove: true });
   };
 
-  showBestMoveArrows = () => this.showBestMoveArrowsProp() && !this.retro?.hideComputerLine(this.node);
+  showBestMoveArrows = () => this.settings.showBestMoveArrows && !this.retro?.hideComputerLine(this.node);
+
+  boardEditorUrl = () =>
+    this.data.userAnalysis
+      ? '/editor?' +
+        new URLSearchParams({
+          fen: this.node.fen,
+          variant: this.data.game.variant.key,
+          color: this.chessground.state.orientation,
+        })
+      : `/${this.data.game.id}/edit?fen=${this.node.fen}`;
+
+  getNodeKey(): string {
+    const engineId = (this.node.ceval && 'engineId' in this.node.ceval && this.node.ceval.engineId) || '';
+    return `${this.path}_${this.threatMode}_${engineId}`;
+  }
 
   private readonly resetAutoShapes = () => {
     if (
       this.showBestMoveArrows() ||
-      this.possiblyShowMoveAnnotationsOnBoard() ||
-      this.variationArrowOpacity() ||
-      (this.motifEnabled() && this.motif.any())
+      this.settings.showMoveAnnotationsOnBoard ||
+      this.settings.showVariationArrows ||
+      (this.motifEnabled() && this.motif.any()) ||
+      (finished(this.data) && this.node.outcome())
     )
       this.setAutoShapes();
     else this.chessground?.setAutoShapes([]);
   };
 
-  private async mergeIdbThenShowTreeView() {
-    await this.idbTree.merge();
-    this.treeView.hidden = false;
+  private readonly ensureServerEvalNodes = (node: TreeNode) => {
+    if (node.eval && !node.eval.knodes && this.data.analysis?.nodesPerMove)
+      node.eval.knodes = this.data.analysis.nodesPerMove / 1000;
+  };
+
+  private async asyncLoadThenShow() {
+    this.asyncReady = false;
+    const tree = this.tree;
+    await this.idbTree.load();
+    if (this.tree !== tree) return;
+    this.asyncReady = true;
     this.idbTree.revealNode();
+    this.setAutoShapes();
+    this.startCevalIfEnabled();
     this.redraw();
   }
 }

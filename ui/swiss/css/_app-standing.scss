@@ -36,18 +36,18 @@
   }
 
   &:not(.created, .loading) tbody tr:hover {
-    background: $m-primary_bg--mix-15;
+    background: color-mix(in oklab, $c-primary 15%, $c-bg);
     cursor: pointer;
   }
 
   tr.me td:first-child {
-    $c-me-border: $m-secondary_bg--mix-70;
+    $c-me-border: color-mix(in oklab, $c-secondary 70%, $c-bg);
 
     @include gradient-border($c-me-border, to right, to left);
   }
 
   tr.active td:last-child {
-    $c-active-border: $m-primary_bg--mix-70;
+    $c-active-border: color-mix(in oklab, $c-primary 70%, $c-bg);
 
     @include gradient-border($c-active-border, to left, to right);
   }
@@ -89,7 +89,7 @@
       color: $c-link;
 
       &:hover {
-        background: $m-primary_bg--mix-35;
+        background: color-mix(in oklab, $c-primary 35%, $c-bg);
       }
     }
 
@@ -97,20 +97,20 @@
       color: $c-good;
 
       &:hover {
-        background: $m-secondary_bg--mix-35;
+        background: color-mix(in oklab, $c-secondary 35%, $c-bg);
       }
     }
 
     .loss {
-      color: $m-bad_bg--mix-60;
+      color: color-mix(in oklab, $c-bad 60%, $c-bg);
 
       &:hover {
-        background: $m-bad_bg--mix-20;
+        background: color-mix(in oklab, $c-bad 20%, $c-bg);
       }
     }
 
     .draw {
-      color: $m-brag_bg--mix-70;
+      color: color-mix(in oklab, $c-brag 70%, $c-bg);
     }
 
     bye {
@@ -122,7 +122,7 @@
     }
 
     absent {
-      color: $m-bad_bg--mix-60;
+      color: color-mix(in oklab, $c-bad 60%, $c-bg);
     }
 
     r {

@@ -11,7 +11,7 @@ const patch = init([classModule, attributesModule]);
 
 export async function initModule(opts: Opts): Promise<void> {
   opts.navigation = !isMobile();
-  const getEl = () => document.querySelector('#recap-swiper') as HTMLElement;
+  const getEl = () => document.querySelector('#recap-swiper') as HTMLDivElement;
   if (opts.recap) {
     patch(getEl(), view(opts.recap, opts));
     makeSwiper(opts)(getEl());

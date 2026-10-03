@@ -2,8 +2,7 @@ package lila.user
 package ui
 
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.core.relation.Relation
 import lila.rating.PerfType
 

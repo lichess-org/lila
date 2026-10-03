@@ -1,6 +1,9 @@
-import * as licon from 'lib/licon';
+import { opposite } from 'chessops';
+
+import { capitalize } from 'lib/game';
+import { licon } from 'lib/licon';
 import type { TreeNode } from 'lib/tree/types';
-import { bind, hl, type VNode, spinnerVdom as spinner, iconTag } from 'lib/view';
+import { bind, hl, type VNode, spinnerVdom as spinner, icon } from 'lib/view';
 
 import type AnalyseCtrl from '../ctrl';
 import { renderIndexAndMove } from '../view/components';
@@ -14,7 +17,7 @@ const skipOrViewSolution = (ctrl: RetroCtrl): VNode =>
 
 const jumpToNext = (ctrl: RetroCtrl): VNode =>
   hl('a.half.continue', { hook: bind('click', ctrl.jumpToNext) }, [
-    iconTag(licon.PlayTriangle),
+    icon(licon.PlayTriangle)(),
     i18n.site.next,
   ]);
 
@@ -45,7 +48,7 @@ const feedback = {
               hl('move', renderIndexAndMove(ctrl.current()!.fault.node, false, true)),
             ),
           ),
-          hl('em', i18n.site[ctrl.color === 'white' ? 'findBetterMoveForWhite' : 'findBetterMoveForBlack']),
+          hl('em', i18n.site[`findBetterMoveFor${capitalize(ctrl.color)}`]),
           skipOrViewSolution(ctrl),
         ]),
       ]),
@@ -71,7 +74,7 @@ const feedback = {
         hl('div.icon', '✗'),
         hl('div.instruction', [
           hl('strong', i18n.site.youCanDoBetter),
-          hl('em', i18n.site[ctrl.color === 'white' ? 'tryAnotherMoveForWhite' : 'tryAnotherMoveForBlack']),
+          hl('em', i18n.site[`tryAnotherMoveFor${capitalize(ctrl.color)}`]),
           skipOrViewSolution(ctrl),
         ]),
       ]),
@@ -110,12 +113,13 @@ const feedback = {
     return [
       hl(
         'div.half.top',
-        hl('div.player.center', [
+        hl(
+          'div.player.center',
           hl('div.instruction', [
             hl('strong', i18n.site.evaluatingYourMove),
             renderEvalProgress(ctrl.node()),
           ]),
-        ]),
+        ),
       ),
     ];
   },
@@ -134,15 +138,9 @@ const feedback = {
         hl('div.instruction', [
           hl(
             'em',
-            i18n.site[
-              nothing
-                ? ctrl.color === 'white'
-                  ? 'noMistakesFoundForWhite'
-                  : 'noMistakesFoundForBlack'
-                : ctrl.color === 'white'
-                  ? 'doneReviewingWhiteMistakes'
-                  : 'doneReviewingBlackMistakes'
-            ],
+            nothing
+              ? i18n.site[`noMistakesFoundFor${capitalize(ctrl.color)}`]
+              : i18n.site[`doneReviewing${capitalize(ctrl.color)}Mistakes`],
           ),
           hl('div.choices.end', [
             !nothing &&
@@ -160,7 +158,7 @@ const feedback = {
                 key: 'flip',
                 hook: bind('click', ctrl.flip),
               },
-              i18n.site[ctrl.color === 'white' ? 'reviewBlackMistakes' : 'reviewWhiteMistakes'],
+              i18n.site[`review${capitalize(opposite(ctrl.color))}Mistakes`],
             ),
           ]),
         ]),
@@ -179,9 +177,9 @@ function renderFeedback(root: AnalyseCtrl, fb: Exclude<keyof typeof feedback, 'e
 
 export default function (root: AnalyseCtrl): VNode | undefined {
   const ctrl = root.retro;
-  if (!ctrl) return;
-  const fb = ctrl.feedback(),
-    completion = ctrl.completion();
+  if (!ctrl) return undefined;
+  const fb = ctrl.feedback();
+  const completion = ctrl.completion();
   return hl('div.retro-box.training-box.sub-box', [
     hl('div.title', [
       hl('span', i18n.site.learnFromYourMistakes),

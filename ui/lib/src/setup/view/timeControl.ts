@@ -4,7 +4,6 @@ import { hl, type MaybeVNode, type VNode } from '@/view';
 import type { InputValue } from '../interfaces';
 import { option } from '../option';
 import {
-  timeModes,
   sliderTimes,
   sliderInitVal,
   timeVToTime,
@@ -12,6 +11,7 @@ import {
   daysVToDays,
   type TimeControl,
   type TimeMode,
+  timeModes,
 } from '../timeControl';
 
 const showTime = (v: number) => {
@@ -90,7 +90,9 @@ const renderTimeModePicker = (tc: TimeControl) =>
           },
         },
       },
-      timeModes.filter(m => tc.modes.includes(m.key)).map(timeMode => option(timeMode, tc.mode())),
+      timeModes
+        .filter(m => tc.modes.includes(m))
+        .map(timeMode => option({ key: timeMode, name: i18n.site[timeMode] }, tc.mode())),
     ),
   ]);
 
@@ -129,7 +131,7 @@ export const timePickerAndSliders = (tc: TimeControl, minimumTimeRequiredIfReal 
                 click: () => tc.mode(mode),
               },
             },
-            timeModes.find(m => m.key === mode)?.name || mode,
+            i18n.site[mode],
           ),
         ),
       )

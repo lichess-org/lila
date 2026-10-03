@@ -1,5 +1,7 @@
 import { h, type VNode } from 'snabbdom';
 
+import { onInsert } from '@/view';
+
 import { type LichessStorage, storage } from '../storage';
 import { renderSan, renderPieceStyle, renderPrefixStyle } from './render';
 
@@ -34,18 +36,16 @@ export function renderSetting<A>(setting: Setting<A>, redraw: () => void): VNode
   return h(
     'select',
     {
-      hook: {
-        insert(vnode) {
-          (vnode.elm as HTMLSelectElement).addEventListener('change', e => {
-            setting.set((e.target as HTMLSelectElement).value as A);
-            redraw();
-          });
-        },
-      },
+      hook: onInsert<HTMLSelectElement>(el => {
+        el.addEventListener('change', e => {
+          setting.set((e.target as HTMLSelectElement).value as A);
+          redraw();
+        });
+      }),
     },
     setting.choices.map(choice => {
       const [key, name] = choice;
-      return h('option', { attrs: { value: '' + key, selected: key === v } }, name);
+      return h('option', { attrs: { value: String(key), selected: key === v } }, name);
     }),
   );
 }

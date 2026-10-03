@@ -1,4 +1,6 @@
 .lobby__streams {
+  @include backdrop-blur-if-transparent;
+
   &:empty {
     display: none;
   }

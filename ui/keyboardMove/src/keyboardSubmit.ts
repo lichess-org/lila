@@ -12,7 +12,7 @@ const ambiguousPromotionCaptureRegex = /^([a-h][27]?x?)?[a-h](1|8)=?$/;
 const promotionRegex = /^([a-h]x?)?[a-h](1|8)=?[nbrqkNBRQK]$/;
 // accept partial ICCF because submit runs on every keypress
 const iccfRegex = /^[1-8][1-8]?[1-5]?$/;
-const isKey = (v: string): v is Key => !!v.match(keyRegex);
+const isKey = (v: string): v is Key => keyRegex.test(v);
 
 interface SubmitOpts {
   isTrusted: boolean;
@@ -30,7 +30,7 @@ export function makeSubmit(opts: Opts, clear: () => void): Submit {
 
     // consider 0's as O's for castling
     v = v.replace(/0/g, 'O');
-    if (v.match(iccfRegex)) {
+    if (iccfRegex.test(v)) {
       v = iccfToUci(v);
     }
     const { legalSans } = opts.ctrl;
@@ -72,7 +72,7 @@ export function makeSubmit(opts: Opts, clear: () => void): Submit {
       if (!foundUci) return;
       opts.ctrl.promote(foundUci.slice(0, 2) as Key, foundUci.slice(2) as Key, v.slice(-1).toUpperCase());
       clear();
-    } else if (v.match(crazyhouseRegex)) {
+    } else if (crazyhouseRegex.test(v)) {
       // Incomplete crazyhouse strings such as Q@ or Q@a should do nothing.
       if (v.length > 3 || (v.length > 2 && v.startsWith('@'))) {
         if (v.length === 3) v = 'P' + v;

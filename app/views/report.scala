@@ -14,7 +14,7 @@ def list(
     scores: Room.Scores,
     pending: PendingCounts
 )(using Context, Me) =
-  ui.list.layout(filter, scores, pending)(views.mod.ui.reportMenu):
+  ui.list.layout(s"Reports: $filter", filter, scores, pending)(views.mod.ui.reportMenu):
     ui.list.reportTable(reports)(
       bestPerfs = _.perfs.bestPerfs(2).map(showPerfRating),
       userMarks = views.mod.user.userMarks(_, none)

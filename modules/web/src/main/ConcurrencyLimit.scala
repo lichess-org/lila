@@ -1,42 +1,50 @@
 package lila.web
 
-import akka.stream.scaladsl.*
+import org.apache.pekko.stream.scaladsl.*
 import play.api.libs.json.Json
-import play.api.mvc.Result
+import play.api.mvc.{ RequestHeader, Result }
 import play.api.mvc.Results.TooManyRequests
+import lila.common.HTTPRequest
 
 /** only allow X streams at a time per key */
 final class ConcurrencyLimit[K](
+    maxConcurrency: Int,
     key: String,
-    ttl: FiniteDuration,
-    maxConcurrency: Int = 1,
+    ttl: FiniteDuration = 1.hour,
     limitedDefault: Int => Result = ConcurrencyLimit.limitedDefault,
     toString: K => String = (k: K) => k.toString
 )(using Executor):
 
-  private val storage = ConcurrencyLimit.Storage(ttl, maxConcurrency, toString)
-  private val logger = lila.memo.RateLimit.logger.branch("concurrency").branch(key)
-  private val monitor = lila.mon.security.concurrencyLimit(key)
+  import ConcurrencyLimit.{ Storage, Limiter }
 
-  def compose[T](k: K, msg: => String = ""): Option[Source[T, ?] => Source[T, ?]] =
+  private val storage = ConcurrencyLimit.Storage(ttl, maxConcurrency, toString)
+  private val limitedMon = lila.mon.security.concurrencyLimit(key)
+  private def levelMon(k: K) = lila.mon.security.concurrencyLevel(key, toString(k))
+
+  def compose[T](k: K)(using RequestHeader): Option[Source[T, ?] => Source[T, ?]] =
     if storage.get(k) >= maxConcurrency then
-      logger.info(s"$k $msg")
-      monitor.increment()
+      lila.memo.RateLimit.logger.info(s"concurrency $key $k $reqMsg")
+      limitedMon.increment()
       none
     else
-      storage.inc(k)
+      val level = storage.inc(k)
+      if level >= 3 then levelMon(k).update(level)
       some:
         _.watchTermination(): (_, done) =>
           done.onComplete: _ =>
-            storage.dec(k)
+            val level = storage.dec(k)
+            if level >= 2 then levelMon(k).update(level)
 
-  def apply[T](k: K, msg: => String = "")(
-      makeSource: => Source[T, ?]
-  )(makeResult: Source[T, ?] => Result): Result =
-    compose[T](k, msg).fold(limitedDefault(maxConcurrency)): watch =>
-      makeResult(watch(makeSource))
+  def apply[T](k: K)(using RequestHeader): Limiter[T] = makeSource =>
+    makeResult =>
+      compose[T](k).fold(limitedDefault(maxConcurrency)): watch =>
+        makeResult(watch(makeSource))
+
+  private def reqMsg(using req: RequestHeader) = s"${req.path} ${HTTPRequest.userAgent(req)}"
 
 object ConcurrencyLimit:
+
+  type Limiter[T] = (=> Source[T, ?]) => (Source[T, ?] => Result) => Result
 
   final class Storage[K](
       ttl: FiniteDuration,

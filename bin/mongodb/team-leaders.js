@@ -4,6 +4,6 @@ db.team.find().forEach(t => {
   if (leaders.length !== t.leaders.length) {
     if (!leaders.length) leaders.push(t.createdBy);
     print(`${t._id} ${t.name} ${t.leaders.join(',')} -> ${leaders.join(',')}`);
-    db.team.update({ _id: t._id }, { $set: { leaders: leaders } });
+    db.team.update({ _id: t._id }, { $set: { leaders } });
   }
 });

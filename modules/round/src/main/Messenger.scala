@@ -8,17 +8,18 @@ final class Messenger(api: ChatApi):
   def system(game: Game, message: String): Unit =
     system(persistent = true)(game, message)
 
-  def volatile(game: Game, message: String): Unit =
-    system(persistent = false)(game, message)
+  def volatile(game: Game, message: String, reboot: Boolean = false): Unit =
+    system(persistent = false)(game, message, watcherChat = !reboot)
 
   def apply(game: Game, message: Messenger.SystemMessage): Unit = message match
     case Messenger.SystemMessage.Persistent(msg) => system(persistent = true)(game, msg)
     case Messenger.SystemMessage.Volatile(msg) => system(persistent = false)(game, msg)
 
-  def system(persistent: Boolean)(game: Game, message: String): Unit = if game.nonAi then
-    api.userChat.volatile(chatWatcherId(game.id.into(ChatId)), message, _.round)
-    if persistent then api.userChat.system(game.id.into(ChatId), message, _.round)
-    else api.userChat.volatile(game.id.into(ChatId), message, _.round)
+  def system(persistent: Boolean)(game: Game, message: String, watcherChat: Boolean = true): Unit =
+    if game.nonAi then
+      if watcherChat then api.userChat.volatile(chatWatcherId(game.id.into(ChatId)), message, _.round)
+      if persistent then api.userChat.system(game.id.into(ChatId), message, _.round)
+      else api.userChat.volatile(game.id.into(ChatId), message, _.round)
 
   def watcher(gameId: GameId, userId: UserId, text: String) =
     api.userChat.write(gameWatcherId(gameId), userId, text, PublicSource.Watcher(gameId).some, _.round)

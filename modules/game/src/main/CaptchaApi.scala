@@ -73,13 +73,9 @@ final private class CaptchaApi(gameRepo: GameRepo)(using Executor) extends ICapt
       yield Captcha(game.id, fenOf(rewinded.position), rewinded.color, solutions, moves = moves)
 
     def solve(position: Position): Option[Solutions] =
-      position.moves.view
-        .flatMap: (_, moves) =>
-          moves.filter: move =>
-            move.after.checkMate
-        .to(List)
-        .map: move =>
-          s"${move.orig.key} ${move.dest.key}"
+      position.legalMoves
+        .filter(_.after.checkMate)
+        .map(m => s"${m.orig.key} ${m.dest.key}")
         .toNel
 
     def rewind(moves: Vector[SanStr]): Option[Position] =

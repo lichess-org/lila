@@ -15,7 +15,7 @@ for (k of Object.keys(ratings)) {
   const rating = ratings[k];
   const id = k.toLowerCase();
   const user = db.user4.findOne({ _id: id });
-  if (user.perfs[perf] && user.perfs[perf].nb) {
+  if (user.perfs[perf]?.nb) {
     const set = { [`perfs.${perf}.gl.r`]: rating };
     const push = {
       [`perfs.${perf}.re`]: {

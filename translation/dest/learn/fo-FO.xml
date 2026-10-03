@@ -83,7 +83,7 @@
   <string name="youCanGetOutOfCheckByTaking">Tú sleppur úr skákinum við at taka fólkið, ið skákar.</string>
   <string name="thisKnightIsCheckingThroughYourDefenses">Hesin riddarin skákar gjøgnum tína verju!</string>
   <string name="escapeOrBlock">Rým við konginum, ella set eitt fólk fyri!</string>
-  <string name="outOfCheckComplete" comment="A brief description indicating that the user has reached the end of the out of check chapter.&#10;&#10;Note: In March 2026, this was changed from &quot;can never be taken&quot; to &quot;must never be taken&quot;.">Til lukku! Kongurin hjá tær verður ikki tikin. Ansa eftir, at tú fært vart móti skáki!</string>
+  <string name="outOfCheckComplete">Til lukku! Kongurin hjá tær verður ikki tikin. Ansa eftir, at tú fært vart móti skáki!</string>
   <string name="mateInOne">Skák og mát í einum</string>
   <string name="defeatTheOpponentsKing">Vinn á mótstøðukonginum</string>
   <string name="mateInOneIntro">Tú vinnur, tá ið mótparturin ikki fær vart seg ímóti skáki.</string>
@@ -102,6 +102,7 @@
   <string name="pawnsFormTheFrontLine">Finnurnar standa fremst. Flyt okkurt fólk til tess at halda fram.</string>
   <string name="boardSetupComplete">Til lukku! Tú dugir at seta fólkini, har tey eiga at standa.</string>
   <string name="castling">At leypa í borg</string>
+  <string name="enPassant">At taka í framlopi</string>
   <string name="theSpecialKingMove">Serligi leikurin hjá kongi</string>
   <string name="castlingIntro">Flyt kongin í tryggleika, og tak rókin í nýtslu, so hann fær lopið á!</string>
   <string name="castleKingSide">Flyt kongin tveir puntar til tess at leypa í stuttu borg!</string>

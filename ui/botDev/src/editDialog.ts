@@ -5,7 +5,7 @@ import { deepFreeze, definedMap } from 'lib/algo';
 import { Bot } from 'lib/bot/bot';
 import type { BotInfo } from 'lib/bot/types';
 import { Janitor } from 'lib/event';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { pubsub } from 'lib/pubsub';
 import { domDialog, type Dialog, type Action, confirm, alert } from 'lib/view';
 
@@ -35,7 +35,7 @@ export class EditDialog {
   view: HTMLElement;
   deck: HandOfCards;
   dlg: Dialog;
-  assetDlg: AssetDialog | undefined;
+  assetDlg?: AssetDialog;
   uid: string;
   panes: Panes;
   scratch: Map<string, WritableBot> = new Map();
@@ -60,10 +60,10 @@ export class EditDialog {
 
   async show(): Promise<Dialog> {
     this.dlg = await domDialog({
-      append: [{ node: this.view }],
+      insert: [{ nodes: this.view }],
       actions: this.actions,
-      noClickAway: true,
       onClose: () => this.janitor.cleanup(),
+      onShow: () => this.deck.resize(),
     });
     pubsub.on('botdev.import.book', this.onBookImported);
     this.janitor.addCleanupTask(() => pubsub.off('botdev.import.book', this.onBookImported));
@@ -228,12 +228,13 @@ export class EditDialog {
     domDialog({
       class: 'dev-view',
       htmlText: `<h2>Choose a user id</h2><p>must be unique and begin with #</p><span></span>`,
-      append: [
-        { node: input, where: 'span' },
-        { node: ok, where: 'span' },
+      insert: [
+        { nodes: input, selector: 'span' },
+        { nodes: ok, selector: 'span' },
       ],
       focus: 'input',
       modal: true,
+      easyClose: 'clickOutside',
       actions: [
         {
           selector: 'input',
@@ -288,8 +289,8 @@ export class EditDialog {
           </div>
       </div>`);
     const dlg = await domDialog({
-      append: [{ node: view }],
-      onClose: () => {},
+      insert: [{ nodes: view }],
+      easyClose: 'clickOutside',
       show: true,
       actions: [
         { selector: '[data-action="cancel"]', result: 'cancel' },
@@ -314,8 +315,8 @@ export class EditDialog {
           </div>
       </div>`);
     const dlg = await domDialog({
-      append: [{ node: view }],
-      onClose: () => {},
+      insert: [{ nodes: view }],
+      easyClose: 'clickOutside',
       show: true,
       actions: [
         { selector: '[data-action="cancel"]', result: 'cancel' },

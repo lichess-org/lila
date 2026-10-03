@@ -28,8 +28,9 @@ final private class FarmBoostDetection(
       .so(g.twoUserIds)
       .so: (u1, u2) =>
         crosstableApi(u1, u2).flatMap: ct =>
+          val prevGameIds = ct.results.map(_.gameId).filter(_ != g.id).reverse.take(PREV_GAMES)
           gameRepo
-            .gamesFromSecondary(ct.results.reverse.take(PREV_GAMES).map(_.gameId))
+            .gamesFromSecondary(prevGameIds)
             .map:
               _.exists: prev =>
                 g.winnerUserId === prev.winnerUserId &&

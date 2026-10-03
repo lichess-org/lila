@@ -27,7 +27,7 @@ final class AccountPages(helpers: Helpers, ui: AccountUi, flagApi: lila.core.use
         if managed then p(trs.managedAccountCannotBeClosed())
         else
           postForm(cls := "form3", action := routes.Account.closeConfirm)(
-            div(cls := "form-group")(h2("We're sorry to see you go.")),
+            div(cls := "form-group")(h2(trs.wereSorryToSeeYouGo())),
             div(cls := "form-group")(trs.closeAccountAreYouSure()),
             div(cls := "form-group")(trs.cantOpenSimilarAccount()),
             myUsernamePasswordFields(form),
@@ -43,11 +43,9 @@ final class AccountPages(helpers: Helpers, ui: AccountUi, flagApi: lila.core.use
               else form3.hidden(form("token")),
               form3.checkboxGroup(
                 form("forever"),
-                raw("Forever close: make it impossible to reopen"),
+                trs.closeAccountForeverLabel(),
                 half = me.totpSecret.isDefined,
-                help = raw(
-                  "Prevent reopening the account later. If you check this box, even administrators will be unable to reopen your account at your request."
-                ).some
+                help = trs.closeAccountForeverWarning().some
               )
             ),
             form3.actions(
@@ -64,24 +62,22 @@ final class AccountPages(helpers: Helpers, ui: AccountUi, flagApi: lila.core.use
       )
 
   def delete(form: Form[?], managed: Boolean)(using Context)(using me: Me) =
-    AccountPage(s"${me.username} - Delete your account", "delete"):
+    AccountPage(s"${me.username} - ${trans.settings.deleteYourAccount.txt()}", "delete"):
       div(cls := "box box-pad")(
-        boxTop(h1(cls := "text", dataIcon := Icon.CautionCircle)("Delete your account")),
+        boxTop(h1(cls := "text", dataIcon := Icon.CautionCircle)(trs.deleteYourAccount())),
         if managed then p(trs.managedAccountCannotBeClosed())
         else
           postForm(cls := "form3", action := routes.Account.deleteConfirm)(
-            div(cls := "form-group")(h2("We're sorry to see you go.")),
-            div(cls := "form-group")(
-              "Once you delete your account, it’s removed from Lichess and our administrators won’t be able to bring it back for you."
-            ),
+            div(cls := "form-group")(h2(trs.wereSorryToSeeYouGo())),
+            div(cls := "form-group")(trs.deleteAccountWarning()),
             div(cls := "form-group")(trs.cantOpenSimilarAccount()),
             div(cls := "form-group")(
-              "Would you like to ",
-              a(href := routes.Account.close)("close your account"),
-              " instead?"
+              trs.wouldYouLikeToXInstead(
+                a(href := routes.Account.close)(trs.closeYourAccount())
+              )
             ),
             myUsernamePasswordFields(form),
-            form3.checkboxGroup(form("understand"), "I understand that deleted accounts aren't recoverable"),
+            form3.checkboxGroup(form("understand"), trs.deleteAccountConfirmText()),
             form3.errors(form("understand")),
             me.marks.dirty.option:
               div(cls := "form-group")(
@@ -134,7 +130,7 @@ final class AccountPages(helpers: Helpers, ui: AccountUi, flagApi: lila.core.use
   private lazy val flagPairs = flagApi.all.map: c =>
     c.code -> c.name
 
-  def profile(u: User, form: Form[?])(using ctx: Context) =
+  def profile(u: User, form: Form[?], fixedRealName: Boolean)(using ctx: Context) =
     AccountPage(s"${u.username} - ${trans.site.editProfile.txt()}", "editProfile"):
       div(cls := "box box-pad")(
         h1(cls := "box__top")(trans.site.editProfile()),
@@ -163,11 +159,17 @@ final class AccountPages(helpers: Helpers, ui: AccountUi, flagApi: lila.core.use
           ),
           form3.split(
             form3.group(form("flag"), trans.site.countryRegion(), half = true): f =>
-              form3.select(f, flagPairs, default = "".some),
+              form3.select(f, flagPairs, default = trans.site.unknown.txt().some),
             form3.group(form("location"), trans.site.location(), half = true)(form3.input(_))
           ),
           form3.split(
-            form3.group(form("realName"), trans.site.realName(), half = true)(form3.input(_))
+            form3.group(
+              form("realName"),
+              trans.site.realName(),
+              half = true,
+              help = fixedRealName.option("Publicly titled profiles cannot change their real name")
+            ): field =>
+              form3.input(field)(fixedRealName.option(inertAttr))
           ),
           form3.split(
             List("fide", "uscf", "ecf", "rcf", "cfc", "dsb").map: rn =>

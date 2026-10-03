@@ -6,6 +6,7 @@ import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
 
 import Puzzle.BSONFields as F
+import lila.core.misc.puzzle.DailyChange
 
 final private[puzzle] class DailyPuzzle(
     colls: PuzzleColls,
@@ -16,7 +17,7 @@ final private[puzzle] class DailyPuzzle(
   import BsonHandlers.given
 
   private val cache =
-    cacheApi.unit[Option[DailyPuzzle.WithHtml]]:
+    cacheApi.unit[Option[DailyPuzzle.WithHtml]]("puzzle.daily"):
       _.refreshAfterWrite(1.minutes).buildAsyncTimeoutZero()(_ => find)
 
   def get: Fu[Option[DailyPuzzle.WithHtml]] = cache.getUnit
@@ -42,8 +43,8 @@ final private[puzzle] class DailyPuzzle(
   }
 
   private def findCurrent = colls.puzzle:
-    _.find($doc(F.day.$gt(nowInstant.minusDays(1))))
-      .sort($sort.desc(F.day))
+    _.find(bdoc(F.day.gt(nowInstant.minusDays(1))))
+      .sort(sort.desc(F.day))
       .one[Puzzle]
 
   private val maxTries = 10
@@ -67,21 +68,21 @@ final private[puzzle] class DailyPuzzle(
             odds(2).so(List(PuzzleTheme.checkFirst))
           Match(pathApi.select(PuzzleAngle.mix, PuzzleTier.top, 2150 to 2300)) -> List(
             Sample(3),
-            Project($doc("ids" -> true, "_id" -> false)),
+            Project(bdoc("ids" -> true, "_id" -> false)),
             UnwindField("ids"),
             PipelineOperator:
-              $lookup.simple(
+              lookup.simple(
                 from = colls.puzzle.name,
                 as = "puzzle",
                 local = "ids",
                 foreign = "_id",
                 pipe = List(
-                  $doc(
-                    "$match" -> $doc(
-                      Puzzle.BSONFields.plays.$gt(minPlays),
-                      Puzzle.BSONFields.day.$exists(false),
-                      Puzzle.BSONFields.issue.$exists(false),
-                      Puzzle.BSONFields.themes.$nin(forbiddenThemes.map(_.key))
+                  bdoc(
+                    "$match" -> bdoc(
+                      Puzzle.BSONFields.plays.gt(minPlays),
+                      Puzzle.BSONFields.day.exists(false),
+                      Puzzle.BSONFields.issue.exists(false),
+                      Puzzle.BSONFields.themes.nin(forbiddenThemes.map(_.key))
                     )
                   )
                 )
@@ -89,13 +90,16 @@ final private[puzzle] class DailyPuzzle(
             ,
             UnwindField("puzzle"),
             ReplaceRootField("puzzle"),
-            AddFields($doc("dayScore" -> $doc("$multiply" -> $arr("$plays", "$vote")))),
+            AddFields(bdoc("dayScore" -> bdoc("$multiply" -> barr("$plays", "$vote")))),
             Sort(Descending("dayScore")),
             Limit(1)
           )
       .flatMap:
         _.flatMap(puzzleReader.readOpt).so { puzzle =>
-          colls.puzzle(_.updateField($id(puzzle.id), F.day, nowInstant)).inject(puzzle.some)
+          colls
+            .puzzle(_.updateField(bid(puzzle.id), F.day, nowInstant))
+            .inject(puzzle.some)
+            .addEffect(_ => lila.common.Bus.pub(DailyChange(puzzle.id)))
         }
 
 object DailyPuzzle:

@@ -49,6 +49,10 @@ object Work:
       moves: String
   ):
     def uciList: List[Uci] = Uci.readList(moves).getOrElse(Nil)
+    def hash: Array[Byte] = java.security.MessageDigest
+      .getInstance("MD5")
+      .digest(s"$variant $initialFen $moves".getBytes(java.nio.charset.StandardCharsets.UTF_8))
+      .take(12)
 
   case class Sender(
       userId: UserId,

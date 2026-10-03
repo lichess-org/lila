@@ -89,16 +89,16 @@ final class ClasProgressApi(
       _.aggregateList(Int.MaxValue, _.sec): framework =>
         import framework.*
         Match(
-          $doc(
-            PuzzleRound.BSONFields.user.$in(userIds),
-            PuzzleRound.BSONFields.date.$gt(nowInstant.minusDays(days.value))
+          bdoc(
+            PuzzleRound.BSONFields.user.in(userIds),
+            PuzzleRound.BSONFields.date.gt(nowInstant.minusDays(days.value))
           )
         ) -> List:
           GroupField("u")(
             "nb" -> SumAll,
             "win" -> Sum(
-              $doc(
-                "$cond" -> $arr("$w", 1, 0)
+              bdoc(
+                "$cond" -> barr("$w", 1, 0)
               )
             )
           )
@@ -123,27 +123,27 @@ final class ClasProgressApi(
       .aggregateList(maxDocs = Int.MaxValue, _.sec): framework =>
         import framework.*
         Match(
-          $doc(
-            F.playerUids.$in(userIds),
-            F.createdAt.$gte(nowInstant.minusDays(days.value)),
+          bdoc(
+            F.playerUids.in(userIds),
+            F.createdAt.gte(nowInstant.minusDays(days.value)),
             gamePerfField -> perfType.id
           )
         ) -> List(
           Project(
-            $doc(
+            bdoc(
               F.playerUids -> true,
               F.winnerId -> true,
-              "ms" -> $doc("$subtract" -> $arr(s"$$${F.movedAt}", s"$$${F.createdAt}")),
+              "ms" -> bdoc("$subtract" -> barr(s"$$${F.movedAt}", s"$$${F.createdAt}")),
               F.id -> false
             )
           ),
           UnwindField(F.playerUids),
-          Match($doc(F.playerUids.$in(userIds))),
+          Match(bdoc(F.playerUids.in(userIds))),
           GroupField(F.playerUids)(
             "nb" -> SumAll,
             "win" -> Sum(
-              $doc(
-                "$cond" -> $arr($doc("$eq" -> $arr("$us", "$wid")), 1, 0)
+              bdoc(
+                "$cond" -> barr(bdoc("$eq" -> barr("$us", "$wid")), 1, 0)
               )
             ),
             "ms" -> SumField("ms")
@@ -164,4 +164,4 @@ final class ClasProgressApi(
 
   private[clas] def onFinishGame(game: Game): Unit =
     if game.userIds.exists(filters.student.apply)
-    then gameRepo.coll.updateFieldUnchecked($id(game.id), gamePerfField, game.perfKey.id)
+    then gameRepo.coll.updateFieldUnchecked(bid(game.id), gamePerfField, game.perfKey.id)

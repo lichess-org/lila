@@ -32,8 +32,8 @@ export const registerMultipleSelect = () => {
     selectItemName: string;
 
     constructor($el: Cash, options: MultiSelectOpts) {
-      const that = this,
-        name = $el.attr('name') || options.name || '';
+      const that = this;
+      const name = $el.attr('name') || options.name || '';
       this.options = options;
       this.$el = $el.hide();
       this.$label =
@@ -79,8 +79,8 @@ export const registerMultipleSelect = () => {
     }
 
     init() {
-      const that = this,
-        $ul = $('<ul></ul>');
+      const that = this;
+      const $ul = $('<ul></ul>');
       this.$drop.html('');
       if (this.options.filter) {
         this.$drop.append(
@@ -127,18 +127,18 @@ export const registerMultipleSelect = () => {
     }
 
     optionToHtml(i: number, elm: EleLoose, group?: string, groupDisabled?: boolean) {
-      const that = this,
-        $elm = $(elm),
-        classes = $elm.attr('class') || '',
-        multiple = this.options.multiple ? 'multiple' : '',
-        type = this.options.single ? 'radio' : 'checkbox';
+      const that = this;
+      const $elm = $(elm);
+      const classes = $elm.attr('class') || '';
+      const multiple = this.options.multiple ? 'multiple' : '';
+      const type = this.options.single ? 'radio' : 'checkbox';
       let disabled: boolean;
       if ($elm.is('option')) {
-        const value = $elm.val() as string,
-          text = that.options.textTemplate?.($elm) || '',
-          selected = $elm.prop('selected'),
-          optionalStyle = this.options.styler?.(value),
-          style = optionalStyle ? `style="${optionalStyle}"` : '';
+        const value = $elm.val() as string;
+        const text = that.options.textTemplate?.($elm) || '';
+        const selected = $elm.prop('selected');
+        const optionalStyle = this.options.styler?.(value);
+        const style = optionalStyle ? `style="${optionalStyle}"` : '';
         disabled = groupDisabled || $elm.prop('disabled');
         return $(
           [
@@ -154,8 +154,8 @@ export const registerMultipleSelect = () => {
         );
       }
       if ($elm.is('optgroup')) {
-        const label = that.options.labelTemplate?.($elm),
-          $group = $('<div/>');
+        const label = that.options.labelTemplate?.($elm);
+        const $group = $('<div/>');
         group = 'group_' + i;
         disabled = $elm.prop('disabled');
         $group.append(
@@ -179,11 +179,11 @@ export const registerMultipleSelect = () => {
     }
 
     events() {
-      const that = this,
-        toggleOpen: EventCallback = function (e) {
-          e.preventDefault();
-          that[that.options.isOpen ? 'close' : 'open']();
-        };
+      const that = this;
+      const toggleOpen: EventCallback = function (e) {
+        e.preventDefault();
+        that[that.options.isOpen ? 'close' : 'open']();
+      };
       if (this.$label) {
         this.$label.off('click').on('click', function (this: HTMLElement, e) {
           if (e.target.nodeName.toLowerCase() !== 'label' || e.target !== this) {
@@ -237,8 +237,8 @@ export const registerMultipleSelect = () => {
           that.filter();
         });
       this.$selectAll.off('click').on('click', function (this: HTMLElement) {
-        const checked = $(this).prop('checked'),
-          $items = that.$selectItems.filter(isVisible);
+        const checked = $(this).prop('checked');
+        const $items = that.$selectItems.filter(isVisible);
         if ($items.length === that.$selectItems.length) {
           that[checked ? 'checkAll' : 'uncheckAll']();
         } else {
@@ -249,16 +249,16 @@ export const registerMultipleSelect = () => {
         }
       });
       this.$selectGroups.off('click').on('click', function (this: HTMLElement) {
-        const group = $(this).parent().attr('data-group'),
-          $items = that.$selectItems.filter(isVisible),
-          $children = $items.filter(`[data-group="${group}"]`),
-          checked = $children.length !== $children.filter(':checked').length;
+        const group = $(this).parent().attr('data-group');
+        const $items = that.$selectItems.filter(isVisible);
+        const $children = $items.filter(`[data-group="${group}"]`);
+        const checked = $children.length !== $children.filter(':checked').length;
         $children.prop('checked', checked);
         that.updateSelectAll();
         that.update();
         that.options.onOptgroupClick?.({
           label: $(this).parent().text(),
-          checked: checked,
+          checked,
           children: $children.get(),
           instance: that,
         });
@@ -326,9 +326,9 @@ export const registerMultipleSelect = () => {
     }
 
     update(isInit?: boolean) {
-      const selects = this.options.displayValues ? this.getSelects() : this.getSelects('text'),
-        $span = this.$choice.find('span'),
-        sl = selects.length;
+      const selects = this.options.displayValues ? this.getSelects() : this.getSelects('text');
+      const $span = this.$choice.find('span');
+      const sl = selects.length;
       this.$choice.toggleClass('selected', sl > 0);
       if (sl === 0) {
         $span.addClass('placeholder').html(this.options.placeholder!);
@@ -343,8 +343,8 @@ export const registerMultipleSelect = () => {
           .removeClass('placeholder')
           .html(
             this.options.countSelected
-              .replace('#', selects.length + '')
-              .replace('%', this.$selectItems.length + this.$disableItems.length + ''),
+              .replace('#', String(selects.length))
+              .replace('%', String(this.$selectItems.length + this.$disableItems.length)),
           );
       } else {
         $span.removeClass('placeholder').text(selects.join(this.options.delimiter));
@@ -376,15 +376,15 @@ export const registerMultipleSelect = () => {
     updateOptGroupSelect() {
       const $items = this.$selectItems.filter(isVisible);
       $.each(this.$selectGroups, function (_i, val) {
-        const group = $(val).parent().attr('data-group'),
-          $children = $items.filter(`[data-group="${group}"]`);
+        const group = $(val).parent().attr('data-group');
+        const $children = $items.filter(`[data-group="${group}"]`);
         $(val).prop('checked', $children.length && $children.length === $children.filter(':checked').length);
       });
     }
 
     getSelects(type?: 'text') {
-      const that = this,
-        values: string[] = [];
+      const that = this;
+      const values: string[] = [];
       let texts: string[] = [];
       this.$drop.find(`input[${this.selectItemName}]:checked`).each(function () {
         texts.push($(this).parents('li').first().text());
@@ -393,16 +393,15 @@ export const registerMultipleSelect = () => {
       if (type === 'text' && this.$selectGroups.length) {
         texts = [];
         this.$selectGroups.each(function () {
-          const html = [],
-            text = $(this).parent().text().trim(),
-            group = $(this).parent().data('group'),
-            $children = that.$drop.find(`[${that.selectItemName}][data-group="${group}"]`),
-            $selected = $children.filter(':checked');
+          const html = [];
+          const text = $(this).parent().text().trim();
+          const group = $(this).parent().data('group');
+          const $children = that.$drop.find(`[${that.selectItemName}][data-group="${group}"]`);
+          const $selected = $children.filter(':checked');
           if (!$selected.length) {
             return;
           }
-          html.push('[');
-          html.push(text);
+          html.push('[', text);
           if ($children.length > $selected.length) {
             const list: string[] = [];
             $selected.each(function () {
@@ -428,8 +427,8 @@ export const registerMultipleSelect = () => {
         this.$selectItems.length === this.$selectItems.filter(':checked').length,
       );
       $.each(that.$selectGroups, function (_i, val) {
-        const group = $(val).parent().attr('data-group'),
-          $children = that.$selectItems.filter(`[data-group="${group}"]`);
+        const group = $(val).parent().attr('data-group');
+        const $children = that.$selectItems.filter(`[data-group="${group}"]`);
         $(val).prop('checked', $children.length && $children.length === $children.filter(':checked').length);
       });
       this.update();
@@ -474,8 +473,8 @@ export const registerMultipleSelect = () => {
     }
 
     filter() {
-      const that = this,
-        text = (this.$searchInput.val() as string).trim().toLowerCase();
+      const that = this;
+      const text = (this.$searchInput.val() as string).trim().toLowerCase();
       if (text.length === 0) {
         this.$selectAll.parent().show();
         this.$selectItems.parent().show();
@@ -489,9 +488,9 @@ export const registerMultipleSelect = () => {
         });
         this.$disableItems.parent().hide();
         this.$selectGroups.each(function () {
-          const $parent = $(this).parent(),
-            group = $parent.attr('data-group'),
-            $items = that.$selectItems.filter(isVisible);
+          const $parent = $(this).parent();
+          const group = $parent.attr('data-group');
+          const $items = that.$selectItems.filter(isVisible);
           $parent[$items.filter(`[data-group="${group}"]`).length ? 'show' : 'hide']();
         });
         if (this.$selectItems.parent().filter(isVisible).length) {
@@ -521,19 +520,19 @@ export const registerMultipleSelect = () => {
     | 'blur'
     | 'refresh';
   $.fn.multipleSelect = function (this: Cash) {
-    const option = arguments[0],
-      args = arguments;
+    const option = arguments[0];
+    const args = arguments;
     let value;
     interface EleHack extends EleLoose {
       multipleSelect: MultipleSelectState;
     }
     this.each(function (this: EleHack) {
       let data = this['multipleSelect'];
-      const $this = $(this),
-        options = {
-          ...$.fn.multipleSelectDefaults,
-          ...(typeof option === 'object' ? option : {}),
-        };
+      const $this = $(this);
+      const options = {
+        ...$.fn.multipleSelectDefaults,
+        ...(typeof option === 'object' ? option : {}),
+      };
       if (!data) {
         data = new MultipleSelectState($this, options);
         this['multipleSelect'] = data;
@@ -577,40 +576,40 @@ export const registerMultipleSelect = () => {
     allSelected: 'All selected',
     countSelected: '# of % selected',
     noMatchesFound: 'No matches found',
-    styler: function () {
+    styler() {
       return null;
     },
-    textTemplate: function ($elm) {
+    textTemplate($elm) {
       return $elm.text();
     },
-    labelTemplate: function ($elm) {
+    labelTemplate($elm) {
       return $elm.attr('label');
     },
-    onOpen: function () {
+    onOpen() {
       return false;
     },
-    onClose: function () {
+    onClose() {
       return false;
     },
-    onCheckAll: function () {
+    onCheckAll() {
       return false;
     },
-    onUncheckAll: function () {
+    onUncheckAll() {
       return false;
     },
-    onFocus: function () {
+    onFocus() {
       return false;
     },
-    onBlur: function () {
+    onBlur() {
       return false;
     },
-    onOptgroupClick: function () {
+    onOptgroupClick() {
       return false;
     },
-    onClick: function () {
+    onClick() {
       return false;
     },
-    onFilter: function () {
+    onFilter() {
       return false;
     },
   };

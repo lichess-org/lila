@@ -16,17 +16,18 @@ import { next, prev, view } from '../keyboard';
 import { renderTable } from './table';
 
 export function main(ctrl: RoundController): VNode {
-  const d = ctrl.data,
-    topColor = d[ctrl.flip ? 'player' : 'opponent'].color,
-    bottomColor = d[ctrl.flip ? 'opponent' : 'player'].color,
-    materialDiffs = renderMaterialDiffs(
-      ctrl.data.pref.showCaptured,
-      ctrl.flip ? ctrl.data.opponent.color : ctrl.data.player.color,
-      ctrl.stepAt(ctrl.ply).fen,
-      !!(ctrl.data.player.checks || ctrl.data.opponent.checks), // showChecks
-      ctrl.data.steps,
-      ctrl.ply,
-    );
+  const d = ctrl.data;
+  const topColor = d[ctrl.flip ? 'player' : 'opponent'].color;
+  const bottomColor = d[ctrl.flip ? 'opponent' : 'player'].color;
+  const pending = ctrl.pendingStep();
+  const materialDiffs = renderMaterialDiffs(
+    ctrl.data.pref.showCaptured,
+    ctrl.flip ? ctrl.data.opponent.color : ctrl.data.player.color,
+    pending ? pending.fen : ctrl.stepAt(ctrl.ply).fen,
+    !!(ctrl.data.player.checks || ctrl.data.opponent.checks), // showChecks
+    ctrl.data.steps,
+    ctrl.ply,
+  );
   const hideBoard = ctrl.data.player.blindfold && playable(ctrl.data);
   return ctrl.nvui
     ? ctrl.nvui.render()

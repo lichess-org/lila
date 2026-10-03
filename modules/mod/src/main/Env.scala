@@ -1,6 +1,6 @@
 package lila.mod
 
-import akka.actor.*
+import org.apache.pekko.actor.*
 import chess.ByColor
 import com.softwaremill.macwire.*
 import play.api.Configuration
@@ -38,8 +38,9 @@ final class Env(
     noteApi: lila.user.NoteApi,
     cacheApi: lila.memo.CacheApi,
     ircApi: lila.core.irc.IrcApi,
-    msgApi: lila.core.msg.MsgApi
-)(using Executor, Scheduler, lila.core.i18n.Translator, akka.stream.Materializer):
+    msgApi: lila.core.msg.MsgApi,
+    langPicker: lila.core.i18n.LangPicker
+)(using Executor, Scheduler, lila.core.i18n.Translator, org.apache.pekko.stream.Materializer):
 
   val mailerEventsUrl = appConfig.get[Url]("mailer.events.url")
 
@@ -87,7 +88,7 @@ final class Env(
           logApi.cheatDetectedAndCount(userId, game.id).flatMap { count =>
             (count >= 3).so:
               if game.hasClock then
-                api.autoMark(
+                api.autoEngine(
                   SuspectId(userId),
                   s"Cheat detected during game, ${count} times"
                 )(using UserId.lichessAsMe)
@@ -106,7 +107,7 @@ final class Env(
   Bus.sub[lila.core.mod.SelfReportMark]:
     case lila.core.mod.SelfReportMark(suspectId, name, gameId) =>
       val msg = s"Self report: ${name} on https://lichess.org/${gameId}"
-      api.autoMark(SuspectId(suspectId), msg)(using UserId.lichessAsMe)
+      api.autoEngine(SuspectId(suspectId), msg)(using UserId.lichessAsMe)
 
   Bus.sub[lila.core.mod.ChatTimeout]:
     case lila.core.mod.ChatTimeout(mod, user, reason, text) =>
@@ -128,9 +129,6 @@ final class Env(
     case p: BusForum.RemovePost =>
       if p.asAdmin
       then logApi.deletePost(p.by, text = p.text.take(200))(using p.me)
-      else
-        logger.info:
-          s"${p.me} deletes post ${p.id} by ${p.by.so(_.value)} \"${p.text.take(200)}\""
 
   Bus.sub[BoardApiMark]: m =>
-    api.autoMark(SuspectId(m.userId), s"Board API: ${m.name}")(using UserId.lichessAsMe)
+    api.autoEngine(SuspectId(m.userId), s"Board API: ${m.name}")(using UserId.lichessAsMe)

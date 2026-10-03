@@ -25,7 +25,6 @@
   <string name="cantChangeMore">只能更改大小寫。除此之外的變更，因技術限制是不可能的。</string>
   <string name="orCloseAccount">然而，您可以刪除您最近的帳戶並且創建一個新的</string>
   <string name="wantClearHistory">我想要把我的評分紀錄刪除</string>
-  <string name="cantClearHistory">我們無法將您的下棋歷史、解題歷史和評分消除</string>
   <string name="wantReport">我想要舉報一位玩家</string>
   <string name="toReportAPlayerUseForm">若要檢舉玩家行為，請填寫檢舉表單</string>
   <string name="youCanAlsoReachReportPage">您也可以點擊個人資料頁面的 %s 檢舉按鈕來填寫表單。</string>
@@ -52,7 +51,7 @@
   <string name="knightMate">當對手在棋盤上不只一個王，有可能用一隻騎士或主教將死對方</string>
   <string name="noRatingPoints">不會得到評分</string>
   <string name="ratedGame">請確保你玩過排位賽。 非排位對局不會影響玩家的等級分。</string>
-  <string name="botRatingAbuse" comment="The original English text was changed in March 2026, from &quot;if it is determined&quot; to &quot;if we determine&quot;.">在與機器人帳號的對局中，若發現玩家濫用其以獲取積分，那麼這場對局將不會授予積分。</string>
+  <string name="botRatingAbuse">在與機器人帳號的對局中，若發現玩家濫用其以獲取積分，那麼這場對局將不會授予積分。</string>
   <string name="errorPage">錯誤頁面</string>
   <string name="reportErrorPage">如果你遇到了錯誤頁面，你可以回報它:</string>
   <string name="learnHowToMakeBroadcasts">學習如何在 Lichess 創建直播</string>

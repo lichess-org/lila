@@ -1,6 +1,6 @@
 package lila.swiss
 
-import akka.stream.scaladsl.Source
+import org.apache.pekko.stream.scaladsl.Source
 
 object SwissCsv:
 

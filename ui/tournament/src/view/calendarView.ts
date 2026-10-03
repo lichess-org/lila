@@ -7,19 +7,19 @@ import getMinutes from 'date-fns/getMinutes';
 import { type Classes, h, type VNode } from 'snabbdom';
 
 import perfIcons from 'lib/game/perfIcons';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { dataIcon } from 'lib/view';
 
 import type { Tournament } from '../interfaces';
 import type { Ctrl, Lanes } from '../tournament.calendar';
 
 function tournamentClass(tour: Tournament, day: Date): Classes {
-  const classes = {
+  const classes: Classes = {
     rated: tour.rated,
     casual: !tour.rated,
     'max-rating': tour.hasMaxRating,
     yesterday: tour.bounds.start < day,
-  } as Classes;
+  };
   if (tour.schedule) classes[tour.schedule.freq] = true;
   return classes;
 }
@@ -87,13 +87,14 @@ function renderDay(ctrl: Ctrl) {
 
 function renderGroup(ctrl: Ctrl) {
   return function (group: Date[]): VNode {
-    return h('group', [renderTimeline(), h('days', group.map(renderDay(ctrl)))]);
+    return h('group', [renderTimeline(ctrl), h('days', group.map(renderDay(ctrl)))]);
   };
 }
 
-function renderTimeline() {
+function renderTimeline(ctrl: Ctrl) {
   const hours: number[] = [];
-  for (let i = 0; i < 24; i++) hours.push(i);
+  const step = ctrl.wide ? 1 : 2;
+  for (let i = 0; i < 24; i += step) hours.push(i);
   return h(
     'div.timeline',
     hours.map(hour =>
@@ -112,8 +113,8 @@ function timeString(hour: number) {
 }
 
 function makeGroups(days: Date[]): Date[][] {
-  const groups: Date[][] = [],
-    chunk = 10;
+  const groups: Date[][] = [];
+  const chunk = 10;
   for (let i = 0; i < days.length; i += chunk) groups.push(days.slice(i, i + chunk));
   return groups;
 }

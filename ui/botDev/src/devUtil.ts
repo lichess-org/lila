@@ -2,7 +2,7 @@ import * as co from 'chessops';
 
 import { frag } from 'lib';
 import type { BotInfo } from 'lib/bot/types';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 
 import type { Result } from './devCtrl';
 import type { NumberInfo, RangeInfo } from './devTypes';
@@ -77,7 +77,7 @@ export function resultsString(results: Result[], uid?: string): string {
 }
 
 export function playersWithResults(results: Result[]): string[] {
-  return [...new Set(results.flatMap(r => [r.white ?? '', r.black ?? ''].filter(x => x)))];
+  return [...new Set(results.flatMap(r => [r.white ?? '', r.black ?? ''].filter(Boolean)))];
 }
 
 export function renderRemoveButton(cls = ''): Node {

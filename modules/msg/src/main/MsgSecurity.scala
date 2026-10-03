@@ -67,7 +67,6 @@ final private class MsgSecurity(
             case false => fuccess(Block)
             case _ =>
               isLimited(contacts, isNew, unlimited, text)
-                .map(_ orElse isFakeTeamMessage(rawText, unlimited))
                 .map(_ orElse isSpam(text))
                 .map(_ orElse isTroll(contacts))
                 .map(_ orElse isAlt(contacts))
@@ -114,10 +113,6 @@ final private class MsgSecurity(
           if _ then none
           else limitWith(CreateLimitPerUser)
       else fuccess(limitWith(ReplyLimitPerUser))
-
-    private def isFakeTeamMessage(text: String, unlimited: Boolean): Option[Verdict] =
-      (!unlimited && text.contains("You received this because you are subscribed to messages of the team"))
-        .option(FakeTeamMessage)
 
     private def isSpam(text: String): Option[Verdict] =
       spam.detect(text).option(Spam)
@@ -167,8 +162,8 @@ final private class MsgSecurity(
     // unless they deleted the thread.
     private def reply(contacts: Contacts): Fu[Boolean] =
       colls.thread.exists(
-        $id(MsgThread.id(contacts.orig.id, contacts.dest.id)) ++
-          $doc("del".$ne(contacts.dest.id))
+        bid(MsgThread.id(contacts.orig.id, contacts.dest.id)) ++
+          bdoc("del".neq(contacts.dest.id))
       )
 
     private def kidCheck(contacts: Contacts, isNew: Boolean): Fu[Boolean] =
@@ -203,7 +198,6 @@ private object MsgSecurity:
   case object Alt extends Mute
   case object Spam extends Mute
   case object Dirt extends Mute
-  case object FakeTeamMessage extends Reject
   case object Block extends Reject
   case object Limit extends Reject
   case object Invalid extends Reject

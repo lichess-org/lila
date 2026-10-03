@@ -8,7 +8,7 @@
     <item quantity="other">%s ván mỗi ngày</item>
   </plurals>
   <string name="boardEditorAndAnalysisBoardWithEngine" comment="%s is the engine name (Stockfish, Fairy-Stockfish)">Chỉnh sửa bàn cờ và bàn cờ phân tích với %s</string>
-  <string name="cloudEngineAnalysis">Động cơ phân tích đám mây</string>
+  <string name="cloudEngineAnalysis">Công cụ phân tích đám mây</string>
   <string name="studies">Nghiên cứu (phân tích chung và liên tục)</string>
   <string name="chessInsights">Phân tích sâu cờ vua (phân tích chi tiết về cách chơi của bạn)</string>
   <string name="allChessBasicsLessons">Tất cả bài học cơ bản về cờ vua</string>

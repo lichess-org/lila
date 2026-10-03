@@ -13,8 +13,8 @@ import { RoundProxy } from './roundProxy';
 export interface GameObserver {
   hurry: boolean;
   beforeMove(uci: string): void;
-  afterMove(moveCtx: any): void;
-  onGameOver(status: any): boolean;
+  afterMove(moveCtx: GameContext): void;
+  onGameOver(status: GameStatus): boolean;
 }
 
 export class GameCtrl {
@@ -217,7 +217,7 @@ export class GameCtrl {
     this.live.finish(final);
     env.db.put(this.live);
 
-    env.round.endWithData?.({ status: final.status, winner: final.winner, boosted: false });
+    env.round.endWithData?.({ status: final.status, winner: final.winner });
     this.observer?.onGameOver(final);
   }
 
@@ -269,7 +269,7 @@ export class GameCtrl {
     const initial = this.live.initial;
     this.clock = Number.isFinite(initial)
       ? {
-          initial: initial,
+          initial,
           increment: this.live.increment ?? 0,
           white: this.live.clock?.white ?? initial,
           black: this.live.clock?.black ?? initial,

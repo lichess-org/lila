@@ -13,6 +13,7 @@
   <string name="bodenMate">Mate ni Boden</string>
   <string name="bodenMateDescription">Dalawang umaatakeng bishop sa mga pagtawid-tawid na pahalang ay nagdadala ng mate sa hari na hinaharangan ng mga kaibigang piraso.</string>
   <string name="castling">Castling</string>
+  <string name="enPassant">En passant</string>
   <string name="castlingDescription">Dalhin ang hari sa kaligtasan, at ilabas ang rook upang umatake.</string>
   <string name="capturingDefender">Kunin ang tagapagtanggol</string>
   <string name="crushing">Pagdurog</string>
@@ -28,11 +29,9 @@
   <string name="discoveredAttack">Diskubreng atake</string>
   <string name="doubleCheck">Dobleng check</string>
   <string name="endgameDescription">Isang taktika sa huling yugto ng laro.</string>
-  <string name="enPassantDescription">Isang taktika na kinasasangkutan ng en passant na panuntunan, kung saan ang isang pawn ay maaaring makuha ang isang pawn ng kalaban na na-bypass ito gamit ang paunang dalawang-parisukat na paglipat.</string>
   <string name="exposedKing">Nakalantad na hari</string>
   <string name="exposedKingDescription">Isang taktika na kinasasangkutan ng isang hari na may ilang mga tagapagtanggol sa paligid nito, madalas na humahantong sa checkmate.</string>
   <string name="fork">Taktika ng fork</string>
-  <string name="forkDescription">Isang paglipat kung saan inaatake ng inilipat na piraso ang dalawang piraso ng kalaban nang sabay-sabay.</string>
   <string name="hangingPiece">Nakabitin na piraso</string>
   <string name="intermezzo">Intermezzo</string>
   <string name="long">Mahabang palaisipan</string>

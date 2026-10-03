@@ -19,6 +19,7 @@
   <string name="announceLastMoveCapture">Oznámiť aká figúrka bola vzatá v poslednom ťahu.</string>
   <string name="announcePossibleMoves">Oznámiť možné ťahy pre zvolenú figúrku.</string>
   <string name="announcePossibleCaptures">Oznámiť možnosti brania pre zvolenú figúrku.</string>
+  <string name="moveWithArrows">Potiahnite na susedné políčko vľavo, vpravo, hore alebo dole.</string>
   <string name="moveToRank">Potiahnuť na rad 1 až 8.</string>
   <string name="moveToFile">Potiahnuť na stĺpec a až h.</string>
   <string name="announcePiecesOnRankOrFile">Oznámiť figúrky na rade alebo stĺpci. Príklad: s a, s 1.</string>

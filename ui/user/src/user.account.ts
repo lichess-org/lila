@@ -1,7 +1,7 @@
 import flairPickerLoader from 'bits/flairPicker';
 import { createSelectSearch } from 'bits/selectSearch';
 
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { storage } from 'lib/storage';
 import { addPasswordVisibilityToggleListener, confirm } from 'lib/view';
 import * as xhr from 'lib/xhr';
@@ -31,9 +31,9 @@ site.load.then(() => {
   });
 
   $('form.autosubmit').each(function (this: HTMLFormElement) {
-    const form = this,
-      $form = $(form),
-      showSaved = () => $form.find('.saved').removeClass('none');
+    const form = this;
+    const $form = $(form);
+    const showSaved = () => $form.find('.saved').removeClass('none');
     computeBitChoices($form, 'behavior.submitMove');
     $form.find('input').on('change', function (this: HTMLInputElement) {
       computeBitChoices($form, 'behavior.submitMove');
@@ -55,8 +55,8 @@ site.load.then(() => {
   );
 
   $('form[action="/account/oauth/token/create"]').each(function (this: HTMLFormElement) {
-    const form = $(this),
-      submit = form.find('button.submit');
+    const form = $(this);
+    const submit = form.find('button.submit');
     let isDanger = false;
     const checkDanger = () => {
       isDanger = !!form.find('.danger input:checked').length;

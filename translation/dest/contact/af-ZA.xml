@@ -25,7 +25,6 @@
   <string name="cantChangeMore">Ons kan nie meer as die letters na groot of klein verander nie. Vir tegniese redes is dit onmoontlik.</string>
   <string name="orCloseAccount">Jy kan wel jou huidige rekening sluit en \'n nuwe rekening skep.</string>
   <string name="wantClearHistory">Ek wil my geskiedenis of my gradeering uitvee</string>
-  <string name="cantClearHistory">Dit is nie moontlik om jou spel geskiedenis, kopkrapper geskiedenis of gradeerings uit te vee nie.</string>
   <string name="wantReport">Ek wil \'n speler aankla</string>
   <string name="toReportAPlayerUseForm">Om \'n speler aan te meld, gebruik die aanmeldingsvorm</string>
   <string name="youCanAlsoReachReportPage">Jy kan ook daardie blad bereik deur die %s aanmeldingsblokkie op die profielblad te klik.</string>
@@ -52,7 +51,7 @@
   <string name="knightMate">Dit is moontlik om skaakmat te gee met net \'n ruiter of \'n loper as die opponent meer as \'n koning op die bord het.</string>
   <string name="noRatingPoints">Geen gradeeringspunte is toegeken nie</string>
   <string name="ratedGame">Maak seker dat jy \'n gegradeerde spel gespeel het. Vriendskaplike wedstryde beïnvloed nie jou gradeering nie.</string>
-  <string name="botRatingAbuse" comment="The original English text was changed in March 2026, from &quot;if it is determined&quot; to &quot;if we determine&quot;.">In sekere gevalle wanneer teen \'n robot rekening gespeel word, sal `n gegraderings spel nie punte toegereken word nie as dit bepaal is dat die speler die robot misbruik vir graderings punte.</string>
+  <string name="botRatingAbuse">In sekere gevalle wanneer teen \'n robot rekening gespeel word, sal `n gegraderings spel nie punte toegereken word nie as dit bepaal is dat die speler die robot misbruik vir graderings punte.</string>
   <string name="errorPage">Foutblad</string>
   <string name="reportErrorPage">As daar \'n foutblad opduik kan jy dit rapporteer:</string>
   <string name="banAppeal">Appéleer vir \'n ban of IP beperking</string>

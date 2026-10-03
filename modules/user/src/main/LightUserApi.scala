@@ -6,8 +6,8 @@ import lila.core.LightUser
 import lila.db.dsl.{ *, given }
 import lila.memo.{ CacheApi, Syncache }
 import lila.core.plan.{ PatronMonths, PatronColor, PatronColorChoice }
-
-import BSONFields as F
+import lila.core.user.RealName
+import lila.user.BSONFields as F
 
 final class LightUserApi(repo: UserRepo, cacheApi: CacheApi)(using Executor)
     extends lila.core.user.LightUserApi:
@@ -40,19 +40,19 @@ final class LightUserApi(repo: UserRepo, cacheApi: CacheApi)(using Executor)
 
   private val cache: Syncache[UserId, Option[LightUser]] = cacheApi.sync[UserId, Option[LightUser]](
     name = "user.light",
-    initialCapacity = 512 * 1024,
+    initialCapacity = 1024 * 1024,
     compute = id =>
       if id.isGhost then fuccess(LightUser.ghost.some)
       else
         repo.coll
-          .find($id(id), projection.some)
+          .find(bid(id), projection.some)
           .one[LightUser]
           .recover:
             case _: exceptions.BSONValueNotFoundException => LightUser.ghost.some
     ,
     default = id => LightUser(id, id.into(UserName), None, None, PatronMonths.zero, None).some,
     strategy = Syncache.Strategy.WaitAfterUptime(10.millis),
-    expireAfter = Syncache.ExpireAfter.Write(10.minutes)
+    expireAfter = Syncache.ExpireAfter.Write(20.minutes)
   )
 
   given reader: BSONDocumentReader[LightUser] with
@@ -82,10 +82,21 @@ final class LightUserApi(repo: UserRepo, cacheApi: CacheApi)(using Executor)
           )
 
   val projection =
-    $doc(
+    bdoc(
       F.id -> false,
       F.username -> true,
       F.title -> true,
       F.plan -> true,
       F.flair -> true
     )
+
+  export realNameCache.{ sync as realName, preloadMany as preloadRealNames }
+
+  private val realNameCache: Syncache[UserId, Option[RealName]] = cacheApi.sync[UserId, Option[RealName]](
+    name = "user.realName",
+    initialCapacity = 2048,
+    compute = repo.realName,
+    default = _ => none,
+    strategy = Syncache.Strategy.NeverWait,
+    expireAfter = Syncache.ExpireAfter.Write(30.minutes)
+  )

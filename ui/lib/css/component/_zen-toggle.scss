@@ -12,7 +12,7 @@
   .zen-home {
     flex: 0 0 4em;
     height: 4em;
-    padding: 1em 1em;
+    padding: 1em;
     background: center no-repeat url('../logo/lichess-white.svg');
 
     @include if-light {

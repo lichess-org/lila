@@ -1,6 +1,6 @@
 package lila.socket
 
-import akka.actor.{ CoordinatedShutdown, Scheduler }
+import org.apache.pekko.actor.{ CoordinatedShutdown, Scheduler }
 import chess.{ Centis, Color }
 import io.lettuce.core.*
 import io.lettuce.core.pubsub.StatefulRedisPubSubConnection as PubSub

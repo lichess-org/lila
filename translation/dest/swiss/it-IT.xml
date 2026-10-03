@@ -65,7 +65,6 @@ Si sommano i punti fatti dagli avversari battuti con la metà dei punti fatti da
   <string name="pairingsA">Con il %1$s, implementato da %2$s, in conformità con il %3$s.</string>
   <string name="moreRoundsThanPlayersQ">Cosa succede se il torneo ha più turni che giocatori?</string>
   <string name="moreRoundsThanPlayersA">Quando tutti gli abbinamenti possibili sono stati giocati, il torneo sarà terminato e un vincitore sarà dichiarato.</string>
-  <string name="restrictedToTeamsQ">Perché è limitato alle squadre?</string>
   <string name="restrictedToTeamsA">I tornei svizzeri non sono stati progettati per gli scacchi online. Chiedono puntualità, dedizione e pazienza dai giocatori.
 Pensiamo che queste condizioni siano preferibilmente da soddisfare in una squadra piuttosto che nei tornei globali.</string>
   <string name="numberOfByesQ">Quanti bye può ottenere un giocatore?</string>
@@ -85,7 +84,6 @@ L\'organizzatore di un dato torneo svizzero può decidere di ammetterli comunque
 I partecipanti tardivi ottengono un singolo bye, anche se si sono persi più turni.</string>
   <string name="willSwissReplaceArenasQ">I tornei svizzeri sostituiranno i tornei arena?</string>
   <string name="willSwissReplaceArenasA">No. Sono caratteristiche complementari.</string>
-  <string name="roundRobinQ">E i Round Robin?</string>
   <string name="roundRobinA">Vorremmo aggiungerli, ma purtroppo i Round Robin non funzionano online.
 Il motivo è che non esiste un buon modo di gestire i giocatori che abbandonano in anticipo il torneo. Non possiamo sapere se tutti i giocatori giocheranno tutte le loro partite in un evento online. Difficilmente succederà e, di conseguenza, gran parte dei tornei Round Robin saranno imperfetti e ingiusti, riducendone il vero significato.
 Un modo per simulare un Round Robin online è giocare un torneo svizzero con un numero molto elevato di turni. Tutti gli abbinamenti possibili verranno giocati prima della fine del torneo.</string>
@@ -121,7 +119,6 @@ Un modo per simulare un Round Robin online è giocare un torneo svizzero con un 
   <string name="similarToOTB">Simile ai tornei OTB</string>
   <string name="unlimitedAndFree">Illimitato e gratuito</string>
   <string name="predefinedUsers">Permetti solo a degli utenti prefissati di partecipare</string>
-  <string name="forbiddedUsers">Se questa lista non è vuota, gli utenti che non compaiono in questa lista non potranno partecipare. Un nome utente per ogni linea.</string>
   <string name="playYourGames">Gioca le tue partite</string>
   <string name="byes">Byes</string>
   <string name="absences">Assenza</string>

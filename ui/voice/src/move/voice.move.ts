@@ -3,8 +3,9 @@ import { charToRole } from 'chessops';
 import { readFen, destsToUcis, square, type Board } from 'lib/game';
 import type { MoveRootCtrl, MoveUpdate } from 'lib/game/moveRootCtrl';
 import { type PromotionCtrl, promote } from 'lib/game/promotion';
-import * as licon from 'lib/licon';
+import { licon, type LiconValue } from 'lib/licon';
 import { storedIntProp, storedBooleanPropWithEffect, storedIntPropWithEffect } from 'lib/storage';
+import type { QuestionOpts } from 'lib/types';
 import { jsonSimple } from 'lib/xhr';
 
 import type { MsgType } from '../interfaces';
@@ -401,12 +402,12 @@ export function initModule({
     sans.clear();
     const xvalset: Set<string> = new Set(); // allowable exact phrases for uci
     for (const uci of ucis) {
-      const usrc = src(uci),
-        udest = dest(uci),
-        nsrc = square(usrc),
-        ndest = square(udest),
-        dp = board.pieces[ndest],
-        srole = board.pieces[nsrc].toUpperCase();
+      const usrc = src(uci);
+      const udest = dest(uci);
+      const nsrc = square(usrc);
+      const ndest = square(udest);
+      const dp = board.pieces[ndest];
+      const srole = board.pieces[nsrc].toUpperCase();
 
       if (srole === 'K') {
         if (isOurs(dp)) {
@@ -431,7 +432,7 @@ export function initModule({
         addToks(udest, uci); // includes en passant
         if (uci.startsWith(uci[2])) {
           addToks(`P${udest}`);
-        } else if (dp) {
+        } else {
           addToks(`${usrc}x${udest}`);
           addToks(`Px${udest}`);
           addToks(`${uci[0]}x${udest}`, uci);
@@ -447,8 +448,8 @@ export function initModule({
         }
       } else {
         const others: number[] = movesTo(ndest, srole, board);
-        let rank = '',
-          file = '';
+        let rank = '';
+        let file = '';
         for (const other of others) {
           if (other === nsrc || board.pieces[other] !== board.pieces[nsrc]) continue;
           if (nsrc >> 3 === other >> 3) file = uci[0];
@@ -470,12 +471,12 @@ export function initModule({
     for (const uci of ucis) {
       const sel = selection();
       if (sel && !uci.startsWith(sel)) continue;
-      const usrc = src(uci),
-        udest = dest(uci),
-        nsrc = square(usrc),
-        ndest = square(udest),
-        dp = board.pieces[ndest],
-        srole = board.pieces[nsrc].toUpperCase() as 'P' | 'N' | 'B' | 'R' | 'Q' | 'K';
+      const usrc = src(uci);
+      const udest = dest(uci);
+      const nsrc = square(usrc);
+      const ndest = square(udest);
+      const dp = board.pieces[ndest];
+      const srole = board.pieces[nsrc].toUpperCase() as 'P' | 'N' | 'B' | 'R' | 'Q' | 'K';
       pushMap(squares, `${usrc[0]},${usrc[1]}`, usrc);
       pushMap(squares, `${udest[0]},${udest[1]}`, uci);
       pushMap(squares, srole, uci);
@@ -487,7 +488,10 @@ export function initModule({
       if (!'PNBRQK'.includes(xouts)) continue;
       const moves = spread(set).filter(x => x.length > 2);
       if (moves.length > maxArrows()) moves.forEach(x => remove(squares, xouts, x));
-      else if (moves.length > 0) [...set].filter(x => x.length === 2).forEach(x => remove(squares, xouts, x));
+      else if (moves.length > 0)
+        Array.from(set)
+          .filter(x => x.length === 2)
+          .forEach(x => remove(squares, xouts, x));
     }
     if (DEBUG.buildSquares) console.info('buildSquares', squares);
   }
@@ -535,7 +539,7 @@ export function initModule({
   }
 
   function question(): QuestionOpts | false {
-    const mkOpts = (prompt: string, yesIcon: LiconType) => ({
+    const mkOpts = (prompt: string, yesIcon: LiconValue) => ({
       prompt,
       yes: { action: () => command?.action?.(true), key: 'yes', icon: yesIcon },
       no: { action: () => command?.action?.(false), key: 'no' },
@@ -581,7 +585,9 @@ export function initModule({
   }
 
   function toksVals(toks: string) {
-    return [...toks].map(tok => byTok.get(tok)?.val).join(',');
+    return Array.from(toks)
+      .map(tok => byTok.get(tok)?.val)
+      .join(',');
   }
 
   function tagWords(tags?: string[], intersect = false) {
@@ -628,7 +634,11 @@ export function initModule({
   }
 
   function valsWords(vals: string): string[] {
-    return valsToks(vals).map(toks => [...toks].map(tok => tokWord(tok)).join(' '));
+    return valsToks(vals).map(toks =>
+      Array.from(toks)
+        .map(tok => tokWord(tok))
+        .join(' '),
+    );
   }
 
   function valWord(val: string, tag?: string) {

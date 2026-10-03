@@ -1,6 +1,6 @@
 import { frag } from 'lib';
 import type { Sound } from 'lib/bot/types';
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 
 import { env } from './devEnv';
 import type { PaneArgs, SoundEventInfo, Template, SoundsInfo, Sound as TemplateSound } from './devTypes';

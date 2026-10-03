@@ -3,8 +3,7 @@ package ui
 
 import lila.core.id.CmsPageKey
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class SitePages(helpers: Helpers):
   import helpers.{ *, given }
@@ -22,7 +21,7 @@ final class SitePages(helpers: Helpers):
     def activeCls(c: String) = cls := active.activeO(c)
     lila.ui.bits.pageMenuSubnav(
       a(activeCls("about"), href := "/about")(trans.site.aboutX("lichess.org")),
-      a(activeCls("news"), href := routes.Feed.index(1))("Lichess updates"),
+      a(activeCls("news"), href := routes.Feed.index(1))(trans.site.lichessUpdates()),
       a(activeCls("faq"), href := routes.Main.faq)(trans.faq.faqAbbreviation()),
       a(activeCls("contact"), href := routes.Main.contact)(trans.contact.contact()),
       a(activeCls("tos"), href := routes.Cms.tos)(trans.site.termsOfService()),
@@ -31,7 +30,7 @@ final class SitePages(helpers: Helpers):
       sep,
       a(activeCls("source"), href := routes.Cms.source)(trans.site.sourceCode()),
       a(activeCls("help"), href := routes.Cms.help)(trans.site.contribute()),
-      a(activeCls("changelog"), href := routes.Cms.menuPage(CmsPageKey("changelog")))("Changelog"),
+      a(activeCls("changelog"), href := routes.Cms.menuPage(CmsPageKey("changelog")))(trans.site.changelog()),
       a(activeCls("thanks"), href := "/thanks")(trans.site.thankYou()),
       sep,
       a(activeCls("webmasters"), href := routes.Main.webmasters)(trans.site.webmasters()),
@@ -39,7 +38,7 @@ final class SitePages(helpers: Helpers):
       a(activeCls("api"), href := "/api")("API", external),
       sep,
       a(activeCls("lag"), href := routes.Main.lag)(trans.lag.isLichessLagging()),
-      a(activeCls("ads"), href := "/ads")("Block ads")
+      a(activeCls("ads"), href := "/ads")(trans.site.blockAds())
     )
 
   def webmasters(pieceNames: List[String])(using Context) =
@@ -73,7 +72,9 @@ final class SitePages(helpers: Helpers):
             val args =
               """style="width: 400px; aspect-ratio: 10/11;" allowtransparency="true" frameborder="0""""
             frag(
-              h1(cls := "box__top", id := "embed-tv")("Embed Lichess TV in your site"),
+              a(href := "#embed-tv")(
+                h1(cls := "box__top", id := "embed-tv")("Embed Lichess TV in your site")
+              ),
               div(cls := "body")(
                 div(cls := "center")(raw(s"""<iframe src="/tv/frame?theme=brown&bg=dark" $args></iframe>""")),
                 p("Add the following HTML to your site:"),
@@ -95,7 +96,9 @@ final class SitePages(helpers: Helpers):
             val args =
               """style="width: 400px; aspect-ratio: 10/11;" allowtransparency="true" frameborder="0""""
             frag(
-              h1(cls := "box__top", id := "embed-puzzle")("Embed the daily puzzle in your site"),
+              a(href := "#embed-puzzle")(
+                h1(cls := "box__top", id := "embed-puzzle")("Embed the daily puzzle in your site")
+              ),
               div(cls := "body")(
                 div(cls := "center")(
                   raw(s"""<iframe src="/training/frame?theme=brown&bg=dark" $args></iframe>""")
@@ -113,7 +116,9 @@ final class SitePages(helpers: Helpers):
           st.section(cls := "box box-pad developers") {
             val args = """style="width: 100%; aspect-ratio: 3/2;" frameborder="0""""
             frag(
-              h1(cls := "box__top", id := "embed-study")("Embed a chess analysis in your site"),
+              a(href := "#embed-study")(
+                h1(cls := "box__top", id := "embed-study")("Embed a chess analysis in your site")
+              ),
               div(cls := "body")(
                 div(cls := "center"):
                   raw(s"""<iframe src="/study/embed/XtFCFYlM/GCUTf2Jk?bg=auto&theme=auto" $args></iframe>""")
@@ -132,7 +137,9 @@ final class SitePages(helpers: Helpers):
           st.section(cls := "box box-pad developers") {
             val args = """style="width: 100%; aspect-ratio: 3/2;" frameborder="0""""
             frag(
-              h1(cls := "box__top")("Embed a chess game in your site"),
+              a(href := "#embed-game")(
+                h1(cls := "box__top", id := "embed-game")("Embed a chess game in your site")
+              ),
               div(cls := "body")(
                 div(cls := "center"):
                   raw(s"""<iframe src="/embed/game/MPJcy1JW?bg=auto&theme=auto" $args></iframe>""")
@@ -153,7 +160,9 @@ final class SitePages(helpers: Helpers):
           st.section(cls := "box box-pad developers", id := "broadcast") {
             val args = """style="width: 100%; aspect-ratio: 4/3;" frameborder="0""""
             frag(
-              h1(cls := "box__top")("Embed a broadcast in your site"),
+              a(href := "#embed-broadcast")(
+                h1(cls := "box__top", id := "embed-broadcast")("Embed a broadcast in your site")
+              ),
               div(cls := "body")(
                 div(cls := "center"):
                   raw:
@@ -173,7 +182,9 @@ final class SitePages(helpers: Helpers):
             val iframe =
               s"""<iframe src="https://lichess.org/embed/analysis" $args></iframe>"""
             frag(
-              h1(cls := "box__top")("Embed an analysis board"),
+              a(href := "#embed-analysis")(
+                h1(cls := "box__top", id := "embed-analysis")("Embed an analysis board")
+              ),
               div(cls := "body")(
                 div(cls := "center")(raw(iframe)),
                 p(
@@ -197,15 +208,17 @@ final class SitePages(helpers: Helpers):
           }
         )
 
-  def source(title: String, rendered: Frag, version: Option[WebConfig.LilaVersion])(using
+  private val repoRoot = "https://github.com/lichess-org/lila"
+
+  def source(pageTitle: String, rendered: Frag, version: Option[WebConfig.LilaVersion])(using
       Context
   ) =
-    SitePage(title = title, active = "source", contentCls = "page force-ltr")
+    SitePage(title = pageTitle, active = "source", contentCls = "page force-ltr")
       .css("bits.source")
       .js(esmInitBit("setAssetInfo")):
         frag(
           st.section(cls := "box")(
-            h1(cls := "box__top")(title),
+            h1(cls := "box__top")(pageTitle),
             table(cls := "slist slist-pad", id := "version")(
               thead(
                 tr(
@@ -218,27 +231,28 @@ final class SitePages(helpers: Helpers):
                   tr(
                     td(
                       span("Server"),
-                      timeTag(v.date),
-                      span(a(href := s"https://github.com/lichess-org/lila/commits/${v.commit}"):
-                        pre(v.commit.take(7)))
+                      timeTag(v.date)
                     ),
-                    td(v.message),
-                    td:
-                      a(href := s"https://github.com/lichess-org/lila/compare/${v.commit}...master"):
+                    td(span(a(href := s"$repoRoot/commits/${v.commit}"):
+                      pre(v.commit.take(7)))),
+                    td(
+                      a(href := s"$repoRoot/compare/${v.commit}...master", title := "Upcoming changes")(
                         pre("...")
+                      )
+                    )
                   ),
                 tr(
                   td(
                     "Assets",
-                    timeTag(id := "asset-version-date"),
-                    span(a(id := "asset-version-commit")(pre))
+                    timeTag(id := "asset-version-date")
                   ),
-                  td(id := "asset-version-message"),
-                  td(a(id := "asset-version-upcoming")(pre("...")))
+                  td(a(id := "asset-version-commit")(pre)),
+                  td(a(id := "asset-version-upcoming", title := "Upcoming changes")(pre("...")))
                 )
               )
             )
           ),
+          br,
           st.section(cls := "box box-pad body")(rendered)
         )
 
@@ -265,7 +279,7 @@ final class SitePages(helpers: Helpers):
               h2(trl.lichessServerLatency()),
               div(cls := "meter")(canvas(cls := "server-chart")),
               p(
-                trl.lichessServerLatencyExplanation()
+                trl.serverLatencyAndLoadExplanation()
               )
             ),
             st.section(cls := "network")(

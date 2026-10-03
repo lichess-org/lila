@@ -32,11 +32,9 @@
   <string name="downloadAllRounds">下載所有棋局</string>
   <string name="resetRound">重設此回合</string>
   <string name="deleteRound">刪除此回合</string>
-  <string name="definitivelyDeleteRound">刪除這局以及其所有棋局</string>
   <string name="deleteAllGamesOfThisRound">刪除所有此輪的棋局。直播來源必須是開啟的以成功重新建立棋局。</string>
   <string name="editRoundStudy">編輯此輪研究</string>
   <string name="deleteTournament">刪除此錦標賽</string>
-  <string name="definitivelyDeleteTournament">刪除錦標賽以及所有棋局</string>
   <string name="showScores">根據比賽結果顯示玩家分數</string>
   <string name="replacePlayerTags">取代玩家名字、評級、以及頭銜（選填）</string>
   <string name="fideFederations">FIDE 國別</string>

@@ -105,6 +105,11 @@
     border: 0;
     border-radius: 0;
 
+    .btn-rack__btn:first-child,
+    .btn-rack__btn:last-child {
+      border-radius: 0;
+    }
+
     a {
       flex: 0 0 18%;
 

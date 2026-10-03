@@ -15,6 +15,7 @@
   <string name="quitTeam">离开团队</string>
   <string name="manuallyReviewAdmissionRequests">手动审核加入请求</string>
   <string name="manuallyReviewAdmissionRequestsHelp">如果勾选，棋手需要提交加入团队的申请，您可以拒绝或接受。</string>
+  <string name="hideMembersDesc" comment="Checkbox label: option to hide the team member list from non-members">向非成员隐藏团队成员列表。</string>
   <plurals name="teamLeaders">
     <item quantity="other">团队领导</item>
   </plurals>
@@ -27,17 +28,14 @@
   <string name="willBeReviewed">您的加入请求将由团队领导审核。</string>
   <string name="beingReviewed">您的加入请求正在由团队领导审核。</string>
   <string name="requestDeclined">您的加入请求已被团队领导拒绝。</string>
-  <string name="subToTeamMessages">订阅团队消息</string>
   <string name="teamBattle">团队对战</string>
   <string name="teamBattleOverview">多个团队之间的对战，每位棋手为其团队赢得积分</string>
   <string name="teamTournament">团队锦标赛</string>
   <string name="teamTournamentOverview">一个仅限您团队成员参加的竞技场锦标赛</string>
   <string name="swissTournamentOverview">一个仅限您团队成员参加的瑞士制锦标赛</string>
-  <string name="messageAllMembers">向所有成员发送消息</string>
-  <string name="messageAllMembersOverview">向团队每位成员发送私信</string>
-  <string name="messageAllMembersLongDescription">向团队的所有成员发送私信。
-您可以用此功能召集棋手参加锦标赛或团队对战。
-不喜欢接收您消息的棋手可能会离开团队。</string>
+  <string name="teamUpdates">团队动态</string>
+  <string name="subToTeamUpdates">订阅团队动态</string>
+  <string name="newTeamUpdate">新建团队动态</string>
   <string name="teamsIlead">我领导的团队</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">您是否想关联一个即将开始的锦标赛？</string>
   <string name="leadersChat">领导聊天室</string>
@@ -49,6 +47,9 @@
   <string name="entryCode">团队准入码</string>
   <string name="entryCodeDescriptionForLeader">（可选）新成员加入此团队必须知道的准入码。</string>
   <string name="incorrectEntryCode">准入码不正确。</string>
+  <string name="forumLabel">团队论坛</string>
+  <string name="forumVisibilityHelp">谁可以在团队页面上看到团队论坛？&lt;br&gt;只有团队成员才能在团队论坛中发帖。</string>
+  <string name="forumVisibilityNone">隐藏论坛</string>
   <string name="teamAlreadyExists">此团队已存在。</string>
   <string name="upcomingTournaments">即将开始的锦标赛</string>
   <string name="completedTourns">已结束的锦标赛</string>

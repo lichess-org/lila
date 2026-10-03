@@ -1,4 +1,4 @@
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { bind, dataIcon, type VNode, hl } from 'lib/view';
 
 import type AnalyseCtrl from '@/ctrl';
@@ -6,12 +6,12 @@ import type AnalyseCtrl from '@/ctrl';
 import type StudyCtrl from '../studyCtrl';
 
 export function playButtons(root: AnalyseCtrl): VNode | undefined {
-  const study = root.study!,
-    ctrl = study.gamebookPlay;
-  if (!ctrl) return;
-  const state = ctrl.state,
-    fb = state.feedback,
-    myTurn = fb === 'play';
+  const study = root.study!;
+  const ctrl = study.gamebookPlay;
+  if (!ctrl) return undefined;
+  const state = ctrl.state;
+  const fb = state.feedback;
+  const myTurn = fb === 'play';
   return hl('div.gamebook-buttons', [
     root.path &&
       hl(
@@ -53,9 +53,9 @@ export function overrideButton(study: StudyCtrl): VNode | undefined {
         'Preview',
       );
     else {
-      const isAnalyse = o === 'analyse',
-        ctrl = study.gamebookPlay;
-      if (isAnalyse || (ctrl && ctrl.state.feedback === 'end'))
+      const isAnalyse = o === 'analyse';
+      const ctrl = study.gamebookPlay;
+      if (isAnalyse || ctrl?.state.feedback === 'end')
         return hl(
           'a.fbt.text.preview',
           {

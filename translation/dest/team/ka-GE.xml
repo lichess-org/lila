@@ -26,11 +26,6 @@
   <string name="teamBattleOverview">რამდენიმე გუნდის ბრძოლა, ყველა თავისი გუნდს მატებს ქულას</string>
   <string name="teamTournament">გუნდური ტურნირი</string>
   <string name="teamTournamentOverview">არენა ტურნირი რომელშიც მხოლოდ შენს გუნდს შეუძლია თამაში</string>
-  <string name="messageAllMembers">მიწერე ყველა წევრს</string>
-  <string name="messageAllMembersOverview">გაუგზავნე პირადი გზავნილი გუნდის ყველა წევრს</string>
-  <string name="messageAllMembersLongDescription">გაუგზავნე პირადი გზავნილი გუნდის ყველა წევრს
-შეგიძლია ამით დაუძახო მათ ტურნირში ან გუნდურ ბრძოლაში სათამაშოდ.
-ვისაც არ მოეწონება მესიჯების მიღება შეიძლება დატოვონ გუნდი.</string>
   <string name="teamsIlead">გუნდები რომლის ლიდერიც ვარ</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">ხომ არ გსურს დალინკო ერთერთი ტურნირი?</string>
   <string name="leadersChat">ლიდერების ჩატი</string>

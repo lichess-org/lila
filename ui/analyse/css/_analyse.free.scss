@@ -17,6 +17,8 @@ $label-width: 5ch;
   }
 
   .copyable {
+    @include backdrop-blur-if-transparent;
+
     flex: 1 1 auto;
   }
 
@@ -29,8 +31,8 @@ $label-width: 5ch;
       overflow-x: hidden;
 
       &.is-error {
-        background: $m-bad_bg--mix-20;
-        box-shadow: 0 0 13px 2px $m-bad_bg--mix-20;
+        background: color-mix(in oklab, $c-bad 20%, $c-bg);
+        box-shadow: 0 0 13px 2px color-mix(in oklab, $c-bad 20%, $c-bg);
       }
     }
   }

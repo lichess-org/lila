@@ -36,17 +36,11 @@
   <string name="willBeReviewed">Komandos kapitonas peržiūrės jūsų stojimo prašymą.</string>
   <string name="beingReviewed">Komandos kapitonas peržiūri jūsų stojimo prašymą.</string>
   <string name="requestDeclined">Komandos kapitonas atsisakė priimti jus į komandą.</string>
-  <string name="subToTeamMessages">Prenumeruoti komandos žinutes</string>
   <string name="teamBattle">Komandų turnyras</string>
   <string name="teamBattleOverview">Kelių komandų kova, kiekvienas žaidėjas renka taškus savo komandai</string>
   <string name="teamTournament">Komandinis turnyras</string>
   <string name="teamTournamentOverview">Arenos turnyras į kurį gali prisijungti tik jūsų komandos nariai</string>
   <string name="swissTournamentOverview">Šveicariškas turnyras į kurį gali jungtis tik jūsų komandos nariai</string>
-  <string name="messageAllMembers">Siųsti žinutę visiems nariams</string>
-  <string name="messageAllMembersOverview">Siųsti asmeninę žinutę kiekvienam komandos nariui</string>
-  <string name="messageAllMembersLongDescription">Siųsti asmenines žinutes visiems komandos nariams.
-Taip galite pakviesti žaidėjus prisijungti į turnyrą ar komandos kovą.
-Žaidėjai, kurie nenori gauti žinučių, gali palikti komandą.</string>
   <string name="teamsIlead">Komandos, kurioms vadovauju aš</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Galbūt norite prisegti nuorodą į šiuos ateinančius turnyrus?</string>
   <string name="leadersChat">Kapitonų pokalbis</string>

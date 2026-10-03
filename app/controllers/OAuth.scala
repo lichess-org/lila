@@ -10,27 +10,31 @@ import cats.mtl.Handle.*
 import lila.app.*
 import lila.common.HTTPRequest
 import lila.common.Json.given
-import lila.oauth.{ AccessTokenRequest, AuthorizationRequest, OAuthScopes }
+import lila.oauth.{ AccessTokenRequest, AuthorizationRequest, OAuthScopes, OAuthSignedClient }
 
 import Api.ApiResult
 
 final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
 
-  private def withPrompt(f: AuthorizationRequest.Prompt => Fu[Result])(using ctx: Context): Fu[Result] =
-    AuthorizationRequest.fromReq match
-      case Right(prompt) => f(prompt)
-      case Left(error) =>
-        BadRequest.page(views.site.message("Bad authorization request")(stringFrag(error.description)))
+  private def withPrompt(f: (AuthorizationRequest.Prompt, Option[OAuthSignedClient]) => Fu[Result])(using
+      ctx: Context
+  ): Fu[Result] =
+    env.oAuth.signedClients.forReq.fold(
+      err => BadRequest.page(views.site.message("Bad authorization request")(stringFrag(err))),
+      f.tupled
+    )
 
   def authorize = Open:
-    withPrompt: prompt =>
+    withPrompt: (prompt, signedClient) =>
+      val action: OAuthSignedClient.Action = if getBool("signup") then "signup" else "login"
+      env.oAuth.signedClients.monitor(signedClient, prompt, action)
       ctx.me match
         case Some(me) =>
           given Me = me
-          Ok.page(views.oAuth.authorize(prompt, env.oAuth.signedClients.forPrompt(prompt)))
+          Ok.page(views.oAuth.authorize(prompt, signedClient))
         case None =>
           Redirect(
-            if getBool("signup") then routes.Auth.signup.url else routes.Auth.login.url,
+            if action == "signup" then routes.Auth.signup.url else routes.Auth.login.url,
             Map("referrer" -> List(req.uri))
           ).toFuccess
 
@@ -38,13 +42,18 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
     MovedPermanently(s"${routes.OAuth.authorize}?${req.rawQueryString}")
 
   def authorizeApply = Auth { _ ?=> me ?=>
-    withPrompt: prompt =>
+    withPrompt: (prompt, _) =>
       allow:
         for
           authorized <- prompt.authorize(me, env.oAuth.legacyClientApi.apply)
           code <- env.oAuth.authorizationApi.create(authorized)
-        yield SeeOther(authorized.redirectUrl(code))
+        yield
+          lila.mon.user.oauth.authorize("success").increment()
+          SeeOther(authorized.redirectUrl(code))
       .rescue: error =>
+        lila.oauth.logger.info:
+          s"OAuth.authorizeApply ${me.username} error: $error client: ${HTTPRequest.printClient(req)}"
+        lila.mon.user.oauth.authorize(error.error).increment()
         SeeOther(prompt.redirectUri.error(error, prompt.state))
   }
 
@@ -84,9 +93,8 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
       BadRequest(err.toJson)
 
   def tokenRevoke = Scoped() { ctx ?=> _ ?=>
-    HTTPRequest.bearer(ctx.req).so { token =>
-      env.oAuth.tokenApi.revoke(token).inject(NoContent)
-    }
+    HTTPRequest.bearer.so: (bearer, _) =>
+      env.oAuth.tokenApi.revoke(bearer).inject(NoContent)
   }
 
   def revokeClient = AuthBody { ctx ?=> _ ?=>

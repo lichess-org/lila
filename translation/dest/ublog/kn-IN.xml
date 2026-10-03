@@ -31,13 +31,10 @@
     <item quantity="one">ಒಂದು ಪೋಸ್ಟ್ ಅನ್ನು ವೀಕ್ಷಿಸಿ</item>
     <item quantity="other">ಎಲ್ಲಾ %s ಪೋಸ್ಟ್‌ಗಳನ್ನು ವೀಕ್ಷಿಸಿ</item>
   </plurals>
-  <string name="uploadAnImageForYourPost">ನಿಮ್ಮ ಪೋಸ್ಟ್‌ಗಾಗಿ ಚಿತ್ರವನ್ನು ಅಪ್‌ಲೋಡ್ ಮಾಡಿ</string>
   <string name="imageAlt">ಚಿತ್ರ ಪರ್ಯಾಯ ಪಠ್ಯ</string>
   <string name="imageCredit">ಚಿತ್ರ ಕ್ರೆಡಿಟ್</string>
   <string name="deleteBlog">ಈ ಬ್ಲಾಗ್ ಪೋಸ್ಟ್ ಅನ್ನು ಖಚಿತವಾಗಿ ಅಳಿಸಿ</string>
-  <string name="safeToUseImages">ಕೆಳಗಿನ ವೆಬ್‌ಸೈಟ್‌ಗಳಿಂದ ಚಿತ್ರಗಳನ್ನು ಬಳಸುವುದು ಸುರಕ್ಷಿತವಾಗಿದೆ: </string>
   <string name="selectPostTopics">ನಿಮ್ಮ ಪೋಸ್ಟ್ ಕುರಿತು ವಿಷಯಗಳನ್ನು ಆಯ್ಕೆಮಾಡಿ</string>
-  <string name="useImagesYouMadeYourself">ನೀವೇ ಮಾಡಿದ ಚಿತ್ರಗಳು, ನೀವು ತೆಗೆದ ಚಿತ್ರಗಳು, Lichess ನ ಸ್ಕ್ರೀನ್‌ಶಾಟ್‌ಗಳು... ಬೇರೆಯವರಿಂದ ಹಕ್ಕುಸ್ವಾಮ್ಯ ಹೊಂದಿರದ ಯಾವುದನ್ನಾದರೂ ನೀವು ಬಳಸಬಹುದು.</string>
   <string name="safeAndRespectfulContent">ದಯವಿಟ್ಟು ಸುರಕ್ಷಿತ ಮತ್ತು ಗೌರವಾನ್ವಿತ ವಿಷಯವನ್ನು ಮಾತ್ರ ಪೋಸ್ಟ್ ಮಾಡಿ. ಬೇರೊಬ್ಬರ ವಿಷಯವನ್ನು ನಕಲಿಸಬೇಡಿ.</string>
   <string name="inappropriateContentAccountClosed">ಅನುಚಿತವಾದ ಯಾವುದಾದರೂ ನಿಮ್ಮ ಖಾತೆಯನ್ನು ಮುಚ್ಚಬಹುದು.</string>
   <string name="blogTips">ಉತ್ತಮ ಬ್ಲಾಗ್ ಪೋಸ್ಟ್‌ಗಳನ್ನು ಬರೆಯಲು ನಮ್ಮ ಸರಳ ಸಲಹೆಗಳು</string>

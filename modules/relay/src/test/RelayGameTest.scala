@@ -8,7 +8,7 @@ import lila.tree.Clock
 class RelayGameTest extends munit.FunSuite:
 
   def makeGame(pgn: String) =
-    RelayFetch.multiPgnToGames.either(MultiPgn(List(PgnStr(pgn)))).getOrElse(???).head
+    RelayFetch.multiPgnToGames.parseAndCache(MultiPgn(List(PgnStr(pgn)))).getOrElse(???).head
 
   val g1 = makeGame:
     """
@@ -21,6 +21,17 @@ class RelayGameTest extends munit.FunSuite:
 1. d4 Nf6
 """
 
+  val movesHaveClocks = makeGame:
+    """
+[White "Khusenkhojaev, Mustafokhuja"]
+[Black "Lam, Chun Yung Samuel"]
+[WhiteClock "00:33:51"]
+[BlackClock "01:23:54"]
+[ReferenceTime "B/2024-12-19T17:52:47.862Z"]
+
+1. d4 {[%clk 00:00:30]} Nf6 {[%clk 00:01:00]}
+"""
+
   val whiteCentis = Centis.ofSeconds(33 * 60 + 51)
   val blackCentis = Centis.ofSeconds(1 * 3600 + 23 * 60 + 54)
 
@@ -28,8 +39,13 @@ class RelayGameTest extends munit.FunSuite:
     assertEquals(g1.tags.clocks.white, whiteCentis.some)
     assertEquals(g1.tags.clocks.black, blackCentis.some)
 
-  test("applyTagClocksToLastMoves"):
+  test("applyTagClocksToLastMoves apply tag clocks when node clocks are missing"):
     val applied = g1.applyTagClocksToLastMoves
+    assertEquals(applied.root.lastMainlineNode.clock, Clock(blackCentis, true.some).some)
+    assertEquals(applied.root.mainline.head.clock, Clock(whiteCentis, true.some).some)
+
+  test("applyTagClocksToLastMoves apply tag clocks and override node clocks"):
+    val applied = movesHaveClocks.applyTagClocksToLastMoves
     assertEquals(applied.root.lastMainlineNode.clock, Clock(blackCentis, true.some).some)
     assertEquals(applied.root.mainline.head.clock, Clock(whiteCentis, true.some).some)
 

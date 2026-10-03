@@ -25,7 +25,6 @@
   <string name="cantChangeMore">Non possiamo cambiare altro oltre alle maiuscole/minuscole. Per motivi tecnici, è assolutamente impossibile.</string>
   <string name="orCloseAccount">Tuttavia, puoi eliminare il tuo account corrente e crearne uno nuovo.</string>
   <string name="wantClearHistory">Voglio cancellare la mia cronologia o il mio punteggio</string>
-  <string name="cantClearHistory">Non è possibile cancellare la cronologia delle partite, la cronologia dei problemi né i punteggi.</string>
   <string name="wantReport">Voglio segnalare un giocatore</string>
   <string name="toReportAPlayerUseForm">Per segnalare un giocatore, usa il modulo di segnalazione</string>
   <string name="youCanAlsoReachReportPage">Puoi raggiungere quella pagina anche cliccando sul pulsante %s segnala in una pagina di profilo.</string>
@@ -52,7 +51,7 @@
   <string name="knightMate">È possibile dare scacco matto con un solo cavallo o con un alfiere, se l\'avversario ha più di un re sulla scacchiera.</string>
   <string name="noRatingPoints">Nessun punteggio assegnato</string>
   <string name="ratedGame">Assicurati di aver giocato a un gioco classificato. Le partite occasionali non influenzano il rating dei giocatori.</string>
-  <string name="botRatingAbuse" comment="The original English text was changed in March 2026, from &quot;if it is determined&quot; to &quot;if we determine&quot;.">In certe circostanze giocando contro un profilo bot, un gioco valutato potrebbe non ricompensare punti se è determinato che il giocatore stia abusando del bot per i punti di valutazione.</string>
+  <string name="botRatingAbuse">In certe circostanze giocando contro un profilo bot, un gioco valutato potrebbe non ricompensare punti se è determinato che il giocatore stia abusando del bot per i punti di valutazione.</string>
   <string name="errorPage">Pagina di errore</string>
   <string name="reportErrorPage">Se hai riscontrato una pagina di errore, puoi segnalarla:</string>
   <string name="learnHowToMakeBroadcasts">Impara come fare le tue trasmissioni su Lichess</string>

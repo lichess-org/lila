@@ -1,8 +1,9 @@
+import { licon } from 'lib/licon';
 import { hl, type VNode, onInsert } from 'lib/view';
 
 export class VideoPlayer {
   private readonly iframe: HTMLIFrameElement;
-  private readonly close: HTMLImageElement;
+  private readonly close: HTMLElement;
   private animationFrameId?: number;
 
   constructor(
@@ -18,8 +19,8 @@ export class VideoPlayer {
     this.iframe.src = o.embed;
     this.iframe.allow = 'autoplay';
 
-    this.close = document.createElement('img');
-    this.close.src = site.asset.flairSrc('symbols.cancel');
+    this.close = document.createElement('icon');
+    this.close.dataset.icon = licon.X;
     this.close.className = 'video-player-close';
     this.close.addEventListener('click', () => this.onEmbed('no'), true);
 
@@ -68,14 +69,14 @@ export class VideoPlayer {
     return this.o.embed
       ? hl('div#video-player-placeholder', {
           hook: {
-            insert: (vnode: VNode) => this.cover(vnode.elm as HTMLElement),
+            ...onInsert(this.cover),
             update: (_, vnode: VNode) => this.cover(vnode.elm as HTMLElement),
           },
         })
       : hl('div#video-player-placeholder.link', [
           hl('div.image', {
             attrs: { style: `background-image: url(${this.o.image})` },
-            hook: onInsert((el: HTMLElement) => {
+            hook: onInsert(el => {
               el.addEventListener('click', e => {
                 if (e.ctrlKey || e.shiftKey) window.open(this.o.redirect, '_blank');
                 else this.onEmbed('ps');
@@ -83,9 +84,9 @@ export class VideoPlayer {
               el.addEventListener('contextmenu', () => window.open(this.o.redirect, '_blank'));
             }),
           }),
-          hl('img.video-player-close', {
-            attrs: { src: site.asset.flairSrc('symbols.cancel') },
-            hook: onInsert((el: HTMLElement) => el.addEventListener('click', () => this.onEmbed('no'))),
+          hl('icon.video-player-close', {
+            attrs: { 'data-icon': licon.X },
+            hook: onInsert(el => el.addEventListener('click', () => this.onEmbed('no'))),
           }),
           this.o.text && hl('div.text-box', hl('div', this.o.text)),
           hl(

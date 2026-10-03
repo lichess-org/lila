@@ -1,6 +1,6 @@
 package lila.app
 
-import akka.actor.ActorSystem
+import org.apache.pekko.actor.ActorSystem
 import com.softwaremill.macwire.*
 import play.api.inject.DefaultApplicationLifecycle
 import play.api.http.{ FileMimeTypes, HttpRequestHandler }
@@ -40,12 +40,10 @@ final class LilaComponents(
 
   given executor: Executor = scala.concurrent.ExecutionContextOpportunistic
 
-  lila
-    .log("boot")
-    .info:
-      val appVersionCommit = ~configuration.getOptional[String]("app.version.commit")
-      val appVersionDate = ~configuration.getOptional[String]("app.version.date")
-      s"lila version: $appVersionCommit $appVersionDate"
+  lila.log.system.info:
+    val appVersionCommit = ~configuration.getOptional[String]("app.version.commit")
+    val appVersionDate = ~configuration.getOptional[String]("app.version.date")
+    s"lila version: $appVersionCommit $appVersionDate"
 
   import _root_.controllers.*
 
@@ -80,13 +78,13 @@ final class LilaComponents(
     )
 
   val env: lila.app.Env =
-    lila.log("boot").info(s"Start loading lila modules")
+    lila.log.system.info(s"Start loading lila modules")
     val c = lila.mon.Chronometer.sync(wire[lila.app.Env])
-    lila.log("boot").info(s"Loaded lila modules in ${c.showDuration}")
+    lila.log.system.info(s"Loaded lila modules in ${c.showDuration}")
     c.result
 
   val httpFilters = Seq(
-    lila.web.HttpFilter(env.net, lila.security.Mobile.LichessMobileUa.parse)
+    new lila.web.HttpFilter(env.net, lila.security.Mobile.LichessMobileUa.parse)
   )
 
   override lazy val httpErrorHandler =
@@ -194,6 +192,4 @@ final class LilaComponents(
   lila.common.Uptime.startedAt
   UiEnv.setEnv(env)
 
-  if configuration.get[Boolean]("kamon.enabled") then
-    lila.log("boot").info("Kamon is enabled")
-    kamon.Kamon.init()
+  if configuration.get[Boolean]("kamon.enabled") then kamon.Kamon.init()

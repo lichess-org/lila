@@ -10,7 +10,7 @@ test('self report', async () => {
     return 'ok';
   });
 
-  let selfReport: (msg: string) => Promise<unknown>;
+  let selfReport: (msg: string) => Promise<any>;
 
   before(async () => {
     const xhr = await import(xhrUrl);

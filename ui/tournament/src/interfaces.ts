@@ -1,3 +1,5 @@
+import type { LiconValue } from 'lib/licon';
+
 export interface StandingPlayer extends SimplePlayer {
   id: string;
   withdraw?: boolean;
@@ -68,7 +70,7 @@ export interface TournamentData {
   defender?: string;
   spotlight?: {
     iconImg: string;
-    iconFont: LiconType;
+    iconFont: LiconValue;
   };
   schedule?: {
     freq: 'shield' | 'marathon';
@@ -111,13 +113,10 @@ export interface FeaturedGame {
   winner?: Color;
 }
 
-export interface SimplePlayer {
-  name: string;
+export interface SimplePlayer extends LightUserNoId {
   rating: number;
-  title?: string;
-  flair?: string;
   provisional?: boolean;
-  patronColor?: PatronColor;
+  realName?: string;
 }
 
 interface FeaturedPlayer extends SimplePlayer {
@@ -218,6 +217,7 @@ export type DuelTeams = Record<string, string>;
 export interface PodiumPlayer extends LightUser {
   performance?: number;
   nb: Nb;
+  realName?: string;
 }
 
 export interface Nb {

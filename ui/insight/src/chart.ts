@@ -15,8 +15,8 @@ import ChartDataLabels from 'chartjs-plugin-datalabels';
 import { h, type VNode } from 'snabbdom';
 
 import { currentTheme } from 'lib/device';
-import * as licon from 'lib/licon';
-import { iconTag, spinnerHtml } from 'lib/view';
+import { licon } from 'lib/licon';
+import { icon, spinnerHtml } from 'lib/view';
 
 import type Ctrl from './ctrl';
 import type { InsightChart, InsightData } from './interfaces';
@@ -33,7 +33,7 @@ const resultColors = {
   Defeat: '#dc322f',
 };
 
-const sizeColor = 'rgba(120,120,120,0.2)';
+const sizeColor = 'rgb(120 120 120 / 0.2)';
 const tooltipFontColor = light ? '#4d4d4d' : '#cccccc';
 
 function insightChart(el: HTMLCanvasElement, data: InsightData) {
@@ -63,6 +63,9 @@ function insightChart(el: HTMLCanvasElement, data: InsightData) {
           backgroundColor: tooltipBgColor,
           borderColor: gridColor,
           borderWidth: 1,
+          position: 'average',
+          xAlign: 'center',
+          yAlign: 'bottom',
           titleFont: fontFamily(14, 'bold'),
           titleColor: tooltipFontColor,
           bodyFont: fontFamily(13),
@@ -109,7 +112,8 @@ function barBuilder(
     borderWidth: 1.5,
     yAxisID: id,
     backgroundColor: color,
-    borderColor: '#4a4a4a',
+    borderColor: light ? '#9a9a9a' : '#4a4a4a',
+    borderRadius: 4,
     stack: opts?.stack,
     minBarLength: !percent ? 5 : undefined,
     datalabels:
@@ -162,7 +166,7 @@ function scaleBuilder(d: InsightData): ChartOptions<'bar'>['scales'] {
         display: true,
         text: d.valueYaxis.name,
       },
-      stacked: stacked,
+      stacked,
     },
     y2: {
       position: 'right',
@@ -178,7 +182,7 @@ function scaleBuilder(d: InsightData): ChartOptions<'bar'>['scales'] {
   };
 }
 function empty(txt: string) {
-  return h('div.chart.empty', [iconTag(licon.Target), txt]);
+  return h('div.chart.empty', [icon(licon.Target)(), txt]);
 }
 
 let chart: InsightChart;

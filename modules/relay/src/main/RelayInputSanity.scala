@@ -6,8 +6,9 @@ import chess.format.Fen
 private object RelayInputSanity:
 
   def fixGames(games: RelayGames): RelayGames =
-    fixDgtKingsInTheCenter:
-      removeGamesWithUnknownPlayer(games)
+    removeTorneloCountries:
+      fixDgtKingsInTheCenter:
+        removeGamesWithUnknownPlayer(games)
 
   private def removeGamesWithUnknownPlayer(games: RelayGames): RelayGames =
     games.filterNot: game =>
@@ -26,3 +27,12 @@ private object RelayInputSanity:
     )
 
   private val dgtBoggusKingMoveRegex = """^K[de][45]""".r
+
+  // tornelo uses non-standard 2-letter country codes, so we remove them to avoid confusion
+  // also chessbase crashes when trying to parse them because some look like roman numerals!
+  private def removeTorneloCountries(games: RelayGames): RelayGames = games.map: game =>
+    if game.tags(_.Site).exists(_.toLowerCase.contains("tornelo")) then
+      val tags = game.tags.map:
+        _.filterNot(t => lila.study.StudyPlayer.country.tagTypes.exists(_ == t.name))
+      game.copy(tags = tags)
+    else game

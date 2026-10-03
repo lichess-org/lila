@@ -1,6 +1,6 @@
 import { h, type VNode } from 'snabbdom';
 
-import * as licon from 'lib/licon';
+import { licon } from 'lib/licon';
 import { spinnerVdom, bind, dataIcon } from 'lib/view';
 import { numberRow } from 'lib/view/util';
 
@@ -9,8 +9,8 @@ import { teamName } from './battle';
 import { player as renderPlayer } from './util';
 
 export default function (ctrl: TournamentController): VNode | undefined {
-  const battle = ctrl.data.teamBattle,
-    data = ctrl.teamInfo.loaded;
+  const battle = ctrl.data.teamBattle;
+  const data = ctrl.teamInfo.loaded;
   if (!battle) return undefined;
   const teamTag = ctrl.teamInfo.requested ? teamName(battle, ctrl.teamInfo.requested) : null;
   const tag = 'div.tour__team-info.tour__actor-info';
@@ -60,12 +60,12 @@ export default function (ctrl: TournamentController): VNode | undefined {
         'table.players.sublist',
         data.topPlayers.map((p, i) =>
           h('tr', { key: p.name, hook: bind('click', () => ctrl.jumpToPageOf(p.name)) }, [
-            h('th', '' + (i + 1)),
+            h('th', i + 1),
             h('td', renderPlayer(p, false, ctrl.opts.showRatings, false, i < nbLeaders)),
             h('td.total', [
               p.fire && !ctrl.data.isFinished
-                ? h('strong.is-gold', { attrs: dataIcon(licon.Fire) }, '' + p.score)
-                : h('strong', '' + p.score),
+                ? h('strong.is-gold', { attrs: dataIcon(licon.Fire) }, p.score)
+                : h('strong', p.score),
             ]),
           ]),
         ),

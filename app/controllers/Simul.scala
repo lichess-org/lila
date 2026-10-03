@@ -55,7 +55,7 @@ final class Simul(env: Env) extends LilaController(env):
 
   private[controllers] def canHaveChat(simul: Sim)(using ctx: Context): Boolean =
     ctx.kid.no && ctx.noBot && // no public chats for kids or bots
-      (ctx.isAuth || HTTPRequest.isHuman(ctx.req)) &&
+      (ctx.isAuth || ctx.req.client.isHuman) &&
       simul.conditions.teamMember
         .map(_.teamId)
         .forall: teamId =>
@@ -88,13 +88,6 @@ final class Simul(env: Env) extends LilaController(env):
   def reject(simulId: SimulId, userId: UserStr) = Open:
     AsHost(simulId): simul =>
       env.simul.api.accept(simul.id, userId.id, v = false).inject(jsonOkResult)
-
-  def setText(simulId: SimulId) = OpenBody:
-    AsHost(simulId): simul =>
-      bindForm(forms.setText)(
-        _ => BadRequest,
-        text => env.simul.api.setText(simul.id, text).inject(jsonOkResult)
-      )
 
   def form = Auth { ctx ?=> me ?=>
     NoLameOrBot:

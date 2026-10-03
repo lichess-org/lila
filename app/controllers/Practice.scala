@@ -16,7 +16,10 @@ final class Practice(
 
   private val api = env.practice.api
 
-  def index = OpenOrScoped(_.Web.Mobile):
+  def indexLang = LangPage(routes.Practice.index)(serveIndex)
+  def index = OpenOrScoped(_.Web.Mobile)(serveIndex)
+
+  private def serveIndex(using ctx: Context) = NoBot:
     negotiate(
       html =
         pageHit
@@ -89,7 +92,8 @@ final class Practice(
             ctx.pref,
             initialFen,
             chapter.setup.orientation,
-            owner = false
+            owner = false,
+            opening = none
           )
         analysis = baseData ++ Json.obj(
           "treeParts" -> partitionTreeWriter(chapter.root, lichobile = false),

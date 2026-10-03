@@ -68,7 +68,7 @@ final private class StudyInvite(
       else 10
     _ <- (!inviteLimit.zero(inviter.userId, rateLimitCost)(true))
       .so(fufail[Unit]("You have reach the study invite quota for the day"))
-    _ <- studyRepo.addMember(study, StudyMember.make(invited))
+    _ <- studyRepo.addMember(study.id, StudyMember.make(invited))
     _ <- shouldNotify.so(notifyRateLimit.zero(inviter.userId, rateLimitCost):
       notifyApi.notifyOne(
         invited,
@@ -84,8 +84,8 @@ final private class StudyInvite(
     studyRepo.coll:
       _.update
         .one(
-          $id(study.id),
-          $set(s"members.${me}" -> $doc("role" -> "w", "admin" -> true)) ++
-            $addToSet("uids" -> me)
+          bid(study.id),
+          set(s"members.${me}" -> bdoc("role" -> "w", "admin" -> true)) ++
+            addToSet("uids" -> me)
         )
         .void

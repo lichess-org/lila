@@ -21,7 +21,7 @@ object Mobile:
     def requestVersion(req: RequestHeader): Option[ApiVersion] =
       HTTPRequest.apiVersion(req).filter(acceptedVersions.contains)
 
-    def requested(req: RequestHeader) = requestVersion(req).isDefined
+    def requested(using req: RequestHeader) = requestVersion(req).isDefined
 
   // Lichess Mobile/{version} as:{username|anon} sri:{sri} os:{Android|iOS}/{os-version} dev:{device info}
   // see modules/api/src/test/MobileTest.scala

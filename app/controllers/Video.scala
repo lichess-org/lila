@@ -3,7 +3,6 @@ package controllers
 import scalalib.model.Language
 
 import lila.app.{ *, given }
-import lila.common.HTTPRequest
 import lila.video.{ Filter, UserControl, View }
 
 final class Video(env: Env) extends LilaController(env):
@@ -14,14 +13,8 @@ final class Video(env: Env) extends LilaController(env):
     val reqTags = get("tags").so(_.split('/').toList.map(_.trim.toLowerCase))
     api.tag
       .paths(reqTags)
-      .map { tags =>
-        UserControl(
-          filter = Filter(reqTags),
-          tags = tags,
-          query = get("q"),
-          crawler = HTTPRequest.isCrawler(ctx.req)
-        )
-      }
+      .map: tags =>
+        UserControl(filter = Filter(reqTags), tags = tags, query = get("q"))
       .flatMap(f)
 
   def index = Open(serveIndex)

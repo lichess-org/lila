@@ -15,6 +15,7 @@
   <string name="quitTeam">チームを辞める</string>
   <string name="manuallyReviewAdmissionRequests">入会要請を手動で許可</string>
   <string name="manuallyReviewAdmissionRequestsHelp">ここにチェックすると、チームに加入したい人は申請が必要になります。許可するかどうかはあなたが決めます。</string>
+  <string name="hideMembersDesc" comment="Checkbox label: option to hide the team member list from non-members">チームメンバーのリストを非メンバーには見せない。</string>
   <plurals name="teamLeaders">
     <item quantity="other">チームリーダー</item>
   </plurals>
@@ -27,17 +28,14 @@
   <string name="willBeReviewed">あなたの加入申請はチームリーダーが審査します。</string>
   <string name="beingReviewed">あなたの加入申請はチームリーダーが審査中です。</string>
   <string name="requestDeclined">あなたの加入申請はチームリーダーが却下しました。</string>
-  <string name="subToTeamMessages">チームメッセージを受信する</string>
   <string name="teamBattle">チームバトル</string>
   <string name="teamBattleOverview">複数チームの団体戦で、所属プレイヤーのポイント合計を争う</string>
   <string name="teamTournament">チーム内トーナメント</string>
   <string name="teamTournamentOverview">チーム所属メンバーだけが参加できるアリーナトーナメント</string>
   <string name="swissTournamentOverview">チーム所属メンバーだけが参加できるスイス式トーナメント</string>
-  <string name="messageAllMembers">全メンバーにメッセージ</string>
-  <string name="messageAllMembersOverview">チームの全メンバーにプライベートメッセージを送る</string>
-  <string name="messageAllMembersLongDescription">チームの全員にメッセージを送ります。
-トーナメントやチームバトルへの参加呼びかけに使えます。
-メッセージを受けたくない人はチームを離れるかもしれません。</string>
+  <string name="teamUpdates">チームからのお知らせ</string>
+  <string name="subToTeamUpdates">チームからのお知らせを受信する</string>
+  <string name="newTeamUpdate">チームからの新しいお知らせ</string>
   <string name="teamsIlead">リーダーを務めるチーム</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">開催予定のトーナメントをリンクしますか？</string>
   <string name="leadersChat">リーダー・チャット</string>
@@ -49,6 +47,9 @@
   <string name="entryCode">チーム参加コード</string>
   <string name="entryCodeDescriptionForLeader">（オプション）新メンバーがこのチームに加入する時に必要なコード。</string>
   <string name="incorrectEntryCode">参加コードが違います。</string>
+  <string name="forumLabel">チームのフォーラム</string>
+  <string name="forumVisibilityHelp">チームのフォーラムを誰が見られるか。&lt;br&gt;投稿できるのはチームのメンバーだけです。</string>
+  <string name="forumVisibilityNone">フォーラムを隠す</string>
   <string name="teamAlreadyExists">このチームはすでに存在します。</string>
   <string name="upcomingTournaments">今後のトーナメント</string>
   <string name="completedTourns">完了したトーナメント</string>

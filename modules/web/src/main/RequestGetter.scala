@@ -36,3 +36,6 @@ trait RequestGetter:
       name: String
   )(using req: RequestHeader, yn: SameRuntime[Boolean, A]): Option[A] =
     getBoolOpt(name).map(yn.apply)
+
+  protected def getColor(name: String = "color")(using RequestHeader): Option[Color] =
+    get(name).flatMap(Color.fromName)

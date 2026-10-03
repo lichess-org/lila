@@ -2,5 +2,18 @@ package lila.appeal
 
 export lila.core.lilaism.Lilaism.{ *, given }
 export lila.common.extensions.*
+export lila.core.misc.AppealTopic
 
-private val logger = lila.log("appeal")
+case class UserStatus(
+    user: User,
+    playban: Boolean,
+    ublogHidden: Boolean,
+    modActions: List[String],
+    modClosed: Boolean
+):
+  export user.{ id, enabled, marks }
+
+  def isClean = AppealTopicApi.candidatesFor(this).isEmpty
+
+  def modMessage = modActions.contains("modMessage")
+  def chatTimeout = modActions.contains("chatTimeout")

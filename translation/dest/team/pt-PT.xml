@@ -30,17 +30,14 @@
   <string name="willBeReviewed">O teu pedido de adesão será revisto pelo líder da equipa.</string>
   <string name="beingReviewed">O teu pedido de adesão está a ser revisto pelo líder da equipa.</string>
   <string name="requestDeclined">O seu pedido de adesão foi recusado por um líder de equipa.</string>
-  <string name="subToTeamMessages">Subscrever mensagens de equipa</string>
   <string name="teamBattle">Batalha de Equipas</string>
   <string name="teamBattleOverview">Uma batalha de várias equipas, cada jogador ganha pontos para a sua equipa</string>
   <string name="teamTournament">Torneio de equipa</string>
   <string name="teamTournamentOverview">Um torneio em arena em que só podem entrar membros da tua equipa</string>
   <string name="swissTournamentOverview">Um torneio suiço em que só podem entrar membros da tua equipa</string>
-  <string name="messageAllMembers">Enviar uma mensagem a todos os membros</string>
-  <string name="messageAllMembersOverview">Enviar uma mensagem privada para todos os membros da equipa</string>
-  <string name="messageAllMembersLongDescription">Enviar uma mensagem privada para todos os membros da equipa.
-Podes usar isto para chamar jogadores para participar num torneio ou batalha de equipas.
-Os jogadores que não gostam de receber as tuas mensagens podem sair da equipa.</string>
+  <string name="teamUpdates">Atualizações da equipa</string>
+  <string name="subToTeamUpdates">Subscrever atualizações da equipa</string>
+  <string name="newTeamUpdate">Nova atualização da equipa</string>
   <string name="teamsIlead">Equipas que eu lidero</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Talvez queiras enviar um link de algum destes futuros torneios.</string>
   <string name="leadersChat">Chat dos líderes</string>

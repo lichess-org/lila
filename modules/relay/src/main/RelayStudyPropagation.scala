@@ -14,8 +14,14 @@ private final class RelayStudyPropagation(
   // force studies visibility based on broadcast tier
   def onVisibilityChange(tour: RelayTour) = for
     ids <- roundRepo.studyIdsOf(tour.id)
-    _ <- ids.sequentiallyVoid: id =>
-      studyApi.setVisibility(id, tour.visibility)
+    _ <- ids.sequentiallyVoid:
+      studyApi.setVisibility(_, tour.visibility)
+  yield ()
+
+  def onOwnerChange(tour: RelayTourId, owner: UserId) = for
+    ids <- roundRepo.studyIdsOf(tour)
+    _ <- ids.parallelVoid:
+      studyRepo.setOwner(_, owner)
   yield ()
 
   // if the study is a round, propagate members to all round studies of the tournament group

@@ -33,8 +33,8 @@ final class RankingApi(
       coll:
         _.update
           .one(
-            $id(makeId(user.id, perfType)),
-            $doc(
+            bid(makeId(user.id, perfType)),
+            bdoc(
               "perf" -> perfType.id,
               "rating" -> perf.intRating,
               "prog" -> perf.progress,
@@ -47,7 +47,7 @@ final class RankingApi(
 
   def remove(userId: UserId): Funit =
     coll:
-      _.delete.one($doc("_id".$startsWith(s"$userId:"))).void
+      _.delete.one(bdoc("_id".regexStart(s"$userId:"))).void
 
   private def makeId(userId: UserId, perfType: PerfType) = s"$userId:${perfType.id}"
 
@@ -69,8 +69,8 @@ final class RankingApi(
         .isLeaderboardable(perf)
         .so:
           coll:
-            _.find($doc("perf" -> perf.id, "stable" -> true))
-              .sort($doc("rating" -> -1, "expiresAt" -> -1))
+            _.find(bdoc("perf" -> perf.id, "stable" -> true))
+              .sort(bdoc("rating" -> -1, "expiresAt" -> -1))
               .skip(skip)
               .cursor[Ranking](ReadPref.sec)
               .list(nb)
@@ -115,6 +115,8 @@ final class RankingApi(
 
     private type Rank = Int
 
+    private lazy val logger = lila.log("user.ranking")
+
     def of(userId: UserId): Map[PerfKey, Rank] =
       cache.getUnit.value match
         case Some(Success(all)) =>
@@ -122,26 +124,26 @@ final class RankingApi(
             ranking.get(userId).map(pt -> _)
         case _ => Map.empty
 
-    private val cache = cacheApi.unit[Map[PerfKey, Map[UserId, Rank]]]:
+    private val cache = cacheApi.unit[Map[PerfKey, Map[UserId, Rank]]]("user.weeklyStableRanking"):
       _.refreshAfterWrite(10.minutes).buildAsyncTimeout(2.minutes): _ =>
         lila.rating.PerfType.leaderboardable
           .sequentially: perf =>
             computeAggregate(perf).chronometer
-              .logIfSlow(500, logger.branch("ranking"))(_ => s"slow weeklyStableRanking for $perf")
+              .logIfSlow(3000, logger)(_ => s"slow weeklyStableRanking for $perf")
               .result
               .monSuccess(lila.mon.user.weeklyStableRanking(perf))
               .dmap(perf -> _)
           .map(_.toMap)
           .chronometer
-          .logIfSlow(5000, logger.branch("ranking"))(_ => "slow weeklyStableRanking")
+          .logIfSlow(10_000, logger)(_ => "slow weeklyStableRanking")
           .result
 
     private def computeAggregate(pt: PerfType): Fu[Map[UserId, Rank]] = coll:
       _.aggregateOne(_.sec): framework =>
         import framework.*
-        Match($doc("perf" -> pt.id, "stable" -> true)) -> List(
+        Match(bdoc("perf" -> pt.id, "stable" -> true)) -> List(
           Sort(Descending("rating"), Descending("expiresAt")),
-          Group(BSONNull)("all" -> Push($doc("$first" -> $doc("$split" -> $arr("$_id", ":")))))
+          Group(BSONNull)("all" -> Push(bdoc("$first" -> bdoc("$split" -> barr("$_id", ":")))))
         )
       .map:
         _.flatMap(_.getAsOpt[BSONArray]("all")).so:

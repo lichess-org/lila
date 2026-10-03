@@ -61,7 +61,6 @@
   <string name="downloadGame">Aflaai spel</string>
   <string name="studyUrl">Bestudeer URL</string>
   <string name="currentChapterUrl">Huidige hoofstuk URL</string>
-  <string name="youCanPasteThisInTheForumToEmbed">U kan dit in die forum plak om in te bed</string>
   <string name="startAtInitialPosition">Begin by die oorspronklike posisie</string>
   <string name="startAtX">Begin by %s</string>
   <string name="embedInYourWebsite">Bed in u webwerf of blog</string>
@@ -181,7 +180,6 @@
   <string name="fromInitialPositionText">Slegs \'n bordopstelling vir \'n nuwe spel.&lt;br&gt;Geskik om openinge te ondersoek.</string>
   <string name="customPositionTitle">Doelgemaakte posisie</string>
   <string name="customPositionText">Stel die bord op soos jy dit wil hê.&lt;br&gt;Geskik vir eindspelle.</string>
-  <string name="loadExistingLichessGameTitle">Laai \'n bestaande lichess-spel</string>
   <string name="fromFenStringTitle">Vanaf \'n FEN-string</string>
   <string name="fromPgnGameTitle">Vanaf \'n PGN-spel</string>
 </resources>

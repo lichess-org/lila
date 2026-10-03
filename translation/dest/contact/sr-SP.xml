@@ -25,9 +25,8 @@
   <string name="cantChangeMore">Не можемо променити више од врсте слова. Због техничких разлога, просто је немогуће.</string>
   <string name="orCloseAccount">Међутим, можеш затворити свој тренутни налог и направити нови.</string>
   <string name="wantClearHistory">Желим да обришем своју историју или рејтинг</string>
-  <string name="cantClearHistory">Није могуће обрисати твоју историју партија, историју проблема или рејтинге.</string>
   <string name="wantReport">Желим да пријавим играча</string>
-  <string name="toReportAPlayerUseForm">Да бисте пријавили играча, користите форму за пријављивање</string>
+  <string name="toReportAPlayerUseForm">Да пријваиш играча, користи образац за пријаву</string>
   <string name="youCanAlsoReachReportPage">Можеш доћи до те странице и кликом на %s дугме за пријаву на профилној страници.</string>
   <string name="doNotReportInForum">Немој пријављивати играче на форуму.</string>
   <string name="doNotSendReportEmails">Немој нам слати имејлове за пријаву.</string>
@@ -52,6 +51,7 @@
   <string name="knightMate">Могуће је шах-матирати са само скакачем или ловцем, ако противник има више од краља на табли.</string>
   <string name="noRatingPoints">Нису додељени рејтинг бодови</string>
   <string name="ratedGame">Провери да си одиграо/ла рангирану партију. Нерангиране партије не утичу на играчев рејтинг.</string>
+  <string name="botRatingAbuse">У одређеним случајевима када се игра против бот налога, рангирана партије можда не додели бодове ако установимо да играч злоупотребљава бота за рејтинг бодове.</string>
   <string name="errorPage">Страница грешке</string>
   <string name="reportErrorPage">Ако си видео/ла страницу грешке, можеш је пријавити:</string>
   <string name="banAppeal">Жалба на забрану или IP ограничење</string>

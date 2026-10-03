@@ -22,26 +22,17 @@ final class Pref(env: Env) extends LilaController(env):
     }
   }
 
-  private val redirects = Map(
-    "game-display" -> "display",
-    "site" -> "privacy"
-  )
-
-  def form(categSlug: String) =
-    redirects.get(categSlug) match
-      case Some(redir) => Action(Redirect(routes.Pref.form(redir)))
-      case None =>
-        Auth { ctx ?=> me ?=>
-          lila.pref.PrefCateg(categSlug) match
-            case None if categSlug == "notification" =>
-              Ok.async:
-                env.notifyM.api.prefs
-                  .form(me)
-                  .map:
-                    views.account.pref.notification(_)
-            case None => notFound
-            case Some(categ) => Ok.page(views.account.pref(me, forms.prefOf(ctx.pref), categ))
-        }
+  def form(categSlug: String) = Auth { ctx ?=> me ?=>
+    lila.pref.PrefCateg(categSlug) match
+      case None if categSlug == "notification" =>
+        Ok.async:
+          env.notifyM.api.prefs
+            .form(me)
+            .map:
+              views.account.pref.notification(_)
+      case None => notFound
+      case Some(categ) => Ok.page(views.account.pref(me, forms.prefOf(ctx.pref), categ))
+  }
 
   def formApply = AuthBody { ctx ?=> me ?=>
     def onSuccess(data: lila.pref.PrefForm.PrefData) =

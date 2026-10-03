@@ -1,8 +1,8 @@
 import { thunk } from 'snabbdom';
 
 import { debounce } from 'lib/async';
-import * as licon from 'lib/licon';
-import { bind, dataIcon, hl, iconTag } from 'lib/view';
+import { licon } from 'lib/licon';
+import { bind, dataIcon, hl, icon } from 'lib/view';
 
 import axis from './axis';
 import boards from './boards';
@@ -48,7 +48,7 @@ const renderMain = (ctrl: Ctrl, _cacheKey: string | boolean) => {
     return hl('div'); // returning undefined breaks snabbdom's thunks
   } else if (ctrl.vm.broken) {
     return hl('div.broken', [
-      iconTag(licon.DiscBig),
+      icon(licon.DiscBig)(),
       'Insights are unavailable.',
       hl('br'),
       'Please try again later.',

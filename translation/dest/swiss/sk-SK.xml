@@ -79,7 +79,6 @@ Pridajte skóre každého súpera, ktorého hráč porazil. Potom pridajte polov
   <string name="pairingsA">Pomocou %1$s, zavedeného %2$s v súlade s %3$s.</string>
   <string name="moreRoundsThanPlayersQ">Čo sa stane ak má turnaj viac kôl ako hráčov?</string>
   <string name="moreRoundsThanPlayersA">Ak sa vystriedali všetky možné páry, turnaj sa ukonči a víťaz bude vyhlásený.</string>
-  <string name="restrictedToTeamsQ">Prečo je to obmedzené iba na tímy?</string>
   <string name="restrictedToTeamsA">Švajčiarske turnaje neboli navrhnuté pre online šach. Od hráčov vyžadujú presnosť, odhodlanie a trpezlivosť.
 Myslíme si, že tieto podmienky je pravdepodobnejšie splniť v rámci tímu ako na globálnych turnajoch.</string>
   <string name="numberOfByesQ">Koľko \"priepustiek\" môže hráč získať?</string>
@@ -99,7 +98,6 @@ Tvorca takéhoto turnaja sa však môže rozhodnúť, že im prihlásenie aj tak
 Hráč, ktorý sa však pripojí neskoro, dostane iba 1 bod.</string>
   <string name="willSwissReplaceArenasQ">Nahradí švajčiarsky systém turnaje v aréne?</string>
   <string name="willSwissReplaceArenasA">Nie. Sú to iba doplnkové funkcie.</string>
-  <string name="roundRobinQ">A čo kruhový turnaj?</string>
   <string name="roundRobinA">Rady by sme, nanešťastie Round Robin nefunguje online.
 Dôvod je ten že neexistuje spôsob ako riešiť hráčov, ktorý sa odpoja skôr. Nemôžme očakávať, ževšetci hráči budu hrať všetky kolá. To sa proste nestane, a dôsledok by bol, že všetky turnaje by boli chybné a nespravodlivé, čo podkopáva dôvod, pre ktorý existujú. Najbližšie k Round Robin je švajčiarský systém s vysokým počtom kôl. V tom prípade sa vystriedajú všetci hráči navzájom.</string>
   <string name="otherSystemsQ">A čo iné turnajové systémy?</string>
@@ -134,7 +132,6 @@ Víťaz je súťažiaci s najvyšším počtom bodov, ktoré získal vo všetký
   <string name="similarToOTB">Podobné turnajom hraným naživo</string>
   <string name="unlimitedAndFree">Bez obmedzení a zadarmo</string>
   <string name="predefinedUsers">Povoľte pripojenie len vopred zadaným používateľom</string>
-  <string name="forbiddedUsers">Ak tento zoznam nie je prázdny, používatelia, ktorí v ňom nie sú, sa nesmú pripojiť. Jedno meno používateľa na riadok.</string>
   <string name="playYourGames">Odohrajte viac partií!</string>
   <string name="byes">Vynechania kôl</string>
   <string name="absences">Nenastúpenia</string>

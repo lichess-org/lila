@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="lichessMobileApp">Aplicația Lichess Mobile</string>
+  <string name="returningToApp" comment="Displayed on interstitial page that automatically opens the Lichess app">Întoarcere la aplicația Lichess</string>
+  <string name="ifAppDoesNotOpenAutomatically">Dacă aplicația nu se deschide automat, apasă butonul \"%s\".</string>
+  <string name="openTheApp" comment="Button text to open the Lichess app on the device">Deschide aplicația Lichess</string>
+  <string name="viewAllReleases" comment="To view a list of all mobile app releases on Github">Vezi %s pe GitHub</string>
+  <string name="allReleases">toate versiunile</string>
+  <string name="downloadOnAppleAppStore">Descarcă din Apple App Store</string>
+  <string name="downloadOnGooglePlay">Descarcă din Google Play</string>
+  <string name="downloadOnFdroid">Descarcă din F-Droid</string>
+  <string name="lichessMobileScreen" comment="Alt text for screenshot of the Lichess mobile app">Ecran Lichess Mobile</string>
+</resources>

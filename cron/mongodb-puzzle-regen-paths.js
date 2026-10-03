@@ -252,7 +252,7 @@ let anyBuggy = false;
           max: `${theme}${sep}${bucket.tier}${sep}${padRating(ratingMax)}`,
           ids,
           tier: bucket.tier,
-          theme: theme,
+          theme,
           gen: generation,
         })),
         {

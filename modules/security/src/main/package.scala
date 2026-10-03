@@ -6,7 +6,8 @@ export lila.core.lilaism.Lilaism.{ *, given }
 import lila.core.email.{ EmailAddress, NormalizedEmailAddress }
 export lila.common.extensions.*
 
-private val logger = lila.log("security")
+val logger = lila.log("security")
+lazy val loggerAuth = lila.log("auth")
 
 extension (e: EmailAddress)
 

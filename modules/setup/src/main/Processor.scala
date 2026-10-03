@@ -2,6 +2,7 @@ package lila.setup
 
 import lila.common.Bus
 import lila.core.perf.UserWithPerfs
+import lila.core.id.SessionId
 import lila.lobby.{ SetupBus, Seek }
 
 final private[setup] class Processor(
@@ -28,7 +29,7 @@ final private[setup] class Processor(
   def hook(
       config: HookConfig,
       sri: lila.core.socket.Sri,
-      sid: Option[String],
+      sid: Option[SessionId],
       blocking: lila.core.pool.Blocking
   )(using me: Option[UserWithPerfs]): Fu[Processor.HookResult] =
     import Processor.HookResult.*

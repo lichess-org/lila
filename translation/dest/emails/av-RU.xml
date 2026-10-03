@@ -15,7 +15,6 @@
 
 Кеп гьабе, дур кесказда дандеясул къираласухъе нух батаги!</string>
   <string name="logInToLichess">lichess.org-алъуве лъугьа, %s</string>
-  <string name="common_orPaste">(ТӀаде цуй хӀалтӀулеб гьечӀищ? Дур браузералъубе гьеб лъезе хӀалбихье!)</string>
   <string name="common_note">Дуца %s хӀалтӀизабиялда хурхараб, гьаб электронияб поч лъазабизе буго.</string>
   <string name="common_contact">Нижергун бухьен гьабизе, %s хӀалтӀизабе.</string>
 </resources>

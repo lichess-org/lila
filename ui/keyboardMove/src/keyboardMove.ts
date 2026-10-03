@@ -5,7 +5,7 @@ import type { KeyboardMoveHandler, Opts, ArrowKey } from '@/exports';
 import { type Submit, makeSubmit } from '@/keyboardSubmit';
 
 export function initModule(opts: Opts): KeyboardMoveHandler | undefined {
-  if (opts.input.classList.contains('ready')) return;
+  if (opts.input.classList.contains('ready')) return undefined;
   opts.input.classList.add('ready');
 
   const clear = makeClear(opts);
@@ -20,7 +20,7 @@ export function initModule(opts: Opts): KeyboardMoveHandler | undefined {
     setTimeout(() => {
       submit(opts.input.value, {
         isTrusted: true,
-        yourMove: yourMove,
+        yourMove,
       });
     }, 1);
   };

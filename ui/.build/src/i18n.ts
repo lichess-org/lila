@@ -1,14 +1,12 @@
 import { transform } from 'esbuild';
 import fg from 'fast-glob';
-import { XMLParser } from 'fast-xml-parser';
-import crypto from 'node:crypto';
 import fs from 'node:fs';
 import { join, basename } from 'node:path';
 
 import { zip } from './algo.ts';
 import { env } from './env.ts';
 import { type Manifest, updateManifest } from './manifest.ts';
-import { readable, isClose } from './parse.ts';
+import { readable, isClose, getHash } from './parse.ts';
 import { makeTask } from './task.ts';
 
 type PluralMode = 'zero' | 'one' | 'two' | 'few' | 'many' | 'other';
@@ -21,13 +19,18 @@ let dicts = new Map<string, Dict>();
 let locales: string[];
 let cats: string[];
 
+export const i18nTypingsReady = Promise.withResolvers<void>();
+
 export function i18n(): Promise<void | string> {
-  if (!env.begin('i18n')) return Promise.resolve();
+  if (!env.begin('i18n')) {
+    i18nTypingsReady.resolve();
+    return i18nTypingsReady.promise;
+  }
 
   return makeTask({
     includes: [
       { cwd: env.i18nSrcDir, path: '*.xml' },
-      { cwd: join(env.i18nDestDir, 'site'), path: '*.xml' },
+      { cwd: env.i18nDestDir, path: '**/*.xml' },
     ],
     ctx: 'i18n',
     debounce: 500,
@@ -40,7 +43,7 @@ export function i18n(): Promise<void | string> {
         ])
       ).map(list => list.map(x => x.split('.')[0]));
       await Promise.allSettled(cats.map(async cat => fs.promises.mkdir(join(env.i18nDestDir, cat))));
-      await compileTypings();
+      await compileTypings().finally(i18nTypingsReady.resolve);
       await compileJavascripts();
       await i18nManifest();
     },
@@ -55,7 +58,7 @@ async function compileTypings(): Promise<void> {
     fs.promises.mkdir(env.i18nJsDir).catch(() => {}),
   ]);
 
-  if (!tstat || catStats.some(x => x)) {
+  if (!tstat || catStats.some(Boolean)) {
     dicts = new Map(
       zip(
         cats,
@@ -119,10 +122,9 @@ async function writeJavascript(cat: string, locale?: string, xstat: fs.Stats | f
   const jsInit =
     cat !== 'site'
       ? ''
-      : siteInit +
-        'window.i18n.quantity=' +
+      : 'window.i18n={quantity:' +
         (jsQuantity.find(({ l }) => l.includes(lang ?? ''))?.q ?? `o=>o==1?'one':'other'`) +
-        ';';
+        '};';
   if (!jsInit && locale && !localeSpecific.size) return;
   const code =
     jsPrelude +
@@ -158,20 +160,42 @@ async function updated(cat: string, locale?: string): Promise<fs.Stats | false> 
     : xml.value.size > 64 && xml.value;
 }
 
+// translation/ XML is flat: <string> and <plurals><item>, text only, no CDATA. Parsing it
+// by hand gives what fast-xml-parser gave (trimmed text, the five XML entities decoded,
+// &#10; left as is) in half the time.
+const xmlAttrs = '((?:[^>"]|"[^"]*")*)';
+const xmlStringRe = new RegExp(`<string\\s${xmlAttrs}>([^<]*)</string>`, 'g');
+const xmlPluralsRe = new RegExp(`<plurals\\s${xmlAttrs}>([\\s\\S]*?)</plurals>`, 'g');
+const xmlItemRe = new RegExp(`<item\\s${xmlAttrs}>([^<]*)</item>`, 'g');
+const xmlEntities: Record<string, string> = { apos: "'", gt: '>', lt: '<', quot: '"' };
+
+function xmlAttr(attrs: string, name: string): string {
+  const value = new RegExp(`(?:^|\\s)${name}="([^"]*)"`).exec(attrs)?.[1];
+  if (value === undefined) throw new Error(`no ${name} in <${attrs}>`);
+  return value;
+}
+
+function xmlText(text: string): string {
+  return text
+    .trim()
+    .replace(/&(apos|gt|lt|quot);/g, (_, entity: string) => xmlEntities[entity])
+    .replaceAll('&amp;', '&')
+    .replaceAll('\\"', '"')
+    .replaceAll("\\'", "'");
+}
+
 function parseXml(xmlData: string): Map<string, string | Plural> {
   const i18nMap = new Map<string, string | Plural>();
   if (!xmlData) return i18nMap;
 
-  const parser = new XMLParser({ ignoreAttributes: false, attributeNamePrefix: '' });
-  const { string: strings, plurals } = parser.parse(xmlData).resources;
-  for (const item of strings ? (Array.isArray(strings) ? strings : [strings]) : [])
-    i18nMap.set(item.name, item['#text'].replaceAll('\\"', '"').replaceAll("\\'", "'"));
-  for (const plural of plurals ? (Array.isArray(plurals) ? plurals : [plurals]) : []) {
+  xmlData = xmlData.replace(/<!--[\s\S]*?-->/g, '');
+  for (const [, attrs, text] of xmlData.matchAll(xmlStringRe))
+    i18nMap.set(xmlAttr(attrs, 'name'), xmlText(text));
+  for (const [, attrs, items] of xmlData.matchAll(xmlPluralsRe)) {
     const group: Record<string, string> = {};
-    for (const item of Array.isArray(plural.item) ? plural.item : [plural.item]) {
-      group[item.quantity] = item['#text'].replaceAll('\\"', '"').replaceAll("\\'", "'");
-    }
-    i18nMap.set(plural.name, group as Plural);
+    for (const [, itemAttrs, text] of items.matchAll(xmlItemRe))
+      group[xmlAttr(itemAttrs, 'quantity')] = xmlText(text);
+    i18nMap.set(xmlAttr(attrs, 'name'), group as Plural);
   }
   return new Map([...i18nMap.entries()].sort(([a], [b]) => a.localeCompare(b)));
 }
@@ -188,7 +212,7 @@ export async function i18nManifest(): Promise<void> {
     (await fg.glob('*.js', { cwd: env.i18nJsDir, absolute: true })).map(async file => {
       const name = basename(file, '.js');
       const content = await fs.promises.readFile(file, 'utf-8');
-      const hash = crypto.createHash('md5').update(content).digest('hex').slice(0, 12);
+      const hash = getHash(content);
       const manifestPath = `i18n/${name}`;
       const destPath = join(env.jsOutDir, `${manifestPath}.${hash}.js`);
       i18n[manifestPath] = { hash };
@@ -202,12 +226,14 @@ export async function i18nManifest(): Promise<void> {
         ['window.site.manifest.i18n={'] +
         cats
           .map(cat => {
-            const hash = (i18n[`i18n/${cat}.${locale}`] ?? i18n[`i18n/${cat}.en-GB`]).hash;
-            return `${cat}:'${hash}'`;
+            const isCatalogLocalized = !!i18n[`i18n/${cat}.${locale}`];
+            const safeLocale = isCatalogLocalized ? locale : 'en-GB';
+            const hash = i18n[`i18n/${cat}.${safeLocale}`].hash;
+            return `${cat}:'${safeLocale}.${hash}'`;
           })
           .join(',') +
         '}';
-      const hash = crypto.createHash('md5').update(content).digest('hex').slice(0, 12);
+      const hash = getHash(content);
       const manifestPath = `i18n/${locale}`;
       const destPath = join(env.jsOutDir, `${manifestPath}.${hash}.js`);
       i18n[manifestPath] = { hash };
@@ -262,14 +288,6 @@ const jsPrelude =
       return n;
     }`,
   ));
-
-const siteInit = await minify(`
-  window.i18n = function(k) {
-    for (let v of Object.values(window.i18n)) {
-      if (v[k]) return v[k];
-      return k;
-    }
-  };`);
 
 const jsQuantity = [
   {

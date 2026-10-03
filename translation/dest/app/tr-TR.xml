@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="lichessMobileApp">Lichess Mobil Uygulaması</string>
+  <string name="returningToApp" comment="Displayed on interstitial page that automatically opens the Lichess app">Lichess\'e geri dönülüyor</string>
+  <string name="ifAppDoesNotOpenAutomatically">Uygulama otomatik olarak açılmazsa, \"%s\" butonuna dokunun.</string>
+  <string name="openTheApp" comment="Button text to open the Lichess app on the device">Lichess uygulamasını aç</string>
+  <string name="viewAllReleases" comment="To view a list of all mobile app releases on Github">%si GitHub\'da görüntüle</string>
+  <string name="allReleases">tüm sürümler</string>
+  <string name="downloadOnAppleAppStore">Apple App Store üzerinden indir</string>
+  <string name="downloadOnGooglePlay">Google Play üzerinden indir</string>
+  <string name="downloadOnFdroid">F-Droid üzerinden indir</string>
+  <string name="lichessMobileScreen" comment="Alt text for screenshot of the Lichess mobile app">Lichess mobil ekranı</string>
+</resources>

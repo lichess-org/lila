@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="logInAsUsername">Entrar como %s</string>
-  <string name="welcome">Bem-vindo(a)!</string>
-  <string name="welcomeToLichess">Bem-vindo(a) ao lichess.org!</string>
+  <string name="welcome">Bem-vindo!</string>
+  <string name="welcomeToLichess">Bem-vindo ao Lichess!</string>
   <string name="thisIsYourProfilePage">Esta é a tua página de perfil.</string>
-  <string name="enabledKidModeSuggestion">Uma criança usará esta conta? Podes querer habilitar %s.</string>
+  <string name="enabledKidModeSuggestion">Uma criança usará esta conta? Podes querer ativar %s.</string>
   <string name="whatNowSuggestions">E agora? Aqui estão algumas sugestões:</string>
-  <string name="learnChessRules" comment="This used to be &quot;Learn chess rules&quot;, without a full stop. Please update as required.">Aprender as regras do xadrez</string>
+  <string name="learnChessRules">Aprender as regras do xadrez.</string>
   <string name="improveWithChessTacticsPuzzles">Melhorar com problemas de táticas de xadrez.</string>
   <string name="playTheArtificialIntelligence">Jogar contra a Inteligência Artificial.</string>
   <string name="playOpponentsFromAroundTheWorld">Jogar contra adversários de todo o mundo.</string>
@@ -14,5 +14,5 @@
   <string name="playInTournaments">Jogar em torneios.</string>
   <string name="learnFromXAndY">Aprender com %1$s e %2$s.</string>
   <string name="configureLichess">Configurar o Lichess ao teu gosto.</string>
-  <string name="exploreTheSiteAndHaveFun">Explorar o site e divirta-te :)</string>
+  <string name="exploreTheSiteAndHaveFun">Explorar o site e diverte-te :)</string>
 </resources>

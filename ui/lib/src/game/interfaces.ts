@@ -1,5 +1,7 @@
 // no side effects allowed due to re-export by index.ts
 
+import type { NodeCrazy } from '@/tree/types';
+
 import type { Status } from './status';
 
 export interface GameData {
@@ -36,7 +38,7 @@ export interface Game {
   boosted?: boolean;
   rematch?: string;
   rated?: boolean;
-  perf: string;
+  perf: VariantKey | Speed;
   rules?: GameRule[];
 }
 
@@ -129,7 +131,7 @@ export interface PlayerUser {
   patronColor?: PatronColor;
   title?: string;
   flair?: Flair;
-  perfs: Record<string, Perf>;
+  perfs: Partial<Record<VariantKey | Speed, Perf>>;
 }
 
 export interface Perf {
@@ -177,5 +179,5 @@ export interface RoundStep {
   san: San;
   uci: Uci;
   check?: boolean;
-  crazy?: Record<string, any>;
+  crazy?: NodeCrazy;
 }
