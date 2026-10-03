@@ -127,9 +127,9 @@ $regards
 """
     )
 
-  def onAppealReply(user: User): Funit =
+  def onAppealReply[U: UserIdOf](to: U): Funit =
     val url = routeUrl(routes.Appeal.home)
-    sendAsPrivateMessageAndEmail(user)(
+    sendAsPrivateMessageAndEmail(to)(
       subject = _ => "Appeal response on lichess.org",
       body = _ => s"""Hello,
 
