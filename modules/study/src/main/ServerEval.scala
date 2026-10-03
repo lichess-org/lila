@@ -19,34 +19,40 @@ object ServerEval:
 
     private val onceEvery = scalalib.cache.OnceEvery[StudyChapterId](5.minutes)
 
-    def apply(study: Study, chapter: Chapter, userId: UserId, official: Boolean = false): Funit =
-      chapter.serverEval
-        .forall: eval =>
-          !eval.done && onceEvery(chapter.id)
-        .so:
-          for
-            isOfficial <- fuccess(official) >>|
-              fuccess(userId.is(UserId.lichess)) >>|
-              userApi.me(userId).map(_.soUse(Granter.opt(_.Relay)))
-            _ <- chapterRepo.startServerEval(chapter)
-          yield lila.common.Bus.pub(
-            lila.core.fishnet.Bus.StudyChapterRequest(
-              studyId = study.id,
-              chapterId = chapter.id,
-              initialFen = chapter.root.fen.some,
-              variant = chapter.setup.variant,
-              moves = chess.format
-                .UciDump(
-                  moves = chapter.root.mainline.map(_.move.san),
-                  initialFen = chapter.root.fen.some,
-                  variant = chapter.setup.variant
-                )
-                .toOption
-                .map(_.flatMap(chess.format.Uci.apply)) | List.empty,
-              userId = userId,
-              official = isOfficial
+    private[study] def apply(
+        study: Study,
+        chapter: Chapter,
+        userId: UserId,
+        official: Boolean
+    ): Funit =
+      (chapter.root.mainline.sizeIs > 3).so:
+        chapter.serverEval
+          .forall: eval =>
+            !eval.done && onceEvery(chapter.id)
+          .so:
+            for
+              isOfficial <- fuccess(official) >>|
+                fuccess(userId.is(UserId.lichess)) >>|
+                userApi.me(userId).map(_.soUse(Granter.opt(_.Relay)))
+              _ <- chapterRepo.updateServerEval(chapter.id, false, chapter.root.mainlinePath.some)
+            yield lila.common.Bus.pub(
+              lila.core.fishnet.Bus.StudyChapterRequest(
+                studyId = study.id,
+                chapterId = chapter.id,
+                initialFen = chapter.root.fen.some,
+                variant = chapter.setup.variant,
+                moves = chess.format
+                  .UciDump(
+                    moves = chapter.root.mainline.map(_.move.san),
+                    initialFen = chapter.root.fen.some,
+                    variant = chapter.setup.variant
+                  )
+                  .toOption
+                  .map(_.flatMap(chess.format.Uci.apply)) | List.empty,
+                userId = userId,
+                official = isOfficial
+              )
             )
-          )
 
   final class Merger(
       sequencer: StudySequencer,
