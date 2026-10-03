@@ -17,6 +17,7 @@ export interface LichessEditor {
   setFen(fen: FEN): void;
   setOrientation(o: Color): void;
   setVariant(variant: VariantKey): void;
+  close(): void;
 }
 
 export interface Config {

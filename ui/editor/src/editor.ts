@@ -27,10 +27,20 @@ export function initModule(config: Config): LichessEditor {
 
   menuHover();
 
+  const pasteListener = (e: ClipboardEvent) => {
+    const file = Array.from(e.clipboardData?.files || []).find(file => file.type.startsWith('image/'));
+    if (file) {
+      e.preventDefault();
+      ctrl.loadFromImage(file);
+    }
+  };
+  document.addEventListener('paste', pasteListener);
+
   return {
     getFen: ctrl.getFen.bind(ctrl),
     setFen: fen => ctrl.setFen(fen),
     setOrientation: ctrl.setOrientation.bind(ctrl),
     setVariant: ctrl.setVariant.bind(ctrl),
+    close: () => document.removeEventListener('paste', pasteListener),
   };
 }

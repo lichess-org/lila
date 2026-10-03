@@ -1,4 +1,4 @@
-.dialog-content {
+#main-wrap .dialog-content {
   min-width: 80vw;
 
   @media (min-width: at-least($x-small)) {
@@ -106,5 +106,9 @@
         font-size: 1.3em;
       }
     }
+  }
+
+  cg-resize {
+    display: none;
   }
 }

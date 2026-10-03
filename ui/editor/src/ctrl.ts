@@ -443,6 +443,15 @@ export default class EditorCtrl implements CevalHandler {
     else this.setFen(fen);
   }
 
+  async loadFromImage(file: File): Promise<void> {
+    try {
+      const placement = await site.asset.loadEsm<FEN>('editor.vision', { init: { file } });
+      if (!this.setFen(`${placement} w - - 0 1`)) throw new Error("Oops! Couldn't figure it out");
+    } catch (error) {
+      alert(String(error));
+    }
+  }
+
   private readonly setSetup = (setup: Setup): void => {
     this.pockets = setup.pockets;
     this.turn = setup.turn;
