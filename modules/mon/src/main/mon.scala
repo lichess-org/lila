@@ -197,6 +197,9 @@ object tutor:
   val fishnetMissing = histogram("tutor.fishnet.missing").withoutTags()
   private def askAs(as: "mine" | "peer")(question: String, perf: PerfKey | "all") =
     future("tutor.insight.ask", tags("question" -> question, "perf" -> perf, "as" -> as))
+object anySearch:
+  def time(found: Boolean, auth: Boolean) =
+    timer("anySearch.time").withTags(tags("found" -> found, "auth" -> auth))
 object search:
   def time(op: "search" | "count", index: String, success: Boolean) =
     timer("search.client.time").withTags:

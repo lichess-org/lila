@@ -1,7 +1,11 @@
 package lila.api
 
 import alleycats.Zero
+import play.api.mvc.RequestHeader
+
 import lila.core.id.*
+import lila.common.HTTPRequest
+import lila.mon.extensions.*
 
 final class AnySearch(
     gameEnv: lila.game.Env,
@@ -12,13 +16,18 @@ final class AnySearch(
     swissEnv: lila.swiss.Env,
     ublogApi: lila.ublog.UblogApi,
     teamEnv: lila.team.Env,
-    fideEnv: lila.fide.Env
+    fideEnv: lila.fide.Env,
+    baseUrl: lila.core.config.BaseUrl
 )(using Executor):
 
   private val idRegex = """^[a-zA-Z0-9]{4,12}$""".r
 
-  def redirect(str: String): Fu[Option[String]] =
-    str.trim.some
+  private def sameReferrer(req: RequestHeader): Boolean =
+    HTTPRequest.referer(req).exists(_.startsWith(baseUrl.value))
+
+  def redirect(str: String)(using ctx: Context): Fu[Option[String]] =
+    (ctx.isAuth || sameReferrer(ctx.req))
+      .option(str.trim)
       .filter(idRegex.matches)
       .so: id =>
         val idLike = str.forall(_.isLetterOrDigit)
@@ -60,3 +69,4 @@ final class AnySearch(
           .orElse(ublog)
           .orElse(team)
           .orElse(fideplayer)
+      .monValue(res => lila.mon.anySearch.time(res.isDefined, ctx.isAuth))
