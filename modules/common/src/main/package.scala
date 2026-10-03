@@ -24,4 +24,4 @@ object Cli:
     Bus.sub[CliCommand]:
       case c if f.isDefinedAt(c.args) =>
         if Granter(perm)(using c.me) then c.promise.success(LazyFu(() => f(c.args)))
-        else c.promise.success(LazyFu.sync(s"Unauthorized: requires ${perm(Permission)}"))
+        else c.promise.success(LazyFu(() => fufail(s"Unauthorized: requires ${perm(Permission)}")))
