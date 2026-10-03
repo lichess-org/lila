@@ -1,6 +1,10 @@
 import { Chart, type ChartDataset, type ChartOptions } from 'chart.js';
 
 import { currentTheme } from 'lib/device';
+import { plyOpponentColor } from 'lib/game';
+import type { TreeNodeBase } from 'lib/tree/types';
+
+import type { AnalyseData } from './interface';
 
 export interface MovePoint {
   y: number;
@@ -106,3 +110,22 @@ export const colorSeries: string[] = [
   '#7798BF',
   '#aaeeee',
 ];
+
+type Advice = 'blunder' | 'mistake' | 'inaccuracy';
+export const glyphProperties = (node: TreeNodeBase): { advice?: Advice; color?: string } => {
+  if (node?.glyphs?.some(g => g.id === 4)) return { advice: 'blunder', color: '#db3031' };
+  else if (node?.glyphs?.some(g => g.id === 2)) return { advice: 'mistake', color: '#e69d00' };
+  else if (node?.glyphs?.some(g => g.id === 6)) return { advice: 'inaccuracy', color: '#4da3d5' };
+  else return { advice: undefined, color: undefined };
+};
+
+export const nodesWithGlyphByColor = (
+  mainline: TreeNodeBase[],
+  symbol: string,
+  color: Color,
+): TreeNodeBase[] =>
+  mainline.filter(
+    node => node?.glyphs?.some(glyph => glyph.symbol === symbol) && plyOpponentColor(node.ply) === color,
+  );
+
+export const analysisIsPartial = (d: AnalyseData): boolean => !d.analysis || !!d.analysis.partial;
