@@ -4,6 +4,7 @@ import alleycats.Zero
 import play.api.mvc.RequestHeader
 
 import lila.core.id.*
+import lila.core.security.IsProxy
 import lila.common.HTTPRequest
 import lila.mon.extensions.*
 
@@ -25,8 +26,8 @@ final class AnySearch(
   private def sameReferrer(req: RequestHeader): Boolean =
     HTTPRequest.referer(req).exists(_.startsWith(baseUrl.value))
 
-  def redirect(str: String)(using ctx: Context): Fu[Option[String]] =
-    (ctx.isAuth || sameReferrer(ctx.req))
+  def redirect(str: String, proxy: Option[IsProxy])(using ctx: Context): Fu[Option[String]] =
+    (ctx.isAuth || (!proxy.exists(_.couldBeEnum) && sameReferrer(ctx.req)))
       .option(str.trim)
       .filter(idRegex.matches)
       .so: id =>

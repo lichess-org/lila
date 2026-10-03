@@ -63,11 +63,12 @@ final class User(
     env.security.ipTrust.rateLimit(3_000, 1.day, "user.show.html.ip", _.antiScraping(dch = 10, others = 4))
 
   def show(username: UserStr) = OpenBody:
-    EnabledUser(username): u =>
-      negotiate(
-        renderShow(u),
-        gamesForLichobile(u, GameFilter.all.name, 1)
-      )
+    WithProxy: proxy ?=>
+      EnabledUser(username, proxy.some): u =>
+        negotiate(
+          renderShow(u),
+          gamesForLichobile(u, GameFilter.all.name, 1)
+        )
 
   def search(term: String) = Open: _ ?=>
     UserStr.read(term) match
@@ -78,34 +79,36 @@ final class User(
   private def isRestricted(using ctx: Context, proxy: IsProxy) =
     ctx.isAnon && (HTTPRequest.noReferer(ctx.req) || proxy.couldBeEnum)
 
-  private def renderShow(u: UserModel, status: Results.Status = Results.Ok)(using Context): Fu[Result] =
-    WithProxy: proxy ?=>
-      limit.enumeration.userProfile(rateLimited):
-        val showActivityAndGames = isRestricted.not && !UserId.isOfficial(u.id)
-        def fetchActivity = showActivityAndGames.so(env.activity.read.recentAndPreload(u))
-        if HTTPRequest.isSynchronousHttp(ctx.req)
-        then
-          val cost =
-            if isGrantedOpt(_.UserModView) then 0
-            else if env.socket.isOnline.exec(u.id) then 1
-            else 2
-          userShowHtmlRateLimit(rateLimited, cost = cost):
-            for
-              as <- fetchActivity
-              nbs <- showActivityAndGames.not.so(env.userNbGames(u, withCrosstable = false))
-              info <- env.userInfo.fetch(u, nbs, isRestricted)
-              _ <- env.userInfo.preloadTeams(info)
-              social <- env.socialInfo(u)
-              page <- renderPage:
-                lila.mon.chronoSync(lila.mon.user.segment("renderSync")):
-                  views.user.show.page.activity(as, info, social)
-            yield status(page).withCanonical(routes.User.show(u.username))
-        else
+  private def renderShow(u: UserModel, status: Results.Status = Results.Ok)(using
+      Context,
+      IsProxy
+  ): Fu[Result] =
+    limit.enumeration.userProfile(rateLimited):
+      val showActivityAndGames = isRestricted.not && !UserId.isOfficial(u.id)
+      def fetchActivity = showActivityAndGames.so(env.activity.read.recentAndPreload(u))
+      if HTTPRequest.isSynchronousHttp(ctx.req)
+      then
+        val cost =
+          if isGrantedOpt(_.UserModView) then 0
+          else if env.socket.isOnline.exec(u.id) then 1
+          else 2
+        userShowHtmlRateLimit(rateLimited, cost = cost):
           for
-            withPerfs <- env.user.perfsRepo.withPerfs(u)
             as <- fetchActivity
-            snip = lila.ui.Snippet(views.activity(withPerfs, as))
-          yield status(snip)
+            nbs <- showActivityAndGames.not.so(env.userNbGames(u, withCrosstable = false))
+            info <- env.userInfo.fetch(u, nbs, isRestricted)
+            _ <- env.userInfo.preloadTeams(info)
+            social <- env.socialInfo(u)
+            page <- renderPage:
+              lila.mon.chronoSync(lila.mon.user.segment("renderSync")):
+                views.user.show.page.activity(as, info, social)
+          yield status(page).withCanonical(routes.User.show(u.username))
+      else
+        for
+          withPerfs <- env.user.perfsRepo.withPerfs(u)
+          as <- fetchActivity
+          snip = lila.ui.Snippet(views.activity(withPerfs, as))
+        yield status(snip)
 
   def download(username: UserStr) = AuthBody { _ ?=> _ ?=>
     val user =
@@ -151,7 +154,9 @@ final class User(
                   json = gamesForLichobile(u, filter, page)
                 )
 
-  private def EnabledUser(username: UserStr)(f: UserModel => Fu[Result])(using ctx: Context): Fu[Result] =
+  private def EnabledUser(username: UserStr, proxy: Option[IsProxy] = none)(
+      f: UserModel => Fu[Result]
+  )(using ctx: Context): Fu[Result] =
     if username.id.isGhost
     then
       negotiate(
@@ -166,7 +171,7 @@ final class User(
       meOrFetch(username).flatMap:
         case None =>
           env.api.anySearch
-            .redirect(username.value)
+            .redirect(username.value, proxy)
             .flatMap:
               case Some(url) => Redirect(url).toFuccess
               case None if isGrantedOpt(_.AccountInfo) => ctx.useMe(modC.searchTerm(username.value))
