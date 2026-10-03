@@ -131,7 +131,7 @@ object UserInfo:
         showRatings
           .so(ratingChartApi(user, computeIfNeeded = ctx.isAuth))
           .mon(lila.mon.user.segment("ratingChart")),
-        (!user.is(UserId.lichess) && !user.isBot).so:
+        (full && user.isnt(UserId.lichess) && !user.isBot).so:
           postApi.nbByUser(user.id).mon(lila.mon.user.segment("nbForumPosts"))
         ,
         (withBlog && full).so(ublogApi.userBlogPreviewFor(user, 3)),
