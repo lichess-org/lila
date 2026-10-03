@@ -24,6 +24,10 @@
         font-size: 2.5em;
         color: $c-brag;
         font-weight: bold;
+
+        @media (max-width: at-most($xx-small)) {
+          display: none;
+        }
       }
     }
 
@@ -104,6 +108,17 @@
       icon {
         font-size: 2.5em;
         color: $c-brag;
+      }
+    }
+
+    @media (max-width: at-most($xx-small)) {
+      td.icon,
+      td:last-child {
+        display: none;
+      }
+
+      td.infos {
+        padding-inline-start: 0;
       }
     }
   }
