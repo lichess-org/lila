@@ -58,11 +58,6 @@ import { showInfo as tourOverview } from '../study/relay/relayTourView';
 import renderClocks from '../view/clocks';
 import { renderResult, viewContext, type RelayViewContext } from '../view/components';
 
-/** Minimal ctrl shape needed to build the help string. */
-export interface BoardHelpCtrl {
-  data: { game: { variant: { key: string } } };
-}
-
 export function initNvui(ctx: AnalyseNvuiContext): void {
   const { ctrl, notify } = ctx;
   pubsub.on('analysis.server.progress', (data: AnalyseData) => {
@@ -306,8 +301,8 @@ export function buildInputHelpString(ctrl: any): string {
  * content from those nodes and normalise whitespace so the result reads as a
  * continuous, screenreader-friendly sentence list.
  */
-export function buildBoardHelpString(ctrl: BoardHelpCtrl): string {
-  const isCrazyhouse = ctrl.data.game.variant.key === 'crazyhouse';
+export function buildBoardHelpString(variant: VariantKey): string {
+  const isCrazyhouse = variant === 'crazyhouse';
   const nodes = boardCommands(isCrazyhouse);
 
   // Collect every text fragment from the VNode tree.
@@ -383,7 +378,7 @@ export function boardEventsHook(
     else if (e.key.toLowerCase() === 'v') notify.set(renderEvalAndDepth(ctrl));
     else if (e.shiftKey && e.key === 'H') {
       e.preventDefault();
-      notify.set(buildBoardHelpString(ctrl));
+      notify.set(buildBoardHelpString(ctrl.data.game.variant.key));
     } else if (e.key === 'G') {
       // Play the best move for the current position, if available.
       // Also annouce it in the notify area so screen reader users are aware of the change.
