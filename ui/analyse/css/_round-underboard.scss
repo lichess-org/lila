@@ -132,11 +132,15 @@ $col2-panel-height: 240px;
 }
 
 .game-duration {
+  @extend %box-neat;
+
   position: absolute;
-  bottom: 0;
-  right: 1.5em;
+  bottom: 1ch;
+  right: 1ch;
+  padding: 0.1em 0.6em;
+  background: $c-bg-box;
   pointer-events: none;
-  font-family: Roboto, sans-serif;
+  font-size: 0.9em;
 }
 
 .gif-export-dialog {
