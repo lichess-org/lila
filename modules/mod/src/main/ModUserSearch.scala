@@ -29,14 +29,14 @@ final class ModUserSearch(userRepo: UserRepo, userApi: UserApi, jsonView: JsonVi
     lameNameMatch = userName.so(lila.user.LameName.explain)
   )
 
-  def apiSearch(regex: String, closed: Boolean = false): Fu[JsObject] =
+  def apiSearch(regex: String, closed: Boolean = false)(using Option[Me]): Fu[JsObject] =
     for
       ids <- userRepo.idLikeCanBeVeryExpensive(regex.toLowerCase, closed)
       withPerfs <- userApi.withPerfsAndEmails(ids)
       jsons = withPerfs.map(userJson)
     yield Json.obj("users" -> jsons)
 
-  private def userJson(u: WithPerfsAndEmails): JsObject =
+  private def userJson(u: WithPerfsAndEmails)(using Option[Me]): JsObject =
     import lila.common.Json.given
     import JsonView.given
     given Writes[Emails] = Json.writes

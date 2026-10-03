@@ -186,11 +186,7 @@ final private class ChapterMaker(
         )
       }
 
-  def makeRoot(
-      game: Game,
-      pgnOpt: Option[PgnStr],
-      initialFen: Option[Fen.Full]
-  ): Fu[Root] =
+  def makeRoot(game: Game, pgnOpt: Option[PgnStr], initialFen: Option[Fen.Full]): Fu[Root] =
     initialFen
       .fold(gameRepo.initialFen(game)): fen =>
         fuccess(fen.some)

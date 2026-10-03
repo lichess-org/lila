@@ -38,6 +38,7 @@ final class JsonView(
       user: GameUser,
       withFlags: ExportOptions
   ): JsObject =
+    import withFlags.me
     Json
       .obj("color" -> p.color.name)
       .add("user" -> user.match
@@ -139,6 +140,7 @@ final class JsonView(
       user: GameUser,
       withFlags: ExportOptions
   ): JsObject =
+    import withFlags.me
     Json
       .obj(
         "color" -> p.color.name,
