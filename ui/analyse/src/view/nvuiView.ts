@@ -34,6 +34,7 @@ import {
 } from 'lib/nvui/chess';
 import { commands, boardCommands, addBreaks, ARROW_KEYS_MULTIJUMP } from 'lib/nvui/command';
 import { scanDirectionsHandler } from 'lib/nvui/directionScan';
+import { extractText } from 'lib/nvui/helpText';
 import { liveText } from 'lib/nvui/notify';
 import { renderAdvancedSettings } from 'lib/nvui/renderAdvancedSettings';
 import { selectSound, borderSound, errorSound } from 'lib/nvui/sound';
@@ -262,27 +263,7 @@ function renderTouchDeviceCommands(ctx: AnalyseNvuiContext): LooseVNodes {
   ];
 }
 
-/**
- * Recursively extract every text node from a snabbdom VNode tree,
- * joining them with a single space.
- */
-function extractText(node: VNodeChildren | VNodeChildren[]): string {
-  if (node === null || node === undefined) return '';
-  if (typeof node === 'string' || typeof node === 'number') return String(node);
-  if (Array.isArray(node))
-    return node
-      .map(extractText)
-      .join(' ')
-      .replace(/\s{2,}/g, ' ')
-      .trim();
-  // VNode
-  const vnode = node as VNode;
-  if (vnode.text !== undefined) return vnode.text;
-  if (vnode.children) return extractText(vnode.children);
-  return '';
-}
-
-export function buildInputHelpString(ctrl: any): string {
+function buildInputHelpString(ctrl: any): string {
   const cmds = inputCommands
     .filter(c => !c.invalid?.(ctrl))
     .map(c => {
@@ -301,7 +282,7 @@ export function buildInputHelpString(ctrl: any): string {
  * content from those nodes and normalise whitespace so the result reads as a
  * continuous, screenreader-friendly sentence list.
  */
-export function buildBoardHelpString(variant: VariantKey): string {
+function buildBoardHelpString(variant: VariantKey): string {
   const isCrazyhouse = variant === 'crazyhouse';
   const nodes = boardCommands(isCrazyhouse);
 

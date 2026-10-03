@@ -9,6 +9,7 @@ import { perfName } from 'lib/game/perf';
 import * as nv from 'lib/nvui/chess';
 import { commands, ARROW_KEYS_MULTIJUMP, boardCommands } from 'lib/nvui/command';
 import { scanDirectionsHandler } from 'lib/nvui/directionScan';
+import { extractText } from 'lib/nvui/helpText';
 import { renderAdvancedSettings } from 'lib/nvui/renderAdvancedSettings';
 import { type LooseVNodes, type VNode, bind, hl, onInsert } from 'lib/view';
 import { profileUrl } from 'lib/view/userLink';
@@ -283,22 +284,7 @@ function flipBoard(ctx: RoundNvuiContext): void {
   }
 }
 
-// Add helper functions at file level for extraction and help text
-function extractText(node: any): string {
-  if (node === null || node === undefined) return '';
-  if (typeof node === 'string' || typeof node === 'number') return String(node);
-  if (Array.isArray(node))
-    return node
-      .map(extractText)
-      .join(' ')
-      .replace(/\s{2,}/g, ' ')
-      .trim();
-  if (node.text !== undefined) return node.text;
-  if (node.children) return extractText(node.children);
-  return '';
-}
-
-export function buildInputHelpString(ctrl: any): string {
+function buildInputHelpString(ctrl: any): string {
   const cmds = inputCommands
     .filter(c => !c.invalid?.(ctrl))
     .map(c => {
@@ -309,7 +295,7 @@ export function buildInputHelpString(ctrl: any): string {
   return [cmds].join('. ');
 }
 
-export function buildBoardHelpString(ctrl: any): string {
+function buildBoardHelpString(ctrl: any): string {
   const isCrazyhouse = ctrl.data.game.variant.key === 'crazyhouse';
   const nodes = boardCommands(isCrazyhouse);
   const raw = nodes.map(extractText).join(' ');
