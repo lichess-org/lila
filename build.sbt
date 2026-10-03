@@ -10,6 +10,11 @@ import Dependencies.*
 // rather than wiring up packaging we don't ship.
 Global / lintUnusedKeysOnLoad := false
 
+// Remote cache using BuildBuddy.io
+val buildBuddyToken = sys.env.get("BUILD_BUDDY_TOKEN").filter(_.nonEmpty)
+Global / remoteCache := buildBuddyToken.map(_ => uri("grpcs://lichess.buildbuddy.io"))
+Global / remoteCacheHeaders ++= buildBuddyToken.map(t => s"x-buildbuddy-api-key=$t").toSeq
+
 lazy val root = Project("lila", file("."))
   .enablePlugins(JavaServerAppPackaging, RoutesCompiler)
   .dependsOn(api)
