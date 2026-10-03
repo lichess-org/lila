@@ -65,12 +65,14 @@ object UserInfo:
       ).mapN(Social.apply)
 
     def messageable(userId: UserId)(using me: Me): Fu[Boolean] =
-      prefApi
-        .getMessage(userId)
-        .flatMap:
-          case lila.core.pref.Message.NEVER => fuccess(false)
-          case lila.core.pref.Message.FRIEND => relationApi.fetchFollows(userId, me.userId)
-          case lila.core.pref.Message.ALWAYS => fuccess(true)
+      if Granter(_.PublicMod) then fuTrue
+      else
+        prefApi
+          .getMessage(userId)
+          .flatMap:
+            case lila.core.pref.Message.NEVER => fuccess(false)
+            case lila.core.pref.Message.FRIEND => relationApi.fetchFollows(userId, me.userId)
+            case lila.core.pref.Message.ALWAYS => fuccess(true)
 
   case class NbGames(
       crosstable: Option[Crosstable.WithMatchup],
