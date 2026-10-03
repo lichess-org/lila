@@ -34,7 +34,7 @@ import {
 } from 'lib/nvui/chess';
 import { commands, boardCommands, addBreaks, ARROW_KEYS_MULTIJUMP } from 'lib/nvui/command';
 import { scanDirectionsHandler } from 'lib/nvui/directionScan';
-import { extractText } from 'lib/nvui/helpText';
+import { buildBoardHelpString, buildInputHelpString } from 'lib/nvui/helpText';
 import { liveText } from 'lib/nvui/notify';
 import { renderAdvancedSettings } from 'lib/nvui/renderAdvancedSettings';
 import { selectSound, borderSound, errorSound } from 'lib/nvui/sound';
@@ -263,36 +263,6 @@ function renderTouchDeviceCommands(ctx: AnalyseNvuiContext): LooseVNodes {
   ];
 }
 
-function buildInputHelpString(ctrl: any): string {
-  const cmds = inputCommands
-    .filter(c => !c.invalid?.(ctrl))
-    .map(c => {
-      const help = typeof c.help === 'string' ? c.help : extractText(c.help);
-      return `${c.cmd}: ${help}`;
-    });
-
-  return [cmds].join('. ');
-}
-
-/**
- * Build a plain-text help string from the `boardCommands()` VNode list.
- *
- * `boardCommands()` returns an array of VNodes (an <h2> heading and a <p>
- * containing the shortcut lines separated by <br>).  We extract all text
- * content from those nodes and normalise whitespace so the result reads as a
- * continuous, screenreader-friendly sentence list.
- */
-function buildBoardHelpString(variant: VariantKey): string {
-  const isCrazyhouse = variant === 'crazyhouse';
-  const nodes = boardCommands(isCrazyhouse);
-
-  // Collect every text fragment from the VNode tree.
-  const raw = nodes.map(extractText).join(' ');
-
-  // Collapse repeated whitespace that can appear around <br> boundaries.
-  return raw.replace(/\s{2,}/g, ' ').trim();
-}
-
 export function boardEventsHook(
   { ctrl, pieceStyle, prefixStyle, moveStyle, notify }: AnalyseNvuiContext,
   el: HTMLElement,
@@ -315,6 +285,7 @@ export function boardEventsHook(
     selectionHandler(() => plyOpponentColor(ctrl.node.ply)),
   );
   $buttons.on('keydown', (e: KeyboardEvent) => {
+    const isZh = ctrl.data.game.variant.key === 'crazyhouse';
     if (e.shiftKey && e.key.match(/^[ad]$/i)) jumpMoveOrLine(ctrl)(e);
     else if (/^x$/i.test(e.key))
       scanDirectionsHandler(ctrl.bottomColor(), ctrl.chessground.state.pieces, moveStyle.get())(e);
@@ -350,7 +321,7 @@ export function boardEventsHook(
         setTimeout(() => ctrl.flip(), 1000);
       }
     } else if (/^Digit([1-8])$/.test(e.code)) positionJumpHandler()(e);
-    else if ((e.key === '9' || e.key === '0') && ctrl.data.game.variant.key === 'crazyhouse') {
+    else if ((e.key === '9' || e.key === '0') && isZh) {
       announceCrazyHousePocket(ctrl, notify, e.key === '9' ? 0 : 1);
       e.preventDefault();
     } else if (/^[kqrbnp]$/i.test(e.key)) pieceJumpingHandler(selectSound, errorSound)(e);
@@ -359,7 +330,7 @@ export function boardEventsHook(
     else if (e.key.toLowerCase() === 'v') notify.set(renderEvalAndDepth(ctrl));
     else if (e.shiftKey && e.key === 'H') {
       e.preventDefault();
-      notify.set(buildBoardHelpString(ctrl.data.game.variant.key));
+      notify.set(buildBoardHelpString(boardCommands(isZh)));
     } else if (e.key === 'G') {
       // Play the best move for the current position, if available.
       // Also annouce it in the notify area so screen reader users are aware of the change.
@@ -557,7 +528,7 @@ const inputCommands: InputCommand[] = [
   {
     cmd: 'help',
     help: noTrans('list all available input commands'),
-    cb: ({ ctrl, notify }) => notify.set(buildInputHelpString(ctrl)),
+    cb: ({ ctrl, notify }) => notify.set(buildInputHelpString(inputCommands.filter(c => !c.invalid?.(ctrl)))),
   },
 ];
 

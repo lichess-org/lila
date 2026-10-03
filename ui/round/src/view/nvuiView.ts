@@ -9,7 +9,7 @@ import { perfName } from 'lib/game/perf';
 import * as nv from 'lib/nvui/chess';
 import { commands, ARROW_KEYS_MULTIJUMP, boardCommands } from 'lib/nvui/command';
 import { scanDirectionsHandler } from 'lib/nvui/directionScan';
-import { extractText } from 'lib/nvui/helpText';
+import { buildBoardHelpString, buildInputHelpString } from 'lib/nvui/helpText';
 import { renderAdvancedSettings } from 'lib/nvui/renderAdvancedSettings';
 import { type LooseVNodes, type VNode, bind, hl, onInsert } from 'lib/view';
 import { profileUrl } from 'lib/view/userLink';
@@ -284,24 +284,6 @@ function flipBoard(ctx: RoundNvuiContext): void {
   }
 }
 
-function buildInputHelpString(ctrl: any): string {
-  const cmds = inputCommands
-    .filter(c => !c.invalid?.(ctrl))
-    .map(c => {
-      const help = typeof c.help === 'string' ? c.help : extractText(c.help);
-      return `${c.cmd}: ${help}`;
-    });
-
-  return [cmds].join('. ');
-}
-
-function buildBoardHelpString(ctrl: any): string {
-  const isCrazyhouse = ctrl.data.game.variant.key === 'crazyhouse';
-  const nodes = boardCommands(isCrazyhouse);
-  const raw = nodes.map(extractText).join(' ');
-  return raw.replace(/\s{2,}/g, ' ').trim();
-}
-
 function boardEventsHook(ctx: RoundNvuiContext, el: HTMLElement): void {
   const { ctrl, prefixStyle, pieceStyle, moveStyle, notify } = ctx;
 
@@ -324,11 +306,12 @@ function boardEventsHook(ctx: RoundNvuiContext, el: HTMLElement): void {
   });
 
   $board.on('keydown.nvui', 'button', (e: KeyboardEvent) => {
+    const isZh = ctrl.data.game.variant.key === 'crazyhouse';
     if (e.shiftKey && e.key.match(/^[ad]$/i)) nextOrPrev(ctrl)(e);
     else if (e.shiftKey && e.key === 'H') {
       e.preventDefault();
-      notify.set(buildBoardHelpString(ctrl));
-    } else if ((e.key === '9' || e.key === '0') && ctrl.data.game.variant.key === 'crazyhouse') {
+      notify.set(buildBoardHelpString(boardCommands(isZh)));
+    } else if ((e.key === '9' || e.key === '0') && isZh) {
       e.preventDefault();
       const step = plyStep(ctrl.data, ctrl.ply);
       const pockets = step.crazy?.pockets;
@@ -549,7 +532,7 @@ const inputCommands: InputCommand[] = [
   {
     cmd: 'help',
     help: 'list all available input commands',
-    cb: (notify, ctrl) => notify(buildInputHelpString(ctrl)),
+    cb: (notify, ctrl) => notify(buildInputHelpString(inputCommands.filter(c => !c.invalid?.(ctrl)))),
     alt: 'h',
   },
 ];
