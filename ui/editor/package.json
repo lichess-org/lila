@@ -10,9 +10,8 @@
   "build": {
     "bundle": "src/editor*.ts",
     "sync": {
-      "node_modules/onnxruntime-web/dist/ort.{wasm,webgpu}.min.mjs": "/public/npm/onnxruntime-web",
-      "node_modules/onnxruntime-web/dist/ort-wasm-simd-threaded.{mjs,wasm}": "/public/npm/onnxruntime-web",
-      "node_modules/onnxruntime-web/dist/ort-wasm-simd-threaded.asyncify.{mjs,wasm}": "/public/npm/onnxruntime-web"
+      "node_modules/onnxruntime-web/dist/ort.wasm.min.mjs": "/public/npm/onnxruntime-web",
+      "node_modules/onnxruntime-web/dist/ort-wasm-simd-threaded.{mjs,wasm}": "/public/npm/onnxruntime-web"
     },
     "hash": [
       "/public/npm/onnxruntime-web/*"
