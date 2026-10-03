@@ -7,7 +7,7 @@ import { parseSquare, makeSquare } from 'chessops/util';
 import type { On } from 'snabbdom';
 
 import { view as cevalView } from 'lib/ceval';
-import { displayColumns, isTouchDevice } from 'lib/device';
+import { displayColumns, isTouchDevice, hasFeature } from 'lib/device';
 import { fenToEpd } from 'lib/game/chess';
 import { variants } from 'lib/game/perf';
 import { licon, type LiconValue } from 'lib/licon';
@@ -264,7 +264,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
       ? [
           div('.actions', [
             chess960PositionIdSelector,
-            cameraButton(ctrl),
+            fromImageButton(ctrl),
             controlsButtonStart(ctrl),
             controlsButtonClear(ctrl),
           ]),
@@ -287,7 +287,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
           ]),
           chess960PositionIdSelector,
           div('.actions', [
-            cameraButton(ctrl, licon.Eye),
+            fromImageButton(ctrl, licon.Eye),
             controlsButtonStart(ctrl, licon.Reload),
             controlsButtonClear(ctrl, licon.Trash),
             button(
@@ -530,7 +530,8 @@ const imageDropEvents = (ctrl: EditorCtrl): On => ({
   },
 });
 
-function cameraButton(ctrl: EditorCtrl, icon?: LiconValue): VNode {
+function fromImageButton(ctrl: EditorCtrl, icon?: LiconValue): MaybeVNode {
+  if (!hasFeature('simd') || !hasFeature('dynamicImportFromWorker')) return null;
   return button(
     '.button.button-empty',
     {
@@ -545,6 +546,7 @@ function cameraButton(ctrl: EditorCtrl, icon?: LiconValue): VNode {
             input.type = 'file';
             input.accept = 'image/*';
             input.addEventListener('change', () => resolve(input.files?.[0]), { once: true });
+            input.addEventListener('cancel', () => resolve(undefined), { once: true });
             input.click();
           });
           if (!file) return;
@@ -557,6 +559,6 @@ function cameraButton(ctrl: EditorCtrl, icon?: LiconValue): VNode {
         },
       },
     },
-    'Guess position from image',
+    'From image',
   );
 }
