@@ -246,7 +246,8 @@ enum Permission(val key: String, val alsoGrants: List[Permission], val name: Str
           BroadcastTimeout,
           ApiChallengeAdmin,
           Feed,
-          Settings
+          Settings,
+          NotifyMany
         ),
         "Admin"
       )
