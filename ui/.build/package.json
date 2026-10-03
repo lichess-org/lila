@@ -16,7 +16,7 @@
     "lightningcss": "^1.33.0",
     "micromatch": "4.0.8",
     "picocolors": "^1.1.1",
-    "sasso": "^0.19.3",
+    "sasso": "^0.21.0",
     "typescript": "7.0.2"
   },
   "scripts": {
