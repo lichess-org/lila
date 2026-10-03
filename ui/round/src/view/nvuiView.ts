@@ -10,7 +10,7 @@ import * as nv from 'lib/nvui/chess';
 import { commands, ARROW_KEYS_MULTIJUMP, boardCommands } from 'lib/nvui/command';
 import { scanDirectionsHandler } from 'lib/nvui/directionScan';
 import { renderAdvancedSettings } from 'lib/nvui/renderAdvancedSettings';
-import { type LooseVNodes, type VNode, bind, hl, onInsert, type VNodeChildren } from 'lib/view';
+import { type LooseVNodes, type VNode, bind, hl, onInsert } from 'lib/view';
 import { profileUrl } from 'lib/view/userLink';
 
 import renderCorresClock from '../corresClock/corresClockView';
@@ -302,7 +302,7 @@ export function buildInputHelpString(ctrl: any): string {
   const cmds = inputCommands
     .filter(c => !c.invalid?.(ctrl))
     .map(c => {
-      const help = typeof c.help === 'string' ? c.help : extractText(c.help as VNodeChildren);
+      const help = typeof c.help === 'string' ? c.help : extractText(c.help);
       return `${c.cmd}: ${help}`;
     });
 
@@ -312,7 +312,7 @@ export function buildInputHelpString(ctrl: any): string {
 export function buildBoardHelpString(ctrl: any): string {
   const isCrazyhouse = ctrl.data.game.variant.key === 'crazyhouse';
   const nodes = boardCommands(isCrazyhouse);
-  const raw = nodes.map(n => extractText(n)).join(' ');
+  const raw = nodes.map(extractText).join(' ');
   return raw.replace(/\s{2,}/g, ' ').trim();
 }
 

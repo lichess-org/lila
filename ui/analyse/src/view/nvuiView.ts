@@ -283,7 +283,7 @@ function extractText(node: VNodeChildren | VNodeChildren[]): string {
   // VNode
   const vnode = node as VNode;
   if (vnode.text !== undefined) return vnode.text;
-  if (vnode.children) return extractText(vnode.children as VNodeChildren[]);
+  if (vnode.children) return extractText(vnode.children);
   return '';
 }
 
@@ -291,7 +291,7 @@ export function buildInputHelpString(ctrl: any): string {
   const cmds = inputCommands
     .filter(c => !c.invalid?.(ctrl))
     .map(c => {
-      const help = typeof c.help === 'string' ? c.help : extractText(c.help as VNodeChildren);
+      const help = typeof c.help === 'string' ? c.help : extractText(c.help);
       return `${c.cmd}: ${help}`;
     });
 
@@ -311,7 +311,7 @@ export function buildBoardHelpString(ctrl: BoardHelpCtrl): string {
   const nodes = boardCommands(isCrazyhouse);
 
   // Collect every text fragment from the VNode tree.
-  const raw = nodes.map(n => extractText(n as unknown as VNodeChildren)).join(' ');
+  const raw = nodes.map(extractText).join(' ');
 
   // Collapse repeated whitespace that can appear around <br> boundaries.
   return raw.replace(/\s{2,}/g, ' ').trim();
