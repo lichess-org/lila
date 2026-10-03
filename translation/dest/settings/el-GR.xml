@@ -7,4 +7,5 @@
   <string name="cancelKeepAccount">Ακύρωση και διατήρηση του λογαριασμού μου</string>
   <string name="closeAccountAreYouSure">Θέλετε σίγουρα να κλείσετε τον λογαριασμό σας;</string>
   <string name="thisAccountIsClosed">Αυτός ο λογαριασμός έχει κλείσει.</string>
+  <string name="closeYourAccount">κλείστε τον λογαριασμό σας</string>
 </resources>
