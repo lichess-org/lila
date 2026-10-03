@@ -28,9 +28,10 @@ case class UblogPost(
     likes: UblogPost.Likes,
     views: UblogPost.Views,
     quality: Quality = Quality.spam, // effective quality used for filtering and ordering
+    listedAt: Option[Instant] = none, // when effective quality first became good
     similar: Option[List[UblogSimilar]] = none,
     automod: Option[UblogAutomod.Assessment] = none,
-    modQuality: Option[Quality] = none
+    approval: UblogPost.Approval = UblogPost.Approval.unverified
 ) extends UblogPost.BasePost
     with lila.core.ublog.UblogPost:
 
@@ -40,7 +41,7 @@ case class UblogPost(
   def indexable = live && (
     topics.exists(UblogTopic.chessExists) || featured.isDefined || isBy(UserId.lichess)
   )
-  def visibleByCrawlers = indexable && automod.exists(_.quality != Quality.spam)
+  def visibleByCrawlers = indexable && quality != Quality.spam
   def allText = s"$title $intro $markdown"
   def isEmpty = title.isEmpty && intro.isEmpty && markdown.value.isEmpty && image.isEmpty
 
@@ -57,21 +58,29 @@ case class UblogPost(
     )
     copy(
       automod = assessment.some,
-      modQuality = d.quality.orElse(modQuality),
-      quality = d.quality | quality
+      quality = d.quality | quality,
+      approval = d.quality.fold(approval)(_ => UblogPost.Approval.verified)
     )
 
   def isPendingQuality =
-    modQuality.isEmpty && automod.exists(_.quality == Quality.good) && quality == Quality.weak
+    approval == UblogPost.Approval.unverified &&
+      automod.isDefined
 
   private[ublog] def computeEffectiveQuality(trustedAuthor: Boolean): UblogPost =
-    val q = modQuality | automod
+    automod
       .map(_.quality)
       .match
-        case None => if trustedAuthor then Quality.good else Quality.spam // shouldn't happen
-        case Some(Quality.good) => if trustedAuthor then Quality.good else Quality.weak
-        case Some(auto) => auto
-    copy(quality = q)
+        case Some(notGood) if notGood != Quality.good =>
+          copy(quality = notGood, approval = UblogPost.Approval.unverified)
+        case _ if approval != UblogPost.Approval.unverified => this
+        case Some(Quality.good) if trustedAuthor =>
+          copy(quality = Quality.good, approval = UblogPost.Approval.trusted)
+        case Some(Quality.good) =>
+          copy(quality = Quality.weak, approval = UblogPost.Approval.unverified)
+        case _ => copy(quality = if trustedAuthor then Quality.good else Quality.spam)
+
+  private[ublog] def refreshListedAt: UblogPost =
+    if listedAt.isEmpty && quality == Quality.good then copy(listedAt = nowInstant.some) else this
 
 case class UblogImage(id: ImageId, alt: Option[String] = None, credit: Option[String] = None)
 
@@ -103,6 +112,12 @@ object UblogPost:
       views = Views(0)
     )
 
+  enum Approval:
+    case unverified, trusted, verified
+    def key = toString
+  object Approval:
+    def apply(key: String) = values.find(_.key == key)
+
   def slug(title: String) =
     val s = scalalib.StringOps.slug(title)
     if s.isEmpty then "-" else s
@@ -120,6 +135,7 @@ object UblogPost:
     val created: Recorded
     val updated: Option[Recorded]
     val lived: Option[Recorded]
+    val listedAt: Option[Instant]
     val featured: Option[Featured]
     val sticky: Option[Boolean]
     def slug = UblogPost.slug(title)
@@ -134,6 +150,7 @@ object UblogPost:
       created: Recorded,
       updated: Option[Recorded],
       lived: Option[Recorded],
+      listedAt: Option[Instant],
       featured: Option[Featured],
       sticky: Option[Boolean],
       topics: List[UblogTopic]
