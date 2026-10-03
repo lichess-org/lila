@@ -4,6 +4,7 @@ import { COLORS } from 'chessops';
 import { lichessRules } from 'chessops/compat';
 import { parseFen } from 'chessops/fen';
 import { parseSquare, makeSquare } from 'chessops/util';
+import type { On } from 'snabbdom';
 
 import { view as cevalView } from 'lib/ceval';
 import { displayColumns, isTouchDevice } from 'lib/device';
@@ -499,39 +500,35 @@ export default function (ctrl: EditorCtrl): VNode {
   const state = ctrl.getState();
   const color = ctrl.bottomColor();
 
-  return div(
-    `.board-editor.board-editor--${ctrl.variant}`,
-    {
-      on: {
-        dragover(e: DragEvent) {
-          if (Array.from(e.dataTransfer?.items || []).some(item => item.type.startsWith('image/'))) {
-            e.preventDefault();
-            (e.currentTarget as HTMLElement).classList.add('image-dragover');
-          }
-        },
-        dragleave(e: DragEvent) {
-          if (!(e.currentTarget as HTMLElement).contains(e.relatedTarget as Node))
-            (e.currentTarget as HTMLElement).classList.remove('image-dragover');
-        },
-        drop(e: DragEvent) {
-          (e.currentTarget as HTMLElement).classList.remove('image-dragover');
-          const file = Array.from(e.dataTransfer?.files || []).find(file => file.type.startsWith('image/'));
-          if (file) {
-            e.preventDefault();
-            ctrl.loadFromImage(file);
-          }
-        },
-      },
-    },
-    [
-      sparePieces(ctrl, opposite(color), 'top'),
-      div('.main-board', { attrs: { style: `cursor: ${makeCursor(ctrl.selected())}` } }, chessground(ctrl)),
-      sparePieces(ctrl, color, 'bottom'),
-      controls(ctrl, state),
-      inputs(ctrl, state.legalFen || state.fen),
-    ],
-  );
+  return div(`.board-editor.board-editor--${ctrl.variant}`, { on: imageDropEvents(ctrl) }, [
+    sparePieces(ctrl, opposite(color), 'top'),
+    div('.main-board', { attrs: { style: `cursor: ${makeCursor(ctrl.selected())}` } }, chessground(ctrl)),
+    sparePieces(ctrl, color, 'bottom'),
+    controls(ctrl, state),
+    inputs(ctrl, state.legalFen || state.fen),
+  ]);
 }
+
+const imageDropEvents = (ctrl: EditorCtrl): On => ({
+  dragover(e: DragEvent) {
+    if (Array.from(e.dataTransfer?.items || []).some(item => item.type.startsWith('image/'))) {
+      e.preventDefault();
+      (e.currentTarget as HTMLElement).classList.add('image-dragover');
+    }
+  },
+  dragleave(e: DragEvent) {
+    if (!(e.currentTarget as HTMLElement).contains(e.relatedTarget as Node))
+      (e.currentTarget as HTMLElement).classList.remove('image-dragover');
+  },
+  drop(e: DragEvent) {
+    (e.currentTarget as HTMLElement).classList.remove('image-dragover');
+    const file = Array.from(e.dataTransfer?.files || []).find(file => file.type.startsWith('image/'));
+    if (file) {
+      e.preventDefault();
+      ctrl.loadFromImage(file);
+    }
+  },
+});
 
 function cameraButton(ctrl: EditorCtrl, icon?: LiconValue): VNode {
   return button(
@@ -560,6 +557,6 @@ function cameraButton(ctrl: EditorCtrl, icon?: LiconValue): VNode {
         },
       },
     },
-    'Camera',
+    'Guess position from image',
   );
 }
