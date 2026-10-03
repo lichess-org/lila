@@ -289,6 +289,7 @@ function transition(update: () => void) {
     root.style.removeProperty('---transition-clip');
   };
   const viewTransition = document.startViewTransition(update);
-  root.dataset.transitionCount = String(Number(root.dataset.transitionCount ?? 0) + 1);
-  viewTransition.finished.then(cleanup, cleanup);
+  root.dataset.transitionCount = String((Number(root.dataset.transitionCount) || 0) + 1);
+  viewTransition.ready.catch(() => {});
+  return viewTransition.finished.finally(cleanup);
 }
