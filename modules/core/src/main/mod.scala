@@ -22,6 +22,7 @@ trait ModApi:
 case class MarkCheater(userId: UserId, value: Boolean)
 case class MarkBooster(userId: UserId, value: Boolean)
 case class ChatTimeout(mod: UserId, user: UserId, reason: TimeoutReason, text: String)
+case class ForumTimeout(mod: UserId, user: UserId, hours: Int)
 case class Shadowban(userId: UserId, value: Boolean)
 case class RankBan(userId: UserId, value: Boolean)
 case class ArenaBan(userId: UserId, value: Boolean)

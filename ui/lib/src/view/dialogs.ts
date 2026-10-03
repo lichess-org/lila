@@ -113,19 +113,18 @@ export async function choose(
       $html`
       <div>${escapeHtmlAddBreaks(msg)}</div>
       <select ${initial ? 'value="' + initial + '"' : ''}>` +
-      options.map(
-        option => $html`
+      options
+        .map(
+          option => $html`
           <option value="${escapeHtml(option)}"${option === initial ? ' selected' : ''}>
             ${escapeHtml(option)}
           </option>`,
-      ) +
+        )
+        .join('') +
       $html`
       </select>
       <span>` +
-      (mustChoose
-        ? ''
-        : $html`
-        <button class="button button-empty cancel">${i18n.site.cancel}</button>`) +
+      (mustChoose ? '' : `<button class="button button-empty cancel">${i18n.site.cancel}</button>`) +
       $html`
         <button class="button ok">${i18n.site.ok}</button>
       </span>`,

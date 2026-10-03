@@ -12,6 +12,20 @@ object mod:
 
   import views.mod.user.*
 
+  def usermod(usermod: Option[lila.forum.Usermod]): Frag =
+    mzSection("usermod")(
+      strong(cls := "text inline")("Forum timeouts"),
+      usermod.fold[Frag]("No timeouts"): usermod =>
+        frag(
+          usermod.timeouts.lastOption
+            .filter(_.isAfterNow)
+            .fold[Frag]("No active timeout"): until =>
+              frag("Timed out until ", momentFromNow(until)),
+          usermod.timeouts.nonEmpty.option:
+            ul(usermod.timeouts.reverse.map(until => li(momentFromNow(until))))
+        )
+    )
+
   def student(managed: lila.clas.Student.ManagedInfo)(using Context): Frag =
     mzSection("student")(
       "Created by ",
