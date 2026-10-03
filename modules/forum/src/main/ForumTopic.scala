@@ -20,12 +20,13 @@ case class ForumTopic(
     closed: Boolean,
     sticky: Option[UserId],
     userId: Option[UserId] = None, // only since SB mutes
-    ublogId: Option[UblogPostId] = None
+    ublogId: Option[UblogPostId] = None,
+    feedItemId: Option[lila.feed.Feed.ID] = None
 ):
   def updatedAt(forUser: Option[User]): Instant =
     if forUser.exists(_.marks.troll) then updatedAtTroll else updatedAt
   def nbPosts(forUser: Option[User]): Int = if forUser.exists(_.marks.troll) then nbPostsTroll else nbPosts
-  def nbReplies(forUser: Option[User]): Int = nbPosts(forUser) - 1
+  def nbReplies(forUser: Option[User]): Int = nbPosts(forUser) - (if isFeed then 0 else 1)
   def lastPostId(forUser: Option[User]): ForumPostId =
     if forUser.exists(_.marks.troll) then lastPostIdTroll else lastPostId
 
@@ -36,6 +37,7 @@ case class ForumTopic(
   def isAuthor(user: User): Boolean = userId contains user.id
   def isUblog = ublogId.isDefined
   def isUblogAuthor(user: User) = isUblog && isAuthor(user)
+  def isFeed = feedItemId.isDefined
   def isTeam = ForumCateg.isTeamSlug(categId)
 
   def withPost(post: ForumPost): ForumTopic =
@@ -56,7 +58,7 @@ case class ForumTopic(
     else 1)
 
   def lastPage(maxPerPage: MaxPerPage): Int =
-    (nbPosts + maxPerPage.value - 1) / maxPerPage.value
+    (nbPosts + maxPerPage.value - ~(!isFeed).so(1)) / maxPerPage.value
 
 object ForumTopic:
 
@@ -75,7 +77,8 @@ object ForumTopic:
       name: String,
       userId: UserId,
       troll: Boolean = false,
-      ublogId: Option[UblogPostId] = None
+      ublogId: Option[UblogPostId] = None,
+      feedItemId: Option[lila.feed.Feed.ID] = None
   ): ForumTopic = ForumTopic(
     id = ForumTopicId(ThreadLocalRandom.nextString(idSize)),
     categId = categId,
@@ -92,5 +95,6 @@ object ForumTopic:
     userId = userId.some,
     closed = false,
     sticky = None,
-    ublogId = ublogId
+    ublogId = ublogId,
+    feedItemId = feedItemId
   )
