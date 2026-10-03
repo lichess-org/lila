@@ -58,6 +58,7 @@
   <string name="notifyStreamStart">Egy streamer műsort ad</string>
   <string name="notifyGameEvent">Levelező mérkőzés</string>
   <string name="notifyChallenge">Kihívás</string>
+  <string name="notifyBroadcasts">Közvetítések</string>
   <string name="notifyTimeAlarm">Hamarosan lejár az idő levelezős játszmában</string>
   <string name="notifyBell">Hangjelzés a Lichessen belül</string>
   <string name="notifyPush">Értesítés mobileszközön, amikor nem vagy fenn Lichessen</string>
@@ -66,4 +67,6 @@
   <string name="bellNotificationSound">Hangjelzés</string>
   <string name="blindfold" comment="As in Blindfold chess">Vakjátszma mód</string>
   <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">Mobil eszközökön a bal oldalon jelenjen meg</string>
+  <string name="boardSettings">Tábla</string>
+  <string name="analysisSettings">Elemzés beállításai</string>
 </resources>

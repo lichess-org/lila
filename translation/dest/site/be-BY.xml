@@ -887,7 +887,7 @@
   <string name="playVariationToCreateConditionalPremoves">Згуляйце варыянт, каб стварыць умоўныя ходы на апярэджанне</string>
   <string name="noConditionalPremoves">Хады на апярэджанне без умоў</string>
   <string name="playX">Згуляць %s</string>
-  <string name="challengeX">Выклікаў %s</string>
+  <string name="challengeX">Выклікаць %s</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">і захаваць %s паслядоўнасць</item>
     <item quantity="few">і захаваць %s паслядоўнасці</item>

@@ -164,7 +164,7 @@
   <string name="moveTimes">Tempo por movimento</string>
   <string name="flipBoard">Girar o tabuleiro</string>
   <string name="toggleLocalEngine">Alternar motor local</string>
-  <string name="engineSettings">Configurações do motor</string>
+  <string name="engineSettings">Configurações de engine</string>
   <string name="enginesFromStrongestToWeakest">Motores do mais forte ao mais fraco</string>
   <string name="illegalPosition">Posição ilegal</string>
   <string name="threefoldRepetition">Tripla repetição</string>
@@ -1059,4 +1059,5 @@ Deixe em branco para começar as partidas na posição inicial padrão.</string>
   <string name="boards">Tabuleiros</string>
   <string name="write">Escrever</string>
   <string name="preview">Pré-visualizar</string>
+  <string name="done">Feito</string>
 </resources>

@@ -41,6 +41,7 @@
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Διεκδικήστε ισοπαλία αυτόματα σε τριπλή επανάληψη</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Όταν απομένουν &lt; 30 δευτερόλεπτα</string>
   <string name="moveConfirmation">Επιβεβαίωση κίνησης</string>
+  <string name="multipleChoices">Πολλαπλές επιλογές. </string>
   <string name="explainCanThenBeTemporarilyDisabled">Μπορεί να απενεργοποιηθεί κατά τη διάρκεια μιας παρτίδας από το μενού της σκακιέρας</string>
   <string name="inCorrespondenceGames">Στις παρτίδες δι\' αλληλογραφίας</string>
   <string name="correspondenceAndUnlimited">Δι\' αλληλογραφίας και απεριορίστου χρόνου</string>
@@ -89,4 +90,5 @@
   <string name="analysisSettings">Ρυθμίσεις ανάλυσης</string>
   <string name="maneuverArrowsHelp">Ακολουθία κινήσεων μηχανής για το κομμάτι</string>
   <string name="hoverOverSettingLabelsForHelp">Τοποθετήστε τον δείκτη πάνω από τις ετικέτες των ρυθμίσεων για βοήθεια</string>
+  <string name="network">Δίκτυο</string>
 </resources>

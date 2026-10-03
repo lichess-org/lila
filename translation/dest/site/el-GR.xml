@@ -626,6 +626,8 @@
   <string name="onSlowGames">Σε αργά παιχνίδια</string>
   <string name="always">Πάντα</string>
   <string name="never">Ποτέ</string>
+  <string name="defeatOnly">Μόνο σε ήττα</string>
+  <string name="drawAndDefeat">Ισοπαλία και ήττα</string>
   <string name="xCompetesInY">Ο χρήστης %1$s ανταγωνίζεται στο %2$s</string>
   <string name="victory">Επιτυχία</string>
   <string name="defeat">Ήττα</string>
@@ -690,10 +692,13 @@
   <string name="aboutX">Σχετικά με το %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">Το %1$s είναι (%2$s) μια δωρεάν, ελεύθερη, χωρίς διαφημίσεις, ανοικτού κώδικα ιστοσελίδα για διαδικτυακό σκάκι.</string>
   <string name="really">πραγματικά</string>
+  <string name="lichessUpdates">Ενημερώσεις Lichess</string>
   <string name="contribute">Συνεισφέρετε</string>
+  <string name="changelog">Αρχείο αλλαγών</string>
   <string name="termsOfService">Όροι χρήσης</string>
   <string name="titleVerification">Επιβεβαίωση τίτλου</string>
   <string name="sourceCode">Πηγαίος κώδικας</string>
+  <string name="blockAds">Φραγή διαφημίσεων</string>
   <string name="simultaneousExhibitions">Σιμουλτανέ</string>
   <string name="host">Διοργανωτής</string>
   <string name="hostColorX">Χρώμα διοργανωτή: %s</string>
@@ -725,6 +730,7 @@
   <string name="keyboardShortcuts">Συντομεύσεις πληκτρολογίου</string>
   <string name="keyMoveBackwardOrForward">μετακίνηση προς τα πίσω / προς τα εμπρός</string>
   <string name="keyGoToStartOrEnd">πηγαίνετε στην έναρξη / λήξη</string>
+  <string name="keyGoToPreviousOrNextLine">μετάβαση στη προηγούμενη/επόμενη γραμμή</string>
   <string name="keyCycleSelectedVariation">Επιλογή επόμενης βαριάντας</string>
   <string name="keyShowOrHideComments">εμφάνιση / απόκρυψη σχολίων</string>
   <string name="keyShowOrHideCurrentVariation">εμφάνιση/απόκρυψη βαριάντας</string>
@@ -1041,4 +1047,7 @@
   <string name="verifyingYourDevice">Επαλήθευση της συσκευής σας...</string>
   <string name="chessOpenings">Ανοίγματα</string>
   <string name="boards">Σκακιέρες</string>
+  <string name="write">Επεξεργασία</string>
+  <string name="preview">Προεπισκόπηση</string>
+  <string name="done">Ολοκληρώθηκε</string>
 </resources>
