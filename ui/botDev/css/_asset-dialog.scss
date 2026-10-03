@@ -109,7 +109,7 @@
     }
 
     &:hover:not(:has(button:hover)) {
-      background: hsl(from $c-bg_high h s calc(l + 11));
+      background: hsl(from $c-bg h s calc(l + 11));
       outline: $c-primary 2px dashed;
     }
   }
