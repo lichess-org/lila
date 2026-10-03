@@ -36,7 +36,7 @@ final private class StudySocket(
       _ == "true"
     )
 
-  def onServerEval(studyId: StudyId, eval: ServerEval.Progress): Unit =
+  def onServerEval(studyId: StudyId, eval: serverEval.Progress): Unit =
     import eval.*
     send.exec(
       RP.Out.tellRoom(

@@ -27,7 +27,7 @@ final class StudyApi(
     topicApi: StudyTopicApi,
     lightUserApi: lila.core.user.LightUserApi,
     chatApi: lila.core.chat.ChatApi,
-    serverEvalRequester: ServerEval.Requester,
+    serverEvalRequester: serverEval.Requester,
     preview: ChapterPreviewApi,
     flairApi: lila.core.user.FlairApi,
     userApi: lila.core.user.UserApi

@@ -71,11 +71,11 @@ final class Env(
 
   private lazy val studyInvite = wire[StudyInvite]
 
-  private lazy val serverEvalRequester = wire[ServerEval.Requester]
+  private lazy val serverEvalRequester = wire[serverEval.Requester]
 
   private lazy val sequencer = wire[StudySequencer]
 
-  lazy val serverEvalMerger = wire[ServerEval.Merger]
+  lazy val serverEvalMerger = wire[serverEval.Merger]
 
   lazy val topicApi = wire[StudyTopicApi]
 
