@@ -38,7 +38,7 @@ final class OnlineApiUsers(
     _.expireAfterWrite(10.seconds).buildAsyncFuture: _ =>
       for
         users <- getUsers
-        jsons = users.map(u => jsonView.full(u.user, u.perfs.some, withProfile = true))
+        jsons = users.map(u => jsonView.full(u.user, u.perfs.some, withProfile = true)(using none))
       yield jsons.map(play.api.libs.json.Json.stringify).mkString("\n")
 
   def getNdJson(nb: Int): Fu[String] =

@@ -394,4 +394,4 @@ object user:
         perfs: Option[UserPerfs | KeyedPerf],
         withProfile: Boolean,
         rankMap: Option[UserRankMap] = None
-    ): JsObject
+    )(using Option[Me]): JsObject

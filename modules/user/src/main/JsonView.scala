@@ -19,16 +19,16 @@ final class JsonView(isOnline: lila.core.socket.IsOnline) extends lila.core.user
       perfs: Option[UserPerfs | KeyedPerf],
       withProfile: Boolean,
       rankMap: Option[UserRankMap] = None
-  ): JsObject =
+  )(using me: Option[Me]): JsObject =
     if u.enabled.no then disabled(u.light)
     else
       base(u, perfs, rankMap) ++ Json
         .obj("createdAt" -> u.createdAt)
-        .add(
+        .add:
           "profile" -> u.profile
             .ifTrue(withProfile)
-            .map(p => Json.toJsObject(p.filterTroll(u.marks.troll)).noNull)
-        )
+            .map(_.filterTroll(u.marks.troll && !me.exists(_.is(u))))
+            .map(p => Json.toJsObject(p).noNull)
         .add("seenAt" -> u.seenAt)
         .add("playTime" -> u.playTime)
 

@@ -39,7 +39,7 @@ final class UserApi(
   export userApi.withPerfs
   import UserApi.Opts
 
-  def one(u: UserWithPerfs | LightUser, joinedAt: Option[Instant] = None): JsObject = {
+  def one(u: UserWithPerfs | LightUser, joinedAt: Option[Instant] = None)(using Option[Me]): JsObject = {
     val (light, userJson) = u match
       case u: UserWithPerfs => (u.user.light, jsonView.full(u.user, u.perfs.some, withProfile = false))
       case u: LightUser => (u, Json.toJsObject(u))
