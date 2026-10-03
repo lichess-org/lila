@@ -12,7 +12,7 @@
   }
 
   &:nth-child(odd) {
-    background-color: $c-bg-zebra;
+    background-color: color-mix(in oklab, $c-bg-zebra 50%, transparent);
   }
 
   &:last-child {
@@ -39,12 +39,17 @@
     a.author--op {
       @extend %box-radius;
 
-      padding: 0.2em 0.5em 0.2em 0.2em;
+      padding: 0.2em 0.75em 0.2em 0.5em;
       background: color-mix(in oklab, $c-primary 12%, $c-bg);
     }
 
     time {
       margin-inline-end: 0.25em;
+    }
+
+    .user-link .line {
+      width: unset;
+      margin-right: 0.3em;
     }
   }
 
