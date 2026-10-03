@@ -35,7 +35,7 @@ final class Editor(env: Env) extends LilaController(env):
       .map(Fen.Full.clean)
     Ok.page:
       views.boardEditor(fen, positionsJson, endgamePositionsJson)
-    .map(_.enforceCrossSiteIsolation)
+    // .map(_.enforceCrossSiteIsolation)
 
   def data = Open:
     JsonOk(views.boardEditor.jsData())
