@@ -18,8 +18,8 @@
       @extend %box-radius;
 
       padding: 1rem;
-      background: color-mix(in oklab, $c-bad 15%, $c-bg);
-      border: 1px solid $c-error;
+      background: color-mix(in oklab, $c-bad 12%, $c-bg);
+      border: 1px solid color-mix(in oklab, $c-error 65%, $c-bg);
       text-align: center;
       font-size: 1.3em;
       margin-bottom: 2rem;
