@@ -117,8 +117,8 @@ importers:
   .:
     devDependencies:
       '@lichess-org/chessground':
-        specifier: ^10.4.1
-        version: 10.4.1
+        specifier: ^10.4.2
+        version: 10.4.2
       '@lichess-org/pgn-viewer':
         specifier: ^2.6.4
         version: 2.6.4
@@ -861,8 +861,8 @@ packages:
   '@kurkle/color@0.3.4':
     resolution: {integrity: sha512-M5UknZPHRu3DEDWoipU6sE8PdkZ6Z/S+v4dD+Ke8IaNlpdSQah50lz1KtcFBa2vsdOnwbbnxJwVM4wty6udA5w==}
 
-  '@lichess-org/chessground@10.4.1':
-    resolution: {integrity: sha512-m6xyJToq5Qw4nlTKGx2Bmr7mxe+G7GaVNvb3/q862ls0NX6cQIPCh3uzyFTIn6A/WJdCkznN8/FZyN4bLazncQ==}
+  '@lichess-org/chessground@10.4.2':
+    resolution: {integrity: sha512-T7j43oF2OIxwUlP42eHtX79drYkzCaSvuW4ENdrooW9pxAvbrse4g8OL3EH2HeA4Rn0tuOGQvAUC71NfK5lsVw==}
     engines: {node: '>=24', pnpm: '>=12'}
 
   '@lichess-org/pgn-viewer@2.6.4':
@@ -1106,6 +1106,9 @@ packages:
 
   '@types/node@24.13.1':
     resolution: {integrity: sha512-RSpUJGmvsJ1ZeBehQZFhIdpsz+bIpES0nIQXko4Ybq+N+kX6XvOq3Jo+iJ82FWLdblFq85AsMikd3m35jgezYg==}
+
+  '@types/node@24.13.3':
+    resolution: {integrity: sha512-Dh8vAsV36ig5wa9OX4pXvMc9D3Veibfw2wix0CUwYODLD8nkj9UsLjASr49nPg+2eKzxhBV+v7L8pXvT4e639Q==}
 
   '@types/node@24.13.5':
     resolution: {integrity: sha512-TXyindR+lBr22aJIdMQzCFHPHR6cR4js838mRDCSz5hOKWZvZwsXSSiXDmjRj4iJmgl+sR9O+1mkoVBSMadNug==}
@@ -2501,11 +2504,11 @@ snapshots:
 
   '@kurkle/color@0.3.4': {}
 
-  '@lichess-org/chessground@10.4.1': {}
+  '@lichess-org/chessground@10.4.2': {}
 
   '@lichess-org/pgn-viewer@2.6.4':
     dependencies:
-      '@lichess-org/chessground': 10.4.1
+      '@lichess-org/chessground': 10.4.2
       chessops: 0.15.1
       snabbdom: 3.5.1
 
@@ -2676,6 +2679,10 @@ snapshots:
       undici-types: 6.21.0
 
   '@types/node@24.13.1':
+    dependencies:
+      undici-types: 7.18.2
+
+  '@types/node@24.13.3':
     dependencies:
       undici-types: 7.18.2
 

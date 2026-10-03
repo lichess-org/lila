@@ -92,7 +92,6 @@ export function endgameShapes(
   };
 
   if (winner) {
-    add(winner, 'win');
     add(opposite(winner), loserGlyph(status));
   } else {
     const glyph = drawGlyph(status);
