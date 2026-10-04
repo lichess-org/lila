@@ -1,0 +1,34 @@
+**Title:** Feature request: "Ideas" page where users can suggest features and mark ones in development
+
+### Description
+I'd like to propose a small "Ideas" module: a public page where users can post
+feature suggestions, and Lichess developers can manage them with lightweight
+moderation.
+
+### How it would work
+
+**Any user:**
+- Submit an idea (title + short description, max ~1000 chars).
+- See all ideas sorted by date or by "likes".
+- React with a "like" to show interest.
+
+**Moderators / developers only:**
+- Mark an idea as **"in development"** (visible badge, e.g. gold, similar to
+  existing status labels on the site).
+- Mark an idea as **"liked"** / accepted, so users see the team noticed it.
+- Delete ideas that are duplicates, off-topic or abusive.
+
+Text submitted by users would pass through the existing profanity filter
+(`ConflictResolution`) used elsewhere on the site, so no new moderation
+machinery is needed.
+
+### Why
+Right now feature suggestions are scattered across the feedback forum and
+get lost quickly. A dedicated page would give users one place to look at what
+the community wants, and give the team a simple way to signal "we saw this and
+we're working on it" — which is a common complaint today.
+
+### Prototype
+I built a working demo of the concept (single-page UI matching Lichess styling,
+with like / mark-in-development / delete actions and profanity filtering).
+Happy to share the code or record a short GIF — just ask.
