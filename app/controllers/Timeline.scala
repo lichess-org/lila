@@ -32,7 +32,7 @@ final class Timeline(env: Env) extends LilaController(env):
     )
   }
 
-  def api = Auth: _ ?=>
+  def api = AuthOrScoped(_.Web.Mobile): _ ?=>
     _ ?=> apiOutput(getIntAs[Max]("nb").fold(Max(15))(_.atMost(Max(30))))
 
   private def apiOutput(max: Max)(using ctx: Context, me: Me) = for
