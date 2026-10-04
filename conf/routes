@@ -147,6 +147,7 @@ GET   /feed/:id/edit                   controllers.Feed.edit(id)
 POST  /feed/:id/edit                   controllers.Feed.update(id)
 POST  /feed/:id/delete                 controllers.Feed.delete(id)
 GET   /feed.atom                       controllers.Feed.atom
+GET   /api/feed                        controllers.Feed.recent
 
 # Opening
 GET   /opening                         controllers.Opening.index(q: Option[String] ?= None)
