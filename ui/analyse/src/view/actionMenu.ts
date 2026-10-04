@@ -87,7 +87,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
   const d = ctrl.data;
   const canContinue = !ctrl.ongoing && d.game.variant.key === 'standard';
   const canPractice = ctrl.isCevalAllowed() && !ctrl.isEmbed && !ctrl.isGamebook() && !ctrl.practice;
-  const canRetro = ctrl.hasFullComputerAnalysis() && !ctrl.isEmbed && !ctrl.retro;
+  const canRetro = !ctrl.study && !ctrl.isEmbed && !ctrl.retro && ctrl.hasFullComputerAnalysis();
   const linkAttrs = { rel: ctrl.isEmbed ? '' : 'nofollow', target: ctrl.isEmbed ? '_blank' : '' };
 
   const tools = [

@@ -952,9 +952,8 @@ export default class AnalyseCtrl implements CevalHandler {
   withCg = <A>(f: (cg: ChessgroundApi) => A): A | undefined =>
     this.chessground && this.cgVersion.js === this.cgVersion.dom ? f(this.chessground) : undefined;
 
-  hasFullComputerAnalysis = (): boolean => {
-    return Object.keys(this.mainline[0].eval || {}).length > 0;
-  };
+  hasFullComputerAnalysis = (): boolean =>
+    !!this.mainlineAnalysis && !this.mainline.some(this.partialAnalysisCallback);
 
   mergeServerAnalysisData(data: AnalysisUpdate) {
     if (this.study && this.study.data.chapter.id !== data.ch) return;

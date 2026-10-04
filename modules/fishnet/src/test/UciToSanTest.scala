@@ -21,6 +21,7 @@ final class UciToSanTest extends munit.FunSuite:
   test("convert UCI analysis to PGN"):
     val uciAnalysis = Analysis(
       Analysis.Id(GameId("ke5ssdgj")),
+      None,
       List(
         Info(1, cpEval(12), Nil),
         Info(2, cpEval(36), Nil),
@@ -315,6 +316,6 @@ final class UciToSanTest extends munit.FunSuite:
     )
     val andPly = Position.AndFullMoveNumber(chess.variant.KingOfTheHill, none)
     val positions = andPly.playPositions(pgn).toOption.get
-    val uciAnalysis = Analysis(Analysis.Id(GameId("g5hX8efz")), Nil, 0, now, Engine.unknown)
+    val uciAnalysis = Analysis(Analysis.Id(GameId("g5hX8efz")), None, Nil, 0, now, Engine.unknown)
     UciToSan(positions, andPly.ply, uciAnalysis) match
       case (_, errs) => assertEquals(errs, Nil)
