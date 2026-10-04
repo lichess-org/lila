@@ -40,6 +40,11 @@ export function fixBrowserStyle() {
   }
 }
 
+export function disableLeakyAtomicsWaitAsync() {
+  // https://bugzilla.mozilla.org/show_bug.cgi?id=2077868
+  if (isFirefox()) (Atomics as any).waitAsync = undefined;
+}
+
 export function upgradeNag() {
   if (
     (isWebkit({ below: '16.2' }) || isFirefox({ below: '115' }) || isChrome({ below: '112' })) &&
