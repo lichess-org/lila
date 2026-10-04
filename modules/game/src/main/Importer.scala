@@ -3,13 +3,17 @@ package importer
 
 import chess.{ ByColor, ErrorStr, Rated }
 import chess.format.pgn.PgnStr
+import chess.format.Fen
 import play.api.data.*
 import play.api.data.Forms.*
 
 import lila.common.Form.into
-import lila.core.game.{ Game, ImportedGame }
+import lila.core.game.Game
 import lila.game.GameExt.finish
 import lila.tree.ParseImport
+
+case class ImportedGame(sloppy: Game, initialFen: Option[Fen.Full] = None):
+  def withId(id: GameId): Game = sloppy.copy(id = id)
 
 final class Importer(gameRepo: lila.core.game.GameRepo)(using Executor):
 

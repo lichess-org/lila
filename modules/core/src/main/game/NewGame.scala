@@ -8,10 +8,6 @@ import scalalib.model.Days
 
 import lila.core.id.GameId
 
-case class ImportedGame(sloppy: Game, initialFen: Option[Fen.Full] = None):
-
-  def withId(id: GameId): Game = sloppy.copy(id = id)
-
 // Wrapper around newly created games. We do not know if the id is unique, yet.
 case class NewGame(sloppy: Game):
   def withId(id: GameId): Game = sloppy.copy(id = id)
