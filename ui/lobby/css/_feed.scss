@@ -47,7 +47,6 @@
     &__day {
       @extend %flex-center;
 
-      display: inline;
       font-size: 1.15em;
       font-weight: bold;
       color: $c-contours;
@@ -55,6 +54,7 @@
       time {
         font-size: 1em;
         opacity: 1;
+        min-height: 21.5px;
       }
 
       &:hover {
