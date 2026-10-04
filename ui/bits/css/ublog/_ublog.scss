@@ -80,13 +80,9 @@
   }
 
   .filter-and-sort {
-    gap: 2rem;
-
-    > span {
-      flex-wrap: nowrap;
-      white-space: nowrap;
-      gap: 0.6em;
-    }
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    gap: 0.6em;
   }
 
   .calendar-mselect {
