@@ -162,17 +162,15 @@ final class Report(env: Env, userC: => User, modC: => Mod) extends LilaControlle
           json = jsonFormError(err)
         ),
       data =>
-        if me.is(data.user.id) then
-          negotiate(
-            html = BadRequest("You cannot report yourself"),
-            json = BadRequest(jsonError("You cannot report yourself"))
-          )
+        if me.is(data.user.id) then BadRequest("You cannot report yourself")
         else
           reportRateLimit(rateLimited):
-            (for
-              _ <- api.create(data, Reporter(me), Nil)
-              _ <- api.isAutoBlock(data).so(env.relation.api.block(me, data.user.id))
-            yield ()).flatMap: _ =>
+            val reportCreated =
+              for
+                _ <- api.create(data, Reporter(me), Nil)
+                _ <- api.isAutoBlock(data).so(env.relation.api.block(me, data.user.id))
+              yield ()
+            reportCreated.flatMap: _ =>
               negotiate(
                 html = Redirect(routes.Report.thanks).flashing("reported" -> data.user.name.value),
                 json = jsonOkResult
