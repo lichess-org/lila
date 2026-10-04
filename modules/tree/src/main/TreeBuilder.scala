@@ -8,8 +8,6 @@ object TreeBuilder:
 
   type LogChessError = String => Unit
 
-  private def makeEval(info: Info) = Eval(cp = info.cp, mate = info.mate, best = info.best)
-
   def apply(
       game: Game,
       analysis: Option[Analysis],
@@ -31,7 +29,7 @@ object TreeBuilder:
         game.clock.map(c => Centis.ofSeconds(c.limitSeconds.value)).map(Clock(_))
       ,
       crazyData = setup.position.crazyData,
-      eval = infos.lift(0).map(makeEval)
+      eval = infos.lift(0).map(_.eval)
     )
 
     def makeBranch(move: chess.MoveOrDrop, ply: Ply): Branch =
@@ -46,7 +44,7 @@ object TreeBuilder:
         fen = fen,
         clock = withClocks.flatMap(_.lift(index)).map(Clock(_)),
         crazyData = move.after.crazyData,
-        eval = info.map(makeEval),
+        eval = info.map(_.eval),
         glyphs = Glyphs.fromList(advice.map(_.judgment.glyph).toList),
         comments = Node.Comments(
           drawOfferPlies(ply)

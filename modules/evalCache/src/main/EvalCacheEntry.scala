@@ -15,11 +15,13 @@ case class EvalCacheEntry(
   // and truncates its pvs to multiPv.
   // Defaults to lower multiPv if no eval has enough pvs.
   def makeBestMultiPvEval(multiPv: MultiPv): Option[CloudEval] =
-    evals
+    servableEvals
       .find(_.multiPv >= multiPv.atMost(nbMoves))
       .map(_.takePvs(multiPv))
       .orElse:
-        evals.sortBy(-_.multiPv.value).headOption
+        servableEvals.sortBy(-_.multiPv.value).headOption
+
+  private def servableEvals = evals.filterNot(_.isGameOver)
 
 opaque type Id = BinaryFen
 object Id extends TotalWrapper[Id, BinaryFen]:

@@ -14,7 +14,7 @@ object JsonView extends lila.tree.AnalysisJson:
       Json
         .obj()
         .add("eval" -> info.cp)
-        .add("mate" -> info.mate)
+        .add("mate" -> info.exportMate)
         .add("best" -> info.best.map(_.uci))
         .add("variation" -> info.variation.nonEmpty.option(info.variation.mkString(" ")))
         .add("judgment" -> adviceOption.map { a =>

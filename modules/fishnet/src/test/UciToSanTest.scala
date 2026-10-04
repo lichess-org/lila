@@ -2,8 +2,7 @@ package lila.fishnet
 
 import chess.format.pgn.SanStr
 import chess.{ Ply, Position }
-import chess.eval.*
-import chess.eval.Eval.*
+import chess.eval.{ Score, WhiteScore }
 
 import scala.language.implicitConversions
 
@@ -14,17 +13,20 @@ final class UciToSanTest extends munit.FunSuite:
 
   private given Conversion[Int, Ply] = Ply(_)
 
+  private def cpEval(cp: Int) = Eval(Some(WhiteScore.fromWhite(Score.cp(cp))), None)
+  private def mateEval(mate: Int) = Eval(Some(WhiteScore.fromWhite(Score.mate(mate))), None)
+
   private val now = nowInstant
 
   test("convert UCI analysis to PGN"):
     val uciAnalysis = Analysis(
       Analysis.Id(GameId("ke5ssdgj")),
       List(
-        Info(1, Eval(Some(Cp(12)), None, None), Nil),
-        Info(2, Eval(Some(Cp(36)), None, None), Nil),
+        Info(1, cpEval(12), Nil),
+        Info(2, cpEval(36), Nil),
         Info(
           3,
-          Eval(Some(Cp(22)), None, None),
+          cpEval(22),
           SanStr.from(
             List(
               "g1f3",
@@ -44,11 +46,11 @@ final class UciToSanTest extends munit.FunSuite:
             )
           )
         ),
-        Info(4, Eval(Some(Cp(-30)), None, None), Nil),
-        Info(5, Eval(Some(Cp(-48)), None, None), Nil),
+        Info(4, cpEval(-30), Nil),
+        Info(5, cpEval(-48), Nil),
         Info(
           6,
-          Eval(Some(Cp(-80)), None, None),
+          cpEval(-80),
           SanStr.from(
             List(
               "g8f6",
@@ -65,22 +67,22 @@ final class UciToSanTest extends munit.FunSuite:
             )
           )
         ),
-        Info(7, Eval(Some(Cp(-22)), None, None), Nil),
-        Info(8, Eval(Some(Cp(-64)), None, None), Nil),
-        Info(9, Eval(Some(Cp(-38)), None, None), Nil),
-        Info(10, Eval(Some(Cp(-56)), None, None), Nil),
-        Info(11, Eval(Some(Cp(-48)), None, None), Nil),
-        Info(12, Eval(Some(Cp(-48)), None, None), Nil),
-        Info(13, Eval(Some(Cp(-52)), None, None), Nil),
-        Info(14, Eval(Some(Cp(-98)), None, None), Nil),
-        Info(15, Eval(Some(Cp(-56)), None, None), Nil),
-        Info(16, Eval(Some(Cp(-98)), None, None), Nil),
-        Info(17, Eval(Some(Cp(-54)), None, None), Nil),
-        Info(18, Eval(Some(Cp(-96)), None, None), Nil),
-        Info(19, Eval(Some(Cp(-96)), None, None), Nil),
+        Info(7, cpEval(-22), Nil),
+        Info(8, cpEval(-64), Nil),
+        Info(9, cpEval(-38), Nil),
+        Info(10, cpEval(-56), Nil),
+        Info(11, cpEval(-48), Nil),
+        Info(12, cpEval(-48), Nil),
+        Info(13, cpEval(-52), Nil),
+        Info(14, cpEval(-98), Nil),
+        Info(15, cpEval(-56), Nil),
+        Info(16, cpEval(-98), Nil),
+        Info(17, cpEval(-54), Nil),
+        Info(18, cpEval(-96), Nil),
+        Info(19, cpEval(-96), Nil),
         Info(
           20,
-          Eval(Some(Cp(-113)), None, None),
+          cpEval(-113),
           SanStr.from(
             List(
               "c8d7",
@@ -105,7 +107,7 @@ final class UciToSanTest extends munit.FunSuite:
         ),
         Info(
           21,
-          Eval(Some(Cp(-42)), None, None),
+          cpEval(-42),
           SanStr.from(
             List(
               "g5e4",
@@ -127,7 +129,7 @@ final class UciToSanTest extends munit.FunSuite:
         ),
         Info(
           22,
-          Eval(Some(Cp(-535)), None, None),
+          cpEval(-535),
           SanStr.from(
             List(
               "c8e6",
@@ -150,7 +152,7 @@ final class UciToSanTest extends munit.FunSuite:
         ),
         Info(
           23,
-          Eval(Some(Cp(-296)), None, None),
+          cpEval(-296),
           SanStr.from(
             List(
               "g5e4",
@@ -175,10 +177,10 @@ final class UciToSanTest extends munit.FunSuite:
             )
           )
         ),
-        Info(24, Eval(None, Some(Mate(3)), None), SanStr.from(List("d8h4", "e1e2", "h4f2", "e2d3", "c6b4"))),
+        Info(24, mateEval(3), SanStr.from(List("d8h4", "e1e2", "h4f2", "e2d3", "c6b4"))),
         Info(
           25,
-          Eval(Some(Cp(-935)), None, None),
+          cpEval(-935),
           SanStr.from(
             List(
               "e1g1",
@@ -199,10 +201,10 @@ final class UciToSanTest extends munit.FunSuite:
             )
           )
         ),
-        Info(26, Eval(Some(Cp(-2165)), None, None), Nil),
+        Info(26, cpEval(-2165), Nil),
         Info(
           27,
-          Eval(Some(Cp(-2731)), None, None),
+          cpEval(-2731),
           SanStr.from(
             List(
               "g1g3",
@@ -228,8 +230,8 @@ final class UciToSanTest extends munit.FunSuite:
             )
           )
         ),
-        Info(28, Eval(None, Some(Mate(2)), None), SanStr.from(List("h4f2", "e2d3", "c6b4"))),
-        Info(29, Eval(None, Some(Mate(-2)), None), Nil)
+        Info(28, mateEval(2), SanStr.from(List("h4f2", "e2d3", "c6b4"))),
+        Info(29, mateEval(-2), Nil)
       ),
       0,
       now,
