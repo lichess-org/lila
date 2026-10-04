@@ -25,12 +25,13 @@ export function boot() {
   const setBlind = location.hash === '#blind';
   const showDebug = location.hash.startsWith('#debug');
 
+  updateTimeAgo(1000);
+
   requestAnimationFrame(() => {
     initMiniBoards();
     initMiniGames();
     pubsub.on('content-loaded', initMiniBoards);
     pubsub.on('content-loaded', initMiniGames);
-    updateTimeAgo(1000);
     pubsub.on('content-loaded', renderTimeAgo);
     renderLocalizedTimestamps();
     pubsub.on('content-loaded', toggleBoxInit);
