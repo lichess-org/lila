@@ -526,6 +526,11 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="autoSwitch">Tự động chuyển</string>
   <string name="puzzles">Câu đố</string>
   <string name="onlineBots">Các Bot trực tuyến</string>
+  <string name="aboutBotsOnLichess">Thông tin về bot trên Lichess</string>
+  <string name="featuredBots">Các bot nổi bật</string>
+  <string name="tryPlayingTheseInnovativeChessEngines">Hãy thử chơi những bot cờ vua sáng tạo này! Chúng là những chương trình mà chúng tôi yêu thích nhất.</string>
+  <string name="communityBots">Các bot cộng đồng</string>
+  <string name="moreChessEnginesCreatedByTheLichessCommunity">Thêm nhiều bot cờ vua khác được tạo ra bởi cộng đồng Lichess. Chúng được lưu trữ bởi chính những người tạo ra chúng và có thể không phải lúc nào cũng trực tuyến.</string>
   <string name="name">Tên</string>
   <string name="description">Mô tả</string>
   <string name="descPrivate">Mô tả riêng tư</string>
@@ -573,6 +578,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="clearField">Dọn sạch trường</string>
   <string name="orSeparator">Hoặc</string>
   <string name="logInByEmail">Đăng nhập bằng email</string>
+  <string name="emailLoginInstructions">Chúng tôi sẽ gửi cho bạn một email chứa đường dẫn để đăng nhập.</string>
   <string name="emailMeALink">Gửi cho tôi một liên kết trong Email</string>
   <string name="currentPassword">Nhập mật khẩu hiện tại</string>
   <string name="newPassword">Nhập mật khẩu mới</string>
@@ -597,6 +603,8 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="onSlowGames">Chỉ khi chơi cờ chậm</string>
   <string name="always">Luôn luôn</string>
   <string name="never">Không bao giờ</string>
+  <string name="defeatOnly">Chỉ khi thua</string>
+  <string name="drawAndDefeat">Chỉ khi hòa hoặc thua</string>
   <string name="xCompetesInY">%1$s thi đấu ở %2$s</string>
   <string name="victory">Chiến thắng</string>
   <string name="defeat">Thua</string>
@@ -659,9 +667,11 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s là một máy chủ cờ vua miễn phí (%2$s), có mã nguồn mở và không có quảng cáo.</string>
   <string name="really">thật sự</string>
   <string name="contribute">Đóng góp</string>
+  <string name="changelog">Nhật kí thay đổi</string>
   <string name="termsOfService">Điều khoản Dịch vụ</string>
   <string name="titleVerification">Xác nhận danh hiệu</string>
   <string name="sourceCode">Mã Nguồn</string>
+  <string name="blockAds">Chặn quảng cáo</string>
   <string name="simultaneousExhibitions">Đấu cờ đồng loạt</string>
   <string name="host">Người chủ trì</string>
   <string name="hostColorX">Màu quân của người chủ trì: %s</string>

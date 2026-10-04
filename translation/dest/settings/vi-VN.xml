@@ -7,4 +7,10 @@
   <string name="cancelKeepAccount">Hủy và giữ lại tài khoản của tôi</string>
   <string name="closeAccountAreYouSure">Bạn chắc chắn là bạn muốn đóng tài khoản của mình không?</string>
   <string name="thisAccountIsClosed">Tài khoản này đã bị đóng</string>
+  <string name="wereSorryToSeeYouGo">Chúng tôi rất tiếc khi thấy bạn rời đi.</string>
+  <string name="closeAccountForeverLabel">Đóng cửa vĩnh viễn: khiến việc mở lại tài khoản là không thể</string>
+  <string name="closeAccountForeverWarning">Ngăn việc mở lại tài khoản sau này. Nếu bạn chọn ô này, ngay cả các quản trị viên cũng không thể mở lại tài khoản của bạn theo yêu cầu của bạn.</string>
+  <string name="deleteYourAccount">Xóa tài khoản</string>
+  <string name="deleteAccountWarning">Sau khi bạn xóa tài khoản, tài khoản đó sẽ bị xóa khỏi Lichess và quản trị viên của chúng tôi sẽ không thể khôi phục lại tài khoản đó cho bạn.</string>
+  <string name="deleteAccountConfirmText">Tôi hiểu rằng các tài khoản bị xóa sẽ không thể khôi phục được</string>
 </resources>

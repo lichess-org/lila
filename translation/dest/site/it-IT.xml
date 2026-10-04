@@ -283,7 +283,7 @@
   </plurals>
   <string name="ok">OK</string>
   <string name="cancel">Annulla</string>
-  <string name="whiteRanOutOfTime" comment="whiteTimeOut&#10;&#10;Shows when White's time has run out. Is followed by the end condition, for example&#10;'White ran out of time · Draw'">Bianco non ha più tempo</string>
+  <string name="whiteRanOutOfTime" comment="whiteTimeOut&#10;&#10;Shows when White's time has run out. Is followed by the end condition, for example&#10;'White ran out of time · Draw'">Il Bianco ha esaurito il tempo</string>
   <string name="blackRanOutOfTime" comment="blackTimeOut&#10;&#10;Shows when Black's time has run out. Is followed by the end condition, for example&#10;'Black ran out of time · Draw'">Nero non ha più tempo</string>
   <string name="drawOfferSent">Offerta di patta inviata</string>
   <string name="drawOfferAccepted">Offerta di patta accettata</string>

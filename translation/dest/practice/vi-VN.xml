@@ -1,2 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="makesPerfect">giúp kỹ năng cờ vua của bạn hoàn hảo hơn</string>
+  <string name="signUpToSaveYourProgress">Đăng ký tài khoản để lưu tiến trình của bạn</string>
+  <string name="secHeadCheckmates">Chiếu hết</string>
+  <string name="secHeadFundamentalTactics">Chiến thuật cơ bản</string>
+  <string name="secHeadAdvancedTactics">Chiến thuật nâng cao</string>
+  <string name="secHeadPawnEndgames">Cờ tàn Tốt</string>
+  <string name="secHeadRookEndgames">Cờ tàn Xe</string>
+  <string name="stNamThePin">Đòn ghim</string>
+  <string name="stNamTheSkewer">Đòn xiên</string>
+  <string name="stNamTheFork">Tấn công đôi</string>
+  <string name="stNamDiscoveredAttacks">Phát hiện các đòn tấn công</string>
+  <string name="stNamDoubleCheck">Chiếu Đôi</string>
+  <string name="stNamOverloadedPieces">Quân cờ quá tải</string>
+  <string name="stNamZwischenzug">Nước cờ trung gian</string>
+  <string name="stNamXRay">Đòn xuyên thấu</string>
+  <string name="stNamZugzwang">Đòn cưỡng ép</string>
+  <string name="stNamInterference">Đòn can thiệp</string>
+  <string name="stNamGreekGift">Món quà Hy Lạp</string>
+  <string name="stNamDeflection">Đánh lạc hướng</string>
+  <string name="stNamAttraction">Đòn thu hút</string>
+  <string name="stNamUnderpromotion">Không phong hậu</string>
+</resources>
