@@ -166,6 +166,8 @@ Chúng tôi hiển thị biểu tượng tắt tiếng màu đỏ để cảnh b
 3. Nhấn vào Cookie và Quyền của trang web
 4. Cuộn xuống và nhấn vào Phương tiện tự động phát (Media autoplay)
 5. Thêm lichess.org vào Cho phép</string>
+  <string name="makeBotTitle">Tạo một bot trên Lichess?</string>
+  <string name="makeBotDescription">Để tìm hiểu cách xây dựng một &lt;a href=\'%1$s\'&gt;bot cờ vua tùy chỉnh&lt;/a&gt; để chơi trên Lichess, vui lòng đọc &lt;a href=\'%2$s\'&gt;bài blog này về cách tạo bot&lt;/a&gt;.</string>
   <string name="stopMyselfFromPlaying">Hạn chế bản thân chơi quá nhiều?</string>
   <string name="mentalHealthCondition">tình trạng sức khỏe tâm thần độc lập</string>
   <string name="lichessUserstyles">Phong cách người dùng Lichess</string>

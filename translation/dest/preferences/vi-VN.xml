@@ -41,6 +41,7 @@
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Tự động hoà khi lặp cờ ba lần</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Khi thời gian còn lại &lt; 30 giây</string>
   <string name="moveConfirmation">Xác nhận nước đi</string>
+  <string name="multipleChoices">Nhiều lựa chọn. </string>
   <string name="explainCanThenBeTemporarilyDisabled">Có thể bị vô hiệu hóa trong ván cờ với mục lục bàn cờ</string>
   <string name="inCorrespondenceGames">Cờ qua thư</string>
   <string name="correspondenceAndUnlimited">Cờ qua thư và cờ vô hạn</string>
@@ -89,4 +90,5 @@
   <string name="analysisSettings">Cài đặt phân tích</string>
   <string name="maneuverArrowsHelp">Trình tự các nước đi của máy tính đánh giá cho một quân cờ</string>
   <string name="hoverOverSettingLabelsForHelp">Di chuột qua các cài đặt để xem giải thích</string>
+  <string name="network">Mạng</string>
 </resources>
