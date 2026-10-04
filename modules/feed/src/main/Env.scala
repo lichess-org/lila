@@ -2,17 +2,23 @@ package lila.feed
 
 import com.softwaremill.macwire.*
 
-import lila.core.config.CollName
+import lila.core.config.{ CollName, RouteUrl }
 import lila.core.lilaism.Lilaism.*
 
 @Module
-final class Env(cacheApi: lila.memo.CacheApi, db: lila.db.Db, flairApi: lila.core.user.FlairApi)(using
-    Executor,
-    Scheduler
-):
+final class Env(
+    cacheApi: lila.memo.CacheApi,
+    db: lila.db.Db,
+    flairApi: lila.core.user.FlairApi,
+    routeUrl: RouteUrl
+)(using Executor, Scheduler):
 
   private val feedColl = db(CollName("daily_feed"))
+
+  private val jsonView = wire[FeedJsonView]
+
   val api = wire[FeedApi]
+
   val paginator = wire[FeedPaginatorBuilder]
 
-  export api.lastUpdate
+  export api.lastUpdates

@@ -44,7 +44,10 @@ object Feed:
   import scalalib.ThreadLocalRandom
   def makeId = ThreadLocalRandom.nextString(6)
 
-final class FeedApi(coll: Coll, cacheApi: CacheApi, flairApi: FlairApi)(using Executor, Scheduler):
+final class FeedApi(coll: Coll, cacheApi: CacheApi, flairApi: FlairApi, jsonView: FeedJsonView)(using
+    Executor,
+    Scheduler
+):
 
   import Feed.*
 
@@ -64,10 +67,19 @@ final class FeedApi(coll: Coll, cacheApi: CacheApi, flairApi: FlairApi)(using Ex
     def clear() =
       store.underlying.synchronous.invalidateAll()
       store.get({}) // populate lastUpdate
-    def lastUpdate: Feed.GetLastUpdates = () => mutableLastUpdates
+    def lastUpdates: Feed.GetLastUpdates = () => mutableLastUpdates
     store.get({}) // populate lastUpdate
 
-  export cache.lastUpdate
+    val recentJson = cacheApi.unit[JsonStr]("feed.recentJson"):
+      _.refreshAfterWrite(1.minute).buildAsyncTimeout(): _ =>
+        import jsonView.given
+        import play.api.libs.json.Json
+        for updates <- store.get({})
+        yield JsonStr(Json.stringify(Json.toJson(updates.take(7))))
+
+  export cache.lastUpdates
+
+  def recentJson: Fu[JsonStr] = cache.recentJson.get({})
 
   def recentPublished = cache.store.get({}).map(_.filter(_.published))
 
