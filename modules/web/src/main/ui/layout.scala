@@ -139,7 +139,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
 
   def dasher(me: User) =
     div(cls := "dasher")(
-      button(id := "user_tag", cls := "toggle link")(span(me.username)),
+      button(id := "user_tag", cls := "toggle link")(me.username),
       div(id := "dasher_app", cls := "dropdown")
     )
 
