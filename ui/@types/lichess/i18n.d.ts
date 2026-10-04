@@ -6225,6 +6225,10 @@ interface I18n {
     yearlyXArena: I18nFormat;
   };
   ublog: {
+    /** All */
+    all: string;
+    /** Best */
+    best: string;
     /** %s blog posts */
     blogPosts: I18nPlural;
     /** Blog posts by friends */
