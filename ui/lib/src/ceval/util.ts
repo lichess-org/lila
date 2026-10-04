@@ -1,6 +1,6 @@
 // no side effects allowed due to re-export by index.ts
 
-import { isMobile } from '@/device';
+import { isFirefox, isMobile } from '@/device';
 import type { ClientEval } from '@/tree/types';
 import { domDialog } from '@/view';
 
@@ -70,4 +70,9 @@ export function showEngineError(engine: string, error: string): void {
     dlg.view.querySelector('.err')?.addEventListener('focus', select);
     dlg.show();
   });
+}
+
+export function disableLeakyAtomicsWaitAsync(): void {
+  // https://bugzilla.mozilla.org/show_bug.cgi?id=2077868
+  if (isFirefox()) (Atomics as any).waitAsync = undefined;
 }

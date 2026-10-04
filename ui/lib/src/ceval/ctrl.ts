@@ -28,7 +28,7 @@ import {
   type EngineInfo,
   CevalState,
 } from './types';
-import { sanIrreversible, showEngineError, fewerCores } from './util';
+import { sanIrreversible, showEngineError, fewerCores, disableLeakyAtomicsWaitAsync } from './util';
 import { povChances } from './winningChances';
 
 interface SearchInfo {
@@ -65,6 +65,8 @@ export class CevalCtrl {
   private worker?: CevalEngine;
 
   constructor(public opts: CevalOpts) {
+    disableLeakyAtomicsWaitAsync();
+
     this.engines = new Engines(this);
     this.storedEngine = storedStringProp(`ceval.engine.${opts.variant.key}`, '');
     this.init();
