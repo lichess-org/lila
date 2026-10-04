@@ -6321,8 +6321,6 @@ interface I18n {
     saveDraft: string;
     /** Select the topics your post is about */
     selectPostTopics: string;
-    /** Show */
-    show: string;
     /** Sticky post */
     stickyPost: string;
     /** When selected, this post will be listed first on your blog and on your profile. */

@@ -474,14 +474,11 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)
           case QualityFilter.all => trans.ublog.all()
           case _ => frag(f.name)
     div(cls := "filter-and-sort")(
-      filterOpt.isDefined.option(
-        span(
-          trans.ublog.show(),
-          span(cls := "btn-rack"):
-            if Granter.opt(_.ModerateBlog) then QualityFilter.values.map(filterBtn)
-            else frag(filterBtn(QualityFilter.best), filterBtn(QualityFilter.all))
-        )
-      ),
+      filterOpt.isDefined.option:
+        span(cls := "btn-rack"):
+          if Granter.opt(_.ModerateBlog) then QualityFilter.values.map(filterBtn)
+          else frag(filterBtn(QualityFilter.best), filterBtn(QualityFilter.all))
+      ,
       sortOpt.map: by =>
         span(
           "Sort",

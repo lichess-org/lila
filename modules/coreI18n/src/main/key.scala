@@ -3171,7 +3171,6 @@ object I18nKey:
   object ublog:
     val `community`: I18nKey = "ublog:community"
     val `communityBlogs`: I18nKey = "ublog:communityBlogs"
-    val `show`: I18nKey = "ublog:show"
     val `best`: I18nKey = "ublog:best"
     val `all`: I18nKey = "ublog:all"
     val `byMonth`: I18nKey = "ublog:byMonth"
