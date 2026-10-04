@@ -27,8 +27,9 @@ export interface PuzzleOpts {
   data: PuzzleData;
   settings: PuzzleSettings;
   themes?: {
-    dynamic: string;
-    static: string;
+    dynamic: ThemeKey;
+    static: ThemeKey;
+    unconventionalDescriptionKeys: Record<ThemeKey, ThemeKey>;
   };
   showRatings: boolean;
   externalEngineEndpoint: string;

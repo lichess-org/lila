@@ -22,7 +22,11 @@ final class PuzzleBits(helpers: Helpers):
     case (static, dynamic) =>
       Json.obj(
         "dynamic" -> dynamic.sorted(using stringOrdering).mkString(" "),
-        "static" -> static.mkString(" ")
+        "static" -> static.mkString(" "),
+        "unconventionalDescriptionKeys" -> PuzzleTheme.visible.collect {
+          case t if t.description.value != s"${t.name}Description" =>
+            t.name.value.drop(12) -> t.description.value.drop(12) // "puzzleTheme:"
+        }.toMap
       )
 
   def pageMenu(active: String, user: Option[User], days: Days = Days(30))(using ctx: Context) =

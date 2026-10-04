@@ -52,13 +52,16 @@ function backToTheme(href: string, content: string[], data: VNodeData = {}): VNo
   return hl('a.puzzle__side__theme__back', { attrs: { href }, ...data }, content);
 }
 
-function themeTrans(key: string) {
-  return key in i18n.puzzleTheme ? i18n.puzzleTheme[key as keyof typeof i18n.puzzleTheme].toString() : key;
-}
+const themeTrans = (key: ThemeKey) => (key in i18n.puzzleTheme ? i18n.puzzleTheme[key].toString() : key);
 
 const editor = (ctrl: PuzzleCtrl): VNode[] => {
   const { puzzle } = ctrl.data;
   const votedThemes = ctrl.round?.themes ?? ({} as RoundThemes);
+  const allThemes = ctrl.isDaily ? null : ctrl.allThemes;
+  const availableThemes = allThemes ? allThemes.dynamic.filter((t: ThemeKey) => !votedThemes[t]) : null;
+
+  const descriptionTrans = (key: ThemeKey) =>
+    (allThemes && themeTrans(allThemes.unconventionalDescriptionKeys[key])) || `${key}Description`;
 
   const visibleThemes: ThemeKey[] = [
     ...puzzle.themes.filter(t => !invisibleThemes.has(t)),
@@ -66,8 +69,6 @@ const editor = (ctrl: PuzzleCtrl): VNode[] => {
       (t: ThemeKey): t is ThemeKey => !!votedThemes[t] && !puzzle.themes.includes(t),
     ),
   ].sort();
-  const allThemes = ctrl.isDaily ? null : ctrl.allThemes;
-  const availableThemes = allThemes ? allThemes.dynamic.filter((t: ThemeKey) => !votedThemes[t]) : null;
 
   if (availableThemes) availableThemes.sort((a, b) => (themeTrans(a) < themeTrans(b) ? -1 : 1));
 
@@ -83,11 +84,7 @@ const editor = (ctrl: PuzzleCtrl): VNode[] => {
       },
       visibleThemes.map(key =>
         hl('div.puzzle__themes__list__entry', { class: { strike: votedThemes[key] === false } }, [
-          hl(
-            'a',
-            { attrs: { href: `/training/${key}`, title: themeTrans(`${key}Description`) } },
-            themeTrans(key),
-          ),
+          hl('a', { attrs: { href: `/training/${key}`, title: descriptionTrans(key) } }, themeTrans(key)),
           allThemes &&
             hl(
               'div.puzzle__themes__votes',
@@ -125,11 +122,7 @@ const editor = (ctrl: PuzzleCtrl): VNode[] => {
             [
               hl('option', { attrs: { value: '', selected: true } }, i18n.puzzle.addAnotherTheme),
               availableThemes.map(theme =>
-                hl(
-                  'option',
-                  { attrs: { value: theme, title: themeTrans(`${theme}Description`) } },
-                  themeTrans(theme),
-                ),
+                hl('option', { attrs: { value: theme, title: descriptionTrans(theme) } }, themeTrans(theme)),
               ),
             ],
           ),

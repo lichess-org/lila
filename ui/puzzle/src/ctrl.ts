@@ -708,8 +708,9 @@ export default class PuzzleCtrl implements CevalHandler {
   showEvalGauge = () => this.showEvaluation() && this.isCevalAllowed() && !this.outcome();
   getOrientation = () => this.withGround(g => g.state.orientation)!;
   allThemes = this.opts.themes && {
-    dynamic: this.opts.themes.dynamic.split(' '),
-    static: new Set(this.opts.themes.static.split(' ')),
+    ...this.opts.themes,
+    dynamic: this.opts.themes.dynamic.split(' ') as ThemeKey[],
+    static: new Set(this.opts.themes.static.split(' ')) as Set<ThemeKey>,
   };
   toggleRated = () => this.rated(!this.rated());
   getCeval = () => this.ceval;
