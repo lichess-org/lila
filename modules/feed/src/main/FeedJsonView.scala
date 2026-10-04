@@ -2,6 +2,7 @@ package lila.feed
 
 import play.api.libs.json.*
 import lila.common.Json.given
+import lila.core.lilaism.Lilaism.add
 
 object FeedJsonView:
 
