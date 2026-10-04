@@ -15,6 +15,7 @@ import type { AnalysisUpdate, AnalysisEngineInfo, AnalysisMeta, Division } from 
 export interface ServerAnalysisDocument {
   id: string;
   studyId?: string;
+  initialEval?: ServerEvalScore;
   infos: { ply: Ply; eval: ServerEvalScore & { best?: Uci }; variation: San[] }[];
   startPly: Ply;
   date: Date;
@@ -145,6 +146,7 @@ export class LocalAnalysisEngine {
     const serverDocument: ServerAnalysisDocument = {
       id: this.ctrl.idbTree.id,
       studyId: this.ctrl.study?.data.id,
+      initialEval: serverEvalScore(this.ctrl.variantKey, this.nodes[0]),
       infos: this.nodes.slice(1).map((node, i) => ({
         ply: node.ply,
         eval: { ...serverEvalScore(this.ctrl.variantKey, node), best: lines[i].ucis[0] },
