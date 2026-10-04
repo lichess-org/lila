@@ -15,4 +15,4 @@ final class Env(cacheApi: lila.memo.CacheApi, db: lila.db.Db, flairApi: lila.cor
   val api = wire[FeedApi]
   val paginator = wire[FeedPaginatorBuilder]
 
-  export api.lastUpdate
+  export api.lastUpdates
