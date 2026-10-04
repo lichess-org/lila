@@ -21,7 +21,7 @@ final class RelayDefaults(
           tourRepo.byIds(group.tours.toList).map(RelayDefaults.defaultTourOfGroup)
 
   val studyRedirect = cacheApi[(StudyId, Option[StudyChapterId]), Option[Url]](4096, "relay.studyRedirect"):
-    _.expireAfterWrite(1.minute).buildAsyncFuture: (id, chapterId) =>
+    _.expireAfterWrite(2.minutes).buildAsyncFuture: (id, chapterId) =>
       roundRepo
         .byIdWithTour(id.into(RelayRoundId))
         .map2: rt =>
