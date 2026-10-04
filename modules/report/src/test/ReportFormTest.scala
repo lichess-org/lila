@@ -67,5 +67,5 @@ class ReportFormTest extends munit.FunSuite:
 
   test("every user selectable reason is accepted"):
     Reason.userSelectable.foreach: reason =>
-      val f = bind(reason.key, "a valid explanation")
-      assertEquals(f.error("reason"), None, s"${reason.key} should be accepted")
+      val f = bind(reason.key, "https://lichess.org/abcdefgh a valid explanation")
+      assert(f.errors.isEmpty, s"${reason.key} should be accepted")
