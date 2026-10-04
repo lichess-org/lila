@@ -1,5 +1,6 @@
 package controllers
 
+import play.api.libs.json.*
 import play.api.mvc.*
 
 import lila.app.{ *, given }
@@ -49,3 +50,7 @@ final class Feed(env: Env) extends LilaController(env):
   def atom = Anon:
     api.recentPublished.map: ups =>
       Ok.snip(views.feed.atom(ups)).as(XML)
+
+  def recent = Anon:
+    import lila.feed.FeedJsonView.given
+    JsonOk(env.feed.lastUpdate())
