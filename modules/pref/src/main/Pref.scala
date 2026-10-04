@@ -510,7 +510,7 @@ object Pref:
     moveEvent = MoveEvent.BOTH,
     pieceNotation = PieceNotation.SYMBOL,
     resizeHandle = ResizeHandle.INITIAL,
-    uiRoundness = 7,
+    uiRoundness = 8,
     agreement = Agreement.current,
     usingAltSocket = none,
     board = BoardPref(brightness = 100, contrast = 100, opacity = 100, hue = 0),
