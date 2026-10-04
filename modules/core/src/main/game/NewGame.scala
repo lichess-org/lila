@@ -12,16 +12,6 @@ case class ImportedGame(sloppy: Game, initialFen: Option[Fen.Full] = None):
 
   def withId(id: GameId): Game = sloppy.copy(id = id)
 
-def newImportedGame(
-    chess: ChessGame,
-    players: ByColor[Player],
-    rated: Rated,
-    source: Source,
-    pgnImport: Option[PgnImport],
-    daysPerTurn: Option[Days] = None,
-    rules: Set[GameRule] = Set.empty
-): ImportedGame = ImportedGame(newSloppy(chess, players, rated, source, pgnImport, daysPerTurn, rules))
-
 // Wrapper around newly created games. We do not know if the id is unique, yet.
 case class NewGame(sloppy: Game):
   def withId(id: GameId): Game = sloppy.copy(id = id)
@@ -37,7 +27,7 @@ def newGame(
     rules: Set[GameRule] = Set.empty
 ): NewGame = NewGame(newSloppy(chess, players, rated, source, pgnImport, daysPerTurn, rules))
 
-private def newSloppy(
+def newSloppy(
     chess: ChessGame,
     players: ByColor[Player],
     rated: Rated,
