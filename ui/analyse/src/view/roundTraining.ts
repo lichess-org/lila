@@ -92,9 +92,9 @@ const doRender = (ctrl: AnalyseCtrl): VNode => {
         });
       }),
     },
-    [
-      playerTable(ctrl, 'white'),
-      ctrl.study
+    (['white', 'black'] as const).flatMap(color => [
+      playerTable(ctrl, color),
+      ctrl.study || color !== ctrl.bottomColor()
         ? null
         : h(
             'a.button.text',
@@ -105,8 +105,7 @@ const doRender = (ctrl: AnalyseCtrl): VNode => {
             },
             i18n.site.learnFromYourMistakes,
           ),
-      playerTable(ctrl, 'black'),
-    ],
+    ]),
   );
 };
 
@@ -142,7 +141,7 @@ export function render(ctrl: AnalyseCtrl): VNode | undefined {
 
   // don't cache until the analysis is complete!
   const buster = ctrl.data.analysis.partial ? Math.random() : '';
-  let cacheKey = String(buster) + !!ctrl.retro;
+  let cacheKey = String(buster) + !!ctrl.retro + ctrl.bottomColor();
   if (ctrl.study) cacheKey += ctrl.study.data.chapter.id;
 
   return h('div.analyse__round-training', [
