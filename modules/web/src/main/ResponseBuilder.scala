@@ -35,7 +35,7 @@ trait ResponseBuilder(using Executor)
   def JsonLimited(limited: Limited): Result = TooManyRequests(Json.toJson(limited)).as(JSON)
 
   def strToNdJson(source: Source[String, ?]): Result =
-    Ok.chunked(source).as(ndJson.contentType).noProxyBuffer
+    Ok.chunked(source).as(NDJSON).noProxyBuffer
 
   def jsToNdJson(source: Source[JsValue, ?]): Result =
     strToNdJson(ndJson.jsToString(source))
@@ -44,7 +44,7 @@ trait ResponseBuilder(using Executor)
     strToNdJson(ndJson.jsOptToString(source))
 
   def jsToNdJson(source: Seq[JsValue]): Result =
-    Ok(source.map(Json.stringify).mkString("\n")).as(ndJson.contentType)
+    Ok(source.map(Json.stringify).mkString("\n")).as(NDJSON)
 
   /* We roll our own action, as we don't want to compose play Actions. */
   def action[A](parser: BodyParser[A])(handler: Request[A] ?=> Fu[Result]): EssentialAction = new:

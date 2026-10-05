@@ -308,7 +308,7 @@ final class Ublog(env: Env) extends LilaController(env):
     env.ublog.paginator
       .liveByCommunity(found.map(toLanguage), QualityFilter.best, page = 1)
       .map: posts =>
-        Ok.snip(views.ublog.ui.atom.community(language, posts.currentPageResults)).as(XML)
+        Ok.snip(views.ublog.ui.atom.community(language, posts.currentPageResults)).as(ATOM)
 
   def liked(page: Int) = Auth { ctx ?=> me ?=>
     NotForKids:
@@ -352,7 +352,7 @@ final class Ublog(env: Env) extends LilaController(env):
       for
         blog <- env.ublog.api.getUserBlog(user)
         posts <- isBlogVisible(user, blog).so(env.ublog.paginator.byUser(user, true, 1))
-      yield Ok.snip(views.ublog.ui.atom.user(user, posts.currentPageResults)).as(XML)
+      yield Ok.snip(views.ublog.ui.atom.user(user, posts.currentPageResults)).as(ATOM)
 
   def historicalBlogPost(id: String, @nowarn slug: String) = Open:
     Found(env.ublog.api.getByPrismicId(id)): post =>

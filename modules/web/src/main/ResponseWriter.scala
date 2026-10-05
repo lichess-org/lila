@@ -40,13 +40,13 @@ trait ResponseWriter extends ContentTypes:
   given (using codec: Codec): ContentTypeOf[RenderedPage] = ContentTypeOf(Some(ContentTypes.HTML))
   given (using codec: Codec): Writeable[RenderedPage] = Writeable(page => codec.encode(page.html))
 
-  val csvContentType = "text/csv"
+  def CSV(using Codec) = withCharset("text/csv")
+  def ATOM(using Codec) = withCharset("application/atom+xml")
+  def NDJSON(using Codec) = withCharset("application/x-ndjson")
 
   object ndJson:
     import org.apache.pekko.stream.scaladsl.Source
     import play.api.libs.json.{ Json, JsValue }
-
-    val contentType = "application/x-ndjson"
 
     def addKeepAlive(source: Source[JsValue, ?]): Source[Option[JsValue], ?] =
       source

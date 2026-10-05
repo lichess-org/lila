@@ -165,4 +165,4 @@ final class PlayApi(env: Env) extends LilaController(env):
 
   def botOnlineApi = Anon:
     for lines <- env.bot.onlineApiUsers.getNdJson(getInt("nb") | 100)
-    yield Ok(lines).as(ndJson.contentType)
+    yield Ok(lines).as(NDJSON)

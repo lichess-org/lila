@@ -402,7 +402,7 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
     GlobalConcurrencyLimitPerIP.download(req.ipAddress)(makeSource)(sourceToCsv)
 
   private def sourceToCsv(source: Source[String, ?]): Result =
-    Ok.chunked(source.map(_ + "\n")).as(csvContentType).noProxyBuffer
+    Ok.chunked(source.map(_ + "\n")).as(CSV).noProxyBuffer
 
   private[controllers] object GlobalConcurrencyLimitPerIP:
 
