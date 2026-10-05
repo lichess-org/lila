@@ -3911,6 +3911,8 @@ interface I18n {
     freeOnlineChess: string;
     /** Friends */
     friends: string;
+    /** Friends online: %1$s */
+    friendsOnlineAndPlaying: I18nFormat;
     /** Game aborted */
     gameAborted: string;
     /** Game as GIF */

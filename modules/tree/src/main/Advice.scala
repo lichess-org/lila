@@ -89,10 +89,8 @@ private[tree] object MateAdvice:
 
   def apply(prev: Info, info: Info): Option[MateAdvice] =
     for
-      prevScore <- prev.eval.score
-      score <- info.eval.score
-      prevPovScore = prevScore.invertIf(info.color.black)
-      povScore = score.invertIf(info.color.black)
+      prevPovScore <- prev.eval.pov(info.color)
+      povScore <- info.eval.pov(info.color)
       prevPovCpOrZero = prevPovScore.cp.so(_.centipawns)
       povCpOrZero = povScore.cp.so(_.centipawns)
       sequence <- MateSequence(prevPovScore, povScore)

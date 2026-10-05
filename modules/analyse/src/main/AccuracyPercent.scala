@@ -1,7 +1,7 @@
 package lila.analyse
 
 import chess.{ ByColor, Color, Division, Ply }
-import chess.eval.WinPercent
+import chess.eval.{ WhiteScore, WinPercent }
 import chess.eval.Eval.Cp
 import scalalib.Maths
 import scalalib.model.Percent
@@ -54,18 +54,18 @@ for x in xs:
       }.atMost(100).atLeast(0)
 
   def fromEvalsAndPov(pov: SideAndStart, evals: List[Eval]): List[AccuracyPercent] =
-    val subjectiveEvals = pov.color.fold(evals, evals.map(_.invert))
     val alignedEvals =
       if pov.color == pov.startColor
-      then lila.tree.evals.initial :: subjectiveEvals
-      else subjectiveEvals
+      then lila.tree.evals.initial :: evals
+      else evals
     alignedEvals
+      .map(_.pov(pov.color))
       .grouped(2)
       .collect:
         case List(e1, e2) =>
           for
-            before <- e1.score.map(WinPercent.fromScore)
-            after <- e2.score.map(WinPercent.fromScore)
+            before <- e1.map(WinPercent.fromScore)
+            after <- e2.map(WinPercent.fromScore)
           yield AccuracyPercent.fromWinPercents(before, after)
       .flatten
       .toList
@@ -80,7 +80,7 @@ for x in xs:
   def gameAccuracy(
       startColor: Color,
       cps: List[Option[Cp]],
-      initialCp: Option[Cp] = Some(Cp.initial)
+      initialCp: Option[Cp] = WhiteScore.initial.white.cp
   ): Option[ByColor[AccuracyPercent]] =
     val allWinPercents = (initialCp :: cps).map(_.map(WinPercent.fromCentiPawns))
     val windowSize = (cps.size / 10).squeeze(2, 8)
@@ -128,7 +128,7 @@ for x in xs:
         accuracy <- slice.headOption.so: first =>
           val initialCp = analysis.infos
             .find(_.ply == first.prevPly)
-            .fold(Cp.initial.some)(_.eval.forceAsCp)
+            .fold(WhiteScore.initial.white.cp)(_.eval.forceAsCp)
           gameAccuracy(first.color, slice.map(_.eval.forceAsCp), initialCp)
       yield phase -> accuracy
 

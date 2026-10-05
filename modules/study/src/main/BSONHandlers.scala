@@ -113,15 +113,20 @@ object BSONHandlers:
       x => BSONArray(x.toList.map(_.id).map(BSONInteger.apply))
     )
 
-  given BSONHandler[Score] =
+  given BSONHandler[WhiteScore] =
     val mateFactor = 1000000
-    BSONIntegerHandler.as[Score](
+    BSONIntegerHandler.as[WhiteScore](
       v =>
-        if v >= mateFactor || v <= -mateFactor then Score.mate(v / mateFactor)
-        else Score.cp(v),
-      _.fold(
+        WhiteScore.fromWhite:
+          if v == Int.MaxValue then Score.MateGiven
+          else if v == Int.MinValue then Score.mated
+          else if v >= mateFactor || v <= -mateFactor then Score.mate(v / mateFactor)
+          else Score.cp(v)
+      ,
+      _.white.fold(
         cp => cp.value.atLeast(-mateFactor + 1).atMost(mateFactor - 1),
-        mate => mate.value * mateFactor
+        mate => if mate.value == 0 then Int.MinValue else mate.value * mateFactor,
+        Int.MaxValue
       )
     )
 
@@ -137,7 +142,7 @@ object BSONHandlers:
       comments = doc.getAsOpt[Comments](F.comments).getOrElse(Comments.empty)
       gamebook = doc.getAsOpt[Gamebook](F.gamebook)
       glyphs = doc.getAsOpt[Glyphs](F.glyphs).getOrElse(Glyphs.empty)
-      eval = doc.getAsOpt[Score](F.score).map(lila.tree.evals.fromScore)
+      eval = doc.getAsOpt[WhiteScore](F.score).map(lila.tree.evals.fromScore)
       clock = doc.getAsOpt[Clock](F.clock)
       crazyData = doc.getAsOpt[Crazyhouse.Data](F.crazy)
       forceVariation = ~doc.getAsOpt[Boolean](F.forceVariation)
@@ -187,7 +192,7 @@ object BSONHandlers:
         comments = r.getO[Comments](F.comments) | Comments.empty,
         gamebook = r.getO[Gamebook](F.gamebook),
         glyphs = r.getO[Glyphs](F.glyphs) | Glyphs.empty,
-        eval = r.getO[Score](F.score).map(lila.tree.evals.fromScore),
+        eval = r.getO[WhiteScore](F.score).map(lila.tree.evals.fromScore),
         clock = r.getO[Clock](F.clock),
         crazyData = r.getO[Crazyhouse.Data](F.crazy),
         children = StudyFlatTree.reader.rootChildren(fullReader.doc)
