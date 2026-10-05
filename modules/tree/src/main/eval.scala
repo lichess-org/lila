@@ -1,35 +1,49 @@
 package lila.tree
 
 import chess.format.Uci
-import chess.Position
+import chess.{ Color, Position }
 import chess.eval.{ Eval as Ev, * }
 
-case class Eval(cp: Option[Ev.Cp], mate: Option[Ev.Mate], best: Option[Uci]):
+extension (score: Score)
+  def forceAsCp: Ev.Cp =
+    score.fold(
+      identity,
+      m => if m.positive then Ev.Cp(Int.MaxValue - m.value) else Ev.Cp(Int.MinValue - m.value),
+      Ev.Cp(Int.MaxValue)
+    )
 
-  def isEmpty = cp.isEmpty && mate.isEmpty
+case class Eval(score: Option[WhiteScore], best: Option[Uci]):
+
+  def cp: Option[Ev.Cp] = score.flatMap(_.white.cp)
+  def mate: Option[Ev.Mate] = score.flatMap(_.white.mate)
+  def forceAsCp: Option[Ev.Cp] = score.map(_.white.forceAsCp)
+
+  def pov(color: Color): Option[Score] = score.map(_.pov(color))
+
+  def isEmpty = score.isEmpty
+
+  def isGameOver = score.exists(_.isGameOver)
 
   def dropBest = copy(best = None)
 
-  def invert = copy(cp = cp.map(_.invert), mate = mate.map(_.invert))
-
-  def score: Option[Score] = cp.map(Score.Cp(_)).orElse(mate.map(Score.Mate(_)))
-
-  def forceAsCp: Option[Ev.Cp] = cp.orElse:
-    mate.map: m =>
-      if m.value == 0 then Ev.Cp(Int.MinValue) // side to move is mated
-      else if m.negative then Ev.Cp(Int.MinValue - m.value)
-      else Ev.Cp(Int.MaxValue - m.value)
-
 object evals:
-  val initial = Eval(Some(Ev.Cp.initial), None, None)
-  val empty = Eval(None, None, None)
-  def fromScore(score: Score) = Eval(score.cp, score.mate, None)
+  val initial = Eval(Some(WhiteScore.initial), None)
+  val empty = Eval(None, None)
+  def fromScore(score: WhiteScore) = Eval(Some(score), None)
 
   import play.api.libs.json.*
   import scalalib.json.Json.given
   import chess.json.Json.given
 
-  given jsonWrites: Writes[Eval] = Json.writes[Eval]
+  def json(eval: Eval): Option[JsObject] =
+    eval.score
+      .filterNot(_.isGameOver)
+      .map: score =>
+        Json
+          .obj()
+          .add("cp" -> score.white.cp)
+          .add("mate" -> score.white.mate)
+          .add("best" -> eval.best)
 
 opaque type Moves = NonEmptyList[Uci]
 object Moves extends TotalWrapper[Moves, NonEmptyList[Uci]]
@@ -42,9 +56,10 @@ object Knodes extends OpaqueInt[Knodes]:
       if nodes.toInt == nodes then nodes.toInt
       else Integer.MAX_VALUE
 
-case class Pv(score: Score, moves: Moves)
+case class Pv(score: WhiteScore, moves: Moves)
 
-case class CloudEval(pvs: NonEmptyList[Pv], knodes: Knodes, depth: lila.core.chess.Depth)
+case class CloudEval(pvs: NonEmptyList[Pv], knodes: Knodes, depth: lila.core.chess.Depth):
+  def isGameOver = pvs.exists(_.score.isGameOver)
 
 object CloudEval:
   type GetSinglePvEval = Position => Fu[Option[CloudEval]]

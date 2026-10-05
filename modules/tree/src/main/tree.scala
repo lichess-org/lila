@@ -499,8 +499,6 @@ object Node:
   given Writes[Node.Comment] = Json.writes[Node.Comment]
   given Writes[Node.Gamebook] = Json.writes[Node.Gamebook]
 
-  import lila.tree.evals.jsonWrites
-
   given defaultNodeJsonWriter: Writes[Node] = makeNodeJsonWriter(lichobile = false)
   val lichobileNodeJsonWriter: Writes[Node] = makeNodeJsonWriter(lichobile = true)
 
@@ -516,7 +514,7 @@ object Node:
         .add("id", lichobile.so(idOption))
         .add("uci", moveOption.map(_.uci.uci))
         .add("san", moveOption.map(_.san))
-        .add("eval", eval.filterNot(_.isEmpty))
+        .add("eval", eval.flatMap(evals.json))
         .add("comments", comments.nonEmpty.option(comments))
         .add("gamebook", gamebook)
         .add("glyphs", glyphs.nonEmpty)

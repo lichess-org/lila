@@ -13,9 +13,12 @@ private object BSONHandlers:
 
   given BSONReader[NonEmptyList[Pv]] = new:
 
-    private def scoreRead(str: String): Option[Score] =
-      if str.startsWith("#") then str.drop(1).toIntOption.map(Score.mate)
-      else str.toIntOption.map(Score.cp)
+    private def scoreRead(str: String): Option[WhiteScore] =
+      val score =
+        if str == "#+0" then Score.MateGiven.some
+        else if str.startsWith("#") then str.drop(1).toIntOption.map(Score.mate)
+        else str.toIntOption.map(Score.cp)
+      score.map(WhiteScore.fromWhite(_))
 
     private def movesRead(str: String): Option[Moves] = Moves.from:
       Uci.readListChars(str).flatMap(_.toNel)

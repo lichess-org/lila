@@ -18,5 +18,5 @@ object JsonView:
 
   private def writePv(pv: Pv) = Json
     .obj("moves" -> pv.moves.value.toList.map(_.uci).mkString(" "))
-    .add("cp", pv.score.cp)
-    .add("mate", pv.score.mate)
+    .add("cp", pv.score.white.cp)
+    .add("mate", pv.score.white.mate)

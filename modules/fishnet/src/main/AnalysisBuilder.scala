@@ -3,6 +3,7 @@ package lila.fishnet
 import chess.{ Position, Ply }
 import chess.format.Uci
 import chess.format.pgn.SanStr
+import chess.eval.WhiteScore
 
 import lila.tree.{ Analysis, Eval, Info }
 
@@ -76,8 +77,8 @@ final private class AnalysisBuilder(evalCache: IFishnetEvalCache)(using Executor
       moves: List[Uci],
       startedAtPly: Ply
   ): List[Info] =
-    evals
-      .filterNot(_.exists(_.isCheckmate))
+    val ambiguousEnd = evals.lastOption.flatten.exists(_.score.isEmpty)
+    (if ambiguousEnd then evals.init else evals)
       .sliding(2)
       .toList
       .zip(moves)
@@ -87,10 +88,10 @@ final private class AnalysisBuilder(evalCache: IFishnetEvalCache)(using Executor
             case first :: rest if first != move => first :: rest
             case _ => Nil
           val best = variation.headOption
-          val info = Info(
-            ply = startedAtPly + index + 1,
-            eval = Eval(after.score.cp, after.score.mate, best),
+          val ply = startedAtPly + index + 1
+          Info(
+            ply = ply,
+            eval = Eval(after.score.map(WhiteScore(_, ply.turn)), best),
             variation = variation.map(uci => SanStr(uci.uci)) // temporary, for UciToSan
           )
-          if info.ply.isOdd then info.invert else info
         case ((_, _), index) => Info(startedAtPly + index + 1, lila.tree.evals.empty, Nil)
