@@ -62,3 +62,22 @@ class BsonHandlersTest extends munit.FunSuite:
     val expectedTreeStr =
       "0 List(1.e4 (Branches: List(2.e5 FV (Branches: List()), 2.d5 (Branches: List()))))"
     assertEquals(treeStr, expectedTreeStr)
+
+  test("Score writes.reads == identity"):
+    import chess.eval.{ Score, WhiteScore }
+    val handler = summon[reactivemongo.api.bson.BSONHandler[WhiteScore]]
+    List(
+      Score.cp(0),
+      Score.cp(-250),
+      Score.cp(999_999),
+      Score.cp(-999_999),
+      Score.mate(3),
+      Score.mate(-1),
+      Score.mate(2147),
+      Score.mate(-2147),
+      Score.mated,
+      Score.MateGiven
+    )
+      .map(WhiteScore.fromWhite(_))
+      .foreach: score =>
+        assertEquals(handler.readTry(handler.writeTry(score).get).get, score)

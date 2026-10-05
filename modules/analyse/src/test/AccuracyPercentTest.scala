@@ -1,6 +1,7 @@
 package lila.analyse
 
 import chess.{ ByColor, Color, Division, Ply }
+import chess.eval.{ Score, WhiteScore }
 import chess.eval.Eval.Cp
 import scalalib.Maths.isCloseTo
 
@@ -65,7 +66,7 @@ class AccuracyPercentTest extends munit.FunSuite:
 
   test("phase accuracy uses previous phase eval"):
     val infos = List(15, 900, 0, 0).zipWithIndex.map: (cp, i) =>
-      Info(Ply(i + 1), Eval(Some(Cp(cp)), None, None), Nil)
+      Info(Ply(i + 1), Eval(Some(WhiteScore.fromWhite(Score.cp(cp))), None), Nil)
     val analysis = Analysis(Analysis.Id(GameId("abcd")), infos, Ply.initial, nowInstant, None, None)
     assert(phaseAccuracies(Division(Some(Ply(3)), None, Ply(4)), analysis).white("middlegame").value < 20)
 
