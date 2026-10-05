@@ -1,7 +1,7 @@
 package lila.memo
 
 import play.api.mvc.RequestHeader
-import bloomfilter.mutable.BloomFilter
+import se.thanh.pds.bloomfilter.BloomFilter
 import scalalib.net.UserAgent
 
 import lila.core.userId.UserId
@@ -15,34 +15,24 @@ import lila.common.HTTPRequest
  * and to bloom filter false positives (1%).
  */
 
-final class ViewerCount(initialCount: Int, maxCount: Int, fpRate: Float = 0.01):
+final class ViewerCount(initialCount: Int, maxCount: Int, fpRate: Double = 0.01):
 
   import ViewerCount.*
 
   private var bloom = BloomFilter[String](maxCount, fpRate)
-  private var alive = true
-
   private var count: Int = initialCount
 
   def hit(a: Viewer): Unit =
-    if !alive then logger.warn("hit on dead viewer count")
-    else
-      val s = encode(a)
-      if !bloom.mightContain(s) then
-        bloom.add(s)
-        count += 1
+    val s = encode(a)
+    if !bloom.contains(s) then
+      bloom.add(s)
+      count += 1
 
-  def get: Int = math.round(count * (1 + fpRate))
-
-  def kill(): Unit =
-    alive = false
-    bloom.dispose()
+  def get: Int = (count * (1 + fpRate)).toInt
 
   def reset(): Unit =
-    kill()
     count = 0
     bloom = BloomFilter[String](maxCount, fpRate)
-    alive = true
 
 object ViewerCount:
 
@@ -66,9 +56,7 @@ final class ViewerCountApi(db: lila.db.Db, cacheApi: CacheApi)(using scheduler: 
   private val coll = db(CollName("viewer_count"))
 
   private val cache = cacheApi.notLoading[CountKey, ViewerCount](512, "viewerCount"):
-    _.expireAfterAccess(ttl)
-      .removalListener[CountKey, ViewerCount]((_, vc, _) => vc.kill())
-      .buildAsync()
+    _.expireAfterAccess(ttl).buildAsync()
 
   private def fetch(key: CountKey): Fu[Int] =
     coll.primitiveOne[Int](bid(key), "v").dmap(_.orZero)
