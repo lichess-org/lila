@@ -921,6 +921,7 @@ POST  /upload/image/user/:realm        controllers.Main.uploadImage(realm: Markd
 POST  /markdown/preview/:realm         controllers.Main.markdownPreview(realm: MarkdownRealm)
 GET   /image-url/:realm/:id            controllers.Main.imageUrl(realm: MarkdownRealm, id: ImageId, width: Int)
 POST  /github/secret-scanning          controllers.Github.secretScanning
+POST  /player-count                    controllers.Main.playerCount
 
 GET   /verify-title                    controllers.TitleVerify.index
 GET   /verify-title/form               controllers.TitleVerify.form

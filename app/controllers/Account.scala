@@ -77,6 +77,7 @@ final class Account(
     if !HTTPRequest.isLichobile(req)
     then notFoundJson()
     else
+      env.web.playerCounter.lichobile.hit()
       negotiateJson:
         for
           povs <- env.round.proxyRepo.urgentGames(me)

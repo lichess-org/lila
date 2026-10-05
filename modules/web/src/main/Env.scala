@@ -43,6 +43,8 @@ final class Env(
 
   val lichobileAnnounceApi = wire[LichobileAnnounceApi]
 
+  val playerCounter = wire[PlayerCounter]
+
   AnnounceApi.setupPeriodicUpdate()
   PrometheusReporter.setupPeriodicMonitor()
 

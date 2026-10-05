@@ -137,6 +137,10 @@ object rating:
 object perfStat:
   def indexTime = timer("perfStat.indexTime").withoutTags()
 
+object uniquePlayers:
+  def count(client: String, auth: Boolean) =
+    gauge("uniquePlayers").withTags(tags("client" -> client, "auth" -> auth))
+
 object round:
   object api:
     val player = timer("round.api").withTag("endpoint", "player")

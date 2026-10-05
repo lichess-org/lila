@@ -80,7 +80,7 @@ final class CacheApi(using Executor, Scheduler)(using mode: play.api.Mode):
 
   def actualCapacity(c: Int): Int =
     if mode.isProd then c
-    else math.sqrt(c.toDouble).toInt.atLeast(1)
+    else math.cbrt(c.toDouble).toInt.atLeast(1)
 
 object CacheApi:
 

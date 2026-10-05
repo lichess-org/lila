@@ -1,7 +1,7 @@
 /// <reference types="../types/ab" />
 import * as ab from 'ab/site';
 
-import { scrollToInnerSelector, requestIdleCallbackSafe } from 'lib';
+import { scrollToInnerSelector, requestIdleCallbackSafe, once } from 'lib';
 import { dispatchChessgroundResize } from 'lib/chessgroundResize';
 import { prefersLightThemeQuery } from 'lib/device';
 import { licon } from 'lib/licon';
@@ -116,10 +116,15 @@ export function boot() {
 
     upgradeNag();
     mirrorCheck();
+    setTimeout(playerCounter, 1000);
   }, 800);
 }
 
 function mirrorCheck() {
   const mirrors: string[] = ['bealive.fit'];
   if (mirrors.includes(location.host)) location.href = 'https://lichess.org' + location.pathname;
+}
+
+function playerCounter() {
+  if (once('playerCounter', { hours: 1 })) xhrText('/player-count', { method: 'post' });
 }

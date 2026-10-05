@@ -15,11 +15,11 @@ import lila.common.HTTPRequest
  * and to bloom filter false positives (1%).
  */
 
-private final class ViewerCount(initialCount: Int, maxCount: Int):
+final class ViewerCount(initialCount: Int, maxCount: Int, fpRate: Float = 0.01):
 
   import ViewerCount.*
 
-  private val bloom = BloomFilter[String](maxCount, 0.01)
+  private var bloom = BloomFilter[String](maxCount, fpRate)
   private var alive = true
 
   private var count: Int = initialCount
@@ -32,11 +32,17 @@ private final class ViewerCount(initialCount: Int, maxCount: Int):
         bloom.add(s)
         count += 1
 
-  def get: Int = count
+  def get: Int = math.round(count * (1 + fpRate))
 
   def kill(): Unit =
-    bloom.dispose()
     alive = false
+    bloom.dispose()
+
+  def reset(): Unit =
+    kill()
+    count = 0
+    bloom = BloomFilter[String](maxCount, fpRate)
+    alive = true
 
 object ViewerCount:
 
