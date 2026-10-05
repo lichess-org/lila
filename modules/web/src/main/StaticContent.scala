@@ -138,9 +138,13 @@ Allow: /game/export/gif/thumbnail/
         "https://www.kaggle.com/organizations/lichess"
       ),
       "logo" -> s"https://${net.assetDomain}/assets/logo/lichess.svg",
-      "name" -> "Lichess free online chess",
+      "name" -> "Lichess",
+      "legalName" -> "LICHESS.ORG",
       "description" -> "The (really) free, no-ads, open source chess server.", // should be kept in English unless /about receives more localisations
-      "email" -> "contact@lichess.org"
+      "email" -> "contact@lichess.org",
+      "foundingDate" -> "2010-06-20",
+      "taxID" -> "830378717", // SIREN
+      "iso6523Code" -> "0009:830378717" // French ICD:SIREN
     )
 
 object StaticContent:
