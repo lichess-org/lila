@@ -28,7 +28,7 @@ final private[report] class ReportForm(lightUserAsync: LightUser.Getter)(using d
           "Don't report Lichess. Use lichess.org/contact instead.",
           u => !UserId.isOfficial(u)
         ),
-      "reason" -> text.verifying("error.required", Reason.userSelectable.map(_.key) contains _),
+      "reason" -> text.verifying("error.required", Reason.userSelectable.map(_.key).contains),
       "text" -> cleanNonEmptyText(minLength = 5),
       "msgs" -> list(nonEmptyText)
     ) { (username, reason, text, msgs) =>
