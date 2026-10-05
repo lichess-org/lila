@@ -64,7 +64,9 @@ object Info:
       best <- (json \ "eval" \ "best").validateOpt[Uci]
       variation <- (json \ "variation").validate[List[SanStr]]
     yield
-      val score = cp.map(Score.cp).orElse:
-        mate.map: value =>
-          if value == 0 && ply.turn.black then Score.MateGiven else Score.mate(value)
+      val score = cp
+        .map(Score.cp)
+        .orElse:
+          mate.map: value =>
+            if value == 0 && ply.turn.black then Score.MateGiven else Score.mate(value)
       Info(ply, Eval(score.map(WhiteScore.fromWhite), best), variation)

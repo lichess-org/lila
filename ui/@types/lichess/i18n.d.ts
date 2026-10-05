@@ -1857,17 +1857,17 @@ interface I18n {
     analyse: string;
     /** Analysis upload failed. Try again later. */
     analysisUploadFailed: string;
-    /** by %s */
-    byX: I18nFormat;
+    /** For the best results in the shortest time, use %1$s with %2$s threads */
+    bestResultsUseXWithYThreads: I18nFormat;
     /** Cannot publish */
     cannotPublish: string;
+    /** Click Analyse to score the main line */
+    chooseYourEngineSettings: string;
     /** Current analysis */
     currentAnalysis: string;
-    /** Done in %s seconds */
-    doneInX: I18nFormat;
     /** Downloading %1$s of %2$s */
     downloadingXofY: I18nFormat;
-    /** Keep this browser tab active during analysis. */
+    /** Keep this browser tab active during analysis */
     keepThisBrowserTabActive: string;
     /** Local */
     local: string;

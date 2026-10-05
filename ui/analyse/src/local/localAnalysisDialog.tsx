@@ -148,7 +148,8 @@ class LocalAnalysisDialog {
         },
       );
       await this.ctrl.idbTree.saveAnalysis(result);
-      this.status = i18n.localAnalysis.doneInX(((performance.now() - then) / 1000).toFixed(1));
+      this.status =
+        i18n.site.done + ' ' + i18n.site.nbSeconds(Math.round((performance.now() - then) / 100) / 10);
       this.ctrl.mergeLocalAnalysisData(result.localUpdate);
       this.engine = undefined;
       redraw();
@@ -316,7 +317,7 @@ class LocalAnalysisDialog {
       ? 'fishnet'
       : isLocal
         ? i18n.localAnalysis.local.toLowerCase()
-        : i18n.localAnalysis.byX(info.userId);
+        : i18n.site.by(info.userId);
     return [
       <label>{isPublished ? i18n.localAnalysis.published : i18n.localAnalysis.using}</label>,
       <p class="span-three">

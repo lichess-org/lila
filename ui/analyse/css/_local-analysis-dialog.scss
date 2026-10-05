@@ -15,7 +15,10 @@ $c-content: color-mix(in oklab, var(--c-bg) 50%, var(--c-bg-page));
 
   .main-content {
     position: relative;
-    min-height: min(200px, 75vh);
+    min-height: min(440px, 75vh);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
   }
 
   .chart-container {
