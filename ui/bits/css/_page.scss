@@ -8,6 +8,10 @@
   font-size: 1.1em;
   overflow-wrap: anywhere;
 
+  &:not(.expand-text) {
+    border: $border;
+  }
+
   center,
   .center {
     text-align: center;
