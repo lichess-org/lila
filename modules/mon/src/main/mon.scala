@@ -110,6 +110,7 @@ object lobby:
     val idle = gauge("lobby.socket.idle").withoutTags()
     val hookSubscribers = gauge("lobby.socket.hookSubscribers").withoutTags()
   object pool:
+    import lila.core.pool.PoolConfigId
     object wave:
       def scheduled(id: String) = counter("lobby.pool.wave.scheduled").withTag("pool", id)
       def full(id: String) = counter("lobby.pool.wave.full").withTag("pool", id)
@@ -118,10 +119,10 @@ object lobby:
       def missed(id: String) = histogram("lobby.pool.wave.missed").withTag("pool", id)
       def ratingDiff(id: String) = histogram("lobby.pool.wave.ratingDiff").withTag("pool", id)
       def withRange(id: String) = histogram("lobby.pool.wave.withRange").withTag("pool", id)
-      def lamePlayers(id: String, cheat: Int, boost: Int, mix: Int) =
+      def lamePlayers(id: PoolConfigId, cheat: Int, boost: Int, mix: Int) =
         histogram("lobby.pool.wave.lame").withTags:
           tags("id" -> id, "cheat" -> cheat, "boost" -> boost, "mix" -> mix)
-      def lamePairings(id: String, cheat: Int, boost: Int, mix: Int) =
+      def lamePairings(id: PoolConfigId, cheat: Int, boost: Int, mix: Int) =
         histogram("lobby.pool.wave.lamePairing").withTags:
           tags("id" -> id, "cheat" -> cheat, "boost" -> boost, "mix" -> mix)
     object thieve:

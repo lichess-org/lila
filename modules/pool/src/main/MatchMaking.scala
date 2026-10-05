@@ -4,7 +4,7 @@ import scalalib.WMMatching
 import scala.math.abs
 import chess.IntRating
 
-import lila.core.pool.PoolMember
+import lila.core.pool.{ PoolMember, PoolConfigId }
 
 object MatchMaking:
 
@@ -14,7 +14,7 @@ object MatchMaking:
     def ratingDiff = p1.ratingDiff(p2)
     def has(u: UserId) = userIds.contains(u)
 
-  def apply(members: Vector[PoolMember], monId: String): Vector[Couple] =
+  def apply(members: Vector[PoolMember], monId: PoolConfigId): Vector[Couple] =
     val (lames, fairs) = members.partition(_.marks.lame)
     lamePairing(lames, monId) ++ (wmMatching(fairs) | naivePairing(fairs))
 
@@ -25,7 +25,7 @@ object MatchMaking:
         case Vector(p1, p2) => Couple(p1, p2)
       .toVector
 
-  private def lamePairing(unsorted: Vector[PoolMember], monId: String): Vector[Couple] =
+  private def lamePairing(unsorted: Vector[PoolMember], monId: PoolConfigId): Vector[Couple] =
     val members = sortedByRating(unsorted)
     val cheatMembers = members.filter(_.marks.engine)
     val boostMembers = members.filter(m => m.marks.boost && !m.marks.engine)
