@@ -29,4 +29,3 @@ patchedDependencies:
   '@toast-ui/editor@3.2.2': ui/bits/patches/@toast-ui__editor.patch
 minimumReleaseAgeExclude:
   - '@lichess-org/*'
-  - chessops@0.15.1
