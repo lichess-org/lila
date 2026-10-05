@@ -137,6 +137,10 @@
     content: $licon-AccountCircle;
     font-size: 2rem;
     margin-left: 0.5rem;
+
+    @media (max-width: at-most($xxx-small)) {
+      display: none;
+    }
   }
 
   &:hover::after {
