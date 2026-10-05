@@ -15,26 +15,31 @@
     outline-offset: -2px;
   }
 
-  .upload-image {
-    display: block;
-    pointer-events: none;
-    margin: 8px;
-    width: 24px;
-    height: 24px;
-    background-color: $c-font-dimmer;
-    cursor: pointer;
-    mask: url('../images/buttons/add-photo-outline-material.svg') 0 0 / contain no-repeat;
-  }
+  .button-empty {
+    border-radius: $small-box-radius-size;
 
-  .upload-image:focus {
-    outline: $outline;
-    outline-offset: 2px;
-    color: $c-primary;
-  }
+    .upload-image {
+      display: block;
+      margin: 8px;
+      width: 24px;
+      height: 24px;
+      background-color: $c-font-dimmer;
+      mask: url('../images/buttons/add-photo-outline-material.svg') 0 0 / contain no-repeat;
+    }
 
-  @media (hover: hover) and (pointer: fine) {
-    .upload-image:hover {
-      background-color: $c-primary;
+    &:focus-visible {
+      outline: $outline;
+      outline-offset: -2px;
+
+      .upload-image {
+        background-color: $c-primary;
+      }
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      &:hover .upload-image {
+        background-color: $c-primary;
+      }
     }
   }
 }
