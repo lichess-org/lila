@@ -56,7 +56,7 @@ case class Hook(
 
   def userId = user.map(_.id)
   def username = user.fold(UserName.anonymous)(_.username)
-  def lame = user.so(_.lame)
+  def lame = user.so(_.marks.lame)
 
   lazy val perfType: PerfType = lila.rating.PerfType(realVariant, speed)
 
@@ -130,7 +130,7 @@ object Hook:
       rating = h.rating | lila.rating.Glicko.default.intRating,
       provisional = h.provisional,
       ratingRange = h.manualRatingRange,
-      lame = h.user.so(_.lame),
+      marks = h.user.so(_.marks),
       blocking = h.user.so(_.blocking),
       rageSitCounter = 0
     )

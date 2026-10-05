@@ -209,7 +209,7 @@ final class LobbySocket(
                 rating = toJoinRating(glicko, trust),
                 provisional = glicko.forall(_.provisional.yes),
                 ratingRange = ratingRange,
-                lame = user.lame,
+                marks = user.marks,
                 blocking = user.blocking.map(_ ++ blocking)
               )
             )

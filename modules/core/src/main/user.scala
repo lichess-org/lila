@@ -10,6 +10,7 @@ import reactivemongo.api.bson.Macros.Annotations.Key
 import reactivemongo.api.bson.collection.BSONCollection
 import reactivemongo.api.bson.{ BSONDocument, BSONDocumentHandler, BSONDocumentReader }
 import scalalib.model.{ Days, LangTag }
+import alleycats.Zero
 
 import lila.core.email.*
 import lila.core.id.Flair
@@ -69,7 +70,7 @@ object user:
 
     def everLoggedIn = seenAt.exists(createdAt != _)
 
-    def lame = marks.boost || marks.engine
+    def lame = marks.lame
     def lameOrTroll = lame || marks.troll
 
     def withMarks(f: UserMarks => UserMarks) = copy(marks = f(marks))
@@ -302,6 +303,8 @@ object user:
       def prizeban: Boolean = hasMark(UserMark.prizeban)
       def arenaBan: Boolean = hasMark(UserMark.arenaban)
       def alt: Boolean = hasMark(UserMark.alt)
+      def lame: Boolean = boost || engine
+    given Zero[UserMarks] = Zero(Nil)
 
   abstract class UserRepo(val coll: BSONCollection):
     given userHandler: BSONDocumentHandler[User]

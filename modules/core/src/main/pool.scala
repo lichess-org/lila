@@ -12,6 +12,7 @@ import lila.core.rating.RatingRange
 import lila.core.socket.Sri
 import lila.core.userId.*
 import lila.core.id.GameFullId
+import lila.core.user.UserMarks
 
 opaque type Blocking = Set[UserId]
 object Blocking extends TotalWrapper[Blocking, Set[UserId]]:
@@ -33,7 +34,7 @@ case class PoolMember(
     rating: IntRating,
     provisional: Boolean,
     ratingRange: Option[RatingRange],
-    lame: Boolean,
+    marks: UserMarks,
     blocking: Blocking,
     rageSitCounter: Int = 0,
     misses: Int = 0 // how many waves they missed
