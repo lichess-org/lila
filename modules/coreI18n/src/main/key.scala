@@ -2050,7 +2050,7 @@ object I18nKey:
     val `retry`: I18nKey = "retry"
     val `reconnecting`: I18nKey = "reconnecting"
     val `noNetwork`: I18nKey = "noNetwork"
-    val `friendsOnlineAndOnTv`: I18nKey = "friendsOnlineAndOnTv"
+    val `friendsOnlineAndPlaying`: I18nKey = "friendsOnlineAndPlaying"
     val `favoriteOpponents`: I18nKey = "favoriteOpponents"
     val `follow`: I18nKey = "follow"
     val `following`: I18nKey = "following"

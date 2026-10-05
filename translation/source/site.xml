@@ -460,8 +460,8 @@ Playing rated games will increase stability.</string>
     <item quantity="one">%s friend online</item>
     <item quantity="other">%s friends online</item>
   </plurals>
-  <string name="friendsOnlineAndOnTv">Friends online: %1$s
-Friends on TV: %2$s</string>
+  <string name="friendsOnlineAndPlaying">Friends online: %1$s
+Friends playing: %2$s</string>
   <string name="favoriteOpponents">Favourite opponents</string>
   <string name="follow">Follow</string>
   <string name="following">Following</string>

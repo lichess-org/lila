@@ -67,7 +67,7 @@ export default class OnlineFriends {
   };
 
   updateTitle = (online: number, onTv: number) => {
-    const title = i18n.site.friendsOnlineAndOnTv(online, onTv);
+    const title = i18n.site.friendsOnlineAndPlaying(online, onTv);
     this.titleEl.title = title;
     this.titleEl.setAttribute('aria-label', title);
   };

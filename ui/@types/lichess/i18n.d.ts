@@ -3912,7 +3912,7 @@ interface I18n {
     /** Friends */
     friends: string;
     /** Friends online: %1$s */
-    friendsOnlineAndOnTv: I18nFormat;
+    friendsOnlineAndPlaying: I18nFormat;
     /** Game aborted */
     gameAborted: string;
     /** Game as GIF */
