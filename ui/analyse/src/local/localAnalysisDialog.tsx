@@ -1,7 +1,8 @@
 import type { AcplChart, ChartGame } from 'chart';
 
 import { clamp } from 'lib/algo';
-import type { CustomSearch } from 'lib/ceval/types';
+import { maxBrowserHash } from 'lib/ceval/engines/engines';
+import type { CustomSearch, BaseEngineInfo } from 'lib/ceval/types';
 import { engineSelect, hashSetting, searchTicks } from 'lib/ceval/view/settings';
 import { numberFormat } from 'lib/i18n';
 import { licon } from 'lib/licon';
@@ -53,8 +54,8 @@ class LocalAnalysisDialog {
     readonly ctrl: AnalyseCtrl,
     private readonly chartGame: ChartGame,
   ) {
-    const info = ctrl.ceval.info()!;
-    this.engineId = storedStringProp('local-analysis.engine', info.engine.id);
+    const info = this.bestEngineDefaults;
+    this.engineId = storedStringProp('local-analysis.engine', info.id);
     this.threads = storedIntProp('local-analysis.threads', info.threads);
     this.hashSize = storedIntProp('local-analysis.hash', info.hashSize);
     this.engine = new LocalAnalysisEngine(ctrl);
@@ -78,7 +79,7 @@ class LocalAnalysisDialog {
     return [
       <div class="main-content">
         <h2>{i18n.study.analysisEditor}</h2>
-        <div class={['analysis-info', !this.canAnalyse && 'hidden', !this.engine && 'none']}>
+        <div class={['analysis-info', !(this.canAnalyse && this.engine) && 'hidden']}>
           {this.analysisEditor(redraw)}
         </div>
         <div class={['chart-container', this.canAnalyse && 'none']}>
@@ -223,10 +224,10 @@ class LocalAnalysisDialog {
         ? i18n.localAnalysis.startingPosition
         : i18n.localAnalysis.moveXOfY(nodeIndex, totalNodes - 1);
     const efficiency = this.timedEngineNodeEfficiency;
-    if (isFinite(nodesPerMove) && efficiency) {
+    if (isFinite(nodesPerMove) && efficiency && this.quality() > 0) {
       nodesPerMove *= efficiency;
       const val = nodesPerMove / 1_000_000;
-      if (val > 1) {
+      if (val >= 0.05) {
         this.status = [
           progress,
           <br />,
@@ -253,14 +254,39 @@ class LocalAnalysisDialog {
         prop(value);
         redraw();
       };
+    const preludes: string[] = [];
+    if (!current) {
+      preludes.push(i18n.localAnalysis.chooseYourEngineSettings);
+      if (
+        ceval.engines.supporting({
+          rules: ceval.rules,
+          nonStandardMaterial: ceval.nonStandardMaterial,
+          filter: 'external',
+        }).length === 0
+      ) {
+        preludes.push(
+          i18n.localAnalysis.bestResultsUseXWithYThreads(
+            this.bestBrowserEngine.name,
+            navigator.hardwareConcurrency,
+          ),
+        );
+      }
+    }
     return [
+      preludes.length > 0 && (
+        <span>
+          {preludes.map(p => (
+            <p>{p}</p>
+          ))}
+        </span>
+      ),
       published && [
         this.separator(i18n.localAnalysis.onTheServer),
         this.analysisInfo(this.ctrl.publishedEvalEngine),
         this.separator(i18n.localAnalysis.currentAnalysis),
       ],
       current && this.analysisInfo(this.ctrl.staticAnalysis?.engine),
-      (published || current) && this.separator(i18n.localAnalysis.willUse),
+      this.separator(i18n.localAnalysis.willUse),
       <div class="analysis-settings">
         <div class="setting">
           <label for="local-analysis-engine">Engine:</label>
@@ -303,16 +329,6 @@ class LocalAnalysisDialog {
     const [clearText, clearClick] = isLocal
       ? [i18n.study.clearLocal, this.clickClearLocal]
       : [i18n.study.clearPublished, this.clickClearPublished];
-    const quality =
-      info.nodesPerMove === 1_000_000
-        ? i18n.site.standard
-        : (() => {
-            const efficiency = this.ctrl.ceval.engines.nodeEfficiencyVsFishnet(info.id);
-            if (!efficiency) return '';
-            return i18n.localAnalysis.xTimesFishnetQuality(
-              Math.round((efficiency * info.nodesPerMove) / 100_000) / 10,
-            );
-          })();
     const provenance = isFishnet
       ? 'fishnet'
       : isLocal
@@ -321,7 +337,7 @@ class LocalAnalysisDialog {
     return [
       <label>{isPublished ? i18n.localAnalysis.published : i18n.localAnalysis.using}</label>,
       <p class="span-three">
-        {provenance}
+        <strong>{provenance}</strong>
         <span class="weak">
           {isFishnet ? splitVersion[1] : info.engineVersion}
           {(isLocal || this.ctrl.study?.members.canContribute()) && (
@@ -331,8 +347,8 @@ class LocalAnalysisDialog {
           )}
         </span>
       </p>,
-      quality && [<label>{i18n.localAnalysis.quality}:</label>, <p>{quality}</p>],
-      [<label>{i18n.localAnalysis.nodesPerMove}:</label>, <p>{numberFormat(info.nodesPerMove)}</p>],
+      <label>{i18n.localAnalysis.nodesPerMove}:</label>,
+      <strong>{numberFormat(info.nodesPerMove)}</strong>,
     ];
   }
 
@@ -423,7 +439,9 @@ class LocalAnalysisDialog {
   }
 
   private standardQualityNodesAt(nodes = 1_000_000): number {
-    const threadDilution = 1 + (this.threads() / 32) * (1_000_000 / nodes);
+    // Fit observed performance dilution due to parallelism vs node count.
+    // Dilution due to parallelism becomes negligible at high node counts
+    const threadDilution = 1 + (this.threads() / 32) * Math.sqrt(1_000_000 / nodes);
     return Math.round((threadDilution * nodes) / (this.timedEngineNodeEfficiency ?? 1));
   }
 
@@ -460,5 +478,23 @@ class LocalAnalysisDialog {
       }),
       canBackground: true,
     };
+  }
+
+  private get bestEngineDefaults(): { id: string; threads: number; hashSize: number } {
+    const engine = this.ctrl.ceval.engines.supporting({
+      rules: this.ctrl.ceval.rules,
+      nonStandardMaterial: this.ctrl.ceval.nonStandardMaterial,
+    })[0];
+    const threads = engine.tech === 'EXTERNAL' ? engine.maxThreads : navigator.hardwareConcurrency;
+    const hashSize = engine.tech === 'EXTERNAL' ? (engine.maxHash ?? 512) : maxBrowserHash;
+    return { id: engine.id, threads, hashSize };
+  }
+
+  private get bestBrowserEngine(): BaseEngineInfo {
+    return this.ctrl.ceval.engines.supporting({
+      rules: this.ctrl.ceval.rules,
+      nonStandardMaterial: this.ctrl.ceval.nonStandardMaterial,
+      filter: 'browser',
+    })[0];
   }
 }

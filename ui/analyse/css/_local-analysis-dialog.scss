@@ -1,13 +1,17 @@
 $c-content: color-mix(in oklab, var(--c-bg) 50%, var(--c-bg-page));
 
 .local-analysis-dialog {
-  width: min(640px, 95vw);
-  height: min(fit-content(0), 95vh);
+  width: min(640px, 96vw);
+  height: min(fit-content(0), 80vh);
   display: flex;
   flex-direction: column;
   padding: 1rem 1rem 0;
   background: $c-bg;
-  border-radius: 6px;
+  border-radius: $box-radius-size;
+
+  h2 {
+    margin-bottom: 1rem;
+  }
 
   .hidden {
     visibility: hidden;
@@ -18,14 +22,13 @@ $c-content: color-mix(in oklab, var(--c-bg) 50%, var(--c-bg-page));
     min-height: min(440px, 75vh);
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
   }
 
   .chart-container {
     position: absolute;
     padding: min(2vw, 2rem);
     border: 1px solid hsl(from $c-border h s l / 0.6);
-    border-radius: 6px;
+    border-radius: $box-radius-size;
     top: 0;
     width: 100%;
     height: 100%;
@@ -58,16 +61,18 @@ $c-content: color-mix(in oklab, var(--c-bg) 50%, var(--c-bg-page));
 
   .analysis-info {
     display: grid;
-    grid-template-columns: fit-content(0) 25% auto 1fr;
+    grid-template-columns: auto 1fr;
     grid-auto-rows: auto;
-    gap: max(2vh, 0.5rem) min(2vw, 1rem);
+    justify-content: space-around;
+    gap: 0 min(2vw, 1rem); // max(2vh, 0.5rem) min(2vw, 1rem);
     padding: min(2vw, 2rem);
     place-items: start start;
     inset: 0;
+    flex: auto;
     min-height: min(200px, 75vh);
     color: $c-font;
     background-color: $c-content;
-    border-radius: 6px;
+    border-radius: $box-radius-size;
     border: 1px solid hsl(from $c-border h s l / 0.6);
 
     > * {
@@ -78,10 +83,9 @@ $c-content: color-mix(in oklab, var(--c-bg) 50%, var(--c-bg-page));
     }
 
     > span {
-      grid-column: span 4;
+      grid-column: span 2;
       margin-block: auto;
       color: $c-font;
-      min-height: 38px;
     }
 
     > label {
@@ -98,7 +102,7 @@ $c-content: color-mix(in oklab, var(--c-bg) 50%, var(--c-bg-page));
     .separator {
       white-space: nowrap;
       font-size: 12px;
-      grid-column: span 4;
+      grid-column: span 2;
       display: grid;
       grid-template-columns: 1fr fit-content(0) 1fr;
       gap: 1rem;
@@ -108,7 +112,6 @@ $c-content: color-mix(in oklab, var(--c-bg) 50%, var(--c-bg-page));
     }
 
     .span-three {
-      grid-column: span 3;
       display: flex;
       align-items: center;
       gap: 1ch;
@@ -138,7 +141,7 @@ $c-content: color-mix(in oklab, var(--c-bg) 50%, var(--c-bg-page));
   }
 
   .analysis-settings {
-    grid-column: span 4;
+    grid-column: span 2;
     display: grid;
     width: 100%;
     grid-template-columns: repeat(auto-fit, minmax(min(100%, max(180px, 34%)), 1fr));
@@ -146,6 +149,10 @@ $c-content: color-mix(in oklab, var(--c-bg) 50%, var(--c-bg-page));
 
     .setting select {
       padding-inline: 8px;
+    }
+
+    .range_value {
+      min-width: 60px;
     }
   }
 

@@ -1857,11 +1857,11 @@ interface I18n {
     analyse: string;
     /** Analysis upload failed. Try again later. */
     analysisUploadFailed: string;
-    /** For the best results in the shortest time, use %1$s with %2$s threads */
+    /** For the best results in the shortest time, use %1$s with %2$s threads. */
     bestResultsUseXWithYThreads: I18nFormat;
     /** Cannot publish */
     cannotPublish: string;
-    /** Click Analyse to score the main line */
+    /** Click Analyse to score the main line. */
     chooseYourEngineSettings: string;
     /** Current analysis */
     currentAnalysis: string;
@@ -1903,7 +1903,7 @@ interface I18n {
     xNodesPerMove: I18nFormat;
     /** %sx fishnet quality */
     xTimesFishnetQuality: I18nFormat;
-    /** Your current local analysis can be published */
+    /** Your local analysis can be published. */
     youCanPublish: string;
   };
   msg: {

@@ -354,6 +354,8 @@ export class Engines {
   };
 }
 
+export const maxBrowserHash: number = maxHashMB();
+
 function maxHashMB() {
   if (isAndroid()) return 64; // budget androids are easy to crash @ 128
   else if (isIPad()) return 64; // iPadOS safari pretends to be desktop but acts more like iphone
@@ -361,7 +363,6 @@ function maxHashMB() {
   return 512; // allocating 1024 often fails and offers little benefit over 512, or 16 for that matter
 }
 
-const maxHash = maxHashMB();
 const maxThreads =
   isAndroid() || isIos() || navigator.userAgent.includes('CrOS') ? navigator.hardwareConcurrency : 32;
 
@@ -373,7 +374,7 @@ type WithMake = { info: LooseBrowserEngineInfo; make: (e: BrowserEngineInfo) => 
 const withDefaults = (engine: LooseBrowserEngineInfo): BrowserEngineInfo => ({
   variants: ['chess'],
   minMem: 1024,
-  maxHash,
+  maxHash: maxBrowserHash,
   minThreads: 2,
   maxThreads,
   ...engine,
