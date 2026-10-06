@@ -119,12 +119,10 @@ object lobby:
       def missed(id: String) = histogram("lobby.pool.wave.missed").withTag("pool", id)
       def ratingDiff(id: String) = histogram("lobby.pool.wave.ratingDiff").withTag("pool", id)
       def withRange(id: String) = histogram("lobby.pool.wave.withRange").withTag("pool", id)
-      def lamePlayers(id: PoolConfigId, cheat: Int, boost: Int, mix: Int) =
-        histogram("lobby.pool.wave.lame").withTags:
-          tags("id" -> id, "cheat" -> cheat, "boost" -> boost, "mix" -> mix)
-      def lamePairings(id: PoolConfigId, cheat: Int, boost: Int, mix: Int) =
-        histogram("lobby.pool.wave.lamePairing").withTags:
-          tags("id" -> id, "cheat" -> cheat, "boost" -> boost, "mix" -> mix)
+      def lamePlayers(id: PoolConfigId, name: String) =
+        histogram("lobby.pool.wave.lame").withTags(tags("id" -> id, "name" -> name))
+      def lamePairings(id: PoolConfigId, name: String) =
+        histogram("lobby.pool.wave.lamePairing").withTags(tags("id" -> id, "name" -> name))
     object thieve:
       def stolen(id: String) = histogram("lobby.pool.thieve.stolen").withTag("pool", id)
   private val lobbySegment = timer("lobby.segment")

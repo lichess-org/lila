@@ -35,18 +35,14 @@ object MatchMaking:
     val remaining = members.filterNot: p =>
       cheatPairings.exists(_.has(p.userId)) || boostPairings.exists(_.has(p.userId))
     val remainingPairings = naivePairing(remaining.filter(_.misses > 3))
-    lila.mon.lobby.pool.wave.lamePlayers(
-      monId,
-      cheatMembers.size,
-      boostMembers.size,
-      remaining.size
-    )
-    lila.mon.lobby.pool.wave.lamePairings(
-      monId,
-      cheatPairings.size,
-      boostPairings.size,
-      remainingPairings.size
-    )
+    List(
+      "cheat" -> (cheatMembers, cheatPairings),
+      "boost" -> (boostMembers, boostPairings),
+      "remaining" -> (remaining, remainingPairings)
+    ).foreach:
+      case (name, (players, pairings)) =>
+        lila.mon.lobby.pool.wave.lamePlayers(monId, name).record(players.size)
+        lila.mon.lobby.pool.wave.lamePairings(monId, name).record(pairings.size)
     cheatPairings ++ boostPairings ++ remainingPairings
 
   private def sortedByRating(members: Vector[PoolMember]): Vector[PoolMember] =
