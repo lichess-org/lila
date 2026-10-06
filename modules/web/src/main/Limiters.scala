@@ -241,7 +241,7 @@ final class Limiters(using Executor, lila.core.config.RateLimit):
       (proxy, req, me) ?=>
         default =>
           f =>
-            if proxy.no || me.isDefined then f
+            if proxy.no || me.isDefined || HTTPRequest.nginxWhitelist(req) then f
             else limiter(proxy, default, cost, msg = HTTPRequest.ipAddressStr(req))(f)
 
     private def defaultCost(using proxy: IsProxy): Int =

@@ -92,7 +92,7 @@ final class User(
           if isGrantedOpt(_.UserModView) then 0
           else if env.socket.isOnline.exec(u.id) then 1
           else 2
-        userShowHtmlRateLimit(rateLimited, cost = cost):
+        userShowHtmlRateLimit.knownProxy(rateLimited, cost = cost):
           for
             as <- fetchActivity
             nbs <- showActivityAndGames.so(env.userNbGames(u, withCrosstable = false))
