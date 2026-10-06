@@ -42,7 +42,7 @@ object MatchMaking:
     ).foreach:
       case (name, (players, pairings)) =>
         lila.mon.lobby.pool.wave.lamePlayers(monId, name).record(players.size)
-        lila.mon.lobby.pool.wave.lamePairings(monId, name).record(pairings.size)
+        lila.mon.lobby.pool.wave.lamePairings(monId, name).increment(pairings.size)
     cheatPairings ++ boostPairings ++ remainingPairings
 
   private def sortedByRating(members: Vector[PoolMember]): Vector[PoolMember] =

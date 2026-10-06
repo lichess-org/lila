@@ -122,7 +122,7 @@ object lobby:
       def lamePlayers(id: PoolConfigId, name: String) =
         histogram("lobby.pool.wave.lame").withTags(tags("id" -> id, "name" -> name))
       def lamePairings(id: PoolConfigId, name: String) =
-        histogram("lobby.pool.wave.lamePairing").withTags(tags("id" -> id, "name" -> name))
+        counter("lobby.pool.wave.lamePairing").withTags(tags("id" -> id, "name" -> name))
     object thieve:
       def stolen(id: String) = histogram("lobby.pool.thieve.stolen").withTag("pool", id)
   private val lobbySegment = timer("lobby.segment")
