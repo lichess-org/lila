@@ -25,7 +25,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
   def live = apiC.ApiRequest:
     env.api.mobile.featuredStreamers.map(apiC.toApiResult)
 
-  def show(username: UserStr, redirect: Boolean) = Open:
+  def show(username: UserStr, redirect: Boolean) = Open: ctx ?=>
     Found(api.forSubscriber(username)): s =>
       WithVisibleStreamer(s):
         val liveStreamer = env.streamer.liveApi.of(s)
@@ -36,7 +36,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
             case None =>
               for
                 sws <- liveStreamer
-                activity <- env.activity.read.recentAndPreload(sws.user)
+                activity <- ctx.isAuth.so(env.activity.read.recentAndPreload(sws.user))
                 perfs <- env.user.perfsRepo.perfsOf(sws.user)
                 page <- renderPage(views.streamer.show(sws, perfs, activity))
               yield Ok(page)

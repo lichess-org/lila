@@ -543,23 +543,25 @@ final class User(
       yield Ok(page)
   }
 
-  def perfStat(username: UserStr, perfKey: PerfKey) = Open:
-    val canCompute = req.client.isHuman && ctx.isAuth
-    Found(env.perfStat.api.data(username, perfKey, computeIfNeeded = canCompute)): data =>
-      negotiate(
-        Ok.async:
-          env.history
-            .ratingChartApi(data.user.user, computeIfNeeded = canCompute)
-            .map:
-              views.user.perfStatPage(data, _)
-        ,
-        JsonOk:
-          getBool("graph")
-            .optionFu:
-              env.history.ratingChartApi.singlePerf(data.user.user, data.stat.perfType.key)
-            .map: graph =>
-              env.perfStat.jsonView(data).add("graph", graph)
-      )
+  def perfStat(username: UserStr, perfKey: PerfKey) = Open: _ ?=>
+    WithProxy:
+      val canCompute = req.client.isHuman && ctx.isAuth
+      limit.userProfileLimiter(rateLimited):
+        Found(env.perfStat.api.data(username, perfKey, computeIfNeeded = canCompute)): data =>
+          negotiate(
+            Ok.async:
+              env.history
+                .ratingChartApi(data.user.user, computeIfNeeded = canCompute)
+                .map:
+                  views.user.perfStatPage(data, _)
+            ,
+            JsonOk:
+              getBool("graph")
+                .optionFu:
+                  env.history.ratingChartApi.singlePerf(data.user.user, data.stat.perfType.key)
+                .map: graph =>
+                  env.perfStat.jsonView(data).add("graph", graph)
+          )
 
   def autocomplete = OpenOrScoped(): ctx ?=>
     NoTor:
