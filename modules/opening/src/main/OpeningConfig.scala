@@ -15,22 +15,25 @@ case class OpeningConfig(ratings: Set[Int], speeds: Set[Speed]):
   def isDefault = this == OpeningConfig.default
 
   def showRatings: String =
-    showContiguous(ratings.toList.sorted.map(_.toString), OpeningConfig.contiguousRatings)
+    showContiguous(ratings.toList.sorted.map(_.toString), OpeningConfig.contiguousRatings)(identity, identity)
   def showSpeeds: String =
-    showContiguous(speeds.toList.sorted.map(_.name), OpeningConfig.contiguousSpeeds)
+    showContiguous(speeds.toList.sorted, OpeningConfig.contiguousSpeeds)(_.key.value, _.name)
 
   // shows contiguous rating ranges, or distinct ratings
   // 1600 to 2200
   // or 1600, 2000, 2200
-  private def showContiguous(list: List[String], reference: String): String = list match
+  private def showContiguous[A](list: List[A], reference: String)(
+      stableId: A => String,
+      label: A => String
+  ): String = list match
     case Nil => "All"
-    case List(single) => single
+    case List(single) => label(single)
     case first :: rest =>
       val many = first :: rest
-      val hash = many.mkString(",")
+      val hash = many.map(stableId).mkString(",")
       if reference == hash then "All"
-      else if reference.contains(hash) then s"$first to ${rest.lastOption | first}"
-      else many.mkString(", ")
+      else if reference.contains(hash) then s"${label(first)} to ${label(rest.lastOption | first)}"
+      else many.map(label).mkString(", ")
 
 final class OpeningConfigStore(baker: LilaCookie):
   import OpeningConfig.*
@@ -59,7 +62,7 @@ object OpeningConfig:
       Speed.Classical,
       Speed.Correspondence
     )
-  val contiguousSpeeds = allSpeeds.map(_.name).mkString(",")
+  val contiguousSpeeds = allSpeeds.map(_.key.value).mkString(",")
 
   val default = OpeningConfig(allRatings.drop(1).toSet, allSpeeds.drop(1).toSet)
 
