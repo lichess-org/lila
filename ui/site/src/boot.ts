@@ -126,5 +126,5 @@ function mirrorCheck() {
 }
 
 function playerCounter() {
-  if (once('playerCounter', { hours: 1 })) xhrText('/player-count', { method: 'post' });
+  if (once('playerCounter', { hours: 3 })) xhrText('/player-count', { method: 'post' });
 }
