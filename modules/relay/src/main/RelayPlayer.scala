@@ -170,6 +170,7 @@ private final class RelayPlayerApi(
     chapterRepo: lila.study.ChapterRepo,
     cacheApi: CacheApi,
     fidePlayerGet: lila.core.fide.GetPlayer,
+    federationsOf: lila.core.fide.Federation.FedsOf,
     photosJson: PhotosJson.Get
 )(using Federation.Guess, Executor)(using scheduler: Scheduler):
   import RelayPlayer.*
@@ -253,10 +254,8 @@ private final class RelayPlayerApi(
       rounds <- roundRepo.roundsOfScoreGroup(tours)
       roundsById = rounds.mapBy(_.id)
       chapters <- chapterRepo.tagsByStudyIds(rounds.map(_.studyId))
-      allFideIds = chapters.flatMap(_._2.flatMap((_, tags) => tags.fideIds.flatten)).toList.distinct
-      fedsById <- allFideIds
-        .traverse(id => fidePlayerGet(id).map(id -> _))
-        .map(_.flatMap((id, playerOpt) => playerOpt.flatMap(_.fed).map(id -> _)).toMap)
+      uniqueFideIds = chapters.view.values.flatMap(_.view.values.flatMap(_.fideIds.flatten)).toList.distinct
+      fedsById <- federationsOf(uniqueFideIds)
     yield chapters.foldLeft(SeqMap.empty: RelayPlayers):
       case (playersAcc, (studyId, chaps)) =>
         roundsById
