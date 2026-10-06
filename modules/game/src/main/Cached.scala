@@ -5,15 +5,11 @@ import com.github.blemale.scaffeine.LoadingCache
 import lila.db.dsl.*
 import lila.memo.{ CacheApi, MongoCache }
 
-final class Cached(
-    gameRepo: GameRepo,
-    cacheApi: CacheApi,
-    mongoCache: MongoCache.Api
-)(using Executor):
+final class Cached(gameRepo: GameRepo, mongoCache: MongoCache.Api)(using Executor):
 
   def nbImportedBy(userId: UserId): Fu[Int] = nbImportedCache.get(userId)
   export nbImportedCache.invalidate as clearNbImportedByCache
-  export nbPlayingCache.get as nbPlaying
+  export gameRepo.countNowPlaying as nbPlaying
 
   def nbTotal: Fu[Long] = nbTotalCache.get {}
 
@@ -27,16 +23,12 @@ final class Cached(
   lila.common.Bus.sub[lila.core.game.StartGame]: start =>
     start.game.userIds.foreach(lastPlayedPlayingIdCache.invalidate)
 
-  private val nbPlayingCache = cacheApi[UserId, Int](1024, "game.nbPlaying"):
-    _.expireAfterWrite(10.seconds).buildAsyncFuture: userId =>
-      gameRepo.coll.countSel(Query.nowPlaying(userId))
-
   private val nbImportedCache = mongoCache[UserId, Int](4096, "game:imported", 30.days, _.value): loader =>
     _.expireAfterAccess(10.minutes).buildAsyncFuture:
       loader: userId =>
-        gameRepo.coll.countSel(Query.imported(userId))
+        gameRepo.coll.secondary.countSel(Query.imported(userId))
 
   private val nbTotalCache = mongoCache.unit[Long]("game:total", 29.minutes): loader =>
     _.refreshAfterWrite(30.minutes).buildAsyncFuture:
       loader: _ =>
-        gameRepo.coll.countAll
+        gameRepo.coll.secondary.countAll

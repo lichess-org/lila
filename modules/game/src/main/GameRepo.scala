@@ -231,6 +231,8 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
       .dmap:
         _.flatMap { Pov(_, user) }
 
+  def countNowPlaying(userId: UserId): Fu[Int] = coll.secondary.countSel(Query.nowPlaying(userId))
+
   def countWhereUserTurn(userId: UserId): Fu[Int] = coll
     .countSel(
       // important, hits the index!
