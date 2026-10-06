@@ -88,7 +88,8 @@ object UserInfo:
   final class NbGamesApi(
       bookmarkApi: BookmarkApi,
       gameCached: lila.game.Cached,
-      crosstableApi: lila.game.CrosstableApi
+      crosstableApi: lila.game.CrosstableApi,
+      playingUsers: lila.round.PlayingUsers
   )(using Executor):
     def apply(u: User, withCrosstable: Boolean)(using me: Option[Me]): Fu[NbGames] =
       (
@@ -98,9 +99,9 @@ object UserInfo:
             .traverse: me =>
               crosstableApi.withMatchup(me.userId, u.id).mon(lila.mon.user.segment("crosstable"))
         ,
-        gameCached.nbPlaying(u.id).mon(lila.mon.user.segment("nbPlaying")),
-        gameCached.nbImportedBy(u.id).mon(lila.mon.user.segment("nbImported")),
-        bookmarkApi.countByUser(u).mon(lila.mon.user.segment("nbBookmarks"))
+        playingUsers(u.id).so(gameCached.nbPlaying(u.id).mon(lila.mon.user.segment("nbPlaying"))),
+        me.isDefined.so(gameCached.nbImportedBy(u.id).mon(lila.mon.user.segment("nbImported"))),
+        me.isDefined.so(bookmarkApi.countByUser(u).mon(lila.mon.user.segment("nbBookmarks")))
       ).mapN(NbGames.apply)
 
   final class UserInfoApi(
