@@ -117,17 +117,34 @@ Allow: /game/export/gif/thumbnail/
     Json.obj(
       "url" -> net.baseUrl,
       "sameAs" -> List(
-        "https://mastodon.online/@lichess",
+        "https://www.wikidata.org/wiki/Q19831807",
+        "https://en.wikipedia.org/wiki/Lichess", // only one WP language version is needed, the rest can be discovered from Wikidata
         "https://github.com/lichess-org",
-        "https://discord.gg/lichess",
+        "https://crowdin.com/translate/lichess",
+        "https://mastodon.online/@lichess",
         "https://bsky.app/profile/lichess.org",
+        "https://www.instagram.com/lichessdotorg",
+        "https://www.facebook.com/lichessdotorg/",
         "https://youtube.com/@LichessDotOrg",
-        "https://www.twitch.tv/lichessdotorg"
+        "https://www.twitch.tv/lichessdotorg",
+        "https://discord.gg/lichess",
+        "https://www.reddit.com/r/lichessdotorg/",
+        "https://telegram.me/lichessdotorg",
+        "https://whatsapp.com/channel/0029VaDXYlD2f3ENRMZQHF0K",
+        "https://www.tiktok.com/@lichessdotorg",
+        "https://www.linkedin.com/company/lichess",
+        "https://www.threads.net/@lichessdotorg",
+        "https://huggingface.co/Lichess",
+        "https://www.kaggle.com/organizations/lichess"
       ),
       "logo" -> s"https://${net.assetDomain}/assets/logo/lichess.svg",
-      "name" -> "Lichess free online chess",
-      "description" -> "The (really) free, no-ads, open source chess server.",
-      "email" -> "contact@lichess.org"
+      "name" -> "Lichess",
+      "legalName" -> "LICHESS.ORG",
+      "description" -> "The (really) free, no-ads, open source chess server.", // should be kept in English unless /about receives more localisations
+      "email" -> "contact@lichess.org",
+      "foundingDate" -> "2010-06-20",
+      "taxID" -> "830378717", // SIREN
+      "iso6523Code" -> "0009:830378717" // French ICD:SIREN
     )
 
 object StaticContent:
