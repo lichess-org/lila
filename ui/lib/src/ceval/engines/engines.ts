@@ -72,7 +72,6 @@ export class Engines {
           tech: 'NNUE',
           requires: ['sharedMem', 'simd', 'dynamicImportFromWorker'],
           minMem: 1536,
-          supportsCloudEval: true,
           supportsPuzzleReport: true,
           preferred: true,
           assets: {
