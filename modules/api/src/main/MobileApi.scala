@@ -6,6 +6,7 @@ import play.api.mvc.RequestHeader
 import scalalib.data.Preload
 
 import lila.common.Json.given
+import lila.common.ClientName
 import lila.core.i18n.Translate
 import lila.core.user.KidMode
 import lila.oauth.TokenScopes
@@ -77,7 +78,10 @@ final class MobileApi(
       json <- spotlight.sequentially(tourApiJson.fullJson)
     yield Json.obj("featured" -> json)
 
-  def tournaments(using me: Option[Me])(using Translate): Fu[JsObject] =
+  def tournaments(using me: Option[Me], client: ClientName)(using RequestHeader, Translate): Fu[JsObject] =
+    // lichobile and mobile anon players hit this
+    if client.isLichobile then playerCounter.lichobile.hit()
+    else if client.isMobile then playerCounter.mobile.hit()
     for
       withPerfs <- me.so(userApi.withPerfs)
       tours <- tournamentsOf(withPerfs)
