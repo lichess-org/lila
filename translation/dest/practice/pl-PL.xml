@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="makesPerfect">czyni z Ciebie mistrza szachów</string>
+  <string name="signUpToSaveYourProgress">Zarejestruj się, aby zapisać swoje postępy</string>
   <string name="secHeadCheckmates">Maty</string>
   <string name="secHeadFundamentalTactics">Podstawowe taktyki</string>
   <string name="secHeadAdvancedTactics">Zaawansowane taktyki</string>
@@ -32,13 +34,37 @@
   <string name="stNamClearance">Oczyszczenie pola</string>
   <string name="stNamKeySquares">Kluczowe pola</string>
   <string name="stNamOpposition">Opozycja</string>
+  <string name="stNam7thRankRookPawn">Pion wieżowy na siódmej linii</string>
   <string name="stNamBasicRookEndgames">Podstawowe końcowki wieżowe</string>
+  <string name="stNamIntermediateRookEndings">Średniozaawansowane końcówki wieżowe</string>
   <string name="stNamPracticalRookEndings">Praktyczne końcówki wieżowe</string>
   <string name="stDesBasicCheckmates">Podstawowe maty</string>
   <string name="stDesRecognizeThePatterns">Rozpoznaj motywy</string>
+  <string name="stDesChallengingCheckmates">Trudne maty</string>
   <string name="stDesInteractiveLesson">Interaktywna lekcja</string>
+  <string name="stDesPinItToWinIt">Zwiąż, aby wygrać</string>
+  <string name="stDesYumSkewers">Mniam, szpile!</string>
+  <string name="stDesUseTheForkLuke">Niech widełki będą z tobą</string>
+  <string name="stDesIncludingDiscoveredChecks">W tym szachy z odkrycia</string>
+  <string name="stDesAVeryPowerfulTactic">Bardzo silny motyw taktyczny</string>
+  <string name="stDesTheyHaveTooMuchWork">Mają za dużo roboty</string>
+  <string name="stDesInBetweenMoves">Pomiędzy ruchami</string>
+  <string name="stDesAttackingThroughAnEnemyPiece">Atak zza figury przeciwnika</string>
+  <string name="stDesBeingForcedToMove">Konieczność wykonania ruchu</string>
+  <string name="stDesInterposeAPieceToGreatEffect">Przetnij linię działania figury przeciwnika</string>
+  <string name="stDesStudyTheGreekGiftSacrifice">Poznaj ofiarę grecką</string>
   <string name="stDesDistractingADefender">Odciąganie obrońcy</string>
+  <string name="stDesLureAPieceToABadSquare">Zwab figurę na słabe pole</string>
   <string name="stDesPromoteButNotToAQueen">Promuj - ale nie do hetmana!</string>
   <string name="stDesAPieceIsLostButItCanStillHelp">Figura stracona, ale nadal może być użyteczna</string>
   <string name="stDesRespondToACheckWithACheck">Na szacha odpowiedz szachem</string>
+  <string name="stDesRemoveTheDefendingPiece">Usuń figurę broniącą</string>
+  <string name="stDesGetOutOfTheWay">Z drogi!</string>
+  <string name="stDesReachAKeySquare">Zajmij kluczowe pole</string>
+  <string name="stDesTakeTheOpposition">Stań w opozycji</string>
+  <string name="stDesVersusAQueen">Kontra Hetman</string>
+  <string name="stDesAndPassiveRookVsRook">No i pasywna wieża przeciwko wieży</string>
+  <string name="stDesLucenaAndPhilidor">Lucena i Philidor</string>
+  <string name="stDesBroadenYourKnowledge">Poszerz wiedzę</string>
+  <string name="stDesRookEndingsWithSeveralPawns">Końcówki wieżowe z kilkoma pionami</string>
 </resources>

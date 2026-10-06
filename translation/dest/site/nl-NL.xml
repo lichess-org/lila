@@ -460,6 +460,8 @@ Spelen met rating verhoogt de stabiliteit.</string>
     <item quantity="one">%s vriend online</item>
     <item quantity="other">%s vrienden online</item>
   </plurals>
+  <string name="friendsOnlineAndPlaying">Vrienden online: %1$s
+Vrienden die spelen: %2$s</string>
   <string name="favoriteOpponents">Favoriete tegenstanders</string>
   <string name="follow">Volgen</string>
   <string name="following">Volgend</string>

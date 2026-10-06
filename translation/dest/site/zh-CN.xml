@@ -430,6 +430,8 @@
   <plurals name="nbFriendsOnline">
     <item quantity="other">有 %s 位好友在线</item>
   </plurals>
+  <string name="friendsOnlineAndPlaying">在线好友：%1$s
+在弈好友：%2$s</string>
   <string name="favoriteOpponents">最常对阵的棋手</string>
   <string name="follow">关注</string>
   <string name="following">已关注</string>

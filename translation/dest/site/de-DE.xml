@@ -460,6 +460,8 @@ Wenn du gewertete Partien spielst, wird die Stabilität erhöht.</string>
     <item quantity="one">%s Freund online</item>
     <item quantity="other">%s Freunde online</item>
   </plurals>
+  <string name="friendsOnlineAndPlaying">Freunde online: %1$s
+Freunde am Spielen: %2$s</string>
   <string name="favoriteOpponents">Häufigste Gegner</string>
   <string name="follow">Folgen</string>
   <string name="following">Folge ich</string>

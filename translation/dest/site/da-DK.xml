@@ -460,6 +460,8 @@ At spille ratede partier vil øge stabiliteten.</string>
     <item quantity="one">%s ven online</item>
     <item quantity="other">%s venner online</item>
   </plurals>
+  <string name="friendsOnlineAndPlaying">Venner online: %1$s
+Venner der spiller: %2$s</string>
   <string name="favoriteOpponents">Favoritmodstandere</string>
   <string name="follow">Følg</string>
   <string name="following">Følger</string>

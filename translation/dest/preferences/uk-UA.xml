@@ -41,6 +41,7 @@
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Автоматично оголошувати нічию при троєкратному повторенні ходів</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Коли часу залишається &lt; 30 секунд</string>
   <string name="moveConfirmation">Підтвердження ходу</string>
+  <string name="multipleChoices">Множинний вибір. </string>
   <string name="explainCanThenBeTemporarilyDisabled">Можна вимкнути під час гри в меню дошки</string>
   <string name="inCorrespondenceGames">У заочних партіях</string>
   <string name="correspondenceAndUnlimited">Заочні та необмежені</string>
@@ -89,4 +90,10 @@
   <string name="analysisSettings">Налаштування аналізу</string>
   <string name="maneuverArrowsHelp">Послідовність ходів рушія для однієї фігури</string>
   <string name="hoverOverSettingLabelsForHelp">Наведіть курсор на налаштування для деталей</string>
+  <string name="network">Мережа</string>
+  <string name="youAreCurrentlyUsingDirectRouting">Наразі ви використовуєте пряму маршрутизацію.</string>
+  <string name="youAreCurrentlyUsingCdnRouting">Наразі ви використовуєте маршрутизацію через мережу доставлення вмісту (CDN).</string>
+  <string name="frequentDisconnectsAdvice">Якщо вас часто від\'єднує, спробуйте змінити маршрутизацію.</string>
+  <string name="useDirectRouting">Використовувати пряму маршрутизацію</string>
+  <string name="useCdnRouting">Використовувати маршрутизацію через CDN</string>
 </resources>

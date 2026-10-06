@@ -16,6 +16,7 @@
   <string name="quitTeam">Lähde joukkueesta</string>
   <string name="manuallyReviewAdmissionRequests">Käy liittymispyynnöt yksitellen läpi</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Jos valitset tämän, pelaajien tulee joukkueeseen liittyäkseen kirjoittaa liittymispyynnöt, jotka voit hylätä tai hyväksyä.</string>
+  <string name="hideMembersDesc" comment="Checkbox label: option to hide the team member list from non-members">Piilota joukkueen jäsenluettelo muilta kuin jäseniltä.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Joukkueen johtaja</item>
     <item quantity="other">Joukkueen johtajat</item>
@@ -49,6 +50,9 @@
   <string name="entryCode">Joukkueen sisäänpääsykoodi</string>
   <string name="entryCodeDescriptionForLeader">(Valinnainen) Sisäänpääsykoodi, joka uusien jäsenten on tiedettävä voidakseen liittyä joukkueeseen.</string>
   <string name="incorrectEntryCode">Virheellinen sisäänpääsykoodi.</string>
+  <string name="forumLabel">Joukkueen foorumi</string>
+  <string name="forumVisibilityHelp">Kuka näkee joukkueen foorumin joukkuesivulla?&lt;br&gt;Vain joukkueen jäsenet voivat kirjoittaa joukkueen foorumille.</string>
+  <string name="forumVisibilityNone">Piilota foorumi</string>
   <string name="teamAlreadyExists">Tämä joukkue on jo olemassa.</string>
   <string name="upcomingTournaments">Tulevat turnaukset</string>
   <string name="completedTourns">Päättyneet turnaukset</string>

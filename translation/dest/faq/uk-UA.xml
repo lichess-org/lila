@@ -166,6 +166,7 @@
 3. Натисніть на Куки та Дозволи сайту
 4. Прокрутіть донизу та оберіть Авто-Програвання медіа
 5. Додайте lichess.org до Дозволів (Дозволених)</string>
+  <string name="makeBotDescription">Щоб навчитися створити &lt;a href=\'%1$s\'&gt;власного шахового бота&lt;/a&gt; для Lichess, прочитайте &lt;a href=\'%2$s\'&gt;цей допис про створення ботів&lt;/a&gt;.</string>
   <string name="stopMyselfFromPlaying">Як припинити грати надміру?</string>
   <string name="mentalHealthCondition">самостійне психологічне захворювання</string>
   <string name="lichessUserstyles">Користувацькі стилі Lichess</string>

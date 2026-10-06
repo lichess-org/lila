@@ -460,6 +460,8 @@ Jugar por puntos aumentará la estabilidad.</string>
     <item quantity="one">%s amigo conectado</item>
     <item quantity="other">%s amigos conectados</item>
   </plurals>
+  <string name="friendsOnlineAndPlaying">Amigos en línea: %1$s
+Amigos jugando: %2$s</string>
   <string name="favoriteOpponents">Oponentes favoritos</string>
   <string name="follow">Seguir</string>
   <string name="following">Siguiendo</string>

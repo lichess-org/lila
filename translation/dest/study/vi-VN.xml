@@ -52,7 +52,7 @@
   <string name="playing">Đang chơi</string>
   <string name="showResults">Kết quả</string>
   <string name="showEvalBar">Thanh lợi thế</string>
-  <string name="next">Trang tiếp theo</string>
+  <string name="next">Kế tiếp</string>
   <string name="shareAndExport">Chia sẻ &amp; xuất</string>
   <string name="cloneStudy">Nhân bản</string>
   <string name="studyPgn">PGN nghiên cứu</string>
@@ -125,7 +125,7 @@
   <string name="deleteStudy">Xóa nghiên cứu</string>
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Xóa toàn bộ nghiên cứu? Không có cách nào để khôi phục lại! Nhập tên của nghiên cứu để xác nhận: %s</string>
   <string name="whereDoYouWantToStudyThat">Bạn muốn nghiên cứu ở đâu?</string>
-  <string name="goodMove">Nước tốt</string>
+  <string name="goodMove">Nước cờ tốt</string>
   <string name="mistake">Sai lầm</string>
   <string name="brilliantMove">Nước đi thiên tài</string>
   <string name="blunder">Sai lầm nghiêm trọng</string>

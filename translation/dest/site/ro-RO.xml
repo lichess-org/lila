@@ -490,6 +490,8 @@ Jucarea de jocuri oficiale va crește stabilitatea.</string>
     <item quantity="few">%s prieteni online</item>
     <item quantity="other">%s de prieteni online</item>
   </plurals>
+  <string name="friendsOnlineAndPlaying">Prieteni online: %1$s
+Prieteni jucând: %2$s</string>
   <string name="favoriteOpponents">Adversari preferați</string>
   <string name="follow">Urmăriți</string>
   <string name="following">Se urmărește</string>

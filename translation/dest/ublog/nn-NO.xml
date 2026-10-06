@@ -2,6 +2,8 @@
 <resources>
   <string name="community">Fellesskap</string>
   <string name="communityBlogs">Bloggar frå sjakkmiljøet</string>
+  <string name="best">Beste</string>
+  <string name="all">Alle</string>
   <string name="byMonth">Etter månad</string>
   <string name="byTopic">Etter emne</string>
   <string name="byLichess">Av Lichess</string>

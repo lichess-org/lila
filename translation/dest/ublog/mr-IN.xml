@@ -2,6 +2,8 @@
 <resources>
   <string name="community">समुदाय</string>
   <string name="communityBlogs">समुदाय अनुदिन्या</string>
+  <string name="best">सर्वोत्कृष्ट</string>
+  <string name="all">सर्व</string>
   <string name="byMonth">महिन्यानुसार</string>
   <string name="byTopic">विषयानुसार</string>
   <string name="byLichess">Lichess द्वारे</string>
