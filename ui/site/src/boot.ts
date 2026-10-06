@@ -116,7 +116,7 @@ export function boot() {
 
     upgradeNag();
     mirrorCheck();
-    setTimeout(playerCounter, 1000);
+    playerCounter();
   }, 800);
 }
 
@@ -126,5 +126,9 @@ function mirrorCheck() {
 }
 
 function playerCounter() {
-  if (once('playerCounter', { hours: 3 })) xhrText('/player-count', { method: 'post' });
+  pubsub.after('socket.hasConnected').then(() => {
+    setTimeout(() => {
+      if (once('playerCounter', { hours: 3 })) xhrText('/player-count', { method: 'post' });
+    }, 1500);
+  });
 }
