@@ -5,7 +5,7 @@
   "dependencies": {
     "@badrap/result": "^0.3.1",
     "lib": "workspace:*",
-    "onnxruntime-web": "1.23.2"
+    "onnxruntime-web": "1.30.0"
   },
   "build": {
     "bundle": "src/editor*.ts",
