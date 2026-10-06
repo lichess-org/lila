@@ -51,7 +51,7 @@ final class Main(env: Env, assetsC: ExternalAssets) extends LilaController(env):
     FoundPage(env.cms.renderKey("mobile"))(views.mobile)
 
   def playerCount = Open:
-    env.web.playerCounter.website.hit()
+    NoCrawlers(env.web.playerCounter.website.hit())
     NoContent
 
   def jslog(id: GameFullId) = Open:
