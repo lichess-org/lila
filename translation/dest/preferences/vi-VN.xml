@@ -91,4 +91,9 @@
   <string name="maneuverArrowsHelp">Trình tự các nước đi của máy tính đánh giá cho một quân cờ</string>
   <string name="hoverOverSettingLabelsForHelp">Di chuột qua các cài đặt để xem giải thích</string>
   <string name="network">Mạng</string>
+  <string name="youAreCurrentlyUsingDirectRouting">Bạn hiện đang sử dụng định tuyến mạng trực tiếp.</string>
+  <string name="youAreCurrentlyUsingCdnRouting">Bạn hiện đang sử dụng định tuyến Mạng phân tán nội dung (CDN).</string>
+  <string name="frequentDisconnectsAdvice">Nếu bạn thường xuyên bị mất kết nối, hãy thử thay đổi kiểu định tuyến.</string>
+  <string name="useDirectRouting">Dùng định tuyến mạng trực tiếp</string>
+  <string name="useCdnRouting">Dùng định tuyến mạng CDN</string>
 </resources>

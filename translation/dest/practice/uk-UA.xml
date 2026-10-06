@@ -7,6 +7,7 @@
   <string name="secHeadAdvancedTactics">Просунуті тактики</string>
   <string name="secHeadPawnEndgames">Пішакові ендшпілі</string>
   <string name="secHeadRookEndgames">Турові ендшпілі</string>
+  <string name="stNamKnightAndBishopMate">Мат конем і слоном</string>
   <string name="stNamTheFork">Вилка</string>
   <string name="stNamDiscoveredAttacks">Відкритий напад</string>
   <string name="stNamDoubleCheck">Подвійний шах</string>
@@ -22,5 +23,8 @@
   <string name="stDesBasicCheckmates">Базові мати</string>
   <string name="stDesChallengingCheckmates">Складні мати</string>
   <string name="stDesInteractiveLesson">Інтерактивний урок</string>
+  <string name="stDesAndPassiveRookVsRook">І пасивна тура проти тури</string>
+  <string name="stDesLucenaAndPhilidor">Лусена й Філідор</string>
+  <string name="stDesBroadenYourKnowledge">Розвивайте свої знання</string>
   <string name="stDesRookEndingsWithSeveralPawns">Турові ендшпілі з кількома пішаками</string>
 </resources>

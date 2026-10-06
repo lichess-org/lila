@@ -22,7 +22,7 @@
   <string name="challengeBulk">Créer plusieurs parties à la fois pour d\'autres joueurs</string>
   <string name="studyRead">Lire les études privées et les diffusions</string>
   <string name="studyWrite">Créer, modifier, supprimer les études et diffusions</string>
-  <string name="tournamentRead">Lire des tournois privés</string>
+  <string name="tournamentRead">Consulter des tournois privés</string>
   <string name="tournamentWrite">Créer et modifier les tournois et y participer</string>
   <string name="racerWrite">Créer les courses de problèmes et y participer</string>
   <string name="puzzleRead">Lire l\'activité des problèmes</string>

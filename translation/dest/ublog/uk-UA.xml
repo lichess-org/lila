@@ -2,6 +2,8 @@
 <resources>
   <string name="community">Спільнота</string>
   <string name="communityBlogs">Спільнотні блоги</string>
+  <string name="best">Найкраще</string>
+  <string name="all">Усе</string>
   <string name="byMonth">За місяцем</string>
   <string name="byTopic">За темою</string>
   <string name="byLichess">Від Lichess</string>

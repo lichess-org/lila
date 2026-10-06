@@ -2,6 +2,8 @@
 <resources>
   <string name="community">コミュニティ</string>
   <string name="communityBlogs">コミュニティブログ</string>
+  <string name="best">推奨</string>
+  <string name="all">全部</string>
   <string name="byMonth">月別</string>
   <string name="byTopic">トピック別</string>
   <string name="byLichess">Lichess 公式</string>

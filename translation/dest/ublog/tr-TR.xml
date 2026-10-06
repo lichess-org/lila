@@ -2,6 +2,8 @@
 <resources>
   <string name="community">Topluluk</string>
   <string name="communityBlogs">Topluluk blogları</string>
+  <string name="best">En iyi</string>
+  <string name="all">Tümü</string>
   <string name="byMonth">Aya göre</string>
   <string name="byTopic">Konuya göre</string>
   <string name="byLichess">Lichess\'ten</string>

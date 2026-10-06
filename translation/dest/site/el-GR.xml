@@ -457,6 +457,8 @@
     <item quantity="one">%s φίλος/η συνδεδεμένος/η</item>
     <item quantity="other">%s Φίλοι συνδεδεμένοι</item>
   </plurals>
+  <string name="friendsOnlineAndPlaying">Συνδεδεμένοι φίλοι: %1$s
+Φίλοι που παίζουν: %2$s</string>
   <string name="favoriteOpponents">Αγαπημένοι αντίπαλοι</string>
   <string name="follow">Ακολουθήστε</string>
   <string name="following">Ακολουθείτε</string>

@@ -162,6 +162,8 @@ Jos näin tapahtuu, huomautamme sinulle siitä näyttämällä punaisen mykistys
 3. Valitse Evästeet ja sivuston käyttöoikeudet
 4. Vieritä alas ja valitse Median automaattinen toisto
 4. Lisää lichess.org listalle \"Salli\"</string>
+  <string name="makeBotTitle">Tee botti Lichessiin?</string>
+  <string name="makeBotDescription">Lue &lt;a href=\'%2$s\'&gt;tämä blogikirjoitus omista shakkiboteista&lt;/a&gt; niin opit kuinka luodaan &lt;a href=\'%1$s\'&gt;oma shakkibotti&lt;/a&gt; pelaamaan Lichessiin.</string>
   <string name="stopMyselfFromPlaying">Estää itseäni pelaamasta?</string>
   <string name="mentalHealthCondition">erilliseksi mielenterveyshäiriöksi</string>
   <string name="lichessUserstyles">Lichessin käyttäjäkohtaiset tyylit</string>

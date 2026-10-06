@@ -459,6 +459,8 @@ Juga partides puntuades per augmentar l\'estabilitat.</string>
     <item quantity="one">%s amic connectat</item>
     <item quantity="other">%s amics connectats</item>
   </plurals>
+  <string name="friendsOnlineAndPlaying">Amics connectats: %1$s
+Amics jugant: %2$s</string>
   <string name="favoriteOpponents">Adversaris favorits</string>
   <string name="follow">Seguir</string>
   <string name="following">Seguint</string>

@@ -2,6 +2,8 @@
 <resources>
   <string name="community">Gemeinschaft</string>
   <string name="communityBlogs">Gemeinschafts-Blogs</string>
+  <string name="best">Bester</string>
+  <string name="all">Alle</string>
   <string name="byMonth">Nach Monat</string>
   <string name="byTopic">Nach Thema</string>
   <string name="byLichess">Von Lichess</string>

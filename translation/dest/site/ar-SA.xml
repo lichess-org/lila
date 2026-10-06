@@ -582,6 +582,8 @@
     <item quantity="many">%s أصدقاء متصلون</item>
     <item quantity="other">%s أصدقاء متصلون</item>
   </plurals>
+  <string name="friendsOnlineAndPlaying">الأصدقاء المتصلون: %1$s
+الأصدقاء الذين يلعبون: %2$s</string>
   <string name="favoriteOpponents">خصوم مفضلين</string>
   <string name="follow">تابع</string>
   <string name="following">متابع</string>

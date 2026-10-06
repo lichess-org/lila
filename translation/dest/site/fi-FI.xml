@@ -459,6 +459,8 @@
     <item quantity="one">%s kaveri paikalla</item>
     <item quantity="other">%s kaveria paikalla</item>
   </plurals>
+  <string name="friendsOnlineAndPlaying">Kavereita paikalla: %1$s
+Kavereita pelaamassa: %2$s</string>
   <string name="favoriteOpponents">Suosikkivastustajat</string>
   <string name="follow">Seuraa</string>
   <string name="following">Seurataan</string>
@@ -557,6 +559,11 @@
   <string name="autoSwitch">Automaattinen siirtyminen</string>
   <string name="puzzles">Tehtävät</string>
   <string name="onlineBots">Online-botit</string>
+  <string name="aboutBotsOnLichess">Tietoa boteista Lichessissä</string>
+  <string name="featuredBots">Botit näytteillä</string>
+  <string name="tryPlayingTheseInnovativeChessEngines">Kokeilepa pelata näitä innovatiivisia shakkitietokoneita vastaan! Ne ovat suosikkejamme.</string>
+  <string name="communityBots">Yhteisön botit</string>
+  <string name="moreChessEnginesCreatedByTheLichessCommunity">Lisää Lichess-yhteisön luomia shakkitietokoneita. Niiden luojat isännöivät niitä eivätkä ne välttämättä ole aina verkossa.</string>
   <string name="name">Nimi</string>
   <string name="description">Kuvaus</string>
   <string name="descPrivate">Yksityinen kuvaus</string>
@@ -604,6 +611,7 @@
   <string name="clearField">Tyhjennä kenttä</string>
   <string name="orSeparator">Tai</string>
   <string name="logInByEmail">Kirjaudu sisään sähköpostilla</string>
+  <string name="emailLoginInstructions">Lähetämme sähköpostiisi linkin, jolla voit kirjautua sisään.</string>
   <string name="emailMeALink">Lähetä minulle linkki</string>
   <string name="currentPassword">Nykyinen salasana</string>
   <string name="newPassword">Uusi salasana</string>
@@ -628,6 +636,8 @@
   <string name="onSlowGames">Hitaissa peleissä</string>
   <string name="always">Aina</string>
   <string name="never">Ei koskaan</string>
+  <string name="defeatOnly">Vain hävitessä</string>
+  <string name="drawAndDefeat">Häviöstä tai tasapelistä</string>
   <string name="xCompetesInY">%1$s kilpailee turnauksessa %2$s</string>
   <string name="victory">Voitto</string>
   <string name="defeat">Tappio</string>
@@ -692,10 +702,13 @@
   <string name="aboutX">Tietoa %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s on ilmainen (%2$s), vapaa ja mainokseton avoimen lähdekoodin shakkipalvelin.</string>
   <string name="really">oikeasti</string>
+  <string name="lichessUpdates">Lichessin päivitykset</string>
   <string name="contribute">Osallistu</string>
+  <string name="changelog">Muutosloki</string>
   <string name="termsOfService">Käyttöehdot</string>
   <string name="titleVerification">Arvonimen vahvistaminen</string>
   <string name="sourceCode">Lähdekoodi</string>
+  <string name="blockAds">Mainostenesto</string>
   <string name="simultaneousExhibitions">Simultaanit</string>
   <string name="host">Isäntä</string>
   <string name="hostColorX">Isännän väri: %s</string>
@@ -795,12 +808,14 @@
   <string name="enableKidMode">Lapsitila käyttöön</string>
   <string name="disableKidMode">Lapsitila käytöstä</string>
   <string name="security">Turvallisuus</string>
+  <string name="activeSessionsDescription">Tämä on luettelo laitteista ja sovelluksista, jotka kytkeytyvät käyttäjätiliisi. Jos huomaat mitään epäilyttävää, varmista &lt;a href=\'%1$s\'&gt;palautussähköpostiosoitteesi oikeellisuus&lt;/a&gt; ja &lt;a href=\'%2$s\'&gt;vaihda salasanasi&lt;/a&gt;.</string>
   <string name="sessions">Istunnot</string>
   <string name="revokeAllSessions">katkaista kaikki sessiot</string>
   <string name="playChessEverywhere">Pelaa shakkia kaikkialla</string>
   <string name="everybodyGetsAllFeaturesForFree">Jokainen saa kaikki ominaisuudet ilmaiseksi</string>
   <string name="viewTheSolution">Katso ratkaisu</string>
   <string name="noChallenges">Ei haasteita.</string>
+  <string name="browserNotificationsDenied">Ilmoitusponnahdusikkunat poistettu käytöstä selaimen asetuksella</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Saatavilla %s eri kielellä!</item>
     <item quantity="other">Saatavilla %s eri kielellä!</item>
@@ -1045,4 +1060,7 @@ Kaikki toimintakustannukset, kehitystyö ja sisältö rahoitetaan yksinomaan kä
   <string name="verifyingYourDevice">Vahvistetaan laitettasi...</string>
   <string name="chessOpenings">Shakkiavaukset</string>
   <string name="boards">Laudat</string>
+  <string name="write">Kirjoita</string>
+  <string name="preview">Esikatsele</string>
+  <string name="done">Tehty</string>
 </resources>

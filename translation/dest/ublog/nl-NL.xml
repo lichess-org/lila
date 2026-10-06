@@ -2,6 +2,8 @@
 <resources>
   <string name="community">Gemeenschap</string>
   <string name="communityBlogs">Blogs van de gemeenschap</string>
+  <string name="best">Beste</string>
+  <string name="all">Alles</string>
   <string name="byMonth">Per maand</string>
   <string name="byTopic">Per onderwerp</string>
   <string name="byLichess">Door Lichess</string>

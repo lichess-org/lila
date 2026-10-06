@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="community">Bashkësi</string>
+  <string name="best">Më të mirat</string>
+  <string name="all">Krejt</string>
   <string name="byMonth">Sipas muajsh</string>
   <string name="byTopic">Sipas subjektesh</string>
   <string name="byLichess">Nga Lichess</string>
