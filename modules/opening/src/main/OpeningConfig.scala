@@ -6,17 +6,25 @@ import play.api.data.Forms.*
 import play.api.mvc.RequestHeader
 
 import lila.common.Form.{ numberIn, typeIn, given }
+import lila.core.i18n.{ I18nKey, Translate }
 import lila.core.security.LilaCookie
 
 case class OpeningConfig(ratings: Set[Int], speeds: Set[Speed]):
 
-  override def toString = s"Speed: $showSpeeds; Rating: $showRatings"
+  override def toString = s"Speed: ${showSpeedsEnglish}; Rating: $showRatings"
 
   def isDefault = this == OpeningConfig.default
 
   def showRatings: String =
     showContiguous(ratings.toList.sorted.map(_.toString), OpeningConfig.contiguousRatings)(identity, identity)
-  def showSpeeds: String =
+  def showSpeeds(using Translate): String =
+    showContiguous(speeds.toList.sorted, OpeningConfig.contiguousSpeeds)(
+      _.key.value,
+      OpeningConfig.speedLabel
+    )
+
+  // the log needs no translator, and stays readable
+  private def showSpeedsEnglish: String =
     showContiguous(speeds.toList.sorted, OpeningConfig.contiguousSpeeds)(_.key.value, _.name)
 
   // shows contiguous rating ranges, or distinct ratings
@@ -93,4 +101,13 @@ object OpeningConfig:
   )
 
   val ratingChoices = allRatings.zip(allRatings.map(_.toString))
-  val speedChoices = allSpeeds.map(_.id).zip(allSpeeds.map(_.name))
+  def speedChoices(using Translate): List[(chess.SpeedId, String)] =
+    allSpeeds.map(s => (s.id, speedLabel(s)))
+
+  private[opening] def speedLabel(speed: Speed)(using Translate): String = speed match
+    case Speed.UltraBullet => I18nKey.site.ultraBullet.txt()
+    case Speed.Bullet => I18nKey.site.bullet.txt()
+    case Speed.Blitz => I18nKey.site.blitz.txt()
+    case Speed.Rapid => I18nKey.site.rapid.txt()
+    case Speed.Classical => I18nKey.site.classical.txt()
+    case Speed.Correspondence => I18nKey.site.correspondence.txt()
