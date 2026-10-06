@@ -47,8 +47,8 @@ object userId:
     given UserIdOf[MyId] = u => u
     given (using id: MyId): Option[MyId] = Some(id)
     given (using me: Me): MyId = me.myId
+    given (using me: Option[Me]): Option[MyId] = me.map(_.myId)
     given [M[_]]: Conversion[M[MyId], M[UserId]] = u => UserId.from(MyId.raw(u))
-    given Conversion[Me, MyId] = _.myId
     extension (me: MyId)
       inline def userId: UserId = me.into(UserId)
       inline def modId: ModId = me.into(ModId)

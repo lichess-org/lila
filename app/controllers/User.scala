@@ -83,7 +83,7 @@ final class User(
       Context,
       IsProxy
   ): Fu[Result] =
-    limit.enumeration.userProfile(rateLimited):
+    limit.userProfileLimiter(rateLimited):
       val showActivityAndGames = isRestricted.not && !UserId.isOfficial(u.id)
       def fetchActivity = showActivityAndGames.so(env.activity.read.recentAndPreload(u))
       if HTTPRequest.isSynchronousHttp(ctx.req)
@@ -124,7 +124,7 @@ final class User(
       val isSearch = filter == GameFilter.search.name
       RequireAuthIf(UserAgentParser.trust.isSuspicious || page > 1 || isSearch):
         WithProxy: proxy ?=>
-          limit.enumeration.userProfile(rateLimited):
+          limit.userProfileLimiter(rateLimited):
             EnabledUser(username): u =>
               val full = !isRestricted
               negotiate(

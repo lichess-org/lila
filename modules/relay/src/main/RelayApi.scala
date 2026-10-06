@@ -613,14 +613,14 @@ final class RelayApi(
   private[relay] def onStudyRemove(studyId: StudyId) =
     roundRepo.coll.delete.one(bid(studyId.into(RelayRoundId))).void
 
-  def becomeStudyAdmin(studyId: StudyId, me: Me): Funit =
+  def becomeStudyAdmin(studyId: StudyId)(using MyId): Funit =
     roundRepo
       .tourIdByStudyId(studyId)
       .flatMapz: tourId =>
         roundRepo
           .studyIdsOf(tourId)
           .flatMap:
-            _.sequentiallyVoid(studyApi.becomeAdmin(_, me))
+            _.sequentiallyVoid(studyApi.becomeAdmin)
 
   private[relay] def setOwnerOfGroupOrTour(anyId: String, userId: UserId): Fu[List[RelayTourId]] =
     for
