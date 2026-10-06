@@ -9,7 +9,7 @@ final class PlayerCounter(using scheduler: Scheduler, mode: Mode)(using Executor
 
   val lichobile = AnonAuthCounters(capacity(1_000_000))
   val mobile = AnonAuthCounters(capacity(1_000_000))
-  val website = AnonAuthCounters(capacity(2_000_000))
+  val website = AnonAuthCounters(capacity(3_000_000))
   val takex3 = AnonAuthCounters(capacity(50_000))
 
   private def capacity(max: Int) =
