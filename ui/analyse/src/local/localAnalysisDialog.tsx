@@ -1,5 +1,6 @@
 import type { AcplChart, ChartGame } from 'chart';
 
+import { withEffect } from 'lib';
 import { clamp } from 'lib/algo';
 import { maxBrowserHash } from 'lib/ceval/engines/engines';
 import type { CustomSearch, BaseEngineInfo } from 'lib/ceval/types';
@@ -79,10 +80,10 @@ class LocalAnalysisDialog {
     return [
       <div class="main-content">
         <h2>{i18n.study.analysisEditor}</h2>
-        <div class={['analysis-info', !(this.canAnalyse && this.engine) && 'hidden']}>
+        <div class={['analysis-editor', !(this.canAnalyse && this.engine) && 'hidden']}>
           {this.analysisEditor(redraw)}
         </div>
-        <div class={['chart-container', this.canAnalyse && 'none']}>
+        <div key="chart" class={['chart-container', this.canAnalyse && 'none']}>
           <canvas
             class="chart"
             hook={onInsert<HTMLCanvasElement>(async canvas => {
@@ -244,17 +245,12 @@ class LocalAnalysisDialog {
   private analysisEditor(redraw: Redraw) {
     const info = this.ctrl.ceval.info(this.customSearch)!;
     const ceval = this.ctrl.ceval;
+    const preludes: string[] = [];
+    const trailers: string[] = [];
     const [current, published] = [
       this.ctrl.staticAnalysis?.engine,
       this.ctrl.idbTree.hasLocalAnalysis && this.ctrl.publishedEvalEngine,
     ].filter(Boolean);
-    const change =
-      <Value,>(prop: StoredProp<Value>) =>
-      (value: Value) => {
-        prop(value);
-        redraw();
-      };
-    const preludes: string[] = [];
     if (!current) {
       preludes.push(i18n.localAnalysis.chooseYourEngineSettings);
       if (
@@ -271,6 +267,15 @@ class LocalAnalysisDialog {
           ),
         );
       }
+    }
+    if (this.timeToComplete) {
+      const seconds = Math.ceil(this.timeToComplete);
+      const minutes = Math.ceil(this.timeToComplete / 60);
+      trailers.push(
+        i18n.localAnalysis.timeToComplete(
+          minutes > 1 ? i18n.site.nbMinutes(minutes) : i18n.site.nbSeconds(seconds),
+        ),
+      );
     }
     return [
       preludes.length > 0 && (
@@ -293,7 +298,7 @@ class LocalAnalysisDialog {
           {engineSelect(
             ceval.engines.supporting({ rules: ceval.rules, nonStandardMaterial: ceval.nonStandardMaterial }),
             info.engine.id,
-            change(this.engineId),
+            withEffect(this.engineId, redraw),
             'local-analysis-engine',
           )}
         </div>
@@ -307,16 +312,22 @@ class LocalAnalysisDialog {
             max={info.engine.maxThreads}
             step={1}
             disabled={info.engine.minThreads === info.engine.maxThreads}
-            hook={rangeConfig(() => info.threads, change(this.threads))}
+            hook={rangeConfig(() => info.threads, withEffect(this.threads, redraw))}
           />
           <div class="range_value">
             {info.threads} / {info.engine.maxThreads}
           </div>
         </div>
-        {hashSetting(info.engine, info.hashSize, change(this.hashSize), 'local-analysis-hash', 'Hash')}
+        {hashSetting(
+          info.engine,
+          info.hashSize,
+          withEffect(this.hashSize, redraw),
+          'local-analysis-hash',
+          'Hash',
+        )}
       </div>,
       <hr class="separator" />,
-      this.estimates(),
+      <span>{trailers.join('. ')}</span>,
     ];
   }
 
@@ -379,24 +390,6 @@ class LocalAnalysisDialog {
     );
   }
 
-  private estimates() {
-    const estimates: string[] = [];
-    if (this.timeToComplete) {
-      const seconds = Math.ceil(this.timeToComplete);
-      const minutes = Math.ceil(this.timeToComplete / 60);
-      estimates.push(
-        i18n.localAnalysis.timeToComplete(
-          minutes > 1 ? i18n.site.nbMinutes(minutes) : i18n.site.nbSeconds(seconds),
-        ),
-      );
-    }
-    if (this.strengthVsStandard) {
-      const val = Math.round(this.strengthVsStandard * 10) / 10;
-      estimates.push(i18n.localAnalysis.xTimesFishnetQuality(val > 10 ? Math.round(val) : val));
-    }
-    return <span>{estimates.join('. ')}</span>;
-  }
-
   private separator(label: string) {
     return (
       <div class="separator">
@@ -452,14 +445,6 @@ class LocalAnalysisDialog {
     const nodesPerSecond = this.ctrl.ceval.nodesPerSecond(info.engine.id, info.threads);
     if (!nodesPerSecond || !this.timedEngineNodeEfficiency) return undefined;
     return (this.standardQualityNodesAt() * this.ctrl.mainline.length) / nodesPerSecond;
-  }
-
-  private get strengthVsStandard(): number | undefined {
-    const info = this.ctrl.ceval.info(this.customSearch);
-    if (!info || !('movetime' in info.search.by) || !this.timedEngineNodeEfficiency) return undefined;
-    const nodesPerSecond = this.ctrl.ceval.nodesPerSecond(info.engine.id, info.threads);
-    if (!nodesPerSecond) return undefined;
-    return this.standardQualityNodesAt((info.search.by.movetime / 1000) * nodesPerSecond) / 1_000_000;
   }
 
   private get customSearch(): CustomSearch {

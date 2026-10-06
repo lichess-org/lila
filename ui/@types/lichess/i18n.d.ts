@@ -1877,8 +1877,6 @@ interface I18n {
     nodesPerMove: string;
     /** On the server */
     onTheServer: string;
-    /** Projected */
-    projected: string;
     /** Publish */
     publish: string;
     /** Published */
@@ -1899,8 +1897,6 @@ interface I18n {
     whenUpgradingOldChapters: string;
     /** Will use */
     willUse: string;
-    /** %s nodes per move */
-    xNodesPerMove: I18nFormat;
     /** %sx fishnet quality */
     xTimesFishnetQuality: I18nFormat;
     /** Your local analysis can be published. */

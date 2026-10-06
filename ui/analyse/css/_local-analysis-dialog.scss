@@ -59,17 +59,14 @@ $c-content: color-mix(in oklab, var(--c-bg) 50%, var(--c-bg-page));
     }
   }
 
-  .analysis-info {
+  .analysis-editor {
     display: grid;
     grid-template-columns: auto 1fr;
     grid-auto-rows: auto;
     justify-content: space-around;
-    gap: 0 min(2vw, 1rem); // max(2vh, 0.5rem) min(2vw, 1rem);
+    gap: 0 min(2vw, 1rem);
     padding: min(2vw, 2rem);
-    place-items: start start;
-    inset: 0;
     flex: auto;
-    min-height: min(200px, 75vh);
     color: $c-font;
     background-color: $c-content;
     border-radius: $box-radius-size;

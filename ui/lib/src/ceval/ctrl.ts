@@ -43,6 +43,7 @@ interface Started {
   steps: Step[];
   gameId?: string;
   threatMode: boolean;
+  info: SearchInfo;
 }
 
 type ThreadCount = number;
@@ -145,7 +146,7 @@ export class CevalCtrl {
   start = (path: string, steps: Step[], gameId: string | undefined, threatMode = false): boolean => {
     if (!this.available() || this.wasUnloadedByAnotherWindow) return false;
     this.isDeeper(false);
-    this.doStart({ path, steps, gameId, threatMode });
+    this.doStart({ path, steps, gameId, threatMode, info: this.info()! });
     return true;
   };
 
@@ -291,7 +292,7 @@ export class CevalCtrl {
     if (!snapshots) return undefined;
 
     const average = (arr: number[]) => arr.reduce((a: number, b: number) => a + b, 0) / arr.length;
-    if (snapshots[threads]?.length) return average(snapshots[threads]);
+    if (snapshots[threads]?.length > 8) return average(snapshots[threads]);
 
     const perfs: number[] = [];
     for (const thread in snapshots) {
@@ -302,12 +303,26 @@ export class CevalCtrl {
 
   private snapshotPerformance(ev: LocalEval) {
     const { engine, threads } = this.info()!;
-    if (!engine) return;
+    if (!engine || ev.depth > 24) return;
 
     const snapshots = this.performanceMap(engine.id);
     (snapshots[threads] ??= []).push(ev.nodes / (ev.millis / 1000));
-    snapshots[threads] = snapshots[threads].slice(-5);
+    snapshots[threads] = snapshots[threads].slice(-16);
     this.performanceMap(engine.id, snapshots);
+  }
+
+  private letCloudWin(ev: LocalEval, movetime: number | false, working: Started) {
+    const evNode = working.steps[working.steps.length - 1];
+    const { engine, threads } = working.info;
+    if (movetime && evNode.ceval?.cloud) {
+      const cloudNodes = evNode.ceval.nodes; // TODO node efficiency if cloud has engineId
+      const nodesPerSecond =
+        ev.millis > 500
+          ? Math.max(1, Math.round(ev.nodes / (ev.millis / 1000)))
+          : this.nodesPerSecond(engine.id, threads);
+      return nodesPerSecond && Math.round(nodesPerSecond * (movetime / 1000)) < cloudNodes;
+    }
+    return false;
   }
 
   private readonly doStart = (s: Started) => {
@@ -372,9 +387,9 @@ export class CevalCtrl {
     const emitter = throttleWithFlush(125, (ev: LocalEval, meta: EvalMeta) => {
       this.curEval = ev;
       ev.engineId = this.engines.active()?.id;
-      if (ev.bestmove && ev.bestmove !== '(none)' && working.movetime !== false) {
-        this.snapshotPerformance(ev);
-        ev.millis = Math.max(ev.millis, working.movetime); // ensure bestmove eval matches movetime target
+      if (working.movetime) {
+        if (ev.bestmove && ev.bestmove !== '(none)') ev.millis = Math.max(ev.millis, working.movetime);
+        else this.snapshotPerformance(ev);
       }
       if (!working.fen) {
         working.fen = ev.fen;
@@ -383,14 +398,8 @@ export class CevalCtrl {
       const color = meta.ply % 2 === (meta.threatMode ? 1 : 0) ? 'white' : 'black';
       ev.pvs.sort((a, b) => povChances(color, b) - povChances(color, a));
 
-      if (this.lastStarted && !working.dontStop) {
-        const evNode = working.started.steps[working.started.steps.length - 1];
-        if (working.movetime && evNode.ceval?.cloud && ev.millis > 500) {
-          const targetNodes = evNode.ceval.nodes;
-          const likelyNodes = Math.round((working.movetime * ev.nodes) / ev.millis);
-
-          if (likelyNodes < targetNodes) this.worker?.stop();
-        }
+      if (!working.dontStop && this.letCloudWin(ev, working.movetime, working.started)) {
+        this.worker?.stop();
       }
       working.emit(ev, meta);
     });

@@ -5,9 +5,7 @@
   <string name="local">Local</string>
   <string name="currentAnalysis">Current analysis</string>
   <string name="cannotPublish">Cannot publish</string>
-  <string name="projected">Projected</string>
   <string name="nodesPerMove">Nodes per move</string>
-  <string name="xNodesPerMove">%s nodes per move</string>
   <string name="using">Using</string>
   <string name="willUse">Will use</string>
   <string name="quality">Quality</string>
