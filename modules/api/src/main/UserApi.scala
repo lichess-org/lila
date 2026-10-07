@@ -69,7 +69,7 @@ final class UserApi(
             as.isDefined.so(prefApi.followable(u.id)),
             as.map(_.userId).so(relationApi.fetchRelation(_, u.id)),
             bookmarkApi.countByUser(u.user),
-            playingUsers.nbPlaying(u.id),
+            if as.isDefined then playingUsers.nbPlayingAll(u.id) else playingUsers.nbPlayingRealtime(u.id),
             gameCache.nbImportedBy(u.id),
             (withTrophies && !u.lame).optionFu(getTrophiesAndAwards(u.user)),
             streamerApi.listed(u.user),

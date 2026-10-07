@@ -13,7 +13,9 @@ final class PlayingUsers(gameRepo: GameRepo, proxyRepo: GameProxyRepo)(using Exe
 
   def apply(userId: UserId): Boolean = playingUserIds.get(userId)
 
-  def nbPlaying(userId: UserId): Fu[Int] = apply(userId).so(gameRepo.countNowPlaying(userId))
+  def nbPlayingRealtime(userId: UserId): Fu[Int] = apply(userId).so(nbPlayingAll(userId))
+
+  def nbPlayingAll(userId: UserId): Fu[Int] = gameRepo.countNowPlaying(userId)
 
   val currentlyPlaying = CurrentlyPlaying: userId =>
     lastPlayedPlayingId(userId).flatMapz(proxyRepo.pov(_, userId))
