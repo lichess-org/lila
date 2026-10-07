@@ -27,8 +27,8 @@ trait EitherAssertions extends munit.Assertions:
 
 object Helpers:
 
-  def rootToPgn(root: Root, tags: Tags = Tags.empty): PgnStr = PgnDump
-    .rootToPgn(root, tags)(using PgnDump.withoutOrientation)
+  def rootToPgn(root: Root, tags: Tags = Tags.empty, owner: Option[UserId] = none): PgnStr = PgnDump
+    .rootToPgn(root, tags, owner)(using PgnDump.withoutOrientation)
     .render
 
   extension (root: Root)
