@@ -149,7 +149,7 @@ object home:
             a(href := routes.Cms.tos)(trans.site.termsOfService()),
             a(href := "/privacy")(trans.site.privacy()),
             a(href := "/source")(trans.site.sourceCode()),
-            a(href := "/ads")("Ads"),
+            a(href := "/ads")(trans.site.blockAds()),
             views.bits.connectLinks
           )
         )
