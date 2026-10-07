@@ -152,7 +152,7 @@ final class Limiters(using Executor, lila.core.config.RateLimit):
     RateLimit[IpAddress](credits = 50 * 2, duration = 24.hour, key = "study.create.ip")
   )
 
-  val userProfileByUser = RateLimit[MyId](30, 2.minutes, "user.profile.page.user")
+  val anyPageByUser = RateLimit[MyId](30, 2.minutes, "page.user")
 
   object studyDownload:
     private val auth = ConcurrencyLimit[UserId](3, "study.download.auth")
@@ -169,7 +169,7 @@ final class Limiters(using Executor, lila.core.config.RateLimit):
   )(using IsProxy, Context)(op: => Fu[A]): Fu[A] =
     enumeration.userProfile(rateLimited):
       val myCost = if Granter.opt(_.UserModView) then 0 else 1
-      userProfileByUser.option(me.map(_.myId), rateLimited, myCost)(op)
+      anyPageByUser.option(me.map(_.myId), rateLimited, myCost)(op)
 
   object relay:
 
