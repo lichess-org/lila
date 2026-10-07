@@ -25,7 +25,7 @@ Lila (li[chess in sca]la) is the free, open-source chess server powering lichess
 
 ```bash
 # Install PNPM globally
-npm install -g pnpm@12.3.4
+npm install -g pnpm@12.9.0
 
 # Install dependencies (always run this first)
 pnpm install
