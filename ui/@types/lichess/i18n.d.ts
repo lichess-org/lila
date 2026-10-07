@@ -3829,12 +3829,12 @@ interface I18n {
     endgame: string;
     /** Endgame positions */
     endgamePositions: string;
+    /** Engine: */
+    engine: string;
     /** Error loading engine */
     engineFailed: string;
     /** Engine settings */
     engineSettings: string;
-    /** Engine */
-    engine: string;
     /** Engines from strongest to weakest */
     enginesFromStrongestToWeakest: string;
     /** En passant rights */
