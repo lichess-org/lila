@@ -15,8 +15,8 @@ import type { AnalysisUpdate, AnalysisEngineInfo, AnalysisMeta, Division } from 
 export interface ServerAnalysisDocument {
   id: string;
   studyId?: string;
-  infos: { ply: number; eval: EvalScore & { best?: string }; variation: San[] }[];
-  startPly: number;
+  infos: { ply: number; eval: EvalScore & { best?: Uci }; variation: San[] }[];
+  startPly: Ply;
   date: Date;
   engine: AnalysisEngineInfo;
 }

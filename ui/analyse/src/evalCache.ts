@@ -100,7 +100,7 @@ export default class EvalCache {
       qualityCheck(ev) &&
       this.opts.canPut()
     ) {
-      this.opts.send('evalPut', toPutData(this.opts.variant, ev, ev.engineId!));
+      this.opts.send('evalPut', toPutData(this.opts.variant, ev, ev.engineId));
     }
   });
 
