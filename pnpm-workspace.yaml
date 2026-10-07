@@ -1,24 +1,25 @@
 nodeVersion: 24.20.0
 pmOnFail: warn
+autoDedupe: true
 packages:
   - 'bin'
   - 'ui/*'
   - 'ui/@types/*'
 ignoredOptionalDependencies:
-  - '@ox*/*-arm-*'
-  - '@ox*/*-ia32-*'
-  - '@ox*/*-loong64-*'
-  - '@ox*/*-mips64el-*'
-  - '@ox*/*-ppc64-*'
-  - '@ox*/*-riscv64-*'
-  - '@ox*/*-s390x-*'
-  - '@ox*/*-aix-*'
-  - '@ox*/*-android-*'
-  - '@ox*/*-freebsd-*'
-  - '@ox*/*-openbsd-*'
-  - '@ox*/*-openharmony-*'
-  - '@ox*/*-netbsd-*'
-  - '@ox*/*-sunos-*'
+  - '*arm-*'
+  - '*ia32-*'
+  - '*loong64-*'
+  - '*mips64el-*'
+  - '*ppc64-*'
+  - '*riscv64-*'
+  - '*s390x-*'
+  - '*aix-*'
+  - '*android-*'
+  - '*freebsd-*'
+  - '*openbsd-*'
+  - '*openharmony-*'
+  - '*netbsd-*'
+  - '*sunos-*'
 allowBuilds:
   esbuild: true
   protobufjs: false
@@ -29,3 +30,4 @@ patchedDependencies:
   '@toast-ui/editor@3.2.2': ui/bits/patches/@toast-ui__editor.patch
 minimumReleaseAgeExclude:
   - '@lichess-org/*'
+  - pnpm

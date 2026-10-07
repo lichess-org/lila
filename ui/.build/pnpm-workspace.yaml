@@ -1,22 +1,24 @@
 nodeVersion: 24.20.0
+autoDedupe: true
 allowBuilds:
   esbuild: true
 ignoredOptionalDependencies:
-  - '@esbuild/*-arm'
-  - '@esbuild/*-ia32'
-  - '@esbuild/*-loong64'
-  - '@esbuild/*-mips64el'
-  - '@esbuild/*-ppc64'
-  - '@esbuild/*-riscv64'
-  - '@esbuild/*-s390x'
-  - '@esbuild/aix-*'
-  - '@esbuild/android-*'
-  - '@esbuild/freebsd-*'
-  - '@esbuild/openbsd-*'
-  - '@esbuild/openharmony-*'
-  - '@esbuild/netbsd-*'
-  - '@esbuild/sunos-*'
+  - '*arm-*'
+  - '*ia32-*'
+  - '*loong64-*'
+  - '*mips64el-*'
+  - '*ppc64-*'
+  - '*riscv64-*'
+  - '*s390x-*'
+  - '*aix-*'
+  - '*android-*'
+  - '*freebsd-*'
+  - '*openbsd-*'
+  - '*openharmony-*'
+  - '*netbsd-*'
+  - '*sunos-*'
 minimumReleaseAge: 10080
 minimumReleaseAgeExclude:
+  - pnpm
   - sasso-native-* # 2026/10/07 remove me
   - sasso # 2026/10/07 remove me
