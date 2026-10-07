@@ -32,7 +32,11 @@ const args = [
 ];
 
 // Each test file runs in its own process; the cache spares them all recompiling jsdom and friends.
-const env = { NODE_COMPILE_CACHE: join(tmpdir(), 'node-compile-cache'), ...process.env };
+const env = {
+  NODE_COMPILE_CACHE: join(tmpdir(), 'node-compile-cache'),
+  TSX_TSCONFIG_PATH: join(process.cwd(), 'tsconfig.base.json'),
+  ...process.env,
+};
 const child = spawn(process.execPath, args, { stdio: 'inherit', env });
 child.on('exit', code => process.exit(code ?? 1));
 child.on('error', err => {
