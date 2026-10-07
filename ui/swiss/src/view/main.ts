@@ -223,7 +223,7 @@ function stats(ctrl: SwissCtrl) {
       hl(
         'a.text',
         { attrs: { 'data-icon': licon.Download, href: `/swiss/${ctrl.data.id}.trf`, download: true } },
-        'Download TRF file',
+        i18n.site.downloadTrfFile,
       ),
       hl(
         'a.text',
@@ -235,7 +235,7 @@ function stats(ctrl: SwissCtrl) {
         {
           attrs: { 'data-icon': licon.Download, href: `/api/swiss/${ctrl.data.id}/results`, download: true },
         },
-        'Download results as NDJSON',
+        i18n.site.downloadResultsAsNdjson,
       ),
       hl(
         'a.text',
@@ -246,7 +246,7 @@ function stats(ctrl: SwissCtrl) {
             download: true,
           },
         },
-        'Download results as CSV',
+        i18n.site.downloadResultsAsCsv,
       ),
       hl('br'),
       hl(
@@ -254,7 +254,7 @@ function stats(ctrl: SwissCtrl) {
         {
           attrs: { 'data-icon': licon.InfoCircle, href: '/api#tag/swiss-tournaments' },
         },
-        'Swiss API documentation',
+        i18n.site.swissApiDocumentation,
       ),
     ]),
   ]);

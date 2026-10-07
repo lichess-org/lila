@@ -905,12 +905,16 @@ interface I18n {
     onlyReports: string;
     /** However, you can close your current account, and create a new one. */
     orCloseAccount: string;
+    /** Other bug */
+    otherBug: string;
     /** Other restriction */
     otherRestriction: string;
     /** our Discord server */
     ourDiscordServer: string;
     /** Make sure you have played a rated game. Casual games do not affect your rating. */
     ratedGame: string;
+    /** Please refer to our <a href='%s'>Security Policy</a>. */
+    referToSecurityPolicy: I18nFormat;
     /** You can reopen your account on this page. */
     reopenOnThisPage: string;
     /** In the Lichess Discord server */
@@ -921,8 +925,12 @@ interface I18n {
     reportErrorPage: string;
     /** As a Lichess mobile app issue on GitHub */
     reportMobileIssue: string;
+    /** If you found a new bug, you may report it: */
+    reportNewBug: string;
     /** As a Lichess website issue on GitHub */
     reportWebsiteIssue: string;
+    /** Security vulnerability */
+    securityVulnerability: string;
     /** You may send an appeal to %s. */
     sendAppealTo: I18nFormat;
     /** Send us an email at %s. */
@@ -3405,6 +3413,8 @@ interface I18n {
     anotherWasX: I18nFormat;
     /** Submit */
     apply: string;
+    /** Arena API documentation */
+    arenaApiDocumentation: string;
     /** as black */
     asBlack: string;
     /** Your account is managed. Ask your chess teacher about removing kid mode. */
@@ -3755,8 +3765,16 @@ interface I18n {
     downloadAnnotated: string;
     /** Download imported */
     downloadImported: string;
+    /** Download my games */
+    downloadMyGames: string;
     /** Download raw */
     downloadRaw: string;
+    /** Download results as CSV */
+    downloadResultsAsCsv: string;
+    /** Download results as NDJSON */
+    downloadResultsAsNdjson: string;
+    /** Download TRF file */
+    downloadTrfFile: string;
     /** Draw */
     draw: string;
     /** Draw and defeat */
@@ -4771,6 +4789,8 @@ interface I18n {
     subscribe: string;
     /** Success */
     success: string;
+    /** Swiss API documentation */
+    swissApiDocumentation: string;
     /** Switch sides */
     switchSides: string;
     /** Tags */

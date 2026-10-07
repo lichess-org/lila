@@ -67,14 +67,14 @@ function stats(ctrl: TournamentController): VNode | undefined {
               download: true,
             },
           },
-          'Download my games',
+          i18n.site.downloadMyGames,
         ),
       h(
         'a.text',
         {
           attrs: { 'data-icon': licon.Download, href: `/api/tournament/${data.id}/results`, download: true },
         },
-        'Download results as NDJSON',
+        i18n.site.downloadResultsAsNdjson,
       ),
       h(
         'a.text',
@@ -85,13 +85,13 @@ function stats(ctrl: TournamentController): VNode | undefined {
             download: true,
           },
         },
-        'Download results as CSV',
+        i18n.site.downloadResultsAsCsv,
       ),
       h('br'),
       h(
         'a.text',
         { attrs: { 'data-icon': licon.InfoCircle, href: '/api#tag/arena-tournaments' } },
-        'Arena API documentation',
+        i18n.site.arenaApiDocumentation,
       ),
     ]),
   ]);

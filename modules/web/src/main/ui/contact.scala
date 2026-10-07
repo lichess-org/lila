@@ -203,18 +203,18 @@ object contact:
             ),
             Leaf(
               "security",
-              "Security vulnerability",
+              securityVulnerability(),
               p(
-                "Please refer to our ",
-                a(href := "https://github.com/lichess-org/lila/security/policy")("Security policy"),
-                "."
+                referToSecurityPolicy.rawHtml(
+                  "https://github.com/lichess-org/lila/security/policy"
+                )
               )
             ),
             Leaf(
               "other-bug",
-              "Other bug",
+              otherBug(),
               frag(
-                p("If you found a new bug, you may report it:"),
+                p(reportNewBug()),
                 howToReportBugs
               )
             )
