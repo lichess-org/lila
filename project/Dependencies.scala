@@ -31,7 +31,7 @@ object Dependencies:
   val apacheText = "org.apache.commons" % "commons-text" % "1.15.0"
   val apacheMath = "org.apache.commons" % "commons-math3" % "3.6.1"
   val probabilisticDataStructures =
-    "com.github.lenguyenthanh" % "scala-probabilistic-data-structures" % "v0.0.1"
+    "com.github.lenguyenthanh" % "scala-probabilistic-data-structures" % "0.0.2"
   val kittens = "org.typelevel" %% "kittens" % "3.5.0"
 
   val scalacheck = "org.scalacheck" %% "scalacheck" % "1.20.0" % Test
