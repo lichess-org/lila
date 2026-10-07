@@ -151,9 +151,9 @@ class LocalAnalysisDialog {
       );
       await this.ctrl.idbTree.saveAnalysis(result);
       this.status = [
-        `${i18n.site.done} (${i18n.site.nbSeconds(Math.round((performance.now() - then) / 100) / 10)})`,
+        `${i18n.site.done} ${i18n.site.nbSeconds(Math.round((performance.now() - then) / 100) / 10)}`,
         <br />,
-        i18n.localAnalysis.youCanPublish,
+        this.canPublish.showButton && i18n.localAnalysis.youCanPublish,
       ];
       this.ctrl.mergeLocalAnalysisData(result.localUpdate);
       this.engine = undefined;

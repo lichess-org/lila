@@ -1,6 +1,5 @@
 package controllers
 
-import chess.{ Division, Ply }
 import chess.format.Fen
 import play.api.libs.json.*
 import play.api.mvc.*
