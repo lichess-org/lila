@@ -2,9 +2,6 @@ package controllers
 
 import chess.{ Division, Ply }
 import chess.format.Fen
-import chess.format.pgn.SanStr
-import chess.variant.Variant
-import chess.json.Json.given
 import play.api.libs.json.*
 import play.api.mvc.*
 

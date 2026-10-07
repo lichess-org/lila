@@ -257,9 +257,8 @@ object BSONHandlers:
 
   private[study] def treeDiff(previous: Root, next: Root): (Bdoc, List[String]) =
     val writer = summon[BSON[Root]]
-    val before =
-      writer.writes(new Writer, previous).elements.map(element => element.name -> element.value).toMap
-    val after = writer.writes(new Writer, next).elements.map(element => element.name -> element.value).toMap
+    val before = writer.writes(new Writer, previous).toMap
+    val after = writer.writes(new Writer, next).toMap
     val sets = after.toList.collect:
       case (key, value) if !before.get(key).contains(value) => s"root.$key" -> value
     val unsets = (before.keySet -- after.keySet).toList.map(key => s"root.$key")
