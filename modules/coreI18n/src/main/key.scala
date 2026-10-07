@@ -2385,6 +2385,7 @@ object I18nKey:
     val `liked`: I18nKey = "liked"
     val `quickPairing`: I18nKey = "quickPairing"
     val `lobby`: I18nKey = "lobby"
+    val `lobbySettings`: I18nKey = "lobbySettings"
     val `anonymous`: I18nKey = "anonymous"
     val `yourScore`: I18nKey = "yourScore"
     val `language`: I18nKey = "language"
