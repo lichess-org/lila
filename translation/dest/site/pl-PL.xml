@@ -520,6 +520,8 @@ Partie rankingowe zwiększą stabilność rankingu.</string>
     <item quantity="many">%s znajomych online</item>
     <item quantity="other">%s znajomych online</item>
   </plurals>
+  <string name="friendsOnlineAndPlaying">Znajomi online: %1$s
+Znajomi grający: %2$s</string>
   <string name="favoriteOpponents">Ulubieni przeciwnicy</string>
   <string name="follow">Obserwuj</string>
   <string name="following">Obserwowany</string>

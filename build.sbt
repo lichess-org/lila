@@ -296,7 +296,7 @@ lazy val pool = module("pool",
 
 lazy val activity = module("activity",
   Seq(puzzle),
-  Seq()
+  tests.bundle
 )
 
 lazy val lobby = module("lobby",

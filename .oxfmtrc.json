@@ -5,6 +5,7 @@
   "arrowParens": "avoid",
   "endOfLine": "lf",
   "ignorePatterns": ["/ui/@types/lichess/licon.d.ts", "**/public", "COPYING.md", "README.md"],
+  "bracketSameLine": true,
   "sortPackageJson": false,
   "sortImports": {
     "customGroups": [

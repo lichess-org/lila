@@ -136,7 +136,8 @@ object UblogPost:
       lived: Option[Recorded],
       featured: Option[Featured],
       sticky: Option[Boolean],
-      topics: List[UblogTopic]
+      topics: List[UblogTopic],
+      language: Language
   ) extends BasePost
 
   case class Featured(by: UserId, at: Option[Instant], until: Option[Instant] = none)

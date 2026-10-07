@@ -10,7 +10,7 @@ final class Env(
     gameRepo: lila.game.GameRepo,
     userApi: lila.core.user.UserApi,
     onStart: lila.core.game.OnStart,
-    gameCache: lila.game.Cached,
+    gameApi: lila.core.game.GameApi,
     rematches: lila.game.Rematches,
     lightUser: lila.core.LightUser.GetterSyncFallback,
     lightUserApi: lila.core.user.LightUserApi,

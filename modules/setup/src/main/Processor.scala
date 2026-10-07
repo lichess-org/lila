@@ -42,7 +42,7 @@ final private[setup] class Processor(
       case _ => fuccess(Refused)
 
   def createSeekIfAllowed(seek: Seek, owner: UserId): Fu[Processor.HookResult] =
-    gameApi.nbPlaying(owner).map { nbPlaying =>
+    gameApi.countNowPlaying(owner).map { nbPlaying =>
       import Processor.HookResult.*
       if lila.core.game.maxPlaying <= nbPlaying
       then Refused

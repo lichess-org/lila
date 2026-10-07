@@ -5,8 +5,11 @@
   "dependencies": {
     "@badrap/result": "^0.3.1",
     "lib": "workspace:*",
-    "onnxruntime-web": "1.23.2"
+    "onnxruntime-web": "1.30.0"
   },
+  "//": [
+    "onnxruntime-web has a 11MB wasm. Avoid updating the pinned version without a reason"
+  ],
   "build": {
     "bundle": "src/editor*.ts",
     "sync": {

@@ -99,7 +99,7 @@ object UserInfo:
             .traverse: me =>
               crosstableApi.withMatchup(me.userId, u.id).mon(lila.mon.user.segment("crosstable"))
         ,
-        playingUsers(u.id).so(gameCached.nbPlaying(u.id).mon(lila.mon.user.segment("nbPlaying"))),
+        playingUsers(u.id).so(playingUsers.nbPlaying(u.id).mon(lila.mon.user.segment("nbPlaying"))),
         me.isDefined.so(gameCached.nbImportedBy(u.id).mon(lila.mon.user.segment("nbImported"))),
         me.isDefined.so(bookmarkApi.countByUser(u).mon(lila.mon.user.segment("nbBookmarks")))
       ).mapN(NbGames.apply)
