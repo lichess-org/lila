@@ -11,7 +11,7 @@ import lila.core.security.LilaCookie
 
 case class OpeningConfig(ratings: Set[Int], speeds: Set[Speed]):
 
-  override def toString = s"Speed: ${showSpeedsEnglish}; Rating: $showRatings"
+  override def toString = s"Speed: $showSpeedsEnglish; Rating: $showRatings"
 
   def isDefault = this == OpeningConfig.default
 
@@ -40,7 +40,7 @@ case class OpeningConfig(ratings: Set[Int], speeds: Set[Speed]):
       val many = first :: rest
       val hash = many.map(stableId).mkString(",")
       if reference == hash then "All"
-      else if reference.contains(hash) then s"${label(first)} to ${label(rest.lastOption | first)}"
+      else if reference.contains(hash) then s"${label(first)} → ${label(rest.lastOption | first)}"
       else many.map(label).mkString(", ")
 
 final class OpeningConfigStore(baker: LilaCookie):
