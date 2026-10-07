@@ -22,7 +22,7 @@ case class ImportResult(
 )
 
 object ParseImport:
-  private val maxPlies = 600
+  private val maxPlies = Analysis.MAX_PLIES
 
   def full(pgn: PgnStr): Either[ErrorStr, ImportResult] =
     catchOverflow: () =>

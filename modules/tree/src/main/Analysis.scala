@@ -68,6 +68,8 @@ case class Analysis(
 
 object Analysis:
 
+  val MAX_PLIES = 600
+
   import play.api.libs.json.*
   import scalalib.json.Json.given
 
@@ -121,6 +123,9 @@ object Analysis:
 
   given Reads[Analysis] = Reads: js =>
     for
+      _ <-
+        if (js \ "infos").asOpt[JsArray].exists(_.value.sizeIs > MAX_PLIES) then JsError("Too much info")
+        else JsSuccess(())
       rawId <- (js \ "id").validate[String]
       rawStudyIdOpt <- (js \ "studyId").validateOpt[String]
       infos <- (js \ "infos").validate[List[Info]]

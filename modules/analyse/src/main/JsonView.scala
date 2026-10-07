@@ -90,10 +90,11 @@ object JsonView extends lila.tree.AnalysisJson:
       middle <- (json \ "division" \ "middle").validateOpt[Int]
       end <- (json \ "division" \ "end").validateOpt[Int]
     yield
-      val division = Division(middle.map(Ply(_)), end.map(Ply(_)), Ply.initial)
+      val division = Division(middle.map(Ply(_)), end.map(Ply(_)), Ply(analysis.infos.size + 1))
       val absoluteDivision = division.copy(
         middle = division.middle.map(_ + analysis.startPly),
-        end = division.end.map(_ + analysis.startPly)
+        end = division.end.map(_ + analysis.startPly),
+        plies = division.plies + analysis.startPly
       )
       Json.obj(
         "summary" -> bothPlayers(

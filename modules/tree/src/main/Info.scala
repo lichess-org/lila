@@ -58,6 +58,10 @@ object Info:
     case _ => JsError("Ply must be int")
   given Reads[Info] = Reads: json =>
     for
+      _ <-
+        if (json \ "variation").asOpt[JsArray].exists(_.value.sizeIs > LineMaxPlies) then
+          JsError("Too many plies")
+        else JsSuccess(())
       ply <- (json \ "ply").validate[Ply]
       cp <- (json \ "eval" \ "cp").validateOpt[Int]
       mate <- (json \ "eval" \ "mate").validateOpt[Int]

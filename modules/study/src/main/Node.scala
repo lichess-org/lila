@@ -4,7 +4,7 @@ object Node:
 
   import lila.tree.Node as TreeNode
 
-  val MAX_PLIES = 600
+  val MAX_PLIES = lila.tree.Analysis.MAX_PLIES
 
   object BsonFields:
     val ply = "p"
