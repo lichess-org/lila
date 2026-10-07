@@ -4121,8 +4121,6 @@ interface I18n {
     loadPosition: string;
     /** Lobby */
     lobby: string;
-    /** Lobby settings */
-    lobbySettings: string;
     /** Location */
     location: string;
     /** Log in by email */

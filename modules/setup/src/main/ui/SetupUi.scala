@@ -32,7 +32,7 @@ final class SetupUi(helpers: Helpers):
 
   def filter(form: Form[?])(using ctx: Context) = frag(
     st.form(novalidate)(
-      p(cls := "header")(trans.site.lobbySettings()),
+      p(cls := "header")(trans.site.filterGames()),
       table(
         tbody(
           tr(cls := "filter-variant")(
