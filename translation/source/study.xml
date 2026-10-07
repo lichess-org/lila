@@ -203,5 +203,5 @@
   <string name="clearLocal">Clear local analysis?</string>
   <string name="clearPublished">Clear published analysis?</string>
   <string name="requestAServerAnalysis">Request a server analysis</string>
-  <string name="deviceLocalAnalysis">Device local analysis</string>
+  <string name="analyzeOnYourDevice">Analyze on your device</string>
 </resources>

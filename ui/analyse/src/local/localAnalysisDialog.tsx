@@ -79,7 +79,7 @@ class LocalAnalysisDialog {
 
     return [
       <div class="main-content">
-        <h2>{i18n.study.analysisEditor}</h2>
+        <h2 class={[!(this.canAnalyse && this.engine) && 'hidden']}>{i18n.study.analysisEditor}</h2>
         <div class={['analysis-editor', !(this.canAnalyse && this.engine) && 'hidden']}>
           {this.analysisEditor(redraw)}
         </div>
@@ -150,8 +150,11 @@ class LocalAnalysisDialog {
         },
       );
       await this.ctrl.idbTree.saveAnalysis(result);
-      this.status =
-        i18n.site.done + ' ' + i18n.site.nbSeconds(Math.round((performance.now() - then) / 100) / 10);
+      this.status = [
+        `${i18n.site.done} (${i18n.site.nbSeconds(Math.round((performance.now() - then) / 100) / 10)})`,
+        <br />,
+        i18n.localAnalysis.youCanPublish,
+      ];
       this.ctrl.mergeLocalAnalysisData(result.localUpdate);
       this.engine = undefined;
       redraw();

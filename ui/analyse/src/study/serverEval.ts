@@ -119,7 +119,7 @@ function requestButtons(ctrl: ServerEval) {
               on: { click: () => site.asset.loadEsm('analyse.local', { init: root }) },
               attrs: dataIcon(licon.Cogs),
             },
-            i18n.study.deviceLocalAnalysis,
+            i18n.study.analyzeOnYourDevice,
           ),
         ],
   );

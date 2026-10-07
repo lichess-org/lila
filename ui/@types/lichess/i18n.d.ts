@@ -5467,6 +5467,8 @@ interface I18n {
     analysisEditor: string;
     /** Analysis mode */
     analysisMode: string;
+    /** Analyze on your device */
+    analyzeOnYourDevice: string;
     /** Click the !? button, or right-click on the move list.<br>Annotation glyphs are shared and saved. */
     annotatePositionText: string;
     /** Annotate a position */
@@ -5563,8 +5565,6 @@ interface I18n {
     deleteThisChapter: string;
     /** Development */
     development: string;
-    /** Device local analysis */
-    deviceLocalAnalysis: string;
     /** Double defeat */
     doubleDefeat: string;
     /** Download game */
