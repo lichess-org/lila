@@ -107,17 +107,25 @@ export function boot() {
           ),
       );
     });
+
     const mql = prefersLightThemeQuery();
+    if (document.body.dataset.theme?.includes('system')) applySystemThemeClasses(mql.matches);
     if (typeof mql.addEventListener === 'function')
-      mql.addEventListener('change', e => {
-        if (document.body.dataset.theme === 'system')
-          document.documentElement.className = e.matches ? 'light' : 'dark';
-      });
+      mql.addEventListener('change', e => applySystemThemeClasses(e.matches));
 
     upgradeNag();
     mirrorCheck();
     playerCounter();
   }, 800);
+}
+
+function applySystemThemeClasses(prefersLight: boolean) {
+  const dataTheme = document.body.dataset.theme;
+  if (dataTheme === 'system') {
+    document.documentElement.className = prefersLight ? 'light' : 'dark';
+  } else if (dataTheme === 'transp system') {
+    document.documentElement.className = prefersLight ? 'transp light' : 'transp dark';
+  }
 }
 
 function mirrorCheck() {
