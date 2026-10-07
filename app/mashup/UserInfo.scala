@@ -91,12 +91,14 @@ object UserInfo:
       crosstableApi: lila.game.CrosstableApi,
       playingUsers: lila.round.PlayingUsers
   )(using Executor):
-    def apply(u: User, withCrosstable: Boolean)(using me: Me): Fu[NbGames] =
+    def apply(u: User, withCrosstable: Boolean, withPlaying: Boolean)(using me: Me): Fu[NbGames] =
       (
         (withCrosstable && u.isnt(me)).so:
           crosstableApi.withMatchup(me.userId, u.id).mon(lila.mon.user.segment("crosstable")).dmap(some)
         ,
-        playingUsers.nbPlayingAll(u.id).mon(lila.mon.user.segment("nbPlaying")),
+        (withPlaying && u.isnt(me)).so:
+          playingUsers.nbPlayingAll(u.id).mon(lila.mon.user.segment("nbPlaying"))
+        ,
         gameCached.nbImportedBy(u.id).mon(lila.mon.user.segment("nbImported")),
         bookmarkApi.countByUser(u).mon(lila.mon.user.segment("nbBookmarks"))
       ).mapN(NbGames.apply)

@@ -93,7 +93,9 @@ final class User(
         userShowHtmlRateLimit.knownProxy(rateLimited, cost = cost):
           for
             as <- fetchActivity
-            nbs <- showActivityAndGames.so(ctx.me).soUse(env.userNbGames(u, withCrosstable = false))
+            nbs <- showActivityAndGames
+              .so(ctx.me)
+              .soUse(env.userNbGames(u, withCrosstable = false, withPlaying = false))
             info <- env.userInfo.fetch(u, nbs, isRestricted)
             _ <- env.userInfo.preloadTeams(info)
             social <- env.socialInfo(u)
@@ -127,7 +129,7 @@ final class User(
               val full = !isRestricted
               negotiate(
                 html = for
-                  nbs <- full.so(ctx.me).soUse(env.userNbGames(u, withCrosstable = true))
+                  nbs <- full.so(ctx.me).soUse(env.userNbGames(u, withCrosstable = true, withPlaying = true))
                   filters = lila.app.mashup.GameFilterMenu(u, nbs, filter, ctx.isAuth)
                   pag <- full.so(env.gamePaginator(u, nbs.some, filter = filters.current, page = page))
                   _ <- lightUserApi.preloadMany(pag.currentPageResults.flatMap(_.userIds))
