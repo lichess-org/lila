@@ -47,8 +47,9 @@ final class User(
               case _ => roundC.watch(pov, userTv = user.some)
 
   def tvExport(username: UserStr) = Anon:
-    env.game.cached
-      .lastPlayedPlayingId(username.id)
+    env.round
+      .playing(username.id)
+      .so(env.game.cached.lastPlayedPlayingId(username.id))
       .orElse(env.game.gameRepo.quickLastPlayedId(username.id))
       .flatMap:
         case None => NotFound("No ongoing game")

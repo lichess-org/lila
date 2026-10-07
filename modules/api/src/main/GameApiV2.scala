@@ -40,7 +40,8 @@ final class GameApiV2(
     gameOpening: lila.game.GameOpening,
     bookmarkApi: lila.bookmark.BookmarkApi,
     gameSearch: GameSearchApi,
-    crosstableApi: lila.game.CrosstableApi
+    crosstableApi: lila.game.CrosstableApi,
+    playingUsers: lila.round.PlayingUsers
 )(using Executor, org.apache.pekko.actor.ActorSystem):
 
   import GameApiV2.*
@@ -158,8 +159,8 @@ final class GameApiV2(
   yield JsArray(jsons)
 
   def mobileCurrent(user: User)(using Option[Me], Lang): Fu[Option[JsObject]] =
-    gameCache
-      .lastPlayedPlayingId(user.id)
+    playingUsers(user.id)
+      .so(gameCache.lastPlayedPlayingId(user.id))
       .flatMapz(gameProxy.gameIfPresentOrFetch)
       .flatMapz: game =>
         val config = OneConfig(GameApiV2.Format.JSON, false, WithFlags())
