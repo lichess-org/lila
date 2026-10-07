@@ -459,6 +459,8 @@
     <item quantity="one">%s ami en ligne</item>
     <item quantity="other">%s amis en ligne</item>
   </plurals>
+  <string name="friendsOnlineAndPlaying">Amis en ligne : %1$s
+Amis jouant : %2$s</string>
   <string name="favoriteOpponents">Adversaires préférés</string>
   <string name="follow">Suivre</string>
   <string name="following">Suivi</string>

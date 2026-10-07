@@ -666,6 +666,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="aboutX">Giới thiệu về %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s là một máy chủ cờ vua miễn phí (%2$s), có mã nguồn mở và không có quảng cáo.</string>
   <string name="really">thật sự</string>
+  <string name="lichessUpdates">Cập nhật từ Lichess</string>
   <string name="contribute">Đóng góp</string>
   <string name="changelog">Nhật kí thay đổi</string>
   <string name="termsOfService">Điều khoản Dịch vụ</string>
@@ -705,6 +706,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="keyGoToStartOrEnd">chuyển đến nước đi đầu/cuối</string>
   <string name="keyCycleSelectedVariation">Biến được chọn theo chu kỳ</string>
   <string name="keyShowOrHideComments">hiện/ẩn bình luận</string>
+  <string name="keyShowOrHideCurrentVariation">ẩn/hiện thế cờ hiện tại</string>
   <string name="keyEnterOrExitVariation">vào/thoát biến</string>
   <string name="keyPreviousBranch">Nhánh trước</string>
   <string name="keyNextBranch">Nhánh tiếp theo</string>
@@ -768,12 +770,14 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="enableKidMode">Kích hoạt chế độ Trẻ em</string>
   <string name="disableKidMode">Tắt chế độ Trẻ em</string>
   <string name="security">Bảo mật</string>
+  <string name="activeSessionsDescription">Đây là danh sách các thiết bị và ứng dụng đang đăng nhập vào tài khoản của bạn. Nếu bạn phát hiện bất kỳ hoạt động đáng ngờ nào, hãy &lt;a href=\'%1$s\'&gt;kiểm tra địa chỉ email khôi phục&lt;/a&gt; và &lt;a href=\'%2$s\'&gt;thay đổi mật khẩu&lt;/a&gt;.</string>
   <string name="sessions">Phiên</string>
   <string name="revokeAllSessions">xóa toàn bộ phiên đăng nhập</string>
   <string name="playChessEverywhere">Chơi cờ ở bất cứ đâu</string>
   <string name="everybodyGetsAllFeaturesForFree">Mọi người đều được sử dụng tất cả các tính năng hoàn toàn miễn phí</string>
   <string name="viewTheSolution">Xem đáp án</string>
   <string name="noChallenges">Không có lời thách đấu nào.</string>
+  <string name="browserNotificationsDenied">Thông báo bật lên đã bị vô hiệu bởi cài đặt của trình duyệt</string>
   <plurals name="availableInNbLanguages">
     <item quantity="other">Hỗ trợ %s ngôn ngữ!</item>
   </plurals>
@@ -1011,4 +1015,9 @@ Mọi chi phí vận hành, phát triển, và nội dung được tài trợ b�
   <string name="enPassant">Bắt tốt qua đường</string>
   <string name="settings">Cài đặt</string>
   <string name="verifyingYourDevice">Đang xác minh thiết bị của bạn...</string>
+  <string name="chessOpenings">Khai cuộc cờ vua</string>
+  <string name="boards">Các bàn đấu</string>
+  <string name="write">Soạn thảo</string>
+  <string name="preview">Xem trước</string>
+  <string name="done">Hoàn thành</string>
 </resources>

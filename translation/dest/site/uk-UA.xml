@@ -521,6 +521,8 @@
     <item quantity="many">%s друзів у мережі</item>
     <item quantity="other">%s друзів у мережі</item>
   </plurals>
+  <string name="friendsOnlineAndPlaying">Друзів у мережі: %1$s
+Друзів грає: %2$s</string>
   <string name="favoriteOpponents">Улюблені суперники</string>
   <string name="follow">Спостерігати</string>
   <string name="following">Спостерігають</string>

@@ -4,6 +4,13 @@
   height: 100%;
   display: block;
 
+  .header {
+    @extend %roboto;
+
+    font-size: 1.25em;
+    margin-bottom: 0.5em;
+  }
+
   table {
     width: 100%;
   }
@@ -118,7 +125,7 @@
   .actions {
     display: flex;
     gap: 6px;
-    margin-top: 1.5em;
+    margin-top: 1em;
     justify-content: end;
   }
 

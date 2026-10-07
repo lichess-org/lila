@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="community">Comunidade</string>
+  <string name="communityBlogs">Blogs da comunidade</string>
+  <string name="best">O melhor</string>
+  <string name="all">Todos</string>
   <string name="byMonth">Por mês</string>
   <string name="byTopic">Por tópico</string>
   <string name="byLichess">Pelo Lichess</string>
@@ -8,6 +11,7 @@
   <string name="myLikes">Os meus gostos</string>
   <string name="myBlog">O Meu Blog</string>
   <string name="likedBlogs">Publicações curtidas</string>
+  <string name="blogPostsByFriends">Publicações de blog de amigos</string>
   <plurals name="blogPosts">
     <item quantity="one">%s publicação</item>
     <item quantity="other">%s publicações</item>

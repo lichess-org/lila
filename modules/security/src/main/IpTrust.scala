@@ -41,14 +41,19 @@ final class IpTrust(proxyApi: Ip2ProxyApi, geoApi: GeoIP, firewallApi: Firewall)
     def apply[A](default: => Fu[A], cost: RL.Cost = 1, msg: => String = "")(
         op: => Fu[A]
     )(using req: RequestHeader)(using Executor): Fu[A] =
+      proxyApi
+        .ofReq(req)
+        .flatMap: proxy =>
+          knownProxy(default, cost, msg)(op)(using req, proxy)
+
+    def knownProxy[A](default: => Fu[A], cost: RL.Cost = 1, msg: => String = "")(
+        op: => Fu[A]
+    )(using req: RequestHeader, proxy: IsProxy): Fu[A] =
       val ip = HTTPRequest.ipAddress(req)
-      for
-        proxy <- proxyApi.ofReq(req)
-        ipCostFactor =
-          if HTTPRequest.nginxWhitelist(req) then 1
-          else strategy(IpTrust)(proxy)
-        res <- limiter[Fu[A]](ip, default, (cost * ipCostFactor).toInt, s"$msg proxy:$proxy")(op)
-      yield res
+      val ipCostFactor =
+        if HTTPRequest.nginxWhitelist(req) then 1
+        else strategy(IpTrust)(proxy)
+      limiter[Fu[A]](ip, default, (cost * ipCostFactor).toInt, s"$msg proxy:$proxy")(op)
 
   def rateLimitCostFactor(
       req: RequestHeader,

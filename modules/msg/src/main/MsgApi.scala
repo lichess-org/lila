@@ -93,7 +93,7 @@ final class MsgApi(
       .so:
         lightUserApi.async(userId).flatMapz { contact =>
           for
-            _ <- setRead(me, userId)
+            _ <- setRead(userId)
             msgs <- threadMsgsFor(threadId, me, before)
             relations <- relationApi.fetchRelations(me, userId)
             postable <- security.may.post(me, userId, isNew = msgs.headOption.isEmpty)
@@ -194,7 +194,7 @@ final class MsgApi(
         if doc.maskFor.contains(maskFor) then doc.maskWith
         else Some(doc.lastMsg)
 
-  def setRead(me: MyId, contactId: UserId): Funit =
+  def setRead(contactId: UserId)(using me: MyId): Funit =
     val threadId = MsgThread.id(me.userId, contactId)
     colls.thread.update
       .one(

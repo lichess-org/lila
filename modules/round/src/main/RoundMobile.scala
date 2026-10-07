@@ -58,7 +58,7 @@ final class RoundMobile(
 
   import RoundMobile.*
 
-  def online(gameSockets: List[GameAndSocketStatus])(using me: Me): Fu[JsArray] =
+  def online(gameSockets: List[GameAndSocketStatus])(using me: MyId): Fu[JsArray] =
     gameSockets
       .flatMap: gs =>
         Pov(gs.game, me).map(_ -> gs.socket)

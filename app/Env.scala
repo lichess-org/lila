@@ -116,7 +116,7 @@ final class Env(
   val userInfo = wire[mashup.UserInfo.UserInfoApi]
   val teamInfo = wire[mashup.TeamInfoApi]
   val gamePaginator = wire[mashup.GameFilterMenu.PaginatorBuilder]
-  val pageCache = wire[http.PageCache]
+  val homeCache = wire[http.HomeCache]
 
   lila.common.Bus.sub[lila.tv.RenderFeaturedJs]:
     case lila.tv.RenderFeaturedJs(game, promise) =>

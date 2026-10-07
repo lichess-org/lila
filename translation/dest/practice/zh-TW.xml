@@ -1,2 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="makesPerfect">精進你的棋藝</string>
+  <string name="signUpToSaveYourProgress">登入來儲存你的進度</string>
+  <string name="secHeadCheckmates">將殺</string>
+  <string name="secHeadFundamentalTactics">基本戰術</string>
+  <string name="secHeadAdvancedTactics">進階戰術</string>
+  <string name="secHeadPawnEndgames">兵殘局</string>
+  <string name="secHeadRookEndgames">城堡殘局</string>
+  <string name="stNamPieceCheckmatesI">棋子將殺I</string>
+  <string name="stNamCheckmatePatternsI">將殺模式I</string>
+  <string name="stNamCheckmatePatternsII">將殺模式II</string>
+  <string name="stNamCheckmatePatternsIII">將殺模式III</string>
+  <string name="stNamCheckmatePatternsIV">將殺模式IV</string>
+  <string name="stNamPieceCheckmatesII">棋子將殺II</string>
+  <string name="stNamKnightAndBishopMate">騎士&amp;主教將軍</string>
+  <string name="stNamThePin">牽制</string>
+  <string name="stNamDoubleCheck">雙重將軍</string>
+  <string name="stDesPinItToWinIt">牽制到贏棋</string>
+</resources>

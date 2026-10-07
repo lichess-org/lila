@@ -460,6 +460,8 @@ Para incrementar a súa estabilidade tes que xogar máis partidas puntuadas.</st
     <item quantity="one">%s amizade conectada</item>
     <item quantity="other">%s amizades conectadas</item>
   </plurals>
+  <string name="friendsOnlineAndPlaying">Amizades conectadas: %1$s
+Amizades xogando: %2$s</string>
   <string name="favoriteOpponents">Rivais preferidos</string>
   <string name="follow">Seguir</string>
   <string name="following">Seguindo</string>

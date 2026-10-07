@@ -12,5 +12,6 @@
   <string name="closeAccountForeverWarning">Ngăn việc mở lại tài khoản sau này. Nếu bạn chọn ô này, ngay cả các quản trị viên cũng không thể mở lại tài khoản của bạn theo yêu cầu của bạn.</string>
   <string name="deleteYourAccount">Xóa tài khoản</string>
   <string name="deleteAccountWarning">Sau khi bạn xóa tài khoản, tài khoản đó sẽ bị xóa khỏi Lichess và quản trị viên của chúng tôi sẽ không thể khôi phục lại tài khoản đó cho bạn.</string>
+  <string name="closeYourAccount">đóng tài khoản của bạn</string>
   <string name="deleteAccountConfirmText">Tôi hiểu rằng các tài khoản bị xóa sẽ không thể khôi phục được</string>
 </resources>

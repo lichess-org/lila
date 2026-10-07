@@ -2,6 +2,8 @@
 <resources>
   <string name="community">Comunitate</string>
   <string name="communityBlogs">Bloguri ale comunității</string>
+  <string name="best">Cele mai bune</string>
+  <string name="all">Toate</string>
   <string name="byMonth">După lună</string>
   <string name="byTopic">După subiect</string>
   <string name="byLichess">De Lichess</string>

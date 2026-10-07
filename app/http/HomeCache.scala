@@ -3,9 +3,7 @@ package http
 
 import play.api.mvc.*
 
-import lila.common.HTTPRequest
-
-final class PageCache(cacheApi: lila.memo.CacheApi):
+final class HomeCache(cacheApi: lila.memo.CacheApi):
 
   private val cache = cacheApi.notLoading[String, Result](16, "pageCache"):
     _.expireAfterWrite(1.seconds).buildAsync()
@@ -15,8 +13,7 @@ final class PageCache(cacheApi: lila.memo.CacheApi):
       cache.getFuture(cacheKey(ctx), _ => compute())
     else compute()
 
-  private def cacheKey(ctx: Context) =
-    s"${HTTPRequest.actionName(ctx.req)}(${ctx.lang.language})"
+  private def cacheKey(ctx: Context) = ctx.lang.language
 
   private def defaultPrefs(using RequestHeader) =
     lila.pref.RequestPref.fromRequest == lila.pref.Pref.default

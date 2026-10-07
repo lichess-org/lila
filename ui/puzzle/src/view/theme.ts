@@ -61,8 +61,7 @@ const editor = (ctrl: PuzzleCtrl): VNode[] => {
   const availableThemes = allThemes ? allThemes.dynamic.filter((t: ThemeKey) => !votedThemes[t]) : null;
 
   const descriptionTrans = (key: ThemeKey) =>
-    (allThemes?.unconventionalDescriptionKeys && themeTrans(allThemes.unconventionalDescriptionKeys[key])) ||
-    `${key}Description`;
+    (allThemes && themeTrans(allThemes.unconventionalDescriptionKeys[key])) || `${key}Description`;
 
   const visibleThemes: ThemeKey[] = [
     ...puzzle.themes.filter(t => !invisibleThemes.has(t)),

@@ -43,7 +43,8 @@ private object UblogBsonHandlers:
       "lived" -> true,
       "featured" -> true,
       "topics" -> true,
-      "sticky" -> true
+      "sticky" -> true,
+      "language" -> true
     )
 
   val userLiveSort = bdoc("sticky" -> -1, "lived.at" -> -1)

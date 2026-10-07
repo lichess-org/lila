@@ -58,7 +58,8 @@ final class Env(
     activityRead: lila.activity.ActivityReadApi,
     activityJson: lila.activity.JsonView,
     clasApi: lila.clas.ClasApi,
-    recapEnv: lila.recap.Env
+    recapEnv: lila.recap.Env,
+    playerCounter: lila.web.PlayerCounter
 )(using scheduler: Scheduler)(using
     Mode,
     Executor,

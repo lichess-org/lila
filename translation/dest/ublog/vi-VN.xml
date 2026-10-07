@@ -2,6 +2,8 @@
 <resources>
   <string name="community">Cộng đồng</string>
   <string name="communityBlogs">Các Blog cộng đồng</string>
+  <string name="best">Hay nhất</string>
+  <string name="all">Tất cả</string>
   <string name="byMonth">Theo tháng</string>
   <string name="byTopic">Theo chủ đề</string>
   <string name="byLichess">Bởi Lichess</string>

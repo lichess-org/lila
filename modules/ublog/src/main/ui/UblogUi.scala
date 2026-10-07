@@ -522,7 +522,8 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)
         htmlCall = routes.Ublog.index(user.username),
         atomCall = routes.Ublog.userAtom(user.username),
         title = trans.ublog.xBlog.txt(user.username),
-        updated = posts.headOption.flatMap(_.lived).map(_.at)
+        updated = posts.headOption.flatMap(_.lived).map(_.at),
+        language = _.language
       ): post =>
         renderPost(post, authorOfBlog(post.blog))
 
@@ -532,10 +533,10 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)
         htmlCall = routes.Ublog.communityLang(language),
         atomCall = routes.Ublog.communityAtom(language),
         title = "Lichess community blogs",
-        updated = posts.headOption.flatMap(_.lived).map(_.at)
-      ) { post =>
+        updated = posts.headOption.flatMap(_.lived).map(_.at),
+        language = _.language
+      ): post =>
         renderPost(post, authorOfBlog(post.blog))
-      }
 
     private def renderPost(post: UblogPost.PreviewPost, authorName: String) =
       frag(

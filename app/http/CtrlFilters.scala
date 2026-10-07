@@ -120,7 +120,7 @@ trait CtrlFilters(using Executor) extends ControllerHelpers with ResponseBuilder
   def NotForKids(f: => Fu[Result])(using ctx: Context): Fu[Result] =
     if ctx.kid.no then f else notFound
 
-  def NoCrawlersRes(result: Fu[Result])(using ctx: Context): Fu[Result] =
+  def NoCrawlersRes(result: => Fu[Result])(using ctx: Context): Fu[Result] =
     if ctx.req.client.isCrawler then notFound else result
 
   def NoCrawlersUnlessPreview(result: => Fu[Result])(using ctx: Context): Fu[Result] =
@@ -128,7 +128,7 @@ trait CtrlFilters(using Executor) extends ControllerHelpers with ResponseBuilder
     then notFound
     else result
 
-  def NoCrawlers[A](computation: A)(using ctx: Context, default: Zero[A]): A =
+  def NoCrawlers[A](computation: => A)(using ctx: Context, default: Zero[A]): A =
     if ctx.req.client.isCrawler && !ctx.isOAuth
     then default.zero
     else computation

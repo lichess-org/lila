@@ -18,13 +18,13 @@ final class Report(env: Env, userC: => User, modC: => Mod) extends LilaControlle
   private given Conversion[Me, AsMod] = me => AsMod(me)
 
   def list = Secure(_.SeeReport) { _ ?=> me ?=>
-    if env.streamer.liveApi.isStreaming(me.user.id) && !getBool("force")
+    if env.streamer.liveApi.isStreaming(me.userId) && !getBool("force")
     then Forbidden.page(views.site.message.streamingMod)
-    else renderList(env.report.modFilters.get(me).fold("all")(_.key))
+    else renderList(env.report.modFilters.get.fold("all")(_.key))
   }
 
-  def listWithFilter(room: String) = Secure(_.SeeReport) { _ ?=> me ?=>
-    env.report.modFilters.set(me, Room(room))
+  def listWithFilter(room: String) = Secure(_.SeeReport) { _ ?=> _ ?=>
+    env.report.modFilters.set(Room(room))
     Room(room).forall(Room.isGranted).so(renderList(room))
   }
 

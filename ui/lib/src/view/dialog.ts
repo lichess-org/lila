@@ -43,6 +43,7 @@ export interface DialogOpts<Ctx = undefined> {
   onClose?: (dialog: Dialog<Ctx>) => void; // always called when dialog closes
   noCloseButton?: boolean; // if true, no upper right corner close button
   noScrollable?: boolean; // if true, no scrollable div container. Fixes dialogs containing an auto-completer
+  noTabCycle?: boolean; // if true, dont trap tab focus within the dialog
   modal?: boolean; // if true, show as modal (darken everything else)
   easyClose?: 'anyClick' | 'clickOutside';
 }
@@ -63,11 +64,11 @@ export interface SnabDialogOpts<Ctx = undefined> extends DialogOpts<Ctx> {
   onInsert?: (dialog: Dialog<Ctx>) => void; // if provided you must call show
 }
 
-// unlike snabDialog, jsxDialog patches a standalone vdom root. don't call it from a render loop.
-//   jsx: (redraw, dialog) => [<div>...</div>, ...];
+// unlike snabDialog, jsxDialog patches a standalone root. it does not slide into an existing vdom tree.
+// call it once with a render callback: jsxDialog({ ..., render: (redraw, dlg) => [<div>...</div>, ...] });
 export interface JsxDialogOpts<Ctx = undefined> extends DialogOpts<Ctx> {
   render: (redraw: Redraw, dialog: Dialog<Ctx>) => LooseVNodes;
-  parentEl?: Element; // unmanaged parent for the VDOM root; defaults to document.body
+  parentEl?: Element; // unmanaged container for the vdom root. defaults to document.body
 }
 
 export type ActionListener<T extends Event = Event, Ctx = undefined> = (
@@ -84,7 +85,7 @@ export type Action<Ctx = undefined> =
   | { selector?: string; event?: string | string[]; listener: ActionListener<any, Ctx> }
   | { selector?: string; event?: string | string[]; result: string };
 
-// when opts contains 'show', domDialog resolves on closure
+// when opts contains 'show', domDialog resolves when the dialog is closed
 // otherwise, domDialog resolves when assets are loaded and is ready to show
 export async function domDialog<Ctx = undefined>(o: DomDialogOpts<Ctx>): Promise<Dialog<Ctx>> {
   const html = await loadWithCss(
@@ -131,15 +132,14 @@ export async function domDialog<Ctx = undefined>(o: DomDialogOpts<Ctx>): Promise
 }
 
 export function snabDialog<Ctx = undefined>(o: SnabDialogOpts<Ctx>): VNode {
-  let dialog: HTMLDialogElement;
-  let dlg: Dialog<Ctx> | undefined;
+  let dialogEl: HTMLDialogElement;
   const dialogVNode = hl(
     'dialog',
     {
       class: { 'touch-scroll': isTouchDevice() },
       key: o.class ?? 'dialog',
       attrs: o.attrs?.dialog,
-      hook: onInsert(el => (dialog = el as HTMLDialogElement)),
+      hook: onInsert(el => (dialogEl = el as HTMLDialogElement)),
     },
     [
       o.noCloseButton ||
@@ -159,11 +159,10 @@ export function snabDialog<Ctx = undefined>(o: SnabDialogOpts<Ctx>): VNode {
               ...onInsert(async view => {
                 const html = await loadWithCss(o.css, o.htmlUrl ? xhr.text(o.htmlUrl) : undefined);
                 if (!o.vnodes && html) view.innerHTML = html;
-                dlg = new DialogWrapper<Ctx>(dialog, view, o);
+                const dlg = new DialogWrapper<Ctx>(dialogEl, view, o);
                 if (o.onInsert) o.onInsert(dlg);
                 else dlg.show();
               }),
-              postpatch: () => o.actions && dlg?.updateActions(),
             },
           },
           o.vnodes,
@@ -326,7 +325,7 @@ class DialogWrapper<Ctx = undefined> implements Dialog<Ctx> {
     if (e.key === 'Escape' && (this.o.easyClose || !this.o.noCloseButton)) {
       this.close('cancel');
       e.preventDefault();
-    } else if (e.key === 'Tab') {
+    } else if (e.key === 'Tab' && !this.o.noTabCycle) {
       const focii = focusableWithin(this.dialog);
       focii.sort((a, b) => {
         const ati = Number(a.getAttribute('tabindex') ?? '0');
@@ -345,7 +344,7 @@ class DialogWrapper<Ctx = undefined> implements Dialog<Ctx> {
       e.preventDefault();
     }
 
-    if (['Escape', 'Tab'].includes(e.key)) e.stopPropagation(); // trap 'Enter' for modals here or?
+    if (e.key === 'Escape' || (e.key === 'Tab' && !this.o.noTabCycle)) e.stopPropagation();
   };
 
   private autoFocus() {
@@ -377,9 +376,9 @@ class DialogWrapper<Ctx = undefined> implements Dialog<Ctx> {
   };
 }
 
-async function loadWithCss<T = string>(css: CssAsset[] = [], value?: Promise<T>): Promise<T | undefined> {
+async function loadWithCss<T = string>(css: CssAsset[] = [], loadMe?: Promise<T>): Promise<T | undefined> {
   const results = await Promise.allSettled([
-    value,
+    loadMe,
     site.asset.loadCssPath('bits.dialog'),
     ...css.map(asset =>
       'hashed' in asset ? site.asset.loadCssPath(asset.hashed) : site.asset.loadCss(asset.url),

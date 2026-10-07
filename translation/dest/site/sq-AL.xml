@@ -449,6 +449,8 @@ loje dhe URL për ta ndarë me të tjerë.</string>
     <item quantity="one">%s shok në linjë</item>
     <item quantity="other">%s shokë në linjë</item>
   </plurals>
+  <string name="friendsOnlineAndPlaying">Shokë në linjë: %1$s
+Shokë që po luajnë: %2$s</string>
   <string name="favoriteOpponents">Kundërshtarë të preferuar</string>
   <string name="follow">Ndiqeni</string>
   <string name="following">Ndiqet</string>

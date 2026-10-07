@@ -430,6 +430,8 @@
   <plurals name="nbFriendsOnline">
     <item quantity="other">%s명의 친구들이 접속중</item>
   </plurals>
+  <string name="friendsOnlineAndPlaying">온라인인 친구: %1$s
+플레이 중인 친구: %2$s</string>
   <string name="favoriteOpponents">관심있는 상대</string>
   <string name="follow">팔로우</string>
   <string name="following">팔로잉</string>

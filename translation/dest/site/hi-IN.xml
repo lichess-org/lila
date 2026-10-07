@@ -68,11 +68,11 @@
   <string name="showThreat">खतरे को दिखाएं</string>
   <string name="inLocalBrowser">स्थानीय ब्राउज़र में</string>
   <string name="toggleLocalEvaluation">स्थानीय मूल्यांकन को टॉगल करें</string>
-  <string name="promoteVariation">विविधता को बढ़ावा दें</string>
+  <string name="promoteVariation">वैकल्पिक चालक्रम का स्तर बढ़ाएँ</string>
   <string name="makeMainLine">मुख्य लाइन बनाएं</string>
   <string name="deleteFromHere">यहां से हटाओ</string>
-  <string name="collapseVariations">विविधताओं को मिटाये</string>
-  <string name="expandVariations">विविधताओं का विस्तार करें</string>
+  <string name="collapseVariations">वैकल्पिक चालक्रम समेटें</string>
+  <string name="expandVariations">वैकल्पिक चालक्रम दिखाएँ</string>
   <string name="forceVariation">बल भिन्नता</string>
   <string name="copyVariationPgn">प्रतिलिपि भिन्नता पीजीएन</string>
   <string name="copyMainLinePgn">मेनलाइन PGN की प्रतिलिपि बनाएँ</string>
@@ -387,7 +387,7 @@
   <string name="pasteTheFenStringHere">FEN को यहा रखें (paste)</string>
   <string name="pasteThePgnStringHere">PGN को यहा रखें (paste)</string>
   <string name="orUploadPgnFile">या PGN अपलोड करे|</string>
-  <string name="continueFromHere">यहा से जारी करें</string>
+  <string name="continueFromHere">यहाँ से जारी करें</string>
   <string name="toStudy">पढ़े</string>
   <string name="importGame">खेल आयात (इम्पोर्ट) करे</string>
   <string name="importGameExplanation">जब एक खेल PGN चिपकाने आप एक ब्राउसेबल पुनरावृत्ति, एक कंप्यूटर विश्लेषण, एक खेल चैट और एक साझा यूआरएल मिलता है ।</string>
@@ -467,7 +467,7 @@
   <string name="endgamePositions">अंतिम चरण के खेल की स्थिति</string>
   <string name="chess960StartPosition">चेस960 खेल की प्रारम्भिक स्थिति: %s</string>
   <string name="startPosition">शुरू करने की स्थिति:</string>
-  <string name="clearBoard">बोर्ड सॉफ करें</string>
+  <string name="clearBoard">बोर्ड साफ़ करें</string>
   <string name="loadPosition">इस स्थिति से चालू करें</string>
   <string name="isPrivate">गोपनीय</string>
   <string name="reportXToModerators">संचालकों को %s रिपोर्ट करें</string>

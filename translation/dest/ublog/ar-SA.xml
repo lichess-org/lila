@@ -2,9 +2,11 @@
 <resources>
   <string name="community">المجتمع</string>
   <string name="communityBlogs">مدونات المجتمع</string>
+  <string name="best">الأفضل</string>
+  <string name="all">الكل</string>
   <string name="byMonth">حسب الشهر</string>
   <string name="byTopic">حسب الموضوع</string>
-  <string name="byLichess">بواسطة ليشيس</string>
+  <string name="byLichess">بواسطة Lichess</string>
   <string name="myFriends">أصدقائي</string>
   <string name="myLikes">ما أعجبني</string>
   <string name="myBlog">مدونتي</string>

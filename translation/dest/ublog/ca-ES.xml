@@ -2,6 +2,8 @@
 <resources>
   <string name="community">Comunitat</string>
   <string name="communityBlogs">Blogs de la comunitat</string>
+  <string name="best">Millors</string>
+  <string name="all">Tots</string>
   <string name="byMonth">Per més</string>
   <string name="byTopic">Per tema</string>
   <string name="byLichess">De lichess</string>

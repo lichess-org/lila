@@ -120,7 +120,7 @@ final class TeamApi(
       Bus.pub(TeamUpdate(team.data, byMod = !isLeader))
       team.automodText
 
-  def mine(using me: Me): Fu[List[Team.WithMyLeadership]] =
+  def mine(using me: MyId): Fu[List[Team.WithMyLeadership]] =
     cached.teamIdsList(me).flatMap(teamRepo.byIdsSortPopular).flatMap(memberRepo.addMyLeadership)
 
   def countTeamsOf(me: Me) =

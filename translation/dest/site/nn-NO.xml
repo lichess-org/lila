@@ -460,6 +460,8 @@ få en computeranalyse, chatte eller dele ein URL.</string>
     <item quantity="one">%s ven er innlogga</item>
     <item quantity="other">%s vener er innlogga</item>
   </plurals>
+  <string name="friendsOnlineAndPlaying">Vener på nett: %1$s
+Vener som spelar: %2$s</string>
   <string name="favoriteOpponents">Favorittmotstandarar</string>
   <string name="follow">Følg</string>
   <string name="following">Følgjer</string>

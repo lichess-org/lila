@@ -932,7 +932,7 @@ final class StudyApi(
           _ = Bus.pub(lila.core.fishnet.Bus.StudyChapterOrphan(chapterIds))
         yield preview.invalidate(study.id)
 
-  def becomeAdmin(studyId: StudyId, me: MyId): Funit =
+  def becomeAdmin(studyId: StudyId)(using me: MyId): Funit =
     sequenceStudy(studyId): study =>
       for _ <- inviter.becomeAdmin(me)(study)
       yield Bus.pub(StudyMembers.OnChange(study))

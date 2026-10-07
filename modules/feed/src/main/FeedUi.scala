@@ -105,7 +105,8 @@ final class FeedUi(helpers: Helpers, atomUi: AtomUi)(
       htmlCall = routes.Feed.index(1),
       atomCall = routes.Feed.atom,
       title = "Lichess updates feed",
-      updated = ups.headOption.map(_.at)
+      updated = ups.headOption.map(_.at),
+      language = _ => lila.core.i18n.defaultLanguage
     ): up =>
       val url = s"${routeUrl(routes.Feed.index(1))}#${up.id}"
       frag(

@@ -49,6 +49,9 @@ final class RateLimit[K](
         case _ =>
           op
 
+  def option[A](k: Option[K], default: => A, cost: Cost = 1)(op: => A): A =
+    k.fold(op)(apply(_, default, cost, msg = "")(op))
+
   def status(k: K) = Status(storage.getIfPresent(k).so(_._1), credits)
 
   def isLimited(k: K): Option[Instant] =

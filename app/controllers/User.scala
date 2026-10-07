@@ -83,7 +83,7 @@ final class User(
       Context,
       IsProxy
   ): Fu[Result] =
-    limit.enumeration.userProfile(rateLimited):
+    limit.userProfileLimiter(rateLimited):
       val showActivityAndGames = isRestricted.not && !UserId.isOfficial(u.id)
       def fetchActivity = showActivityAndGames.so(env.activity.read.recentAndPreload(u))
       if HTTPRequest.isSynchronousHttp(ctx.req)
@@ -92,10 +92,10 @@ final class User(
           if isGrantedOpt(_.UserModView) then 0
           else if env.socket.isOnline.exec(u.id) then 1
           else 2
-        userShowHtmlRateLimit(rateLimited, cost = cost):
+        userShowHtmlRateLimit.knownProxy(rateLimited, cost = cost):
           for
             as <- fetchActivity
-            nbs <- showActivityAndGames.not.so(env.userNbGames(u, withCrosstable = false))
+            nbs <- showActivityAndGames.so(env.userNbGames(u, withCrosstable = false))
             info <- env.userInfo.fetch(u, nbs, isRestricted)
             _ <- env.userInfo.preloadTeams(info)
             social <- env.socialInfo(u)
@@ -124,7 +124,7 @@ final class User(
       val isSearch = filter == GameFilter.search.name
       RequireAuthIf(UserAgentParser.trust.isSuspicious || page > 1 || isSearch):
         WithProxy: proxy ?=>
-          limit.enumeration.userProfile(rateLimited):
+          limit.userProfileLimiter(rateLimited):
             EnabledUser(username): u =>
               val full = !isRestricted
               negotiate(
@@ -543,23 +543,25 @@ final class User(
       yield Ok(page)
   }
 
-  def perfStat(username: UserStr, perfKey: PerfKey) = Open:
-    val canCompute = req.client.isHuman && ctx.isAuth
-    Found(env.perfStat.api.data(username, perfKey, computeIfNeeded = canCompute)): data =>
-      negotiate(
-        Ok.async:
-          env.history
-            .ratingChartApi(data.user.user, computeIfNeeded = canCompute)
-            .map:
-              views.user.perfStatPage(data, _)
-        ,
-        JsonOk:
-          getBool("graph")
-            .optionFu:
-              env.history.ratingChartApi.singlePerf(data.user.user, data.stat.perfType.key)
-            .map: graph =>
-              env.perfStat.jsonView(data).add("graph", graph)
-      )
+  def perfStat(username: UserStr, perfKey: PerfKey) = Open: _ ?=>
+    WithProxy:
+      val canCompute = req.client.isHuman && ctx.isAuth
+      limit.userProfileLimiter(rateLimited):
+        Found(env.perfStat.api.data(username, perfKey, computeIfNeeded = canCompute)): data =>
+          negotiate(
+            Ok.async:
+              env.history
+                .ratingChartApi(data.user.user, computeIfNeeded = canCompute)
+                .map:
+                  views.user.perfStatPage(data, _)
+            ,
+            JsonOk:
+              getBool("graph")
+                .optionFu:
+                  env.history.ratingChartApi.singlePerf(data.user.user, data.stat.perfType.key)
+                .map: graph =>
+                  env.perfStat.jsonView(data).add("graph", graph)
+          )
 
   def autocomplete = OpenOrScoped(): ctx ?=>
     NoTor:

@@ -419,8 +419,8 @@ final class Study(
           yield Redirect(HTTPRequest.referer(ctx.req) | routes.Study.allDefault().url)
         case None if isGranted(_.StudyAdmin) =>
           for
-            _ <- env.study.api.becomeAdmin(id, me)
-            _ <- env.relay.api.becomeStudyAdmin(id, me)
+            _ <- env.study.api.becomeAdmin(id)
+            _ <- env.relay.api.becomeStudyAdmin(id)
           yield if HTTPRequest.isXhr(ctx.req) then NoContent else Redirect(routes.Study.show(id))
         case _ => authorizationFailed
   }
