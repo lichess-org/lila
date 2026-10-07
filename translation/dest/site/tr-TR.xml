@@ -430,7 +430,7 @@ Puanlı oyunlar oynamak istikrarınızı artıracaktır.</string>
   <string name="reset">Sıfırla</string>
   <string name="apply">Uygula</string>
   <string name="save">Kaydet</string>
-  <string name="leaderboard">Lider Tablosu</string>
+  <string name="leaderboard">Lider tablosu</string>
   <string name="positionAsImage" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position.">Görsel olarak pozisyon</string>
   <string name="gameAsGIF">Oyunun GIF hali</string>
   <string name="playerNames">Oyuncu isimleri</string>
@@ -460,6 +460,8 @@ Puanlı oyunlar oynamak istikrarınızı artıracaktır.</string>
     <item quantity="one">%s arkadaş çevrimiçi</item>
     <item quantity="other">%s arkadaş çevrim içi</item>
   </plurals>
+  <string name="friendsOnlineAndPlaying">Çevrimiçi arkadaşlar: %1$s
+Oynayan arkadaşlar: %2$s</string>
   <string name="favoriteOpponents">Favori rakipler</string>
   <string name="follow">Takip et</string>
   <string name="following">Takip ediyorsun</string>

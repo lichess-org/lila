@@ -53,7 +53,7 @@ Terfiye gerek yok.</string>
   <string name="yourPawnReachedTheEndOfTheBoard">Piyonun tahtanın sonuna ulaştı!</string>
   <string name="itNowPromotesToAStrongerPiece">Şimdi daha değerli bir taşa terfi edecek.</string>
   <string name="selectThePieceYouWant">Dilediğin taşı seç!</string>
-  <string name="fundamentals">Temel Prensipler</string>
+  <string name="fundamentals">Temel prensipler</string>
   <string name="capture">Taş yeme</string>
   <string name="takeTheEnemyPieces">Düşman taşlarını ele geçir</string>
   <string name="captureIntro">Rakibin korumasız taşlarını bul ve ele geçir!</string>

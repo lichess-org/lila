@@ -158,6 +158,10 @@
   </plurals>
   <string name="moveTimes">走棋時間</string>
   <string name="flipBoard">翻轉棋盤</string>
+  <string name="toggleLocalEngine">啟用本地引擎</string>
+  <string name="engineSettings">引擎設定</string>
+  <string name="enginesFromStrongestToWeakest">從最強排到最弱的引擎</string>
+  <string name="illegalPosition">違規的棋步</string>
   <string name="threefoldRepetition">三次重複局面</string>
   <string name="claimADraw">要求和棋</string>
   <string name="drawClaimed">和棋生效</string>
@@ -225,6 +229,7 @@
   <string name="signupUsernameHint">請選擇一個妥當的使用者名稱。請注意使用者名稱無法再次更改，並且不妥當的名稱會導致帳號被封禁！</string>
   <string name="signupEmailPromise">我們只會發送關於您賬號的電子郵件，絕不會泄露您的郵件地址。</string>
   <string name="password">密碼</string>
+  <string name="showPassword">顯示密碼</string>
   <string name="changePassword">更改密碼</string>
   <string name="changeEmail">更改電子郵件</string>
   <string name="email">電子郵件</string>
@@ -267,6 +272,8 @@
   </plurals>
   <string name="ok">確認</string>
   <string name="cancel">取消</string>
+  <string name="whiteRanOutOfTime" comment="whiteTimeOut&#10;&#10;Shows when White's time has run out. Is followed by the end condition, for example&#10;'White ran out of time · Draw'">白方已經超時了</string>
+  <string name="blackRanOutOfTime" comment="blackTimeOut&#10;&#10;Shows when Black's time has run out. Is followed by the end condition, for example&#10;'Black ran out of time · Draw'">黑方已經超時了</string>
   <string name="drawOfferSent">和棋請求已發送</string>
   <string name="drawOfferAccepted">同意和棋</string>
   <string name="whiteOffersDraw">白方提出和棋</string>
@@ -983,4 +990,10 @@
   <string name="tags">標籤</string>
   <string name="enPassant">吃过路兵（是否開啟）</string>
   <string name="settings">設置</string>
+  <string name="verifyingYourDevice">認證你的裝置……</string>
+  <string name="chessOpenings">棋局開局</string>
+  <string name="boards">棋盤</string>
+  <string name="write">撰寫</string>
+  <string name="preview">預覽</string>
+  <string name="done">完成</string>
 </resources>
