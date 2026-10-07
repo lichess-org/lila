@@ -83,3 +83,23 @@ object JsonView extends lila.tree.AnalysisJson:
       "division" -> division,
       "summary" -> bothPlayers(root.ply, analysis, division = division)
     )
+
+  def augmentLocalAnalysis(json: JsValue): JsResult[JsObject] =
+    for
+      analysis <- (json \ "analysis").validate[lila.analyse.Analysis]
+      middle <- (json \ "division" \ "middle").validateOpt[Int]
+      end <- (json \ "division" \ "end").validateOpt[Int]
+    yield
+      val division = Division(middle.map(Ply(_)), end.map(Ply(_)), Ply.initial)
+      val absoluteDivision = division.copy(
+        middle = division.middle.map(_ + analysis.startPly),
+        end = division.end.map(_ + analysis.startPly)
+      )
+      Json.obj(
+        "summary" -> bothPlayers(
+          analysis.startPly,
+          analysis,
+          division = absoluteDivision
+        ),
+        "moves" -> moves(analysis)
+      )

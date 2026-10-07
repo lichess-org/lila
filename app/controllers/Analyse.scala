@@ -191,23 +191,6 @@ final class Analyse(
   }
 
   def reviewXhr = OpenBodyOf(parse.json): ctx ?=>
-    val json = ctx.body.body
-    val parsed = for
-      analysis <- (json \ "analysis").validate[lila.analyse.Analysis]
-      middle <- (json \ "division" \ "middle").validateOpt[Int]
-      end <- (json \ "division" \ "end").validateOpt[Int]
-    yield
-      val division = Division(middle.map(Ply(_)), end.map(Ply(_)), Ply.initial)
-      val absoluteDivision = division.copy(
-        middle = division.middle.map(_ + analysis.startPly),
-        end = division.end.map(_ + analysis.startPly)
-      )
-      Json.obj(
-        "summary" -> env.analyse.jsonView.bothPlayers(
-          analysis.startPly,
-          analysis,
-          division = absoluteDivision
-        ),
-        "moves" -> env.analyse.jsonView.moves(analysis)
-      )
-    parsed.fold(errs => BadRequest(errs.mkString("\n")).toFuccess, JsonOk(_))
+    env.analyse.jsonView
+      .augmentLocalAnalysis(ctx.body.body)
+      .fold(errs => JsonBadRequest(errs.mkString("\n")).toFuccess, JsonOk(_))
