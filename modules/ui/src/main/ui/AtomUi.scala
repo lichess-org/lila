@@ -1,9 +1,11 @@
 package lila.ui
 
 import java.time.LocalDate
+import scalalib.model.Language
 
 import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.core.config.RouteUrl
+import lila.core.i18n.defaultLang
 
 final class AtomUi(routeUrl: RouteUrl):
 
@@ -12,12 +14,14 @@ final class AtomUi(routeUrl: RouteUrl):
       htmlCall: Call,
       atomCall: Call,
       title: String,
-      updated: Option[Instant]
+      updated: Option[Instant],
+      language: A => Language
   )(elem: A => Frag) =
+    val feedLang = elems.headOption.fold(defaultLang)(language)
     frag(
       raw("""<?xml version="1.0" encoding="utf-8"?>"""),
       raw(
-        """<feed xml:lang="en-US" xmlns="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">"""
+        s"""<feed xml:lang="$feedLang" xmlns="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">"""
       ),
       tag("id")(routeUrl(htmlCall)),
       link(rel := "alternate", tpe := "text/html", href := routeUrl(htmlCall)),
@@ -25,9 +29,11 @@ final class AtomUi(routeUrl: RouteUrl):
       tag("title")(title),
       tag("updated")(updated.map(atomDate)),
       elems.map: el =>
-        tag("entry")(elem(el)),
+        entryTag(language(el))(elem(el)),
       raw("</feed>")
     )
+
+  def entryTag(lang: Language) = tag("entry")(attr("xml:lang") := lang)
 
   def atomDate(date: Instant): String = isoDateTimeFormatter.print(date)
   def atomDate(date: LocalDate): String =
