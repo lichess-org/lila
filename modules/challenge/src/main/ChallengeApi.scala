@@ -13,7 +13,7 @@ final class ChallengeApi(
     lightUserApi: lila.core.user.LightUserApi,
     joiner: ChallengeJoiner,
     jsonView: JsonView,
-    gameCache: lila.game.Cached,
+    gameApi: lila.core.game.GameApi,
     rematches: lila.game.Rematches,
     cacheApi: lila.memo.CacheApi,
     langPicker: LangPicker
@@ -190,7 +190,7 @@ final class ChallengeApi(
   private def isLimitedByMaxPlaying(c: Challenge) =
     c.clock.nonEmpty.so:
       c.userIds.existsM: userId =>
-        gameCache.nbPlaying(userId).dmap(lila.core.game.maxPlaying <= _)
+        gameApi.countNowPlaying(userId).dmap(lila.core.game.maxPlaying <= _)
 
   private[challenge] def sweep: Funit = for
     unseen <- repo.realTimeUnseenSince(nowInstant.minusSeconds(20), max = 50)

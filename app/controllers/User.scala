@@ -46,14 +46,12 @@ final class User(
               case Some(mine) => Redirect(routes.Round.player(mine.fullId))
               case _ => roundC.watch(pov, userTv = user.some)
 
-  def tvExport(username: UserStr) = Anon:
-    env.round
-      .playing(username.id)
-      .so(env.game.cached.lastPlayedPlayingId(username.id))
-      .orElse(env.game.gameRepo.quickLastPlayedId(username.id))
-      .flatMap:
-        case None => NotFound("No ongoing game")
-        case Some(gameId) => gameC.exportGame(gameId)
+  def tvExport(username: UserStr) = Anon: _ ?=>
+    Found(
+      env.round.playing
+        .lastPlayedPlayingId(username.id)
+        .orElse(env.game.gameRepo.quickLastPlayedId(username.id))
+    )(gameC.exportGame)
 
   private def gamesForLichobile(u: UserModel, filter: String, page: Int)(using BodyContext[?]) =
     userGames(u, filter, page).flatMap(env.game.userGameApi.jsPaginator).map { res =>

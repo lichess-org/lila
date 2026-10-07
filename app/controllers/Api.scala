@@ -91,7 +91,7 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
             .add("streaming", streamingIds(u.id))
             .add("signal", withSignal.so(env.socket.getLagRating(u.id)))
         def gameIds: Fu[List[Option[id.GameId]]] = users.sequentially: u =>
-          env.round.playing(u.id).so(env.game.cached.lastPlayedPlayingId(u.id))
+          env.round.playing.lastPlayedPlayingId(u.id)
         val extensions: Option[Fu[List[Update[JsObject]]]] =
           if getBool("withGameIds")
           then

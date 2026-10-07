@@ -69,7 +69,7 @@ final private class LobbySyncActor(
 
     case BiteSeek(seekId, user) =>
       NoPlayban(user.some):
-        gameApi.nbPlaying(user.id).foreach { nbPlaying =>
+        gameApi.countNowPlaying(user.id).foreach { nbPlaying =>
           if lila.core.game.maxPlaying > nbPlaying then
             lila.mon.lobby.seek.join.increment()
             seekApi

@@ -22,11 +22,11 @@ import lila.team.GameTeams
 import lila.tournament.Tournament
 import lila.gameSearch.GameSearchApi
 import smithy4s.time.Timestamp
+import lila.core.round.CurrentlyPlaying
 
 final class GameApiV2(
     pgnDump: PgnDump,
     gameRepo: lila.game.GameRepo,
-    gameCache: lila.game.Cached,
     gameJsonView: lila.game.JsonView,
     pairingRepo: lila.tournament.PairingRepo,
     playerRepo: lila.tournament.PlayerRepo,
@@ -41,7 +41,7 @@ final class GameApiV2(
     bookmarkApi: lila.bookmark.BookmarkApi,
     gameSearch: GameSearchApi,
     crosstableApi: lila.game.CrosstableApi,
-    playingUsers: lila.round.PlayingUsers
+    currentlyPlaying: CurrentlyPlaying
 )(using Executor, org.apache.pekko.actor.ActorSystem):
 
   import GameApiV2.*
@@ -159,12 +159,11 @@ final class GameApiV2(
   yield JsArray(jsons)
 
   def mobileCurrent(user: User)(using Option[Me], Lang): Fu[Option[JsObject]] =
-    playingUsers(user.id)
-      .so(gameCache.lastPlayedPlayingId(user.id))
-      .flatMapz(gameProxy.gameIfPresentOrFetch)
-      .flatMapz: game =>
+    currentlyPlaying
+      .exec(user.id)
+      .flatMapz: pov =>
         val config = OneConfig(GameApiV2.Format.JSON, false, WithFlags())
-        enrich(config.flags)(game).flatMap: (game, fen, analysis) =>
+        enrich(config.flags)(pov.game).flatMap: (game, fen, analysis) =>
           toJson(game, fen, analysis, none, config).dmap(some)
 
   def exportByIds(config: ByIdsConfig)(using Lang): Source[String, ?] =

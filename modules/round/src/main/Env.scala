@@ -33,7 +33,6 @@ final class Env(
     playban: lila.playban.PlaybanApi,
     userJsonView: lila.user.JsonView,
     gameJsonView: lila.game.JsonView,
-    gameCache: lila.game.Cached,
     rankingApi: lila.user.RankingApi,
     notifyApi: lila.core.notify.NotifyApi,
     uciMemo: lila.game.UciMemo,
@@ -117,9 +116,6 @@ final class Env(
 
   lazy val proxyRepo: GameProxyRepo = wire[GameProxyRepo]
 
-  lazy val currentlyPlaying = CurrentlyPlaying: userId =>
-    gameCache.lastPlayedPlayingId(userId).flatMapz(proxyRepo.pov(_, userId))
-
   def lastPlayed(userId: UserId): Fu[Option[Pov]] =
     gameRepo.lastPlayed(userId).flatMap(_.traverse(proxyRepo.upgradeIfPresent))
 
@@ -168,7 +164,8 @@ final class Env(
 
   lazy val moretimer = wire[Moretimer]
 
-  val playing = wire[PlayingUsers]
+  lazy val playing = wire[PlayingUsers]
+  export playing.currentlyPlaying
 
   val apiMoveStream = wire[ApiMoveStream]
 
