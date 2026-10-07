@@ -55,7 +55,9 @@ export function view(ctrl: ServerEval): VNode {
   });
 
   const loading =
-    !ctrl.root.study?.data.chapter?.serverEval?.done && mainline.find(ctrl.root.partialAnalysisCallback);
+    !ctrl.root.idbTree.hasLocalAnalysis &&
+    !ctrl.root.study?.data.chapter?.serverEval?.done &&
+    mainline.find(ctrl.root.partialAnalysisCallback);
 
   const chartAction = (icon: 'Cogs' | 'X', title: string, action: () => void, cls = '') =>
     hl(`button.${cls}`, {

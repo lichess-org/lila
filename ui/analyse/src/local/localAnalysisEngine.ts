@@ -62,8 +62,8 @@ export class LocalAnalysisEngine {
     try {
       this.busy = true;
       this.ctrl.initCeval({ emit: this.onEval, custom });
-      while (this.isRunning()) {
-        status(this.nodeIndex, this.nodes.length, this.nodesSearched / this.nodeIndex);
+      const update = () => status(this.nodeIndex, this.nodes.length, this.nodesSearched / this.nodeIndex);
+      for (update(); this.isRunning(); update()) {
         await this.evaluateNode();
       }
       return this.review(division);
