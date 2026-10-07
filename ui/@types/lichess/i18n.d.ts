@@ -3833,6 +3833,8 @@ interface I18n {
     engineFailed: string;
     /** Engine settings */
     engineSettings: string;
+    /** Engine */
+    engine: string;
     /** Engines from strongest to weakest */
     enginesFromStrongestToWeakest: string;
     /** En passant rights */

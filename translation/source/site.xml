@@ -165,6 +165,7 @@
   <string name="flipBoard">Flip board</string>
   <string name="toggleLocalEngine">Toggle local engine</string>
   <string name="engineSettings">Engine settings</string>
+  <string name="engine">Engine:</string>
   <string name="enginesFromStrongestToWeakest">Engines from strongest to weakest</string>
   <string name="illegalPosition">Illegal position</string>
   <string name="threefoldRepetition">Threefold repetition</string>

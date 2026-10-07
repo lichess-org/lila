@@ -1858,6 +1858,7 @@ object I18nKey:
     val `flipBoard`: I18nKey = "flipBoard"
     val `toggleLocalEngine`: I18nKey = "toggleLocalEngine"
     val `engineSettings`: I18nKey = "engineSettings"
+    val `engine`: I18nKey = "engine"
     val `enginesFromStrongestToWeakest`: I18nKey = "enginesFromStrongestToWeakest"
     val `illegalPosition`: I18nKey = "illegalPosition"
     val `threefoldRepetition`: I18nKey = "threefoldRepetition"
