@@ -56,7 +56,7 @@
   <string name="errorPage">Error page</string>
   <string name="reportErrorPage">If you faced an error page, you may report it:</string>
   <string name="securityVulnerability">Security vulnerability</string>
-  <string name="referToSecurityPolicy">Please refer to our &lt;a href='%s'&gt;Security Policy&lt;/a&gt;.</string>
+  <string name="referToSecurityPolicy">Please refer to our &lt;a href='%s'&gt;security policy&lt;/a&gt;.</string>
   <string name="otherBug">Other bug</string>
   <string name="reportNewBug">If you found a new bug, you may report it:</string>
   <string name="learnHowToMakeBroadcasts">Learn how to make your own broadcasts on Lichess</string>
