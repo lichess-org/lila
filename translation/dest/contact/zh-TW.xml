@@ -25,6 +25,7 @@
   <string name="cantChangeMore">只能更改大小寫。除此之外的變更，因技術限制是不可能的。</string>
   <string name="orCloseAccount">然而，您可以刪除您最近的帳戶並且創建一個新的</string>
   <string name="wantClearHistory">我想要把我的評分紀錄刪除</string>
+  <string name="cantClearHistoryOrResetRatings">我們無法清除你的下棋歷史、解棋謎歷史，或是重設你的排行。</string>
   <string name="wantReport">我想要舉報一位玩家</string>
   <string name="toReportAPlayerUseForm">若要檢舉玩家行為，請填寫檢舉表單</string>
   <string name="youCanAlsoReachReportPage">您也可以點擊個人資料頁面的 %s 檢舉按鈕來填寫表單。</string>
@@ -74,4 +75,13 @@
   <string name="sendEmailAt">請傳送郵件到 %s</string>
   <string name="explainYourRequest">請清楚的解釋您的請求。
 請提供您的Lichess用戶明和其他可以讓我們幫助您的資訊</string>
+  <string name="monetiseNotInterested">我們對以任何方式將 Lichess 商業化均不感興趣。</string>
+  <string name="monetiseNoAdsTrackingOrTraffic">我們絕不會顯示任何類型的廣告，我們不會追蹤我們的棋手，以及不會販售或是購買任何流量或是使用者。</string>
+  <string name="monetiseNoMarketingEmail">請不要寄信告訴我們有關宣傳、追蹤或是廣告的事情。</string>
+  <string name="monetiseEncourageEveryoneTo" comment="string is value of key monetiseBlockAllAdsAndTrackers">我們鼓勵大家到 %s。</string>
+  <string name="monetiseBlockAllAdsAndTrackers">封鎖所有廣告與追蹤器</string>
+  <string name="broadcastTournamentOnLichess">在 Lichess 轉播錦標賽</string>
+  <string name="ifYouWantToBroadcastClause1">如果你想正式在 Lichess 轉播錦標賽，或是有任何關於轉播的問題：</string>
+  <string name="ifYouWantToBroadcastClause2" comment="string1 is Lichess email, string2 is value of key ourDiscordServer">請透過 %1$s 或是在 %2$s 聯繫我們的轉播團隊。</string>
+  <string name="ourDiscordServer">我們的 Discord 伺服器</string>
 </resources>

@@ -50,4 +50,5 @@
   <string name="stDesTheyHaveTooMuchWork">Tienen demasiado trabajo</string>
   <string name="stDesInBetweenMoves">Jugadas intermedias</string>
   <string name="stDesAttackingThroughAnEnemyPiece">Atacar a través de una pieza enemiga</string>
+  <string name="stDesRespondToACheckWithACheck">Responde a un jaque con otro jaque</string>
 </resources>
