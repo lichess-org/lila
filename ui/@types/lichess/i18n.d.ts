@@ -913,7 +913,7 @@ interface I18n {
     ourDiscordServer: string;
     /** Make sure you have played a rated game. Casual games do not affect your rating. */
     ratedGame: string;
-    /** Please refer to our <a href='%s'>Security Policy</a>. */
+    /** Please refer to our <a href='%s'>security policy</a>. */
     referToSecurityPolicy: I18nFormat;
     /** You can reopen your account on this page. */
     reopenOnThisPage: string;
