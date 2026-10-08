@@ -112,4 +112,15 @@ final class Env(
   LilaScheduler("Swiss.generate", _.Every(3.hours), _.AtMost(15.seconds), _.Delay(15.minutes)):
     officialSchedule.generate.logFailure(logger)
 
+  private val payoutsDmUrl = "/swiss/(\\w{8})".r.unanchored
+
+  lila.common.Cli.handle(_.ManageTournament):
+    case "payouts-dm" :: payoutsDmUrl(id) :: users if users.nonEmpty =>
+      api
+        .fetchByIdNoCache(SwissId(id))
+        .orFail(s"No such tournament: $id")
+        .flatMap: s =>
+          lila.gathering.PayoutsDm(userApi, users):
+            lila.core.msg.PayoutMessages(_, s.name, Swiss.swissUrl(s.id), s.finishedAt | s.startsAt)
+
 final private class SwissMongo(val swiss: Coll, val player: Coll, val pairing: Coll, val ban: Coll)
