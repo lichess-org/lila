@@ -29,7 +29,7 @@ export interface PuzzleOpts {
   themes?: {
     dynamic: ThemeKey;
     static: ThemeKey;
-    unconventionalDescriptionKeys: Record<ThemeKey, ThemeKey>;
+    unconventionalDescriptionKeys: Partial<Record<ThemeKey, ThemeKey>>;
   };
   showRatings: boolean;
   externalEngineEndpoint: string;
