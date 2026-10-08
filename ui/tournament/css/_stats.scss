@@ -23,11 +23,20 @@
   }
 
   &__links {
-    margin: 2em auto 0 auto;
+    margin: 2em;
+
+    .toggle-box {
+      margin: 0;
+      padding: 0 2em 1em 2em;
+
+      legend {
+        margin: auto;
+      }
+    }
 
     a {
       display: block;
-      margin: 0.5em 0;
+      margin: 1em 0;
     }
   }
 }

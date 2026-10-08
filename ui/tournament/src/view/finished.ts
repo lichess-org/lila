@@ -52,41 +52,56 @@ function stats(ctrl: TournamentController): VNode | undefined {
             h('br'),
           ]
         : []),
-      h(
-        'a.text',
-        { attrs: { 'data-icon': licon.Download, href: `/api/tournament/${data.id}/games`, download: true } },
-        i18n.site.downloadAllGames,
-      ),
-      data.me &&
-        h(
-          'a.text',
-          {
-            attrs: {
-              'data-icon': licon.Download,
-              href: `/api/tournament/${data.id}/games?player=${ctrl.opts.userId}`,
-              download: true,
+      h('fieldset.toggle-box.toggle-box--toggle', { class: { 'toggle-box--toggle-off': true } }, [
+        h('legend', i18n.site.download),
+        h('div', [
+          h(
+            'a.text',
+            {
+              attrs: {
+                'data-icon': licon.Download,
+                href: `/api/tournament/${data.id}/games`,
+                download: true,
+              },
             },
-          },
-          i18n.site.downloadMyGames,
-        ),
-      h(
-        'a.text',
-        {
-          attrs: { 'data-icon': licon.Download, href: `/api/tournament/${data.id}/results`, download: true },
-        },
-        i18n.site.downloadResultsAsNdjson,
-      ),
-      h(
-        'a.text',
-        {
-          attrs: {
-            'data-icon': licon.Download,
-            href: `/api/tournament/${data.id}/results?as=csv`,
-            download: true,
-          },
-        },
-        i18n.site.downloadResultsAsCsv,
-      ),
+            i18n.site.downloadAllGames,
+          ),
+          data.me &&
+            h(
+              'a.text',
+              {
+                attrs: {
+                  'data-icon': licon.Download,
+                  href: `/api/tournament/${data.id}/games?player=${ctrl.opts.userId}`,
+                  download: true,
+                },
+              },
+              i18n.site.downloadMyGames,
+            ),
+          h(
+            'a.text',
+            {
+              attrs: {
+                'data-icon': licon.Download,
+                href: `/api/tournament/${data.id}/results`,
+                download: true,
+              },
+            },
+            i18n.site.downloadResultsAsNdjson,
+          ),
+          h(
+            'a.text',
+            {
+              attrs: {
+                'data-icon': licon.Download,
+                href: `/api/tournament/${data.id}/results?as=csv`,
+                download: true,
+              },
+            },
+            i18n.site.downloadResultsAsCsv,
+          ),
+        ]),
+      ]),
     ]),
   ]);
 }
