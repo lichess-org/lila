@@ -9,7 +9,7 @@
   "dependencies": {
     "@types/micromatch": "4.0.10",
     "@types/node": "24.13.5",
-    "browserslist": "^4.28.9",
+    "browserslist": "^4.29.3",
     "esbuild": "0.28.2",
     "fast-glob": "3.3.3",
     "json-stringify-pretty-compact": "4.0.0",
