@@ -105,7 +105,7 @@ final class AssetManifest(getFile: GetRelativeFile):
           if !key.startsWith("i18n/") then none
           else
             val dot = key.lastIndexOf('.')
-            if dot > 0 then js.get(key.slice(0, dot) + ".en-GB")
+            if dot > 0 then js.get(s"${key.slice(0, dot)}.en-GB")
             else none
 
 private case object AssetManifestUpdate

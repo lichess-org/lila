@@ -173,6 +173,6 @@ final class SetupUi(helpers: Helpers):
       val perfType = PerfType(chess.variant.Standard, s)
       (
         s.id.toString,
-        perfType.trans + " - " + perfType.desc,
+        s"${perfType.trans} - ${perfType.desc}",
         none
       )

@@ -19,11 +19,11 @@ final class PieceSetImages(assets: AssetFullHelper):
             (c, color) <- chess.Color.all.map(c => c.letter -> c.name)
             (r, role) <- chess.Role.all.map(r => r.forsythUpper -> r.name)
           yield s"piece/$pieceSet/$c$r.$ext" -> s"---$color-$role"
-        val css = s"<style>:root{"
-          + vars.map { (path, name) => s"$name:url(${assets.assetUrl(path)});" }.mkString
-          + "}</style>" + vars.map { (path, _) =>
-            s"""<link rel="preload" as="image" href="${assets.assetUrl(path)}" />"""
-          }.mkString
+        val css =
+          s"<style>:root{${vars.map { (path, name) => s"$name:url(${assets.assetUrl(path)});" }.mkString}}</style>${vars.map {
+              (path, _) =>
+                s"""<link rel="preload" as="image" href="${assets.assetUrl(path)}" />"""
+            }.mkString}"
         if vars.exists { (path, _) => assets.manifest.hashed(path).isEmpty }
         then lila.log.system.error(s"$pieceSet manifest incomplete")
         css

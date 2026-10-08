@@ -9,7 +9,7 @@ import scala.annotation.nowarn
 
 trait ResponseWriter extends ContentTypes:
 
-  private val textContentType = ContentTypeOf(Some(ContentTypes.TEXT))
+  private val textContentType = ContentTypeOf(Option(ContentTypes.TEXT))
 
   given ContentTypeOf[Unit] = textContentType
   given (using codec: Codec): Writeable[Unit] = Writeable(_ => codec.encode("ok"))
@@ -34,10 +34,10 @@ trait ResponseWriter extends ContentTypes:
   given intRuntimeWriteable[A](using codec: Codec, sr: IntRuntime[A]): Writeable[A] =
     Writeable(a => codec.encode(sr(a).toString))
 
-  given (using codec: Codec): ContentTypeOf[Page] = ContentTypeOf(Some(ContentTypes.HTML))
-  given (using codec: Codec): ContentTypeOf[Snippet] = ContentTypeOf(Some(ContentTypes.HTML))
+  given (using codec: Codec): ContentTypeOf[Page] = ContentTypeOf(Option(ContentTypes.HTML))
+  given (using codec: Codec): ContentTypeOf[Snippet] = ContentTypeOf(Option(ContentTypes.HTML))
   given (using codec: Codec): Writeable[Snippet] = Writeable(snip => codec.encode(snip.frag.render))
-  given (using codec: Codec): ContentTypeOf[RenderedPage] = ContentTypeOf(Some(ContentTypes.HTML))
+  given (using codec: Codec): ContentTypeOf[RenderedPage] = ContentTypeOf(Option(ContentTypes.HTML))
   given (using codec: Codec): Writeable[RenderedPage] = Writeable(page => codec.encode(page.html))
 
   def CSV(using Codec) = withCharset("text/csv")
