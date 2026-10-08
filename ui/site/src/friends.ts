@@ -22,8 +22,6 @@ export default class OnlineFriends {
   constructor(readonly el: HTMLElement) {
     this.titleEl = this.el.querySelector('.friend_box_button') as HTMLElement;
     this.countEl = this.el.querySelector('.friend_box_count') as HTMLElement;
-    this.countEl.innerHTML = i18n.site.nbFriendsOnline(0, '-');
-    this.updateTitle(0, 0);
     this.titleEl.addEventListener('click', this.load);
     this.titleEl.addEventListener('mouseover', this.load);
     this.users = new Map();
@@ -36,6 +34,8 @@ export default class OnlineFriends {
 
   load = () => {
     if (!this.loaded) {
+      this.updateTitle(0, 0);
+      this.countEl.innerHTML = i18n.site.nbFriendsOnline(0, '-');
       this.loaded = true;
       api.onlineFriends.request();
     }

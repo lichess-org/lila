@@ -2,6 +2,9 @@
   "include": ["${configDir}/**/*", "${configDir}/../src/**/*"],
   "exclude": ["${configDir}/../dist"],
   "compilerOptions": {
+    "jsx": "react",
+    "jsxFactory": "jsx",
+    "jsxFragmentFactory": "Fragment",
     "strict": true,
     "strictFunctionTypes": false,
     "strictPropertyInitialization": false,

@@ -1,15 +1,15 @@
 {
   "name": "build",
   "type": "module",
-  "packageManager": "pnpm@12.3.4",
+  "packageManager": "pnpm@12.9.0",
   "engines": {
     "node": ">=24",
     "pnpm": ">=12"
   },
   "dependencies": {
     "@types/micromatch": "4.0.10",
-    "@types/node": "24.13.5",
-    "browserslist": "^4.28.9",
+    "@types/node": "24.19.0",
+    "browserslist": "^4.29.3",
     "esbuild": "0.28.2",
     "fast-glob": "3.3.3",
     "json-stringify-pretty-compact": "4.0.0",

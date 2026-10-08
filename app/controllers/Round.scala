@@ -131,56 +131,57 @@ final class Round(
   private[controllers] def watch(pov: Pov, userTv: Option[UserModel] = None)(using
       ctx: Context
   ): Fu[Result] =
-    val details = ctx.isAuth || pov.game.isStrongOrRecent
-    playablePovForReq(pov.game) match
-      case Some(player) if userTv.isEmpty => renderPlayer(pov.withColor(player.color))
-      case _ if pov.game.variant == chess.variant.RacingKings && pov.color.black =>
-        if userTv.isDefined then watch(!pov, userTv)
-        else Redirect(routes.Round.watcher(pov.gameId, Color.white))
-      case _ =>
-        isBlockedByPlayer(pov.game).flatMap:
-          if _ then notFound
-          else
-            negotiateApi(
-              html =
-                if pov.game.replayable then analyseC.replay(pov, userTv = userTv)
-                else
+    limit.anyPageByUser.option(ctx.myId, rateLimited):
+      val details = ctx.isAuth || pov.game.isStrongOrRecent
+      playablePovForReq(pov.game) match
+        case Some(player) if userTv.isEmpty => renderPlayer(pov.withColor(player.color))
+        case _ if pov.game.variant == chess.variant.RacingKings && pov.color.black =>
+          if userTv.isDefined then watch(!pov, userTv)
+          else Redirect(routes.Round.watcher(pov.gameId, Color.white))
+        case _ =>
+          isBlockedByPlayer(pov.game).flatMap:
+            if _ then notFound
+            else
+              negotiateApi(
+                html =
+                  if pov.game.replayable then analyseC.replay(pov, userTv = userTv)
+                  else
+                    for
+                      users <- env.user.api.gamePlayers(pov.game.userIdPair, pov.game.perfKey)
+                      _ = gameC.preloadUsers(users)
+                      tour <- details.so(env.tournament.api.gameView.watcher(pov.game))
+                      simul <- pov.game.simulId.so(env.simul.repo.find)
+                      chat <- getWatcherChat(pov.game)
+                      crosstable <- (ctx.noBlind && details).so:
+                        env.game.crosstableApi.withMatchup(pov.game)
+                      bookmarked <- env.bookmark.api.exists(pov.game, ctx.me)
+                      tv = userTv.map(u => lila.round.OnTv.User(u.id))
+                      data <- env.api.roundApi.watcher(pov, users, tour, tv, details = details)
+                      page <- renderPage:
+                        views.round.watcher(
+                          pov,
+                          data,
+                          tour.map(_.tourAndTeamVs),
+                          simul,
+                          crosstable,
+                          userTv = userTv,
+                          chatOption = chat,
+                          bookmarked = bookmarked
+                        )
+                    yield Ok(page)
+                ,
+                api = _ =>
                   for
                     users <- env.user.api.gamePlayers(pov.game.userIdPair, pov.game.perfKey)
-                    _ = gameC.preloadUsers(users)
                     tour <- details.so(env.tournament.api.gameView.watcher(pov.game))
-                    simul <- pov.game.simulId.so(env.simul.repo.find)
+                    data <- env.api.roundApi.watcher(pov, users, tour, tv = none, details = details)
+                    analysis <- env.analyse.analyser.get(pov.game)
                     chat <- getWatcherChat(pov.game)
-                    crosstable <- (ctx.noBlind && details).so:
-                      env.game.crosstableApi.withMatchup(pov.game)
-                    bookmarked <- env.bookmark.api.exists(pov.game, ctx.me)
-                    tv = userTv.map(u => lila.round.OnTv.User(u.id))
-                    data <- env.api.roundApi.watcher(pov, users, tour, tv, details = details)
-                    page <- renderPage:
-                      views.round.watcher(
-                        pov,
-                        data,
-                        tour.map(_.tourAndTeamVs),
-                        simul,
-                        crosstable,
-                        userTv = userTv,
-                        chatOption = chat,
-                        bookmarked = bookmarked
-                      )
-                  yield Ok(page)
-              ,
-              api = _ =>
-                for
-                  users <- env.user.api.gamePlayers(pov.game.userIdPair, pov.game.perfKey)
-                  tour <- details.so(env.tournament.api.gameView.watcher(pov.game))
-                  data <- env.api.roundApi.watcher(pov, users, tour, tv = none, details = details)
-                  analysis <- env.analyse.analyser.get(pov.game)
-                  chat <- getWatcherChat(pov.game)
-                yield Ok:
-                  data
-                    .add("chat" -> chat.map(_.lines))
-                    .add("analysis" -> analysis.map(a => lila.analyse.JsonView.mobile(pov.game, a)))
-            ).dmap(_.noCache)
+                  yield Ok:
+                    data
+                      .add("chat" -> chat.map(_.lines))
+                      .add("analysis" -> analysis.map(a => lila.analyse.JsonView.mobile(pov.game, a)))
+              ).dmap(_.noCache)
 
   private[controllers] def getWatcherChat(
       game: GameModel

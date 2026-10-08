@@ -75,8 +75,7 @@ final class Env(
   lazy val userGameApi = UserGameApi(lightUserApi, getTourName)
 
   lazy val api: lila.core.game.GameApi = new:
-    export gameRepo.{ incBookmarks, getSourceAndUserIds }
-    override def nbPlaying(userId: UserId): Fu[Int] = cached.nbPlaying(userId)
+    export gameRepo.{ incBookmarks, getSourceAndUserIds, countNowPlaying }
     export GameExt.{ computeMoveTimes, analysable }
     export AnonCookie.json as anonCookieJson
 

@@ -46,13 +46,12 @@ final class User(
               case Some(mine) => Redirect(routes.Round.player(mine.fullId))
               case _ => roundC.watch(pov, userTv = user.some)
 
-  def tvExport(username: UserStr) = Anon:
-    env.game.cached
-      .lastPlayedPlayingId(username.id)
-      .orElse(env.game.gameRepo.quickLastPlayedId(username.id))
-      .flatMap:
-        case None => NotFound("No ongoing game")
-        case Some(gameId) => gameC.exportGame(gameId)
+  def tvExport(username: UserStr) = Anon: _ ?=>
+    Found(
+      env.round.playing
+        .lastPlayedPlayingId(username.id)
+        .orElse(env.game.gameRepo.quickLastPlayedId(username.id))
+    )(gameC.exportGame)
 
   private def gamesForLichobile(u: UserModel, filter: String, page: Int)(using BodyContext[?]) =
     userGames(u, filter, page).flatMap(env.game.userGameApi.jsPaginator).map { res =>
@@ -80,9 +79,8 @@ final class User(
     ctx.isAnon && (HTTPRequest.noReferer(ctx.req) || proxy.couldBeEnum)
 
   private def renderShow(u: UserModel, status: Results.Status = Results.Ok)(using
-      Context,
-      IsProxy
-  ): Fu[Result] =
+      ctx: Context
+  )(using IsProxy): Fu[Result] =
     limit.userProfileLimiter(rateLimited):
       val showActivityAndGames = isRestricted.not && !UserId.isOfficial(u.id)
       def fetchActivity = showActivityAndGames.so(env.activity.read.recentAndPreload(u))
@@ -95,7 +93,9 @@ final class User(
         userShowHtmlRateLimit.knownProxy(rateLimited, cost = cost):
           for
             as <- fetchActivity
-            nbs <- showActivityAndGames.so(env.userNbGames(u, withCrosstable = false))
+            nbs <- showActivityAndGames
+              .so(ctx.me)
+              .soUse(env.userNbGames(u, withCrosstable = false, withPlaying = false))
             info <- env.userInfo.fetch(u, nbs, isRestricted)
             _ <- env.userInfo.preloadTeams(info)
             social <- env.socialInfo(u)
@@ -119,7 +119,7 @@ final class User(
 
   def gamesAll(username: UserStr, page: Int) = games(username, GameFilter.all.name, page)
 
-  def games(username: UserStr, filter: String, page: Int) = OpenBody:
+  def games(username: UserStr, filter: String, page: Int) = OpenBody: ctx ?=>
     Reasonable(page):
       val isSearch = filter == GameFilter.search.name
       RequireAuthIf(UserAgentParser.trust.isSuspicious || page > 1 || isSearch):
@@ -129,7 +129,7 @@ final class User(
               val full = !isRestricted
               negotiate(
                 html = for
-                  nbs <- full.so(env.userNbGames(u, withCrosstable = true))
+                  nbs <- full.so(ctx.me).soUse(env.userNbGames(u, withCrosstable = true, withPlaying = true))
                   filters = lila.app.mashup.GameFilterMenu(u, nbs, filter, ctx.isAuth)
                   pag <- full.so(env.gamePaginator(u, nbs.some, filter = filters.current, page = page))
                   _ <- lightUserApi.preloadMany(pag.currentPageResults.flatMap(_.userIds))

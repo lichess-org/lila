@@ -5,6 +5,7 @@ import alleycats.Zero
 import lila.activity.Score.plus
 import lila.core.chess.Rank
 import lila.core.rating.Score
+import lila.core.id.TourPlayerId
 
 object activities:
 
@@ -68,6 +69,9 @@ object activities:
   object Simuls extends TotalWrapper[Simuls, List[SimulId]]:
     extension (a: Simuls) def +(s: SimulId): Simuls = s :: a.value
     given Zero[Simuls] = Zero(Nil)
+
+  opaque type Tours = List[TourPlayerId]
+  object Tours extends TotalWrapper[Tours, List[TourPlayerId]]
 
   case class Corres(moves: Int, movesIn: List[GameId], end: List[GameId]):
     def add(gameId: GameId, moved: Boolean, ended: Boolean) =

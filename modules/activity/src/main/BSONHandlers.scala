@@ -114,6 +114,7 @@ private object BSONHandlers:
     val studies = "t"
     val teams = "e"
     val swisses = "w"
+    val tours = "to"
     val stream = "st"
 
   given lila.db.BSON[Activity] with
@@ -138,6 +139,7 @@ private object BSONHandlers:
       studies = r.getO[Studies](studies),
       teams = r.getO[Teams](teams),
       swisses = r.getO[Swisses](swisses),
+      tours = r.getO[Tours](tours),
       stream = r.getD[Boolean](stream)
     )
 
@@ -159,5 +161,6 @@ private object BSONHandlers:
       studies -> o.studies,
       teams -> o.teams,
       swisses -> o.swisses,
+      tours -> o.tours,
       stream -> o.stream.option(true)
     )

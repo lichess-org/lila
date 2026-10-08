@@ -214,7 +214,7 @@ function engineSelection(ctrl: CevalHandler) {
   const external = ceval.engines.external();
 
   return div('.setting', [
-    label({ for: 'select-engine' }, 'Engine:'),
+    label({ for: 'select-engine' }, i18n.site.engine),
     engineSelect(engines, active?.id, id => {
       ceval.selectEngine(id);
       ctrl.startCevalIfEnabled();

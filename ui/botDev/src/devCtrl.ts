@@ -24,10 +24,7 @@ type Test = {
   initialFen?: string;
 };
 
-export type Matchup = {
-  white: string;
-  black: string;
-};
+export type Matchup = ByColor<string>;
 
 interface Script extends Test {
   games: Matchup[];

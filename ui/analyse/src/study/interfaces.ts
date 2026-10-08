@@ -183,10 +183,7 @@ export interface ChapterPreview extends ChapterPreviewBase {
   playing: boolean;
 }
 
-export interface StudyPlayers {
-  white: StudyPlayer;
-  black: StudyPlayer;
-}
+export type StudyPlayers = ByColor<StudyPlayer>;
 
 export type FederationId = string;
 export interface Federation {
