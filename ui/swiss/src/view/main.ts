@@ -203,6 +203,81 @@ function stats(ctrl: SwissCtrl) {
   const s = ctrl.data.stats;
   const slots = ctrl.data.round * ctrl.data.nbPlayers;
   if (!s) return undefined;
+
+  // Helper function: generate divider + group label text (using attrs.style to avoid TS type inference errors)
+  const sectionHeader = (text: string) =>
+    hl(
+      'div',
+      { attrs: { style: 'display: flex; align-items: center; margin: 1.2em 0 0.6em 0; gap: 0.8em;' } },
+      [
+        hl(
+          'small',
+          {
+            attrs: {
+              style:
+                'color: var(--muted-color); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.75em; white-space: nowrap;',
+            },
+          },
+          text,
+        ),
+        hl('hr', { attrs: { style: 'flex: 1; border: none; border-top: 1px solid var(--border-color);' } }),
+      ],
+    );
+
+  const links: LooseVNodes = [];
+
+  // 1. Players
+  links.push(sectionHeader('Players'));
+  links.push(
+    hl(
+      'a.text',
+      { attrs: { href: `/swiss/${ctrl.data.id}/round/1` } },
+      i18n.swiss.viewAllXRounds(ctrl.data.round),
+    ),
+    hl('br'),
+    hl(
+      'a.text',
+      { attrs: { 'data-icon': licon.Download, href: `/swiss/${ctrl.data.id}.trf`, download: true } },
+      i18n.site.downloadTrfFile,
+    ),
+    hl(
+      'a.text',
+      { attrs: { 'data-icon': licon.Download, href: `/api/swiss/${ctrl.data.id}/games`, download: true } },
+      i18n.site.downloadAllGames,
+    ),
+  );
+
+  // 2. Data & Analysis
+  links.push(sectionHeader('Data & Analysis'));
+  links.push(
+    hl(
+      'a.text',
+      {
+        attrs: {
+          'data-icon': licon.Download,
+          href: `/api/swiss/${ctrl.data.id}/results?as=csv`,
+          download: true,
+        },
+      },
+      i18n.site.downloadResultsAsCsv,
+    ),
+    hl(
+      'a.text',
+      { attrs: { 'data-icon': licon.Download, href: `/api/swiss/${ctrl.data.id}/results`, download: true } },
+      i18n.site.downloadResultsAsNdjson,
+    ),
+  );
+
+  // 3. Developers
+  links.push(sectionHeader('Developers'));
+  links.push(
+    hl(
+      'a.text',
+      { attrs: { 'data-icon': licon.InfoCircle, href: '/api#tag/swiss-tournaments' } },
+      i18n.site.swissApiDocumentation,
+    ),
+  );
+
   return hl('div.swiss__stats', [
     hl('h2', i18n.site.tournamentComplete),
     hl('table', [
@@ -213,49 +288,6 @@ function stats(ctrl: SwissCtrl) {
       numberRow(i18n.swiss.byes, [s.byes, slots], 'percent'),
       numberRow(i18n.swiss.absences, [s.absences, slots], 'percent'),
     ]),
-    hl('div.swiss__stats__links', [
-      hl(
-        'a',
-        { attrs: { href: `/swiss/${ctrl.data.id}/round/1` } },
-        i18n.swiss.viewAllXRounds(ctrl.data.round),
-      ),
-      hl('br'),
-      hl(
-        'a.text',
-        { attrs: { 'data-icon': licon.Download, href: `/swiss/${ctrl.data.id}.trf`, download: true } },
-        'Download TRF file',
-      ),
-      hl(
-        'a.text',
-        { attrs: { 'data-icon': licon.Download, href: `/api/swiss/${ctrl.data.id}/games`, download: true } },
-        i18n.site.downloadAllGames,
-      ),
-      hl(
-        'a.text',
-        {
-          attrs: { 'data-icon': licon.Download, href: `/api/swiss/${ctrl.data.id}/results`, download: true },
-        },
-        'Download results as NDJSON',
-      ),
-      hl(
-        'a.text',
-        {
-          attrs: {
-            'data-icon': licon.Download,
-            href: `/api/swiss/${ctrl.data.id}/results?as=csv`,
-            download: true,
-          },
-        },
-        'Download results as CSV',
-      ),
-      hl('br'),
-      hl(
-        'a.text',
-        {
-          attrs: { 'data-icon': licon.InfoCircle, href: '/api#tag/swiss-tournaments' },
-        },
-        'Swiss API documentation',
-      ),
-    ]),
+    hl('div.swiss__stats__links', links),
   ]);
 }

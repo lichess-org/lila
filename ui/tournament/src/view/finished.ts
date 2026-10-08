@@ -26,6 +26,7 @@ function stats(ctrl: TournamentController): VNode | undefined {
   const data = ctrl.data;
   const stats = data.stats;
   if (!stats) return undefined;
+
   const tableData = [
     ctrl.opts.showRatings ? numberRow(i18n.site.averageElo, stats.averageRating, 'raw') : null,
     numberRow(i18n.site.gamesPlayed, stats.games),
@@ -33,67 +34,104 @@ function stats(ctrl: TournamentController): VNode | undefined {
     ...COLORS.map(c => numberRow(i18n.site[`${c}Wins`], [stats[`${c}Wins`], stats.games], 'percent')),
     numberRow(i18n.site.drawRate, [stats.draws, stats.games], 'percent'),
   ];
-
   if (data.berserkable) {
     tableData.push(numberRow(i18n.arena.berserkRate, [stats.berserks / 2, stats.games], 'percent'));
   }
 
-  return h('div.tour__stats', [
-    h('h2', i18n.site.tournamentComplete),
-    h('table', tableData),
-    h('div.tour__stats__links.force-ltr', [
-      ...(data.teamBattle
-        ? [
-            h(
-              'a',
-              { attrs: { href: `/tournament/${data.id}/teams` } },
-              i18n.arena.viewAllXTeams(Object.keys(data.teamBattle.teams).length),
-            ),
-            h('br'),
-          ]
-        : []),
-      h(
-        'a.text',
-        { attrs: { 'data-icon': licon.Download, href: `/api/tournament/${data.id}/games`, download: true } },
-        i18n.site.downloadAllGames,
-      ),
-      data.me &&
+  // Helper function: generate divider + group label text (using attrs.style to avoid TS type inference errors)
+  const sectionHeader = (text: string) =>
+    h(
+      'div',
+      { attrs: { style: 'display: flex; align-items: center; margin: 1.2em 0 0.6em 0; gap: 0.8em;' } },
+      [
         h(
-          'a.text',
+          'small',
           {
             attrs: {
-              'data-icon': licon.Download,
-              href: `/api/tournament/${data.id}/games?player=${ctrl.opts.userId}`,
-              download: true,
+              style:
+                'color: var(--muted-color); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.75em; white-space: nowrap;',
             },
           },
-          'Download my games',
+          text,
         ),
+        h('hr', { attrs: { style: 'flex: 1; border: none; border-top: 1px solid var(--border-color);' } }),
+      ],
+    );
+
+  const links: MaybeVNodes = [];
+
+  // 1. Players
+  links.push(sectionHeader('Players'));
+
+  if (data.teamBattle) {
+    links.push(
       h(
-        'a.text',
-        {
-          attrs: { 'data-icon': licon.Download, href: `/api/tournament/${data.id}/results`, download: true },
-        },
-        'Download results as NDJSON',
+        'a',
+        { attrs: { href: `/tournament/${data.id}/teams` } },
+        i18n.arena.viewAllXTeams(Object.keys(data.teamBattle.teams).length),
       ),
+      h('br'),
+    );
+  }
+
+  links.push(
+    h(
+      'a.text',
+      { attrs: { 'data-icon': licon.Download, href: `/api/tournament/${data.id}/games`, download: true } },
+      i18n.site.downloadAllGames,
+    ),
+  );
+  if (data.me) {
+    links.push(
       h(
         'a.text',
         {
           attrs: {
             'data-icon': licon.Download,
-            href: `/api/tournament/${data.id}/results?as=csv`,
+            href: `/api/tournament/${data.id}/games?player=${ctrl.opts.userId}`,
             download: true,
           },
         },
-        'Download results as CSV',
+        i18n.site.downloadMyGames,
       ),
-      h('br'),
-      h(
-        'a.text',
-        { attrs: { 'data-icon': licon.InfoCircle, href: '/api#tag/arena-tournaments' } },
-        'Arena API documentation',
-      ),
-    ]),
+    );
+  }
+
+  // 2. Data & Analysis
+  links.push(sectionHeader('Data & Analysis'));
+  links.push(
+    h(
+      'a.text',
+      {
+        attrs: {
+          'data-icon': licon.Download,
+          href: `/api/tournament/${data.id}/results?as=csv`,
+          download: true,
+        },
+      },
+      i18n.site.downloadResultsAsCsv,
+    ),
+    h(
+      'a.text',
+      { attrs: { 'data-icon': licon.Download, href: `/api/tournament/${data.id}/results`, download: true } },
+      i18n.site.downloadResultsAsNdjson,
+    ),
+  );
+
+  // 3. Developers
+  links.push(sectionHeader('Developers'));
+  links.push(
+    h(
+      'a.text',
+      { attrs: { 'data-icon': licon.InfoCircle, href: '/api#tag/arena-tournaments' } },
+      i18n.site.arenaApiDocumentation,
+    ),
+  );
+
+  return h('div.tour__stats', [
+    h('h2', i18n.site.tournamentComplete),
+    h('table', tableData),
+    h('div.tour__stats__links.force-ltr', links),
   ]);
 }
 
