@@ -166,7 +166,7 @@ export function renderCeval(ctrl: CevalHandler): VNode[] {
   const server = node.eval;
   const threatMode = ctrl.threatMode();
   const threat = threatMode ? node.threat : undefined;
-  const bestEv = getBestEval(ctrl);
+  const bestEv = threat || getBestEval(ctrl);
   const search = ceval.search;
   const download = ceval.download;
   let pearl: LooseVNode;
