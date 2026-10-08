@@ -237,7 +237,7 @@ importers:
   bin:
     dependencies:
       '@types/node':
-        specifier: ^24.13.5
+        specifier: ^24.19.0
         version: 24.19.1
       cheerio:
         specifier: ^1.2.0
