@@ -9,10 +9,10 @@ def payoutDms(userApi: lila.core.user.UserApi, users: List[String])(
   val userIds = users.map(UserStr(_).id).distinct
   userApi
     .filterExists(userIds.toSet)
-    .map: found =>
+    .flatMap: found =>
       val missing = userIds.filterNot(found.contains)
-      if missing.nonEmpty then s"Unknown users: ${missing.mkString(", ")}. Nothing sent."
+      if missing.nonEmpty then fufail(s"Unknown users: ${missing.mkString(", ")}. Nothing sent.")
       else
         val msg = payout(userIds)
         Bus.pub(msg)
-        s"Sent payout DM for ${msg.tourName} to ${userIds.mkString(", ")}"
+        fuccess(s"Sent payout DM for ${msg.tourName} to ${userIds.mkString(", ")}")
