@@ -5,6 +5,17 @@ packages:
   - 'bin'
   - 'ui/*'
   - 'ui/@types/*'
+allowBuilds:
+  esbuild: true
+  protobufjs: false
+overrides:
+  fast-uri: ^3.1.7
+  undici: ^8.10.2
+patchedDependencies:
+  '@toast-ui/editor@3.2.2': ui/bits/patches/@toast-ui__editor.patch
+minimumReleaseAgeExclude:
+  - '@lichess-org/*'
+  - pnpm
 ignoredOptionalDependencies:
   - '*arm-*'
   - '*ia32-*'
@@ -33,14 +44,3 @@ ignoredOptionalDependencies:
   - '*-netbsd*'
   - '*sunos-*'
   - '*-sunos*'
-allowBuilds:
-  esbuild: true
-  protobufjs: false
-overrides:
-  fast-uri: ^3.1.7
-  undici: ^8.10.2
-patchedDependencies:
-  '@toast-ui/editor@3.2.2': ui/bits/patches/@toast-ui__editor.patch
-minimumReleaseAgeExclude:
-  - '@lichess-org/*'
-  - pnpm

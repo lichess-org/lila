@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 
 export function each<T extends any[]>(cases: readonly T[]) {
-  return (name: string, fn: (...args: T) => void) => {
+  return (name: string, fn: (...args: T) => void): void => {
     for (const args of cases) {
       const label = `${name}: ${args.map(String).join(' | ')}`;
       test(label, () => fn(...args));

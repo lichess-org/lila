@@ -2,6 +2,9 @@ nodeVersion: 24.20.0
 autoDedupe: true
 allowBuilds:
   esbuild: true
+minimumReleaseAge: 10080
+minimumReleaseAgeExclude:
+  - pnpm
 ignoredOptionalDependencies:
   - '*arm-*'
   - '*ia32-*'
@@ -30,8 +33,3 @@ ignoredOptionalDependencies:
   - '*-netbsd*'
   - '*sunos-*'
   - '*-sunos*'
-minimumReleaseAge: 10080
-minimumReleaseAgeExclude:
-  - pnpm
-  - sasso-native-* # 2026/10/07 remove me
-  - sasso # 2026/10/07 remove me

@@ -1,12 +1,9 @@
 import { existsSync, readFileSync } from 'node:fs';
-import { registerHooks } from 'node:module';
+import { registerHooks, type ResolveHookContext, type ResolveFnOutput } from 'node:module';
 import { dirname, join } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 
-type ResolveContext = { parentURL?: string; conditions: string[] };
-type ResolveResult = { url: string; shortCircuit?: boolean; format?: string };
-type NextResolver = (specifier: string, context: ResolveContext) => ResolveResult;
-
+type NextResolve = (specifier: string, context?: Partial<ResolveHookContext>) => ResolveFnOutput;
 const pkgNameCache = new Map<string, string | undefined>();
 
 function findPkg(parent: string): string | undefined {
@@ -30,15 +27,19 @@ function findPkg(parent: string): string | undefined {
   }
 }
 
-export function resolve(specifier: string, context: ResolveContext, next: NextResolver): ResolveResult {
+export function resolve(
+  specifier: string,
+  context: ResolveHookContext,
+  nextResolve: NextResolve,
+): ResolveFnOutput {
   if (specifier.startsWith('@/')) {
     const pkg = findPkg(context.parentURL ?? import.meta.url);
-    if (pkg) return next(`${pkg}/${specifier.slice(2)}`, context);
+    if (pkg) return nextResolve(`${pkg}/${specifier.slice(2)}`, context);
   }
 
   const isFileUrl = specifier.startsWith('file:');
   if (!isFileUrl && !specifier.startsWith('.')) {
-    return next(specifier, context);
+    return nextResolve(specifier, context);
   }
 
   const pathSpecifier = specifier.replace(/[?#].*$/, '');
@@ -53,7 +54,10 @@ export function resolve(specifier: string, context: ResolveContext, next: NextRe
       : [`${file}.ts`, `${file}.js`];
   const match = candidates.find(existsSync);
 
-  return next(match ? `${isFileUrl ? pathToFileURL(match).href : match}${suffix}` : specifier, context);
+  return nextResolve(
+    match ? `${isFileUrl ? pathToFileURL(match).href : match}${suffix}` : specifier,
+    context,
+  );
 }
 
 registerHooks({ resolve });
