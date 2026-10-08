@@ -131,7 +131,7 @@ lazy val db = module("db",
 
 lazy val memo = module("memo",
   Seq(db, mon, markdown),
-  Seq(scaffeine, bloomFilter) ++ playWs.bundle
+  Seq(scaffeine, probabilisticDataStructures) ++ playWs.bundle
 )
 
 lazy val i18n = module("i18n",
@@ -205,7 +205,7 @@ lazy val feed = module("feed",
 
 lazy val ublog = module("ublog",
   Seq(search, report),
-  Seq(bloomFilter)
+  Seq(probabilisticDataStructures)
 )
 
 lazy val evaluation = module("evaluation",
@@ -471,7 +471,7 @@ lazy val teamSearch = module("teamSearch",
 
 lazy val clas = module("clas",
   Seq(user, puzzle),
-  Seq(bloomFilter)
+  Seq(probabilisticDataStructures)
 )
 
 lazy val bookmark = module("bookmark",

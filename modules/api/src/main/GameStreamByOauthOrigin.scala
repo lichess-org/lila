@@ -3,7 +3,7 @@ package lila.api
 import org.apache.pekko.stream.scaladsl.*
 import play.api.libs.json.*
 import play.api.mvc.RequestHeader
-import bloomfilter.mutable.BloomFilter
+import se.thanh.pds.bloomfilter.BloomFilter
 import scalalib.net.UserAgent
 
 import lila.common.{ Bus, HTTPRequest }
@@ -114,7 +114,7 @@ final class GameStreamByOauthOrigin(
         client.mon.users("recentlySeen").update(recentlySeenUsers.size)
 
         def matches(game: Game) = game.nonAi &&
-          game.players.exists(_.userId.exists(id => tokenUsers.mightContain(id.value)))
+          game.players.exists(_.userId.exists(id => tokenUsers.contains(id.value)))
 
         val subStart = client.startEvents.option:
           Bus.sub[StartGame]: e =>
