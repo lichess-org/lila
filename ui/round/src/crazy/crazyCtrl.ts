@@ -1,4 +1,4 @@
-import { dragNewPiece } from '@lichess-org/chessground/drag';
+import { dragNewPiece } from 'chessground3D/drag';
 import { setDropMode, cancelDropMode } from '@lichess-org/chessground/drop';
 import type { MouchEvent } from '@lichess-org/chessground/types';
 
