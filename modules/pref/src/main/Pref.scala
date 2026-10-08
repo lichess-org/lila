@@ -99,8 +99,6 @@ case class Pref(
 
   def is2d = !is3d
 
-  def agree = copy(agreement = Agreement.current)
-
   def hasKeyboardMove = keyboardMove == KeyboardMove.YES
   def hasVoice = voice.has(Voice.YES)
   def hasSpeech = soundSet == SoundSet.speech.toString
@@ -415,7 +413,6 @@ object Pref:
   object Agreement:
     val current = 2
     val changedAt = instantOf(2021, 12, 28, 8, 0)
-    val showPrompt = changedAt.isAfter(nowInstant.minusMonths(6))
 
   object Zen:
     val NO = 0
