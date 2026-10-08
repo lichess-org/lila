@@ -3829,6 +3829,8 @@ interface I18n {
     endgame: string;
     /** Endgame positions */
     endgamePositions: string;
+    /** Engine: */
+    engine: string;
     /** Error loading engine */
     engineFailed: string;
     /** Engine settings */
