@@ -161,17 +161,11 @@ export interface CheckState {
   check?: boolean | (() => boolean);
 }
 
-export interface CheckCount {
-  white: number;
-  black: number;
-}
+export type CheckCount = ByColor<number>;
 
 export type MaterialDiffSide = Record<Role, number>;
 
-export interface MaterialDiff {
-  white: MaterialDiffSide;
-  black: MaterialDiffSide;
-}
+export type MaterialDiff = ByColor<MaterialDiffSide>;
 
 export interface RoundStep {
   ply: Ply;
