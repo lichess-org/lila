@@ -51,12 +51,12 @@ $forumPost
 Your new permissions are: ${perms.mkString(", ")}.
 ${teamUrl}"""
 
-  def payoutEligible(payoutsUrl: Url, msg: lila.core.msg.PayoutMessages) =
+  def payoutEligible(payoutsUrl: Url, msg: lila.core.msg.PayoutMessages, rank: Int) =
     import msg.*
     val deadline = finishedAt.atZone(java.time.ZoneOffset.UTC).toLocalDate.plusMonths(6)
     Msg(
       name = "Prize payout",
-      text = s"""Congratulations on your finish in $tourName! $tourUrl
+      text = s"""Congratulations on your rank #${rank} finish in $tourName! $tourUrl
 
 Lichess is offering prizes to top finishers in this tournament, and your performance means you may be eligible for a prize.
 
