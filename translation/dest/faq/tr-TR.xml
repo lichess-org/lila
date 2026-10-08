@@ -171,7 +171,7 @@ Bu durum gerçekleştiğinde sizi uyarmak için kırmızı sessize alma simgesin
 5. İzin Ver listesine lichess.org\'u ekleyin</string>
   <string name="makeBotTitle">Bir Lichess botu yaparım?</string>
   <string name="makeBotDescription">Lichess\'te oynamak üzere bir &lt;a href=\'%1$s\'&gt;özel satranç botu&lt;/a&gt; oluşturmayı öğrenmek için, &lt;a href=\'%2$s\'&gt;bot oluşturma hakkındaki bu blog yazısını&lt;/a&gt; okuyun.</string>
-  <string name="stopMyselfFromPlaying">Kendimi oynamaktan nasıl alıkoyabilirim?</string>
+  <string name="stopMyselfFromPlaying">Kendimi oynamaktan alıkoyabilirim?</string>
   <string name="mentalHealthCondition">kendine özgü bir ruh sağlığı durumu</string>
   <string name="lichessUserstyles">Lichess kullanıcı stilleri</string>
   <string name="fewerLobbyPools">daha az lobi havuzu seçeneği</string>
