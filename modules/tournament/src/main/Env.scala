@@ -155,7 +155,8 @@ final class Env(
     case "payouts-dm" :: payoutsDmUrl(id) :: users if users.nonEmpty =>
       tournamentRepo
         .byId(TourId(id))
-        .orFail(s"No such tournament: $id")
+        .map(_.filter(_.isFinished))
+        .orFail(s"No such finished tournament: $id")
         .flatMap: t =>
           lila.gathering.PayoutsDm(userApi, users):
             lila.core.msg.PayoutMessages(_, t.name, Tournament.tournamentUrl(t.id), t.finishesAt)
