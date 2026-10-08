@@ -700,13 +700,13 @@ Oynayan arkadaşlar: %2$s</string>
   <string name="mobileApp">Mobil Uygulama</string>
   <string name="webmasters">Site Yöneticileri</string>
   <string name="about">Hakkında</string>
-  <string name="aboutX">%s hakkında</string>
+  <string name="aboutX">%s Hakkında</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s; tamamen ücretsiz (%2$s), özgür, reklamsız, açık kaynak kodlu bir satranç sitesidir.</string>
   <string name="really">ciddiyiz</string>
   <string name="lichessUpdates">Lichess güncellemeleri</string>
   <string name="contribute">Katkıda bulun</string>
   <string name="changelog">Değişiklik Notları</string>
-  <string name="termsOfService">Hizmet koşulları</string>
+  <string name="termsOfService">Hizmet Koşulları</string>
   <string name="titleVerification">Ünvan doğrulaması</string>
   <string name="sourceCode">Kaynak Kodu</string>
   <string name="blockAds">Reklamları engelle</string>
