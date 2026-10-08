@@ -1,5 +1,4 @@
 nodeVersion: 24.20.0
-pmOnFail: error
 autoDedupe: true
 allowBuilds:
   esbuild: true
