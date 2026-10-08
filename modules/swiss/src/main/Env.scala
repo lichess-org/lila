@@ -121,7 +121,7 @@ final class Env(
         .map(_.filter(_.isFinished))
         .orFail(s"No such finished tournament: $id")
         .flatMap: s =>
-          lila.gathering.PayoutsDm(userApi, users):
+          lila.gathering.payoutDms(userApi, users):
             lila.core.msg.PayoutMessages(_, s.name, Swiss.swissUrl(s.id), s.finishedAt | s.startsAt)
 
 final private class SwissMongo(val swiss: Coll, val player: Coll, val pairing: Coll, val ban: Coll)

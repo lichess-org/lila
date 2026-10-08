@@ -154,11 +154,10 @@ final class Env(
       api.recomputeEntireTournament(TourId(id)).inject("Done!")
     case "payouts-dm" :: payoutsDmUrl(id) :: users if users.nonEmpty =>
       tournamentRepo
-        .byId(TourId(id))
-        .map(_.filter(_.isFinished))
+        .finishedById(TourId(id))
         .orFail(s"No such finished tournament: $id")
         .flatMap: t =>
-          lila.gathering.PayoutsDm(userApi, users):
+          lila.gathering.payoutDms(userApi, users):
             lila.core.msg.PayoutMessages(_, t.name, Tournament.tournamentUrl(t.id), t.finishesAt)
 
 trait TournamentReloadEndpoint
