@@ -478,7 +478,6 @@ object I18nKey:
     val `errorPage`: I18nKey = "contact:errorPage"
     val `reportTheBug`: I18nKey = "contact:reportTheBug"
     val `securityVulnerability`: I18nKey = "contact:securityVulnerability"
-    val `referToSecurityPolicy`: I18nKey = "contact:referToSecurityPolicy"
     val `otherBug`: I18nKey = "contact:otherBug"
     val `learnHowToMakeBroadcasts`: I18nKey = "contact:learnHowToMakeBroadcasts"
     val `banAppeal`: I18nKey = "contact:banAppeal"

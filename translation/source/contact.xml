@@ -56,7 +56,6 @@
   <string name="errorPage">Error page</string>
   <string name="reportTheBug">You may report it:</string>
   <string name="securityVulnerability">Security vulnerability</string>
-  <string name="referToSecurityPolicy">Please refer to our &lt;a href='%s'&gt;security policy&lt;/a&gt;.</string>
   <string name="otherBug">Other bug</string>
   <string name="learnHowToMakeBroadcasts">Learn how to make your own broadcasts on Lichess</string>
   <string name="banAppeal">Appeal for a ban or IP restriction</string>

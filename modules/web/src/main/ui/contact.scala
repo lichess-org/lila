@@ -205,9 +205,9 @@ object contact:
               "security",
               securityVulnerability(),
               p(
-                referToSecurityPolicy.rawHtml(
-                  "https://github.com/lichess-org/lila/security/policy"
-                )
+                "Please refer to our ",
+                a(href := "https://github.com/lichess-org/lila/security/policy")("Security policy"),
+                "."
               )
             ),
             Leaf(
