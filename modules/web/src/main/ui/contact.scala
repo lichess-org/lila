@@ -197,7 +197,7 @@ object contact:
               "error-page",
               errorPage(),
               frag(
-                p(reportErrorPage()),
+                p(reportTheBug()),
                 howToReportBugs
               )
             ),
@@ -214,7 +214,7 @@ object contact:
               "other-bug",
               otherBug(),
               frag(
-                p(reportNewBug()),
+                p(reportTheBug()),
                 howToReportBugs
               )
             )

@@ -921,12 +921,10 @@ interface I18n {
     reportBugInDiscord: string;
     /** In the Lichess Feedback section of the forum */
     reportBugInForum: string;
-    /** If you faced an error page, you may report it: */
-    reportErrorPage: string;
     /** As a Lichess mobile app issue on GitHub */
     reportMobileIssue: string;
-    /** If you found a new bug, you may report it: */
-    reportNewBug: string;
+    /** You may report it: */
+    reportTheBug: string;
     /** As a Lichess website issue on GitHub */
     reportWebsiteIssue: string;
     /** Security vulnerability */
