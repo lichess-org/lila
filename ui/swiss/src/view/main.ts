@@ -248,14 +248,6 @@ function stats(ctrl: SwissCtrl) {
         },
         i18n.site.downloadResultsAsCsv,
       ),
-      hl('br'),
-      hl(
-        'a.text',
-        {
-          attrs: { 'data-icon': licon.InfoCircle, href: '/api#tag/swiss-tournaments' },
-        },
-        i18n.site.swissApiDocumentation,
-      ),
     ]),
   ]);
 }

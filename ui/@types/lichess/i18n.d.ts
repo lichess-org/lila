@@ -3413,8 +3413,6 @@ interface I18n {
     anotherWasX: I18nFormat;
     /** Submit */
     apply: string;
-    /** Arena API documentation */
-    arenaApiDocumentation: string;
     /** as black */
     asBlack: string;
     /** Your account is managed. Ask your chess teacher about removing kid mode. */
@@ -4789,8 +4787,6 @@ interface I18n {
     subscribe: string;
     /** Success */
     success: string;
-    /** Swiss API documentation */
-    swissApiDocumentation: string;
     /** Switch sides */
     switchSides: string;
     /** Tags */

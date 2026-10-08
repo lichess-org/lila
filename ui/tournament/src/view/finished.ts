@@ -87,12 +87,6 @@ function stats(ctrl: TournamentController): VNode | undefined {
         },
         i18n.site.downloadResultsAsCsv,
       ),
-      h('br'),
-      h(
-        'a.text',
-        { attrs: { 'data-icon': licon.InfoCircle, href: '/api#tag/arena-tournaments' } },
-        i18n.site.arenaApiDocumentation,
-      ),
     ]),
   ]);
 }

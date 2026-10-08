@@ -2359,8 +2359,6 @@ object I18nKey:
     val `downloadAllGames`: I18nKey = "downloadAllGames"
     val `downloadResultsAsNdjson`: I18nKey = "downloadResultsAsNdjson"
     val `downloadResultsAsCsv`: I18nKey = "downloadResultsAsCsv"
-    val `swissApiDocumentation`: I18nKey = "swissApiDocumentation"
-    val `arenaApiDocumentation`: I18nKey = "arenaApiDocumentation"
     val `crosstable`: I18nKey = "crosstable"
     val `youCanAlsoScrollOverTheBoardToMoveInTheGame`: I18nKey = "youCanAlsoScrollOverTheBoardToMoveInTheGame"
     val `scrollOverComputerVariationsToPreviewThem`: I18nKey = "scrollOverComputerVariationsToPreviewThem"
