@@ -3767,12 +3767,8 @@ interface I18n {
     downloadMyGames: string;
     /** Download raw */
     downloadRaw: string;
-    /** Download results as CSV */
-    downloadResultsAsCsv: string;
-    /** Download results as NDJSON */
-    downloadResultsAsNdjson: string;
-    /** Download TRF file */
-    downloadTrfFile: string;
+    /** Download results */
+    downloadResults: string;
     /** Draw */
     draw: string;
     /** Draw and defeat */

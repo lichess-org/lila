@@ -15,9 +15,11 @@ import {
   onInsert,
   type LooseVNodes,
   hl,
+  type MaybeVNodes,
+  a,
 } from 'lib/view';
 import { renderPager, searchButton, searchInput } from 'lib/view/pagination';
-import { numberRow } from 'lib/view/util';
+import { numberRow, toggleBox } from 'lib/view/util';
 import { watchers } from 'lib/view/watchers';
 
 import type SwissCtrl from '../ctrl';
@@ -199,6 +201,9 @@ function confetti(data: SwissData) {
   );
 }
 
+const downloadLink = (href: string, text: MaybeVNodes) =>
+  a(href)('.text', { 'data-icon': licon.Download, download: true }, text);
+
 function stats(ctrl: SwissCtrl) {
   const s = ctrl.data.stats;
   const slots = ctrl.data.round * ctrl.data.nbPlayers;
@@ -219,35 +224,14 @@ function stats(ctrl: SwissCtrl) {
         { attrs: { href: `/swiss/${ctrl.data.id}/round/1` } },
         i18n.swiss.viewAllXRounds(ctrl.data.round),
       ),
-      hl('br'),
-      hl(
-        'a.text',
-        { attrs: { 'data-icon': licon.Download, href: `/swiss/${ctrl.data.id}.trf`, download: true } },
-        i18n.site.downloadTrfFile,
-      ),
-      hl(
-        'a.text',
-        { attrs: { 'data-icon': licon.Download, href: `/api/swiss/${ctrl.data.id}/games`, download: true } },
-        i18n.site.downloadAllGames,
-      ),
-      hl(
-        'a.text',
-        {
-          attrs: { 'data-icon': licon.Download, href: `/api/swiss/${ctrl.data.id}/results`, download: true },
-        },
-        i18n.site.downloadResultsAsNdjson,
-      ),
-      hl(
-        'a.text',
-        {
-          attrs: {
-            'data-icon': licon.Download,
-            href: `/api/swiss/${ctrl.data.id}/results?as=csv`,
-            download: true,
-          },
-        },
-        i18n.site.downloadResultsAsCsv,
-      ),
+    ]),
+    hl('div.swiss__stats__downloads', [
+      toggleBox(i18n.site.download, [
+        downloadLink(`/swiss/${ctrl.data.id}.trf`, [i18n.site.downloadResults, ' (TRF)']),
+        downloadLink(`/api/swiss/${ctrl.data.id}/games`, [i18n.site.downloadAllGames, ' (PGN)']),
+        downloadLink(`/api/swiss/${ctrl.data.id}/results`, [i18n.site.downloadResults, ' (NDJSON)']),
+        downloadLink(`/api/swiss/${ctrl.data.id}/results?as=csv`, [i18n.site.downloadResults, ' (CSV)']),
+      ]),
     ]),
   ]);
 }
