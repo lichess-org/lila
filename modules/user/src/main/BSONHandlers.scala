@@ -106,7 +106,7 @@ object BSONHandlers:
         plan = r.getO[Plan](plan) | lila.user.Plan.empty,
         totpSecret = r.getO[TotpSecret](totpSecret),
         flair = r.getO[Flair](flair) match
-          case Some(f) if FlairApi.exists(f) => Some(f)
+          case Some(f) if FlairApi.exists(f) => Option(f)
           case Some(f) => FlairApi.badFlairs.add(userId, f); None
           case None => None,
         marks = r.getD[UserMarks](marks)

@@ -5,11 +5,11 @@ import lila.core.data.DiffStr
 object ProductDiff:
 
   private def truncate(max: Int)(s: String): String =
-    if s.length <= max then s else s.take(max) + "..."
+    if s.length <= max then s else s"${s.take(max)}..."
 
   private def nestedProduct(value: Any): Option[Product] = value match
-    case p: Product if !p.isInstanceOf[Option[?]] => Some(p)
-    case Some(p: Product) => Some(p)
+    case p: Product if !p.isInstanceOf[Option[?]] => Option(p)
+    case Some(p: Product) => Option(p)
     case _ => None
 
   def apply[A <: Product](

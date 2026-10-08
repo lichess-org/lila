@@ -71,7 +71,7 @@ opaque type ResourceId = String
 object ResourceId extends OpaqueString[ResourceId]
 
 enum TimeoutReason(val key: String, val name: String):
-  lazy val shortName = name.split(';').lift(0) | name
+  lazy val shortName = name.split(';').headOption | name
   case PublicShaming extends TimeoutReason("shaming", "public shaming; please use lichess.org/report")
   case Insult extends TimeoutReason("insult", s"disrespecting other players; see $etiquetteUrl")
   case Spam extends TimeoutReason("spam", s"spamming the chat; see $etiquetteUrl")
