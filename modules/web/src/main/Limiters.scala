@@ -152,7 +152,7 @@ final class Limiters(using Executor, lila.core.config.RateLimit):
     RateLimit[IpAddress](credits = 50 * 2, duration = 24.hour, key = "study.create.ip")
   )
 
-  val anyPageByUser = RateLimit[MyId](30, 2.minutes, "page.user")
+  val anyPageByUser = RateLimit[MyId](40, 2.minutes, "page.user")
 
   object studyDownload:
     private val auth = ConcurrencyLimit[UserId](3, "study.download.auth")
