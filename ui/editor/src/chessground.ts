@@ -1,6 +1,6 @@
-import { Chessground as makeChessground } from 'chessground3D';
 import type { MouchEvent } from '@lichess-org/chessground/types';
 import { eventPosition, opposite } from '@lichess-org/chessground/util';
+import { Chessground as makeChessground } from 'chessground3D';
 import { h, type VNode } from 'snabbdom';
 
 import resizeHandle from 'lib/chessgroundResize';

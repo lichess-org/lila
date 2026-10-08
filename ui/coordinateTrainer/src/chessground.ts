@@ -1,5 +1,5 @@
-import { Chessground as makeChessground } from 'chessground3D';
 import type { Elements } from '@lichess-org/chessground/types';
+import { Chessground as makeChessground } from 'chessground3D';
 import { h, type VNode } from 'snabbdom';
 
 import resizeHandle from 'lib/chessgroundResize';
