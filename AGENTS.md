@@ -1,5 +1,7 @@
 # Lila Development Guide for Coding Agents
 
+Before making any changes, read `AI_POLICY.md` and `CONTRIBUTING.md`.
+
 ## Repository Overview
 
 Lila (li[chess in sca]la) is the free, open-source chess server powering lichess.org - one of the world's largest chess platforms with 12+ billion games. This is a production-scale application serving millions of users with real-time gameplay, computer analysis, tournaments, and comprehensive chess features.
@@ -30,6 +32,8 @@ npm install -g pnpm@12.9.0
 # Install dependencies (always run this first)
 pnpm install
 ```
+
+**Nix development:** `devenv` is supported; its inputs and tools are configured in `devenv.yaml` and `devenv.nix`. Before bumping a tool version, confirm the required package/version is available in the selected Nixpkgs package set, or update the Nixpkgs input/configuration/lock as needed.
 
 ## Build & Development Commands
 
@@ -156,6 +160,11 @@ pnpm lint:fix
 3. **Styles**: Edit `.scss` files, included in UI build process
 4. **Configuration**: Edit `/conf/` files, may require server restart
 
+**Adding or updating i18n:**
+
+- Edit source strings in `translation/source/*.xml`; then run `pnpm i18n-file-gen` and `./ui/build --i18n` to regenerate Scala keys and UI typings/translation files.
+- Locale translations live in `translation/dest/` and are synchronized through Crowdin. Validate them with `./bin/trans-lint translation/dest/*/*.xml`.
+
 **Before Committing:**
 
 1. Run `pnpm check-format` and `pnpm lint`
@@ -203,5 +212,8 @@ pnpm lint:fix
 - **Module dependencies**: Check `build.sbt` before adding cross-module dependencies
 - **Database**: Uses MongoDB - no migrations, but schema assumptions in code
 - **Performance**: This is a high-traffic production system - consider performance impact
+- **UI**:
+  - Snabbdom views can use tag helpers from `lib/view/snabbdomElements` (for example, `div()` or `a('/path')`) instead of `h` or `hl`.
+  - Snabbdom JSX syntax is also supported - import `jsx` from `lib/view`.
 
 **Trust these instructions** - they are validated and comprehensive. Only search for additional information if these instructions are incomplete or incorrect for your specific task.
