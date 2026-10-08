@@ -905,6 +905,8 @@ interface I18n {
     onlyReports: string;
     /** However, you can close your current account, and create a new one. */
     orCloseAccount: string;
+    /** Other bug */
+    otherBug: string;
     /** Other restriction */
     otherRestriction: string;
     /** our Discord server */
@@ -917,12 +919,14 @@ interface I18n {
     reportBugInDiscord: string;
     /** In the Lichess Feedback section of the forum */
     reportBugInForum: string;
-    /** If you faced an error page, you may report it: */
-    reportErrorPage: string;
     /** As a Lichess mobile app issue on GitHub */
     reportMobileIssue: string;
+    /** You may report it: */
+    reportTheBug: string;
     /** As a Lichess website issue on GitHub */
     reportWebsiteIssue: string;
+    /** Security vulnerability */
+    securityVulnerability: string;
     /** You may send an appeal to %s. */
     sendAppealTo: I18nFormat;
     /** Send us an email at %s. */
@@ -3755,8 +3759,12 @@ interface I18n {
     downloadAnnotated: string;
     /** Download imported */
     downloadImported: string;
+    /** Download my games */
+    downloadMyGames: string;
     /** Download raw */
     downloadRaw: string;
+    /** Download results */
+    downloadResults: string;
     /** Draw */
     draw: string;
     /** Draw and defeat */
