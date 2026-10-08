@@ -128,6 +128,7 @@ patron remove {username}
 patron set-months {username} {months}
 tournament feature {id}
 tournament unfeature {id}
+payouts-dm {tournament or swiss url} {username1} {username2} {username3} {username...}
 eval-cache drop standard 8/8/1k6/8/2K5/1P6/8/8 w - - 0 1
 disposable test msumain.edu.ph
 disposable reload msumain.edu.ph

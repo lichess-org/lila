@@ -517,25 +517,18 @@ final class SwissApi(
     systemChat(swiss.id, s"Tournament completed!")
     cache.swissCache.clear(swiss.id)
     socket.reload(swiss.id)
-    notifyPayoutWinners(swiss).logFailure(logger, _ => s"${swiss.id} notifyPayoutWinners")
     scheduler
       .scheduleOnce(10.seconds):
         // we're delaying this to make sure the ranking has been recomputed
         // since doFinish is called by finishGame before that
         rankingApi(swiss).foreach: ranking =>
           Bus.pub(SwissFinish(swiss.id, ranking))
+          notifyPayoutWinners(swiss, ranking)
 
-  private def notifyPayoutWinners(swiss: Swiss): Funit =
-    swiss.settings.payouts.so: payouts =>
-      SwissPlayer.fields: f =>
-        mongo.player
-          .find(bdoc(f.swissId -> swiss.id))
-          .sort(sort.desc(f.score))
-          .cursor[SwissPlayer](ReadPref.sec)
-          .list(payouts.nbWinners)
-          .map: players =>
-            val userIds = players.map(_.userId)
-            Bus.pub(lila.core.msg.PayoutMessages(userIds, swiss.name, Swiss.swissUrl(swiss.id)))
+  private def notifyPayoutWinners(swiss: Swiss, ranking: lila.core.swiss.Ranking): Unit =
+    swiss.settings.payouts.foreach: payouts =>
+      val userIds = ranking.toList.sortBy(_._2.value).take(payouts.nbWinners).map(_._1)
+      Bus.pub(lila.core.msg.PayoutMessages(userIds, swiss.name, Swiss.swissUrl(swiss.id)))
 
   def kill(swiss: Swiss): Funit = for _ <-
       if swiss.isStarted then
