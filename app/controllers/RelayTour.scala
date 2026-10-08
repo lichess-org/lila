@@ -42,6 +42,14 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
         yield page
 
   def calendar = calendarMonth(RelayCalendar.now().getYear, RelayCalendar.now().getMonth.getValue)
+
+  def apiCalendarMonth(year: Int, month: Int) = Anon:
+    Found(env.relay.calendar.readMonth(year, month)): at =>
+      env.relay.calendar
+        .atMonth(at)
+        .map: tours =>
+          JsonOk(tours.map(env.relay.jsonView.tourWithAnyRound(_)))
+
   def help = page("broadcasts", "help")
   def app = page("broadcaster-app", "app")
 
