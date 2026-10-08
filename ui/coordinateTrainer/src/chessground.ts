@@ -1,4 +1,4 @@
-import { Chessground as makeChessground } from '@lichess-org/chessground';
+import { Chessground as makeChessground } from 'chessground3D';
 import type { Elements } from '@lichess-org/chessground/types';
 import { h, type VNode } from 'snabbdom';
 

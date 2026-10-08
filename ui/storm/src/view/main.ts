@@ -1,4 +1,4 @@
-import { Chessground as makeChessground } from '@lichess-org/chessground';
+import { Chessground as makeChessground } from 'chessground3D';
 
 import { licon } from 'lib/licon';
 import { pubsub } from 'lib/pubsub';

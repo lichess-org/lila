@@ -1,4 +1,4 @@
-import { Chessground as makeChessground } from '@lichess-org/chessground';
+import { Chessground as makeChessground } from 'chessground3D';
 import { COLORS } from 'chessops';
 import { lichessRules } from 'chessops/compat';
 import { parseFen } from 'chessops/fen';

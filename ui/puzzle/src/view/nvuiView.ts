@@ -1,4 +1,4 @@
-import { Chessground as makeChessground } from '@lichess-org/chessground';
+import { Chessground as makeChessground } from 'chessground3D';
 import type { Api } from '@lichess-org/chessground/api';
 import { makeSquare, opposite } from 'chessops';
 

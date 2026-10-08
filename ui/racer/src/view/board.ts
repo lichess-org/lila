@@ -1,4 +1,4 @@
-import { Chessground as makeChessground } from '@lichess-org/chessground';
+import { Chessground as makeChessground } from 'chessground3D';
 import { INITIAL_BOARD_FEN } from 'chessops/fen';
 
 import { pubsub } from 'lib/pubsub';
