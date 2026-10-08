@@ -7,7 +7,9 @@ import lila.common.Form.cleanText
 
 object OAuthTokenForm:
 
-  private val scopesField = list(nonEmptyText.verifying(OAuthScope.byKey.contains))
+  private val scopesField = list(
+    nonEmptyText.verifying(s => OAuthScope.byKey.get(s).exists(!OAuthScope.concealedScopes.contains(_)))
+  )
 
   private val descriptionField = cleanText(minLength = 3, maxLength = 140)
 
