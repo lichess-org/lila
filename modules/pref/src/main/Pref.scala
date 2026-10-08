@@ -195,17 +195,6 @@ object Pref:
   object Tag:
     val dgt = "dgt"
 
-  object Color:
-    val WHITE = 1
-    val RANDOM = 2
-    val BLACK = 3
-
-    val choices = Seq(
-      WHITE -> "White",
-      RANDOM -> "Random",
-      BLACK -> "Black"
-    )
-
   object AutoQueen:
     val NEVER = 1
     val PREMOVE = 2
