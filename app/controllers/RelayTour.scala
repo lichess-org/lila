@@ -32,23 +32,19 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
           yield res
 
   def calendarMonth(year: Int, month: Int) = Open:
-    env.relay.calendar
-      .readMonth(year, month)
-      .so: at =>
-        for
-          tours <- env.relay.calendar.atMonth(at)
-          cms <- env.cms.renderKey("broadcast-calendar-announcement", liveCheck = true)
-          page <- Ok.async(views.relay.tour.calendar(at, tours, cms.map(_.html)))
-        yield page
+    Found(env.relay.calendar.readMonth(year, month)): at =>
+      for
+        tours <- env.relay.calendar.atMonth(at)
+        cms <- env.cms.renderKey("broadcast-calendar-announcement", liveCheck = true)
+        page <- Ok.async(views.relay.tour.calendar(at, tours, cms.map(_.html)))
+      yield page
 
   def calendar = calendarMonth(RelayCalendar.now().getYear, RelayCalendar.now().getMonth.getValue)
 
   def apiCalendarMonth(year: Int, month: Int) = Anon:
     Found(env.relay.calendar.readMonth(year, month)): at =>
-      env.relay.calendar
-        .atMonth(at)
-        .map: tours =>
-          JsonOk(tours.map(env.relay.jsonView.tourWithAnyRound(_)))
+      for tours <- env.relay.calendar.atMonth(at)
+      yield JsonOk(tours.map(env.relay.jsonView.tourWithAnyRound))
 
   def help = page("broadcasts", "help")
   def app = page("broadcaster-app", "app")
@@ -66,7 +62,7 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
       Found(env.user.lightUser(owner.id)): owner =>
         env.relay.pager
           .byOwner(owner.id, page)
-          .map(_.mapResults(env.relay.jsonView.tourWithAnyRound(_)))
+          .map(_.mapResults(env.relay.jsonView.tourWithAnyRound))
           .map(JsonOk(_))
 
   def pager(pager: String, page: Int) = pager match
