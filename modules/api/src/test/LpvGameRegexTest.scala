@@ -153,4 +153,3 @@ class LpvGameRegexTest extends munit.FunSuite:
   test("blog links extract game id 2") {
     assert(blogMatch("boo.org:8080/1234abcd1234#123", re.gamePgnRe).has("1234abcd"))
   }
-}
