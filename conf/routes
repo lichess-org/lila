@@ -315,6 +315,7 @@ GET   /api/stream/broadcast/tour/$tourId<\w{8}>.pgn controllers.RelayRound.strea
 GET   /api/stream/broadcast/group/$groupId<\w{8}>.pgn controllers.RelayRound.streamGroup(groupId: RelayGroupId)
 GET   /api/broadcast                          controllers.RelayTour.apiIndex
 GET   /api/broadcast/top                      controllers.RelayTour.apiTop(page: Int ?= 1)
+GET   /api/broadcast/calendar/:year/:month    controllers.RelayTour.apiCalendarMonth(year: Int, month: Int)
 GET   /api/broadcast/search                   controllers.RelayTour.apiSearch(page: Int ?= 1, q: String ?= "")
 GET   /api/broadcast/my-rounds                controllers.RelayRound.apiMyRounds
 GET   /api/broadcast/spotlight-rounds         controllers.RelayRound.apiSpotlightRounds
