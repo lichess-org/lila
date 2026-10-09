@@ -56,9 +56,6 @@ final class LilaCookie(baker: SessionCookieBaker, config: NetConfig) extends lil
 
   def isRememberMe(req: RequestHeader) = !req.session.get(LilaCookie.noRemember).has("1")
 
-  def discard(name: String) =
-    DiscardingCookie(name, "/", cookieDomain.some, baker.httpOnly)
-
   def ensure(res: Result)(using req: RequestHeader): Result =
     if req.session.data.contains(LilaCookie.sessionId) then res
     else res.withCookies(makeSessionId(using req))
