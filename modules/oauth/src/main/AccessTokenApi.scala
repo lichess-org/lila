@@ -38,12 +38,6 @@ final class AccessTokenApi(
   def create(setup: OAuthTokenForm.Data, isStudent: Boolean)(using me: MyId, ua: UserAgent): Fu[AccessToken] =
     for
       noBot <- fuccess(isStudent) >>| userApi.isManaged(me)
-      requested = setup.scopes.flatMap(OAuthScope.byKey.get)
-      granted = requested
-        .filterNot(_ == OAuthScope.Bot.Play && noBot)
-        .filterNot(OAuthScope.concealedScopes)
-      _ = if (requested diff granted).nonEmpty then
-        logger.warn(s"Dropping ungrantable personal token scopes for $me: ${requested diff granted}")
       plain = Bearer.randomPersonal()
       token = AccessToken(
         id = AccessToken.idFrom(plain),
@@ -51,7 +45,13 @@ final class AccessTokenApi(
         userId = me,
         description = setup.description.some,
         created = nowInstant.some,
-        scopes = TokenScopes(granted),
+        scopes = TokenScopes:
+          setup.scopes
+            .flatMap(OAuthScope.byKey.get)
+            .filterNot(_ == OAuthScope.Bot.Play && noBot)
+            .filterNot(OAuthScope.concealedScopes)
+            .toList
+        ,
         clientOrigin = None,
         userAgent = ua.some,
         expires = None
