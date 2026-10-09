@@ -92,28 +92,19 @@ final class RelayJsonView(
       t: RelayTour | WithLastRound | WithFirstRound | RelayCard
   )(using Config, Translate): JsObject = t match
     case tour: RelayTour => Json.obj("tour" -> fullTour(tour))
-    case tr: WithLastRound =>
-      Json
-        .obj(
-          "tour" -> fullTour(tr.tour),
-          "round" -> withUrl(tr.round.withTour(tr.tour), withTour = false)(using roundListWriter)
-        )
-        .add("group" -> tr.group)
-    case tr: WithFirstRound =>
-      Json
-        .obj(
-          "tour" -> fullTour(tr.tour),
-          "round" -> withUrl(tr.round.withTour(tr.tour), withTour = false)(using roundListWriter)
-        )
-        .add("group" -> tr.group)
+    case tr: WithLastRound => tourWithThisRound(tr)
+    case tr: WithFirstRound => tourWithThisRound(tr)
     case tr: RelayCard =>
-      Json
-        .obj(
-          "tour" -> fullTour(tr.tour),
-          "round" -> withUrl(tr.display.withTour(tr.tour), withTour = false)(using roundListWriter)
-        )
+      tourWithThisRound(tr)
         .add("roundToLink" -> (tr.link.id != tr.display.id).option(roundListWriter.writes(tr.link)))
-        .add("group" -> tr.group)
+
+  private def tourWithThisRound(tr: RelayRound.AndTourAndGroup)(using Config, Translate): JsObject =
+    Json
+      .obj(
+        "tour" -> fullTour(tr.tour),
+        "round" -> withUrl(tr.display.withTour(tr.tour), withTour = false)(using roundListWriter)
+      )
+      .add("group" -> tr.group)
 
   def withUrl(rt: RelayRound.WithTour, withTour: Boolean)(using writer: OWrites[RelayRound]): JsObject =
     writer.writes(rt.round) ++ Json
