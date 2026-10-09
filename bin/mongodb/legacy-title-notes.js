@@ -1,3 +1,5 @@
+prodDb = connect(`mongodb://localhost:27117/lichess`);
+
 function dropAndWriteLegacyStatus() {
   db.legacy_title.drop();
 
@@ -8,9 +10,9 @@ function dropAndWriteLegacyStatus() {
     return /public/im.test(note);
   }
 
-  db.user4
+  let nb = 0;
+  prodDb.user4
     .find({
-      // _id: 'vagoff',
       enabled: true,
       title: {
         $exists: true,
@@ -18,38 +20,40 @@ function dropAndWriteLegacyStatus() {
       },
     })
     .forEach(user => {
-      const hasReq = db.title_request.countDocuments({ _id: user._id, 'history.status.n': 'approved' });
+      nb++;
+      const hasReq = prodDb.title_request.countDocuments({
+        userId: user._id,
+        'history.status.n': 'approved',
+      });
+      print('Processing ' + nb + ' / ' + user.username + ' / hasReq: ' + hasReq);
       if (!hasReq) {
-        const notes = db.note.distinct('text', { to: user._id, mod: true });
+        const notes = prodDb.note.distinct('text', { to: user._id, mod: true });
         const status = notes.some(isPrivate) ? 'private' : notes.some(isPublic) ? 'public' : 'unknown';
+        let fideId = undefined;
+        notes.forEach(note => {
+          if (fideId) return;
+          const match = note.match(/fide\.com\/(profile\/|card\.phtml\?event=)(\d+)/);
+          fideId = match && match[2];
+        });
         db.legacy_title.insertOne({
           _id: user._id,
           user: {
             username: user.username,
             title: user.title,
             profile: user.profile,
+            seenAt: user.seenAt,
+            count: user.count,
+            tournamentsPoints: user.toints,
           },
           notes,
-          status,
+          guessedStatus: status,
+          fideIdFromNotes: fideId,
         });
       }
     });
 
   print('Done. ' + db.legacy_title.countDocuments() + ' legacy title users found.');
 }
-
-// function readPublicFideIds() {
-//   db.legacy_title.find({ status: 'public' }).forEach(user => {
-//     let fideId = 0;
-//     notes.forEach(note => {
-//       if (fideId) return;
-//       const match = note.match(/ratings\.fide\.com\/profile\/(\d+)/);
-//       fideId = match[1];
-//     });
-//     console.log(user._id);
-//     console.log(user.notes);
-//   });
-// }
 
 function printStats() {
   print('Private: ' + db.legacy_title.countDocuments({ status: 'private' }));
@@ -59,4 +63,3 @@ function printStats() {
 
 dropAndWriteLegacyStatus();
 printStats();
-// readPublicFideIds();
