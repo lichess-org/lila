@@ -59,8 +59,7 @@ def mobile(helpers: Helpers)(renderedCmsPage: Frag)(using Translate) =
     "@type" -> "Offer",
     "name" -> name,
     "url" -> url,
-    "price" -> 0,
-    "priceCurrency" -> "USD"
+    "price" -> 0
   )
 
   val appStructuredData = lila.ui.bits.structuredData("MobileApplication"):
@@ -76,6 +75,7 @@ def mobile(helpers: Helpers)(renderedCmsPage: Frag)(using Translate) =
         storeOffer("F-Droid", StaticContent.mobileFdroidUrl),
         storeOffer("App Store", StaticContent.mobileIosUrl)
       ),
+      // weighted average of the App Store and Google Play ratings, as of 2026-10-08
       "aggregateRating" -> Json.obj(
         "@type" -> "AggregateRating",
         "ratingValue" -> 4.2,
