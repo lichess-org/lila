@@ -88,7 +88,7 @@ object protocol:
     def all = args.split(' ')
 
   object RawMsg:
-    def unapply(msg: RawMsg): Option[(String, RawMsg)] = Some(msg.path -> msg)
+    def unapply(msg: RawMsg): Option[(String, RawMsg)] = Option(msg.path -> msg)
 
   trait In
   object In:
@@ -98,7 +98,7 @@ object protocol:
 
     def commas(str: String): Array[String] = if str == "-" then Array.empty else str.split(',')
     def boolean(str: String): Boolean = str == "+"
-    def optional(str: String): Option[String] = if str == "-" then None else Some(str)
+    def optional(str: String): Option[String] = Option.unless(str == "-")(str)
 
     def tellSriMapper: PartialFunction[Array[String], Option[TellSri]] = { case Array(sri, user, payload) =>
       for
@@ -152,6 +152,6 @@ object remote:
     case Send(user: UserId, msg: JsObject)
   object TellUserIn:
     def make(userId: UserId, msg: JsObject, typ: String): Option[TellUserIn] = typ match
-      case "msgRead" => Some(Read(userId, msg))
-      case "msgSend" => Some(Send(userId, msg))
+      case "msgRead" => Option(Read(userId, msg))
+      case "msgSend" => Option(Send(userId, msg))
       case _ => None

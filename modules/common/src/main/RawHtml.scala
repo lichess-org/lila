@@ -97,7 +97,7 @@ object RawHtml:
 
           val allButScheme = escapeHtmlRaw(removeUrlTrackingParameters(csb.toString))
           lazy val isHttp = domainS - start == 7
-          lazy val url = (if isHttp then "http://" else "https://") + allButScheme
+          lazy val url = s"${(if isHttp then "http://" else "https://")}$allButScheme"
           lazy val text = if isHttp then url else allButScheme
 
           sb.append:
@@ -108,7 +108,7 @@ object RawHtml:
                     if allButScheme.isEmpty then "/"
                     else allButScheme
                   }">${allButScheme match
-                    case USER_LINK(user) => "@" + user
+                    case USER_LINK(user) => s"@$user"
                     case _ => s"${netDomain}$allButScheme"
                   }</a>""")
             else
@@ -164,10 +164,10 @@ object RawHtml:
   private def imgUrl(url: String): Option[Html] =
     url
       .match
-        case imgurRegex(id) => Some(s"""https://i.imgur.com/$id.jpg""")
-        case giphyRegex(id) => Some(s"""https://media.giphy.com/media/$id/giphy.gif""")
-        case postimgRegex(id) => Some(s"""https://i.postimg.cc/$id.jpg""")
-        case ibbRegex(_) => Some(url)
+        case imgurRegex(id) => Option(s"""https://i.imgur.com/$id.jpg""")
+        case giphyRegex(id) => Option(s"""https://media.giphy.com/media/$id/giphy.gif""")
+        case postimgRegex(id) => Option(s"""https://i.postimg.cc/$id.jpg""")
+        case ibbRegex(_) => Option(url)
         case _ => None
       .map { img =>
         Html(s"""<img class="embed" src="$img" alt="$url"/>""")

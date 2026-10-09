@@ -92,15 +92,15 @@ object activities:
         val newIds = (id :: ids).distinct
         copy(
           ids = newIds.take(maxSubEntries),
-          nb = nb.map(1 +).orElse((newIds.size > maxSubEntries).option(newIds.size))
+          nb = nb.map(1 +).orElse((newIds.sizeIs > maxSubEntries).option(newIds.size))
         )
     def isEmpty = ids.isEmpty
   given Zero[FollowList] = Zero(FollowList(Nil, None))
   given Zero[Follows] = Zero(Follows(None, None))
 
   case class Follows(in: Option[FollowList], out: Option[FollowList]):
-    def addIn(id: UserId) = copy(in = Some(~in + id))
-    def addOut(id: UserId) = copy(out = Some(~out + id))
+    def addIn(id: UserId) = copy(in = Option(~in + id))
+    def addOut(id: UserId) = copy(out = Option(~out + id))
     def isEmpty = in.forall(_.isEmpty) && out.forall(_.isEmpty)
     def allUserIds = in.so(_.ids) ::: out.so(_.ids)
 

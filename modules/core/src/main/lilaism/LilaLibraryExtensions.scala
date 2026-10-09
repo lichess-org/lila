@@ -47,11 +47,9 @@ trait LilaLibraryExtensions extends CoreExports:
     inline def raiseIfSome[B](f: => Fu[B]): FuRaise[A, B] =
       self.fold(f)(_.raise)
 
-  extension (self: String) def nonEmptyOption: Option[String] = if self.nonEmpty then Some(self) else None
-  extension [K, V](self: Map[K, V])
-    def nonEmptyOption: Option[Map[K, V]] = if self.nonEmpty then Some(self) else None
-  extension [A, M <: Iterable](self: M[A])
-    def nonEmptyOption: Option[M[A]] = if self.nonEmpty then Some(self) else None
+  extension (self: String) def nonEmptyOption: Option[String] = Option.when(self.nonEmpty)(self)
+  extension [K, V](self: Map[K, V]) def nonEmptyOption: Option[Map[K, V]] = Option.when(self.nonEmpty)(self)
+  extension [A, M <: Iterable](self: M[A]) def nonEmptyOption: Option[M[A]] = Option.when(self.nonEmpty)(self)
 
   extension (self: Boolean)
     def not: Boolean = !self
@@ -89,7 +87,7 @@ trait LilaLibraryExtensions extends CoreExports:
         other.indexOf(f(x)) < other.indexOf(f(y))
     def tailOption: Option[List[A]] = list match
       case Nil => None
-      case _ :: rest => Some(rest)
+      case _ :: rest => Option(rest)
     def tailSafe: List[A] = tailOption.getOrElse(Nil)
     def indexOption(a: A) = Option(list.indexOf(a)).filter(0 <= _)
     def previous(a: A): Option[A] = indexOption(a).flatMap(i => list.lift(i - 1))
@@ -177,8 +175,8 @@ trait LilaLibraryExtensions extends CoreExports:
 
     def thenPp(using Executor): Fu[A] =
       fua.addEffects(
-        e => pprint.pprintln("[failure] " + e),
-        a => pprint.pprintln("[success] " + a)
+        e => pprint.pprintln(s"[failure] $e"),
+        a => pprint.pprintln(s"[success] $a")
       )
 
     def thenPp(msg: String)(using Executor): Fu[A] =

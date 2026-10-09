@@ -45,7 +45,7 @@ private object TutorBsonHandlers:
         }.getOrElse(BSONNull)
     )
   given [A](using BSONHandler[A], Ordering[A]): BSONHandler[TutorBothValues[A]] =
-    summon[BSONHandler[TutorBothOption[A]]].as(_.get, Some(_))
+    summon[BSONHandler[TutorBothOption[A]]].as(_.get, Option(_))
 
   given BSONDocumentHandler[TutorOpeningFamily] = Macros.handler
 
