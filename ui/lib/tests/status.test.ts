@@ -5,7 +5,6 @@ import { each } from '../../.test/helpers.mts';
 import { bishopOnColor, expandFen, insufficientMaterial } from '../src/game/view/status';
 
 describe('bishop on color', () => {
-
   test('no bishops on black squares', () => {
     assert.strictEqual(bishopOnColor(expandFen('B7/8/8/8/8/8/8/8 w - - 0 1'), 1), false);
     assert.strictEqual(bishopOnColor(expandFen('2B5/8/8/8/8/8/8/8 w - - 0 1'), 1), false);
@@ -28,10 +27,7 @@ describe('test insufficient material', () => {
 });
 
 describe('should not be insufficient material', () => {
-  each<[VariantKey]>([
-    ['horde'],
-    ['crazyhouse'],
-  ])('variant %s', variant =>
+  each<[VariantKey]>([['horde'], ['crazyhouse']])('variant %s', variant =>
     assert.strictEqual(
       insufficientMaterial(variant, 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1'),
       false,
