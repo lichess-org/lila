@@ -15,6 +15,10 @@ object ReportUi:
   def reportScore(score: Report.Score): Frag =
     span(cls := s"score ${score.color}")(score.value.toInt)
 
+  private[report] def selectedMsgIds(form: Form[?]): Set[lila.core.msg.ID] =
+    val f = form("msgs")
+    f.indexes.flatMap(i => form.data.get(s"${f.name}[$i]")).toSet
+
 final class ReportUi(helpers: Helpers)(menu: Context ?=> Frag):
   import helpers.{ given, * }
   import ReportUi.*
@@ -24,6 +28,7 @@ final class ReportUi(helpers: Helpers)(menu: Context ?=> Frag):
     case _ => true
 
   def inbox(form: Form[?], user: User, msgs: List[lila.core.msg.IdText])(using ctx: Context) =
+    val checkedMsgs = selectedMsgIds(form)
     Page(trans.site.reportAUser.txt())
       .css("mod.report.form")
       .js(esmInitBit("embedReasonToggle")):
@@ -46,7 +51,7 @@ final class ReportUi(helpers: Helpers)(menu: Context ?=> Frag):
                       .nativeCheckbox(
                         msg.id,
                         s"${f.name}[]",
-                        checked = false,
+                        checked = checkedMsgs(msg.id),
                         value = msg.id
                       ),
                     label(`for` := msg.id)(msg.text)
