@@ -11,7 +11,7 @@ import tourTable from './table';
 import teamInfo from './teamInfo';
 
 function joinTheGame(gameId: string) {
-  return h('a.tour__ur-playing.button.is.is-after', { attrs: { href: '/' + gameId } }, [
+  return h('a.tour__ur-playing.button.is.is-after', { attrs: { href: '/g/' + gameId } }, [
     i18n.site.youArePlaying,
     h('br'),
     i18n.site.joinTheGame,

@@ -33,7 +33,7 @@ export default class MoveOn {
         this.redirect('/round-next/' + d.game.id);
     } else
       whatsNext(this.ctrl).then(data => {
-        if (data.next) this.redirect('/' + data.next);
+        if (data.next) this.redirect('/g/' + data.next);
       });
   };
 }

@@ -102,7 +102,7 @@ export default function makeRenderers(): Renderers {
           default:
             result = i18n.site.draw;
         }
-        return generic(n, '/' + n.content.id, licon.PaperAirplane, [
+        return generic(n, '/g/' + n.content.id, licon.PaperAirplane, [
           h('span', [h('strong', i18n.site.gameVsX(userFullName(n.content.opponent))), drawTime(n)]),
           h('span', result),
         ]);
@@ -144,7 +144,7 @@ export default function makeRenderers(): Renderers {
     },
     corresAlarm: {
       html: n =>
-        generic(n, '/' + n.content.id, licon.PaperAirplane, [
+        generic(n, '/g/' + n.content.id, licon.PaperAirplane, [
           h('span', [h('strong', i18n.site.timeAlmostUp), drawTime(n)]),
           // not a `LightUser`, could be a game against Stockfish
           h('span', i18n.site.gameVsX(n.content.op)),

@@ -33,7 +33,7 @@ function featured(game: FeaturedGame, opts: TournamentOpts): VNode {
     },
     [
       featuredPlayer(game, opposite(game.orientation), opts),
-      hl('a.cg-wrap', { attrs: { href: `/${game.id}/${game.orientation}` } }),
+      hl('a.cg-wrap', { attrs: { href: `/g/${game.id}/${game.orientation}` } }),
       featuredPlayer(game, game.orientation, opts),
     ],
   );
@@ -49,7 +49,7 @@ function renderDuel(ctrl: TournamentController) {
   const battle = ctrl.data.teamBattle;
   const duelTeams = ctrl.data.duelTeams;
   return (d: Duel) =>
-    hl('a.glpt.force-ltr', { key: d.id, attrs: { href: '/' + d.id } }, [
+    hl('a.glpt.force-ltr', { key: d.id, attrs: { href: '/g/' + d.id } }, [
       battle &&
         duelTeams &&
         hl(
