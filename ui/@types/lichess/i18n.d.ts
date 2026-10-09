@@ -6373,6 +6373,32 @@ interface I18n {
     thisIsADraft: string;
     /** This post is published */
     thisPostIsPublished: string;
+    /** Chess */
+    'topic.Chess': string;
+    /** Chess bot */
+    'topic.Chess_bot': string;
+    /** Chess engine */
+    'topic.Chess_engine': string;
+    /** Chess Personalities */
+    'topic.Chess_Personalities': string;
+    /** Chess variant */
+    'topic.Chess_variant': string;
+    /** Lichess */
+    'topic.Lichess': string;
+    /** Off topic */
+    'topic.Off_topic': string;
+    /** Over the board */
+    'topic.Over_the_board': string;
+    /** Puzzle */
+    'topic.Puzzle': string;
+    /** Software Development */
+    'topic.Software_Development': string;
+    /** Strategy */
+    'topic.Strategy': string;
+    /** Tactics */
+    'topic.Tactics': string;
+    /** %s posts */
+    topicPosts: I18nFormat;
     /** View all %s posts */
     viewAllNbPosts: I18nPlural;
     /** %s's Blog */
