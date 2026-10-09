@@ -3,12 +3,21 @@ package lila.ublog
 import scalalib.ThreadLocalRandom.shuffle
 import lila.db.dsl.{ *, given }
 import lila.core.ublog.Quality
+import lila.core.i18n.I18nKey
 import lila.memo.CacheApi
 import lila.memo.CacheApi.buildAsyncTimeout
 
 opaque type UblogTopic = String
 object UblogTopic extends OpaqueString[UblogTopic]:
-  extension (a: UblogTopic) def url = a.replace(" ", "_")
+  extension (a: UblogTopic)
+    def url = a.replace(" ", "_")
+    def i18nKey: I18nKey = a match
+      case "Analysis"   => I18nKey.site.analysis
+      case "Opening"    => I18nKey.site.opening
+      case "Endgame"    => I18nKey.site.endgame
+      case "Tournament" => I18nKey.site.tournament
+      case _            => I18nKey(s"ublog:topic.${a.url}")
+
 
   val chess: List[UblogTopic] = List(
     "Chess",
