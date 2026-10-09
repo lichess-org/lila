@@ -47,8 +47,12 @@ $col2-panel-height: 240px;
       ---panel-height: #{$col2-panel-height};
     }
 
+    @extend %box-neat;
+
+    background: $c-bg-box;
+
     > div {
-      height: var(---panel-height);
+      max-height: var(---panel-height);
       display: none;
       text-align: left;
 
@@ -64,12 +68,18 @@ $col2-panel-height: 240px;
     .analyse-hunter & > div {
       display: block;
     }
+
+    .analyse:not(.analyse-hunter) & {
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+    }
   }
 
   .ctable {
     align-items: flex-start;
     justify-content: center;
-    padding: 0.5em 0 0 0;
+    margin: 0 1em;
+    padding: 1em 0;
 
     &.active {
       display: flex;
@@ -82,14 +92,14 @@ $col2-panel-height: 240px;
 
   .future-game-analysis {
     text-align: center;
-    margin-top: 2em;
+    padding: 2em 0;
   }
 
   .fen-pgn {
     overflow-x: visible;
     overflow-y: auto;
     font-size: 0.9em;
-    padding: 0.5em 0.7em 0 0;
+    padding: 1em 1em 0;
 
     > div {
       @extend %flex-center-nowrap;
