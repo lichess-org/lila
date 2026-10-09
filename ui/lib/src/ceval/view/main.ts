@@ -25,6 +25,7 @@ import {
   div,
   span,
   button,
+  makeExoticTag,
 } from '@/view';
 import { cmnToggle } from '@/view/cmn-toggle';
 import stepwiseScroll from '@/view/stepwiseScroll';
@@ -166,9 +167,10 @@ export function renderCeval(ctrl: CevalHandler): VNode[] {
   const server = node.eval;
   const threatMode = ctrl.threatMode();
   const threat = threatMode ? node.threat : undefined;
-  const bestEv = getBestEval(ctrl);
+  const bestEv = threat ?? getBestEval(ctrl);
   const search = ceval.search;
   const download = ceval.download;
+  const makePearl = makeExoticTag(threat ? 'pearl.threat' : 'pearl');
   let pearl: LooseVNode;
   let percent = 0;
   if (client) {
@@ -180,16 +182,17 @@ export function renderCeval(ctrl: CevalHandler): VNode[] {
   }
   if (ceval.opts.custom?.pearlNode) {
     pearl = ceval.opts.custom.pearlNode();
-  } else if (!enabled) {
-    pearl = h('pearl', h('icon'));
+  } else if (!enabled && !server) {
+    pearl = makePearl(h('icon'));
   } else if (typeof bestEv?.cp !== 'undefined') {
-    pearl = h('pearl', renderEval(bestEv.cp));
+    pearl = makePearl(renderEval(bestEv.cp));
   } else if (bestEv && defined(bestEv.mate)) {
-    pearl = h('pearl', '#' + bestEv.mate);
+    pearl = makePearl('#' + bestEv.mate);
   } else {
-    if (node.outcome() || node.threefold) pearl = h('pearl', '-');
-    else if (ceval.state === CevalState.Failed) pearl = h('pearl', icon(licon.CautionCircle)('.is-red'));
-    else pearl = h('pearl', h('icon.ddloader'));
+    if (!enabled) pearl = makePearl(h('icon'));
+    else if (node.outcome() || node.threefold) pearl = makePearl('-');
+    else if (ceval.state === CevalState.Failed) pearl = makePearl(icon(licon.CautionCircle)('.is-red'));
+    else pearl = makePearl(h('icon.ddloader'));
     percent = node.outcome() ? 100 : 0;
   }
   if (download) percent = Math.min(100, Math.round((100 * download.bytes) / download.total));
