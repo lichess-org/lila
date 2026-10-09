@@ -390,10 +390,11 @@ POST  /bots/dev/asset/$tpe<sound|image|book>/$key<\w{12}(\.\w{2,4})?> controller
 POST  /bots/dev/asset/mv/$key<\w{12}(\.\w{2,4})?>/:name  controllers.JsBot.devNameAsset(key: String, name: String)
 
 # Round
-GET   /$gameId<\w{8}>                            controllers.Round.watcher(gameId: GameId, color: Color = Color.white)
-GET   /$gameId<\w{8}>/$color<white|black>        controllers.Round.watcher(gameId: GameId, color: Color)
-GET   /$fullId<\w{12}>                           controllers.Round.player(fullId: GameFullId)
-GET   /$gameId<\w{8}>/$color<white|black>/sides  controllers.Round.sides(gameId: GameId, color: Color)
+GET   /g/$gameId<\w{8}>                          controllers.Round.watcher(gameId: GameId, color: Color = Color.white)
+GET   /g/$gameId<\w{8}>/$color<white|black>      controllers.Round.watcher(gameId: GameId, color: Color)
+GET   /g/$fullId<\w{12}>                         controllers.Round.player(fullId: GameFullId)
+GET   /$gameId<\w{8}>/$color<white|black>        controllers.Round.watcherRedirect(gameId: GameId, color: Color)
+GET   /g/$gameId<\w{8}>/$color<white|black>/sides controllers.Round.sides(gameId: GameId, color: Color)
 GET   /$gameId<\w{8}>/continue/:mode             controllers.Round.continue(gameId: GameId, mode)
 GET   /$gameId<\w{8}>/note                       controllers.Round.readNote(gameId: GameId)
 POST  /$gameId<\w{8}>/note                       controllers.Round.writeNote(gameId: GameId)

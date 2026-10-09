@@ -198,3 +198,10 @@ final class Env(
   def resign(pov: Pov): Unit =
     if pov.game.abortableByUser then roundApi.tell(pov.gameId, RoundBus.Abort(pov.playerId))
     else if pov.game.resignable then roundApi.tell(pov.gameId, RoundBus.Resign(pov.playerId))
+
+  def pathRedirect(path: String): Fu[Option[play.api.mvc.Call]] =
+    GameAnyId(path).fullId
+      .so(proxyRepo.pov)
+      .map2(p => routes.Round.player(p.fullId))
+      .orElse:
+        GameId.from(path).so(proxyRepo.game).map2(g => routes.Round.watcher(g.id, Color.white))
