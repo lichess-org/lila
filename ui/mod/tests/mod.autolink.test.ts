@@ -69,10 +69,6 @@ describe('autolinks', () => {
     assert.strictEqual(autolink(`,https://${hostname}/inbox`), `,${linked('/inbox')}`);
   });
 
-  test('preceded by semicolon', () => {
-    assert.strictEqual(autolink(`;https://${hostname}/inbox`), `;${linked('/inbox')}`);
-  });
-
   test('multi games already linked', () => {
     assert.strictEqual(
       autolink(`

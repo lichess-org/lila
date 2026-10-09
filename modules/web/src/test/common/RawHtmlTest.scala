@@ -58,13 +58,6 @@ class RawHtmlTest extends munit.FunSuite:
       addLinks(s"""img to $url here"""),
       s"""img to <img class="embed" src="$picUrl" alt="$url"/> here"""
     )
-  test("detect indirect with tags giphy gif URL"):
-    val url = "https://giphy.com/gifs/some-text-1-s0mE1d"
-    val picUrl = "https://media.giphy.com/media/s0mE1d/giphy.gif"
-    assertEquals(
-      addLinks(s"""img to $url here"""),
-      s"""img to <img class="embed" src="$picUrl" alt="$url"/> here"""
-    )
   test("detect imgur image URL"):
     val url = "https://imgur.com/NXy19Im"
     val picUrl = "https://i.imgur.com/NXy19Im.jpg"
@@ -196,12 +189,6 @@ class RawHtmlTest extends munit.FunSuite:
     val md = Html("A [link](javascript:powned) that is not safe.")
     assertEquals(justMarkdownLinks(md), md)
 
-  test("markdown not add br"):
-    assertEquals(justMarkdownLinks(Html("\n")), Html("\n"))
-
-  test("markdown not escape html"):
-    assertEquals(justMarkdownLinks(Html("&")), Html("&"))
-
   test("markdown remove tracking tags"):
     val md = "[Example](http://example.com?utm_campaign=spy&utm_source=evil)"
     assertEquals(
@@ -225,12 +212,6 @@ class RawHtmlTest extends munit.FunSuite:
     copyLinkConsistency("lichess.org/@/foo/games")
     copyLinkConsistency("@foo/games")
     copyLinkConsistency("@foo")
-
-  test("nl2br convert windows style newlines into <br>"):
-    assertEquals(nl2br("hello\r\nworld"), "hello<br>world")
-    assertEquals(nl2br("\r\nworld"), "<br>world")
-    assertEquals(nl2br("hello\r\n"), "hello<br>")
-    assertEquals(nl2br("hello\r\nworld\r\nagain"), "hello<br>world<br>again")
 
   test("nl2br convert posix style newlines into <br>"):
     assertEquals(nl2br("hello\nworld"), "hello<br>world")

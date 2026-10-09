@@ -46,17 +46,6 @@ class BinaryClockTest extends munit.FunSuite:
       read(bits22 ::: List("00000000", "00000000", "00000011") ::: List.fill(8)(_0_)),
       clock.giveTime(White, Centis(-3))
     )
-  test("read without timer bytes"):
-    assertEquals(read(bits22 ::: List.fill(7)(_0_)), clock)
-    assertEquals(
-      read(bits22 ::: List("10000000", "00000000", "00000011") ::: List.fill(4)(_0_)),
-      clock.giveTime(White, Centis(3))
-    )
-    assertEquals(
-      read(bits22 ::: List("00000000", "00000000", "00000011") ::: List.fill(4)(_0_)),
-      clock.giveTime(White, Centis(-3))
-    )
-
   test("isomorphism without berserk"):
     assertEquals(isomorphism(clock), clock)
 

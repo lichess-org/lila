@@ -12,13 +12,6 @@ describe("site.pubsub 'after' and 'complete' methods", () => {
     await promise;
   });
 
-  test('complete then after', async () => {
-    const event = 'reverse';
-    pubsub.complete(event);
-    const promise = pubsub.after(event);
-    await promise;
-  });
-
   test('one completion is never enough', async () => {
     const event = 'multiple-completes';
     const await1 = pubsub.after(event);

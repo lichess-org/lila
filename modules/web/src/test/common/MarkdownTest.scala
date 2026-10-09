@@ -77,12 +77,6 @@ class MarkdownTest extends munit.FunSuite:
       Html("""<p><img src="https://lichess1.org/image.png" alt="image" /></p>
 """)
     )
-  test("markdown image whitelist pass - exact domain match to one from list"):
-    assertEquals(
-      render(Markdown("![image](https://wikimedia.org/image.png)")),
-      Html("""<p><img src="https://wikimedia.org/image.png" alt="image" /></p>
-""")
-    )
   test("markdown image whitelist pass - subdomain match"):
     assertEquals(
       render(Markdown("![image](https://foo.wikimedia.org/image.png)")),

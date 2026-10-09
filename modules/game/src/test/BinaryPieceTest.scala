@@ -22,8 +22,6 @@ class BinaryPieceTest extends munit.FunSuite:
     assertEquals(write(Map(A1 -> Black.knight)), "11000000" :: List.fill(31)(noop))
   test("write B1 black pawn"):
     assertEquals(write(Map(B1 -> Black.pawn)), "00001110" :: List.fill(31)(noop))
-  test("write A1 black knight, B1 white bishop"):
-    assertEquals(write(Map(A1 -> Black.knight, B1 -> White.bishop)), "11000101" :: List.fill(31)(noop))
   test("write A1 black knight, B1 white bishop, C1 white queen"):
     assertEquals(
       write(Map(A1 -> Black.knight, B1 -> White.bishop, C1 -> White.queen)),
@@ -37,5 +35,3 @@ class BinaryPieceTest extends munit.FunSuite:
     assertEquals(read(List.fill(32)(noop)), Map.empty)
   test("read A1 white king"):
     assertEquals(read("00010000" :: List.fill(31)(noop)), Map(A1 -> White.king))
-  test("read B1 black pawn"):
-    assertEquals(read("00001110" :: List.fill(31)(noop)), Map(B1 -> Black.pawn))

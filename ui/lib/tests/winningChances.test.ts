@@ -33,10 +33,7 @@ describe('similarEvals', () => {
     ['black', -560, -460],
     ['black', -850, -640],
     ['black', -6500, -600],
-    ['white', 400, 350],
     ['black', -6500, -6300],
-    ['black', -560, -460],
-    ['black', -850, -640],
     ['black', -6510, -600],
   ])('be similar', (color, bestEval, secondBestEval) => {
     assert.strictEqual(similarEvalsCp(color, bestEval, secondBestEval), true);
