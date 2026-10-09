@@ -5,8 +5,8 @@ export lila.common.extensions.*
 
 type Platform = "twitch" | "youtube"
 def platform(str: String): Option[Platform] = str.toLowerCase match
-  case "twitch" => Some("twitch")
-  case "youtube" => Some("youtube")
+  case "twitch" => Option("twitch")
+  case "youtube" => Option("youtube")
   case _ => None
 
 private val streamerPageActivationRoute =

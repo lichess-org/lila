@@ -45,7 +45,7 @@ object userId:
   object MyId extends TotalWrapper[MyId, String]:
     given Conversion[MyId, UserId] = UserId(_)
     given UserIdOf[MyId] = u => u
-    given (using id: MyId): Option[MyId] = Some(id)
+    given (using id: MyId): Option[MyId] = Option(id)
     given (using me: Me): MyId = me.myId
     given (using me: Option[Me]): Option[MyId] = me.map(_.myId)
     given [M[_]]: Conversion[M[MyId], M[UserId]] = u => UserId.from(MyId.raw(u))
@@ -93,7 +93,7 @@ object userId:
     private val regex = "(?i)[a-z0-9][a-z0-9_-]{2,28}".r
     def read(str: String): Option[UserSearch] =
       val clean = str.trim.takeWhile(' ' !=)
-      if regex.matches(clean) then Some(clean.toLowerCase) else None
+      if regex.matches(clean) then Option(clean.toLowerCase) else None
 
   opaque type ModId = String
   object ModId extends OpaqueUserId[ModId]:
