@@ -87,7 +87,7 @@ function inButtons(ctrl: ChallengeCtrl, c: Challenge): VNode[] {
     ]);
   const viewElement = () =>
     h('a.view', {
-      attrs: { 'data-icon': licon.Eye, href: '/' + c.id, title: i18n.site.viewInFullSize },
+      attrs: { 'data-icon': licon.Eye, href: '/g/' + c.id, title: i18n.site.viewInFullSize },
     });
 
   return [
@@ -114,7 +114,7 @@ const outButtons = (ctrl: ChallengeCtrl, c: Challenge) => [
   h('div.owner', [
     h('span.waiting', i18n.site.waiting),
     h('a.view', {
-      attrs: { 'data-icon': licon.Eye, href: '/' + c.id, title: i18n.site.viewInFullSize },
+      attrs: { 'data-icon': licon.Eye, href: '/g/' + c.id, title: i18n.site.viewInFullSize },
     }),
   ]),
   h('button.button.decline', {

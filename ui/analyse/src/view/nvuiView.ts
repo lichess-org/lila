@@ -597,7 +597,7 @@ const requestAnalysisBtn = ({ ctrl, notify, analysisInProgress }: AnalyseNvuiCon
     : hl(
         'button.request-analysis',
         clickHook(() =>
-          xhrText(`/${ctrl.data.game.id}/request-analysis`, { method: 'post' }).then(
+          xhrText(`/g/${ctrl.data.game.id}/request-analysis`, { method: 'post' }).then(
             () => {
               analysisInProgress(true);
               notify.set('Server-side analysis in progress');

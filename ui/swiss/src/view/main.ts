@@ -182,7 +182,7 @@ function joinTheGame(ctrl: SwissCtrl) {
   const gameId = ctrl.data.me?.gameId;
   return (
     gameId &&
-    hl('a.swiss__ur-playing.button.is.is-after', { attrs: { href: '/' + gameId } }, [
+    hl('a.swiss__ur-playing.button.is.is-after', { attrs: { href: '/g/' + gameId } }, [
       i18n.site.youArePlaying,
       hl('br'),
       i18n.site.joinTheGame,
