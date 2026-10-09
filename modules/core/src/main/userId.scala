@@ -93,7 +93,7 @@ object userId:
     private val regex = "(?i)[a-z0-9][a-z0-9_-]{2,28}".r
     def read(str: String): Option[UserSearch] =
       val clean = str.trim.takeWhile(' ' !=)
-      if regex.matches(clean) then Option(clean.toLowerCase) else None
+      Option.when(regex.matches(clean))(clean.toLowerCase)
 
   opaque type ModId = String
   object ModId extends OpaqueUserId[ModId]:

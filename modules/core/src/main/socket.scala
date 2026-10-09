@@ -98,7 +98,7 @@ object protocol:
 
     def commas(str: String): Array[String] = if str == "-" then Array.empty else str.split(',')
     def boolean(str: String): Boolean = str == "+"
-    def optional(str: String): Option[String] = if str == "-" then None else Option(str)
+    def optional(str: String): Option[String] = Option.unless(str == "-")(str)
 
     def tellSriMapper: PartialFunction[Array[String], Option[TellSri]] = { case Array(sri, user, payload) =>
       for

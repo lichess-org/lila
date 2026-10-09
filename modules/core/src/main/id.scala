@@ -33,7 +33,7 @@ object id:
     given Conversion[GameFullId, GameAnyId] = _.value
     extension (e: GameAnyId)
       def gameId: GameId = GameId.take(e)
-      def fullId: Option[GameFullId] = if e.length == GameFullId.size then Option(e) else None
+      def fullId: Option[GameFullId] = Option.when(e.length == GameFullId.size)(e)
       def playerId: Option[GamePlayerId] = fullId.map(GameFullId.playerId)
 
   opaque type GamePlayerId = String
