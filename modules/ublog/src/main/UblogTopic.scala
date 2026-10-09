@@ -16,7 +16,7 @@ object UblogTopic extends OpaqueString[UblogTopic]:
       case "Opening"    => I18nKey.site.opening
       case "Endgame"    => I18nKey.site.endgame
       case "Tournament" => I18nKey.site.tournament
-      case _            => I18nKey(s"ublog:topic.${a.url}")
+      case _            => I18nKey(s"ublog:topic${a.split(" ").map(_.capitalize).mkString}")
 
 
   val chess: List[UblogTopic] = List(

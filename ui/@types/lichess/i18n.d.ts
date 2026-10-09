@@ -6374,31 +6374,31 @@ interface I18n {
     /** This post is published */
     thisPostIsPublished: string;
     /** Chess */
-    'topic.Chess': string;
+    topicChess: string;
     /** Chess bot */
-    'topic.Chess_bot': string;
+    topicChessBot: string;
     /** Chess engine */
-    'topic.Chess_engine': string;
+    topicChessEngine: string;
     /** Chess Personalities */
-    'topic.Chess_Personalities': string;
+    topicChessPersonalities: string;
     /** Chess variant */
-    'topic.Chess_variant': string;
+    topicChessVariant: string;
     /** Lichess */
-    'topic.Lichess': string;
+    topicLichess: string;
     /** Off topic */
-    'topic.Off_topic': string;
+    topicOffTopic: string;
     /** Over the board */
-    'topic.Over_the_board': string;
-    /** Puzzle */
-    'topic.Puzzle': string;
-    /** Software Development */
-    'topic.Software_Development': string;
-    /** Strategy */
-    'topic.Strategy': string;
-    /** Tactics */
-    'topic.Tactics': string;
+    topicOverTheBoard: string;
     /** %s posts */
     topicPosts: I18nFormat;
+    /** Puzzle */
+    topicPuzzle: string;
+    /** Software Development */
+    topicSoftwareDevelopment: string;
+    /** Strategy */
+    topicStrategy: string;
+    /** Tactics */
+    topicTactics: string;
     /** View all %s posts */
     viewAllNbPosts: I18nPlural;
     /** %s's Blog */
