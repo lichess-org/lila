@@ -49,7 +49,7 @@ case class Pref(
     usingAltSocket: Option[Boolean],
     board: Pref.BoardPref,
     sayGG: Int,
-    tags: Map[String, String] = Map.empty
+    hasDgt: Boolean
 ) extends lila.core.pref.Pref:
 
   import Pref.*
@@ -66,8 +66,6 @@ case class Pref(
   def realSoundSet = SoundSet(soundSet)
 
   def coordsClass = Coords.classOf(coords)
-
-  def hasDgt = tags contains Tag.dgt
 
   def animationMillis: Int =
     animation match
@@ -189,9 +187,6 @@ object Pref:
     )
 
     val asString = fromString.map(_.swap)
-
-  object Tag:
-    val dgt = "dgt"
 
   object AutoQueen:
     val NEVER = 1
@@ -502,7 +497,7 @@ object Pref:
     board = BoardPref(brightness = 100, contrast = 100, opacity = 100, hue = 0),
     blogFilter = QualityFilter.best,
     sayGG = SayGG.NO,
-    tags = Map.empty
+    hasDgt = false
   )
 
   import alleycats.Zero
