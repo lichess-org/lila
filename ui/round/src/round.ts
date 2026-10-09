@@ -77,7 +77,7 @@ async function boot(
           );
       },
       endData() {
-        xhrText(`${data.tv ? '/tv' : ''}/${data.game.id}/${data.player.color}/sides`).then(html => {
+        xhrText(`/${data.tv ? 'tv' : 'g'}/${data.game.id}/${data.player.color}/sides`).then(html => {
           const $html = $(html);
           const $meta = $html.find('.game__meta');
           $meta.length && $('.game__meta').replaceWith($meta);

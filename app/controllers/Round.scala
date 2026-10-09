@@ -75,7 +75,8 @@ final class Round(
       .pov(fullId)
       .flatMap:
         case Some(pov) => renderPlayer(pov)
-        case None => userC.tryRedirect(fullId.into(UserStr)).getOrElse(notFound)
+        case None => // TODO remove
+          userC.tryRedirect(fullId.into(UserStr)).getOrElse(notFound)
 
   private def otherPovs(game: GameModel)(using ctx: Context) =
     ctx.me.so: user =>
@@ -108,7 +109,7 @@ final class Round(
   }
 
   def watcher(gameId: GameId, color: Color) = Open:
-    if req.client.isCrawler
+    if req.client.isCrawler // TODO remove this
     then
       FoundPage(env.round.proxyRepo.gameIfPresentOrFetch(gameId)): game =>
         for _ <- gameC.preloadUsers(game)
@@ -119,10 +120,10 @@ final class Round(
         .flatMap:
           case Some(pov) =>
             watch(if getUserStr("pov").map(_.id).exists(pov.opponent.userId.has) then !pov else pov)
-          case None =>
-            userC
-              .tryRedirect(gameId.into(UserStr))
-              .getOrElse(challengeC.showId(gameId.into(lila.challenge.ChallengeId)))
+          case None => challengeC.showId(gameId.into(lila.challenge.ChallengeId))
+
+  def watcherRedirect(gameId: GameId, color: Color) = Anon:
+    Redirect(routes.Round.watcher(gameId, color))
 
   private def isBlockedByPlayer(game: GameModel)(using Context) =
     game.isBeingPlayed.so(env.relation.api.isBlockedByAny(game.userIds))

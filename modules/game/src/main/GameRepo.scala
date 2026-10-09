@@ -291,7 +291,8 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
 
   def analysed(id: GameId): Fu[Option[Game]] = coll.one[Game](bid(id) ++ Query.analysed(true))
 
-  def exists(id: GameId) = coll.exists(bid(id))
+  def exists(id: GameId) = coll.secondary.exists(bid(id))
+  def existsPri(id: GameId) = coll.exists(bid(id))
 
   def tournamentId(id: GameId): Fu[Option[String]] = coll.primitiveOne[String](bid(id), F.tournamentId)
 
