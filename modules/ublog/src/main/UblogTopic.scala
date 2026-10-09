@@ -12,12 +12,11 @@ object UblogTopic extends OpaqueString[UblogTopic]:
   extension (a: UblogTopic)
     def url = a.replace(" ", "_")
     def i18nKey: I18nKey = a match
-      case "Analysis"   => I18nKey.site.analysis
-      case "Opening"    => I18nKey.site.opening
-      case "Endgame"    => I18nKey.site.endgame
+      case "Analysis" => I18nKey.site.analysis
+      case "Opening" => I18nKey.site.opening
+      case "Endgame" => I18nKey.site.endgame
       case "Tournament" => I18nKey.site.tournament
-      case _            => I18nKey(s"ublog:topic${a.split(" ").map(_.capitalize).mkString}")
-
+      case _ => I18nKey(s"ublog:topic${a.split(" ").map(_.capitalize).mkString}")
 
   val chess: List[UblogTopic] = List(
     "Chess",
