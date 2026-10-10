@@ -132,10 +132,7 @@ final class GameApiV2(
           )
           .mapAsync(1)(gameRepo.gamesFromSecondary)
           .mapConcat(identity)
-          // the search index only stores the last move date, at second
-          // precision, so the exact createdAt range must be re-applied here,
-          // to return the same games as the mongo path above
-          .filter(g => inCreatedAtRange(g.createdAt, config.since, config.until))
+          .filter(inCreatedAtRange(config))
       else
         gameRepo
           .sortedCursor(
@@ -454,16 +451,8 @@ object GameApiV2:
         rated = rated
       )
 
-  // The search index stores the last move date at second precision, while
-  // the mongo path filters on createdAt at millisecond precision.
-  // Re-apply the exact range so both paths of exportByUser agree.
-  // https://github.com/lichess-org/lila/issues/15929
-  private[api] def inCreatedAtRange(
-      createdAt: Instant,
-      since: Option[Instant],
-      until: Option[Instant]
-  ): Boolean =
-    since.forall(s => !createdAt.isBefore(s)) && until.forall(u => createdAt.isBefore(u))
+  private def inCreatedAtRange(config: ByUserConfig)(g: Game): Boolean =
+    config.since.forall(g.createdAt.isAfter) && config.until.forall(g.createdAt.isBefore)
 
   case class GamePlayersConfig(vs: Option[User], wonBy: Option[UserId], lostBy: Option[UserId])
 
