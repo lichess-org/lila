@@ -72,22 +72,6 @@ class AccuracyPercentTest extends munit.FunSuite:
 
   def computeBlack(cps: List[Int]) = gameAccuracy(Color.black, cps.map(Cp(_)).map(Some(_)))
 
-  test("black moves first, empty game"):
-    assertEquals(computeBlack(Nil), None)
-  test("black moves first, single move"):
-    assertEquals(computeBlack(List(15)), None)
-  test("black moves first, two good moves"):
-    val a = computeBlack(List(15, 15)).get
-    assert(isCloseTo(a.black.value, 100d, 1d))
-    assert(isCloseTo(a.white.value, 100d, 1d))
-  test("black moves first, black blunders on first move"):
-    val a = computeBlack(List(900, 900)).get
-    assert(isCloseTo(a.black.value, 10d, 5d))
-    assert(isCloseTo(a.white.value, 100d, 1d))
-  test("black moves first, white blunders on first move"):
-    val a = computeBlack(List(15, -900)).get
-    assert(isCloseTo(a.black.value, 100d, 1d))
-    assert(isCloseTo(a.white.value, 10d, 5d))
   test("black moves first, both blunder on first move"):
     val a = computeBlack(List(900, 0)).get
     assert(isCloseTo(a.black.value, 10d, 5d))

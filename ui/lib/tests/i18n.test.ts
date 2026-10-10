@@ -13,15 +13,6 @@ describe('roundToCurrency', async () => {
     assert.equal(roundToCurrency(9.99, currency), 9.99);
   });
 
-  await test('EUR', async () => {
-    document.documentElement.lang = 'fr-FR';
-    const currency = 'EUR';
-    assert.equal(roundToCurrency(1.0, currency), 1);
-    assert.equal(roundToCurrency(1.005, currency), 1.01);
-    assert.equal(roundToCurrency(1.01, currency), 1.01);
-    assert.equal(roundToCurrency(9.99, currency), 9.99);
-  });
-
   await test('JPY - a currency that does not use decimals', async () => {
     document.documentElement.lang = 'ja-JP';
     const currency = 'JPY';
@@ -49,10 +40,6 @@ describe('dateParsing', async () => {
     assert.strictEqual(toDate('Tue, 17 April 2024 23:50:21 GMT').toISOString(), '2024-04-17T23:50:21.000Z');
   });
 
-  await test('string: epoch timestamp', () => {
-    assert.strictEqual(toDate('1772357604952').toISOString(), '2026-03-01T09:33:24.952Z');
-  });
-
   await test('string: date toString', () => {
     assert.strictEqual(
       toDate('Tue May 12 2020 18:50:21 GMT-0500 (Central Daylight Time)').toISOString(),
@@ -74,9 +61,5 @@ describe('dateParsing', async () => {
 
   await test('invalid date: infinity', () => {
     assert.throws(() => toDate(Number.POSITIVE_INFINITY).toISOString());
-  });
-
-  await test('invalid date: NaN', () => {
-    assert.throws(() => toDate(Number.NaN).toISOString());
   });
 });

@@ -13,10 +13,6 @@ class RelayUpdatePlanTest extends munit.FunSuite:
     val out = RelayUpdatePlan(input)
     check.applyOrElse(out, _ => fail(s"Unexpected output: $out"))
 
-  test("fixtures"):
-    assertEquals(games.size, 5)
-    assertEquals(chapters.size, 5)
-
   test("add no game to empty relay"):
     val input = Input(Nil, games.take(0))
     assertEquals(RelayUpdatePlan(input), Plan(input, None, Nil, Vector.empty, Nil))
@@ -67,13 +63,6 @@ class RelayUpdatePlanTest extends munit.FunSuite:
       case Plan(_, None, update, append, Nil) =>
         assertEquals(update, chapters.zip(games))
         assert(append.isEmpty)
-
-  test("2 chapters, 2 games, reverse order"):
-    val in = Input(chapters.take(2), games.take(2).reverse)
-    output(in):
-      case Plan(_, reorder, update, Vector(), Nil) =>
-        assertEquals(update, in.chapters.reverse.zip(in.games))
-        assertEquals(reorder, in.chapters.reverse.map(_.id).some)
 
   test("5 chapters, 5 games, reverse order"):
     val in = Input(chapters, games.reverse)

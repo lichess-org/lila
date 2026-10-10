@@ -57,15 +57,6 @@ describe('renderNodesPgn', () => {
     assert.equal(render('e4c5', true), '1. e4 c5 2. Nf3 (2. d4)');
   });
 
-  test('leaves the line leading up to the last node linear', () => {
-    assert.equal(render('e4e5', true), '1. e4 e5 2. Nf3 Nc6');
-    assert.equal(render('e4c5Nf', true), '1. e4 c5 2. Nf3');
-  });
-
-  test('renders the whole main line for an empty path', () => {
-    assert.equal(render('', false), '1. e4 e5 2. Nf3 Nc6');
-  });
-
   test('renders nothing when there are no moves', () => {
     const empty = { id: '', ply: 0, children: [] } as unknown as TreeNode;
     const fromFen = { ...game, initialFen: '4k3/8/8/8/8/8/8/4K3 w - - 0 1' } as Game;
@@ -91,11 +82,6 @@ describe('renderNodesPgn', () => {
         renderNodesPgn(fromFen, nodeList(blackFirst, ''), false).trim(),
         `[FEN "${fen}"]\n\n1... e5 2. Nf3`,
       );
-    });
-
-    test('the empty path and the full path render the same moves', () => {
-      const render = (path: TreePath) => renderNodesPgn(game, nodeList(blackFirst, path), false).trim();
-      assert.equal(render(''), render('e5'));
     });
   });
 

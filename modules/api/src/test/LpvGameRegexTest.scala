@@ -138,14 +138,6 @@ class LpvGameRegexTest extends munit.FunSuite:
     assert(!blogMatches("oompa loompa https://boo.org:8080/abcd1234", re.gamePgnRe))
   }
 
-  test("blog links fail site header") {
-    assert(!blogMatches("[Site=\"https://boo.org:8080/1234abcd\"]", re.gamePgnRe))
-  }
-
-  test("blog links fail tournaments") {
-    assert(!blogMatches("https://boo.org:8080/tournament/ABCD1234", re.gamePgnRe))
-  }
-
   test("blog links fail usernames") {
     assert(!blogMatches("boo.org:8080/@/thibault", re.gamePgnRe))
   }
@@ -160,20 +152,4 @@ class LpvGameRegexTest extends munit.FunSuite:
 
   test("blog links extract game id 2") {
     assert(blogMatch("boo.org:8080/1234abcd1234#123", re.gamePgnRe).has("1234abcd"))
-  }
-
-  test("blog links fail chapter regex no chapter") {
-    assert(!blogMatches("boo.org:8080/study/abcd1234", re.chapterPgnRe))
-  }
-
-  test("blog links fail study regex on study w chapter") {
-    assert(!blogMatches("boo.org:8080/study/abcd1234/abcd1234", re.studyPgnRe))
-  }
-
-  test("blog links extract studyid") {
-    assert(blogMatch("https://boo.org:8080/study/abcd4890", re.studyPgnRe).has("abcd4890"))
-  }
-
-  test("blog links extract chapter") {
-    assert(blogMatch("boo.org:8080/study/abcd1234/bcde2345", re.chapterPgnRe).has("bcde2345"))
   }

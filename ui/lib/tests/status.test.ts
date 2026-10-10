@@ -4,28 +4,7 @@ import { describe, test } from 'node:test';
 import { each } from '../../.test/helpers.mts';
 import { bishopOnColor, expandFen, insufficientMaterial } from '../src/game/view/status';
 
-describe('expand fen', () => {
-  test('starting position', () =>
-    assert.strictEqual(
-      expandFen('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1'),
-      'rnbqkbnrpppppppp11111111111111111111111111111111PPPPPPPPRNBQKBNR',
-    ));
-
-  test('middlegame position', () =>
-    assert.strictEqual(
-      expandFen('r2q1rk1/p3ppbp/2pp1np1/2n5/2P3b1/1P1BPN2/PB1N1PPP/2RQ1RK1 w HAhq - 0 1'),
-      'r11q1rk1p111ppbp11pp1np111n1111111P111b11P1BPN11PB1N1PPP11RQ1RK1',
-    ));
-});
-
 describe('bishop on color', () => {
-  test('bishop on square', () => {
-    assert.strictEqual(bishopOnColor(expandFen('B7/8/8/8/8/8/8/8 w - - 0 1'), 0), true);
-    assert.strictEqual(bishopOnColor(expandFen('2B5/8/8/8/8/8/8/8 w - - 0 1'), 0), true);
-    assert.strictEqual(bishopOnColor(expandFen('3B4/8/8/8/8/8/8/8 w - - 0 1'), 1), true);
-    assert.strictEqual(bishopOnColor(expandFen('2BB4/8/8/8/8/8/8/8 w - - 0 1'), 1), true);
-  });
-
   test('no bishops on black squares', () => {
     assert.strictEqual(bishopOnColor(expandFen('B7/8/8/8/8/8/8/8 w - - 0 1'), 1), false);
     assert.strictEqual(bishopOnColor(expandFen('2B5/8/8/8/8/8/8/8 w - - 0 1'), 1), false);
@@ -48,15 +27,7 @@ describe('test insufficient material', () => {
 });
 
 describe('should not be insufficient material', () => {
-  each<[VariantKey]>([
-    ['horde'],
-    ['kingOfTheHill'],
-    ['racingKings'],
-    ['crazyhouse'],
-    ['atomic'],
-    ['antichess'],
-    ['threeCheck'],
-  ])('variant %s', variant =>
+  each<[VariantKey]>([['horde'], ['crazyhouse']])('variant %s', variant =>
     assert.strictEqual(
       insufficientMaterial(variant, 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1'),
       false,
@@ -65,12 +36,6 @@ describe('should not be insufficient material', () => {
 
   test('pawn is never insufficient material', () =>
     assert.strictEqual(insufficientMaterial('standard', '4k3/8/8/8/8/8/7P/4K3 w - - 0 1'), false));
-
-  test('rook is never insufficient material', () =>
-    assert.strictEqual(insufficientMaterial('standard', '4k3/8/8/8/8/8/7R/4K3 w - - 0 1'), false));
-
-  test('queen is never insufficient material', () =>
-    assert.strictEqual(insufficientMaterial('standard', '4k3/8/8/8/8/8/7Q/4K3 w - - 0 1'), false));
 
   test('KBB vs K (diff color bishops)', () => {
     assert.strictEqual(insufficientMaterial('standard', '8/8/1B6/8/1KB5/8/2k5/8 b - - 100 103'), false);

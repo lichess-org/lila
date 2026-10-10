@@ -1,10 +1,10 @@
 import assert from 'node:assert/strict';
-import { test, mock, before } from 'node:test';
+import { describe, test, mock, before } from 'node:test';
 
 const spamUrl = new URL('../src/chat/spam.ts', import.meta.url).href;
 const xhrUrl = new URL('../src/xhr.ts', import.meta.url).href;
 
-test('self report', async () => {
+describe('self report', () => {
   const textMock = mock.fn(async (url: string) => {
     assert.equal(url, '/jslog/lichess.org/?n=spam');
     return 'ok';

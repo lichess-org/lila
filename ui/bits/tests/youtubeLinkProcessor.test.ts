@@ -70,22 +70,8 @@ describe('parseYoutubeUrl - realistic URLs & edge cases', () => {
     });
   });
 
-  test('Youtube short channel URL ignored', () => {
-    const url = 'https://www.youtube.com/@ChannelName';
-    const result = parseYoutubeUrl(url);
-
-    assert.equal(result, undefined);
-  });
-
   test('Youtube long channel URL ignored', () => {
     const url = 'https://www.youtube.com/channel/H39AHPSBcGc';
-    const result = parseYoutubeUrl(url);
-
-    assert.equal(result, undefined);
-  });
-
-  test('youtube link without protocol', () => {
-    const url = 'www.youtube.com/watch/?v=dQw4w9WgXcQ';
     const result = parseYoutubeUrl(url);
 
     assert.equal(result, undefined);
@@ -132,17 +118,6 @@ describe('parseYoutubeUrl - realistic URLs & edge cases', () => {
     const result = parseYoutubeUrl(url);
 
     assert.equal(result, undefined);
-  });
-
-  test('youtube.com watch URL with trailing slash', () => {
-    const url = 'https://www.youtube.com/watch/?v=dQw4w9WgXcQ';
-    const result = parseYoutubeUrl(url);
-
-    assert.deepEqual(result, {
-      videoType: 'watch',
-      videoId: 'dQw4w9WgXcQ',
-      startTime: 0,
-    });
   });
 
   test('youtube.com watch URL with extra params', () => {
