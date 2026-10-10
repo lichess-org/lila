@@ -116,7 +116,10 @@ object RelayTeam:
       teams
         .forall(_.players.values.allGamesFinished)
         .so:
-          (teams.a.points, teams.b.points).mapN: (aPoints, bPoints) =>
+          for
+            aPoints <- teams.a.points
+            bPoints <- teams.b.points
+          yield
             if aPoints == bPoints then Pair(Points.Half, Points.Half)
             else if aPoints > bPoints then Pair(Points.One, Points.Zero)
             else Pair(Points.Zero, Points.One)
