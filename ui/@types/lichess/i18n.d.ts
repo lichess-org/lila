@@ -3245,10 +3245,10 @@ interface I18n {
   report: {
     /** Cheat */
     cheat: string;
-    /** Please provide at least one link to a game for review. */
-    'error.provideOneCheatedGameLink': string;
     /** We can process your report faster if you write in English. */
     processReportFasterInEnglish: string;
+    /** Please provide at least one link to a game for review. */
+    provideOneCheatedGameLink: string;
     /** Read more about Lichess reports */
     readMoreAboutLichessReports: string;
     /** Sandbagging / Boosting / Match fixing */
@@ -3893,8 +3893,6 @@ interface I18n {
     'error.minLength': I18nFormat;
     /** Please don't use your username as your password. */
     'error.namePassword': string;
-    /** Please provide at least one link to a game for review. */
-    'error.provideOneCheatedGameLink': string;
     /** This field is required */
     'error.required': string;
     /** Invalid value */

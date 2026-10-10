@@ -9,12 +9,14 @@ import lila.core.LightUser
 import lila.core.config.NetDomain
 import lila.core.report.SuspectId
 import lila.mon.extensions.*
+import lila.core.i18n.I18nKey
 
-final private[report] class ReportForm(lightUserAsync: LightUser.Getter)(using domain: NetDomain):
+final private class ReportForm(lightUserAsync: LightUser.Getter)(using domain: NetDomain):
+
   val cheatLinkConstraint: Constraint[ReportSetup] = Constraint("constraints.cheatgamelink"): setup =>
     val gameLinkRequired = setup.reason == Reason.Cheat.key || setup.reason == Reason.Stall.key
     if !gameLinkRequired || ReportForm.hasGameLink(setup.text) then Valid
-    else Invalid(Seq(ValidationError("error.provideOneCheatedGameLink")))
+    else Invalid(Seq(ValidationError(I18nKey.report.provideOneCheatedGameLink.value)))
 
   def create(using me: MyId) = Form:
     mapping(

@@ -1683,7 +1683,7 @@ object I18nKey:
     val `reportCheatBoostHelp`: I18nKey = "report:reportCheatBoostHelp"
     val `reportUsernameHelp`: I18nKey = "report:reportUsernameHelp"
     val `processReportFasterInEnglish`: I18nKey = "report:processReportFasterInEnglish"
-    val `error.provideOneCheatedGameLink`: I18nKey = "report:error.provideOneCheatedGameLink"
+    val `provideOneCheatedGameLink`: I18nKey = "report:provideOneCheatedGameLink"
 
   object search:
     val `search`: I18nKey = "search:search"
@@ -2195,7 +2195,6 @@ object I18nKey:
     val `reportCheatBoostHelp`: I18nKey = "reportCheatBoostHelp"
     val `reportUsernameHelp`: I18nKey = "reportUsernameHelp"
     val `processReportFasterInEnglish`: I18nKey = "processReportFasterInEnglish"
-    val `error.provideOneCheatedGameLink`: I18nKey = "error.provideOneCheatedGameLink"
     val `by`: I18nKey = "by"
     val `importedByX`: I18nKey = "importedByX"
     val `thisTopicIsNowClosed`: I18nKey = "thisTopicIsNowClosed"
