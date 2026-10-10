@@ -103,7 +103,7 @@ const doRender = (ctrl: AnalyseCtrl): VNode => {
               attrs: dataIcon(licon.PlayTriangle),
               hook: bind('click', ctrl.toggleRetro, ctrl.redraw),
             },
-            i18n.site.learnFromYourMistakes,
+            ctrl.bottomIsWhite() ? i18n.site.reviewWhiteMistakes : i18n.site.reviewBlackMistakes,
           ),
       playerTable(ctrl, 'black'),
     ],
@@ -142,7 +142,7 @@ export function render(ctrl: AnalyseCtrl): VNode | undefined {
 
   // don't cache until the analysis is complete!
   const buster = ctrl.data.analysis.partial ? Math.random() : '';
-  let cacheKey = String(buster) + !!ctrl.retro;
+  let cacheKey = String(buster) + !!ctrl.retro + ctrl.bottomColor();
   if (ctrl.study) cacheKey += ctrl.study.data.chapter.id;
 
   return h('div.analyse__round-training', [
