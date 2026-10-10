@@ -4553,6 +4553,8 @@ interface I18n {
     ratingXOverYGames: I18nPlural;
     /** Read about our %s. */
     readAboutOur: I18nFormat;
+    /** Read more about Lichess reports */
+    readMoreAboutLichessReports: string;
     /** Read the message */
     readTheMessage: string;
     /** really */
@@ -4605,10 +4607,26 @@ interface I18n {
     replyToThisTopic: string;
     /** Report a user */
     reportAUser: string;
+    /** Sandbagging / Boosting / Match fixing */
+    reportBoost: string;
     /** Paste the link to the game(s) and explain what is wrong about this user's behaviour. Don't just say "they cheat", but tell us how you came to this conclusion. */
     reportCheatBoostHelp: string;
+    /** Harassment / Bullying / Stalking */
+    reportHarass: string;
+    /** Hate Speech / Sexism */
+    reportHate: string;
+    /** Suicide / Self-Injury */
+    reportSelfHarm: string;
+    /** Spamming */
+    reportSpam: string;
+    /** Stalling / Leaving Games */
+    reportStall: string;
     /** Explain why this username is offensive. Don't just say "it's offensive/inappropriate," but tell us how you came to this conclusion, especially if the offense is obscure, not in English, in slang, or a historical/cultural reference. */
     reportUsernameHelp: string;
+    /** Verbal abuse / Cursing / Trolling */
+    reportVerbalAbuse: string;
+    /** Violence / Threats */
+    reportViolence: string;
     /** Report %s to moderators */
     reportXToModerators: I18nFormat;
     /** Request a computer analysis */

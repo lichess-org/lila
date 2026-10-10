@@ -124,7 +124,7 @@ final class ReportUi(helpers: Helpers)(menu: Context ?=> Frag):
       dataIcon := Icon.InfoCircle,
       cls := "text"
     ):
-      "Read more about Lichess reports"
+      trans.site.readMoreAboutLichessReports()
   )
 
   private def descriptionHelp(current: String)(using ctx: Context) = frag:
@@ -150,14 +150,14 @@ final class ReportUi(helpers: Helpers)(menu: Context ?=> Frag):
     import Reason.*
     List(
       (Cheat, trans.site.cheat.txt()),
-      (Stall, "Stalling / Leaving Games"),
-      (Boost, "Sandbagging / Boosting / Match fixing"),
-      (VerbalAbuse, "Verbal abuse / Cursing / Trolling"),
-      (Violence, "Violence / Threats"),
-      (Harass, "Harassment / Bullying / Stalking"),
-      (SelfHarm, "Suicide / Self-Injury"),
-      (Hate, "Hate Speech / Sexism"),
-      (Spam, "Spamming"),
+      (Stall, trans.site.reportStall.txt()),
+      (Boost, trans.site.reportBoost.txt()),
+      (VerbalAbuse, trans.site.reportVerbalAbuse.txt()),
+      (Violence, trans.site.reportViolence.txt()),
+      (Harass, trans.site.reportHarass.txt()),
+      (SelfHarm, trans.site.reportSelfHarm.txt()),
+      (Hate, trans.site.reportHate.txt()),
+      (Spam, trans.site.reportSpam.txt()),
       (Username, trans.site.username.txt()),
       (Other, trans.site.other.txt())
     )
