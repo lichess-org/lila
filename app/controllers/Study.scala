@@ -229,13 +229,9 @@ final class Study(
       study = studyJson,
       analysis = baseData
         .add("treeParts" -> partitionTreeWriter(chapter.root, lichobile = lichobile).some)
-        .add("analysis" -> analysis.map {
-          env.analyse.jsonView.bothPlayers(
-            chapter.root.ply,
-            _,
-            division = division.getOrElse(chess.Division.empty)
-          )
-        })
+        .add("analysis" -> analysis.map:
+          env.analyse.jsonView
+            .bothPlayers(chapter.root.ply, _, division = division.getOrElse(chess.Division.empty)))
     )
 
   private def chapterAnalysis(sc: WithChapter) =
