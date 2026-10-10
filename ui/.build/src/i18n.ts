@@ -197,7 +197,7 @@ function parseXml(xmlData: string): Map<string, string | Plural> {
       group[xmlAttr(itemAttrs, 'quantity')] = xmlText(text);
     i18nMap.set(xmlAttr(attrs, 'name'), group as Plural);
   }
-  return new Map([...i18nMap.entries()].sort(([a], [b]) => a.localeCompare(b)));
+  return new Map([...i18nMap.entries()].sort(([a], [b]) => a.localeCompare(b, 'en')));
 }
 
 async function minify(js: string): Promise<string> {
