@@ -18,13 +18,13 @@ interface Advice {
 }
 
 const renderPlayer = ({ data, study }: AnalyseCtrl, color: Color): VNode => {
-  const player = getPlayer(data, color);
-  return player.user
-    ? userLink({ ...player.user, name: player.user.username, ratingDiff: player.ratingDiff, line: false })
+  const { user, ratingDiff, name, ai } = getPlayer(data, color);
+  return user
+    ? userLink({ ...user, name: user.username, ratingDiff, line: false })
     : h(
         'span',
-        player.name ||
-          (player.ai && 'Stockfish level ' + player.ai) ||
+        name ||
+          (ai && 'Stockfish level ' + ai) ||
           (study && findTag(study.data.chapter.tags, color)) ||
           'Anonymous',
       );
