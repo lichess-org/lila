@@ -97,13 +97,14 @@ private[study] final class Merger(
       .byId(chapterId)
       .flatMapz: chapter =>
         reallySendToChapter(studyId, chapter).mapz:
+          val division = divisionOf(chapter)
           socket.onServerEval(
             studyId,
             Progress(
               chapterId = chapter.id,
               tree = chapter.root,
-              analysis = analysisJson.bothPlayers(chapter.root.ply, analysis),
-              division = divisionOf(chapter)
+              analysis = analysisJson.bothPlayers(chapter.root.ply, analysis, division = division),
+              division = division
             )
           )
 

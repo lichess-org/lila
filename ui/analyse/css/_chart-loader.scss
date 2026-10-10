@@ -21,13 +21,6 @@
   &:has(#acpl-chart-container-loader) .analysis-chart-actions {
     display: none;
   }
-
-  &:has(.analysis-chart-actions .delete:hover) {
-    canvas {
-      background-color: color-mix(in oklab, $c-bad 8%, $c-bg-box);
-      opacity: 0.5;
-    }
-  }
 }
 
 .analysis-chart-actions {

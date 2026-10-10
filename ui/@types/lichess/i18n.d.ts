@@ -2693,6 +2693,8 @@ interface I18n {
     showGauge: string;
     /** Live engine annotations */
     showLiveGlyphs: string;
+    /** Show mainline analysis */
+    showMainlineAnalysis: string;
     /** Show maneuver arrows */
     showManeuverArrows: string;
     /** Show move annotations */
@@ -2701,8 +2703,6 @@ interface I18n {
     showPinnedPieces: string;
     /** Show player ratings */
     showPlayerRatings: string;
-    /** Show server analysis */
-    showServerAnalysis: string;
     /** Show undefended pieces */
     showUndefendedPieces: string;
     /** Show variation arrows */
