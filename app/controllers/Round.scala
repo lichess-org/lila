@@ -111,7 +111,7 @@ final class Round(
         case None => challengeC.showId(gameId.into(lila.challenge.ChallengeId))
 
   def watcherRedirect(gameId: GameId, color: Color) = Anon:
-    Redirect(routes.Round.watcher(gameId, color))
+    MovedPermanently(routes.Round.watcher(gameId, color))
 
   private def isBlockedByPlayer(game: GameModel)(using Context) =
     game.isBeingPlayed.so(env.relation.api.isBlockedByAny(game.userIds))

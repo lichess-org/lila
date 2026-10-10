@@ -635,7 +635,7 @@ final class User(
     staticRedirect(path) |
       env.round
         .pathRedirect(path)
-        .map2(Redirect(_))
+        .map2(MovedPermanently(_))
         .orElse(UserStr.read(path).so(tryRedirect))
         .getOrElse(notFound)
 
