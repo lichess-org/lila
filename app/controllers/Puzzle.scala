@@ -104,7 +104,11 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
     NoBot:
       onComplete(env.puzzle.forms.round)(id, PuzzleAngle.findOrMix(angleStr), mobileBc = false)
 
-  def mobileBcRound(nid: Long) = OpenBody:
+  private def lichobileUnsupported = Anon:
+    Gone(jsonError("This feature is not supported in this app anymore. Please install the new Lichess app.")).as(JSON).toFuccess
+
+  def mobileBcRound(nid: Long) = lichobileUnsupported
+  def mobileBcRoundOrig(nid: Long) = OpenBody:
     Puz
       .numericalId(nid)
       .so:
@@ -431,14 +435,16 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
               yield Ok(result)
         )
 
-  def mobileBcLoad(nid: Long) = Open:
+  def mobileBcLoad(nid: Long) = lichobileUnsupported
+  def mobileBcLoadOrig(nid: Long) = Open:
     negotiateJson:
       FoundOk(Puz.numericalId(nid).so(env.puzzle.api.puzzle.find)): puz =>
         WithPuzzlePerf:
           env.puzzle.jsonView.bc(puz)
 
   // XHR load next play puzzle
-  def mobileBcNew = Open:
+  def mobileBcNew = lichobileUnsupported
+  def mobileBcNewOrig = Open:
     NoBot:
       negotiateApi(
         html = notFound,
@@ -450,7 +456,8 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
       )
 
   /* Mobile API: select a bunch of puzzles for offline use */
-  def mobileBcBatchSelect = Auth { ctx ?=> _ ?=>
+  def mobileBcBatchSelect = lichobileUnsupported
+  def mobileBcBatchSelectOrig = Auth { ctx ?=> _ ?=>
     negotiateJson:
       val nb = getInt("nb").getOrElse(15).atLeast(1).atMost(30)
       WithPuzzlePerf:
@@ -462,7 +469,8 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
   }
 
   /* Mobile API: tell the server about puzzles solved while offline */
-  def mobileBcBatchSolve = AuthBody(parse.json) { ctx ?=> me ?=>
+  def mobileBcBatchSolve = lichobileUnsupported
+  def mobileBcBatchSolveOrig = AuthBody(parse.json) { ctx ?=> me ?=>
     negotiateJson:
       if !PuzzleForm.batch.isValid(ctx.body.body)
       then BadRequest.toFuccess
@@ -487,7 +495,8 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
           )
   }
 
-  def mobileBcVote(nid: Long) = AuthBody { ctx ?=> me ?=>
+  def mobileBcVote(nid: Long) = lichobileUnsupported
+  def mobileBcVoteOrig(nid: Long) = AuthBody { ctx ?=> me ?=>
     negotiateJson:
       bindForm(env.puzzle.forms.bc.vote)(
         doubleJsonFormError,
