@@ -16,60 +16,61 @@ import { next, prev, view } from '../keyboard';
 import { renderTable } from './table';
 
 export function main(ctrl: RoundController): VNode {
+  if (ctrl.nvui) return ctrl.nvui.render();
+
   const d = ctrl.data;
   const topColor = d[ctrl.flip ? 'player' : 'opponent'].color;
   const bottomColor = d[ctrl.flip ? 'opponent' : 'player'].color;
   const pending = ctrl.pendingStep();
   const materialDiffs = renderMaterialDiffs(
-    ctrl.data.pref.showCaptured,
-    ctrl.flip ? ctrl.data.opponent.color : ctrl.data.player.color,
+    d.pref.showCaptured,
+    ctrl.flip ? d.opponent.color : d.player.color,
     pending ? pending.fen : ctrl.stepAt(ctrl.ply).fen,
-    !!(ctrl.data.player.checks || ctrl.data.opponent.checks), // showChecks
-    ctrl.data.steps,
+    !!(d.player.checks || d.opponent.checks), // showChecks
+    d.steps,
     ctrl.ply,
   );
-  const hideBoard = ctrl.data.player.blindfold && playable(ctrl.data);
-  return ctrl.nvui
-    ? ctrl.nvui.render()
-    : hl(
-        'div.round__app.variant-' + d.game.variant.key,
+  const hideBoard = d.player.blindfold && playable(d);
+
+  return hl(
+    'div.round__app.variant-' + d.game.variant.key,
+    {
+      class: {
+        'swap-clock': isTouchDevice() && displayColumns() === 1 && storage.boolean('swapClock').get(),
+      },
+    },
+    [
+      renderBlindfoldToggle(ctrl.blindfold),
+      hl(
+        'div.round__app__board.main-board' + (hideBoard ? '.blindfold' : ''),
         {
-          class: {
-            'swap-clock': isTouchDevice() && displayColumns() === 1 && storage.boolean('swapClock').get(),
-          },
+          hook:
+            'ontouchstart' in window || !storage.boolean('scrollMoves').getOrDefault(true)
+              ? undefined
+              : bind(
+                  'wheel',
+                  stepwiseScroll(
+                    e => {
+                      if (e.deltaY > 0) next(ctrl);
+                      else if (e.deltaY < 0) prev(ctrl);
+                      ctrl.redraw();
+                    },
+                    () => ctrl.isPlaying(),
+                  ),
+                  undefined,
+                  false,
+                ),
         },
-        [
-          renderBlindfoldToggle(ctrl.blindfold),
-          hl(
-            'div.round__app__board.main-board' + (hideBoard ? '.blindfold' : ''),
-            {
-              hook:
-                'ontouchstart' in window || !storage.boolean('scrollMoves').getOrDefault(true)
-                  ? undefined
-                  : bind(
-                      'wheel',
-                      stepwiseScroll(
-                        e => {
-                          if (e.deltaY > 0) next(ctrl);
-                          else if (e.deltaY < 0) prev(ctrl);
-                          ctrl.redraw();
-                        },
-                        () => ctrl.isPlaying(),
-                      ),
-                      undefined,
-                      false,
-                    ),
-            },
-            [renderGround(ctrl), ctrl.promotion.view(ctrl.data.game.variant.key === 'antichess')],
-          ),
-          ctrl.voiceMove && renderVoiceBar(ctrl.voiceMove.ctrl, ctrl.redraw),
-          ctrl.keyboardHelp && view(ctrl),
-          crazyView(ctrl, topColor, 'top') || materialDiffs[0],
-          renderTable(ctrl),
-          crazyView(ctrl, bottomColor, 'bottom') || materialDiffs[1],
-          ctrl.keyboardMove && renderKeyboardMove(ctrl.keyboardMove),
-        ],
-      );
+        [renderGround(ctrl), ctrl.promotion.view(d.game.variant.key === 'antichess')],
+      ),
+      ctrl.voiceMove && renderVoiceBar(ctrl.voiceMove.ctrl, ctrl.redraw),
+      ctrl.keyboardHelp && view(ctrl),
+      crazyView(ctrl, topColor, 'top') || materialDiffs[0],
+      renderTable(ctrl),
+      crazyView(ctrl, bottomColor, 'bottom') || materialDiffs[1],
+      ctrl.keyboardMove && renderKeyboardMove(ctrl.keyboardMove),
+    ],
+  );
 }
 
 export function endGameView(): void {

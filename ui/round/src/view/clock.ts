@@ -61,12 +61,7 @@ const goBerserk = (ctrl: RoundController, color: Color) =>
     hook: bind('click', ctrl.goBerserk),
   });
 
-const clockSide = (
-  ctrl: RoundController,
-  color: Color,
-  position: TopOrBottom,
-  ranks: TournamentRanks | undefined,
-) =>
+const clockSide = (ctrl: RoundController, color: Color, position: TopOrBottom, ranks?: TournamentRanks) =>
   ranks &&
   !showBerserk(ctrl, color) &&
   hl('div.tour-rank.' + position, { attrs: { title: 'Current tournament rank' } }, '#' + ranks[color]);
