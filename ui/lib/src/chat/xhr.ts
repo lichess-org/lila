@@ -16,7 +16,7 @@ export const setNote = (id: string, text: string): Promise<any> =>
     body: form({ text }),
   });
 
-const noteUrl = (id: string) => `/g/${id}/note`;
+const noteUrl = (id: string) => `/game/${id}/note`;
 
 export const timeout = (
   resourceId: string,

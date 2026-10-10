@@ -147,7 +147,7 @@ async function boot(
     });
 
   if (location.pathname.lastIndexOf('/round-next/', 0) === 0) {
-    history.replaceState(null, '', '/g/' + data.game.id);
+    history.replaceState(null, '', '/game/' + data.game.id);
   }
 
   $('#zentog').on('click', () => pubsub.emit('zen'));

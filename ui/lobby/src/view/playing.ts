@@ -13,7 +13,7 @@ export default function ({ data }: LobbyController) {
   return div(
     '.now-playing',
     data.nowPlaying.map(pov =>
-      a('/g/' + pov.fullId)(`.${pov.variant.key}`, { key: `${pov.gameId}${pov.lastMove}` }, [
+      a('/game/' + pov.fullId)(`.${pov.variant.key}`, { key: `${pov.gameId}${pov.lastMove}` }, [
         span('.mini-board.cg-wrap.is2d', {
           'data-state': `${pov.fen},${pov.orientation || pov.color},${pov.lastMove}`,
           hook: onInsert(initMiniBoard),

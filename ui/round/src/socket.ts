@@ -151,7 +151,7 @@ export function make(send: RoundSocketSend, ctrl: RoundController): RoundSocket 
       ) {
         ctrl.setRedirecting();
         site.sound.play('move');
-        location.href = '/g/' + gameId;
+        location.href = '/game/' + gameId;
       }
     },
     simulEnd(simul: Simul) {

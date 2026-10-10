@@ -296,7 +296,7 @@ export function watcherFollowUp(ctrl: RoundController): LooseVNode {
     d.game.rematch &&
       hl(
         'a.fbt.text',
-        { attrs: { href: `/g/${d.game.rematch}/${d.opponent.color}` } },
+        { attrs: { href: `/game/${d.game.rematch}/${d.opponent.color}` } },
         i18n.site.viewRematch,
       ),
     d.tournament &&

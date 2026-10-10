@@ -202,4 +202,4 @@ export function view(ctrl: AnalyseCtrl): VNode {
   ]);
 }
 
-const contRoute = (data: GameData, mode: ContinueMode): string => `/g/${data.game.id}/continue/${mode}`;
+const contRoute = (data: GameData, mode: ContinueMode): string => `/game/${data.game.id}/continue/${mode}`;

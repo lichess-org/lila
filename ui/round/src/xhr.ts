@@ -4,7 +4,9 @@ import type RoundController from './ctrl';
 import type { RoundData } from './interfaces';
 
 export const reload = (d: RoundData): Promise<RoundData> => {
-  const url = d.player.spectator ? `/g/${d.game.id}/${d.player.color}` : `/g/${d.game.id}${d.player.id}`;
+  const url = d.player.spectator
+    ? `/game/${d.game.id}/${d.player.color}`
+    : `/game/${d.game.id}${d.player.id}`;
   return json(url);
 };
 

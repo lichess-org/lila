@@ -21,7 +21,7 @@ export default class ForecastCtrl {
     this.fixAll();
   }
 
-  private readonly saveUrl = () => `/g/${this.data.game.id}${this.data.player.id}/forecasts`;
+  private readonly saveUrl = () => `/game/${this.data.game.id}${this.data.player.id}/forecasts`;
 
   private readonly keyOf = (fc: ForecastStep[]): string =>
     fc.map(node => node.ply + ':' + node.uci).join(',');

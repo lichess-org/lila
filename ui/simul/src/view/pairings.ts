@@ -38,7 +38,7 @@ const miniPairing = (ctrl: SimulCtrl) => (pairing: Pairing) => {
           ? renderClock(opposite(game.orient), game.clock[opposite(game.orient)])
           : h('span.mini-game__result', game.winner ? (game.winner === game.orient ? 0 : 1) : '½'),
       ]),
-      h('a.cg-wrap', { attrs: { href: `/g/${game.id}/${game.orient}` } }),
+      h('a.cg-wrap', { attrs: { href: `/game/${game.id}/${game.orient}` } }),
       h('span.mini-game__player', [
         h('span'),
         game.clock

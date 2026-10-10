@@ -149,7 +149,7 @@ function showGameTable(ctrl: AnalyseCtrl, fen: FEN, title: string, games: Openin
 function openGame(ctrl: AnalyseCtrl, gameId: string) {
   const orientation = ctrl.chessground.state.orientation;
   const fenParam = ctrl.node.ply > 0 ? '?fen=' + ctrl.node.fen : '';
-  let url = '/g/' + gameId + '/' + orientation + fenParam;
+  let url = '/game/' + gameId + '/' + orientation + fenParam;
   if (ctrl.explorer.db() === 'masters') url = '/import/master' + url;
   window.open(url, '_blank');
 }
