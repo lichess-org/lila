@@ -6379,10 +6379,8 @@ interface I18n {
     topicChessBot: string;
     /** Chess engine */
     topicChessEngine: string;
-    /** Chess Personalities */
+    /** Chess personalities */
     topicChessPersonalities: string;
-    /** Chess variant */
-    topicChessVariant: string;
     /** Off topic */
     topicOffTopic: string;
     /** Over the board */
