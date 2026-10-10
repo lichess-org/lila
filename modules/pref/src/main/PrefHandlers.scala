@@ -77,7 +77,7 @@ private object PrefHandlers:
         blogFilter = r.strO("blogFilter").flatMap(BlogQualityFilter.byName.get) | d.blogFilter,
         usingAltSocket = r.getO("usingAltSocket"),
         sayGG = r.getD("sayGG", d.sayGG),
-        tags = r.getD("tags", d.tags)
+        hasDgt = r.getD("hasDgt", d.hasDgt)
       )
 
     def writes(w: BSON.Writer, o: Pref) =
@@ -127,5 +127,5 @@ private object PrefHandlers:
         "board" -> o.board,
         "blogFilter" -> o.blogFilter.ordinal,
         "sayGG" -> o.sayGG,
-        "tags" -> o.tags
+        "hasDgt" -> o.hasDgt
       )
