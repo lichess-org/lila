@@ -3243,10 +3243,18 @@ interface I18n {
     timeTooMuch: string;
   };
   report: {
+    /** Cheat */
+    cheat: string;
+    /** Please provide at least one link to a game for review. */
+    'error.provideOneCheatedGameLink': string;
+    /** We can process your report faster if you write in English. */
+    processReportFasterInEnglish: string;
     /** Read more about Lichess reports */
     readMoreAboutLichessReports: string;
     /** Sandbagging / Boosting / Match fixing */
     reportBoost: string;
+    /** Paste the link to the game(s) and explain what is wrong about this user's behaviour. Don't just say "they cheat", but tell us how you came to this conclusion. */
+    reportCheatBoostHelp: string;
     /** Harassment / Bullying / Stalking */
     reportHarass: string;
     /** Hate Speech / Sexism */
@@ -3259,10 +3267,16 @@ interface I18n {
     reportSpam: string;
     /** Stalling / Leaving Games */
     reportStall: string;
+    /** Explain why this username is offensive. Don't just say "it's offensive/inappropriate," but tell us how you came to this conclusion, especially if the offense is obscure, not in English, in slang, or a historical/cultural reference. */
+    reportUsernameHelp: string;
     /** Verbal abuse / Cursing / Trolling */
     reportVerbalAbuse: string;
     /** Violence / Threats */
     reportViolence: string;
+    /** Troll */
+    troll: string;
+    /** What's the matter? */
+    whatIsTheMatter: string;
   };
   search: {
     /** Advanced search */
@@ -3593,8 +3607,6 @@ interface I18n {
     chat: string;
     /** Chat room */
     chatRoom: string;
-    /** Cheat */
-    cheat: string;
     /** Cheat Detected */
     cheatDetected: string;
     /** Checkable king */
@@ -3879,8 +3891,6 @@ interface I18n {
     'error.minLength': I18nFormat;
     /** Please don't use your username as your password. */
     'error.namePassword': string;
-    /** Please provide at least one link to a game for review. */
-    'error.provideOneCheatedGameLink': string;
     /** This field is required */
     'error.required': string;
     /** Invalid value */
@@ -4521,8 +4531,6 @@ interface I18n {
     privacyPolicy: string;
     /** Proceed to %s */
     proceedToX: I18nFormat;
-    /** We can process your report faster if you write in English. */
-    processReportFasterInEnglish: string;
     /** Profile */
     profile: string;
     /** Profile completion: %s */
@@ -4627,10 +4635,6 @@ interface I18n {
     replyToThisTopic: string;
     /** Report a user */
     reportAUser: string;
-    /** Paste the link to the game(s) and explain what is wrong about this user's behaviour. Don't just say "they cheat", but tell us how you came to this conclusion. */
-    reportCheatBoostHelp: string;
-    /** Explain why this username is offensive. Don't just say "it's offensive/inappropriate," but tell us how you came to this conclusion, especially if the offense is obscure, not in English, in slang, or a historical/cultural reference. */
-    reportUsernameHelp: string;
     /** Report %s to moderators */
     reportXToModerators: I18nFormat;
     /** Request a computer analysis */
@@ -4937,8 +4941,6 @@ interface I18n {
     tpTimeSpentOnTV: I18nFormat;
     /** Time spent playing: %s */
     tpTimeSpentPlaying: I18nFormat;
-    /** Troll */
-    troll: string;
     /** Try another move for black */
     tryAnotherMoveForBlack: string;
     /** Try another move for white */
@@ -5059,8 +5061,6 @@ interface I18n {
     weHaveSentYouAnEmailClickTheLink: string;
     /** We've sent an email to %s. Click the link in the email to reset your password. */
     weHaveSentYouAnEmailTo: I18nFormat;
-    /** What's the matter? */
-    whatIsIheMatter: string;
     /** What username did you register with? */
     whatSignupUsername: string;
     /** White */

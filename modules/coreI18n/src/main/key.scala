@@ -1667,6 +1667,9 @@ object I18nKey:
     val `shareableNbPuzzlesSolved`: I18nKey = "recap:shareableNbPuzzlesSolved"
 
   object report:
+    val `whatIsTheMatter`: I18nKey = "report:whatIsTheMatter"
+    val `cheat`: I18nKey = "report:cheat"
+    val `troll`: I18nKey = "report:troll"
     val `reportStall`: I18nKey = "report:reportStall"
     val `reportBoost`: I18nKey = "report:reportBoost"
     val `reportVerbalAbuse`: I18nKey = "report:reportVerbalAbuse"
@@ -1677,6 +1680,10 @@ object I18nKey:
     val `reportSpam`: I18nKey = "report:reportSpam"
     val `readMoreAboutLichessReports`: I18nKey = "report:readMoreAboutLichessReports"
     val `reportMaximumCharacters`: I18nKey = "report:reportMaximumCharacters"
+    val `reportCheatBoostHelp`: I18nKey = "report:reportCheatBoostHelp"
+    val `reportUsernameHelp`: I18nKey = "report:reportUsernameHelp"
+    val `processReportFasterInEnglish`: I18nKey = "report:processReportFasterInEnglish"
+    val `error.provideOneCheatedGameLink`: I18nKey = "report:error.provideOneCheatedGameLink"
 
   object search:
     val `search`: I18nKey = "search:search"
@@ -2182,14 +2189,7 @@ object I18nKey:
     val `reportAUser`: I18nKey = "reportAUser"
     val `user`: I18nKey = "user"
     val `reason`: I18nKey = "reason"
-    val `whatIsIheMatter`: I18nKey = "whatIsIheMatter"
-    val `cheat`: I18nKey = "cheat"
-    val `troll`: I18nKey = "troll"
     val `other`: I18nKey = "other"
-    val `reportCheatBoostHelp`: I18nKey = "reportCheatBoostHelp"
-    val `reportUsernameHelp`: I18nKey = "reportUsernameHelp"
-    val `processReportFasterInEnglish`: I18nKey = "processReportFasterInEnglish"
-    val `error.provideOneCheatedGameLink`: I18nKey = "error.provideOneCheatedGameLink"
     val `by`: I18nKey = "by"
     val `importedByX`: I18nKey = "importedByX"
     val `thisTopicIsNowClosed`: I18nKey = "thisTopicIsNowClosed"

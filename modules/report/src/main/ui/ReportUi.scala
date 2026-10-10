@@ -115,7 +115,7 @@ final class ReportUi(helpers: Helpers)(menu: Context ?=> Frag):
         f,
         translatedReasonChoices.collect:
           case (r, t) if filterReason(from)(r) => (r.key, t),
-        trans.site.whatIsIheMatter.txt().some
+        trans.report.whatIsTheMatter.txt().some
       )
 
   private def aboutReports(using Context) = p(
@@ -129,27 +129,26 @@ final class ReportUi(helpers: Helpers)(menu: Context ?=> Frag):
 
   private def descriptionHelp(current: String)(using ctx: Context) = frag:
     import Reason.*
-    val maxLength = trans.report.reportMaximumCharacters.txt()
     translatedReasonChoices._1F.distinct
       .map: reason =>
         span(
           cls := List(s"report-reason report-reason-${reason.key}" -> true, "none" -> (current != reason.key))
         )(
-          if reason == Cheat || reason == Boost then trans.site.reportCheatBoostHelp()
-          else if reason == Username then trans.site.reportUsernameHelp()
+          if reason == Cheat || reason == Boost then trans.report.reportCheatBoostHelp()
+          else if reason == Username then trans.report.reportUsernameHelp()
           else
             "Please provide as much information as possible, including relevant game links, posts, and messages."
           ,
           " ",
-          trans.site.processReportFasterInEnglish(),
+          trans.report.processReportFasterInEnglish(),
           " ",
-          maxLength
+          trans.report.reportMaximumCharacters()
         )
 
   private def translatedReasonChoices(using Translate) =
     import Reason.*
     List(
-      (Cheat, trans.site.cheat.txt()),
+      (Cheat, trans.report.cheat.txt()),
       (Stall, trans.report.reportStall.txt()),
       (Boost, trans.report.reportBoost.txt()),
       (VerbalAbuse, trans.report.reportVerbalAbuse.txt()),
