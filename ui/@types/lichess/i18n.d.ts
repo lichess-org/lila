@@ -6383,8 +6383,6 @@ interface I18n {
     topicChessPersonalities: string;
     /** Chess variant */
     topicChessVariant: string;
-    /** Lichess */
-    topicLichess: string;
     /** Off topic */
     topicOffTopic: string;
     /** Over the board */

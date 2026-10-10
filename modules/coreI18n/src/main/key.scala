@@ -3247,7 +3247,6 @@ object I18nKey:
     val `topicOverTheBoard`: I18nKey = "ublog:topicOverTheBoard"
     val `topicChessVariant`: I18nKey = "ublog:topicChessVariant"
     val `topicSoftwareDevelopment`: I18nKey = "ublog:topicSoftwareDevelopment"
-    val `topicLichess`: I18nKey = "ublog:topicLichess"
     val `topicOffTopic`: I18nKey = "ublog:topicOffTopic"
     val `topicPosts`: I18nKey = "ublog:topicPosts"
     val `etiquette`: I18nKey = "ublog:etiquette"

@@ -47,6 +47,7 @@ object UblogTopic extends OpaqueString[UblogTopic]:
         case "Opening" => I18nKey.site.opening
         case "Endgame" => I18nKey.site.endgame
         case "Tournament" => I18nKey.site.tournament
+        case "Lichess" => I18nKey("Lichess")
         case t => I18nKey(s"ublog:topic${t.split(" ").map(_.capitalize).mkString}")
     .toMap
 
