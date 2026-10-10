@@ -36,7 +36,9 @@ export function resolve(
     const pkg = findPkg(context.parentURL ?? import.meta.url);
     if (pkg) return nextResolve(`${pkg}/${specifier.slice(2)}`, context);
   }
-
+  if (specifier.startsWith('#/')) {
+    return nextResolve(new URL(`./${specifier.slice(2)}.mts`, import.meta.url).href, context);
+  }
   const isFileUrl = specifier.startsWith('file:');
   if (!isFileUrl && !specifier.startsWith('.')) {
     return nextResolve(specifier, context);

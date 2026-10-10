@@ -1,7 +1,8 @@
 import assert from 'node:assert/strict';
 import { describe, test } from 'node:test';
 
-import { each } from '../../.test/helpers.mts';
+import { each } from '#/helpers';
+
 import { enhance, type EnhanceOpts, linkRegex, movePattern, userPattern } from '../src/richText';
 
 describe('test regex patterns', () => {
