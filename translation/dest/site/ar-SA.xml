@@ -185,6 +185,7 @@
   <string name="flipBoard">تدوير الرقعة</string>
   <string name="toggleLocalEngine">تفعيل او إيقاف المحرك المحلي</string>
   <string name="engineSettings">إعدادات المحرك</string>
+  <string name="engine">محرّك الشطرنج</string>
   <string name="enginesFromStrongestToWeakest">المحركات من الأقوى إلى ألأضعف</string>
   <string name="illegalPosition">وضعية غير قانونية</string>
   <string name="threefoldRepetition">تكرار ثلاثي</string>
@@ -942,7 +943,9 @@ https://lichess. org/report.</string>
   <string name="downloadAnnotated">تحميل مع الشرح</string>
   <string name="downloadRaw">تحميل بدون الشرح</string>
   <string name="downloadImported">تحميل المستورد</string>
+  <string name="downloadMyGames">تنزيل مبارياتي</string>
   <string name="downloadAllGames">حمِل كل المباريات</string>
+  <string name="downloadResults">تنزيل النتائج</string>
   <string name="crosstable">تاريخ</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">يمكنك استخدام الزر الاوسط للفأرة على الرقعة لتنفيذ حركة من الدور.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">مرر فوق المتغييرات لاستعراضها.</string>

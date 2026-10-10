@@ -54,7 +54,9 @@
   <string name="ratedGame">Seules les parties classées sont prises en compte dans le calcul du classement. Les parties amicales ne sont pas comptées.</string>
   <string name="botRatingAbuse">Dans certains cas, si vous jouez contre un bot, une partie classée ne vous donnera pas de points s\'il est déterminé que vous avez abusé du bot pour obtenir des points.</string>
   <string name="errorPage">Page d\'erreur</string>
-  <string name="reportErrorPage">Si un message d\'erreur s\'est affiché, vous pouvez le signaler :</string>
+  <string name="reportTheBug">Signaler un bogue :</string>
+  <string name="securityVulnerability">Faille de sécurité</string>
+  <string name="otherBug">Autre bogue</string>
   <string name="learnHowToMakeBroadcasts">Apprenez comment réaliser vos propres diffusions sur Lichess</string>
   <string name="banAppeal">Demande d\'appel pour un bannissement ou une restriction IP</string>
   <string name="engineAppeal">Tricherie ou utilisation d\'un programme</string>

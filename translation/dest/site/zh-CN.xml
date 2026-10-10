@@ -160,6 +160,7 @@
   <string name="flipBoard">翻转棋盘</string>
   <string name="toggleLocalEngine">切换本地引擎</string>
   <string name="engineSettings">引擎设置</string>
+  <string name="engine">引擎</string>
   <string name="enginesFromStrongestToWeakest">引擎从强到弱</string>
   <string name="illegalPosition">非法局面</string>
   <string name="threefoldRepetition">三次重复局面</string>
@@ -752,7 +753,9 @@
   <string name="downloadAnnotated">下载有评注的 PGN</string>
   <string name="downloadRaw">下载无评注的 PGN</string>
   <string name="downloadImported">下载导入的对局</string>
+  <string name="downloadMyGames">下载我的对局</string>
   <string name="downloadAllGames">下载所有对局</string>
+  <string name="downloadResults">下载成绩</string>
   <string name="crosstable">比分表</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">在棋盘上滚动以浏览对局着法。</string>
   <string name="scrollOverComputerVariationsToPreviewThem">在电脑变着上滚动以预览它们。</string>

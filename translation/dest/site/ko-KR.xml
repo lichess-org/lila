@@ -160,6 +160,7 @@
   <string name="flipBoard">보드 돌리기</string>
   <string name="toggleLocalEngine">로컬 엔진 켜기/끄기</string>
   <string name="engineSettings">엔진 설정</string>
+  <string name="engine">엔진</string>
   <string name="enginesFromStrongestToWeakest">엔진 (강한 순서대로)</string>
   <string name="illegalPosition">합법적이지 않은 포지션</string>
   <string name="threefoldRepetition">3회 동형반복</string>
@@ -752,7 +753,9 @@
   <string name="downloadAnnotated">주석이 달린 기보 다운로드</string>
   <string name="downloadRaw">기보 다운로드</string>
   <string name="downloadImported">불러온 기보 다운로드</string>
+  <string name="downloadMyGames">나의 대국 다운로드</string>
   <string name="downloadAllGames">모든 대국 다운로드</string>
+  <string name="downloadResults">다운로드 결과</string>
   <string name="crosstable">점수판</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">마우스 스크롤을 통해 수순을 앞뒤로 돌려볼 수 있습니다.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">컴퓨터 라인 미리보기 위해서는 커서를 올리세요.</string>

@@ -88,7 +88,7 @@
   <string name="moveListSettings">Lista de movimentos</string>
   <string name="boardSettings">Tabuleiro</string>
   <string name="analysisSettings">Configurações de análise</string>
-  <string name="maneuverArrowsHelp">Sequência de lances de computador para uma peça</string>
+  <string name="maneuverArrowsHelp">Sequência de lances de engine para uma peça</string>
   <string name="hoverOverSettingLabelsForHelp">Passe o mouse sobre as etiquetas de configuração para obter ajuda</string>
   <string name="network">Rede</string>
   <string name="youAreCurrentlyUsingDirectRouting">Atualmente você está usando o roteamento direto.</string>

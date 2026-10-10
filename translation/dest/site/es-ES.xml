@@ -165,6 +165,7 @@
   <string name="flipBoard">Girar el tablero</string>
   <string name="toggleLocalEngine">Alternar motor local</string>
   <string name="engineSettings">Ajustes del motor</string>
+  <string name="engine">Motor</string>
   <string name="enginesFromStrongestToWeakest">Motores de los más fuertes a los más débiles</string>
   <string name="illegalPosition">Posición ilegal</string>
   <string name="threefoldRepetition">Triple repetición</string>
@@ -789,7 +790,9 @@ Amigos jugando: %2$s</string>
   <string name="downloadAnnotated">Descargar la partida anotada</string>
   <string name="downloadRaw">Descargar la partida sin anotar</string>
   <string name="downloadImported">Descargar la partida importada</string>
+  <string name="downloadMyGames">Descargar mis partidas</string>
   <string name="downloadAllGames">Descargar todas las partidas</string>
+  <string name="downloadResults">Descargar resultados</string>
   <string name="crosstable">Tabla cruzada</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">También puedes usar la rueda del ratón para desplazarte por la partida.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Mantén pulsado sobre las variantes del análisis para previsualizarlas.</string>

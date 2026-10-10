@@ -7,7 +7,10 @@
   <string name="rememberTokenUse">Pamiętaj więc do czego służy ten token</string>
   <string name="whatTheTokenCanDo">Co token może zrobić w Twoim imieniu:</string>
   <string name="oauthCatUserAccount">Konto użytkownika</string>
+  <string name="oauthCatInteractions">Interakcje</string>
+  <string name="oauthCatPlayGames">Zagraj</string>
   <string name="oauthCatStudiesBroadcasts">Opracowania &amp; Transmisje</string>
+  <string name="oauthCatExternalPlay">Dostęp z zewnątrz</string>
   <string name="oauthCatExternalEngine">Silnik zewnętrzny</string>
   <string name="doNotShareIt">Token zapewni dostęp do Twojego konta. NIE udostępniaj go nikomu!</string>
   <string name="copyTokenNow">Skopiuj swój nowy osobisty token dostępu. Nie można go zobaczyć ponownie!</string>
@@ -19,6 +22,7 @@
   <string name="challengeBulk">Tworzenie wielu partii na raz dla innych graczy</string>
   <string name="studyRead">Odczyt prywatnych opracowań i transmisji</string>
   <string name="studyWrite">Tworzenie, edycja i usuwanie opracowań oraz transmisji</string>
+  <string name="tournamentRead">Zobacz prywatne turnieje</string>
   <string name="tournamentWrite">Tworzenie, edycja i dołączanie do turniejów</string>
   <string name="racerWrite">Tworzenie i dołączanie do wyścigów w rozwiązywaniu zadań</string>
   <string name="puzzleRead">Odczyt aktywności w rozwiązywaniu zadań</string>
@@ -29,6 +33,7 @@
   <string name="followRead">Odczyt listy obserwowanych graczy</string>
   <string name="followWrite">Rozpoczęcie i zakończenie obserwowania innych graczy</string>
   <string name="msgWrite">Wysyłanie prywatnych wiadomości do innych graczy</string>
+  <string name="readWriteNotesOnPlayers">Zobacz i zapisuj notatki o innych graczach</string>
   <string name="boardPlay">Rozgrywanie partii na szachownicy za pomocą API</string>
   <string name="botPlay">Rozgrywanie partii z botami za pomocą API</string>
   <string name="engineRead">Podgląd i używanie zewnętrznego silnika szachowego</string>

@@ -165,6 +165,7 @@
   <string name="flipBoard">Girar el tauler</string>
   <string name="toggleLocalEngine">Activa/Desactiva motor d\'avaluació local</string>
   <string name="engineSettings">Configuració del motor d\'avaluació</string>
+  <string name="engine">Motor</string>
   <string name="enginesFromStrongestToWeakest">Motors d\'avaluació de més a menys potent</string>
   <string name="threefoldRepetition">Triple repetició</string>
   <string name="claimADraw">Reclamar taules</string>
@@ -777,7 +778,9 @@ Amics jugant: %2$s</string>
   <string name="downloadAnnotated">Descàrrega anotada</string>
   <string name="downloadRaw">Descàrrega prima</string>
   <string name="downloadImported">Descàrrega importada</string>
+  <string name="downloadMyGames">Descarrega les meves partides</string>
   <string name="downloadAllGames">Descarrega totes les partides</string>
+  <string name="downloadResults">Descarregar resultats</string>
   <string name="crosstable">Taula creuada</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">També pots desplaçar-te sobre el tauler per moure en el joc.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Mantingueu el ratolí sobre les variants d\'anàlisi per a previsualitzar-les.</string>

@@ -54,7 +54,6 @@
   <string name="ratedGame">Forsikre deg om at du spilte et ratet parti. Uformelle partier påvirker ikke spillernes rating.</string>
   <string name="botRatingAbuse">Dersom det blir slått fast at en spiller misbruker en botkonto for å manipulere ratingpoengene, kan det hende det ikke blir gitt poeng for partiet.</string>
   <string name="errorPage">Feilside</string>
-  <string name="reportErrorPage">Hvis du støtte på en feilside, kan du rapportere det:</string>
   <string name="learnHowToMakeBroadcasts">Lær hvordan du lager overføringer hos Lichess</string>
   <string name="banAppeal">Klage ved utestenging eller IP-restriksjon</string>
   <string name="engineAppeal">Anmerkning om juks eller maskinbruk</string>

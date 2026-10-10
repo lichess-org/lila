@@ -176,6 +176,7 @@
   <string name="flipBoard">Перевернути дошку</string>
   <string name="toggleLocalEngine">Перемкнути локальний рушій</string>
   <string name="engineSettings">Налаштування рушія</string>
+  <string name="engine">Рушій</string>
   <string name="enginesFromStrongestToWeakest">Рушії від найкращого до найгіршого</string>
   <string name="illegalPosition">Недійсна позиція</string>
   <string name="threefoldRepetition">Триразове повторення</string>

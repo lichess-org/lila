@@ -165,6 +165,7 @@
   <string name="flipBoard">Brett drehen</string>
   <string name="toggleLocalEngine">Lokale Engine umschalten</string>
   <string name="engineSettings">Engine-Einstellungen</string>
+  <string name="engine">Engine</string>
   <string name="enginesFromStrongestToWeakest">Engines von stärkster bis schwächster</string>
   <string name="illegalPosition">Ungültige Stellung</string>
   <string name="threefoldRepetition">Dreifache Stellungswiederholung</string>
@@ -789,7 +790,9 @@ Freunde am Spielen: %2$s</string>
   <string name="downloadAnnotated">Download kommentiert</string>
   <string name="downloadRaw">Download unkommentiert</string>
   <string name="downloadImported">Importiertes Spiel herunterladen</string>
+  <string name="downloadMyGames">Meine Partien herunterladen</string>
   <string name="downloadAllGames">Lade alle Partien herunter</string>
+  <string name="downloadResults">Ergebnisse herunterladen</string>
   <string name="crosstable">Matchverlauf</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Du kannst auch auf dem Brett scrollen, um die Partie durchzugehen.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Bewege den Mauszeiger über Computervarianten, um eine Vorschau zu erhalten.</string>

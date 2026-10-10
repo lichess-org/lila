@@ -69,7 +69,7 @@
   <string name="usingServerAnalysis">Análise de servidor em uso</string>
   <string name="loadingEngine">Carregando ...</string>
   <string name="calculatingMoves">Calculando lances...</string>
-  <string name="engineFailed">Erro ao carregar o engine</string>
+  <string name="engineFailed">Erro ao carregar a engine</string>
   <string name="cloudAnalysis">Análise na nuvem</string>
   <string name="goDeeper">Aprofundar</string>
   <string name="showThreat">Mostrar ameaça</string>
@@ -163,9 +163,10 @@
   </plurals>
   <string name="moveTimes">Tempo por movimento</string>
   <string name="flipBoard">Girar o tabuleiro</string>
-  <string name="toggleLocalEngine">Alternar motor local</string>
+  <string name="toggleLocalEngine">Alternar engine local</string>
   <string name="engineSettings">Configurações de engine</string>
-  <string name="enginesFromStrongestToWeakest">Motores do mais forte ao mais fraco</string>
+  <string name="engine">Engine</string>
+  <string name="enginesFromStrongestToWeakest">Engine mais forte até a mais fraca</string>
   <string name="illegalPosition">Posição ilegal</string>
   <string name="threefoldRepetition">Tripla repetição</string>
   <string name="claimADraw">Reivindicar empate</string>
@@ -788,7 +789,9 @@ Amigos jogando: %2$s</string>
   <string name="downloadAnnotated">Baixar anotação</string>
   <string name="downloadRaw">Baixar texto</string>
   <string name="downloadImported">Baixar partida importada</string>
+  <string name="downloadMyGames">Download das minhas partidas</string>
   <string name="downloadAllGames">Baixar todas as partidas</string>
+  <string name="downloadResults">Resultados do download</string>
   <string name="crosstable">Tabela</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Você também pode rolar sobre o tabuleiro para percorrer as jogadas.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Passe o mouse pelas variações do computador para visualizá-las.</string>
