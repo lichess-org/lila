@@ -1666,6 +1666,18 @@ object I18nKey:
     val `puzzlesThanksVoting`: I18nKey = "recap:puzzlesThanksVoting"
     val `shareableNbPuzzlesSolved`: I18nKey = "recap:shareableNbPuzzlesSolved"
 
+  object report:
+    val `reportStall`: I18nKey = "report:reportStall"
+    val `reportBoost`: I18nKey = "report:reportBoost"
+    val `reportVerbalAbuse`: I18nKey = "report:reportVerbalAbuse"
+    val `reportViolence`: I18nKey = "report:reportViolence"
+    val `reportHarass`: I18nKey = "report:reportHarass"
+    val `reportSelfHarm`: I18nKey = "report:reportSelfHarm"
+    val `reportHate`: I18nKey = "report:reportHate"
+    val `reportSpam`: I18nKey = "report:reportSpam"
+    val `readMoreAboutLichessReports`: I18nKey = "report:readMoreAboutLichessReports"
+    val `reportMaximumCharacters`: I18nKey = "report:reportMaximumCharacters"
+
   object search:
     val `search`: I18nKey = "search:search"
     val `advancedSearch`: I18nKey = "search:advancedSearch"

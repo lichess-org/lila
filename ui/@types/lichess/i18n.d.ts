@@ -3242,6 +3242,28 @@ interface I18n {
     /** That is way too much chess. */
     timeTooMuch: string;
   };
+  report: {
+    /** Read more about Lichess reports */
+    readMoreAboutLichessReports: string;
+    /** Sandbagging / Boosting / Match fixing */
+    reportBoost: string;
+    /** Harassment / Bullying / Stalking */
+    reportHarass: string;
+    /** Hate Speech / Sexism */
+    reportHate: string;
+    /** Maximum 3000 characters. */
+    reportMaximumCharacters: string;
+    /** Suicide / Self-Injury */
+    reportSelfHarm: string;
+    /** Spamming */
+    reportSpam: string;
+    /** Stalling / Leaving Games */
+    reportStall: string;
+    /** Verbal abuse / Cursing / Trolling */
+    reportVerbalAbuse: string;
+    /** Violence / Threats */
+    reportViolence: string;
+  };
   search: {
     /** Advanced search */
     advancedSearch: string;

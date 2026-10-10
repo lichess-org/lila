@@ -118,18 +118,18 @@ final class ReportUi(helpers: Helpers)(menu: Context ?=> Frag):
         trans.site.whatIsIheMatter.txt().some
       )
 
-  private val aboutReports = p(
+  private def aboutReports(using Context) = p(
     a(
       href := routes.Cms.lonePage(lila.core.id.CmsPageKey("report-faq")),
       dataIcon := Icon.InfoCircle,
       cls := "text"
     ):
-      "Read more about Lichess reports"
+      trans.report.readMoreAboutLichessReports()
   )
 
   private def descriptionHelp(current: String)(using ctx: Context) = frag:
     import Reason.*
-    val maxLength = "Maximum 3000 characters."
+    val maxLength = trans.report.reportMaximumCharacters.txt()
     translatedReasonChoices._1F.distinct
       .map: reason =>
         span(
@@ -150,14 +150,14 @@ final class ReportUi(helpers: Helpers)(menu: Context ?=> Frag):
     import Reason.*
     List(
       (Cheat, trans.site.cheat.txt()),
-      (Stall, "Stalling / Leaving Games"),
-      (Boost, "Sandbagging / Boosting / Match fixing"),
-      (VerbalAbuse, "Verbal abuse / Cursing / Trolling"),
-      (Violence, "Violence / Threats"),
-      (Harass, "Harassment / Bullying / Stalking"),
-      (SelfHarm, "Suicide / Self-Injury"),
-      (Hate, "Hate Speech / Sexism"),
-      (Spam, "Spamming"),
+      (Stall, trans.report.reportStall.txt()),
+      (Boost, trans.report.reportBoost.txt()),
+      (VerbalAbuse, trans.report.reportVerbalAbuse.txt()),
+      (Violence, trans.report.reportViolence.txt()),
+      (Harass, trans.report.reportHarass.txt()),
+      (SelfHarm, trans.report.reportSelfHarm.txt()),
+      (Hate, trans.report.reportHate.txt()),
+      (Spam, trans.report.reportSpam.txt()),
       (Username, trans.site.username.txt()),
       (Other, trans.site.other.txt())
     )
