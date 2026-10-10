@@ -3,12 +3,11 @@ import { h, thunk, type VNode } from 'snabbdom';
 import { getPlayer } from 'lib/game';
 import { licon } from 'lib/licon';
 import { bind, dataIcon, onInsert } from 'lib/view';
-import { ratingDiff, profileUrl } from 'lib/view/userLink';
+import { userLink } from 'lib/view/userLink';
 
 import type AnalyseCtrl from '@/ctrl';
+import type { AnalysisSide, GamePhase } from '@/interfaces';
 import { findTag } from '@/study/studyChapters';
-
-import type { AnalysisSide, GamePhase } from '../interfaces';
 
 type AdviceKind = 'inaccuracy' | 'mistake' | 'blunder';
 
@@ -19,20 +18,16 @@ interface Advice {
 }
 
 const renderPlayer = ({ data, study }: AnalyseCtrl, color: Color): VNode => {
-  const player = getPlayer(data, color);
-  if (player.user)
-    return h('a.user-link.ulpt', { attrs: { href: profileUrl(player.user.username) } }, [
-      player.user.username,
-      ' ',
-      ratingDiff(player),
-    ]);
-  return h(
-    'span',
-    player.name ||
-      (player.ai && 'Stockfish level ' + player.ai) ||
-      (study && findTag(study.data.chapter.tags, color)) ||
-      'Anonymous',
-  );
+  const { user, ratingDiff, name, ai } = getPlayer(data, color);
+  return user
+    ? userLink({ ...user, name: user.username, ratingDiff, line: false })
+    : h(
+        'span',
+        name ||
+          (ai && 'Stockfish level ' + ai) ||
+          (study && findTag(study.data.chapter.tags, color)) ||
+          'Anonymous',
+      );
 };
 
 const advices: Advice[] = [
@@ -77,7 +72,7 @@ const renderPhases = (side: AnalysisSide): VNode[] => {
 
 const error = (nb: number, color: Color, advice: Advice) =>
   h(
-    'div.advice-summary__error' + (nb ? `.symbol.${advice.kind}` : ''),
+    'div.advice-summary__error' + (nb ? `.symbol.${advice.kind}` : '.no-error'),
     { attrs: nb ? { 'data-color': color, 'data-symbol': advice.symbol } : {} },
     advice.i18n.asArray(nb, h('strong', nb)),
   );

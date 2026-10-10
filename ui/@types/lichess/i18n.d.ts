@@ -3242,6 +3242,42 @@ interface I18n {
     /** That is way too much chess. */
     timeTooMuch: string;
   };
+  report: {
+    /** Cheat */
+    cheat: string;
+    /** We can process your report faster if you write in English. */
+    processReportFasterInEnglish: string;
+    /** Please provide at least one link to a game for review. */
+    provideOneCheatedGameLink: string;
+    /** Read more about Lichess reports */
+    readMoreAboutLichessReports: string;
+    /** Sandbagging / Boosting / Match fixing */
+    reportBoost: string;
+    /** Paste the link to the game(s) and explain what is wrong about this user's behaviour. Don't just say "they cheat", but tell us how you came to this conclusion. */
+    reportCheatBoostHelp: string;
+    /** Harassment / Bullying / Stalking */
+    reportHarass: string;
+    /** Hate Speech / Sexism */
+    reportHate: string;
+    /** Maximum 3000 characters. */
+    reportMaximumCharacters: string;
+    /** Suicide / Self-Injury */
+    reportSelfHarm: string;
+    /** Spamming */
+    reportSpam: string;
+    /** Stalling / Leaving Games */
+    reportStall: string;
+    /** Explain why this username is offensive. Don't just say "it's offensive/inappropriate," but tell us how you came to this conclusion, especially if the offense is obscure, not in English, in slang, or a historical/cultural reference. */
+    reportUsernameHelp: string;
+    /** Verbal abuse / Cursing / Trolling */
+    reportVerbalAbuse: string;
+    /** Violence / Threats */
+    reportViolence: string;
+    /** Troll */
+    troll: string;
+    /** What's the matter? */
+    whatIsTheMatter: string;
+  };
   search: {
     /** Advanced search */
     advancedSearch: string;
@@ -3857,8 +3893,6 @@ interface I18n {
     'error.minLength': I18nFormat;
     /** Please don't use your username as your password. */
     'error.namePassword': string;
-    /** Please provide at least one link to a game for review. */
-    'error.provideOneCheatedGameLink': string;
     /** This field is required */
     'error.required': string;
     /** Invalid value */
@@ -5037,8 +5071,6 @@ interface I18n {
     weHaveSentYouAnEmailClickTheLink: string;
     /** We've sent an email to %s. Click the link in the email to reset your password. */
     weHaveSentYouAnEmailTo: I18nFormat;
-    /** What's the matter? */
-    whatIsIheMatter: string;
     /** What username did you register with? */
     whatSignupUsername: string;
     /** White */

@@ -14,15 +14,17 @@
 }
 
 .advice-summary {
-  @extend %flex-column;
+  @extend %flex-column, %box-neat;
 
   color: $c-font-page;
   font-size: 0.9em;
+  padding: 0.75em 0.75em 1em;
+  background: $c-bg-box;
 
   &__player {
-    text-align: center;
     font-weight: bold;
     margin-bottom: 0.5em;
+    padding-inline: 0.85em;
   }
 
   &__sections {
@@ -71,6 +73,10 @@
         color: color-mix(in oklab, $c-blunder 70%, $c-font);
       }
     }
+
+    .no-error {
+      color: $c-font-dimmer;
+    }
   }
 
   .color-icon::before {
@@ -78,7 +84,7 @@
   }
 
   .button {
-    margin: 0.6em 0;
+    margin: 0.75em 0.25em;
   }
 
   &__acpl > div,
