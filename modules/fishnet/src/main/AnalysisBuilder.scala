@@ -56,7 +56,7 @@ final private class AnalysisBuilder(evalCache: IFishnetEvalCache)(using Executor
                   ),
                   client.userId,
                   engineVersion.getOrElse(Engine.unknownVersion),
-                  fishnetKey = (!client.lichess).option(client.key.value)
+                  fishnetKey = Option.unless(client.lichess)(client.key)
                 )
               )
             )

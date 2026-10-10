@@ -6,12 +6,13 @@ import chess.variant.Variant
 import scalalib.ThreadLocalRandom
 
 import lila.core.net.IpAddress
+import lila.tree.FishnetKey
 
 sealed trait Work:
   def _id: Work.Id
   def game: Work.Game
   def tries: Int
-  def lastTryByKey: Option[Client.Key]
+  def lastTryByKey: Option[FishnetKey]
   def acquired: Option[Work.Acquired]
   def createdAt: Instant
 
@@ -34,7 +35,7 @@ object Work:
   object Id extends OpaqueString[Id]
 
   case class Acquired(
-      clientKey: Client.Key,
+      clientKey: FishnetKey,
       userId: UserId,
       date: Instant
   ):
@@ -82,7 +83,7 @@ object Work:
       game: Game,
       startPly: Ply,
       tries: Int,
-      lastTryByKey: Option[Client.Key],
+      lastTryByKey: Option[FishnetKey],
       acquired: Option[Acquired],
       skipPositions: List[Int],
       createdAt: Instant,

@@ -9,6 +9,7 @@ import lila.core.lilaism.LilaNoStackTrace
 import lila.core.net.IpAddress
 import lila.mon.extensions.*
 import lila.db.dsl.{ *, given }
+import lila.tree.FishnetKey
 
 import Client.Skill
 
@@ -34,9 +35,9 @@ final class FishnetApi(
     lila.mon.asyncActorMonitor.full
   )
 
-  def keyExists(key: Client.Key) = repo.getEnabledClient(key).map(_.isDefined)
+  def keyExists(key: FishnetKey) = repo.getEnabledClient(key).map(_.isDefined)
 
-  def authenticateClient(key: Client.Key, version: Client.Version, ip: IpAddress): Fu[Try[Client]] = {
+  def authenticateClient(key: FishnetKey, version: Client.Version, ip: IpAddress): Fu[Try[Client]] = {
     if config.offlineMode then repo.getOfflineClient.map(some)
     else repo.getEnabledClient(key)
   }.map {

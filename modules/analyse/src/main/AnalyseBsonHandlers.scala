@@ -5,7 +5,7 @@ import reactivemongo.api.bson.*
 
 import lila.db.BSON
 import lila.db.dsl.{ *, given }
-import lila.tree.{ Analysis, Engine, Info, Eval, evals }
+import lila.tree.{ Analysis, FishnetKey, Engine, Info, Eval, evals }
 import lila.tree.Analysis.EngineId
 
 object AnalyseBsonHandlers:
@@ -24,7 +24,7 @@ object AnalyseBsonHandlers:
           case None => Analysis.Id(getId[GameId])
       val engine = r.getO[Engine]("engine") | Engine.default.copy(
         nodesPerMove = r.intO("npm") | Engine.default.nodesPerMove,
-        fishnetKey = r.getO[Analysis.FishnetKey]("fk")
+        fishnetKey = r.getO[FishnetKey]("fk")
       )
       Analysis(
         id = id,

@@ -5,6 +5,9 @@ import chess.{ Color, Ply }
 import play.api.libs.json.JsObject
 import Analysis.EngineId
 
+opaque type FishnetKey = String
+object FishnetKey extends OpaqueString[FishnetKey]
+
 case class AnalysisProgress(gameId: GameId, payload: () => JsObject)
 case class StudyAnalysisProgress(analysis: Analysis, complete: Boolean)
 case class Engine(
@@ -12,7 +15,7 @@ case class Engine(
     id: EngineId,
     userId: UserId,
     engineVersion: String,
-    fishnetKey: Option[Analysis.FishnetKey] = none
+    fishnetKey: Option[FishnetKey] = none
 )
 
 object Engine:
@@ -100,8 +103,6 @@ object Analysis:
       def studyId: Option[StudyId] = id match
         case Study(studyId, _) => Some(studyId)
         case _ => None
-
-  type FishnetKey = String
 
   def positionHash(
       variant: chess.variant.Variant,
