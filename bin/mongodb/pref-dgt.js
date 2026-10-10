@@ -1,2 +1,2 @@
-db.pref.updateMany({ tags: { $exists: { dgt: { $exists: true } } } }, { $set: { hasDgt: true } });
-db.pref.updateMany({}, { $unset: { tags: '' } });
+db.pref.updateMany({ 'tags.dgt': { $exists: true } }, { $set: { hasDgt: true } });
+db.pref.updateMany({ tags: { $exists: 1, $ne: {} } }, { $unset: { tags: 1 } });
