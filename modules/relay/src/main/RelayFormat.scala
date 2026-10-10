@@ -3,6 +3,7 @@ package lila.relay
 import chess.format.pgn.PgnStr
 import io.mola.galimatias.URL
 import play.api.libs.json.*
+import scalalib.ThreadLocalRandom
 
 import lila.core.lilaism.LilaInvalid
 import lila.memo.CacheApi.*
@@ -43,7 +44,8 @@ final private class RelayFormatApi(
         case Some(lcc) =>
           httpGetRoundJson(lcc.indexUrl)
             .flatMap:
-              _.firstNonEmptyPairingIndex
+              _.firstNonEmptyPairingIndexes(5)
+                .pipe(ThreadLocalRandom.oneOf)
                 .so(index => looksLikeJson(lcc.gameUrl(index + 1)).recoverDefault(_ => {}))
                 .map:
                   if _ then LccWithGames(lcc).some

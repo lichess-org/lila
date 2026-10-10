@@ -3,12 +3,15 @@ package lila.ublog
 import scalalib.ThreadLocalRandom.shuffle
 import lila.db.dsl.{ *, given }
 import lila.core.ublog.Quality
+import lila.core.i18n.I18nKey
 import lila.memo.CacheApi
 import lila.memo.CacheApi.buildAsyncTimeout
 
 opaque type UblogTopic = String
 object UblogTopic extends OpaqueString[UblogTopic]:
-  extension (a: UblogTopic) def url = a.replace(" ", "_")
+  extension (a: UblogTopic)
+    def url = a.replace(" ", "_")
+    def i18nKey: I18nKey = i18nKeys.getOrElse(a, I18nKey(a))
 
   val chess: List[UblogTopic] = List(
     "Chess",
@@ -36,6 +39,18 @@ object UblogTopic extends OpaqueString[UblogTopic]:
   def get(str: String): Option[UblogTopic] = exists(str).option(UblogTopic(str))
   def fromStrList(str: String): List[UblogTopic] = str.split(',').toList.flatMap(get).distinct
   def fromUrl(str: String): Option[UblogTopic] = get(str.replace("_", " "))
+
+  private lazy val i18nKeys: Map[UblogTopic, I18nKey] = all
+    .zip:
+      all.map:
+        case "Analysis" => I18nKey.site.analysis
+        case "Opening" => I18nKey.site.opening
+        case "Endgame" => I18nKey.site.endgame
+        case "Tournament" => I18nKey.site.tournament
+        case "Lichess" => I18nKey("Lichess")
+        case "Chess variant" => I18nKey.site.variants
+        case t => I18nKey(s"ublog:topic${t.split(" ").map(_.capitalize).mkString}")
+    .toMap
 
   case class WithPosts(topic: UblogTopic, posts: List[UblogPost.PreviewPost], nb: Int)
 

@@ -13,8 +13,6 @@ const eventNames = ['mousedown', 'touchstart'];
 export default function pocket(ctrl: RoundController, color: Color, position: TopOrBottom): LooseVNode {
   const step = plyStep(ctrl.data, ctrl.ply);
   if (!step.crazy) return undefined;
-  const droppedRole = ctrl.justDropped;
-  const preDropRole = ctrl.preDrop;
   const pocket = step.crazy.pockets[color === 'white' ? 0 : 1];
   const usablePos = position === (ctrl.flip ? 'top' : 'bottom');
   const usable = usablePos && !ctrl.replaying() && ctrl.isPlaying();
@@ -36,7 +34,7 @@ export default function pocket(ctrl: RoundController, color: Color, position: To
     pieceRoles.map(role => {
       let nb = pocket[role] || 0;
       if (activeColor) {
-        if (droppedRole === role) nb--;
+        if (ctrl.justDropped === role) nb--;
         if (captured === role) nb++;
       }
       return h(
@@ -44,7 +42,7 @@ export default function pocket(ctrl: RoundController, color: Color, position: To
         h(
           'div.pocket-c2',
           h('piece.' + role + '.' + color, {
-            class: { premove: activeColor && preDropRole === role },
+            class: { premove: activeColor && ctrl.preDrop === role },
             attrs: { 'data-role': role, 'data-color': color, 'data-nb': nb },
           }),
         ),

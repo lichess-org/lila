@@ -1,6 +1,6 @@
 import type { TopOrBottom } from 'lib/game';
 import { formatClockTimeVerbal } from 'lib/game/clock/clockView';
-import { hl, type VNode } from 'lib/view';
+import { hl, onInsert, type VNode } from 'lib/view';
 
 import { moretime } from '../view/button';
 import type { CorresClockController } from './corresClockCtrl';
@@ -54,7 +54,7 @@ export default function (
       hl('div.time', {
         attrs: direction && { style: `direction: ${direction}` },
         hook: {
-          insert: vnode => update(vnode.elm as HTMLElement),
+          ...onInsert(update),
           postpatch: (_, vnode) => update(vnode.elm as HTMLElement),
         },
       }),

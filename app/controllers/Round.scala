@@ -119,8 +119,8 @@ final class Round(
   private[controllers] def watch(pov: Pov, userTv: Option[UserModel] = None)(using
       ctx: Context
   ): Fu[Result] =
-    limit.anyPageByUser.option(ctx.myId, rateLimited):
-      val details = ctx.isAuth || (pov.game.isStrongOrRecent && !req.client.isCrawler)
+    limit.anyPageByUser.option(ctx.myId, rateLimited, cost = if isGrantedOpt(_.UserModView) then 0 else 1):
+      val details = ctx.isAuth || pov.game.isStrongOrRecent
       playablePovForReq(pov.game) match
         case Some(player) if userTv.isEmpty => renderPlayer(pov.withColor(player.color))
         case _ if pov.game.variant == chess.variant.RacingKings && pov.color.black =>
