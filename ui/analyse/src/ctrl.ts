@@ -1066,7 +1066,7 @@ export default class AnalyseCtrl implements CevalHandler {
           variant: this.data.game.variant.key,
           color: this.chessground.state.orientation,
         })
-      : `/${this.data.game.id}/edit?fen=${this.node.fen}`;
+      : `/game/${this.data.game.id}/edit?fen=${this.node.fen}`;
 
   getNodeKey(): string {
     const engineId = (this.node.ceval && 'engineId' in this.node.ceval && this.node.ceval.engineId) || '';

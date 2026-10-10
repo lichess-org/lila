@@ -62,7 +62,7 @@ export default function (ctrl: SwissCtrl): VNode | undefined {
             'tr.glpt.' + (res === '1' ? '.win' : res === '0' ? '.loss' : ''),
             {
               key: round,
-              attrs: { 'data-href': '/' + p.g + (p.c ? '' : '/black') },
+              attrs: { 'data-href': '/game/' + p.g + (p.c ? '' : '/black') },
               hook: { destroy: vnode => $.powerTip.destroy(vnode.elm) },
             },
             [

@@ -356,7 +356,7 @@ final class Ublog(env: Env) extends LilaController(env):
 
   def historicalBlogPost(id: String, @nowarn slug: String) = Open:
     Found(env.ublog.api.getByPrismicId(id)): post =>
-      Redirect(routes.Ublog.post(UserName.lichess, post.slug, post.id), MOVED_PERMANENTLY)
+      MovedPermanently(routes.Ublog.post(UserName.lichess, post.slug, post.id))
 
   def search(text: String, by: BlogsBy, page: Int) = Open: ctx ?=>
     val queryText = text.take(100).trim

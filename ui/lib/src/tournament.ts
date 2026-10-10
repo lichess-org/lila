@@ -7,7 +7,7 @@ export function redirectFirst(gameId: string, rightNow?: boolean): void {
   setTimeout(() => {
     if (lastRedirect.get() !== gameId) {
       lastRedirect.set(gameId);
-      site.redirect('/' + gameId, true);
+      site.redirect('/game/' + gameId, true);
     }
   }, delay);
 }

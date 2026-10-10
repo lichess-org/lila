@@ -37,7 +37,7 @@ const expandGameIds = (html: string) =>
   html.replace(
     /(\s#)([\w]{8})($|[^\w-])/g,
     (_: string, bulkStart: string, id: string, suffix: string) =>
-      ' ' + linkReplace('/' + id, '#' + id, !bulkStart) + suffix,
+      ' ' + linkReplace('/game/' + id, '#' + id, !bulkStart) + suffix,
   );
 
 export const enhance = (str: string) =>

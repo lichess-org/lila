@@ -390,30 +390,31 @@ POST  /bots/dev/asset/$tpe<sound|image|book>/$key<\w{12}(\.\w{2,4})?> controller
 POST  /bots/dev/asset/mv/$key<\w{12}(\.\w{2,4})?>/:name  controllers.JsBot.devNameAsset(key: String, name: String)
 
 # Round
-GET   /$gameId<\w{8}>                            controllers.Round.watcher(gameId: GameId, color: Color = Color.white)
-GET   /$gameId<\w{8}>/$color<white|black>        controllers.Round.watcher(gameId: GameId, color: Color)
-GET   /$fullId<\w{12}>                           controllers.Round.player(fullId: GameFullId)
-GET   /$gameId<\w{8}>/$color<white|black>/sides  controllers.Round.sides(gameId: GameId, color: Color)
-GET   /$gameId<\w{8}>/continue/:mode             controllers.Round.continue(gameId: GameId, mode)
-GET   /$gameId<\w{8}>/note                       controllers.Round.readNote(gameId: GameId)
-POST  /$gameId<\w{8}>/note                       controllers.Round.writeNote(gameId: GameId)
-GET   /$gameId<\w{8}>/mini                       controllers.Round.mini(gameId: GameId, color: Color = Color.white)
-GET   /$gameId<\w{8}>/$color<white|black>/mini   controllers.Round.mini(gameId: GameId, color: Color)
-GET   /$fullId<\w{12}>/mini                      controllers.Round.miniFullId(fullId: GameFullId)
-GET   /$gameId<\w{8}>/edit                       controllers.Editor.game(gameId: GameId)
-GET   /$gameId<\w{8}>/$color<white|black>/analysis controllers.UserAnalysis.game(gameId: GameId, color: Color)
-GET   /$fullId<\w{12}>/forecasts                 controllers.UserAnalysis.forecastsGet(fullId: GameFullId)
-POST  /$fullId<\w{12}>/forecasts                 controllers.UserAnalysis.forecastsPost(fullId: GameFullId)
-POST  /$fullId<\w{12}>/forecasts/:uci            controllers.UserAnalysis.forecastsOnMyTurn(fullId: GameFullId, uci)
-POST  /$fullId<\w{12}>/resign                    controllers.Round.resign(fullId: GameFullId)
+GET   /game/$gameId<\w{8}>                          controllers.Round.watcher(gameId: GameId, color: Color = Color.white)
+GET   /game/$gameId<\w{8}>/$color<white|black>      controllers.Round.watcher(gameId: GameId, color: Color)
+GET   /game/$fullId<\w{12}>                         controllers.Round.player(fullId: GameFullId)
+GET   /game/$gameId<\w{8}>/$color<white|black>/sides controllers.Round.sides(gameId: GameId, color: Color)
+GET   /game/$gameId<\w{8}>/continue/:mode           controllers.Round.continue(gameId: GameId, mode)
+GET   /game/$gameId<\w{8}>/note                     controllers.Round.readNote(gameId: GameId)
+POST  /game/$gameId<\w{8}>/note                     controllers.Round.writeNote(gameId: GameId)
+GET   /game/$gameId<\w{8}>/mini                     controllers.Round.mini(gameId: GameId, color: Color = Color.white)
+GET   /game/$gameId<\w{8}>/$color<white|black>/mini controllers.Round.mini(gameId: GameId, color: Color)
+GET   /game/$fullId<\w{12}>/mini                    controllers.Round.miniFullId(fullId: GameFullId)
+GET   /game/$gameId<\w{8}>/edit                     controllers.Editor.game(gameId: GameId)
+GET   /game/$gameId<\w{8}>/$color<white|black>/analysis controllers.UserAnalysis.game(gameId: GameId, color: Color)
+GET   /game/$fullId<\w{12}>/forecasts               controllers.UserAnalysis.forecastsGet(fullId: GameFullId)
+POST  /game/$fullId<\w{12}>/forecasts               controllers.UserAnalysis.forecastsPost(fullId: GameFullId)
+POST  /game/$fullId<\w{12}>/forecasts/:uci          controllers.UserAnalysis.forecastsOnMyTurn(fullId: GameFullId, uci)
+POST  /game/$fullId<\w{12}>/resign                  controllers.Round.resign(fullId: GameFullId)
+POST  /game/$gameId<\w{8}>/delete                   controllers.Game.delete(gameId: GameId)
+
+GET   /$gameId<\w{8}>/$color<white|black>        controllers.Round.watcherRedirect(gameId: GameId, color: Color)
 
 GET   /embed/$gameId<\w{8}>                      controllers.Analyse.embed(gameId: GameId, color: Color = Color.white)
 GET   /embed/$gameId<\w{8}>/$color<white|black>  controllers.Analyse.embed(gameId: GameId, color: Color)
 
 GET   /embed/game/$gameId<\w{8}>                      controllers.Analyse.embedReplayGame(gameId: GameId, color: Color = Color.white)
 GET   /embed/game/$gameId<\w{8}>/$color<white|black>  controllers.Analyse.embedReplayGame(gameId: GameId, color: Color)
-
-POST  /$gameId<\w{8}>/delete                     controllers.Game.delete(gameId: GameId)
 
 GET   /round-next/$gameId<\w{8}>                 controllers.Round.next(gameId: GameId)
 GET   /whats-next/$fullId<\w{12}>                controllers.Round.whatsNext(fullId: GameFullId)
@@ -505,7 +506,7 @@ POST  /api/team/:id/request/:userId/:decision controllers.TeamApi.requestProcess
 POST  /api/team/:id/kick/:user                controllers.TeamApi.kickUser(id: TeamId, user: UserStr)
 
 # Analyse
-POST  /$gameId<\w{8}>/request-analysis        controllers.Analyse.requestAnalysis(gameId: GameId)
+POST  /game/$gameId<\w{8}>/request-analysis      controllers.Analyse.requestAnalysis(gameId: GameId)
 
 GET   /game/export/$gameId<\w{8}>                             controllers.Game.exportOne(gameId: GameId)
 GET   /game/export/$gameId<\w{8}>.pgn                         controllers.Game.exportOne(gameId: GameId)
