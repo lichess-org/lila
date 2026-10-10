@@ -1,8 +1,8 @@
 package controllers
 
 import play.api.mvc.*
-
 import java.time.format.DateTimeFormatter
+import chess.json.Json.given
 
 import lila.api.GameApiV2.*
 import lila.app.{ *, given }
@@ -32,21 +32,23 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
     exportGame(id.gameId)
 
   private[controllers] def exportGame(gameId: GameId)(using ctx: Context): Fu[Result] =
-    Found(env.round.proxyRepo.gameIfPresentOrFetch(gameId)): game =>
-      given Option[Me] = ctx.isFullAuth.so(ctx.me)
-      RequireAuthIf(!game.isStrongOrRecent):
-        val config = OneConfig(
-          format = Format.byRequest,
-          imported = getBool("imported"),
-          flags = requestPgnFlags(extended = true)
-        )
-        for
-          content <- env.api.gameApiV2.exportOne(game, config)
-          filename <- env.api.gameApiV2.filename(game, config.format)
-        yield Ok(content)
-          .asAttachment(filename)
-          .withHeaders(headersForApiOrApp*)
-          .as(gameContentType(config))
+    if getBool("divisionOnly") then JsonOptionOk(env.game.divider.fetchAndDivide(gameId))
+    else
+      Found(env.round.proxyRepo.gameIfPresentOrFetch(gameId)): game =>
+        given Option[Me] = ctx.isFullAuth.so(ctx.me)
+        RequireAuthIf(!game.isStrongOrRecent):
+          val config = OneConfig(
+            format = Format.byRequest,
+            imported = getBool("imported"),
+            flags = requestPgnFlags(extended = true)
+          )
+          for
+            content <- env.api.gameApiV2.exportOne(game, config)
+            filename <- env.api.gameApiV2.filename(game, config.format)
+          yield Ok(content)
+            .asAttachment(filename)
+            .withHeaders(headersForApiOrApp*)
+            .as(gameContentType(config))
 
   def exportByUser(username: UserStr) = AuthOrScoped()(handleExport(username))
   def apiExportByUser(username: UserStr) = OpenOrScoped()(handleExport(username))

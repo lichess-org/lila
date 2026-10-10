@@ -6,12 +6,13 @@ import chess.variant.Variant
 import scalalib.ThreadLocalRandom
 
 import lila.core.net.IpAddress
+import lila.tree.FishnetKey
 
 sealed trait Work:
   def _id: Work.Id
   def game: Work.Game
   def tries: Int
-  def lastTryByKey: Option[Client.Key]
+  def lastTryByKey: Option[FishnetKey]
   def acquired: Option[Work.Acquired]
   def createdAt: Instant
 
@@ -34,7 +35,7 @@ object Work:
   object Id extends OpaqueString[Id]
 
   case class Acquired(
-      clientKey: Client.Key,
+      clientKey: FishnetKey,
       userId: UserId,
       date: Instant
   ):
@@ -49,10 +50,7 @@ object Work:
       moves: String
   ):
     def uciList: List[Uci] = Uci.readList(moves).getOrElse(Nil)
-    def hash: Array[Byte] = java.security.MessageDigest
-      .getInstance("MD5")
-      .digest(s"$variant $initialFen $moves".getBytes(java.nio.charset.StandardCharsets.UTF_8))
-      .take(12)
+    def hash: Array[Byte] = lila.tree.Analysis.positionHash(variant, initialFen, moves)
 
   case class Sender(
       userId: UserId,
@@ -85,7 +83,7 @@ object Work:
       game: Game,
       startPly: Ply,
       tries: Int,
-      lastTryByKey: Option[Client.Key],
+      lastTryByKey: Option[FishnetKey],
       acquired: Option[Acquired],
       skipPositions: List[Int],
       createdAt: Instant,

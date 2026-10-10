@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="analyse">Analyse</string>
+  <string name="onTheServer">On the server</string>
+  <string name="local">Local</string>
+  <string name="currentAnalysis">Current analysis</string>
+  <string name="cannotPublish">Cannot publish</string>
+  <string name="nodesPerMove">Nodes per move</string>
+  <string name="using">Using</string>
+  <string name="willUse">Will use</string>
+  <string name="quality">Quality</string>
+  <string name="timeToComplete">Full mainline analysis should take about %s</string>
+  <string name="xTimesFishnetQuality">%sx fishnet quality</string>
+  <string name="publish">Publish</string>
+  <string name="published">Published</string>
+  <string name="chooseYourEngineSettings">Click Analyse to score the main line.</string>
+  <string name="bestResultsUseXWithYThreads">For the best results in the shortest time, use %1$s with %2$s threads.</string>
+  <string name="analysisUploadFailed">Analysis upload failed. Try again later.</string>
+  <string name="serverAnalysisInProgress">There is a server analysis in progress for this game. You can try again when that's done.</string>
+  <string name="youCanPublish">Your local analysis can be published.</string>
+  <string name="turnOnRec">You must enable REC before you can share local analysis to a study.</string>
+  <string name="whenUpgradingOldChapters">Server analysis on chapters created before local analysis was introduced cannot be upgraded cleanly. Older engine lines and comments will remain unless you remove them first.</string>
+  <string name="startingPosition">Starting position</string>
+  <string name="keepThisBrowserTabActive">Keep this browser tab active during analysis</string>
+  <string name="moveXOfY" comment="should this be in site?">Move %1$s of %2$s</string>
+  <string name="downloadingXofY" comment="should this be in site?">Downloading %1$s of %2$s</string>
+</resources>

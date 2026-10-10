@@ -1,6 +1,6 @@
 package lila.tree
 
-import chess.format.pgn.{ Comment, Glyphs }
+import chess.format.pgn.Comment
 import chess.format.{ Fen, Uci }
 import chess.{ Centis, Ply, Position }
 
@@ -8,6 +8,7 @@ object TreeBuilder:
 
   type LogChessError = String => Unit
 
+  private def makeEval(info: Info) = info.eval.copy(static = true)
   def apply(
       game: Game,
       analysis: Option[Analysis],
@@ -44,8 +45,11 @@ object TreeBuilder:
         fen = fen,
         clock = withClocks.flatMap(_.lift(index)).map(Clock(_)),
         crazyData = move.after.crazyData,
-        eval = info.map(_.eval),
-        glyphs = Glyphs.fromList(advice.map(_.judgment.glyph).toList),
+        eval = info.map(makeEval),
+        glyphs = Node.Glyphs.fromBase(
+          chess.format.pgn.Glyphs.fromList(advice.map(_.judgment.glyph).toList),
+          comp = true
+        ),
         comments = Node.Comments(
           drawOfferPlies(ply)
             .option(makeLichessComment(Comment(s"${!ply.turn} offers draw")))
@@ -53,7 +57,7 @@ object TreeBuilder:
             advice
               .map(_.makeComment(false))
               .toList
-              .map(makeLichessComment)
+              .map(makeLichessComment(_, true))
         )
       )
 
@@ -78,12 +82,8 @@ object TreeBuilder:
     error.foreach(err => logChessError(formatError(game.id, err)))
     result.fold(root)(root.prependChildUnchecked)
 
-  private def makeLichessComment(c: Comment) =
-    Node.Comment(
-      Node.Comment.Id.make,
-      c,
-      Node.Comment.Author.Lichess
-    )
+  private def makeLichessComment(c: Comment, comp: Boolean = false): Node.Comment =
+    Node.Comment(Node.Comment.Id.make, c, Node.Comment.Author.Lichess, comp = comp)
 
   private def withAnalysisChild(
       id: GameId,
@@ -112,7 +112,8 @@ object TreeBuilder:
       )
 
     error.foreach(e => logChessError(formatError(id, e)))
-    result.fold(root)(b => root.addChild(b.setComp))
+    result.fold(root): branch =>
+      root.addChild(branch.copy(children = branch.children.updateAllWith(_.setComp)).setComp)
 
   private def formatError(id: GameId, err: chess.ErrorStr) =
     s"TreeBuilder https://lichess.org/$id ${err.value.linesIterator.toList.headOption}"

@@ -46,3 +46,31 @@ object Info:
   val LineMaxPlies = 12
 
   def start(ply: Ply) = Info(ply, evals.initial, Nil)
+
+  import play.api.libs.json.*
+  import scalalib.json.Json.given
+  import chess.json.Json.given
+  import chess.eval.{ Score, WhiteScore }
+  import chess.format.Uci
+
+  given Reads[Ply] = Reads:
+    case JsNumber(n) => JsSuccess(Ply(n.toInt))
+    case _ => JsError("Ply must be int")
+  given Reads[Info] = Reads: json =>
+    for
+      _ <-
+        if (json \ "variation").asOpt[JsArray].exists(_.value.sizeIs > LineMaxPlies) then
+          JsError("Too many plies")
+        else JsSuccess(())
+      ply <- (json \ "ply").validate[Ply]
+      cp <- (json \ "eval" \ "cp").validateOpt[Int]
+      mate <- (json \ "eval" \ "mate").validateOpt[Int]
+      best <- (json \ "eval" \ "best").validateOpt[Uci]
+      variation <- (json \ "variation").validate[List[SanStr]]
+    yield
+      val score = cp
+        .map(Score.cp)
+        .orElse:
+          mate.map: value =>
+            if value == 0 && ply.turn.black then Score.MateGiven else Score.mate(value)
+      Info(ply, Eval(score.map(WhiteScore.fromWhite), best), variation)

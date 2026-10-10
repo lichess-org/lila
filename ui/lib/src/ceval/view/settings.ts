@@ -22,25 +22,22 @@ import {
 } from '@/view';
 
 import type { CevalCtrl } from '../ctrl';
-import { fewerCores } from '../util';
 
-const allSearchTicks: number[] = [2, 4, 6, 8, 10, 12, 15, 20, 30];
-if (!isMobile()) allSearchTicks.push(60, 120, 300, Number.POSITIVE_INFINITY);
+export const searchTicks: number[] = [2, 4, 6, 8, 10, 12, 15, 20, 30];
+if (!isMobile()) searchTicks.push(60, 120, 300, Number.POSITIVE_INFINITY);
 
 export function renderCevalSettings(ctrl: CevalHandler): VNode | null {
   const ceval = ctrl.ceval;
-
-  if (!ceval.showEnginePrefs()) {
+  const info = ceval.info();
+  const engine = ceval.engines.active();
+  if (!ceval.showEnginePrefs() || !engine || !info) {
     return null;
   }
 
-  const minThreads = ceval.engines.active()?.minThreads ?? 1;
-  const maxThreads = ceval.maxThreads;
-  const threads = ceval.info()?.threads ?? 1;
-  const hashSize = ceval.info()?.hashSize ?? 4;
-  const searchTicks = allSearchTicks.filter(
-    x => x * 1000 <= (ceval.engines.active()?.maxMovetime ?? Infinity),
-  );
+  const minThreads = engine.minThreads;
+  const maxThreads = engine.maxThreads;
+  const threads = info.threads;
+  const hashSize = info.hashSize;
 
   let observer: ResizeObserver;
 
@@ -56,7 +53,7 @@ export function renderCevalSettings(ctrl: CevalHandler): VNode | null {
 
   function searchTick() {
     return clamp(
-      allSearchTicks.findIndex(tickSecs => tickSecs * 1000 >= ceval.storedMovetime()),
+      searchTicks.findIndex(tickSecs => tickSecs * 1000 >= ceval.storedMovetime()),
       { min: 0, max: searchTicks.length - 1 },
     );
   }
@@ -118,7 +115,7 @@ export function renderCevalSettings(ctrl: CevalHandler): VNode | null {
               '.setting',
               {
                 title:
-                  fewerCores() && !ceval.engines.external
+                  isMobile() && !ceval.engines.external()
                     ? i18n.site.threadsDescriptionMobile
                     : i18n.site.threadsDescription,
               },
@@ -148,36 +145,44 @@ export function renderCevalSettings(ctrl: CevalHandler): VNode | null {
                         destroy: () => observer?.disconnect(),
                       },
                     },
-                    !ceval.engines.external && [threadsTick('up'), threadsTick('down')],
+                    !ceval.engines.external() && [threadsTick('up'), threadsTick('down')],
                   ),
                 ]),
                 div('.range_value', `${threads} / ${maxThreads}`),
               ],
             );
           })('analyse-threads'),
-        (id =>
-          div('.setting', { title: i18n.site.memoryDescription }, [
-            label({ for: id }, i18n.site.memory),
-            input('range')(`#${id}`, {
-              min: 4,
-              max: Math.floor(Math.log2(ceval.engines.active()?.maxHash ?? 4)),
-              step: 1,
-              'aria-valuetext': formatHashSize(hashSize),
-              hook: rangeConfig(
-                () => Math.floor(Math.log2(hashSize)),
-                v => {
-                  ceval.setHashSize(Math.pow(2, v));
-                  ctrl.startCevalIfEnabled();
-                  ceval.opts.redraw();
-                },
-              ),
-            }),
-
-            div('.range_value', formatHashSize(hashSize)),
-          ]))('analyse-memory'),
+        hashSetting(engine, hashSize, hash => {
+          ceval.setHashSize(hash);
+          ctrl.startCevalIfEnabled();
+          ceval.opts.redraw();
+        }),
       ],
     ),
   );
+}
+
+export function hashSetting(
+  engine: EngineInfo,
+  hashSize: number,
+  onChange: (hashSize: number) => void,
+  id = 'analyse-memory',
+  name: string = i18n.site.memory,
+): VNode {
+  return div('.setting', { title: i18n.site.memoryDescription }, [
+    label({ for: id }, name),
+    input('range')(`#${id}`, {
+      min: 4,
+      max: Math.floor(Math.log2(engine.maxHash ?? 32)),
+      step: 1,
+      'aria-valuetext': formatHashSize(hashSize),
+      hook: rangeConfig(
+        () => Math.floor(Math.log2(hashSize)),
+        value => onChange(Math.pow(2, value)),
+      ),
+    }),
+    div('.range_value', formatHashSize(hashSize)),
+  ]);
 }
 
 function formatHashSize(v: number) {
@@ -185,12 +190,14 @@ function formatHashSize(v: number) {
 }
 
 function setupTick(v: VNode, ceval: CevalCtrl) {
+  const engine = ceval.engines.active();
+  if (!engine) return;
+
   const tick = v.elm as HTMLElement;
   const parentSpan = tick.parentElement!;
-  const minThreads = ceval.engines.active()?.minThreads ?? 1;
   const thumbWidth = isChrome() ? 17 : 19; // it is what it is
   const trackWidth = parentSpan.querySelector('input')!.offsetWidth - thumbWidth;
-  const tickRatio = (ceval.recommendedThreads - minThreads) / (ceval.maxThreads - minThreads);
+  const tickRatio = (ceval.recommendedThreads - engine.minThreads) / (engine.maxThreads - engine.minThreads);
   const tickLeft = Math.floor(thumbWidth / 2 + trackWidth * tickRatio);
 
   tick.style.left = `${tickLeft}px`;
@@ -204,20 +211,14 @@ function engineSelection(ctrl: CevalHandler) {
     rules: ceval.rules,
     nonStandardMaterial: ceval.nonStandardMaterial,
   });
-  const external = ceval.engines.external;
+  const external = ceval.engines.external();
 
   return div('.setting', [
     label({ for: 'select-engine' }, i18n.site.engine),
-    select(
-      '#select-engine',
-      {
-        hook: bind('change', e => {
-          ceval.selectEngine((e.target as HTMLSelectElement).value);
-          ctrl.startCevalIfEnabled();
-        }),
-      },
-      engines.map(({ id, name }) => option({ value: id, selected: active?.id === id }, name)),
-    ),
+    engineSelect(engines, active?.id, id => {
+      ceval.selectEngine(id);
+      ctrl.startCevalIfEnabled();
+    }),
     external &&
       button('.button.button-red.button-empty', {
         ...dataIcon(licon.Trash),
@@ -243,6 +244,19 @@ function engineSelection(ctrl: CevalHandler) {
       },
     }),
   ]);
+}
+
+export function engineSelect(
+  engines: EngineInfo[],
+  activeId: string | undefined,
+  onChange: (id: string) => void,
+  id = 'select-engine',
+): VNode {
+  return select(
+    `#${id}`,
+    { hook: bind('change', event => onChange((event.target as HTMLSelectElement).value)) },
+    engines.map(engine => option({ value: engine.id, selected: activeId === engine.id }, engine.name)),
+  );
 }
 
 function engineInfo(engines: EngineInfo[]) {

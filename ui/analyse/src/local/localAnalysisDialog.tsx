@@ -1,0 +1,488 @@
+import type { AcplChart, ChartGame } from 'chart';
+
+import { withEffect } from 'lib';
+import { clamp } from 'lib/algo';
+import { maxBrowserHash } from 'lib/ceval/engines/engines';
+import type { CustomSearch, BaseEngineInfo } from 'lib/ceval/types';
+import { engineSelect, hashSetting, searchTicks } from 'lib/ceval/view/settings';
+import { numberFormat } from 'lib/i18n';
+import { licon } from 'lib/licon';
+import { log } from 'lib/permalog';
+import { pubsub } from 'lib/pubsub';
+import { storedIntProp, storedStringProp, type StoredProp } from 'lib/storage';
+import {
+  type Dialog,
+  type LooseVNodes,
+  alert,
+  confirm,
+  jsx,
+  jsxDialog,
+  onInsert,
+  rangeConfig,
+  spinnerVdom,
+} from 'lib/view';
+import { text as xhrText } from 'lib/xhr';
+
+import { isFinished } from '@/study/studyChapters';
+
+import type AnalyseCtrl from '../ctrl';
+import type { AnalysisEngineInfo } from '../interfaces';
+import { LocalAnalysisEngine } from './localAnalysisEngine';
+
+export async function localAnalysisDialog(ctrl: AnalyseCtrl): Promise<void> {
+  const state = new LocalAnalysisDialog(ctrl, await site.asset.loadEsm<ChartGame>('chart.game'));
+  jsxDialog({
+    class: 'local-analysis-dialog',
+    css: [{ hashed: 'analyse.local-dialog' }],
+    modal: true,
+    onClose: state.close,
+    render: state.render,
+  });
+}
+
+class LocalAnalysisDialog {
+  private engine?: LocalAnalysisEngine;
+  private chartData: Parameters<ChartGame['acpl']>[1];
+  private chart?: AcplChart;
+  private status?: LooseVNodes;
+  private readonly quality = storedIntProp('local-analysis.quality', 0);
+  private readonly engineId: StoredProp<string>;
+  private readonly threads: StoredProp<number>;
+  private readonly hashSize: StoredProp<number>;
+  private updateDownloadStatus: (d: { bytes: number; total: number }) => void;
+
+  constructor(
+    readonly ctrl: AnalyseCtrl,
+    private readonly chartGame: ChartGame,
+  ) {
+    const info = this.bestEngineDefaults;
+    this.engineId = storedStringProp('local-analysis.engine', info.id);
+    this.threads = storedIntProp('local-analysis.threads', info.threads);
+    this.hashSize = storedIntProp('local-analysis.hash', info.hashSize);
+    this.engine = new LocalAnalysisEngine(ctrl);
+  }
+
+  readonly render = (redraw: Redraw, dialog: Dialog): LooseVNodes => {
+    if (!this.updateDownloadStatus) {
+      this.updateDownloadStatus = (d: { bytes: number; total: number }) => {
+        const downloadStatus = i18n.localAnalysis.downloadingXofY(
+          Math.round((d.bytes * 100) / d.total) + '%',
+          Math.round(d.total / 1000 / 1000) + 'MB',
+        );
+        if (downloadStatus === this.status) return;
+
+        this.status = downloadStatus;
+        redraw();
+      };
+      pubsub.on('ceval.engine.download', this.updateDownloadStatus);
+    }
+
+    return [
+      <div class="main-content">
+        <h2 class={[!(this.canAnalyse && this.engine) && 'hidden']}>{i18n.study.analysisEditor}</h2>
+        <div class={['analysis-editor', !(this.canAnalyse && this.engine) && 'hidden']}>
+          {this.analysisEditor(redraw)}
+        </div>
+        <div key="chart" class={['chart-container', this.canAnalyse && 'none']}>
+          <canvas
+            class="chart"
+            hook={onInsert<HTMLCanvasElement>(async canvas => {
+              this.chart = await this.chartGame.acpl(canvas, this.ctrl.data, this.engine!.nodes);
+            })}
+          />
+        </div>
+        <div class={['working', this.isIdle && 'none']}>
+          {spinnerVdom()}
+          <span>{i18n.localAnalysis.keepThisBrowserTabActive}</span>
+        </div>
+      </div>,
+      <span class="footer">
+        <button
+          class={['button button-empty button-red cancel-btn', this.isIdle && 'none']}
+          on={{ click: () => dialog.close('cancel') }}>
+          {i18n.site.cancel}
+        </button>
+        <button
+          class={[
+            'button button-empty button-clas publish-btn',
+            !(this.isIdle && this.canPublish.showButton) && 'none',
+          ]}
+          on={{ click: async () => this.clickPublish().then(redraw) }}>
+          {i18n.localAnalysis.publish}
+        </button>
+        <p class="status">
+          {this.status ?? (this.canPublish.showButton && i18n.localAnalysis.youCanPublish)}
+        </p>
+        <button
+          class={['button analyse-btn', !this.canAnalyse && 'none']}
+          on={{ click: async () => this.analyse(dialog, redraw) }}>
+          {i18n.localAnalysis.analyse}
+        </button>
+        <button class={['button ok-btn', this.engine && 'none']} on={{ click: () => dialog.close('ok') }}>
+          {i18n.site.ok}
+        </button>
+      </span>,
+    ];
+  };
+
+  readonly close = () => {
+    pubsub.off('ceval.engine.download', this.updateDownloadStatus);
+    this.engine?.stop();
+  };
+
+  private async analyse(dlg: Dialog, redraw: Redraw): Promise<void> {
+    const then = performance.now();
+    const engine = this.engine!;
+    try {
+      const division = await engine.getDivision();
+      this.chartData = {
+        ...this.ctrl.data,
+        game: { ...this.ctrl.data.game, division },
+        analysis: { partial: true },
+      };
+      const result = await engine.analyse(
+        this.customSearch,
+        division,
+        (moves: number, totalMoves: number, nodesPerMove: number) => {
+          this.updateEngineStatus(moves, totalMoves, nodesPerMove);
+          this.chart?.updateData(this.chartData, engine.nodes);
+          redraw();
+        },
+      );
+      await this.ctrl.idbTree.saveAnalysis(result);
+      this.status = [
+        `${i18n.site.done} ${i18n.site.nbSeconds(Math.round((performance.now() - then) / 100) / 10)}`,
+        <br />,
+        this.canPublish.showButton && i18n.localAnalysis.youCanPublish,
+      ];
+      this.ctrl.mergeLocalAnalysisData(result.localUpdate);
+      this.engine = undefined;
+      redraw();
+    } catch (e) {
+      if (e !== 'cancelled') {
+        log(e);
+        await alert(String(e));
+      }
+      dlg.close('cancel');
+    }
+  }
+
+  private async clickPublish() {
+    if (this.canPublish.whyNot) {
+      return alert(this.canPublish.whyNot);
+    }
+    if (
+      this.ctrl.study &&
+      !this.ctrl.study.canMergeAnalysisCleanly() &&
+      !(await confirm(i18n.localAnalysis.whenUpgradingOldChapters, i18n.localAnalysis.publish))
+    ) {
+      return;
+    }
+    const serverDoc = await this.ctrl.idbTree.serverDocument();
+    if (!serverDoc) {
+      log(`localAnalysisDialog: getVerified failed for ${this.ctrl.idbTree.id}`);
+      this.status = i18n.localAnalysis.analysisUploadFailed;
+      return this.ctrl.idbTree.clear('analysis');
+    }
+    const rsp = await fetch('/analysis/publish', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(serverDoc),
+    });
+
+    if (rsp.status === 423) {
+      return alert(i18n.localAnalysis.serverAnalysisInProgress);
+    } else if (!rsp.ok) {
+      log(`${rsp.status} ${rsp.statusText} ${(await rsp.text()).slice(0, 255)}`);
+      this.status = i18n.localAnalysis.analysisUploadFailed;
+    } else {
+      this.ctrl.publishedEvalEngine = structuredClone(this.ctrl.staticAnalysis?.engine);
+      await this.ctrl.idbTree.clear('analysis');
+      this.ctrl.redraw();
+      this.status = i18n.site.success;
+    }
+  }
+
+  private readonly clickClearLocal = async () => {
+    if (await confirm(i18n.study.clearLocal)) {
+      await this.ctrl.idbTree.clear('analysis');
+      site.reload();
+    }
+  };
+
+  private readonly clickClearPublished = async () => {
+    if (!this.ctrl.opts.study || !(await confirm(i18n.study.clearPublished))) return;
+    try {
+      await xhrText(`/analysis/${this.ctrl.opts.study.id}/${this.ctrl.opts.study.chapter.id}`, {
+        method: 'DELETE',
+      });
+      site.reload();
+    } catch (e) {
+      await alert(String(e));
+    }
+  };
+
+  private readonly updateEngineStatus = (nodeIndex: number, totalNodes: number, nodesPerMove: number) => {
+    const progress =
+      nodeIndex === 0
+        ? i18n.localAnalysis.startingPosition
+        : i18n.localAnalysis.moveXOfY(nodeIndex, totalNodes - 1);
+    const efficiency = this.timedEngineNodeEfficiency;
+    if (isFinite(nodesPerMove) && efficiency && this.quality() > 0) {
+      nodesPerMove *= efficiency;
+      const val = nodesPerMove / 1_000_000;
+      if (val >= 0.05) {
+        this.status = [
+          progress,
+          <br />,
+          `(${i18n.localAnalysis.xTimesFishnetQuality(
+            val < 5 ? Math.round(10 * val) / 10 : Math.round(val),
+          )})`,
+        ];
+        return;
+      }
+    }
+    this.status = progress;
+  };
+
+  private analysisEditor(redraw: Redraw) {
+    const info = this.ctrl.ceval.info(this.customSearch)!;
+    const ceval = this.ctrl.ceval;
+    const preludes: string[] = [];
+    const trailers: string[] = [];
+    const [current, published] = [
+      this.ctrl.staticAnalysis?.engine,
+      this.ctrl.idbTree.hasLocalAnalysis && this.ctrl.publishedEvalEngine,
+    ].filter(Boolean);
+    if (!current) {
+      preludes.push(i18n.localAnalysis.chooseYourEngineSettings);
+      if (
+        ceval.engines.supporting({
+          rules: ceval.rules,
+          nonStandardMaterial: ceval.nonStandardMaterial,
+          filter: 'external',
+        }).length === 0
+      ) {
+        preludes.push(
+          i18n.localAnalysis.bestResultsUseXWithYThreads(
+            this.bestBrowserEngine.name,
+            navigator.hardwareConcurrency,
+          ),
+        );
+      }
+    }
+    if (this.timeToComplete) {
+      const seconds = Math.ceil(this.timeToComplete);
+      const minutes = Math.ceil(this.timeToComplete / 60);
+      trailers.push(
+        i18n.localAnalysis.timeToComplete(
+          minutes > 1 ? i18n.site.nbMinutes(minutes) : i18n.site.nbSeconds(seconds),
+        ),
+      );
+    }
+    return [
+      preludes.length > 0 && (
+        <span>
+          {preludes.map(p => (
+            <p>{p}</p>
+          ))}
+        </span>
+      ),
+      published && [
+        this.separator(i18n.localAnalysis.onTheServer),
+        this.analysisInfo(this.ctrl.publishedEvalEngine),
+        this.separator(i18n.localAnalysis.currentAnalysis),
+      ],
+      current && this.analysisInfo(this.ctrl.staticAnalysis?.engine),
+      this.separator(i18n.localAnalysis.willUse),
+      <div class="analysis-settings">
+        <div class="setting">
+          <label for="local-analysis-engine">Engine:</label>
+          {engineSelect(
+            ceval.engines.supporting({ rules: ceval.rules, nonStandardMaterial: ceval.nonStandardMaterial }),
+            info.engine.id,
+            withEffect(this.engineId, redraw),
+            'local-analysis-engine',
+          )}
+        </div>
+        {this.searchQualitySetting(redraw)}
+        <div class="setting">
+          <label for="local-analysis-threads">{i18n.site.threads}</label>
+          <input
+            id="local-analysis-threads"
+            type="range"
+            min={info.engine.minThreads}
+            max={info.engine.maxThreads}
+            step={1}
+            disabled={info.engine.minThreads === info.engine.maxThreads}
+            hook={rangeConfig(() => info.threads, withEffect(this.threads, redraw))}
+          />
+          <div class="range_value">
+            {info.threads} / {info.engine.maxThreads}
+          </div>
+        </div>
+        {hashSetting(
+          info.engine,
+          info.hashSize,
+          withEffect(this.hashSize, redraw),
+          'local-analysis-hash',
+          'Hash',
+        )}
+      </div>,
+      <hr class="separator" />,
+      <span>{trailers.join('. ')}</span>,
+    ];
+  }
+
+  private analysisInfo(info: AnalysisEngineInfo | undefined): LooseVNodes {
+    if (!info) return false;
+    const isPublished = info === this.ctrl.publishedEvalEngine;
+    const isLocal = this.ctrl.idbTree.hasLocalAnalysis && info !== this.ctrl.publishedEvalEngine;
+    const splitVersion = info.engineVersion.split('/');
+    const isFishnet = splitVersion.length === 3;
+    const [clearText, clearClick] = isLocal
+      ? [i18n.study.clearLocal, this.clickClearLocal]
+      : [i18n.study.clearPublished, this.clickClearPublished];
+    const provenance = isFishnet
+      ? 'fishnet'
+      : isLocal
+        ? i18n.localAnalysis.local.toLowerCase()
+        : i18n.site.by(info.userId);
+    return [
+      <label>{isPublished ? i18n.localAnalysis.published : i18n.localAnalysis.using}</label>,
+      <p class="span-three">
+        <strong>{provenance}</strong>
+        <span class="weak">
+          {isFishnet ? splitVersion[1] : info.engineVersion}
+          {(isLocal || this.ctrl.study?.members.canContribute()) && (
+            <button class="clear" title={clearText} on={{ click: clearClick }}>
+              {licon.X}
+            </button>
+          )}
+        </span>
+      </p>,
+      <label>{i18n.localAnalysis.nodesPerMove}:</label>,
+      <strong>{numberFormat(info.nodesPerMove)}</strong>,
+    ];
+  }
+
+  private searchQualitySetting(redraw: Redraw) {
+    const ticks = [0, ...searchTicks.filter(Number.isFinite)];
+    const getTick = () =>
+      clamp(
+        ticks.findIndex(seconds => seconds * 1000 >= this.quality()),
+        { min: 0, max: ticks.length - 1 },
+      );
+    const seconds = ticks[getTick()];
+    const value = seconds === 0 ? i18n.site.standard : `${seconds}s`;
+    return (
+      <div class="setting" title={i18n.site.searchTimeDescription}>
+        <label for="local-analysis-quality">{i18n.localAnalysis.quality}</label>
+        <input
+          id="local-analysis-quality"
+          type="range"
+          max={ticks.length - 1}
+          aria-valuetext={seconds === 0 ? value : i18n.site.nbSeconds(seconds)}
+          hook={rangeConfig(getTick, index => {
+            this.quality(ticks[index] * 1000);
+            redraw();
+          })}
+        />
+        <div class="range_value">{value}</div>
+      </div>
+    );
+  }
+
+  private separator(label: string) {
+    return (
+      <div class="separator">
+        <hr></hr>
+        {label}
+        <hr></hr>
+      </div>
+    );
+  }
+
+  private get isIdle() {
+    return !this.engine?.busy;
+  }
+
+  private get canAnalyse() {
+    return this.engine?.busy === false;
+  }
+
+  private get canPublish() {
+    const ctrl = this.ctrl;
+    if (!this.ctrl.idbTree.hasLocalAnalysis) return { showButton: false };
+    if (!this.isIdle || !ctrl.canAnalyse() || !ctrl.allowLines()) return { showButton: false };
+    if (ctrl.mainline.length < 10 || !ctrl.ceval.analysable) return { showButton: false, whyNot: 'invalid' };
+    if (!ctrl.study || !ctrl.study.members.canContribute())
+      return { showButton: false, whyNot: 'permission' };
+    if (!ctrl.study.vm.mode.write) return { showButton: true, whyNot: i18n.localAnalysis.turnOnRec };
+    if (ctrl.study.relay && !isFinished(ctrl.study.data.chapter))
+      return { showButton: false, whyNot: 'ongoing' };
+    return { showButton: true };
+  }
+
+  private get timedEngineNodeEfficiency(): number | undefined {
+    const flavor = this.ctrl.ceval.rules === 'chess' ? 'chess' : 'variant';
+    return this.ctrl.ceval.engines
+      .supporting({
+        rules: this.ctrl.ceval.rules,
+        nonStandardMaterial: this.ctrl.ceval.nonStandardMaterial,
+      })
+      .find(engine => engine.id === this.engineId())?.nodeEfficiencyVsFishnet?.[flavor];
+  }
+
+  private standardQualityNodesAt(nodes = 1_000_000): number {
+    // Fit observed performance dilution due to parallelism vs node count.
+    // Dilution due to parallelism becomes negligible at high node counts
+    const threadDilution = 1 + (this.threads() / 32) * Math.sqrt(1_000_000 / nodes);
+    return Math.round((threadDilution * nodes) / (this.timedEngineNodeEfficiency ?? 1));
+  }
+
+  private get timeToComplete(): number | undefined {
+    const info = this.ctrl.ceval.info(this.customSearch);
+    if (!info) return undefined;
+    if ('movetime' in info.search.by) return (info.search.by.movetime * this.ctrl.mainline.length) / 1000;
+    const nodesPerSecond = this.ctrl.ceval.nodesPerSecond(info.engine.id, info.threads);
+    if (!nodesPerSecond || !this.timedEngineNodeEfficiency) return undefined;
+    return (this.standardQualityNodesAt() * this.ctrl.mainline.length) / nodesPerSecond;
+  }
+
+  private get customSearch(): CustomSearch {
+    const { engines, rules, nonStandardMaterial } = this.ctrl.ceval;
+    const engine =
+      engines.supporting({ rules, nonStandardMaterial }).find(engine => engine.id === this.engineId()) ??
+      engines.active()!;
+    return {
+      engine: { id: engine.id, threads: this.threads(), hashSize: this.hashSize() },
+      search: () => ({
+        by:
+          this.quality() === 0
+            ? { nodes: this.standardQualityNodesAt() }
+            : { movetime: Math.min(this.quality(), engine.maxMovetime ?? 300_000) },
+        multiPv: 1,
+      }),
+      canBackground: true,
+    };
+  }
+
+  private get bestEngineDefaults(): { id: string; threads: number; hashSize: number } {
+    const engine = this.ctrl.ceval.engines.supporting({
+      rules: this.ctrl.ceval.rules,
+      nonStandardMaterial: this.ctrl.ceval.nonStandardMaterial,
+    })[0];
+    const threads = engine.tech === 'EXTERNAL' ? engine.maxThreads : navigator.hardwareConcurrency;
+    const hashSize = engine.tech === 'EXTERNAL' ? (engine.maxHash ?? 512) : maxBrowserHash;
+    return { id: engine.id, threads, hashSize };
+  }
+
+  private get bestBrowserEngine(): BaseEngineInfo {
+    return this.ctrl.ceval.engines.supporting({
+      rules: this.ctrl.ceval.rules,
+      nonStandardMaterial: this.ctrl.ceval.nonStandardMaterial,
+      filter: 'browser',
+    })[0];
+  }
+}

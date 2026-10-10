@@ -19,7 +19,7 @@ type Setting = {
 
 const settings: Record<SettingKey, Setting> = {
   showStaticAnalysis: {
-    label: i18n.preferences.showServerAnalysis,
+    label: i18n.preferences.showMainlineAnalysis,
     shortcutHtml: '<kbd>z</kbd>',
     group: i18n.preferences.generalSettings,
     helpHtml: videoHtml('info-static-analysis'),

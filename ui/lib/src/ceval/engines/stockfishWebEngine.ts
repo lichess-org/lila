@@ -14,14 +14,13 @@ import { sharedWasmMemory } from '../util';
 
 export class StockfishWebEngine implements CevalEngine {
   failed: Error;
-  protocol: Protocol;
   module?: StockfishWeb;
 
   constructor(
     readonly info: BrowserEngineInfo,
     readonly status: EngineNotifier | undefined,
+    private readonly protocol: Protocol = new Protocol(info),
   ) {
-    this.protocol = new Protocol();
     this.boot().catch(e => {
       this.failed = e;
       this.status?.({ error: String(e) });
@@ -103,7 +102,7 @@ export class StockfishWebEngine implements CevalEngine {
 
   start = (work?: Work): void => this.protocol.compute(work);
   stop = (): void => this.protocol.compute(undefined);
-  engineName = (): string | undefined => this.protocol.engineName;
+  version = (): string | undefined => this.protocol.engineName;
   destroy = (): void => {
     this.module?.uci('quit');
     this.module = undefined;

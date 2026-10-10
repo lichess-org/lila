@@ -1856,6 +1856,56 @@ interface I18n {
     /** You will lose all your progress! */
     youWillLoseAllYourProgress: string;
   };
+  localAnalysis: {
+    /** Analyse */
+    analyse: string;
+    /** Analysis upload failed. Try again later. */
+    analysisUploadFailed: string;
+    /** For the best results in the shortest time, use %1$s with %2$s threads. */
+    bestResultsUseXWithYThreads: I18nFormat;
+    /** Cannot publish */
+    cannotPublish: string;
+    /** Click Analyse to score the main line. */
+    chooseYourEngineSettings: string;
+    /** Current analysis */
+    currentAnalysis: string;
+    /** Downloading %1$s of %2$s */
+    downloadingXofY: I18nFormat;
+    /** Keep this browser tab active during analysis */
+    keepThisBrowserTabActive: string;
+    /** Local */
+    local: string;
+    /** Move %1$s of %2$s */
+    moveXOfY: I18nFormat;
+    /** Nodes per move */
+    nodesPerMove: string;
+    /** On the server */
+    onTheServer: string;
+    /** Publish */
+    publish: string;
+    /** Published */
+    published: string;
+    /** Quality */
+    quality: string;
+    /** There is a server analysis in progress for this game. You can try again when that's done. */
+    serverAnalysisInProgress: string;
+    /** Starting position */
+    startingPosition: string;
+    /** Full mainline analysis should take about %s */
+    timeToComplete: I18nFormat;
+    /** You must enable REC before you can share local analysis to a study. */
+    turnOnRec: string;
+    /** Using */
+    using: string;
+    /** Server analysis on chapters created before local analysis was introduced cannot be upgraded cleanly. Older engine lines and comments will remain unless you remove them first. */
+    whenUpgradingOldChapters: string;
+    /** Will use */
+    willUse: string;
+    /** %sx fishnet quality */
+    xTimesFishnetQuality: I18nFormat;
+    /** Your local analysis can be published. */
+    youCanPublish: string;
+  };
   msg: {
     /** There is a new Lichess mobile app available! */
     lichobileNewAppAvailable: string;
@@ -2643,6 +2693,8 @@ interface I18n {
     showGauge: string;
     /** Live engine annotations */
     showLiveGlyphs: string;
+    /** Show mainline analysis */
+    showMainlineAnalysis: string;
     /** Show maneuver arrows */
     showManeuverArrows: string;
     /** Show move annotations */
@@ -2651,8 +2703,6 @@ interface I18n {
     showPinnedPieces: string;
     /** Show player ratings */
     showPlayerRatings: string;
-    /** Show server analysis */
-    showServerAnalysis: string;
     /** Show undefended pieces */
     showUndefendedPieces: string;
     /** Show variation arrows */
@@ -5455,8 +5505,12 @@ interface I18n {
     allSyncMembersRemainOnTheSamePosition: string;
     /** Alphabetical */
     alphabetical: string;
+    /** Analysis editor */
+    analysisEditor: string;
     /** Analysis mode */
     analysisMode: string;
+    /** Analyze on your device */
+    analyzeOnYourDevice: string;
     /** Click the !? button, or right-click on the move list.<br>Annotation glyphs are shared and saved. */
     annotatePositionText: string;
     /** Annotate a position */
@@ -5493,6 +5547,10 @@ interface I18n {
     clearAnnotations: string;
     /** Clear chat */
     clearChat: string;
+    /** Clear local analysis? */
+    clearLocal: string;
+    /** Clear published analysis? */
+    clearPublished: string;
     /** Clear variations */
     clearVariations: string;
     /** Clone */
@@ -5583,8 +5641,6 @@ interface I18n {
     fromPgnGameText: string;
     /** From a PGN game */
     fromPgnGameTitle: string;
-    /** Get a full server-side computer analysis of the main line. */
-    getAFullComputerAnalysis: string;
     /** Need help? Get the tour! */
     getTheTour: string;
     /** Good move */
@@ -5605,6 +5661,8 @@ interface I18n {
     inviteOnly: string;
     /** Invite to the study */
     inviteToTheStudy: string;
+    /** Analysis */
+    justTheWordAnalysis: string;
     /** Kick */
     kick: string;
     /** Leave the study */
@@ -5711,6 +5769,8 @@ interface I18n {
     recentlyUpdated: string;
     /** Relevant */
     relevant: string;
+    /** Request a server analysis */
+    requestAServerAnalysis: string;
     /** Right under the board */
     rightUnderTheBoard: string;
     /** Save */

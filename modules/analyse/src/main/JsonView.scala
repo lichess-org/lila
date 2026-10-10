@@ -6,6 +6,7 @@ import play.api.libs.json.*
 import lila.common.Json.given
 import lila.core.game.SideAndStart
 import lila.tree.Analysis
+import lila.tree.Analysis.given
 
 object JsonView extends lila.tree.AnalysisJson:
 
@@ -26,6 +27,7 @@ object JsonView extends lila.tree.AnalysisJson:
             .add(
               "glyph" -> withGlyph.option(
                 Json.obj(
+                  "id" -> a.judgment.glyph.id,
                   "name" -> a.judgment.glyph.name,
                   "symbol" -> a.judgment.glyph.symbol
                 )
@@ -67,7 +69,8 @@ object JsonView extends lila.tree.AnalysisJson:
     val phases = AccuracyPercent.phaseAccuracies(division, analysis)
     val both = ByColor[Option[JsObject]]: color =>
       player(SideAndStart(color, startedAtPly))(analysis, accuracy, phases)
-    Json.obj("id" -> analysis.id.value, "nodesPerMove" -> analysis.nodesPerMove) ++ Json.toJsObject(both)
+    Json.obj("id" -> analysis.id.value, "nodesPerMove" -> analysis.nodesPerMove, "engine" -> analysis.engine)
+      ++ Json.toJsObject(both)
 
   def mobile(game: Game, analysis: Analysis) =
     Json.obj(
@@ -80,3 +83,24 @@ object JsonView extends lila.tree.AnalysisJson:
       "division" -> division,
       "summary" -> bothPlayers(root.ply, analysis, division = division)
     )
+
+  def augmentLocalAnalysis(json: JsValue): JsResult[JsObject] =
+    for
+      analysis <- (json \ "analysis").validate[lila.analyse.Analysis]
+      middle <- (json \ "division" \ "middle").validateOpt[Int]
+      end <- (json \ "division" \ "end").validateOpt[Int]
+    yield
+      val division = Division(middle.map(Ply(_)), end.map(Ply(_)), Ply(analysis.infos.size + 1))
+      val absoluteDivision = division.copy(
+        middle = division.middle.map(_ + analysis.startPly),
+        end = division.end.map(_ + analysis.startPly),
+        plies = division.plies + analysis.startPly
+      )
+      Json.obj(
+        "summary" -> bothPlayers(
+          analysis.startPly,
+          analysis,
+          division = absoluteDivision
+        ),
+        "moves" -> moves(analysis)
+      )

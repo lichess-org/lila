@@ -12,6 +12,7 @@ import lila.common.HTTPRequest
 import lila.fishnet.JsonApi.readers.given
 import lila.fishnet.JsonApi.writers.given
 import lila.fishnet.{ Client, JsonApi, Work }
+import lila.tree.FishnetKey
 
 final class Fishnet(env: Env) extends LilaController(env):
 
@@ -51,10 +52,7 @@ final class Fishnet(env: Env) extends LilaController(env):
     }
 
   def keyExists(key: String) = Anon:
-    api
-      .keyExists(lila.fishnet.Client.Key(key))
-      .map:
-        if _ then Ok else NotFound
+    api.keyExists(FishnetKey(key)).map(if _ then Ok else NotFound)
 
   val status = Anon:
     api.status.map { JsonStrOk(_) }
@@ -83,7 +81,7 @@ final class Fishnet(env: Env) extends LilaController(env):
         if env.mode.notProd && !hasOAuthBearer then handle(Client.offline)
         else
           HTTPRequest.bearer.so: (bearer, _) =>
-            api.authenticateClient(bearer.into(Client.Key), version, req.ipAddress).flatMap {
+            api.authenticateClient(bearer.into(FishnetKey), version, req.ipAddress).flatMap {
               case Failure(msg) => Unauthorized(jsonError(msg.getMessage))
               case Success(client) => handle(client)
             }

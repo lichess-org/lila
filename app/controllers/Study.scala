@@ -4,6 +4,7 @@ import play.api.libs.json.*
 import play.api.mvc.*
 import scalalib.Json.given
 import scalalib.paginator.Paginator
+import chess.json.Json.given
 
 import lila.analyse.Analysis
 import lila.app.{ *, given }
@@ -228,13 +229,44 @@ final class Study(
       study = studyJson,
       analysis = baseData
         .add("treeParts" -> partitionTreeWriter(chapter.root, lichobile = lichobile).some)
-        .add("analysis" -> analysis.map { env.analyse.jsonView.bothPlayers(chapter.root.ply, _) })
+        .add("analysis" -> analysis.map:
+          env.analyse.jsonView
+            .bothPlayers(chapter.root.ply, _, division = division.getOrElse(chess.Division.empty)))
     )
 
   private def chapterAnalysis(sc: WithChapter) =
     sc.chapter.serverEval
       .exists(_.done)
-      .so(env.analyse.repo.byId(Analysis.Id(sc.study.id, sc.chapter.id)))
+      .so:
+        env.analyse.repo.byId(
+          sc.chapter.analysisGameId.fold(Analysis.Id(sc.study.id, sc.chapter.id))(Analysis.Id(_))
+        )
+
+  private def WithStudyContributor(id: Analysis.Id)(
+      f: => Fu[Result]
+  )(using ctx: Context, me: Me): Fu[Result] = id match
+    case Analysis.Id.Study(studyId, _) =>
+      Found(env.study.api.byId(studyId)): study =>
+        if study.canContribute(me) then f else forbiddenJson()
+    case Analysis.Id.Game(_) => BadRequest("Study analysis required")
+
+  def postAnalysisXhr = AuthBody(parse.json) { ctx ?=> me ?=>
+    ctx.body.body.validate[Analysis] match
+      case JsError(errs) => fuccess(BadRequest(errs.mkString("\n")))
+      case JsSuccess(uploaded, _) =>
+        WithStudyContributor(uploaded.id):
+          for
+            requested <- env.fishnet.api.userAnalysisExists(uploaded.id)
+            result <-
+              if requested then fuccess(Locked)
+              else env.analyse.analyser.save(uploaded).inject(Ok)
+          yield result
+  }
+
+  def deleteAnalysisXhr(studyId: StudyId, chapterId: StudyChapterId) = Auth { _ ?=> me ?=>
+    WithStudyContributor(Analysis.Id(studyId, chapterId)):
+      env.study.serverEvalMerger.remove(studyId, chapterId).inject(NoContent)
+  }
 
   def show(id: StudyId) = OpenOrScoped(_.Study.Read, _.Web.Mobile):
     orRelayRedirect(id):
@@ -255,7 +287,8 @@ final class Study(
 
   def chapterConfig(id: StudyId, chapterId: StudyChapterId) = Open:
     Found(env.study.chapterRepo.byIdAndStudy(chapterId, id)): chapter =>
-      Ok(env.study.jsonView.chapterConfig(chapter))
+      if getBool("divisionOnly") then JsonOk(env.study.serverEvalMerger.divisionOf(chapter))
+      else Ok(env.study.jsonView.chapterConfig(chapter))
 
   private[controllers] def chatOf(study: lila.study.Study)(using ctx: Context) = {
     ctx.kid.no && ctx.noBot // no public chats for kids and bots
