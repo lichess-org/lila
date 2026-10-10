@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="reportStall">Stalling / Leaving Games</string>
+  <string name="reportBoost">Sandbagging / Boosting / Match fixing</string>
+  <string name="reportVerbalAbuse">Verbal abuse / Cursing / Trolling</string>
+  <string name="reportViolence">Violence / Threats</string>
+  <string name="reportHarass">Harassment / Bullying / Stalking</string>
+  <string name="reportSelfHarm">Suicide / Self-Injury</string>
+  <string name="reportHate">Hate Speech / Sexism</string>
+  <string name="reportSpam">Spamming</string>
+  <string name="readMoreAboutLichessReports">Read more about Lichess reports</string>
+  <string name="reportMaximumCharacters">Maximum 3000 characters.</string>
+</resources>

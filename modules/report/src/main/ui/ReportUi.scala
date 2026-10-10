@@ -124,12 +124,12 @@ final class ReportUi(helpers: Helpers)(menu: Context ?=> Frag):
       dataIcon := Icon.InfoCircle,
       cls := "text"
     ):
-      trans.site.readMoreAboutLichessReports()
+      trans.report.readMoreAboutLichessReports()
   )
 
   private def descriptionHelp(current: String)(using ctx: Context) = frag:
     import Reason.*
-    val maxLength = trans.site.reportMaximumCharacters.txt()
+    val maxLength = trans.report.reportMaximumCharacters.txt()
     translatedReasonChoices._1F.distinct
       .map: reason =>
         span(
@@ -150,14 +150,14 @@ final class ReportUi(helpers: Helpers)(menu: Context ?=> Frag):
     import Reason.*
     List(
       (Cheat, trans.site.cheat.txt()),
-      (Stall, trans.site.reportStall.txt()),
-      (Boost, trans.site.reportBoost.txt()),
-      (VerbalAbuse, trans.site.reportVerbalAbuse.txt()),
-      (Violence, trans.site.reportViolence.txt()),
-      (Harass, trans.site.reportHarass.txt()),
-      (SelfHarm, trans.site.reportSelfHarm.txt()),
-      (Hate, trans.site.reportHate.txt()),
-      (Spam, trans.site.reportSpam.txt()),
+      (Stall, trans.report.reportStall.txt()),
+      (Boost, trans.report.reportBoost.txt()),
+      (VerbalAbuse, trans.report.reportVerbalAbuse.txt()),
+      (Violence, trans.report.reportViolence.txt()),
+      (Harass, trans.report.reportHarass.txt()),
+      (SelfHarm, trans.report.reportSelfHarm.txt()),
+      (Hate, trans.report.reportHate.txt()),
+      (Spam, trans.report.reportSpam.txt()),
       (Username, trans.site.username.txt()),
       (Other, trans.site.other.txt())
     )
