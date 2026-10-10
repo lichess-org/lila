@@ -3,7 +3,7 @@ import { h, thunk, type VNode } from 'snabbdom';
 import { getPlayer } from 'lib/game';
 import { licon } from 'lib/licon';
 import { bind, dataIcon, onInsert } from 'lib/view';
-import { ratingDiff, profileUrl, userFlair } from 'lib/view/userLink';
+import { userLink } from 'lib/view/userLink';
 
 import type AnalyseCtrl from '@/ctrl';
 import type { AnalysisSide, GamePhase } from '@/interfaces';
@@ -19,25 +19,15 @@ interface Advice {
 
 const renderPlayer = ({ data, study }: AnalyseCtrl, color: Color): VNode => {
   const player = getPlayer(data, color);
-  if (player.user)
-    return h(
-      'a.user-link.ulpt',
-      { attrs: { href: profileUrl(player.user.username) } },
-      [
-        player.user.title ? [h('span.utitle', player.user.title), ' '] : null,
-        player.user.username,
-        userFlair(player.user),
-        ' ',
-        ratingDiff(player),
-      ].flat(),
-    );
-  return h(
-    'span',
-    player.name ||
-      (player.ai && 'Stockfish level ' + player.ai) ||
-      (study && findTag(study.data.chapter.tags, color)) ||
-      'Anonymous',
-  );
+  return player.user
+    ? userLink({ ...player.user, name: player.user.username, ratingDiff: player.ratingDiff, line: false })
+    : h(
+        'span',
+        player.name ||
+          (player.ai && 'Stockfish level ' + player.ai) ||
+          (study && findTag(study.data.chapter.tags, color)) ||
+          'Anonymous',
+      );
 };
 
 const advices: Advice[] = [
