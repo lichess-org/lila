@@ -129,7 +129,7 @@ final class ReportUi(helpers: Helpers)(menu: Context ?=> Frag):
 
   private def descriptionHelp(current: String)(using ctx: Context) = frag:
     import Reason.*
-    val maxLength = "Maximum 3000 characters."
+    val maxLength = trans.site.reportMaximumCharacters.txt()
     translatedReasonChoices._1F.distinct
       .map: reason =>
         span(

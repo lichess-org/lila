@@ -2183,6 +2183,7 @@ object I18nKey:
     val `reportHate`: I18nKey = "reportHate"
     val `reportSpam`: I18nKey = "reportSpam"
     val `readMoreAboutLichessReports`: I18nKey = "readMoreAboutLichessReports"
+    val `reportMaximumCharacters`: I18nKey = "reportMaximumCharacters"
     val `reportCheatBoostHelp`: I18nKey = "reportCheatBoostHelp"
     val `reportUsernameHelp`: I18nKey = "reportUsernameHelp"
     val `processReportFasterInEnglish`: I18nKey = "processReportFasterInEnglish"

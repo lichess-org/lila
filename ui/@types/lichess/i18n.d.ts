@@ -4615,6 +4615,8 @@ interface I18n {
     reportHarass: string;
     /** Hate Speech / Sexism */
     reportHate: string;
+    /** Maximum 3000 characters. */
+    reportMaximumCharacters: string;
     /** Suicide / Self-Injury */
     reportSelfHarm: string;
     /** Spamming */
