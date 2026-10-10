@@ -42,26 +42,6 @@ trait FormHelper:
         targetBlank
       )("Markdown")
 
-  def checkboxes[V](
-      field: play.api.data.Field,
-      options: Iterable[(V, String)],
-      checked: Set[V],
-      prefix: String = "op"
-  ) = st.group(cls := "radio"):
-    options.map { v =>
-      val id = s"${field.id}_${v._1}"
-      div(
-        st.input(
-          st.id := s"$prefix$id",
-          checked(v._1).option(st.checked),
-          tpe := "checkbox",
-          value := v._1.toString,
-          name := s"${field.name}[]"
-        ),
-        label(`for` := s"$prefix$id")(v._2)
-      )
-    }.toList
-
   def translatedBooleanIntChoices(using Translate) =
     List(
       0 -> trans.site.no.txt(),

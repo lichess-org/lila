@@ -222,7 +222,7 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
               dataIcon := Icon.Back,
               href := s"${langHref(routes.Video.index)}?${control.queryString}"
             )(
-              trv.allNbVideoTags(ts.size.toString())
+              trv.allNbVideoTags(ts.size.toString)
             )
           )
         ),
@@ -230,7 +230,7 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
           ts.sortBy(_.tag).map { t =>
             a(cls := "tag", href := s"${langHref(routes.Video.index)}?tags=${t.tag}")(
               t.tag.capitalize,
-              em(" " + t.nb)
+              em(s" ${t.nb}")
             )
           }
         )

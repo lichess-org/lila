@@ -30,7 +30,7 @@ object TreeBuilder:
         game.clock.map(c => Centis.ofSeconds(c.limitSeconds.value)).map(Clock(_))
       ,
       crazyData = setup.position.crazyData,
-      eval = infos.lift(0).map(_.eval)
+      eval = infos.headOption.map(_.eval)
     )
 
     def makeBranch(move: chess.MoveOrDrop, ply: Ply): Branch =

@@ -7,7 +7,7 @@ import scalalib.paginator.Paginator
 import lila.common.Json.{ *, given }
 import lila.core.config.RouteUrl
 import lila.memo.PicfitUrl
-import lila.relay.RelayTour.{ WithLastRound, WithRounds }
+import lila.relay.RelayTour.{ WithFirstRound, WithLastRound, WithRounds }
 import lila.study.ChapterPreview
 import lila.study.Settings
 import lila.core.socket.SocketVersion
@@ -88,23 +88,23 @@ final class RelayJsonView(
       .add("group" -> group)
       .add("defaultRoundId" -> RelayDefaults.defaultRoundToLink(trs).map(_.id))
 
-  def tourWithAnyRound(t: RelayTour | WithLastRound | RelayCard)(using Config, Translate): JsObject = t match
+  def tourWithAnyRound(
+      t: RelayTour | WithLastRound | WithFirstRound | RelayCard
+  )(using Config, Translate): JsObject = t match
     case tour: RelayTour => Json.obj("tour" -> fullTour(tour))
-    case tr: WithLastRound =>
-      Json
-        .obj(
-          "tour" -> fullTour(tr.tour),
-          "round" -> withUrl(tr.round.withTour(tr.tour), withTour = false)(using roundListWriter)
-        )
-        .add("group" -> tr.group)
+    case tr: WithLastRound => tourWithThisRound(tr)
+    case tr: WithFirstRound => tourWithThisRound(tr)
     case tr: RelayCard =>
-      Json
-        .obj(
-          "tour" -> fullTour(tr.tour),
-          "round" -> withUrl(tr.display.withTour(tr.tour), withTour = false)(using roundListWriter)
-        )
+      tourWithThisRound(tr)
         .add("roundToLink" -> (tr.link.id != tr.display.id).option(roundListWriter.writes(tr.link)))
-        .add("group" -> tr.group)
+
+  private def tourWithThisRound(tr: RelayRound.AndTourAndGroup)(using Config, Translate): JsObject =
+    Json
+      .obj(
+        "tour" -> fullTour(tr.tour),
+        "round" -> withUrl(tr.display.withTour(tr.tour), withTour = false)(using roundListWriter)
+      )
+      .add("group" -> tr.group)
 
   def withUrl(rt: RelayRound.WithTour, withTour: Boolean)(using writer: OWrites[RelayRound]): JsObject =
     writer.writes(rt.round) ++ Json

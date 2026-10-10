@@ -14,7 +14,7 @@ case class RelayPinnedStream(name: String, url: URL, text: Option[String]):
   def parseYoutube: Option[Youtube] =
     if List("www.youtube.com", "youtube.com", "youtu.be").contains(url.host.toString) then
       url.pathSegments.asScala.toList match
-        case List("live", id) => Some(Youtube(id))
+        case List("live", id) => Option(Youtube(id))
         case _ => Option(url.queryParameter("v")).map(Youtube.apply)
     else None
 

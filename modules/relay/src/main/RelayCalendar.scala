@@ -12,8 +12,8 @@ final class RelayCalendar(
     cacheApi: CacheApi
 )(using Executor):
 
-  private val cache = cacheApi[YearMonth, List[WithFirstRound]](32, "relay.calendar.at"):
-    _.expireAfterWrite(10.minutes).buildAsyncFuture: at =>
+  private val cache = cacheApi[YearMonth, List[WithFirstRound]](64, "relay.calendar.at"):
+    _.expireAfterWrite(1.hour).buildAsyncFuture: at =>
       val max = 200
       val firstDay = LocalDate.of(at.getYear, at.getMonth, 1)
       tourRepo.coll

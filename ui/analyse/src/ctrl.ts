@@ -822,7 +822,7 @@ export default class AnalyseCtrl implements CevalHandler {
 
   showVariationArrows() {
     if (!this.allowLines() || !this.settings.showVariationArrows) return false;
-    return Boolean(this.node.children.filter(x => !x.comp || this.settings.showStaticAnalysis).length);
+    return this.node.children.some(x => !x.comp || this.settings.showStaticAnalysis);
   }
 
   showEvaluation() {

@@ -3,7 +3,7 @@
   @extend %box-neat-force;
 
   background: $c-bg-box;
-  padding: 1.5em;
+  padding: 1.25em 1.5em;
 
   section:not(:last-child) {
     border-bottom: $border;
@@ -19,7 +19,7 @@
     /* for bookmark */
     &::before {
       font-size: 3rem;
-      margin-inline-end: 4%;
+      margin-inline-end: 0.75rem;
     }
 
     p {
@@ -28,6 +28,7 @@
 
     time {
       opacity: 1;
+      color: $c-font-dimmer;
     }
 
     form.delete button {
@@ -40,8 +41,16 @@
   }
 
   &__players {
-    margin-top: 0.3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.15em;
+    margin-top: 0.4rem;
     font-size: 90%;
+
+    .player {
+      display: flex;
+      align-items: end;
+    }
 
     abbr {
       text-decoration: none;

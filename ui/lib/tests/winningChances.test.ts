@@ -1,7 +1,8 @@
 import assert from 'node:assert/strict';
 import { describe } from 'node:test';
 
-import { each } from '../../.test/helpers.mts';
+import { each } from '#/helpers';
+
 import * as winningChances from '../src/ceval/winningChances';
 
 type CentipawnsOrMate = number | string;

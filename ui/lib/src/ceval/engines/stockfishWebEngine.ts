@@ -62,6 +62,7 @@ export class StockfishWebEngine implements CevalEngine {
           );
         }),
       );
+      this.status?.();
     }
     module.listen = (data: string) => {
       try {

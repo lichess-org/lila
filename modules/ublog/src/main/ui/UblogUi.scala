@@ -225,7 +225,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)
       using Context
   ) =
     list(
-      title = s"$top posts",
+      title = trans.ublog.topicPosts.txt(top.i18nKey.txt()),
       posts = posts,
       menuItem = "topics",
       route = (p, f, b) => routes.Ublog.topic(top.value, f.some, b, p),
@@ -357,7 +357,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)
             tops.map { case UblogTopic.WithPosts(topic, posts, nb) =>
               a(cls := "ublog-topics__topic", href := routes.Ublog.topic(topic.url))(
                 h2(
-                  topic.value,
+                  topic.i18nKey(),
                   span(cls := "ublog-topics__topic__nb")(trans.ublog.viewAllNbPosts(nb), " »")
                 ),
                 span(cls := "ublog-topics__topic__posts ublog-post-cards")(
@@ -527,7 +527,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)
       ): post =>
         renderPost(post, authorOfBlog(post.blog))
 
-    def community(language: Language, posts: Seq[UblogPost.PreviewPost]) =
+    def community(language: Language, posts: Seq[UblogPost.PreviewPost])(using Translate) =
       atomUi.feed(
         elems = posts,
         htmlCall = routes.Ublog.communityLang(language),
@@ -538,7 +538,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)
       ): post =>
         renderPost(post, authorOfBlog(post.blog))
 
-    private def renderPost(post: UblogPost.PreviewPost, authorName: String) =
+    private def renderPost(post: UblogPost.PreviewPost, authorName: String)(using Translate) =
       frag(
         tag("id")(routeUrl(urlOfPost(post))),
         tag("published")(post.lived.map(_.at).map(atomUi.atomDate)),
@@ -552,7 +552,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)
         post.topics.map { topic =>
           atomUi.category(
             term = topic.url,
-            label = topic.value,
+            label = topic.i18nKey.txt(),
             scheme = routeUrl(routes.Ublog.topic(topic.url)).some
           )
         },

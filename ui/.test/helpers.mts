@@ -13,3 +13,7 @@ export async function freshImport<T = any>(specifier: string): Promise<T> {
   u.searchParams.set('t', String(Date.now()));
   return (await import(u.href)) as T;
 }
+
+export function mock<T>(value: any): T {
+  return value as T;
+}
