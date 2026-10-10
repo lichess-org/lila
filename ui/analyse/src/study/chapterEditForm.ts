@@ -134,7 +134,7 @@ function viewLoaded(ctrl: StudyChapterEditForm, data: StudyChapterConfig): VNode
         ),
       ]),
     ]),
-    h('div.form-group' + (ctrl.isBroadcast ? '.none' : ''), [
+    h('div.form-group', [
       h('label.form-label', { attrs: { for: 'chapter-description' } }, i18n.study.pinnedChapterComment),
       h(
         'select#chapter-description.form-control',
