@@ -357,7 +357,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)
             tops.map { case UblogTopic.WithPosts(topic, posts, nb) =>
               a(cls := "ublog-topics__topic", href := routes.Ublog.topic(topic.url))(
                 h2(
-                  transKey(topic.i18nKey),
+                  topic.i18nKey(),
                   span(cls := "ublog-topics__topic__nb")(trans.ublog.viewAllNbPosts(nb), " »")
                 ),
                 span(cls := "ublog-topics__topic__posts ublog-post-cards")(
