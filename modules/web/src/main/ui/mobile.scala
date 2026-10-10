@@ -1,6 +1,7 @@
 package lila.web
 package ui
 
+import play.api.libs.json.Json
 import play.api.mvc.RequestHeader
 
 import lila.core.i18n.{ I18nKey as trans, Translate }
@@ -54,10 +55,39 @@ def mobile(helpers: Helpers)(renderedCmsPage: Frag)(using Translate) =
   </a>
   """
 
+  def storeOffer(name: String, url: String) = Json.obj(
+    "@type" -> "Offer",
+    "name" -> name,
+    "url" -> url,
+    "price" -> 0
+  )
+
+  val appStructuredData = lila.ui.bits.structuredData("MobileApplication"):
+    Json.obj(
+      "name" -> "Lichess",
+      "operatingSystem" -> "Android, iOS",
+      "applicationCategory" -> "GameApplication",
+      "url" -> routeUrl(routes.Main.app).value,
+      "releaseNotes" -> "https://github.com/lichess-org/mobile/releases",
+      "screenshot" -> assetUrl("images/mobile/lichess-mobile-screen.webp").value,
+      "offers" -> List(
+        storeOffer("Google Play", StaticContent.mobileAndroidUrl),
+        storeOffer("F-Droid", StaticContent.mobileFdroidUrl),
+        storeOffer("App Store", StaticContent.mobileIosUrl)
+      ),
+      // weighted average of the App Store and Google Play ratings, as of 2026-10-08
+      "aggregateRating" -> Json.obj(
+        "@type" -> "AggregateRating",
+        "ratingValue" -> 4.2,
+        "ratingCount" -> 2895
+      )
+    )
+
   Page(trans.app.lichessMobileApp.txt())
     .i18n(_.app)
     .js(Esm("bits.qrcode"))
     .css("bits.mobile")
+    .headAppend(appStructuredData)
     .hrefLangs(lila.ui.LangPath(routes.Main.app)):
       main(
         div(cls := "mobile page-small box box-pad")(
