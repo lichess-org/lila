@@ -170,6 +170,7 @@
   <string name="flipBoard">Rotiţi tabla</string>
   <string name="toggleLocalEngine">Comută motorul local</string>
   <string name="engineSettings">Setări motor</string>
+  <string name="engine">Motor</string>
   <string name="enginesFromStrongestToWeakest">Motoare de la cele mai puternice la cele mai slabe</string>
   <string name="illegalPosition">Poziţie ilegală</string>
   <string name="threefoldRepetition">Repetare de trei ori</string>
@@ -826,7 +827,9 @@ Prieteni jucând: %2$s</string>
   <string name="downloadAnnotated">Descarcă cu note</string>
   <string name="downloadRaw">Descarcă brut</string>
   <string name="downloadImported">Descarcă importat</string>
+  <string name="downloadMyGames">Descarcă jocurile mele</string>
   <string name="downloadAllGames">Descarcă toate partidele</string>
+  <string name="downloadResults">Descărcare rezultate</string>
   <string name="crosstable">Tabel de scoruri</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Derulează peste tablă pentru a te deplasa în joc.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Derulați variantele calculatorului pentru a le previzualiza.</string>

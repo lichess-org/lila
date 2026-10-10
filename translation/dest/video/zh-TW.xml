@@ -2,4 +2,21 @@
 <resources>
   <string name="chessVideos">國際象棋影片</string>
   <string name="allVideosAreFree">所有影片對每一個人都免費。</string>
+  <string name="selectTagsToFilter">選取標籤來篩選影片。</string>
+  <string name="weHaveCarefullySelectedX">我們至今都很慎重選擇%s部影片！</string>
+  <string name="freeChessVideos">免費國際象棋影片</string>
+  <string name="xFreeCarefullyCurated">%s 免費，慎重選擇的國際象樣影片</string>
+  <string name="xCuratedChessVideos">%s 部展示的國際象棋影片</string>
+  <string name="xWithTagsY">%1$s 部有%2$s標籤</string>
+  <string name="freeForAll">所有人免費</string>
+  <plurals name="nbVideosFound">
+    <item quantity="other">已經找到 %s 部影片</item>
+  </plurals>
+  <string name="noVideosForTheseTags">沒有找到這一標籤的影片：</string>
+  <string name="thatsAllWeGotForTheseTags">這是我們這一標籤的所有影片了：</string>
+  <string name="thatsAllWeGotForThisSearchX">這是我們搜尋的所有影片了：%s</string>
+  <string name="viewMoreTags">檢視更多標籤</string>
+  <string name="videoNotFound">沒有找到影片！</string>
+  <string name="xByY">%1$s 由 %2$s 解說</string>
+  <string name="allNbVideoTags">所有%s的影片標籤</string>
 </resources>

@@ -165,6 +165,7 @@
   <string name="flipBoard">Käännä lauta</string>
   <string name="toggleLocalEngine">Paikallinen tietokone päälle/pois</string>
   <string name="engineSettings">Tietokoneasetukset</string>
+  <string name="engine">Kone</string>
   <string name="enginesFromStrongestToWeakest">Tietokoneet vahvimmasta heikoimpaan</string>
   <string name="illegalPosition">Laiton asema</string>
   <string name="threefoldRepetition">Aseman toisto kolmesti</string>
@@ -788,7 +789,9 @@ Kavereita pelaamassa: %2$s</string>
   <string name="downloadAnnotated">Lataa kommenttien kanssa</string>
   <string name="downloadRaw">Lataa ilman kommentteja</string>
   <string name="downloadImported">Imuroi tuotu PGN</string>
+  <string name="downloadMyGames">Lataa pelini</string>
   <string name="downloadAllGames">Lataa kaikki pelit</string>
+  <string name="downloadResults">Lataa tulokset</string>
   <string name="crosstable">Pistetaulukko</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Voit kelata siirtoja myös hiiren vieritysrullalla.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Esikatsele tietokoneen muunnelmia viemällä hiiren osoitin niiden päälle.</string>

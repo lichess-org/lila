@@ -789,7 +789,9 @@ Venner der spiller: %2$s</string>
   <string name="downloadAnnotated">Download kommenteret</string>
   <string name="downloadRaw">Download rå</string>
   <string name="downloadImported">Download importeret</string>
+  <string name="downloadMyGames">Download mine partier</string>
   <string name="downloadAllGames">Download alle partier</string>
+  <string name="downloadResults">Download resultater</string>
   <string name="crosstable">Krydstabel</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Brug musens scrollhjul på brættet til at skifte mellem træk i partiet.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Scroll over computervarianter for at få en forhåndsvisning af dem.</string>

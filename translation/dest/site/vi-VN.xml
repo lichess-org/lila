@@ -431,6 +431,8 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <plurals name="nbFriendsOnline">
     <item quantity="other">%s bạn trực tuyến</item>
   </plurals>
+  <string name="friendsOnlineAndPlaying">Bạn bè đang trực tuyến: %1$s
+Bạn bè đang chơi: %2$s</string>
   <string name="favoriteOpponents">Đối thủ yêu thích</string>
   <string name="follow">Theo dõi</string>
   <string name="following">Đang theo dõi</string>

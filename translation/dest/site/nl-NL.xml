@@ -165,6 +165,7 @@
   <string name="flipBoard">Bord draaien</string>
   <string name="toggleLocalEngine">Lokale computeranalyse</string>
   <string name="engineSettings">Computerinstellingen</string>
+  <string name="engine">Computer</string>
   <string name="enginesFromStrongestToWeakest">Computers van sterkst naar zwakst</string>
   <string name="illegalPosition">Ongeldige stelling</string>
   <string name="threefoldRepetition">Driemaal dezelfde stelling</string>
@@ -789,7 +790,9 @@ Vrienden die spelen: %2$s</string>
   <string name="downloadAnnotated">Download de geannoteerde partij</string>
   <string name="downloadRaw">Download PGN</string>
   <string name="downloadImported">Download de geïmporteerde partij</string>
+  <string name="downloadMyGames">Download mijn partijen</string>
   <string name="downloadAllGames">Alle partijen downloaden</string>
+  <string name="downloadResults">Download resultaten</string>
   <string name="crosstable">Onderlinge partijen</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Je kunt ook over het bord scrollen om je zetten uit te voeren.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Beweeg de muis over computervarianten om ze te bekijken.</string>

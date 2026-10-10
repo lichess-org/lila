@@ -175,6 +175,7 @@
   <string name="flipBoard">Obróć szachownicę</string>
   <string name="toggleLocalEngine">Przełącz silnik lokalny</string>
   <string name="engineSettings">Ustawienia silnika</string>
+  <string name="engine">Silnik</string>
   <string name="enginesFromStrongestToWeakest">Silniki szachowe od najmocniejszego do najsłabszego</string>
   <string name="illegalPosition">Niepoprawna pozycja</string>
   <string name="threefoldRepetition">Trzykrotne powtórzenie pozycji</string>
@@ -863,7 +864,9 @@ Znajomi grający: %2$s</string>
   <string name="downloadAnnotated">Pobierz z komentarzem</string>
   <string name="downloadRaw">Pobierz bez komentarza</string>
   <string name="downloadImported">Pobierz zaimportowane</string>
+  <string name="downloadMyGames">Pobierz moje partie</string>
   <string name="downloadAllGames">Pobierz wszystkie partie</string>
+  <string name="downloadResults">Pobierz wyniki</string>
   <string name="crosstable">Wyniki spotkań</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Możesz także przewijać nad szachownicą, by zmieniać postęp partii.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Przewiń po wariantach komputera, aby je podglądać.</string>
@@ -883,6 +886,7 @@ Znajomi grający: %2$s</string>
   <string name="enableKidMode">Włącz tryb dla dzieci</string>
   <string name="disableKidMode">Wyłącz tryb dla dzieci</string>
   <string name="security">Bezpieczeństwo</string>
+  <string name="activeSessionsDescription">To jest lista urządzeń i aplikacji, które są zalogowane na Twoje konto. Jeśli zauważysz podejrzaną aktywność, upewnij się, że &lt;a href=\'%1$s\'&gt;sprawdź swój adres e-mail odzyskiwania konta&lt;/a&gt; i &lt;a href=\'%2$s\'&gt;zmień hasło&lt;/a&gt;.</string>
   <string name="sessions">Sesje</string>
   <string name="revokeAllSessions">unieważnić wszystkie sesje</string>
   <string name="playChessEverywhere">Graj w szachy wszędzie</string>

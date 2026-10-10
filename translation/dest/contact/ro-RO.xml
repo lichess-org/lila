@@ -54,7 +54,9 @@
   <string name="ratedGame">Asigură-te ca ai jucat un meci oficial. Jocurile neoficiale nu sunt afectate de scorurile jucătorilor.</string>
   <string name="botRatingAbuse">În anumite circumstanțe, atunci când se joacă cu un cont de bot, un joc evaluat nu poate acorda puncte dacă se stabilește că jucătorul abuzează de bot pentru a obține puncte de evaluare.</string>
   <string name="errorPage">Pagina de eroare</string>
-  <string name="reportErrorPage">Dacă ai primit o pagină de eroare, o poți raporta:</string>
+  <string name="reportTheBug">Puteţi raporta acest lucru:</string>
+  <string name="securityVulnerability">Vulnerabilitate de securitate</string>
+  <string name="otherBug">Alt bug</string>
   <string name="learnHowToMakeBroadcasts">Învață cum să îți faci propriile transmisiuni pe Lichess</string>
   <string name="banAppeal">Aplică pentru un ban sau restricție de IP</string>
   <string name="engineAppeal">Motor de asistență sau marcaj de trișare</string>

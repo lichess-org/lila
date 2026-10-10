@@ -53,7 +53,6 @@
   <string name="ratedGame">Potvrdite da ste igrali partiju za rejting bodove. Prijateljske partije na utiču na rejting igrača.</string>
   <string name="botRatingAbuse">U određenim situacijama kad igrate na bodove protiv bot računa možda nećete dobiti bodove ako se ustanovi da je igrač zloupotrebljavao bota za dobivanja bodova.</string>
   <string name="errorPage">Stranica u slučaju greške</string>
-  <string name="reportErrorPage">Ukoliko ste dobili stranicu u slučaju greške, možete je prijaviti:</string>
   <string name="learnHowToMakeBroadcasts">Naučite kako napraviti vlastita emitiranja na Lichessu</string>
   <string name="banAppeal">Žalba na zabranu ili ograničenje IP adrese</string>
   <string name="engineAppeal">Oznaka za varalice ili za one koji koriste računar</string>

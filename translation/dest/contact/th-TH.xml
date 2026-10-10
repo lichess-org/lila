@@ -53,7 +53,6 @@
   <string name="ratedGame">ให้แน่ใจว่าคุณเล่นเกมคิดคะแนนอยู่ เกมสบายๆ จะไม่มีผลต่อคะแนนของผู้เล่น</string>
   <string name="botRatingAbuse">ในบางสถานการณ์เมื่อเล่นกับบัญชีบอท เกมที่คิดคะแนนอาจไม่ให้คะแนนหากมีการตัดสินว่าผู้เล่นใช้บอทในทางที่ผิดเพื่อให้ได้แต้มคะแนน</string>
   <string name="errorPage">หน้านี้มีข้อผิดพลาด</string>
-  <string name="reportErrorPage">ถ้าหน้าที่คุณเปิดมีปัญหา คุณสามารถรายงานได้</string>
   <string name="learnHowToMakeBroadcasts">เรียนรู้การออกอากาศใน Lichess</string>
   <string name="banAppeal">การยื่นอุทธรณ์สำหรับผู้โดนแบน</string>
   <string name="engineAppeal">ระบุว่าใช้เครื่องจักรหรือโกง</string>

@@ -53,7 +53,6 @@
   <string name="ratedGame">Maak seker dat jy \'n gegradeerde spel gespeel het. Vriendskaplike wedstryde beïnvloed nie jou gradeering nie.</string>
   <string name="botRatingAbuse">In sekere gevalle wanneer teen \'n robot rekening gespeel word, sal `n gegraderings spel nie punte toegereken word nie as dit bepaal is dat die speler die robot misbruik vir graderings punte.</string>
   <string name="errorPage">Foutblad</string>
-  <string name="reportErrorPage">As daar \'n foutblad opduik kan jy dit rapporteer:</string>
   <string name="banAppeal">Appéleer vir \'n ban of IP beperking</string>
   <string name="engineAppeal">Rekenaarhulp of vuilspel</string>
   <string name="sendAppealTo">Jy kan appélleer by %s.</string>

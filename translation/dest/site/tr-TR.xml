@@ -165,6 +165,7 @@
   <string name="flipBoard">Tahtayı döndür</string>
   <string name="toggleLocalEngine">Yerel motoru aç/kapat</string>
   <string name="engineSettings">Motor ayarları</string>
+  <string name="engine">Motor</string>
   <string name="enginesFromStrongestToWeakest">En güçlüden en zayıfa motorlar</string>
   <string name="illegalPosition">Kural dışı pozisyon</string>
   <string name="threefoldRepetition">Üç kez hamle tekrarı</string>
@@ -789,7 +790,9 @@ Oynayan arkadaşlar: %2$s</string>
   <string name="downloadAnnotated">Açıklamalarıyla beraber indirin</string>
   <string name="downloadRaw">Açıklamasız indirin.</string>
   <string name="downloadImported">İçeri aktarılmış oyunu indir</string>
+  <string name="downloadMyGames">Oyunlarımı indir</string>
   <string name="downloadAllGames">Bütün oyunları indir</string>
+  <string name="downloadResults">Sonuçları indir</string>
   <string name="crosstable">Çapraz Tablo</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Ayrıca fare tekerini kullanarak da hamle yapabilirsiniz.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Fareyi bilgisayar varyantlarının üzerine getirerek pozisyonu görüntüleyin.</string>

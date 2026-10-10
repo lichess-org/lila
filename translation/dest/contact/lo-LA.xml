@@ -53,7 +53,6 @@
   <string name="ratedGame">ກວດສອບໃຫ້ແນ່ໃຈວ່າທ່ານຫຼິ້ນໃນເກມທີ່ມີການຄິດໄລ່ຄະແນນ (Rated). ເກມທົ່ວໄປ (Casual) ຈະບໍ່ມີຜົນຕໍ່ຄະແນນຂອງຜູ້ຫຼິ້ນ.</string>
   <string name="botRatingAbuse">ໃນບາງກໍລະນີເມື່ອຫຼິ້ນກັບບັນຊີບັອດ (Bot), ເກມທີ່ຄິດໄລ່ຄະແນນອາດຈະບໍ່ໃຫ້ຄະແນນ ຫາກພົບວ່າຜູ້ຫຼິ້ນມີພຶດຕິກຳປັ່ນຄະແນນຈາກບັອດ.</string>
   <string name="errorPage">ໜ້າທີ່ເກີດຂໍ້ຜິດພາດ</string>
-  <string name="reportErrorPage">ຫາກທ່ານພົບໜ້າທີ່ເກີດຂໍ້ຜິດພາດ, ທ່ານສາມາດລາຍງານໄດ້ທີ່:</string>
   <string name="learnHowToMakeBroadcasts">ຮຽນຮູ່ວິທີການສ້າງການຖ່າຍທອດສົດ (Broadcast) ຂອງທ່ານເອງໃນ Lichess</string>
   <string name="banAppeal">ການອຸທອນການຖືກແບນ ຫຼື ການຈຳກັດ IP</string>
   <string name="engineAppeal">ຖືກໝາຍວ່າໃຊ້ໂປຣແກຣມຊ່ວຍຫຼິ້ນ (Engine) ຫຼື ໂກງ</string>

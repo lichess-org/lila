@@ -163,6 +163,11 @@
   </plurals>
   <string name="moveTimes">Aeg käigu tegemisel</string>
   <string name="flipBoard">Keera lauda</string>
+  <string name="toggleLocalEngine">Kohaliku mootori lülitus</string>
+  <string name="engineSettings">Mootori seaded</string>
+  <string name="engine">Mootor</string>
+  <string name="enginesFromStrongestToWeakest">Mootorid tugevaimast nõrgimani</string>
+  <string name="illegalPosition">Lubamatu asetus</string>
   <string name="threefoldRepetition">Kolmekordne kordus</string>
   <string name="claimADraw">Võta viik</string>
   <string name="drawClaimed">Nõutav viik</string>
@@ -237,6 +242,7 @@
   <string name="signupUsernameHint">Vali kasutajanimi mis oleks kõigile sobilik, isegi lastele. Seda ei saa hiljem muuta, ning kõik sobimatute nimedega kontod suletakse!</string>
   <string name="signupEmailPromise">Saadame teile ainult teie kontoga seotud e-kirju ja me ei jaga kunagi teie e-posti aadressi.</string>
   <string name="password">Parool</string>
+  <string name="showPassword">Kuva parool</string>
   <string name="changePassword">Muuda parooli</string>
   <string name="changeEmail">Muuda email</string>
   <string name="email">Email</string>
@@ -282,6 +288,8 @@
   </plurals>
   <string name="ok">Hüva</string>
   <string name="cancel">Katkesta</string>
+  <string name="whiteRanOutOfTime" comment="whiteTimeOut&#10;&#10;Shows when White's time has run out. Is followed by the end condition, for example&#10;'White ran out of time · Draw'">Valgel sai aeg otsa</string>
+  <string name="blackRanOutOfTime" comment="blackTimeOut&#10;&#10;Shows when Black's time has run out. Is followed by the end condition, for example&#10;'Black ran out of time · Draw'">Mustal sai aeg otsa</string>
   <string name="drawOfferSent">Viigi pakkumine saadetud</string>
   <string name="drawOfferAccepted">Viigi pakkumine vastu võetud</string>
   <string name="whiteOffersDraw">Valge pakub viiki</string>
@@ -402,6 +410,8 @@
     <item quantity="other">Peate veel mängima %s reitinguga mängu</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Teie %s reiting on liiga madal/kõrge</string>
+  <string name="cannotFilterByUnstableRating" comment="Tooltip to explain why the control for filtering by rating is disabled">Reitingu järgi filtreerimine pole võimalik, kuna sinu reiting ei ole stabiilne.
+Reitinguga mängude mängimine suurendab stabiilsust.</string>
   <string name="yourPerfRatingIsTooHigh">Teie %1$s reiting (%2$s) on liiga kõrge</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Teie parim nädalane %1$s reiting (%2$s) on liiga kõrge</string>
   <string name="yourPerfRatingIsTooLow">Teie %1$s reiting (%2$s) on liiga madal</string>
@@ -422,6 +432,7 @@
   <string name="apply">Rakenda</string>
   <string name="save">Salvesta</string>
   <string name="leaderboard">Edetabel</string>
+  <string name="positionAsImage" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position.">Seis pildina</string>
   <string name="gameAsGIF">Salvesta mäng GIF-ina</string>
   <string name="playerNames">Mängijate nimed</string>
   <string name="moveAnnotations">Käikude märkused</string>
@@ -451,6 +462,8 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
     <item quantity="one">%s sõber on kohal</item>
     <item quantity="other">%s sõpra on kohal</item>
   </plurals>
+  <string name="friendsOnlineAndPlaying">Sõbrad võrgus: %1$s
+Sõbrad mängimas: %2$s</string>
   <string name="favoriteOpponents">Lemmikvastased</string>
   <string name="follow">Jälgi</string>
   <string name="following">Jälgitakse</string>
@@ -535,6 +548,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="oneUrlPerLine">Üks URL iga rea kohta.</string>
   <string name="inlineNotation">Tekstisisene notatsioon</string>
   <string name="makeAStudy">Hoiustamiseks ja jagamiseks kaalutle uuringu koostamist.</string>
+  <string name="clearLocalData">Kustuta kohalikud andmed</string>
   <string name="previouslyOnLichessTV">Eelnevalt Lichess TV-s</string>
   <string name="onlinePlayers">Mängijad kohal</string>
   <string name="activePlayers">Aktiivsed mängijad</string>
@@ -548,6 +562,11 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="autoSwitch">Automaatne siirdumine</string>
   <string name="puzzles">Pusled</string>
   <string name="onlineBots">Veebirobotid</string>
+  <string name="aboutBotsOnLichess">Lichessi robotitest</string>
+  <string name="featuredBots">Esile tõstetud robotid</string>
+  <string name="tryPlayingTheseInnovativeChessEngines">Proovi neid uuenduslikke malemootoreid! Nad on meie lemmikud.</string>
+  <string name="communityBots">Kogukonna robotid</string>
+  <string name="moreChessEnginesCreatedByTheLichessCommunity">Veel Lichessi kogukonna loodud malemootoreid. Neid haldavad nende loojad ja nad ei pruugi alati võrgus olla.</string>
   <string name="name">Nimi</string>
   <string name="description">Kirjeldus</string>
   <string name="descPrivate">Privaatne kirjeldus</string>
@@ -595,6 +614,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="clearField">Tühjenda väli</string>
   <string name="orSeparator">Või</string>
   <string name="logInByEmail">Logi sisse e-posti teel</string>
+  <string name="emailLoginInstructions">Saadame sulle e-kirja, milles on link sisselogimiseks.</string>
   <string name="emailMeALink">Saada mulle link meilile</string>
   <string name="currentPassword">Praegune parool</string>
   <string name="newPassword">Uus parool</string>
@@ -619,6 +639,8 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="onSlowGames">Aeglastes mängudes</string>
   <string name="always">Alati</string>
   <string name="never">Mitte kunagi</string>
+  <string name="defeatOnly">Ainult kaotus</string>
+  <string name="drawAndDefeat">Viik ja võit</string>
   <string name="xCompetesInY">%1$s võtab osa turniirist %2$s</string>
   <string name="victory">Võit</string>
   <string name="defeat">Kaotus</string>
@@ -683,10 +705,13 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="aboutX">Info %s kohta</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s on täiesti tasuta (%2$s), reklaamivaba, avatud lähtekoodiga male server.</string>
   <string name="really">päriselt</string>
+  <string name="lichessUpdates">Lichessi uuendused</string>
   <string name="contribute">Panusta</string>
+  <string name="changelog">Muudatuste logi</string>
   <string name="termsOfService">Kasutajatingimused</string>
   <string name="titleVerification">Tiitli tõendamine</string>
   <string name="sourceCode">Lähtekood</string>
+  <string name="blockAds">Blokeeri reklaamid</string>
   <string name="simultaneousExhibitions">Simultaanid</string>
   <string name="host">Korraldaja</string>
   <string name="hostColorX">Korraldaja värv: %s</string>
@@ -707,6 +732,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="simulVariantsHint">Kui valid mitu varianti, saab iga mängija valida ise millist mängida.</string>
   <string name="simulClockHint">Fischeri ajakontroll. Mida rohkemate mängijate vastu mängida, seda enam aega võib vaja minna.</string>
   <string name="simulAddExtraTime">Võid lisada kellale lisaaega, et simultaaniga paremini hakkama saada.</string>
+  <string name="extraClockTimeForHost" comment="Appears on: https://lichess.org/simul/new&#10;&#10;Allows a simul host to select extra time for the simul.&#10;&#10;Please note this string used to state &quot;Host extra clock time&quot;, without the word &quot;initial&quot;">Lisaaeg võõrustajale:</string>
   <string name="simulAddExtraTimePerPlayer">Lisa aega oma kellale iga simultaaniga liituva mängija kohta.</string>
   <string name="simulHostExtraTimePerPlayer">Mängija kohta lisaaeg</string>
   <string name="lichessTournaments">Lichessi turniirid</string>
@@ -717,8 +743,10 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="keyboardShortcuts">Kiirklahvid</string>
   <string name="keyMoveBackwardOrForward">liigu tagasi/edasi</string>
   <string name="keyGoToStartOrEnd">mine algusesse/lõppu</string>
+  <string name="keyGoToPreviousOrNextLine">mine eelmisele/järgmisele reale</string>
   <string name="keyCycleSelectedVariation">Valitud variatsiooni tsükkel</string>
   <string name="keyShowOrHideComments">näita/peida kommentaarid</string>
+  <string name="keyShowOrHideCurrentVariation">näita/peida praegune variatsioon</string>
   <string name="keyEnterOrExitVariation">lisa/eemalda variatsioon</string>
   <string name="keyPreviousBranch">Eelmine haru</string>
   <string name="keyNextBranch">Järgmine haru</string>
@@ -763,7 +791,9 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="downloadAnnotated">Lae alla kommentaaridega</string>
   <string name="downloadRaw">Lae alla kommentaarideta</string>
   <string name="downloadImported">Lae imporditud PNG</string>
+  <string name="downloadMyGames">Lae alla minu mängud</string>
   <string name="downloadAllGames">Lae alla kõik mängud</string>
+  <string name="downloadResults">Lae alla tulemused</string>
   <string name="crosstable">Skoor</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Samuti võid kerida käike laua peal hiirega skrollides.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Vii hiir arvutivariandi kohale, et saada eelvaade.</string>
@@ -783,12 +813,14 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="enableKidMode">Aktiveeri lapserežiim</string>
   <string name="disableKidMode">Deaktiveeri lapserežiim</string>
   <string name="security">Turvalisus</string>
+  <string name="activeSessionsDescription">Siin on loetelu seadmetest ja rakendustest, mis on sinu kontosse sisse logitud. Kui märkad kahtlast tegevust, kontrolli kindlasti &lt;a href=\'%1$s\'&gt;oma taastamise e-posti aadressi&lt;/a&gt; ja &lt;a href=\'%2$s\'&gt;muuda oma parooli&lt;/a&gt;.</string>
   <string name="sessions">Sessioonid</string>
   <string name="revokeAllSessions">lõpetada kõik sessioonid</string>
   <string name="playChessEverywhere">Mängi malet kõikjal</string>
   <string name="everybodyGetsAllFeaturesForFree">Kõik funktsioonid on kõigile tasuta</string>
   <string name="viewTheSolution">Vaata lahendust</string>
   <string name="noChallenges">Väljakutsed puuduvad.</string>
+  <string name="browserNotificationsDenied">Brauseri seadistusega keelatud teavitusaknad</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Saadaval %s keeles!</item>
     <item quantity="other">Saadaval %s keeles!</item>
@@ -811,7 +843,9 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="picture">Pilt</string>
   <string name="deviceTheme">Seadme teema</string>
   <string name="roundness">Ümarus</string>
+  <string name="backgroundImage">Taustapilt</string>
   <string name="backgroundImageUrl">Taustapildi URL:</string>
+  <string name="imageOpacity">Pildi läbipaistvus</string>
   <string name="board">Laud</string>
   <string name="size">Suurus</string>
   <string name="opacity">Läbipaistmatus</string>
@@ -834,6 +868,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="custom">Kohandatud</string>
   <string name="notifications">Teavitused</string>
   <string name="notificationsX">Märguanded: %1$s</string>
+  <string name="perfRatingLabel">Reiting: %s.</string>
   <string name="yourRatingIsX">Sinu reiting on %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekund, et teha esimene käik</item>
@@ -892,6 +927,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
     <item quantity="other">ja salvesta %s ettekäigu variendid</item>
   </plurals>
   <string name="showUnreadLichessMessage">Oled saanud Lichessilt privaatsõnumi.</string>
+  <string name="readTheMessage" comment="'It' refers to a private message. This text follows after a different string which advises players they have received a private message from Lichess. For users, this is appears as a regular private message from the Lichess account: https://lichess.org/@/Lichess">Loe sõnumit</string>
   <string name="sorry">Vabandust :(</string>
   <string name="weHadToTimeYouOutForAWhile">Me pidime su natukeseks ära blokeerima.</string>
   <string name="why">Miks?</string>
@@ -1026,4 +1062,10 @@ Kõik tegevuskulud, arendus ja sisu rahastatakse ainult kasutajate annetustest.<
   <string name="tags">Sildid</string>
   <string name="enPassant">En passant õigused</string>
   <string name="settings">Seaded</string>
+  <string name="verifyingYourDevice">Seadme kontrollimine...</string>
+  <string name="chessOpenings">Male avangud</string>
+  <string name="boards">Lauad</string>
+  <string name="write">Kirjuta</string>
+  <string name="preview">Eelvaade</string>
+  <string name="done">Valmis</string>
 </resources>

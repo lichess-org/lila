@@ -160,6 +160,7 @@
   <string name="flipBoard">盤の上下反転</string>
   <string name="toggleLocalEngine">ローカルエンジンのオン/オフ</string>
   <string name="engineSettings">エンジンの設定</string>
+  <string name="engine">エンジン</string>
   <string name="enginesFromStrongestToWeakest">最強から最弱まで多彩なエンジン</string>
   <string name="illegalPosition">ルール違反の局面</string>
   <string name="threefoldRepetition">同形三復</string>
@@ -752,7 +753,9 @@
   <string name="downloadAnnotated">解説つきダウンロード</string>
   <string name="downloadRaw">棋譜のみダウンロード</string>
   <string name="downloadImported">インポート分のダウンロード</string>
+  <string name="downloadMyGames">自分のゲームをダウンロード</string>
   <string name="downloadAllGames">全局をダウンロード</string>
+  <string name="downloadResults">結果をダウンロード</string>
   <string name="crosstable">成績表</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">盤上で駒を動かすことでも手を入力できます。</string>
   <string name="scrollOverComputerVariationsToPreviewThem">手順の上にカーソルを移動させるとプレビューが表示されます。</string>
