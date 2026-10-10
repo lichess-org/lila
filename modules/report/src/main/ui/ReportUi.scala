@@ -118,7 +118,7 @@ final class ReportUi(helpers: Helpers)(menu: Context ?=> Frag):
         trans.site.whatIsIheMatter.txt().some
       )
 
-  private val aboutReports = p(
+  private def aboutReports(using Context) = p(
     a(
       href := routes.Cms.lonePage(lila.core.id.CmsPageKey("report-faq")),
       dataIcon := Icon.InfoCircle,
