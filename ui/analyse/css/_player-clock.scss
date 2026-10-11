@@ -1,39 +1,76 @@
 @import '../../lib/css/component/material';
 
 $clock-height: 20px;
+$player-height: 1.6rem;
 
-.analyse__player_strip {
-  @include inline-end(0);
+.analyse__board {
+  @extend %box-shadow, %box-radius;
 
-  position: absolute;
-  display: flex;
+  background: $c-bg-box;
+
+  cg-container {
+    position: static;
+  }
+
+  cg-board {
+    box-shadow: none;
+  }
+}
+
+.analyse.has-players {
+  .main-board cg-board {
+    border-radius: 0;
+  }
+
+  &:not(.is-relay) {
+    .eval-gauge {
+      margin-top: $player-height;
+    }
+
+    .analyse__tools {
+      height: auto;
+    }
+  }
+}
+
+.is3d .analyse.has-players:not(.is-relay) .eval-gauge {
+  margin-top: calc(#{$player-height} + var(---cg-height) * 2 / 100);
+}
+
+.analyse__player {
+  @include player-container;
+
+  justify-content: flex-end;
+  position: relative;
+  z-index: 1;
 
   &.top {
-    top: #{-$clock-height};
-    z-index: $z-above-site-header-107;
+    @extend %box-radius-top;
 
     .is3d & {
-      top: #{-$clock-height - 35px};
+      @extend %box-radius;
     }
   }
 
   &.bottom {
-    top: var(---cg-height, 100%);
-    z-index: 1; // over the board coords
-
-    // outer file coordinates hang 15px below the board, see lib/css/theme/board/_coords.scss
-    .coords-out .is2d & {
-      top: calc(var(---cg-height, 100%) + 15px);
-    }
-
-    .is3d & {
-      top: calc(var(---cg-height, 100%) + 15px);
-    }
+    @extend %box-radius-bottom;
   }
 
-  /* Where to put them in col1 layout? It moves the entire board and controls down for little benefit */
-  @include mq-is-col1 {
-    display: none;
+  .analyse__clock {
+    @extend %roboto, %flex-center-nowrap;
+    @include padding-direction(0, 0.8em, 0, 0.6em);
+
+    height: 100%;
+    margin-inline-start: 0;
+    border-radius: 0 $box-radius-size 0 0;
+    box-shadow: none;
+    font-size: 1.2em;
+    font-weight: bold;
+    background: $c-bg-box;
+  }
+
+  &.bottom .analyse__clock {
+    border-radius: 0 0 $box-radius-size 0;
   }
 }
 
@@ -64,7 +101,13 @@ $clock-height: 20px;
 }
 
 .material {
-  padding-inline-end: 1px;
+  padding-inline-end: 4px;
+
+  &,
+  & > div {
+    display: flex;
+    align-items: center;
+  }
 
   mpiece {
     width: 20px;
@@ -76,14 +119,6 @@ $clock-height: 20px;
   }
 
   score {
-    margin-top: -2px;
+    margin-left: 2px;
   }
-}
-
-.material-top {
-  margin-top: -1px;
-}
-
-.material-bottom {
-  margin-top: 1px;
 }

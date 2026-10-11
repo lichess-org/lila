@@ -1,0 +1,9 @@
+@mixin player-container {
+  @extend %flex-between-nowrap, %metal-bg;
+  @include backdrop-blur-if-transparent;
+
+  font-weight: bold;
+  height: $player-height;
+  width: 100%;
+  white-space: nowrap;
+}

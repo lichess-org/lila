@@ -83,7 +83,10 @@ function analyseView(ctrl: AnalyseCtrl, deps?: typeof studyDeps): VNode {
           ),
       ],
     ),
-    ctrl.chatCtrl && renderChat(ctrl.chatCtrl, { insert: v => fixChatHeight(v.elm) }),
+    ctrl.chatCtrl &&
+      renderChat(ctrl.chatCtrl, {
+        insert: v => requestAnimationFrame(() => fixChatHeight(v.elm)),
+      }),
     hl('div.chat__members.none', { hook: onInsert(watchers) }),
   );
 }
@@ -103,8 +106,14 @@ function resizeHandler(ctrl: AnalyseCtrl) {
 
 function fixChatHeight(el: Node | null | undefined) {
   if (!(el instanceof HTMLElement)) return;
-  resizeCache.board ??= document.querySelector<HTMLElement>('.analyse__board .cg-wrap');
+  resizeCache.board ??= document.querySelector<HTMLElement>('.analyse__board .main-board');
   resizeCache.meta ??= document.querySelector<HTMLElement>('.game__meta');
   if (!resizeCache.board || !resizeCache.meta) return;
-  el.style.height = `${resizeCache.board.offsetHeight - resizeCache.meta.offsetHeight - 16}px`;
+  const boardArea = resizeCache.board.closest('.analyse__board');
+  const playerBarsHeight = Array.from(
+    boardArea?.querySelectorAll<HTMLElement>(':scope > .analyse__player') ?? [],
+  ).reduce((height, player) => height + player.offsetHeight, 0);
+  const boardMarginTop = parseFloat(getComputedStyle(resizeCache.board).marginTop) || 0;
+  const boardHeight = resizeCache.board.offsetHeight + boardMarginTop + playerBarsHeight;
+  el.style.height = `${boardHeight - resizeCache.meta.offsetHeight - 16}px`;
 }

@@ -1,53 +1,18 @@
-@use 'sass:list';
 @import '../../../lib/css/component/material';
 
-$player-height: 1.6rem;
-
-.analyse.has-players {
-  .main-board cg-board {
-    border-radius: 0;
-  }
-
-  @include mq-at-least-col2 {
-    .analyse__underboard {
-      margin-top: calc(#{list.slash($player-height, 2)} + #{list.slash($analyse-block-gap, 2)});
-    }
-  }
-
-  @include mq-is-col1 {
-    .analyse__controls {
-      margin-top: $player-height;
-    }
-  }
-}
-
 .study__player {
-  @extend %flex-between-nowrap, %metal-bg, %box-shadow;
-  @include inline-end(0);
-  @include backdrop-blur-if-transparent;
-
-  position: absolute;
-  font-weight: bold;
-  width: var(---cg-width, 100%);
-  height: $player-height;
-  white-space: nowrap;
+  @include player-container;
 
   &-top {
     @extend %box-radius-top;
 
-    top: #{-$player-height};
-
     .is3d & {
       @extend %box-radius;
-
-      top: calc(#{-$player-height} - var(---cg-width) / 20);
     }
   }
 
   &-bot {
     @extend %box-radius-bottom;
-
-    top: var(---cg-height, 100%);
   }
 
   .left {
