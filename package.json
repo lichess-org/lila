@@ -7,7 +7,7 @@
     "pnpm": ">=12"
   },
   "devDependencies": {
-    "chessground3D": "github:yafred/chessground3D",
+    "chessground3D": "github:yafred/chessground3D#v1.0.0-alpha.1",
     "@lichess-org/chessground": "^10.4.2",
     "@lichess-org/pgn-viewer": "^2.7.3",
     "@playwright/test": "^1.63.0",
