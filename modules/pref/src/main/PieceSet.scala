@@ -67,7 +67,8 @@ object PieceSet extends PieceSetObject:
     PieceSet("xkcd"),
     PieceSet("shapes"),
     PieceSet("letter"),
-    PieceSet("disguised")
+    PieceSet("disguised"),
+    PieceSet("john-pablok-cburnett-chess-v2")
   )
 
 object PieceSet3d extends PieceSetObject:
