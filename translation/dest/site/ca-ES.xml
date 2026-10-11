@@ -165,6 +165,7 @@
   <string name="flipBoard">Girar el tauler</string>
   <string name="toggleLocalEngine">Activa/Desactiva motor d\'avaluació local</string>
   <string name="engineSettings">Configuració del motor d\'avaluació</string>
+  <string name="engine">Motor</string>
   <string name="enginesFromStrongestToWeakest">Motors d\'avaluació de més a menys potent</string>
   <string name="threefoldRepetition">Triple repetició</string>
   <string name="claimADraw">Reclamar taules</string>
@@ -584,14 +585,12 @@ Amics jugant: %2$s</string>
   <string name="reportAUser">Informa d\'un usuari</string>
   <string name="user">Usuari</string>
   <string name="reason">Raó</string>
-  <string name="whatIsIheMatter">Quin és el problema?</string>
   <string name="cheat">Trampós</string>
   <string name="troll">Troll</string>
   <string name="other">Altres</string>
   <string name="reportCheatBoostHelp">Enganxa l\'enllaç de la partida (o partides) i explica quin és el problema amb el comportament d\'aquest usuari. No et limitis a dir que \"fa trampes\", explica\'ns com has arribat a aquesta conclusió.</string>
   <string name="reportUsernameHelp">Explica quin és el comportament ofensiu d\'aquest usuari. No et limitis a dir simplement \"és ofensiu/inapropiat\", explica\'ns com has arribat a aquesta conclusió, especialment si l\'insult està ofuscat, en un idioma diferent de l\'anglès, és un barbarisme o és una referència històrica o cultural.</string>
   <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">Podrem processar els teus comentaris més ràpid si ho escrius en anglès.</string>
-  <string name="error.provideOneCheatedGameLink">Si us plau, proporcioneu com a mínim un enllaç a un joc on s\'han fet trampes.</string>
   <string name="by">per %s</string>
   <string name="importedByX">Importat per %s</string>
   <string name="thisTopicIsNowClosed">Aquest tema està tancat.</string>
@@ -777,7 +776,9 @@ Amics jugant: %2$s</string>
   <string name="downloadAnnotated">Descàrrega anotada</string>
   <string name="downloadRaw">Descàrrega prima</string>
   <string name="downloadImported">Descàrrega importada</string>
+  <string name="downloadMyGames">Descarrega les meves partides</string>
   <string name="downloadAllGames">Descarrega totes les partides</string>
+  <string name="downloadResults">Descarregar resultats</string>
   <string name="crosstable">Taula creuada</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">També pots desplaçar-te sobre el tauler per moure en el joc.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Mantingueu el ratolí sobre les variants d\'anàlisi per a previsualitzar-les.</string>

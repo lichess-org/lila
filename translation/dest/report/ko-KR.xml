@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="whatIsTheMatter">무엇이 문제인가요?</string>
+  <string name="cheat">부정행위</string>
+  <string name="troll">분란 조장</string>
+  <string name="reportStall">시간 끌기 / 게임 중단</string>
+  <string name="reportBoost">고의 패배 / 레이팅 조작 / 매칭 조작</string>
+  <string name="reportVerbalAbuse">언어폭력 / 욕설 / 트롤링</string>
+  <string name="reportViolence">폭력 / 위협</string>
+  <string name="reportHarass">괴롭힘 / 따돌림 / 스토킹</string>
+  <string name="reportSelfHarm">자살 / 자해</string>
+  <string name="reportHate">혐오 발언 / 성차별</string>
+  <string name="reportSpam">스팸</string>
+  <string name="readMoreAboutLichessReports">Lichess 신고에 대해 더 읽어보기</string>
+  <string name="reportMaximumCharacters">최대 3000자입니다.</string>
+  <string name="reportCheatBoostHelp">대국 링크를 붙여넣으시고 해당 사용자가 무엇을 잘못했는지 설명해 주세요. 그냥 \"그들이 부정행위를 했어요\" 라고만 말하지 말고, 어떻게 당신이 이 결론에 도달하게 됐는지 알려주세요.</string>
+  <string name="reportUsernameHelp">왜 이 사용자의 이름이 불쾌한지 설명해주세요. 그저 \"불쾌해요/부적절해요\"라고만 말하지 마세요, 대신 왜 이런 결론에 도달했는지 말씀해 주세요. 단어가 난해하거나, 영어가 아니거나, 은어이거나, 문화적/역사적 배경이 있는 경우 특히 중요합니다.</string>
+  <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">신고를 영어로 작성하시면 더 빠르게 처리해 드릴 수 있습니다.</string>
+  <string name="provideOneCheatedGameLink">검토할 대국의 링크를 하나 이상 제공해 주세요.</string>
+</resources>

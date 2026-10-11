@@ -611,14 +611,12 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="reportAUser">Prijavite korisnika</string>
   <string name="user">Korisnik</string>
   <string name="reason">Razlog</string>
-  <string name="whatIsIheMatter">U čemu je problem?</string>
   <string name="cheat">Varanje</string>
   <string name="troll">Provokacija</string>
   <string name="other">Ostalo</string>
   <string name="reportCheatBoostHelp">Zalijepite link do igre(a) i objasnite šta nije u redu s ponašanjem ovog korisnika. Nemojte samo reći \"varaju\", već nam recite kako ste došli do ovog zaključka.</string>
   <string name="reportUsernameHelp">Objasnite šta je uvredljivo u vezi s ovim korisničkim imenom. Nemojte samo reći \"uvredljivo je/neprikladno\", već nam recite kako ste došli do ovog zaključka, posebno ako je uvreda nejasna, nije na engleskom, napisana je slengom ili je historijska/kulturna referenca.</string>
   <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">Možemo procesirati vaš izvještaj brže ako ga napišete na engleskom.</string>
-  <string name="error.provideOneCheatedGameLink">Molimo navedite barem jedan link na partiju u kojoj je igrač varao.</string>
   <string name="by">od %s</string>
   <string name="importedByX">Uvezao %s</string>
   <string name="thisTopicIsNowClosed">Ova tema je zatvorena.</string>

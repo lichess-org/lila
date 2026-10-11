@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="whatIsTheMatter">どうされましたか？</string>
+  <string name="cheat">不正行為</string>
+  <string name="troll">荒らし</string>
+  <string name="reportStall">手を指さなくなる/いなくなる</string>
+  <string name="reportBoost">レーティングの不正操作 / 故意の敗北</string>
+  <string name="reportVerbalAbuse">暴言 / 侮辱 / 荒らし</string>
+  <string name="reportViolence">暴力 / 脅迫</string>
+  <string name="reportHarass">嫌がらせ / いじめ / つきまとい</string>
+  <string name="reportSelfHarm">自殺 / 自傷行為</string>
+  <string name="reportHate">ヘイトスピーチ / 性差別</string>
+  <string name="reportSpam">スパム行為</string>
+  <string name="readMoreAboutLichessReports">Lichess の通報についての詳細</string>
+  <string name="reportMaximumCharacters">3000 文字が上限です。</string>
+  <string name="reportCheatBoostHelp">ゲームへのリンクを張って、このユーザーの行動のどこが問題かを説明してください。ただ「チート」と言うのではなく、あなたがなぜそう思ったのか教えてください。</string>
+  <string name="reportUsernameHelp">このユーザー名のどこが攻撃的かを説明してください。ただ「攻撃的」「不適切」と言うのではなく、あなたがなぜそう思ったのか教えてください。中でも遠回しな表現、英語以外の言語、俗語、歴史・文化的要因に関係した場合は特に説明が必要です。</string>
+  <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">英語で書くと通報への対応が速くなります。</string>
+  <string name="provideOneCheatedGameLink">不正のあった対局へのリンクを少なくともひとつ添えてください。</string>
+</resources>

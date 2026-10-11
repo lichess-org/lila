@@ -54,7 +54,9 @@
   <string name="ratedGame">تأكد من أنك لعبت لعبة مقيمة. الألعاب الاستعراضية لا تؤثر على تقييم اللاعبين.</string>
   <string name="botRatingAbuse">في بعض الظروف عند اللعب ضد حساب بوت لعبة مصنفة قد لا تمنح نقاط إذا تقرر أن اللاعب يسيء استخدام البوت لنقاط التقييم.</string>
   <string name="errorPage">صفحة خطأ</string>
-  <string name="reportErrorPage">إذا واجهت صفحة خطأ، فيمكنك الإبلاغ عنها:</string>
+  <string name="reportTheBug">يمكنك الإبلاغ عنه:</string>
+  <string name="securityVulnerability">ثُغْرَة أمنية</string>
+  <string name="otherBug">خلل آخر</string>
   <string name="learnHowToMakeBroadcasts">تعلم كيفية بث بطولة على Lichess</string>
   <string name="banAppeal">طلب لرفع حظر او تقييد على IP</string>
   <string name="engineAppeal">علامة الغش او استخدام محرك</string>

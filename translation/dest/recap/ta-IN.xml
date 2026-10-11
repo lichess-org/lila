@@ -1,2 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+	<string name="noGamesText">இந்த வருடம் நீ எந்த விளையாட்டையும் விளையாடவில்லை.</string>
+	<string name="timeSpentPlayingExclam" comment="%s is the time spent playing animated from 0 e.g. '1 day, 17 hours'. The time is also translated">%s விளையாடிக் கழித்தாய்!</string>
+</resources>

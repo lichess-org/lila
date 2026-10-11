@@ -555,13 +555,11 @@
   <string name="reportAUser">Ziņot par lietotāju</string>
   <string name="user">Lietotājs</string>
   <string name="reason">Iemesls</string>
-  <string name="whatIsIheMatter">Kas par lietu?</string>
   <string name="cheat">Krāpšanās</string>
   <string name="troll">Troļļošana</string>
   <string name="other">Cits</string>
   <string name="reportCheatBoostHelp">Ielīmē spēles saiti un paskaidro, kas nav kārtībā ar lietotāja uzvedību. Nepietiks, ja tikai norādīsi, ka \"lietotājs krāpjas\" — lūdzu, pastāsti, kā nonāci pie šī secinājuma.</string>
   <string name="reportUsernameHelp">Paskaidro, kāpēc lietotājvārds ir aizskarošs. Nepietiks, ja teiksi \"tas ir rupjš/nepieklājīgs\"; lūdzu pastāsti, kā nonāci pie šī secinājuma – it īpaši, ja aizvainojums ir slēpts, nav angļu valodā, izmanto žargonu vai atsauci uz vēsturisku notikumu vai kultūru.</string>
-  <string name="error.provideOneCheatedGameLink">Lūdzu, norādiet vismaz vienu saiti uz spēli, kurā pretinieks ir krāpies.</string>
   <string name="by">no %s</string>
   <string name="importedByX">Importēja %s</string>
   <string name="thisTopicIsNowClosed">Šis temats tagad ir slēgts.</string>

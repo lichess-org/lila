@@ -170,6 +170,7 @@
   <string name="flipBoard">Rotiţi tabla</string>
   <string name="toggleLocalEngine">Comută motorul local</string>
   <string name="engineSettings">Setări motor</string>
+  <string name="engine">Motor</string>
   <string name="enginesFromStrongestToWeakest">Motoare de la cele mai puternice la cele mai slabe</string>
   <string name="illegalPosition">Poziţie ilegală</string>
   <string name="threefoldRepetition">Repetare de trei ori</string>
@@ -623,14 +624,12 @@ Prieteni jucând: %2$s</string>
   <string name="reportAUser">Raportează un utilizator</string>
   <string name="user">Utilizator</string>
   <string name="reason">Motiv</string>
-  <string name="whatIsIheMatter">Care este problema?</string>
   <string name="cheat">Trișează</string>
   <string name="troll">Troll</string>
   <string name="other">Altceva</string>
   <string name="reportCheatBoostHelp">Adaugă link-ul de la joc(uri) și arată ce este greșit cu privire la comportamentul acestui utilizator. Nu preciza doar \"trișează\", ci spune-ne cum ai ajuns la această concluzie.</string>
   <string name="reportUsernameHelp">Explică de ce acest nume de utilizator este jignitor. Nu spune doar \"jignește/e inadecvat\", ci spune-ne cum ai ajuns la această concluzie, mai ales în cazul în care insulta este obscură, nu este în engleză, este jargon sau este o referință istorică/culturală.</string>
   <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">Îți putem procesa raportul mai rapid dacă scrii în engleză.</string>
-  <string name="error.provideOneCheatedGameLink">Te rugăm să furnizezi cel puțin un link către un joc în care s-a trișat.</string>
   <string name="by">de %s</string>
   <string name="importedByX">Importat de %s</string>
   <string name="thisTopicIsNowClosed">Acest topic este acum închis.</string>
@@ -826,7 +825,9 @@ Prieteni jucând: %2$s</string>
   <string name="downloadAnnotated">Descarcă cu note</string>
   <string name="downloadRaw">Descarcă brut</string>
   <string name="downloadImported">Descarcă importat</string>
+  <string name="downloadMyGames">Descarcă jocurile mele</string>
   <string name="downloadAllGames">Descarcă toate partidele</string>
+  <string name="downloadResults">Descărcare rezultate</string>
   <string name="crosstable">Tabel de scoruri</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Derulează peste tablă pentru a te deplasa în joc.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Derulați variantele calculatorului pentru a le previzualiza.</string>

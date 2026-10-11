@@ -53,7 +53,6 @@
   <string name="ratedGame">Uistite sa, že ste hrali hodnotenú hru. Príležitostné hry nemajú vplyv na hodnotenie hráčov.</string>
   <string name="botRatingAbuse">Za určitých okolností, keď hráte proti botovému účtu, nemusia byť za hodnotenú partiu udelené body, ak sa zistí, že hráč zneužíva bota na zisk bodov.</string>
   <string name="errorPage">Chybová stránka</string>
-  <string name="reportErrorPage">Ak ste narazili na chybovú stránku, môžete ju nahlásiť:</string>
   <string name="learnHowToMakeBroadcasts">Naučte sa vytvárať vlastné vysielanie na stránke Lichess</string>
   <string name="banAppeal">Požiadať o zabanovanie hráča alebo obmedzenie IP adresy</string>
   <string name="engineAppeal">Značka motora alebo podvádzania</string>

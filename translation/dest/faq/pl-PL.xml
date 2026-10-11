@@ -173,6 +173,8 @@ Pokazujemy ikonę czerwonego wyciszenia, aby poinformować Cię, kiedy to się w
 3. Kliknij Ciasteczka i uprawnienia witryny
 4. Przewiń w dół i kliknij przycisk Autoplay Media
 5. Dodaj lichess.org do uprawnionych</string>
+  <string name="makeBotTitle">Stwórz bota na Lichess?</string>
+  <string name="makeBotDescription">Aby dowiedzieć się, jak zbudować &lt;a href=\'%1$s\'&gt;własnego szachowego bota &lt;/a&gt;, aby grać na Lichess, przeczytaj &lt;a href=\'%2$s\'&gt;ten wpis na blogu o tworzeniu botów&lt;/a&gt;.</string>
   <string name="stopMyselfFromPlaying">Jak nie uzależnić się od gry w szachy?</string>
   <string name="mentalHealthCondition">uzależnienie behawioralne</string>
   <string name="lichessUserstyles">Lichess userstyles</string>

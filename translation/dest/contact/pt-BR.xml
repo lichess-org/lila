@@ -54,10 +54,12 @@
   <string name="ratedGame">Certifique-se de ter jogado uma partida por pontuação. Jogos casuais não alteram a pontuação dos jogadores.</string>
   <string name="botRatingAbuse">Em certos casos, ao jogar contra uma conta bot, um jogo ranqueado poderá não valer pontos, se for determinado que o jogador está abusando do bot para conseguir pontos.</string>
   <string name="errorPage">Página de erro</string>
-  <string name="reportErrorPage">Se você encontrou uma página de erro, você pode reportá-la:</string>
+  <string name="reportTheBug">Você pode denunciá-lo:</string>
+  <string name="securityVulnerability">Vulnerabilidade de segurança</string>
+  <string name="otherBug">Outro bug</string>
   <string name="learnHowToMakeBroadcasts">Aprenda a fazer suas próprias transmissões no Lichess</string>
   <string name="banAppeal">Apelação de banimento ou restrição de IP</string>
-  <string name="engineAppeal">Marcado por trapaça ou uso de motor de xadrez</string>
+  <string name="engineAppeal">Marca de trapaça ou uso de engine</string>
   <string name="sendAppealTo">Você pode enviar uma apelação para %s.</string>
   <string name="falsePositives">Erros podem acontecer e lamentamos por isso.</string>
   <string name="ifLegit">Se a sua apelação for legítima, retiraremos a proibição o mais rápido possível.</string>
