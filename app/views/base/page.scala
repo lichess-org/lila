@@ -70,6 +70,7 @@ object page:
           pref.is3d.option(cssTag("lib.board-3d")),
           ctx.data.inquiry.isDefined.option(cssTag("mod.inquiry")),
           ctx.impersonatedBy.isDefined.option(cssTag("mod.impersonate")),
+          lila.security.Granter.opt(_.SeeReport).option(cssTag("mod.badges")),
           ctx.blind.option(cssTag("bits.blind")),
           p.cssKeys.map(cssTag),
           meta(
