@@ -101,9 +101,10 @@ export function view(ctrl: StudyChapterEditForm): VNode | undefined {
             },
             [
               div('.form-group', [
-                label('.form-label', { attrs: { for: 'chapter-name' } }, i18n.site.name),
+                label('.form-label', { for: 'chapter-name' }, i18n.site.name),
                 input('text')('#chapter-name.form-control', {
-                  attrs: { minlength: 2, maxlength: 80 },
+                  minlength: 2,
+                  maxlength: 80,
                   hook: onInsert<HTMLInputElement>(el => {
                     if (!el.value) {
                       el.value = data.name;
@@ -135,14 +136,14 @@ function viewLoaded(ctrl: StudyChapterEditForm, data: StudyChapterConfig): VNode
   return [
     div('.form-split', [
       div('.form-group.form-half', [
-        label('.form-label', { attrs: { for: 'chapter-orientation' } }, i18n.study.orientation),
+        label('.form-label', { for: 'chapter-orientation' }, i18n.study.orientation),
         select(
           '#chapter-orientation.form-control',
           COLORS.map(color => option(color, data.orientation, i18n.site[color])),
         ),
       ]),
       div('.form-group.form-half', { class: { none: ctrl.isBroadcast } }, [
-        label('.form-label', { attrs: { for: 'chapter-mode' } }, i18n.study.analysisMode),
+        label('.form-label', { for: 'chapter-mode' }, i18n.study.analysisMode),
         select(
           '#chapter-mode.form-control',
           modeChoices.map(c => option(c[0], mode, c[1])),
@@ -150,7 +151,7 @@ function viewLoaded(ctrl: StudyChapterEditForm, data: StudyChapterConfig): VNode
       ]),
     ]),
     div('.form-group', [
-      label('.form-label', { attrs: { for: 'chapter-description' } }, i18n.study.pinnedChapterComment),
+      label('.form-label', { for: 'chapter-description' }, i18n.study.pinnedChapterComment),
       select(
         '#chapter-description.form-control',
         [
@@ -170,7 +171,8 @@ function viewLoaded(ctrl: StudyChapterEditForm, data: StudyChapterConfig): VNode
             },
             ctrl.redraw,
           ),
-          attrs: { type: 'button', title: i18n.study.clearAllCommentsInThisChapter },
+          type: 'button',
+          title: i18n.study.clearAllCommentsInThisChapter,
         },
         i18n.study.clearAnnotations,
       ),
@@ -184,7 +186,7 @@ function viewLoaded(ctrl: StudyChapterEditForm, data: StudyChapterConfig): VNode
             },
             ctrl.redraw,
           ),
-          attrs: { type: 'button' },
+          type: 'button',
         },
         i18n.study.clearVariations,
       ),
@@ -200,11 +202,12 @@ function viewLoaded(ctrl: StudyChapterEditForm, data: StudyChapterConfig): VNode
             },
             ctrl.redraw,
           ),
-          attrs: { type: 'button', title: i18n.study.deleteThisChapter },
+          type: 'button',
+          title: i18n.study.deleteThisChapter,
         },
         i18n.study.deleteChapter,
       ),
-      button('.button', { attrs: { type: 'submit' } }, i18n.study.saveChapter),
+      button('.button', { type: 'submit' }, i18n.study.saveChapter),
     ]),
   ];
 }
