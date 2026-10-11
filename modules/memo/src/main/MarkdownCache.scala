@@ -28,9 +28,8 @@ case class MarkdownOptions(
 
 final class MarkdownCache(
     cacheApi: CacheApi,
-    netDomain: config.NetDomain,
     assetDomain: config.AssetDomain
-)(using Executor, Scheduler)(using mode: play.api.Mode):
+)(using Executor, Scheduler)(using mode: play.api.Mode, netDomain: config.NetDomain):
 
   private val renderMap = scala.collection.concurrent.TrieMap[MarkdownOptions, MarkdownRender]()
 
@@ -78,7 +77,7 @@ final class MarkdownCache(
           case TimeoutException(msg) => Future.failed(TimeoutException(msg.take(100)))
         .void
 
-    def expand = MarkdownRender.PgnSourceExpand(netDomain, cache.getIfPresent)
+    def expand = MarkdownRender.PgnSourceExpand(cache.getIfPresent)
 
   private def getRenderer(opts: MarkdownOptions): MarkdownRender =
     renderMap.getOrElseUpdate(

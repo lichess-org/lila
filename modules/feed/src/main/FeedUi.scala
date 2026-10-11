@@ -7,7 +7,7 @@ import scalalib.paginator.Paginator
 import lila.ui.{ *, given }
 import lila.ui.ScalatagsTemplate.{ *, given }
 
-final class FeedUi(helpers: Helpers, atomUi: AtomUi)(
+final class FeedUi(helpers: Helpers, atomUi: AtomUi, feedMarkdown: FeedMarkdown)(
     sitePage: String => Context ?=> Page
 )(using Executor):
   import helpers.{ *, given }
@@ -56,7 +56,7 @@ final class FeedUi(helpers: Helpers, atomUi: AtomUi)(
             a(cls := "daily-feed__update__day", href := s"${routes.Feed.index(1)}#${update.id}"):
               momentFromNow(update.at)(nbsp)
             ,
-            update.rendered
+            feedMarkdown(update)
           )
         ),
       div(cls := "daily-feed__update")(
@@ -120,7 +120,7 @@ final class FeedUi(helpers: Helpers, atomUi: AtomUi)(
           href := url
         ),
         tag("title")(up.title),
-        tag("content")(tpe := "html")(convertToAbsoluteHrefs(up.rendered).value)
+        tag("content")(tpe := "html")(convertToAbsoluteHrefs(feedMarkdown(up)).value)
       )
 
   private def convertToAbsoluteHrefs(html: Html): Html =
@@ -148,7 +148,7 @@ final class FeedUi(helpers: Helpers, atomUi: AtomUi)(
                   )
                 )
               ),
-              div(cls := "daily-feed__update__markup")(update.rendered)
+              div(cls := "daily-feed__update__markup")(feedMarkdown(update))
             )
           ),
       pagerNext(ups, np => routes.Feed.index(np).url)

@@ -68,7 +68,7 @@ final class MarkdownRender(
     linkRel: String = "nofollow noreferrer",
     pgnExpand: Option[MarkdownRender.PgnSourceExpand] = None,
     assetDomain: Option[AssetDomain] = None
-):
+)(using NetDomain):
 
   private val extensions = java.util.ArrayList[Extension]()
   if header && headerAnchorLink then extensions.add(AnchorLinkExtension.create())
@@ -133,7 +133,7 @@ object MarkdownRender:
   type Key = String
   type PgnSourceId = String
 
-  case class PgnSourceExpand(domain: NetDomain, getPgn: PgnSourceId => Option[LpvEmbed])
+  case class PgnSourceExpand(getPgn: PgnSourceId => Option[LpvEmbed])
 
   def unlink(text: Markdown): String =
     text.value.replaceAll(raw"""(?i)!?\[([^\]\n]*)\]\([^)]*\)""", "[$1]")
@@ -208,7 +208,7 @@ object MarkdownRender:
           context.renderChildren(node)
         else
           val resolvedLink = context.resolveLink(LinkType.IMAGE, node.getUrl().unescape(), null, null)
-          val url = resolvedLink.getUrl()
+          val url = removeUrlTrackingParameters(resolvedLink.getUrl())
           val altText = new TextCollectingVisitor().collectAndGetText(node)
           whitelistedSrc(url, assetDomain) match
             case Some(src) =>
@@ -230,7 +230,7 @@ object MarkdownRender:
                 .text(if altText.isEmpty then url else altText)
                 .tag("/a")
 
-  private class PgnEmbedExtension(expander: PgnSourceExpand, linkRel: String)
+  private class PgnEmbedExtension(expander: PgnSourceExpand, linkRel: String)(using NetDomain)
       extends HtmlRenderer.HtmlRendererExtension:
     private val nodeRenderer = new PgnEmbedNodeRenderer(expander, linkRel)
     override def rendererOptions(options: MutableDataHolder) = ()
@@ -239,7 +239,8 @@ object MarkdownRender:
         new:
           override def apply(options: DataHolder) = nodeRenderer
 
-  private class PgnEmbedNodeRenderer(expander: PgnSourceExpand, linkRel: String) extends NodeRenderer:
+  private class PgnEmbedNodeRenderer(expander: PgnSourceExpand, linkRel: String)(using domain: NetDomain)
+      extends NodeRenderer:
     override def getNodeRenderingHandlers() = java.util.HashSet:
       Arrays.asList(
         NodeRenderingHandler(classOf[Link], renderLink(_, _, _)),
@@ -248,11 +249,12 @@ object MarkdownRender:
 
     final class PgnRegexes(val game: Regex, val chapter: Regex)
     private val pgnRegexes: PgnRegexes =
-      val quotedDomain = Pattern.quote(expander.domain.value)
+      val quotedDomain = Pattern.quote(domain.value)
       PgnRegexes(
         s"""^(?:https?://)?$quotedDomain/(?:embed/)?(?:game/)?(\\w{8})(?:(?:/(white|black))|\\w{4}|)(?:#(\\d+))?$$""".r,
         s"""^(?:https?://)?$quotedDomain/study/(?:embed/)?(?:\\w{8}/)?(\\w{8})(?:#(last|\\d+))?$$""".r
       )
+    private val linkTarget: String => String = linkTargetFromUrl
 
     private def renderLink(node: Link, context: NodeRendererContext, html: HtmlWriter): Unit =
       renderLinkWithBase(
@@ -290,8 +292,9 @@ object MarkdownRender:
         baseLink: ResolvedLink
     ) =
       val link = if node.getTitle.isNotNull then baseLink.withTitle(node.getTitle().unescape()) else baseLink
-      html.attr("href", addProtocolIfNecessary(link.getUrl))
-      html.attr("target", "_blank")
+      val url = addProtocolIfNecessary(removeUrlTrackingParameters(link.getUrl))
+      html.attr("href", url)
+      html.attr("target", linkTarget(url))
       html.attr("rel", linkRel)
       html.attr(link.getNonNullAttributes())
       html.srcPos(node.getChars()).withAttr(link).tag("a")
@@ -343,14 +346,16 @@ object MarkdownRender:
           html
             .tag("/a")
 
-  private final class LilaLinkExtension(linkRel: String) extends HtmlRenderer.HtmlRendererExtension:
+  private final class LilaLinkExtension(linkRel: String)(using NetDomain)
+      extends HtmlRenderer.HtmlRendererExtension:
+    private val linkTarget: String => String = linkTargetFromUrl
     private val linkAttributeProvider = new AttributeProvider:
-      private def removeUrlTrackingParameters(url: String) = Url.trackingParametersRegex.replaceAllIn(url, "")
       override def setAttributes(node: Node, part: AttributablePart, attributes: MutableAttributes) =
         if (node.isInstanceOf[Link] || node.isInstanceOf[AutoLink]) && part == AttributablePart.LINK then
-          attributes.replaceValue("target", "_blank")
+          val url = removeUrlTrackingParameters(attributes.getValue("href"))
+          attributes.replaceValue("target", linkTarget(url))
           attributes.replaceValue("rel", linkRel)
-          attributes.replaceValue("href", removeUrlTrackingParameters(attributes.getValue("href")))
+          attributes.replaceValue("href", url)
     override def rendererOptions(options: MutableDataHolder) = ()
     override def extend(htmlRendererBuilder: HtmlRenderer.Builder, rendererType: String) =
       htmlRendererBuilder.attributeProviderFactory:
@@ -504,10 +509,7 @@ object MarkdownRender:
                 .toList
                 .foldLeft(0): (cursor, offsets) =>
                   emitSpan(cursor, offsets.start)
-                  html
-                    .attr("href", s"/@/${offsets.group(1)}")
-                    .attr("rel", "nofollow noreferrer")
-                    .attr("target", "_blank")
+                  html.attr("href", s"/@/${offsets.group(1)}")
                   html.withAttr().tag("a")
                   emitSpan(offsets.start, offsets.end)
                   html.tag("/a")
@@ -535,3 +537,10 @@ object MarkdownRender:
           private def hardBreak(node: HardLineBreak, html: HtmlWriter): Unit =
             span(html, node.getStartOffset(), node.getEndOffset())(())
             html.tagVoid("br")
+
+  private def removeUrlTrackingParameters(url: String) = Url.trackingParametersRegex.replaceAllIn(url, "")
+
+  private def linkTargetFromUrl(using netDomain: NetDomain) =
+    val quotedNetDomain = Pattern.quote(netDomain.value)
+    val netDomainRegex = s"""^(?:https?://)?$quotedNetDomain/""".r.unanchored
+    (url: String) => if netDomainRegex.matches(url) then "_self" else "_blank"
