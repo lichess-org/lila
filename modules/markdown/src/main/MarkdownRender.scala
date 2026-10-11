@@ -208,7 +208,7 @@ object MarkdownRender:
           context.renderChildren(node)
         else
           val resolvedLink = context.resolveLink(LinkType.IMAGE, node.getUrl().unescape(), null, null)
-          val url = resolvedLink.getUrl()
+          val url = removeUrlTrackingParameters(resolvedLink.getUrl())
           val altText = new TextCollectingVisitor().collectAndGetText(node)
           whitelistedSrc(url, assetDomain) match
             case Some(src) =>
@@ -290,7 +290,7 @@ object MarkdownRender:
         baseLink: ResolvedLink
     ) =
       val link = if node.getTitle.isNotNull then baseLink.withTitle(node.getTitle().unescape()) else baseLink
-      html.attr("href", addProtocolIfNecessary(link.getUrl))
+      html.attr("href", addProtocolIfNecessary(removeUrlTrackingParameters(link.getUrl)))
       html.attr("target", "_blank")
       html.attr("rel", linkRel)
       html.attr(link.getNonNullAttributes())
@@ -345,7 +345,6 @@ object MarkdownRender:
 
   private final class LilaLinkExtension(linkRel: String) extends HtmlRenderer.HtmlRendererExtension:
     private val linkAttributeProvider = new AttributeProvider:
-      private def removeUrlTrackingParameters(url: String) = Url.trackingParametersRegex.replaceAllIn(url, "")
       override def setAttributes(node: Node, part: AttributablePart, attributes: MutableAttributes) =
         if (node.isInstanceOf[Link] || node.isInstanceOf[AutoLink]) && part == AttributablePart.LINK then
           attributes.replaceValue("target", "_blank")
@@ -535,3 +534,5 @@ object MarkdownRender:
           private def hardBreak(node: HardLineBreak, html: HtmlWriter): Unit =
             span(html, node.getStartOffset(), node.getEndOffset())(())
             html.tagVoid("br")
+
+  private def removeUrlTrackingParameters(url: String) = Url.trackingParametersRegex.replaceAllIn(url, "")
