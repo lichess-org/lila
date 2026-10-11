@@ -283,11 +283,13 @@ object BSONHandlers:
     def reads(r: Reader) = Chapter.ServerEval(
       path = r.get[UciPath]("path"),
       done = r.bool("done"),
+      fromGameId = r.getO[GameId]("fromGameId"),
       version = r.intO("version")
     )
     def writes(w: Writer, eval: Chapter.ServerEval) = bdoc(
       "path" -> eval.path,
       "done" -> eval.done,
+      "fromGameId" -> eval.fromGameId,
       "version" -> eval.version
     )
 

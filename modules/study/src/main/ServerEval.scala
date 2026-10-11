@@ -126,8 +126,8 @@ private[study] final class Merger(
 
 private[study] def replace(chapter: Chapter, analysis: Option[Analysis]): Chapter =
   val cleanRoot = clearAnalysis(chapter.root, analysis.fold(Set.empty)(incomingCompPaths(chapter, _)))
-  analysis.fold(chapter.copy(root = cleanRoot, analysisGameId = none, serverEval = none)): analysis =>
-    chapter.copy(root = withAnalysis(cleanRoot, chapter.setup.variant, analysis), analysisGameId = none)
+  analysis.fold(chapter.copy(root = cleanRoot, serverEval = none)): analysis =>
+    chapter.copy(root = withAnalysis(cleanRoot, chapter.setup.variant, analysis))
 
 private def withAnalysis(
     cleanRoot: Root,

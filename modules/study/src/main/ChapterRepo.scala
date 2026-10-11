@@ -303,7 +303,7 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, org.apache.pekko.st
       _.update
         .one(
           bid(previous.id),
-          bset(sets ++ bdoc("serverEval" -> next.serverEval)) ++ unset(unsets :+ "analysisGameId")
+          bset(sets ++ bdoc("serverEval" -> next.serverEval)) ++ unset(unsets)
         )
         .void
 

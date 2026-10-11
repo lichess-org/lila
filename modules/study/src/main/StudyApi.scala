@@ -174,8 +174,9 @@ final class StudyApi(
             serverEval
               .replace(chapter, analysis.some)
               .copy(
-                serverEval = Chapter.ServerEval(path = chapter.root.mainlinePath, done = true).some,
-                analysisGameId = gameId.some
+                serverEval = Chapter
+                  .ServerEval(path = chapter.root.mainlinePath, done = true, fromGameId = gameId.some)
+                  .some
               )
 
   def create(data: StudyForm.FormData)(using Me): Fu[Study.WithChapter] =

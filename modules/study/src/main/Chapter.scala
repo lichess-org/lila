@@ -25,8 +25,7 @@ case class Chapter(
     relay: Option[Chapter.Relay] = None,
     serverEval: Option[Chapter.ServerEval] = None,
     denorm: Option[Chapter.LastPosDenorm] = None,
-    createdAt: Instant,
-    analysisGameId: Option[GameId] = None
+    createdAt: Instant
 ) extends Chapter.Like:
 
   import Chapter.BothClocks
@@ -96,7 +95,6 @@ case class Chapter(
       id = Chapter.makeId,
       studyId = study.id,
       ownerId = study.ownerId,
-      analysisGameId = None,
       createdAt = nowInstant
     )
 
@@ -151,6 +149,7 @@ object Chapter:
   case class ServerEval(
       path: UciPath,
       done: Boolean,
+      fromGameId: Option[GameId] = None,
       version: Option[Int] = 1.some // 1+ means chapter has "comp" hints to allow clean analysis merge
   )
 

@@ -236,10 +236,10 @@ final class Study(
 
   private def chapterAnalysis(sc: WithChapter) =
     sc.chapter.serverEval
-      .exists(_.done)
-      .so:
+      .filter(_.done)
+      .so: eval =>
         env.analyse.repo.byId(
-          sc.chapter.analysisGameId.fold(Analysis.Id(sc.study.id, sc.chapter.id))(Analysis.Id(_))
+          eval.fromGameId.fold(Analysis.Id(sc.study.id, sc.chapter.id))(Analysis.Id(_))
         )
 
   private def WithStudyContributor(id: Analysis.Id)(

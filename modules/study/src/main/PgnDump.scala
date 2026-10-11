@@ -31,8 +31,10 @@ final class PgnDump(
         ofChapter(study, flags)(chapter).map(some)
 
   def ofChapter(study: Study, flags: WithFlags)(chapter: Chapter): Fu[PgnStr] =
-    (flags.comments && chapter.serverEval.exists(_.done))
-      .so(analyser.byId(chapter.analysisGameId.fold(Analysis.Id(study.id, chapter.id))(Analysis.Id(_))))
+    flags.comments
+      .so(chapter.serverEval)
+      .filter(_.done)
+      .so(eval => analyser.byId(eval.fromGameId.fold(Analysis.Id(study.id, chapter.id))(Analysis.Id(_))))
       .map(ofChapter(study, flags)(chapter, _))
 
   def requestPgnFlags(default: WithFlags = defaultFlags)(using RequestHeader): WithFlags =
