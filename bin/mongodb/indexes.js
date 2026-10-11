@@ -20,6 +20,7 @@ db.ublog_post.createIndex({ language: 1, rank: -1 }, { partialFilterExpression: 
 db.ublog_post.createIndex({ topics: 1, rank: -1 }, { partialFilterExpression: { live: true } });
 db.ublog_post.createIndex({ topics: 1, 'lived.at': -1 }, { partialFilterExpression: { live: true } });
 db.ublog_post.createIndex({ likers: 1, 'lived.at': -1 }, { partialFilterExpression: { live: true } });
+db.ublog_post.createIndex({ 'lived.at': -1 }, { partialFilterExpression: { live: true } });
 db.ublog_post.createIndex({ prismicId: 1 }, { partialFilterExpression: { prismicId: { $exists: 1 } } });
 db.ublog_post.createIndex(
   { 'lived.at': -1 },
