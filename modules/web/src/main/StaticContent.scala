@@ -13,6 +13,7 @@ final class StaticContent(net: NetConfig):
 
   val robotsTxt = """User-agent: *
 Allow: /
+Disallow: /@/*/download
 Disallow: /game/export/
 Disallow: /games/export/
 Disallow: /api/

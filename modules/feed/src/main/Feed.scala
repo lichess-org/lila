@@ -25,17 +25,11 @@ object Feed:
       at: Instant,
       flair: Option[Flair]
   ):
-    lazy val rendered: Html = renderer(s"dailyFeed:${id}")(content)
     lazy val dateStr = dateFormatter.print(at)
     lazy val title = "Daily update - " + dateStr
     def published = public && at.isBeforeNow
     def future = at.isAfterNow
 
-  private val renderer = lila.markdown.MarkdownRender(
-    autoLink = false,
-    strikeThrough = true,
-    timestamp = true
-  )
   private val dateFormatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
   given BSONDocumentHandler[Update] = Macros.handler
 
@@ -44,7 +38,13 @@ object Feed:
   import scalalib.ThreadLocalRandom
   def makeId = ThreadLocalRandom.nextString(6)
 
-final class FeedApi(coll: Coll, cacheApi: CacheApi, flairApi: FlairApi, jsonView: FeedJsonView)(using
+final class FeedApi(
+    coll: Coll,
+    cacheApi: CacheApi,
+    flairApi: FlairApi,
+    jsonView: FeedJsonView,
+    feedMarkdown: FeedMarkdown
+)(using
     Executor,
     Scheduler
 ):
@@ -74,8 +74,10 @@ final class FeedApi(coll: Coll, cacheApi: CacheApi, flairApi: FlairApi, jsonView
       _.refreshAfterWrite(1.minute).buildAsyncTimeout(): _ =>
         import jsonView.given
         import play.api.libs.json.Json
-        for updates <- store.get({})
-        yield JsonStr(Json.stringify(Json.toJson(updates.take(7))))
+        for
+          updates <- store.get({})
+          withRendered = updates.take(7).map(up => (up, feedMarkdown(up)))
+        yield JsonStr(Json.stringify(Json.toJson(withRendered)))
 
   export cache.lastUpdates
 

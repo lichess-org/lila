@@ -12,8 +12,7 @@ import { alert } from 'lib/view';
 import { text as xhrText } from 'lib/xhr';
 
 import RoundController from './ctrl';
-import type { RoundData, RoundOpts, RoundSocket, SocketInEvents } from './interfaces';
-import type MoveOn from './moveOn';
+import type { RoundData, RoundOpts, SocketInEvents } from './interfaces';
 import { tourStandingCtrl, type TourStandingCtrl } from './tourStanding';
 import { main as view } from './view/main';
 
@@ -113,7 +112,7 @@ async function boot(
   };
 
   const ctrl = await roundMain(opts);
-  const round: RoundApi = { socketReceive: ctrl.socket.receive, moveOn: ctrl.moveOn };
+  const round = { socketReceive: ctrl.socket.receive, moveOn: ctrl.moveOn };
 
   if (chat) {
     if (data.tournament?.top) {
@@ -162,11 +161,6 @@ async function boot(
 
 const startsWithPrefix = (t: string, prefix: string) =>
   t.toLowerCase().startsWith(`${prefix}, ${myUserId()}`);
-
-type RoundApi = {
-  socketReceive: RoundSocket['receive'];
-  moveOn: MoveOn;
-};
 
 type TVOptions = {
   channel: string;

@@ -590,14 +590,12 @@ Venner der spiller: %2$s</string>
   <string name="reportAUser">Anmeld en bruger</string>
   <string name="user">Bruger</string>
   <string name="reason">Årsag</string>
-  <string name="whatIsIheMatter">Hvad drejer henvendelsen sig om?</string>
   <string name="cheat">Snyd</string>
   <string name="troll">Troll</string>
   <string name="other">Andet</string>
   <string name="reportCheatBoostHelp">Indsæt linket til partiet (eller partierne) og forklar hvad der er i vejen med brugerens opførsel. Sig ikke blot \"de snyder\", men fortæl os, hvordan du nåede frem til den konklusion.</string>
   <string name="reportUsernameHelp">Forklar, hvad der er stødende ved dette brugernavn. Sig ikke blot \"det er stødende/upassende\", men fortæl os, hvordan du nåede frem til denne konklusion, især hvis fornærmelsen er sløret, ikke er på engelsk, er slang eller er en historisk/kulturel reference.</string>
   <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">Vi kan behandle din anmeldelse hurtigere, hvis du skriver på engelsk.</string>
-  <string name="error.provideOneCheatedGameLink">Angiv mindst ét link til et parti med snyd.</string>
   <string name="by">Af %s</string>
   <string name="importedByX">Importeret af %s</string>
   <string name="thisTopicIsNowClosed">Dette emne er nu lukket</string>
@@ -789,7 +787,9 @@ Venner der spiller: %2$s</string>
   <string name="downloadAnnotated">Download kommenteret</string>
   <string name="downloadRaw">Download rå</string>
   <string name="downloadImported">Download importeret</string>
+  <string name="downloadMyGames">Download mine partier</string>
   <string name="downloadAllGames">Download alle partier</string>
+  <string name="downloadResults">Download resultater</string>
   <string name="crosstable">Krydstabel</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Brug musens scrollhjul på brættet til at skifte mellem træk i partiet.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Scroll over computervarianter for at få en forhåndsvisning af dem.</string>

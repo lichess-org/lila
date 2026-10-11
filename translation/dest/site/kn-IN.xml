@@ -530,11 +530,9 @@
   <string name="reportAUser">ಒಂದು ಖಾತೆಯ ವಿರುದ್ಧ ದೂರು ಸಲ್ಲಿಸಿ</string>
   <string name="user">ಖಾತೆಯ ಹೆಸರು</string>
   <string name="reason">ಕಾರಣ</string>
-  <string name="whatIsIheMatter">ವಿಷಯ ಅಥವಾ ಸಮಸ್ಯೆ ಏನು?</string>
   <string name="cheat">ಮೋಸದಾಟ</string>
   <string name="troll">ಉಪದ್ರವಿ</string>
   <string name="other">ಇತರೆ</string>
-  <string name="error.provideOneCheatedGameLink">ದಯವಿಟ್ಟು ಮೋಸಕ್ಕೊಳಗಾದ ಒಂದಾದರೂ ಆಟದ ಕೊಂಡಿಯನ್ನು ಇಲ್ಲಿ ಹಂಚಿಕೊಳ್ಳಿ.</string>
   <string name="by">%s ಅವರಿಂದ</string>
   <string name="importedByX">%s import ಮಾಡಿದ್ದಾರೆ</string>
   <string name="thisTopicIsNowClosed">ಈ ವಿಷಯವನ್ನು ಈಗ ಮುಚ್ಚಲಾಗಿದೆ.</string>

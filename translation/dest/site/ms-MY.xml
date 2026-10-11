@@ -503,11 +503,9 @@ analisis komputer, perbualan dalam permainan dan URL kongsi bersama.</string>
   <string name="reportAUser">Laporkan pengguna</string>
   <string name="user">Pengguna</string>
   <string name="reason">Sebab</string>
-  <string name="whatIsIheMatter">Apa masalahnya?</string>
   <string name="cheat">Penipuan</string>
   <string name="troll">Unsur jenaka</string>
   <string name="other">Lain-lain</string>
-  <string name="error.provideOneCheatedGameLink">Tolong berikan sekurangnya satu link kepada game yang dicurigai ditipu.</string>
   <string name="by">oleh %s</string>
   <string name="importedByX">Diimport oleh %s</string>
   <string name="thisTopicIsNowClosed">Topik ini sekarang ditutup.</string>

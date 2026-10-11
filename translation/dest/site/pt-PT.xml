@@ -581,14 +581,12 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="reportAUser">Denunciar um utilizador</string>
   <string name="user">Utilizador</string>
   <string name="reason">Motivo</string>
-  <string name="whatIsIheMatter">Qual é o motivo?</string>
   <string name="cheat">Batota</string>
   <string name="troll">Troll</string>
   <string name="other">Outro</string>
   <string name="reportCheatBoostHelp">Cola o(s) link(s) do(s) jogo(s) e explica o que está errado no comportamento deste utilizador. Não digas apenas “eles fazem batota”, mas diz-nos como chegaste a essa conclusão.</string>
   <string name="reportUsernameHelp">Explica o que este nome de utilizador tem de ofensivo. Não digas apenas “é ofensivo/inapropriado”, mas diz-nos como chegaste a essa conclusão, especialmente se o insulto for ofuscado, não estiver em inglês, estiver em calão ou for uma referência histórica/cultural.</string>
   <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">Conseguimos processar o teu relatório mais rápido se escreveres em inglês.</string>
-  <string name="error.provideOneCheatedGameLink">Por favor, fornece-nos pelo menos um link para um jogo onde tenha havido batota.</string>
   <string name="by">por %s</string>
   <string name="importedByX">Importado por %s</string>
   <string name="thisTopicIsNowClosed">Este tópico foi fechado.</string>

@@ -561,13 +561,11 @@
   <string name="reportAUser">Felhasználó jelentése</string>
   <string name="user">Felhasználó</string>
   <string name="reason">Ok</string>
-  <string name="whatIsIheMatter">Probléma meghatározása</string>
   <string name="cheat">Csalás</string>
   <string name="troll">Trollkodás</string>
   <string name="other">Egyéb</string>
   <string name="reportCheatBoostHelp">Illeszd be a játszma vagy játszmák linkjét, és magyarázd el, mi a probléma a felhasználó viselkedésével! Ne csak annyit írj, hogy \"csal”, hanem fejtsd ki, hogyan jutottál erre a következtetésre.</string>
   <string name="reportUsernameHelp">Magyarázd el, miért sértő ez a felhasználónév! Ne csak annyit írj, hogy \"sértő/nem megfelelő\", hanem fejtsd ki, hogyan jutottál erre a következtetésre, különösen akkor, ha a sértés burkolt, nem angol nyelvű, szleng, vagy történelmi/kulturális hátterű.</string>
-  <string name="error.provideOneCheatedGameLink">Kérünk, legalább adj meg linket legalább egy csalt játszmához.</string>
   <string name="by">Létrehozta: %s</string>
   <string name="importedByX">Importálva %s által</string>
   <string name="thisTopicIsNowClosed">Lezárt téma.</string>

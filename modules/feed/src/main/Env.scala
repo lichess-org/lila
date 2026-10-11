@@ -2,7 +2,7 @@ package lila.feed
 
 import com.softwaremill.macwire.*
 
-import lila.core.config.{ CollName, RouteUrl }
+import lila.core.config.{ CollName, RouteUrl, NetDomain }
 import lila.core.lilaism.Lilaism.*
 
 @Module
@@ -11,9 +11,11 @@ final class Env(
     db: lila.db.Db,
     flairApi: lila.core.user.FlairApi,
     routeUrl: RouteUrl
-)(using Executor, Scheduler):
+)(using Executor, Scheduler, NetDomain):
 
   private val feedColl = db(CollName("daily_feed"))
+
+  val markdown = wire[FeedMarkdown]
 
   private val jsonView = wire[FeedJsonView]
 

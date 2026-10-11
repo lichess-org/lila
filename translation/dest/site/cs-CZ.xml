@@ -641,14 +641,12 @@
   <string name="reportAUser">Nahlásit uživatele</string>
   <string name="user">Uživatel</string>
   <string name="reason">Důvod</string>
-  <string name="whatIsIheMatter">Co se stalo?</string>
   <string name="cheat">Podvod</string>
   <string name="troll">Troll</string>
   <string name="other">Jiné</string>
   <string name="reportCheatBoostHelp">Zde vlož odkaz na hru(hry) a napiš co dělal tento uživatel. Nepiš pouze \"on podváděl\", ale napiš proč si myslíš že podváděl.</string>
   <string name="reportUsernameHelp">Vysvětli co je urážlivého na jeho u6ivatelském jménu. Nepiš pouze \"Je urážlivé/nevhodné\", ale řekni i důvod proč to tak je, zejména pokud je urážka zatemněná, nebo je v jiném jazyce než v angličtině, nebo je ve slangu či jde o historickou nebokulturní referenci.</string>
   <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">Vaše hlášení můžeme zpracovat rychleji, pokud jej napíšete anglicky.</string>
-  <string name="error.provideOneCheatedGameLink">Prosím, uveďte alespoň jeden link na partii, ve které se podvádělo.</string>
   <string name="by">od %s</string>
   <string name="importedByX">Importováno uživatelem %s</string>
   <string name="thisTopicIsNowClosed">Toto téma je již uzavřeno.</string>

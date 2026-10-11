@@ -566,13 +566,11 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="reportAUser">toki ike lon jan</string>
   <string name="user">jan seme?</string>
   <string name="reason">tan seme?</string>
-  <string name="whatIsIheMatter">jan ni li ike seme?</string>
   <string name="cheat">musi ike</string>
   <string name="troll">pakala e musi</string>
   <string name="other">ijo ante</string>
   <string name="reportCheatBoostHelp">o mute e nimi nasin musi (mute) o toki e ni. jan ni li pali seme ike. o toki ala e ni. \"ona li musi kepeken ilo.\" sina wile toki tawa mi e ni. nasin seme la sina toki e ni.</string>
   <string name="reportUsernameHelp">o toki e ni. nimi pi jan ni li ike tan seme. o toki ala e ni. \"nimi li ike/ jaki\". o toki tawa mi e ni. sina toki e ni tan seme kin e ni. nimi ike li nasa, li lon toki Inli, li toki nasa, li tenpo pini pi nimi.</string>
-  <string name="error.provideOneCheatedGameLink">o pana e nimi nasin tawa musi pi pali ike.</string>
   <string name="by">pi %s</string>
   <string name="importedByX">%s li kama e ni</string>
   <string name="thisTopicIsNowClosed">lipu toki ni li pini</string>
