@@ -399,7 +399,7 @@ export function view(ctrl: StudyChapterNewForm): VNode {
               div('.chess960-position__inputs', [
                 input('number')('.form-control', {
                   min: 0,
-                  maxlength: 959,
+                  max: 959,
                   value: ctrl.chess960Position(),
                   hook: onInsert((el: HTMLInputElement) => {
                     el.addEventListener('input', () => {
