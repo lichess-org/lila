@@ -2,6 +2,8 @@
 <resources>
   <string name="community">Fællesskab</string>
   <string name="communityBlogs">Blogs fra fællesskabet</string>
+  <string name="best">Bedste</string>
+  <string name="all">Alle</string>
   <string name="byMonth">Efter måned</string>
   <string name="byTopic">Efter emne</string>
   <string name="byLichess">Af Lichess</string>

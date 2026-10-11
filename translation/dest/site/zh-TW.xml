@@ -546,14 +546,12 @@
   <string name="reportAUser">舉報使用者</string>
   <string name="user">使用者</string>
   <string name="reason">原因</string>
-  <string name="whatIsIheMatter">舉報原因？</string>
   <string name="cheat">作弊</string>
   <string name="troll">搗亂</string>
   <string name="other">其他</string>
   <string name="reportCheatBoostHelp">請詳細說明你舉報此使用者的具體原因並貼上遊戲連結。「他作弊」等簡短說明是不被接受的。</string>
   <string name="reportUsernameHelp">請詳細說明你舉報此使用者的具體原因。若必要請解釋其名詞的歷史意義、網路用語、或是此使用者名稱如何指桑罵槐。「他的使用者名稱不妥」等簡短說明是不被接受的。</string>
   <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">使用英文撰寫報告可以加快我們處理時長。</string>
-  <string name="error.provideOneCheatedGameLink">請提供至少一局作弊棋局的連結。</string>
   <string name="by">作者：%s</string>
   <string name="importedByX">由%s導入</string>
   <string name="thisTopicIsNowClosed">此話題已關閉</string>

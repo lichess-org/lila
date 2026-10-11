@@ -573,13 +573,11 @@ Shokë që po luajnë: %2$s</string>
   <string name="reportAUser">Raportoni një përdorues</string>
   <string name="user">Përdorues</string>
   <string name="reason">Arsye</string>
-  <string name="whatIsIheMatter">Si është puna?</string>
   <string name="cheat">Hile</string>
   <string name="troll">Troll</string>
   <string name="other">Tjetër</string>
   <string name="reportCheatBoostHelp">Ngjitni lidhjen për te loja(rat) dhe shpjegoni se ç’nuk shkon me sjelljen e këtij përdoruesi. Mos thoni thjesht “bën me hile”, por na tregoni se si arritët në këtë konkluzion.</string>
   <string name="reportUsernameHelp">Shpjegoni pse ky emër përdoruesi është fyes. Mos thoni thjesht “është fyes/i papërshtatshëm”, por na tregoni se si arritët në këtë konkluzion, veçanërisht nëse fyerja është e hollë, jo në anglisht, është në një slang, ose është një referencë historike/kulturore.</string>
-  <string name="error.provideOneCheatedGameLink">Ju lutemi, jepni të paktën një lidhje te një lojë me hile.</string>
   <string name="by">nga %s</string>
   <string name="importedByX">Importuar nga %s</string>
   <string name="thisTopicIsNowClosed">Kjo temë është e mbyllur tani.</string>

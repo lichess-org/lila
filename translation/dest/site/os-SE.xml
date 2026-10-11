@@ -439,11 +439,9 @@
   <string name="reportAUser">Фехъусын кæнын</string>
   <string name="user">Ном</string>
   <string name="reason">Аххос</string>
-  <string name="whatIsIheMatter">Цы хабар у?</string>
   <string name="cheat">Фæлитой митæ</string>
   <string name="troll">Троллинг</string>
   <string name="other">Æндæр</string>
-  <string name="error.provideOneCheatedGameLink">Табуафси, бафтау æммыст иу дæнцæг ахæм хъазтмæ, кæм, дæм кæсы, уыдысты уагты халынтæ.</string>
   <string name="by">%s</string>
   <string name="thisTopicIsNowClosed">Ацы тæрхон æхгæд у.</string>
   <string name="blog">Блог</string>

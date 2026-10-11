@@ -529,11 +529,9 @@
   <string name="reportAUser">ഒരു ഉപഭോക്താവിനെ റിപ്പോർട്ട് ചെയ്യാം</string>
   <string name="user">ഉപയോക്താവ്</string>
   <string name="reason">കാരണം</string>
-  <string name="whatIsIheMatter">എന്താണു സംഗതി?</string>
   <string name="cheat">ചതി</string>
   <string name="troll">ചൂണ്ട</string>
   <string name="other">മറ്റുള്ളവ</string>
-  <string name="error.provideOneCheatedGameLink">കുറഞ്ഞത് ഒരു കളിയുടെയെങ്കിലും ലിങ്ക് നല്‍കേണ്ടതാണ്.</string>
   <string name="by">%sന്റേത്</string>
   <string name="importedByX">%s ഇറക്കുമതി ചെയ്തത്</string>
   <string name="thisTopicIsNowClosed">ഈ വിഷയം സമാപിച്ചിരിക്കുന്നു.</string>

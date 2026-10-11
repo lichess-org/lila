@@ -587,11 +587,9 @@
   <string name="reportAUser">Паскардзіцца на карыстальніка</string>
   <string name="user">Карыстальнік</string>
   <string name="reason">Прычына</string>
-  <string name="whatIsIheMatter">Што здарылася?</string>
   <string name="cheat">Несумленная гульня</string>
   <string name="troll">Троль</string>
   <string name="other">Іншае</string>
-  <string name="error.provideOneCheatedGameLink">Калі ласка, дадайце спасылку хаця б на адну гульню, дзе былі парушаны правілы.</string>
   <string name="by">аўтар: %s</string>
   <string name="importedByX">Імпартваў/-ла %s</string>
   <string name="thisTopicIsNowClosed">Тэма закрытая</string>

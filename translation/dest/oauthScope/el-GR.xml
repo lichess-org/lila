@@ -8,6 +8,9 @@
   <string name="whatTheTokenCanDo">Δικαιώματα και άδειες διακριτικού:</string>
   <string name="oauthCatUserAccount">Λογαριασμός χρήστη</string>
   <string name="oauthCatInteractions">Αλληλεπιδράσεις</string>
+  <string name="oauthCatPlayGames">Παίξτε παρτίδες</string>
+  <string name="oauthCatStudiesBroadcasts">Μελέτες &amp; Μεταδόσεις</string>
+  <string name="oauthCatExternalEngine">Εξωτερική σκακιστική μηχανή</string>
   <string name="doNotShareIt">Το διακριτικό θα δώσει πρόσβαση στον λογαριασμό σας. ΜΗΝ το μοιραστείτε με κανέναν!</string>
   <string name="copyTokenNow">Βεβαιωθείτε ότι έχετε αντιγράψει το νέο σας διακριτικό. Δε θα μπορέσετε να το δείτε ξανά!</string>
   <string name="preferenceRead">Ανάγνωση των ρυθμίσεών σας</string>

@@ -526,11 +526,9 @@
   <string name="reportAUser">ХӀалтӀизабулесул лъазабизе</string>
   <string name="user">ХӀалтӀизабулев</string>
   <string name="reason">ГӀилла</string>
-  <string name="whatIsIheMatter">Щиб ккараб?</string>
   <string name="cheat">ХӀилла</string>
   <string name="troll">Иришгъат гьави</string>
   <string name="other">Цогидаб</string>
-  <string name="error.provideOneCheatedGameLink">РекӀкӀ гьабураб цо хӀаялдениги бухьен кье.</string>
   <string name="by">%s-(и)ца</string>
   <string name="importedByX">%s-(и)ца жаниб лъуна</string>
   <string name="thisTopicIsNowClosed">Гьеб тема къан буго.</string>

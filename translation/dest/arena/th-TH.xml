@@ -19,6 +19,7 @@
 เบอร์เซิร์กมอบแต้มพิเศษเฉพาะถ้าคุณเล่นอย่างน้อย 7 รอบเดินในเกม</string>
   <string name="howIsTheWinnerDecided">ตัดสินผู้ชนะอย่างไร?</string>
   <string name="howIsTheWinnerDecidedAnswer">ผู้เล่นที่มีแต้มมากที่สุดเมื่อสรุปตามเวลาที่จำกัดไว้ของทัวร์นาเมนต์จะถูกประกาศให้เป็นผู้ชนะ</string>
+  <string name="howArePlayersPaired">ผู้เล่นถูกจับคู่ยังไง?</string>
   <string name="howDoesPairingWorkAnswer">เมื่อเริ่มต้นทัวร์นาเมนต์ ผู้เล่นจะถูกจับคู่โดยอิงตามระดับคะแนนของพวกเขา ทันทีที่คุณจบเกมและกลับไปที่ล็อบบี้ทัวร์นาเมนต์: คุณจะถูกจับคู่กับผู้เล่นในระดับที่ใกล้เคียงกับคุณ วิธีนี้เชื่อมั่นว่าใช้เวลารอน้อย อย่างไรก็ตามคุณอาจไม่ได้แข่งกับผู้เล่นอื่นๆ ในทัวร์นาเมนต์ครบทุกราย จงเล่นให้เร็ว แล้วกลับไปล็อบบี้เพื่อเล่นเกมเพิ่มเติมและชนะเพื่อแต้มที่มากขึ้น</string>
   <string name="howDoesItEnd">มันจบลงอย่างไร?</string>
   <string name="howDoesItEndAnswer">ทัวร์นาเมนต์มีนาฬิกานับถอยหลัง เมื่อเวลาถึงศูนย์ การจัดอันดับของทัวร์นาเมนต์จะหยุดนิ่งและจะประกาศผู้ชนะ ส่วนเกมที่กำลังแข่งอยู่จะต้องแข่งให้เสร็จสิ้น เพียงแต่จะไม่ถูกนับรวมในทัวร์นาเมนต์</string>
@@ -54,6 +55,7 @@
   <string name="myTournaments">ทัวร์นาเมนต์ของฉัน</string>
   <string name="editTournament">แก้ไขทัวร์นาเมนต์</string>
   <string name="editTeamBattle">แก้ไขการต่อสู้แบบทีม</string>
+  <string name="defenderLabel" comment="In this context, this is the current holder of a shield trophy, who is defending their trophy in the next shield tournament of that variant. https://lichess.org/tournament/shields">ผู้ถือครอง</string>
   <string name="pickYourTeam">เลือกทีมของคุณ</string>
   <string name="whichTeamWillYouRepresentInThisBattle">คุณจะเป็นตัวแทนของทีมใดในการต่อสู้ครั้งนี้</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">คุณต้องเข้าร่วมหนึ่งในทีมเหล่านี้เพื่อเข้าร่วม!</string>
@@ -61,6 +63,9 @@
   <string name="recentlyPlayed">เล่นล่าสุด</string>
   <string name="bestResults">ผลลัพธ์ของเกมที่ดีที่สุด</string>
   <string name="tournamentStats">สถิติของทัวร์นาเมนต์</string>
+  <string name="rankAverageHelp">ค่าเฉลี่ยของอันดับคือลำดับของคุณ ณ ตอนที่ทวร์นาเมนต์จบแล้ว ต่อจำนวนผู้เล่นในทวร์นาเมนต์นั้นๆ นี่คือตัวชี้วัดอันดับของคุณในการแข่งขัน ไม่ใช่ระดับฝีมือโดยรวมของคุณ
+
+อย่างเช่น ค่าคุณมีเฉลี่ยของอันดับอยู่ที่ 3% แสดงว่าอยู่ในกลุ่ม 3% แรกของจำนวนคนที่ทั้งหมด (เช่น อันดับที่ 30 จากผู้เล่น 1,000 คน)</string>
   <string name="medians">ค่ามัธฐาน</string>
   <string name="allAveragesAreX">ค่าเฉลี่ยทั้งหมดในหน้านี้คือ %s</string>
   <string name="total">ทั้งหมด</string>
@@ -73,4 +78,5 @@
   <string name="onlyTitledHelp">ต้องมีตำแหน่งถึงจะเข้าร่วมทัวร์นาเมนต์ได้</string>
   <string name="tournamentPairingsAreNowClosed">ตอนนี้การจับคู่ในทัวร์นาเมนต์ได้ปิดแล้ว</string>
   <string name="berserkRate">อัตราเบอร์เซิร์ก</string>
+  <string name="leaguesAndStreamerBattles">ลีก &amp; การแข่งขันระหว่างสตรีมเมอร์</string>
 </resources>
