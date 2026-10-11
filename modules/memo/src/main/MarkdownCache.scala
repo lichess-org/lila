@@ -22,7 +22,8 @@ case class MarkdownOptions(
     toastUi: Boolean = false,
     sourceMap: Boolean = false,
     removeHtmlEntities: Boolean = false,
-    allowedTags: Set[String] = Set.empty
+    allowedTags: Set[String] = Set.empty,
+    linkRel: String = "noreferrer nofollow"
 )
 
 final class MarkdownCache(
@@ -95,6 +96,7 @@ final class MarkdownCache(
         sourceMap = opts.sourceMap,
         removeHtmlEntities = opts.removeHtmlEntities,
         allowedTags = opts.allowedTags,
+        linkRel = opts.linkRel,
         pgnExpand = pgnCache.expand.some,
         assetDomain = assetDomain.some
       )
