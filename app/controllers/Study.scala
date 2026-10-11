@@ -251,6 +251,7 @@ final class Study(
     case Analysis.Id.Game(_) => BadRequest("Study analysis required")
 
   def postAnalysisXhr = AuthBody(parse.json) { ctx ?=> me ?=>
+    import lila.analyse.JsonView.given
     ctx.body.body.validate[Analysis] match
       case JsError(errs) => fuccess(BadRequest(errs.mkString("\n")))
       case JsSuccess(uploaded, _) =>

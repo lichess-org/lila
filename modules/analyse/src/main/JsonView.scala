@@ -104,3 +104,25 @@ object JsonView extends lila.tree.AnalysisJson:
         ),
         "moves" -> moves(analysis)
       )
+
+  given Reads[Analysis] = Reads: js =>
+    for
+      _ <-
+        if (js \ "infos").asOpt[JsArray].exists(_.value.sizeIs > Analysis.MAX_PLIES) then
+          JsError("Too much info")
+        else JsSuccess(())
+      rawId <- (js \ "id").validate[String]
+      rawStudyIdOpt <- (js \ "studyId").validateOpt[String]
+      infos <- (js \ "infos").validate[List[Info]]
+      startPly <- (js \ "startPly").validate[Ply]
+      date <- (js \ "date").validate[Instant]
+      engine <- (js \ "engine").validate[lila.tree.Engine]
+    yield Analysis(
+      id = rawStudyIdOpt match
+        case Some(sid) => Analysis.Id.Study(StudyId(sid), StudyChapterId(rawId))
+        case None => Analysis.Id.Game(GameId(rawId)),
+      infos = infos,
+      startPly = startPly,
+      date = date,
+      engine = engine
+    )
