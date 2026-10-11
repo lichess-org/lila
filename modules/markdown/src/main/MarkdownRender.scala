@@ -503,10 +503,7 @@ object MarkdownRender:
                 .toList
                 .foldLeft(0): (cursor, offsets) =>
                   emitSpan(cursor, offsets.start)
-                  html
-                    .attr("href", s"/@/${offsets.group(1)}")
-                    .attr("rel", "nofollow noreferrer")
-                    .attr("target", "_blank")
+                  html.attr("href", s"/@/${offsets.group(1)}")
                   html.withAttr().tag("a")
                   emitSpan(offsets.start, offsets.end)
                   html.tag("/a")
