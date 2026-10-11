@@ -109,7 +109,7 @@ export function renderMain(
         },
       },
       class: {
-        'comp-off': !ctrl.settings.showStaticAnalysis,
+        'comp-off': !ctrl.settings.showMainlineAnalysis,
         'gauge-on': gaugeOn,
         'has-players': !!playerBars,
         'gamebook-play': !!gamebookPlayView,

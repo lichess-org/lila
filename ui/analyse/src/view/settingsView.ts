@@ -18,7 +18,7 @@ type Setting = {
 };
 
 const settings: Record<SettingKey, Setting> = {
-  showStaticAnalysis: {
+  showMainlineAnalysis: {
     label: i18n.preferences.showMainlineAnalysis,
     shortcutHtml: '<kbd>z</kbd>',
     group: i18n.preferences.generalSettings,

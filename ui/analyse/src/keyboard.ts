@@ -67,7 +67,7 @@ export const bind = (ctrl: AnalyseCtrl) => {
     .bind('l', () => {
       if (ctrl.isCevalAllowed() && ctrl.ceval.analysable) ctrl.cevalEnabled(!ctrl.cevalEnabled());
     })
-    .bind('z', () => ctrl.settings.set('showStaticAnalysis', !ctrl.settings.showStaticAnalysis))
+    .bind('z', () => ctrl.settings.set('showMainlineAnalysis', !ctrl.settings.showMainlineAnalysis))
     .bind('a', () => ctrl.settings.set('showBestMoveArrows', !ctrl.settings.showBestMoveArrows))
     .bind('v', () => ctrl.settings.set('showVariationArrows', !ctrl.settings.showVariationArrows))
     .bind('x', () => ctrl.toggleThreatMode())

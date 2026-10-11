@@ -302,7 +302,7 @@ function buttons(root: AnalyseCtrl): VNode {
           hint: i18n.site.computerAnalysis,
           icon: icon(licon.BarChart)(),
           onClick() {
-            if (!root.settings.showStaticAnalysis) root.settings.set('showStaticAnalysis', true);
+            if (!root.settings.showMainlineAnalysis) root.settings.set('showMainlineAnalysis', true);
           },
           count: root.staticAnalysis && '✓',
           shouldBlurIfPrimaryClick: true,

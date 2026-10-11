@@ -216,7 +216,7 @@ export class IdbTree {
   private isCollapsible(node: TreeNodeLite, isMainline: boolean): boolean {
     if (!node) return false;
     const [first, second, third] = node.children.filter(
-      n => this.ctrl.settings.showStaticAnalysis || !n.comp,
+      n => this.ctrl.settings.showMainlineAnalysis || !n.comp,
     );
     return Boolean(
       first?.forceVariation ||
@@ -256,7 +256,7 @@ export class IdbTree {
       parentPath,
       this.ctrl.tree
         .nodeAtPath(parentPath)
-        .children.filter(x => !x.comp || this.ctrl.settings.showStaticAnalysis),
+        .children.filter(x => !x.comp || this.ctrl.settings.showMainlineAnalysis),
     ];
   }
 }

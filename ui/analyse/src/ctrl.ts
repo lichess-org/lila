@@ -668,7 +668,7 @@ export default class AnalyseCtrl implements CevalHandler {
   allowedEval(node: TreeNode = this.node): ClientEval | ServerEval | false | undefined {
     return (
       (this.cevalEnabled() && node.ceval) ||
-      ((!node.eval?.static || this.settings.showStaticAnalysis) && node.eval)
+      ((!node.eval?.static || this.settings.showMainlineAnalysis) && node.eval)
     );
   }
 
@@ -701,14 +701,14 @@ export default class AnalyseCtrl implements CevalHandler {
     return node.children.filter(
       kid =>
         !kid.comp ||
-        (this.settings.showStaticAnalysis && !this.retro?.hideComputerLine(kid)) ||
+        (this.settings.showMainlineAnalysis && !this.retro?.hideComputerLine(kid)) ||
         (treeOps.contains(kid, this.node) && !this.retro?.forceCeval()) ||
         hasUserContent(kid),
     );
   }
 
   visibleGlyphs(node: TreeNode = this.node): Glyph[] {
-    return (node.glyphs ?? []).filter(glyph => !glyph.comp || this.settings.showStaticAnalysis);
+    return (node.glyphs ?? []).filter(glyph => !glyph.comp || this.settings.showMainlineAnalysis);
   }
 
   reset(): void {
@@ -822,14 +822,14 @@ export default class AnalyseCtrl implements CevalHandler {
 
   showVariationArrows() {
     if (!this.allowLines() || !this.settings.showVariationArrows) return false;
-    return this.node.children.some(x => !x.comp || this.settings.showStaticAnalysis);
+    return this.node.children.some(x => !x.comp || this.settings.showMainlineAnalysis);
   }
 
   showEvaluation() {
-    return this.settings.showStaticAnalysis || (this.cevalEnabled() && this.isCevalAllowed());
+    return this.settings.showMainlineAnalysis || (this.cevalEnabled() && this.isCevalAllowed());
   }
 
-  showMoveGlyphs = (): boolean => (this.study && !this.study.relay) || this.settings.showStaticAnalysis;
+  showMoveGlyphs = (): boolean => (this.study && !this.study.relay) || this.settings.showMainlineAnalysis;
 
   showMoveAnnotations = (): boolean =>
     this.settings.showMoveAnnotationsOnBoard && !this.retro?.isSolving() && this.showMoveGlyphs();

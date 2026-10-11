@@ -68,7 +68,7 @@ export class InlineView {
       .map(comment =>
         this.ctrl.retro?.hideComputerLine(node) && comment.comp
           ? hl('comment', i18n.site.learnFromThisMistake)
-          : (!comment.comp || this.ctrl.settings.showStaticAnalysis) &&
+          : (!comment.comp || this.ctrl.settings.showMainlineAnalysis) &&
             hl(
               'comment',
               {

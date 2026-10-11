@@ -120,8 +120,8 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
   };
   $menu.on('click', 'button', function (this: HTMLElement) {
     const panel = this.dataset.panel!;
-    if (panel === 'computer-analysis' && !ctrl.settings.showStaticAnalysis)
-      ctrl.settings.set('showStaticAnalysis', true);
+    if (panel === 'computer-analysis' && !ctrl.settings.showMainlineAnalysis)
+      ctrl.settings.set('showMainlineAnalysis', true);
     store.set(panel);
     setPanel(panel);
   });
@@ -132,7 +132,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
       const display = window.getComputedStyle(this).display;
       return !!display && display !== 'none';
     }).length;
-  if (foundStored && stored === 'computer-analysis' && !ctrl.settings.showStaticAnalysis)
+  if (foundStored && stored === 'computer-analysis' && !ctrl.settings.showMainlineAnalysis)
     $menu.find('button:not(.computer-analysis)').first().trigger('click');
   else if (foundStored) setPanel(stored);
   else {
@@ -152,7 +152,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
         return false;
       }
       // ensure the analysis tab remains visible, if it was only displayed to render the request button
-      ctrl.settings.set('showStaticAnalysis', true);
+      ctrl.settings.set('showMainlineAnalysis', true);
       ctrl.redraw();
       xhrTextRaw(this.action, { method: this.method }).then(res => {
         if (res.ok) startAdvantageChart();
