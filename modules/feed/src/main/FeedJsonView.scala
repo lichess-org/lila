@@ -4,17 +4,18 @@ import play.api.libs.json.*
 import lila.common.Json.given
 import lila.core.lilaism.Lilaism.add
 import lila.core.config.RouteUrl
+import lila.core.data.Html
 
 private final class FeedJsonView(routeUrl: RouteUrl):
 
   val baseUrl = routeUrl(routes.Feed.index())
 
-  given OWrites[Feed.Update] = OWrites: u =>
+  given OWrites[(Feed.Update, Html)] = OWrites: (u, rendered) =>
     Json
       .obj(
         "id" -> u.id,
         "at" -> u.at,
         "url" -> s"$baseUrl#${u.id}",
-        "contentHtml" -> u.rendered.value
+        "contentHtml" -> rendered
       )
       .add("flair", u.flair)

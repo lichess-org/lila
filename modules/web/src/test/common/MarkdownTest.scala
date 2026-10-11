@@ -8,6 +8,8 @@ import lila.core.misc.lpv.LpvEmbed
 
 class MarkdownTest extends munit.FunSuite:
 
+  given NetDomain = NetDomain("l.org")
+
   val render: Markdown => Html =
     new MarkdownRender(
       assetDomain = AssetDomain("lichess1.org").some,
@@ -44,7 +46,7 @@ class MarkdownTest extends munit.FunSuite:
   val chapterUrl = s"http://l.org/study/$studyId/$chapterId"
   val pgns =
     Map(gameId.value -> LpvEmbed.PublicPgn(gamePgn), chapterId.value -> LpvEmbed.PublicPgn(chapterPgn))
-  val expander = MarkdownRender.PgnSourceExpand(domain, pgns.get)
+  val expander = MarkdownRender.PgnSourceExpand(pgns.get)
   val mdRender = MarkdownRender(pgnExpand = expander.some)("test")
 
   test("markdown dont embed explicit links"):
@@ -52,7 +54,7 @@ class MarkdownTest extends munit.FunSuite:
     assertEquals(
       mdRender(md),
       Html:
-        s"""<p>foo <a href="$gameUrl">game</a> bar</p>
+        s"""<p>foo <a href="$gameUrl" target="_self" rel="nofollow noreferrer">game</a> bar</p>
 """
     )
   test("markdown game embeds auto link"):
