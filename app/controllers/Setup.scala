@@ -2,7 +2,7 @@ package controllers
 
 import chess.format.Fen
 import play.api.libs.json.Json
-import play.api.mvc.{ EssentialAction, Result }
+import play.api.mvc.{ EssentialAction, RequestHeader, Result }
 
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
@@ -20,18 +20,29 @@ final class Setup(
 
   import env.setup.{ forms, processor }
 
+  private def lichobileNoVariant(variant: chess.variant.Variant)(f: => Fu[Result])(using
+      req: RequestHeader
+  ): Fu[Result] =
+    if HTTPRequest.isLichobile(req) && variant.exotic
+    then
+      Gone(jsonError("Chess variants are not supported in this app anymore. Please install the new Lichess app."))
+        .as(JSON)
+        .toFuccess
+    else f
+
   def ai = OpenBody:
     limit.setupBotAi(ctx.userId | UserId(""), rateLimited, cost = ctx.me.exists(_.isBot).so(1)):
       limit.setupPost(ctx.ip, rateLimited):
         bindForm(forms.ai)(
           doubleJsonFormError,
           config =>
-            processor.ai(config).flatMap { pov =>
-              negotiateApi(
-                html = redirectPov(pov),
-                api = _ => env.api.roundApi.player(pov, scalalib.data.Preload.none, none).map(Created(_))
-              )
-            }
+            lichobileNoVariant(config.variant):
+              processor.ai(config).flatMap { pov =>
+                negotiateApi(
+                  html = redirectPov(pov),
+                  api = _ => env.api.roundApi.player(pov, scalalib.data.Preload.none, none).map(Created(_))
+                )
+              }
         )
 
   def friend(userId: Option[UserStr]) =
@@ -40,52 +51,53 @@ final class Setup(
         bindForm(forms.friend)(
           doubleJsonFormError,
           config =>
-            for
-              origUser <- ctx.user.traverse(env.user.perfsRepo.withPerf(_, config.perfType))
-              destUser <- userId.so(env.user.api.enabledWithPerf(_, config.perfType))
-              denied <- destUser.so(u => env.challenge.granter.isDenied(u.user, config.perfKey.some))
-              result <- denied match
-                case Some(denied) =>
-                  val message = lila.challenge.ChallengeDenied.translated(denied)
-                  negotiate(
-                    // 403 tells setupCtrl.ts to close the setup modal
-                    forbiddenJson(message), // TODO test
-                    JsonBadRequest(message)
-                  )
-                case None =>
-                  import lila.challenge.Challenge.*
-                  (origUser, ctx.req.sid)
-                    .match
-                      case (Some(orig), _) => toRegistered(orig).some
-                      case (_, Some(sid)) => Challenger.Anonymous(sid.value).some
-                      case _ if HTTPRequest.isLichobile(ctx.req) => Challenger.Open.some
-                      case _ => none
-                    .so: challenger =>
-                      val timeControl = makeTimeControl(config.makeClock, config.makeDaysPerTurn)
-                      val challenge = lila.challenge.Challenge.make(
-                        variant = config.variant,
-                        initialFen = config.fen,
-                        timeControl = timeControl,
-                        rated = config.rated,
-                        color = config.color.name,
-                        challenger = challenger,
-                        destUser = destUser,
-                        rematchOf = none
-                      )
-                      env.challenge.api
-                        .create(challenge)
-                        .flatMap:
-                          if _ then
-                            negotiate(
-                              Redirect(routes.Round.watcher(challenge.gameId, Color.white)),
-                              challengeC.showChallenge(challenge, justCreated = true)
-                            )
-                          else
-                            negotiate(
-                              Redirect(routes.Lobby.home),
-                              JsonBadRequest("Challenge not created")
-                            )
-            yield result
+            lichobileNoVariant(config.variant):
+              for
+                origUser <- ctx.user.traverse(env.user.perfsRepo.withPerf(_, config.perfType))
+                destUser <- userId.so(env.user.api.enabledWithPerf(_, config.perfType))
+                denied <- destUser.so(u => env.challenge.granter.isDenied(u.user, config.perfKey.some))
+                result <- denied match
+                  case Some(denied) =>
+                    val message = lila.challenge.ChallengeDenied.translated(denied)
+                    negotiate(
+                      // 403 tells setupCtrl.ts to close the setup modal
+                      forbiddenJson(message), // TODO test
+                      JsonBadRequest(message)
+                    )
+                  case None =>
+                    import lila.challenge.Challenge.*
+                    (origUser, ctx.req.sid)
+                      .match
+                        case (Some(orig), _) => toRegistered(orig).some
+                        case (_, Some(sid)) => Challenger.Anonymous(sid.value).some
+                        case _ if HTTPRequest.isLichobile(ctx.req) => Challenger.Open.some
+                        case _ => none
+                      .so: challenger =>
+                        val timeControl = makeTimeControl(config.makeClock, config.makeDaysPerTurn)
+                        val challenge = lila.challenge.Challenge.make(
+                          variant = config.variant,
+                          initialFen = config.fen,
+                          timeControl = timeControl,
+                          rated = config.rated,
+                          color = config.color.name,
+                          challenger = challenger,
+                          destUser = destUser,
+                          rematchOf = none
+                        )
+                        env.challenge.api
+                          .create(challenge)
+                          .flatMap:
+                            if _ then
+                              negotiate(
+                                Redirect(routes.Round.watcher(challenge.gameId, Color.white)),
+                                challengeC.showChallenge(challenge, justCreated = true)
+                              )
+                            else
+                              negotiate(
+                                Redirect(routes.Lobby.home),
+                                JsonBadRequest("Challenge not created")
+                              )
+              yield result
         )
 
   private def hookResponse(res: HookResult) = res match
@@ -103,19 +115,20 @@ final class Setup(
         bindForm(forms.hook)(
           doubleJsonFormError,
           userConfig =>
-            limit.setupPost(req.ipAddress, rateLimited):
-              limit.setupAnonHook(req.ipAddress, rateLimited, cost = ctx.isAnon.so(1)):
-                for
-                  me <- ctx.user.traverse(env.user.api.withPerfs)
-                  given Perf = me.fold(lila.rating.Perf.default)(_.perfs(userConfig.perfType))
-                  blocking <- ctx.userId.so(env.relation.api.fetchBlocking)
-                  res <- processor.hook(
-                    userConfig.withinLimits,
-                    sri,
-                    req.sid,
-                    lila.core.pool.Blocking(blocking)
-                  )(using me)
-                yield hookResponse(res)
+            lichobileNoVariant(userConfig.variant):
+              limit.setupPost(req.ipAddress, rateLimited):
+                limit.setupAnonHook(req.ipAddress, rateLimited, cost = ctx.isAnon.so(1)):
+                  for
+                    me <- ctx.user.traverse(env.user.api.withPerfs)
+                    given Perf = me.fold(lila.rating.Perf.default)(_.perfs(userConfig.perfType))
+                    blocking <- ctx.userId.so(env.relation.api.fetchBlocking)
+                    res <- processor.hook(
+                      userConfig.withinLimits,
+                      sri,
+                      req.sid,
+                      lila.core.pool.Blocking(blocking)
+                    )(using me)
+                  yield hookResponse(res)
         )
 
   def like(sri: Sri, gameId: GameId) = Open:
@@ -123,22 +136,23 @@ final class Setup(
       limit.setupPost(ctx.ip, rateLimited):
         NoPlaybanOrCurrent:
           Found(env.game.gameRepo.game(gameId)): game =>
-            for
-              orig <- ctx.user.traverse(env.user.api.withPerfs)
-              blocking <- ctx.userId.so(env.relation.api.fetchBlocking)
-              hookConfig = lila.setup.HookConfig.default(ctx.isAuth)
-              hookConfigWithRating = get("rr")
-                .fold(
-                  hookConfig.withRatingRange(
-                    orig.fold(lila.rating.Perf.default)(_.perfs(game.perfKey)).intRating.some,
-                    get("deltaMin"),
-                    get("deltaMax")
-                  )
-                )(hookConfig.withRatingRange)
-                .updateFrom(game)
-              allBlocking = lila.core.pool.Blocking(blocking ++ game.userIds)
-              hookResult <- processor.hook(hookConfigWithRating, sri, ctx.req.sid, allBlocking)(using orig)
-            yield hookResponse(hookResult)
+            lichobileNoVariant(game.variant):
+              for
+                orig <- ctx.user.traverse(env.user.api.withPerfs)
+                blocking <- ctx.userId.so(env.relation.api.fetchBlocking)
+                hookConfig = lila.setup.HookConfig.default(ctx.isAuth)
+                hookConfigWithRating = get("rr")
+                  .fold(
+                    hookConfig.withRatingRange(
+                      orig.fold(lila.rating.Perf.default)(_.perfs(game.perfKey)).intRating.some,
+                      get("deltaMin"),
+                      get("deltaMax")
+                    )
+                  )(hookConfig.withRatingRange)
+                  .updateFrom(game)
+                allBlocking = lila.core.pool.Blocking(blocking ++ game.userIds)
+                hookResult <- processor.hook(hookConfigWithRating, sri, ctx.req.sid, allBlocking)(using orig)
+              yield hookResponse(hookResult)
 
   def boardApiHook = WithBoardApiHookAuthor { (author, reqSri) => ctx ?=>
     forms

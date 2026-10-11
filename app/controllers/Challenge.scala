@@ -6,6 +6,7 @@ import scalalib.net.Bearer
 
 import lila.app.{ *, given }
 import lila.challenge.{ Challenge as ChallengeModel, Direction }
+import lila.common.HTTPRequest
 import lila.core.id.ChallengeId
 import lila.game.AnonCookie
 import lila.oauth.{ EndpointScopes, OAuthScope, OAuthServer }
@@ -43,7 +44,7 @@ final class Challenge(env: Env) extends LilaController(env):
   }
 
   protected[controllers] def showId(id: ChallengeId)(using Context): Fu[Result] =
-    Found(api.byId(id))(showChallenge(_))
+    Found(api.byId(id))(c => lichobileNoVariant(c.variant)(showChallenge(c)))
 
   protected[controllers] def showChallenge(
       c: ChallengeModel,
@@ -94,24 +95,36 @@ final class Challenge(env: Env) extends LilaController(env):
       !challenge.challengerUserId.so(orig => me.exists(_.is(orig)))
 
   import cats.mtl.Handle.*
+
+  private def lichobileNoVariant(variant: chess.variant.Variant)(f: => Fu[Result])(using
+      req: RequestHeader
+  ): Fu[Result] =
+    if HTTPRequest.isLichobile(req) && variant.exotic
+    then
+      Gone(jsonError("Chess variants are not supported in this app anymore. Please install the new Lichess app."))
+        .as(JSON)
+        .toFuccess
+    else f
+
   def accept(id: ChallengeId, color: Option[Color]) = Open:
     Found(api.byId(id)): c =>
       isForMe(c).so:
-        allow:
-          api
-            .accept(c, ctx.req.sid.map(_.value), color)
-            .flatMap:
-              _.fold("The Challenge has already been accepted".raise): pov =>
-                negotiateApi(
-                  html = Redirect(routes.Round.watcher(pov.gameId, color | Color.white)),
-                  api = _ => env.api.roundApi.player(pov, scalalib.data.Preload.none, none).map { Ok(_) }
-                )
-            .flatMap(withChallengeAnonCookie(ctx.isAnon, c, owner = false))
-        .rescue: err =>
-          negotiate(
-            Redirect(routes.Round.watcher(c.gameId, color | Color.white)),
-            notFoundJson(err)
-          )
+        lichobileNoVariant(c.variant):
+          allow:
+            api
+              .accept(c, ctx.req.sid.map(_.value), color)
+              .flatMap:
+                _.fold("The Challenge has already been accepted".raise): pov =>
+                  negotiateApi(
+                    html = Redirect(routes.Round.watcher(pov.gameId, color | Color.white)),
+                    api = _ => env.api.roundApi.player(pov, scalalib.data.Preload.none, none).map { Ok(_) }
+                  )
+              .flatMap(withChallengeAnonCookie(ctx.isAnon, c, owner = false))
+          .rescue: err =>
+            negotiate(
+              Redirect(routes.Round.watcher(c.gameId, color | Color.white)),
+              notFoundJson(err)
+            )
 
   private def eitherBotLimitResponse(l: lila.bot.EitherBotLimit) = fuccess:
     l match
