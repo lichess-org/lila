@@ -66,8 +66,8 @@ final class UserApi(
           (
             opts.urgent.orLoad(gameProxyRepo.urgentGames(u)).dmap(_.value.headOption),
             as.filter(me => u.user.isnt(me)).so(me => crosstableApi.nbGames(me.userId, u.id)),
-            as.isDefined.so(prefApi.followable(u.id)),
-            as.map(_.userId).so(relationApi.fetchRelation(_, u.id)),
+            (opts.withRelation && as.isDefined).so(prefApi.followable(u.id)),
+            opts.withRelation.so(as).map(_.userId).so(relationApi.fetchRelation(_, u.id)),
             bookmarkApi.countByUser(u.user),
             if as.isDefined then playingUsers.nbPlayingAll(u.id) else playingUsers.nbPlayingRealtime(u.id),
             gameCache.nbImportedBy(u.id),
