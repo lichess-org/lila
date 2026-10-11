@@ -508,13 +508,11 @@
   <string name="reportAUser">Laporkan pengguna</string>
   <string name="user">Pengguna</string>
   <string name="reason">Alasan</string>
-  <string name="whatIsIheMatter">Apa masalahnya?</string>
   <string name="cheat">Cheat</string>
   <string name="troll">Jebakan</string>
   <string name="other">Lainnya</string>
   <string name="reportCheatBoostHelp">Tempel link permainan yang bersangkutan dan jelaskan hal tidak benar yang dilakukan pengguna ini. Jangan hanya menulis \"ia curang\", tetapi beri tahu kami mengapa Anda bisa merasa demikian.</string>
   <string name="reportUsernameHelp">Jelaskan kenapa nama pengguna ini menyinggung. Jangan hanya mengatakan \"menyinggung/tidak pantas\", tapi katakan mengapa berkesimpulan seperti itu, khususnya apabila umpatan tersebut terselubung, bukan dalam bahasa inggris, slang, ataupun referensi sejarah/budaya.</string>
-  <string name="error.provideOneCheatedGameLink">Harap berikan setidaknya satu tautan ke permainan yang curang.</string>
   <string name="by">oleh %s</string>
   <string name="importedByX">Diimpor oleh %s</string>
   <string name="thisTopicIsNowClosed">Topik ini ditutup.</string>

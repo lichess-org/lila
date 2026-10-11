@@ -471,11 +471,9 @@
   <string name="reportAUser">Lagnà si d\' un utilizatore</string>
   <string name="user">Utilizatore</string>
   <string name="reason">Mutivu</string>
-  <string name="whatIsIheMatter">Chì hè u ?</string>
   <string name="cheat">Ingannu</string>
   <string name="troll">Trollu</string>
   <string name="other">Altru</string>
-  <string name="error.provideOneCheatedGameLink">Pè piace date omancu una leia d\' una partita ingannata.</string>
   <string name="by">da %s</string>
   <string name="importedByX">Impurtata da %s</string>
   <string name="thisTopicIsNowClosed">Stu tema hè chjosu avà.</string>

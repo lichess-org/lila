@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="whatIsTheMatter">Ποιό είναι το πρόβλημα;</string>
+  <string name="cheat">Υποψία αθέμιτων μέσων</string>
+  <string name="troll">Τρολ</string>
+  <string name="reportStall">Καθυστέρηση / Εγκατάλειψη Παρτίδων</string>
+  <string name="reportBoost">Σκόπιμη μείωση βαθμολογίας / Τεχνητή αύξηση βαθμολογίας / Στημένοι αγώνες</string>
+  <string name="reportVerbalAbuse">Προσβολές / Εξύβριση / Τρολάρισμα</string>
+  <string name="reportViolence">Βία / Απειλές</string>
+  <string name="reportHarass">Παρενόχληση / Εκφοβισμός / Εμμονική παρακολούθηση</string>
+  <string name="reportSelfHarm">Αυτοκτονία / Αυτοτραυματισμός</string>
+  <string name="reportHate">Ρητορική μίσους / Σεξισμός</string>
+  <string name="reportSpam">Ανεπιθύμητα μηνύματα</string>
+  <string name="readMoreAboutLichessReports">Διαβάστε περισσότερα για τις αναφορές στο Lichess</string>
+  <string name="reportMaximumCharacters">Έως 3000 χαρακτήρες.</string>
+  <string name="reportCheatBoostHelp">Επικολλήστε τους συνδέσμους με τις παρτίδες και εξηγήστε μας γιατί θεωρείτε ότι η συμπεριφορά του χρήστη σε αυτές είναι παράξενη. Μη λέτε απλώς ότι «κλέβει», αλλά πείτε μας πώς καταλήξατε σε αυτό το συμπέρασμα.</string>
+  <string name="reportUsernameHelp">Εξηγήστε γιατί το συγκεκριμένο όνομα χρήστη είναι προσβλητικό. Μην αναφέρετε μόνο ότι είναι «προσβλητικό» ή «ακατάλληλο». Εξηγήστε πώς καταλήξατε σε αυτό το συμπέρασμα, ιδίως αν η προσβολή δεν είναι προφανής, για παράδειγμα αν περιλαμβάνει ξενόγλωσση έκφραση, αργκό ή αναφορά σε ιστορικά ή πολιτισμικά γεγονότα.</string>
+  <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">Μπορούμε να επεξεργαστούμε την αναφορά σας γρηγορότερα, αν την γράψετε στα αγγλικά.</string>
+  <string name="provideOneCheatedGameLink">Παρακαλούμε, προσθέστε τον σύνδεσμο τουλάχιστον μίας παρτίδας που θέλετε να ελέγξουμε.</string>
+</resources>

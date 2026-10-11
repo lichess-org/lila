@@ -77,6 +77,17 @@
   <string name="deleteBlog">حذف مشاركة المدونة هذه بشكل قاطع</string>
   <string name="freeImagesComplyWithLicensing" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">توفر المواقع الإلكترونية التالية صورًا مجانية. يُرجى التأكد من الالتزام بشروط ترخيص الصورة التي تستخدمها.</string>
   <string name="selectPostTopics">حدد الموضوع الذي تدور مقالتك حوله</string>
+  <string name="topicChess">شطرنج</string>
+  <string name="topicPuzzle">لغز</string>
+  <string name="topicTactics">التكتيكات</string>
+  <string name="topicStrategy">الاستراتيجية</string>
+  <string name="topicChessEngine">محرّك الشطرنج</string>
+  <string name="topicChessBot">بوت الشطرنج</string>
+  <string name="topicChessPersonalities">شخصيات الشطرنج</string>
+  <string name="topicOverTheBoard">على الرقعة (الشطرنج الحضوري)</string>
+  <string name="topicSoftwareDevelopment">تطوير البرمجيات</string>
+  <string name="topicOffTopic">خارج الموضوع</string>
+  <string name="topicPosts">%s منشورًا</string>
   <string name="etiquette">آداب السلوك</string>
   <string name="safeAndRespectfulContent">يرجى نشر المحتوى الحصري و المفيد فقط. لا تنسخ محتوى احد أخر.</string>
   <string name="noCopyrightedImages">استخدم فقط الصور التي لا تنتهك حقوق الطبع والنشر للآخرين.</string>

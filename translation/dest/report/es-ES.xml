@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="whatIsTheMatter">¿Qué ocurre?</string>
+  <string name="cheat">Engañar</string>
+  <string name="troll">Acoso</string>
+  <string name="reportStall">Dejar pasar el tiempo / Dejar de lado partidas</string>
+  <string name="reportBoost">Forzar menor nivel / Forzar subir nivel / Amaño de partidas</string>
+  <string name="reportVerbalAbuse">Abuso verbal / Maldecir / Troleo</string>
+  <string name="reportViolence">Violencia / Amenazas</string>
+  <string name="reportHarass">Acoso / Maltrato / Acecho</string>
+  <string name="reportSelfHarm">Suicidio / Autolesión</string>
+  <string name="reportHate">Discurso de odio / Sexismo</string>
+  <string name="reportSpam">Mensajes no deseados</string>
+  <string name="readMoreAboutLichessReports">Leer más sobre los informes de Lichess</string>
+  <string name="reportMaximumCharacters">Máximo de 3000 caracteres.</string>
+  <string name="reportCheatBoostHelp">Pega el enlace a la(s) partida(s) y explícanos qué hay de malo en el comportamiento de este usuario. No digas simplemente \"hace trampa\", sino cómo has llegado a esta conclusión.</string>
+  <string name="reportUsernameHelp">Explica qué es lo que te resulta ofensivo de este nombre de usuario. No digas solo \"es ofensivo o inapropiado\", sino cómo llegaste a esta conclusión, sobre todo si el insulto es sutil, no está en inglés, es jerga o una referencia histórica o cultural.</string>
+  <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">Podemos procesar tu informe más rápido si lo redactas en inglés.</string>
+  <string name="provideOneCheatedGameLink">Por favor, proporcione al menos un enlace a una partida para revisarla.</string>
+</resources>

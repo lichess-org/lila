@@ -588,14 +588,12 @@ Reytingli oʻyinlar o\'ynasangiz reyting barqarorligi oshadi.</string>
   <string name="reportAUser">Foydalanuvchi haqida shikoyat qilish</string>
   <string name="user">Foydalanuvchi</string>
   <string name="reason">Sabab</string>
-  <string name="whatIsIheMatter">Muammo nimada?</string>
   <string name="cheat">Gʻirromlik</string>
   <string name="troll">Trol</string>
   <string name="other">Boshqa</string>
   <string name="reportCheatBoostHelp">Oʻyin(lar) havolasini joylashtiring va bu foydalanuvchining xatti‑harakatlarida nima notoʻgʻri ekanligini tushuntiring. Shunchaki “gʻirromlik qilyapti” deb cheklanib qolmay, qanday qilib bu xulosaga kelganingizni ayting.</string>
   <string name="reportUsernameHelp">Ushbu foydalanuvchi nomi nima uchun haqoratli ekanligini tushuntiring. Shunchaki “bu haqoratomuz/nooʻrin” deb qoʻya qolmasdan, nima sababdan bunday deb oʻylashingizni asoslab bering. Ayniqsa, haqorat yashirin boʻlsa, ingliz tilida boʻlmasa, jargon (sleng) boʻlsa yoki tarixiy/madaniy mazmunga ega boʻlsa.</string>
   <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">Agar shikoyatingizni ingliz tilida yozsangiz, uni tezroq koʻrib chiqa olamiz.</string>
-  <string name="error.provideOneCheatedGameLink">Iltimos kamida bitta o\'yinga havolani keltiring.</string>
   <string name="by">%s tomonidan yaratildi</string>
   <string name="importedByX">%s tomonidan import qilindi</string>
   <string name="thisTopicIsNowClosed">Ushbu mavzu yopiq.</string>

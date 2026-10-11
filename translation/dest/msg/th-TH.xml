@@ -1,2 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="lichobileNewAppAvailable">มีแอปพลิเคชัน Lichess บนมือถือตัวใหม่ให้ใช้งานแล้ว!</string>
+  <string name="lichobileNewAppDownload" comment="The parameter links to https://lichess.org/app">โปรดดาวน์โหลดแอป Lichess อย่างเป็นทางการตัวใหม่ได้ที่ %s</string>
+  <string name="modActionFeedback">สวัสดีครับ/ค่ะ
+
+เราได้ตรวจสอบรายงานล่าสุดของคุณและดำเนินการเรียบร้อยแล้ว แม้ว่าเราจะไม่สามารถเปิดเผยรายละเอียดเกี่ยวกับการดำเนินการดังกล่าวได้ แต่เราก็ขอขอบคุณสำหรับรายงานของคุณ
+
+ขอบคุณที่ช่วยทำให้ Lichess เป็นพื้นที่ที่ดีสำหรับทุกคนครับ/ค่ะ</string>
+</resources>

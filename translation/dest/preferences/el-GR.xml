@@ -91,4 +91,6 @@
   <string name="maneuverArrowsHelp">Ακολουθία κινήσεων μηχανής για το κομμάτι</string>
   <string name="hoverOverSettingLabelsForHelp">Τοποθετήστε τον δείκτη πάνω από τις ετικέτες των ρυθμίσεων για βοήθεια</string>
   <string name="network">Δίκτυο</string>
+  <string name="useDirectRouting">Χρήση απευθείας δρομολόγησης</string>
+  <string name="useCdnRouting">Χρήση δρομολόγησης μέσω CDN</string>
 </resources>

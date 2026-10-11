@@ -158,6 +158,11 @@
   </plurals>
   <string name="moveTimes">เวลาที่ใช้ในการเดิน</string>
   <string name="flipBoard">หมุนกระดาน</string>
+  <string name="toggleLocalEngine">เปิดปิดเอ็นจินในเครื่อง</string>
+  <string name="engineSettings">การตั้งค่าเอ็นจิน</string>
+  <string name="engine">เอ็นจิน</string>
+  <string name="enginesFromStrongestToWeakest">เอ็นจินจากโหดสุดไปอ่อนสุด</string>
+  <string name="illegalPosition">ตำแหน่งผิดกติกา</string>
   <string name="threefoldRepetition">เดินซ้ำสามรอบ</string>
   <string name="claimADraw">ถือสิทธิ์เสมอ</string>
   <string name="drawClaimed">ขอเสมอ</string>
@@ -225,6 +230,7 @@
   <string name="signupUsernameHint">กรุณาใช้ชื่อที่สุภาพและเป็นมิตรต่อทุกวัย คุณไม่สามารถเปลี่ยนมันได้หลังจากนี้ ชื่อบัญชีที่ไม่มีความเหมาะสมจะถูกปิด</string>
   <string name="signupEmailPromise">เราจะส่งอีเมลเฉพาะเรื่องที่เกี่ยวข้องกับบัญชีของคุณเท่านั้น และจะไม่เปิดเผยอีเมลของคุณให้ผู้อื่นทราบโดยเด็ดขาด</string>
   <string name="password">รหัสผ่าน</string>
+  <string name="showPassword">แสดงรหัสผ่าน</string>
   <string name="changePassword">เปลี่ยนรหัสผ่าน</string>
   <string name="changeEmail">เปลี่ยนอีเมล</string>
   <string name="email">อีเมล</string>
@@ -246,6 +252,7 @@
   <string name="emailSent">เราได้ส่งอีเมลไปที่ %s</string>
   <string name="emailCanTakeSomeTime">อาจจะเป็นเวลาสักพักก่อนที่จะได้รับ</string>
   <string name="refreshInboxAfterFiveMinutes">รอ 5 นาทีและรีเฟรชกล่องจดหมายของคุณ</string>
+  <string name="checkSpamOrJunkFolder" comment="checkSpamFolder&#10;It = The confirmation email">หากคุณไม่ได้รับอีเมลยืนยัน โปรดตรวจสอบในโฟลเดอร์สแปมหรืออีเมลขยะและอย่าลืมระบุว่าข้อความจาก lichess.org เป็นข้อความที่ปลอดภัยและ \"ไม่ใช่สแปม\" เพื่อให้คุณไม่พลาดการติดต่อสื่อสารที่สำคัญ</string>
   <string name="sendEmailForAccountVerification">ถ้าคุณหาการยืนยันอีเมลของคุณไม่เจอ ให้ส่งอีเมลไปหา %s และพวกเราจะยืนยันบัญชีของคุณให้</string>
   <string name="accountConfirmed">ผู้ใช้ %s ถูกยืนยันโดยสมบูรณ์</string>
   <string name="accountCanLogin">คุณสามารถเข้าใช้งานได้แล้ว ด้วยชื่อ %s</string>
@@ -266,6 +273,8 @@
   </plurals>
   <string name="ok">ตกลง</string>
   <string name="cancel">ยกเลิก</string>
+  <string name="whiteRanOutOfTime" comment="whiteTimeOut&#10;&#10;Shows when White's time has run out. Is followed by the end condition, for example&#10;'White ran out of time · Draw'">ฝ่ายขาวหมดเวลา</string>
+  <string name="blackRanOutOfTime" comment="blackTimeOut&#10;&#10;Shows when Black's time has run out. Is followed by the end condition, for example&#10;'Black ran out of time · Draw'">ฝ่ายดำหมดเวลา</string>
   <string name="drawOfferSent">ส่งการขอเสมอแล้ว</string>
   <string name="drawOfferAccepted">ยอมรับการขอเสมอแล้ว</string>
   <string name="whiteOffersDraw">ขาวขอเสมอ</string>
@@ -373,6 +382,8 @@
     <item quantity="other">คุณจำเป็นต้องเล่นเกม %s ที่คิดคะแนนเพิ่มเติม</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">ระดับคะแนน %s ของคุณเป็นแบบชั่วคราว</string>
+  <string name="cannotFilterByUnstableRating" comment="Tooltip to explain why the control for filtering by rating is disabled">ไม่สามารถกรองข้อมูลตามระดับคะแนนได้ เนื่องจากระดับคะแนนของคุณยังไม่มีความเสถียร
+การเล่นเกมที่มีการคิดคะแนนจะช่วยเพิ่มความเสถียรของระดับคะแนนได้</string>
   <string name="yourPerfRatingIsTooHigh">ระดับคะแนน %1$s ของคุณ (%2$s) สูงเกินไป</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">ระดับคะแนน %1$s รายสัปดาห์ของคุณ (%2$s) สูงเกินไป</string>
   <string name="yourPerfRatingIsTooLow">ระดับคะแนน %1$s ของคุณ (%2$s) ต่ำเกินไป</string>
@@ -393,6 +404,7 @@
   <string name="apply">ใช้งาน</string>
   <string name="save">Save</string>
   <string name="leaderboard">กระดานผู้นำ</string>
+  <string name="positionAsImage" comment="screenshotCurrentPosition&#10;&#10;Screenshot is used as a verb here.&#10;Download/share a picture of the current position.">กำหนดตำแหน่งตามรูปภาพ</string>
   <string name="gameAsGIF">เกมเป็น GIF</string>
   <string name="playerNames">ชื่อผู้เล่น</string>
   <string name="moveAnnotations">สัญกรณ์การเดิน</string>
@@ -419,6 +431,8 @@
   <plurals name="nbFriendsOnline">
     <item quantity="other">เพื่อนออนไลน์ %s คน</item>
   </plurals>
+  <string name="friendsOnlineAndPlaying">เพื่อนที่ออนไลน์: %1$s
+เพื่อนที่กำลังเล่น: %2$s</string>
   <string name="favoriteOpponents">คู่แข่งที่ชอบ</string>
   <string name="follow">ติดตาม</string>
   <string name="following">กำลังติดตาม</string>
@@ -514,6 +528,11 @@
   <string name="autoSwitch">สลับอัตโนมัติ</string>
   <string name="puzzles">ปริศนา</string>
   <string name="onlineBots">บอทออนไลน์</string>
+  <string name="aboutBotsOnLichess">เกี่ยวกับบอทบน Lichess</string>
+  <string name="featuredBots">บอตแนะนำ</string>
+  <string name="tryPlayingTheseInnovativeChessEngines">ลองเล่นเอนจินหมากรุกสุดล้ำเหล่านี้ดูสิ! มันเป็นบอทตัวโปรดของเรา</string>
+  <string name="communityBots">บอตของชุมชน</string>
+  <string name="moreChessEnginesCreatedByTheLichessCommunity">ยังมีเอนจินหมากรุกอีกมากมายที่สร้างสรรค์โดยชุมชน Lichess ซึ่งจัดทำโดยผู้สร้างเอง จึงอาจไม่ได้ออนไลน์อยู่ตลอดเวลา</string>
   <string name="name">ชื่อ</string>
   <string name="description">คำอธิบาย</string>
   <string name="descPrivate">คำบรรยายส่วนตัว</string>
@@ -539,14 +558,12 @@
   <string name="reportAUser">ร้องเรียนผู้ใช้</string>
   <string name="user">ผู้ใช้</string>
   <string name="reason">เหตุผล</string>
-  <string name="whatIsIheMatter">เกิดอะไรขึ้น?</string>
   <string name="cheat">โกง</string>
   <string name="troll">ป่วน</string>
   <string name="other">อื่นๆ</string>
   <string name="reportCheatBoostHelp">วางลิงก์ไปยังเกม และอธิบายสิ่งผิดปกติเกี่ยวกับพฤติกรรมของผู้ใช้นี้ อย่าแค่พูดว่า \"พวกเขาโกง\" แต่บอกเราว่าคุณมาถึงข้อสรุปนี้ได้อย่างไร</string>
   <string name="reportUsernameHelp">อธิบายว่าชื่อผู้ใช้นี้ไม่เหมาะสมอย่างไร อย่าเพียงแค่พูดว่า \"มันน่ารังเกียจ/ไม่เหมาะสม\" แต่บอกเราว่าคุณมาถึงข้อสรุปนี้ได้อย่างไร โดยเฉพาะหากชื่อนั้นคลุมเครือ ไม่ใช่ภาษาอังกฤษ เป็นคำสแลง หรือเป็นการอ้างอิงทางประวัติศาสตร์/วัฒนธรรม</string>
   <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">เราสามารถดำเนินการเกี่ยวกับรายงานของคุณได้เร็วยิ่งขึ้นหากคุณเขียนเป็นภาษาอังกฤษ</string>
-  <string name="error.provideOneCheatedGameLink">โปรดระบุอย่างน้อยหนึ่งลิงก์ เพื่อเชื่อมโยงไปยังเกมที่มีการโกง</string>
   <string name="by">โดย %s</string>
   <string name="importedByX">ถูกนำเข้าโดย %s</string>
   <string name="thisTopicIsNowClosed">หัวข้อนี้ถูกปิดแล้ว</string>
@@ -676,6 +693,7 @@
   <string name="simulVariantsHint">ถ้าคุณเลือกหลายตัวแปรกติกา ผู้เล่นแต่ละคนจะเลือกได้ว่าจะเล่นอันไหน</string>
   <string name="simulClockHint">การตั้งนาฬิกาฟิสเชอร์ ยิ่งคุณเล่นกับผู้เล่นหลายคน คุณยิ่งต้องการเวลามากขึ้น</string>
   <string name="simulAddExtraTime">คุณอาจบวกเวลาพิเศษให้นาฬิกาของคุณ เพื่อช่วยคุณรับมือกับไซมัล</string>
+  <string name="extraClockTimeForHost" comment="Appears on: https://lichess.org/simul/new&#10;&#10;Allows a simul host to select extra time for the simul.&#10;&#10;Please note this string used to state &quot;Host extra clock time&quot;, without the word &quot;initial&quot;">เพิ่มเวลาสำหรับผู้จัดการแข่ง:</string>
   <string name="simulAddExtraTimePerPlayer">เพิ่มเวลาเริ่มต้นลงในนาฬิกาของคุณสำหรับผู้เล่นแต่ละคนที่เข้าร่วมไซมัล</string>
   <string name="simulHostExtraTimePerPlayer">โฮสต์เวลานาฬิกาเพิ่มเติมต่อผู้เล่น</string>
   <string name="lichessTournaments">ทัวร์นาเมนต์ Lichess</string>
@@ -733,7 +751,9 @@
   <string name="downloadAnnotated">ดาวน์โหลดพร้อมตัวอธิบาย</string>
   <string name="downloadRaw">ดาวน์โหลดข้อมูลดิบ</string>
   <string name="downloadImported">ดาวน์โหลดสิ่งที่นำเข้า</string>
+  <string name="downloadMyGames">ดาวน์โหลดเกมของฉัน</string>
   <string name="downloadAllGames">ดาวน์โหลดเกมทั้งหมด</string>
+  <string name="downloadResults">ดาวน์โหลดผลลัพธ์</string>
   <string name="crosstable">ตารางผลแข่ง</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">คุณสามารถหมุนเลื่อนเหนือกระดานเพื่อเดินในเกมได้ด้วย</string>
   <string name="scrollOverComputerVariationsToPreviewThem">เลื่อนไปเหนือตัวแปรคอมพิวเตอร์เพื่อดูตัวอย่างพวกมัน</string>
@@ -753,12 +773,14 @@
   <string name="enableKidMode">เปิดใช้งานโหมดสำหรับเด็ก</string>
   <string name="disableKidMode">ปิดใช้งานโหมดสำหรับเด็ก</string>
   <string name="security">ความปลอดภัย</string>
+  <string name="activeSessionsDescription">นี่คือรายการอุปกรณ์และแอปพลิเคชันที่ลงชื่อเข้าใช้บัญชีของคุณ หากคุณพบกิจกรรมที่น่าสงสัย โปรด &lt;a href=\'%1$s\'&gt; ตรวจสอบที่อยู่อีเมลสำหรับกู้คืนบัญชี &lt;/a&gt; และ &lt;a href=\'%2$s\'&gt; เปลี่ยนรหัสผ่าน &lt;/a&gt; ของคุณ</string>
   <string name="sessions">วาระ</string>
   <string name="revokeAllSessions">ยกเลิกวาระทั้งหมด</string>
   <string name="playChessEverywhere">เล่นหมากรุกได้ทุกที่</string>
   <string name="everybodyGetsAllFeaturesForFree">ทุกคนจะได้รับคุณลักษณะทั้งหมดฟรี</string>
   <string name="viewTheSolution">ดูเฉลย</string>
   <string name="noChallenges">ไม่มีการท้าดวล</string>
+  <string name="browserNotificationsDenied">การแจ้งเตือนแบบป๊อปอัปถูกปิดใช้งานโดยการตั้งค่าของเบราว์เซอร์</string>
   <plurals name="availableInNbLanguages">
     <item quantity="other">รองรับถึง %s ภาษา!</item>
   </plurals>
@@ -946,12 +968,14 @@
   <string name="simulFeaturedHelp">แสคงไซมัลให้ทุกคนบน %s ถูกปิดการใช้งานสำหรับไซมัลส่วนตัว</string>
   <string name="simulDescription">คำบรรยายไซมัล</string>
   <string name="simulDescriptionHelp">คุณต้องการบอกอะไรผู้เข้าร่วมไหม?</string>
+  <string name="youCanFormatTextUsing" comment="%s is &quot;Markdown&quot;, a proper noun. As such, the word is intentionally kept as a variable.&#10;&#10;Markdown is a markup language - a type of code that lets you format text (e.g. to create bold text).&#10;&#10;The text links to a reference guide for using Markdown to format text.">คุณสามารถจัดรูปแบบข้อความโดยใช้ %s</string>
   <string name="embedsAvailable">วาง URLของเกม หรือ ศึกษา URL ของบทที่จะตรึงไว้</string>
   <string name="inYourLocalTimezone">ในเขตเวลาท้องถิ่นของคุณ</string>
   <string name="tournChat">แชททัวร์นาเมนต์</string>
   <string name="noChat">ไม่มีแชท</string>
   <string name="onlyTeamLeaders">หัวหน้าทีมเท่านั้น</string>
   <string name="onlyTeamMembers">สมาชิกทีมเท่านั้น</string>
+  <string name="moveListNavigation" comment="navigateMoveTree&#10;&#10;Appears in the keyboard shortcuts/help screen. The 'move tree' is simply the list of moves.">การนำทางตาเดิน</string>
   <string name="mouseTricks">หน้าที่เมาส์</string>
   <string name="toggleLocalAnalysis">ควบคุมการวิเคราะห์ค้วยคอมพิวเตอร์ในท้องถิ่น</string>
   <string name="toggleAllAnalysis">ควบคุมการวิเคราะห์ด้วยคอมพิวเตอร์</string>
@@ -998,4 +1022,5 @@
   <string name="boards">กระดาน</string>
   <string name="write">เขียน</string>
   <string name="preview">ดูตัวอย่าง</string>
+  <string name="done">สำเร็จ</string>
 </resources>

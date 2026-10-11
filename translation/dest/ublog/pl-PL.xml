@@ -69,6 +69,17 @@
   <string name="deleteBlog">Usuń bezpowrotnie ten wpis na blogu</string>
   <string name="freeImagesComplyWithLicensing" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Następujące strony internetowe udostępniają obrazy za darmo. Upewnij się, że spełniasz warunki licencjonowania dla obrazu, którego używasz.</string>
   <string name="selectPostTopics">Wybierz tematy, których dotyczy Twój post</string>
+  <string name="topicChess">Szachy</string>
+  <string name="topicPuzzle">Zadania</string>
+  <string name="topicTactics">Taktyka</string>
+  <string name="topicStrategy">Strategia</string>
+  <string name="topicChessEngine">Silnik szachowy</string>
+  <string name="topicChessBot">Bot szachowy</string>
+  <string name="topicChessPersonalities">Osobowości szachowe</string>
+  <string name="topicOverTheBoard">Przy szachownicy</string>
+  <string name="topicSoftwareDevelopment">Rozwój oprogramowania</string>
+  <string name="topicOffTopic">Poza tematem</string>
+  <string name="topicPosts">%s postów</string>
   <string name="etiquette">Etykieta</string>
   <string name="safeAndRespectfulContent">Publikuj proszę wyłącznie wyważone i taktowne treści. Nie kopiuj materiałów od innych.</string>
   <string name="noCopyrightedImages">Używaj tylko obrazów, które nie są chronione prawem autorskim.</string>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="whatIsTheMatter">举报原因？</string>
+  <string name="cheat">作弊</string>
+  <string name="troll">捣乱</string>
+  <string name="reportStall">拖延 / 离开对局</string>
+  <string name="reportBoost">故意输棋 / 刷分 / 操纵比赛</string>
+  <string name="reportVerbalAbuse">言语辱骂 / 咒骂 / 嘲讽</string>
+  <string name="reportViolence">暴力 / 威胁</string>
+  <string name="reportHarass">骚扰 / 欺凌 / 跟踪</string>
+  <string name="reportSelfHarm">自杀 / 自残</string>
+  <string name="reportHate">仇恨言论 / 性别歧视</string>
+  <string name="reportSpam">垃圾信息</string>
+  <string name="readMoreAboutLichessReports">了解更多关于 Lichess 举报的信息</string>
+  <string name="reportMaximumCharacters">最多 3000 个字符！</string>
+  <string name="reportCheatBoostHelp">请附上对局链接解释该用户的行为问题。请不要只说“对手作弊”，而是解释为什么您认为对手作弊。</string>
+  <string name="reportUsernameHelp">解释此用户名有何冒犯之处。不要只说“冒犯/不当”，请告诉我们您是如何得出这个结论的，特别是当侮辱是隐晦的、非英语的、俚语或涉及历史/文化指涉时。</string>
+  <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">如果您用英文撰写报告，我们可以更快地处理您的举报。</string>
+  <string name="provideOneCheatedGameLink">请提供至少一个对局链接以供审查。</string>
+</resources>

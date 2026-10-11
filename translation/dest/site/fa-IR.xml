@@ -588,14 +588,12 @@
   <string name="reportAUser">گزارش یک کاربر</string>
   <string name="user">کاربر</string>
   <string name="reason">دلیل</string>
-  <string name="whatIsIheMatter">موضوع</string>
   <string name="cheat">تقلب</string>
   <string name="troll">وِزُل</string>
   <string name="other">دیگر</string>
   <string name="reportCheatBoostHelp">پیوند بازی(ها) را جای‌گذارید و بشرحید که چه رفتاری از این کاربر مشکل دارد. فقط نگویید «آنها تقلب‌کارند»، بلکه به ما بگویید چطور به این نتیجه رسیده‌اید.</string>
   <string name="reportUsernameHelp">بشرحید چه چیز این نام‌کاربری آزارنده است. فقط نگویید «آزارنده/نامناسب است»، بلکه به ما بگویید چطور به این نتیجه رسیده‌اید، به‌ویژه اگر توهین: گنگ است، انگلیسی نیست، کوچه‌بازاری است، یا یک ارجاع تاریخی/فرهنگی است.</string>
   <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">اگر به انگلیسی بنویسید، می‌توانیم سریع‌تر به گزارش‌تان رسیدگی کنیم.</string>
-  <string name="error.provideOneCheatedGameLink">لطفآ حداقل یک نمونه تقلب در بازی را مطرح کنید.</string>
   <string name="by">به‌دستِ %s</string>
   <string name="importedByX">%s آن را وارد کرده</string>
   <string name="thisTopicIsNowClosed">این موضوع بسته شده است</string>

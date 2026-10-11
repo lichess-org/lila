@@ -65,6 +65,7 @@ final class MarkdownRender(
     sourceMap: Boolean = false,
     removeHtmlEntities: Boolean = false,
     allowedTags: Set[String] = Set.empty,
+    linkRel: String = "nofollow noreferrer",
     pgnExpand: Option[MarkdownRender.PgnSourceExpand] = None,
     assetDomain: Option[AssetDomain] = None
 ):
@@ -77,9 +78,11 @@ final class MarkdownRender(
   if strikeThrough then extensions.add(StrikethroughExtension.create())
   if autoLink then
     extensions.add(AutolinkExtension.create())
-    extensions.add(MarkdownRender.WhitelistedImage.create(assetDomain))
+    extensions.add(MarkdownRender.WhitelistedImage.create(assetDomain, linkRel))
   extensions.add(
-    pgnExpand.fold[Extension](MarkdownRender.LilaLinkExtension)(MarkdownRender.PgnEmbedExtension(_))
+    pgnExpand.fold[Extension](MarkdownRender.LilaLinkExtension(linkRel))(
+      MarkdownRender.PgnEmbedExtension(_, linkRel)
+    )
   )
   if timestamp then extensions.add(MarkdownRender.TimestampExtension)
   if sourceMap then extensions.add(MarkdownRender.SourceMapExtension)
@@ -141,8 +144,6 @@ object MarkdownRender:
     def apply(md: Markdown): Markdown =
       md.map(entityRegex.replaceAllIn(_, "$1"))
 
-  private val rel = "nofollow noreferrer"
-
   object preventStackOverflow:
     // https://github.com/vsch/flexmark-java/issues/496
     private val tooManyUnderscoreRegex = """(_{6,})""".r
@@ -192,7 +193,7 @@ object MarkdownRender:
       )
     yield url.toString
 
-    def create(assetDomain: Option[AssetDomain]) = new HtmlRenderer.HtmlRendererExtension:
+    def create(assetDomain: Option[AssetDomain], linkRel: String) = new HtmlRenderer.HtmlRendererExtension:
       override def rendererOptions(options: MutableDataHolder) = ()
       override def extend(htmlRendererBuilder: HtmlRenderer.Builder, rendererType: String) =
         htmlRendererBuilder.nodeRendererFactory:
@@ -223,20 +224,22 @@ object MarkdownRender:
                 .srcPos(node.getChars())
                 .attr("href", url)
                 .attr("target", "_blank")
-                .attr("rel", rel)
+                .attr("rel", linkRel)
                 .withAttr(resolvedLink)
                 .tag("a")
                 .text(if altText.isEmpty then url else altText)
                 .tag("/a")
 
-  private class PgnEmbedExtension(expander: PgnSourceExpand) extends HtmlRenderer.HtmlRendererExtension:
+  private class PgnEmbedExtension(expander: PgnSourceExpand, linkRel: String)
+      extends HtmlRenderer.HtmlRendererExtension:
+    private val nodeRenderer = new PgnEmbedNodeRenderer(expander, linkRel)
     override def rendererOptions(options: MutableDataHolder) = ()
     override def extend(htmlRendererBuilder: HtmlRenderer.Builder, rendererType: String) =
       htmlRendererBuilder.nodeRendererFactory:
         new:
-          override def apply(options: DataHolder) = new PgnEmbedNodeRenderer(expander)
+          override def apply(options: DataHolder) = nodeRenderer
 
-  private class PgnEmbedNodeRenderer(expander: PgnSourceExpand) extends NodeRenderer:
+  private class PgnEmbedNodeRenderer(expander: PgnSourceExpand, linkRel: String) extends NodeRenderer:
     override def getNodeRenderingHandlers() = java.util.HashSet:
       Arrays.asList(
         NodeRenderingHandler(classOf[Link], renderLink(_, _, _)),
@@ -288,6 +291,8 @@ object MarkdownRender:
     ) =
       val link = if node.getTitle.isNotNull then baseLink.withTitle(node.getTitle().unescape()) else baseLink
       html.attr("href", addProtocolIfNecessary(link.getUrl))
+      html.attr("target", "_blank")
+      html.attr("rel", linkRel)
       html.attr(link.getNonNullAttributes())
       html.srcPos(node.getChars()).withAttr(link).tag("a")
       context.renderChildren(node)
@@ -338,20 +343,19 @@ object MarkdownRender:
           html
             .tag("/a")
 
-  private object LilaLinkExtension extends HtmlRenderer.HtmlRendererExtension:
+  private final class LilaLinkExtension(linkRel: String) extends HtmlRenderer.HtmlRendererExtension:
+    private val linkAttributeProvider = new AttributeProvider:
+      private def removeUrlTrackingParameters(url: String) = Url.trackingParametersRegex.replaceAllIn(url, "")
+      override def setAttributes(node: Node, part: AttributablePart, attributes: MutableAttributes) =
+        if (node.isInstanceOf[Link] || node.isInstanceOf[AutoLink]) && part == AttributablePart.LINK then
+          attributes.replaceValue("target", "_blank")
+          attributes.replaceValue("rel", linkRel)
+          attributes.replaceValue("href", removeUrlTrackingParameters(attributes.getValue("href")))
     override def rendererOptions(options: MutableDataHolder) = ()
     override def extend(htmlRendererBuilder: HtmlRenderer.Builder, rendererType: String) =
       htmlRendererBuilder.attributeProviderFactory:
         new IndependentAttributeProviderFactory:
-          override def apply(context: LinkResolverContext): AttributeProvider = lilaLinkAttributeProvider
-
-  private val lilaLinkAttributeProvider = new AttributeProvider:
-    private def removeUrlTrackingParameters(url: String) = Url.trackingParametersRegex.replaceAllIn(url, "")
-    override def setAttributes(node: Node, part: AttributablePart, attributes: MutableAttributes) =
-      if (node.isInstanceOf[Link] || node.isInstanceOf[AutoLink]) && part == AttributablePart.LINK then
-        attributes.replaceValue("target", "_blank")
-        attributes.replaceValue("rel", rel)
-        attributes.replaceValue("href", removeUrlTrackingParameters(attributes.getValue("href")))
+          override def apply(context: LinkResolverContext): AttributeProvider = linkAttributeProvider
 
   private final class AllowedTagsExtension(tags: Set[String]) extends HtmlRenderer.HtmlRendererExtension:
     private val tagNames = tags.mkString("|")
