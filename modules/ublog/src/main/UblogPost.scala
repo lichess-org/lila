@@ -6,7 +6,7 @@ import scalalib.ThreadLocalRandom.shuffle
 import scalalib.model.Language
 import lila.core.id.ImageId
 import lila.core.i18n.{ defaultLanguage, toLanguage }
-import lila.core.ublog.Quality
+import lila.ublog.UblogPost.Quality
 
 case class UblogPost(
     @Key("_id") id: UblogPostId,
@@ -80,6 +80,13 @@ case class UblogSimilar(id: UblogPostId, count: Int)
 object UblogPost:
 
   export lila.core.ublog.UblogPost.*
+
+  enum Quality:
+    case spam, weak, good
+    def name = toString
+
+  object Quality:
+    val byName = values.mapBy(_.name) + ("great" -> good)
 
   def empty(user: User) =
     UblogPost(

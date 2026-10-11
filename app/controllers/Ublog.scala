@@ -10,7 +10,7 @@ import scalalib.model.Language
 import lila.i18n.{ LangList, LangPicker }
 import lila.report.Suspect
 import lila.ublog.{ UblogBlog, UblogPost, UblogByMonth }
-import lila.core.ublog.{ BlogsBy, Quality, QualityFilter }
+import lila.core.ublog.{ BlogsBy, QualityFilter }
 import lila.core.i18n.toLanguage
 import lila.ublog.UblogForm.{ ModPostData, UblogPostData }
 import lila.common.HTTPRequest
@@ -362,7 +362,7 @@ final class Ublog(env: Env) extends LilaController(env):
     val queryText = text.take(100).trim
     NotForKids:
       for
-        ids <- env.ublog.search.fetchResults(queryText, by, Quality.weak.some, page)
+        ids <- env.ublog.search.fetchResults(queryText, by, lila.ublog.UblogPost.Quality.weak.some, page)
         posts <- ids.mapFutureList(env.ublog.api.postPreviews)
         page <- renderPage(views.ublog.ui.search(queryText, by, posts.some))
       yield Ok(page)

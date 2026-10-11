@@ -14,7 +14,7 @@ import lila.core.ublog.BlogsBy
 import lila.core.timeline.{ Propagate, UblogPostLike }
 import lila.common.LilaFuture.delay
 import lila.core.user.KidMode
-import lila.core.ublog.Quality
+import lila.ublog.UblogPost.Quality
 
 final class UblogApi(
     colls: UblogColls,

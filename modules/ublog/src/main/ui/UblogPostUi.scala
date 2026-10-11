@@ -192,7 +192,7 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
       div(
         div(
           span(cls := "btn-rack")(
-            lila.core.ublog.Quality.values.map: q =>
+            UblogPost.Quality.values.map: q =>
               button(
                 cls := s"quality-btn btn-rack__btn ${(nonPendingQuality.contains(q)).so("lit")}",
                 value := q.name
