@@ -187,7 +187,7 @@ export function renderCeval(ctrl: CevalHandler): VNode[] {
   } else if (typeof bestEv?.cp !== 'undefined') {
     pearl = makePearl(renderEval(bestEv.cp));
   } else if (bestEv && defined(bestEv.mate)) {
-    pearl = makePearl('#' + bestEv.mate);
+    pearl = makePearl(['#' + bestEv.mate]);
   } else {
     if (!enabled) pearl = makePearl(h('icon'));
     else if (node.outcome() || node.threefold) pearl = makePearl('-');
