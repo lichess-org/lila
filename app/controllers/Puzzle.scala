@@ -105,10 +105,13 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
       onComplete(env.puzzle.forms.round)(id, PuzzleAngle.findOrMix(angleStr), mobileBc = false)
 
   def mobileBcRound(nid: Long) = OpenBody:
-    Puz
-      .numericalId(nid)
-      .so:
-        onComplete(env.puzzle.forms.bc.round)(_, PuzzleAngle.mix, mobileBc = true)
+    env.web.lichobileDisables.anonPuzzle match
+      case Some(error) => Gone(jsonError(error)).as(JSON)
+      case None =>
+        Puz
+          .numericalId(nid)
+          .so:
+            onComplete(env.puzzle.forms.bc.round)(_, PuzzleAngle.mix, mobileBc = true)
 
   private def onComplete[A](
       form: Form[PuzzleForm.RoundData]
