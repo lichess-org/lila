@@ -7,13 +7,13 @@
     "pnpm": ">=12"
   },
   "devDependencies": {
-    "chessground3D": "github:yafred/chessground3D#v1.0.0-alpha.1",
     "@lichess-org/chessground": "^10.4.2",
     "@lichess-org/pgn-viewer": "^2.7.3",
     "@playwright/test": "^1.63.0",
     "@types/lichess": "workspace:*",
     "@types/node": "^24.19.0",
     "ab": "github:lichess-org/ab-stub",
+    "chessground3D": "github:yafred/chessground3D#v1.0.0-alpha.1",
     "chessops": "^0.15.1",
     "jsdom": "^30.1.2",
     "lint-staged": "^17.6.0",
