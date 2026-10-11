@@ -80,7 +80,9 @@ final class MarkdownRender(
     extensions.add(AutolinkExtension.create())
     extensions.add(MarkdownRender.WhitelistedImage.create(assetDomain, linkRel))
   extensions.add(
-    pgnExpand.fold[Extension](MarkdownRender.LilaLinkExtension(linkRel))(MarkdownRender.PgnEmbedExtension(_))
+    pgnExpand.fold[Extension](MarkdownRender.LilaLinkExtension(linkRel))(
+      MarkdownRender.PgnEmbedExtension(_, linkRel)
+    )
   )
   if timestamp then extensions.add(MarkdownRender.TimestampExtension)
   if sourceMap then extensions.add(MarkdownRender.SourceMapExtension)
@@ -228,15 +230,16 @@ object MarkdownRender:
                 .text(if altText.isEmpty then url else altText)
                 .tag("/a")
 
-  private class PgnEmbedExtension(expander: PgnSourceExpand) extends HtmlRenderer.HtmlRendererExtension:
-    private val nodeRenderer = new PgnEmbedNodeRenderer(expander)
+  private class PgnEmbedExtension(expander: PgnSourceExpand, linkRel: String)
+      extends HtmlRenderer.HtmlRendererExtension:
+    private val nodeRenderer = new PgnEmbedNodeRenderer(expander, linkRel)
     override def rendererOptions(options: MutableDataHolder) = ()
     override def extend(htmlRendererBuilder: HtmlRenderer.Builder, rendererType: String) =
       htmlRendererBuilder.nodeRendererFactory:
         new:
           override def apply(options: DataHolder) = nodeRenderer
 
-  private class PgnEmbedNodeRenderer(expander: PgnSourceExpand) extends NodeRenderer:
+  private class PgnEmbedNodeRenderer(expander: PgnSourceExpand, linkRel: String) extends NodeRenderer:
     override def getNodeRenderingHandlers() = java.util.HashSet:
       Arrays.asList(
         NodeRenderingHandler(classOf[Link], renderLink(_, _, _)),
@@ -288,6 +291,8 @@ object MarkdownRender:
     ) =
       val link = if node.getTitle.isNotNull then baseLink.withTitle(node.getTitle().unescape()) else baseLink
       html.attr("href", addProtocolIfNecessary(link.getUrl))
+      html.attr("target", "_blank")
+      html.attr("rel", linkRel)
       html.attr(link.getNonNullAttributes())
       html.srcPos(node.getChars()).withAttr(link).tag("a")
       context.renderChildren(node)
