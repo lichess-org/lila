@@ -5661,8 +5661,6 @@ interface I18n {
     inviteOnly: string;
     /** Invite to the study */
     inviteToTheStudy: string;
-    /** Analysis */
-    justTheWordAnalysis: string;
     /** Kick */
     kick: string;
     /** Leave the study */

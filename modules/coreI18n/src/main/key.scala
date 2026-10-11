@@ -2980,7 +2980,6 @@ object I18nKey:
     val `doubleDefeat`: I18nKey = "study:doubleDefeat"
     val `blackDefeatWhiteCanNotWin`: I18nKey = "study:blackDefeatWhiteCanNotWin"
     val `whiteDefeatBlackCanNotWin`: I18nKey = "study:whiteDefeatBlackCanNotWin"
-    val `justTheWordAnalysis`: I18nKey = "study:justTheWordAnalysis"
     val `analysisEditor`: I18nKey = "study:analysisEditor"
     val `clearLocal`: I18nKey = "study:clearLocal"
     val `clearPublished`: I18nKey = "study:clearPublished"

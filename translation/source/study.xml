@@ -198,7 +198,6 @@
   <string name="doubleDefeat">Double defeat</string>
   <string name="blackDefeatWhiteCanNotWin">Black defeat, but White can't win</string>
   <string name="whiteDefeatBlackCanNotWin">White defeat, but Black can't win</string>
-  <string name="justTheWordAnalysis">Analysis</string>
   <string name="analysisEditor">Analysis editor</string>
   <string name="clearLocal">Clear local analysis?</string>
   <string name="clearPublished">Clear published analysis?</string>
