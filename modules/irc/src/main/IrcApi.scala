@@ -1,6 +1,7 @@
 package lila.irc
 
 import play.api.mvc.Call
+import scalalib.DiffStr
 
 import lila.core.LightUser
 import lila.core.LightUser.Me.given
@@ -8,7 +9,6 @@ import lila.core.id.*
 import lila.core.irc.*
 import lila.core.userId.ModId
 import lila.core.study.data.StudyChapterName
-import lila.core.data.DiffStr
 
 final class IrcApi(
     zulip: ZulipClient,

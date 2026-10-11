@@ -799,7 +799,7 @@ final class TournamentApi(
 
   private def notifyBBB(next: Tournament, prev: Option[Tournament])(using me: MyId) =
     if next.isScheduled then
-      lila.common
+      scalalib
         .ProductDiff(
           prev,
           next,
