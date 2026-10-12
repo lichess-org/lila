@@ -121,8 +121,8 @@ final private[api] class RoundApi(
       owner: Boolean = false
   )(using ctx: Context): Fu[JsObject] =
     given Translate = ctx.translate
-    (
-      jsonView.watcherJson(
+    (for
+      json <- jsonView.watcherJson(
         pov,
         users,
         opening,
@@ -131,16 +131,15 @@ final private[api] class RoundApi(
         tv,
         initialFen = initialFen,
         flags = withFlags.copy(blurs = Granter.opt(_.ViewBlurs))
-      ),
-      tourApi.gameView.analysis(pov.game),
-      pov.game.simulId.so(simulApi.find),
-      swissApi.gameView(pov),
-      ctx.me.ifTrue(ctx.isMobileApi).so(noteApi.get(pov.gameId, _)),
-      owner.so(forecastApi.loadForDisplay(pov)),
-      withFlags.puzzles.so(opening).so(puzzleOpeningApi.getClosestTo(_, true)),
-      bookmarkApi.exists(pov.game, ctx.me)
-    ).mapN: (json, tour, simul, swiss, note, fco, puzzleOpening, bookmarked) =>
-      (
+      )
+      tour <- tourApi.gameView.analysis(pov.game)
+      simul <- pov.game.simulId.so(simulApi.find)
+      swiss <- swissApi.gameView(pov)
+      note <- ctx.me.ifTrue(ctx.isMobileApi).so(noteApi.get(pov.gameId, _))
+      fco <- owner.so(forecastApi.loadForDisplay(pov))
+      puzzleOpening <- withFlags.puzzles.so(opening).so(puzzleOpeningApi.getClosestTo(_, true))
+      bookmarked <- bookmarkApi.exists(pov.game, ctx.me)
+      jsObj = (
         withTournament(pov, tour)
           .compose(withSwiss(swiss))
           .compose(withSimul(simul))
@@ -151,8 +150,8 @@ final private[api] class RoundApi(
           .compose(withForecast(pov, fco))
           .compose(withPuzzleOpening(puzzleOpening))
       )(json)
-    .flatMap(externalEngineApi.withExternalEngines)
-      .mon(lila.mon.round.api.watcher)
+      withExternalEngines <- externalEngineApi.withExternalEngines(jsObj)
+    yield withExternalEngines).mon(lila.mon.round.api.watcher)
 
   def userAnalysisJson(
       pov: Pov,

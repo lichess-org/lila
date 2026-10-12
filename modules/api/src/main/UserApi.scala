@@ -63,85 +63,71 @@ final class UserApi(
         then fuccess(jsonView.disabled(u.light))
         else
           import opts.*
-          (
-            opts.urgent.orLoad(gameProxyRepo.urgentGames(u)).dmap(_.value.headOption),
-            as.filter(me => u.user.isnt(me)).so(me => crosstableApi.nbGames(me.userId, u.id)),
-            (opts.withRelation && as.isDefined).so(prefApi.followable(u.id)),
-            opts.withRelation.so(as).map(_.userId).so(relationApi.fetchRelation(_, u.id)),
-            bookmarkApi.countByUser(u.user),
-            if as.isDefined then playingUsers.nbPlayingAll(u.id) else playingUsers.nbPlayingRealtime(u.id),
-            gameCache.nbImportedBy(u.id),
-            (withTrophies && !u.lame).optionFu(getTrophiesAndAwards(u.user)),
-            streamerApi.listed(u.user),
-            withCanChallenge.so(challengeGranter.mayChallenge(u.user).dmap(some)),
-            forWiki.optionFu(userRepo.email(u.id)),
-            withPlayban.so(playbanApi.currentBan(u)),
-            withFideId.so(fideIdOf(u.user.light))
-          ).mapN:
-            (
-                gameOption,
-                nbGamesWithMe,
-                followable,
-                relation,
-                nbBookmarks,
-                nbPlaying,
-                nbImported,
-                trophiesAndAwards,
-                streamer,
-                canChallenge,
-                email,
-                playban,
-                fideId
-            ) =>
-              val rankMap = withRank.option(rankingsOf(u.id))
-              jsonView.full(u.user, u.perfs.some, withProfile = withProfile, rankMap) ++ {
-                Json
-                  .obj(
-                    "url" -> makeUrl(s"@/${u.username}"), // for app BC
-                    "playing" -> gameOption.map(g => makeUrl(s"${g.gameId}/${g.color.name}")),
-                    "count" -> Json.obj(
-                      "all" -> u.count.game,
-                      "rated" -> u.count.rated,
-                      "draw" -> u.count.draw,
-                      "loss" -> u.count.loss,
-                      "win" -> u.count.win,
-                      "bookmark" -> nbBookmarks,
-                      "playing" -> nbPlaying,
-                      "import" -> nbImported,
-                      "me" -> nbGamesWithMe
-                    )
+          for
+            gameOption <- opts.urgent.orLoad(gameProxyRepo.urgentGames(u)).dmap(_.value.headOption)
+            nbGamesWithMe <- as.filter(me => u.user.isnt(me)).so(me => crosstableApi.nbGames(me.userId, u.id))
+            followable <- (opts.withRelation && as.isDefined).so(prefApi.followable(u.id))
+            relation <- opts.withRelation.so(as).map(_.userId).so(relationApi.fetchRelation(_, u.id))
+            nbBookmarks <- bookmarkApi.countByUser(u.user)
+            nbPlaying <-
+              if as.isDefined then playingUsers.nbPlayingAll(u.id) else playingUsers.nbPlayingRealtime(u.id)
+            nbImported <- gameCache.nbImportedBy(u.id)
+            trophiesAndAwards <- (withTrophies && !u.lame).optionFu(getTrophiesAndAwards(u.user))
+            streamer <- streamerApi.listed(u.user)
+            canChallenge <- withCanChallenge.so(challengeGranter.mayChallenge(u.user).dmap(some))
+            email <- forWiki.optionFu(userRepo.email(u.id))
+            playban <- withPlayban.so(playbanApi.currentBan(u))
+            fideId <- withFideId.so(fideIdOf(u.user.light))
+          yield
+            val rankMap = withRank.option(rankingsOf(u.id))
+            jsonView.full(u.user, u.perfs.some, withProfile = withProfile, rankMap) ++ {
+              Json
+                .obj(
+                  "url" -> makeUrl(s"@/${u.username}"), // for app BC
+                  "playing" -> gameOption.map(g => makeUrl(s"${g.gameId}/${g.color.name}")),
+                  "count" -> Json.obj(
+                    "all" -> u.count.game,
+                    "rated" -> u.count.rated,
+                    "draw" -> u.count.draw,
+                    "loss" -> u.count.loss,
+                    "win" -> u.count.win,
+                    "bookmark" -> nbBookmarks,
+                    "playing" -> nbPlaying,
+                    "import" -> nbImported,
+                    "me" -> nbGamesWithMe
                   )
-                  .add("kid", u.kid)
-                  .add("email", email)
-                  .add("groups", forWiki.option(wikiGroups(u.user)))
-                  .add("streaming", liveStreamApi.isStreaming(u.id))
-                  .add("trophies", trophiesAndAwards.map(trophiesJson))
-                  .add("canChallenge", canChallenge)
-                  .add("playban", playban)
-                  .add("fideId", fideId)
-                  .add(
-                    "streamer",
-                    streamer.map: s =>
-                      Json
-                        .obj()
-                        .add(
-                          "twitch",
-                          s.twitch.map: t =>
-                            Json.obj("channel" -> t.fullUrl)
-                        )
-                        .add(
-                          "youTube",
-                          s.youtube.map: y =>
-                            Json.obj("channel" -> y.fullUrl)
-                        )
-                  ) ++
-                  (opts.withRelation && as.isDefined).so:
-                    Json.obj(
-                      "followable" -> followable,
-                      "following" -> relation.exists(_.isFollow),
-                      "blocking" -> relation.exists(!_.isFollow)
-                    )
-              }.noNull
+                )
+                .add("kid", u.kid)
+                .add("email", email)
+                .add("groups", forWiki.option(wikiGroups(u.user)))
+                .add("streaming", liveStreamApi.isStreaming(u.id))
+                .add("trophies", trophiesAndAwards.map(trophiesJson))
+                .add("canChallenge", canChallenge)
+                .add("playban", playban)
+                .add("fideId", fideId)
+                .add(
+                  "streamer",
+                  streamer.map: s =>
+                    Json
+                      .obj()
+                      .add(
+                        "twitch",
+                        s.twitch.map: t =>
+                          Json.obj("channel" -> t.fullUrl)
+                      )
+                      .add(
+                        "youTube",
+                        s.youtube.map: y =>
+                          Json.obj("channel" -> y.fullUrl)
+                      )
+                ) ++
+                (opts.withRelation && as.isDefined).so:
+                  Json.obj(
+                    "followable" -> followable,
+                    "following" -> relation.exists(_.isFollow),
+                    "blocking" -> relation.exists(!_.isFollow)
+                  )
+            }.noNull
 
   def mobile(user: UserWithPerfs, urgent: Preload[UrgentGames])(using me: Option[Me])(using Lang) = extended(
     user,

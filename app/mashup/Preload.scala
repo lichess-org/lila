@@ -48,50 +48,28 @@ final class Preload(
   )(using ctx: Context): Fu[Homepage] = for
     nbNotifications <- ctx.me.so(notifyApi.unreadCount(_))
     withPerfs <- ctx.user.traverse(perfsRepo.withPerfs)
-    given Option[UserWithPerfs] = withPerfs
-    (
-      (
-        (
-          (
-            (
-              (((((((data, povs), tours), events), simuls), feat), entries), puzzle),
-              streams
-            ),
-            playban
-          ),
-          blindGames
-        ),
-        ublogPosts
-      ),
-      lichessMsg
-    ) <- lobbyApi.get
-      .mon(lila.mon.lobby.segment("lobbyApi"))
-      .zip(tours.mon(lila.mon.lobby.segment("tours")))
-      .zip(events.mon(lila.mon.lobby.segment("events")))
-      .zip(simuls.mon(lila.mon.lobby.segment("simuls")))
-      .zip(tv.getBestGame.mon(lila.mon.lobby.segment("tvBestGame")))
-      .zip((ctx.userId.so(timelineApi.userEntries)).mon(lila.mon.lobby.segment("timeline")))
-      .zip((ctx.noBot.so(dailyPuzzle())).mon(lila.mon.lobby.segment("puzzle")))
-      .zip:
-        ctx.kid.no.so:
-          liveStreamApi.all
-            .dmap(_.homepage(streamerSpots, ctx.acceptLanguages).withTitles(lightUserApi))
-            .mon(lila.mon.lobby.segment("streams"))
-      .zip((ctx.userId.so(playbanApi.currentBan)).mon(lila.mon.lobby.segment("playban")))
-      .zip(ctx.blind.so(ctx.me).so(roundProxy.urgentGames))
-      .zip(ublogApi.myCarousel)
-      .zip:
-        ctx.userId
-          .ifTrue(nbNotifications > 0)
-          .filterNot(liveStreamApi.isStreaming)
-          .so(unreadCount.hasMustReadLichessMsg)
-    (currentGame, _) <- ctx.me
+    (data, povs) <- lobbyApi.get(using withPerfs).mon(lila.mon.lobby.segment("lobbyApi"))
+    tours <- tours.mon(lila.mon.lobby.segment("tours"))
+    events <- events.mon(lila.mon.lobby.segment("events"))
+    simuls <- simuls.mon(lila.mon.lobby.segment("simuls"))
+    feat <- tv.getBestGame.mon(lila.mon.lobby.segment("tvBestGame"))
+    entries <- (ctx.userId.so(timelineApi.userEntries)).mon(lila.mon.lobby.segment("timeline"))
+    puzzle <- (ctx.noBot.so(dailyPuzzle())).mon(lila.mon.lobby.segment("puzzle"))
+    streams <- ctx.kid.no.so:
+      liveStreamApi.all
+        .dmap(_.homepage(streamerSpots, ctx.acceptLanguages).withTitles(lightUserApi))
+        .mon(lila.mon.lobby.segment("streams"))
+    playban <- (ctx.userId.so(playbanApi.currentBan)).mon(lila.mon.lobby.segment("playban"))
+    blindGames <- ctx.blind.so(ctx.me).so(roundProxy.urgentGames)
+    ublogPosts <- ublogApi.myCarousel
+    lichessMsg <- ctx.userId
+      .ifTrue(nbNotifications > 0)
+      .filterNot(liveStreamApi.isStreaming)
+      .so(unreadCount.hasMustReadLichessMsg)
+    currentGame <- ctx.me
       .soUse(currentGameMyTurn(povs, lightUserApi.sync))
       .mon(lila.mon.lobby.segment("currentGame"))
-      .zip:
-        lightUserApi
-          .preloadMany(entries.flatMap(_.userIds).toList)
-          .mon(lila.mon.lobby.segment("lightUsers"))
+    _ <- lightUserApi.preloadMany(entries.flatMap(_.userIds).toList).mon(lila.mon.lobby.segment("lightUsers"))
     classes <- ctx.myId.so(me => clasApi.isStudent(me).so(clasApi.clas.ofStudent(me, 4)))
   yield Homepage(
     data,
