@@ -1,5 +1,5 @@
-import type { Api } from '@lichess-org/chessground/api';
 import { Chessground as makeChessground } from '@lichess-org/chessground';
+import type { Api } from '@lichess-org/chessground/api';
 import { opposite, type SquareName } from 'chessops';
 
 import * as nv from 'lib/nvui/chess';
