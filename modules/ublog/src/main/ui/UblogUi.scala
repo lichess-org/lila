@@ -91,7 +91,14 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)
     Page(title)
       .css("bits.ublog")
       .js(posts.hasNextPage.option(infiniteScrollEsmInit) ++ ctx.isAuth.so(Esm("bits.ublog")))
-      .copy(atomLinkTag = link(href := routes.Ublog.userAtom(user.username), st.title := title).some)
+      .copy(atomLinkTag =
+        link(
+          href := routes.Ublog.userAtom(user.username),
+          st.title := title,
+          tpe := "application/atom+xml",
+          rel := "alternate"
+        ).some
+      )
       .flag(_.noRobots, !blog.listed):
         main(cls := "page-menu")(
           menu(Left(user.id)),
@@ -135,7 +142,9 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)
       .copy(
         atomLinkTag = link(
           href := routes.Ublog.communityAtom(languageOrAll),
-          st.title := "Lichess community blogs"
+          st.title := "Lichess community blogs",
+          tpe := "application/atom+xml",
+          rel := "alternate"
         ).some
       )
       .hrefLangs(lila.ui.LangPath(langHref(routes.Ublog.communityAll(filter.some)))):

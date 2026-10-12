@@ -35,7 +35,9 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
       .copy(atomLinkTag =
         link(
           href := routes.Ublog.userAtom(user.username),
-          st.title := trans.ublog.xBlog.txt(user.username)
+          st.title := trans.ublog.xBlog.txt(user.username),
+          tpe := "application/atom+xml",
+          rel := "alternate"
         ).some
       )
       .flag(_.noRobots, !blog.listed || !post.indexable || blog.tier < UblogBlog.Tier.HIGH)
