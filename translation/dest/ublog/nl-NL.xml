@@ -61,6 +61,17 @@
   <string name="deleteBlog">Dit blogbericht definitief verwijderen</string>
   <string name="freeImagesComplyWithLicensing" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">De volgende websites bieden afbeeldingen gratis. Zorg ervoor dat u voldoet aan licentievoorwaarden voor de afbeelding die u gebruikt.</string>
   <string name="selectPostTopics">Selecteer de onderwerpen waar je bericht over gaat</string>
+  <string name="topicChess">Schaken</string>
+  <string name="topicPuzzle">Puzzel</string>
+  <string name="topicTactics">Tactieken</string>
+  <string name="topicStrategy">Strategie</string>
+  <string name="topicChessEngine">Schaakcomputer</string>
+  <string name="topicChessBot">Schaakbot</string>
+  <string name="topicChessPersonalities">Persoonlijkheden</string>
+  <string name="topicOverTheBoard">Fysieke partijen</string>
+  <string name="topicSoftwareDevelopment">Softwareontwikkeling</string>
+  <string name="topicOffTopic">Off-topic</string>
+  <string name="topicPosts">%s berichten</string>
   <string name="etiquette">Etiquette</string>
   <string name="safeAndRespectfulContent">Plaats alleen veilige en respectvolle inhoud. Kopieer geen inhoud van iemand anders.</string>
   <string name="noCopyrightedImages">Gebruik alleen afbeeldingen waarvan het auteursrecht niet door iemand anders wordt beschermd.</string>

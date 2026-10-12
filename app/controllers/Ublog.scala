@@ -10,7 +10,7 @@ import scalalib.model.Language
 import lila.i18n.{ LangList, LangPicker }
 import lila.report.Suspect
 import lila.ublog.{ UblogBlog, UblogPost, UblogByMonth }
-import lila.core.ublog.{ BlogsBy, Quality, QualityFilter }
+import lila.core.ublog.{ BlogsBy, QualityFilter }
 import lila.core.i18n.toLanguage
 import lila.ublog.UblogForm.{ ModPostData, UblogPostData }
 import lila.common.HTTPRequest
@@ -273,7 +273,7 @@ final class Ublog(env: Env) extends LilaController(env):
 
   def friends(page: Int) = Auth { _ ?=> me ?=>
     NotForKids:
-      Reasonable(page, Max(50)):
+      Reasonable(page, Max(30)):
         Ok.async:
           env.ublog.paginator.liveByFollowed(me, page).map(views.ublog.ui.friends)
   }
@@ -293,7 +293,7 @@ final class Ublog(env: Env) extends LilaController(env):
 
   private def communityIndex(l: Option[Lang], filterOpt: Option[QualityFilter], page: Int)(using Context) =
     NotForKids:
-      Reasonable(page, Max(200)):
+      Reasonable(page, Max(30)):
         pageHit
         Ok.async:
           val language = l.map(toLanguage)
@@ -312,7 +312,7 @@ final class Ublog(env: Env) extends LilaController(env):
 
   def liked(page: Int) = Auth { ctx ?=> me ?=>
     NotForKids:
-      Reasonable(page, Max(50)):
+      Reasonable(page, Max(30)):
         Ok.async:
           env.ublog.paginator.liveByLiked(page).map(views.ublog.ui.liked)
   }
@@ -324,7 +324,7 @@ final class Ublog(env: Env) extends LilaController(env):
 
   def topic(str: String, filterOpt: Option[QualityFilter], by: BlogsBy, page: Int) = Open:
     NotForKids:
-      Reasonable(page, Max(50)):
+      Reasonable(page, Max(30)):
         Found(lila.ublog.UblogTopic.fromUrl(str)): top =>
           val filter = updateFilter(filterOpt)
           Ok.async:
@@ -339,7 +339,7 @@ final class Ublog(env: Env) extends LilaController(env):
 
   def byMonth(year: Int, month: Int, filterOpt: Option[QualityFilter], by: BlogsBy, page: Int) = Open: ctx ?=>
     NotForKids:
-      Reasonable(page, Max(50)):
+      Reasonable(page, Max(30)):
         Found(UblogByMonth.readYearMonth(year, month)): yearMonth =>
           val filter = updateFilter(filterOpt)
           Ok.async:
@@ -362,7 +362,7 @@ final class Ublog(env: Env) extends LilaController(env):
     val queryText = text.take(100).trim
     NotForKids:
       for
-        ids <- env.ublog.search.fetchResults(queryText, by, Quality.weak.some, page)
+        ids <- env.ublog.search.fetchResults(queryText, by, lila.ublog.UblogPost.Quality.weak.some, page)
         posts <- ids.mapFutureList(env.ublog.api.postPreviews)
         page <- renderPage(views.ublog.ui.search(queryText, by, posts.some))
       yield Ok(page)

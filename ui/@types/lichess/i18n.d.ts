@@ -1917,6 +1917,8 @@ interface I18n {
     lichobileNewAppDownload: I18nFormat;
     /** Hello, */
     modActionFeedback: string;
+    /** The old app no longer supports puzzles. Please install the new Lichess app: %s */
+    oldAppNoLongerSupportsPuzzles: I18nFormat;
   };
   nvui: {
     /** Actions */

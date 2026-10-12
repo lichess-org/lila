@@ -14,7 +14,7 @@ import lila.core.ublog.BlogsBy
 import lila.core.timeline.{ Propagate, UblogPostLike }
 import lila.common.LilaFuture.delay
 import lila.core.user.KidMode
-import lila.core.ublog.Quality
+import lila.ublog.UblogPost.Quality
 
 final class UblogApi(
     colls: UblogColls,
@@ -382,8 +382,11 @@ final class UblogApi(
       offset: Int,
       length: Int,
       sort: BlogsBy = BlogsBy.newest
-  ) =
-    colls.post
+  ): Fu[List[UblogPost.PreviewPost]] =
+    // With $limit only after the lookups, mongodb reads ahead thousands of posts it then drops.
+    // The lookups keep most posts, so first cut the sorted posts to a margin,
+    // and only if too many were dropped, run again without the cut.
+    def aggregate(cut: Int) = colls.post
       .aggregateList(length, _.sec): framework =>
         import framework.*
         val aggSort = sort match
@@ -391,7 +394,7 @@ final class UblogApi(
           case BlogsBy.likes => Descending("likes")
           case _ => Descending("lived.at")
         Match(select ++ bdoc("live" -> true)) -> {
-          Sort(aggSort) ::
+          Sort(aggSort) :: Limit(cut) ::
             removeUnlistedOrClosedAndProjectForPreview(colls.post, framework) :::
             List(Skip(offset), Limit(length))
         }
@@ -400,6 +403,8 @@ final class UblogApi(
           doc <- docs
           post <- doc.asOpt[UblogPost.PreviewPost]
         yield post
+    aggregate(2 * (offset + length) + length).flatMap: posts =>
+      if posts.sizeIs < length then aggregate(5_000) else fuccess(posts)
 
   private[ublog] def removeUnlistedOrClosedAndProjectForPreview(
       coll: Coll,

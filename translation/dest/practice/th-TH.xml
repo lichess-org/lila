@@ -50,4 +50,21 @@
   <string name="stDesTheyHaveTooMuchWork">หมากทำงานหนักเกินไป</string>
   <string name="stDesInBetweenMoves">เป็นตาเดินขั้นกลาง</string>
   <string name="stDesAttackingThroughAnEnemyPiece">โจมตีผ่านหมากฝ่ายตรงข้าม</string>
+  <string name="stDesBeingForcedToMove">ถูกบังคับให้เดิน</string>
+  <string name="stDesInterposeAPieceToGreatEffect">ขวางหมากฝ่ายตรงข้ามไม่ให้ทำหน้าที่</string>
+  <string name="stDesStudyTheGreekGiftSacrifice">ศึกษาการเส้นหมากแบบกรีกกิฟต์</string>
+  <string name="stDesDistractingADefender">รบกวนหมากฝ่ายตรงข้ามที่ป้องกันอยู่</string>
+  <string name="stDesLureAPieceToABadSquare">ล่อหมากไปช่องที่แย่ๆ</string>
+  <string name="stDesPromoteButNotToAQueen">เลื่อนขั้นเบี้ยเป็นหมากอะไรก็ได้ที่ไม่ใช่ควีน!</string>
+  <string name="stDesAPieceIsLostButItCanStillHelp">หมากกำลังจนมุมเลยต้องสละชีพเพื่อเกม</string>
+  <string name="stDesRespondToACheckWithACheck">รุกมารุกกลับไม่โกง</string>
+  <string name="stDesRemoveTheDefendingPiece">เอาหมากตัวป้องกันฝ่ายตรงข้ามออกไป</string>
+  <string name="stDesGetOutOfTheWay">จงออกไปซะ!</string>
+  <string name="stDesReachAKeySquare">เดินหมากไปที่ช่องสำคัญ</string>
+  <string name="stDesTakeTheOpposition">ขัดขวางคิงฝ่ายตรงข้าม</string>
+  <string name="stDesVersusAQueen">สู้กับควีน</string>
+  <string name="stDesAndPassiveRookVsRook">และเรืออ่อนปะทะเรือทรงพลัง</string>
+  <string name="stDesLucenaAndPhilidor">ตำแหน่งลูเซนาและฟิลิดอร์</string>
+  <string name="stDesBroadenYourKnowledge">เปิดโลกทัศน์และเพิ่มพูนความรู้ของคุณ</string>
+  <string name="stDesRookEndingsWithSeveralPawns">ปลายเกมที่เหลือเรือกับเบี้ยหลายตัว</string>
 </resources>

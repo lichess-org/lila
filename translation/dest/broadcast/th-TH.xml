@@ -32,9 +32,11 @@
   <string name="downloadAllRounds">ดาวน์โหลดรอบทั้งหมด</string>
   <string name="resetRound">รีเซ็ตรอบนี้</string>
   <string name="deleteRound">ลบรอบนี้</string>
+  <string name="permanentlyDeleteRound" comment="Refers to live tournaments being broadcast on Lichess (https://lichess.org/broadcast).&#10;&#10;Description (also translateable): Delete all games of this round. The source will need to be active in order to re-create them. This string has been amended since its initial publication; it didn't say &quot;all its games&quot; at the time.">ต้องการลบรอบนี้และเกมทั้งหมดในรอบนี้อย่างถาวรหรือไม่?</string>
   <string name="deleteAllGamesOfThisRound">ลบเกมทั้งหมดในรอบนี้ แหล่งข้อมูลการออกอากาศต้องเปิดใช้งานเพื่อสร้างเกมเหล่านั้นขึ้นมาใหม่</string>
   <string name="editRoundStudy">แก้ไขการเรียนรู้จากเกม</string>
   <string name="deleteTournament">ลบทัวนาเมนต์นี้</string>
+  <string name="permanentlyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast">ต้องการลบทัวร์นาเมนต์นี้และเกมทั้งหมดในรอบนี้อย่างถาวรหรือไม่?</string>
   <string name="showScores">แสดงคะแนนผู้เล่นอ้างอิงจากผลของเกม</string>
   <string name="replacePlayerTags">ตัวเลือก: แทนที่ชื่อผู้เล่น, เรดติ้ง และ ตำแหน่ง</string>
   <string name="fideFederations">สหพันธ์ FIDE</string>
@@ -53,12 +55,14 @@
   <string name="subscribeTitle">ติดตามเพื่อรับการแจ้งเตือนเมื่อแต่ละรอบเริ่มต้นขึ้น โดยคุณสามารถปรับวิธีรับการแจ้งเตือนได้ในการตั้งค่าบัญชีของคุณ</string>
   <string name="uploadImage">อัปโหลดรูปทัวนาเมนต์</string>
   <string name="noBoardsYet">ยังไม่มีกระดาน กระดานจะปรากฏขึ้นเมื่อเกมถูกอัปโหลด</string>
+  <string name="noPlayersYet">ยังไม่มีผู้เล่น ชื่อพวกเขาจะปรากฏขึ้นเมื่อเกมถูกอัปโหลดแล้ว</string>
   <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">สามารถโหลดกระดานได้โดยใช้แหล่งที่มาหรือผ่านทาง %s</string>
   <string name="startsAfter">เริ่มหลังจาก %s</string>
   <string name="startVerySoon">การออกอากาศจะเริ่มขึ้นเร็วๆนี้</string>
   <string name="notYetStarted">การออกอากาศยังไม่เริ่มต้น</string>
   <string name="officialWebsite">เว็บไซต์ทางการ</string>
   <string name="officialStandings">อันดับอย่างเป็นทางการ</string>
+  <string name="regulations">ระเบียบข้อบังคับ</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">ตัวเลือกเพิ่มเติมบน %s</string>
   <string name="webmastersPage">หน้าผู้ดูแลเว็บ</string>
   <string name="embedThisBroadcast">ฝังการออกอากาศนี้ลงในเว็บไซต์ของคุณ</string>
@@ -104,4 +108,7 @@
   <string name="tiebreaks">การตัดสินผลเสมอ</string>
   <string name="gameX">เกม %s</string>
   <string name="knockouts">น็อคเอาท์</string>
+  <string name="pinPlayer">ปักหมุดผู้เล่น</string>
+  <string name="underXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament. e.g.  'U18' will mean it is an tournament for under-18 years.  Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">U%s</string>
+  <string name="underXEloTournament" comment="%s is the maximum Elo rating set by the organiser for a tournament.  e.g. 'U2000' will mean it is an tournament for players with Elo under 2000.  Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">U%s</string>
 </resources>
