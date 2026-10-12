@@ -57,7 +57,7 @@ Allow: /game/export/gif/thumbnail/
     )
   )
 
-  def appStoreUrl(using req: RequestHeader) =
+  def appStoreUrl(using req: RequestHeader): Url =
     if HTTPRequest.isAndroid(req) then mobileAndroidUrl else mobileIosUrl
 
   val swagStoreTlds = Map(
