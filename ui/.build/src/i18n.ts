@@ -57,40 +57,40 @@ async function compileTypings(): Promise<void> {
     Promise.all(cats.map(cat => updated(cat))),
     fs.promises.mkdir(env.i18nJsDir).catch(() => {}),
   ]);
+  if (tstat && !catStats.some(Boolean)) return;
 
-  if (!tstat || catStats.some(Boolean)) {
-    dicts = new Map(
-      zip(
-        cats,
-        await Promise.all(
-          cats.map(d => fs.promises.readFile(join(env.i18nSrcDir, `${d}.xml`), 'utf8').then(parseXml)),
-        ),
+  dicts = new Map(
+    zip(
+      cats,
+      await Promise.all(
+        cats.map(d => fs.promises.readFile(join(env.i18nSrcDir, `${d}.xml`), 'utf8').then(parseXml)),
       ),
-    );
-    await fs.promises.writeFile(
-      typingsPathname,
-      tsPrelude +
-        [...dicts]
-          .map(
-            ([cat, dict]) =>
-              `  ${cat}: {\n` +
-              [...dict.entries()]
-                .map(([k, v]) => {
-                  if (!/^[A-Za-z_]\w*$/.test(k)) k = `'${k}'`;
-                  const tpe =
-                    typeof v !== 'string' ? 'I18nPlural' : formatStringRe.test(v) ? 'I18nFormat' : 'string';
-                  const comment = typeof v === 'string' ? v.split('\n')[0] : v['other']?.split('\n')[0];
-                  return `    /** ${comment} */\n    ${k}: ${tpe};`;
-                })
-                .join('\n') +
-              '\n  };\n',
-          )
-          .join('') +
-        '}\n',
-    );
-    const histat = catStats.reduce((a, b) => (a && b && a.mtimeMs - b.mtimeMs > 2 ? a : b), tstat || false);
-    if (histat) await fs.promises.utimes(typingsPathname, histat.mtime, histat.mtime);
-  }
+    ),
+  );
+  const typingsContent =
+    tsPrelude +
+    [...dicts]
+      .map(
+        ([cat, dict]) =>
+          `  ${cat}: {\n` +
+          [...dict.entries()]
+            .map(([k, v]) => {
+              if (!/^[A-Za-z_]\w*$/.test(k)) k = `'${k}'`;
+              const tpe =
+                typeof v !== 'string' ? 'I18nPlural' : formatStringRe.test(v) ? 'I18nFormat' : 'string';
+              const comment = typeof v === 'string' ? v.split('\n')[0] : v['other']?.split('\n')[0];
+              return `    /** ${comment} */\n    ${k}: ${tpe};`;
+            })
+            .join('\n') +
+          '\n  };\n',
+      )
+      .join('') +
+    '}\n';
+  if ((await fs.promises.readFile(typingsPathname, 'utf8')) === typingsContent) return;
+
+  await fs.promises.writeFile(typingsPathname, typingsContent);
+  const histat = catStats.reduce((a, b) => (a && b && a.mtimeMs - b.mtimeMs > 2 ? a : b), tstat || false);
+  if (histat) await fs.promises.utimes(typingsPathname, histat.mtime, histat.mtime);
 }
 
 function compileJavascripts(): Promise<void[]> {

@@ -1871,8 +1871,6 @@ interface I18n {
     currentAnalysis: string;
     /** Downloading %1$s of %2$s */
     downloadingXofY: I18nFormat;
-    /** Fishnet */
-    fishnet: string;
     /** Keep this browser tab active during analysis */
     keepThisBrowserTabActive: string;
     /** Local */
@@ -1903,8 +1901,8 @@ interface I18n {
     whenUpgradingOldChapters: string;
     /** Will use */
     willUse: string;
-    /** %sx fishnet quality */
-    xTimesFishnetQuality: I18nFormat;
+    /** %sx standard quality */
+    xTimesStandardQuality: I18nFormat;
     /** %s would be faster */
     xWouldBeFaster: I18nFormat;
     /** Your local analysis can be published. */
