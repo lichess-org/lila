@@ -1,4 +1,4 @@
-import { Chessground } from 'chessground3D';
+import { Chessground } from '@lichess-org/chessground';
 import assert from 'node:assert/strict';
 import { describe, test } from 'node:test';
 

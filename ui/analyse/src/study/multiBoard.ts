@@ -1,5 +1,5 @@
 import { opposite as cgOpposite, uciToMove } from '@lichess-org/chessground/util';
-import { Chessground as makeChessground } from 'chessground3D';
+import { Chessground as makeChessground } from '@lichess-org/chessground';
 import type { Color } from 'chessops';
 import { EMPTY_BOARD_FEN } from 'chessops/fen';
 import { h } from 'snabbdom';

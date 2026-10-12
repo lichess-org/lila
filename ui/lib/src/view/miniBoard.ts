@@ -1,7 +1,7 @@
 // no side effects allowed due to re-export by index.ts
 
 import { uciToMove } from '@lichess-org/chessground/util';
-import { Chessground as makeChessground } from 'chessground3D';
+import { Chessground as makeChessground } from '@lichess-org/chessground';
 import { COLORS } from 'chessops';
 import { h, type VNode } from 'snabbdom';
 
