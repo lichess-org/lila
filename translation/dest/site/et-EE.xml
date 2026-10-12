@@ -170,7 +170,7 @@
   <string name="illegalPosition">Lubamatu asetus</string>
   <string name="threefoldRepetition">Kolmekordne kordus</string>
   <string name="claimADraw">Võta viik</string>
-  <string name="drawClaimed">Nõutav viik</string>
+  <string name="drawClaimed">Viiginõue</string>
   <string name="offerDraw">Paku viiki</string>
   <string name="draw">Viik</string>
   <plurals name="nbPlayers">

@@ -1,2 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="whatIsTheMatter">În ce constă problema?</string>
+  <string name="cheat">Trișare</string>
+  <string name="troll">Troll</string>
+  <string name="reportStall">Tragere de timp / Părăsire jocuri</string>
+  <string name="reportBoost">Scădere sau creștere artificială a ratingului / partide aranjate</string>
+  <string name="reportVerbalAbuse">Abuz verbal / Limbaj licențios / Trolling</string>
+  <string name="reportViolence">Violență / Amenințări</string>
+  <string name="reportHarass">Hărțuire / Intimidare / Urmărire obsesivă</string>
+  <string name="reportSelfHarm">Suicid / Auto-rănire</string>
+  <string name="reportHate">Instigare la ură / Sexism</string>
+  <string name="reportSpam">Spamare</string>
+  <string name="readMoreAboutLichessReports">Citește mai multe despre rapoartele Lichess</string>
+  <string name="reportMaximumCharacters">Maxim 3000 de caractere.</string>
+  <string name="reportCheatBoostHelp">Lipește link-ul la joc(uri) și explică ce este în neregulă cu privire la comportamentul acestui utilizator. Nu spune doar \"trişează\", ci spune-ne cum ai ajuns la această concluzie.</string>
+  <string name="reportUsernameHelp">Explică de ce acest nume de utilizator este jignitor. Nu spune doar \"e jignitor/nepotrivit\", ci spune-ne cum ai ajuns la această concluzie, mai ales în cazul în care insulta este obscură, nu este în engleză, este jargon sau este o referință istorică/culturală.</string>
+  <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">Îți putem procesa raportul mai rapid dacă scrii în engleză.</string>
+  <string name="provideOneCheatedGameLink">Vă rugăm să furnizați cel puțin un link către un joc pentru analiză.</string>
+</resources>

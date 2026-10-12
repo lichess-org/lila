@@ -91,4 +91,9 @@
   <string name="maneuverArrowsHelp">Sekvens af skakprogramtræk for en brik</string>
   <string name="hoverOverSettingLabelsForHelp">Hold markøren over indstillingsetiketter for hjælp</string>
   <string name="network">Netværk</string>
+  <string name="youAreCurrentlyUsingDirectRouting">Du bruger i øjeblikket direkte routing.</string>
+  <string name="youAreCurrentlyUsingCdnRouting">Du bruger i øjeblikket Content Delivery Network (CDN) routing.</string>
+  <string name="frequentDisconnectsAdvice">Hvis du har hyppige afbrydelser, så prøv at ændre routing.</string>
+  <string name="useDirectRouting">Brug direkte routing</string>
+  <string name="useCdnRouting">Brug CDN routing</string>
 </resources>

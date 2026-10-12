@@ -1,2 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="whatIsTheMatter">Wat is er aan de hand?</string>
+  <string name="cheat">Valsspelen</string>
+  <string name="troll">Provoceren</string>
+  <string name="reportStall">Niet zetten / Partijen verlaten</string>
+  <string name="reportBoost">Sandbagging / Boosting / Matchfixing</string>
+  <string name="reportVerbalAbuse">Verbaal Misbruik / Vloeken / Trollen</string>
+  <string name="reportViolence">Geweld / Bedreiging</string>
+  <string name="reportHarass">Lastigvallen / Pesten / Stalken</string>
+  <string name="reportSelfHarm">Zelfmoord / Zelfverminking</string>
+  <string name="reportHate">Haat / Seksisme</string>
+  <string name="reportSpam">Spammen</string>
+  <string name="readMoreAboutLichessReports">Lees meer over Lichess-rapporten</string>
+  <string name="reportMaximumCharacters">Maximaal 3000 tekens.</string>
+  <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">Als je in het Engels schrijft, kunnen we je melding sneller verwerken.</string>
+  <string name="provideOneCheatedGameLink">Geef ten minste één link naar een partij, voor controle.</string>
+</resources>
