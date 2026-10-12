@@ -7,6 +7,7 @@ import play.api.mvc.RequestHeader
 import lila.core.i18n.{ I18nKey as trans, Translate }
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
+import lila.common.Json.given
 
 def mobileRedirect(using req: RequestHeader)(using Translate) =
   val callbackUrl = "org.lichess.mobile://login-callback" + req.rawQueryString.nonEmptyOption.so("?" + _)
@@ -55,21 +56,16 @@ def mobile(helpers: Helpers)(renderedCmsPage: Frag)(using Translate) =
   </a>
   """
 
-  def storeOffer(name: String, url: String) = Json.obj(
-    "@type" -> "Offer",
-    "name" -> name,
-    "url" -> url,
-    "price" -> 0
-  )
-
   val appStructuredData = lila.ui.bits.structuredData("MobileApplication"):
+    def storeOffer(name: String, url: Url) =
+      Json.obj("@type" -> "Offer", "name" -> name, "url" -> url, "price" -> 0)
     Json.obj(
       "name" -> "Lichess",
       "operatingSystem" -> "Android, iOS",
       "applicationCategory" -> "GameApplication",
-      "url" -> routeUrl(routes.Main.app).value,
+      "url" -> routeUrl(routes.Main.app),
       "releaseNotes" -> "https://github.com/lichess-org/mobile/releases",
-      "screenshot" -> assetUrl("images/mobile/lichess-mobile-screen.webp").value,
+      "screenshot" -> assetUrl("images/mobile/lichess-mobile-screen.webp"),
       "offers" -> List(
         storeOffer("Google Play", StaticContent.mobileAndroidUrl),
         storeOffer("F-Droid", StaticContent.mobileFdroidUrl),
