@@ -151,6 +151,6 @@ Allow: /game/export/gif/thumbnail/
 object StaticContent:
 
   val mobileAndroidId = "org.lichess.mobileV2"
-  val mobileAndroidUrl = s"https://play.google.com/store/apps/details?id=$mobileAndroidId"
-  val mobileIosUrl = "https://apps.apple.com/app/lichess/id1662361230"
-  val mobileFdroidUrl = s"https://f-droid.org/packages/$mobileAndroidId"
+  val mobileAndroidUrl = Url(s"https://play.google.com/store/apps/details?id=$mobileAndroidId")
+  val mobileIosUrl = Url("https://apps.apple.com/app/lichess/id1662361230")
+  val mobileFdroidUrl = Url(s"https://f-droid.org/packages/$mobileAndroidId")
