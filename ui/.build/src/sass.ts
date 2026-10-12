@@ -4,6 +4,7 @@ import cps from 'node:child_process';
 import fs from 'node:fs';
 import { basename, dirname, join, relative, resolve } from 'node:path';
 import pc from 'picocolors';
+import { binaryPath } from 'sasso/binary';
 
 import { env, errorMark, trimLines } from './env.ts';
 import { hashedBasename, symlinkTargetHashes } from './hash.ts';
@@ -27,6 +28,7 @@ export async function sass(): Promise<string | undefined> {
 
   const sassBin =
     process.env.SASS_PATH ??
+    binaryPath() ??
     (await fs.promises.realpath(join(env.buildDir, 'node_modules', `.bin`, 'sasso')));
   if (!(await readable(sassBin))) env.exit(`Sass executable not found '${pc.cyan(sassBin)}'`, 'sass');
 
