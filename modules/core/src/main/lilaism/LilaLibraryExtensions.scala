@@ -47,6 +47,10 @@ trait LilaLibraryExtensions extends CoreExports:
     inline def raiseIfSome[B](f: => Fu[B]): FuRaise[A, B] =
       self.fold(f)(_.raise)
 
+  extension (self: String) def nonEmptyOption: Option[String] = Option.when(self.nonEmpty)(self)
+  extension [K, V](self: Map[K, V]) def nonEmptyOption: Option[Map[K, V]] = Option.when(self.nonEmpty)(self)
+  extension [A, M <: Iterable](self: M[A]) def nonEmptyOption: Option[M[A]] = Option.when(self.nonEmpty)(self)
+
   extension (self: Boolean)
     def not: Boolean = !self
     // move to scalalib? generalize Future away?

@@ -99,6 +99,6 @@ final class EventApi(
     )
 
   private def notifyBBB(next: Event, prev: Option[Event])(using me: MyId) =
-    scalalib
+    lila.common
       .ProductDiff(prev, next, ignoredFields = Set("_id", "createdBy", "createdAt", "updatedBy", "updatedAt"))
       .foreach(ircApi.bbb(me, "event", next.title, routes.Event.show(next.id), _))
