@@ -165,6 +165,7 @@
   <string name="flipBoard">Vend bræt</string>
   <string name="toggleLocalEngine">Slå lokalt skakprogram til/fra</string>
   <string name="engineSettings">Skakprogram-indstillinger</string>
+  <string name="engine">Skakmotor</string>
   <string name="enginesFromStrongestToWeakest">Skakprogrammer fra stærkeste til svageste</string>
   <string name="illegalPosition">Ulovlig position</string>
   <string name="threefoldRepetition">Trækgentagelse</string>

@@ -10,6 +10,7 @@
   <string name="stNamCheckmatePatternsII">Mot misollari II</string>
   <string name="stNamCheckmatePatternsIII">Mot misollari III</string>
   <string name="stNamCheckmatePatternsIV">Mot misollari IV</string>
+  <string name="stNamKnightAndBishopMate">Ot va filli mot</string>
   <string name="stNamThePin">Ochmas</string>
   <string name="stNamTheSkewer">Shampur</string>
   <string name="stNamTheFork">Vilka</string>
@@ -23,7 +24,14 @@
   <string name="stNamClearance">Tozalash</string>
   <string name="stNamOpposition">Oppozitsiya</string>
   <string name="stDesInteractiveLesson">Interaktiv dars</string>
+  <string name="stDesAVeryPowerfulTactic">Juda kuchli taktika</string>
+  <string name="stDesDistractingADefender">Himoyachini chalgʻitish</string>
+  <string name="stDesRespondToACheckWithACheck">Kishtga qarshi kisht bilan javob bering</string>
+  <string name="stDesRemoveTheDefendingPiece">Himoya qilayotgan donani urib oling</string>
+  <string name="stDesGetOutOfTheWay">Yoʻldan qoch!</string>
   <string name="stDesTakeTheOpposition">Oppozitsiyani oling</string>
   <string name="stDesVersusAQueen">Farzinga qarshi</string>
   <string name="stDesLucenaAndPhilidor">Lucena va Philidor</string>
+  <string name="stDesBroadenYourKnowledge">Bilimingizni kengaytiring</string>
+  <string name="stDesRookEndingsWithSeveralPawns">Bir nechta piyoda va ruxli endshpil</string>
 </resources>

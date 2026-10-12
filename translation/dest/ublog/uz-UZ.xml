@@ -2,6 +2,8 @@
 <resources>
   <string name="community">Hamjamiyat</string>
   <string name="communityBlogs">Hamjamiyat bloglari</string>
+  <string name="best">Eng sara</string>
+  <string name="all">Barchasi</string>
   <string name="byMonth">Oyma‑oy</string>
   <string name="byTopic">Mavzu boʻyicha</string>
   <string name="byLichess">Lichess tomonidan</string>
@@ -59,6 +61,17 @@
   <string name="deleteBlog">Ushbu blog postini butunlay oʻchirib tashlash</string>
   <string name="freeImagesComplyWithLicensing" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Quyidagi veb‑saytlar bepul tasvirlarni taqdim etadi. Iltimos, siz foydalanadigan tasvirning litsenziyalash shartlariga rioya qilishingizni soʻraymiz.</string>
   <string name="selectPostTopics">Postingiz qaysi mavzular haqida ekanligini tanlang</string>
+  <string name="topicChess">Shaxmat</string>
+  <string name="topicPuzzle">Masala</string>
+  <string name="topicTactics">Taktikalar</string>
+  <string name="topicStrategy">Strategiya</string>
+  <string name="topicChessEngine">Shaxmat dvijogi</string>
+  <string name="topicChessBot">Shaxmat boti</string>
+  <string name="topicChessPersonalities">Shaxmat shaxslari</string>
+  <string name="topicOverTheBoard">Taxta ustida</string>
+  <string name="topicSoftwareDevelopment">Dasturlash</string>
+  <string name="topicOffTopic">Mavzudan tashqari</string>
+  <string name="topicPosts">%s ta post</string>
   <string name="etiquette">Etiket</string>
   <string name="safeAndRespectfulContent">Iltimos, faqat xavfsiz va odob doirasidagi kontentlarni joylang. Birovning ishini koʻchirib olmang.</string>
   <string name="noCopyrightedImages">Faqat mualliflik huquqi bilan himoyalanmagan rasmlardan foydalaning.</string>
