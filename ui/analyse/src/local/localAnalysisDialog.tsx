@@ -235,7 +235,7 @@ class LocalAnalysisDialog {
         this.status = [
           progress,
           <br />,
-          `(${i18n.localAnalysis.xTimesFishnetQuality(
+          `(${i18n.localAnalysis.xTimesStandardQuality(
             val < 5 ? Math.round(10 * val) / 10 : Math.round(val),
           )})`,
         ];
@@ -349,11 +349,7 @@ class LocalAnalysisDialog {
     const [clearText, clearClick] = isLocal
       ? [i18n.study.clearLocal, this.clickClearLocal]
       : [i18n.study.clearPublished, this.clickClearPublished];
-    const provenance = isFishnet
-      ? i18n.localAnalysis.fishnet
-      : isLocal
-        ? i18n.localAnalysis.local
-        : i18n.site.by(info.userId);
+    const provenance = isFishnet ? 'Fishnet' : isLocal ? i18n.localAnalysis.local : i18n.site.by(info.userId);
     return [
       <label>{isPublished ? i18n.localAnalysis.published : i18n.localAnalysis.using}</label>,
       <p class="info-line">
@@ -380,7 +376,7 @@ class LocalAnalysisDialog {
         { min: 0, max: ticks.length - 1 },
       );
     const seconds = ticks[getTick()];
-    const value = seconds === 0 ? i18n.localAnalysis.fishnet : `${seconds}s`;
+    const value = seconds === 0 ? i18n.site.standard : `${seconds}s`;
     return (
       <div class="setting" title={i18n.site.searchTimeDescription}>
         <label for="local-analysis-quality">{i18n.localAnalysis.quality}</label>
