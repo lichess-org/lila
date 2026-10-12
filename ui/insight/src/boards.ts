@@ -6,7 +6,7 @@ import type Ctrl from './ctrl';
 import type { Game } from './interfaces';
 
 const miniGame = (game: Game) =>
-  h('a', { attrs: { key: game.id, href: `/${game.id}/${game.color}` } }, [
+  h('a', { attrs: { key: game.id, href: `/game/${game.id}/${game.color}` } }, [
     h('span.mini-board.is2d', {
       attrs: { 'data-state': `${game.fen},${game.color},${game.lastMove}` },
       hook: {

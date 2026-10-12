@@ -633,7 +633,11 @@ final class User(
 
   def redirect(path: String) = Open:
     staticRedirect(path) |
-      UserStr.read(path).so(tryRedirect).getOrElse(notFound)
+      env.round
+        .pathRedirect(path)
+        .map2(MovedPermanently(_))
+        .orElse(UserStr.read(path).so(tryRedirect))
+        .getOrElse(notFound)
 
   def tryRedirect(username: UserStr)(using Context): Fu[Option[Result]] =
     meOrFetch(username).map:

@@ -73,7 +73,7 @@ export default function (ctrl: TournamentController): VNode {
             'tr.glpt.' + cls,
             {
               key: p.id,
-              attrs: { 'data-href': '/' + p.id + '/' + p.color },
+              attrs: { 'data-href': '/game/' + p.id + '/' + p.color },
               hook: { destroy: vnode => $.powerTip.destroy(vnode.elm) },
             },
             [
