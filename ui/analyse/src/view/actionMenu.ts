@@ -93,7 +93,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
   const tools = [
     hl('div.action-menu__tools', [
       hl(
-        'a',
+        'button',
         {
           hook: bind('click', () => {
             ctrl.flip();
@@ -120,19 +120,19 @@ export function view(ctrl: AnalyseCtrl): VNode {
       displayColumns() === 1 &&
         canPractice &&
         hl(
-          'a',
+          'button',
           { hook: bind('click', () => ctrl.togglePractice()), attrs: dataIcon(licon.Bullseye) },
           i18n.site.practiceWithComputer,
         ),
       canRetro &&
         hl(
-          'a',
+          'button',
           { hook: bind('click', ctrl.toggleRetro, ctrl.redraw), attrs: dataIcon(licon.GraduateCap) },
           i18n.site.learnFromYourMistakes,
         ),
       canContinue &&
         hl(
-          'a',
+          'button',
           {
             hook: bind('click', () =>
               domDialog({
@@ -149,22 +149,20 @@ export function view(ctrl: AnalyseCtrl): VNode {
       studyButton(ctrl),
       ctrl.canAnalyse() &&
         hl(
-          'a',
+          'button',
           {
-            on: {
-              click: () => {
-                site.asset.loadEsm('analyse.local', { init: ctrl });
-                ctrl.actionMenu(false);
-                ctrl.redraw();
-              },
-            },
+            hook: bind('click', () => {
+              site.asset.loadEsm('analyse.local', { init: ctrl });
+              ctrl.actionMenu(false);
+              ctrl.redraw();
+            }),
             attrs: dataIcon(licon.Cogs),
           },
           i18n.study.analysisEditor,
         ),
       (ctrl.idbTree.movesDirty || ctrl.idbTree.hasLocalAnalysis || ctrl.idbTree.hasLocalCeval) &&
         hl(
-          'a',
+          'button',
           {
             attrs: {
               'data-icon': licon.Trash,
