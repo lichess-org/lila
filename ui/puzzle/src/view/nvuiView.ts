@@ -1,5 +1,5 @@
 import type { Api } from '@lichess-org/chessground/api';
-import { Chessground as makeChessground } from 'chessground3D';
+import { Chessground as makeChessground } from '@lichess-org/chessground';
 import { makeSquare, opposite } from 'chessops';
 
 import { isTouchDevice } from 'lib/device';

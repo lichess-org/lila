@@ -1,4 +1,4 @@
-import { Chessground as makeChessground } from 'chessground3D';
+import { Chessground as makeChessground } from '@lichess-org/chessground';
 import { COLORS, opposite } from 'chessops';
 
 import { isTouchDevice } from 'lib/device';
