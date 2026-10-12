@@ -13,7 +13,7 @@
     "@types/lichess": "workspace:*",
     "@types/node": "^24.19.0",
     "ab": "github:lichess-org/ab-stub",
-    "chessground3D": "github:yafred/chessground3D#v1.0.0-alpha.1",
+    "chessground3D": "github:yafred/chessground3D#a943c8db653e7c34e445fcf02b07898fa06c4326",
     "chessops": "^0.15.1",
     "jsdom": "^30.1.2",
     "lint-staged": "^17.6.0",
