@@ -386,7 +386,7 @@ final class UblogApi(
     // With $limit only after the lookups, mongodb reads ahead thousands of posts it then drops.
     // The lookups keep most posts, so first cut the sorted posts to a margin,
     // and only if too many were dropped, run again without the cut.
-    def aggregate(cut: Option[Int]) = colls.post
+    def aggregate(cut: Int) = colls.post
       .aggregateList(length, _.sec): framework =>
         import framework.*
         val aggSort = sort match
@@ -394,7 +394,7 @@ final class UblogApi(
           case BlogsBy.likes => Descending("likes")
           case _ => Descending("lived.at")
         Match(select ++ bdoc("live" -> true)) -> {
-          Sort(aggSort) :: cut.map(Limit(_)).toList :::
+          Sort(aggSort) :: Limit(cut) ::
             removeUnlistedOrClosedAndProjectForPreview(colls.post, framework) :::
             List(Skip(offset), Limit(length))
         }
@@ -403,8 +403,8 @@ final class UblogApi(
           doc <- docs
           post <- doc.asOpt[UblogPost.PreviewPost]
         yield post
-    aggregate((2 * (offset + length) + length).some).flatMap: posts =>
-      if posts.sizeIs < length then aggregate(none) else fuccess(posts)
+    aggregate(2 * (offset + length) + length).flatMap: posts =>
+      if posts.sizeIs < length then aggregate(5_000) else fuccess(posts)
 
   private[ublog] def removeUnlistedOrClosedAndProjectForPreview(
       coll: Coll,
