@@ -16,6 +16,7 @@
 .advice-summary {
   @extend %flex-column, %box-neat;
 
+  gap: 1em;
   color: $c-font-page;
   font-size: 0.9em;
   padding: 0.75em 0.75em 1em;
@@ -81,10 +82,6 @@
 
   .color-icon::before {
     vertical-align: text-bottom;
-  }
-
-  .button {
-    margin: 0.75em 0.25em;
   }
 
   &__acpl > div,

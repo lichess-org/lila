@@ -2,11 +2,13 @@ import { isEmpty } from 'lib';
 import { displayColumns } from 'lib/device';
 import { cont as contRoute } from 'lib/game/router';
 import { licon } from 'lib/licon';
+import { structuredCloneLite } from 'lib/tree/ops';
 import { domDialog, bind, dataIcon, hl, type VNode } from 'lib/view';
 
 import type { AutoplayDelay } from '@/autoplay';
 import type AnalyseCtrl from '@/ctrl';
 import * as pgnExport from '@/pgnExport';
+import { pruneStaticAnalysis } from '@/util';
 
 import { showSettingsDialog } from './settingsView';
 
@@ -64,7 +66,9 @@ function studyButton(ctrl: AnalyseCtrl) {
       hook: bind('submit', e => {
         const pgnInput = (e.target as HTMLElement).querySelector('input[name=pgn]') as HTMLInputElement;
         if (pgnInput && (ctrl.synthetic || ctrl.idbTree.movesDirty)) {
-          pgnInput.value = pgnExport.renderFullTxt(ctrl);
+          const root = structuredCloneLite(ctrl.tree.root);
+          pruneStaticAnalysis(root);
+          pgnInput.value = pgnExport.renderFullTxt(ctrl, root);
         }
       }),
     },
@@ -89,7 +93,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
   const tools = [
     hl('div.action-menu__tools', [
       hl(
-        'a',
+        'button',
         {
           hook: bind('click', () => {
             ctrl.flip();
@@ -116,19 +120,19 @@ export function view(ctrl: AnalyseCtrl): VNode {
       displayColumns() === 1 &&
         canPractice &&
         hl(
-          'a',
+          'button',
           { hook: bind('click', () => ctrl.togglePractice()), attrs: dataIcon(licon.Bullseye) },
           i18n.site.practiceWithComputer,
         ),
       canRetro &&
         hl(
-          'a',
+          'button',
           { hook: bind('click', ctrl.toggleRetro, ctrl.redraw), attrs: dataIcon(licon.GraduateCap) },
           i18n.site.learnFromYourMistakes,
         ),
       canContinue &&
         hl(
-          'a',
+          'button',
           {
             hook: bind('click', () =>
               domDialog({
@@ -143,9 +147,22 @@ export function view(ctrl: AnalyseCtrl): VNode {
           i18n.site.continueFromHere,
         ),
       studyButton(ctrl),
-      (ctrl.idbTree.movesDirty || ctrl.idbTree.hasLocalCeval) &&
+      ctrl.canAnalyse() &&
         hl(
-          'a',
+          'button',
+          {
+            hook: bind('click', () => {
+              site.asset.loadEsm('analyse.local', { init: ctrl });
+              ctrl.actionMenu(false);
+              ctrl.redraw();
+            }),
+            attrs: dataIcon(licon.Cogs),
+          },
+          i18n.study.analysisEditor,
+        ),
+      (ctrl.idbTree.movesDirty || ctrl.idbTree.hasLocalAnalysis || ctrl.idbTree.hasLocalCeval) &&
+        hl(
+          'button',
           {
             attrs: {
               'data-icon': licon.Trash,

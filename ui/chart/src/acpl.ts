@@ -64,7 +64,7 @@ export default async function (
     const winChances: { x: number; y: number }[] = [];
     const blurs = [toBlurArray(d.player), toBlurArray(d.opponent)];
     if (d.player.color === 'white') blurs.reverse();
-    mainline.slice(1).map(node => {
+    mainline.slice(1).forEach(node => {
       const isWhite = (node.ply & 1) === 1;
       let cp: number | undefined = node.eval && 0;
       if (node.eval?.mate) cp = node.eval.mate > 0 ? Infinity : -Infinity;
@@ -76,7 +76,6 @@ export default async function (
       const winchance = winningChances.povChances('white', { cp });
       // Plot winchance because logarithmic but display the corresponding cp.eval from AnalyseData in the tooltip
       winChances.push({ x: node.ply, y: winchance });
-
       const { advice, color: glyphColor } = glyphProperties(node);
       const label = turn + dots + ' ' + node.san;
       let annotation = '';

@@ -1,6 +1,6 @@
 package lila.study
 
-import chess.format.pgn.{ Glyph, Glyphs, SanStr, Tag, Tags }
+import chess.format.pgn.{ Glyph as BaseGlyph, Glyphs as BaseGlyphs, SanStr, Tag, Tags }
 import chess.format.{ Fen, Uci, UciCharPair, UciPath }
 import chess.variant.{ Crazyhouse, Variant }
 import chess.{ ByColor, Centis, FideId, Ply, PromotableRole, Role, Square }
@@ -12,7 +12,7 @@ import scala.util.Success
 import lila.db.BSON
 import lila.db.BSON.{ Reader, Writer }
 import lila.db.dsl.{ *, given }
-import lila.tree.Node.{ Comment, Comments, Gamebook, Shape, Shapes }
+import lila.tree.Node.{ Comment, Comments, Gamebook, Glyph as NodeGlyph, Glyphs as NodeGlyphs, Shape, Shapes }
 import lila.tree.{ Branch, Branches, Root, Clock }
 
 object BSONHandlers:
@@ -104,14 +104,32 @@ object BSONHandlers:
         "b" -> w.strO(writePocket(s.pockets.black))
       )
 
-  given BSONHandler[Glyphs] =
+  given BSONHandler[BaseGlyphs] =
     val intReader = collectionReader[List, Int]
-    tryHandler[Glyphs](
+    tryHandler[BaseGlyphs](
       { case arr: Barr =>
-        intReader.readTry(arr).map(ints => Glyphs.fromList(ints.flatMap(Glyph.find)))
+        intReader.readTry(arr).map(ints => BaseGlyphs.fromList(ints.flatMap(BaseGlyph.find)))
       },
       x => BSONArray(x.toList.map(_.id).map(BSONInteger.apply))
     )
+
+  given BSONHandler[NodeGlyphs] = tryHandler[NodeGlyphs](
+    { case BSONArray(values) =>
+      Success:
+        NodeGlyphs:
+          values.toList.flatMap:
+            case BSONInteger(id) => BaseGlyph.find(id).map(NodeGlyph(_))
+            case doc: Bdoc =>
+              doc.getAsOpt[Int]("i").flatMap(BaseGlyph.find).map(NodeGlyph(_, ~doc.getAsOpt[Boolean]("c")))
+            case _ => none
+    },
+    glyphs =>
+      BSONArray(
+        glyphs.value.toList.map: glyph =>
+          if glyph.comp then bdoc("i" -> glyph.id, "c" -> true)
+          else BSONInteger(glyph.id)
+      )
+  )
 
   given BSONHandler[WhiteScore] =
     val mateFactor = 1000000
@@ -141,11 +159,12 @@ object BSONHandlers:
       shapes = doc.getAsOpt[Shapes](F.shapes).getOrElse(Shapes.empty)
       comments = doc.getAsOpt[Comments](F.comments).getOrElse(Comments.empty)
       gamebook = doc.getAsOpt[Gamebook](F.gamebook)
-      glyphs = doc.getAsOpt[Glyphs](F.glyphs).getOrElse(Glyphs.empty)
+      glyphs = doc.getAsOpt[NodeGlyphs](F.glyphs).getOrElse(NodeGlyphs.empty)
       eval = doc.getAsOpt[WhiteScore](F.score).map(lila.tree.evals.fromScore)
       clock = doc.getAsOpt[Clock](F.clock)
       crazyData = doc.getAsOpt[Crazyhouse.Data](F.crazy)
       forceVariation = ~doc.getAsOpt[Boolean](F.forceVariation)
+      comp = ~doc.getAsOpt[Boolean](F.comp)
     yield Branch(
       ply = ply,
       move = Uci.WithSan(uci, san),
@@ -158,6 +177,7 @@ object BSONHandlers:
       clock = clock,
       crazyData = crazyData,
       children = Branches.empty,
+      comp = comp,
       forceVariation = forceVariation
     )
 
@@ -173,11 +193,12 @@ object BSONHandlers:
       F.shapes -> n.shapes.value.nonEmpty.option(n.shapes),
       F.comments -> n.comments.value.nonEmpty.option(n.comments),
       F.gamebook -> n.gamebook,
-      F.glyphs -> n.glyphs.nonEmpty,
-      F.score -> n.eval.flatMap(_.score), // BC stored as score (maybe its better to keep this way?)
+      F.glyphs -> n.glyphs.nonEmptyOption,
+      F.score -> n.eval.flatMap(_.score),
       F.clock -> n.clock,
       F.crazy -> n.crazyData,
-      F.forceVariation -> w.boolO(n.forceVariation)
+      F.forceVariation -> w.boolO(n.forceVariation),
+      F.comp -> w.boolO(n.comp)
     )
 
   private[study] given BSON[Root] with
@@ -191,7 +212,7 @@ object BSONHandlers:
         shapes = r.getO[Shapes](F.shapes) | Shapes.empty,
         comments = r.getO[Comments](F.comments) | Comments.empty,
         gamebook = r.getO[Gamebook](F.gamebook),
-        glyphs = r.getO[Glyphs](F.glyphs) | Glyphs.empty,
+        glyphs = r.getO[NodeGlyphs](F.glyphs) | NodeGlyphs.empty,
         eval = r.getO[WhiteScore](F.score).map(lila.tree.evals.fromScore),
         clock = r.getO[Clock](F.clock),
         crazyData = r.getO[Crazyhouse.Data](F.crazy),
@@ -205,8 +226,8 @@ object BSONHandlers:
           F.shapes -> r.shapes.value.nonEmpty.option(r.shapes),
           F.comments -> r.comments.value.nonEmpty.option(r.comments),
           F.gamebook -> r.gamebook,
-          F.glyphs -> r.glyphs.nonEmpty,
-          F.score -> r.eval.flatMap(_.score), // BC stored as score (maybe its better to keep this way?)
+          F.glyphs -> r.glyphs.nonEmptyOption,
+          F.score -> r.eval.flatMap(_.score),
           F.clock -> r.clock,
           F.crazy -> r.crazyData
         )
@@ -214,6 +235,15 @@ object BSONHandlers:
     )
 
   given BSONHandler[Variant] = variantByIdHandler
+
+  private[study] def treeDiff(previous: Root, next: Root): (Bdoc, List[String]) =
+    val writer = summon[BSON[Root]]
+    val before = writer.writes(new Writer, previous).toMap
+    val after = writer.writes(new Writer, next).toMap
+    val sets = after.toList.collect:
+      case (key, value) if !before.get(key).contains(value) => s"root.$key" -> value
+    val unsets = (before.keySet -- after.keySet).toList.map(key => s"root.$key")
+    bdoc(sets) -> unsets
 
   given BSONHandler[Tag] = tryHandler[Tag](
     { case BSONString(v) =>
@@ -230,7 +260,19 @@ object BSONHandlers:
     id => BSONInteger(id.so(_.value))
   )
   given BSONDocumentHandler[Chapter.Relay] = Macros.handler
-  given BSONDocumentHandler[Chapter.ServerEval] = Macros.handler
+  given BSON[Chapter.ServerEval] with
+    def reads(r: Reader) = Chapter.ServerEval(
+      path = r.get[UciPath]("path"),
+      done = r.bool("done"),
+      fromGameId = r.getO[GameId]("fromGameId"),
+      version = r.intO("version")
+    )
+    def writes(w: Writer, eval: Chapter.ServerEval) = bdoc(
+      "path" -> eval.path,
+      "done" -> eval.done,
+      "fromGameId" -> eval.fromGameId,
+      "version" -> eval.version
+    )
 
   private val clockPair: BSONHandler[PairOf[Option[Centis]]] = optionTupleHandler
   given BSONHandler[Chapter.BothClocks] = clockPair.as[Chapter.BothClocks](ByColor.fromPair, _.toPair)

@@ -31,8 +31,10 @@ final class PgnDump(
         ofChapter(study, flags)(chapter).map(some)
 
   def ofChapter(study: Study, flags: WithFlags)(chapter: Chapter): Fu[PgnStr] =
-    (flags.comments && chapter.serverEval.exists(_.done))
-      .so(analyser.byId(Analysis.Id(study.id, chapter.id)))
+    flags.comments
+      .so(chapter.serverEval)
+      .filter(_.done)
+      .so(eval => analyser.byId(eval.fromGameId.fold(Analysis.Id(study.id, chapter.id))(Analysis.Id(_))))
       .map(ofChapter(study, flags)(chapter, _))
 
   def requestPgnFlags(default: WithFlags = defaultFlags)(using RequestHeader): WithFlags =
@@ -187,7 +189,7 @@ object PgnDump:
   private def branchToMove(node: Branch)(using flags: WithFlags)(using Exporter) =
     chessPgn.Move(
       san = node.move.san,
-      glyphs = flags.comments.so(node.glyphs),
+      glyphs = flags.comments.so(node.glyphs.toBase),
       comments = flags.comments.so(commentsWithShapes(node)),
       opening = none,
       result = none,
