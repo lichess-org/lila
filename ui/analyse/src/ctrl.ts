@@ -666,10 +666,7 @@ export default class AnalyseCtrl implements CevalHandler {
   }
 
   allowedEval(node: TreeNode = this.node): ClientEval | ServerEval | false | undefined {
-    return (
-      (this.cevalEnabled() && node.ceval) ||
-      ((!node.eval?.static || this.settings.showMainlineAnalysis) && node.eval)
-    );
+    return (this.cevalEnabled() && node.ceval) || (this.settings.showMainlineAnalysis && node.eval);
   }
 
   motifAllowed = (): boolean => this.study?.isCevalAllowed() !== false && !this.retro?.isSolving();
@@ -1106,7 +1103,7 @@ export default class AnalyseCtrl implements CevalHandler {
       : `/${this.data.game.id}/edit?fen=${this.node.fen}`;
 
   canAnalyse(): boolean {
-    return !this.ongoing && this.mainline.length > 5 && (!this.study || this.study.isCevalAllowed());
+    return !this.ongoing && this.mainline.length > 4 && (!this.study || this.study.isCevalAllowed());
   }
 
   getNodeKey(): string {

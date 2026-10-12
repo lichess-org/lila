@@ -9,7 +9,7 @@ import lila.db.BSON.{ Reader, Writer }
 import lila.db.dsl.*
 import lila.study.BSONHandlers.given
 import lila.tree.Node.{ Comment, Glyphs as NodeGlyphs }
-import lila.tree.{ Branch, Root, evals }
+import lila.tree.Root
 
 // in lila.study to have access to PgnImport
 class BsonHandlersTest extends munit.FunSuite:
@@ -111,27 +111,6 @@ class BsonHandlersTest extends munit.FunSuite:
     val node = roundTripped.nodeAt(path).get
     assert(node.glyphs.value.exists(_.comp))
     assert(node.comments.value.exists(_.comp))
-
-  test("eval provenance survives round trip"):
-    val root = StudyPgnImport.result(PgnFixtures.pgn3, Nil).toOption.get.root
-    val path = root.mainlinePath
-    val static = root.updateChildrenAt(path, _.copy(eval = evals.initial.copy(static = true).some)).get
-    val legacy = root.updateChildrenAt(path, _.copy(eval = evals.initial.some)).get
-    assert(treeBson.reads(treeBson.writes(w, static)).nodeAt(path).flatMap(_.eval).exists(_.static))
-    assert(!treeBson.reads(treeBson.writes(w, legacy)).nodeAt(path).flatMap(_.eval).exists(_.static))
-
-    val staticNode = static.nodeAt(path).collect { case branch: Branch => branch }.get
-    val legacyNode = legacy.nodeAt(path).collect { case branch: Branch => branch }.get
-    val staticBson = BSONHandlers.writeBranch(staticNode)
-    assertEquals(
-      staticBson.getAsOpt[Bdoc]("e").flatMap(_.getAsOpt[chess.eval.WhiteScore]("st")),
-      staticNode.eval.flatMap(_.score)
-    )
-    assertEquals(staticBson.getAsOpt[Boolean]("st"), None)
-    assertEquals(
-      BSONHandlers.writeBranch(legacyNode).getAsOpt[chess.eval.WhiteScore]("e"),
-      legacyNode.eval.flatMap(_.score)
-    )
 
   test("engine continuations stay first after their shared initial branch"):
     val userRoot = StudyPgnImport.result("1. e4 e5 2. Nf3 Nc6", Nil).toOption.get.root

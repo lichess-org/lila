@@ -14,28 +14,26 @@ import { SimpleEngine } from './simpleEngine';
 import { StockfishWebEngine } from './stockfishWebEngine';
 import { ThreadedEngine } from './threadedEngine';
 
-// These comments can be deleted after at least two other people have read them
+// These comments can be deleted after at least one other person scrolls past them
 //
-// nodeEfficiencyVsFishnet is the constant divisor of 1,000,000 nodes for a given engine to achieve
-// parity with the official stockfish used by current fishnet playing at a fixed 1,000,000 nodes per move.
+// nodeEfficiencyVsFishnet is the inverse constant multiple of 1,000,000 nodes for a given engine to achieve
+// strength parity with the current fishnet playing at a fixed 1,000,000 nodes per move.
 //
-// so that `go nodes (1_000_000 / nodeEfficiencyVsFishnet)` on the measured engine plays 50/50/x vs
-// `go nodes 1_000_000` on fishnet's official stockfish (or fairy stockfish HCE for variants)
+// `go nodes (1_000_000 / nodeEfficiencyVsFishnet)` on the measured engine should play 50/50/x vs
+// `go nodes 1_000_000` on fishnet's official stockfish version (or fairy stockfish HCE for variants)
 //
 // I used https://github.com/disservin/fastchess with 200 round binary searches to zero in on this value for
-// the 1MB smallnet with 1 thread and default hash. The remaining ones for older wasms are just "estimated"
+// the 1MB smallnet using 1 thread and default hash. The remaining ones for older wasms are "estimated"
 //
 // When a new fishnet is released, the previous fishnet should be compared against it.
 // That factor should then be scaled into the existing nodeEfficiencyVsFishnet values. This can be
 // done programmatically at startup to reduce code churn.
 //
 // Letting them float against the current fishnet seems better than pinning everything to a fixed
-// arbitrary fishnet version. Doing that creates a currency that looks increasingly strange as time passes.
-// If it were more complicated than just multiplying in the new factor, I would probably not feel this
-// way.
+// arbitrary fishnet version. But it can always be pinned (or abandoned) down the road.
 //
 // We are mostly interested in relating one engine strength to another instead of absolute
-// values. We treat external engines as having unknown efficiency, or 1x when required.
+// values. An undefined node efficiency (external engine) is considered 1x
 
 export class Engines {
   localEngineMap: Map<string, { info: BrowserEngineInfo; make: (e: BrowserEngineInfo) => CevalEngine }>;

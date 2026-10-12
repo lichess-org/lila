@@ -182,7 +182,7 @@ private[study] def clearAnalysis(root: Root, incomingCompPaths: Set[UciPath] = S
       children.toList.flatMap: node =>
         val path = parentPath + node.id
         val cleaned = node.copy(
-          eval = node.eval.filterNot(_.static),
+          eval = none,
           comments = Comments.withoutComp(node.comments),
           glyphs = Glyphs.withoutComp(node.glyphs),
           children = cleanChildren(node.children, path)
@@ -196,7 +196,7 @@ private[study] def clearAnalysis(root: Root, incomingCompPaths: Set[UciPath] = S
         else cleaned.copy(comp = node.comp && incomingCompPaths.contains(path)).some
 
   root.copy(
-    eval = root.eval.filterNot(_.static),
+    eval = none,
     comments = Comments.withoutComp(root.comments),
     glyphs = Glyphs.withoutComp(root.glyphs),
     children = cleanChildren(root.children, UciPath.root)
@@ -251,8 +251,7 @@ private def makeBranch(m: chess.MoveOrDrop, ply: chess.Ply): Branch =
 
 private[study] def annotate(node: Branch, info: Info, advOpt: Option[Advice]): Branch =
   val withEval =
-    if info.eval.score.isDefined && node.eval.isEmpty then
-      node.copy(eval = info.eval.copy(static = true).some)
+    if info.eval.score.isDefined && node.eval.isEmpty then node.copy(eval = info.eval.some)
     else node
   advOpt.fold(withEval): adv =>
     val comments =

@@ -227,7 +227,7 @@ class LocalAnalysisDialog {
       nodeIndex === 0
         ? i18n.localAnalysis.startingPosition
         : i18n.localAnalysis.moveXOfY(nodeIndex, totalNodes - 1);
-    const efficiency = this.timedEngineNodeEfficiency;
+    const efficiency = this.engineNodeEfficiency;
     if (isFinite(nodesPerMove) && efficiency && this.quality() > 0) {
       nodesPerMove *= efficiency;
       const val = nodesPerMove / 1_000_000;
@@ -248,14 +248,15 @@ class LocalAnalysisDialog {
   private analysisEditor(redraw: Redraw) {
     const info = this.ctrl.ceval.info(this.customSearch)!;
     const ceval = this.ctrl.ceval;
-    const preludes: string[] = [];
-    const trailers: string[] = [];
+    const bestBrowserEngine = this.bestBrowserEngine;
+    const preludes: LooseVNodes = [];
+    const trailers: LooseVNodes = [];
     const [current, published] = [
       this.ctrl.staticAnalysis?.engine,
       this.ctrl.idbTree.hasLocalAnalysis && this.ctrl.publishedEvalEngine,
     ].filter(Boolean);
     if (!current) {
-      preludes.push(i18n.localAnalysis.chooseYourEngineSettings);
+      preludes.push(<p>{i18n.localAnalysis.chooseYourEngineSettings}</p>);
       if (
         ceval.engines.supporting({
           rules: ceval.rules,
@@ -264,10 +265,12 @@ class LocalAnalysisDialog {
         }).length === 0
       ) {
         preludes.push(
-          i18n.localAnalysis.bestResultsUseXWithYThreads(
-            this.bestBrowserEngine.name,
-            navigator.hardwareConcurrency,
-          ),
+          <p>
+            {i18n.localAnalysis.bestResultsUseXWithYThreads(
+              this.bestBrowserEngine.name,
+              navigator.hardwareConcurrency,
+            )}
+          </p>,
         );
       }
     }
@@ -280,14 +283,16 @@ class LocalAnalysisDialog {
         ),
       );
     }
+    if (
+      this.quality() === 0 &&
+      info.engine.id !== bestBrowserEngine.id &&
+      (this.engineNodeEfficiency ?? 1) < 0.5
+    ) {
+      if (trailers.length) trailers.push('. ');
+      trailers.push(i18n.localAnalysis.xWouldBeFaster(bestBrowserEngine.name));
+    }
     return [
-      preludes.length > 0 && (
-        <span>
-          {preludes.map(p => (
-            <p>{p}</p>
-          ))}
-        </span>
-      ),
+      preludes.length > 0 && <span>{preludes}</span>,
       published && [
         this.separator(i18n.localAnalysis.onTheServer),
         this.analysisInfo(this.ctrl.publishedEvalEngine),
@@ -330,7 +335,7 @@ class LocalAnalysisDialog {
         )}
       </div>,
       <hr class="separator" />,
-      <span>{trailers.join('. ')}</span>,
+      <span>{trailers}</span>,
     ];
   }
 
@@ -340,20 +345,21 @@ class LocalAnalysisDialog {
     const isLocal = this.ctrl.idbTree.hasLocalAnalysis && info !== this.ctrl.publishedEvalEngine;
     const splitVersion = info.engineVersion.split('/');
     const isFishnet = splitVersion.length === 3;
+    const engineName = isFishnet ? splitVersion[1] : info.engineVersion;
     const [clearText, clearClick] = isLocal
       ? [i18n.study.clearLocal, this.clickClearLocal]
       : [i18n.study.clearPublished, this.clickClearPublished];
     const provenance = isFishnet
-      ? 'fishnet'
+      ? i18n.localAnalysis.fishnet
       : isLocal
-        ? i18n.localAnalysis.local.toLowerCase()
+        ? i18n.localAnalysis.local
         : i18n.site.by(info.userId);
     return [
       <label>{isPublished ? i18n.localAnalysis.published : i18n.localAnalysis.using}</label>,
-      <p class="span-three">
+      <p class="info-line">
         <strong>{provenance}</strong>
         <span class="weak">
-          {isFishnet ? splitVersion[1] : info.engineVersion}
+          {engineName}
           {(isLocal || this.ctrl.study?.members.canContribute()) && (
             <button class="clear" title={clearText} on={{ click: clearClick }}>
               {licon.X}
@@ -374,7 +380,7 @@ class LocalAnalysisDialog {
         { min: 0, max: ticks.length - 1 },
       );
     const seconds = ticks[getTick()];
-    const value = seconds === 0 ? i18n.site.standard : `${seconds}s`;
+    const value = seconds === 0 ? i18n.localAnalysis.fishnet : `${seconds}s`;
     return (
       <div class="setting" title={i18n.site.searchTimeDescription}>
         <label for="local-analysis-quality">{i18n.localAnalysis.quality}</label>
@@ -424,7 +430,7 @@ class LocalAnalysisDialog {
     return { showButton: true };
   }
 
-  private get timedEngineNodeEfficiency(): number | undefined {
+  private get engineNodeEfficiency(): number | undefined {
     const flavor = this.ctrl.ceval.rules === 'chess' ? 'chess' : 'variant';
     return this.ctrl.ceval.engines
       .supporting({
@@ -438,7 +444,7 @@ class LocalAnalysisDialog {
     // Fit observed performance dilution due to parallelism vs node count.
     // Dilution due to parallelism becomes negligible at high node counts
     const threadDilution = 1 + (this.threads() / 32) * Math.sqrt(1_000_000 / nodes);
-    return Math.round((threadDilution * nodes) / (this.timedEngineNodeEfficiency ?? 1));
+    return Math.round((threadDilution * nodes) / (this.engineNodeEfficiency ?? 1));
   }
 
   private get timeToComplete(): number | undefined {
@@ -446,7 +452,7 @@ class LocalAnalysisDialog {
     if (!info) return undefined;
     if ('movetime' in info.search.by) return (info.search.by.movetime * this.ctrl.mainline.length) / 1000;
     const nodesPerSecond = this.ctrl.ceval.nodesPerSecond(info.engine.id, info.threads);
-    if (!nodesPerSecond || !this.timedEngineNodeEfficiency) return undefined;
+    if (!nodesPerSecond || !this.engineNodeEfficiency) return undefined;
     return (this.standardQualityNodesAt() * this.ctrl.mainline.length) / nodesPerSecond;
   }
 

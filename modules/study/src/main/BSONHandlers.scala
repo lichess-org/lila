@@ -148,25 +148,6 @@ object BSONHandlers:
       )
     )
 
-  private def readEval(r: Reader): Option[lila.tree.Eval] =
-    import Node.BsonFields as F
-    r.doc
-      .getAsOpt[WhiteScore](F.score)
-      .map(lila.tree.evals.fromScore)
-      .orElse:
-        r.doc
-          .getAsOpt[Bdoc](F.score)
-          .flatMap(_.getAsOpt[WhiteScore](F.static))
-          .map(lila.tree.evals.fromScore)
-          .map(_.copy(static = true))
-
-  private[study] def writeEval(eval: Option[lila.tree.Eval]): Option[BSONValue] =
-    eval
-      .flatMap(_.score)
-      .map: score =>
-        if eval.exists(_.static) then bdoc(Node.BsonFields.static -> score)
-        else bsonWriteOpt(score).get
-
   // shallow read, as not reading children
   private[study] def readBranch(doc: Bdoc): Option[Branch] =
     import Node.BsonFields as F
@@ -179,7 +160,7 @@ object BSONHandlers:
       comments = doc.getAsOpt[Comments](F.comments).getOrElse(Comments.empty)
       gamebook = doc.getAsOpt[Gamebook](F.gamebook)
       glyphs = doc.getAsOpt[NodeGlyphs](F.glyphs).getOrElse(NodeGlyphs.empty)
-      eval = readEval(Reader(doc))
+      eval = doc.getAsOpt[WhiteScore](F.score).map(lila.tree.evals.fromScore)
       clock = doc.getAsOpt[Clock](F.clock)
       crazyData = doc.getAsOpt[Crazyhouse.Data](F.crazy)
       forceVariation = ~doc.getAsOpt[Boolean](F.forceVariation)
@@ -213,7 +194,7 @@ object BSONHandlers:
       F.comments -> n.comments.value.nonEmpty.option(n.comments),
       F.gamebook -> n.gamebook,
       F.glyphs -> n.glyphs.nonEmptyOption,
-      F.score -> writeEval(n.eval),
+      F.score -> n.eval.flatMap(_.score),
       F.clock -> n.clock,
       F.crazy -> n.crazyData,
       F.forceVariation -> w.boolO(n.forceVariation),
@@ -232,7 +213,7 @@ object BSONHandlers:
         comments = r.getO[Comments](F.comments) | Comments.empty,
         gamebook = r.getO[Gamebook](F.gamebook),
         glyphs = r.getO[NodeGlyphs](F.glyphs) | NodeGlyphs.empty,
-        eval = readEval(r),
+        eval = r.getO[WhiteScore](F.score).map(lila.tree.evals.fromScore),
         clock = r.getO[Clock](F.clock),
         crazyData = r.getO[Crazyhouse.Data](F.crazy),
         children = StudyFlatTree.reader.rootChildren(fullReader.doc)
@@ -246,7 +227,7 @@ object BSONHandlers:
           F.comments -> r.comments.value.nonEmpty.option(r.comments),
           F.gamebook -> r.gamebook,
           F.glyphs -> r.glyphs.nonEmptyOption,
-          F.score -> writeEval(r.eval),
+          F.score -> r.eval.flatMap(_.score),
           F.clock -> r.clock,
           F.crazy -> r.crazyData
         )

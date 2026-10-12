@@ -292,7 +292,6 @@ export class CevalCtrl {
     if (!snapshots) return undefined;
 
     const average = (arr: number[]) => arr.reduce((a: number, b: number) => a + b, 0) / arr.length;
-    if (snapshots[threads]?.length > 8) return average(snapshots[threads]);
 
     const perfs: number[] = [];
     for (const thread in snapshots) {
@@ -386,10 +385,10 @@ export class CevalCtrl {
     };
     const emitter = throttleWithFlush(125, (ev: LocalEval, meta: EvalMeta) => {
       this.curEval = ev;
-      if (working.movetime) {
-        if (ev.bestmove && ev.bestmove !== '(none)') ev.millis = Math.max(ev.millis, working.movetime);
-        else this.snapshotPerformance(ev);
+      if (working.movetime && ev.bestmove && ev.bestmove !== '(none)') {
+        ev.millis = Math.max(ev.millis, working.movetime);
       }
+      this.snapshotPerformance(ev);
       if (!working.fen) {
         working.fen = ev.fen;
         storage.fire('ceval.fen', ev.fen); // will pause other tabs

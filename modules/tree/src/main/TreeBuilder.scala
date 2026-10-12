@@ -8,7 +8,6 @@ object TreeBuilder:
 
   type LogChessError = String => Unit
 
-  private def makeEval(info: Info) = info.eval.copy(static = true)
   def apply(
       game: Game,
       analysis: Option[Analysis],
@@ -45,7 +44,7 @@ object TreeBuilder:
         fen = fen,
         clock = withClocks.flatMap(_.lift(index)).map(Clock(_)),
         crazyData = move.after.crazyData,
-        eval = info.map(makeEval),
+        eval = info.map(_.eval),
         glyphs = Node.Glyphs.fromBase(
           chess.format.pgn.Glyphs.fromList(advice.map(_.judgment.glyph).toList),
           comp = true

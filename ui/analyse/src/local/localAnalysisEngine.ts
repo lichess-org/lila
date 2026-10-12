@@ -85,7 +85,6 @@ export class LocalAnalysisEngine {
       this.nodesSearched += ev.nodes;
       this.nodes[this.nodeIndex].eval = {
         cp: ev.cp,
-        static: true,
         mate: ev.mate,
         best: ev.bestmove,
         fen: ev.fen,

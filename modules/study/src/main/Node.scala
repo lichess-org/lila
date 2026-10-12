@@ -21,7 +21,6 @@ object Node:
     val crazy = "z"
     val forceVariation = "fv"
     val comp = "cp"
-    val static = "st"
 
   object Comments:
     def hasComp(comments: TreeNode.Comments): Boolean = comments.value.exists(_.comp)

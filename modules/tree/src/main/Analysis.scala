@@ -19,7 +19,7 @@ case class Engine(
 )
 
 object Engine:
-  val unknownVersion = "unknown"
+  val unknownVersion = "/unknown/"
   val unknown = Engine(0, EngineId.unknown, UserId.lichess, unknownVersion)
   val default = Engine(1_000_000, EngineId.fishnet, UserId.lichess, unknownVersion)
 

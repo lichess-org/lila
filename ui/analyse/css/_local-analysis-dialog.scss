@@ -108,9 +108,9 @@ $c-content: color-mix(in oklab, var(--c-bg) 50%, var(--c-bg-page));
       color: $c-font-dimmer;
     }
 
-    .span-three {
+    .info-line {
       display: flex;
-      align-items: center;
+      align-items: end;
       gap: 1ch;
     }
 
