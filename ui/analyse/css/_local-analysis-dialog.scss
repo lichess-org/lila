@@ -1,13 +1,14 @@
 $c-content: color-mix(in oklab, var(--c-bg) 50%, var(--c-bg-page));
 
 .local-analysis-dialog {
+  @include box-radius;
+
   width: min(640px, 96vw);
   height: min(fit-content(0), 80vh);
   display: flex;
   flex-direction: column;
   padding: 1rem 1rem 0;
   background: $c-bg;
-  border-radius: $box-radius-size;
 
   h2 {
     margin-bottom: 1rem;
@@ -25,10 +26,11 @@ $c-content: color-mix(in oklab, var(--c-bg) 50%, var(--c-bg-page));
   }
 
   .chart-container {
+    @include box-radius;
+
     position: absolute;
     padding: min(2vw, 2rem);
     border: 1px solid hsl(from $c-border h s l / 0.6);
-    border-radius: $box-radius-size;
     top: 0;
     width: 100%;
     height: 100%;
@@ -69,7 +71,9 @@ $c-content: color-mix(in oklab, var(--c-bg) 50%, var(--c-bg-page));
     flex: auto;
     color: $c-font;
     background-color: $c-content;
-    border-radius: $box-radius-size;
+
+    @include box-radius;
+
     border: 1px solid hsl(from $c-border h s l / 0.6);
 
     > * {

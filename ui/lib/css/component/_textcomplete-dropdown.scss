@@ -1,9 +1,9 @@
 .textcomplete-dropdown {
   @extend %popup-shadow;
+  @include box-radius;
 
   border: $border;
   background: $c-bg-popup;
-  border-radius: $box-radius-size;
   overflow: hidden;
 
   li {

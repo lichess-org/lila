@@ -22,6 +22,8 @@
   }
 
   .header-tab {
+    @include box-radius-top;
+
     all: unset;
     font-family: Roboto, sans-serif;
     display: flex;
@@ -29,7 +31,6 @@
     align-items: center;
     min-width: 112px;
     height: 40px;
-    border-radius: $box-radius-size $box-radius-size 0 0;
     border: 1px solid transparent;
     border-bottom: none;
     background: transparent;
@@ -75,7 +76,9 @@
     overflow-x: hidden;
     overflow-y: auto;
     padding: 0.8em 1em 0;
-    border-radius: $box-radius-size;
+
+    @include box-radius;
+
     background: $c-bg-preview;
   }
 
@@ -113,7 +116,7 @@
   }
 }
 
-@media (hover: hover) and (pointer: fine) {
+@include mq-has-hover {
   .markdown-editor .header-tab:hover:not(.active) {
     background-color: rgb(from $c-border r g b / calc(alpha * 0.2));
     border-color: rgb(from $c-border r g b / calc(alpha * 0.4));
