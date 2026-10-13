@@ -103,15 +103,15 @@ const coordinateInput = (ctrl: CoordinateTrainerCtrl) => {
             on={{ keyup: ctrl.onKeyboardInputKeyUp }}
           />
           {ctrl.playing ? (
-            <span>Enter the coordinate</span>
+            <span>{i18n.coordinates.enterTheCoordinate}</span>
           ) : (
-            <strong>
-              Press <kbd>enter</kbd> to start
-            </strong>
+            <strong>{i18n.coordinates.pressEnterToStart.asArray(<kbd>enter</kbd>)}</strong>
           )}
         </span>
         <button class="button button-empty" on={{ click: () => ctrl.toggleInputMethod() }}>
-          {ctrl.coordinateInputMethod() === 'text' ? 'Show buttons' : 'Hide buttons'}
+          {ctrl.coordinateInputMethod() === 'text'
+            ? i18n.coordinates.showButtons
+            : i18n.coordinates.hideButtons}
         </button>
       </div>
     </div>

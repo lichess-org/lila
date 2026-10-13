@@ -979,10 +979,14 @@ interface I18n {
     coordinates: string;
     /** Coordinate training */
     coordinateTraining: string;
+    /** Enter the coordinate */
+    enterTheCoordinate: string;
     /** Find square */
     findSquare: string;
     /** Go as long as you want, there is no time limit! */
     goAsLongAsYouWant: string;
+    /** Hide buttons */
+    hideButtons: string;
     /** Knowing the chessboard coordinates is a very important skill for several reasons: */
     knowingTheChessBoard: string;
     /** Most chess courses and exercises use the algebraic notation extensively. */
@@ -991,6 +995,10 @@ interface I18n {
     nameSquare: string;
     /** Practice only some files & ranks */
     practiceOnlySomeFilesAndRanks: string;
+    /** Press %s to start */
+    pressEnterToStart: I18nFormat;
+    /** Show buttons */
+    showButtons: string;
     /** Show coordinates */
     showCoordinates: string;
     /** Coordinates on every square */
@@ -4047,6 +4055,8 @@ interface I18n {
     help: string;
     /** Hide best move */
     hideBestMove: string;
+    /** Hold the shift key while speaking */
+    holdShiftKeyWhileSpeaking: string;
     /** Host */
     host: string;
     /** Host a new simul */
@@ -4271,6 +4281,8 @@ interface I18n {
     menu: string;
     /** Message */
     message: string;
+    /** Microphone */
+    microphone: string;
     /** Middlegame */
     middlegame: string;
     /** Minimum rated games */
@@ -4409,6 +4421,8 @@ interface I18n {
     noMistakesFoundForWhite: string;
     /** None */
     none: string;
+    /** None selected */
+    noneSelected: string;
     /** Offline */
     noNetwork: string;
     /** No note yet */
@@ -4597,6 +4611,8 @@ interface I18n {
     promoteVariation: string;
     /** Propose a takeback */
     proposeATakeback: string;
+    /** Push %s key to talk */
+    pushShiftKeyToTalk: I18nFormat;
     /** Chess tactics trainer */
     puzzleDesc: string;
     /** Puzzles */
@@ -5103,6 +5119,10 @@ interface I18n {
     viewTournament: string;
     /** Visual motifs */
     visualMotifs: string;
+    /** Voice help */
+    voiceHelp: string;
+    /** Voice settings */
+    voiceSettings: string;
     /** Waiting */
     waiting: string;
     /** Waiting for analysis */
@@ -6403,6 +6423,8 @@ interface I18n {
     noDrafts: string;
     /** No posts in this blog, yet. */
     noPostsInThisBlogYet: string;
+    /** Opinions expressed by Lichess contributors are their own. */
+    opinionsExpressedByContributorsAreTheirOwn: string;
     /** Post body */
     postBody: string;
     /** Post intro */
@@ -6465,6 +6487,8 @@ interface I18n {
     xPublishedY: I18nFormat;
     /** You are blocked by the blog author. */
     youBlockedByBlogAuthor: string;
+    /** You may also like */
+    youMayAlsoLike: string;
   };
   variant: {
     /** Antichess */
