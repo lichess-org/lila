@@ -43,7 +43,7 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
 
   def apiCalendarMonth(year: Int, month: Int) = Anon:
     Found(env.relay.calendar.readMonth(year, month)): at =>
-      for tours <- env.relay.calendar.atMonth(at)
+      for tours <- env.relay.calendar.atMonthWithReqTiersFilter(at)
       yield JsonOk(tours.map(env.relay.jsonView.tourWithAnyRound))
 
   def help = page("broadcasts", "help")
