@@ -55,7 +55,7 @@ final class TournamentApi(
     lila.core.user.PublicTitleOf
 ):
 
-  export tournamentRepo.byId as get
+  export tournamentRepo.{ byId as get, upcomingByTeams }
 
   def createTournament(
       setup: TournamentSetup,
