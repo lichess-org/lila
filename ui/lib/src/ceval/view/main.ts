@@ -1,7 +1,7 @@
 // no side effects allowed due to re-export by index.ts
 
+import { Chessground as makeChessground } from '@lichess-org/chessground';
 import { uciToMove } from '@lichess-org/chessground/util';
-import { Chessground as makeChessground } from 'chessground3D';
 import type { Position } from 'chessops/chess';
 import { lichessRules } from 'chessops/compat';
 import { parseFen, makeBoardFen } from 'chessops/fen';
