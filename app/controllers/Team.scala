@@ -1,4 +1,5 @@
 package controllers
+
 package team
 
 import play.api.data.Form
@@ -416,6 +417,11 @@ final class Team(env: Env) extends LilaController(env):
             yield res
           else orElse
     WithEnabledTeamOrClas(id)(showUpdates, orElse)
+  }
+
+  def events = AuthOrScoped(_.Team.Read) { ctx ?=> me ?=>
+    env.teamInfo.events.flatMap: events =>
+      Ok.page(views.team.events(events))
   }
 
   def quit(id: TeamId) = AuthOrScoped(_.Team.Write) { ctx ?=> me ?=>

@@ -72,6 +72,26 @@ def updateEventLinks(
   tours.map(t => (views.tournament.ui.tournamentLink(t), t.startsAt, routes.Tournament.show(t.id)))
     ++ swiss.map(s => (views.swiss.ui.link(s), s.startsAt, routes.Swiss.show(s.id)))
 
+def events(all: List[TeamInfo.AnyTour])(using Context) =
+  Page("Upcoming team events")
+    .css("team")
+    .flag(_.fullScreen):
+      main(
+        div(cls := "box")(
+          boxTop:
+            h1("Upcoming team events")
+          ,
+          div(cls := "team-events team-tournaments team-tournaments--both")(
+            div(cls := "team-tournaments__next")(
+              h2(trans.team.upcomingTournaments()),
+              table(cls := "slist slist-pad slist-invert")(
+                tournaments.renderList(all)
+              )
+            )
+          )
+        )
+      )
+
 // both arena and swiss
 object tournaments:
 
