@@ -164,6 +164,7 @@ export function renderCeval(ctrl: CevalHandler): VNode[] {
   const node = ctrl.getNode();
   const enabled = !ceval.wasUnloadedByAnotherWindow && ctrl.cevalEnabled();
   const client = node.ceval;
+  const barIgnoresCloud = client?.cloud && ceval.isComputing;
   const server = node.eval;
   const threatMode = ctrl.threatMode();
   const threat = threatMode ? node.threat : undefined;
@@ -174,7 +175,9 @@ export function renderCeval(ctrl: CevalHandler): VNode[] {
   let pearl: LooseVNode;
   let percent = 0;
   if (client) {
-    if ((client.cloud && !threatMode) || ceval.isDeeper() || ceval.isInfinite) percent = 100;
+    console.log('bubbers', barIgnoresCloud);
+    if (barIgnoresCloud) percent = 0;
+    else if ((client.cloud && !threatMode) || ceval.isDeeper() || ceval.isInfinite) percent = 100;
     else if ('movetime' in search.by)
       percent = Math.min(100, (100 * ((threat ?? client)?.millis ?? 0)) / search.by.movetime);
     else if ('depth' in search.by) percent = Math.min(100, (100 * client.depth) / search.by.depth);
