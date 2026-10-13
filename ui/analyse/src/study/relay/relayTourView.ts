@@ -270,19 +270,13 @@ const tourSelect = (ctx: RelayViewContext, group: RelayGroup) => {
   const { relay, study } = ctx;
   const inputId = 'mselect-relay-tour';
 
-  const updateCheckboxAndToggle = () => {
-    const checkbox = document.querySelector<HTMLInputElement>(`#${inputId}`);
-    if (checkbox) checkbox.checked = false;
-    relay.tourSelectShow(!checkbox);
-  };
-
   return hl(
     'div.mselect.relay-tour__mselect.relay-tour__tour-select',
     {
       class: { mselect__active: relay.tourSelectShow() },
     },
     [
-      hl('input.mselect__toggle', {
+      hl('input.mselect__toggle.mselect__toggle--mask', {
         attrs: { type: 'checkbox', id: inputId },
         on: { change: relay.tourSelectShow.toggle },
       }),
@@ -291,8 +285,7 @@ const tourSelect = (ctx: RelayViewContext, group: RelayGroup) => {
         { attrs: { for: inputId } },
         group.tours.find(t => t.id === relay.data.tour.id)?.name || relay.data.tour.name,
       ),
-      relay.tourSelectShow() && [
-        hl('div.fullscreen-mask', { on: { click: updateCheckboxAndToggle } }),
+      relay.tourSelectShow() &&
         hl(
           'nav.mselect__list',
           group.tours.map(tour =>
@@ -308,7 +301,6 @@ const tourSelect = (ctx: RelayViewContext, group: RelayGroup) => {
             ),
           ),
         ),
-      ],
     ],
   );
 };
@@ -353,7 +345,7 @@ const roundSelect = (relay: RelayCtrl, study: StudyCtrl) => {
       class: { mselect__active: relay.roundSelectShow() },
     },
     [
-      hl('input.mselect__toggle', {
+      hl('input.mselect__toggle.mselect__toggle--mask', {
         attrs: { type: 'checkbox', id: inputId },
         on: { change: relay.roundSelectShow.toggle },
       }),
@@ -367,8 +359,7 @@ const roundSelect = (relay: RelayCtrl, study: StudyCtrl) => {
           hl('span.relay-tour__round-select__status', icon || (!!round.startsAt && timeago(round.startsAt))),
         ],
       ),
-      relay.roundSelectShow() && [
-        hl('div.fullscreen-mask', { on: { click: updateCheckboxAndToggle } }),
+      relay.roundSelectShow() &&
         hl(
           'div.relay-tour__round-select__list.mselect__list',
           {
@@ -411,7 +402,6 @@ const roundSelect = (relay: RelayCtrl, study: StudyCtrl) => {
             ),
           ),
         ),
-      ],
     ],
   );
 };
