@@ -58,7 +58,9 @@ object BuildSettings:
     "-language:implicitConversions",
     "-release:21",
     "-Wimplausible-patterns",
-    "-Wunused:all"
+    "-Wunused:all",
+    "-Wconf:msg=method ArrowAssoc in object Predef is deprecated:silent",
+    "-Wconf:msg=class ArrowAssoc is deprecated:silent"
     // "-Yprofile-enabled",
     // "-Yprofile-trace:compiler.trace"
   )
