@@ -5,9 +5,9 @@ import { describe, test } from 'node:test';
 
 import { PromotionCtrl } from '../src/game/promotion';
 
-function makeGround() {
+function makeGround(pieces: Array<[cg.Key, cg.Piece]> = [['e7', { color: 'white', role: 'pawn' }]]) {
   const state = {
-    pieces: new Map<cg.Key, cg.Piece>([['e7', { color: 'white', role: 'pawn' }]]),
+    pieces: new Map<cg.Key, cg.Piece>(pieces),
     turnColor: 'black' as cg.Color,
     orientation: 'white' as cg.Color,
   };
