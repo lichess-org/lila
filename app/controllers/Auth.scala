@@ -9,6 +9,8 @@ import lila.app.{ *, given }
 import lila.common.HTTPRequest
 import lila.common.Json.given
 import lila.core.id.SessionId
+import lila.core.net.Origin
+import lila.oauth.{ OAuthScope, TokenScopes }
 import lila.core.email.{ UserIdOrEmail, UserStrOrEmail }
 import lila.core.net.ValidReferrer
 import lila.core.security.ClearPassword
@@ -532,6 +534,66 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
         env.security.loginToken.storedCode.consume.flatMap:
           case limit: RateLimit.LimitResult => if limit.ok then notFound else rateLimited
           case token: lila.oauth.AccessToken => Ok(token.plain).toFuccess
+
+  private val mobileOrigin = Origin("org.lichess.mobile://")
+  private val mobileScopes = TokenScopes(List(OAuthScope.Web.Mobile))
+
+  // mobile-native magic link: exchange a magic-link token for a web:mobile bearer token.
+  // The email is requested through the existing POST /auth/magic-link/send.
+  def magicLinkBearer = AnonBodyOf(parse.tolerantFormUrlEncoded): _ =>
+    Firewall:
+      HTTPRequest.fromFormOrQuery("token").fold(BadRequest(jsonError("Missing token"))): token =>
+        env.security.loginToken.magicLink.consume(token).flatMap:
+          case None => notFound
+          case Some(user) if user.enabled.no => Forbidden(jsonError("This account is closed."))
+          case Some(user) =>
+            env.oAuth.tokenApi.create(user.id, mobileScopes, mobileOrigin).map: t =>
+              Ok(t.plain)
+
+  // mobile-native password reset: request email, always NoContent to avoid enumeration.
+  def passwordResetMobileSend = AnonBodyOf(parse.tolerantFormUrlEncoded): _ =>
+    Firewall:
+      HTTPRequest.fromFormOrQuery("email").flatMap(EmailAddress.from).fold(
+        BadRequest(jsonError("Invalid email"))
+      ): email =>
+        env.security.passwordReset.limiter(email -> req.ipAddress, rateLimited):
+          env.user.repo.notClosedForeverWithEmail(email.normalize).flatMap:
+            case Some((user, storedEmail)) =>
+              lila.mon.user.auth.passwordResetRequest("success").increment()
+              env.security.passwordReset.send(user, storedEmail).inject(NoContent)
+            case _ =>
+              lila.mon.user.auth.passwordResetRequest("noEmail").increment()
+              fuccess(NoContent)
+
+  // mobile-native password reset: set a new password, return a web:mobile bearer token.
+  def passwordResetMobileConfirm(token: String) = AnonBodyOf(parse.tolerantFormUrlEncoded): _ =>
+    Firewall:
+      env.security.passwordReset.confirm(token).flatMap:
+        case None =>
+          lila.mon.user.auth.passwordResetConfirm("tokenPostFail").increment()
+          notFound
+        case Some(user) if user.enabled.no =>
+          Forbidden(jsonError("This account is closed."))
+        case Some(user) =>
+          given Me = Me(user)
+          bindForm(forms.passwdResetForMe)(
+            err => jsonFormError(err).toFuccess,
+            data =>
+              HasherRateLimit:
+                for
+                  _ <- env.security.authenticator.setPassword(user.id, ClearPassword(data.newPasswd1))
+                  _ <- env.mod.logApi.setPassword
+                  confirmed <- env.user.repo.setEmailConfirmed(user.id)
+                  _ <- confirmed.so(welcome(user, _, sendWelcomeEmail = false))
+                  _ <- env.user.repo.disableTwoFactor(user.id)
+                  _ <- env.security.store.closeAllSessionsOf(user.id)
+                  _ <- env.push.browserSub.unsubscribeByUser(user)
+                  _ <- env.push.unregisterDevices(user)
+                  t <- env.oAuth.tokenApi.create(user.id, mobileScopes, mobileOrigin)
+                yield
+                  lila.mon.user.auth.passwordResetConfirm("success").increment()
+                  Ok(t.plain)
+          )
 
   def check = OpenOrScoped() { ctx ?=>
     ctx.me match
