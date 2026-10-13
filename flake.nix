@@ -10,7 +10,7 @@
     { self, ... }@inputs:
 
     let
-      javaVersion = 21;
+      javaVersion = 25;
       # Source of truth for Node version is .node-version
       nodeVersionFile = builtins.readFile ./.node-version;
       nodeMajorVersion = builtins.elemAt (inputs.nixpkgs.lib.strings.split "\\." (
