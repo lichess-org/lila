@@ -141,7 +141,7 @@ export const renderBoard = ({ ctrl, study, playerBars, playerStrips }: ViewConte
                 },
                 e =>
                   !!ctrl.gamebookPlay() ||
-                  !['PIECE', 'SQUARE', 'CG-BOARD'].includes((e.target as HTMLElement).tagName),
+                  !['PIECE', 'SQUARE', 'CG-BOARD', 'CANVAS'].includes((e.target as HTMLElement).tagName),
               ),
             ),
     },
