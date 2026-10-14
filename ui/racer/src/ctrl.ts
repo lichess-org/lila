@@ -175,39 +175,40 @@ export default class RacerCtrl implements PuzCtrl {
   playUci = (uci: Uci): void => {
     const now = getNow();
     const puzzle = this.run.current;
-    if (puzzle.startAt + config.minFirstMoveTime > now) console.log('reverted!');
-    else {
-      this.run.moves++;
-      this.promotion.cancel();
-      const correct = playAndTestUciMutatingPosition(puzzle.position(), puzzle.expectedMove(), uci);
-      if (correct) {
-        puzzle.moveIndex++;
-        this.localScore++;
-        this.run.combo.inc();
-        this.run.modifier.moveAt = now;
-        const bonus = this.run.combo.bonus();
-        if (bonus) {
-          this.run.modifier.bonus = bonus;
-          this.localScore += bonus.seconds; // yeah, ah well
-        }
-        this.socketSend('racerScore', this.localScore);
-        if (puzzle.isOver()) {
-          if (!this.incPuzzle(true)) this.end();
-        } else {
-          puzzle.moveIndex++;
-        }
-        this.run.current.playSound(puzzle);
-      } else {
-        sound.wrong();
-        this.run.errors++;
-        this.run.combo.reset();
-        if (this.run.clock.flag()) this.end();
-        else if (!this.incPuzzle(false)) this.end();
-      }
-      this.redraw();
-      this.redrawQuick();
-      this.redrawSlow();
+    if (puzzle.startAt + config.minFirstMoveTime > now) {
+      this.setGround();
+      return;
     }
+    this.run.moves++;
+    this.promotion.cancel();
+    const correct = playAndTestUciMutatingPosition(puzzle.position(), puzzle.expectedMove(), uci);
+    if (correct) {
+      puzzle.moveIndex++;
+      this.localScore++;
+      this.run.combo.inc();
+      this.run.modifier.moveAt = now;
+      const bonus = this.run.combo.bonus();
+      if (bonus) {
+        this.run.modifier.bonus = bonus;
+        this.localScore += bonus.seconds; // yeah, ah well
+      }
+      this.socketSend('racerScore', this.localScore);
+      if (puzzle.isOver()) {
+        if (!this.incPuzzle(true)) this.end();
+      } else {
+        puzzle.moveIndex++;
+      }
+      this.run.current.playSound(puzzle);
+    } else {
+      sound.wrong();
+      this.run.errors++;
+      this.run.combo.reset();
+      if (this.run.clock.flag()) this.end();
+      else if (!this.incPuzzle(false)) this.end();
+    }
+    this.redraw();
+    this.redrawQuick();
+    this.redrawSlow();
     this.setGround();
     if (this.run.current.moveIndex < 0) {
       this.run.current.moveIndex = 0;
