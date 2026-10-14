@@ -83,9 +83,9 @@ const renderTimeModePicker = (tc: TimeControl) =>
     hl(
       'select#sf_timeMode',
       {
+        attrs: { 'aria-label': i18n.site.timeControl },
         on: {
           change: (e: Event) => {
-            console.log('Time mode changed to', (e.target as HTMLSelectElement).value);
             tc.mode((e.target as HTMLSelectElement).value as TimeMode);
           },
         },
