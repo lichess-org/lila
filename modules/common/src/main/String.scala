@@ -76,7 +76,7 @@ object String:
       val escaped = Html(escapeHtmlRaw(text))
       val marked = RawHtml.justMarkdownLinks(escaped)
       if marked == escaped then richText(text)
-      else nl2brUnsafe(marked.value)
+      else nl2brUnsafe(RawHtml.markdownLinksWithBareLinks(escaped).value)
 
     def safeJsonValue(jsValue: JsValue): SafeJsonStr = SafeJsonStr:
       val sb = java.lang.StringBuilder()
