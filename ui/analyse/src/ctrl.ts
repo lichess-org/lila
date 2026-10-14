@@ -626,7 +626,7 @@ export default class AnalyseCtrl implements CevalHandler {
     this.idbTree.onAddNode(node, path);
     const newPath = this.tree.addNode(node, path);
     if (!newPath) {
-      console.log("Can't addNode", node, path);
+      console.warn("Can't addNode", node, path);
       return this.redraw();
     }
 

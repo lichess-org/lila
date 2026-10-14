@@ -85,7 +85,6 @@ const renderTimeModePicker = (tc: TimeControl) =>
       {
         on: {
           change: (e: Event) => {
-            console.log('Time mode changed to', (e.target as HTMLSelectElement).value);
             tc.mode((e.target as HTMLSelectElement).value as TimeMode);
           },
         },

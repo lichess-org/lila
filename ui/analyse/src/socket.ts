@@ -91,10 +91,7 @@ export function make(send: AnalyseSocketSend, ctrl: AnalyseCtrl): Socket {
     }, 1000);
 
   const handlers = {
-    opening({ fen, opening }: { fen: FEN; opening: Opening }) {
-      console.log(fen, opening);
-      // ctrl.setOpening(fen, opening);
-    },
+    opening(_: { fen: FEN; opening: Opening }) {},
     fen(e: GameUpdate) {
       if (ctrl.forecast && e.id === ctrl.data.game.id && !treeOps.last(ctrl.mainline)!.fen.startsWith(e.fen))
         ctrl.forecast.reloadToLastPly();
