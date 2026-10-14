@@ -6,6 +6,7 @@ import type { TreeNode } from 'lib/tree/types';
 import { bind, hl, type VNode, spinnerVdom as spinner, icon } from 'lib/view';
 
 import type AnalyseCtrl from '../ctrl';
+import { reviewMistakesLabel } from '../util';
 import { renderIndexAndMove } from '../view/components';
 import type { RetroCtrl } from './retroCtrl';
 
@@ -182,7 +183,7 @@ export default function (root: AnalyseCtrl): VNode | undefined {
   const completion = ctrl.completion();
   return hl('div.retro-box.training-box.sub-box', [
     hl('div.title', [
-      hl('span', ctrl.color === 'white' ? i18n.site.reviewWhiteMistakes : i18n.site.reviewBlackMistakes),
+      hl('span', reviewMistakesLabel(ctrl.color)),
       hl('span', `${Math.min(completion[0] + 1, completion[1])} / ${completion[1]}`),
       hl('button.fbt', {
         hook: bind('click', root.toggleRetro, root.redraw),

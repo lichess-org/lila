@@ -7,6 +7,7 @@ import { userLink } from 'lib/view/userLink';
 
 import type AnalyseCtrl from '@/ctrl';
 import { findTag } from '@/study/studyChapters';
+import { reviewMistakesLabel } from '@/util';
 
 import type { AnalysisMetaSide, GamePhase } from '../interfaces';
 
@@ -88,7 +89,7 @@ const retroButton = (ctrl: AnalyseCtrl): VNode | null =>
           attrs: dataIcon(licon.PlayTriangle),
           hook: bind('click', ctrl.toggleRetro, ctrl.redraw),
         },
-        ctrl.bottomColor() === 'white' ? i18n.site.reviewWhiteMistakes : i18n.site.reviewBlackMistakes,
+        reviewMistakesLabel(ctrl.bottomColor()),
       );
 
 const doRender = (ctrl: AnalyseCtrl): VNode => {
