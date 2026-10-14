@@ -182,7 +182,7 @@ export default function (root: AnalyseCtrl): VNode | undefined {
   const completion = ctrl.completion();
   return hl('div.retro-box.training-box.sub-box', [
     hl('div.title', [
-      hl('span', i18n.site.learnFromYourMistakes),
+      hl('span', ctrl.color === 'white' ? i18n.site.reviewWhiteMistakes : i18n.site.reviewBlackMistakes),
       hl('span', `${Math.min(completion[0] + 1, completion[1])} / ${completion[1]}`),
       hl('button.fbt', {
         hook: bind('click', root.toggleRetro, root.redraw),
