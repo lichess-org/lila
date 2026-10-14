@@ -41,9 +41,24 @@ export default function (ctrl: TournamentController): VNode {
     hl('div.stats', [
       playerTitle(data.player, ctrl.data.id),
       data.player.team &&
-        hl('team', { hook: bind('click', () => ctrl.showTeamInfo(data.player.team!), ctrl.redraw) }, [
-          teamName(ctrl.data.teamBattle!, data.player.team),
-        ]),
+        hl(
+          'team',
+          {
+            attrs: { role: 'button', tabindex: '0' },
+            hook: {
+              insert: (vnode: any) => {
+                bind('click', () => ctrl.showTeamInfo(data.player.team!), ctrl.redraw).insert?.(vnode);
+                (vnode.elm as HTMLElement).addEventListener('keydown', e => {
+                  if (e.key !== 'Enter' && e.key !== ' ') return;
+                  e.preventDefault();
+                  ctrl.showTeamInfo(data.player.team!);
+                  ctrl.redraw();
+                });
+              },
+            },
+          },
+          [teamName(ctrl.data.teamBattle!, data.player.team)],
+        ),
       hl('table', [
         ctrl.opts.showRatings &&
           data.player.performance &&
@@ -60,10 +75,22 @@ export default function (ctrl: TournamentController): VNode {
       hl(
         'table.pairings.sublist',
         {
-          hook: bind('click', e => {
-            const href = ((e.target as HTMLElement).parentNode as HTMLElement).getAttribute('data-href');
-            if (href) window.open(href, '_blank', 'noopener');
-          }),
+          hook: {
+            insert: (vnode: any) => {
+              bind('click', e => {
+                const href = (e.target as HTMLElement).closest('[data-href]')?.getAttribute('data-href');
+                if (href) window.open(href, '_blank', 'noopener');
+              }).insert?.(vnode);
+              (vnode.elm as HTMLElement).addEventListener('keydown', e => {
+                if (e.key !== 'Enter') return;
+                const href = (e.target as HTMLElement).closest('tr[data-href]')?.getAttribute('data-href');
+                if (href) {
+                  e.preventDefault();
+                  window.open(href, '_blank', 'noopener');
+                }
+              });
+            },
+          },
         },
         data.pairings.map((p, i) => {
           const score = p.status < status.mate ? '*' : p.score;
@@ -73,7 +100,7 @@ export default function (ctrl: TournamentController): VNode {
             'tr.glpt.' + cls,
             {
               key: p.id,
-              attrs: { 'data-href': '/' + p.id + '/' + p.color },
+              attrs: { 'data-href': '/' + p.id + '/' + p.color, tabindex: '0', role: 'link' },
               hook: { destroy: vnode => $.powerTip.destroy(vnode.elm) },
             },
             [

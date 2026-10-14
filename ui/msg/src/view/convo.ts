@@ -1,8 +1,7 @@
 import { h, type VNode } from 'snabbdom';
 
-import { hookMobileMousedown } from 'lib/device';
 import { licon } from 'lib/licon';
-import { dataIcon } from 'lib/view';
+import { bind, dataIcon } from 'lib/view';
 import { userLine, userLink, userLinkData } from 'lib/view/userLink';
 
 import type MsgCtrl from '@/ctrl';
@@ -17,9 +16,9 @@ export default function renderConvo(ctrl: MsgCtrl, convo: Convo): VNode {
   return h('div.msg-app__convo', { key: user.id }, [
     h('div.msg-app__convo__head', [
       h('div.msg-app__convo__head__left', [
-        h('span.msg-app__convo__head__back', {
+        h('button.msg-app__convo__head__back', {
           attrs: dataIcon(licon.LessThan),
-          hook: hookMobileMousedown(ctrl.showSide),
+          hook: bind('click', ctrl.showSide),
         }),
         contactLink(user, ctrl),
         convo.modDetails?.kid ? h('bad', 'KID') : undefined,

@@ -246,8 +246,9 @@ export function backToSwiss(ctrl: RoundController): LooseVNode {
 export function moretime(ctrl: RoundController): LooseVNode {
   return (
     moretimeable(ctrl.data) &&
-    hl('a.moretime', {
+    hl('button.moretime', {
       attrs: {
+        type: 'button',
         title: ctrl.data.clock
           ? i18n.site.giveNbSeconds(ctrl.data.clock.moretime)
           : i18n.preferences.giveMoreTime,
