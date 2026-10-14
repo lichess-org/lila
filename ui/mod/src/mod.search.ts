@@ -33,7 +33,6 @@ site.load.then(() => {
               .map((_, input) => $(input).parents('tr').find('td:first-child').data('sort')),
           );
           if (usernames.length > 0 && (await confirm(`Close ${usernames.length} alt accounts?`))) {
-            console.log(usernames);
             await xhrText('/mod/alt-many', { method: 'post', body: usernames.join(' ') });
             location.reload();
           }
