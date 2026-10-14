@@ -141,7 +141,7 @@ export class BoardCtrl extends PaneCtrl {
     if (prop === 'zoom') window.dispatchEvent(new Event('resize'));
   };
 
-  private readonly set3d = async (v: boolean, reload: boolean = false) => {
+  private readonly set3d = async (v: boolean, reload = false) => {
     if (this.is3d === v) {
       if (reload) location.reload();
       else return;
