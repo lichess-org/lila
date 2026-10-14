@@ -100,52 +100,53 @@ export default class StormCtrl implements PuzCtrl {
   playUserMove = (orig: Key, dest: Key, promotion?: Role): void => {
     const now = getNow();
     const puzzle = this.run.current;
-    if (puzzle.startAt + config.minFirstMoveTime > now) console.log('reverted!');
-    else {
-      this.run.clock.start();
-      this.run.moves++;
-      this.promotion.cancel();
-      const correct = playAndTestMutatingPosition(
-        puzzle.position(),
-        puzzle.expectedMove(),
-        orig,
-        dest,
-        promotion,
-      );
-      if (correct) {
-        puzzle.moveIndex++;
-        this.run.combo.inc();
-        this.run.modifier.moveAt = now;
-        const bonus = this.run.combo.bonus();
-        if (bonus) {
-          this.run.modifier.bonus = bonus;
-          this.run.clock.addSeconds(bonus.seconds);
-        }
-        if (puzzle.isOver()) {
-          this.pushToHistory(true);
-          if (!this.incPuzzle()) this.end();
-        } else {
-          puzzle.moveIndex++;
-        }
-      } else {
-        sound.wrong();
-        this.pushToHistory(false);
-        this.run.errors++;
-        this.run.combo.reset();
-        this.run.clock.addSeconds(-config.clock.malus);
-        this.run.modifier.malus = {
-          seconds: config.clock.malus,
-          at: getNow(),
-        };
-
-        if (this.run.clock.flag()) this.end();
-        else if (!this.incPuzzle()) this.end();
-      }
-      this.run.current.playSound(correct ? puzzle : undefined);
-      this.redraw();
-      this.redrawQuick();
-      this.redrawSlow();
+    if (puzzle.startAt + config.minFirstMoveTime > now) {
+      this.setGround();
+      return;
     }
+    this.run.clock.start();
+    this.run.moves++;
+    this.promotion.cancel();
+    const correct = playAndTestMutatingPosition(
+      puzzle.position(),
+      puzzle.expectedMove(),
+      orig,
+      dest,
+      promotion,
+    );
+    if (correct) {
+      puzzle.moveIndex++;
+      this.run.combo.inc();
+      this.run.modifier.moveAt = now;
+      const bonus = this.run.combo.bonus();
+      if (bonus) {
+        this.run.modifier.bonus = bonus;
+        this.run.clock.addSeconds(bonus.seconds);
+      }
+      if (puzzle.isOver()) {
+        this.pushToHistory(true);
+        if (!this.incPuzzle()) this.end();
+      } else {
+        puzzle.moveIndex++;
+      }
+    } else {
+      sound.wrong();
+      this.pushToHistory(false);
+      this.run.errors++;
+      this.run.combo.reset();
+      this.run.clock.addSeconds(-config.clock.malus);
+      this.run.modifier.malus = {
+        seconds: config.clock.malus,
+        at: getNow(),
+      };
+
+      if (this.run.clock.flag()) this.end();
+      else if (!this.incPuzzle()) this.end();
+    }
+    this.run.current.playSound(correct ? puzzle : undefined);
+    this.redraw();
+    this.redrawQuick();
+    this.redrawSlow();
     this.setGround();
     if (this.run.current.moveIndex < 0) {
       this.run.current.moveIndex = 0;
