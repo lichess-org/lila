@@ -76,8 +76,10 @@ private[tree] object MateSequence:
   def apply(prev: Score, next: Score): Option[MateSequence] =
     (prev, next).some.collect:
       case (Score.Cp(_), Score.Mate(n)) if n.negative => MateCreated
+      case (Score.Cp(_), Score.mated) => MateCreated
       case (Score.Mate(p), Score.Cp(_)) if p.positive => MateLost
       case (Score.Mate(p), Score.Mate(n)) if p.positive && n.negative => MateLost
+      case (Score.Mate(p), Score.mated) if p.positive => MateLost
 private[tree] case class MateAdvice(
     sequence: MateSequence,
     judgment: Advice.Judgement,
