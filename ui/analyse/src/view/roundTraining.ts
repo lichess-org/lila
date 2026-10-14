@@ -78,7 +78,23 @@ const error = (nb: number, color: Color, advice: Advice) =>
     advice.i18n.asArray(nb, h('strong', nb)),
   );
 
+const retroButton = (ctrl: AnalyseCtrl): VNode | null =>
+  ctrl.study
+    ? null
+    : h(
+        'a.button.text',
+        {
+          class: { active: !!ctrl.retro },
+          attrs: dataIcon(licon.PlayTriangle),
+          hook: bind('click', ctrl.toggleRetro, ctrl.redraw),
+        },
+        i18n.site.learnFromYourMistakes,
+      );
+
 const doRender = (ctrl: AnalyseCtrl): VNode => {
+  const isWhite = ctrl.bottomColor() === 'white';
+  const btn = retroButton(ctrl);
+
   return h(
     'div.advice-summary',
     {
@@ -88,21 +104,9 @@ const doRender = (ctrl: AnalyseCtrl): VNode => {
         });
       }),
     },
-    [
-      playerTable(ctrl, 'white'),
-      ctrl.study
-        ? null
-        : h(
-            'a.button.text',
-            {
-              class: { active: !!ctrl.retro },
-              attrs: dataIcon(licon.PlayTriangle),
-              hook: bind('click', ctrl.toggleRetro, ctrl.redraw),
-            },
-            i18n.site.learnFromYourMistakes,
-          ),
-      playerTable(ctrl, 'black'),
-    ],
+    isWhite
+      ? [playerTable(ctrl, 'white'), btn, playerTable(ctrl, 'black')]
+      : [playerTable(ctrl, 'white'), playerTable(ctrl, 'black'), btn],
   );
 };
 
