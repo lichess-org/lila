@@ -77,11 +77,10 @@ object Dependencies:
     def bundle = Seq(macros, util, tagging)
 
   object reactivemongo:
-    val rmVersion = "1.1.0-noshaded.RC22"
     // Use the Pekko actor backend instead of the default Akka one, so the whole app is Akka-free.
     val driver = ("org.reactivemongo" %% "reactivemongo" % "1.1.0-pekko.noshaded.RC22")
-    val actorsPekko = "org.reactivemongo" %% "reactivemongo-actors-pekko" % rmVersion
-    val stream = "org.reactivemongo" %% "reactivemongo-pekkostream" % rmVersion
+    val actorsPekko = "org.reactivemongo" %% "reactivemongo-actors-pekko" % "1.1.0-RC22"
+    val stream = "org.reactivemongo" %% "reactivemongo-pekkostream" % "1.1.0-RC21"
     def bundle = Seq(driver, actorsPekko, stream)
 
   object play:
