@@ -7,6 +7,7 @@ import { userLink } from 'lib/view/userLink';
 
 import type AnalyseCtrl from '@/ctrl';
 import { findTag } from '@/study/studyChapters';
+import { reviewMistakesLabel } from '@/util';
 
 import type { AnalysisMetaSide, GamePhase } from '../interfaces';
 
@@ -78,7 +79,27 @@ const error = (nb: number, color: Color, advice: Advice) =>
     advice.i18n.asArray(nb, h('strong', nb)),
   );
 
+const retroButton = (ctrl: AnalyseCtrl): VNode | null =>
+  ctrl.study
+    ? null
+    : h(
+        'a.button.text',
+        {
+          class: { active: !!ctrl.retro },
+          attrs: {
+            ...dataIcon(licon.PlayTriangle),
+            'aria-label': reviewMistakesLabel(ctrl.bottomColor()),
+            role: 'button',
+          },
+          hook: bind('click', ctrl.toggleRetro, ctrl.redraw),
+        },
+        reviewMistakesLabel(ctrl.bottomColor()),
+      );
+
 const doRender = (ctrl: AnalyseCtrl): VNode => {
+  const isWhite = ctrl.bottomColor() === 'white';
+  const btn = retroButton(ctrl);
+
   return h(
     'div.advice-summary',
     {
@@ -88,21 +109,9 @@ const doRender = (ctrl: AnalyseCtrl): VNode => {
         });
       }),
     },
-    [
-      playerTable(ctrl, 'white'),
-      ctrl.study
-        ? null
-        : h(
-            'a.button.text',
-            {
-              class: { active: !!ctrl.retro },
-              attrs: dataIcon(licon.PlayTriangle),
-              hook: bind('click', ctrl.toggleRetro, ctrl.redraw),
-            },
-            i18n.site.learnFromYourMistakes,
-          ),
-      playerTable(ctrl, 'black'),
-    ],
+    isWhite
+      ? [playerTable(ctrl, 'white'), btn, playerTable(ctrl, 'black')]
+      : [playerTable(ctrl, 'white'), playerTable(ctrl, 'black'), btn],
   );
 };
 

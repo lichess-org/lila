@@ -8,7 +8,7 @@ import { domDialog, bind, dataIcon, hl, type VNode } from 'lib/view';
 import type { AutoplayDelay } from '@/autoplay';
 import type AnalyseCtrl from '@/ctrl';
 import * as pgnExport from '@/pgnExport';
-import { pruneStaticAnalysis } from '@/util';
+import { pruneStaticAnalysis, reviewMistakesLabel } from '@/util';
 
 import { showSettingsDialog } from './settingsView';
 
@@ -128,7 +128,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
         hl(
           'button',
           { hook: bind('click', ctrl.toggleRetro, ctrl.redraw), attrs: dataIcon(licon.GraduateCap) },
-          i18n.site.learnFromYourMistakes,
+          reviewMistakesLabel(ctrl.bottomColor()),
         ),
       canContinue &&
         hl(

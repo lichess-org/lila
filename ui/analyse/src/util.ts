@@ -55,3 +55,7 @@ export function replaceStaticEval(into: TreeNodeLite, from: TreeNodeLite): void 
     else into.children.push(fromChild);
   }
 }
+
+export function reviewMistakesLabel(color: Color): string {
+  return color === 'white' ? i18n.site.reviewWhiteMistakes : i18n.site.reviewBlackMistakes;
+}
