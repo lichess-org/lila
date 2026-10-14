@@ -88,7 +88,7 @@ const retroButton = (ctrl: AnalyseCtrl): VNode | null =>
           attrs: dataIcon(licon.PlayTriangle),
           hook: bind('click', ctrl.toggleRetro, ctrl.redraw),
         },
-        i18n.site.learnFromYourMistakes,
+        ctrl.bottomColor() === 'white' ? i18n.site.reviewWhiteMistakes : i18n.site.reviewBlackMistakes,
       );
 
 const doRender = (ctrl: AnalyseCtrl): VNode => {
