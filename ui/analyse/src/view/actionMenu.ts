@@ -128,7 +128,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
         hl(
           'button',
           { hook: bind('click', ctrl.toggleRetro, ctrl.redraw), attrs: dataIcon(licon.GraduateCap) },
-          i18n.site.learnFromYourMistakes,
+          ctrl.bottomColor() === 'white' ? i18n.site.reviewWhiteMistakes : i18n.site.reviewBlackMistakes,
         ),
       canContinue &&
         hl(
