@@ -86,7 +86,11 @@ const retroButton = (ctrl: AnalyseCtrl): VNode | null =>
         'a.button.text',
         {
           class: { active: !!ctrl.retro },
-          attrs: dataIcon(licon.PlayTriangle),
+          attrs: {
+            ...dataIcon(licon.PlayTriangle),
+            'aria-label': reviewMistakesLabel(ctrl.bottomColor()),
+            role: 'button',
+          },
           hook: bind('click', ctrl.toggleRetro, ctrl.redraw),
         },
         reviewMistakesLabel(ctrl.bottomColor()),
