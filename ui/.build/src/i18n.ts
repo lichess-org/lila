@@ -86,7 +86,7 @@ async function compileTypings(): Promise<void> {
       )
       .join('') +
     '}\n';
-  if ((await fs.promises.readFile(typingsPathname, 'utf8')) === typingsContent) return;
+  if ((await fs.promises.readFile(typingsPathname, 'utf8').catch(() => '')) === typingsContent) return;
 
   await fs.promises.writeFile(typingsPathname, typingsContent);
   const histat = catStats.reduce((a, b) => (a && b && a.mtimeMs - b.mtimeMs > 2 ? a : b), tstat || false);
