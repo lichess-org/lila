@@ -49,7 +49,8 @@ case class Pref(
     usingAltSocket: Option[Boolean],
     board: Pref.BoardPref,
     sayGG: Int,
-    hasDgt: Boolean
+    hasDgt: Boolean,
+    favFed: Option[lila.core.fide.Federation.Id]
 ) extends lila.core.pref.Pref:
 
   import Pref.*
@@ -497,7 +498,8 @@ object Pref:
     board = BoardPref(brightness = 100, contrast = 100, opacity = 100, hue = 0),
     blogFilter = QualityFilter.best,
     sayGG = SayGG.NO,
-    hasDgt = false
+    hasDgt = false,
+    favFed = None
   )
 
   import alleycats.Zero

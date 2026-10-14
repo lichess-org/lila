@@ -74,7 +74,7 @@ final class Pref(env: Env) extends LilaController(env):
               yield Ok(()).withCookies(env.security.lilaCookie.session(name, v.toString))
           )
 
-  def apiSet(name: String) = ScopedBody(_.Web.Mobile) { ctx ?=> me ?=>
+  def apiSet(name: String) = ScopedBody(_.Web.Mobile, _.Preference.Write) { ctx ?=> me ?=>
     lila.pref.PrefSingleChange.changes
       .get(name)
       .so: change =>
