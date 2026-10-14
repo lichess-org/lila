@@ -360,7 +360,7 @@ final class UblogApi(
           .inject(post)
 
   private def onTierChange(blog: UblogBlog.Id, tier: Tier): Funit =
-    (tier <= Tier.LOW).so(unfeatureAllOf(blog))
+    (tier <= Tier.REGULAR).so(unfeatureAllOf(blog))
 
   private def unfeatureAllOf(blog: UblogBlog.Id): Funit =
     colls.post.unsetField(bdoc("blog" -> blog), "featured").void
