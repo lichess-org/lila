@@ -166,7 +166,7 @@ export class IdbTree {
         this.cache.cevals.set(path, ceval);
       }
     } catch (e) {
-      console.log('IDB error.', e);
+      console.warn('IDB error.', e);
     }
   }
 
