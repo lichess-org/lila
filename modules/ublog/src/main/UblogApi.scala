@@ -214,6 +214,8 @@ final class UblogApi(
             trustedAuthor <- isAuthorTrusted(post)
             newPost = post.copy(automod = result.some).computeEffectiveQuality(trustedAuthor)
             _ <- updateQualityFields(newPost)
+            _ <- (trustedAuthor && newPost.quality == Quality.good).so:
+              setTierIfBlogExists(post.blog, Tier.CRAWLABLE)
           yield newPost.some
         .recoverWith: e =>
           if n < retries then delay((30 * math.pow(2, n).toInt).seconds)(attempt(n + 1))
@@ -360,7 +362,7 @@ final class UblogApi(
           .inject(post)
 
   private def onTierChange(blog: UblogBlog.Id, tier: Tier): Funit =
-    (tier <= Tier.LOW).so(unfeatureAllOf(blog))
+    (tier <= Tier.REGULAR).so(unfeatureAllOf(blog))
 
   private def unfeatureAllOf(blog: UblogBlog.Id): Funit =
     colls.post.unsetField(bdoc("blog" -> blog), "featured").void
