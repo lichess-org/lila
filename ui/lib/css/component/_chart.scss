@@ -202,13 +202,11 @@
     bottom: calc(100% + 5px);
     left: 50%;
     transform: translateX(-50%);
-
     padding: 0.25em 0.4em;
     border: $border;
     border-radius: $box-radius-size;
     background: $c-bg-popup;
     color: $c-font;
-
     white-space: nowrap;
     text-align: center;
   }
