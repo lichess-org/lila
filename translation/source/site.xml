@@ -208,6 +208,10 @@
   <string name="lichessFeedback">Lichess Feedback</string>
   <string name="gameAnalysis">Game Analysis</string>
   <string name="offTopicDiscussion">Off-Topic Discussion</string>
+  <string name="generalChessDiscussionDesc">The place to discuss general chess topics</string>
+  <string name="lichessFeedbackDesc">Bug reports, feature requests, suggestions</string>
+  <string name="gameAnalysisDesc">Show your game and analyse it with the community</string>
+  <string name="offTopicDiscussionDesc">Everything that isn't related to chess</string>
   <string name="players">Players</string>
   <string name="friends">Friends</string>
   <string name="otherPlayers">other players</string>

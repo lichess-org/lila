@@ -65,7 +65,7 @@ final class CategUi(helpers: Helpers, bits: ForumBits):
       .graph(
         title = s"Forum: ${categ.name}",
         url = routeUrl(routes.ForumCateg.show(categ.id)),
-        description = categ.desc
+        description = categDesc(categ)
       ):
         main(cls := "forum forum-categ box")(
           boxTop(
@@ -111,6 +111,13 @@ final class CategUi(helpers: Helpers, bits: ForumBits):
           )
         )
 
+  private def categDesc(categ: lila.forum.ForumCateg)(using Context): String = categ.id.value match
+    case "general-chess-discussion" => trans.site.generalChessDiscussionDesc.txt()
+    case "lichess-feedback" => trans.site.lichessFeedbackDesc.txt()
+    case "game-analysis" => trans.site.gameAnalysisDesc.txt()
+    case "off-topic-discussion" => trans.site.offTopicDiscussionDesc.txt()
+    case _ => categ.desc
+
   private def showCategs(categs: List[CategView])(using Context) =
     table(cls := "categs slist slist-pad")(
       thead(
@@ -128,7 +135,7 @@ final class CategUi(helpers: Helpers, bits: ForumBits):
               tr( // the last post was deleted!
                 td(cls := "subject")(
                   h2(a(href := routes.ForumCateg.show(view.slug))(view.name)),
-                  p(view.desc)
+                  p(categDesc(view.categ))
                 ),
                 td(cls := "right")(view.nbTopics.localize),
                 td(cls := "right")(view.nbPosts.localize),
@@ -143,7 +150,7 @@ final class CategUi(helpers: Helpers, bits: ForumBits):
                 if canBrowse then routes.ForumCateg.show(view.slug)
                 else routes.ForumTopic.show(view.slug, topic.slug, 1)
               tr(
-                td(cls := "subject")(h2(a(href := categUrl)(view.name)), p(view.desc)),
+                td(cls := "subject")(h2(a(href := categUrl)(view.name)), p(categDesc(view.categ))),
                 td(cls := "right")((if canBrowse then view.nbTopics else 1).localize),
                 td(cls := "right")((if canBrowse then view.nbPosts else topic.nbPosts).localize),
                 td(
