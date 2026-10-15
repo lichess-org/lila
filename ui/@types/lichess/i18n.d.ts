@@ -4013,6 +4013,10 @@ interface I18n {
     friendsOnlineAndPlaying: I18nFormat;
     /** Game aborted */
     gameAborted: string;
+    /** Game Analysis */
+    gameAnalysis: string;
+    /** Show your game and analyse it with the community */
+    gameAnalysisDesc: string;
     /** Game as GIF */
     gameAsGIF: string;
     /** You have a game in progress with %s. */
@@ -4029,6 +4033,10 @@ interface I18n {
     gamesPlayed: string;
     /** Game vs %1$s */
     gameVsX: I18nFormat;
+    /** General Chess Discussion */
+    generalChessDiscussion: string;
+    /** The place to discuss general chess topics */
+    generalChessDiscussionDesc: string;
     /** Get a hint */
     getAHint: string;
     /** Give %s seconds */
@@ -4195,6 +4203,10 @@ interface I18n {
     level: string;
     /** Rated games played on Lichess */
     lichessDbExplanation: string;
+    /** Lichess Feedback */
+    lichessFeedback: string;
+    /** Bug reports, feature requests, suggestions */
+    lichessFeedbackDesc: string;
     /** Lichess is a charity and entirely free/libre open source software. We depend on user donations to support our operating costs, development, and content. Without our generous community, we would not be able to keep the site running. Thank you for joining us! */
     lichessPatronInfo: string;
     /** Lichess tournaments */
@@ -4441,6 +4453,10 @@ interface I18n {
     offerDraw: string;
     /** offline */
     offline: string;
+    /** Off-Topic Discussion */
+    offTopicDiscussion: string;
+    /** Everything that isn't related to chess */
+    offTopicDiscussionDesc: string;
     /** OK */
     ok: string;
     /** One day */
