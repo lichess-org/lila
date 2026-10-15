@@ -1,5 +1,14 @@
 import 'chartjs-adapter-dayjs-4';
-import * as chart from 'chart.js';
+import {
+  Chart,
+  PointElement,
+  LinearScale,
+  TimeScale,
+  LineController,
+  Tooltip,
+  LineElement,
+  Filler,
+} from 'chart.js';
 import dayjs from 'dayjs';
 
 interface FideRatingChartOpts {
@@ -9,15 +18,7 @@ interface FideRatingChartOpts {
 }
 
 export function initModule(opts: FideRatingChartOpts): void {
-  chart.Chart.register(
-    chart.LineController,
-    chart.LinearScale,
-    chart.PointElement,
-    chart.LineElement,
-    chart.Tooltip,
-    chart.Filler,
-    chart.TimeScale,
-  );
+  Chart.register(LineController, LinearScale, PointElement, LineElement, Tooltip, Filler, TimeScale);
   const ratings = [...opts.standard, ...opts.rapid, ...opts.blitz].map(decodeElo);
   const minRating = Math.min(...ratings, 2000);
   const maxRating = Math.max(...ratings, 2800);
@@ -45,7 +46,7 @@ const renderRatingChart = (
   maxRating: number,
 ): void => {
   const chartData = data.map(decodeRatingPoint).map(([date, elo]) => ({ x: dayjs(date).valueOf(), y: elo }));
-  new chart.Chart(canvas, {
+  new Chart(canvas, {
     type: 'line',
     data: {
       datasets: [
