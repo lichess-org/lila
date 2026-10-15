@@ -55,7 +55,8 @@ final class HttpFilter(
     val statusCode = result.header.status
     val mobile = parseMobileUa(req)
     val client = ClientName(req)
-    lila.mon.http.count(actionName, client.name, req.method, statusCode).increment()
+    val asn = req.headers.get("X-ASN") | "-"
+    lila.mon.http.count(actionName, client.name, req.method, asn, statusCode).increment()
     lila.mon.http.time(actionName).record(reqTime)
     if net.logRequests then logger.info(s"$statusCode $client $req $actionName ${reqTime}ms")
     mobile.foreach(lila.mon.http.mobileCount(actionName, _))
