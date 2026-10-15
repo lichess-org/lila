@@ -133,10 +133,12 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)
       .css("bits.ublog")
       .js(posts.hasNextPage.option(infiniteScrollEsmInit))
       .copy(
-        atomLinkTag = atomUi.headLink(
-          routes.Ublog.communityAtom(languageOrAll),
-          "Lichess community blogs"
-        ).some
+        atomLinkTag = atomUi
+          .headLink(
+            routes.Ublog.communityAtom(languageOrAll),
+            "Lichess community blogs"
+          )
+          .some
       )
       .hrefLangs(lila.ui.LangPath(langHref(routes.Ublog.communityAll(filter.some)))):
         main(cls := "page-menu")(
