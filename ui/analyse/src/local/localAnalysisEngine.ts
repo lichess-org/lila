@@ -184,7 +184,7 @@ export class LocalAnalysisEngine {
         division,
         ch: this.ctrl.study?.data.chapter.id ?? '',
         tree: this.nodes[0],
-        meta: {
+        analysis: {
           id: this.ctrl.idbTree.id,
           white: review.summary.white,
           black: review.summary.black,
