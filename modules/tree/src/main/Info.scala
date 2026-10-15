@@ -65,12 +65,14 @@ object Info:
       ply <- (json \ "ply").validate[Ply]
       cp <- (json \ "eval" \ "cp").validateOpt[Int]
       mate <- (json \ "eval" \ "mate").validateOpt[Int]
+      mateGiven <- (json \ "eval" \ "mateGiven").validateOpt[Boolean]
       best <- (json \ "eval" \ "best").validateOpt[Uci]
       variation <- (json \ "variation").validate[List[SanStr]]
     yield
       val score = cp
-        .map(Score.cp)
+        .map(cp => WhiteScore.fromWhite(Score.cp(cp)))
         .orElse:
-          mate.map: value =>
-            if value == 0 && ply.turn.black then Score.MateGiven else Score.mate(value)
-      Info(ply, Eval(score.map(WhiteScore.fromWhite), best), variation)
+          mate.map:
+            case 0 => WhiteScore(if mateGiven.has(true) then Score.MateGiven else Score.mated, ply.turn)
+            case value => WhiteScore.fromWhite(Score.mate(value))
+      Info(ply, Eval(score, best), variation)
