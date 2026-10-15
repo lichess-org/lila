@@ -985,8 +985,6 @@ interface I18n {
     findSquare: string;
     /** Go as long as you want, there is no time limit! */
     goAsLongAsYouWant: string;
-    /** Hide buttons */
-    hideButtons: string;
     /** Knowing the chessboard coordinates is a very important skill for several reasons: */
     knowingTheChessBoard: string;
     /** Most chess courses and exercises use the algebraic notation extensively. */
@@ -997,8 +995,6 @@ interface I18n {
     practiceOnlySomeFilesAndRanks: string;
     /** Press %s to start */
     pressEnterToStart: I18nFormat;
-    /** Show buttons */
-    showButtons: string;
     /** Show coordinates */
     showCoordinates: string;
     /** Coordinates on every square */

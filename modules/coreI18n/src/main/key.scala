@@ -530,8 +530,6 @@ object I18nKey:
     val `practiceOnlySomeFilesAndRanks`: I18nKey = "coordinates:practiceOnlySomeFilesAndRanks"
     val `enterTheCoordinate`: I18nKey = "coordinates:enterTheCoordinate"
     val `pressEnterToStart`: I18nKey = "coordinates:pressEnterToStart"
-    val `showButtons`: I18nKey = "coordinates:showButtons"
-    val `hideButtons`: I18nKey = "coordinates:hideButtons"
 
   object dgt:
     val `dgtBoard`: I18nKey = "dgt:dgtBoard"

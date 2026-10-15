@@ -21,6 +21,4 @@
   <string name="practiceOnlySomeFilesAndRanks" comment="Label for a checkbox, keep it very short">Practice only some files &amp; ranks</string>
   <string name="enterTheCoordinate">Enter the coordinate</string>
   <string name="pressEnterToStart">Press %s to start</string>
-  <string name="showButtons">Show buttons</string>
-  <string name="hideButtons">Hide buttons</string>
 </resources>
