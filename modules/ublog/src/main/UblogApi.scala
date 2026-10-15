@@ -214,6 +214,8 @@ final class UblogApi(
             trustedAuthor <- isAuthorTrusted(post)
             newPost = post.copy(automod = result.some).computeEffectiveQuality(trustedAuthor)
             _ <- updateQualityFields(newPost)
+            _ <- (trustedAuthor && newPost.quality == Quality.good).so:
+              setTierIfBlogExists(post.blog, Tier.CRAWLABLE)
           yield newPost.some
         .recoverWith: e =>
           if n < retries then delay((30 * math.pow(2, n).toInt).seconds)(attempt(n + 1))

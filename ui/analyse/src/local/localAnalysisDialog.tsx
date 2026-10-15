@@ -155,7 +155,7 @@ class LocalAnalysisDialog {
         <br />,
         this.canPublish.showButton && i18n.localAnalysis.youCanPublish,
       ];
-      this.ctrl.mergeLocalAnalysisData(result.localUpdate);
+      this.ctrl.mergeMainlineAnalysisData(result.localUpdate);
       this.engine = undefined;
       redraw();
     } catch (e) {
@@ -196,7 +196,7 @@ class LocalAnalysisDialog {
       log(`${rsp.status} ${rsp.statusText} ${(await rsp.text()).slice(0, 255)}`);
       this.status = i18n.localAnalysis.analysisUploadFailed;
     } else {
-      this.ctrl.publishedEvalEngine = structuredClone(this.ctrl.staticAnalysis?.engine);
+      this.ctrl.publishedEvalEngine = structuredClone(this.ctrl.mainlineAnalysis?.engine);
       await this.ctrl.idbTree.clear('analysis');
       this.ctrl.redraw();
       this.status = i18n.site.success;
@@ -252,7 +252,7 @@ class LocalAnalysisDialog {
     const preludes: LooseVNodes = [];
     const trailers: LooseVNodes = [];
     const [current, published] = [
-      this.ctrl.staticAnalysis?.engine,
+      this.ctrl.mainlineAnalysis?.engine,
       this.ctrl.idbTree.hasLocalAnalysis && this.ctrl.publishedEvalEngine,
     ].filter(Boolean);
     if (!current) {
@@ -298,7 +298,7 @@ class LocalAnalysisDialog {
         this.analysisInfo(this.ctrl.publishedEvalEngine),
         this.separator(i18n.localAnalysis.currentAnalysis),
       ],
-      current && this.analysisInfo(this.ctrl.staticAnalysis?.engine),
+      current && this.analysisInfo(this.ctrl.mainlineAnalysis?.engine),
       this.separator(i18n.localAnalysis.willUse),
       <div class="analysis-settings">
         <div class="setting">

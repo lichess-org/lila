@@ -72,7 +72,6 @@
   <string name="blindfold" comment="As in Blindfold chess">Blindsjakk</string>
   <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">Vis til venstre på mobile enheter</string>
   <string name="inlineNotation">Innebygd notasjon</string>
-  <string name="showServerAnalysis">Vis serveranalyse</string>
   <string name="showBestMoveArrows">Vis piler for beste trekk</string>
   <string name="showManeuverArrows">Vis manøverpiler</string>
   <string name="showGauge">Vis evalueringsmåler</string>

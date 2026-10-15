@@ -48,7 +48,6 @@
   <string name="annotateWithGlyphs">Anotar con iconos</string>
   <string name="theChapterIsTooShortToBeAnalysed">El capítulo es demasiado corto para analizarlo.</string>
   <string name="onlyContributorsCanRequestAnalysis">Sólo los colaboradores del estudio pueden solicitar un análisis por ordenador.</string>
-  <string name="getAFullComputerAnalysis">Obtén un análisis completo de la línea principal en el servidor.</string>
   <string name="makeSureTheChapterIsComplete">Asegúrate de que el capítulo está completo. Sólo puede solicitar el análisis una vez.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Todos los miembros de SYNC permanecen en la misma posición</string>
   <string name="shareChanges">Comparte cambios con los espectadores y guárdalos en el servidor</string>
@@ -199,4 +198,9 @@
   <string name="doubleDefeat">Doble derrota</string>
   <string name="blackDefeatWhiteCanNotWin">Derrota negra, aunque el blanco no puede ganar</string>
   <string name="whiteDefeatBlackCanNotWin">Derrota Blanca, aunque el Negro no puede ganar</string>
+  <string name="analysisEditor">Editor de análisis</string>
+  <string name="clearLocal">¿Borrar análisis local?</string>
+  <string name="clearPublished">¿Borrar análisis publicado?</string>
+  <string name="requestAServerAnalysis">Solicitar un análisis al servidor</string>
+  <string name="analyzeOnYourDevice">Analizar en tu dispositivo</string>
 </resources>

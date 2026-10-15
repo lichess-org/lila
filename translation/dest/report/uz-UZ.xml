@@ -3,8 +3,11 @@
   <string name="whatIsTheMatter">Muammo nimada?</string>
   <string name="cheat">Chiting</string>
   <string name="troll">Troll</string>
+  <string name="reportStall">Vaqtni choʻzish / Oʻyinni tark etish</string>
+  <string name="reportBoost">Reytingni soxtalashtirish / Kelishilgan oʻyinlar</string>
   <string name="reportVerbalAbuse">Ogʻzaki haqorat / Soʻkinish / Trolling</string>
   <string name="reportViolence">Zoʻravonlik / Doʻq-poʻpisa</string>
+  <string name="reportHarass">Haqoratlash / Tazyiq oʻtkazish / Taʼqib qilish</string>
   <string name="reportSelfHarm">Oʻz joniga qasd qilish / Oʻz-oʻziga jarohat yetkazish</string>
   <string name="reportHate">Nafratli soʻzlar / Seksizm</string>
   <string name="reportSpam">Spam</string>

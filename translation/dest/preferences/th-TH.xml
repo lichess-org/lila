@@ -66,4 +66,5 @@
   <string name="bellNotificationSound">เสียงกระดิ่งแจ้งเตือน</string>
   <string name="blindfold" comment="As in Blindfold chess">หมากล่องหล</string>
   <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">แสดงที่ฝั่งซ้ายของอุปกรณ์เคลื่อนที่</string>
+  <string name="showMainlineAnalysis">แสดงเส้นทางตาเดินหลักจากการวิเคราะห์</string>
 </resources>

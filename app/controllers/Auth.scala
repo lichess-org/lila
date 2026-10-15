@@ -504,10 +504,7 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
     else
       Firewall:
         consumingToken(token): user =>
-          Ok.async:
-            env.security.loginToken.magicLink
-              .generate(user)
-              .map(views.auth.tokenLoginConfirmation(user, _))
+          Ok.page(views.auth.tokenLoginConfirmation(user, token))
 
   def loginWithTokenPost(token: String) =
     Open:

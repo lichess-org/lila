@@ -51,7 +51,6 @@
   <string name="annotateWithGlyphs">Adnotează cu simboluri</string>
   <string name="theChapterIsTooShortToBeAnalysed">Capitolul este prea mic pentru a fi analizat.</string>
   <string name="onlyContributorsCanRequestAnalysis">Numai contribuitorii studiului pot solicita o analiză a computerului.</string>
-  <string name="getAFullComputerAnalysis">Obțineți o întreagă analiză server-side a computerului a variației principale.</string>
   <string name="makeSureTheChapterIsComplete">Asigurați-vă că acest capitol este complet. Puteți solicita o analiză doar o singură dată.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Toți membrii sincronizați rămân la aceeași poziție</string>
   <string name="shareChanges">Împarte modificările cu spectatorii și salvează-le pe server</string>
@@ -203,4 +202,9 @@
   <string name="doubleDefeat">Înfrângere dublă</string>
   <string name="blackDefeatWhiteCanNotWin">Negrul pierde, dar Albul nu poate câștiga</string>
   <string name="whiteDefeatBlackCanNotWin">Albul pierde, dar Negrul nu poate câștiga</string>
+  <string name="analysisEditor">Editor de analiză</string>
+  <string name="clearLocal">Ștergeți analiza locală?</string>
+  <string name="clearPublished">Ștergeți analiza publicată?</string>
+  <string name="requestAServerAnalysis">Cerere analiză server</string>
+  <string name="analyzeOnYourDevice">Analizează pe dispozitivul tău</string>
 </resources>

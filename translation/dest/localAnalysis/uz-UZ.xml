@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="analyse">Tahlil qilish</string>
+  <string name="onTheServer">Serverda</string>
+  <string name="local">Lokal</string>
+  <string name="currentAnalysis">Hozirgi tahlil</string>
+  <string name="cannotPublish">Nashr qilib boʻlmaydi</string>
+  <string name="using">Ishlatmoqda</string>
+  <string name="willUse">Ishlatadi</string>
+  <string name="quality">Sifat</string>
+  <string name="publish">Nashr qilish</string>
+  <string name="published">Nashr etilgan</string>
+  <string name="analysisUploadFailed">Tahlilni yuklab qoʻyib boʻlmadi. Keyinroq qayta urinib koʻring.</string>
+  <string name="serverAnalysisInProgress">Ushbu oʻyin uchun serverda tahlil ketmoqda. U tugagach, qayta urinib koʻrishingiz mumkin.</string>
+  <string name="youCanPublish">Lokal tahlilingizni nashr qilish mumkin.</string>
+  <string name="startingPosition">Boshlangʻich pozitsiya</string>
+  <string name="keepThisBrowserTabActive">Tahlil davomida ushbu brauzer varagʻini ochiq qoldiring</string>
+  <string name="xTimesStandardQuality">%sx sifat darajasi</string>
+  <string name="moveXOfY" comment="should this be in site?">%1$s/%2$s-yurish</string>
+  <string name="downloadingXofY" comment="should this be in site?">%1$s/%2$s yuklanmoqda</string>
+  <string name="timeToComplete">Bu tahminan %s vaqt oladi</string>
+  <string name="xWouldBeFaster">%s tezroq boʻladi</string>
+</resources>

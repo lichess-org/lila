@@ -29,7 +29,7 @@ case class Page(
     pageModule: Option[PageModule] = None,
     openGraph: Option[OpenGraph] = None,
     csp: Option[Update[ContentSecurityPolicy]] = None,
-    atomLinkTag: Option[Tag] = None,
+    atomLink: Option[(Call, String)] = None,
     withHrefLangs: Option[LangPath] = None,
     flags: Set[PageFlags] = Set.empty,
     transform: Update[Frag] = identity,

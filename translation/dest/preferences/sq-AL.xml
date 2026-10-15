@@ -62,7 +62,6 @@
   <string name="blindfold" comment="As in Blindfold chess">Me sytë lidhur</string>
   <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">Shfaqe në të majtë të pajisjesh celulare</string>
   <string name="inlineNotation">Shënim brendazi</string>
-  <string name="showServerAnalysis">Shfaq analizë shërbyesi</string>
   <string name="showBestMoveArrows">Shfaq shigjeta lëvizjesh më të mira</string>
   <string name="showManeuverArrows">Shfaq shigjeta manovre</string>
   <string name="showVariationArrows">Shfaq shigjeta variantesh</string>

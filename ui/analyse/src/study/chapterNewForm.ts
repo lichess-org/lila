@@ -304,7 +304,7 @@ export function view(ctrl: StudyChapterNewForm): VNode {
                 }),
               }),
               button(
-                '.preview-in-editor',
+                '.button-link.preview-in-editor',
                 {
                   hook: bind('click', () => ctrl.tab('edit'), ctrl.root.redraw),
                 },
@@ -317,7 +317,7 @@ export function view(ctrl: StudyChapterNewForm): VNode {
                 placeholder: i18n.study.pasteYourPgnTextHereUpToNbGames(ctrl.multiPgnMax),
               }),
               button(
-                '.button.button-empty.import-from__chapter',
+                '.button-link.import-from__chapter',
                 {
                   type: 'button',
                   hook: bind(

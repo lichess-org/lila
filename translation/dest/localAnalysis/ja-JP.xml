@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="analyse">解析</string>
+  <string name="onTheServer">サーバ上</string>
+  <string name="local">ローカル</string>
+  <string name="currentAnalysis">現在の解析</string>
+  <string name="cannotPublish">公開できません</string>
+  <string name="nodesPerMove">１手あたりノード数</string>
+  <string name="using">使用中</string>
+  <string name="quality">クオリティ</string>
+  <string name="publish">公開</string>
+  <string name="published">公開済み</string>
+  <string name="chooseYourEngineSettings">「解析」をクリックすると主手順を評価します。</string>
+  <string name="analysisUploadFailed">解析のアップロードに失敗。後でまたどうぞ。</string>
+  <string name="serverAnalysisInProgress">この棋譜にはサーバ解析が進行中です。それが終わった後でもう一度どうぞ。</string>
+  <string name="youCanPublish">自分のローカル解析を公開できます。</string>
+  <string name="whenUpgradingOldChapters">ローカル解析導入前に作られた章のサーバ解析は正しくアップグレードできません。先に削除しておかないと、古いエンジンによる手順とコメントが残ったままになります。</string>
+  <string name="startingPosition">開始局面</string>
+  <string name="keepThisBrowserTabActive">解析中はこのブラウザタブをアクティブにしておくこと</string>
+  <string name="timeToComplete">%s 前後かかります</string>
+</resources>

@@ -12,6 +12,7 @@ case class UblogBlog(
 ):
   def visible = tier >= UblogBlog.Tier.UNLISTED
   def listed = tier >= UblogBlog.Tier.REGULAR
+  def crawlable = tier >= UblogBlog.Tier.CRAWLABLE
 
   def userId = id match
     case UblogBlog.Id.User(userId) => userId

@@ -74,7 +74,7 @@
   }
 }
 
-@media (hover: hover) and (pointer: fine) {
+@include mq-has-hover {
   .pv_box .pv[data-uci]:hover {
     background: color-mix(in oklab, $c-secondary 20%, $c-bg);
     cursor: pointer;

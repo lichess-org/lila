@@ -1,2 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="makesPerfect">fa els teus escacs perfectes</string>
+  <string name="signUpToSaveYourProgress">Registra\'t per desar el teu progrés</string>
+  <string name="secHeadCheckmates">Mats</string>
+  <string name="secHeadFundamentalTactics">Tàctiques fonamentals</string>
+  <string name="secHeadAdvancedTactics">Tàctiques avançades</string>
+  <string name="secHeadPawnEndgames">Finals de peons</string>
+  <string name="secHeadRookEndgames">Finals de torres</string>
+  <string name="stNamPieceCheckmatesI">Mat de Peces I</string>
+  <string name="stNamCheckmatePatternsI">Patrons de mat I</string>
+  <string name="stNamCheckmatePatternsII">Patrons de mat II</string>
+  <string name="stNamCheckmatePatternsIII">Patrons de mat II</string>
+  <string name="stNamCheckmatePatternsIV">Patrons de mat IV</string>
+  <string name="stNamPieceCheckmatesII">Mats de peces II</string>
+  <string name="stNamKnightAndBishopMate">Mat de cavall i alfil</string>
+  <string name="stNamThePin">La clavada</string>
+  <string name="stNamDiscoveredAttacks">Atacs a la descoberta</string>
+  <string name="stNamDoubleCheck">Escac doble</string>
+  <string name="stNamOverloadedPieces">Peces sobrecarregades</string>
+  <string name="stNamZwischenzug">Jjugada intermèdia</string>
+  <string name="stNamXRay">Raig-X</string>
+  <string name="stNamZugzwang">Zugzwang (atzucac)</string>
+  <string name="stNamInterference">Interferència</string>
+  <string name="stNamGreekGift">Sacrifici grec</string>
+  <string name="stNamDeflection">Desviació</string>
+  <string name="stNamAttraction">Atracció</string>
+  <string name="stNamUnderpromotion">Promoció menor</string>
+  <string name="stNamDesperado">Desperado (peça boja)</string>
+  <string name="stNamClearance">Alliberament</string>
+  <string name="stNamKeySquares">Caselles clau</string>
+  <string name="stNamOpposition">Oposició</string>
+  <string name="stDesBasicCheckmates">Mats bàsics</string>
+  <string name="stDesRecognizeThePatterns">Reconeix els patrons</string>
+  <string name="stDesInteractiveLesson">Lliçó interactiva</string>
+  <string name="stDesLucenaAndPhilidor">Lucena i Philidor</string>
+  <string name="stDesBroadenYourKnowledge">Amplia el teu coneixement</string>
+  <string name="stDesRookEndingsWithSeveralPawns">Finals de torres amb diversos peons</string>
+</resources>
