@@ -19,4 +19,8 @@
   <string name="sleep">Sleep (if wake word enabled)</string>
   <string name="turnOffVoiceRecognition">Turn off voice recognition</string>
   <string name="showPuzzleSolution">Show puzzle solution</string>
+  <string name="voiceHelp">Voice help</string>
+  <string name="voiceSettings">Voice settings</string>
+  <string name="pushShiftKeyToTalk">Push %s key to talk</string>
+  <string name="holdShiftKeyWhileSpeaking">Hold the shift key while speaking</string>
 </resources>

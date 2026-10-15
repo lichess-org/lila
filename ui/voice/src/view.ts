@@ -17,11 +17,11 @@ export function renderVoiceBar(ctrl: VoiceCtrl, redraw: () => void, cls?: string
         hook: onInsert(el => ctrl.mic.setController(voiceBarUpdater(ctrl, el))),
       }),
       hl('button#voice-help-button', {
-        attrs: { ...dataIcon(licon.InfoCircle), title: i18n.site.voiceHelp },
+        attrs: { ...dataIcon(licon.InfoCircle), title: i18n.voiceCommands.voiceHelp },
         hook: bind('click', () => ctrl.showHelp(true), undefined, false),
       }),
       hl('button#voice-settings-button', {
-        attrs: { ...dataIcon(licon.Gear), title: i18n.site.voiceSettings },
+        attrs: { ...dataIcon(licon.Gear), title: i18n.voiceCommands.voiceSettings },
         class: { active: ctrl.showPrefs() },
         hook: bind('click', () => ctrl.showPrefs.toggle(), redraw, false),
       }),
@@ -54,9 +54,9 @@ function voiceBarUpdater(ctrl: VoiceCtrl, el: HTMLElement) {
 
 function pushTalkSetting(ctrl: VoiceCtrl) {
   return hl('div.voice-setting', [
-    hl('label.cmn-toggle-wrap', { attrs: { title: i18n.site.holdShiftKeyWhileSpeaking } }, [
+    hl('label.cmn-toggle-wrap', { attrs: { title: i18n.voiceCommands.holdShiftKeyWhileSpeaking } }, [
       cmnToggleProp({ id: 'wake-mode', prop: ctrl.pushTalk }),
-      ...i18n.site.pushShiftKeyToTalk.asArray(hl('strong', 'shift')),
+      ...i18n.voiceCommands.pushShiftKeyToTalk.asArray(hl('strong', 'shift')),
     ]),
   ]);
 }

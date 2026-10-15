@@ -1066,8 +1066,4 @@ Leave empty to start games from the normal initial position.</string>
   <string name="done">Done</string>
   <string name="microphone">Microphone</string>
   <string name="noneSelected">None selected</string>
-  <string name="voiceHelp">Voice help</string>
-  <string name="voiceSettings">Voice settings</string>
-  <string name="pushShiftKeyToTalk">Push %s key to talk</string>
-  <string name="holdShiftKeyWhileSpeaking">Hold the shift key while speaking</string>
 </resources>

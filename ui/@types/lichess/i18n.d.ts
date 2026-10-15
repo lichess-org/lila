@@ -4051,8 +4051,6 @@ interface I18n {
     help: string;
     /** Hide best move */
     hideBestMove: string;
-    /** Hold the shift key while speaking */
-    holdShiftKeyWhileSpeaking: string;
     /** Host */
     host: string;
     /** Host a new simul */
@@ -4607,8 +4605,6 @@ interface I18n {
     promoteVariation: string;
     /** Propose a takeback */
     proposeATakeback: string;
-    /** Push %s key to talk */
-    pushShiftKeyToTalk: I18nFormat;
     /** Chess tactics trainer */
     puzzleDesc: string;
     /** Puzzles */
@@ -5115,10 +5111,6 @@ interface I18n {
     viewTournament: string;
     /** Visual motifs */
     visualMotifs: string;
-    /** Voice help */
-    voiceHelp: string;
-    /** Voice settings */
-    voiceSettings: string;
     /** Waiting */
     waiting: string;
     /** Waiting for analysis */
@@ -6569,6 +6561,8 @@ interface I18n {
     cancelTimerOrDenyARequest: string;
     /** Castle (either side) */
     castle: string;
+    /** Hold the shift key while speaking */
+    holdShiftKeyWhileSpeaking: string;
     /** Use the %1$s button to toggle voice recognition, the %2$s button to open this help dialog, and the %3$s menu to change speech settings. */
     instructions1: I18nFormat;
     /** We show arrows for multiple moves when we are not sure. Speak the colour or number of a move arrow to select it. */
@@ -6587,6 +6581,8 @@ interface I18n {
     phoneticAlphabetIsBest: string;
     /** Play preferred move or confirm something */
     playPreferredMoveOrConfirmSomething: string;
+    /** Push %s key to talk */
+    pushShiftKeyToTalk: I18nFormat;
     /** Select or capture a bishop */
     selectOrCaptureABishop: string;
     /** Show puzzle solution */
@@ -6601,6 +6597,10 @@ interface I18n {
     turnOffVoiceRecognition: string;
     /** Voice commands */
     voiceCommands: string;
+    /** Voice help */
+    voiceHelp: string;
+    /** Voice settings */
+    voiceSettings: string;
     /** Watch the video tutorial */
     watchTheVideoTutorial: string;
   };
