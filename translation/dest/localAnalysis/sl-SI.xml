@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="analyse">Analizirajte</string>
+  <string name="onTheServer">Na strežniku</string>
+  <string name="local">Lokalno</string>
+  <string name="currentAnalysis">Trenutna analiza</string>
+  <string name="cannotPublish">Objava ni mogoča</string>
+  <string name="nodesPerMove">Vozlišča na potezo</string>
+  <string name="using">Uporaba</string>
+  <string name="willUse">Bom uporabil</string>
+  <string name="quality">Kakovost</string>
+  <string name="publish">Objavi</string>
+  <string name="published">Objavljeno</string>
+  <string name="chooseYourEngineSettings">Kliknite »Analiziraj«, da ocenite glavno nadaljevanje.</string>
+  <string name="bestResultsUseXWithYThreads">Za najboljše rezultate v najkrajšem času uporabite %1$s z nitmi %2$s.</string>
+  <string name="analysisUploadFailed">Nalaganje analize ni uspelo. Poskusite znova pozneje.</string>
+  <string name="serverAnalysisInProgress">Za to igro poteka analiza strežnika. Ko bo ta končana, lahko poskusite znova.</string>
+  <string name="youCanPublish">Vaša lokalna analiza je lahko objavljena.</string>
+  <string name="turnOnRec">Preden lahko delite lokalno analizo s študijo, morate omogočiti REC.</string>
+  <string name="whenUpgradingOldChapters">Analize na strežniku za poglavja, ustvarjena pred uvedbo lokalne analize, ni mogoče brezhibno nadgraditi. Starejše linije in komentarji v analizi bodo ostali, razen če jih najprej odstranite.</string>
+  <string name="startingPosition">Začetna pozicija</string>
+  <string name="keepThisBrowserTabActive">Med analizo naj bo ta zavihek brskalnika aktiven</string>
+  <string name="xTimesStandardQuality">%sx standardna kakovost</string>
+  <string name="moveXOfY" comment="should this be in site?">Premakni %1$s od %2$s</string>
+  <string name="downloadingXofY" comment="should this be in site?">Prenašanje %1$s od %2$s</string>
+  <string name="timeToComplete">To bo trajalo približno %s</string>
+  <string name="xWouldBeFaster">%s bi bil hitrejši</string>
+</resources>

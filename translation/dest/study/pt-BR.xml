@@ -48,7 +48,6 @@
   <string name="annotateWithGlyphs">Anotar com símbolos</string>
   <string name="theChapterIsTooShortToBeAnalysed">O capítulo é muito curto para ser analisado.</string>
   <string name="onlyContributorsCanRequestAnalysis">Apenas os colaboradores de um estudo podem solicitar uma análise de computador.</string>
-  <string name="getAFullComputerAnalysis">Obter uma análise completa dos movimentos pelo servidor.</string>
   <string name="makeSureTheChapterIsComplete">Certifique-se de que o capítulo está completo. Você só pode solicitar análise uma vez.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Todos os membros em SYNC veem a mesma posição</string>
   <string name="shareChanges">Compartilhar as alterações com os espectadores e salvá-las no servidor</string>
@@ -199,4 +198,9 @@
   <string name="doubleDefeat">Derrota dupla</string>
   <string name="blackDefeatWhiteCanNotWin">Pretas perderam, mas brancas não podem vencer</string>
   <string name="whiteDefeatBlackCanNotWin">Brancas perderam, mas pretas não podem vencer</string>
+  <string name="analysisEditor">Editor de análise</string>
+  <string name="clearLocal">Limpar análise local?</string>
+  <string name="clearPublished">Limpar análise publicada?</string>
+  <string name="requestAServerAnalysis">Solicitar uma análise do computador</string>
+  <string name="analyzeOnYourDevice">Analise no seu dispositivo</string>
 </resources>

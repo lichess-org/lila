@@ -73,7 +73,6 @@
   <string name="blindfold" comment="As in Blindfold chess">Geblinddoekt</string>
   <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">Toon links op mobiele apparaten</string>
   <string name="inlineNotation">Geïntegreerde notatie</string>
-  <string name="showServerAnalysis">Toon serveranalyse</string>
   <string name="showBestMoveArrows">Toon beste zet-pijlen</string>
   <string name="showManeuverArrows">Toon manoeuvre-pijlen</string>
   <string name="showGauge">Toon evaluatiebalk</string>

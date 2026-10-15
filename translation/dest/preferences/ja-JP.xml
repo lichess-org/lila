@@ -73,7 +73,7 @@
   <string name="blindfold" comment="As in Blindfold chess">めかくしモード</string>
   <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">モバイル機器では左側に表示</string>
   <string name="inlineNotation">棋譜を行書き</string>
-  <string name="showServerAnalysis">サーバ解析を表示</string>
+  <string name="showMainlineAnalysis">主手順の解析を表示</string>
   <string name="showBestMoveArrows">最善手の矢印を表示</string>
   <string name="showManeuverArrows">駒繰りの矢印を表示</string>
   <string name="showGauge">評価値ゲージを表示</string>

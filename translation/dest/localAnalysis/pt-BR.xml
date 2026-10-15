@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="analyse">Análise</string>
+  <string name="onTheServer">No servidor</string>
+  <string name="local">Local</string>
+  <string name="currentAnalysis">Análise atual</string>
+  <string name="cannotPublish">Não é possível publicar</string>
+  <string name="nodesPerMove">Nós por lance</string>
+  <string name="using">Usando</string>
+  <string name="willUse">Usará</string>
+  <string name="quality">Qualidade</string>
+  <string name="publish">Publicar</string>
+  <string name="published">Publicado</string>
+  <string name="chooseYourEngineSettings">Clique em Análise para marcar a linha principal.</string>
+  <string name="bestResultsUseXWithYThreads">Para melhores resultados em menor tempo, use %1$s com %2$s threads.</string>
+  <string name="analysisUploadFailed">Falha ao carregar a análise. Tente novamente mais tarde.</string>
+  <string name="serverAnalysisInProgress">Há uma análise do servidor em andamento para este jogo. Você pode tentar novamente quando terminar.</string>
+  <string name="youCanPublish">A sua análise local pode ser publicada.</string>
+  <string name="turnOnRec">Você deve habilitar o REC antes de compartilhar a análise local para um estudo.</string>
+  <string name="whenUpgradingOldChapters">A análise de servidor em capítulos criados antes da introdução da análise local não pode ser atualizada de forma limpa. Linhas e comentários do motor mais antigos permanecerão a menos que você as remova primeiro.</string>
+  <string name="startingPosition">Posição inicial</string>
+  <string name="keepThisBrowserTabActive">Mantenha esta guia do navegador aberta durante as análises</string>
+  <string name="xTimesStandardQuality">%sx qualidade padrão</string>
+  <string name="moveXOfY" comment="should this be in site?">Movido %1$s de %2$s</string>
+  <string name="downloadingXofY" comment="should this be in site?">Baixando %1$s de %2$s</string>
+  <string name="timeToComplete">Isto vai levar cerca de %s</string>
+  <string name="xWouldBeFaster">%s seria mais rápido</string>
+</resources>

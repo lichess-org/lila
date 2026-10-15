@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="analyse">Analizar</string>
+  <string name="onTheServer">No servidor</string>
+  <string name="local">Local</string>
+  <string name="currentAnalysis">Análise actual</string>
+  <string name="cannotPublish">Non se pode publicar</string>
+  <string name="nodesPerMove">Nodos por movemento</string>
+  <string name="using">Usando</string>
+  <string name="willUse">Vai usar</string>
+  <string name="quality">Calidade</string>
+  <string name="publish">Publicar</string>
+  <string name="published">Publicada</string>
+  <string name="chooseYourEngineSettings">Fai clic en Analizar para obter a avaliación da liña principal.</string>
+  <string name="analysisUploadFailed">Erro ó cargar a análise. Téntao máis tarde.</string>
+  <string name="turnOnRec">Tes que activar a gravación (REC) para poder compartir a análise local nun estudo.</string>
+  <string name="startingPosition">Posición inicial</string>
+  <string name="keepThisBrowserTabActive">Mantén esta lapela do navegador activa durante a análise</string>
+  <string name="xTimesStandardQuality">%sx calidade estándar</string>
+  <string name="timeToComplete">Tardará aproximadamente %s</string>
+</resources>
