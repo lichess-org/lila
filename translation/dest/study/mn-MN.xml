@@ -29,7 +29,6 @@
   <string name="annotateWithGlyphs">Глиффүүдээр тэмдэглэ</string>
   <string name="theChapterIsTooShortToBeAnalysed">Энэ бүлэгт дүн шинжилгээ хийхэд хэтэрхий богино байна.</string>
   <string name="onlyContributorsCanRequestAnalysis">Зөвхөн судалгааны хувь нэмэр оруулагчид компьютерийн шинжилгээ хийлгэх хүсэлт гаргаж болно.</string>
-  <string name="getAFullComputerAnalysis">Үндсэн шугамын сервер талын компьютерийн анализ хийх.</string>
   <string name="makeSureTheChapterIsComplete">Бүлэг дууссан эсэхийг шалгаарай. Та зөвхөн нэг удаа шинжилгээг хүсч болно.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">СССК-ийн бүх гишүүд ижил байрлалд байна</string>
   <string name="shareChanges">Сонирхогчдын өөрчлөлтийг хуваалцаж, тэднийг сервер дээр хадгалах</string>

@@ -48,7 +48,6 @@
   <string name="annotateWithGlyphs">Kommenter med symbol</string>
   <string name="theChapterIsTooShortToBeAnalysed">Kapittelet er for kort for å analyserast.</string>
   <string name="onlyContributorsCanRequestAnalysis">Berre bidragsytarar til studien kan be om maskinanalyse.</string>
-  <string name="getAFullComputerAnalysis">Få full maskinanalyse av hovedvarianten frå serveren.</string>
   <string name="makeSureTheChapterIsComplete">Sørg for at kapittelet er fullført. Du kan berre be om analyse ein gong.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Alle SYNC-medlemene ser den same stillingen</string>
   <string name="shareChanges">Lagre endringar på serveren og del dei med tilskodarar</string>
@@ -199,4 +198,9 @@
   <string name="doubleDefeat">Dobbelt nederlag</string>
   <string name="blackDefeatWhiteCanNotWin">Nederlag for svart, men kvit kan ikkje sigra</string>
   <string name="whiteDefeatBlackCanNotWin">Nederlag for kvit, men svart kan ikkje sigra</string>
+  <string name="analysisEditor">Analyse-editor</string>
+  <string name="clearLocal">Slette lokale analysar?</string>
+  <string name="clearPublished">Fjerne publiserte analysar?</string>
+  <string name="requestAServerAnalysis">Be om serveranalyse</string>
+  <string name="analyzeOnYourDevice">Analyser på eininga di</string>
 </resources>

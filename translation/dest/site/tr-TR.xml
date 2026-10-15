@@ -459,7 +459,7 @@ Puanlı oyunlar oynamak istikrarınızı artıracaktır.</string>
   <string name="noNetwork">Çevrimdışı</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s arkadaş çevrimiçi</item>
-    <item quantity="other">%s arkadaş çevrim içi</item>
+    <item quantity="other">%s arkadaş çevrimiçi</item>
   </plurals>
   <string name="friendsOnlineAndPlaying">Çevrimiçi arkadaşlar: %1$s
 Oynayan arkadaşlar: %2$s</string>

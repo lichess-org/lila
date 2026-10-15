@@ -45,7 +45,6 @@
   <string name="annotateWithGlyphs">Chú thích bằng dấu</string>
   <string name="theChapterIsTooShortToBeAnalysed">Chương này quá ngắn để có thể được phân tích.</string>
   <string name="onlyContributorsCanRequestAnalysis">Chỉ những người đóng góp nghiên cứu mới có thể yêu cầu máy tính phân tích.</string>
-  <string name="getAFullComputerAnalysis">Nhận phân tích máy tính phía máy chủ đầy đủ về biến chính.</string>
   <string name="makeSureTheChapterIsComplete">Hãy chắc chắn chương đã hoàn thành. Bạn chỉ có thể yêu cầu phân tích 1 lần.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Đồng bộ hóa tất cả các thành viên trên cùng một thế cờ</string>
   <string name="shareChanges">Chia sẻ các thay đổi với khán giả và lưu chúng trên máy chủ</string>

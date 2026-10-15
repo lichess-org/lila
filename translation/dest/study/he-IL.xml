@@ -50,7 +50,6 @@
   <string name="annotateWithGlyphs">השתמשו בסימנים מוסכמים כדי להגיב על מהלכים</string>
   <string name="theChapterIsTooShortToBeAnalysed">פרק זה קצר מכדי להצדיק ניתוח.</string>
   <string name="onlyContributorsCanRequestAnalysis">רק תורמי לוח הלמידה יכולים לבקש ניתוח ממוחשב.</string>
-  <string name="getAFullComputerAnalysis">קבל/י ניתוח צד־שרת מלא של המסעים העיקריים (mainline).</string>
   <string name="makeSureTheChapterIsComplete">ניתן לבקש ניתוח ממוחשב רק פעם אחת, ולכן ודאו שהפרק הושלם.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">כולם צופים באותה העמדה</string>
   <string name="shareChanges">שתפו שינויים עם הצופים ושמרו אותם על השרת</string>

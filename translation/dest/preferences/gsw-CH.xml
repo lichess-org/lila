@@ -72,7 +72,6 @@
   <string name="blindfold" comment="As in Blindfold chess">Blind schpille</string>
   <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">Uf mobile Grät, links azeige</string>
   <string name="inlineNotation">Inline-Notation</string>
-  <string name="showServerAnalysis">Server-Analyse zeigä</string>
   <string name="showBestMoveArrows">Pfiil für d\'beschti Züg zeige</string>
   <string name="showManeuverArrows">Manöver Pfiili zeige</string>
   <string name="showGauge">Bewertigs-Skala zeige</string>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="analyse">Analys</string>
+  <string name="onTheServer">Um Server</string>
+  <string name="local">Lokal</string>
+  <string name="nodesPerMove">Kniet pro Zuch</string>
+  <string name="using">benotzt</string>
+  <string name="willUse">wäert benotzten</string>
+  <string name="quality">Qualitéit</string>
+  <string name="publish">Verëffentlechen</string>
+  <string name="published">Verëffentlecht</string>
+  <string name="startingPosition">Ausgangsstellung</string>
+</resources>

@@ -48,7 +48,6 @@
   <string name="annotateWithGlyphs">Arvioi symbolein</string>
   <string name="theChapterIsTooShortToBeAnalysed">Luku on liian lyhyt analysoitavaksi.</string>
   <string name="onlyContributorsCanRequestAnalysis">Vain tutkielman osallistujat voivat pyytää tietokoneanalyysin.</string>
-  <string name="getAFullComputerAnalysis">Hanki palvelimelta täysi tietokoneanalyysi päälinjasta.</string>
   <string name="makeSureTheChapterIsComplete">Varmista, että luku on valmis. Voit pyytää analyysiä vain kerran.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Kaikki SYNC-jäsenet pysyvät samassa asemassa</string>
   <string name="shareChanges">Anna katsojien nähdä muutokset ja tallenna ne palvelimelle</string>

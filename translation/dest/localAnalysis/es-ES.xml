@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="analyse">Analizar</string>
+  <string name="onTheServer">En el servidor</string>
+  <string name="local">Local</string>
+  <string name="currentAnalysis">Análisis actual</string>
+  <string name="cannotPublish">No se puede publicar</string>
+  <string name="nodesPerMove">Nodos por movimiento</string>
+  <string name="using">Usando</string>
+  <string name="willUse">Usará</string>
+  <string name="quality">Calidad</string>
+  <string name="publish">Publicar</string>
+  <string name="published">Publicado</string>
+  <string name="chooseYourEngineSettings">Haz clic en Analizar para evaluar la línea principal.</string>
+  <string name="bestResultsUseXWithYThreads">Para obtener los mejores resultados en el tiempo más corto, usa %1$s con %2$s hilos.</string>
+  <string name="analysisUploadFailed">Error al subir el análisis. Inténtalo más tarde.</string>
+  <string name="serverAnalysisInProgress">Hay un análisis del servidor en progreso para esta partida. Puedes intentarlo de nuevo cuando haya finalizado.</string>
+  <string name="youCanPublish">Tu análisis local puede ser publicado.</string>
+  <string name="turnOnRec">Debes activar REC antes de poder compartir análisis locales en un estudio.</string>
+  <string name="whenUpgradingOldChapters">No se puede actualizar con seguridad el análisis del servidor para los capítulos creados antes de que se introdujera el análisis local. Los comentarios y líneas más antiguas del motor permanecerán a menos que las elimines primero.</string>
+  <string name="startingPosition">Posición inicial</string>
+  <string name="keepThisBrowserTabActive">Mantener esta pestaña del navegador activa durante el análisis</string>
+  <string name="xTimesStandardQuality">%sx calidad estándar</string>
+  <string name="moveXOfY" comment="should this be in site?">Movimiento %1$s de %2$s</string>
+  <string name="downloadingXofY" comment="should this be in site?">Descargando %1$s de %2$s</string>
+  <string name="timeToComplete">Esto llevará %s</string>
+  <string name="xWouldBeFaster">%s sería más rápido</string>
+</resources>
