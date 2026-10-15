@@ -150,7 +150,7 @@
         @include dropdown-action-highlight;
       }
 
-      @media (hover: hover) and (pointer: fine) {
+      @include mq-has-hover {
         .dropdown:not(.btn-rack__btn):hover > a {
           @include hamburger-visible;
         }

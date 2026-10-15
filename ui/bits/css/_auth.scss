@@ -24,10 +24,11 @@
 }
 
 .auth {
+  @include box-radius;
+
   width: 100%;
   margin: 0 auto;
   height: min-content;
-  border-radius: $box-radius-size;
   border: $border;
 
   &__brand {
@@ -127,7 +128,9 @@
     height: 50px;
     font-size: 16px;
     border: $border;
-    border-radius: $box-radius-size;
+
+    @include box-radius;
+
     background: $c-bg-input;
 
     &:focus-visible {
@@ -153,7 +156,8 @@
     top: 50%;
     transform: translateY(-50%);
     font-size: 1.3em;
-    border-radius: $box-radius-size;
+
+    @include box-radius;
 
     &:focus-visible {
       outline: $outline;
@@ -201,7 +205,8 @@
   .button {
     width: 100%;
     padding: 1.3rem;
-    border-radius: $box-radius-size;
+
+    @include box-radius;
   }
 
   .submit.button {

@@ -733,6 +733,8 @@
     }
 
     &__item {
+      @include ellipsis;
+
       box-sizing: border-box;
       padding: $tag-pad;
       margin: 0;
@@ -742,8 +744,6 @@
       outline: none;
       width: 100%;
       display: block;
-      text-overflow: ellipsis;
-      overflow: hidden;
       white-space: nowrap;
 
       &--active {

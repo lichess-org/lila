@@ -107,14 +107,14 @@
     margin: 0.5rem 0;
 
     button {
+      @include transition(background);
+
       display: block;
       padding: 0.7rem 1rem;
       width: 100%;
       text-align: start;
 
-      @include transition(background);
-
-      @media (hover: hover) and (pointer: fine) {
+      @include mq-has-hover {
         &:hover {
           background: $c-dasher-light;
         }
