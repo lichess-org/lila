@@ -32,6 +32,8 @@ final class Env(
 
   lazy val t3AuthMonitor = T3AuthMonitor()
 
+  lazy val sitemap = wire[Sitemap]
+
   private lazy val influxEvent = InfluxEvent(
     ws = ws,
     endpoint = config.influxEventEndpoint,

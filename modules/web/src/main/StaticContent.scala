@@ -24,6 +24,7 @@ Disallow: /embed/
 Disallow: /video?*
 Disallow: /training/of-player
 Allow: /game/export/gif/thumbnail/
+Sitemap: /sitemap.xml
 """
 
   val manifest = Json.obj(
