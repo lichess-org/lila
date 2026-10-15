@@ -277,15 +277,13 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
       )
     )
 
-  private val relocateTo = List(
-    "general-chess-discussion" -> "General Chess Discussion",
-    "lichess-feedback" -> "Lichess Feedback",
-    "game-analysis" -> "Game Analysis",
-    "off-topic-discussion" -> "Off-Topic Discussion"
-  )
-
-  private def relocateModal(from: lila.forum.ForumCateg) =
-    val options = relocateTo.collect:
+  private def relocateModal(from: lila.forum.ForumCateg)(using Context) =
+    val options = List(
+      "general-chess-discussion" -> trans.site.generalChessDiscussion.txt(),
+      "lichess-feedback" -> trans.site.lichessFeedback.txt(),
+      "game-analysis" -> trans.site.gameAnalysis.txt(),
+      "off-topic-discussion" -> trans.site.offTopicDiscussion.txt()
+    ).collect:
       case (slug, name) if slug != from.id.value => (slug, name)
     div(cls := "forum-relocate-modal none")(
       p("Move the entire thread to another forum"),

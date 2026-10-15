@@ -204,6 +204,10 @@
   <string name="forum">Forum</string>
   <string name="xPostedInForumY">%1$s posted in topic %2$s</string>
   <string name="latestForumPosts">Latest forum posts</string>
+  <string name="generalChessDiscussion">General Chess Discussion</string>
+  <string name="lichessFeedback">Lichess Feedback</string>
+  <string name="gameAnalysis">Game Analysis</string>
+  <string name="offTopicDiscussion">Off-Topic Discussion</string>
   <string name="players">Players</string>
   <string name="friends">Friends</string>
   <string name="otherPlayers">other players</string>
