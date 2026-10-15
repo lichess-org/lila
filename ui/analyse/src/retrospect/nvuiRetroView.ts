@@ -10,6 +10,7 @@ import type { AnalyseNvuiContext } from '@/analyse.nvui';
 import type AnalyseCtrl from '@/ctrl';
 import { clickHook, renderCurrentNode } from '@/nvuiUtil';
 import type { RetroCtrl } from '@/retrospect/retroCtrl';
+import { reviewMistakesLabel } from '@/util';
 
 export function renderRetro(nvuiCtx: AnalyseNvuiContext): LooseVNodes {
   const ctx = makeContext(nvuiCtx);
@@ -25,7 +26,7 @@ export function renderRetro(nvuiCtx: AnalyseNvuiContext): LooseVNodes {
     hl(
       'button.retro-toggle',
       ctx.focusFriendlyHook(ctrl.toggleRetro),
-      ctrl.retro ? i18n.site.finished : i18n.site.learnFromYourMistakes,
+      ctrl.retro ? i18n.site.finished : reviewMistakesLabel(ctrl.bottomColor()),
     ),
     hl('div.retro-view', { key: 'retro-view' }, [
       hl('label', mistakes && `Mistake ${Math.min(mistakes[0] + 1, mistakes[1])} of ${mistakes[1]}`),
