@@ -7,4 +7,9 @@ inputs:
     url: github:NixOS/nixpkgs/master
   sasso:
     url: github:momiji-rs/sasso/v0.21.0
+  lila-db-seed:
+    url: github:lichess-org/lila-db-seed
+    flake: false
+imports:
+  - lila-db-seed
 allowUnfree: true
