@@ -352,7 +352,10 @@ final class Ublog(env: Env) extends LilaController(env):
       for
         blog <- env.ublog.api.getUserBlog(user)
         posts <- isBlogVisible(user, blog).so(env.ublog.paginator.byUser(user, true, 1))
-      yield Ok.snip(views.ublog.ui.atom.user(user, posts.currentPageResults)).as(ATOM)
+      yield Ok
+        .snip(views.ublog.ui.atom.user(user, posts.currentPageResults))
+        .as(ATOM)
+        .withHeaders("X-Robots-Tag" -> (if blog.crawlable then "all" else "noindex"))
 
   def historicalBlogPost(id: String, @nowarn slug: String) = Open:
     Found(env.ublog.api.getByPrismicId(id)): post =>

@@ -73,7 +73,6 @@
   <string name="blindfold" comment="As in Blindfold chess">Koʻzi bogʻlangan shaxmat</string>
   <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">Mobil qurilmalarda chap tomonda koʻrsatilsin</string>
   <string name="inlineNotation">Qator ichi notatsiyasi</string>
-  <string name="showServerAnalysis">Server tahlilini koʻrsatish</string>
   <string name="showBestMoveArrows">Eng yaxshi yurish strelkalarini koʻrsatish</string>
   <string name="showManeuverArrows">Manyovr strelkalarini koʻrsatish</string>
   <string name="showGauge">Baho shakalasini koʻrsatish</string>

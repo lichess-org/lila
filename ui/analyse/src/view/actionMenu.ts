@@ -8,7 +8,7 @@ import { domDialog, bind, dataIcon, hl, type VNode } from 'lib/view';
 import type { AutoplayDelay } from '@/autoplay';
 import type AnalyseCtrl from '@/ctrl';
 import * as pgnExport from '@/pgnExport';
-import { pruneStaticAnalysis } from '@/util';
+import { pruneMainlineAnalysis } from '@/util';
 
 import { showSettingsDialog } from './settingsView';
 
@@ -67,7 +67,7 @@ function studyButton(ctrl: AnalyseCtrl) {
         const pgnInput = (e.target as HTMLElement).querySelector('input[name=pgn]') as HTMLInputElement;
         if (pgnInput && (ctrl.synthetic || ctrl.idbTree.movesDirty)) {
           const root = structuredCloneLite(ctrl.tree.root);
-          pruneStaticAnalysis(root);
+          pruneMainlineAnalysis(root);
           pgnInput.value = pgnExport.renderFullTxt(ctrl, root);
         }
       }),

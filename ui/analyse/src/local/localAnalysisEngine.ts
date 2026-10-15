@@ -15,11 +15,13 @@ import type { AnalysisUpdate, AnalysisEngineInfo, AnalysisMeta, Division } from 
 export interface ServerAnalysisDocument {
   id: string;
   studyId?: string;
-  infos: { ply: Ply; eval: EvalScore & { best?: Uci }; variation: San[] }[];
+  infos: { ply: Ply; eval: ServerEvalScore & { best?: Uci }; variation: San[] }[];
   startPly: Ply;
   date: Date;
   engine: AnalysisEngineInfo;
 }
+
+type ServerEvalScore = EvalScore & { mateGiven?: boolean };
 
 export interface LocalAnalysisResult {
   localUpdate: AnalysisUpdate;
@@ -145,7 +147,7 @@ export class LocalAnalysisEngine {
       studyId: this.ctrl.study?.data.id,
       infos: this.nodes.slice(1).map((node, i) => ({
         ply: node.ply,
-        eval: { cp: node.eval?.cp, mate: node.eval?.mate, best: lines[i].ucis[0] },
+        eval: { ...serverEvalScore(this.ctrl.variantKey, node), best: lines[i].ucis[0] },
         variation: lines[i].sans,
       })),
       startPly: this.nodes[0].ply,
@@ -184,7 +186,7 @@ export class LocalAnalysisEngine {
         division,
         ch: this.ctrl.study?.data.chapter.id ?? '',
         tree: this.nodes[0],
-        meta: {
+        analysis: {
           id: this.ctrl.idbTree.id,
           white: review.summary.white,
           black: review.summary.black,
@@ -199,6 +201,14 @@ export class LocalAnalysisEngine {
   private isRunning() {
     return this.nodeIndex < this.nodes.length;
   }
+}
+
+function serverEvalScore(variant: VariantKey, node: TreeNodeLite): ServerEvalScore {
+  if (node.eval?.cp !== undefined || node.eval?.mate) return { cp: node.eval.cp, mate: node.eval.mate };
+  const pos = setupPosition(lichessRules(variant), co.fen.parseFen(node.fen).unwrap()).unwrap();
+  const outcome = pos.outcome();
+  if (!outcome) return {};
+  return outcome.winner ? { mate: 0, mateGiven: outcome.winner === pos.turn } : { cp: 0 };
 }
 
 function ucisToNodes(ucis: Uci[], initial: co.Position, ply: number, props: any): TreeNodeLite[] {

@@ -61,6 +61,17 @@
   <string name="deleteBlog">Poista blogikirjoitus lopullisesti</string>
   <string name="freeImagesComplyWithLicensing" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Seuraavat sivustot tarjoavat kuvia ilmaiseksi. Varmista, että noudatat käyttämäsi kuvan lisenssiehtoja.</string>
   <string name="selectPostTopics">Valitse kirjoituksesi teemat</string>
+  <string name="topicChess">Shakki</string>
+  <string name="topicPuzzle">Tehtävä</string>
+  <string name="topicTactics">Taktiikka</string>
+  <string name="topicStrategy">Strategia</string>
+  <string name="topicChessEngine">Shakkitietokone</string>
+  <string name="topicChessBot">Shakkibotti</string>
+  <string name="topicChessPersonalities">Henkilöt shakissa</string>
+  <string name="topicOverTheBoard">Lähishakki</string>
+  <string name="topicSoftwareDevelopment">Ohjelmistokehitys</string>
+  <string name="topicOffTopic">Aiheen vierestä</string>
+  <string name="topicPosts">%s kirjoitusta</string>
   <string name="etiquette">Etiketti</string>
   <string name="safeAndRespectfulContent">Julkaise vain turvallista ja muita kunnioittavaa sisältöä. Älä kopioi toisten luomaa sisältöä.</string>
   <string name="noCopyrightedImages">Käytä vain kuvia, joita ei suojaa jonkun muun tekijänoikeus.</string>

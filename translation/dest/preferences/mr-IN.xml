@@ -73,7 +73,6 @@
   <string name="blindfold" comment="As in Blindfold chess">अनभिज्ञ</string>
   <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">मोबाईलवर डावीकडे दाखवा</string>
   <string name="inlineNotation">अंतर्निहित संकेतन</string>
-  <string name="showServerAnalysis">संगणक विश्लेषण दर्शवा</string>
   <string name="showBestMoveArrows">सर्वोत्तम चाली दर्शवणारे बाण दाखवा</string>
   <string name="showManeuverArrows">युक्ती बाण दाखवा</string>
   <string name="showGauge">मुल्यांकन मोजमाप दाखवा</string>

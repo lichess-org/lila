@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="analyse">Analyser</string>
+  <string name="onTheServer">Sur le serveur</string>
+  <string name="local">Analyse locale</string>
+  <string name="currentAnalysis">Analyse actuelle</string>
+  <string name="cannotPublish">Publication impossible</string>
+  <string name="nodesPerMove">Nœuds par coup</string>
+  <string name="using">Utiliser</string>
+  <string name="willUse">À utiliser</string>
+  <string name="quality">Qualité</string>
+  <string name="publish">Publier</string>
+  <string name="published">Publiée</string>
+  <string name="chooseYourEngineSettings">Cliquez sur Analyse pour noter la variante principale.</string>
+  <string name="bestResultsUseXWithYThreads">Pour de meilleurs résultats en moins de temps, utilisez %1$s avec %2$s coeurs.</string>
+  <string name="analysisUploadFailed">Échec du téléversement de l\'analyse. Réessayez plus tard.</string>
+  <string name="serverAnalysisInProgress">Le serveur analyse cette partie. Réessayez quand l\'analyse sera terminée.</string>
+  <string name="youCanPublish">Votre analyse locale peut être publiée.</string>
+  <string name="turnOnRec">Vous devez activer l\'enregistrement (REC) avant de partager l\'analyse locale dans une étude.</string>
+  <string name="whenUpgradingOldChapters">Il n\'est pas possible de modifier correctement l\'analyse du serveur pour des chapitres créés avant qu\'une analyse locale soit insérée. Les analyses et les commentaires précédents du moteur seront conservés si vous ne le supprimez pas d\'abord.</string>
+  <string name="startingPosition">Position de départ</string>
+  <string name="keepThisBrowserTabActive">Garder cet onglet de navigateur actif pendant l\'analyse</string>
+  <string name="xTimesStandardQuality">Qualité standard : %sx</string>
+  <string name="moveXOfY" comment="should this be in site?">Coup %1$s de %2$s</string>
+  <string name="downloadingXofY" comment="should this be in site?">Téléchargement de %1$s sur %2$s</string>
+  <string name="timeToComplete">Cela prendra environ %s</string>
+</resources>

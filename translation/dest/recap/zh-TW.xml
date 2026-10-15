@@ -6,7 +6,12 @@
 	<string name="noGamesText">今年您一盤棋都沒有下。</string>
 	<string name="noGamesCta">現在就來下？</string>
 	<string name="gamesYouWon" comment="%s is the number of games won">而您贏了 %s 局！</string>
+	<string name="gamesNextQuestion">我如何達成這項成就？</string>
 	<string name="timeSpentPlayingExclam" comment="%s is the time spent playing animated from 0 e.g. '1 day, 17 hours'. The time is also translated">您共下了 %s！</string>
+	<string name="timeTooMuch">我太投入下棋了。</string>
+	<string name="timeALot">我下了好幾場棋局。</string>
+	<string name="timeReasonable">我下棋的時間很適當。</string>
+	<string name="timeHowManyMoves">你總共下了幾個棋步？</string>
 	<plurals name="nbMoves">
 		<item quantity="other">%s 棋步</item>
 	</plurals>

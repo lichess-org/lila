@@ -97,7 +97,10 @@ const coordinateInput = (ctrl: CoordinateTrainerCtrl) => {
           <input
             type="text"
             class="keyboard"
-            hook={onInsert<HTMLInputElement>(el => (ctrl.keyboardInput = el))}
+            hook={onInsert<HTMLInputElement>(el => {
+              el.focus();
+              ctrl.keyboardInput = el;
+            })}
             on={{ keyup: ctrl.onKeyboardInputKeyUp }}
           />
           {ctrl.playing ? (

@@ -51,6 +51,7 @@
   <string name="entryCodeDescriptionForLeader">(Ixtiyoriy) Jamoaga qoʻshilish uchun yangi aʼzolari bilishi kerak boʻlgan kirish kodi.</string>
   <string name="incorrectEntryCode">Kirish kodi notoʻgʻri.</string>
   <string name="forumLabel">Jamoa forumi</string>
+  <string name="forumVisibilityHelp">Jamoa sahifasida jamoa forumini kimlar koʻra oladi?&lt;br&gt;Faqat jamoa aʼzolari jamoa forumiga xabar yozishi mumkin.</string>
   <string name="forumVisibilityNone">Forumni yashirish</string>
   <string name="teamAlreadyExists">Ushbu jamoa allaqachon mavjud.</string>
   <string name="upcomingTournaments">Kelgusi turnirlar</string>

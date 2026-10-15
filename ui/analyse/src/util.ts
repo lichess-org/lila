@@ -37,12 +37,12 @@ export function hasUserContent(node: TreeNodeLite): boolean {
 }
 
 // keep computer nodes only when they are needed as ancestors of a user node
-export function pruneStaticAnalysis(node: TreeNodeLite): boolean {
-  node.children = node.children.filter(pruneStaticAnalysis);
+export function pruneMainlineAnalysis(node: TreeNodeLite): boolean {
+  node.children = node.children.filter(pruneMainlineAnalysis);
   return hasUserContent(node);
 }
 
-export function replaceStaticEval(into: TreeNodeLite, from: TreeNodeLite): void {
+export function mergeReviewData(into: TreeNodeLite, from: TreeNodeLite): void {
   into.children = into.children.filter(hasUserContent);
   if (from.eval) into.eval = from.eval;
 
@@ -51,7 +51,7 @@ export function replaceStaticEval(into: TreeNodeLite, from: TreeNodeLite): void 
 
   for (const fromChild of from.children) {
     const intoChild = into.children.find(n => fromChild.id === n.id);
-    if (intoChild) replaceStaticEval(intoChild, fromChild);
+    if (intoChild) mergeReviewData(intoChild, fromChild);
     else into.children.push(fromChild);
   }
 }

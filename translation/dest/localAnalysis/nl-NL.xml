@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="analyse">Analyse</string>
+  <string name="local">Lokaal</string>
+  <string name="cannotPublish">Publiceren mislukt</string>
+  <string name="quality">Kwaliteit</string>
+  <string name="publish">Publiceren</string>
+  <string name="published">Gepubliceerd</string>
+  <string name="startingPosition">Beginstelling</string>
+  <string name="moveXOfY" comment="should this be in site?">Zet %1$s van %2$s</string>
+</resources>

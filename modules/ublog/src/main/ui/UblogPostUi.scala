@@ -32,12 +32,7 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
         )
       .headAppend(lila.ui.bits.markdownAlternate(ctx.req.uri))
       .preloadImage(imageUrl)(helpers)
-      .copy(atomLinkTag =
-        link(
-          href := routes.Ublog.userAtom(user.username),
-          st.title := trans.ublog.xBlog.txt(user.username)
-        ).some
-      )
+      .copy(atomLink = (routes.Ublog.userAtom(user.username), trans.ublog.xBlog.txt(user.username)).some)
       .flag(_.noRobots, !blog.crawlable || !post.crawlable)
       .csp(_.withInlineIconFont):
         main(cls := "page-menu page-small")(

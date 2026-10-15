@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="analyse">Analyse</string>
+  <string name="onTheServer">Auf dem Server</string>
+  <string name="local">Lokal</string>
+  <string name="currentAnalysis">Aktuelle Analyse</string>
+  <string name="cannotPublish">Kann nicht veröffentlicht werden</string>
+  <string name="nodesPerMove">Knoten pro Zug</string>
+  <string name="using">nutzt</string>
+  <string name="willUse">wird benutzen</string>
+  <string name="quality">Qualität</string>
+  <string name="publish">Veröffentlichen</string>
+  <string name="published">veröffentlicht</string>
+  <string name="chooseYourEngineSettings">Klicke auf Analyse, um die Hauptvariante angezeigt zu bekommen.</string>
+  <string name="bestResultsUseXWithYThreads">Verwende %1$s mit %2$s Threads für die besten Ergebnisse in der kürzesten Zeit.</string>
+  <string name="analysisUploadFailed">Analyse-Upload fehlgeschlagen. Versuche es später erneut.</string>
+  <string name="serverAnalysisInProgress">Es ist eine Computeranalyse für diese Partie gestartet worden. Du kannst es erneut versuchen, wenn diese abgeschlossen ist.</string>
+  <string name="youCanPublish">Deine lokale Analyse kann veröffentlicht werden.</string>
+  <string name="turnOnRec">Du musst REC aktivieren, bevor du lokale Analysen mit einer Studie teilen kannst.</string>
+  <string name="whenUpgradingOldChapters">Computeranalyse-Anfragen von Kapiteln, welche erstellt wurden, bevor die lokale Analyse eingeführt wurde, können nicht sauber aktualisiert werden. Ältere Engine-Varianten und Kommentare bleiben erhalten, es sei denn, du entfernst sie zuerst.</string>
+  <string name="startingPosition">Grundstellung</string>
+  <string name="keepThisBrowserTabActive">Halte diesen Browser-Tab während der Analyse aktiv</string>
+  <string name="xTimesStandardQuality">%sx Standardqualität</string>
+  <string name="moveXOfY" comment="should this be in site?">Zug %1$s von %2$s</string>
+  <string name="downloadingXofY" comment="should this be in site?">Lade %1$s von %2$s herunter</string>
+  <string name="timeToComplete">Das dauert etwa %s</string>
+  <string name="xWouldBeFaster">%s wäre schneller</string>
+</resources>

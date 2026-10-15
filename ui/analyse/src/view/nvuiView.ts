@@ -555,7 +555,7 @@ function sendMove(uciOrDrop: string | DropMove, ctrl: AnalyseCtrl) {
 const analysisGlyphs = new Set(['?!', '?', '??']);
 
 function renderAcpl({ ctrl, moveStyle }: AnalyseNvuiContext): LooseVNodes {
-  const analysis = ctrl.staticAnalysis;
+  const analysis = ctrl.mainlineAnalysis;
   if (!analysis || ctrl.retro) return undefined;
   const analysisNodes = ctrl.mainline.filter(n =>
     n.glyphs?.find(g => g.comp && analysisGlyphs.has(g.symbol)),

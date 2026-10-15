@@ -12,7 +12,7 @@ case class TutorConfig(user: UserId, from: Instant, to: Instant):
   val id = s"$user:$rangeStr"
 
   def period = (from, to)
-  lazy val days = daysBetween(from, to)
+  lazy val days = daysBetween(from, to) + 1
 
   object url:
     def root = routes.Tutor.report(user, rangeStr)

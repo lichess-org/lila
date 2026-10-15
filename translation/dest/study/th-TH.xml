@@ -45,7 +45,6 @@
   <string name="annotateWithGlyphs">หมายเหตุด้วยสัญลักษณ์</string>
   <string name="theChapterIsTooShortToBeAnalysed">บทสั้นเกินกว่าจะวิเคราะห์ได้</string>
   <string name="onlyContributorsCanRequestAnalysis">เฉพาะผู้ช่วยเอื้อเฟื้อการศึกษาที่สามารถร้องขอการวิเคราะห์ด้วยคอมพิวเตอร์</string>
-  <string name="getAFullComputerAnalysis">รับการวิเคราะห์ด้วยคอมพิวเตอร์ฝั่งเซิร์ฟเวอร์อย่างสมบูรณ์ของสายหลัก</string>
   <string name="makeSureTheChapterIsComplete">โปรดแน่ใจว่าบทนั้นสมบูรณ์แล้ว คุณสามารถร้องขอการวิเคราะห์ได้ครั้งเดียวเท่านั้น</string>
   <string name="allSyncMembersRemainOnTheSamePosition">สมาชิก SYNC ทั้งหมดคงอยู่บนตำแหน่งเหมือนเดิม</string>
   <string name="shareChanges">แชร์การเปลี่ยนแปลงกับผู้ชมและบันทึกลงบนเซิร์ฟเวอร์</string>
@@ -62,6 +61,7 @@
   <string name="downloadGame">ดาวน์โหลดเกม</string>
   <string name="studyUrl">URL กรณีศึกษา</string>
   <string name="currentChapterUrl">URL บทปัจจุบัน</string>
+  <string name="pasteToEmbedChapterInForumOrBlog" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.&#10;&#10;Please note this used to say &quot;in the forum to embed&quot;. It was then changed to include &quot;or a Lichess Blog&quot;. A further update was made to say &quot;or your Lichess blog&quot;, since you can only create blog posts as an individual.">คุณสามารถนำสิ่งนี้ไปวางในฟอรัมหรือบล็อก Lichess ของคุณเพื่อฝังบทนี้ได้</string>
   <string name="startAtInitialPosition">เริ่มที่ตำแหน่งตั้งต้น</string>
   <string name="startAtX">เริ่มที่ %s</string>
   <string name="embedInYourWebsite">ฝังในเว็บไซต์ของคุณ</string>
@@ -183,6 +183,8 @@
   <string name="fromInitialPositionText">แค่จัดวางกระดานเพื่อเตรียมเล่นเกมใหม่&lt;br&gt;ให้เหมาะสำหรับการสำรวจช่วงท้ายเกม</string>
   <string name="customPositionTitle">ตำแหน่งที่กำหนดเอง</string>
   <string name="customPositionText">ตั้งค่ากระดานตามที่คุณต้องการ&lt;br&gt;ให้เหมาะสำหรับการสำรวจช่วงท้ายเกม</string>
+  <string name="loadGameFromTheWebTitle">โหลดเกมจากเว็บ</string>
+  <string name="loadGameFromTheWebText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">วาง URL ของเกมบน Lichess&lt;br&gt;(เช่น lichess.org/7fHIU0XI)&lt;br&gt;เพื่อโหลดตาเดินของเกมในบทนั้น</string>
   <string name="fromFenStringTitle">จากสตริง FEN</string>
   <string name="fromFenStringText">วางตำแหน่งในรูปแบบของ FEN &lt;br&gt;&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;&lt;br&gt;เพื่อเริ่มบทจากตำแหน่งนั้นๆ</string>
   <string name="fromPgnGameTitle">จากเกม PGN</string>
@@ -193,4 +195,9 @@
   <string name="doubleDefeat">แพ้ทั้งสองฝ่าย</string>
   <string name="blackDefeatWhiteCanNotWin">ฝ่ายดำแพ้ แต่ฝ่ายขาวก็ชนะไม่ได้</string>
   <string name="whiteDefeatBlackCanNotWin">ฝ่ายขาวแพ้ แต่ฝ่ายดำก็ชนะไม่ได้</string>
+  <string name="analysisEditor">ตัวแก้ไขการวิเคราะห์</string>
+  <string name="clearLocal">ล้างการวิเคราะห์ในเครื่อง</string>
+  <string name="clearPublished">ล้างการวิเคราะห์ที่ถูกเผยแพร่แล้ว</string>
+  <string name="requestAServerAnalysis">ขอการวิเคราะห์จากเซิร์ฟเวอร์</string>
+  <string name="analyzeOnYourDevice">วิเคราะห์บนอุปกรณ์ของคุณ</string>
 </resources>

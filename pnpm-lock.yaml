@@ -480,6 +480,9 @@ importers:
       bits:
         specifier: workspace:*
         version: link:../bits
+      chart:
+        specifier: workspace:*
+        version: link:../chart
       chart.js:
         specifier: 4.5.1
         version: 4.5.1

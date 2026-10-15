@@ -48,7 +48,6 @@
   <string name="annotateWithGlyphs">Glifler ile açıkla</string>
   <string name="theChapterIsTooShortToBeAnalysed">Bu bölüm analiz için çok kısa.</string>
   <string name="onlyContributorsCanRequestAnalysis">Sadece katılımcılar bilgisayar analizi isteyebilir.</string>
-  <string name="getAFullComputerAnalysis">Bu varyant için ayrıntılı bir sunucu analizi yapın.</string>
   <string name="makeSureTheChapterIsComplete">Bu bölümü tamamladığınızdan emin olun. Sadece bir kez bilgisayar analizi talep edebilirsiniz.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Senkronize edilen bütün üyeler aynı pozisyonda kalır</string>
   <string name="shareChanges">Değişiklikleri izleyiciler ile paylaşın ve sunucuya kaydedin</string>
