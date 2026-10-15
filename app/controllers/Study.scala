@@ -655,4 +655,4 @@ final class Study(
     Found(play.api.i18n.Lang.get(lang)): lang =>
       JsonOk:
         lila.study.JsonView.glyphs(using env.translator.to(lang))
-      .headerCacheSeconds(3600)
+      .headerCache(1.hour)

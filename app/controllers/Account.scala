@@ -96,7 +96,7 @@ final class Account(
             .add("troll" -> me.marks.troll)
             .add("playban" -> playban)
             .add("announce" -> env.web.lichobileAnnounceApi.get)
-        .headerCacheSeconds(15)
+        .headerCache(15.seconds)
   }
 
   def nowPlaying = Auth { _ ?=> _ ?=>

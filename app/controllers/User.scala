@@ -203,7 +203,7 @@ final class User(
                   ping = env.socket.isOnline.exec(user.id).so(env.socket.getLagRating(user.id))
                   snip <- Ok.snip:
                     views.user.mini(user, pov, blocked, followable, relation, ping, crosstable, realName)
-                yield snip.headerCacheSeconds(5),
+                yield snip.headerCache(5.seconds),
                 json =
                   import lila.game.JsonView.given
                   Ok:
