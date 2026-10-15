@@ -80,10 +80,10 @@ export function addDomHandlers() {
       return false;
     })
     .on('change', '.mselect__toggle--mask', function (this: HTMLInputElement) {
-      const mselectMask = $('.mselect__fullscreen-mask')[0] as HTMLLabelElement | undefined;
+      const mselectMask = document.querySelector<HTMLLabelElement>('.mselect__fullscreen-mask');
       const active = this.checked
         ? this
-        : ($('.mselect__toggle--mask:checked')[0] as HTMLInputElement | undefined);
+        : document.querySelector<HTMLInputElement>('.mselect__toggle--mask:checked');
       if (active) mselectMask?.setAttribute('for', active.id);
       else mselectMask?.removeAttribute('for');
     });
