@@ -14,11 +14,11 @@ final class OnlineApiUsers(
     scheduler: Scheduler
 )(using Executor, Scheduler):
 
-  val cacheSeconds = 10
+  val cacheTtl = 10.seconds
 
   private val cache = ExpireCallbackMemo[UserId](
     scheduler,
-    cacheSeconds.seconds,
+    cacheTtl,
     userId => publish(userId, isOnline = false)
   )
 
@@ -31,13 +31,13 @@ final class OnlineApiUsers(
     Bus.pub(ApiUserIsOnline(userId, isOnline))
 
   private val usersCache = cacheApi.unit[List[UserWithPerfs]]("onlineApiUsers.list"):
-    _.expireAfterWrite(cacheSeconds.seconds).buildAsyncTimeout(): _ =>
+    _.expireAfterWrite(cacheTtl).buildAsyncTimeout(): _ =>
       userApi.visibleBotsByIds(cache.keySet)
 
   def getUsers = usersCache.get({})
 
   private val jsonCache = cacheApi.unit[String]("onlineApiUsers.json"):
-    _.expireAfterWrite(cacheSeconds.seconds).buildAsyncFuture: _ =>
+    _.expireAfterWrite(cacheTtl).buildAsyncFuture: _ =>
       for
         users <- getUsers
         jsons = users.map(u => jsonView.full(u.user, u.perfs.some, withProfile = true)(using none))
