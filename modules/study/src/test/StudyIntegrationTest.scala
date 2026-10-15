@@ -8,6 +8,7 @@ import play.api.libs.json.*
 import java.time.Instant
 
 import lila.study.StudySocket.Protocol.In.AtPosition
+import lila.study.Node.extensions.*
 import lila.tree.Node.{ Comment, Shape, Shapes }
 import lila.tree.Root
 

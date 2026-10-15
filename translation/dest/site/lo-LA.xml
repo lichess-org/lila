@@ -510,13 +510,11 @@
   <string name="reportAUser">ລາຍງານຜູ້ໃຊ້</string>
   <string name="user">ຜູ້ໃຊ້</string>
   <string name="reason">ເຫດຜົນ</string>
-  <string name="whatIsIheMatter">ມີບັນຫາຫຍັງ?</string>
   <string name="cheat">ໂກງ</string>
   <string name="troll">ກໍ່ກວນ (Troll)</string>
   <string name="other">ອື່ນໆ</string>
   <string name="reportCheatBoostHelp">ວາງລິ້ງຂອງເກມ ແລະ ອະທິບາຍສິ່ງທີ່ຜິດປົກກະຕິກ່ຽວກັບພຶດຕິກຳຂອງຜູ້ໃຊ້ນີ້. ຢ່າພຽງແຕ່ບອກວ່າ \"ພວກເຂົາໂກງ\", ແຕ່ໃຫ້ບອກພວກເຮົາວ່າເປັນຫຍັງທ່ານຈຶ່ງສະຫຼຸບແບບນັ້ນ.</string>
   <string name="reportUsernameHelp">ອະທິບາຍວ່າເປັນຫຍັງຊື່ຜູ້ໃຊ້ນີ້ຈຶ່ງບໍ່ເໝາະສົມ. ຢ່າພຽງແຕ່ບອກວ່າ \"ມັນບໍ່ເໝາະສົມ\", ແຕ່ໃຫ້ບອກເຫດຜົນໃຫ້ພວກເຮົາຊາບ, ໂດຍສະເພາະຫາກເປັນຄຳດ່າທີ່ປິດບັງໄວ້, ບໍ່ແມ່ນພາສາອັງກິດ, ເປັນຄຳສະແລງ ຫຼື ກ່ຽວຂ້ອງກັບປະຫວັດສາດ/ວັດທະນະທຳ.</string>
-  <string name="error.provideOneCheatedGameLink">ກະລຸນາລະບຸຢ່າງໜ້ອຍໜຶ່ງລິ້ງຂອງເກມທີ່ສົງໄສວ່າຜິດກົດ.</string>
   <string name="by">ໂດຍ %s</string>
   <string name="importedByX">ນຳເຂົ້າໂດຍ %s</string>
   <string name="thisTopicIsNowClosed">ຫົວຂໍ້ນີ້ຖືກປິດແລ້ວ.</string>

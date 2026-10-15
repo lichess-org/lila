@@ -97,6 +97,7 @@ export class ExternalEngine implements CevalEngine {
             cp: line.pvs[0]?.cp,
             mate: line.pvs[0]?.mate,
             pvs: line.pvs,
+            engineId: this.opts.id,
           },
           { threatMode: work.threatMode, path: work.path, ply: work.ply },
         );
@@ -117,7 +118,7 @@ export class ExternalEngine implements CevalEngine {
     this.req?.abort();
   }
 
-  engineName(): string {
+  version(): string {
     return this.opts.name;
   }
 

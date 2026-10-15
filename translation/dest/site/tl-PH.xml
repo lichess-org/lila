@@ -514,11 +514,9 @@
   <string name="reportAUser">I-report ang gumagamit</string>
   <string name="user">Gumagamit</string>
   <string name="reason">Dahilan</string>
-  <string name="whatIsIheMatter">Ano ang problema?</string>
   <string name="cheat">Pandaraya</string>
   <string name="troll">Awitin</string>
   <string name="other">Iba pa</string>
-  <string name="error.provideOneCheatedGameLink">Magbigay ng kahit na isang link sa dinayang laro.</string>
   <string name="by">sa pamamagitan ng %s</string>
   <string name="importedByX">Inimport ni %s</string>
   <string name="thisTopicIsNowClosed">Ang paksang itp ay sarado na.</string>

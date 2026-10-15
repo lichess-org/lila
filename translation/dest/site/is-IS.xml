@@ -543,13 +543,11 @@
   <string name="reportAUser">Tilkynna notanda</string>
   <string name="user">Notandi</string>
   <string name="reason">Ástæða</string>
-  <string name="whatIsIheMatter">Hvað er að?</string>
   <string name="cheat">Svindl</string>
   <string name="troll">Tröll</string>
   <string name="other">Annað</string>
   <string name="reportCheatBoostHelp">Vinsamlegast límdu inn slóðina að skák(unum) og útskýrðu í hverju misferli notandans er fólgið. Forðastu að segja einungis „hann svindlar,“ heldur greindu frá því hvernig þú komst að þeirri niðurstöðu.</string>
   <string name="reportUsernameHelp">Við óskum eftir skýringu á því sem er móðgandi við þetta notandanafn. Ekki nægir að segja „það er óviðeigandi“, heldur upplýstu okkur um hvernig þú komst að þinni niðurstöðu, einkum ef móðgunin er dulbúin, ekki á ensku, í slangri eða vísar til sögulegra/menningarlegra atburða.</string>
-  <string name="error.provideOneCheatedGameLink">Vinsamlegast gefðu upp tengil á allavega eina skák þar sem svindlað var.</string>
   <string name="by">eftir %s</string>
   <string name="importedByX">Hlaðið inn af %s</string>
   <string name="thisTopicIsNowClosed">Þessarri umræðu hefur verið lokað.</string>

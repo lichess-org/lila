@@ -576,13 +576,11 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="reportAUser">Segnala un utente</string>
   <string name="user">Utente</string>
   <string name="reason">Motivo</string>
-  <string name="whatIsIheMatter">Qual è il problema?</string>
   <string name="cheat">Imbrogli</string>
   <string name="troll">Provocazioni</string>
   <string name="other">Altro</string>
   <string name="reportCheatBoostHelp">Incolla il link della partita(o partite) e spiega cosa non va sul comportamento di questo utente. Non dire solamente \"ha barato\", ma invece dici come sei arrivato a questa conclusione.</string>
   <string name="reportUsernameHelp">Spiegaci cosa vi è di offensivo in questo nome utente. Non dire solamente \"è offensivo/inappopriato\", ma invece dici come sei arrivato a questa conclusione, soprattutto se l\'insulto è offuscato, non in inglese, in linguaggio giovanile, oppure se è un riferimento storico/culturale.</string>
-  <string name="error.provideOneCheatedGameLink">Si prega di fornire almeno un collegamento link di una partita in cui il giocatore ha imbrogliato.</string>
   <string name="by">di %s</string>
   <string name="importedByX">Importato da %s</string>
   <string name="thisTopicIsNowClosed">Questa discussione è chiusa.</string>

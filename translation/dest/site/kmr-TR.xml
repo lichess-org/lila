@@ -565,13 +565,11 @@
   <string name="reportAUser">Bikarhênerek gilî bike</string>
   <string name="user">Bikarhêner</string>
   <string name="reason">Sedem</string>
-  <string name="whatIsIheMatter">Mijar çi ye?</string>
   <string name="cheat">Hîle</string>
   <string name="troll">Troll</string>
   <string name="other">Yên din</string>
   <string name="reportCheatBoostHelp">Lînka li lîstikê(an) bi vir de deyne û îzah bike ka çi xeletî heye di halûhereketên vê bikarhênerê de. Tenê bêjî \"ew hîle dike\" nabe, ji me re îzah bike ku te çawa gihîştîye vê qenaetê.</string>
   <string name="reportUsernameHelp">Rûn bike ka çima ev navê bikarhênerî bi bêrêzî dibînî. Tenê nebêje \"ew bêrêzî ye/ne guncayî ye\", lê ji me re bibêje ka tu çawa gihîştî vê encamê, bi taybetî heke ev bêrêzî ne diyar be, ne bi Îngilîzî be, bi zargotinê be, an jî amajeyeke dîrokî/çandî be.</string>
-  <string name="error.provideOneCheatedGameLink">Ji kerema xwe bi kêmanî lînkek pêşkêş bike ji bo lîstika hîlekirî.</string>
   <string name="by">ji alî %s ve</string>
   <string name="importedByX">Ji hêla %s ve hat barkirin</string>
   <string name="thisTopicIsNowClosed">Ev mijar vêga girtî ye.</string>

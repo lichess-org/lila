@@ -16,6 +16,7 @@
   <string name="quitTeam">Jamoani tark etish</string>
   <string name="manuallyReviewAdmissionRequests">Qabul qilish soʻrovlarini koʻrib chiqish</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Agar belgilangan boʻlsa, oʻyinchilar jamoaga qoʻshilish uchun soʻrov yozishlari kerak. Siz ularni inkor yoki qabul qilishingiz mumkin.</string>
+  <string name="hideMembersDesc" comment="Checkbox label: option to hide the team member list from non-members">Jamoa aʼzolari roʻyxatini begonalar uchun yashirish.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Jamoa sardori</item>
     <item quantity="other">Jamoa sardorlari</item>

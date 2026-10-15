@@ -483,11 +483,9 @@
   <string name="reportAUser">शिकायत गरौ</string>
   <string name="user">प्रयोगकर्ता</string>
   <string name="reason">कारण</string>
-  <string name="whatIsIheMatter">समस्या के हो?</string>
   <string name="cheat">चोरी</string>
   <string name="troll">ट्रोल</string>
   <string name="other">अन्य</string>
-  <string name="error.provideOneCheatedGameLink">कम्तीमा एउटा चोरी गरेको खेलको लिङ्क उपलब्ध गराउनुहोस्।</string>
   <string name="by">%s द्वारा</string>
   <string name="thisTopicIsNowClosed">यो विषय अहिले बन्द गरिएको छ।</string>
   <string name="blog">ब्लग</string>

@@ -565,11 +565,9 @@
   <string name="reportAUser">Benotzer mellen</string>
   <string name="user">Benotzer</string>
   <string name="reason">Grond</string>
-  <string name="whatIsIheMatter">Wat ass de Problem?</string>
   <string name="cheat">Fuddelen</string>
   <string name="troll">Troll</string>
   <string name="other">Aner</string>
-  <string name="error.provideOneCheatedGameLink">Gëff wgl. op d\'mannst ee Link op eng Partie un, an där gefuddelt gouf.</string>
   <string name="by">vum %s</string>
   <string name="importedByX">Importéiert vun %s</string>
   <string name="thisTopicIsNowClosed">Dëst Theema ass elo zou.</string>

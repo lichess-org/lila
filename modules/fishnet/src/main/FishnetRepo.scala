@@ -4,6 +4,7 @@ import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
+import lila.tree.FishnetKey
 
 final private class FishnetRepo(
     analysisColl: Coll,
@@ -13,11 +14,11 @@ final private class FishnetRepo(
 
   import BSONHandlers.given
 
-  private val clientCache = cacheApi[Client.Key, Option[Client]](256, "fishnet.client"):
+  private val clientCache = cacheApi[FishnetKey, Option[Client]](256, "fishnet.client"):
     _.expireAfterWrite(20.minutes).buildAsyncFuture: key =>
       clientColl.one[Client](bid(key))
 
-  def getEnabledClient(key: Client.Key) = clientCache.get(key).dmap { _.filter(_.enabled) }
+  def getEnabledClient(key: FishnetKey) = clientCache.get(key).dmap { _.filter(_.enabled) }
   def getOfflineClient: Fu[Client] =
     getEnabledClient(Client.offline.key).getOrElse(fuccess(Client.offline))
   def updateClientInstance(client: Client, instance: Client.Instance): Fu[Client] =
@@ -29,9 +30,9 @@ final private class FishnetRepo(
           _ = clientCache.invalidate(client.key)
         yield updated
   def addClient(client: Client) = clientColl.insert.one(client)
-  def deleteClient(key: Client.Key) = for _ <- clientColl.delete.one(bid(key))
+  def deleteClient(key: FishnetKey) = for _ <- clientColl.delete.one(bid(key))
   yield clientCache.invalidate(key)
-  def enableClient(key: Client.Key, v: Boolean): Funit =
+  def enableClient(key: FishnetKey, v: Boolean): Funit =
     for _ <- clientColl.update.one(bid(key), set("enabled" -> v)) yield clientCache.invalidate(key)
   def allRecentClients =
     clientColl.list[Client]:
@@ -77,7 +78,7 @@ final private class FishnetRepo(
   def getSimilarAnalysis(work: Work.Analysis): Fu[Option[Work.Analysis]] =
     analysisColl.one[Work.Analysis](bdoc("game.id" -> work.game.id))
 
-  private[fishnet] def toKey(keyOrUser: String): Fu[Client.Key] =
+  private[fishnet] def toKey(keyOrUser: String): Fu[FishnetKey] =
     clientColl
       .primitiveOne[String](
         or(
@@ -87,4 +88,4 @@ final private class FishnetRepo(
         "_id"
       )
       .orFail("client not found")
-      .map { Client.Key(_) }
+      .map(FishnetKey(_))

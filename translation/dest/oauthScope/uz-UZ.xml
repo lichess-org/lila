@@ -9,6 +9,7 @@
   <string name="oauthCatUserAccount">Foydalanuvchi akkaunti</string>
   <string name="oauthCatPlayGames">Oʻyin oʻynash</string>
   <string name="oauthCatStudiesBroadcasts">Saboqlar va translyatsiyalar</string>
+  <string name="oauthCatExternalPlay">Tashqi oʻyin</string>
   <string name="oauthCatExternalEngine">Tashqi dvijok</string>
   <string name="doNotShareIt">Ushbu token hisobingizga kirish huquqini beradi. Uni HECH KIMGA bermang!</string>
   <string name="copyTokenNow">Yangi shaxsiy tokeningizni hoziroq nusxalab oling. Uni keyin qayta koʻra olmaysiz!</string>

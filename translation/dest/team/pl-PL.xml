@@ -18,6 +18,7 @@
   <string name="quitTeam">Opuść klub</string>
   <string name="manuallyReviewAdmissionRequests">Ręczna weryfikacja wniosków o przyjęcie</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Jeśli zaznaczone, gracze będą musieli napisać prośbę o dołączenie do klubu, którą możesz odrzucić lub zaakceptować.</string>
+  <string name="hideMembersDesc" comment="Checkbox label: option to hide the team member list from non-members">Ukryj listę graczy klubu przed innymi graczami.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Lider klubu</item>
     <item quantity="few">Liderzy klubu</item>
@@ -56,6 +57,7 @@
   <string name="entryCodeDescriptionForLeader">Opcjonalny kod dostępu, który należy znać, aby dołączyć do tego klubu.</string>
   <string name="incorrectEntryCode">Niepoprawny kod dostępu.</string>
   <string name="forumLabel">Forum klubu</string>
+  <string name="forumVisibilityHelp">Kto może zobaczyć forum klubu na stronie klubu?&lt;br&gt;Tylko gracze klubu mogą pisać na forum klubu.</string>
   <string name="forumVisibilityNone">Ukryj forum</string>
   <string name="teamAlreadyExists">Taki klub już istnieje.</string>
   <string name="upcomingTournaments">Nadchodzące turnieje</string>

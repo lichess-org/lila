@@ -1,7 +1,7 @@
 package controllers
 
 import chess.format.Fen
-import play.api.libs.json.{ Json, JsArray }
+import play.api.libs.json.*
 import play.api.mvc.*
 
 import lila.app.{ *, given }
@@ -9,7 +9,7 @@ import lila.common.HTTPRequest
 import lila.core.misc.lpv.LpvEmbed
 import lila.game.PgnDump
 import lila.oauth.AccessToken
-import lila.tree.ExportOptions
+import lila.tree.{ ExportOptions, Analysis }
 
 final class Analyse(
     env: Env,
@@ -49,7 +49,7 @@ final class Analyse(
           val opening = pgnFlags.opening.so(env.game.gameOpening.atPly(pov.game, _))
           (
             env.analyse.analyser.get(pov.game),
-            (!pov.game.metadata.analysed).so(env.fishnet.api.userAnalysisExists(pov.gameId)),
+            pov.game.metadata.analysed.not.so(env.fishnet.api.userAnalysisExists(Analysis.Id(pov.gameId))),
             pov.game.simulId.so(env.simul.repo.find),
             roundC.getWatcherChat(pov.game),
             ctx.noBlind.so(env.game.crosstableApi.withMatchup(pov.game)),
@@ -188,3 +188,8 @@ final class Analyse(
   def externalEngineDelete(id: String) = AuthOrScoped(_.Engine.Write) { _ ?=> me ?=>
     env.analyse.externalEngine.delete(me, id).elseNotFound(jsonOkResult)
   }
+
+  def reviewXhr = OpenBodyOf(parse.json): ctx ?=>
+    env.analyse.jsonView
+      .augmentLocalAnalysis(ctx.body.body)
+      .fold(errs => JsonBadRequest(errs.mkString("\n")).toFuccess, JsonOk(_))

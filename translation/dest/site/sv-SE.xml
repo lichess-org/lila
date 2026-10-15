@@ -553,14 +553,12 @@
   <string name="reportAUser">Rapportera en användare</string>
   <string name="user">Användare</string>
   <string name="reason">Anledning</string>
-  <string name="whatIsIheMatter">Vad är problemet?</string>
   <string name="cheat">Fusk</string>
   <string name="troll">Troll</string>
   <string name="other">Annat</string>
   <string name="reportCheatBoostHelp">Klistra in länken till partiet/partierna och förklara vad som är fel med den här användarens beteende. Skriv inte bara \"de fuskar\", utan förklara hur du dragit denna slutsats. Din rapport kan komma att behandlas fortare om den är skriven på engelska.</string>
   <string name="reportUsernameHelp">Förklara hur det här användarnamnet är kränkande. Skriv inte bara \"det är stötande/olämpligt\", utan förklara hur du kom fram till denna slutsats. Detta är extra viktigt om förolämpningen är fördunklad, inte på engelska, är i slang, eller är en historisk/kulturell referens.</string>
   <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">Vi kan behandla din anmälan snabbare om du skriver på engelska.</string>
-  <string name="error.provideOneCheatedGameLink">Ange minst en länk till ett spel där användaren fuskade.</string>
   <string name="by">av %s</string>
   <string name="importedByX">Importerad av %s</string>
   <string name="thisTopicIsNowClosed">Det här ämnet är nu stängt.</string>

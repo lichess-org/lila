@@ -165,6 +165,7 @@
   <string name="flipBoard">Taxtani aylantirish</string>
   <string name="toggleLocalEngine">Lokal dvijok</string>
   <string name="engineSettings">Dvijok sozlamalari</string>
+  <string name="engine">Dvijok</string>
   <string name="enginesFromStrongestToWeakest">Dvijoklar kuchlidan kuchsizga qarab</string>
   <string name="illegalPosition">Noto\'g\'ri pozitsiya</string>
   <string name="threefoldRepetition">Uch marta takrorlanish</string>
@@ -460,6 +461,8 @@ Reytingli oʻyinlar o\'ynasangiz reyting barqarorligi oshadi.</string>
     <item quantity="one">%s ta doʻst onlayn</item>
     <item quantity="other">%s ta doʻst onlayn</item>
   </plurals>
+  <string name="friendsOnlineAndPlaying">Onlayn doʻstlarŞ %1$s
+Oʻynayotgan doʻstlar: %2$s</string>
   <string name="favoriteOpponents">Sevimli raqiblar</string>
   <string name="follow">Obuna boʻlish</string>
   <string name="following">Obuna boʻlingan</string>
@@ -588,14 +591,12 @@ Reytingli oʻyinlar o\'ynasangiz reyting barqarorligi oshadi.</string>
   <string name="reportAUser">Foydalanuvchi haqida shikoyat qilish</string>
   <string name="user">Foydalanuvchi</string>
   <string name="reason">Sabab</string>
-  <string name="whatIsIheMatter">Muammo nimada?</string>
   <string name="cheat">Gʻirromlik</string>
   <string name="troll">Trol</string>
   <string name="other">Boshqa</string>
   <string name="reportCheatBoostHelp">Oʻyin(lar) havolasini joylashtiring va bu foydalanuvchining xatti‑harakatlarida nima notoʻgʻri ekanligini tushuntiring. Shunchaki “gʻirromlik qilyapti” deb cheklanib qolmay, qanday qilib bu xulosaga kelganingizni ayting.</string>
   <string name="reportUsernameHelp">Ushbu foydalanuvchi nomi nima uchun haqoratli ekanligini tushuntiring. Shunchaki “bu haqoratomuz/nooʻrin” deb qoʻya qolmasdan, nima sababdan bunday deb oʻylashingizni asoslab bering. Ayniqsa, haqorat yashirin boʻlsa, ingliz tilida boʻlmasa, jargon (sleng) boʻlsa yoki tarixiy/madaniy mazmunga ega boʻlsa.</string>
   <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">Agar shikoyatingizni ingliz tilida yozsangiz, uni tezroq koʻrib chiqa olamiz.</string>
-  <string name="error.provideOneCheatedGameLink">Iltimos kamida bitta o\'yinga havolani keltiring.</string>
   <string name="by">%s tomonidan yaratildi</string>
   <string name="importedByX">%s tomonidan import qilindi</string>
   <string name="thisTopicIsNowClosed">Ushbu mavzu yopiq.</string>
@@ -787,6 +788,7 @@ Reytingli oʻyinlar o\'ynasangiz reyting barqarorligi oshadi.</string>
   <string name="downloadAnnotated">Annotatsiyalar bilan yuklab olish</string>
   <string name="downloadRaw">Asl holatda yuklab olish</string>
   <string name="downloadImported">Import qilinganini yuklab olish</string>
+  <string name="downloadMyGames">Oʻyinlarimni yuklab olish</string>
   <string name="downloadAllGames">Barcha oʻyinlarni yuklab olish</string>
   <string name="crosstable">Hisob</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Oʻyindagi yurishlarni koʻrib chiqish uchun taxta ustida sichqonchani aylantiring.</string>

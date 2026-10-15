@@ -114,7 +114,7 @@ export function view(ctrl: AnalyseCtrl, concealOf?: ConcealOf) {
           },
           attrs: { 'data-it': it },
         },
-        renderIndexAndMove(node, ctrl.settings.showStaticAnalysis, ctrl.settings.showStaticAnalysis),
+        renderIndexAndMove(node, ctrl.settings.showMainlineAnalysis, ctrl.settings.showMainlineAnalysis),
       );
     }),
   );

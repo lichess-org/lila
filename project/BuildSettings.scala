@@ -5,7 +5,7 @@ object BuildSettings:
   import Dependencies.*
 
   val lilaVersion = "4.0"
-  val globalScalaVersion = "3.8.4"
+  val globalScalaVersion = "3.9.0"
 
   def buildSettings =
     // NB: do NOT prepend Defaults.coreDefaultSettings here. Under sbt 2.0 those base settings are
@@ -49,13 +49,10 @@ object BuildSettings:
       )
 
   val compilerOptions = Seq(
-    "-Ybackend-parallelism:16", // https://github.com/scala/scala3/pull/15392
-    // "-nowarn", // during migration
-    // "-rewrite",
-    // "-source:3.7-migration",
-    "-indent",
+    // "-Ybackend-parallelism:16", // https://github.com/scala/scala3/pull/15392
     // "-explaintypes",
     // "-explain-cyclic",
+    "-indent",
     "-feature",
     "-language:postfixOps",
     "-language:implicitConversions",

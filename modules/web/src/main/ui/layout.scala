@@ -244,7 +244,8 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
 
   def bottomHtml = frag(
     Option.when(netConfig.socketDomains.nonEmpty)(networkAlert),
-    spinnerMask
+    spinnerMask,
+    label(id := "mselect-fullscreen-mask", cls := "fullscreen-mask mselect__fullscreen-mask")
   )
 
   object siteHeader:

@@ -9,7 +9,8 @@ import scalalib.paginator.{ AdapterLike, Paginator }
 import scalalib.model.Language
 import lila.db.dsl.{ *, given }
 import lila.db.paginator.Adapter
-import lila.core.ublog.{ BlogsBy, Quality, QualityFilter }
+import lila.core.ublog.{ BlogsBy, QualityFilter }
+import lila.ublog.UblogPost.Quality
 
 final class UblogPaginator(
     colls: UblogColls,

@@ -165,6 +165,7 @@
   <string name="flipBoard">Käännä lauta</string>
   <string name="toggleLocalEngine">Paikallinen tietokone päälle/pois</string>
   <string name="engineSettings">Tietokoneasetukset</string>
+  <string name="engine">Kone</string>
   <string name="enginesFromStrongestToWeakest">Tietokoneet vahvimmasta heikoimpaan</string>
   <string name="illegalPosition">Laiton asema</string>
   <string name="threefoldRepetition">Aseman toisto kolmesti</string>
@@ -589,14 +590,12 @@ Kavereita pelaamassa: %2$s</string>
   <string name="reportAUser">Raportoi käyttäjä</string>
   <string name="user">Käyttäjä</string>
   <string name="reason">Syy</string>
-  <string name="whatIsIheMatter">Mikä hätänä?</string>
   <string name="cheat">Huijaus</string>
   <string name="troll">Trolli</string>
   <string name="other">Muu</string>
   <string name="reportCheatBoostHelp">Liitä linkki peliin/peleihin ja kerro, mikä tämän käyttäjän toiminnassa on pielessä. Älä vain sano hänen huijaavan, vaan kerro meille, miksi olet päätellyt niin.</string>
   <string name="reportUsernameHelp">Selitä, mikä tässä käyttäjätunnuksessa on loukkaavaa. Älä vain sano sen olevan loukkaava tai sopimaton, vaan kerro meille, mihin näkemyksesi perustuu, varsinkin jos loukkaus on epäsuora, muun kuin englanninkielinen, slangia, tai jos siinä viitataan kulttuuriin tai historiaan.</string>
   <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">Voimme käsitellä ilmoituksesi nopeammin, jos kirjoitat meille englanniksi.</string>
-  <string name="error.provideOneCheatedGameLink">Anna ainakin yksi linkki peliin, jossa epäilet huijaamista.</string>
   <string name="by">%s</string>
   <string name="importedByX">Käyttäjän %s tuoma</string>
   <string name="thisTopicIsNowClosed">Tämä aihe on nyt suljettu.</string>
@@ -788,7 +787,9 @@ Kavereita pelaamassa: %2$s</string>
   <string name="downloadAnnotated">Lataa kommenttien kanssa</string>
   <string name="downloadRaw">Lataa ilman kommentteja</string>
   <string name="downloadImported">Imuroi tuotu PGN</string>
+  <string name="downloadMyGames">Lataa pelini</string>
   <string name="downloadAllGames">Lataa kaikki pelit</string>
+  <string name="downloadResults">Lataa tulokset</string>
   <string name="crosstable">Pistetaulukko</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Voit kelata siirtoja myös hiiren vieritysrullalla.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Esikatsele tietokoneen muunnelmia viemällä hiiren osoitin niiden päälle.</string>

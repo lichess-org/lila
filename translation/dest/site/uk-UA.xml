@@ -176,6 +176,7 @@
   <string name="flipBoard">Перевернути дошку</string>
   <string name="toggleLocalEngine">Перемкнути локальний рушій</string>
   <string name="engineSettings">Налаштування рушія</string>
+  <string name="engine">Рушій</string>
   <string name="enginesFromStrongestToWeakest">Рушії від найкращого до найгіршого</string>
   <string name="illegalPosition">Недійсна позиція</string>
   <string name="threefoldRepetition">Триразове повторення</string>
@@ -657,14 +658,12 @@
   <string name="reportAUser">Поскаржитись на користувача</string>
   <string name="user">Користувач</string>
   <string name="reason">Причина</string>
-  <string name="whatIsIheMatter">Що трапилося?</string>
   <string name="cheat">Нечесна гра</string>
   <string name="troll">Тролінг</string>
   <string name="other">Інше</string>
   <string name="reportCheatBoostHelp">Вставте посилання на гру або ігри та поясніть, що не так з поведінкою цього користувача. Не кажіть «він нечесно грав», а поясніть, як ви прийшли до такого висновку.</string>
   <string name="reportUsernameHelp">Поясніть, що саме в цьому імені користувача є образливе. Не кажіть «воно образливе/неприйнятне», а поясніть, чому ви так вважаєте, особливо коли образа заплутана, не англійською, на сленгу, чи є посиланням на щось історичне/культурне.</string>
   <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">Ми зможемо опрацювати вашу скаргу швидше, якщо вона буде англійською.</string>
-  <string name="error.provideOneCheatedGameLink">Будь ласка, додайте посилання на хоча б одну нечесну гру.</string>
   <string name="by">від %s</string>
   <string name="importedByX">Завантажено гравцем - %s</string>
   <string name="thisTopicIsNowClosed">Обговорення закрито.</string>

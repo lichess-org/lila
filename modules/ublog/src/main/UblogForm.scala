@@ -8,7 +8,7 @@ import scalalib.model.Language
 import lila.common.Form.{ formatter, typeIn, cleanNonEmptyText, cleanTextWithSymbols, cleanText, into, given }
 import lila.core.captcha.{ CaptchaApi, WithCaptcha }
 import lila.core.i18n.LangList
-import lila.core.ublog.Quality
+import lila.ublog.UblogPost.Quality
 
 final class UblogForm(captcha: CaptchaApi, langList: LangList):
 
@@ -90,7 +90,7 @@ object UblogForm:
 
   lazy val modBlogForm = Form(
     tuple(
-      "tier" -> number(min = UblogBlog.Tier.HIDDEN.value, max = UblogBlog.Tier.HIGH.value)
+      "tier" -> number(min = UblogBlog.Tier.HIDDEN.value, max = UblogBlog.Tier.CRAWLABLE.value)
         .into[UblogBlog.Tier],
       "note" -> cleanText(0, 800)
     )

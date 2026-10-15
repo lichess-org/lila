@@ -3,7 +3,7 @@ import { type Rules } from 'chessops/types';
 import type { LocalEval } from '@/tree/types';
 
 import { defined } from '../index';
-import type { Work } from './types';
+import type { Work, EngineInfo } from './types';
 
 export class Protocol {
   public engineName?: string;
@@ -16,7 +16,10 @@ export class Protocol {
   private send: ((cmd: string) => void) | undefined;
   private options: Map<string, string | number> = new Map<string, string>();
 
-  constructor(readonly variantMap?: (v: Rules) => string) {}
+  constructor(
+    readonly info: EngineInfo,
+    readonly variantMap?: (v: Rules) => string,
+  ) {}
 
   connected(send: (cmd: string) => void): void {
     this.send = send;
@@ -67,7 +70,14 @@ export class Protocol {
       const work = this.work;
       this.work = undefined;
       if (work) {
-        const ceval = this.currentEval ?? { millis: 0, fen: work.currentFen, depth: 0, nodes: 0, pvs: [] };
+        const ceval = this.currentEval ?? {
+          millis: 0,
+          fen: work.currentFen,
+          depth: 0,
+          nodes: 0,
+          pvs: [],
+          engineId: this.info.id,
+        };
         ceval.bestmove = parts[1];
         if (parts[2] === 'ponder') ceval.ponder = parts[3];
         if (!work.stopRequested) work.emit(ceval, work);
@@ -142,6 +152,7 @@ export class Protocol {
             cp: isMate ? undefined : ev,
             mate: isMate ? ev : undefined,
             pvs: [pvData],
+            engineId: this.info.id,
           };
         }
       } else if (this.currentEval) {

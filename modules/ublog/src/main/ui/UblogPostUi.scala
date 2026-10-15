@@ -38,7 +38,7 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
           st.title := trans.ublog.xBlog.txt(user.username)
         ).some
       )
-      .flag(_.noRobots, !blog.listed || !post.indexable || blog.tier < UblogBlog.Tier.HIGH)
+      .flag(_.noRobots, !blog.crawlable || !post.crawlable)
       .csp(_.withInlineIconFont):
         main(cls := "page-menu page-small")(
           ui.menu(Left(user.id)),
@@ -192,7 +192,7 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
       div(
         div(
           span(cls := "btn-rack")(
-            lila.core.ublog.Quality.values.map: q =>
+            UblogPost.Quality.values.map: q =>
               button(
                 cls := s"quality-btn btn-rack__btn ${(nonPendingQuality.contains(q)).so("lit")}",
                 value := q.name
