@@ -1,4 +1,5 @@
 import 'chartjs-adapter-dayjs-4';
+import { fontColor, fontFamily, gridColor, tooltipBgColor } from 'chart';
 import {
   Chart,
   PointElement,
@@ -19,6 +20,7 @@ interface FideRatingChartOpts {
 
 export function initModule(opts: FideRatingChartOpts): void {
   Chart.register(LineController, LinearScale, PointElement, LineElement, Tooltip, Filler, TimeScale);
+  Chart.defaults.font = fontFamily();
   const ratings = [...opts.standard, ...opts.rapid, ...opts.blitz].map(decodeElo);
   const minRating = Math.min(...ratings, 2000);
   const maxRating = Math.max(...ratings, 2800);
@@ -54,6 +56,7 @@ const renderRatingChart = (
           data: chartData,
           borderColor: 'hsl(37 74% 43%)',
           backgroundColor: 'hsl(37 74% 43% / 0.5)',
+          pointHoverBackgroundColor: tooltipBgColor,
           fill: true,
         },
       ],
@@ -64,9 +67,6 @@ const renderRatingChart = (
       scales: {
         x: {
           type: 'time',
-          time: {
-            tooltipFormat: 'MMMM YYYY',
-          },
           display: false,
         },
         y: {
@@ -95,6 +95,21 @@ const renderRatingChart = (
       },
       parsing: false,
       normalized: true,
+      plugins: {
+        tooltip: {
+          backgroundColor: tooltipBgColor,
+          bodyColor: fontColor,
+          titleColor: fontColor,
+          borderColor: gridColor,
+          borderWidth: 1,
+          caretPadding: 5,
+          rtl: document.dir === 'rtl',
+          callbacks: {
+            title: items => dateFormat()(dayjs(items[0].parsed.x).valueOf()),
+            label: context => `${context.dataset.label}: ${context.formattedValue}`,
+          },
+        },
+      },
     },
   });
 };
