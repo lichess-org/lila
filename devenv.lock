@@ -20,11 +20,11 @@
     "lila-db-seed": {
       "flake": false,
       "locked": {
-        "lastModified": 1792075617,
-        "narHash": "sha256-D3m9JF6VypMFJzftWD8B20fT5Wz2dq/yom2sFC+NlTc=",
+        "lastModified": 1792076781,
+        "narHash": "sha256-fBe3ag6R/6BxvcFWnWmvJzZh53K9BiLYIIXp44xdZvM=",
         "owner": "lichess-org",
         "repo": "lila-db-seed",
-        "rev": "2f8abba4cc450462425f77077e8aaadae2175c58",
+        "rev": "b5d06f115c51d6f12167b9629fb21f087bf2e833",
         "type": "github"
       },
       "original": {
