@@ -36,6 +36,15 @@ in
     redis.enable = true;
   };
 
+  processes = {
+    lila-ws = {
+      start.enable = false;
+      env = {
+        JAVA_TOOL_OPTIONS = "-Dredis.uri=redis://127.0.0.1:${toString config.processes.redis.ports.main.value}";
+      };
+    };
+  };
+
   packages = [
     pkgs-unstable.nodejs-slim
     pkgs-master.pnpm_12
