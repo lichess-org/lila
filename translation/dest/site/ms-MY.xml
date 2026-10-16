@@ -58,7 +58,6 @@
   <string name="whiteDidntMove">Putih tidak bergerak</string>
   <string name="blackDidntMove">Hitam tidak bergerak</string>
   <string name="whiteAborted">Putih telah meninggalkan perlawanan</string>
-  <string name="blackAborted">Putih telah meninggalkan perlawanan</string>
   <string name="requestAComputerAnalysis">Minta analisis komputer</string>
   <string name="computerAnalysis">Analisis komputer</string>
   <string name="computerAnalysisAvailable">Analisis komputer ada</string>
