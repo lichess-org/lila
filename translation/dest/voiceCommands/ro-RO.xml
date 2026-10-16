@@ -17,6 +17,5 @@
   <string name="cancelTimerOrDenyARequest">Anulați cronometrul sau refuzați o cerere</string>
   <string name="playPreferredMoveOrConfirmSomething">Redă mutarea preferată sau confirmă ceva</string>
   <string name="sleep">Somn (dacă cuvântul de trezire este activat)</string>
-  <string name="turnOffVoiceRecognition">Dezactivați recunoașterea vocală</string>
   <string name="showPuzzleSolution">Arată soluţia de puzzle</string>
 </resources>

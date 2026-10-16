@@ -17,6 +17,5 @@
   <string name="cancelTimerOrDenyARequest">Taymerni toʻxtatish yoki soʻrovni rad etish</string>
   <string name="playPreferredMoveOrConfirmSomething">Tanlangan yurishni bajarish yoki amalni tasdiqlash</string>
   <string name="sleep">Kutish rejimi (agar faollashtiruvchi soʻz yoqilgan boʻlsa)</string>
-  <string name="turnOffVoiceRecognition">Ovozni aniqlashni oʻchirish</string>
   <string name="showPuzzleSolution">Masala yechimini koʻrsatish</string>
 </resources>
