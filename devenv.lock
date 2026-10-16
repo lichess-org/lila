@@ -36,11 +36,11 @@
     "lila-ws": {
       "flake": false,
       "locked": {
-        "lastModified": 1792078921,
-        "narHash": "sha256-c2BP311f1UgVm+kqbrSaja7iadZU2/ERpqI9z4LM5wM=",
+        "lastModified": 1792143295,
+        "narHash": "sha256-fLyC/CuhgctLAnqGOg1yLfhVpKMrXwy6/fapyWT9lFM=",
         "owner": "lichess-org",
         "repo": "lila-ws",
-        "rev": "7d8d166cc111382d75ec095735c8755da1a29c22",
+        "rev": "8564a30f179b6e1a75f6a775f2dc081acec395a1",
         "type": "github"
       },
       "original": {
