@@ -9,19 +9,11 @@ final class Video(env: Env) extends LilaController(env):
 
   import env.video.api
 
-  private def WithUserControl[A](f: UserControl => Fu[A])(using Context): Fu[A] =
-    val reqTags = get("tags").so(_.split('/').toList.map(_.trim.toLowerCase))
-    api.tag
-      .paths(reqTags)
-      .map: tags =>
-        UserControl(filter = Filter(reqTags), tags = tags, query = get("q"))
-      .flatMap(f)
-
   def index = Open(serveIndex)
   def indexLang = LangPage(routes.Video.index)(serveIndex)
   private def serveIndex(using ctx: Context) = NoBot:
     pageHit
-    WithUserControl: control =>
+    api.withUserControl: control =>
       Ok.async:
         control.query match
           case Some(query) =>
@@ -39,7 +31,7 @@ final class Video(env: Env) extends LilaController(env):
   def show(id: String) = Open(serveShow(id))
   def showLang(lang: Language, id: String) = LangPage(routes.Video.show(id))(serveShow(id))(lang)
   private def serveShow(id: String)(using ctx: Context) =
-    WithUserControl: control =>
+    api.withUserControl: control =>
       api.video
         .find(id)
         .flatMap:
@@ -58,7 +50,7 @@ final class Video(env: Env) extends LilaController(env):
   def authorLang(lang: Language, author: String) =
     LangPage(routes.Video.author(author))(serveAuthor(author))(lang)
   private def serveAuthor(author: String)(using ctx: Context) =
-    WithUserControl: control =>
+    api.withUserControl: control =>
       Ok.async:
         api.video
           .byAuthor(ctx.me, author, getInt("page") | 1)
@@ -68,7 +60,8 @@ final class Video(env: Env) extends LilaController(env):
   def tags = Open(serveTags)
   def tagsLang = LangPage(routes.Video.tags)(serveTags)
   private def serveTags(using ctx: Context) =
-    WithUserControl: control =>
-      Ok.async:
-        api.tag.allPopular.map:
-          views.video.tags(_, control)
+    api.withUserControl: control =>
+      for
+        tags <- api.tag.allPopular
+        page <- Ok.page(views.video.tags(tags, control))
+      yield page.headerCache(1.hour)
