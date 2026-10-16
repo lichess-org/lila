@@ -13,6 +13,7 @@
   <string name="published">Publicada</string>
   <string name="chooseYourEngineSettings">Fai clic en Analizar para obter a avaliación da liña principal.</string>
   <string name="analysisUploadFailed">Erro ó cargar a análise. Téntao máis tarde.</string>
+  <string name="youCanPublish">Podes publicar a túa análise local.</string>
   <string name="turnOnRec">Tes que activar a gravación (REC) para poder compartir a análise local nun estudo.</string>
   <string name="startingPosition">Posición inicial</string>
   <string name="keepThisBrowserTabActive">Mantén esta lapela do navegador activa durante a análise</string>

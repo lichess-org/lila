@@ -74,7 +74,8 @@ final class Fishnet(env: Env) extends LilaController(env):
               data =>
                 allow:
                   f(client)(data).map:
-                    _.map(Json.toJson).fold(NoContent)(Accepted(_))
+                    _.map(Json.toJson).fold(NoContent): data =>
+                      Accepted(data).as(JSON)
                 .rescue(identity)
             )
       Client.Version.readFromUA.so: version =>

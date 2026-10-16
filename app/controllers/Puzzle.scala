@@ -55,8 +55,10 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
         WithPuzzlePerf:
           negotiateApi(
             html = renderShow(daily.puzzle, PuzzleAngle.mix, isDaily = true),
-            api = v => jsonView.analysis(daily.puzzle, PuzzleAngle.mix, apiVersion = v.some).dmap { Ok(_) }
-          ).dmap(_.noCache)
+            api = v =>
+              for content <- jsonView.analysis(daily.puzzle, PuzzleAngle.mix, apiVersion = v.some)
+              yield JsonOk(content).headerCache(10.minutes).varyAccept
+          )
 
   def apiDaily = Anon:
     Found(env.puzzle.daily.get): daily =>
