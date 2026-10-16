@@ -74,9 +74,8 @@ object String:
 
     def markdownLinksOrRichText(text: String)(using NetDomain): Frag =
       val escaped = Html(escapeHtmlRaw(text))
-      val marked = RawHtml.justMarkdownLinks(escaped)
-      if marked == escaped then richText(text)
-      else nl2brUnsafe(marked.value)
+      if RawHtml.hasMarkdownLinks(escaped) then nl2brUnsafe(RawHtml.markdownLinksWithBareLinks(escaped).value)
+      else richText(text)
 
     def safeJsonValue(jsValue: JsValue): SafeJsonStr = SafeJsonStr:
       val sb = java.lang.StringBuilder()
