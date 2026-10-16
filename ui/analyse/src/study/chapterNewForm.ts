@@ -89,8 +89,14 @@ export class StudyChapterNewForm {
     this.loadVariants();
     this.initial(false);
     this.isDefaultName(true);
-    this.selectedVariant(this.currentChapter().setup.variant.key);
+    this.setVariant(this.currentChapter().setup.variant.key);
     this.chess960Position(518);
+  };
+
+  setVariant = (v: VariantKey) => {
+    this.selectedVariant(v);
+    // racing kings boards always have white at the bottom, see AnalyseCtrl.bottomColor
+    if (v === 'racingKings') this.orientation = 'white';
   };
 
   toggle = () => (this.isOpen() ? this.isOpen(false) : this.open());
@@ -359,7 +365,8 @@ export function view(ctrl: StudyChapterNewForm): VNode {
                   hook: bind('change', e => {
                     const v = (e.target as HTMLSelectElement).value as VariantKey;
                     ctrl.editor?.setVariant(v);
-                    ctrl.selectedVariant(v);
+                    ctrl.setVariant(v);
+                    if (v === 'racingKings') ctrl.editor?.setOrientation('white');
                     if (v !== 'chess960') ctrl.chess960Position(518);
                     ctrl.redraw();
                   }),
@@ -374,6 +381,7 @@ export function view(ctrl: StudyChapterNewForm): VNode {
               select(
                 '#chapter-orientation.form-control',
                 {
+                  disabled: !gameOrPgn && ctrl.selectedVariant() === 'racingKings',
                   hook: bind('change', e => {
                     ctrl.orientation = (e.target as HTMLInputElement).value as Color;
                     ctrl.editor?.setOrientation(ctrl.orientation);
