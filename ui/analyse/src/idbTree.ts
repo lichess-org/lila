@@ -148,10 +148,6 @@ export class IdbTree {
         this.cache.localAnalysis = analysis.localUpdate.analysis;
         this.ctrl.mergeMainlineAnalysisData(analysis.localUpdate);
       }
-      if (!collapsedPaths) return this.collapseDefault();
-      for (const path of collapsedPaths) {
-        this.ctrl.tree.updateAt(path, n => (n.collapsed = true));
-      }
       if (moves !== false && moves?.root) {
         this.ctrl.tree.merge(completeNode(this.ctrl.variantKey)(moves.root));
         this.cache.movesDirty = true;
@@ -164,6 +160,10 @@ export class IdbTree {
           }
         });
         this.cache.cevals.set(path, ceval);
+      }
+      if (!collapsedPaths) return this.collapseDefault();
+      for (const path of collapsedPaths) {
+        this.ctrl.tree.updateAt(path, n => (n.collapsed = true));
       }
     } catch (e) {
       console.log('IDB error.', e);
