@@ -33,6 +33,22 @@
         "type": "github"
       }
     },
+    "lila-ws": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1792078921,
+        "narHash": "sha256-c2BP311f1UgVm+kqbrSaja7iadZU2/ERpqI9z4LM5wM=",
+        "owner": "lichess-org",
+        "repo": "lila-ws",
+        "rev": "7d8d166cc111382d75ec095735c8755da1a29c22",
+        "type": "github"
+      },
+      "original": {
+        "owner": "lichess-org",
+        "repo": "lila-ws",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "inputs": {
         "nixpkgs-src": "nixpkgs-src"
@@ -121,6 +137,7 @@
       "inputs": {
         "devenv": "devenv",
         "lila-db-seed": "lila-db-seed",
+        "lila-ws": "lila-ws",
         "nixpkgs": "nixpkgs",
         "nixpkgs-master": "nixpkgs-master",
         "nixpkgs-unstable": "nixpkgs-unstable",

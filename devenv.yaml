@@ -10,6 +10,10 @@ inputs:
   lila-db-seed:
     url: github:lichess-org/lila-db-seed
     flake: false
+  lila-ws:
+    url: github:lichess-org/lila-ws
+    flake: false
 imports:
   - lila-db-seed
+  - lila-ws
 allowUnfree: true
