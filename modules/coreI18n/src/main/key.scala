@@ -1714,6 +1714,10 @@ object I18nKey:
     val `reportUsernameHelp`: I18nKey = "report:reportUsernameHelp"
     val `processReportFasterInEnglish`: I18nKey = "report:processReportFasterInEnglish"
     val `provideOneCheatedGameLink`: I18nKey = "report:provideOneCheatedGameLink"
+    val `thanksForTheReport`: I18nKey = "report:thanksForTheReport"
+    val `moderatorsWillReviewSoon`: I18nKey = "report:moderatorsWillReviewSoon"
+    val `blockUserInMeantime`: I18nKey = "report:blockUserInMeantime"
+    val `returnToHomepage`: I18nKey = "report:returnToHomepage"
 
   object search:
     val `search`: I18nKey = "search:search"
