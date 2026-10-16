@@ -183,8 +183,7 @@ object RawHtml:
         s"""<a rel="nofollow noopener noreferrer" href="$href">$content</a>"""
     )
 
-  def hasMarkdownLinks(escapedHtml: Html): Boolean =
-    markdownLinkRegex.findFirstIn(escapedHtml.value).isDefined
+  def hasMarkdownLinks(escapedHtml: Html) = markdownLinkRegex.matches(escapedHtml.value)
 
   // Same markdown link rendering as justMarkdownLinks, for manual assembly.
   private def markdownLinkHtml(content: String, href: String): String =

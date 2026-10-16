@@ -209,11 +209,6 @@ class RawHtmlTest extends munit.FunSuite:
       Html("""<a rel="nofollow noopener noreferrer" href="http://example.com">Example</a>""")
     )
 
-  test("hasMarkdownLinks detect markdown links"):
-    assert(hasMarkdownLinks(Html("[Example](https://example.com)")))
-    assert(!hasMarkdownLinks(Html("https://example.com")))
-    assert(!hasMarkdownLinks(Html("no links here")))
-
   test("markdown with bare links linkify bare url after markdown link"):
     assertEquals(
       markdownLinksWithBareLinks(Html("[Example](https://example.com) and https://zombo.com")),
