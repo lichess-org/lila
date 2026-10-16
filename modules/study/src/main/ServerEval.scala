@@ -85,8 +85,11 @@ private[study] final class Merger(
   def remove(studyId: StudyId, chapterId: StudyChapterId): Funit =
     sequencer.sequenceStudyWithChapter(studyId, chapterId):
       case Study.WithChapter(_, chapter) =>
-        for _ <- chapterRepo.update(replace(chapter, none))
-        yield lila.common.Bus.pub(lila.core.fishnet.Bus.StudyChapterDelete(chapter.id :: Nil))
+        chapter.serverEval
+          .exists(_.version.exists(_ > 0))
+          .so:
+            for _ <- chapterRepo.update(replace(chapter, none))
+            yield lila.common.Bus.pub(lila.core.fishnet.Bus.StudyChapterDelete(chapter.id :: Nil))
 
   private def sendProgress(
       studyId: StudyId,

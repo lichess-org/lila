@@ -356,7 +356,8 @@ class LocalAnalysisDialog {
         <strong>{provenance}</strong>
         <span class="weak">
           {engineName}
-          {(isLocal || this.ctrl.study?.members.canContribute()) && (
+          {(isLocal ||
+            (this.ctrl.study?.members.canContribute() && this.ctrl.study.canMergeAnalysisCleanly())) && (
             <button class="clear" title={clearText} on={{ click: clearClick }}>
               {licon.X}
             </button>
@@ -416,7 +417,7 @@ class LocalAnalysisDialog {
   private get canPublish() {
     const ctrl = this.ctrl;
     if (!this.ctrl.idbTree.hasLocalAnalysis) return { showButton: false };
-    if (!this.isIdle || !ctrl.canAnalyse() || !ctrl.allowLines()) return { showButton: false };
+    if (!this.isIdle || !ctrl.canAnalyseMainline() || !ctrl.allowLines()) return { showButton: false };
     if (ctrl.mainline.length < 10 || !ctrl.ceval.analysable) return { showButton: false, whyNot: 'invalid' };
     if (!ctrl.study || !ctrl.study.members.canContribute())
       return { showButton: false, whyNot: 'permission' };
