@@ -174,8 +174,7 @@ object RawHtml:
 
   private val markdownLinkRegex = """\[([^]]++)\]\((https?://[^)]++)\)""".r
 
-  def hasMarkdownLinks(escapedHtml: Html): Boolean =
-    markdownLinkRegex.findFirstIn(escapedHtml.value).isDefined
+  def hasMarkdownLinks(escapedHtml: Html): Boolean = markdownLinkRegex.matches(escapedHtml.value)
 
   // Same markdown link rendering as justMarkdownLinks, for manual assembly.
   private def markdownLinkHtml(content: String, href: String): String =
