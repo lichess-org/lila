@@ -197,6 +197,7 @@ object RawHtml:
 
   // Linkify bare urls in already-escaped text, without double-escaping it.
   private def bareLinks(escapedText: String)(using NetDomain): Html =
-    addLinks(String.html.unescapeHtml(Html(escapedText)).value)
+    if hasLinks(escapedText) then addLinks(String.html.unescapeHtml(Html(escapedText)).value)
+    else Html(escapedText)
 
   def removeUrlTrackingParameters(url: String): String = Url.trackingParametersRegex.replaceAllIn(url, "")
