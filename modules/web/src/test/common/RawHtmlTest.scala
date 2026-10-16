@@ -175,39 +175,10 @@ class RawHtmlTest extends munit.FunSuite:
       "example.com?foo=42&bar=yay"
     )
 
-  test("markdown add http links"):
-    val md = "[Example](http://example.com)"
-    assertEquals(
-      justMarkdownLinks(Html(md)),
-      Html("""<a rel="nofollow noopener noreferrer" href="http://example.com">Example</a>""")
-    )
-
-  test("markdown handle $ >> link content"):
-    val md =
-      "[$$$ test 9$ prize](https://lichess.org/tournament)"
-    assertEquals(
-      justMarkdownLinks(Html(md)),
-      Html(
-        """<a rel="nofollow noopener noreferrer" href="https://lichess.org/tournament">$$$ test 9$ prize</a>"""
-      )
-    )
-
-  test("markdown only allow safe protocols"):
-    val md = Html("A [link](javascript:powned) that is not safe.")
-    assertEquals(justMarkdownLinks(md), md)
-
-  test("markdown not add br"):
-    assertEquals(justMarkdownLinks(Html("\n")), Html("\n"))
-
-  test("markdown not escape html"):
-    assertEquals(justMarkdownLinks(Html("&")), Html("&"))
-
-  test("markdown remove tracking tags"):
-    val md = "[Example](http://example.com?utm_campaign=spy&utm_source=evil)"
-    assertEquals(
-      justMarkdownLinks(Html(md)),
-      Html("""<a rel="nofollow noopener noreferrer" href="http://example.com">Example</a>""")
-    )
+  test("hasMarkdownLinks detect markdown links"):
+    assert(hasMarkdownLinks(Html("[Example](https://example.com)")))
+    assert(!hasMarkdownLinks(Html("https://example.com")))
+    assert(!hasMarkdownLinks(Html("no links here")))
 
   test("markdown with bare links linkify bare url after markdown link"):
     assertEquals(
@@ -245,6 +216,33 @@ class RawHtmlTest extends munit.FunSuite:
       Html(
         """<a rel="nofollow noopener noreferrer" href="http://example.com">Example</a> and <a rel="nofollow noreferrer" href="https://zombo.com" target="_blank">zombo.com</a>"""
       )
+    )
+
+  test("markdown handle $ >> link content"):
+    val md =
+      "[$$$ test 9$ prize](https://lichess.org/tournament)"
+    assertEquals(
+      markdownLinksWithBareLinks(Html(md)),
+      Html(
+        """<a rel="nofollow noopener noreferrer" href="https://lichess.org/tournament">$$$ test 9$ prize</a>"""
+      )
+    )
+
+  test("markdown only allow safe protocols"):
+    val md = Html("A [link](javascript:powned) that is not safe.")
+    assertEquals(markdownLinksWithBareLinks(md), md)
+
+  test("markdown not add br"):
+    assertEquals(markdownLinksWithBareLinks(Html("\n")), Html("\n"))
+
+  test("markdown not escape html"):
+    assertEquals(markdownLinksWithBareLinks(Html("&")), Html("&"))
+
+  test("markdown remove tracking tags"):
+    val md = "[Example](http://example.com?utm_campaign=spy&utm_source=evil)"
+    assertEquals(
+      markdownLinksWithBareLinks(Html(md)),
+      Html("""<a rel="nofollow noopener noreferrer" href="http://example.com">Example</a>""")
     )
 
   test("atUser expand valid"):

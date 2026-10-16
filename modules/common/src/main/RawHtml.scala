@@ -4,7 +4,6 @@ import scalalib.StringUtils.{ escapeHtmlRaw, escapeHtmlRawInPlace }
 
 import java.lang.Character.isLetterOrDigit
 import java.lang.{ Math, StringBuilder as jStringBuilder }
-import java.util.regex.Matcher
 import scala.annotation.{ switch, tailrec }
 
 import lila.common.Html
@@ -174,14 +173,6 @@ object RawHtml:
       }
 
   private val markdownLinkRegex = """\[([^]]++)\]\((https?://[^)]++)\)""".r
-  def justMarkdownLinks(escapedHtml: Html): Html = Html:
-    markdownLinkRegex.replaceAllIn(
-      escapedHtml.value,
-      m =>
-        val content = Matcher.quoteReplacement(m.group(1))
-        val href = removeUrlTrackingParameters(m.group(2))
-        s"""<a rel="nofollow noopener noreferrer" href="$href">$content</a>"""
-    )
 
   def hasMarkdownLinks(escapedHtml: Html) = markdownLinkRegex.matches(escapedHtml.value)
 
