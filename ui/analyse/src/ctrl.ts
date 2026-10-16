@@ -1098,8 +1098,13 @@ export default class AnalyseCtrl implements CevalHandler {
         })
       : `/${this.data.game.id}/edit?fen=${this.node.fen}`;
 
-  canAnalyse(): boolean {
-    return !this.ongoing && this.mainline.length > 4 && (!this.study || this.study.isCevalAllowed());
+  canAnalyseMainline(): boolean {
+    return (
+      !this.synthetic &&
+      !this.ongoing &&
+      this.mainline.length > 4 &&
+      (!this.study || this.study.isCevalAllowed())
+    );
   }
 
   getNodeKey(): string {

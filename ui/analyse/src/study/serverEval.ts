@@ -72,7 +72,8 @@ export function view(ctrl: ServerEval): VNode {
       chartAction('Cogs', i18n.study.analysisEditor, () =>
         site.asset.loadEsm('analyse.local', { init: ctrl.root }),
       ),
-      (ctrl.root.study!.members.canContribute() || ctrl.root.idbTree.hasLocalAnalysis) &&
+      (ctrl.root.idbTree.hasLocalAnalysis ||
+        (ctrl.root.study?.members.canContribute() && ctrl.root.study?.canMergeAnalysisCleanly())) &&
         chartAction(
           'X',
           ctrl.root.idbTree.hasLocalAnalysis ? i18n.study.clearLocal : i18n.study.clearPublished,

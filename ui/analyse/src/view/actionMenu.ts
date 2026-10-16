@@ -147,7 +147,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
           i18n.site.continueFromHere,
         ),
       studyButton(ctrl),
-      ctrl.canAnalyse() &&
+      ctrl.canAnalyseMainline() &&
         hl(
           'button',
           {
