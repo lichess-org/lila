@@ -382,10 +382,15 @@ export function view(ctrl: StudyChapterNewForm): VNode {
                 '#chapter-orientation.form-control',
                 {
                   disabled: !gameOrPgn && ctrl.selectedVariant() === 'racingKings',
-                  hook: bind('change', e => {
-                    ctrl.orientation = (e.target as HTMLInputElement).value as Color;
-                    ctrl.editor?.setOrientation(ctrl.orientation);
-                  }),
+                  props: { value: ctrl.orientation },
+                  hook: bind(
+                    'change',
+                    e => {
+                      ctrl.orientation = (e.target as HTMLInputElement).value as Color;
+                      ctrl.editor?.setOrientation(ctrl.orientation);
+                    },
+                    ctrl.redraw,
+                  ),
                 },
                 [...(activeTab === 'pgn' ? ['automatic' as const] : []), ...COLORS].map(orientation =>
                   option(
