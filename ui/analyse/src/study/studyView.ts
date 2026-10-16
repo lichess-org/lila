@@ -295,7 +295,7 @@ function buttons(root: AnalyseCtrl): VNode {
           count: (root.node.glyphs || []).length,
           shouldBlurIfPrimaryClick: true,
         }),
-      (canContribute || root.staticAnalysis) &&
+      (canContribute || root.mainlineAnalysis) &&
         toolButton({
           ctrl,
           tab: 'serverEval',
@@ -304,7 +304,7 @@ function buttons(root: AnalyseCtrl): VNode {
           onClick() {
             if (!root.settings.showMainlineAnalysis) root.settings.set('showMainlineAnalysis', true);
           },
-          count: root.staticAnalysis && '✓',
+          count: root.mainlineAnalysis && '✓',
           shouldBlurIfPrimaryClick: true,
         }),
       toolButton({

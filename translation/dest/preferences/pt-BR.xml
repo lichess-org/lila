@@ -73,7 +73,7 @@
   <string name="blindfold" comment="As in Blindfold chess">Às cegas</string>
   <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">Mostrar à esquerda em dispositivos móveis</string>
   <string name="inlineNotation">Notação em linha</string>
-  <string name="showServerAnalysis">Mostrar análise do servidor</string>
+  <string name="showMainlineAnalysis">Mostrar análise principal</string>
   <string name="showBestMoveArrows">Mostrar setas de melhores movimentos</string>
   <string name="showManeuverArrows">Mostrar setas de manobra</string>
   <string name="showGauge">Mostrar barra de avaliação</string>

@@ -70,7 +70,7 @@
   <string name="interferenceDescription">상대의 두 기물 사이에 기물을 집어넣어 그 기물들을 지켜지지 않게 만듭니다. 두 룩 사이의 나이트처럼요.</string>
   <string name="intermezzo">사잇수</string>
   <string name="intermezzoDescription">예상되는 플레이를 하는 대신, 먼저 상대가 즉시 해결해야 하는 또 다른 위협을 끼워 넣습니다. \"Zwischenzug\"나 \"In between\"이라고도 합니다.</string>
-  <string name="killBoxMate">킬 박스 체크메이트</string>
+  <string name="killBoxMate">킬 박스 메이트</string>
   <string name="killBoxMateDescription">킹 옆에서는 룩이 체크를 넣고, 퀸이 그 룩을 지켜주면서 킹의 도주로를 차단하는 체크메이트 패턴입니다. 룩과 퀸이 3 x 3 \"킬 박스\" 안에서 킹을 공격합니다.</string>
   <string name="pillsburysMate">필즈버리 메이트</string>
   <string name="pillsburyMateRookAndBishopDescription">비숍이 킹을 가두어두는 동안 룩을 이용해 메이트를 합니다.</string>
@@ -133,7 +133,7 @@
   <string name="skewer">스큐어</string>
   <string name="skewerDescription">높은 가치의 기물을 공격해 길을 비키게 만들고, 그 뒤에 있는 낮은 가치의 기물을 잡는 전술입니다. 핀의 반대죠.</string>
   <string name="smotheredMate">질식 체크메이트</string>
-  <string name="smotheredMateDescription">자신의 기물에 둘러쌓여(또는 \"질식되어\") 움직일 수 없는 킹을 나이트로 체크메이트 시키는 것 입니다.</string>
+  <string name="smotheredMateDescription">자신의 기물에 둘러싸여(또는 \"질식되어\") 움직일 수 없는 킹을 나이트로 체크메이트 시키는 것입니다.</string>
   <string name="superGM">슈퍼GM 게임</string>
   <string name="superGMDescription">세계 최고 플레이어들의 게임에서 나온 퍼즐입니다.</string>
   <string name="trappedPiece">갇힌 기물</string>

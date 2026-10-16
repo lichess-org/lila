@@ -23,7 +23,7 @@
   <string name="bodenMate">Boden moti</string>
   <string name="bodenMateDescription">Ikkita hujumchi fil kesishuvchi diagonallar boʻylab oʻz donalari bilan qamalib qolgan shohga mot beradi.</string>
   <string name="castling">Rokirovka</string>
-  <string name="enPassant">Yo\'lakda olish</string>
+  <string name="enPassant">En passant</string>
   <string name="castlingDescription">Shohni xavfsiz joyga oʻtkazing va ruxni hujumga tayyorlang.</string>
   <string name="capturingDefender">Himoyachini yoʻq qilish</string>
   <string name="capturingDefenderDescription">Boshqa bir donani himoya qilayotgan muhim donani urib olish. Bu esa oʻsha himoyasiz qolgan donani keyingi yurishda qoʻlga kiritish imkonini beradi.</string>
@@ -138,7 +138,7 @@
   <string name="superGMDescription">Dunyoning eng kuchli shaxmatchilari oʻyinlaridan olingan masalalar.</string>
   <string name="trappedPiece">Qamalib qolgan dona</string>
   <string name="trappedPieceDescription">Dona harakatlanishi cheklangani sababli hujumdan qochib qutula olmaydi.</string>
-  <string name="underPromotion">Boshqa donaga almashtirish</string>
+  <string name="underPromotion">Zaifroq donaga aylantirish</string>
   <string name="underPromotionDescription">Piyodani ot, fil, yoki ruxga almashtirish.</string>
   <string name="veryLong">Juda uzun masala</string>
   <string name="veryLongDescription">Yutish uchun toʻrt yoki undan koʻproq yurish talab qilinadi.</string>

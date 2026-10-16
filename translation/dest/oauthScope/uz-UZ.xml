@@ -7,6 +7,7 @@
   <string name="rememberTokenUse">Bu tokendan nima maqsadda foydalanishingizni eslab qolish uchun</string>
   <string name="whatTheTokenCanDo">Token sizning nomingizdan nimalar qila oladi:</string>
   <string name="oauthCatUserAccount">Foydalanuvchi akkaunti</string>
+  <string name="oauthCatInteractions">Muloqotlar</string>
   <string name="oauthCatPlayGames">Oʻyin oʻynash</string>
   <string name="oauthCatStudiesBroadcasts">Saboqlar va translyatsiyalar</string>
   <string name="oauthCatExternalPlay">Tashqi oʻyin</string>
@@ -32,6 +33,7 @@
   <string name="followRead">Obuna boʻlingan oʻyinchilarni koʻrish</string>
   <string name="followWrite">Boshqa oʻyinchilarga obuna boʻlish yoki obunani bekor qilish</string>
   <string name="msgWrite">Boshqa oʻyinchilarga shaxsiy xabarlar yuborish</string>
+  <string name="readWriteNotesOnPlayers">Boshqa oʻyinchilar haqida qaydlarni oʻqish va yozish</string>
   <string name="boardPlay">Elektron taxta API orqali oʻynash</string>
   <string name="botPlay">Bot API orqali oʻynash</string>
   <string name="engineRead">Tashqi dvijoklarni koʻrish va ulardan foydalanish</string>

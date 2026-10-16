@@ -34,9 +34,9 @@ object http:
 
   def time(action: String) = reqTime.withTag("action", action)
 
-  def count(action: String, client: String, method: String, code: Int) =
+  def count(action: String, client: String, method: String, asn: String, code: Int) =
     reqCount.withTags:
-      tags("action" -> action, "client" -> client, "method" -> method, "code" -> code.toLong)
+      tags("action" -> action, "client" -> client, "method" -> method, "asn" -> asn, "code" -> code.toLong)
 
   def errorCount(action: String, client: String, method: String, code: Int) =
     counter("http.error").withTags:

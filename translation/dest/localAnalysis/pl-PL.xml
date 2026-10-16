@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="analyse">Analizuj</string>
+  <string name="onTheServer">Na serwerze</string>
+  <string name="local">Lokalnie</string>
+  <string name="currentAnalysis">Bieżąca analiza</string>
+  <string name="cannotPublish">Nie można opublikować</string>
+  <string name="nodesPerMove">Liczba pozycji na ruch</string>
+  <string name="using">Za pomocą</string>
+  <string name="willUse">Wykorzysta</string>
+  <string name="quality">Jakość</string>
+  <string name="publish">Opublikuj</string>
+  <string name="published">Opublikowane</string>
+  <string name="chooseYourEngineSettings">Kliknij Analizuj, aby ocenić linię główną.</string>
+  <string name="bestResultsUseXWithYThreads">Aby uzyskać najlepsze wyniki w najkrótszym czasie, użyj %1$s z %2$s wątkami.</string>
+  <string name="analysisUploadFailed">Przesyłanie analizy nie powiodło się. Spróbuj ponownie później.</string>
+  <string name="serverAnalysisInProgress">N serwerze trwa analiza tej partii. Możesz spróbować ponownie po jej zakończeniu.</string>
+  <string name="youCanPublish">Twoja lokalna analiza może być opublikowana.</string>
+  <string name="turnOnRec">Musisz włączyć REC zanim będziesz mógł udostępnić analizę lokalną w opracowaniu.</string>
+  <string name="whenUpgradingOldChapters">Analiza serwera rozdziałów utworzonych przed wprowadzeniem lokalnej analizy nie może być poprawnie zaktualizowana. Starsze linie silnika i komentarze pozostaną, chyba że najpierw je usuniesz.</string>
+  <string name="startingPosition">Ustawienie początkowe</string>
+  <string name="keepThisBrowserTabActive">Pozostaw tę kartę przeglądarki jako aktywną podczas analizy</string>
+  <string name="xTimesStandardQuality">%sx standardowa jakość</string>
+  <string name="moveXOfY" comment="should this be in site?">Posunięcie %1$s z %2$s</string>
+  <string name="downloadingXofY" comment="should this be in site?">Pobieranie %1$s z %2$s</string>
+  <string name="timeToComplete">To zajmie około %s</string>
+  <string name="xWouldBeFaster">%s byłoby szybsze</string>
+</resources>

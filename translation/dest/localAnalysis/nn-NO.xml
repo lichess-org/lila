@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="analyse">Analyser</string>
+  <string name="onTheServer">På serveren</string>
+  <string name="local">Lokal</string>
+  <string name="currentAnalysis">Gjeldande analyse</string>
+  <string name="cannotPublish">Kan ikkje publisera</string>
+  <string name="nodesPerMove">Nodar per trekk</string>
+  <string name="using">Nyttar</string>
+  <string name="willUse">Vil bruka</string>
+  <string name="quality">Kvalitet</string>
+  <string name="publish">Publiser</string>
+  <string name="published">Publisert</string>
+  <string name="chooseYourEngineSettings">Klikk Analyse for hovudvarianten.</string>
+  <string name="bestResultsUseXWithYThreads">For dei beste resultata på kortast tid, bruk %1$s med %2$s trådar.</string>
+  <string name="analysisUploadFailed">Opplasting av analyse feila. Prøv på nytt seinare.</string>
+  <string name="serverAnalysisInProgress">Ein serveranalyse er i sving for dette partiet. Du kan gjera eit nytt forsøk nå den er ferdig.</string>
+  <string name="youCanPublish">Den lokale analyse din kan publiserast.</string>
+  <string name="turnOnRec">Du må aktivera REC før du kan formidla lokale analysar med ein studie.</string>
+  <string name="whenUpgradingOldChapters">Serveranalyse av kapitlar oppretta før lokal analyse vart introdusert kan ikke oppgraderast reint. Eldre sjakkprogramlinjer og kommentarar vil ligga att om du ikkje fjernar deg først.</string>
+  <string name="startingPosition">Startstilling</string>
+  <string name="keepThisBrowserTabActive">Hald nettlesarfolderen aktiv under analyse</string>
+  <string name="xTimesStandardQuality">%sx standardkvalitet</string>
+  <string name="moveXOfY" comment="should this be in site?">Flytt %1$s av %2$s</string>
+  <string name="downloadingXofY" comment="should this be in site?">Lastar ned %1$s av %2$s</string>
+  <string name="timeToComplete">Dette tar omlag %s</string>
+  <string name="xWouldBeFaster">%s vil vera raskare</string>
+</resources>

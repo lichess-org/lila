@@ -790,6 +790,7 @@ Oʻynayotgan doʻstlar: %2$s</string>
   <string name="downloadImported">Import qilinganini yuklab olish</string>
   <string name="downloadMyGames">Oʻyinlarimni yuklab olish</string>
   <string name="downloadAllGames">Barcha oʻyinlarni yuklab olish</string>
+  <string name="downloadResults">Natijalarni yuklab olish</string>
   <string name="crosstable">Hisob</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Oʻyindagi yurishlarni koʻrib chiqish uchun taxta ustida sichqonchani aylantiring.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Kompyuter variatsiyalarini koʻrib chiqish uchun ustida sichqonchani aylantiring.</string>
@@ -809,12 +810,14 @@ Oʻynayotgan doʻstlar: %2$s</string>
   <string name="enableKidMode">Bola rejimini yoqish</string>
   <string name="disableKidMode">Bola rejimini oʻchirish</string>
   <string name="security">Xavfsizlik</string>
+  <string name="activeSessionsDescription">Bu akkauntingizga kirgan qurilmalar va ilovalar roʻyxati. Agar shubhali amallarni sezsangiz, &lt;a href=\'%1$s\'&gt;tiklash uchun elektron pochtangizni tekshiring&lt;/a&gt; va &lt;a href=\'%2$s\'&gt;parolingizni oʻzgartiring&lt;/a&gt;.</string>
   <string name="sessions">Faol qurilmalar</string>
   <string name="revokeAllSessions">barcha qurilmalardan chiqish</string>
   <string name="playChessEverywhere">Istagan joyda shaxmat oʻynang</string>
   <string name="everybodyGetsAllFeaturesForFree">Barcha funksiyalar hamma uchun bepul</string>
   <string name="viewTheSolution">Yechimni koʻrish</string>
   <string name="noChallenges">Chorlovlar yoʻq.</string>
+  <string name="browserNotificationsDenied">Brazuer sozlamasi tufayli qalqib chiquvchi bildirishnomalar oʻchirilgan</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">%s ta tilda mavjud!</item>
     <item quantity="other">%s ta tilda mavjud!</item>

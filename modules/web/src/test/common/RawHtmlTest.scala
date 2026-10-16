@@ -245,6 +245,49 @@ class RawHtmlTest extends munit.FunSuite:
       Html("""<a rel="nofollow noopener noreferrer" href="http://example.com">Example</a>""")
     )
 
+  test("hasMarkdownLinks detect markdown links"):
+    assert(hasMarkdownLinks(Html("[Example](https://example.com)")))
+    assert(!hasMarkdownLinks(Html("https://example.com")))
+    assert(!hasMarkdownLinks(Html("no links here")))
+
+  test("markdown with bare links linkify bare url after markdown link"):
+    assertEquals(
+      markdownLinksWithBareLinks(Html("[Example](https://example.com) and https://zombo.com")),
+      Html(
+        """<a rel="nofollow noopener noreferrer" href="https://example.com">Example</a> and <a rel="nofollow noreferrer" href="https://zombo.com" target="_blank">zombo.com</a>"""
+      )
+    )
+
+  test("markdown with bare links linkify bare url before markdown link"):
+    assertEquals(
+      markdownLinksWithBareLinks(Html("see https://zombo.com and [Example](https://example.com)")),
+      Html(
+        """see <a rel="nofollow noreferrer" href="https://zombo.com" target="_blank">zombo.com</a> and <a rel="nofollow noopener noreferrer" href="https://example.com">Example</a>"""
+      )
+    )
+
+  test("markdown with bare links linkify lone bare url"):
+    assertEquals(
+      markdownLinksWithBareLinks(Html("see https://zombo.com ok")),
+      Html(
+        """see <a rel="nofollow noreferrer" href="https://zombo.com" target="_blank">zombo.com</a> ok"""
+      )
+    )
+
+  test("markdown with bare links leave text without urls unchanged"):
+    val text = Html("just some text")
+    assertEquals(markdownLinksWithBareLinks(text), text)
+
+  test("markdown with bare links remove tracking tags"):
+    assertEquals(
+      markdownLinksWithBareLinks(
+        Html("[Example](http://example.com?utm_campaign=spy&utm_source=evil) and https://zombo.com")
+      ),
+      Html(
+        """<a rel="nofollow noopener noreferrer" href="http://example.com">Example</a> and <a rel="nofollow noreferrer" href="https://zombo.com" target="_blank">zombo.com</a>"""
+      )
+    )
+
   test("atUser expand valid"):
     assertEquals(expandAtUser("@foo"), List("lichess.org/@/foo"))
     assertEquals(expandAtUser("@2foo"), List("lichess.org/@/2foo"))

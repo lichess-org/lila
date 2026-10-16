@@ -40,7 +40,7 @@ export default class ServerEval {
 }
 
 export function view(ctrl: ServerEval): VNode {
-  const analysis = ctrl.root.staticAnalysis;
+  const analysis = ctrl.root.mainlineAnalysis;
 
   if (!analysis) return ctrl.requested ? requested() : requestButtons(ctrl);
   const mainline = ctrl.root.mainline;

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="analyse">Analitza</string>
+  <string name="onTheServer">Al servidor</string>
+  <string name="local">Local</string>
+  <string name="currentAnalysis">Anàlisis actual</string>
+  <string name="cannotPublish">No es pot publicar</string>
+  <string name="nodesPerMove">Nodes per moviment</string>
+  <string name="using">Utilitzant</string>
+  <string name="willUse">S\'utilitzarà</string>
+  <string name="quality">Qualitat</string>
+  <string name="publish">Publica</string>
+  <string name="published">Publicat</string>
+  <string name="chooseYourEngineSettings">Cliqueu analitza per avaluar la línia principal.</string>
+  <string name="bestResultsUseXWithYThreads">Pels millors resultats amb menys temps utilitzeu %1$s amb %2$s fils.</string>
+  <string name="analysisUploadFailed">Ha fallat la pujada de l\'anàlisi. Torna-ho a intentar més tard.</string>
+  <string name="serverAnalysisInProgress">Ja hi ha una anàlisi en curs per aquesta partida. Ho podeu tornar a intentar quan acabi.</string>
+  <string name="youCanPublish">Podeu publicar el vostre anàlisi local.</string>
+  <string name="turnOnRec">Heu d\'activar la gravació abans de compartir una anàlisi local a un estudi.</string>
+  <string name="whenUpgradingOldChapters">L\'anàlisi del servidor als capítols creats abans de l\'anàlisi local no es podran actualitzar netament. Els comentaris i línies anteriors es mantindran si no les elimineu primer.</string>
+  <string name="startingPosition">Posició inicial</string>
+  <string name="keepThisBrowserTabActive">Mantingueu la pestanya del navegador oberta durant l\'anàlisi</string>
+  <string name="xTimesStandardQuality">%sx qualitat estàndard</string>
+  <string name="moveXOfY" comment="should this be in site?">Jugada %1$s de %2$s</string>
+  <string name="downloadingXofY" comment="should this be in site?">Descarregant %1$s de %2$s</string>
+  <string name="timeToComplete">Tardarà aproximadament %s</string>
+  <string name="xWouldBeFaster">%s hauria de ser més ràpid</string>
+</resources>

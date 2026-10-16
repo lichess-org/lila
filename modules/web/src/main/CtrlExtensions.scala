@@ -29,7 +29,8 @@ trait CtrlExtensions extends play.api.mvc.ControllerHelpers with ResponseHeaders
       CACHE_CONTROL -> "no-cache, no-store, must-revalidate",
       EXPIRES -> "0"
     )
-    def headerCacheSeconds(seconds: Int) = result.withHeaders(CACHE_CONTROL -> s"max-age=$seconds")
+    def headerCache(duration: FiniteDuration) =
+      result.withHeaders(CACHE_CONTROL -> s"max-age=${duration.toSeconds.toInt}")
     def hasPersonalData = result.noCache
     def noProxyBuffer = result.withHeaders("X-Accel-Buffering" -> "no")
     def withServiceWorker(using RequestHeader) =

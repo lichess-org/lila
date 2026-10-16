@@ -68,9 +68,10 @@ final class Main(env: Env, assetsC: ExternalAssets) extends LilaController(env):
       if env.net.crawlable && req.domain == env.net.domain.value && env.mode.isProd
       then env.web.static.robotsTxt
       else "User-agent: *\nDisallow: /"
+    .headerCache(1.hour)
 
   val manifest = Anon:
-    JsonOk(env.web.static.manifest)
+    JsonOk(env.web.static.manifest).headerCache(1.hour)
 
   def getFishnet = Open:
     pageHit

@@ -12,6 +12,10 @@
   }
 }
 
+body:has(.mselect__toggle--mask:checked) > .mselect__fullscreen-mask {
+  display: block;
+}
+
 .rp::before {
   @extend %data-icon;
 

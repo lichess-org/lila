@@ -73,7 +73,7 @@
   <string name="blindfold" comment="As in Blindfold chess">기물 숨기기</string>
   <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">모바일 기기에서 왼쪽에 보이기</string>
   <string name="inlineNotation">기보법 가로쓰기</string>
-  <string name="showServerAnalysis">서버 분석 표시</string>
+  <string name="showMainlineAnalysis">메인라인 분석 보이기</string>
   <string name="showBestMoveArrows">최선의 수 화살표 표시</string>
   <string name="showManeuverArrows">기동 화살표 표시</string>
   <string name="showGauge">엔진 평가치 표시</string>
