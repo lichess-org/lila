@@ -360,8 +360,7 @@ function maxHashMB() {
   return 512; // allocating 1024 often fails and offers little benefit over 512, or 16 for that matter
 }
 
-const maxThreads =
-  isAndroid() || isIos() || navigator.userAgent.includes('CrOS') ? navigator.hardwareConcurrency : 32;
+const maxThreads = Math.min(32, navigator.hardwareConcurrency || 32);
 
 type GivenInDefaults = 'minThreads' | 'maxThreads';
 type Optional<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;
