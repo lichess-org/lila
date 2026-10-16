@@ -1,5 +1,7 @@
 import { COLORS } from 'chessops';
-import { parseFen } from 'chessops/fen';
+import { lichessRules } from 'chessops/compat';
+import { makeBoardFen, makeFen, parseFen } from 'chessops/fen';
+import { defaultPosition } from 'chessops/variant';
 import type { LichessEditor } from 'editor';
 import { chess960IdToFEN, randomPositionId } from 'editor/chess960';
 
@@ -54,6 +56,14 @@ export const modeChoices = [
 export const fieldValue = (e: Event, id: string) =>
   ((e.target as HTMLElement).querySelector('#chapter-' + id) as HTMLInputElement)?.value;
 
+const startFen = (variant: VariantKey): FEN => makeFen(defaultPosition(lichessRules(variant)).toSetup());
+
+const boardFen = (fen: FEN): string | undefined =>
+  parseFen(fen).unwrap(
+    setup => makeBoardFen(setup.board),
+    () => undefined,
+  );
+
 export class StudyChapterNewForm {
   readonly multiPgnMax = 64;
   variants: Variant[] = [];
@@ -97,6 +107,14 @@ export class StudyChapterNewForm {
     this.selectedVariant(v);
     // racing kings boards always have white at the bottom, see AnalyseCtrl.bottomColor
     if (v === 'racingKings') this.orientation = 'white';
+  };
+
+  // an untouched starting position is replaced by the starting position of the new variant
+  setEditorVariant = (from: VariantKey, to: VariantKey) => {
+    if (!this.editor) return;
+    const isStart = boardFen(this.editor.getFen()) === boardFen(startFen(from));
+    this.editor.setVariant(to);
+    if (isStart && from !== to) this.editor.setFen(startFen(to));
   };
 
   toggle = () => (this.isOpen() ? this.isOpen(false) : this.open());
@@ -260,7 +278,7 @@ export function view(ctrl: StudyChapterNewForm): VNode {
                       };
                       ctrl.editor = await site.asset.loadEsm<LichessEditor>('editor', { init: data });
                       ctrl.editorFen(ctrl.editor.getFen());
-                      ctrl.editor.setVariant(currentChapter.setup.variant.key);
+                      ctrl.setEditorVariant(currentChapter.setup.variant.key, ctrl.selectedVariant());
                     });
                   },
                   destroy: () => (ctrl.editor = null),
@@ -364,7 +382,7 @@ export function view(ctrl: StudyChapterNewForm): VNode {
                   disabled: gameOrPgn,
                   hook: bind('change', e => {
                     const v = (e.target as HTMLSelectElement).value as VariantKey;
-                    ctrl.editor?.setVariant(v);
+                    ctrl.setEditorVariant(ctrl.selectedVariant(), v);
                     ctrl.setVariant(v);
                     if (v === 'racingKings') ctrl.editor?.setOrientation('white');
                     if (v !== 'chess960') ctrl.chess960Position(518);
