@@ -174,30 +174,6 @@ object RawHtml:
 
   private val markdownLinkRegex = """\[([^]]++)\]\((https?://[^)]++)\)""".r
 
-  def hasMarkdownLinks(escapedHtml: Html) = markdownLinkRegex.matches(escapedHtml.value)
-
-  // Same markdown link rendering as justMarkdownLinks, for manual assembly.
-  private def markdownLinkHtml(content: String, href: String): String =
-    s"""<a rel="nofollow noopener noreferrer" href="${removeUrlTrackingParameters(href)}">$content</a>"""
-
-  // Render markdown links, and linkify bare urls in the text around them.
-  // Used when a text mixes both, so bare urls don't stay plain text.
-  def markdownLinksWithBareLinks(escapedHtml: Html)(using NetDomain): Html =
-    val text = escapedHtml.value
-    val matcher = markdownLinkRegex.pattern.matcher(text)
-    val sb = new jStringBuilder(text.length + 200)
-    var last = 0
-    while matcher.find() do
-      if matcher.start > last then sb.append(bareLinks(text.substring(last, matcher.start)).value)
-      sb.append(markdownLinkHtml(matcher.group(1), matcher.group(2)))
-      last = matcher.end
-    if last < text.length then sb.append(bareLinks(text.substring(last)).value)
-    Html(sb.toString)
-
-  // Linkify bare urls in already-escaped text, without double-escaping it.
-  private def bareLinks(escapedText: String)(using NetDomain): Html =
-    addLinks(String.html.unescapeHtml(Html(escapedText)).value)
-
   def hasMarkdownLinks(escapedHtml: Html): Boolean =
     markdownLinkRegex.findFirstIn(escapedHtml.value).isDefined
 
