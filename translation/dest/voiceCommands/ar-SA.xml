@@ -17,6 +17,5 @@
   <string name="cancelTimerOrDenyARequest">ألغ المؤقت أو أرفض الطلب</string>
   <string name="playPreferredMoveOrConfirmSomething">لعب النقلة المفضلة أو التأكد من شيئ ما</string>
   <string name="sleep">وضع النوم (إذا تم تمكين كلمة الاستيقاظ)</string>
-  <string name="turnOffVoiceRecognition">إيقاف التعرف على الصوت</string>
   <string name="showPuzzleSolution">إظهار حل اللغز</string>
 </resources>

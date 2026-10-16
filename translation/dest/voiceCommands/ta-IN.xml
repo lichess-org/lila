@@ -17,6 +17,5 @@
   <string name="cancelTimerOrDenyARequest">காலக்கணிப்பியை ரத்துசெய்யவும் அல்லது கோரிக்கையை நிராகரிக்கவும்</string>
   <string name="playPreferredMoveOrConfirmSomething">விருப்பமான நகர்வை விளையாடவும் அல்லது எதையாவது உறுதிப்படுத்தவும்</string>
   <string name="sleep">உறக்கம் (விழிப்பு வார்த்தை இயக்கப்பட்டிருந்தால்)</string>
-  <string name="turnOffVoiceRecognition">குரல் அங்கீகாரத்தை முடக்கு</string>
   <string name="showPuzzleSolution">புதிர் தீர்வைக் காட்டு</string>
 </resources>

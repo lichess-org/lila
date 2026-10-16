@@ -17,6 +17,5 @@
   <string name="cancelTimerOrDenyARequest">Peruuta ajastin tai hylkää pyyntö</string>
   <string name="playPreferredMoveOrConfirmSomething">Tee ensisijainen siirto tai vahvista jotain</string>
   <string name="sleep">Nuku (jos herätyssana on käytössä)</string>
-  <string name="turnOffVoiceRecognition">Poista äänen tunnistus käytöstä</string>
   <string name="showPuzzleSolution">Näytä tehtävän ratkaisu</string>
 </resources>
