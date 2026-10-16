@@ -383,9 +383,11 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
   /* aggregates, for the new mobile app:
    * /coach (paginated list)
    */
-  def mobileCoaches(page: Int, lang: String, order: String, country: String) = AnonOrScoped(_.Web.Mobile, _.Web.Takex3) { _ ?=>
-    JsonOk(env.api.mobile.coaches(page, lang, order, country))
-  }
+  def mobileCoaches(page: Int, lang: String, order: String, country: String) =
+    AnonOrScoped(_.Web.Mobile, _.Web.Takex3) { ctx ?=>
+      RequireAuthIf(lila.coach.allFlags != lila.core.user.FlagCode(country)):
+        JsonOk(env.api.mobile.coaches(page, lang, order, country))
+    }
 
   /* aggregates, for the new mobile app:
    * /coach/:username

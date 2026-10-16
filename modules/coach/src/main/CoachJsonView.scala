@@ -22,10 +22,11 @@ final class CoachJsonView(picfitUrl: lila.memo.PicfitUrl):
 
   def show(c: Coach.WithUser): JsObject =
     val p = c.coach.profile
-    list(c) ++ Json.obj(
-      "youtubeVideos" -> p.youtubeUrls.map(_.value),
-      "studies" -> p.studyIds.map(_.value)
-    )
+    list(c) ++ Json
+      .obj(
+        "youtubeVideos" -> p.youtubeUrls.map(_.value),
+        "studies" -> p.studyIds.map(_.value)
+      )
       .add("description", p.description.map(_.value))
       .add("playingExperience", p.playingExperience.map(_.value))
       .add("teachingExperience", p.teachingExperience.map(_.value))
