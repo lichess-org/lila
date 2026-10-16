@@ -84,8 +84,12 @@ final class TeamRepo(val coll: Coll)(using Executor):
     _ <- coll.update.one(bdoc("leaders" -> userId), pull("leaders" -> userId), multi = true)
   yield ()
 
-  def deleteNewlyCreatedBy(userId: UserId): Funit =
-    coll.delete.one(bdoc("createdBy" -> userId, "createdAt" -> gte(nowInstant.minusDays(2)))).void
+  def deleteNewlyCreatedBy(userId: UserId): Fu[List[TeamId]] =
+    val select = bdoc("createdBy" -> userId, "createdAt" -> gte(nowInstant.minusDays(2)))
+    for
+      ids <- coll.primitive[TeamId](select, "_id")
+      _ <- ids.nonEmpty.so(coll.delete.one(inIds(ids)).void)
+    yield ids
 
   def isClas(id: TeamId): Fu[Boolean] = coll.secondary.exists(bid(id) ++ clasSelect)
   def byClasId(id: TeamId): Fu[Option[Team]] = coll.secondary.one[Team](bid(id) ++ clasSelect)

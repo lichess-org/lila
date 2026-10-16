@@ -29,7 +29,7 @@ final class TeamApi(
 
   import BSONHandlers.given
 
-  export teamRepo.{ filterHideForum, onUserDelete, deleteNewlyCreatedBy, creatorOf }
+  export teamRepo.{ filterHideForum, onUserDelete, creatorOf }
 
   private val workQueue = AsyncActorSequencers[TeamId](
     maxSize = Max(8),
@@ -270,24 +270,34 @@ final class TeamApi(
     teamRepo.coll.byIds[Team, TeamId](ids, _.sec)
 
   def quit(team: Team, userId: UserId): Funit = workQueue(team.id):
-    doQuit(team, userId)
+    doQuit(team.id, userId)
 
-  private def doQuit(team: Team, userId: UserId): Funit =
+  private def doQuit(teamId: TeamId, userId: UserId): Funit =
     for
-      res <- memberRepo.remove(team.id, userId)
+      res <- memberRepo.remove(teamId, userId)
       _ <- (res.n == 1).so:
-        teamRepo.incMembers(team.id, -1)
+        teamRepo.incMembers(teamId, -1)
     yield
-      Bus.pub(LeaveTeam(teamId = team.id, userId = userId))
+      Bus.pub(LeaveTeam(teamId = teamId, userId = userId))
       cached.invalidateTeamIds(userId)
 
-  def quitAllOnAccountClosure(userId: UserId): Fu[List[TeamId]] = for
-    teamIds <- cached.teamIdsList(userId)
-    _ <- memberRepo.removeByUser(userId)
-    _ <- requestRepo.removeByUser(userId)
-    _ <- teamIds.sequentially(teamRepo.incMembers(_, -1))
-    _ = cached.invalidateTeamIds(userId)
-  yield teamIds
+  def quitAllOnAccountClosure(userId: UserId): Fu[List[TeamId]] =
+    def loop(done: List[TeamId]): Fu[List[TeamId]] =
+      memberRepo
+        .teamIdsByUser(userId)
+        .flatMap:
+          case Nil => fuccess(done)
+          case todo =>
+            for
+              _ <- requestRepo.removeByUser(userId)
+              _ <- todo.sequentially: teamId =>
+                workQueue(teamId):
+                  doQuit(teamId, userId)
+              next <- loop(done ::: todo)
+            yield next
+    loop(Nil).map: teamIds =>
+      cached.invalidateTeamIds(userId)
+      teamIds
 
   def searchMembersAs(teamId: TeamId, term: UserSearch, nb: Int, showHidden: Boolean)(using
       me: Option[MyId]
@@ -314,7 +324,7 @@ final class TeamApi(
         val request = TeamRequest.make(team.id, userId, "Kicked from team", declined = true)
         for
           _ <- requestRepo.coll.update.one(bid(request.id), request, upsert = true)
-          _ <- doQuit(team, userId)
+          _ <- doQuit(team.id, userId)
         yield Bus.pub(KickFromTeam(teamId = team.id, teamName = team.name, userId = userId))
     yield ()
 
@@ -372,9 +382,22 @@ final class TeamApi(
 
   // delete forever, with members but not forums
   def delete(team: Team, by: User, explain: String): Funit = for
+    userIds <- memberRepo.userIdsByTeam(team.id)
     _ <- teamRepo.coll.delete.one(bid(team.id))
     _ <- memberRepo.removeByTeam(team.id)
+    _ <- requestRepo.removeByTeam(team.id)
+    _ = userIds.foreach(cached.invalidateTeamIds)
   yield logger.info(s"delete team ${team.id} by @${by.id}: $explain")
+
+  def deleteNewlyCreatedBy(userId: UserId): Funit = for
+    ids <- teamRepo.deleteNewlyCreatedBy(userId)
+    _ <- ids.sequentially: id =>
+      for
+        userIds <- memberRepo.userIdsByTeam(id)
+        _ <- memberRepo.removeByTeam(id)
+        _ <- requestRepo.removeByTeam(id)
+      yield userIds.foreach(cached.invalidateTeamIds)
+  yield ()
 
   def syncBelongsTo(teamId: TeamId, userId: UserId): Boolean =
     cached.syncTeamIds(userId).contains(teamId)
