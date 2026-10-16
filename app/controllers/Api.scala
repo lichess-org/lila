@@ -380,6 +380,23 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
       JsonOk(env.api.mobile.profile(user))
   }
 
+  /* aggregates, for the new mobile app:
+   * /coach (paginated list)
+   */
+  def mobileCoaches(page: Int) = AnonOrScoped(_.Web.Mobile, _.Web.Takex3) { _ ?=>
+    JsonOk(env.api.mobile.coaches(page))
+  }
+
+  /* aggregates, for the new mobile app:
+   * /coach/:username
+   */
+  def mobileCoach(username: UserStr) = AnonOrScoped(_.Web.Mobile, _.Web.Takex3) { ctx ?=>
+    Found(env.coach.api.find(username)): c =>
+      if c.isListed || ctx.me.exists(_.is(c.coach)) || isGrantedOpt(_.Admin)
+      then JsonOk(env.api.mobile.coach(c))
+      else notFoundJson()
+  }
+
   def ApiRequest(js: Context ?=> Fu[ApiResult]) = Anon:
     js.map(toHttp)
 

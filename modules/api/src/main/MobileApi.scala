@@ -33,7 +33,8 @@ final class MobileApi(
     isOnline: lila.core.socket.IsOnline,
     playing: lila.round.PlayingUsers,
     relationStream: lila.relation.RelationStream,
-    playerCounter: lila.web.PlayerCounter
+    playerCounter: lila.web.PlayerCounter,
+    coachEnv: lila.coach.Env
 )(using Executor):
 
   private given (using trans: Translate): Lang = trans.lang
@@ -129,3 +130,13 @@ final class MobileApi(
       .add("online", isOnline.exec(user.id))
       .add("playing", playing)
       .add("streaming", liveStreamApi.userIds(user.id))
+
+  def coaches(page: Int): Fu[JsObject] =
+    coachEnv.pager(none, lila.coach.CoachPager.Order.default, none, page).map: p =>
+      Json.obj(
+        "coaches" -> p.currentPageResults.map(coachEnv.jsonView.list),
+        "page" -> p.currentPage,
+        "nextPage" -> p.nextPage
+      )
+
+  def coach(c: lila.coach.Coach.WithUser): JsObject = coachEnv.jsonView.show(c)
