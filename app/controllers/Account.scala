@@ -83,7 +83,7 @@ final class Account(
           povs <- env.round.proxyRepo.urgentGames(me)
           nbChallenges <- env.challenge.api.countInFor.get(me)
           playban <- env.playban.api.currentBan(me)
-        yield Ok:
+        yield JsonOk:
           env.user.jsonView
             .full(me, none, withProfile = false) ++ Json
             .obj(
