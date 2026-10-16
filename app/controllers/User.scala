@@ -206,13 +206,15 @@ final class User(
                 yield snip.headerCache(5.seconds),
                 json =
                   import lila.game.JsonView.given
-                  Ok:
-                    Json.obj(
-                      "crosstable" -> crosstable,
-                      "perfs" -> lila.user.JsonView.perfsJson(user.perfs, user.perfs.best8Perfs)
-                    )
+                  val content =
+                    Json
+                      .obj(
+                        "crosstable" -> crosstable,
+                        "perfs" -> lila.user.JsonView.perfsJson(user.perfs, user.perfs.best8Perfs)
+                      )
+                  JsonOk(content).headerCache(5.seconds)
               )
-          else Ok(views.user.bits.miniClosed(user.user, relation))
+          else Ok(views.user.bits.miniClosed(user.user, relation)).headerCache(10.minutes)
 
   def online = Anon:
     val max = 50

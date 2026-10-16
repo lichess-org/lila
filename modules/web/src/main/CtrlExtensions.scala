@@ -31,6 +31,8 @@ trait CtrlExtensions extends play.api.mvc.ControllerHelpers with ResponseHeaders
     )
     def headerCache(duration: FiniteDuration) =
       result.withHeaders(CACHE_CONTROL -> s"max-age=${duration.toSeconds.toInt}")
+    def vary(headers: String*) = result.withHeaders(VARY -> headers.mkString(", "))
+    def varyAccept = vary("Accept")
     def hasPersonalData = result.noCache
     def noProxyBuffer = result.withHeaders("X-Accel-Buffering" -> "no")
     def withServiceWorker(using RequestHeader) =
