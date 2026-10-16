@@ -109,7 +109,8 @@ object search:
               p(
                 isGranted(_.Admin).option(frag("Location: ", data.location.toString, br)),
                 "Proxy: ",
-                data.proxy.toString
+                data.proxy.toString,
+                data.proxyListed.option(" (on proxy blocklist)")
               )
             ),
             userTable(users, showUsernames = Granter(_.ViewIP))

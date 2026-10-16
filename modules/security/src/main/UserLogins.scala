@@ -53,6 +53,12 @@ final class UserLoginsApi(
       val ipClients: Map[IpAddress, Set[UserClient]] =
         infos.foldLeft(Map.empty[IpAddress, Set[UserClient]]): (acc, info) =>
           acc.updated(info.ip, acc.get(info.ip).foldLeft(Set(UserClient(info.ua)))(_ ++ _))
+      // most recent non-empty proxy verdict stored at login time, per ip.
+      // infos are sorted most-recent-first, so the first verdict seen wins.
+      val loginProxyByIp: Map[IpAddress, IsProxy] =
+        infos.foldLeft(Map.empty[IpAddress, IsProxy]): (acc, info) =>
+          if acc.contains(info.ip) then acc
+          else info.proxy.filter(_.yes).fold(acc)(p => acc + (info.ip -> p))
       fetchOtherUsers(user, ips.map(_.value).toSet, fps.map(_.value).toSet, maxOthers)
         .zip:
           ip2proxy.keepProxies:
@@ -69,8 +75,10 @@ final class UserLoginsApi(
               IPData(
                 ip,
                 firewall.blocksIp(ip.value),
+                firewall.isProxyListed(ip.value),
                 geoIP.orUnknown(ip.value),
                 IsProxy(proxies.getOrElse(ip.value, "")),
+                loginProxyByIp.getOrElse(ip.value, IsProxy.empty),
                 Alts(othersByIp.getOrElse(ip.value, Set.empty)),
                 ipClients.getOrElse(ip.value, Set.empty)
               )
@@ -204,8 +212,10 @@ object UserLogins:
   case class IPData(
       ip: Dated[IpAddress],
       blocked: Boolean,
+      proxyListed: Boolean,
       location: Location,
       proxy: IsProxy,
+      loginProxy: IsProxy,
       alts: Alts,
       clients: Set[UserClient]
   ):
