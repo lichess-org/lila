@@ -134,7 +134,7 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
   private def menu(control: UserControl)(using Context) =
     st.aside(cls := "page-menu__menu")(
       lila.ui.bits.subnav(
-        control.tags.pp.map: t =>
+        control.tags.map: t =>
           val checked = control.filter.tags contains t.tag
           val visible = checked || t.nb.forall(_ > 0)
           a(
