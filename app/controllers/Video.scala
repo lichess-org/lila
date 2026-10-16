@@ -3,7 +3,6 @@ package controllers
 import scalalib.model.Language
 
 import lila.app.{ *, given }
-import lila.video.{ Filter, UserControl, View }
 
 final class Video(env: Env) extends LilaController(env):
 
@@ -40,7 +39,7 @@ final class Video(env: Env) extends LilaController(env):
             api.video
               .similar(ctx.me, video, 9)
               .zip(ctx.userId.so { userId =>
-                api.view.add(View.make(videoId = video.id, userId = userId))
+                api.view.add(lila.video.View.make(videoId = video.id, userId = userId))
               })
               .flatMap { (similar, _) =>
                 Ok.page(views.video.show(video, similar, control))
