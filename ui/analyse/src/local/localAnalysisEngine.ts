@@ -80,7 +80,7 @@ export class LocalAnalysisEngine {
     this.finishNode(this.isRunning() ? 'cancelled' : undefined);
   };
 
-  private readonly onEval = (ev: ClientEval | undefined) => {
+  private readonly onEval = (ev: ClientEval | undefined): void => {
     if (!ev) return this.stop();
     if (!this.isRunning()) return this.finishNode();
     if (ev.bestmove) {

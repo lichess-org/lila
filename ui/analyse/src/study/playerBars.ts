@@ -75,7 +75,7 @@ function renderPlayer(
   relayPlayers?: RelayPlayers,
   relayTeamLeaderboard?: { show: boolean; leaderboard?: RelayTeamLeaderboard },
 ): VNode {
-  const showResult: boolean =
+  const showResult =
     !defined(ctrl.study?.relay) ||
     ctrl.study?.multiBoard.showResults() ||
     ctrl.node.ply === ctrl.tree.lastPly();
@@ -94,66 +94,70 @@ function renderPlayer(
     rating: showRatings && eloTag ? parseInt(eloTag) : undefined,
     fideId,
   };
-  const photo = fideId ? relayPlayers?.fidePhoto(fideId) : undefined;
   const coloredResult = status && status !== '*' && playerColoredResult(status, color, round?.customScoring);
   const resultNode = coloredResult
     ? hl(`${coloredResult.tag}.result`, coloredResult.points)
     : result && hl(`${resultTag(result)}.result`, result);
-  return relayPlayers
-    ? hl(`div.relay-board-player.relay-board-player-${top ? 'top' : 'bot'}`, { class: { ticking } }, [
-        hl('div.left', [
-          playerPhotoOrFallback(player, photo, 'small', 'relay-board-player__photo'),
-          hl('div.info-split', [
-            hl('div', [
-              !!player.title && userTitle(player),
-              playerId(player) &&
-                hl(`a.name.relay-player-${color}`, relayPlayers.playerLinkConfig(player), player.name),
-            ]),
-            hl('div.info-secondary', [
-              team
-                ? hl(
-                    'a.team',
-                    {
-                      on: {
-                        click: (ev: PointerEvent) => {
-                          ev.preventDefault();
-                          relayTeamLeaderboard?.show
-                            ? relayTeamLeaderboard?.leaderboard?.setTeamToShow(team)
-                            : ctrl.study?.relay?.openTab('teams');
-                        },
-                      },
-                    },
-                    team,
-                  )
-                : undefined,
-              playerFedFlag(player?.fed),
-              !!player.rating && hl('span.elo', `${player.rating}`),
-            ]),
-          ]),
-          resultNode,
-        ]),
-        materialDiffs[top ? 0 : 1],
-        clocks?.[color === 'white' ? 0 : 1],
-      ])
-    : hl(`div.study__player.study__player-${top ? 'top' : 'bot'}`, { class: { ticking } }, [
-        hl('div.left', [
-          resultNode,
-          hl('span.info', [
-            team ? hl('span.team', team) : undefined,
-            playerFedFlag(player?.fed),
+
+  if (relayPlayers) {
+    const photo = fideId ? relayPlayers.fidePhoto(fideId) : undefined;
+
+    return hl(`div.relay-board-player.relay-board-player-${top ? 'top' : 'bot'}`, { class: { ticking } }, [
+      hl('div.left', [
+        playerPhotoOrFallback(player, photo, 'small', 'relay-board-player__photo'),
+        hl('div.info-split', [
+          hl('div', [
             !!player.title && userTitle(player),
             playerId(player) &&
-              hl(
-                player.fideId ? 'a.name' : 'span.name',
-                { attrs: fidePageLinkAttrs(player, ctrl.isEmbed) },
-                player.name,
-              ),
+              hl(`a.name.relay-player-${color}`, relayPlayers.playerLinkConfig(player), player.name),
+          ]),
+          hl('div.info-secondary', [
+            team
+              ? hl(
+                  'a.team',
+                  {
+                    on: {
+                      click: (ev: PointerEvent) => {
+                        ev.preventDefault();
+                        relayTeamLeaderboard?.show
+                          ? relayTeamLeaderboard?.leaderboard?.setTeamToShow(team)
+                          : ctrl.study?.relay?.openTab('teams');
+                      },
+                    },
+                  },
+                  team,
+                )
+              : undefined,
+            playerFedFlag(player?.fed),
             !!player.rating && hl('span.elo', `${player.rating}`),
           ]),
         ]),
-        materialDiffs[top ? 0 : 1],
-        clocks?.[color === 'white' ? 0 : 1],
-      ]);
+        resultNode,
+      ]),
+      materialDiffs[top ? 0 : 1],
+      clocks?.[color === 'white' ? 0 : 1],
+    ]);
+  }
+
+  return hl(`div.study__player.study__player-${top ? 'top' : 'bot'}`, { class: { ticking } }, [
+    hl('div.left', [
+      resultNode,
+      hl('span.info', [
+        team ? hl('span.team', team) : undefined,
+        playerFedFlag(player?.fed),
+        !!player.title && userTitle(player),
+        playerId(player) &&
+          hl(
+            player.fideId ? 'a.name' : 'span.name',
+            { attrs: fidePageLinkAttrs(player, ctrl.isEmbed) },
+            player.name,
+          ),
+        !!player.rating && hl('span.elo', `${player.rating}`),
+      ]),
+    ]),
+    materialDiffs[top ? 0 : 1],
+    clocks?.[color === 'white' ? 0 : 1],
+  ]);
 }
 
 function resultOf(tags: TagMap, isWhite: boolean): string | undefined {

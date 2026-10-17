@@ -366,23 +366,23 @@ export default class AnalyseCtrl implements CevalHandler {
 
   makeCgOpts(): ChessgroundConfig {
     const node = this.node;
-    const color = this.turnColor();
-    const dests = this.node.dests();
-    const drops = this.node.drops();
+    const turnColor = this.turnColor();
+    const dests = node.dests();
+    const drops = node.drops();
     const gamebookPlay = this.gamebookPlay();
     const movableColor = gamebookPlay
       ? gamebookPlay.movableColor()
       : this.practice
         ? this.bottomColor()
         : dests.size || drops?.length
-          ? color
+          ? turnColor
           : undefined;
     const config: ChessgroundConfig = {
       fen: node.fen,
-      turnColor: color,
+      turnColor,
       movable: {
         color: movableColor,
-        dests: (movableColor === color && dests) || new Map(),
+        dests: (movableColor === turnColor && dests) || new Map(),
       },
       check: node.check(),
       lastMove: uciToMove(node.uci),
@@ -419,9 +419,6 @@ export default class AnalyseCtrl implements CevalHandler {
   private readonly updateHref: () => void = debounce(() => {
     if (!this.opts.study) window.history.replaceState(null, '', '#' + this.node.ply);
   }, 750);
-
-  playedLastMoveMyself = () =>
-    !!this.justPlayed && !!this.node.uci && this.node.uci.startsWith(this.justPlayed);
 
   jump(path: TreePath): void {
     const pathChanged = path !== this.path;
