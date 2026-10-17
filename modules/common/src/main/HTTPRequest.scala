@@ -161,6 +161,9 @@ object HTTPRequest:
   def isKid(req: RequestHeader) =
     req.headers.get("X-Lichess-KidMode").exists(trueish)
 
+  def asn(req: RequestHeader): Option[ASN] =
+    ASN.from(req.headers.get("X-ASN").flatMap(_.toIntOption))
+
 enum ClientName:
   case lichobile, xhr, mobile, crawler, browser, fishnet, unknown
   def name = toString
