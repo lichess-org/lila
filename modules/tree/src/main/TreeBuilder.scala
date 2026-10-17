@@ -107,7 +107,9 @@ object TreeBuilder:
         none[Branch],
         (step, acc) =>
           inline def branch = makeBranch(step.move, step.ply)
-          acc.fold(branch)(acc => branch.addChild(acc)).some
+          // the engine keeps playing after the game is over, e.g. shuffling kings in a K vs K draw
+          if step.next.end then branch.some
+          else acc.fold(branch)(acc => branch.addChild(acc)).some
       )
 
     error.foreach(e => logChessError(formatError(id, e)))
