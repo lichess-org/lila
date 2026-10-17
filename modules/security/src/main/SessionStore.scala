@@ -11,7 +11,7 @@ import lila.common.HTTPRequest
 import lila.core.id.SessionId
 import lila.core.net.{ ApiVersion, IpAddress }
 import lila.core.misc.oauth.AccessTokenId
-import lila.core.security.FingerHash
+import lila.core.security.{ FingerHash, IsProxy }
 import lila.core.socket.Sri
 import lila.db.dsl.{ *, given }
 
@@ -243,7 +243,13 @@ private object SessionStore:
 
   val oauthSessionPrefix = "TOK-"
 
-  case class Info(ip: IpAddress, ua: UserAgent, fp: Option[FingerHash], date: Instant):
+  case class Info(
+      ip: IpAddress,
+      ua: UserAgent,
+      fp: Option[FingerHash],
+      date: Instant,
+      proxy: Option[IsProxy]
+  ):
     def datedIp = Dated(ip, date)
     def datedFp = fp.map { Dated(_, date) }
     def datedUa = Dated(ua, date)

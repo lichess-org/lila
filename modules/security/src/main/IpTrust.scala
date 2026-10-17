@@ -18,10 +18,17 @@ final class IpTrust(proxyApi: Ip2ProxyApi, geoApi: GeoIP, firewallApi: Firewall)
     else proxyApi.ofIp(ip).dmap(_.yes)
 
   def ipData(ip: IpAddress): Fu[IpData] =
-    proxyApi.ofIp(ip).dmap(IpData(_, geoApi.orUnknown(ip)))
+    proxyApi
+      .ofIp(ip)
+      .dmap: proxy =>
+        IpData(proxy, geoApi.orUnknown(ip), firewallApi.isProxyListed(ip))
 
   def reqData(req: RequestHeader)(using p: IsProxy): IpData =
-    IpData(p, geoApi.orUnknown(HTTPRequest.ipAddress(req)))
+    IpData(
+      p,
+      geoApi.orUnknown(HTTPRequest.ipAddress(req)),
+      firewallApi.isProxyListed(HTTPRequest.ipAddress(req))
+    )
 
   def isPubOrTor(req: RequestHeader): Fu[Boolean] = proxyApi
     .ofReq(req)
@@ -72,7 +79,7 @@ final class IpTrust(proxyApi: Ip2ProxyApi, geoApi: GeoIP, firewallApi: Firewall)
 
 object IpTrust:
 
-  case class IpData(proxy: IsProxy, location: Location)
+  case class IpData(proxy: IsProxy, location: Location, proxyListed: Boolean = false)
 
   type RateLimitStrategy = IsProxy => Float
 
