@@ -1,6 +1,6 @@
 import { isEmpty } from 'lib';
 import { displayColumns } from 'lib/device';
-import { cont as contRoute } from 'lib/game/router';
+import type { ContinueMode, GameData } from 'lib/game';
 import { licon } from 'lib/licon';
 import { structuredCloneLite } from 'lib/tree/ops';
 import { domDialog, bind, dataIcon, hl, type VNode } from 'lib/view';
@@ -218,3 +218,5 @@ export function view(ctrl: AnalyseCtrl): VNode {
     ]),
   ]);
 }
+
+const contRoute = (data: GameData, mode: ContinueMode): string => `/game/${data.game.id}/continue/${mode}`;

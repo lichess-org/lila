@@ -19,8 +19,7 @@ final class Round(
     challengeC: => Challenge,
     analyseC: => Analyse,
     tournamentC: => Tournament,
-    swissC: => Swiss,
-    userC: => User
+    swissC: => Swiss
 ) extends LilaController(env)
     with lila.web.TheftPrevention:
 
@@ -71,11 +70,7 @@ final class Round(
     yield res.enforceCrossSiteIsolation
 
   def player(fullId: GameFullId) = Open:
-    env.round.proxyRepo
-      .pov(fullId)
-      .flatMap:
-        case Some(pov) => renderPlayer(pov)
-        case None => userC.tryRedirect(fullId.into(UserStr)).getOrElse(notFound)
+    Found(env.round.proxyRepo.pov(fullId))(renderPlayer)
 
   private def otherPovs(game: GameModel)(using ctx: Context) =
     ctx.me.so: user =>
@@ -108,26 +103,19 @@ final class Round(
   }
 
   def watcher(gameId: GameId, color: Color) = Open:
-    if req.client.isCrawler
-    then
-      FoundPage(env.round.proxyRepo.gameIfPresentOrFetch(gameId)): game =>
-        for _ <- gameC.preloadUsers(game)
-        yield views.round.crawler(game.pov(color))
-    else
-      env.round.proxyRepo
-        .pov(gameId, color)
-        .flatMap:
-          case Some(pov) =>
-            watch(if getUserStr("pov").map(_.id).exists(pov.opponent.userId.has) then !pov else pov)
-          case None =>
-            userC
-              .tryRedirect(gameId.into(UserStr))
-              .getOrElse(challengeC.showId(gameId.into(lila.challenge.ChallengeId)))
+    env.round.proxyRepo
+      .pov(gameId, color)
+      .flatMap:
+        case Some(pov) =>
+          watch(if getUserStr("pov").map(_.id).exists(pov.opponent.userId.has) then !pov else pov)
+        case None => challengeC.showId(gameId.into(lila.challenge.ChallengeId))
+
+  def watcherRedirect(gameId: GameId, color: Color) = Anon:
+    MovedPermanently(routes.Round.watcher(gameId, color))
 
   private def isBlockedByPlayer(game: GameModel)(using Context) =
     game.isBeingPlayed.so(env.relation.api.isBlockedByAny(game.userIds))
 
-  // only for humans; crawlers must be filtered out upstream
   private[controllers] def watch(pov: Pov, userTv: Option[UserModel] = None)(using
       ctx: Context
   ): Fu[Result] =

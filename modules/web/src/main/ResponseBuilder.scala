@@ -70,3 +70,5 @@ trait ResponseBuilder(using Executor)
     "how-to-cheat" -> "/page/how-to-cheat"
   )
   def staticRedirect(key: String): Option[Fu[Result]] = movedMap.get(key).map { MovedPermanently(_) }
+
+  def MovedPermanently(call: Call): Result = MovedPermanently(call.url)
