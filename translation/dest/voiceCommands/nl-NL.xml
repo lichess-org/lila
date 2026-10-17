@@ -17,6 +17,5 @@
   <string name="cancelTimerOrDenyARequest">Timer annuleren of een verzoek weigeren</string>
   <string name="playPreferredMoveOrConfirmSomething">Speel voorkeurszet of bevestig iets</string>
   <string name="sleep">Slaap (indien wekkerwoord actief)</string>
-  <string name="turnOffVoiceRecognition">Spraakherkenning uitzetten</string>
   <string name="showPuzzleSolution">Toon puzzeloplossing</string>
 </resources>

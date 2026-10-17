@@ -3357,7 +3357,6 @@ object I18nKey:
     val `cancelTimerOrDenyARequest`: I18nKey = "voiceCommands:cancelTimerOrDenyARequest"
     val `playPreferredMoveOrConfirmSomething`: I18nKey = "voiceCommands:playPreferredMoveOrConfirmSomething"
     val `sleep`: I18nKey = "voiceCommands:sleep"
-    val `turnOffVoiceRecognition`: I18nKey = "voiceCommands:turnOffVoiceRecognition"
     val `showPuzzleSolution`: I18nKey = "voiceCommands:showPuzzleSolution"
     val `voiceHelp`: I18nKey = "voiceCommands:voiceHelp"
     val `voiceSettings`: I18nKey = "voiceCommands:voiceSettings"

@@ -17,6 +17,5 @@
   <string name="cancelTimerOrDenyARequest">ຍົກເລີກຕົວຈັບເວລາ ຫຼື ປະຕິເສດຄຳຂໍ</string>
   <string name="playPreferredMoveOrConfirmSomething">ເດີນບາດເດີນທີ່ຕ້ອງການ ຫຼື ຢືນຢັນບາງຢ່າງ</string>
   <string name="sleep">ພັກ (ຖ້າເປີດໃຊ້ຄຳສັ່ງປຸກ)</string>
-  <string name="turnOffVoiceRecognition">ປິດການຮັບຮູ້ສຽງ</string>
   <string name="showPuzzleSolution">ສະແດງຄຳຕອບຂອງປິດສະໜາ</string>
 </resources>

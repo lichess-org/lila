@@ -6593,8 +6593,6 @@ interface I18n {
     takeRookWithQueen: string;
     /** This blog post */
     thisBlogPost: string;
-    /** Turn off voice recognition */
-    turnOffVoiceRecognition: string;
     /** Voice commands */
     voiceCommands: string;
     /** Voice help */

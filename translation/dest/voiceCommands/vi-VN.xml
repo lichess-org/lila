@@ -17,6 +17,5 @@
   <string name="cancelTimerOrDenyARequest">Hủy bộ hẹn giờ hoặc từ chối yêu cầu</string>
   <string name="playPreferredMoveOrConfirmSomething">Chơi nước đi ưa thích hoặc xác nhận điều gì đó</string>
   <string name="sleep">Ngủ (nếu bật từ đánh thức)</string>
-  <string name="turnOffVoiceRecognition">Tắt nhận dạng giọng nói</string>
   <string name="showPuzzleSolution">Hiện đáp án câu đố</string>
 </resources>

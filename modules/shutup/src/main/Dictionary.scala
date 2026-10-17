@@ -283,6 +283,7 @@ payas[ao]
 pendejo
 po(l+|y)a
 put(ic|it|)[ao]
+suic[ií]date
 trampa
 trampos[ao]
 tu eres put\w*

@@ -17,6 +17,5 @@
   <string name="cancelTimerOrDenyARequest">Anuloni kohëmatësin, ose mohoni një kërkesë</string>
   <string name="playPreferredMoveOrConfirmSomething">Luani lëvizje të parapëlqyer, ose ripohoni diçka</string>
   <string name="sleep">Vëreni në gjumë (nëse është aktivizuar fjala “zgjohu”)</string>
-  <string name="turnOffVoiceRecognition">Çaktivizo njohje zëri</string>
   <string name="showPuzzleSolution">Shfaq zgjidhjen e ushtrimit</string>
 </resources>

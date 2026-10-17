@@ -17,6 +17,5 @@
   <string name="cancelTimerOrDenyARequest">Zamanlayıcıyı iptal et veya bir isteği reddet</string>
   <string name="playPreferredMoveOrConfirmSomething">Tercih edilen hamleyi oyna veya bir şeyi onayla</string>
   <string name="sleep">Uyku (eğer uyanma kelimesi etkinse)</string>
-  <string name="turnOffVoiceRecognition">Ses tanımayı kapat</string>
   <string name="showPuzzleSolution">Bulmaca çözümünü göster</string>
 </resources>
