@@ -355,6 +355,7 @@ final class Ublog(env: Env) extends LilaController(env):
       yield Ok
         .snip(views.ublog.ui.atom.user(user, posts.currentPageResults))
         .as(ATOM)
+        .headerCache(10.minutes)
         .withHeaders("X-Robots-Tag" -> (if blog.crawlable then "all" else "noindex"))
 
   def historicalBlogPost(id: String, @nowarn slug: String) = Open:
