@@ -48,6 +48,12 @@
   .selector {
     display: flex;
     justify-content: stretch;
+
+    button {
+      flex: 1 1 0;
+      min-width: 0;
+      padding-inline: 0.25rem;
+    }
   }
 
   .zoom,

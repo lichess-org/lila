@@ -1,4 +1,4 @@
-import { Chessground } from '@lichess-org/chessground';
+import { Chessground } from 'chessground3D';
 import { Chess } from 'chessops/chess';
 import { makeFen } from 'chessops/fen';
 import { makeSquare } from 'chessops/util';

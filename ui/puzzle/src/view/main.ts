@@ -122,7 +122,8 @@ export default function (ctrl: PuzzleCtrl): VNode {
                       else if (e.deltaY < 0) control.prev(ctrl);
                       ctrl.redraw();
                     },
-                    e => !['PIECE', 'SQUARE', 'CG-BOARD'].includes((e.target as HTMLElement).tagName),
+                    e =>
+                      !['PIECE', 'SQUARE', 'CG-BOARD', 'CANVAS'].includes((e.target as HTMLElement).tagName),
                   ),
                 ),
         },

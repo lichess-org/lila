@@ -36,18 +36,38 @@ export class BoardCtrl extends PaneCtrl {
         hl(
           'button.text',
           {
-            class: { active: !this.is3d },
+            class: { active: !this.is3d && !this.isReal3D },
             attrs: { 'data-icon': licon.Checkmark, type: 'button' },
-            hook: bind('click', () => this.set3d(false)),
+            hook: bind('click', () => {
+              const reload = this.isReal3D;
+              this.setReal3D(false);
+              this.set3d(false, reload);
+            }),
           },
           '2D',
         ),
         hl(
           'button.text',
           {
-            class: { active: this.is3d },
+            class: { active: this.is3d && !this.isReal3D },
             attrs: { 'data-icon': licon.Checkmark, type: 'button' },
-            hook: bind('click', () => this.set3d(true)),
+            hook: bind('click', () => {
+              const reload = this.isReal3D;
+              this.setReal3D(false);
+              this.set3d(true, reload);
+            }),
+          },
+          '2D½',
+        ),
+        hl(
+          'button.text',
+          {
+            class: { active: this.isReal3D },
+            attrs: { 'data-icon': licon.Checkmark, type: 'button' },
+            hook: bind('click', () => {
+              this.setReal3D(true);
+              this.set3d(false, true);
+            }),
           },
           '3D',
         ),
@@ -121,12 +141,17 @@ export class BoardCtrl extends PaneCtrl {
     if (prop === 'zoom') window.dispatchEvent(new Event('resize'));
   };
 
-  private readonly set3d = async (v: boolean) => {
-    if (this.is3d === v) return;
+  private readonly set3d = async (v: boolean, reload = false) => {
+    if (this.is3d === v) {
+      if (reload) location.reload();
+      else return;
+    }
     this.data.is3d = v;
-    xhrText('/pref/is3d', { body: xhrForm({ is3d: v }), method: 'post' }).catch(() =>
-      site.announce({ msg: 'Failed to save preference' }),
-    );
+    xhrText('/pref/is3d', { body: xhrForm({ is3d: v }), method: 'post' })
+      .catch(() => site.announce({ msg: 'Failed to save preference' }))
+      .then(() => {
+        if (reload) location.reload();
+      });
 
     if (v) await site.asset.loadCssPath('lib.board-3d');
     else site.asset.removeCssPath('lib.board-3d');
@@ -135,6 +160,11 @@ export class BoardCtrl extends PaneCtrl {
       .addClass(v ? 'is3d' : 'is2d');
     this.apply();
     this.redraw();
+  };
+
+  private readonly setReal3D = async (v: boolean) => {
+    if (this.isReal3D === v) return;
+    localStorage.setItem('chessground3d', v ? 'true' : 'false');
   };
 
   private readonly apply = (t: string = this.current) => {
