@@ -34,13 +34,13 @@ final class PuzzleBatch(
         pathApi
           .nextFor("batch")(angle, tier, difficulty, Set.empty)
           .flatMapz: pathId =>
-            samplePath(pathId, if color.isDefined then nb * oversample else nb)
+            samplePath(pathId, if color.isDefined then nb * 3 else nb)
               .map: puzzles =>
-                color.fold(puzzles.take(nb)): c =>
-                  puzzles.filter(_.color == c).take(nb)
+                color
+                  .fold(puzzles): c =>
+                    puzzles.filter(_.color == c)
+                  .take(nb)
               .mon(lila.mon.puzzle.selector.user.batch(nb = nb))
-
-  private val oversample = 3
 
   private def samplePath(pathId: PuzzlePath.Id, sampleSize: Int): Fu[Vector[Puzzle]] =
     colls

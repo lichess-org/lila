@@ -41,8 +41,10 @@ final class PuzzleAnon(
     pool
       .get(angle -> diff)
       .map: puzzles =>
-        color.fold(puzzles.take(nb)): c =>
-          puzzles.filter(_.color == c).take(nb)
+        color
+          .fold(puzzles): c =>
+            puzzles.filter(_.color == c)
+          .take(nb)
       .mon(lila.mon.puzzle.selector.anon.batch(nb))
 
   private val poolSize = 150
