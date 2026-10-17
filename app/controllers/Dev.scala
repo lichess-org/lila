@@ -21,6 +21,7 @@ final class Dev(env: Env) extends LilaController(env):
   }
 
   def cli = Secure(_.Cli) { _ ?=> _ ?=>
+    println(req.headers.headers)
     Ok.page:
       views.dev.cli(env.api.cli.form, none)
   }
