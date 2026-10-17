@@ -25,9 +25,9 @@ final class ReplayUi(helpers: Helpers)(analyseUi: AnalyseUi):
     Page(analyseUi.titlePlayerVs(pov.game))
       .css("analyse.round")
       .graph(graph):
-        main(cls := "analyse")(
+        main(cls := "analyse has-players")(
           st.aside(cls := "analyse__side")(gameSide),
-          div(cls := "analyse__board main-board")(chessground),
+          analyseUi.boardWithPlayerBars(chessground),
           div(cls := "analyse__tools")(div(cls := "ceval")),
           div(cls := "analyse__controls"),
           div(cls := "analyse__underboard")(
@@ -101,10 +101,10 @@ final class ReplayUi(helpers: Helpers)(analyseUi: AnalyseUi):
         )
       .graph(graph):
         frag(
-          main(cls := "analyse")(
+          main(cls := "analyse has-players")(
             st.aside(cls := "analyse__side")(gameSide),
             chatOption._2F,
-            div(cls := "analyse__board main-board")(chessgroundBoard),
+            analyseUi.boardWithPlayerBars(chessgroundBoard),
             div(cls := "analyse__tools")(div(cls := "ceval")),
             div(cls := "analyse__controls"),
             ctx.blind.not.option(
