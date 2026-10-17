@@ -162,7 +162,10 @@ object HTTPRequest:
     req.headers.get("X-Lichess-KidMode").exists(trueish)
 
   def asn(req: RequestHeader): Option[ASN] =
-    ASN.from(req.headers.get("X-ASN").flatMap(_.toIntOption))
+    ASN.from(req.headers.get("x-asn").flatMap(_.toIntOption))
+
+  def ipCountry(req: RequestHeader): Option[String] =
+    req.headers.get("cf-ipcountry")
 
 enum ClientName:
   case lichobile, xhr, mobile, crawler, browser, fishnet, unknown
