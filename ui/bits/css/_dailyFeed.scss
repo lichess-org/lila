@@ -12,6 +12,7 @@ $marker-margin-top: -14px;
 
   .atom {
     font-size: 2.6em;
+    line-height: 1em;
     color: $c-font-dimmer;
 
     &:hover {
@@ -55,6 +56,8 @@ $marker-margin-top: -14px;
 
     &__day {
       @extend %flex-center;
+
+      gap: 0.5em;
 
       h2 {
         display: inline;
