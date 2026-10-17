@@ -26,8 +26,13 @@ private object UciToSan:
     def uciToSan(ply: Ply, variation: List[String]): Either[String, List[SanStr]] =
       for
         position <- positions.lift(ply.value - startedAt.value - 1).toRight(s"No move found at ply $ply")
-        moves <- position.play(variation, ply)(_.move.toSanStr).leftMap(_.value)
-      yield moves
+        moves <- position.play(variation, ply)(s => s.move.toSanStr -> s.next.end).leftMap(_.value)
+      yield untilGameEnd(moves)
+
+    // the engine keeps playing after the game is over, e.g. shuffling kings in a K vs K draw
+    def untilGameEnd(moves: List[(SanStr, Boolean)]): List[SanStr] =
+      val (ongoing, ended) = moves.span(!_._2)
+      (ongoing ::: ended.take(1)).map(_._1)
 
     onlyMeaningfulVariations.foldLeft[WithErrors[List[Info]]]((Nil, Nil)):
       case ((infos, errs), info) if info.variation.isEmpty => (info :: infos, errs)
