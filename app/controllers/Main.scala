@@ -41,7 +41,7 @@ final class Main(env: Env, assetsC: ExternalAssets) extends LilaController(env):
 
   def redirectToAppStore = Anon:
     pageHit
-    Redirect(env.web.static.appStoreUrl)
+    Redirect(env.web.static.appStoreUrl.value)
 
   def redirectToSwag = Anon:
     Redirect(env.web.static.swagUrl(env.security.geoIP(ctx.ip).so(_.countryCode)))
@@ -68,9 +68,10 @@ final class Main(env: Env, assetsC: ExternalAssets) extends LilaController(env):
       if env.net.crawlable && req.domain == env.net.domain.value && env.mode.isProd
       then env.web.static.robotsTxt
       else "User-agent: *\nDisallow: /"
+    .headerCache(1.hour)
 
   val manifest = Anon:
-    JsonOk(env.web.static.manifest)
+    JsonOk(env.web.static.manifest).headerCache(1.hour)
 
   def getFishnet = Open:
     pageHit

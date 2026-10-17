@@ -551,13 +551,11 @@
   <string name="reportAUser">વપરાશકર્તાની જાણ કરો</string>
   <string name="user">વપરાશકર્તા</string>
   <string name="reason">કારણ</string>
-  <string name="whatIsIheMatter">શું બાબત છે?</string>
   <string name="cheat">છેતરપિંડી</string>
   <string name="troll">મજાક</string>
   <string name="other">અન્ય</string>
   <string name="reportCheatBoostHelp">રમત(ઓ) ની લિંક પેસ્ટ કરો અને આ વપરાશકર્તાના વર્તનમાં શું ખોટું છે તે સમજાવો. ફક્ત \"તેઓ છેતરપિંડી કરે છે\" એમ ન કહો, પરંતુ તમે આ નિષ્કર્ષ પર કેવી રીતે આવ્યા તે અમને જણાવો.</string>
   <string name="reportUsernameHelp">આ વપરાશકર્તાનામ વિશે શું વાંધાજનક છે તે સમજાવો. ફક્ત \"તે વાંધાજનક/અયોગ્ય છે\" એમ ન કહો, પરંતુ અમને જણાવો કે તમે આ નિષ્કર્ષ પર કેવી રીતે આવ્યા, ખાસ કરીને જો અપમાન અસ્પષ્ટ હોય, અંગ્રેજીમાં ન હોય, અપશબ્દોમાં હોય, અથવા ઐતિહાસિક/સાંસ્કૃતિક સંદર્ભ હોય.</string>
-  <string name="error.provideOneCheatedGameLink">કૃપા કરીને છેતરાયેલી રમતની ઓછામાં ઓછી એક લિંક પ્રદાન કરો.</string>
   <string name="by">%s દ્વારા</string>
   <string name="importedByX">%s દ્વારા આયાત કરેલ</string>
   <string name="thisTopicIsNowClosed">આ વિષય હવે બંધ છે.</string>

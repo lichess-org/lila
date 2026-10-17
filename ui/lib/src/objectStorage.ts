@@ -1,6 +1,6 @@
 // no side effects allowed due to re-export by index.ts
 
-/** promisify [indexedDB](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API) and add nothing
+/** promisify [indexedDB](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API)
  * ### basic usage:
  * ```ts
  *   import { objectStorage } from 'lib/objectStorage';
@@ -58,6 +58,7 @@ export async function objectStorage<V, K extends IDBValidKey = IDBValidKey>(
   dbInfo: DbInfo,
 ): Promise<ObjectStorage<V, K>> {
   const db = await dbConnect(dbInfo);
+  let hashDb: ObjectStorage<string>;
 
   return {
     list: () => promise(() => objectStore('readonly').getAllKeys()),
@@ -88,10 +89,41 @@ export async function objectStorage<V, K extends IDBValidKey = IDBValidKey>(
     },
     deleteDb: () =>
       'deleteDatabase' in window.indexedDB && window.indexedDB.deleteDatabase(dbInfo.db ?? dbInfo.store),
+    getVerified: async (key: K) => {
+      const hashKey = await makeHashKey(key);
+      const [value, expectedHash] = await Promise.all([
+        promise<V | undefined>(() => objectStore('readonly').get(key)),
+        hashStore().then(store => store.get(hashKey)),
+      ]);
+      if (value === undefined || expectedHash === undefined) return undefined;
+
+      return (await makeHash(value).catch(() => undefined)) === expectedHash ? value : undefined;
+    },
+    putVerified: async (key: K, value: V) => {
+      const [hash, hashKey, hashes] = await Promise.all([makeHash(value), makeHashKey(key), hashStore()]);
+      await Promise.all([promise(() => objectStore('readwrite').put(value, key)), hashes.put(hashKey, hash)]);
+      return key;
+    },
+    removeVerified: async (key: K) => {
+      const hashKey = await makeHashKey(key);
+      await Promise.allSettled([
+        promise(() => objectStore('readwrite').delete(key)),
+        hashStore().then(store => store.remove(hashKey)),
+      ]).catch(() => {});
+    },
   };
 
-  function objectStore(mode: IDBTransactionMode) {
-    return db.transaction(dbInfo.store, mode).objectStore(dbInfo.store);
+  function objectStore(mode: IDBTransactionMode, info: DbInfo = dbInfo) {
+    return db.transaction(info.store, mode).objectStore(info.store);
+  }
+
+  async function hashStore(): Promise<ObjectStorage<string>> {
+    hashDb ??= await objectStorage<string>({ store: 'last-drink' });
+    return hashDb;
+  }
+
+  function makeHashKey(key: K): Promise<string> {
+    return makeHash([dbInfo.db ?? dbInfo.store, dbInfo.store, key]);
   }
 
   function promise<V>(f: () => IDBRequest) {
@@ -189,6 +221,12 @@ export interface ObjectStorage<V, K extends IDBValidKey = IDBValidKey> {
   getMany(keys?: IDBKeyRange): Promise<V[]>;
   /** put a value into the store under a specific key and return that key */
   put(key: K, value: V): Promise<K>;
+  /** retrieve a JSON-compatible value only when it matches its separately stored integrity hash */
+  getVerified(key: K): Promise<V | undefined>;
+  /** store a JSON-compatible value and its integrity hash */
+  putVerified(key: K, value: V): Promise<K>;
+  /** remove a JSON-compatible value and its integrity hash */
+  removeVerified(key: K): Promise<void>;
   /** count the number of entries matching a key or range. Count all values if omitted */
   count(key?: K | IDBKeyRange): Promise<number>;
   /** remove value(s) by key or key range */
@@ -244,4 +282,12 @@ async function dbConnect(info: DbInfo): Promise<IDBDatabase> {
       info.upgrade?.(e, store);
     };
   });
+}
+
+async function makeHash(value: unknown): Promise<string> {
+  const json = JSON.stringify(value);
+  if (json === undefined) throw new TypeError('Verified values must be JSON-compatible');
+  const bytes = new TextEncoder().encode(json);
+  const digest = await window.crypto.subtle.digest('SHA-256', bytes);
+  return Array.from(new Uint8Array(digest), byte => byte.toString(16).padStart(2, '0')).join('');
 }

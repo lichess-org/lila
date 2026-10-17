@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="whatIsTheMatter">ما المشكلة؟</string>
+  <string name="cheat">غشّاش</string>
+  <string name="troll">مستفِزّ</string>
+  <string name="reportStall">المماطلة / مغادرة المباريات</string>
+  <string name="reportBoost">خفض التصنيف عمدًا / رفع التصنيف بمساعدة الآخرين / التلاعب بنتائج المباريات</string>
+  <string name="reportVerbalAbuse">الإساءة اللفظية / الشتائم / الاستفزاز المتعمّد</string>
+  <string name="reportViolence">العنف / التهديد</string>
+  <string name="reportHarass">التحرّش / التنمّر / الملاحقة</string>
+  <string name="reportSelfHarm">الانتحار / إيذاء النفس</string>
+  <string name="reportHate">خطاب الكراهيَة / التمييز على أساس الجنس</string>
+  <string name="reportSpam">الرسائل المزعجة</string>
+  <string name="readMoreAboutLichessReports">اقرأ المزيد عن نظام الإبلاغ في Lichess</string>
+  <string name="reportMaximumCharacters">الحد الأقصى 3000 حرف.</string>
+  <string name="reportCheatBoostHelp">الصق رابط المباراة أو المباريات، واشرح ما الخطأ في سلوك هذا المستخدم. لا تكتفِ بقول «إنه يغش»، بل وضّح كيف توصلت إلى هذا الاستنتاج.</string>
+  <string name="reportUsernameHelp">اشرح لماذا يُعدّ اسم المستخدم هذا مسيئًا. لا تكتفِ بقول «إنه مسيء أو غير لائق»، بل وضّح كيف توصلت إلى هذا الاستنتاج، خاصةً إذا كانت الإساءة غير واضحة، أو كان الاسم بلغة غير الإنجليزية، أو يتضمن تعبيرًا عاميًا، أو إشارة تاريخية أو ثقافية.</string>
+  <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">يمكننا معالجة بلاغك بسرعة أكبر إذا كتبته باللغة الإنجليزية.</string>
+  <string name="provideOneCheatedGameLink">يرجى تقديم رابط مباراة واحدة على الأقل لمراجعتها.</string>
+</resources>

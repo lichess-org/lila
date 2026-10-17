@@ -17,6 +17,5 @@
   <string name="cancelTimerOrDenyARequest">取消棋鐘或拒絕請求</string>
   <string name="playPreferredMoveOrConfirmSomething">下出已選擇的棋譜或是確認某項東西</string>
   <string name="sleep">休眠（如果已使用喚起關鍵字喚醒）</string>
-  <string name="turnOffVoiceRecognition">關閉語音辨識</string>
   <string name="showPuzzleSolution">顯示謎題答案</string>
 </resources>

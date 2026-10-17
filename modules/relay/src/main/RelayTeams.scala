@@ -84,7 +84,7 @@ object RelayTeam:
     def bimap[B](f: A => B, g: A => B) = Pair(f(a), g(b))
     def permutations: Pair[PairOf[A]] = Pair((a, b), (b, a))
     def forall(f: A => Boolean) = f(a) && f(b)
-    def find(f: A => Boolean): Option[A] = if f(a) then Some(a) else if f(b) then Some(b) else None
+    def find(f: A => Boolean): Option[A] = if f(a) then Some(a) else Some(b).filter(f)
     def foldLeft[B](z: B)(f: (B, A) => B) = f(f(z, a), b)
     def reverse = Pair(b, a)
 

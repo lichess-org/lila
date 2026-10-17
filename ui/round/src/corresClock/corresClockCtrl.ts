@@ -8,15 +8,6 @@ export interface CorresClockData {
   showBar: boolean;
 }
 
-// export interface CorresClockController {
-//   root: RoundController;
-//   data: CorresClockData;
-//   timePercent(color: Color): number;
-//   update(white: Seconds, black: Seconds): void;
-//   tick(color: Color): void;
-//   millisOf(color: Color): Millis;
-// }
-
 interface Times {
   white: Millis;
   black: Millis;

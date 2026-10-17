@@ -73,6 +73,7 @@ export function expandLpvs(el: HTMLElement) {
   const expandables: Expandable[] = [];
 
   el.querySelectorAll('a:not(.text)').forEach((a: HTMLAnchorElement) => {
+    if (a.closest('.lpv')) return;
     const link = parseLink(a);
     if (link)
       expandables.push({

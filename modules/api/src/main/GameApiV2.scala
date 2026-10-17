@@ -132,6 +132,7 @@ final class GameApiV2(
           )
           .mapAsync(1)(gameRepo.gamesFromSecondary)
           .mapConcat(identity)
+          .filter(inCreatedAtRange(config))
       else
         gameRepo
           .sortedCursor(
@@ -449,6 +450,9 @@ object GameApiV2:
         perf = perfKey.view.map(_.id.value).toList,
         rated = rated
       )
+
+  private def inCreatedAtRange(config: ByUserConfig)(g: Game): Boolean =
+    config.since.forall(g.createdAt.isAfter) && config.until.forall(g.createdAt.isBefore)
 
   case class GamePlayersConfig(vs: Option[User], wonBy: Option[UserId], lostBy: Option[UserId])
 

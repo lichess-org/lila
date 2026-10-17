@@ -48,7 +48,6 @@
   <string name="annotateWithGlyphs">Kommenter med symboler</string>
   <string name="theChapterIsTooShortToBeAnalysed">Kapittelet er for kort for analyse.</string>
   <string name="onlyContributorsCanRequestAnalysis">Bare bidragsyterne til studien kan be om maskinanalyse.</string>
-  <string name="getAFullComputerAnalysis">Få full maskinanalyse av hovedvarianten fra serveren.</string>
   <string name="makeSureTheChapterIsComplete">Sørg for at kapittelet er fullført. Du kan bare be om analyse én gang.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Alle synkroniserte medlemmer ser den samme stillingen</string>
   <string name="shareChanges">Del endringer med tilskuere og lagre dem på serveren</string>

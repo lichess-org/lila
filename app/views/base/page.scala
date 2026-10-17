@@ -81,7 +81,7 @@ object page:
           (p.flags(PageFlags.noRobots) || !netConfig.crawlable).option(noRobots),
           noTranslate,
           p.openGraph.map(lila.web.ui.openGraph),
-          p.atomLinkTag | dailyNewsAtom,
+          atomLinkTag.tupled(p.atomLink | dailyNewsAtom),
           pref.isTransparentBg
             .option(pref.bgImgUrl)
             .map: loc =>

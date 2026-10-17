@@ -52,7 +52,6 @@
   <string name="noRatingPoints">Heç bir reytinq xalı verilməyib</string>
   <string name="ratedGame">Reytinqli oyun oynadığınızdan əmin olun. Reytinqsiz oyunlar oyunçuların reytinqlərinə təsir etmir.</string>
   <string name="errorPage">Xəta səhifəsi</string>
-  <string name="reportErrorPage">Bir səhv səhifəsi ilə qarşılaşmısınızsa, bu barədə məlumat verə bilərsiniz:</string>
   <string name="banAppeal">Ban və ya IP məhdudlaşması üçün müraciət edin</string>
   <string name="engineAppeal">Şahmat mühərriki istifadəsi və ya hiylə işarəsi</string>
   <string name="sendAppealTo">Buraya müraciət edə bilərsiniz: %s.</string>

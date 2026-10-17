@@ -125,7 +125,7 @@ export class ThreadedEngine implements CevalEngine {
 
   async start(work: Work): Promise<void> {
     if (!this.protocol) {
-      this.protocol = new Protocol(this.variantMap);
+      this.protocol = new Protocol(this.info, this.variantMap);
       this.boot().catch(this.onError);
     }
     this.protocol.compute(work);
@@ -134,6 +134,8 @@ export class ThreadedEngine implements CevalEngine {
   stop(): void {
     this.protocol?.compute(undefined);
   }
+
+  version = (): string | undefined => this.protocol?.engineName;
 
   destroy(): void {
     this.module?.postMessage('quit');

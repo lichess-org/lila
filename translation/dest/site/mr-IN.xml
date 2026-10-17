@@ -588,14 +588,12 @@
   <string name="reportAUser">या वापरकर्त्या विषयी तक्रार नोंदवा</string>
   <string name="user">वापरकर्ता</string>
   <string name="reason">कारण</string>
-  <string name="whatIsIheMatter">काय समस्या आहे?</string>
   <string name="cheat">फसवणूक</string>
   <string name="troll">थट्टा</string>
   <string name="other">इतर</string>
   <string name="reportCheatBoostHelp">खेळाची दुवा इकडे पेस्ट करा आणि सांगा कि ह्या वापरकर्त्याने काय चुकीचे केले आहे. फक्त फसवणूक केली आहे इतपच नाही, पण तुम्हाला हे का वाटते आहे ते सांगा.</string>
   <string name="reportUsernameHelp">ह्या वापरकर्तानावात काय चुकीचे आहे ते सांगा. फक्त अयोग्य आहे इतकच नाही, पण तुम्हाला हे का वाटते आहे ते सांगा. हे पण सांगा जर हे नाव इंग्रजीत नाही, पण दुसऱ्या भाषेत आयोग्य का आहे आणि जर कुठला तरी इतिहासिक संदर्भ आहे.</string>
   <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">तुम्ही इंग्रजीत लिहिल्यास आम्ही तुमच्या अहवालावर अधिक वेगाने प्रक्रिया करू शकतो.</string>
-  <string name="error.provideOneCheatedGameLink">कृपया फसवणूक झालेल्या खेळासाठी किमान एक दुवा प्रदान करा.</string>
   <string name="by">%s ने</string>
   <string name="importedByX">%s ने आयात केलेले</string>
   <string name="thisTopicIsNowClosed">हा विषय आता संपला आहे.</string>

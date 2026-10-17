@@ -54,7 +54,9 @@
   <string name="ratedGame">Puanlı bir oyun oynadığınızdan emin olun. Puansız oyunlar oyun puanınızı etkilemez.</string>
   <string name="botRatingAbuse">Bot hesaplar ile oynanan bazı puanlı oyunlarda, bir oyuncunun puan kazanmak için botu kötüye kullandığı tespit edilirse bu oyuncu oyundan puan alamayabilir.</string>
   <string name="errorPage">Hata sayfası</string>
-  <string name="reportErrorPage">Bir hata mesajı alırsanız lütfen bize bildirin:</string>
+  <string name="reportTheBug">Bunu bildirebilirsiniz:</string>
+  <string name="securityVulnerability">Güvenlik açığı</string>
+  <string name="otherBug">Başka hata</string>
   <string name="learnHowToMakeBroadcasts">Lichess üzerinde kendi yayınlarınızı nasıl yapacağınızı öğrenin</string>
   <string name="banAppeal">Yasaklamaya itiraz et</string>
   <string name="engineAppeal">Satranç motoru ya da hile tespit edildi</string>

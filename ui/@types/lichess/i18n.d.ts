@@ -1856,6 +1856,58 @@ interface I18n {
     /** You will lose all your progress! */
     youWillLoseAllYourProgress: string;
   };
+  localAnalysis: {
+    /** Analyse */
+    analyse: string;
+    /** Analysis upload failed. Try again later. */
+    analysisUploadFailed: string;
+    /** For the best results in the shortest time, use %1$s with %2$s threads. */
+    bestResultsUseXWithYThreads: I18nFormat;
+    /** Cannot publish */
+    cannotPublish: string;
+    /** Click Analyse to score the main line. */
+    chooseYourEngineSettings: string;
+    /** Current analysis */
+    currentAnalysis: string;
+    /** Downloading %1$s of %2$s */
+    downloadingXofY: I18nFormat;
+    /** Keep this browser tab active during analysis */
+    keepThisBrowserTabActive: string;
+    /** Local */
+    local: string;
+    /** Move %1$s of %2$s */
+    moveXOfY: I18nFormat;
+    /** Nodes per move */
+    nodesPerMove: string;
+    /** On the server */
+    onTheServer: string;
+    /** Publish */
+    publish: string;
+    /** Published */
+    published: string;
+    /** Quality */
+    quality: string;
+    /** There is a server analysis in progress for this game. You can try again when that's done. */
+    serverAnalysisInProgress: string;
+    /** Starting position */
+    startingPosition: string;
+    /** This will take about %s */
+    timeToComplete: I18nFormat;
+    /** You must enable REC before you can share local analysis to a study. */
+    turnOnRec: string;
+    /** Using */
+    using: string;
+    /** Server analysis on chapters created before local analysis was introduced cannot be upgraded cleanly. Older engine lines and comments will remain unless you remove them first. */
+    whenUpgradingOldChapters: string;
+    /** Will use */
+    willUse: string;
+    /** %sx standard quality */
+    xTimesStandardQuality: I18nFormat;
+    /** %s would be faster */
+    xWouldBeFaster: I18nFormat;
+    /** Your local analysis can be published. */
+    youCanPublish: string;
+  };
   msg: {
     /** There is a new Lichess mobile app available! */
     lichobileNewAppAvailable: string;
@@ -1863,6 +1915,8 @@ interface I18n {
     lichobileNewAppDownload: I18nFormat;
     /** Hello, */
     modActionFeedback: string;
+    /** The old app no longer supports puzzles. Please install the new Lichess app: %s */
+    oldAppNoLongerSupportsPuzzles: I18nFormat;
   };
   nvui: {
     /** Actions */
@@ -2643,6 +2697,8 @@ interface I18n {
     showGauge: string;
     /** Live engine annotations */
     showLiveGlyphs: string;
+    /** Show mainline analysis */
+    showMainlineAnalysis: string;
     /** Show maneuver arrows */
     showManeuverArrows: string;
     /** Show move annotations */
@@ -2651,8 +2707,6 @@ interface I18n {
     showPinnedPieces: string;
     /** Show player ratings */
     showPlayerRatings: string;
-    /** Show server analysis */
-    showServerAnalysis: string;
     /** Show undefended pieces */
     showUndefendedPieces: string;
     /** Show variation arrows */
@@ -3241,6 +3295,42 @@ interface I18n {
     timeSpentPlayingExclam: I18nFormat;
     /** That is way too much chess. */
     timeTooMuch: string;
+  };
+  report: {
+    /** Cheat */
+    cheat: string;
+    /** We can process your report faster if you write in English. */
+    processReportFasterInEnglish: string;
+    /** Please provide at least one link to a game for review. */
+    provideOneCheatedGameLink: string;
+    /** Read more about Lichess reports */
+    readMoreAboutLichessReports: string;
+    /** Sandbagging / Boosting / Match fixing */
+    reportBoost: string;
+    /** Paste the link to the game(s) and explain what is wrong about this user's behaviour. Don't just say "they cheat", but tell us how you came to this conclusion. */
+    reportCheatBoostHelp: string;
+    /** Harassment / Bullying / Stalking */
+    reportHarass: string;
+    /** Hate Speech / Sexism */
+    reportHate: string;
+    /** Maximum 3000 characters. */
+    reportMaximumCharacters: string;
+    /** Suicide / Self-Injury */
+    reportSelfHarm: string;
+    /** Spamming */
+    reportSpam: string;
+    /** Stalling / Leaving Games */
+    reportStall: string;
+    /** Explain why this username is offensive. Don't just say "it's offensive/inappropriate," but tell us how you came to this conclusion, especially if the offense is obscure, not in English, in slang, or a historical/cultural reference. */
+    reportUsernameHelp: string;
+    /** Verbal abuse / Cursing / Trolling */
+    reportVerbalAbuse: string;
+    /** Violence / Threats */
+    reportViolence: string;
+    /** Troll */
+    troll: string;
+    /** What's the matter? */
+    whatIsTheMatter: string;
   };
   search: {
     /** Advanced search */
@@ -3857,8 +3947,6 @@ interface I18n {
     'error.minLength': I18nFormat;
     /** Please don't use your username as your password. */
     'error.namePassword': string;
-    /** Please provide at least one link to a game for review. */
-    'error.provideOneCheatedGameLink': string;
     /** This field is required */
     'error.required': string;
     /** Invalid value */
@@ -5037,8 +5125,6 @@ interface I18n {
     weHaveSentYouAnEmailClickTheLink: string;
     /** We've sent an email to %s. Click the link in the email to reset your password. */
     weHaveSentYouAnEmailTo: I18nFormat;
-    /** What's the matter? */
-    whatIsIheMatter: string;
     /** What username did you register with? */
     whatSignupUsername: string;
     /** White */
@@ -5423,8 +5509,12 @@ interface I18n {
     allSyncMembersRemainOnTheSamePosition: string;
     /** Alphabetical */
     alphabetical: string;
+    /** Analysis editor */
+    analysisEditor: string;
     /** Analysis mode */
     analysisMode: string;
+    /** Analyze on your device */
+    analyzeOnYourDevice: string;
     /** Click the !? button, or right-click on the move list.<br>Annotation glyphs are shared and saved. */
     annotatePositionText: string;
     /** Annotate a position */
@@ -5461,6 +5551,10 @@ interface I18n {
     clearAnnotations: string;
     /** Clear chat */
     clearChat: string;
+    /** Clear local analysis? */
+    clearLocal: string;
+    /** Clear published analysis? */
+    clearPublished: string;
     /** Clear variations */
     clearVariations: string;
     /** Clone */
@@ -5551,8 +5645,6 @@ interface I18n {
     fromPgnGameText: string;
     /** From a PGN game */
     fromPgnGameTitle: string;
-    /** Get a full server-side computer analysis of the main line. */
-    getAFullComputerAnalysis: string;
     /** Need help? Get the tour! */
     getTheTour: string;
     /** Good move */
@@ -5679,6 +5771,8 @@ interface I18n {
     recentlyUpdated: string;
     /** Relevant */
     relevant: string;
+    /** Request a server analysis */
+    requestAServerAnalysis: string;
     /** Right under the board */
     rightUnderTheBoard: string;
     /** Save */
@@ -6341,6 +6435,28 @@ interface I18n {
     thisIsADraft: string;
     /** This post is published */
     thisPostIsPublished: string;
+    /** Chess */
+    topicChess: string;
+    /** Chess bot */
+    topicChessBot: string;
+    /** Chess engine */
+    topicChessEngine: string;
+    /** Chess personalities */
+    topicChessPersonalities: string;
+    /** Off topic */
+    topicOffTopic: string;
+    /** Over the board */
+    topicOverTheBoard: string;
+    /** %s posts */
+    topicPosts: I18nFormat;
+    /** Puzzle */
+    topicPuzzle: string;
+    /** Software Development */
+    topicSoftwareDevelopment: string;
+    /** Strategy */
+    topicStrategy: string;
+    /** Tactics */
+    topicTactics: string;
     /** View all %s posts */
     viewAllNbPosts: I18nPlural;
     /** %s's Blog */
@@ -6461,8 +6577,6 @@ interface I18n {
     takeRookWithQueen: string;
     /** This blog post */
     thisBlogPost: string;
-    /** Turn off voice recognition */
-    turnOffVoiceRecognition: string;
     /** Voice commands */
     voiceCommands: string;
     /** Watch the video tutorial */

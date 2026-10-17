@@ -136,7 +136,7 @@
   <string name="superGMDescription">Τακτικά από παρτίδες οι οποίες παίχτηκαν από κορυφαίους παίκτες του κόσμου.</string>
   <string name="trappedPiece">Παγιδευμένο κομμάτι</string>
   <string name="trappedPieceDescription">Ένα κομμάτι δεν μπορεί να αποφύγει την αιχμαλώτιση, καθώς έχει περιορισμένες κινήσεις.</string>
-  <string name="underPromotion">Προαγωγή σε κομμάτι μικρότερης αξίας</string>
+  <string name="underPromotion">Υποπροαγωγή</string>
   <string name="underPromotionDescription">Προαγωγή σε ίππο, αξιωματικό ή πύργο.</string>
   <string name="veryLong">Πολύ μεγάλο τακτικό</string>
   <string name="veryLongDescription">Τέσσερις κινήσεις ή περισσότερα για να κερδίσετε.</string>

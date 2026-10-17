@@ -543,13 +543,11 @@
   <string name="reportAUser">Denunciar a un usuariu</string>
   <string name="user">Usuariu</string>
   <string name="reason">Motivu</string>
-  <string name="whatIsIheMatter">¿Qué asocede?</string>
   <string name="cheat">Trampa</string>
   <string name="troll">Acoso</string>
   <string name="other">Otru</string>
   <string name="reportCheatBoostHelp">Pega l\'enllaz a la(s) partida(s) y esplícanos qué hai de malu nel comportamientu d\'esti usuariu. Nun digas a cencielles \"fai trampa\", sinón cómo llegasti a esta conclusión.</string>
   <string name="reportUsernameHelp">Esplica qué ye lo que te resulta ofensivu d\'esti nome d\'usuariu. Nun digas solo \"ye ofensivu\" o \"desaveniente\", sinón cómo llegasti a esta conclusión, más entá si l\'insultu nun ye tan obviu, nun ta n\'inglés o una referencia histórica o cultural.</string>
-  <string name="error.provideOneCheatedGameLink">Por favor, proporciona al menos un enlaz a una partida na que se ficieron trampes.</string>
   <string name="by">por %s</string>
   <string name="importedByX">Importáu por %s</string>
   <string name="thisTopicIsNowClosed">Esti tema ta pesllao.</string>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="analyse">分析</string>
+  <string name="onTheServer">服务器</string>
+  <string name="local">本地</string>
+  <string name="currentAnalysis">当前分析</string>
+  <string name="cannotPublish">无法发布</string>
+  <string name="nodesPerMove">每步节点数</string>
+  <string name="using">正在使用</string>
+  <string name="willUse">将使用</string>
+  <string name="quality">质量</string>
+  <string name="publish">发布</string>
+  <string name="published">已发布</string>
+  <string name="chooseYourEngineSettings">点击“分析”以对主线进行评分</string>
+  <string name="bestResultsUseXWithYThreads">为了在最短时间内获得最佳结果，请使用 %1$s 和 %2$s 个线程。</string>
+  <string name="analysisUploadFailed">分析上传失败，请稍后再试。</string>
+  <string name="serverAnalysisInProgress">此对局正在进行服务器分析，请在完成后重试。</string>
+  <string name="youCanPublish">您的本地分析可以发布。</string>
+  <string name="turnOnRec">您必须先启用 REC，然后才能将本地分析分享到研习。</string>
+  <string name="whenUpgradingOldChapters">在引入本地分析之前创建的章节，其服务器分析无法平滑升级。除非您先将其删除，否则旧的引擎变例和评论将保留。</string>
+  <string name="startingPosition">起始局面</string>
+  <string name="keepThisBrowserTabActive">在分析期间保持此浏览器标签页处于活动状态</string>
+  <string name="xTimesStandardQuality">%sx 标准质量</string>
+  <string name="moveXOfY" comment="should this be in site?">第 %1$s 步，共 %2$s 步</string>
+  <string name="downloadingXofY" comment="should this be in site?">正在下载 %1$s / %2$s</string>
+  <string name="timeToComplete">这将花费约 %s</string>
+  <string name="xWouldBeFaster">%s 会更快</string>
+</resources>

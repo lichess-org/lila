@@ -6,6 +6,5 @@
   <string name="takeRookWithQueen">Захапіць ладдзю ферзём</string>
   <string name="phoneticAlphabetIsBest">Фанетычны алфавіт найлепшы</string>
   <string name="cancelTimerOrDenyARequest">Скасаваць таймер альбо адхіліць запыт</string>
-  <string name="turnOffVoiceRecognition">Вымкнуць распазнаванне голасу</string>
   <string name="showPuzzleSolution">Паказаць рашэнне задачы</string>
 </resources>

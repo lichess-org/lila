@@ -36,8 +36,8 @@ val plan = lila.plan.ui.PlanUi(helpers)(style, netConfig.email)
 val planPages = lila.plan.ui.PlanPages(helpers)(lila.fishnet.FishnetLimiter.maxPerDay)
 
 val feed =
-  lila.feed.ui.FeedUi(helpers, atomUi)(title => _ ?=> site.ui.SitePage(title, "news", ""))(using
-    env.executor
+  lila.feed.ui.FeedUi(helpers, atomUi, env.feed.markdown)(title => _ ?=> site.ui.SitePage(title, "news", ""))(
+    using env.executor
   )
 
 val cms = lila.cms.ui.CmsUi(helpers)(views.mod.ui.menu("cms"))

@@ -62,7 +62,7 @@ final class GifExport(
             .obj("fen" -> node.fen.value)
             .add("lastMove", node.moveOption.map(_.uci.uci))
             .add("delay", tail.isEmpty.option(500)) // more delay for last frame
-            .add("glyph", showGlyphs.so(node.glyphs.move.map(_.symbol)))
+            .add("glyph", showGlyphs.so(node.glyphs.toBase.move.map(_.symbol)))
             .add("pockets", node.crazyData.map(_.pockets))
         )
       case _ => arr

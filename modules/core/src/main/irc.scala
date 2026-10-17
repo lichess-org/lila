@@ -2,11 +2,11 @@ package lila.core
 package irc
 
 import play.api.mvc.Call
+import scalalib.DiffStr
 
 import lila.core.id.{ RelayRoundId, RelayTourId, UblogPostId, StudyChapterId }
 import lila.core.userId.{ UserId, MyId, ModId, UserName }
 import lila.core.study.data.StudyChapterName
-import lila.core.data.DiffStr
 
 enum ModDomain:
   case Admin, Cheat, Boost, Comm, Other

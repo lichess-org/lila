@@ -523,11 +523,9 @@
   <string name="reportAUser">Հաղորդել օգտատիրոջ մասին</string>
   <string name="user">Օգտատեր</string>
   <string name="reason">Պատճառ</string>
-  <string name="whatIsIheMatter">Ի՞նչ է պատահել</string>
   <string name="cheat">խաբեբա</string>
   <string name="troll">Թրոլինգ</string>
   <string name="other">այլ</string>
-  <string name="error.provideOneCheatedGameLink">Խնդրում ենք ավելացնել առնվազն մեկ խաղի հղում, որտեղ ձեր կարծիքով խախտվել են կանոնները:</string>
   <string name="by">ըստ %s</string>
   <string name="importedByX">Ներմուծվել է %s-ի կողմից</string>
   <string name="thisTopicIsNowClosed">Այս թեման այժմ փակ է։</string>

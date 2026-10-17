@@ -54,7 +54,9 @@
   <string name="ratedGame">Asegúrate de haber jugado una partida por puntuación. Las partidas amistosas no afectan a las puntuaciones de los jugadores.</string>
   <string name="botRatingAbuse">Al jugar contra una cuenta de bot, puede que una partida por puntos no se contabilice si se determina que el jugador abusa del bot para conseguir puntos.</string>
   <string name="errorPage">Página de error</string>
-  <string name="reportErrorPage">Si una página te da error, puedes reportarla:</string>
+  <string name="reportTheBug">Puedes reportarlo:</string>
+  <string name="securityVulnerability">Vulnerabilidad de seguridad</string>
+  <string name="otherBug">Otro error</string>
   <string name="learnHowToMakeBroadcasts">Aprende cómo hacer tus propias emisiones en Lichess</string>
   <string name="banAppeal">Apelar por un bloqueo o una restricción de IP</string>
   <string name="engineAppeal">Motor o marca de trampa</string>

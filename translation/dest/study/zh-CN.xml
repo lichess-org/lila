@@ -45,7 +45,6 @@
   <string name="annotateWithGlyphs">使用符号评注</string>
   <string name="theChapterIsTooShortToBeAnalysed">章节太短，无法进行分析。</string>
   <string name="onlyContributorsCanRequestAnalysis">只有研习贡献者可以请求电脑分析。</string>
-  <string name="getAFullComputerAnalysis">对主线变化进行完整的服务器端电脑分析。</string>
   <string name="makeSureTheChapterIsComplete">请确保章节已完整。您只能请求一次分析。</string>
   <string name="allSyncMembersRemainOnTheSamePosition">所有同步成员保持在相同局面</string>
   <string name="shareChanges">与旁观者共享更改并保存到服务器</string>
@@ -195,4 +194,9 @@
   <string name="doubleDefeat">双方负</string>
   <string name="blackDefeatWhiteCanNotWin">黑方负，但白方无法获胜</string>
   <string name="whiteDefeatBlackCanNotWin">白方负，但黑方无法获胜</string>
+  <string name="analysisEditor">分析编辑器</string>
+  <string name="clearLocal">清除本地分析？</string>
+  <string name="clearPublished">清除已发布的分析？</string>
+  <string name="requestAServerAnalysis">请求服务器分析</string>
+  <string name="analyzeOnYourDevice">本地分析</string>
 </resources>

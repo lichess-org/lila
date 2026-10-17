@@ -506,11 +506,9 @@
   <string name="reportAUser">მომხმარებლის დასმენა</string>
   <string name="user">მომხმარებელი</string>
   <string name="reason">მიზეზი</string>
-  <string name="whatIsIheMatter">მიზეზი</string>
   <string name="cheat">ტყული</string>
   <string name="troll">პროვოკაცია</string>
   <string name="other">სხვა</string>
-  <string name="error.provideOneCheatedGameLink">გთხოვთ მიუთითო სულ მცირე ერთი პარტიის ბმული სადაც თვლით რომ მოწინააღმდეგემ წესების დარღვევით ითამაშა.</string>
   <string name="by">%s-ის</string>
   <string name="importedByX">დააიმპორტა %s - მა</string>
   <string name="thisTopicIsNowClosed">თემა დახურულია.</string>

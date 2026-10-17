@@ -48,7 +48,8 @@ final class Feed(env: Env) extends LilaController(env):
 
   def atom = Anon:
     api.recentPublished.map: ups =>
-      Ok.snip(views.feed.atom(ups)).as(ATOM)
+      Ok.snip(views.feed.atom(ups)).as(ATOM).headerCache(10.minutes)
 
   def recent = Anon:
-    env.feed.api.recentJson.map(JsonStrOk)
+    for json <- env.feed.api.recentJson
+    yield JsonOk(json).headerCache(10.minutes)

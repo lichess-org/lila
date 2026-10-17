@@ -23,12 +23,7 @@ final class PrefApi(
   private val cache = cacheApi[UserId, Option[Pref]](200_000, "pref.fetchPref"):
     _.expireAfterAccess(10.minutes).buildAsyncFuture(fetchPref)
 
-  def saveTag(user: User, tag: Pref.Tag.type => String, value: Boolean) =
-    for _ <-
-        if value
-        then coll.update.one(bid(user.id), set(s"tags.${tag(Pref.Tag)}" -> "1"), upsert = true)
-        else coll.update.one(bid(user.id), unset(s"tags.${tag(Pref.Tag)}"))
-    yield cache.invalidate(user.id)
+  def setDgt(user: User) = setPref(user, _.copy(hasDgt = true))
 
   def get(user: User): Fu[Pref] = cache.get(user.id).dmap(_ | Pref.create(user))
 

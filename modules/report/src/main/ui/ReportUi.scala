@@ -15,6 +15,10 @@ object ReportUi:
   def reportScore(score: Report.Score): Frag =
     span(cls := s"score ${score.color}")(score.value.toInt)
 
+  private[report] def selectedMsgIds(form: Form[?]): Set[lila.core.msg.ID] =
+    val f = form("msgs")
+    f.indexes.flatMap(i => form.data.get(s"${f.name}[$i]")).toSet
+
 final class ReportUi(helpers: Helpers)(menu: Context ?=> Frag):
   import helpers.{ given, * }
   import ReportUi.*
@@ -24,6 +28,7 @@ final class ReportUi(helpers: Helpers)(menu: Context ?=> Frag):
     case _ => true
 
   def inbox(form: Form[?], user: User, msgs: List[lila.core.msg.IdText])(using ctx: Context) =
+    val checkedMsgs = selectedMsgIds(form)
     Page(trans.site.reportAUser.txt())
       .css("mod.report.form")
       .js(esmInitBit("embedReasonToggle")):
@@ -46,7 +51,7 @@ final class ReportUi(helpers: Helpers)(menu: Context ?=> Frag):
                       .nativeCheckbox(
                         msg.id,
                         s"${f.name}[]",
-                        checked = false,
+                        checked = checkedMsgs(msg.id),
                         value = msg.id
                       ),
                     label(`for` := msg.id)(msg.text)
@@ -110,49 +115,48 @@ final class ReportUi(helpers: Helpers)(menu: Context ?=> Frag):
         f,
         translatedReasonChoices.collect:
           case (r, t) if filterReason(from)(r) => (r.key, t),
-        trans.site.whatIsIheMatter.txt().some
+        trans.report.whatIsTheMatter.txt().some
       )
 
-  private val aboutReports = p(
+  private def aboutReports(using Context) = p(
     a(
       href := routes.Cms.lonePage(lila.core.id.CmsPageKey("report-faq")),
       dataIcon := Icon.InfoCircle,
       cls := "text"
     ):
-      "Read more about Lichess reports"
+      trans.report.readMoreAboutLichessReports()
   )
 
   private def descriptionHelp(current: String)(using ctx: Context) = frag:
     import Reason.*
-    val maxLength = "Maximum 3000 characters."
     translatedReasonChoices._1F.distinct
       .map: reason =>
         span(
           cls := List(s"report-reason report-reason-${reason.key}" -> true, "none" -> (current != reason.key))
         )(
-          if reason == Cheat || reason == Boost then trans.site.reportCheatBoostHelp()
-          else if reason == Username then trans.site.reportUsernameHelp()
+          if reason == Cheat || reason == Boost then trans.report.reportCheatBoostHelp()
+          else if reason == Username then trans.report.reportUsernameHelp()
           else
             "Please provide as much information as possible, including relevant game links, posts, and messages."
           ,
           " ",
-          trans.site.processReportFasterInEnglish(),
+          trans.report.processReportFasterInEnglish(),
           " ",
-          maxLength
+          trans.report.reportMaximumCharacters()
         )
 
   private def translatedReasonChoices(using Translate) =
     import Reason.*
     List(
-      (Cheat, trans.site.cheat.txt()),
-      (Stall, "Stalling / Leaving Games"),
-      (Boost, "Sandbagging / Boosting / Match fixing"),
-      (VerbalAbuse, "Verbal abuse / Cursing / Trolling"),
-      (Violence, "Violence / Threats"),
-      (Harass, "Harassment / Bullying / Stalking"),
-      (SelfHarm, "Suicide / Self-Injury"),
-      (Hate, "Hate Speech / Sexism"),
-      (Spam, "Spamming"),
+      (Cheat, trans.report.cheat.txt()),
+      (Stall, trans.report.reportStall.txt()),
+      (Boost, trans.report.reportBoost.txt()),
+      (VerbalAbuse, trans.report.reportVerbalAbuse.txt()),
+      (Violence, trans.report.reportViolence.txt()),
+      (Harass, trans.report.reportHarass.txt()),
+      (SelfHarm, trans.report.reportSelfHarm.txt()),
+      (Hate, trans.report.reportHate.txt()),
+      (Spam, trans.report.reportSpam.txt()),
       (Username, trans.site.username.txt()),
       (Other, trans.site.other.txt())
     )

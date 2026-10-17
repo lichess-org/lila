@@ -62,7 +62,7 @@ final private class GameProxy(
 
   def withGameOptionSync[A](f: Game => A): Option[A] =
     cache.value match
-      case Some(Success(Some(g))) => Some(f(g))
+      case Some(Success(Some(g))) => Option(f(g))
       case _ => None
 
   def terminate() = flushProgress()

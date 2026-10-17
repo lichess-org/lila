@@ -80,6 +80,7 @@ export type ActionListener<T extends Event = Event, Ctx = undefined> = (
 // Actions are listeners / results for controls
 // if no event is specified, then 'click' is assumed
 // if no selector is given, the handler is attached to the dialog-content view div
+// vdom dialogs reattach configured actions after each patch, so snab/jsx event listeners are preferred there
 export type Action<Ctx = undefined> =
   | { selector?: string; event?: string | string[]; listener: ActionListener<any, Ctx> }
   | { selector?: string; event?: string | string[]; result: string };
@@ -132,7 +133,6 @@ export async function domDialog<Ctx = undefined>(o: DomDialogOpts<Ctx>): Promise
 
 export function snabDialog<Ctx = undefined>(o: SnabDialogOpts<Ctx>): VNode {
   let dialogEl: HTMLDialogElement;
-  const classes = o.class?.split(/[. ]/).filter(Boolean) ?? [];
   const dialogVNode = hl(
     'dialog',
     {
@@ -153,7 +153,7 @@ export function snabDialog<Ctx = undefined>(o: SnabDialogOpts<Ctx>): VNode {
         hl(
           'div.dialog-content',
           {
-            class: Object.fromEntries(classes.map(c => [c, true])),
+            class: Object.fromEntries((o.class?.split(/[. ]/).filter(Boolean) ?? []).map(c => [c, true])),
             attrs: o.attrs?.view,
             hook: {
               ...onInsert(async view => {

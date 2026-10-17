@@ -533,13 +533,11 @@
   <string name="reportAUser">কোনো user এর বিরুদ্ধে report করুন</string>
   <string name="user">user এর নাম</string>
   <string name="reason">কারণ</string>
-  <string name="whatIsIheMatter">সম্পূর্ণ ঘটনার বিবরণ দেন</string>
   <string name="cheat">চিটিং করছে</string>
   <string name="troll">ব্যঙ্গ করছে</string>
   <string name="other">অন্য কোনো কারণ</string>
   <string name="reportCheatBoostHelp">গেম(গুলোর) লিঙ্ক পেস্ট করুন এবং ওই ব্যবহারকারীর আচরণে কী সন্দেহজনক তা ব্যখ্যা করুন। শুধু \"তারা চিট করে\" বলবেন না, আপনি কিভাবে এই উপসংহারে এলেন তা আমাদের বলুন.</string>
   <string name="reportUsernameHelp">ব্যখ্যা করুন এই ব্যবহারকারীর নাম কোন দিক দিয়ে অশোভন। শুধু \"এটি অশোভন/অশালীন\" বলবেন না, আপনি কিভাবে এই উপসংহারে এলেন তা আমাদের বলুন, বিশেষ করে যদি এটি কোনো অপমান যা লুকানো হয়, ইংরেজিতে নয় এমন হয়, গালি হয়, অথবা কোনো ঐতিহাসিক/সাংস্কৃতিক দিকে হয়।</string>
-  <string name="error.provideOneCheatedGameLink">অনুগ্রহ করে একটা চিটেড গেমের লিংক দিন।</string>
   <string name="by">%s এর দ্বারা</string>
   <string name="importedByX">খেলাটি এনেছেন %s</string>
   <string name="thisTopicIsNowClosed">এই বিষয়টি এখন শেষ হয়ে গেছে</string>

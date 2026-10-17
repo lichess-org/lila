@@ -144,7 +144,7 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
   if (ctrl.isCevalAllowed() && ctrl.showBestMoveArrows() && ctrl.showEvaluation()) {
     if (isUci(nEval.best)) shapes = shapes.concat(makeShapesFromUci(rcolor, nEval.best, 'paleGreen'));
     if (!hovering && ctrl.ceval.search.multiPv) {
-      const bestPvMoves = nCeval ? nCeval.pvs[0]?.moves : undefined;
+      const bestPvMoves = nCeval && ctrl.cevalEnabled() ? nCeval.pvs[0]?.moves : undefined;
       const nextBest = bestPvMoves?.[0] || ctrl.nextNodeBest();
 
       if (nextBest) {
@@ -184,7 +184,7 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
     });
   }
   if (ctrl.showMoveAnnotations()) {
-    const glyphs = [...(ctrl.node.glyphs ?? [])];
+    const glyphs = ctrl.visibleGlyphs();
     const liveGlyph = ctrl.liveAnnotate?.get(ctrl.path);
     if (liveGlyph && ctrl.settings.showLiveAnnotations && !glyphs.some(g => g.id <= 6))
       glyphs.push(liveGlyph);

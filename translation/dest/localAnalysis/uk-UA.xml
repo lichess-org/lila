@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="analyse">Аналізувати</string>
+  <string name="onTheServer">Серверний</string>
+  <string name="local">Локальний</string>
+  <string name="currentAnalysis">Поточний аналіз</string>
+  <string name="nodesPerMove">Вузлів на хід</string>
+  <string name="bestResultsUseXWithYThreads">Щоб отримати найкращі результати за найкоротший час, використовуйте %1$s з %2$s потоками.</string>
+  <string name="serverAnalysisInProgress">Наразі триває серверний аналіз для цієї гри. Спробуйте знову, коли він завершиться.</string>
+</resources>

@@ -34,6 +34,13 @@
     "no-useless-return": "error",
     "no-useless-spread": "error",
     "no-unreachable-loop": "error",
+    "no-unused-expressions": [
+      "error",
+      {
+        "allowShortCircuit": true,
+        "allowTernary": true,
+      },
+    ],
     "no-unused-vars": [
       "error",
       {
@@ -115,7 +122,6 @@
      */
     "no-useless-escape": "off",
     "no-control-regex": "off",
-    "no-unused-expressions": "off",
     "prefer-named-capture-group": "off",
     "typescript/method-signature-style": ["off", "property"], // We would also need to flip "strictFunctionTypes" flag in TypeScript config.
     "typescript/no-base-to-string": "off",
@@ -136,6 +142,7 @@
       "rules": {
         "await-thenable": "off",
         "consistent-return": "off",
+        "no-unused-expressions": "off",
         "no-unused-vars": "off",
         "one-var": ["off", "never"],
         "prefer-const": "off",

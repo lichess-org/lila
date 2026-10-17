@@ -527,12 +527,10 @@
   <string name="reportAUser">Istifadəçi şikayət et</string>
   <string name="user">İstifadəçi</string>
   <string name="reason">Səbəb</string>
-  <string name="whatIsIheMatter">Problem nədir?</string>
   <string name="cheat">Hiylə</string>
   <string name="troll">Trol</string>
   <string name="other">Digər</string>
   <string name="reportCheatBoostHelp">Oyunun (oyunların) linkini yapışdırın və istifadəçinin yanlış davranışını açıqlayın. Sadəcə \"bu hiylədir\" deməyin, bu qənaətə necə gəldiyinizi bizə deyin.</string>
-  <string name="error.provideOneCheatedGameLink">Lütfən ən azı bir hiyləli oyun linki daxil edin.</string>
   <string name="by">%s tərəfindən</string>
   <string name="thisTopicIsNowClosed">Mövzu bağlandı.</string>
   <string name="blog">Blog</string>

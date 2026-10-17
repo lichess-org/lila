@@ -27,7 +27,7 @@ final class AnalysisRepo(val coll: Coll)(using Executor):
 
   private[analyse] def save(analysis: Analysis, workHash: Option[Array[Byte]]) =
     val bson = toBdoc(analysis).get ++ workHash.so(h => bdoc("hash" -> h))
-    coll.insert.one(bson).void
+    coll.update.one(bid(analysis.id), bson, upsert = true).void
 
   def remove(id: GameId) = coll.delete.one(bid(Analysis.Id(id)))
 

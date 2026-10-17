@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="analyse">วิเคราะห์</string>
+  <string name="onTheServer">บนเซิร์ฟเวอร์</string>
+  <string name="local">ในเครื่อง</string>
+  <string name="currentAnalysis">การวิเคราะห์ในปัจจุบัน</string>
+  <string name="cannotPublish">เผยแพร่ไม่ได้</string>
+  <string name="nodesPerMove">โหนดต่อตาเดิน</string>
+  <string name="using">กำลังใช้</string>
+  <string name="willUse">จะใช้</string>
+  <string name="quality">คุณภาพ</string>
+  <string name="publish">เผยแพร่</string>
+  <string name="published">เผยแพร่ไปแล้ว</string>
+  <string name="chooseYourEngineSettings">คลิกที่การวิเคราะห์เพื่อดูความแม่นยำของแนวตาเดินหลัก</string>
+  <string name="bestResultsUseXWithYThreads">เพื่อให้ได้ผลลัพธ์ที่ดีที่สุดในเวลาที่สั้นที่สุด ให้ใช้ %1$s ร่วมกับ %2$s</string>
+  <string name="analysisUploadFailed">การอัปโหลดผลการวิเคราะห์ล้มเหลว โปรดลองใหม่อีกครั้งในภายหลัง</string>
+  <string name="serverAnalysisInProgress">ขณะนี้กำลังมีการวิเคราะห์เซิร์ฟเวอร์สำหรับเกมนี้อยู่ คุณสามารถลองใหม่อีกครั้งเมื่อการวิเคราะห์เสร็จสิ้น</string>
+  <string name="youCanPublish">การวิเคราะห์ในเครื่องของคุณสามารถนำไปเผยแพร่ได้</string>
+  <string name="turnOnRec">คุณต้องเปิดใช้งาน REC ก่อนจึงจะสามารถแชร์การวิเคราะห์ในเครื่องไปยังการศึกษาได้</string>
+  <string name="whenUpgradingOldChapters">การวิเคราะห์เซิร์ฟเวอร์ในบทต่างๆ ที่สร้างขึ้นก่อนที่จะมีการนำการวิเคราะห์ในเครื่องมาใช้ ไม่สามารถอัปเกรดได้อย่างราบรื่น บรรทัดคำสั่งและข้อความแสดงความคิดเห็นเก่าๆ จะยังคงอยู่ เว้นแต่คุณจะลบออกก่อน</string>
+  <string name="startingPosition">ตำแหน่งเริ่มต้น</string>
+  <string name="keepThisBrowserTabActive">เปิดแท็บของบราว์เซอร์นี้ไว้ในขณะที่การวิเคราะห์กำลังดำเนินอยู่</string>
+  <string name="xTimesStandardQuality">%sx คุณภาพมาตรฐาน</string>
+  <string name="moveXOfY" comment="should this be in site?">ตาเดิน %1$s จาก %2$s</string>
+  <string name="downloadingXofY" comment="should this be in site?">ดาวน์โหลด %1$s ของ %2$s</string>
+  <string name="timeToComplete">จะใช้เวลาประมาณ %s</string>
+  <string name="xWouldBeFaster">%s จะเร็วกว่า</string>
+</resources>

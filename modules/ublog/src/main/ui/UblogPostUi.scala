@@ -32,13 +32,8 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
         )
       .headAppend(lila.ui.bits.markdownAlternate(ctx.req.uri))
       .preloadImage(imageUrl)(helpers)
-      .copy(atomLinkTag =
-        link(
-          href := routes.Ublog.userAtom(user.username),
-          st.title := trans.ublog.xBlog.txt(user.username)
-        ).some
-      )
-      .flag(_.noRobots, !blog.listed || !post.indexable || blog.tier < UblogBlog.Tier.HIGH)
+      .copy(atomLink = (routes.Ublog.userAtom(user.username), trans.ublog.xBlog.txt(user.username)).some)
+      .flag(_.noRobots, !blog.crawlable || !post.crawlable)
       .csp(_.withInlineIconFont):
         main(cls := "page-menu page-small")(
           ui.menu(Left(user.id)),
@@ -102,7 +97,8 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
             ),
             div(cls := "ublog-post__topics")(
               post.topics.map: topic =>
-                a(href := routes.Ublog.topic(topic.url, none, lila.core.ublog.BlogsBy.newest, 1))(topic.value)
+                a(href := routes.Ublog.topic(topic.url, none, lila.core.ublog.BlogsBy.newest, 1)):
+                  topic.i18nKey()
             ),
             (~post.ads).option(
               div(dataIcon := Icon.InfoCircle, cls := "ublog-post__ads-disclosure text")(
@@ -191,7 +187,7 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
       div(
         div(
           span(cls := "btn-rack")(
-            lila.core.ublog.Quality.values.map: q =>
+            UblogPost.Quality.values.map: q =>
               button(
                 cls := s"quality-btn btn-rack__btn ${(nonPendingQuality.contains(q)).so("lit")}",
                 value := q.name

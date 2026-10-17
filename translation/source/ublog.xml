@@ -61,6 +61,17 @@
   <string name="deleteBlog">Delete this blog post permanently</string>
   <string name="freeImagesComplyWithLicensing" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">The following websites provide images for free. Please ensure you comply with licensing conditions for the image you use.</string>
   <string name="selectPostTopics">Select the topics your post is about</string>
+  <string name="topicChess">Chess</string>
+  <string name="topicPuzzle">Puzzle</string>
+  <string name="topicTactics">Tactics</string>
+  <string name="topicStrategy">Strategy</string>
+  <string name="topicChessEngine">Chess engine</string>
+  <string name="topicChessBot">Chess bot</string>
+  <string name="topicChessPersonalities">Chess personalities</string>
+  <string name="topicOverTheBoard">Over the board</string>
+  <string name="topicSoftwareDevelopment">Software Development</string>
+  <string name="topicOffTopic">Off topic</string>
+  <string name="topicPosts">%s posts</string>
   <string name="etiquette">Etiquette</string>
   <string name="safeAndRespectfulContent">Please only post safe and respectful content. Do not copy someone else's content.</string>
   <string name="noCopyrightedImages">Only use images that are not copyrighted by someone else.</string>

@@ -1,11 +1,13 @@
 package lila.web
 package ui
 
+import play.api.libs.json.Json
 import play.api.mvc.RequestHeader
 
 import lila.core.i18n.{ I18nKey as trans, Translate }
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
+import lila.common.Json.given
 
 def mobileRedirect(using req: RequestHeader)(using Translate) =
   val callbackUrl = "org.lichess.mobile://login-callback" + req.rawQueryString.nonEmptyOption.so("?" + _)
@@ -54,10 +56,34 @@ def mobile(helpers: Helpers)(renderedCmsPage: Frag)(using Translate) =
   </a>
   """
 
+  val appStructuredData = lila.ui.bits.structuredData("MobileApplication"):
+    def storeOffer(name: String, url: Url) =
+      Json.obj("@type" -> "Offer", "name" -> name, "url" -> url, "price" -> 0)
+    Json.obj(
+      "name" -> "Lichess",
+      "operatingSystem" -> "Android, iOS",
+      "applicationCategory" -> "GameApplication",
+      "url" -> routeUrl(routes.Main.app),
+      "releaseNotes" -> "https://github.com/lichess-org/mobile/releases",
+      "screenshot" -> assetUrl("images/mobile/lichess-mobile-screen.webp"),
+      "offers" -> List(
+        storeOffer("Google Play", StaticContent.mobileAndroidUrl),
+        storeOffer("F-Droid", StaticContent.mobileFdroidUrl),
+        storeOffer("App Store", StaticContent.mobileIosUrl)
+      ),
+      // weighted average of the App Store and Google Play ratings, as of 2026-10-08
+      "aggregateRating" -> Json.obj(
+        "@type" -> "AggregateRating",
+        "ratingValue" -> 4.2,
+        "ratingCount" -> 2895
+      )
+    )
+
   Page(trans.app.lichessMobileApp.txt())
     .i18n(_.app)
     .js(Esm("bits.qrcode"))
     .css("bits.mobile")
+    .headAppend(appStructuredData)
     .hrefLangs(lila.ui.LangPath(routes.Main.app)):
       main(
         div(cls := "mobile page-small box box-pad")(

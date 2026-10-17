@@ -1,5 +1,5 @@
 {
-  "include": ["${configDir}/**/*", "${configDir}/../src/**/*"],
+  "include": ["${configDir}/**/*", "${configDir}/../src/**/*", "${configDir}/../../.test/**/*.mts"],
   "exclude": ["${configDir}/../dist"],
   "compilerOptions": {
     "jsx": "react",
@@ -26,7 +26,8 @@
     "lib": ["ES2021", "DOM", "DOM.Iterable"],
     "types": ["lichess", "node"],
     "paths": {
-      "@/*": ["${configDir}/../src/*"]
+      "@/*": ["${configDir}/../src/*"],
+      "#/*": ["${configDir}/../../.test/*.mts"]
     },
     "verbatimModuleSyntax": true
   }

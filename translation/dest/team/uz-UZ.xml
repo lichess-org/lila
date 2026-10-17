@@ -16,6 +16,7 @@
   <string name="quitTeam">Jamoani tark etish</string>
   <string name="manuallyReviewAdmissionRequests">Qabul qilish soʻrovlarini koʻrib chiqish</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Agar belgilangan boʻlsa, oʻyinchilar jamoaga qoʻshilish uchun soʻrov yozishlari kerak. Siz ularni inkor yoki qabul qilishingiz mumkin.</string>
+  <string name="hideMembersDesc" comment="Checkbox label: option to hide the team member list from non-members">Jamoa aʼzolari roʻyxatini begonalar uchun yashirish.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Jamoa sardori</item>
     <item quantity="other">Jamoa sardorlari</item>
@@ -50,6 +51,7 @@
   <string name="entryCodeDescriptionForLeader">(Ixtiyoriy) Jamoaga qoʻshilish uchun yangi aʼzolari bilishi kerak boʻlgan kirish kodi.</string>
   <string name="incorrectEntryCode">Kirish kodi notoʻgʻri.</string>
   <string name="forumLabel">Jamoa forumi</string>
+  <string name="forumVisibilityHelp">Jamoa sahifasida jamoa forumini kimlar koʻra oladi?&lt;br&gt;Faqat jamoa aʼzolari jamoa forumiga xabar yozishi mumkin.</string>
   <string name="forumVisibilityNone">Forumni yashirish</string>
   <string name="teamAlreadyExists">Ushbu jamoa allaqachon mavjud.</string>
   <string name="upcomingTournaments">Kelgusi turnirlar</string>

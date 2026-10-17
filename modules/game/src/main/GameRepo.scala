@@ -25,10 +25,10 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
   def game(gameId: GameId): Fu[Option[Game]] = coll.byId[Game](gameId)
   def gameFromSecondary(gameId: GameId): Fu[Option[Game]] = coll.secondary.byId[Game](gameId)
 
-  def gamesFromSecondary(gameIds: Seq[GameId]): Fu[List[Game]] = gameIds.nonEmpty.so:
+  def gamesFromSecondary(gameIds: Seq[GameId]): Fu[List[Game]] =
     coll.byOrderedIds[Game, GameId](gameIds, readPref = _.sec)(_.id)
 
-  def gameOptionsFromSecondary(gameIds: Seq[GameId]): Fu[List[Option[Game]]] = gameIds.nonEmpty.so:
+  def gameOptionsFromSecondary(gameIds: Seq[GameId]): Fu[List[Option[Game]]] =
     coll.optionsByOrderedIds[Game, GameId](gameIds, none, _.sec)(_.id)
 
   val light: lila.core.game.GameLightRepo = new:

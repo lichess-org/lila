@@ -91,8 +91,8 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)
     Page(title)
       .css("bits.ublog")
       .js(posts.hasNextPage.option(infiniteScrollEsmInit) ++ ctx.isAuth.so(Esm("bits.ublog")))
-      .copy(atomLinkTag = link(href := routes.Ublog.userAtom(user.username), st.title := title).some)
-      .flag(_.noRobots, !blog.listed):
+      .copy(atomLink = (routes.Ublog.userAtom(user.username), title).some)
+      .flag(_.noRobots, !blog.crawlable):
         main(cls := "page-menu")(
           menu(Left(user.id)),
           div(cls := "page-menu__content box box-pad ublog-index")(
@@ -132,12 +132,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)
     Page(trans.ublog.communityBlogs.txt())
       .css("bits.ublog")
       .js(posts.hasNextPage.option(infiniteScrollEsmInit))
-      .copy(
-        atomLinkTag = link(
-          href := routes.Ublog.communityAtom(languageOrAll),
-          st.title := "Lichess community blogs"
-        ).some
-      )
+      .copy(atomLink = (routes.Ublog.communityAtom(languageOrAll), "Lichess community blogs").some)
       .hrefLangs(lila.ui.LangPath(langHref(routes.Ublog.communityAll(filter.some)))):
         main(cls := "page-menu")(
           menu(Right("community")),
@@ -225,7 +220,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)
       using Context
   ) =
     list(
-      title = s"$top posts",
+      title = trans.ublog.topicPosts.txt(top.i18nKey.txt()),
       posts = posts,
       menuItem = "topics",
       route = (p, f, b) => routes.Ublog.topic(top.value, f.some, b, p),
@@ -357,7 +352,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)
             tops.map { case UblogTopic.WithPosts(topic, posts, nb) =>
               a(cls := "ublog-topics__topic", href := routes.Ublog.topic(topic.url))(
                 h2(
-                  topic.value,
+                  topic.i18nKey(),
                   span(cls := "ublog-topics__topic__nb")(trans.ublog.viewAllNbPosts(nb), " »")
                 ),
                 span(cls := "ublog-topics__topic__posts ublog-post-cards")(
@@ -527,7 +522,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)
       ): post =>
         renderPost(post, authorOfBlog(post.blog))
 
-    def community(language: Language, posts: Seq[UblogPost.PreviewPost]) =
+    def community(language: Language, posts: Seq[UblogPost.PreviewPost])(using Translate) =
       atomUi.feed(
         elems = posts,
         htmlCall = routes.Ublog.communityLang(language),
@@ -538,7 +533,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)
       ): post =>
         renderPost(post, authorOfBlog(post.blog))
 
-    private def renderPost(post: UblogPost.PreviewPost, authorName: String) =
+    private def renderPost(post: UblogPost.PreviewPost, authorName: String)(using Translate) =
       frag(
         tag("id")(routeUrl(urlOfPost(post))),
         tag("published")(post.lived.map(_.at).map(atomUi.atomDate)),
@@ -552,7 +547,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)
         post.topics.map { topic =>
           atomUi.category(
             term = topic.url,
-            label = topic.value,
+            label = topic.i18nKey.txt(),
             scheme = routeUrl(routes.Ublog.topic(topic.url)).some
           )
         },

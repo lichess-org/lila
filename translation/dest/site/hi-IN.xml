@@ -516,11 +516,9 @@
   <string name="reportAUser">किसी उपयोगकर्ता (यूज़र) को रिपोर्ट करें</string>
   <string name="user">उपयोगकर्ता (यूज़र)</string>
   <string name="reason">कारण</string>
-  <string name="whatIsIheMatter">बात क्या है?</string>
   <string name="cheat">धोखेबाज़ी</string>
   <string name="troll">ट्रोल</string>
   <string name="other">दूसरा</string>
-  <string name="error.provideOneCheatedGameLink">कृपया ठगे गए खेल के लिए कम से कम एक लिंक प्रदान करें।</string>
   <string name="by">%s द्वारा</string>
   <string name="importedByX">%s द्वारा आयातित</string>
   <string name="thisTopicIsNowClosed">यह विषय अब बंद हो चुका है|</string>

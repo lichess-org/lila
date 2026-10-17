@@ -583,14 +583,12 @@ Jokatu puntuaziorako balio duten partidak egonkortasuna handitzeko.</string>
   <string name="reportAUser">Erabiltzaile bat salatu</string>
   <string name="user">Erabiltzailea</string>
   <string name="reason">Arrazoia</string>
-  <string name="whatIsIheMatter">Zein da arazoa?</string>
   <string name="cheat">Tranpak</string>
   <string name="troll">Trolla</string>
   <string name="other">Bestelakoak</string>
   <string name="reportCheatBoostHelp">Partidaren esteka itsasi, eta azaldu zer egin duen gaizki erabiltzaileak. Ez esan \"tranpak egiten ditu\" bakarrik, eman horren arrazoiak.</string>
   <string name="reportUsernameHelp">Azaldu erabiltzaile-izen honek zer duen iraingarria. Ez esan \"iraingarria da\" soilik, eman arrazoiak, batez ere iraina ezkutatuta badago, ez bada ingelesezko hitz bat edo errefererantzia historiko edo kulturala bada.</string>
   <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">Ingelesez idazten badiguzu zure eskaerak azkarrago prozesatuko ditugu.</string>
-  <string name="error.provideOneCheatedGameLink">Iruzurra izandako partida baten lotura bidali gutxienez.</string>
   <string name="by">egilea %s</string>
   <string name="importedByX">%s erabiltzaileak inportatuta</string>
   <string name="thisTopicIsNowClosed">Gai hau itxita dago.</string>

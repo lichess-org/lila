@@ -461,11 +461,9 @@
   <string name="reportAUser">Кулланучыны белделергә</string>
   <string name="user">Кулланучы</string>
   <string name="reason">Сәбаб</string>
-  <string name="whatIsIheMatter">Нәрсә булды?</string>
   <string name="cheat">Алдамак</string>
   <string name="troll">Троль</string>
   <string name="other">Бүтән</string>
-  <string name="error.provideOneCheatedGameLink">Зинһар, алданган уенга ким дигәндә бер сылтама бирегез.</string>
   <string name="by">%sдан</string>
   <string name="thisTopicIsNowClosed">Бу сәрхәү хәзер ябык.</string>
   <string name="blog">Шәлкемлек</string>

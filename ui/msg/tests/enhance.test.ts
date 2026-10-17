@@ -1,7 +1,8 @@
 import assert from 'node:assert/strict';
 import test, { describe } from 'node:test';
 
-import { each } from '../../.test/helpers.mts';
+import { each } from '#/helpers';
+
 import { enhance, imgurRegex } from '../src/view/enhance';
 
 describe('imgur matching', () => {

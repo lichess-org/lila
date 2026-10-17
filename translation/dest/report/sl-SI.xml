@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="whatIsTheMatter">Kaj je narobe?</string>
+  <string name="cheat">Goljufija</string>
+  <string name="troll">Provokacija</string>
+  <string name="reportStall">Zavlačevanje / Zapuščanje iger</string>
+  <string name="reportBoost">Izkoriščanje / Nagrajevanje / Dogovarjanje tekem</string>
+  <string name="reportVerbalAbuse">Verbalna zloraba / preklinjanje / trolanje</string>
+  <string name="reportViolence">Nasilje / grožnje</string>
+  <string name="reportHarass">Nadlegovanje / ustrahovanje / zalezovanje</string>
+  <string name="reportSelfHarm">Samomor / Samopoškodovanje</string>
+  <string name="reportHate">Sovražni govor / seksizem</string>
+  <string name="reportSpam">Smetenje</string>
+  <string name="readMoreAboutLichessReports">Preberite več o prijavah na Lichessu</string>
+  <string name="reportMaximumCharacters">Največ 3000 znakov.</string>
+  <string name="reportCheatBoostHelp">Prilepite povezavo do igre (ali iger) in pojasnite, kaj je narobe z nasprotnikovim načinom igranja. Ne napišite le, da \"nasprotnik goljufa\", ampak pojasnite, kako ste prišli do te ugotovitve.</string>
+  <string name="reportUsernameHelp">Razložite, zakaj je to uporabniško ime žaljivo. Ne recite zgolj \"je žaljivo/neprimerno\", povejte nam, kako ste prišli do tega zaključka. Še posebej, le je žalitev prikrita, ni v angleščini, je v slengu ali ima zgodovinsko/kulturno referenco.</string>
+  <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">Vaše poročilo lahko obdelamo hitreje, če pišete v angleščini.</string>
+  <string name="provideOneCheatedGameLink">Prosim, navedite vsaj eno povezavo do igre za pregled.</string>
+</resources>

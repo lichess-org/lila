@@ -17,6 +17,5 @@
   <string name="cancelTimerOrDenyARequest">Zeitvorgabe ausschalten oder Anfrage ablehnen</string>
   <string name="playPreferredMoveOrConfirmSomething">Bevorzugten Zug abspielen oder etwas bestätigen</string>
   <string name="sleep">Schlafen (falls Wort zum Aufwecken aktiviert)</string>
-  <string name="turnOffVoiceRecognition">Spracherkennung ausschalten</string>
   <string name="showPuzzleSolution">Lösung der Aufgabe anzeigen</string>
 </resources>

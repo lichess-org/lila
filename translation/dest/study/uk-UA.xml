@@ -54,7 +54,6 @@
   <string name="annotateWithGlyphs">Додати символьну анотацію</string>
   <string name="theChapterIsTooShortToBeAnalysed">Розділ занадто короткий для аналізу.</string>
   <string name="onlyContributorsCanRequestAnalysis">Лише співавтори дослідження можуть дати запит на комп\'ютерний аналіз.</string>
-  <string name="getAFullComputerAnalysis">Отримати повний серверний комп\'ютерний аналіз головної лінії.</string>
   <string name="makeSureTheChapterIsComplete">Переконайтесь, що розділ завершено. Ви можете дати запит на аналіз лише один раз.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Усі синхронізовані учасники залишаються на тій же позиції</string>
   <string name="shareChanges">Поділитися змінами з глядачами та зберегти їх на сервері</string>

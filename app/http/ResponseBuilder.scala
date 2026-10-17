@@ -69,13 +69,13 @@ trait ResponseBuilder(using Executor)
     lila.security.Mobile.Api
       .requestVersion(ctx.req)
       .match
-        case Some(v) => api(v).dmap(_.withHeaders(VARY -> "Accept").as(JSON))
+        case Some(v) => api(v).dmap(_.varyAccept.as(JSON))
         case None => negotiate(html, api(ApiVersion.mobile))
 
   def negotiate(html: => Fu[Result], json: => Fu[Result])(using ctx: Context): Fu[Result] =
     if HTTPRequest.acceptsJson(ctx.req) || ctx.isOAuth
-    then json.dmap(_.withHeaders(VARY -> "Accept").as(JSON))
-    else html.dmap(_.withHeaders(VARY -> "Accept"))
+    then json.dmap(_.varyAccept.as(JSON))
+    else html.dmap(_.varyAccept)
 
   def negotiateJson(result: => Fu[Result])(using Context): Fu[Result] =
     negotiate(
