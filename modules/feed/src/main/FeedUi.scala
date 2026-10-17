@@ -3,9 +3,9 @@ package ui
 
 import play.api.data.Form
 import scalalib.paginator.Paginator
-
-import lila.ui.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+import lila.core.i18n.I18nKey
+import lila.ui.{*, given}
+import lila.ui.ScalatagsTemplate.{*, given}
 
 final class FeedUi(helpers: Helpers, atomUi: AtomUi, feedMarkdown: FeedMarkdown)(
     sitePage: String => Context ?=> Page
@@ -96,7 +96,7 @@ final class FeedUi(helpers: Helpers, atomUi: AtomUi, feedMarkdown: FeedMarkdown)
           inForm(form)
         ,
         postForm(action := routes.Feed.delete(update.id))(cls := "daily-feed__delete"):
-          submitButton(cls := "button button-red button-empty yes-no-confirm")("Delete")
+          submitButton(cls := "button button-red button-empty yes-no-confirm")(I18nKey.site.delete.txt())
       )
 
   def atom(ups: List[Feed.Update]) =
@@ -140,11 +140,11 @@ final class FeedUi(helpers: Helpers, atomUi: AtomUi, feedMarkdown: FeedMarkdown)
                   frag(
                     a(
                       href := routes.Feed.edit(update.id),
-                      cls := "button button-green button-empty button-thin text",
+                      cls := "button button-green button-empty button-thin",
                       dataIcon := Icon.Pencil
                     ),
-                    (!update.public).option(badTag(nbsp, "[Draft]")),
-                    update.future.option(goodTag(nbsp, "[Future]"))
+                    (!update.public).option(badTag("[Draft]")),
+                    update.future.option(goodTag("[Future]"))
                   )
                 )
               ),
@@ -173,7 +173,7 @@ final class FeedUi(helpers: Helpers, atomUi: AtomUi, feedMarkdown: FeedMarkdown)
       form3.group(form("flair"), "Icon", half = false): field =>
         form3
           .flairPicker(field, Flair.from(form("flair").value), anyFlair = true),
-      form3.action(form3.submit("Save"))
+      form3.action(form3.submit(I18nKey.site.save.txt()))
     )
 
   private def marker(flair: Option[Flair] = none, customClass: Option[String] = none) =
