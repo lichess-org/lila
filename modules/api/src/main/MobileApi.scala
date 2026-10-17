@@ -33,7 +33,8 @@ final class MobileApi(
     isOnline: lila.core.socket.IsOnline,
     playing: lila.round.PlayingUsers,
     relationStream: lila.relation.RelationStream,
-    playerCounter: lila.web.PlayerCounter
+    playerCounter: lila.web.PlayerCounter,
+    coachEnv: lila.coach.Env
 )(using Executor):
 
   private given (using trans: Translate): Lang = trans.lang
@@ -129,3 +130,25 @@ final class MobileApi(
       .add("online", isOnline.exec(user.id))
       .add("playing", playing)
       .add("streaming", liveStreamApi.userIds(user.id))
+
+  def coaches(page: Int, lang: String, order: String, country: String): Fu[JsObject] =
+    val pagerOrder = lila.coach.CoachPager.Order(order)
+    val langOpt = (lang != "all").so(play.api.i18n.Lang.get(lang))
+    val countryOpt = lila.user.Flags.info(lila.core.user.FlagCode(country))
+    for
+      pager <- coachEnv.pager(langOpt, pagerOrder, countryOpt, page)
+      langCodes <- coachEnv.api.allLanguages
+      countries <- coachEnv.api.countrySelection
+    yield Json.obj(
+      "coaches" -> pager.currentPageResults.map(coachEnv.jsonView.list),
+      "page" -> pager.currentPage,
+      "nextPage" -> pager.nextPage,
+      "lang" -> langOpt.fold("all")(_.code),
+      "order" -> pagerOrder.key,
+      "country" -> countryOpt.fold(lila.coach.allFlags.value)(_.code.value),
+      "languages" -> langCodes.toList.sorted,
+      "countries" -> countries.value.map: (code, name) =>
+        Json.obj("code" -> code.value, "name" -> name)
+    )
+
+  def coach(c: lila.coach.Coach.WithUser): JsObject = coachEnv.jsonView.show(c)
