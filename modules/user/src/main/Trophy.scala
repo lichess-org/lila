@@ -14,7 +14,12 @@ case class Trophy(
     if kind.order == other.kind.order then date.compareTo(other.date)
     else Integer.compare(kind.order, other.kind.order)
 
-  def anyUrl = url.orElse(kind.url)
+  def anyUrl = url
+    .orElse(kind.url)
+    .map: link =>
+      if link.matches("""(?:https?://lichess\.org|//lichess\.org)?/tournament/[A-Za-z0-9]{8}""")
+      then s"$link?player=$user"
+      else link
 
 case class TrophyKind(
     _id: String,
