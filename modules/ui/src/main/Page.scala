@@ -24,7 +24,7 @@ case class Page(
     body: Option[Frag] = None,
     fullTitle: Option[String] = None,
     cssKeys: List[String] = Nil,
-    i18nModules: List[I18nModule.Selector] = List(_.site, _.timeago, _.preferences),
+    i18nModules: List[I18nModule.Selector] = List(_.site, _.timeago, _.preferences, _.voiceCommands),
     modules: EsmList = Nil,
     pageModule: Option[PageModule] = None,
     openGraph: Option[OpenGraph] = None,
