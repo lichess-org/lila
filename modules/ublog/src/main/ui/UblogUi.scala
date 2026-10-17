@@ -476,16 +476,16 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)
       ,
       sortOpt.map: by =>
         span(
-          "Sort",
+          trans.search.sortBy(),
           span(cls := "btn-rack")(
-            a(btnCls(by == likes), href := route(filter, likes))("likes"),
+            a(btnCls(by == likes), href := route(filter, likes))(trans.site.like()),
             by match
               case BlogsBy.newest =>
-                a(btnCls(true, "descending"), href := route(filter, oldest))("date")
+                a(btnCls(true, "descending"), href := route(filter, oldest))(trans.search.date())
               case BlogsBy.oldest =>
-                a(btnCls(true, "ascending"), href := route(filter, newest))("date")
+                a(btnCls(true, "ascending"), href := route(filter, newest))(trans.search.date())
               case _ =>
-                a(btnCls(false, "descending"), href := route(filter, newest))("date")
+                a(btnCls(false, "descending"), href := route(filter, newest))(trans.search.date())
           )
         )
     )

@@ -104,11 +104,9 @@ const coordinateInput = (ctrl: CoordinateTrainerCtrl) => {
             on={{ keyup: ctrl.onKeyboardInputKeyUp }}
           />
           {ctrl.playing ? (
-            <span>Enter the coordinate</span>
+            <span>{i18n.coordinates.enterTheCoordinate}</span>
           ) : (
-            <strong>
-              Press <kbd>enter</kbd> to start
-            </strong>
+            <strong>{i18n.coordinates.pressEnterToStart.asArray(<kbd>enter</kbd>)}</strong>
           )}
         </span>
       </div>

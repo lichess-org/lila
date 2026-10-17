@@ -58,7 +58,7 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
               )(userLinkContent(user)),
               iconTag(Icon.InfoCircle)(
                 cls := "ublog-post__meta__disclaimer",
-                st.title := "Opinions expressed by Lichess contributors are their own."
+                st.title := trans.ublog.opinionsExpressedByContributorsAreTheirOwn.txt()
               ),
               post.lived.map: live =>
                 span(cls := "ublog-post__meta__date")(semanticDate(live.at)),
@@ -129,7 +129,7 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
               ),
               (others.length > 0).option(
                 div(
-                  h2("You may also like"),
+                  h2(trans.ublog.youMayAlsoLike()),
                   div(cls := "ublog-post-cards")(
                     others.map:
                       ui.card(_, showAuthor = ui.ShowAt.top, showIntro = true)

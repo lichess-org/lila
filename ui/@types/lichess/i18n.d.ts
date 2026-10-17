@@ -979,6 +979,8 @@ interface I18n {
     coordinates: string;
     /** Coordinate training */
     coordinateTraining: string;
+    /** Enter the coordinate */
+    enterTheCoordinate: string;
     /** Find square */
     findSquare: string;
     /** Go as long as you want, there is no time limit! */
@@ -991,6 +993,8 @@ interface I18n {
     nameSquare: string;
     /** Practice only some files & ranks */
     practiceOnlySomeFilesAndRanks: string;
+    /** Press %s to start */
+    pressEnterToStart: I18nFormat;
     /** Show coordinates */
     showCoordinates: string;
     /** Coordinates on every square */
@@ -4271,6 +4275,8 @@ interface I18n {
     menu: string;
     /** Message */
     message: string;
+    /** Microphone */
+    microphone: string;
     /** Middlegame */
     middlegame: string;
     /** Minimum rated games */
@@ -4409,6 +4415,8 @@ interface I18n {
     noMistakesFoundForWhite: string;
     /** None */
     none: string;
+    /** None selected */
+    noneSelected: string;
     /** Offline */
     noNetwork: string;
     /** No note yet */
@@ -6403,6 +6411,8 @@ interface I18n {
     noDrafts: string;
     /** No posts in this blog, yet. */
     noPostsInThisBlogYet: string;
+    /** Opinions expressed by Lichess contributors are their own. */
+    opinionsExpressedByContributorsAreTheirOwn: string;
     /** Post body */
     postBody: string;
     /** Post intro */
@@ -6465,6 +6475,8 @@ interface I18n {
     xPublishedY: I18nFormat;
     /** You are blocked by the blog author. */
     youBlockedByBlogAuthor: string;
+    /** You may also like */
+    youMayAlsoLike: string;
   };
   variant: {
     /** Antichess */
@@ -6549,6 +6561,8 @@ interface I18n {
     cancelTimerOrDenyARequest: string;
     /** Castle (either side) */
     castle: string;
+    /** Hold the shift key while speaking */
+    holdShiftKeyWhileSpeaking: string;
     /** Use the %1$s button to toggle voice recognition, the %2$s button to open this help dialog, and the %3$s menu to change speech settings. */
     instructions1: I18nFormat;
     /** We show arrows for multiple moves when we are not sure. Speak the colour or number of a move arrow to select it. */
@@ -6567,6 +6581,8 @@ interface I18n {
     phoneticAlphabetIsBest: string;
     /** Play preferred move or confirm something */
     playPreferredMoveOrConfirmSomething: string;
+    /** Push %s key to talk */
+    pushShiftKeyToTalk: I18nFormat;
     /** Select or capture a bishop */
     selectOrCaptureABishop: string;
     /** Show puzzle solution */
@@ -6579,6 +6595,10 @@ interface I18n {
     thisBlogPost: string;
     /** Voice commands */
     voiceCommands: string;
+    /** Voice help */
+    voiceHelp: string;
+    /** Voice settings */
+    voiceSettings: string;
     /** Watch the video tutorial */
     watchTheVideoTutorial: string;
   };

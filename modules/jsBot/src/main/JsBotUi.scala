@@ -42,6 +42,7 @@ final class JsBotUi(helpers: Helpers):
       .css(ctx.pref.hasVoice.option("voice"))
       .js(PageModule(moduleName, data))
       .js(Esm("round"))
+      .i18n(_.voiceCommands)
       .csp(_.withWebAssembly)
       .flag(_.zoom):
         main(cls := "bot-play-app")
