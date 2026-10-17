@@ -268,6 +268,14 @@ final class SwissApi(
       })
       .map((Swiss.PastAndNext.apply).tupled)
 
+  def upcomingByTeams(teamIds: Iterable[TeamId], nb: Int): Fu[List[Swiss]] = (nb > 0).so:
+    mongo.swiss
+      .find:
+        bdoc("teamId".in(teamIds), "startsAt".gt(nowInstant.minusWeeks(1)), "finishedAt".exists(false))
+      .sort(sort.asc("startsAt"))
+      .cursor[Swiss]()
+      .list(nb)
+
   def playerInfo(swiss: Swiss, userId: UserId): Fu[Option[SwissPlayer.ViewExt]] =
     userApi.byId(userId).flatMapz { user =>
       mongo.player.byId[SwissPlayer](SwissPlayer.makeId(swiss.id, user.id).value).flatMapz { player =>
