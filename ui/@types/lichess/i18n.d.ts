@@ -3297,8 +3297,12 @@ interface I18n {
     timeTooMuch: string;
   };
   report: {
+    /** In the meantime, you can block this user: */
+    blockUserInMeantime: string;
     /** Cheat */
     cheat: string;
+    /** The moderators will review it very soon, and take appropriate action. */
+    moderatorsWillReviewSoon: string;
     /** We can process your report faster if you write in English. */
     processReportFasterInEnglish: string;
     /** Please provide at least one link to a game for review. */
@@ -3327,6 +3331,10 @@ interface I18n {
     reportVerbalAbuse: string;
     /** Violence / Threats */
     reportViolence: string;
+    /** Return to Lichess homepage */
+    returnToHomepage: string;
+    /** Thanks for the report */
+    thanksForTheReport: string;
     /** Troll */
     troll: string;
     /** What's the matter? */
