@@ -18,7 +18,7 @@ type NestedVNodeChildren = VNodeChildElement | NestedVNodeChildren[];
 
 type Selector = `.${string}` | `#${string}` | `[${string}`;
 type TagData = VNodeDataExtended | null;
-type TagFunction = {
+export type TagFunction = {
   (): VNode;
   (selector: Selector): VNode;
   (data: TagData): VNode;
@@ -28,7 +28,7 @@ type TagFunction = {
   (selector: Selector, data: TagData, children: NestedVNodeChildren): VNode;
   (data: TagData, children: NestedVNodeChildren): VNode;
 };
-type TagFactory<Args extends unknown[]> = (...args: Args) => TagFunction;
+export type TagFactory<Args extends unknown[]> = (...args: Args) => TagFunction;
 
 const VNODE_DATA_KEYS = new Set<keyof StrictVNodeData>([
   'props',
