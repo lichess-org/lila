@@ -27,7 +27,7 @@ case class Eval(score: Option[WhiteScore], best: Option[Uci]):
   def dropBest = copy(best = None)
 
 object evals:
-  val initial = Eval(Some(WhiteScore.initial), None)
+  val legacyInitial = Eval(Some(WhiteScore.fromWhite(Score.cp(15))), None)
   val empty = Eval(None, None)
   def fromScore(score: WhiteScore) = Eval(Some(score), None)
 
