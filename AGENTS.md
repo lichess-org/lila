@@ -19,7 +19,7 @@ Lila (li[chess in sca]la) is the free, open-source chess server powering lichess
 
 **CRITICAL**: These exact versions are required - the build will fail without them:
 
-- **Java 21** (JDK, not JRE - needs jdk.compiler module)
+- **Java 25** (JDK, not JRE - needs jdk.compiler module)
 - **Node.js 24.20+** (specified in `.node-version`)
 - **PNPM 12+** (specified in `package.json`)
 
@@ -136,7 +136,7 @@ pnpm lint:fix
 
 **Java Version Issues:**
 
-- Ensure Java 21 JDK is installed (not JRE)
+- Ensure Java 25 JDK is installed (not JRE)
 - Check: `java --list-modules | grep jdk.compiler`
 - Set JAVA_HOME properly
 
@@ -182,7 +182,7 @@ pnpm lint:fix
 
 **Workflows validate:**
 
-- **server.yml**: Scala compilation, tests, formatting with Java 21
+- **server.yml**: Scala compilation, tests, formatting with Java 25
 - **assets.yml**: UI build, tests, formatting with Node 24+
 - **lint.yml**: Code quality checks
 
