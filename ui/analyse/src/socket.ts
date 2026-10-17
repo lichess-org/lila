@@ -36,6 +36,7 @@ export interface StudySocketSendParams {
   toggleGlyph: (d: ReqPosition & { id: number }) => void;
   explorerGame: (d: ReqPosition & { gameId: string; insert: boolean }) => void;
   setChapter: (chapterId: string) => void;
+  setViewedChapter: (chapterId: string) => void;
   setRole: (d: { userId: string; role: string }) => void;
   addChapter: (d: ChapterData & { sticky?: boolean; showRatings?: boolean }) => void;
   editChapter: (d: EditChapterData) => void;
