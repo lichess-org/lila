@@ -595,6 +595,9 @@ POST  /auth/magic-link/send            controllers.Auth.magicLinkApply
 GET   /auth/magic-link/sent            controllers.Auth.magicLinkSent
 POST  /auth/mobile-code/email          controllers.Auth.mobileCodeEmail
 POST  /auth/mobile-code/bearer         controllers.Auth.mobileCodeBearer
+POST  /auth/magic-link/bearer          controllers.Auth.magicLinkBearer
+POST  /password/reset/mobile-send      controllers.Auth.passwordResetMobileSend
+POST  /password/reset/mobile-confirm/:token controllers.Auth.passwordResetMobileConfirm(token)
 GET   /auth/check                      controllers.Auth.check
 POST  /auth/validate-new-email         controllers.Auth.apiEmailValidate
 
