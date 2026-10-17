@@ -459,6 +459,8 @@ function renderPvMoves(pos: Position, pv: Uci[]): VNode[] {
     if (san === '--') break;
     key += '|' + uci;
     vnodes.push(span('.pv-san', { key, 'data-move-index': i, 'data-board': `${fen}|${uci}` }, san));
+    // the engine keeps playing after the game is over, e.g. shuffling kings in a K vs K draw
+    if (pos.isInsufficientMaterial() || pos.isVariantEnd()) break;
   }
   return vnodes;
 }

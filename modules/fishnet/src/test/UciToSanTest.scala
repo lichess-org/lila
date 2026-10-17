@@ -319,3 +319,22 @@ final class UciToSanTest extends munit.FunSuite:
     val uciAnalysis = Analysis(Analysis.Id(GameId("g5hX8efz")), None, Nil, 0, now, Engine.unknown)
     UciToSan(positions, andPly.ply, uciAnalysis) match
       case (_, errs) => assertEquals(errs, Nil)
+
+  test("variation stops when the game is over"):
+    val fen = chess.format.Fen.Full("7k/8/8/8/8/3p4/8/K3N3 w - - 0 1")
+    val andPly = Position.AndFullMoveNumber(chess.variant.Standard, fen.some)
+    val positions = andPly.playPositions(SanStr.from(List("Kb1"))).toOption.get
+    val uciAnalysis = Analysis(
+      Analysis.Id(GameId("kvkdrawn")),
+      List(
+        // Nxd3 leaves K+N vs K, the rest of the line is played after the game is drawn
+        Info(1, cpEval(-1000), SanStr.from(List("e1d3", "h8g7", "d3e5", "g7f6")))
+      ),
+      0,
+      now,
+      Engine.unknown
+    )
+    UciToSan(positions, andPly.ply, uciAnalysis) match
+      case (analysis, errs) =>
+        assertEquals(errs, Nil)
+        assertEquals(analysis.infos.map(_.variation), List(SanStr.from(List("Nxd3"))))
