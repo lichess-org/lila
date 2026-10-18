@@ -20,6 +20,14 @@ $marker-margin-top: -14px;
     }
   }
 
+  .flash {
+    margin-top: 0;
+  }
+
+  .form-actions {
+    justify-content: space-between;
+  }
+
   &__update {
     padding-inline-start: 45px;
     margin-bottom: 4em;

@@ -81,7 +81,7 @@ final class FeedUi(helpers: Helpers, atomUi: AtomUi, feedMarkdown: FeedMarkdown)
           inForm(form)
       )
 
-  def edit(form: Form[?], update: Feed.Update)(using Context) =
+  def edit(editForm: Form[?], update: Feed.Update)(using Context) =
     page(s"Lichess update ${update.id}", true):
       main(cls := "daily-feed page-small box box-pad")(
         boxTop(
@@ -92,11 +92,17 @@ final class FeedUi(helpers: Helpers, atomUi: AtomUi, feedMarkdown: FeedMarkdown)
           )
         ),
         standardFlash,
-        postForm(cls := "form3", action := routes.Feed.update(update.id)):
-          inForm(form)
+        postForm(cls := "form3", id := "feed-update-form", action := routes.Feed.update(update.id)):
+          inForm(editForm, saveInsideForm = false)
         ,
-        postForm(action := routes.Feed.delete(update.id))(cls := "daily-feed__delete"):
-          submitButton(cls := "button button-red button-empty yes-no-confirm")(I18nKey.site.delete.txt())
+        form3.action(
+          postForm(action := routes.Feed.delete(update.id))(cls := "daily-feed__delete")(
+            submitButton(cls := "button button-red button-empty yes-no-confirm")(
+              I18nKey.site.delete.txt()
+            )
+          ),
+          form3.submit(I18nKey.site.save.txt())(attr("form") := "feed-update-form")
+        )
       )
 
   def atom(ups: List[Feed.Update]) =
@@ -154,7 +160,7 @@ final class FeedUi(helpers: Helpers, atomUi: AtomUi, feedMarkdown: FeedMarkdown)
       pagerNext(ups, np => routes.Feed.index(np).url)
     )
 
-  private def inForm(form: Form[?])(using Context) =
+  private def inForm(form: Form[?], saveInsideForm: Boolean = true)(using Context) =
     frag(
       form3.split(
         form3.group(
@@ -173,7 +179,7 @@ final class FeedUi(helpers: Helpers, atomUi: AtomUi, feedMarkdown: FeedMarkdown)
       form3.group(form("flair"), "Icon", half = false): field =>
         form3
           .flairPicker(field, Flair.from(form("flair").value), anyFlair = true),
-      form3.action(form3.submit(I18nKey.site.save.txt()))
+      saveInsideForm.option(form3.action(form3.submit(I18nKey.site.save.txt())))
     )
 
   private def marker(flair: Option[Flair] = none, customClass: Option[String] = none) =
