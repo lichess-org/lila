@@ -95,7 +95,7 @@ final class FeedUi(helpers: Helpers, atomUi: AtomUi, feedMarkdown: FeedMarkdown)
         postForm(cls := "form3", id := "feed-update-form", action := routes.Feed.update(update.id)):
           inForm(editForm, saveInsideForm = false)
         ,
-        form3.action(
+        form3.actions(
           postForm(action := routes.Feed.delete(update.id))(cls := "daily-feed__delete")(
             submitButton(cls := "button button-red button-empty yes-no-confirm")(
               I18nKey.site.delete.txt()
