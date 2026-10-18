@@ -3354,3 +3354,4 @@ object I18nKey:
     val `playPreferredMoveOrConfirmSomething`: I18nKey = "voiceCommands:playPreferredMoveOrConfirmSomething"
     val `sleep`: I18nKey = "voiceCommands:sleep"
     val `showPuzzleSolution`: I18nKey = "voiceCommands:showPuzzleSolution"
+
