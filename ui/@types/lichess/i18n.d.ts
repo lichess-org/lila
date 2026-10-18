@@ -5775,8 +5775,6 @@ interface I18n {
     requestAServerAnalysis: string;
     /** Right under the board */
     rightUnderTheBoard: string;
-    /** Save */
-    save: string;
     /** Save chapter */
     saveChapter: string;
     /** Search by username */
