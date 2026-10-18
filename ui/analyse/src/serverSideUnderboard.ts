@@ -204,21 +204,20 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     site.asset.loadEsm('analyse.gifDialog', { init: ctrl });
   });
 
+  const annotatedPgnLink = document.querySelector<HTMLAnchorElement>('.copy-pgn-maybe-local a');
+  if (!annotatedPgnLink) return;
+
   const localPgn = async (url: string) =>
     renderFullTxt(ctrl, ctrl.tree.root, true, parsePgn(await xhrText(url))[0].headers);
 
-  document.querySelector<HTMLAnchorElement>('.copy-pgn-maybe-local a')?.addEventListener('click', async e => {
+  annotatedPgnLink.addEventListener('click', async e => {
     if (!ctrl.idbTree.hasLocalAnalysis) return;
+
     e.preventDefault();
     e.stopPropagation();
-    const url = URL.createObjectURL(
-      new Blob([await localPgn((e.currentTarget as HTMLAnchorElement).href)], {
-        type: 'application/x-chess-pgn',
-      }),
-    );
-    const link = frag<HTMLAnchorElement>(
-      `<a href="${url}" download="lichess_${data.game.id}.annotated.pgn"></a>`,
-    );
+    const pgn = await localPgn(annotatedPgnLink.href);
+    const url = URL.createObjectURL(new Blob([pgn], { type: 'application/x-chess-pgn' }));
+    const link = frag<HTMLElement>(`<a href="${url}" download="lichess_${data.game.id}.annotated.pgn"></a>`);
     document.body.appendChild(link);
     link.click();
     link.remove();
@@ -238,18 +237,13 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
         }, 1000);
       };
       if (ctrl.idbTree.hasLocalAnalysis) {
+        const blob = new Blob([await localPgn(annotatedPgnLink.href)], { type: 'text/plain' });
         navigator.clipboard
-          .write([
-            new ClipboardItem({
-              'text/plain': localPgn(el.parentElement!.querySelector('a')!.href).then(
-                pgn => new Blob([pgn], { type: 'text/plain' }),
-              ),
-            }),
-          ])
+          .write([new ClipboardItem({ 'text/plain': blob })])
           .then(showCheckmark)
           .catch(() => {});
       } else {
-        writeTextClipboard(el.parentElement!.querySelector('a')!.href, showCheckmark).catch(() => {});
+        writeTextClipboard(annotatedPgnLink.href, showCheckmark).catch(() => {});
       }
     }),
   );
