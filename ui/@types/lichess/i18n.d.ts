@@ -2185,10 +2185,14 @@ interface I18n {
     playTheArtificialIntelligence: string;
     /** This is your profile page. */
     thisIsYourProfilePage: string;
+    /** Verify your account */
+    verifyYourAccount: string;
     /** Welcome! */
     welcome: string;
     /** Welcome to Lichess! */
     welcomeToLichess: string;
+    /** Welcome to Lichess, %s! */
+    welcomeToLichessX: I18nFormat;
     /** What now? Here are a few suggestions: */
     whatNowSuggestions: string;
   };
