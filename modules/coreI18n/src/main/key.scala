@@ -1134,6 +1134,8 @@ object I18nKey:
     val `learnFromXAndY`: I18nKey = "onboarding:learnFromXAndY"
     val `configureLichess`: I18nKey = "onboarding:configureLichess"
     val `exploreTheSiteAndHaveFun`: I18nKey = "onboarding:exploreTheSiteAndHaveFun"
+    val `welcomeToLichessUsername`: I18nKey = "onboarding:welcomeToLichessUsername"
+    val `verifyYourAccount`: I18nKey = "onboarding:verifyYourAccount"
 
   object patron:
     val `donate`: I18nKey = "patron:donate"
