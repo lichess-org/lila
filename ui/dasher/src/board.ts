@@ -57,7 +57,7 @@ export class BoardCtrl extends PaneCtrl {
               this.set3d(true, reload);
             }),
           },
-          '2D½',
+          '2.5D',
         ),
         hl(
           'button.text',
