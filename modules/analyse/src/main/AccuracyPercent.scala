@@ -1,7 +1,7 @@
 package lila.analyse
 
 import chess.{ ByColor, Color, Division, Ply }
-import chess.eval.{ WhiteScore, WinPercent }
+import chess.eval.WinPercent
 import chess.eval.Eval.Cp
 import scalalib.Maths
 import scalalib.model.Percent
@@ -56,8 +56,8 @@ for x in xs:
   def fromEvalsAndPov(pov: SideAndStart, evals: List[Eval]): List[AccuracyPercent] =
     val alignedEvals =
       if pov.color == pov.startColor
-      then lila.tree.evals.initial :: evals
-      else evals
+      then evals
+      else evals.drop(1)
     alignedEvals
       .map(_.pov(pov.color))
       .grouped(2)
@@ -71,19 +71,15 @@ for x in xs:
       .toList
 
   def fromAnalysisAndPov(pov: SideAndStart, analysis: Analysis): List[AccuracyPercent] =
-    fromEvalsAndPov(pov, analysis.infos.map(_.eval))
+    fromEvalsAndPov(pov, analysis.infosWithInitial.map(_.eval))
 
   def gameAccuracy(startColor: Color, analysis: Analysis): Option[ByColor[AccuracyPercent]] =
-    gameAccuracy(startColor, analysis.infos.map(_.eval.forceAsCp))
+    gameAccuracy(startColor, analysis.infosWithInitial.map(_.eval.forceAsCp))
 
   // a mean of volatility-weighted mean and harmonic mean
-  def gameAccuracy(
-      startColor: Color,
-      cps: List[Option[Cp]],
-      initialCp: Option[Cp] = WhiteScore.initial.white.cp
-  ): Option[ByColor[AccuracyPercent]] =
-    val allWinPercents = (initialCp :: cps).map(_.map(WinPercent.fromCentiPawns))
-    val windowSize = (cps.size / 10).squeeze(2, 8)
+  def gameAccuracy(startColor: Color, cps: List[Option[Cp]]): Option[ByColor[AccuracyPercent]] =
+    val allWinPercents = cps.map(_.map(WinPercent.fromCentiPawns))
+    val windowSize = ((cps.size - 1) / 10).squeeze(2, 8)
 
     val windows = List.fill(windowSize.atMost(allWinPercents.size) - 2)(allWinPercents.take(windowSize))
       ::: allWinPercents.sliding(windowSize).toList
@@ -124,12 +120,9 @@ for x in xs:
 
       val byPhase: List[(GamePhase, ByColor[AccuracyPercent])] = for
         phase <- phaseNames
-        slice = analysis.infos.filter(i => phaseOf(i.ply) == phase)
-        accuracy <- slice.headOption.so: first =>
-          val initialCp = analysis.infos
-            .find(_.ply == first.prevPly)
-            .fold(WhiteScore.initial.white.cp)(_.eval.forceAsCp)
-          gameAccuracy(first.color, slice.map(_.eval.forceAsCp), initialCp)
+        slice = analysis.infosWithInitial.filter(i => phaseOf(i.ply) == phase || phaseOf(i.ply + 1) == phase)
+        accuracy <- slice.headOption.so: before =>
+          gameAccuracy(before.ply.turn, slice.map(_.eval.forceAsCp))
       yield phase -> accuracy
 
       ByColor[Map[GamePhase, AccuracyPercent]]: color =>

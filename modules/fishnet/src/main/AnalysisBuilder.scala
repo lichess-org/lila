@@ -33,6 +33,7 @@ final private class AnalysisBuilder(evalCache: IFishnetEvalCache)(using Executor
        * https://github.com/lichess-org/lichobile/issues/722
        */
       val cached = if isPartial then cachedFull - 0 else cachedFull
+      val merged = mergeEvalsAndCached(work, evals, cached)
       def debug = s"${work.game.variant.key} analysis for ${work.game.id} by ${client.fullId}"
 
       val setup = Position.AndFullMoveNumber(work.game.variant, work.game.initialFen)
@@ -46,7 +47,9 @@ final private class AnalysisBuilder(evalCache: IFishnetEvalCache)(using Executor
               setup.ply,
               Analysis(
                 id = Analysis.Id(work.game.studyId, work.game.id),
-                infos = makeInfos(mergeEvalsAndCached(work, evals, cached), work.game.uciList, work.startPly),
+                initialScore =
+                  merged.headOption.flatten.flatMap(_.score).map(WhiteScore(_, work.startPly.turn)),
+                infos = makeInfos(merged, work.game.uciList, work.startPly),
                 startPly = work.startPly,
                 date = nowInstant,
                 engine = Engine(

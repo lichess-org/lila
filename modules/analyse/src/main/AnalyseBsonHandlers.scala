@@ -28,6 +28,7 @@ object AnalyseBsonHandlers:
       )
       Analysis(
         id = id,
+        initialScore = r.strO("init").flatMap(InfoBson.decodeScore),
         infos = InfoBson.decodeList(raw, startPly).err(s"Invalid analysis data $raw"),
         startPly = startPly,
         date = r.date("date"),
@@ -37,6 +38,7 @@ object AnalyseBsonHandlers:
       bdoc(
         "_id" -> a.id,
         "studyId" -> a.studyId,
+        "init" -> a.initialScore.map(InfoBson.encodeScore),
         "data" -> a.infos,
         "ply" -> w.intO(a.startPly.value),
         "date" -> w.date(a.date),
@@ -65,6 +67,15 @@ object AnalyseBsonHandlers:
         .toList
         .zipWithIndex
         .traverse((infoStr, index) => decode(fromPly + index + 1, infoStr))
+
+    def encodeScore(score: WhiteScore): String = encodeInfo(
+      Info(
+        Ply.initial, // unused
+        evals.fromScore(score),
+        Nil
+      )
+    )
+    def decodeScore(str: String): Option[WhiteScore] = decode(Ply.initial, str).flatMap(_.eval.score)
 
     private def encodeInfo(i: Info): String =
       List(
