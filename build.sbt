@@ -332,7 +332,7 @@ lazy val oauth = module("oauth",
 
 lazy val oidc = module("oidc",
   Seq(common, db, user),
-  Seq() ++ nimbusds.bundle
+  Seq() ++ nimbusds.bundle ++ tests.bundle
 )
 
 lazy val security = module("security",

@@ -10,6 +10,7 @@ import lila.core.email.{ UserIdOrEmail, UserStrOrEmail }
 import lila.core.net.IpAddress
 import lila.core.security.ClearPassword
 import lila.memo.RateLimit
+import lila.oidc.LoginRefusal
 import lila.security.SecurityForm.{ MagicLink, PasswordReset }
 import lila.security.{ FingerPrint, Signup }
 import lila.security.EmailConfirm
@@ -104,12 +105,32 @@ final class Auth(
   def signinOidc = Open(oidcCallback)
 
   private def oidcCallback(using ctx: Context) = NoBot:
-    env.oidc.api.authenticate(ctx.req).flatMap { userOp =>
-      userOp match
-        case None => InternalServerError("Authentication error")
-        case Some(user) =>
-          authenticateUser(user, remember = true)
+    env.oidc.api.authenticate(ctx.req).flatMap {
+      case None => fuccess(Redirect(routes.Auth.login).flashFailure)
+      case Some(user) =>
+        oidcRefusal(user).flatMap {
+          case None          => authenticateUser(user, remember = true)
+          case Some(refusal) => oidcRefusalPage(refusal)
+        }
     }
+
+  private def oidcRefusal(user: UserModel)(using Context): Fu[Option[LoginRefusal]] =
+    if user.enabled.yes then fuccess(None)
+    else
+      for
+        deleted       <- env.user.repo.isDeleted(user)
+        foreverClosed <- env.user.repo.isForeverClosed(user)
+      yield LoginRefusal.of(enabled = false, foreverClosed = foreverClosed, deleted = deleted)
+
+  private def oidcRefusalPage(refusal: LoginRefusal)(using Context) =
+    import scalatags.Text.all.stringFrag
+    refusal match
+      case LoginRefusal.Deleted =>
+        Forbidden.page(views.site.message("Account unavailable")(stringFrag("This account is no longer available.")))
+      case LoginRefusal.ClosedForever =>
+        Forbidden.page(views.site.message("Account closed")(stringFrag("This account has been permanently closed.")))
+      case LoginRefusal.Closed =>
+        Forbidden.page(views.site.message("Account closed")(stringFrag("This account is closed.")))
 
   private val is2fa = Set("MissingTotpToken", "InvalidTotpToken")
 

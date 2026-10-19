@@ -35,7 +35,7 @@ final class OidcApi(
   def getOrCreateUser(userInfo: UserInfo): Fu[Option[User]] =
     userRepo.byId(UserId(userInfo.getSubject.toString)).flatMap {
       case Some(user) =>
-        userRepo.setUsername(user.id, userInfo.getPreferredUsername)
+        user.enabled.yes.so(userRepo.setUsername(user.id, userInfo.getPreferredUsername))
         fuccess(Some(user))
       case None =>
         createOidcUser(userInfo)
