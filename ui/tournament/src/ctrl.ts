@@ -115,7 +115,7 @@ export default class TournamentController {
     if (!data.failed || !this.pages[data.page]) this.pages[data.page] = data.players;
   };
 
-  setPage = (page: number | undefined) => {
+  setPage = (page?: number) => {
     if (page && page !== this.page && page >= 1 && page <= this.pager().nbPages) {
       this.page = page;
       xhr.loadPage(this, page);

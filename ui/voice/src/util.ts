@@ -87,7 +87,7 @@ export function as<T>(v: T, f: () => void): () => T {
 export type SparseSet<T> = Set<T> | T;
 export type SparseMap<V> = Map<string, SparseSet<V>>;
 
-export function spread<T>(v: undefined | SparseSet<T>): T[] {
+export function spread<T>(v?: SparseSet<T>): T[] {
   return v === undefined ? [] : v instanceof Set ? [...v] : [v];
 }
 

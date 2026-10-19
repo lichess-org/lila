@@ -101,7 +101,7 @@ function resizeHandler(ctrl: AnalyseCtrl) {
   return { columns: displayColumns(), chat: null, board: null, meta: null };
 }
 
-function fixChatHeight(el: Node | null | undefined) {
+function fixChatHeight(el?: Node | null) {
   if (!(el instanceof HTMLElement)) return;
   resizeCache.board ??= document.querySelector<HTMLElement>('.analyse__board .cg-wrap');
   resizeCache.meta ??= document.querySelector<HTMLElement>('.game__meta');

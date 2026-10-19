@@ -33,7 +33,7 @@ export class ExternalEngine implements CevalEngine {
 
   constructor(
     private readonly opts: ExternalEngineInfo,
-    private readonly status: EngineNotifier | undefined,
+    private readonly status?: EngineNotifier,
   ) {}
 
   getState(): CevalState {

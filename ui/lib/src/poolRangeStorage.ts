@@ -6,7 +6,7 @@ import { storage } from './storage';
 const makeKey = (username: string | undefined, poolId: string) =>
   `lobby-pool-range.${username || 'anon'}.${poolId}`;
 
-export const set = (username: string | undefined, poolId: string, range: string | undefined): void => {
+export const set = (username: string | undefined, poolId: string, range?: string): void => {
   const key = makeKey(username, poolId);
   if (range) storage.set(key, range);
   else storage.remove(key);

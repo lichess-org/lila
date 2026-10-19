@@ -342,7 +342,7 @@ class LocalAnalysisDialog {
     ];
   }
 
-  private analysisInfo(info: AnalysisEngineInfo | undefined): LooseVNodes {
+  private analysisInfo(info?: AnalysisEngineInfo): LooseVNodes {
     if (!info) return false;
     const isPublished = info === this.ctrl.publishedEvalEngine;
     const isLocal = this.ctrl.idbTree.hasLocalAnalysis && info !== this.ctrl.publishedEvalEngine;

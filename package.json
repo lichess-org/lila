@@ -10,6 +10,7 @@
     "@lichess-org/chessground": "^10.4.2",
     "@lichess-org/pgn-viewer": "^2.7.3",
     "@playwright/test": "^1.63.0",
+    "@pobammer-ts/small-rules": "^3.6.0",
     "@types/lichess": "workspace:*",
     "@types/node": "^24.19.0",
     "ab": "github:lichess-org/ab-stub",

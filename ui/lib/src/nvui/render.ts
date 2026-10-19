@@ -90,12 +90,8 @@ export function renderPiecesOn(pieces: Pieces, rankOrFile: string, style: MoveSt
         ? ([key1], [key2]) => key2.localeCompare(key1)
         : ([key1], [key2]) => key1.localeCompare(key2),
     )
-    .reduce<string[]>(
-      (acc, [key, p]) =>
-        key.includes(rankOrFile)
-          ? acc.concat(`${renderKey(key, style)} ${transPieceStr(p.role, p.color, i18n)}`)
-          : acc,
-      [],
+    .flatMap(([key, p]) =>
+      key.includes(rankOrFile) ? [`${renderKey(key, style)} ${transPieceStr(p.role, p.color, i18n)}`] : [],
     );
   return renderedKeysWithPiece.length ? renderedKeysWithPiece.join(', ') : i18n.site.none;
 }
@@ -257,14 +253,10 @@ const getPiecesByColor = (
 ): { role: 'pawn' | 'knight' | 'bishop' | 'rook' | 'queen' | 'king'; keys: Key[] }[] => {
   return ROLES.slice()
     .reverse()
-    .reduce<{ role: Role; keys: Key[] }[]>(
-      (lists, role) =>
-        lists.concat({
-          role,
-          keys: keysWithPiece(pieces, role, color, pov),
-        }),
-      [],
-    )
+    .map(role => ({
+      role,
+      keys: keysWithPiece(pieces, role, color, pov),
+    }))
     .filter(l => l.keys.length);
 };
 

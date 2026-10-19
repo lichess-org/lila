@@ -42,7 +42,7 @@ export class ForkCtrl {
     return true;
   }
 
-  hover(uci: Uci | undefined | null) {
+  hover(uci?: Uci | null) {
     this.hoveringIndex = this.forks.findIndex(n => n.uci === uci);
     if (isTouchDevice() || this.hoveringIndex < 0) this.hoveringIndex = undefined;
   }

@@ -32,7 +32,7 @@ interface CastlingSquares {
   rookK: string;
 }
 
-export function chess960CastlingSquares(id: number | undefined): ByColor<CastlingSquares> {
+export function chess960CastlingSquares(id?: number): ByColor<CastlingSquares> {
   const rank1 = chess960IdToRank(id ?? 518); // default to standard chess
 
   const kingFile = rank1.indexOf('K');
@@ -149,7 +149,7 @@ function chess960IdToRank(id: number): string {
   place('B', b2);
 
   // Queen
-  const freeSquares = () => [...Array(8).keys()].filter(i => backRank[i] === '');
+  const freeSquares = () => [...Array(8).keys()].filter(i => backRank[i].length === 0);
   const q = freeSquares()[n % 6];
   n = Math.floor(n / 6);
   place('Q', q);
