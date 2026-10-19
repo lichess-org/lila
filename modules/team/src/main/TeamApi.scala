@@ -281,23 +281,15 @@ final class TeamApi(
       Bus.pub(LeaveTeam(teamId = teamId, userId = userId))
       cached.invalidateTeamIds(userId)
 
-  def quitAllOnAccountClosure(userId: UserId): Fu[List[TeamId]] =
-    def loop(done: List[TeamId]): Fu[List[TeamId]] =
-      memberRepo
-        .teamIdsByUser(userId)
-        .flatMap:
-          case Nil => fuccess(done)
-          case todo =>
-            for
-              _ <- requestRepo.removeByUser(userId)
-              _ <- todo.sequentially: teamId =>
-                workQueue(teamId):
-                  doQuit(teamId, userId)
-              next <- loop(done ::: todo)
-            yield next
-    loop(Nil).map: teamIds =>
-      cached.invalidateTeamIds(userId)
-      teamIds
+  def quitAllOnAccountClosure(userId: UserId): Fu[List[TeamId]] = for
+    teamIds <- memberRepo.teamIdsByUser(userId)
+    _ <- requestRepo.removeByUser(userId)
+    _ <- teamIds.sequentially: teamId =>
+      workQueue(teamId):
+        doQuit(teamId, userId)
+  yield
+    cached.invalidateTeamIds(userId)
+    teamIds
 
   def searchMembersAs(teamId: TeamId, term: UserSearch, nb: Int, showHidden: Boolean)(using
       me: Option[MyId]
