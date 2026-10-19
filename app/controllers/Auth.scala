@@ -67,6 +67,17 @@ final class Auth(
       }
     )
 
+  /** Deny local authentication flows when the app runs in SSO-only mode. */
+  private def localOpen(f: Context ?=> Fu[Result]): EssentialAction =
+    Open:
+      if env.ssoOnly then notFound
+      else f(using summon[Context])
+
+  private def localOpenBody(f: BodyContext[?] ?=> Fu[Result]): EssentialAction =
+    OpenBody:
+      if env.ssoOnly then notFound
+      else f(using summon[BodyContext[?]])
+
   private def authRecovery(using ctx: Context): PartialFunction[Throwable, Fu[Result]] =
     case lila.security.SecurityApi.MustConfirmEmail(_) =>
       if HTTPRequest.isXhr(ctx.req)
@@ -369,11 +380,11 @@ final class Auth(
       env.security.forms.passwordReset.map: baseForm =>
         views.auth.passwordReset(form.foldLeft(baseForm)(_.withForm(_)), fail)
 
-  def passwordReset = Open:
+  def passwordReset = localOpen:
     renderPasswordReset(none, fail = false).map { Ok(_) }
 
   def passwordResetApply =
-    OpenBody:
+    localOpenBody:
       env.security.hcaptcha
         .verify()
         .flatMap: captcha =>
@@ -401,10 +412,10 @@ final class Auth(
             }
           else renderPasswordReset(none, fail = true).map { BadRequest(_) }
 
-  def passwordResetSent(email: String) = Open:
+  def passwordResetSent(email: String) = localOpen:
     Ok.page(views.auth.passwordResetSent(email))
 
-  def passwordResetConfirm(token: String) = Open:
+  def passwordResetConfirm(token: String) = localOpen:
     env.security.passwordReset.confirm(token).flatMap {
       case None =>
         lila.mon.user.auth.passwordResetConfirm("tokenFail").increment()
@@ -417,7 +428,7 @@ final class Auth(
           views.auth.passwordResetConfirm(token, forms.passwdResetForMe, none)
     }
 
-  def passwordResetConfirmApply(token: String) = OpenBody:
+  def passwordResetConfirmApply(token: String) = localOpenBody:
     env.security.passwordReset.confirm(token).flatMap {
       case None =>
         lila.mon.user.auth.passwordResetConfirm("tokenPostFail").increment()
@@ -449,11 +460,11 @@ final class Auth(
     env.security.forms.magicLink.map: baseForm =>
       views.auth.magicLink(form.foldLeft(baseForm)(_.withForm(_)), fail)
 
-  def magicLink = Open:
+  def magicLink = localOpen:
     Firewall:
       Ok.async(renderMagicLink(none, fail = false))
 
-  def magicLinkApply = OpenBody:
+  def magicLinkApply = localOpenBody:
     Firewall:
       env.security.hcaptcha.verify().flatMap { captcha =>
         if captcha.ok then
@@ -476,10 +487,15 @@ final class Auth(
         else BadRequest.async(renderMagicLink(none, fail = true))
       }
 
-  def magicLinkSent = Open:
+  def magicLinkSent = localOpen:
     Ok.page(views.auth.magicLinkSent)
 
   def makeLoginToken = AuthOrScoped(_.Web.Login) { ctx ?=> me ?=>
+    if env.ssoOnly then notFound
+    else makeLoginTokenAllowed
+  }
+
+  private def makeLoginTokenAllowed(using ctx: Context, me: Me) =
     if ctx.isOAuth
     then lila.log("oauth").info(s"api makeLoginToken ${me.username} ${HTTPRequest.printClient(ctx.req)}")
     JsonOk:
@@ -490,9 +506,8 @@ final class Auth(
             "userId" -> me.userId,
             "url"    -> s"${env.net.baseUrl}${routes.Auth.loginWithToken(token).url}"
           )
-  }
 
-  def loginWithToken(token: String) = Open:
+  def loginWithToken(token: String) = localOpen:
     if ctx.isAuth
     then Redirect(getReferrer)
     else
@@ -504,7 +519,7 @@ final class Auth(
             }
 
   def loginWithTokenPost(token: String, referrer: Option[String]) =
-    Open:
+    localOpen:
       if ctx.isAuth
       then Redirect(getReferrer)
       else
