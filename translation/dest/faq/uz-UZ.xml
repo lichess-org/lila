@@ -28,7 +28,7 @@
   <string name="isCorrespondenceDifferent">Yozishmali oʻyin normal shaxmatdan qanday farqlanadi?</string>
   <string name="pleaseReadFairPlayPage">Batafsil maʼlumot uchun %s sahifamizni oʻqing</string>
   <string name="fairPlayPage">halol oʻyin</string>
-  <string name="youCanUseOpeningBookNoEngine">Lichessʼda yozishmali shaxmat qoidalari uchun asosiy farqi — debyut kitoblaridan foydalanishga ruxsat berilganidir. Dvijoklardan foydalanish esa hamon qatʼiyan taqiqlangan va bu \"dvijok yordami\" uchun profilga gʻirromlik tamgʻasi bosilishiga olib keladi. Garchi ICCF yozishmali shaxmatda dvijoklardan foydalanishga ruxsat bersa‑da, Lichessʼda bu mumkin emas.</string>
+  <string name="youCanUseOpeningBookNoEngine">Lichessʼda yozishmali shaxmat qoidalari uchun asosiy farqi — debyut kitoblaridan foydalanishga ruxsat berilganidir. Dvigatellardan foydalanish esa hamon qatʼiyan taqiqlangan va bu \"dvigatel yordami\" uchun profilga gʻirromlik tamgʻasi bosilishiga olib keladi. Garchi ICCF yozishmali shaxmatda dvigatellardan foydalanishga ruxsat bersa‑da, Lichessʼda bu mumkin emas.</string>
   <string name="gameplay">Oʻyin jarayoni</string>
   <string name="howBulletBlitzEtcDecided">Bullet, Blits va boshqa vaqt nazoratlari qanday belgilanadi?</string>
   <string name="basedOnGameDuration">Lichessʼda vaqt nazorati oʻyinning taxminiy davomiyligiga qarab belgilanadi. Bu quyidagi formula boʻyicha hisoblanadi:

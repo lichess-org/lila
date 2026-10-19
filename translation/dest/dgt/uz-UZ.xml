@@ -36,7 +36,7 @@
   <string name="announceAllMoves">Barcha yurishlarni eʼlon qilish</string>
   <string name="selectAnnouncePreference">Sizning ham, raqibingizning ham yurishlarini eshitish uchun HA variantini tanlang. Faqat raqibingizning yurishlarini eshitish uchun esa YOʻQ variantini tanlang.</string>
   <string name="announceMoveFormat">Yurishlarni eʼlon qilish formati</string>
-  <string name="moveFormatDescription">SAN — bu Lichessʼdagi standart format (masalan, \"Nf6\"). UCI — odatda shaxmat dvijoklarida qoʻllaniladi (masalan, \"g8f6\").</string>
+  <string name="moveFormatDescription">SAN — bu Lichessʼdagi standart format (masalan, \"Nf6\"). UCI — odatda shaxmat dvigatellarida qoʻllaniladi (masalan, \"g8f6\").</string>
   <string name="keywords">Kalit soʻzlar</string>
   <string name="keywordFormatDescription">Kalit soʻzlar JSON formatida berilgan. Ular yurishlar va oʻyin natijalarini oʻz tilingizga tarjima qilish uchun ishlatiladi. Standart holatda ingliz tili oʻrnatilgan, ammo uni xohishingizga koʻra oʻzgartirishingiz mumkin.</string>
   <string name="debug">Nosozliklarni aniqlash (Debug)</string>

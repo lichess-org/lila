@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">Bağış yap</string>
-  <string name="donateAsX">%s olarak bağış yap</string>
+  <string name="donateAsX" comment="This appears as an option on the donation page – the other option is to give the donation &quot;in the name of&quot; someone else, gifting them the patron wings (otherwise only available to those who donate).&#10;&#10;%s is the user's username.">%s olarak bağış yap</string>
   <string name="lichessPatron">Lichess Destekçisi</string>
   <string name="patronSince" comment="string is a date">%s\'den beri Destekçi</string>
-  <string name="freeAccount">Ücretsiz Hesap</string>
+  <string name="freeAccount" comment="URL: https://lichess.org/features">Ücretsiz Hesap</string>
   <string name="becomePatron">Lichess Destekçisi olun</string>
   <string name="xBecamePatron">%s Lichess Destekçisi oldu</string>
   <plurals name="xIsPatronForNbMonths">
@@ -20,7 +20,7 @@ sonsuza kadar!</string>
   <string name="patronUntil">Destekçi hesabınızın süresi %s tarihinde sona erecek.</string>
   <string name="ifNotRenewedThenAccountWillRevert">Bağışınızı yenilemediğiniz takdirde hesabınız normal hesaba çevrilecektir.</string>
   <string name="weAreNonProfit">Herkesin ücretsiz ve kaliteli bir satranç platformuna kolayca ulaşabilmesi gerektiğine gönülden inandığımız için hiçbir kâr amacı gütmüyoruz.</string>
-  <string name="weRelyOnSupport">Lichess sizler gibi insanların desteği sayesinde ayakta duruyor. Bu çorbada sizin de tuzunuz olsun istiyorsanız lütfen bizden desteğinizi esirgemeyin.</string>
+  <string name="weRelyOnSupport">Lichess sizler gibi insanların desteği sayesinde ayakta duruyor. Lichess\'i beğeniyorsanız bağış yaparak veya Patron olarak bize destek olmayı düşünün.</string>
   <string name="lifetime">Ömür Boyu</string>
   <string name="payLifetimeOnce">Tek seferde %s ödeyin ve sonsuza değin Lichess destekçisi olun!</string>
   <string name="lifetimePatron">Ömür Boyu Lichess Destekçisi</string>
