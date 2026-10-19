@@ -255,7 +255,7 @@ final class SwissApi(
         mongo.swiss
           .find(bdoc("teamId" -> teamId, "finishedAt".exists(true)))
           .sort(sort.desc("startsAt"))
-          .cursor[Swiss]()
+          .cursor[Swiss](ReadPref.sec)
           .list(nbPast)
       .zip((nbSoon > 0).so {
         mongo.swiss
@@ -263,7 +263,7 @@ final class SwissApi(
             bdoc("teamId" -> teamId, "startsAt".gt(nowInstant.minusWeeks(2)), "finishedAt".exists(false))
           )
           .sort(sort.asc("startsAt"))
-          .cursor[Swiss]()
+          .cursor[Swiss](ReadPref.sec)
           .list(nbSoon)
       })
       .map((Swiss.PastAndNext.apply).tupled)
@@ -273,7 +273,7 @@ final class SwissApi(
       .find:
         bdoc("teamId".in(teamIds), "startsAt".gt(nowInstant.minusWeeks(1)), "finishedAt".exists(false))
       .sort(sort.asc("startsAt"))
-      .cursor[Swiss]()
+      .cursor[Swiss](ReadPref.sec)
       .list(nb)
 
   def playerInfo(swiss: Swiss, userId: UserId): Fu[Option[SwissPlayer.ViewExt]] =
