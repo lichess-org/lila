@@ -278,7 +278,7 @@ final class Account(
             yield Redirect(routes.Lobby.home).withCookies(env.security.lilaCookie.newSession)
   }
 
-  def delete = Auth { _ ?=> me ?=>
+  def delete = localAuth { _ ?=> me ?=>
     for
       managed <- env.clas.api.student.isManaged(me)
       form    <- env.security.forms.deleteAccount
@@ -286,7 +286,7 @@ final class Account(
     yield res
   }
 
-  def deleteConfirm = AuthBody { ctx ?=> me ?=>
+  def deleteConfirm = localAuthBody { ctx ?=> me ?=>
     NotManaged:
       auth.HasherRateLimit:
         env.security.forms.deleteAccount.flatMap: form =>
@@ -295,7 +295,7 @@ final class Account(
             yield Redirect(routes.Account.deleteDone).withCookies(env.security.lilaCookie.newSession)
   }
 
-  def deleteDone = Open { ctx ?=>
+  def deleteDone = localOpen { ctx ?=>
     if ctx.isAuth then Redirect(routes.Lobby.home)
     else FoundPage(env.cms.renderKey("delete-done"))(views.site.page.lone)
   }
@@ -367,7 +367,7 @@ final class Account(
     auth.RedirectToProfileIfLoggedIn:
       Ok.async(renderReopen(none, none))
 
-  def reopenApply = OpenBody:
+  def reopenApply = localOpenBody:
     env.security.hcaptcha.verify().flatMap { captcha =>
       if captcha.ok then
         env.security.forms.reopen.flatMap:
@@ -393,10 +393,10 @@ final class Account(
       else BadRequest.async(renderReopen(none, none))
     }
 
-  def reopenSent = Open:
+  def reopenSent = localOpen:
     Ok.page(pages.reopen.sent)
 
-  def reopenLogin(token: String) = Open:
+  def reopenLogin(token: String) = localOpen:
     env.security.reopen.confirm(token).flatMap {
       case None =>
         lila.mon.user.auth.reopenConfirm("token_fail").increment()
