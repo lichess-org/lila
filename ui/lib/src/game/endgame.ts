@@ -44,15 +44,17 @@ export function endgameShapesForNode(
   return endgameShapes(node.fen, result.winner, result.status);
 }
 
-export function findKingSquare(fen: FEN, color: Color): Key | undefined {
-  const king = parseFen(fen).unwrap(
-    setup => setup.board.kingOf(color),
+const glyphRoles: Role[] = ['king', 'queen', 'rook', 'bishop', 'knight', 'pawn'];
+
+export function findGlyphSquare(fen: FEN, color: Color): Key | undefined {
+  const square = parseFen(fen).unwrap(
+    setup => glyphRoles.map(role => setup.board.pieces(color, role).first()).find(sq => sq !== undefined),
     _ => undefined,
   );
-  return king === undefined ? undefined : makeSquare(king);
+  return square === undefined ? undefined : makeSquare(square);
 }
 
-const loserGlyph = (status: StatusName | undefined): EndgameGlyph =>
+const loserGlyph = (status?: StatusName): EndgameGlyph =>
   status === 'mate'
     ? 'mate'
     : status === 'resign'
@@ -63,7 +65,7 @@ const loserGlyph = (status: StatusName | undefined): EndgameGlyph =>
           ? 'outoftime'
           : 'unknown';
 
-const drawGlyph = (status: StatusName | undefined): EndgameGlyph | undefined =>
+const drawGlyph = (status?: StatusName): EndgameGlyph | undefined =>
   status === 'stalemate'
     ? 'stalemate'
     : status === 'draw' ||
@@ -73,19 +75,15 @@ const drawGlyph = (status: StatusName | undefined): EndgameGlyph | undefined =>
       ? 'draw'
       : undefined;
 
-export function endgameShapes(
-  fen: FEN,
-  winner: Color | undefined,
-  status: StatusName | undefined,
-): DrawShape[] {
+export function endgameShapes(fen: FEN, winner?: Color, status?: StatusName): DrawShape[] {
   if (status === 'aborted' || status === 'noStart') return [];
 
   const shapes: DrawShape[] = [];
   const add = (color: Color, glyph: EndgameGlyph) => {
-    const king = findKingSquare(fen, color);
-    if (king)
+    const square = findGlyphSquare(fen, color);
+    if (square)
       shapes.push({
-        orig: king,
+        orig: square,
         brush: '',
         customSvg: { html: endgameGlyphs[glyph](0), center: 'orig' },
       });

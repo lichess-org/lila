@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="makesPerfect">fa els teus escacs perfectes</string>
+  <string name="makesPerfect">perfecciona els teus escacs</string>
   <string name="signUpToSaveYourProgress">Registra\'t per desar el teu progrés</string>
   <string name="secHeadCheckmates">Mats</string>
   <string name="secHeadFundamentalTactics">Tàctiques fonamentals</string>
@@ -33,6 +33,7 @@
   <string name="stDesBasicCheckmates">Mats bàsics</string>
   <string name="stDesRecognizeThePatterns">Reconeix els patrons</string>
   <string name="stDesInteractiveLesson">Lliçó interactiva</string>
+  <string name="stDesPinItToWinIt">Clava per guanyar</string>
   <string name="stDesLucenaAndPhilidor">Lucena i Philidor</string>
   <string name="stDesBroadenYourKnowledge">Amplia el teu coneixement</string>
   <string name="stDesRookEndingsWithSeveralPawns">Finals de torres amb diversos peons</string>

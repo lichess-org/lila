@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">Faire un don</string>
-  <string name="donateAsX">Faire un don en tant que %s</string>
+  <string name="donateAsX" comment="This appears as an option on the donation page – the other option is to give the donation &quot;in the name of&quot; someone else, gifting them the patron wings (otherwise only available to those who donate).&#10;&#10;%s is the user's username.">Faire un don en tant que %s</string>
   <string name="lichessPatron">Mécène Lichess</string>
   <string name="patronSince" comment="string is a date">Mécène depuis le %s</string>
-  <string name="freeAccount">Compte gratuit</string>
+  <string name="freeAccount" comment="URL: https://lichess.org/features">Compte gratuit</string>
   <string name="becomePatron">Devenir un mécène de Lichess</string>
   <string name="xBecamePatron">%s est devenu un mécène de Lichess</string>
   <plurals name="xIsPatronForNbMonths">

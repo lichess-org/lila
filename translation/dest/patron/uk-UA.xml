@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">Зробити внесок</string>
-  <string name="donateAsX">Зробити внесок як %s</string>
+  <string name="donateAsX" comment="This appears as an option on the donation page – the other option is to give the donation &quot;in the name of&quot; someone else, gifting them the patron wings (otherwise only available to those who donate).&#10;&#10;%s is the user's username.">Зробити внесок як %s</string>
   <string name="lichessPatron">Покровитель Lichess</string>
   <string name="patronSince" comment="string is a date">Спонсор з %s</string>
-  <string name="freeAccount">Безкоштовний обліковий запис</string>
+  <string name="freeAccount" comment="URL: https://lichess.org/features">Безкоштовний обліковий запис</string>
   <string name="becomePatron">Стати Покровителем Lichess</string>
   <string name="xBecamePatron">%s став Покровителем Lichess</string>
   <plurals name="xIsPatronForNbMonths">

@@ -11,7 +11,7 @@
   <string name="quality">Qualité</string>
   <string name="publish">Publier</string>
   <string name="published">Publiée</string>
-  <string name="chooseYourEngineSettings">Cliquez sur Analyse pour noter la variante principale.</string>
+  <string name="chooseYourEngineSettings">Cliquez sur Analyser pour noter la variante principale.</string>
   <string name="bestResultsUseXWithYThreads">Pour de meilleurs résultats en moins de temps, utilisez %1$s avec %2$s coeurs.</string>
   <string name="analysisUploadFailed">Échec du téléversement de l\'analyse. Réessayez plus tard.</string>
   <string name="serverAnalysisInProgress">Le serveur analyse cette partie. Réessayez quand l\'analyse sera terminée.</string>

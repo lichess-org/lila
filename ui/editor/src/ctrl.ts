@@ -92,7 +92,9 @@ export default class EditorCtrl implements CevalHandler {
             window.location.assign(this.makeAnalysisUrl(state.legalFen, this.bottomColor()));
         })
         .bind('l', () => this.cevalEnabled(!this.cevalEnabled()))
-        .bind('x', () => this.toggleThreatMode());
+        .bind('x', () => this.toggleThreatMode())
+        .bind('c', () => this.clearBoard())
+        .bind('p', () => this.startPosition());
 
     this.castlingToggles = { K: false, Q: false, k: false, q: false };
     const params = new URLSearchParams(location.search);
@@ -419,7 +421,7 @@ export default class EditorCtrl implements CevalHandler {
     this.onChange();
   }
 
-  setEnPassant(epSquare: Square | undefined): void {
+  setEnPassant(epSquare?: Square): void {
     this.epSquare = epSquare;
     this.onChange();
   }

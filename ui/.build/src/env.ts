@@ -126,7 +126,7 @@ export const env = new (class {
     return this.status[ctx] !== false;
   }
 
-  setStatus(ctx: Context, code: number | undefined): void {
+  setStatus(ctx: Context, code?: number): void {
     if (code !== undefined && code !== this.status[ctx]) {
       const startedAt = this.contextStartedAt.get(ctx);
       const took =

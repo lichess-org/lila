@@ -76,7 +76,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
 
   function startAdvantageChart() {
     if (advChart || site.blindMode) return;
-    const loading = !ctrl.tree.root.eval || !Object.keys(ctrl.tree.root.eval).length;
+    const loading = !ctrl.hasFullComputerAnalysis();
     const $panel = $panels.filter('.computer-analysis');
     if (!$('#acpl-chart-container').length) {
       $panel.html(

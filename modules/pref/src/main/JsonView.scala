@@ -4,7 +4,7 @@ import play.api.libs.json.*
 
 import lila.common.Json.given
 
-def toJson(p: Pref, lichobileCompat: Boolean) = Json
+def toJson(p: Pref) = Json
   .obj(
     "bgImg" -> p.bgImgUrl,
     "is3d" -> p.is3d,
@@ -31,10 +31,7 @@ def toJson(p: Pref, lichobileCompat: Boolean) = Json
     "replay" -> p.replay,
     "challenge" -> p.challenge,
     "message" -> p.message,
-    "submitMove" -> {
-      if lichobileCompat then Pref.SubmitMove.lichobile.serverToApp(p.submitMove)
-      else p.submitMove
-    },
+    "submitMove" -> p.submitMove,
     "confirmResign" -> p.confirmResign,
     "insightShare" -> p.insightShare,
     "keyboardMove" -> p.keyboardMove,
@@ -47,3 +44,25 @@ def toJson(p: Pref, lichobileCompat: Boolean) = Json
     "sayGG" -> p.sayGG
   )
   .add("favFed", p.favFed)
+
+def lichobile(p: Pref) = Json.obj(
+  "animation" -> p.animation,
+  "captured" -> p.captured,
+  "highlight" -> p.highlight,
+  "destination" -> p.destination,
+  "coords" -> p.coords,
+  "replay" -> p.replay,
+  "premove" -> p.premove,
+  "takeback" -> p.takeback,
+  "autoQueen" -> p.autoQueen,
+  "autoThreefold" -> p.autoThreefold,
+  "confirmResign" -> p.confirmResign,
+  "moretime" -> p.moretime,
+  "clockTenths" -> p.clockTenths,
+  "clockBar" -> p.clockBar,
+  "clockSound" -> p.clockSound,
+  "follow" -> p.follow,
+  "challenge" -> p.challenge,
+  "message" -> p.message,
+  "submitMove" -> Pref.SubmitMove.lichobile.serverToApp(p.submitMove)
+)

@@ -10,6 +10,9 @@ Start it up in watch mode with `ui/build -w` to continuously rebuild when change
 
 When changes compile successfully, stdout will report creation of a new manifest. Manifests list public javascript and css assets that browsers must fetch independently. The server communicates those updated URLs in subsequent responses. Just reload your browser to see the results.
 
+> [!important]
+> Package-only builds (like `ui/build lib analyse`) will compile the selected assets but do not produce a manifest. A full `ui/build` run is required to publish an updated manifest so your server can locate the new assets.
+
 # Testing
 
 Use the [/ui/test](./.test/runner.mjs) script. It's a simple wrapper for node's test runner.

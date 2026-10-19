@@ -194,4 +194,6 @@
   <string name="doubleDefeat">Đôi bại</string>
   <string name="blackDefeatWhiteCanNotWin">Bên Đen thua, nhưng bên Trắng không thể thắng</string>
   <string name="whiteDefeatBlackCanNotWin">Bên Trắng thua, nhưng bên Đen không thể thắng</string>
+  <string name="requestAServerAnalysis">Yêu cầu máy chủ phân tích</string>
+  <string name="analyzeOnYourDevice">Phân tích ngay trên thiết bị của bạn</string>
 </resources>

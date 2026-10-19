@@ -366,23 +366,23 @@ export default class AnalyseCtrl implements CevalHandler {
 
   makeCgOpts(): ChessgroundConfig {
     const node = this.node;
-    const color = this.turnColor();
-    const dests = this.node.dests();
-    const drops = this.node.drops();
+    const turnColor = this.turnColor();
+    const dests = node.dests();
+    const drops = node.drops();
     const gamebookPlay = this.gamebookPlay();
     const movableColor = gamebookPlay
       ? gamebookPlay.movableColor()
       : this.practice
         ? this.bottomColor()
         : dests.size || drops?.length
-          ? color
+          ? turnColor
           : undefined;
     const config: ChessgroundConfig = {
       fen: node.fen,
-      turnColor: color,
+      turnColor,
       movable: {
         color: movableColor,
-        dests: (movableColor === color && dests) || new Map(),
+        dests: (movableColor === turnColor && dests) || new Map(),
       },
       check: node.check(),
       lastMove: uciToMove(node.uci),
@@ -419,9 +419,6 @@ export default class AnalyseCtrl implements CevalHandler {
   private readonly updateHref: () => void = debounce(() => {
     if (!this.opts.study) window.history.replaceState(null, '', '#' + this.node.ply);
   }, 750);
-
-  playedLastMoveMyself = () =>
-    !!this.justPlayed && !!this.node.uci && this.node.uci.startsWith(this.justPlayed);
 
   jump(path: TreePath): void {
     const pathChanged = path !== this.path;
@@ -952,9 +949,8 @@ export default class AnalyseCtrl implements CevalHandler {
   withCg = <A>(f: (cg: ChessgroundApi) => A): A | undefined =>
     this.chessground && this.cgVersion.js === this.cgVersion.dom ? f(this.chessground) : undefined;
 
-  hasFullComputerAnalysis = (): boolean => {
-    return Object.keys(this.mainline[0].eval || {}).length > 0;
-  };
+  hasFullComputerAnalysis = (): boolean =>
+    !!this.mainlineAnalysis && !this.mainline.some(this.partialAnalysisCallback);
 
   mergeServerAnalysisData(data: AnalysisUpdate) {
     if (this.study && this.study.data.chapter.id !== data.ch) return;
@@ -1062,7 +1058,7 @@ export default class AnalyseCtrl implements CevalHandler {
     if (uci) this.playUci(uci);
   }
 
-  pluginMove = (orig: Key, dest: Key, prom: Role | undefined): void => {
+  pluginMove = (orig: Key, dest: Key, prom?: Role): void => {
     const capture = this.chessground.state.pieces.get(dest);
     this.sendMove(orig, dest, capture, prom);
   };
