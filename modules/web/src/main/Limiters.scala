@@ -36,7 +36,9 @@ final class Limiters(using Executor, lila.core.config.RateLimit):
   val forumPost  = RateLimit[IpAddress](credits = 4, duration = 5.minutes, key = "forum.post")
   val forumTopic = RateLimit[IpAddress](credits = 2, duration = 5.minutes, key = "forum.topic")
 
-  val apiMe = RateLimit[UserId](30, 5.minutes, "api.account.user")
+  val apiMe         = RateLimit[UserId](30, 5.minutes, "api.account.user")
+  val closeAccount  = RateLimit[UserId](5, 1.minute, "account.close.user")
+  val kidMode       = RateLimit[UserId](10, 1.minute, "account.kid.user")
 
   val apiUsers = RateLimit.composite[IpAddress](
     key = "users.api.ip"

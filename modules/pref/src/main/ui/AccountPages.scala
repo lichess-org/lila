@@ -30,7 +30,10 @@ final class AccountPages(helpers: Helpers, ui: AccountUi, flagApi: lila.core.use
             div(cls := "form-group")(h2("We're sorry to see you go.")),
             div(cls := "form-group")(trs.closeAccountAreYouSure()),
             div(cls := "form-group")(trs.cantOpenSimilarAccount()),
-            myUsernamePasswordFields(form),
+            form3.group(form("username"), trans.site.username(), half = true)(
+              form3.input(_)(required, autocomplete := "off")
+            ),
+            form3.errors(form("username")),
             form3.checkbox(
               form("forever"),
               raw("Forever close: make it impossible to reopen"),
@@ -219,7 +222,8 @@ final class AccountPages(helpers: Helpers, ui: AccountUi, flagApi: lila.core.use
         if managed then p(trans.site.askYourChessTeacherAboutLiftingKidMode())
         else
           postForm(cls := "form3", action := s"${routes.Account.kidPost}?v=${!u.kid}")(
-            form3.passwordModified(form("passwd"), trans.site.password())(autofocus, autocomplete := "off"),
+            form3.checkbox(form("confirm"), "I confirm this change"),
+            form3.errors(form("confirm")),
             submitButton(
               cls := List(
                 "button"     -> true,

@@ -264,18 +264,22 @@ final class Account(
   def close = Auth { _ ?=> me ?=>
     for
       managed <- env.clas.api.student.isManaged(me)
-      form    <- env.security.forms.closeAccount
-      res     <- Ok.page(pages.close(form, managed))
+      form = env.security.forms.closeAccount
+      res <- Ok.page(pages.close(form, managed))
     yield res
   }
 
   def closeConfirm = AuthBody { ctx ?=> me ?=>
     NotManaged:
-      auth.HasherRateLimit:
-        env.security.forms.closeAccount.flatMap: form =>
-          FormFuResult(form)(err => renderPage(pages.close(err, managed = false))): forever =>
-            for _ <- env.api.accountTermination.disable(me.value, forever = forever)
-            yield Redirect(routes.Lobby.home).withCookies(env.security.lilaCookie.newSession)
+      env.mod.logApi.closedByMod(me.value).flatMap {
+        case true => notFound
+        case false =>
+          limit.closeAccount(me.userId, rateLimited):
+            val form = env.security.forms.closeAccount
+            FormFuResult(form)(err => renderPage(pages.close(err, managed = false))): forever =>
+              for _ <- env.api.accountTermination.disable(me.value, forever = forever)
+              yield Redirect(routes.Lobby.home).withCookies(env.security.lilaCookie.newSession)
+      }
   }
 
   def delete = localAuth { _ ?=> me ?=>
@@ -303,8 +307,8 @@ final class Account(
   def kid = Auth { _ ?=> me ?=>
     for
       managed <- env.clas.api.student.isManaged(me)
-      form    <- env.security.forms.toggleKid
-      page    <- Ok.page(pages.kid(me, form, managed))
+      form = env.security.forms.toggleKid
+      page <- Ok.page(pages.kid(me, form, managed))
     yield page
   }
   def apiKid = Scoped(_.Preference.Read) { _ ?=> me ?=>
@@ -313,7 +317,8 @@ final class Account(
 
   def kidPost = AuthBody { ctx ?=> me ?=>
     NotManaged:
-      env.security.forms.toggleKid.flatMap: form =>
+      limit.kidMode(me.userId, rateLimited):
+        val form = env.security.forms.toggleKid
         bindForm(form)(
           err =>
             negotiate(

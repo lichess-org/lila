@@ -198,20 +198,19 @@ final class SecurityForm(
     single("email" -> optional(anyEmail.verifying(emailValidator.uniqueConstraint(user.some))))
   )
 
-  private def passwordProtected(using Me) =
-    authenticator.loginCandidate.map: candidate =>
-      Form(single("passwd" -> passwordMapping(candidate)))
+  /** Confirmation by display name only: SSO accounts have no usable local password. */
+  private def displayUsernameField(using me: Me) =
+    text.verifying("Please enter your username to confirm.", _.trim == me.username.value)
 
   def closeAccount(using Me) =
-    authenticator.loginCandidate.map: candidate =>
-      Form:
-        mapping(
-          "username" -> myUsernameField,
-          "passwd"   -> passwordMapping(candidate),
-          "forever"  -> boolean
-        )((_, _, forever) => forever)(_ => None)
+    Form:
+      mapping(
+        "username" -> displayUsernameField,
+        "forever"  -> boolean
+      )((_, forever) => forever)(_ => None)
 
-  def toggleKid(using Me) = passwordProtected
+  def toggleKid(using Me) =
+    Form(single("confirm" -> boolean.verifying("Please confirm this change.", identity[Boolean])))
 
   def reopen(using RequestHeader) = hcaptcha.form(
     Form:
