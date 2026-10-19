@@ -419,9 +419,10 @@ final class Team(env: Env) extends LilaController(env):
     WithEnabledTeamOrClas(id)(showUpdates, orElse)
   }
 
-  def events = AuthOrScoped(_.Team.Read) { ctx ?=> me ?=>
-    env.teamInfo.events.flatMap: (teamIds, events) =>
-      Ok.page(views.team.events(teamIds, events))
+  def events = Auth { _ ?=> me ?=>
+    limit.anyPageByUser(me.myId, rateLimited):
+      env.teamInfo.events.flatMap: (teamIds, events) =>
+        Ok.page(views.team.events(teamIds, events))
   }
 
   def quit(id: TeamId) = AuthOrScoped(_.Team.Write) { ctx ?=> me ?=>
