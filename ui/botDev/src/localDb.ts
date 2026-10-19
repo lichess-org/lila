@@ -44,7 +44,7 @@ export class LocalDb {
     return id ? await this.store?.get(id) : Promise.resolve(undefined);
   }
 
-  async byDate(after: number | undefined, until: number | undefined): Promise<LiteGame[]> {
+  async byDate(after?: number, until?: number): Promise<LiteGame[]> {
     const games: LiteGame[] = [];
     await this.liteStore?.readCursor(
       { index: 'createdAt', query: range({ above: after, max: until }) },

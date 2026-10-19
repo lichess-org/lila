@@ -17,6 +17,5 @@
   <string name="cancelTimerOrDenyARequest">Отменить таймер или отклонить запрос</string>
   <string name="playPreferredMoveOrConfirmSomething">Сыграть предпочтительный ход или подтвердить что-то</string>
   <string name="sleep">Перейти в режим сна (если задано слово для пробуждения)</string>
-  <string name="turnOffVoiceRecognition">Отключить распознавание голоса</string>
   <string name="showPuzzleSolution">Показать решение задачи</string>
 </resources>

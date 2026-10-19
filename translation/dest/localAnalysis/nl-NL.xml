@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="analyse">Analyse</string>
+  <string name="onTheServer">Op de server</string>
+  <string name="local">Lokaal</string>
+  <string name="currentAnalysis">Huidige analyse</string>
+  <string name="cannotPublish">Publiceren mislukt</string>
+  <string name="nodesPerMove">Nodes per zet</string>
+  <string name="using">Gebruikt</string>
+  <string name="willUse">Zou gebruiken</string>
+  <string name="quality">Kwaliteit</string>
+  <string name="publish">Publiceren</string>
+  <string name="published">Gepubliceerd</string>
+  <string name="bestResultsUseXWithYThreads">Voor de beste resultaten in de kortste tijd, gebruik %1$s met %2$s threads.</string>
+  <string name="analysisUploadFailed">Analyse-upload mislukt. Probeer het later opnieuw.</string>
+  <string name="youCanPublish">Je lokale analyse kan worden gepubliceerd.</string>
+  <string name="startingPosition">Beginstelling</string>
+  <string name="keepThisBrowserTabActive">Dit browsertabblad actief houden tijdens analyse</string>
+  <string name="xTimesStandardQuality">%sx standaard kwaliteit</string>
+  <string name="moveXOfY" comment="should this be in site?">Zet %1$s van %2$s</string>
+  <string name="downloadingXofY" comment="should this be in site?">Downloaden %1$s van %2$s</string>
+  <string name="timeToComplete">Dit duurt ongeveer %s</string>
+  <string name="xWouldBeFaster">%s zou sneller zijn</string>
+</resources>

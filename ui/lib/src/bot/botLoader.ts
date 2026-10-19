@@ -57,7 +57,7 @@ export class BotLoader {
     return this.zerofish?.reset();
   }
 
-  imageUrl(bot: BotInfo | undefined): string | undefined {
+  imageUrl(bot?: BotInfo): string | undefined {
     return bot?.image && this.getImageUrl(bot.image);
   }
 
@@ -94,7 +94,7 @@ export class BotLoader {
     return netPromise.then(net => net.data);
   }
 
-  getBook(key: string | undefined): Promise<OpeningBook | undefined> {
+  getBook(key?: string): Promise<OpeningBook | undefined> {
     if (!key) return Promise.resolve(undefined);
     if (this.book.has(key)) return Promise.resolve(this.book.get(key));
     const bookPromise =

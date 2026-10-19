@@ -167,6 +167,8 @@
 3. Щелкните Cookies и разрешения сайта
 4. Прокрутите вниз и щёлкните автовоспроизведение Media
 5. Добавьте lichess.org для разрешения</string>
+  <string name="makeBotTitle">Создать бота на Lichess?</string>
+  <string name="makeBotDescription">Чтобы узнать, как создать &lt;a href=\'%1$s\'&gt;собственного шахматного бота&lt;/a&gt; для игры на Lichess, пожалуйста, ознакомьтесь с &lt;a href=\'%2$s\'&gt;этой статьей в блоге, посвященной созданию ботов&lt;/a&gt;.</string>
   <string name="stopMyselfFromPlaying">Как воздерживаться от игр?</string>
   <string name="mentalHealthCondition">отдельное психическое расстройство</string>
   <string name="lichessUserstyles">пользовательские CSS-стили Lichess</string>

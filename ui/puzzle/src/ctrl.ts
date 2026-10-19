@@ -420,7 +420,7 @@ export default class PuzzleCtrl implements CevalHandler {
     else setTimeout(this.instantRevertUserMove, 300);
   };
 
-  applyProgress = (progress: undefined | 'fail' | 'win' | MoveTest): void => {
+  applyProgress = (progress?: 'fail' | 'win' | MoveTest): void => {
     if (progress === 'fail') {
       this.lastFeedback = 'fail';
       this.revertUserMove();

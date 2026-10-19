@@ -47,6 +47,7 @@ object Analyser extends lila.core.shutup.TextAnalyser:
       case '4' => 'a'
       case '5' => 's'
       case '7' => 't'
+      case '9' => 'g'
       case 'е' => 'e'
       case 'а' => 'a'
       case 'ı' => 'i'

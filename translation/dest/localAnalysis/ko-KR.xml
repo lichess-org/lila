@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="analyse">분석</string>
+  <string name="onTheServer">서버에서</string>
+  <string name="local">로컬</string>
+  <string name="currentAnalysis">현재 분석</string>
+  <string name="cannotPublish">게시할 수 없음</string>
+  <string name="nodesPerMove">한 수당 노드 수</string>
+  <string name="using">사용 중</string>
+  <string name="willUse">사용 예정</string>
+  <string name="quality">품질</string>
+  <string name="publish">게시</string>
+  <string name="published">게시됨</string>
+  <string name="chooseYourEngineSettings">\"분석\"을 클릭하여 메인라인의 평가치를 얻으세요.</string>
+  <string name="bestResultsUseXWithYThreads">최단 시간에 최적의 결과를 얻고 싶다면, %1$s, 스레드 수 %2$s 설정을 사용하세요.</string>
+  <string name="analysisUploadFailed">분석 업로드에 실패했습니다. 나중에 다시 시도해 주세요.</string>
+  <string name="serverAnalysisInProgress">이 게임에 대한 서버 분석이 진행 중입니다. 완료된 후에 다시 시도해 주세요.</string>
+  <string name="youCanPublish">로컬 분석을 게시할 수 있습니다.</string>
+  <string name="turnOnRec">로컬 분석을 연구에 공유하려면 먼저 REC를 활성화해야 합니다.</string>
+  <string name="whenUpgradingOldChapters">로컬 분석이 도입되기 전에 만들어진 챕터의 서버 분석은 깔끔하게 업그레이드될 수 없습니다. 이전 엔진 라인과 주석은 먼저 지우지 않으면 남아있을 것입니다.</string>
+  <string name="startingPosition">시작 포지션</string>
+  <string name="keepThisBrowserTabActive">분석 중에는 이 브라우저 탭을 계속 켜 두세요</string>
+  <string name="xTimesStandardQuality">%sx 일반 품질</string>
+  <string name="moveXOfY" comment="should this be in site?">%1$s번째 수, 총 %2$s수</string>
+  <string name="downloadingXofY" comment="should this be in site?">다운로드 중 %1$s / %2$s</string>
+  <string name="timeToComplete">%s 정도 걸립니다</string>
+  <string name="xWouldBeFaster">%s(이)가 더 빠를 것입니다</string>
+</resources>

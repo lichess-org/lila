@@ -1,2 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="whatIsTheMatter">Wo liegt das Problem?</string>
+  <string name="cheat">Betrug</string>
+  <string name="troll">Troll</string>
+  <string name="reportStall">Pertien stoppen / verlassen</string>
+  <string name="reportBoost">Absichtliches Verlieren / Boosting / Match-Fixing</string>
+  <string name="reportVerbalAbuse">Beleidigung / Fluchen / Trollen</string>
+  <string name="reportViolence">Gewalt / Drohungen</string>
+  <string name="reportHarass">Belästigung / Schikanieren / Stalking</string>
+  <string name="reportSelfHarm">Selbstmord / Selbstverletzung</string>
+  <string name="reportHate">Hassrede / Sexismus</string>
+  <string name="reportSpam">Spammen</string>
+  <string name="readMoreAboutLichessReports">Weitere Informationen über Lichess-Berichte</string>
+  <string name="reportMaximumCharacters">Höchstens 3000 Zeichen.</string>
+  <string name="reportCheatBoostHelp">Füge den Link zu einer oder mehreren Partien ein und erkläre die Auffälligkeiten bezüglich des Spielerverhaltens. Bitte schreibe nicht einfach nur „dieser Spieler betrügt“, sondern begründe auch, wie Du zu diesem Schluss kommst.</string>
+  <string name="reportUsernameHelp">Erkläre, warum dieser Benutzername beleidigend oder unangemessen ist. Sage nicht einfach \"Der Name ist beleidigend/unangemessen\", sondern erkläre, wie du zu dieser Schlussfolgerung gekommen bist. Insbesondere wenn die Beleidigung verschleiert wird, nicht auf Englisch oder umgangssprachlich ist, oder einen historischen/kulturellen Bezugspunkt beinhaltet.</string>
+  <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">Wir können deinen Bericht schneller bearbeiten, wenn du uns auf Englisch schreibst.</string>
+  <string name="provideOneCheatedGameLink">Bitte gib mindestens einen Link zu einer Partie an, in der betrogen wurde.</string>
+</resources>

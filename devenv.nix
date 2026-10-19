@@ -13,6 +13,7 @@ in
 {
   env = {
     pnpm_config_pm_on_fail = "error";
+    REDIS_URI = "redis://127.0.0.1:${toString config.processes.redis.ports.main.value}";
   };
 
   # https://devenv.sh/languages/
@@ -34,6 +35,15 @@ in
   services = {
     mongodb.enable = true;
     redis.enable = true;
+  };
+
+  processes = {
+    lila-ws = {
+      start.enable = false;
+      env = {
+        JAVA_TOOL_OPTIONS = "-Dredis.uri=${config.env.REDIS_URI}";
+      };
+    };
   };
 
   packages = [

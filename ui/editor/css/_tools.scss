@@ -28,6 +28,19 @@
     margin: 0.5rem 0;
   }
 
+  .ceval {
+    padding: 3px;
+
+    .settings-gear {
+      margin-block: -3px;
+      padding-bottom: 3px;
+    }
+
+    .engine {
+      margin-top: 0 !important;
+    }
+  }
+
   select {
     @extend %page-link !optional;
     @include backdrop-blur-if-transparent;
@@ -40,26 +53,30 @@
   }
 
   .metadata {
-    @extend %box-neat;
+    @extend %box-neat, %flex-column;
 
     background: $c-bg-box;
     padding: 1rem;
     white-space: nowrap;
-
-    .color {
-      margin-bottom: 1em;
-    }
+    gap: 0.75rem;
 
     .castling {
+      @extend %flex-column;
+
+      gap: 0.3rem;
+
+      strong {
+        margin-bottom: 0.1rem;
+      }
+
       div {
         @extend %flex-between;
       }
 
-      label,
-      input {
-        display: inline-block;
-        margin: 3px;
-        vertical-align: middle;
+      label {
+        @extend %flex-center;
+
+        gap: 0.3rem;
       }
 
       input.not-allowed {
@@ -69,8 +86,6 @@
 
     .enpassant {
       @extend %flex-between;
-
-      margin-top: 1em;
 
       label {
         font-weight: bold;

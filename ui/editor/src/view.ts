@@ -91,6 +91,7 @@ function controlsButtonStart(ctrl: EditorCtrl, icon?: LiconValue) {
   return button(
     `.button.button-empty${icon ? '.text' : ''}`,
     {
+      title: 'Hotkey: p',
       on: {
         click(e) {
           e.preventDefault();
@@ -108,6 +109,7 @@ function controlsButtonClear(ctrl: EditorCtrl, icon?: LiconValue) {
   return button(
     `.button.button-empty${icon ? '.text' : ''}`,
     {
+      title: 'Hotkey: c',
       on: {
         click(e) {
           e.preventDefault();
@@ -264,9 +266,9 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
       ? [
           div('.actions', [
             chess960PositionIdSelector,
-            fromImageButton(ctrl),
-            controlsButtonStart(ctrl),
-            controlsButtonClear(ctrl),
+            fromImageButton(ctrl, licon.Eye),
+            controlsButtonStart(ctrl, licon.Reload),
+            controlsButtonClear(ctrl, licon.Trash),
           ]),
         ]
       : [
@@ -294,6 +296,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
               '.button.button-empty.text',
               {
                 ...dataIcon(licon.ChasingArrows),
+                title: 'Hotkey: f',
                 on: {
                   click() {
                     ctrl.chessground!.toggleOrientation();

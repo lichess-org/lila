@@ -47,7 +47,6 @@
   <string name="annotateWithGlyphs">ಗ್ಲಿಫ್‌ಗಳೊಂದಿಗೆ ಟಿಪ್ಪಣಿ ಮಾಡಿ</string>
   <string name="theChapterIsTooShortToBeAnalysed">ಅಧ್ಯಾಯವು ವಿಶ್ಲೇಷಿಸಲು ತುಂಬಾ ಚಿಕ್ಕದಾಗಿದೆ.</string>
   <string name="onlyContributorsCanRequestAnalysis">ಅಧ್ಯಯನದ ಕೊಡುಗೆದಾರರು ಮಾತ್ರ ಕಂಪ್ಯೂಟರ್ ವಿಶ್ಲೇಷಣೆಯನ್ನು ವಿನಂತಿಸಬಹುದು.</string>
-  <string name="getAFullComputerAnalysis">ಮೇನ್‌ಲೈನ್‌ನ ಸಂಪೂರ್ಣ ಸರ್ವರ್-ಸೈಡ್ ಕಂಪ್ಯೂಟರ್ ವಿಶ್ಲೇಷಣೆಯನ್ನು ಪಡೆಯಿರಿ.</string>
   <string name="makeSureTheChapterIsComplete">ಅಧ್ಯಾಯವು ಪೂರ್ಣಗೊಂಡಿದೆ ಎಂದು ಖಚಿತಪಡಿಸಿಕೊಳ್ಳಿ. ನೀವು ಒಮ್ಮೆ ಮಾತ್ರ ವಿಶ್ಲೇಷಣೆಯನ್ನು ವಿನಂತಿಸಬಹುದು.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">ಎಲ್ಲಾ SYNC ಸದಸ್ಯರು ಒಂದೇ ಸ್ಥಾನದಲ್ಲಿ ಉಳಿಯುತ್ತಾರೆ</string>
   <string name="shareChanges">ವೀಕ್ಷಕರೊಂದಿಗೆ ಬದಲಾವಣೆಗಳನ್ನು ಹಂಚಿಕೊಳ್ಳಿ ಮತ್ತು ಅವುಗಳನ್ನು ಸರ್ವರ್‌ನಲ್ಲಿ ಉಳಿಸಿ</string>

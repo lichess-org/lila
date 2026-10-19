@@ -58,6 +58,11 @@ object LangPicker extends lila.core.i18n.LangPicker:
             case l if candidates.contains(l) => l
       .orElse(candidates.contains(defaultLanguage).option(defaultLanguage))
 
+  object pageOverride:
+    val qs = "en"
+    def check(req: RequestHeader): Boolean = lila.common.HTTPRequest.queryStringBool(qs)(using req)
+    def get(req: RequestHeader): Option[Lang] = check(req).option(defaultLang)
+
   private val defaultByLanguage: Map[String, Lang] =
     LangList.all.keys
       .foldLeft(Map.empty[String, Lang]): (acc, lang) =>

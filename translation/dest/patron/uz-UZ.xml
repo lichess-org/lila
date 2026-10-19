@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">Donat qilish</string>
-  <string name="donateAsX">%s sifatida donat qilish</string>
+  <string name="donateAsX" comment="This appears as an option on the donation page – the other option is to give the donation &quot;in the name of&quot; someone else, gifting them the patron wings (otherwise only available to those who donate).&#10;&#10;%s is the user's username.">%s sifatida donat qilish</string>
   <string name="lichessPatron">Lichess homiysi</string>
   <string name="patronSince" comment="string is a date">%s dan beri homiy</string>
-  <string name="freeAccount">Bepul akkaunt</string>
+  <string name="freeAccount" comment="URL: https://lichess.org/features">Bepul akkaunt</string>
   <string name="becomePatron">Lichess homiysiga aylaning</string>
   <string name="xBecamePatron">%s Lichess homiysiga aylandi</string>
   <plurals name="xIsPatronForNbMonths">

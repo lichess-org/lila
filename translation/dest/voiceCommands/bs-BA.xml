@@ -17,6 +17,5 @@
   <string name="cancelTimerOrDenyARequest">Otkaži mjerenje vremena ili odbij zahtjev</string>
   <string name="playPreferredMoveOrConfirmSomething">Odigraj preferirani potez ili potvrdi nešto</string>
   <string name="sleep">Spavaj (ako je riječ probudi uključena)</string>
-  <string name="turnOffVoiceRecognition">Isključi glasovno prepoznavanje</string>
   <string name="showPuzzleSolution">Prikaži rješenje puzzle</string>
 </resources>

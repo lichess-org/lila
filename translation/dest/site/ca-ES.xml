@@ -167,6 +167,7 @@
   <string name="engineSettings">Configuració del motor d\'avaluació</string>
   <string name="engine">Motor</string>
   <string name="enginesFromStrongestToWeakest">Motors d\'avaluació de més a menys potent</string>
+  <string name="illegalPosition">Posició il·legal</string>
   <string name="threefoldRepetition">Triple repetició</string>
   <string name="claimADraw">Reclamar taules</string>
   <string name="drawClaimed">Taules reclamades</string>
@@ -560,6 +561,11 @@ Amics jugant: %2$s</string>
   <string name="autoSwitch">Canvi automàtic</string>
   <string name="puzzles">Problemes</string>
   <string name="onlineBots">Bots en línia</string>
+  <string name="aboutBotsOnLichess">Sobre els bots a Lichess</string>
+  <string name="featuredBots">Bots destacats</string>
+  <string name="tryPlayingTheseInnovativeChessEngines">Proveu de jugar contra aquests motors d\'escacs innovadors! Aquests són els nostres favorits.</string>
+  <string name="communityBots">Bots de la comunitat</string>
+  <string name="moreChessEnginesCreatedByTheLichessCommunity">Més motors d\'escacs creats per la comunitat de Lichess. Estan allotjats pels seus creadors i pot ser que no estiguin sempre disponibles.</string>
   <string name="name">Nom</string>
   <string name="description">Descripció</string>
   <string name="descPrivate">Descripció privada</string>
@@ -605,6 +611,7 @@ Amics jugant: %2$s</string>
   <string name="clearField">Neteja el camp</string>
   <string name="orSeparator">O</string>
   <string name="logInByEmail">Identificat amb el correu electrònic</string>
+  <string name="emailLoginInstructions">T\'enviarem un correu electrònic que conté un enllaç per identificar-t\'he.</string>
   <string name="emailMeALink">Envieu-me un enllaç per correu electrònic</string>
   <string name="currentPassword">Contrasenya actual</string>
   <string name="newPassword">Nova contrasenya</string>
@@ -629,6 +636,8 @@ Amics jugant: %2$s</string>
   <string name="onSlowGames">En els jocs lents</string>
   <string name="always">Sempre</string>
   <string name="never">Mai</string>
+  <string name="defeatOnly">Només quan perdi</string>
+  <string name="drawAndDefeat">Quan perdi o faci taules</string>
   <string name="xCompetesInY">%1$s competeix a %2$s</string>
   <string name="victory">Victòria</string>
   <string name="defeat">Derrota</string>
@@ -693,10 +702,13 @@ Amics jugant: %2$s</string>
   <string name="aboutX">En quant a %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s es un servidor d\'escacs totalment gratuit creat amb codi obert, lliure (%2$s), sense publicitat.</string>
   <string name="really">realment</string>
+  <string name="lichessUpdates">Actualitzacions de Lichess</string>
   <string name="contribute">Contribuïu-hi</string>
+  <string name="changelog">Registre de canvis</string>
   <string name="termsOfService">Condicions del servei</string>
   <string name="titleVerification">Verificació del títol</string>
   <string name="sourceCode">Codi font</string>
+  <string name="blockAds">Bloqueja anuncis</string>
   <string name="simultaneousExhibitions">Exhibicions de simultànies</string>
   <string name="host">Amfitrió</string>
   <string name="hostColorX">Color d\'amfitrió: %s</string>

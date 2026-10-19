@@ -126,6 +126,7 @@ export default class RoundController implements MoveRootCtrl {
         xhr.reload(this.data).then(this.reload, site.reload);
       },
       this.redraw,
+      () => d.game.variant.key,
       d.pref.autoQueen,
     );
 
@@ -207,7 +208,7 @@ export default class RoundController implements MoveRootCtrl {
     site.sound.move();
   };
 
-  private readonly onPredrop = (role: Role | undefined) => {
+  private readonly onPredrop = (role?: Role) => {
     this.preDrop = role;
     this.redraw();
   };

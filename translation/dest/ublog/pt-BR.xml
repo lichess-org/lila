@@ -68,7 +68,9 @@
   <string name="topicChessEngine">Engine de xadrez</string>
   <string name="topicChessBot">Bot de xadrez</string>
   <string name="topicChessPersonalities">Personalidades de xadrez</string>
+  <string name="topicOverTheBoard">Sobre o Tabuleiro</string>
   <string name="topicSoftwareDevelopment">Desenvolvimento de Software</string>
+  <string name="topicOffTopic">Fora do tópico</string>
   <string name="topicPosts">%s publicações</string>
   <string name="etiquette">Etiqueta</string>
   <string name="safeAndRespectfulContent">Publique apenas conteúdo seguro e respeitoso. Não copie o conteúdo de outra pessoa.</string>

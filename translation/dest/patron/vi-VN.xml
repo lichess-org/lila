@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">Ủng hộ</string>
-  <string name="donateAsX">Ủng hộ bằng tài khoản %s</string>
+  <string name="donateAsX" comment="This appears as an option on the donation page – the other option is to give the donation &quot;in the name of&quot; someone else, gifting them the patron wings (otherwise only available to those who donate).&#10;&#10;%s is the user's username.">Ủng hộ bằng tài khoản %s</string>
   <string name="lichessPatron">Người bảo trợ Lichess</string>
   <string name="patronSince" comment="string is a date">Người bảo trợ từ khi %s</string>
-  <string name="freeAccount">Tài khoản miễn phí</string>
+  <string name="freeAccount" comment="URL: https://lichess.org/features">Tài khoản miễn phí</string>
   <string name="becomePatron">Trở thành một Người bảo trợ Lichess</string>
   <string name="xBecamePatron">%s đã trở thành một Người bảo trợ Lichess</string>
   <plurals name="xIsPatronForNbMonths">

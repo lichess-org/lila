@@ -80,7 +80,7 @@ final class JsBot(env: Env) extends LilaController(env):
 
   private def prefJson(using ctx: Context) =
     lila.pref
-      .toJson(ctx.pref, false)
+      .toJson(ctx.pref)
       .add("animationDuration", ctx.pref.animationMillis.some)
       .add("enablePremove", ctx.pref.premove.some)
       .add("showCaptured", ctx.pref.captured.some)

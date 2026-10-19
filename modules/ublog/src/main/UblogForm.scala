@@ -90,7 +90,7 @@ object UblogForm:
 
   lazy val modBlogForm = Form(
     tuple(
-      "tier" -> number(min = UblogBlog.Tier.HIDDEN.value, max = UblogBlog.Tier.HIGH.value)
+      "tier" -> number(min = UblogBlog.Tier.HIDDEN.value, max = UblogBlog.Tier.CRAWLABLE.value)
         .into[UblogBlog.Tier],
       "note" -> cleanText(0, 800)
     )

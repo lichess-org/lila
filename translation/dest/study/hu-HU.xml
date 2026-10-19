@@ -48,7 +48,6 @@
   <string name="annotateWithGlyphs">Lépések megjelölése</string>
   <string name="theChapterIsTooShortToBeAnalysed">A fejezet túl rövid számítógépes elemzéshez.</string>
   <string name="onlyContributorsCanRequestAnalysis">Csak a tanulmány szerkesztői kérhetnek számítógépes elemzést.</string>
-  <string name="getAFullComputerAnalysis">Teljes szerveroldali számítógépes elemzés kérése a főváltozatról.</string>
   <string name="makeSureTheChapterIsComplete">Ellenőrizd, hogy a fejezet elkészült-e. Csak egyszer kérhető számítógépes elemzés.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Minden szinkronizált tag ugyanazt az állást látja</string>
   <string name="shareChanges">A módosítások láthatóak a nézők számára, és mentésre kerülnek a szerveren</string>

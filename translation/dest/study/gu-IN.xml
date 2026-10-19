@@ -48,7 +48,6 @@
   <string name="annotateWithGlyphs">ગ્લિફ્સ સાથે ટીકા કરો</string>
   <string name="theChapterIsTooShortToBeAnalysed">આ પ્રકરણ ખૂબ નાનું છે અને તેનું વિશ્લેષણ કરી શકાતું નથી.</string>
   <string name="onlyContributorsCanRequestAnalysis">ફક્ત અભ્યાસ ફાળો આપનારાઓ જ કમ્પ્યુટર વિશ્લેષણની વિનંતી કરી શકે છે.</string>
-  <string name="getAFullComputerAnalysis">મેઈનલાઈનનું સંપૂર્ણ સર્વર-સાઇડ કમ્પ્યુટર વિશ્લેષણ મેળવો.</string>
   <string name="makeSureTheChapterIsComplete">ખાતરી કરો કે પ્રકરણ પૂર્ણ થયું છે. તમે ફક્ત એક જ વાર વિશ્લેષણની વિનંતી કરી શકો છો.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">બધા SYNC સભ્યો એક જ પદ પર રહે છે.</string>
   <string name="shareChanges">દર્શકો સાથે ફેરફારો શેર કરો અને તેમને સર્વર પર સાચવો</string>

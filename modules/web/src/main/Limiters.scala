@@ -4,7 +4,7 @@ import play.api.mvc.RequestHeader
 import scalalib.net.Bearer
 import chess.format.pgn.PgnStr
 
-import lila.core.net.IpAddress
+import lila.core.net.{ IpAddress, ASN }
 import lila.core.socket.Sri
 import lila.core.security.IsProxy
 import lila.memo.RateLimit
@@ -212,37 +212,35 @@ final class Limiters(using Executor, lila.core.config.RateLimit):
 
     private val maxCost = 3
 
-    private val openingLimiter = RateLimit[IsProxy](15 * maxCost, 1.minute, "opening.byKeyAndMoves.proxy")
-    def opening[A]: ProxyLimit[A] = proxyLimit(openingLimiter)
+    private val openingLimiter = RateLimit[ASN](15 * maxCost, 1.minute, "opening.byKeyAndMoves.proxy")
+    def opening[A]: AsnLimit[A] = asnLimit(openingLimiter)
 
-    private val userProfileLimiter = RateLimit[IsProxy](60 * maxCost, 1.minute, "user.profile.page.proxy")
-    def userProfile[A]: ProxyLimitWithUri[A] = proxyLimit(userProfileLimiter)
+    private val userProfileLimiter = RateLimit[ASN](60 * maxCost, 1.minute, "user.profile.page.proxy")
+    def userProfile[A]: AsnLimit[A] = asnLimit(userProfileLimiter)
 
-    private val searchLimiter = RateLimit[IsProxy](15 * maxCost, 1.minute, "search.proxy")
-    def search[A]: ProxyLimit[A] = proxyLimit(searchLimiter)
+    private val searchLimiter = RateLimit[ASN](15 * maxCost, 1.minute, "search.proxy")
+    def search[A]: AsnLimit[A] = asnLimit(searchLimiter)
 
-    private val cloudEvalLimiter = RateLimit[IsProxy](30 * maxCost, 1.minute, "cloudEval.proxy")
-    def cloudEval[A]: ProxyLimit[A] = proxyLimit(cloudEvalLimiter)
+    private val cloudEvalLimiter = RateLimit[ASN](30 * maxCost, 1.minute, "cloudEval.proxy")
+    def cloudEval[A]: AsnLimit[A] = asnLimit(cloudEvalLimiter)
 
-    private val fidePlayerLimiter = RateLimit[IsProxy](60 * maxCost, 1.minute, "fide.player.proxy")
-    def fidePlayer[A]: ProxyLimit[A] = proxyLimit(fidePlayerLimiter)
+    private val fidePlayerLimiter = RateLimit[ASN](60 * maxCost, 1.minute, "fide.player.proxy")
+    def fidePlayer[A]: AsnLimit[A] = asnLimit(fidePlayerLimiter)
 
-    private val signupLimiter = RateLimit[IsProxy](20 * maxCost, 1.minute, "user.signup.proxy")
-    def signup[A]: ProxyLimit[A] = proxyLimit(signupLimiter, flatCost(maxCost))
+    private val signupLimiter = RateLimit[ASN](20 * maxCost, 1.minute, "user.signup.proxy")
+    def signup[A]: AsnLimit[A] = asnLimit(signupLimiter, flatCost(maxCost))
 
-    private type ProxyLimit[A] = (IsProxy, RequestHeader, Option[MyId]) ?=> (=> Fu[A]) => (=> Fu[A]) => Fu[A]
-    private type ProxyLimitWithUri[A] =
-      (IsProxy, RequestHeader, Option[MyId]) ?=> (=> Fu[A]) => (=> Fu[A]) => Fu[A]
+    private type AsnLimit[A] = (IsProxy, RequestHeader, Option[MyId]) ?=> (=> Fu[A]) => (=> Fu[A]) => Fu[A]
 
-    private def proxyLimit[A](
-        limiter: RateLimiter[IsProxy],
+    private def asnLimit[A](
+        limiter: RateLimiter[ASN],
         cost: IsProxy ?=> Int = defaultCost
-    ): ProxyLimit[A] =
+    ): AsnLimit[A] =
       (proxy, req, me) ?=>
         default =>
           f =>
             if proxy.no || me.isDefined || HTTPRequest.nginxWhitelist(req) then f
-            else limiter(proxy, default, cost, msg = HTTPRequest.ipAddressStr(req))(f)
+            else HTTPRequest.asn(req).fold(f)(asn => limiter(asn, default, cost, msg = s"ASN $asn")(f))
 
     private def defaultCost(using proxy: IsProxy): Int =
       if proxy.isFloodish then maxCost

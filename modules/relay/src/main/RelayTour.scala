@@ -95,6 +95,7 @@ object RelayTour:
     def apply(s: Selector) = s(Tier)
 
     val byV = values.mapBy(_.v)
+    val byKey = values.mapBy(_.key)
     val options = List(
       "" -> "Non official",
       normal.v.toString -> "Official: normal tier",

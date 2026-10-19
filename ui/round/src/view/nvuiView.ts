@@ -409,7 +409,7 @@ function createSubmitHandler(
     if (command) command.cb(notify, ctrl, style(), input);
     else {
       const move = nv.inputToMove(input, plyStep(ctrl.data, ctrl.ply).fen, ctrl.chessground);
-      const isDrop = (u: undefined | string | nv.DropMove) => !!(u && typeof u !== 'string');
+      const isDrop = (u?: string | nv.DropMove) => !!(u && typeof u !== 'string');
       const isOpponentsTurn = ctrl.data.player.color !== ctrl.data.game.player;
       const isInvalidDrop = (d: nv.DropMove) =>
         !ctrl.crazyValid(d.role, d.key) || (!isOpponentsTurn && ctrl.chessground.state.pieces.has(d.key));
@@ -557,11 +557,11 @@ function anyClock(ctrl: RoundController, position: TopOrBottom): VNode | undefin
 }
 
 const renderMoves = (steps: Step[], style: nv.MoveStyle) =>
-  steps.reduce<(string | VNode)[]>((res, s) => {
+  steps.flatMap((s): (string | VNode)[] => {
     const turn = s.ply & 1 ? `${plyToTurn(s.ply)}.` : '';
     const san = `${nv.renderSan(s.san, s.uci, style)}, `;
-    return res.concat(`${turn} ${san}`).concat(s.ply % 2 === 0 ? hl('br') : []);
-  }, []);
+    return s.ply % 2 === 0 ? [`${turn} ${san}`, hl('br')] : [`${turn} ${san}`];
+  });
 
 function playerHtml(ctrl: RoundController, player: Player) {
   if (player.ai) return i18n.site.aiNameLevelAiLevel('Stockfish', player.ai);

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="analyse">Phân tích</string>
+  <string name="cannotPublish">Không thể phát hành</string>
+  <string name="willUse">Sẽ sử dụng</string>
+  <string name="quality">Chất lượng</string>
+  <string name="publish">Phát hành</string>
+  <string name="published">Đã được phát hành</string>
+  <string name="bestResultsUseXWithYThreads">Để đạt kết quả tốt nhất trong thời gian ngắn nhất, hãy sử dụng %1$s với %2$s luồng.</string>
+  <string name="analysisUploadFailed">Quá trình tải lên dữ liệu phân tích thất bại. Hãy thử lại sau.</string>
+  <string name="serverAnalysisInProgress">Hiện đang có quá trình máy chủ phân tích cho ván đấu này. Bạn có thể thử lại khi quá trình hoàn tất.</string>
+  <string name="startingPosition">Thế cờ xuất phát</string>
+  <string name="keepThisBrowserTabActive">Hãy giữ tab này hoạt động trong suốt quá trình phân tích</string>
+  <string name="xTimesStandardQuality">x%s chất lượng tiêu chuẩn</string>
+  <string name="moveXOfY" comment="should this be in site?">%1$s/%2$s nước cờ</string>
+  <string name="downloadingXofY" comment="should this be in site?">Đang tải xuống %1$s của %2$s</string>
+  <string name="timeToComplete">Việc này sẽ mất khoảng %s</string>
+  <string name="xWouldBeFaster">%s có thể sẽ nhanh hơn</string>
+</resources>

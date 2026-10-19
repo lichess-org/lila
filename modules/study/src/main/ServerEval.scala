@@ -85,8 +85,11 @@ private[study] final class Merger(
   def remove(studyId: StudyId, chapterId: StudyChapterId): Funit =
     sequencer.sequenceStudyWithChapter(studyId, chapterId):
       case Study.WithChapter(_, chapter) =>
-        for _ <- chapterRepo.update(replace(chapter, none))
-        yield lila.common.Bus.pub(lila.core.fishnet.Bus.StudyChapterDelete(chapter.id :: Nil))
+        chapter.serverEval
+          .exists(_.version.exists(_ > 0))
+          .so:
+            for _ <- chapterRepo.update(replace(chapter, none))
+            yield lila.common.Bus.pub(lila.core.fishnet.Bus.StudyChapterDelete(chapter.id :: Nil))
 
   private def sendProgress(
       studyId: StudyId,
@@ -135,7 +138,7 @@ private def withAnalysis(
     analysis: Analysis
 ): Root = cleanRoot.mainline
   .zip(analysis.infoAdvices)
-  .foldLeft(cleanRoot -> UciPath.root):
+  .foldLeft(cleanRoot.copy(eval = analysis.initialScore.map(lila.tree.evals.fromScore)) -> UciPath.root):
     case ((root, path), (node, (info, advOpt))) =>
       val nextPath = path + node.id
       val withLine = root

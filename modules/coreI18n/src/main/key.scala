@@ -966,7 +966,6 @@ object I18nKey:
     val `analyse`: I18nKey = "localAnalysis:analyse"
     val `onTheServer`: I18nKey = "localAnalysis:onTheServer"
     val `local`: I18nKey = "localAnalysis:local"
-    val `fishnet`: I18nKey = "localAnalysis:fishnet"
     val `currentAnalysis`: I18nKey = "localAnalysis:currentAnalysis"
     val `cannotPublish`: I18nKey = "localAnalysis:cannotPublish"
     val `nodesPerMove`: I18nKey = "localAnalysis:nodesPerMove"
@@ -984,7 +983,7 @@ object I18nKey:
     val `whenUpgradingOldChapters`: I18nKey = "localAnalysis:whenUpgradingOldChapters"
     val `startingPosition`: I18nKey = "localAnalysis:startingPosition"
     val `keepThisBrowserTabActive`: I18nKey = "localAnalysis:keepThisBrowserTabActive"
-    val `xTimesFishnetQuality`: I18nKey = "localAnalysis:xTimesFishnetQuality"
+    val `xTimesStandardQuality`: I18nKey = "localAnalysis:xTimesStandardQuality"
     val `moveXOfY`: I18nKey = "localAnalysis:moveXOfY"
     val `downloadingXofY`: I18nKey = "localAnalysis:downloadingXofY"
     val `timeToComplete`: I18nKey = "localAnalysis:timeToComplete"
@@ -3352,6 +3351,5 @@ object I18nKey:
     val `cancelTimerOrDenyARequest`: I18nKey = "voiceCommands:cancelTimerOrDenyARequest"
     val `playPreferredMoveOrConfirmSomething`: I18nKey = "voiceCommands:playPreferredMoveOrConfirmSomething"
     val `sleep`: I18nKey = "voiceCommands:sleep"
-    val `turnOffVoiceRecognition`: I18nKey = "voiceCommands:turnOffVoiceRecognition"
     val `showPuzzleSolution`: I18nKey = "voiceCommands:showPuzzleSolution"
 

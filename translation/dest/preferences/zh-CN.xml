@@ -73,7 +73,7 @@
   <string name="blindfold" comment="As in Blindfold chess">盲棋</string>
   <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">在移动设备上左侧显示</string>
   <string name="inlineNotation">紧凑棋谱</string>
-  <string name="showServerAnalysis">显示服务器分析</string>
+  <string name="showMainlineAnalysis">显示主线分析</string>
   <string name="showBestMoveArrows">显示最佳着法箭头</string>
   <string name="showManeuverArrows">显示战术组合箭头</string>
   <string name="showGauge">显示局面评估</string>

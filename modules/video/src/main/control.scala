@@ -1,12 +1,10 @@
 package lila.video
 
-import lila.common.ClientName
-
-case class TagNb(_id: Tag, nb: Int):
+case class TagNb(_id: Tag, nb: Option[Int]):
 
   def tag = _id
 
-  def empty = nb == 0
+  def empty = nb.contains(0)
 
   def isNumeric = tag.forall(_.isDigit)
 
@@ -21,7 +19,7 @@ case class UserControl(
     filter: Filter,
     tags: List[TagNb],
     query: Option[String]
-)(using client: ClientName):
+):
 
   def toggleTag(tag: String) =
     copy(
@@ -32,9 +30,5 @@ case class UserControl(
   def queryString =
     List(
       filter.tags.nonEmpty.option(s"tags=${filter.tags.sorted.mkString("/")}".replace(' ', '+')),
-      query.map { q =>
-        s"q=$q"
-      }
+      query.map(q => s"q=$q")
     ).flatten.mkString("&")
-
-  def queryStringUnlessBot = client.isHuman.so(queryString)

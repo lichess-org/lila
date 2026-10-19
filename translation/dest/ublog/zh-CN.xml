@@ -13,7 +13,7 @@
   <string name="likedBlogs">赞过的博客</string>
   <string name="blogPostsByFriends">好友的博客</string>
   <plurals name="blogPosts">
-    <item quantity="other">%s 篇博客文章</item>
+    <item quantity="other">%s 博客文章</item>
   </plurals>
   <string name="continueReadingPost">继续阅读此文章</string>
   <string name="lichessBlogPostsFromXYear">%s 年的 Lichess 博客文章</string>
