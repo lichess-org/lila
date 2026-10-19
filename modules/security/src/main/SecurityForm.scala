@@ -212,6 +212,13 @@ final class SecurityForm(
   def toggleKid(using Me) =
     Form(single("confirm" -> boolean.verifying("Please confirm this change.", identity[Boolean])))
 
+  def reopenConfirm(using Me) =
+    Form(
+      single(
+        "confirm" -> boolean.verifying("Please confirm you want to reopen your account.", identity[Boolean])
+      )
+    )
+
   def reopen(using RequestHeader) = hcaptcha.form(
     Form:
       mapping(

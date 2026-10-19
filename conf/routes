@@ -791,9 +791,7 @@ GET   /account/twofactor               controllers.Account.twoFactor
 POST  /account/twofactor/setup         controllers.Account.setupTwoFactor
 POST  /account/twofactor/disable       controllers.Account.disableTwoFactor
 GET   /account/reopen                  controllers.Account.reopen
-POST  /account/reopen/send             controllers.Account.reopenApply
-GET   /account/reopen/sent             controllers.Account.reopenSent
-GET   /account/reopen/login/:token     controllers.Account.reopenLogin(token)
+POST  /account/reopen                  controllers.Account.reopenApply
 GET   /account/personal-data           controllers.Account.data
 GET   /account/network                 controllers.Account.network(usingAltSocket: Option[Boolean] ?= None)
 

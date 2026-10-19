@@ -304,11 +304,9 @@ final class AccountPages(helpers: Helpers, ui: AccountUi, flagApi: lila.core.use
 
   object reopen:
 
-    def form(form: lila.core.security.HcaptchaForm[?], error: Option[String] = None)(using ctx: Context) =
+    def form(form: Form[?], error: Option[String] = None)(using Context) =
       Page(trans.site.reopenYourAccount.txt())
-        .css("bits.auth")
-        .js(hcaptchaScript(form))
-        .csp(_.withHcaptcha):
+        .css("bits.auth"):
           main(cls := "page-small box box-pad")(
             h1(cls := "box__top")(trans.site.reopenYourAccount()),
             p(trans.site.reopenYourAccountDescription()),
@@ -316,13 +314,9 @@ final class AccountPages(helpers: Helpers, ui: AccountUi, flagApi: lila.core.use
             postForm(cls := "form3", action := routes.Account.reopenApply)(
               error.map: err =>
                 p(cls := "error")(strong(err)),
-              form3.group(form("username"), trans.site.username())(form3.input(_)(autofocus)),
-              form3
-                .group(form("email"), trans.site.email(), help = trans.site.emailAssociatedToaccount().some)(
-                  form3.input(_, typ = "email")
-                ),
-              lila.ui.bits.hcaptcha(form),
-              form3.action(form3.submit(trans.site.emailMeALink()))
+              form3.checkbox(form("confirm"), "I confirm I want to reopen this account"),
+              form3.errors(form("confirm")),
+              form3.action(form3.submit("Reopen my account"))
             )
           )
 

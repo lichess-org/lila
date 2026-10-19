@@ -243,6 +243,10 @@ final class SecurityApi(
       logger.info(s"Appeal login by $userId")
       fuccess(sessionId)
 
+    def delete(sessionId: SessionId): Funit =
+      store.invalidate(sessionId)
+      funit
+
 object SecurityApi:
 
   case class MustConfirmEmail(userId: UserId) extends Exception

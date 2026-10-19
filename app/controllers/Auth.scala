@@ -120,7 +120,16 @@ final class Auth(
       case None => fuccess(Redirect(routes.Auth.login).flashFailure)
       case Some(user) =>
         oidcRefusal(user).flatMap {
-          case None          => authenticateUser(user, remember = true)
+          case None => authenticateUser(user, remember = true)
+          case Some(LoginRefusal.Closed) =>
+            env.mod.logApi.closedByMod(user).flatMap { closedByMod =>
+              if closedByMod then oidcRefusalPage(LoginRefusal.Closed)
+              else
+                env.mod.logApi.closedByTeacher(user).flatMap { closedByTeacher =>
+                  if closedByTeacher then oidcRefusalPage(LoginRefusal.Closed)
+                  else authenticateAppealUser(user, url => Redirect(url), routes.Account.reopen.url)
+                }
+            }
           case Some(refusal) => oidcRefusalPage(refusal)
         }
     }

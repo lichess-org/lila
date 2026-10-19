@@ -7,7 +7,6 @@ import views.account.pages
 
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
-import lila.security.SecurityForm.Reopen
 import lila.web.AnnounceApi
 
 final class Account(
@@ -364,55 +363,43 @@ final class Account(
       yield NoContent
   }
 
-  private def renderReopen(form: Option[Form[Reopen]], msg: Option[String])(using Context) =
-    env.security.forms.reopen.map: baseForm =>
-      pages.reopen.form(form.foldLeft(baseForm)(_.withForm(_)), msg)
+  private def renderReopen(form: Option[Form[Boolean]], msg: Option[String])(using Context)(using Me) =
+    pages.reopen.form(form.getOrElse(env.security.forms.reopenConfirm), msg)
 
   def reopen = Open:
-    auth.RedirectToProfileIfLoggedIn:
-      Ok.async(renderReopen(none, none))
+    ctx.me match
+      case Some(me) if ctx.isAppealUser => Ok.async(renderReopen(none, none)(using ctx)(using me))
+      case Some(me)                     => Redirect(routes.User.show(me.userId))
+      case None                         => Redirect(routes.Auth.login)
 
-  def reopenApply = localOpenBody:
-    env.security.hcaptcha.verify().flatMap { captcha =>
-      if captcha.ok then
-        env.security.forms.reopen.flatMap:
-          _.form
-            .bindFromRequest()
-            .fold(
-              err => BadRequest.async(renderReopen(err.some, none)),
-              data =>
-                env.security.reopen
-                  .prepare(data.username, data.email, env.mod.logApi.closedByMod)
-                  .flatMap {
-                    case Left((code, msg)) =>
-                      lila.mon.user.auth.reopenRequest(code).increment()
-                      BadRequest.async(renderReopen(none, msg.some))
-                    case Right(user) =>
-                      env.security.loginToken.rateLimit[Result](user, data.email, ctx.req, rateLimited):
-                        lila.mon.user.auth.reopenRequest("success").increment()
-                        env.security.reopen
-                          .send(user, data.email)
-                          .inject(Redirect(routes.Account.reopenSent))
-                  }
-            )
-      else BadRequest.async(renderReopen(none, none))
-    }
+  def reopenApply = AuthBody { ctx ?=> me ?=>
+    if !ctx.isAppealUser then notFound
+    else
+      limit.reopen(me.userId, rateLimited):
+        bindForm(env.security.forms.reopenConfirm)(
+          err => BadRequest.async(renderReopen(err.some, none)),
+          _ => reopenAccount(me)
+        )
+  }
 
-  def reopenSent = localOpen:
-    Ok.page(pages.reopen.sent)
-
-  def reopenLogin(token: String) = localOpen:
-    env.security.reopen.confirm(token).flatMap {
-      case None =>
-        lila.mon.user.auth.reopenConfirm("token_fail").increment()
-        notFound
-      case Some(user) =>
-        for
-          _      <- env.report.api.reopenReports(lila.report.Suspect(user))
-          result <- auth.authenticateUser(user, remember = true)
-          _ = lila.mon.user.auth.reopenConfirm("success").increment()
-        yield result
-    }
+  private def reopenAccount(me: Me)(using Context): Fu[Result] =
+    for
+      foreverClosed <- env.user.repo.isForeverClosed(me.value)
+      deleted       <- env.user.repo.isDeleted(me.value)
+      closedByMod   <- env.mod.logApi.closedByMod(me.value)
+      result <-
+        if foreverClosed || deleted || closedByMod then notFound
+        else
+          for
+            _ <- env.user.repo.reopen(me.userId)
+            _ = lila.log("auth").info(s"Reopen by ${me.userId} ${HTTPRequest.printClient(ctx.req)}")
+            _ = lila.mon.user.auth.reopenConfirm("success").increment()
+            _ <- env.report.api.reopenReports(lila.report.Suspect(me.value))
+            _ = env.security.api.reqSessionId(ctx.req).so(env.security.api.appeal.delete)
+            user <- env.user.repo.byId(me.userId).orFail("Reopened user not found")
+            res  <- auth.authenticateUser(user, remember = true)
+          yield res
+    yield result
 
   def data = Auth { _ ?=> me ?=>
     meOrFetch(getUserStr("user"))

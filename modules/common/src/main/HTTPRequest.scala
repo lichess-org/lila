@@ -143,9 +143,11 @@ object HTTPRequest:
   private def isStudyExport(req: RequestHeader) = "^/study/by/[\\w-]{2,30}/export.pgn$".r.matches(req.path)
   private def isAccountClose(req: RequestHeader) =
     req.path == "/account/close" || req.path == "/account/delete"
+  private def isAccountReopen(req: RequestHeader) = req.path == "/account/reopen"
 
   def isClosedLoginPath(req: RequestHeader) =
-    isDataDump(req) || isAppeal(req) || isStudyExport(req) || isGameExport(req) || isAccountClose(req)
+    isDataDump(req) || isAppeal(req) || isStudyExport(req) || isGameExport(req) ||
+      isAccountClose(req) || isAccountReopen(req)
 
   def clientName(req: RequestHeader) =
     // lichobile sends XHR headers
