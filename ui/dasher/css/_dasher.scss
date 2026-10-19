@@ -69,9 +69,10 @@
 
       button {
         display: flex;
-        padding: 0.7rem 0.7rem 0.7rem 1rem;
+        padding: 0.7rem;
         width: 100%;
         justify-content: space-between;
+        border-inline-start: 4px solid transparent;
 
         &:hover {
           background: $c-dasher-light;
@@ -80,13 +81,12 @@
     }
 
     .accepted {
-      border-inline-start: 4px solid $c-dasher;
+      border-color: $c-dasher;
     }
 
     .current {
       background: $c-dasher !important;
       color: $c-over !important;
-      border-inline-start: none;
 
       .lang-code {
         color: $c-over;
@@ -109,7 +109,7 @@
     .lang-code {
       font-family: monospace;
       font-size: 80%;
-      line-height: 1;
+      line-height: 18px;
       color: $c-font-dimmer;
     }
   }
