@@ -32,7 +32,7 @@ final class Env(
     config.clientId,
     config.clientSecret.value,
     s"$baseUrl/signin-oidc",
-    Some(config.jwsAlgorithm)
+    config.jwsAlgorithm
   )
 
   lazy val api = wire[OidcApi]

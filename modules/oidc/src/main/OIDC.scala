@@ -11,7 +11,7 @@ case class OIDC(
     clientID: ClientID,
     clientSecret: Secret,
     signinCallbackUrl: URI,
-    jwsAlgorithm: Option[JWSAlgorithm]
+    jwsAlgorithm: JWSAlgorithm
 )
 
 object OIDCFactory:
@@ -20,12 +20,14 @@ object OIDCFactory:
       clientID: String,
       clientSecret: String,
       signinCallbackUrl: String,
-      jwsAlgorithm: Option[String]
+      jwsAlgorithm: String
   ): OIDC =
     new OIDC(
       new Issuer(issuer),
       new ClientID(clientID),
       new Secret(clientSecret),
       new URI(signinCallbackUrl),
-      jwsAlgorithm.map(JWSAlgorithm.parse)
+      JwsAlgorithmValidation
+        .parse(jwsAlgorithm)
+        .fold(err => throw new IllegalArgumentException(err), identity)
     )

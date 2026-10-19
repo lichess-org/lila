@@ -191,24 +191,20 @@ final class OpenIDConnectService(
   ): Fu[IDTokenClaimsSet] = Option(response.getOIDCTokens.getIDToken) match
     case Some(jwt) =>
       metadata.flatMap { metadata =>
-        val validator = oidc.jwsAlgorithm
-          .map { jwsAlgorithm =>
-            new IDTokenValidator(
+        JwsAlgorithmValidation.ensureSupported(oidc.jwsAlgorithm)(metadata) match
+          case Left(err) => fufail(err)
+          case Right(jwsAlgorithm) =>
+            val validator = new IDTokenValidator(
               metadata.getIssuer,
               oidc.clientID,
               jwsAlgorithm,
               metadata.getJWKSetURI.toURL,
               new DefaultResourceRetriever(JWK_REQUEST_TIMEOUT, JWK_REQUEST_TIMEOUT)
             )
-          }
-          .getOrElse {
-            new IDTokenValidator(metadata.getIssuer, oidc.clientID)
-          }
-
-        try fuccess(validator.validate(jwt, nonce))
-        catch
-          case e @ (_: BadJOSEException | _: JOSEException) =>
-            fufail(s"OIDC ID token has error: $e")
+            try fuccess(validator.validate(jwt, nonce))
+            catch
+              case e @ (_: BadJOSEException | _: JOSEException) =>
+                fufail(s"OIDC ID token has error: $e")
       }
     case None =>
       fufail(s"OIDC token response does not have a valid ID token: ${response.toJSONObject}")
