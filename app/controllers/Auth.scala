@@ -40,7 +40,7 @@ final class Auth(
       ctx: Context
   ): Fu[Result] =
     api
-      .saveAuthentication(u.id, ctx.mobileApiVersion)
+      .saveAuthentication(u.id, ctx.mobileApiVersion, checkEmailConfirmation = !env.ssoOnly)
       .flatMap: sessionId =>
         negotiate(
           result.fold(Redirect(getReferrer))(_(getReferrer)),
@@ -145,7 +145,7 @@ final class Auth(
 
   private val is2fa = Set("MissingTotpToken", "InvalidTotpToken")
 
-  def authenticate = OpenBody:
+  def authenticate = localOpenBody:
     NoCrawlers:
       Firewall:
         def redirectTo(url: String) = if HTTPRequest.isXhr(ctx.req) then Ok(s"ok:$url") else Redirect(url)
@@ -230,7 +230,7 @@ final class Auth(
   private def authLog(user: UserName, email: Option[EmailAddress], msg: String) =
     lila.log("auth").info(s"$user ${email.fold("-")(_.value)} $msg")
 
-  def signupPost = OpenBody:
+  def signupPost = localOpenBody:
     NoTor:
       Firewall:
         forms.preloadEmailDns() >> negotiateApi(
@@ -284,7 +284,7 @@ final class Auth(
   private def garbageCollect(user: UserModel)(email: EmailAddress)(using ctx: Context) =
     env.security.garbageCollector.delay(user, email, ctx.req, quickly = lila.web.AnnounceApi.get.isDefined)
 
-  def checkYourEmail = Open:
+  def checkYourEmail = localOpen:
     RedirectToProfileIfLoggedIn:
       EmailConfirm.cookie.get(ctx.req) match
         case None => Ok.async(accountC.renderCheckYourEmail)
@@ -295,7 +295,7 @@ final class Auth(
           }
 
   // after signup and before confirmation
-  def fixEmail = OpenBody:
+  def fixEmail = localOpenBody:
     EmailConfirm.cookie.get(ctx.req).so { userEmail =>
       forms.preloadEmailDns() >>
         bindForm(forms.fixEmail(userEmail.email))(
@@ -323,10 +323,10 @@ final class Auth(
         )
     }
 
-  def signupConfirmEmail(token: String) = Open:
+  def signupConfirmEmail(token: String) = localOpen:
     env.security.emailConfirm.dryTest(token).flatMap(emailConfirmResult(token))
 
-  def signupConfirmEmailPost(token: String) = Open:
+  def signupConfirmEmailPost(token: String) = localOpen:
     env.security.emailConfirm.confirm(token).flatMap(emailConfirmResult(token))
 
   private def emailConfirmResult(token: String)(using ctx: Context): EmailConfirm.Result => Fu[Result] =

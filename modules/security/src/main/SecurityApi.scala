@@ -107,10 +107,12 @@ final class SecurityApi(
         WeakPassword
       else result
 
-  def saveAuthentication(userId: UserId, apiVersion: Option[ApiVersion])(using
-      req: RequestHeader
-  ): Fu[String] =
-    userRepo.mustConfirmEmail(userId).flatMap {
+  def saveAuthentication(
+      userId: UserId,
+      apiVersion: Option[ApiVersion],
+      checkEmailConfirmation: Boolean = true
+  )(using req: RequestHeader): Fu[String] =
+    (if checkEmailConfirmation then userRepo.mustConfirmEmail(userId) else fuccess(false)).flatMap {
       if _ then fufail(SecurityApi.MustConfirmEmail(userId))
       else
         for
