@@ -68,10 +68,15 @@ class LocalAnalysisDialog {
   readonly render = (redraw: Redraw, dialog: Dialog): LooseVNodes => {
     if (!this.updateDownloadStatus) {
       this.updateDownloadStatus = (d: { bytes: number; total: number }) => {
-        const downloadStatus = i18n.localAnalysis.downloadingXofY(
-          Math.round((d.bytes * 100) / d.total) + '%',
-          Math.round(d.total / 1000 / 1000) + 'MB',
-        );
+        const megabytes = (n: number) => Math.round(n / 1000 / 1000) + 'MB';
+        // total is 0 when the size is unknown (e.g. no Content-Length), which would give Infinity%/NaN%
+        const downloadStatus =
+          d.total > 0
+            ? i18n.localAnalysis.downloadingXofY(
+                Math.round((d.bytes * 100) / d.total) + '%',
+                megabytes(d.total),
+              )
+            : megabytes(d.bytes);
         if (downloadStatus === this.status) return;
 
         this.status = downloadStatus;
