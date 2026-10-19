@@ -3,6 +3,7 @@ package lila.coach
 import play.api.libs.json.*
 
 import lila.common.Json.given
+import lila.core.data.RichText
 
 final class CoachJsonView(picfitUrl: lila.memo.PicfitUrl):
 
@@ -21,16 +22,32 @@ final class CoachJsonView(picfitUrl: lila.memo.PicfitUrl):
       .add("picture", c.coach.picture.map(picfitUrl.thumbnail(_)(Coach.imageDimensions)))
 
   def show(c: Coach.WithUser): JsObject =
-    val p = c.coach.profile
-    list(c) ++ Json
-      .obj(
-        "youtubeVideos" -> p.youtubeUrls,
-        "studies" -> p.studyIds
-      )
-      .add("description", p.description)
-      .add("playingExperience", p.playingExperience)
-      .add("teachingExperience", p.teachingExperience)
-      .add("otherExperience", p.otherExperience)
-      .add("skills", p.skills)
-      .add("methodology", p.methodology)
-      .add("youtubeChannel", p.youtubeChannel)
+    list(c) ++ Json.toJsObject(ShownProfile.from(c.coach.profile))
+
+private given OWrites[ShownProfile] = Json.writes
+
+private case class ShownProfile(
+    youtubeVideos: List[Url],
+    studies: List[StudyId],
+    description: Option[RichText],
+    playingExperience: Option[RichText],
+    teachingExperience: Option[RichText],
+    otherExperience: Option[RichText],
+    skills: Option[RichText],
+    methodology: Option[RichText],
+    youtubeChannel: Option[String]
+)
+
+private object ShownProfile:
+  def from(p: CoachProfile): ShownProfile =
+    ShownProfile(
+      p.youtubeUrls,
+      p.studyIds,
+      p.description,
+      p.playingExperience,
+      p.teachingExperience,
+      p.otherExperience,
+      p.skills,
+      p.methodology,
+      p.youtubeChannel
+    )
