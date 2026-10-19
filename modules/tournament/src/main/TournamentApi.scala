@@ -20,6 +20,8 @@ import lila.core.chess.Rank
 import lila.mon.extensions.*
 import lila.gathering.Condition
 import lila.gathering.Condition.GetMyTeamIds
+import play.api.i18n.Lang
+import lila.memo.CacheApi.buildAsyncTimeout
 
 final class TournamentApi(
     cached: TournamentCache,
@@ -695,9 +697,14 @@ final class TournamentApi(
         tournamentTop(tour.id).dmap(tour -> _.value.map(_.userId))
       .dmap(_.toMap)
 
-  def calendar: Fu[List[Tournament]] =
-    val from = nowInstant.minusDays(1)
-    tournamentRepo.calendar(from = from, to = from.plusYears(1))
+  object calendar:
+
+    private val cache = cacheApi.unit[List[Tournament]]("tournament.calendar"):
+      _.expireAfterWrite(10.seconds).buildAsyncTimeout(): _ =>
+        val from = nowInstant.minusDays(1)
+        tournamentRepo.calendar(from = from, to = from.plusYears(1))
+
+    def json(using Lang): Fu[JsObject] = cache.get({}).map(apiJsonView.calendar)
 
   def history(freq: Schedule.Freq, page: Int): Fu[Paginator[Tournament]] =
     Paginator(

@@ -397,8 +397,8 @@ final class Tournament(env: Env, apiC: => Api)(using org.apache.pekko.stream.Mat
         .inject(views.tournament.list.shields.byCateg(categ, awards))
 
   def calendar = Open:
-    api.calendar.flatMap: tours =>
-      Ok.page(views.tournament.list.calendar(env.tournament.apiJsonView.calendar(tours)))
+    api.calendar.json.flatMap: json =>
+      negotiate(Ok.page(views.tournament.list.calendar(json)), JsonOk(json))
 
   def history(freq: String, page: Int) = Open:
     lila.tournament.Schedule.Freq.byName.get(freq).so { fr =>
