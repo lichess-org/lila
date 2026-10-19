@@ -175,7 +175,7 @@ final class Account(
   private def emailForm(using me: Me) =
     env.user.repo.email(me).flatMap(env.security.forms.changeEmail)
 
-  def email = Auth { _ ?=> me ?=>
+  def email = localAuth { _ ?=> me ?=>
     if getBool("check")
     then Ok.page(renderCheckYourEmail)
     else emailForm.flatMap(f => Ok.page(pages.email(f)))
@@ -189,7 +189,7 @@ final class Account(
   def renderCheckYourEmail(using Context) =
     views.auth.checkYourEmail(lila.security.EmailConfirm.cookie.get(ctx.req).map(_.email))
 
-  def emailApply = AuthBody { ctx ?=> me ?=>
+  def emailApply = localAuthBody { ctx ?=> me ?=>
     auth.HasherRateLimit:
       env.security.forms.preloadEmailDns() >> emailForm.flatMap: form =>
         FormFuResult(form)(err => renderPage(pages.email(err))): data =>
@@ -201,7 +201,7 @@ final class Account(
                 lila.core.i18n.I18nKey.site.checkYourEmail.txt())
   }
 
-  def emailConfirm(token: String) = Open:
+  def emailConfirm(token: String) = localOpen:
     Found(env.security.emailChange.confirm(token)): (user, prevEmail) =>
       for
         _ <- prevEmail.exists(_.isNoReply).so(env.clas.api.student.release(user))
@@ -230,7 +230,7 @@ final class Account(
               Ok.page(views.account.security.emailConfirmHelp(helpForm.fill(username), status.some))
         )
 
-  def twoFactor = Auth { _ ?=> me ?=>
+  def twoFactor = localAuth { _ ?=> me ?=>
     if me.totpSecret.isDefined
     then
       env.security.forms.disableTwoFactor.flatMap: f =>
@@ -240,7 +240,7 @@ final class Account(
         Ok.page(views.account.twoFactor.setup(f))
   }
 
-  def setupTwoFactor = AuthBody { ctx ?=> me ?=>
+  def setupTwoFactor = localAuthBody { ctx ?=> me ?=>
     auth.HasherRateLimit:
       env.security.forms.setupTwoFactor.flatMap: form =>
         FormFuResult(form)(err => renderPage(views.account.twoFactor.setup(err))): data =>
@@ -248,7 +248,7 @@ final class Account(
             refreshSessionId(Redirect(routes.Account.twoFactor).flashSuccess)
   }
 
-  def disableTwoFactor = AuthBody { ctx ?=> me ?=>
+  def disableTwoFactor = localAuthBody { ctx ?=> me ?=>
     auth.HasherRateLimit:
       env.security.forms.disableTwoFactor.flatMap: form =>
         FormFuResult(form)(err => renderPage(views.account.twoFactor.disable(err))): _ =>
