@@ -119,6 +119,21 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
       }.nonEmptyOption
     )
 
+  def scheduleDelete(user: UserId)(using me: Me) = add:
+    Modlog(
+      me.myId.into(ModId),
+      user.some,
+      Modlog.scheduleDelete
+    )
+
+  def deleteAccount(user: UserId, tos: Boolean) = add:
+    Modlog(
+      UserId.lichess.into(ModId),
+      user.some,
+      Modlog.deleteAccount,
+      details = tos.option("partial due to tos violation")
+    )
+
   def closedByMod(user: User): Fu[Boolean] = user.enabled.no.so:
     fuccess(user.marks.alt) >>| coll.exists(bdoc("user" -> user.id, "action" -> Modlog.closeAccount))
 

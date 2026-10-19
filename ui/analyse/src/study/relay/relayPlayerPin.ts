@@ -16,7 +16,7 @@ export default class RelayPlayerPin {
     this.pins = new Set(this.store(this.ctxId));
   }
 
-  isPinned: (id: RelayPlayerId | undefined) => boolean = id => id !== undefined && this.pins.has(id);
+  isPinned: (id?: RelayPlayerId) => boolean = id => id !== undefined && this.pins.has(id);
 
   isPlayerPinned: (p: StudyPlayer) => boolean = p => this.isPinned(playerId(p));
 

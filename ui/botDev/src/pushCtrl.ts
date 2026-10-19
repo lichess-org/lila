@@ -57,10 +57,7 @@ export class PushCtrl {
     }
   }
 
-  async pushAsset(
-    asset: AssetBlob | undefined,
-    progress?: (e: ProgressEvent, key: string) => void,
-  ): Promise<void> {
+  async pushAsset(asset?: AssetBlob, progress?: (e: ProgressEvent, key: string) => void): Promise<void> {
     if (!asset) return;
     const type = asset.type;
     if (type === 'bookCover' || type === 'net') throw new Error('invalid asset type');

@@ -77,15 +77,10 @@ export function scanDirectionsHandler(pov: Color, pieces: Pieces, style: MoveSty
     }
 
     const $boardLive = $('.boardstatus');
-    const renderedPieces = nextRay.reduce<string[]>(
-      (acc, key) =>
-        pieces.get(key)
-          ? acc.concat(
-              `${renderKey(key, style)} ${transPieceStr(pieces.get(key)!.role, pieces.get(key)!.color, i18n)}`,
-            )
-          : acc,
-      [],
-    );
+    const renderedPieces = nextRay.flatMap(key => {
+      const piece = pieces.get(key);
+      return piece ? [`${renderKey(key, style)} ${transPieceStr(piece.role, piece.color, i18n)}`] : [];
+    });
     $boardLive.text(
       `${renderKey(originKey, style)}: ${directions[nextDirectionIndex]}: ${renderedPieces.length > 0 ? renderedPieces.join(' , ') : i18n.site.none}`,
     );
