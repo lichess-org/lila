@@ -48,18 +48,14 @@ function createSeek(ctrl: LobbyController) {
 
 export default function (ctrl: LobbyController) {
   const activateSeek = async (target: HTMLElement) => {
-    let el = target;
-    do {
-      el = el.parentNode as HTMLElement;
-      if (el.nodeName === 'TR') {
-        if (!ctrl.me) {
-          if (await confirm(i18n.site.youNeedAnAccountToDoThat, i18n.site.signUp, i18n.site.cancel))
-            location.href = '/signup';
-          return;
-        }
-        return ctrl.clickSeek(el.dataset['id']!);
-      }
-    } while (el.nodeName !== 'TABLE');
+    const el = target.closest?.('tr[data-id]') as HTMLElement | null;
+    if (!el) return;
+    if (!ctrl.me) {
+      if (await confirm(i18n.site.youNeedAnAccountToDoThat, i18n.site.signUp, i18n.site.cancel))
+        location.href = '/signup';
+      return;
+    }
+    return ctrl.clickSeek(el.dataset['id']!);
   };
   return [
     table('.hooks__list', [
