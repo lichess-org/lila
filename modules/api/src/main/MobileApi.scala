@@ -1,9 +1,11 @@
 package lila.api
 
-import play.api.libs.json.{ Json, JsObject }
+import play.api.libs.json.{ Json, JsObject, OWrites }
 import play.api.i18n.Lang
 import play.api.mvc.RequestHeader
 import scalalib.data.Preload
+import scalalib.Json.given
+import scalalib.paginator.Paginator
 
 import lila.common.Json.given
 import lila.common.ClientName
@@ -152,3 +154,21 @@ final class MobileApi(
     )
 
   def coach(c: lila.coach.Coach.WithUser): JsObject = coachEnv.jsonView.show(c)
+
+  def coaches(
+      pager: Paginator[lila.coach.Coach.WithUser],
+      lang: Option[Lang],
+      order: lila.coach.CoachPager.Order,
+      country: Option[lila.core.user.Flag],
+      langCodes: Set[String],
+      countries: lila.coach.CountrySelection
+  ): JsObject =
+    given OWrites[lila.coach.Coach.WithUser] = OWrites(coachEnv.jsonView.list)
+    Json.toJsObject(pager) ++ Json.obj(
+      "lang" -> lang.fold("all")(_.code),
+      "order" -> order.key,
+      "country" -> country.fold(lila.coach.allFlags.value)(_.code.value),
+      "languages" -> langCodes.toList.sorted,
+      "countries" -> countries.value.map: (code, name) =>
+        Json.obj("code" -> code.value, "name" -> name)
+    )
