@@ -16,12 +16,35 @@ final class Account(
     apiC: => Api
 ) extends LilaController(env):
 
+  /** Deny local account-security flows when the app runs in SSO-only mode. */
+  private def localOpen(f: Context ?=> Fu[Result]): EssentialAction =
+    Open:
+      if env.ssoOnly then notFound
+      else f(using summon[Context])
+
+  private def localOpenBody(f: BodyContext[?] ?=> Fu[Result]): EssentialAction =
+    OpenBody:
+      if env.ssoOnly then notFound
+      else f(using summon[BodyContext[?]])
+
+  private def localAuth(f: Context ?=> Me ?=> Fu[Result]): EssentialAction =
+    Auth { ctx ?=> me ?=>
+      if env.ssoOnly then notFound(using ctx)
+      else f(using ctx)(using me)
+    }
+
+  private def localAuthBody(f: BodyContext[?] ?=> Me ?=> Fu[Result]): EssentialAction =
+    AuthBody { ctx ?=> me ?=>
+      if env.ssoOnly then notFound(using ctx)
+      else f(using ctx)(using me)
+    }
+
   def profile = Auth { _ ?=> me ?=>
     Ok.page:
       pages.profile(me, env.user.forms.profileOf(me))
   }
 
-  def username = Auth { _ ?=> me ?=>
+  def username = localAuth { _ ?=> me ?=>
     Ok.page:
       pages.username(me, env.user.forms.usernameOf(me))
   }
@@ -50,7 +73,7 @@ final class Account(
     )
   }
 
-  def usernameApply = AuthBody { _ ?=> me ?=>
+  def usernameApply = localAuthBody { _ ?=> me ?=>
     FormFuResult(env.user.forms.username(me))(err => renderPage(pages.username(me, err))): username =>
       env.user.repo
         .setUsernameCased(me, username)
@@ -129,12 +152,12 @@ final class Account(
             )
   }
 
-  def passwd = Auth { _ ?=> me ?=>
+  def passwd = localAuth { _ ?=> me ?=>
     env.security.forms.passwdChange.flatMap: form =>
       Ok.page(pages.password(form))
   }
 
-  def passwdApply = AuthBody { ctx ?=> me ?=>
+  def passwdApply = localAuthBody { ctx ?=> me ?=>
     auth.HasherRateLimit:
       env.security.forms.passwdChange.flatMap: form =>
         FormFuResult(form)(err => renderPage(pages.password(err))): data =>
