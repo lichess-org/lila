@@ -18,6 +18,8 @@ final class Env(
     akka.stream.Materializer
 ):
   val net: NetConfig = config.get[NetConfig]("net")
+  val authConfig: AuthConfig = config.get[AuthConfig]("auth")
+  def ssoOnly: Boolean       = authConfig.ssoOnly
 
   export net.{ baseUrl, assetBaseUrlInternal }
 
@@ -152,4 +154,10 @@ given ConfigLoader[NetConfig] = ConfigLoader(config =>
       email = get[EmailAddress]("email"),
       logRequests = get[Boolean]("http.log")
     )
+)
+
+given ConfigLoader[AuthConfig] = ConfigLoader(config =>
+  path =>
+    def get[A](at: String)(using loader: ConfigLoader[A]): A = loader.load(config, s"$path.$at")
+    AuthConfig(ssoOnly = get[Boolean]("ssoOnly"))
 )
