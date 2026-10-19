@@ -34,14 +34,13 @@ export class LocalAnalysisEngine {
   busy = false;
 
   private readonly path: TreePath;
-  private nodeIndex: number;
+  private nodeIndex = 0;
   private nodesSearched = 0;
   private finishNode: (error?: 'cancelled') => void = () => {};
 
   constructor(private readonly ctrl: AnalyseCtrl) {
     this.ctrl.ceval.reset();
     this.nodes = mainlineNodeList(structuredCloneLite(this.ctrl.tree.root));
-    this.nodeIndex = this.nodes.length - 1;
     for (const [i, node] of this.nodes.entries()) {
       node.eval = node.ceval = undefined;
       node.comments = undefined;
@@ -66,10 +65,7 @@ export class LocalAnalysisEngine {
     try {
       this.busy = true;
       this.ctrl.initCeval({ emit: this.onEval, custom });
-      const update = () => {
-        const done = this.nodes.length - this.nodeIndex - 1;
-        status(done, this.nodes.length, this.nodesSearched / done);
-      };
+      const update = () => status(this.nodeIndex, this.nodes.length, this.nodesSearched / this.nodeIndex);
       for (update(); this.isRunning(); update()) {
         await this.evaluateNode();
       }
@@ -99,7 +95,7 @@ export class LocalAnalysisEngine {
         depth: ev.depth,
         pvs: ev.pvs.map(pv => ({ ...pv, moves: pv.moves.join(' ') })),
       };
-      this.nodeIndex--;
+      this.nodeIndex++;
       this.finishNode();
     }
   };
@@ -205,7 +201,7 @@ export class LocalAnalysisEngine {
   }
 
   private isRunning() {
-    return this.nodeIndex >= 0;
+    return this.nodeIndex < this.nodes.length;
   }
 }
 
