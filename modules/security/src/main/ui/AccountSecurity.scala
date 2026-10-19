@@ -27,10 +27,8 @@ final class AccountSecurity(helpers: Helpers)(
           standardFlash.map(div(cls := "box__pad")(_)),
           div(cls := "box__pad")(
             p(
-              "This is a list of devices and applications that are logged into your account. If you notice any suspicious activity, make sure to ",
-              a(href := routes.Account.email)("check your recovery email address"),
-              " and ",
-              a(href := routes.Account.passwd)("change your password"),
+              "This is a list of devices and applications that are logged into your account. If you notice any suspicious activity, change your password and email on ",
+              a(href := "https://passport.chess-online.com/ru-ru/manage/change-password")("passport.chess-online.com"),
               "."
             ),
             (sessions.sizeIs > 1).option(

@@ -58,9 +58,7 @@ final class AuthUi(helpers: Helpers):
             )
           ),
           div(cls := "alternative")(
-            a(href := addReferrer(langHref(routes.Auth.signup)))(trans.site.signUp()),
-            a(href := routes.Auth.passwordReset)(trans.site.passwordReset()),
-            a(href := routes.Auth.magicLink)("Log in by email")
+            a(href := addReferrer(langHref(routes.Auth.signup)))(trans.site.signUp())
           )
         )
 
