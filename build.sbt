@@ -326,7 +326,7 @@ lazy val irwin = module("irwin",
 )
 
 lazy val oauth = module("oauth",
-  Seq(memo, ui),
+  Seq(memo, ui, identity),
   Seq()
 )
 

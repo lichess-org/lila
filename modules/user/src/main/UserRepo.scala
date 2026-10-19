@@ -593,6 +593,31 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
     user.enabled.no.so:
       coll.exists($id(user.id) ++ $doc(F.foreverClosed -> true))
 
+  /** Anonymize local PII of a globally deleted identity, keeping `_id` and games. */
+  def anonymize(id: UserId): Funit =
+    val username = s"deleted_${id.value.takeRight(20)}"
+    coll
+      .update
+      .one(
+        $id(id),
+        $doc(
+          "$set" -> $doc(
+            F.username -> username,
+            "len"      -> BSONInteger(username.length),
+            F.enabled  -> false,
+            "delete.done" -> true
+          )
+        ) ++ $unset(
+          F.email,
+          F.prevEmail,
+          F.verbatimEmail,
+          F.profile,
+          F.totpSecret,
+          F.mustConfirmEmail
+        )
+      )
+      .void
+
   def filterClosedOrInactiveIds(since: Instant)(ids: Iterable[UserId]): Fu[List[UserId]] =
     coll.distinctEasy[UserId, List](F.id, $inIds(ids) ++ $or(disabledSelect, F.seenAt.$lt(since)), _.sec)
 

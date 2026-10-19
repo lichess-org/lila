@@ -1,31 +1,51 @@
 package lila.oidc
 
+import lila.identity.{ IdentityStatus, IdentityStatusRecord, IdentityStatusRepo }
 import lila.user.{ User, UserRepo }
 import lila.core.userId.*
 
 /** Single provisioning path: external identity -> lila user.
   * OIDC and the future signature flow must use it.
   */
-final class UserProvisioning(userRepo: UserRepo)(using Executor):
+final class UserProvisioning(
+    userRepo: UserRepo,
+    statusRepo: IdentityStatusRepo
+)(using Executor):
 
   def resolve(identity: ExternalIdentity): Fu[LoginOutcome] =
     if identity.subject.isEmpty || identity.username.isEmpty then
       fuccess(LoginOutcome.Refused(LoginError.ClaimsError, None))
     else
-      userRepo.byId(UserId(identity.subject)).flatMap {
-        case Some(user) => resolveExisting(user, identity)
-        case None       => create(identity)
+      val userId = UserId(identity.subject)
+      statusRepo.get(userId).flatMap { stored =>
+        stored.flatMap(statusError) match
+          case Some(error) => fuccess(LoginOutcome.Refused(error, None))
+          case None =>
+            userRepo.byId(userId).flatMap {
+              case Some(user) => resolveExisting(user, identity, stored)
+              case None       => create(identity)
+            }
       }
+
+  private def statusError(record: IdentityStatusRecord): Option[LoginError] =
+    record.status match
+      case IdentityStatus.Deleted                           => Some(LoginError.Deleted)
+      case IdentityStatus.Banned | IdentityStatus.Suspended => Some(LoginError.Banned)
+      case IdentityStatus.Active                            => None
 
   private def resolveExisting(
       user: User,
-      identity: ExternalIdentity
+      identity: ExternalIdentity,
+      stored: Option[IdentityStatusRecord]
   ): Fu[LoginOutcome] =
+    val globallyEnabled =
+      if identity.globallyEnabled.contains(false) || stored.exists(!_.globallyEnabled) then Some(false)
+      else identity.globallyEnabled.orElse(stored.map(_.globallyEnabled))
     for
       deleted       <- userRepo.isDeleted(user)
       foreverClosed <- userRepo.isForeverClosed(user)
       result <-
-        LoginError.fromStatus(user.enabled.yes, foreverClosed, deleted, identity.globallyEnabled) match
+        LoginError.fromStatus(user.enabled.yes, foreverClosed, deleted, globallyEnabled) match
           case Some(error) => fuccess(LoginOutcome.Refused(error, Some(user)))
           case None        => sync(user, identity)
     yield result

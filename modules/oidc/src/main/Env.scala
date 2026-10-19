@@ -20,7 +20,8 @@ private case class OidcConfig(
 final class Env(
     appConfig: Configuration,
     net: NetConfig,
-    userRepo: lila.user.UserRepo
+    userRepo: lila.user.UserRepo,
+    identity: lila.identity.Env
 )(using Executor, akka.stream.Materializer):
   import net.baseUrl
 
@@ -34,6 +35,6 @@ final class Env(
     config.jwsAlgorithm
   )
 
-  private lazy val provisioning = UserProvisioning(userRepo)
+  private lazy val provisioning = UserProvisioning(userRepo, identity.statusRepo)
 
   lazy val api = OidcApi(oidc, provisioning)

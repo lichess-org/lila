@@ -13,7 +13,8 @@ final class OAuthServer(
     userApi: lila.core.user.UserApi,
     tokenApi: AccessTokenApi,
     originBlocklist: SettingStore[lila.core.data.Strings] @@ OriginBlocklist,
-    mobileSecret: Secret @@ MobileSecret
+    mobileSecret: Secret @@ MobileSecret,
+    identityStatusRepo: lila.identity.IdentityStatusRepo
 )(using Executor):
 
   import OAuthServer.*
@@ -43,18 +44,22 @@ final class OAuthServer(
           userApi.me(at.userId).flatMap {
             case None => fufail(NoSuchUser)
             case Some(u) =>
-              val blocked =
-                at.clientOrigin.exists(origin => originBlocklist.get().value.exists(origin.contains))
-              andLogReq
-                .filter: req =>
-                  blocked || {
-                    u.isnt(UserId.explorer) && !HTTPRequest.looksLikeLichessBot(req)
-                  }
-                .foreach: req =>
-                  logger.debug:
-                    s"${if blocked then "block" else "auth"} ${at.clientOrigin | "-"} as ${u.username} ${HTTPRequest.print(req).take(200)}"
-              if blocked then fufail(OriginBlocked)
-              else fuccess(OAuthScope.Access(OAuthScope.Scoped(u, at.scopes), at.tokenId))
+              identityStatusRepo.globallyEnabled(at.userId).flatMap {
+                case Some(false) => fufail(NoSuchUser)
+                case _ =>
+                  val blocked =
+                    at.clientOrigin.exists(origin => originBlocklist.get().value.exists(origin.contains))
+                  andLogReq
+                    .filter: req =>
+                      blocked || {
+                        u.isnt(UserId.explorer) && !HTTPRequest.looksLikeLichessBot(req)
+                      }
+                    .foreach: req =>
+                      logger.debug:
+                        s"${if blocked then "block" else "auth"} ${at.clientOrigin | "-"} as ${u.username} ${HTTPRequest.print(req).take(200)}"
+                  if blocked then fufail(OriginBlocked)
+                  else fuccess(OAuthScope.Access(OAuthScope.Scoped(u, at.scopes), at.tokenId))
+              }
           }
       }
       .dmap(Right(_))
