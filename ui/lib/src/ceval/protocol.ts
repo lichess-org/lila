@@ -212,7 +212,7 @@ export class Protocol {
     }
   }
 
-  compute(nextWork: Work | undefined): void {
+  compute(nextWork?: Work): void {
     this.nextWork = nextWork;
     this.stop();
     this.swapWork();

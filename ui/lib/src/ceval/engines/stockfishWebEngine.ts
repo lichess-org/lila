@@ -18,7 +18,7 @@ export class StockfishWebEngine implements CevalEngine {
 
   constructor(
     readonly info: BrowserEngineInfo,
-    readonly status: EngineNotifier | undefined,
+    readonly status?: EngineNotifier,
     private readonly protocol: Protocol = new Protocol(info),
   ) {
     this.boot().catch(e => {

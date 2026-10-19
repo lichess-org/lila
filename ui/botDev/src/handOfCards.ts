@@ -30,7 +30,7 @@ interface HandOpts {
   getCardData: () => Iterable<CardData>;
   getDrops: () => Drop[];
   getGroup?: () => string;
-  select: (drop: HTMLElement | undefined, domId?: DomId) => void;
+  select: (drop?: HTMLElement, domId?: DomId) => void;
   onRemove?: () => void;
 
   viewEl: HTMLElement;
@@ -393,7 +393,7 @@ class HandOfCardsImpl {
   }
   dragStart = (e: DragEvent) => e.preventDefault();
 
-  select(drop: HTMLElement | undefined, domId?: DomId) {
+  select(drop?: HTMLElement, domId?: DomId) {
     if (this.opts.transient) this.remove();
     return this.opts.select(drop, domId);
   }

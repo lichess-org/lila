@@ -143,7 +143,7 @@ export class CevalCtrl {
     this.download = undefined;
   };
 
-  start = (path: string, steps: Step[], gameId: string | undefined, threatMode = false): boolean => {
+  start = (path: string, steps: Step[], gameId?: string, threatMode = false): boolean => {
     if (!this.available() || this.wasUnloadedByAnotherWindow) return false;
     this.isDeeper(false);
     this.doStart({ path, steps, gameId, threatMode, info: this.info()! });
@@ -269,7 +269,7 @@ export class CevalCtrl {
     );
   }
 
-  preferLatestEval(latest: ClientEval, stored: ClientEval | null | undefined): boolean {
+  preferLatestEval(latest: ClientEval, stored?: ClientEval | null): boolean {
     if (!stored) return true;
 
     // If one has the correct multipv and the other doesn't, prefer the right multipv regardless of strength

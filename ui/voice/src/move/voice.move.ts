@@ -496,7 +496,7 @@ export function initModule({
     if (DEBUG.buildSquares) console.info('buildSquares', squares);
   }
 
-  function isOurs(p: string | undefined) {
+  function isOurs(p?: string) {
     return p === '' || p === undefined
       ? undefined
       : cg.state.turnColor === 'white'

@@ -1058,7 +1058,7 @@ export default class AnalyseCtrl implements CevalHandler {
     if (uci) this.playUci(uci);
   }
 
-  pluginMove = (orig: Key, dest: Key, prom: Role | undefined): void => {
+  pluginMove = (orig: Key, dest: Key, prom?: Role): void => {
     const capture = this.chessground.state.pieces.get(dest);
     this.sendMove(orig, dest, capture, prom);
   };

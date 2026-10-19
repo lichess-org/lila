@@ -82,7 +82,7 @@ export class Premove {
 
   private readonly canBeCapturedBySomeEnemyEnPassant = (
     ctx: cg.MobilityContext,
-    potentialSquareOfFriendlyPawn: cg.Key | undefined,
+    potentialSquareOfFriendlyPawn?: cg.Key,
     specificEnemies?: cg.Pieces,
     forbiddenEnPassantSquares?: cg.Key[],
   ): boolean => {
