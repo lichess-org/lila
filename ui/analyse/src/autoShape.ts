@@ -213,6 +213,9 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
       ctrl.motif
         .detectCheckable(board, epSquare, castlingRights)
         .forEach(s => addAnalysis(makeSquare(s.king), 'checkable'));
+      ctrl.motif
+        .detectTrapped(board, castlingRights, epSquare)
+        .forEach(t => addAnalysis(makeSquare(t.square), 'trapped'));
     }
   }
 
