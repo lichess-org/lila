@@ -198,4 +198,5 @@
   <string name="doubleDefeat">Molemminpuolinen tappio</string>
   <string name="blackDefeatWhiteCanNotWin">Mustan tappio, mutta valkea ei voi voittaa</string>
   <string name="whiteDefeatBlackCanNotWin">Valkean tappio, mutta musta ei voi voittaa</string>
+  <string name="analysisEditor">Analyysieditori</string>
 </resources>

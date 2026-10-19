@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="analyse">Analiz et</string>
   <string name="onTheServer">Sunucuda</string>
   <string name="local">Yerel</string>
+  <string name="currentAnalysis">Geçerli analiz</string>
+  <string name="cannotPublish">Yayınlanamıyor</string>
+  <string name="nodesPerMove">Hamle başına düğüm sayısı</string>
+  <string name="using">Kullanılıyor</string>
+  <string name="willUse">Kullanacaktır</string>
+  <string name="quality">Kalite</string>
+  <string name="publish">Yayınla</string>
+  <string name="published">Yayınlanan</string>
+  <string name="chooseYourEngineSettings">Ana hattı puanlamak için Analiz\'e tıklayın.</string>
+  <string name="bestResultsUseXWithYThreads">En kısa sürede, en iyi sonuçları elde etmek için %1$s ile %2$s iş parçacığı kullanın.</string>
+  <string name="analysisUploadFailed">Analiz yüklemesi başarısız oldu. Daha sonra tekrar deneyin.</string>
+  <string name="serverAnalysisInProgress">Bu oyun için sunucu analizi devam ediyor. Analiz tamamlandığında tekrar deneyebilirsiniz.</string>
+  <string name="youCanPublish">Yerel analiziniz yayınlanabilir.</string>
+  <string name="turnOnRec">Yerel analizi bir çalışmayla paylaşmadan önce REC\'i etkinleştirmelisiniz.</string>
+  <string name="whenUpgradingOldChapters">Önceki sürümde oluşturulmuş bölümlerdeki sunucu analizi temiz biçimde yükseltilemez. Eski motor satırları ve yorumlar, önce bunları kaldırmazsanız korunur.</string>
   <string name="startingPosition">Başlangıç konumu</string>
+  <string name="keepThisBrowserTabActive">Analiz sırasında bu tarayıcı sekmesini açık tutun</string>
+  <string name="xTimesStandardQuality">%sx standart kalite</string>
+  <string name="moveXOfY" comment="should this be in site?">Hamle %1$s/%2$s</string>
+  <string name="downloadingXofY" comment="should this be in site?">%1$s/%2$s indiriliyor</string>
+  <string name="timeToComplete">Bu işlem yaklaşık %s sürecektir</string>
+  <string name="xWouldBeFaster">%s daha hızlı olurdu</string>
 </resources>

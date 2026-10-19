@@ -35,4 +35,4 @@ def clasTournaments(tours: PastAndNext)(using Context) =
   recentTours.nonEmpty.option:
     st.section(cls := "clas-tournaments team-events"):
       table(cls := "slist"):
-        views.team.tournaments.renderList(recentTours)
+        views.team.tournaments.renderList(none)(recentTours)

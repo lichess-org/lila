@@ -14,7 +14,14 @@ case class Trophy(
     if kind.order == other.kind.order then date.compareTo(other.date)
     else Integer.compare(kind.order, other.kind.order)
 
-  def anyUrl = url.orElse(kind.url)
+  def anyUrl = url
+    .orElse(kind.url)
+    .map: link =>
+      if tournamentUrlPattern.matches(link)
+      then s"$link?player=$user"
+      else link
+
+private val tournamentUrlPattern = """/tournament/\w{8}$""".r.unanchored
 
 case class TrophyKind(
     _id: String,
