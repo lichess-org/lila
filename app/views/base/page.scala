@@ -49,6 +49,8 @@ object page:
       anonOnboarding.isDefined.so(esmInitBit("emailErrorCheck"))
     val zenable = p.flags(PageFlags.zen)
     val playing = p.flags(PageFlags.playing)
+    val preventIndexing =
+      p.flags(PageFlags.noRobots) || !netConfig.crawlable || lila.i18n.LangPicker.pageOverride.check(ctx.req)
     val pageFrag = frag(
       doctype,
       htmlTag(
@@ -78,7 +80,7 @@ object page:
           ),
           link(rel := "mask-icon", href := staticAssetUrl("logo/lichess.svg"), attr("color") := "black"),
           favicons,
-          (p.flags(PageFlags.noRobots) || !netConfig.crawlable).option(noRobots),
+          preventIndexing.option(noRobots),
           noTranslate,
           p.openGraph.map(lila.web.ui.openGraph),
           atomLinkTag.tupled(p.atomLink | dailyNewsAtom),

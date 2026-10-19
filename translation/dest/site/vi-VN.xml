@@ -160,6 +160,7 @@
   <string name="flipBoard">Quay bàn cờ</string>
   <string name="toggleLocalEngine">Bật/tắt công cụ cục bộ</string>
   <string name="engineSettings">Thiết đặt công cụ</string>
+  <string name="engine">Công cụ</string>
   <string name="enginesFromStrongestToWeakest">Các công cụ từ mạnh nhất đến yếu nhất</string>
   <string name="illegalPosition">Thế cờ không hợp lệ</string>
   <string name="threefoldRepetition">Lặp cờ 3 lần</string>
@@ -750,7 +751,9 @@ Bạn bè đang chơi: %2$s</string>
   <string name="downloadAnnotated">Tải về kèm chú thích</string>
   <string name="downloadRaw">Tải về bản thô</string>
   <string name="downloadImported">Tải về tệp đã được nhập</string>
+  <string name="downloadMyGames">Tải về các ván đấu của tôi</string>
   <string name="downloadAllGames">Tải xuống tất cả các ván đấu</string>
+  <string name="downloadResults">Tải xuống kết quả</string>
   <string name="crosstable">Tổng điểm đối đầu</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Bạn cũng có thể cuộn chuột trên bàn cờ để xem các nước đi của ván.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Cuộn qua các biến máy tính để xem trước chúng.</string>

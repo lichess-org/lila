@@ -63,7 +63,7 @@
   <string name="sendAppealTo">Apellyatsiya arizasini bu yerga yuborishingiz mumkin: %s.</string>
   <string name="falsePositives">Tizimda baʼzan xatoliklar (false positives) uchrab turadi, buning uchun uzr soʻraymiz.</string>
   <string name="ifLegit">Agar arizangiz asosli boʻlsa, blokni imkon qadar tezroq yechamiz.</string>
-  <string name="accountLost">Biroq, agar haqiqatan ham kompyuter yordamidan (dvijok) foydalangan boʻlsangiz — hatto bir marta boʻlsa ham — afsuski, akkauntingizni qaytarib boʻlmaydi.</string>
+  <string name="accountLost">Biroq, agar haqiqatan ham kompyuter yordamidan (dvigatel) foydalangan boʻlsangiz — hatto bir marta boʻlsa ham — afsuski, akkauntingizni qaytarib boʻlmaydi.</string>
   <string name="doNotDeny">Qilgan ishingizni inkor qilmang. Agar yangi akkaunt ochishga ruxsat berilishini xohlasangiz, aybingizni tan oling va xatongizni tushunib yetganingizni bildiring.</string>
   <string name="otherRestriction">Boshqa cheklovlar</string>
   <string name="collaboration">Hamkorlik, huquqiy va tijoriy masalalar</string>

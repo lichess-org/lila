@@ -338,7 +338,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
 
   def remove(tour: Tournament) = coll.delete.one(bid(tour.id))
 
-  def calendar(from: Instant, to: Instant): Fu[List[Tournament]] =
+  private[tournament] def calendar(from: Instant, to: Instant): Fu[List[Tournament]] =
     coll
       .find:
         bdoc(
@@ -349,7 +349,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
       .cursor[Tournament](ReadPref.sec)
       .list(500)
 
-  def anonymize(tour: Tournament, u: UserId) = for
+  private[tournament] def anonymize(tour: Tournament, u: UserId) = for
     _ <- tour.winnerId.has(u).so(coll.updateField(bid(tour.id), "winner", UserId.ghost).void)
     _ <- tour.createdBy.is(u).so(coll.updateField(bid(tour.id), "createdBy", UserId.ghost).void)
   yield ()

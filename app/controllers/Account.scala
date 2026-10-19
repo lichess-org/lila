@@ -87,7 +87,7 @@ final class Account(
           env.user.jsonView
             .full(me, none, withProfile = false) ++ Json
             .obj(
-              "prefs" -> lila.pref.toJson(ctx.pref, lichobileCompat = true),
+              "prefs" -> lila.pref.lichobile(ctx.pref),
               "nowPlaying" -> JsArray(povs.value.take(50).map(env.api.lobbyApi.nowPlaying)),
               "nbChallenges" -> nbChallenges,
               "online" -> true
