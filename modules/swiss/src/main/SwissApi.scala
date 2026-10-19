@@ -268,7 +268,7 @@ final class SwissApi(
       })
       .map((Swiss.PastAndNext.apply).tupled)
 
-  def upcomingByTeams(teamIds: Iterable[TeamId], nb: Int): Fu[List[Swiss]] = (nb > 0).so:
+  def upcomingByTeams(teamIds: Iterable[TeamId], nb: Int): Fu[List[Swiss]] = (teamIds.nonEmpty && nb > 0).so:
     mongo.swiss
       .find:
         bdoc("teamId".in(teamIds), "startsAt".gt(nowInstant.minusWeeks(1)), "finishedAt".exists(false))

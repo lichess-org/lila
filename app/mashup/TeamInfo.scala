@@ -44,13 +44,13 @@ final class TeamInfoApi(
 
   import TeamInfo.*
 
-  def events(using me: MyId): Fu[List[AnyTour]] = for
+  def events(using me: MyId): Fu[(Set[TeamId], List[AnyTour])] = for
     teams <- teamCache.teamIds(me)
-    teamIds = teams.toArray
+    teamIds = teams.toSet
     tours <- tourApi.upcomingByTeams(teamIds, 30)
     swiss <- swissApi.upcomingByTeams(teamIds, 30)
     both = AnyTour.from(tours) ::: AnyTour.from(swiss)
-  yield both.sortBy(_.startsAt)
+  yield teamIds -> both.sortBy(_.startsAt)
 
   def apply(t: Team.TeamShow, withForum: Option[TeamMember] => Boolean): Fu[TeamInfo] = for
     forumPosts <- withForum(t.member).optionFu(forumRecent(t.team.id))

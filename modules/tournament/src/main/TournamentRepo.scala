@@ -155,12 +155,13 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
         .cursor[Tournament](ReadPref.sec)
         .list(nb)
 
-  def upcomingByTeams(teamIds: Iterable[TeamId], nb: Int): Fu[List[Tournament]] = (nb > 0).so:
-    coll
-      .find(forTeamsSelect(teamIds) ++ enterableSelect ++ recentOrUpcomingSelect)
-      .sort(sort.asc("startsAt"))
-      .cursor[Tournament](ReadPref.sec)
-      .list(nb)
+  def upcomingByTeams(teamIds: Iterable[TeamId], nb: Int): Fu[List[Tournament]] =
+    (teamIds.nonEmpty && nb > 0).so:
+      coll
+        .find(forTeamsSelect(teamIds) ++ enterableSelect ++ recentOrUpcomingSelect)
+        .sort(sort.asc("startsAt"))
+        .cursor[Tournament](ReadPref.sec)
+        .list(nb)
 
   private[tournament] def setForTeam(tourId: TourId, teamId: TeamId) =
     coll.update.one(bid(tourId), addToSet("forTeams" -> teamId))

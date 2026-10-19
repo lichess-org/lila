@@ -420,8 +420,8 @@ final class Team(env: Env) extends LilaController(env):
   }
 
   def events = AuthOrScoped(_.Team.Read) { ctx ?=> me ?=>
-    env.teamInfo.events.flatMap: events =>
-      Ok.page(views.team.events(events))
+    env.teamInfo.events.flatMap: (teamIds, events) =>
+      Ok.page(views.team.events(teamIds, events))
   }
 
   def quit(id: TeamId) = AuthOrScoped(_.Team.Write) { ctx ?=> me ?=>

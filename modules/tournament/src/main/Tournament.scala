@@ -49,6 +49,9 @@ case class Tournament(
   def isTeamBattle = teamBattle.isDefined
   def isTeamRelated = isTeamBattle || conditions.teamMember.isDefined
   def singleTeamId: Option[TeamId] = conditions.teamMember.map(_.teamId)
+  def selectTeam(myTeams: Set[TeamId]): Option[TeamId] = singleTeamId match
+    case Some(teamId) => teamId.some.filter(myTeams.contains)
+    case None => teamBattle.flatMap(_.teams.intersect(myTeams).headOption)
 
   def name(full: Boolean = true)(using Translate): String =
     if isMarathon || isUnique then name
