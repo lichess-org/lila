@@ -11,10 +11,10 @@ final class CoachJsonView(picfitUrl: lila.memo.PicfitUrl):
       .obj(
         "user" -> c.user.light,
         "rating" -> c.coach.user.rating,
-        "languages" -> c.coach.languages.map(_.value),
+        "languages" -> c.coach.languages,
         "nbReviews" -> c.coach.nbReviews,
-        "available" -> c.coach.available.value,
-        "listed" -> c.coach.listed.value
+        "available" -> c.coach.available,
+        "listed" -> c.coach.listed
       )
       .add("headline", c.coach.profile.headline)
       .add("hourlyRate", c.coach.profile.hourlyRate)
@@ -24,13 +24,13 @@ final class CoachJsonView(picfitUrl: lila.memo.PicfitUrl):
     val p = c.coach.profile
     list(c) ++ Json
       .obj(
-        "youtubeVideos" -> p.youtubeUrls.map(_.value),
-        "studies" -> p.studyIds.map(_.value)
+        "youtubeVideos" -> p.youtubeUrls,
+        "studies" -> p.studyIds
       )
-      .add("description", p.description.map(_.value))
-      .add("playingExperience", p.playingExperience.map(_.value))
-      .add("teachingExperience", p.teachingExperience.map(_.value))
-      .add("otherExperience", p.otherExperience.map(_.value))
-      .add("skills", p.skills.map(_.value))
-      .add("methodology", p.methodology.map(_.value))
+      .add("description", p.description)
+      .add("playingExperience", p.playingExperience)
+      .add("teachingExperience", p.teachingExperience)
+      .add("otherExperience", p.otherExperience)
+      .add("skills", p.skills)
+      .add("methodology", p.methodology)
       .add("youtubeChannel", p.youtubeChannel)
