@@ -8,6 +8,7 @@ packages:
 allowBuilds:
   esbuild: true
   protobufjs: false
+  chessground3D@https://codeload.github.com/yafred/chessground3D/tar.gz/2a0041ea138257568da84536364dd15119b9db5f: true
 overrides:
   fast-uri: ^3.1.7
   undici: ^8.10.2

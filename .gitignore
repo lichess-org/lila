@@ -77,3 +77,4 @@ instance.lock
 /blob-report/
 /playwright/.cache/
 /playwright/.auth/
+public/scene.glb

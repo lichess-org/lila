@@ -1,6 +1,6 @@
-import { dragNewPiece } from '@lichess-org/chessground/drag';
 import { setDropMode, cancelDropMode } from '@lichess-org/chessground/drop';
 import type { MouchEvent } from '@lichess-org/chessground/types';
+import { dragNewPiece } from 'chessground3D/drag';
 
 import { isPlayerTurn } from 'lib/game';
 import { pubsub } from 'lib/pubsub';

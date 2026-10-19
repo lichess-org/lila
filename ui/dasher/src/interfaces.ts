@@ -23,6 +23,10 @@ export abstract class PaneCtrl {
     return this.root.data.board.is3d;
   }
 
+  get isReal3D(): boolean {
+    return localStorage.getItem('chessground3d') === 'true';
+  }
+
   protected readonly getVar = (prop: string): number =>
     parseInt(window.getComputedStyle(document.body).getPropertyValue(`---${prop}`));
 
