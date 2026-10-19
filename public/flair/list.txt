@@ -337,6 +337,7 @@ nature.lotus
 nature.mammoth
 nature.monarch-butterfly
 nature.maple-leaf
+nature.meteor
 nature.microbe
 nature.milky-way
 nature.monkey
@@ -3569,7 +3570,6 @@ travel-places.light-rail
 travel-places.locomotive
 travel-places.love-hotel
 travel-places.lighthouse
-travel-places.meteor
 travel-places.manual-wheelchair
 travel-places.map-of-japan
 travel-places.metro
