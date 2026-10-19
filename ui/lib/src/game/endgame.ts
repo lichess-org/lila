@@ -44,12 +44,14 @@ export function endgameShapesForNode(
   return endgameShapes(node.fen, result.winner, result.status);
 }
 
-export function findKingSquare(fen: FEN, color: Color): Key | undefined {
-  const king = parseFen(fen).unwrap(
-    setup => setup.board.kingOf(color),
+const glyphRoles: Role[] = ['king', 'queen', 'rook', 'bishop', 'knight', 'pawn'];
+
+export function findGlyphSquare(fen: FEN, color: Color): Key | undefined {
+  const square = parseFen(fen).unwrap(
+    setup => glyphRoles.map(role => setup.board.pieces(color, role).first()).find(sq => sq !== undefined),
     _ => undefined,
   );
-  return king === undefined ? undefined : makeSquare(king);
+  return square === undefined ? undefined : makeSquare(square);
 }
 
 const loserGlyph = (status: StatusName | undefined): EndgameGlyph =>
@@ -82,10 +84,10 @@ export function endgameShapes(
 
   const shapes: DrawShape[] = [];
   const add = (color: Color, glyph: EndgameGlyph) => {
-    const king = findKingSquare(fen, color);
-    if (king)
+    const square = findGlyphSquare(fen, color);
+    if (square)
       shapes.push({
-        orig: king,
+        orig: square,
         brush: '',
         customSvg: { html: endgameGlyphs[glyph](0), center: 'orig' },
       });
