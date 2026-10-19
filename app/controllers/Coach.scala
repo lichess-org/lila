@@ -30,20 +30,27 @@ final class Coach(env: Env) extends LilaController(env):
         langCodes <- env.coach.api.allLanguages
         countries <- env.coach.api.countrySelection
         pager <- env.coach.pager(lang, order, country, page)
-        page <- renderPage(views.coach.ui.index(pager, lang, order, langCodes, countries, country))
-      yield Ok(page)
+        res <- negotiate(
+          html = renderPage(views.coach.ui.index(pager, lang, order, langCodes, countries, country)).map(Ok(_)),
+          json = fuccess(JsonOk(env.api.mobile.coaches(pager, lang, order, country, langCodes, countries)))
+        )
+      yield res
 
   def show(username: UserStr) = Open:
     Found(api.find(username)): c =>
       WithVisibleCoach(c):
-        for
-          stu <- env.study.api.publicByIds(c.coach.profile.studyIds)
-          studies <-
-            given StudyFormat = StudyFormat.card
-            env.study.pager.withChaptersAndLiking(4)(stu)
-          posts <- env.ublog.api.latestPosts(lila.ublog.UblogBlog.Id.User(c.user.id), 4)
-          page <- renderPage(views.coach.show(c, studies, posts))
-        yield Ok(page)
+        negotiate(
+          html =
+            for
+              stu <- env.study.api.publicByIds(c.coach.profile.studyIds)
+              studies <-
+                given StudyFormat = StudyFormat.card
+                env.study.pager.withChaptersAndLiking(4)(stu)
+              posts <- env.ublog.api.latestPosts(lila.ublog.UblogBlog.Id.User(c.user.id), 4)
+              page <- renderPage(views.coach.show(c, studies, posts))
+            yield Ok(page),
+          json = fuccess(JsonOk(env.api.mobile.coach(c)))
+        )
 
   private def WithVisibleCoach(c: CoachModel.WithUser)(f: Fu[Result])(using ctx: Context) =
     if c.isListed || ctx.me.exists(_.is(c.coach)) || isGrantedOpt(_.Admin) then f

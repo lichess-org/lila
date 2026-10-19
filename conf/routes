@@ -718,8 +718,6 @@ GET   /api/mobile/watch                controllers.Api.mobileWatch
 GET   /api/mobile/profile/:username    controllers.Api.mobileProfile(username:  UserStr)
 GET   /api/mobile/my-games             controllers.Api.mobileGames
 GET   /api/mobile/following            controllers.Relation.apiMobileFollowing
-GET   /api/mobile/coach                controllers.Api.mobileCoaches(page: Int ?= 1, lang: String ?= "all", order: String ?= "login", country: String ?= "all")
-GET   /api/mobile/coach/:username      controllers.Api.mobileCoach(username: UserStr)
 
 ->    /team                            team.Routes
 ->    /appeal                          appeal.Routes
