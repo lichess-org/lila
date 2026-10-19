@@ -1,2 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="analyse">Analysoi</string>
+  <string name="onTheServer">Palvelimella</string>
+  <string name="local">Paikallinen</string>
+  <string name="cannotPublish">Ei voi julkaista</string>
+  <string name="nodesPerMove">Solmuja per siirto</string>
+  <string name="using">Käyttää</string>
+  <string name="willUse">Käyttää</string>
+  <string name="quality">Laatu</string>
+  <string name="publish">Julkaise</string>
+  <string name="published">Julkaistu</string>
+  <string name="chooseYourEngineSettings">Pisteytä päämuunnelma napsauttamalla Analysoi.</string>
+  <string name="bestResultsUseXWithYThreads">Saat parhaat tulokset lyhimmässä ajassa käyttämällä %1$s -analyysimoottoria %2$s säikeellä.</string>
+  <string name="analysisUploadFailed">Analyysin lataus palvelimelle epäonnistui. Yritä myöhemmin uudelleen.</string>
+  <string name="downloadingXofY" comment="should this be in site?">Ladattu %1$s %2$s:sta</string>
+  <string name="timeToComplete">Tämä kestää noin %s</string>
+  <string name="xWouldBeFaster">%s olisi nopeampi</string>
+</resources>

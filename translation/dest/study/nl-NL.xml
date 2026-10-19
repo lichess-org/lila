@@ -198,7 +198,9 @@
   <string name="doubleDefeat">Dubbele nederlaag</string>
   <string name="blackDefeatWhiteCanNotWin">Zwarte nederlaag, maar Wit kan niet winnen</string>
   <string name="whiteDefeatBlackCanNotWin">Witte nederlaag, maar Zwart kan niet winnen</string>
+  <string name="analysisEditor">Analysebewerker</string>
   <string name="clearLocal">Lokale analyse wissen?</string>
   <string name="clearPublished">Gepubliceerde analyse wissen?</string>
   <string name="requestAServerAnalysis">Vraag een serveranalyse aan</string>
+  <string name="analyzeOnYourDevice">Analyseer op je apparaat</string>
 </resources>

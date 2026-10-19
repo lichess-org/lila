@@ -1,4 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="makesPerfect">gør din skak perfekt</string>
+  <string name="signUpToSaveYourProgress">Tilmeld dig for at gemme dine fremskridt</string>
+  <string name="secHeadCheckmates">Skakmat</string>
+  <string name="secHeadFundamentalTactics">Grundlæggende taktikker</string>
+  <string name="secHeadAdvancedTactics">Avancerede taktikker</string>
+  <string name="stNamDoubleCheck">Dobbeltskak</string>
+  <string name="stNamOverloadedPieces">Overbelastede brikker</string>
+  <string name="stNamZwischenzug">Mellemtræk</string>
+  <string name="stNamXRay">Røntgen</string>
+  <string name="stNamZugzwang">Træktvang</string>
+  <string name="stNamInterference">Obstruktion</string>
+  <string name="stNamGreekGift">Græsk gave</string>
+  <string name="stNamDeflection">Afledning</string>
+  <string name="stNamAttraction">Lokkedue</string>
 </resources>

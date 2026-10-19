@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="cleanAllGood">Akkauntingizda hech qanday cheklov yoki belgi yoʻq. Hammasi joyida!</string>
-  <string name="engineMarked">Akkauntingiz oʻyinlarda dvijok/kompyuter yordamidan foydalanganlik uchun cheklandi.</string>
+  <string name="engineMarked">Akkauntingiz oʻyinlarda dvigatel/kompyuter yordamidan foydalanganlik uchun cheklandi.</string>
   <string name="engineMarkedInfo">Raqibingizdan ustun kelish maqsadida har qanday tashqi yordamdan foydalanib, bilimingiz yoki hisoblash qobiliyatingizni sunʼiy oshirishni biz gʻirromlik deb hisoblaymiz. Batafsil maʼlumot %s sahifasida.</string>
   <string name="arenaBanned">Akkauntingiz arenalarga qoʻshilishdan bloklangan.</string>
   <string name="prizeBanned">Akkauntingiz qimmatbaho sovrinli turnirlarda qatnashish huquqidan mahrum qilingan.</string>

@@ -11,7 +11,7 @@
   <string name="oauthCatPlayGames">Oʻyin oʻynash</string>
   <string name="oauthCatStudiesBroadcasts">Saboqlar va translyatsiyalar</string>
   <string name="oauthCatExternalPlay">Tashqi oʻyin</string>
-  <string name="oauthCatExternalEngine">Tashqi dvijok</string>
+  <string name="oauthCatExternalEngine">Tashqi dvigatel</string>
   <string name="doNotShareIt">Ushbu token hisobingizga kirish huquqini beradi. Uni HECH KIMGA bermang!</string>
   <string name="copyTokenNow">Yangi shaxsiy tokeningizni hoziroq nusxalab oling. Uni keyin qayta koʻra olmaysiz!</string>
   <string name="preferenceRead">Sozlamalarni oʻqish</string>
@@ -36,8 +36,8 @@
   <string name="readWriteNotesOnPlayers">Boshqa oʻyinchilar haqida qaydlarni oʻqish va yozish</string>
   <string name="boardPlay">Elektron taxta API orqali oʻynash</string>
   <string name="botPlay">Bot API orqali oʻynash</string>
-  <string name="engineRead">Tashqi dvijoklarni koʻrish va ulardan foydalanish</string>
-  <string name="engineWrite">Tashqi dvijoklarni qoʻshish va yangilash</string>
+  <string name="engineRead">Tashqi dvigatellarni koʻrish va ulardan foydalanish</string>
+  <string name="engineWrite">Tashqi dvigatellarni qoʻshish va yangilash</string>
   <string name="webMod">Moderator asboblaridan foydalanish (sizga berilgan vakolatlar doirasida)</string>
   <string name="personalAccessTokens">Shaxsiy API kirish tokenlari</string>
   <string name="canMakeOauthRequests">Siz %s oʻtmasdan OAuth soʻrovlarini amalga oshirishingiz mumkin.</string>
