@@ -97,6 +97,7 @@ final class AccountTermination(
 
   def scheduleDelete(u: User)(using Me): Funit = for
     _ <- disable(u, forever = false)
+    _ <- modLogApi.scheduleDelete(u.id)
     _ <- email.delete(u)
     _ <- userRepo.delete.schedule(u.id, UserDelete(nowInstant).some)
   yield ()
@@ -139,6 +140,7 @@ final class AccountTermination(
     _ <- tokenApi.revokeAllByUser(u.id)
     _ <- u.marks.clean.so:
       securityStore.deleteAllSessionsOf(u.id)
+    _ <- modLogApi.deleteAccount(u.id, tos)
   yield
     // a lot of deletion is done by modules listening to the following event:
     Bus.pub(lila.core.user.UserDelete(u))
