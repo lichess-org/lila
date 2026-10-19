@@ -17,9 +17,11 @@ case class Trophy(
   def anyUrl = url
     .orElse(kind.url)
     .map: link =>
-      if link.matches("""(?:https?://lichess\.org|//lichess\.org)?/tournament/[A-Za-z0-9]{8}""")
+      if tournamentUrlPattern.matches(link)
       then s"$link?player=$user"
       else link
+
+private val tournamentUrlPattern = """/tournament/\w{8}$""".r.unanchored
 
 case class TrophyKind(
     _id: String,
