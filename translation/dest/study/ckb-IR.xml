@@ -47,7 +47,6 @@
   <string name="annotateWithGlyphs">لێدوان بە حەرفی سەرەتایی</string>
   <string name="theChapterIsTooShortToBeAnalysed">ئەو بەشە بەهۆی کورتییەوە ناتوانرێت شیکار بکرێت.</string>
   <string name="onlyContributorsCanRequestAnalysis">تەنها بەشداربووانی لێکۆڵینەوەکە دەتوانن داوای شیکارکردنی کۆمپیوتەر بکەن.</string>
-  <string name="getAFullComputerAnalysis">شیکارییەکی تەواوی کۆمپیوتەر لە لایەن سێرڤەرەوە - بۆ هێڵی سەرەکی بەدەست بهێنە.</string>
   <string name="makeSureTheChapterIsComplete">دڵنیا ببەوه لەوەی کە بەشەکە تەواو کراوە. تەنها بۆ یەکجار دەتوانیت ئەو شیکارکردنە بکەیت.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">هەموو ئەندامەکانی SYNC لەسەر هەمان پێگە بمێننەوە</string>
   <string name="shareChanges">گۆڕانکاریەکان لەگەڵ بینەرەکان بەشداری پێبکە و لەسەر سێرڤەرەکە دایانبکه</string>

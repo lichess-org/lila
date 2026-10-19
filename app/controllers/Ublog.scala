@@ -43,7 +43,7 @@ final class Ublog(env: Env) extends LilaController(env):
 
   def post(username: UserStr, slug: String, id: UblogPostId) = Open: ctx ?=>
     Found(env.ublog.api.getPost(id)): post =>
-      if !post.visibleByCrawlers && ctx.req.client.isCrawler
+      if !post.crawlable && ctx.req.client.isCrawler
       then notFound
       else if slug == post.slug && post.isUserBlog(username) then handlePost(post)
       else if urlOfPost(post).url != ctx.req.path then Redirect(urlOfPost(post))
@@ -352,7 +352,11 @@ final class Ublog(env: Env) extends LilaController(env):
       for
         blog <- env.ublog.api.getUserBlog(user)
         posts <- isBlogVisible(user, blog).so(env.ublog.paginator.byUser(user, true, 1))
-      yield Ok.snip(views.ublog.ui.atom.user(user, posts.currentPageResults)).as(ATOM)
+      yield Ok
+        .snip(views.ublog.ui.atom.user(user, posts.currentPageResults))
+        .as(ATOM)
+        .headerCache(10.minutes)
+        .withHeaders("X-Robots-Tag" -> (if blog.crawlable then "all" else "noindex"))
 
   def historicalBlogPost(id: String, @nowarn slug: String) = Open:
     Found(env.ublog.api.getByPrismicId(id)): post =>

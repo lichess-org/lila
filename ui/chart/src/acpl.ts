@@ -151,8 +151,9 @@ export default async function (
           callbacks: {
             label: item => {
               const ev = mainline[item.dataIndex + 1]?.eval;
-              if (!ev) return ''; // Pos is mate
-              return i18n.site.advantage + ': ' + (defined(ev.mate) ? '#' + ev.mate : renderEval(ev.cp!));
+              if (defined(ev?.mate)) return i18n.site.advantage + ': #' + ev.mate;
+              if (defined(ev?.cp)) return i18n.site.advantage + ': ' + renderEval(ev.cp);
+              return '';
             },
             title: items => (items[0] ? moveLabels[items[0].dataIndex] : ''),
           },

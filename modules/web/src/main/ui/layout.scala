@@ -203,12 +203,9 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
       .filter(100 >=)
   } | 80
 
-  val dailyNewsAtom = link(
-    href := routes.Feed.atom,
-    st.title := "Lichess Updates Feed",
-    tpe := "application/atom+xml",
-    rel := "alternate"
-  )
+  val dailyNewsAtom = (routes.Feed.atom, "Lichess Updates Feed")
+  def atomLinkTag(call: Call, title: String) =
+    link(href := call, st.title := title, tpe := "application/atom+xml", rel := "alternate")
 
   val dataVapid = attr("data-vapid")
   def dataSocketDomains = attr("data-socket-domains") := netConfig.socketDomains.mkString(",")
@@ -244,7 +241,8 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
 
   def bottomHtml = frag(
     Option.when(netConfig.socketDomains.nonEmpty)(networkAlert),
-    spinnerMask
+    spinnerMask,
+    label(id := "mselect-fullscreen-mask", cls := "fullscreen-mask mselect__fullscreen-mask")
   )
 
   object siteHeader:

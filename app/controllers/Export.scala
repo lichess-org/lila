@@ -26,7 +26,7 @@ final class Export(env: Env) extends LilaController(env):
       exportImageOf(env.game.gameRepo.gameWithInitialFen(id)): g =>
         val options = lila.game.GifExport.Options.fromReq
         val filename = s"lichess-game-${g.game.id}-${color.name}.gif"
-        stream(filename, cacheSeconds = if g.game.finishedOrAborted then 3600 * 24 else 10):
+        stream(filename, cache = if g.game.finishedOrAborted then 1.day else 10.seconds):
           for
             analysis <- options.glyphs.so(env.analyse.repo.byGame(g.game))
             source <- env.game.gifExport.fromPov(
@@ -47,7 +47,7 @@ final class Export(env: Env) extends LilaController(env):
       val filename = s"lichess-game-${game.id}-thumbnail.gif"
       env.game.gifExport
         .gameThumbnail(game, Theme(theme).name, PieceSet.get(piece).name)
-        .pipe(stream(filename, cacheSeconds = if game.finishedOrAborted then 3600 * 24 else 10))
+        .pipe(stream(filename, cache = if game.finishedOrAborted then 1.day else 10.seconds))
     }
 
   def puzzleThumbnail(id: PuzzleId, theme: Option[String], piece: Option[String]) = Anon:
@@ -83,12 +83,12 @@ final class Export(env: Env) extends LilaController(env):
         )
         .pipe(stream(s"lichess-fen.gif"))
 
-  private def stream(filename: String, contentType: String = "image/gif", cacheSeconds: Int = 1209600)(
+  private def stream(filename: String, contentType: String = "image/gif", cache: FiniteDuration = 1.day)(
       upstream: Fu[Source[ByteString, ?]]
   ): Fu[Result] = upstream
     .map: stream =>
       Ok.chunked(stream)
-        .headerCacheSeconds(cacheSeconds)
+        .headerCache(cache)
         .as(contentType)
         .asAttachmentStream(filename)
     .recover { case lila.game.GifExport.UpstreamStatus(code) => Status(code) }

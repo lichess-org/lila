@@ -17,6 +17,5 @@
   <string name="cancelTimerOrDenyARequest">Annuler la minuterie ou refuser une demande</string>
   <string name="playPreferredMoveOrConfirmSomething">Jouer le coup préféré ou confirmer quelque chose</string>
   <string name="sleep">Sommeil (si le mot de réveil est activé)</string>
-  <string name="turnOffVoiceRecognition">Désactiver la reconnaissance vocale</string>
   <string name="showPuzzleSolution">Afficher la solution du problème</string>
 </resources>

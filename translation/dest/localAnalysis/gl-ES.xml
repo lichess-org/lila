@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="analyse">Analizar</string>
+  <string name="onTheServer">No servidor</string>
+  <string name="local">Local</string>
+  <string name="currentAnalysis">Análise actual</string>
+  <string name="cannotPublish">Non se pode publicar</string>
+  <string name="nodesPerMove">Nodos por movemento</string>
+  <string name="using">Usando</string>
+  <string name="willUse">Vai usar</string>
+  <string name="quality">Calidade</string>
+  <string name="publish">Publicar</string>
+  <string name="published">Publicada</string>
+  <string name="chooseYourEngineSettings">Fai clic en Analizar para obter a avaliación da liña principal.</string>
+  <string name="bestResultsUseXWithYThreads">Para ter os mellores resultados no menor tempo posible, emprega %1$s con %2$s fíos.</string>
+  <string name="analysisUploadFailed">Erro ó cargar a análise. Téntao máis tarde.</string>
+  <string name="serverAnalysisInProgress">Hai unha análise dende o servidor sen rematar para esta partida. Pódelo tentar logo canto estea finalizada.</string>
+  <string name="youCanPublish">Podes publicar a túa análise local.</string>
+  <string name="turnOnRec">Tes que activar a gravación (REC) para poder compartir a análise local nun estudo.</string>
+  <string name="whenUpgradingOldChapters">A análise dende o servidor en capítulos creados antes de que se introducise a análise local non se pode actualizar correctamente. As liñas e comentarios anteriores ficarán a menos que se eliminen primeiro.</string>
+  <string name="startingPosition">Posición inicial</string>
+  <string name="keepThisBrowserTabActive">Mantén esta lapela do navegador activa durante a análise</string>
+  <string name="xTimesStandardQuality">%sx calidade estándar</string>
+  <string name="moveXOfY" comment="should this be in site?">Movemento %1$s de %2$s</string>
+  <string name="downloadingXofY" comment="should this be in site?">Descargando %1$s de %2$s</string>
+  <string name="timeToComplete">Tardará aproximadamente %s</string>
+  <string name="xWouldBeFaster">%s será máis rápido</string>
+</resources>

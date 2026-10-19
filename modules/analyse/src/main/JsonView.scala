@@ -113,14 +113,16 @@ object JsonView extends lila.tree.AnalysisJson:
         else JsSuccess(())
       rawId <- (js \ "id").validate[String]
       rawStudyIdOpt <- (js \ "studyId").validateOpt[String]
-      infos <- (js \ "infos").validate[List[Info]]
       startPly <- (js \ "startPly").validate[Ply]
+      initialScore <- Info.readScore(js \ "initialEval", startPly)
+      infos <- (js \ "infos").validate[List[Info]]
       date <- (js \ "date").validate[Instant]
       engine <- (js \ "engine").validate[lila.tree.Engine]
     yield Analysis(
       id = rawStudyIdOpt match
         case Some(sid) => Analysis.Id.Study(StudyId(sid), StudyChapterId(rawId))
         case None => Analysis.Id.Game(GameId(rawId)),
+      initialScore = initialScore,
       infos = infos,
       startPly = startPly,
       date = date,

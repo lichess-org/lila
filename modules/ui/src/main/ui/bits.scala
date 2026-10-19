@@ -23,12 +23,11 @@ object bits:
     div(cls := "mselect")(
       input(
         tpe := "checkbox",
-        cls := "mselect__toggle fullscreen-toggle",
+        cls := "mselect__toggle mselect__toggle--mask fullscreen-toggle",
         st.id := s"mselect-$id",
         autocomplete := "off"
       ),
       label(`for` := s"mselect-$id", cls := "mselect__label", role := "menu")(current),
-      label(`for` := s"mselect-$id", cls := "fullscreen-mask"),
       st.nav(cls := "mselect__list")(items.map(_(cls := "mselect__item", role := "menuitem")))
     )
 

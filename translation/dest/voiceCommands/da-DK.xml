@@ -17,6 +17,5 @@
   <string name="cancelTimerOrDenyARequest">Annullér timer eller afvis en anmodning</string>
   <string name="playPreferredMoveOrConfirmSomething">Afspil foretrukket træk eller bekræft noget</string>
   <string name="sleep">Sov (hvis vækkeord aktiveret)</string>
-  <string name="turnOffVoiceRecognition">Slå stemmegenkendelse fra</string>
   <string name="showPuzzleSolution">Vis opgaveløsning</string>
 </resources>

@@ -3,4 +3,18 @@
   <string name="whatIsTheMatter">Qual é o motivo?</string>
   <string name="cheat">Trapaça</string>
   <string name="troll">Troll</string>
+  <string name="reportStall">Bloqueio / Abandono de partidas</string>
+  <string name="reportBoost">Perda proposital na partida (Sandbagging/Smurf) / Aumento artificial do ranking (Boosting) / Manipulação de resultados</string>
+  <string name="reportVerbalAbuse">Abuso Verbal / Xingamento / Trolagem</string>
+  <string name="reportViolence">Violência / Ameaças</string>
+  <string name="reportHarass">Abuso / Bullying / Perseguição</string>
+  <string name="reportSelfHarm">Suicídio / Auto-lesão</string>
+  <string name="reportHate">Discurso de ódio / Sexismo</string>
+  <string name="reportSpam">Spammando</string>
+  <string name="readMoreAboutLichessReports">Leia mais sobre relatórios do Lichess</string>
+  <string name="reportMaximumCharacters">Máximo 3000 caracteres.</string>
+  <string name="reportCheatBoostHelp">Cole o link do(s) jogo(s) e explique o que há de errado com o comportamento desse usuário. Não diga apenas \"ele trapaceia\", informe-nos como chegou a esta conclusão.</string>
+  <string name="reportUsernameHelp">Explique porque este nome de usuário é ofensivo. Não diga apenas \"é ofensivo/inapropriado\", mas nos diga como chegou a essa conclusão especialmente se o insulto não for óbvio, não estiver em inglês, for uma gíria, ou for uma referência histórica/cultural.</string>
+  <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">Podemos processar sua denúncia mais rapidamente se você escrever em inglês.</string>
+  <string name="provideOneCheatedGameLink">Por favor, inclua pelo menos um link de uma partida para análise.</string>
 </resources>

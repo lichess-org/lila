@@ -266,9 +266,9 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
       ? [
           div('.actions', [
             chess960PositionIdSelector,
-            fromImageButton(ctrl),
-            controlsButtonStart(ctrl),
-            controlsButtonClear(ctrl),
+            fromImageButton(ctrl, licon.Eye),
+            controlsButtonStart(ctrl, licon.Reload),
+            controlsButtonClear(ctrl, licon.Trash),
           ]),
         ]
       : [

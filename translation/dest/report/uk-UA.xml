@@ -1,2 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="whatIsTheMatter">Яка причина?</string>
+  <string name="cheat">Нечесна гра</string>
+  <string name="troll">Троль</string>
+  <string name="reportStall">Затягування часу / Залишення партій</string>
+  <string name="reportBoost">Навмисна втрата рейтингу / Накрутка рейтингу / Договірні партії</string>
+  <string name="reportVerbalAbuse">Словесні образи / Нецензурна лексика / Тролінг</string>
+  <string name="reportViolence">Насильство / Погрози</string>
+  <string name="reportHarass">Домагання / Цькування / Переслідування</string>
+  <string name="reportSelfHarm">Самогубство / Самоушкодження</string>
+  <string name="reportHate">Мова ворожнечі / Сексизм</string>
+  <string name="reportSpam">Спам</string>
+  <string name="readMoreAboutLichessReports">Читати більше про скарги Lichess</string>
+  <string name="reportMaximumCharacters">Максимум 3000 символів.</string>
+  <string name="reportCheatBoostHelp">Вставте посилання на партію (партії) та поясніть, що не так із поведінкою цього користувача. Не пишіть просто «він шахраює», а розкажіть, як ви дійшли цього висновку.</string>
+  <string name="reportUsernameHelp">Поясніть, чому це ім\'я користувача образливе. Не пишіть просто «воно образливе/неприйнятне», а розкажіть, як ви дійшли такого висновку, особливо якщо образа неочевидна, не англійською, у сленгу або є історичним чи культурним натяком.</string>
+  <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">Ми можемо обробити вашу скаргу швидше, якщо ви пишете англійською.</string>
+  <string name="provideOneCheatedGameLink">Будь ласка, надайте хоча б одне посилання на гру для розгляду.</string>
+</resources>

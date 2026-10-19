@@ -43,7 +43,7 @@ che[ae]+t(ing|e[dr]+|)
 chess(|-|_)bot(.?com)?
 ch[i\|\\][ck]+en
 ch[i\|\\]nk
-chitter
+ch[i\|\\]t+(ing|e[dr])
 cl[i\|\\]t(oris|)
 clown
 co[ck]+(su[ck]+(er|ing)|)
@@ -283,6 +283,7 @@ payas[ao]
 pendejo
 po(l+|y)a
 put(ic|it|)[ao]
+suic[ií]date
 trampa
 trampos[ao]
 tu eres put\w*

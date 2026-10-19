@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="analyse">Analizează</string>
+  <string name="onTheServer">Pe server</string>
+  <string name="local">Local</string>
+  <string name="currentAnalysis">Analiza curentă</string>
+  <string name="cannotPublish">Nu se poate publica</string>
+  <string name="nodesPerMove">Noduri per mutare</string>
+  <string name="using">Utilizarea</string>
+  <string name="willUse">Se va utiliza</string>
+  <string name="quality">Calitate</string>
+  <string name="publish">Publică</string>
+  <string name="published">Publicat</string>
+  <string name="chooseYourEngineSettings">Clic pe Analiză pentru a estima linia principală.</string>
+  <string name="bestResultsUseXWithYThreads">Pentru cele mai bune rezultate în cel mai scurt timp, utilizați %1$s cu %2$s fire.</string>
+  <string name="analysisUploadFailed">Încărcarea analizei a eșuat. Încercați din nou mai târziu.</string>
+  <string name="serverAnalysisInProgress">Există o analiză în progres pe server pentru acest joc. Poți încerca din nou când e gata.</string>
+  <string name="youCanPublish">Analiza locală poate fi publicată.</string>
+  <string name="turnOnRec">Trebuie să activați REC înainte de a putea distribui analiza locală a unui studiu.</string>
+  <string name="whenUpgradingOldChapters">Analiza pe server la capitolele create înainte de introducerea analizei locale nu poate fi actualizată în mod curat. Liniile de motor mai vechi și comentariile vor rămâne dacă nu le eliminați mai întâi.</string>
+  <string name="startingPosition">Poziția de start</string>
+  <string name="keepThisBrowserTabActive">Păstrează această filă a browser-ului activă în timpul analizei</string>
+  <string name="xTimesStandardQuality">%sx calitatea standard</string>
+  <string name="moveXOfY" comment="should this be in site?">Mutarea %1$s din %2$s</string>
+  <string name="downloadingXofY" comment="should this be in site?">Se descarcă %1$s din %2$s</string>
+  <string name="timeToComplete">Va dura aproximativ %s</string>
+  <string name="xWouldBeFaster">%s ar fi mai rapid</string>
+</resources>

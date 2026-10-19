@@ -47,7 +47,6 @@
   <string name="annotateWithGlyphs">Anotar con iconos</string>
   <string name="theChapterIsTooShortToBeAnalysed">El capítulu ye demasiao curtiu p\'analizalo.</string>
   <string name="onlyContributorsCanRequestAnalysis">Namás los collaboradores del estudiu pueden solicitar un análisis por ordenador.</string>
-  <string name="getAFullComputerAnalysis">Llogra un análisis completu de la llínea principal nel servidor.</string>
   <string name="makeSureTheChapterIsComplete">Asegúrate de que\'l capítulu ta completu. Namás pue solicitar l\'análisis una vegada.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Tolos miembros de SYNC permanecen na mesma posición</string>
   <string name="shareChanges">Comparte cambios colos espectadores y guardalos nel servidor</string>

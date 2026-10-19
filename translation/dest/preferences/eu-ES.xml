@@ -72,7 +72,6 @@
   <string name="blindfold" comment="As in Blindfold chess">Itsuka</string>
   <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">Erakutsi ezkerrean gailu mugikorretan</string>
   <string name="inlineNotation">Lerroarteko oharrak</string>
-  <string name="showServerAnalysis">Erakutsi zerbitzariaren analisia</string>
   <string name="showBestMoveArrows">Erakutsi jokaldi onenen geziak</string>
   <string name="showManeuverArrows">Erakutsi maniobren geziak</string>
   <string name="showGauge">Erakutsi ebaluazioaren langa</string>

@@ -65,14 +65,14 @@ final class UblogTopicApi(colls: UblogColls, cacheApi: CacheApi)(using Executor,
           .map: topic =>
             for
               count <- colls.post.secondary.countSel:
-                bdoc("live" -> true, "topics" -> topic, "automod.quality" -> neq(0))
+                bdoc("live" -> true, "topics" -> topic, "quality" -> neq(0))
               posts <- colls.post
                 .find(
                   bdoc(
                     "live" -> true,
                     "topics" -> topic,
-                    "automod.quality" -> gte(Quality.good.ordinal),
-                    "likes" -> gt(50)
+                    "quality".gte(Quality.good.ordinal),
+                    "likes".gt(50)
                   ),
                   previewPostProjection.some
                 )

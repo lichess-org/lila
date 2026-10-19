@@ -161,6 +161,8 @@
   </plurals>
   <string name="moveTimes">Koha e lëvizjeve</string>
   <string name="flipBoard">Kthe fushën</string>
+  <string name="engine">Mekanizëm</string>
+  <string name="illegalPosition">Pozicion i paligjshëm</string>
   <string name="threefoldRepetition">Përsëritje trefishe</string>
   <string name="claimADraw">Kërko barazim</string>
   <string name="drawClaimed">U kërkua barazim</string>
@@ -754,7 +756,9 @@ Shokë që po luajnë: %2$s</string>
   <string name="downloadAnnotated">Shkarkoje me shënimet</string>
   <string name="downloadRaw">Shkarkoje shqeto</string>
   <string name="downloadImported">Shkarko të importuarën</string>
+  <string name="downloadMyGames">Shkarko lojërat e mia</string>
   <string name="downloadAllGames">Shkarkoji krejt lojërat</string>
+  <string name="downloadResults">Shkarko përfundimet</string>
   <string name="crosstable">Kryqtryeza</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Ju mund edhe të rrotulloni rrotën mbi fushë për të lëvizur gjatë lojës.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Lëviz tek variacionet e kompjuterit t\'i shikosh paraprakisht.</string>

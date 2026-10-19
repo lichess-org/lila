@@ -33,6 +33,9 @@ object net:
     def from(str: String): Option[IpAddress] = parse(str).toOption
     def unchecked(str: String): IpAddress = parse(str).get
 
+  opaque type ASN = Int
+  object ASN extends OpaqueInt[ASN]
+
   case class LichessMobileUa(
       version: String,
       userId: Option[UserId],

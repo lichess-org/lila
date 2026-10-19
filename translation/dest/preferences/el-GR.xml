@@ -73,7 +73,6 @@
   <string name="blindfold" comment="As in Blindfold chess">Τυφλό</string>
   <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">Εμφάνιση στα αριστερά στις κινητές συσκευές</string>
   <string name="inlineNotation">Ενσωματωμένη σημειογραφία</string>
-  <string name="showServerAnalysis">Εμφάνιση ανάλυσης διακομιστή</string>
   <string name="showBestMoveArrows">Εμφάνιση βέλους καλύτερης κίνησης</string>
   <string name="showManeuverArrows">Εμφάνιση βελών ελιγμών</string>
   <string name="showGauge">Εμφάνιση μπάρας υπεροχής</string>

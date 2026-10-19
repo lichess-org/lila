@@ -17,6 +17,5 @@
   <string name="cancelTimerOrDenyARequest">Cancelar temporizador ou negar solicitação</string>
   <string name="playPreferredMoveOrConfirmSomething">Joga o movimento preferido ou confirma algo</string>
   <string name="sleep">Suspender (se houver palavra ativada)</string>
-  <string name="turnOffVoiceRecognition">Desativar reconhecimento de voz</string>
   <string name="showPuzzleSolution">Mostrar solução do problema</string>
 </resources>
