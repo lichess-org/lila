@@ -46,13 +46,6 @@ final class AtomUi(routeUrl: RouteUrl):
     dataIcon := Icon.RssFeed
   )
 
-  def headLink(url: Call, title: String) = link(
-    href := url,
-    st.title := title,
-    tpe := "application/atom+xml",
-    rel := "alternate"
-  )
-
   private val termAttr = attr("term")
   private val labelAttr = attr("label")
   private val schemeAttr = attr("scheme")
