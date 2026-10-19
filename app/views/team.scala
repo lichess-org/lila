@@ -74,13 +74,10 @@ def updateEventLinks(
 
 def events(myTeams: Set[TeamId], all: List[TeamInfo.AnyTour])(using Context) =
   bits.events:
-    div(cls := "team-events team-tournaments team-tournaments--both")(
-      div(cls := "team-tournaments__next")(
-        table(cls := "slist slist-pad slist-invert")(
+    div(cls := "team-events team-tournaments team-tournaments--both"):
+      div(cls := "team-tournaments__next"):
+        table(cls := "slist slist-pad slist-invert"):
           tournaments.renderList(myTeams.some)(all)
-        )
-      )
-    )
 
 // both arena and swiss
 object tournaments:
@@ -102,15 +99,13 @@ object tournaments:
             div(cls := "team-events team-tournaments team-tournaments--both")(
               div(cls := "team-tournaments__next")(
                 h2(trans.team.upcomingTournaments()),
-                table(cls := "slist slist-pad slist-invert")(
+                table(cls := "slist slist-pad slist-invert"):
                   renderList(none)(tours.next)
-                )
               ),
               div(cls := "team-tournaments__past")(
                 h2(trans.team.completedTourns()),
-                table(cls := "slist slist-pad")(
+                table(cls := "slist slist-pad"):
                   renderList(none)(tours.past)
-                )
               )
             )
           )
