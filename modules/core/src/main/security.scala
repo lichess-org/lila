@@ -11,6 +11,7 @@ import lila.core.userId.{ UserId, UserName, MyId }
 
 case class GarbageCollect(userId: UserId)
 case class CloseAccount(userId: UserId)
+case class RevokeAllCredentials(userId: UserId)
 case class DeletePublicChats(userId: UserId)
 
 trait LilaCookie:

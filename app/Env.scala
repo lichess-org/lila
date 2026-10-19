@@ -131,6 +131,18 @@ final class Env(
     case lila.puzzle.DailyPuzzle.Render(puzzle, fen, lastMove, promise) =>
       promise.success(Html(views.puzzle.bits.daily(puzzle, fen, lastMove)))
 
+  lila.common.Bus.subscribeFuns(
+    "identityStatus" -> {
+      case lila.core.security.RevokeAllCredentials(userId) =>
+        security.store.closeAllSessionsOf(userId) >>
+          security.api.appeal.closeAllOf(userId) >>
+          user.repo.byId(userId).flatMapz: u =>
+            oAuth.tokenApi.revokeAllByUser(u) >>
+              push.webSubscriptionApi.unsubscribeByUser(u) >>
+              push.unregisterDevices(u)
+    }
+  )
+
 end Env
 
 given ConfigLoader[NetConfig] = ConfigLoader(config =>

@@ -247,6 +247,12 @@ final class SecurityApi(
       store.invalidate(sessionId)
       funit
 
+    def closeAllOf(userId: UserId): Funit =
+      store.asMap().foreach:
+        case (sessionId, storedUserId) if storedUserId == userId => store.invalidate(sessionId)
+        case _                                                    => ()
+      funit
+
 object SecurityApi:
 
   case class MustConfirmEmail(userId: UserId) extends Exception
