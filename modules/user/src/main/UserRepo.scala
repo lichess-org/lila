@@ -266,6 +266,29 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
       coll.insert.one(doc) >> byId(id)
     }
 
+  /** Create an account without local credentials, for external (SSO) identities.
+    * Idempotent: a duplicate `_id` re-reads the existing user.
+    */
+  def createExternal(
+      id: UserId,
+      username: String,
+      email: Option[EmailAddress],
+      lang: Option[String] = None
+  ): Fu[Option[User]] =
+    def insert(withEmail: Option[EmailAddress]) =
+      coll
+        .insert
+        .one(newUserExternal(id, username, withEmail, lang) ++ ("len" -> BSONInteger(username.length)))
+        .recover(lila.db.ignoreDuplicateKey)
+    insert(email).flatMap { _ =>
+      byId(id).flatMap {
+        case some @ Some(_) => fuccess(some)
+        case None if email.isDefined =>
+          insert(None).flatMap(_ => byId(id))
+        case None => fuccess(None)
+      }
+    }
+
   def exists[U: UserIdOf](u: U): Fu[Boolean] = coll.exists($id(u.id))
 
   def filterExists(ids: Set[UserId]): Fu[List[UserId]] =
@@ -636,3 +659,25 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
     } ++ {
       blind.so($doc(F.blind -> true))
     }
+
+  private def newUserExternal(
+      id: UserId,
+      username: String,
+      email: Option[EmailAddress],
+      lang: Option[String]
+  ) =
+    val now = nowInstant
+    val base = $doc(
+      F.id        -> id,
+      F.username  -> username,
+      F.count     -> defaultCount,
+      F.enabled   -> true,
+      F.createdAt -> now,
+      F.seenAt    -> now,
+      F.playTime  -> PlayTime(0, 0),
+      F.lang      -> lang
+    )
+    email.fold(base): raw =>
+      val normalized = raw.normalize
+      base ++ $doc(F.email -> normalized) ++
+        (raw.value != normalized.value).so($doc(F.verbatimEmail -> raw))

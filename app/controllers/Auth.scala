@@ -10,7 +10,7 @@ import lila.core.email.{ UserIdOrEmail, UserStrOrEmail }
 import lila.core.net.IpAddress
 import lila.core.security.ClearPassword
 import lila.memo.RateLimit
-import lila.oidc.LoginRefusal
+import lila.oidc.{ LoginError, LoginOutcome }
 import lila.security.SecurityForm.{ MagicLink, PasswordReset }
 import lila.security.{ FingerPrint, Signup }
 import lila.security.EmailConfirm
@@ -117,40 +117,38 @@ final class Auth(
 
   private def oidcCallback(using ctx: Context) = NoBot:
     env.oidc.api.authenticate(ctx.req).flatMap {
-      case None => fuccess(Redirect(routes.Auth.login).flashFailure)
-      case Some(user) =>
-        oidcRefusal(user).flatMap {
-          case None => authenticateUser(user, remember = true)
-          case Some(LoginRefusal.Closed) =>
-            env.mod.logApi.closedByMod(user).flatMap { closedByMod =>
-              if closedByMod then oidcRefusalPage(LoginRefusal.Closed)
-              else
-                env.mod.logApi.closedByTeacher(user).flatMap { closedByTeacher =>
-                  if closedByTeacher then oidcRefusalPage(LoginRefusal.Closed)
-                  else authenticateAppealUser(user, url => Redirect(url), routes.Account.reopen.url)
-                }
+      case LoginOutcome.Success(user) => authenticateUser(user, remember = true)
+      case LoginOutcome.Refused(LoginError.Closed, Some(user)) =>
+        env.mod.logApi.closedByMod(user).flatMap { closedByMod =>
+          if closedByMod then oidcRefusalPage(LoginError.Closed)
+          else
+            env.mod.logApi.closedByTeacher(user).flatMap { closedByTeacher =>
+              if closedByTeacher then oidcRefusalPage(LoginError.Closed)
+              else authenticateAppealUser(user, url => Redirect(url), routes.Account.reopen.url)
             }
-          case Some(refusal) => oidcRefusalPage(refusal)
         }
+      case LoginOutcome.Refused(
+            error @ (LoginError.Banned | LoginError.Deleted | LoginError.ClosedForever | LoginError.Closed),
+            _
+          ) =>
+        oidcRefusalPage(error)
+      case LoginOutcome.Refused(_, _) =>
+        fuccess(Redirect(routes.Auth.login).flashFailure)
     }
 
-  private def oidcRefusal(user: UserModel)(using Context): Fu[Option[LoginRefusal]] =
-    if user.enabled.yes then fuccess(None)
-    else
-      for
-        deleted       <- env.user.repo.isDeleted(user)
-        foreverClosed <- env.user.repo.isForeverClosed(user)
-      yield LoginRefusal.of(enabled = false, foreverClosed = foreverClosed, deleted = deleted)
-
-  private def oidcRefusalPage(refusal: LoginRefusal)(using Context) =
+  private def oidcRefusalPage(refusal: LoginError)(using Context) =
     import scalatags.Text.all.stringFrag
     refusal match
-      case LoginRefusal.Deleted =>
+      case LoginError.Deleted =>
         Forbidden.page(views.site.message("Account unavailable")(stringFrag("This account is no longer available.")))
-      case LoginRefusal.ClosedForever =>
+      case LoginError.ClosedForever =>
         Forbidden.page(views.site.message("Account closed")(stringFrag("This account has been permanently closed.")))
-      case LoginRefusal.Closed =>
+      case LoginError.Banned =>
         Forbidden.page(views.site.message("Account closed")(stringFrag("This account is closed.")))
+      case LoginError.Closed =>
+        Forbidden.page(views.site.message("Account closed")(stringFrag("This account is closed.")))
+      case _ =>
+        Forbidden.page(views.site.message("Authentication error")(stringFrag("Please try again.")))
 
   private val is2fa = Set("MissingTotpToken", "InvalidTotpToken")
 
