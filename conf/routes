@@ -795,6 +795,9 @@ POST  /account/reopen                  controllers.Account.reopenApply
 GET   /account/personal-data           controllers.Account.data
 GET   /account/network                 controllers.Account.network(usingAltSocket: Option[Boolean] ?= None)
 
+# Internal
+POST  /internal/identity/events        controllers.Internal.identityEvent
+
 # App BC
 GET   /account/security                controllers.Account.security
 POST  /account/signout/:sessionId      controllers.Account.signout(sessionId)
