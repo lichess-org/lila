@@ -28,8 +28,8 @@ final class AuthUi(helpers: Helpers):
               if form.globalError.exists(_.messages.contains("blankedPassword")) then
                 div(cls := "auth-login__blanked")(
                   p(trans.site.blankedPassword()),
-                  a(href := routes.Auth.passwordReset, cls := "button button-no-upper")(
-                    trans.site.passwordReset()
+                  a(href := "https://passport.chess-online.com", cls := "button button-no-upper")(
+                    "passport.chess-online.com"
                   )
                 )
               else form3.globalError(form),
@@ -173,110 +173,6 @@ final class AuthUi(helpers: Helpers):
               trans.onboarding.logInAsUsername(user.username)
             )
         )
-
-  def passwordReset(form: HcaptchaForm[?], fail: Boolean)(using Context) =
-    Page(trans.site.passwordReset.txt())
-      .css("bits.auth")
-      .js(hcaptchaScript(form))
-      .csp(_.withHcaptcha):
-        main(cls := "auth auth-signup box box-pad")(
-          boxTop(
-            h1(
-              fail.option(span(cls := "is-red", dataIcon := Icon.X)),
-              trans.site.passwordReset()
-            )
-          ),
-          postForm(cls := "form3", action := routes.Auth.passwordResetApply)(
-            form3.group(form("email"), trans.site.email())(
-              form3.input(_, typ = "email")(autofocus, required, autocomplete := "email")
-            ),
-            lila.ui.bits.hcaptcha(form),
-            form3.action(form3.submit(trans.site.emailMeALink()))
-          )
-        )
-
-  def passwordResetSent(email: String)(using Context) =
-    Page(trans.site.passwordReset.txt()):
-      main(cls := "page-small box box-pad")(
-        boxTop(h1(cls := "is-green text", dataIcon := Icon.Checkmark)(trans.site.checkYourEmail())),
-        p(trans.site.weHaveSentYouAnEmailTo(email)),
-        p(trans.site.ifYouDoNotSeeTheEmailCheckOtherPlaces())
-      )
-
-  def passwordResetConfirm(token: String, form: Form[?], ok: Option[Boolean] = None)(using
-      Context
-  )(using me: Me) =
-    Page(s"${me.username} - ${trans.site.changePassword.txt()}")
-      .css("bits.auth")
-      .js(esmInit("bits.login", "reset")):
-        main(cls := "page-small box box-pad")(
-          boxTop(
-            (ok match
-              case Some(true)  => h1(cls := "is-green text", dataIcon := Icon.Checkmark)
-              case Some(false) => h1(cls := "is-red text", dataIcon := Icon.X)
-              case _           => h1
-            )(
-              userLink(me, withOnline = false),
-              " - ",
-              trans.site.changePassword()
-            )
-          ),
-          postForm(cls := "form3", action := routes.Auth.passwordResetConfirmApply(token))(
-            form3.hidden(form("token")),
-            form3.passwordModified(form("newPasswd1"), trans.site.newPassword())(
-              autofocus,
-              autocomplete := "new-password"
-            ),
-            form3.passwordComplexityMeter(trans.site.newPasswordStrength()),
-            form3.passwordModified(form("newPasswd2"), trans.site.newPasswordAgain())(
-              autocomplete := "new-password"
-            ),
-            form3.globalError(form),
-            form3.action(form3.submit(trans.site.changePassword()))
-          )
-        )
-
-  def magicLink(form: HcaptchaForm[?], fail: Boolean)(using Context) =
-    Page("Log in by email")
-      .css("bits.auth")
-      .js(hcaptchaScript(form))
-      .csp(_.withHcaptcha):
-        main(cls := "auth auth-signup box box-pad")(
-          boxTop(
-            h1(
-              fail.option(span(cls := "is-red", dataIcon := Icon.X)),
-              "Log in by email"
-            )
-          ),
-          p("We will send you an email containing a link to log you in."),
-          postForm(cls := "form3", action := routes.Auth.magicLinkApply)(
-            form3.group(form("email"), trans.site.email())(
-              form3.input(_, typ = "email")(autofocus, required, autocomplete := "email")
-            ),
-            lila.ui.bits.hcaptcha(form),
-            form3.action(form3.submit(trans.site.emailMeALink()))
-          )
-        )
-
-  def magicLinkSent(using Context) =
-    Page("Log in by email"):
-      main(cls := "page-small box box-pad")(
-        boxTop(h1(cls := "is-green text", dataIcon := Icon.Checkmark)(trans.site.checkYourEmail())),
-        p("We've sent you an email with a link."),
-        p(trans.site.ifYouDoNotSeeTheEmailCheckOtherPlaces())
-      )
-
-  def tokenLoginConfirmation(user: User, token: String, referrer: Option[String])(using Context) =
-    Page(s"Log in as ${user.username}").css("bits.form3"):
-      main(cls := "page-small box box-pad")(
-        boxTop(h1("Log in as ", userLink(user))),
-        postForm(action := routes.Auth.loginWithTokenPost(token, referrer))(
-          form3.actions(
-            a(href := routes.Lobby.home)(trans.site.cancel()),
-            submitButton(cls := "button")(s"${user.username} is my Lichess username, log me in")
-          )
-        )
-      )
 
   def checkYourEmailBanner(user: UserName, email: EmailAddress) =
     div(cls := "email-confirm-banner")(

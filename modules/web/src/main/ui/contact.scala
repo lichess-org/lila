@@ -72,7 +72,7 @@ object contact:
               "forgot-password",
               forgotPassword(),
               p(
-                a(href := routes.Auth.passwordReset)(visitThisPage()),
+                a(href := "https://passport.chess-online.com")("https://passport.chess-online.com"),
                 "."
               )
             ),
@@ -87,7 +87,7 @@ object contact:
             Leaf(
               "lost-2fa",
               lost2FA(),
-              p(a(href := routes.Auth.passwordReset)(doPasswordReset()), ".")
+              p(a(href := "https://passport.chess-online.com")("https://passport.chess-online.com"), ".")
             ),
             reopenLeaf("login")
           )

@@ -56,7 +56,7 @@ final class TwoFactorUi(helpers: Helpers, ui: AccountUi)(
             ),
             form3.globalError(form),
             div(cls := "form-group")(
-              trt.ifYouLoseAccessTwoFactor(a(href := routes.Auth.passwordReset)(trans.site.passwordReset()))
+              trt.ifYouLoseAccessTwoFactor(a(href := "https://passport.chess-online.com")("passport.chess-online.com"))
             ),
             form3.action(form3.submit(trt.enableTwoFactor()))
           )
@@ -74,7 +74,7 @@ final class TwoFactorUi(helpers: Helpers, ui: AccountUi)(
         standardFlash,
         postForm(cls := "form3", action := routes.Account.disableTwoFactor)(
           p(trt.twoFactorToDisable()),
-          trt.ifYouLoseAccessTwoFactor(a(href := routes.Auth.passwordReset)(trans.site.passwordReset())),
+          trt.ifYouLoseAccessTwoFactor(a(href := "https://passport.chess-online.com")("passport.chess-online.com")),
           form3.passwordModified(form("passwd"), trans.site.password())(autocomplete := "current-password"),
           form3.group(form("token"), trt.authenticationCode())(
             form3.input(_)(pattern := "[0-9]{6}", autocomplete := "one-time-code", required)
