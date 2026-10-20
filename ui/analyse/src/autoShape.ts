@@ -206,16 +206,11 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
     };
 
     if (ctrl.motifEnabled()) {
-      ctrl.motif.detectPins(board).forEach(p => addAnalysis(makeSquare(p.pinned), 'pin'));
-      ctrl.motif
-        .detectUndefended(board, epSquare)
-        .forEach(u => addAnalysis(makeSquare(u.square), 'undefended'));
-      ctrl.motif
-        .detectCheckable(board, epSquare, castlingRights)
-        .forEach(s => addAnalysis(makeSquare(s.king), 'checkable'));
-      ctrl.motif
-        .detectTrapped(board, castlingRights, epSquare)
-        .forEach(t => addAnalysis(makeSquare(t.square), 'trapped'));
+      const motifs = ctrl.motif.detect(ctrl.node.fen, board, epSquare, castlingRights);
+      motifs.pins.forEach(p => addAnalysis(makeSquare(p.pinned), 'pin'));
+      motifs.undefended.forEach(u => addAnalysis(makeSquare(u.square), 'undefended'));
+      motifs.checkable.forEach(s => addAnalysis(makeSquare(s.king), 'checkable'));
+      motifs.trapped.forEach(t => addAnalysis(makeSquare(t.square), 'trapped'));
     }
   }
 
