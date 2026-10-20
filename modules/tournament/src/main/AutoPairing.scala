@@ -1,13 +1,7 @@
 package lila.tournament
 
 import alleycats.Zero
-import chess.{
-  Black,
-  ByColor,
-  Color,
-  IntRating,
-  White
-}
+import chess.{ Black, ByColor, Color, IntRating, White }
 import monocle.syntax.all.*
 
 import lila.core.game.Source

@@ -8,10 +8,7 @@ import scalalib.model.Days
 import lila.challenge.ChallengeBulkSetup.{ ScheduledBulk, ScheduledGame, maxBulks }
 import lila.common.{ Bus, LilaStream }
 import lila.core.data.Template
-import lila.core.round.{
-  StartClock,
-  TellMany
-}
+import lila.core.round.{ StartClock, TellMany }
 import lila.db.dsl.{ *, given }
 import lila.rating.PerfType
 

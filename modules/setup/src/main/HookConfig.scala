@@ -1,11 +1,7 @@
 package lila.setup
 
 import chess.variant.Variant
-import chess.{
-  Clock,
-  IntRating,
-  Rated
-}
+import chess.{ Clock, IntRating, Rated }
 import scalalib.model.Days
 
 import lila.core.id.SessionId

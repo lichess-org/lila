@@ -1,14 +1,7 @@
 package lila.tree
 
 import chess.format.Fen
-import chess.format.pgn.{
-  ParsedMainline,
-  ParsedPgn,
-  Parser,
-  PgnStr,
-  SanWithMetas,
-  Tags
-}
+import chess.format.pgn.{ ParsedMainline, ParsedPgn, Parser, PgnStr, SanWithMetas, Tags }
 import chess.variant.*
 import chess.{ Game as ChessGame, * }
 

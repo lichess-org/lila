@@ -5,10 +5,7 @@ import reactivemongo.api.bson.*
 
 import lila.core.LightUser
 import lila.core.chat.TimeoutReason
-import lila.core.id.{
-  ForumCategId,
-  ForumTopicSlug
-}
+import lila.core.id.{ ForumCategId, ForumTopicSlug }
 import lila.core.irc.IrcApi
 import lila.core.perf.UserWithPerfs
 import lila.core.perm.Permission

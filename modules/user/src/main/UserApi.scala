@@ -1,10 +1,6 @@
 package lila.user
 
-import chess.{
-  ByColor,
-  IntRating,
-  PlayerTitle
-}
+import chess.{ ByColor, IntRating, PlayerTitle }
 import reactivemongo.api.bson.*
 import reactivemongo.pekkostream.cursorProducer
 

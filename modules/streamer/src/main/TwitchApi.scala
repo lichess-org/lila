@@ -12,10 +12,7 @@ import play.api.mvc.Headers
 import scala.collection.concurrent.TrieMap
 
 import lila.common.Json.given
-import lila.core.config.{
-  NetConfig,
-  Secret
-}
+import lila.core.config.{ NetConfig, Secret }
 
 private object Twitch:
 

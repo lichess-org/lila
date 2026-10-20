@@ -1,9 +1,6 @@
 package lila.relay
 
-import play.api.mvc.{
-  RequestHeader,
-  Result
-}
+import play.api.mvc.{ RequestHeader, Result }
 
 import lila.common.HTTPRequest
 import lila.core.security.LilaCookie

@@ -9,10 +9,7 @@ import lila.core.shutup.ShutupApi
 import lila.core.timeline.{ Propagate, UblogPostLike }
 import lila.core.ublog.BlogsBy
 import lila.core.user.KidMode
-import lila.core.{
-  LightUser,
-  timeline as tl
-}
+import lila.core.{ LightUser, timeline as tl }
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.buildAsyncTimeout
 import lila.memo.PicfitApi

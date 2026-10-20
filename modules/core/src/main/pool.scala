@@ -1,11 +1,7 @@
 package lila.core
 package pool
 
-import _root_.chess.{
-  ByColor,
-  Clock,
-  IntRating
-}
+import _root_.chess.{ ByColor, Clock, IntRating }
 import alleycats.Zero
 import scalalib.bus.NotBuseable
 

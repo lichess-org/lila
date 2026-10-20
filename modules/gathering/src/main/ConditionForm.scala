@@ -6,10 +6,7 @@ import play.api.data.Mapping
 import scalalib.model.Days
 
 import lila.common.Form.{ *, given }
-import lila.core.i18n.{
-  I18nKey as trans,
-  Translate
-}
+import lila.core.i18n.{ I18nKey as trans, Translate }
 import lila.core.team.LightTeam
 import lila.gathering.Condition.*
 

@@ -1,10 +1,6 @@
 package lila.tutor
 
-import chess.{
-  ByColor,
-  Color,
-  IntRating
-}
+import chess.{ ByColor, Color, IntRating }
 import monocle.syntax.all.*
 
 import lila.analyse.AccuracyPercent

@@ -12,10 +12,7 @@ import lila.core.i18n.Translate
 import lila.core.socket.SocketVersion
 import lila.memo.PicfitUrl
 import lila.relay.RelayTour.{ WithFirstRound, WithLastRound, WithRounds }
-import lila.study.{
-  ChapterPreview,
-  Settings
-}
+import lila.study.{ ChapterPreview, Settings }
 
 final class RelayJsonView(
     routeUrl: RouteUrl,

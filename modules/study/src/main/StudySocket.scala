@@ -13,13 +13,7 @@ import lila.core.socket.{ protocol as P, * }
 import lila.core.study.Visibility
 import lila.room.RoomSocket.{ Protocol as RP, * }
 import lila.tree.Branch
-import lila.tree.Node.{
-  Comment,
-  Gamebook,
-  Shape,
-  Shapes,
-  lichobileNodeJsonWriter
-}
+import lila.tree.Node.{ Comment, Gamebook, Shape, Shapes, lichobileNodeJsonWriter }
 
 final private class StudySocket(
     api: StudyApi,

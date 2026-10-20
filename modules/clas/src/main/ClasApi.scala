@@ -4,10 +4,7 @@ import cats.data.OptionT
 import reactivemongo.api.*
 import scalalib.data.LazyFu
 
-import lila.common.{
-  Bus,
-  Markdown
-}
+import lila.common.{ Bus, Markdown }
 import lila.core.id.{ ClasId, ClasInviteId, StudentId }
 import lila.core.perm.Granter
 import lila.core.user.RealName

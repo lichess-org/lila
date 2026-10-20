@@ -2,12 +2,7 @@ package lila.game
 
 import chess.format.pgn.Glyph
 import chess.format.{ Fen, Uci, UciDump }
-import chess.{
-  Centis,
-  Color,
-  Ply,
-  Position
-}
+import chess.{ Centis, Color, Ply, Position }
 import org.apache.pekko.stream.scaladsl.*
 import org.apache.pekko.util.ByteString
 import play.api.libs.json.*

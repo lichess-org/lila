@@ -9,10 +9,7 @@ import scala.collection.immutable.SeqMap
 
 import lila.core.fide.{ PlayerToken, Tokenize }
 import lila.relay.RelayGroup.ScoreGroup
-import lila.study.{
-  ChapterPreview,
-  StudyPlayer
-}
+import lila.study.{ ChapterPreview, StudyPlayer }
 
 type TeamName = String
 

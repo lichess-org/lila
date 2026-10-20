@@ -7,10 +7,7 @@ import scalalib.paginator.Paginator
 import lila.common.Bus
 import lila.core.notify.NotificationContent.*
 import lila.core.notify.{ NotificationPref as _, * }
-import lila.core.socket.{
-  SendToOnlineUser,
-  SendTos
-}
+import lila.core.socket.{ SendToOnlineUser, SendTos }
 import lila.db.dsl.{ *, given }
 import lila.db.paginator.Adapter
 import lila.memo.CacheApi.*

@@ -2,10 +2,7 @@ package lila.tournament
 
 import chess.format.Fen
 import chess.variant.Variant
-import chess.{
-  IntRating,
-  Rated
-}
+import chess.{ IntRating, Rated }
 import reactivemongo.api.bson.*
 
 import lila.core.id.TourPlayerId

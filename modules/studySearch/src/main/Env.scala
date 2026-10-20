@@ -6,12 +6,7 @@ import scalalib.paginator.*
 import lila.core.study.StudyOrder
 import lila.search.*
 import lila.search.client.SearchClient
-import lila.search.spec.{
-  Order as SpecOrder,
-  Query,
-  StudySortField,
-  StudySorting
-}
+import lila.search.spec.{ Order as SpecOrder, Query, StudySortField, StudySorting }
 import lila.study.Study
 import lila.study.ui.StudyFormat
 

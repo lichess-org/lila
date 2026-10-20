@@ -3,10 +3,7 @@ package lila.tournament
 import chess.format.Fen
 import chess.variant.Variant
 
-import lila.core.i18n.{
-  I18nKey,
-  Translate
-}
+import lila.core.i18n.{ I18nKey, Translate }
 import lila.rating.PerfType
 
 private object TournamentName:

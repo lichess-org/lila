@@ -6,10 +6,7 @@ import chess.variant.Variant
 import chess.{ ByColor, IntRating }
 
 import lila.core.perf.{ UserPerfs, UserWithPerfs }
-import lila.rating.PerfExt.{
-  addOrReset,
-  toGlickoPlayer
-}
+import lila.rating.PerfExt.{ addOrReset, toGlickoPlayer }
 import lila.rating.{ PerfType, RatingRegulator }
 import lila.user.{ RankingApi, UserApi }
 

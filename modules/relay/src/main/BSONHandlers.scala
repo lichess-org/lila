@@ -1,11 +1,7 @@
 package lila.relay
 
 import chess.FideTC
-import chess.tiebreak.{
-  CutModifier,
-  LimitModifier,
-  Tiebreak
-}
+import chess.tiebreak.{ CutModifier, LimitModifier, Tiebreak }
 import reactivemongo.api.bson.*
 
 import lila.db.BSON

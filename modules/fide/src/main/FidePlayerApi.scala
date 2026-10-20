@@ -5,11 +5,7 @@ import reactivemongo.api.bson.*
 
 import lila.core.fide.Federation
 import lila.db.dsl.{ *, given }
-import lila.memo.{
-  CacheApi,
-  PicfitApi,
-  PicfitImage
-}
+import lila.memo.{ CacheApi, PicfitApi, PicfitImage }
 
 final class FidePlayerApi(repo: FideRepo, cacheApi: CacheApi, picfitApi: PicfitApi)(using Executor):
 

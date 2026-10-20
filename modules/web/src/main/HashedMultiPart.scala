@@ -3,11 +3,7 @@ package lila.web
 import org.apache.pekko.stream.scaladsl.{ Sink, Source }
 import org.apache.pekko.util.ByteString
 import play.api.libs.streams.Accumulator
-import play.api.mvc.{
-  BodyParser,
-  MultipartFormData,
-  PlayBodyParsers
-}
+import play.api.mvc.{ BodyParser, MultipartFormData, PlayBodyParsers }
 import play.core.parsers.Multipart
 
 import java.security.MessageDigest

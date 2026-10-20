@@ -3,11 +3,7 @@ package challenge
 
 import _root_.chess.rating.RatingProvisional
 import _root_.chess.variant.Variant
-import _root_.chess.{
-  Color,
-  IntRating,
-  Rated
-}
+import _root_.chess.{ Color, IntRating, Rated }
 import scalalib.model.Days
 
 import lila.core.game.Game

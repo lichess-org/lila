@@ -3,10 +3,7 @@ package lila.playban
 import chess.{ Centis, Color, Status }
 import reactivemongo.api.bson.*
 import scalalib.cache.OnceEvery
-import scalalib.model.{
-  Days,
-  Seconds
-}
+import scalalib.model.{ Days, Seconds }
 
 import lila.common.{ Bus, Uptime }
 import lila.core.game.Source

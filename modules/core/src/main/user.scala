@@ -2,13 +2,7 @@ package lila.core
 
 import _root_.chess.rating.IntRatingDiff
 import _root_.chess.rating.glicko.Glicko
-import _root_.chess.{
-  ByColor,
-  Color,
-  FideId,
-  IntRating,
-  PlayerTitle
-}
+import _root_.chess.{ ByColor, Color, FideId, IntRating, PlayerTitle }
 import alleycats.Zero
 import play.api.i18n.Lang
 import play.api.libs.json.JsObject

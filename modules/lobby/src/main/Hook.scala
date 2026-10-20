@@ -1,12 +1,7 @@
 package lila.lobby
 
 import chess.variant.Variant
-import chess.{
-  Clock,
-  IntRating,
-  Rated,
-  Speed
-}
+import chess.{ Clock, IntRating, Rated, Speed }
 import play.api.libs.json.*
 import scalalib.ThreadLocalRandom
 

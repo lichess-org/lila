@@ -7,10 +7,7 @@ import play.api.libs.ws.*
 import scala.util.matching.Regex
 
 import lila.memo.SettingStore.Formable.given
-import lila.memo.{
-  HttpProxy,
-  SettingStore
-}
+import lila.memo.{ HttpProxy, SettingStore }
 
 private opaque type CanProxy = Boolean
 private object CanProxy extends YesNo[CanProxy]

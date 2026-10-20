@@ -8,11 +8,7 @@ import lila.core.config.BaseUrl
 import lila.core.id.TitleRequestId
 import lila.core.msg.SystemMsg
 import lila.core.perm.Granter
-import lila.core.user.{
-  PublicTitle,
-  RealName,
-  UserApi
-}
+import lila.core.user.{ PublicTitle, RealName, UserApi }
 import lila.db.dsl.{ *, given }
 import lila.memo.{ CacheApi, PicfitApi }
 
