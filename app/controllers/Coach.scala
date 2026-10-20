@@ -33,7 +33,7 @@ final class Coach(env: Env) extends LilaController(env):
         res <- negotiate(
           html =
             renderPage(views.coach.ui.index(pager, lang, order, langCodes, countries, country)).map(Ok(_)),
-          json = fuccess(JsonOk(env.api.mobile.coaches(pager, lang, order, country, langCodes, countries)))
+          json = JsonOk(env.coach.jsonView.pager(pager, lang, order, country, langCodes, countries))
         )
       yield res
 
@@ -50,7 +50,9 @@ final class Coach(env: Env) extends LilaController(env):
               posts <- env.ublog.api.latestPosts(lila.ublog.UblogBlog.Id.User(c.user.id), 4)
               page <- renderPage(views.coach.show(c, studies, posts))
             yield Ok(page),
-          json = fuccess(JsonOk(env.api.mobile.coach(c)))
+          json =
+            import env.coach.jsonView.given
+            JsonOk(c)
         )
 
   private def WithVisibleCoach(c: CoachModel.WithUser)(f: Fu[Result])(using ctx: Context) =

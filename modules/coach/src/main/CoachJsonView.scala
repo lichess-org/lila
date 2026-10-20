@@ -1,53 +1,43 @@
 package lila.coach
 
 import play.api.libs.json.*
+import play.api.i18n.Lang
+import scalalib.paginator.Paginator
+import scalalib.Json.given
+import monocle.syntax.all.*
 
-import lila.common.Json.given
-import lila.core.data.RichText
+import lila.common.Json.{ writeAs, given }
+import lila.core.id.ImageId
+import lila.core.perf.UserWithPerfs
+import lila.core.user.{ FlagCode, FlagName }
 
 final class CoachJsonView(picfitUrl: lila.memo.PicfitUrl):
 
-  def list(c: Coach.WithUser): JsObject =
-    Json
-      .obj(
-        "user" -> c.user.light,
-        "rating" -> c.coach.user.rating,
-        "languages" -> c.coach.languages,
-        "nbReviews" -> c.coach.nbReviews,
-        "available" -> c.coach.available,
-        "listed" -> c.coach.listed
-      )
-      .add("headline", c.coach.profile.headline)
-      .add("hourlyRate", c.coach.profile.hourlyRate)
-      .add("picture", c.coach.picture.map(picfitUrl.thumbnail(_)(Coach.imageDimensions)))
+  private given Writes[ImageId] = writeAs: imageId =>
+    picfitUrl.thumbnail(imageId)(Coach.imageDimensions)
+  private given OWrites[CoachProfile] = Json.writes
+  private given OWrites[Coach.User] = Json.writes
+  private given OWrites[Coach] = Json.writes
+  private given Writes[UserWithPerfs] = writeAs(_.user.light)
 
-  def show(c: Coach.WithUser): JsObject =
-    list(c) ++ Json.toJsObject(ShownProfile.from(c.coach.profile))
+  given OWrites[Coach.WithUser] = Json.writes
 
-private given OWrites[ShownProfile] = Json.writes
+  private given OWrites[(FlagCode, FlagName)] = OWrites:
+    case (code, name) => Json.obj("code" -> code.value, "name" -> name)
 
-private case class ShownProfile(
-    youtubeVideos: List[Url],
-    studies: List[StudyId],
-    description: Option[RichText],
-    playingExperience: Option[RichText],
-    teachingExperience: Option[RichText],
-    otherExperience: Option[RichText],
-    skills: Option[RichText],
-    methodology: Option[RichText],
-    youtubeChannel: Option[String]
-)
-
-private object ShownProfile:
-  def from(p: CoachProfile): ShownProfile =
-    ShownProfile(
-      p.youtubeUrls,
-      p.studyIds,
-      p.description,
-      p.playingExperience,
-      p.teachingExperience,
-      p.otherExperience,
-      p.skills,
-      p.methodology,
-      p.youtubeChannel
+  def pager(
+      coaches: Paginator[lila.coach.Coach.WithUser],
+      lang: Option[Lang],
+      order: lila.coach.CoachPager.Order,
+      country: Option[lila.core.user.Flag],
+      langCodes: Set[String],
+      countries: lila.coach.CountrySelection
+  ): JsObject =
+    val shortened = coaches.map(_.focus(_.coach.profile).modify(_.shorten))
+    Json.toJsObject(shortened) ++ Json.obj(
+      "lang" -> lang.fold("all")(_.code),
+      "order" -> order.key,
+      "country" -> country.fold(lila.coach.allFlags.value)(_.code.value),
+      "languages" -> langCodes.toList,
+      "countries" -> countries.value
     )
