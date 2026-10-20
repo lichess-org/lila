@@ -75,17 +75,6 @@ final class Auth(
       }
     )
 
-  /** Deny local authentication flows when the app runs in SSO-only mode. */
-  private def localOpen(f: Context ?=> Fu[Result]): EssentialAction =
-    Open:
-      if env.ssoOnly then notFound
-      else f(using summon[Context])
-
-  private def localOpenBody(f: BodyContext[?] ?=> Fu[Result]): EssentialAction =
-    OpenBody:
-      if env.ssoOnly then notFound
-      else f(using summon[BodyContext[?]])
-
   private def authRecovery(using Context): PartialFunction[Throwable, Fu[Result]] =
     case lila.security.SecurityApi.MustConfirmEmail(_) =>
       BadRequest.page:

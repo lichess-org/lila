@@ -15,29 +15,6 @@ final class Account(
     apiC: => Api
 ) extends LilaController(env):
 
-  /** Deny local account-security flows when the app runs in SSO-only mode. */
-  private def localOpen(f: Context ?=> Fu[Result]): EssentialAction =
-    Open:
-      if env.ssoOnly then notFound
-      else f(using summon[Context])
-
-  private def localOpenBody(f: BodyContext[?] ?=> Fu[Result]): EssentialAction =
-    OpenBody:
-      if env.ssoOnly then notFound
-      else f(using summon[BodyContext[?]])
-
-  private def localAuth(f: Context ?=> Me ?=> Fu[Result]): EssentialAction =
-    Auth { ctx ?=> me ?=>
-      if env.ssoOnly then notFound(using ctx)
-      else f(using ctx)(using me)
-    }
-
-  private def localAuthBody(f: BodyContext[?] ?=> Me ?=> Fu[Result]): EssentialAction =
-    AuthBody { ctx ?=> me ?=>
-      if env.ssoOnly then notFound(using ctx)
-      else f(using ctx)(using me)
-    }
-
   def profile = Auth { _ ?=> me ?=>
     Ok.page:
       pages.profile(me, env.user.forms.profileOf(me))
