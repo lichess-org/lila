@@ -42,7 +42,9 @@ oidc {
 }
 
 auth {
-  ssoOnly = false   # см. порядок выката; включается последним
+  # Локальные password/signup/reset/magic-link/credential-роуты удалены из приложения.
+  # Флаг оставлен для совместимости: при true вход не требует локального email-confirm.
+  ssoOnly = true
 }
 
 identity {
@@ -89,14 +91,14 @@ TTL-индексы удаляют документы автоматически;
 
 1. Бэкап MongoDB (`user4`, `security`, `identity_status`, `identity_event`).
 2. Прогнать миграции из раздела 3.
-3. Выкатить приложение с `auth.ssoOnly = false`.
+3. Выкатить приложение.
 4. Проверить OIDC-вход (см. чек-лист).
-5. Включить `auth.ssoOnly = true` и перезапустить приложение.
-6. Настроить в IdP backchannel logout и webhook событий.
-7. Проверить бан/удаление/выход (см. чек-лист).
+5. Настроить в IdP backchannel logout и webhook событий.
+6. Проверить бан/удаление/выход (см. чек-лист).
 
-`auth.ssoOnly = true` закрывает локальные password/signup/reset/magic-link,
-2FA, смену email/username/password и удаление аккаунта: все отвечают `404`.
+Локальные password/signup/reset/magic-link, 2FA, смена email/username/password
+и удаление аккаунта удалены из `conf/routes`: эти URL отвечают `404` независимо
+от флага. `auth.ssoOnly` оставлен для совместимости и пропуска email-confirm.
 
 ## 5. Webhook событий идентичности
 
@@ -147,7 +149,7 @@ Backchannel logout:
 - [ ] Backchannel logout закрывает сессию и WS.
 - [ ] Событие `banned` закрывает сессии/OAuth/push/WS.
 - [ ] Событие `deleted` очищает username/email/profile.
-- [ ] `auth.ssoOnly=true`: `/login` (POST), `/password/reset`, `/account/passwd`, `/account/email`, `/account/twofactor` → `404`.
+- [ ] `/login` (POST), `/signup` (POST), `/password/reset`, `/account/passwd`, `/account/email`, `/account/twofactor` → `404` (маршруты удалены).
 
 Пример подписи для ручной проверки:
 
