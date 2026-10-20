@@ -8,7 +8,8 @@ import { log } from '@/permalog';
 import { xhrHeader } from '@/xhr';
 
 import type { CevalCtrl } from '../ctrl';
-import type { NodeEfficiencyVsFishnet } from '../types';
+import type { DirectEngineInfo, NodeEfficiencyVsFishnet } from '../types';
+import { DirectEngine, directEngineUrl } from './directEngine';
 import { ExternalEngine } from './externalEngine';
 import { SimpleEngine } from './simpleEngine';
 import { StockfishWebEngine } from './stockfishWebEngine';
@@ -37,7 +38,8 @@ import { ThreadedEngine } from './threadedEngine';
 
 export class Engines {
   localEngineMap: Map<string, { info: BrowserEngineInfo; make: (e: BrowserEngineInfo) => CevalEngine }>;
-  externalEngines: ExternalEngineInfo[];
+  relayedEngines: ExternalEngineInfo[];
+  private directEngine?: DirectEngineInfo;
   private activeEngine: EngineInfo | undefined = undefined;
   readonly retiredEnginesVsFishnet: Map<string, NodeEfficiencyVsFishnet> = new Map([
     // This map is a placeholder for search node efficiency of retired engines vs the latest fishnet
@@ -254,8 +256,37 @@ export class Engines {
         )
         .map(e => [e.info.id, { info: withDefaults(e.info), make: e.make }]),
     );
-    this.externalEngines =
+    this.relayedEngines =
       this.ctrl.opts.externalEngines?.map(e => ({ tech: 'EXTERNAL', preferred: true, ...e })) ?? [];
+    this.discoverDirect();
+  }
+
+  async discoverDirect(prompt = false): Promise<DirectEngineInfo | undefined> {
+    try {
+      if (navigator.permissions) {
+        const permission = await navigator.permissions
+          .query({ name: 'local-network-access' as PermissionName })
+          .catch(() => undefined);
+        if (permission?.state === 'denied' || (!prompt && permission?.state === 'prompt')) throw '';
+      }
+      const response = await fetch(`${directEngineUrl}/v1/info`, {
+        credentials: 'omit',
+        cache: 'no-store',
+        signal: AbortSignal.timeout(prompt ? 30000 : 2000),
+      });
+      if (!response.ok) return undefined;
+
+      const info = await response.json();
+      if (info.version !== 1 || !info.name) return undefined;
+
+      this.directEngine = { ...info, tech: 'DIRECT', endpoint: directEngineUrl };
+      if ((this.ctrl.opts.custom?.engine?.id ?? this.ctrl.storedEngine()) === info.id)
+        this.ctrl.selectEngine(info.id);
+      this.ctrl.opts.redraw();
+      return this.directEngine;
+    } catch {
+      return undefined;
+    }
   }
 
   getEngine(selector?: {
@@ -290,32 +321,44 @@ export class Engines {
     return this.activeEngine;
   }
 
-  external(): ExternalEngineInfo | undefined {
+  relayed(): ExternalEngineInfo | undefined {
     return this.activeEngine?.tech === 'EXTERNAL' ? this.activeEngine : undefined;
   }
 
+  native(): ExternalEngineInfo | DirectEngineInfo | undefined {
+    const engine = this.active();
+    return engine?.tech === 'EXTERNAL' || engine?.tech === 'DIRECT' ? engine : undefined;
+  }
+
   async deleteExternal(id: string): Promise<boolean> {
-    if (this.externalEngines.every(e => e.id !== id)) return false;
+    if (this.relayedEngines.every(e => e.id !== id)) return false;
     const r = await fetch(`/api/external-engine/${id}`, { method: 'DELETE', headers: xhrHeader });
     if (!r.ok) return false;
-    this.externalEngines = this.externalEngines.filter(e => e.id !== id);
+    this.relayedEngines = this.relayedEngines.filter(e => e.id !== id);
     this.active();
     return true;
   }
 
-  supporting(selector: {
+  supporting({
+    rules,
+    nonStandardMaterial,
+    withTech,
+  }: {
     rules?: Rules;
     nonStandardMaterial?: boolean;
-    filter?: 'browser' | 'external';
+    withTech?: (tech: EngineInfo['tech']) => boolean;
   }): EngineInfo[] {
     const engines: EngineInfo[] = [
-      ...(selector.filter !== 'browser' ? this.externalEngines : []),
-      ...(selector.filter !== 'external' ? [...this.localEngineMap.values()].map(e => e.info) : []),
-    ];
+      withTech?.('DIRECT') !== false && this.directEngine ? [this.directEngine] : [],
+      withTech?.('EXTERNAL') !== false ? this.relayedEngines : [],
+      Array.from(this.localEngineMap.values())
+        .map(e => e.info)
+        .filter(i => withTech?.(i.tech) !== false),
+    ].flat();
     return engines.filter(
       info =>
-        (!selector.nonStandardMaterial || info.supportsNonStandardMaterial === true) &&
-        (!selector.rules || (info.variants ?? ['chess']).includes(selector.rules)),
+        (!nonStandardMaterial || info.supportsNonStandardMaterial === true) &&
+        (!rules || (info.variants ?? ['chess']).includes(rules)),
     );
   }
 
@@ -323,14 +366,14 @@ export class Engines {
     const e = (this.activeEngine = this.getEngine(selector));
     if (!e) throw Error(`Engine not found ${selector?.id ?? selector?.rules}`);
 
-    return e.tech === 'EXTERNAL'
-      ? new ExternalEngine(e, this.statusCallback)
-      : this.localEngineMap.get(e.id)!.make(e);
+    if (e.tech === 'EXTERNAL') return new ExternalEngine(e, this.statusCallback);
+    if (e.tech === 'DIRECT') return new DirectEngine(e, this.statusCallback);
+    return this.localEngineMap.get(e.id)!.make(e);
   }
 
   nodeEfficiencyVsFishnet(id: string, rules: Rules = this.ctrl.rules): number | undefined {
     const local = this.localEngineMap.get(id)?.info.nodeEfficiencyVsFishnet;
-    const external = this.externalEngines.find(e => e.id === id)?.nodeEfficiencyVsFishnet;
+    const external = this.relayedEngines.find(e => e.id === id)?.nodeEfficiencyVsFishnet;
     const retired = this.retiredEnginesVsFishnet.get(id);
     if (rules === 'chess') return local?.chess ?? external?.chess ?? retired?.chess;
     return local?.variant ?? external?.variant ?? retired?.variant;
