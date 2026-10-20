@@ -33,7 +33,7 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
   val version = Anon:
     JsonOk(
       Json.obj(
-        "lila" ->
+        "server" ->
           env.web.lilaVersion.map(v =>
             Json.obj(
               "date" -> v.date,
