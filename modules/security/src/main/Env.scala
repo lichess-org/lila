@@ -97,21 +97,7 @@ final class Env(
       )
     else wire[EmailConfirmSkip]
 
-  lazy val passwordReset =
-    def mk = (s: Secret) => wire[PasswordReset]
-    mk(config.passwordResetSecret)
-
-  lazy val emailChange =
-    def mk = (s: Secret) => wire[EmailChange]
-    mk(config.emailChangeSecret)
-
-  lazy val loginToken =
-    def mk = (s: Secret) => wire[LoginToken]
-    mk(config.loginTokenSecret)
-
   lazy val disposableEmailAttempt = wire[DisposableEmailAttempt]
-
-  lazy val signup = wire[Signup]
 
   private lazy val dnsApi: DnsApi = wire[DnsApi]
 

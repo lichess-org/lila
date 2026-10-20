@@ -11,8 +11,7 @@ import lila.core.net.IpAddress
 import lila.core.security.ClearPassword
 import lila.memo.RateLimit
 import lila.oidc.{ LoginError, LoginOutcome }
-import lila.security.SecurityForm.{ MagicLink, PasswordReset }
-import lila.security.{ FingerPrint, Signup }
+import lila.security.FingerPrint
 import lila.security.EmailConfirm
 
 final class Auth(
