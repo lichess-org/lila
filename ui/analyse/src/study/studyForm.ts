@@ -304,7 +304,7 @@ export function view(ctrl: StudyForm): VNode {
           relayLinks,
           hl('div.form-actions', [
             deleteForms,
-            hl('button.button', { attrs: { type: 'submit' } }, isNew ? i18n.study.start : i18n.study.save),
+            hl('button.button', { attrs: { type: 'submit' } }, isNew ? i18n.study.start : i18n.site.save),
           ]),
         ],
       ),

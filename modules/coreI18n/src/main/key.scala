@@ -2906,7 +2906,6 @@ object I18nKey:
     val `noLetPeopleBrowseFreely`: I18nKey = "study:noLetPeopleBrowseFreely"
     val `pinnedStudyComment`: I18nKey = "study:pinnedStudyComment"
     val `start`: I18nKey = "study:start"
-    val `save`: I18nKey = "study:save"
     val `clearChat`: I18nKey = "study:clearChat"
     val `deleteTheStudyChatHistory`: I18nKey = "study:deleteTheStudyChatHistory"
     val `deleteStudy`: I18nKey = "study:deleteStudy"
