@@ -1,15 +1,15 @@
 package lila.security
 
 import play.api.i18n.Lang
-import play.api.mvc.{ RequestHeader, Session, Cookie }
+import play.api.mvc.{ Cookie, RequestHeader, Session }
 import scalatags.Text.all.*
 
 import lila.core.config.*
 import lila.core.i18n.I18nKey.emails as trans
-import lila.mailer.Mailer
-import lila.user.{ User, UserRepo }
 import lila.core.net.IpAddress
+import lila.mailer.Mailer
 import lila.memo.RateLimit
+import lila.user.{ User, UserRepo }
 
 final class PasswordReset(
     mailer: Mailer,

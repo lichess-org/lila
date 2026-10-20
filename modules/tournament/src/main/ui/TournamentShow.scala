@@ -1,15 +1,15 @@
 package lila.tournament
 package ui
 
-import play.api.libs.json.*
 import chess.Rated
+import play.api.libs.json.*
 
 import lila.common.Json.given
 import lila.common.String.html.markdownLinksOrRichText
 import lila.core.config.NetDomain
 import lila.core.team.LightTeam
-import lila.gathering.ui.GatheringUi
 import lila.gathering.Condition.WithVerdicts
+import lila.gathering.ui.GatheringUi
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
 

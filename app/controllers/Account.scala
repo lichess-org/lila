@@ -9,11 +9,11 @@ import views.account.pages
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
 import lila.core.id.SessionId
-import lila.security.SecurityForm.Reopen
+import lila.core.net.ValidReferrer
+import lila.core.security.ClearPassword
 import lila.core.user.KidMode
 import lila.security.IsPwned
-import lila.core.security.ClearPassword
-import lila.core.net.ValidReferrer
+import lila.security.SecurityForm.Reopen
 
 final class Account(
     env: Env,

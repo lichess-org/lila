@@ -1,7 +1,7 @@
 package lila.tournament
 
-import play.api.i18n.Lang
 import chess.ByColor
+import play.api.i18n.Lang
 
 import lila.core.chess.Rank
 import lila.core.id.GameFullId

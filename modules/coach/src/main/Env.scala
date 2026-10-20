@@ -1,6 +1,7 @@
 package lila.coach
 
 import com.softwaremill.macwire.*
+
 import lila.core.config.*
 
 @Module

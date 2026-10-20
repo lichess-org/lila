@@ -1,17 +1,17 @@
 package lila.streamer
 
+import cats.derived.*
 import play.api.i18n.Lang
 import play.api.libs.json.*
-import cats.derived.*
 import reactivemongo.api.bson.*
 import reactivemongo.api.bson.Macros.Annotations.Key
 import scalalib.model.Language
 
-import lila.core.id.ImageId
 import lila.common.Json.given
 import lila.common.String.removeMultibyteSymbols
 import lila.core.config.NetDomain
 import lila.core.i18n.toLanguage
+import lila.core.id.ImageId
 import lila.db.dsl.given
 
 trait Stream:

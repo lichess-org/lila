@@ -1,7 +1,9 @@
 package lila.history
 
-import chess.Speed
-import chess.IntRating
+import chess.{
+  IntRating,
+  Speed
+}
 import reactivemongo.api.bson.*
 import scalalib.model.Days
 

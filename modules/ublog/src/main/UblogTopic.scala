@@ -1,8 +1,9 @@
 package lila.ublog
 
 import scalalib.ThreadLocalRandom.shuffle
-import lila.db.dsl.{ *, given }
+
 import lila.core.i18n.I18nKey
+import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
 import lila.memo.CacheApi.buildAsyncTimeout
 import lila.ublog.UblogPost.Quality

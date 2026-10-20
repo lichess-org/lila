@@ -1,5 +1,6 @@
 package lila.study
 
+import cats.mtl.Handle.*
 import chess.Centis
 import chess.format.UciPath
 import chess.format.pgn.Glyph
@@ -8,13 +9,17 @@ import scalalib.actor.SyncActorMap
 
 import lila.common.Bus
 import lila.common.Json.{ *, given }
-import lila.room.RoomSocket.{ Protocol as RP, * }
 import lila.core.socket.{ protocol as P, * }
-import lila.tree.Branch
-import lila.tree.Node.{ Comment, Gamebook, Shape, Shapes }
 import lila.core.study.Visibility
-import cats.mtl.Handle.*
-import lila.tree.Node.lichobileNodeJsonWriter
+import lila.room.RoomSocket.{ Protocol as RP, * }
+import lila.tree.Branch
+import lila.tree.Node.{
+  Comment,
+  Gamebook,
+  Shape,
+  Shapes,
+  lichobileNodeJsonWriter
+}
 
 final private class StudySocket(
     api: StudyApi,

@@ -1,8 +1,9 @@
 package lila.ublog
 
 import play.api.libs.json.*
-import lila.core.LightUser
+
 import lila.common.Json.given
+import lila.core.LightUser
 
 final class UblogJsonView(picfitUrl: lila.memo.PicfitUrl, lightUser: LightUser.GetterSync):
 

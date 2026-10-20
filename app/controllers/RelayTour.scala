@@ -1,13 +1,14 @@
 package controllers
 
-import scala.annotation.nowarn
 import play.api.mvc.*
 import scalalib.Json.given
 
+import scala.annotation.nowarn
+
 import lila.app.{ *, given }
-import lila.core.id.{ RelayTourId, RelayGroupId }
-import lila.relay.{ RelayJsonView, RelayCalendar, RelayTour as TourModel, RelayGroup, RelayPlayer }
+import lila.core.id.{ RelayGroupId, RelayTourId }
 import lila.relay.ui.FormNavigation
+import lila.relay.{ RelayCalendar, RelayGroup, RelayJsonView, RelayPlayer, RelayTour as TourModel }
 
 final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends LilaController(env):
 

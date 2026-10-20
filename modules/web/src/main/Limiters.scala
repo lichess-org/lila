@@ -1,16 +1,16 @@
 package lila.web
 
+import chess.format.pgn.PgnStr
 import play.api.mvc.RequestHeader
 import scalalib.net.Bearer
-import chess.format.pgn.PgnStr
 
-import lila.core.net.{ IpAddress, ASN }
-import lila.core.socket.Sri
-import lila.core.security.IsProxy
-import lila.memo.RateLimit
-import lila.common.{ HTTPRequest, ClientName }
-import lila.ui.Context
+import lila.common.{ ClientName, HTTPRequest }
+import lila.core.net.{ ASN, IpAddress }
 import lila.core.perm.Granter
+import lila.core.security.IsProxy
+import lila.core.socket.Sri
+import lila.memo.RateLimit
+import lila.ui.Context
 
 final class Limiters(using Executor, lila.core.config.RateLimit):
 

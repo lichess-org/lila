@@ -2,7 +2,7 @@ package lila.gathering
 package ui
 
 import lila.core.data.UserIds
-import lila.gathering.Condition.{ WithVerdict, WithVerdicts, Verdict }
+import lila.gathering.Condition.{ Verdict, WithVerdict, WithVerdicts }
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
 

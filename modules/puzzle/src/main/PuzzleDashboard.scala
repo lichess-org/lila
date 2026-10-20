@@ -1,11 +1,11 @@
 package lila.puzzle
 
+import chess.IntRating
 import reactivemongo.api.bson.BSONNull
+import scalalib.model.Days
 
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
-import scalalib.model.Days
-import chess.IntRating
 
 case class PuzzleDashboard(
     global: PuzzleDashboard.Results,

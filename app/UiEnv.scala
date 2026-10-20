@@ -1,8 +1,8 @@
 package lila.app
 
+import lila.common.ClientName
 import lila.ui.*
 import lila.web.ui.*
-import lila.common.ClientName
 
 object UiEnv
     extends ScalatagsTemplate

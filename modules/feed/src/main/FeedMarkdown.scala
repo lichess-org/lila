@@ -2,8 +2,8 @@ package lila.feed
 
 import com.github.blemale.scaffeine.LoadingCache
 
-import lila.core.data.{ Markdown, Html }
 import lila.core.config.NetDomain
+import lila.core.data.{ Html, Markdown }
 import lila.core.lilaism.Lilaism.*
 
 final class FeedMarkdown(using NetDomain, Executor):

@@ -1,10 +1,10 @@
 package lila.relay
 
+import play.api.libs.json.JsObject
 import scalalib.paginator.Paginator
 
-import lila.relay.RelayTour.WithLastRound
 import lila.core.i18n.Translate
-import play.api.libs.json.JsObject
+import lila.relay.RelayTour.WithLastRound
 
 case class RelayHome(ongoing: List[RelayCard], recent: List[WithLastRound], past: Paginator[WithLastRound])
 

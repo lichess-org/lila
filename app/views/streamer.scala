@@ -1,13 +1,13 @@
 package views.streamer
 
-import scalalib.paginator.Paginator
 import play.api.libs.json.*
+import scalalib.paginator.Paginator
 
 import lila.app.UiEnv.{ *, given }
+import lila.common.Json.given
 import lila.core.perf.{ UserPerfs, UserWithPerfs }
 import lila.rating.UserPerfsExt.best6Perfs
-import lila.streamer.{ Streamer, Platform }
-import lila.common.Json.given
+import lila.streamer.{ Platform, Streamer }
 
 lazy val bits = lila.streamer.ui.StreamerBits(helpers)(picfitUrl)
 private lazy val ui = lila.streamer.ui.StreamerUi(helpers, bits)

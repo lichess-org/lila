@@ -2,6 +2,7 @@ package lila
 package appeal
 
 import play.api.mvc.Call
+
 import lila.core.i18n.I18nKey
 import lila.core.i18n.I18nKey.appeal as trans
 

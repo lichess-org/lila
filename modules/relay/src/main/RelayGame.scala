@@ -4,10 +4,10 @@ import chess.Outcome
 import chess.format.UciPath
 import chess.format.pgn.{ Tag, TagType, Tags }
 
-import lila.study.{ MultiPgn, PgnDump, StudyPgnImport }
-import lila.tree.{ Root, Clock }
-import lila.tree.Node.Comments
 import lila.core.fide.PlayerToken
+import lila.study.{ MultiPgn, PgnDump, StudyPgnImport }
+import lila.tree.Node.Comments
+import lila.tree.{ Clock, Root }
 
 case class RelayGame(
     tags: Tags,

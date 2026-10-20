@@ -1,15 +1,16 @@
 package lila.relay
 
-import reactivemongo.api.bson.Macros.Annotations.Key
+import chess.tiebreak.Tiebreak
+import chess.{ FideTC, TournamentClock }
 import io.mola.galimatias.URL
+import reactivemongo.api.bson.Macros.Annotations.Key
+import scalalib.model.Language
+
 import java.time.ZoneId
 
-import scalalib.model.Language
-import lila.memo.{ Dimensions, PicfitUrl }
 import lila.core.id.ImageId
 import lila.core.study.Visibility
-import chess.{ FideTC, TournamentClock }
-import chess.tiebreak.Tiebreak
+import lila.memo.{ Dimensions, PicfitUrl }
 
 case class RelayTour(
     @Key("_id") id: RelayTourId,

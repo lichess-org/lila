@@ -1,14 +1,14 @@
 package lila.lobby
 
-import play.api.libs.json.*
-import scalalib.actor.SyncActor
-import scalalib.Maths.boxedNormalDistribution
 import chess.IntRating
+import play.api.libs.json.*
+import scalalib.Maths.boxedNormalDistribution
+import scalalib.actor.SyncActor
 
-import lila.common.Json.given
 import lila.common.Bus
+import lila.common.Json.given
 import lila.core.game.ChangeFeatured
-import lila.core.pool.{ PoolConfigId, PoolMember, PoolFrom }
+import lila.core.pool.{ PoolConfigId, PoolFrom, PoolMember }
 import lila.core.security.{ UserTrust, UserTrustApi }
 import lila.core.socket.{ protocol as P, * }
 import lila.core.timeline.*

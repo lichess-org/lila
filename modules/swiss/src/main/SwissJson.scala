@@ -6,11 +6,11 @@ import play.api.libs.json.*
 import lila.common.Json.given
 import lila.core.LightUser
 import lila.core.socket.SocketVersion
-import lila.mon.extensions.*
 import lila.db.dsl.{ *, given }
 import lila.gathering.Condition.WithVerdicts
-import lila.gathering.GreatPlayer
 import lila.gathering.GatheringJson.*
+import lila.gathering.GreatPlayer
+import lila.mon.extensions.*
 import lila.quote.Quote.given
 
 final class SwissJson(

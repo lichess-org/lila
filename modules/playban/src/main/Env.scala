@@ -1,6 +1,7 @@
 package lila.playban
 
 import com.softwaremill.macwire.*
+
 import lila.core.config.CollName
 
 @Module

@@ -5,10 +5,10 @@ import play.api.data.*
 import play.api.data.Forms.*
 import reactivemongo.api.bson.*
 
+import lila.core.config.NetDomain
+import lila.core.perm.Granter
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
-import lila.core.perm.Granter
-import lila.core.config.NetDomain
 
 case class OpeningWiki(
     markup: Option[Html],

@@ -1,8 +1,8 @@
 package lila.team
 
 import lila.common.Bus
-import lila.core.misc.clas.{ ClasTeamUpdate, ClasTeamConfig }
 import lila.core.id.ClasId
+import lila.core.misc.clas.{ ClasTeamConfig, ClasTeamUpdate }
 import lila.core.team.Access
 
 private final class TeamClasSync(

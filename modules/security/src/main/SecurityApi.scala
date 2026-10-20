@@ -10,12 +10,12 @@ import scalalib.SecureRandom
 
 import lila.common.Form.into
 import lila.common.HTTPRequest
-import lila.core.id.SessionId
-import lila.core.mod.{ LoginWithBlankedPassword, LoginWithWeakPassword }
 import lila.core.email.UserStrOrEmail
-import lila.core.perm.Permission
-import lila.core.net.{ ApiVersion, IpAddress }
+import lila.core.id.SessionId
 import lila.core.misc.oauth.AccessTokenId
+import lila.core.mod.{ LoginWithBlankedPassword, LoginWithWeakPassword }
+import lila.core.net.{ ApiVersion, IpAddress }
+import lila.core.perm.Permission
 import lila.core.security.{ ClearPassword, FingerHash, Ip2ProxyApi, IsProxy }
 import lila.db.dsl.{ *, given }
 import lila.oauth.{ OAuthScope, OAuthServer }

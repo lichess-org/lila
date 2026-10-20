@@ -2,9 +2,9 @@ package lila.notify
 
 import reactivemongo.api.bson.*
 
+import lila.core.notify.*
 import lila.db.BSON.{ Reader, Writer }
 import lila.db.dsl.{ *, given }
-import lila.core.notify.*
 
 private object BSONHandlers:
 

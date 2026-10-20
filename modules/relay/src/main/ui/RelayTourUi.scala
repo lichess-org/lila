@@ -1,14 +1,15 @@
 package lila.relay
 package ui
 
-import java.time.YearMonth
 import scalalib.paginator.Paginator
+import scalatags.Text.TypedTag
+
+import java.time.YearMonth
 
 import lila.core.LightUser
-import lila.relay.RelayTour.{ WithLastRound, WithFirstRound }
+import lila.relay.RelayTour.{ WithFirstRound, WithLastRound }
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
-import scalatags.Text.TypedTag
 
 final class RelayTourUi(helpers: Helpers, ui: RelayUi, card: RelayCardUi, pageMenu: RelayMenuUi):
   import helpers.{ *, given }

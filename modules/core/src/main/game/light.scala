@@ -1,9 +1,9 @@
 package lila.core
 package game
 
-import _root_.chess.{ Color, Status, IntRating }
-import _root_.chess.variant.Variant
 import _root_.chess.rating.{ IntRatingDiff, RatingProvisional }
+import _root_.chess.variant.Variant
+import _root_.chess.{ Color, IntRating, Status }
 
 import lila.core.id.GameId
 import lila.core.userId.UserId

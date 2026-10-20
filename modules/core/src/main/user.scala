@@ -1,24 +1,29 @@
 package lila.core
 
-import _root_.chess.{ Color, ByColor, PlayerTitle, IntRating }
 import _root_.chess.rating.IntRatingDiff
 import _root_.chess.rating.glicko.Glicko
-import _root_.chess.FideId
+import _root_.chess.{
+  ByColor,
+  Color,
+  FideId,
+  IntRating,
+  PlayerTitle
+}
+import alleycats.Zero
 import play.api.i18n.Lang
 import play.api.libs.json.JsObject
 import reactivemongo.api.bson.Macros.Annotations.Key
 import reactivemongo.api.bson.collection.BSONCollection
 import reactivemongo.api.bson.{ BSONDocument, BSONDocumentHandler, BSONDocumentReader }
 import scalalib.model.{ Days, LangTag }
-import alleycats.Zero
 
+import lila.core.data.Url
 import lila.core.email.*
 import lila.core.id.Flair
 import lila.core.perf.{ KeyedPerf, Perf, PerfKey, UserPerfs, UserWithPerfs }
-import lila.core.userId.*
-import lila.core.plan.{ PatronMonths, PatronTier, PatronColorChoice }
+import lila.core.plan.{ PatronColorChoice, PatronMonths, PatronTier }
 import lila.core.rating.UserRankMap
-import lila.core.data.Url
+import lila.core.userId.*
 
 object user:
 

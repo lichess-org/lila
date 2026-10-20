@@ -1,13 +1,13 @@
 package lila.memo
 
 import play.api.mvc.RequestHeader
-import se.thanh.pds.bloomfilter.BloomFilter
 import scalalib.net.UserAgent
+import se.thanh.pds.bloomfilter.BloomFilter
 
-import lila.core.userId.UserId
-import lila.core.config.CollName
-import lila.db.dsl.*
 import lila.common.HTTPRequest
+import lila.core.config.CollName
+import lila.core.userId.UserId
+import lila.db.dsl.*
 
 /* Counts approximate unique viewers of a given resource.
  * Uses a bloom filter on (IP, UserAgent, UserId) to prevent duplicate counts.

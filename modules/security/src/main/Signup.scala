@@ -12,8 +12,8 @@ import lila.core.email.UserIdOrEmail
 import lila.core.net.{ ApiVersion, IpAddress, ValidReferrer }
 import lila.core.security.IsProxy
 import lila.memo.{ RateLimit, SettingStore }
-import lila.security.SecurityForm.SignupData
 import lila.oauth.Protocol.ClientId
+import lila.security.SecurityForm.SignupData
 
 final class Signup(
     store: SessionStore,

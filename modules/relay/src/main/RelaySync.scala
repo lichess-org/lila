@@ -3,11 +3,10 @@ package lila.relay
 import chess.format.UciPath
 import chess.format.pgn.{ Tag, Tags }
 
+import lila.common.Bus
 import lila.core.socket.Sri
 import lila.study.*
 import lila.tree.{ Branch, Node }
-import lila.study.AddNode
-import lila.common.Bus
 
 final private class RelaySync(
     studyApi: StudyApi,

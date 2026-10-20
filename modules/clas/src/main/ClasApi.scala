@@ -1,16 +1,18 @@
 package lila.clas
 
+import cats.data.OptionT
 import reactivemongo.api.*
 import scalalib.data.LazyFu
 
-import lila.common.Markdown
+import lila.common.{
+  Bus,
+  Markdown
+}
 import lila.core.id.{ ClasId, ClasInviteId, StudentId }
+import lila.core.perm.Granter
+import lila.core.user.RealName
 import lila.db.dsl.{ *, given }
 import lila.rating.{ Perf, PerfType, UserPerfs }
-import lila.core.user.RealName
-import lila.common.Bus
-import lila.core.perm.Granter
-import cats.data.OptionT
 
 final class ClasApi(
     colls: ClasColls,

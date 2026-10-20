@@ -4,7 +4,7 @@ import play.api.i18n.Lang
 import play.api.mvc.RequestHeader
 import scalalib.model.Language
 
-import lila.core.i18n.{ toLanguage, Translate, defaultLanguage }
+import lila.core.i18n.{ Translate, defaultLanguage, toLanguage }
 import lila.core.net.IpAddress
 import lila.core.notify.UnreadCount
 import lila.core.pref.Pref

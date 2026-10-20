@@ -3,11 +3,11 @@ package ui
 
 import play.api.i18n.Lang
 
+import lila.common.ClientName
 import lila.core.i18n.Translate
 import lila.rating.PerfType
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
-import lila.common.ClientName
 
 final class TournamentUi(helpers: Helpers)(getTourName: GetTourName):
   import helpers.{ *, given }

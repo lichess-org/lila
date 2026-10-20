@@ -1,8 +1,8 @@
 package lila.tree
 
 import chess.Ply
-import chess.format.pgn.{ Comment, SanStr }
 import chess.eval.WinPercent
+import chess.format.pgn.{ Comment, SanStr }
 
 // ply AFTER the move was played
 case class Info(ply: Ply, eval: Eval, variation: List[SanStr]):

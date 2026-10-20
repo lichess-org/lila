@@ -1,13 +1,13 @@
 package views.ublog
 
-import scalalib.paginator.Paginator
 import scalalib.model.Language
+import scalalib.paginator.Paginator
 
 import lila.app.UiEnv.{ *, given }
-import lila.i18n.LangList
-import lila.ublog.UblogPost
 import lila.core.i18n.toLanguage
 import lila.core.ublog.QualityFilter
+import lila.i18n.LangList
+import lila.ublog.UblogPost
 
 lazy val ui = lila.ublog.ui.UblogUi(helpers, views.atomUi, views.mod.ui.menu("carousel"))(picfitUrl)
 

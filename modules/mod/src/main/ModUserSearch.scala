@@ -4,8 +4,8 @@ import play.api.data.*
 import play.api.data.Forms.*
 import play.api.libs.json.*
 
-import lila.user.{ UserApi, UserRepo, WithPerfsAndEmails, JsonView }
 import lila.core.user.Emails
+import lila.user.{ JsonView, UserApi, UserRepo, WithPerfsAndEmails }
 
 case class ModUserSearchResult(
     users: List[WithPerfsAndEmails],

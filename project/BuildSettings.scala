@@ -58,6 +58,7 @@ object BuildSettings:
     "-language:implicitConversions",
     "-release:21",
     "-Wimplausible-patterns",
+    "-Wunused:imports",
     "-Wunused:all"
     // "-Yprofile-enabled",
     // "-Yprofile-trace:compiler.trace"

@@ -1,14 +1,15 @@
 package lila.ui
 
-import scala.annotation.targetName
-import chess.{ PlayerTitle, IntRating }
 import chess.rating.{ IntRatingDiff, RatingProvisional }
+import chess.{ IntRating, PlayerTitle }
+
+import scala.annotation.targetName
 
 import lila.core.LightUser
 import lila.core.perf.{ KeyedPerf, UserPerfs, UserWithPerfs }
+import lila.core.plan.PatronTier
 import lila.core.socket.IsOnline
 import lila.ui.ScalatagsTemplate.{ *, given }
-import lila.core.plan.PatronTier
 
 trait UserHelper:
   self: I18nHelper & NumberHelper & AssetHelper =>
