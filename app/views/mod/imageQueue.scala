@@ -4,8 +4,8 @@ import scalalib.paginator.Paginator
 
 import lila.app.UiEnv.{ *, given }
 import lila.memo.PicfitImage
-import lila.report.ui.PendingCounts
 import lila.report.Room.Scores
+import lila.report.ui.PendingCounts
 
 lazy val imageQueueUi = lila.mod.ui.ImageQueueUi(helpers, picfitUrl)
 

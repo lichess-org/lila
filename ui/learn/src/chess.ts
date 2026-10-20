@@ -97,10 +97,8 @@ export default function (fen: string, appleKeys: SquareName[]): ChessCtrl {
   const history: string[] = [];
 
   const moves = (pos: LearnVariant): NormalMove[] =>
-    Array.from(dests(pos)).reduce<NormalMove[]>(
-      (prev, [orig, dests]) =>
-        prev.concat(dests.map((dest): NormalMove => ({ from: parseSquare(orig), to: parseSquare(dest) }))),
-      [],
+    Array.from(dests(pos)).flatMap(([orig, dests]) =>
+      dests.map((dest): NormalMove => ({ from: parseSquare(orig), to: parseSquare(dest) })),
     );
 
   const findCaptures = (pos: LearnVariant): NormalMove[] => moves(pos).filter(move => pos.board.get(move.to));

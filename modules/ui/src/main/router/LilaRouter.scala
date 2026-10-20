@@ -5,9 +5,9 @@ import play.api.mvc.{ PathBindable, QueryStringBindable }
 import scalalib.newtypes.SameRuntime
 
 import lila.core.id.*
+import lila.core.misc.AppealTopic
 import lila.core.study.StudyOrder as StudyOrder
 import lila.core.ublog.{ BlogsBy, QualityFilter as BlogQualityFilter }
-import lila.core.misc.AppealTopic
 import lila.ui.MarkdownRealm
 
 object LilaRouter:

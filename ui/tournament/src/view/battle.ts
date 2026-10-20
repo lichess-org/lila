@@ -54,7 +54,7 @@ export function joinWithTeamSelector(ctrl: TournamentController) {
   });
 }
 
-const renderTeamArray = (team: LightTeam | undefined) => team && [team[0], userFlair({ flair: team[1] })];
+const renderTeamArray = (team: LightTeam) => [team[0], userFlair({ flair: team[1] })];
 
 export function teamStanding(ctrl: TournamentController, klass?: string): VNode | null {
   const battle = ctrl.data.teamBattle;

@@ -4,13 +4,13 @@ import reactivemongo.api.bson.*
 import scalalib.paginator.Paginator
 
 import lila.core.perf.UserWithPerfs
+import lila.core.rating.UserRankMap
 import lila.core.user.LightPerf
 import lila.core.userId.UserSearch
-import lila.core.rating.UserRankMap
 import lila.db.dsl.*
 import lila.memo.CacheApi.*
-import lila.rating.{ PerfType, UserPerfs }
 import lila.mon.extensions.*
+import lila.rating.{ PerfType, UserPerfs }
 
 final class Cached(
     userRepo: UserRepo,

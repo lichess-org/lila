@@ -1,6 +1,7 @@
 package lila.perfStat
 
 import chess.IntRating
+
 import lila.core.perf.{ PerfId, UserWithPerfs }
 import lila.core.perm.Granter
 import lila.core.rating.UserRankMap

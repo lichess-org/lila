@@ -122,7 +122,6 @@
   <string name="noLetPeopleBrowseFreely">Non : laisser les gens naviguer librement</string>
   <string name="pinnedStudyComment">Commentaire d\'étude épinglé</string>
   <string name="start">Commencer</string>
-  <string name="save">Enregistrer</string>
   <string name="clearChat">Effacer le tchat</string>
   <string name="deleteTheStudyChatHistory">Supprimer l\'historique du tchat de l\'étude ? Cette action est irréversible !</string>
   <string name="deleteStudy">Supprimer l\'étude</string>

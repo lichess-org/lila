@@ -1,7 +1,7 @@
 package lila.round
 
-import chess.{ ByColor, Color, Ply }
 import alleycats.Zero
+import chess.{ ByColor, Color, Ply }
 import scalalib.data.Preload
 
 import lila.common.Bus

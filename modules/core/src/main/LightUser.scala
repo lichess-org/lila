@@ -5,8 +5,8 @@ import _root_.chess.PlayerTitle
 import scala.concurrent.ExecutionContext
 
 import lila.core.id.Flair
+import lila.core.plan.{ PatronColorChoice, PatronMonths, PatronTier }
 import lila.core.userId.*
-import lila.core.plan.{ PatronMonths, PatronTier, PatronColorChoice }
 
 case class LightUser(
     id: UserId,

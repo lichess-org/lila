@@ -1,10 +1,10 @@
 package lila.notify
-import scalalib.ThreadLocalRandom
 import reactivemongo.api.bson.Macros.Annotations.Key
-
+import scalalib.ThreadLocalRandom
 import scalalib.paginator.Paginator
+
+import lila.core.notify.{ NotificationContent, UnreadCount }
 import lila.notify.Notification.*
-import lila.core.notify.{ UnreadCount, NotificationContent }
 
 private[notify] case class Notification(
     @Key("_id") id: Notification.Id,

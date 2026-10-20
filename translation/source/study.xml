@@ -122,7 +122,6 @@
   <string name="noLetPeopleBrowseFreely">No: let people browse freely</string>
   <string name="pinnedStudyComment">Pinned study comment</string>
   <string name="start">Start</string>
-  <string name="save">Save</string>
   <string name="clearChat">Clear chat</string>
   <string name="deleteTheStudyChatHistory">Delete the study chat history? There is no going back!</string>
   <string name="deleteStudy">Delete study</string>
@@ -202,5 +201,5 @@
   <string name="clearLocal">Clear local analysis?</string>
   <string name="clearPublished">Clear published analysis?</string>
   <string name="requestAServerAnalysis">Request a server analysis</string>
-  <string name="analyzeOnYourDevice">Analyze on your device</string>
+  <string name="analyzeOnYourDevice">Analyse on your device</string>
 </resources>

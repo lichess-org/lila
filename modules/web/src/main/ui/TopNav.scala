@@ -2,6 +2,7 @@ package lila.web
 package ui
 
 import scalalib.model.Days
+
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
 

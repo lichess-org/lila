@@ -2,7 +2,7 @@ package lila.challenge
 
 import chess.format.Fen
 import chess.variant.Variant
-import chess.{ Position, ByColor, Rated }
+import chess.{ ByColor, Position, Rated }
 
 import lila.core.user.GameUser
 

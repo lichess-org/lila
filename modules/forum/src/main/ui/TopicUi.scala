@@ -5,11 +5,11 @@ import play.api.data.{ Field, Form }
 import play.api.libs.json.Json
 import scalalib.paginator.Paginator
 
+import lila.common.Form.pairOf
 import lila.core.captcha.Captcha
 import lila.core.id.CmsPageKey
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
-import lila.common.Form.pairOf
 
 final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
     renderCaptcha: (Form[?] | Field, Captcha) => Context ?=> Frag,

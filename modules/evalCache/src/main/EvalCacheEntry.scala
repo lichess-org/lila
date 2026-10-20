@@ -1,7 +1,7 @@
 package lila.evalCache
 
-import chess.format.{ BinaryFen, Fen }
 import chess.Position
+import chess.format.{ BinaryFen, Fen }
 import chess.variant.Variant
 
 import lila.core.chess.MultiPv

@@ -1,7 +1,8 @@
 package lila.puzzle
 
-import lila.memo.CacheApi
 import chess.IntRating
+
+import lila.memo.CacheApi
 
 private case class PuzzleSession(
     settings: PuzzleSettings,

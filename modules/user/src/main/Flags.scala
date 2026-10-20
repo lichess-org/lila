@@ -1,6 +1,6 @@
 package lila.user
 
-import lila.core.user.{ Flag, FlagCode, FlagName, FlagApi }
+import lila.core.user.{ Flag, FlagApi, FlagCode, FlagName }
 
 object Flags extends FlagApi:
 

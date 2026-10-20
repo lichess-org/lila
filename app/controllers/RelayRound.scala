@@ -7,7 +7,7 @@ import scala.annotation.nowarn
 
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
-import lila.core.id.{ RelayRoundId, RelayTourId, RelayGroupId }
+import lila.core.id.{ RelayGroupId, RelayRoundId, RelayTourId }
 import lila.relay.ui.FormNavigation
 import lila.relay.{ RelayRound as RoundModel, RelayTour as TourModel, RelayVideoEmbed as VideoEmbed }
 import lila.study.Study as StudyModel

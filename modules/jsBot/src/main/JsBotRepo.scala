@@ -2,8 +2,8 @@ package lila.jsBot
 
 import reactivemongo.api.bson.*
 
-import lila.db.{ BSON, JSON }
 import lila.db.dsl.{ *, given }
+import lila.db.{ BSON, JSON }
 
 final private class JsBotRepo(bots: Coll, assets: Coll)(using Executor):
 

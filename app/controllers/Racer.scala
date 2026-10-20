@@ -4,8 +4,8 @@ import play.api.libs.json.Json
 import play.api.mvc.*
 
 import lila.app.{ *, given }
-import lila.racer.{ RacerPlayer, RacerRace }
 import lila.common.Json.given
+import lila.racer.{ RacerPlayer, RacerRace }
 
 final class Racer(env: Env) extends LilaController(env):
 

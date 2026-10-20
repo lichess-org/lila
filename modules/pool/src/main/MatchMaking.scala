@@ -1,10 +1,11 @@
 package lila.pool
 
-import scalalib.WMMatching
-import scala.math.abs
 import chess.IntRating
+import scalalib.WMMatching
 
-import lila.core.pool.{ PoolMember, PoolConfigId }
+import scala.math.abs
+
+import lila.core.pool.{ PoolConfigId, PoolMember }
 
 object MatchMaking:
 

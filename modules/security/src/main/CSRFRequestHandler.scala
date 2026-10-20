@@ -2,8 +2,8 @@ package lila.security
 
 import play.api.mvc.RequestHeader
 
-import lila.common.HTTPRequest.*
 import lila.common.ClientName
+import lila.common.HTTPRequest.*
 import lila.core.config.NetConfig
 import lila.core.net.Origin
 

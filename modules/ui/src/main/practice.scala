@@ -1,8 +1,8 @@
 package lila.ui
 package practice
 
-import lila.core.id.StudyId
 import lila.core.i18n.I18nKey
+import lila.core.id.StudyId
 
 /* modules/activity needs to manipulate practice study objects,
  * but I don't want it to depend on modules/practice.

@@ -3,8 +3,8 @@ package lila.game
 import chess.format.pgn.{ InitialComments, Parser, Pgn, PgnTree, SanStr, Tag, TagType, Tags }
 import chess.format.{ Fen, pgn as chessPgn }
 import chess.opening.Opening
-import chess.{ ByColor, Centis, Color, Outcome, Ply, Tree }
 import chess.rating.IntRatingDiff
+import chess.{ ByColor, Centis, Color, Outcome, Ply, Tree }
 
 import lila.core.LightUser
 import lila.core.config.RouteUrl

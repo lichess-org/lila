@@ -1,8 +1,8 @@
 package lila.round
 package ui
 
-import chess.variant.{ Crazyhouse, Variant }
 import chess.Square
+import chess.variant.{ Crazyhouse, Variant }
 
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }

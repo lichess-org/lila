@@ -1,9 +1,9 @@
 package lila.fishnet
 
-import chess.{ Position, Ply }
+import chess.eval.WhiteScore
 import chess.format.Uci
 import chess.format.pgn.SanStr
-import chess.eval.WhiteScore
+import chess.{ Ply, Position }
 
 import lila.tree.{ Analysis, Engine, Eval, Info }
 

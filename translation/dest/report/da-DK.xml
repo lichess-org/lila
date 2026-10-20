@@ -1,2 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="whatIsTheMatter">Hvad er problemet?</string>
+  <string name="cheat">Snyd</string>
+  <string name="troll">Trold</string>
+  <string name="reportStall">Trækker tiden / forlader partier</string>
+  <string name="reportVerbalAbuse">Tilsvining / bandeord / trolling</string>
+  <string name="reportViolence">Vold / trusler</string>
+  <string name="reportHarass">Chikane / Mobning / Stalking</string>
+  <string name="reportSelfHarm">Selvmord / Selvskade</string>
+  <string name="reportHate">Hadtale / Sexisme</string>
+  <string name="reportSpam">Spamming</string>
+  <string name="readMoreAboutLichessReports">Læs mere om Lichess-anmeldelser</string>
+  <string name="reportMaximumCharacters">Højst 3000 tegn.</string>
+  <string name="reportCheatBoostHelp">Indsæt linket til partiet/partierne og forklar, hvad der er galt med denne brugers adfærd. Skriv ikke blot \"de snyder\", men fortæl os, hvordan du er nået frem til denne konklusion.</string>
+  <string name="reportUsernameHelp">Forklar, hvorfor dette brugernavn er stødende. Sig ikke blot \"det er stødende/upassende,\" men fortæl os, hvordan du er nået frem til denne konklusion, især hvis det stødende indhold er svært at forstå, ikke er på engelsk, er slang eller en historisk/kulturel henvisning.</string>
+  <string name="processReportFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">Vi kan behandle din anmeldelse hurtigere, hvis du skriver på engelsk.</string>
+  <string name="provideOneCheatedGameLink">Angiv mindst ét link til et parti, der skal gennemgås.</string>
+</resources>

@@ -28,7 +28,7 @@ function renderContent(ctrl: Ctrl, d: NotifyData): LooseVNodes {
       attrs: {
         href: '/account/preferences/notification',
         'data-icon': licon.Gear,
-        title: 'Notification Settings',
+        title: i18n.site.settings,
       },
     }),
     nb === 0

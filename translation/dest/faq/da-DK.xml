@@ -29,7 +29,7 @@
   <string name="isCorrespondenceDifferent">Er korrespondance anderledes end normal skak?</string>
   <string name="pleaseReadFairPlayPage">For yderligere oplysninger kan du læse vores %s</string>
   <string name="fairPlayPage">side om fair play</string>
-  <string name="youCanUseOpeningBookNoEngine">På Lichess er den primære forskel i reglerne for korrespondance-skak, at en åbningsbog er tilladt. Brugen af skakprogrammer er stadig forbudt og vil resultere i en anmærkning for skakprogram-assistance. Selvom ICCF tillader skakprogrammer i korrespondance, er dette ikke tilfælder på Lichess.</string>
+  <string name="youCanUseOpeningBookNoEngine">På Lichess er den primære forskel i reglerne for korrespondance-skak, at en åbningsbog er tilladt. Brugen af skakmotorer er stadig forbudt og vil resultere i en anmærkning for skakmotor-assistance. Selvom ICCF tillader brug af skakmotor i korrespondance, er dette ikke tilfælder på Lichess.</string>
   <string name="gameplay">Spilforløb</string>
   <string name="howBulletBlitzEtcDecided">Hvordan afgøres forskellen mellem Bullet, Blitz og andre tidskontroller?</string>
   <string name="basedOnGameDuration">Tidskontroller på Lichess er baseret på en estimeret varighed af partiet = %1$s
@@ -168,6 +168,7 @@ Vi viser det røde lydløs-ikon for at gøre dig opmærksom på det, når dette 
 4. Rul ned og klik på Media autoplay
 5. Tilføj lichess.org til Tillad</string>
   <string name="makeBotTitle">Lav en bot på Lichess?</string>
+  <string name="makeBotDescription">For at lære, hvordan man bygger en &lt;a href=\'%1$s\'&gt;brugerdefineret skakbot&lt;/a&gt; til at spille på Lichess, kan du læse &lt;a href=\'%2$s\'&gt;dette blogindlæg om oprettelse af bots&lt;/a&gt;.</string>
   <string name="stopMyselfFromPlaying">Forhindre mig selv i at spille?</string>
   <string name="mentalHealthCondition">selvstændig psykisk lidelse</string>
   <string name="lichessUserstyles">Lichess-brugerstile</string>

@@ -1,10 +1,9 @@
 package lila.simul
 
 import chess.format.Fen
-import chess.variant.Variant
-import chess.{ Color, Speed }
-import chess.IntRating
 import chess.rating.RatingProvisional
+import chess.variant.Variant
+import chess.{ Color, IntRating, Speed }
 import reactivemongo.api.bson.Macros.Annotations.Key
 import scalalib.ThreadLocalRandom
 

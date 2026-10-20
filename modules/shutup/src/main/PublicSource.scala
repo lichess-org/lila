@@ -1,6 +1,6 @@
 package lila.shutup
 
-import scala.util.{ Success, Failure, Try }
+import scala.util.{ Failure, Success, Try }
 
 import lila.core.chat.PublicSource as Source
 import lila.core.id.RelayRoundId

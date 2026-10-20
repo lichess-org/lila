@@ -1,13 +1,13 @@
 package lila.memo
 
-import play.api.libs.ws.*
 import com.softwaremill.tagging.*
-import scalalib.Iso
+import play.api.libs.ws.*
 import reactivemongo.api.bson.BSONHandler
+import scalalib.Iso
 
-import lila.memo.SettingStore
-import lila.memo.SettingStore.{ StringReader, Formable }
 import lila.core.config.Secret
+import lila.memo.SettingStore
+import lila.memo.SettingStore.{ Formable, StringReader }
 
 trait ProxyCredentials
 trait ProxyHostPort

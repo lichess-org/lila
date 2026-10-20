@@ -1,12 +1,13 @@
 package lila.relay
 package ui
 
-import play.api.data.Form
-import lila.ui.*
-import lila.ui.ScalatagsTemplate.{ given, * }
-import lila.core.study.Visibility
 import chess.tiebreak.Tiebreak
+import play.api.data.Form
 import play.api.libs.json.Json
+
+import lila.core.study.Visibility
+import lila.ui.*
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 case class FormNavigation(
     group: Option[RelayGroup.WithTours],

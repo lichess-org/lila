@@ -1,10 +1,11 @@
 package lila.feed
 
 import play.api.libs.json.*
+
 import lila.common.Json.given
-import lila.core.lilaism.Lilaism.add
 import lila.core.config.RouteUrl
 import lila.core.data.Html
+import lila.core.lilaism.Lilaism.add
 
 private final class FeedJsonView(routeUrl: RouteUrl):
 

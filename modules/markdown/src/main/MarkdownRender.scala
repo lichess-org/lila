@@ -1,6 +1,5 @@
 package lila.markdown
 
-import scala.util.chaining.*
 import chess.format.pgn.PgnStr
 import com.vladsch.flexmark.ast.*
 import com.vladsch.flexmark.ext.anchorlink.AnchorLinkExtension
@@ -31,25 +30,26 @@ import com.vladsch.flexmark.parser.{
   LightInlineParser,
   Parser
 }
-import com.vladsch.flexmark.util.ast.{ Node, TextCollectingVisitor, Block }
+import com.vladsch.flexmark.util.ast.{ Block, Node, TextCollectingVisitor }
 import com.vladsch.flexmark.util.data.{ DataHolder, MutableDataHolder, MutableDataSet }
 import com.vladsch.flexmark.util.html.MutableAttributes
 import com.vladsch.flexmark.util.misc.Extension
 import com.vladsch.flexmark.util.sequence.BasedSequence
+import io.mola.galimatias.{ StrictErrorHandler, URL, URLParsingSettings }
 
-import java.time.{ Instant, ZoneOffset }
 import java.time.format.DateTimeFormatter
+import java.time.{ Instant, ZoneOffset }
 import java.util.Arrays
 import java.util.regex.Pattern
 import scala.collection.Set
 import scala.jdk.CollectionConverters.*
-import scala.util.matching.Regex
 import scala.util.Try
-import io.mola.galimatias.{ StrictErrorHandler, URL, URLParsingSettings }
+import scala.util.chaining.*
+import scala.util.matching.Regex
 
 import lila.core.config.{ AssetDomain, NetDomain }
+import lila.core.data.{ Html, Markdown, Url }
 import lila.core.misc.lpv.LpvEmbed
-import lila.core.data.{ Markdown, Html, Url }
 import lila.core.userId.UserName
 
 final class MarkdownRender(
@@ -173,7 +173,6 @@ object MarkdownRender:
         "pixabay.com",
         "githubusercontent.com",
         "googleusercontent.com",
-        "i.ibb.co",
         "i.postimg.cc",
         "imgs.xkcd.com",
         "image.lichess1.org",

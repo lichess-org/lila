@@ -1,7 +1,6 @@
 package lila.ublog
 
-import java.time.{ Year, YearMonth, ZoneOffset, LocalTime }
-
+import java.time.{ LocalTime, Year, YearMonth, ZoneOffset }
 import scala.util.Try
 
 import lila.db.dsl.{ *, given }

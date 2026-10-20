@@ -10,7 +10,7 @@ import scalalib.model.{ Days, LangTag }
 import lila.core.LightUser
 import lila.core.email.NormalizedEmailAddress
 import lila.core.security.HashedPassword
-import lila.core.user.{ Plan, PlayTime, Profile, TotpSecret, UserMark, RoleDbKey, KidMode, RealName }
+import lila.core.user.{ KidMode, Plan, PlayTime, Profile, RealName, RoleDbKey, TotpSecret, UserMark }
 import lila.core.userId.UserSearch
 import lila.db.dsl.{ *, given }
 

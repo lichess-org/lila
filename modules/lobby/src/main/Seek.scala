@@ -1,9 +1,8 @@
 package lila.lobby
 
-import chess.IntRating
 import chess.rating.RatingProvisional
 import chess.variant.Variant
-import chess.{ Rated, Speed }
+import chess.{ IntRating, Rated, Speed }
 import play.api.libs.json.*
 import scalalib.ThreadLocalRandom
 import scalalib.model.Days

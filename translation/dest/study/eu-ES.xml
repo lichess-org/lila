@@ -122,7 +122,6 @@
   <string name="noLetPeopleBrowseFreely">Ez: erabiltzaileei nahi dutena egiten utzi</string>
   <string name="pinnedStudyComment">Azterlanaren iltzatutako iruzkina</string>
   <string name="start">Hasi</string>
-  <string name="save">Gorde</string>
   <string name="clearChat">Txata garbitu</string>
   <string name="deleteTheStudyChatHistory">Azterlaneko txata ezabatu? Ez dago atzera egiterik!</string>
   <string name="deleteStudy">Azterlana ezabatu</string>
@@ -198,4 +197,9 @@
   <string name="doubleDefeat">Porrot bikoitza</string>
   <string name="blackDefeatWhiteCanNotWin">Beltzaren porrota, baina Zuriak ezin du irabazi</string>
   <string name="whiteDefeatBlackCanNotWin">Zuriaren porrota, baina Beltzak ezin du irabazi</string>
+  <string name="analysisEditor">Analisien editorea</string>
+  <string name="clearLocal">Garbitu analisi lokala?</string>
+  <string name="clearPublished">Garbitu argitaratutako analisiak?</string>
+  <string name="requestAServerAnalysis">Eskatu zerbitzariaren analisia</string>
+  <string name="analyzeOnYourDevice">Aztertu zure gailuan</string>
 </resources>

@@ -7,8 +7,8 @@ import lila.core.LightUser
 import lila.core.LightUser.Me.given
 import lila.core.id.*
 import lila.core.irc.*
-import lila.core.userId.ModId
 import lila.core.study.data.StudyChapterName
+import lila.core.userId.ModId
 
 final class IrcApi(
     zulip: ZulipClient,

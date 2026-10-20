@@ -2,7 +2,7 @@ package lila.ui
 
 import play.api.libs.json.*
 
-import lila.core.config.{ BaseUrl, RouteUrl, AssetBaseUrl, ImageGetOrigin }
+import lila.core.config.{ AssetBaseUrl, BaseUrl, ImageGetOrigin, RouteUrl }
 import lila.core.data.SafeJsonStr
 import lila.ui.ScalatagsTemplate.{ *, given }
 

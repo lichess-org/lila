@@ -3,7 +3,7 @@ import { makeSquare } from 'chessops/util';
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
-import { detectPins, detectUndefended, detectCheckable } from '../src/motif/boardAnalysis';
+import { detectPins, detectUndefended, detectCheckable, detectTrapped } from '../src/motif/boardAnalysis';
 
 function runAnalysis(fen: string): string[] {
   const parsed = parseFen(fen);
@@ -15,8 +15,9 @@ function runAnalysis(fen: string): string[] {
   const checkable = detectCheckable(board, epSquare, castlingRights).map(
     s => `${makeSquare(s.king)}:checkable`,
   );
+  const trapped = detectTrapped(board, castlingRights, epSquare).map(t => `${makeSquare(t.square)}:trapped`);
 
-  return [...pins, ...undefended, ...checkable].sort();
+  return [...pins, ...undefended, ...checkable, ...trapped].sort();
 }
 
 test('Pin: Absolute', () => {
@@ -64,6 +65,76 @@ test('Checkable: Promotion', () => {
 test('Checkable: Underpromotion', () => {
   const fen = '8/2P1k3/8/8/8/8/8/2K5 w - - 0 1';
   const expected = ['e7:checkable'];
+
+  assert.deepEqual(runAnalysis(fen), expected);
+});
+
+test('Trapped: Piece with no safe squares', () => {
+  const fen = '7k/8/8/8/8/PPN5/1qPP4/R2QK3 b - - 0 1';
+  const expected = ['b2:trapped', 'h8:checkable'].sort();
+
+  assert.deepEqual(runAnalysis(fen), expected);
+});
+
+test('Trapped: Escaping allows mate', () => {
+  const fen = '7k/2p3pp/8/4n3/5P2/2Q5/1B6/7K b - - 0 1';
+  const expected = ['e5:trapped', 'e5:undefended', 'c7:undefended'].sort();
+
+  assert.deepEqual(runAnalysis(fen), expected);
+});
+
+test('Trapped: Ignore piece that escapes by trading material', () => {
+  const fen = '7k/8/8/8/1B6/b7/8/RQ5K b - - 0 1';
+  const expected = ['a3:undefended', 'h8:checkable'].sort();
+
+  assert.deepEqual(runAnalysis(fen), expected);
+});
+
+test('Trapped: Ignore piece that escapes by winning material', () => {
+  const fen = '7k/8/8/8/1Q6/b7/8/RR5K b - - 0 1';
+  const expected = ['a3:undefended', 'b4:undefended', 'h8:checkable'].sort();
+
+  assert.deepEqual(runAnalysis(fen), expected);
+});
+
+test('Trapped: Ignore mate threat the piece cannot affect', () => {
+  const fen = '7k/6pp/8/8/8/8/8/R1K4n b - - 0 1';
+  const expected = ['h8:checkable'];
+
+  assert.deepEqual(runAnalysis(fen), expected);
+});
+
+test('Trapped: Ignore piece that can only answer a check', () => {
+  const fen = '7k/7p/8/r7/8/8/1B6/6K1 b - - 0 1';
+  const expected: string[] = [];
+
+  assert.deepEqual(runAnalysis(fen), expected);
+});
+
+test('Trapped: Ignore piece that escapes by a favourable trade', () => {
+  const fen = '4k3/8/2N1q3/8/3P4/R3RP2/8/2b4K b - - 0 1';
+  const expected = ['a3:undefended', 'e3:undefended', 'e6:pin', 'e6:undefended', 'e8:checkable'].sort();
+
+  assert.deepEqual(runAnalysis(fen), expected);
+});
+
+test('Trapped: Ignore piece that has no good squares but cannot be attacked', () => {
+  const fen = 'r1bq1rk1/ppp1npbp/3p1np1/3Pp3/2P1P3/2N2N2/PP2BPPP/R1BQ1RK1 w - - 1 9';
+  const expected: string[] = [];
+
+  assert.deepEqual(runAnalysis(fen), expected);
+});
+
+test('Trapped: Ignore pawns that can only promote into capture', () => {
+  const fen = 'k6r/3P4/8/8/8/8/8/K7 w - - 0 1';
+  const expected = ['a1:checkable', 'a8:checkable'].sort();
+
+  assert.deepEqual(runAnalysis(fen), expected);
+});
+
+test('Trapped: Ignore pawns with only losing moves', () => {
+  const fen = 'k7/8/8/4p3/4p3/8/3P4/K7 w - - 0 1';
+  const expected: string[] = [];
 
   assert.deepEqual(runAnalysis(fen), expected);
 });
@@ -152,7 +223,7 @@ test('Undefended: Not using attacker that blocks multiple defenders', () => {
   // If we had an extremely contrived case like 6k1/b7/1b5b/2b3b1/3B1B2/4n3/4R3/6K1 w - - 0 1,
   // with multiple attackers each blocking multiple defenders, then the piece would wrongly be
   // labelled undefended (branching factor in `getSEE` is only 2).
-  const expected = ['e3:undefended', 'd4:undefended'].sort();
+  const expected = ['e3:undefended', 'd4:undefended', 'e1:trapped'].sort();
   assert.deepEqual(runAnalysis(fen), expected);
 });
 

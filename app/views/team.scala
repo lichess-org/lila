@@ -46,7 +46,7 @@ def show(
     li(userIdLink(e.mod.userId.some), " ", e.showAction, ": ", Modlog.explain(e))
 
   val toursFrag = info.tours.nonEmpty.option:
-    tournaments.renderList:
+    tournaments.renderList(none):
       info.tours.next ::: info.tours.past.take(5 - info.tours.next.size)
 
   val forumFrag = info.forum.map:
@@ -72,6 +72,13 @@ def updateEventLinks(
   tours.map(t => (views.tournament.ui.tournamentLink(t), t.startsAt, routes.Tournament.show(t.id)))
     ++ swiss.map(s => (views.swiss.ui.link(s), s.startsAt, routes.Swiss.show(s.id)))
 
+def events(myTeams: Set[TeamId], all: List[TeamInfo.AnyTour])(using Context) =
+  bits.events:
+    div(cls := "team-events team-tournaments team-tournaments--both"):
+      div(cls := "team-tournaments__next"):
+        table(cls := "slist slist-pad slist-invert"):
+          tournaments.renderList(myTeams.some)(all)
+
 // both arena and swiss
 object tournaments:
 
@@ -92,24 +99,22 @@ object tournaments:
             div(cls := "team-events team-tournaments team-tournaments--both")(
               div(cls := "team-tournaments__next")(
                 h2(trans.team.upcomingTournaments()),
-                table(cls := "slist slist-pad slist-invert")(
-                  renderList(tours.next)
-                )
+                table(cls := "slist slist-pad slist-invert"):
+                  renderList(none)(tours.next)
               ),
               div(cls := "team-tournaments__past")(
                 h2(trans.team.completedTourns()),
-                table(cls := "slist slist-pad")(
-                  renderList(tours.past)
-                )
+                table(cls := "slist slist-pad"):
+                  renderList(none)(tours.past)
               )
             )
           )
         )
 
-  def renderList(tours: List[TeamInfo.AnyTour])(using Context) =
+  def renderList(myTeams: Option[Set[TeamId]])(tours: List[TeamInfo.AnyTour])(using Context) =
     tbody:
       tours.map:
         _.fold(
-          views.tournament.ui.teamTournamentRow,
-          views.swiss.ui.teamSwissRow
+          views.tournament.ui.teamTournamentRow(myTeams),
+          views.swiss.ui.teamSwissRow(myTeams.isDefined)
         )

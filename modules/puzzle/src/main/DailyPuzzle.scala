@@ -2,11 +2,11 @@ package lila.puzzle
 import chess.format.{ BoardFen, Uci }
 import scalalib.ThreadLocalRandom.odds
 
+import lila.core.misc.puzzle.DailyChange
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
 
 import Puzzle.BSONFields as F
-import lila.core.misc.puzzle.DailyChange
 
 final private[puzzle] class DailyPuzzle(
     colls: PuzzleColls,

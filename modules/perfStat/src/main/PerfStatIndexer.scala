@@ -1,8 +1,8 @@
 package lila.perfStat
 
+import lila.mon.extensions.*
 import lila.rating.PerfType
 import lila.rating.PerfType.GamePerf
-import lila.mon.extensions.*
 
 final class PerfStatIndexer(
     gameRepo: lila.core.game.GameRepo,

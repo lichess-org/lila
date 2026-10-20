@@ -2,17 +2,17 @@ package lila.plan
 
 import play.api.i18n.Lang
 import reactivemongo.api.*
+import scalalib.paginator.Paginator
 
 import lila.common.Bus
+import lila.core.LightUser
 import lila.core.config.{ RouteUrl, Secret }
 import lila.core.net.IpAddress
-import lila.db.dsl.{ *, given }
-import lila.memo.CacheApi.*
-import scalalib.paginator.Paginator
-import lila.core.LightUser
-import lila.db.paginator.Adapter
-import lila.ui.Context
 import lila.core.plan.{ PatronColor, PatronColorChoice }
+import lila.db.dsl.{ *, given }
+import lila.db.paginator.Adapter
+import lila.memo.CacheApi.*
+import lila.ui.Context
 
 final class PlanApi(
     stripeClient: StripeClient,

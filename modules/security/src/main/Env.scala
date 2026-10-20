@@ -1,17 +1,17 @@
 package lila.security
 
-import org.apache.pekko.actor.*
 import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
+import org.apache.pekko.actor.*
 import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
 
+import lila.common.config.GetRelativeFile
 import lila.core.config.*
 import lila.core.data.Strings
 import lila.memo.SettingStore
 import lila.memo.SettingStore.Strings.given
-import lila.oauth.{ OAuthServer, AccessTokenApi }
-import lila.common.config.GetRelativeFile
+import lila.oauth.{ AccessTokenApi, OAuthServer }
 
 @Module
 final class Env(

@@ -2,9 +2,9 @@ package lila.cms
 
 import com.softwaremill.macwire.*
 
+import lila.cms.CmsPage.Render
 import lila.core.config.CollName
 import lila.core.id.CmsPageKey
-import lila.cms.CmsPage.Render
 
 @Module
 final class Env(

@@ -1,14 +1,15 @@
 package lila.plan
 package ui
 
-import java.util.Currency
 import play.api.libs.json.Json
 import scalalib.paginator.Paginator
 
-import lila.ui.ScalatagsTemplate.{ *, given }
-import lila.ui.*
+import java.util.Currency
+
 import lila.core.LightUser
 import lila.plan.PlanPricingApi.pricingWrites
+import lila.ui.*
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class PlanUi(helpers: Helpers)(style: PlanStyle, contactEmail: EmailAddress):
   import helpers.{ *, given }
