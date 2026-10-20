@@ -43,11 +43,6 @@ final class Account(
       pages.profile(me, env.user.forms.profileOf(me))
   }
 
-  def username = localAuth { _ ?=> me ?=>
-    Ok.page:
-      pages.username(me, env.user.forms.usernameOf(me))
-  }
-
   def profileApply = AuthOrScopedBody(_.Web.Mobile) { _ ?=> me ?=>
     bindForm(env.user.forms.profile)(
       err =>
@@ -70,15 +65,6 @@ final class Account(
           env.user.lightUserApi.invalidate(me)
           Redirect(routes.User.show(me.userId)).flashSuccess
     )
-  }
-
-  def usernameApply = localAuthBody { _ ?=> me ?=>
-    FormFuResult(env.user.forms.username(me))(err => renderPage(pages.username(me, err))): username =>
-      env.user.repo
-        .setUsernameCased(me, username)
-        .inject(Redirect(routes.User.show(me.userId)).flashSuccess)
-        .recover: e =>
-          Redirect(routes.Account.username).flashFailure(e.getMessage)
   }
 
   def info = Auth { ctx ?=> me ?=>
@@ -151,17 +137,15 @@ final class Account(
             )
   }
 
-  def passwd = localAuth { _ ?=> me ?=>
-    env.security.forms.passwdChange.flatMap: form =>
-      Ok.page(pages.password(form))
+  def apiEmail = Scoped(_.Email.Read) { _ ?=> me ?=>
+    Found(env.user.repo.email(me)): email =>
+      JsonOk(Json.obj("email" -> email.value))
   }
 
-  def passwdApply = localAuthBody { ctx ?=> me ?=>
-    auth.HasherRateLimit:
-      env.security.forms.passwdChange.flatMap: form =>
-        FormFuResult(form)(err => renderPage(pages.password(err))): data =>
-          env.security.authenticator.setPassword(me, lila.core.security.ClearPassword(data.newPasswd1)) >>
-            refreshSessionId(Redirect(routes.Account.passwd).flashSuccess)
+  def network(usingAltSocket: Option[Boolean]) = Auth { _ ?=> me ?=>
+    val page = (use: Option[Boolean]) => Ok.page(pages.network(use, ctx.pref.isUsingAltSocket))
+    if usingAltSocket.isEmpty || usingAltSocket.has(ctx.pref.isUsingAltSocket) then page(none)
+    else env.pref.api.setPref(me, ctx.pref.copy(usingAltSocket = usingAltSocket)) >> page(usingAltSocket)
   }
 
   private def refreshSessionId(result: Result)(using ctx: Context, me: Me): Fu[Result] = for
@@ -170,95 +154,6 @@ final class Account(
     _         <- env.push.unregisterDevices(me)
     sessionId <- env.security.api.saveAuthentication(me, ctx.mobileApiVersion)
   yield result.withCookies(env.security.lilaCookie.session(env.security.api.sessionIdKey, sessionId))
-
-  private def emailForm(using me: Me) =
-    env.user.repo.email(me).flatMap(env.security.forms.changeEmail)
-
-  def email = localAuth { _ ?=> me ?=>
-    if getBool("check")
-    then Ok.page(renderCheckYourEmail)
-    else emailForm.flatMap(f => Ok.page(pages.email(f)))
-  }
-
-  def apiEmail = Scoped(_.Email.Read) { _ ?=> me ?=>
-    Found(env.user.repo.email(me)): email =>
-      JsonOk(Json.obj("email" -> email.value))
-  }
-
-  def renderCheckYourEmail(using Context) =
-    views.auth.checkYourEmail(lila.security.EmailConfirm.cookie.get(ctx.req).map(_.email))
-
-  def emailApply = localAuthBody { ctx ?=> me ?=>
-    auth.HasherRateLimit:
-      env.security.forms.preloadEmailDns() >> emailForm.flatMap: form =>
-        FormFuResult(form)(err => renderPage(pages.email(err))): data =>
-          val newUserEmail = lila.security.EmailConfirm.UserEmail(me.userId, me.username, data.email)
-          auth.EmailConfirmRateLimit(newUserEmail, ctx.req, rateLimited):
-            env.security.emailChange
-              .send(me, newUserEmail.email)
-              .inject(Redirect(routes.Account.email).flashSuccess:
-                lila.core.i18n.I18nKey.site.checkYourEmail.txt())
-  }
-
-  def emailConfirm(token: String) = localOpen:
-    Found(env.security.emailChange.confirm(token)): (user, prevEmail) =>
-      for
-        _ <- prevEmail.exists(_.isNoReply).so(env.clas.api.student.release(user))
-        res <- auth.authenticateUser(
-          user,
-          remember = true,
-          result =
-            if prevEmail.exists(_.isNoReply)
-            then Some(_ => Redirect(routes.User.show(user.userId)).flashSuccess)
-            else Some(_ => Redirect(routes.Account.email).flashSuccess)
-        )
-      yield res
-
-  def emailConfirmHelp = localOpenBody:
-    import lila.security.EmailConfirm.Help.*
-    ctx.me match
-      case Some(me) =>
-        Redirect(routes.User.show(me.userId))
-      case None if get("username").isEmpty =>
-        Ok.page(views.account.security.emailConfirmHelp(helpForm, none))
-      case None =>
-        bindForm(helpForm)(
-          err => BadRequest.page(views.account.security.emailConfirmHelp(err, none)),
-          username =>
-            getStatus(env.user.api, env.user.repo, username).flatMap: status =>
-              Ok.page(views.account.security.emailConfirmHelp(helpForm.fill(username), status.some))
-        )
-
-  def twoFactor = localAuth { _ ?=> me ?=>
-    if me.totpSecret.isDefined
-    then
-      env.security.forms.disableTwoFactor.flatMap: f =>
-        Ok.page(views.account.twoFactor.disable(f))
-    else
-      env.security.forms.setupTwoFactor.flatMap: f =>
-        Ok.page(views.account.twoFactor.setup(f))
-  }
-
-  def setupTwoFactor = localAuthBody { ctx ?=> me ?=>
-    auth.HasherRateLimit:
-      env.security.forms.setupTwoFactor.flatMap: form =>
-        FormFuResult(form)(err => renderPage(views.account.twoFactor.setup(err))): data =>
-          env.user.repo.setupTwoFactor(me, lila.user.TotpSecret.decode(data.secret)) >>
-            refreshSessionId(Redirect(routes.Account.twoFactor).flashSuccess)
-  }
-
-  def disableTwoFactor = localAuthBody { ctx ?=> me ?=>
-    auth.HasherRateLimit:
-      env.security.forms.disableTwoFactor.flatMap: form =>
-        FormFuResult(form)(err => renderPage(views.account.twoFactor.disable(err))): _ =>
-          env.user.repo.disableTwoFactor(me).inject(Redirect(routes.Account.twoFactor).flashSuccess)
-  }
-
-  def network(usingAltSocket: Option[Boolean]) = Auth { _ ?=> me ?=>
-    val page = (use: Option[Boolean]) => Ok.page(pages.network(use, ctx.pref.isUsingAltSocket))
-    if usingAltSocket.isEmpty || usingAltSocket.has(ctx.pref.isUsingAltSocket) then page(none)
-    else env.pref.api.setPref(me, ctx.pref.copy(usingAltSocket = usingAltSocket)) >> page(usingAltSocket)
-  }
 
   def close = Auth { _ ?=> me ?=>
     for
@@ -279,28 +174,6 @@ final class Account(
               for _ <- env.api.accountTermination.disable(me.value, forever = forever)
               yield Redirect(routes.Lobby.home).withCookies(env.security.lilaCookie.newSession)
       }
-  }
-
-  def delete = localAuth { _ ?=> me ?=>
-    for
-      managed <- env.clas.api.student.isManaged(me)
-      form    <- env.security.forms.deleteAccount
-      res     <- Ok.page(pages.delete(form, managed))
-    yield res
-  }
-
-  def deleteConfirm = localAuthBody { ctx ?=> me ?=>
-    NotManaged:
-      auth.HasherRateLimit:
-        env.security.forms.deleteAccount.flatMap: form =>
-          FormFuResult(form)(err => renderPage(pages.delete(err, managed = false))): _ =>
-            for _ <- env.api.accountTermination.scheduleDelete(me.value)
-            yield Redirect(routes.Account.deleteDone).withCookies(env.security.lilaCookie.newSession)
-  }
-
-  def deleteDone = localOpen { ctx ?=>
-    if ctx.isAuth then Redirect(routes.Lobby.home)
-    else FoundPage(env.cms.renderKey("delete-done"))(views.site.page.lone)
   }
 
   def kid = Auth { _ ?=> me ?=>

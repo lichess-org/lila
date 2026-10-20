@@ -12,14 +12,6 @@ final class AccountPages(helpers: Helpers, ui: AccountUi, flagApi: lila.core.use
   import trans.settings as trs
   import ui.AccountPage
 
-  private def myUsernamePasswordFields(form: Form[?])(using Context) =
-    form3.split(
-      form3.group(form("username"), trans.site.username(), half = true)(
-        form3.input(_)(required, autocomplete := "off")
-      ),
-      form3.passwordModified(form("passwd"), trans.site.password(), half = true)()
-    )
-
   def close(form: Form[?], managed: Boolean)(using Context)(using me: Me) =
     AccountPage(s"${me.username} - ${trans.settings.closeAccount.txt()}", "close"):
       div(cls := "box box-pad")(
@@ -52,68 +44,6 @@ final class AccountPages(helpers: Helpers, ui: AccountUi, flagApi: lila.core.use
               )
             )
           )
-      )
-
-  def delete(form: Form[?], managed: Boolean)(using Context)(using me: Me) =
-    AccountPage(s"${me.username} - Delete your account", "delete"):
-      div(cls := "box box-pad")(
-        boxTop(h1(cls := "text", dataIcon := Icon.CautionCircle)("Delete your account")),
-        if managed then p(trs.managedAccountCannotBeClosed())
-        else
-          postForm(cls := "form3", action := routes.Account.deleteConfirm)(
-            div(cls := "form-group")(h2("We're sorry to see you go.")),
-            div(cls := "form-group")(
-              "Once you delete your account, it’s removed from Lichess and our administrators won’t be able to bring it back for you."
-            ),
-            div(cls := "form-group")(trs.cantOpenSimilarAccount()),
-            div(cls := "form-group")(
-              "Would you like to ",
-              a(href := routes.Account.close)("close your account"),
-              " instead?"
-            ),
-            myUsernamePasswordFields(form),
-            form3.checkbox(form("understand"), "I understand that deleted accounts aren't recoverable"),
-            form3.errors(form("understand")),
-            me.marks.dirty.option:
-              div(cls := "form-group")(
-                h2("Note about GDPR erasure and TOS violations"),
-                p(
-                  "One of the rights GDPR grants to European citizens is the right to erasure of their personal information, also known as the \"right to be forgotten\"."
-                ),
-                p(
-                  "Lichess generally complies with these requests from citizens of any country, because individuals should have control of their data against organisations. However, in certain cases where accounts broke our ",
-                  a(href := routes.Cms.tos)("Terms of Service"),
-                  ", we cannot comply with those requests."
-                ),
-                p(
-                  "That is because the GDPR allows for exceptions in certain cases, and one of those is where an organisation's overriding legitimate interests would be compromised by erasing the data. In short, by deleting your data, it would make it harder for us to keep Lichess safe and secure from people who have broken our rules."
-                ),
-                p(
-                  "When you delete your account, your personal data will be hidden from the public, and only accessible by admins."
-                ),
-                p(
-                  "For more information on the data we process and how we use it, please refer to our ",
-                  a(href := routes.Cms.menuPage(lila.core.id.CmsPageKey("privacy")))("Privacy Policy"),
-                  "."
-                ),
-                p(
-                  "If you continue to disagree with our decision you have the right to make a complaint to ",
-                  a(href := "https://www.cnil.fr/en/contact-cnil")("CNIL"),
-                  ". Your statutory rights are also unaffected by our decision."
-                )
-              )
-          )
-        ,
-        form3.actions(
-          frag(
-            a(href := routes.User.show(me.userId))(trs.cancelKeepAccount()),
-            form3.submit(
-              "Delete my account",
-              icon = Icon.CautionCircle.some,
-              confirm = "Deleting is definitive, there is no going back. Are you sure?".some
-            )(cls := "button-red")
-          )
-        )
       )
 
   private def linksHelp()(using Translate) = frag(
@@ -238,56 +168,6 @@ final class AccountPages(helpers: Helpers, ui: AccountUi, flagApi: lila.core.use
           trans.site.inKidModeTheLichessLogoGetsIconX(
             span(cls := "kiddo", title := trans.site.kidMode.txt())(":)")
           )
-        )
-      )
-
-  def password(form: Form[?])(using Context) =
-    AccountPage(trans.site.changePassword.txt(), "password").js(esmInit("bits.passwordComplexity")):
-      div(cls := "box box-pad")(
-        h1(cls := "box__top")(trans.site.changePassword()),
-        standardFlash | flashMessage("warning")(trans.site.passwordSuggestion()),
-        postForm(cls := "form3", action := routes.Account.passwdApply)(
-          form3.passwordModified(form("oldPasswd"), trans.site.currentPassword())(
-            autofocus,
-            autocomplete := "current-password"
-          ),
-          form3.passwordModified(form("newPasswd1"), trans.site.newPassword())(
-            autocomplete := "new-password"
-          ),
-          form3.passwordComplexityMeter(trans.site.newPasswordStrength()),
-          form3.passwordModified(form("newPasswd2"), trans.site.newPasswordAgain())(
-            autocomplete := "new-password"
-          ),
-          form3.globalError(form),
-          form3.action(form3.submit(trans.site.apply()))
-        )
-      )
-
-  def username(u: User, form: Form[?])(using Context) =
-    AccountPage(s"${u.username} - ${trans.site.editProfile.txt()}", "username"):
-      div(cls := "box box-pad")(
-        h1(cls := "box__top")(trans.site.changeUsername()),
-        standardFlash,
-        postForm(cls := "form3", action := routes.Account.usernameApply)(
-          form3.globalError(form),
-          form3.group(
-            form("username"),
-            trans.site.username(),
-            help = trans.site.changeUsernameDescription().some
-          )(form3.input(_)(autofocus, required, autocomplete := "username")),
-          form3.action(form3.submit(trans.site.apply()))
-        )
-      )
-
-  def email(form: Form[?])(using Context) =
-    AccountPage(trans.site.changeEmail.txt(), "email"):
-      div(cls := "box box-pad")(
-        h1(cls := "box__top")(trans.site.changeEmail()),
-        standardFlash | flashMessage("warning")(trans.site.emailSuggestion()),
-        postForm(cls := "form3", action := routes.Account.emailApply)(
-          form3.passwordModified(form("passwd"), trans.site.password())(autofocus),
-          form3.group(form("email"), trans.site.email())(form3.input(_, typ = "email")(required)),
-          form3.action(form3.submit(trans.site.apply()))
         )
       )
 

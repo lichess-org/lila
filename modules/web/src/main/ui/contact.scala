@@ -61,14 +61,6 @@ object contact:
           iCantLogIn(),
           List(
             Leaf(
-              "email-confirm",
-              noConfirmationEmail(),
-              p(
-                a(href := routes.Account.emailConfirmHelp)(visitThisPage()),
-                "."
-              )
-            ),
-            Leaf(
               "forgot-password",
               forgotPassword(),
               p(
@@ -117,7 +109,7 @@ object contact:
               "change-username",
               wantChangeUsername(),
               frag(
-                p(a(href := routes.Account.username)(changeUsernameCase()), "."),
+                p(a(href := "https://passport.chess-online.com")("https://passport.chess-online.com"), "."),
                 p(cantChangeMore()),
                 p(orCloseAccount())
               )
@@ -263,7 +255,7 @@ object contact:
               "GDPR erasure",
               p(
                 "You may request the ",
-                a(href := routes.Account.delete)("complete deletion of your Lichess account.")
+                a(href := "https://passport.chess-online.com")("passport.chess-online.com")
               )
             ),
             Leaf(

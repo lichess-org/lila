@@ -142,11 +142,6 @@ object page:
           ctx.data.inquiry.map { views.mod.inquiry(_) },
           ctx.me.ifTrue(ctx.impersonatedBy.isDefined).map { views.mod.ui.impersonate(_) },
           netConfig.stageBanner.option(views.bits.stage),
-          ctx.isAnon
-            .so(lila.security.EmailConfirm.cookie.get(ctx.req))
-            .map(u =>
-              frag(cssTag("bits.email-confirm"), views.auth.checkYourEmailBanner(u.username, u.email))
-            ),
           zenable.option(zenZone),
           sidenav(
             hasClas = ctx.hasClas,
