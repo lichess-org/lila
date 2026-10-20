@@ -13,10 +13,7 @@ import SecurityConfig.*
 final private class SecurityConfig(
     val collection: Collection,
     @ConfigName("geoip") val geoIP: GeoIP.Config,
-    @ConfigName("password_reset.secret") val passwordResetSecret: Secret,
     @ConfigName("email_confirm") val emailConfirm: EmailConfirm,
-    @ConfigName("email_change.secret") val emailChangeSecret: Secret,
-    @ConfigName("login_token.secret") val loginTokenSecret: Secret,
     val tor: Tor,
     @ConfigName("disposable_email") val disposableEmail: DisposableEmail,
     @ConfigName("dns_api") val dnsApi: DnsApi,
