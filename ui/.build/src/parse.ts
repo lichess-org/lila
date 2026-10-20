@@ -59,7 +59,7 @@ export function isGlob(path: string): boolean {
   return /[*?!{}[\]()]/.test(path);
 }
 
-export function isClose(a?: number, b?: number, epsilon = 2) {
+export function isClose(a: number | undefined, b: number | undefined, epsilon = 2) {
   return a === b || Math.abs((a ?? NaN) - (b ?? NaN)) < epsilon; // for mtimeMs jitter
 }
 

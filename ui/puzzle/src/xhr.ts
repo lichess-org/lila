@@ -30,7 +30,7 @@ export const vote = (puzzleId: string, vote: boolean): Promise<void> =>
     body: xhrForm({ vote }),
   });
 
-export const voteTheme = (puzzleId: string, theme: ThemeKey, vote?: boolean): Promise<void> =>
+export const voteTheme = (puzzleId: string, theme: ThemeKey, vote: boolean | undefined): Promise<void> =>
   xhrJson(`/training/${puzzleId}/vote/${theme}`, {
     method: 'POST',
     body: defined(vote) ? xhrForm({ vote }) : undefined,

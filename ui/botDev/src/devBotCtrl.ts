@@ -120,7 +120,7 @@ export class DevBotCtrl extends BotLoader {
     await this.store.remove(bot.uid);
   }
 
-  info(uid?: string): BotInfo | undefined {
+  info(uid: string | undefined): BotInfo | undefined {
     if (uid === undefined) return undefined;
     return this.bots.get(uid) ?? this.rateBots[Number(uid.slice(1))];
   }
@@ -134,14 +134,16 @@ export class DevBotCtrl extends BotLoader {
     };
   }
 
-  groupedCard(bot: BotInfo, isDirty?: (b: BotInfo) => boolean): CardData | undefined {
+  groupedCard(bot: BotInfo, isDirty: (b: BotInfo) => boolean): CardData | undefined {
     const cd = this.card(bot);
+    if (!cd) return undefined;
+
     const local = this.localBots[bot.uid];
     const server = this.serverBots[bot.uid];
-    if (isDirty?.(local ?? server)) cd?.classList.push('dirty');
-    if (!server) cd?.classList.push('local-only');
-    else if (server.version > bot.version) cd?.classList.push('upstream-changes');
-    else if (local && !botEquals(local, server)) cd?.classList.push('local-changes');
+    if (isDirty(local ?? server)) cd.classList.push('dirty');
+    if (!server) cd.classList.push('local-only');
+    else if (server.version > bot.version) cd.classList.push('upstream-changes');
+    else if (local && !botEquals(local, server)) cd.classList.push('local-changes');
     return cd;
   }
 
@@ -156,7 +158,7 @@ export class DevBotCtrl extends BotLoader {
     };
   }
 
-  async getBook(key?: string): Promise<OpeningBook | undefined> {
+  async getBook(key: string | undefined): Promise<OpeningBook | undefined> {
     if (!key) return undefined;
     if (this.book.has(key)) return this.book.get(key);
     if (!env.assets.idb.book.keyNames.has(key)) return super.getBook(key);
@@ -202,15 +204,15 @@ export class DevBotCtrl extends BotLoader {
   };
 }
 
-export function uidToDomId(uid?: string): string | undefined {
+export function uidToDomId(uid: string): string | undefined {
   return uid?.startsWith('#') ? `bot-id-${uid.slice(1)}` : undefined;
 }
 
-export function domIdToUid(domId?: string): string | undefined {
+export function domIdToUid(domId: string | undefined): string | undefined {
   return domId?.startsWith('bot-id-') ? `#${domId.slice(7)}` : undefined;
 }
 
-export function botEquals(a?: BotInfo, b?: BotInfo): boolean {
+export function botEquals(a: BotInfo | undefined, b: BotInfo | undefined): boolean {
   if (!closeEnough(a, b, ['filters', 'version'])) return false;
   const [aFilters, bFilters] = [a, b].map(bot =>
     Object.entries(bot?.filters ?? {}).filter(([_, v]) => v.move || v.time || v.score),

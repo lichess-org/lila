@@ -13,7 +13,7 @@ export const brushes: Map<string, DrawBrush> = new Map<string, DrawBrush>([
   ['white', { key: 'vwh', color: '#ffffff', opacity: 1.0, lineWidth: 15 }],
 ]);
 
-export function numberedArrows(choices: [string, Uci][], timer?: number): DrawShape[] {
+export function numberedArrows(choices: [string, Uci][], timer: number | undefined): DrawShape[] {
   if (!choices) return [];
   const shapes: DrawShape[] = [];
   const preferred = choices[0][0] === 'yes' ? choices.shift()?.[1] : undefined;
@@ -34,7 +34,7 @@ export function numberedArrows(choices: [string, Uci][], timer?: number): DrawSh
   return shapes.reverse();
 }
 
-export function coloredArrows(choices: [string, Uci][], timer?: number): DrawShape[] {
+export function coloredArrows(choices: [string, Uci][], timer: number | undefined): DrawShape[] {
   if (!choices) return [];
   const shapes: DrawShape[] = [];
   const preferred = choices[0][0] === 'yes' ? choices.shift()?.[1] : undefined;

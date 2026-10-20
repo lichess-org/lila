@@ -421,7 +421,7 @@ export default class EditorCtrl implements CevalHandler {
     this.onChange();
   }
 
-  setEnPassant(epSquare?: Square): void {
+  setEnPassant(epSquare: Square | undefined): void {
     this.epSquare = epSquare;
     this.onChange();
   }

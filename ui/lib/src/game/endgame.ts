@@ -54,7 +54,7 @@ export function findGlyphSquare(fen: FEN, color: Color): Key | undefined {
   return square === undefined ? undefined : makeSquare(square);
 }
 
-const loserGlyph = (status?: StatusName): EndgameGlyph =>
+const loserGlyph = (status: StatusName | undefined): EndgameGlyph =>
   status === 'mate'
     ? 'mate'
     : status === 'resign'
@@ -65,7 +65,7 @@ const loserGlyph = (status?: StatusName): EndgameGlyph =>
           ? 'outoftime'
           : 'unknown';
 
-const drawGlyph = (status?: StatusName): EndgameGlyph | undefined =>
+const drawGlyph = (status: StatusName | undefined): EndgameGlyph | undefined =>
   status === 'stalemate'
     ? 'stalemate'
     : status === 'draw' ||
@@ -75,7 +75,11 @@ const drawGlyph = (status?: StatusName): EndgameGlyph | undefined =>
       ? 'draw'
       : undefined;
 
-export function endgameShapes(fen: FEN, winner?: Color, status?: StatusName): DrawShape[] {
+export function endgameShapes(
+  fen: FEN,
+  winner: Color | undefined,
+  status: StatusName | undefined,
+): DrawShape[] {
   if (status === 'aborted' || status === 'noStart') return [];
 
   const shapes: DrawShape[] = [];
