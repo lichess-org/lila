@@ -60,4 +60,7 @@ final class Env(
   Bus.sub[lila.core.misc.mailer.CorrespondenceOpponents]: game =>
     automaticEmail.dailyCorrespondenceNotice(game.userId, game.opponents)
 
+  Bus.sub[lila.core.misc.appeal.AppealReply]: reply =>
+    automaticEmail.onAppealReply(reply.userId)
+
 trait CanSendEmails

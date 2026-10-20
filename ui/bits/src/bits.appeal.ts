@@ -25,16 +25,25 @@ export function initModule(): void {
   initAccountsStep();
 }
 
+function setStepEnabled(el: HTMLElement, enabled: boolean): void {
+  el.classList.toggle('disabled', !enabled);
+  if (el instanceof HTMLButtonElement) el.disabled = !enabled;
+}
+
 function initInfoStep(): void {
   document.querySelectorAll<HTMLElement>('.appeal-info').forEach(root => {
     const checkbox = root.querySelector<HTMLInputElement>('.appeal-info__agree input[type="checkbox"]');
-    const continueButton = root.querySelector<HTMLAnchorElement>('.appeal-info__continue');
+    const continueButton = root.querySelector<HTMLElement>('.appeal-info__continue');
     if (!checkbox || !continueButton) return;
 
-    const sync = () => continueButton.classList.toggle('disabled', !checkbox.checked);
+    const checked = () => checkbox.checked;
+    const sync = () => setStepEnabled(continueButton, checked());
     checkbox.addEventListener('change', sync);
     continueButton.addEventListener('click', e => {
-      if (!checkbox.checked) e.preventDefault();
+      if (!checked()) e.preventDefault();
+    });
+    continueButton.closest('form')?.addEventListener('submit', e => {
+      if (!checked()) e.preventDefault();
     });
     sync();
   });
@@ -50,9 +59,12 @@ function initAccountsStep(): void {
       '.appeal-accounts__forgotten input[type="checkbox"]',
     );
     const household = root.querySelector<HTMLTextAreaElement>('.appeal-accounts__household');
-    const continueButton = root.querySelector<HTMLAnchorElement>('.appeal-accounts__continue');
-    if (!leafId || !onlyRadio || !othersRadio || !othersText || !forgotten || !household || !continueButton)
-      return;
+    const continueButton = root.querySelector<HTMLElement>('.appeal-accounts__continue');
+    if (!onlyRadio || !othersRadio || !othersText || !forgotten || !household || !continueButton) return;
+
+    const appealForm = () =>
+      continueButton.closest('form') ??
+      (leafId ? document.querySelector<HTMLFormElement>(`#help-${leafId} form`) : null);
 
     const canContinue = () =>
       onlyRadio.checked || (othersRadio.checked && (othersText.value.trim().length > 0 || forgotten.checked));
@@ -65,12 +77,12 @@ function initAccountsStep(): void {
         othersText.value = '';
         forgotten.checked = false;
       }
-      continueButton.classList.toggle('disabled', !canContinue());
+      setStepEnabled(continueButton, canContinue());
     };
 
     const copyToAppealForm = (): boolean => {
       if (!canContinue()) return false;
-      const form = document.querySelector<HTMLFormElement>(`#help-${leafId} form`);
+      const form = appealForm();
       if (!form) return false;
       const set = (name: string, value: string) => {
         let input = form.querySelector<HTMLInputElement>(`input[name="${name}"]`);
@@ -88,13 +100,15 @@ function initAccountsStep(): void {
       return true;
     };
 
+    const onContinue = (e: Event) => {
+      if (!copyToAppealForm()) e.preventDefault();
+    };
     onlyRadio.addEventListener('change', sync);
     othersRadio.addEventListener('change', sync);
     othersText.addEventListener('input', sync);
     forgotten.addEventListener('change', sync);
-    continueButton.addEventListener('click', e => {
-      if (!copyToAppealForm()) e.preventDefault();
-    });
+    continueButton.addEventListener('click', onContinue);
+    continueButton.closest('form')?.addEventListener('submit', onContinue);
     sync();
   });
 }
