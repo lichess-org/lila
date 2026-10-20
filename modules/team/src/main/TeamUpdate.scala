@@ -113,7 +113,7 @@ final class TeamUpdateApi(
     yield ()
 
   private def markdownToHeadline(md: Markdown): String =
-    shorten(md.value.dropWhile(_ == '#'), 40).filterNot(Set('#', '*', '-'))
+    shorten(md.value.dropWhile(_ == '#'), 40)
 
   private def notifySubscribers(teamId: TeamId, notification: Notification): Funit =
     memberRepo.coll
