@@ -71,7 +71,6 @@
     "small-rules/no-object-parameters": "error",
     "small-rules/no-reduce-accumulator-copy": "error",
     "small-rules/no-unknown-returns": "error",
-    "small-rules/prefer-optional-parameter": "error",
     "typescript/await-thenable": "error",
     "typescript/consistent-type-assertions": "error",
     "typescript/consistent-indexed-object-style": "error",
