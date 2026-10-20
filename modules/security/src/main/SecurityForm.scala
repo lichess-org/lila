@@ -24,10 +24,16 @@ final class SecurityForm(
   private val newPasswordField =
     nonEmptyText(minLength = 4, maxLength = 999).verifying(PasswordCheck.newConstraint)
   private def newPasswordFieldForMe(using me: Me) =
-    newPasswordField.verifying(PasswordCheck.sameConstraint(me.username.into(UserStr)))
+    newPasswordField.verifying(PasswordCheck.sameConstraint(me.username))
 
   def myUsernameField(using me: Me) =
-    LilaForm.cleanNonEmptyText.into[UserStr].verifying("Please log into your account first.", _.is(me))
+    LilaForm
+      .cleanNonEmptyText(minLength = 2, maxLength = 30)
+      .verifying(
+        "Please log into your account first.",
+        value => value.toLowerCase == me.username.value.toLowerCase
+      )
+      .into[UserName]
 
   private val anyEmail: Mapping[EmailAddress] =
     LilaForm

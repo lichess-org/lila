@@ -18,7 +18,7 @@ object PasswordCheck:
     else Valid
   }
 
-  def sameConstraint(user: UserStr)(using mode: Mode) = Constraint[String]: pass =>
+  def sameConstraint(user: UserName)(using mode: Mode) = Constraint[String]: pass =>
     if mode.isProd && pass == user.value then Invalid(ValidationError(errorSame))
     else Valid
 
