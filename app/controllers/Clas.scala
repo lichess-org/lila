@@ -399,7 +399,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
           err => BadRequest.page(views.clas.student.edit(clas, students, s, err)),
           data =>
             env.clas.api.student.update(s.student, data).map { _ =>
-              Redirect(routes.Clas.studentShow(clas.id, s.user.username)).flashSuccess
+              Redirect(routes.Clas.studentShow(clas.id, s.user.id)).flashSuccess
             }
         )
   }
@@ -409,7 +409,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
       WithStudent(clas, username): s =>
         env.clas.api.student
           .archive(s.student.id, v)
-          .inject(Redirect(routes.Clas.studentShow(clas.id, s.user.username)).flashSuccess)
+          .inject(Redirect(routes.Clas.studentShow(clas.id, s.user.id)).flashSuccess)
   }
 
   def studentResetPassword(id: ClasId, username: UserStr) =
@@ -418,7 +418,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
         WithStudent(clas, username): s =>
           (env.security.store.closeAllSessionsOf(s.user.id) >>
             env.clas.api.student.resetPassword(s.student)).map { password =>
-            Redirect(routes.Clas.studentShow(clas.id, s.user.username))
+            Redirect(routes.Clas.studentShow(clas.id, s.user.id))
               .flashing("password" -> password.value)
           }
     }
@@ -428,7 +428,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
       WithStudent(clas, username): s =>
         if s.student.managed
         then Ok.page(views.clas.student.release(clas, students, s, env.clas.forms.student.release))
-        else Redirect(routes.Clas.studentShow(clas.id, s.user.username))
+        else Redirect(routes.Clas.studentShow(clas.id, s.user.id))
   }
 
   def studentReleasePost(id: ClasId, username: UserStr) = SecureBody(_.Teacher) { ctx ?=> me ?=>
@@ -444,10 +444,10 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
                 authC.EmailConfirmRateLimit(newUserEmail, ctx.req, rateLimited):
                   env.security.emailChange
                     .send(s.user, newUserEmail.email)
-                    .inject(Redirect(routes.Clas.studentShow(clas.id, s.user.username)).flashSuccess:
+                    .inject(Redirect(routes.Clas.studentShow(clas.id, s.user.id)).flashSuccess:
                       s"A confirmation email was sent to ${email}. ${s.student.realName} must click the link in the email to release the account.")
             )
-        else Redirect(routes.Clas.studentShow(clas.id, s.user.username))
+        else Redirect(routes.Clas.studentShow(clas.id, s.user.id))
   }
 
   def studentClose(id: ClasId, username: UserStr) = Secure(_.Teacher) { ctx ?=> me ?=>
@@ -455,7 +455,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
       WithStudent(clas, username): s =>
         if s.student.managed
         then Ok.page(views.clas.student.close(clas, students, s))
-        else Redirect(routes.Clas.studentShow(clas.id, s.user.username))
+        else Redirect(routes.Clas.studentShow(clas.id, s.user.id))
   }
 
   def studentClosePost(id: ClasId, username: UserStr) = SecureBody(_.Teacher) { _ ?=> me ?=>

@@ -148,7 +148,7 @@ final class ClasUi(helpers: lila.ui.Helpers)(
     private def teacherLink(userId: UserId)(using Context) =
       lightUserSync(userId).map: user =>
         a(
-          href     := routes.Clas.teacher(user.name),
+          href     := routes.Clas.teacher(user.id),
           cls      := userClass(user.id, none, withOnline = true),
           dataHref := routes.User.show(user.id)
         )(

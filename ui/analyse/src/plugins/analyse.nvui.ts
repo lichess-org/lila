@@ -449,7 +449,7 @@ function userHtml(ctrl: AnalyseController, player: Player) {
     ? h('span', [
         h(
           'a',
-          { attrs: { href: '/@/' + user.username } },
+          { attrs: { href: '/@/' + user.id } },
           user.title ? `${user.title} ${user.username}` : user.username,
         ),
         rating ? ` ${rating}` : ``,

@@ -29,4 +29,4 @@ object OAuthTokenForm:
 
   case class AdminChallengeTokensData(description: String, usersStr: String):
 
-    def usernames = usersStr.split(',').flatMap(UserStr.read).distinct.filter(_.couldBeUsername).toList
+    def usernames = usersStr.split(',').flatMap(UserStr.read).distinct.toList

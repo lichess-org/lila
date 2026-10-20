@@ -260,12 +260,21 @@ object Form:
     val field: Mapping[ZoneId] = of[ZoneId]
 
   object username:
-    val historicalConstraints = Seq(
+    val idConstraints = Seq(
       Constraints.minLength(1),
-      Constraints.maxLength(12),
-      Constraints.pattern(regex = UserName.historicalRegex)
+      Constraints.maxLength(32),
+      Constraints.pattern(regex = UserId.regex)
     )
-    val historicalField = trim(text).verifying(historicalConstraints*).into[UserStr]
+
+    /** A user identifier: canonical `sub`, system account or ghost id. Never a display name. */
+    val historicalField = trim(text).verifying(idConstraints*).into[UserStr]
+
+    val displayConstraints = Seq(
+      Constraints.minLength(2),
+      Constraints.maxLength(30),
+      Constraints.pattern(regex = UserName.displayRegex)
+    )
+    val displayField = trim(text).verifying(displayConstraints*).into[UserName]
 
   object playerTitle:
     import chess.PlayerTitle

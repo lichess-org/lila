@@ -2,8 +2,7 @@ package lila.user
 
 class UserTest extends munit.FunSuite:
 
-  given Conversion[String, UserStr] = UserStr(_)
-  given Conversion[String, UserId]  = UserId(_)
+  given Conversion[String, UserId] = UserId(_)
 
   def canSignup(str: String) =
     import lila.user.nameRules.*
@@ -13,14 +12,19 @@ class UserTest extends munit.FunSuite:
     newUsernameChars.pattern.matcher(str).matches &&
     newUsernameLetters.pattern.matcher(str).matches
 
-  import UserStr.couldBeUsername
+  def canRoute(str: String) = UserStr(str).couldBeUserId
 
-  test("username regex bad prefix: can login") {
-    assert(couldBeUsername("2"))
-    // assert(couldBeUsername("0foo"))
-    // assert(couldBeUsername("_foo"))
-    // assert(couldBeUsername("__foo"))
-    // assert(couldBeUsername("-foo"))
+  test("route ids accept numeric and system ids only") {
+    assert(canRoute("2"))
+    assert(canRoute("1001"))
+    assert(canRoute("lichess"))
+    assert(canRoute("ghost"))
+    assert(canRoute("!a1B2c3D4"))
+    assert(!canRoute("Александр"))
+    assert(!canRoute("Иван Петров"))
+    assert(!canRoute("thibault"))
+    assert(!canRoute("0foo"))
+    assert(!canRoute(""))
   }
 
   test("username regex bad prefix: cannot signup") {

@@ -189,14 +189,14 @@ final class StudentFormUi(helpers: Helpers, clasUi: ClasUi, studentUi: StudentUi
         studentUi.top(clas, s),
         div(cls := "box__pad")(
           standardFlash,
-          postForm(cls := "form3", action := routes.Clas.studentUpdate(clas.id, s.user.username))(
+          postForm(cls := "form3", action := routes.Clas.studentUpdate(clas.id, s.user.id))(
             form3.globalError(form),
             realNameField(form),
             form3.group(form("notes"), trans.site.notes(), help = trans.clas.onlyVisibleToTeachers().some)(
               form3.textarea(_)(autofocus, rows := 15)
             ),
             form3.actions(
-              a(href := routes.Clas.studentShow(clas.id, s.user.username))(trans.site.cancel()),
+              a(href := routes.Clas.studentShow(clas.id, s.user.id))(trans.site.cancel()),
               form3.submit(trans.site.apply())
             )
           ),
@@ -204,7 +204,7 @@ final class StudentFormUi(helpers: Helpers, clasUi: ClasUi, studentUi: StudentUi
           div(cls := "student-show__other-actions")(
             s.student.isActive.option(
               postForm(
-                action := routes.Clas.studentArchive(clas.id, s.user.username, v = true)
+                action := routes.Clas.studentArchive(clas.id, s.user.id, v = true)
               )(
                 form3.submit(trans.clas.removeStudent(), icon = none)(
                   cls := "yes-no-confirm button-red button-empty"
@@ -213,13 +213,13 @@ final class StudentFormUi(helpers: Helpers, clasUi: ClasUi, studentUi: StudentUi
             ),
             s.student.managed.option(
               a(
-                href  := routes.Clas.studentClose(clas.id, s.user.username),
+                href  := routes.Clas.studentClose(clas.id, s.user.id),
                 cls   := "button button-empty button-red",
                 title := trans.clas.closeDesc1.txt()
               )(trans.clas.closeStudent())
             ),
             a(
-              href := routes.Clas.studentMove(clas.id, s.user.username),
+              href := routes.Clas.studentMove(clas.id, s.user.id),
               cls  := "button button-empty"
             )(trans.clas.moveToAnotherClass())
           )
@@ -239,7 +239,7 @@ final class StudentFormUi(helpers: Helpers, clasUi: ClasUi, studentUi: StudentUi
             br,
             trans.clas.releaseDesc2()
           ),
-          postForm(cls := "form3", action := routes.Clas.studentReleasePost(clas.id, s.user.username))(
+          postForm(cls := "form3", action := routes.Clas.studentReleasePost(clas.id, s.user.id))(
             form3.globalError(form),
             form3.group(
               form("email"),
@@ -247,7 +247,7 @@ final class StudentFormUi(helpers: Helpers, clasUi: ClasUi, studentUi: StudentUi
               help = trans.clas.realUniqueEmail().some
             )(form3.input(_, typ = "email")(autofocus, required)),
             form3.actions(
-              a(href := routes.Clas.studentShow(clas.id, s.user.username))(trans.site.cancel()),
+              a(href := routes.Clas.studentShow(clas.id, s.user.id))(trans.site.cancel()),
               form3.submit(trans.site.apply())
             )
           )
@@ -275,7 +275,7 @@ final class StudentFormUi(helpers: Helpers, clasUi: ClasUi, studentUi: StudentUi
           h2(trans.clas.moveToAnotherClass()),
           classForms,
           form3.actions(
-            a(href := routes.Clas.studentShow(clas.id, s.user.username))(trans.site.cancel())
+            a(href := routes.Clas.studentShow(clas.id, s.user.id))(trans.site.cancel())
           )
         )
       )
@@ -290,11 +290,11 @@ final class StudentFormUi(helpers: Helpers, clasUi: ClasUi, studentUi: StudentUi
           h2(trans.clas.closeTheAccount()),
           p(strong(badTag(trans.clas.closeDesc1()))),
           p(
-            a(href := routes.Clas.studentRelease(clas.id, s.user.username))(trans.clas.closeDesc2())
+            a(href := routes.Clas.studentRelease(clas.id, s.user.id))(trans.clas.closeDesc2())
           ),
-          postForm(cls := "form3", action := routes.Clas.studentClosePost(clas.id, s.user.username))(
+          postForm(cls := "form3", action := routes.Clas.studentClosePost(clas.id, s.user.id))(
             form3.actions(
-              a(href := routes.Clas.studentShow(clas.id, s.user.username))(trans.site.cancel()),
+              a(href := routes.Clas.studentShow(clas.id, s.user.id))(trans.site.cancel()),
               form3.submit(trans.clas.closeTheAccount(), icon = Icon.CautionCircle.some)(
                 cls := "button-red yes-no-confirm"
               )

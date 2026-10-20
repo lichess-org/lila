@@ -37,6 +37,7 @@ export interface Hook {
 
 export interface Seek {
   id: string;
+  userId: string;
   username: string;
   rating: number;
   mode: number;

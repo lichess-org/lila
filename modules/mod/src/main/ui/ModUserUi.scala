@@ -299,7 +299,7 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
     if nb == 0 then emptyFrag
     else
       mzSection("teacher")(
-        strong(cls := "inline")(a(href := routes.Clas.teacher(u.username))(nb, " Classes"))
+        strong(cls := "inline")(a(href := routes.Clas.teacher(u.id))(nb, " Classes"))
       )
 
   def modLog(history: List[lila.mod.Modlog])(using Translate) =

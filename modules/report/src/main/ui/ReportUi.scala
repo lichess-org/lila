@@ -29,7 +29,7 @@ final class ReportUi(helpers: Helpers):
           h1(cls := "box__top")(trans.site.reportAUser()),
           postForm(
             cls    := "form3",
-            action := routes.Report.inboxCreate(user.username)
+            action := routes.Report.inboxCreate(user.id)
           )(
             div(cls := "form-group")(aboutReports),
             form3.globalError(form),

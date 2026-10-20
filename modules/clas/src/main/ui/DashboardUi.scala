@@ -360,7 +360,7 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
       )
 
     private def studentTd(c: Clas, s: Student.WithUserLike)(using Context) = td:
-      a(href := routes.Clas.studentShow(c.id, s.user.username)):
+      a(href := routes.Clas.studentShow(c.id, s.user.id)):
         userSpan(
           s.user,
           name = span(s.user.username, em(s.student.realName)).some,

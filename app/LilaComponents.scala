@@ -168,6 +168,7 @@ final class LilaComponents(
   lazy val recap: Recap                   = wire[Recap]
   lazy val bulkPairing: BulkPairing       = wire[BulkPairing]
   lazy val opening: Opening               = wire[Opening]
+  lazy val internal: Internal             = wire[Internal]
   lazy val cms: Cms                       = wire[Cms]
   lazy val fide: Fide                     = wire[Fide]
   lazy val titleVerify: TitleVerify       = wire[TitleVerify]

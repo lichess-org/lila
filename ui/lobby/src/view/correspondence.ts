@@ -23,7 +23,7 @@ function renderSeek(ctrl: LobbyController, seek: Seek): VNode {
     },
     tds([
       seek.rating
-        ? h('span.ulpt', { attrs: { 'data-href': '/@/' + seek.username } }, seek.username)
+        ? h('span.ulpt', { attrs: { 'data-href': '/@/' + seek.userId } }, seek.username)
         : 'Anonymous',
       seek.rating && ctrl.opts.showRatings ? seek.rating + (seek.provisional ? '?' : '') : '',
       seek.days ? i18n.site.nbDays(seek.days) : '∞',

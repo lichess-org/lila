@@ -25,6 +25,10 @@ object userId:
     val watcherbot: UserId               = "watcherbot"
     def isOfficial[U: UserIdOf](user: U) = lichess.is(user) || broadcaster.is(user)
 
+    /** Only canonical `sub` values, system accounts and ghost ids may be route-bound. */
+    lazy val regex =
+      "(?:[1-9][0-9]{0,30}|lichess|ghost|broadcaster|irwin|kaladin|openingexplorer|lichess4545|challengermode|watcherbot|![A-Za-z0-9_-]{1,32})".r
+
   trait UserIdOf[U]:
     def apply(u: U): UserId
     extension (u: U)
@@ -50,40 +54,36 @@ object userId:
       inline def userId: UserId = me.into(UserId)
       inline def modId: ModId   = me.into(ModId)
 
-  // Properly cased for display
+  // Properly cased for display only, never an identity key.
   opaque type UserName = String
   object UserName extends OpaqueString[UserName]:
     extension (e: UserName) def str = UserStr(e)
     given UserIdOf[UserName]        = n => UserId(n.value.toLowerCase)
-    // what existing usernames are like
-    val historicalRegex     = "[1-9][0-9]{0,30}".r
+    // what SSO display names look like: letters/digits of any script, `_`, `-`, space
+    val displayRegex        = "[\\p{L}\\p{N}_\\- ]{2,30}".r
     val anonymous: UserName = "Anonymous"
     val lichess: UserName   = "lichess"
     val anonMod: String     = "A Lichess Moderator"
 
-  // maybe an Id, maybe a Name... something that's probably cased wrong
+  // the id of a user as it appears in routes and forms
   opaque type UserStr = String
   object UserStr extends OpaqueString[UserStr]:
     extension (e: UserStr)
-      def couldBeUsername: Boolean   = UserId.noGhost(e.id) && UserName.historicalRegex.matches(e)
-      def validateId: Option[UserId] = Option.when(couldBeUsername)(e.id)
+      def couldBeUserId: Boolean     = UserId.regex.matches(e.value.toLowerCase)
+      def validateId: Option[UserId] = Option.when(couldBeUserId)(e.id)
     given UserIdOf[UserStr] = n => UserId(n.value.toLowerCase)
-    // these conversions are using when generating routes containing UserStr
-    // so we can give them usernames and userIds
-    given Conversion[UserName, UserStr]                 = _.value
-    given Conversion[Option[UserName], Option[UserStr]] = _.map(_.value)
-    given Conversion[UserId, UserStr]                   = _.value
+    // these conversions are used when generating routes containing UserStr
+    given Conversion[UserId, UserStr] = _.value
     def read(str: String): Option[UserStr] =
       val trimmed = str.trim
-      Option.when(UserName.historicalRegex.matches(trimmed))(UserStr(trimmed))
+      Option.when(UserId.regex.matches(trimmed.toLowerCase))(UserStr(trimmed))
 
-  // the prefix, or entirety, of a user name.
-  // "chess-" is a valid username prefix, but not a valid username
+  // the prefix, or entirety, of a user display name.
   opaque type UserSearch = String
   object UserSearch extends OpaqueString[UserSearch]:
-    private val regex = "(?i)[a-z0-9][a-z0-9_-]{2,28}".r
+    private val regex = "(?i)[\\p{L}\\p{N}][\\p{L}\\p{N}_\\- ]{1,29}".r
     def read(str: String): Option[UserSearch] =
-      val clean = str.trim.takeWhile(' ' !=)
+      val clean = str.trim
       if regex.matches(clean) then Some(clean.toLowerCase) else None
 
   opaque type ModId = String

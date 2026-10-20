@@ -30,12 +30,12 @@ final class StudentUi(helpers: Helpers, clasUi: ClasUi)(using NetDomain):
             div(cls := "student-show__archived archived")(
               clasUi.showArchived(archived),
               div(cls := "student-show__archived__actions")(
-                postForm(action := routes.Clas.studentArchive(clas.id, s.user.username, v = false)):
+                postForm(action := routes.Clas.studentArchive(clas.id, s.user.id, v = false)):
                   form3.submit(trans.clas.inviteTheStudentBack(), icon = none)(
                     cls := "yes-no-confirm button-empty"
                   )
                 ,
-                postForm(action := routes.Clas.studentClosePost(clas.id, s.user.username)):
+                postForm(action := routes.Clas.studentClosePost(clas.id, s.user.id)):
                   form3.submit(trans.clas.removeStudent(), icon = none)(
                     cls   := "yes-no-confirm button-red button-empty",
                     title := "Fully erase the student from the class archives."
@@ -50,7 +50,7 @@ final class StudentUi(helpers: Helpers, clasUi: ClasUi)(using NetDomain):
               div(cls := "student-show__managed")(
                 p(trans.clas.thisStudentAccountIsManaged()),
                 div(cls := "student-show__managed__actions")(
-                  postForm(action := routes.Clas.studentResetPassword(clas.id, s.user.username))(
+                  postForm(action := routes.Clas.studentResetPassword(clas.id, s.user.id))(
                     form3.submit(trans.clas.resetPassword(), icon = none)(
                       s.student.isArchived.option(disabled),
                       cls := List(
@@ -61,7 +61,7 @@ final class StudentUi(helpers: Helpers, clasUi: ClasUi)(using NetDomain):
                     )
                   ),
                   a(
-                    href  := routes.Clas.studentRelease(clas.id, s.user.username),
+                    href  := routes.Clas.studentRelease(clas.id, s.user.id),
                     cls   := "button button-empty",
                     title := trans.clas.upgradeFromManaged.txt()
                   )(trans.clas.release())
@@ -71,7 +71,7 @@ final class StudentUi(helpers: Helpers, clasUi: ClasUi)(using NetDomain):
             .orElse(s.managingClas.map { managingClas =>
               div(cls := "student-show__managed")(
                 p(trans.clas.thisStudentAccountIsManaged()),
-                a(href := routes.Clas.studentShow(managingClas.id, s.user.username))(
+                a(href := routes.Clas.studentShow(managingClas.id, s.user.id))(
                   "Class: ",
                   managingClas.name
                 )
@@ -86,7 +86,7 @@ final class StudentUi(helpers: Helpers, clasUi: ClasUi)(using NetDomain):
       boxTop(
         h1(dataIcon := Icon.User)(
           span(
-            strong(s.user.username),
+            strong(s.user.id),
             em(s.student.realName)
           )
         )
@@ -106,7 +106,7 @@ final class StudentUi(helpers: Helpers, clasUi: ClasUi)(using NetDomain):
             cls  := "button button-empty"
           )(trans.site.message()),
           a(
-            href := routes.Clas.studentEdit(clas.id, s.user.username),
+            href := routes.Clas.studentEdit(clas.id, s.user.id),
             cls  := "button button-empty"
           )(trans.site.edit()),
           a(

@@ -104,7 +104,7 @@ function teamTr(ctrl: TournamentController, battle: TeamBattle, team: RankedTeam
         {
           key: p.user.name,
           class: { top: i === 0 },
-          attrs: { 'data-href': '/@/' + p.user.name },
+          attrs: { 'data-href': '/@/' + p.user.id },
           hook: { destroy: vnode => $.powerTip.destroy(vnode.elm as HTMLElement) },
         },
         [...(i === 0 ? [h('username', fullName(p.user)), ' '] : []), '' + p.score],
