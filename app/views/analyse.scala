@@ -1,7 +1,7 @@
 package views.analyse
 
 import chess.format.pgn.PgnStr
-import play.api.libs.json.{ Json, JsObject }
+import play.api.libs.json.{ JsObject, Json }
 
 import lila.app.UiEnv.{ *, given }
 import lila.round.RoundGame.secondsSinceCreation

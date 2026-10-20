@@ -1,6 +1,6 @@
 package lila.web
 
-import play.api.{ Configuration, ConfigLoader }
+import play.api.{ ConfigLoader, Configuration }
 
 import lila.common.config.given
 import lila.core.config.*

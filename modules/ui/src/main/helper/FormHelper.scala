@@ -1,11 +1,13 @@
 package lila.ui
 
 import play.api.data.*
-import scala.util.Try
 import play.api.i18n.Lang
 import scalalib.data.SimpleMemo
-import lila.ui.ScalatagsTemplate.*
+
+import scala.util.Try
+
 import lila.core.security.TurnstilePublicConfig
+import lila.ui.ScalatagsTemplate.*
 
 trait FormHelper:
   self: I18nHelper & AssetHelper =>

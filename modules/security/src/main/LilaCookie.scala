@@ -4,7 +4,7 @@ package security
 import play.api.mvc.*
 import scalalib.SecureRandom
 
-import lila.core.config.{ NetDomain, NetConfig }
+import lila.core.config.{ NetConfig, NetDomain }
 import lila.core.id.SessionId
 import lila.core.security.LilaCookie
 

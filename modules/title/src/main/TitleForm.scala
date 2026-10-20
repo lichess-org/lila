@@ -3,7 +3,7 @@ package lila.title
 import play.api.data.*
 import play.api.data.Forms.*
 
-import lila.common.Form.{ cleanNonEmptyText, fideId, playerTitle, stringIn, url, into }
+import lila.common.Form.{ cleanNonEmptyText, fideId, into, playerTitle, stringIn, url }
 import lila.core.user.RealName
 
 object TitleForm:

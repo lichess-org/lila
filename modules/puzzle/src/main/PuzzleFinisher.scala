@@ -1,8 +1,8 @@
 package lila.puzzle
 
-import chess.{ Rated, ByColor }
 import chess.rating.IntRatingDiff
 import chess.rating.glicko.{ Glicko, GlickoCalculator }
+import chess.{ ByColor, Rated }
 import scalalib.actor.AsyncActorSequencers
 
 import lila.common.Bus

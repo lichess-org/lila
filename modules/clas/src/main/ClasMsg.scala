@@ -2,8 +2,8 @@ package lila.clas
 
 import play.api.i18n.Lang
 
-import lila.core.msg.{ MsgApi, SystemMsg }
 import lila.core.config.RouteUrl
+import lila.core.msg.{ MsgApi, SystemMsg }
 
 private final class ClasMsg(msgApi: MsgApi, routeUrl: RouteUrl)(using Executor, lila.core.i18n.Translator):
 

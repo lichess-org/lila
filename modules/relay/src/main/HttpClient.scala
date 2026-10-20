@@ -1,9 +1,10 @@
 package lila.relay
 
-import java.nio.charset.{ Charset, StandardCharsets }
-import io.mola.galimatias.{ URL, Host }
+import io.mola.galimatias.{ Host, URL }
 import play.api.libs.ws.*
 import play.shaded.ahc.org.asynchttpclient.util.HttpUtils.extractContentTypeCharsetAttribute
+
+import java.nio.charset.{ Charset, StandardCharsets }
 
 import lila.core.lilaism.LilaExceptionNoStack
 import lila.mon.extensions.*

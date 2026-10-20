@@ -90,11 +90,13 @@ class HistoryDialog {
   }
 
   clickItem = async (e: Event) => {
-    this.select(this.version((e.target as HTMLElement).dataset.version));
+    if (e.target instanceof HTMLElement && e.target.dataset.version)
+      this.select(this.version(e.target.dataset.version));
   };
 
   mouseEnterItem = async (e: Event) => {
-    this.json(this.version((e.target as HTMLElement)?.dataset.version));
+    if (e.target instanceof HTMLElement && e.target.dataset.version)
+      this.json(this.version(e.target.dataset.version));
   };
 
   select(bot: BotVersionInfo | undefined = this.selected): void {
@@ -108,7 +110,7 @@ class HistoryDialog {
     this.json(bot);
   }
 
-  version(version: string | number | undefined): BotVersionInfo | undefined {
+  version(version: string | number): BotVersionInfo | undefined {
     if (!version) return undefined;
     return this.versions.find(b => String(b.version) === String(version));
   }

@@ -1,7 +1,7 @@
 package lila.study
 
+import chess.format.pgn.{ Comment as CommentStr, Parser, Tags }
 import chess.format.{ Fen, Uci, UciPath }
-import chess.format.pgn.{ Parser, Tags, Comment as CommentStr }
 import chess.variant.Variant
 
 import lila.tree.Node.Comment

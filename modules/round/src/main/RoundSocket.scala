@@ -1,8 +1,8 @@
 package lila.round
 
-import org.apache.pekko.actor.{ Cancellable, CoordinatedShutdown, Scheduler }
 import chess.format.Uci
-import chess.{ ByColor, Black, Centis, Color, MoveMetrics, Speed, White }
+import chess.{ Black, ByColor, Centis, Color, MoveMetrics, Speed, White }
+import org.apache.pekko.actor.{ Cancellable, CoordinatedShutdown, Scheduler }
 import play.api.libs.json.*
 import reactivemongo.api.Cursor
 import scalalib.actor.AsyncActorConcMap
@@ -14,8 +14,8 @@ import lila.core.game.TvSelect
 import lila.core.net.IpAddress
 import lila.core.round.*
 import lila.core.socket.{ protocol as P, * }
-import lila.room.RoomSocket.{ Protocol as RP, * }
 import lila.mon.extensions.*
+import lila.room.RoomSocket.{ Protocol as RP, * }
 
 final class RoundSocket(
     socketKit: ParallelSocketKit,

@@ -8,6 +8,7 @@ import scalalib.Render
 import scalatags.Text.all.*
 import scalatags.Text.{ Aggregate, Cap, GenericAttr }
 import scalatags.text.Builder
+
 import lila.core.i18n.{ I18nKey, Translate }
 
 // collection of lila attrs

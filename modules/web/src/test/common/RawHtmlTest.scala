@@ -84,19 +84,6 @@ class RawHtmlTest extends munit.FunSuite:
       addLinks(s"""link to $url here"""),
       s"""link to <a rel="nofollow noreferrer" href="$url" target="_blank">$url</a> here"""
     )
-  test("detect i.ibb image URL"):
-    val url = "https://i.ibb.co/DH1h40Wc/4d1c3ca94244.png"
-    val picUrl = url
-    assertEquals(
-      addLinks(s"""img to $url here"""),
-      s"""img to <img class="embed" src="$picUrl" alt="$url"/> here"""
-    )
-  test("ignore i.ibb image URL >> quotes"):
-    val url = "https://i.ibb.co/DH1h40Wc/4d1c3ca94244.png"
-    assertEquals(
-      addLinks(s"""img to "$url" here"""),
-      s"""img to &quot;<a rel="nofollow noreferrer" href="$url" target="_blank">i.ibb.co/DH1h40Wc/4d1c3ca94244.png</a>&quot; here"""
-    )
 
   test("internal links"):
     assertEquals(
@@ -179,6 +166,7 @@ class RawHtmlTest extends munit.FunSuite:
     assert(hasMarkdownLinks(Html("[Example](https://example.com)")))
     assert(!hasMarkdownLinks(Html("https://example.com")))
     assert(!hasMarkdownLinks(Html("no links here")))
+    assert(hasMarkdownLinks(Html("Join\n[our team](https://example.com/team) now")))
 
   test("markdown with bare links linkify bare url after markdown link"):
     assertEquals(

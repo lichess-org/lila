@@ -1,8 +1,8 @@
 package lila.swiss
 
+import chess.IntRating
 import org.apache.pekko.stream.scaladsl.*
 import reactivemongo.api.bson.*
-import chess.IntRating
 
 import lila.db.dsl.{ *, given }
 

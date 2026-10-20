@@ -1,8 +1,8 @@
 package lila.simul
 
-import chess.variant.Variant
 import chess.IntRating
 import chess.rating.RatingProvisional
+import chess.variant.Variant
 
 import lila.core.user.WithPerf
 

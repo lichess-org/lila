@@ -3,9 +3,9 @@ package lila.relay
 import com.github.blemale.scaffeine.Cache
 import scalalib.DiffStr
 
-import lila.study.ChapterPreviewApi
 import lila.core.irc.IrcApi
 import lila.core.userId.ModId
+import lila.study.ChapterPreviewApi
 
 private final class RelayNotifierAdmin(roundRepo: RelayRoundRepo, irc: IrcApi, previewApi: ChapterPreviewApi)(
     using

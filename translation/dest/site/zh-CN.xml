@@ -289,7 +289,7 @@
   <string name="finished">已结束</string>
   <string name="abortGame">终止对局</string>
   <string name="gameAborted">对局已终止</string>
-  <string name="standard">标准</string>
+  <string name="standard">标准棋</string>
   <string name="customPosition">自定义局面</string>
   <string name="unlimited">无限制</string>
   <string name="unlimitedDescription">请随意安排时间</string>

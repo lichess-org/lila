@@ -1,9 +1,9 @@
 package lila.insight
 
-import scalalib.model.Percent
+import chess.eval.WinPercent
 import chess.format.pgn.SanStr
 import chess.{ Centis, Clock, Ply, Role }
-import chess.eval.WinPercent
+import scalalib.model.Percent
 
 import lila.analyse.AccuracyPercent
 import lila.common.{ LilaOpeningFamily, SimpleOpening }

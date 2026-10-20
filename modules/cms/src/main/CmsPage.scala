@@ -1,8 +1,8 @@
 package lila.cms
 
 import reactivemongo.api.bson.Macros.Annotations.Key
-
 import scalalib.model.Language
+
 import lila.core.id.{ CmsPageId, CmsPageKey }
 
 case class CmsPage(

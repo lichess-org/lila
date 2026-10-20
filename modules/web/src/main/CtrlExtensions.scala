@@ -2,7 +2,7 @@ package lila.web
 
 import play.api.mvc.*
 
-import lila.common.{ HTTPRequest, ClientName }
+import lila.common.{ ClientName, HTTPRequest }
 import lila.core.config.BaseUrl
 
 trait CtrlExtensions extends play.api.mvc.ControllerHelpers with ResponseHeaders:

@@ -2,6 +2,7 @@ package lila.web
 package ui
 
 import scalatags.Text.all.*
+
 import lila.web.ui.AssetFullHelper
 
 final class PieceSetImages(assets: AssetFullHelper):

@@ -2,17 +2,18 @@ package lila.api
 
 import play.api.libs.json.{ Json, JsObject, OWrites }
 import play.api.i18n.Lang
+import play.api.libs.json.{ JsObject, Json }
 import play.api.mvc.RequestHeader
 import scalalib.data.Preload
 import scalalib.Json.given
 import scalalib.paginator.Paginator
 
-import lila.common.Json.given
 import lila.common.ClientName
+import lila.common.Json.given
 import lila.core.i18n.Translate
+import lila.core.perf.UserWithPerfs
 import lila.core.user.KidMode
 import lila.oauth.TokenScopes
-import lila.core.perf.UserWithPerfs
 
 final class MobileApi(
     userApi: UserApi,

@@ -5,8 +5,8 @@ import play.api.libs.json.*
 
 import lila.common.Bus
 import lila.common.Json.given
-import lila.core.game.{ FinishGame, Game, StartGame, WithInitialFen }
 import lila.core.LightUser
+import lila.core.game.{ FinishGame, Game, StartGame, WithInitialFen }
 
 final class GamesByUsersStream(gameRepo: lila.game.GameRepo)(using
     org.apache.pekko.stream.Materializer,

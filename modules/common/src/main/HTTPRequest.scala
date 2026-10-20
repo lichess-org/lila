@@ -1,16 +1,16 @@
 package lila.common
 
-import scala.util.matching.Regex
-
 import play.api.http.HeaderNames
+import play.api.libs.typedmap.TypedKey
 import play.api.mvc.RequestHeader
 import play.api.routing.Router
-import play.api.libs.typedmap.TypedKey
-import scalalib.net.{ UserAgent, Bearer }
+import scalalib.net.{ Bearer, UserAgent }
+
+import scala.util.matching.Regex
 
 import lila.common.Form.trueish
-import lila.core.net.*
 import lila.core.data.UntypedFormRequest
+import lila.core.net.*
 
 object HTTPRequest:
 

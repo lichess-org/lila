@@ -4,6 +4,7 @@ import play.api.libs.json.*
 import play.api.mvc.*
 
 import lila.app.{ *, given }
+import lila.common.HTTPRequest
 import lila.plan.{
   CustomerInfo,
   Freq,
@@ -16,7 +17,6 @@ import lila.plan.{
   StripeCustomer,
   StripeCustomerId
 }
-import lila.common.HTTPRequest
 
 final class Plan(env: Env) extends LilaController(env):
 

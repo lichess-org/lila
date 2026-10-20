@@ -2,8 +2,9 @@ package lila.perfStat
 
 import chess.IntRating
 import reactivemongo.api.bson.Macros.Annotations.Key
-import java.time.Duration
 import scalalib.HeapSort
+
+import java.time.Duration
 
 import lila.rating.PerfType
 import lila.rating.PerfType.GamePerf

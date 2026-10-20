@@ -1,8 +1,8 @@
 package lila.team
 
-import reactivemongo.pekkostream.{ PekkoStreamCursor, cursorProducer }
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
+import reactivemongo.pekkostream.{ PekkoStreamCursor, cursorProducer }
 
 import java.time.Period
 

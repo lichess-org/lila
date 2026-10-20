@@ -2,11 +2,12 @@ package lila.web
 
 import play.api.i18n.Lang
 import play.api.mvc.RequestHeader
-import lila.ui.Context
+import scalalib.net.UserAgent
+
+import lila.common.{ ClientName, HTTPRequest }
 import lila.core.i18n.Translate
 import lila.core.pref.Pref
-import scalalib.net.UserAgent
-import lila.common.{ HTTPRequest, ClientName }
+import lila.ui.Context
 
 trait CtrlGivens:
 

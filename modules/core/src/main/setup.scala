@@ -2,7 +2,7 @@ package lila.core
 package setup
 
 import _root_.chess.variant.Variant
-import _root_.chess.{ Rated, Clock, format }
+import _root_.chess.{ Clock, Rated, format }
 import scalalib.model.Days
 
 import lila.core.game.GameRule

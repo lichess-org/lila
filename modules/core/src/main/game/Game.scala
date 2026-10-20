@@ -12,20 +12,20 @@ import _root_.chess.{
   Color,
   CorrespondenceClock,
   Game as ChessGame,
-  Rated,
-  Ply,
-  Speed,
-  Status,
+  IntRating,
   Outcome,
-  IntRating
+  Ply,
+  Rated,
+  Speed,
+  Status
 }
 import scalalib.model.Days
 
+import lila.core.game.ClockHistory.bothClockStates
 import lila.core.id.{ GameFullId, GameId, GamePlayerId }
 import lila.core.perf.PerfKey
 import lila.core.user.User
 import lila.core.userId.{ UserId, UserIdOf }
-import lila.core.game.ClockHistory.bothClockStates
 
 case class Game(
     id: GameId,

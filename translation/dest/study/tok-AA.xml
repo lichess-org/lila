@@ -77,7 +77,6 @@
   <string name="members">jan kulupu</string>
   <string name="everyone">jan ala</string>
   <string name="start">o open</string>
-  <string name="save">awen</string>
   <string name="clearChat">weka e toki lon tomo toki</string>
   <string name="deleteStudy">o weka e lipu sona</string>
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">sina wile ala wile weka e lipu sona ale? ni li tawa tenpo ale a! o sitelen e nimi pi lipu sona: %s</string>

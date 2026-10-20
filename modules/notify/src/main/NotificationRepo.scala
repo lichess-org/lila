@@ -2,8 +2,8 @@ package lila.notify
 
 import reactivemongo.api.bson.ElementProducer
 
+import lila.core.notify.{ NotificationContent, UnreadCount }
 import lila.db.dsl.{ *, given }
-import lila.core.notify.{ UnreadCount, NotificationContent }
 
 final private class NotificationRepo(colls: NotifyColls)(using Executor):
 

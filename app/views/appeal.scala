@@ -2,9 +2,9 @@ package views.appeal
 
 import lila.app.UiEnv.{ *, given }
 import lila.appeal.{ Appeal, AppealForm }
-import lila.report.ui.PendingCounts
-import lila.report.Report.Inquiry
 import lila.core.misc.AppealTopic
+import lila.report.Report.Inquiry
+import lila.report.ui.PendingCounts
 
 lazy val ui = lila.appeal.ui.AppealUi(helpers)
 

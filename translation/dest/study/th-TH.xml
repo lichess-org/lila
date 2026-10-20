@@ -118,7 +118,6 @@
   <string name="noLetPeopleBrowseFreely">ไม่: ให้ผู้คนเรียกดูได้อิสระ</string>
   <string name="pinnedStudyComment">ความคิดเห็นที่ถูกปักของกรณีศึกษา</string>
   <string name="start">เริ่ม</string>
-  <string name="save">บันทึก</string>
   <string name="clearChat">ล้างแชท</string>
   <string name="deleteTheStudyChatHistory">ลบประวัติแชทกรณีศึกษาหรือไม่? จะคืนกลับมาไม่ได้!</string>
   <string name="deleteStudy">ลบกรณีศึกษา</string>

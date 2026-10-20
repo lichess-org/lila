@@ -15,6 +15,7 @@
   <string name="quitTeam">ออกจากทีม</string>
   <string name="manuallyReviewAdmissionRequests">ตรวจสอบคำขอรับเข้าด้วยตนเอง</string>
   <string name="manuallyReviewAdmissionRequestsHelp">หากเลือกตัวเลือกนี้ ผู้เล่นจะต้องเขียนคำขอเข้าร่วมทีม ซึ่งคุณสามารถปฏิเสธหรือยอมรับได้</string>
+  <string name="hideMembersDesc" comment="Checkbox label: option to hide the team member list from non-members">ซ่อนรายชื่อสมาชิกของทีมจากผู้ที่ไม่ได้เป็นสมาชิก</string>
   <plurals name="teamLeaders">
     <item quantity="other">ผู้นำของทีม</item>
   </plurals>
@@ -32,6 +33,9 @@
   <string name="teamTournament">ทัวร์นาเมนต์ทีม</string>
   <string name="teamTournamentOverview">สังเวียนทัวร์นาเมนต์ที่สมาชิกในทีมคุณเท่านั้นที่จะเข้าร่วมได้</string>
   <string name="swissTournamentOverview">ทัวร์นาเมนต์สวิสที่สมาชิกในทีมคุณเท่านั้นที่จะเข้าร่วมได้</string>
+  <string name="teamUpdates">อัปเดตของทีม</string>
+  <string name="subToTeamUpdates">ติดตามข่าวสารอัปเดตจากทีม</string>
+  <string name="newTeamUpdate">อัปเดตใหม่ของทีม</string>
   <string name="teamsIlead">ทีมที่ฉันเป็นผู้นำ</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">คุณอาจต้องการเชื่อมโยงหนึ่งในทัวร์นาเมนต์ที่กำลังจะมาถึงหรือไม่?</string>
   <string name="leadersChat">ผู้นำของแชท</string>
@@ -43,6 +47,9 @@
   <string name="entryCode">หรัสเข้าทีม</string>
   <string name="entryCodeDescriptionForLeader">(เป็นตัวเลือก) เป็นรหัสที่ผู้เล่นใหม่ต้องรู้เพื่อเข้าร่วมทีม</string>
   <string name="incorrectEntryCode">รหัสเข้าร่วมไม่ถูกต้อง</string>
+  <string name="forumLabel">กระทู้ของทีม</string>
+  <string name="forumVisibilityHelp">ใครสามารถดูกระทู้ของทีมในหน้าทีมได้บ้าง?&lt;br&gt;เฉพาะสมาชิกในทีมเท่านั้นที่สามารถโพสต์ในกระทู้ของทีมได้</string>
+  <string name="forumVisibilityNone">ซ่อนกระทู้</string>
   <string name="teamAlreadyExists">ทีมนี้มีอยู่แล้ว</string>
   <string name="upcomingTournaments">ทัวร์นาเมนต์ที่กำลังจะมา</string>
   <string name="completedTourns">ทัวร์นาเมนต์ที่เสร็จสมบูรณ์</string>

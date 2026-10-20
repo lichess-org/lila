@@ -11,6 +11,18 @@
   <string name="quality">Якість</string>
   <string name="publish">Опублікувати</string>
   <string name="published">Опубліковано</string>
+  <string name="chooseYourEngineSettings">Натисніть \"Аналізувати\", щоб оцінити основний варіант.</string>
   <string name="bestResultsUseXWithYThreads">Щоб отримати найкращі результати за найкоротший час, використовуйте %1$s з %2$s потоками.</string>
+  <string name="analysisUploadFailed">Завантаження аналізу не вдалося. Спробуйте пізніше.</string>
   <string name="serverAnalysisInProgress">Наразі триває серверний аналіз для цієї гри. Спробуйте знову, коли він завершиться.</string>
+  <string name="youCanPublish">Ваш локальний аналіз можна опублікувати.</string>
+  <string name="turnOnRec">Ви повинні увімкнути REC, перш ніж ви зможете поширювати аналіз у \"Навчання\".</string>
+  <string name="whenUpgradingOldChapters">Серверний аналіз у розділах, створених до появи локального аналізу, неможливо оновити коректно. Старі варіанти рушія та коментарі залишаться, якщо ви не видалите їх самостійно.</string>
+  <string name="startingPosition">Початкова позиція</string>
+  <string name="keepThisBrowserTabActive">Тримайте цю вкладку активною під час аналізу</string>
+  <string name="xTimesStandardQuality">%sx від стандартної якості</string>
+  <string name="moveXOfY" comment="should this be in site?">Хід %1$s з %2$s</string>
+  <string name="downloadingXofY" comment="should this be in site?">Завантаження %1$s з %2$s</string>
+  <string name="timeToComplete">Це займе близько %s</string>
+  <string name="xWouldBeFaster">%s буде швидшим</string>
 </resources>

@@ -6,8 +6,8 @@ import play.api.mvc.{ EssentialAction, Result }
 
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
-import lila.core.socket.Sri
 import lila.core.id.SessionId
+import lila.core.socket.Sri
 import lila.game.AnonCookie
 import lila.setup.Processor.HookResult
 import lila.setup.ValidFen

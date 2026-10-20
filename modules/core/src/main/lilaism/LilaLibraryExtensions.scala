@@ -3,6 +3,7 @@ package lila.core.lilaism
 import alleycats.Zero
 import com.typesafe.config.Config
 import scalalib.future.FutureAfter
+
 import java.util.concurrent.TimeUnit
 import scala.collection.BuildFrom
 import scala.concurrent.{ ExecutionContext as EC, Future }

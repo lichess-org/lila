@@ -1,14 +1,14 @@
 package lila.round
 
-import org.apache.pekko.actor.*
-import com.softwaremill.macwire.*
-import play.api.Configuration
 import chess.ByColor
+import com.softwaremill.macwire.*
+import org.apache.pekko.actor.*
+import play.api.Configuration
 
 import lila.common.autoconfig.{ *, given }
 import lila.common.{ Bus, Uptime }
 import lila.core.config.*
-import lila.core.round.{ RoundBus, CurrentlyPlaying }
+import lila.core.round.{ CurrentlyPlaying, RoundBus }
 import lila.game.GameRepo
 import lila.round.RoundGame.*
 

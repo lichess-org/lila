@@ -2,12 +2,12 @@ package lila.game
 
 import chess.format.Fen
 import chess.format.pgn.SanStr
-import chess.{ ByColor, Color, Status }
 import chess.rating.IntRatingDiff
-import reactivemongo.pekkostream.{ PekkoStreamCursor, cursorProducer }
+import chess.{ ByColor, Color, Status }
 import reactivemongo.api.bson.*
 import reactivemongo.api.commands.WriteResult
 import reactivemongo.api.{ Cursor, WriteConcern }
+import reactivemongo.pekkostream.{ PekkoStreamCursor, cursorProducer }
 import scalalib.ThreadLocalRandom
 
 import lila.core.game.*

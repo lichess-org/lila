@@ -1,8 +1,8 @@
 package lila.search
 
+import lila.mon.extensions.*
 import lila.search.client.SearchClient
 import lila.search.spec.*
-import lila.mon.extensions.*
 
 class LilaSearchClient(client: SearchClient, cacheApi: lila.memo.CacheApi)(using Executor)
     extends SearchClient:

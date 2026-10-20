@@ -86,6 +86,11 @@ const settings: Record<SettingKey, Setting> = {
     group: i18n.preferences.boardSettings,
     helpHtml: videoHtml('info-checkable-king'),
   },
+  showTrappedPieces: {
+    label: i18n.preferences.showTrappedPieces,
+    group: i18n.preferences.boardSettings,
+    helpHtml: videoHtml('info-trapped-pieces'),
+  },
 };
 
 export async function showSettingsDialog(ctrl: AnalyseCtrl): Promise<Dialog> {

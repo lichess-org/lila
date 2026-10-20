@@ -1,6 +1,7 @@
 package lila.pref
 
 import play.api.libs.json.*
+
 import lila.common.Json.given
 
 opaque type Featured = Boolean

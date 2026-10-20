@@ -1,7 +1,9 @@
 package lila.plan
 
-import java.util.Currency
 import play.api.libs.json.*
+
+import java.util.Currency
+
 import lila.memo.CacheApi
 import lila.memo.CacheApi.buildAsyncTimeout
 

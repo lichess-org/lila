@@ -1,20 +1,20 @@
 package lila.report
 
-import play.api.{ ConfigLoader, Configuration }
 import play.api.libs.json.*
-import play.api.libs.ws.{ StandaloneWSClient, StandaloneWSResponse }
-import play.api.libs.ws.JsonBodyWritables.*
 import play.api.libs.ws.JsonBodyReadables.*
+import play.api.libs.ws.JsonBodyWritables.*
+import play.api.libs.ws.{ StandaloneWSClient, StandaloneWSResponse }
+import play.api.{ ConfigLoader, Configuration }
 
+import lila.common.Json.given
 import lila.common.autoconfig.AutoConfig
 import lila.common.config.given
-import lila.common.Json.given
 import lila.core.config.Secret
 import lila.core.data.Text
 import lila.core.id.ImageId
-import lila.mon.extensions.*
-import lila.memo.{ ImageAutomod, ImageAutomodRequest, Dimensions }
 import lila.memo.SettingStore.Text.given
+import lila.memo.{ Dimensions, ImageAutomod, ImageAutomodRequest }
+import lila.mon.extensions.*
 
 final class Automod(
     ws: StandaloneWSClient,

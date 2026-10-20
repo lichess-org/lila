@@ -3,10 +3,10 @@ package ui
 
 import scalalib.paginator.Paginator
 
+import lila.common.ClientName
 import lila.core.config.NetDomain
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
-import lila.common.ClientName
 
 final class VideoUi(helpers: Helpers)(using NetDomain):
   import helpers.{ *, given }

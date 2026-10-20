@@ -1,8 +1,8 @@
 package lila.analyse
 
-import chess.{ ByColor, Color, Division, Ply }
-import chess.eval.WinPercent
 import chess.eval.Eval.Cp
+import chess.eval.WinPercent
+import chess.{ ByColor, Color, Division, Ply }
 import scalalib.Maths
 import scalalib.model.Percent
 
