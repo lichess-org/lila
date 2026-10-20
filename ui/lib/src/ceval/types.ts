@@ -64,6 +64,12 @@ export interface ExternalEngineInfo extends ExternalEngineInfoFromServer {
   preferred: true;
 }
 
+export interface DirectEngineInfo extends BaseEngineInfo {
+  tech: 'DIRECT';
+  endpoint: string;
+  preferred: true;
+}
+
 export interface BrowserEngineInfo extends BaseEngineInfo {
   tech: 'HCE' | 'NNUE';
   short: string;
@@ -74,7 +80,7 @@ export interface BrowserEngineInfo extends BaseEngineInfo {
   preferred?: boolean;
 }
 
-export type EngineInfo = BrowserEngineInfo | ExternalEngineInfo;
+export type EngineInfo = BrowserEngineInfo | ExternalEngineInfo | DirectEngineInfo;
 
 export type EngineNotifier = (status?: {
   download?: { bytes: number; total: number };

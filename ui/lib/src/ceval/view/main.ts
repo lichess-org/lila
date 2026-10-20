@@ -47,6 +47,7 @@ function localEvalNodes(ctrl: CevalHandler, evs: NodeEvals): Array<VNode | strin
     if (!ceval.analysable) return ['Engine cannot analyze this position'];
     if (state === CevalState.Failed) return [i18n.site.engineFailed];
     const localEvalText = state === CevalState.Loading ? loadingText(ctrl) : i18n.site.calculatingMoves;
+    //if (localEvalText === i18n.site.calculatingMoves) console.log('boo');
     return [evs.server && ctrl.nextNodeBest() ? i18n.site.usingServerAnalysis : localEvalText];
   }
   const t: Array<VNode | string> = [];
@@ -124,7 +125,7 @@ function engineName(ctrl: CevalCtrl): VNode[] {
   const engine = ctrl.engines.active();
   if (!engine) return [];
   const [good, title] =
-    engine.tech === 'EXTERNAL'
+    engine.tech === 'EXTERNAL' || engine.tech === 'DIRECT'
       ? [true, 'Engine running outside of the browser']
       : engine.requires.includes('relaxedSimd')
         ? [true, 'Multi-threaded WebAssembly with relaxed SIMD']

@@ -36,6 +36,7 @@ export const sharedWasmMemory = (lo: number, hi = 32767): WebAssembly.Memory => 
 };
 
 export function showEngineError(engine: string, error: string): void {
+  if (site.unload.expected) return;
   domDialog({
     closeButton: true,
     class: 'engine-error',
@@ -57,6 +58,10 @@ export function showEngineError(engine: string, error: string): void {
             <li>Update your browser</li>
           </ul>`),
   }).then(dlg => {
+    if (site.unload.expected) {
+      dlg.close();
+      return;
+    }
     const select = () =>
       setTimeout(() => {
         const range = document.createRange();
