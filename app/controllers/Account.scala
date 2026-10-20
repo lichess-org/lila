@@ -214,7 +214,7 @@ final class Account(
         )
       yield res
 
-  def emailConfirmHelp = OpenBody:
+  def emailConfirmHelp = localOpenBody:
     import lila.security.EmailConfirm.Help.*
     ctx.me match
       case Some(me) =>

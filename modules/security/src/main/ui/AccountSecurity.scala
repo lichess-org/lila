@@ -27,6 +27,12 @@ final class AccountSecurity(helpers: Helpers)(
           standardFlash.map(div(cls := "box__pad")(_)),
           div(cls := "box__pad")(
             p(
+              strong("SSO account. "),
+              "Your username, email and password are managed on ",
+              a(href := "https://passport.chess-online.com")("passport.chess-online.com"),
+              "."
+            ),
+            p(
               "This is a list of devices and applications that are logged into your account. If you notice any suspicious activity, change your password and email on ",
               a(href := "https://passport.chess-online.com/ru-ru/manage/change-password")("passport.chess-online.com"),
               "."

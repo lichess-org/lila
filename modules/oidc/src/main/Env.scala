@@ -23,11 +23,18 @@ final class Env(
     net: NetConfig,
     userRepo: lila.user.UserRepo,
     identity: lila.identity.Env,
-    db: lila.db.Db
+    db: lila.db.Db,
+    mode: play.api.Mode
 )(using Executor, akka.stream.Materializer):
   import net.baseUrl
 
   private val config = appConfig.get[OidcConfig]("oidc")(AutoConfig.loader)
+
+  if mode.isProd then
+    if config.clientId.isEmpty then
+      throw new IllegalArgumentException("oidc.issuer.client_id must be configured in production")
+    if config.clientSecret.value.isEmpty then
+      throw new IllegalArgumentException("oidc.issuer.client_secret must be configured in production")
 
   private lazy val oidc = OIDCFactory.apply(
     config.issuer,
