@@ -25,13 +25,15 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Executor):
         .one[Bdoc]
         .map:
           _.flatMap: doc =>
-            if doc.getAsOpt[Instant]("date").forall(_.isBefore(nowInstant.minusHours(12))) then
-              coll.updateFieldUnchecked($id(id), "date", nowInstant)
-            doc.getAsOpt[UserId]("user").map { AuthInfo(_, doc.contains("fp")) }
+            if doc.getAsOpt[Instant]("expiresAt").exists(_.isBefore(nowInstant)) then None
+            else
+              if doc.getAsOpt[Instant]("date").forall(_.isBefore(nowInstant.minusHours(12))) then
+                coll.updateFieldUnchecked($id(id), "date", nowInstant)
+              doc.getAsOpt[UserId]("user").map { AuthInfo(_, doc.contains("fp")) }
 
   def authInfo(sessionId: String) = authCache.get(sessionId)
 
-  private val authInfoProjection = $doc("user" -> true, "fp" -> true, "date" -> true, "_id" -> false)
+  private val authInfoProjection = $doc("user" -> true, "fp" -> true, "date" -> true, "expiresAt" -> true, "_id" -> false)
   private def uncache(sessionId: String) =
     blocking { blockingUncache(sessionId) }
   private def uncacheAllOf(userId: UserId): Funit =
@@ -50,7 +52,8 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Executor):
       apiVersion: Option[ApiVersion],
       up: Boolean,
       fp: Option[FingerPrint],
-      proxy: lila.core.security.IsProxy
+      proxy: lila.core.security.IsProxy,
+      oidcSession: Option[lila.oidc.OidcSession] = None
   ): Funit =
     coll.insert
       .one:
@@ -63,9 +66,30 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Executor):
           "up"    -> up,
           "api"   -> apiVersion, // lichobile
           "fp"    -> fp.flatMap(lila.security.FingerHash.from),
-          "proxy" -> proxy
-        )
+          "proxy" -> proxy,
+          "expiresAt" -> nowInstant.plusSeconds(30L * 24 * 3600)
+        ) ++ oidcSession.fold($empty): session =>
+          $doc("idToken" -> session.idToken, "iss" -> session.issuer) ++
+            session.sid.fold($empty)(sid => $doc("sid" -> sid)) ++
+            session.authTime.fold($empty)(at => $doc("authTime" -> at))
       .void
+
+  def oidcSession(sessionId: String): Fu[Option[lila.oidc.OidcSession]] =
+    coll
+      .find(
+        $id(sessionId),
+        $doc("idToken" -> true, "sid" -> true, "iss" -> true, "authTime" -> true).some
+      )
+      .one[Bdoc]
+      .map:
+        _.flatMap: doc =>
+          doc.string("idToken").map: idToken =>
+            lila.oidc.OidcSession(
+              idToken = idToken,
+              issuer = doc.string("iss") | "",
+              sid = doc.string("sid"),
+              authTime = doc.getAsOpt[Instant]("authTime")
+            )
 
   private[security] def upsertOAuth(
       userId: UserId,

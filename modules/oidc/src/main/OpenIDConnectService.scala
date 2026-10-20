@@ -12,6 +12,7 @@ import com.nimbusds.oauth2.sdk.id.{ Issuer, State }
 import com.nimbusds.oauth2.sdk.token.BearerAccessToken
 import com.nimbusds.openid.connect.sdk.claims.IDTokenClaimsSet
 import com.nimbusds.openid.connect.sdk.op.OIDCProviderMetadata
+import com.nimbusds.openid.connect.sdk.token.OIDCTokens
 import com.nimbusds.openid.connect.sdk.validators.IDTokenValidator
 import com.nimbusds.openid.connect.sdk.{ AuthenticationErrorResponse, * }
 import com.nimbusds.openid.connect.sdk.claims.*
@@ -71,14 +72,30 @@ final class OpenIDConnectService(
       params: Map[String, Seq[String]],
       state: State,
       nonce: Nonce
-  ): Fu[UserInfo] =
+  ): Fu[OidcAuthn] =
     validateOIDCAuthenticationResponse(params, state).flatMap { authenticationResponse =>
-      obtainOIDCToken(authenticationResponse.getAuthorizationCode, nonce).flatMap { token =>
-        obtainUserInfo(token).flatMap { userInfo =>
-          fuccess(userInfo)
+      obtainOIDCTokens(authenticationResponse.getAuthorizationCode, nonce).flatMap { (tokens, claims) =>
+        obtainUserInfo(tokens.getBearerAccessToken).map { userInfo =>
+          OidcAuthn(
+            userInfo = userInfo,
+            session = OidcSession(
+              idToken = tokens.getIDToken.serialize,
+              issuer = oidc.issuer.getValue,
+              sid = Option(claims.getSessionID).map(_.getValue),
+              authTime = Option(claims.getAuthenticationTime).map(_.toInstant)
+            )
+          )
         }
       }
     }
+
+  /** RP-initiated logout URL, if the provider advertises an end_session_endpoint. */
+  def endSessionUrl(idToken: String, postLogoutRedirect: String): Fu[Option[String]] =
+    metadata.map: metadata =>
+      Option(metadata.getEndSessionEndpointURI).map: endpoint =>
+        val separator = if endpoint.toString.contains("?") then "&" else "?"
+        val encode    = (value: String) => java.net.URLEncoder.encode(value, java.nio.charset.StandardCharsets.UTF_8)
+        s"$endpoint${separator}id_token_hint=${encode(idToken)}&post_logout_redirect_uri=${encode(postLogoutRedirect)}"
 
   private def converParams(params: Map[String, Seq[String]]) =
     params.map { case (k, v) => (k, v.toList.asJava) }.asJava
@@ -119,20 +136,15 @@ final class OpenIDConnectService(
     * @return
     *   Token response
     */
-  def obtainOIDCToken(
+  def obtainOIDCTokens(
       authorizationCode: AuthorizationCode,
       nonce: Nonce
-  ): Fu[BearerAccessToken] = sendOIDCTokenRequest(authorizationCode).flatMap { httpResponse =>
+  ): Fu[(OIDCTokens, IDTokenClaimsSet)] = sendOIDCTokenRequest(authorizationCode).flatMap { httpResponse =>
     try
       OIDCTokenResponseParser.parse(httpResponse) match
         case response: OIDCTokenResponse =>
-          validateOIDCTokenResponse(response, nonce).flatMap { claims =>
-            Seq("sub").map(k => Option(claims.getStringClaim(k))) match
-              case Seq(Some(sub)) =>
-                val successResponse = response.toSuccessResponse
-                fuccess(successResponse.getOIDCTokens.getBearerAccessToken)
-              case _ =>
-                fufail(s"OIDC ID token must have an email claim: claims=${claims.toJSONObject}")
+          validateOIDCTokenResponse(response, nonce).map { claims =>
+            (response.getOIDCTokens, claims)
           }
         case response: TokenErrorResponse =>
           fufail(s"OIDC token response has error: ${response.getErrorObject.toJSONObject}")

@@ -36,11 +36,19 @@ final class Auth(
 
   private def getReferrer(using Context): String = getReferrerOption | routes.Lobby.home.url
 
-  def authenticateUser(u: UserModel, remember: Boolean, result: Option[String => Result] = None)(using
-      ctx: Context
-  ): Fu[Result] =
+  def authenticateUser(
+      u: UserModel,
+      remember: Boolean,
+      result: Option[String => Result] = None,
+      oidcSession: Option[lila.oidc.OidcSession] = None
+  )(using ctx: Context): Fu[Result] =
     api
-      .saveAuthentication(u.id, ctx.mobileApiVersion, checkEmailConfirmation = !env.ssoOnly)
+      .saveAuthentication(
+        u.id,
+        ctx.mobileApiVersion,
+        checkEmailConfirmation = !env.ssoOnly,
+        oidcSession = oidcSession
+      )
       .flatMap: sessionId =>
         negotiate(
           result.fold(Redirect(getReferrer))(_(getReferrer)),
@@ -117,7 +125,8 @@ final class Auth(
 
   private def oidcCallback(using ctx: Context) = NoBot:
     env.oidc.api.authenticate(ctx.req).flatMap {
-      case LoginOutcome.Success(user) => authenticateUser(user, remember = true)
+      case LoginOutcome.Success(user, oidcSession) =>
+        authenticateUser(user, remember = true, oidcSession = oidcSession)
       case LoginOutcome.Refused(LoginError.Closed, Some(user)) =>
         env.mod.logApi.closedByMod(user).flatMap { closedByMod =>
           if closedByMod then oidcRefusalPage(LoginError.Closed)
@@ -211,12 +220,17 @@ final class Auth(
 
   def logout = Open:
     val currentSessionId = ~env.security.api.reqSessionId(ctx.req)
-    env.security.store.delete(currentSessionId) >>
-      env.push.webSubscriptionApi.unsubscribeBySession(currentSessionId) >>
-      negotiate(
-        Redirect(routes.Auth.login),
-        jsonOkResult
-      ).dmap(_.withCookies(env.security.lilaCookie.newSession))
+    for
+      oidc <- env.security.store.oidcSession(currentSessionId)
+      endSession <- oidc.so: session =>
+        env.oidc.api.endSessionUrl(
+          session.idToken,
+          s"${env.net.baseUrl}${routes.Lobby.home.url}"
+        )
+      _   <- env.security.store.delete(currentSessionId)
+      _   <- env.push.webSubscriptionApi.unsubscribeBySession(currentSessionId)
+      res <- negotiate(Redirect(endSession | routes.Auth.login.url), jsonOkResult)
+    yield res.withCookies(env.security.lilaCookie.newSession)
 
   // mobile app BC logout with GET
   def logoutGet = Auth { ctx ?=> _ ?=>

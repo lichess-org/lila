@@ -110,7 +110,8 @@ final class SecurityApi(
   def saveAuthentication(
       userId: UserId,
       apiVersion: Option[ApiVersion],
-      checkEmailConfirmation: Boolean = true
+      checkEmailConfirmation: Boolean = true,
+      oidcSession: Option[lila.oidc.OidcSession] = None
   )(using req: RequestHeader): Fu[String] =
     (if checkEmailConfirmation then userRepo.mustConfirmEmail(userId) else fuccess(false)).flatMap {
       if _ then fufail(SecurityApi.MustConfirmEmail(userId))
@@ -119,7 +120,16 @@ final class SecurityApi(
           proxy <- ip2proxy(HTTPRequest.ipAddress(req))
           _ = proxy.name.foreach(p => logger.info(s"Proxy login $p $userId ${HTTPRequest.print(req)}"))
           sessionId = SecureRandom.nextString(22)
-          _ <- store.save(sessionId, userId, req, apiVersion, up = true, fp = none, proxy = proxy)
+          _ <- store.save(
+            sessionId,
+            userId,
+            req,
+            apiVersion,
+            up = true,
+            fp = none,
+            proxy = proxy,
+            oidcSession = oidcSession
+          )
         yield sessionId
     }
 

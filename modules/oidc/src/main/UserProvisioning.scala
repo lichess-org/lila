@@ -68,7 +68,7 @@ final class UserProvisioning(
       _         <- updateEmail
       refreshed <- userRepo.byId(user.id)
       result <- refreshed match
-        case Some(u) if u.enabled.yes => fuccess(LoginOutcome.Success(u))
+        case Some(u) if u.enabled.yes => fuccess(LoginOutcome.Success(u, none))
         case Some(u)                  => fuccess(LoginOutcome.Refused(LoginError.Closed, Some(u)))
         case None                     => fuccess(LoginOutcome.Refused(LoginError.Deleted, None))
     yield result
@@ -77,9 +77,9 @@ final class UserProvisioning(
     userRepo
       .createExternal(UserId(identity.subject), identity.username, identity.email)
       .flatMap {
-        case Some(user) => fuccess(LoginOutcome.Success(user))
+        case Some(user) => fuccess(LoginOutcome.Success(user, none))
         case None =>
           userRepo.byId(UserId(identity.subject)).map:
             _.fold[LoginOutcome](LoginOutcome.Refused(LoginError.ProviderError, None)): user =>
-              LoginOutcome.Success(user)
+              LoginOutcome.Success(user, none)
       }

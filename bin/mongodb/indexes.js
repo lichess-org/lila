@@ -276,6 +276,8 @@ db.game5.createIndex({ 'pgni.h': 1 }, { sparse: true });
 db.security.createIndex({ user: 1 });
 db.security.createIndex({ ip: 1 });
 db.security.createIndex({ fp: 1 }, { sparse: 1 });
+db.security.createIndex({ sid: 1 }, { sparse: 1 });
+db.security.createIndex({ expiresAt: 1 }, { expireAfterSeconds: 0 });
 db.identity_status.createIndex({ version: 1 });
 db.identity_status.createIndex({ status: 1 });
 db.identity_event.createIndex({ subject: 1, version: -1 });

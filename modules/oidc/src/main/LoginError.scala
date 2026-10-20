@@ -28,5 +28,5 @@ object LoginError:
   * `user` is present for status refusals, so the caller can start an appeal session.
   */
 enum LoginOutcome:
-  case Success(user: User)
+  case Success(user: User, oidcSession: Option[OidcSession])
   case Refused(error: LoginError, user: Option[User])
