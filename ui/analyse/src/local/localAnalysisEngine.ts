@@ -107,6 +107,7 @@ export class LocalAnalysisEngine {
     this.ctrl.ceval.start(
       this.path.slice(0, this.nodeIndex * 2),
       this.nodes.slice(0, this.nodeIndex + 1),
+      false,
       this.ctrl.idbTree.id,
     );
 

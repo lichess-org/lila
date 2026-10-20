@@ -32,8 +32,9 @@ interface CastlingSquares {
   rookK: string;
 }
 
-export function chess960CastlingSquares(id?: number): ByColor<CastlingSquares> {
-  const rank1 = chess960IdToRank(id ?? 518); // default to standard chess
+// defaults to standard chess
+export function chess960CastlingSquares(id = 518): ByColor<CastlingSquares> {
+  const rank1 = chess960IdToRank(id);
 
   const kingFile = rank1.indexOf('K');
   const rookKFile = rank1.lastIndexOf('R');

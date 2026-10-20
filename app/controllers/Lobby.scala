@@ -22,7 +22,7 @@ final class Lobby(env: Env) extends LilaController(env):
   def home = Open:
     negotiate(
       serveHtmlHome,
-      json = Ok(lobbyJson).headerCache(7.days).varyAccept
+      json = Ok(lobbyJson).headerCache(7.days)
     )
 
   private def serveHtmlHome(using Context) =

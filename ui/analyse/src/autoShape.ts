@@ -139,7 +139,7 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
     return makeShapesFromUci(color, 'paleRed', badNode.uci, { lineWidth: 8 });
   }
   if (hovering?.fen === nFen) shapes = shapes.concat(makeShapesFromUci(color, 'paleBlue', hovering.uci));
-  ctrl.fork.hover(hovering?.uci);
+  if (hovering?.uci) ctrl.fork.hover(hovering.uci);
 
   if (ctrl.isCevalAllowed() && ctrl.showBestMoveArrows() && ctrl.showEvaluation()) {
     if (isUci(nEval.best)) shapes = shapes.concat(makeShapesFromUci(rcolor, 'paleGreen', nEval.best));
@@ -206,13 +206,11 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
     };
 
     if (ctrl.motifEnabled()) {
-      ctrl.motif.detectPins(board).forEach(p => addAnalysis(makeSquare(p.pinned), 'pin'));
-      ctrl.motif
-        .detectUndefended(board, epSquare)
-        .forEach(u => addAnalysis(makeSquare(u.square), 'undefended'));
-      ctrl.motif
-        .detectCheckable(board, epSquare, castlingRights)
-        .forEach(s => addAnalysis(makeSquare(s.king), 'checkable'));
+      const motifs = ctrl.motif.detect(ctrl.node.fen, board, epSquare, castlingRights);
+      motifs.pins.forEach(p => addAnalysis(makeSquare(p.pinned), 'pin'));
+      motifs.undefended.forEach(u => addAnalysis(makeSquare(u.square), 'undefended'));
+      motifs.checkable.forEach(s => addAnalysis(makeSquare(s.king), 'checkable'));
+      motifs.trapped.forEach(t => addAnalysis(makeSquare(t.square), 'trapped'));
     }
   }
 

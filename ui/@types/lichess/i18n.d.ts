@@ -2707,6 +2707,8 @@ interface I18n {
     showPinnedPieces: string;
     /** Show player ratings */
     showPlayerRatings: string;
+    /** Show trapped pieces */
+    showTrappedPieces: string;
     /** Show undefended pieces */
     showUndefendedPieces: string;
     /** Show variation arrows */
@@ -5775,8 +5777,6 @@ interface I18n {
     requestAServerAnalysis: string;
     /** Right under the board */
     rightUnderTheBoard: string;
-    /** Save */
-    save: string;
     /** Save chapter */
     saveChapter: string;
     /** Search by username */

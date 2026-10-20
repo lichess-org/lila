@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">Donaci</string>
-  <string name="donateAsX" comment="This appears as an option on the donation page – the other option is to give the donation &quot;in the name of&quot; someone else, gifting them the patron wings (otherwise only available to those who donate).&#10;&#10;%s is the user's username.">Donaci kiel %s</string>
+  <string name="donateAsX">Donaci kiel %s</string>
   <string name="lichessPatron">Lichess Patrono</string>
   <string name="patronSince" comment="string is a date">Patrono ekde %s</string>
-  <string name="freeAccount" comment="URL: https://lichess.org/features">Senpaga konto</string>
+  <string name="freeAccount">Senpaga konto</string>
   <string name="becomePatron">Fariĝu Lichess Patrono</string>
   <string name="xBecamePatron">%s fariĝu Lichess Patrono</string>
   <plurals name="xIsPatronForNbMonths">

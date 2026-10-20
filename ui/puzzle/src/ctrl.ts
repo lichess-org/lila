@@ -420,7 +420,7 @@ export default class PuzzleCtrl implements CevalHandler {
     else setTimeout(this.instantRevertUserMove, 300);
   };
 
-  applyProgress = (progress?: 'fail' | 'win' | MoveTest): void => {
+  applyProgress = (progress: 'fail' | 'win' | MoveTest): void => {
     if (progress === 'fail') {
       this.lastFeedback = 'fail';
       this.revertUserMove();
@@ -443,7 +443,7 @@ export default class PuzzleCtrl implements CevalHandler {
         this.withGround(this.showGround);
         sent.then(_ => (this.autoNext() ? this.nextPuzzle() : this.startCevalIfEnabled()));
       }
-    } else if (progress) {
+    } else {
       this.lastFeedback = 'good';
       setTimeout(
         () => {
@@ -552,7 +552,7 @@ export default class PuzzleCtrl implements CevalHandler {
 
   private readonly doStartCeval = throttle(800, () => {
     this.ceval.reset();
-    this.ceval.start(this.path, this.nodeList, this.data.puzzle.id, this.threatMode());
+    this.ceval.start(this.path, this.nodeList, this.threatMode(), this.data.puzzle.id);
   });
 
   nextNodeBest = () => treeOps.withMainlineChild(this.node, n => n.eval?.best);

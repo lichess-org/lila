@@ -249,15 +249,18 @@ class LocalAnalysisDialog {
   };
 
   private analysisEditor(redraw: Redraw) {
-    const info = this.ctrl.ceval.info(this.customSearch)!;
     const ceval = this.ctrl.ceval;
+    const info = ceval.info(this.customSearch)!;
     const bestBrowserEngine = this.bestBrowserEngine;
+    const mainlineEngine = this.ctrl.mainlineAnalysis?.engine;
+
     const preludes: LooseVNodes = [];
     const trailers: LooseVNodes = [];
     const [current, published] = [
-      this.ctrl.mainlineAnalysis?.engine,
+      mainlineEngine,
       this.ctrl.idbTree.hasLocalAnalysis && this.ctrl.publishedEvalEngine,
     ].filter(Boolean);
+
     if (!current) {
       preludes.push(<p>{i18n.localAnalysis.chooseYourEngineSettings}</p>);
       if (
@@ -277,6 +280,7 @@ class LocalAnalysisDialog {
         );
       }
     }
+
     if (this.timeToComplete) {
       const seconds = Math.ceil(this.timeToComplete);
       const minutes = Math.ceil(this.timeToComplete / 60);
@@ -286,6 +290,7 @@ class LocalAnalysisDialog {
         ),
       );
     }
+
     if (
       this.quality() === 0 &&
       info.engine.id !== bestBrowserEngine.id &&
@@ -294,14 +299,15 @@ class LocalAnalysisDialog {
       if (trailers.length) trailers.push('. ');
       trailers.push(i18n.localAnalysis.xWouldBeFaster(bestBrowserEngine.name));
     }
+
     return [
       preludes.length > 0 && <span>{preludes}</span>,
       published && [
         this.separator(i18n.localAnalysis.onTheServer),
-        this.analysisInfo(this.ctrl.publishedEvalEngine),
+        this.ctrl.publishedEvalEngine && this.analysisInfo(this.ctrl.publishedEvalEngine),
         this.separator(i18n.localAnalysis.currentAnalysis),
       ],
-      current && this.analysisInfo(this.ctrl.mainlineAnalysis?.engine),
+      current && mainlineEngine && this.analysisInfo(mainlineEngine),
       this.separator(i18n.localAnalysis.willUse),
       <div class="analysis-settings">
         <div class="setting">
@@ -342,8 +348,7 @@ class LocalAnalysisDialog {
     ];
   }
 
-  private analysisInfo(info?: AnalysisEngineInfo): LooseVNodes {
-    if (!info) return false;
+  private analysisInfo(info: AnalysisEngineInfo): LooseVNodes {
     const isPublished = info === this.ctrl.publishedEvalEngine;
     const isLocal = this.ctrl.idbTree.hasLocalAnalysis && info !== this.ctrl.publishedEvalEngine;
     const splitVersion = info.engineVersion.split('/');
