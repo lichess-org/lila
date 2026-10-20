@@ -728,6 +728,7 @@ GET   /api/mobile/following            controllers.Relation.apiMobileFollowing
 GET    /stat/rating/distribution/:perf controllers.User.ratingDistribution(perf: PerfKey, username: Option[UserStr] ?= None)
 
 # API
+GET   /api/version                     controllers.Api.version
 POST  /api/users                       controllers.Api.usersByIds
 GET   /api/puzzle/daily                controllers.Puzzle.apiDaily
 GET   /api/puzzle/activity             controllers.Puzzle.activity
