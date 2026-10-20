@@ -1,6 +1,6 @@
 import { clamp } from '@/algo';
 import type { CevalHandler, EngineInfo } from '@/ceval';
-import { isChrome, isMobile } from '@/device';
+import { isChrome, isMobile, isSafari } from '@/device';
 import { onClickAway } from '@/index';
 import { licon } from '@/licon';
 import {
@@ -115,7 +115,7 @@ export function renderCevalSettings(ctrl: CevalHandler): VNode | null {
               '.setting',
               {
                 title:
-                  isMobile() && !ceval.engines.external()
+                  isMobile() && !ceval.engines.native()
                     ? i18n.site.threadsDescriptionMobile
                     : i18n.site.threadsDescription,
               },
@@ -145,7 +145,7 @@ export function renderCevalSettings(ctrl: CevalHandler): VNode | null {
                         destroy: () => observer?.disconnect(),
                       },
                     },
-                    !ceval.engines.external() && [threadsTick('up'), threadsTick('down')],
+                    !ceval.engines.native() && [threadsTick('up'), threadsTick('down')],
                   ),
                 ]),
                 div('.range_value', `${threads} / ${maxThreads}`),
@@ -211,22 +211,45 @@ function engineSelection(ctrl: CevalHandler) {
     rules: ceval.rules,
     nonStandardMaterial: ceval.nonStandardMaterial,
   });
-  const external = ceval.engines.external();
+  const relayed = ceval.engines.relayed();
 
   return div('.setting', [
     label({ for: 'select-engine' }, i18n.site.engine),
-    engineSelect(engines, active?.id, id => {
-      ceval.selectEngine(id);
-      ctrl.startCevalIfEnabled();
-    }),
-    external &&
+    engineSelect(
+      engines,
+      active?.id,
+      id => {
+        ceval.selectEngine(id);
+        ctrl.startCevalIfEnabled();
+      },
+      'select-engine',
+      async () => {
+        const info = await ceval.engines.discoverDirect(true);
+        const content = info
+          ? `Connected to ${info.name}. Your engine is ready to use.`
+          : $html`
+            No engine host found. Go to:<br>
+            <a href="https://github.com/jonbgamble/engine-host">https://github.com/jonbgamble/engine-host</a>
+            <br>Follow the README instructions to build & run the host app and select a chess engine. Ensure
+            your browser settings allow local network access. Then choose "Setup native engine" again.`;
+        if (info) ceval.selectEngine(info.id);
+        domDialog({
+          class: 'alert',
+          modal: true,
+          show: true,
+          htmlText: `<h2>Native engine setup</h2><p>${content}</p>`,
+        });
+        if (info) ctrl.startCevalIfEnabled();
+      },
+    ),
+    relayed &&
       button('.button.button-red.button-empty', {
         ...dataIcon(licon.Trash),
         title: 'Delete external engine',
         hook: bind('click', async e => {
           (e.currentTarget as HTMLElement).blur();
           if (await confirm('Remove external engine?'))
-            ceval.engines.deleteExternal(external.id).then(ok => ok && ceval.opts.redraw());
+            ceval.engines.deleteExternal(relayed.id).then(ok => ok && ceval.opts.redraw());
         }),
       }),
     button('.engine-info-button', {
@@ -238,7 +261,7 @@ function engineSelection(ctrl: CevalHandler) {
             ceval.engines.supporting({
               rules: ceval.rules,
               nonStandardMaterial: ceval.nonStandardMaterial,
-              filter: 'browser',
+              withTech: t => t !== 'EXTERNAL' && t !== 'DIRECT',
             }),
           ),
       },
@@ -251,11 +274,25 @@ export function engineSelect(
   activeId: string | undefined,
   onChange: (id: string) => void,
   id = 'select-engine',
+  onSetupNative?: () => void,
 ): VNode {
   return select(
     `#${id}`,
-    { hook: bind('change', event => onChange((event.target as HTMLSelectElement).value)) },
-    engines.map(engine => option({ value: engine.id, selected: activeId === engine.id }, engine.name)),
+    {
+      hook: bind('change', event => {
+        const select = event.target as HTMLSelectElement;
+        if (select.value === 'setup-direct') {
+          select.value = activeId ?? engines[0]?.id ?? '';
+          onSetupNative?.();
+        } else onChange(select.value);
+      }),
+    },
+    [
+      ...engines.map(engine => option({ value: engine.id, selected: activeId === engine.id }, engine.name)),
+      !isSafari() && onSetupNative
+        ? [hl('hr'), option({ value: 'setup-direct' }, 'Setup direct engine...')]
+        : [],
+    ],
   );
 }
 

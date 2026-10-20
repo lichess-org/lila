@@ -52,8 +52,12 @@ trait AssetFullHelper:
     // include both ws and wss when insecure because requests may come through a secure proxy
     val sockets = socketDomains.map { x => s"wss://$x${secure.not.so(s" ws://$x")}" }
     val localDev = secure.not.so(List("http://127.0.0.1:3000", "http://localhost:8666"))
+    val directEngine = List(
+      "http://127.0.0.1:48036",
+      "ws://127.0.0.1:48036"
+    )
     lila.web.ContentSecurityPolicy.page:
-      sockets ::: analyseEndpoints.explorer :: analyseEndpoints.tablebase :: localDev
+      sockets ::: analyseEndpoints.explorer :: analyseEndpoints.tablebase :: localDev ::: directEngine
 
   def defaultCsp(using nonce: Optionce)(using Context): ContentSecurityPolicy =
     nonce.foldLeft(basicCsp)(_.withNonce(_))
