@@ -1,6 +1,7 @@
 package lila.game
 
 import scalalib.model.Seconds
+
 import lila.core.game.*
 
 object Pov:

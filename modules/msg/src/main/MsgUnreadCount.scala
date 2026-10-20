@@ -1,10 +1,10 @@
 package lila.msg
 
-import play.api.libs.json.{ Json, JsValue, JsNumber }
+import play.api.libs.json.{ JsNumber, JsValue, Json }
 import play.api.mvc.RequestHeader
 
-import lila.db.dsl.{ *, given }
 import lila.common.HTTPRequest
+import lila.db.dsl.{ *, given }
 
 final class MsgUnreadCount(colls: MsgColls, cacheApi: lila.memo.CacheApi)(using Executor):
 

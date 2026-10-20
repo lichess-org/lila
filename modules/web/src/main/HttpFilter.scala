@@ -1,10 +1,10 @@
 package lila.web
 
 import org.apache.pekko.stream.Materializer
-import play.api.mvc.*
 import play.api.http.Status.*
+import play.api.mvc.*
 
-import lila.common.{ HTTPRequest, ClientName }
+import lila.common.{ ClientName, HTTPRequest }
 import lila.core.config.NetConfig
 import lila.core.net.LichessMobileUa
 

@@ -1,12 +1,12 @@
 package lila.round
 
-import scalalib.future.FutureAfter
 import chess.{ ByColor, IntRating }
+import scalalib.future.FutureAfter
 
 import lila.core.LightUser.IsBotSync
+import lila.core.game.reasonableMinimumNumberOfMoves
 import lila.core.perf.UserWithPerfs
 import lila.game.{ CrosstableApi, GameRepo }
-import lila.core.game.reasonableMinimumNumberOfMoves
 
 final private class FarmBoostDetection(
     gameRepo: GameRepo,

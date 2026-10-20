@@ -3,7 +3,7 @@ package lila.security
 import com.roundeights.hasher.Implicits.*
 import play.api.data.{ Form, FormError }
 
-import lila.core.email.{ UserStrOrEmail, NormalizedEmailAddress }
+import lila.core.email.{ NormalizedEmailAddress, UserStrOrEmail }
 import lila.core.security.{ ClearPassword, HashedPassword }
 import lila.db.dsl.{ *, given }
 import lila.user.{ AuthData, BSONFields as F, TotpToken, UserRepo }

@@ -5,8 +5,8 @@ import play.api.libs.ws.StandaloneWSClient
 import play.api.{ Configuration, Mode }
 
 import lila.common.{ Bus, Lilakka }
-import lila.core.plan.ChargeEvent
 import lila.core.misc.puzzle.DailyChange
+import lila.core.plan.ChargeEvent
 
 @Module
 final class Env(

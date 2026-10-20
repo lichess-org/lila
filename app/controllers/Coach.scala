@@ -4,9 +4,9 @@ import play.api.mvc.*
 
 import lila.app.{ *, given }
 import lila.coach.{ Coach as CoachModel, CoachPager, CoachProfileForm, allFlags }
+import lila.core.user.FlagCode
 import lila.study.ui.StudyFormat
 import lila.user.Flags
-import lila.core.user.FlagCode
 
 final class Coach(env: Env) extends LilaController(env):
 

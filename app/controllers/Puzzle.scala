@@ -4,8 +4,11 @@ import cats.mtl.Handle.*
 import play.api.data.Form
 import play.api.libs.json.*
 import play.api.mvc.*
+import scalalib.model.Days
 
 import lila.app.{ *, given }
+import lila.common.HTTPRequest
+import lila.common.Json.given
 import lila.core.i18n.Language
 import lila.core.id.PuzzleId
 import lila.puzzle.{
@@ -19,9 +22,6 @@ import lila.puzzle.{
 }
 import lila.rating.PerfType
 import lila.ui.LangPath
-import scalalib.model.Days
-import lila.common.HTTPRequest
-import lila.common.Json.given
 
 final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
 

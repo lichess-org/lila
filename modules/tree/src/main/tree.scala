@@ -1,10 +1,7 @@
 package lila.tree
 
-import scala.util.matching.Regex
-
-import scala.annotation.tailrec
 import alleycats.Zero
-import chess.format.pgn.{ Glyph as BaseGlyph, Glyphs as BaseGlyphs, Comment as CommentStr }
+import chess.format.pgn.{ Comment as CommentStr, Glyph as BaseGlyph, Glyphs as BaseGlyphs }
 import chess.format.{ Fen, Uci, UciCharPair, UciPath }
 import chess.variant.{ Crazyhouse, Variant }
 import chess.{ Centis, Ply, Square }
@@ -13,8 +10,11 @@ import scalalib.StringOps.softCleanUp
 import scalalib.ThreadLocalRandom
 import scalalib.json.Json.given
 
-import lila.tree.Node.{ Comments, Comment, Gamebook, Shapes }
+import scala.annotation.tailrec
+import scala.util.matching.Regex
+
 import lila.core.LightUser
+import lila.tree.Node.{ Comment, Comments, Gamebook, Shapes }
 
 /* The mainline is the first node. If the first node has `forceVariation` then all nodes are variations.
  * problem: we need to reorder the nodes when a variation is promoted to mainline.

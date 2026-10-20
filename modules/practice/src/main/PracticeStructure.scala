@@ -1,7 +1,7 @@
 package lila.practice
 
-import lila.study.Chapter
 import lila.core.i18n.I18nKey
+import lila.study.Chapter
 
 case class PracticeStructure(sections: List[PracticeSection]):
 

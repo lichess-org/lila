@@ -1,19 +1,20 @@
 package controllers
 
-import scala.annotation.nowarn
 import play.api.i18n.Lang
-import play.api.mvc.Result
 import play.api.libs.json.*
+import play.api.mvc.Result
+import scalalib.model.Language
+
+import scala.annotation.nowarn
 
 import lila.app.{ *, given }
-import scalalib.model.Language
+import lila.common.HTTPRequest
+import lila.core.i18n.toLanguage
+import lila.core.ublog.{ BlogsBy, QualityFilter }
 import lila.i18n.{ LangList, LangPicker }
 import lila.report.Suspect
-import lila.ublog.{ UblogBlog, UblogPost, UblogByMonth }
-import lila.core.ublog.{ BlogsBy, QualityFilter }
-import lila.core.i18n.toLanguage
 import lila.ublog.UblogForm.{ ModPostData, UblogPostData }
-import lila.common.HTTPRequest
+import lila.ublog.{ UblogBlog, UblogByMonth, UblogPost }
 
 final class Ublog(env: Env) extends LilaController(env):
 

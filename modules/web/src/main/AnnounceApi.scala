@@ -1,6 +1,6 @@
 package lila.web
 
-import play.api.libs.json.{ Json, JsObject }
+import play.api.libs.json.{ JsObject, Json }
 
 import scala.util.Try
 

@@ -1,12 +1,13 @@
 package lila.study
 
-import scala.collection.immutable.SeqMap
-import org.apache.pekko.stream.scaladsl.*
+import chess.FideId
 import chess.format.UciPath
 import chess.format.pgn.Tags
-import chess.FideId
-import reactivemongo.pekkostream.cursorProducer
+import org.apache.pekko.stream.scaladsl.*
 import reactivemongo.api.bson.*
+import reactivemongo.pekkostream.cursorProducer
+
+import scala.collection.immutable.SeqMap
 
 import lila.db.AsyncColl
 import lila.db.dsl.{ *, given }

@@ -1,9 +1,10 @@
 package lila.tree
 
+import chess.eval.WhiteScore
 import chess.format.pgn.{ Pgn, PgnStr }
 import chess.{ Color, Ply }
-import chess.eval.WhiteScore
 import play.api.libs.json.JsObject
+
 import Analysis.EngineId
 
 opaque type FishnetKey = String

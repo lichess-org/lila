@@ -5,8 +5,8 @@ import reactivemongo.api.bson.*
 
 import lila.db.BSON
 import lila.db.dsl.{ *, given }
-import lila.tree.{ Analysis, FishnetKey, Engine, Info, Eval, evals }
 import lila.tree.Analysis.EngineId
+import lila.tree.{ Analysis, Engine, Eval, FishnetKey, Info, evals }
 
 object AnalyseBsonHandlers:
 

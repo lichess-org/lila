@@ -1,12 +1,13 @@
 package lila.user
 package ui
 
+import scalalib.paginator.Paginator
+
 import lila.core.perf.{ UserPerfs, UserWithPerfs }
 import lila.core.user.LightPerf
 import lila.rating.PerfType
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
-import scalalib.paginator.Paginator
 
 final class UserList(helpers: Helpers, bits: UserBits):
   import helpers.{ *, given }

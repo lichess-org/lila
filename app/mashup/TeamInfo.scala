@@ -3,11 +3,11 @@ package mashup
 
 import alleycats.Zero
 
+import lila.clas.Clas
 import lila.core.forum.ForumPostMiniView
 import lila.swiss.{ Swiss, SwissApi }
-import lila.team.{ Team, TeamMember, TeamRepo, TeamCached }
+import lila.team.{ Team, TeamCached, TeamMember, TeamRepo }
 import lila.tournament.{ Tournament, TournamentApi }
-import lila.clas.Clas
 
 case class TeamInfo(
     show: Team.TeamShow,

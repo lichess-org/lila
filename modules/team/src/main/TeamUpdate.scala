@@ -1,17 +1,17 @@
 package lila.team
 
 import org.apache.pekko.stream.Materializer
-import reactivemongo.pekkostream.cursorProducer
 import reactivemongo.api.bson.Macros.Annotations.Key
+import reactivemongo.pekkostream.cursorProducer
 import scalalib.paginator.Paginator
 
-import lila.memo.RateLimit.LimitResult
+import lila.common.String.shorten
 import lila.core.LightUser
-import lila.core.notify.NotifyApi
 import lila.core.notify.NotificationContent.TeamUpdate as Notification
+import lila.core.notify.NotifyApi
 import lila.core.team.LightTeam
 import lila.db.dsl.{ *, given }
-import lila.common.String.shorten
+import lila.memo.RateLimit.LimitResult
 
 case class TeamUpdate[T, U](
     @Key("_id") id: TeamUpdate.ID,

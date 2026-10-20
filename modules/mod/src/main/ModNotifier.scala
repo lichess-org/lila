@@ -2,12 +2,12 @@ package lila.mod
 
 import play.api.i18n.Lang
 
-import lila.core.notify.{ NotifyApi, NotificationContent }
+import lila.core.i18n.{ I18nKey, LangPicker, Translate, Translator }
+import lila.core.msg.SystemMsg
+import lila.core.notify.{ NotificationContent, NotifyApi }
 import lila.core.report.SuspectId
 import lila.rating.PerfType
-import lila.report.{ Room, Suspect, ReporterId }
-import lila.core.msg.SystemMsg
-import lila.core.i18n.{ I18nKey, Translate, Translator, LangPicker }
+import lila.report.{ ReporterId, Room, Suspect }
 
 final private class ModNotifier(
     notifyApi: NotifyApi,

@@ -1,12 +1,12 @@
 package lila.security
 
 import play.api.i18n.Lang
-import play.api.mvc.{ Cookie, Session, RequestHeader }
+import play.api.mvc.{ Cookie, RequestHeader, Session }
 import scalatags.Text.all.*
 
 import lila.core.config.*
-import lila.core.i18n.Translate
 import lila.core.i18n.I18nKey.emails as trans
+import lila.core.i18n.Translate
 import lila.core.net.ValidReferrer
 import lila.mailer.Mailer
 import lila.user.{ User, UserApi, UserRepo }

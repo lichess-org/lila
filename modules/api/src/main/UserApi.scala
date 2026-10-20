@@ -10,8 +10,8 @@ import lila.core.config.*
 import lila.core.perf.UserWithPerfs
 import lila.core.user.PublicFideIdOf
 import lila.rating.PerfType
-import lila.user.Trophy
 import lila.round.UrgentGames
+import lila.user.Trophy
 
 final class UserApi(
     jsonView: lila.user.JsonView,

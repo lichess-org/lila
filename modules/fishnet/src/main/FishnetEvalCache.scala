@@ -1,6 +1,7 @@
 package lila.fishnet
 
 import lila.tree.CloudEval
+
 import JsonApi.Request.Evaluation
 
 trait IFishnetEvalCache:

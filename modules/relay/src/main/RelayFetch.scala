@@ -1,19 +1,19 @@
 package lila.relay
 
-import chess.format.pgn.{ PgnStr, Tag, Tags }
 import chess.TournamentClock
+import chess.format.pgn.{ PgnStr, Tag, Tags }
 import com.github.blemale.scaffeine.LoadingCache
 import io.mola.galimatias.URL
 import scalalib.model.Seconds
 
 import lila.common.LilaScheduler
-import lila.core.lilaism.LilaInvalid
 import lila.core.fide.{ Federation, Tokenize }
+import lila.core.lilaism.LilaInvalid
 import lila.game.{ GameRepo, PgnDump }
 import lila.memo.CacheApi
+import lila.mon.extensions.*
 import lila.relay.RelayRound.Sync
 import lila.study.{ MultiPgn, StudyPgnImport }
-import lila.mon.extensions.*
 
 final private class RelayFetch(
     sync: RelaySync,

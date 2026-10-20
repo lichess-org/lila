@@ -1,9 +1,9 @@
 package lila.team
 
 import reactivemongo.api.bson.*
+import scalalib.paginator.AdapterLike
 
 import lila.db.dsl.{ *, given }
-import scalalib.paginator.AdapterLike
 
 private final class TeamUpdateRepo(val coll: Coll)(using Executor):
 

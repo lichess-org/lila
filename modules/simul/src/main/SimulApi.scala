@@ -1,15 +1,15 @@
 package lila.simul
 
-import org.apache.pekko.actor.*
 import chess.variant.Variant
 import chess.{ ByColor, Status }
 import monocle.syntax.all.*
+import org.apache.pekko.actor.*
 import play.api.libs.json.Json
-import scalalib.paginator.Paginator
 import scalalib.Debouncer
+import scalalib.paginator.Paginator
 
-import lila.common.Json.given
 import lila.common.Bus
+import lila.common.Json.given
 import lila.core.perf.UserWithPerfs
 import lila.core.socket.SendToFlag
 import lila.core.timeline.{ Propagate, SimulCreate, SimulJoin }

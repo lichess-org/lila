@@ -3,8 +3,8 @@ package ui
 
 import play.api.mvc.RequestHeader
 
-import lila.core.security.LilaCookie
 import lila.common.HTTPRequest
+import lila.core.security.LilaCookie
 import lila.ui.Context
 
 enum StudyFormat:

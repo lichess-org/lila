@@ -1,9 +1,9 @@
 package lila.bot
 
-import lila.memo.RateLimit
-import lila.memo.RateLimit.Limited
 import lila.core.LightUser
 import lila.core.user.LightUserApi
+import lila.memo.RateLimit
+import lila.memo.RateLimit.Limited
 
 case class OpponentLimit(msg: String, until: Instant)
 type EitherBotLimit = Limited | OpponentLimit

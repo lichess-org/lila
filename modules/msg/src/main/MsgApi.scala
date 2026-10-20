@@ -4,10 +4,10 @@ import org.apache.pekko.stream.scaladsl.*
 import reactivemongo.pekkostream.cursorProducer
 
 import lila.common.{ Bus, LilaStream }
-import lila.core.msg.{ PostResult, IdText, SystemMsg }
+import lila.core.msg.{ IdText, PostResult, SystemMsg }
+import lila.core.perm.Granter
 import lila.core.relation.Relations
 import lila.db.dsl.{ *, given }
-import lila.core.perm.Granter
 
 final class MsgApi(
     colls: MsgColls,

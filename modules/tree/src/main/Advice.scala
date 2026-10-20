@@ -1,7 +1,7 @@
 package lila.tree
 
-import chess.format.pgn.{ Comment, Glyph }
 import chess.eval.*
+import chess.format.pgn.{ Comment, Glyph }
 
 sealed trait Advice:
   val judgment: Advice.Judgement

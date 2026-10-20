@@ -3,8 +3,8 @@ package lila.bot
 import chess.format.Uci
 
 import lila.common.Bus
-import lila.core.round.*
 import lila.core.chat.PublicSource
+import lila.core.round.*
 import lila.game.GameExt.playerCanOfferDraw
 import lila.game.{ GameRepo, Rematches }
 

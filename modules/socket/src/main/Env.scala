@@ -1,8 +1,8 @@
 package lila.socket
 
-import org.apache.pekko.actor.{ CoordinatedShutdown, Scheduler }
 import com.softwaremill.macwire.*
 import io.lettuce.core.*
+import org.apache.pekko.actor.{ CoordinatedShutdown, Scheduler }
 import play.api.Configuration
 
 import lila.core.socket.{ SocketRequester as _, * }

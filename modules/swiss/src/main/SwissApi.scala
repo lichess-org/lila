@@ -1,9 +1,9 @@
 package lila.swiss
 
 import org.apache.pekko.stream.scaladsl.*
-import reactivemongo.pekkostream.cursorProducer
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
+import reactivemongo.pekkostream.cursorProducer
 
 import java.nio.charset.StandardCharsets.UTF_8
 import java.security.MessageDigest
@@ -14,10 +14,10 @@ import lila.core.LightUser
 import lila.core.round.RoundBus
 import lila.core.swiss.{ IdName, SwissFinish }
 import lila.core.userId.UserSearch
-import lila.mon.extensions.*
 import lila.db.dsl.{ *, given }
-import lila.gathering.Condition.{ WithVerdicts, AllowList }
+import lila.gathering.Condition.{ AllowList, WithVerdicts }
 import lila.gathering.GreatPlayer
+import lila.mon.extensions.*
 
 final class SwissApi(
     mongo: SwissMongo,

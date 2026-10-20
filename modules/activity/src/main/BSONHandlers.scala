@@ -1,8 +1,9 @@
 package lila.activity
 
-import reactivemongo.api.bson.*
-import scala.util.Success
 import chess.IntRating
+import reactivemongo.api.bson.*
+
+import scala.util.Success
 
 import lila.common.LichessDay
 import lila.core.chess.Rank

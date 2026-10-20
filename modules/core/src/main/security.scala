@@ -5,10 +5,10 @@ import play.api.data.Mapping
 import play.api.mvc.RequestHeader
 
 import lila.core.email.EmailAddress
+import lila.core.id.SessionId
 import lila.core.net.IpAddress
 import lila.core.user.{ Me, User }
 import lila.core.userId.{ UserId, UserName }
-import lila.core.id.SessionId
 
 case class GarbageCollect(userId: UserId)
 case class CloseAccount(userId: UserId)

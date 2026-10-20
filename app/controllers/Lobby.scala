@@ -2,10 +2,10 @@ package controllers
 
 import play.api.libs.json.*
 import play.api.mvc.*
+import scalalib.model.Language
 
 import lila.app.*
 import lila.common.Json.given
-import scalalib.model.Language
 
 final class Lobby(env: Env) extends LilaController(env):
 

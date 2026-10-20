@@ -2,8 +2,8 @@ package lila.api
 
 import lila.common.Bus
 import lila.core.perm.Granter
-import lila.user.UserDelete
 import lila.db.dsl.{ *, given }
+import lila.user.UserDelete
 
 /* There are 2 flavours of account termination.
 |                           | disable                          | delete                |

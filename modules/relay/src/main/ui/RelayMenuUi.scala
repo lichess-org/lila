@@ -1,9 +1,9 @@
 package lila.relay
 package ui
 
+import lila.core.LightUser
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
-import lila.core.LightUser
 
 final class RelayMenuUi(helpers: Helpers):
   import helpers.{ *, given }

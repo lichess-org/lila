@@ -1,7 +1,7 @@
 package lila.game
 package actorApi
 
-import chess.format.{ Uci, Fen }
+import chess.format.{ Fen, Uci }
 
 import lila.core.game.{ Game, Pov }
 

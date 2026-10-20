@@ -1,9 +1,9 @@
 package lila.swiss
 package ui
 
+import lila.common.ClientName
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
-import lila.common.ClientName
 
 final class SwissBitsUi(helpers: Helpers, getName: GetSwissName):
   import helpers.{ *, given }

@@ -4,9 +4,9 @@ import org.apache.pekko.actor.{ Cancellable, Scheduler }
 
 import scala.util.Success
 
+import lila.core.lilaism.LilaNoStackTrace
 import lila.game.GameExt.*
 import lila.game.{ GameRepo, Progress }
-import lila.core.lilaism.LilaNoStackTrace
 
 // NOT thread safe
 final private class GameProxy(

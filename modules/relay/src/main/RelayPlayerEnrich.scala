@@ -1,10 +1,10 @@
 package lila.relay
 
 import chess.format.pgn.{ Tag, Tags }
-import chess.{ FideId, PlayerName, PlayerTitle, IntRating }
+import chess.{ FideId, IntRating, PlayerName, PlayerTitle }
 
+import lila.core.fide.{ Federation, PlayerToken, diacritics }
 import lila.core.socket.Sri
-import lila.core.fide.{ PlayerToken, Federation, diacritics }
 import lila.study.{ Chapter, ChapterRepo, StudyApi, StudyPlayer }
 
 // used to change names and ratings of broadcast players

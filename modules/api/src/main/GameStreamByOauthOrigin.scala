@@ -3,8 +3,8 @@ package lila.api
 import org.apache.pekko.stream.scaladsl.*
 import play.api.libs.json.*
 import play.api.mvc.RequestHeader
-import se.thanh.pds.bloomfilter.BloomFilter
 import scalalib.net.UserAgent
+import se.thanh.pds.bloomfilter.BloomFilter
 
 import lila.common.{ Bus, HTTPRequest }
 import lila.core.game.{ FinishGame, Game, StartGame, WithInitialFen }

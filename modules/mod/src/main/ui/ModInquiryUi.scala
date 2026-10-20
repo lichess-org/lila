@@ -1,14 +1,14 @@
 package lila.mod
 package ui
 
+import lila.common.ClientName
+import lila.core.chat.PublicSource
 import lila.core.config.NetDomain
+import lila.core.i18n.Translate
+import lila.core.perm.Permission
 import lila.report.Report
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
-import lila.core.chat.PublicSource
-import lila.core.i18n.Translate
-import lila.core.perm.Permission
-import lila.common.ClientName
 
 final class ModInquiryUi(helpers: Helpers)(
     sourceOf: PublicSource => (Translate, ClientName) ?=> Tag,

@@ -59,6 +59,7 @@ object BuildSettings:
     "-release:21",
     "-Wimplausible-patterns",
     "-Wunused:all",
+    "-Wunused:imports",
     "-Wconf:msg=method ArrowAssoc in object Predef is deprecated:silent",
     "-Wconf:msg=class ArrowAssoc is deprecated:silent"
     // "-Yprofile-enabled",

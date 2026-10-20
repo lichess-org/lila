@@ -1,9 +1,9 @@
 package lila.relay
 
+import chess.format.pgn.{ Move, PgnStr, SanStr, Tag, Tags }
+import chess.{ ByColor, Outcome }
 import play.api.libs.json.*
 import scalalib.model.Seconds
-import chess.{ Outcome, ByColor }
-import chess.format.pgn.{ PgnStr, SanStr, Move, Tag, Tags }
 
 private object DgtJson:
 
