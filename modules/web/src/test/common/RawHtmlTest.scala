@@ -179,6 +179,7 @@ class RawHtmlTest extends munit.FunSuite:
     assert(hasMarkdownLinks(Html("[Example](https://example.com)")))
     assert(!hasMarkdownLinks(Html("https://example.com")))
     assert(!hasMarkdownLinks(Html("no links here")))
+    assert(hasMarkdownLinks(Html("Join\n[our team](https://example.com/team) now")))
 
   test("markdown with bare links linkify bare url after markdown link"):
     assertEquals(
