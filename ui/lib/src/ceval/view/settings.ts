@@ -273,7 +273,7 @@ export function engineSelect(
     },
     [
       ...engines.map(engine => option({ value: engine.id, selected: activeId === engine.id }, engine.name)),
-      !isSafari() && onSetupNative
+      !isSafari() && !isMobile() && onSetupNative
         ? [hl('hr'), option({ value: 'setup-direct' }, 'Setup direct engine...')]
         : [],
     ],
@@ -281,7 +281,7 @@ export function engineSelect(
 }
 
 function engineInfo(engines: EngineInfo[]) {
-  if (document.querySelector('.engine-info')) return;
+  if (document.querySelector('.engine-info-popup')) return;
   const engineHtml = (e: EngineInfo) =>
     `<li>${e.name} ${e.url ? `<a href="${e.url}" target="_blank">source</a>` : ''}</li>`;
   domDialog({
