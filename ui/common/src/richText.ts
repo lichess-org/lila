@@ -7,7 +7,7 @@ import { escapeHtml } from './common';
 export const linkRegex: RegExp =
   /(^|[\s\n]|<[A-Za-z]*\/?>)((?:(?:https?|ftp):\/\/|lichess\.org)[\-A-Z0-9+\u0026\u2019@#\/%?=()~_|!:,.;]*[\-A-Z0-9+\u0026@#\/%=~()_|])/gi;
 export const newLineRegex: RegExp = /\n/g;
-export const userPattern: RegExp = /(^|[^\w@#/])@([a-z0-9_-]{2,30})/gi;
+export const userPattern: RegExp = /(^|[^\w@#/])@([\p{L}\p{N}_-]{2,30})/giu;
 
 // looks like it has a @mention or #gameid or a url.tld
 export const isMoreThanText = (str: string): boolean => /(\n|(@|#|\.)\w{2,}|(board|game) \d)/i.test(str);
@@ -42,7 +42,7 @@ export function linkReplace(href: string, body?: string): string {
 }
 
 export const userLinkReplace = (_: string, prefix: string, user: string): string =>
-  prefix + linkReplace('/@/' + user, '@' + user);
+  prefix + linkReplace('/player/search/' + encodeURIComponent(user), '@' + user);
 
 export const expandMentions = (html: string): string => html.replace(userPattern, userLinkReplace);
 
