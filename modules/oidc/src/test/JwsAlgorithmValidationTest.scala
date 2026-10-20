@@ -35,6 +35,20 @@ class JwsAlgorithmValidationTest extends munit.FunSuite:
     }
   }
 
+  test("factory requires openid scope") {
+    intercept[IllegalArgumentException] {
+      OIDCFactory(
+        "https://issuer.example",
+        "client",
+        "secret",
+        "https://rp.example/signin-oidc",
+        "RS256",
+        "profile email",
+        "client_secret_post"
+      )
+    }
+  }
+
   test("factory rejects unknown token auth method") {
     intercept[IllegalArgumentException] {
       OIDCFactory(

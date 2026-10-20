@@ -18,6 +18,7 @@ final class UserProvisioning(
     else
       val userId = UserId(identity.subject)
       statusRepo.get(userId).flatMap { stored =>
+        monitorClaimMismatch(identity, stored)
         stored.flatMap(statusError) match
           case Some(error) => fuccess(LoginOutcome.Refused(error, None))
           case None =>
@@ -26,6 +27,19 @@ final class UserProvisioning(
               case None       => create(identity)
             }
       }
+
+  private def monitorClaimMismatch(
+      identity: ExternalIdentity,
+      stored: Option[IdentityStatusRecord]
+  ): Unit =
+    for
+      record <- stored
+      claim  <- identity.globallyEnabled
+      if claim != record.globallyEnabled
+    do
+      lila.log("oidc").warn(
+        s"identity status mismatch sub=${identity.subject} claim=$claim projection=${record.globallyEnabled} version=${record.version}"
+      )
 
   private def statusError(record: IdentityStatusRecord): Option[LoginError] =
     record.status match
