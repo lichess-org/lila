@@ -15,10 +15,10 @@ final class Coach(env: Env) extends LilaController(env):
   def homeLang =
     LangPage(routes.Learn.index)(searchResults("all", CoachPager.Order.Login.key, allFlags, 1))
 
-  def all(page: Int) = Open:
+  def all(page: Int) = OpenOrScoped():
     searchResults("all", CoachPager.Order.Login.key, allFlags, page)
 
-  def search(l: String, o: String, c: FlagCode, page: Int) = Open:
+  def search(l: String, o: String, c: FlagCode, page: Int) = OpenOrScoped():
     searchResults(l, o, c, page)
 
   private def searchResults(l: String, o: String, c: FlagCode, page: Int)(using Context) =
@@ -37,7 +37,7 @@ final class Coach(env: Env) extends LilaController(env):
         )
       yield res
 
-  def show(username: UserStr) = Open:
+  def show(username: UserStr) = OpenOrScoped():
     Found(api.find(username)): c =>
       WithVisibleCoach(c):
         negotiate(
