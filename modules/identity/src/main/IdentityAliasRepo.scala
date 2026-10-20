@@ -9,10 +9,13 @@ import lila.db.dsl.{ *, given }
   */
 case class IdentityAlias(@Key("_id") subject: String, userId: UserId)
 
+object IdentityAlias:
+  given reactivemongo.api.bson.BSONDocumentHandler[IdentityAlias] =
+    reactivemongo.api.bson.Macros.handler
+
 final class IdentityAliasRepo(coll: Coll)(using Executor):
 
-  private given reactivemongo.api.bson.BSONDocumentHandler[IdentityAlias] =
-    reactivemongo.api.bson.Macros.handler
+  import IdentityAlias.given
 
   def userId(subject: String): Fu[Option[UserId]] =
     coll.primitiveOne[UserId]($id(subject), "userId")

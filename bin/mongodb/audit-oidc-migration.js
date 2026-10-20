@@ -72,6 +72,7 @@ let deleted = 0;
 let foreverClosed = 0;
 let mustConfirm = 0;
 let missingEmail = 0;
+let emailNormalizationChanges = 0;
 let missingLen = 0;
 let wrongLen = 0;
 let missingCreatedAt = 0;
@@ -140,8 +141,11 @@ for (const u of users) {
     entry.count++;
     if (entry.ids.length < 3) entry.ids.push(mask(id));
     emailCounts.set(normalized, entry);
-    if (String(u.email) !== normalized && emailSamples.length < 5)
-      emailSamples.push({ id: mask(id), raw: mask(u.email), normalized: mask(normalized) });
+    if (String(u.email) !== normalized) {
+      emailNormalizationChanges++;
+      if (emailSamples.length < 5)
+        emailSamples.push({ id: mask(id), raw: mask(u.email), normalized: mask(normalized) });
+    }
   }
 }
 
@@ -214,6 +218,7 @@ printjson({
       duplicateSamples: duplicateUsernameSamples,
     },
     emails: {
+      normalizationChanges: emailNormalizationChanges,
       duplicateGroups: duplicateEmailGroups,
       duplicateUsers: duplicateEmailUsers,
       normalizedChangeSamples: emailSamples,

@@ -44,6 +44,14 @@ class IdentityBsonTest extends munit.FunSuite:
     assertEquals(BSON.readDocument[IdentityEvent](doc).toOption, Some(event))
   }
 
+  test("legacy alias round-trips") {
+    import IdentityAlias.given
+    val alias = IdentityAlias(subject = "1001", userId = UserId("legacy-user"))
+    val doc   = BSON.writeDocument(alias).get
+    assertEquals(doc.getAsOpt[String]("_id"), Some("1001"))
+    assertEquals(BSON.readDocument[IdentityAlias](doc).toOption, Some(alias))
+  }
+
   test("status keys are parsed strictly") {
     assertEquals(IdentityStatus.fromKey("ACTIVE"), Some(IdentityStatus.Active))
     assertEquals(IdentityStatus.fromKey("banned"), Some(IdentityStatus.Banned))
