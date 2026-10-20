@@ -332,7 +332,7 @@ lazy val oauth = module("oauth",
 
 lazy val identity = module("identity",
   Seq(common, db, user),
-  Seq()
+  Seq() ++ tests.bundle
 )
 
 lazy val oidc = module("oidc",

@@ -14,10 +14,13 @@ case class OidcLoginState(
     expiresAt: Instant
 )
 
+object OidcLoginState:
+  given reactivemongo.api.bson.BSONDocumentHandler[OidcLoginState] =
+    reactivemongo.api.bson.Macros.handler
+
 final class OidcStateRepo(coll: Coll)(using Executor):
 
-  private given reactivemongo.api.bson.BSONDocumentHandler[OidcLoginState] =
-    reactivemongo.api.bson.Macros.handler
+  import OidcLoginState.given
 
   def put(state: String, nonce: String, codeVerifier: String, referrer: Option[String]): Funit =
     coll
