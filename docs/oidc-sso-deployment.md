@@ -125,6 +125,7 @@ X-Identity-Signature: <hex(HMAC-SHA256(raw_body, identity.webhook.secret))>
 ```
 
 - `status`: `active` | `banned` | `suspended` | `deleted`.
+- `issuer` должен точно совпадать с `oidc.issuer.base_url`, иначе событие отклоняется.
 - `eventId` идемпотентен; `version` монотонен, старые события игнорируются.
 - `banned`/`suspended` → закрываются HTTP-сессии, appeal-сессии, OAuth-токены,
   push-подписки и активные WebSocket.
@@ -144,7 +145,7 @@ Backchannel logout:
 - [ ] `https://<base>/@/<sub>` открывает профиль; `https://<base>/@/<display-name>` → `404`.
 - [ ] Вход через IdP создаёт сессию; в `db.security` у сессии есть `idToken`, `sid`, `expiresAt`.
 - [ ] Повторный callback с тем же `state` → отказ (state одноразовый).
-- [ ] `state` без cookie `oidc_state` → отказ.
+- [ ] `state` без cookie `oidc_state` → отказ (cookie `HttpOnly`, `SameSite=Lax`, TTL 10 мин).
 - [ ] Logout уводит на `end_session_endpoint` IdP, затем возвращает на `/`.
 - [ ] Backchannel logout закрывает сессию и WS.
 - [ ] Событие `banned` закрывает сессии/OAuth/push/WS.
