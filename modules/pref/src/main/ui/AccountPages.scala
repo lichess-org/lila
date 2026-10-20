@@ -319,11 +319,3 @@ final class AccountPages(helpers: Helpers, ui: AccountUi, flagApi: lila.core.use
               form3.action(form3.submit("Reopen my account"))
             )
           )
-
-    def sent(using Context) =
-      Page(trans.site.reopenYourAccount.txt()):
-        main(cls := "page-small box box-pad")(
-          boxTop(h1(cls := "is-green text", dataIcon := Icon.Checkmark)(trans.site.checkYourEmail())),
-          p(trans.site.sentEmailWithLink()),
-          p(trans.site.ifYouDoNotSeeTheEmailCheckOtherPlaces())
-        )

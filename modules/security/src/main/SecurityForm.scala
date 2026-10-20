@@ -225,14 +225,6 @@ final class SecurityForm(
       )
     )
 
-  def reopen(using RequestHeader) = hcaptcha.form(
-    Form:
-      mapping(
-        "username" -> LilaForm.cleanNonEmptyText.into[UserStr],
-        "email"    -> sendableEmail // allow unacceptable emails for BC
-      )(Reopen.apply)(_ => None)
-  )
-
   def deleteAccount(using me: Me) =
     authenticator.loginCandidate.map: candidate =>
       Form:
@@ -280,7 +272,6 @@ object SecurityForm:
 
   case class MagicLink(email: EmailAddress)
 
-  case class Reopen(username: UserStr, email: EmailAddress)
 
   case class ChangeEmail(passwd: String, email: EmailAddress)
 
