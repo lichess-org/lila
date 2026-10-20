@@ -173,7 +173,6 @@ object MarkdownRender:
         "pixabay.com",
         "githubusercontent.com",
         "googleusercontent.com",
-        "i.ibb.co",
         "i.postimg.cc",
         "imgs.xkcd.com",
         "image.lichess1.org",
