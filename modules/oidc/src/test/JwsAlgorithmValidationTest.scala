@@ -28,7 +28,21 @@ class JwsAlgorithmValidationTest extends munit.FunSuite:
         "client",
         "secret",
         "https://rp.example/signin-oidc",
-        ""
+        "",
+        "client_secret_post"
+      )
+    }
+  }
+
+  test("factory rejects unknown token auth method") {
+    intercept[IllegalArgumentException] {
+      OIDCFactory(
+        "https://issuer.example",
+        "client",
+        "secret",
+        "https://rp.example/signin-oidc",
+        "RS256",
+        "private_key_jwt"
       )
     }
   }

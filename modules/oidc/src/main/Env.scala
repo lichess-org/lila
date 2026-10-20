@@ -13,7 +13,8 @@ private case class OidcConfig(
     @ConfigName("issuer.client_id") val clientId: String,
     @ConfigName("issuer.client_secret") val clientSecret: Secret,
     @ConfigName("issuer.scopes") val scopes: String,
-    @ConfigName("issuer.jws_alg") val jwsAlgorithm: String
+    @ConfigName("issuer.jws_alg") val jwsAlgorithm: String,
+    @ConfigName("issuer.token_auth_method") val tokenAuthMethod: String
 )
 
 @Module
@@ -33,7 +34,8 @@ final class Env(
     config.clientId,
     config.clientSecret.value,
     s"$baseUrl/signin-oidc",
-    config.jwsAlgorithm
+    config.jwsAlgorithm,
+    config.tokenAuthMethod
   )
 
   private lazy val provisioning = UserProvisioning(userRepo, identity.statusRepo)

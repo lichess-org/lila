@@ -8,6 +8,7 @@ import lila.db.dsl.{ *, given }
 case class OidcLoginState(
     @Key("_id") state: String,
     nonce: String,
+    codeVerifier: String,
     referrer: Option[String],
     createdAt: Instant,
     expiresAt: Instant
@@ -18,13 +19,14 @@ final class OidcStateRepo(coll: Coll)(using Executor):
   private given reactivemongo.api.bson.BSONDocumentHandler[OidcLoginState] =
     reactivemongo.api.bson.Macros.handler
 
-  def put(state: String, nonce: String, referrer: Option[String]): Funit =
+  def put(state: String, nonce: String, codeVerifier: String, referrer: Option[String]): Funit =
     coll
       .insert
       .one(
         OidcLoginState(
           state = state,
           nonce = nonce,
+          codeVerifier = codeVerifier,
           referrer = referrer,
           createdAt = nowInstant,
           expiresAt = nowInstant.plusSeconds(600)

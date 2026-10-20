@@ -7,9 +7,10 @@ import com.nimbusds.jose.util.DefaultResourceRetriever
 import com.nimbusds.jose.JOSEException
 import com.nimbusds.jwt.SignedJWT
 import com.nimbusds.oauth2.sdk.*
-import com.nimbusds.oauth2.sdk.auth.ClientSecretBasic
+import com.nimbusds.oauth2.sdk.auth.{ ClientSecretBasic, ClientSecretPost }
 import com.nimbusds.oauth2.sdk.http.HTTPResponse
 import com.nimbusds.oauth2.sdk.id.{ Issuer, State }
+import com.nimbusds.oauth2.sdk.pkce.{ CodeChallengeMethod, CodeVerifier }
 import com.nimbusds.oauth2.sdk.token.BearerAccessToken
 import com.nimbusds.openid.connect.sdk.claims.IDTokenClaimsSet
 import com.nimbusds.openid.connect.sdk.claims.LogoutTokenClaimsSet
@@ -42,18 +43,20 @@ final class OpenIDConnectService(
     * @return
     *   Authentication request
     */
-  def createOIDCAuthenticationRequest(): Fu[AuthenticationRequest] = metadata.flatMap { metadata =>
-    fuccess(
-      new AuthenticationRequest(
-        metadata.getAuthorizationEndpointURI,
-        new ResponseType(ResponseType.Value.CODE),
-        OIDC_SCOPE,
-        oidc.clientID,
-        oidc.signinCallbackUrl,
-        new State(),
-        new Nonce()
-      )
+  def createOIDCAuthenticationRequest(): Fu[(AuthenticationRequest, CodeVerifier)] = metadata.map { metadata =>
+    val codeVerifier = new CodeVerifier()
+    val request = new AuthenticationRequest.Builder(
+      new ResponseType(ResponseType.Value.CODE),
+      OIDC_SCOPE,
+      oidc.clientID,
+      oidc.signinCallbackUrl
     )
+      .endpointURI(metadata.getAuthorizationEndpointURI)
+      .state(new State())
+      .nonce(new Nonce())
+      .codeChallenge(codeVerifier, CodeChallengeMethod.S256)
+      .build()
+    (request, codeVerifier)
   }
 
   /** Proceed the OpenID Connect authentication.
@@ -70,10 +73,11 @@ final class OpenIDConnectService(
   def authenticate(
       params: Map[String, Seq[String]],
       state: State,
-      nonce: Nonce
+      nonce: Nonce,
+      codeVerifier: CodeVerifier
   ): Fu[OidcAuthn] =
     validateOIDCAuthenticationResponse(params, state).flatMap { authenticationResponse =>
-      obtainOIDCTokens(authenticationResponse.getAuthorizationCode, nonce).flatMap { (tokens, claims) =>
+      obtainOIDCTokens(authenticationResponse.getAuthorizationCode, nonce, codeVerifier).flatMap { (tokens, claims) =>
         obtainUserInfo(tokens.getBearerAccessToken).map { userInfo =>
           OidcAuthn(
             userInfo = userInfo,
@@ -156,8 +160,10 @@ final class OpenIDConnectService(
     */
   def obtainOIDCTokens(
       authorizationCode: AuthorizationCode,
-      nonce: Nonce
-  ): Fu[(OIDCTokens, IDTokenClaimsSet)] = sendOIDCTokenRequest(authorizationCode).flatMap { httpResponse =>
+      nonce: Nonce,
+      codeVerifier: CodeVerifier
+  ): Fu[(OIDCTokens, IDTokenClaimsSet)] =
+    sendOIDCTokenRequest(authorizationCode, codeVerifier).flatMap { httpResponse =>
     try
       OIDCTokenResponseParser.parse(httpResponse) match
         case response: OIDCTokenResponse =>
@@ -177,8 +183,9 @@ final class OpenIDConnectService(
     * @return
     */
   private def sendOIDCTokenRequest(
-      authorizationCode: AuthorizationCode
-  ): Fu[HTTPResponse] = buildOIDCTokenRequest(authorizationCode).flatMap { request =>
+      authorizationCode: AuthorizationCode,
+      codeVerifier: CodeVerifier
+  ): Fu[HTTPResponse] = buildOIDCTokenRequest(authorizationCode, codeVerifier).flatMap { request =>
     try fuccess(request.toHTTPRequest.send())
     catch
       case se: SerializeException =>
@@ -194,13 +201,18 @@ final class OpenIDConnectService(
     * @return
     */
   private def buildOIDCTokenRequest(
-      authorizationCode: AuthorizationCode
+      authorizationCode: AuthorizationCode,
+      codeVerifier: CodeVerifier
   ): Fu[TokenRequest] = metadata.flatMap { metadata =>
+    val clientAuth = oidc.tokenAuthMethod match
+      case "client_secret_post"  => new ClientSecretPost(oidc.clientID, oidc.clientSecret)
+      case "client_secret_basic" => new ClientSecretBasic(oidc.clientID, oidc.clientSecret)
+      case other                 => throw new IllegalArgumentException(s"Unsupported token auth method: $other")
     fuccess(
       new TokenRequest(
         metadata.getTokenEndpointURI,
-        new ClientSecretBasic(oidc.clientID, oidc.clientSecret),
-        new AuthorizationCodeGrant(authorizationCode, oidc.signinCallbackUrl),
+        clientAuth,
+        new AuthorizationCodeGrant(authorizationCode, oidc.signinCallbackUrl, codeVerifier),
         OIDC_SCOPE
       )
     )

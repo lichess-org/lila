@@ -11,8 +11,12 @@ case class OIDC(
     clientID: ClientID,
     clientSecret: Secret,
     signinCallbackUrl: URI,
-    jwsAlgorithm: JWSAlgorithm
+    jwsAlgorithm: JWSAlgorithm,
+    tokenAuthMethod: String
 )
+
+object OIDC:
+  val tokenAuthMethods = Set("client_secret_post", "client_secret_basic")
 
 object OIDCFactory:
   def apply(
@@ -20,8 +24,13 @@ object OIDCFactory:
       clientID: String,
       clientSecret: String,
       signinCallbackUrl: String,
-      jwsAlgorithm: String
+      jwsAlgorithm: String,
+      tokenAuthMethod: String
   ): OIDC =
+    if !OIDC.tokenAuthMethods.contains(tokenAuthMethod) then
+      throw new IllegalArgumentException(
+        s"oidc.issuer.token_auth_method '$tokenAuthMethod' is not supported"
+      )
     new OIDC(
       new Issuer(issuer),
       new ClientID(clientID),
@@ -29,5 +38,6 @@ object OIDCFactory:
       new URI(signinCallbackUrl),
       JwsAlgorithmValidation
         .parse(jwsAlgorithm)
-        .fold(err => throw new IllegalArgumentException(err), identity)
+        .fold(err => throw new IllegalArgumentException(err), identity),
+      tokenAuthMethod
     )

@@ -15,11 +15,20 @@ final class OidcApi(
 
   private val client = new OpenIDConnectService(oidc)
 
-  def getAuthenticationRequest(): Fu[AuthenticationRequest] =
+  def getAuthenticationRequest(): Fu[(AuthenticationRequest, com.nimbusds.oauth2.sdk.pkce.CodeVerifier)] =
     client.createOIDCAuthenticationRequest()
 
-  def saveLoginState(request: AuthenticationRequest, referrer: Option[String]): Funit =
-    stateRepo.put(request.getState.getValue, request.getNonce.getValue, referrer)
+  def saveLoginState(
+      request: AuthenticationRequest,
+      referrer: Option[String],
+      codeVerifier: com.nimbusds.oauth2.sdk.pkce.CodeVerifier
+  ): Funit =
+    stateRepo.put(
+      request.getState.getValue,
+      request.getNonce.getValue,
+      codeVerifier.getValue,
+      referrer
+    )
 
   def authenticate(req: RequestHeader): Fu[LoginOutcome] =
     val state       = req.getQueryString("state").getOrElse("")
@@ -32,7 +41,12 @@ final class OidcApi(
         case None => fuccess(LoginOutcome.Refused(LoginError.InvalidState, None))
         case Some(loginState) =>
           client
-            .authenticate(req.queryString, new State(state), new Nonce(loginState.nonce))
+            .authenticate(
+              req.queryString,
+              new State(state),
+              new Nonce(loginState.nonce),
+              new com.nimbusds.oauth2.sdk.pkce.CodeVerifier(loginState.codeVerifier)
+            )
             .flatMap { authn =>
               externalIdentity(authn.userInfo) match
                 case Left(error) => fuccess(LoginOutcome.Refused(error, None))

@@ -111,8 +111,8 @@ final class Auth(
     referrer.ifTrue(ctx.isAuth).ifTrue(switch.isEmpty) match
       case Some(url) => Redirect(url) // redirect immediately if already logged in
       case None =>
-        env.oidc.api.getAuthenticationRequest().flatMap { request =>
-          env.oidc.api.saveLoginState(request, referrer).map { _ =>
+        env.oidc.api.getAuthenticationRequest().flatMap { (request, codeVerifier) =>
+          env.oidc.api.saveLoginState(request, referrer, codeVerifier).map { _ =>
             Redirect(request.toURI.toString)
               .flashing("referrer" -> referrer.getOrElse("/"))
               .withCookies(
