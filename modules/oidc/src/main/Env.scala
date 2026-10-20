@@ -21,7 +21,8 @@ final class Env(
     appConfig: Configuration,
     net: NetConfig,
     userRepo: lila.user.UserRepo,
-    identity: lila.identity.Env
+    identity: lila.identity.Env,
+    db: lila.db.Db
 )(using Executor, akka.stream.Materializer):
   import net.baseUrl
 
@@ -37,4 +38,6 @@ final class Env(
 
   private lazy val provisioning = UserProvisioning(userRepo, identity.statusRepo)
 
-  lazy val api = OidcApi(oidc, provisioning)
+  private lazy val stateRepo = OidcStateRepo(db(lila.core.config.CollName("oidc_state")))
+
+  lazy val api = OidcApi(oidc, provisioning, stateRepo)

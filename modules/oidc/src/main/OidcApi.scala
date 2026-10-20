@@ -9,7 +9,8 @@ import play.api.mvc.RequestHeader
 
 final class OidcApi(
     oidc: OIDC,
-    provisioning: UserProvisioning
+    provisioning: UserProvisioning,
+    stateRepo: OidcStateRepo
 )(using Executor):
 
   private val client = new OpenIDConnectService(oidc)
@@ -17,24 +18,33 @@ final class OidcApi(
   def getAuthenticationRequest(): Fu[AuthenticationRequest] =
     client.createOIDCAuthenticationRequest()
 
-  def authenticate(req: RequestHeader): Fu[LoginOutcome] =
-    val state  = req.flash.get("oidcState").getOrElse("~")
-    val nonce  = req.flash.get("oidcNonce").getOrElse("~")
-    val params = req.queryString
+  def saveLoginState(request: AuthenticationRequest, referrer: Option[String]): Funit =
+    stateRepo.put(request.getState.getValue, request.getNonce.getValue, referrer)
 
-    client
-      .authenticate(params, new State(state), new Nonce(nonce))
-      .flatMap { authn =>
-        externalIdentity(authn.userInfo) match
-          case Left(error) => fuccess(LoginOutcome.Refused(error, None))
-          case Right(identity) =>
-            provisioning.resolve(identity).map {
-              case LoginOutcome.Success(user, _) => LoginOutcome.Success(user, authn.session.some)
-              case other                         => other
+  def authenticate(req: RequestHeader): Fu[LoginOutcome] =
+    val state       = req.getQueryString("state").getOrElse("")
+    val cookieState = req.cookies.get("oidc_state").map(_.value)
+
+    if state.isEmpty || !cookieState.contains(state) then
+      fuccess(LoginOutcome.Refused(LoginError.InvalidState, None))
+    else
+      stateRepo.consume(state).flatMap {
+        case None => fuccess(LoginOutcome.Refused(LoginError.InvalidState, None))
+        case Some(loginState) =>
+          client
+            .authenticate(req.queryString, new State(state), new Nonce(loginState.nonce))
+            .flatMap { authn =>
+              externalIdentity(authn.userInfo) match
+                case Left(error) => fuccess(LoginOutcome.Refused(error, None))
+                case Right(identity) =>
+                  provisioning.resolve(identity).map {
+                    case LoginOutcome.Success(user, _) => LoginOutcome.Success(user, authn.session.some)
+                    case other                         => other
+                  }
             }
-      }
-      .recover { case _ =>
-        LoginOutcome.Refused(LoginError.ProviderError, None)
+            .recover { case _ =>
+              LoginOutcome.Refused(LoginError.ProviderError, None)
+            }
       }
 
   def endSessionUrl(idToken: String, postLogoutRedirect: String): Fu[Option[String]] =

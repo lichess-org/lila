@@ -34,11 +34,8 @@ final class OpenIDConnectService(
   private val OIDC_SCOPE = new Scope(
     OIDCScopeValue.OPENID,
     OIDCScopeValue.EMAIL,
-    OIDCScopeValue.PROFILE,
-    OIDCScopeValue.ADDRESS
+    OIDCScopeValue.PROFILE
   )
-
-  OIDC_SCOPE.add("profile_ex")
 
   /** Create an authentication request.
     *

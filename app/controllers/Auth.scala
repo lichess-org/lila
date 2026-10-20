@@ -112,13 +112,18 @@ final class Auth(
       case Some(url) => Redirect(url) // redirect immediately if already logged in
       case None =>
         env.oidc.api.getAuthenticationRequest().flatMap { request =>
-          fuccess(
-            Redirect(request.toURI.toString).flashing(
-              "referrer"  -> referrer.getOrElse("/"),
-              "oidcState" -> request.getState.getValue,
-              "oidcNonce" -> request.getNonce.getValue
-            )
-          )
+          env.oidc.api.saveLoginState(request, referrer).map { _ =>
+            Redirect(request.toURI.toString)
+              .flashing("referrer" -> referrer.getOrElse("/"))
+              .withCookies(
+                env.security.lilaCookie.cookie(
+                  "oidc_state",
+                  request.getState.getValue,
+                  maxAge = Some(600),
+                  httpOnly = Some(true)
+                )
+              )
+          }
         }
 
   def signinOidc = Open(oidcCallback)
@@ -143,7 +148,7 @@ final class Auth(
         oidcRefusalPage(error)
       case LoginOutcome.Refused(_, _) =>
         fuccess(Redirect(routes.Auth.login).flashFailure)
-    }
+    }.map(_.discardingCookies(env.security.lilaCookie.discard("oidc_state")))
 
   private def oidcRefusalPage(refusal: LoginError)(using Context) =
     import scalatags.Text.all.stringFrag

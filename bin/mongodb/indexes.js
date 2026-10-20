@@ -281,6 +281,7 @@ db.security.createIndex({ expiresAt: 1 }, { expireAfterSeconds: 0 });
 db.identity_status.createIndex({ version: 1 });
 db.identity_status.createIndex({ status: 1 });
 db.identity_event.createIndex({ subject: 1, version: -1 });
+db.oidc_state.createIndex({ expiresAt: 1 }, { expireAfterSeconds: 0 });
 db.study.createIndex({ ownerId: 1, createdAt: -1 });
 db.study.createIndex({ likes: 1, createdAt: -1 });
 db.study.createIndex({ ownerId: 1, updatedAt: -1 });
