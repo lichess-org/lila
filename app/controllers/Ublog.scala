@@ -308,7 +308,9 @@ final class Ublog(env: Env) extends LilaController(env):
     env.ublog.paginator
       .liveByCommunity(found.map(toLanguage), QualityFilter.best, page = 1)
       .map: posts =>
-        Ok.snip(views.ublog.ui.atom.community(language, posts.currentPageResults)).as(ATOM)
+        Ok.snip(views.ublog.ui.atom.community(language, posts.currentPageResults))
+          .as(ATOM)
+          .headerCache(10.minutes)
 
   def liked(page: Int) = Auth { ctx ?=> me ?=>
     NotForKids:
