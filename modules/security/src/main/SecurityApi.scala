@@ -15,7 +15,6 @@ import lila.core.net.{ ApiVersion, IpAddress }
 import lila.core.security.{ ClearPassword, FingerHash, Ip2ProxyApi, IsProxy }
 import lila.db.dsl.{ *, given }
 import lila.oauth.{ AccessToken, OAuthScope, OAuthServer }
-import lila.security.LoginCandidate.Result
 import lila.core.user.RoleDbKey
 
 final class SecurityApi(
@@ -24,88 +23,11 @@ final class SecurityApi(
     firewall: Firewall,
     cacheApi: lila.memo.CacheApi,
     geoIP: GeoIP,
-    authenticator: Authenticator,
     oAuthServer: OAuthServer,
-    ip2proxy: Ip2ProxyApi,
-    proxy2faSetting: lila.memo.SettingStore[lila.core.data.Strings] @@ Proxy2faSetting
-)(using ec: Executor, mode: play.api.Mode):
+    ip2proxy: Ip2ProxyApi
+)(using ec: Executor):
 
   val AccessUri = "access_uri"
-
-  private val usernameOrEmailMapping =
-    lila.common.Form.cleanText(minLength = 2, maxLength = EmailAddress.maxLength).into[UserStrOrEmail]
-  private val loginPasswordMapping = nonEmptyText.transform(ClearPassword(_), _.value)
-
-  lazy val loginForm = Form:
-    tuple(
-      "username" -> usernameOrEmailMapping, // can also be an email
-      "password" -> loginPasswordMapping
-    )
-  def loginFormFilled(login: UserStrOrEmail) = loginForm.fill(login -> ClearPassword(""))
-
-  lazy val rememberForm = Form(single("remember" -> boolean))
-
-  private def loadedLoginForm(candidate: Option[LoginCandidate]): Form[Result] =
-    import LoginCandidate.Result.*
-    Form(
-      mapping(
-        "username" -> usernameOrEmailMapping, // can also be an email
-        "password" -> loginPasswordMapping,
-        "token"    -> optional(nonEmptyText)
-      )(authenticateCandidate(candidate)) {
-        case Success(user) => (user.username.into(UserStrOrEmail), ClearPassword(""), none).some
-        case _             => none
-      }.verifying(Constraint { (t: LoginCandidate.Result) =>
-        t match
-          case Success(_) => FormValid
-          case InvalidUsernameOrPassword =>
-            Invalid(Seq(ValidationError("invalidUsernameOrPassword")))
-          case BlankedPassword =>
-            Invalid(Seq(ValidationError("blankedPassword")))
-          case WeakPassword =>
-            Invalid(
-              Seq(ValidationError("This password is too easy to guess. Request a password reset email."))
-            )
-          case Must2fa =>
-            Invalid(Seq(ValidationError("2-Factor Authentication is required to log in from this network.")))
-          case err => Invalid(Seq(ValidationError(err.toString)))
-      })
-    )
-
-  private def must2fa(req: RequestHeader): Fu[Option[IsProxy]] =
-    ip2proxy(HTTPRequest.ipAddress(req)).map: p =>
-      p.name.exists(proxy2faSetting.get().value.has(_)).option(p)
-
-  def loadLoginForm(str: UserStrOrEmail)(using req: RequestHeader): Fu[Form[LoginCandidate.Result]] =
-    EmailAddress
-      .from(str.value)
-      .match
-        case Some(email) => authenticator.loginCandidateByEmail(email.normalize)
-        case None        => str.into(UserStr).validateId.so(authenticator.loginCandidateById)
-      .map(_.filter(_.user.isnt(UserId.lichess)))
-      .flatMap:
-        _.so: candidate =>
-          must2fa(req).map:
-            _.fold(candidate.some): p =>
-              lila.mon.security.login.proxy(p.value).increment()
-              candidate.copy(must2fa = true).some
-      .map(loadedLoginForm)
-
-  private def authenticateCandidate(candidate: Option[LoginCandidate])(
-      login: UserStrOrEmail,
-      password: ClearPassword,
-      token: Option[String]
-  ): LoginCandidate.Result =
-    import LoginCandidate.Result.*
-    candidate.fold[LoginCandidate.Result](InvalidUsernameOrPassword): c =>
-      val result = c(PasswordAndToken(password, token.map(lila.user.TotpToken.apply)))
-      if result == BlankedPassword then
-        lila.common.Bus.publish(c.user, "loginWithBlankedPassword")
-        BlankedPassword
-      else if mode.isProd && result.success && PasswordCheck.isWeak(password, login.value) then
-        lila.common.Bus.publish(c.user, "loginWithWeakPassword")
-        WeakPassword
-      else result
 
   def saveAuthentication(
       userId: UserId,
@@ -132,13 +54,6 @@ final class SecurityApi(
           )
         yield sessionId
     }
-
-  def saveSignup(userId: UserId, apiVersion: Option[ApiVersion], fp: Option[FingerPrint])(using
-      req: RequestHeader
-  ): Funit =
-    val sessionId = SecureRandom.nextString(22)
-    ip2proxy(HTTPRequest.ipAddress(req)).flatMap: proxy =>
-      store.save(s"SIG-$sessionId", userId, req, apiVersion, up = false, fp = fp, proxy = proxy)
 
   private type AppealOrUser = Either[AppealUser, FingerPrintedUser]
   def restoreUser(req: RequestHeader): Fu[Option[AppealOrUser]] =
