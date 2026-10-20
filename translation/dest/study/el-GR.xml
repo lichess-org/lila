@@ -122,7 +122,6 @@
   <string name="noLetPeopleBrowseFreely">Όχι: ελεύθερη επιλογή θέσης</string>
   <string name="pinnedStudyComment">Καρφιτσωμένο σχόλιο μελέτης</string>
   <string name="start">Δημιουργία</string>
-  <string name="save">Αποθήκευση</string>
   <string name="clearChat">Εκκαθάριση συνομιλίας</string>
   <string name="deleteTheStudyChatHistory">Θέλετε σίγουρα να διαγράψετε το ιστορικό συνομιλίας της μελέτης; Η ενέργεια αυτή δεν μπορεί να αναιρεθεί!</string>
   <string name="deleteStudy">Διαγραφή μελέτης</string>

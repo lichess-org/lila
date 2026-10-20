@@ -114,7 +114,6 @@
   <string name="noLetPeopleBrowseFreely">Ei: lase inimestel sirvida vabalt</string>
   <string name="pinnedStudyComment">Kinnitatud uuringu kommentaar</string>
   <string name="start">Alusta</string>
-  <string name="save">Salvesta</string>
   <string name="deleteTheStudyChatHistory">Kas soovite kustutada uuringu vestluse ajaloo? Seda otsust ei saa tagasi võtta!</string>
   <string name="deleteStudy">Kustuta uuring</string>
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Kas soovite kustutada terve uuringu? Seda otsust ei saa tagasi võtta! Kirjutage uuringu nimi otsuse kinnitamiseks: %s</string>

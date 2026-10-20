@@ -118,7 +118,6 @@
   <string name="noLetPeopleBrowseFreely">아니요: 사람들이 자유롭게 이동할 수 있습니다</string>
   <string name="pinnedStudyComment">고정된 댓글</string>
   <string name="start">시작</string>
-  <string name="save">저장</string>
   <string name="clearChat">채팅 기록 지우기</string>
   <string name="deleteTheStudyChatHistory">연구 채팅 기록을 삭제할까요? 되돌릴 수 없습니다!</string>
   <string name="deleteStudy">연구 삭제</string>

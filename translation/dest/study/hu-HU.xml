@@ -121,7 +121,6 @@
   <string name="noLetPeopleBrowseFreely">Nem: szabadon böngészhető</string>
   <string name="pinnedStudyComment">Rögzített megjegyzés a tanulmányhoz</string>
   <string name="start">Mehet</string>
-  <string name="save">Mentés</string>
   <string name="clearChat">Chat törlése</string>
   <string name="deleteTheStudyChatHistory">Biztosan törlöd a chat előzményeket a tanulmányból? Ezt nem lehet visszavonni!</string>
   <string name="deleteStudy">Tanulmány törlése</string>

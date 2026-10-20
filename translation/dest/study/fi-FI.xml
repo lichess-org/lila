@@ -122,7 +122,6 @@
   <string name="noLetPeopleBrowseFreely">Ei: anna ihmisten selata vapaasti</string>
   <string name="pinnedStudyComment">Kiinnitetty tutkielmakommentti</string>
   <string name="start">Aloita</string>
-  <string name="save">Tallenna</string>
   <string name="clearChat">Tyhjennä keskustelu</string>
   <string name="deleteTheStudyChatHistory">Haluatko poistaa tutkielman keskusteluhistorian? Et voi palauttaa sitä enää!</string>
   <string name="deleteStudy">Poista tutkielma</string>
