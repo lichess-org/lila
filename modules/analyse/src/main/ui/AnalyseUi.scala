@@ -11,6 +11,13 @@ import lila.ui.ScalatagsTemplate.{ *, given }
 final class AnalyseUi(helpers: Helpers)(endpoints: AnalyseEndpoints):
   import helpers.{ *, given }
 
+  def boardWithPlayerBars(chessground: Frag): Frag =
+    div(cls := "analyse__board")(
+      div(cls := "analyse__player top"),
+      div(cls := "main-board")(chessground),
+      div(cls := "analyse__player bottom")
+    )
+
   def miniSpan(fen: Fen.Board, color: Color = chess.White, lastMove: Option[Uci] = None) =
     chessgroundMini(fen, color, lastMove)(span)
 
@@ -63,6 +70,7 @@ final class AnalyseUi(helpers: Helpers)(endpoints: AnalyseEndpoints):
         main(
           cls := List(
             "analyse" -> true,
+            "has-players" -> true,
             "analyse--wiki" -> hasWiki
           )
         )(
@@ -90,7 +98,7 @@ final class AnalyseUi(helpers: Helpers)(endpoints: AnalyseEndpoints):
                 )
             )
           ),
-          div(cls := "analyse__board main-board")(chessgroundBoard),
+          boardWithPlayerBars(chessgroundBoard),
           div(cls := "analyse__tools"),
           div(cls := "analyse__controls")
         )
@@ -143,8 +151,8 @@ final class AnalyseUi(helpers: Helpers)(endpoints: AnalyseEndpoints):
       PageModule("analyse.user", Json.obj("mode" -> mode, "cfg" -> json))
 
     val embedUserAnalysisBody = div(id := "main-wrap", cls := "is2d")(
-      main(cls := "analyse")(
-        div(cls := "analyse__board main-board")(chessgroundBoard),
+      main(cls := "analyse has-players")(
+        boardWithPlayerBars(chessgroundBoard),
         div(cls := "analyse__tools"),
         div(cls := "analyse__controls")
       )

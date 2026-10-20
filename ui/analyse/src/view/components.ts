@@ -66,6 +66,7 @@ export interface RelayViewContext extends StudyViewContext {
 
 export function viewContext(ctrl: AnalyseCtrl, deps?: typeof studyDeps): ViewContext {
   const playerBars = deps?.renderPlayerBars(ctrl);
+  const playerStrips = playerBars ? undefined : renderPlayerStrips(ctrl);
   return {
     ctrl,
     deps,
@@ -75,18 +76,28 @@ export function viewContext(ctrl: AnalyseCtrl, deps?: typeof studyDeps): ViewCon
     showCevalPvs: !ctrl.retro?.isSolving() && !ctrl.practice,
     gamebookPlayView: ctrl.study?.gamebookPlay && deps?.gbPlay.render(ctrl.study.gamebookPlay),
     playerBars,
-    playerStrips: playerBars ? undefined : renderPlayerStrips(ctrl),
+    playerStrips,
     gaugeOn: ctrl.showEvalGauge(),
-    needsInnerCoords: ctrl.showEvalGauge() || !!playerBars,
+    needsInnerCoords: ctrl.showEvalGauge() || !!playerBars || !!playerStrips,
     hasRelayTour: ctrl.study?.relay?.tourShow() || false,
   };
 }
 
 export function renderMain(
-  { ctrl, relay, playerBars, gaugeOn, gamebookPlayView, needsInnerCoords, hasRelayTour }: ViewContext,
+  {
+    ctrl,
+    relay,
+    playerBars,
+    playerStrips,
+    gaugeOn,
+    gamebookPlayView,
+    needsInnerCoords,
+    hasRelayTour,
+  }: ViewContext,
   ...kids: LooseVNodes[]
 ): VNode {
   const isRelay = defined(ctrl.study?.relay);
+  const hasPlayers = !!playerBars || !!playerStrips;
   return hl(
     'main.analyse.variant-' + ctrl.data.game.variant.key,
     {
@@ -97,8 +108,8 @@ export function renderMain(
       hook: {
         insert: () => {
           forceInnerCoords(ctrl, needsInnerCoords);
-          if (!relay && !!playerBars !== document.body.classList.contains('header-margin'))
-            $('body').toggleClass('header-margin', !!playerBars);
+          if (!relay && hasPlayers !== document.body.classList.contains('header-margin'))
+            $('body').toggleClass('header-margin', hasPlayers);
         },
         update(_, _2) {
           forceInnerCoords(ctrl, needsInnerCoords);
@@ -111,7 +122,7 @@ export function renderMain(
       class: {
         'comp-off': !ctrl.settings.showMainlineAnalysis,
         'gauge-on': gaugeOn,
-        'has-players': !!playerBars,
+        'has-players': hasPlayers,
         'gamebook-play': !!gamebookPlayView,
         'has-relay-tour': hasRelayTour,
         'is-relay': isRelay,
@@ -124,9 +135,12 @@ export function renderMain(
   );
 }
 
-export const renderBoard = ({ ctrl, study, playerBars, playerStrips }: ViewContext): VNode =>
-  hl(
-    addChapterId(study, 'div.analyse__board.main-board'),
+export const renderBoard = ({ ctrl, study, playerBars, playerStrips }: ViewContext): VNode => {
+  const relay = !!study?.relay;
+  const topPlayer = playerBars?.[ctrl.bottomIsWhite() ? 1 : 0] ?? playerStrips?.[0];
+  const bottomPlayer = playerBars?.[ctrl.bottomIsWhite() ? 0 : 1] ?? playerStrips?.[1];
+  return hl(
+    'div.analyse__board',
     {
       hook:
         'ontouchstart' in window || !storage.boolean('scrollMoves').getOrDefault(true)
@@ -146,13 +160,17 @@ export const renderBoard = ({ ctrl, study, playerBars, playerStrips }: ViewConte
             ),
     },
     [
-      playerStrips,
-      playerBars?.[ctrl.bottomIsWhite() ? 1 : 0],
-      chessground.render(ctrl),
-      playerBars?.[ctrl.bottomIsWhite() ? 0 : 1],
-      ctrl.promotion.view(ctrl.data.game.variant.key === 'antichess'),
+      !relay && topPlayer,
+      hl(addChapterId(study, 'div.main-board'), [
+        relay && playerBars?.[ctrl.bottomIsWhite() ? 1 : 0],
+        chessground.render(ctrl),
+        relay && playerBars?.[ctrl.bottomIsWhite() ? 0 : 1],
+        ctrl.promotion.view(ctrl.data.game.variant.key === 'antichess'),
+      ]),
+      !relay && bottomPlayer,
     ],
   );
+};
 
 export const renderUnderboard = ({ ctrl, deps, study }: ViewContext): VNode =>
   hl(
@@ -346,7 +364,7 @@ function forceInnerCoords({ data }: AnalyseCtrl, v: boolean) {
 
 function renderPlayerStrips(ctrl: AnalyseCtrl): [VNode, VNode] | undefined {
   const renderPlayerStrip = (cls: string, materialDiff: VNode, clock?: VNode): VNode =>
-    hl('div.analyse__player_strip.' + cls, [materialDiff, clock]);
+    hl('div.analyse__player.' + cls, [materialDiff, clock]);
 
   const clocks = renderClocks(ctrl, ctrl.path);
   const whitePov = ctrl.bottomIsWhite();

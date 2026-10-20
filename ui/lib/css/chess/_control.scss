@@ -1,6 +1,5 @@
 .analyse-controls {
   @extend %double-tap;
-  @include backdrop-blur-if-transparent;
 
   display: flex;
   justify-content: space-between;
