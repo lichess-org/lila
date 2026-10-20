@@ -333,7 +333,7 @@ async function setupDirectEngineDialog(ctrl: CevalHandler) {
       <p>
         Once you've got it running, click the "Choose engine" button and locate your
         chess engine executable. Make sure to allow local network access for lichess.org in your browser
-        settings. Once these are done, choose "Setup direct engine" from the Engine popup again.
+        settings. When this is done, choose "Setup direct engine" from the Engine popup again.
       </p>
       <p>You only need to do this once.</p>`,
   });
