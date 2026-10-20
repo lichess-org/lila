@@ -351,7 +351,7 @@ function renderEvalAndDepth(ctrl: AnalyseCtrl): string {
   return !evalStr ? noEvalStr(ctrl) : `${evalStr} ${depthInfo(evs.client, !!evs.client?.cloud)}`;
 }
 
-const evalInfo = (bestEv?: EvalScore): string =>
+const evalInfo = (bestEv: EvalScore | undefined): string =>
   defined(bestEv?.cp)
     ? renderEval(bestEv.cp).replace('-', '−')
     : defined(bestEv?.mate)

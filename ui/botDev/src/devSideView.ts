@@ -358,8 +358,8 @@ function showBotSelector(clickedEl: HTMLElement) {
   main.classList.add('with-cards');
 
   document.querySelectorAll<HTMLElement>('main .player')?.forEach(el => {
-    const selected = uidToDomId(env.bot[el.dataset.color as Color]?.uid);
-    drops.push({ el, selected });
+    const uid = env.bot[el.dataset.color as Color]?.uid;
+    drops.push({ el, selected: uid && uidToDomId(uid) });
   });
   botSelector = handOfCards({
     viewEl: main,
