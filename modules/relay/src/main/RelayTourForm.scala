@@ -10,16 +10,23 @@ import chess.tiebreak.Tiebreak
 import lila.common.Form.{ cleanText, cleanNonEmptyText, formatter, into, typeIn, url }
 import lila.core.perm.Granter
 import lila.core.study.Visibility
+import lila.core.net.Continent
 
 final class RelayTourForm(langList: lila.core.i18n.LangList, groupForm: RelayGroupForm):
 
   import RelayTourForm.*
   import lila.study.StudyForm.given
 
+  private given Formatter[Continent] =
+    formatter.stringOptionFormatter(_.code, Continent.byCode.get)
+
   private val spotlightMapping =
-    mapping("enabled" -> boolean, "lang" -> langList.popularLanguagesForm.mapping, "title" -> optional(text))(
-      RelayTour.Spotlight.apply
-    )(unapply)
+    mapping(
+      "enabled" -> boolean,
+      "lang" -> langList.popularLanguagesForm.mapping,
+      "title" -> optional(text),
+      "continent" -> optional(typeIn(Continent.values.toSet))
+    )(RelayTour.Spotlight.apply)(unapply)
 
   private val infoMapping = mapping(
     "format" -> optional(cleanText(maxLength = 80)),

@@ -33,6 +33,7 @@ final class Preload(
     ublogApi: lila.ublog.UblogApi,
     unreadCount: lila.msg.MsgUnreadCount,
     relayHome: lila.relay.RelayHomeApi,
+    geoIP: lila.security.GeoIP,
     notifyApi: lila.notify.NotifyApi,
     clasApi: lila.clas.ClasApi
 )(using Executor):
@@ -93,13 +94,18 @@ final class Preload(
           .preloadMany(entries.flatMap(_.userIds).toList)
           .mon(lila.mon.lobby.segment("lightUsers"))
     classes <- ctx.myId.so(me => clasApi.isStudent(me).so(clasApi.clas.ofStudent(me, 4)))
+    relaySpotlights =
+      if relayHome.spotlight.hasContinentRestriction then
+        val continent = geoIP(ctx.ip).flatMap(_.continent)
+        relayHome.spotlight.get.filter(_.tour.spotlight.forall(_.visibleFrom(continent)))
+      else relayHome.spotlight.get
   yield Homepage(
     data,
     entries,
     tours,
     swiss,
     events,
-    relayHome.spotlight.get,
+    relaySpotlights,
     simuls,
     feat,
     puzzle,

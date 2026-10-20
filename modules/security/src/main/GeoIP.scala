@@ -9,7 +9,7 @@ import play.api.ConfigLoader
 import scala.util.Try
 
 import lila.common.autoconfig.*
-import lila.core.net.IpAddress
+import lila.core.net.{ Continent, IpAddress }
 import lila.core.security.IsProxy
 
 final class GeoIP(config: GeoIP.Config, scheduler: Scheduler)(using Executor):
@@ -63,7 +63,8 @@ case class Location(
     country: String,
     countryCode: Option[String],
     region: Option[String],
-    city: Option[String]
+    city: Option[String],
+    continent: Option[Continent] = none
 ):
 
   lazy val id = scalalib.StringOps.slug:
@@ -82,11 +83,12 @@ object Location:
       Option(res.getCountry).flatMap(c => Option(c.getName)) | unknown.country,
       Option(res.getCountry).flatMap(c => Option(c.getIsoCode)),
       Option(res.getMostSpecificSubdivision).flatMap(s => Option(s.getName())),
-      Option(res.getCity).flatMap(c => Option(c.getName))
+      Option(res.getCity).flatMap(c => Option(c.getName)),
+      Option(res.getContinent).flatMap(c => Option(c.getCode)).flatMap(Continent.byCode.get)
     )
 
   def isSuspicious(loc: Location) =
-    loc == unknown ||
+    loc.copy(continent = none) == unknown ||
       loc.region.has("Kirov Oblast") ||
       (loc.region.has("Samsun") && loc.city.has("Samsun")) ||
       (loc.region.has("Istanbul") && loc.city.has("Istanbul"))

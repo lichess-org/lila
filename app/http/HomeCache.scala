@@ -4,20 +4,32 @@ package http
 import play.api.mvc.*
 import scalalib.model.Language
 import lila.core.i18n.toLanguage
+import lila.core.net.Continent
 
-final class HomeCache(cacheApi: lila.memo.CacheApi):
+final class HomeCache(
+    cacheApi: lila.memo.CacheApi,
+    relayHome: lila.relay.RelayHomeApi,
+    geoIP: lila.security.GeoIP
+):
 
   private val supportedLangs = lila.i18n.LangList.popularLanguages.toSet
 
-  private val cache = cacheApi.notLoading[Language, Result](supportedLangs.size, "pageCache"):
+  private val cache = cacheApi.notLoading[(Language, Option[Continent]), Result](
+    supportedLangs.size * (Continent.values.size + 1),
+    "pageCache"
+  ):
     _.expireAfterWrite(1.seconds).buildAsync()
 
   def apply(compute: () => Fu[Result])(using ctx: Context): Fu[Result] =
-    if ctx.isAnon && supportedLangs(cacheKey) && defaultPrefs(using ctx.req) && !hasCookies(ctx.req)
-    then cache.getFuture(cacheKey, _ => compute())
+    val lang = toLanguage(ctx.lang)
+    if ctx.isAnon && supportedLangs(lang) && defaultPrefs(using ctx.req) && !hasCookies(ctx.req)
+    then cache.getFuture((lang, continent), _ => compute())
     else compute()
 
-  private def cacheKey(using ctx: Context) = toLanguage(ctx.lang)
+  // the homepage relay spotlights depend on the visitor's continent,
+  // but only split the cache while a continent-restricted spotlight is live
+  private def continent(using ctx: Context): Option[Continent] =
+    relayHome.spotlight.hasContinentRestriction.so(geoIP(ctx.ip).flatMap(_.continent))
 
   private def defaultPrefs(using RequestHeader) =
     lila.pref.RequestPref.fromRequest == lila.pref.Pref.default

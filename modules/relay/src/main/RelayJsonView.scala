@@ -160,6 +160,7 @@ final class RelayJsonView(
         Json
           .obj("language" -> s.language)
           .add("title" -> s.title)
+          .add("continent" -> s.continent.map(_.code))
           .add("tier" -> rt.tour.tier)
 
   def makeData(

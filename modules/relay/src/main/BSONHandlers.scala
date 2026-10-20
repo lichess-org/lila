@@ -7,6 +7,7 @@ import lila.db.dsl.{ *, given }
 import chess.tiebreak.Tiebreak
 import chess.tiebreak.{ CutModifier, LimitModifier }
 import chess.FideTC
+import lila.core.net.Continent
 
 object BSONHandlers:
 
@@ -98,6 +99,7 @@ object BSONHandlers:
   given BSONDocumentHandler[RelayRound] = Macros.handler
 
   given BSONDocumentHandler[RelayPinnedStream] = Macros.handler
+  given BSONHandler[Continent] = valueMapHandler(Continent.byCode)(_.code)
   given BSONDocumentHandler[RelayTour.Spotlight] = Macros.handler
   given BSONDocumentHandler[RelayTour.Info] = Macros.handler
   given BSONDocumentHandler[RelayTour.Dates] = Macros.handler

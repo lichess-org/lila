@@ -33,6 +33,18 @@ object net:
     def from(str: String): Option[IpAddress] = parse(str).toOption
     def unchecked(str: String): IpAddress = parse(str).get
 
+  enum Continent(val name: String):
+    case AF extends Continent("Africa")
+    case AN extends Continent("Antarctica")
+    case AS extends Continent("Asia")
+    case EU extends Continent("Europe")
+    case NA extends Continent("North America")
+    case OC extends Continent("Oceania")
+    case SA extends Continent("South America")
+    def code = toString
+  object Continent:
+    val byCode = values.mapBy(_.code)
+
   opaque type ASN = Int
   object ASN extends OpaqueInt[ASN]
 

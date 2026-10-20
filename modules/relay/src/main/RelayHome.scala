@@ -33,6 +33,7 @@ final class RelayHomeApi(listing: RelayListing, pager: RelayPager, jsonView: Rel
 
   object spotlight:
     def get: List[RelayCard] = cache
+    def hasContinentRestriction: Boolean = cache.exists(_.tour.spotlight.exists(_.continent.isDefined))
     private var cache: List[RelayCard] = Nil
     scheduler.scheduleWithFixedDelay(10.seconds, listing.activeCacheTtl): () =>
       listing.active.value.foreach:
