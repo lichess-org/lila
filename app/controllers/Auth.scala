@@ -95,11 +95,14 @@ final class Auth(
             Redirect(request.toURI.toString)
               .flashing("referrer" -> referrer.getOrElse("/"))
               .withCookies(
-                env.security.lilaCookie.cookie(
-                  "oidc_state",
-                  request.getState.getValue,
+                Cookie(
+                  name = "oidc_state",
+                  value = request.getState.getValue,
                   maxAge = Some(600),
-                  httpOnly = Some(true)
+                  path = "/",
+                  secure = env.net.baseUrl.value.startsWith("https:"),
+                  httpOnly = true,
+                  sameSite = Some(Cookie.SameSite.Lax)
                 )
               )
           }

@@ -61,6 +61,8 @@ final class OidcApi(
             }
       }
 
+  def issuer: String = oidc.issuer.getValue
+
   def endSessionUrl(idToken: String, postLogoutRedirect: String): Fu[Option[String]] =
     client.endSessionUrl(idToken, postLogoutRedirect)
 
