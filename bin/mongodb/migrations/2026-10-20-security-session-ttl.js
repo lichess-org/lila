@@ -16,10 +16,9 @@ const missingDate = db.security.countDocuments({ expiresAt: { $exists: false }, 
 const old = db.security.countDocuments({ expiresAt: { $exists: false }, date: { $lt: cutoff } });
 const recent = db.security.countDocuments({ expiresAt: { $exists: false }, date: { $gte: cutoff } });
 
-const backfilled = db.security.updateMany(
-  { expiresAt: { $exists: false }, date: { $gte: cutoff } },
-  [{ $set: { expiresAt: { $add: ['$date', MAX_AGE_MS] } } }],
-);
+const backfilled = db.security.updateMany({ expiresAt: { $exists: false }, date: { $gte: cutoff } }, [
+  { $set: { expiresAt: { $add: ['$date', MAX_AGE_MS] } } },
+]);
 
 const removedOld = db.security.deleteMany({ expiresAt: { $exists: false }, date: { $lt: cutoff } });
 const removedNoDate = db.security.deleteMany({ expiresAt: { $exists: false }, date: { $exists: false } });

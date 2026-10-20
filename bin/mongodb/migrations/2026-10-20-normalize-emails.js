@@ -6,13 +6,7 @@
 //
 // The original address, when it differed, remains in `verbatimEmail`.
 
-const gmailLike = new Set([
-  'gmail.com',
-  'googlemail.com',
-  'protonmail.com',
-  'protonmail.ch',
-  'pm.me',
-]);
+const gmailLike = new Set(['gmail.com', 'googlemail.com', 'protonmail.com', 'protonmail.ch', 'pm.me']);
 
 function normalize(email) {
   const lower = String(email).toLowerCase();

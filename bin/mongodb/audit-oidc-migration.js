@@ -169,7 +169,11 @@ for (const [name, ids] of usernameToIds) {
     duplicateUsernameGroups++;
     duplicateUsernameUsers += ids.length;
     if (duplicateUsernameSamples.length < 5)
-      duplicateUsernameSamples.push({ username: mask(name), users: ids.length, ids: ids.slice(0, 3).map(mask) });
+      duplicateUsernameSamples.push({
+        username: mask(name),
+        users: ids.length,
+        ids: ids.slice(0, 3).map(mask),
+      });
   }
 }
 
@@ -202,7 +206,12 @@ printjson({
     missingLen,
     wrongLen,
     missingCreatedAt,
-    ids: { canonicalNumeric: users.length - legacyId - systemId - ghostId, legacy: legacyId, system: systemId, ghost: ghostId },
+    ids: {
+      canonicalNumeric: users.length - legacyId - systemId - ghostId,
+      legacy: legacyId,
+      system: systemId,
+      ghost: ghostId,
+    },
     usernames: {
       displayOk,
       problems: displayProblems,
