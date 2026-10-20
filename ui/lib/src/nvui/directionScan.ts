@@ -50,7 +50,9 @@ function getKeysOnRay(originKey: Key, direction: Direction, pov: Color): Key[] {
 export function scanDirectionsHandler(pov: Color, pieces: Pieces, style: MoveStyle) {
   return (ev: KeyboardEvent): void => {
     const target = ev.target as HTMLElement;
-    const originKey = keyFromAttrs(target) as Key;
+    const originKey = keyFromAttrs(target);
+    if (!originKey) return;
+
     const currentDirection: Direction | null = target.getAttribute('ray');
 
     let nextRay: Key[] = [];
