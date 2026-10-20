@@ -152,6 +152,20 @@ Backchannel logout:
 - [ ] Событие `deleted` очищает username/email/profile.
 - [ ] `/login` (POST), `/signup` (POST), `/password/reset`, `/account/passwd`, `/account/email`, `/account/twofactor` → `404` (маршруты удалены).
 
+### Smoke-тест
+
+Для запущенного стека (в т.ч. `lila-docker`) есть готовый набор проверок:
+
+```bash
+BASE_URL=http://localhost:8080 bin/tests/oidc-smoke
+# с проверкой webhook:
+BASE_URL=http://localhost:8080 WEBHOOK_SECRET=<secret> bin/tests/oidc-smoke
+```
+
+Проверяет: редиректы SSO, отсутствие локальных маршрутов, ID-only профили,
+PKCE/S256, scopes, state-cookie, одноразовый state, backchannel 400,
+HMAC-подпись, идемпотентность и отказ при чужом `issuer`.
+
 Пример подписи для ручной проверки:
 
 ```bash

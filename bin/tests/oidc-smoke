@@ -1,0 +1,92 @@
+#!/usr/bin/env bash
+# OIDC/SSO smoke test for a running lila instance (docker-compose stack).
+#
+#   BASE_URL=http://localhost:8080 bin/tests/oidc-smoke
+#
+# Webhook checks additionally need the same secret the app was started with:
+#   BASE_URL=http://localhost:8080 WEBHOOK_SECRET=test-secret bin/tests/oidc-smoke
+
+set -euo pipefail
+
+BASE_URL="${BASE_URL:-http://localhost:8080}"
+WEBHOOK_SECRET="${WEBHOOK_SECRET:-}"
+TEST_SUB="${TEST_SUB:-999999999}"
+
+fail=0
+jar=$(mktemp)
+headers=$(mktemp)
+trap 'rm -f "$jar" "$headers"' EXIT
+
+check() {
+  local name=$1 expected=$2 actual=$3
+  if [[ "$actual" == "$expected" ]]; then
+    echo "ok   - $name"
+  else
+    echo "FAIL - $name: expected $expected, got $actual"
+    fail=1
+  fi
+}
+
+status() {
+  curl -s -o /dev/null -w '%{http_code}' "$@"
+}
+
+echo "== routes =="
+check "home page" 200 "$(status "$BASE_URL/")"
+check "GET /login redirects" 303 "$(status "$BASE_URL/login")"
+check "GET /signup redirects" 303 "$(status "$BASE_URL/signup")"
+check "POST /login removed" 404 "$(status -X POST "$BASE_URL/login" -d 'username=2&password=x')"
+for path in /password/reset /auth/magic-link /account/passwd /account/email /account/twofactor /account/delete; do
+  check "removed $path" 404 "$(status "$BASE_URL$path")"
+done
+
+echo "== id routes =="
+check "profile by sub" 200 "$(status "$BASE_URL/@/2")"
+check "profile by display name is not an id" 404 "$(status "$BASE_URL/@/Yellow")"
+check "profile by unicode display name is not an id" 404 "$(status "$BASE_URL/@/%D0%B5%D0%B2%D0%B3%D0%B5%D0%BD")"
+
+echo "== authorization request =="
+curl -s -D "$headers" -c "$jar" -o /dev/null "$BASE_URL/login"
+location=$(awk 'BEGIN{IGNORECASE=1} /^location:/{sub(/^location: /,""); sub(/\r$/,""); print}' "$headers")
+state=$(sed -n 's/.*[?&]state=\([^&]*\).*/\1/p' <<<"$location")
+echo "$location" | grep -q 'code_challenge_method=S256' &&
+  echo "ok   - PKCE S256" || { echo "FAIL - PKCE S256"; fail=1; }
+echo "$location" | grep -q 'scope=openid+profile+email' &&
+  echo "ok   - scopes are narrowed" || { echo "FAIL - scopes are narrowed"; fail=1; }
+grep -qi 'Set-Cookie: oidc_state=.*SameSite=Lax' "$headers" &&
+  echo "ok   - state cookie is HttpOnly/Lax" || { echo "FAIL - state cookie"; fail=1; }
+[[ -n "$state" ]] && echo "ok   - state is present" || { echo "FAIL - state is missing"; fail=1; }
+
+check "callback with unknown code is handled" 303 "$(status -b "$jar" "$BASE_URL/signin-oidc?state=$state&code=x")"
+check "state replay is rejected as invalid" 303 "$(status -b "$jar" "$BASE_URL/signin-oidc?state=$state&code=x")"
+
+echo "== backchannel logout =="
+check "invalid logout token" 400 "$(status -X POST "$BASE_URL/internal/identity/backchannel-logout" -d 'logout_token=bad')"
+
+echo "== identity events =="
+if [[ -z "$WEBHOOK_SECRET" ]]; then
+  check "events disabled without secret" 404 \
+    "$(status -X POST "$BASE_URL/internal/identity/events" -H 'Content-Type: application/json' -d '{}')"
+else
+  event_id="smoke-$(date +%s)-$RANDOM"
+  body=$(printf '{"eventId":"%s","issuer":"https://passport.chess-online.com","sub":"%s","status":"banned","version":1,"occurredAt":"2026-10-20T00:00:00Z"}' "$event_id" "$TEST_SUB")
+  sig=$(printf '%s' "$body" | openssl dgst -sha256 -hmac "$WEBHOOK_SECRET" -hex | awk '{print $2}')
+  check "signed event accepted" 200 \
+    "$(status -X POST "$BASE_URL/internal/identity/events" -H 'Content-Type: application/json' -H "X-Identity-Signature: $sig" --data-binary "$body")"
+  check "event replay is idempotent" 200 \
+    "$(status -X POST "$BASE_URL/internal/identity/events" -H 'Content-Type: application/json' -H "X-Identity-Signature: $sig" --data-binary "$body")"
+  bad_body=${body/smoke-/evil-}
+  bad_body=${bad_body/https:\/\/passport.chess-online.com/https:\/\/evil.example}
+  bad_sig=$(printf '%s' "$bad_body" | openssl dgst -sha256 -hmac "$WEBHOOK_SECRET" -hex | awk '{print $2}')
+  check "foreign issuer is rejected" 400 \
+    "$(status -X POST "$BASE_URL/internal/identity/events" -H 'Content-Type: application/json' -H "X-Identity-Signature: $bad_sig" --data-binary "$bad_body")"
+  check "bad signature is rejected" 401 \
+    "$(status -X POST "$BASE_URL/internal/identity/events" -H 'Content-Type: application/json' -H 'X-Identity-Signature: deadbeef' --data-binary "$body")"
+fi
+
+if [[ "$fail" -eq 0 ]]; then
+  echo "== all checks passed =="
+else
+  echo "== failures detected =="
+fi
+exit "$fail"
