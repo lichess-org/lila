@@ -30,6 +30,9 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
     val mustUpgrade = appVersion.exists(Mobile.AppVersion.mustUpgrade)
     JsonOk(apiStatusJson.add("mustUpgrade", mustUpgrade))
 
+  val version = Anon:
+    JsonOk(Json.obj("server" -> env.web.lilaVersion))
+
   private val userShowApiRateLimit =
     env.security.ipTrust.rateLimit(8_000 * 2, 1.day, "user.show.api.ip", _.proxyMultiplier(4))
 
