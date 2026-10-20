@@ -1,6 +1,6 @@
 import { clamp } from '@/algo';
 import type { CevalHandler, EngineInfo } from '@/ceval';
-import { isChrome, isMobile, isSafari } from '@/device';
+import { isChrome, isMac, isMobile, isSafari } from '@/device';
 import { onClickAway } from '@/index';
 import { licon } from '@/licon';
 import {
@@ -20,6 +20,7 @@ import {
   span,
   input,
 } from '@/view';
+import { info } from '@/view/dialogs';
 
 import type { CevalCtrl } from '../ctrl';
 
@@ -223,24 +224,7 @@ function engineSelection(ctrl: CevalHandler) {
         ctrl.startCevalIfEnabled();
       },
       'select-engine',
-      async () => {
-        const info = await ceval.engines.discoverDirect(true);
-        const content = info
-          ? `Connected to ${info.name}. Your engine is ready to use.`
-          : $html`
-            No engine host found. Go to:<br>
-            <a href="https://github.com/jonbgamble/engine-host">https://github.com/jonbgamble/engine-host</a>
-            <br>Follow the README instructions to build & run the host app and select a chess engine. Ensure
-            your browser settings allow local network access. Then choose "Setup native engine" again.`;
-        if (info) ceval.selectEngine(info.id);
-        domDialog({
-          class: 'alert',
-          modal: true,
-          show: true,
-          htmlText: `<h2>Native engine setup</h2><p>${content}</p>`,
-        });
-        if (info) ctrl.startCevalIfEnabled();
-      },
+      () => setupDirectEngineDialog(ctrl),
     ),
     relayed &&
       button('.button.button-red.button-empty', {
@@ -310,4 +294,87 @@ function engineInfo(engines: EngineInfo[]) {
       </div>`,
     show: true,
   });
+}
+
+async function setupDirectEngineDialog(ctrl: CevalHandler) {
+  const ceval = ctrl.ceval;
+  const direct = await ceval.engines.discoverDirect(true);
+  if (direct) {
+    info(`Connected to ${direct.name}. The engine is ready.`);
+    ceval.selectEngine(direct.id);
+    ctrl.startCevalIfEnabled();
+    return;
+  }
+
+  const suggestion = await suggestDownload();
+  const releases = 'https://github.com/jonbgamble/engine-host/releases';
+  const downloads = [
+    { os: 'linux', arch: 'amd64', label: 'Linux (x86-64)', extension: 'tar.gz' },
+    { os: 'linux', arch: 'arm64', label: 'Linux (ARM64)', extension: 'tar.gz' },
+    { os: 'windows', arch: 'amd64', label: 'Windows (x86-64)', extension: 'zip' },
+    { os: 'windows', arch: 'arm64', label: 'Windows (ARM64)', extension: 'zip' },
+    { os: 'macos', arch: 'arm64', label: 'macOS (Apple Silicon)', extension: 'zip' },
+    { os: 'macos', arch: 'amd64', label: 'macOS (Intel)', extension: 'zip' },
+  ] as const;
+  const downloadLink = (download: (typeof downloads)[number]) =>
+    `<li><a href="${releases}/latest/download/direct-engine-host-${download.os}-${download.arch}.${download.extension}">${download.label}</a></li>`;
+  const suggested = downloads.filter(
+    download => download.os === suggestion.os && (!suggestion.arch || download.arch === suggestion.arch),
+  );
+
+  await domDialog({
+    modal: true,
+    show: true,
+    htmlText: $html`
+      <h2>Direct engine setup</h2><br>
+      <p>No Direct Engine Host found. Need to download it?</p>
+      <ul>${(suggested.length ? suggested : downloads).map(downloadLink).join('')}</ul>
+      <p><a href="${releases}/latest" target="_blank" rel="noopener">All platforms</a></p>
+      <p>
+        Once you've got it running, click the "Choose engine" button and locate your
+        chess engine executable. Make sure to allow local network access for lichess.org in your browser
+        settings. Once these are done, choose "Setup direct engine" from the Engine popup again.
+      </p>
+      <p>You only need to do this once.</p>`,
+  });
+}
+
+async function suggestDownload(): Promise<{
+  os?: 'linux' | 'windows' | 'macos';
+  arch?: 'amd64' | 'arm64';
+}> {
+  const ua = (
+    navigator as Navigator & {
+      userAgentData?: {
+        mobile: boolean;
+        platform: string;
+        getHighEntropyValues?: (hints: string[]) => Promise<{ architecture?: string; bitness?: string }>;
+      };
+    }
+  ).userAgentData;
+  if (isMobile() || ua?.mobile) return {};
+
+  const platform = ua?.platform ?? navigator.userAgent;
+  const os =
+    isMac() || /macOS|Macintosh/i.test(platform)
+      ? 'macos'
+      : /Windows/i.test(platform)
+        ? 'windows'
+        : /Linux/i.test(platform)
+          ? 'linux'
+          : undefined;
+  try {
+    const hints = await ua?.getHighEntropyValues?.(['architecture', 'bitness']);
+    const arch =
+      hints?.bitness !== '64'
+        ? undefined
+        : hints.architecture === 'arm'
+          ? 'arm64'
+          : hints.architecture === 'x86'
+            ? 'amd64'
+            : undefined;
+    return { os, arch };
+  } catch {
+    return { os };
+  }
 }
