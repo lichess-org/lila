@@ -172,9 +172,9 @@ object RawHtml:
         Html(s"""<img class="embed" src="$img" alt="$url"/>""")
       }
 
-  private val markdownLinkRegex = """\[([^]]++)\]\((https?://[^)]++)\)""".r
+  private val markdownLinkRegex = """\[([^]]++)\]\((https?://[^)]++)\)""".r.unanchored
 
-  def hasMarkdownLinks(escapedHtml: Html): Boolean = markdownLinkRegex.pattern.matcher(escapedHtml.value).find
+  def hasMarkdownLinks(escapedHtml: Html): Boolean = markdownLinkRegex.matches(escapedHtml.value)
 
   // Same markdown link rendering as justMarkdownLinks, for manual assembly.
   private def markdownLinkHtml(content: String, href: String): String =
