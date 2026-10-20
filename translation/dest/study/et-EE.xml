@@ -151,4 +151,5 @@
   <string name="playAgain">Mängi uuesti</string>
   <string name="whatWouldYouPlay">Mis sa mängiksid selles positsioonis?</string>
   <string name="youCompletedThisLesson">Palju õnne! Oled läbinud selle õppetunni.</string>
+  <string name="welcomeToLichessStudyTitle">Tere tulemast Lichessi õppekeskkonda!</string>
 </resources>

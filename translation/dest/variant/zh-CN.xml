@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="standard">标准</string>
+  <string name="standard">标准棋</string>
   <string name="standardTitle">国际象棋标准规则（国际棋联）</string>
   <string name="chess960">Chess960</string>
   <string name="chess960Title">底线棋子的起始位置随机生成</string>
