@@ -44,7 +44,7 @@ function localEvalNodes(ctrl: CevalHandler, evs: NodeEvals): Array<VNode | strin
   const status = ceval.opts.custom?.statusNode?.();
   if (status) return [status];
   if (!evs.client) {
-    if (!ceval.analysable) return ['Engine cannot analyze this position'];
+    if (!ceval.analysable) return ['Engine cannot analyse this position'];
     if (state === CevalState.Failed) return [i18n.site.engineFailed];
     const localEvalText = state === CevalState.Loading ? loadingText(ctrl) : i18n.site.calculatingMoves;
     return [evs.server && ctrl.nextNodeBest() ? i18n.site.usingServerAnalysis : localEvalText];

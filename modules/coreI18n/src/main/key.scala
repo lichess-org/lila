@@ -2985,7 +2985,7 @@ object I18nKey:
     val `clearLocal`: I18nKey = "study:clearLocal"
     val `clearPublished`: I18nKey = "study:clearPublished"
     val `requestAServerAnalysis`: I18nKey = "study:requestAServerAnalysis"
-    val `analyzeOnYourDevice`: I18nKey = "study:analyzeOnYourDevice"
+    val `analyseOnYourDevice`: I18nKey = "study:analyseOnYourDevice"
     val `nbChapters`: I18nKey = "study:nbChapters"
     val `nbGames`: I18nKey = "study:nbGames"
     val `nbMembers`: I18nKey = "study:nbMembers"

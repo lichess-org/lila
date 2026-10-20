@@ -5509,12 +5509,12 @@ interface I18n {
     allSyncMembersRemainOnTheSamePosition: string;
     /** Alphabetical */
     alphabetical: string;
+    /** Analyse on your device */
+    analyseOnYourDevice: string;
     /** Analysis editor */
     analysisEditor: string;
     /** Analysis mode */
     analysisMode: string;
-    /** Analyze on your device */
-    analyzeOnYourDevice: string;
     /** Click the !? button, or right-click on the move list.<br>Annotation glyphs are shared and saved. */
     annotatePositionText: string;
     /** Annotate a position */
