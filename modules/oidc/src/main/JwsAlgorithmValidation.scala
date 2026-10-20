@@ -20,8 +20,8 @@ object JwsAlgorithmValidation:
     JWSAlgorithm.EdDSA
   )
 
-  /** Parse the configured `jws_alg`. Only asymmetric algorithms are accepted:
-    * `none` and HMAC (HS*) signatures are forbidden for ID tokens.
+  /** Parse the configured `jws_alg`. Only asymmetric algorithms are accepted: `none` and HMAC (HS*)
+    * signatures are forbidden for ID tokens.
     */
   def parse(raw: String): Either[String, JWSAlgorithm] =
     val value = raw.trim

@@ -15,7 +15,7 @@ object IdentityStatus:
     all.find(_.key == key.trim.toLowerCase)
 
   extension (status: IdentityStatus)
-    def key: String            = status.toString.toLowerCase
+    def key: String              = status.toString.toLowerCase
     def globallyEnabled: Boolean = status == IdentityStatus.Active
 
 /** Projection document. `_id` is the canonical SSO `sub`. */

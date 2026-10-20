@@ -162,8 +162,7 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
     coll.updateField($id(id), s"${F.profile}.realName", name).void
 
   def setUsername(id: UserId, username: String): Funit =
-    coll
-      .update
+    coll.update
       .one(
         $id(id),
         $set(F.username -> username, "len" -> BSONInteger(username.length))
@@ -258,8 +257,8 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
           ("len" -> BSONInteger(username.value.length))
       coll.insert.one(doc) >> byId(id)
 
-  /** Create an account without local credentials, for external (SSO) identities.
-    * Idempotent: a duplicate `_id` re-reads the existing user.
+  /** Create an account without local credentials, for external (SSO) identities. Idempotent: a duplicate
+    * `_id` re-reads the existing user.
     */
   def createExternal(
       id: UserId,
@@ -268,8 +267,7 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
       lang: Option[String] = None
   ): Fu[Option[User]] =
     def insert(withEmail: Option[EmailAddress]) =
-      coll
-        .insert
+      coll.insert
         .one(newUserExternal(id, username, withEmail, lang) ++ ("len" -> BSONInteger(username.length)))
         .recover(lila.db.ignoreDuplicateKey)
     insert(email).flatMap { _ =>
@@ -597,15 +595,14 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
   /** Anonymize local PII of a globally deleted identity, keeping `_id` and games. */
   def anonymize(id: UserId): Funit =
     val username = s"deleted_${id.value.takeRight(20)}"
-    coll
-      .update
+    coll.update
       .one(
         $id(id),
         $doc(
           "$set" -> $doc(
-            F.username -> username,
-            "len"      -> BSONInteger(username.length),
-            F.enabled  -> false,
+            F.username    -> username,
+            "len"         -> BSONInteger(username.length),
+            F.enabled     -> false,
             "delete.done" -> true
           )
         ) ++ $unset(

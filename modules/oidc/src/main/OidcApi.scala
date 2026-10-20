@@ -79,8 +79,8 @@ final class OidcApi(
         .map(_.trim)
         .filter(_.nonEmpty)
         .toRight(LoginError.ClaimsError)
-      email           = Option(userInfo.getEmailAddress).flatMap(EmailAddress.from)
-      emailVerified   = Option(userInfo.getEmailVerified).exists(_.booleanValue)
+      email         = Option(userInfo.getEmailAddress).flatMap(EmailAddress.from)
+      emailVerified = Option(userInfo.getEmailVerified).exists(_.booleanValue)
       globallyEnabled = Option(userInfo.getClaim("globally_enabled")).flatMap:
         case b: java.lang.Boolean => Some(b.booleanValue)
         case _                    => None

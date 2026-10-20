@@ -4,8 +4,7 @@ import lila.identity.{ IdentityAliasRepo, IdentityStatus, IdentityStatusRecord, 
 import lila.user.{ User, UserRepo }
 import lila.core.userId.*
 
-/** Single provisioning path: external identity -> lila user.
-  * OIDC and the future signature flow must use it.
+/** Single provisioning path: external identity -> lila user. OIDC and the future signature flow must use it.
   */
 final class UserProvisioning(
     userRepo: UserRepo,
@@ -46,9 +45,11 @@ final class UserProvisioning(
       claim  <- identity.globallyEnabled
       if claim != record.globallyEnabled
     do
-      lila.log("oidc").warn(
-        s"identity status mismatch sub=${identity.subject} claim=$claim projection=${record.globallyEnabled} version=${record.version}"
-      )
+      lila
+        .log("oidc")
+        .warn(
+          s"identity status mismatch sub=${identity.subject} claim=$claim projection=${record.globallyEnabled} version=${record.version}"
+        )
 
   private def statusError(record: IdentityStatusRecord): Option[LoginError] =
     record.status match
@@ -83,9 +84,12 @@ final class UserProvisioning(
         identity.email match
           case None => funit
           case Some(email) =>
-            userRepo.email(user.id).flatMap: current =>
-              if current.exists(_.normalize == email.normalize) then userRepo.setEmailConfirmed(user.id).void
-              else userRepo.setEmail(user.id, email) >> userRepo.setEmailConfirmed(user.id).void
+            userRepo
+              .email(user.id)
+              .flatMap: current =>
+                if current.exists(_.normalize == email.normalize) then
+                  userRepo.setEmailConfirmed(user.id).void
+                else userRepo.setEmail(user.id, email) >> userRepo.setEmailConfirmed(user.id).void
     for
       _         <- updateUsername
       _         <- updateEmail
@@ -102,7 +106,9 @@ final class UserProvisioning(
       .flatMap {
         case Some(user) => fuccess(LoginOutcome.Success(user, none))
         case None =>
-          userRepo.byId(UserId(identity.subject)).map:
-            _.fold[LoginOutcome](LoginOutcome.Refused(LoginError.ProviderError, None)): user =>
-              LoginOutcome.Success(user, none)
+          userRepo
+            .byId(UserId(identity.subject))
+            .map:
+              _.fold[LoginOutcome](LoginOutcome.Refused(LoginError.ProviderError, None)): user =>
+                LoginOutcome.Success(user, none)
       }

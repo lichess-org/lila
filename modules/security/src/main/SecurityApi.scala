@@ -173,9 +173,11 @@ final class SecurityApi(
       funit
 
     def closeAllOf(userId: UserId): Funit =
-      store.asMap().foreach:
-        case (sessionId, storedUserId) if storedUserId == userId => store.invalidate(sessionId)
-        case _                                                    => ()
+      store
+        .asMap()
+        .foreach:
+          case (sessionId, storedUserId) if storedUserId == userId => store.invalidate(sessionId)
+          case _                                                   => ()
       funit
 
 object SecurityApi:

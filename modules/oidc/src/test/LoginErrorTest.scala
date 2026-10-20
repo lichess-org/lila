@@ -3,7 +3,9 @@ package lila.oidc
 class LoginErrorTest extends munit.FunSuite:
 
   test("enabled account is never refused") {
-    assert(LoginError.fromStatus(true, foreverClosed = false, deleted = false, globallyEnabled = None).isEmpty)
+    assert(
+      LoginError.fromStatus(true, foreverClosed = false, deleted = false, globallyEnabled = None).isEmpty
+    )
     assert(
       LoginError.fromStatus(true, foreverClosed = true, deleted = true, globallyEnabled = Some(true)).isEmpty
     )

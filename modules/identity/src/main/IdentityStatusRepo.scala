@@ -13,8 +13,8 @@ final class IdentityStatusRepo(coll: Coll)(using Executor):
   def globallyEnabled(id: UserId): Fu[Option[Boolean]] =
     coll.primitiveOne[Boolean]($id(id), "globallyEnabled")
 
-  /** Apply an event only if its version is newer than the stored one.
-    * Returns true when the projection changed.
+  /** Apply an event only if its version is newer than the stored one. Returns true when the projection
+    * changed.
     */
   def applyEvent(event: IdentityEvent): Fu[Boolean] =
     val record = IdentityStatusRecord(
@@ -26,8 +26,7 @@ final class IdentityStatusRepo(coll: Coll)(using Executor):
       reasonCode = event.reasonCode,
       updatedAt = nowInstant
     )
-    coll
-      .update
+    coll.update
       .one(
         $id(event.subject) ++ $doc("version".$lt(event.version)),
         $doc(
@@ -44,8 +43,7 @@ final class IdentityStatusRepo(coll: Coll)(using Executor):
       .flatMap {
         case res if res.nModified == 1 => fuccess(true)
         case _ =>
-          coll
-            .insert
+          coll.insert
             .one(record)
             .map(_ => true)
             .recover(lila.db.recoverDuplicateKey(_ => false))

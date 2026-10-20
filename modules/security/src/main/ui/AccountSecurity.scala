@@ -34,7 +34,9 @@ final class AccountSecurity(helpers: Helpers)(
             ),
             p(
               "This is a list of devices and applications that are logged into your account. If you notice any suspicious activity, change your password and email on ",
-              a(href := "https://passport.chess-online.com/ru-ru/manage/change-password")("passport.chess-online.com"),
+              a(href := "https://passport.chess-online.com/ru-ru/manage/change-password")(
+                "passport.chess-online.com"
+              ),
               "."
             ),
             (sessions.sizeIs > 1).option(

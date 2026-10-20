@@ -9,8 +9,8 @@ enum LoginError:
 
 object LoginError:
 
-  /** Decide why an existing account must not receive a session.
-    * A global ban always wins; then local deletion/closure status applies.
+  /** Decide why an existing account must not receive a session. A global ban always wins; then local
+    * deletion/closure status applies.
     */
   def fromStatus(
       enabled: Boolean,
@@ -24,8 +24,8 @@ object LoginError:
     else if foreverClosed then Some(LoginError.ClosedForever)
     else Some(LoginError.Closed)
 
-/** Result of mapping an external identity to a lila account.
-  * `user` is present for status refusals, so the caller can start an appeal session.
+/** Result of mapping an external identity to a lila account. `user` is present for status refusals, so the
+  * caller can start an appeal session.
   */
 enum LoginOutcome:
   case Success(user: User, oidcSession: Option[OidcSession])

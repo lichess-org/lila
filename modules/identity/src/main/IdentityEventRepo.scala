@@ -9,8 +9,7 @@ final class IdentityEventRepo(coll: Coll)(using Executor):
 
   /** Returns true when the event is new and must be applied. */
   def register(event: IdentityEvent): Fu[Boolean] =
-    coll
-      .insert
+    coll.insert
       .one(event)
       .map(_ => true)
       .recover(lila.db.recoverDuplicateKey(_ => false))

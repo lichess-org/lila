@@ -39,20 +39,21 @@ final class OpenIDConnectService(
     * @return
     *   Authentication request
     */
-  def createOIDCAuthenticationRequest(): Fu[(AuthenticationRequest, CodeVerifier)] = metadata.map { metadata =>
-    val codeVerifier = new CodeVerifier()
-    val request = new AuthenticationRequest.Builder(
-      new ResponseType(ResponseType.Value.CODE),
-      OIDC_SCOPE,
-      oidc.clientID,
-      oidc.signinCallbackUrl
-    )
-      .endpointURI(metadata.getAuthorizationEndpointURI)
-      .state(new State())
-      .nonce(new Nonce())
-      .codeChallenge(codeVerifier, CodeChallengeMethod.S256)
-      .build()
-    (request, codeVerifier)
+  def createOIDCAuthenticationRequest(): Fu[(AuthenticationRequest, CodeVerifier)] = metadata.map {
+    metadata =>
+      val codeVerifier = new CodeVerifier()
+      val request = new AuthenticationRequest.Builder(
+        new ResponseType(ResponseType.Value.CODE),
+        OIDC_SCOPE,
+        oidc.clientID,
+        oidc.signinCallbackUrl
+      )
+        .endpointURI(metadata.getAuthorizationEndpointURI)
+        .state(new State())
+        .nonce(new Nonce())
+        .codeChallenge(codeVerifier, CodeChallengeMethod.S256)
+        .build()
+      (request, codeVerifier)
   }
 
   /** Proceed the OpenID Connect authentication.
@@ -73,18 +74,19 @@ final class OpenIDConnectService(
       codeVerifier: CodeVerifier
   ): Fu[OidcAuthn] =
     validateOIDCAuthenticationResponse(params, state).flatMap { authenticationResponse =>
-      obtainOIDCTokens(authenticationResponse.getAuthorizationCode, nonce, codeVerifier).flatMap { (tokens, claims) =>
-        obtainUserInfo(tokens.getBearerAccessToken).map { userInfo =>
-          OidcAuthn(
-            userInfo = userInfo,
-            session = OidcSession(
-              idToken = tokens.getIDToken.serialize,
-              issuer = oidc.issuer.getValue,
-              sid = Option(claims.getSessionID).map(_.getValue),
-              authTime = Option(claims.getAuthenticationTime).map(_.toInstant)
+      obtainOIDCTokens(authenticationResponse.getAuthorizationCode, nonce, codeVerifier).flatMap {
+        (tokens, claims) =>
+          obtainUserInfo(tokens.getBearerAccessToken).map { userInfo =>
+            OidcAuthn(
+              userInfo = userInfo,
+              session = OidcSession(
+                idToken = tokens.getIDToken.serialize,
+                issuer = oidc.issuer.getValue,
+                sid = Option(claims.getSessionID).map(_.getValue),
+                authTime = Option(claims.getAuthenticationTime).map(_.toInstant)
+              )
             )
-          )
-        }
+          }
       }
     }
 
@@ -93,7 +95,8 @@ final class OpenIDConnectService(
     metadata.map: metadata =>
       Option(metadata.getEndSessionEndpointURI).map: endpoint =>
         val separator = if endpoint.toString.contains("?") then "&" else "?"
-        val encode    = (value: String) => java.net.URLEncoder.encode(value, java.nio.charset.StandardCharsets.UTF_8)
+        val encode =
+          (value: String) => java.net.URLEncoder.encode(value, java.nio.charset.StandardCharsets.UTF_8)
         s"$endpoint${separator}id_token_hint=${encode(idToken)}&post_logout_redirect_uri=${encode(postLogoutRedirect)}"
 
   /** Validate a signed backchannel logout token. */
@@ -160,18 +163,18 @@ final class OpenIDConnectService(
       codeVerifier: CodeVerifier
   ): Fu[(OIDCTokens, IDTokenClaimsSet)] =
     sendOIDCTokenRequest(authorizationCode, codeVerifier).flatMap { httpResponse =>
-    try
-      OIDCTokenResponseParser.parse(httpResponse) match
-        case response: OIDCTokenResponse =>
-          validateOIDCTokenResponse(response, nonce).map { claims =>
-            (response.getOIDCTokens, claims)
-          }
-        case response: TokenErrorResponse =>
-          fufail(s"OIDC token response has error: ${response.getErrorObject.toJSONObject}")
-    catch
-      case e: ParseException =>
-        fufail(s"OIDC token response has error: $e")
-  }
+      try
+        OIDCTokenResponseParser.parse(httpResponse) match
+          case response: OIDCTokenResponse =>
+            validateOIDCTokenResponse(response, nonce).map { claims =>
+              (response.getOIDCTokens, claims)
+            }
+          case response: TokenErrorResponse =>
+            fufail(s"OIDC token response has error: ${response.getErrorObject.toJSONObject}")
+      catch
+        case e: ParseException =>
+          fufail(s"OIDC token response has error: $e")
+    }
 
   /** Execute oidc token request
     * @param authorizationCode
@@ -203,7 +206,7 @@ final class OpenIDConnectService(
     val clientAuth = oidc.tokenAuthMethod match
       case "client_secret_post"  => new ClientSecretPost(oidc.clientID, oidc.clientSecret)
       case "client_secret_basic" => new ClientSecretBasic(oidc.clientID, oidc.clientSecret)
-      case other                 => throw new IllegalArgumentException(s"Unsupported token auth method: $other")
+      case other => throw new IllegalArgumentException(s"Unsupported token auth method: $other")
     fuccess(
       new TokenRequest(
         metadata.getTokenEndpointURI,

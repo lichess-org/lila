@@ -55,12 +55,14 @@ final private[report] class ReportForm(lightUserAsync: LightUser.Getter, userRep
     UserStr.read(query) match
       case Some(id) => lightUserAsync(id.id).await(1.second, "reportUser")
       case None =>
-        UserSearch.read(query).flatMap: term =>
-          userRepo
-            .userIdsLike(term, 1)
-            .await(1.second, "reportUserSearch")
-            .headOption
-            .flatMap(id => lightUserAsync(id).await(1.second, "reportUser"))
+        UserSearch
+          .read(query)
+          .flatMap: term =>
+            userRepo
+              .userIdsLike(term, 1)
+              .await(1.second, "reportUserSearch")
+              .headOption
+              .flatMap(id => lightUserAsync(id).await(1.second, "reportUser"))
 
 object ReportForm:
   private def gameLinkRegex(using domain: NetDomain) = (domain.value + """/(\w{8}|\w{12})""").r

@@ -33,7 +33,8 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Executor):
 
   def authInfo(sessionId: String) = authCache.get(sessionId)
 
-  private val authInfoProjection = $doc("user" -> true, "fp" -> true, "date" -> true, "expiresAt" -> true, "_id" -> false)
+  private val authInfoProjection =
+    $doc("user" -> true, "fp" -> true, "date" -> true, "expiresAt" -> true, "_id" -> false)
   private def uncache(sessionId: String) =
     blocking { blockingUncache(sessionId) }
   private def uncacheAllOf(userId: UserId): Funit =
@@ -58,15 +59,15 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Executor):
     coll.insert
       .one:
         $doc(
-          "_id"   -> sessionId,
-          "user"  -> userId,
-          "ip"    -> HTTPRequest.ipAddress(req),
-          "ua"    -> HTTPRequest.userAgent(req).fold("?")(_.value),
-          "date"  -> nowInstant,
-          "up"    -> up,
-          "api"   -> apiVersion, // lichobile
-          "fp"    -> fp.flatMap(lila.security.FingerHash.from),
-          "proxy" -> proxy,
+          "_id"       -> sessionId,
+          "user"      -> userId,
+          "ip"        -> HTTPRequest.ipAddress(req),
+          "ua"        -> HTTPRequest.userAgent(req).fold("?")(_.value),
+          "date"      -> nowInstant,
+          "up"        -> up,
+          "api"       -> apiVersion, // lichobile
+          "fp"        -> fp.flatMap(lila.security.FingerHash.from),
+          "proxy"     -> proxy,
           "expiresAt" -> nowInstant.plusSeconds(30L * 24 * 3600)
         ) ++ oidcSession.fold($empty): session =>
           $doc("idToken" -> session.idToken, "iss" -> session.issuer) ++
@@ -83,13 +84,15 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Executor):
       .one[Bdoc]
       .map:
         _.flatMap: doc =>
-          doc.string("idToken").map: idToken =>
-            lila.oidc.OidcSession(
-              idToken = idToken,
-              issuer = doc.string("iss") | "",
-              sid = doc.string("sid"),
-              authTime = doc.getAsOpt[Instant]("authTime")
-            )
+          doc
+            .string("idToken")
+            .map: idToken =>
+              lila.oidc.OidcSession(
+                idToken = idToken,
+                issuer = doc.string("iss") | "",
+                sid = doc.string("sid"),
+                authTime = doc.getAsOpt[Instant]("authTime")
+              )
 
   def sessionIdsBySid(sid: String): Fu[List[String]] =
     coll.distinctEasy[String, List]("_id", $doc("sid" -> sid))

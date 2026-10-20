@@ -4,8 +4,8 @@ import reactivemongo.api.bson.Macros.Annotations.Key
 
 import lila.db.dsl.{ *, given }
 
-/** Maps a canonical SSO `sub` to an existing lila account whose `_id`
-  * predates the SSO migration (legacy username-like id).
+/** Maps a canonical SSO `sub` to an existing lila account whose `_id` predates the SSO migration (legacy
+  * username-like id).
   */
 case class IdentityAlias(@Key("_id") subject: String, userId: UserId)
 

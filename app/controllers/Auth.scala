@@ -111,34 +111,41 @@ final class Auth(
   def signinOidc = Open(oidcCallback)
 
   private def oidcCallback(using ctx: Context) = NoBot:
-    env.oidc.api.authenticate(ctx.req).flatMap {
-      case LoginOutcome.Success(user, oidcSession) =>
-        authenticateUser(user, remember = true, oidcSession = oidcSession)
-      case LoginOutcome.Refused(LoginError.Closed, Some(user)) =>
-        env.mod.logApi.closedByMod(user).flatMap { closedByMod =>
-          if closedByMod then oidcRefusalPage(LoginError.Closed)
-          else
-            env.mod.logApi.closedByTeacher(user).flatMap { closedByTeacher =>
-              if closedByTeacher then oidcRefusalPage(LoginError.Closed)
-              else authenticateAppealUser(user, url => Redirect(url), routes.Account.reopen.url)
-            }
-        }
-      case LoginOutcome.Refused(
-            error @ (LoginError.Banned | LoginError.Deleted | LoginError.ClosedForever | LoginError.Closed),
-            _
-          ) =>
-        oidcRefusalPage(error)
-      case LoginOutcome.Refused(_, _) =>
-        fuccess(Redirect(routes.Auth.login).flashFailure)
-    }.map(_.discardingCookies(env.security.lilaCookie.discard("oidc_state")))
+    env.oidc.api
+      .authenticate(ctx.req)
+      .flatMap {
+        case LoginOutcome.Success(user, oidcSession) =>
+          authenticateUser(user, remember = true, oidcSession = oidcSession)
+        case LoginOutcome.Refused(LoginError.Closed, Some(user)) =>
+          env.mod.logApi.closedByMod(user).flatMap { closedByMod =>
+            if closedByMod then oidcRefusalPage(LoginError.Closed)
+            else
+              env.mod.logApi.closedByTeacher(user).flatMap { closedByTeacher =>
+                if closedByTeacher then oidcRefusalPage(LoginError.Closed)
+                else authenticateAppealUser(user, url => Redirect(url), routes.Account.reopen.url)
+              }
+          }
+        case LoginOutcome.Refused(
+              error @ (LoginError.Banned | LoginError.Deleted | LoginError.ClosedForever | LoginError.Closed),
+              _
+            ) =>
+          oidcRefusalPage(error)
+        case LoginOutcome.Refused(_, _) =>
+          fuccess(Redirect(routes.Auth.login).flashFailure)
+      }
+      .map(_.discardingCookies(env.security.lilaCookie.discard("oidc_state")))
 
   private def oidcRefusalPage(refusal: LoginError)(using Context) =
     import scalatags.Text.all.stringFrag
     refusal match
       case LoginError.Deleted =>
-        Forbidden.page(views.site.message("Account unavailable")(stringFrag("This account is no longer available.")))
+        Forbidden.page(
+          views.site.message("Account unavailable")(stringFrag("This account is no longer available."))
+        )
       case LoginError.ClosedForever =>
-        Forbidden.page(views.site.message("Account closed")(stringFrag("This account has been permanently closed.")))
+        Forbidden.page(
+          views.site.message("Account closed")(stringFrag("This account has been permanently closed."))
+        )
       case LoginError.Banned =>
         Forbidden.page(views.site.message("Account closed")(stringFrag("This account is closed.")))
       case LoginError.Closed =>

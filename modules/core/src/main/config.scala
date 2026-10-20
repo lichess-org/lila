@@ -69,8 +69,8 @@ object config:
       rateLimit: RateLimit,
       email: EmailAddress,
       logRequests: Boolean
-   ):
-     def isProd = domain == prodDomain
+  ):
+    def isProd = domain == prodDomain
 
   /** SSO-only mode: local password/signup/reset/magic-link flows are denied. */
   case class AuthConfig(ssoOnly: Boolean)

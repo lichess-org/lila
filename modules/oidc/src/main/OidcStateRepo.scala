@@ -23,8 +23,7 @@ final class OidcStateRepo(coll: Coll)(using Executor):
   import OidcLoginState.given
 
   def put(state: String, nonce: String, codeVerifier: String, referrer: Option[String]): Funit =
-    coll
-      .insert
+    coll.insert
       .one(
         OidcLoginState(
           state = state,

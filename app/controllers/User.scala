@@ -582,7 +582,7 @@ final class User(
       get("term").flatMap(UserSearch.read) match
         case None => BadRequest("No search term provided")
         case Some(term) if getBool("exists") =>
-          val raw = get("term").getOrElse("")
+          val raw                   = get("term").getOrElse("")
           val idExists: Fu[Boolean] = term.into(UserStr).validateId.so(env.user.repo.exists)
           idExists
             .zip(env.user.repo.usernameExists(UserName(raw)))

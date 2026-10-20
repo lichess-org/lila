@@ -66,15 +66,17 @@ final class Internal(env: Env) extends LilaController(env):
 
   private given Reads[IdentityEvent] = Reads: json =>
     for
-      eventId <- nonEmpty("eventId")(json)
-      issuer  <- nonEmpty("issuer")(json)
-      sub     <- nonEmpty("sub")(json)
+      eventId   <- nonEmpty("eventId")(json)
+      issuer    <- nonEmpty("issuer")(json)
+      sub       <- nonEmpty("sub")(json)
       statusKey <- (json \ "status").validate[String]
       status <- IdentityStatus
         .fromKey(statusKey)
         .fold[JsResult[IdentityStatus]](JsError(s"unknown status: $statusKey"))(JsSuccess(_))
-      version <- (json \ "version").validate[Long].flatMap: v =>
-        if v > 0 then JsSuccess(v) else JsError("version must be positive")
+      version <- (json \ "version")
+        .validate[Long]
+        .flatMap: v =>
+          if v > 0 then JsSuccess(v) else JsError("version must be positive")
       occurredAtRaw <- (json \ "occurredAt").validate[String]
       occurredAt <- scala.util
         .Try(Instant.parse(occurredAtRaw))
@@ -92,5 +94,7 @@ final class Internal(env: Env) extends LilaController(env):
     )
 
   private def nonEmpty(field: String)(json: JsValue): JsResult[String] =
-    (json \ field).validate[String].flatMap: value =>
-      if value.nonEmpty then JsSuccess(value) else JsError(s"$field is required")
+    (json \ field)
+      .validate[String]
+      .flatMap: value =>
+        if value.nonEmpty then JsSuccess(value) else JsError(s"$field is required")

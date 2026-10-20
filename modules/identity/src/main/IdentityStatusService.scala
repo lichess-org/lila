@@ -8,8 +8,7 @@ final class IdentityStatusService(
     userRepo: lila.user.UserRepo
 )(using Executor):
 
-  /** Apply a signed IdP event exactly once and in version order.
-    * Returns true when the projection changed.
+  /** Apply a signed IdP event exactly once and in version order. Returns true when the projection changed.
     */
   def apply(event: IdentityEvent): Fu[Boolean] =
     eventRepo.register(event).flatMap {
@@ -32,10 +31,12 @@ final class IdentityStatusService(
         }
     }
 
-  /** A deleted identity may come back as active: re-enable only local tombstones,
-    * never locally closed or mod-closed accounts.
+  /** A deleted identity may come back as active: re-enable only local tombstones, never locally closed or
+    * mod-closed accounts.
     */
   private def restoreDeleted(userId: UserId): Funit =
-    userRepo.byId(userId).flatMap:
-      case Some(user) => userRepo.isDeleted(user).flatMap(if _ then userRepo.reopen(user.id) else funit)
-      case None       => funit
+    userRepo
+      .byId(userId)
+      .flatMap:
+        case Some(user) => userRepo.isDeleted(user).flatMap(if _ then userRepo.reopen(user.id) else funit)
+        case None       => funit
