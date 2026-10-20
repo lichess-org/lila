@@ -167,7 +167,7 @@ final class ReplayUi(helpers: Helpers)(analyseUi: AnalyseUi):
                             ),
                             button(cls := "button text analysis-editor", tpe := "button")(
                               span(cls := "is3 text", dataIcon := Icon.Cogs)(
-                                trans.study.analyzeOnYourDevice()
+                                trans.study.analyseOnYourDevice()
                               )
                             )
                           )
