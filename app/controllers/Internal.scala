@@ -24,7 +24,7 @@ final class Internal(env: Env) extends LilaController(env):
         req.headers.get(signatureHeader) match
           case Some(signature) if verify(secret.value, req.body, signature) =>
             scala.util.Try(Json.parse(req.body).validate[IdentityEvent]).toOption match
-              case Some(JsSuccess(event, _)) =>
+              case Some(JsSuccess(event, _)) if event.issuer == env.oidc.api.issuer =>
                 env.identity.statusService.apply(event).map(_ => Ok)
               case _ => fuccess(BadRequest)
           case _ => fuccess(Unauthorized)
