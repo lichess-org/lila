@@ -73,7 +73,14 @@ mongosh lila bin/mongodb/migrations/2026-10-20-drop-unique-email-index.js
 # 2) привести существующие email к нормализованному виду (идемпотентно)
 mongosh lila bin/mongodb/migrations/2026-10-20-normalize-emails.js
 
-# 3) создать остальные индексы
+# 3) пересчитать len у username (нужен для поиска/сортировки)
+mongosh lila bin/mongodb/migrations/2026-10-20-recompute-username-len.js
+
+# 4) проставить expiresAt старым сессиям и удалить сессии старше 30 дней
+#    ВНИМАНИЕ: разлогинивает сессии старше 30 дней, выполнять в окно обслуживания
+mongosh lila bin/mongodb/migrations/2026-10-20-security-session-ttl.js
+
+# 5) создать остальные индексы
 mongosh lila bin/mongodb/indexes.js
 ```
 
@@ -86,6 +93,32 @@ mongosh lila bin/mongodb/indexes.js
 - `user4` — `username` (для поиска по display-name), email без `unique`.
 
 TTL-индексы удаляют документы автоматически; это нормально.
+
+### Legacy ID и alias-таблица
+
+В прод-дампах встречаются аккаунты, чей `_id` — старый username-подобный id,
+а не SSO `sub` (по аудиту: 7 из 31 888). Чтобы при первом входе не создать
+дубликат аккаунта, заполните `identity_alias` соответствием `sub → legacy id`
+(данные берутся из выгрузки IdP: `sub` и старый идентификатор/username):
+
+```js
+db.identity_alias.insertOne({ _id: "<sub>", userId: "<legacy_lila_id>" })
+```
+
+`UserProvisioning` сначала ищет `_id = sub`, затем alias. Заполнять до включения
+SSO-входа для этих пользователей.
+
+### Аудит перед выкатом
+
+Read-only аудит по копии дампа:
+
+```bash
+mongosh lichess bin/mongodb/audit-oidc-migration.js
+```
+
+Скрипт не печатает email/полные username — только агрегаты и маскированные
+примеры. На прод-дампах ожидаемы: неканонические id, устаревший `len`,
+дубли email, `security` без `expiresAt`.
 
 ## 4. Порядок выката
 

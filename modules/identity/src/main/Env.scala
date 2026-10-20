@@ -14,6 +14,7 @@ final class Env(
 
   val statusRepo = IdentityStatusRepo(db(CollName("identity_status")))
   val eventRepo  = IdentityEventRepo(db(CollName("identity_event")))
+  val aliasRepo  = IdentityAliasRepo(db(CollName("identity_alias")))
 
   /** Empty secret disables the internal events endpoint. */
   val webhookSecret: Option[Secret] =

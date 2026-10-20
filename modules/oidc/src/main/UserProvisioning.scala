@@ -1,6 +1,6 @@
 package lila.oidc
 
-import lila.identity.{ IdentityStatus, IdentityStatusRecord, IdentityStatusRepo }
+import lila.identity.{ IdentityAliasRepo, IdentityStatus, IdentityStatusRecord, IdentityStatusRepo }
 import lila.user.{ User, UserRepo }
 import lila.core.userId.*
 
@@ -9,7 +9,8 @@ import lila.core.userId.*
   */
 final class UserProvisioning(
     userRepo: UserRepo,
-    statusRepo: IdentityStatusRepo
+    statusRepo: IdentityStatusRepo,
+    aliasRepo: IdentityAliasRepo
 )(using Executor):
 
   def resolve(identity: ExternalIdentity): Fu[LoginOutcome] =
@@ -24,7 +25,15 @@ final class UserProvisioning(
           case None =>
             userRepo.byId(userId).flatMap {
               case Some(user) => resolveExisting(user, identity, stored)
-              case None       => create(identity)
+              case None =>
+                aliasRepo.userId(identity.subject).flatMap {
+                  case Some(legacyId) =>
+                    userRepo.byId(legacyId).flatMap {
+                      case Some(user) => resolveExisting(user, identity, stored)
+                      case None       => create(identity)
+                    }
+                  case None => create(identity)
+                }
             }
       }
 

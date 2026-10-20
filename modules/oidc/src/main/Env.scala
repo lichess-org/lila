@@ -46,7 +46,7 @@ final class Env(
     config.tokenAuthMethod
   )
 
-  private lazy val provisioning = UserProvisioning(userRepo, identity.statusRepo)
+  private lazy val provisioning = UserProvisioning(userRepo, identity.statusRepo, identity.aliasRepo)
 
   private lazy val stateRepo = OidcStateRepo(db(lila.core.config.CollName("oidc_state")))
 
