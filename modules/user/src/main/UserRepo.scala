@@ -162,7 +162,14 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
     coll.updateField($id(id), s"${F.profile}.realName", name).void
 
   def setUsername(id: UserId, username: String): Funit =
-    coll.updateField($id(id), "username", username).void
+    coll
+      .update
+      .one(
+        $id(id),
+        $set(F.username -> username, "len" -> BSONInteger(username.length))
+      )
+      .map: _ =>
+        lila.common.Bus.publish(lila.core.user.ChangeUsername(id), "userChange")
 
   def setUsernameCased(id: UserId, name: UserName): Funit =
     if id.value == name.value.toLowerCase then

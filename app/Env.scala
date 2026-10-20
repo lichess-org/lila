@@ -140,6 +140,10 @@ final class Env(
             oAuth.tokenApi.revokeAllByUser(u) >>
               push.webSubscriptionApi.unsubscribeByUser(u) >>
               push.unregisterDevices(u)
+    },
+    "userChange" -> { case lila.core.user.ChangeUsername(userId) =>
+      user.lightUserApi.invalidate(userId)
+      ()
     }
   )
 
