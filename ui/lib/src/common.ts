@@ -1,12 +1,12 @@
 // no side effects allowed due to re-export by index.ts
 
-export const defined = <T>(value?: T): value is T => value !== undefined;
+export const defined = <T>(value: T | undefined): value is T => value !== undefined;
 
-export const notNull = <T>(value?: T | null): value is T => value !== null && value !== undefined;
+export const notNull = <T>(value: T | null | undefined): value is T => value !== null && value !== undefined;
 
-export const isEmpty = <T>(a?: T[]): boolean => !a || a.length === 0;
+export const isEmpty = <T>(a: T[] | undefined): boolean => !a || a.length === 0;
 
-export const notEmpty = <T>(a?: T[]): boolean => !isEmpty(a);
+export const notEmpty = <T>(a: T[] | undefined): boolean => !isEmpty(a);
 
 export const elemAt = <T>(arr: T[], idx: number): T | undefined => arr[idx];
 

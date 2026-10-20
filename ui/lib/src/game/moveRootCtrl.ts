@@ -1,5 +1,5 @@
 export interface MoveRootCtrl {
-  pluginMove: (orig: Key, dest: Key, prom?: Role, preConfirmed?: boolean /* = false */) => void;
+  pluginMove: (orig: Key, dest: Key, prom: Role | undefined, preConfirmed?: boolean /* = false */) => void;
   redraw: () => void;
   flipNow: () => void;
   offerDraw?: (v: boolean, immediately?: boolean) => void;

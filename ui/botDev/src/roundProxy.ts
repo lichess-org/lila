@@ -62,7 +62,7 @@ export class RoundProxy implements RoundProxyType {
     return true;
   };
 
-  updateBoard(game?: LocalGame, opts?: CgConfig): void {
+  updateBoard(game: LocalGame | undefined, opts: CgConfig): void {
     const updates: CgConfig = {};
     if (game) {
       updates.fen = game.fen;
