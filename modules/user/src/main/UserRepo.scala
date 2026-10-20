@@ -285,10 +285,16 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
   def userIdsLikeWithRole(text: UserSearch, role: RoleDbKey, max: Int = 10): Fu[List[UserId]] =
     userIdsLikeFilter(text, $doc(F.roles -> role), max)
 
+  def userIdsLike(text: UserSearch, max: Int = 10): Fu[List[UserId]] =
+    userIdsLikeFilter(text, $empty, max)
+
   private[user] def userIdsLikeFilter(text: UserSearch, filter: Bdoc, max: Int): Fu[List[UserId]] =
     coll
       .find(
-        $doc(F.id.$startsWith(text.value)) ++ enabledSelect ++ filter,
+        $or(
+          $doc(F.id.$startsWith(text.value)),
+          $doc(F.username.$regex(s"^${java.util.regex.Pattern.quote(text.value)}", "i"))
+        ) ++ enabledSelect ++ filter,
         $doc(F.id -> true).some
       )
       .sort($doc("len" -> 1))

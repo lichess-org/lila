@@ -24,8 +24,8 @@ function execute(q: string) {
   // 5kr1/p1p2p2/2b2Q2/3q2r1/2p4p/2P4P/P2P1PP1/1R1K3R b - - 1 23
   if (q.match(/^([1-8pnbrqk]+\/){7}.*/i))
     return (location.href = '/analysis/standard/' + q.replace(/ /g, '_'));
-  if (q.match(/^[a-zA-Z0-9_-]{2,30}$/)) location.href = '/@/' + q;
-  else location.href = '/player/search/' + q;
+  if (q.match(/^[1-9][0-9]{0,30}$/)) location.href = '/@/' + q;
+  else location.href = '/player/search/' + encodeURIComponent(q);
 }
 
 function command(q: string) {
@@ -36,7 +36,10 @@ function command(q: string) {
     return commands.split(' ').includes(exec);
   };
 
-  if (is('tv follow') && parts[1]) location.href = '/@/' + parts[1] + '/tv';
+  if (is('tv follow') && parts[1])
+    location.href = /^[1-9][0-9]{0,30}$/.test(parts[1])
+      ? '/@/' + parts[1] + '/tv'
+      : '/player/search/' + encodeURIComponent(parts[1]);
   else if (is('tv')) location.href = '/tv';
   else if (is('play challenge match') && parts[1]) location.href = '/?user=' + parts[1] + '#friend';
   else if (is('light dark transp system')) loadDasher().then(m => m.background.set(exec));

@@ -12,7 +12,7 @@ import lila.app.{ *, given }
 import lila.common.HTTPRequest
 import lila.common.Json.given
 import lila.core.user.LightPerf
-import lila.core.userId.UserSearch
+import lila.core.userId.{ UserName, UserSearch }
 import lila.game.GameFilter
 import lila.mod.UserWithModlog
 import lila.rating.PerfType
@@ -64,10 +64,18 @@ final class User(
       )
 
   def search(term: String) = Open: _ ?=>
-    UserStr.read(term) match
-      case Some(username)                  => Redirect(routes.User.show(username.id)).toFuccess
-      case _ if isGrantedOpt(_.UserSearch) => Redirect(s"${routes.Mod.search}?q=$term").toFuccess
-      case _                               => notFound
+    UserStr.read(term).so(env.user.repo.byId).flatMap {
+      case Some(u) => fuccess(Redirect(routes.User.show(u.id)))
+      case None if isGrantedOpt(_.UserSearch) =>
+        fuccess(Redirect(s"${routes.Mod.search}?q=$term"))
+      case None =>
+        UserSearch
+          .read(term)
+          .so(env.user.repo.userIdsLike(_, 2))
+          .flatMap:
+            case id :: Nil => fuccess(Redirect(routes.User.show(id)))
+            case _         => notFound
+    }
 
   private def renderShow(u: UserModel, status: Results.Status = Results.Ok)(using Context): Fu[Result] =
     if HTTPRequest.isSynchronousHttp(ctx.req)
@@ -574,7 +582,11 @@ final class User(
       get("term").flatMap(UserSearch.read) match
         case None => BadRequest("No search term provided")
         case Some(term) if getBool("exists") =>
-          term.into(UserStr).validateId.so(env.user.repo.exists).map(JsonOk)
+          val raw = get("term").getOrElse("")
+          val idExists: Fu[Boolean] = term.into(UserStr).validateId.so(env.user.repo.exists)
+          idExists
+            .zip(env.user.repo.usernameExists(UserName(raw)))
+            .map((byId, byName) => JsonOk(byId || byName))
         case Some(term) =>
           {
             (get("tour"), get("swiss"), get("team")) match

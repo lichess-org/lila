@@ -4,6 +4,7 @@ import play.api.data.*
 import play.api.data.Forms.*
 
 import lila.user.{ UserApi, UserRepo, WithPerfsAndEmails }
+import lila.core.userId.{ UserName, UserSearch }
 
 case class ModUserSearchResult(
     users: List[WithPerfsAndEmails],
@@ -15,19 +16,23 @@ case class ModUserSearchResult(
 final class ModUserSearch(userRepo: UserRepo, userApi: UserApi)(using Executor):
 
   def apply(query: String): Fu[ModUserSearchResult] = for
-    users     <- EmailAddress.from(query).map(searchEmail).getOrElse(searchUsername(UserStr(query)))
-    withPerfs <- userApi.withPerfsAndEmails(users)
-    userStr  = UserStr.read(query)
-    userName = userStr.map(_.into(UserName))
-    exists <- userStr.so(userRepo.exists)
+    ids       <- EmailAddress.from(query).fold(searchIds(query))(searchEmailIds)
+    withPerfs <- userApi.withPerfsAndEmails(ids)
+    exists    <- UserStr.read(query).so(userRepo.exists)
   yield ModUserSearchResult(
     users = withPerfs,
     regexMatch = lila.user.nameRules.newUsernameRegex.matches(query),
     exists = exists,
-    lameNameMatch = userName.so(lila.common.LameName.explain)
+    lameNameMatch = lila.common.LameName.explain(UserName(query))
   )
 
-  private def searchUsername(username: UserStr) = userRepo.byId(username).map(_.toList)
+  private def searchIds(query: String): Fu[List[UserId]] =
+    UserStr.read(query) match
+      case Some(id) => userRepo.byId(id).map(_.map(_.id).toList)
+      case None     => UserSearch.read(query).so(userRepo.userIdsLike(_, 10))
+
+  private def searchEmailIds(email: EmailAddress): Fu[List[UserId]] =
+    searchEmail(email).map(_.map(_.id))
 
   private def searchEmail(email: EmailAddress): Fu[List[User]] =
     val normalized = email.normalize
