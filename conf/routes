@@ -521,6 +521,7 @@ GET   /signin-oidc                     controllers.Auth.signinOidc
 POST  /signin-oidc                     controllers.Auth.signinOidc
 GET   /logout                          controllers.Auth.logoutGet
 POST  /logout                          controllers.Auth.logout
+GET   /signout-oidc                    controllers.Auth.signoutOidc
 GET   /signup                          controllers.Auth.signup
 GET   /$lang<\w\w\w?>/signup           controllers.Auth.signupLang(lang: Language)
 POST  /auth/set-fp/:fp/:ms             controllers.Auth.setFingerPrint(fp, ms: Int)

@@ -160,14 +160,15 @@ final class Auth(
     for
       oidc <- env.security.store.oidcSession(currentSessionId)
       endSession <- oidc.so: session =>
-        env.oidc.api.endSessionUrl(
-          session.idToken,
-          s"${env.net.baseUrl}${routes.Lobby.home.url}"
-        )
+        env.oidc.api.endSessionUrl(session.idToken)
       _   <- env.security.store.delete(currentSessionId)
       _   <- env.push.webSubscriptionApi.unsubscribeBySession(currentSessionId)
       res <- negotiate(Redirect(endSession | routes.Auth.login.url), jsonOkResult)
     yield res.withCookies(env.security.lilaCookie.newSession)
+
+  /** IdentityServer's default post-logout redirect. */
+  def signoutOidc = Open:
+    Redirect(routes.Lobby.home).flashSuccess
 
   // mobile app BC logout with GET
   def logoutGet = Auth { ctx ?=> _ ?=>

@@ -63,8 +63,8 @@ final class OidcApi(
 
   def issuer: String = oidc.issuer.getValue
 
-  def endSessionUrl(idToken: String, postLogoutRedirect: String): Fu[Option[String]] =
-    client.endSessionUrl(idToken, postLogoutRedirect)
+  def endSessionUrl(idToken: String): Fu[Option[String]] =
+    client.endSessionUrl(idToken)
 
   def validateLogoutToken(token: String): Fu[com.nimbusds.openid.connect.sdk.claims.LogoutTokenClaimsSet] =
     client.validateLogoutToken(token)

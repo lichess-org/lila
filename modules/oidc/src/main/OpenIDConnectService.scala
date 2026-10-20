@@ -91,13 +91,18 @@ final class OpenIDConnectService(
     }
 
   /** RP-initiated logout URL, if the provider advertises an end_session_endpoint. */
-  def endSessionUrl(idToken: String, postLogoutRedirect: String): Fu[Option[String]] =
+  /** RP-initiated logout URL. `post_logout_redirect_uri` is omitted because the IdP client does not register
+    * it; IdentityServer then ignores the request and keeps the SSO session alive. With `id_token_hint` +
+    * `state` it redirects to `/signout-oidc`.
+    */
+  def endSessionUrl(idToken: String): Fu[Option[String]] =
     metadata.map: metadata =>
       Option(metadata.getEndSessionEndpointURI).map: endpoint =>
         val separator = if endpoint.toString.contains("?") then "&" else "?"
         val encode =
           (value: String) => java.net.URLEncoder.encode(value, java.nio.charset.StandardCharsets.UTF_8)
-        s"$endpoint${separator}id_token_hint=${encode(idToken)}&post_logout_redirect_uri=${encode(postLogoutRedirect)}"
+        val state = new State()
+        s"$endpoint${separator}id_token_hint=${encode(idToken)}&state=${encode(state.getValue)}"
 
   /** Validate a signed backchannel logout token. */
   def validateLogoutToken(token: String): Fu[LogoutTokenClaimsSet] =
