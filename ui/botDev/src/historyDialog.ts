@@ -90,13 +90,13 @@ class HistoryDialog {
   }
 
   clickItem = async (e: Event) => {
-    if (!(e.target instanceof HTMLElement) || !e.target.dataset.version) return;
-    this.select(this.version(e.target.dataset.version));
+    if (e.target instanceof HTMLElement && e.target.dataset.version)
+      this.select(this.version(e.target.dataset.version));
   };
 
   mouseEnterItem = async (e: Event) => {
-    if (!(e.target instanceof HTMLElement) || !e.target.dataset.version) return;
-    this.json(this.version(e.target.dataset.version));
+    if (e.target instanceof HTMLElement && e.target.dataset.version)
+      this.json(this.version(e.target.dataset.version));
   };
 
   select(bot: BotVersionInfo | undefined = this.selected): void {

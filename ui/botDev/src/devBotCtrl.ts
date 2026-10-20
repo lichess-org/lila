@@ -158,7 +158,7 @@ export class DevBotCtrl extends BotLoader {
     };
   }
 
-  async getBook(key: string | undefined): Promise<OpeningBook | undefined> {
+  async getBook(key: string): Promise<OpeningBook | undefined> {
     if (!key) return undefined;
     if (this.book.has(key)) return this.book.get(key);
     if (!env.assets.idb.book.keyNames.has(key)) return super.getBook(key);

@@ -96,12 +96,12 @@ function resizeHandler(ctrl: AnalyseCtrl) {
     if (ctrl.study || resizeCache.columns < 3) return;
 
     resizeCache.chat ??= document.querySelector<HTMLElement>('.mchat');
-    fixChatHeight(resizeCache.chat);
+    if (resizeCache.chat) fixChatHeight(resizeCache.chat);
   });
   return { columns: displayColumns(), chat: null, board: null, meta: null };
 }
 
-function fixChatHeight(el: Node | null) {
+function fixChatHeight(el: Node) {
   if (!(el instanceof HTMLElement)) return;
   resizeCache.board ??= document.querySelector<HTMLElement>('.analyse__board .cg-wrap');
   resizeCache.meta ??= document.querySelector<HTMLElement>('.game__meta');
