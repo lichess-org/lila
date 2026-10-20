@@ -20,7 +20,7 @@ in
   languages = {
     java = {
       enable = true;
-      jdk.package = pkgs.openjdk21;
+      jdk.package = pkgs.openjdk25;
     };
     scala = {
       enable = true;
