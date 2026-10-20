@@ -8,8 +8,11 @@ import lila.common.Form.cleanNonEmptyText
 import lila.core.LightUser
 import lila.core.config.NetDomain
 import lila.core.report.SuspectId
+import lila.core.userId.UserSearch
 
-final private[report] class ReportForm(lightUserAsync: LightUser.Getter)(using domain: NetDomain):
+final private[report] class ReportForm(lightUserAsync: LightUser.Getter, userRepo: lila.user.UserRepo)(using
+    domain: NetDomain
+):
   val cheatLinkConstraint: Constraint[ReportSetup] = Constraint("constraints.cheatgamelink"): setup =>
     val gameLinkRequired = setup.reason == Reason.Cheat.key || setup.reason == Reason.Stall.key
     if !gameLinkRequired || ReportForm.hasGameLink(setup.text) then Valid
@@ -17,15 +20,15 @@ final private[report] class ReportForm(lightUserAsync: LightUser.Getter)(using d
 
   def create(using me: MyId) = Form:
     mapping(
-      "username" -> lila.common.Form.username.historicalField
+      "username" -> cleanNonEmptyText
         .verifying("Unknown username", { blockingFetchUser(_).isDefined })
         .verifying(
           "You cannot report yourself",
-          u => !me.is(u.id)
+          query => blockingFetchUser(query).forall(_.id != me.userId)
         )
         .verifying(
           "Don't report Lichess. Use chess-online.com/feedback instead.",
-          u => !UserId.isOfficial(u)
+          query => blockingFetchUser(query).forall(u => !UserId.isOfficial(u.id))
         ),
       "reason" -> text.verifying("error.required", Reason.keys contains _),
       "text"   -> cleanNonEmptyText(minLength = 5),
@@ -48,8 +51,16 @@ final private[report] class ReportForm(lightUserAsync: LightUser.Getter)(using d
       "text"     -> text(minLength = 1, maxLength = 140)
     )(ReportFlag.apply)(unapply)
 
-  private def blockingFetchUser(username: UserStr) =
-    lightUserAsync(username.id).await(1.second, "reportUser")
+  private def blockingFetchUser(query: String): Option[LightUser] =
+    UserStr.read(query) match
+      case Some(id) => lightUserAsync(id.id).await(1.second, "reportUser")
+      case None =>
+        UserSearch.read(query).flatMap: term =>
+          userRepo
+            .userIdsLike(term, 1)
+            .await(1.second, "reportUserSearch")
+            .headOption
+            .flatMap(id => lightUserAsync(id).await(1.second, "reportUser"))
 
 object ReportForm:
   private def gameLinkRegex(using domain: NetDomain) = (domain.value + """/(\w{8}|\w{12})""").r
@@ -70,4 +81,4 @@ case class ReportSetup(
     msgs: List[lila.core.msg.ID] = Nil
 ):
   def suspect = SuspectId(user.id)
-  def values  = (user.name.into(UserStr), reason, text, msgs)
+  def values  = (user.id.value, reason, text, msgs)
