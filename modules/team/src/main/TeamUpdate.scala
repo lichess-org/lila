@@ -11,6 +11,7 @@ import lila.core.notify.NotificationContent.TeamUpdate as Notification
 import lila.core.notify.NotifyApi
 import lila.core.team.LightTeam
 import lila.db.dsl.{ *, given }
+import lila.markdown.MarkdownRender
 import lila.memo.RateLimit.LimitResult
 
 case class TeamUpdate[T, U](
@@ -112,9 +113,6 @@ final class TeamUpdateApi(
       _ = notifySubscribers(team.id, notification) // don't await that!
     yield ()
 
-  private def markdownToHeadline(md: Markdown): String =
-    shorten(md.value.dropWhile(_ == '#'), 40).filterNot(Set('#', '*', '-'))
-
   private def notifySubscribers(teamId: TeamId, notification: Notification): Funit =
     memberRepo.coll
       .aggregateWith[Bdoc](readPreference = ReadPref.sec): framework =>
@@ -192,3 +190,6 @@ object TeamUpdateApi:
   val credits = 10
   val days = 7
   private val cost = 5
+
+  private[team] def markdownToHeadline(md: Markdown): String =
+    shorten(MarkdownRender.plainText(md), 40)

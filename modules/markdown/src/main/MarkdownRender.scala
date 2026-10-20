@@ -138,6 +138,20 @@ object MarkdownRender:
   def unlink(text: Markdown): String =
     text.value.replaceAll(raw"""(?i)!?\[([^\]\n]*)\]\([^)]*\)""", "[$1]")
 
+  private val plainTextParser =
+    Parser
+      .builder(
+        MutableDataSet()
+          .set(Parser.EXTENSIONS, java.util.List.of[Extension](TablesExtension.create()))
+          .toImmutable
+      )
+      .build()
+
+  def plainText(md: Markdown): String =
+    new TextCollectingVisitor()
+      .collectAndGetText(plainTextParser.parse(preventStackOverflow(md).value))
+      .trim
+
   private object removeHtmlEntities:
     // &#128512;
     private val entityRegex = """(?i)&([a-z0-9]+|#[0-9]{1,6}|#x[0-9a-fA-F]{1,6});""".r

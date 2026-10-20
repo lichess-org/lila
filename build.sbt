@@ -462,7 +462,7 @@ lazy val forumSearch = module("forumSearch",
 
 lazy val team = module("team",
   Seq(memo, room, ui),
-  Seq()
+  tests.bundle
 )
 
 lazy val teamSearch = module("teamSearch",
