@@ -91,6 +91,16 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Executor):
               authTime = doc.getAsOpt[Instant]("authTime")
             )
 
+  def sessionIdsBySid(sid: String): Fu[List[String]] =
+    coll.distinctEasy[String, List]("_id", $doc("sid" -> sid))
+
+  def closeSessions(sessionIds: List[String]): Funit =
+    sessionIds.parallelVoid: id =>
+      coll.delete.one($id(id)).void.map { _ =>
+        blocking:
+          blockingUncache(id)
+      }
+
   private[security] def upsertOAuth(
       userId: UserId,
       tokenId: AccessToken.Id,

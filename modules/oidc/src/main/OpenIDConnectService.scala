@@ -5,15 +5,17 @@ import java.io.IOException
 import com.nimbusds.jose.proc.BadJOSEException
 import com.nimbusds.jose.util.DefaultResourceRetriever
 import com.nimbusds.jose.JOSEException
+import com.nimbusds.jwt.SignedJWT
 import com.nimbusds.oauth2.sdk.*
 import com.nimbusds.oauth2.sdk.auth.ClientSecretBasic
 import com.nimbusds.oauth2.sdk.http.HTTPResponse
 import com.nimbusds.oauth2.sdk.id.{ Issuer, State }
 import com.nimbusds.oauth2.sdk.token.BearerAccessToken
 import com.nimbusds.openid.connect.sdk.claims.IDTokenClaimsSet
+import com.nimbusds.openid.connect.sdk.claims.LogoutTokenClaimsSet
 import com.nimbusds.openid.connect.sdk.op.OIDCProviderMetadata
 import com.nimbusds.openid.connect.sdk.token.OIDCTokens
-import com.nimbusds.openid.connect.sdk.validators.IDTokenValidator
+import com.nimbusds.openid.connect.sdk.validators.{ IDTokenValidator, LogoutTokenValidator }
 import com.nimbusds.openid.connect.sdk.{ AuthenticationErrorResponse, * }
 import com.nimbusds.openid.connect.sdk.claims.*
 
@@ -96,6 +98,25 @@ final class OpenIDConnectService(
         val separator = if endpoint.toString.contains("?") then "&" else "?"
         val encode    = (value: String) => java.net.URLEncoder.encode(value, java.nio.charset.StandardCharsets.UTF_8)
         s"$endpoint${separator}id_token_hint=${encode(idToken)}&post_logout_redirect_uri=${encode(postLogoutRedirect)}"
+
+  /** Validate a signed backchannel logout token. */
+  def validateLogoutToken(token: String): Fu[LogoutTokenClaimsSet] =
+    metadata.flatMap { metadata =>
+      JwsAlgorithmValidation.ensureSupported(oidc.jwsAlgorithm)(metadata) match
+        case Left(err) => fufail(err)
+        case Right(jwsAlgorithm) =>
+          val validator = new LogoutTokenValidator(
+            metadata.getIssuer,
+            oidc.clientID,
+            jwsAlgorithm,
+            metadata.getJWKSetURI.toURL,
+            new DefaultResourceRetriever(JWK_REQUEST_TIMEOUT, JWK_REQUEST_TIMEOUT)
+          )
+          try fuccess(validator.validate(SignedJWT.parse(token)))
+          catch
+            case e @ (_: BadJOSEException | _: JOSEException | _: java.text.ParseException) =>
+              fufail(s"OIDC logout token has error: $e")
+    }
 
   private def converParams(params: Map[String, Seq[String]]) =
     params.map { case (k, v) => (k, v.toList.asJava) }.asJava

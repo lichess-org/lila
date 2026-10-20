@@ -40,6 +40,9 @@ final class OidcApi(
   def endSessionUrl(idToken: String, postLogoutRedirect: String): Fu[Option[String]] =
     client.endSessionUrl(idToken, postLogoutRedirect)
 
+  def validateLogoutToken(token: String): Fu[com.nimbusds.openid.connect.sdk.claims.LogoutTokenClaimsSet] =
+    client.validateLogoutToken(token)
+
   private def externalIdentity(userInfo: UserInfo): Either[LoginError, ExternalIdentity] =
     for
       subject <- Option(userInfo.getSubject)

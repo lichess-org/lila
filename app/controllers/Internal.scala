@@ -30,6 +30,32 @@ final class Internal(env: Env) extends LilaController(env):
           case _ => fuccess(Unauthorized)
   }
 
+  def backchannelLogout = Action.async(parse.formUrlEncoded) { req =>
+    req.body.get("logout_token").flatMap(_.headOption).filter(_.nonEmpty) match
+      case None => fuccess(BadRequest)
+      case Some(token) =>
+        env.oidc.api
+          .validateLogoutToken(token)
+          .flatMap { claims =>
+            val sid = Option(claims.getSessionID).map(_.getValue)
+            val sub = Option(claims.getSubject)
+              .map(_.getValue)
+              .filter(UserId.regex.matches)
+              .map(UserId.apply)
+            for
+              ids <- sid.fold(fuccess(Nil))(env.security.store.sessionIdsBySid)
+              _   <- env.security.store.closeSessions(ids)
+              _ = sub.foreach: id =>
+                lila.common.Bus.publish(lila.core.security.CloseAccount(id), "accountClose")
+                if sid.isEmpty then
+                  lila.common.Bus.publish(lila.core.security.RevokeAllCredentials(id), "identityStatus")
+              _ <- sub.fold(funit)(id => env.security.api.appeal.closeAllOf(id))
+              _ = lila.log("identity").info(s"backchannel logout sid=${sid | "-"} sub=${sub | "-"}")
+            yield Ok
+          }
+          .recover { case _ => BadRequest }
+  }
+
   private def verify(secret: String, body: String, signature: String): Boolean =
     try
       val mac = Mac.getInstance("HmacSHA256")
