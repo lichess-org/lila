@@ -38,13 +38,22 @@ interface SearchInfo {
   hashSize: number;
 }
 
-interface Started {
+interface StartedState {
   path: TreePath;
   steps: Step[];
   gameId?: string;
   threatMode: boolean;
   info: SearchInfo;
 }
+
+type WorkingState = {
+  started: StartedState;
+  fen?: string;
+  emit: CevalOpts['emit'];
+  background: boolean;
+  movetime: number | false;
+  dontStop: boolean;
+};
 
 type ThreadCount = number;
 type NodesPerSecond = number;
@@ -62,7 +71,7 @@ export class CevalCtrl {
   pvBoard: Prop<PvBoard | null> = prop<PvBoard | null>(null);
   isDeeper: Toggle = toggle(false);
   curEval: LocalEval | null = null;
-  lastStarted?: Started;
+  lastStarted?: StartedState;
   showEnginePrefs: Toggle = toggle(false);
   wasUnloadedByAnotherWindow = false;
 
@@ -310,7 +319,7 @@ export class CevalCtrl {
     this.performanceMap(engine.id, snapshots);
   }
 
-  private letCloudWin(ev: LocalEval, movetime: number | false, working: Started) {
+  private letCloudWin(ev: LocalEval, movetime: number | false, working: StartedState) {
     const evNode = working.steps[working.steps.length - 1];
     const { engine, threads } = working.info;
     if (movetime && evNode.ceval?.cloud) {
@@ -324,7 +333,7 @@ export class CevalCtrl {
     return false;
   }
 
-  private readonly doStart = (s: Started) => {
+  private readonly doStart = (s: StartedState) => {
     this.lastStarted = s;
     const step = s.steps[s.steps.length - 1];
     const { search, threads, hashSize, engine } = this.info(this.opts.custom)!;
@@ -375,9 +384,8 @@ export class CevalCtrl {
 
   private makeThrottledEmitter() {
     // 'working' properties are bound for closure
-    const working = {
+    const working: WorkingState = {
       started: this.lastStarted!,
-      fen: undefined as string | undefined,
       emit: this.opts.emit,
       background: this.isBackground,
       movetime: 'movetime' in this.search.by && this.search.by.movetime,
