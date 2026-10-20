@@ -178,11 +178,10 @@ final class MsgApi(
               if send == Ok || send == TrollFriend then
                 notifier.onPost(threadId)
                 Bus.pub(SendTo(dest, makeMessage("msgNew", json.renderMsg(msg))))
-              if send == Ok && !multi then
-                shutupApi.privateMessage(orig, dest, text)
-                if List(orig, dest).has(UserId.broadcaster) then
-                  val topicUser = if orig == UserId.broadcaster then dest else orig
-                  ircApi.broadcasterDm(topicUser, orig, msg.text)
+              if send == Ok && !multi then shutupApi.privateMessage(orig, dest, text)
+              if List(orig, dest).has(UserId.broadcaster) then
+                val topicUser = if orig == UserId.broadcaster then dest else orig
+                ircApi.broadcasterDm(topicUser, orig, msg.text)
               PostResult.Success
       yield res
     }
