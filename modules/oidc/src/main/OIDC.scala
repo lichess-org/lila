@@ -12,6 +12,7 @@ case class OIDC(
     clientSecret: Secret,
     signinCallbackUrl: URI,
     jwsAlgorithm: JWSAlgorithm,
+    scopes: Set[String],
     tokenAuthMethod: String
 )
 
@@ -25,8 +26,12 @@ object OIDCFactory:
       clientSecret: String,
       signinCallbackUrl: String,
       jwsAlgorithm: String,
+      scopes: String,
       tokenAuthMethod: String
   ): OIDC =
+    val scopeSet = scopes.split("\\s+").filter(_.nonEmpty).toSet
+    if !scopeSet.contains("openid") then
+      throw new IllegalArgumentException("oidc.issuer.scopes must include 'openid'")
     if !OIDC.tokenAuthMethods.contains(tokenAuthMethod) then
       throw new IllegalArgumentException(
         s"oidc.issuer.token_auth_method '$tokenAuthMethod' is not supported"
@@ -39,5 +44,6 @@ object OIDCFactory:
       JwsAlgorithmValidation
         .parse(jwsAlgorithm)
         .fold(err => throw new IllegalArgumentException(err), identity),
+      scopeSet,
       tokenAuthMethod
     )

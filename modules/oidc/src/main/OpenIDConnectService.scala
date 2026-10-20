@@ -32,11 +32,7 @@ final class OpenIDConnectService(
 
   private val JWK_REQUEST_TIMEOUT = 5000
 
-  private val OIDC_SCOPE = new Scope(
-    OIDCScopeValue.OPENID,
-    OIDCScopeValue.EMAIL,
-    OIDCScopeValue.PROFILE
-  )
+  private val OIDC_SCOPE = new Scope(oidc.scopes.toSeq*)
 
   /** Create an authentication request.
     *

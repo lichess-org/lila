@@ -42,6 +42,7 @@ final class Env(
     config.clientSecret.value,
     s"$baseUrl/signin-oidc",
     config.jwsAlgorithm,
+    config.scopes,
     config.tokenAuthMethod
   )
 

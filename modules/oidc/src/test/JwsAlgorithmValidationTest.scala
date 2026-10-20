@@ -29,6 +29,7 @@ class JwsAlgorithmValidationTest extends munit.FunSuite:
         "secret",
         "https://rp.example/signin-oidc",
         "",
+        "openid profile email",
         "client_secret_post"
       )
     }
@@ -42,6 +43,7 @@ class JwsAlgorithmValidationTest extends munit.FunSuite:
         "secret",
         "https://rp.example/signin-oidc",
         "RS256",
+        "openid profile email",
         "private_key_jwt"
       )
     }
