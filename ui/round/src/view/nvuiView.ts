@@ -381,6 +381,10 @@ function boardEventsHook(ctx: RoundNvuiContext, el: HTMLElement): void {
   });
 }
 
+function isDrop(u: string | nv.DropMove) {
+  return typeof u !== 'string';
+}
+
 function createSubmitHandler(
   ctrl: RoundController,
   notify: (txt: string) => void,
@@ -409,7 +413,6 @@ function createSubmitHandler(
     if (command) command.cb(notify, ctrl, style(), input);
     else {
       const move = nv.inputToMove(input, plyStep(ctrl.data, ctrl.ply).fen, ctrl.chessground);
-      const isDrop = (u?: string | nv.DropMove) => !!(u && typeof u !== 'string');
       const isOpponentsTurn = ctrl.data.player.color !== ctrl.data.game.player;
       const isInvalidDrop = (d: nv.DropMove) =>
         !ctrl.crazyValid(d.role, d.key) || (!isOpponentsTurn && ctrl.chessground.state.pieces.has(d.key));
@@ -418,7 +421,7 @@ function createSubmitHandler(
         // if it is not the user's turn, store this input as a premove
         nvui.premoveInput = input;
         notify(i18n.nvui.premoveRecorded(input));
-      } else if (isDrop(move) && isInvalidDrop(move)) notify(`Invalid drop: ${input}`);
+      } else if (move && isDrop(move) && isInvalidDrop(move)) notify(`Invalid drop: ${input}`);
       else if (move) sendMove(move, ctrl, !!nvui.premoveInput);
       else notify(`${i18n.nvui.invalidMove}: ${input}`);
     }

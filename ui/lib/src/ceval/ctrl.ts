@@ -143,7 +143,7 @@ export class CevalCtrl {
     this.download = undefined;
   };
 
-  start = (path: string, steps: Step[], gameId?: string, threatMode = false): boolean => {
+  start = (path: string, steps: Step[], threatMode = false, gameId?: string): boolean => {
     if (!this.available() || this.wasUnloadedByAnotherWindow) return false;
     this.isDeeper(false);
     this.doStart({ path, steps, gameId, threatMode, info: this.info()! });

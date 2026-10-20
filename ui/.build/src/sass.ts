@@ -212,11 +212,11 @@ async function buildColorWrap() {
   return true;
 }
 
-async function hashCss(src: string, replacements?: Record<string, string>) {
+async function hashCss(src: string, replacements: Record<string, string>) {
   let content = await fs.promises.readFile(src, 'utf-8');
   let modified = false;
 
-  for (const [search, replace] of Object.entries(replacements ?? {})) {
+  for (const [search, replace] of Object.entries(replacements)) {
     content = content.replaceAll(search, replace);
     modified = true;
   }
