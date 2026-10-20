@@ -191,7 +191,7 @@ final class TeamUi(helpers: Helpers, markdownCache: lila.memo.MarkdownCache):
       main(cls := "team-events page-menu")(
         menu("events".some),
         div(cls := "page-menu__content box")(
-          boxTop(h1("Upcoming team events")),
+          h1(cls := "box__top")("Upcoming team events"),
           content
         )
       )
