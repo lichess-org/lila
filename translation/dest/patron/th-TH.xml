@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">บริจาค</string>
-  <string name="donateAsX">บริจาคในนามของ %s</string>
+  <string name="donateAsX" comment="This appears as an option on the donation page – the other option is to give the donation &quot;in the name of&quot; someone else, gifting them the patron wings (otherwise only available to those who donate).&#10;&#10;%s is the user's username.">บริจาคในนามของ %s</string>
   <string name="lichessPatron">ผู้อุปถัมภ์ Lichess</string>
-  <string name="freeAccount">บัญชีฟรี</string>
+  <string name="freeAccount" comment="URL: https://lichess.org/features">บัญชีฟรี</string>
   <string name="becomePatron">มาเป็นผู้อุปถัมภ์ Lichess</string>
   <string name="xBecamePatron">%s กลายเป็นผู้อุปถัมภ์ Lichess</string>
   <plurals name="xIsPatronForNbMonths">

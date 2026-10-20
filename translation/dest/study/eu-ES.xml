@@ -198,4 +198,9 @@
   <string name="doubleDefeat">Porrot bikoitza</string>
   <string name="blackDefeatWhiteCanNotWin">Beltzaren porrota, baina Zuriak ezin du irabazi</string>
   <string name="whiteDefeatBlackCanNotWin">Zuriaren porrota, baina Beltzak ezin du irabazi</string>
+  <string name="analysisEditor">Analisien editorea</string>
+  <string name="clearLocal">Garbitu analisi lokala?</string>
+  <string name="clearPublished">Garbitu argitaratutako analisiak?</string>
+  <string name="requestAServerAnalysis">Eskatu zerbitzariaren analisia</string>
+  <string name="analyzeOnYourDevice">Aztertu zure gailuan</string>
 </resources>
