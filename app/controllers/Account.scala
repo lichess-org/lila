@@ -7,7 +7,6 @@ import play.api.mvc.*
 import views.account.pages
 
 import lila.app.{ *, given }
-import lila.common.HTTPRequest
 import lila.core.id.SessionId
 import lila.core.net.ValidReferrer
 import lila.core.security.ClearPassword
