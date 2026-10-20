@@ -46,8 +46,8 @@ final class AutoPairing(
         duelStore.add(
           tour = tour,
           game = game,
-          p1 = usernameOf(pairing.player1) -> ~game.whitePlayer.rating,
-          p2 = usernameOf(pairing.player2) -> ~game.blackPlayer.rating,
+          p1 = (pairing.player1.userId, usernameOf(pairing.player1), ~game.whitePlayer.rating),
+          p2 = (pairing.player2.userId, usernameOf(pairing.player2), ~game.blackPlayer.rating),
           ranking = ranking
         )
     yield game

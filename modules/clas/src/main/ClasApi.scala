@@ -244,8 +244,9 @@ final class ClasApi(
       val password = Student.password.generate
       lila.mon.clas.student.create(teacher.id.value).increment()
       userRepo
-        .create(
-          name = data.username,
+        .createLocal(
+          id = UserId.random(),
+          username = data.username,
           passwordHash = authenticator.passEnc(password),
           email = email,
           blind = false,

@@ -352,7 +352,7 @@ final class JsonView(
 
   private def duelPlayerJson(p: Duel.DuelPlayer): Fu[JsObject] =
     lightUserApi
-      .asyncFallback(p.name.id)
+      .asyncFallback(p.userId)
       .map: u =>
         Json
           .obj(

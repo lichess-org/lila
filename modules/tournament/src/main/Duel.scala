@@ -12,21 +12,19 @@ case class Duel(
     averageRating: IntRating
 ):
 
-  def has(u: User) = u.is(p1) || u.is(p2)
+  def has(u: User) = u.id == p1.userId || u.id == p2.userId
 
-  def userIds = List[UserId](p1.name.id, p2.name.id)
+  def userIds = List(p1.userId, p2.userId)
 
 object Duel:
 
-  type UsernameRating = (UserName, IntRating)
+  type PlayerRating = (UserId, UserName, IntRating)
 
-  case class DuelPlayer(name: UserName, rating: IntRating, rank: Rank)
-  object DuelPlayer:
-    given UserIdOf[DuelPlayer] = _.name.id
+  case class DuelPlayer(userId: UserId, name: UserName, rating: IntRating, rank: Rank)
 
-  def tbUser(p: UsernameRating, ranking: Ranking) =
-    ranking.get(p._1.id).map { rank =>
-      DuelPlayer(p._1, p._2, rank + 1)
+  def tbUser(p: PlayerRating, ranking: Ranking) =
+    ranking.get(p._1).map { rank =>
+      DuelPlayer(p._1, p._2, p._3, rank + 1)
     }
 
   private[tournament] val ratingOrdering              = Ordering.by[Duel, Int](_.averageRating.value)
@@ -49,7 +47,7 @@ final private class DuelStore:
   def find(tour: Tournament, user: User): Option[GameId] =
     get(tour.id).flatMap { _.find(_.has(user)).map(_.gameId) }
 
-  def add(tour: Tournament, game: Game, p1: UsernameRating, p2: UsernameRating, ranking: Ranking): Unit =
+  def add(tour: Tournament, game: Game, p1: PlayerRating, p2: PlayerRating, ranking: Ranking): Unit =
     for
       p1 <- tbUser(p1, ranking)
       p2 <- tbUser(p2, ranking)

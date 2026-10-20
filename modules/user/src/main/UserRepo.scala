@@ -165,7 +165,7 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
     coll.updateField($id(id), "username", username).void
 
   def setUsernameCased(id: UserId, name: UserName): Funit =
-    if id.is(name) then
+    if id.value == name.value.toLowerCase then
       coll.update
         .one(
           $id(id) ++ F.changedCase.$exists(false),
@@ -234,8 +234,10 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
   def incToints(id: UserId, nb: Int): Funit = coll.update.one($id(id), $inc("toints" -> nb)).void
   def removeAllToints                       = coll.update.one($empty, $unset("toints"), multi = true)
 
-  def create(
-      name: UserName,
+  /** Legacy credential account created outside SSO (Clas students, local signup when enabled). */
+  def createLocal(
+      id: UserId,
+      username: UserName,
       passwordHash: HashedPassword,
       email: EmailAddress,
       blind: Boolean,
@@ -243,28 +245,11 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
       mustConfirmEmail: Boolean,
       lang: Option[LangTag] = None
   ): Fu[Option[User]] =
-    exists(name).not.flatMapz {
-      val doc = newUser(name, passwordHash, email, blind, mobileApiVersion, mustConfirmEmail, lang) ++
-        ("len" -> BSONInteger(name.value.length))
-      coll.insert.one(doc) >> byId(name.id)
-    }
-
-  def create2(
-      id: UserId,
-      username: String,
-      passwordHash: HashedPassword,
-      email: EmailAddress,
-      blind: Boolean,
-      mobileApiVersion: Option[ApiVersion],
-      mustConfirmEmail: Boolean,
-      lang: Option[String] = None
-  ): Fu[Option[User]] =
-    exists(id).not.flatMapz {
+    exists(id).not.flatMapz:
       val doc =
-        newUser2(id, username, passwordHash, email, blind, mobileApiVersion, mustConfirmEmail, lang) ++
-          ("len" -> BSONInteger(username.length))
+        newUserLocal(id, username, passwordHash, email, blind, mobileApiVersion, mustConfirmEmail, lang) ++
+          ("len" -> BSONInteger(username.value.length))
       coll.insert.one(doc) >> byId(id)
-    }
 
   /** Create an account without local credentials, for external (SSO) identities.
     * Idempotent: a duplicate `_id` re-reads the existing user.
@@ -290,6 +275,9 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
     }
 
   def exists[U: UserIdOf](u: U): Fu[Boolean] = coll.exists($id(u.id))
+
+  def usernameExists(name: UserName): Fu[Boolean] =
+    coll.exists($doc(F.username -> name.value))
 
   def filterExists(ids: Set[UserId]): Fu[List[UserId]] =
     coll.primitive[UserId]($inIds(ids), F.id)
@@ -623,8 +611,9 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
 
   private val defaultCount = lila.core.user.Count(0, 0, 0, 0, 0, 0, 0, 0, 0)
 
-  private def newUser(
-      name: UserName,
+  private def newUserLocal(
+      id: UserId,
+      username: UserName,
       passwordHash: HashedPassword,
       email: EmailAddress,
       blind: Boolean,
@@ -634,41 +623,10 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
   ) =
     val normalizedEmail = email.normalize
     val now             = nowInstant
-    $doc(
-      F.id                    -> name.id,
-      F.username              -> name.value,
-      F.email                 -> normalizedEmail,
-      F.mustConfirmEmail      -> mustConfirmEmail.option(now),
-      F.bpass                 -> passwordHash,
-      F.count                 -> defaultCount,
-      F.enabled               -> true,
-      F.createdAt             -> now,
-      F.createdWithApiVersion -> mobileApiVersion,
-      F.seenAt                -> now,
-      F.playTime              -> PlayTime(0, 0),
-      F.lang                  -> lang
-    ) ++ {
-      (email.value != normalizedEmail.value).so($doc(F.verbatimEmail -> email))
-    } ++ {
-      blind.so($doc(F.blind -> true))
-    }
-
-  private def newUser2(
-      id: UserId,
-      username: String,
-      passwordHash: HashedPassword,
-      email: EmailAddress,
-      blind: Boolean,
-      mobileApiVersion: Option[ApiVersion],
-      mustConfirmEmail: Boolean,
-      lang: Option[String]
-  ) =
-    val normalizedEmail = email.normalize
-    val now             = nowInstant
 
     $doc(
       F.id                    -> id,
-      F.username              -> username,
+      F.username              -> username.value,
       F.email                 -> normalizedEmail,
       F.mustConfirmEmail      -> mustConfirmEmail.option(now),
       F.bpass                 -> passwordHash,

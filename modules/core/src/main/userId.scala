@@ -25,6 +25,9 @@ object userId:
     val watcherbot: UserId               = "watcherbot"
     def isOfficial[U: UserIdOf](user: U) = lichess.is(user) || broadcaster.is(user)
 
+    /** A random numeric id for legacy credential accounts created outside SSO. */
+    def random(): UserId = UserId((scala.util.Random.nextLong(9_000_000_000L) + 1_000_000_000L).toString)
+
     /** Only canonical `sub` values, system accounts and ghost ids may be route-bound. */
     lazy val regex =
       "(?:[1-9][0-9]{0,30}|lichess|ghost|broadcaster|irwin|kaladin|openingexplorer|lichess4545|challengermode|watcherbot|![A-Za-z0-9_-]{1,32})".r
@@ -58,7 +61,6 @@ object userId:
   opaque type UserName = String
   object UserName extends OpaqueString[UserName]:
     extension (e: UserName) def str = UserStr(e)
-    given UserIdOf[UserName]        = n => UserId(n.value.toLowerCase)
     // what SSO display names look like: letters/digits of any script, `_`, `-`, space
     val displayRegex        = "[\\p{L}\\p{N}_\\- ]{2,30}".r
     val anonymous: UserName = "Anonymous"

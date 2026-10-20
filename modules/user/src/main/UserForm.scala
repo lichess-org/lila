@@ -21,7 +21,7 @@ final class UserForm:
         .into[UserName]
         .verifying(
           "changeUsernameNotSame",
-          name => name.id == user.username.id && name != user.username
+          name => name.value.toLowerCase == user.username.value.toLowerCase && name != user.username
         )
         .verifying(
           "usernameUnacceptable",
