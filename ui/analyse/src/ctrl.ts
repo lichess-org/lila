@@ -808,7 +808,7 @@ export default class AnalyseCtrl implements CevalHandler {
     if (!this.asyncReady) return;
     if (!this.ceval.download) this.ceval.reset();
     if (this.node.threefold || !this.cevalEnabled() || this.node.outcome()) return;
-    this.ceval.start(this.path, this.nodeList, undefined, this.threatMode());
+    this.ceval.start(this.path, this.nodeList, this.threatMode());
     this.evalCache.fetch(this.path, this.ceval.search.multiPv);
   };
 
@@ -1058,7 +1058,7 @@ export default class AnalyseCtrl implements CevalHandler {
     if (uci) this.playUci(uci);
   }
 
-  pluginMove = (orig: Key, dest: Key, prom?: Role): void => {
+  pluginMove = (orig: Key, dest: Key, prom: Role): void => {
     const capture = this.chessground.state.pieces.get(dest);
     this.sendMove(orig, dest, capture, prom);
   };

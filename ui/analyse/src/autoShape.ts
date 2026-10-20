@@ -139,7 +139,7 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
     return makeShapesFromUci(color, 'paleRed', badNode.uci, { lineWidth: 8 });
   }
   if (hovering?.fen === nFen) shapes = shapes.concat(makeShapesFromUci(color, 'paleBlue', hovering.uci));
-  ctrl.fork.hover(hovering?.uci);
+  if (hovering?.uci) ctrl.fork.hover(hovering.uci);
 
   if (ctrl.isCevalAllowed() && ctrl.showBestMoveArrows() && ctrl.showEvaluation()) {
     if (isUci(nEval.best)) shapes = shapes.concat(makeShapesFromUci(rcolor, 'paleGreen', nEval.best));
