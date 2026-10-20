@@ -9,7 +9,7 @@ export class Notify {
   text = '';
   date?: Date;
 
-  constructor(public redraw?: Redraw) {
+  constructor(public redraw: Redraw | undefined) {
     pubsub.on('socket.online', online => {
       this.set(online ? 'You are online' : 'You are disconnected');
     });

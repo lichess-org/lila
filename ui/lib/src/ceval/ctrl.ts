@@ -278,7 +278,7 @@ export class CevalCtrl {
     );
   }
 
-  preferLatestEval(latest: ClientEval, stored?: ClientEval | null): boolean {
+  preferLatestEval(latest: ClientEval, stored: ClientEval | undefined): boolean {
     if (!stored) return true;
 
     // If one has the correct multipv and the other doesn't, prefer the right multipv regardless of strength

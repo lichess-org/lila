@@ -7,7 +7,6 @@ import play.api.mvc.*
 import views.account.pages
 
 import lila.app.{ *, given }
-import lila.common.HTTPRequest
 import lila.core.id.SessionId
 import lila.core.net.ValidReferrer
 import lila.core.security.ClearPassword
@@ -73,30 +72,32 @@ final class Account(
           Redirect(routes.Account.username).flashFailure(e.getMessage)
   }
 
-  def info = Auth { ctx ?=> me ?=>
-    if !HTTPRequest.isLichobile(req)
-    then notFoundJson()
-    else
-      env.web.playerCounter.lichobile.hit()
-      negotiateJson:
-        for
-          povs <- env.round.proxyRepo.urgentGames(me)
-          nbChallenges <- env.challenge.api.countInFor.get(me)
-          playban <- env.playban.api.currentBan(me)
-        yield JsonOk:
-          env.user.jsonView
-            .full(me, none, withProfile = false) ++ Json
-            .obj(
-              "prefs" -> lila.pref.lichobile(ctx.pref),
-              "nowPlaying" -> JsArray(povs.value.take(50).map(env.api.lobbyApi.nowPlaying)),
-              "nbChallenges" -> nbChallenges,
-              "online" -> true
-            )
-            .add("kid" -> ctx.kid)
-            .add("troll" -> me.marks.troll)
-            .add("playban" -> playban)
-            .add("announce" -> env.web.lichobileAnnounceApi.get)
-        .headerCache(15.seconds)
+  private val lichobileInfoCache =
+    env.memo.cacheApi[UserId, lila.core.data.JsonStr](32_768, "lichobile.infoCache"):
+      _.refreshAfterWrite(15.seconds)
+        .buildAsyncFuture: uid =>
+          for
+            povs <- env.round.proxyRepo.urgentGames(uid)
+            nbChallenges <- env.challenge.api.countInFor.get(uid)
+            pref <- env.pref.api.byId(uid)
+            u = env.user.lightUserApi.syncFallback(uid)
+          yield JsonStr:
+            Json.stringify:
+              env.user.jsonView
+                .lichobileInfo(u) ++ Json
+                .obj(
+                  "prefs" -> lila.pref.lichobile(pref),
+                  "nowPlaying" -> JsArray(povs.value.take(50).map(env.api.lobbyApi.nowPlaying)),
+                  "nbChallenges" -> nbChallenges,
+                  "online" -> true
+                )
+                .add("announce" -> env.web.lichobileAnnounceApi.get)
+
+  def info = Auth { _ ?=> me ?=>
+    env.web.playerCounter.lichobile.hit()
+    env.user.lightUserApi.preloadUser(me)
+    for json <- lichobileInfoCache.get(me.userId)
+    yield JsonStrOk(json).headerCache(15.seconds)
   }
 
   def nowPlaying = Auth { _ ?=> _ ?=>

@@ -38,7 +38,7 @@ export class DevAssets {
     {} as Record<AssetType, Map<string, string>>,
   );
 
-  constructor(public rlist?: AssetList) {
+  constructor(public rlist: AssetList | undefined) {
     this.update(rlist);
     window.addEventListener('storage', this.onStorageEvent);
   }

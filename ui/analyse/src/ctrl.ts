@@ -719,7 +719,7 @@ export default class AnalyseCtrl implements CevalHandler {
   }
 
   nextNodeBest() {
-    return treeOps.withMainlineChild(this.node, (n: TreeNode) => validUci(n.eval?.best));
+    return treeOps.withMainlineChild(this.node, (n: TreeNode) => n.eval?.best && validUci(n.eval.best));
   }
 
   setAutoShapes = (): void => {

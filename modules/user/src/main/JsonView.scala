@@ -32,6 +32,15 @@ final class JsonView(isOnline: lila.core.socket.IsOnline) extends lila.core.user
         .add("seenAt" -> u.seenAt)
         .add("playTime" -> u.playTime)
 
+  def lichobileInfo(u: LightUser) =
+    Json
+      .obj(
+        "id" -> u.id,
+        "username" -> u.name
+      )
+      .add("title" -> u.title)
+      .add("patron" -> u.isPatron)
+
   def roundPlayer(u: User, perf: Option[KeyedPerf])(using Option[Me]) =
     if u.enabled.no then disabled(u.light)
     else base(u, perf).add("online" -> isOnline.exec(u.id))

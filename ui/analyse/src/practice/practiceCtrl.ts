@@ -89,7 +89,7 @@ export function make(root: AnalyseCtrl): PracticeCtrl {
       : Boolean(bestmove || nodes >= 600_000 || cloud || millis > 2000);
   }
 
-  const tbhitToEval = (hit?: TablebaseHit | null) =>
+  const tbhitToEval = (hit: TablebaseHit | undefined | null) =>
     hit &&
     (hit.winner
       ? {
