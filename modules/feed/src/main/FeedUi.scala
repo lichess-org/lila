@@ -97,11 +97,9 @@ final class FeedUi(helpers: Helpers, atomUi: AtomUi, feedMarkdown: FeedMarkdown)
         ,
         form3.actions(
           postForm(action := routes.Feed.delete(update.id))(cls := "daily-feed__delete")(
-            submitButton(cls := "button button-red button-empty yes-no-confirm")(
-              I18nKey.site.delete.txt()
-            )
+            submitButton(cls := "button button-red button-empty yes-no-confirm")(I18nKey.site.delete())
           ),
-          form3.submit(I18nKey.site.save.txt())(attr("form") := "feed-update-form")
+          form3.submit(I18nKey.site.save())(attr("form") := "feed-update-form")
         )
       )
 
@@ -179,7 +177,7 @@ final class FeedUi(helpers: Helpers, atomUi: AtomUi, feedMarkdown: FeedMarkdown)
       form3.group(form("flair"), "Icon", half = false): field =>
         form3
           .flairPicker(field, Flair.from(form("flair").value), anyFlair = true),
-      saveInsideForm.option(form3.action(form3.submit(I18nKey.site.save.txt())))
+      saveInsideForm.option(form3.action(form3.submit(I18nKey.site.save())))
     )
 
   private def marker(flair: Option[Flair] = none, customClass: Option[String] = none) =
