@@ -454,7 +454,7 @@ final class Study(
 
   def pgnWithFlags(id: StudyId, flags: Update[WithFlags])(using Context) =
     Found(env.study.api.byId(id)): study =>
-      HeadLastModifiedAt(study.updatedAt):
+      LastModified(study.updatedAt):
         CanView(study, study.settings.shareable.some)(doPgn(study, flags))(
           privateUnauthorizedFu(study),
           privateForbiddenFu(study)

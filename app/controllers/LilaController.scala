@@ -330,9 +330,9 @@ abstract private[controllers] class LilaController(val env: Env)
       op
     )
 
-  def HeadLastModifiedAt(updatedAt: Instant)(f: => Fu[Result])(using RequestHeader): Fu[Result] =
-    if req.method == "HEAD" then NoContent.withDateHeaders(lastModified(updatedAt))
-    else f
+  def LastModified(updatedAt: Instant)(f: => Fu[Result])(using RequestHeader): Fu[Result] =
+    val res = if req.method == "HEAD" then NoContent else f
+    res.withDateHeaders(lastModified(updatedAt))
 
   def pageHit(using req: RequestHeader): Unit =
     if req.client.isHuman then lila.mon.http.path(req.path).increment()
