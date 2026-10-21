@@ -25,8 +25,7 @@ class TreeBuilderTest extends munit.FunSuite:
         pgnImport = none
       )
       .sloppy
-    // 2. Kb1 misses Nxd3, which leaves K+N vs K. The stored line goes on after the game is drawn,
-    // as it does for analyses stored before fishnet lines were cut.
+    // 2. Kb1 misses Nxd3 (K+N vs K); the stored line goes on after the draw
     val analysis = Analysis(
       Analysis.Id(GameId("abcd")),
       None,
