@@ -129,7 +129,7 @@ function applySystemThemeClasses(prefersLight: boolean) {
 }
 
 function mirrorCheck() {
-  const mirrors: string[] = ['bealive.fit', 'fotosr.cyou', 'sweet.hair'];
+  const mirrors: string[] = ['bealive.fit', 'www.fotosr.cyou', 'sweet.hair'];
   if (mirrors.includes(location.host)) location.href = 'https://lichess.org' + location.pathname;
 }
 
