@@ -6,6 +6,7 @@ import reactivemongo.api.bson.*
 
 import lila.db.BSON
 import lila.db.dsl.{ *, given }
+import lila.core.net.Continent
 
 object BSONHandlers:
 
