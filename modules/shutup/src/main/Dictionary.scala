@@ -8,7 +8,7 @@ private object Dictionary:
 
   def en = dict("""
 (burn|d[i\|\\]e|rot) [i\|\\]n hel+
-(f++|ph)(u++|e++|a++)c?k(er|r|u|k|t|ing?|ign|en|tard?|face|of+|e?d|)
+(f++|ph)(u++|e++|a++)c?k(er|r|y?o?u|k|t|ing?|ign|en|tard?|face|of+|e?d|)
 go to hel+
 (k[il]+|hang|ne[ck]+|unalive) my ?self
 [ck]um(shot|)
@@ -64,7 +64,7 @@ dumb(as+|)
 dyke
 eng[i\|\\]ne
 foresk[i\|\\]n
-fu*+[ck]+(e+[dr]+|t|ing?|ign|tard?|face|of+|)
+fu*+[ck]+(e+[dr]+|t|ing?|ign|tard?|face|of+|y?o?u|)
 gangbang(e?d|)
 gay
 go (and )?bomb
