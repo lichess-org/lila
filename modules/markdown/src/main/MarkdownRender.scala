@@ -176,6 +176,7 @@ object MarkdownRender:
         "i.postimg.cc",
         "imgs.xkcd.com",
         "image.lichess1.org",
+        "image.lichess.org",
         "pic.lichess.org",
         "127.0.0.1"
       )
