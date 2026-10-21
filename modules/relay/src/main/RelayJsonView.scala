@@ -205,6 +205,10 @@ final class RelayJsonView(
   def search(tours: Paginator[WithLastRound | RelayCard])(using Config, Translate) =
     paginatorWriteNoNbResults.writes(tours.map(tourWithAnyRound(_)))
 
+  def responseCache(tour: RelayTour) =
+    Option.unless(tour.isPrivate):
+      if ~tour.live then 10.seconds else 1.minute
+
 object RelayJsonView:
 
   case class Config(html: Boolean)
